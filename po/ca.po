@@ -522,7 +522,7 @@ msgstr "Amplada de la columna pròpia"
 
 #: data/org.gnome.gnome-commander.gschema.xml:351
 msgid "This option defines the width of the owner column."
-msgstr "Aquesta opció defineix l'amplada de la columna de pròpia"
+msgstr "Aquesta opció defineix l'amplada de la columna de pròpia."
 
 #: data/org.gnome.gnome-commander.gschema.xml:357
 msgid "Width of group column"
@@ -590,7 +590,7 @@ msgstr "Desa l'historial de directoris en sortir"
 
 #: data/org.gnome.gnome-commander.gschema.xml:401
 msgid "Defines if the history of visited directories is saved on exit."
-msgstr "Defineix si es guarda l'historial de directoris visitats en sortir"
+msgstr "Defineix si es guarda l'historial de directoris visitats en sortir."
 
 #: data/org.gnome.gnome-commander.gschema.xml:407
 msgid "Save commandline history on exit"
@@ -1298,7 +1298,7 @@ msgstr ""
 
 #: data/org.gnome.gnome-commander.gschema.xml:923
 msgid "Case sensitive search"
-msgstr "Diferencia entre majúscules i minúscules"
+msgstr "Cerca amb distinció entre majúscules i minúscules"
 
 #: data/org.gnome.gnome-commander.gschema.xml:924
 msgid ""
@@ -1908,11 +1908,11 @@ msgstr "Cancel·la"
 
 #: src/dialogs/gnome-cmd-edit-bookmark-dialog.cc:43
 msgid "Bookmark name is missing."
-msgstr "Falta el nom del punt d'interès"
+msgstr "Falta el nom del punt d'interès."
 
 #: src/dialogs/gnome-cmd-edit-bookmark-dialog.cc:52
 msgid "Bookmark target is missing."
-msgstr "Falta el destí de punt d'interès"
+msgstr "Falta el destí de punt d'interès."
 
 #: src/dialogs/gnome-cmd-edit-bookmark-dialog.cc:97
 msgid "Bookmark _name:"
@@ -4098,7 +4098,7 @@ msgstr "Vés enrere"
 
 #: src/gnome-cmd-main-win.cc:237
 msgid "Go forward"
-msgstr "Ves endavant"
+msgstr "Vés endavant"
 
 #: src/gnome-cmd-main-win.cc:238
 msgid "Go to the latest"
@@ -4523,7 +4523,7 @@ msgstr ""
 #: src/gnome-cmd-user-actions.cc:924 src/gnome-cmd-user-actions.cc:941
 #: src/gnome-cmd-user-actions.cc:987
 msgid "Operation not supported on remote file systems"
-msgstr "No s'admet aquesta operació en sistemes de fitxers remots."
+msgstr "No s'admet aquesta operació en sistemes de fitxers remots"
 
 #: src/gnome-cmd-user-actions.cc:956
 msgid "Too many selected files"
@@ -5031,7 +5031,7 @@ msgstr "Àlbum"
 
 #: src/tags/gnome-cmd-tags.cc:118
 msgid "Name of the album."
-msgstr "Nom de l'àlbum"
+msgstr "Nom de l'àlbum."
 
 #: src/tags/gnome-cmd-tags.cc:119
 msgid "Album Artist"
@@ -5099,7 +5099,7 @@ msgstr "Descripció de codificació del còdec."
 
 #: src/tags/gnome-cmd-tags.cc:127
 msgid "Codec Version"
-msgstr "Versió del còdec."
+msgstr "Versió del còdec"
 
 #: src/tags/gnome-cmd-tags.cc:127
 msgid "Codec version."
@@ -5364,7 +5364,7 @@ msgstr "Considera diferents majúscules i minúscules"
 
 #: src/tags/gnome-cmd-tags.cc:159
 msgid "Case sensitive."
-msgstr "Distingeix entre majúscules i minúscules"
+msgstr "Distingeix entre majúscules i minúscules."
 
 #: src/tags/gnome-cmd-tags.cc:160 src/tags/gnome-cmd-tags.cc:452
 msgid "Category"
@@ -5678,7 +5678,7 @@ msgstr "El nombre de diapositives del document de presentació."
 
 #: src/tags/gnome-cmd-tags.cc:198
 msgid "Spreadsheet Count"
-msgstr "Nombre de fulls de càlcul."
+msgstr "Nombre de fulls de càlcul"
 
 #: src/tags/gnome-cmd-tags.cc:199
 msgid "Subject"
@@ -5753,7 +5753,7 @@ msgid ""
 msgstr ""
 "El nombre de bits per component de la imatge. Cada component de la imatge és"
 " de 8 bits, de manera que el valor d'aquesta etiqueta és de 8. En les dades "
-"comprimits JPEG s'utilitza un marcador JPEG en lloc d'aquesta etiqueta."
+"comprimides JPEG s'utilitza un marcador JPEG en lloc d'aquesta etiqueta."
 
 #: src/tags/gnome-cmd-tags.cc:208
 msgid "Brightness"
@@ -5889,7 +5889,7 @@ msgstr ""
 "Informació dels drets d'autor. L'etiqueta s'utilitza per a indicar tant els "
 "drets d'autor del fotògraf com els de l'editor. És la nota de copyright de "
 "la persona o organització que reclama els drets de la imatge. La declaració "
-"de drets d'autor de interoperabilitat que inclou la data i els drets s'ha "
+"de drets d'autor d'interoperabilitat que inclou la data i els drets s'ha "
 "d'escriure en aquest camp; per exemple: «Copyright, John Smith, 19xx. Tots "
 "els drets reservats.» El camp registra els drets d'autor tant del fotògraf "
 "com de l'editor en parts separades de l'expressió. Quan hi ha una clara "
@@ -6534,7 +6534,7 @@ msgstr "Mode de mesura"
 
 #: src/tags/gnome-cmd-tags.cc:270
 msgid "The metering mode."
-msgstr "El mode de mesura"
+msgstr "El mode de mesura."
 
 #: src/tags/gnome-cmd-tags.cc:271 src/tags/gnome-cmd-tags.cc:435
 msgid "Model"
@@ -6904,7 +6904,7 @@ msgid ""
 "The total number of bytes in each strip. With JPEG compressed data this "
 "designation is not needed and is omitted."
 msgstr ""
-"El nombre total de bytes en cada franja. Amb les dades comprimits en JPEG "
+"El nombre total de bytes en cada franja. Amb les dades comprimides en JPEG "
 "aquesta designació no és necessària i s'omet."
 
 #: src/tags/gnome-cmd-tags.cc:299
@@ -6919,7 +6919,7 @@ msgid ""
 msgstr ""
 "Per a cada franja, el byte de compensació d'aquesta franja. Es recomana "
 "seleccionar-perquè el nombre de bytes de la franja no superi els 64 Kbytes. "
-"Amb les dades comprimits en JPEG aquesta designació no és necessària i "
+"Amb les dades comprimides en JPEG aquesta designació no és necessària i "
 "s'omet."
 
 #: src/tags/gnome-cmd-tags.cc:300
@@ -7053,7 +7053,7 @@ msgid ""
 msgstr ""
 "Una etiqueta perquè els usuaris d'EXIF escriguin paraules clau o comentaris "
 "a la imatge a més dels de <Exif.ImageDescription>, i sense les limitacions "
-"de el codi de caràcters de l'etiqueta <Exif.ImageDescription>. El codi de "
+"del codi de caràcters de l'etiqueta <Exif.ImageDescription>. El codi de "
 "caràcter utilitzat en l'etiqueta <Exif.UserComment> s'identifica en base a "
 "un codi d'identificació en una àrea fixa de 8 bytes al començament de "
 "l'àrea de dades de l'etiqueta. La part no utilitzada de l'àrea està farcida "
@@ -7275,7 +7275,7 @@ msgstr ""
 msgid ""
 "Size of the file in bytes or if a directory number of items it contains."
 msgstr ""
-"Mida del fitxer en bytes i si és un directori el nombre de d'elements que "
+"Mida del fitxer en bytes i si és un directori el nombre d'elements que "
 "conté."
 
 #: src/tags/gnome-cmd-tags.cc:333
@@ -7456,7 +7456,7 @@ msgstr "Propietari del fitxer"
 
 #: src/tags/gnome-cmd-tags.cc:355
 msgid "File owner."
-msgstr "El propietari del fitxer"
+msgstr "El propietari del fitxer."
 
 #: src/tags/gnome-cmd-tags.cc:356
 msgid "File Type"
@@ -7648,7 +7648,7 @@ msgstr "Part d'un conjunt"
 
 #: src/tags/gnome-cmd-tags.cc:380
 msgid "Part of a set the audio came from."
-msgstr "Part d'un conjunt d'on va venir l'àudio"
+msgstr "Part d'un conjunt d'on va venir l'àudio."
 
 #: src/tags/gnome-cmd-tags.cc:381
 msgid "Performer Sort Order"
@@ -7948,7 +7948,7 @@ msgstr "Vincle URL definit per l'usuari."
 
 #: src/tags/gnome-cmd-tags.cc:419
 msgid "Name of an album the image belongs to."
-msgstr "Nom de l'àlbum al que pertany la imatge."
+msgstr "Nom de l'àlbum a què pertany la imatge."
 
 #: src/tags/gnome-cmd-tags.cc:421
 msgid "Embedded copyright message."
@@ -7956,7 +7956,7 @@ msgstr "Missatge de copyright encastat."
 
 #: src/tags/gnome-cmd-tags.cc:423
 msgid "Datetime image was originally created."
-msgstr "Imatge de la data i hora en que es va crear originàriament."
+msgstr "Imatge de la data i hora en què es va crear originàriament."
 
 #: src/tags/gnome-cmd-tags.cc:424
 msgid "Description of the image."
@@ -8139,7 +8139,7 @@ msgid ""
 "artist (multiple values allowed)."
 msgstr ""
 "Nom del creador de l'objecte. pe. escriptor, fotògraf o artista gràfic "
-"(s'admeten valor múltiples)"
+"(s'admeten valors múltiples)"
 
 #: src/tags/gnome-cmd-tags.cc:450
 msgid "By-line Title"
@@ -8539,7 +8539,7 @@ msgstr "Objecte de previsualització de dades"
 
 #: src/tags/gnome-cmd-tags.cc:493
 msgid "Preview File Format"
-msgstr "Format de previsualització del fitxer."
+msgstr "Format de previsualització del fitxer"
 
 #: src/tags/gnome-cmd-tags.cc:493
 msgid "Binary value indicating the file format of the object preview data."
@@ -8553,7 +8553,7 @@ msgstr "Versió del format de previsualització del fitxer"
 
 #: src/tags/gnome-cmd-tags.cc:494
 msgid "The version of the preview file format."
-msgstr "La versió del format de fitxer de previsualització"
+msgstr "La versió del format de fitxer de previsualització."
 
 #: src/tags/gnome-cmd-tags.cc:495
 msgid "Product ID"
@@ -8736,7 +8736,7 @@ msgstr "Hora enviada"
 
 #: src/tags/gnome-cmd-tags.cc:515
 msgid "The time the service sent the material."
-msgstr "Hora en que el servei ha enviat el material."
+msgstr "Hora en què el servei ha enviat el material."
 
 #: src/tags/gnome-cmd-tags.cc:516
 msgid "Unique Name of Object"
@@ -8927,7 +8927,7 @@ msgstr "Taxa de bits màxima"
 
 #: src/tags/gnome-cmd-tags.cc:538
 msgid "Maximum bitrate in kbps."
-msgstr "Taxa de bits màxima en kbps"
+msgstr "Taxa de bits màxima en kbps."
 
 #: src/tags/gnome-cmd-tags.cc:539
 msgid "Minimum bitrate"
