@@ -6,15 +6,15 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander docs master\n"
-"POT-Creation-Date: 2019-03-31 11:35+0000\n"
-"PO-Revision-Date: 2019-04-06 09:59+0200\n"
-"Last-Translator: Mario Blättermann <mario.blaettermann@gmail.com>\n"
+"POT-Creation-Date: 2020-06-18 19:50+0000\n"
+"PO-Revision-Date: 2020-09-05 12:31+0200\n"
+"Last-Translator: Stephan Woidowski <swoidowski@t-online.de>\n"
 "Language-Team: German <gnome-de@gnome.org>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 18.12.3\n"
+"X-Generator: Poedit 2.4.1\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. Put one translator per line, in the form NAME <EMAIL>, YEAR1, YEAR2
@@ -32,8 +32,8 @@ msgstr "GNOME-Commander-Handbuch"
 
 #. (itstool) path: articleinfo/subtitle
 #: C/index.docbook:30
-msgid "GNOME Commander Desktop Application Manual V1.10.0"
-msgstr "GNOME Commander-Anwenderhandbuch V1.10.0"
+msgid "GNOME Commander Desktop Application Manual V1.12.0"
+msgstr "GNOME Commander-Anwenderhandbuch V1.12.0"
 
 #. (itstool) path: articleinfo/copyright
 #: C/index.docbook:31
@@ -462,35 +462,27 @@ msgstr ""
 
 #. (itstool) path: revhistory/revision
 #: C/index.docbook:467
-#| msgid ""
-#| "<revnumber>GNOME Commander Manual V1.10.0;</revnumber> <date>2019-??-??</"
-#| "date> <_:revdescription-1/>"
 msgid ""
 "<revnumber>GNOME Commander Manual V1.10.0;</revnumber> <date>2019-03-31</"
 "date> <_:revdescription-1/>"
 msgstr ""
-"<revnumber>GNOME Commander-Handbuch V1.10.0;</revnumber> <date>31. März 2019<"
-"/date> "
-"<_:revdescription-1/>"
+"<revnumber>GNOME Commander-Handbuch V1.10.0;</revnumber> <date>31. März "
+"2019</date> <_:revdescription-1/>"
 
 # Datum muss noch vervollständigt werden
 #. (itstool) path: revhistory/revision
 #: C/index.docbook:476
-#| msgid ""
-#| "<revnumber>GNOME Commander Manual V1.10.0;</revnumber> <date>2019-??-??</"
-#| "date> <_:revdescription-1/>"
 msgid ""
-"<revnumber>GNOME Commander Manual V1.10.1;</revnumber> <date>2019-??-??</"
+"<revnumber>GNOME Commander Manual V1.12.0;</revnumber> <date>2019-??-??</"
 "date> <_:revdescription-1/>"
 msgstr ""
-"<revnumber>GNOME Commander-Handbuch V1.10.1;</revnumber> <date>2019-??-??<"
-"/date> "
-"<_:revdescription-1/>"
+"<revnumber>GNOME Commander-Handbuch V1.12.0;</revnumber> <date>2019-??-??</"
+"date> <_:revdescription-1/>"
 
 #. (itstool) path: articleinfo/releaseinfo
 #: C/index.docbook:486
-msgid "This manual describes version 1.10.0 of GNOME Commander."
-msgstr "Dieses Handbuch beschreibt Version 1.10.0 von GNOME Commander."
+msgid "This manual describes version 1.12.0 of GNOME Commander."
+msgstr "Dieses Handbuch beschreibt Version 1.12.0 von GNOME Commander."
 
 #. (itstool) path: legalnotice/title
 #: C/index.docbook:488
@@ -14592,8 +14584,8 @@ msgstr "<keycombo><keycap>Strg</keycap><keycap>M</keycap></keycombo>"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:6703
-msgid "Multi-Rename-Tool"
-msgstr "Werkzeug zur Mehrfach-Umbenennung"
+msgid "Advanced Rename Tool"
+msgstr "Erweitertes Werkzeug zum Umbenennen von Dateien"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:6712
@@ -16072,8 +16064,8 @@ msgstr ""
 "folgt, ist die Bearbeitung der bevorzugten Programme in GNOME Commander "
 "nicht mehr funktionsfähig (seit Version 1.1.7). Sie haben jedoch noch andere "
 "Möglichkeiten, die bevorzugten Programme anzupassen. Weiter Informationen "
-"finden Sie im Abschnitt <ulink type=\"http\" url=\"https://gcmd.github.io/doc."
-"html#tips\">Tips and Tricks section</ulink> auf der Webseite von GNOME "
+"finden Sie im Abschnitt <ulink type=\"http\" url=\"https://gcmd.github.io/"
+"doc.html#tips\">Tips and Tricks section</ulink> auf der Webseite von GNOME "
 "Commander."
 
 #. (itstool) path: sect2/title
@@ -16205,14 +16197,14 @@ msgstr "Aktuelle stabile Version"
 #: C/index.docbook:7549
 msgid ""
 "If you'd like to compile the latest stable version of GNOME Commander "
-"yourself, get it as a tar.xz file from the <ulink type=\"http\" url=\"http://"
-"gcmd.github.io/download.html\">download section</ulink> on the GNOME "
-"Commander home page."
+"yourself, get it as a tar.xz file from the <ulink type=\"http\" url="
+"\"https://gcmd.github.io/download.html\">download section</ulink> on the "
+"GNOME Commander home page."
 msgstr ""
-"Wenn Sie die letzte stabile Version von GNOME Commander selbst kompilieren "
-"wollen, erhalten Sie es als tar.xz-Datei im <ulink type=\"http\" url="
-"\"https://gcmd.github.io/download.html\">Downloadbereich</ulink> der Webseite "
-"von GNOME Commander."
+"Wenn Sie die neueste stabile Version des GNOME Commanders selbst kompilieren "
+"möchten, holen Sie sie als tar.xz-Datei aus dem <ulink type=\"http\" url="
+"\"https://gcmd.github.io/download.html\">Download-Abschnitt</ulink> auf der "
+"GNOME Commander-Webseite."
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:7552
@@ -16696,9 +16688,9 @@ msgid "What's new"
 msgstr "Was ist neu?"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:26 C/releases.xml:54
-msgid "1.10.0"
-msgstr "1.10.0"
+#: C/releases.xml:26
+msgid "1.12.0"
+msgstr "1.12.0"
 
 # Muss noch vervollständigt werden
 #. (itstool) path: entry/para
@@ -16728,7 +16720,6 @@ msgstr "Fehlerkorrekturen:"
 
 #. (itstool) path: listitem/para
 #: C/releases.xml:33 C/releases.xml:41
-#| msgid "1.2.8.9"
 msgid "..."
 msgstr "..."
 
@@ -16750,19 +16741,21 @@ msgstr "Neue Funktionen:"
 
 #. (itstool) path: listitem/para
 #: C/releases.xml:44
-#| msgid "New or updated translations: co"
 msgid "New or updated translations: ..."
 msgstr "Neue oder aktualisierte Übersetzungen: …"
 
 #. (itstool) path: listitem/para
 #: C/releases.xml:47
-#| msgid "New or updated docs: cs"
 msgid "New or updated docs: ..."
 msgstr "Neue oder aktualisierte Dokumentation: …"
 
 #. (itstool) path: entry/para
+#: C/releases.xml:54
+msgid "1.10.0"
+msgstr "1.10.0"
+
+#. (itstool) path: entry/para
 #: C/releases.xml:55
-#| msgid "2016-03-14"
 msgid "2019-03-31"
 msgstr "31. März 2019"
 
@@ -16778,15 +16771,11 @@ msgstr "Einige Verbesserungen im Programmcode und Behebungen von Speicherlecks"
 
 #. (itstool) path: listitem/para
 #: C/releases.xml:72
-#| msgid "Gnome Commander icon refreshed"
 msgid "Gnome Commander icon and internal viewer icon refreshed"
 msgstr "Neues Symbol für GNOME Commander und dessen internen Betrachter"
 
 #. (itstool) path: listitem/para
 #: C/releases.xml:75
-#| msgid ""
-#| "Gnome Commander options are now completely migrated to GSettings under "
-#| "the key \"org.gnome.gnome-commander\""
 msgid ""
 "Gnome Commander settings are now completely migrated to GSettings under the "
 "key \"org.gnome.gnome-commander\""
@@ -16823,11 +16812,10 @@ msgstr ""
 
 #. (itstool) path: listitem/para
 #: C/releases.xml:87
-#| msgid "New or updated docs: cs, de, es, fr"
 msgid "New or updated docs: cs, de, es, sv"
 msgstr ""
-"Neue oder aktualisierte Dokumentation: Tschechisch, Deutsch, Spanisch,"
-" Schwedisch"
+"Neue oder aktualisierte Dokumentation: Tschechisch, Deutsch, Spanisch, "
+"Schwedisch"
 
 #. (itstool) path: entry/para
 #: C/releases.xml:94
@@ -20566,3 +20554,6 @@ msgstr "2. August 2001"
 #: C/releases.xml:2434
 msgid "The first public version of GNOME Commander."
 msgstr "Die erste veröffentlichte Version von GNOME Commander."
+
+#~ msgid "Multi-Rename-Tool"
+#~ msgstr "Werkzeug zur Mehrfach-Umbenennung"
