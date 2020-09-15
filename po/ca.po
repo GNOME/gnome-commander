@@ -117,7 +117,7 @@ msgstr "Historial de directoris visitats"
 #: data/org.gnome.gnome-commander.gschema.xml:60
 msgid "This string array represents the history of visited directories."
 msgstr ""
-"Aquesta matriu de cadenes representa l'historial de ls directoris visitats."
+"Aquesta matriu de cadenes representa l'historial dels directoris visitats."
 
 #: data/org.gnome.gnome-commander.gschema.xml:66
 msgid "Use default font"
@@ -2172,7 +2172,7 @@ msgstr "Camí afegit als punts d'interès"
 
 #: src/dialogs/gnome-cmd-manage-bookmarks-dialog.cc:340
 msgid "Edit Bookmark"
-msgstr "Edita els punt d'interès"
+msgstr "Edita els punts d'interès"
 
 #: src/dialogs/gnome-cmd-manage-bookmarks-dialog.cc:543
 msgid ""
@@ -5039,7 +5039,7 @@ msgstr "Artista de l'àlbum"
 
 #: src/tags/gnome-cmd-tags.cc:119
 msgid "Artist of the album."
-msgstr "Artista de l'àlbum"
+msgstr "Artista de l'àlbum."
 
 #: src/tags/gnome-cmd-tags.cc:120
 msgid "Album Gain"
@@ -5169,7 +5169,7 @@ msgstr "És nova"
 
 #: src/tags/gnome-cmd-tags.cc:135
 msgid "Set to “1” if track is new to the user (default “0”)."
-msgstr "«1» si la pista és nova per a l'usuari («0» per defecte)."
+msgstr "Estableix a «1» si la pista és nova per a l'usuari («0» per defecte)."
 
 #: src/tags/gnome-cmd-tags.cc:136
 msgid "ISRC"
@@ -5609,7 +5609,7 @@ msgstr "Nombre de pàgines del document."
 
 #: src/tags/gnome-cmd-tags.cc:190
 msgid "Paragraph Count"
-msgstr "Nombre de paràgrafs."
+msgstr "Nombre de paràgrafs"
 
 #: src/tags/gnome-cmd-tags.cc:190
 msgid "Number of paragraphs in the document."
@@ -5804,7 +5804,7 @@ msgstr ""
 "L'etiqueta d'informació d'espai de color es registra sempre com "
 "l'especificador d'espai de color. Normalment, s'utilitza sRGB per a definir "
 "l'espai de color basat en les condicions i l'entorn del monitor del PC. Si "
-"s'utilitza un espai de color diferent d'sRGB, el valor és Sense calibrar. "
+"s'utilitza un espai de color diferent de sRGB, el valor és sense calibrar. "
 "Les dades d'imatge registrades sense calibrar poden tractar-se com a sRGB "
 "quan es converteixen a FlashPix."
 
@@ -6134,7 +6134,7 @@ msgid ""
 "The actual focal length of the lens, in mm. Conversion is not made to the "
 "focal length of a 35 mm film camera."
 msgstr ""
-"La distància focal actual de la lent, en mm. La conversió no es fa a la "
+"La distància focal real de la lent, en mm. La conversió no es fa a la "
 "distància focal d'una càmera de 35 mm."
 
 #: src/tags/gnome-cmd-tags.cc:238
@@ -6468,7 +6468,7 @@ msgid ""
 msgstr ""
 "El nombre de bytes de dades de miniatures comprimides en JPEG. No s'utilitza"
 " per a les dades d'imatges primàries JPEG. Les miniatures JPEG no es "
-"divideixen, sinó que es registren com un flux de bits JPEG continu des SOI a"
+"divideixen, sinó que es registren com un flux de bits JPEG continu de SOI a"
 " EOI. Els marcadors Appn i COM no han de ser gravats. Les miniatures "
 "comprimides han de registrar-se en un màxim de 64 Kbytes, inclosos tots els "
 "altres dades que es registrin en APP1."
@@ -6547,7 +6547,7 @@ msgid ""
 "generated the image. When the field is left blank, it is treated as unknown."
 msgstr ""
 "El nom o nombre del model l'equip. És a dir, el nom o nombre del model de la"
-" càmera digital, escànner, digitalitzador de vídeo o altre equip que ha "
+" càmera digital, escàner, digitalitzador de vídeo o altre equip que ha "
 "generat la imatge. Quan el camp és buit, es tracta com a desconegut."
 
 #: src/tags/gnome-cmd-tags.cc:273
@@ -8138,7 +8138,7 @@ msgid ""
 "Name of the creator of the object, e.g. writer, photographer or graphic "
 "artist (multiple values allowed)."
 msgstr ""
-"Nom del creador de l'objecte. pe. escriptor, fotògraf o artista gràfic "
+"Nom del creador de l'objecte, p. ex. escriptor, fotògraf o artista gràfic "
 "(s'admeten valors múltiples)"
 
 #: src/tags/gnome-cmd-tags.cc:450
@@ -8511,7 +8511,7 @@ msgstr "Referència del tipus d'objecte"
 
 #: src/tags/gnome-cmd-tags.cc:489
 msgid "Distinguishes between different types of objects within the IIM."
-msgstr "Distingeix entre diferent tipus d'objectes en el IIM"
+msgstr "Distingeix entre diferent tipus d'objectes en el IIM."
 
 #: src/tags/gnome-cmd-tags.cc:490
 msgid "Originating Program"
@@ -8535,7 +8535,7 @@ msgstr "Previsualització de dades"
 
 #: src/tags/gnome-cmd-tags.cc:492
 msgid "The object preview data."
-msgstr "Objecte de previsualització de dades"
+msgstr "Objecte de previsualització de dades."
 
 #: src/tags/gnome-cmd-tags.cc:493
 msgid "Preview File Format"
@@ -8597,7 +8597,7 @@ msgstr "Versió d'enregistrament"
 
 #: src/tags/gnome-cmd-tags.cc:499
 msgid "Identifies the version of the IIM, Part 2."
-msgstr "Identifica la version del IIM, Part 2."
+msgstr "Identifica la versió del IIM, Part 2."
 
 #: src/tags/gnome-cmd-tags.cc:500
 msgid "Reference Date"
@@ -8648,7 +8648,7 @@ msgstr "Identificador del servei"
 
 #: src/tags/gnome-cmd-tags.cc:505
 msgid "Identifies the provider and product."
-msgstr "Identifica el proveïdor i el producte"
+msgstr "Identifica el proveïdor i el producte."
 
 #: src/tags/gnome-cmd-tags.cc:506
 msgid "Size Mode"
@@ -8656,7 +8656,7 @@ msgstr "Mode Mida"
 
 #: src/tags/gnome-cmd-tags.cc:506
 msgid "Set to 0 if the size of the object is known and 1 if not known."
-msgstr "A 0 si la mida de l'objecte es coneix 1 si no."
+msgstr "Estableix a 0 si la mida de l'objecte es coneix 1 si no."
 
 #: src/tags/gnome-cmd-tags.cc:507
 msgid "Source"
