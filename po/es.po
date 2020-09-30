@@ -13,19 +13,19 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander.HEAD\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-commander/issues\n"
-"POT-Creation-Date: 2020-05-31 11:58+0000\n"
-"PO-Revision-Date: 2020-06-09 17:06+0200\n"
+"POT-Creation-Date: 2020-09-07 21:31+0000\n"
+"PO-Revision-Date: 2020-09-30 15:50+0200\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
-"Language-Team: es <gnome-es-list@gnome.org>\n"
-"Language: es\n"
+"Language-Team: Spanish - Spain <gnome-es-list@gnome.org>\n"
+"Language: es_ES\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Gtranslator 3.36.0\n"
+"X-Generator: Gtranslator 3.38.0\n"
 
 #: data/gnome-commander.appdata.xml.in:7 data/gnome-commander.desktop.in.in:3
-#: src/gnome-cmd-main-win.cc:857
+#: src/gnome-cmd-main-win.cc:859
 msgid "GNOME Commander"
 msgstr "GNOME Commander"
 
@@ -1393,10 +1393,20 @@ msgstr ""
 "binario."
 
 #: data/org.gnome.gnome-commander.gschema.xml:998
+#| msgid "Metadata"
+msgid "Metadata view"
+msgstr "Ver metadatos"
+
+#: data/org.gnome.gnome-commander.gschema.xml:999
+#| msgid "This option defines if sorting should be case sensitive."
+msgid "This option defines if metadata should be visible."
+msgstr "Esta opción define si los metadatos deben ser visibles."
+
+#: data/org.gnome.gnome-commander.gschema.xml:1005
 msgid "Horizontal offset"
 msgstr "Desplazamiento horizontal"
 
-#: data/org.gnome.gnome-commander.gschema.xml:999
+#: data/org.gnome.gnome-commander.gschema.xml:1006
 msgid ""
 "This option defines the visual offset of the internal file viewer in "
 "horizontal direction."
@@ -1404,11 +1414,11 @@ msgstr ""
 "Esta opción define el desplazamiento visual del visor interno de archivos en "
 "dirección horizontal."
 
-#: data/org.gnome.gnome-commander.gschema.xml:1005
+#: data/org.gnome.gnome-commander.gschema.xml:1012
 msgid "Vertical offset"
 msgstr "Desplazamiento vertical"
 
-#: data/org.gnome.gnome-commander.gschema.xml:1006
+#: data/org.gnome.gnome-commander.gschema.xml:1013
 msgid ""
 "This option defines the visual offset of the internal file viewer in "
 "vertical direction."
@@ -1416,27 +1426,27 @@ msgstr ""
 "Esta opción define el desplazamiento visual del visor interno de archivos en "
 "dirección vertical."
 
-#: data/org.gnome.gnome-commander.gschema.xml:1012
+#: data/org.gnome.gnome-commander.gschema.xml:1019
 msgid "Window width"
 msgstr "Anchura de la ventana"
 
-#: data/org.gnome.gnome-commander.gschema.xml:1013
+#: data/org.gnome.gnome-commander.gschema.xml:1020
 msgid "The width of the internal file viewer window."
 msgstr "La anchura de la ventana del visor interno de archivos."
 
-#: data/org.gnome.gnome-commander.gschema.xml:1019
+#: data/org.gnome.gnome-commander.gschema.xml:1026
 msgid "Window height"
 msgstr "Altura de la ventana"
 
-#: data/org.gnome.gnome-commander.gschema.xml:1020
+#: data/org.gnome.gnome-commander.gschema.xml:1027
 msgid "The height of the internal file viewer window."
 msgstr "La altura de la ventana interna del visor de archivos."
 
-#: data/org.gnome.gnome-commander.gschema.xml:1026
+#: data/org.gnome.gnome-commander.gschema.xml:1033
 msgid "Search pattern for text"
 msgstr "Patrón de búsqueda para texto"
 
-#: data/org.gnome.gnome-commander.gschema.xml:1027
+#: data/org.gnome.gnome-commander.gschema.xml:1034
 msgid ""
 "This string array stores the history of text searches within the internal "
 "file viewer."
@@ -1444,11 +1454,11 @@ msgstr ""
 "Esta cadena almacena el histórico de búsquedas de texto en el visor interno "
 "de archivos."
 
-#: data/org.gnome.gnome-commander.gschema.xml:1033
+#: data/org.gnome.gnome-commander.gschema.xml:1040
 msgid "Search pattern for hex values"
 msgstr "Patrón de búsqueda para valores hexadecimales"
 
-#: data/org.gnome.gnome-commander.gschema.xml:1034
+#: data/org.gnome.gnome-commander.gschema.xml:1041
 msgid ""
 "This string array stores the history of searches for hex values within the "
 "internal file viewer."
@@ -1456,20 +1466,20 @@ msgstr ""
 "Esta cadena almacena el histórico de búsquedas de valores hexadecimales en "
 "el visor interno de archivos."
 
-#: data/org.gnome.gnome-commander.gschema.xml:1042
+#: data/org.gnome.gnome-commander.gschema.xml:1049
 msgid "File suffix"
 msgstr "Sufijo del archivo"
 
-#: data/org.gnome.gnome-commander.gschema.xml:1043
+#: data/org.gnome.gnome-commander.gschema.xml:1050
 msgid "Default file suffix of archives created with the File Roller plugin."
 msgstr ""
 "Sufijo predeterminado de los archivos creado con el complemento File Roller."
 
-#: data/org.gnome.gnome-commander.gschema.xml:1049
+#: data/org.gnome.gnome-commander.gschema.xml:1056
 msgid "Prefix pattern"
 msgstr "Patrón de prefijo"
 
-#: data/org.gnome.gnome-commander.gschema.xml:1050
+#: data/org.gnome.gnome-commander.gschema.xml:1057
 msgid ""
 "The prefix pattern is used to build up the name for an archive created with "
 "the File Roller plugin."
@@ -1477,11 +1487,11 @@ msgstr ""
 "El patrón del prefijo se usa para construir el nombre del archivador creado "
 "con el complemento File Roller."
 
-#: data/org.gnome.gnome-commander.gschema.xml:1058
+#: data/org.gnome.gnome-commander.gschema.xml:1065
 msgid "Automatically loaded plugins"
 msgstr "Complementos cargados automáticamente"
 
-#: data/org.gnome.gnome-commander.gschema.xml:1059
+#: data/org.gnome.gnome-commander.gschema.xml:1066
 msgid ""
 "This is the list of automatically loaded plugins, whereas each entry "
 "represents the file name of the plugin."
@@ -1494,7 +1504,6 @@ msgid "No error description available"
 msgstr "No hay descripción de error disponible"
 
 #: libgcmd/libgcmd-widget-factory.cc:357
-#| msgid "_Select range:"
 msgid "Select an Image File"
 msgstr "Seleccionar un archivo de imagen"
 
@@ -1976,12 +1985,12 @@ msgid "Access permissions"
 msgstr "Permisos de acceso"
 
 #: src/dialogs/gnome-cmd-file-props-dialog.cc:616
-#: src/intviewer/viewer-window.cc:1611
+#: src/intviewer/viewer-window.cc:1348
 msgid "Type"
 msgstr "Tipo"
 
 #: src/dialogs/gnome-cmd-file-props-dialog.cc:617
-#: src/intviewer/viewer-window.cc:1612
+#: src/intviewer/viewer-window.cc:1349
 msgid "Metadata namespace"
 msgstr "Espacio de nombre de los metadatos"
 
@@ -1994,35 +2003,35 @@ msgstr "Espacio de nombre de los metadatos"
 #: src/dialogs/gnome-cmd-file-props-dialog.cc:624
 #: src/dialogs/gnome-cmd-manage-bookmarks-dialog.cc:244
 #: src/dialogs/gnome-cmd-remote-dialog.cc:353
-#: src/intviewer/viewer-window.cc:1619 src/plugin_manager.cc:417
+#: src/intviewer/viewer-window.cc:1356 src/plugin_manager.cc:417
 #: src/tags/gnome-cmd-tags.cc:327
 msgid "Name"
 msgstr "Nombre"
 
 #: src/dialogs/gnome-cmd-file-props-dialog.cc:625
-#: src/intviewer/viewer-window.cc:1620
+#: src/intviewer/viewer-window.cc:1357
 msgid "Tag name"
 msgstr "Nombre de etiqueta"
 
 #: src/dialogs/gnome-cmd-file-props-dialog.cc:627
-#: src/intviewer/viewer-window.cc:1622
+#: src/intviewer/viewer-window.cc:1359
 msgid "Value"
 msgstr "Valor"
 
 #: src/dialogs/gnome-cmd-file-props-dialog.cc:628
-#: src/intviewer/viewer-window.cc:1623
+#: src/intviewer/viewer-window.cc:1360
 msgid "Tag value"
 msgstr "Valor de etiqueta"
 
 #: src/dialogs/gnome-cmd-file-props-dialog.cc:630
-#: src/intviewer/viewer-window.cc:1625 src/tags/gnome-cmd-tags.cc:171
+#: src/intviewer/viewer-window.cc:1362 src/tags/gnome-cmd-tags.cc:171
 #: src/tags/gnome-cmd-tags.cc:322 src/tags/gnome-cmd-tags.cc:424
 #: src/tags/gnome-cmd-tags.cc:535
 msgid "Description"
 msgstr "Descripción"
 
 #: src/dialogs/gnome-cmd-file-props-dialog.cc:631
-#: src/intviewer/viewer-window.cc:1626
+#: src/intviewer/viewer-window.cc:1363
 msgid "Metadata tag description"
 msgstr "Descripción de los metadatos de la imagen"
 
@@ -3079,31 +3088,31 @@ msgstr "Deshabilitado"
 msgid "New accelerator…"
 msgstr "Acelerador nuevo…"
 
-#: src/gnome-cmd-about-plugin.cc:180
+#: src/gnome-cmd-about-plugin.cc:179
 msgid "Credits"
 msgstr "Créditos"
 
-#: src/gnome-cmd-about-plugin.cc:207
+#: src/gnome-cmd-about-plugin.cc:206
 msgid "Written by"
 msgstr "Escrito por"
 
-#: src/gnome-cmd-about-plugin.cc:220
+#: src/gnome-cmd-about-plugin.cc:219
 msgid "Documented by"
 msgstr "Documentado por"
 
-#: src/gnome-cmd-about-plugin.cc:233
+#: src/gnome-cmd-about-plugin.cc:232
 msgid "Translated by"
 msgstr "Traducido por"
 
-#: src/gnome-cmd-about-plugin.cc:287
+#: src/gnome-cmd-about-plugin.cc:295
 msgid "Plugin Webpage"
 msgstr "Página web de complementos"
 
-#: src/gnome-cmd-about-plugin.cc:299
+#: src/gnome-cmd-about-plugin.cc:309
 msgid "C_redits"
 msgstr "C_réditos"
 
-#: src/gnome-cmd-about-plugin.cc:501
+#: src/gnome-cmd-about-plugin.cc:510
 #, c-format
 msgid "About %s"
 msgstr "Acerca de %s"
@@ -3524,7 +3533,7 @@ msgstr "Buscando grupos de trabajo y equipos"
 msgid "Go to: Samba Network"
 msgstr "Ir a: Red Samba"
 
-#: src/gnome-cmd-data.cc:3141 src/gnome-cmd-data.cc:3842
+#: src/gnome-cmd-data.cc:3147 src/gnome-cmd-data.cc:3848
 #, c-format
 msgid "link to %s"
 msgstr "enlace a %s"
@@ -3827,8 +3836,7 @@ msgstr "_Carpeta"
 msgid "_Text File"
 msgstr "Archivo de _texto"
 
-#. File Menu
-#: src/gnome-cmd-main-menu.cc:302 src/intviewer/viewer-window.cc:1014
+#: src/gnome-cmd-main-menu.cc:302 src/intviewer/viewer-window.cc:594
 msgid "_File"
 msgstr "_Archivo"
 
@@ -3936,7 +3944,7 @@ msgstr "_Restaurar selección"
 msgid "_Compare Directories"
 msgstr "_Comparar carpetas"
 
-#: src/gnome-cmd-main-menu.cc:343 src/intviewer/viewer-window.cc:1017
+#: src/gnome-cmd-main-menu.cc:343 src/intviewer/viewer-window.cc:608
 msgid "_View"
 msgstr "_Ver"
 
@@ -3988,7 +3996,7 @@ msgstr "Mostrar archivos de respaldo"
 msgid "Horizontal Orientation"
 msgstr "Orientación horizontal"
 
-#: src/gnome-cmd-main-menu.cc:368 src/intviewer/viewer-window.cc:1028
+#: src/gnome-cmd-main-menu.cc:368 src/intviewer/viewer-window.cc:673
 msgid "_Settings"
 msgstr "_Opciones"
 
@@ -4032,7 +4040,7 @@ msgstr "Com_plementos"
 msgid "_Configure Plugins…"
 msgstr "_Configurar complementos…"
 
-#: src/gnome-cmd-main-menu.cc:395 src/intviewer/viewer-window.cc:1033
+#: src/gnome-cmd-main-menu.cc:395 src/intviewer/viewer-window.cc:692
 msgid "_Help"
 msgstr "Ay_uda"
 
@@ -4040,7 +4048,7 @@ msgstr "Ay_uda"
 msgid "_Documentation"
 msgstr "_Documentación"
 
-#: src/gnome-cmd-main-menu.cc:397 src/intviewer/viewer-window.cc:1002
+#: src/gnome-cmd-main-menu.cc:397 src/intviewer/viewer-window.cc:694
 msgid "_Keyboard Shortcuts"
 msgstr "Atajos del _teclado"
 
@@ -4125,7 +4133,7 @@ msgstr "F8 Eliminar"
 msgid "F9 Search"
 msgstr "F9 Buscar"
 
-#: src/gnome-cmd-main-win.cc:856
+#: src/gnome-cmd-main-win.cc:858
 msgid "GNOME Commander — ROOT PRIVILEGES"
 msgstr "GNOME Commander - PRIVILEGIOS DE ROOT"
 
@@ -4695,12 +4703,12 @@ msgid "Find"
 msgstr "Buscar"
 
 #. Search mode radio buttons
-#: src/intviewer/search-dlg.cc:273 src/intviewer/viewer-window.cc:818
-#: src/intviewer/viewer-window.cc:1020
+#: src/intviewer/search-dlg.cc:273 src/intviewer/viewer-window.cc:600
+#: src/intviewer/viewer-window.cc:617
 msgid "_Text"
 msgstr "_Texto"
 
-#: src/intviewer/search-dlg.cc:274 src/intviewer/viewer-window.cc:826
+#: src/intviewer/search-dlg.cc:274 src/intviewer/viewer-window.cc:602
 msgid "_Hexadecimal"
 msgstr "_Hexadecimal"
 
@@ -4743,132 +4751,226 @@ msgstr "(ajustar a la ventana)"
 msgid "_Copy selection"
 msgstr "_Copiar la selección"
 
-#: src/intviewer/viewer-window.cc:808
+#: src/intviewer/viewer-window.cc:595
 msgid "_Close"
 msgstr "_Cerrar"
 
-#: src/intviewer/viewer-window.cc:822
+#: src/intviewer/viewer-window.cc:601
 msgid "_Binary"
 msgstr "_Binario"
 
-#: src/intviewer/viewer-window.cc:830 src/intviewer/viewer-window.cc:1025
+#: src/intviewer/viewer-window.cc:603 src/intviewer/viewer-window.cc:663
 msgid "_Image"
 msgstr "_Imagen"
 
-#: src/intviewer/viewer-window.cc:835
+#: src/intviewer/viewer-window.cc:609
 msgid "_Zoom In"
 msgstr "_Ampliar"
 
-#: src/intviewer/viewer-window.cc:839
-msgid "Zoom _Out"
+#: src/intviewer/viewer-window.cc:610
+#| msgid "Zoom _Out"
+msgid "_Zoom Out"
 msgstr "_Reducir"
 
-#: src/intviewer/viewer-window.cc:843
+#: src/intviewer/viewer-window.cc:611
 msgid "_Normal Size"
 msgstr "Tamaño _normal"
 
-#: src/intviewer/viewer-window.cc:847
-msgid "Best _Fit"
-msgstr "Mejor _ajuste "
+#: src/intviewer/viewer-window.cc:612
+#| msgid "Best _Fit"
+msgid "_Best Fit"
+msgstr "Ajuste óp_timo"
 
-#: src/intviewer/viewer-window.cc:857
+#: src/intviewer/viewer-window.cc:618
 msgid "_Copy Text Selection"
 msgstr "_Copiar texto a la selección"
 
-#: src/intviewer/viewer-window.cc:861
+#: src/intviewer/viewer-window.cc:619
 msgid "Find…"
 msgstr "Buscar…"
 
-#: src/intviewer/viewer-window.cc:865
+#: src/intviewer/viewer-window.cc:620
 msgid "Find Next"
 msgstr "Buscar siguiente"
 
-#: src/intviewer/viewer-window.cc:869
+#: src/intviewer/viewer-window.cc:621
 msgid "Find Previous"
 msgstr "Buscar anterior"
 
-#: src/intviewer/viewer-window.cc:874
-msgid "_Wrap lines"
-msgstr "_Ajustar líneas"
-
-#: src/intviewer/viewer-window.cc:879
+#: src/intviewer/viewer-window.cc:622
 msgid "_Encoding"
 msgstr "_Codificación"
 
-#: src/intviewer/viewer-window.cc:920
+#: src/intviewer/viewer-window.cc:627
+msgid "_Wrap lines"
+msgstr "_Ajustar líneas"
+
+#: src/intviewer/viewer-window.cc:632
+msgid "_UTF-8"
+msgstr "_UTF-8"
+
+#: src/intviewer/viewer-window.cc:633
+msgid "English (US-_ASCII)"
+msgstr "Inglés (US-ASCII)"
+
+#: src/intviewer/viewer-window.cc:634
+#| msgid "Terminal:"
+msgid "Terminal (CP437)"
+msgstr "Terminal (CP437)"
+
+#: src/intviewer/viewer-window.cc:635
+msgid "Arabic (ISO-8859-6)"
+msgstr "Árabe (ISO-8859-6)"
+
+#: src/intviewer/viewer-window.cc:636
+msgid "Arabic (Windows, CP1256)"
+msgstr "Árabe (Windows, CP1256)"
+
+#: src/intviewer/viewer-window.cc:637
+msgid "Arabic (Dos, CP864)"
+msgstr "Árabe (Dos, CP864)"
+
+#: src/intviewer/viewer-window.cc:638
+msgid "Baltic (ISO-8859-4)"
+msgstr "Báltico (ISO-8859-4)"
+
+#: src/intviewer/viewer-window.cc:639
+msgid "Central European (ISO-8859-2)"
+msgstr "Centroeuropeo (ISO-8859-2)"
+
+#: src/intviewer/viewer-window.cc:640
+msgid "Central European (CP1250)"
+msgstr "Centroeuropeo (CP1250)"
+
+#: src/intviewer/viewer-window.cc:641
+msgid "Cyrillic (ISO-8859-5)"
+msgstr "Cirílico (ISO-8859-5)"
+
+#: src/intviewer/viewer-window.cc:642
+msgid "Cyrillic (CP1251)"
+msgstr "Cirílico (CP1251)"
+
+#: src/intviewer/viewer-window.cc:643
+msgid "Greek (ISO-8859-7)"
+msgstr "Griego (ISO-8859-7)"
+
+#: src/intviewer/viewer-window.cc:644
+msgid "Greek (CP1253)"
+msgstr "Griego (CP1253)"
+
+#: src/intviewer/viewer-window.cc:645
+msgid "Hebrew (Windows, CP1255)"
+msgstr "Hebreo (Windows, CP1255)"
+
+#: src/intviewer/viewer-window.cc:646
+msgid "Hebrew (Dos, CP862)"
+msgstr "Hebreo (Dos, CP862)"
+
+#: src/intviewer/viewer-window.cc:647
+msgid "Hebrew (ISO-8859-8)"
+msgstr "Hebreo (ISO-8859-8)"
+
+#: src/intviewer/viewer-window.cc:648
+msgid "Latin 9 (ISO-8859-15)"
+msgstr "Latino 9 (ISO-8859-15)"
+
+#: src/intviewer/viewer-window.cc:649
+msgid "Maltese (ISO-8859-3)"
+msgstr "Maltés (ISO-8859-3)"
+
+#: src/intviewer/viewer-window.cc:650
+msgid "Turkish (ISO-8859-9)"
+msgstr "Turco (ISO-8859-9)"
+
+#: src/intviewer/viewer-window.cc:651
+#| msgid "Turkish"
+msgid "Turkish (CP1254)"
+msgstr "Turco (CP1254)"
+
+#: src/intviewer/viewer-window.cc:652
+msgid "Western (CP1252)"
+msgstr "Occidental (CP1252)"
+
+#: src/intviewer/viewer-window.cc:653
+msgid "Western (ISO-8859-1)"
+msgstr "Occidental (ISO-8859-1)"
+
+#: src/intviewer/viewer-window.cc:658
 msgid "Show Metadata _Tags"
 msgstr "Mostrar e_tiquetas de metadatos"
 
-#: src/intviewer/viewer-window.cc:926
-msgid "_Rotate Clockwise"
-msgstr "_Rotar contrareloj"
+#: src/intviewer/viewer-window.cc:664
+#| msgid "_Rotate Clockwise"
+msgid "Rotate Clockwise"
+msgstr "Rotar en sentido antihorario"
 
-#: src/intviewer/viewer-window.cc:931
+#: src/intviewer/viewer-window.cc:665
 msgid "Rotate Counter Clockwis_e"
 msgstr "Rotar contrareloj"
 
-#: src/intviewer/viewer-window.cc:936
-msgid "_Rotate 180°"
-msgstr "_Rotar 180º"
+#: src/intviewer/viewer-window.cc:666
+#| msgid "_Rotate 180°"
+msgid "Rotate 180°"
+msgstr "Rotar 180º"
 
-#: src/intviewer/viewer-window.cc:941
+#: src/intviewer/viewer-window.cc:667
 msgid "Flip _Vertical"
 msgstr "Voltear _vertical"
 
-#: src/intviewer/viewer-window.cc:946
+#: src/intviewer/viewer-window.cc:668
 msgid "Flip _Horizontal"
 msgstr "Voltear _horizontal"
 
-#: src/intviewer/viewer-window.cc:956
+#: src/intviewer/viewer-window.cc:674
 msgid "_Binary Mode"
 msgstr "Modo _binario"
 
-#: src/intviewer/viewer-window.cc:962
-msgid "_Hexadecimal Offset"
-msgstr "Desplazamiento _hexadecimal"
-
-#: src/intviewer/viewer-window.cc:968
+#: src/intviewer/viewer-window.cc:675
 msgid "_Save Current Settings"
 msgstr "_Guardar configuración actual"
 
-#: src/intviewer/viewer-window.cc:978
+#: src/intviewer/viewer-window.cc:680
+msgid "_Hexadecimal Offset"
+msgstr "Desplazamiento _hexadecimal"
+
+#: src/intviewer/viewer-window.cc:685
 msgid "_20 chars/line"
 msgstr "_20 caracteres/línea"
 
-#: src/intviewer/viewer-window.cc:983
+#: src/intviewer/viewer-window.cc:686
 msgid "_40 chars/line"
 msgstr "_40 caracteres/línea"
 
-#: src/intviewer/viewer-window.cc:988
+#: src/intviewer/viewer-window.cc:687
 msgid "_80 chars/line"
 msgstr "_80 caracteres/línea"
 
-#: src/intviewer/viewer-window.cc:997
+#: src/intviewer/viewer-window.cc:693
 msgid "Quick _Help"
 msgstr "Ay_uda rápida"
 
-#: src/intviewer/viewer-window.cc:1271
+#: src/intviewer/viewer-window.cc:1002
 #, c-format
 msgid "Pattern “%s” was not found"
 msgstr "No se encontró el patrón «%s»"
 
-#: src/main.cc:66
+#: src/main.cc:60
 msgid "Specify debug flags to use"
 msgstr "Especifique las banderas de depuración a usar"
 
-#: src/main.cc:67
+#: src/main.cc:61
 msgid "Specify the start directory for the left pane"
 msgstr "Especifique la carpeta de inicio para el panel izquierdo"
 
-#: src/main.cc:68
+#: src/main.cc:62
 msgid "Specify the start directory for the right pane"
 msgstr "Especifique la carpeta de inicio para el panel derecho"
 
-#: src/main.cc:69
+#: src/main.cc:63
 msgid "Specify the directory for configuration files"
 msgstr "Especificar la carpeta para los archivos de configuración"
 
-#: src/main.cc:129
+#: src/main.cc:119
 msgid "File Manager"
 msgstr "Gestor de archivos"
 
@@ -8952,26 +9054,26 @@ msgstr "Falló al cambiar la carpeta de trabajo a una carpeta temporal."
 msgid "Failed to create a directory in which to store temporary files."
 msgstr "Falló al crear la carpeta en la que almacenar archivos temporalmente."
 
-#: src/utils.cc:926
+#: src/utils.cc:874
 #, c-format
 msgid "Couldn’t read from the directory %s: %s"
 msgstr "No se pudo leer de la carpeta %s: %s"
 
-#: src/utils.cc:950
+#: src/utils.cc:898
 #, c-format
 msgid "Creating directory %s… "
 msgstr "Creando carpeta %s… "
 
-#: src/utils.cc:957
+#: src/utils.cc:905
 #, c-format
 msgid "Failed to create the directory %s"
 msgstr "Falló al crear la carpeta %s"
 
-#: src/utils.cc:1103
+#: src/utils.cc:1051
 msgid "There was an error displaying help."
 msgstr "Hubo un error al mostrar la ayuda."
 
-#: src/utils.cc:1225
+#: src/utils.cc:1173
 #, c-format
 msgid "Couldn’t move path from “%s” to “%s”: %s"
 msgstr "No se pudo mover la ruta de «%s» a «%s»: %s"
@@ -9131,9 +9233,6 @@ msgstr "No se pudo mover la ruta de «%s» a «%s»: %s"
 
 #~ msgid "Thai"
 #~ msgstr "Tailandés"
-
-#~ msgid "Turkish"
-#~ msgstr "Turco"
 
 #~ msgid "Urdu"
 #~ msgstr "Urdu"
