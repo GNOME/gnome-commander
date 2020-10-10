@@ -1,13 +1,13 @@
 # Czech translation for gnome-commander.
 # Copyright (C) 2011 gnome-commander's COPYRIGHT HOLDER
 # This file is distributed under the same license as the gnome-commander package.
-# Marek Černocký <marek@manet.cz>, 2011, 2012, 2014, 2015, 2016, 2017, 2018, 2019.
+# Marek Černocký <marek@manet.cz>, 2011, 2012, 2014, 2015, 2016, 2017, 2018, 2019, 2020.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander\n"
-"POT-Creation-Date: 2019-04-13 10:54+0000\n"
-"PO-Revision-Date: 2019-09-15 11:48+0200\n"
+"POT-Creation-Date: 2020-10-10 00:15+0000\n"
+"PO-Revision-Date: 2020-10-10 16:51+0200\n"
 "Last-Translator: Marek Černocký <marek@manet.cz>\n"
 "Language-Team: čeština <gnome-cs-list@gnome.org>\n"
 "Language: cs\n"
@@ -14370,8 +14370,8 @@ msgstr "<keycombo><keycap>Ctrl</keycap><keycap>M</keycap></keycombo>"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:6703
-msgid "Multi-Rename-Tool"
-msgstr "Nástroj vícenásobného přejmenování"
+msgid "Advanced Rename Tool"
+msgstr "Nástroj pokročilého přejmenování"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:6712
@@ -15970,9 +15970,9 @@ msgstr "Aktuální stabilní verze"
 #: C/index.docbook:7549
 msgid ""
 "If you'd like to compile the latest stable version of GNOME Commander "
-"yourself, get it as a tar.xz file from the <ulink type=\"http\" url=\"http://"
-"gcmd.github.io/download.html\">download section</ulink> on the GNOME "
-"Commander home page."
+"yourself, get it as a tar.xz file from the <ulink type=\"http\" url="
+"\"https://gcmd.github.io/download.html\">download section</ulink> on the "
+"GNOME Commander home page."
 msgstr ""
 "Pokud si přejete přeložit nejnovější stabilní verzi GNOME Commanderu sami, "
 "stáhněte si ze stránky <ulink type=\"http\" url=\"https://gcmd.github.io/"
@@ -20239,3 +20239,6 @@ msgstr "2.8.2001"
 #: C/releases.xml:2434
 msgid "The first public version of GNOME Commander."
 msgstr "První veřejná verze aplikace GNOME Commander."
+
+#~ msgid "Multi-Rename-Tool"
+#~ msgstr "Nástroj vícenásobného přejmenování"
