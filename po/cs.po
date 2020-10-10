@@ -1922,7 +1922,7 @@ msgstr "Typ MIME:"
 
 #: src/dialogs/gnome-cmd-file-props-dialog.cc:438
 msgid "Opens with:"
-msgstr "Otevřít s:"
+msgstr "Otevřít pomocí:"
 
 #: src/dialogs/gnome-cmd-file-props-dialog.cc:449
 msgid "No default application registered"
