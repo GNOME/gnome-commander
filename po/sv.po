@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-commander/issues\n"
-"POT-Creation-Date: 2020-10-10 15:34+0000\n"
-"PO-Revision-Date: 2020-11-15 19:03+0100\n"
+"POT-Creation-Date: 2020-11-15 18:05+0000\n"
+"PO-Revision-Date: 2020-11-23 19:46+0100\n"
 "Last-Translator: Anders Jonsson <anders.jonsson@norsjovallen.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "Language: sv\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 2.4.1\n"
+"X-Generator: Poedit 2.4.2\n"
 "X-Poedit-Bookmarks: -1,1165,-1,-1,-1,-1,-1,-1,-1,-1\n"
 "X-Project-Style: gnome\n"
 
@@ -2372,7 +2372,7 @@ msgstr "Standard:"
 
 #: src/dialogs/gnome-cmd-options-dialog.cc:543
 msgid "Alternate:"
-msgstr "Alternativ:"
+msgstr "Alternera:"
 
 #: src/dialogs/gnome-cmd-options-dialog.cc:545
 msgid "Selected file:"
