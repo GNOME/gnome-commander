@@ -375,7 +375,7 @@ msgid ""
 msgstr ""
 "Aquesta cadena defineix el nom predeterminat d'un enllaç de creació recent. "
 "Deixeu la cadena buida per utilitzar el valor per defecte que està codificat"
-" en el codi del programa. Un “%s” s'ampliarà al nom de l'element per al qual"
+" en el codi del programa. Un «%s» s'ampliarà al nom de l'element per al qual"
 " s'hauria de crear un enllaç."
 
 #: data/org.gnome.gnome-commander.gschema.xml:231
@@ -550,7 +550,7 @@ msgid ""
 " etc. and is calculated internally."
 msgstr ""
 "El nombre representa l'estat de la finestra principal, per exemple "
-"\"maximitzat\", \"pantalla completa\", etc., i es calcula internament."
+"«maximitzat», «pantalla completa», etc., i es calcula internament."
 
 #: data/org.gnome.gnome-commander.gschema.xml:379
 msgid "Middle mouse button mode"
@@ -608,7 +608,7 @@ msgstr "Desa l'historial de cerques en sortir"
 
 #: data/org.gnome.gnome-commander.gschema.xml:415
 msgid "Defines if the history of search patterns is saved on exit."
-msgstr "Defineix si es guarda l'historial dels patrons de cerca en sortir"
+msgstr "Defineix si es guarda l'historial dels patrons de cerca en sortir."
 
 #: data/org.gnome.gnome-commander.gschema.xml:421
 msgid "Always show tab bar"
@@ -2102,7 +2102,7 @@ msgstr "Dades opcionals"
 #: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:490
 #, c-format
 msgid "Shortcut “%s” is already taken by “%s”."
-msgstr "La drecera “%s” ja està presa per “%s”."
+msgstr "La drecera «%s» ja està presa per «%s»."
 
 #: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:493
 msgid "_Reassign shortcut"
@@ -2202,7 +2202,7 @@ msgstr "Plantilla"
 
 #: src/dialogs/gnome-cmd-manage-profiles-dialog.h:285
 msgid "New profile"
-msgstr "Nou perfil"
+msgstr "Perfil nou"
 
 #: src/dialogs/gnome-cmd-manage-profiles-dialog.h:322
 msgid ""
@@ -2709,7 +2709,7 @@ msgid ""
 "Please choose another label."
 msgstr ""
 "Ja existeix una aplicació amb aquesta etiqueta.\n"
-"Si us plau trieu una altra etiqueta."
+"Trieu una altra etiqueta."
 
 #: src/dialogs/gnome-cmd-options-dialog.cc:1451
 msgid "Label:"
@@ -2758,7 +2758,7 @@ msgstr "Patrons de fitxer"
 
 #: src/dialogs/gnome-cmd-options-dialog.cc:1542
 msgid "New Application"
-msgstr "Nova aplicació"
+msgstr "Aplicació nova"
 
 #: src/dialogs/gnome-cmd-options-dialog.cc:1552
 msgid "Edit Application"
@@ -2839,7 +2839,7 @@ msgstr "Punt de muntatge:"
 
 #: src/dialogs/gnome-cmd-options-dialog.cc:1942
 msgid "New Device"
-msgstr "Nou dispositiu"
+msgstr "Dispositiu nou"
 
 #: src/dialogs/gnome-cmd-options-dialog.cc:1955
 msgid "Edit Device"
@@ -3623,7 +3623,7 @@ msgid ""
 "“%s” seems to be a binary executable file but it lacks the executable bit. "
 "Do you want to set it and then run the file?"
 msgstr ""
-"“%s” sembla ser un fitxer binari executable però li falta el bit executable. "
+"«%s» sembla ser un fitxer binari executable però li falta el bit executable. "
 "Vols configurar-lo i després executar el fitxer?"
 
 #: src/gnome-cmd-file-list.cc:1261
@@ -4963,7 +4963,7 @@ msgstr "_Ajuda ràpida"
 #: src/intviewer/viewer-window.cc:1002
 #, c-format
 msgid "Pattern “%s” was not found"
-msgstr "No s'ha trobat la plantilla %s”"
+msgstr "No s'ha trobat la plantilla «%s»"
 
 #: src/main.cc:60
 msgid "Specify debug flags to use"
@@ -6470,7 +6470,7 @@ msgstr ""
 " per a les dades d'imatges primàries JPEG. Les miniatures JPEG no es "
 "divideixen, sinó que es registren com un flux de bits JPEG continu de SOI a"
 " EOI. Els marcadors Appn i COM no han de ser gravats. Les miniatures "
-"comprimides han de registrar-se en un màxim de 64 Kbytes, inclosos tots els "
+"comprimides han de registrar-se en un màxim de 64 Kbytes, incloses totes les "
 "altres dades que es registrin en APP1."
 
 #: src/tags/gnome-cmd-tags.cc:265
@@ -6525,7 +6525,7 @@ msgid ""
 " is given in the range of 00.00 to 99.99, but it is not limited to this "
 "range."
 msgstr ""
-"El nombre d'F mínim de la lent. La unitat és el valor APEX. Sol tractar-se "
+"El nombre F mínim de la lent. La unitat és el valor APEX. Sol tractar-se "
 "d'un valor comprès entre 00,00 i 99,99, però no està limitat a aquest rang."
 
 #: src/tags/gnome-cmd-tags.cc:270 src/tags/gnome-cmd-tags.cc:434
@@ -7944,7 +7944,7 @@ msgstr "Usuari WWW"
 
 #: src/tags/gnome-cmd-tags.cc:418
 msgid "User defined URL link."
-msgstr "Vincle URL definit per l'usuari."
+msgstr "Enllaç URL definit per l'usuari."
 
 #: src/tags/gnome-cmd-tags.cc:419
 msgid "Name of an album the image belongs to."
@@ -7976,7 +7976,7 @@ msgstr "Temps d'exposició utilitzat per capturar la fotografia en segons."
 
 #: src/tags/gnome-cmd-tags.cc:427
 msgid "Set to “1” if flash was fired."
-msgstr "Configureu a \"1\" si es dispara el flaix."
+msgstr "Estableix a «1» si es dispara el flaix."
 
 #: src/tags/gnome-cmd-tags.cc:429
 msgid "Focal length of lens in mm."
@@ -8139,7 +8139,7 @@ msgid ""
 "artist (multiple values allowed)."
 msgstr ""
 "Nom del creador de l'objecte, p. ex. escriptor, fotògraf o artista gràfic "
-"(s'admeten valors múltiples)"
+"(s'admeten valors múltiples)."
 
 #: src/tags/gnome-cmd-tags.cc:450
 msgid "By-line Title"
@@ -8161,7 +8161,7 @@ msgstr "Una descripció textual de la data."
 msgid ""
 "Identifies the subject of the object in the opinion of the provider "
 "(Deprecated)."
-msgstr "Indica el tema de l'objecte segons l'opinió del proveïdor (Obsolet)"
+msgstr "Indica el tema de l'objecte segons l'opinió del proveïdor (Obsolet)."
 
 #: src/tags/gnome-cmd-tags.cc:453
 msgid "Coded Character Set"
@@ -8829,7 +8829,7 @@ msgstr "Vista ràpida del web"
 
 #: src/tags/gnome-cmd-tags.cc:525
 msgid "Set to “1” if optimized for network access."
-msgstr "A “1” si s'optimitza l'accés a la xarxa."
+msgstr "Estableix a «1» si s'optimitza l'accés a la xarxa."
 
 #: src/tags/gnome-cmd-tags.cc:526
 msgid "Printing"
@@ -8837,7 +8837,7 @@ msgstr "Impressió"
 
 #: src/tags/gnome-cmd-tags.cc:526
 msgid "Set to “1” if printing is allowed."
-msgstr "A “1” si es pot imprimir."
+msgstr "Estableix a «1» si es pot imprimir."
 
 #: src/tags/gnome-cmd-tags.cc:527
 msgid "Printing in High Resolution"
@@ -8845,7 +8845,7 @@ msgstr "Impressió en alta resolució"
 
 #: src/tags/gnome-cmd-tags.cc:527
 msgid "Set to “1” if high resolution printing is allowed."
-msgstr "«1» si es permet la impressió d'alta resolució."
+msgstr "Estableix a «1» si es permet la impressió d'alta resolució."
 
 #: src/tags/gnome-cmd-tags.cc:528
 msgid "Copying"
@@ -8853,7 +8853,7 @@ msgstr "Còpia"
 
 #: src/tags/gnome-cmd-tags.cc:528
 msgid "Set to “1” if copying the contents is allowed."
-msgstr "«1» si es permet la còpia del contingut."
+msgstr "Estableix a «1» si es permet la còpia del contingut."
 
 #: src/tags/gnome-cmd-tags.cc:529
 msgid "Modifying"
@@ -8861,7 +8861,7 @@ msgstr "Modificació"
 
 #: src/tags/gnome-cmd-tags.cc:529
 msgid "Set to “1” if modifying the contents is allowed."
-msgstr "«1» si es permet la modificació del contingut."
+msgstr "Estableix a «1» si es permet la modificació del contingut."
 
 #: src/tags/gnome-cmd-tags.cc:530
 msgid "Document Assembly"
@@ -8872,7 +8872,7 @@ msgid ""
 "Set to “1” if inserting, rotating, or deleting pages and creating navigation"
 " elements is allowed."
 msgstr ""
-"«1» si la inserció, rotació o supressió de pàgines i la creació d'elements "
+"Estableix a «1» si la inserció, rotació o supressió de pàgines i la creació d'elements "
 "de navegació són habilitades."
 
 #: src/tags/gnome-cmd-tags.cc:531
@@ -8881,7 +8881,7 @@ msgstr "Comentari"
 
 #: src/tags/gnome-cmd-tags.cc:531
 msgid "Set to “1” if adding or modifying text annotations is allowed."
-msgstr "«1» si l'addició o modificació d'anotacions de text és habilitada."
+msgstr "Estableix a «1» si l'addició o modificació d'anotacions de text és habilitada."
 
 #: src/tags/gnome-cmd-tags.cc:532
 msgid "Form Filling"
@@ -8889,7 +8889,7 @@ msgstr "Emplenament de formularis"
 
 #: src/tags/gnome-cmd-tags.cc:532
 msgid "Set to “1” if filling of form fields is allowed."
-msgstr "«1» si l'emplenament de camps de formulari és habilitat."
+msgstr "Estableix a «1» si l'emplenament de camps de formulari és habilitat."
 
 #: src/tags/gnome-cmd-tags.cc:533
 msgid "Accessibility Support"
@@ -8898,7 +8898,7 @@ msgstr "Suport d'accessibilitat"
 #: src/tags/gnome-cmd-tags.cc:533
 msgid "Set to “1” if accessibility support (e.g. screen readers) is enabled."
 msgstr ""
-"«1» si el suport d'accessibilitat (per exemple, els lectors de pantalla) són"
+"Estableix a «1» si el suport d'accessibilitat (per exemple, els lectors de pantalla) són"
 " habilitats."
 
 #: src/tags/gnome-cmd-tags.cc:534
