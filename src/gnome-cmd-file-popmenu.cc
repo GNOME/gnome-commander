@@ -211,8 +211,8 @@ static void cb_exec_default (GtkMenuItem *menu_item, GList *files)
 
     for (; files; files = files->next)
     {
-        auto f = static_cast<GnomeCmdFile*> (files->data);
-        auto vfs_app = f->get_default_application();
+        auto file = static_cast<GnomeCmdFile*> (files->data);
+        auto vfs_app = file->get_default_application();
 
         if (vfs_app)
         {
@@ -227,10 +227,10 @@ static void cb_exec_default (GtkMenuItem *menu_item, GList *files)
             }
 
             gnome_vfs_mime_application_free (vfs_app);
-            data->files = g_list_append (data->files, f);
+            data->files = g_list_append (data->files, file);
         }
         else
-            gnome_cmd_show_message (nullptr, f->info->name, _("Couldn’t retrieve MIME type of the file."));
+            gnome_cmd_show_message (nullptr, file->info->name, _("Couldn’t retrieve MIME type of the file."));
     }
 
     g_hash_table_foreach (gHashTable, (GHFunc) htcb_exec_with_app, nullptr);
