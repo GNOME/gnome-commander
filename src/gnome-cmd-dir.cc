@@ -321,10 +321,10 @@ GnomeCmdDir *gnome_cmd_dir_new (GnomeCmdCon *con, GnomeCmdPath *path)
     if (gnomeVFSResult == GNOME_VFS_OK)
     {
         dir = static_cast<GnomeCmdDir*> (g_object_new (GNOME_CMD_TYPE_DIR, nullptr));
+        gnome_cmd_dir_set_path (dir, path);
         gnome_cmd_file_setup (GNOME_CMD_FILE (dir), gnomeVFSFileInfo, nullptr);
 
         dir->priv->con = con;
-        gnome_cmd_dir_set_path (dir, path);
         dir->priv->needs_mtime_update = FALSE;
 
         gnome_cmd_con_add_to_cache (con, dir);
