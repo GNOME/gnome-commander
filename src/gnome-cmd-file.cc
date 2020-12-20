@@ -536,7 +536,7 @@ gchar *GnomeCmdFile::get_default_application_name_string()
 
 gchar *GnomeCmdFile::get_default_application_action_label(GAppInfo *gAppInfo)
 {
-    gchar *escaped_app_name = get_default_application_action_name (gAppInfo);
+    gchar *escaped_app_name = get_default_application_name (gAppInfo);
     if (escaped_app_name == nullptr)
     {
         return g_strdup (_("_Open"));
@@ -549,7 +549,7 @@ gchar *GnomeCmdFile::get_default_application_action_label(GAppInfo *gAppInfo)
 }
 
 
-gchar *GnomeCmdFile::get_default_application_action_name(GAppInfo *gAppInfo)
+gchar *GnomeCmdFile::get_default_application_name(GAppInfo *gAppInfo)
 {
     gchar *escaped_app_name = string_double_underscores (g_app_info_get_name (gAppInfo));
 
