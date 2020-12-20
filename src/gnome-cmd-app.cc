@@ -23,6 +23,7 @@
 
 #include "gnome-cmd-includes.h"
 #include "gnome-cmd-app.h"
+#include "imageloader.h"
 
 using namespace std;
 
@@ -125,7 +126,7 @@ GnomeCmdApp *gnome_cmd_app_new_from_vfs_app (GnomeVFSMimeApplication *vfs_app)
 
     GtkIconTheme *theme = gtk_icon_theme_get_default ();
     char *icon = panel_find_icon (theme, gnome_vfs_mime_application_get_icon (vfs_app), 16);
-    
+
     GnomeCmdApp *rel_value = gnome_cmd_app_new_with_values (vfs_app->name,
                                           vfs_app->command,
                                           icon,
@@ -135,6 +136,24 @@ GnomeCmdApp *gnome_cmd_app_new_from_vfs_app (GnomeVFSMimeApplication *vfs_app)
                                           vfs_app->can_open_multiple_files,
                                           vfs_app->requires_terminal);
     g_free (icon);
+    return rel_value;
+}
+
+
+GnomeCmdApp *gnome_cmd_app_new_from_app_info (GAppInfo *gAppInfo)
+{
+    g_return_val_if_fail (gAppInfo != nullptr, nullptr);
+
+    GtkIconTheme *theme = gtk_icon_theme_get_default ();
+
+    GnomeCmdApp *rel_value = gnome_cmd_app_new_with_values (g_app_info_get_name (gAppInfo),
+                                          g_app_info_get_commandline (gAppInfo),
+                                          get_default_application_icon_path(gAppInfo),
+                                          APP_TARGET_ALL_FILES,
+                                          nullptr,
+                                          g_app_info_supports_uris (gAppInfo),
+                                          true,
+                                          false);
     return rel_value;
 }
 

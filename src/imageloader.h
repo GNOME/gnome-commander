@@ -95,4 +95,6 @@ void IMAGE_clear_mime_cache ();
 
 void register_gnome_commander_stock_icons (void);
 
+const gchar* get_default_application_icon_path(GAppInfo* appInfo);
+
 char* register_application_stock_icon(const char* openWithDefaultLabel, const char* defaultAppIconPath);

@@ -46,6 +46,8 @@ struct GnomeCmdFile
     Private *priv;
 
     GnomeVFSFileInfo *info;
+    GFile *gFile;
+    GFileInfo *gFileInfo;
     gboolean is_dotdot;
     gchar *collate_key;                 // necessary for proper sorting of UTF-8 encoded file names
     GnomeCmdFileMetadata *metadata;
@@ -62,6 +64,7 @@ struct GnomeCmdFile
     gchar *get_quoted_real_path();
     gchar *get_dirname();
     gchar *get_unescaped_dirname();
+
     GnomeVFSURI *get_uri(const gchar *name=NULL);
     gchar *get_uri_str(GnomeVFSURIHideOptions hide_options=GNOME_VFS_URI_HIDE_PASSWORD);
 
@@ -102,6 +105,12 @@ struct GnomeCmdFile
     gboolean has_tree_size();
 
     GnomeVFSMimeApplication *get_default_application();
+    gchar *GetGfileContentTypeString();
+    gchar *get_default_application_name_string();
+    gchar *get_default_application_action_label(GAppInfo *gAppInfo);
+    gchar *get_default_application_action_name(GAppInfo *gAppInfo);
+    GAppInfo *GetAppInfoForContentType();
+    GnomeVFSMimeApplication *get_default_gnome_vfs_app_for_mime_type();
 };
 
 struct GnomeCmdFileClass
