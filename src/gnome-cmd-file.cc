@@ -509,15 +509,6 @@ gchar *GnomeCmdFile::GetGfileContentTypeString()
     g_object_unref(gcmdFileInfo);
 
     return gFileContentTypeString;
-
-    //GList *files;
-    //g_list_append(files, gFile);
-
-    // Launch later with:
-    //g_app_info_launch (appInfo,
-    //           files,
-    //           nullptr,
-    //           &error);
 }
 
 
