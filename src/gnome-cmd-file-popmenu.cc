@@ -79,23 +79,9 @@ static void do_mime_exec_multiple (gpointer *args)
     {
         string cmdString = gnome_cmd_app_get_command (app);
 
-        set<string> dirs;
+        DEBUG('g', "Launching \"%s\"\n", g_app_info_get_commandline(app->gAppInfo));
 
-        for (; files; files = files->next)
-        {
-            cmdString += ' ';
-            cmdString += stringify (g_shell_quote ((gchar *) files->data));
-
-            gchar *dpath = g_path_get_dirname ((gchar *) files->data);
-
-            if (dpath)
-                dirs.insert (stringify (dpath));
-        }
-
-        if (dirs.size()==1)
-            run_command_indir (cmdString.c_str(), dirs.begin()->c_str(), gnome_cmd_app_get_requires_terminal (app));
-        else
-            run_command_indir (cmdString.c_str(), nullptr, gnome_cmd_app_get_requires_terminal (app));
+        g_app_info_launch(app->gAppInfo, files, nullptr, nullptr);
 
         g_list_free (files);
     }
@@ -122,13 +108,15 @@ static void mime_exec_multiple (GList *files, GnomeCmdApp *app)
         auto f = static_cast<GnomeCmdFile*> (files->data);
 
         if (gnome_vfs_uri_is_local (f->get_uri()))
-            local_files = g_list_append (local_files, f->get_real_path());
+        {
+            local_files = g_list_append (local_files, f->gFile);
+        }
         else
         {
             ++no_of_remote_files;
             if (gnome_cmd_app_get_handles_uris (app) && gnome_cmd_data.options.honor_expect_uris)
             {
-                local_files = g_list_append (local_files,  f->get_uri_str());
+                local_files = g_list_append (local_files,  f->gFile);
             }
             else
             {
@@ -153,7 +141,7 @@ static void mime_exec_multiple (GList *files, GnomeCmdApp *app)
 
                     src_uri_list = g_list_append (src_uri_list, src_uri);
                     dest_uri_list = g_list_append (dest_uri_list, dest_uri);
-                    local_files = g_list_append (local_files, path_str);
+                    local_files = g_list_append (local_files, f->gFile);
                 }
             }
         }
@@ -821,18 +809,20 @@ guint add_open_with_entries(GtkUIManager *ui_manager, GnomeCmdFileList *gnomeCmd
 
     // Add menu items in the "Open with" submenu
     gint ii = -1;
-    GList *vfs_apps, *tmp_list;
-    vfs_apps = tmp_list = gnome_vfs_mime_get_all_applications (gnomeCmdFile->info->mime_type);
-    for (; vfs_apps && ii < MAX_OPEN_WITH_APPS; vfs_apps = vfs_apps->next)
+    GList *gAppInfos, *tmp_list;
+    auto contentTypeString = gnomeCmdFile->GetGfileContentTypeString();
+    gAppInfos = tmp_list = g_app_info_get_all_for_type(contentTypeString);
+    g_free(contentTypeString);
+    for (; gAppInfos && ii < MAX_OPEN_WITH_APPS; gAppInfos = gAppInfos->next)
     {
-        auto vfs_app = (GnomeVFSMimeApplication *) vfs_apps->data;
+        auto gAppInfoItem = (GAppInfo *) gAppInfos->data;
 
-        if (vfs_app)
+        if (gAppInfoItem)
         {
             OpenWithData *data = g_new0 (OpenWithData, 1);
 
             data->files = files;
-            data->app = gnome_cmd_app_new_from_vfs_app (vfs_app);
+            data->app = gnome_cmd_app_new_from_app_info (gAppInfoItem);
 
             gchar* openWithAppName  = g_strdup (gnome_cmd_app_get_name (data->app));
 
@@ -868,7 +858,7 @@ guint add_open_with_entries(GtkUIManager *ui_manager, GnomeCmdFileList *gnomeCmd
     }
 
     g_free(openWithDefaultAppName);
-    gnome_vfs_mime_application_list_free (tmp_list);
+    g_list_free (tmp_list);
     return newTopMenuItems;
 }
 

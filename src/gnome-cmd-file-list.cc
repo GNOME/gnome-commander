@@ -1188,19 +1188,20 @@ static void do_mime_exec_single (gpointer *args)
 {
     g_return_if_fail (args != nullptr);
 
-    auto app = static_cast<GnomeCmdApp*> (args[0]);
+    auto gnomeCmdApp = static_cast<GnomeCmdApp*> (args[0]);
     auto path = (gchar *) args[1];
     auto dpath = (gchar *) args[2];
 
-    string cmd = gnome_cmd_app_get_command (app);
-    cmd += ' ';
-    cmd += stringify (g_shell_quote (path));
+    auto gnomeCmdFile = gnome_cmd_file_new(path);
+    auto gFileList = new GList();
+    g_list_append(gFileList, gnomeCmdFile->gFile);
+    g_app_info_launch (gnomeCmdFile->GetAppInfoForContentType(), gFileList, nullptr, nullptr);
 
-    run_command_indir (cmd.c_str(), dpath, gnome_cmd_app_get_requires_terminal (app));
-
+    g_list_free(gFileList);
+    gnome_cmd_file_unref(gnomeCmdFile);
     g_free (path);
     g_free (dpath);
-    gnome_cmd_app_free (app);
+    gnome_cmd_app_free (gnomeCmdApp);
     g_free (args);
 }
 
@@ -1243,7 +1244,6 @@ static void mime_exec_single (GnomeCmdFile *f)
     g_return_if_fail (f->info != nullptr);
 
     gpointer *args;
-    GnomeVFSMimeApplication *vfs_app;
     GnomeCmdApp *app;
 
     if (!f->info->mime_type)
@@ -1300,8 +1300,8 @@ static void mime_exec_single (GnomeCmdFile *f)
             }
     }
 
-    vfs_app = gnome_vfs_mime_get_default_application (f->info->mime_type);
-    if (!vfs_app)
+    auto gAppInfo = f->GetAppInfoForContentType();
+    if (gAppInfo == nullptr)
     {
         gchar *msg = g_strdup_printf (_("No default application found for the MIME type %s."), f->info->mime_type);
         gnome_cmd_show_message (nullptr, msg, "Open the \"File types and programs\" page in the Control Center to add one.");
@@ -1309,26 +1309,27 @@ static void mime_exec_single (GnomeCmdFile *f)
         return;
     }
 
-    app = gnome_cmd_app_new_from_vfs_app (vfs_app);
-    gnome_vfs_mime_application_free (vfs_app);
+    app = gnome_cmd_app_new_from_app_info (gAppInfo);
 
     args = g_new0 (gpointer, 3);
 
     if (f->is_local())
     {
-        args[0] = (gpointer) app;
-        args[1] = (gpointer) f->get_real_path();
-        args[2] = (gpointer) g_path_get_dirname ((gchar *) args[1]);            // set exec dir for local files
-        do_mime_exec_single (args);
+        auto gFileList = new GList();
+        g_list_append(gFileList, f->gFile);
+        g_app_info_launch (gAppInfo, gFileList, nullptr, nullptr);
+        g_list_free(gFileList);
     }
     else
     {
         if (gnome_cmd_app_get_handles_uris (app) && gnome_cmd_data.options.honor_expect_uris)
         {
-            args[0] = (gpointer) app;
-            args[1] = (gpointer) f->get_uri_str();
-            // args[2] is NULL here (don't set exec dir for remote files)
-            do_mime_exec_single (args);
+            auto gFileFromUri = g_file_new_for_uri(f->get_uri_str());
+            auto gFileList = new GList();
+            g_list_append(gFileList, gFileFromUri);
+            g_app_info_launch (gAppInfo, gFileList, nullptr, nullptr);
+            g_object_unref(gFileFromUri);
+            g_list_free(gFileList);
         }
         else
         {
