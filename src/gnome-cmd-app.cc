@@ -126,8 +126,7 @@ GnomeCmdApp *gnome_cmd_app_new_from_vfs_app (GnomeVFSMimeApplication *vfs_app)
 {
     g_return_val_if_fail (vfs_app != nullptr, nullptr);
 
-    GtkIconTheme *theme = gtk_icon_theme_get_default ();
-    char *icon = panel_find_icon (theme, gnome_vfs_mime_application_get_icon (vfs_app), 16);
+    char *icon = panel_find_icon (gtk_icon_theme_get_default (), gnome_vfs_mime_application_get_icon (vfs_app), 16);
 
     GnomeCmdApp *rel_value = gnome_cmd_app_new_with_values (vfs_app->name,
                                           vfs_app->command,
