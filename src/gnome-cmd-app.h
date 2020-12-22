@@ -38,6 +38,7 @@ struct GnomeCmdApp
     gchar *name;
     gchar *cmd;
     gchar *icon_path;
+    GAppInfo *gAppInfo;
 
     AppTarget target;
     gchar *pattern_string;
@@ -62,7 +63,8 @@ GnomeCmdApp *gnome_cmd_app_new_with_values (const gchar *name,
                                             const gchar *pattern_string,
                                             gboolean handles_uris,
                                             gboolean handles_multiple,
-                                            gboolean requires_terminal);
+                                            gboolean requires_terminal,
+                                            GAppInfo *gAppInfo);
 
 GnomeCmdApp *gnome_cmd_app_dup (GnomeCmdApp *app);
 

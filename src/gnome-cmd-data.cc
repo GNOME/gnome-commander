@@ -2425,7 +2425,7 @@ void GnomeCmdData::load_fav_apps()
             gnome_cmd_data.options.fav_apps,
             gnome_cmd_app_new_with_values (
             name, command, iconPath, (AppTarget) target, pattern,
-            handlesUris, handlesMutiple, requiresTerminal));
+            handlesUris, handlesMutiple, requiresTerminal, nullptr));
 
 		g_variant_unref(favApp);
         g_free (name);

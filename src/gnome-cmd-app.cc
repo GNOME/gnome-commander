@@ -53,7 +53,8 @@ GnomeCmdApp *gnome_cmd_app_new_with_values (const gchar *name,
                                             const gchar *pattern_string,
                                             gboolean handles_uris,
                                             gboolean handles_multiple,
-                                            gboolean requires_terminal)
+                                            gboolean requires_terminal,
+                                            GAppInfo *gAppInfo)
 {
     GnomeCmdApp *app = gnome_cmd_app_new ();
 
@@ -66,6 +67,7 @@ GnomeCmdApp *gnome_cmd_app_new_with_values (const gchar *name,
     gnome_cmd_app_set_handles_uris (app, handles_uris);
     gnome_cmd_app_set_handles_multiple (app, handles_multiple);
     gnome_cmd_app_set_requires_terminal (app, requires_terminal);
+    app->gAppInfo = gAppInfo;
 
     return app;
 }
@@ -134,7 +136,8 @@ GnomeCmdApp *gnome_cmd_app_new_from_vfs_app (GnomeVFSMimeApplication *vfs_app)
                                           nullptr,
                                           vfs_app->expects_uris == GNOME_VFS_MIME_APPLICATION_ARGUMENT_TYPE_URIS,
                                           vfs_app->can_open_multiple_files,
-                                          vfs_app->requires_terminal);
+                                          vfs_app->requires_terminal,
+                                          nullptr);
     g_free (icon);
     return rel_value;
 }
@@ -144,17 +147,15 @@ GnomeCmdApp *gnome_cmd_app_new_from_app_info (GAppInfo *gAppInfo)
 {
     g_return_val_if_fail (gAppInfo != nullptr, nullptr);
 
-    GtkIconTheme *theme = gtk_icon_theme_get_default ();
-
-    GnomeCmdApp *rel_value = gnome_cmd_app_new_with_values (g_app_info_get_name (gAppInfo),
+    return gnome_cmd_app_new_with_values (g_app_info_get_name (gAppInfo),
                                           g_app_info_get_commandline (gAppInfo),
                                           get_default_application_icon_path(gAppInfo),
                                           APP_TARGET_ALL_FILES,
                                           nullptr,
                                           g_app_info_supports_uris (gAppInfo),
                                           true,
-                                          false);
-    return rel_value;
+                                          false,
+                                          gAppInfo);
 }
 
 
@@ -167,7 +168,8 @@ GnomeCmdApp *gnome_cmd_app_dup (GnomeCmdApp *app)
                                           app->pattern_string,
                                           app->handles_uris,
                                           app->handles_multiple,
-                                          app->requires_terminal);
+                                          app->requires_terminal,
+                                          app->gAppInfo);
 }
 
 

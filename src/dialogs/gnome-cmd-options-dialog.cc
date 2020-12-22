@@ -1374,7 +1374,7 @@ static void on_add_app_dialog_ok (GtkButton *button, GtkWidget *dialog)
     GnomeCmdApp *app = gnome_cmd_app_new_with_values (name, cmd, icon_path,
                                                       (AppTarget) target,
                                                       pattern_string,
-                                                      handles_uris, handles_multiple, requires_terminal);
+                                                      handles_uris, handles_multiple, requires_terminal, nullptr);
     gnome_cmd_data.options.add_fav_app(app);
     add_app_to_list (GTK_CLIST (clist), app);
     gtk_widget_destroy (dialog);
