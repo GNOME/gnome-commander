@@ -77,11 +77,36 @@ static void do_mime_exec_multiple (gpointer *args)
 
     if (files)
     {
-        string cmdString = gnome_cmd_app_get_command (gnomeCmdApp);
+        if(gnomeCmdApp->gAppInfo != nullptr)
+        {
+            // gio app
+            DEBUG('g', "Launching \"%s\"\n", g_app_info_get_commandline(gnomeCmdApp->gAppInfo));
+            g_app_info_launch(gnomeCmdApp->gAppInfo, files, nullptr, nullptr);
+        }
+        else
+        {
+            // own app
+            string cmdString = gnome_cmd_app_get_command (gnomeCmdApp);
 
-        DEBUG('g', "Launching \"%s\"\n", g_app_info_get_commandline(gnomeCmdApp->gAppInfo));
+            set<string> dirs;
+            auto files_tmp = files;
 
-        g_app_info_launch(gnomeCmdApp->gAppInfo, files, nullptr, nullptr);
+            for (; files_tmp; files_tmp = files_tmp->next)
+            {
+                cmdString += ' ';
+                cmdString += stringify (g_shell_quote ( g_file_get_path((GFile *) files_tmp->data)));
+
+                gchar *dpath = g_path_get_dirname (g_file_get_path((GFile *) files_tmp->data));
+
+                if (dpath)
+                    dirs.insert (stringify (dpath));
+            }
+
+            if (dirs.size()==1)
+                run_command_indir (cmdString.c_str(), dirs.begin()->c_str(), gnome_cmd_app_get_requires_terminal (gnomeCmdApp));
+            else
+                run_command_indir (cmdString.c_str(), nullptr, gnome_cmd_app_get_requires_terminal (gnomeCmdApp));
+        }
 
         g_list_free (files);
     }
