@@ -780,13 +780,13 @@ guint add_open_with_entries(GtkUIManager *ui_manager, GnomeCmdFileList *gnomeCmd
 
     // Only try to find a default application for the first file in the list of selected files
     openWithDefaultAppName  = gnomeCmdFile->get_default_application_name_string();
-    auto appInfo = gnomeCmdFile->GetAppInfoForContentType();
-    openWithDefaultAppLabel = gnomeCmdFile->get_default_application_action_label(appInfo);
+    auto gAppInfo = gnomeCmdFile->GetAppInfoForContentType();
+    openWithDefaultAppLabel = gnomeCmdFile->get_default_application_action_label(gAppInfo);
 
     if (openWithDefaultAppName != nullptr)
     {
         // Add the default "Open" menu entry at the top of the popup
-        defaultAppIconPath = g_strdup(get_default_application_icon_path(appInfo));
+        defaultAppIconPath = g_strdup(get_default_application_icon_path(gAppInfo));
         appStockId = register_application_stock_icon(openWithDefaultAppName, defaultAppIconPath);
         dynAction = gtk_action_new ("Open", openWithDefaultAppLabel, nullptr, appStockId);
         g_signal_connect (dynAction, "activate", G_CALLBACK (cb_exec_default), files);
