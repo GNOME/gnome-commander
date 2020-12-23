@@ -185,6 +185,44 @@ GnomeCmdFile *gnome_cmd_file_new_from_uri (GnomeVFSURI *uri)
     return gnome_cmd_file_new (info, dir);
 }
 
+#if 0
+static void add_file_callback(GObject *direnum,
+                GAsyncResult *result,
+                gpointer user_data){
+    GError *error = NULL;
+    GList *file_list = g_file_enumerator_next_files_finish(
+                    G_FILE_ENUMERATOR(direnum),
+                    result, &error);
+    if( error ){
+        g_critical("Unable to add files to list, error: %s", error->message);
+        g_object_unref(direnum);
+        g_error_free(error);
+        return;
+    }else if( file_list == NULL ){
+        /* Done listing */
+        g_object_unref(direnum);
+        return;
+    }else{
+
+        GList *node = file_list;
+        GFileInfo *info;
+        GtkTreeIter iter;
+        while(node){
+            info = node->data;
+            node = node->next;
+            ...add to store
+            g_object_unref(info);
+        }
+        g_file_enumerator_next_files_async(G_FILE_ENUMERATOR(direnum),
+                        BLOCK_SIZE,
+                        G_PRIORITY_LOW,
+                        NULL,
+                        add_file_callback,
+                        list);
+    }
+    g_list_free(file_list);
+}
+#endif
 
 void GnomeCmdFile::invalidate_metadata()
 {
@@ -226,6 +264,32 @@ void gnome_cmd_file_setup (GnomeCmdFile *f, GnomeVFSFileInfo *info, GnomeCmdDir 
     }
 
     gnome_vfs_file_info_ref (f->info);
+
+    //auto fUriString = f->get_uri_str();
+    auto fUriString = f->get_path();
+
+    if (fUriString)
+    {
+        f->gFile = g_file_new_for_path(fUriString);
+        printf("g_file_path: %s\n", g_file_get_path(f->gFile));
+        g_free(fUriString);
+
+        GError *error;
+        error = nullptr;
+
+        f->gFileInfo = g_file_query_info(f->gFile,
+                           "standard::content-type",
+                           G_FILE_QUERY_INFO_NOFOLLOW_SYMLINKS,
+                           nullptr,
+                           &error);
+
+        if (f->gFileInfo && error)
+        {
+            g_message ("retrieving file info failed: %s", error->message);
+            g_error_free (error);
+            exit (EXIT_FAILURE);
+        }
+    }
 }
 
 
@@ -412,6 +476,87 @@ gchar *GnomeCmdFile::get_unescaped_dirname()
     g_free (path);
 
     return unescaped_path;
+}
+
+
+GAppInfo *GnomeCmdFile::GetAppInfoForContentType()
+{
+    auto contentTypeString = this->GetGfileContentTypeString();
+    auto appInfo = g_app_info_get_default_for_type (contentTypeString, false);
+    g_free(contentTypeString);
+
+    return appInfo;
+}
+
+
+gchar *GnomeCmdFile::GetGfileContentTypeString()
+{
+    GError *error;
+    error = nullptr;
+    auto gcmdFileInfo = g_file_query_info(gFile,
+                                   "standard::content-type",
+                                   G_FILE_QUERY_INFO_NOFOLLOW_SYMLINKS,
+                                   nullptr,
+                                   &error);
+    if (gcmdFileInfo && error)
+    {
+        g_message ("retrieving file info failed: %s", error->message);
+        g_error_free (error);
+        exit (EXIT_FAILURE);
+    }
+
+    auto gFileContentTypeString = g_strdup(g_file_info_get_attribute_string (gcmdFileInfo, "standard::content-type"));
+    g_object_unref(gcmdFileInfo);
+
+    return gFileContentTypeString;
+}
+
+
+gchar *GnomeCmdFile::get_default_application_name_string()
+{
+    gchar *contentType = nullptr;
+
+    contentType = g_file_info_get_attribute_as_string (gFileInfo, "standard::content-type");
+
+    auto appInfo = g_app_info_get_default_for_type (contentType, false);
+
+    g_free(contentType);
+    return g_strdup(g_app_info_get_name (appInfo));
+}
+
+
+gchar *GnomeCmdFile::get_default_application_action_label(GAppInfo *gAppInfo)
+{
+    gchar *escaped_app_name = get_default_application_name (gAppInfo);
+    if (escaped_app_name == nullptr)
+    {
+        return g_strdup (_("_Open"));
+    }
+
+    gchar *retval = g_strdup_printf (_("_Open with “%s”"), escaped_app_name);
+    g_free (escaped_app_name);
+
+    return retval;
+}
+
+
+gchar *GnomeCmdFile::get_default_application_name(GAppInfo *gAppInfo)
+{
+    gchar *escaped_app_name = string_double_underscores (g_app_info_get_name (gAppInfo));
+
+    return escaped_app_name;
+}
+
+
+GnomeVFSMimeApplication *GnomeCmdFile::get_default_gnome_vfs_app_for_mime_type()
+{
+    g_return_val_if_fail (GNOME_CMD_IS_FILE (this), nullptr);
+
+    auto uri_str = this->get_uri_str();
+    auto *app = gnome_vfs_mime_get_default_application_for_uri (uri_str, this->info->mime_type);
+
+    g_free (uri_str);
+    return app;
 }
 
 

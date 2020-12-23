@@ -1179,3 +1179,32 @@ gchar* get_package_config_dir()
 {
     return g_build_filename (g_get_user_config_dir(), PACKAGE, NULL);
 }
+
+
+gchar *string_double_underscores (const gchar *string)
+{
+    if (!string)
+        return nullptr;
+
+    int underscores = 0;
+
+    for (const gchar *p = string; *p; p++)
+        underscores += (*p == '_');
+
+    if (underscores == 0)
+        return g_strdup (string);
+
+    gchar *escaped = g_new (char, strlen (string) + underscores + 1);
+    gchar *q = escaped;
+
+    for (const gchar *p = string; *p; p++, q++)
+    {
+        /* Add an extra underscore. */
+        if (*p == '_')
+            *q++ = '_';
+        *q = *p;
+    }
+    *q = '\0';
+
+    return escaped;
+}

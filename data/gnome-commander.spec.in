@@ -41,6 +41,7 @@ BuildRequires: scrollkeeper
 BuildRequires: gettext >= 0.19.7
 BuildRequires: glib2-devel >= @GLIB_REQ@
 BuildRequires: gtk2-devel >= @GTK_REQ@
+BuildRequires: gio-2.0
 BuildRequires: gnome-vfs2-devel >= @GNOMEVFS_REQ@
 BuildRequires: yelp-tools
 BuildRequires: perl(XML::Parser)
@@ -160,6 +161,9 @@ scrollkeeper-update -q || :
 %{_datadir}/glib-2.0/schemas/org.gnome.%{name}.gschema.xml
 
 %changelog
+* Thu Dec 20 2020 Uwe Scholz <u.scholz83@gmx.de>
+- add explicit gio-2.0 dependency
+
 * Thu Jun 18 2020 Uwe Scholz <u.scholz83@gmx.de>
 - remove gnome-keyring-1 dependency
 

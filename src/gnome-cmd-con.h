@@ -91,10 +91,10 @@ struct GnomeCmdCon
     gchar               *open_msg;
     GnomeCmdPath        *base_path;
     GnomeVFSFileInfo    *base_info;
-    GString             *root_path;             // root path of the connection, used for calculation of relative paths
+    GString             *root_path;             // Root path of the connection, used for calculation of relative paths
     gboolean            should_remember_dir;
     gboolean            needs_open_visprog;
-    gboolean            needs_list_visprog;
+    gboolean            needs_list_visprog;     // Defines if a graphical progress bar should be drawn when opening a folder
     gboolean            can_show_free_space;
     State               state;
     gboolean            is_local;

@@ -82,6 +82,7 @@ static CacheEntry file_type_pixmaps[NUM_FILE_TYPE_PIXMAPS];
 static GHashTable *mime_cache = nullptr;
 static GdkPixbuf *symlink_pixbuf = nullptr;
 
+static const gint ICON_SIZE = 16;
 
 static gboolean load_icon (const gchar *icon_path, GdkPixmap **pm, GdkBitmap **bm, GdkPixmap **lpm, GdkBitmap **lbm);
 
@@ -583,4 +584,25 @@ char* register_application_stock_icon(const char* applicationName, const char* d
     g_object_unref (icon_factory);
 
     return stockId;
+}
+
+/**
+ * This method returns the path of the default application icon for a given GAppInfo object.
+ * The returned char must not be free'ed.
+ */
+const gchar* get_default_application_icon_path(GAppInfo* appInfo)
+{
+    g_return_val_if_fail (appInfo, nullptr);
+
+    auto appIconName = g_icon_to_string (g_app_info_get_icon(appInfo));
+    auto gtkIconInfo = gtk_icon_theme_lookup_icon (gtk_icon_theme_get_default(), appIconName, ICON_SIZE, GTK_ICON_LOOKUP_FORCE_SIZE);
+
+    g_free(appIconName);
+
+    if (gtkIconInfo == nullptr)
+    {
+        return nullptr;
+    }
+
+    return gtk_icon_info_get_filename(gtkIconInfo);
 }

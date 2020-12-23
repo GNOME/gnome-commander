@@ -51,6 +51,102 @@
             </entry>
         </row>
         <row valign="top">
+            <entry><para>1.10.3</para></entry>
+            <entry><para>2020-06-19</para></entry>
+            <entry>
+                <para>Bug fixes:</para>
+                <para>
+                    <itemizedlist>
+                        <listitem>
+                            <para>Fixed issue #29 (Migrate deprecated GnomeFileEntry to GtkFileChooserButton)</para>
+                        </listitem>
+                        <listitem>
+                            <para>Fixed issue #34 (Get rid of deprecated libgnome and libgnomeui)</para>
+                        </listitem>
+                        <listitem>
+                            <para>Fixed issue #65 (Search options: 'copy file name' does not work)</para>
+                        </listitem>
+                        <listitem>
+                            <para>Switch from nautilus-sendto to xdg-email as default send-to command</para>
+                        </listitem>
+                    </itemizedlist>
+                </para>
+                <para>New features:</para>
+                <para>
+                    <itemizedlist>
+                        <listitem>
+                            <para>InternalViewer: Show metadata file information by default</para>
+                        </listitem>
+                        <listitem>
+                            <para>Minor memory management improvements</para>
+                        </listitem>
+                        <listitem>
+                            <para>New or updated translations: cs, de, es, eu, id, id, pl, pt_BR, pt_BR, sv, uk</para>
+                        </listitem>
+                        <listitem>
+                            <para>New or updated docs: cs, es</para>
+                        </listitem>
+                    </itemizedlist>
+                </para>
+            </entry>
+        </row>
+        <row valign="top">
+            <entry><para>1.10.2</para></entry>
+            <entry><para>2019-05-16</para></entry>
+            <entry>
+                <para>Bug fixes:</para>
+                <para>
+                    <itemizedlist>
+                        <listitem>
+                            <para>Fix for compilation error with exiv2 0.27.1 (Thanks to Mamoru Tasaka)</para>
+                        </listitem>
+                    </itemizedlist>
+                </para>
+                <para>New features:</para>
+                <para>
+                    <itemizedlist>
+                        <listitem>
+                            <para>New or updated docs: es</para>
+                        </listitem>
+                    </itemizedlist>
+                </para>
+            </entry>
+        </row>
+        <row valign="top">
+            <entry><para>1.10.1</para></entry>
+            <entry><para>2019-05-12</para></entry>
+            <entry>
+                <para>Bug fixes:</para>
+                <para>
+                    <itemizedlist>
+                        <listitem>
+                            <para>...</para>
+                        </listitem>
+                        <listitem>
+                            <para>Removed gnome-config references, fixing bgo#570733 and issue #27 on GitLab</para>
+                        </listitem>
+                    </itemizedlist>
+                </para>
+                <para>New features:</para>
+                <para>
+                    <itemizedlist>
+                        <listitem>
+                            <para>...</para>
+                        </listitem>
+                        <listitem>
+                            <para>Search window can be optionally minimized or moved below the main window</para>
+                        </listitem>
+                        <listitem>
+                            <para>New or updated translations: ar, bg dz, de, en_CA, en_GB, es, ga, hr, hu, ne, pl, pt_BR, rw, sq, vi, zh_TW</para>
+                        </listitem>
+                        <listitem>
+                            <para>New or updated docs: de, es</para>
+                        </listitem>
+                    </itemizedlist>
+                </para>
+            </entry>
+        </row>
+        <row valign="top">
             <entry><para>1.10.0</para></entry>
             <entry><para>2019-03-31</para></entry>
             <entry>
