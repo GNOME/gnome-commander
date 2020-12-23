@@ -47,13 +47,15 @@
 
 using namespace std;
 
+bool getAudioProperties(GnomeCmdFileMetadata &metadata, const TagLib::AudioProperties *properties);
+bool readTags(GnomeCmdFileMetadata &metadata, const TagLib::Ogg::XiphComment *oggTag);
 
 #ifdef HAVE_ID3
 static DICT<GnomeCmdTag> id3v2tags(TAG_NONE);
 static DICT<GnomeCmdTag> oggtags(TAG_NONE);
 
 
-inline bool getAudioProperties(GnomeCmdFileMetadata &metadata, const TagLib::AudioProperties *properties)
+bool getAudioProperties(GnomeCmdFileMetadata &metadata, const TagLib::AudioProperties *properties)
 {
     if (!properties)
         return false;
@@ -247,7 +249,7 @@ static void readTags(GnomeCmdFileMetadata &metadata, const TagLib::ID3v2::Tag *i
 }
 
 
-inline bool readTags(GnomeCmdFileMetadata &metadata, const TagLib::Ogg::XiphComment *oggTag)
+bool readTags(GnomeCmdFileMetadata &metadata, const TagLib::Ogg::XiphComment *oggTag)
 {
     metadata.add(TAG_VORBIS_VENDOR, oggTag->vendorID().to8Bit(true));
 

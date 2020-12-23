@@ -22,5 +22,8 @@
 #pragma once
 
 #include "gnome-cmd-dir.h"
+using namespace std;
+
+GSList *make_uri_list (GnomeCmdDir *dir, string filename);
 
 gboolean gnome_cmd_mkdir_dialog_new (GnomeCmdDir *dir, GnomeCmdFile *selected_file=NULL);

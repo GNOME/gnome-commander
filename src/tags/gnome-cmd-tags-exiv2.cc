@@ -45,7 +45,7 @@ static DICT<GnomeCmdTag> exiv2_tags(TAG_NONE);
 
 
 template <typename T>
-inline void readTags(GnomeCmdFileMetadata *metadata, const T &data)
+void readTags(GnomeCmdFileMetadata *metadata, const T &data)
 {
     if (data.empty())  return;
 

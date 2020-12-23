@@ -58,6 +58,11 @@ using namespace std;
  * Functions for using GSettings
  ***********************************/
 
+GtkWidget *gviewer_window_new ()
+{
+    return (GtkWidget *) g_object_new (gviewer_window_get_type (), NULL);
+}
+
 struct _InternalViewerSettings
 {
     GObject parent;
@@ -148,8 +153,8 @@ static gboolean gviewer_window_key_pressed(GtkWidget *widget, GdkEventKey *event
 
 static GtkWidget *gviewer_window_create_menus(GViewerWindow *gViewerWindow);
 
-inline void gviewer_window_show_metadata(GViewerWindow *gViewerWindow);
-inline void gviewer_window_hide_metadata(GViewerWindow *gViewerWindow);
+void gviewer_window_show_metadata(GViewerWindow *gViewerWindow);
+void gviewer_window_hide_metadata(GViewerWindow *gViewerWindow);
 
 gboolean gviewerwindow_get_metadata_visble(GViewerWindow *gViewerWindow);
 
@@ -180,8 +185,8 @@ static void menu_settings_save_settings(GtkMenuItem *item, GViewerWindow *gViewe
 static void menu_help_quick_help(GtkMenuItem *item, GViewerWindow *gViewerWindow);
 static void menu_help_keyboard(GtkMenuItem *item, GViewerWindow *gViewerWindow);
 
-inline GtkTreeModel *create_model ();
-inline void fill_model (GtkTreeStore *treestore, GnomeCmdFile *f);
+GtkTreeModel *create_model ();
+void fill_model (GtkTreeStore *treestore, GnomeCmdFile *f);
 GtkWidget *create_view ();
 
 /*****************************************
@@ -1211,7 +1216,7 @@ static void menu_help_keyboard(GtkMenuItem *item, GViewerWindow *gViewerWindow)
 }
 
 
-inline void gviewer_window_show_metadata(GViewerWindow *gViewerWindow)
+void gviewer_window_show_metadata(GViewerWindow *gViewerWindow)
 {
     g_return_if_fail (gViewerWindow != nullptr);
     g_return_if_fail (gViewerWindow->priv->f != nullptr);
@@ -1247,7 +1252,7 @@ inline void gviewer_window_show_metadata(GViewerWindow *gViewerWindow)
 }
 
 
-inline void gviewer_window_hide_metadata(GViewerWindow *gViewerWindow)
+void gviewer_window_hide_metadata(GViewerWindow *gViewerWindow)
 {
     g_return_if_fail (gViewerWindow);
 
@@ -1275,7 +1280,7 @@ enum
 } ;
 
 
-inline GtkTreeModel *create_model ()
+GtkTreeModel *create_model ()
 {
     GtkTreeStore *tree = gtk_tree_store_new (NUM_COLS,
                                              G_TYPE_UINT,
@@ -1287,7 +1292,7 @@ inline GtkTreeModel *create_model ()
 }
 
 
-inline void fill_model (GtkTreeStore *tree, GnomeCmdFile *f)
+void fill_model (GtkTreeStore *tree, GnomeCmdFile *f)
 {
     if (!gcmd_tags_bulk_load (f))
         return;

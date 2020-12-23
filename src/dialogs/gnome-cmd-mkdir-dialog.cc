@@ -30,7 +30,7 @@
 using namespace std;
 
 
-inline GSList *make_uri_list (GnomeCmdDir *dir, string filename)
+GSList *make_uri_list (GnomeCmdDir *dir, string filename)
 {
     g_return_val_if_fail (GNOME_CMD_IS_DIR (dir), NULL);
 

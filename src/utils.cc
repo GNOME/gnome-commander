@@ -1052,6 +1052,13 @@ void gnome_cmd_help_display (const gchar *file_name, const gchar *link_id)
 }
 
 
+void gnome_cmd_error_message (const gchar *title, GError *error)
+{
+    gnome_cmd_prompt_message (NULL, GTK_MESSAGE_ERROR, GTK_BUTTONS_OK, title, error->message);
+    g_error_free (error);
+}
+
+
 gboolean gnome_cmd_prepend_su_to_vector (int &argc, char **&argv)
 {
     // sanity

@@ -1,5 +1,5 @@
 /** 
- * @file gnome-cmd-edit-profile-dialog.h
+ * @FILE gnome-cmd-edit-profile-dialog.h
  * @copyright (C) 2001-2006 Marcus Bjurman\n
  * @copyright (C) 2007-2012 Piotr Eljasiak\n
  * @copyright (C) 2013-2020 Uwe Scholz\n
@@ -75,7 +75,7 @@ namespace GnomeCmd
     }
 
     template <typename PROFILE, typename COMPONENT>
-    inline EditProfileDialog<PROFILE,COMPONENT>::EditProfileDialog(GtkWindow *parent, PROFILE &profile, const char *id):  help_id(id)
+    EditProfileDialog<PROFILE,COMPONENT>::EditProfileDialog(GtkWindow *parent, PROFILE &profile, const char *id):  help_id(id)
     {
         GtkWidget *dialog = gtk_dialog_new_with_buttons (_("Edit Profile"), parent,
                                                          GtkDialogFlags (GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT),

@@ -39,6 +39,14 @@ using namespace std;
 #define GNOME_CMD_IS_KEY_SHORTCUTS_DIALOG(obj)       (G_TYPE_CHECK_INSTANCE_TYPE ((obj), GNOME_CMD_TYPE_KEY_SHORTCUTS_DIALOG)
 
 
+GtkTreeViewColumn *create_new_accel_column (GtkTreeView *view, GtkCellRenderer *&renderer, gint COL_KEYS_ID, gint COL_MODS_ID, const gchar *title);
+GtkTreeViewColumn *create_new_combo_column (GtkTreeView *view, GtkTreeModel *model, GtkCellRenderer *&renderer, gint COL_ID, const gchar *title);
+gboolean conflict_confirm (GtkWidget *view, const gchar *action, guint accel_key, GdkModifierType accel_mask);
+gboolean equal_accel (GtkTreeModel *model, GtkTreeIter *i, guint key, GdkModifierType mask);
+gboolean find_accel (GtkTreeModel *model, GtkTreeIter *i, guint key, GdkModifierType mask);
+void set_accel (GtkTreeModel *model, GtkTreePath *path, guint accel_key, GdkModifierType accel_mask);
+
+
 struct GnomeCmdKeyShortcutsDialogPrivate
 {
     GnomeCmdKeyShortcutsDialogPrivate();
@@ -61,10 +69,9 @@ struct GnomeCmdKeyShortcutsDialogClass
 };
 
 
-inline GnomeCmdKeyShortcutsDialogPrivate::GnomeCmdKeyShortcutsDialogPrivate()
+GnomeCmdKeyShortcutsDialogPrivate::GnomeCmdKeyShortcutsDialogPrivate()
 {
 }
-
 
 GnomeCmdUserActions *GnomeCmdKeyShortcutsDialog::user_actions = NULL;
 
@@ -177,8 +184,8 @@ static void gnome_cmd_key_shortcuts_dialog_class_init (GnomeCmdKeyShortcutsDialo
 }
 
 
-inline GtkWidget *create_view_and_model (GnomeCmdUserActions &user_actions);
-inline GtkTreeModel *create_and_fill_model (GnomeCmdUserActions &user_actions);
+GtkWidget *create_view_and_model (GnomeCmdUserActions &user_actions);
+GtkTreeModel *create_and_fill_model (GnomeCmdUserActions &user_actions);
 
 static void accel_edited_callback (GtkCellRendererAccel *accel, const char *path_string, guint accel_key, GdkModifierType accel_mask, guint hardware_keycode, GtkWidget *view);
 static void cell_edited_callback (GtkCellRendererText *cell, gchar *path_string, gchar *new_text, GtkWidget *view);
@@ -268,7 +275,7 @@ gboolean gnome_cmd_key_shortcuts_dialog_new (GnomeCmdUserActions &user_actions)
 }
 
 
-inline GtkTreeViewColumn *create_new_accel_column (GtkTreeView *view, GtkCellRenderer *&renderer, gint COL_KEYS_ID, gint COL_MODS_ID, const gchar *title=NULL)
+GtkTreeViewColumn *create_new_accel_column (GtkTreeView *view, GtkCellRenderer *&renderer, gint COL_KEYS_ID, gint COL_MODS_ID, const gchar *title=NULL)
 {
     renderer = egg_cell_renderer_keys_new ();
 
@@ -294,7 +301,7 @@ inline GtkTreeViewColumn *create_new_accel_column (GtkTreeView *view, GtkCellRen
 }
 
 
-inline GtkTreeViewColumn *create_new_combo_column (GtkTreeView *view, GtkTreeModel *model, GtkCellRenderer *&renderer, gint COL_ID, const gchar *title=NULL)
+GtkTreeViewColumn *create_new_combo_column (GtkTreeView *view, GtkTreeModel *model, GtkCellRenderer *&renderer, gint COL_ID, const gchar *title=NULL)
 {
     renderer = gtk_cell_renderer_combo_new ();
 
@@ -331,7 +338,7 @@ enum
 };
 
 
-inline GtkWidget *create_view_and_model (GnomeCmdUserActions &user_actions)
+GtkWidget *create_view_and_model (GnomeCmdUserActions &user_actions)
 {
     GtkWidget *view = gtk_tree_view_new ();
 
@@ -443,7 +450,7 @@ static gint sort_by_accel (GtkTreeModel *model, GtkTreeIter *i1, GtkTreeIter *i2
 }
 
 
-inline GtkTreeModel *create_and_fill_model (GnomeCmdUserActions &user_actions)
+GtkTreeModel *create_and_fill_model (GnomeCmdUserActions &user_actions)
 {
     GtkListStore *store = gtk_list_store_new (NUM_COLUMNS,
                                               G_TYPE_UINT,              //  COL_ACCEL_KEY
@@ -479,7 +486,7 @@ inline GtkTreeModel *create_and_fill_model (GnomeCmdUserActions &user_actions)
 }
 
 
-inline gboolean conflict_confirm (GtkWidget *view, const gchar *action, guint accel_key, GdkModifierType accel_mask)
+gboolean conflict_confirm (GtkWidget *view, const gchar *action, guint accel_key, GdkModifierType accel_mask)
 {
     gchar *accel_string = egg_accelerator_get_label (accel_key, accel_mask);
 
@@ -507,7 +514,7 @@ inline gboolean conflict_confirm (GtkWidget *view, const gchar *action, guint ac
 }
 
 
-inline gboolean equal_accel (GtkTreeModel *model, GtkTreeIter *i, guint key, GdkModifierType mask)
+gboolean equal_accel (GtkTreeModel *model, GtkTreeIter *i, guint key, GdkModifierType mask)
 {
     guint accel_key  = 0;
     GdkModifierType accel_mask = (GdkModifierType) 0;
@@ -521,7 +528,7 @@ inline gboolean equal_accel (GtkTreeModel *model, GtkTreeIter *i, guint key, Gdk
 }
 
 
-inline gboolean find_accel (GtkTreeModel *model, GtkTreeIter *i, guint key, GdkModifierType mask)
+gboolean find_accel (GtkTreeModel *model, GtkTreeIter *i, guint key, GdkModifierType mask)
 {
     gboolean valid_iter;
 
@@ -533,7 +540,7 @@ inline gboolean find_accel (GtkTreeModel *model, GtkTreeIter *i, guint key, GdkM
 }
 
 
-inline void set_accel (GtkTreeModel *model, GtkTreePath *path, guint accel_key, GdkModifierType accel_mask)
+void set_accel (GtkTreeModel *model, GtkTreePath *path, guint accel_key, GdkModifierType accel_mask)
 {
     GtkTreeIter iter;
 

@@ -580,7 +580,7 @@ void GnomeCmdAdvrenameProfileComponent::Private::insert_num_tag(GnomeCmdAdvrenam
 }
 
 
-inline gchar *GnomeCmdAdvrenameProfileComponent::Private::get_selected_range (GtkWindow *parent, const gchar *title, const gchar *placeholder, const gchar *filename)
+gchar *GnomeCmdAdvrenameProfileComponent::Private::get_selected_range (GtkWindow *parent, const gchar *title, const gchar *placeholder, const gchar *filename)
 {
     if (!filename)
         filename = "Lorem ipsum dolor sit amet, consectetur adipisici elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. " \

@@ -31,8 +31,24 @@
 
 using namespace std;
 
+GtkWidget *create_filter_tab (GtkWidget *parent, GnomeCmdData::Options &cfg);
+GtkWidget *create_font_picker (GtkWidget *parent, const gchar *name);
+GtkWidget *create_tabs_tab (GtkWidget *parent, GnomeCmdData::Options &cfg);
+void add_app_to_list (GtkCList *clist, GnomeCmdApp *app);
+void add_device_to_list (GtkCList *clist, GnomeCmdConDevice *dev);
+void get_device_dialog_values (GtkWidget *dialog, gchar **alias, gchar **device_utf8, gchar **mountp_utf8, gchar **icon_path);
+void store_confirmation_options (GtkWidget *dialog, GnomeCmdData::Options &cfg);
+void store_devices_options (GtkWidget *dialog, GnomeCmdData::Options &cfg);
+void store_filter_options (GtkWidget *dialog, GnomeCmdData::Options &cfg);
+void store_format_options (GtkWidget *dialog, GnomeCmdData::Options &cfg);
+void store_general_options (GtkWidget *dialog, GnomeCmdData::Options &cfg);
+void store_layout_options (GtkWidget *dialog, GnomeCmdData::Options &cfg);
+void store_programs_options (GtkWidget *dialog, GnomeCmdData::Options &cfg);
+void store_tabs_options (GtkWidget *dialog, GnomeCmdData::Options &cfg);
+void update_app_in_list (GtkCList *clist, GnomeCmdApp *app);
+void update_device_in_list (GtkCList *clist, GnomeCmdConDevice *dev, gchar *alias, gchar *device_fn, gchar *mountp, gchar *icon_path);
 
-inline GtkWidget *create_font_picker (GtkWidget *parent, const gchar *name)
+GtkWidget *create_font_picker (GtkWidget *parent, const gchar *name)
 {
     GtkWidget *w = gtk_font_button_new ();
     g_object_ref (w);
@@ -239,7 +255,7 @@ static GtkWidget *create_general_tab (GtkWidget *parent, GnomeCmdData::Options &
 }
 
 
-inline void store_general_options (GtkWidget *dialog, GnomeCmdData::Options &cfg)
+void store_general_options (GtkWidget *dialog, GnomeCmdData::Options &cfg)
 {
     GtkWidget *lmb_singleclick_radio = lookup_widget (dialog, "lmb_singleclick_radio");
     GtkWidget *lmb_unselects_check = lookup_widget (dialog, "lmb_unselects_check");
@@ -414,7 +430,7 @@ static GtkWidget *create_format_tab (GtkWidget *parent, GnomeCmdData::Options &c
 }
 
 
-inline void store_format_options (GtkWidget *dialog, GnomeCmdData::Options &cfg)
+void store_format_options (GtkWidget *dialog, GnomeCmdData::Options &cfg)
 {
     GtkWidget *size_powered_radio = lookup_widget (dialog, "size_powered_radio");
     GtkWidget *size_locale_radio = lookup_widget (dialog, "size_locale_radio");
@@ -869,7 +885,7 @@ static GtkWidget *create_layout_tab (GtkWidget *parent, GnomeCmdData::Options &c
 }
 
 
-inline void store_layout_options (GtkWidget *dialog, GnomeCmdData::Options &cfg)
+void store_layout_options (GtkWidget *dialog, GnomeCmdData::Options &cfg)
 {
     GtkWidget *iconsize_spin       = lookup_widget (dialog, "iconsize_spin");
     GtkWidget *iconquality_scale   = lookup_widget (dialog, "iconquality_scale");
@@ -925,7 +941,7 @@ inline void store_layout_options (GtkWidget *dialog, GnomeCmdData::Options &cfg)
  *
  **********************************************************************/
 
-inline GtkWidget *create_tabs_tab (GtkWidget *parent, GnomeCmdData::Options &cfg)
+GtkWidget *create_tabs_tab (GtkWidget *parent, GnomeCmdData::Options &cfg)
 {
     GtkWidget *frame, *hbox, *scrolled_window, *vbox, *cat, *cat_box;
     GtkWidget *radio, *check;
@@ -975,7 +991,7 @@ inline GtkWidget *create_tabs_tab (GtkWidget *parent, GnomeCmdData::Options &cfg
 }
 
 
-inline void store_tabs_options (GtkWidget *dialog, GnomeCmdData::Options &cfg)
+void store_tabs_options (GtkWidget *dialog, GnomeCmdData::Options &cfg)
 {
     GtkWidget *always_show_tabs = lookup_widget (dialog, "always_show_tabs");
     GtkWidget *tab_lock_icon_radio = lookup_widget (dialog, "tab_lock_icon_radio");
@@ -1089,7 +1105,7 @@ static GtkWidget *create_confirmation_tab (GtkWidget *parent, GnomeCmdData::Opti
 }
 
 
-inline void store_confirmation_options (GtkWidget *dialog, GnomeCmdData::Options &cfg)
+void store_confirmation_options (GtkWidget *dialog, GnomeCmdData::Options &cfg)
 {
     GtkWidget *confirm_delete_check = lookup_widget (dialog, "confirm_delete_check");
     GtkWidget *delete_default_check = lookup_widget (dialog, "delete_default_check");
@@ -1143,7 +1159,7 @@ static void on_filter_backup_files_toggled (GtkToggleButton *btn, GtkWidget *dia
 }
 
 
-inline GtkWidget *create_filter_tab (GtkWidget *parent, GnomeCmdData::Options &cfg)
+GtkWidget *create_filter_tab (GtkWidget *parent, GnomeCmdData::Options &cfg)
 {
     GtkWidget *frame, *hbox, *vbox, *scrolled_window, *cat, *cat_box;
     GtkWidget *check, *backup_check, *entry;
@@ -1218,7 +1234,7 @@ inline GtkWidget *create_filter_tab (GtkWidget *parent, GnomeCmdData::Options &c
 }
 
 
-inline void store_filter_options (GtkWidget *dialog, GnomeCmdData::Options &cfg)
+void store_filter_options (GtkWidget *dialog, GnomeCmdData::Options &cfg)
 {
     GtkWidget *hide_unknown_check = lookup_widget (dialog, "hide_unknown_check");
     GtkWidget *hide_regular_check = lookup_widget (dialog, "hide_regular_check");
@@ -1271,7 +1287,7 @@ inline void store_filter_options (GtkWidget *dialog, GnomeCmdData::Options &cfg)
  *
  **********************************************************************/
 
-inline void add_app_to_list (GtkCList *clist, GnomeCmdApp *app)
+void add_app_to_list (GtkCList *clist, GnomeCmdApp *app)
 {
     gchar *text[3];
 
@@ -1289,7 +1305,7 @@ inline void add_app_to_list (GtkCList *clist, GnomeCmdApp *app)
 }
 
 
-inline void update_app_in_list (GtkCList *clist, GnomeCmdApp *app)
+void update_app_in_list (GtkCList *clist, GnomeCmdApp *app)
 {
     gint row = gtk_clist_find_row_from_data (clist, app);
     GnomeCmdPixmap *pm = gnome_cmd_app_get_pixmap (app);
@@ -1735,7 +1751,7 @@ static GtkWidget *create_programs_tab (GtkWidget *parent, GnomeCmdData::Options 
 }
 
 
-inline void store_programs_options (GtkWidget *dialog, GnomeCmdData::Options &cfg)
+void store_programs_options (GtkWidget *dialog, GnomeCmdData::Options &cfg)
 {
     GtkWidget *entry1 = lookup_widget (dialog, "viewer");
     GtkWidget *entry2 = lookup_widget (dialog, "editor");
@@ -1766,7 +1782,7 @@ inline void store_programs_options (GtkWidget *dialog, GnomeCmdData::Options &cf
  *
  **********************************************************************/
 
-inline void add_device_to_list (GtkCList *clist, GnomeCmdConDevice *dev)
+void add_device_to_list (GtkCList *clist, GnomeCmdConDevice *dev)
 {
     gchar *text[2];
 
@@ -1783,7 +1799,7 @@ inline void add_device_to_list (GtkCList *clist, GnomeCmdConDevice *dev)
 }
 
 
-inline void update_device_in_list (GtkCList *clist, GnomeCmdConDevice *dev, gchar *alias, gchar *device_fn, gchar *mountp, gchar *icon_path)
+void update_device_in_list (GtkCList *clist, GnomeCmdConDevice *dev, gchar *alias, gchar *device_fn, gchar *mountp, gchar *icon_path)
 {
     gnome_cmd_con_device_set_alias (dev, alias);
     gnome_cmd_con_device_set_device_fn (dev, device_fn);
@@ -1810,7 +1826,7 @@ static void on_device_dialog_cancel (GtkButton *button, GtkWidget *dialog)
 }
 
 
-inline void get_device_dialog_values (GtkWidget *dialog, gchar **alias, gchar **device_utf8,
+void get_device_dialog_values (GtkWidget *dialog, gchar **alias, gchar **device_utf8,
     gchar **mountp_utf8, gchar **icon_path)
 {
     GtkWidget *alias_entry = lookup_widget (dialog, "alias_entry");
@@ -2092,7 +2108,7 @@ static GtkWidget *create_devices_tab (GtkWidget *parent, GnomeCmdData::Options &
 }
 
 
-inline void store_devices_options (GtkWidget *dialog, GnomeCmdData::Options &cfg)
+void store_devices_options (GtkWidget *dialog, GnomeCmdData::Options &cfg)
 {
     GtkWidget *device_only_icon = lookup_widget (dialog, "device_only_icon");
     GtkWidget *skip_mounting = lookup_widget (dialog, "skip_mounting");

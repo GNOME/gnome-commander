@@ -265,13 +265,6 @@ inline void gnome_cmd_show_message (GtkWindow *parent, std::string message, cons
 void gnome_cmd_help_display (const gchar *file_name, const gchar *link_id=NULL);
 
 
-inline void gnome_cmd_error_message (const gchar *title, GError *error)
-{
-    gnome_cmd_prompt_message (NULL, GTK_MESSAGE_ERROR, GTK_BUTTONS_OK, title, error->message);
-    g_error_free (error);
-}
-
-
 inline std::string truncate(const std::string &s, guint n=100)
 {
     if (s.size()<=n)

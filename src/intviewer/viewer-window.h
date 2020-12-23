@@ -98,10 +98,7 @@ struct GViewerWindowClass
 
 GtkType gviewer_window_get_type ();
 
-inline GtkWidget *gviewer_window_new ()
-{
-    return (GtkWidget *) g_object_new (gviewer_window_get_type (), NULL);
-}
+GtkWidget *gviewer_window_new ();
 
 void gviewer_window_load_file (GViewerWindow *gViewerWindow, GnomeCmdFile *f);
 
