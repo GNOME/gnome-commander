@@ -72,21 +72,21 @@ struct GnomeCmdFilePopmenuPrivate
 
 static void do_mime_exec_multiple (gpointer *args)
 {
-    auto app = static_cast<GnomeCmdApp*> (args[0]);
+    auto gnomeCmdApp = static_cast<GnomeCmdApp*> (args[0]);
     auto files = static_cast<GList*> (args[1]);
 
     if (files)
     {
-        string cmdString = gnome_cmd_app_get_command (app);
+        string cmdString = gnome_cmd_app_get_command (gnomeCmdApp);
 
-        DEBUG('g', "Launching \"%s\"\n", g_app_info_get_commandline(app->gAppInfo));
+        DEBUG('g', "Launching \"%s\"\n", g_app_info_get_commandline(gnomeCmdApp->gAppInfo));
 
-        g_app_info_launch(app->gAppInfo, files, nullptr, nullptr);
+        g_app_info_launch(gnomeCmdApp->gAppInfo, files, nullptr, nullptr);
 
         g_list_free (files);
     }
 
-    gnome_cmd_app_free (app);
+    gnome_cmd_app_free (gnomeCmdApp);
     g_free (args);
 }
 
