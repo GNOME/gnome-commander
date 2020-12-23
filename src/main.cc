@@ -102,12 +102,6 @@ int main (int argc, char *argv[])
 
     main_win = nullptr;
 
-    if (!g_thread_supported ())
-    {
-        g_printerr ("GNOME Commander needs thread support in glib to work, bailing out...\n");
-        return 0;
-    }
-
     setlocale (LC_ALL, "");
     bindtextdomain (PACKAGE, DATADIR "/locale");
     bind_textdomain_codeset (PACKAGE, "UTF-8");

@@ -1096,8 +1096,8 @@ gboolean gnome_cmd_prepend_su_to_vector (int &argc, char **&argv)
     int real_argc = su_argc + argc;
     char **real_argv = g_new0 (char *, real_argc+1);
 
-    g_memmove (real_argv, su_argv, su_argc*sizeof(char *));
-    g_memmove (real_argv+su_argc, argv, argc*sizeof(char *));
+    memmove (real_argv, su_argv, su_argc*sizeof(char *));
+    memmove (real_argv+su_argc, argv, argc*sizeof(char *));
 
     g_free (argv);
 
