@@ -153,11 +153,11 @@ GnomeCmdFile *gnome_cmd_file_new (const gchar *local_full_path)
 
 GnomeCmdFile *gnome_cmd_file_new (GnomeVFSFileInfo *info, GnomeCmdDir *dir)
 {
-    auto f = static_cast<GnomeCmdFile*> (g_object_new (GNOME_CMD_TYPE_FILE, nullptr));
+    auto gnomeCmdFile = static_cast<GnomeCmdFile*> (g_object_new (GNOME_CMD_TYPE_FILE, nullptr));
 
-    gnome_cmd_file_setup (f, info, dir);
+    gnome_cmd_file_setup (gnomeCmdFile, info, dir);
 
-    return f;
+    return gnomeCmdFile;
 }
 
 
@@ -231,14 +231,14 @@ void GnomeCmdFile::invalidate_metadata()
 }
 
 
-void gnome_cmd_file_setup (GnomeCmdFile *f, GnomeVFSFileInfo *info, GnomeCmdDir *dir)
+void gnome_cmd_file_setup (GnomeCmdFile *gnomeCmdFile, GnomeVFSFileInfo *info, GnomeCmdDir *dir)
 {
-    g_return_if_fail (f != nullptr);
+    g_return_if_fail (gnomeCmdFile != nullptr);
 
-    f->info = info;
-    GNOME_CMD_FILE_INFO (f)->info = info;
+    gnomeCmdFile->info = info;
+    GNOME_CMD_FILE_INFO (gnomeCmdFile)->info = info;
 
-    f->is_dotdot = info->type==GNOME_VFS_FILE_TYPE_DIRECTORY && strcmp(info->name, "..")==0;    // check if file is '..'
+    gnomeCmdFile->is_dotdot = info->type==GNOME_VFS_FILE_TYPE_DIRECTORY && strcmp(info->name, "..")==0;    // check if file is '..'
 
     gchar *utf8_name;
 
@@ -251,37 +251,37 @@ void gnome_cmd_file_setup (GnomeCmdFile *f, GnomeVFSFileInfo *info, GnomeCmdDir 
     else
         utf8_name = get_utf8 (info->name);
 
-    f->collate_key = g_utf8_collate_key_for_filename (utf8_name, -1);
+    gnomeCmdFile->collate_key = g_utf8_collate_key_for_filename (utf8_name, -1);
     g_free (utf8_name);
 
     if (dir)
     {
-        f->priv->dir_handle = gnome_cmd_dir_get_handle (dir);
-        handle_ref (f->priv->dir_handle);
+        gnomeCmdFile->priv->dir_handle = gnome_cmd_dir_get_handle (dir);
+        handle_ref (gnomeCmdFile->priv->dir_handle);
 
-        GNOME_CMD_FILE_INFO (f)->uri = gnome_cmd_dir_get_child_uri (dir, f->info->name);
-        gnome_vfs_uri_ref (GNOME_CMD_FILE_INFO (f)->uri);
+        GNOME_CMD_FILE_INFO (gnomeCmdFile)->uri = gnome_cmd_dir_get_child_uri (dir, gnomeCmdFile->info->name);
+        gnome_vfs_uri_ref (GNOME_CMD_FILE_INFO (gnomeCmdFile)->uri);
     }
 
-    gnome_vfs_file_info_ref (f->info);
+    gnome_vfs_file_info_ref (gnomeCmdFile->info);
 
-    auto fUriString = f->get_path();
+    auto fUriString = gnomeCmdFile->get_path();
 
     if (fUriString)
     {
-        f->gFile = g_file_new_for_path(fUriString);
+        gnomeCmdFile->gFile = g_file_new_for_path(fUriString);
         g_free(fUriString);
 
         GError *error;
         error = nullptr;
 
-        f->gFileInfo = g_file_query_info(f->gFile,
+        gnomeCmdFile->gFileInfo = g_file_query_info(gnomeCmdFile->gFile,
                            "standard::content-type",
                            G_FILE_QUERY_INFO_NOFOLLOW_SYMLINKS,
                            nullptr,
                            &error);
 
-        if (f->gFileInfo && error)
+        if (gnomeCmdFile->gFileInfo && error)
         {
             g_message ("retrieving file info failed: %s", error->message);
             g_error_free (error);
