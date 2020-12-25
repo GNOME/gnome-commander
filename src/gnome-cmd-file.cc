@@ -265,13 +265,11 @@ void gnome_cmd_file_setup (GnomeCmdFile *f, GnomeVFSFileInfo *info, GnomeCmdDir 
 
     gnome_vfs_file_info_ref (f->info);
 
-    //auto fUriString = f->get_uri_str();
     auto fUriString = f->get_path();
 
     if (fUriString)
     {
         f->gFile = g_file_new_for_path(fUriString);
-        printf("g_file_path: %s\n", g_file_get_path(f->gFile));
         g_free(fUriString);
 
         GError *error;
