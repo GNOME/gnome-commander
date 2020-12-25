@@ -28,7 +28,6 @@
 
 #include "gnome-cmd-includes.h"
 #include "gnome-cmd-main-win.h"
-#include "gnome-cmd-mime-config.h"
 #include "gnome-cmd-data.h"
 #include "gnome-cmd-user-actions.h"
 #include "gnome-cmd-owner.h"
@@ -106,8 +105,6 @@ int main (int argc, char *argv[])
     bindtextdomain (PACKAGE, DATADIR "/locale");
     bind_textdomain_codeset (PACKAGE, "UTF-8");
     textdomain (PACKAGE);
-
-    gnome_cmd_mime_config();
 
     if (!gtk_init_with_args (&argc, &argv,
                              _("File Manager"),

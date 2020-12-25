@@ -22,10 +22,6 @@ appdata_DATA = $(appdata_in_files:.xml.in=.xml)
 $(appdata_DATA): $(appdata_in_files)
 	$(AM_V_GEN) $(MSGFMT) --xml --template $< -d $(top_srcdir)/po -o $@
 
-mimetopdir = $(datadir)/@PACKAGE@/mime
-mimexmldir = $(mimetopdir)/packages
-mimexml_DATA = gnome-commander-mime.xml
-
 ebuild_files = @PACKAGE@.ebuild
 ebuild_DATA_NOINST = @PACKAGE@-@VERSION@.ebuild
 
@@ -38,25 +34,10 @@ EXTRA_DIST =              \
 	@PACKAGE@.spec        \
 	$(ebuild_files)       \
 	$(ebuild_DATA_NOINST) \
-	$(mimexml_DATA)       \
 	$(gsettings_SCHEMAS)
 
 CLEANFILES = org.gnome.@PACKAGE@.gschema.valid
 
 DISTCLEANFILES = $(appdata_DATA) $(desktop_DATA)
-
-HAVE_UPDATE_MIME_DATABASE = @HAVE_UPDATE_MIME_DATABASE@
-
-#
-# Keep in mind: Although $DESTDIR is often empty, it is needed
-# for 'make distcheck' so leave it here, please!
-#
-install-data-hook:
-	test "x$(HAVE_UPDATE_MIME_DATABASE)" == "xyes" && \
-		update-mime-database -V $(DESTDIR)/$(mimetopdir)
-
-uninstall-hook:
-	for target in $(DESTDIR)/$(mimetopdir)/* ; \
-		do test "x$${target}" != "x$(DESTDIR)/$(mimexmldir)" && rm -rf $${target} ; done
 
 -include $(top_srcdir)/git.mk
