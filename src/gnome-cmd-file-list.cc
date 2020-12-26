@@ -1347,6 +1347,7 @@ static void mime_exec_single (GnomeCmdFile *f)
             g_free (msg);
         }
     }
+    gnome_cmd_app_free(app);
 }
 
 
