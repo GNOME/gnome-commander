@@ -39,7 +39,7 @@ static void gnome_cmd_file_info_finalize (GObject *object)
 {
     GnomeCmdFileInfo *self = GNOME_CMD_FILE_INFO (object);
 
-    gnome_vfs_file_info_unref (self->info);
+    gnome_vfs_file_info_unref (self->gnomeVfsFileInfo);
     if (self->uri)
         gnome_vfs_uri_unref (self->uri);
 

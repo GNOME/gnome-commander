@@ -236,7 +236,7 @@ void gnome_cmd_file_setup (GnomeCmdFile *gnomeCmdFile, GnomeVFSFileInfo *info, G
     g_return_if_fail (gnomeCmdFile != nullptr);
 
     gnomeCmdFile->info = info;
-    GNOME_CMD_FILE_INFO (gnomeCmdFile)->info = info;
+    GNOME_CMD_FILE_INFO (gnomeCmdFile)->gnomeVfsFileInfo = info;
 
     gnomeCmdFile->is_dotdot = info->type==GNOME_VFS_FILE_TYPE_DIRECTORY && strcmp(info->name, "..")==0;    // check if file is '..'
 
