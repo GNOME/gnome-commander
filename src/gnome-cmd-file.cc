@@ -479,7 +479,7 @@ gchar *GnomeCmdFile::get_unescaped_dirname()
 
 GAppInfo *GnomeCmdFile::GetAppInfoForContentType()
 {
-    auto contentTypeString = this->GetGfileContentTypeString();
+    auto contentTypeString = this->GetGfileAttributeString(G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE);
     auto appInfo = g_app_info_get_default_for_type (contentTypeString, false);
     g_free(contentTypeString);
 
@@ -487,12 +487,12 @@ GAppInfo *GnomeCmdFile::GetAppInfoForContentType()
 }
 
 
-gchar *GnomeCmdFile::GetGfileContentTypeString()
+gchar *GnomeCmdFile::GetGfileAttributeString(const char *attribute)
 {
     GError *error;
     error = nullptr;
     auto gcmdFileInfo = g_file_query_info(gFile,
-                                   G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE,
+                                   attribute,
                                    G_FILE_QUERY_INFO_NOFOLLOW_SYMLINKS,
                                    nullptr,
                                    &error);
@@ -500,13 +500,13 @@ gchar *GnomeCmdFile::GetGfileContentTypeString()
     {
         g_message ("retrieving file info failed: %s", error->message);
         g_error_free (error);
-        exit (EXIT_FAILURE);
+        return nullptr;
     }
 
-    auto gFileContentTypeString = g_strdup(g_file_info_get_attribute_string (gcmdFileInfo, G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE));
+    auto gFileAttributeString = g_strdup(g_file_info_get_attribute_string (gcmdFileInfo, attribute));
     g_object_unref(gcmdFileInfo);
 
-    return gFileContentTypeString;
+    return gFileAttributeString;
 }
 
 
