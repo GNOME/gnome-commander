@@ -276,7 +276,7 @@ void gnome_cmd_file_setup (GnomeCmdFile *gnomeCmdFile, GnomeVFSFileInfo *info, G
         error = nullptr;
 
         gnomeCmdFile->gFileInfo = g_file_query_info(gnomeCmdFile->gFile,
-                           "standard::content-type",
+                           G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE,
                            G_FILE_QUERY_INFO_NOFOLLOW_SYMLINKS,
                            nullptr,
                            &error);
@@ -492,7 +492,7 @@ gchar *GnomeCmdFile::GetGfileContentTypeString()
     GError *error;
     error = nullptr;
     auto gcmdFileInfo = g_file_query_info(gFile,
-                                   "standard::content-type",
+                                   G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE,
                                    G_FILE_QUERY_INFO_NOFOLLOW_SYMLINKS,
                                    nullptr,
                                    &error);
@@ -503,7 +503,7 @@ gchar *GnomeCmdFile::GetGfileContentTypeString()
         exit (EXIT_FAILURE);
     }
 
-    auto gFileContentTypeString = g_strdup(g_file_info_get_attribute_string (gcmdFileInfo, "standard::content-type"));
+    auto gFileContentTypeString = g_strdup(g_file_info_get_attribute_string (gcmdFileInfo, G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE));
     g_object_unref(gcmdFileInfo);
 
     return gFileContentTypeString;
@@ -514,7 +514,7 @@ gchar *GnomeCmdFile::get_default_application_name_string()
 {
     gchar *contentType = nullptr;
 
-    contentType = g_file_info_get_attribute_as_string (gFileInfo, "standard::content-type");
+    contentType = g_file_info_get_attribute_as_string (gFileInfo, G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE);
 
     auto appInfo = g_app_info_get_default_for_type (contentType, false);
 
