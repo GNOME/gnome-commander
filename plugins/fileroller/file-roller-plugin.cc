@@ -32,6 +32,8 @@
 #define AUTHOR "Marcus Bjurman <marbj499@student.liu.se>"
 #define TRANSLATOR_CREDITS "Translations: https://l10n.gnome.org/module/gnome-commander/"
 #define WEBPAGE "https://gcmd.github.io"
+#define TARGET_NAME "target_name"
+#define TARGET_DIR "target_dir"
 
 #define GCMD_PLUGINS_FILE_ROLLER                     "org.gnome.gnome-commander.plugins.file-roller-plugin"
 #define GCMD_PLUGINS_FILE_ROLLER_DEFAULT_TYPE        "default-type"
@@ -186,8 +188,8 @@ static void on_extract_cwd (GtkMenuItem *item, GnomeVFSURI *uri)
     gchar *target_arg, *archive_arg;
     gchar *uri_str = gnome_vfs_uri_to_string (uri, GNOME_VFS_URI_HIDE_PASSWORD);
     gchar *local_path = gnome_vfs_get_local_path_from_uri (uri_str);
-    gchar *target_name = (gchar *) g_object_get_data (G_OBJECT (item), "target_name");
-    gchar *target_dir = (gchar *) g_object_get_data (G_OBJECT (item), "target_dir");
+    gchar *target_name = (gchar *) g_object_get_data (G_OBJECT (item), TARGET_NAME);
+    gchar *target_dir = (gchar *) g_object_get_data (G_OBJECT (item), TARGET_DIR);
     gchar *cmd, *t;
     gint argc;
     gchar **argv;
@@ -503,7 +505,7 @@ static GList *create_popup_menu_items (GnomeCmdPlugin *plugin, GnomeCmdState *st
 
                 text = g_strdup_printf (_("Extract to “%s”"), fname);
                 item = create_menu_item (text, TRUE, GTK_SIGNAL_FUNC (on_extract_cwd), gnomeComdFileInfo->uri);
-                g_object_set_data (G_OBJECT (item), "target_name", g_strdup (fname));
+                g_object_set_data (G_OBJECT (item), TARGET_NAME, g_strdup (fname));
                 items = g_list_append (items, item);
                 g_free (text);
 
@@ -513,9 +515,10 @@ static GList *create_popup_menu_items (GnomeCmdPlugin *plugin, GnomeCmdState *st
 
                     text = g_strdup_printf (_("Extract to “%s”"), path);
                     item = create_menu_item (text, TRUE, GTK_SIGNAL_FUNC (on_extract_cwd), gnomeComdFileInfo->uri);
-                    g_object_set_data (G_OBJECT (item), "target_dir", path);
+                    g_object_set_data (G_OBJECT (item), TARGET_DIR, path);
                     items = g_list_append (items, item);
                     g_free (text);
+                    g_free (path);
                 }
 
                 break;
