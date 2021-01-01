@@ -273,21 +273,6 @@ void gnome_cmd_file_setup (GnomeCmdFile *gnomeCmdFile, GnomeVFSFileInfo *info, G
         gnomeCmdFile->gFile = GNOME_CMD_FILE_BASE (gnomeCmdFile)->gFile;
         g_free(fUriString);
 
-        GError *error;
-        error = nullptr;
-
-        gnomeCmdFile->gFileInfo = g_file_query_info(gnomeCmdFile->gFile,
-                           G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE,
-                           G_FILE_QUERY_INFO_NOFOLLOW_SYMLINKS,
-                           nullptr,
-                           &error);
-
-        if (gnomeCmdFile->gFileInfo && error)
-        {
-            g_message ("retrieving file info failed: %s", error->message);
-            g_error_free (error);
-            exit (EXIT_FAILURE);
-        }
     }
 }
 
