@@ -392,8 +392,10 @@ static void on_add_to_archive (GtkMenuItem *item, FileRollerPlugin *plugin)
         gchar *file_prefix = g_locale_to_utf8 (s, -1, NULL, NULL, NULL);
 
         gchar *archive_name_tmp = g_strdup_printf("%s%s", file_prefix, plugin->priv->default_ext);
-        archive_name = new_string_with_replaced_keyword(archive_name_tmp, "$N", GNOME_CMD_FILE_BASE (files->data)->gnomeVfsFileInfo->name);
+        auto file_name_tmp = GetGfileAttributeString(GNOME_CMD_FILE_BASE (files->data)->gFile, G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME);
+        archive_name = new_string_with_replaced_keyword(archive_name_tmp, "$N", file_name_tmp);
         gtk_entry_set_text (GTK_ENTRY (entry), archive_name);
+        g_free(file_name_tmp);
         g_free(archive_name);
         g_free(archive_name_tmp);
 
@@ -482,7 +484,7 @@ static GList *create_popup_menu_items (GnomeCmdPlugin *plugin, GnomeCmdState *st
     if (num_files == 1)
     {
         GnomeCmdFileBase *gnomeCmdFileBase = GNOME_CMD_FILE_BASE (gnomeCmdFileBaseGList->data);
-        gchar *fname = g_strdup (gnomeCmdFileBase->gnomeVfsFileInfo->name);
+        auto fname = GetGfileAttributeString(gnomeCmdFileBase->gFile, G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME);
         gint i;
 
         for (i=0; handled_extensions[i]; ++i)
