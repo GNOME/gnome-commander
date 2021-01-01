@@ -183,11 +183,10 @@ struct _FileRollerPluginPrivate
 static GnomeCmdPluginClass *parent_class = NULL;
 
 
-static void on_extract_cwd (GtkMenuItem *item, GnomeVFSURI *uri)
+static void on_extract_cwd (GtkMenuItem *item, GFile *gFile)
 {
     gchar *target_arg, *archive_arg;
-    gchar *uri_str = gnome_vfs_uri_to_string (uri, GNOME_VFS_URI_HIDE_PASSWORD);
-    gchar *local_path = gnome_vfs_get_local_path_from_uri (uri_str);
+    gchar *local_path = g_file_get_path(gFile);
     gchar *target_name = (gchar *) g_object_get_data (G_OBJECT (item), TARGET_NAME);
     gchar *target_dir = (gchar *) g_object_get_data (G_OBJECT (item), TARGET_DIR);
     gchar *cmd, *t;
@@ -219,7 +218,6 @@ static void on_extract_cwd (GtkMenuItem *item, GnomeVFSURI *uri)
     g_free (target_dir);
     g_free (archive_arg);
     g_free (local_path);
-    g_free (uri_str);
     g_free (cmd);
 }
 
@@ -236,7 +234,7 @@ inline void do_add_to_archive (const gchar *name, GnomeCmdState *state)
 
     for (files = state->active_dir_selected_files; files; files = files->next)
     {
-        GnomeVFSURI *uri = GNOME_CMD_FILE_INFO (files->data)->uri;
+        GnomeVFSURI *uri = GNOME_CMD_FILE_BASE (files->data)->uri;
         gchar *uri_str_file = gnome_vfs_uri_to_string (uri, GNOME_VFS_URI_HIDE_PASSWORD);
         gchar *path = gnome_vfs_get_local_path_from_uri (uri_str_file);
         gchar *tmp = cmd;
@@ -397,7 +395,7 @@ static void on_add_to_archive (GtkMenuItem *item, FileRollerPlugin *plugin)
         gchar *file_prefix = g_locale_to_utf8 (s, -1, NULL, NULL, NULL);
 
         gchar *archive_name_tmp = g_strdup_printf("%s%s", file_prefix, plugin->priv->default_ext);
-        archive_name = new_string_with_replaced_keyword(archive_name_tmp, "$N", GNOME_CMD_FILE_INFO (files->data)->gnomeVfsFileInfo->name);
+        archive_name = new_string_with_replaced_keyword(archive_name_tmp, "$N", GNOME_CMD_FILE_BASE (files->data)->gnomeVfsFileInfo->name);
         gtk_entry_set_text (GTK_ENTRY (entry), archive_name);
         g_free(archive_name);
         g_free(archive_name_tmp);
@@ -471,10 +469,10 @@ static GList *create_popup_menu_items (GnomeCmdPlugin *plugin, GnomeCmdState *st
     GList *items = NULL;
     GtkWidget *item;
     gint num_files;
-    GList *gnomeCmdFileInfoGList;
+    GList *gnomeCmdFileBaseGList;
 
-    gnomeCmdFileInfoGList = state->active_dir_selected_files;
-    num_files = g_list_length (gnomeCmdFileInfoGList);
+    gnomeCmdFileBaseGList = state->active_dir_selected_files;
+    num_files = g_list_length (gnomeCmdFileBaseGList);
 
     if (num_files <= 0)
         return NULL;
@@ -489,14 +487,14 @@ static GList *create_popup_menu_items (GnomeCmdPlugin *plugin, GnomeCmdState *st
 
     if (num_files == 1)
     {
-        GnomeCmdFileInfo *gnomeComdFileInfo = GNOME_CMD_FILE_INFO (gnomeCmdFileInfoGList->data);
-        gchar *fname = g_strdup (gnomeComdFileInfo->gnomeVfsFileInfo->name);
+        GnomeCmdFileBase *gnomeCmdFileBase = GNOME_CMD_FILE_BASE (gnomeCmdFileBaseGList->data);
+        gchar *fname = g_strdup (gnomeCmdFileBase->gnomeVfsFileInfo->name);
         gint i;
 
         for (i=0; handled_extensions[i]; ++i)
             if (g_str_has_suffix (fname, handled_extensions[i]))
             {
-                item = create_menu_item (_("Extract in Current Directory"), TRUE, GTK_SIGNAL_FUNC (on_extract_cwd), gnomeComdFileInfo->uri);
+                item = create_menu_item (_("Extract in Current Directory"), TRUE, GTK_SIGNAL_FUNC (on_extract_cwd), gnomeCmdFileBase->gFile);
                 items = g_list_append (items, item);
 
                 fname[strlen(fname)-strlen(handled_extensions[i])] = '\0';
@@ -504,7 +502,7 @@ static GList *create_popup_menu_items (GnomeCmdPlugin *plugin, GnomeCmdState *st
                 gchar *text;
 
                 text = g_strdup_printf (_("Extract to “%s”"), fname);
-                item = create_menu_item (text, TRUE, GTK_SIGNAL_FUNC (on_extract_cwd), gnomeComdFileInfo->uri);
+                item = create_menu_item (text, TRUE, GTK_SIGNAL_FUNC (on_extract_cwd), gnomeCmdFileBase->gFile);
                 g_object_set_data (G_OBJECT (item), TARGET_NAME, g_strdup (fname));
                 items = g_list_append (items, item);
                 g_free (text);
@@ -514,7 +512,7 @@ static GList *create_popup_menu_items (GnomeCmdPlugin *plugin, GnomeCmdState *st
                     gchar *path = gnome_vfs_unescape_string (gnome_vfs_uri_get_path (state->inactive_dir_uri), NULL);
 
                     text = g_strdup_printf (_("Extract to “%s”"), path);
-                    item = create_menu_item (text, TRUE, GTK_SIGNAL_FUNC (on_extract_cwd), gnomeComdFileInfo->uri);
+                    item = create_menu_item (text, TRUE, GTK_SIGNAL_FUNC (on_extract_cwd), gnomeCmdFileBase->gFile);
                     g_object_set_data (G_OBJECT (item), TARGET_DIR, path);
                     items = g_list_append (items, item);
                     g_free (text);

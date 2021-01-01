@@ -39,7 +39,7 @@ struct GnomeCmdDir;
 
 struct GnomeCmdFile
 {
-    GnomeCmdFileInfo parent;
+    GnomeCmdFileBase parent;
 
     class Private;
 
@@ -115,7 +115,7 @@ struct GnomeCmdFile
 
 struct GnomeCmdFileClass
 {
-    GnomeCmdFileInfoClass parent_class;
+    GnomeCmdFileBaseClass parent_class;
 };
 
 

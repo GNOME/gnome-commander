@@ -1,5 +1,5 @@
-/** 
- * @file gnome-cmd-file-info.cc
+/**
+ * @file gnome-cmd-file-base.cc
  * @copyright (C) 2001-2006 Marcus Bjurman\n
  * @copyright (C) 2007-2012 Piotr Eljasiak\n
  * @copyright (C) 2013-2020 Uwe Scholz\n
@@ -22,36 +22,36 @@
 #include <config.h>
 
 #include "libgcmd-deps.h"
-#include "gnome-cmd-file-info.h"
+#include "gnome-cmd-file-base.h"
 
 using namespace std;
 
 
-G_DEFINE_TYPE (GnomeCmdFileInfo, gnome_cmd_file_info, G_TYPE_OBJECT)
+G_DEFINE_TYPE (GnomeCmdFileBase, gnome_cmd_file_base, G_TYPE_OBJECT)
 
 
-static void gnome_cmd_file_info_init (GnomeCmdFileInfo *self)
+static void gnome_cmd_file_base_init (GnomeCmdFileBase *self)
 {
 }
 
 
-static void gnome_cmd_file_info_finalize (GObject *object)
+static void gnome_cmd_file_base_finalize (GObject *object)
 {
-    GnomeCmdFileInfo *self = GNOME_CMD_FILE_INFO (object);
+    GnomeCmdFileBase *self = GNOME_CMD_FILE_BASE (object);
 
     gnome_vfs_file_info_unref (self->gnomeVfsFileInfo);
     if (self->uri)
         gnome_vfs_uri_unref (self->uri);
 
-    G_OBJECT_CLASS (gnome_cmd_file_info_parent_class)->finalize (object);
+    G_OBJECT_CLASS (gnome_cmd_file_base_parent_class)->finalize (object);
 }
 
 
-static void gnome_cmd_file_info_class_init (GnomeCmdFileInfoClass *klass)
+static void gnome_cmd_file_base_class_init (GnomeCmdFileBaseClass *klass)
 {
-    gnome_cmd_file_info_parent_class = (GObjectClass *) g_type_class_peek_parent (klass);
+    gnome_cmd_file_base_parent_class = (GObjectClass *) g_type_class_peek_parent (klass);
 
     GObjectClass *object_class = (GObjectClass *) klass;
 
-    object_class->finalize = gnome_cmd_file_info_finalize;
+    object_class->finalize = gnome_cmd_file_base_finalize;
 }

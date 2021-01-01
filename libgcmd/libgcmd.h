@@ -26,7 +26,7 @@
 #include <libgcmd/libgcmd-widget-factory.h>
 #include <libgcmd/gnome-cmd-state.h>
 #include <libgcmd/gnome-cmd-plugin.h>
-#include <libgcmd/gnome-cmd-file-info.h>
+#include <libgcmd/gnome-cmd-file-base.h>
 #include <libgcmd/gnome-cmd-dialog.h>
 #include <libgcmd/gnome-cmd-string-dialog.h>
 #include <libgcmd/plugin-info.h>

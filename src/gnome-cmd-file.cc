@@ -59,7 +59,7 @@ struct GnomeCmdFile::Private
 };
 
 
-G_DEFINE_TYPE (GnomeCmdFile, gnome_cmd_file, GNOME_CMD_TYPE_FILE_INFO)
+G_DEFINE_TYPE (GnomeCmdFile, gnome_cmd_file, GNOME_CMD_TYPE_FILE_BASE)
 
 
 inline gboolean has_parent_dir (GnomeCmdFile *f)
@@ -236,7 +236,7 @@ void gnome_cmd_file_setup (GnomeCmdFile *gnomeCmdFile, GnomeVFSFileInfo *info, G
     g_return_if_fail (gnomeCmdFile != nullptr);
 
     gnomeCmdFile->info = info;
-    GNOME_CMD_FILE_INFO (gnomeCmdFile)->gnomeVfsFileInfo = info;
+    GNOME_CMD_FILE_BASE (gnomeCmdFile)->gnomeVfsFileInfo = info;
 
     gnomeCmdFile->is_dotdot = info->type==GNOME_VFS_FILE_TYPE_DIRECTORY && strcmp(info->name, "..")==0;    // check if file is '..'
 
@@ -259,8 +259,8 @@ void gnome_cmd_file_setup (GnomeCmdFile *gnomeCmdFile, GnomeVFSFileInfo *info, G
         gnomeCmdFile->priv->dir_handle = gnome_cmd_dir_get_handle (dir);
         handle_ref (gnomeCmdFile->priv->dir_handle);
 
-        GNOME_CMD_FILE_INFO (gnomeCmdFile)->uri = gnome_cmd_dir_get_child_uri (dir, gnomeCmdFile->info->name);
-        gnome_vfs_uri_ref (GNOME_CMD_FILE_INFO (gnomeCmdFile)->uri);
+        GNOME_CMD_FILE_BASE (gnomeCmdFile)->uri = gnome_cmd_dir_get_child_uri (dir, gnomeCmdFile->info->name);
+        gnome_vfs_uri_ref (GNOME_CMD_FILE_BASE (gnomeCmdFile)->uri);
     }
 
     gnome_vfs_file_info_ref (gnomeCmdFile->info);

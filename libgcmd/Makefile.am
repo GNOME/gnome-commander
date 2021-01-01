@@ -13,7 +13,7 @@ pkglib_LTLIBRARIES = libgcmd.la
 
 libgcmd_la_SOURCES = \
 	gnome-cmd-plugin.h gnome-cmd-plugin.cc \
-	gnome-cmd-file-info.h gnome-cmd-file-info.cc \
+	gnome-cmd-file-base.h gnome-cmd-file-base.cc \
 	gnome-cmd-dialog.h gnome-cmd-dialog.cc \
 	gnome-cmd-string-dialog.h gnome-cmd-string-dialog.cc \
 	gnome-cmd-state.h \
