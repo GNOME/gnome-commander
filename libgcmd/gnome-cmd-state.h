@@ -21,10 +21,10 @@
 
 #pragma once
 
-struct GnomeCmdState 
+struct GnomeCmdState
 {
-    GnomeVFSURI *active_dir_uri;
-    GnomeVFSURI *inactive_dir_uri;
+    GFile *activeDirGfile;
+    GFile *inactiveDirGfile;
     GList *active_dir_files;
     GList *inactive_dir_files;
     GList *active_dir_selected_files;

@@ -228,34 +228,30 @@ inline void do_add_to_archive (const gchar *name, GnomeCmdState *state)
     gchar *t = g_strdup_printf ("--add-to=%s", name);
     gchar *arg = g_shell_quote (t);
     gchar *cmd = g_strdup_printf ("file-roller %s ", arg);
-    gchar *active_dir_path, *uri_str;
+    gchar *active_dir_path;
     GList *files;
     gint argc;
     gchar **argv;
 
     for (files = state->active_dir_selected_files; files; files = files->next)
     {
-        GnomeVFSURI *uri = GNOME_CMD_FILE_BASE (files->data)->uri;
-        gchar *uri_str_file = gnome_vfs_uri_to_string (uri, GNOME_VFS_URI_HIDE_PASSWORD);
-        gchar *path = gnome_vfs_get_local_path_from_uri (uri_str_file);
+        auto *gFile = GNOME_CMD_FILE_BASE (files->data)->gFile;
+        gchar *path = g_file_get_path (gFile);
         gchar *tmp = cmd;
         gchar *arg_file = g_shell_quote (path);
         cmd = g_strdup_printf ("%s %s", tmp, arg_file);
         g_free (arg_file);
         g_free (path);
         g_free (tmp);
-        g_free (uri_str_file);
     }
 
     g_printerr ("add: %s\n", cmd);
-    uri_str = gnome_vfs_uri_to_string (state->active_dir_uri, GNOME_VFS_URI_HIDE_PASSWORD);
-    active_dir_path = gnome_vfs_get_local_path_from_uri (uri_str);
+    active_dir_path = g_file_get_path (state->activeDirGfile);
     g_shell_parse_argv (cmd, &argc, &argv, NULL);
     g_spawn_async (active_dir_path, argv, NULL, G_SPAWN_SEARCH_PATH, NULL, NULL, NULL, NULL);
     g_strfreev (argv);
 
     g_free (cmd);
-    g_free (uri_str);
     g_free (active_dir_path);
 }
 
@@ -478,9 +474,6 @@ static GList *create_popup_menu_items (GnomeCmdPlugin *plugin, GnomeCmdState *st
     if (num_files <= 0)
         return NULL;
 
-    if (!gnome_vfs_uri_is_local (GNOME_CMD_FILE_INFO (gnomeCmdFileInfoGList->data)->uri))
-        return NULL;
-
     FILE_ROLLER_PLUGIN (plugin)->priv->state = state;
 
     item = create_menu_item (_("Create Archive…"), TRUE, GTK_SIGNAL_FUNC (on_add_to_archive), plugin);
@@ -513,7 +506,7 @@ static GList *create_popup_menu_items (GnomeCmdPlugin *plugin, GnomeCmdState *st
 
                 if (activeDirId && inactiveDirId && g_str_equal(activeDirId, inactiveDirId))
                 {
-                    gchar *path = gnome_vfs_unescape_string (gnome_vfs_uri_get_path (state->inactive_dir_uri), NULL);
+                    auto path = GetGfileAttributeString(state->inactiveDirGfile, G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME);
 
                     text = g_strdup_printf (_("Extract to “%s”"), path);
                     item = create_menu_item (text, TRUE, GTK_SIGNAL_FUNC (on_extract_cwd), gnomeCmdFileBase->gFile);

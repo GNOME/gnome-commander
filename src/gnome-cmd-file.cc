@@ -269,7 +269,8 @@ void gnome_cmd_file_setup (GnomeCmdFile *gnomeCmdFile, GnomeVFSFileInfo *info, G
 
     if (fUriString)
     {
-        gnomeCmdFile->gFile = g_file_new_for_path(fUriString);
+        GNOME_CMD_FILE_BASE (gnomeCmdFile)->gFile = g_file_new_for_path(fUriString);
+        gnomeCmdFile->gFile = GNOME_CMD_FILE_BASE (gnomeCmdFile)->gFile;
         g_free(fUriString);
 
         GError *error;
