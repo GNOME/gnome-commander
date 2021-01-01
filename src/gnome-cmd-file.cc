@@ -477,7 +477,7 @@ gchar *GnomeCmdFile::GetGfileAttributeString(const char *attribute)
 {
     GError *error;
     error = nullptr;
-    auto gcmdFileInfo = g_file_query_info(gFile,
+    auto gcmdFileInfo = g_file_query_info(this->gFile,
                                    attribute,
                                    G_FILE_QUERY_INFO_NOFOLLOW_SYMLINKS,
                                    nullptr,
