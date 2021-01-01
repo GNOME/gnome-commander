@@ -39,6 +39,7 @@
       <holder>Piotr Eljasiak</holder>
     </copyright>
     <copyright>
+      <year>2021</year>
       <year>2020</year>
       <year>2019</year>
       <year>2018</year>
@@ -503,7 +504,7 @@
       </revision>
       <revision>
         <revnumber>GNOME Commander Manual V1.10.4;</revnumber>
-        <date>2020-??-??</date>
+        <date>2021-??-??</date>
         <revdescription>
           <para role="author">Uwe Scholz
                 <email>u.scholz83@gmx.de</email></para>
