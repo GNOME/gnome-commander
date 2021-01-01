@@ -182,6 +182,7 @@ struct _FileRollerPluginPrivate
 
 static GnomeCmdPluginClass *parent_class = NULL;
 
+gchar *GetGfileAttributeString(GFile *gFile, const char *attribute);
 
 static void on_extract_cwd (GtkMenuItem *item, GFile *gFile)
 {
@@ -507,7 +508,10 @@ static GList *create_popup_menu_items (GnomeCmdPlugin *plugin, GnomeCmdState *st
                 items = g_list_append (items, item);
                 g_free (text);
 
-                if (!gnome_vfs_uri_equal (state->active_dir_uri, state->inactive_dir_uri))
+                auto activeDirId = GetGfileAttributeString(state->activeDirGfile, G_FILE_ATTRIBUTE_ID_FILE);
+                auto inactiveDirId = GetGfileAttributeString(state->inactiveDirGfile, G_FILE_ATTRIBUTE_ID_FILE);
+
+                if (activeDirId && inactiveDirId && g_str_equal(activeDirId, inactiveDirId))
                 {
                     gchar *path = gnome_vfs_unescape_string (gnome_vfs_uri_get_path (state->inactive_dir_uri), NULL);
 
@@ -518,6 +522,9 @@ static GList *create_popup_menu_items (GnomeCmdPlugin *plugin, GnomeCmdState *st
                     g_free (text);
                     g_free (path);
                 }
+
+                g_free(activeDirId);
+                g_free(inactiveDirId);
 
                 break;
             }
@@ -726,6 +733,32 @@ static void init (FileRollerPlugin *plugin)
 
         plugin->priv->file_prefix_pattern = (gchar*) g_settings_get_default_value (gsettings, GCMD_PLUGINS_FILE_ROLLER_PREFIX_PATTERN);
     }
+}
+
+/**
+ * Gets a string attribute of a GFile instance and returns the newlo allocated string.
+ * The return value has to be g_free'd.
+ */
+gchar *GetGfileAttributeString(GFile *gFile, const char *attribute)
+{
+    GError *error;
+    error = nullptr;
+    auto gcmdFileInfo = g_file_query_info(gFile,
+                                   attribute,
+                                   G_FILE_QUERY_INFO_NOFOLLOW_SYMLINKS,
+                                   nullptr,
+                                   &error);
+    if (gcmdFileInfo && error)
+    {
+        g_message ("retrieving file info failed: %s", error->message);
+        g_error_free (error);
+        return nullptr;
+    }
+
+    auto gFileAttributeString = g_strdup(g_file_info_get_attribute_string (gcmdFileInfo, attribute));
+    g_object_unref(gcmdFileInfo);
+
+    return gFileAttributeString;
 }
 
 
