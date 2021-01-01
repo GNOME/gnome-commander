@@ -42,6 +42,8 @@ static void gnome_cmd_file_base_finalize (GObject *object)
     gnome_vfs_file_info_unref (self->gnomeVfsFileInfo);
     if (self->uri)
         gnome_vfs_uri_unref (self->uri);
+    if (self->gFile)
+        g_object_unref(self->gFile);
 
     G_OBJECT_CLASS (gnome_cmd_file_base_parent_class)->finalize (object);
 }
