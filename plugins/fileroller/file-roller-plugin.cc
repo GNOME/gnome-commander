@@ -506,14 +506,14 @@ static GList *create_popup_menu_items (GnomeCmdPlugin *plugin, GnomeCmdState *st
 
                 if (activeDirId && inactiveDirId && g_str_equal(activeDirId, inactiveDirId))
                 {
-                    auto path = GetGfileAttributeString(state->inactiveDirGfile, G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME);
+                    auto basenameString = GetGfileAttributeString(state->inactiveDirGfile, G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME);
 
-                    text = g_strdup_printf (_("Extract to “%s”"), path);
+                    text = g_strdup_printf (_("Extract to “%s”"), basenameString);
                     item = create_menu_item (text, TRUE, GTK_SIGNAL_FUNC (on_extract_cwd), gnomeCmdFileBase->gFile);
-                    g_object_set_data (G_OBJECT (item), TARGET_DIR, path);
+                    g_object_set_data (G_OBJECT (item), TARGET_DIR, basenameString);
                     items = g_list_append (items, item);
                     g_free (text);
-                    g_free (path);
+                    g_free (basenameString);
                 }
 
                 g_free(activeDirId);
