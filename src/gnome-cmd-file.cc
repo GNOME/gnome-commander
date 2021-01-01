@@ -513,9 +513,7 @@ gchar *GnomeCmdFile::GetGfileAttributeString(const char *attribute)
 
 gchar *GnomeCmdFile::get_default_application_name_string()
 {
-    gchar *contentType = nullptr;
-
-    contentType = g_file_info_get_attribute_as_string (gFileInfo, G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE);
+    auto contentType = GetGfileAttributeString (G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE);
 
     auto appInfo = g_app_info_get_default_for_type (contentType, false);
 

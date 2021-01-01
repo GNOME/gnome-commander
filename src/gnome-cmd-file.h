@@ -105,7 +105,7 @@ struct GnomeCmdFile
     gboolean has_tree_size();
 
     GnomeVFSMimeApplication *get_default_application();
-    gchar *GetGfileContentTypeString();
+    gchar *GetGfileAttributeString(const char *attribute);
     gchar *get_default_application_name_string();
     gchar *get_default_application_action_label(GAppInfo *gAppInfo);
     gchar *get_default_application_name(GAppInfo *gAppInfo);
