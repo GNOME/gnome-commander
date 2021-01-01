@@ -3,7 +3,7 @@ gnome-commander 1.12
 ---------------
 
 New features:
- * ...
+ * Use GIO instead of Gnome-VFS for opening files with default application
 
 Bug fixes:
  * ...

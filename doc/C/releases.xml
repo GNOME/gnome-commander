@@ -24,7 +24,7 @@
     <tbody>
         <row valign="top">
             <entry><para>1.12.0</para></entry>
-            <entry><para>2019-??-??</para></entry>
+            <entry><para>2021-??-??</para></entry>
             <entry>
                 <para>Bug fixes:</para>
                 <para>
@@ -38,7 +38,7 @@
                 <para>
                     <itemizedlist>
                         <listitem>
-                            <para>...</para>
+                            <para>Use GIO instead of Gnome-VFS for opening files with default application</para>
                         </listitem>
                         <listitem>
                             <para>New or updated translations: ...</para>
