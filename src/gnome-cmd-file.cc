@@ -257,9 +257,6 @@ void gnome_cmd_file_setup (GnomeCmdFile *gnomeCmdFile, GnomeVFSFileInfo *info, G
     {
         gnomeCmdFile->priv->dir_handle = gnome_cmd_dir_get_handle (dir);
         handle_ref (gnomeCmdFile->priv->dir_handle);
-
-        GNOME_CMD_FILE_BASE (gnomeCmdFile)->uri = gnome_cmd_dir_get_child_uri (dir, gnomeCmdFile->info->name);
-        gnome_vfs_uri_ref (GNOME_CMD_FILE_BASE (gnomeCmdFile)->uri);
     }
 
     gnome_vfs_file_info_ref (gnomeCmdFile->info);

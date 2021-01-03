@@ -39,8 +39,6 @@ static void gnome_cmd_file_base_finalize (GObject *object)
 {
     GnomeCmdFileBase *self = GNOME_CMD_FILE_BASE (object);
 
-    if (self->uri)
-        gnome_vfs_uri_unref (self->uri);
     if (self->gFile)
         g_object_unref(self->gFile);
 

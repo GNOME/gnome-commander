@@ -36,11 +36,10 @@ struct GnomeCmdFileBase
 {
     GObject parent;
 
-    GnomeVFSURI *uri;
     GFile *gFile;
     GFileInfo *gFileInfo;
 
-    void setup(GnomeVFSURI *uri, GFile *gFile, GFileInfo *gFileInfo);
+    void setup(GFile *gFile, GFileInfo *gFileInfo);
 };
 
 struct GnomeCmdFileBaseClass
@@ -48,9 +47,8 @@ struct GnomeCmdFileBaseClass
     GObjectClass parent_class;
 };
 
-inline void GnomeCmdFileBase::setup(GnomeVFSURI *uri_setup, GFile *gFile_setup, GFileInfo *gFileInfo_setup)
+inline void GnomeCmdFileBase::setup(GFile *gFile_setup, GFileInfo *gFileInfo_setup)
 {
-    this->uri = uri_setup;
     this->gFile = gFile_setup;
     this->gFileInfo = gFileInfo_setup;
 }
