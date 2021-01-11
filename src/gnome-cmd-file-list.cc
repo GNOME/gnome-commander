@@ -2809,15 +2809,15 @@ void GnomeCmdFileList::update_style()
 }
 
 
-gboolean GnomeCmdFileList::file_is_wanted(GnomeCmdFile *f)
+gboolean GnomeCmdFileList::file_is_wanted(GnomeCmdFile *gnomeCmdFile)
 {
-    g_return_val_if_fail (f != nullptr, FALSE);
+    g_return_val_if_fail (gnomeCmdFile != nullptr, FALSE);
 
-    GnomeVFSFileInfo *info = f->info;
+    GnomeVFSFileInfo *info = gnomeCmdFile->info;
 
     if (strcmp (info->name, ".") == 0)
         return FALSE;
-    if (f->is_dotdot)
+    if (gnomeCmdFile->is_dotdot)
         return FALSE;
     if (gnome_cmd_data.options.filter.file_types[info->type])
         return FALSE;
