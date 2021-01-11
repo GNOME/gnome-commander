@@ -78,8 +78,6 @@ struct GnomeCmdFile
     GnomeVFSFileSize get_tree_size();
     const gchar *get_tree_size_as_str();
     const gchar *get_perm();
-    const gchar *get_mime_type();
-    const gchar *get_mime_type_desc();
     gboolean has_mime_type(const gchar *mime_type);
     gboolean mime_begins_with(const gchar *mime_type_start);
 
@@ -103,7 +101,6 @@ struct GnomeCmdFile
     void invalidate_tree_size();
     gboolean has_tree_size();
 
-    GnomeVFSMimeApplication *get_default_application();
     gchar *GetGfileAttributeString(const char *attribute);
     gchar *get_default_application_name_string();
     gchar *get_default_application_action_label(GAppInfo *gAppInfo);
@@ -188,21 +185,4 @@ inline void gnome_cmd_file_list_ref (GList *files)
 inline void gnome_cmd_file_list_unref (GList *files)
 {
     g_list_foreach (files, (GFunc) gnome_cmd_file_unref, NULL);
-}
-
-inline const gchar *GnomeCmdFile::get_mime_type()
-{
-    g_return_val_if_fail (info != NULL, NULL);
-    return gnome_vfs_file_info_get_mime_type (info);
-}
-
-inline const gchar *GnomeCmdFile::get_mime_type_desc()
-{
-    g_return_val_if_fail (info != NULL, NULL);
-    return info->mime_type ? gnome_vfs_mime_get_description (info->mime_type) : NULL;
-}
-
-inline GnomeVFSMimeApplication *GnomeCmdFile::get_default_application()
-{
-    return info->mime_type ? gnome_vfs_mime_get_default_application (info->mime_type) : NULL;
 }

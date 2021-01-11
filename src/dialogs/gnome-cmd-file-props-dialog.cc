@@ -417,19 +417,13 @@ static GtkWidget *create_properties_tab (GnomeCmdFilePropsDialogPrivate *data)
         add_sep (table, y++);
     }
 
-    label = create_bold_label (dialog, _("Type:"));
+    label = create_bold_label (dialog, _("Content Type:"));
     table_add (table, label, 0, y, GTK_FILL);
 
-    label = create_label (dialog, data->f->get_mime_type_desc());
+    auto contentTypeString = data->f->GetGfileAttributeString(G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE);
+    label = create_label (dialog, contentTypeString);
     table_add (table, label, 1, y++, GTK_FILL);
-
-
-    label = create_bold_label (dialog, _("MIME Type:"));
-    table_add (table, label, 0, y, GTK_FILL);
-
-    label = create_label (dialog, data->f->get_mime_type());
-    table_add (table, label, 1, y++, GTK_FILL);
-
+    g_free(contentTypeString);
 
     if (data->f->info->type != GNOME_VFS_FILE_TYPE_DIRECTORY)
     {
@@ -438,12 +432,12 @@ static GtkWidget *create_properties_tab (GnomeCmdFilePropsDialogPrivate *data)
         label = create_bold_label (dialog, _("Opens with:"));
         table_add (table, label, 0, y, GTK_FILL);
 
-        GnomeVFSMimeApplication *vfs_app = data->f->get_default_application();
+        auto default_application_string = data->f->get_default_application_name_string();
 
-        if (vfs_app)
+        if (default_application_string)
         {
-            data->app_label = label = create_label (dialog, vfs_app->name);
-            gnome_vfs_mime_application_free (vfs_app);
+            data->app_label = label = create_label (dialog, default_application_string);
+            g_free (default_application_string);
         }
         else
             label = create_label (dialog, _("No default application registered"));
