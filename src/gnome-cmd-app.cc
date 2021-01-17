@@ -122,26 +122,6 @@ static char* panel_find_icon (GtkIconTheme *icon_theme, const char *icon_name, g
 }
 
 
-GnomeCmdApp *gnome_cmd_app_new_from_vfs_app (GnomeVFSMimeApplication *vfs_app)
-{
-    g_return_val_if_fail (vfs_app != nullptr, nullptr);
-
-    char *icon = panel_find_icon (gtk_icon_theme_get_default (), gnome_vfs_mime_application_get_icon (vfs_app), 16);
-
-    GnomeCmdApp *rel_value = gnome_cmd_app_new_with_values (vfs_app->name,
-                                          vfs_app->command,
-                                          icon,
-                                          APP_TARGET_ALL_FILES,
-                                          nullptr,
-                                          vfs_app->expects_uris == GNOME_VFS_MIME_APPLICATION_ARGUMENT_TYPE_URIS,
-                                          vfs_app->can_open_multiple_files,
-                                          vfs_app->requires_terminal,
-                                          nullptr);
-    g_free (icon);
-    return rel_value;
-}
-
-
 GnomeCmdApp *gnome_cmd_app_new_from_app_info (GAppInfo *gAppInfo)
 {
     g_return_val_if_fail (gAppInfo != nullptr, nullptr);

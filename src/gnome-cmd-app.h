@@ -52,8 +52,6 @@ struct GnomeCmdApp
 
 GnomeCmdApp *gnome_cmd_app_new ();
 
-GnomeCmdApp *gnome_cmd_app_new_from_vfs_app (GnomeVFSMimeApplication *vfs_app);
-
 GnomeCmdApp *gnome_cmd_app_new_from_app_info (GAppInfo *gAppInfo);
 
 GnomeCmdApp *gnome_cmd_app_new_with_values (const gchar *name,
