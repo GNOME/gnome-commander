@@ -634,6 +634,18 @@ GnomeVFSURI *gnome_cmd_dir_get_child_uri (GnomeCmdDir *dir, const gchar *filenam
 }
 
 
+GFile *gnome_cmd_dir_get_child_gfile (GnomeCmdDir *dir, const gchar *filename)
+{
+    g_return_val_if_fail (GNOME_CMD_IS_DIR (dir), nullptr);
+
+    GnomeCmdPath *path = dir->priv->path->get_child(filename);
+    GFile *gFile = gnome_cmd_con_create_gfile (dir->priv->con, path);
+    delete path;
+
+    return gFile;
+}
+
+
 GnomeVFSURI *gnome_cmd_dir_get_absolute_path_uri (GnomeCmdDir *dir, string absolute_filename)
 {
     g_return_val_if_fail (GNOME_CMD_IS_DIR (dir), nullptr);

@@ -333,6 +333,16 @@ GnomeVFSURI *gnome_cmd_con_create_uri (GnomeCmdCon *con, GnomeCmdPath *path)
 }
 
 
+GFile *gnome_cmd_con_create_gfile (GnomeCmdCon *con, GnomeCmdPath *path)
+{
+    g_return_val_if_fail (GNOME_CMD_IS_CON (con), nullptr);
+
+    GnomeCmdConClass *klass = GNOME_CMD_CON_GET_CLASS (con);
+
+    return klass->create_gfile (con, path);
+}
+
+
 GnomeCmdPath *gnome_cmd_con_create_path (GnomeCmdCon *con, const gchar *path_str)
 {
     g_return_val_if_fail (GNOME_CMD_IS_CON (con), nullptr);

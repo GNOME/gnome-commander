@@ -131,6 +131,7 @@ struct GnomeCmdConClass
     gboolean (* close) (GnomeCmdCon *con);
     gboolean (* open_is_needed) (GnomeCmdCon *con);
     GnomeVFSURI *(* create_uri) (GnomeCmdCon *con, GnomeCmdPath *path);
+    GFile *(* create_gfile) (GnomeCmdCon *con, GnomeCmdPath *path);
     GnomeCmdPath *(* create_path) (GnomeCmdCon *con, const gchar *path_str);
 };
 
@@ -178,6 +179,7 @@ inline void gnome_cmd_con_set_uri (GnomeCmdCon *con, const std::string &uri)
 }
 
 GnomeVFSURI *gnome_cmd_con_create_uri (GnomeCmdCon *con, GnomeCmdPath *path);
+GFile *gnome_cmd_con_create_gfile (GnomeCmdCon *con, GnomeCmdPath *path);
 
 GnomeCmdPath *gnome_cmd_con_create_path (GnomeCmdCon *con, const gchar *path_str);
 

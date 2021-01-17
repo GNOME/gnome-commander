@@ -66,6 +66,12 @@ static GnomeVFSURI *home_create_uri (GnomeCmdCon *con, GnomeCmdPath *path)
 }
 
 
+static GFile *home_create_gfile (GnomeCmdCon *con, GnomeCmdPath *path)
+{
+    return g_file_new_for_path(path->get_path());
+}
+
+
 static GnomeCmdPath *home_create_path (GnomeCmdCon *con, const gchar *path_str)
 {
     return new GnomeCmdPlainPath(path_str);
@@ -104,6 +110,7 @@ static void class_init (GnomeCmdConHomeClass *klass)
     con_class->cancel_open = home_cancel_open;
     con_class->open_is_needed = home_open_is_needed;
     con_class->create_uri = home_create_uri;
+    con_class->create_gfile = home_create_gfile;
     con_class->create_path = home_create_path;
 }
 

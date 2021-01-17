@@ -132,6 +132,7 @@ GnomeVFSURI *gnome_cmd_dir_get_uri (GnomeCmdDir *dir);
 gchar       *gnome_cmd_dir_get_uri_str (GnomeCmdDir *dir);
 
 GnomeVFSURI *gnome_cmd_dir_get_child_uri (GnomeCmdDir *dir, const gchar *filename);
+GFile *gnome_cmd_dir_get_child_gfile (GnomeCmdDir *dir, const gchar *filename);
 
 GnomeVFSURI *gnome_cmd_dir_get_absolute_path_uri (GnomeCmdDir *dir, std::string absolute_filename);
 

@@ -86,14 +86,13 @@ static void on_exec (GnomeCmdCmdline *cmdline, gboolean term)
 
         if (strcmp (dest_dir, "-")==0)
         {
-            GnomeVFSURI *test_uri = gnome_cmd_dir_get_child_uri (fs->get_directory(), "-");
+            auto *testGFile = gnome_cmd_dir_get_child_gfile (fs->get_directory(), "-");
 
-            if (gnome_vfs_uri_exists (test_uri))
+            if (g_file_query_exists (testGFile, nullptr))
                 fs->goto_directory(dest_dir);
             else
                 fs->back();
-
-            gnome_vfs_uri_unref (test_uri);
+            g_object_unref(testGFile);
         }
         else
             fs->goto_directory(dest_dir);
