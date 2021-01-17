@@ -2813,22 +2813,52 @@ gboolean GnomeCmdFileList::file_is_wanted(GnomeCmdFile *gnomeCmdFile)
 {
     g_return_val_if_fail (gnomeCmdFile != nullptr, FALSE);
 
-    GnomeVFSFileInfo *info = gnomeCmdFile->info;
+    GError *error;
+    error = nullptr;
 
-    if (strcmp (info->name, ".") == 0)
-        return FALSE;
+    auto fileNameString = g_file_get_basename(gnomeCmdFile->gFile);
+
+    auto gFileInfo = g_file_query_info(gnomeCmdFile->gFile,
+                                   "standard::*",
+                                   G_FILE_QUERY_INFO_NOFOLLOW_SYMLINKS,
+                                   nullptr,
+                                   &error);
+    if (error)
+    {
+        g_message ("retrieving file info failed: %s", error->message);
+        g_error_free (error);
+        return TRUE;
+    }
+
+    auto gFileType       = g_file_info_get_attribute_uint32(gFileInfo, G_FILE_ATTRIBUTE_STANDARD_TYPE);
+    auto gFileIsHidden   = g_file_info_get_attribute_boolean(gFileInfo, G_FILE_ATTRIBUTE_STANDARD_IS_HIDDEN);
+    auto gFileIsSymLink  = g_file_info_get_attribute_boolean(gFileInfo, G_FILE_ATTRIBUTE_STANDARD_IS_SYMLINK);
+    auto gFileIsVirtual  = g_file_info_get_attribute_boolean(gFileInfo, G_FILE_ATTRIBUTE_STANDARD_IS_VIRTUAL);
+    auto gFileIsVolatile = g_file_info_get_attribute_boolean(gFileInfo, G_FILE_ATTRIBUTE_STANDARD_IS_VOLATILE);
+
+    auto returnValue = TRUE;
+
+    if (strcmp ((const char*) fileNameString, ".") == 0)
+        returnValue = FALSE;
     if (gnomeCmdFile->is_dotdot)
-        return FALSE;
-    if (gnome_cmd_data.options.filter.file_types[info->type])
-        return FALSE;
-    if (info->symlink_name && gnome_cmd_data.options.filter.file_types[GNOME_VFS_FILE_TYPE_SYMBOLIC_LINK])
-        return FALSE;
-    if (info->name[0] == '.' && gnome_cmd_data.options.filter.hidden)
-        return FALSE;
-    if (gnome_cmd_data.options.filter.backup && patlist_matches (gnome_cmd_data.options.backup_pattern_list, info->name))
-        return FALSE;
+        returnValue = FALSE;
+    if (gnome_cmd_data.options.filter.file_types[gFileType])
+        returnValue = FALSE;
+    if (gFileIsSymLink && gnome_cmd_data.options.filter.file_types[GnomeCmdData::GcmdFileType::G_FILE_IS_SYMLINK])
+        returnValue = FALSE;
+    if (gFileIsHidden && gnome_cmd_data.options.filter.file_types[GnomeCmdData::GcmdFileType::G_FILE_IS_HIDDEN])
+        returnValue = FALSE;
+    if (gFileIsVirtual && gnome_cmd_data.options.filter.file_types[GnomeCmdData::GcmdFileType::G_FILE_IS_VIRTUAL])
+        returnValue = FALSE;
+    if (gFileIsVolatile && gnome_cmd_data.options.filter.file_types[GnomeCmdData::GcmdFileType::G_FILE_IS_VOLATILE])
+        returnValue = FALSE;
+    if (gnome_cmd_data.options.filter.file_types[GnomeCmdData::GcmdFileType::G_FILE_IS_BACKUP]
+        && patlist_matches (gnome_cmd_data.options.backup_pattern_list, fileNameString))
+        returnValue = FALSE;
 
-    return TRUE;
+    g_free(fileNameString);
+
+    return returnValue;
 }
 
 

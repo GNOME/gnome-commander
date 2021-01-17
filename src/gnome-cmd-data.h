@@ -148,13 +148,14 @@ GcmdSettings *gcmd_settings_new (void);
 #define GCMD_SETTINGS_FILTER_HIDE_UNKNOWN             "hide-unknown"
 #define GCMD_SETTINGS_FILTER_HIDE_REGULAR             "hide-regular"
 #define GCMD_SETTINGS_FILTER_HIDE_DIRECTORY           "hide-directory"
-#define GCMD_SETTINGS_FILTER_HIDE_FIFO                "hide-fifo"
-#define GCMD_SETTINGS_FILTER_HIDE_SOCKET              "hide-socket"
-#define GCMD_SETTINGS_FILTER_HIDE_CHARACTER_DEVICE    "hide-char-device"
-#define GCMD_SETTINGS_FILTER_HIDE_BLOCK_DEVICE        "hide-block-device"
-#define GCMD_SETTINGS_FILTER_HIDE_SYMBOLIC_LINK       "hide-symbolic-link"
-#define GCMD_SETTINGS_FILTER_DOTFILE                  "hide-dotfile"
-#define GCMD_SETTINGS_FILTER_BACKUP                   "hide-backup-files"
+#define GCMD_SETTINGS_FILTER_HIDE_SYMLINK             "hide-symlink"
+#define GCMD_SETTINGS_FILTER_HIDE_SPECIAL             "hide-special"
+#define GCMD_SETTINGS_FILTER_HIDE_SHORTCUT            "hide-shortcut"
+#define GCMD_SETTINGS_FILTER_HIDE_MOUNTABLE           "hide-mountable"
+#define GCMD_SETTINGS_FILTER_HIDE_VIRTUAL             "hide-virtual"
+#define GCMD_SETTINGS_FILTER_HIDE_VOLATILE            "hide-volatile"
+#define GCMD_SETTINGS_FILTER_HIDE_HIDDEN              "hide-dotfile"
+#define GCMD_SETTINGS_FILTER_HIDE_BACKUPS             "hide-backupfiles"
 #define GCMD_SETTINGS_FILTER_BACKUP_PATTERN           "backup-pattern"
 
 #define GCMD_PREF_CONFIRM                             "org.gnome.gnome-commander.preferences.confirmations"
@@ -280,18 +281,28 @@ struct GnomeCmdData
 
     enum {SEARCH_HISTORY_SIZE=10, ADVRENAME_HISTORY_SIZE=10, INTVIEWER_HISTORY_SIZE=16};
 
+    typedef enum
+    {
+        G_FILE_IS_UNKNOWN,
+        G_FILE_IS_REGULAR,
+        G_FILE_IS_DIR,
+        G_FILE_IS_SYMLINK,
+        G_FILE_IS_SPECIAL,
+        G_FILE_IS_SHORTCUT,
+        G_FILE_IS_MOUNTABLE,
+        G_FILE_IS_HIDDEN,
+        G_FILE_IS_BACKUP,
+        G_FILE_IS_VIRTUAL,
+        G_FILE_IS_VOLATILE
+    }GcmdFileType;
+
     struct FilterSettings
     {
-        gboolean file_types[8];
-
-        gboolean hidden;
-        gboolean backup;
+        gboolean file_types[11];
 
         FilterSettings()
         {
             memset(file_types, 0, sizeof(file_types));
-            hidden = TRUE;
-            backup = TRUE;
         }
     };
 

@@ -1487,7 +1487,7 @@ void view_hidden_files (GtkToggleAction *toggleAction, gpointer not_used)
     if (!GTK_WIDGET_REALIZED (main_win)) return;
 
     auto active = gtk_toggle_action_get_active(toggleAction);
-    g_settings_set_boolean (gcmd_user_actions.settings->filter, GCMD_SETTINGS_FILTER_DOTFILE, !active);
+    g_settings_set_boolean (gcmd_user_actions.settings->filter, GCMD_SETTINGS_FILTER_HIDE_HIDDEN, !active);
 }
 
 
@@ -1496,7 +1496,7 @@ void view_backup_files (GtkToggleAction *toggleAction, gpointer not_used)
     if (!GTK_WIDGET_REALIZED (main_win)) return;
 
     auto active = gtk_toggle_action_get_active(toggleAction);
-    g_settings_set_boolean (gcmd_user_actions.settings->filter, GCMD_SETTINGS_FILTER_BACKUP, !active);
+    g_settings_set_boolean (gcmd_user_actions.settings->filter, GCMD_SETTINGS_FILTER_HIDE_BACKUPS, !active);
 }
 
 

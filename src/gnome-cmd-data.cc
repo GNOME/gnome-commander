@@ -198,7 +198,7 @@ static void on_filter_hide_unknown_changed()
     gboolean filter;
 
     filter = g_settings_get_boolean (gnome_cmd_data.options.gcmd_settings->filter, GCMD_SETTINGS_FILTER_HIDE_UNKNOWN);
-    gnome_cmd_data.options.filter.file_types[GNOME_VFS_FILE_TYPE_UNKNOWN] = filter;
+    gnome_cmd_data.options.filter.file_types[GnomeCmdData::GcmdFileType::G_FILE_IS_UNKNOWN] = filter;
 
     main_win->update_view();
 }
@@ -208,7 +208,7 @@ static void on_filter_hide_regular_changed ()
     gboolean filter;
 
     filter = g_settings_get_boolean (gnome_cmd_data.options.gcmd_settings->filter, GCMD_SETTINGS_FILTER_HIDE_REGULAR);
-    gnome_cmd_data.options.filter.file_types[GNOME_VFS_FILE_TYPE_REGULAR] = filter;
+    gnome_cmd_data.options.filter.file_types[GnomeCmdData::GcmdFileType::G_FILE_IS_REGULAR] = filter;
 
     main_win->update_view();
 }
@@ -218,77 +218,87 @@ static void on_filter_hide_directory_changed ()
     gboolean filter;
 
     filter = g_settings_get_boolean (gnome_cmd_data.options.gcmd_settings->filter, GCMD_SETTINGS_FILTER_HIDE_DIRECTORY);
-    gnome_cmd_data.options.filter.file_types[GNOME_VFS_FILE_TYPE_DIRECTORY] = filter;
+    gnome_cmd_data.options.filter.file_types[GnomeCmdData::GcmdFileType::G_FILE_IS_DIR] = filter;
 
     main_win->update_view();
 }
 
-static void on_filter_hide_fifo_changed ()
+static void on_filter_hide_symlink_changed ()
 {
     gboolean filter;
 
-    filter = g_settings_get_boolean (gnome_cmd_data.options.gcmd_settings->filter, GCMD_SETTINGS_FILTER_HIDE_FIFO);
-    gnome_cmd_data.options.filter.file_types[GNOME_VFS_FILE_TYPE_FIFO] = filter;
+    filter = g_settings_get_boolean (gnome_cmd_data.options.gcmd_settings->filter, GCMD_SETTINGS_FILTER_HIDE_SYMLINK);
+    gnome_cmd_data.options.filter.file_types[GnomeCmdData::GcmdFileType::G_FILE_IS_SYMLINK] = filter;
 
     main_win->update_view();
 }
 
-static void on_filter_hide_socket_changed ()
+static void on_filter_hide_special_changed ()
 {
     gboolean filter;
 
-    filter = g_settings_get_boolean (gnome_cmd_data.options.gcmd_settings->filter, GCMD_SETTINGS_FILTER_HIDE_SOCKET);
-    gnome_cmd_data.options.filter.file_types[GNOME_VFS_FILE_TYPE_SOCKET] = filter;
+    filter = g_settings_get_boolean (gnome_cmd_data.options.gcmd_settings->filter, GCMD_SETTINGS_FILTER_HIDE_SPECIAL);
+    gnome_cmd_data.options.filter.file_types[GnomeCmdData::GcmdFileType::G_FILE_IS_SPECIAL] = filter;
 
     main_win->update_view();
 }
 
-static void on_filter_hide_character_device_changed ()
+static void on_filter_hide_shortcut_changed ()
 {
     gboolean filter;
 
-    filter = g_settings_get_boolean (gnome_cmd_data.options.gcmd_settings->filter, GCMD_SETTINGS_FILTER_HIDE_CHARACTER_DEVICE);
-    gnome_cmd_data.options.filter.file_types[GNOME_VFS_FILE_TYPE_CHARACTER_DEVICE] = filter;
+    filter = g_settings_get_boolean (gnome_cmd_data.options.gcmd_settings->filter, GCMD_SETTINGS_FILTER_HIDE_SHORTCUT);
+    gnome_cmd_data.options.filter.file_types[GnomeCmdData::GcmdFileType::G_FILE_IS_SHORTCUT] = filter;
 
     main_win->update_view();
 }
 
-static void on_filter_hide_block_device_changed ()
+static void on_filter_hide_mountable_changed ()
 {
     gboolean filter;
 
-    filter = g_settings_get_boolean (gnome_cmd_data.options.gcmd_settings->filter, GCMD_SETTINGS_FILTER_HIDE_BLOCK_DEVICE);
-    gnome_cmd_data.options.filter.file_types[GNOME_VFS_FILE_TYPE_BLOCK_DEVICE] = filter;
+    filter = g_settings_get_boolean (gnome_cmd_data.options.gcmd_settings->filter, GCMD_SETTINGS_FILTER_HIDE_MOUNTABLE);
+    gnome_cmd_data.options.filter.file_types[GnomeCmdData::GcmdFileType::G_FILE_IS_MOUNTABLE] = filter;
 
     main_win->update_view();
 }
 
-static void on_filter_hide_symbolic_link_changed ()
+static void on_filter_hide_hidden_changed()
 {
     gboolean filter;
 
-    filter = g_settings_get_boolean (gnome_cmd_data.options.gcmd_settings->filter, GCMD_SETTINGS_FILTER_HIDE_SYMBOLIC_LINK);
-    gnome_cmd_data.options.filter.file_types[GNOME_VFS_FILE_TYPE_SYMBOLIC_LINK] = filter;
+    filter = g_settings_get_boolean (gnome_cmd_data.options.gcmd_settings->filter, GCMD_SETTINGS_FILTER_HIDE_HIDDEN);
+    gnome_cmd_data.options.filter.file_types[GnomeCmdData::GcmdFileType::G_FILE_IS_HIDDEN] = filter;
 
     main_win->update_view();
 }
 
-static void on_filter_dotfile_changed ()
+static void on_filter_hide_backupfiles_changed ()
 {
     gboolean filter;
 
-    filter = g_settings_get_boolean (gnome_cmd_data.options.gcmd_settings->filter, GCMD_SETTINGS_FILTER_DOTFILE);
-    gnome_cmd_data.options.filter.hidden = filter;
+    filter = g_settings_get_boolean (gnome_cmd_data.options.gcmd_settings->filter, GCMD_SETTINGS_FILTER_HIDE_BACKUPS);
+    gnome_cmd_data.options.filter.file_types[GnomeCmdData::GcmdFileType::G_FILE_IS_BACKUP] = filter;
 
     main_win->update_view();
 }
 
-static void on_filter_backup_changed ()
+static void on_filter_hide_virtual_changed ()
 {
     gboolean filter;
 
-    filter = g_settings_get_boolean (gnome_cmd_data.options.gcmd_settings->filter, GCMD_SETTINGS_FILTER_BACKUP);
-    gnome_cmd_data.options.filter.backup = filter;
+    filter = g_settings_get_boolean (gnome_cmd_data.options.gcmd_settings->filter, GCMD_SETTINGS_FILTER_HIDE_VIRTUAL);
+    gnome_cmd_data.options.filter.file_types[GnomeCmdData::GcmdFileType::G_FILE_IS_VIRTUAL] = filter;
+
+    main_win->update_view();
+}
+
+static void on_filter_hide_volatile_changed ()
+{
+    gboolean filter;
+
+    filter = g_settings_get_boolean (gnome_cmd_data.options.gcmd_settings->filter, GCMD_SETTINGS_FILTER_HIDE_VOLATILE);
+    gnome_cmd_data.options.filter.file_types[GnomeCmdData::GcmdFileType::G_FILE_IS_VOLATILE] = filter;
 
     main_win->update_view();
 }
@@ -971,38 +981,43 @@ static void gcmd_connect_gsettings_signals(GcmdSettings *gs)
                       nullptr);
 
     g_signal_connect (gs->filter,
-                      "changed::hide-fifo",
-                      G_CALLBACK (on_filter_hide_fifo_changed),
+                      "changed::hide-symlink",
+                      G_CALLBACK (on_filter_hide_symlink_changed),
                       nullptr);
 
     g_signal_connect (gs->filter,
-                      "changed::hide-socket",
-                      G_CALLBACK (on_filter_hide_socket_changed),
+                      "changed::hide-special",
+                      G_CALLBACK (on_filter_hide_special_changed),
                       nullptr);
 
     g_signal_connect (gs->filter,
-                      "changed::hide-char-device",
-                      G_CALLBACK (on_filter_hide_character_device_changed),
+                      "changed::hide-shortcut",
+                      G_CALLBACK (on_filter_hide_shortcut_changed),
                       nullptr);
 
     g_signal_connect (gs->filter,
-                      "changed::hide-block-device",
-                      G_CALLBACK (on_filter_hide_block_device_changed),
+                      "changed::hide-mountable",
+                      G_CALLBACK (on_filter_hide_mountable_changed),
                       nullptr);
 
     g_signal_connect (gs->filter,
-                      "changed::hide-symbolic-link",
-                      G_CALLBACK (on_filter_hide_symbolic_link_changed),
+                      "changed::hide-virtual",
+                      G_CALLBACK (on_filter_hide_virtual_changed),
+                      nullptr);
+
+    g_signal_connect (gs->filter,
+                      "changed::hide-volatile",
+                      G_CALLBACK (on_filter_hide_volatile_changed),
                       nullptr);
 
     g_signal_connect (gs->filter,
                       "changed::hide-dotfile",
-                      G_CALLBACK (on_filter_dotfile_changed),
+                      G_CALLBACK (on_filter_hide_hidden_changed),
                       nullptr);
 
     g_signal_connect (gs->filter,
-                      "changed::hide-backup-files",
-                      G_CALLBACK (on_filter_backup_changed),
+                      "changed::hide-backupfiles",
+                      G_CALLBACK (on_filter_hide_backupfiles_changed),
                       nullptr);
 
     g_signal_connect (gs->filter,
@@ -3078,16 +3093,17 @@ void GnomeCmdData::load()
     options.confirm_move_overwrite = (GnomeCmdConfirmOverwriteMode) g_settings_get_enum (options.gcmd_settings->confirm, GCMD_SETTINGS_CONFIRM_MOVE_OVERWRITE);
     options.confirm_mouse_dnd = g_settings_get_boolean (options.gcmd_settings->confirm, GCMD_SETTINGS_CONFIRM_MOUSE_DRAG_AND_DROP);
 
-    options.filter.file_types[GNOME_VFS_FILE_TYPE_UNKNOWN] = g_settings_get_boolean (options.gcmd_settings->filter, GCMD_SETTINGS_FILTER_HIDE_UNKNOWN);
-    options.filter.file_types[GNOME_VFS_FILE_TYPE_REGULAR] = g_settings_get_boolean (options.gcmd_settings->filter, GCMD_SETTINGS_FILTER_HIDE_REGULAR);
-    options.filter.file_types[GNOME_VFS_FILE_TYPE_DIRECTORY] = g_settings_get_boolean (options.gcmd_settings->filter, GCMD_SETTINGS_FILTER_HIDE_DIRECTORY);
-    options.filter.file_types[GNOME_VFS_FILE_TYPE_FIFO] = g_settings_get_boolean (options.gcmd_settings->filter, GCMD_SETTINGS_FILTER_HIDE_FIFO);
-    options.filter.file_types[GNOME_VFS_FILE_TYPE_SOCKET] = g_settings_get_boolean (options.gcmd_settings->filter, GCMD_SETTINGS_FILTER_HIDE_SOCKET);
-    options.filter.file_types[GNOME_VFS_FILE_TYPE_CHARACTER_DEVICE] = g_settings_get_boolean (options.gcmd_settings->filter, GCMD_SETTINGS_FILTER_HIDE_CHARACTER_DEVICE);
-    options.filter.file_types[GNOME_VFS_FILE_TYPE_BLOCK_DEVICE] = g_settings_get_boolean (options.gcmd_settings->filter, GCMD_SETTINGS_FILTER_HIDE_BLOCK_DEVICE);
-    options.filter.file_types[GNOME_VFS_FILE_TYPE_SYMBOLIC_LINK] = g_settings_get_boolean (options.gcmd_settings->filter, GCMD_SETTINGS_FILTER_HIDE_SYMBOLIC_LINK);
-    options.filter.hidden = g_settings_get_boolean (options.gcmd_settings->filter, GCMD_SETTINGS_FILTER_DOTFILE);
-    options.filter.backup = g_settings_get_boolean (options.gcmd_settings->filter, GCMD_SETTINGS_FILTER_BACKUP);
+    options.filter.file_types[G_FILE_IS_UNKNOWN] = g_settings_get_boolean (options.gcmd_settings->filter, GCMD_SETTINGS_FILTER_HIDE_UNKNOWN);
+    options.filter.file_types[G_FILE_IS_REGULAR] = g_settings_get_boolean (options.gcmd_settings->filter, GCMD_SETTINGS_FILTER_HIDE_REGULAR);
+    options.filter.file_types[G_FILE_IS_DIR] = g_settings_get_boolean (options.gcmd_settings->filter, GCMD_SETTINGS_FILTER_HIDE_DIRECTORY);
+    options.filter.file_types[G_FILE_IS_SYMLINK] = g_settings_get_boolean (options.gcmd_settings->filter, GCMD_SETTINGS_FILTER_HIDE_SYMLINK);
+    options.filter.file_types[G_FILE_TYPE_SPECIAL] = g_settings_get_boolean (options.gcmd_settings->filter, GCMD_SETTINGS_FILTER_HIDE_SPECIAL);
+    options.filter.file_types[G_FILE_TYPE_SHORTCUT] = g_settings_get_boolean (options.gcmd_settings->filter, GCMD_SETTINGS_FILTER_HIDE_SHORTCUT);
+    options.filter.file_types[G_FILE_TYPE_MOUNTABLE] = g_settings_get_boolean (options.gcmd_settings->filter, GCMD_SETTINGS_FILTER_HIDE_MOUNTABLE);
+    options.filter.file_types[G_FILE_IS_VIRTUAL] = g_settings_get_boolean (options.gcmd_settings->filter, GCMD_SETTINGS_FILTER_HIDE_VIRTUAL);
+    options.filter.file_types[G_FILE_IS_VOLATILE] = g_settings_get_boolean (options.gcmd_settings->filter, GCMD_SETTINGS_FILTER_HIDE_VOLATILE);
+    options.filter.file_types[G_FILE_IS_HIDDEN] = g_settings_get_boolean (options.gcmd_settings->filter, GCMD_SETTINGS_FILTER_HIDE_HIDDEN);
+    options.filter.file_types[G_FILE_IS_BACKUP] = g_settings_get_boolean (options.gcmd_settings->filter, GCMD_SETTINGS_FILTER_HIDE_BACKUPS);
 
     options.select_dirs = g_settings_get_boolean (options.gcmd_settings->general, GCMD_SETTINGS_SELECT_DIRS);
     options.case_sens_sort = g_settings_get_boolean (options.gcmd_settings->general, GCMD_SETTINGS_CASE_SENSITIVE);
@@ -3450,16 +3466,17 @@ void GnomeCmdData::save()
     set_gsettings_enum_when_changed (options.gcmd_settings->confirm, GCMD_SETTINGS_CONFIRM_MOVE_OVERWRITE, options.confirm_move_overwrite);
     set_gsettings_when_changed      (options.gcmd_settings->confirm, GCMD_SETTINGS_CONFIRM_MOUSE_DRAG_AND_DROP, &(options.confirm_mouse_dnd));
 
-    set_gsettings_when_changed      (options.gcmd_settings->filter, GCMD_SETTINGS_FILTER_HIDE_UNKNOWN, &(options.filter.file_types[GNOME_VFS_FILE_TYPE_UNKNOWN]));
-    set_gsettings_when_changed      (options.gcmd_settings->filter, GCMD_SETTINGS_FILTER_HIDE_REGULAR, &(options.filter.file_types[GNOME_VFS_FILE_TYPE_REGULAR]));
-    set_gsettings_when_changed      (options.gcmd_settings->filter, GCMD_SETTINGS_FILTER_HIDE_DIRECTORY, &(options.filter.file_types[GNOME_VFS_FILE_TYPE_DIRECTORY]));
-    set_gsettings_when_changed      (options.gcmd_settings->filter, GCMD_SETTINGS_FILTER_HIDE_FIFO, &(options.filter.file_types[GNOME_VFS_FILE_TYPE_FIFO]));
-    set_gsettings_when_changed      (options.gcmd_settings->filter, GCMD_SETTINGS_FILTER_HIDE_SOCKET, &(options.filter.file_types[GNOME_VFS_FILE_TYPE_SOCKET]));
-    set_gsettings_when_changed      (options.gcmd_settings->filter, GCMD_SETTINGS_FILTER_HIDE_CHARACTER_DEVICE, &(options.filter.file_types[GNOME_VFS_FILE_TYPE_CHARACTER_DEVICE]));
-    set_gsettings_when_changed      (options.gcmd_settings->filter, GCMD_SETTINGS_FILTER_HIDE_BLOCK_DEVICE, &(options.filter.file_types[GNOME_VFS_FILE_TYPE_BLOCK_DEVICE]));
-    set_gsettings_when_changed      (options.gcmd_settings->filter, GCMD_SETTINGS_FILTER_HIDE_SYMBOLIC_LINK, &(options.filter.file_types[GNOME_VFS_FILE_TYPE_SYMBOLIC_LINK]));
-    set_gsettings_when_changed      (options.gcmd_settings->filter, GCMD_SETTINGS_FILTER_DOTFILE, &(options.filter.hidden));
-    set_gsettings_when_changed      (options.gcmd_settings->filter, GCMD_SETTINGS_FILTER_BACKUP, &(options.filter.backup));
+    set_gsettings_when_changed      (options.gcmd_settings->filter, GCMD_SETTINGS_FILTER_HIDE_UNKNOWN, &(options.filter.file_types[G_FILE_IS_UNKNOWN]));
+    set_gsettings_when_changed      (options.gcmd_settings->filter, GCMD_SETTINGS_FILTER_HIDE_REGULAR, &(options.filter.file_types[G_FILE_IS_REGULAR]));
+    set_gsettings_when_changed      (options.gcmd_settings->filter, GCMD_SETTINGS_FILTER_HIDE_DIRECTORY, &(options.filter.file_types[G_FILE_IS_DIR]));
+    set_gsettings_when_changed      (options.gcmd_settings->filter, GCMD_SETTINGS_FILTER_HIDE_SYMLINK, &(options.filter.file_types[G_FILE_IS_SYMLINK]));
+    set_gsettings_when_changed      (options.gcmd_settings->filter, GCMD_SETTINGS_FILTER_HIDE_SPECIAL, &(options.filter.file_types[G_FILE_IS_SPECIAL]));
+    set_gsettings_when_changed      (options.gcmd_settings->filter, GCMD_SETTINGS_FILTER_HIDE_SHORTCUT, &(options.filter.file_types[G_FILE_IS_SHORTCUT]));
+    set_gsettings_when_changed      (options.gcmd_settings->filter, GCMD_SETTINGS_FILTER_HIDE_MOUNTABLE, &(options.filter.file_types[G_FILE_IS_MOUNTABLE]));
+    set_gsettings_when_changed      (options.gcmd_settings->filter, GCMD_SETTINGS_FILTER_HIDE_VIRTUAL, &(options.filter.file_types[G_FILE_IS_VIRTUAL]));
+    set_gsettings_when_changed      (options.gcmd_settings->filter, GCMD_SETTINGS_FILTER_HIDE_VOLATILE, &(options.filter.file_types[G_FILE_IS_VOLATILE]));
+    set_gsettings_when_changed      (options.gcmd_settings->filter, GCMD_SETTINGS_FILTER_HIDE_HIDDEN, &(options.filter.file_types[G_FILE_IS_HIDDEN]));
+    set_gsettings_when_changed      (options.gcmd_settings->filter, GCMD_SETTINGS_FILTER_HIDE_BACKUPS, &(options.filter.file_types[G_FILE_IS_BACKUP]));
 
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_SELECT_DIRS, &(options.select_dirs));
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_CASE_SENSITIVE, &(options.case_sens_sort));

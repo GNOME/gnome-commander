@@ -1074,7 +1074,8 @@ gboolean GnomeCmdMainWin::key_pressed(GdkEventKey *event)
         {
             case GDK_H:
             case GDK_h:
-                gnome_cmd_data.options.filter.hidden = !gnome_cmd_data.options.filter.hidden;
+                gnome_cmd_data.options.filter.file_types[GnomeCmdData::G_FILE_IS_HIDDEN] =
+                    !gnome_cmd_data.options.filter.file_types[GnomeCmdData::G_FILE_IS_HIDDEN];
                 gnome_cmd_data.save();
                 return TRUE;
             default:

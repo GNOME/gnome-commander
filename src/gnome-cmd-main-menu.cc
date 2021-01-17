@@ -456,8 +456,8 @@ static void init (GnomeCmdMainMenu *main_menu)
     gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (gtk_ui_manager_get_widget (uiManager, "/MainMenuBar/ViewMenu/ShowDeviceList")), gnome_cmd_data.show_devlist);
     gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (gtk_ui_manager_get_widget (uiManager, "/MainMenuBar/ViewMenu/ShowCommandLine")), gnome_cmd_data.cmdline_visibility);
     gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (gtk_ui_manager_get_widget (uiManager, "/MainMenuBar/ViewMenu/ShowButtonbar")), gnome_cmd_data.buttonbar_visibility);
-    gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (gtk_ui_manager_get_widget (uiManager, "/MainMenuBar/ViewMenu/ShowHiddenFiles")), !gnome_cmd_data.options.filter.hidden);
-    gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (gtk_ui_manager_get_widget (uiManager, "/MainMenuBar/ViewMenu/ShowBackupFiles")), !gnome_cmd_data.options.filter.backup);
+    gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (gtk_ui_manager_get_widget (uiManager, "/MainMenuBar/ViewMenu/ShowHiddenFiles")), !gnome_cmd_data.options.filter.file_types[GnomeCmdData::G_FILE_IS_HIDDEN]);
+    gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (gtk_ui_manager_get_widget (uiManager, "/MainMenuBar/ViewMenu/ShowBackupFiles")), !gnome_cmd_data.options.filter.file_types[GnomeCmdData::G_FILE_IS_BACKUP]);
     gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (gtk_ui_manager_get_widget (uiManager, "/MainMenuBar/ViewMenu/HorizontalOrientation")), gnome_cmd_data.horizontal_orientation);
 
     g_signal_connect (gnome_cmd_con_list_get (), "list-changed", G_CALLBACK (on_con_list_list_changed), main_menu);

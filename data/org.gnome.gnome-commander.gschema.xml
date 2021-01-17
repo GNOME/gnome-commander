@@ -629,31 +629,35 @@
       <default>false</default>
       <summary>Hide directories</summary>
     </key>
-    <key name="hide-fifo" type="b">
-      <default>false</default>
-      <summary>Hide FIFO pipes</summary>
-    </key>
-    <key name="hide-socket" type="b">
-      <default>false</default>
-      <summary>Hide sockets</summary>
-    </key>
-    <key name="hide-char-device" type="b">
-      <default>false</default>
-      <summary>Hide character devices</summary>
-    </key>
-    <key name="hide-block-device" type="b">
-      <default>false</default>
-      <summary>Hide block devices</summary>
-    </key>
-    <key name="hide-symbolic-link" type="b">
+    <key name="hide-symlink" type="b">
       <default>false</default>
       <summary>Hide symbolic links</summary>
+    </key>
+    <key name="hide-special" type="b">
+      <default>false</default>
+      <summary>Hide special files, such as a socket, fifo, block devices, or character devices.</summary>
+    </key>
+    <key name="hide-shortcut" type="b">
+      <default>false</default>
+      <summary>Hide shortcut files (Windows systems)</summary>
+    </key>
+    <key name="hide-mountable" type="b">
+      <default>false</default>
+      <summary>Hide mountable locations</summary>
+    </key>
+    <key name="hide-virtual" type="b">
+      <default>false</default>
+      <summary>Hide virtual files</summary>
+    </key>
+    <key name="hide-volatile" type="b">
+      <default>false</default>
+      <summary>Hide volatile files</summary>
     </key>
     <key name="hide-dotfile" type="b">
       <default>true</default>
       <summary>Hide files and folders starting with a dot</summary>
     </key>
-    <key name="hide-backup-files" type="b">
+    <key name="hide-backupfiles" type="b">
       <default>true</default>
       <summary>Hide backup files</summary>
       <description>Hide all files with a suffix defined as the backup pattern.</description>
