@@ -87,7 +87,7 @@ static void gviewer_text_status_update(TextRender *obj, TextRender::Status *stat
 static void gviewer_image_status_update(ImageRender *obj, ImageRender::Status *status, GViewer *viewer);
 static gboolean on_text_viewer_button_pressed (GtkWidget *treeview, GdkEventButton *event, GViewer *viewer);
 
-static VIEWERDISPLAYMODE guess_display_mode(const unsigned char *data, int len);
+static VIEWERDISPLAYMODE guess_display_mode(const char *filename, int len);
 static void gviewer_auto_detect_display_mode(GViewer *obj);
 
 /*****************************************
@@ -229,7 +229,7 @@ static void gviewer_image_status_update(ImageRender *obj, ImageRender::Status *s
     if (status->image_width > 0 && status->image_height > 0)
     {
         gchar zoom[10];
-        char *size_string = strdup(""); // size_string = gnome_vfs_format_file_size_for_display (bytes);
+        char *size_string = strdup("");
 
         if (!status->best_fit)
             g_snprintf(zoom, sizeof(zoom), "%i%%", (int)(status->scale_factor*100.0));
@@ -294,30 +294,38 @@ static void gviewer_destroy (GtkObject *widget)
 }
 
 
-static VIEWERDISPLAYMODE guess_display_mode(const unsigned char *data, int len)
+static VIEWERDISPLAYMODE guess_display_mode(const char *filename, int len)
 {
-    gboolean control_chars = FALSE; /* True if found ASCII < 0x20 */
-    //gboolean ascii_chars = FALSE;
-    //gboolean extended_chars = FALSE; /* True if found ASCII >= 0x80 */
+    auto returnValue = DISP_MODE_TEXT_FIXED;
+    auto gFile = g_file_new_for_path(filename);
 
-    const char *mime = gnome_vfs_get_mime_type_for_data(data, len);
-
-    if (g_ascii_strncasecmp (mime, "image/", 6)==0)
-        return DISP_MODE_IMAGE;
-
-    /* Hex File ?  */
-    for (gint i=0; i<len; i++)
+    GError *error;
+    error = nullptr;
+    auto gcmdFileInfo = g_file_query_info(gFile,
+                                   G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE,
+                                   G_FILE_QUERY_INFO_NOFOLLOW_SYMLINKS,
+                                   nullptr,
+                                   &error);
+    if (error)
     {
-        if (data[i]<0x20 && data[i]!=10 && data[i]!=13 && data[i]!=9)
-            control_chars = TRUE;
-        //if (data[i]>=0x80)
-        //    extended_chars = TRUE;
-        //if (data[i]>=0x20 && data[i]<=0x7F)
-        //    ascii_chars = TRUE;
-        /* TODO: add UTF-8 detection */
+        g_message ("retrieving file info failed: %s", error->message);
+        g_error_free (error);
     }
 
-    return control_chars ? DISP_MODE_BINARY : DISP_MODE_TEXT_FIXED;
+    auto gFileContentType = g_file_info_get_attribute_string (gcmdFileInfo,
+                                G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE);
+
+    if (g_ascii_strncasecmp (gFileContentType, "text/", 5) == 0)
+        returnValue = DISP_MODE_TEXT_FIXED;
+    if (g_ascii_strncasecmp (gFileContentType, "image/", 6) == 0)
+        returnValue = DISP_MODE_IMAGE;
+    if (g_ascii_strncasecmp (gFileContentType, "application/", 12) == 0)
+        returnValue = DISP_MODE_BINARY;
+
+    g_object_unref(gcmdFileInfo);
+    g_object_unref(gFile);
+
+    return returnValue;
 }
 
 
@@ -326,8 +334,6 @@ void gviewer_auto_detect_display_mode(GViewer *obj)
     g_return_if_fail (obj != nullptr);
 
     const unsigned DETECTION_BUF_LEN = 100;
-
-    unsigned char temp[DETECTION_BUF_LEN];
 
     obj->priv->dispmode = DISP_MODE_TEXT_FIXED;
 
@@ -341,10 +347,8 @@ void gviewer_auto_detect_display_mode(GViewer *obj)
 
     int count = MIN(DETECTION_BUF_LEN, gv_file_get_max_offset(fops));
 
-    for (gint i=0; i<count; i++)
-        temp[i] = gv_file_get_byte(fops, i);
+    obj->priv->dispmode = guess_display_mode(fops->filename, count);
 
-    obj->priv->dispmode = guess_display_mode(temp, count);
 }
 
 
