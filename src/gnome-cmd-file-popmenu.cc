@@ -120,8 +120,8 @@ static void mime_exec_multiple (GList *files, GnomeCmdApp *app)
     g_return_if_fail (files != nullptr);
     g_return_if_fail (app != nullptr);
 
-    GList *src_uri_list = nullptr;
-    GList *dest_uri_list = nullptr;
+//  GList *src_uri_list = nullptr;
+//  GList *dest_uri_list = nullptr;
     GList *local_files = nullptr;
 //  gboolean asked = FALSE;
 //  guint no_of_remote_files = 0;
@@ -178,15 +178,15 @@ static void mime_exec_multiple (GList *files, GnomeCmdApp *app)
     args[0] = app;
     args[1] = local_files;
 
-    if (src_uri_list)
-        gnome_cmd_xfer_tmp_download_multiple (src_uri_list,
-                                              dest_uri_list,
-                                              GNOME_VFS_XFER_FOLLOW_LINKS,
-                                              GNOME_VFS_XFER_OVERWRITE_MODE_REPLACE,
-                                              GTK_SIGNAL_FUNC (do_mime_exec_multiple),
-                                              args);
-    else
-        do_mime_exec_multiple (args);
+//  if (src_uri_list)
+//      gnome_cmd_xfer_tmp_download_multiple (src_uri_list,
+//                                            dest_uri_list,
+//                                            GNOME_VFS_XFER_FOLLOW_LINKS,
+//                                            GNOME_VFS_XFER_OVERWRITE_MODE_REPLACE,
+//                                            GTK_SIGNAL_FUNC (do_mime_exec_multiple),
+//                                            args);
+//  else
+      do_mime_exec_multiple (args);
 }
 
 
