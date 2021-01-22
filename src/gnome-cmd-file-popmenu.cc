@@ -394,15 +394,39 @@ static void add_fav_app_menu_item (GtkUIManager *uiManager, guint mergeIdFavApp,
 }
 
 
+guint32 get_gfile_type(GFile *gFile)
+{
+    GError *error;
+    error = nullptr;
+    auto gcmdFileInfo = g_file_query_info(gFile,
+                                   G_FILE_ATTRIBUTE_STANDARD_TYPE,
+                                   G_FILE_QUERY_INFO_NOFOLLOW_SYMLINKS,
+                                   nullptr,
+                                   &error);
+    if (error)
+    {
+        g_message ("retrieving file info failed: %s", error->message);
+        g_error_free (error);
+    }
+
+    auto gFileStandardType = g_file_info_get_attribute_uint32 (gcmdFileInfo,
+                                G_FILE_ATTRIBUTE_STANDARD_TYPE);
+
+    g_object_unref(gcmdFileInfo);
+
+    return gFileStandardType;
+}
+
 inline gboolean fav_app_matches_files (GnomeCmdApp *app, GList *files)
 {
+
     switch (gnome_cmd_app_get_target (app))
     {
         case APP_TARGET_ALL_DIRS:
             for (; files; files = files->next)
             {
                 auto f = static_cast<GnomeCmdFile*> (files->data);
-                if (f->info->type != GNOME_VFS_FILE_TYPE_DIRECTORY)
+                if (get_gfile_type(f->gFile) != G_FILE_TYPE_DIRECTORY)
                     return FALSE;
             }
             return TRUE;
@@ -411,7 +435,7 @@ inline gboolean fav_app_matches_files (GnomeCmdApp *app, GList *files)
             for (; files; files = files->next)
             {
                 auto f = static_cast<GnomeCmdFile*> (files->data);
-                if (f->info->type != GNOME_VFS_FILE_TYPE_REGULAR)
+                if (get_gfile_type(f->gFile) != G_FILE_TYPE_REGULAR)
                     return FALSE;
             }
             return TRUE;
@@ -420,8 +444,8 @@ inline gboolean fav_app_matches_files (GnomeCmdApp *app, GList *files)
             for (; files; files = files->next)
             {
                 auto f = static_cast<GnomeCmdFile*> (files->data);
-                if (f->info->type != GNOME_VFS_FILE_TYPE_REGULAR
-                    && f->info->type != GNOME_VFS_FILE_TYPE_DIRECTORY)
+                auto gFileType = get_gfile_type(f->gFile);
+                if (gFileType != G_FILE_TYPE_REGULAR && gFileType != G_FILE_TYPE_DIRECTORY)
                     return FALSE;
             }
             return TRUE;
@@ -437,7 +461,7 @@ inline gboolean fav_app_matches_files (GnomeCmdApp *app, GList *files)
 #endif
 
                 auto f = static_cast<GnomeCmdFile*> (files->data);
-                if (f->info->type != GNOME_VFS_FILE_TYPE_REGULAR)
+                if (get_gfile_type(f->gFile) != G_FILE_TYPE_REGULAR)
                     return FALSE;
 
                 // Check that the file matches at least one pattern

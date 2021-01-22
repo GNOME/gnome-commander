@@ -57,3 +57,4 @@ GtkUIManager *get_file_popup_ui_manager (GnomeCmdFileList *gnomeCmdFileList);
 guint add_open_with_entries (GtkUIManager *ui_manager, GnomeCmdFileList *gnomeCmdFileList);
 guint add_action_script_entries(GtkUIManager *uiManager, GList *files);
 void add_execute_entry(GtkUIManager *ui_manager, GnomeCmdFileList *gnomeCmdFileList);
+guint32 get_gfile_type(GFile *gFile);
