@@ -123,52 +123,53 @@ static void mime_exec_multiple (GList *files, GnomeCmdApp *app)
     GList *src_uri_list = nullptr;
     GList *dest_uri_list = nullptr;
     GList *local_files = nullptr;
-    gboolean asked = FALSE;
-    guint no_of_remote_files = 0;
-    gint retid;
+//  gboolean asked = FALSE;
+//  guint no_of_remote_files = 0;
+//  gint retid;
 
     for (; files; files = files->next)
     {
         auto gnomeCmdFile = static_cast<GnomeCmdFile*> (files->data);
 
-        if (gnome_vfs_uri_is_local (gnomeCmdFile->get_uri()))
-        {
-            local_files = g_list_append (local_files, gnomeCmdFile->gFile);
-        }
-        else
-        {
-            ++no_of_remote_files;
-            if (gnome_cmd_app_get_handles_uris (app) && gnome_cmd_data.options.honor_expect_uris)
-            {
-                local_files = g_list_append (local_files,  gnomeCmdFile->gFile);
-            }
-            else
-            {
-                if (!asked)
-                {
-                    gchar *msg = g_strdup_printf (ngettext("%s does not know how to open remote file. Do you want to download the file to a temporary location and then open it?",
-                                                           "%s does not know how to open remote files. Do you want to download the files to a temporary location and then open them?", no_of_remote_files),
-                                                  gnome_cmd_app_get_name (app));
-                    retid = run_simple_dialog (*main_win, TRUE, GTK_MESSAGE_QUESTION, msg, "", -1, _("No"), _("Yes"), nullptr);
-                    asked = TRUE;
-                }
-
-                if (retid==1)
-                {
-                    gchar *path_str = get_temp_download_filepath (gnomeCmdFile->get_name());
-
-                    if (!path_str) return;
-
-                    GnomeVFSURI *src_uri = gnome_vfs_uri_dup (gnomeCmdFile->get_uri());
-                    GnomeCmdPlainPath path(path_str);
-                    GnomeVFSURI *dest_uri = gnome_cmd_con_create_uri (get_home_con (), &path);
-
-                    src_uri_list = g_list_append (src_uri_list, src_uri);
-                    dest_uri_list = g_list_append (dest_uri_list, dest_uri);
-                    local_files = g_list_append (local_files, gnomeCmdFile->gFile);
-                }
-            }
-        }
+//      if (gnome_vfs_uri_is_local (gnomeCmdFile->get_uri()))
+//      {
+        local_files = g_list_append (local_files, gnomeCmdFile->gFile);
+//      }
+        // TODO: Is this needed after gio / gvfs migration?
+//      else
+//      {
+//          ++no_of_remote_files;
+//          if (gnome_cmd_app_get_handles_uris (app) && gnome_cmd_data.options.honor_expect_uris)
+//          {
+//              local_files = g_list_append (local_files,  gnomeCmdFile->gFile);
+//          }
+//          else
+//          {
+//              if (!asked)
+//              {
+//                  gchar *msg = g_strdup_printf (ngettext("%s does not know how to open remote file. Do you want to download the file to a temporary location and then open it?",
+//                                                         "%s does not know how to open remote files. Do you want to download the files to a temporary location and then open them?", no_of_remote_files),
+//                                                gnome_cmd_app_get_name (app));
+//                  retid = run_simple_dialog (*main_win, TRUE, GTK_MESSAGE_QUESTION, msg, "", -1, _("No"), _("Yes"), nullptr);
+//                  asked = TRUE;
+//              }
+//
+//              if (retid==1)
+//              {
+//                  gchar *path_str = get_temp_download_filepath (gnomeCmdFile->get_name());
+//
+//                  if (!path_str) return;
+//
+//                  GnomeVFSURI *src_uri = gnome_vfs_uri_dup (gnomeCmdFile->get_uri());
+//                  GnomeCmdPlainPath path(path_str);
+//                  GnomeVFSURI *dest_uri = gnome_cmd_con_create_uri (get_home_con (), &path);
+//
+//                  src_uri_list = g_list_append (src_uri_list, src_uri);
+//                  dest_uri_list = g_list_append (dest_uri_list, dest_uri);
+//                  local_files = g_list_append (local_files, gnomeCmdFile->gFile);
+//              }
+//          }
+//      }
     }
 
     g_list_free (files);
