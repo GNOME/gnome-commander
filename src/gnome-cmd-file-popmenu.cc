@@ -394,7 +394,7 @@ static void add_fav_app_menu_item (GtkUIManager *uiManager, guint mergeIdFavApp,
 }
 
 
-guint32 get_gfile_type(GFile *gFile)
+guint32 get_gfile_standard_type(GFile *gFile)
 {
     GError *error;
     error = nullptr;
@@ -425,8 +425,8 @@ inline gboolean fav_app_matches_files (GnomeCmdApp *app, GList *files)
         case APP_TARGET_ALL_DIRS:
             for (; files; files = files->next)
             {
-                auto f = static_cast<GnomeCmdFile*> (files->data);
-                if (get_gfile_type(f->gFile) != G_FILE_TYPE_DIRECTORY)
+                auto gnomeCmdFile = static_cast<GnomeCmdFile*> (files->data);
+                if (get_gfile_standard_type(gnomeCmdFile->gFile) != G_FILE_TYPE_DIRECTORY)
                     return FALSE;
             }
             return TRUE;
@@ -434,8 +434,8 @@ inline gboolean fav_app_matches_files (GnomeCmdApp *app, GList *files)
         case APP_TARGET_ALL_FILES:
             for (; files; files = files->next)
             {
-                auto f = static_cast<GnomeCmdFile*> (files->data);
-                if (get_gfile_type(f->gFile) != G_FILE_TYPE_REGULAR)
+                auto gnomeCmdFile = static_cast<GnomeCmdFile*> (files->data);
+                if (get_gfile_standard_type(gnomeCmdFile->gFile) != G_FILE_TYPE_REGULAR)
                     return FALSE;
             }
             return TRUE;
@@ -443,8 +443,8 @@ inline gboolean fav_app_matches_files (GnomeCmdApp *app, GList *files)
         case APP_TARGET_ALL_DIRS_AND_FILES:
             for (; files; files = files->next)
             {
-                auto f = static_cast<GnomeCmdFile*> (files->data);
-                auto gFileType = get_gfile_type(f->gFile);
+                auto gnomeCmdFile = static_cast<GnomeCmdFile*> (files->data);
+                auto gFileType = get_gfile_standard_type(gnomeCmdFile->gFile);
                 if (gFileType != G_FILE_TYPE_REGULAR && gFileType != G_FILE_TYPE_DIRECTORY)
                     return FALSE;
             }
@@ -460,8 +460,8 @@ inline gboolean fav_app_matches_files (GnomeCmdApp *app, GList *files)
                 gint fn_flags = FNM_NOESCAPE;
 #endif
 
-                auto f = static_cast<GnomeCmdFile*> (files->data);
-                if (get_gfile_type(f->gFile) != G_FILE_TYPE_REGULAR)
+                auto gnomeCmdFile = static_cast<GnomeCmdFile*> (files->data);
+                if (get_gfile_standard_type(gnomeCmdFile->gFile) != G_FILE_TYPE_REGULAR)
                     return FALSE;
 
                 // Check that the file matches at least one pattern
@@ -469,7 +469,7 @@ inline gboolean fav_app_matches_files (GnomeCmdApp *app, GList *files)
                 for (; patterns; patterns = patterns->next)
                 {
                     auto pattern = (gchar *) patterns->data;
-                    ok |= fnmatch (pattern, f->info->name, fn_flags) == 0;
+                    ok |= fnmatch (pattern, gnomeCmdFile->info->name, fn_flags) == 0;
                 }
 
                 if (!ok) return FALSE;
