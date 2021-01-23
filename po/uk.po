@@ -8,16 +8,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ru\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-commander/issues\n"
-"POT-Creation-Date: 2021-01-17 20:48+0000\n"
-"PO-Revision-Date: 2021-01-18 12:23+0200\n"
+"POT-Creation-Date: 2021-01-22 22:22+0000\n"
+"PO-Revision-Date: 2021-01-23 13:59+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=n==1 ? 3 : n%10==1 && n%100!=11 ? 0 : n"
-"%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"Plural-Forms: nplurals=4; plural=n==1 ? 3 : n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 "X-Generator: Lokalize 20.11.70\n"
 
 #: data/gnome-commander.appdata.xml.in:7 data/gnome-commander.desktop.in.in:3
@@ -904,25 +903,22 @@ msgid ""
 "Hide special files, such as a socket, fifo, block devices, or character "
 "devices."
 msgstr ""
-"Приховати особливі файли, зокрема сокети, канали, блокові пристрої та"
-" символьні пристрої."
+"Приховати особливі файли, зокрема сокети, канали, блокові пристрої та "
+"символьні пристрої."
 
 #: data/org.gnome.gnome-commander.gschema.xml:642
 msgid "Hide shortcut files (Windows systems)"
 msgstr "Приховати файли ярликів (системи Windows)"
 
 #: data/org.gnome.gnome-commander.gschema.xml:646
-#| msgid "Remote Connections"
 msgid "Hide mountable locations"
 msgstr "Приховати монтовані місця"
 
 #: data/org.gnome.gnome-commander.gschema.xml:650
-#| msgid "Hide regular files"
 msgid "Hide virtual files"
 msgstr "Приховати віртуальні файли"
 
 #: data/org.gnome.gnome-commander.gschema.xml:654
-#| msgid "Hide regular files"
 msgid "Hide volatile files"
 msgstr "Приховати тимчасові файли"
 
@@ -1891,7 +1887,7 @@ msgstr[3] "Бажаєте вилучити %d вибраний файл?"
 #: src/dialogs/gnome-cmd-delete-dialog.cc:287
 #: src/dialogs/gnome-cmd-delete-dialog.cc:288
 #: src/dialogs/gnome-cmd-options-dialog.cc:1039
-#: src/gnome-cmd-file-popmenu.cc:722 src/gnome-cmd-main-win.cc:243
+#: src/gnome-cmd-file-popmenu.cc:747 src/gnome-cmd-main-win.cc:243
 #: src/gnome-cmd-user-actions.cc:213
 msgid "Delete"
 msgstr "Видалити"
@@ -1957,7 +1953,6 @@ msgid "Free space:"
 msgstr "Вільне місце:"
 
 #: src/dialogs/gnome-cmd-file-props-dialog.cc:420
-#| msgid "Content Type"
 msgid "Content Type:"
 msgstr "Тип вмісту:"
 
@@ -2662,7 +2657,6 @@ msgid "Regular files"
 msgstr "Звичайні файли"
 
 #: src/dialogs/gnome-cmd-options-dialog.cc:1193
-#| msgid "Hide character devices"
 msgid "Socket, fifo, block, or character devices"
 msgstr "Сокети, канали, блокові пристрої та символьні пристрої"
 
@@ -2671,17 +2665,14 @@ msgid "Shortcuts (Windows systems)"
 msgstr "Ярлики (системи Windows)"
 
 #: src/dialogs/gnome-cmd-options-dialog.cc:1199
-#| msgid "Custom location"
 msgid "Mountable locations"
 msgstr "Придатні до монтування місця"
 
 #: src/dialogs/gnome-cmd-options-dialog.cc:1202
-#| msgid "Hide regular files"
 msgid "Virtual files"
 msgstr "Віртуальні файли"
 
 #: src/dialogs/gnome-cmd-options-dialog.cc:1205
-#| msgid "All files"
 msgid "Volatile files"
 msgstr "Тимчасові файли"
 
@@ -2910,7 +2901,7 @@ msgid "Unselect Using Pattern"
 msgstr "Зняти позначення за взірцем"
 
 #: src/dialogs/gnome-cmd-prepare-copy-dialog.cc:85
-#: src/gnome-cmd-file-popmenu.cc:721 src/gnome-cmd-main-win.cc:241
+#: src/gnome-cmd-file-popmenu.cc:746 src/gnome-cmd-main-win.cc:241
 #: src/gnome-cmd-user-actions.cc:210
 msgid "Copy"
 msgstr "Копіювати"
@@ -2973,7 +2964,6 @@ msgstr "Каталогу «%s» не існує, створити його?"
 #: src/gnome-cmd-advrename-profile-component.cc:433
 #: src/gnome-cmd-advrename-profile-component.cc:761
 #: src/gnome-cmd-advrename-profile-component.cc:793
-#: src/gnome-cmd-file-popmenu.cc:152
 msgid "No"
 msgstr "Ні"
 
@@ -2981,7 +2971,6 @@ msgstr "Ні"
 #: src/gnome-cmd-advrename-profile-component.cc:433
 #: src/gnome-cmd-advrename-profile-component.cc:761
 #: src/gnome-cmd-advrename-profile-component.cc:793
-#: src/gnome-cmd-file-popmenu.cc:152
 msgid "Yes"
 msgstr "Так"
 
@@ -3498,40 +3487,40 @@ msgstr "Підключення: %s"
 msgid "Unmount: %s"
 msgstr "Демонтування: %s"
 
-#: src/gnome-cmd-con.h:203
+#: src/gnome-cmd-con.h:205
 msgid "<New connection>"
 msgstr "<Нове з'єднання>"
 
-#: src/gnome-cmd-con.h:205
+#: src/gnome-cmd-con.h:207
 #, c-format
 msgid "Go to: %s"
 msgstr "Перейти до: %s"
 
-#: src/gnome-cmd-con.h:206
+#: src/gnome-cmd-con.h:208
 #, c-format
 msgid "Connect to: %s"
 msgstr "З'єднання з: %s"
 
-#: src/gnome-cmd-con.h:207
+#: src/gnome-cmd-con.h:209
 #, c-format
 msgid "Disconnect from: %s"
 msgstr "Від'єднання від: %s"
 
 # c-format
-#: src/gnome-cmd-con.h:214
+#: src/gnome-cmd-con.h:216
 #, c-format
 msgid "Connecting to %s\n"
 msgstr "З'єднання з %s\n"
 
-#: src/gnome-cmd-con.h:369
+#: src/gnome-cmd-con.h:371
 msgid "Unknown disk usage"
 msgstr "Невідоме використання диску"
 
-#: src/gnome-cmd-con-home.cc:118
+#: src/gnome-cmd-con-home.cc:125
 msgid "Home"
 msgstr "Домашній каталог"
 
-#: src/gnome-cmd-con-home.cc:127
+#: src/gnome-cmd-con-home.cc:134
 msgid "Go to: Home"
 msgstr "Перейти в: домашній каталог"
 
@@ -3678,24 +3667,18 @@ msgstr "Виконати"
 msgid "No default application found for the MIME type %s."
 msgstr "Не знайдено типової програми для типу MIME %s."
 
-#: src/gnome-cmd-file-list.cc:1336 src/gnome-cmd-file-popmenu.cc:149
+#: src/gnome-cmd-file-list.cc:1336
 #, c-format
+#| msgid ""
+#| "%s does not know how to open remote file. Do you want to download the "
+#| "file to a temporary location and then open it?"
+#| msgid_plural ""
+#| "%s does not know how to open remote files. Do you want to download the "
+#| "files to a temporary location and then open them?"
 msgid ""
 "%s does not know how to open remote file. Do you want to download the file "
 "to a temporary location and then open it?"
-msgid_plural ""
-"%s does not know how to open remote files. Do you want to download the files "
-"to a temporary location and then open them?"
-msgstr[0] ""
-"%s не знає, яким чином відкрити віддалені файли. Хочете завантажити файли до "
-"тимчасового каталогу, а потім відкрити їх?"
-msgstr[1] ""
-"%s не знає, яким чином відкрити віддалені файли. Хочете завантажити файли до "
-"тимчасового каталогу, а потім відкрити їх?"
-msgstr[2] ""
-"%s не знає, яким чином відкрити віддалені файли. Хочете завантажити файли до "
-"тимчасового каталогу, а потім відкрити їх?"
-msgstr[3] ""
+msgstr ""
 "%s не знає, яким чином відкрити віддалений файл. Хочете завантажити файл до "
 "тимчасового каталогу, а потім відкрити його?"
 
@@ -3711,66 +3694,66 @@ msgstr "Не вдалося відкрити з'єднання."
 msgid "Not an ordinary file."
 msgstr "Не є звичайним файлом."
 
-#: src/gnome-cmd-file-popmenu.cc:243
+#: src/gnome-cmd-file-popmenu.cc:244
 msgid "Couldn’t retrieve MIME type of the file."
 msgstr "Не вдалося отримати тип MIME файла."
 
-#: src/gnome-cmd-file-popmenu.cc:258
+#: src/gnome-cmd-file-popmenu.cc:259
 msgid "Invalid command"
 msgstr "Неприпустима команда"
 
-#: src/gnome-cmd-file-popmenu.cc:282
+#: src/gnome-cmd-file-popmenu.cc:283
 msgid "Application:"
 msgstr "Додаток:"
 
-#: src/gnome-cmd-file-popmenu.cc:285
+#: src/gnome-cmd-file-popmenu.cc:286
 msgid "Open with other…"
 msgstr "Відкрити за допомогою іншої…"
 
-#: src/gnome-cmd-file-popmenu.cc:290
+#: src/gnome-cmd-file-popmenu.cc:291
 msgid "Needs terminal"
 msgstr "Запустити у терміналі"
 
-#: src/gnome-cmd-file-popmenu.cc:717
+#: src/gnome-cmd-file-popmenu.cc:742
 msgid "Open Wit_h"
 msgstr "Відкрити за допо_могою"
 
-#: src/gnome-cmd-file-popmenu.cc:718
+#: src/gnome-cmd-file-popmenu.cc:743
 msgid "Other _Application…"
 msgstr "Інша п_рограма…"
 
-#: src/gnome-cmd-file-popmenu.cc:719
+#: src/gnome-cmd-file-popmenu.cc:744
 msgid "Open Wit_h…"
 msgstr "Відкрити за допо_могою…"
 
-#: src/gnome-cmd-file-popmenu.cc:720 src/gnome-cmd-main-win.cc:240
+#: src/gnome-cmd-file-popmenu.cc:745 src/gnome-cmd-main-win.cc:240
 #: src/gnome-cmd-user-actions.cc:212
 msgid "Cut"
 msgstr "Вирізати"
 
-#: src/gnome-cmd-file-popmenu.cc:723
+#: src/gnome-cmd-file-popmenu.cc:748
 msgid "Rename"
 msgstr "Перей_менувати"
 
 #. {file_run, "file.run"},
-#: src/gnome-cmd-file-popmenu.cc:724 src/gnome-cmd-main-win.cc:245
+#: src/gnome-cmd-file-popmenu.cc:749 src/gnome-cmd-main-win.cc:245
 #: src/gnome-cmd-user-actions.cc:236
 msgid "Send files"
 msgstr "Відправити файли"
 
-#: src/gnome-cmd-file-popmenu.cc:725 src/gnome-cmd-main-menu.cc:307
+#: src/gnome-cmd-file-popmenu.cc:750 src/gnome-cmd-main-menu.cc:307
 msgid "_Properties…"
 msgstr "В_ластивості…"
 
-#: src/gnome-cmd-file-popmenu.cc:726
+#: src/gnome-cmd-file-popmenu.cc:751
 msgid "E_xecute"
 msgstr "_Виконати"
 
-#: src/gnome-cmd-file-popmenu.cc:727 src/gnome-cmd-list-popmenu.cc:108
+#: src/gnome-cmd-file-popmenu.cc:752 src/gnome-cmd-list-popmenu.cc:108
 msgid "Open _terminal here"
 msgstr "Запустити у _терміналі"
 
-#: src/gnome-cmd-file-popmenu.cc:728 src/gnome-cmd-user-actions.cc:211
+#: src/gnome-cmd-file-popmenu.cc:753 src/gnome-cmd-user-actions.cc:211
 msgid "Copy file names"
 msgstr "Копіювати назви файлів"
 
