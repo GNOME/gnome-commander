@@ -120,7 +120,7 @@ inline char *int2string (gint i)
     return g_strdup_printf ("%d", i);
 }
 
-const gchar *type2string (GnomeVFSFileType type, gchar *buf, guint max);
+const gchar *type2string (guint32 type, gchar *buf, guint max);
 const gchar *perm2string (GnomeVFSFilePermissions p, gchar *buf, guint max);
 const gchar *perm2textstring (GnomeVFSFilePermissions p, gchar *buf, guint max);
 const gchar *perm2numstring (GnomeVFSFilePermissions p, gchar *buf, guint max);

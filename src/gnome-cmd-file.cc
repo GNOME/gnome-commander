@@ -719,9 +719,7 @@ const gchar *GnomeCmdFile::get_type_string()
 {
     static gchar type_str[MAX_TYPE_LENGTH];
 
-    g_return_val_if_fail (info != nullptr, nullptr);
-
-    type2string (info->type, type_str, MAX_TYPE_LENGTH);
+    type2string (GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE), type_str, MAX_TYPE_LENGTH);
     return type_str;
 }
 

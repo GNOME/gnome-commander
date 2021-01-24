@@ -228,35 +228,32 @@ gint run_simple_dialog (GtkWidget *parent, gboolean ignore_close_box,
     return result;
 }
 
-const gchar *type2string (GnomeVFSFileType type, gchar *buf, guint max)
+const gchar *type2string (guint32 type, gchar *buf, guint max)
 {
     const char *s;
 
     switch (type)
     {
-        case GNOME_VFS_FILE_TYPE_UNKNOWN:
+        case G_FILE_TYPE_UNKNOWN:
             s = "?";
             break;
-        case GNOME_VFS_FILE_TYPE_REGULAR:
+        case G_FILE_TYPE_REGULAR:
             s = " ";
             break;
-        case GNOME_VFS_FILE_TYPE_DIRECTORY:
+        case G_FILE_TYPE_DIRECTORY:
             s = G_DIR_SEPARATOR_S;
             break;
-        case GNOME_VFS_FILE_TYPE_SYMBOLIC_LINK:
+        case G_FILE_TYPE_SYMBOLIC_LINK:
             s = "@";
             break;
-        case GNOME_VFS_FILE_TYPE_FIFO:
-            s = "F";
-            break;
-        case GNOME_VFS_FILE_TYPE_SOCKET:
+        case G_FILE_TYPE_SPECIAL:
             s = "S";
             break;
-        case GNOME_VFS_FILE_TYPE_CHARACTER_DEVICE:
-            s = "C";
+        case G_FILE_TYPE_SHORTCUT:
+            s = "K"; // "Keyboard shortcut"
             break;
-        case GNOME_VFS_FILE_TYPE_BLOCK_DEVICE:
-            s = "B";
+        case G_FILE_TYPE_MOUNTABLE:
+            s = "M";
             break;
 
         default:
