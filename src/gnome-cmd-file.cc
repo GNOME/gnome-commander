@@ -492,6 +492,32 @@ gchar *GnomeCmdFile::GetGfileAttributeString(const char *attribute)
 }
 
 
+guint32 GnomeCmdFile::GetGfileAttributeUInt32(const char *attribute)
+{
+    GError *error;
+    error = nullptr;
+    guint32 gFileAttributeUInt32 = 0;
+
+    auto gcmdFileInfo = g_file_query_info(this->gFile,
+                                   attribute,
+                                   G_FILE_QUERY_INFO_NOFOLLOW_SYMLINKS,
+                                   nullptr,
+                                   &error);
+    if (error)
+    {
+        g_message ("retrieving file info failed: %s", error->message);
+        g_error_free (error);
+    }
+    else
+    {
+        gFileAttributeUInt32 = g_file_info_get_attribute_uint32 (gcmdFileInfo, attribute);
+        g_object_unref(gcmdFileInfo);
+    }
+
+    return gFileAttributeUInt32;
+}
+
+
 gchar *GnomeCmdFile::get_default_application_name_string()
 {
     auto contentType = GetGfileAttributeString (G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE);

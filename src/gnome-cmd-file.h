@@ -101,6 +101,7 @@ struct GnomeCmdFile
     void invalidate_tree_size();
     gboolean has_tree_size();
 
+    guint32 GetGfileAttributeUInt32(const char *attribute);
     gchar *GetGfileAttributeString(const char *attribute);
     gchar *get_default_application_name_string();
     gchar *get_default_application_action_label(GAppInfo *gAppInfo);
