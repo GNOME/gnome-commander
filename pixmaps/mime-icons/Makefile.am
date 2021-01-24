@@ -39,13 +39,9 @@ pixmaps_DATA = \
 	gnome-video-plain.png \
 	gnome-x-directory-smb-server.png \
 	gnome-x-directory-smb-workgroup.png \
-	i-blockdev.png \
-	i-chardev.png \
 	i-directory.png \
-	i-fifo.png \
 	i-music.png \
 	i-regular.png \
-	i-socket.png \
 	i-symlink.png
 
 

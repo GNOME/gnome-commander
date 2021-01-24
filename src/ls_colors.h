@@ -25,7 +25,7 @@
 
 struct LsColor
 {
-    GnomeVFSFileType type;
+    GFileType type;
     gchar *ext;
     GdkColor *fg, *bg;
 };

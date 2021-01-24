@@ -428,7 +428,7 @@ void SearchData::search_dir_r(GnomeCmdDir *dir, long level)
             }
         }
         else                                                            // if the file is a regular one, it might match the search criteria
-            if (f->info->type == GNOME_VFS_FILE_TYPE_REGULAR)
+            if (f->GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE) == G_FILE_TYPE_DIRECTORY)
             {
                 if (!name_matches(f->info->name))                       // if the name doesn't match, let's go to the next file
                     continue;

@@ -180,15 +180,11 @@ inline char *get_mime_icon_name (const gchar *mime_type)
  * Returns the filename that an image representing the given filetype
  * should have.
  */
-static const gchar *get_type_icon_name (GnomeVFSFileType type)
+static const gchar *get_type_icon_name (guint32 type)
 {
     static const gchar *names[] = {
         "i-directory.png",
         "i-regular.png",
-        "i-chardev.png",
-        "i-blockdev.png",
-        "i-fifo.png",
-        "i-socket.png",
         "i-symlink.png"
     };
 
@@ -198,20 +194,13 @@ static const gchar *get_type_icon_name (GnomeVFSFileType type)
 #endif
     switch (type)
     {
-        case GNOME_VFS_FILE_TYPE_DIRECTORY:
+        case G_FILE_TYPE_DIRECTORY:
             return names[0];
-        case GNOME_VFS_FILE_TYPE_REGULAR:
+        case G_FILE_TYPE_REGULAR:
             return names[1];
-        case GNOME_VFS_FILE_TYPE_CHARACTER_DEVICE:
-            return names[2];
-        case GNOME_VFS_FILE_TYPE_BLOCK_DEVICE:
-            return names[3];
-        case GNOME_VFS_FILE_TYPE_FIFO:
-            return names[4];
-        case GNOME_VFS_FILE_TYPE_SOCKET:
-            return names[5];
-        case GNOME_VFS_FILE_TYPE_SYMBOLIC_LINK:
+        case G_FILE_TYPE_SYMBOLIC_LINK:
             return names[6];
+        //TODO: Add filetype names for G_FILE_TYPE_SHORTCUT and G_FILE_TYPE_MOUNTABLE
 
         default:
             return names[1];
@@ -226,9 +215,8 @@ static const gchar *get_type_icon_name (GnomeVFSFileType type)
 
 /**
  * Returns the full path to an image for the given filetype in the given directory.
- *
  */
-inline gchar *get_mime_file_type_icon_path (GnomeVFSFileType type, const gchar *icon_dir)
+inline gchar *get_mime_file_type_icon_path (guint32 type, const gchar *icon_dir)
 {
     return g_build_filename (icon_dir, get_type_icon_name (type), nullptr);
 }
@@ -328,7 +316,7 @@ static gboolean load_icon (const gchar *icon_path, GdkPixmap **pm, GdkBitmap **b
  * If symlink is true a smaller symlink image is painted over the image to indicate this.
  */
 static gboolean get_mime_icon_in_dir (const gchar *icon_dir,
-                                      GnomeVFSFileType type,
+                                      guint32 type,
                                       const gchar *mime_type,
                                       gboolean symlink,
                                       GdkPixmap **pixmap,
@@ -337,7 +325,7 @@ static gboolean get_mime_icon_in_dir (const gchar *icon_dir,
     if (!mime_type)
         return FALSE;
 
-    if (type == GNOME_VFS_FILE_TYPE_SYMBOLIC_LINK)
+    if (type == G_FILE_TYPE_SYMBOLIC_LINK)
         return FALSE;
 
     auto entry = static_cast<CacheEntry*> (g_hash_table_lookup (mime_cache, mime_type));
@@ -400,7 +388,7 @@ static gboolean get_mime_icon_in_dir (const gchar *icon_dir,
 }
 
 
-static gboolean get_mime_icon (GnomeVFSFileType type,
+static gboolean get_mime_icon (guint32 type,
                                const gchar *mime_type,
                                gboolean symlink,
                                GdkPixmap **pixmap,
@@ -413,7 +401,7 @@ static gboolean get_mime_icon (GnomeVFSFileType type,
 }
 
 
-inline gboolean get_type_icon (GnomeVFSFileType type,
+inline gboolean get_type_icon (guint32 type,
                                gboolean symlink,
                                GdkPixmap **pixmap,
                                GdkBitmap **mask)
@@ -427,7 +415,7 @@ inline gboolean get_type_icon (GnomeVFSFileType type,
 }
 
 
-gboolean IMAGE_get_pixmap_and_mask (GnomeVFSFileType type,
+gboolean IMAGE_get_pixmap_and_mask (guint32 type,
                                     const gchar *mime_type,
                                     gboolean symlink,
                                     GdkPixmap **pixmap,

@@ -404,7 +404,6 @@ static GList *create_file_list (GnomeCmdDir *dir, GList *info_list)
 
         if (info && info->name)
         {
-
             if (strcmp (info->name, ".") == 0 || strcmp (info->name, "..") == 0)
             {
                 gnome_vfs_file_info_unref (info);

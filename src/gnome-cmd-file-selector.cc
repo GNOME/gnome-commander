@@ -117,9 +117,9 @@ inline void GnomeCmdFileSelector::update_selected_files_label()
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wswitch-enum"
 #endif
-        switch (f->info->type)
+        switch (f->GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE))
         {
-            case GNOME_VFS_FILE_TYPE_DIRECTORY:
+            case G_FILE_TYPE_DIRECTORY:
                 if (!f->is_dotdot)
                 {
                     num_dirs++;
@@ -128,7 +128,7 @@ inline void GnomeCmdFileSelector::update_selected_files_label()
                 }
                 break;
 
-            case GNOME_VFS_FILE_TYPE_REGULAR:
+            case G_FILE_TYPE_REGULAR:
                 num_files++;
                 total_bytes += f->info->size;
                 break;
@@ -151,15 +151,15 @@ inline void GnomeCmdFileSelector::update_selected_files_label()
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wswitch-enum"
 #endif
-        switch (f->info->type)
+        switch (f->GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE))
         {
-            case GNOME_VFS_FILE_TYPE_DIRECTORY:
+            case G_FILE_TYPE_DIRECTORY:
                 num_sel_dirs++;
                 if (f->has_tree_size())
                     sel_bytes += f->get_tree_size();
                 break;
 
-            case GNOME_VFS_FILE_TYPE_REGULAR:
+            case G_FILE_TYPE_REGULAR:
                 num_sel_files++;
                 sel_bytes += f->info->size;
                 break;
@@ -246,7 +246,7 @@ void GnomeCmdFileSelector::do_file_specific_action (GnomeCmdFileList *fl, GnomeC
     g_return_if_fail (f != nullptr);
     g_return_if_fail (f->info != nullptr);
 
-    if (f->info->type == GNOME_VFS_FILE_TYPE_DIRECTORY)
+    if (f->GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE) == G_FILE_TYPE_DIRECTORY)
     {
         if (!fl->locked)
         {
@@ -484,7 +484,9 @@ static void on_list_list_clicked (GnomeCmdFileList *fl, GnomeCmdFile *f, GdkEven
                     if (f && f->is_dotdot)
                         fs->new_tab(gnome_cmd_dir_get_parent (fl->cwd));
                     else
-                        fs->new_tab(f && f->info->type==GNOME_VFS_FILE_TYPE_DIRECTORY ? GNOME_CMD_DIR (f) : fl->cwd);
+                        fs->new_tab(f && f->GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE) == G_FILE_TYPE_DIRECTORY
+                                         ? GNOME_CMD_DIR (f)
+                                         : fl->cwd);
                 }
                 break;
 
@@ -1281,7 +1283,7 @@ gboolean GnomeCmdFileSelector::key_pressed(GdkEventKey *event)
             case GDK_Right:
             case GDK_KP_Right:
                 f = list->get_selected_file();
-                if (f && f->info->type == GNOME_VFS_FILE_TYPE_DIRECTORY)
+                if (f && f->GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE) == G_FILE_TYPE_DIRECTORY)
                     do_file_specific_action (list, f);
                 g_signal_stop_emission_by_name (list, "key-press-event");
                 return TRUE;

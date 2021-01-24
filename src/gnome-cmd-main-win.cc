@@ -1253,7 +1253,7 @@ void GnomeCmdMainWin::set_fs_directory_to_opposite(FileSelectorID fsID)
     {
         GnomeCmdFile *file = other->file_list()->get_selected_file();
 
-        if (file && file->info->type == GNOME_VFS_FILE_TYPE_DIRECTORY)
+        if (file->GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE) == G_FILE_TYPE_DIRECTORY)
             dir = GNOME_CMD_IS_DIR (file) ? GNOME_CMD_DIR (file) : gnome_cmd_dir_new_from_info (file->info, dir);
     }
 

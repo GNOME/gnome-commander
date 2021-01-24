@@ -67,5 +67,5 @@ void gcmd_tags_file_load_metadata(GnomeCmdFile *f)
 
     f->metadata->add(TAG_FILE_PERMISSIONS, perm2textstring(f->info->permissions,buff,sizeof(buff)));
 
-    f->metadata->add(TAG_FILE_FORMAT, f->info->type==GNOME_VFS_FILE_TYPE_DIRECTORY ? "Folder" : f->info->mime_type);
+    f->metadata->add(TAG_FILE_FORMAT, f->GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE) == G_FILE_TYPE_DIRECTORY ? "Folder" : f->info->mime_type);
 }

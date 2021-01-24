@@ -66,7 +66,9 @@ static void do_chmod (GnomeCmdFile *in, GnomeVFSFilePermissions perm, gboolean r
     g_return_if_fail (in != NULL);
     g_return_if_fail (in->info != NULL);
 
-    if (!(recursive && mode == CHMOD_DIRS_ONLY && in->info->type != GNOME_VFS_FILE_TYPE_DIRECTORY))
+    if (!(recursive
+          && mode == CHMOD_DIRS_ONLY
+          && in->GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE) != G_FILE_TYPE_DIRECTORY))
     {
         GnomeVFSResult ret = in->chmod(perm);
 
@@ -77,7 +79,7 @@ static void do_chmod (GnomeCmdFile *in, GnomeVFSFilePermissions perm, gboolean r
                 return;
     }
 
-    if (in->info->type == GNOME_VFS_FILE_TYPE_DIRECTORY)
+    if (in->GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE) == G_FILE_TYPE_DIRECTORY)
     {
         GnomeCmdDir *dir = gnome_cmd_dir_ref (GNOME_CMD_DIR (in));
 

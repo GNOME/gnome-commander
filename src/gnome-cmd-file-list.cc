@@ -324,7 +324,7 @@ FileFormatData::FileFormatData(GnomeCmdFileList *fl, GnomeCmdFile *f, gboolean t
     g_free (t2);
 
     if (gnome_cmd_data.options.ext_disp_mode == GNOME_CMD_EXT_DISP_STRIPPED
-        && f->info->type == GNOME_VFS_FILE_TYPE_REGULAR)
+        && f->GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE) == G_FILE_TYPE_REGULAR)
     {
         gchar *t = strip_extension (f->get_name());
         fname = get_utf8 (t);
@@ -351,7 +351,7 @@ FileFormatData::FileFormatData(GnomeCmdFileList *fl, GnomeCmdFile *f, gboolean t
 
     text[GnomeCmdFileList::COLUMN_SIZE]  = tree_size ? (gchar *) f->get_tree_size_as_str() : (gchar *) f->get_size();
 
-    if (f->info->type != GNOME_VFS_FILE_TYPE_DIRECTORY || !f->is_dotdot)
+    if (f->GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE) != G_FILE_TYPE_DIRECTORY || !f->is_dotdot)
     {
         text[GnomeCmdFileList::COLUMN_DATE]  = (gchar *) f->get_mdate(FALSE);
         text[GnomeCmdFileList::COLUMN_PERM]  = (gchar *) f->get_perm();
@@ -1355,10 +1355,10 @@ inline gboolean mime_exec_file (GnomeCmdFile *f)
 {
     g_return_val_if_fail (f != nullptr, FALSE);
 
-    if (f->info->type == GNOME_VFS_FILE_TYPE_REGULAR)
+    if (f->GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE) == G_FILE_TYPE_REGULAR)
     {
         mime_exec_single (f);
-	return TRUE;
+	    return TRUE;
     }
     return FALSE;
 
@@ -2379,9 +2379,10 @@ void gnome_cmd_file_list_view (GnomeCmdFileList *fl, gint internal_viewer)
 
     GnomeCmdFile *f = fl->get_selected_file();
 
-    if (!f)  return;
+    if (!f)
+        return;
 
-    if (f->info->type == GNOME_VFS_FILE_TYPE_DIRECTORY)
+    if (f->GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE) == G_FILE_TYPE_DIRECTORY)
         gnome_cmd_show_message (*main_win, _("Not an ordinary file."), f->info->name);
     else
         gnome_cmd_file_view (f, internal_viewer);
@@ -2396,7 +2397,7 @@ void gnome_cmd_file_list_edit (GnomeCmdFileList *fl)
 
     if (!f)  return;
 
-    if (f->info->type == GNOME_VFS_FILE_TYPE_DIRECTORY)
+    if (f->GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE) == G_FILE_TYPE_DIRECTORY)
         gnome_cmd_show_message (*main_win, _("Not an ordinary file."), f->info->name);
     else
         gnome_cmd_file_edit (f);
@@ -2920,7 +2921,7 @@ void GnomeCmdFileList::invalidate_tree_size()
     for (auto i = get_visible_files(); i; i = i->next)
     {
         auto f = static_cast<GnomeCmdFile*> (i->data);
-        if (f->info->type == GNOME_VFS_FILE_TYPE_DIRECTORY)
+        if (f->GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE) == G_FILE_TYPE_DIRECTORY)
             f->invalidate_tree_size();
     }
 }
@@ -3067,7 +3068,7 @@ static void drag_data_received (GtkWidget *widget, GdkDragContext *context, gint
 
     // the drop was over a directory in the list, which means that the
     // xfer should be done to that directory instead of the current one in the list
-    if (f && f->info->type==GNOME_VFS_FILE_TYPE_DIRECTORY)
+    if (f && f->GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE) == G_FILE_TYPE_DIRECTORY)
         to = f->is_dotdot ? gnome_cmd_dir_get_parent (to) : gnome_cmd_dir_get_child (to, f->info->name);
 
     // transform the drag data to a list with URIs
@@ -3154,7 +3155,7 @@ static gboolean drag_motion (GtkWidget *widget, GdkDragContext *context, gint x,
     {
         GnomeCmdFile *f = fl->get_file_at_row(row);
 
-        if (f->info->type != GNOME_VFS_FILE_TYPE_DIRECTORY)
+        if (f->GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE) != G_FILE_TYPE_DIRECTORY)
             row = -1;
 
         gnome_cmd_clist_set_drag_row (*fl, row);

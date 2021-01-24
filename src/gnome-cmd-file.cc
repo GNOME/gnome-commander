@@ -596,7 +596,7 @@ const gchar *GnomeCmdFile::get_extension()
 {
     g_return_val_if_fail (info != nullptr, nullptr);
 
-    if (info->type == GNOME_VFS_FILE_TYPE_DIRECTORY)
+    if (GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE) == G_FILE_TYPE_DIRECTORY)
         return nullptr;
 
     const char *s = strrchr (info->name, '.');        // does NOT work on UTF-8 strings, should be (MUCH SLOWER):
@@ -664,7 +664,7 @@ const gchar *GnomeCmdFile::get_size()
 
     g_return_val_if_fail (info != nullptr, nullptr);
 
-    if (info->type == GNOME_VFS_FILE_TYPE_DIRECTORY)
+    if (GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE) == G_FILE_TYPE_DIRECTORY)
         return dir_indicator;
 
     return size2string (info->size, gnome_cmd_data.options.size_disp_mode);
@@ -673,7 +673,7 @@ const gchar *GnomeCmdFile::get_size()
 
 GnomeVFSFileSize GnomeCmdFile::get_tree_size()
 {
-    if (info->type != GNOME_VFS_FILE_TYPE_DIRECTORY)
+    if (GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE) != G_FILE_TYPE_DIRECTORY)
         return info->size;
 
     if (is_dotdot)
@@ -694,7 +694,7 @@ const gchar *GnomeCmdFile::get_tree_size_as_str()
 {
     g_return_val_if_fail (info != nullptr, nullptr);
 
-    if (info->type != GNOME_VFS_FILE_TYPE_DIRECTORY)
+    if (GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE) != G_FILE_TYPE_DIRECTORY)
         return get_size();
 
     if (is_dotdot)
@@ -728,7 +728,8 @@ gboolean GnomeCmdFile::get_type_pixmap_and_mask(GdkPixmap **pixmap, GdkBitmap **
 {
     g_return_val_if_fail (info != nullptr, FALSE);
 
-    return IMAGE_get_pixmap_and_mask (info->type, info->mime_type, info->symlink_name != nullptr, pixmap, mask);
+    return IMAGE_get_pixmap_and_mask (GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE),
+                                      info->mime_type, info->symlink_name != nullptr, pixmap, mask);
 }
 
 
@@ -901,7 +902,7 @@ gboolean GnomeCmdFile::is_local()
 
 gboolean GnomeCmdFile::is_executable()
 {
-    if (info->type != GNOME_VFS_FILE_TYPE_REGULAR)
+    if (GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE) != G_FILE_TYPE_REGULAR)
         return FALSE;
 
     if (!is_local())

@@ -425,7 +425,7 @@ static GtkWidget *create_properties_tab (GnomeCmdFilePropsDialogPrivate *data)
     table_add (table, label, 1, y++, GTK_FILL);
     g_free(contentTypeString);
 
-    if (data->f->info->type != GNOME_VFS_FILE_TYPE_DIRECTORY)
+    if (data->f->GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE) != G_FILE_TYPE_DIRECTORY)
     {
         GtkWidget *hbox;
 
@@ -474,12 +474,12 @@ static GtkWidget *create_properties_tab (GnomeCmdFilePropsDialogPrivate *data)
     label = create_label (dialog, s);
     table_add (table, label, 1, y++, GTK_FILL);
     g_free (s);
-    if (data->f->info->type == GNOME_VFS_FILE_TYPE_DIRECTORY)
+    if (data->f->GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE) == G_FILE_TYPE_DIRECTORY)
         do_calc_tree_size (data);
 
     data->size_label = label;
 
-    if (data->f->info->type != GNOME_VFS_FILE_TYPE_CHARACTER_DEVICE) 
+    if (data->f->GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE) != G_FILE_TYPE_SPECIAL)
         gcmd_tags_bulk_load (data->f);
 
     if (data->f->metadata)
@@ -550,7 +550,7 @@ static GtkTreeModel *create_and_fill_model (GnomeCmdFile *f)
                                                   G_TYPE_STRING,
                                                   G_TYPE_STRING);
 
-    if (f->info->type == GNOME_VFS_FILE_TYPE_CHARACTER_DEVICE || !gcmd_tags_bulk_load (f))
+    if (f->GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE) == G_FILE_TYPE_SPECIAL || !gcmd_tags_bulk_load (f))
         return GTK_TREE_MODEL (treestore);
 
     GnomeCmdTagClass prev_tagclass = TAG_NONE_CLASS;

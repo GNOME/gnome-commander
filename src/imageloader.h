@@ -85,7 +85,7 @@ inline GdkPixbuf *IMAGE_get_pixbuf (Pixmap pixmap_id)
     return pixmap ? pixmap->pixbuf : NULL;
 }
 
-gboolean IMAGE_get_pixmap_and_mask (GnomeVFSFileType type,
+gboolean IMAGE_get_pixmap_and_mask (guint32 type,
                                     const gchar *mime_type,
                                     gboolean symlink,
                                     GdkPixmap **pixmap,

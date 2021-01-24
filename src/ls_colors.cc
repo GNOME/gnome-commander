@@ -88,7 +88,7 @@ static LsColor *ext_color (gchar *key, gchar *val)
         key++;
     while (key[0] == '.');
     col = g_new (LsColor, 1);
-    col->type = GNOME_VFS_FILE_TYPE_REGULAR;
+    col->type = G_FILE_TYPE_REGULAR;
     col->ext = g_strdup (key);
     col->fg = nullptr;
     col->bg = nullptr;
@@ -115,19 +115,17 @@ static LsColor *type_color (gchar *key, gchar *val)
     // col->bg = nullptr;
 
     if (strcmp (key, "fi") == 0)
-        col->type = GNOME_VFS_FILE_TYPE_REGULAR;
+        col->type = G_FILE_TYPE_REGULAR;
     else if (strcmp (key, "di") == 0)
-        col->type = GNOME_VFS_FILE_TYPE_DIRECTORY;
-    else if (strcmp (key, "pi") == 0)
-        col->type = GNOME_VFS_FILE_TYPE_FIFO;
-    else if (strcmp (key, "so") == 0)
-        col->type = GNOME_VFS_FILE_TYPE_SOCKET;
-    else if (strcmp (key, "bd") == 0)
-        col->type = GNOME_VFS_FILE_TYPE_BLOCK_DEVICE;
-    else if (strcmp (key, "cd") == 0)
-        col->type = GNOME_VFS_FILE_TYPE_CHARACTER_DEVICE;
+        col->type = G_FILE_TYPE_DIRECTORY;
     else if (strcmp (key, "ln") == 0)
-        col->type = GNOME_VFS_FILE_TYPE_SYMBOLIC_LINK;
+        col->type = G_FILE_TYPE_SYMBOLIC_LINK;
+    else if (strcmp (key, "pi") == 0)
+        col->type = G_FILE_TYPE_SPECIAL;
+    else if (strcmp (key, "sc") == 0)
+        col->type = G_FILE_TYPE_SHORTCUT;
+    else if (strcmp (key, "mn") == 0)
+        col->type = G_FILE_TYPE_MOUNTABLE;
     else
     {
         g_free (col);
@@ -203,8 +201,8 @@ void ls_colors_init ()
 
 LsColor *ls_colors_get (GnomeCmdFile *f)
 {
-    if (f->info->symlink_name)
-        return type_colors[GNOME_VFS_FILE_TYPE_SYMBOLIC_LINK];
+    if (f->GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE) == G_FILE_TYPE_SYMBOLIC_LINK)
+        return type_colors[G_FILE_TYPE_SYMBOLIC_LINK];
 
     LsColor *col = nullptr;
     const gchar *ext = f->get_extension();

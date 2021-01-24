@@ -1382,7 +1382,7 @@ void mark_compare_directories (GtkMenuItem *menuitem, gpointer not_used)
     {
         auto f2 = static_cast<GnomeCmdFile*> (i2->data);
 
-        if (!f2->is_dotdot && f2->info->type!=GNOME_VFS_FILE_TYPE_DIRECTORY)
+        if (!f2->is_dotdot && f2->GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE) != G_FILE_TYPE_DIRECTORY)
             files2[f2->get_name()] = f2;
     }
 
@@ -1392,7 +1392,7 @@ void mark_compare_directories (GtkMenuItem *menuitem, gpointer not_used)
     {
         auto f1 = static_cast<GnomeCmdFile*> (i1->data);
 
-        if (f1->is_dotdot || f1->info->type==GNOME_VFS_FILE_TYPE_DIRECTORY)
+        if (f1->is_dotdot || f1->GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE) == G_FILE_TYPE_DIRECTORY)
             continue;
 
         map<const char *,GnomeCmdFile *,ltstr>::iterator i2 = files2.find(f1->get_name());
@@ -1619,7 +1619,7 @@ void view_directory (GtkMenuItem *menuitem, gpointer not_used)
     GnomeCmdFileList *fl = fs->file_list();
 
     GnomeCmdFile *f = fl->get_selected_file();
-    if (f && f->info->type == GNOME_VFS_FILE_TYPE_DIRECTORY)
+    if (f && f->GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE) == G_FILE_TYPE_DIRECTORY)
         fs->do_file_specific_action (fl, f);
 }
 
@@ -1750,7 +1750,7 @@ void view_in_new_tab (GtkMenuItem *menuitem, gpointer not_used)
     GnomeCmdFileSelector *fs = get_fs (ACTIVE);
     GnomeCmdFile *file = fs->file_list()->get_selected_file();
 
-    if (file && file->info->type == GNOME_VFS_FILE_TYPE_DIRECTORY)
+    if (file && file->GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE) == G_FILE_TYPE_DIRECTORY)
         fs->new_tab(GNOME_CMD_DIR (file), FALSE);
     else
         fs->new_tab(fs->get_directory(), FALSE);
@@ -1762,7 +1762,7 @@ void view_in_inactive_tab (GtkMenuItem *menuitem, gpointer file_list)
     GnomeCmdFileList *fl = file_list ? GNOME_CMD_FILE_LIST (file_list) : get_fl (ACTIVE);
     GnomeCmdFile *file = fl->get_selected_file();
 
-    if (file && file->info->type == GNOME_VFS_FILE_TYPE_DIRECTORY)
+    if (file && file->GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE) == G_FILE_TYPE_DIRECTORY)
         get_fs (INACTIVE)->new_tab(GNOME_CMD_DIR (file), FALSE);
     else
         get_fs (INACTIVE)->new_tab(fl->cwd, FALSE);
