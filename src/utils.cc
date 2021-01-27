@@ -266,54 +266,54 @@ const gchar *type2string (guint32 type, gchar *buf, guint max)
 }
 
 
-const gchar *perm2string (GnomeVFSFilePermissions p, gchar *buf, guint max)
+const gchar *perm2string (guint32 permissions, gchar *buf, guint max)
 {
     switch (gnome_cmd_data.options.perm_disp_mode)
     {
         case GNOME_CMD_PERM_DISP_MODE_TEXT:
-            return perm2textstring (p, buf, max);
+            return perm2textstring (permissions, buf, max);
 
         case GNOME_CMD_PERM_DISP_MODE_NUMBER:
-            return perm2numstring (p, buf, max);
+            return perm2numstring (permissions, buf, max);
 
         default:
-            return perm2textstring (p, buf, max);
+            return perm2textstring (permissions, buf, max);
     }
 }
 
 
-const gchar *perm2textstring (GnomeVFSFilePermissions p, gchar *buf, guint max)
+const gchar *perm2textstring (guint32 permissions, gchar *buf, guint max)
 {
     g_snprintf (buf, max, "%s%s%s%s%s%s%s%s%s",
-                (p & GNOME_VFS_PERM_USER_READ) ? "r" : "-",
-                (p & GNOME_VFS_PERM_USER_WRITE) ? "w" : "-",
-                (p & GNOME_VFS_PERM_USER_EXEC) ? "x" : "-",
-                (p & GNOME_VFS_PERM_GROUP_READ) ? "r" : "-",
-                (p & GNOME_VFS_PERM_GROUP_WRITE) ? "w" : "-",
-                (p & GNOME_VFS_PERM_GROUP_EXEC) ? "x" : "-",
-                (p & GNOME_VFS_PERM_OTHER_READ) ? "r" : "-",
-                (p & GNOME_VFS_PERM_OTHER_WRITE) ? "w" : "-",
-                (p & GNOME_VFS_PERM_OTHER_EXEC) ? "x" : "-");
+                (permissions & GNOME_CMD_PERM_USER_READ)   ? "r" : "-",
+                (permissions & GNOME_CMD_PERM_USER_WRITE)  ? "w" : "-",
+                (permissions & GNOME_CMD_PERM_USER_EXEC)   ? "x" : "-",
+                (permissions & GNOME_CMD_PERM_GROUP_READ)  ? "r" : "-",
+                (permissions & GNOME_CMD_PERM_GROUP_WRITE) ? "w" : "-",
+                (permissions & GNOME_CMD_PERM_GROUP_EXEC)  ? "x" : "-",
+                (permissions & GNOME_CMD_PERM_OTHER_READ)  ? "r" : "-",
+                (permissions & GNOME_CMD_PERM_OTHER_WRITE) ? "w" : "-",
+                (permissions & GNOME_CMD_PERM_OTHER_EXEC)  ? "x" : "-");
 
     return buf;
 }
 
 
-const gchar *perm2numstring (GnomeVFSFilePermissions p, gchar *buf, guint max)
+const gchar *perm2numstring (guint32 permissions, gchar *buf, guint max)
 {
     gint i = 0;
 
-    if (p & GNOME_VFS_PERM_USER_READ) i += 400;
-    if (p & GNOME_VFS_PERM_USER_WRITE) i += 200;
-    if (p & GNOME_VFS_PERM_USER_EXEC) i += 100;
-    if (p & GNOME_VFS_PERM_GROUP_READ) i += 40;
-    if (p & GNOME_VFS_PERM_GROUP_WRITE) i += 20;
-    if (p & GNOME_VFS_PERM_GROUP_EXEC) i += 10;
-    if (p & GNOME_VFS_PERM_OTHER_READ) i += 4;
-    if (p & GNOME_VFS_PERM_OTHER_WRITE) i += 2;
-    if (p & GNOME_VFS_PERM_OTHER_EXEC) i += 1;
+    if (permissions & GNOME_CMD_PERM_USER_READ)   i += 400;
+    if (permissions & GNOME_CMD_PERM_USER_WRITE)  i += 200;
+    if (permissions & GNOME_CMD_PERM_USER_EXEC)   i += 100;
+    if (permissions & GNOME_CMD_PERM_GROUP_READ)  i += 40;
+    if (permissions & GNOME_CMD_PERM_GROUP_WRITE) i += 20;
+    if (permissions & GNOME_CMD_PERM_GROUP_EXEC)  i += 10;
+    if (permissions & GNOME_CMD_PERM_OTHER_READ)  i += 4;
+    if (permissions & GNOME_CMD_PERM_OTHER_WRITE) i += 2;
+    if (permissions & GNOME_CMD_PERM_OTHER_EXEC)  i += 1;
 
-    g_snprintf (buf, max, "%d", i);
+    g_snprintf (buf, max, "%i", i);
 
     return buf;
 }

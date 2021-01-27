@@ -708,9 +708,7 @@ const gchar *GnomeCmdFile::get_perm()
 {
     static gchar perm_str[MAX_PERM_LENGTH];
 
-    g_return_val_if_fail (info != nullptr, nullptr);
-
-    perm2string (info->permissions, perm_str, MAX_PERM_LENGTH);
+    perm2string (GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_UNIX_MODE) & 0xFFF, perm_str, MAX_PERM_LENGTH);
     return perm_str;
 }
 
@@ -908,13 +906,13 @@ gboolean GnomeCmdFile::is_executable()
     if (!is_local())
         return FALSE;
 
-    if (gcmd_owner.uid() == info->uid && info->permissions & GNOME_VFS_PERM_USER_EXEC)
+    if (gcmd_owner.uid() == info->uid && info->permissions & GNOME_CMD_PERM_USER_EXEC)
         return TRUE;
 
-    if (gcmd_owner.gid() == info->gid && info->permissions & GNOME_VFS_PERM_GROUP_EXEC)
+    if (gcmd_owner.gid() == info->gid && info->permissions & GNOME_CMD_PERM_GROUP_EXEC)
         return TRUE;
 
-    if (info->permissions & GNOME_VFS_PERM_OTHER_EXEC)
+    if (info->permissions & GNOME_CMD_PERM_OTHER_EXEC)
         return TRUE;
 
     return FALSE;

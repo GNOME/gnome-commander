@@ -65,7 +65,7 @@ void gcmd_tags_file_load_metadata(GnomeCmdFile *f)
     strftime(buff,sizeof(buff),"%Y-%m-%d %T",localtime(&f->info->mtime));
     f->metadata->add(TAG_FILE_MODIFIED, buff);
 
-    f->metadata->add(TAG_FILE_PERMISSIONS, perm2textstring(f->info->permissions,buff,sizeof(buff)));
+    f->metadata->add(TAG_FILE_PERMISSIONS, perm2textstring(f->GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_UNIX_MODE),buff,sizeof(buff)));
 
     f->metadata->add(TAG_FILE_FORMAT, f->GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE) == G_FILE_TYPE_DIRECTORY ? "Folder" : f->info->mime_type);
 }

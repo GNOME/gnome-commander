@@ -28,10 +28,10 @@
 using namespace std;
 
 
-GnomeVFSFilePermissions check_perm[3][3] = {
-    {GNOME_VFS_PERM_USER_READ, GNOME_VFS_PERM_USER_WRITE, GNOME_VFS_PERM_USER_EXEC},
-    {GNOME_VFS_PERM_GROUP_READ, GNOME_VFS_PERM_GROUP_WRITE, GNOME_VFS_PERM_GROUP_EXEC},
-    {GNOME_VFS_PERM_OTHER_READ, GNOME_VFS_PERM_OTHER_WRITE, GNOME_VFS_PERM_OTHER_EXEC}
+guint check_perm[3][3] = {
+    {GNOME_CMD_PERM_USER_READ, GNOME_CMD_PERM_USER_WRITE, GNOME_CMD_PERM_USER_EXEC},
+    {GNOME_CMD_PERM_GROUP_READ, GNOME_CMD_PERM_GROUP_WRITE, GNOME_CMD_PERM_GROUP_EXEC},
+    {GNOME_CMD_PERM_OTHER_READ, GNOME_CMD_PERM_OTHER_WRITE, GNOME_CMD_PERM_OTHER_EXEC}
 };
 
 
@@ -202,7 +202,7 @@ GtkType gnome_cmd_chmod_component_get_type ()
     return type;
 }
 
-
+//TODO: Change this function to return guint32
 GnomeVFSFilePermissions gnome_cmd_chmod_component_get_perms (GnomeCmdChmodComponent *comp)
 {
     guint perms = 0;

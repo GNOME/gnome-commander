@@ -465,9 +465,9 @@ GnomeVFSResult gnome_cmd_con_mkdir (GnomeCmdCon *con, const gchar *path_str)
 
     result = gnome_vfs_make_directory_for_uri (
         uri,
-        GNOME_VFS_PERM_USER_READ|GNOME_VFS_PERM_USER_WRITE|GNOME_VFS_PERM_USER_EXEC|
-        GNOME_VFS_PERM_GROUP_READ|GNOME_VFS_PERM_GROUP_EXEC|
-        GNOME_VFS_PERM_OTHER_READ|GNOME_VFS_PERM_OTHER_EXEC);
+        GNOME_CMD_PERM_USER_READ|GNOME_CMD_PERM_USER_WRITE|GNOME_CMD_PERM_USER_EXEC|
+        GNOME_CMD_PERM_GROUP_READ|GNOME_CMD_PERM_GROUP_EXEC|
+        GNOME_CMD_PERM_OTHER_READ|GNOME_CMD_PERM_OTHER_EXEC);
 
     gnome_vfs_uri_unref (uri);
     delete path;

@@ -37,6 +37,19 @@
 
 using namespace std;
 
+#define GNOME_CMD_PERM_USER_READ  256 //r--------
+#define GNOME_CMD_PERM_USER_WRITE 128 //-w-------
+#define GNOME_CMD_PERM_USER_EXEC   64 //--x------
+#define GNOME_CMD_PERM_GROUP_READ  32 //---r-----
+#define GNOME_CMD_PERM_GROUP_WRITE 16 //----w----
+#define GNOME_CMD_PERM_GROUP_EXEC   8 //-----x---
+#define GNOME_CMD_PERM_OTHER_READ   4 //------r--
+#define GNOME_CMD_PERM_OTHER_WRITE  2 //-------w-
+#define GNOME_CMD_PERM_OTHER_EXEC   1 //--------x
+#define GNOME_CMD_PERM_USER_ALL   448 //rwx------
+#define GNOME_CMD_PERM_GROUP_ALL   56 //---rwx---
+#define GNOME_CMD_PERM_OTHER_ALL    7 //------rwx
+
 #define TRACE(s)  std::cout << __FILE__ "(" << __LINE__ << ") " << __PRETTY_FUNCTION__ << "\t" #s ": `" << (s) << "'" << std::endl
 
 extern gchar *debug_flags;
@@ -121,9 +134,9 @@ inline char *int2string (gint i)
 }
 
 const gchar *type2string (guint32 type, gchar *buf, guint max);
-const gchar *perm2string (GnomeVFSFilePermissions p, gchar *buf, guint max);
-const gchar *perm2textstring (GnomeVFSFilePermissions p, gchar *buf, guint max);
-const gchar *perm2numstring (GnomeVFSFilePermissions p, gchar *buf, guint max);
+const gchar *perm2string (guint32 permissions, gchar *buf, guint max);
+const gchar *perm2textstring (guint32 permissions, gchar *buf, guint max);
+const gchar *perm2numstring (guint32 permissions, gchar *buf, guint max);
 const gchar *size2string (GnomeVFSFileSize size, GnomeCmdSizeDispMode size_disp_mode);
 const gchar *time2string (time_t t, const gchar *date_format);
 
