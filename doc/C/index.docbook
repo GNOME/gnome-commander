@@ -4312,7 +4312,7 @@
         </thead>
         <tbody>
         <row valign="top">
-        <entry><para>Escape</para><keycombo><keycap>CTRL</keycap><keycap>W</keycap></keycombo></entry>
+        <entry><para>Escape</para><keycombo><keycap>CTRL</keycap><keycap>Q</keycap></keycombo></entry>
         <entry><para>Closes the internal viewer window</para></entry>
         </row>
         <row valign="top">
