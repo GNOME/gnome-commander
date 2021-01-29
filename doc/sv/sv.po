@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander master\n"
-"POT-Creation-Date: 2021-01-01 22:35+0000\n"
-"PO-Revision-Date: 2021-01-02 22:30+0100\n"
+"POT-Creation-Date: 2021-01-29 19:01+0000\n"
+"PO-Revision-Date: 2021-01-29 23:19+0100\n"
 "Last-Translator: Anders Jonsson <anders.jonsson@norsjovallen.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "Language: sv\n"
@@ -45,10 +45,6 @@ msgstr ""
 
 #. (itstool) path: articleinfo/copyright
 #: C/index.docbook:41
-#| msgid ""
-#| "<year>2020</year> <year>2019</year> <year>2018</year> <year>2017</year> "
-#| "<year>2016</year> <year>2015</year> <year>2014</year> <year>2013</year> "
-#| "<holder>Uwe Scholz</holder>"
 msgid ""
 "<year>2021</year> <year>2020</year> <year>2019</year> <year>2018</year> "
 "<year>2017</year> <year>2016</year> <year>2015</year> <year>2014</year> "
@@ -10865,9 +10861,11 @@ msgstr "Escape"
 
 #. (itstool) path: row/entry
 #: C/index.docbook:4315
-msgid "<_:para-1/><keycombo><keycap>CTRL</keycap><keycap>W</keycap></keycombo>"
+#| msgid ""
+#| "<_:para-1/><keycombo><keycap>CTRL</keycap><keycap>W</keycap></keycombo>"
+msgid "<_:para-1/><keycombo><keycap>CTRL</keycap><keycap>Q</keycap></keycombo>"
 msgstr ""
-"<_:para-1/><keycombo><keycap>CTRL</keycap><keycap>W</keycap></keycombo>"
+"<_:para-1/><keycombo><keycap>CTRL</keycap><keycap>Q</keycap></keycombo>"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:4316
@@ -16524,7 +16522,6 @@ msgstr "1.12.0"
 
 #. (itstool) path: entry/para
 #: C/releases.xml:27
-#| msgid "2019-??-??"
 msgid "2021-??-??"
 msgstr "2021-??-??"
 
@@ -20354,20 +20351,3 @@ msgstr "2001-08-02"
 #: C/releases.xml:2530
 msgid "The first public version of GNOME Commander."
 msgstr "Den första offentliga versionen av GNOME Commander."
-
-#~| msgid "1.10.0"
-#~ msgid "1.10.4"
-#~ msgstr "1.10.4"
-
-#~ msgid "Silently move to home directory if startup directory is missing"
-#~ msgstr "Gå tyst till hemkatalogen om uppstartskatalogen saknas"
-
-#~ msgid "List of bookmarks is synchronized between Gnome Commander instances"
-#~ msgstr ""
-#~ "Listan över bokmärken synkroniseras mellan Gnome Commander-instanser"
-
-#~ msgid "Menu entry for (un)selecting files with the same filename suffix"
-#~ msgstr "Menyobjekt för att (av)markera filer med samma filnamnssuffix"
-
-#~ msgid "New or updated translations: cs, es, hu, pl"
-#~ msgstr "Nya eller uppdaterade översättningar: cs, es, hu, pl"
