@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-commander/issues\n"
-"POT-Creation-Date: 2021-01-17 20:48+0000\n"
-"PO-Revision-Date: 2021-01-20 20:53+0200\n"
+"POT-Creation-Date: 2021-01-22 22:22+0000\n"
+"PO-Revision-Date: 2021-02-05 08:57+0200\n"
 "Last-Translator: Мирослав Николић <miroslavnikolic@rocketmail.com>\n"
 "Language-Team: српски <gnome-sr@googlegroups.org>\n"
 "Language: sr\n"
@@ -62,7 +62,6 @@ msgid "file;manager;folder;explore;disk;filesystem;"
 msgstr "датотека;управник;фасцикла;истражи;диск;систем датотека;"
 
 #: data/org.gnome.gnome-commander.gschema.xml:31
-#| msgid "Advanced rename tool"
 msgid "List of advanced rename tool profiles"
 msgstr "Списал профила напредног алата за преименовање"
 
@@ -75,34 +74,26 @@ msgstr ""
 "нарочитим поставкама за сваки профил."
 
 #: data/org.gnome.gnome-commander.gschema.xml:38
-#| msgid "Advanced rename tool"
 msgid "Advanced rename tool window width"
 msgstr "Ширина прозора напредног алата за преименовање"
 
 #: data/org.gnome.gnome-commander.gschema.xml:39
-#| msgid "This option defines the width of the main window."
 msgid "This option defines the width of the advanced rename tool window."
 msgstr "Ова опција одређује ширину прозора напредног алата за преименовање."
 
 #: data/org.gnome.gnome-commander.gschema.xml:45
-#| msgid "Advanced rename tool"
 msgid "Advanced rename tool window height"
 msgstr "Висина прозора напредног алата за преименовање"
 
 #: data/org.gnome.gnome-commander.gschema.xml:46
-#| msgid "This option defines the height of the main window."
 msgid "This option defines the height of the advanced rename tool window."
 msgstr "Ова опција одређује висину прозора напредног алата за преименовање."
 
 #: data/org.gnome.gnome-commander.gschema.xml:52
-#| msgid "Advanced rename tool"
 msgid "Advanced rename tool template history"
 msgstr "Историјат шаблона напредног алата за преименовање"
 
 #: data/org.gnome.gnome-commander.gschema.xml:53
-#| msgid ""
-#| "This string array represents the history of commands executed in the "
-#| "command line."
 msgid ""
 "This string array represents the history of templates in the advanced rename "
 "tool."
@@ -111,14 +102,10 @@ msgstr ""
 "преименовање."
 
 #: data/org.gnome.gnome-commander.gschema.xml:59
-#| msgid "Hide directories"
 msgid "History of visited directories"
 msgstr "Историјат посећених директоријума"
 
 #: data/org.gnome.gnome-commander.gschema.xml:60
-#| msgid ""
-#| "This string array represents the history of commands executed in the "
-#| "command line."
 msgid "This string array represents the history of visited directories."
 msgstr "Овај низ ниски представља историјат посећених директоријума."
 
@@ -391,7 +378,6 @@ msgid "This option defines the width of the main window."
 msgstr "Ова опција одређује ширину главног прозора."
 
 #: data/org.gnome.gnome-commander.gschema.xml:252
-#| msgid "Edit Bookmark"
 msgid "List of bookmarks"
 msgstr "Списак обележивача"
 
@@ -400,27 +386,22 @@ msgid "Each entry in this list represents a bookmark."
 msgstr "Сваки унос на овом списку представља обележивач."
 
 #: data/org.gnome.gnome-commander.gschema.xml:259
-#| msgid "Main window width"
 msgid "Bookmarks window width"
 msgstr "Ширина прозора обележивача"
 
 #: data/org.gnome.gnome-commander.gschema.xml:260
-#| msgid "This option defines the width of the main window."
 msgid "This option defines the width of the bookmarks window."
 msgstr "Ова опција одређује ширину прозора обележивача."
 
 #: data/org.gnome.gnome-commander.gschema.xml:266
-#| msgid "Main window height"
 msgid "Bookmarks window height"
 msgstr "Висина прозора обележивача"
 
 #: data/org.gnome.gnome-commander.gschema.xml:267
-#| msgid "This option defines the height of the main window."
 msgid "This option defines the height of the bookmarks window."
 msgstr "Ова опција одређује висину прозора обележивача."
 
 #: data/org.gnome.gnome-commander.gschema.xml:273
-#| msgid "Drop connection"
 msgid "List of connections"
 msgstr "Списак повезивања"
 
@@ -719,10 +700,10 @@ msgstr "Списак језичака датотеке"
 msgid ""
 "The entries in this list are used for restoring the tabs from the last "
 "session."
-msgstr "Уноси на овом списку се користе за враћање језичака из последње сесије."
+msgstr ""
+"Уноси на овом списку се користе за враћање језичака из последње сесије."
 
 #: data/org.gnome.gnome-commander.gschema.xml:505
-#| msgid "Hide block devices"
 msgid "List of devices"
 msgstr "Списак уређаја"
 
@@ -731,7 +712,6 @@ msgid "The entries in this list represent the devices configured by the user."
 msgstr "Уноси на овом списку представљају уређаје које је подесио корисник."
 
 #: data/org.gnome.gnome-commander.gschema.xml:512
-#| msgid "Other favourite apps"
 msgid "List of favorite apps"
 msgstr "Списак омиљених програма"
 
@@ -742,27 +722,22 @@ msgstr ""
 "Уноси на овом списку представљају омиљене програме које је подесио корисник."
 
 #: data/org.gnome.gnome-commander.gschema.xml:519
-#| msgid "Main window width"
 msgid "Search window width"
 msgstr "Ширина прозора претраге"
 
 #: data/org.gnome.gnome-commander.gschema.xml:520
-#| msgid "This option defines the width of the main window."
 msgid "This option defines the width of the search window."
 msgstr "Ова опција одређује ширину прозора претраге."
 
 #: data/org.gnome.gnome-commander.gschema.xml:526
-#| msgid "Main window height"
 msgid "Search window height"
 msgstr "Висина прозора претраге"
 
 #: data/org.gnome.gnome-commander.gschema.xml:527
-#| msgid "This option defines the height of the main window."
 msgid "This option defines the height of the search window."
 msgstr "Ова опција одређује висину прозора претраге."
 
 #: data/org.gnome.gnome-commander.gschema.xml:533
-#| msgid "Main window state"
 msgid "Search window is transient"
 msgstr "Прозор претраге је прелазан"
 
@@ -775,28 +750,20 @@ msgstr ""
 "иза главног прозора."
 
 #: data/org.gnome.gnome-commander.gschema.xml:540
-#| msgid "Search history"
 msgid "Search text history"
 msgstr "Историјат текста претраге"
 
 #: data/org.gnome.gnome-commander.gschema.xml:541
-#| msgid ""
-#| "This string array stores the history of text searches within the internal "
-#| "file viewer."
 msgid ""
 "This string array represents the history of text searches in the search tool."
 msgstr ""
 "Овај низ ниски представља историјат текста претраживања у алату претраге."
 
 #: data/org.gnome.gnome-commander.gschema.xml:547
-#| msgid "Search history"
 msgid "Search pattern history"
 msgstr "Историјат шаблона претраге"
 
 #: data/org.gnome.gnome-commander.gschema.xml:548
-#| msgid ""
-#| "This string array represents the history of commands executed in the "
-#| "command line."
 msgid ""
 "This string array represents the history of regular expression searches in "
 "the search tool."
@@ -917,17 +884,14 @@ msgid "Hide shortcut files (Windows systems)"
 msgstr "Скрива датотеке пречица (систем прозора)"
 
 #: data/org.gnome.gnome-commander.gschema.xml:646
-#| msgid "/Remote location..."
 msgid "Hide mountable locations"
 msgstr "Скрива прикачива места"
 
 #: data/org.gnome.gnome-commander.gschema.xml:650
-#| msgid "Hide regular files"
 msgid "Hide virtual files"
 msgstr "Скрива виртуелне датотеке"
 
 #: data/org.gnome.gnome-commander.gschema.xml:654
-#| msgid "Hide regular files"
 msgid "Hide volatile files"
 msgstr "Скрива непостојане датотеке"
 
@@ -1387,12 +1351,10 @@ msgstr ""
 "бинарном режиму."
 
 #: data/org.gnome.gnome-commander.gschema.xml:1002
-#| msgid "Metadata"
 msgid "Metadata view"
 msgstr "Преглед метаподатака"
 
 #: data/org.gnome.gnome-commander.gschema.xml:1003
-#| msgid "This option defines if sorting should be case sensitive."
 msgid "This option defines if metadata should be visible."
 msgstr "Ова опција одређује да ли метаподаци треба да буду видљиви."
 
@@ -1498,7 +1460,6 @@ msgid "No error description available"
 msgstr "Нема описа грешке"
 
 #: libgcmd/libgcmd-widget-factory.cc:357
-#| msgid "_Select range:"
 msgid "Select an Image File"
 msgstr "Изаберите датотеку слике"
 
@@ -1507,12 +1468,10 @@ msgid "Choose Icon"
 msgstr "Изаберите иконицу"
 
 #: libgcmd/libgcmd-widget-factory.cc:442
-#| msgid "Toggle selection"
 msgid "Folder selection"
 msgstr "Избор фасцикле"
 
 #: libgcmd/libgcmd-widget-factory.cc:462
-#| msgid "Toggle selection"
 msgid "File selection"
 msgstr "Избор датотеке"
 
@@ -1884,7 +1843,7 @@ msgstr[3] "Да ли желите да обришете једну изабра�
 #: src/dialogs/gnome-cmd-delete-dialog.cc:287
 #: src/dialogs/gnome-cmd-delete-dialog.cc:288
 #: src/dialogs/gnome-cmd-options-dialog.cc:1039
-#: src/gnome-cmd-file-popmenu.cc:722 src/gnome-cmd-main-win.cc:243
+#: src/gnome-cmd-file-popmenu.cc:747 src/gnome-cmd-main-win.cc:243
 #: src/gnome-cmd-user-actions.cc:213
 msgid "Delete"
 msgstr "Обриши"
@@ -1950,7 +1909,6 @@ msgid "Free space:"
 msgstr "Слободан простор:"
 
 #: src/dialogs/gnome-cmd-file-props-dialog.cc:420
-#| msgid "Content Type"
 msgid "Content Type:"
 msgstr "Врста садржаја:"
 
@@ -2292,7 +2250,6 @@ msgid "Match end of the file name"
 msgstr "Поклапа крај назива датотеке"
 
 #: src/dialogs/gnome-cmd-options-dialog.cc:209
-#| msgid "Search for"
 msgid "Search Window"
 msgstr "Прозор претраге"
 
@@ -2657,7 +2614,6 @@ msgid "Regular files"
 msgstr "Обичне датотеке"
 
 #: src/dialogs/gnome-cmd-options-dialog.cc:1193
-#| msgid "Hide character devices"
 msgid "Socket, fifo, block, or character devices"
 msgstr "Прикључница, пупи, блок или знаковни уређаји"
 
@@ -2666,17 +2622,14 @@ msgid "Shortcuts (Windows systems)"
 msgstr "Пречице (систем прозора)"
 
 #: src/dialogs/gnome-cmd-options-dialog.cc:1199
-#| msgid "Custom location"
 msgid "Mountable locations"
 msgstr "Прикачива места"
 
 #: src/dialogs/gnome-cmd-options-dialog.cc:1202
-#| msgid "Hide regular files"
 msgid "Virtual files"
 msgstr "Виртуелне датотеке"
 
 #: src/dialogs/gnome-cmd-options-dialog.cc:1205
-#| msgid "All files"
 msgid "Volatile files"
 msgstr "Непостојане датотеке"
 
@@ -2904,7 +2857,7 @@ msgid "Unselect Using Pattern"
 msgstr "Поништите избор користећи шаблон"
 
 #: src/dialogs/gnome-cmd-prepare-copy-dialog.cc:85
-#: src/gnome-cmd-file-popmenu.cc:721 src/gnome-cmd-main-win.cc:241
+#: src/gnome-cmd-file-popmenu.cc:746 src/gnome-cmd-main-win.cc:241
 #: src/gnome-cmd-user-actions.cc:210
 msgid "Copy"
 msgstr "Умножите"
@@ -2967,7 +2920,6 @@ msgstr "Директоријум „%s“ не постоји, да ли жел�
 #: src/gnome-cmd-advrename-profile-component.cc:433
 #: src/gnome-cmd-advrename-profile-component.cc:761
 #: src/gnome-cmd-advrename-profile-component.cc:793
-#: src/gnome-cmd-file-popmenu.cc:152
 msgid "No"
 msgstr "Не"
 
@@ -2975,7 +2927,6 @@ msgstr "Не"
 #: src/gnome-cmd-advrename-profile-component.cc:433
 #: src/gnome-cmd-advrename-profile-component.cc:761
 #: src/gnome-cmd-advrename-profile-component.cc:793
-#: src/gnome-cmd-file-popmenu.cc:152
 msgid "Yes"
 msgstr "Да"
 
@@ -3495,39 +3446,39 @@ msgstr "Прикључи: %s"
 msgid "Unmount: %s"
 msgstr "Искључи: %s"
 
-#: src/gnome-cmd-con.h:203
+#: src/gnome-cmd-con.h:205
 msgid "<New connection>"
 msgstr "<Нова веза>"
 
-#: src/gnome-cmd-con.h:205
+#: src/gnome-cmd-con.h:207
 #, c-format
 msgid "Go to: %s"
 msgstr "Иди на: %s"
 
-#: src/gnome-cmd-con.h:206
+#: src/gnome-cmd-con.h:208
 #, c-format
 msgid "Connect to: %s"
 msgstr "Повежи се на: %s"
 
-#: src/gnome-cmd-con.h:207
+#: src/gnome-cmd-con.h:209
 #, c-format
 msgid "Disconnect from: %s"
 msgstr "Прекини везу са: %s"
 
-#: src/gnome-cmd-con.h:214
+#: src/gnome-cmd-con.h:216
 #, c-format
 msgid "Connecting to %s\n"
 msgstr "Повезујем се на „%s“\n"
 
-#: src/gnome-cmd-con.h:369
+#: src/gnome-cmd-con.h:371
 msgid "Unknown disk usage"
 msgstr "Непозната употреба диска"
 
-#: src/gnome-cmd-con-home.cc:118
+#: src/gnome-cmd-con-home.cc:125
 msgid "Home"
 msgstr "Лични"
 
-#: src/gnome-cmd-con-home.cc:127
+#: src/gnome-cmd-con-home.cc:134
 msgid "Go to: Home"
 msgstr "Иди на: Лични"
 
@@ -3676,24 +3627,18 @@ msgstr "Покрени"
 msgid "No default application found for the MIME type %s."
 msgstr "Нисам пронашао основни програм за МИМЕ врсту „%s“."
 
-#: src/gnome-cmd-file-list.cc:1336 src/gnome-cmd-file-popmenu.cc:149
+#: src/gnome-cmd-file-list.cc:1336
 #, c-format
+#| msgid ""
+#| "%s does not know how to open remote file. Do you want to download the "
+#| "file to a temporary location and then open it?"
+#| msgid_plural ""
+#| "%s does not know how to open remote files. Do you want to download the "
+#| "files to a temporary location and then open them?"
 msgid ""
 "%s does not know how to open remote file. Do you want to download the file "
 "to a temporary location and then open it?"
-msgid_plural ""
-"%s does not know how to open remote files. Do you want to download the files "
-"to a temporary location and then open them?"
-msgstr[0] ""
-"„%s“ не зна како да отвори удаљену датотеку. Да ли желите да преузмете "
-"датотеку у привремену фасциклу и да је тада отворите?"
-msgstr[1] ""
-"„%s“ не зна како да отвори удаљене датотеке. Да ли желите да преузмете "
-"датотеке у привремену фасциклу и да их тада отворите?"
-msgstr[2] ""
-"„%s“ не зна како да отвори удаљене датотеке. Да ли желите да преузмете "
-"датотеке у привремену фасциклу и да их тада отворите?"
-msgstr[3] ""
+msgstr ""
 "„%s“ не зна како да отвори удаљену датотеку. Да ли желите да преузмете "
 "датотеку у привремену фасциклу и да је тада отворите?"
 
@@ -3709,67 +3654,66 @@ msgstr "Не могу да успоставим везу."
 msgid "Not an ordinary file."
 msgstr "Није уобичајена датотека."
 
-#: src/gnome-cmd-file-popmenu.cc:243
+#: src/gnome-cmd-file-popmenu.cc:244
 msgid "Couldn’t retrieve MIME type of the file."
 msgstr "Не могу да набавим МИМЕ врсту датотеке."
 
-#: src/gnome-cmd-file-popmenu.cc:258
+#: src/gnome-cmd-file-popmenu.cc:259
 msgid "Invalid command"
 msgstr "Неисправна наредба"
 
-#: src/gnome-cmd-file-popmenu.cc:282
+#: src/gnome-cmd-file-popmenu.cc:283
 msgid "Application:"
 msgstr "Програм:"
 
-#: src/gnome-cmd-file-popmenu.cc:285
+#: src/gnome-cmd-file-popmenu.cc:286
 msgid "Open with other…"
 msgstr "Отвори другим…"
 
-#: src/gnome-cmd-file-popmenu.cc:290
+#: src/gnome-cmd-file-popmenu.cc:291
 msgid "Needs terminal"
 msgstr "Захтева терминал"
 
-#: src/gnome-cmd-file-popmenu.cc:717
+#: src/gnome-cmd-file-popmenu.cc:742
 msgid "Open Wit_h"
 msgstr "Отвори _програмом"
 
-#: src/gnome-cmd-file-popmenu.cc:718
+#: src/gnome-cmd-file-popmenu.cc:743
 msgid "Other _Application…"
 msgstr "Други _програм…"
 
-#: src/gnome-cmd-file-popmenu.cc:719
-#| msgid "Open Wit_h"
+#: src/gnome-cmd-file-popmenu.cc:744
 msgid "Open Wit_h…"
 msgstr "Отвори _програмом…"
 
-#: src/gnome-cmd-file-popmenu.cc:720 src/gnome-cmd-main-win.cc:240
+#: src/gnome-cmd-file-popmenu.cc:745 src/gnome-cmd-main-win.cc:240
 #: src/gnome-cmd-user-actions.cc:212
 msgid "Cut"
 msgstr "Исеците"
 
-#: src/gnome-cmd-file-popmenu.cc:723
+#: src/gnome-cmd-file-popmenu.cc:748
 msgid "Rename"
 msgstr "Преименуј"
 
 #. {file_run, "file.run"},
-#: src/gnome-cmd-file-popmenu.cc:724 src/gnome-cmd-main-win.cc:245
+#: src/gnome-cmd-file-popmenu.cc:749 src/gnome-cmd-main-win.cc:245
 #: src/gnome-cmd-user-actions.cc:236
 msgid "Send files"
 msgstr "Пошаљи датотеке"
 
-#: src/gnome-cmd-file-popmenu.cc:725 src/gnome-cmd-main-menu.cc:307
+#: src/gnome-cmd-file-popmenu.cc:750 src/gnome-cmd-main-menu.cc:307
 msgid "_Properties…"
 msgstr "_Својства…"
 
-#: src/gnome-cmd-file-popmenu.cc:726
+#: src/gnome-cmd-file-popmenu.cc:751
 msgid "E_xecute"
 msgstr "_Изврши"
 
-#: src/gnome-cmd-file-popmenu.cc:727 src/gnome-cmd-list-popmenu.cc:108
+#: src/gnome-cmd-file-popmenu.cc:752 src/gnome-cmd-list-popmenu.cc:108
 msgid "Open _terminal here"
 msgstr "Овде отвори _терминал"
 
-#: src/gnome-cmd-file-popmenu.cc:728 src/gnome-cmd-user-actions.cc:211
+#: src/gnome-cmd-file-popmenu.cc:753 src/gnome-cmd-user-actions.cc:211
 msgid "Copy file names"
 msgstr "Умножи називе датотека"
 
@@ -3964,12 +3908,10 @@ msgid "Unselect with P_attern"
 msgstr "Поништи избор према об_расцу"
 
 #: src/gnome-cmd-main-menu.cc:334
-#| msgid "Select with _Pattern"
 msgid "Select with same _Extension"
 msgstr "Изабери са истим _проширењем"
 
 #: src/gnome-cmd-main-menu.cc:335
-#| msgid "Unselect with P_attern"
 msgid "Unselect with same E_xtension"
 msgstr "Поништи избор са _истим проширењем"
 
@@ -4822,7 +4764,6 @@ msgid "_Zoom In"
 msgstr "У_већај"
 
 #: src/intviewer/viewer-window.cc:615
-#| msgid "Zoom _Out"
 msgid "_Zoom Out"
 msgstr "У_мањи"
 
@@ -4831,7 +4772,6 @@ msgid "_Normal Size"
 msgstr "_Уобичајена величина"
 
 #: src/intviewer/viewer-window.cc:617
-#| msgid "Best _Fit"
 msgid "_Best Fit"
 msgstr "_Најбоље уклапање"
 
@@ -4868,7 +4808,6 @@ msgid "English (US-_ASCII)"
 msgstr "Енглески (СД-_АСКРИ)"
 
 #: src/intviewer/viewer-window.cc:639
-#| msgid "Terminal:"
 msgid "Terminal (CP437)"
 msgstr "Терминал (CP437)"
 
@@ -4937,7 +4876,6 @@ msgid "Turkish (ISO-8859-9)"
 msgstr "Турски (ISO-8859-9)"
 
 #: src/intviewer/viewer-window.cc:656
-#| msgid "Turkish"
 msgid "Turkish (CP1254)"
 msgstr "Турски (CP1254)"
 
@@ -4954,7 +4892,6 @@ msgid "Show Metadata _Tags"
 msgstr "Прикажи _ознаке метаподатака"
 
 #: src/intviewer/viewer-window.cc:669
-#| msgid "_Rotate Clockwise"
 msgid "Rotate Clockwise"
 msgstr "Окрени на десно"
 
@@ -4963,7 +4900,6 @@ msgid "Rotate Counter Clockwis_e"
 msgstr "Окрени _супротно смеру казаљке на сату"
 
 #: src/intviewer/viewer-window.cc:671
-#| msgid "_Rotate 180°"
 msgid "Rotate 180°"
 msgstr "Заокрените за 180°"
 
@@ -9076,7 +9012,6 @@ msgstr "Дошло је до грешке при приказивању помо
 
 #: src/utils.cc:1180
 #, c-format
-#| msgid "Couldn’t read from the directory %s: %s"
 msgid "Couldn’t move path from “%s” to “%s”: %s"
 msgstr "Не могу да преместим путању из „%s“ у „%s“: %s"
 
