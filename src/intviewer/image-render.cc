@@ -45,6 +45,7 @@ using namespace std;
 
 #define IMAGE_RENDER_DEFAULT_WIDTH      100
 #define IMAGE_RENDER_DEFAULT_HEIGHT     200
+#define INC_VALUE 25.0
 
 
 enum {
@@ -124,6 +125,17 @@ static void image_render_update_adjustments (ImageRender *obj);
     public functions
     (defined in the header file)
 *****************************************/
+GtkAdjustment *image_render_get_h_adjustment (ImageRender *obj)
+{
+    g_return_val_if_fail (IS_IMAGE_RENDER(obj), nullptr);
+
+    if (obj->priv->h_adjustment)
+    {
+        return obj->priv->h_adjustment;
+    }
+    return nullptr;
+}
+
 void image_render_set_h_adjustment (ImageRender *obj, GtkAdjustment *adjustment)
 {
     g_return_if_fail (IS_IMAGE_RENDER(obj));
@@ -147,6 +159,17 @@ void image_render_set_h_adjustment (ImageRender *obj, GtkAdjustment *adjustment)
     image_render_h_adjustment_update (obj);
 }
 
+
+GtkAdjustment *image_render_get_v_adjustment (ImageRender *obj)
+{
+    g_return_val_if_fail (IS_IMAGE_RENDER(obj), nullptr);
+
+    if (obj->priv->v_adjustment)
+    {
+        return obj->priv->v_adjustment;
+    }
+    return nullptr;
+}
 
 void image_render_set_v_adjustment (ImageRender *obj, GtkAdjustment *adjustment)
 {
@@ -293,6 +316,69 @@ void image_render_notify_status_changed (ImageRender *w)
 
 static gboolean image_render_key_press (GtkWidget *widget, GdkEventKey *event)
 {
+    g_return_val_if_fail (IS_IMAGE_RENDER (widget), FALSE);
+
+    auto imageRender = IMAGE_RENDER (widget);
+
+    switch (event->keyval)
+    {
+        case GDK_KEY_Up:
+        {
+            auto vAdjustment = image_render_get_v_adjustment(imageRender);
+            auto current = gtk_adjustment_get_value(vAdjustment);
+            auto lower = gtk_adjustment_get_lower(vAdjustment);
+            if (current > lower)
+            {
+                gtk_adjustment_set_value(vAdjustment, current - INC_VALUE);
+            }
+            return TRUE;
+        }
+        case GDK_KEY_Down:
+        {
+            auto vAdjustment = image_render_get_v_adjustment(imageRender);
+            auto current = gtk_adjustment_get_value(vAdjustment);
+            auto upper = gtk_adjustment_get_upper(vAdjustment);
+            auto page_size = gtk_adjustment_get_page_size(vAdjustment);
+            if (current < upper - page_size)
+            {
+                gtk_adjustment_set_value(vAdjustment, current + INC_VALUE);
+            }
+            return TRUE;
+        }
+        case GDK_KEY_Left:
+        {
+            auto hAdjustment = image_render_get_h_adjustment(imageRender);
+            auto current = gtk_adjustment_get_value(hAdjustment);
+            auto lower = gtk_adjustment_get_lower(hAdjustment);
+            if (current > lower)
+            {
+                gtk_adjustment_set_value(hAdjustment, current - INC_VALUE);
+            }
+            return TRUE;
+        }
+        case GDK_KEY_Right:
+        {
+            auto hAdjustment = image_render_get_h_adjustment(imageRender);
+            auto current = gtk_adjustment_get_value(hAdjustment);
+            auto upper = gtk_adjustment_get_upper(hAdjustment);
+            auto page_size = gtk_adjustment_get_page_size(hAdjustment);
+            if (current < upper - page_size)
+            {
+                gtk_adjustment_set_value(hAdjustment, current + INC_VALUE);
+            }
+            return TRUE;
+        }
+
+        default:
+           break;
+    }
+
+    switch (state_is_blank(event->keyval))
+    {
+        default:
+           break;
+    }
+
     return FALSE;
 }
 
