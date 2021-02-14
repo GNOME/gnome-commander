@@ -98,6 +98,7 @@ G_DEFINE_TYPE (ImageRender, image_render, GTK_TYPE_WIDGET)
 static void image_render_redraw (ImageRender *w);
 
 static gboolean image_render_key_press (GtkWidget *widget, GdkEventKey *event);
+static gboolean image_render_scroll(GtkWidget *widget, GdkEventScroll *event);
 
 static void image_render_realize (GtkWidget *widget);
 static void image_render_size_request (GtkWidget *widget, GtkRequisition *requisition);
@@ -268,6 +269,7 @@ static void image_render_class_init (ImageRenderClass *klass)
 
     object_class->finalize = image_render_finalize;
 
+    widget_class->scroll_event = image_render_scroll;
     widget_class->key_press_event = image_render_key_press;
     widget_class->button_press_event = image_render_button_press;
     widget_class->button_release_event = image_render_button_release;
@@ -380,6 +382,54 @@ static gboolean image_render_key_press (GtkWidget *widget, GdkEventKey *event)
     }
 
     return FALSE;
+}
+
+
+static gboolean image_render_scroll(GtkWidget *widget, GdkEventScroll *event)
+{
+    g_return_val_if_fail (IS_IMAGE_RENDER (widget), FALSE);
+    g_return_val_if_fail (event != NULL, FALSE);
+
+    auto imageRender = IMAGE_RENDER (widget);
+
+    // Mouse scroll wheel
+#if defined (__GNUC__)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wswitch-enum"
+#endif
+    switch (event->direction)
+    {
+        case GDK_SCROLL_UP:
+        {
+            auto vAdjustment = image_render_get_v_adjustment(imageRender);
+            auto current = gtk_adjustment_get_value(vAdjustment);
+            auto lower = gtk_adjustment_get_lower(vAdjustment);
+            if (current > lower)
+            {
+                gtk_adjustment_set_value(vAdjustment, current - INC_VALUE);
+            }
+            return TRUE;
+        }
+        case GDK_SCROLL_DOWN:
+        {
+            auto vAdjustment = image_render_get_v_adjustment(imageRender);
+            auto current = gtk_adjustment_get_value(vAdjustment);
+            auto upper = gtk_adjustment_get_upper(vAdjustment);
+            auto page_size = gtk_adjustment_get_page_size(vAdjustment);
+            if (current < upper - page_size)
+            {
+                gtk_adjustment_set_value(vAdjustment, current + INC_VALUE);
+            }
+            return TRUE;
+        }
+        default:
+            return FALSE;
+    }
+#if defined (__GNUC__)
+#pragma GCC diagnostic pop
+#endif
+
+    return TRUE;
 }
 
 
