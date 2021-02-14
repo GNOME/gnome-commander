@@ -66,6 +66,8 @@ struct ImageRenderClass
 struct ImageRender::Private
 {
     guint8 button; // The button pressed in "button_press_event"
+    gint mouseX;   // Old x position before mouse move
+    gint mouseY;   // Old y position before mouse move
 
     GtkAdjustment *h_adjustment;
     // Old values from h_adjustment stored so we know when something changes
@@ -646,6 +648,10 @@ static gboolean image_render_button_press (GtkWidget *widget, GdkEventButton *ev
         w->priv->button = event->button;
 
         // gtk_dial_update_mouse (dial, event->x, event->y);
+
+        // Store current mouse position
+        w->priv->mouseX = event->x;
+        w->priv->mouseY = event->y;
     }
 
     return FALSE;
@@ -675,9 +681,9 @@ static gboolean image_render_motion_notify (GtkWidget *widget, GdkEventMotion *e
     g_return_val_if_fail (IS_IMAGE_RENDER (widget), FALSE);
     g_return_val_if_fail (event != NULL, FALSE);
 
-    ImageRender *w = IMAGE_RENDER (widget);
+    auto imageRender = IMAGE_RENDER (widget);
 
-    if (w->priv->button != 0)
+    if (imageRender->priv->button != 0)
     {
         GdkModifierType mods;
 
@@ -688,7 +694,33 @@ static gboolean image_render_motion_notify (GtkWidget *widget, GdkEventMotion *e
 
         if (event->is_hint || (event->window != window))
             gdk_window_get_pointer (window, &x, &y, &mods);
-        // TODO: respond to motion event
+
+        // Update X position
+        auto hAdjustment = image_render_get_h_adjustment(imageRender);
+        auto currentX = gtk_adjustment_get_value(hAdjustment);
+        auto lowerX = gtk_adjustment_get_lower(hAdjustment);
+        auto upperX = gtk_adjustment_get_upper(hAdjustment);
+        auto pageSizeX = gtk_adjustment_get_page_size(hAdjustment);
+        if (currentX + (imageRender->priv->mouseX - x)    < upperX - pageSizeX
+            && currentX + (imageRender->priv->mouseX - x) > lowerX - pageSizeX)
+        {
+            gtk_adjustment_set_value(hAdjustment, currentX + (imageRender->priv->mouseX - x));
+        }
+
+        // Update Y position
+        auto vAdjustment = image_render_get_v_adjustment(imageRender);
+        auto currentY = gtk_adjustment_get_value(vAdjustment);
+        auto lowerY = gtk_adjustment_get_lower(vAdjustment);
+        auto upperY = gtk_adjustment_get_upper(vAdjustment);
+        auto pageSizeY = gtk_adjustment_get_page_size(vAdjustment);
+        if (currentY + (imageRender->priv->mouseY - y)    < upperY - pageSizeY
+            && currentY + (imageRender->priv->mouseY - y) > lowerY - pageSizeY)
+        {
+            gtk_adjustment_set_value(vAdjustment, currentY + (imageRender->priv->mouseY - y));
+        }
+
+        imageRender->priv->mouseX = x;
+        imageRender->priv->mouseY = y;
     }
 
     return FALSE;
