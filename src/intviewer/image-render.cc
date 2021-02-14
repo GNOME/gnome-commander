@@ -397,6 +397,38 @@ static gboolean image_render_scroll(GtkWidget *widget, GdkEventScroll *event)
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wswitch-enum"
 #endif
+    if (state_is_ctrl(event->state))
+    {
+        switch (event->direction)
+        {
+            case GDK_SCROLL_UP:
+            {
+                auto hAdjustment = image_render_get_h_adjustment(imageRender);
+                auto current = gtk_adjustment_get_value(hAdjustment);
+                auto lower = gtk_adjustment_get_lower(hAdjustment);
+                if (current > lower)
+                {
+                    gtk_adjustment_set_value(hAdjustment, current - INC_VALUE);
+                }
+                return TRUE;
+            }
+            case GDK_SCROLL_DOWN:
+            {
+                auto hAdjustment = image_render_get_h_adjustment(imageRender);
+                auto current = gtk_adjustment_get_value(hAdjustment);
+                auto upper = gtk_adjustment_get_upper(hAdjustment);
+                auto page_size = gtk_adjustment_get_page_size(hAdjustment);
+                if (current < upper - page_size)
+                {
+                    gtk_adjustment_set_value(hAdjustment, current + INC_VALUE);
+                }
+                return TRUE;
+            }
+            default:
+                return FALSE;
+        }
+    }
+
     switch (event->direction)
     {
         case GDK_SCROLL_UP:
