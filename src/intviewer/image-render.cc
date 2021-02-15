@@ -331,10 +331,15 @@ static gboolean image_render_key_press (GtkWidget *widget, GdkEventKey *event)
             auto vAdjustment = image_render_get_v_adjustment(imageRender);
             auto current = gtk_adjustment_get_value(vAdjustment);
             auto lower = gtk_adjustment_get_lower(vAdjustment);
-            if (current > lower)
+            if (current - INC_VALUE > lower)
             {
                 gtk_adjustment_set_value(vAdjustment, current - INC_VALUE);
             }
+            else
+            {
+                gtk_adjustment_set_value(vAdjustment, lower);
+            }
+
             return TRUE;
         }
         case GDK_KEY_Down:
@@ -343,9 +348,13 @@ static gboolean image_render_key_press (GtkWidget *widget, GdkEventKey *event)
             auto current = gtk_adjustment_get_value(vAdjustment);
             auto upper = gtk_adjustment_get_upper(vAdjustment);
             auto page_size = gtk_adjustment_get_page_size(vAdjustment);
-            if (current < upper - page_size)
+            if (current + INC_VALUE < upper - page_size)
             {
                 gtk_adjustment_set_value(vAdjustment, current + INC_VALUE);
+            }
+            else
+            {
+                gtk_adjustment_set_value(vAdjustment, upper - page_size);
             }
             return TRUE;
         }
@@ -354,10 +363,15 @@ static gboolean image_render_key_press (GtkWidget *widget, GdkEventKey *event)
             auto hAdjustment = image_render_get_h_adjustment(imageRender);
             auto current = gtk_adjustment_get_value(hAdjustment);
             auto lower = gtk_adjustment_get_lower(hAdjustment);
-            if (current > lower)
+            if (current - INC_VALUE > lower)
             {
                 gtk_adjustment_set_value(hAdjustment, current - INC_VALUE);
             }
+            else
+            {
+                gtk_adjustment_set_value(hAdjustment, lower);
+            }
+
             return TRUE;
         }
         case GDK_KEY_Right:
@@ -366,10 +380,15 @@ static gboolean image_render_key_press (GtkWidget *widget, GdkEventKey *event)
             auto current = gtk_adjustment_get_value(hAdjustment);
             auto upper = gtk_adjustment_get_upper(hAdjustment);
             auto page_size = gtk_adjustment_get_page_size(hAdjustment);
-            if (current < upper - page_size)
+            if (current + INC_VALUE < upper - page_size)
             {
                 gtk_adjustment_set_value(hAdjustment, current + INC_VALUE);
             }
+            else
+            {
+                gtk_adjustment_set_value(hAdjustment, upper - page_size);
+            }
+
             return TRUE;
         }
 
