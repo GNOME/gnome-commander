@@ -30,7 +30,7 @@
                 <para>
                     <itemizedlist>
                         <listitem>
-                            <para>...</para>
+                            <para>Fixed issue #95 (InternalViewer: Scrolling images via mouse, mouse scroll wheel or keyboard arrow keys)</para>
                         </listitem>
                     </itemizedlist>
                 </para>
@@ -39,6 +39,9 @@
                     <itemizedlist>
                         <listitem>
                             <para>Use GIO instead of Gnome-VFS for opening files with default application</para>
+                        </listitem>
+                        <listitem>
+                            <para>Use GIO instead of Gnome-VFS for filtering the file list, and on various other parts of the program</para>
                         </listitem>
                         <listitem>
                             <para>New or updated translations: ...</para>

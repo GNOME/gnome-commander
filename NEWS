@@ -4,9 +4,11 @@ gnome-commander 1.12
 
 New features:
  * Use GIO instead of Gnome-VFS for opening files with default application
+ * Use GIO instead of Gnome-VFS for filtering the file list, and on various other parts of the program
 
 Bug fixes:
- * ...
+ * Fixed issue #95 (InternalViewer: Scrolling images via mouse, mouse scroll wheel or keyboard arrow keys)
+ * Minor memory optimizations
 
 ===================================
 gnome-commander 1.10.3
