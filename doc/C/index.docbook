@@ -4293,7 +4293,10 @@
             <para>Drag the scrollbars on the window borders.</para>
           </listitem>
           <listitem>
-            <para>Click at a random position of the image and drag it by pulling your mouse in the opposite direction 
+            <para>Move the mouse scroll wheel for up/down movement; <keycombo><keycap>CTRL</keycap></keycombo>+mouse wheel for left/right movement</para>
+          </listitem>
+          <listitem>
+            <para>Click at a random position of the image and drag it by pulling your mouse in the opposite direction
 	    to which you want to scroll. For example, if you want to scroll down the image, drag the image upwards.</para>
           </listitem>
         </itemizedlist>
