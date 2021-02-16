@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander.HEAD\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-commander/issues\n"
-"POT-Creation-Date: 2021-02-14 21:02+0000\n"
-"PO-Revision-Date: 2021-02-15 11:03+0100\n"
+"POT-Creation-Date: 2021-02-15 10:09+0000\n"
+"PO-Revision-Date: 2021-02-16 16:27+0100\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: Spanish - Spain <gnome-es-list@gnome.org>\n"
 "Language: es_ES\n"
@@ -914,17 +914,14 @@ msgid "Hide shortcut files (Windows systems)"
 msgstr "Ocultar archivos de enlaces directos (sistemas Windows)"
 
 #: data/org.gnome.gnome-commander.gschema.xml:646
-#| msgid "/Remote location..."
 msgid "Hide mountable locations"
 msgstr "ocultar ubicaciones que es puedan montar"
 
 #: data/org.gnome.gnome-commander.gschema.xml:650
-#| msgid "Hide regular files"
 msgid "Hide virtual files"
 msgstr "Ocultar archivos virtuales"
 
 #: data/org.gnome.gnome-commander.gschema.xml:654
-#| msgid "Hide regular files"
 msgid "Hide volatile files"
 msgstr "Ocultar archivos volátiles"
 
@@ -1958,10 +1955,9 @@ msgid "Free space:"
 msgstr "Espacio libre:"
 
 #: src/dialogs/gnome-cmd-file-props-dialog.cc:420
-#, fuzzy
 #| msgid "Content Type"
 msgid "Content Type:"
-msgstr "Tipo de contenido"
+msgstr "Tipo de contenido:"
 
 #: src/dialogs/gnome-cmd-file-props-dialog.cc:432
 msgid "Opens with:"
@@ -2663,36 +2659,32 @@ msgid "Regular files"
 msgstr "Archivos regulares"
 
 #: src/dialogs/gnome-cmd-options-dialog.cc:1193
-#, fuzzy
 #| msgid "Hide character devices"
 msgid "Socket, fifo, block, or character devices"
-msgstr "Ocultar dispositivos de caracteres"
+msgstr "Socket, fifo, bloque, o dispositivos de caracteres"
 
 #: src/dialogs/gnome-cmd-options-dialog.cc:1196
 msgid "Shortcuts (Windows systems)"
-msgstr ""
+msgstr "Atajos (sistemas Windows)"
 
 #: src/dialogs/gnome-cmd-options-dialog.cc:1199
-#, fuzzy
 #| msgid "Custom location"
 msgid "Mountable locations"
-msgstr "Ubicación personalizada"
+msgstr "Ubicación que se pueden montar"
 
 #: src/dialogs/gnome-cmd-options-dialog.cc:1202
-#, fuzzy
 #| msgid "Hide regular files"
 msgid "Virtual files"
-msgstr "Ocultar archivos regulares"
+msgstr "Archivos virtuales"
 
 #: src/dialogs/gnome-cmd-options-dialog.cc:1205
-#, fuzzy
 #| msgid "All files"
 msgid "Volatile files"
-msgstr "Todos los archivos"
+msgstr "Archivos volátiles"
 
 #: src/dialogs/gnome-cmd-options-dialog.cc:1210
 msgid "Also hide"
-msgstr "También ocultar"
+msgstr "Ocultar tambien"
 
 #: src/dialogs/gnome-cmd-options-dialog.cc:1213
 msgid "Hidden files"
@@ -3667,7 +3659,7 @@ msgid "No default application found for the MIME type %s."
 msgstr "No se encontró una aplicación predeterminada para el tipo MIME %s."
 
 #: src/gnome-cmd-file-list.cc:1336
-#, fuzzy, c-format
+#, c-format
 #| msgid ""
 #| "%s does not know how to open remote file. Do you want to download the "
 #| "file to a temporary location and then open it?"
@@ -3678,7 +3670,7 @@ msgid ""
 "%s does not know how to open remote file. Do you want to download the file "
 "to a temporary location and then open it?"
 msgstr ""
-"%s no sabe cómo abrir un archivo remoto. ¿Quiere descargar el archivo a una "
+"%s no sabe cómo abrir el archivo remoto. ¿Quiere descargar el archivo a una "
 "ubicación temporal y abrirlo?"
 
 #: src/gnome-cmd-file-list.cc:1615
