@@ -518,6 +518,32 @@ guint32 GnomeCmdFile::GetGfileAttributeUInt32(const char *attribute)
 }
 
 
+guint64 GnomeCmdFile::GetGfileAttributeUInt64(const char *attribute)
+{
+    GError *error;
+    error = nullptr;
+    guint64 gFileAttributeUInt64 = 0;
+
+    auto gcmdFileInfo = g_file_query_info(this->gFile,
+                                   attribute,
+                                   G_FILE_QUERY_INFO_NOFOLLOW_SYMLINKS,
+                                   nullptr,
+                                   &error);
+    if (error)
+    {
+        g_message ("retrieving file info failed: %s", error->message);
+        g_error_free (error);
+    }
+    else
+    {
+        gFileAttributeUInt64 = g_file_info_get_attribute_uint64 (gcmdFileInfo, attribute);
+        g_object_unref(gcmdFileInfo);
+    }
+
+    return gFileAttributeUInt64;
+}
+
+
 gchar *GnomeCmdFile::get_default_application_name_string()
 {
     auto contentType = GetGfileAttributeString (G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE);
@@ -667,11 +693,12 @@ const gchar *GnomeCmdFile::get_size()
     if (GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE) == G_FILE_TYPE_DIRECTORY)
         return dir_indicator;
 
-    return size2string (info->size, gnome_cmd_data.options.size_disp_mode);
+    auto size = GetGfileAttributeUInt64(G_FILE_ATTRIBUTE_STANDARD_SIZE);
+    return size2string (size, gnome_cmd_data.options.size_disp_mode);
 }
 
 
-GnomeVFSFileSize GnomeCmdFile::get_tree_size()
+guint64 GnomeCmdFile::get_tree_size()
 {
     if (GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE) != G_FILE_TYPE_DIRECTORY)
         return info->size;
@@ -679,14 +706,50 @@ GnomeVFSFileSize GnomeCmdFile::get_tree_size()
     if (is_dotdot)
         return 0;
 
-    if (priv->tree_size != (GnomeVFSFileSize)-1)
+    if (priv->tree_size != (guint64)-1)
         return priv->tree_size;
 
-    GnomeVFSURI *uri = get_uri();
-    priv->tree_size = calc_tree_size (uri,nullptr);
-    gnome_vfs_uri_unref (uri);
+    priv->tree_size = calc_tree_size (nullptr);
 
     return priv->tree_size;
+}
+
+
+guint64 GnomeCmdFile::calc_tree_size (gulong *count)
+{
+    g_return_val_if_fail (this->gFile != NULL, -1);
+
+    GnomeVFSFileSize size = 0;
+
+    if (GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE) == G_FILE_TYPE_DIRECTORY)
+    {
+        GError *error;
+        error = nullptr;
+
+        g_file_measure_disk_usage (this->gFile,
+                           G_FILE_MEASURE_NONE,
+                           nullptr,
+                           nullptr,
+                           nullptr,
+                           &size,
+                           nullptr,
+                           nullptr,
+                           &error);
+
+        if (error)
+        {
+            g_message ("calc_tree_size: closing gFileEnumerator failed: %s", error->message);
+            g_error_free (error);
+        }
+    }
+    else
+    {
+        size += GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_SIZE);
+        if (count!=NULL) {
+            (*count)++;
+        }
+    }
+    return size;
 }
 
 

@@ -319,7 +319,7 @@ const gchar *perm2numstring (guint32 permissions, gchar *buf, guint max)
 }
 
 
-const gchar *size2string (GnomeVFSFileSize size, GnomeCmdSizeDispMode size_disp_mode)
+const gchar *size2string (guint64 size, GnomeCmdSizeDispMode size_disp_mode)
 {
     static gchar buf0[64];
     static gchar buf1[128];
@@ -449,71 +449,6 @@ GList *strings_to_uris (gchar *data)
     return uri_list;
 }
 
-
-GnomeVFSFileSize calc_tree_size (const GnomeVFSURI *dir_uri, gulong *count)
-{
-    if (!dir_uri)
-        return -1;
-
-    gchar *dir_uri_str = gnome_vfs_uri_to_string (dir_uri, GNOME_VFS_URI_HIDE_PASSWORD);
-
-    g_return_val_if_fail (dir_uri_str != NULL, -1);
-
-    GList *list = NULL;
-    GnomeVFSFileSize size = 0;
-
-    GnomeVFSResult result = gnome_vfs_directory_list_load (&list, dir_uri_str, GNOME_VFS_FILE_INFO_DEFAULT);
-
-    if (result==GNOME_VFS_OK && list)
-    {
-        if (count!=NULL) {
-            (*count)++; // Count the directory too
-        }
-        for (GList *i = list; i; i = i->next)
-        {
-            GnomeVFSFileInfo *info = (GnomeVFSFileInfo *) i->data;
-            if (strcmp (info->name, ".") != 0 && strcmp (info->name, "..") != 0)
-            {
-                if (info->type == GNOME_VFS_FILE_TYPE_DIRECTORY)
-                {
-                    GnomeVFSURI *new_dir_uri = gnome_vfs_uri_append_file_name (dir_uri, info->name);
-                    size += calc_tree_size (new_dir_uri,count);
-                    gnome_vfs_uri_unref (new_dir_uri);
-                }
-                else
-		{
-                    size += info->size;
-                    if (count!=NULL) {
-                        (*count)++;
-                    }
-		}
-            }
-        }
-
-        for (GList *i = list; i; i = i->next)
-            gnome_vfs_file_info_unref ((GnomeVFSFileInfo *) i->data);
-
-        g_list_free (list);
-
-    } else if (result==GNOME_VFS_ERROR_NOT_A_DIRECTORY)
-    {
-        // A file
-        GnomeVFSFileInfo *info = gnome_vfs_file_info_new ();
-        gnome_vfs_get_file_info (dir_uri_str, info, GNOME_VFS_FILE_INFO_DEFAULT);
-        size += info->size;
-        if (count!=NULL) {
-            (*count)++;
-        }
-        gnome_vfs_file_info_unref (info);
-
-   }
-
-    g_free (dir_uri_str);
-
-    return size;
-}
-
-
 GList *string_history_add (GList *in, const gchar *value, guint maxsize)
 {
     GList *tmp = g_list_find_custom (in, (gchar *) value, (GCompareFunc) strcmp);
@@ -544,7 +479,7 @@ GList *string_history_add (GList *in, const gchar *value, guint maxsize)
 }
 
 
-gchar *create_nice_size_str (GnomeVFSFileSize size)
+gchar *create_nice_size_str (guint64 size)
 {
     GString *s = g_string_sized_new (64);
 

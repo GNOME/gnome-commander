@@ -98,8 +98,8 @@ inline void GnomeCmdFileSelector::update_selected_files_label()
     if (!all_files)
         return;
 
-    GnomeVFSFileSize sel_bytes = 0;
-    GnomeVFSFileSize total_bytes = 0;
+    guint64 sel_bytes = 0;
+    guint64 total_bytes = 0;
     gint num_files = 0;
     gint num_dirs = 0;
     gint num_sel_files = 0;

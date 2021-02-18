@@ -75,7 +75,8 @@ struct GnomeCmdFile
     const gchar *get_adate(gboolean overide_disp_setting);
     const gchar *get_mdate(gboolean overide_disp_setting);
     const gchar *get_size();
-    GnomeVFSFileSize get_tree_size();
+    guint64 get_tree_size();
+    guint64 calc_tree_size (gulong *count);
     const gchar *get_tree_size_as_str();
     const gchar *get_perm();
     gboolean has_mime_type(const gchar *mime_type);
@@ -102,6 +103,7 @@ struct GnomeCmdFile
     gboolean has_tree_size();
 
     guint32 GetGfileAttributeUInt32(const char *attribute);
+    guint64 GetGfileAttributeUInt64(const char *attribute);
     gchar *GetGfileAttributeString(const char *attribute);
     gchar *get_default_application_name_string();
     gchar *get_default_application_action_label(GAppInfo *gAppInfo);

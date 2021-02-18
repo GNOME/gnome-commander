@@ -137,7 +137,7 @@ const gchar *type2string (guint32 type, gchar *buf, guint max);
 const gchar *perm2string (guint32 permissions, gchar *buf, guint max);
 const gchar *perm2textstring (guint32 permissions, gchar *buf, guint max);
 const gchar *perm2numstring (guint32 permissions, gchar *buf, guint max);
-const gchar *size2string (GnomeVFSFileSize size, GnomeCmdSizeDispMode size_disp_mode);
+const gchar *size2string (guint64 size, GnomeCmdSizeDispMode size_disp_mode);
 const gchar *time2string (time_t t, const gchar *date_format);
 
 void clear_event_key (GdkEventKey *event);
@@ -186,8 +186,7 @@ inline gboolean state_is_ctrl_alt_shift (gint state)
 
 GList *strings_to_uris (gchar *data);
 
-GnomeVFSFileSize calc_tree_size (const GnomeVFSURI *dir_uri, gulong *count);
-gchar *create_nice_size_str (GnomeVFSFileSize size);
+gchar *create_nice_size_str (guint64 size);
 
 inline gchar *quote_if_needed (const gchar *in)
 {

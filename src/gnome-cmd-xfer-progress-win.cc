@@ -159,8 +159,8 @@ GtkType gnome_cmd_xfer_progress_win_get_type ()
 void gnome_cmd_xfer_progress_win_set_total_progress (GnomeCmdXferProgressWin *win,
                                                      GnomeVFSFileSize file_bytes_copied,
                                                      GnomeVFSFileSize file_size,
-                                                     GnomeVFSFileSize bytes_copied,
-                                                     GnomeVFSFileSize bytes_total)
+                                                     guint64 bytes_copied,
+                                                     guint64 bytes_total)
 {
     gfloat total_prog = bytes_total>0 ? (gdouble) bytes_copied/(gdouble) bytes_total : -1.0f;
     gtk_progress_set_percentage (GTK_PROGRESS (win->totalprog), total_prog);

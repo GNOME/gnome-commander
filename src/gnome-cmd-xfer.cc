@@ -124,18 +124,20 @@ create_xfer_data (GnomeVFSXferOptions xferOptions, GList *src_uri_list, GList *d
     data->done = FALSE;
     data->aborted = FALSE;
 
+    //ToDo: Fix this to complete migration from gnome-vfs to gvfs
     // If this is a move-operation, determine totals
     // The async_xfer_callback-results for file and byte totals are not reliable
-    if (xferOptions == GNOME_VFS_XFER_REMOVESOURCE) {
-        GList *uris;
-        data->bytes_total = 0;
-        data->files_total = 0;
-        for (uris = data->src_uri_list; uris != nullptr; uris = uris->next) {
-            GnomeVFSURI *uri;
-            uri = (GnomeVFSURI*)uris->data;
-            data->bytes_total += calc_tree_size(uri,&(data->files_total));
-        }
-    }
+    //if (xferOptions == GNOME_VFS_XFER_REMOVESOURCE) {
+    //    GList *uris;
+    //    data->bytes_total = 0;
+    //    data->files_total = 0;
+    //    for (uris = data->src_uri_list; uris != nullptr; uris = uris->next) {
+    //        GnomeVFSURI *uri;
+    //        uri = (GnomeVFSURI*)uris->data;
+    //        data->bytes_total += calc_tree_size(uri,&(data->files_total));
+    //        g_object_unref(gFile);
+    //    }
+    //}
 
     return data;
 }
