@@ -324,7 +324,6 @@ const gchar *size2string (guint64 size, GnomeCmdSizeDispMode size_disp_mode)
     static gchar buf0[64];
     static gchar buf1[128];
 
-
     switch (size_disp_mode)
     {
         case GNOME_CMD_SIZE_DISP_MODE_POWERED:
@@ -339,13 +338,13 @@ const gchar *size2string (guint64 size, GnomeCmdSizeDispMode size_disp_mode)
                 if (i)
                     g_snprintf (buf0, sizeof(buf0), "%.1f %s ", dsize, prefixes[i]);
                 else
-                    g_snprintf (buf0, sizeof(buf0), "%" GNOME_VFS_SIZE_FORMAT_STR " %s ", size, prefixes[0]);
+                    g_snprintf (buf0, sizeof(buf0), "%lu %s ", size, prefixes[0]);
             }
             break;
 
         case GNOME_CMD_SIZE_DISP_MODE_GROUPED:
             {
-                gint len = g_snprintf (buf0, sizeof(buf0), "%" GNOME_VFS_SIZE_FORMAT_STR " ", size);
+                gint len = g_snprintf (buf0, sizeof(buf0), "%lu ", size);
 
                 if (len < 5)
                     return buf0;
@@ -368,11 +367,11 @@ const gchar *size2string (guint64 size, GnomeCmdSizeDispMode size_disp_mode)
             return buf1;
 
         case GNOME_CMD_SIZE_DISP_MODE_LOCALE:
-            g_snprintf (buf0, sizeof(buf0), "%'" GNOME_VFS_SIZE_FORMAT_STR " ", size);
+            g_snprintf (buf0, sizeof(buf0), "%'lu ", size);
             break;
 
         case GNOME_CMD_SIZE_DISP_MODE_PLAIN:
-            g_snprintf (buf0, sizeof(buf0), "%" GNOME_VFS_SIZE_FORMAT_STR " ", size);
+            g_snprintf (buf0, sizeof(buf0), "%lu ", size);
             break;
 
         default:
