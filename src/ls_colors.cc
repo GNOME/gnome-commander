@@ -34,7 +34,7 @@ using namespace std;
 
 
 static GHashTable *map;
-static LsColor *type_colors[8];
+static LsColor *type_colors[7];
 
 
 /*
@@ -201,7 +201,8 @@ void ls_colors_init ()
 
 LsColor *ls_colors_get (GnomeCmdFile *f)
 {
-    if (f->GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE) == G_FILE_TYPE_SYMBOLIC_LINK)
+    auto fileType = f->GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE);
+    if (fileType == G_FILE_TYPE_SYMBOLIC_LINK)
         return type_colors[G_FILE_TYPE_SYMBOLIC_LINK];
 
     LsColor *col = nullptr;
@@ -211,7 +212,7 @@ LsColor *ls_colors_get (GnomeCmdFile *f)
         col = static_cast<LsColor*> (g_hash_table_lookup (::map, ext));
 
     if (!col)
-        col = type_colors[f->info->type];
+        col = type_colors[fileType];
 
     return col;
 }
