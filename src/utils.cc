@@ -632,29 +632,40 @@ GList *app_get_linked_libs (GnomeCmdFile *f)
 
 gboolean app_needs_terminal (GnomeCmdFile *f)
 {
-    gboolean need_term = TRUE;
+    gboolean needTerminal;
 
-    if (strcmp (f->info->mime_type, "application/x-executable") && strcmp (f->info->mime_type, "application/x-executable-binary"))
-        return need_term;
-
-    GList *libs = app_get_linked_libs (f);
-    if  (!libs) return FALSE;
-
-    for (GList *i = libs; i; i = i->next)
+    auto contentType = f->GetGfileAttributeString(G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE);
+    if (strcmp (contentType, "application/x-executable") && strcmp (contentType, "application/x-executable-binary"))
     {
-        gchar *lib = (gchar *) i->data;
-        lib = g_strstrip (lib);
-        if (g_str_has_prefix (lib, "libX11"))
+        needTerminal = TRUE;
+    }
+    else
+    {
+        GList *libs = app_get_linked_libs (f);
+        if  (!libs)
         {
-            need_term = FALSE;
-            break;
+            needTerminal = FALSE;
         }
+        else
+        {
+            for (GList *i = libs; i; i = i->next)
+            {
+                gchar *lib = (gchar *) i->data;
+                lib = g_strstrip (lib);
+                if (g_str_has_prefix (lib, "libX11"))
+                {
+                    needTerminal = FALSE;
+                    break;
+                }
+            }
+        }
+        g_list_foreach (libs, (GFunc) g_free, NULL);
+        g_list_free (libs);
     }
 
-    g_list_foreach (libs, (GFunc) g_free, NULL);
-    g_list_free (libs);
+    g_free(contentType);
 
-    return need_term;
+    return needTerminal;
 }
 
 
