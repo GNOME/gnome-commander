@@ -808,6 +808,16 @@ static char *build_selected_file_list (GnomeCmdFileList *fl, int *file_list_len)
 }
 
 
+static void get_popup_pos (GtkMenu *menu, gint *x, gint *y, gboolean push_in, GnomeCmdFileList *gnomeCmdFileList)
+{
+    g_return_if_fail (GNOME_CMD_IS_FILE_LIST (gnomeCmdFileList));
+
+    gint w, h;
+
+    get_focus_row_coordinates (gnomeCmdFileList, *x, *y, w, h);
+}
+
+
 static void show_file_popup (GnomeCmdFileList *fl, GdkEventButton *event)
 {
     // create the popup menu
@@ -817,19 +827,26 @@ static void show_file_popup (GnomeCmdFileList *fl, GdkEventButton *event)
     g_object_ref (menu);
     g_object_set_data_full (*fl, "file_popup_menu", menu, g_object_unref);
 
-    gtk_menu_popup (GTK_MENU (menu), nullptr, nullptr, nullptr, fl, event->button, event->time);
-}
-
-
-inline void show_file_popup_with_warp (GnomeCmdFileList *fl)
-{
-    gint x, y, w, h;
-
-    get_focus_row_coordinates (fl, x, y, w, h);
-
-    //FIXME: Warp the pointer to x, y here
-
-    show_file_popup (fl, nullptr);
+    if (event)
+    {
+        gtk_menu_popup (GTK_MENU (menu),
+                        nullptr,
+                        nullptr,
+                        nullptr,
+                        fl,
+                        event->button,
+                        event->time);
+    }
+    else
+    {
+        gtk_menu_popup (GTK_MENU (menu),
+                        nullptr,
+                        nullptr,
+                        (GtkMenuPositionFunc) get_popup_pos,
+                        fl,
+                        0,
+                        gtk_get_current_event_time ());
+    }
 }
 
 
@@ -2480,7 +2497,7 @@ gboolean GnomeCmdFileList::key_pressed(GdkEventKey *event)
                 return TRUE;
 
             case GDK_F10:
-                show_file_popup_with_warp (this);
+                show_file_popup (this, nullptr);
                 return TRUE;
 
             case GDK_Left:
@@ -2662,7 +2679,7 @@ gboolean GnomeCmdFileList::key_pressed(GdkEventKey *event)
                 return TRUE;
 
             case GDK_Menu:
-                show_file_popup_with_warp (this);
+                show_file_popup (this, nullptr);
                 return TRUE;
 
             default:

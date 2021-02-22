@@ -8,6 +8,7 @@ New features:
 
 Bug fixes:
  * Fixed issue #95 (InternalViewer: Scrolling images via mouse, mouse scroll wheel or keyboard arrow keys)
+ * Fixed issue #96 (Segmentation fault when opening file/directory properties using keyboard)
  * Minor memory optimizations
 
 ===================================
