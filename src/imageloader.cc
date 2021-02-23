@@ -199,7 +199,7 @@ static const gchar *get_type_icon_name (guint32 type)
         case G_FILE_TYPE_REGULAR:
             return names[1];
         case G_FILE_TYPE_SYMBOLIC_LINK:
-            return names[6];
+            return names[3];
         //TODO: Add filetype names for G_FILE_TYPE_SHORTCUT and G_FILE_TYPE_MOUNTABLE
 
         default:
