@@ -160,7 +160,7 @@ bool getAudioProperties(GnomeCmdFileMetadata &metadata, const TagLib::AudioPrope
 
     if (mpcProperties)
     {
-        if (oggProperties->vorbisVersion())
+        if (oggProperties && oggProperties->vorbisVersion())
             cout << "Audio.MPC.Version  " << mpcProperties->mpcVersion() << endl;
 
         return true;
