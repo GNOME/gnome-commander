@@ -55,7 +55,7 @@ struct GnomeCmdFile::Private
     Handle *dir_handle;
     GTimeVal last_update;
     gint ref_cnt;
-    GnomeVFSFileSize tree_size;
+    guint64 tree_size;
 };
 
 
@@ -719,7 +719,7 @@ guint64 GnomeCmdFile::calc_tree_size (gulong *count)
 {
     g_return_val_if_fail (this->gFile != NULL, -1);
 
-    GnomeVFSFileSize size = 0;
+    guint64 size = 0;
 
     if (GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE) == G_FILE_TYPE_DIRECTORY)
     {
