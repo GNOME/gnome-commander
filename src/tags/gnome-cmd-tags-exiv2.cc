@@ -74,7 +74,7 @@ void readTags(GnomeCmdFileMetadata *metadata, const T &data)
             case TAG_EXIF_FLASHPIXVERSION:
             case TAG_EXIF_INTEROPERABILITYVERSION:
                 {
-                    vector<byte> buff(i->value().size()+1);
+                    vector<Exiv2::byte> buff(i->value().size()+1);
 
                     i->value().copy(&buff[0],invalidByteOrder);
                     metadata->add(tag,(char *) &buff[0]);
