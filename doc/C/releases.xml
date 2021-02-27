@@ -47,10 +47,10 @@
                             <para>Use GIO instead of Gnome-VFS for filtering the file list, and on various other parts of the program</para>
                         </listitem>
                         <listitem>
-                            <para>New or updated translations: ...</para>
+                            <para>New or updated translations: ca, cs, da, de, eo, es, eu, fi, hu, id, kk, pl, pt_BR, ro, sl, sr, tr, uk</para>
                         </listitem>
                         <listitem>
-                            <para>New or updated docs: ...</para>
+                            <para>New or updated docs: cs, de, es, sv</para>
                         </listitem>
                     </itemizedlist>
                 </para>
