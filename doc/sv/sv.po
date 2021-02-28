@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander master\n"
-"POT-Creation-Date: 2021-02-22 21:51+0000\n"
-"PO-Revision-Date: 2021-02-23 17:53+0100\n"
+"POT-Creation-Date: 2021-02-28 14:12+0000\n"
+"PO-Revision-Date: 2021-02-28 15:52+0100\n"
 "Last-Translator: Anders Jonsson <anders.jonsson@norsjovallen.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "Language: sv\n"
@@ -16605,13 +16605,17 @@ msgstr ""
 
 #. (itstool) path: listitem/para
 #: C/releases.xml:50
-msgid "New or updated translations: ..."
-msgstr "Nya eller uppdaterade översättningar: ..."
+msgid ""
+"New or updated translations: ca, cs, da, de, eo, es, eu, fi, hu, id, kk, pl, "
+"pt_BR, ro, sl, sr, tr, uk"
+msgstr ""
+"Nya eller uppdaterade översättningar: ca, cs, da, de, eo, es, eu, fi, hu, "
+"id, kk, pl, pt_BR, ro, sl, sr, tr, uk"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:53
-msgid "New or updated docs: ..."
-msgstr "Ny eller uppdaterad dokumentation: ..."
+#: C/releases.xml:53 C/releases.xml:189
+msgid "New or updated docs: cs, de, es, sv"
+msgstr "Ny eller uppdaterad dokumentation: cs, de, es, sv"
 
 #. (itstool) path: entry/para
 #: C/releases.xml:60
@@ -16794,11 +16798,6 @@ msgid ""
 msgstr ""
 "Nya eller uppdaterade översättningar: cs, da, de, es, hu, id, pl, pt_BR, sr, "
 "sr@latin, sv"
-
-#. (itstool) path: listitem/para
-#: C/releases.xml:189
-msgid "New or updated docs: cs, de, es, sv"
-msgstr "Ny eller uppdaterad dokumentation: cs, de, es, sv"
 
 #. (itstool) path: entry/para
 #: C/releases.xml:196
@@ -20385,3 +20384,9 @@ msgstr "2001-08-02"
 #: C/releases.xml:2536
 msgid "The first public version of GNOME Commander."
 msgstr "Den första offentliga versionen av GNOME Commander."
+
+#~ msgid "New or updated translations: ..."
+#~ msgstr "Nya eller uppdaterade översättningar: ..."
+
+#~ msgid "New or updated docs: ..."
+#~ msgstr "Ny eller uppdaterad dokumentation: ..."
