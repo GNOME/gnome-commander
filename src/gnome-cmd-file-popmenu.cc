@@ -679,11 +679,11 @@ GtkWidget *gnome_cmd_file_popmenu_new (GnomeCmdFileList *gnomeCmdFileList)
         }
     }
 
-    // Add execute menu entry
-    add_execute_entry(uiManager, gnomeCmdFileList);
-
     // Add script action menu entries
     add_action_script_entries(uiManager, files);
+
+    // Add execute menu entry
+    add_execute_entry(uiManager, files);
 
     return GTK_WIDGET (gtk_ui_manager_get_widget (uiManager, "/FilePopup"));
 }
@@ -737,6 +737,8 @@ GtkType gnome_cmd_file_popmenu_get_type ()
     static const char *ui_description =
     "<ui>"
     "  <popup action='FilePopup'>"
+    "    <placeholder name='Execute'/>"
+    "    <separator/>"
     "    <placeholder name='OpenWithDefault'/>"
     "    <menu action='OpenWith'>"
     "      <placeholder name='OpenWithPlaceholder'/>"
@@ -911,7 +913,7 @@ void add_execute_entry(GtkUIManager *ui_manager, GnomeCmdFileList *gnomeCmdFileL
         dynamicActionGroup = gtk_action_group_new ("executeActionGroup");
         gtk_ui_manager_insert_action_group (ui_manager, dynamicActionGroup, 0);
 
-        gtk_ui_manager_add_ui (ui_manager, mergeIdExecute, "/FilePopup/Cut", "Execute", "Execute",
+        gtk_ui_manager_add_ui (ui_manager, mergeIdExecute, "/FilePopup/Execute", "Execute", "Execute",
                                GTK_UI_MANAGER_AUTO, true);
     }
 }
