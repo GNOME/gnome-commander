@@ -56,4 +56,4 @@ GtkType gnome_cmd_file_popmenu_get_type ();
 GtkUIManager *get_file_popup_ui_manager (GnomeCmdFileList *gnomeCmdFileList);
 guint add_open_with_entries (GtkUIManager *ui_manager, GnomeCmdFileList *gnomeCmdFileList);
 guint add_action_script_entries(GtkUIManager *uiManager, GList *files);
-void add_execute_entry(GtkUIManager *ui_manager, GnomeCmdFileList *gnomeCmdFileList);
+void add_execute_entry(GtkUIManager *ui_manager, GList *files);

@@ -894,11 +894,10 @@ guint add_open_with_entries(GtkUIManager *ui_manager, GnomeCmdFileList *gnomeCmd
     return newTopMenuItems;
 }
 
-void add_execute_entry(GtkUIManager *ui_manager, GnomeCmdFileList *gnomeCmdFileList)
+void add_execute_entry(GtkUIManager *ui_manager, GList *files)
 {
     static guint mergeIdExecute = 0;
     static GtkActionGroup *dynamicActionGroup = nullptr;
-    auto files = gnomeCmdFileList->get_selected_files();
     auto gnomeCmdFile = static_cast<GnomeCmdFile*> (files->data);
 
     if (mergeIdExecute != 0)
