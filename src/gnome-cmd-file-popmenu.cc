@@ -618,6 +618,8 @@ guint add_action_script_entries(GtkUIManager *uiManager, GList *files)
         gtk_ui_manager_add_ui (uiManager, mergeIdActionScripts, "/FilePopup/ActionScripts", scriptName,
                                scriptName, GTK_UI_MANAGER_AUTO, true);
         g_free(scriptName);
+        g_free(scriptData->path);
+        g_free(scriptData);
         position++;
     }
     g_free (scriptsDir);
