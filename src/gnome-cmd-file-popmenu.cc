@@ -551,7 +551,7 @@ inline GList *get_list_of_action_script_file_names(const gchar* scriptsDir)
 
 guint add_action_script_entries(GtkUIManager *uiManager, GList *files)
 {
-    guint pos = 0;
+    guint position = 0;
     auto scriptsDir = g_build_filename (g_get_user_config_dir (), SCRIPT_DIRECTORY, nullptr);
     auto scriptFileNames = get_list_of_action_script_file_names(scriptsDir);
 
@@ -567,8 +567,8 @@ guint add_action_script_entries(GtkUIManager *uiManager, GList *files)
     }
     mergeIdActionScripts = gtk_ui_manager_new_merge_id (uiManager);
 
-    static GtkActionGroup *dynamicActionGroup = gtk_action_group_new ("actionScripts");
-    gtk_ui_manager_insert_action_group (uiManager, dynamicActionGroup, 0);
+    static auto gtkActionGroup = gtk_action_group_new ("actionScripts");
+    gtk_ui_manager_insert_action_group (uiManager, gtkActionGroup, 0);
 
     for (GList *scriptFileName = scriptFileNames; scriptFileName; scriptFileName = scriptFileName->next)
     {
@@ -607,23 +607,23 @@ guint add_action_script_entries(GtkUIManager *uiManager, GList *files)
         auto dynAction = gtk_action_new (scriptName, scriptName, nullptr, GTK_STOCK_EXECUTE);
 
         // remove action if it was added in a previous run of this method
-        if (gtk_action_group_get_action (dynamicActionGroup, scriptName))
+        if (gtk_action_group_get_action (gtkActionGroup, scriptName))
         {
-            gtk_action_group_remove_action(dynamicActionGroup, dynAction);
+            gtk_action_group_remove_action(gtkActionGroup, dynAction);
         }
 
         g_signal_connect (dynAction, "activate", G_CALLBACK (on_execute_script), scriptData);
-        gtk_action_group_add_action (dynamicActionGroup, dynAction);
+        gtk_action_group_add_action (gtkActionGroup, dynAction);
 
         gtk_ui_manager_add_ui (uiManager, mergeIdActionScripts, "/FilePopup/ActionScripts", scriptName,
                                scriptName, GTK_UI_MANAGER_AUTO, true);
         g_free(scriptName);
-        pos++;
+        position++;
     }
     g_free (scriptsDir);
     g_list_free_full(scriptFileNames, g_free);
 
-    return pos;
+    return position;
 }
 
 /***********************************
@@ -634,17 +634,15 @@ GtkWidget *gnome_cmd_file_popmenu_new (GnomeCmdFileList *gnomeCmdFileList)
 {
     g_return_val_if_fail (GNOME_CMD_IS_FILE_LIST (gnomeCmdFileList), nullptr);
 
-    guint pos;
-    static guint mergeIdFavApp = 0;
-
     auto files = gnomeCmdFileList->get_selected_files();
     if (!files) return nullptr;
 
-    GtkUIManager *uiManager = get_file_popup_ui_manager(gnomeCmdFileList);
+    guint position;
+    auto uiManager = get_file_popup_ui_manager(gnomeCmdFileList);
 
     // Add "Open With" popup entries
-    pos = add_open_with_entries(uiManager, gnomeCmdFileList);
-    pos += 2;
+    position = add_open_with_entries(uiManager, gnomeCmdFileList);
+    position += 2;
 
     // Add plugin popup entries
     for (auto plugins = plugin_manager_get_all (); plugins; plugins = plugins->next)
@@ -656,11 +654,12 @@ GtkWidget *gnome_cmd_file_popmenu_new (GnomeCmdFileList *gnomeCmdFileList)
             if (items)
             {
                 GtkWidget *menu = gtk_ui_manager_get_widget (uiManager, "/FilePopup");
-                add_plugin_menu_items (GTK_MENU_SHELL(menu), items, ++pos);
+                add_plugin_menu_items (GTK_MENU_SHELL(menu), items, ++position);
             }
         }
     }
 
+    static guint mergeIdFavApp = 0;
     // Add favorite applications menu entries
     if (mergeIdFavApp != 0)
     {
@@ -674,7 +673,7 @@ GtkWidget *gnome_cmd_file_popmenu_new (GnomeCmdFileList *gnomeCmdFileList)
         if (fav_app_matches_files (app, files))
         {
             add_fav_app_menu_item (uiManager, mergeIdFavApp, app, files);
-            pos++;
+            position++;
         }
     }
 
