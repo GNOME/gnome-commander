@@ -30,7 +30,7 @@
                 <para>
                     <itemizedlist>
                         <listitem>
-                            <para>...</para>
+                            <para>Fixed issue #97 ("Execute" not shown in file popup menu for executable files)</para>
                         </listitem>
                     </itemizedlist>
                 </para>
