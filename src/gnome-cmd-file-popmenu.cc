@@ -324,7 +324,7 @@ static void on_execute_script (GtkMenuItem *menuItem, ScriptData *scriptData)
         {
             auto gnomeCmdFile = static_cast<GnomeCmdFile*> (files->data);
             string command (scriptData->path);
-            command.append (" ").append (quotationMarks).append (gnomeCmdFile->get_name ()).append (quotationMarks);
+            command.append (" ").append(gnomeCmdFile->get_quoted_name());
 
             dirName = gnomeCmdFile->get_dirname (); // must be g_free'd
             run_command_indir (command.c_str (), dirName, scriptData->inTerminal);
@@ -339,7 +339,7 @@ static void on_execute_script (GtkMenuItem *menuItem, ScriptData *scriptData)
         for (auto files = scriptData->files; files; files = files->next)
         {
             auto gnomeCmdFile = static_cast<GnomeCmdFile*> (files->data);
-            commandString.append (quotationMarks).append(gnomeCmdFile->get_name ()).append (quotationMarks).append (" ");
+            commandString.append(gnomeCmdFile->get_quoted_name()).append(" ");
         }
 
         dirName = static_cast<GnomeCmdFile*> (scriptData->files->data)->get_dirname (); // must be g_free'd
