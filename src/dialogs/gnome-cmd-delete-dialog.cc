@@ -31,6 +31,10 @@
 
 using namespace std;
 
+#define CANCEL    0
+#define SKIP      1
+#define DELETEALL 2
+#define DELETE    3
 
 struct DeleteData
 {
@@ -305,22 +309,22 @@ static GList *remove_items_from_list_to_be_deleted(GList *files)
                                   dirCount++ == 0 ? _("Delete All") : _("Delete Remaining"),
                                   _("Delete"), nullptr);
 
-                if (guiResponse != 1 && guiResponse != 2 && guiResponse != 3)
-                    guiResponse = 0; // Set to zero for the case the user presses ESCAPE in the warning dialog)
+                if (guiResponse != SKIP && guiResponse != DELETEALL && guiResponse != DELETE)
+                    guiResponse = CANCEL; // Set to zero for the case the user presses ESCAPE in the warning dialog)
 
                 g_free(fname);
                 g_free(msg);
 
-                if (guiResponse == 0 || guiResponse == 2) // Cancel or Delete All
+                if (guiResponse == CANCEL || guiResponse == DELETEALL)
                 {
                     break;
                 }
-                else if (guiResponse == 1) // Skip
+                else if (guiResponse == SKIP)
                 {
                     itemsToDelete = g_list_remove(itemsToDelete, file->data);
                     continue;
                 }
-                else if (guiResponse == 3) // Delete
+                else if (guiResponse == DELETE)
                 {
                     continue;
                 }
@@ -331,7 +335,7 @@ static GList *remove_items_from_list_to_be_deleted(GList *files)
             }
         }
     }
-    if (guiResponse == 0) // Cancel
+    if (guiResponse == CANCEL)
     {
         g_list_free(itemsToDelete);
         return nullptr;
