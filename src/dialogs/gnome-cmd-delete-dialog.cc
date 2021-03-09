@@ -254,6 +254,96 @@ inline void do_delete (DeleteData *data)
 }
 
 
+/**
+ * Remove a directory from the list of files to be deleted.
+ * This happens as of user interaction.
+ * The returned list has to be free'ed by g_list_free.
+ */
+static GList *remove_items_from_list_to_be_deleted(GList *files)
+{
+    if (!gnome_cmd_data.options.confirm_delete)
+    {
+        return files;
+    };
+
+    auto itemsToDelete = g_list_copy(files);
+
+    gint dirCount = 0;
+    gint guiResponse = -1;
+    for (auto file = files; file; file = file->next)
+    {
+        auto gnomeCmdFile = (GnomeCmdFile*) file->data;
+        if (gnomeCmdFile->GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE) == G_FILE_TYPE_DIRECTORY)
+        {
+            GError *error;
+            error = nullptr;
+            guint64 num_dirs;
+            guint64 num_files;
+
+            g_file_measure_disk_usage (gnomeCmdFile->gFile,
+                       G_FILE_MEASURE_NONE,
+                       nullptr, nullptr, nullptr, nullptr,
+                       &num_dirs,
+                       &num_files,
+                       &error);
+
+            if (error)
+            {
+                g_message ("remove_items_from_list_to_be_deleted: g_file_measure_disk_usage failed: %s", error->message);
+                g_error_free (error);
+                return 0;
+            }
+            if (num_dirs != 1 || num_files != 0) // num_dirs = 1 -> this is the folder to be deleted
+            {
+                gchar *msg = NULL;
+                gchar *fname = get_utf8 (gnomeCmdFile->get_name());
+
+                msg = g_strdup_printf (_("The directory “%s” is not empty. Do you really want to delete it?"), fname);
+                guiResponse = run_simple_dialog (*main_win, FALSE, GTK_MESSAGE_WARNING, msg, _("Delete"),
+                                  gnome_cmd_data.options.confirm_delete_default==GTK_BUTTONS_CANCEL ? 0 : 3,
+                                  _("Cancel"), _("Skip"),
+                                  dirCount++ == 0 ? _("Delete All") : _("Delete Remaining"),
+                                  _("Delete"), nullptr);
+
+                if (guiResponse != 1 && guiResponse != 2 && guiResponse != 3)
+                    guiResponse = 0; // Set to zero for the case the user presses ESCAPE in the warning dialog)
+
+                g_free(fname);
+                g_free(msg);
+
+                if (guiResponse == 0 || guiResponse == 2) // Cancel or Delete All
+                {
+                    break;
+                }
+                else if (guiResponse == 1) // Skip
+                {
+                    itemsToDelete = g_list_remove(itemsToDelete, file->data);
+                    continue;
+                }
+                else if (guiResponse == 3) // Delete
+                {
+                    continue;
+                }
+                else
+                {
+                    break;
+                }
+            }
+        }
+    }
+    if (guiResponse == 0) // Cancel
+    {
+        g_list_free(itemsToDelete);
+        return nullptr;
+    }
+    if (g_list_length(itemsToDelete) == 0)
+    {
+        return nullptr; // file list is empty
+    }
+    return itemsToDelete;
+}
+
+
 void gnome_cmd_delete_dialog_show (GList *files)
 {
     g_return_if_fail (files != NULL);
@@ -293,9 +383,15 @@ void gnome_cmd_delete_dialog_show (GList *files)
     if (response != 1)
         return;
 
+    // eventually remove non-empty dirs from list
+    files = remove_items_from_list_to_be_deleted(files);
+
+    if (files == nullptr)
+        return;
+
     DeleteData *data = g_new0 (DeleteData, 1);
 
-    data->files = gnome_cmd_file_list_copy (files);
+    data->files = files;
     // data->stop = FALSE;
     // data->problem = FALSE;
     // data->delete_done = FALSE;

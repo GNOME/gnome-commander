@@ -30,6 +30,9 @@
                 <para>
                     <itemizedlist>
                         <listitem>
+                            <para>Fixed issue #12 (Ask for the second time when trying to delete non-empty directory)</para>
+                        </listitem>
+                        <listitem>
                             <para>Fixed issue #97 ("Execute" not shown in file popup menu for executable files)</para>
                         </listitem>
                     </itemizedlist>
