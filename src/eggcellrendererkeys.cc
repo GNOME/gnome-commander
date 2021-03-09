@@ -136,9 +136,9 @@ marshal_VOID__STRING_UINT_FLAGS_UINT (GClosure     *closure,
                                                                int          arg_3,
                                                                guint        arg_4,
                                                                gpointer     data2);
-    register GMarshalFunc_VOID__STRING_UINT_FLAGS_UINT callback;
-    register GCClosure *cc = (GCClosure*) closure;
-    register gpointer data1, data2;
+    GMarshalFunc_VOID__STRING_UINT_FLAGS_UINT callback;
+    GCClosure *cc = (GCClosure*) closure;
+    gpointer data1, data2;
 
     if (G_CCLOSURE_SWAP_DATA (closure))
     {

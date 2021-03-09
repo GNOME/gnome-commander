@@ -387,8 +387,8 @@ g_cclosure_marshal_VOID__POINTER_POINTER (GClosure     *closure,
                                           gpointer      invocation_hint G_GNUC_UNUSED,
                                           gpointer      marshal_data)
 {
-    register GCClosure *cc = (GCClosure *) closure;
-    register gpointer data1, data2;
+    GCClosure *cc = (GCClosure *) closure;
+    gpointer data1, data2;
 
     g_return_if_fail (n_param_values == 3);
 
@@ -408,7 +408,7 @@ g_cclosure_marshal_VOID__POINTER_POINTER (GClosure     *closure,
                                                         gpointer arg_2,
                                                         gpointer data2);
 
-    register GMarshalFunc_VOID__POINTER_POINTER callback = (GMarshalFunc_VOID__POINTER_POINTER) (marshal_data ? marshal_data : cc->callback);
+    GMarshalFunc_VOID__POINTER_POINTER callback = (GMarshalFunc_VOID__POINTER_POINTER) (marshal_data ? marshal_data : cc->callback);
 
     callback (data1,
               g_value_get_pointer (param_values + 1),
