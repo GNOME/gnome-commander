@@ -268,8 +268,8 @@ static GList *remove_items_from_list_to_be_deleted(GList *files)
 
     auto itemsToDelete = g_list_copy(files);
 
-    guint dirCount = 0;
-    guint guiResponse = -1;
+    gint dirCount = 0;
+    gint guiResponse = -1;
     for (auto file = files; file; file = file->next)
     {
         auto gnomeCmdFile = (GnomeCmdFile*) file->data;
@@ -305,6 +305,9 @@ static GList *remove_items_from_list_to_be_deleted(GList *files)
                                   dirCount++ == 0 ? _("Delete All") : _("Delete Remaining"),
                                   _("Delete"), nullptr);
 
+                if (guiResponse != 1 && guiResponse != 2 && guiResponse != 3)
+                    guiResponse = 0; // Set to zero for the case the user presses ESCAPE in the warning dialog)
+
                 g_free(fname);
                 g_free(msg);
 
@@ -328,7 +331,7 @@ static GList *remove_items_from_list_to_be_deleted(GList *files)
             }
         }
     }
-    if (guiResponse != 1 && guiResponse != 2 && guiResponse != 3) // Cancel or Escape
+    if (guiResponse == 0) // Cancel
     {
         g_list_free(itemsToDelete);
         return nullptr;
