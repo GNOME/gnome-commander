@@ -1027,7 +1027,7 @@ void GnomeCmdFile::execute()
 {
     gchar *fpath = get_real_path();
     gchar *dpath = g_path_get_dirname (fpath);
-    gchar *cmd = g_strdup_printf ("./%s", info->name);
+    gchar *cmd = g_strdup_printf ("./%s", this->get_quoted_name());
 
     run_command_indir (cmd, dpath, app_needs_terminal (this));
 

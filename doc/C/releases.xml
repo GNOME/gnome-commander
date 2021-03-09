@@ -35,6 +35,9 @@
                         <listitem>
                             <para>Fixed issue #97 ("Execute" not shown in file popup menu for executable files)</para>
                         </listitem>
+                        <listitem>
+                            <para>Fixed issue #98 ("Execute" doesn't work on files with space in filename)</para>
+                        </listitem>
                     </itemizedlist>
                 </para>
                 <para>New features:</para>
