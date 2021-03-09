@@ -269,7 +269,7 @@ static GList *remove_items_from_list_to_be_deleted(GList *files)
     auto itemsToDelete = g_list_copy(files);
 
     guint dirCount = 0;
-    guint guiResponse;
+    guint guiResponse = -1;
     for (auto file = files; file; file = file->next)
     {
         auto gnomeCmdFile = (GnomeCmdFile*) file->data;
