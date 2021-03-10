@@ -437,7 +437,7 @@ msgstr "Cada entrada d'aquesta llista representa una connexió."
 
 #: data/org.gnome.gnome-commander.gschema.xml:280
 msgid "Main window height"
-msgstr "Alçària de la finestra principal"
+msgstr "Alçària de la finestra principal"
 
 #: data/org.gnome.gnome-commander.gschema.xml:281
 msgid "This option defines the height of the main window."
@@ -3865,7 +3865,7 @@ msgstr "Canvia els per_misos"
 
 #: src/gnome-cmd-main-menu.cc:305
 msgid "Advanced _Rename Tool"
-msgstr "Eina avançada pe_r canviar el nom"
+msgstr "Eina avançada pe_r a canviar el nom"
 
 #: src/gnome-cmd-main-menu.cc:306
 msgid "Create _Symbolic Link"
@@ -4595,7 +4595,7 @@ msgstr ""
 msgid "translator-credits"
 msgstr ""
 "Jordi Mallach <jordi@sindominio.net>\n"
-"Jordi Mas <jmas@gnome.org>"
+"Jordi Mas <jmas@softcatala.org>"
 
 #: src/gnome-cmd-xfer.cc:199
 #, c-format
@@ -6730,7 +6730,7 @@ msgstr ""
 "possibilitats de reproducció. El mètode d'ús d'informació relacional es "
 "deixa en implementació al costat de la reproducció. Com que aquesta "
 "informació és una cadena de caràcters ASCII, la finalitza NULL. Quan "
-"s'utilitza aquesta etiqueta per mapar fitxers d'àudio, la relació del fitxer "
+"s'utilitza aquesta etiqueta per a mapar fitxers d'àudio, la relació del fitxer "
 "d'àudio amb les dades de la imatge també s'ha d'indicar al final del fitxer "
 "d'àudio."
 
@@ -7049,7 +7049,7 @@ msgstr ""
 "registre. El valor de CountN es determina en base als 8 bytes de l'àrea de "
 "codi de caràcters i el nombre de bytes de la part de comentaris de l'usuari. "
 "Atès que el TIPUS no és ASCII, no és necessària la terminació NULL. El codi "
-"d'identificació de l'àrea <Exif.UserComment> pot ser un codi definit com JIS "
+"d'identificació de l'àrea <Exif.UserComment> pot ser un codi definit com a JIS "
 "o ASCII, o pot ser indefinit. El nom Undefined és UndefinedText, i el codi "
 "ID s'omple amb 8 bytes de tots els \"NULL\" ( \"00.H\"). Un lector Exif que "
 "llegeix l'etiqueta <Exif.UserComment> ha de tenir una funció per a "
@@ -7956,7 +7956,7 @@ msgstr ""
 
 #: src/tags/gnome-cmd-tags.cc:426
 msgid "Exposure time used to capture the photo in seconds."
-msgstr "Temps d'exposició utilitzat per capturar la fotografia en segons."
+msgstr "Temps d'exposició utilitzat per a capturar la fotografia en segons."
 
 #: src/tags/gnome-cmd-tags.cc:427
 msgid "Set to “1” if flash was fired."
