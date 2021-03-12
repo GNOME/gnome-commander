@@ -335,7 +335,7 @@ FileFormatData::FileFormatData(GnomeCmdFileList *fl, GnomeCmdFile *f, gboolean t
 
     if (fl->priv->base_dir != nullptr)
         text[GnomeCmdFileList::COLUMN_DIR] = g_strconcat(get_utf8("."), dpath + (strlen(fl->priv->base_dir)-1), nullptr);
-    else 
+    else
         text[GnomeCmdFileList::COLUMN_DIR] = dpath;
 
     DEBUG ('l', "FileFormatData text[GnomeCmdFileList::COLUMN_DIR]=[%s]\n", text[GnomeCmdFileList::COLUMN_DIR]);
@@ -2834,8 +2834,6 @@ gboolean GnomeCmdFileList::file_is_wanted(GnomeCmdFile *gnomeCmdFile)
     GError *error;
     error = nullptr;
 
-    auto fileNameString = g_file_get_basename(gnomeCmdFile->gFile);
-
     auto gFileInfo = g_file_query_info(gnomeCmdFile->gFile,
                                    "standard::*",
                                    G_FILE_QUERY_INFO_NOFOLLOW_SYMLINKS,
@@ -2855,6 +2853,8 @@ gboolean GnomeCmdFileList::file_is_wanted(GnomeCmdFile *gnomeCmdFile)
     auto gFileIsVolatile = g_file_info_get_attribute_boolean(gFileInfo, G_FILE_ATTRIBUTE_STANDARD_IS_VOLATILE);
 
     auto returnValue = TRUE;
+
+    auto fileNameString = g_file_get_basename(gnomeCmdFile->gFile);
 
     if (strcmp ((const char*) fileNameString, ".") == 0)
         returnValue = FALSE;
