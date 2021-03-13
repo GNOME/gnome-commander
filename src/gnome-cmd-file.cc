@@ -354,17 +354,26 @@ GnomeVFSResult GnomeCmdFile::rename(const gchar *new_name)
 
     new_info->name = const_cast<gchar *> (new_name);
 
-    GnomeVFSURI *uri = get_uri();
-    GnomeVFSResult result = gnome_vfs_set_file_info_uri (uri, new_info, GNOME_VFS_SET_FILE_INFO_NAME);
-    gnome_vfs_uri_unref (uri);
+    GError *error;
+    error = nullptr;
 
-    if (result==GNOME_VFS_OK)       //  re-read GnomeVFSFileInfo for the new MIME type
+    auto newgFile = g_file_set_display_name (this->gFile, new_name, nullptr, &error);
+
+    if (error || newgFile == nullptr)
     {
-        const GnomeVFSFileInfoOptions infoOpts = (GnomeVFSFileInfoOptions) (GNOME_VFS_FILE_INFO_FOLLOW_LINKS|GNOME_VFS_FILE_INFO_GET_MIME_TYPE);
-        uri = get_uri(new_name);
-        result = gnome_vfs_get_file_info_uri (uri, new_info, infoOpts);
-        gnome_vfs_uri_unref (uri);
+        g_message ("rename to \"%s\" failed: %s", new_name, error->message);
+        g_error_free (error);
+        return GNOME_VFS_OK;
     }
+
+    g_object_unref(this->gFile);
+    this->gFile = newgFile;
+
+    // TODO: Remove the following when GnomeVFS->GIO migration is done
+    const GnomeVFSFileInfoOptions infoOpts = (GnomeVFSFileInfoOptions) (GNOME_VFS_FILE_INFO_FOLLOW_LINKS|GNOME_VFS_FILE_INFO_GET_MIME_TYPE);
+    auto newUri = get_uri(new_name);
+    auto result = gnome_vfs_get_file_info_uri (newUri, new_info, infoOpts);
+    gnome_vfs_uri_unref (newUri);
 
     if (result==GNOME_VFS_OK && has_parent_dir (this))
     {
