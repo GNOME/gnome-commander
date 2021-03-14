@@ -484,7 +484,7 @@ gchar *GnomeCmdFile::GetGfileAttributeString(const char *attribute)
     error = nullptr;
     auto gcmdFileInfo = g_file_query_info(this->gFile,
                                    attribute,
-                                   G_FILE_QUERY_INFO_NOFOLLOW_SYMLINKS,
+                                   G_FILE_QUERY_INFO_NONE,
                                    nullptr,
                                    &error);
     if (gcmdFileInfo && error)
@@ -509,7 +509,7 @@ guint32 GnomeCmdFile::GetGfileAttributeUInt32(const char *attribute)
 
     auto gcmdFileInfo = g_file_query_info(this->gFile,
                                    attribute,
-                                   G_FILE_QUERY_INFO_NOFOLLOW_SYMLINKS,
+                                   G_FILE_QUERY_INFO_NONE,
                                    nullptr,
                                    &error);
     if (error)
@@ -535,7 +535,7 @@ guint64 GnomeCmdFile::GetGfileAttributeUInt64(const char *attribute)
 
     auto gcmdFileInfo = g_file_query_info(this->gFile,
                                    attribute,
-                                   G_FILE_QUERY_INFO_NOFOLLOW_SYMLINKS,
+                                   G_FILE_QUERY_INFO_NONE,
                                    nullptr,
                                    &error);
     if (error)
