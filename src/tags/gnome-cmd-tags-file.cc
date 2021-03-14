@@ -49,7 +49,9 @@ void gcmd_tags_file_load_metadata(GnomeCmdFile *f)
 
     static char buff[32];
 
-    f->metadata->add(TAG_FILE_NAME, f->info->name);
+    auto fileName = f->GetGfileAttributeString(G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME);
+
+    f->metadata->add(TAG_FILE_NAME, fileName);
     f->metadata->add(TAG_FILE_PATH, dpath);
 
     g_free (dpath);
@@ -58,14 +60,24 @@ void gcmd_tags_file_load_metadata(GnomeCmdFile *f)
     f->metadata->add(TAG_FILE_LINK, uri_str);
     g_free (uri_str);
 
-    f->metadata->add(TAG_FILE_SIZE, f->info->size);
+    f->metadata->add(TAG_FILE_SIZE, f->GetGfileAttributeUInt64(G_FILE_ATTRIBUTE_STANDARD_SIZE));
 
+    // TODO: This will be possible with GIO earliest in glib v2.70
     strftime(buff,sizeof(buff),"%Y-%m-%d %T",localtime(&f->info->atime));
     f->metadata->add(TAG_FILE_ACCESSED, buff);
-    strftime(buff,sizeof(buff),"%Y-%m-%d %T",localtime(&f->info->mtime));
-    f->metadata->add(TAG_FILE_MODIFIED, buff);
+
+    auto gFileInfo = g_file_query_info(f->gFile, "time::*" "," , G_FILE_QUERY_INFO_NONE, nullptr, nullptr);
+    auto modificationTime = g_file_info_get_modification_date_time (gFileInfo);
+    auto modificationTimeString = g_date_time_format (modificationTime, "%Y-%m-%d %T");
+    f->metadata->add(TAG_FILE_MODIFIED, modificationTimeString);
 
     f->metadata->add(TAG_FILE_PERMISSIONS, perm2textstring(f->GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_UNIX_MODE),buff,sizeof(buff)));
 
-    f->metadata->add(TAG_FILE_FORMAT, f->GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE) == G_FILE_TYPE_DIRECTORY ? "Folder" : f->info->mime_type);
+    f->metadata->add(TAG_FILE_FORMAT, f->GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE) == G_FILE_TYPE_DIRECTORY
+                                        ? "Folder"
+                                        : f->GetGfileAttributeString(G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE));
+
+    g_free(fileName);
+    g_free(modificationTimeString);
+    g_object_unref(gFileInfo);
 }
