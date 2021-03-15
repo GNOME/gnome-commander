@@ -1,5 +1,5 @@
 sudo:     required
-dist:     bionic
+dist:     focal
 language: cpp
 
 services:
@@ -11,7 +11,7 @@ script:
 branches:
   only:
     - master
-    - gcmd-1-10
+    - gcmd-1-12
 
 notifications:
   recipients:
