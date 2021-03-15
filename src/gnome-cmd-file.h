@@ -65,7 +65,7 @@ struct GnomeCmdFile
     gchar *get_unescaped_dirname();
 
     GnomeVFSURI *get_uri(const gchar *name=NULL);
-    gchar *get_uri_str(GnomeVFSURIHideOptions hide_options=GNOME_VFS_URI_HIDE_PASSWORD);
+    gchar *get_uri_str();
 
     char *get_collation_fname() const    {  return collate_key ? collate_key : info->name;  }
 
@@ -165,10 +165,10 @@ inline gchar *gnome_cmd_file_get_quoted_real_path (GnomeCmdFile *f)
     return f->get_quoted_real_path();
 }
 
-inline gchar *gnome_cmd_file_get_uri_str (GnomeCmdFile *f, GnomeVFSURIHideOptions hide_options=GNOME_VFS_URI_HIDE_PASSWORD)
+inline gchar *gnome_cmd_file_get_uri_str (GnomeCmdFile *f)
 {
     g_return_val_if_fail (f != NULL, NULL);
-    return f->get_uri_str(hide_options);
+    return f->get_uri_str();
 }
 
 void gnome_cmd_file_show_properties (GnomeCmdFile *f);

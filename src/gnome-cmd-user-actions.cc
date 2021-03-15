@@ -1102,7 +1102,7 @@ void edit_copy_fnames (GtkMenuItem *menuitem, gpointer fileList)
             get_file_list (fnames, sfl, gnome_cmd_file_get_real_path);
         else
             if (state_is_alt (mask))
-                get_file_list (fnames, sfl, gnome_cmd_file_get_uri_str, GNOME_VFS_URI_HIDE_PASSWORD);
+                get_file_list (fnames, sfl, gnome_cmd_file_get_uri_str);
 
     gtk_clipboard_set_text (gtk_clipboard_get (GDK_SELECTION_CLIPBOARD), fnames.c_str(), -1);
 
@@ -2045,7 +2045,7 @@ void help_about (GtkMenuItem *menuitem, gpointer not_used)
  * \li \%D: quoted full path to the directory containg file
  * \li \%%: percent sign
  * Trailing blanks are removed.
- * 
+ *
  * \param[in] command A char array to be parsed
  * \param[out] cmd A string with parsed symbols listed above
  * \returns Length of the cmd string
@@ -2087,7 +2087,7 @@ int parse_command(string *cmd, const gchar *command)
 		    *cmd += *s;
 		else
 		{
-		    if (*s == ' ' || *s == '\t') 
+		    if (*s == ' ' || *s == '\t')
 		    {
 			continue;
 		    }
@@ -2156,7 +2156,7 @@ int parse_command(string *cmd, const gchar *command)
 
             case 'u':           // %u  fully qualified URI for the file (or list for multiple selections)
                 if (uri.empty())
-                    get_file_list (uri, sfl, gnome_cmd_file_get_uri_str, GNOME_VFS_URI_HIDE_PASSWORD);
+                    get_file_list (uri, sfl, gnome_cmd_file_get_uri_str);
 		if (cmdcap < cmdlen + uri.length())
 		{
 		    cmd->reserve(cmdlen + uri.length());

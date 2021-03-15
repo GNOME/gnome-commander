@@ -617,13 +617,9 @@ GnomeVFSURI *GnomeCmdFile::get_uri(const gchar *name)
 }
 
 
-gchar *GnomeCmdFile::get_uri_str(GnomeVFSURIHideOptions hide_options)
+gchar *GnomeCmdFile::get_uri_str()
 {
-    GnomeVFSURI *uri = get_uri();
-    gchar *uri_str = gnome_vfs_uri_to_string (uri, hide_options);
-    gnome_vfs_uri_unref (uri);
-
-    return uri_str;
+    return g_file_get_uri(this->gFile);
 }
 
 
