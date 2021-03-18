@@ -1210,7 +1210,7 @@ static void do_mime_exec_single (gpointer *args)
     auto dpath = (gchar *) args[2];
 
     auto gnomeCmdFile = gnome_cmd_file_new(path);
-    auto gFileList = new GList();
+    GList *gFileList = nullptr;
     gFileList = g_list_append(gFileList, gnomeCmdFile->gFile);
     g_app_info_launch (gnomeCmdFile->GetAppInfoForContentType(), gFileList, nullptr, nullptr);
 
@@ -1332,7 +1332,7 @@ static void mime_exec_single (GnomeCmdFile *f)
 
     if (f->is_local())
     {
-        auto gFileList = new GList();
+        GList *gFileList = nullptr;
         gFileList = g_list_append(gFileList, f->gFile);
         g_app_info_launch (gAppInfo, gFileList, nullptr, nullptr);
         g_list_free(gFileList);
@@ -1342,7 +1342,7 @@ static void mime_exec_single (GnomeCmdFile *f)
         if (gnome_cmd_app_get_handles_uris (app) && gnome_cmd_data.options.honor_expect_uris)
         {
             auto gFileFromUri = g_file_new_for_uri(f->get_uri_str());
-            auto gFileList = new GList();
+            GList *gFileList = nullptr;
             gFileList = g_list_append(gFileList, gFileFromUri);
             g_app_info_launch (gAppInfo, gFileList, nullptr, nullptr);
             g_object_unref(gFileFromUri);
