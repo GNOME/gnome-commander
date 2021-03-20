@@ -34,6 +34,10 @@ void GnomeCmdFileCollection::add(GnomeCmdFile *f)
     list = g_list_append (list, f);
 
     gchar *uri_str = f->get_uri_str();
+    if (!uri_str)
+    {
+         return;
+    }
     g_hash_table_insert (map, uri_str, f);
     f->ref();
 }

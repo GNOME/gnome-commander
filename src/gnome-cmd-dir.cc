@@ -238,6 +238,10 @@ GnomeCmdDir *gnome_cmd_dir_new_from_info (GnomeVFSFileInfo *info, GnomeCmdDir *p
 
     GnomeCmdCon *con = gnome_cmd_dir_get_connection (parent);
     GnomeCmdPath *path =  gnome_cmd_dir_get_path (parent)->get_child(info->name);
+    if (!path)
+    {
+        return nullptr;
+    }
 
     GnomeVFSURI *uri = gnome_cmd_con_create_uri (con, path);
     gchar *uri_str = gnome_vfs_uri_to_string (uri, GNOME_VFS_URI_HIDE_PASSWORD);
@@ -626,6 +630,11 @@ GnomeVFSURI *gnome_cmd_dir_get_child_uri (GnomeCmdDir *dir, const gchar *filenam
     g_return_val_if_fail (GNOME_CMD_IS_DIR (dir), nullptr);
 
     GnomeCmdPath *path = dir->priv->path->get_child(filename);
+    if (!path)
+    {
+        return nullptr;
+    }
+
     GnomeVFSURI *uri = gnome_cmd_con_create_uri (dir->priv->con, path);
     delete path;
 
@@ -638,6 +647,10 @@ GFile *gnome_cmd_dir_get_child_gfile (GnomeCmdDir *dir, const gchar *filename)
     g_return_val_if_fail (GNOME_CMD_IS_DIR (dir), nullptr);
 
     GnomeCmdPath *path = dir->priv->path->get_child(filename);
+    if (!path)
+    {
+        return nullptr;
+    }
     GFile *gFile = gnome_cmd_con_create_gfile (dir->priv->con, path);
     delete path;
 
@@ -719,6 +732,11 @@ void gnome_cmd_dir_file_created (GnomeCmdDir *dir, const gchar *uri_str)
         f = GNOME_CMD_FILE (gnome_cmd_dir_new_from_info (info, dir));
     else
         f = gnome_cmd_file_new (info, dir);
+
+    if (!f)
+    {
+        return;
+    }
 
     dir->priv->file_collection->add(f);
     dir->priv->files = dir->priv->file_collection->get_list();

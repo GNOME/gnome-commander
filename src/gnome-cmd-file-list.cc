@@ -2830,6 +2830,7 @@ void GnomeCmdFileList::update_style()
 gboolean GnomeCmdFileList::file_is_wanted(GnomeCmdFile *gnomeCmdFile)
 {
     g_return_val_if_fail (gnomeCmdFile != nullptr, FALSE);
+    g_return_val_if_fail (gnomeCmdFile->gFile != nullptr, FALSE);
 
     GError *error;
     error = nullptr;

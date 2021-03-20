@@ -118,6 +118,10 @@ static void gnome_cmd_file_finalize (GObject *object)
         deleted_files_cnt++;
     }
 
+    if (f->gFile)
+    {
+        g_object_unref(f->gFile);
+    }
     g_free (f->priv);
 
     G_OBJECT_CLASS (gnome_cmd_file_parent_class)->finalize (object);
@@ -156,6 +160,12 @@ GnomeCmdFile *gnome_cmd_file_new (GnomeVFSFileInfo *info, GnomeCmdDir *dir)
     auto gnomeCmdFile = static_cast<GnomeCmdFile*> (g_object_new (GNOME_CMD_TYPE_FILE, nullptr));
 
     gnome_cmd_file_setup (gnomeCmdFile, info, dir);
+
+    if(!gnomeCmdFile->gFile)
+    {
+        g_object_unref(gnomeCmdFile);
+        return nullptr;
+    }
 
     return gnomeCmdFile;
 }
@@ -268,7 +278,12 @@ void gnome_cmd_file_setup (GnomeCmdFile *gnomeCmdFile, GnomeVFSFileInfo *info, G
         GNOME_CMD_FILE_BASE (gnomeCmdFile)->gFile = g_file_new_for_path(fUriString);
         gnomeCmdFile->gFile = GNOME_CMD_FILE_BASE (gnomeCmdFile)->gFile;
         g_free(fUriString);
-
+    }
+    // EVERY GnomeCmdFile instance must have a gFile reference
+    if (!gnomeCmdFile->gFile)
+    {
+        gnome_vfs_file_info_unref(gnomeCmdFile->info);
+        return;
     }
 }
 
@@ -418,6 +433,11 @@ gchar *GnomeCmdFile::get_path()
     }
 
     path = gnome_cmd_dir_get_path (::get_parent_dir (this))->get_child(info->name);
+    if (!path)
+    {
+        return nullptr;
+    }
+
     path_str = g_strdup (path->get_path());
     delete path;
 
@@ -938,6 +958,7 @@ void gnome_cmd_file_edit (GnomeCmdFile *f)
 void GnomeCmdFile::update_info(GnomeVFSFileInfo *file_info)
 {
     g_return_if_fail (file_info != nullptr);
+    g_return_if_fail (file_info->name != nullptr);
 
     g_free (collate_key);
     gnome_vfs_file_info_unref (this->info);
