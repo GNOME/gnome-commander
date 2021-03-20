@@ -10,8 +10,8 @@
 msgid ""
 msgstr "Project-Id-Version: gnome-commander master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-commander/issues\n"
-"POT-Creation-Date: 2021-02-28 14:12+0000\n"
-"PO-Revision-Date: 2021-03-17 10:00+0100\n"
+"POT-Creation-Date: 2021-03-17 17:09+0000\n"
+"PO-Revision-Date: 2021-03-20 10:00+0100\n"
 "Last-Translator: Asier Sarasua Garmendia <asiersarasua@ni.eus>\n"
 "Language-Team: Basque <librezale@librezale.eus>\n"
 "Language: eu\n"
@@ -3380,11 +3380,11 @@ msgstr "Gehitu uneko direktorioa"
 msgid "Manage bookmarks…"
 msgstr "Kudeatu laster-markak…"
 
-#: src/gnome-cmd-file.cc:563
+#: src/gnome-cmd-file.cc:572
 msgid "_Open"
 msgstr "_Ireki"
 
-#: src/gnome-cmd-file.cc:566
+#: src/gnome-cmd-file.cc:575
 #, c-format
 msgid "_Open with “%s”"
 msgstr "_Ireki “%s” aplikazioarekin"
@@ -4481,7 +4481,7 @@ msgstr "Ezin izan da instalatutako pixmap fitxategi mota kargatu, %s kargatzen s
 msgid ""
 "Can’t find the pixmap anywhere. Make sure you have installed the program or "
 "is executing gnome-commander from the gnome-commander-%s/src directory"
-msgstr "Ezin da pixmap-a inon aurkitu. Ziurtatu programa instalatuta dagoela edo gnome-commander exekutatzeko gnome-commander-%s/src direktorioa erabiltzen ari dela "
+msgstr "Ezin da pixmap-a inon aurkitu. Ziurtatu programa instalatuta dagoela edo gnome-commander exekutatzeko gnome-commander-%s/src direktorioa erabiltzen ari dela"
 
 #: src/imageloader.cc:135
 #, c-format
@@ -6244,7 +6244,7 @@ msgid ""
 "color space is declared in a color space information tag, with the default "
 "being the value that gives the optimal image characteristics under these "
 "conditions."
-msgstr ""
+msgstr "Erreferentziako puntu beltzaren balioa eta erreferentziako puntu zuriaren balioa. Ez da balio lehenetsirik ematen TIFF formatuan, baina beheko balioak lehenespen gisa ematen dira hemen. Kolore-espazioa informazio-etiketa batean deklaratzen da, baldintza hauetan irudi-ezaugarri optimoak ematen dituen balioa delarik balio lehenetsia."
 
 #: src/tags/gnome-cmd-tags.cc:282
 msgid "Related Image File Format"
@@ -6605,7 +6605,7 @@ msgid ""
 "default. The color space is declared in a color space information tag, with "
 "the default being the value that gives the optimal image characteristics "
 "under this condition."
-msgstr ""
+msgstr "RGB eta YCbCr irudi-datuen arteko transformazioetarako matrize-koefizienteak. Ez da balio lehenetsirik ematen TIFF formatuan, baina hemen \"Kolore-espazioaren gidalerroak\" erabiltzen dira lehenespen gisa. Kolore-espazioa informazio-etiketa batean deklaratzen da, baldintza hauetan irudi-ezaugarri optimoak ematen dituen balioa delarik balio"
 
 #: src/tags/gnome-cmd-tags.cc:317
 msgid "YCbCr Positioning"
@@ -7465,7 +7465,7 @@ msgstr "Argazkia kapturatzeko erabilitako kameraren modeloa."
 msgid ""
 "Represents the orientation of the image wrt camera (IE “top,left” or “bottom,"
 "right”)."
-msgstr ""
+msgstr "WRT kameraren irudiaren orientazioa adierazten du (adibidez, “goia,ezkerra” edo “behea,eskuina”)."
 
 #: src/tags/gnome-cmd-tags.cc:437
 msgid "Software used to produce/enhance the image."
@@ -7497,7 +7497,7 @@ msgstr "Ekintza jakinarazia"
 msgid ""
 "The type of action that this object provides to a previous object. “01” "
 "Object Kill, “02” Object Replace, “03” Object Append, “04” Object Reference."
-msgstr ""
+msgstr "Objektu honek aurreko objektu bati eskaintzen dion ekintza mota. “01” objektua hil, “02” objektua ordeztu, “03” objektua erantsi, “04” objektu-erreferentzia."
 
 #: src/tags/gnome-cmd-tags.cc:442
 msgid "ARM Identifier"
@@ -7724,7 +7724,7 @@ msgid ""
 "The type of update this object provides to a previous object. The link to "
 "the previous object is made using the ARM. “01” indicates an additional "
 "language."
-msgstr ""
+msgstr "Objektu honek aurreko objektu bati eskaintzen dion eguneratze mota. Aurreko objektuaren esteka ARM erabilita egiten da. “01” balioak hizkuntza bat gehiago adierazten du."
 
 #: src/tags/gnome-cmd-tags.cc:469
 msgid "Edit Status"
@@ -7751,7 +7751,7 @@ msgid ""
 "Specifies the envelope handling priority and not the editorial urgency. “1” "
 "for most urgent, “5” for normal, and “8” for least urgent. “9” is user-"
 "defined."
-msgstr ""
+msgstr "Bildukina maneiatzeko lehentasuna zehazten du, ez larritasun editoriala. “1” presazkoena da, “5” normala da eta “8” presa gutxien duena da. “9” erabiltzaileak definitutakoa da."
 
 #: src/tags/gnome-cmd-tags.cc:472
 msgid "Expiration Date"
@@ -7811,7 +7811,7 @@ msgstr "Irudiaren orientazioa"
 msgid ""
 "The layout of the image area: “P” for portrait, “L” for landscape, and “S” "
 "for square."
-msgstr ""
+msgstr "Irud-arearen diseinua: “P” bertikala da, “L” horizontala da eta “S” karratua da."
 
 #: src/tags/gnome-cmd-tags.cc:479
 msgid "Image Type"
@@ -8130,7 +8130,7 @@ msgstr "Larritasuna"
 msgid ""
 "Specifies the editorial urgency of content and not necessarily the envelope "
 "handling priority. “1” is most urgent, “5” normal, and “8” least urgent."
-msgstr ""
+msgstr "Edukiaren larritasun editoriala adierazten du, eta ez beti bildukina maneiatzeko lehentasuna. “1” presazkoena da, “5” normala da eta “8” presa gutxien duena da."
 
 #: src/tags/gnome-cmd-tags.cc:518
 msgid "Writer/Editor"
@@ -8347,7 +8347,7 @@ msgstr "Irudia"
 #: src/tags/gnome-cmd-tags-exiv2.cc:70
 #, c-format
 msgid "unsupported tag (suppressed %ld B of binary data)"
-msgstr ""
+msgstr "onartzen ez den etiketa (datu bitarren %ld B kendu dira)"
 
 #. Note to translators: first placeholder is the paper name (eg. * A4)
 #: src/tags/gnome-cmd-tags-poppler.cc:103
