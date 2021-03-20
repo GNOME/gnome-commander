@@ -50,22 +50,28 @@ GnomeCmdPath *GnomeCmdPlainPath::get_parent()
 
 GnomeCmdPath *GnomeCmdPlainPath::get_child(const gchar *child)
 {
-    GnomeVFSURI *t = gnome_vfs_uri_new (G_DIR_SEPARATOR_S);
-    GnomeVFSURI *u1 = gnome_vfs_uri_append_path (t, path);
-    gnome_vfs_uri_unref (t);
+    auto fullPath = *path == '/'
+                        ? strchr (child, '/') == nullptr
+                            ? g_strconcat(path, G_DIR_SEPARATOR_S, child, nullptr)
+                            : g_strconcat(path, child, nullptr)
+                        : strchr (child, '/') == nullptr
+                            ? g_strconcat(G_DIR_SEPARATOR_S, path, G_DIR_SEPARATOR_S, child, nullptr)
+                            : g_strconcat(G_DIR_SEPARATOR_S, path, child, nullptr);
 
-    GnomeVFSURI *u2 = strchr (child, '/')==NULL ?
-                      gnome_vfs_uri_append_file_name (u1, child) :
-                      gnome_vfs_uri_append_path (u1, child);
-    gnome_vfs_uri_unref (u1);
+    auto childGFile = g_file_new_for_path(fullPath);
 
-    if (!u2)  return NULL;
+    // It could be that in the meantime the file is deleted again.
+    // Therefore we have to check if it really exists.
+    if (!g_file_query_exists (childGFile, nullptr))
+    {
+        g_object_unref(childGFile);
+        return nullptr;
+    }
+    gchar *pathString = g_file_get_path(childGFile);
+    g_object_unref(childGFile);
 
-    gchar *path_str = gnome_vfs_unescape_string (gnome_vfs_uri_get_path (u2), 0);
-    gnome_vfs_uri_unref (u2);
-
-    GnomeCmdPath *child_path = new GnomeCmdPlainPath(path_str);
-    g_free (path_str);
+    GnomeCmdPath *child_path = new GnomeCmdPlainPath(pathString);
+    g_free (pathString);
 
     return child_path;
 }
