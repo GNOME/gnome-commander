@@ -120,8 +120,8 @@ struct GnomeCmdFileClass
 
 inline gchar *GnomeCmdFile::get_name()
 {
-    g_return_val_if_fail (gFile != NULL, NULL);
-    return GetGfileAttributeString(G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME);
+    g_return_val_if_fail (info != NULL, NULL);
+    return info->name;
 }
 
 GnomeCmdFile *gnome_cmd_file_new_from_uri (GnomeVFSURI *uri);
