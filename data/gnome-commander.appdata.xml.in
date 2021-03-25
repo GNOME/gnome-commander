@@ -48,7 +48,7 @@
   <translation type="gettext">gnome-commander</translation>
 
   <releases>
-    <release version="1.12.0" date="2021-??-??">
+    <release version="1.12.0" date="2021-03-25">
       <description>
         <p>
           This release includes the folowing new features:
