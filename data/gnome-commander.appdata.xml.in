@@ -48,37 +48,13 @@
   <translation type="gettext">gnome-commander</translation>
 
   <releases>
-    <release version="1.12.0" date="2021-03-25">
+    <release version="1.12.1" date="2021-??-??">
       <description>
         <p>
-          This release includes the folowing new features:
+          This release includes ...
         </p>
         <ul>
-          <li>Gnome Commander depends on GIO now. Migration away from GnomeVFS is ongoing</li>
-	  <li>Use GIO instead of Gnome-VFS for opening files with default application</li>
-          <li>Use GIO instead of Gnome-VFS for filtering the file list, and on various other parts of the program</li>
-        </ul>
-        <p>
-          and the folowing bug fixes:
-        </p>
-        <ul>
-          <li>Fixed issue #95 (InternalViewer: Scrolling images via mouse, mouse scroll wheel or keyboard arrow keys)</li>
-          <li>Fixed issue #96 (Segmentation fault when opening file/directory properties using keyboard)</li>
-          <li>Minor memory optimizations</li>
-        </ul>
-      </description>
-    </release>
-
-    <release version="1.10.3" date="2020-06-19">
-      <description>
-        <p>
-          This release includes bug fixes, library removals, translation updates and a small new feature
-        </p>
-        <ul>
-          <li>InternalViewer: Show metadata file information by default</li>
-          <li>Get rid of deprecated libgnome and libgnomeui libraries</li>
-          <li>In the file search the option 'copy file name' does work again</li>
-          <li>Switched from nautilus-sendto to xdg-email as default send-to command</li>
+          <li>...</li>
         </ul>
       </description>
     </release>
