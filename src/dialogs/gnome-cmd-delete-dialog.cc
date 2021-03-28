@@ -1,4 +1,4 @@
-/** 
+/**
  * @file gnome-cmd-delete-dialog.cc
  * @copyright (C) 2001-2006 Marcus Bjurman\n
  * @copyright (C) 2007-2012 Piotr Eljasiak\n
@@ -290,6 +290,12 @@ static GList *remove_items_from_list_to_be_deleted(GList *files)
             if (error)
             {
                 g_message ("remove_items_from_list_to_be_deleted: g_file_measure_disk_usage failed: %s", error->message);
+
+                gchar *msg = g_strdup_printf (_("Error while deleting: \n\n%s"), error->message);
+
+                run_simple_dialog (*main_win, FALSE, GTK_MESSAGE_ERROR, msg, _("Delete problem"), -1, _("Abort"), NULL);
+                g_free (msg);
+
                 g_error_free (error);
                 return 0;
             }
