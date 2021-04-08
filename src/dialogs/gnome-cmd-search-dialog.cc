@@ -636,6 +636,7 @@ gchar *SearchData::build_search_command()
     g_string_append (command, "find ");
     g_string_append (command, look_in_folder_quoted);
 
+    g_string_append_printf (command, " -mindepth 1"); // exclude the directory itself
     if (dialog->defaults.default_profile.max_depth!=-1)
         g_string_append_printf (command, " -maxdepth %i", dialog->defaults.default_profile.max_depth+1);
 
