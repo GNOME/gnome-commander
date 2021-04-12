@@ -47,10 +47,10 @@
 
 using namespace std;
 
+#ifdef HAVE_ID3
 bool getAudioProperties(GnomeCmdFileMetadata &metadata, const TagLib::AudioProperties *properties);
 bool readTags(GnomeCmdFileMetadata &metadata, const TagLib::Ogg::XiphComment *oggTag);
 
-#ifdef HAVE_ID3
 static DICT<GnomeCmdTag> id3v2tags(TAG_NONE);
 static DICT<GnomeCmdTag> oggtags(TAG_NONE);
 
