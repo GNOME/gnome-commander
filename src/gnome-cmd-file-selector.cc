@@ -438,6 +438,7 @@ static void on_notebook_switch_page (GtkNotebook *notebook, GtkNotebookPage *pag
     fs->update_direntry();
     fs->update_selected_files_label();
     fs->update_vol_label();
+    fs->update_style();
 
     if (prev_dir!=fs->get_directory())
         g_signal_emit (fs, signals[DIR_CHANGED], 0, fs->get_directory());
@@ -623,6 +624,7 @@ static gboolean on_notebook_button_pressed (GtkWidget *widget, GdkEventButton *e
         case GDK_BUTTON_PRESS:
             switch (event->button)
             {
+                // mid-click
                 case 2:
                     tab_clicked = notebook->find_tab_num_at_pos(event->x_root, event->y_root);
 
@@ -636,6 +638,7 @@ static gboolean on_notebook_button_pressed (GtkWidget *widget, GdkEventButton *e
 
                     return tab_clicked>=0;
 
+                // right-click
                 case 3:
                     tab_clicked = notebook->find_tab_num_at_pos(event->x_root, event->y_root);
 
@@ -707,6 +710,8 @@ static gboolean on_notebook_button_pressed (GtkWidget *widget, GdkEventButton *e
 
                 if (!fl->locked || gnome_cmd_prompt_message (*main_win, GTK_MESSAGE_QUESTION, GTK_BUTTONS_OK_CANCEL, _("The tab is locked, close anyway?"))==GTK_RESPONSE_OK)
                     fs->close_tab(tab_clicked);
+
+
             }
             else
                 fs->new_tab(fs->get_directory());

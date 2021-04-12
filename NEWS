@@ -9,6 +9,7 @@ Bug fixes:
  * Fixed issue #12 (Ask for the second time when trying to delete non-empty directory)
  * Fixed issue #97 ("Execute" not shown in file popup menu for executable files)
  * Fixed issue #98 ("Execute" doesn't work on files with space in filename)
+ * Fixed issue #55 (Theme does not change in all tabs when applied)
 
 New or updated translations:
  * ...
