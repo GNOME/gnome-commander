@@ -10,6 +10,7 @@ Bug fixes:
  * Fixed issue #97 ("Execute" not shown in file popup menu for executable files)
  * Fixed issue #98 ("Execute" doesn't work on files with space in filename)
  * Fixed issue #55 (Theme does not change in all tabs when applied)
+ * Fixed issue #102 (Compilation error when TagLib is not available)
 
 New or updated translations:
  * ...
