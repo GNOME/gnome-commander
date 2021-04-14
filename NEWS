@@ -11,6 +11,7 @@ Bug fixes:
  * Fixed issue #98 ("Execute" doesn't work on files with space in filename)
  * Fixed issue #55 (Theme does not change in all tabs when applied)
  * Fixed issue #102 (Compilation error when TagLib is not available)
+ * Fixed issue #103 (Crash when empty string is given for search)
 
 New or updated translations:
  * ...
