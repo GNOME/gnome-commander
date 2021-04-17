@@ -24,7 +24,7 @@
     <tbody>
         <row valign="top">
             <entry><para>1.12.1</para></entry>
-            <entry><para>2020-??-??</para></entry>
+            <entry><para>2020-04-17</para></entry>
             <entry>
                 <para>Bug fixes:</para>
                 <para>
@@ -53,13 +53,10 @@
                 <para>
                     <itemizedlist>
                         <listitem>
-                            <para>...</para>
+                            <para>New or updated translations: pl, pt_BR, sr, sv, uk</para>
                         </listitem>
                         <listitem>
-                            <para>New or updated translations: ...</para>
-                        </listitem>
-                        <listitem>
-                            <para>New or updated docs: ...</para>
+                            <para>New or updated docs: sv</para>
                         </listitem>
                     </itemizedlist>
                 </para>

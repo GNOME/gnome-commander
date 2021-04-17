@@ -2,9 +2,6 @@
 gnome-commander 1.12.1
 ---------------
 
-New features:
- * ...
-
 Bug fixes:
  * Fixed issue #12 (Ask for the second time when trying to delete non-empty directory)
  * Fixed issue #97 ("Execute" not shown in file popup menu for executable files)
@@ -14,10 +11,14 @@ Bug fixes:
  * Fixed issue #103 (Crash when empty string is given for search)
 
 New or updated translations:
- * ...
+ * pl (Piotr Drąg)
+ * pt_BR (Enrico Nicoletto)
+ * sr (Мирослав Николић)
+ * sv (Anders Jonsson)
+ * uk (Yuri Chornoivan)
 
 New or updated docs:
- * ...
+ * sv (Anders Jonsson)
 
 ===================================
 gnome-commander 1.12.0
