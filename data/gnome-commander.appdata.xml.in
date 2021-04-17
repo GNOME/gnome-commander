@@ -46,17 +46,4 @@
   <update_contact>gcmd-devel@nongnu.org</update_contact>
   <project_group>GNOME</project_group>
   <translation type="gettext">gnome-commander</translation>
-
-  <releases>
-    <release version="1.12.1" date="2021-??-??">
-      <description>
-        <p>
-          This release includes ...
-        </p>
-        <ul>
-          <li>...</li>
-        </ul>
-      </description>
-    </release>
-  </releases>
 </component>
