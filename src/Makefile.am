@@ -4,7 +4,8 @@ SUBDIRS = dialogs tags intviewer
 
 AM_CXXFLAGS = $(WARN_CXXFLAGS) -Wno-error=switch-default -Wno-switch-default \
 				-Werror=parentheses -Wno-parentheses \
-				-Werror=cast-function-type -Wno-cast-function-type -Wno-deprecated-declarations
+				-Werror=cast-function-type -Wno-cast-function-type -Wno-deprecated-declarations \
+				-Wno-inline
 AM_LDFLAGS = $(WARN_LDFLAGS)
 
 AM_CPPFLAGS = \
