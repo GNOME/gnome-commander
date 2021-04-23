@@ -530,7 +530,7 @@ static void create_list_progress_dialog (GnomeCmdDir *dir)
 }
 
 
-void gnome_cmd_dir_relist_files (GnomeCmdDir *dir, gboolean visprog)
+void gnome_cmd_dir_relist_files (GnomeCmdDir *dir, gboolean visualProgress)
 {
     g_return_if_fail (GNOME_CMD_IS_DIR (dir));
 
@@ -539,14 +539,14 @@ void gnome_cmd_dir_relist_files (GnomeCmdDir *dir, gboolean visprog)
 
     dir->done_func = (DirListDoneFunc) on_list_done;
 
-    if (visprog)
+    if (visualProgress)
         create_list_progress_dialog (dir);
 
-    dirlist_list (dir, visprog);
+    dirlist_list (dir, visualProgress);
 }
 
 
-void gnome_cmd_dir_list_files (GnomeCmdDir *dir, gboolean visprog)
+void gnome_cmd_dir_list_files (GnomeCmdDir *dir, gboolean visualProgress)
 {
     g_return_if_fail (GNOME_CMD_IS_DIR (dir));
 
@@ -556,8 +556,8 @@ void gnome_cmd_dir_list_files (GnomeCmdDir *dir, gboolean visprog)
         DEBUG ('l', "relisting files for 0x%x %s %d\n",
                dir,
                path,
-               visprog);
-        gnome_cmd_dir_relist_files (dir, visprog);
+               visualProgress);
+        gnome_cmd_dir_relist_files (dir, visualProgress);
         g_free(path);
     }
     else
