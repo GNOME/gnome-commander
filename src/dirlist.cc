@@ -32,6 +32,8 @@ using namespace std;
 #define FILES_PER_NOTIFICATION 50
 #define LIST_PRIORITY 0
 
+void async_list (GnomeCmdDir *dir);
+void sync_list  (GnomeCmdDir *dir);
 
 static void
 on_files_listed (GnomeVFSAsyncHandle *handle,
@@ -86,16 +88,16 @@ static gboolean update_list_progress (GnomeCmdDir *dir)
 }
 
 
-inline void visprog_list (GnomeCmdDir *dir)
+void async_list (GnomeCmdDir *dir)
 {
-    DEBUG('l', "visprog_list\n");
+    DEBUG('l', "async_list\n");
 
     GnomeVFSFileInfoOptions infoOpts = (GnomeVFSFileInfoOptions) (GNOME_VFS_FILE_INFO_FOLLOW_LINKS | GNOME_VFS_FILE_INFO_GET_MIME_TYPE);
 
     GnomeVFSURI *uri = GNOME_CMD_FILE (dir)->get_uri();
     gchar *uri_str = gnome_vfs_uri_to_string (uri, GNOME_VFS_URI_HIDE_PASSWORD);
 
-    DEBUG('l', "visprog_list: %s\n", uri_str);
+    DEBUG('l', "async_list: %s\n", uri_str);
 
     g_free (uri_str);
 
@@ -111,12 +113,12 @@ inline void visprog_list (GnomeCmdDir *dir)
 }
 
 
-inline void blocking_list (GnomeCmdDir *dir)
+void sync_list (GnomeCmdDir *dir)
 {
     GnomeVFSFileInfoOptions infoOpts = (GnomeVFSFileInfoOptions) (GNOME_VFS_FILE_INFO_FOLLOW_LINKS | GNOME_VFS_FILE_INFO_GET_MIME_TYPE);
 
     gchar *uri_str = GNOME_CMD_FILE (dir)->get_uri_str();
-    DEBUG('l', "blocking_list: %s\n", uri_str);
+    DEBUG('l', "sync_list: %s\n", uri_str);
 
     dir->infolist = NULL;
     dir->list_result = gnome_vfs_directory_list_load (&dir->infolist, uri_str, infoOpts);
@@ -128,7 +130,7 @@ inline void blocking_list (GnomeCmdDir *dir)
 }
 
 
-void dirlist_list (GnomeCmdDir *dir, gboolean visprog)
+void dirlist_list (GnomeCmdDir *dir, gboolean visualProgress)
 {
     g_return_if_fail (GNOME_CMD_IS_DIR (dir));
 
@@ -138,13 +140,13 @@ void dirlist_list (GnomeCmdDir *dir, gboolean visprog)
     dir->list_result = GNOME_VFS_OK;
     dir->state = GnomeCmdDir::STATE_LISTING;
 
-    if (!visprog)
+    if (!visualProgress)
     {
-        blocking_list (dir);
+        sync_list (dir);
         return;
     }
 
-    visprog_list (dir);
+    async_list (dir);
 }
 
 
