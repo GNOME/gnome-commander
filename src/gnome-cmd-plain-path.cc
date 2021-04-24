@@ -29,7 +29,9 @@ using namespace std;
 
 GnomeCmdPath *GnomeCmdPlainPath::get_parent()
 {
-    auto fullPath     = g_strconcat(G_DIR_SEPARATOR_S, path, nullptr);
+    auto fullPath     = *path != '/'
+                        ? g_strconcat(G_DIR_SEPARATOR_S, path, nullptr)
+                        : g_strdup(path);
     auto gFileForPath = g_file_new_for_path(fullPath);
     auto gFileParent  = g_file_get_parent(gFileForPath);
     g_object_unref(gFileForPath);
