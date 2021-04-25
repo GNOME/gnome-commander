@@ -630,10 +630,6 @@ GnomeVFSURI *gnome_cmd_dir_get_child_uri (GnomeCmdDir *dir, const gchar *filenam
     g_return_val_if_fail (GNOME_CMD_IS_DIR (dir), nullptr);
 
     GnomeCmdPath *path = dir->priv->path->get_child(filename);
-    if (!path)
-    {
-        return nullptr;
-    }
 
     GnomeVFSURI *uri = gnome_cmd_con_create_uri (dir->priv->con, path);
     delete path;

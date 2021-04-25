@@ -64,13 +64,6 @@ GnomeCmdPath *GnomeCmdPlainPath::get_child(const gchar *child)
 
     auto childGFile = g_file_new_for_path(fullPath);
 
-    // It could be that in the meantime the file is deleted again.
-    // Therefore we have to check if it really exists.
-    if (!g_file_query_exists (childGFile, nullptr))
-    {
-        g_object_unref(childGFile);
-        return nullptr;
-    }
     gchar *pathString = g_file_get_path(childGFile);
     g_object_unref(childGFile);
 
