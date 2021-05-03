@@ -5,7 +5,7 @@ EAPI=7
 
 GNOME2_LA_PUNT="yes"
 
-inherit gnome2 toolchain-funcs
+inherit gnome2 optfeature toolchain-funcs
 
 DESCRIPTION="A graphical, full featured, twin-panel file manager"
 HOMEPAGE="https://gcmd.github.io/"
@@ -13,7 +13,7 @@ HOMEPAGE="https://gcmd.github.io/"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="chm exif gsf pdf taglib samba test +unique"
+IUSE="chm exif gsf pdf samba taglib test +unique"
 RESTRICT="!test? ( test )"
 
 RDEPEND="
@@ -30,15 +30,21 @@ RDEPEND="
 	unique? ( >=dev-libs/libunique-@UNIQUE_REQ@:1 )
 "
 BDEPEND="
-	${RDEPEND}
 	dev-util/gtk-doc-am
 	sys-devel/gettext
 	virtual/pkgconfig
 "
-
 DEPEND="
+	${RDEPEND}
 	test? ( >=dev-cpp/gtest-@GTEST_REQ@ )
 "
+
+pkg_pretend() {
+	if tc-is-gcc && [[ $(gcc-major-version) -lt 8 ]]; then
+		eerror "Compilation with gcc older than version 8 is not supported"
+		die "GCC too old, please use gcc-8 or above"
+	fi
+}
 
 src_configure() {
 	gnome2_src_configure \
@@ -52,15 +58,8 @@ src_configure() {
 		$(use_with unique)
 }
 
-pkg_pretend() {
-	if tc-is-gcc && [[ $(gcc-major-version) -lt 8 ]]; then
-		eerror "Compilation with gcc older than version 8 is not supported"
-		die "GCC too old, please use gcc-8 or above"
-	fi
-}
-
 pkg_postinst() {
 	gnome2_pkg_postinst
-	optfeature "You need dev-util/meld to synchronize files and directories." dev-util/meld
-	optfeature "You need gnome-extra/yelp to view the docs." gnome-extra/yelp
+	optfeature "synchronizing files and directories" dev-util/meld
+	optfeature "viewing the documentation" gnome-extra/yelp
 }
