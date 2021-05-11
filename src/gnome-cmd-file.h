@@ -57,7 +57,7 @@ struct GnomeCmdFile
 
     void invalidate_metadata();
 
-    gchar *get_name();
+    const gchar *get_name();
     gchar *get_quoted_name();
     gchar *get_path();
     gchar *get_real_path();
@@ -120,10 +120,10 @@ struct GnomeCmdFileClass
 };
 
 
-inline gchar *GnomeCmdFile::get_name()
+inline const gchar *GnomeCmdFile::get_name()
 {
-    g_return_val_if_fail (info != NULL, NULL);
-    return info->name;
+    g_return_val_if_fail (gFileInfo != NULL, NULL);
+    return g_file_info_get_display_name(gFileInfo);
 }
 
 GnomeCmdFile *gnome_cmd_file_new_from_uri (GnomeVFSURI *uri);
@@ -146,7 +146,7 @@ inline void gnome_cmd_file_unref (GnomeCmdFile *f)
     f->unref();
 }
 
-inline gchar *gnome_cmd_file_get_name (GnomeCmdFile *f)
+inline const gchar *gnome_cmd_file_get_name (GnomeCmdFile *f)
 {
     g_return_val_if_fail (f != NULL, NULL);
     return f->get_name();

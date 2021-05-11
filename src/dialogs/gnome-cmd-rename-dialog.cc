@@ -144,16 +144,12 @@ GtkWidget *gnome_cmd_rename_dialog_new (GnomeCmdFile *f, gint x, gint y, gint wi
     gtk_container_add (GTK_CONTAINER (dialog), GTK_WIDGET (dialog->priv->textbox));
     gtk_widget_set_style (GTK_WIDGET (dialog->priv->textbox), list_style);
 
-    gchar *fname = get_utf8 (f->get_name());
-
-    gtk_entry_set_text (dialog->priv->textbox, fname);
+    gtk_entry_set_text (dialog->priv->textbox, f->get_name());
 
     gtk_window_set_focus (GTK_WINDOW (dialog), GTK_WIDGET (dialog->priv->textbox));
     gtk_widget_grab_focus (GTK_WIDGET (dialog->priv->textbox));
     gtk_editable_select_region (GTK_EDITABLE (dialog->priv->textbox), 0, -1);
     gtk_widget_show (GTK_WIDGET (dialog->priv->textbox));
-
-    g_free (fname);
 
     return GTK_WIDGET (dialog);
 }

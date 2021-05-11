@@ -439,7 +439,7 @@ void GnomeCmdAdvrenameDialog::Private::on_dialog_size_allocate (GtkWidget *widge
 void GnomeCmdAdvrenameDialog::Private::on_dialog_response (GnomeCmdAdvrenameDialog *dialog, int response_id, gpointer unused)
 {
     GtkTreeIter i;
-    gchar *old_focused_file_name = NULL;
+    const gchar *old_focused_file_name = NULL;
     gchar *new_focused_file_name = NULL;
 
     switch (response_id)

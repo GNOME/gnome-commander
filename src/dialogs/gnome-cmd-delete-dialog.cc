@@ -306,9 +306,8 @@ static GList *remove_items_from_list_to_be_deleted(GList *files)
             if (num_dirs != 1 || num_files != 0) // num_dirs = 1 -> this is the folder to be deleted
             {
                 gchar *msg = NULL;
-                gchar *fname = get_utf8 (gnomeCmdFile->get_name());
 
-                msg = g_strdup_printf (_("The directory “%s” is not empty. Do you really want to delete it?"), fname);
+                msg = g_strdup_printf (_("The directory “%s” is not empty. Do you really want to delete it?"), gnomeCmdFile->get_name());
                 guiResponse = run_simple_dialog (*main_win, FALSE, GTK_MESSAGE_WARNING, msg, _("Delete"),
                                   gnome_cmd_data.options.confirm_delete_default==GTK_BUTTONS_CANCEL ? 0 : 3,
                                   _("Cancel"), _("Skip"),
@@ -318,7 +317,6 @@ static GList *remove_items_from_list_to_be_deleted(GList *files)
                 if (guiResponse != SKIP && guiResponse != DELETEALL && guiResponse != DELETE)
                     guiResponse = CANCEL; // Set to zero for the case the user presses ESCAPE in the warning dialog)
 
-                g_free(fname);
                 g_free(msg);
 
                 if (guiResponse == CANCEL || guiResponse == DELETEALL)
@@ -373,9 +371,7 @@ void gnome_cmd_delete_dialog_show (GList *files)
             if (f->is_dotdot)
                 return;
 
-            gchar *fname = get_utf8 (f->info->name);
-            msg = g_strdup_printf (_("Do you want to delete “%s”?"), fname);
-            g_free (fname);
+            msg = g_strdup_printf (_("Do you want to delete “%s”?"), f->get_name());
         }
         else
             msg = g_strdup_printf (ngettext("Do you want to delete the selected file?",

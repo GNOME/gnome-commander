@@ -344,9 +344,7 @@ static GtkWidget *create_properties_tab (GnomeCmdFilePropsDialogPrivate *data)
     label = create_bold_label (dialog, GNOME_CMD_IS_DIR (data->f) ? _("Directory name:") : _("File name:"));
     table_add (table, label, 0, y, GTK_FILL);
 
-    fname = get_utf8 (data->f->get_name());
-    data->filename_entry = create_entry (dialog, "filename_entry", fname);
-    g_free (fname);
+    data->filename_entry = create_entry (dialog, "filename_entry", data->f->get_name());
     table_add (table, data->filename_entry, 1, y++, (GtkAttachOptions) (GTK_FILL|GTK_EXPAND));
     gtk_editable_set_position (GTK_EDITABLE (data->filename_entry), 0);
 

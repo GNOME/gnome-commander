@@ -326,12 +326,10 @@ FileFormatData::FileFormatData(GnomeCmdFileList *fl, GnomeCmdFile *f, gboolean t
     if (gnome_cmd_data.options.ext_disp_mode == GNOME_CMD_EXT_DISP_STRIPPED
         && f->GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE) == G_FILE_TYPE_REGULAR)
     {
-        gchar *t = strip_extension (f->get_name());
-        fname = get_utf8 (t);
-        g_free (t);
+        fname = strip_extension (f->get_name());
     }
     else
-        fname = get_utf8 (f->get_name());
+        fname = g_strdup(f->get_name());
 
     if (fl->priv->base_dir != nullptr)
         text[GnomeCmdFileList::COLUMN_DIR] = g_strconcat(get_utf8("."), dpath + (strlen(fl->priv->base_dir)-1), nullptr);
@@ -1272,12 +1270,10 @@ static void mime_exec_single (GnomeCmdFile *f)
     {
         if (f->has_mime_type("application/x-executable") || f->has_mime_type("application/x-executable-binary"))
         {
-            gchar *fname = get_utf8 (f->info->name);
-            gchar *msg = g_strdup_printf (_("“%s” seems to be a binary executable file but it lacks the executable bit. Do you want to set it and then run the file?"), fname);
+            gchar *msg = g_strdup_printf (_("“%s” seems to be a binary executable file but it lacks the executable bit. Do you want to set it and then run the file?"), f->get_name());
             gint ret = run_simple_dialog (*main_win, FALSE, GTK_MESSAGE_QUESTION, msg,
                                           _("Make Executable?"),
                                           -1, _("Cancel"), _("OK"), nullptr);
-            g_free (fname);
             g_free (msg);
 
             if (ret != 1)  return;  else
@@ -1301,11 +1297,9 @@ static void mime_exec_single (GnomeCmdFile *f)
         else
             if (f->mime_begins_with("text/"))
             {
-                gchar *fname = get_utf8 (f->info->name);
-                gchar *msg = g_strdup_printf (_("“%s” is an executable text file. Do you want to run it, or display its contents?"), fname);
+                gchar *msg = g_strdup_printf (_("“%s” is an executable text file. Do you want to run it, or display its contents?"), f->get_name());
                 gint ret = run_simple_dialog (*main_win, FALSE, GTK_MESSAGE_QUESTION, msg, _("Run or Display"),
                                               -1, _("Cancel"), _("Display"), _("Run"), nullptr);
-                g_free (fname);
                 g_free (msg);
 
                 if (ret != 1)

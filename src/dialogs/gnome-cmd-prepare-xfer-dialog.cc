@@ -401,7 +401,7 @@ GtkWidget *gnome_cmd_prepare_xfer_dialog_new (GnomeCmdFileSelector *from, GnomeC
         if (num_files == 1)
         {
             GnomeCmdFile *f = (GnomeCmdFile *) dialog->src_files->data;
-            dest_str = get_utf8 (f->info->name);
+            dest_str = g_strdup (f->get_name());
         }
     }
     else
@@ -411,10 +411,9 @@ GtkWidget *gnome_cmd_prepare_xfer_dialog_new (GnomeCmdFileSelector *from, GnomeC
 
             gchar *t = GNOME_CMD_FILE (dialog->default_dest_dir)->get_real_path();
             gchar *path = get_utf8 (t);
-            gchar *fname = get_utf8 (f->info->name);
             g_free (t);
 
-            dest_str = g_build_filename (path, fname, NULL);
+            dest_str = g_build_filename (path, f->get_name(), NULL);
             if (path_points_at_directory (to, dest_str))
             {
                 g_free (dest_str);
@@ -422,7 +421,6 @@ GtkWidget *gnome_cmd_prepare_xfer_dialog_new (GnomeCmdFileSelector *from, GnomeC
             }
 
             g_free (path);
-            g_free (fname);
         }
         else
         {

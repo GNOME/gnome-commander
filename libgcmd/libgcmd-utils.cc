@@ -45,7 +45,7 @@ gchar *get_utf8 (const gchar *unknown)
 
     if (g_utf8_validate (unknown, -1, NULL))
         out = g_strdup (unknown);
-    else 
+    else
     {
         gsize i;
         out = g_locale_to_utf8 (unknown, strlen (unknown), &i, &i, NULL);

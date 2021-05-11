@@ -1320,16 +1320,14 @@ void gnome_cmd_file_selector_create_symlink (GnomeCmdFileSelector *fs, GnomeCmdF
 {
     const gchar *labels[] = {_("Symbolic link name:")};
 
-    gchar *fname = get_utf8 (f->get_name());
 #if defined (__GNUC__)
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wformat-nonliteral"
 #endif
-    gchar *text = g_strdup_printf (gnome_cmd_data_get_symlink_prefix (), fname);
+    gchar *text = g_strdup_printf (gnome_cmd_data_get_symlink_prefix (), f->get_name());
 #if defined (__GNUC__)
 #pragma GCC diagnostic pop
 #endif
-    g_free (fname);
 
     GtkWidget *dialog = gnome_cmd_string_dialog_new (_("Create Symbolic Link"),
                                                      labels,
@@ -1353,19 +1351,17 @@ void gnome_cmd_file_selector_create_symlinks (GnomeCmdFileSelector *fs, GList *f
     for (; files; files=files->next)
     {
         auto f = static_cast<GnomeCmdFile*> (files->data);
-        gchar *fname = get_utf8 (f->get_name());
 #if defined (__GNUC__)
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wformat-nonliteral"
 #endif
-        gchar *symlink_name = g_strdup_printf (gnome_cmd_data_get_symlink_prefix (), fname);
+        gchar *symlink_name = g_strdup_printf (gnome_cmd_data_get_symlink_prefix (), f->get_name());
 #if defined (__GNUC__)
 #pragma GCC diagnostic pop
 #endif
 
         GnomeVFSURI *uri = gnome_cmd_dir_get_child_uri (fs->get_directory(), symlink_name);
 
-        g_free (fname);
         g_free (symlink_name);
 
         GnomeVFSResult result;
