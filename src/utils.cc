@@ -1157,3 +1157,51 @@ gchar *string_double_underscores (const gchar *string)
 
     return escaped;
 }
+
+guint32 GetGfileAttributeUInt32(GFile *gFile, const char *attribute)
+{
+    GError *error;
+    error = nullptr;
+    guint32 gFileAttributeUInt32 = 0;
+
+    auto gcmdFileInfo = g_file_query_info(gFile,
+                                   attribute,
+                                   G_FILE_QUERY_INFO_NONE,
+                                   nullptr,
+                                   &error);
+    if (error)
+    {
+        g_message ("retrieving file info failed: %s", error->message);
+        g_error_free (error);
+    }
+    else
+    {
+        gFileAttributeUInt32 = g_file_info_get_attribute_uint32 (gcmdFileInfo, attribute);
+        g_object_unref(gcmdFileInfo);
+    }
+
+    return gFileAttributeUInt32;
+}
+
+
+gchar *GetGfileAttributeString(GFile *gFile, const char *attribute)
+{
+    GError *error;
+    error = nullptr;
+    auto gcmdFileInfo = g_file_query_info(gFile,
+                                   attribute,
+                                   G_FILE_QUERY_INFO_NONE,
+                                   nullptr,
+                                   &error);
+    if (gcmdFileInfo && error)
+    {
+        g_message ("retrieving file info failed: %s", error->message);
+        g_error_free (error);
+        return nullptr;
+    }
+
+    auto gFileAttributeString = g_strdup(g_file_info_get_attribute_string (gcmdFileInfo, attribute));
+    g_object_unref(gcmdFileInfo);
+
+    return gFileAttributeString;
+}

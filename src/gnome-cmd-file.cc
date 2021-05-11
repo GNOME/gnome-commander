@@ -104,11 +104,12 @@ static void gnome_cmd_file_finalize (GObject *object)
 
     delete f->metadata;
 
-    if (f->info->name[0] != '.')
+    if (f->info && f->info->name[0] != '.')
         DEBUG ('f', "file destroying 0x%p %s\n", f, f->info->name);
 
     g_free (f->collate_key);
     gnome_vfs_file_info_unref (f->info);
+    g_object_unref(f->gFileInfo);
     if (f->priv->dir_handle)
         handle_unref (f->priv->dir_handle);
 
@@ -160,6 +161,22 @@ GnomeCmdFile *gnome_cmd_file_new (GnomeVFSFileInfo *info, GnomeCmdDir *dir)
     auto gnomeCmdFile = static_cast<GnomeCmdFile*> (g_object_new (GNOME_CMD_TYPE_FILE, nullptr));
 
     gnome_cmd_file_setup (gnomeCmdFile, info, dir);
+
+    if(!gnomeCmdFile->gFile)
+    {
+        g_object_unref(gnomeCmdFile);
+        return nullptr;
+    }
+
+    return gnomeCmdFile;
+}
+
+
+GnomeCmdFile *gnome_cmd_file_new (GFileInfo *gFileInfo, GnomeCmdDir *dir)
+{
+    auto gnomeCmdFile = static_cast<GnomeCmdFile*> (g_object_new (GNOME_CMD_TYPE_FILE, nullptr));
+
+    gnome_cmd_file_setup (gnomeCmdFile, gFileInfo, dir);
 
     if(!gnomeCmdFile->gFile)
     {
@@ -288,6 +305,56 @@ void gnome_cmd_file_setup (GnomeCmdFile *gnomeCmdFile, GnomeVFSFileInfo *info, G
 }
 
 
+void gnome_cmd_file_setup (GnomeCmdFile *gnomeCmdFile, GFileInfo *gFileInfo, GnomeCmdDir *dir)
+{
+    g_return_if_fail (gnomeCmdFile != nullptr);
+    g_return_if_fail (gFileInfo != nullptr);
+
+    gnomeCmdFile->gFileInfo = gFileInfo;
+
+    auto filename = g_file_info_get_attribute_string (gFileInfo, G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME);
+
+    // check if file is '..'
+    gnomeCmdFile->is_dotdot = g_file_info_get_attribute_uint32 (gFileInfo, G_FILE_ATTRIBUTE_STANDARD_TYPE) == G_FILE_TYPE_DIRECTORY
+                              && g_strcmp0(filename, "..") == 0;
+
+    gchar *utf8_name;
+
+    if (!gnome_cmd_data.options.case_sens_sort)
+    {
+        utf8_name = g_utf8_casefold (filename, -1);
+    }
+    else
+        utf8_name = g_strdup(filename);
+
+    gnomeCmdFile->collate_key = g_utf8_collate_key_for_filename (utf8_name, -1);
+    g_free (utf8_name);
+
+    if (dir)
+    {
+        gnomeCmdFile->priv->dir_handle = gnome_cmd_dir_get_handle (dir);
+        handle_ref (gnomeCmdFile->priv->dir_handle);
+    }
+
+    auto path = gnomeCmdFile->get_path();
+    //auto path = g_file_info_get
+
+    if (path)
+    {
+        GNOME_CMD_FILE_BASE (gnomeCmdFile)->gFile = g_file_new_for_path(path);
+        gnomeCmdFile->gFile = GNOME_CMD_FILE_BASE (gnomeCmdFile)->gFile;
+        g_free(path);
+    }
+    // EVERY GnomeCmdFile instance must have a gFile reference
+    if (!gnomeCmdFile->gFile)
+    {
+        gnome_vfs_file_info_unref(gnomeCmdFile->info);
+        g_object_unref(gnomeCmdFile->gFileInfo);
+        return;
+    }
+}
+
+
 GnomeCmdFile *GnomeCmdFile::ref()
 {
     priv->ref_cnt++;
@@ -297,7 +364,7 @@ GnomeCmdFile *GnomeCmdFile::ref()
 
     char c = GNOME_CMD_IS_DIR (this) ? 'd' : 'f';
 
-    DEBUG (c, "refing: 0x%p %s to %d\n", this, info->name, priv->ref_cnt);
+    DEBUG (c, "refing: 0x%p %s to %d\n", this, g_file_info_get_display_name(gFileInfo), priv->ref_cnt);
 
     return this;
 }
@@ -309,7 +376,7 @@ void GnomeCmdFile::unref()
 
     char c = GNOME_CMD_IS_DIR (this) ? 'd' : 'f';
 
-    DEBUG (c, "un-refing: 0x%p %s to %d\n", this, info->name, priv->ref_cnt);
+    DEBUG (c, "un-refing: 0x%p %s to %d\n", this, g_file_info_get_display_name(gFileInfo), priv->ref_cnt);
     if (priv->ref_cnt < 1)
         g_object_unref (this);
 }
@@ -414,10 +481,13 @@ gchar *GnomeCmdFile::get_quoted_name()
 
 gchar *GnomeCmdFile::get_path()
 {
-    g_return_val_if_fail (info != nullptr, nullptr);
+    //g_return_val_if_fail (gFile != nullptr, nullptr);
 
-    if (strcmp (info->name, G_DIR_SEPARATOR_S) == 0)
-        return g_strdup (G_DIR_SEPARATOR_S);
+    //auto filename = GetGfileAttributeString (G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME);
+    auto filename = g_file_info_get_name (this->gFileInfo);
+
+    if (strcmp (filename, G_DIR_SEPARATOR_S) == 0)
+        return g_strdup(filename);
 
     GnomeCmdPath *path;
     gchar *path_str;
@@ -432,7 +502,7 @@ gchar *GnomeCmdFile::get_path()
         g_assert ("Non directory file without owning directory");
     }
 
-    path = gnome_cmd_dir_get_path (::get_parent_dir (this))->get_child(info->name);
+    path = gnome_cmd_dir_get_path (::get_parent_dir (this))->get_child(filename);
     if (!path)
     {
         return nullptr;
@@ -500,6 +570,8 @@ GAppInfo *GnomeCmdFile::GetAppInfoForContentType()
 
 gchar *GnomeCmdFile::GetGfileAttributeString(const char *attribute)
 {
+    g_return_val_if_fail (gFile != nullptr, nullptr);
+
     GError *error;
     error = nullptr;
     auto gcmdFileInfo = g_file_query_info(this->gFile,
@@ -650,7 +722,7 @@ const gchar *GnomeCmdFile::get_extension()
     if (GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE) == G_FILE_TYPE_DIRECTORY)
         return nullptr;
 
-    const char *s = strrchr (info->name, '.');        // does NOT work on UTF-8 strings, should be (MUCH SLOWER):
+    const char *s = strrchr (g_file_info_get_name(this->gFileInfo), '.');        // does NOT work on UTF-8 strings, should be (MUCH SLOWER):
     // const char *s = g_utf8_strrchr (info->name, -1, '.');
 
     return s ? s+1 : nullptr;
@@ -726,7 +798,7 @@ const gchar *GnomeCmdFile::get_size()
 guint64 GnomeCmdFile::get_tree_size()
 {
     if (GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE) != G_FILE_TYPE_DIRECTORY)
-        return info->size;
+        return g_file_info_get_attribute_uint64 (gFileInfo, G_FILE_ATTRIBUTE_STANDARD_SIZE);
 
     if (is_dotdot)
         return 0;
@@ -978,6 +1050,30 @@ void GnomeCmdFile::update_info(GnomeVFSFileInfo *file_info)
 
     collate_key = g_utf8_collate_key_for_filename (utf8_name, -1);
     g_free (utf8_name);
+}
+
+
+void GnomeCmdFile::update_gFileInfo(GFileInfo *gFileInfo_new)
+{
+    g_return_if_fail (gFileInfo_new != nullptr);
+
+    g_free (collate_key);
+    g_object_unref (this->gFileInfo);
+    g_object_ref (gFileInfo_new);
+    this->gFileInfo = gFileInfo_new;
+
+    gchar *filename;
+
+    if (!gnome_cmd_data.options.case_sens_sort)
+    {
+        auto filenameWithCase = g_file_info_get_display_name(gFileInfo_new);
+        filename = g_utf8_casefold (filenameWithCase, -1);
+    }
+    else
+        filename = g_strdup(g_file_info_get_display_name(gFileInfo_new));
+
+    collate_key = g_utf8_collate_key_for_filename (filename, -1);
+    g_free(filename);
 }
 
 

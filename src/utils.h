@@ -412,3 +412,7 @@ gboolean move_old_to_new_location(const gchar* oldPath, const gchar* newPath);
 gchar* get_package_config_dir();
 
 gchar *string_double_underscores (const gchar *string);
+
+guint32 GetGfileAttributeUInt32(GFile *gFile, const char *attribute);
+
+gchar *GetGfileAttributeString(GFile *gFile, const char *attribute);

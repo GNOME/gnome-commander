@@ -916,10 +916,10 @@ static gint sort_by_name (GnomeCmdFile *f1, GnomeCmdFile *f2, GnomeCmdFileList *
     if (f2->is_dotdot)
         return 1;
 
-    if (f1->info->type > f2->info->type)
+    if(g_file_info_get_file_type(f1->gFileInfo) > g_file_info_get_file_type(f2->gFileInfo))
         return -1;
 
-    if (f1->info->type < f2->info->type)
+    if (g_file_info_get_file_type(f1->gFileInfo) < g_file_info_get_file_type(f2->gFileInfo))
         return 1;
 
     gboolean raising = fl->priv->sort_raising[fl->priv->current_col];
@@ -936,10 +936,10 @@ static gint sort_by_ext (GnomeCmdFile *f1, GnomeCmdFile *f2, GnomeCmdFileList *f
     if (f2->is_dotdot)
         return 1;
 
-    if (f1->info->type > f2->info->type)
+    if(g_file_info_get_file_type(f1->gFileInfo) > g_file_info_get_file_type(f2->gFileInfo))
         return -1;
 
-    if (f1->info->type < f2->info->type)
+    if (g_file_info_get_file_type(f1->gFileInfo) < g_file_info_get_file_type(f2->gFileInfo))
         return 1;
 
     gboolean raising = fl->priv->sort_raising[fl->priv->current_col];

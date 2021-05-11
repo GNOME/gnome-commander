@@ -47,6 +47,7 @@ struct GnomeCmdFile
 
     GnomeVFSFileInfo *info;
     GFile *gFile;
+    GFileInfo *gFileInfo;
     gboolean is_dotdot;
     gchar *collate_key;                 // necessary for proper sorting of UTF-8 encoded file names
     GnomeCmdFileMetadata *metadata;
@@ -92,6 +93,7 @@ struct GnomeCmdFile
     GnomeVFSResult rename(const gchar *new_name);
 
     void update_info(GnomeVFSFileInfo *info);
+    void update_gFileInfo(GFileInfo *gFileInfo);
     gboolean is_local();
     gboolean is_executable();
     void is_deleted();
@@ -127,7 +129,10 @@ inline gchar *GnomeCmdFile::get_name()
 GnomeCmdFile *gnome_cmd_file_new_from_uri (GnomeVFSURI *uri);
 GnomeCmdFile *gnome_cmd_file_new (const gchar *local_full_path);
 GnomeCmdFile *gnome_cmd_file_new (GnomeVFSFileInfo *info, GnomeCmdDir *dir);
+GnomeCmdFile *gnome_cmd_file_new (GFileInfo *gFileInfo, GnomeCmdDir *dir);
 void gnome_cmd_file_setup (GnomeCmdFile *gnomeCmdFile, GnomeVFSFileInfo *info, GnomeCmdDir *dir);
+void gnome_cmd_file_setup (GnomeCmdFile *gnomeCmdFile, GFileInfo *gFileInfo, GnomeCmdDir *dir);
+
 
 inline GnomeCmdFile *gnome_cmd_file_ref (GnomeCmdFile *f)
 {

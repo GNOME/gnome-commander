@@ -483,6 +483,11 @@ void gnome_cmd_con_add_to_cache (GnomeCmdCon *con, GnomeCmdDir *dir)
 
     gchar *uri_str = GNOME_CMD_FILE (dir)->get_uri_str();
 
+    if (uri_str == nullptr)
+    {
+        return;
+    }
+
     if (!con->priv->all_dirs_map)
         con->priv->all_dirs_map = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, nullptr);
 

@@ -270,6 +270,47 @@ GnomeCmdDir *gnome_cmd_dir_new_from_info (GnomeVFSFileInfo *info, GnomeCmdDir *p
 }
 
 
+GnomeCmdDir *gnome_cmd_dir_new_from_gfileinfo (GFileInfo *gFileInfo, GnomeCmdDir *parent)
+{
+    g_return_val_if_fail (gFileInfo != nullptr, nullptr);
+    g_return_val_if_fail (GNOME_CMD_IS_DIR (parent), nullptr);
+
+    GnomeCmdCon *con = gnome_cmd_dir_get_connection (parent);
+    auto basename = g_file_info_get_display_name(gFileInfo);
+    GnomeCmdPath *path = gnome_cmd_dir_get_path (parent)->get_child(basename);
+    if (!path)
+    {
+        return nullptr;
+    }
+
+    GnomeVFSURI *uri = gnome_cmd_con_create_uri (con, path);
+    gchar *uri_str = gnome_vfs_uri_to_string (uri, GNOME_VFS_URI_HIDE_PASSWORD);
+
+    // ToDo: Do it with gFile!
+    GnomeCmdDir *dir = gnome_cmd_con_cache_lookup (gnome_cmd_dir_get_connection (parent), uri_str);
+    g_free (uri_str);
+    gnome_vfs_uri_unref (uri);
+
+    if (dir)
+    {
+        delete path;
+        GNOME_CMD_FILE (dir)->update_gFileInfo(gFileInfo);
+        return dir;
+    }
+
+    dir = static_cast<GnomeCmdDir*> (g_object_new (GNOME_CMD_TYPE_DIR, nullptr));
+    gnome_cmd_file_setup (GNOME_CMD_FILE (dir), gFileInfo, parent);
+
+    dir->priv->con = con;
+    gnome_cmd_dir_set_path (dir, path);
+    dir->priv->needs_mtime_update = FALSE;
+
+    gnome_cmd_con_add_to_cache (gnome_cmd_dir_get_connection (parent), dir);
+
+    return dir;
+}
+
+
 GnomeCmdDir *gnome_cmd_dir_new_with_con (GnomeCmdCon *con)
 {
     g_return_val_if_fail (GNOME_CMD_IS_CON (con), nullptr);
@@ -320,13 +361,19 @@ GnomeCmdDir *gnome_cmd_dir_new (GnomeCmdCon *con, GnomeCmdPath *path, gboolean i
     auto infoOpts = (GnomeVFSFileInfoOptions) (GNOME_VFS_FILE_INFO_FOLLOW_LINKS | GNOME_VFS_FILE_INFO_GET_MIME_TYPE | GNOME_VFS_FILE_INFO_FORCE_FAST_MIME_TYPE);
     auto gnomeVFSFileInfo = gnome_vfs_file_info_new ();
     auto gnomeVFSResult = gnome_vfs_get_file_info_uri (gnomeVFSUri, gnomeVFSFileInfo, infoOpts);
+
+    //ToDo. Verallgemeinere das mit _from_uri()!
+    auto gFileTmp = g_file_new_for_path(path->get_path());
+    auto gFileInfo = g_file_query_info(gFileTmp, "*", G_FILE_QUERY_INFO_NONE, nullptr, nullptr);
+    g_object_unref(gFileTmp);
+
     gnome_vfs_uri_unref (gnomeVFSUri);
 
     if (gnomeVFSResult == GNOME_VFS_OK)
     {
         dir = static_cast<GnomeCmdDir*> (g_object_new (GNOME_CMD_TYPE_DIR, nullptr));
         gnome_cmd_dir_set_path (dir, path);
-        gnome_cmd_file_setup (GNOME_CMD_FILE (dir), gnomeVFSFileInfo, nullptr);
+        gnome_cmd_file_setup (GNOME_CMD_FILE (dir), gFileInfo, nullptr);
 
         dir->priv->con = con;
         dir->priv->needs_mtime_update = FALSE;
@@ -396,7 +443,56 @@ GList *gnome_cmd_dir_get_files (GnomeCmdDir *dir)
 }
 
 
-static GList *create_file_list (GnomeCmdDir *dir, GList *info_list)
+//static GList *create_file_list (GnomeCmdDir *dir, GList *info_list)
+//{
+//    GList *file_list = nullptr;
+//
+//    // create a new list with GnomeCmdFile objects
+//
+//    for (GList *i = info_list; i; i = i->next)
+//    {
+//        GnomeVFSFileInfo *info = (GnomeVFSFileInfo *) i->data;
+//
+//        if (info && info->name)
+//        {
+//            if (strcmp (info->name, ".") == 0 || strcmp (info->name, "..") == 0)
+//            {
+//                gnome_vfs_file_info_unref (info);
+//                continue;
+//            }
+//
+//#ifdef HAVE_SAMBA
+//            GnomeCmdCon *con = gnome_cmd_dir_get_connection (dir);
+//            if (GNOME_CMD_IS_CON_SMB (con)
+//                && info->mime_type
+//                && (strcmp (info->mime_type, "application/x-gnome-app-info") == 0 ||
+//                    strcmp (info->mime_type, "application/x-desktop") == 0)
+//                && strcmp (info->name, ".directory"))
+//            {
+//                // This is a hack to make samba workgroups etc
+//                // look like normal directories
+//                info->type = GNOME_VFS_FILE_TYPE_DIRECTORY;
+//                // Determining smb MIME type: workgroup or server
+//                gchar *uri_str = GNOME_CMD_FILE (dir)->get_uri_str();
+//
+//                info->mime_type = strcmp (uri_str, "smb:///") == 0 ? g_strdup ("x-directory/smb-workgroup") :
+//                                                                     g_strdup ("x-directory/smb-server");
+//            }
+//#endif
+//
+//            GnomeCmdFile *f = info->type == GNOME_VFS_FILE_TYPE_DIRECTORY ? GNOME_CMD_FILE (gnome_cmd_dir_new_from_info (info, dir)) :
+//                                                                            gnome_cmd_file_new (info, dir);
+//
+//            gnome_cmd_file_ref (f);
+//            file_list = g_list_append (file_list, f);
+//        }
+//    }
+//
+//    return file_list;
+//}
+
+
+static GList *create_gnome_cmd_file_list_from_gfileinfo_list (GnomeCmdDir *dir, GList *info_list)
 {
     GList *file_list = nullptr;
 
@@ -404,43 +500,24 @@ static GList *create_file_list (GnomeCmdDir *dir, GList *info_list)
 
     for (GList *i = info_list; i; i = i->next)
     {
-        GnomeVFSFileInfo *info = (GnomeVFSFileInfo *) i->data;
+        GFileInfo *gFileInfo = (GFileInfo *) i->data;
 
-        if (info && info->name)
+        auto basename = g_file_info_get_attribute_string (gFileInfo, G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME);
+        if (strcmp (basename, ".") == 0 || strcmp (basename, "..") == 0)
         {
-            if (strcmp (info->name, ".") == 0 || strcmp (info->name, "..") == 0)
-            {
-                gnome_vfs_file_info_unref (info);
-                continue;
-            }
+            continue;
+        }
 
-#ifdef HAVE_SAMBA
-            GnomeCmdCon *con = gnome_cmd_dir_get_connection (dir);
-            if (GNOME_CMD_IS_CON_SMB (con)
-                && info->mime_type
-                && (strcmp (info->mime_type, "application/x-gnome-app-info") == 0 ||
-                    strcmp (info->mime_type, "application/x-desktop") == 0)
-                && strcmp (info->name, ".directory"))
-            {
-                // This is a hack to make samba workgroups etc
-                // look like normal directories
-                info->type = GNOME_VFS_FILE_TYPE_DIRECTORY;
-                // Determining smb MIME type: workgroup or server
-                gchar *uri_str = GNOME_CMD_FILE (dir)->get_uri_str();
+        GnomeCmdFile *f = g_file_info_get_attribute_uint32 (gFileInfo, G_FILE_ATTRIBUTE_STANDARD_TYPE) == G_FILE_TYPE_DIRECTORY
+            ? GNOME_CMD_FILE (gnome_cmd_dir_new_from_gfileinfo (gFileInfo, dir))
+            : gnome_cmd_file_new (gFileInfo, dir);
 
-                info->mime_type = strcmp (uri_str, "smb:///") == 0 ? g_strdup ("x-directory/smb-workgroup") :
-                                                                     g_strdup ("x-directory/smb-server");
-            }
-#endif
-
-            GnomeCmdFile *f = info->type == GNOME_VFS_FILE_TYPE_DIRECTORY ? GNOME_CMD_FILE (gnome_cmd_dir_new_from_info (info, dir)) :
-                                                                            gnome_cmd_file_new (info, dir);
-
+        if (f)
+        {
             gnome_cmd_file_ref (f);
             file_list = g_list_append (file_list, f);
         }
     }
-
     return file_list;
 }
 
@@ -454,7 +531,8 @@ static void on_list_done (GnomeCmdDir *dir, GList *infolist, GnomeVFSResult resu
         if (!dir->priv->file_collection->empty())
             dir->priv->file_collection->clear();
 
-        dir->priv->files = create_file_list (dir, infolist);
+        //dir->priv->files = create_file_list (dir, infolist);
+        dir->priv->files = create_gnome_cmd_file_list_from_gfileinfo_list (dir, infolist);
         dir->priv->file_collection->add(dir->priv->files);
         g_list_free (infolist);
 

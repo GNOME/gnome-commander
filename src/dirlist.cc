@@ -112,21 +112,98 @@ void async_list (GnomeCmdDir *dir)
     g_timeout_add (gnome_cmd_data.gui_update_rate, (GSourceFunc) update_list_progress, dir);
 }
 
+static void enumerate_children_callback(GObject *direnum, GAsyncResult *result, gpointer user_data);
 
 void sync_list (GnomeCmdDir *dir)
 {
-    GnomeVFSFileInfoOptions infoOpts = (GnomeVFSFileInfoOptions) (GNOME_VFS_FILE_INFO_FOLLOW_LINKS | GNOME_VFS_FILE_INFO_GET_MIME_TYPE);
+    GError *error = nullptr;
+    //GnomeVFSFileInfoOptions infoOpts = (GnomeVFSFileInfoOptions) (GNOME_VFS_FILE_INFO_FOLLOW_LINKS | GNOME_VFS_FILE_INFO_GET_MIME_TYPE);
 
     gchar *uri_str = GNOME_CMD_FILE (dir)->get_uri_str();
     DEBUG('l', "sync_list: %s\n", uri_str);
 
     dir->infolist = NULL;
-    dir->list_result = gnome_vfs_directory_list_load (&dir->infolist, uri_str, infoOpts);
+    //dir->list_result = gnome_vfs_directory_list_load (&dir->infolist, uri_str, infoOpts);
+
+    auto gFile = GNOME_CMD_FILE (dir)->gFile;
+
+    auto gFileEnumerator = g_file_enumerate_children (gFile,
+                            "*",
+                            G_FILE_QUERY_INFO_NONE,
+                            nullptr,
+                            &error);
+    if( error )
+    {
+        g_critical("Unable to enumerate children, error: %s", error->message);
+        g_error_free(error);
+        return;
+    }
+
+    //GList *gFileInfoList = nullptr;
+    g_file_enumerator_next_files_async(gFileEnumerator,
+                    2,
+                    G_PRIORITY_LOW,
+                    nullptr,
+                    enumerate_children_callback,
+                    dir);
+
+    //enumerate_children_callback(G_OBJECT(gFileEnumerator), nullptr, dir);
+    g_object_unref(gFileEnumerator);
 
     g_free (uri_str);
 
     dir->state = dir->list_result==GNOME_VFS_OK ? GnomeCmdDir::STATE_LISTED : GnomeCmdDir::STATE_EMPTY;
-    dir->done_func (dir, dir->infolist, dir->list_result);
+    //dir->done_func (dir, dir->infolist, dir->list_result);
+    //dir->done_func (dir, dir->gFileInfoList, dir->list_result);
+}
+
+static void enumerate_children_callback(GObject *direnum, GAsyncResult *result, gpointer user_data)
+{
+    auto gFileEnumerator = G_FILE_ENUMERATOR(direnum);
+    auto dir = GNOME_CMD_DIR(user_data);
+    GError *error = nullptr;
+
+    GList *gFileInfosList = g_file_enumerator_next_files_finish( gFileEnumerator,
+                    result, &error);
+    if( error )
+    {
+        g_critical("Unable to add files to list, error: %s", error->message);
+        g_object_unref(direnum);
+        g_error_free(error);
+        return;
+    }
+    else if( gFileInfosList == nullptr )
+    {
+        /* DONE */
+        dir->state = dir->list_result==GNOME_VFS_OK ? GnomeCmdDir::STATE_LISTED : GnomeCmdDir::STATE_EMPTY;
+        dir->done_func (dir, dir->gFileInfoList, dir->list_result);
+        g_object_unref(direnum);
+        return;
+    }
+    else
+    {
+        dir->gFileInfoList = g_list_concat (dir->gFileInfoList, g_list_copy (gFileInfosList));
+        //g_list_foreach (list, (GFunc) gnome_vfs_file_info_ref, NULL);
+        //dir->list_counter += entries_read;
+        //DEBUG ('l', "files listed: %d\n", dir->list_counter);
+
+        //GList *node = gFileInfosList;
+        //GFileInfo *info;
+        //while(node)
+        //{
+        //    info = (GFileInfo *) node->data;
+        //    node = node->next;
+        //    g_object_unref(info);
+        //}
+
+        g_file_enumerator_next_files_async(G_FILE_ENUMERATOR(direnum),
+                        20,
+                        G_PRIORITY_LOW,
+                        nullptr,
+                        enumerate_children_callback,
+                        dir);
+    }
+    g_list_free(gFileInfosList);
 }
 
 
