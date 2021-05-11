@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander master\n"
-"POT-Creation-Date: 2021-04-17 20:09+0000\n"
-"PO-Revision-Date: 2021-04-17 22:29+0200\n"
+"POT-Creation-Date: 2021-05-11 19:45+0000\n"
+"PO-Revision-Date: 2021-05-11 22:24+0200\n"
 "Last-Translator: Anders Jonsson <anders.jonsson@norsjovallen.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "Language: sv\n"
@@ -16548,7 +16548,6 @@ msgstr "1.12.2"
 
 #. (itstool) path: entry/para
 #: C/releases.xml:27
-#| msgid "2020-??-??"
 msgid "2021-??-??"
 msgstr "2021-??-??"
 
@@ -16575,9 +16574,13 @@ msgid "Bug fixes:"
 msgstr "Felfixar:"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:33 C/releases.xml:194 C/releases.xml:205
-msgid "..."
-msgstr "..."
+#: C/releases.xml:33
+msgid ""
+"Fixed issue #104 (Segmentation fault when pressing Ctrl+Right / Ctrl+Left / "
+"Ctrl+Shift+.)"
+msgstr ""
+"Fixade ärende #104 (Segmenteringsfel vid tryck på Ctrl+Höger / Ctrl"
+"+Vänster / Ctrl+Skift+.)"
 
 #. (itstool) path: entry/para
 #: C/releases.xml:37 C/releases.xml:77 C/releases.xml:105 C/releases.xml:145
@@ -16613,7 +16616,6 @@ msgstr "1.12.1"
 
 #. (itstool) path: entry/para
 #: C/releases.xml:52
-#| msgid "2021-03-25"
 msgid "2021-04-17"
 msgstr "2021-04-17"
 
@@ -16810,6 +16812,11 @@ msgstr "1.10.1"
 #: C/releases.xml:188
 msgid "2019-05-12"
 msgstr "2019-05-12"
+
+#. (itstool) path: listitem/para
+#: C/releases.xml:194 C/releases.xml:205
+msgid "..."
+msgstr "..."
 
 #. (itstool) path: listitem/para
 #: C/releases.xml:197
