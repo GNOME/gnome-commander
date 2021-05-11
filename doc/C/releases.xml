@@ -30,7 +30,7 @@
                 <para>
                     <itemizedlist>
                         <listitem>
-                            <para>...</para>
+                            <para>Fixed issue #104 (Segmentation fault when pressing Ctrl+Right / Ctrl+Left / Ctrl+Shift+.)</para>
                         </listitem>
                     </itemizedlist>
                 </para>
