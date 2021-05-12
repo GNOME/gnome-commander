@@ -783,8 +783,6 @@ const gchar *GnomeCmdFile::get_size()
 {
     static gchar dir_indicator[] = "<DIR> ";
 
-    g_return_val_if_fail (info != nullptr, nullptr);
-
     if (GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE) == G_FILE_TYPE_DIRECTORY)
         return dir_indicator;
 
