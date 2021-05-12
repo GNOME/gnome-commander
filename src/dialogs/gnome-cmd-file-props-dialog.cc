@@ -334,7 +334,6 @@ static GtkWidget *create_properties_tab (GnomeCmdFilePropsDialogPrivate *data)
     GtkWidget *dialog = data->dialog;
     GtkWidget *table;
     GtkWidget *label;
-    gchar *fname;
 
     GtkWidget *space_frame = create_space_frame (dialog, 6);
 
