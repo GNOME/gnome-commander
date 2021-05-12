@@ -717,14 +717,12 @@ gchar *GnomeCmdFile::get_uri_str()
 
 const gchar *GnomeCmdFile::get_extension()
 {
-    g_return_val_if_fail (info != nullptr, nullptr);
+    g_return_val_if_fail (gFileInfo != nullptr, nullptr);
 
     if (GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE) == G_FILE_TYPE_DIRECTORY)
         return nullptr;
 
-    const char *s = strrchr (g_file_info_get_name(this->gFileInfo), '.');        // does NOT work on UTF-8 strings, should be (MUCH SLOWER):
-    // const char *s = g_utf8_strrchr (info->name, -1, '.');
-
+    const char *s = strrchr (g_file_info_get_name(gFileInfo), '.');
     return s ? s+1 : nullptr;
 }
 
