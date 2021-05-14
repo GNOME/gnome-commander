@@ -145,12 +145,20 @@ create_xfer_data (GnomeVFSXferOptions xferOptions, GList *src_uri_list, GList *d
 
 inline gchar *file_details(const gchar *text_uri)
 {
-    GnomeVFSFileInfo *info = gnome_vfs_file_info_new ();
-    GnomeVFSResult result = gnome_vfs_get_file_info (text_uri, info, GNOME_VFS_FILE_INFO_FOLLOW_LINKS);
-    gchar *size = create_nice_size_str (info->size);
-    gchar *details = result==GNOME_VFS_OK ? g_strdup_printf ("%s, %s", size, time2string (info->mtime, gnome_cmd_data.options.date_format)) : g_strdup ("");
-    gnome_vfs_file_info_unref (info);
+    auto gFileTmp = g_file_new_for_uri(text_uri);
+    auto gFileInfoTmp = g_file_query_info(gFileTmp,
+                            G_FILE_ATTRIBUTE_STANDARD_SIZE "," G_FILE_ATTRIBUTE_TIME_MODIFIED,
+                            G_FILE_QUERY_INFO_NONE, nullptr, nullptr);
+    gchar *size = create_nice_size_str (g_file_info_get_attribute_uint64(gFileInfoTmp, G_FILE_ATTRIBUTE_STANDARD_SIZE));
+
+    gchar *details =
+        gFileInfoTmp != nullptr
+            ? g_strdup_printf ("%s, %s", size,
+                                         time2string (g_file_info_get_modification_date_time(gFileInfoTmp),
+                                                      gnome_cmd_data.options.date_format))
+            : g_strdup ("");
     g_free (size);
+    g_object_unref(gFileInfoTmp);
 
     return details;
 }

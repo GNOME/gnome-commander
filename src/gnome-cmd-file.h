@@ -73,7 +73,9 @@ struct GnomeCmdFile
     const gchar *get_extension();
     const gchar *get_owner();
     const gchar *get_group();
+#ifdef GLIB_2_70
     const gchar *get_adate(gboolean overide_disp_setting);
+#endif
     const gchar *get_mdate(gboolean overide_disp_setting);
     const gchar *get_size();
     guint64 get_tree_size();

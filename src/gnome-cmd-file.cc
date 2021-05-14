@@ -757,25 +757,26 @@ const gchar *GnomeCmdFile::get_group()
 }
 
 
-inline const gchar *date2string (time_t date, gboolean overide_disp_setting)
+inline const gchar *date2string (GDateTime *date, gboolean overide_disp_setting)
 {
-    return time2string (date, overide_disp_setting?"%c":gnome_cmd_data.options.date_format);
+    return time2string (date, overide_disp_setting ? "%c" : gnome_cmd_data.options.date_format);
 }
 
 
+#ifdef GLIB_2_70
 const gchar *GnomeCmdFile::get_adate(gboolean overide_disp_setting)
 {
     g_return_val_if_fail (info != nullptr, nullptr);
 
-    return date2string (info->atime, overide_disp_setting);
+    return date2string (g_file_info_get_access_date_time(gFileInfo), overide_disp_setting);
 }
-
+#endif
 
 const gchar *GnomeCmdFile::get_mdate(gboolean overide_disp_setting)
 {
-    g_return_val_if_fail (info != nullptr, nullptr);
+    g_return_val_if_fail (gFileInfo != nullptr, nullptr);
 
-    return date2string (info->mtime, overide_disp_setting);
+    return date2string (g_file_info_get_modification_date_time(gFileInfo), overide_disp_setting);
 }
 
 

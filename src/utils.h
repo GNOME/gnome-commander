@@ -1,5 +1,5 @@
 /** 
- * @file utils.h 
+ * @file utils.h
  * @copyright (C) 2001-2006 Marcus Bjurman\n
  * @copyright (C) 2007-2012 Piotr Eljasiak\n
  * @copyright (C) 2013-2021 Uwe Scholz\n
@@ -138,7 +138,7 @@ const gchar *perm2string (guint32 permissions, gchar *buf, guint max);
 const gchar *perm2textstring (guint32 permissions, gchar *buf, guint max);
 const gchar *perm2numstring (guint32 permissions, gchar *buf, guint max);
 const gchar *size2string (guint64 size, GnomeCmdSizeDispMode size_disp_mode);
-const gchar *time2string (time_t t, const gchar *date_format);
+const gchar *time2string (GDateTime *gDateTime, const gchar *date_format);
 
 void clear_event_key (GdkEventKey *event);
 

@@ -61,7 +61,12 @@ GTEST_REQ=1.7.0
 AC_SUBST(GTEST_REQ)
 
 dnl Check for glib
-PKG_CHECK_MODULES([GLIB], [glib-2.0 >= ${GLIB_REQ}])
+PKG_CHECK_MODULES([GLIB], [glib-2.0 >= ${GLIB_REQ}], have_glib_req=yes, have_glib_req=no)
+if test "x$have_glib_req" = "xyes"; then
+    PKG_CHECK_MODULES(GLIB_2_70, glib-2.0 >= 2.70.0,
+		   AC_DEFINE(GLIB_2_70, 1, [Defined to 1 if you have glib >= 2.70]),
+		      have_glib_2_70=no)
+fi
 
 dnl Check for gobject
 PKG_CHECK_MODULES([GOBJECT],[gobject-2.0])

@@ -382,29 +382,19 @@ const gchar *size2string (guint64 size, GnomeCmdSizeDispMode size_disp_mode)
 }
 
 
-const gchar *time2string (time_t t, const gchar *date_format)
+const gchar *time2string (GDateTime *gDateTime, const gchar *date_format)
 {
     // NOTE: date_format is passed in current locale format
 
+    g_return_val_if_fail (gDateTime != nullptr, nullptr);
+
     static gchar buf[64];
-    struct tm lt;
 
-    localtime_r (&t, &lt);
-#if defined (__GNUC__)
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wformat-nonliteral"
-#endif
-    strftime (buf, sizeof(buf), date_format, &lt);
-#if defined (__GNUC__)
-#pragma GCC diagnostic pop
-#endif
+    auto dateString = g_date_time_format (gDateTime, date_format);
 
-    // convert formatted date from current locale to UTF8
-    gchar *loc_date = g_locale_to_utf8 (buf, -1, NULL, NULL, NULL);
-    if (loc_date)
-        strncpy (buf, loc_date, sizeof(buf)-1);
+    strncpy (buf, dateString, sizeof(buf)-1);
 
-    g_free (loc_date);
+    g_free (dateString);
 
     return buf;
 }
