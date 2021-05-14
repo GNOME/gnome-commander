@@ -729,31 +729,17 @@ const gchar *GnomeCmdFile::get_extension()
 
 const gchar *GnomeCmdFile::get_owner()
 {
-    g_return_val_if_fail (info != nullptr, nullptr);
+    g_return_val_if_fail (gFileInfo != nullptr, nullptr);
 
-    if (GNOME_VFS_FILE_INFO_LOCAL (info))
-        return gcmd_owner.get_name_by_uid(info->uid);
-    else
-    {
-        static gchar owner_str[MAX_OWNER_LENGTH];
-        g_snprintf (owner_str, MAX_OWNER_LENGTH, "%d", info->uid);
-        return owner_str;
-    }
+    return g_file_info_get_attribute_string(gFileInfo, G_FILE_ATTRIBUTE_OWNER_USER);
 }
 
 
 const gchar *GnomeCmdFile::get_group()
 {
-    g_return_val_if_fail (info != nullptr, nullptr);
+    g_return_val_if_fail (gFileInfo != nullptr, nullptr);
 
-    if (GNOME_VFS_FILE_INFO_LOCAL (info))
-        return gcmd_owner.get_name_by_gid(info->gid);
-    else
-    {
-        static gchar group_str[MAX_GROUP_LENGTH];
-        g_snprintf (group_str, MAX_GROUP_LENGTH, "%d", info->gid);
-        return group_str;
-    }
+    return g_file_info_get_attribute_string(gFileInfo, G_FILE_ATTRIBUTE_OWNER_GROUP);
 }
 
 
