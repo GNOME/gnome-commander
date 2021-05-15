@@ -31,6 +31,8 @@ using namespace std;
 
 #define FILES_PER_NOTIFICATION 50
 #define LIST_PRIORITY 0
+#define FILES_PER_UPDATE 50
+
 
 void async_list (GnomeCmdDir *dir);
 void sync_list  (GnomeCmdDir *dir);
@@ -138,7 +140,7 @@ void sync_list (GnomeCmdDir *dir)
     }
 
     g_file_enumerator_next_files_async(gFileEnumerator,
-                    2,
+                    FILES_PER_UPDATE,
                     G_PRIORITY_LOW,
                     nullptr,
                     enumerate_children_callback,
@@ -179,7 +181,7 @@ static void enumerate_children_callback(GObject *direnum, GAsyncResult *result, 
         dir->gFileInfoList = g_list_concat (dir->gFileInfoList, g_list_copy (gFileInfosList));
 
         g_file_enumerator_next_files_async(G_FILE_ENUMERATOR(direnum),
-                        20,
+                        FILES_PER_UPDATE,
                         G_PRIORITY_LOW,
                         nullptr,
                         enumerate_children_callback,
