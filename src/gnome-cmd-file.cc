@@ -705,7 +705,7 @@ GnomeVFSURI *GnomeCmdFile::get_uri(const gchar *name)
             g_assert ("Non directory file without owning directory");
     }
 
-    return gnome_cmd_dir_get_child_uri (::get_parent_dir (this), name ? name : info->name);
+    return gnome_cmd_dir_get_child_uri (::get_parent_dir (this), name ? name : g_file_get_basename(gFile));
 }
 
 
