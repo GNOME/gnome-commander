@@ -964,19 +964,22 @@ gboolean gnome_cmd_dir_update_mtime (GnomeCmdDir *dir)
 
     // assume cache is updated
     gboolean returnValue = FALSE;
-    GnomeVFSURI *uri = gnome_cmd_dir_get_uri (dir);
-    GnomeVFSFileInfo *info = gnome_vfs_file_info_new ();
-    GnomeVFSResult res = gnome_vfs_get_file_info_uri (uri, info, (GnomeVFSFileInfoOptions)
-                                            (GNOME_VFS_FILE_INFO_FOLLOW_LINKS | GNOME_VFS_FILE_INFO_NAME_ONLY));
-    if (res != GNOME_VFS_OK || GNOME_CMD_FILE(dir)->info->mtime != info->mtime)
+
+    auto uri              = gnome_cmd_file_get_uri_str(GNOME_CMD_FILE(dir));
+    auto tempGFile        = g_file_new_for_uri(uri);
+    auto gFileInfoCurrent = g_file_query_info(tempGFile, G_FILE_ATTRIBUTE_TIME_MODIFIED, G_FILE_QUERY_INFO_NONE, nullptr, nullptr);
+    auto currentMTime     = g_file_info_get_modification_date_time(gFileInfoCurrent);
+
+    auto cachedMTime = g_file_info_get_modification_date_time(GNOME_CMD_FILE(dir)->gFileInfo);
+    g_free(uri);
+    g_object_unref(gFileInfoCurrent);
+
+    if (currentMTime && cachedMTime && !g_date_time_compare(cachedMTime, currentMTime))
     {
         // cache is not up-to-date
-        GNOME_CMD_FILE (dir)->info->mtime = info->mtime;
+        g_file_info_set_modification_date_time(GNOME_CMD_FILE (dir)->gFileInfo, currentMTime);
         returnValue = TRUE;
     }
-
-    gnome_vfs_file_info_unref (info);
-    gnome_vfs_uri_unref (uri);
 
     // after this function we are sure dir's mtime is up-to-date
     dir->priv->needs_mtime_update = FALSE;
