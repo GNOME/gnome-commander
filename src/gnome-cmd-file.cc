@@ -867,10 +867,13 @@ const gchar *GnomeCmdFile::get_type_string()
 
 gboolean GnomeCmdFile::get_type_pixmap_and_mask(GdkPixmap **pixmap, GdkBitmap **mask)
 {
-    g_return_val_if_fail (info != nullptr, FALSE);
+    g_return_val_if_fail (gFileInfo != nullptr, FALSE);
 
     return IMAGE_get_pixmap_and_mask (GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE),
-                                      info->mime_type, info->symlink_name != nullptr, pixmap, mask);
+                                      g_file_info_get_content_type(gFileInfo),
+                                      g_file_info_get_is_symlink (gFileInfo),
+                                      pixmap,
+                                      mask);
 }
 
 
