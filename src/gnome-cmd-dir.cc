@@ -531,7 +531,6 @@ static void on_list_done (GnomeCmdDir *dir, GList *infolist, GnomeVFSResult resu
         if (!dir->priv->file_collection->empty())
             dir->priv->file_collection->clear();
 
-        //dir->priv->files = create_file_list (dir, infolist);
         dir->priv->files = create_gnome_cmd_file_list_from_gfileinfo_list (dir, infolist);
         dir->priv->file_collection->add(dir->priv->files);
         g_list_free (infolist);

@@ -163,15 +163,17 @@ static void enumerate_children_callback(GObject *direnum, GAsyncResult *result, 
 
     if( error )
     {
-        g_critical("Unable to add files to list, error: %s", error->message);
+        g_critical("Unable to iterate the g_file_enumerator, error: %s", error->message);
+        dir->state = GnomeCmdDir::STATE_EMPTY;
         g_object_unref(direnum);
+        dir->done_func (dir, dir->gFileInfoList, dir->list_result);
         g_error_free(error);
         return;
     }
     else if( gFileInfosList == nullptr )
     {
         /* DONE */
-        dir->state = dir->list_result==GNOME_VFS_OK ? GnomeCmdDir::STATE_LISTED : GnomeCmdDir::STATE_EMPTY;
+        dir->state = GnomeCmdDir::STATE_LISTED;
         dir->done_func (dir, dir->gFileInfoList, dir->list_result);
         g_object_unref(direnum);
         return;
