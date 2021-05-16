@@ -212,44 +212,6 @@ GnomeCmdFile *gnome_cmd_file_new_from_uri (GnomeVFSURI *uri)
     return gnome_cmd_file_new (info, dir);
 }
 
-#if 0
-static void add_file_callback(GObject *direnum,
-                GAsyncResult *result,
-                gpointer user_data){
-    GError *error = NULL;
-    GList *file_list = g_file_enumerator_next_files_finish(
-                    G_FILE_ENUMERATOR(direnum),
-                    result, &error);
-    if( error ){
-        g_critical("Unable to add files to list, error: %s", error->message);
-        g_object_unref(direnum);
-        g_error_free(error);
-        return;
-    }else if( file_list == NULL ){
-        /* Done listing */
-        g_object_unref(direnum);
-        return;
-    }else{
-
-        GList *node = file_list;
-        GFileInfo *info;
-        GtkTreeIter iter;
-        while(node){
-            info = node->data;
-            node = node->next;
-            ...add to store
-            g_object_unref(info);
-        }
-        g_file_enumerator_next_files_async(G_FILE_ENUMERATOR(direnum),
-                        BLOCK_SIZE,
-                        G_PRIORITY_LOW,
-                        NULL,
-                        add_file_callback,
-                        list);
-    }
-    g_list_free(file_list);
-}
-#endif
 
 void GnomeCmdFile::invalidate_metadata()
 {
