@@ -149,7 +149,7 @@ void sync_list (GnomeCmdDir *dir)
     g_object_unref(gFileEnumerator);
     g_free (uri_str);
 
-    dir->state = dir->list_result==GNOME_VFS_OK ? GnomeCmdDir::STATE_LISTED : GnomeCmdDir::STATE_EMPTY;
+    dir->state = GnomeCmdDir::STATE_LISTING;
 }
 
 static void enumerate_children_callback(GObject *direnum, GAsyncResult *result, gpointer user_data)

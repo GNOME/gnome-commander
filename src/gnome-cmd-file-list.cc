@@ -2191,20 +2191,22 @@ void GnomeCmdFileList::focus_file(const gchar *file_to_focus, gboolean scroll_to
         auto f = static_cast<GnomeCmdFile*> (i->data);
 
         g_return_if_fail (f != nullptr);
-        g_return_if_fail (f->info != nullptr);
 
         gint row = get_row_from_file (f);
         if (row == -1)
             return;
 
-        if (strcmp (f->info->name, file_to_focus) == 0)
+        auto basename = g_file_get_basename(f->gFile);
+        if (strcmp (basename, file_to_focus) == 0)
         {
+            g_free(basename);
             priv->cur_file = row;
             focus_file_at_row (this, row);
             if (scroll_to_file)
                 gtk_clist_moveto (*this, row, 0, 0, 0);
             return;
         }
+        g_free(basename);
     }
 
     /* The file was not found, remember the filename in case the file gets
