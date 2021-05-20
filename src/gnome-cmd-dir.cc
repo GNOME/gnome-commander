@@ -59,7 +59,6 @@ struct GnomeCmdDirPrivate
     gint ref_cnt;
     GList *files;
     GnomeCmdFileCollection *file_collection;
-    GnomeVFSResult last_result;
     GnomeCmdCon *con;
     GnomeCmdPath *path;
 
@@ -522,7 +521,7 @@ static GList *create_gnome_cmd_file_list_from_gfileinfo_list (GnomeCmdDir *dir, 
 }
 
 
-static void on_list_done (GnomeCmdDir *dir, GList *infolist, GnomeVFSResult result)
+static void on_list_done (GnomeCmdDir *dir, GList *infolist, GError *error)
 {
     if (dir->state == GnomeCmdDir::STATE_LISTED)
     {
@@ -541,14 +540,15 @@ static void on_list_done (GnomeCmdDir *dir, GList *infolist, GnomeVFSResult resu
             dir->dialog = nullptr;
         }
         dir->priv->lock = FALSE;
-        dir->priv->last_result = GNOME_VFS_OK;
 
         DEBUG('l', "Emitting 'list-ok' signal\n");
         g_signal_emit (dir, signals[LIST_OK], 0, dir->priv->files);
     }
     else if (dir->state == GnomeCmdDir::STATE_EMPTY)
     {
-        DEBUG('l', "File listing failed: %s\n", gnome_vfs_result_to_string (result));
+        auto errorCode = g_enum_to_string (G_IO_ERROR, error->code);
+        DEBUG('l', "File listing failed: %s\n", errorCode);
+        g_free(errorCode);
 
         if (dir->dialog)
         {
@@ -556,11 +556,10 @@ static void on_list_done (GnomeCmdDir *dir, GList *infolist, GnomeVFSResult resu
             dir->dialog = nullptr;
         }
 
-        dir->priv->last_result = result;
         dir->priv->lock = FALSE;
 
         DEBUG('l', "Emitting 'list-failed' signal\n");
-        g_signal_emit (dir, signals[LIST_FAILED], 0, result);
+        g_signal_emit (dir, signals[LIST_FAILED], 0, error->code);
     }
 }
 

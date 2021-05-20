@@ -85,7 +85,7 @@ static gboolean update_list_progress (GnomeCmdDir *dir)
     }
 
     DEBUG ('l', "calling list_done func\n");
-    dir->done_func (dir, dir->infolist, dir->list_result);
+    dir->done_func (dir, dir->infolist, nullptr);
     return FALSE;
 }
 
@@ -158,23 +158,22 @@ static void enumerate_children_callback(GObject *direnum, GAsyncResult *result, 
     auto dir = GNOME_CMD_DIR(user_data);
     GError *error = nullptr;
 
-    GList *gFileInfosList = g_file_enumerator_next_files_finish( gFileEnumerator,
-                    result, &error);
+    GList *gFileInfosList = g_file_enumerator_next_files_finish(gFileEnumerator, result, &error);
 
-    if( error )
+    if(error)
     {
         g_critical("Unable to iterate the g_file_enumerator, error: %s", error->message);
         dir->state = GnomeCmdDir::STATE_EMPTY;
         g_object_unref(direnum);
-        dir->done_func (dir, dir->gFileInfoList, dir->list_result);
+        dir->done_func (dir, dir->gFileInfoList, error);
         g_error_free(error);
         return;
     }
-    else if( gFileInfosList == nullptr )
+    else if(gFileInfosList == nullptr)
     {
         /* DONE */
         dir->state = GnomeCmdDir::STATE_LISTED;
-        dir->done_func (dir, dir->gFileInfoList, dir->list_result);
+        dir->done_func (dir, dir->gFileInfoList, nullptr);
         g_object_unref(direnum);
         return;
     }

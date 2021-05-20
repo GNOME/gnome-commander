@@ -35,7 +35,7 @@ GType gnome_cmd_dir_get_type ();
 struct GnomeCmdDir;
 struct GnomeCmdDirPrivate;
 
-typedef void (* DirListDoneFunc) (GnomeCmdDir *dir, GList *files, GnomeVFSResult result);
+typedef void (* DirListDoneFunc) (GnomeCmdDir *dir, GList *files, GError *error);
 
 #include <string>
 
