@@ -465,7 +465,6 @@ static void on_quicksearch_popup_hide (GtkWidget *quicksearch_popup, GnomeCmdFil
 void GnomeCmdFileList::select_file(GnomeCmdFile *f, gint row)
 {
     g_return_if_fail (f != nullptr);
-    g_return_if_fail (f->info != nullptr);
 
     if (f->is_dotdot)
         return;

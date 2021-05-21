@@ -797,8 +797,6 @@ guint64 GnomeCmdFile::calc_tree_size (gulong *count)
 
 const gchar *GnomeCmdFile::get_tree_size_as_str()
 {
-    g_return_val_if_fail (info != nullptr, nullptr);
-
     if (GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE) != G_FILE_TYPE_DIRECTORY)
         return get_size();
 

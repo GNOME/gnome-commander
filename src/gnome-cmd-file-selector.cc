@@ -161,7 +161,7 @@ inline void GnomeCmdFileSelector::update_selected_files_label()
 
             case G_FILE_TYPE_REGULAR:
                 num_sel_files++;
-                sel_bytes += f->info->size;
+                sel_bytes += f->GetGfileAttributeUInt64(G_FILE_ATTRIBUTE_STANDARD_SIZE);
                 break;
 
             default:
