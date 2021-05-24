@@ -64,7 +64,8 @@ GITIGNOREFILES = \
 	INSTALL \
 	README \
 	py-compile \
-	translators.sh
+	translators.sh \
+	.vscode/ # MS VScode configs
 
 MAINTAINERCLEANFILES = \
 	$(GITIGNORE_MAINTAINERCLEANFILES_TOPLEVEL) \
