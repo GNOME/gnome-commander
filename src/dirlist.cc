@@ -118,12 +118,15 @@ static void enumerate_children_callback(GObject *direnum, GAsyncResult *result, 
 
 void sync_list (GnomeCmdDir *dir)
 {
+    g_return_if_fail(dir != nullptr);
+
     GError *error = nullptr;
 
     gchar *uri_str = GNOME_CMD_FILE (dir)->get_uri_str();
     DEBUG('l', "sync_list: %s\n", uri_str);
+    g_free (uri_str);
 
-    dir->infolist = NULL;
+    dir->gFileInfoList = nullptr;
 
     auto gFile = GNOME_CMD_FILE (dir)->gFile;
 
@@ -145,9 +148,6 @@ void sync_list (GnomeCmdDir *dir)
                     nullptr,
                     enumerate_children_callback,
                     dir);
-
-    g_object_unref(gFileEnumerator);
-    g_free (uri_str);
 
     dir->state = GnomeCmdDir::STATE_LISTING;
 }

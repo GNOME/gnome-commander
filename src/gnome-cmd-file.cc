@@ -344,14 +344,39 @@ void GnomeCmdFile::unref()
 }
 
 
-GnomeVFSResult GnomeCmdFile::chmod(GnomeVFSFilePermissions perm)
+void GnomeCmdFile::chmod(guint32 permissions)
 {
-    g_return_val_if_fail (info != nullptr, GNOME_VFS_ERROR_CORRUPTED_DATA);
+    GError *error;
+    error = nullptr;
 
-    info->permissions = perm;
-    GnomeVFSURI *uri = get_uri();
-    GnomeVFSResult ret = gnome_vfs_set_file_info_uri (uri, info, GNOME_VFS_SET_FILE_INFO_PERMISSIONS);
-    gnome_vfs_uri_unref (uri);
+    auto gFileInfoPerms = g_file_query_info(gFile,
+                                            G_FILE_ATTRIBUTE_UNIX_MODE,
+                                            G_FILE_QUERY_INFO_NONE,
+                                            nullptr,
+                                            &error);
+    if (error)
+    {
+        g_message ("chmod: retrieving file info failed: %s", error->message);
+        g_error_free (error);
+        return;
+    }
+
+    g_file_info_set_attribute_uint32(gFileInfoPerms,
+                                     G_FILE_ATTRIBUTE_UNIX_MODE,
+                                     permissions);
+
+    g_file_set_attributes_from_info(gFile,
+                                    gFileInfoPerms,
+                                    G_FILE_QUERY_INFO_NONE,
+                                    nullptr,
+                                    &error);
+    if (error)
+    {
+        g_message ("chmod: setting file mode failed: %s", error->message);
+        g_object_unref(gFileInfoPerms);
+        g_error_free (error);
+        return;
+    }
 
     if (has_parent_dir (this))
     {
@@ -360,8 +385,7 @@ GnomeVFSResult GnomeCmdFile::chmod(GnomeVFSFilePermissions perm)
         gnome_cmd_dir_file_changed (dir, uri_str);
         g_free (uri_str);
     }
-
-    return ret;
+    g_object_unref(gFileInfoPerms);
 }
 
 
