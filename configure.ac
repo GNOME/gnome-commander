@@ -1,4 +1,4 @@
-AC_INIT([gnome-commander],[1.12.2],[https://gitlab.gnome.org/GNOME/gnome-commander/issues])
+AC_INIT([gnome-commander],[1.12.3],[https://gitlab.gnome.org/GNOME/gnome-commander/issues])
 AC_CONFIG_SRCDIR(src/gnome-cmd-includes.h)
 AC_CONFIG_MACRO_DIR([m4])
 
