@@ -2,17 +2,16 @@
 gnome-commander 1.12.2
 ---------------
 
-New features:
- * ...
-
 Bug fixes:
  * Fixed issue #104 (Segmentation fault when pressing Ctrl+Right / Ctrl+Left / Ctrl+Shift+.)
 
 New or updated translations:
- * ...
+ * es (Daniel Mustieles)
+ * id (Andika Triwidada
+ * ro (Daniel Șerbănescu)
 
 New or updated docs:
- * ...
+ * sv (Anders Jonsson)
 
 ===================================
 gnome-commander 1.12.1
