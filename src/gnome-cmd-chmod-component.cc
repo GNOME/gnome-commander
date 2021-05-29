@@ -1,4 +1,4 @@
-/** 
+/**
  * @file gnome-cmd-chmod-component.cc
  * @copyright (C) 2001-2006 Marcus Bjurman\n
  * @copyright (C) 2007-2012 Piotr Eljasiak\n
@@ -54,10 +54,10 @@ static void on_perms_changed (GnomeCmdChmodComponent *comp)
     static gchar text_view[10];
     static gchar number_view[4];
 
-    GnomeVFSFilePermissions perms = gnome_cmd_chmod_component_get_perms (comp);
+    guint32 permissions = gnome_cmd_chmod_component_get_perms (comp);
 
-    perm2textstring (perms, text_view, sizeof(text_view));
-    perm2numstring (perms, number_view, sizeof(number_view));
+    perm2textstring (permissions, text_view, sizeof(text_view));
+    perm2numstring (permissions, number_view, sizeof(number_view));
     gtk_label_set_text (GTK_LABEL (comp->priv->textview_label), text_view);
     gtk_label_set_text (GTK_LABEL (comp->priv->numberview_label), number_view);
 }
@@ -202,23 +202,22 @@ GtkType gnome_cmd_chmod_component_get_type ()
     return type;
 }
 
-//TODO: Change this function to return guint32
-GnomeVFSFilePermissions gnome_cmd_chmod_component_get_perms (GnomeCmdChmodComponent *comp)
+guint32 gnome_cmd_chmod_component_get_perms (GnomeCmdChmodComponent *comp)
 {
-    guint perms = 0;
+    guint32 perms = 0;
 
     for (gint y=0; y<3; y++)
         for (gint x=0; x<3; x++)
             if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (comp->priv->check_boxes[y][x])))
                 perms |= check_perm[y][x];
 
-    return (GnomeVFSFilePermissions) perms;
+    return perms;
 }
 
 
-void gnome_cmd_chmod_component_set_perms (GnomeCmdChmodComponent *component, GnomeVFSFilePermissions perms)
+void gnome_cmd_chmod_component_set_perms (GnomeCmdChmodComponent *component, guint32 permissions)
 {
     for (gint y=0; y<3; y++)
         for (gint x=0; x<3; x++)
-            gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (component->priv->check_boxes[y][x]), perms & check_perm[y][x]);
+            gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (component->priv->check_boxes[y][x]), permissions & check_perm[y][x]);
 }

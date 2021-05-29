@@ -1275,12 +1275,12 @@ static void mime_exec_single (GnomeCmdFile *f)
                                           -1, _("Cancel"), _("OK"), nullptr);
             g_free (msg);
 
-            if (ret != 1)  return;  else
+            if (ret != 1)
             {
-                GnomeVFSResult result = f->chmod((GnomeVFSFilePermissions) (f->info->permissions|GNOME_CMD_PERM_USER_EXEC));
-                if (result != GNOME_VFS_OK)
-                    return;
+                return;
             }
+
+            f->chmod(GetGfileAttributeUInt32(f->gFile, G_FILE_ATTRIBUTE_UNIX_MODE) | GNOME_CMD_PERM_USER_EXEC);
         }
     }
 

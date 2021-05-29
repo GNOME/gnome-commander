@@ -1,4 +1,4 @@
-/** 
+/**
  * @file gnome-cmd-chmod-dialog.cc
  * @copyright (C) 2001-2006 Marcus Bjurman\n
  * @copyright (C) 2007-2012 Piotr Eljasiak\n
@@ -50,7 +50,7 @@ struct GnomeCmdChmodDialogPrivate
 {
     GList *files;
     GnomeCmdFile *f;
-    GnomeVFSFilePermissions perms;
+    guint32 permissions;
 
     GtkWidget *chmod_component;
     GtkWidget *recurse_check;
@@ -61,22 +61,18 @@ struct GnomeCmdChmodDialogPrivate
 G_DEFINE_TYPE (GnomeCmdChmodDialog, gnome_cmd_chmod_dialog, GNOME_CMD_TYPE_DIALOG)
 
 
-static void do_chmod (GnomeCmdFile *in, GnomeVFSFilePermissions perm, gboolean recursive, ChmodRecursiveMode mode)
+static void do_chmod (GnomeCmdFile *in, guint32 permissions, gboolean recursive, ChmodRecursiveMode mode)
 {
     g_return_if_fail (in != NULL);
-    g_return_if_fail (in->info != NULL);
 
     if (!(recursive
           && mode == CHMOD_DIRS_ONLY
           && in->GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE) != G_FILE_TYPE_DIRECTORY))
     {
-        GnomeVFSResult ret = in->chmod(perm);
+        in->chmod(permissions);
 
-        if (ret != GNOME_VFS_OK)
-            gnome_cmd_show_message (NULL, in->get_name(), gnome_vfs_result_to_string (ret));
-        else
-            if (!recursive)
-                return;
+        if (!recursive)
+            return;
     }
 
     if (in->GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE) == G_FILE_TYPE_DIRECTORY)
@@ -88,11 +84,13 @@ static void do_chmod (GnomeCmdFile *in, GnomeVFSFilePermissions perm, gboolean r
         for (GList *i = gnome_cmd_dir_get_files (dir); i; i = i->next)
         {
             GnomeCmdFile *f = (GnomeCmdFile *) i->data;
-            if (!f->is_dotdot && strcmp (f->info->name, ".") != 0
-                && !GNOME_VFS_FILE_INFO_SYMLINK(f->info))
+            auto filename = GetGfileAttributeString(f->gFile, G_FILE_ATTRIBUTE_STANDARD_NAME);
+            if (!f->is_dotdot && strcmp (filename, ".") != 0
+                && !g_file_info_get_is_symlink(f->gFileInfo))
             {
-                do_chmod (f, perm, TRUE, mode);
+                do_chmod (f, permissions, TRUE, mode);
             }
+            g_free(filename);
         }
         gnome_cmd_dir_unref (dir);
     }
@@ -109,7 +107,7 @@ inline void do_chmod_files (GnomeCmdChmodDialog *dialog)
         ChmodRecursiveMode mode = strcmp (mode_text, recurse_opts[CHMOD_ALL_FILES]) == 0 ? CHMOD_ALL_FILES :
                                                                                            CHMOD_DIRS_ONLY;
 
-        do_chmod (f, dialog->priv->perms, recursive, mode);
+        do_chmod (f, dialog->priv->permissions, recursive, mode);
         view_refresh (NULL, NULL);
     }
 }
@@ -117,7 +115,7 @@ inline void do_chmod_files (GnomeCmdChmodDialog *dialog)
 
 inline void show_perms (GnomeCmdChmodDialog *dialog)
 {
-    gnome_cmd_chmod_component_set_perms (GNOME_CMD_CHMOD_COMPONENT (dialog->priv->chmod_component), dialog->priv->perms);
+    gnome_cmd_chmod_component_set_perms (GNOME_CMD_CHMOD_COMPONENT (dialog->priv->chmod_component), dialog->priv->permissions);
 }
 
 
@@ -144,7 +142,7 @@ static void on_toggle_recurse (GtkToggleButton *togglebutton, GnomeCmdChmodDialo
 
 static void on_perms_changed (GnomeCmdChmodComponent *component, GnomeCmdChmodDialog *dialog)
 {
-    dialog->priv->perms =
+    dialog->priv->permissions =
         gnome_cmd_chmod_component_get_perms (GNOME_CMD_CHMOD_COMPONENT (dialog->priv->chmod_component));
 }
 
@@ -225,7 +223,7 @@ GtkWidget *gnome_cmd_chmod_dialog_new (GList *files)
     dialog->priv->f = (GnomeCmdFile *) dialog->priv->files->data;
     g_return_val_if_fail (dialog->priv->f != NULL, NULL);
 
-    dialog->priv->perms = dialog->priv->f->info->permissions;
+    dialog->priv->permissions = GetGfileAttributeUInt32(dialog->priv->f->gFile, G_FILE_ATTRIBUTE_UNIX_MODE) & 0xFFF;
 
     show_perms (dialog);
 

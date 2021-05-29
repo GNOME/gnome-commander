@@ -53,5 +53,5 @@ GtkWidget *gnome_cmd_chmod_component_new (GnomeVFSFilePermissions perms);
 
 GtkType gnome_cmd_chmod_component_get_type ();
 
-GnomeVFSFilePermissions gnome_cmd_chmod_component_get_perms (GnomeCmdChmodComponent *component);
-void gnome_cmd_chmod_component_set_perms (GnomeCmdChmodComponent *component, GnomeVFSFilePermissions perms);
+guint32 gnome_cmd_chmod_component_get_perms (GnomeCmdChmodComponent *component);
+void gnome_cmd_chmod_component_set_perms (GnomeCmdChmodComponent *component, guint32 permissions);

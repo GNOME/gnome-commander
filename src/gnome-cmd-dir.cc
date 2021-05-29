@@ -499,7 +499,12 @@ static GList *create_gnome_cmd_file_list_from_gfileinfo_list (GnomeCmdDir *dir, 
 
     for (GList *i = info_list; i; i = i->next)
     {
-        GFileInfo *gFileInfo = (GFileInfo *) i->data;
+        auto gFileInfo = (GFileInfo *) i->data;
+
+        if (gFileInfo == nullptr || !G_IS_FILE_INFO (gFileInfo))
+        {
+            continue;
+        }
 
         auto basename = g_file_info_get_attribute_string (gFileInfo, G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME);
         if (strcmp (basename, ".") == 0 || strcmp (basename, "..") == 0)
@@ -533,6 +538,7 @@ static void on_list_done (GnomeCmdDir *dir, GList *infolist, GError *error)
         dir->priv->files = create_gnome_cmd_file_list_from_gfileinfo_list (dir, infolist);
         dir->priv->file_collection->add(dir->priv->files);
         g_list_free (infolist);
+        infolist = nullptr;
 
         if (dir->dialog)
         {
@@ -839,7 +845,7 @@ void gnome_cmd_dir_file_deleted (GnomeCmdDir *dir, const gchar *uri_str)
 }
 
 
-// A file has been changed. Find the corresponding GnomeCmdFile, update its GnomeVFSFileInfo
+// A file has been changed. Find the corresponding GnomeCmdFile, update its GFileInfo
 void gnome_cmd_dir_file_changed (GnomeCmdDir *dir, const gchar *uri_str)
 {
     g_return_if_fail (GNOME_CMD_IS_DIR (dir));
@@ -849,18 +855,18 @@ void gnome_cmd_dir_file_changed (GnomeCmdDir *dir, const gchar *uri_str)
 
     g_return_if_fail (GNOME_CMD_IS_FILE (f));
 
-    GnomeVFSURI *uri = f->get_uri();
-    GnomeVFSFileInfo *info = gnome_vfs_file_info_new ();
-    GnomeVFSResult res = gnome_vfs_get_file_info_uri (uri, info, GNOME_VFS_FILE_INFO_GET_MIME_TYPE);
-    if (res != GNOME_VFS_OK)
-    {
-        DEBUG ('t', "Could not retrieve file information for changed file %s\n", uri_str);
-    }
-    gnome_vfs_uri_unref (uri);
-
     dir->priv->needs_mtime_update = TRUE;
 
-    f->update_info(info);
+    auto gFileInfo = g_file_query_info(f->gFile, "*", G_FILE_QUERY_INFO_NONE, nullptr, nullptr);
+    if (gFileInfo == nullptr)
+    {
+        auto basename = g_file_get_basename(f->gFile);
+        DEBUG ('t', "Could not retrieve file information for changed file %s\n", g_file_get_basename(f->gFile));
+        g_free(basename);
+        return;
+    }
+
+    f->update_gFileInfo(gFileInfo);
     f->invalidate_metadata();
     g_signal_emit (dir, signals[FILE_CHANGED], 0, f);
 }
