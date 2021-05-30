@@ -1,4 +1,4 @@
-/** 
+/**
  * @file gnome-cmd-chown-dialog.cc
  * @copyright (C) 2001-2006 Marcus Bjurman\n
  * @copyright (C) 2007-2012 Piotr Eljasiak\n
@@ -46,22 +46,16 @@ G_DEFINE_TYPE (GnomeCmdChownDialog, gnome_cmd_chown_dialog, GNOME_CMD_TYPE_DIALO
 
 static void do_chown (GnomeCmdFile *in, uid_t uid, gid_t gid, gboolean recurse)
 {
-    g_return_if_fail (in != NULL);
-    g_return_if_fail (in->info != NULL);
+    g_return_if_fail (in != nullptr);
+    g_return_if_fail (in->gFileInfo != nullptr);
 
-    GnomeVFSResult ret = in->chown(uid, gid);
-
-    if (ret != GNOME_VFS_OK)
+    if(!in->chown(uid, gid))
     {
-        gchar *fpath = in->get_real_path();
-        gchar *msg = g_strdup_printf (_("Could not chown %s"), fpath);
-        gnome_cmd_show_message (*main_win, msg, gnome_vfs_result_to_string (ret));
-        g_free (msg);
-        g_free (fpath);
+        return;
     }
-    else
-        if (!recurse)
-            return;
+
+    if (!recurse)
+        return;
 
     if (in->GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE) == G_FILE_TYPE_DIRECTORY)
     {
@@ -72,11 +66,14 @@ static void do_chown (GnomeCmdFile *in, uid_t uid, gid_t gid, gboolean recurse)
         for (GList *i = gnome_cmd_dir_get_files (dir); i; i = i->next)
         {
             GnomeCmdFile *f = (GnomeCmdFile *) i->data;
-            if (!f->is_dotdot && strcmp (f->info->name, ".") != 0
-                && !GNOME_VFS_FILE_INFO_SYMLINK(f->info))
+
+            auto filename = GetGfileAttributeString(f->gFile, G_FILE_ATTRIBUTE_STANDARD_NAME);
+            if (!f->is_dotdot && strcmp (filename, ".") != 0
+                && !g_file_info_get_is_symlink(f->gFileInfo))
             {
                 do_chown (f, uid, gid, TRUE);
             }
+            g_free(filename);
         }
         gnome_cmd_dir_unref (dir);
     }
@@ -109,8 +106,8 @@ static void on_ok (GtkButton *button, GnomeCmdChownDialog *dialog)
 
         g_return_if_fail (f != NULL);
 
-        if (GNOME_VFS_FILE_INFO_LOCAL (f->info))
-            do_chown (f, uid, gid, recurse);
+        //ToDo: Check if this works also on non-local filesystems
+        do_chown (f, uid, gid, recurse);
     }
 
     view_refresh (NULL, NULL);
@@ -185,7 +182,9 @@ GtkWidget *gnome_cmd_chown_dialog_new (GList *files)
     dialog->priv->files = gnome_cmd_file_list_copy (files);
     GnomeCmdFile *f = GNOME_CMD_FILE (dialog->priv->files->data);
 
-    gnome_cmd_chown_component_set (GNOME_CMD_CHOWN_COMPONENT (dialog->priv->chown_component), f->info->uid, f->info->gid);
+    gnome_cmd_chown_component_set (GNOME_CMD_CHOWN_COMPONENT (dialog->priv->chown_component),
+        GetGfileAttributeUInt32(f->gFile, G_FILE_ATTRIBUTE_UNIX_UID),
+        GetGfileAttributeUInt32(f->gFile, G_FILE_ATTRIBUTE_UNIX_GID));
 
     return GTK_WIDGET (dialog);
 }

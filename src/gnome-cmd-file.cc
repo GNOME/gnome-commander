@@ -378,6 +378,8 @@ void GnomeCmdFile::chmod(guint32 permissions)
         return;
     }
 
+    g_object_unref(gFileInfoPerms);
+
     if (has_parent_dir (this))
     {
         GnomeCmdDir *dir = ::get_parent_dir (this);
@@ -385,21 +387,65 @@ void GnomeCmdFile::chmod(guint32 permissions)
         gnome_cmd_dir_file_changed (dir, uri_str);
         g_free (uri_str);
     }
-    g_object_unref(gFileInfoPerms);
 }
 
 
-GnomeVFSResult GnomeCmdFile::chown(uid_t uid, gid_t gid)
+gboolean GnomeCmdFile::chown(uid_t uid, gid_t gid)
 {
-    g_return_val_if_fail (info != nullptr, GNOME_VFS_ERROR_CORRUPTED_DATA);
+    GError *error;
+    error = nullptr;
 
-    if (uid != (uid_t)-1)
-        info->uid = uid;
-    info->gid = gid;
+    auto gFileInfoMods = g_file_query_info(gFile,
+                                           G_FILE_ATTRIBUTE_UNIX_UID "," G_FILE_ATTRIBUTE_UNIX_GID,
+                                           G_FILE_QUERY_INFO_NONE,
+                                           nullptr,
+                                           &error);
+    if (error)
+    {
+        g_message ("chown: retrieving file info failed: %s", error->message);
 
-    GnomeVFSURI *uri = get_uri();
-    GnomeVFSResult ret = gnome_vfs_set_file_info_uri (uri, info, GNOME_VFS_SET_FILE_INFO_OWNER);
-    gnome_vfs_uri_unref (uri);
+        gchar *fname = GetGfileAttributeString(G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME);
+        gchar *msg = g_strdup_printf (_("Could not chown %s"), fname);
+        gnome_cmd_show_message (*main_win, msg, error->message);
+        g_free (msg);
+        g_free (fname);
+
+        g_error_free (error);
+        return false;
+    }
+
+    if (uid != (uid_t) -1)
+    {
+        g_file_info_set_attribute_uint32(gFileInfoMods,
+                                         G_FILE_ATTRIBUTE_UNIX_UID,
+                                         uid);
+    }
+
+    g_file_info_set_attribute_uint32(gFileInfoMods,
+                                     G_FILE_ATTRIBUTE_UNIX_GID,
+                                     gid);
+
+    g_file_set_attributes_from_info(gFile,
+                                    gFileInfoMods,
+                                    G_FILE_QUERY_INFO_NONE,
+                                    nullptr,
+                                    &error);
+    if (error)
+    {
+        g_message ("chmod: setting file mode failed: %s", error->message);
+
+        gchar *fname = GetGfileAttributeString(G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME);
+        gchar *msg = g_strdup_printf (_("Could not chown %s"), fname);
+        gnome_cmd_show_message (*main_win, msg, error->message);
+        g_free (msg);
+        g_free (fname);
+
+        g_object_unref(gFileInfoMods);
+        g_error_free (error);
+        return false;
+    }
+
+    g_object_unref(gFileInfoMods);
 
     if (has_parent_dir (this))
     {
@@ -408,8 +454,7 @@ GnomeVFSResult GnomeCmdFile::chown(uid_t uid, gid_t gid)
         gnome_cmd_dir_file_changed (dir, uri_str);
         g_free (uri_str);
     }
-
-    return ret;
+    return true;
 }
 
 

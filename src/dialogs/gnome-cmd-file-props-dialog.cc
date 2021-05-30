@@ -188,6 +188,7 @@ static void do_calc_tree_size (GnomeCmdFilePropsDialogPrivate *data)
 static void on_dialog_ok (GtkButton *btn, GnomeCmdFilePropsDialogPrivate *data)
 {
     GnomeVFSResult result = GNOME_VFS_OK;
+    gboolean retValue = true;
 
     const gchar *filename = gtk_entry_get_text (GTK_ENTRY (data->filename_entry));
 
@@ -209,15 +210,17 @@ static void on_dialog_ok (GtkButton *btn, GnomeCmdFilePropsDialogPrivate *data)
 
     if (result == GNOME_VFS_OK)
     {
-
         uid_t uid = gnome_cmd_chown_component_get_owner (GNOME_CMD_CHOWN_COMPONENT (data->chown_component));
         gid_t gid = gnome_cmd_chown_component_get_group (GNOME_CMD_CHOWN_COMPONENT (data->chown_component));
 
-        if (uid != data->f->info->uid || gid != data->f->info->gid)
-            result = data->f->chown(uid,gid);
+        if (   uid != GetGfileAttributeUInt32(data->f->gFile, G_FILE_ATTRIBUTE_UNIX_UID)
+            || gid != GetGfileAttributeUInt32(data->f->gFile, G_FILE_ATTRIBUTE_UNIX_GID))
+        {
+            retValue = data->f->chown(uid,gid);
+        }
     }
 
-    if (result != GNOME_VFS_OK)
+    if (result != GNOME_VFS_OK || !retValue)
     {
         gnome_cmd_show_message (NULL, filename, gnome_vfs_result_to_string (result));
         return;
