@@ -152,6 +152,7 @@ static void enumerate_children_callback(GObject *direnum, GAsyncResult *result, 
     {
         /* DONE */
         dir->state = GnomeCmdDir::STATE_LISTED;
+        DEBUG('l', "All files listed\n");
         dir->done_func (dir, dir->gFileInfoList, nullptr);
         g_object_unref(direnum);
         return;
