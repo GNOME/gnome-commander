@@ -69,10 +69,15 @@ static void do_chmod (GnomeCmdFile *in, guint32 permissions, gboolean recursive,
           && mode == CHMOD_DIRS_ONLY
           && in->GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE) != G_FILE_TYPE_DIRECTORY))
     {
-        in->chmod(permissions);
+        if (!in->chmod(permissions))
+        {
+            return;
+        }
 
         if (!recursive)
+        {
             return;
+        }
     }
 
     if (in->GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE) == G_FILE_TYPE_DIRECTORY)

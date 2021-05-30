@@ -90,7 +90,7 @@ struct GnomeCmdFile
     const gchar *get_type_string();
     gboolean get_type_pixmap_and_mask(GdkPixmap **pixmap, GdkBitmap **mask);
 
-    void chmod(guint32 permissions);
+    gboolean chmod(guint32 permissions);
     gboolean chown(uid_t uid, gid_t gid);
     GnomeVFSResult rename(const gchar *new_name);
 

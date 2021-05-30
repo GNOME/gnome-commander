@@ -205,10 +205,10 @@ static void on_dialog_ok (GtkButton *btn, GnomeCmdFilePropsDialogPrivate *data)
         auto perms = gnome_cmd_chmod_component_get_perms (GNOME_CMD_CHMOD_COMPONENT (data->chmod_component));
 
         if (perms != GetGfileAttributeUInt32(data->f->gFile, G_FILE_ATTRIBUTE_UNIX_MODE) & 0xFFF )
-            data->f->chmod(perms);
+            retValue = data->f->chmod(perms);
     }
 
-    if (result == GNOME_VFS_OK)
+    if (result == GNOME_VFS_OK && retValue)
     {
         uid_t uid = gnome_cmd_chown_component_get_owner (GNOME_CMD_CHOWN_COMPONENT (data->chown_component));
         gid_t gid = gnome_cmd_chown_component_get_group (GNOME_CMD_CHOWN_COMPONENT (data->chown_component));
