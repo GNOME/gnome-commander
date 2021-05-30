@@ -109,6 +109,7 @@ inline void do_chmod_files (GnomeCmdChmodDialog *dialog)
         GnomeCmdFile *f = (GnomeCmdFile *) i->data;
         gboolean recursive = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (dialog->priv->recurse_check));
         const gchar *mode_text = get_combo_text (dialog->priv->recurse_combo);
+        //ToDo: This needs a fix. It does not work with Gcmd working in non-english language.
         ChmodRecursiveMode mode = strcmp (mode_text, recurse_opts[CHMOD_ALL_FILES]) == 0 ? CHMOD_ALL_FILES :
                                                                                            CHMOD_DIRS_ONLY;
 
