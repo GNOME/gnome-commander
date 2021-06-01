@@ -566,6 +566,7 @@ static void on_list_done (GnomeCmdDir *dir, GList *infolist, GError *error)
 
         DEBUG('l', "Emitting 'list-failed' signal\n");
         g_signal_emit (dir, signals[LIST_FAILED], 0, error->code);
+        g_error_free(error);
     }
 }
 
