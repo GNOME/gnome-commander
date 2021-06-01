@@ -114,21 +114,31 @@ void sync_list (GnomeCmdDir *dir)
                             G_FILE_QUERY_INFO_NONE,
                             nullptr,
                             &error);
-    if( error )
+    if(error)
     {
-        g_critical("Unable to enumerate children, error: %s", error->message);
+        g_critical("sync_list: Unable to enumerate children, error: %s", error->message);
         g_error_free(error);
         return;
     }
 
-    g_file_enumerator_next_files_async(gFileEnumerator,
-                    FILES_PER_UPDATE,
-                    G_PRIORITY_LOW,
-                    nullptr,
-                    enumerate_children_callback,
-                    dir);
+    GFileInfo *gFileInfoTmp = nullptr;
+    do
+    {
+        gFileInfoTmp = g_file_enumerator_next_file(gFileEnumerator, nullptr, &error);
+        if(error)
+        {
+            g_critical("sync_list: Unable to enumerate next file, error: %s", error->message);
+            break;
+        }
+        if (gFileInfoTmp)
+        {
+            dir->gFileInfoList = g_list_append(dir->gFileInfoList, gFileInfoTmp);
+        }
+    }
+    while (gFileInfoTmp && !error);
 
-    dir->state = GnomeCmdDir::STATE_LISTING;
+    dir->state = error ? GnomeCmdDir::STATE_EMPTY : GnomeCmdDir::STATE_LISTED;
+    dir->done_func (dir, dir->gFileInfoList, error);
 }
 
 static void enumerate_children_callback(GObject *direnum, GAsyncResult *result, gpointer user_data)
