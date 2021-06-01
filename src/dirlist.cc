@@ -170,7 +170,7 @@ static void enumerate_children_callback(GObject *direnum, GAsyncResult *result, 
     else
     {
         dir->gFileInfoList = g_list_concat (dir->gFileInfoList, g_list_copy (gFileInfosList));
-
+        dir->list_counter += FILES_PER_UPDATE;
         g_file_enumerator_next_files_async(G_FILE_ENUMERATOR(direnum),
                         FILES_PER_UPDATE,
                         G_PRIORITY_LOW,
