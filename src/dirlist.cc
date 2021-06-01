@@ -53,7 +53,7 @@ static gboolean update_list_progress (GnomeCmdDir *dir)
     }
 
     DEBUG ('l', "calling list_done func\n");
-    dir->done_func (dir, dir->infolist, nullptr);
+    dir->done_func (dir, dir->gFileInfoList, nullptr);
     return FALSE;
 }
 
