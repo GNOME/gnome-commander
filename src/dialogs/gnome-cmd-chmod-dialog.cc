@@ -89,7 +89,7 @@ static void do_chmod (GnomeCmdFile *in, guint32 permissions, gboolean recursive,
         for (GList *i = gnome_cmd_dir_get_files (dir); i; i = i->next)
         {
             GnomeCmdFile *f = (GnomeCmdFile *) i->data;
-            auto filename = GetGfileAttributeString(f->gFile, G_FILE_ATTRIBUTE_STANDARD_NAME);
+            auto filename = GetGfileAttributeString(f->gFile, G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME);
             if (!f->is_dotdot && strcmp (filename, ".") != 0
                 && !g_file_info_get_is_symlink(f->gFileInfo))
             {

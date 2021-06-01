@@ -67,7 +67,7 @@ static void do_chown (GnomeCmdFile *in, uid_t uid, gid_t gid, gboolean recurse)
         {
             GnomeCmdFile *f = (GnomeCmdFile *) i->data;
 
-            auto filename = GetGfileAttributeString(f->gFile, G_FILE_ATTRIBUTE_STANDARD_NAME);
+            auto filename = GetGfileAttributeString(f->gFile, G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME);
             if (!f->is_dotdot && strcmp (filename, ".") != 0
                 && !g_file_info_get_is_symlink(f->gFileInfo))
             {
