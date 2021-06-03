@@ -148,7 +148,7 @@ GtkWidget *gnome_cmd_make_copy_dialog_new (GnomeCmdFile *f, GnomeCmdDir *dir)
                                                GTK_SIGNAL_FUNC (on_cancel),
                                                dialog);
 
-    gnome_cmd_string_dialog_set_value (GNOME_CMD_STRING_DIALOG (dialog), 0, f->info->name);
+    gnome_cmd_string_dialog_set_value (GNOME_CMD_STRING_DIALOG (dialog), 0, g_file_info_get_display_name(f->gFileInfo));
 
     return GTK_WIDGET (dialog);
 }

@@ -459,10 +459,9 @@ void GnomeCmdAdvrenameDialog::Private::on_dialog_response (GnomeCmdAdvrenameDial
                                     COL_NEW_NAME, &new_name,
                                     -1);
 
-                gchar *old_name = g_strdup (f->info->name);
                 GnomeVFSResult result = GNOME_VFS_OK;
 
-                if (strcmp (f->info->name, new_name) != 0)
+                if (strcmp (g_file_info_get_display_name(f->gFileInfo), new_name) != 0)
                     result = f->rename(new_name);
 
                 gtk_list_store_set (GTK_LIST_STORE (dialog->files), &i,
@@ -470,11 +469,11 @@ void GnomeCmdAdvrenameDialog::Private::on_dialog_response (GnomeCmdAdvrenameDial
                                     COL_RENAME_FAILED, result!=GNOME_VFS_OK,
                                     -1);
 
-                if (!new_focused_file_name && (result == GNOME_VFS_OK) && !strcmp(old_focused_file_name, old_name))
+                if (!new_focused_file_name && (result == GNOME_VFS_OK)
+                    && !strcmp(old_focused_file_name, g_file_info_get_display_name(f->gFileInfo)))
                     new_focused_file_name = g_strdup(new_name);
 
                 g_free (new_name);
-                g_free (old_name);
             }
             if (new_focused_file_name)
             {

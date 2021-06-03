@@ -1178,8 +1178,11 @@ void gnome_cmd_file_selector_show_new_textfile_dialog (GnomeCmdFileSelector *fs)
     GnomeCmdFile *f = fs->file_list()->get_selected_file();
 
     if (f)
-        gnome_cmd_string_dialog_set_value (GNOME_CMD_STRING_DIALOG (dialog), 0, f->info->name);
-
+    {
+        gnome_cmd_string_dialog_set_value (GNOME_CMD_STRING_DIALOG (dialog),
+            0,
+            g_file_info_get_display_name(f->gFileInfo));
+    }
     g_object_ref (dialog);
     gtk_widget_show (dialog);
 }

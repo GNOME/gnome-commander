@@ -170,7 +170,7 @@ static void perform_delete_operation (DeleteData *data)
     {
         GnomeCmdFile *f = (GnomeCmdFile *) i->data;
 
-        if (f->is_dotdot || strcmp(f->info->name, ".") == 0)
+        if (f->is_dotdot || strcmp(g_file_info_get_display_name(f->gFileInfo), ".") == 0)
             continue;
 
         GnomeVFSURI *uri = f->get_uri();

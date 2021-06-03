@@ -638,7 +638,7 @@ void GnomeCmdFileList::toggle_with_pattern(Filter &pattern, gboolean mode)
         {
             auto f = static_cast<GnomeCmdFile*> (i->data);
 
-            if (f && f->info && pattern.match(f->info->name))
+            if (f && f->info && pattern.match(g_file_info_get_display_name(f->gFileInfo)))
             {
                 if (mode)
                     select_file(f);
@@ -651,7 +651,7 @@ void GnomeCmdFileList::toggle_with_pattern(Filter &pattern, gboolean mode)
         {
             auto f = static_cast<GnomeCmdFile*> (i->data);
 
-            if (f && !GNOME_CMD_IS_DIR (f) && f->info && pattern.match(f->info->name))
+            if (f && !GNOME_CMD_IS_DIR (f) && f->info && pattern.match(g_file_info_get_display_name(f->gFileInfo)))
             {
                 if (mode)
                     select_file(f);
@@ -2398,7 +2398,7 @@ void gnome_cmd_file_list_view (GnomeCmdFileList *fl, gint internal_viewer)
         return;
 
     if (f->GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE) == G_FILE_TYPE_DIRECTORY)
-        gnome_cmd_show_message (*main_win, _("Not an ordinary file."), f->info->name);
+        gnome_cmd_show_message (*main_win, _("Not an ordinary file."), g_file_info_get_display_name(f->gFileInfo));
     else
         gnome_cmd_file_view (f, internal_viewer);
 }
@@ -2413,7 +2413,7 @@ void gnome_cmd_file_list_edit (GnomeCmdFileList *fl)
     if (!f)  return;
 
     if (f->GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE) == G_FILE_TYPE_DIRECTORY)
-        gnome_cmd_show_message (*main_win, _("Not an ordinary file."), f->info->name);
+        gnome_cmd_show_message (*main_win, _("Not an ordinary file."), g_file_info_get_display_name(f->gFileInfo));
     else
         gnome_cmd_file_edit (f);
 }
@@ -3085,7 +3085,9 @@ static void drag_data_received (GtkWidget *widget, GdkDragContext *context, gint
     // the drop was over a directory in the list, which means that the
     // xfer should be done to that directory instead of the current one in the list
     if (f && f->GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE) == G_FILE_TYPE_DIRECTORY)
-        to = f->is_dotdot ? gnome_cmd_dir_get_parent (to) : gnome_cmd_dir_get_child (to, f->info->name);
+        to = f->is_dotdot
+            ? gnome_cmd_dir_get_parent (to)
+            : gnome_cmd_dir_get_child (to, g_file_info_get_display_name(f->gFileInfo));
 
     // transform the drag data to a list with URIs
     GList *uri_list = strings_to_uris ((gchar *) selection_data->data);

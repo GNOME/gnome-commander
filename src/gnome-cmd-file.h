@@ -68,7 +68,7 @@ struct GnomeCmdFile
     GnomeVFSURI *get_uri(const gchar *name=NULL);
     gchar *get_uri_str();
 
-    char *get_collation_fname() const    {  return collate_key ? collate_key : info->name;  }
+    char *get_collation_fname() const    {  return collate_key ? collate_key : g_file_get_basename(gFile);  }
 
     const gchar *get_extension();
     const gchar *get_owner();

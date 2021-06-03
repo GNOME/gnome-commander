@@ -103,7 +103,7 @@ struct SearchData
     gchar *build_search_command();
     void search_dir_r(GnomeCmdDir *dir, long level);  /**< searches a given directory for files that matches the criteria given by data */
 
-    gboolean name_matches(gchar *name)   {  return name_filter->match(name);  }     /**< determines if the name of a file matches an regexp */
+    gboolean name_matches(const char *name)  {  return name_filter->match(name);  } /**< determines if the name of a file matches an regexp */
     gboolean content_matches(GnomeCmdFile *f);                                      /**< determines if the content of a file matches an regexp */
     gboolean read_search_file(SearchFileData *, GnomeCmdFile *f);                   /**< loads a file in chunks and returns the content */
     gboolean start_generic_search();
@@ -415,7 +415,9 @@ void SearchData::search_dir_r(GnomeCmdDir *dir, long level)
         if (GNOME_CMD_IS_DIR (f) && level!=0)
         {
             // we don't want to go backwards or to follow symlinks
-            if (!f->is_dotdot && strcmp (f->info->name, ".") != 0 && !GNOME_VFS_FILE_INFO_SYMLINK (f->info))
+            if (!f->is_dotdot
+                && strcmp (g_file_info_get_display_name(f->gFileInfo), ".") != 0
+                && !GNOME_VFS_FILE_INFO_SYMLINK (f->info))
             {
                 GnomeCmdDir *new_dir = GNOME_CMD_DIR (f);
 
@@ -430,7 +432,7 @@ void SearchData::search_dir_r(GnomeCmdDir *dir, long level)
         else                                                            // if the file is a regular one, it might match the search criteria
             if (f->GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE) == G_FILE_TYPE_DIRECTORY)
             {
-                if (!name_matches(f->info->name))                       // if the name doesn't match, let's go to the next file
+                if (!name_matches(g_file_info_get_display_name(f->gFileInfo)))                       // if the name doesn't match, let's go to the next file
                     continue;
 
                 if (dialog->defaults.default_profile.content_search && !content_matches(f))              // if the user wants to we should do some content matching here

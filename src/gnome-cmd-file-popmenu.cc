@@ -241,7 +241,9 @@ static void cb_exec_default (GtkMenuItem *menu_item, GList *files)
             data->files = g_list_append (data->files, file);
         }
         else
-            gnome_cmd_show_message (nullptr, file->info->name, _("Couldn’t retrieve MIME type of the file."));
+            gnome_cmd_show_message (nullptr,
+                g_file_info_get_display_name(file->gFileInfo),
+                _("Couldn’t retrieve MIME type of the file."));
     }
 
     g_hash_table_foreach (gHashTable, (GHFunc) htcb_exec_with_app, nullptr);
@@ -449,7 +451,7 @@ inline gboolean fav_app_matches_files (GnomeCmdApp *app, GList *files)
                 for (; patterns; patterns = patterns->next)
                 {
                     auto pattern = (gchar *) patterns->data;
-                    ok |= fnmatch (pattern, gnomeCmdFile->info->name, fn_flags) == 0;
+                    ok |= fnmatch (pattern, g_file_info_get_display_name(gnomeCmdFile->gFileInfo), fn_flags) == 0;
                 }
 
                 if (!ok) return FALSE;

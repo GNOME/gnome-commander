@@ -104,8 +104,8 @@ static void gnome_cmd_file_finalize (GObject *object)
 
     delete f->metadata;
 
-    if (f->info && f->info->name[0] != '.')
-        DEBUG ('f', "file destroying 0x%p %s\n", f, f->info->name);
+    if (f->gFileInfo && strcmp(g_file_info_get_display_name(f->gFileInfo), "..") != 0)
+        DEBUG ('f', "file destroying 0x%p %s\n", f, g_file_info_get_display_name(f->gFileInfo));
 
     g_free (f->collate_key);
     gnome_vfs_file_info_unref (f->info);
@@ -521,7 +521,7 @@ gchar *GnomeCmdFile::get_quoted_name()
 {
     g_return_val_if_fail (info != nullptr, nullptr);
 
-    return quote_if_needed (info->name);
+    return quote_if_needed (g_file_info_get_display_name(gFileInfo));
 }
 
 
