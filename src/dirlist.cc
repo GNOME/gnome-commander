@@ -187,6 +187,7 @@ void dirlist_list (GnomeCmdDir *dir, gboolean visualProgress)
     g_return_if_fail (GNOME_CMD_IS_DIR (dir));
 
     dir->infolist = NULL;
+    dir->gFileInfoList = nullptr;
     dir->list_handle = NULL;
     dir->list_counter = 0;
     dir->list_result = GNOME_VFS_OK;
