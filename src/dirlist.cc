@@ -190,7 +190,6 @@ void dirlist_list (GnomeCmdDir *dir, gboolean visualProgress)
     dir->gFileInfoList = nullptr;
     dir->list_handle = NULL;
     dir->list_counter = 0;
-    dir->list_result = GNOME_VFS_OK;
     dir->state = GnomeCmdDir::STATE_LISTING;
 
     if (!visualProgress)
@@ -206,8 +205,6 @@ void dirlist_list (GnomeCmdDir *dir, gboolean visualProgress)
 void dirlist_cancel (GnomeCmdDir *dir)
 {
     dir->state = GnomeCmdDir::STATE_EMPTY;
-    dir->list_result = GNOME_VFS_OK;
 
     DEBUG('l', "Calling async_cancel\n");
-    gnome_vfs_async_cancel (dir->list_handle);
 }
