@@ -206,5 +206,6 @@ void dirlist_cancel (GnomeCmdDir *dir)
 {
     dir->state = GnomeCmdDir::STATE_EMPTY;
 
-    DEBUG('l', "Calling async_cancel\n");
+    // ToDo: Add a cancel-trigger for the async dir listing
+    DEBUG('l', "Cancel dir-listing not implemented yet...\n");
 }
