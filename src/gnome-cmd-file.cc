@@ -519,7 +519,7 @@ GnomeVFSResult GnomeCmdFile::rename(const gchar *new_name)
 
 gchar *GnomeCmdFile::get_quoted_name()
 {
-    g_return_val_if_fail (info != nullptr, nullptr);
+    g_return_val_if_fail (gFileInfo != nullptr, nullptr);
 
     return quote_if_needed (g_file_info_get_display_name(gFileInfo));
 }
