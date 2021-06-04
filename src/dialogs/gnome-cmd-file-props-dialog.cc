@@ -69,11 +69,11 @@ struct GnomeCmdFilePropsDialogPrivate
 
 static void calc_tree_size_r (GnomeCmdFilePropsDialogPrivate *data, GnomeVFSURI *uri)
 {
-    GList *list = NULL;
+    GList *list = nullptr;
     gchar *uri_str;
 
     if (data->stop)
-        g_thread_exit (NULL);
+        g_thread_exit (nullptr);
 
     if (!uri) return;
     uri_str = gnome_vfs_uri_to_string (uri, GNOME_VFS_URI_HIDE_PASSWORD);
@@ -111,7 +111,7 @@ static void calc_tree_size_r (GnomeCmdFilePropsDialogPrivate *data, GnomeVFSURI 
     g_free (uri_str);
 
     if (data->stop)
-        g_thread_exit (NULL);
+        g_thread_exit (nullptr);
 
     g_mutex_lock (&data->mutex);
     g_free (data->msg);
@@ -170,13 +170,13 @@ static gboolean update_count_status (GnomeCmdFilePropsDialogPrivate *data)
 
 static void do_calc_tree_size (GnomeCmdFilePropsDialogPrivate *data)
 {
-    g_return_if_fail (data != NULL);
+    g_return_if_fail (data != nullptr);
 
     data->stop = FALSE;
     data->size = 0;
     data->count_done = FALSE;
 
-    data->thread = g_thread_new (NULL, (PthreadFunc) calc_tree_size_func, data);
+    data->thread = g_thread_new (nullptr, (PthreadFunc) calc_tree_size_func, data);
 
     data->updater_proc_id = g_timeout_add (gnome_cmd_data.gui_update_rate, (GSourceFunc) update_count_status, data);
 }
@@ -222,7 +222,7 @@ static void on_dialog_ok (GtkButton *btn, GnomeCmdFilePropsDialogPrivate *data)
 
     if (result != GNOME_VFS_OK || !retValue)
     {
-        gnome_cmd_show_message (NULL, filename, gnome_vfs_result_to_string (result));
+        gnome_cmd_show_message (nullptr, filename, gnome_vfs_result_to_string (result));
         return;
     }
 
@@ -238,7 +238,7 @@ static void on_dialog_cancel (GtkButton *btn, GnomeCmdFilePropsDialogPrivate *da
 
 static void on_copy_clipboard (GtkButton *button, GnomeCmdFilePropsDialogPrivate *data)
 {
-    g_return_if_fail (data != NULL);
+    g_return_if_fail (data != nullptr);
 
     string s;
 
@@ -289,7 +289,7 @@ inline void add_sep (GtkWidget *table, gint y)
 }
 
 
-static void add_tag (GtkWidget *dialog, GtkWidget *table, gint &y, GnomeCmdFileMetadata &metadata, GnomeCmdTag tag, const gchar *appended_text=NULL)
+static void add_tag (GtkWidget *dialog, GtkWidget *table, gint &y, GnomeCmdFileMetadata &metadata, GnomeCmdTag tag, const gchar *appended_text=nullptr)
 {
     if (!metadata.has_tag (tag))
         return;
@@ -364,7 +364,7 @@ static GtkWidget *create_properties_tab (GnomeCmdFilePropsDialogPrivate *data)
     if (data->f->is_local())
     {
         GnomeCmdDir *dir = data->f->get_parent_dir();
-        GnomeCmdCon *con = dir ? gnome_cmd_dir_get_connection (dir) : NULL;
+        GnomeCmdCon *con = dir ? gnome_cmd_dir_get_connection (dir) : nullptr;
         gchar *location = GNOME_CMD_FILE (dir)->get_real_path();
 
         label = create_bold_label (dialog, _("Location:"));
@@ -568,7 +568,7 @@ static GtkTreeModel *create_and_fill_model (GnomeCmdFile *f)
 
         if (prev_tagclass!=curr_tagclass)
         {
-            gtk_tree_store_append (treestore, &toplevel, NULL);
+            gtk_tree_store_append (treestore, &toplevel, nullptr);
             gtk_tree_store_set (treestore, &toplevel,
                                 COL_TAG, TAG_NONE,
                                 COL_TYPE, gcmd_tags_get_class_name(t),
@@ -603,10 +603,10 @@ static GtkWidget *create_view_and_model (GnomeCmdFile *f)
                   "rules-hint", TRUE,
                   "enable-search", TRUE,
                   "search-column", COL_VALUE,
-                  NULL);
+                  nullptr);
 
-    GtkCellRenderer *renderer = NULL;
-    GtkTreeViewColumn *col = NULL;
+    GtkCellRenderer *renderer = nullptr;
+    GtkTreeViewColumn *col = nullptr;
 
     col = gnome_cmd_treeview_create_new_text_column (GTK_TREE_VIEW (view), renderer, COL_TYPE, _("Type"));
     gtk_widget_set_tooltip_text (col->button, _("Metadata namespace"));
@@ -614,7 +614,7 @@ static GtkWidget *create_view_and_model (GnomeCmdFile *f)
     g_object_set (renderer,
                   "weight-set", TRUE,
                   "weight", PANGO_WEIGHT_BOLD,
-                  NULL);
+                  nullptr);
 
     col = gnome_cmd_treeview_create_new_text_column (GTK_TREE_VIEW (view), COL_NAME, _("Name"));
     gtk_widget_set_tooltip_text (col->button, _("Tag name"));
@@ -630,7 +630,7 @@ static GtkWidget *create_view_and_model (GnomeCmdFile *f)
                   "foreground", "DarkGray",
                   "ellipsize-set", TRUE,
                   "ellipsize", PANGO_ELLIPSIZE_END,
-                  NULL);
+                  nullptr);
 
     GtkTreeModel *model = create_and_fill_model (f);
 
@@ -651,7 +651,7 @@ inline GtkWidget *create_metadata_tab (GnomeCmdFilePropsDialogPrivate *data)
     GtkWidget *space_frame = create_space_frame (data->dialog, 1);
     gtk_container_add (GTK_CONTAINER (space_frame), vbox);
 
-    GtkWidget *scrolledwindow = gtk_scrolled_window_new (NULL, NULL);
+    GtkWidget *scrolledwindow = gtk_scrolled_window_new (nullptr, nullptr);
     gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolledwindow), GTK_POLICY_NEVER, GTK_POLICY_AUTOMATIC);
     gtk_container_set_border_width (GTK_CONTAINER (scrolledwindow), 10);
 
@@ -669,11 +669,11 @@ inline GtkWidget *create_metadata_tab (GnomeCmdFilePropsDialogPrivate *data)
 
 GtkWidget *gnome_cmd_file_props_dialog_create (GnomeCmdFile *f)
 {
-    g_return_val_if_fail (f != NULL, NULL);
-    g_return_val_if_fail (f->info != NULL, NULL);
+    g_return_val_if_fail (f != nullptr, nullptr);
+    g_return_val_if_fail (f->info != nullptr, nullptr);
 
     if (f->is_dotdot)
-        return NULL;
+        return nullptr;
 
     GnomeCmdFilePropsDialogPrivate *data = g_new0 (GnomeCmdFilePropsDialogPrivate, 1);
     // data->thread = 0;
@@ -688,7 +688,7 @@ GtkWidget *gnome_cmd_file_props_dialog_create (GnomeCmdFile *f)
     data->f = f;
     data->uri = f->get_uri();
     g_mutex_init(&data->mutex);
-    data->msg = NULL;
+    data->msg = nullptr;
     data->notebook = notebook;
     f->ref();
 
