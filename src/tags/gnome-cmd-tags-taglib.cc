@@ -438,28 +438,28 @@ void gcmd_tags_taglib_init()
 }
 
 
-void gcmd_tags_taglib_load_metadata(GnomeCmdFile *finfo)
+void gcmd_tags_taglib_load_metadata(GnomeCmdFile *gnomeCmdFile)
 {
-    g_return_if_fail (finfo != NULL);
-    g_return_if_fail (finfo->info != NULL);
+    g_return_if_fail (gnomeCmdFile != NULL);
+    g_return_if_fail (gnomeCmdFile->info != NULL);
 
 #ifdef HAVE_ID3
-    if (finfo->metadata && finfo->metadata->is_accessed(TAG_AUDIO))  return;
+    if (gnomeCmdFile->metadata && gnomeCmdFile->metadata->is_accessed(TAG_AUDIO))  return;
 
-    if (!finfo->metadata)
-        finfo->metadata = new GnomeCmdFileMetadata;
+    if (!gnomeCmdFile->metadata)
+        gnomeCmdFile->metadata = new GnomeCmdFileMetadata;
 
-    if (!finfo->metadata)  return;
+    if (!gnomeCmdFile->metadata)  return;
 
-    finfo->metadata->mark_as_accessed(TAG_AUDIO);
-    finfo->metadata->mark_as_accessed(TAG_APE);
-    finfo->metadata->mark_as_accessed(TAG_FLAC);
-    finfo->metadata->mark_as_accessed(TAG_ID3);
-    finfo->metadata->mark_as_accessed(TAG_VORBIS);
+    gnomeCmdFile->metadata->mark_as_accessed(TAG_AUDIO);
+    gnomeCmdFile->metadata->mark_as_accessed(TAG_APE);
+    gnomeCmdFile->metadata->mark_as_accessed(TAG_FLAC);
+    gnomeCmdFile->metadata->mark_as_accessed(TAG_ID3);
+    gnomeCmdFile->metadata->mark_as_accessed(TAG_VORBIS);
 
-    if (!finfo->is_local())  return;
+    if (!gnomeCmdFile->is_local())  return;
 
-    const gchar *fname = finfo->get_real_path();
+    const gchar *fname = gnomeCmdFile->get_real_path();
 
     DEBUG('t', "Loading audio metadata for '%s'\n", fname);
 
@@ -468,7 +468,7 @@ void gcmd_tags_taglib_load_metadata(GnomeCmdFile *finfo)
     if (f.isNull())
         return;
 
-    getAudioProperties(*finfo->metadata, f.audioProperties());
-    getTag(*finfo->metadata, f.file(), f.tag());
+    getAudioProperties(*gnomeCmdFile->metadata, f.audioProperties());
+    getTag(*gnomeCmdFile->metadata, f.file(), f.tag());
 #endif
 }
