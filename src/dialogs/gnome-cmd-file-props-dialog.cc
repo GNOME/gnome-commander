@@ -350,12 +350,12 @@ static GtkWidget *create_properties_tab (GnomeCmdFilePropsDialogPrivate *data)
     table_add (table, data->filename_entry, 1, y++, (GtkAttachOptions) (GTK_FILL|GTK_EXPAND));
     gtk_editable_set_position (GTK_EDITABLE (data->filename_entry), 0);
 
-    if (data->f->info->symlink_name)
+    if (g_file_info_get_is_symlink(data->f->gFileInfo))
     {
         label = create_bold_label (dialog, _("Symlink target:"));
         table_add (table, label, 0, y, GTK_FILL);
 
-        label = create_label (dialog, data->f->info->symlink_name);
+        label = create_label (dialog, g_file_info_get_symlink_target (data->f->gFileInfo));
         table_add (table, label, 1, y++, GTK_FILL);
     }
 
