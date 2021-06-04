@@ -471,7 +471,7 @@ static GtkWidget *create_properties_tab (GnomeCmdFilePropsDialogPrivate *data)
     label = create_bold_label (dialog, _("Size:"));
     table_add (table, label, 0, y, GTK_FILL);
 
-    gchar *s = create_nice_size_str (data->f->info->size);
+    gchar *s = create_nice_size_str (g_file_info_get_size (data->f->gFileInfo));
     label = create_label (dialog, s);
     table_add (table, label, 1, y++, GTK_FILL);
     g_free (s);
@@ -512,7 +512,8 @@ inline GtkWidget *create_permissions_tab (GnomeCmdFilePropsDialogPrivate *data)
     g_object_set_data_full (G_OBJECT (data->dialog), "chown_component", data->chown_component, g_object_unref);
     gtk_widget_show (data->chown_component);
     gnome_cmd_chown_component_set (GNOME_CMD_CHOWN_COMPONENT (data->chown_component),
-        data->f->info->uid, data->f->info->gid);
+        GetGfileAttributeUInt32(data->f->gFile, G_FILE_ATTRIBUTE_UNIX_UID),
+        GetGfileAttributeUInt32(data->f->gFile, G_FILE_ATTRIBUTE_UNIX_GID));
 
     GtkWidget *cat = create_category (data->dialog, data->chown_component, _("Owner and group"));
     gtk_box_pack_start (GTK_BOX (vbox), cat, TRUE, TRUE, 0);
@@ -522,7 +523,8 @@ inline GtkWidget *create_permissions_tab (GnomeCmdFilePropsDialogPrivate *data)
     g_object_ref (data->chmod_component);
     g_object_set_data_full (G_OBJECT (data->dialog), "chmod_component", data->chmod_component, g_object_unref);
     gtk_widget_show (data->chmod_component);
-    gnome_cmd_chmod_component_set_perms (GNOME_CMD_CHMOD_COMPONENT (data->chmod_component), data->f->info->permissions);
+    gnome_cmd_chmod_component_set_perms (GNOME_CMD_CHMOD_COMPONENT (data->chmod_component),
+        GetGfileAttributeUInt32(data->f->gFile, G_FILE_ATTRIBUTE_UNIX_MODE) & 0xFFF);
 
     cat = create_category (data->dialog, data->chmod_component, _("Access permissions"));
     gtk_box_pack_start (GTK_BOX (vbox), cat, TRUE, TRUE, 0);
@@ -670,7 +672,7 @@ inline GtkWidget *create_metadata_tab (GnomeCmdFilePropsDialogPrivate *data)
 GtkWidget *gnome_cmd_file_props_dialog_create (GnomeCmdFile *f)
 {
     g_return_val_if_fail (f != nullptr, nullptr);
-    g_return_val_if_fail (f->info != nullptr, nullptr);
+    g_return_val_if_fail (f->gFileInfo != nullptr, nullptr);
 
     if (f->is_dotdot)
         return nullptr;
