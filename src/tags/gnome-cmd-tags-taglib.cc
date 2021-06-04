@@ -441,7 +441,7 @@ void gcmd_tags_taglib_init()
 void gcmd_tags_taglib_load_metadata(GnomeCmdFile *gnomeCmdFile)
 {
     g_return_if_fail (gnomeCmdFile != NULL);
-    g_return_if_fail (gnomeCmdFile->info != NULL);
+    g_return_if_fail (gnomeCmdFile->gFileInfo != NULL);
 
 #ifdef HAVE_ID3
     if (gnomeCmdFile->metadata && gnomeCmdFile->metadata->is_accessed(TAG_AUDIO))  return;
