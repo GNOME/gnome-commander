@@ -39,7 +39,7 @@ using namespace std;
 
 static gchar * pgd_format_date (time_t utime)
 {
-	time_t time = (time_t) utime;
+        time_t time = (time_t) utime;
         char s[256];
         const char *fmt_hack = "%c";
         size_t len;
@@ -50,7 +50,7 @@ static gchar * pgd_format_date (time_t utime)
 #ifdef HAVE_LOCALTIME_R
         struct tm t;
         if (time == 0 || !localtime_r (&time, &t)) return NULL;
-	len = strftime (s, sizeof (s), fmt_hack, &t);
+        len = strftime (s, sizeof (s), fmt_hack, &t);
 #else
         struct tm *t;
         if (time == 0 || !(t = localtime (&time)) ) return NULL;
@@ -59,9 +59,9 @@ static gchar * pgd_format_date (time_t utime)
 #if defined (__GNUC__)
 #pragma GCC diagnostic pop
 #endif
-	
+
         if (len == 0 || s[0] == '\0') return NULL;
-	
+
         return g_locale_to_utf8 (s, -1, NULL, NULL, NULL);
 }
 
@@ -123,10 +123,10 @@ static gchar *paper_name (gdouble doc_width, double doc_height)
 
 void gcmd_tags_poppler_load_metadata(GnomeCmdFile *f)
 {
-    g_return_if_fail (f != NULL);
-    g_return_if_fail (f->info != NULL);
-
 #ifdef HAVE_PDF
+    g_return_if_fail (f != nullptr);
+    g_return_if_fail (f->gFileInfo != nullptr);
+
     if (f->metadata && f->metadata->is_accessed(TAG_PDF))  return;
 
     if (!f->metadata)
@@ -139,22 +139,14 @@ void gcmd_tags_poppler_load_metadata(GnomeCmdFile *f)
     if (!f->is_local())  return;
 
     // skip non pdf files, as pdf metatags extraction is very expensive...
-    if (f->info->mime_type == NULL) return;
-    if (!strstr (f->info->mime_type, "pdf"))  return;
+    if (g_file_info_get_content_type (f->gFileInfo) == nullptr) return;
+    if (!strstr (g_file_info_get_content_type (f->gFileInfo), "pdf"))  return;
 
-    gchar *fname = f->get_real_path();
-
-    DEBUG('t', "Loading PDF metadata for '%s'\n", fname);
+    DEBUG('t', "Loading PDF metadata for '%s'\n", g_file_info_get_name(f->gFileInfo));
 
     GError *error = NULL;
-    gchar *uri = g_filename_to_uri(fname, NULL, &error);
-    g_free (fname);
+    gchar *uri = g_file_get_uri (f->gFile);
 
-    if (error)
-    {
-	g_error_free(error);
-        return;
-    }
     PopplerDocument *document = poppler_document_new_from_file(uri, NULL, &error);
     g_free(uri);
     if (error)
@@ -164,7 +156,7 @@ void gcmd_tags_poppler_load_metadata(GnomeCmdFile *f)
             f->metadata->mark_as_accessed(TAG_DOC);
             f->metadata->addf(TAG_DOC_SECURITY, "%u", 1);
         }
-	g_error_free(error);
+        g_error_free(error);
         return;
     }
 
@@ -251,13 +243,13 @@ void gcmd_tags_poppler_load_metadata(GnomeCmdFile *f)
 
         f->metadata->add(TAG_PDF_PAGESIZE, paper_size);
 
-	g_object_unref(page);
+        g_object_unref(page);
         g_free (paper_size);
     }
 
     if (poppler_document_has_attachments(document))
     {
-	GList *list = poppler_document_get_attachments(document);
+        GList *list = poppler_document_get_attachments(document);
 
         f->metadata->addf(TAG_PDF_EMBEDDEDFILES, "%u", g_list_length(list));
 
