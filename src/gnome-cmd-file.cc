@@ -1121,13 +1121,15 @@ gboolean GnomeCmdFile::is_executable()
     if (!is_local())
         return FALSE;
 
-    if (gcmd_owner.uid() == info->uid && info->permissions & GNOME_CMD_PERM_USER_EXEC)
+    if (gcmd_owner.uid() == GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_UNIX_UID)
+                            && GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_UNIX_MODE) & GNOME_CMD_PERM_USER_EXEC)
         return TRUE;
 
-    if (gcmd_owner.gid() == info->gid && info->permissions & GNOME_CMD_PERM_GROUP_EXEC)
+    if (gcmd_owner.gid() == GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_UNIX_GID)
+                            && GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_UNIX_MODE) & GNOME_CMD_PERM_GROUP_EXEC)
         return TRUE;
 
-    if (info->permissions & GNOME_CMD_PERM_OTHER_EXEC)
+    if (GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_UNIX_MODE) & GNOME_CMD_PERM_OTHER_EXEC)
         return TRUE;
 
     return FALSE;
