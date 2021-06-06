@@ -152,7 +152,7 @@ static gint gnome_cmd_key_snooper(GtkWidget *grab_widget, GdkEventKey *event, Gn
     {
         return FALSE;
     }
-    
+
     if ((gnome_cmd_data.options.quick_search == GNOME_CMD_QUICK_SEARCH_JUST_A_CHARACTER) &&
         (state_is_ctrl (event->state) || state_is_ctrl_shift (event->state) || state_is_ctrl_alt_shift (event->state)
         || (state_is_alt (event->state) || state_is_alt_shift (event->state))
@@ -659,7 +659,7 @@ void GnomeCmdMainWin::update_drop_con_button(GnomeCmdFileList *fl)
     if (prev_pixmap)
     {
         gtk_widget_destroy (prev_pixmap);
-        prev_pixmap = NULL;
+        prev_pixmap = nullptr;
     }
 
     if (gnome_cmd_con_is_closeable (con))
@@ -680,7 +680,7 @@ void GnomeCmdMainWin::update_drop_con_button(GnomeCmdFileList *fl)
         {
             g_object_ref (pixmap);
             gtk_widget_show (pixmap);
-            gtk_container_add (GTK_CONTAINER (btn), pixmap);
+            gtk_tool_button_set_icon_widget (GTK_TOOL_BUTTON(btn), pixmap);
             prev_pixmap = pixmap;
         }
     }
@@ -691,7 +691,7 @@ void GnomeCmdMainWin::update_drop_con_button(GnomeCmdFileList *fl)
         {
             g_object_ref (label);
             gtk_widget_show (label);
-            gtk_container_add (GTK_CONTAINER (btn), label);
+            gtk_tool_button_set_label_widget(GTK_TOOL_BUTTON(btn), label);
             prev_pixmap = label;
         }
     }
