@@ -527,9 +527,8 @@ gchar *GnomeCmdFile::get_quoted_name()
 
 gchar *GnomeCmdFile::get_path()
 {
-    //g_return_val_if_fail (gFile != nullptr, nullptr);
+    g_return_val_if_fail (gFileInfo != nullptr, nullptr);
 
-    //auto filename = GetGfileAttributeString (G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME);
     auto filename = g_file_info_get_name (this->gFileInfo);
 
     if (strcmp (filename, G_DIR_SEPARATOR_S) == 0)
