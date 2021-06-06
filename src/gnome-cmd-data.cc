@@ -1731,7 +1731,7 @@ void GnomeCmdData::save_devices()
             {
                 if (!gVariantBuilder)
                 {
-                    g_variant_builder_init (gVariantBuilder, G_VARIANT_TYPE_ARRAY);
+                    gVariantBuilder = g_variant_builder_new (G_VARIANT_TYPE_ARRAY);
                 }
 
                 gchar *icon_path = g_strdup (gnome_cmd_con_device_get_icon_path (device));
@@ -1751,6 +1751,7 @@ void GnomeCmdData::save_devices()
         {
             devicesToStore = g_variant_builder_end (gVariantBuilder);
             g_settings_set_value(options.gcmd_settings->general, GCMD_SETTINGS_DEVICES, devicesToStore);
+            g_variant_builder_unref(gVariantBuilder);
             return;
         }
     }
