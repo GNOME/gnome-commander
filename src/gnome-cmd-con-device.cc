@@ -94,7 +94,6 @@ static void do_mount_thread_func (GnomeCmdCon *con)
     g_return_if_fail (GNOME_CMD_IS_CON_DEVICE (con));
 
     gint ret, estatus;
-    GnomeVFSFileInfoOptions infoOpts = (GnomeVFSFileInfoOptions) (GNOME_VFS_FILE_INFO_FOLLOW_LINKS | GNOME_VFS_FILE_INFO_GET_MIME_TYPE | GNOME_VFS_FILE_INFO_FORCE_FAST_MIME_TYPE);
 
     if (!is_mounted (con))
     {
@@ -150,6 +149,7 @@ static void do_mount_thread_func (GnomeCmdCon *con)
 
     gchar *uri_str = gnome_vfs_uri_to_string (uri, GNOME_VFS_URI_HIDE_PASSWORD);
     con->base_info = gnome_vfs_file_info_new ();
+    GnomeVFSFileInfoOptions infoOpts = (GnomeVFSFileInfoOptions) (GNOME_VFS_FILE_INFO_FOLLOW_LINKS | GNOME_VFS_FILE_INFO_GET_MIME_TYPE | GNOME_VFS_FILE_INFO_FORCE_FAST_MIME_TYPE);
     GnomeVFSResult result = gnome_vfs_get_file_info_uri (uri, con->base_info, infoOpts);
 
     gnome_vfs_uri_unref (uri);
