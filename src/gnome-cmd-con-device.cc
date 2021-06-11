@@ -45,16 +45,16 @@ struct GnomeCmdConDevicePrivate
     gchar *icon_path {nullptr};
     gboolean autovolume;
     GnomeVFSVolume *vfsvol;
+    GMount *gMount;
+    GVolume *gVolume;
 };
 
 
 static GnomeCmdConClass *parent_class = nullptr;
 
 
-static gboolean is_mounted (GnomeCmdCon *con)
+static gboolean is_mounted (GnomeCmdConDevice *dev_con)
 {
-    g_return_val_if_fail (GNOME_CMD_IS_CON_DEVICE (con), FALSE);
-
     FILE *fd = fopen ("/etc/mtab", "r");
 
     if (!fd)
@@ -62,7 +62,6 @@ static gboolean is_mounted (GnomeCmdCon *con)
 
     gchar tmp[512];
     gboolean ret = FALSE;
-    GnomeCmdConDevice *dev_con = GNOME_CMD_CON_DEVICE (con);
 
     gchar *s;
     while ((s=fgets (tmp, sizeof(tmp), fd))!=nullptr)
@@ -89,24 +88,24 @@ static gboolean is_mounted (GnomeCmdCon *con)
 }
 
 
-static void do_mount_thread_func (GnomeCmdCon *con)
+static void do_legacy_mount(GnomeCmdConDevice *dev_con)
 {
-    g_return_if_fail (GNOME_CMD_IS_CON_DEVICE (con));
-
     gint ret, estatus;
 
-    if (!is_mounted (con))
+    if (!is_mounted (dev_con))
     {
         gchar *cmd;
         gchar *emsg = nullptr;
 
-        GnomeCmdConDevice *dev_con = GNOME_CMD_CON_DEVICE (con);
+        if (dev_con->priv->device_fn != nullptr && dev_con->priv->mountp != nullptr)
+        {
+            DEBUG ('m', "mounting %s\n", dev_con->priv->mountp);
+            if (dev_con->priv->device_fn)
+                cmd = g_strdup_printf ("mount %s %s", dev_con->priv->device_fn, dev_con->priv->mountp);
+            else
+                cmd = g_strdup_printf ("mount %s", dev_con->priv->mountp);
+        }
 
-        DEBUG ('m', "mounting %s\n", dev_con->priv->mountp);
-        if (dev_con->priv->device_fn)
-            cmd = g_strdup_printf ("mount %s %s", dev_con->priv->device_fn, dev_con->priv->mountp);
-        else
-            cmd = g_strdup_printf ("mount %s", dev_con->priv->mountp);
         DEBUG ('m', "Mount command: %s\n", cmd);
         ret = system (cmd);
         estatus = WEXITSTATUS (ret);
@@ -142,6 +141,25 @@ static void do_mount_thread_func (GnomeCmdCon *con)
     }
     else
         DEBUG('m', "The device was already mounted\n");
+}
+
+
+static void do_mount_thread_func (GnomeCmdCon *con)
+{
+    g_return_if_fail (GNOME_CMD_IS_CON_DEVICE (con));
+
+    GnomeCmdConDevice *dev_con = GNOME_CMD_CON_DEVICE (con);
+
+    // If mount point is given, we have mount the device with system calls ('mount')
+    // ToDo: Don't do this anymore...
+    if (dev_con->priv->mountp)
+    {
+        do_legacy_mount(dev_con);
+    }
+    else
+    {
+        /* ... */
+    }
 
     GnomeVFSURI *uri = gnome_cmd_con_create_uri (con, con->base_path);
     if (!uri)
