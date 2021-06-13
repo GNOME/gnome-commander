@@ -344,11 +344,13 @@ GnomeCmdDir *gnome_cmd_dir_new (GnomeCmdCon *con, GnomeCmdPath *path, gboolean i
 {
     g_return_val_if_fail (GNOME_CMD_IS_CON (con), nullptr);
     g_return_val_if_fail (path!=nullptr, nullptr);
+    GError *error = nullptr;
 
     auto gnomeVFSUri = gnome_cmd_con_create_uri (con, path);
     if (!gnomeVFSUri) return nullptr;
 
     gchar *uri_str = gnome_vfs_uri_to_string (gnomeVFSUri, GNOME_VFS_URI_HIDE_PASSWORD);
+    gnome_vfs_uri_unref (gnomeVFSUri);
 
     GnomeCmdDir *dir = gnome_cmd_con_cache_lookup (con, uri_str);
     g_free (uri_str);
@@ -357,18 +359,12 @@ GnomeCmdDir *gnome_cmd_dir_new (GnomeCmdCon *con, GnomeCmdPath *path, gboolean i
         return dir;
     }
 
-    auto infoOpts = (GnomeVFSFileInfoOptions) (GNOME_VFS_FILE_INFO_FOLLOW_LINKS | GNOME_VFS_FILE_INFO_GET_MIME_TYPE | GNOME_VFS_FILE_INFO_FORCE_FAST_MIME_TYPE);
-    auto gnomeVFSFileInfo = gnome_vfs_file_info_new ();
-    auto gnomeVFSResult = gnome_vfs_get_file_info_uri (gnomeVFSUri, gnomeVFSFileInfo, infoOpts);
-
     //ToDo. Verallgemeinere das mit _from_uri()!
     auto gFileTmp = g_file_new_for_path(path->get_path());
-    auto gFileInfo = g_file_query_info(gFileTmp, "*", G_FILE_QUERY_INFO_NONE, nullptr, nullptr);
+    auto gFileInfo = g_file_query_info(gFileTmp, "*", G_FILE_QUERY_INFO_NONE, nullptr, &error);
     g_object_unref(gFileTmp);
 
-    gnome_vfs_uri_unref (gnomeVFSUri);
-
-    if (gnomeVFSResult == GNOME_VFS_OK)
+    if (!error)
     {
         dir = static_cast<GnomeCmdDir*> (g_object_new (GNOME_CMD_TYPE_DIR, nullptr));
         gnome_cmd_dir_set_path (dir, path);
@@ -383,9 +379,9 @@ GnomeCmdDir *gnome_cmd_dir_new (GnomeCmdCon *con, GnomeCmdPath *path, gboolean i
     {
         if (!isStartup)
         {
-            gnome_cmd_show_message (*main_win, path->get_display_path(), gnome_vfs_result_to_string (gnomeVFSResult));
+            gnome_cmd_show_message (*main_win, path->get_display_path(), error->message);
+            g_error_free(error);
         }
-        gnome_vfs_file_info_unref (gnomeVFSFileInfo);
     }
 
     return dir;
