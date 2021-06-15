@@ -108,7 +108,8 @@ static void gnome_cmd_file_finalize (GObject *object)
         DEBUG ('f', "file destroying 0x%p %s\n", f, g_file_info_get_display_name(f->gFileInfo));
 
     g_free (f->collate_key);
-    gnome_vfs_file_info_unref (f->info);
+    if (f->info)
+        gnome_vfs_file_info_unref (f->info);
     g_object_unref(f->gFileInfo);
     if (f->priv->dir_handle)
         handle_unref (f->priv->dir_handle);
