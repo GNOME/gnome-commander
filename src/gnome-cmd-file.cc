@@ -303,7 +303,6 @@ void gnome_cmd_file_setup (GnomeCmdFile *gnomeCmdFile, GFileInfo *gFileInfo, Gno
     }
 
     auto path = gnomeCmdFile->get_path();
-    //auto path = g_file_info_get
 
     if (path)
     {
