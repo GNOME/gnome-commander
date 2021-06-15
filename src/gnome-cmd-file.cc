@@ -145,12 +145,8 @@ GnomeCmdFile *gnome_cmd_file_new (const gchar *local_full_path)
 {
     g_return_val_if_fail (local_full_path != nullptr, nullptr);
 
-    gchar *text_uri = gnome_vfs_get_uri_from_local_path (local_full_path);
-    GnomeVFSURI *uri = gnome_vfs_uri_new (text_uri);
-    GnomeCmdFile *f = gnome_cmd_file_new_from_uri (uri);
-
-    gnome_vfs_uri_unref (uri);
-    g_free (text_uri);
+    auto gFile = g_file_new_for_path(local_full_path);
+    GnomeCmdFile *f = gnome_cmd_file_new_from_gfile (gFile);
 
     return f;
 }
@@ -188,28 +184,35 @@ GnomeCmdFile *gnome_cmd_file_new (GFileInfo *gFileInfo, GnomeCmdDir *dir)
 }
 
 
-GnomeCmdFile *gnome_cmd_file_new_from_uri (GnomeVFSURI *uri)
+GnomeCmdFile *gnome_cmd_file_new_from_gfile (GFile *gFile)
 {
-    g_return_val_if_fail (uri != nullptr, nullptr);
-    g_return_val_if_fail (gnome_vfs_uri_is_local (uri), nullptr);
+    g_return_val_if_fail (gFile != nullptr, nullptr);
+    GError *error;
 
-    const GnomeVFSFileInfoOptions infoOpts = (GnomeVFSFileInfoOptions) (GNOME_VFS_FILE_INFO_FOLLOW_LINKS|GNOME_VFS_FILE_INFO_GET_MIME_TYPE);
-    GnomeVFSFileInfo *info = gnome_vfs_file_info_new ();
-
-    if (gnome_vfs_get_file_info_uri (uri, info, infoOpts) != GNOME_VFS_OK)
+    auto gFileInfo = g_file_query_info(gFile, "*", G_FILE_QUERY_INFO_NONE, nullptr, &error);
+    if (!gFileInfo || error)
     {
-        gnome_vfs_file_info_unref (info);
+        g_object_unref (gFileInfo);
+        g_critical ("gnome_cmd_file_new_from_gfile error: %s\n", error->message);
+        g_error_free (error);
         return nullptr;
     }
 
-    GnomeVFSURI *parent = gnome_vfs_uri_get_parent (uri);
-    gchar *parent_path = gnome_vfs_unescape_string (gnome_vfs_uri_get_path (parent), nullptr);
-    GnomeCmdDir *dir = gnome_cmd_dir_new (get_home_con(), new GnomeCmdPlainPath(parent_path));
+    auto gFileParent = g_file_get_parent(gFile);
+    if (gFileParent)
+    {
+        auto gFileParentPath = g_file_get_path(gFileParent);
+        GnomeCmdDir *dir = gnome_cmd_dir_new (get_home_con(), new GnomeCmdPlainPath(gFileParentPath));
+        g_free(gFileParentPath);
+        g_object_unref(gFileParent);
+        return gnome_cmd_file_new (gFileInfo, dir);
+    }
 
-    g_free (parent_path);
-    gnome_vfs_uri_unref (parent);
-
-    return gnome_cmd_file_new (info, dir);
+    auto gFileParentPath = g_file_get_path(gFileParent);
+    GnomeCmdDir *dir = gnome_cmd_dir_new (get_home_con(), new GnomeCmdPlainPath(G_DIR_SEPARATOR_S));
+    g_free(gFileParentPath);
+    g_object_unref(gFileParent);
+    return gnome_cmd_file_new (gFileInfo, dir);
 }
 
 
@@ -986,9 +989,9 @@ inline void do_view_file (GnomeCmdFile *f, gint internal_viewer=-1)
 }
 
 
-static void on_file_downloaded_for_view (GnomeVFSURI *uri)
+static void on_file_downloaded_for_view (GFile *gFile)
 {
-    GnomeCmdFile *f = gnome_cmd_file_new_from_uri (uri);
+    GnomeCmdFile *f = gnome_cmd_file_new_from_gfile (gFile);
 
     if (!f)
         return;
@@ -1017,6 +1020,7 @@ void gnome_cmd_file_view (GnomeCmdFile *f, gint internal_viewer)
     GnomeCmdPlainPath path(path_str);
     GnomeVFSURI *src_uri = f->get_uri();
     GnomeVFSURI *dest_uri = gnome_cmd_con_create_uri (get_home_con (), &path);
+    auto gFile = gnome_cmd_con_create_gfile (get_home_con (), &path);
 
     g_printerr ("Copying to: %s\n", path_str);
     g_free (path_str);
@@ -1026,7 +1030,7 @@ void gnome_cmd_file_view (GnomeCmdFile *f, gint internal_viewer)
                                  GNOME_VFS_XFER_FOLLOW_LINKS,
                                  GNOME_VFS_XFER_OVERWRITE_MODE_REPLACE,
                                  GTK_SIGNAL_FUNC (on_file_downloaded_for_view),
-                                 dest_uri);
+                                 gFile);
 }
 
 
