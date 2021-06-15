@@ -128,7 +128,7 @@ inline const gchar *GnomeCmdFile::get_name()
     return g_file_info_get_display_name(gFileInfo);
 }
 
-GnomeCmdFile *gnome_cmd_file_new_from_uri (GnomeVFSURI *uri);
+GnomeCmdFile *gnome_cmd_file_new_from_gfile (GFile *gFile);
 GnomeCmdFile *gnome_cmd_file_new (const gchar *local_full_path);
 GnomeCmdFile *gnome_cmd_file_new (GnomeVFSFileInfo *info, GnomeCmdDir *dir);
 GnomeCmdFile *gnome_cmd_file_new (GFileInfo *gFileInfo, GnomeCmdDir *dir);
