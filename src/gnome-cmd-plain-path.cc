@@ -63,6 +63,7 @@ GnomeCmdPath *GnomeCmdPlainPath::get_child(const gchar *child)
                             : g_strconcat(G_DIR_SEPARATOR_S, path, child, nullptr);
 
     auto childGFile = g_file_new_for_path(fullPath);
+    g_free (fullPath);
 
     gchar *pathString = g_file_get_path(childGFile);
     g_object_unref(childGFile);
