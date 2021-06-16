@@ -94,37 +94,14 @@ GnomeCmdDir *gnome_cmd_dir_get_child (GnomeCmdDir *dir, const gchar *child);
 GnomeCmdCon *gnome_cmd_dir_get_connection (GnomeCmdDir *dir);
 Handle *gnome_cmd_dir_get_handle (GnomeCmdDir *dir);
 
-//inline GnomeCmdFile *gnome_cmd_dir_new_parent_dir_file (GnomeCmdDir *dir)
-//{
-//    GnomeVFSFileInfo *info = gnome_vfs_file_info_new ();
-//
-//    memset (info, '\0', sizeof (GnomeVFSFileInfo));
-//    info->name = g_strdup ("..");
-//    info->type = GNOME_VFS_FILE_TYPE_DIRECTORY;
-//    info->mime_type = g_strdup ("x-directory/normal");
-//    info->size = 0;
-//    info->refcount = 1;
-//    info->valid_fields = (GnomeVFSFileInfoFields) (GNOME_VFS_FILE_INFO_FIELDS_TYPE |
-//                                                   GNOME_VFS_FILE_INFO_FIELDS_SIZE |
-//                                                   GNOME_VFS_FILE_INFO_FIELDS_MIME_TYPE);
-//
-//    return gnome_cmd_file_new (info, dir);
-//}
-//
 inline GnomeCmdFile *gnome_cmd_dir_new_parent_dir_file (GnomeCmdDir *dir)
 {
     auto info = g_file_info_new ();
 
-    //memset (info, '\0', sizeof (GFileInfo));
     g_file_info_set_name(info, "..");
     g_file_info_set_display_name(info, "..");
     g_file_info_set_file_type(info, G_FILE_TYPE_DIRECTORY);
-    //info->mime_type = g_strdup ("x-directory/normal");
     g_file_info_set_size(info, 0);
-    //info->refcount = 1;
-    //info->valid_fields = (GnomeVFSFileInfoFields) (GNOME_VFS_FILE_INFO_FIELDS_TYPE |
-    //                                               GNOME_VFS_FILE_INFO_FIELDS_SIZE |
-    //                                               GNOME_VFS_FILE_INFO_FIELDS_MIME_TYPE);
 
     return gnome_cmd_file_new (info, dir);
 }
