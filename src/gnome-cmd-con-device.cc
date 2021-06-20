@@ -685,7 +685,7 @@ const gchar *gnome_cmd_con_device_get_device_fn (GnomeCmdConDevice *dev)
 }
 
 
-const gchar *gnome_cmd_con_device_get_mountp (GnomeCmdConDevice *dev)
+const gchar *gnome_cmd_con_device_get_mountp_string (GnomeCmdConDevice *dev)
 {
     g_return_val_if_fail (dev != nullptr, nullptr);
     g_return_val_if_fail (dev->priv != nullptr, nullptr);

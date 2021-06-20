@@ -41,7 +41,7 @@ inline gboolean con_device_has_path (FileSelectorID fsID, GnomeCmdCon *&dev, con
     dev = main_win->fs(fsID)->get_connection();
 
     return GNOME_CMD_IS_CON_DEVICE (dev) &&
-           g_str_has_prefix (user_path, gnome_cmd_con_device_get_mountp (GNOME_CMD_CON_DEVICE (dev)));
+           g_str_has_prefix (user_path, gnome_cmd_con_device_get_mountp_string (GNOME_CMD_CON_DEVICE (dev)));
 }
 
 
@@ -74,7 +74,7 @@ static void on_ok (GtkButton *button, GnomeCmdPrepareXferDialog *dialog)
             // if LEFT or RIGHT device (connection) points to user_path than adjust user_path and set con to the found device
             if (con_device_has_path (INACTIVE, dev, user_path) || con_device_has_path (ACTIVE, dev, user_path))
             {
-                dest_path = g_strdup (user_path + strlen (gnome_cmd_con_device_get_mountp (GNOME_CMD_CON_DEVICE (dev))));
+                dest_path = g_strdup (user_path + strlen (gnome_cmd_con_device_get_mountp_string (GNOME_CMD_CON_DEVICE (dev))));
                 con = dev;
             }
             else    // otherwise connection not present in any pane, use home connection instead

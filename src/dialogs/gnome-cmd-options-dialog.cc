@@ -1935,7 +1935,7 @@ static GtkWidget *create_device_dialog (GnomeCmdConDevice *dev, GtkSignalFunc on
     entry = create_file_chooser_button (dialog, "device_entry", s);
     table_add (table, entry, 1, 1, (GtkAttachOptions) (GTK_EXPAND|GTK_FILL));
 
-    if (dev) s = gnome_cmd_con_device_get_mountp (dev);
+    if (dev) s = gnome_cmd_con_device_get_mountp_string (dev);
     entry = create_directory_chooser_button (dialog, "mountp_entry", s);
     table_add (table, entry, 1, 2, (GtkAttachOptions) (GTK_EXPAND|GTK_FILL));
 

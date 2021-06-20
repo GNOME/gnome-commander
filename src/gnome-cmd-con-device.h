@@ -59,7 +59,7 @@ void gnome_cmd_con_device_set_alias (GnomeCmdConDevice *dev, const gchar *alias)
 const gchar *gnome_cmd_con_device_get_device_fn (GnomeCmdConDevice *dev);
 void gnome_cmd_con_device_set_device_fn (GnomeCmdConDevice *dev, const gchar *device_fn);
 
-const gchar *gnome_cmd_con_device_get_mountp (GnomeCmdConDevice *dev);
+const gchar *gnome_cmd_con_device_get_mountp_string (GnomeCmdConDevice *dev);
 void gnome_cmd_con_device_set_mountp (GnomeCmdConDevice *dev, const gchar *mountp);
 
 const gchar *gnome_cmd_con_device_get_icon_path (GnomeCmdConDevice *dev);

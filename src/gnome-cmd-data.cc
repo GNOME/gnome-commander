@@ -1739,7 +1739,7 @@ void GnomeCmdData::save_devices()
                 g_variant_builder_add (gVariantBuilder, GCMD_SETTINGS_DEVICES_FORMAT_STRING,
                                         gnome_cmd_con_device_get_alias (device),
                                         gnome_cmd_con_device_get_device_fn (device),
-                                        gnome_cmd_con_device_get_mountp (device),
+                                        gnome_cmd_con_device_get_mountp_string (device),
                                         icon_path);
                 g_free (icon_path);
             }
@@ -2141,7 +2141,7 @@ static void volume_removed (GVolumeMonitor *volume_monitor, GVolume *gVolume)
     remove_gvolume (gVolume);
 }
 
-inline void set_vfs_volume_monitor ()
+inline void set_g_volume_monitor ()
 {
     auto monitor = g_volume_monitor_get();
 
@@ -3411,7 +3411,7 @@ void GnomeCmdData::load()
     load_intviewer_defaults();
     load_auto_load_plugins();
 
-    set_vfs_volume_monitor ();
+    set_g_volume_monitor ();
 }
 
 
