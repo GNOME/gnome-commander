@@ -130,7 +130,7 @@ static void gnome_cmd_dir_finalize (GObject *object)
 {
     GnomeCmdDir *dir = GNOME_CMD_DIR (object);
 
-    DEBUG ('d', "dir destroying 0x%p %s\n", dir, dir->priv->path->get_path());
+    DEBUG ('d', "dir destroying %p %s\n", dir, dir->priv->path->get_path());
 
     gnome_cmd_con_remove_from_cache (dir->priv->con, dir);
 
@@ -906,7 +906,7 @@ void gnome_cmd_dir_start_monitoring (GnomeCmdDir *dir)
         if (result == GNOME_VFS_OK)
             DEBUG('n', "Added monitor to 0x%x %s\n", dir, uri_str);
         else
-            DEBUG ('n', "Failed to add monitor to 0x%p %s: %s\n", dir, uri_str, gnome_vfs_result_to_string (result));
+            DEBUG ('n', "Failed to add monitor to %p %s: %s\n", dir, uri_str, gnome_vfs_result_to_string (result));
 
         g_free (uri_str);
     }
@@ -929,10 +929,10 @@ void gnome_cmd_dir_cancel_monitoring (GnomeCmdDir *dir)
         {
             GnomeVFSResult result = gnome_vfs_monitor_cancel (dir->priv->monitor_handle);
             if (result == GNOME_VFS_OK)
-                DEBUG('n', "Removed monitor from 0x%p %s\n",
+                DEBUG('n', "Removed monitor from %p %s\n",
                       dir, GNOME_CMD_FILE (dir)->get_uri_str());
             else
-                DEBUG('n', "Failed to remove monitor from 0x%p %s: %s\n",
+                DEBUG('n', "Failed to remove monitor from %p %s: %s\n",
                       dir, GNOME_CMD_FILE (dir)->get_uri_str(),
                       gnome_vfs_result_to_string (result));
 

@@ -105,7 +105,7 @@ static void gnome_cmd_file_finalize (GObject *object)
     delete f->metadata;
 
     if (f->gFileInfo && strcmp(g_file_info_get_display_name(f->gFileInfo), "..") != 0)
-        DEBUG ('f', "file destroying 0x%p %s\n", f, g_file_info_get_display_name(f->gFileInfo));
+        DEBUG ('f', "file destroying %p %s\n", f, g_file_info_get_display_name(f->gFileInfo));
 
     g_free (f->collate_key);
     if (f->info)
@@ -329,7 +329,7 @@ GnomeCmdFile *GnomeCmdFile::ref()
 
     char c = GNOME_CMD_IS_DIR (this) ? 'd' : 'f';
 
-    DEBUG (c, "refing: 0x%p %s to %d\n", this, g_file_info_get_display_name(gFileInfo), priv->ref_cnt);
+    DEBUG (c, "refing: %p %s to %d\n", this, g_file_info_get_display_name(gFileInfo), priv->ref_cnt);
 
     return this;
 }
@@ -341,7 +341,7 @@ void GnomeCmdFile::unref()
 
     char c = GNOME_CMD_IS_DIR (this) ? 'd' : 'f';
 
-    DEBUG (c, "un-refing: 0x%p %s to %d\n", this, g_file_info_get_display_name(gFileInfo), priv->ref_cnt);
+    DEBUG (c, "un-refing: %p %s to %d\n", this, g_file_info_get_display_name(gFileInfo), priv->ref_cnt);
     if (priv->ref_cnt < 1)
         g_object_unref (this);
 }
