@@ -66,7 +66,7 @@ struct GnomeCmdDirPrivate
     gboolean needs_mtime_update;
 
     Handle *handle;
-    GnomeVFSMonitorHandle *monitor_handle;
+    GFileMonitor *gFileMonitor;
     gint monitor_users;
 };
 
@@ -77,30 +77,40 @@ G_DEFINE_TYPE (GnomeCmdDir, gnome_cmd_dir, GNOME_CMD_TYPE_FILE)
 static guint signals[LAST_SIGNAL] = { 0 };
 
 
-static void monitor_callback (GnomeVFSMonitorHandle *handle, const gchar *monitor_uri, const gchar *info_uri, GnomeVFSMonitorEventType event_type, GnomeCmdDir *dir)
+static void monitor_callback (GFileMonitor *gFileMonitor, GFile *gFile, GFile *otherGFile,
+                              GFileMonitorEvent event_type, GnomeCmdDir *dir)
 {
+    auto fileUri = g_file_get_uri(gFile);
+
     switch (event_type)
     {
-        case GNOME_VFS_MONITOR_EVENT_CHANGED:
-            DEBUG('n', "GNOME_VFS_MONITOR_EVENT_CHANGED for %s\n", info_uri);
-            gnome_cmd_dir_file_changed (dir, info_uri);
+        case G_FILE_MONITOR_EVENT_CHANGED:
+            DEBUG('n', "G_FILE_MONITOR_EVENT_CHANGED for %s\n", fileUri);
+            gnome_cmd_dir_file_changed (dir, fileUri);
             break;
-        case GNOME_VFS_MONITOR_EVENT_DELETED:
-            DEBUG('n', "GNOME_VFS_MONITOR_EVENT_DELETED for %s\n", info_uri);
-            gnome_cmd_dir_file_deleted (dir, info_uri);
+        case G_FILE_MONITOR_EVENT_DELETED:
+            DEBUG('n', "G_FILE_MONITOR_EVENT_DELETED for %s\n", fileUri);
+            gnome_cmd_dir_file_deleted (dir, fileUri);
             break;
-        case GNOME_VFS_MONITOR_EVENT_CREATED:
-            DEBUG('n', "GNOME_VFS_MONITOR_EVENT_CREATED for %s\n", info_uri);
-            gnome_cmd_dir_file_created (dir, info_uri);
+        case G_FILE_MONITOR_EVENT_CREATED:
+            DEBUG('n', "G_FILE_MONITOR_EVENT_CREATED for %s\n", fileUri);
+            gnome_cmd_dir_file_created (dir, fileUri);
             break;
-        case GNOME_VFS_MONITOR_EVENT_METADATA_CHANGED:
-        case GNOME_VFS_MONITOR_EVENT_STARTEXECUTING:
-        case GNOME_VFS_MONITOR_EVENT_STOPEXECUTING:
+        case G_FILE_MONITOR_EVENT_ATTRIBUTE_CHANGED:
+        case G_FILE_MONITOR_EVENT_PRE_UNMOUNT:
+        case G_FILE_MONITOR_EVENT_UNMOUNTED:
+        case G_FILE_MONITOR_EVENT_MOVED:
+        case G_FILE_MONITOR_EVENT_MOVED_IN:
+        case G_FILE_MONITOR_EVENT_MOVED_OUT:
+        case G_FILE_MONITOR_EVENT_RENAMED:
+        case G_FILE_MONITOR_EVENT_CHANGES_DONE_HINT:
+            DEBUG('n', "Unwatched event %d\n", event_type);
             break;
 
         default:
             DEBUG('n', "Unknown monitor event %d\n", event_type);
     }
+    g_free(fileUri);
 }
 
 
@@ -113,7 +123,7 @@ static void gnome_cmd_dir_init (GnomeCmdDir *dir)
     dir->priv = g_new0 (GnomeCmdDirPrivate, 1);
 
     dir->priv->handle = handle_new (dir);
-    // dir->priv->monitor_handle = nullptr;
+    // dir->priv->gFileMonitor = nullptr;
     // dir->priv->monitor_users = 0;
     // dir->priv->files = nullptr;
     dir->priv->file_collection = new GnomeCmdFileCollection;
@@ -890,24 +900,30 @@ void gnome_cmd_dir_start_monitoring (GnomeCmdDir *dir)
 {
     g_return_if_fail (GNOME_CMD_IS_DIR (dir));
 
-    GnomeVFSResult result;
-
     if (dir->priv->monitor_users == 0)
     {
         gchar *uri_str = GNOME_CMD_FILE (dir)->get_uri_str();
+        GError *error = nullptr;
 
-        result = gnome_vfs_monitor_add (
-            &dir->priv->monitor_handle,
-            uri_str,
-            GNOME_VFS_MONITOR_DIRECTORY,
-            (GnomeVFSMonitorCallback) monitor_callback,
-            dir);
+        auto gFileMonitor = g_file_monitor_directory (
+            GNOME_CMD_FILE (dir)->gFile,
+            //ToDo: We might want to activate G_FILE_MONITOR_WATCH_MOVES in the future
+            G_FILE_MONITOR_NONE,
+            nullptr,
+            &error);
 
-        if (result == GNOME_VFS_OK)
-            DEBUG('n', "Added monitor to 0x%x %s\n", dir, uri_str);
-        else
-            DEBUG ('n', "Failed to add monitor to %p %s: %s\n", dir, uri_str, gnome_vfs_result_to_string (result));
+        g_signal_connect (gFileMonitor, "changed", G_CALLBACK (monitor_callback), dir);
 
+        if (error)
+        {
+            DEBUG ('n', "Failed to add monitor to %p %s: %s\n", dir, uri_str, error->message);
+            g_error_free(error);
+            g_free(uri_str);
+            return;
+        }
+
+        DEBUG('n', "Added monitor to %p %s\n", dir, uri_str);
+        dir->priv->gFileMonitor = gFileMonitor;
         g_free (uri_str);
     }
 
@@ -925,18 +941,12 @@ void gnome_cmd_dir_cancel_monitoring (GnomeCmdDir *dir)
 
     if (dir->priv->monitor_users == 0)
     {
-        if (dir->priv->monitor_handle)
+        if (dir->priv->gFileMonitor)
         {
-            GnomeVFSResult result = gnome_vfs_monitor_cancel (dir->priv->monitor_handle);
-            if (result == GNOME_VFS_OK)
-                DEBUG('n', "Removed monitor from %p %s\n",
-                      dir, GNOME_CMD_FILE (dir)->get_uri_str());
-            else
-                DEBUG('n', "Failed to remove monitor from %p %s: %s\n",
-                      dir, GNOME_CMD_FILE (dir)->get_uri_str(),
-                      gnome_vfs_result_to_string (result));
+            g_file_monitor_cancel (dir->priv->gFileMonitor);
+            DEBUG('n', "Removed monitor from %p %s\n", dir, GNOME_CMD_FILE (dir)->get_uri_str());
 
-            dir->priv->monitor_handle = nullptr;
+            dir->priv->gFileMonitor = nullptr;
         }
     }
 }
