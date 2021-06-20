@@ -68,5 +68,8 @@ void gnome_cmd_con_device_set_icon_path (GnomeCmdConDevice *dev, const gchar *ic
 gboolean gnome_cmd_con_device_get_autovol (GnomeCmdConDevice *dev);
 void gnome_cmd_con_device_set_autovol (GnomeCmdConDevice *dev, const gboolean autovol);
 
-GnomeVFSVolume *gnome_cmd_con_device_get_vfs_volume (GnomeCmdConDevice *dev);
-void gnome_cmd_con_device_set_vfs_volume (GnomeCmdConDevice *dev, GnomeVFSVolume *vfsvol);
+GMount *gnome_cmd_con_device_get_gmount (GnomeCmdConDevice *dev);
+void gnome_cmd_con_device_set_gmount (GnomeCmdConDevice *dev, GMount *gMount);
+
+GVolume *gnome_cmd_con_device_get_gvolume (GnomeCmdConDevice *dev);
+void gnome_cmd_con_device_set_gvolume (GnomeCmdConDevice *dev, GVolume *gVolume);

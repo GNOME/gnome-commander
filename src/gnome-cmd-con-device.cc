@@ -44,7 +44,6 @@ struct GnomeCmdConDevicePrivate
     gchar *mountp {nullptr};
     gchar *icon_path {nullptr};
     gboolean autovolume;
-    GnomeVFSVolume *vfsvol;
     GMount *gMount;
     GVolume *gVolume;
 };
@@ -88,8 +87,12 @@ static gboolean is_mounted (GnomeCmdConDevice *dev_con)
 }
 
 
-static void do_legacy_mount(GnomeCmdConDevice *dev_con)
+static void do_legacy_mount(GnomeCmdCon *con)
 {
+    g_return_if_fail (GNOME_CMD_IS_CON_DEVICE (con));
+
+    GnomeCmdConDevice *dev_con = GNOME_CMD_CON_DEVICE (con);
+
     gint ret, estatus;
 
     if (!is_mounted (dev_con))
@@ -144,48 +147,113 @@ static void do_legacy_mount(GnomeCmdConDevice *dev_con)
 }
 
 
-static void do_mount_thread_func (GnomeCmdCon *con)
+static void set_con_mount_succeed(GnomeCmdCon *con)
+{
+    con->state = GnomeCmdCon::STATE_OPEN;
+    con->open_result = GnomeCmdCon::OPEN_OK;
+}
+
+
+static void set_con_mount_failed(GnomeCmdCon *con)
+{
+    g_object_unref (con->base_gFileInfo);
+    con->base_gFileInfo = nullptr;
+    con->open_result = GnomeCmdCon::OPEN_FAILED;
+    con->state = GnomeCmdCon::STATE_CLOSED;
+    con->open_failed_msg = con->open_failed_error->message;
+}
+
+
+static void mount_finish_callback(GObject *gVol, GAsyncResult *result, gpointer user_data)
+{
+    GnomeCmdCon *con = GNOME_CMD_CON (user_data);
+    GnomeCmdConDevice *dev_con = GNOME_CMD_CON_DEVICE (con);
+    auto gVolume = G_VOLUME(gVol);
+    GError *error = nullptr;
+
+    if(!g_volume_mount_finish(gVolume, result, &error))
+    {
+        g_critical("Unable to mount the volume, error: %s", error->message);
+        con->open_failed_error = g_error_copy(error);
+        set_con_mount_failed(con);
+        g_error_free(error);
+        return;
+    }
+    dev_con->priv->gMount = g_volume_get_mount (gVolume);
+    if (!con->base_path)
+    {
+        set_con_base_path_for_gmount(con, dev_con->priv->gMount);
+    }
+    if (!con->base_path)
+    {
+        gnome_cmd_con_set_root_path(con, con->base_path->get_path());
+    }
+    set_con_base_gfileinfo(con);
+    set_con_mount_succeed(con);
+}
+
+static void do_legacy_mount_thread_func(GnomeCmdCon *con)
+{
+    g_return_if_fail (GNOME_CMD_IS_CON_DEVICE (con));
+
+    GError *error = nullptr;
+
+    if (!con->base_path)
+        con->base_path = new GnomeCmdPlainPath(G_DIR_SEPARATOR_S);
+
+    do_legacy_mount(con);
+
+    auto gFile = gnome_cmd_con_create_gfile(con, con->base_path);
+    con->base_gFileInfo = g_file_query_info(gFile,
+                              "*",
+                              G_FILE_QUERY_INFO_NONE,
+                              nullptr,
+                              &error);
+    g_object_unref(gFile);
+    if (error)
+    {
+        con->open_failed_error = g_error_copy(error);
+        set_con_mount_failed(con);
+        g_critical("Unable to mount the volume via legacy mount, error: %s", error->message);
+        g_error_free(error);
+        return;
+    }
+
+    set_con_mount_succeed(con);
+    return;
+}
+
+
+static void do_mount (GnomeCmdCon *con)
 {
     g_return_if_fail (GNOME_CMD_IS_CON_DEVICE (con));
 
     GnomeCmdConDevice *dev_con = GNOME_CMD_CON_DEVICE (con);
 
-    // If mount point is given, we have mount the device with system calls ('mount')
-    // ToDo: Don't do this anymore...
+    // This is a legacy-mount: If mount point is given, we mount the device with system calls ('mount')
     if (dev_con->priv->mountp)
     {
-        do_legacy_mount(dev_con);
-    }
-    else
-    {
-        /* ... */
+        auto gThread = g_thread_new (nullptr, (GThreadFunc) do_legacy_mount_thread_func, con);
+        g_thread_unref(gThread);
     }
 
-    GnomeVFSURI *uri = gnome_cmd_con_create_uri (con, con->base_path);
-    if (!uri)
+    // Check if the volume is already mounted:
+    auto gMount = g_volume_get_mount (dev_con->priv->gVolume);
+    if (gMount)
+    {
+        dev_con->priv->gMount = gMount;
+        set_con_base_path_for_gmount(con, dev_con->priv->gMount);
+        set_con_base_gfileinfo(con);
+        set_con_mount_succeed(con);
         return;
-
-    gchar *uri_str = gnome_vfs_uri_to_string (uri, GNOME_VFS_URI_HIDE_PASSWORD);
-    con->base_info = gnome_vfs_file_info_new ();
-    GnomeVFSFileInfoOptions infoOpts = (GnomeVFSFileInfoOptions) (GNOME_VFS_FILE_INFO_FOLLOW_LINKS | GNOME_VFS_FILE_INFO_GET_MIME_TYPE | GNOME_VFS_FILE_INFO_FORCE_FAST_MIME_TYPE);
-    GnomeVFSResult result = gnome_vfs_get_file_info_uri (uri, con->base_info, infoOpts);
-
-    gnome_vfs_uri_unref (uri);
-    g_free (uri_str);
-
-    if (result == GNOME_VFS_OK)
-    {
-        con->state = GnomeCmdCon::STATE_OPEN;
-        con->open_result = GnomeCmdCon::OPEN_OK;
     }
-    else
-    {
-        gnome_vfs_file_info_unref (con->base_info);
-        con->base_info = nullptr;
-        con->open_failed_reason = result;
-        con->open_result = GnomeCmdCon::OPEN_FAILED;
-        con->state = GnomeCmdCon::STATE_CLOSED;
-    }
+    g_volume_mount (dev_con->priv->gVolume,
+        G_MOUNT_MOUNT_NONE,
+        nullptr,
+        nullptr,
+        mount_finish_callback,
+        con);
+
 }
 
 
@@ -195,38 +263,47 @@ static void dev_open (GnomeCmdCon *con)
 
     DEBUG ('m', "Mounting device\n");
 
-    if (!con->base_path)
-        con->base_path = new GnomeCmdPlainPath(G_DIR_SEPARATOR_S);
-
     con->state = GnomeCmdCon::STATE_OPENING;
     con->open_result = GnomeCmdCon::OPEN_IN_PROGRESS;
 
-    g_thread_new (nullptr, (GThreadFunc) do_mount_thread_func, con);
+    do_mount(con);
 }
 
 
-static void dev_vfs_umount_callback (gboolean succeeded, char *error, char *detailed_error, gpointer data)
+static void unmount_callback(GObject *gMnt, GAsyncResult *result, gpointer user_data)
 {
+    GnomeCmdCon *con = GNOME_CMD_CON (user_data);
+    auto gMount = G_MOUNT(gMnt);
+    GError *error = nullptr;
     GtkWidget *msgbox;
 
-    DEBUG('m', "VFS umount callback: %s %s %s\n", succeeded ? "succeeded" : "failed",
-               error ? error : "",
-               detailed_error ? detailed_error : "");
+    if (!g_mount_unmount_with_operation_finish (gMount, result, &error))
+    {
+        DEBUG('m', "unmount_callback: failed %s\n", error->message);
 
-    if (succeeded)
-        msgbox = gtk_message_dialog_new (*main_win,
-                                         GTK_DIALOG_MODAL,
-                                         GTK_MESSAGE_INFO,
-                                         GTK_BUTTONS_OK,
-                                         _("Device is now safe to remove"));
-    else
         msgbox = gtk_message_dialog_new (*main_win,
                                          GTK_DIALOG_MODAL,
                                          GTK_MESSAGE_ERROR,
                                          GTK_BUTTONS_OK,
-                                         _("Cannot unmount the volume:\n%s %s"),
-                                         error ? error : _("Unknown error"),
-                                         detailed_error ? detailed_error: "");
+                                         _("Cannot unmount the volume:\n%s\nError code: %d"),
+                                         error->message,
+                                         error->code);
+        gtk_dialog_run (GTK_DIALOG (msgbox));
+        gtk_widget_destroy (msgbox);
+
+        g_error_free(error);
+        return;
+    }
+
+    con->state = GnomeCmdCon::STATE_CLOSED;
+
+    DEBUG('m', "unmount_callback: succeeded\n");
+
+    msgbox = gtk_message_dialog_new (*main_win,
+                                     GTK_DIALOG_MODAL,
+                                     GTK_MESSAGE_INFO,
+                                     GTK_BUTTONS_OK,
+                                     _("Volume successfuly unmounted"));
 
     gtk_dialog_run (GTK_DIALOG (msgbox));
     gtk_widget_destroy (msgbox);
@@ -250,27 +327,34 @@ static gboolean dev_close (GnomeCmdCon *con)
 
     if (dev_con->priv->autovolume)
     {
-        if (dev_con->priv->vfsvol)
-        {
-            gchar *name;
-            name = gnome_vfs_volume_get_display_name (dev_con->priv->vfsvol);
-            DEBUG ('m', "umounting VFS volume \"%s\"\n", name);
-            g_free (name);
+        if (!g_mount_can_unmount(dev_con->priv->gMount))
+            return ret == 0;
 
-            gnome_vfs_volume_unmount (dev_con->priv->vfsvol, dev_vfs_umount_callback, nullptr);
-        }
+        auto gMountName = g_mount_get_name(dev_con->priv->gMount);
+        DEBUG ('m', "umounting GIO mount \"%s\"\n", gMountName);
+        g_free(gMountName);
+        g_mount_unmount_with_operation (dev_con->priv->gMount,
+                            G_MOUNT_UNMOUNT_NONE,
+                            nullptr,
+                            nullptr,
+                            unmount_callback,
+                            con);
     }
     else
     {
-        DEBUG ('m', "umounting %s\n", dev_con->priv->mountp);
-        gchar *cmd = g_strdup_printf ("umount %s", dev_con->priv->mountp);
-        ret = system (cmd);
-        DEBUG ('m', "umount returned %d\n", ret);
-        g_free (cmd);
-    }
+        // Legacy unmount
+        if(dev_con->priv->mountp)
+        {
+            DEBUG ('m', "umounting %s\n", dev_con->priv->mountp);
+            gchar *cmd = g_strdup_printf ("umount %s", dev_con->priv->mountp);
+            ret = system (cmd);
+            DEBUG ('m', "umount returned %d\n", ret);
+            g_free (cmd);
 
-    if (ret == 0)
-        con->state = GnomeCmdCon::STATE_CLOSED;
+            if (ret == 0)
+                con->state = GnomeCmdCon::STATE_CLOSED;
+        }
+    }
 
     return ret == 0;
 }
@@ -306,6 +390,16 @@ static GnomeVFSURI *dev_create_uri (GnomeCmdCon *con, GnomeCmdPath *path)
 }
 
 
+static GFile *dev_create_gfile (GnomeCmdCon *con, GnomeCmdPath *unused)
+{
+    g_return_val_if_fail (GNOME_CMD_IS_CON_DEVICE (con), nullptr);
+
+    GnomeCmdConDevice *dev_con = GNOME_CMD_CON_DEVICE (con);
+
+    return g_mount_get_default_location (dev_con->priv->gMount);
+}
+
+
 static GnomeCmdPath *dev_create_path (GnomeCmdCon *con, const gchar *path_str)
 {
     g_return_val_if_fail (GNOME_CMD_IS_CON_DEVICE (con), nullptr);
@@ -323,10 +417,15 @@ static void destroy (GtkObject *object)
 {
     GnomeCmdConDevice *con = GNOME_CMD_CON_DEVICE (object);
 
-    if (con->priv->vfsvol)
+    if (con->priv->gMount)
     {
-        gnome_vfs_volume_unref (con->priv->vfsvol);
-        con->priv->vfsvol = nullptr;
+        g_object_unref(con->priv->gMount);
+        con->priv->gMount = nullptr;
+    }
+    if (con->priv->gVolume)
+    {
+        g_object_unref(con->priv->gVolume);
+        con->priv->gVolume = nullptr;
     }
 
     g_free (con->priv);
@@ -352,6 +451,7 @@ static void class_init (GnomeCmdConDeviceClass *klass)
     con_class->cancel_open = dev_cancel_open;
     con_class->open_is_needed = dev_open_is_needed;
     con_class->create_uri = dev_create_uri;
+    con_class->create_gfile = dev_create_gfile;
     con_class->create_path = dev_create_path;
 }
 
@@ -412,10 +512,12 @@ GnomeCmdConDevice *gnome_cmd_con_device_new (const gchar *alias, const gchar *de
     gnome_cmd_con_device_set_mountp (dev, mountp);
     gnome_cmd_con_device_set_icon_path (dev, icon_path);
     gnome_cmd_con_device_set_autovol(dev, FALSE);
-    gnome_cmd_con_device_set_vfs_volume(dev, nullptr);
+    gnome_cmd_con_device_set_gmount(dev, nullptr);
+    gnome_cmd_con_device_set_gvolume(dev, nullptr);
     gnome_cmd_con_device_set_alias (dev, alias);
 
-    gnome_cmd_con_set_root_path (con, mountp);
+    if (mountp)
+        gnome_cmd_con_set_root_path (con, mountp);
 
     con->open_msg = g_strdup_printf (_("Mounting %s"), alias);
 
@@ -433,7 +535,10 @@ void gnome_cmd_con_device_set_alias (GnomeCmdConDevice *dev, const gchar *alias)
 
     dev->priv->alias = g_strdup (alias);
     GNOME_CMD_CON (dev)->alias = g_strdup (alias);
-    GNOME_CMD_CON (dev)->go_text = g_strdup_printf (_("Go to: %s (%s)"), alias, dev->priv->mountp);
+    if (dev->priv->mountp)
+        GNOME_CMD_CON (dev)->go_text = g_strdup_printf (_("Go to: %s (%s)"), alias, dev->priv->mountp);
+    else
+        GNOME_CMD_CON (dev)->go_text = g_strdup_printf (_("Go to: %s"), alias);
     GNOME_CMD_CON (dev)->open_text = g_strdup_printf (_("Mount: %s"), alias);
     GNOME_CMD_CON (dev)->close_text = g_strdup_printf (_("Unmount: %s"), alias);
 }
@@ -528,20 +633,37 @@ void gnome_cmd_con_device_set_autovol (GnomeCmdConDevice *dev, const gboolean au
 }
 
 
-void gnome_cmd_con_device_set_vfs_volume (GnomeCmdConDevice *dev, GnomeVFSVolume *vfsvol)
+void gnome_cmd_con_device_set_gmount (GnomeCmdConDevice *dev, GMount *gMount)
 {
     g_return_if_fail (dev != nullptr);
     g_return_if_fail (dev->priv != nullptr);
 
-    if (dev->priv->vfsvol)
+    if (dev->priv->gMount)
     {
-        gnome_vfs_volume_unref (dev->priv->vfsvol);
-        dev->priv->vfsvol = nullptr;
+        g_object_unref (dev->priv->gMount);
+        dev->priv->gMount = nullptr;
     }
 
-    dev->priv->vfsvol = vfsvol;
-    if (dev->priv->vfsvol)
-        gnome_vfs_volume_ref(dev->priv->vfsvol);
+    dev->priv->gMount = gMount;
+    if (dev->priv->gMount)
+        g_object_ref(dev->priv->gMount);
+}
+
+
+void gnome_cmd_con_device_set_gvolume (GnomeCmdConDevice *dev, GVolume *gVolume)
+{
+    g_return_if_fail (dev != nullptr);
+    g_return_if_fail (dev->priv != nullptr);
+
+    if (dev->priv->gVolume)
+    {
+        g_object_unref (dev->priv->gVolume);
+        dev->priv->gVolume = nullptr;
+    }
+
+    dev->priv->gVolume = gVolume;
+    if (dev->priv->gVolume)
+        g_object_ref(dev->priv->gVolume);
 }
 
 
@@ -590,10 +712,18 @@ gboolean gnome_cmd_con_device_get_autovol (GnomeCmdConDevice *dev)
 }
 
 
-GnomeVFSVolume *gnome_cmd_con_device_get_vfs_volume (GnomeCmdConDevice *dev)
+GMount *gnome_cmd_con_device_get_gmount (GnomeCmdConDevice *dev)
 {
     g_return_val_if_fail (dev != nullptr, nullptr);
     g_return_val_if_fail (dev->priv != nullptr, nullptr);
 
-    return dev->priv->vfsvol;
+    return dev->priv->gMount;
+}
+
+GVolume *gnome_cmd_con_device_get_gvolume (GnomeCmdConDevice *dev)
+{
+    g_return_val_if_fail (dev != nullptr, nullptr);
+    g_return_val_if_fail (dev->priv != nullptr, nullptr);
+
+    return dev->priv->gVolume;
 }

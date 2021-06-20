@@ -22,8 +22,6 @@
 #include <config.h>
 #include <glib.h>
 #include <glib/gstdio.h>
-#include <libgnomevfs/gnome-vfs-volume.h>
-#include <libgnomevfs/gnome-vfs-volume-monitor.h>
 
 #include <fstream>
 #include <algorithm>
@@ -2039,22 +2037,9 @@ inline gboolean vfs_is_uri_local (const char *uri)
 }
 
 
-inline void remove_vfs_volume (GnomeVFSVolume *volume)
+inline void remove_gvolume (GVolume *gVolume)
 {
-    char *path, *uri, *localpath;
-
-    if (!gnome_vfs_volume_is_user_visible (volume))
-        return;
-
-    uri = gnome_vfs_volume_get_activation_uri (volume);
-    if (!vfs_is_uri_local (uri))
-    {
-        g_free (uri);
-        return;
-    }
-
-    path = gnome_vfs_volume_get_device_path (volume);
-    localpath = gnome_vfs_get_local_path_from_uri (uri);
+    auto identifier = g_volume_get_identifier(gVolume, G_VOLUME_IDENTIFIER_KIND_UNIX_DEVICE);
 
     for (GList *i = gnome_cmd_con_list_get_all_dev (gnome_cmd_data.priv->con_list); i; i = i->next)
     {
@@ -2062,21 +2047,17 @@ inline void remove_vfs_volume (GnomeVFSVolume *volume)
         if (device && gnome_cmd_con_device_get_autovol (device))
         {
             gchar *device_fn = (gchar *) gnome_cmd_con_device_get_device_fn (device);
-            const gchar *mountp = gnome_cmd_con_device_get_mountp (device);
 
-            if ((strcmp(device_fn, path)==0) && (strcmp(mountp, localpath)==0))
+            if ((g_strcmp0(device_fn, identifier)==0))
             {
-                DEBUG('m',"Remove Volume:\ndevice_fn = %s\tmountp = %s\n",
-                device_fn,mountp);
+                DEBUG('m',"Remove Volume: %s\n", device_fn);
                 gnome_cmd_data.priv->con_list->remove(device);
                 break;
             }
         }
     }
 
-    g_free (path);
-    g_free (uri);
-    g_free (localpath);
+    g_free(identifier);
 }
 
 
@@ -2106,96 +2087,80 @@ inline gboolean device_mount_point_exists (GnomeCmdConList *list, const gchar *m
 }
 
 
-static void add_vfs_volume (GnomeVFSVolume *volume)
+static void add_gvolume (GVolume *gVolume)
 {
-    if (!gnome_vfs_volume_is_user_visible (volume))
-        return;
+    g_return_if_fail (gVolume != nullptr);
 
-    char *uri = gnome_vfs_volume_get_activation_uri (volume);
-
-    if (!vfs_is_uri_local (uri))
-    {
-        g_free (uri);
-        return;
-    }
-
-    char *path = gnome_vfs_volume_get_device_path (volume);
-    char *icon = gnome_vfs_volume_get_icon (volume);
-    char *name = gnome_vfs_volume_get_display_name (volume);
-    GnomeVFSDrive *drive = gnome_vfs_volume_get_drive (volume);
+    char *uuid = g_volume_get_uuid (gVolume);
+    auto *gIcon = g_volume_get_icon (gVolume);
+    char *name = g_volume_get_name (gVolume);
+    auto identifier = g_volume_get_identifier(gVolume, G_VOLUME_IDENTIFIER_KIND_UNIX_DEVICE);
 
     // Try to load the icon, using current theme
     const gchar *iconpath = nullptr;
     GtkIconTheme *icontheme = gtk_icon_theme_get_default();
     if (icontheme)
     {
-        GtkIconInfo *iconinfo = gtk_icon_theme_lookup_icon (icontheme, icon, 16, GTK_ICON_LOOKUP_USE_BUILTIN);
+        GtkIconInfo *iconinfo = gtk_icon_theme_lookup_by_gicon(icontheme, gIcon, 16, GTK_ICON_LOOKUP_USE_BUILTIN);
         // This returned string should not be free, see gtk documentation
         if (iconinfo)
             iconpath = gtk_icon_info_get_filename (iconinfo);
     }
 
-    char *localpath = gnome_vfs_get_local_path_from_uri (uri);
-
     DEBUG('m',"name = %s\n", name);
-    DEBUG('m',"path = %s\n", path);
-    DEBUG('m',"uri = %s\n", uri);
-    DEBUG('m',"local = %s\n", localpath);
-    DEBUG('m',"icon = %s (full path = %s)\n", icon, iconpath);
+    DEBUG('m',"device path = %s\n", identifier);
+    DEBUG('m',"uuid = %s\n", uuid);
+    DEBUG('m',"icon path = %s\n", iconpath);
 
     // Don't create a new device connect if one already exists. This can happen if the user manually added the same device in "Options|Devices" menu
-    if (!device_mount_point_exists (gnome_cmd_data.priv->con_list, localpath))
+    if (!device_mount_point_exists (gnome_cmd_data.priv->con_list, identifier))
     {
-        GnomeCmdConDevice *ConDev = gnome_cmd_con_device_new (name, path?path:nullptr, localpath, iconpath);
+        GnomeCmdConDevice *ConDev = gnome_cmd_con_device_new (name, identifier, nullptr, iconpath);
         gnome_cmd_con_device_set_autovol (ConDev, TRUE);
-        gnome_cmd_con_device_set_vfs_volume (ConDev, volume);
+        gnome_cmd_con_device_set_gvolume (ConDev, gVolume);
         gnome_cmd_data.priv->con_list->add(ConDev);
     }
     else
-        DEBUG('m', "Device for mountpoint(%s) already exists. AutoVolume not added\n", localpath);
+        DEBUG('m', "Device for mountpoint(%s) already exists. AutoVolume not added\n", identifier);
 
-    g_free (path);
-    g_free (uri);
-    g_free (icon);
+    g_free (uuid);
     g_free (name);
-    g_free (localpath);
+    g_free (identifier);
 
-    gnome_vfs_drive_unref (drive);
+    g_object_unref (gIcon);
+    g_object_unref (gVolume);
 }
 
-
-static void volume_mounted (GnomeVFSVolumeMonitor *volume_monitor, GnomeVFSVolume *volume)
+static void volume_added (GVolumeMonitor *volume_monitor, GVolume *gVolume)
 {
-    add_vfs_volume (volume);
+    add_gvolume (gVolume);
 }
 
-
-static void volume_unmounted (GnomeVFSVolumeMonitor *volume_monitor, GnomeVFSVolume *volume)
+static void volume_removed (GVolumeMonitor *volume_monitor, GVolume *gVolume)
 {
-    remove_vfs_volume (volume);
+    remove_gvolume (gVolume);
 }
 
 inline void set_vfs_volume_monitor ()
 {
-    GnomeVFSVolumeMonitor *monitor = gnome_vfs_get_volume_monitor ();
+    auto monitor = g_volume_monitor_get();
 
-    g_signal_connect (monitor, "volume-mounted", G_CALLBACK (volume_mounted), nullptr);
-    g_signal_connect (monitor, "volume-unmounted", G_CALLBACK (volume_unmounted), nullptr);
+    g_signal_connect (monitor, "volume-added",      G_CALLBACK (volume_added), nullptr);
+    g_signal_connect (monitor, "volume-removed",    G_CALLBACK (volume_removed), nullptr);
 }
 
 
-static void load_vfs_auto_devices ()
+static void load_available_gvolumes ()
 {
-    GnomeVFSVolumeMonitor *monitor = gnome_vfs_get_volume_monitor ();
-    GList *volumes = gnome_vfs_volume_monitor_get_mounted_volumes (monitor);
+    GVolumeMonitor *monitor = g_volume_monitor_get ();
+    GList *gvolumes = g_volume_monitor_get_volumes (monitor);
 
-    for (GList *l = volumes; l; l = l->next)
+    for (GList *l = gvolumes; l; l = l->next)
     {
-        add_vfs_volume ((GnomeVFSVolume *) l->data);
-        gnome_vfs_volume_unref ((GnomeVFSVolume *) l->data);
+        add_gvolume ((GVolume *) l->data);
+        g_object_unref ((GVolume *) l->data);
     }
-    g_list_free (volumes);
-
+    g_list_free (gvolumes);
 }
 
 
@@ -2763,7 +2728,7 @@ void GnomeCmdData::load_devices()
 		g_variant_unref(device);
     }
     g_variant_unref(gvDevices);
-    load_vfs_auto_devices ();
+    load_available_gvolumes ();
 }
 
 /**

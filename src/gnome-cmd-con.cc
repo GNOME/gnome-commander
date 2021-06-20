@@ -23,6 +23,7 @@
 
 #include "gnome-cmd-includes.h"
 #include "gnome-cmd-con.h"
+#include "gnome-cmd-plain-path.h"
 
 using namespace std;
 
@@ -72,6 +73,10 @@ static void on_open_done (GnomeCmdCon *con)
 static void on_open_failed (GnomeCmdCon *con, const gchar *msg, GnomeVFSResult result)
 {
     // gnome_cmd_con_updated (con);
+    // ToDo: Show error and later on g_error_free con->open_failed_error
+    g_critical("open_failed - error: %s\n", con->open_failed_error->message);
+    g_error_free(con->open_failed_error);
+    con->open_failed_msg = nullptr;
 }
 
 
@@ -93,6 +98,9 @@ static void destroy (GtkObject *object)
     gnome_cmd_pixmap_free (con->open_pixmap);
     g_free (con->close_text);
     g_free (con->close_tooltip);
+    g_object_unref(con->base_gFileInfo);
+    g_error_free(con->open_failed_error);
+    con->open_failed_msg = nullptr;
     gnome_cmd_pixmap_free (con->close_pixmap);
     gnome_cmd_pixmap_free (con->go_pixmap);
 
@@ -197,6 +205,7 @@ static void init (GnomeCmdCon *con)
     con->open_result = GnomeCmdCon::OPEN_NOT_STARTED;
     con->open_failed_reason = GNOME_VFS_OK;
     con->open_failed_msg = nullptr;
+    con->open_failed_error = nullptr;
 
     con->priv = g_new0 (GnomeCmdConPrivate, 1);
     con->priv->default_dir = nullptr;
@@ -270,7 +279,7 @@ static gboolean check_con_open_progress (GnomeCmdCon *con)
             {
                 DEBUG ('m', "GnomeCmdCon::OPEN_FAILED detected\n");
                 DEBUG ('m', "Emitting 'open-failed' signal\n");
-                gtk_signal_emit (GTK_OBJECT (con), signals[OPEN_FAILED], con->open_failed_msg, con->open_failed_reason);
+                gtk_signal_emit (GTK_OBJECT (con), signals[OPEN_FAILED], con->open_failed_msg, con->open_failed_error->code);
             }
             return FALSE;
 
@@ -282,6 +291,59 @@ static gboolean check_con_open_progress (GnomeCmdCon *con)
 #endif
 }
 
+
+static void set_con_base_path(GnomeCmdCon *con, GnomeCmdPath *path)
+{
+    g_return_if_fail (con != nullptr);
+    g_return_if_fail (GNOME_CMD_IS_CON (con));
+    g_return_if_fail (path != nullptr);
+
+    if (con->base_path)
+        delete con->base_path;
+
+    con->base_path = path;
+}
+
+
+void set_con_base_path_for_gmount(GnomeCmdCon *con, GMount *gMount)
+{
+    g_return_if_fail (con != nullptr);
+    g_return_if_fail (GNOME_CMD_IS_CON (con));
+    g_return_if_fail (gMount != nullptr);
+    g_return_if_fail (G_IS_MOUNT(gMount));
+
+    auto gFile = g_mount_get_default_location(gMount);
+    auto pathString = g_file_get_path(gFile);
+    g_object_unref(gFile);
+
+    set_con_base_path(con, new GnomeCmdPlainPath(pathString));
+
+    g_free(pathString);
+}
+
+gboolean set_con_base_gfileinfo(GnomeCmdCon *con)
+{
+    g_return_val_if_fail (con != nullptr, FALSE);
+    g_return_val_if_fail (GNOME_CMD_IS_CON (con), FALSE);
+    GError *error = nullptr;
+
+    if (con->base_gFileInfo)
+    {
+        g_object_unref(con->base_gFileInfo);
+        con->base_gFileInfo = nullptr;
+    }
+
+    auto gFile = gnome_cmd_con_create_gfile (con, nullptr);
+    con->base_gFileInfo = g_file_query_info(gFile, "*", G_FILE_QUERY_INFO_NONE, nullptr, &error);
+    g_object_unref(gFile);
+    if (error)
+    {
+        g_critical("set_con_base_gfileinfo: error: %s", error->message);
+        g_error_free(error);
+        return FALSE;
+    }
+    return TRUE;
+}
 
 void gnome_cmd_con_open (GnomeCmdCon *con)
 {

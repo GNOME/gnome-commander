@@ -91,6 +91,7 @@ struct GnomeCmdCon
     gchar               *open_msg;
     GnomeCmdPath        *base_path;
     GnomeVFSFileInfo    *base_info;
+    GFileInfo           *base_gFileInfo;
     GString             *root_path;             // Root path of the connection, used for calculation of relative paths
     gboolean            should_remember_dir;
     gboolean            needs_open_visprog;
@@ -111,6 +112,7 @@ struct GnomeCmdCon
 
     OpenResult          open_result;
     GnomeVFSResult      open_failed_reason;
+    GError              *open_failed_error;
     gchar               *open_failed_msg;
 
     GnomeCmdConPrivate  *priv;
@@ -138,6 +140,8 @@ struct GnomeCmdConClass
 
 GtkType gnome_cmd_con_get_type ();
 
+void set_con_base_path_for_gmount(GnomeCmdCon *con, GMount *gMount);
+gboolean set_con_base_gfileinfo(GnomeCmdCon *con);
 
 void gnome_cmd_con_open (GnomeCmdCon *con);
 

@@ -380,15 +380,13 @@ static GtkWidget *create_properties_tab (GnomeCmdFilePropsDialogPrivate *data)
 
         if (GNOME_CMD_IS_CON_DEVICE (con))
         {
-            if (GnomeVFSVolume *vol = gnome_cmd_con_device_get_vfs_volume (GNOME_CMD_CON_DEVICE (con)))
+            if (auto *gMount = gnome_cmd_con_device_get_gmount (GNOME_CMD_CON_DEVICE (con)))
             {
-                gchar *fs_type = gnome_vfs_volume_get_filesystem_type (vol);
-                gchar *dev_path = gnome_vfs_volume_get_device_path (vol);
+                gchar *dev_uuid = g_mount_get_uuid (gMount);
 
-                gchar *s = g_strdup_printf ("%s (%s, %s)", gnome_cmd_con_get_alias (con), dev_path, fs_type);
+                gchar *s = g_strdup_printf ("%s (%s)", gnome_cmd_con_get_alias (con), dev_uuid);
 
-                g_free (fs_type);
-                g_free (dev_path);
+                g_free (dev_uuid);
 
                 label = create_label (dialog, s);
 
