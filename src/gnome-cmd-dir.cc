@@ -797,26 +797,25 @@ void gnome_cmd_dir_file_created (GnomeCmdDir *dir, const gchar *uri_str)
 {
     g_return_if_fail (GNOME_CMD_IS_DIR (dir));
     g_return_if_fail (uri_str != nullptr);
+    GError *error = nullptr;
 
     if (file_already_exists (dir, uri_str))
         return;
 
-    GnomeVFSURI *uri = gnome_vfs_uri_new (uri_str);
-    GnomeVFSFileInfo *info = gnome_vfs_file_info_new ();
-    GnomeVFSFileInfoOptions infoOpts = (GnomeVFSFileInfoOptions) (GNOME_VFS_FILE_INFO_FOLLOW_LINKS|GNOME_VFS_FILE_INFO_GET_MIME_TYPE);
-    GnomeVFSResult res = gnome_vfs_get_file_info_uri (uri, info, infoOpts);
-    if (res != GNOME_VFS_OK)
+    auto gFile = g_file_new_for_uri (uri_str);
+    auto gFileInfo = g_file_query_info (gFile, "*", G_FILE_QUERY_INFO_NOFOLLOW_SYMLINKS, nullptr, &error);
+    if (error)
     {
-        DEBUG ('t', "Could not retrieve file information for %s\n", uri_str);
+        DEBUG ('t', "Could not retrieve file information for %s, error: %s\n", uri_str, error->message);
+        g_error_free(error);
     }
-    gnome_vfs_uri_unref (uri);
 
     GnomeCmdFile *f;
 
-    if (info->type == GNOME_VFS_FILE_TYPE_DIRECTORY)
-        f = GNOME_CMD_FILE (gnome_cmd_dir_new_from_info (info, dir));
+    if (g_file_info_get_attribute_uint32 (gFileInfo, G_FILE_ATTRIBUTE_STANDARD_TYPE) == G_FILE_TYPE_DIRECTORY)
+        f = GNOME_CMD_FILE (gnome_cmd_dir_new_from_gfileinfo (gFileInfo, dir));
     else
-        f = gnome_cmd_file_new (info, dir);
+        f = gnome_cmd_file_new (gFileInfo, dir);
 
     if (!f)
     {
