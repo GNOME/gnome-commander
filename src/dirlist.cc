@@ -137,6 +137,8 @@ void sync_list (GnomeCmdDir *dir)
     }
     while (gFileInfoTmp && !error);
 
+    g_file_enumerator_close (gFileEnumerator, nullptr, nullptr);
+
     dir->state = error ? GnomeCmdDir::STATE_EMPTY : GnomeCmdDir::STATE_LISTED;
     dir->done_func (dir, dir->gFileInfoList, error);
 }
@@ -155,6 +157,7 @@ static void enumerate_children_callback(GObject *direnum, GAsyncResult *result, 
         dir->state = GnomeCmdDir::STATE_EMPTY;
         g_object_unref(direnum);
         dir->done_func (dir, dir->gFileInfoList, error);
+        g_file_enumerator_close(gFileEnumerator, nullptr, nullptr);
         g_error_free(error);
         return;
     }
@@ -164,6 +167,7 @@ static void enumerate_children_callback(GObject *direnum, GAsyncResult *result, 
         dir->state = GnomeCmdDir::STATE_LISTED;
         DEBUG('l', "All files listed\n");
         dir->done_func (dir, dir->gFileInfoList, nullptr);
+        g_file_enumerator_close(gFileEnumerator, nullptr, nullptr);
         g_object_unref(direnum);
         return;
     }
