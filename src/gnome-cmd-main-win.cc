@@ -1430,8 +1430,8 @@ GnomeCmdState *GnomeCmdMainWin::get_state() const
     GnomeCmdDir *dir2 = fs2->get_directory();
 
     GnomeCmdState *state = &priv->state;
-    state->activeDirGfile = GNOME_CMD_FILE (dir1)->gFile;
-    state->inactiveDirGfile = GNOME_CMD_FILE (dir2)->gFile;
+    state->activeDirGfile = dir1 ? GNOME_CMD_FILE (dir1)->gFile : nullptr;
+    state->inactiveDirGfile = dir2 ? GNOME_CMD_FILE (dir2)->gFile : nullptr;
     state->active_dir_files = fs1->file_list()->get_visible_files();
     state->inactive_dir_files = fs2->file_list()->get_visible_files();
     state->active_dir_selected_files = fs1->file_list()->get_selected_files();
