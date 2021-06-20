@@ -2017,26 +2017,6 @@ void GnomeCmdData::load_keybindings()
 }
 
 
-inline gboolean vfs_is_uri_local (const char *uri)
-{
-    GnomeVFSURI *pURI = gnome_vfs_uri_new (uri);
-
-    if (!pURI)
-        return FALSE;
-
-    gboolean b = gnome_vfs_uri_is_local (pURI);
-    gnome_vfs_uri_unref (pURI);
-
-    // make sure this is actually a local path (gnome treats "burn://" as local too, and we don't want that)
-    if (g_ascii_strncasecmp (uri, "file:/", 6)!=0)
-        b = FALSE;
-
-    DEBUG('m',"uri (%s) is %slocal\n", uri, b?"":"NOT ");
-
-    return b;
-}
-
-
 inline void remove_gvolume (GVolume *gVolume)
 {
     auto identifier = g_volume_get_identifier(gVolume, G_VOLUME_IDENTIFIER_KIND_UNIX_DEVICE);
