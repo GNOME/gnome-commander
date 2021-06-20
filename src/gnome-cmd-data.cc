@@ -2050,13 +2050,7 @@ inline gboolean device_mount_point_exists (GnomeCmdConList *list, const gchar *m
         GnomeCmdConDevice *device = GNOME_CMD_CON_DEVICE (tmp->data);
         if (device && !gnome_cmd_con_device_get_autovol (device))
         {
-            gchar *mountp = g_strescape (gnome_cmd_con_device_get_mountp (device), nullptr);
-            gchar *mountp2= gnome_vfs_unescape_string (mountp, nullptr);
-
-            rc = strcmp(mountp2, mountpoint)==0;
-
-            g_free (mountp);
-            g_free (mountp2);
+            rc = strcmp(gnome_cmd_con_device_get_mountp_string (device), mountpoint) == 0;
 
             if (rc)
                 break;
