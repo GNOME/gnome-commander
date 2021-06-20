@@ -103,7 +103,9 @@ inline GnomeCmdFile *gnome_cmd_dir_new_parent_dir_file (GnomeCmdDir *dir)
     g_file_info_set_file_type(info, G_FILE_TYPE_DIRECTORY);
     g_file_info_set_size(info, 0);
 
-    return gnome_cmd_file_new (info, dir);
+    auto gnomeCmdFile = gnome_cmd_file_new (info, dir);
+    gnomeCmdFile->ref();
+    return gnomeCmdFile;
 }
 
 inline GnomeCmdDir *gnome_cmd_dir_ref (GnomeCmdDir *dir)
