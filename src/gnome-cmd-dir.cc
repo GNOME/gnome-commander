@@ -85,6 +85,7 @@ static void monitor_callback (GFileMonitor *gFileMonitor, GFile *gFile, GFile *o
     switch (event_type)
     {
         case G_FILE_MONITOR_EVENT_CHANGED:
+        case G_FILE_MONITOR_EVENT_ATTRIBUTE_CHANGED:
             DEBUG('n', "G_FILE_MONITOR_EVENT_CHANGED for %s\n", fileUri);
             gnome_cmd_dir_file_changed (dir, fileUri);
             break;
@@ -97,7 +98,6 @@ static void monitor_callback (GFileMonitor *gFileMonitor, GFile *gFile, GFile *o
             gnome_cmd_dir_file_created (dir, fileUri);
             break;
         case G_FILE_MONITOR_EVENT_CHANGES_DONE_HINT:
-        case G_FILE_MONITOR_EVENT_ATTRIBUTE_CHANGED:
         case G_FILE_MONITOR_EVENT_PRE_UNMOUNT:
         case G_FILE_MONITOR_EVENT_UNMOUNTED:
         case G_FILE_MONITOR_EVENT_MOVED:
