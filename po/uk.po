@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ru\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-commander/issues\n"
-"POT-Creation-Date: 2021-06-20 21:58+0000\n"
-"PO-Revision-Date: 2021-06-21 09:33+0300\n"
+"POT-Creation-Date: 2021-06-21 07:25+0000\n"
+"PO-Revision-Date: 2021-06-21 10:26+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -3477,9 +3477,6 @@ msgstr "Не вдалося змонтувати: команда mount заве�
 
 #: src/gnome-cmd-con-device.cc:288
 #, c-format
-#| msgid ""
-#| "Cannot unmount the volume:\n"
-#| "%s %s"
 msgid ""
 "Cannot unmount the volume:\n"
 "%s\n"
@@ -3490,9 +3487,9 @@ msgstr ""
 "Код помилки: %d"
 
 #: src/gnome-cmd-con-device.cc:306
-msgid "Volume successfuly unmounted"
-msgstr ""
-"Том успішно демонтовано"
+#| msgid "Volume successfuly unmounted"
+msgid "Volume successfully unmounted"
+msgstr "Том успішно демонтовано"
 
 #: src/gnome-cmd-con-device.cc:522
 #, c-format
