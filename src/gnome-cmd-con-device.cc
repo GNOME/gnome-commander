@@ -303,7 +303,7 @@ static void unmount_callback(GObject *gMnt, GAsyncResult *result, gpointer user_
                                      GTK_DIALOG_MODAL,
                                      GTK_MESSAGE_INFO,
                                      GTK_BUTTONS_OK,
-                                     _("Volume successfuly unmounted"));
+                                     _("Volume successfully unmounted"));
 
     gtk_dialog_run (GTK_DIALOG (msgbox));
     gtk_widget_destroy (msgbox);
