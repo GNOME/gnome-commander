@@ -803,7 +803,7 @@ void gnome_cmd_dir_file_created (GnomeCmdDir *dir, const gchar *uri_str)
         return;
 
     auto gFile = g_file_new_for_uri (uri_str);
-    auto gFileInfo = g_file_query_info (gFile, "*", G_FILE_QUERY_INFO_NOFOLLOW_SYMLINKS, nullptr, &error);
+    auto gFileInfo = g_file_query_info (gFile, "*", G_FILE_QUERY_INFO_NONE, nullptr, &error);
     if (error)
     {
         DEBUG ('t', "Could not retrieve file information for %s, error: %s\n", uri_str, error->message);
