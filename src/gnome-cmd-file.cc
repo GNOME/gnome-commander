@@ -408,29 +408,33 @@ gboolean GnomeCmdFile::chmod(guint32 permissions)
 }
 
 
-gboolean GnomeCmdFile::chown(uid_t uid, gid_t gid)
+gboolean GnomeCmdFile::chown(uid_t uid, gid_t gid, GError **error)
 {
-    GError *error;
-    error = nullptr;
+    g_return_val_if_fail (error == NULL || *error == NULL, FALSE);
+
+    GError *tmp_error;
+    tmp_error = nullptr;
 
     auto gFileInfoMods = g_file_query_info(gFile,
                                            G_FILE_ATTRIBUTE_UNIX_UID "," G_FILE_ATTRIBUTE_UNIX_GID,
                                            G_FILE_QUERY_INFO_NONE,
                                            nullptr,
-                                           &error);
-    if (error)
+                                           &tmp_error);
+    if (tmp_error)
     {
-        g_message ("chown: retrieving file info failed: %s", error->message);
+        g_message ("chown: retrieving file info failed: %s", tmp_error->message);
 
         gchar *fname = GetGfileAttributeString(G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME);
         gchar *msg = g_strdup_printf (_("Could not chown %s"), fname);
-        gnome_cmd_show_message (*main_win, msg, error->message);
+        gnome_cmd_show_message (*main_win, msg, tmp_error->message);
         g_free (msg);
         g_free (fname);
 
-        g_error_free (error);
+        g_propagate_error (error, tmp_error);
         return false;
     }
+
+    tmp_error = nullptr;
 
     if (uid != (uid_t) -1)
     {
@@ -447,19 +451,19 @@ gboolean GnomeCmdFile::chown(uid_t uid, gid_t gid)
                                     gFileInfoMods,
                                     G_FILE_QUERY_INFO_NONE,
                                     nullptr,
-                                    &error);
-    if (error)
+                                    &tmp_error);
+    if (tmp_error)
     {
-        g_message ("chmod: setting file mode failed: %s", error->message);
+        g_message ("chmod: setting file mode failed: %s", tmp_error->message);
 
         gchar *fname = GetGfileAttributeString(G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME);
         gchar *msg = g_strdup_printf (_("Could not chown %s"), fname);
-        gnome_cmd_show_message (*main_win, msg, error->message);
+        gnome_cmd_show_message (*main_win, msg, tmp_error->message);
         g_free (msg);
         g_free (fname);
 
         g_object_unref(gFileInfoMods);
-        g_error_free (error);
+        g_propagate_error (error, tmp_error);
         return false;
     }
 

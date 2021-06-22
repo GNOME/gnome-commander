@@ -49,7 +49,7 @@ static void do_chown (GnomeCmdFile *in, uid_t uid, gid_t gid, gboolean recurse)
     g_return_if_fail (in != nullptr);
     g_return_if_fail (in->gFileInfo != nullptr);
 
-    if(!in->chown(uid, gid))
+    if(!in->chown(uid, gid, nullptr))
     {
         return;
     }

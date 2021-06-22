@@ -91,7 +91,7 @@ struct GnomeCmdFile
     gboolean get_type_pixmap_and_mask(GdkPixmap **pixmap, GdkBitmap **mask);
 
     gboolean chmod(guint32 permissions);
-    gboolean chown(uid_t uid, gid_t gid);
+    gboolean chown(uid_t uid, gid_t gid, GError **error);
     GnomeVFSResult rename(const gchar *new_name);
 
     void update_info(GnomeVFSFileInfo *info);
