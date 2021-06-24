@@ -448,7 +448,7 @@ gboolean GnomeCmdFile::chown(uid_t uid, gid_t gid, GError **error)
 }
 
 
-GnomeVFSResult GnomeCmdFile::rename(const gchar *new_name)
+gboolean GnomeCmdFile::rename(const gchar *new_name, GError **error)
 {
     g_return_val_if_fail (info, GNOME_VFS_ERROR_CORRUPTED_DATA);
 
@@ -457,16 +457,16 @@ GnomeVFSResult GnomeCmdFile::rename(const gchar *new_name)
 
     new_info->name = const_cast<gchar *> (new_name);
 
-    GError *error;
-    error = nullptr;
+    GError *tmp_error;
+    tmp_error = nullptr;
 
-    auto newgFile = g_file_set_display_name (this->gFile, new_name, nullptr, &error);
+    auto newgFile = g_file_set_display_name (this->gFile, new_name, nullptr, &tmp_error);
 
-    if (error || newgFile == nullptr)
+    if (tmp_error || newgFile == nullptr)
     {
-        g_message ("rename to \"%s\" failed: %s", new_name, error->message);
-        g_error_free (error);
-        return GNOME_VFS_OK;
+        g_message ("rename to \"%s\" failed: %s", new_name, tmp_error->message);
+        g_propagate_error (error, tmp_error);
+        return FALSE;
     }
 
     g_object_unref(this->gFile);
@@ -478,6 +478,10 @@ GnomeVFSResult GnomeCmdFile::rename(const gchar *new_name)
     auto result = gnome_vfs_get_file_info_uri (newUri, new_info, infoOpts);
     gnome_vfs_uri_unref (newUri);
 
+    //ToDo: When migrating to GIO, propagate the error out of this function like done above.
+    if (result!=GNOME_VFS_OK)
+        return false;
+
     if (result==GNOME_VFS_OK && has_parent_dir (this))
     {
         gchar *old_uri_str = get_uri_str();
@@ -488,7 +492,7 @@ GnomeVFSResult GnomeCmdFile::rename(const gchar *new_name)
             gnome_cmd_dir_update_path (GNOME_CMD_DIR (this));
     }
 
-    return result;
+    return true;
 }
 
 

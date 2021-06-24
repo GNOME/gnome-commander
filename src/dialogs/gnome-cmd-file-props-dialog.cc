@@ -197,13 +197,13 @@ static void on_dialog_ok (GtkButton *btn, GnomeCmdFilePropsDialogPrivate *data)
 
     if (strcmp (filename, data->f->get_name()) != 0)
     {
-        result = data->f->rename(filename);
+        retValue = data->f->rename(filename, &error);
 
-        if (result==GNOME_VFS_OK)
+        if (retValue)
             main_win->fs(ACTIVE)->file_list()->focus_file(filename, TRUE);
     }
 
-    if (result == GNOME_VFS_OK)
+    if (result == GNOME_VFS_OK && retValue)
     {
         auto perms = gnome_cmd_chmod_component_get_perms (GNOME_CMD_CHMOD_COMPONENT (data->chmod_component));
 

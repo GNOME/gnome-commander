@@ -59,17 +59,21 @@ static gboolean on_dialog_keypressed (GtkWidget *widget, GdkEventKey *event, gpo
         case GDK_Return:
         case GDK_KP_Enter:
             {
+                GError *error = nullptr;
                 gchar *new_fname = g_strdup (gtk_entry_get_text (dialog->priv->textbox));
-                GnomeVFSResult result = dialog->priv->f->rename(new_fname);
+                gboolean result = dialog->priv->f->rename(new_fname, &error);
 
-                if (result==GNOME_VFS_OK)
+                if (result)
                     main_win->fs(ACTIVE)->file_list()->focus_file(new_fname, TRUE);
 
                 dialog->priv->f->unref();
                 gtk_widget_destroy (widget);
 
-                if (result!=GNOME_VFS_OK)
-                    gnome_cmd_show_message (NULL, new_fname, gnome_vfs_result_to_string (result));
+                if (!result)
+                {
+                    gnome_cmd_show_message (NULL, new_fname, error->message);
+                    g_error_free(error);
+                }
 
                 g_free (new_fname);
             }

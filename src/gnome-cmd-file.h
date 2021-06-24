@@ -92,7 +92,7 @@ struct GnomeCmdFile
 
     gboolean chmod(guint32 permissions, GError **error);
     gboolean chown(uid_t uid, gid_t gid, GError **error);
-    GnomeVFSResult rename(const gchar *new_name);
+    gboolean rename(const gchar *new_name, GError **error);
 
     void update_info(GnomeVFSFileInfo *info);
     void update_gFileInfo(GFileInfo *gFileInfo);
