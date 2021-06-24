@@ -64,13 +64,20 @@ G_DEFINE_TYPE (GnomeCmdChmodDialog, gnome_cmd_chmod_dialog, GNOME_CMD_TYPE_DIALO
 static void do_chmod (GnomeCmdFile *in, guint32 permissions, gboolean recursive, ChmodRecursiveMode mode)
 {
     g_return_if_fail (in != NULL);
+    GError *error = nullptr;
 
     if (!(recursive
           && mode == CHMOD_DIRS_ONLY
           && in->GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE) != G_FILE_TYPE_DIRECTORY))
     {
-        if (!in->chmod(permissions, nullptr))
+        if (!in->chmod(permissions, &error))
         {
+            auto filename = g_file_get_basename(in->gFile);
+            auto message = g_strdup_printf (_("Could not chmod %s"), filename);
+            gnome_cmd_show_message (nullptr, message, error->message);
+            g_error_free(error);
+            g_free(filename);
+            g_free(message);
             return;
         }
 

@@ -358,14 +358,6 @@ gboolean GnomeCmdFile::chmod(guint32 permissions, GError **error)
                                             &tmp_error);
     if (tmp_error)
     {
-        g_message ("chmod: retrieving file info failed: %s", tmp_error->message);
-
-        gchar *fname = GetGfileAttributeString(G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME);
-        gchar *msg = g_strdup_printf (_("Could not chmod %s"), fname);
-        gnome_cmd_show_message (*main_win, msg, tmp_error->message);
-        g_free (msg);
-        g_free (fname);
-
         g_propagate_error (error, tmp_error);
         return false;
     }
@@ -383,14 +375,6 @@ gboolean GnomeCmdFile::chmod(guint32 permissions, GError **error)
                                     &tmp_error);
     if (tmp_error)
     {
-        g_message ("chmod: setting file mode failed: %s", tmp_error->message);
-
-        gchar *fname = GetGfileAttributeString(G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME);
-        gchar *msg = g_strdup_printf (_("Could not chmod %s"), fname);
-        gnome_cmd_show_message (*main_win, msg, tmp_error->message);
-        g_free (msg);
-        g_free (fname);
-
         g_object_unref(gFileInfoPerms);
         g_propagate_error (error, tmp_error);
         return false;
