@@ -52,11 +52,9 @@ static void do_chown (GnomeCmdFile *in, uid_t uid, gid_t gid, gboolean recurse)
 
     if(!in->chown(uid, gid, &error))
     {
-        auto filename = g_file_get_basename(in->gFile);
-        auto message = g_strdup_printf (_("Could not chown %s"), filename);
+        auto message = g_strdup_printf (_("Could not chown %s"), in->get_name());
         gnome_cmd_show_message (nullptr, message, error->message);
         g_error_free(error);
-        g_free(filename);
         g_free(message);
         return;
     }
