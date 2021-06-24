@@ -190,7 +190,6 @@ static void on_dialog_ok (GtkButton *btn, GnomeCmdFilePropsDialogPrivate *data)
     GError *error;
     error = nullptr;
 
-    GnomeVFSResult result = GNOME_VFS_OK;
     gboolean retValue = true;
 
     const gchar *filename = gtk_entry_get_text (GTK_ENTRY (data->filename_entry));
@@ -203,7 +202,7 @@ static void on_dialog_ok (GtkButton *btn, GnomeCmdFilePropsDialogPrivate *data)
             main_win->fs(ACTIVE)->file_list()->focus_file(filename, TRUE);
     }
 
-    if (result == GNOME_VFS_OK && retValue)
+    if (retValue)
     {
         auto perms = gnome_cmd_chmod_component_get_perms (GNOME_CMD_CHMOD_COMPONENT (data->chmod_component));
 
@@ -211,7 +210,7 @@ static void on_dialog_ok (GtkButton *btn, GnomeCmdFilePropsDialogPrivate *data)
             retValue = data->f->chmod(perms, &error);
     }
 
-    if (result == GNOME_VFS_OK && retValue)
+    if (retValue)
     {
         uid_t uid = gnome_cmd_chown_component_get_owner (GNOME_CMD_CHOWN_COMPONENT (data->chown_component));
         gid_t gid = gnome_cmd_chown_component_get_group (GNOME_CMD_CHOWN_COMPONENT (data->chown_component));
@@ -223,12 +222,10 @@ static void on_dialog_ok (GtkButton *btn, GnomeCmdFilePropsDialogPrivate *data)
         }
     }
 
-    if (result != GNOME_VFS_OK || !retValue)
+    if (!retValue && error != nullptr)
     {
-        if (error != nullptr)
-            gnome_cmd_show_message (nullptr, filename, error->message);
-        else
-            gnome_cmd_show_message (nullptr, filename, gnome_vfs_result_to_string (result));
+        gnome_cmd_show_message (nullptr, filename, error->message);
+        g_error_free(error);
         return;
     }
 
