@@ -450,12 +450,9 @@ gboolean GnomeCmdFile::chown(uid_t uid, gid_t gid, GError **error)
 
 gboolean GnomeCmdFile::rename(const gchar *new_name, GError **error)
 {
-    g_return_val_if_fail (info, GNOME_VFS_ERROR_CORRUPTED_DATA);
+    g_return_val_if_fail (gFileInfo, false);
 
-    GnomeVFSFileInfo *new_info = gnome_vfs_file_info_new ();
-    g_return_val_if_fail (new_info, GNOME_VFS_ERROR_CORRUPTED_DATA);
-
-    new_info->name = const_cast<gchar *> (new_name);
+    gchar *old_uri_str = get_uri_str();
 
     GError *tmp_error;
     tmp_error = nullptr;
@@ -472,25 +469,26 @@ gboolean GnomeCmdFile::rename(const gchar *new_name, GError **error)
     g_object_unref(this->gFile);
     this->gFile = newgFile;
 
-    // TODO: Remove the following when GnomeVFS->GIO migration is done
-    const GnomeVFSFileInfoOptions infoOpts = (GnomeVFSFileInfoOptions) (GNOME_VFS_FILE_INFO_FOLLOW_LINKS|GNOME_VFS_FILE_INFO_GET_MIME_TYPE);
-    auto newUri = get_uri(new_name);
-    auto result = gnome_vfs_get_file_info_uri (newUri, new_info, infoOpts);
-    gnome_vfs_uri_unref (newUri);
-
-    //ToDo: When migrating to GIO, propagate the error out of this function like done above.
-    if (result!=GNOME_VFS_OK)
-        return false;
-
-    if (result==GNOME_VFS_OK && has_parent_dir (this))
+    auto gFileInfoNew = g_file_query_info(gFile,
+                                          "*",
+                                          G_FILE_QUERY_INFO_NONE,
+                                          nullptr,
+                                          &tmp_error);
+    if (tmp_error)
     {
-        gchar *old_uri_str = get_uri_str();
+        g_propagate_error (error, tmp_error);
+        return false;
+    }
 
-        update_info(new_info);
+    if (has_parent_dir (this))
+    {
+        update_gFileInfo(gFileInfoNew);
         gnome_cmd_dir_file_renamed (::get_parent_dir (this), this, old_uri_str);
         if (GNOME_CMD_IS_DIR (this))
             gnome_cmd_dir_update_path (GNOME_CMD_DIR (this));
     }
+
+    g_free(old_uri_str);
 
     return true;
 }
