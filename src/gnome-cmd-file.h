@@ -49,7 +49,7 @@ struct GnomeCmdFile
     GFile *gFile;
     GFileInfo *gFileInfo;
     gboolean is_dotdot;
-    gchar *collate_key;                 // necessary for proper sorting of UTF-8 encoded file names
+    gchar *collate_key;                 // necessary for proper sorting of UTF-8 encoded file names //ToDo: Check if this is really still needed
     GnomeCmdFileMetadata *metadata;
 
     GnomeCmdFile *ref();
