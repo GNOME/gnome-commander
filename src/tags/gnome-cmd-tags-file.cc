@@ -32,7 +32,7 @@ using namespace std;
 void gcmd_tags_file_load_metadata(GnomeCmdFile *f)
 {
     g_return_if_fail (f != NULL);
-    g_return_if_fail (f->info != NULL);
+    g_return_if_fail (f->gFileInfo != NULL);
 
     if (f->metadata && f->metadata->is_accessed(TAG_FILE))  return;
 
@@ -62,11 +62,15 @@ void gcmd_tags_file_load_metadata(GnomeCmdFile *f)
 
     f->metadata->add(TAG_FILE_SIZE, f->GetGfileAttributeUInt64(G_FILE_ATTRIBUTE_STANDARD_SIZE));
 
-    // TODO: This will be possible with GIO earliest in glib v2.70
-    strftime(buff,sizeof(buff),"%Y-%m-%d %T",localtime(&f->info->atime));
-    f->metadata->add(TAG_FILE_ACCESSED, buff);
-
     auto gFileInfo = g_file_query_info(f->gFile, "time::*" "," , G_FILE_QUERY_INFO_NONE, nullptr, nullptr);
+
+#ifdef GLIB_2_70
+    auto accessTime = g_file_info_get_access_date_time (gFileInfo);
+    auto accessTimeString = g_date_time_format (accessTime, "%Y-%m-%d %T");
+    f->metadata->add(TAG_FILE_ACCESSED, accessTimeString);
+    g_free(accessTimeString);
+#endif
+
     auto modificationTime = g_file_info_get_modification_date_time (gFileInfo);
     auto modificationTimeString = g_date_time_format (modificationTime, "%Y-%m-%d %T");
     f->metadata->add(TAG_FILE_MODIFIED, modificationTimeString);
