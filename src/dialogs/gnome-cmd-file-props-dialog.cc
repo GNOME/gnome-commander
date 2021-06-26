@@ -206,7 +206,7 @@ static void on_dialog_ok (GtkButton *btn, GnomeCmdFilePropsDialogPrivate *data)
     {
         auto perms = gnome_cmd_chmod_component_get_perms (GNOME_CMD_CHMOD_COMPONENT (data->chmod_component));
 
-        if (perms != GetGfileAttributeUInt32(data->f->gFile, G_FILE_ATTRIBUTE_UNIX_MODE) & 0xFFF )
+        if (perms != (GetGfileAttributeUInt32(data->f->gFile, G_FILE_ATTRIBUTE_UNIX_MODE) & 0xFFF ))
             retValue = data->f->chmod(perms, &error);
     }
 
