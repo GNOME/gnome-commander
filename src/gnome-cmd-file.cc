@@ -537,11 +537,12 @@ gchar *GnomeCmdFile::get_path()
 }
 
 
+//ToDo: Try to remove usage of this method.
 gchar *GnomeCmdFile::get_real_path()
 {
-    GnomeVFSURI *uri = get_uri();
-    gchar *path = gnome_vfs_unescape_string (gnome_vfs_uri_get_path (uri), nullptr);
-    gnome_vfs_uri_unref (uri);
+    auto gfile = get_gfile();
+    gchar *path = g_file_get_path (gfile);
+    g_object_unref (gfile);
 
     return path;
 }
@@ -560,23 +561,18 @@ gchar *GnomeCmdFile::get_quoted_real_path()
 
 gchar *GnomeCmdFile::get_dirname()
 {
-    GnomeVFSURI *uri = get_uri();
-    gchar *path = gnome_vfs_uri_extract_dirname (uri);
-    gnome_vfs_uri_unref (uri);
+    auto gFileTmp = get_gfile();
+    auto gFileParent = g_file_get_parent(gFileTmp);
+    if (!gFileParent)
+    {
+        g_object_unref(gFileTmp);
+        return nullptr;
+    }
+    gchar *path = g_file_get_path (gFileParent);
+    g_object_unref (gFileTmp);
+    g_object_unref (gFileParent);
 
     return path;
-}
-
-
-gchar *GnomeCmdFile::get_unescaped_dirname()
-{
-    GnomeVFSURI *uri = get_uri();
-    gchar *path = gnome_vfs_uri_extract_dirname (uri);
-    gnome_vfs_uri_unref (uri);
-    gchar *unescaped_path = gnome_vfs_unescape_string (path, nullptr);
-    g_free (path);
-
-    return unescaped_path;
 }
 
 
@@ -713,7 +709,7 @@ GnomeVFSMimeApplication *GnomeCmdFile::get_default_gnome_vfs_app_for_mime_type()
 }
 
 
-GnomeVFSURI *GnomeCmdFile::get_uri(const gchar *name)
+GFile *GnomeCmdFile::get_gfile(const gchar *name)
 {
     if (!has_parent_dir (this))
     {
@@ -721,13 +717,13 @@ GnomeVFSURI *GnomeCmdFile::get_uri(const gchar *name)
         {
             GnomeCmdPath *path = gnome_cmd_dir_get_path (GNOME_CMD_DIR (this));
             GnomeCmdCon *con = gnome_cmd_dir_get_connection (GNOME_CMD_DIR (this));
-            return gnome_cmd_con_create_uri (con, path);
+            return gnome_cmd_con_create_gfile (con, path);
         }
         else
             g_assert ("Non directory file without owning directory");
     }
 
-    return gnome_cmd_dir_get_child_uri (::get_parent_dir (this), name ? name : g_file_get_basename(gFile));
+    return gnome_cmd_dir_get_child_gfile (::get_parent_dir (this), name ? name : g_file_get_basename(gFile));
 }
 
 
@@ -1016,7 +1012,9 @@ void gnome_cmd_file_edit (GnomeCmdFile *f)
         return;
 
     gchar *fpath = f->get_quoted_real_path();
-    gchar *dpath = f->get_unescaped_dirname();
+    auto parentDir = g_file_get_parent(f->gFile);
+    gchar *dpath = g_file_get_parse_name (parentDir);
+    g_object_unref(parentDir);
 #if defined (__GNUC__)
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wformat-nonliteral"

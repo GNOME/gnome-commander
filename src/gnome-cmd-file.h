@@ -65,7 +65,7 @@ struct GnomeCmdFile
     gchar *get_dirname();
     gchar *get_unescaped_dirname();
 
-    GnomeVFSURI *get_uri(const gchar *name=NULL);
+    GFile *get_gfile(const gchar *name=NULL);
     gchar *get_uri_str();
 
     char *get_collation_fname() const    {  return collate_key ? collate_key : g_file_get_basename(gFile);  }
