@@ -1,4 +1,4 @@
-/** 
+/**
  * @file gnome-cmd-dir.h
  * @copyright (C) 2001-2006 Marcus Bjurman\n
  * @copyright (C) 2007-2012 Piotr Eljasiak\n
@@ -126,13 +126,12 @@ void gnome_cmd_dir_set_path (GnomeCmdDir *dir, GnomeCmdPath *path);
 void gnome_cmd_dir_update_path (GnomeCmdDir *dir);
 gchar *gnome_cmd_dir_get_display_path (GnomeCmdDir *dir);
 
-GnomeVFSURI *gnome_cmd_dir_get_uri (GnomeCmdDir *dir);
+GFile       *gnome_cmd_dir_get_gfile (GnomeCmdDir *dir);
 gchar       *gnome_cmd_dir_get_uri_str (GnomeCmdDir *dir);
 
-GnomeVFSURI *gnome_cmd_dir_get_child_uri (GnomeCmdDir *dir, const gchar *filename);
 GFile *gnome_cmd_dir_get_child_gfile (GnomeCmdDir *dir, const gchar *filename);
 
-GnomeVFSURI *gnome_cmd_dir_get_absolute_path_uri (GnomeCmdDir *dir, std::string absolute_filename);
+GFile *gnome_cmd_dir_get_absolute_path_gfile (GnomeCmdDir *dir, std::string absolute_filename);
 
 void gnome_cmd_dir_file_created (GnomeCmdDir *dir, const gchar *uri_str);
 void gnome_cmd_dir_file_deleted (GnomeCmdDir *dir, const gchar *uri_str);

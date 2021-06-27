@@ -693,11 +693,11 @@ gchar *gnome_cmd_dir_get_display_path (GnomeCmdDir *dir)
 }
 
 
-GnomeVFSURI *gnome_cmd_dir_get_uri (GnomeCmdDir *dir)
+GFile *gnome_cmd_dir_get_gfile (GnomeCmdDir *dir)
 {
     g_return_val_if_fail (GNOME_CMD_IS_DIR (dir), nullptr);
 
-    return gnome_cmd_dir_get_child_uri(dir, ".");
+    return gnome_cmd_dir_get_child_gfile(dir, ".");
 }
 
 
@@ -705,24 +705,11 @@ gchar *gnome_cmd_dir_get_uri_str (GnomeCmdDir *dir)
 {
     g_return_val_if_fail (GNOME_CMD_IS_DIR (dir), nullptr);
 
-    GnomeVFSURI *uri = gnome_cmd_dir_get_uri (dir);
-    gchar *uri_str = gnome_vfs_uri_to_string (uri, GNOME_VFS_URI_HIDE_PASSWORD);
-    gnome_vfs_uri_unref (uri);
+    GFile *gFile = gnome_cmd_dir_get_gfile (dir);
 
-    return uri_str;
-}
+    gchar *dir_str = g_file_get_uri (gFile);
 
-
-GnomeVFSURI *gnome_cmd_dir_get_child_uri (GnomeCmdDir *dir, const gchar *filename)
-{
-    g_return_val_if_fail (GNOME_CMD_IS_DIR (dir), nullptr);
-
-    GnomeCmdPath *path = dir->priv->path->get_child(filename);
-
-    GnomeVFSURI *uri = gnome_cmd_con_create_uri (dir->priv->con, path);
-    delete path;
-
-    return uri;
+    return dir_str;
 }
 
 
@@ -742,43 +729,42 @@ GFile *gnome_cmd_dir_get_child_gfile (GnomeCmdDir *dir, const gchar *filename)
 }
 
 
-GnomeVFSURI *gnome_cmd_dir_get_absolute_path_uri (GnomeCmdDir *dir, string absolute_filename)
+GFile *gnome_cmd_dir_get_absolute_path_gfile (GnomeCmdDir *dir, string absolute_filename)
 {
     g_return_val_if_fail (GNOME_CMD_IS_DIR (dir), nullptr);
 
 #ifdef HAVE_SAMBA
     // include workgroups and shares for smb uris
-    GnomeVFSURI *dir_uri = gnome_cmd_dir_get_uri (dir);
+    GFile *dir_gFile = gnome_cmd_dir_get_gfile (dir);
 
-    if (strcmp (gnome_vfs_uri_get_scheme (dir_uri), "smb") == 0)
+    auto uriScheme = g_file_get_uri_scheme (dir_gFile);
+
+    if (uriScheme && strcmp (uriScheme, "smb") == 0)
     {
-        gchar *mime_type = gnome_vfs_get_mime_type (gnome_vfs_uri_to_string (dir_uri, GNOME_VFS_URI_HIDE_PASSWORD));
-        while (strcmp (mime_type, "x-directory/normal") == 0)
+        while (GetGfileAttributeUInt32(dir_gFile, G_FILE_ATTRIBUTE_STANDARD_TYPE) == G_FILE_TYPE_DIRECTORY)
         {
-            g_free (mime_type);
-
-            GnomeVFSURI *tmp_dir_uri = gnome_vfs_uri_get_parent (dir_uri);
-            gnome_vfs_uri_unref (dir_uri);
-            dir_uri = gnome_vfs_uri_dup (tmp_dir_uri);
-            mime_type = gnome_vfs_get_mime_type (gnome_vfs_uri_to_string (dir_uri, GNOME_VFS_URI_HIDE_PASSWORD));
+            auto gFileParent = g_file_get_parent(dir_gFile);
+            g_object_unref (dir_gFile);
+            dir_gFile = gFileParent;
         }
 
-        g_free (mime_type);
-
-        gchar *server_and_share = gnome_vfs_uri_to_string (dir_uri, GNOME_VFS_URI_HIDE_TOPLEVEL_METHOD);
+        //ToDo: This has to be tested after the migration to GIO/gvfs is done
+        auto server_and_share = g_file_get_uri(dir_gFile);
         stringify (absolute_filename, g_build_filename (server_and_share, absolute_filename.c_str(), nullptr));
         g_free (server_and_share);
     }
 
-    gnome_vfs_uri_unref (dir_uri);
+    g_free(uriScheme);
+
+    g_object_unref (dir_gFile);
 #endif
 
     GnomeCmdPath *path = gnome_cmd_con_create_path (dir->priv->con, absolute_filename.c_str());
-    GnomeVFSURI *uri = gnome_cmd_con_create_uri (dir->priv->con, path);
+    auto gFile = gnome_cmd_con_create_gfile (dir->priv->con, path);
 
     delete path;
 
-    return uri;
+    return gFile;
 }
 
 
