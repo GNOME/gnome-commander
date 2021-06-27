@@ -1,4 +1,4 @@
-/** 
+/**
  * @file gnome-cmd-mkdir-dialog.h
  * @copyright (C) 2001-2006 Marcus Bjurman\n
  * @copyright (C) 2007-2012 Piotr Eljasiak\n
@@ -24,6 +24,6 @@
 #include "gnome-cmd-dir.h"
 using namespace std;
 
-GSList *make_uri_list (GnomeCmdDir *dir, string filename);
+GSList *make_gfile_list (GnomeCmdDir *dir, string filename);
 
 gboolean gnome_cmd_mkdir_dialog_new (GnomeCmdDir *dir, GnomeCmdFile *selected_file=NULL);

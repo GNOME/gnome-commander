@@ -1,4 +1,4 @@
-/** 
+/**
  * @file gnome-cmd-mkdir-dialog.cc
  * @copyright (C) 2001-2006 Marcus Bjurman\n
  * @copyright (C) 2007-2012 Piotr Eljasiak\n
@@ -26,54 +26,62 @@
 #include "gnome-cmd-dir.h"
 #include "gnome-cmd-main-win.h"
 #include "utils.h"
+#include "errno.h"
 
 using namespace std;
 
 
-GSList *make_uri_list (GnomeCmdDir *dir, string filename)
+GSList *make_gfile_list (GnomeCmdDir *dir, string filename)
 {
     g_return_val_if_fail (GNOME_CMD_IS_DIR (dir), NULL);
 
     // make an absolute filename from one that is starting with a tilde
     if (filename.compare(0, 2, "~/")==0)
     {
-        if (gnome_cmd_dir_is_local (dir))
-            stringify (filename, gnome_vfs_expand_initial_tilde (filename.c_str()));
-        else
-            filename.erase(0,1);
+        //ToDo: Take care of this only if we are in local dir, when migration to gvfs is done
+//        if (gnome_cmd_dir_is_local (dir))
+//            {
+        auto absolutePath = g_strdup_printf("%s" G_DIR_SEPARATOR_S "%s", g_get_home_dir(), filename.substr(2).c_str());
+        stringify (filename, absolutePath);
+//            }
+//        else
+//            filename.erase(0,1);
     }
 
 #ifdef HAVE_SAMBA
     // smb exception handling: test if we are in a samba share...
     // if not - change filename so that we can get a proper error message
-    GnomeVFSURI *dir_uri = gnome_cmd_dir_get_uri (dir);
+    auto dir_gFile = gnome_cmd_dir_get_gfile (dir);
+    auto uriScheme = g_file_get_uri_scheme (dir_gFile);
 
-    if (strcmp (gnome_vfs_uri_get_scheme (dir_uri), "smb")==0 && g_path_is_absolute (filename.c_str()))
+    if (uriScheme && strcmp (uriScheme, "smb")==0 && g_path_is_absolute (filename.c_str()))
     {
-        string mime_type = stringify (gnome_vfs_get_mime_type (gnome_vfs_uri_to_string (dir_uri, GNOME_VFS_URI_HIDE_PASSWORD)));
-
-        if (mime_type=="x-directory/normal" && !gnome_vfs_uri_has_parent (dir_uri))
+        if (GetGfileAttributeUInt32(dir_gFile, G_FILE_ATTRIBUTE_STANDARD_TYPE) == G_FILE_TYPE_DIRECTORY
+            && !g_file_get_parent (dir_gFile))
+        {
             filename.erase(0,1);
+        }
     }
-    gnome_vfs_uri_unref (dir_uri);
+    g_free(uriScheme);
+    g_object_unref (dir_gFile);
 #endif
 
-    GSList *uri_list = NULL;
+    GSList *gFile_list = NULL;
 
     if (g_path_is_absolute (filename.c_str()))
         while (filename.compare("/")!=0)
         {
-            uri_list = g_slist_prepend (uri_list, gnome_cmd_dir_get_absolute_path_uri (dir, filename));
+            gFile_list = g_slist_prepend (gFile_list, gnome_cmd_dir_get_absolute_path_gfile (dir, filename));
             stringify (filename, g_path_get_dirname (filename.c_str()));
         }
     else
         while (filename.compare(".")!=0)        // support for mkdir -p
         {
-            uri_list = g_slist_prepend (uri_list, gnome_cmd_dir_get_child_uri (dir, filename.c_str()));
+            gFile_list = g_slist_prepend (gFile_list, gnome_cmd_dir_get_child_gfile (dir, filename.c_str()));
             stringify (filename, g_path_get_dirname (filename.c_str()));
         }
 
-    return uri_list;
+    return gFile_list;
 }
 
 
@@ -98,45 +106,52 @@ static void response_callback (GtkDialog *dialog, int response_id, GnomeCmdDir *
                 }
                 else
                 {
-                    GnomeVFSURI *dir_uri = gnome_cmd_dir_get_uri (dir);
+                    auto dir_gFile = gnome_cmd_dir_get_gfile (dir);
                     gboolean new_dir_focused = FALSE;
 
-                    // the list of uri's to be created
-                    GSList *uri_list = make_uri_list (dir, filename);
+                    // the list of gFiles's to be created
+                    GSList *gFileList = make_gfile_list (dir, filename);
 
                     guint perm = ((GNOME_CMD_PERM_USER_ALL | GNOME_CMD_PERM_GROUP_ALL | GNOME_CMD_PERM_OTHER_ALL) & ~gnome_cmd_data.umask ) | GNOME_CMD_PERM_USER_WRITE | GNOME_CMD_PERM_USER_EXEC;
 
-                    for (GSList *i = uri_list; i; i = g_slist_next (i))
+                    for (GSList *i = gFileList; i; i = g_slist_next (i))
                     {
-                        GnomeVFSURI *mkdir_uri = (GnomeVFSURI *) i->data;
+                        auto mkdir_gFile = (GFile *) i->data;
 
-                        auto result = gnome_vfs_make_directory_for_uri (mkdir_uri, perm);
+                        auto mkdirPath = g_file_get_path(mkdir_gFile);
+                        auto result = g_mkdir_with_parents (mkdirPath, perm);
+                        g_free(mkdirPath);
 
-                        if (result!=GNOME_VFS_OK)
+                        if (result != 0)
                         {
-                            string dirname = stringify (gnome_vfs_uri_extract_short_name (mkdir_uri));
-                            gnome_cmd_show_message (GTK_WINDOW (dialog), dirname, gnome_vfs_result_to_string (result));
+                            auto mkdirBasename = g_file_get_basename (mkdir_gFile);
+                            string dirname = stringify (mkdirBasename);
+                            auto msg = g_strdup_printf(_("Make directory failed: %s\n"), strerror(errno));
+                            gnome_cmd_show_message (GTK_WINDOW (dialog), dirname, msg);
+                            g_free(msg);
                             g_signal_stop_emission_by_name (dialog, "response");
                             break;
                         }
 
                         // focus the created directory (if possible)
-                        if (gnome_vfs_uri_equal (gnome_vfs_uri_get_parent (mkdir_uri), dir_uri) == 1 && !new_dir_focused)
+                        auto parentGFile = g_file_get_parent (mkdir_gFile);
+                        if (g_file_equal (parentGFile, dir_gFile) && !new_dir_focused)
                         {
-                            string focus_filename = stringify (gnome_vfs_uri_extract_short_name (mkdir_uri));
-                            string mkdir_uri_str = stringify (gnome_vfs_uri_to_string (mkdir_uri, GNOME_VFS_URI_HIDE_PASSWORD));
+                            string focus_filename = stringify (g_file_get_basename (mkdir_gFile));
+                            string mkdir_uri_str = stringify (g_file_get_uri (mkdir_gFile));
 
                             gnome_cmd_dir_file_created (dir, mkdir_uri_str.c_str());
                             main_win->fs(ACTIVE)->file_list()->focus_file(focus_filename.c_str(), TRUE);
                             new_dir_focused = TRUE;
                         }
+                        g_object_unref(parentGFile);
                     }
 
-                    for (GSList *i = uri_list; i; i = g_slist_next (i))
-                        gnome_vfs_uri_unref ((GnomeVFSURI *) i->data);
+                    for (GSList *i = gFileList; i; i = g_slist_next (i))
+                        g_object_unref ((GFile *) i->data);
 
-                    g_slist_free (uri_list);
-                    gnome_vfs_uri_unref (dir_uri);
+                    g_slist_free (gFileList);
+                    g_object_unref (dir_gFile);
                 }
             }
             break;
