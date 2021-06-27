@@ -1134,6 +1134,7 @@ static gboolean on_create_symlink_ok (GnomeCmdStringDialog *string_dialog, const
 {
     g_return_val_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs), TRUE);
     g_return_val_if_fail (fs->priv->sym_file != nullptr, TRUE);
+    GError *error = nullptr;
 
     const gchar *fname = values[0];
 
@@ -1144,21 +1145,26 @@ static gboolean on_create_symlink_ok (GnomeCmdStringDialog *string_dialog, const
         return FALSE;
     }
 
-    GnomeVFSURI *uri = gnome_cmd_dir_get_child_uri (fs->get_directory(), fname);
-    GnomeVFSResult result = gnome_vfs_create_symbolic_link (uri, fs->priv->sym_file->get_uri_str());
+    auto gFile = gnome_cmd_dir_get_child_gfile (fs->get_directory(), fname);
+    auto absolutePath = g_file_get_parse_name(fs->priv->sym_file->gFile);
 
-    if (result == GNOME_VFS_OK)
+    //if (g_file_make_symbolic_link (gFile, fs->priv->sym_file->get_uri_str(), nullptr, &error))
+    if (g_file_make_symbolic_link (gFile, absolutePath, nullptr, &error))
     {
-        gchar *uri_str = gnome_vfs_uri_to_string (uri, GNOME_VFS_URI_HIDE_PASSWORD);
+        gchar *uri_str = g_file_get_uri (gFile);
         gnome_cmd_dir_file_created (fs->get_directory(), uri_str);
         g_free (uri_str);
-        gnome_vfs_uri_unref (uri);
+        g_free(absolutePath);
+        g_object_unref (gFile);
         return TRUE;
     }
 
-    gnome_vfs_uri_unref (uri);
-
-    gnome_cmd_string_dialog_set_error_desc (string_dialog, g_strdup (gnome_vfs_result_to_string (result)));
+    g_object_unref (gFile);
+    auto msg = g_strdup(error->message);
+    gnome_cmd_string_dialog_set_error_desc (string_dialog, msg);
+    g_free(msg);
+    g_free(absolutePath);
+    g_error_free(error);
 
     return FALSE;
 }
@@ -1352,6 +1358,7 @@ void gnome_cmd_file_selector_create_symlinks (GnomeCmdFileSelector *fs, GList *f
 
     for (; files; files=files->next)
     {
+        GError *error = nullptr;
         auto f = static_cast<GnomeCmdFile*> (files->data);
 #if defined (__GNUC__)
 #pragma GCC diagnostic push
@@ -1362,33 +1369,35 @@ void gnome_cmd_file_selector_create_symlinks (GnomeCmdFileSelector *fs, GList *f
 #pragma GCC diagnostic pop
 #endif
 
-        GnomeVFSURI *uri = gnome_cmd_dir_get_child_uri (fs->get_directory(), symlink_name);
+        auto gFile = gnome_cmd_dir_get_child_gfile (fs->get_directory(), symlink_name);
 
         g_free (symlink_name);
 
-        GnomeVFSResult result;
+        gboolean result;
 
         do
         {
-            result = gnome_vfs_create_symbolic_link (uri, f->get_uri_str());
-
-            if (result == GNOME_VFS_OK)
+            auto absolutePathName = g_file_get_parse_name(f->gFile);
+            result = g_file_make_symbolic_link (gFile, absolutePathName, nullptr, &error);
+            g_free(absolutePathName);
+            if (!result) // 0 means it worked
             {
-                gchar *uri_str = gnome_vfs_uri_to_string (uri, GNOME_VFS_URI_HIDE_PASSWORD);
+                gchar *uri_str = g_file_get_uri (gFile);
                 gnome_cmd_dir_file_created (fs->get_directory(), uri_str);
                 g_free (uri_str);
             }
             else
-                if (choice != 1)  // choice != SKIP_ALL
+                if (choice != 1 && error)  // choice != SKIP_ALL
                 {
-                    gchar *msg = g_strdup (gnome_vfs_result_to_string (result));
+                    gchar *msg = g_strdup (error->message);
                     choice = run_simple_dialog (*main_win, TRUE, GTK_MESSAGE_QUESTION, msg, _("Create Symbolic Link"), 3, _("Skip"), _("Skip all"), _("Cancel"), _("Retry"), nullptr);
                     g_free (msg);
+                    g_error_free(error);
                 }
         }
-        while (result != GNOME_VFS_OK && choice == 3);  // choice != RETRY
+        while (result != true && choice == 3);  // choice != RETRY
 
-        gnome_vfs_uri_unref (uri);
+        g_object_unref (gFile);
     }
 }
 
