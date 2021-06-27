@@ -83,7 +83,7 @@ void DEBUG (gchar flag, const gchar *format, ...)
  * terminal window, if desired.
  * \param in_command Command to be executed.
  * \param dpath Directory in which the command should be executed.
- * \param term If TRUE, the command is executed in a terminal window. 
+ * \param term If TRUE, the command is executed in a terminal window.
  * \sa GnomeCmdData::Options::termexec
  */
 void run_command_indir (const gchar *in_command, const gchar *dpath, gboolean term)
@@ -766,22 +766,22 @@ GdkColor *gdk_color_new (gushort r, gushort g, gushort b)
 }
 
 
-GList *file_list_to_uri_list (GList *files)
+GList *file_list_to_gfile_list (GList *files)
 {
-    GList *uris = NULL;
+    GList *gFiles = NULL;
 
     for (; files; files = files->next)
     {
         GnomeCmdFile *f = GNOME_CMD_FILE (files->data);
-        GnomeVFSURI *uri = f->get_uri();
+        auto gFile = f->get_gfile();
 
-        if (!uri)
+        if (!gFile)
             g_warning ("NULL uri!!!");
         else
-            uris = g_list_append (uris, uri);
+            gFiles = g_list_append (gFiles, gFile);
     }
 
-    return uris;
+    return gFiles;
 }
 
 

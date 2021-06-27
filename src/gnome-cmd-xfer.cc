@@ -328,10 +328,10 @@ static gboolean update_xfer_gui_func (XferData *data)
                 for (; data->src_files; data->src_files = data->src_files->next)
                 {
                     auto f = static_cast<GnomeCmdFile*> (data->src_files->data);
-                    GnomeVFSURI *src_uri = f->get_uri();
-                    if (!gnome_vfs_uri_exists (src_uri))
+                    auto src_gFile = f->get_gfile();
+                    if (!g_file_query_exists (src_gFile, nullptr))
                         data->src_fl->remove_file(f);
-                    g_free (src_uri);
+                    g_free (src_gFile);
                 }
             }
 
@@ -361,21 +361,17 @@ static gboolean update_xfer_gui_func (XferData *data)
 }
 
 
-inline gboolean uri_is_parent_to_dir_or_equal (GnomeVFSURI *uri, GnomeCmdDir *dir)
+inline gboolean gfile_is_parent_to_dir_or_equal (GFile *gFile, GnomeCmdDir *dir)
 {
-    GnomeVFSURI *dir_uri = GNOME_CMD_FILE (dir)->get_uri ();
+    auto dir_gFile = GNOME_CMD_FILE (dir)->get_gfile ();
 
-    gboolean is_parent = gnome_vfs_uri_is_parent (uri, dir_uri, TRUE);
+    gboolean is_parent = g_file_has_parent (dir_gFile, gFile);
 
-    gchar *uri_str = gnome_vfs_uri_to_string (uri, GNOME_VFS_URI_HIDE_PASSWORD);
-    gchar *dir_uri_str = gnome_vfs_uri_to_string (dir_uri, GNOME_VFS_URI_HIDE_PASSWORD);
-    gboolean is_equal = gnome_vfs_uris_match (uri_str, dir_uri_str);
+    gboolean are_equal = g_file_equal (gFile, dir_gFile);
 
-    g_free (uri_str);
-    g_free (dir_uri_str);
-    gnome_vfs_uri_unref (dir_uri);
+    g_object_unref (dir_gFile);
 
-    return is_parent || is_equal;
+    return is_parent || are_equal;
 }
 
 
@@ -500,7 +496,7 @@ gnome_cmd_xfer_start (GList *src_files,
     g_return_if_fail (src_files != nullptr);
     g_return_if_fail (GNOME_CMD_IS_DIR (to_dir));
 
-    GList *src_uri_list = file_list_to_uri_list (src_files);
+    GList *src_uri_list = file_list_to_gfile_list (src_files);
 
     gnome_cmd_xfer_uris_start (src_uri_list,
                                to_dir,
