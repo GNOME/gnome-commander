@@ -836,7 +836,7 @@ guint64 GnomeCmdFile::calc_tree_size (gulong *count)
 
         if (error)
         {
-            g_message ("calc_tree_size: closing gFileEnumerator failed: %s", error->message);
+            g_message ("calc_tree_size: g_file_measure_disk_usage failed: %s", error->message);
             g_error_free (error);
         }
     }
