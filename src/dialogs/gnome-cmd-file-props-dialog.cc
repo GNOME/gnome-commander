@@ -44,7 +44,6 @@ struct GnomeCmdFilePropsDialogPrivate
     GtkWidget *dialog;
     GnomeCmdFile *f;
     GThread *thread;
-    GMutex mutex;
     gboolean count_done;
     gchar *msg;
     guint updater_proc_id;
@@ -54,8 +53,8 @@ struct GnomeCmdFilePropsDialogPrivate
 
     // Properties tab stuff
     gboolean stop;
-    GnomeVFSFileSize size;
-    GnomeVFSURI *uri;
+    guint64 size;
+    GFile *gFile;
     GtkWidget *filename_entry;
     GtkWidget *size_label;
     GtkWidget *app_label;
@@ -65,67 +64,6 @@ struct GnomeCmdFilePropsDialogPrivate
     GtkWidget *chmod_component;
 
 };
-
-
-static void calc_tree_size_r (GnomeCmdFilePropsDialogPrivate *data, GnomeVFSURI *uri)
-{
-    GList *list = nullptr;
-    gchar *uri_str;
-
-    if (data->stop)
-        g_thread_exit (nullptr);
-
-    if (!uri) return;
-    uri_str = gnome_vfs_uri_to_string (uri, GNOME_VFS_URI_HIDE_PASSWORD);
-    if (!uri_str) return;
-
-    GnomeVFSResult result = gnome_vfs_directory_list_load (&list, uri_str, GNOME_VFS_FILE_INFO_DEFAULT);
-
-    if (result != GNOME_VFS_OK) return;
-    if (!list) return;
-
-    for (GList *i = list; i; i = i->next)
-    {
-        GnomeVFSFileInfo *info = (GnomeVFSFileInfo *) i->data;
-
-        if (strcmp (info->name, ".") != 0 && strcmp (info->name, "..") != 0)
-        {
-            if (info->type == GNOME_VFS_FILE_TYPE_DIRECTORY)
-            {
-                GnomeVFSURI *new_uri = gnome_vfs_uri_append_file_name (uri, info->name);
-                calc_tree_size_r (data, new_uri);
-                gnome_vfs_uri_unref (new_uri);
-            }
-            else
-                data->size += info->size;
-        }
-    }
-
-    for (GList *i = list; i; i = i->next)
-    {
-        GnomeVFSFileInfo *info = (GnomeVFSFileInfo *) i->data;
-        gnome_vfs_file_info_unref (info);
-    }
-
-    g_list_free (list);
-    g_free (uri_str);
-
-    if (data->stop)
-        g_thread_exit (nullptr);
-
-    g_mutex_lock (&data->mutex);
-    g_free (data->msg);
-    data->msg = create_nice_size_str (data->size);
-    g_mutex_unlock (&data->mutex);
-}
-
-
-static void calc_tree_size_func (GnomeCmdFilePropsDialogPrivate *data)
-{
-    calc_tree_size_r (data, data->uri);
-
-    data->count_done = TRUE;
-}
 
 
 // Tells the thread to exit and then waits for it to do so.
@@ -153,10 +91,11 @@ static void on_dialog_destroy (GtkDialog *dialog, GnomeCmdFilePropsDialogPrivate
 
 static gboolean update_count_status (GnomeCmdFilePropsDialogPrivate *data)
 {
-    g_mutex_lock (&data->mutex);
-    if (data->size_label)
+    if (data->size_label && data->size != 0)
+    {
+        data->msg = create_nice_size_str (data->size);
         gtk_label_set_text (GTK_LABEL (data->size_label), data->msg);
-    g_mutex_unlock (&data->mutex);
+    }
 
     if (data->count_done)
     {
@@ -168,6 +107,41 @@ static gboolean update_count_status (GnomeCmdFilePropsDialogPrivate *data)
 }
 
 
+static void g_file_measure_disk_usage_async_callback(GObject *unused, GAsyncResult *result, gpointer user_data)
+{
+    g_return_if_fail (user_data != nullptr);
+
+    auto data = (GnomeCmdFilePropsDialogPrivate *) user_data;
+    GError *error = nullptr;
+
+    g_file_measure_disk_usage_finish (data->gFile, result, &(data->size), nullptr, nullptr, &error);
+
+    if(error)
+    {
+        g_message("g_file_measure_disk_usage_finish error: %s\n", error->message);
+        g_error_free(error);
+        data->count_done = TRUE;
+        return;
+    }
+
+    data->msg = create_nice_size_str (data->size);
+
+    data->count_done = TRUE;
+}
+
+
+static void progress_callback (gboolean reporting,
+                                 guint64 current_size,
+                                 guint64 num_dirs,
+                                 guint64 num_files,
+                                 gpointer user_data)
+{
+    auto data = (GnomeCmdFilePropsDialogPrivate *) user_data;
+
+    data->size = current_size;
+}
+
+
 static void do_calc_tree_size (GnomeCmdFilePropsDialogPrivate *data)
 {
     g_return_if_fail (data != nullptr);
@@ -176,7 +150,14 @@ static void do_calc_tree_size (GnomeCmdFilePropsDialogPrivate *data)
     data->size = 0;
     data->count_done = FALSE;
 
-    data->thread = g_thread_new (nullptr, (PthreadFunc) calc_tree_size_func, data);
+    g_file_measure_disk_usage_async (data->gFile,
+                                 G_FILE_MEASURE_NONE,
+                                 G_PRIORITY_LOW,
+                                 nullptr, // ToDo: maybe change this cancalable thing later
+                                 progress_callback,
+                                 data,
+                                 g_file_measure_disk_usage_async_callback,
+                                 data);
 
     data->updater_proc_id = g_timeout_add (gnome_cmd_data.gui_update_rate, (GSourceFunc) update_count_status, data);
 }
@@ -689,8 +670,7 @@ GtkWidget *gnome_cmd_file_props_dialog_create (GnomeCmdFile *f)
 
     data->dialog = GTK_WIDGET (dialog);
     data->f = f;
-    data->uri = f->get_uri();
-    g_mutex_init(&data->mutex);
+    data->gFile = f->get_gfile();
     data->msg = nullptr;
     data->notebook = notebook;
     f->ref();
