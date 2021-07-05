@@ -31,10 +31,10 @@
 
 using namespace std;
 
-#define CANCEL    0
-#define SKIP      1
-#define DELETEALL 2
-#define DELETE    3
+#define DELETE_NONEMPTY_CANCEL    0
+#define DELETE_NONEMPTY_SKIP      1
+#define DELETE_NONEMPTY_DELETEALL 2
+#define DELETE_NONEMPTY_DELETE    3
 
 struct DeleteData
 {
@@ -314,21 +314,24 @@ static GList *remove_items_from_list_to_be_deleted(GList *files)
                                   dirCount++ == 0 ? _("Delete All") : _("Delete Remaining"),
                                   _("Delete"), nullptr);
 
-                if (guiResponse != SKIP && guiResponse != DELETEALL && guiResponse != DELETE)
-                    guiResponse = CANCEL; // Set to zero for the case the user presses ESCAPE in the warning dialog)
-
+                if (guiResponse != DELETE_NONEMPTY_SKIP
+                    && guiResponse != DELETE_NONEMPTY_DELETEALL
+                    && guiResponse != DELETE_NONEMPTY_DELETE)
+                {
+                    guiResponse = DELETE_NONEMPTY_CANCEL; // Set to zero for the case the user presses ESCAPE in the warning dialog)
+                }
                 g_free(msg);
 
-                if (guiResponse == CANCEL || guiResponse == DELETEALL)
+                if (guiResponse == DELETE_NONEMPTY_CANCEL || guiResponse == DELETE_NONEMPTY_DELETEALL)
                 {
                     break;
                 }
-                else if (guiResponse == SKIP)
+                else if (guiResponse == DELETE_NONEMPTY_SKIP)
                 {
                     itemsToDelete = g_list_remove(itemsToDelete, file->data);
                     continue;
                 }
-                else if (guiResponse == DELETE)
+                else if (guiResponse == DELETE_NONEMPTY_DELETE)
                 {
                     continue;
                 }
@@ -339,7 +342,7 @@ static GList *remove_items_from_list_to_be_deleted(GList *files)
             }
         }
     }
-    if (guiResponse == CANCEL)
+    if (guiResponse == DELETE_NONEMPTY_CANCEL)
     {
         g_list_free(itemsToDelete);
         return nullptr;
