@@ -36,78 +36,71 @@ using namespace std;
 #define DELETE_NONEMPTY_DELETEALL 2
 #define DELETE_NONEMPTY_DELETE    3
 
+#define DELETE_ERROR_ACTION_ABORT 0
+#define DELETE_ERROR_ACTION_RETRY 1
+#define DELETE_ERROR_ACTION_SKIP  2
+
 struct DeleteData
 {
     GtkWidget *progbar;
     GtkWidget *proglabel;
     GtkWidget *progwin;
 
-    gboolean problem;             // signals to the main thread that the work thread is waiting for an answer on what to do
-    gint problem_action;          // where the answer is delivered
-    gchar *problem_file;          // the filename of the file that can't be deleted
-    GnomeVFSResult vfs_status;    // the cause that the file cant be deleted
-    GThread *thread;              // the work thread
-    GList *files;                 // the files that should be deleted
-    gboolean stop;                // tells the work thread to stop working
-    gboolean delete_done;         // tells the main thread that the work thread is done
-    gchar *msg;                   // a message descriping the current status of the delete operation
-    gfloat progress;              // a float values between 0 and 1 representing the progress of the whole operation
-    GMutex mutex;                 // used to sync the main and worker thread
+    gboolean problem{FALSE};              // signals to the main thread that the work thread is waiting for an answer on what to do
+    gint problem_action;                  // where the answer is delivered
+    const gchar *problem_file_name;       // the filename of the file that can't be deleted
+    GError *error{nullptr};               // the cause that the file cant be deleted
+    GThread *thread{nullptr};             // the work thread
+    GList *gnomeCmdFiles{nullptr};        // the GnomeCmdFiles that should be deleted (can be folders, too)
+    GList *deletedGnomeCmdFiles{nullptr}; // this is the real list of deleted files (can be different from the list above)
+    gboolean stop{FALSE};                 // tells the work thread to stop working
+    gboolean deleteDone{FALSE};           // tells the main thread that the work thread is done
+    gchar *msg{nullptr};                  // a message descriping the current status of the delete operation
+    gfloat progress{0};                   // a float values between 0 and 1 representing the progress of the whole operation
+    GMutex mutex{nullptr};                // used to sync the main and worker thread
+    guint64 itemsDeleted{0};              // items deleted in the current run
+    guint64 itemsTotal{0};                // total number of items which should be deleted
 };
 
 
 inline void cleanup (DeleteData *data)
 {
-    gnome_cmd_file_list_free (data->files);
+    gnome_cmd_file_list_free (data->gnomeCmdFiles);
+    gnome_cmd_file_list_free (data->deletedGnomeCmdFiles);
     g_free (data);
 }
 
 
-static gint delete_progress_callback (GnomeVFSXferProgressInfo *info, DeleteData *data)
+static void delete_progress_update (DeleteData *data)
 {
-    gint ret = 0;
-
     g_mutex_lock (&data->mutex);
 
-    if (info->status == GNOME_VFS_XFER_PROGRESS_STATUS_VFSERROR)
+    if (data->error)
     {
-        data->problem_file = str_uri_basename(info->source_name);
         data->problem = TRUE;
 
         g_mutex_unlock (&data->mutex);
         while (data->problem_action == -1)
             g_thread_yield ();
         g_mutex_lock (&data->mutex);
-        ret = data->problem_action;
-        data->problem_action = -1;
-        g_free (data->problem_file);
-        data->problem_file = NULL;
-        data->vfs_status = GNOME_VFS_OK;
+        data->problem_file_name = nullptr;
+        g_clear_error (&(data->error));
     }
-    else
-        if (info->status == GNOME_VFS_XFER_PROGRESS_STATUS_OK)
-        {
-            if (info->files_total > 0)
-            {
-                gfloat f = (gfloat)info->file_index/(gfloat)info->files_total;
-                g_free (data->msg);
-                data->msg = g_strdup_printf (ngettext("Deleted %ld of %ld file",
-                                                      "Deleted %ld of %ld files",
-                                                      info->files_total),
-                                             info->file_index, info->files_total);
-                if (f < 0.001f) f = 0.001f;
-                if (f > 0.999f) f = 0.999f;
-                data->progress = f;
-            }
 
-            ret = !data->stop;
-        }
-        else
-            data->vfs_status = info->vfs_status;
+    if (data->itemsDeleted > 0)
+    {
+        gfloat f = (gfloat)data->itemsDeleted/(gfloat)data->itemsTotal;
+        g_free (data->msg);
+        data->msg = g_strdup_printf (ngettext("Deleted %" G_GUINT64_FORMAT " of %" G_GUINT64_FORMAT " file",
+                                              "Deleted %" G_GUINT64_FORMAT " of %" G_GUINT64_FORMAT " files",
+                                              data->itemsTotal),
+                                     data->itemsDeleted, data->itemsTotal);
+        if (f < 0.001f) f = 0.001f;
+        if (f > 0.999f) f = 0.999f;
+        data->progress = f;
+    }
 
     g_mutex_unlock (&data->mutex);
-
-    return ret;
 }
 
 
@@ -160,82 +153,184 @@ inline void create_delete_progress_win (DeleteData *data)
     gtk_widget_show (data->progwin);
 }
 
-
-static void perform_delete_operation (DeleteData *data)
+/**
+ * This function recursively removes files of a given GnomeCmdFile list and stores
+ * possible errors or the progress information in the deleteData object.
+ */
+static gboolean perform_delete_operation_r(DeleteData *deleteData, GList *gnomeCmdFileList)
 {
-    GList *uri_list = NULL;
-
-    // go through all files and add the uri of the appropriate ones to a list
-    for (GList *i=data->files; i; i=i->next)
+    for (GList *gCmdFileListItem = gnomeCmdFileList; gCmdFileListItem; gCmdFileListItem = gCmdFileListItem->next)
     {
-        GnomeCmdFile *f = (GnomeCmdFile *) i->data;
+        if (deleteData->stop)
+        {
+            return FALSE;
+        }
 
-        if (f->is_dotdot || strcmp(g_file_info_get_display_name(f->gFileInfo), ".") == 0)
+        auto gnomeCmdFile = (GnomeCmdFile *) gCmdFileListItem->data;
+
+        g_return_val_if_fail (GNOME_CMD_IS_FILE(gnomeCmdFile), FALSE);
+        g_return_val_if_fail (G_IS_FILE_INFO(gnomeCmdFile->gFileInfo), FALSE);
+
+        auto filenameTmp = g_file_info_get_display_name(gnomeCmdFile->gFileInfo);
+
+        if (gnomeCmdFile->is_dotdot || strcmp(filenameTmp, ".") == 0)
             continue;
 
-        GnomeVFSURI *uri = f->get_uri();
-        if (!uri) continue;
+        GError *tmpError = nullptr;
+        auto gFile = gnomeCmdFile->gFile;
 
-        uri_list = g_list_append (uri_list, gnome_vfs_uri_ref (uri));
+        guint64 numFiles = 0;
+        guint64 numDirs = 0;
+
+        if (!g_file_measure_disk_usage (gFile,
+                G_FILE_MEASURE_NONE,
+                nullptr, nullptr, nullptr, nullptr,
+                &numDirs,
+                &numFiles,
+                &tmpError))
+        {
+                g_warning ("Failed to measure disk usage of %s: %s", g_file_peek_path (gFile), tmpError->message);
+                g_propagate_error (&(deleteData->error), tmpError);
+                deleteData->problem_file_name = g_file_peek_path(gFile);
+                delete_progress_update(deleteData);
+                return FALSE;
+        }
+
+        if ((numDirs == 1 && numFiles == 0) // Empty directory
+            || (GetGfileAttributeBoolean(gFile, G_FILE_ATTRIBUTE_STANDARD_IS_SYMLINK)) //We want delete symlinks!
+            || (GetGfileAttributeUInt32(gFile, G_FILE_ATTRIBUTE_STANDARD_TYPE) != G_FILE_TYPE_DIRECTORY)) // Not a directory
+        {
+            // DELETE IT!
+            if (!g_file_delete (gFile, nullptr, &tmpError) &&
+                !g_error_matches (tmpError, G_IO_ERROR, G_IO_ERROR_NOT_FOUND))
+            {
+                g_warning ("Failed to delete %s: %s", g_file_peek_path (gFile), tmpError->message);
+                g_propagate_error (&(deleteData->error), tmpError);
+                deleteData->problem_file_name = g_file_peek_path(gFile);
+                delete_progress_update(deleteData);
+                if (deleteData->stop)
+                    return FALSE;
+            }
+            else
+            {
+                deleteData->deletedGnomeCmdFiles = g_list_append(deleteData->deletedGnomeCmdFiles, gnomeCmdFile);
+                //gnome_cmd_file_unref(gnomeCmdFile);
+                deleteData->itemsDeleted++;
+                delete_progress_update(deleteData);
+                if (deleteData->stop)
+                    return FALSE;
+            }
+        }
+        else
+        {
+            gboolean deleted = TRUE;
+            gboolean dirIsEmpty = TRUE;
+
+            auto gnomeCmdDir = gnome_cmd_dir_ref (GNOME_CMD_DIR (gnomeCmdFile));
+            gnome_cmd_dir_list_files (gnomeCmdDir, FALSE);
+            for (GList *subFolderItem = gnome_cmd_dir_get_files (gnomeCmdDir); subFolderItem; subFolderItem = subFolderItem->next)
+            {
+                // retValue can be set below within this for-loop
+                if (!deleted && deleteData->problem_action == DELETE_ERROR_ACTION_ABORT)
+                {
+                    gnome_cmd_dir_unref (gnomeCmdDir);
+                    return FALSE;
+                }
+                if (!deleted && deleteData->problem_action == DELETE_ERROR_ACTION_RETRY)
+                {
+                    subFolderItem = subFolderItem->prev ? subFolderItem->prev : subFolderItem;
+                    deleteData->problem_action = -1;
+                }
+                if (!deleted && deleteData->problem_action == DELETE_ERROR_ACTION_SKIP)
+                {
+                    // do nothing, just go on
+                    deleteData->problem_action = -1;
+                    dirIsEmpty = FALSE;
+                }
+
+                auto subGnomeCmdFile = (GnomeCmdFile *) subFolderItem->data;
+
+                //auto subFilename = GetGfileAttributeString(subGnomeCmdFile->gFile, G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME);
+                //if (!subGnomeCmdFile->is_dotdot && g_strcmp0 (subFilename, ".") != 0)
+                if (!subGnomeCmdFile->is_dotdot)
+                {
+                    GList *subGnomeCmdFileList = nullptr;
+
+                    subGnomeCmdFileList = g_list_append(subGnomeCmdFileList, subGnomeCmdFile);
+                    deleted = perform_delete_operation_r (deleteData, subGnomeCmdFileList);
+                    g_list_free(subGnomeCmdFileList);
+                }
+                //g_free(subFilename);
+            }
+            gnome_cmd_dir_unref (gnomeCmdDir);
+
+            if (dirIsEmpty)
+            {
+                // Now remove the directory itself, if it is finally empty
+                GList *directory = nullptr;
+                directory = g_list_append(directory, gnomeCmdFile);
+                perform_delete_operation_r (deleteData, directory);
+                g_list_free(directory);
+            }
+        }
     }
-
-    if (uri_list)
-    {
-        gnome_vfs_xfer_delete_list (uri_list,
-                                    GNOME_VFS_XFER_ERROR_MODE_QUERY,
-                                    GNOME_VFS_XFER_DEFAULT,
-                                    (GnomeVFSXferProgressCallback) delete_progress_callback,
-                                    data);
-
-        g_list_foreach (uri_list, (GFunc) gnome_vfs_uri_unref, NULL);
-        g_list_free (uri_list);
-    }
-
-    data->delete_done = TRUE;
+    return TRUE;
 }
 
 
-static gboolean update_delete_status_widgets (DeleteData *data)
+static void perform_delete_operation (DeleteData *deleteData)
 {
-    g_mutex_lock (&data->mutex);
+    perform_delete_operation_r(deleteData, deleteData->gnomeCmdFiles);
 
-    gtk_label_set_text (GTK_LABEL (data->proglabel), data->msg);
-    gtk_progress_set_percentage (GTK_PROGRESS (data->progbar), data->progress);
+    deleteData->deleteDone = TRUE;
+}
 
-    if (data->problem)
+
+static gboolean update_delete_status_widgets (DeleteData *deleteData)
+{
+    g_mutex_lock (&deleteData->mutex);
+
+    gtk_label_set_text (GTK_LABEL (deleteData->proglabel), deleteData->msg);
+    gtk_progress_set_percentage (GTK_PROGRESS (deleteData->progbar), deleteData->progress);
+
+    if (deleteData->problem)
     {
-        const gchar *error = gnome_vfs_result_to_string (data->vfs_status);
-        gchar *msg = g_strdup_printf (_("Error while deleting “%s”\n\n%s"), data->problem_file, error);
+        gchar *msg = g_strdup_printf (_("Error while deleting “%s”\n\n%s"),
+                                        deleteData->problem_file_name,
+                                        deleteData->error->message);
 
-        data->problem_action = run_simple_dialog (
+        deleteData->problem_action = run_simple_dialog (
             *main_win, TRUE, GTK_MESSAGE_ERROR, msg, _("Delete problem"),
             -1, _("Abort"), _("Retry"), _("Skip"), NULL);
+
         g_free (msg);
 
-        data->problem = FALSE;
+        deleteData->problem = FALSE;
     }
 
-    g_mutex_unlock (&data->mutex);
+    g_mutex_unlock (&deleteData->mutex);
 
 
-    if (data->delete_done)
+    if (deleteData->deleteDone)
     {
-        if (data->vfs_status != GNOME_VFS_OK)
-            gnome_cmd_show_message (*main_win, gnome_vfs_result_to_string (data->vfs_status));
+        if (deleteData->error)
+            gnome_cmd_show_message (*main_win, deleteData->error->message);
 
-        if (data->files)
-            for (GList *i = data->files; i; i = i->next)
+        if (deleteData->deletedGnomeCmdFiles)
+        {
+            for (GList *i = deleteData->deletedGnomeCmdFiles; i; i = i->next)
             {
                 GnomeCmdFile *f = GNOME_CMD_FILE (i->data);
-                GnomeVFSURI *uri = f->get_uri();
+                auto *gFile = f->get_gfile();
 
-                if (!gnome_vfs_uri_exists (uri))
+                if (!g_file_query_exists (gFile, nullptr))
                     f->is_deleted();
             }
+        }
 
-        gtk_widget_destroy (data->progwin);
+        gtk_widget_destroy (deleteData->progwin);
 
-        cleanup (data);
+        cleanup (deleteData);
 
         return FALSE;  // returning FALSE here stops the timeout callbacks
     }
@@ -244,17 +339,38 @@ static gboolean update_delete_status_widgets (DeleteData *data)
 }
 
 
-inline void do_delete (DeleteData *data)
+inline void do_delete (DeleteData *deleteData)
 {
-    g_mutex_init(&data->mutex);
-    data->delete_done = FALSE;
-    data->vfs_status = GNOME_VFS_OK;
-    data->problem_action = -1;
-    create_delete_progress_win (data);
+    g_return_if_fail(GNOME_CMD_IS_FILE(deleteData->gnomeCmdFiles->data));
 
-    data->thread = g_thread_new (NULL, (GThreadFunc) perform_delete_operation, data);
-    g_timeout_add (gnome_cmd_data.gui_update_rate, (GSourceFunc) update_delete_status_widgets, data);
-    g_mutex_clear(&data->mutex);
+    g_mutex_init(&deleteData->mutex);
+    deleteData->deleteDone = FALSE;
+    deleteData->error = nullptr;
+    deleteData->problem_action = -1;
+    deleteData->itemsDeleted = 0;
+    deleteData->deletedGnomeCmdFiles = nullptr;
+
+    for(auto fileListItem = deleteData->gnomeCmdFiles; fileListItem; fileListItem = fileListItem->next)
+    {
+        guint64 num_files = 0;
+        guint64 num_dirs = 0;
+        auto gFile = GNOME_CMD_FILE(fileListItem->data)->gFile;
+        g_return_if_fail(G_IS_FILE(gFile));
+
+        g_file_measure_disk_usage (gFile,
+           G_FILE_MEASURE_NONE,
+           nullptr, nullptr, nullptr, nullptr,
+           &num_dirs,
+           &num_files,
+           nullptr);
+        deleteData->itemsTotal += num_files + num_dirs;
+    }
+
+    create_delete_progress_win (deleteData);
+
+    deleteData->thread = g_thread_new (NULL, (GThreadFunc) perform_delete_operation, deleteData);
+    g_timeout_add (gnome_cmd_data.gui_update_rate, (GSourceFunc) update_delete_status_widgets, deleteData);
+    g_mutex_clear(&deleteData->mutex);
 }
 
 
@@ -313,6 +429,7 @@ static GList *remove_items_from_list_to_be_deleted(GList *files)
                                   _("Cancel"), _("Skip"),
                                   dirCount++ == 0 ? _("Delete All") : _("Delete Remaining"),
                                   _("Delete"), nullptr);
+                g_free(msg);
 
                 if (guiResponse != DELETE_NONEMPTY_SKIP
                     && guiResponse != DELETE_NONEMPTY_DELETEALL
@@ -320,7 +437,6 @@ static GList *remove_items_from_list_to_be_deleted(GList *files)
                 {
                     guiResponse = DELETE_NONEMPTY_CANCEL; // Set to zero for the case the user presses ESCAPE in the warning dialog)
                 }
-                g_free(msg);
 
                 if (guiResponse == DELETE_NONEMPTY_CANCEL || guiResponse == DELETE_NONEMPTY_DELETEALL)
                 {
@@ -354,22 +470,25 @@ static GList *remove_items_from_list_to_be_deleted(GList *files)
     return itemsToDelete;
 }
 
-
+/**
+ * Creates a delete dialog for the given list of GnomeCmdFiles
+ */
 void gnome_cmd_delete_dialog_show (GList *files)
 {
-    g_return_if_fail (files != NULL);
+    g_return_if_fail (files != nullptr);
 
     gint response = 1;
 
     if (gnome_cmd_data.options.confirm_delete)
     {
-        gchar *msg = NULL;
+        gchar *msg = nullptr;
 
         gint n_files = g_list_length (files);
 
         if (n_files == 1)
         {
-            GnomeCmdFile *f = (GnomeCmdFile *) g_list_nth_data (files, 0);
+            auto f = (GnomeCmdFile *) g_list_nth_data (files, 0);
+            g_return_if_fail (GNOME_CMD_IS_FILE(f));
 
             if (f->is_dotdot)
                 return;
@@ -400,12 +519,7 @@ void gnome_cmd_delete_dialog_show (GList *files)
 
     DeleteData *data = g_new0 (DeleteData, 1);
 
-    data->files = files;
-    // data->stop = FALSE;
-    // data->problem = FALSE;
-    // data->delete_done = FALSE;
-    // data->mutex = NULL;
-    // data->msg = NULL;
+    data->gnomeCmdFiles = files;
 
     do_delete (data);
 }

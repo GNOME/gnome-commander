@@ -1174,6 +1174,32 @@ guint32 GetGfileAttributeUInt32(GFile *gFile, const char *attribute)
 }
 
 
+gboolean GetGfileAttributeBoolean(GFile *gFile, const char *attribute)
+{
+    GError *error;
+    error = nullptr;
+    gboolean gFileAttributeBoolean = 0;
+
+    auto gcmdFileInfo = g_file_query_info(gFile,
+                                   attribute,
+                                   G_FILE_QUERY_INFO_NONE,
+                                   nullptr,
+                                   &error);
+    if (error)
+    {
+        g_message ("retrieving file info failed: %s", error->message);
+        g_error_free (error);
+    }
+    else
+    {
+        gFileAttributeBoolean = g_file_info_get_attribute_boolean (gcmdFileInfo, attribute);
+        g_object_unref(gcmdFileInfo);
+    }
+
+    return gFileAttributeBoolean;
+}
+
+
 gchar *GetGfileAttributeString(GFile *gFile, const char *attribute)
 {
     GError *error;
