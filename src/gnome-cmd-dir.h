@@ -151,13 +151,24 @@ inline gchar *gnome_cmd_dir_get_free_space (GnomeCmdDir *dir)
 {
     g_return_val_if_fail (GNOME_CMD_IS_DIR (dir), NULL);
 
-    GnomeVFSFileSize free_space;
-    GnomeVFSURI *uri = GNOME_CMD_FILE (dir)->get_uri();
-    GnomeVFSResult res = gnome_vfs_get_volume_free_space (uri, &free_space);
-    gnome_vfs_uri_unref (uri);
+    GError *error = nullptr;
 
-    if (res!=GNOME_VFS_OK)
-        return NULL;
+    auto gFileInfo = g_file_query_filesystem_info (GNOME_CMD_FILE (dir)->gFile,
+                              G_FILE_ATTRIBUTE_FILESYSTEM_FREE,
+                              nullptr,
+                              &error);
 
-    return gnome_vfs_format_file_size_for_display (free_space);
+    if (error)
+    {
+        g_warning("Could not g_file_query_filesystem_info %s: %s\n",
+            g_file_peek_path(GNOME_CMD_FILE (dir)->gFile), error->message);
+        g_error_free(error);
+        return nullptr;
+    }
+
+    auto freeSpace = g_file_info_get_attribute_uint64(gFileInfo, G_FILE_ATTRIBUTE_FILESYSTEM_FREE);
+
+    g_object_unref(gFileInfo);
+
+    return g_format_size (freeSpace);
 }
