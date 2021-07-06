@@ -239,45 +239,6 @@ static void gnome_cmd_dir_class_init (GnomeCmdDirClass *klass)
  * Public functions
  ***********************************/
 
-GnomeCmdDir *gnome_cmd_dir_new_from_info (GnomeVFSFileInfo *info, GnomeCmdDir *parent)
-{
-    g_return_val_if_fail (info != nullptr, nullptr);
-    g_return_val_if_fail (GNOME_CMD_IS_DIR (parent), nullptr);
-
-    GnomeCmdCon *con = gnome_cmd_dir_get_connection (parent);
-    GnomeCmdPath *path =  gnome_cmd_dir_get_path (parent)->get_child(info->name);
-    if (!path)
-    {
-        return nullptr;
-    }
-
-    GnomeVFSURI *uri = gnome_cmd_con_create_uri (con, path);
-    gchar *uri_str = gnome_vfs_uri_to_string (uri, GNOME_VFS_URI_HIDE_PASSWORD);
-
-    GnomeCmdDir *dir = gnome_cmd_con_cache_lookup (gnome_cmd_dir_get_connection (parent), uri_str);
-    g_free (uri_str);
-    gnome_vfs_uri_unref (uri);
-
-    if (dir)
-    {
-        delete path;
-        GNOME_CMD_FILE (dir)->update_info(info);
-        return dir;
-    }
-
-    dir = static_cast<GnomeCmdDir*> (g_object_new (GNOME_CMD_TYPE_DIR, nullptr));
-    gnome_cmd_file_setup (GNOME_CMD_FILE (dir), info, parent);
-
-    dir->priv->con = con;
-    gnome_cmd_dir_set_path (dir, path);
-    dir->priv->needs_mtime_update = FALSE;
-
-    gnome_cmd_con_add_to_cache (gnome_cmd_dir_get_connection (parent), dir);
-
-    return dir;
-}
-
-
 GnomeCmdDir *gnome_cmd_dir_new_from_gfileinfo (GFileInfo *gFileInfo, GnomeCmdDir *parent)
 {
     g_return_val_if_fail (gFileInfo != nullptr, nullptr);
