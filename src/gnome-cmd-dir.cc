@@ -223,7 +223,7 @@ static void gnome_cmd_dir_class_init (GnomeCmdDirClass *klass)
             nullptr, nullptr,
             g_cclosure_marshal_VOID__INT,
             G_TYPE_NONE,
-            1, G_TYPE_INT);
+            1, G_TYPE_POINTER);
 
     object_class->finalize = gnome_cmd_dir_finalize;
     klass->file_created = nullptr;
@@ -518,9 +518,7 @@ static void on_list_done (GnomeCmdDir *dir, GList *infolist, GError *error)
     }
     else if (dir->state == GnomeCmdDir::STATE_EMPTY)
     {
-        auto errorCode = g_enum_to_string (G_IO_ERROR, error->code);
-        DEBUG('l', "File listing failed: %s\n", errorCode);
-        g_free(errorCode);
+        DEBUG('l', "File listing failed: %s\n", error->message);
 
         if (dir->dialog)
         {
@@ -531,8 +529,7 @@ static void on_list_done (GnomeCmdDir *dir, GList *infolist, GError *error)
         dir->priv->lock = FALSE;
 
         DEBUG('l', "Emitting 'list-failed' signal\n");
-        g_signal_emit (dir, signals[LIST_FAILED], 0, error->code);
-        g_error_free(error);
+        g_signal_emit (dir, signals[LIST_FAILED], 0, dir->error);
     }
 }
 

@@ -63,6 +63,7 @@ struct GnomeCmdDir
     GnomeVFSAsyncHandle *list_handle;
     gint list_counter;
     State state;
+    GError *error;
 
     DirListDoneFunc done_func;
 
@@ -80,7 +81,7 @@ struct GnomeCmdDirClass
     void (* file_changed)       (GnomeCmdDir *dir, GnomeCmdFile *file);
     void (* file_renamed)       (GnomeCmdDir *dir, GnomeCmdFile *file);
     void (* list_ok)            (GnomeCmdDir *dir, GList *files);
-    void (* list_failed)        (GnomeCmdDir *dir, GnomeVFSResult result);
+    void (* list_failed)        (GnomeCmdDir *dir, GError *error);
 };
 
 struct GnomeCmdCon;

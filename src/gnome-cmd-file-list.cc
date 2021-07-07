@@ -1620,12 +1620,20 @@ static gboolean set_home_connection (GnomeCmdFileList *fl)
 }
 
 
-static void on_dir_list_failed (GnomeCmdDir *dir, GnomeVFSResult result, GnomeCmdFileList *fl)
+/**
+ * Handles an error which occured when directory listing failed.
+ * We expect that the error which should be reported is stored in the GnomeCmdDir object.
+ * The error location is freed afterwards.
+ */
+static void on_dir_list_failed (GnomeCmdDir *dir, gpointer *unused, GnomeCmdFileList *fl)
 {
     DEBUG('l', "on_dir_list_failed\n");
 
-    if (result != GNOME_VFS_OK)
-        gnome_cmd_show_message (nullptr, _("Directory listing failed."), gnome_vfs_result_to_string (result));
+    if (dir->error)
+    {
+        gnome_cmd_show_message (nullptr, _("Directory listing failed."), dir->error->message);
+        g_clear_error(&(dir->error));
+    }
 
     g_signal_handlers_disconnect_matched (fl->cwd, G_SIGNAL_MATCH_DATA, 0, 0, nullptr, nullptr, fl);
     fl->connected_dir = nullptr;

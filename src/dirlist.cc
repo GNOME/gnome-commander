@@ -116,8 +116,11 @@ void sync_list (GnomeCmdDir *dir)
                             &error);
     if(error)
     {
+        dir->error = nullptr;
         g_critical("sync_list: Unable to enumerate children, error: %s", error->message);
-        g_error_free(error);
+        g_propagate_error(&(dir->error), error);
+        dir->state = GnomeCmdDir::STATE_EMPTY;
+        dir->done_func (dir, dir->gFileInfoList, dir->error);
         return;
     }
 
