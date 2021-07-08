@@ -346,7 +346,7 @@ void gcmd_tags_libgsf_shutdown()
 void gcmd_tags_libgsf_load_metadata(GnomeCmdFile *f)
 {
     g_return_if_fail (f != nullptr);
-    g_return_if_fail (f->info != nullptr);
+    g_return_if_fail (f->gFileInfo != nullptr);
 
 #ifdef HAVE_GSF
     if (f->metadata && f->metadata->is_accessed(TAG_DOC))  return;
