@@ -94,7 +94,6 @@ struct GnomeCmdFile
     gboolean chown(uid_t uid, gid_t gid, GError **error);
     gboolean rename(const gchar *new_name, GError **error);
 
-    void update_info(GnomeVFSFileInfo *info);
     void update_gFileInfo(GFileInfo *gFileInfo);
     gboolean is_local();
     gboolean is_executable();
@@ -130,9 +129,7 @@ inline const gchar *GnomeCmdFile::get_name()
 
 GnomeCmdFile *gnome_cmd_file_new_from_gfile (GFile *gFile);
 GnomeCmdFile *gnome_cmd_file_new (const gchar *local_full_path);
-GnomeCmdFile *gnome_cmd_file_new (GnomeVFSFileInfo *info, GnomeCmdDir *dir);
 GnomeCmdFile *gnome_cmd_file_new (GFileInfo *gFileInfo, GnomeCmdDir *dir);
-void gnome_cmd_file_setup (GnomeCmdFile *gnomeCmdFile, GnomeVFSFileInfo *info, GnomeCmdDir *dir);
 void gnome_cmd_file_setup (GnomeCmdFile *gnomeCmdFile, GFileInfo *gFileInfo, GnomeCmdDir *dir);
 
 

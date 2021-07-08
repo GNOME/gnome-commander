@@ -153,22 +153,6 @@ GnomeCmdFile *gnome_cmd_file_new (const gchar *local_full_path)
 }
 
 
-GnomeCmdFile *gnome_cmd_file_new (GnomeVFSFileInfo *info, GnomeCmdDir *dir)
-{
-    auto gnomeCmdFile = static_cast<GnomeCmdFile*> (g_object_new (GNOME_CMD_TYPE_FILE, nullptr));
-
-    gnome_cmd_file_setup (gnomeCmdFile, info, dir);
-
-    if(!gnomeCmdFile->gFile)
-    {
-        g_object_unref(gnomeCmdFile);
-        return nullptr;
-    }
-
-    return gnomeCmdFile;
-}
-
-
 GnomeCmdFile *gnome_cmd_file_new (GFileInfo *gFileInfo, GnomeCmdDir *dir)
 {
     auto gnomeCmdFile = static_cast<GnomeCmdFile*> (g_object_new (GNOME_CMD_TYPE_FILE, nullptr));
@@ -224,53 +208,6 @@ void GnomeCmdFile::invalidate_metadata()
 }
 
 
-void gnome_cmd_file_setup (GnomeCmdFile *gnomeCmdFile, GnomeVFSFileInfo *info, GnomeCmdDir *dir)
-{
-    g_return_if_fail (gnomeCmdFile != nullptr);
-
-    gnomeCmdFile->info = info;
-
-    gnomeCmdFile->is_dotdot = info->type==GNOME_VFS_FILE_TYPE_DIRECTORY && strcmp(info->name, "..")==0;    // check if file is '..'
-
-    gchar *utf8_name;
-
-    if (!gnome_cmd_data.options.case_sens_sort)
-    {
-        gchar *s = get_utf8 (info->name);
-        utf8_name = g_utf8_casefold (s, -1);
-        g_free (s);
-    }
-    else
-        utf8_name = get_utf8 (info->name);
-
-    gnomeCmdFile->collate_key = g_utf8_collate_key_for_filename (utf8_name, -1);
-    g_free (utf8_name);
-
-    if (dir)
-    {
-        gnomeCmdFile->priv->dir_handle = gnome_cmd_dir_get_handle (dir);
-        handle_ref (gnomeCmdFile->priv->dir_handle);
-    }
-
-    gnome_vfs_file_info_ref (gnomeCmdFile->info);
-
-    auto fUriString = gnomeCmdFile->get_path();
-
-    if (fUriString)
-    {
-        GNOME_CMD_FILE_BASE (gnomeCmdFile)->gFile = g_file_new_for_path(fUriString);
-        gnomeCmdFile->gFile = GNOME_CMD_FILE_BASE (gnomeCmdFile)->gFile;
-        g_free(fUriString);
-    }
-    // EVERY GnomeCmdFile instance must have a gFile reference
-    if (!gnomeCmdFile->gFile)
-    {
-        gnome_vfs_file_info_unref(gnomeCmdFile->info);
-        return;
-    }
-}
-
-
 void gnome_cmd_file_setup (GnomeCmdFile *gnomeCmdFile, GFileInfo *gFileInfo, GnomeCmdDir *dir)
 {
     g_return_if_fail (gnomeCmdFile != nullptr);
@@ -313,7 +250,6 @@ void gnome_cmd_file_setup (GnomeCmdFile *gnomeCmdFile, GFileInfo *gFileInfo, Gno
     // EVERY GnomeCmdFile instance must have a gFile reference
     if (!gnomeCmdFile->gFile)
     {
-        gnome_vfs_file_info_unref(gnomeCmdFile->info);
         g_object_unref(gnomeCmdFile->gFileInfo);
         return;
     }
@@ -1029,32 +965,6 @@ void gnome_cmd_file_edit (GnomeCmdFile *f)
     g_free (command);
     g_free (dpath);
     g_free (fpath);
-}
-
-
-void GnomeCmdFile::update_info(GnomeVFSFileInfo *file_info)
-{
-    g_return_if_fail (file_info != nullptr);
-    g_return_if_fail (file_info->name != nullptr);
-
-    g_free (collate_key);
-    gnome_vfs_file_info_unref (this->info);
-    gnome_vfs_file_info_ref (file_info);
-    this->info = file_info;
-
-    gchar *utf8_name;
-
-    if (!gnome_cmd_data.options.case_sens_sort)
-    {
-        gchar *s = get_utf8 (file_info->name);
-        utf8_name = g_utf8_casefold (s, -1);
-        g_free (s);
-    }
-    else
-        utf8_name = get_utf8 (file_info->name);
-
-    collate_key = g_utf8_collate_key_for_filename (utf8_name, -1);
-    g_free (utf8_name);
 }
 
 
