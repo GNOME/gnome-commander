@@ -472,13 +472,6 @@
           This option defines if only device icons should be shown instead of icons and text label.
       </description>
     </key>
-    <key name="dev-skip-mounting" type="b">
-      <default>false</default>
-      <summary>Skip device mounting</summary>
-      <description>
-          This option defines if mounting of devices should be skipped when they are opened.
-      </description>
-    </key>
     <key name="mainmenu-visibility" type="b">
       <default>true</default>
       <summary>Main menu visibility</summary>

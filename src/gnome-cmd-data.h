@@ -95,7 +95,6 @@ GcmdSettings *gcmd_settings_new (void);
 #define GCMD_SETTINGS_MULTIPLE_INSTANCES              "allow-multiple-instances"
 #define GCMD_SETTINGS_QUICK_SEARCH_EXACT_MATCH_BEGIN  "quick-search-exact-match-begin"
 #define GCMD_SETTINGS_QUICK_SEARCH_EXACT_MATCH_END    "quick-search-exact-match-end"
-#define GCMD_SETTINGS_DEV_SKIP_MOUNTING               "dev-skip-mounting"
 #define GCMD_SETTINGS_DEV_ONLY_ICON                   "dev-only-icon"
 #define GCMD_SETTINGS_MAINMENU_VISIBILITY             "mainmenu-visibility"
 #define GCMD_SETTINGS_QUICK_SEARCH_SHORTCUT           "quick-search"
@@ -372,7 +371,6 @@ struct GnomeCmdData
         GList                       *fav_apps;
         //  Devices
         gboolean                     device_only_icon;
-        gboolean                     skip_mounting;
 
         Options(): gcmd_settings(nullptr),
                    left_mouse_button_mode(LEFT_BUTTON_OPENS_WITH_DOUBLE_CLICK),
@@ -421,8 +419,7 @@ struct GnomeCmdData
                    termopen(nullptr),
                    termexec(nullptr),
                    fav_apps(nullptr),
-                   device_only_icon(FALSE),
-                   skip_mounting(FALSE)
+                   device_only_icon(FALSE)
         {
             memset(&color_themes, 0, sizeof(color_themes));
             memset(&ls_colors_palette, 0, sizeof(ls_colors_palette));

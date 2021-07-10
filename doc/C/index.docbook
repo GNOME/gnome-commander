@@ -6076,7 +6076,6 @@
        	<listitem><para>Below the <guilabel>Devices</guilabel> window you have two options:
 	<itemizedlist>
 	  <listitem><para><guilabel>Show only the icons</guilabel>: If activated, device icons are shown without their alias name in the device buttons toolbar.</para></listitem>
-	  <listitem><para><guilabel>Skip mounting</guilabel>: If activated, &app; will not try to mount the devices by clicking on them.</para></listitem>
 	</itemizedlist></para></listitem>
       </itemizedlist>
       <para>On the right hand side there are five buttons, described in the <xref linkend="gcmd-dev"></xref> table below.</para>
@@ -7478,9 +7477,6 @@
 	</sect2>
 	<sect2 id="gnome-commander-removable-media">
 	  <title>Using removable media</title>
-          <warning>
-            <para>This info might be partially outdated since modern desktop environments or Linux distributions use automounters to mount devices into /media.</para>
-          </warning>
           <para>If you use removable devices such as CDs, floppies and cameras a lot you can make &app;
           automatically take care of mounting them by following this guide:</para>
           <itemizedlist>
@@ -7504,16 +7500,11 @@
 		</screenshot>
 	      </figure>
 	      <!-- ==== End of Figure ==== -->
-	      <para>In the last image the red circle <guimenu>A</guimenu> shows the available 
-	      devices. If a device was mounted by &app; there is also a button to press if you 
+	      <para>In the last image the red circle <guimenu>A</guimenu> shows the available
+	      devices. If a device was mounted by &app; there is also a button to press if you
 	      want to unmount the device, shown in the red circle <guimenu>B</guimenu>.
 	      The icons that are used for the devices in the example should be available
 	      in the $(prefix)/share/pixmaps/gnome-commander/device-icons folder on your computer.</para>
-            </listitem>
-            <listitem>
-              <para>There is also an option to skip mounting in the option device tab.
-              This can be useful for making shortcuts to directories, or if you have some automounting feature
-              that mounts it at its mountpoint when available, or if you use Supermount that does it on access basis.</para>
             </listitem>
           </itemizedlist>
 	</sect2>

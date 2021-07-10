@@ -818,14 +818,6 @@ static void on_quick_search_exact_match_end_changed()
     gnome_cmd_data.options.quick_search_exact_match_end = quick_search_exact_match;
 }
 
-static void on_dev_skip_mounting_changed()
-{
-    gboolean skip_mounting;
-
-    skip_mounting = g_settings_get_boolean (gnome_cmd_data.options.gcmd_settings->general, GCMD_SETTINGS_DEV_SKIP_MOUNTING);
-    gnome_cmd_data.options.skip_mounting = skip_mounting;
-}
-
 static void on_dev_only_icon_changed()
 {
     gboolean dev_only_icon;
@@ -1274,11 +1266,6 @@ static void gcmd_connect_gsettings_signals(GcmdSettings *gs)
                       nullptr);
 
     g_signal_connect (gs->general,
-                      "changed::dev-skip-mounting",
-                      G_CALLBACK (on_dev_skip_mounting_changed),
-                      nullptr);
-
-    g_signal_connect (gs->general,
                       "changed::dev-only-icon",
                       G_CALLBACK (on_dev_only_icon_changed),
                       nullptr);
@@ -1434,7 +1421,6 @@ GnomeCmdData::Options::Options(const Options &cfg)
     termexec = g_strdup (cfg.termexec);
     fav_apps = cfg.fav_apps;
     device_only_icon = cfg.device_only_icon;
-    skip_mounting = cfg.skip_mounting;
     gcmd_settings = nullptr;
 }
 
@@ -1496,7 +1482,6 @@ GnomeCmdData::Options &GnomeCmdData::Options::operator = (const Options &cfg)
         termexec = g_strdup (cfg.termexec);
         fav_apps = cfg.fav_apps;
         device_only_icon = cfg.device_only_icon;
-        skip_mounting = cfg.skip_mounting;
         gcmd_settings = nullptr;
     }
 
@@ -3096,7 +3081,6 @@ void GnomeCmdData::load()
     options.quick_search_exact_match_begin = g_settings_get_boolean (options.gcmd_settings->general, GCMD_SETTINGS_QUICK_SEARCH_EXACT_MATCH_BEGIN);
     options.quick_search_exact_match_end = g_settings_get_boolean (options.gcmd_settings->general, GCMD_SETTINGS_QUICK_SEARCH_EXACT_MATCH_END);
 
-    options.skip_mounting = g_settings_get_boolean (options.gcmd_settings->general, GCMD_SETTINGS_DEV_SKIP_MOUNTING);
     options.device_only_icon = g_settings_get_boolean(options.gcmd_settings->general, GCMD_SETTINGS_DEV_ONLY_ICON);
 
     options.symlink_prefix = g_settings_get_string(options.gcmd_settings->general, GCMD_SETTINGS_SYMLINK_PREFIX);
@@ -3473,7 +3457,6 @@ void GnomeCmdData::save()
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_QUICK_SEARCH_EXACT_MATCH_BEGIN, &(options.quick_search_exact_match_begin));
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_QUICK_SEARCH_EXACT_MATCH_END, &(options.quick_search_exact_match_end));
 
-    set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_DEV_SKIP_MOUNTING, &(options.skip_mounting));
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_DEV_ONLY_ICON, &(options.device_only_icon));
 
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_SHOW_TOOLBAR, &(show_toolbar));
