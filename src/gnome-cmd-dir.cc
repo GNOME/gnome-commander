@@ -699,7 +699,7 @@ GFile *gnome_cmd_dir_get_absolute_path_gfile (GnomeCmdDir *dir, string absolute_
 
     if (uriScheme && strcmp (uriScheme, "smb") == 0)
     {
-        while (GetGfileAttributeUInt32(dir_gFile, G_FILE_ATTRIBUTE_STANDARD_TYPE) == G_FILE_TYPE_DIRECTORY)
+        while (get_gfile_attribute_uint32(dir_gFile, G_FILE_ATTRIBUTE_STANDARD_TYPE) == G_FILE_TYPE_DIRECTORY)
         {
             auto gFileParent = g_file_get_parent(dir_gFile);
             g_object_unref (dir_gFile);

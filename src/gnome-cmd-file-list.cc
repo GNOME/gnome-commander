@@ -1277,7 +1277,7 @@ static void mime_exec_single (GnomeCmdFile *f)
                 return;
             }
 
-           if(!f->chmod(GetGfileAttributeUInt32(f->gFile, G_FILE_ATTRIBUTE_UNIX_MODE) | GNOME_CMD_PERM_USER_EXEC, nullptr))
+           if(!f->chmod(get_gfile_attribute_uint32(f->gFile, G_FILE_ATTRIBUTE_UNIX_MODE) | GNOME_CMD_PERM_USER_EXEC, nullptr))
            {
                return;
            }

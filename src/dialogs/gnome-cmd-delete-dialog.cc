@@ -198,7 +198,7 @@ static gboolean perform_delete_operation_r(DeleteData *deleteData, GList *gnomeC
 
         if ((numDirs == 1 && numFiles == 0) // Empty directory
             || (get_gfile_attribute_boolean(gFile, G_FILE_ATTRIBUTE_STANDARD_IS_SYMLINK)) //We want delete symlinks!
-            || (GetGfileAttributeUInt32(gFile, G_FILE_ATTRIBUTE_STANDARD_TYPE) != G_FILE_TYPE_DIRECTORY)) // Not a directory
+            || (get_gfile_attribute_uint32(gFile, G_FILE_ATTRIBUTE_STANDARD_TYPE) != G_FILE_TYPE_DIRECTORY)) // Not a directory
         {
             // DELETE IT!
             if (!g_file_delete (gFile, nullptr, &tmpError) &&

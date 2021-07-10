@@ -72,7 +72,7 @@ static void do_chown (GnomeCmdFile *in, uid_t uid, gid_t gid, gboolean recurse)
         {
             GnomeCmdFile *f = (GnomeCmdFile *) i->data;
 
-            auto filename = GetGfileAttributeString(f->gFile, G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME);
+            auto filename = get_gfile_attribute_string(f->gFile, G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME);
             if (!f->is_dotdot && strcmp (filename, ".") != 0
                 && !g_file_info_get_is_symlink(f->gFileInfo))
             {
@@ -188,8 +188,8 @@ GtkWidget *gnome_cmd_chown_dialog_new (GList *files)
     GnomeCmdFile *f = GNOME_CMD_FILE (dialog->priv->files->data);
 
     gnome_cmd_chown_component_set (GNOME_CMD_CHOWN_COMPONENT (dialog->priv->chown_component),
-        GetGfileAttributeUInt32(f->gFile, G_FILE_ATTRIBUTE_UNIX_UID),
-        GetGfileAttributeUInt32(f->gFile, G_FILE_ATTRIBUTE_UNIX_GID));
+        get_gfile_attribute_uint32(f->gFile, G_FILE_ATTRIBUTE_UNIX_UID),
+        get_gfile_attribute_uint32(f->gFile, G_FILE_ATTRIBUTE_UNIX_GID));
 
     return GTK_WIDGET (dialog);
 }

@@ -56,7 +56,7 @@ GSList *make_gfile_list (GnomeCmdDir *dir, string filename)
 
     if (uriScheme && strcmp (uriScheme, "smb")==0 && g_path_is_absolute (filename.c_str()))
     {
-        if (GetGfileAttributeUInt32(dir_gFile, G_FILE_ATTRIBUTE_STANDARD_TYPE) == G_FILE_TYPE_DIRECTORY
+        if (get_gfile_attribute_uint32(dir_gFile, G_FILE_ATTRIBUTE_STANDARD_TYPE) == G_FILE_TYPE_DIRECTORY
             && !g_file_get_parent (dir_gFile))
         {
             filename.erase(0,1);
