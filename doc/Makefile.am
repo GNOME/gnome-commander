@@ -38,8 +38,7 @@ HELP_MEDIA = \
 	figures/gnome-commander_options_tabs.png                \
 	figures/gnome-commander_options_layout_colors.png       \
 	figures/gnome-commander_window.png                      \
-	figures/gnome-commander_simple_plugins_example.png      \
-	figures/mounting.png
+	figures/gnome-commander_simple_plugins_example.png
 
 HELP_LINGUAS = cs de el es fr ru sl sv
 

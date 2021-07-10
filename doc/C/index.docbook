@@ -7475,44 +7475,11 @@
 	  </figure>
 	  <!-- ==== End of Figure ==== -->
 	</sect2>
-	<sect2 id="gnome-commander-removable-media">
-	  <title>Using removable media</title>
-          <para>If you use removable devices such as CDs, floppies and cameras a lot you can make &app;
-          automatically take care of mounting them by following this guide:</para>
-          <itemizedlist>
-            <listitem>
-              <para>Open the <guimenu>Options</guimenu> dialog and go to the <guimenuitem>Devices</guimenuitem> tab.</para>
-            </listitem>
-            <listitem>
-              <para>Add the devices that you are using. This is how the program looks with a few added devices.</para>
-              <!-- ==== Figure ==== -->
-	      <figure id="mounting">
-		<title>Extract Archive</title>
-		<screenshot>
-		  <mediaobject>
-		    <imageobject>
-		      <imagedata fileref="figures/mounting.png" format="PNG"/>
-		    </imageobject>
-		    <textobject>
-		      <phrase>Mounting in &app;.</phrase>
-		    </textobject>
-		  </mediaobject>
-		</screenshot>
-	      </figure>
-	      <!-- ==== End of Figure ==== -->
-	      <para>In the last image the red circle <guimenu>A</guimenu> shows the available
-	      devices. If a device was mounted by &app; there is also a button to press if you
-	      want to unmount the device, shown in the red circle <guimenu>B</guimenu>.
-	      The icons that are used for the devices in the example should be available
-	      in the $(prefix)/share/pixmaps/gnome-commander/device-icons folder on your computer.</para>
-            </listitem>
-          </itemizedlist>
-	</sect2>
 	<sect2 id="gnome-commander-mime-types">
 	  <title>Handling MIME types</title>
-	  <note><para>Since GNOME has changed to follow the freedesktop.org standard of handling mimetypes, the editing 
+	  <note><para>Since GNOME has changed to follow the freedesktop.org standard of handling mimetypes, the editing
 	  of preferred programs in GNOME Commander is broken (since v1.1.7). You have still some possibilities 
-	  to change preferred default programs. For more informations please have a look at the 
+	  to change preferred default programs. For more informations please have a look at the
 	  <ulink type="http" url="https://gcmd.github.io/doc.html#tips">Tips and Tricks section</ulink> of
 	  the &app; home page.</para></note>
 	</sect2>
