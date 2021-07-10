@@ -105,6 +105,7 @@ struct GnomeCmdFile
     void invalidate_tree_size();
     gboolean has_tree_size();
 
+    gboolean GetGfileAttributeBoolean(const char *attribute);
     guint32 GetGfileAttributeUInt32(const char *attribute);
     guint64 GetGfileAttributeUInt64(const char *attribute);
     gchar *GetGfileAttributeString(const char *attribute);

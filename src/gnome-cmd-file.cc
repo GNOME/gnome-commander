@@ -522,6 +522,12 @@ GAppInfo *GnomeCmdFile::GetAppInfoForContentType()
 }
 
 
+gboolean GnomeCmdFile::GetGfileAttributeBoolean(const char *attribute)
+{
+    return get_gfile_attribute_boolean(this->gFile, attribute);
+}
+
+
 gchar *GnomeCmdFile::GetGfileAttributeString(const char *attribute)
 {
     g_return_val_if_fail (gFile != nullptr, nullptr);

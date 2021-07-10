@@ -413,7 +413,7 @@ gchar* get_package_config_dir();
 
 gchar *string_double_underscores (const gchar *string);
 
-gboolean GetGfileAttributeBoolean(GFile *gFile, const char *attribute);
+gboolean get_gfile_attribute_boolean(GFile *gFile, const char *attribute);
 
 guint32 GetGfileAttributeUInt32(GFile *gFile, const char *attribute);
 
