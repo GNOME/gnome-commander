@@ -1028,8 +1028,7 @@ gboolean GnomeCmdFile::is_executable()
     if (!is_local())
         return FALSE;
 
-    if (gcmd_owner.uid() == GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_UNIX_UID)
-                            && GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_UNIX_MODE) & GNOME_CMD_PERM_USER_EXEC)
+    if (GetGfileAttributeBoolean(G_FILE_ATTRIBUTE_ACCESS_CAN_EXECUTE))
         return TRUE;
 
     if (gcmd_owner.gid() == GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_UNIX_GID)
