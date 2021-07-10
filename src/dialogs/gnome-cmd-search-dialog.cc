@@ -418,7 +418,7 @@ void SearchData::search_dir_r(GnomeCmdDir *dir, long level)
             // we don't want to go backwards or to follow symlinks
             if (!f->is_dotdot
                 && strcmp (g_file_info_get_display_name(f->gFileInfo), ".") != 0
-                && !GNOME_VFS_FILE_INFO_SYMLINK (f->info))
+                && !get_gfile_attribute_boolean(f->gFile, G_FILE_ATTRIBUTE_STANDARD_IS_SYMLINK))
             {
                 GnomeCmdDir *new_dir = GNOME_CMD_DIR (f);
 
