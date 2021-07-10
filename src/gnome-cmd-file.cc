@@ -829,23 +829,39 @@ gboolean GnomeCmdFile::get_type_pixmap_and_mask(GdkPixmap **pixmap, GdkBitmap **
 }
 
 
-gboolean GnomeCmdFile::has_mime_type(const gchar *mime_type)
+gboolean GnomeCmdFile::has_content_type(const gchar *contentType)
 {
-    g_return_val_if_fail (info != nullptr, FALSE);
-    g_return_val_if_fail (info->mime_type != nullptr, FALSE);
-    g_return_val_if_fail (mime_type != nullptr, FALSE);
+    g_return_val_if_fail (contentType != nullptr, FALSE);
 
-    return strcmp (info->mime_type, mime_type) == 0;
+    auto actualContentType = GetGfileAttributeString(G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE);
+
+    if (!actualContentType)
+    {
+        return false;
+    }
+
+    auto compareValue = strcmp (actualContentType, contentType);
+    g_free(actualContentType);
+
+    return compareValue == 0;
 }
 
 
-gboolean GnomeCmdFile::mime_begins_with(const gchar *mime_type_start)
+gboolean GnomeCmdFile::content_type_begins_with(const gchar *contentTypeStart)
 {
-    g_return_val_if_fail (info != nullptr, FALSE);
-    g_return_val_if_fail (info->mime_type != nullptr, FALSE);
-    g_return_val_if_fail (mime_type_start != nullptr, FALSE);
+    g_return_val_if_fail (contentTypeStart != nullptr, FALSE);
 
-    return strncmp (info->mime_type, mime_type_start, strlen(mime_type_start)) == 0;
+    auto actualContentType = GetGfileAttributeString(G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE);
+
+    if (!actualContentType)
+    {
+        return false;
+    }
+
+    auto compareValue = strncmp (actualContentType, contentTypeStart, strlen(contentTypeStart));
+    g_free(actualContentType);
+
+    return compareValue == 0;
 }
 
 

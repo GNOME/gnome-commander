@@ -1255,19 +1255,16 @@ static void on_tmp_download_response (GtkWidget *w, gint id, TmpDlData *dldata)
 static void mime_exec_single (GnomeCmdFile *f)
 {
     g_return_if_fail (f != nullptr);
-    g_return_if_fail (f->info != nullptr);
+    g_return_if_fail (f->gFileInfo != nullptr);
 
     gpointer *args;
     GnomeCmdApp *app;
-
-    if (!f->info->mime_type)
-        return;
 
     // Check if the file is a binary executable that lacks the executable bit
 
     if (!f->is_executable())
     {
-        if (f->has_mime_type("application/x-executable") || f->has_mime_type("application/x-executable-binary"))
+        if (f->has_content_type("application/x-executable") || f->has_content_type("application/x-executable-binary"))
         {
             gchar *msg = g_strdup_printf (_("“%s” seems to be a binary executable file but it lacks the executable bit. Do you want to set it and then run the file?"), f->get_name());
             gint ret = run_simple_dialog (*main_win, FALSE, GTK_MESSAGE_QUESTION, msg,
@@ -1291,13 +1288,13 @@ static void mime_exec_single (GnomeCmdFile *f)
 
     if (f->is_executable())
     {
-        if (f->has_mime_type("application/x-executable") || f->has_mime_type("application/x-executable-binary"))
+        if (f->has_content_type("application/x-executable") || f->has_content_type("application/x-executable-binary"))
         {
             f->execute();
             return;
         }
         else
-            if (f->mime_begins_with("text/"))
+            if (f->content_type_begins_with("text/"))
             {
                 gchar *msg = g_strdup_printf (_("“%s” is an executable text file. Do you want to run it, or display its contents?"), f->get_name());
                 gint ret = run_simple_dialog (*main_win, FALSE, GTK_MESSAGE_QUESTION, msg, _("Run or Display"),

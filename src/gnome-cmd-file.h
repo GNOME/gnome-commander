@@ -82,8 +82,8 @@ struct GnomeCmdFile
     guint64 calc_tree_size (gulong *count);
     const gchar *get_tree_size_as_str();
     const gchar *get_perm();
-    gboolean has_mime_type(const gchar *mime_type);
-    gboolean mime_begins_with(const gchar *mime_type_start);
+    gboolean has_content_type(const gchar *contentType);
+    gboolean content_type_begins_with(const gchar *contentTypeStart);
 
     GnomeCmdDir *get_parent_dir();
 
