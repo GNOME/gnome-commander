@@ -7475,14 +7475,6 @@
 	  </figure>
 	  <!-- ==== End of Figure ==== -->
 	</sect2>
-	<sect2 id="gnome-commander-mime-types">
-	  <title>Handling MIME types</title>
-	  <note><para>Since GNOME has changed to follow the freedesktop.org standard of handling mimetypes, the editing
-	  of preferred programs in GNOME Commander is broken (since v1.1.7). You have still some possibilities 
-	  to change preferred default programs. For more informations please have a look at the
-	  <ulink type="http" url="https://gcmd.github.io/doc.html#tips">Tips and Tricks section</ulink> of
-	  the &app; home page.</para></note>
-	</sect2>
 	<sect2 id="gnome-commander-copy-path-names">
 	  <title>Copying File Names and Paths</title>
           <itemizedlist>
@@ -7491,7 +7483,7 @@
 	      on the <guimenu>Edit</guimenu> menu or the "**" icon on the toolbar.</para>
             </listitem>
             <listitem>
-	      <para>To copy full paths of selected files to the environment's clipboard, hold down 
+	      <para>To copy full paths of selected files to the environment's clipboard, hold down
 	      <keycap>SHIFT</keycap> while activating either the Copy File Names action on the <guimenu>Edit</guimenu> 
 	      menu or the "**" icon on the toolbar.</para>
             </listitem>
