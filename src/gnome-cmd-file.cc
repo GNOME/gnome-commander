@@ -542,27 +542,7 @@ guint32 GnomeCmdFile::GetGfileAttributeUInt32(const char *attribute)
 
 guint64 GnomeCmdFile::GetGfileAttributeUInt64(const char *attribute)
 {
-    GError *error;
-    error = nullptr;
-    guint64 gFileAttributeUInt64 = 0;
-
-    auto gcmdFileInfo = g_file_query_info(this->gFile,
-                                   attribute,
-                                   G_FILE_QUERY_INFO_NONE,
-                                   nullptr,
-                                   &error);
-    if (error)
-    {
-        g_message ("retrieving file info failed: %s", error->message);
-        g_error_free (error);
-    }
-    else
-    {
-        gFileAttributeUInt64 = g_file_info_get_attribute_uint64 (gcmdFileInfo, attribute);
-        g_object_unref(gcmdFileInfo);
-    }
-
-    return gFileAttributeUInt64;
+    return get_gfile_attribute_uint64(this->gFile, attribute);
 }
 
 

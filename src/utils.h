@@ -417,4 +417,6 @@ gboolean get_gfile_attribute_boolean(GFile *gFile, const char *attribute);
 
 guint32 get_gfile_attribute_uint32(GFile *gFile, const char *attribute);
 
+guint64 get_gfile_attribute_uint64(GFile *gFile, const char *attribute);
+
 gchar *get_gfile_attribute_string(GFile *gFile, const char *attribute);

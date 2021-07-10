@@ -289,23 +289,25 @@ gboolean SearchData::read_search_file(SearchFileData *searchfile_data, GnomeCmdF
         return FALSE;
     }
 
+    auto size = get_gfile_attribute_uint64(f->gFile, G_FILE_ATTRIBUTE_STANDARD_SIZE);
+
     if (searchfile_data->len)
     {
-      if ((searchfile_data->offset + searchfile_data->len) >= f->info->size)   // end, all has been read
-      {
-          free_search_file_data (searchfile_data);
-          return FALSE;
-      }
+        if ((searchfile_data->offset + searchfile_data->len) >= size)   // end, all has been read
+        {
+            free_search_file_data (searchfile_data);
+            return FALSE;
+        }
 
       // jump a big step backward to give the regex a chance
       searchfile_data->offset += searchfile_data->len - SEARCH_JUMP_SIZE;
-      if (f->info->size < (searchfile_data->offset + (SEARCH_BUFFER_SIZE - 1)))
-          searchfile_data->len = f->info->size - searchfile_data->offset;
+      if (size < (searchfile_data->offset + (SEARCH_BUFFER_SIZE - 1)))
+          searchfile_data->len = size - searchfile_data->offset;
       else
           searchfile_data->len = SEARCH_BUFFER_SIZE - 1;
     }
     else   // first time call of this function
-        searchfile_data->len = MIN (f->info->size, SEARCH_BUFFER_SIZE - 1);
+        searchfile_data->len = MIN (size, SEARCH_BUFFER_SIZE - 1);
 
     searchfile_data->result = gnome_vfs_seek (searchfile_data->handle, GNOME_VFS_SEEK_START, searchfile_data->offset);
     if (searchfile_data->result != GNOME_VFS_OK)
@@ -333,9 +335,8 @@ gboolean SearchData::read_search_file(SearchFileData *searchfile_data, GnomeCmdF
 inline gboolean SearchData::content_matches(GnomeCmdFile *f)
 {
     g_return_val_if_fail (f != NULL, FALSE);
-    g_return_val_if_fail (f->info != NULL, FALSE);
 
-    if (f->info->size==0)
+    if (get_gfile_attribute_uint64(f->gFile, G_FILE_ATTRIBUTE_STANDARD_SIZE) == 0)
         return FALSE;
 
     SearchFileData *search_file = g_new0 (SearchFileData, 1);
