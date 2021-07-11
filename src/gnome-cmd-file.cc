@@ -580,18 +580,6 @@ gchar *GnomeCmdFile::get_default_application_name(GAppInfo *gAppInfo)
 }
 
 
-GnomeVFSMimeApplication *GnomeCmdFile::get_default_gnome_vfs_app_for_mime_type()
-{
-    g_return_val_if_fail (GNOME_CMD_IS_FILE (this), nullptr);
-
-    auto uri_str = this->get_uri_str();
-    auto *app = gnome_vfs_mime_get_default_application_for_uri (uri_str, this->info->mime_type);
-
-    g_free (uri_str);
-    return app;
-}
-
-
 GFile *GnomeCmdFile::get_gfile(const gchar *name)
 {
     if (!has_parent_dir (this))

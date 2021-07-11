@@ -113,7 +113,6 @@ struct GnomeCmdFile
     gchar *get_default_application_action_label(GAppInfo *gAppInfo);
     gchar *get_default_application_name(GAppInfo *gAppInfo);
     GAppInfo *GetAppInfoForContentType();
-    GnomeVFSMimeApplication *get_default_gnome_vfs_app_for_mime_type();
 };
 
 struct GnomeCmdFileClass
