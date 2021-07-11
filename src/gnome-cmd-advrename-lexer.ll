@@ -491,7 +491,7 @@ char *gnome_cmd_advrename_gen_fname (GnomeCmdFile *f, size_t new_fname_size)
   string fmt;
   fmt.reserve(256);
 
-  char *fname = get_utf8 (f->info->name);
+  char *fname = get_gfile_attribute_string (f->gFile, G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME);
   const char *ext = g_utf8_strrchr (fname, -1, '.');
 
   int full_name_len = g_utf8_strlen (fname, -1);
@@ -598,15 +598,22 @@ char *gnome_cmd_advrename_gen_fname (GnomeCmdFile *f, size_t new_fname_size)
   gboolean new_fname_has_percent = convert ((char *) fmt.c_str(), '%', ESC);
   convert ((char *) fmt.c_str(), SUB, '%');
 
-#if defined (__GNUC__)
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wformat-nonliteral"
-#endif
-  if (!strftime(new_fname, new_fname_size+1, fmt.c_str(), localtime(&f->info->mtime)))      // if new_fname is not big enough...
-    new_fname[new_fname_size] = '\0';                                                       //      ... truncate
-#if defined (__GNUC__)
-#pragma GCC diagnostic pop
-#endif
+  auto dateTimeString = g_date_time_format (g_file_info_get_modification_date_time(f->gFileInfo), fmt.c_str());
+  if (dateTimeString)
+  {
+    if ((gulong) g_utf8_strlen(dateTimeString, -1) >= new_fname_size+1)
+    {
+      g_utf8_strncpy(new_fname, dateTimeString, new_fname_size+1);
+    }
+    else
+    {
+      new_fname = dateTimeString;
+    }
+  }
+  else //Rescue if something goes wrong...
+  {
+    new_fname = g_strdup(fmt.c_str());
+  }
 
   if (new_fname_has_percent)
     convert (new_fname, ESC, '%');
