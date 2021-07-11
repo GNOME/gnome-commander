@@ -37,7 +37,6 @@
 #include "gnome-cmd-owner.h"
 #include "dialogs/gnome-cmd-advrename-dialog.h"
 #include "dialogs/gnome-cmd-manage-bookmarks-dialog.h"
-#include "gnome-cmd-gkeyfile-utils.h"
 
 using namespace std;
 
