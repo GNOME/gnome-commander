@@ -1405,16 +1405,19 @@ void mark_compare_directories (GtkMenuItem *menuitem, gpointer not_used)
 
         GnomeCmdFile *f2 = i2->second;
 
-        if (f1->info->mtime > f2->info->mtime)          //  if f1 is newer than f2...
+        if (f1->GetGfileAttributeUInt64(G_FILE_ATTRIBUTE_TIME_MODIFIED)
+            > f2->GetGfileAttributeUInt64(G_FILE_ATTRIBUTE_TIME_MODIFIED)) //  if f1 is newer than f2...
         {
             new_selection1.insert(f1);                  //  ... add f1 to files to be selected in fl1...
             files2.erase(i2);                           //  ... and remove f2 from fl2 files
             continue;
         }
 
-        if (f1->info->mtime == f2->info->mtime)         //  if the same mtime for f1, f2
+        if (f1->GetGfileAttributeUInt64(G_FILE_ATTRIBUTE_TIME_MODIFIED)
+            == f2->GetGfileAttributeUInt64(G_FILE_ATTRIBUTE_TIME_MODIFIED)) //  if the same mtime for f1, f2
         {
-            if (f1->info->size == f2->info->size)       //  ... then check f1, f2 sizes
+            if (f1->GetGfileAttributeUInt64(G_FILE_ATTRIBUTE_STANDARD_SIZE)
+                == f2->GetGfileAttributeUInt64(G_FILE_ATTRIBUTE_STANDARD_SIZE)) //  ... then check f1, f2 sizes
                 files2.erase(i2);                       //  ... and remove f2 from fl2 files
             else
                 new_selection1.insert(f1);              //  ... or add f1 to files to be selected in fl1

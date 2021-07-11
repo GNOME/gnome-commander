@@ -615,7 +615,7 @@ static void toggle_files_with_same_extension (GnomeCmdFileList *fl, gboolean sel
     {
         auto ff = static_cast<GnomeCmdFile*> (i->data);
 
-        if (ff && ff->info)
+        if (ff && ff->gFileInfo)
         {
             const gchar *ext2 = ff->get_extension();
 
@@ -638,7 +638,7 @@ void GnomeCmdFileList::toggle_with_pattern(Filter &pattern, gboolean mode)
         {
             auto f = static_cast<GnomeCmdFile*> (i->data);
 
-            if (f && f->info && pattern.match(g_file_info_get_display_name(f->gFileInfo)))
+            if (f && f->gFileInfo && pattern.match(g_file_info_get_display_name(f->gFileInfo)))
             {
                 if (mode)
                     select_file(f);
@@ -651,7 +651,7 @@ void GnomeCmdFileList::toggle_with_pattern(Filter &pattern, gboolean mode)
         {
             auto f = static_cast<GnomeCmdFile*> (i->data);
 
-            if (f && !GNOME_CMD_IS_DIR (f) && f->info && pattern.match(g_file_info_get_display_name(f->gFileInfo)))
+            if (f && !GNOME_CMD_IS_DIR (f) && f->gFileInfo && pattern.match(g_file_info_get_display_name(f->gFileInfo)))
             {
                 if (mode)
                     select_file(f);
@@ -963,10 +963,12 @@ static gint sort_by_dir (GnomeCmdFile *f1, GnomeCmdFile *f2, GnomeCmdFileList *f
     if (f2->is_dotdot)
         return 1;
 
-    if (f1->info->type > f2->info->type)
+    if (f1->GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE)
+        > f2->GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE))
         return -1;
 
-    if (f1->info->type < f2->info->type)
+    if (f1->GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE)
+        < f2->GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE))
         return 1;
 
     gboolean raising = fl->priv->sort_raising[fl->priv->current_col];
@@ -996,11 +998,13 @@ static gint sort_by_size (GnomeCmdFile *f1, GnomeCmdFile *f2, GnomeCmdFileList *
     gboolean raising = fl->priv->sort_raising[fl->priv->current_col];
     gboolean file_raising = fl->priv->sort_raising[1];
 
-    gint ret = my_intcmp (f1->info->type, f2->info->type, TRUE);
+    gint ret = my_intcmp (f1->GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE),
+                          f2->GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE), TRUE);
 
     if (!ret)
     {
-        ret = my_filesizecmp (f1->info->size, f2->info->size, raising);
+        ret = my_filesizecmp (f1->GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_SIZE),
+                              f2->GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_SIZE), raising);
         if (!ret)
             ret = my_strcmp (f1->get_collation_fname(), f2->get_collation_fname(), file_raising);
     }
@@ -1019,10 +1023,12 @@ static gint sort_by_perm (GnomeCmdFile *f1, GnomeCmdFile *f2, GnomeCmdFileList *
     gboolean raising = fl->priv->sort_raising[fl->priv->current_col];
     gboolean file_raising = fl->priv->sort_raising[1];
 
-    gint ret = my_intcmp (f1->info->type, f2->info->type, TRUE);
+    gint ret = my_intcmp (f1->GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE),
+                          f2->GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE), TRUE);
     if (!ret)
     {
-        ret = my_intcmp (f1->info->permissions, f2->info->permissions, raising);
+        ret = my_intcmp (get_gfile_attribute_uint32(f1->gFile, G_FILE_ATTRIBUTE_UNIX_MODE),
+                         get_gfile_attribute_uint32(f2->gFile, G_FILE_ATTRIBUTE_UNIX_MODE), raising);
         if (!ret)
             ret = my_strcmp (f1->get_collation_fname(), f2->get_collation_fname(), file_raising);
     }
@@ -1041,10 +1047,12 @@ static gint sort_by_date (GnomeCmdFile *f1, GnomeCmdFile *f2, GnomeCmdFileList *
     gboolean raising = fl->priv->sort_raising[fl->priv->current_col];
     gboolean file_raising = fl->priv->sort_raising[1];
 
-    gint ret = my_intcmp (f1->info->type, f2->info->type, TRUE);
+    gint ret = my_intcmp (f1->GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE),
+                          f2->GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE), TRUE);
     if (!ret)
     {
-        ret = my_intcmp (f1->info->mtime, f2->info->mtime, raising);
+        ret = my_intcmp (f1->GetGfileAttributeUInt64(G_FILE_ATTRIBUTE_TIME_MODIFIED),
+                         f2->GetGfileAttributeUInt64(G_FILE_ATTRIBUTE_TIME_MODIFIED), raising);
         if (!ret)
             ret = my_strcmp (f1->get_collation_fname(), f2->get_collation_fname(), file_raising);
     }
@@ -1063,10 +1071,17 @@ static gint sort_by_owner (GnomeCmdFile *f1, GnomeCmdFile *f2, GnomeCmdFileList 
     gboolean raising = fl->priv->sort_raising[fl->priv->current_col];
     gboolean file_raising = fl->priv->sort_raising[1];
 
-    gint ret = my_intcmp (f1->info->type, f2->info->type, TRUE);
+    gint ret = my_intcmp (f1->GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE),
+                          f2->GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE), TRUE);
     if (!ret)
     {
-        ret = my_intcmp (f1->info->uid, f2->info->uid, raising);
+#ifdef linux
+        ret = my_intcmp (f1->GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_UNIX_UID),
+                         f2->GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_UNIX_UID), raising);
+#else
+        ret = my_strcmp (f1->GetGfileAttributeString(G_FILE_ATTRIBUTE_OWNER_USER),
+                         f2->GetGfileAttributeString(G_FILE_ATTRIBUTE_OWNER_USER), raising)
+#endif
         if (!ret)
             ret = my_strcmp (f1->get_collation_fname(), f2->get_collation_fname(), file_raising);
     }
@@ -1085,10 +1100,17 @@ static gint sort_by_group (GnomeCmdFile *f1, GnomeCmdFile *f2, GnomeCmdFileList 
     gboolean raising = fl->priv->sort_raising[fl->priv->current_col];
     gboolean file_raising = fl->priv->sort_raising[1];
 
-    gint ret = my_intcmp (f1->info->type, f2->info->type, TRUE);
+    gint ret = my_intcmp (f1->GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE),
+                          f2->GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE), TRUE);
     if (!ret)
     {
-        ret = my_intcmp (f1->info->gid, f2->info->gid, raising);
+#ifdef linux
+        ret = my_intcmp (f1->GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_UNIX_GID),
+                         f2->GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_UNIX_GID), raising);
+#else
+        ret = my_strcmp (f1->GetGfileAttributeString(G_FILE_ATTRIBUTE_OWNER_GROUP),
+                         f2->GetGfileAttributeString(G_FILE_ATTRIBUTE_OWNER_GROUP), raising)
+#endif
         if (!ret)
             ret = my_strcmp (f1->get_collation_fname(), f2->get_collation_fname(), file_raising);
     }
@@ -1313,8 +1335,10 @@ static void mime_exec_single (GnomeCmdFile *f)
     auto gAppInfo = f->GetAppInfoForContentType();
     if (gAppInfo == nullptr)
     {
-        gchar *msg = g_strdup_printf (_("No default application found for the MIME type %s."), f->info->mime_type);
+        auto contentType = f->GetGfileAttributeString(G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE);
+        gchar *msg = g_strdup_printf (_("No default application found for the application type %s."), contentType);
         gnome_cmd_show_message (nullptr, msg, _("Open the \"File types and programs\" page in the Control Center to add one."));
+        g_free (contentType);
         g_free (msg);
         return;
     }
@@ -2238,7 +2262,7 @@ void GnomeCmdFileList::invert_selection()
         {
             auto f = static_cast<GnomeCmdFile*> (i->data);
 
-            if (f && f->info)
+            if (f && f->gFileInfo)
             {
                 if (!sel.contain(f))
                     select_file(f);
@@ -2251,7 +2275,7 @@ void GnomeCmdFileList::invert_selection()
         {
             auto f = static_cast<GnomeCmdFile*> (i->data);
 
-            if (f && !GNOME_CMD_IS_DIR (f) && f->info)
+            if (f && !GNOME_CMD_IS_DIR (f) && f->gFileInfo)
             {
                 if (!sel.contain(f))
                     select_file(f);
