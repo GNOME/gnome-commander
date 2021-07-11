@@ -45,7 +45,6 @@ struct GnomeCmdFile
 
     Private *priv;
 
-    GnomeVFSFileInfo *info;
     GFile *gFile;
     GFileInfo *gFileInfo;
     gboolean is_dotdot;
