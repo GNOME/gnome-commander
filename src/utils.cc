@@ -382,15 +382,16 @@ const gchar *size2string (guint64 size, GnomeCmdSizeDispMode size_disp_mode)
 }
 
 
-const gchar *time2string (GDateTime *gDateTime, const gchar *date_format)
+const gchar *time2string (GDateTime *gDateTime, const gchar *dateFormat)
 {
     // NOTE: date_format is passed in current locale format
 
     g_return_val_if_fail (gDateTime != nullptr, nullptr);
+    g_return_val_if_fail (dateFormat != nullptr, nullptr);
 
     static gchar buf[64];
 
-    auto dateString = g_date_time_format (gDateTime, date_format);
+    auto dateString = g_date_time_format (gDateTime, dateFormat);
 
     strncpy (buf, dateString, sizeof(buf)-1);
 
