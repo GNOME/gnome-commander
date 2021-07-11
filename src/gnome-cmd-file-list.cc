@@ -1314,7 +1314,7 @@ static void mime_exec_single (GnomeCmdFile *f)
     if (gAppInfo == nullptr)
     {
         gchar *msg = g_strdup_printf (_("No default application found for the MIME type %s."), f->info->mime_type);
-        gnome_cmd_show_message (nullptr, msg, "Open the \"File types and programs\" page in the Control Center to add one.");
+        gnome_cmd_show_message (nullptr, msg, _("Open the \"File types and programs\" page in the Control Center to add one."));
         g_free (msg);
         return;
     }
