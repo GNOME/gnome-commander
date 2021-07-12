@@ -91,8 +91,8 @@ static void delete_progress_update (DeleteData *data)
     {
         gfloat f = (gfloat)data->itemsDeleted/(gfloat)data->itemsTotal;
         g_free (data->msg);
-        data->msg = g_strdup_printf (ngettext("Deleted %" G_GUINT64_FORMAT " of %" G_GUINT64_FORMAT " file",
-                                              "Deleted %" G_GUINT64_FORMAT " of %" G_GUINT64_FORMAT " files",
+        data->msg = g_strdup_printf (ngettext("Deleted %lu of %lu file",
+                                              "Deleted %lu of %lu files",
                                               data->itemsTotal),
                                      data->itemsDeleted, data->itemsTotal);
         if (f < 0.001f) f = 0.001f;
