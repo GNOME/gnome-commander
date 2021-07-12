@@ -1336,7 +1336,7 @@ static void mime_exec_single (GnomeCmdFile *f)
     if (gAppInfo == nullptr)
     {
         auto contentType = f->GetGfileAttributeString(G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE);
-        gchar *msg = g_strdup_printf (_("No default application found for the application type %s."), contentType);
+        gchar *msg = g_strdup_printf (_("No default application found for the file type %s."), contentType);
         gnome_cmd_show_message (nullptr, msg, _("Open the \"File types and programs\" page in the Control Center to add one."));
         g_free (contentType);
         g_free (msg);
