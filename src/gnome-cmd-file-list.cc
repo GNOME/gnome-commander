@@ -746,21 +746,12 @@ static char *build_selected_file_list (GnomeCmdFileList *fl, int *file_list_len)
         for (auto i = sel_files; i; i = i->next)
         {
             auto f = static_cast<GnomeCmdFile*> (i->data);
-            const gchar *fn = nullptr;
+            auto uriString = f->get_uri_str();
 
-            if (gnome_vfs_uri_is_local (f->get_uri()))
-            {
-#ifdef UNESCAPE_LOCAL_FILES
-                fn = gnome_vfs_unescape_string (f->get_uri_str(), 0);
-#endif
-            }
-
-            if (!fn)
-                fn = f->get_uri_str();
-
-            gchar *uri_str = g_strconcat (fn, "\r\n", nullptr);
+            gchar *uri_str = g_strconcat (uriString, "\r\n", nullptr);
             uri_str_list = g_list_append (uri_str_list, uri_str);
             total_len += strlen (uri_str);
+            g_free(uriString);
         }
 
         // allocate memory
