@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ru\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-commander/issues\n"
-"POT-Creation-Date: 2021-07-11 21:45+0000\n"
-"PO-Revision-Date: 2021-07-12 09:43+0300\n"
+"POT-Creation-Date: 2021-07-12 16:02+0000\n"
+"PO-Revision-Date: 2021-07-12 19:05+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -1821,13 +1821,15 @@ msgid "Custom location"
 msgstr "Інше місце"
 
 #: src/dialogs/gnome-cmd-delete-dialog.cc:94
-#| msgid "Delete"
-msgid "Deleted %"
-msgid_plural "Deleted %"
-msgstr[0] "Вилучено %"
-msgstr[1] "Вилучено %"
-msgstr[2] "Вилучено %"
-msgstr[3] "Вилучено %"
+#, c-format
+#| msgid "Deleted %ld of %ld file"
+#| msgid_plural "Deleted %ld of %ld files"
+msgid "Deleted %lu of %lu file"
+msgid_plural "Deleted %lu of %lu files"
+msgstr[0] "Вилучено %lu з %lu файла"
+msgstr[1] "Вилучено %lu з %lu файлів"
+msgstr[2] "Вилучено %lu з %lu файлів"
+msgstr[3] "Вилучено %lu з %lu файла"
 
 #: src/dialogs/gnome-cmd-delete-dialog.cc:129
 msgid "Deleting…"
@@ -2234,7 +2236,6 @@ msgstr "Потрібно ввести назву каталогу"
 
 #: src/dialogs/gnome-cmd-mkdir-dialog.cc:129
 #, c-format
-#| msgid "Make Directory"
 msgid "Make directory failed: %s\n"
 msgstr "Не вдалося створити каталог: %s\n"
 
@@ -3688,16 +3689,16 @@ msgstr "Виконати"
 
 #: src/gnome-cmd-file-list.cc:1339
 #, c-format
-#| msgid "No default application found for the MIME type %s."
-msgid "No default application found for the application type %s."
+#| msgid "No default application found for the application type %s."
+msgid "No default application found for the file type %s."
 msgstr "Не знайдено типової програми для типу файлів %s."
 
 #: src/gnome-cmd-file-list.cc:1340
 msgid ""
 "Open the \"File types and programs\" page in the Control Center to add one."
 msgstr ""
-"Відкрийте сторінку «Типи файлів і програми» у Центрі керування, щоб додати"
-" прив'язку."
+"Відкрийте сторінку «Типи файлів і програми» у Центрі керування, щоб додати "
+"прив'язку."
 
 #: src/gnome-cmd-file-list.cc:1370
 #, c-format
@@ -9073,6 +9074,14 @@ msgstr "Помилка при показі допомоги."
 msgid "Couldn’t move path from “%s” to “%s”: %s"
 msgstr "Не вдалося пересунути шлях з «%s» до «%s»: %s"
 
+#~| msgid "Delete"
+#~ msgid "Deleted %"
+#~ msgid_plural "Deleted %"
+#~ msgstr[0] "Вилучено %"
+#~ msgstr[1] "Вилучено %"
+#~ msgstr[2] "Вилучено %"
+#~ msgstr[3] "Вилучено %"
+
 #~ msgid "Skip device mounting"
 #~ msgstr "Пропускати монтування пристроїв"
 
@@ -9082,13 +9091,6 @@ msgstr "Не вдалося пересунути шлях з «%s» до «%s»:
 #~ msgstr ""
 #~ "Цей параметр визначає, чи слід пропускати монтування пристроїв, якщо їх "
 #~ "відкрито."
-
-#~ msgid "Deleted %ld of %ld file"
-#~ msgid_plural "Deleted %ld of %ld files"
-#~ msgstr[0] "Вилучено %ld з %ld файла"
-#~ msgstr[1] "Вилучено %ld з %ld файлів"
-#~ msgstr[2] "Вилучено %ld з %ld файлів"
-#~ msgstr[3] "Вилучено %ld з %ld файла"
 
 #~ msgid "Skip mounting (useful when using super-mount)"
 #~ msgstr "Не виконувати монтування (корисно при використанні super-mount)"
