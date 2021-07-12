@@ -11,27 +11,27 @@
 # Mateus Zenaide <mateus@mateuszenaide.com.br>, 2013.
 # Adorilson Bezerra <adorilson@gmail.com>, 2013, 2014.
 # Gustavo Marques <gutodisse@gmail.com>, 2015.
-# Enrico Nicoletto <liverig@gmail.com>, 2014, 2017, 2021.
 # Rafael Fontenelle <rafaelff@gnome.org>, 2014-2021.
+# Enrico Nicoletto <liverig@gmail.com>, 2014, 2017, 2021.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-commander/issues\n"
-"POT-Creation-Date: 2021-06-21 07:25+0000\n"
-"PO-Revision-Date: 2021-06-28 08:24-0300\n"
-"Last-Translator: Rafael Fontenelle <rafaelff@gnome.org>\n"
+"POT-Creation-Date: 2021-07-12 16:02+0000\n"
+"PO-Revision-Date: 2021-07-12 19:20-0300\n"
+"Last-Translator: Enrico Nicoletto <liverig@gmail.com>\n"
 "Language-Team: Brazilian Portuguese <gnome-pt_br-list@gnome.org>\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n > 1)\n"
-"X-Generator: Gtranslator 40.0\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Poedit 3.0\n"
 "X-Project-Style: gnome\n"
 
 #: data/gnome-commander.appdata.xml.in:7 data/gnome-commander.desktop.in.in:3
-#: src/gnome-cmd-main-win.cc:859
+#: src/gnome-cmd-main-win.cc:858
 msgid "GNOME Commander"
 msgstr "GNOME Commander"
 
@@ -686,86 +686,74 @@ msgstr ""
 "vez de ícones e rótulos de texto."
 
 #: data/org.gnome.gnome-commander.gschema.xml:477
-msgid "Skip device mounting"
-msgstr "Pula montagem de dispositivos"
-
-#: data/org.gnome.gnome-commander.gschema.xml:478
-msgid ""
-"This option defines if mounting of devices should be skipped when they are "
-"opened."
-msgstr ""
-"Esta opção define se a montagem de dispositivos deve ser pulada quando eles "
-"são abertos."
-
-#: data/org.gnome.gnome-commander.gschema.xml:484
 msgid "Main menu visibility"
 msgstr "Visibilidade do menu principal"
 
-#: data/org.gnome.gnome-commander.gschema.xml:485
+#: data/org.gnome.gnome-commander.gschema.xml:478
 msgid "This option defines if the main menu is visible or not."
 msgstr "Esta opção define se o menu principal está visível ou não."
 
-#: data/org.gnome.gnome-commander.gschema.xml:491
+#: data/org.gnome.gnome-commander.gschema.xml:484
 msgid "Quick search shortcut"
 msgstr "Atalho de pesquisa rápida"
 
-#: data/org.gnome.gnome-commander.gschema.xml:492
+#: data/org.gnome.gnome-commander.gschema.xml:485
 msgid "This option defines the shortcut for quick search."
 msgstr "Esta opção define o atalho para pesquisa rápida."
 
-#: data/org.gnome.gnome-commander.gschema.xml:498
+#: data/org.gnome.gnome-commander.gschema.xml:491
 msgid "List of file tabs"
 msgstr "Lista de abas de arquivos"
 
-#: data/org.gnome.gnome-commander.gschema.xml:499
+#: data/org.gnome.gnome-commander.gschema.xml:492
 msgid ""
 "The entries in this list are used for restoring the tabs from the last "
 "session."
 msgstr ""
 "As entradas nesta lista são usadas para restaurar as abas da última sessão."
 
-#: data/org.gnome.gnome-commander.gschema.xml:505
+#: data/org.gnome.gnome-commander.gschema.xml:498
 msgid "List of devices"
 msgstr "Lista de dispositivos"
 
-#: data/org.gnome.gnome-commander.gschema.xml:506
+#: data/org.gnome.gnome-commander.gschema.xml:499
 msgid "The entries in this list represent the devices configured by the user."
 msgstr ""
 "As entradas nesta lista representam os dispositivos configurados pelo "
 "usuário."
 
-#: data/org.gnome.gnome-commander.gschema.xml:512
+#: data/org.gnome.gnome-commander.gschema.xml:505
 msgid "List of favorite apps"
 msgstr "Lista de aplicativos favoritos"
 
-#: data/org.gnome.gnome-commander.gschema.xml:513
+#: data/org.gnome.gnome-commander.gschema.xml:506
 msgid ""
 "The entries in this list represent the favorite apps configured by the user."
 msgstr ""
 "As entradas na lista representam os aplicativos favoritos configurados pelo "
 "usuário."
 
-#: data/org.gnome.gnome-commander.gschema.xml:519
+#: data/org.gnome.gnome-commander.gschema.xml:512
 msgid "Search window width"
 msgstr "Largura da janela de pesquisa"
 
-#: data/org.gnome.gnome-commander.gschema.xml:520
+#: data/org.gnome.gnome-commander.gschema.xml:513
 msgid "This option defines the width of the search window."
 msgstr "Esta opção define a largura da janela de pesquisa."
 
-#: data/org.gnome.gnome-commander.gschema.xml:526
+#: data/org.gnome.gnome-commander.gschema.xml:519
 msgid "Search window height"
 msgstr "Altura da janela de pesquisa"
 
-#: data/org.gnome.gnome-commander.gschema.xml:527
+#: data/org.gnome.gnome-commander.gschema.xml:520
 msgid "This option defines the height of the search window."
 msgstr "Esta opção define a altura da janela de pesquisa."
 
-#: data/org.gnome.gnome-commander.gschema.xml:533
+#: data/org.gnome.gnome-commander.gschema.xml:526
 msgid "Search window is transient"
 msgstr "A janela de pesquisa é temporária"
 
-#: data/org.gnome.gnome-commander.gschema.xml:534
+#: data/org.gnome.gnome-commander.gschema.xml:527
 msgid ""
 "Defines if the search window is transient or if it can be minimized and "
 "moved behind the main window."
@@ -773,22 +761,22 @@ msgstr ""
 "Define se a janela de pesquisa é temporária ou se pode ser minimizada e "
 "movida para trás da janela principal."
 
-#: data/org.gnome.gnome-commander.gschema.xml:540
+#: data/org.gnome.gnome-commander.gschema.xml:533
 msgid "Search text history"
 msgstr "Histórico do texto de pesquisa"
 
-#: data/org.gnome.gnome-commander.gschema.xml:541
+#: data/org.gnome.gnome-commander.gschema.xml:534
 msgid ""
 "This string array represents the history of text searches in the search tool."
 msgstr ""
 "Este vetor de strings armazena o histórico de pesquisas por texto na "
 "ferramenta de pesquisa."
 
-#: data/org.gnome.gnome-commander.gschema.xml:547
+#: data/org.gnome.gnome-commander.gschema.xml:540
 msgid "Search pattern history"
 msgstr "Histórico de padrão de pesquisa"
 
-#: data/org.gnome.gnome-commander.gschema.xml:548
+#: data/org.gnome.gnome-commander.gschema.xml:541
 msgid ""
 "This string array represents the history of regular expression searches in "
 "the search tool."
@@ -796,11 +784,11 @@ msgstr ""
 "Este vetor de strings representa o histórico de pesquisas de expressão "
 "regular na ferramenta de pesquisa."
 
-#: data/org.gnome.gnome-commander.gschema.xml:554
+#: data/org.gnome.gnome-commander.gschema.xml:547
 msgid "List of search tool profiles"
 msgstr "Lista de perfis de ferramentas de pesquisa"
 
-#: data/org.gnome.gnome-commander.gschema.xml:555
+#: data/org.gnome.gnome-commander.gschema.xml:548
 msgid ""
 "The entries in this array represent the profiles in the search tool with "
 "specific settings for each profile."
@@ -808,35 +796,35 @@ msgstr ""
 "As entradas neste vetor representam os perfis na ferramenta de pesquisa com "
 "configurações específicas para cada perfil."
 
-#: data/org.gnome.gnome-commander.gschema.xml:563
+#: data/org.gnome.gnome-commander.gschema.xml:556
 msgid "Quick connect URI"
 msgstr "URI de conexão rápida"
 
-#: data/org.gnome.gnome-commander.gschema.xml:564
+#: data/org.gnome.gnome-commander.gschema.xml:557
 msgid "Unified resource identifier for quick connections."
 msgstr "Identificador de recurso unificado para conexões rápida."
 
-#: data/org.gnome.gnome-commander.gschema.xml:575
+#: data/org.gnome.gnome-commander.gschema.xml:568
 msgid "Password for anonymous FTP connections"
 msgstr "Senha para conexões FTP anônimas"
 
-#: data/org.gnome.gnome-commander.gschema.xml:576
+#: data/org.gnome.gnome-commander.gschema.xml:569
 msgid "This string defines the password for anonymous FTP connections."
 msgstr "Esta string define a senha para conexões FTP anônimas."
 
-#: data/org.gnome.gnome-commander.gschema.xml:584
+#: data/org.gnome.gnome-commander.gschema.xml:577
 msgid "Confirm delete"
 msgstr "Confirmar exclusão"
 
-#: data/org.gnome.gnome-commander.gschema.xml:585
+#: data/org.gnome.gnome-commander.gschema.xml:578
 msgid "Defines if deletion of an item should be confirmed."
 msgstr "Define se a exclusão de um item deve ser confirmada."
 
-#: data/org.gnome.gnome-commander.gschema.xml:591
+#: data/org.gnome.gnome-commander.gschema.xml:584
 msgid "Delete default"
 msgstr "Padrão de exclusão"
 
-#: data/org.gnome.gnome-commander.gschema.xml:592
+#: data/org.gnome.gnome-commander.gschema.xml:585
 msgid ""
 "This setting defines the default active option in the delete confirmation "
 "dialog."
@@ -844,11 +832,11 @@ msgstr ""
 "Esta configuração define a opção ativa padrão no diálogo de configuração de "
 "exclusão."
 
-#: data/org.gnome.gnome-commander.gschema.xml:598
+#: data/org.gnome.gnome-commander.gschema.xml:591
 msgid "Confirm copy overwrite"
 msgstr "Confirmar sobrescrita ao copiar"
 
-#: data/org.gnome.gnome-commander.gschema.xml:599
+#: data/org.gnome.gnome-commander.gschema.xml:592
 msgid ""
 "This option defines the default behavior when items will be overwritten by a "
 "copy command."
@@ -856,11 +844,11 @@ msgstr ""
 "Esta opção define o comportamento padrão quando itens forem sobrescritos por "
 "um comando de cópia."
 
-#: data/org.gnome.gnome-commander.gschema.xml:605
+#: data/org.gnome.gnome-commander.gschema.xml:598
 msgid "Confirm move overwrite"
 msgstr "Confirmar sobrescrita ao mover"
 
-#: data/org.gnome.gnome-commander.gschema.xml:606
+#: data/org.gnome.gnome-commander.gschema.xml:599
 msgid ""
 "This option defines the default behavior when items will be overwritten by a "
 "move command."
@@ -868,35 +856,35 @@ msgstr ""
 "Esta opção define o comportamento padrão quando itens forem sobrescritos por "
 "um comando de mover."
 
-#: data/org.gnome.gnome-commander.gschema.xml:612
+#: data/org.gnome.gnome-commander.gschema.xml:605
 msgid "Confirm mouse drag and drop"
 msgstr "Confirmar arrastar e soltar com mouse"
 
-#: data/org.gnome.gnome-commander.gschema.xml:613
+#: data/org.gnome.gnome-commander.gschema.xml:606
 msgid "This option defines the behavior of mouse drag and drop operations."
 msgstr "Esta opção define o comportamento de operações de arrastar e soltar."
 
-#: data/org.gnome.gnome-commander.gschema.xml:621
+#: data/org.gnome.gnome-commander.gschema.xml:614
 msgid "Hide unknown filetypes"
 msgstr "Ocultar tipos de arquivo desconhecido"
 
-#: data/org.gnome.gnome-commander.gschema.xml:622
+#: data/org.gnome.gnome-commander.gschema.xml:615
 msgid "Hide files which type does not match to one of the other types."
 msgstr "Ocultar arquivos cujo tipo não corresponde a um dos outros tipos."
 
-#: data/org.gnome.gnome-commander.gschema.xml:626
+#: data/org.gnome.gnome-commander.gschema.xml:619
 msgid "Hide regular files"
 msgstr "Ocultar arquivos regulares"
 
-#: data/org.gnome.gnome-commander.gschema.xml:630
+#: data/org.gnome.gnome-commander.gschema.xml:623
 msgid "Hide directories"
 msgstr "Ocultar diretórios"
 
-#: data/org.gnome.gnome-commander.gschema.xml:634
+#: data/org.gnome.gnome-commander.gschema.xml:627
 msgid "Hide symbolic links"
 msgstr "Ocultar link simbólico"
 
-#: data/org.gnome.gnome-commander.gschema.xml:638
+#: data/org.gnome.gnome-commander.gschema.xml:631
 msgid ""
 "Hide special files, such as a socket, fifo, block devices, or character "
 "devices."
@@ -904,39 +892,39 @@ msgstr ""
 "Ocultar arquivos especiais, como um soquete, fifo, dispositivos de bloco ou "
 "dispositivos de caracteres."
 
-#: data/org.gnome.gnome-commander.gschema.xml:642
+#: data/org.gnome.gnome-commander.gschema.xml:635
 msgid "Hide shortcut files (Windows systems)"
 msgstr "Ocultar arquivos de atalho (sistemas Windows)"
 
-#: data/org.gnome.gnome-commander.gschema.xml:646
+#: data/org.gnome.gnome-commander.gschema.xml:639
 msgid "Hide mountable locations"
 msgstr "Ocultar locais montáveis"
 
-#: data/org.gnome.gnome-commander.gschema.xml:650
+#: data/org.gnome.gnome-commander.gschema.xml:643
 msgid "Hide virtual files"
 msgstr "Ocultar arquivos virtuais"
 
-#: data/org.gnome.gnome-commander.gschema.xml:654
+#: data/org.gnome.gnome-commander.gschema.xml:647
 msgid "Hide volatile files"
 msgstr "Ocultar arquivos voláteis"
 
-#: data/org.gnome.gnome-commander.gschema.xml:658
+#: data/org.gnome.gnome-commander.gschema.xml:651
 msgid "Hide files and folders starting with a dot"
 msgstr "Ocultar arquivos e pastas iniciando com um ponto"
 
-#: data/org.gnome.gnome-commander.gschema.xml:662
+#: data/org.gnome.gnome-commander.gschema.xml:655
 msgid "Hide backup files"
 msgstr "Ocultar arquivos de backup"
 
-#: data/org.gnome.gnome-commander.gschema.xml:663
+#: data/org.gnome.gnome-commander.gschema.xml:656
 msgid "Hide all files with a suffix defined as the backup pattern."
 msgstr "Ocultar todos arquivos com um sufixo definido como padrão de backup."
 
-#: data/org.gnome.gnome-commander.gschema.xml:667
+#: data/org.gnome.gnome-commander.gschema.xml:660
 msgid "Backup file pattern"
 msgstr "Padrão de arquivos de backup"
 
-#: data/org.gnome.gnome-commander.gschema.xml:668
+#: data/org.gnome.gnome-commander.gschema.xml:661
 msgid ""
 "The given string defines suffixes (separated by semicolon) for files which "
 "should be filtered out if backup files should be hidden."
@@ -945,11 +933,11 @@ msgstr ""
 "que devem ser separados da filtragem caso os arquivos de backup devam ser "
 "ocultados."
 
-#: data/org.gnome.gnome-commander.gschema.xml:677
+#: data/org.gnome.gnome-commander.gschema.xml:670
 msgid "Do not download files"
 msgstr "Não baixar arquivos"
 
-#: data/org.gnome.gnome-commander.gschema.xml:678
+#: data/org.gnome.gnome-commander.gschema.xml:671
 msgid ""
 "This option defines if remote files should be downloaded before opened by "
 "external programs."
@@ -957,43 +945,43 @@ msgstr ""
 "Esta opção define se arquivos remotos devem ser baixados antes de abertos "
 "por programas externos."
 
-#: data/org.gnome.gnome-commander.gschema.xml:684
+#: data/org.gnome.gnome-commander.gschema.xml:677
 msgid "Use internal viewer"
 msgstr "Usar visualizador interno"
 
-#: data/org.gnome.gnome-commander.gschema.xml:685
+#: data/org.gnome.gnome-commander.gschema.xml:678
 msgid "This option defines if the internal viewer should be used by default."
 msgstr "Esta opção define se o visualizador interno deve ser usado por padrão."
 
-#: data/org.gnome.gnome-commander.gschema.xml:691
+#: data/org.gnome.gnome-commander.gschema.xml:684
 msgid "Viewer command"
 msgstr "Comando do visualizado"
 
-#: data/org.gnome.gnome-commander.gschema.xml:692
+#: data/org.gnome.gnome-commander.gschema.xml:685
 msgid "This string defines the command for starting the (external) viewer."
 msgstr "Esta string define o comando para iniciar o visualizador (externo)."
 
-#: data/org.gnome.gnome-commander.gschema.xml:698
+#: data/org.gnome.gnome-commander.gschema.xml:691
 msgid "Editor command"
 msgstr "Comando do editor"
 
-#: data/org.gnome.gnome-commander.gschema.xml:699
+#: data/org.gnome.gnome-commander.gschema.xml:692
 msgid "This string defines the command for starting the editor."
 msgstr "Esta string define o comando para iniciar o editor."
 
-#: data/org.gnome.gnome-commander.gschema.xml:705
+#: data/org.gnome.gnome-commander.gschema.xml:698
 msgid "Differ command"
 msgstr "Comando do diferenciador"
 
-#: data/org.gnome.gnome-commander.gschema.xml:706
+#: data/org.gnome.gnome-commander.gschema.xml:699
 msgid "This string defines the command for starting the diff tool."
 msgstr "Esta string define o comando para iniciar a ferramenta diff."
 
-#: data/org.gnome.gnome-commander.gschema.xml:712
+#: data/org.gnome.gnome-commander.gschema.xml:705
 msgid "Leave terminal open"
 msgstr "Deixar o terminal aberto"
 
-#: data/org.gnome.gnome-commander.gschema.xml:713
+#: data/org.gnome.gnome-commander.gschema.xml:706
 msgid ""
 "This option defines if a terminal window should stay open after a command "
 "finishes inside of it."
@@ -1001,109 +989,109 @@ msgstr ""
 "Esta opção define se uma janela de terminal deve ficar aberta após um "
 "comando ser concluído dentro dele."
 
-#: data/org.gnome.gnome-commander.gschema.xml:719
+#: data/org.gnome.gnome-commander.gschema.xml:712
 msgid "Command for opening a terminal"
 msgstr "Comando para abrir um terminal"
 
-#: data/org.gnome.gnome-commander.gschema.xml:720
+#: data/org.gnome.gnome-commander.gschema.xml:713
 msgid "This string defines the command for opening a terminal."
 msgstr "Esta string define o comando para abrir um terminal."
 
-#: data/org.gnome.gnome-commander.gschema.xml:726
+#: data/org.gnome.gnome-commander.gschema.xml:719
 msgid "Command for execution in terminal"
 msgstr "Comando para execução em um terminal"
 
-#: data/org.gnome.gnome-commander.gschema.xml:727
+#: data/org.gnome.gnome-commander.gschema.xml:720
 msgid ""
 "This string defines the command for executing another command in a terminal."
 msgstr ""
 "Esta string define o comando para executar um outro comando em um terminal."
 
-#: data/org.gnome.gnome-commander.gschema.xml:733
+#: data/org.gnome.gnome-commander.gschema.xml:726
 msgid "Send to command"
 msgstr "Comando para enviar para"
 
-#: data/org.gnome.gnome-commander.gschema.xml:734
+#: data/org.gnome.gnome-commander.gschema.xml:727
 msgid "This string defines the command for sending files to a receiver."
 msgstr "Esta string define o comando para enviar arquivos para um receptor."
 
-#: data/org.gnome.gnome-commander.gschema.xml:742
+#: data/org.gnome.gnome-commander.gschema.xml:735
 msgid "Color theme"
 msgstr "Tema de cor"
 
-#: data/org.gnome.gnome-commander.gschema.xml:743
+#: data/org.gnome.gnome-commander.gschema.xml:736
 msgid "This option defines the current color theme."
 msgstr "Esta opção define o tema de cor escolhido."
 
-#: data/org.gnome.gnome-commander.gschema.xml:749
+#: data/org.gnome.gnome-commander.gschema.xml:742
 msgid "Normal foreground color"
 msgstr "Cor de primeiro plano normal"
 
-#: data/org.gnome.gnome-commander.gschema.xml:750
+#: data/org.gnome.gnome-commander.gschema.xml:743
 msgid "Normal foreground color in custom mode."
 msgstr "Cor de primeiro plano normal no modo personalizado."
 
-#: data/org.gnome.gnome-commander.gschema.xml:756
+#: data/org.gnome.gnome-commander.gschema.xml:749
 msgid "Normal background color"
 msgstr "Cor de fundo normal"
 
-#: data/org.gnome.gnome-commander.gschema.xml:757
+#: data/org.gnome.gnome-commander.gschema.xml:750
 msgid "Normal background color in custom mode."
 msgstr "Cor de fundo normal no modo personalizado."
 
-#: data/org.gnome.gnome-commander.gschema.xml:763
+#: data/org.gnome.gnome-commander.gschema.xml:756
 msgid "Alternate foreground color"
 msgstr "Cor de primeiro plano alternativa"
 
-#: data/org.gnome.gnome-commander.gschema.xml:764
+#: data/org.gnome.gnome-commander.gschema.xml:757
 msgid "Alternate foreground color in custom mode."
 msgstr "Cor de primeiro plano alternativa no modo personalizado."
 
-#: data/org.gnome.gnome-commander.gschema.xml:770
+#: data/org.gnome.gnome-commander.gschema.xml:763
 msgid "Alternate background color"
 msgstr "Cor de fundo alternativa"
 
-#: data/org.gnome.gnome-commander.gschema.xml:771
+#: data/org.gnome.gnome-commander.gschema.xml:764
 msgid "Alternate background color in custom mode."
 msgstr "Cor de fundo alternativa no modo personalizado."
 
-#: data/org.gnome.gnome-commander.gschema.xml:777
+#: data/org.gnome.gnome-commander.gschema.xml:770
 msgid "Selection foreground color"
 msgstr "Cor de primeiro plano da seleção"
 
-#: data/org.gnome.gnome-commander.gschema.xml:778
+#: data/org.gnome.gnome-commander.gschema.xml:771
 msgid "Foreground color for selections in custom mode."
 msgstr "Cor de primeiro plano para seleções no modo personalizado."
 
-#: data/org.gnome.gnome-commander.gschema.xml:784
+#: data/org.gnome.gnome-commander.gschema.xml:777
 msgid "Selection background color"
 msgstr "Cor de fundo da seleção"
 
-#: data/org.gnome.gnome-commander.gschema.xml:785
+#: data/org.gnome.gnome-commander.gschema.xml:778
 msgid "Background color for selections in custom mode."
 msgstr "Cor de fundo para seleções no modo personalizado."
 
-#: data/org.gnome.gnome-commander.gschema.xml:791
+#: data/org.gnome.gnome-commander.gschema.xml:784
 msgid "Cursor foreground color"
 msgstr "Cor de primeiro plano do cursor"
 
-#: data/org.gnome.gnome-commander.gschema.xml:792
+#: data/org.gnome.gnome-commander.gschema.xml:785
 msgid "Cursor foreground color in custom mode."
 msgstr "Cor de primeiro plano do cursor no modo personalizado."
 
-#: data/org.gnome.gnome-commander.gschema.xml:798
+#: data/org.gnome.gnome-commander.gschema.xml:791
 msgid "Cursor background color"
 msgstr "Cor de fundo do cursor"
 
-#: data/org.gnome.gnome-commander.gschema.xml:799
+#: data/org.gnome.gnome-commander.gschema.xml:792
 msgid "Cursor background color in custom mode."
 msgstr "Cor de fundo do cursor no modo personalizado."
 
-#: data/org.gnome.gnome-commander.gschema.xml:805
+#: data/org.gnome.gnome-commander.gschema.xml:798
 msgid "Use LS colors"
 msgstr "Usar cores de LS"
 
-#: data/org.gnome.gnome-commander.gschema.xml:806
+#: data/org.gnome.gnome-commander.gschema.xml:799
 msgid ""
 "This option triggers if the value of the environment variable LS_COLORS "
 "should be used to dye files and folders."
@@ -1111,187 +1099,187 @@ msgstr ""
 "Esta opção ativa se o valor da variável de ambiente LS_COLORS deve ser usada "
 "para colorizar arquivos e pastas."
 
-#: data/org.gnome.gnome-commander.gschema.xml:813
+#: data/org.gnome.gnome-commander.gschema.xml:806
 msgid "LS_COLORS black foreground mapping"
 msgstr "Mapeamento de primeiro plano de preto de LS_COLORS"
 
-#: data/org.gnome.gnome-commander.gschema.xml:814
+#: data/org.gnome.gnome-commander.gschema.xml:807
 msgid ""
 "This option adjusts the foreground color mapping for LS_COLORS black value."
 msgstr ""
 "Esta opção ajusta o mapeamento de cor de primeiro plano para o valor de "
 "preto de LS_COLORS."
 
-#: data/org.gnome.gnome-commander.gschema.xml:820
+#: data/org.gnome.gnome-commander.gschema.xml:813
 msgid "LS_COLORS black background mapping"
 msgstr "Mapeamento de fundo de preto de LS_COLORS"
 
-#: data/org.gnome.gnome-commander.gschema.xml:821
+#: data/org.gnome.gnome-commander.gschema.xml:814
 msgid ""
 "This option adjusts the background color mapping for LS_COLORS black value."
 msgstr ""
 "Esta opção ajusta o mapeamento de cor de fundo para o valor de preto de "
 "LS_COLORS."
 
-#: data/org.gnome.gnome-commander.gschema.xml:827
+#: data/org.gnome.gnome-commander.gschema.xml:820
 msgid "LS_COLORS red foreground mapping"
 msgstr "Mapeamento de primeiro plano de vermelho de LS_COLORS"
 
-#: data/org.gnome.gnome-commander.gschema.xml:828
+#: data/org.gnome.gnome-commander.gschema.xml:821
 msgid ""
 "This option adjusts the foreground color mapping for LS_COLORS red value."
 msgstr ""
 "Esta opção ajusta o mapeamento de cor de primeiro plano para o valor de "
 "vermelho de LS_COLORS."
 
-#: data/org.gnome.gnome-commander.gschema.xml:834
+#: data/org.gnome.gnome-commander.gschema.xml:827
 msgid "LS_COLORS red background mapping"
 msgstr "Mapeamento de fundo de vermelho de LS_COLORS"
 
-#: data/org.gnome.gnome-commander.gschema.xml:835
+#: data/org.gnome.gnome-commander.gschema.xml:828
 msgid ""
 "This option adjusts the background color mapping for LS_COLORS red value."
 msgstr ""
 "Esta opção ajusta o mapeamento de cor de fundo para o valor de vermelho de "
 "LS_COLORS."
 
-#: data/org.gnome.gnome-commander.gschema.xml:841
+#: data/org.gnome.gnome-commander.gschema.xml:834
 msgid "LS_COLORS green foreground mapping"
 msgstr "Mapeamento de primeiro plano de verde de LS_COLORS"
 
-#: data/org.gnome.gnome-commander.gschema.xml:842
+#: data/org.gnome.gnome-commander.gschema.xml:835
 msgid ""
 "This option adjusts the foreground color mapping for LS_COLORS green value."
 msgstr ""
 "Esta opção ajusta o mapeamento de cor de primeiro plano para o valor de "
 "verde de LS_COLORS."
 
-#: data/org.gnome.gnome-commander.gschema.xml:848
+#: data/org.gnome.gnome-commander.gschema.xml:841
 msgid "LS_COLORS green background mapping"
 msgstr "Mapeamento de fundo de verde de LS_COLORS"
 
-#: data/org.gnome.gnome-commander.gschema.xml:849
+#: data/org.gnome.gnome-commander.gschema.xml:842
 msgid ""
 "This option adjusts the background color mapping for LS_COLORS green value."
 msgstr ""
 "Esta opção ajusta o mapeamento de cor de fundo para o valor de verde de "
 "LS_COLORS."
 
-#: data/org.gnome.gnome-commander.gschema.xml:855
+#: data/org.gnome.gnome-commander.gschema.xml:848
 msgid "LS_COLORS yellow foreground mapping"
 msgstr "Mapeamento de primeiro plano de amarelo de LS_COLORS"
 
-#: data/org.gnome.gnome-commander.gschema.xml:856
+#: data/org.gnome.gnome-commander.gschema.xml:849
 msgid ""
 "This option adjusts the foreground color mapping for LS_COLORS yellow value."
 msgstr ""
 "Esta opção ajusta o mapeamento de cor de primeiro plano para o valor de "
 "amarelo de LS_COLORS."
 
-#: data/org.gnome.gnome-commander.gschema.xml:862
+#: data/org.gnome.gnome-commander.gschema.xml:855
 msgid "LS_COLORS yellow background mapping"
 msgstr "Mapeamento de fundo de amarelo de LS_COLORS"
 
-#: data/org.gnome.gnome-commander.gschema.xml:863
+#: data/org.gnome.gnome-commander.gschema.xml:856
 msgid ""
 "This option adjusts the background color mapping for LS_COLORS yellow value."
 msgstr ""
 "Esta opção ajusta o mapeamento de cor de fundo para o valor de amarelo de "
 "LS_COLORS."
 
-#: data/org.gnome.gnome-commander.gschema.xml:869
+#: data/org.gnome.gnome-commander.gschema.xml:862
 msgid "LS_COLORS blue foreground mapping"
 msgstr "Mapeamento de primeiro plano de azul de LS_COLORS"
 
-#: data/org.gnome.gnome-commander.gschema.xml:870
+#: data/org.gnome.gnome-commander.gschema.xml:863
 msgid ""
 "This option adjusts the foreground color mapping for LS_COLORS blue value."
 msgstr ""
 "Esta opção ajusta o mapeamento de cor de primeiro plano para o valor de azul "
 "de LS_COLORS."
 
-#: data/org.gnome.gnome-commander.gschema.xml:876
+#: data/org.gnome.gnome-commander.gschema.xml:869
 msgid "LS_COLORS blue background mapping"
 msgstr "Mapeamento de fundo de azul de LS_COLORS"
 
-#: data/org.gnome.gnome-commander.gschema.xml:877
+#: data/org.gnome.gnome-commander.gschema.xml:870
 msgid ""
 "This option adjusts the background color mapping for LS_COLORS blue value."
 msgstr ""
 "Esta opção ajusta o mapeamento de cor de fundo para o valor de azul de "
 "LS_COLORS."
 
-#: data/org.gnome.gnome-commander.gschema.xml:883
+#: data/org.gnome.gnome-commander.gschema.xml:876
 msgid "LS_COLORS magenta foreground mapping"
 msgstr "Mapeamento de primeiro plano de magenta de LS_COLORS"
 
-#: data/org.gnome.gnome-commander.gschema.xml:884
+#: data/org.gnome.gnome-commander.gschema.xml:877
 msgid ""
 "This option adjusts the foreground color mapping for LS_COLORS magenta value."
 msgstr ""
 "Esta opção ajusta o mapeamento de cor de primeiro plano para o valor de "
 "magenta de LS_COLORS."
 
-#: data/org.gnome.gnome-commander.gschema.xml:890
+#: data/org.gnome.gnome-commander.gschema.xml:883
 msgid "LS_COLORS magenta background mapping"
 msgstr "Mapeamento de fundo de magenta de LS_COLORS"
 
-#: data/org.gnome.gnome-commander.gschema.xml:891
+#: data/org.gnome.gnome-commander.gschema.xml:884
 msgid ""
 "This option adjusts the background color mapping for LS_COLORS magenta value."
 msgstr ""
 "Esta opção ajusta o mapeamento de cor de fundo para o valor de magenta de "
 "LS_COLORS."
 
-#: data/org.gnome.gnome-commander.gschema.xml:897
+#: data/org.gnome.gnome-commander.gschema.xml:890
 msgid "LS_COLORS cyan foreground mapping"
 msgstr "Mapeamento de primeiro plano de ciano de LS_COLORS"
 
-#: data/org.gnome.gnome-commander.gschema.xml:898
+#: data/org.gnome.gnome-commander.gschema.xml:891
 msgid ""
 "This option adjusts the foreground color mapping for LS_COLORS cyan value."
 msgstr ""
 "Esta opção ajusta o mapeamento de cor de primeiro plano para o valor de "
 "ciano de LS_COLORS."
 
-#: data/org.gnome.gnome-commander.gschema.xml:904
+#: data/org.gnome.gnome-commander.gschema.xml:897
 msgid "LS_COLORS cyan background mapping"
 msgstr "Mapeamento de fundo de ciano de LS_COLORS"
 
-#: data/org.gnome.gnome-commander.gschema.xml:905
+#: data/org.gnome.gnome-commander.gschema.xml:898
 msgid ""
 "This option adjusts the background color mapping for LS_COLORS cyan value."
 msgstr ""
 "Esta opção ajusta o mapeamento de cor de fundo para o valor de ciano de "
 "LS_COLORS."
 
-#: data/org.gnome.gnome-commander.gschema.xml:911
+#: data/org.gnome.gnome-commander.gschema.xml:904
 msgid "LS_COLORS white foreground mapping"
 msgstr "Mapeamento de primeiro plano de branco de LS_COLORS"
 
-#: data/org.gnome.gnome-commander.gschema.xml:912
+#: data/org.gnome.gnome-commander.gschema.xml:905
 msgid ""
 "This option adjusts the foreground color mapping for LS_COLORS white value."
 msgstr ""
 "Esta opção ajusta o mapeamento de cor de primeiro plano para o valor de "
 "branco de LS_COLORS."
 
-#: data/org.gnome.gnome-commander.gschema.xml:918
+#: data/org.gnome.gnome-commander.gschema.xml:911
 msgid "LS_COLORS white background mapping"
 msgstr "Mapeamento de fundo de branco de LS_COLORS"
 
-#: data/org.gnome.gnome-commander.gschema.xml:919
+#: data/org.gnome.gnome-commander.gschema.xml:912
 msgid ""
 "This option adjusts the background color mapping for LS_COLORS white value."
 msgstr ""
 "Esta opção ajusta o mapeamento de cor de fundo para o valor de branco de "
 "LS_COLORS."
 
-#: data/org.gnome.gnome-commander.gschema.xml:927
+#: data/org.gnome.gnome-commander.gschema.xml:920
 msgid "Case sensitive search"
 msgstr "Diferenciar maiúsculas de minúsculas na pesquisa"
 
-#: data/org.gnome.gnome-commander.gschema.xml:928
+#: data/org.gnome.gnome-commander.gschema.xml:921
 msgid ""
 "This option defines if searching within the internal viewer is case "
 "sensitive."
@@ -1299,11 +1287,11 @@ msgstr ""
 "Esta opção define se a pesquisa dentro de um visualizador interno diferencia "
 "maiúsculas de minúsculas."
 
-#: data/org.gnome.gnome-commander.gschema.xml:934
+#: data/org.gnome.gnome-commander.gschema.xml:927
 msgid "Search mode"
 msgstr "Modo de pesquisa"
 
-#: data/org.gnome.gnome-commander.gschema.xml:935
+#: data/org.gnome.gnome-commander.gschema.xml:928
 msgid "This option defines the search mode of the internal viewer."
 msgstr "Esta opção define o modo de pesquisa do visualizador interno."
 
@@ -1312,67 +1300,67 @@ msgstr "Esta opção define o modo de pesquisa do visualizador interno."
 #. an encoding that is common in your country.
 #. See https://gitlab.gnome.org/GNOME/gnome-commander/blob/master/src/intviewer/viewer-window.cc#L360 for
 #. a list of supported encodings.
-#: data/org.gnome.gnome-commander.gschema.xml:945
+#: data/org.gnome.gnome-commander.gschema.xml:938
 msgid "'UTF8'"
 msgstr "'UTF8'"
 
-#: data/org.gnome.gnome-commander.gschema.xml:946
+#: data/org.gnome.gnome-commander.gschema.xml:939
 msgid "Character set"
 msgstr "Conjunto de caracteres"
 
-#: data/org.gnome.gnome-commander.gschema.xml:947
+#: data/org.gnome.gnome-commander.gschema.xml:940
 msgid "This option defines the default character encoding."
 msgstr "Esta opção define a codificação de caracteres padrão."
 
-#: data/org.gnome.gnome-commander.gschema.xml:953
+#: data/org.gnome.gnome-commander.gschema.xml:946
 msgid "Fixed font name"
 msgstr "Nome de fonte fixa"
 
-#: data/org.gnome.gnome-commander.gschema.xml:954
+#: data/org.gnome.gnome-commander.gschema.xml:947
 msgid "Name of the default font with fixed character width."
 msgstr "Nome da fonte padrão com a largura de caracteres fixa."
 
-#: data/org.gnome.gnome-commander.gschema.xml:960
+#: data/org.gnome.gnome-commander.gschema.xml:953
 msgid "Variable font name"
 msgstr "Nome de fonte variável"
 
-#: data/org.gnome.gnome-commander.gschema.xml:961
+#: data/org.gnome.gnome-commander.gschema.xml:954
 msgid "Name of the default font with variable character width."
 msgstr "Nome da fonte padrão com a largura de caracteres variável."
 
-#: data/org.gnome.gnome-commander.gschema.xml:967
+#: data/org.gnome.gnome-commander.gschema.xml:960
 msgid "Display hex offset"
 msgstr "Exibir posição hexa"
 
-#: data/org.gnome.gnome-commander.gschema.xml:968
+#: data/org.gnome.gnome-commander.gschema.xml:961
 msgid ""
 "This option defines if the hexadecimal offset should be displayed in hex "
 "mode."
 msgstr ""
 "Esta opção define se a posição hexadecimal deve ser exibida no modo hexa."
 
-#: data/org.gnome.gnome-commander.gschema.xml:974
+#: data/org.gnome.gnome-commander.gschema.xml:967
 msgid "Wrap mode"
 msgstr "Modo de quebra de linha"
 
-#: data/org.gnome.gnome-commander.gschema.xml:975
+#: data/org.gnome.gnome-commander.gschema.xml:968
 msgid "This option defines if too long text lines should be wrapped."
 msgstr ""
 "Esta opção define se linhas de texto longas demais devem ser quebradas."
 
-#: data/org.gnome.gnome-commander.gschema.xml:981
+#: data/org.gnome.gnome-commander.gschema.xml:974
 msgid "Font size"
 msgstr "Tamanho da fonte"
 
-#: data/org.gnome.gnome-commander.gschema.xml:982
+#: data/org.gnome.gnome-commander.gschema.xml:975
 msgid "This option defines the default font size."
 msgstr "Esta opção define a tamanho de fonte padrão."
 
-#: data/org.gnome.gnome-commander.gschema.xml:988
+#: data/org.gnome.gnome-commander.gschema.xml:981
 msgid "Tab size"
 msgstr "Tamanho do tab"
 
-#: data/org.gnome.gnome-commander.gschema.xml:989
+#: data/org.gnome.gnome-commander.gschema.xml:982
 msgid ""
 "This option defines the indentation width in terms of characters for a "
 "tabulator character."
@@ -1380,11 +1368,11 @@ msgstr ""
 "Esta opção define a largura do recuo em termos de caracteres para um "
 "caractere tabulador."
 
-#: data/org.gnome.gnome-commander.gschema.xml:995
+#: data/org.gnome.gnome-commander.gschema.xml:988
 msgid "Bytes per line in binary mode"
 msgstr "Bytes por linha no modo binário"
 
-#: data/org.gnome.gnome-commander.gschema.xml:996
+#: data/org.gnome.gnome-commander.gschema.xml:989
 msgid ""
 "This option defines how many bytes should be displayed in one line in binary "
 "mode."
@@ -1392,19 +1380,19 @@ msgstr ""
 "Esta opção define quantos bytes devem ser exibidos em uma linha no modo "
 "binário."
 
-#: data/org.gnome.gnome-commander.gschema.xml:1002
+#: data/org.gnome.gnome-commander.gschema.xml:995
 msgid "Metadata view"
 msgstr "Visão de metadados"
 
-#: data/org.gnome.gnome-commander.gschema.xml:1003
+#: data/org.gnome.gnome-commander.gschema.xml:996
 msgid "This option defines if metadata should be visible."
 msgstr "Esta opção define se metadados devem estar visíveis."
 
-#: data/org.gnome.gnome-commander.gschema.xml:1009
+#: data/org.gnome.gnome-commander.gschema.xml:1002
 msgid "Horizontal offset"
 msgstr "Deslocamento horizontal"
 
-#: data/org.gnome.gnome-commander.gschema.xml:1010
+#: data/org.gnome.gnome-commander.gschema.xml:1003
 msgid ""
 "This option defines the visual offset of the internal file viewer in "
 "horizontal direction."
@@ -1412,11 +1400,11 @@ msgstr ""
 "Esta opção define o deslocamento visual do visualizador de arquivos interno "
 "na direção horizontal."
 
-#: data/org.gnome.gnome-commander.gschema.xml:1016
+#: data/org.gnome.gnome-commander.gschema.xml:1009
 msgid "Vertical offset"
 msgstr "Deslocamento vertical"
 
-#: data/org.gnome.gnome-commander.gschema.xml:1017
+#: data/org.gnome.gnome-commander.gschema.xml:1010
 msgid ""
 "This option defines the visual offset of the internal file viewer in "
 "vertical direction."
@@ -1424,27 +1412,27 @@ msgstr ""
 "Esta opção define o deslocamento visual do visualizador de arquivos interno "
 "na direção vertical."
 
-#: data/org.gnome.gnome-commander.gschema.xml:1023
+#: data/org.gnome.gnome-commander.gschema.xml:1016
 msgid "Window width"
 msgstr "Largura da janela"
 
-#: data/org.gnome.gnome-commander.gschema.xml:1024
+#: data/org.gnome.gnome-commander.gschema.xml:1017
 msgid "The width of the internal file viewer window."
 msgstr "A largura da janela do visualizador de arquivos interno."
 
-#: data/org.gnome.gnome-commander.gschema.xml:1030
+#: data/org.gnome.gnome-commander.gschema.xml:1023
 msgid "Window height"
 msgstr "Altura da janela"
 
-#: data/org.gnome.gnome-commander.gschema.xml:1031
+#: data/org.gnome.gnome-commander.gschema.xml:1024
 msgid "The height of the internal file viewer window."
 msgstr "A altura da janela do visualizador de arquivos interno."
 
-#: data/org.gnome.gnome-commander.gschema.xml:1037
+#: data/org.gnome.gnome-commander.gschema.xml:1030
 msgid "Search pattern for text"
 msgstr "Pesquisar padrão por texto"
 
-#: data/org.gnome.gnome-commander.gschema.xml:1038
+#: data/org.gnome.gnome-commander.gschema.xml:1031
 msgid ""
 "This string array stores the history of text searches within the internal "
 "file viewer."
@@ -1452,11 +1440,11 @@ msgstr ""
 "Este vetor de strings armazena o histórico de pesquisas por texto dentro do "
 "visualizador de arquivo interno."
 
-#: data/org.gnome.gnome-commander.gschema.xml:1044
+#: data/org.gnome.gnome-commander.gschema.xml:1037
 msgid "Search pattern for hex values"
 msgstr "Pesquisar padrão por valores hexa"
 
-#: data/org.gnome.gnome-commander.gschema.xml:1045
+#: data/org.gnome.gnome-commander.gschema.xml:1038
 msgid ""
 "This string array stores the history of searches for hex values within the "
 "internal file viewer."
@@ -1464,20 +1452,20 @@ msgstr ""
 "Este vetor de strings armazena o histórico de pesquisas por valores hexa "
 "dentro do visualizador de arquivo interno."
 
-#: data/org.gnome.gnome-commander.gschema.xml:1053
+#: data/org.gnome.gnome-commander.gschema.xml:1046
 msgid "File suffix"
 msgstr "Sufixo de arquivo"
 
-#: data/org.gnome.gnome-commander.gschema.xml:1054
+#: data/org.gnome.gnome-commander.gschema.xml:1047
 msgid "Default file suffix of archives created with the File Roller plugin."
 msgstr ""
 "Sufixo de arquivo padrão para pacotes criados com o plug-in do File Roller."
 
-#: data/org.gnome.gnome-commander.gschema.xml:1060
+#: data/org.gnome.gnome-commander.gschema.xml:1053
 msgid "Prefix pattern"
 msgstr "Padrão de prefixo"
 
-#: data/org.gnome.gnome-commander.gschema.xml:1061
+#: data/org.gnome.gnome-commander.gschema.xml:1054
 msgid ""
 "The prefix pattern is used to build up the name for an archive created with "
 "the File Roller plugin."
@@ -1485,11 +1473,11 @@ msgstr ""
 "O padrão de prefixo usado para construir o nome para um pacote criado com o "
 "plug-in do File Roller."
 
-#: data/org.gnome.gnome-commander.gschema.xml:1069
+#: data/org.gnome.gnome-commander.gschema.xml:1062
 msgid "Automatically loaded plugins"
 msgstr "Plug-ins carregados automaticamente"
 
-#: data/org.gnome.gnome-commander.gschema.xml:1070
+#: data/org.gnome.gnome-commander.gschema.xml:1063
 msgid ""
 "This is the list of automatically loaded plugins, whereas each entry "
 "represents the file name of the plugin."
@@ -1517,7 +1505,7 @@ msgstr "Seleção de pasta"
 msgid "File selection"
 msgstr "Seleção de arquivo"
 
-#: plugins/fileroller/file-roller-plugin.cc:111 src/gnome-cmd-data.cc:81
+#: plugins/fileroller/file-roller-plugin.cc:111 src/gnome-cmd-data.cc:80
 #, c-format
 msgid "Could not load schemas from %s: %s\n"
 msgstr "Não foi possível carregar esquemas de %s: %s\n"
@@ -1554,7 +1542,7 @@ msgstr "Arquivo"
 #: plugins/fileroller/file-roller-plugin.cc:591
 #: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:369
 #: src/dialogs/gnome-cmd-options-dialog.cc:1497
-#: src/dialogs/gnome-cmd-options-dialog.cc:2165
+#: src/dialogs/gnome-cmd-options-dialog.cc:2158
 #: src/dialogs/gnome-cmd-prepare-copy-dialog.cc:129
 #: src/dialogs/gnome-cmd-prepare-move-dialog.cc:115
 #: src/dialogs/gnome-cmd-remote-dialog.cc:442 src/gnome-cmd-user-actions.cc:252
@@ -1681,7 +1669,7 @@ msgid "File modification date"
 msgstr "Data de modificação do arquivo"
 
 #: src/dialogs/gnome-cmd-advrename-dialog.cc:693
-#: src/dialogs/gnome-cmd-search-dialog.cc:1149
+#: src/dialogs/gnome-cmd-search-dialog.cc:1150
 msgid "Profiles…"
 msgstr "Perfis…"
 
@@ -1713,19 +1701,29 @@ msgstr "Todos os arquivos"
 msgid "Directories only"
 msgstr "Diretórios somente"
 
-#: src/dialogs/gnome-cmd-chmod-dialog.cc:184
+#: src/dialogs/gnome-cmd-chmod-dialog.cc:75
+#, c-format
+msgid "Could not chmod %s"
+msgstr "Não é possível mudar permissões %s"
+
+#: src/dialogs/gnome-cmd-chmod-dialog.cc:189
 msgid "Access Permissions"
 msgstr "Permissões de acesso"
 
-#: src/dialogs/gnome-cmd-chmod-dialog.cc:200
+#: src/dialogs/gnome-cmd-chmod-dialog.cc:205
 msgid "Apply Recursively for"
 msgstr "Aplicar recursivamente para"
 
-#: src/dialogs/gnome-cmd-chown-dialog.cc:154
+#: src/dialogs/gnome-cmd-chown-dialog.cc:55
+#, c-format
+msgid "Could not chown %s"
+msgstr "Não é possível mudar dono/grupo %s"
+
+#: src/dialogs/gnome-cmd-chown-dialog.cc:159
 msgid "Chown"
 msgstr "Mudar dono/grupo"
 
-#: src/dialogs/gnome-cmd-chown-dialog.cc:165
+#: src/dialogs/gnome-cmd-chown-dialog.cc:170
 msgid "Apply Recursively"
 msgstr "Aplicar recursivamente"
 
@@ -1821,16 +1819,16 @@ msgstr "Local personalizado"
 
 #: src/dialogs/gnome-cmd-delete-dialog.cc:94
 #, c-format
-msgid "Deleted %ld of %ld file"
-msgid_plural "Deleted %ld of %ld files"
-msgstr[0] "Arquivo %ld de %ld excluído"
-msgstr[1] "Arquivos %ld de %ld excluídos"
+msgid "Deleted %lu of %lu file"
+msgid_plural "Deleted %lu of %lu files"
+msgstr[0] "Excluídos %lu de %lu arquivo"
+msgstr[1] "Excluídos %lu de %lu arquivos"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:136
+#: src/dialogs/gnome-cmd-delete-dialog.cc:129
 msgid "Deleting…"
 msgstr "Excluindo…"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:208
+#: src/dialogs/gnome-cmd-delete-dialog.cc:298
 #, c-format
 msgid ""
 "Error while deleting “%s”\n"
@@ -1841,30 +1839,30 @@ msgstr ""
 "\n"
 "%s"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:211
-#: src/dialogs/gnome-cmd-delete-dialog.cc:300
+#: src/dialogs/gnome-cmd-delete-dialog.cc:303
+#: src/dialogs/gnome-cmd-delete-dialog.cc:416
 msgid "Delete problem"
 msgstr "Problema ao excluir"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:212
-#: src/dialogs/gnome-cmd-delete-dialog.cc:300 src/gnome-cmd-xfer.cc:219
+#: src/dialogs/gnome-cmd-delete-dialog.cc:304
+#: src/dialogs/gnome-cmd-delete-dialog.cc:416 src/gnome-cmd-xfer.cc:219
 #: src/gnome-cmd-xfer.cc:238
 msgid "Abort"
 msgstr "Cancelar"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:212
-#: src/gnome-cmd-file-selector.cc:1385 src/gnome-cmd-xfer.cc:238
+#: src/dialogs/gnome-cmd-delete-dialog.cc:304
+#: src/gnome-cmd-file-selector.cc:1393 src/gnome-cmd-xfer.cc:238
 msgid "Retry"
 msgstr "Repetir"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:212
-#: src/dialogs/gnome-cmd-delete-dialog.cc:313
-#: src/gnome-cmd-file-selector.cc:1385 src/gnome-cmd-xfer.cc:219
+#: src/dialogs/gnome-cmd-delete-dialog.cc:304
+#: src/dialogs/gnome-cmd-delete-dialog.cc:429
+#: src/gnome-cmd-file-selector.cc:1393 src/gnome-cmd-xfer.cc:219
 #: src/gnome-cmd-xfer.cc:238
 msgid "Skip"
 msgstr "Pular"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:298
+#: src/dialogs/gnome-cmd-delete-dialog.cc:414
 #, c-format
 msgid ""
 "Error while deleting: \n"
@@ -1875,42 +1873,42 @@ msgstr ""
 "\n"
 "%s"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:310
+#: src/dialogs/gnome-cmd-delete-dialog.cc:426
 #, c-format
 msgid "The directory “%s” is not empty. Do you really want to delete it?"
 msgstr "O diretório “%s” não está vazio. Deseja realmente excluí-lo?"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:311
-#: src/dialogs/gnome-cmd-delete-dialog.cc:315
-#: src/dialogs/gnome-cmd-delete-dialog.cc:383
-#: src/dialogs/gnome-cmd-delete-dialog.cc:384
+#: src/dialogs/gnome-cmd-delete-dialog.cc:427
+#: src/dialogs/gnome-cmd-delete-dialog.cc:431
+#: src/dialogs/gnome-cmd-delete-dialog.cc:505
+#: src/dialogs/gnome-cmd-delete-dialog.cc:506
 #: src/dialogs/gnome-cmd-options-dialog.cc:1039
 #: src/gnome-cmd-file-popmenu.cc:730 src/gnome-cmd-main-win.cc:243
 #: src/gnome-cmd-user-actions.cc:213
 msgid "Delete"
 msgstr "Excluir"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:313
-#: src/dialogs/gnome-cmd-delete-dialog.cc:384 src/gnome-cmd-file-list.cc:1275
-#: src/gnome-cmd-file-list.cc:1304 src/gnome-cmd-file-selector.cc:1385
+#: src/dialogs/gnome-cmd-delete-dialog.cc:429
+#: src/dialogs/gnome-cmd-delete-dialog.cc:506 src/gnome-cmd-file-list.cc:1294
+#: src/gnome-cmd-file-list.cc:1323 src/gnome-cmd-file-selector.cc:1393
 #: src/gnome-cmd-user-actions.cc:819
 msgid "Cancel"
 msgstr "Cancelar"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:314
+#: src/dialogs/gnome-cmd-delete-dialog.cc:430
 msgid "Delete All"
 msgstr "Excluir tudo"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:314
+#: src/dialogs/gnome-cmd-delete-dialog.cc:430
 msgid "Delete Remaining"
 msgstr "Excluir restantes"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:374
+#: src/dialogs/gnome-cmd-delete-dialog.cc:496
 #, c-format
 msgid "Do you want to delete “%s”?"
 msgstr "Você deseja excluir “%s”?"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:377
+#: src/dialogs/gnome-cmd-delete-dialog.cc:499
 #, c-format
 msgid "Do you want to delete the selected file?"
 msgid_plural "Do you want to delete the %d selected files?"
@@ -1941,75 +1939,75 @@ msgstr "Editar perfil"
 msgid "_Name"
 msgstr "_Nome"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:322
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:306
 msgid "Image:"
 msgstr "Imagem:"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:346
-#: src/dialogs/gnome-cmd-mkdir-dialog.cc:181
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:330
+#: src/dialogs/gnome-cmd-mkdir-dialog.cc:196
 msgid "Directory name:"
 msgstr "Nome do diretório:"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:346
-#: src/gnome-cmd-file-selector.cc:1171
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:330
+#: src/gnome-cmd-file-selector.cc:1177
 msgid "File name:"
 msgstr "Nome do arquivo:"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:355
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:339
 msgid "Symlink target:"
 msgstr "Alvo é uma ligação simbólica:"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:370
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:354
 msgid "Location:"
 msgstr "Local:"
 
 # Não é volume de som, mas de propriedade de arquivo
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:378
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:362
 msgid "Volume:"
 msgstr "Unidade:"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:406
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:390
 msgid "Free space:"
 msgstr "Espaço livre:"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:418
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:402
 msgid "Content Type:"
 msgstr "Tipo de conteúdo:"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:430
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:414
 msgid "Opens with:"
 msgstr "Abrir com:"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:441
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:425
 msgid "No default application registered"
 msgstr "Nenhum aplicativo padrão registrado"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:452
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:436
 msgid "Modified:"
 msgstr "Modificado:"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:459
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:443
 msgid "Accessed:"
 msgstr "Acessado:"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:469
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:453
 msgid "Size:"
 msgstr "Tamanho:"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:516
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:500
 msgid "Owner and group"
 msgstr "Dono e grupo"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:527
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:511
 msgid "Access permissions"
 msgstr "Permissões de acesso"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:611
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:595
 #: src/intviewer/viewer-window.cc:1353
 msgid "Type"
 msgstr "Tipo"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:612
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:596
 #: src/intviewer/viewer-window.cc:1354
 msgid "Metadata namespace"
 msgstr "Espaço de nomes de metadados"
@@ -2020,7 +2018,7 @@ msgstr "Espaço de nomes de metadados"
 #. "foreground-set", TRUE,
 #. "foreground", "DarkGray",
 #. NULL);
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:619
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:603
 #: src/dialogs/gnome-cmd-manage-bookmarks-dialog.cc:244
 #: src/dialogs/gnome-cmd-remote-dialog.cc:353
 #: src/intviewer/viewer-window.cc:1361 src/plugin_manager.cc:417
@@ -2028,49 +2026,49 @@ msgstr "Espaço de nomes de metadados"
 msgid "Name"
 msgstr "Nome"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:620
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:604
 #: src/intviewer/viewer-window.cc:1362
 msgid "Tag name"
 msgstr "Nome da etiqueta"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:622
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:606
 #: src/intviewer/viewer-window.cc:1364
 msgid "Value"
 msgstr "Valor"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:623
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:607
 #: src/intviewer/viewer-window.cc:1365
 msgid "Tag value"
 msgstr "Valor da etiqueta"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:625
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:609
 #: src/intviewer/viewer-window.cc:1367 src/tags/gnome-cmd-tags.cc:171
 #: src/tags/gnome-cmd-tags.cc:322 src/tags/gnome-cmd-tags.cc:424
 #: src/tags/gnome-cmd-tags.cc:535
 msgid "Description"
 msgstr "Descrição"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:626
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:610
 #: src/intviewer/viewer-window.cc:1368
 msgid "Metadata tag description"
 msgstr "Descrição dos metadados da etiqueta"
 
 #. data->thread = 0;
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:681
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:665
 msgid "File Properties"
 msgstr "Propriedades do arquivo"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:704
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:687
 #: src/gnome-cmd-user-actions.cc:233
 msgid "Properties"
 msgstr "Propriedades"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:705
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:688
 #: src/tags/gnome-cmd-tags.cc:329
 msgid "Permissions"
 msgstr "Permissões"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:706
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:689
 msgid "Metadata"
 msgstr "Metadados"
 
@@ -2223,11 +2221,16 @@ msgstr ""
 msgid "_Duplicate"
 msgstr "_Duplicar"
 
-#: src/dialogs/gnome-cmd-mkdir-dialog.cc:96
+#: src/dialogs/gnome-cmd-mkdir-dialog.cc:104
 msgid "A directory name must be entered"
 msgstr "O diretório precisa de um nome"
 
-#: src/dialogs/gnome-cmd-mkdir-dialog.cc:157
+#: src/dialogs/gnome-cmd-mkdir-dialog.cc:129
+#, c-format
+msgid "Make directory failed: %s\n"
+msgstr "Falha ao criar o diretório: %s\n"
+
+#: src/dialogs/gnome-cmd-mkdir-dialog.cc:172
 msgid "Make Directory"
 msgstr "Criar diretório"
 
@@ -2343,7 +2346,7 @@ msgid "Directories"
 msgstr "Diretórios"
 
 #: src/dialogs/gnome-cmd-options-dialog.cc:236
-#: src/dialogs/gnome-cmd-options-dialog.cc:2192
+#: src/dialogs/gnome-cmd-options-dialog.cc:2185
 msgid "Tabs"
 msgstr "Abas"
 
@@ -2647,7 +2650,7 @@ msgstr "Perguntar primeiro"
 
 #: src/dialogs/gnome-cmd-options-dialog.cc:1067
 #: src/dialogs/gnome-cmd-options-dialog.cc:1087
-#: src/gnome-cmd-file-selector.cc:1385
+#: src/gnome-cmd-file-selector.cc:1393
 msgid "Skip all"
 msgstr "Pular tudo"
 
@@ -2854,7 +2857,7 @@ msgid "Edit Device"
 msgstr "Editar dispositivo"
 
 #: src/dialogs/gnome-cmd-options-dialog.cc:2060
-#: src/dialogs/gnome-cmd-options-dialog.cc:2196
+#: src/dialogs/gnome-cmd-options-dialog.cc:2189
 msgid "Devices"
 msgstr "Dispositivos"
 
@@ -2866,31 +2869,27 @@ msgstr "Apelido"
 msgid "Show only the icons"
 msgstr "Mostrar somente ícones"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:2104
-msgid "Skip mounting (useful when using super-mount)"
-msgstr "Pular a montagem (útil quando usar super mount)"
-
-#: src/dialogs/gnome-cmd-options-dialog.cc:2189
+#: src/dialogs/gnome-cmd-options-dialog.cc:2182
 msgid "General"
 msgstr "Geral"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:2190 src/tags/gnome-cmd-tags.cc:323
+#: src/dialogs/gnome-cmd-options-dialog.cc:2183 src/tags/gnome-cmd-tags.cc:323
 msgid "Format"
 msgstr "Formatar"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:2191
+#: src/dialogs/gnome-cmd-options-dialog.cc:2184
 msgid "Layout"
 msgstr "Disposição"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:2193
+#: src/dialogs/gnome-cmd-options-dialog.cc:2186
 msgid "Confirmation"
 msgstr "Confirmação"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:2194
+#: src/dialogs/gnome-cmd-options-dialog.cc:2187
 msgid "Filters"
 msgstr "Filtros"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:2195
+#: src/dialogs/gnome-cmd-options-dialog.cc:2188
 msgid "Programs"
 msgstr "Programas"
 
@@ -3021,60 +3020,60 @@ msgstr "Pesquisar diretórios locais somente"
 msgid "Files _not containing text"
 msgstr "Arquivos que _não contenham texto"
 
-#: src/dialogs/gnome-cmd-search-dialog.cc:313
-#: src/dialogs/gnome-cmd-search-dialog.cc:322
-#: src/dialogs/gnome-cmd-search-dialog.cc:347
+#: src/dialogs/gnome-cmd-search-dialog.cc:315
+#: src/dialogs/gnome-cmd-search-dialog.cc:324
+#: src/dialogs/gnome-cmd-search-dialog.cc:348
 #, c-format
 msgid "Failed to read file %s: %s"
 msgstr "Falha ao ler o arquivo %s: %s"
 
-#: src/dialogs/gnome-cmd-search-dialog.cc:399
+#: src/dialogs/gnome-cmd-search-dialog.cc:400
 #, c-format
 msgid "Searching in: %s"
 msgstr "Pesquisando em: %s"
 
-#: src/dialogs/gnome-cmd-search-dialog.cc:516
+#: src/dialogs/gnome-cmd-search-dialog.cc:517
 #, c-format
 msgid "Found %d match — search aborted"
 msgid_plural "Found %d matches — search aborted"
 msgstr[0] "Localizada %d correspondência — busca interrompida"
 msgstr[1] "Localizadas %d correspondências — busca interrompida"
 
-#: src/dialogs/gnome-cmd-search-dialog.cc:517
+#: src/dialogs/gnome-cmd-search-dialog.cc:518
 #, c-format
 msgid "Found %d match"
 msgid_plural "Found %d matches"
 msgstr[0] "Localizada %d ocorrência"
 msgstr[1] "Localizadas %d ocorrências"
 
-#: src/dialogs/gnome-cmd-search-dialog.cc:684
+#: src/dialogs/gnome-cmd-search-dialog.cc:685
 #, c-format
 msgid "Failed to set process group id of child %d: %s.\n"
 msgstr "Falha ao buscar no arquivo %d: %s.\n"
 
-#: src/dialogs/gnome-cmd-search-dialog.cc:808
+#: src/dialogs/gnome-cmd-search-dialog.cc:809
 msgid "Error parsing the search command."
 msgstr "Erro ao analisar comando de busca."
 
-#: src/dialogs/gnome-cmd-search-dialog.cc:820
+#: src/dialogs/gnome-cmd-search-dialog.cc:821
 msgid "Error running the search command."
 msgstr "Erro ao rodar o comando de busca."
 
-#: src/dialogs/gnome-cmd-search-dialog.cc:934
+#: src/dialogs/gnome-cmd-search-dialog.cc:935
 #, c-format
 msgid "Failed to change directory outside of %s"
 msgstr "Falha ao alterar o diretório fora de %s"
 
-#: src/dialogs/gnome-cmd-search-dialog.cc:1046
+#: src/dialogs/gnome-cmd-search-dialog.cc:1047
 msgid "Search…"
 msgstr "Pesquisar…"
 
 #. search in
-#: src/dialogs/gnome-cmd-search-dialog.cc:1167
+#: src/dialogs/gnome-cmd-search-dialog.cc:1168
 msgid "Select Directory"
 msgstr "Selecionar diretório"
 
-#: src/dialogs/gnome-cmd-search-dialog.cc:1170
+#: src/dialogs/gnome-cmd-search-dialog.cc:1171
 msgid "_Look in folder:"
 msgstr "_Pesquisar na pasta:"
 
@@ -3458,9 +3457,6 @@ msgstr "Falha na Montagem: estado do erro %d"
 
 #: src/gnome-cmd-con-device.cc:288
 #, c-format
-#| msgid ""
-#| "Cannot unmount the volume:\n"
-#| "%s %s"
 msgid ""
 "Cannot unmount the volume:\n"
 "%s\n"
@@ -3556,12 +3552,12 @@ msgstr "Pesquisando por máquinas e grupos de trabalhos"
 msgid "Go to: Samba Network"
 msgstr "Ir para: Rede Samba"
 
-#: src/gnome-cmd-data.cc:3103 src/gnome-cmd-data.cc:3805
+#: src/gnome-cmd-data.cc:3086 src/gnome-cmd-data.cc:3787
 #, c-format
 msgid "link to %s"
 msgstr "link para %s"
 
-#: src/gnome-cmd-dir.cc:605
+#: src/gnome-cmd-dir.cc:562
 msgid "Waiting for file list"
 msgstr "Esperando por lista de arquivos"
 
@@ -3574,21 +3570,11 @@ msgstr "Adicionar o diretório atual"
 msgid "Manage bookmarks…"
 msgstr "Gerencia marcadores…"
 
-#: src/gnome-cmd-file.cc:365 src/gnome-cmd-file.cc:388
-#, c-format
-msgid "Could not chmod %s"
-msgstr "Não é possível mudar permissões %s"
-
-#: src/gnome-cmd-file.cc:426 src/gnome-cmd-file.cc:456
-#, c-format
-msgid "Could not chown %s"
-msgstr "Não é possível mudar dono/grupo %s"
-
-#: src/gnome-cmd-file.cc:712
+#: src/gnome-cmd-file.cc:563
 msgid "_Open"
 msgstr "_Abrir"
 
-#: src/gnome-cmd-file.cc:715
+#: src/gnome-cmd-file.cc:566
 #, c-format
 msgid "_Open with “%s”"
 msgstr "Abrir c_om “%s”"
@@ -3641,7 +3627,7 @@ msgstr "/_Link aqui"
 msgid "/C_ancel"
 msgstr "/C_ancelar"
 
-#: src/gnome-cmd-file-list.cc:1272
+#: src/gnome-cmd-file-list.cc:1291
 #, c-format
 msgid ""
 "“%s” seems to be a binary executable file but it lacks the executable bit. "
@@ -3650,15 +3636,15 @@ msgstr ""
 "“%s” parece ser um arquivo binário executável mas falta um bit executável. "
 "Você quer adicioná-lo executá-lo?"
 
-#: src/gnome-cmd-file-list.cc:1274
+#: src/gnome-cmd-file-list.cc:1293
 msgid "Make Executable?"
 msgstr "Tornar executável?"
 
-#: src/gnome-cmd-file-list.cc:1275
+#: src/gnome-cmd-file-list.cc:1294
 msgid "OK"
 msgstr "OK"
 
-#: src/gnome-cmd-file-list.cc:1302
+#: src/gnome-cmd-file-list.cc:1321
 #, c-format
 msgid ""
 "“%s” is an executable text file. Do you want to run it, or display its "
@@ -3667,24 +3653,31 @@ msgstr ""
 "“%s” é um arquivo de texto executável. Você gostaria de executá-lo, ou "
 "visualizá-lo?"
 
-#: src/gnome-cmd-file-list.cc:1303
+#: src/gnome-cmd-file-list.cc:1322
 msgid "Run or Display"
 msgstr "Executar ou visualizar"
 
-#: src/gnome-cmd-file-list.cc:1304
+#: src/gnome-cmd-file-list.cc:1323
 msgid "Display"
 msgstr "Visualizar"
 
-#: src/gnome-cmd-file-list.cc:1304
+#: src/gnome-cmd-file-list.cc:1323
 msgid "Run"
 msgstr "Executar"
 
-#: src/gnome-cmd-file-list.cc:1319
+#: src/gnome-cmd-file-list.cc:1339
 #, c-format
-msgid "No default application found for the MIME type %s."
-msgstr "Nenhum aplicativo padrão localizado para o tipo MIME %s."
+msgid "No default application found for the file type %s."
+msgstr "Sem aplicativo padrão para o tipo de arquivo %s."
 
-#: src/gnome-cmd-file-list.cc:1349
+#: src/gnome-cmd-file-list.cc:1340
+msgid ""
+"Open the \"File types and programs\" page in the Control Center to add one."
+msgstr ""
+"Abra a guia \"Tipos de arquivos e programas\" no Centro de Controle para "
+"adicionar um."
+
+#: src/gnome-cmd-file-list.cc:1370
 #, c-format
 msgid ""
 "%s does not know how to open remote file. Do you want to download the file "
@@ -3693,15 +3686,15 @@ msgstr ""
 "%s não sabe como abrir o arquivo remoto. Você gostaria de baixar o arquivo "
 "para um local temporário e depois abri-lo?"
 
-#: src/gnome-cmd-file-list.cc:1628
+#: src/gnome-cmd-file-list.cc:1655
 msgid "Directory listing failed."
 msgstr "Falha ao listar diretório."
 
-#: src/gnome-cmd-file-list.cc:1681
+#: src/gnome-cmd-file-list.cc:1710
 msgid "Failed to open connection."
 msgstr "Falha ao abrir conexão."
 
-#: src/gnome-cmd-file-list.cc:2401 src/gnome-cmd-file-list.cc:2416
+#: src/gnome-cmd-file-list.cc:2430 src/gnome-cmd-file-list.cc:2445
 msgid "Not an ordinary file."
 msgstr "Não é um arquivo comum."
 
@@ -3789,7 +3782,7 @@ msgid "%s free"
 msgstr "%s livre"
 
 #: src/gnome-cmd-file-selector.cc:634 src/gnome-cmd-file-selector.cc:710
-#: src/gnome-cmd-user-actions.cc:1670 src/gnome-cmd-user-actions.cc:1678
+#: src/gnome-cmd-user-actions.cc:1673 src/gnome-cmd-user-actions.cc:1681
 msgid "The tab is locked, close anyway?"
 msgstr "A aba está travada, fechar mesmo assim?"
 
@@ -3825,24 +3818,24 @@ msgstr "Fechar _todas as abas"
 msgid "Close _Duplicate Tabs"
 msgstr "Fechar abas _duplicadas"
 
-#: src/gnome-cmd-file-selector.cc:1143
+#: src/gnome-cmd-file-selector.cc:1144
 msgid "No file name given"
 msgstr "Nenhum nome de arquivo fornecido"
 
-#: src/gnome-cmd-file-selector.cc:1174
+#: src/gnome-cmd-file-selector.cc:1180
 msgid "New Text File"
 msgstr "Novo arquivo de texto"
 
-#: src/gnome-cmd-file-selector.cc:1323
+#: src/gnome-cmd-file-selector.cc:1329
 msgid "Symbolic link name:"
 msgstr "Nome da ligação simbólica:"
 
-#: src/gnome-cmd-file-selector.cc:1334 src/gnome-cmd-file-selector.cc:1385
+#: src/gnome-cmd-file-selector.cc:1340 src/gnome-cmd-file-selector.cc:1393
 #: src/gnome-cmd-user-actions.cc:819
 msgid "Create Symbolic Link"
 msgstr "Criar ligação simbólica"
 
-#: src/gnome-cmd-file-selector.cc:1456
+#: src/gnome-cmd-file-selector.cc:1465
 msgid "Filter:"
 msgstr "Filtro:"
 
@@ -4164,7 +4157,7 @@ msgstr "F8 Excluir"
 msgid "F9 Search"
 msgstr "F9 Pesquisar"
 
-#: src/gnome-cmd-main-win.cc:858
+#: src/gnome-cmd-main-win.cc:857
 msgid "GNOME Commander — ROOT PRIVILEGES"
 msgstr "GNOME Commander — PRIVILÉGIOS DE SUPERUSUÁRIO"
 
@@ -4583,23 +4576,23 @@ msgstr "Não foi possível iniciar o GNOME Commander no modo root."
 msgid "gksudo, xdg-su, gksu, gnomesu, kdesu or beesu is not found"
 msgstr "gksudo, xdg-su, gksu, gnomesu, kdesu ou beesu não foram localizados"
 
-#: src/gnome-cmd-user-actions.cc:1875
+#: src/gnome-cmd-user-actions.cc:1878
 msgid "Bookmarks"
 msgstr "Marcadores"
 
-#: src/gnome-cmd-user-actions.cc:1962
+#: src/gnome-cmd-user-actions.cc:1965
 msgid "There was an error opening home page."
 msgstr "Houve um erro ao abrir a página inicial."
 
-#: src/gnome-cmd-user-actions.cc:1971
+#: src/gnome-cmd-user-actions.cc:1974
 msgid "There was an error reporting problem."
 msgstr "Houve um erro ao relatar problema."
 
-#: src/gnome-cmd-user-actions.cc:1997
+#: src/gnome-cmd-user-actions.cc:2000
 msgid "A fast and powerful file manager for the GNOME desktop"
 msgstr "Um rápido e poderoso gerenciador de arquivos para o desktop GNOME"
 
-#: src/gnome-cmd-user-actions.cc:2001
+#: src/gnome-cmd-user-actions.cc:2004
 msgid ""
 "GNOME Commander is free software; you can redistribute it and/or modify it "
 "under the terms of the GNU General Public License as published by the Free "
@@ -4611,7 +4604,7 @@ msgstr ""
 "Foundation; qualquer versão 2 da Licença, ou (a seu critério) outra versão "
 "posterior."
 
-#: src/gnome-cmd-user-actions.cc:2005
+#: src/gnome-cmd-user-actions.cc:2008
 msgid ""
 "GNOME Commander is distributed in the hope that it will be useful, but "
 "WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY "
@@ -4623,7 +4616,7 @@ msgstr ""
 "ADEQUAÇÃO A UM FIM ESPECÍFICO. Veja a Licença Pública Geral GNU (GPL) para "
 "mais detalhes."
 
-#: src/gnome-cmd-user-actions.cc:2009
+#: src/gnome-cmd-user-actions.cc:2012
 msgid ""
 "You should have received a copy of the GNU General Public License along with "
 "GNOME Commander; if not, write to the Free Software Foundation, Inc., 51 "
@@ -4633,7 +4626,7 @@ msgstr ""
 "programa; caso contrário, escreva para Free Software Foundation, Inc., 51 "
 "Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA."
 
-#: src/gnome-cmd-user-actions.cc:2026
+#: src/gnome-cmd-user-actions.cc:2029
 msgid "translator-credits"
 msgstr ""
 "Raphael Higino (In memoriam)\n"
@@ -4702,19 +4695,19 @@ msgstr "copiando…"
 msgid "[file %ld of %ld] “%s”"
 msgstr "[arquivo %ld de %ld] “%s”"
 
-#: src/gnome-cmd-xfer.cc:435
+#: src/gnome-cmd-xfer.cc:431
 msgid "Copying a directory into itself is a bad idea."
 msgstr "Copiar um diretório para dentro dele mesmo é uma má ideia."
 
-#: src/gnome-cmd-xfer.cc:435
+#: src/gnome-cmd-xfer.cc:431
 msgid "The whole operation was cancelled."
 msgstr "A operação inteira foi cancelada."
 
-#: src/gnome-cmd-xfer.cc:476
+#: src/gnome-cmd-xfer.cc:472
 msgid "preparing…"
 msgstr "preparando…"
 
-#: src/gnome-cmd-xfer.cc:555
+#: src/gnome-cmd-xfer.cc:551
 msgid "downloading to /tmp"
 msgstr "baixando para /tmp"
 
@@ -9082,705 +9075,48 @@ msgstr "Nenhum"
 msgid "10-15ms"
 msgstr "10-15ms"
 
-#: src/utils.cc:478
+#: src/utils.cc:479
 #, c-format
 msgid "(%sbyte)"
 msgid_plural "(%sbytes)"
 msgstr[0] "(%sbyte)"
 msgstr[1] "(%sbytes)"
 
-#: src/utils.cc:481
+#: src/utils.cc:482
 #, c-format
 msgid "%sbyte"
 msgid_plural "%sbytes"
 msgstr[0] "%sbyte"
 msgstr[1] "%sbytes"
 
-#: src/utils.cc:670
+#: src/utils.cc:671
 msgid "Failed to change working directory to a temporary directory."
 msgstr "Falha ao alterar o diretório de trabalho para um diretório temporário."
 
-#: src/utils.cc:680
+#: src/utils.cc:681
 msgid "Failed to create a directory in which to store temporary files."
 msgstr "Falha ao criar um diretório para armazenar arquivos temporários."
 
-#: src/utils.cc:806
+#: src/utils.cc:807
 #, c-format
 msgid "Couldn’t read from the directory %s: %s"
 msgstr "Não foi possível ler do diretório %s: %s"
 
-#: src/utils.cc:830
+#: src/utils.cc:831
 #, c-format
 msgid "Creating directory %s… "
 msgstr "Criando diretório %s… "
 
-#: src/utils.cc:837
+#: src/utils.cc:838
 #, c-format
 msgid "Failed to create the directory %s"
 msgstr "Falha ao criar diretório %s"
 
-#: src/utils.cc:983
+#: src/utils.cc:984
 msgid "There was an error displaying help."
 msgstr "Houve um erro ao exibir a ajuda."
 
-#: src/utils.cc:1112
+#: src/utils.cc:1113
 #, c-format
 msgid "Couldn’t move path from “%s” to “%s”: %s"
 msgstr "Não foi possível mover o caminho de “%s” para “%s”: %s"
-
-#~ msgid "Device is now safe to remove"
-#~ msgstr "O dispositivo já pode ser removido com segurança"
-
-#~ msgid "Unknown error"
-#~ msgstr "Erro desconhecido"
-
-#~ msgid "Hide FIFO pipes"
-#~ msgstr "Ocultar pipes de FIFO"
-
-#~ msgid "Hide sockets"
-#~ msgstr "Ocultar soquetes"
-
-#~ msgid "Hide block devices"
-#~ msgstr "Ocultar dispositivos de bloco"
-
-#~ msgid "Type:"
-#~ msgstr "Tipo:"
-
-#~ msgid "MIME Type:"
-#~ msgstr "Tipo MIME:"
-
-#~ msgid "Fifo files"
-#~ msgstr "Arquivos FIFO"
-
-#~ msgid "Socket files"
-#~ msgstr "Arquivo de soquete"
-
-#~ msgid "Character devices"
-#~ msgstr "Dispositivo de caracteres"
-
-#~ msgid "Block devices"
-#~ msgstr "Dispositivos de bloco"
-
-#~ msgid "gnome-commander"
-#~ msgstr "gnome-commander"
-
-#~ msgid "Unknown file type"
-#~ msgstr "Tipo de arquivo ignorado"
-
-#~ msgid "Regular file"
-#~ msgstr "Arquivo regular"
-
-#~ msgid "FIFO"
-#~ msgstr "FIFO"
-
-#~ msgid "UNIX Socket"
-#~ msgstr "Soquete UNIX"
-
-#~ msgid "Character device"
-#~ msgstr "Dispositivo de caractere"
-
-#~ msgid "Block device"
-#~ msgstr "Dispositivo de bloco"
-
-#~ msgid "Symbolic link"
-#~ msgstr "Ligação simbólica"
-
-#~ msgid "No Proofing"
-#~ msgstr "Sem revisão"
-
-#~ msgid "Arabic"
-#~ msgstr "Arábico"
-
-#~ msgid "Bulgarian"
-#~ msgstr "Búlgaro"
-
-#~ msgid "Catalan"
-#~ msgstr "Catalão"
-
-#~ msgid "Traditional Chinese"
-#~ msgstr "Chinês tradicional"
-
-#~ msgid "Simplified Chinese"
-#~ msgstr "Chinês simplificado"
-
-#~ msgid "Chechen"
-#~ msgstr "Checheno"
-
-#~ msgid "Danish"
-#~ msgstr "Dinamarquês"
-
-#~ msgid "German"
-#~ msgstr "Alemão"
-
-#~ msgid "Swiss German"
-#~ msgstr "Alemão suíço"
-
-#~ msgid "Greek"
-#~ msgstr "Grego"
-
-#~ msgid "U.S. English"
-#~ msgstr "Inglês americano"
-
-#~ msgid "U.K. English"
-#~ msgstr "Inglês britânico"
-
-#~ msgid "Australian English"
-#~ msgstr "Inglês australiano"
-
-#~ msgid "Castilian Spanish"
-#~ msgstr "Espanhol castelhano"
-
-#~ msgid "Mexican Spanish"
-#~ msgstr "Espanhol mexicano"
-
-#~ msgid "Finnish"
-#~ msgstr "Finlandês"
-
-#~ msgid "French"
-#~ msgstr "Francês"
-
-#~ msgid "Belgian French"
-#~ msgstr "Francês belga"
-
-#~ msgid "Canadian French"
-#~ msgstr "Francês canadense"
-
-#~ msgid "Swiss French"
-#~ msgstr "Francês suíço"
-
-#~ msgid "Hebrew"
-#~ msgstr "Hebraico"
-
-#~ msgid "Hungarian"
-#~ msgstr "Húngaro"
-
-#~ msgid "Icelandic"
-#~ msgstr "Islandês"
-
-#~ msgid "Italian"
-#~ msgstr "Italiano"
-
-#~ msgid "Swiss Italian"
-#~ msgstr "Italiano suíço"
-
-#~ msgid "Japanese"
-#~ msgstr "Japonês"
-
-#~ msgid "Korean"
-#~ msgstr "Koreano"
-
-#~ msgid "Dutch"
-#~ msgstr "Holandês"
-
-#~ msgid "Belgian Dutch"
-#~ msgstr "Holandês belga"
-
-#~ msgid "Norwegian Bokmal"
-#~ msgstr "Dano norueguês"
-
-#~ msgid "Norwegian Nynorsk"
-#~ msgstr "Novo norueguês"
-
-#~ msgid "Polish"
-#~ msgstr "Polonês"
-
-#~ msgid "Brazilian Portuguese"
-#~ msgstr "Português brasileiro"
-
-#~ msgid "Portuguese"
-#~ msgstr "Português"
-
-#~ msgid "Rhaeto-Romanic"
-#~ msgstr "Romanche"
-
-#~ msgid "Romanian"
-#~ msgstr "Romeno"
-
-#~ msgid "Russian"
-#~ msgstr "Russo"
-
-#~ msgid "Croato-Serbian (Latin)"
-#~ msgstr "Sérvio croata (latino)"
-
-#~ msgid "Serbo-Croatian (Cyrillic)"
-#~ msgstr "Sérvio croata (cirílico)"
-
-#~ msgid "Slovak"
-#~ msgstr "Esloveno"
-
-#~ msgid "Albanian"
-#~ msgstr "Albanês"
-
-#~ msgid "Swedish"
-#~ msgstr "Sueco"
-
-#~ msgid "Thai"
-#~ msgstr "Tailandês"
-
-#~ msgid "Urdu"
-#~ msgstr "Urdu"
-
-#~ msgid "Indonesian"
-#~ msgstr "Indonésio"
-
-#~ msgid "Ukrainian"
-#~ msgstr "Ucraniano"
-
-#~ msgid "Byelorussian"
-#~ msgstr "Bielorrusso"
-
-#~ msgid "Slovenian"
-#~ msgstr "Esloveno"
-
-#~ msgid "Estonian"
-#~ msgstr "Estoniano"
-
-#~ msgid "Latvian"
-#~ msgstr "Letão"
-
-#~ msgid "Lithuanian"
-#~ msgstr "Lituano"
-
-#~ msgid "Farsi"
-#~ msgstr "Farsi"
-
-#~ msgid "Basque"
-#~ msgstr "Basco"
-
-#~ msgid "Macedonian"
-#~ msgstr "Macedônio"
-
-#~ msgid "Afrikaans"
-#~ msgstr "Africanês"
-
-#~ msgid "Malayalam"
-#~ msgstr "Malaio"
-
-#~ msgid "Audio Files"
-#~ msgstr "Arquivos de áudio"
-
-#~ msgid "CamelCase"
-#~ msgstr "IniciaisMaiusculas"
-
-#~ msgid "Can’t load python module “gnomevfs” (“gnome.vfs”)"
-#~ msgstr "Não foi possível carregar o módulo python “gnomevfs” (“gnome.vfs”)"
-
-# janela de atalhos
-#~ msgid "Execute Python plugin"
-#~ msgstr "Executa o plugin do Python"
-
-#~ msgid "Use gcmd-block for terminal commands"
-#~ msgstr "Usar gcmd-block para comandos de terminal"
-
-#~ msgid "Sorting"
-#~ msgstr "Ordenar"
-
-#~ msgid "Create Archive..."
-#~ msgstr "Criar pacote..."
-
-#~ msgid "Profiles..."
-#~ msgstr "Perfis..."
-
-#~ msgid "Edit..."
-#~ msgstr "Editar..."
-
-#~ msgid "Search..."
-#~ msgstr "Pesquisar..."
-
-#~ msgid "Manage bookmarks..."
-#~ msgstr "Gerenciar marcadores..."
-
-#~ msgid "_Properties..."
-#~ msgstr "_Propriedades..."
-
-#~ msgid "_Search..."
-#~ msgstr "_Pesquisar..."
-
-#~ msgid "_Options..."
-#~ msgstr "_Opções..."
-
-#~ msgid "_Keyboard Shortcuts..."
-#~ msgstr "_Atalhos de teclado..."
-
-#~ msgid "_Remote Server..."
-#~ msgstr "Servidor _remoto..."
-
-#~ msgid "New Connection..."
-#~ msgstr "Nova conexão..."
-
-#~ msgid "copying..."
-#~ msgstr "copiando..."
-
-#~ msgid "Find..."
-#~ msgstr "Localizar..."
-
-#~ msgid ""
-#~ "Some regular expressions functionality is disabled. To enable it's "
-#~ "necessary to build GNOME Commander with GLib ≥ 2.14. Please contact your "
-#~ "package maintainer about that."
-#~ msgstr ""
-#~ "Algumas funcionalidades de expressão regular estão desabilitadas. Para "
-#~ "habilitar isso é necessário compilar o GNOME Commander com GLib ≥ 2.14. "
-#~ "Por favor, contacte o mantenedor do pacote."
-
-#~ msgid "file manager"
-#~ msgstr "gerenciador de arquivos"
-
-#~ msgid "file system"
-#~ msgstr "sistema de arquivos"
-
-#~ msgid "FTP"
-#~ msgstr "FTP"
-
-#~ msgid "WebDAV"
-#~ msgstr "WebDAV"
-
-#~ msgid "/Local path..."
-#~ msgstr "/Caminho local..."
-
-#~ msgid "_Import"
-#~ msgstr "_Importar"
-
-#~ msgid "Document icon directory:"
-#~ msgstr "Diretório de documentação de ícone:"
-
-#~ msgid "Open this _folder"
-#~ msgstr "Abrir esta _pasta"
-
-#~ msgid "Switch to Vertical Layout"
-#~ msgstr "Mudar para disposição Vertical"
-
-#~ msgid "Switch to Horizontal Layout"
-#~ msgstr "Mudar para disposição horizontal"
-
-#~ msgid "Open folder"
-#~ msgstr "Abrir pasta"
-
-#~ msgid "Unable to start Nautilus."
-#~ msgstr "Não foi possível iniciar o Nautilus."
-
-#~ msgid "_Password:"
-#~ msgstr "_Senha:"
-
-#~ msgid "Use _GNOME Keyring Manager for authentication"
-#~ msgstr "Utilizar o Gerenciador de _Chaves do GNOME para autenticação"
-
-#~ msgid "Save password in GNOME keyring"
-#~ msgstr "Salvar a senha no chaveiro GNOME"
-
-#~ msgid "CVS options"
-#~ msgstr "Opções do CVS"
-
-#~ msgid "Compression level"
-#~ msgstr "Nível de compressão"
-
-#~ msgid "Unified diff format"
-#~ msgstr "Formato de diferenciação unificado"
-
-#~ msgid "A plugin that eventually will be a simple CVS client"
-#~ msgstr "Um plugin que eventualmente será um simples cliente CVS"
-
-#~ msgid "Compare with"
-#~ msgstr "Comparar com"
-
-#~ msgid "HEAD"
-#~ msgstr "HEAD"
-
-#~ msgid "The previous revision"
-#~ msgstr "Revisão anterior"
-
-#~ msgid "Other revision"
-#~ msgstr "Outra revisão"
-
-#~ msgid "CVS Diff"
-#~ msgstr "Diferença no CVS"
-
-#~ msgid "revision"
-#~ msgstr "revisão"
-
-#~ msgid "Revision:"
-#~ msgstr "Revisão:"
-
-#~ msgid "Compare..."
-#~ msgstr "Comparar..."
-
-#~ msgid "Author:"
-#~ msgstr "Autor:"
-
-#~ msgid "Date:"
-#~ msgstr "Data:"
-
-#~ msgid "State:"
-#~ msgstr "Estado:"
-
-#~ msgid "Lines:"
-#~ msgstr "Linhas:"
-
-#~ msgid "Message:"
-#~ msgstr "Mensagem:"
-
-#~ msgid "_Change"
-#~ msgstr "_Alterar"
-
-#~ msgid "_MIME Types..."
-#~ msgstr "Tipos _MIME..."
-
-#~ msgid "_Contents"
-#~ msgstr "_Conteúdo"
-
-#~ msgid "MIME types"
-#~ msgstr "Tipos MIME"
-
-#~ msgid "path"
-#~ msgstr "caminho"
-
-#~ msgid "_Remote dir:"
-#~ msgstr "Diretório _remoto:"
-
-#~ msgid "Other..."
-#~ msgstr "Outro..."
-
-#~ msgid "Symlink name:"
-#~ msgstr "Nome da ligação simbólica:"
-
-#~ msgid "Shell syntax"
-#~ msgstr "Sintaxe de shell"
-
-#~ msgid "Regex syntax"
-#~ msgstr "Sintaxe de expressão regular"
-
-#~ msgid "Sorting options"
-#~ msgstr "Opções de classificação"
-
-#~ msgid "_Test"
-#~ msgstr "_Teste"
-
-#~ msgid "Authentication"
-#~ msgstr "Autenticação"
-
-#~ msgid "Use GNOME Keyring Manager for authentication"
-#~ msgstr "Use o Gerenciador de Chaveiros do GNOME para a autenticação"
-
-#~ msgid "Anonymous FTP access"
-#~ msgstr "Acesso FTP como anônimo"
-
-#~ msgid "Password:"
-#~ msgstr "Senha:"
-
-#~ msgid "Network"
-#~ msgstr "Rede"
-
-#~ msgid "GNOME authentication manager usage"
-#~ msgstr "Uso do gerenciador de autenticação do GNOME"
-
-#~ msgid "_Limited depth"
-#~ msgstr "Profundidade _limitada"
-
-#~ msgid "Failed to open file %s: %s\n"
-#~ msgstr "Falha ao abrir o arquivo %s: %s\n"
-
-#~ msgid "Search _in: "
-#~ msgstr "Pesqu_isar em: "
-
-#~ msgid "Search _recursively"
-#~ msgstr "Pesquisar _recursivamente"
-
-#~ msgid "_Go to"
-#~ msgstr "_Ir para"
-
-#~ msgid "Enter password"
-#~ msgstr "Digite a senha"
-
-#~ msgid ""
-#~ "Problem: access not permitted\n"
-#~ "\n"
-#~ "please supply user credentials\n"
-#~ "\n"
-#~ "Remember: wrong credentials may lead to account locking"
-#~ msgstr ""
-#~ "Problema: acesso não permitido\n"
-#~ "\n"
-#~ "por favor, forneça as credenciais de usuário\n"
-#~ "\n"
-#~ "Lembre-se: credenciais erradas podem levar ao bloqueio da conta"
-
-#~ msgid "Can't find a host or workgroup named %s\n"
-#~ msgstr ""
-#~ "Não pude encontrar menhuma máquina ou grupo de trabalho com o nome %s\n"
-
-#~ msgid ""
-#~ "The file \"%s\" already exists.\n"
-#~ "\n"
-#~ "Do you want to overwrite it?\n"
-#~ msgstr ""
-#~ "O arquivo \"%s\" existe.\n"
-#~ "\n"
-#~ "Você quer substituí-lo?\n"
-
-#~ msgid "Trying to load %s instead\n"
-#~ msgstr "Tentando carregar %s no lugar\n"
-
-#~ msgid ""
-#~ "No default application found for the MIME type %s.\n"
-#~ "Open the \"File types and programs\" page in the Control Center to add "
-#~ "one."
-#~ msgstr ""
-#~ "Nenhum aplicativo padrão localizado para o tipo de arquivo %s.\n"
-#~ "Abra a guia \"Tipos de arquivos e programas\" no Centro de Controle para "
-#~ "adicionar um."
-
-#~ msgid "F10 Quit"
-#~ msgstr "F10 Sair"
-
-#~ msgid "Directory options"
-#~ msgstr "Opções do diretório"
-
-#~ msgid "Directory cache size"
-#~ msgstr "Tamanho do diretório de cache"
-
-#~ msgid "running `%s'\n"
-#~ msgstr "executando \"%s\"\n"
-
-#~ msgid ""
-#~ "When parsing the users and groups on this system it was found that the "
-#~ "user %s is part of the group %s. This user can however not be found.\n"
-#~ msgstr ""
-#~ "Quando analisando usuários e grupos neste sistema foi localizado o "
-#~ "usuário %s que faz parte do grupo %s. Este usuário não pode ser "
-#~ "localizado.\n"
-
-#~ msgid "Invalid source pattern"
-#~ msgstr "Padrão inválido da origem"
-
-#~ msgid "With this:"
-#~ msgstr "Com isto:"
-
-#~ msgid "New Rule"
-#~ msgstr "Nova regra"
-
-#~ msgid "Counter start value:"
-#~ msgstr "Valor inicial para contagem:"
-
-#~ msgid "Counter increment:"
-#~ msgstr "Incremento do contador:"
-
-#~ msgid "Counter minimum digit count:"
-#~ msgstr "Dígito mínimo para contador:"
-
-#~ msgid "Template Options"
-#~ msgstr "Opções de modelo"
-
-#~ msgid "Auto-update when the template is entered"
-#~ msgstr "Atualizar automaticamente quando o modelo for inserido"
-
-#~ msgid "O_ptions..."
-#~ msgstr "O_pções..."
-
-#~ msgid "With this"
-#~ msgstr "Com isto"
-
-#, fuzzy
-#~ msgid "/Counter (precision)"
-#~ msgstr "Outra revisão"
-
-#~ msgid "Removes the FTP connection to %s"
-#~ msgstr "Remover a conexão FTP para %s"
-
-#~ msgid "Goto"
-#~ msgstr "Ir para"
-
-#, fuzzy
-#~ msgid "Dir"
-#~ msgstr "dir"
-
-#~ msgid "_Add..."
-#~ msgstr "_Adicionar..."
-
-#~ msgid "_Edit..."
-#~ msgstr "_Editar..."
-
-#~ msgid "_Remove"
-#~ msgstr "_Remover"
-
-#~ msgid "No alias specified"
-#~ msgstr "Nenhum apelido especificado"
-
-#~ msgid "No host specified"
-#~ msgstr "Nenhuma máquina especificada"
-
-#~ msgid "Invalid port number: %s"
-#~ msgstr "Número de porta inválido: %s"
-
-#~ msgid "Host:"
-#~ msgstr "Máquina:"
-
-#, fuzzy
-#~ msgid "Edit Remote Connection"
-#~ msgstr "Conectar FTP"
-
-#~ msgid "Connect"
-#~ msgstr "Conectar"
-
-#, fuzzy
-#~ msgid "_Hex"
-#~ msgstr "A_juda"
-
-#~ msgid "Enter password for %s@%s"
-#~ msgstr "Digite a senha para %s@%s"
-
-#~ msgid "Enter Password"
-#~ msgstr "Digite a senha"
-
-#~ msgid "FTP Connect"
-#~ msgstr "Conectar FTP"
-
-#~ msgid "FTP _Connect..."
-#~ msgstr "Conectar _FTP..."
-
-#~ msgid "FTP _Quick Connect..."
-#~ msgstr "Conectar _Rapidamente com FTP..."
-
-#~ msgid "_Execute"
-#~ msgstr "_Executar"
-
-#~ msgid "_Cut"
-#~ msgstr "_Recortar"
-
-#~ msgid "No translation is currently in use."
-#~ msgstr "Robson Negreiros <kamusbr@bol.com.br>"
-
-#~ msgid "Rename \"%s\" to"
-#~ msgstr "Renomear \"%s\" para"
-
-#, fuzzy
-#~ msgid "About"
-#~ msgstr "_Sobre"
-
-#~ msgid "Case sens"
-#~ msgstr "Diferenciar Maiúscula e Minúscula"
-
-#~ msgid "New FTP Server"
-#~ msgstr "Novo Servidor FTP"
-
-#~ msgid "Edit FTP Server"
-#~ msgstr "Editar Servidor FTP"
-
-#~ msgid "User _Manual..."
-#~ msgstr "_Manual do Usuário"
-
-#, fuzzy
-#~ msgid "_About..."
-#~ msgstr "_Sobre"
-
-#~ msgid "Chmod"
-#~ msgstr "Mudar Permissão"
-
-#~ msgid ""
-#~ "%s does not know how to open remote files. Do you want to download the "
-#~ "files to a temporary location and then open them?"
-#~ msgstr ""
-#~ "%s não pode abrir arquivos remotos. Você gostaria de baixar os arquivos "
-#~ "para um local temporário e então abri-los?"
-
-#~ msgid "A textual description of the data"
-#~ msgstr "Uma descrição textual dos dados"
