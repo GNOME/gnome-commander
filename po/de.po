@@ -10,7 +10,7 @@
 # Allan Jäke <allan@jaeke.de>, 2007.
 # Andre Klapper <ak-47@gmx.net>, 2007-2009.
 # Uwe Scholz <uwescholz@src.gnome.org>, 2013.
-# Wolfgang Stöggl <c72578@yahoo.de>, 2015-2016, 2019.
+# Wolfgang Stöggl <c72578@yahoo.de>, 2015-2016, 2019, 2021.
 # Tim Sabsch <tim@sabsch.com>, 2019, 2021.
 # Mario Blättermann <mario.blaettermann@gmail.com>, 2008-2011, 2016-2017, 2019, 2020, 2021.
 # Philipp Kiemle <philipp.kiemle@gmail.com>, 2021.
@@ -18,16 +18,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-commander/issues\n"
-"POT-Creation-Date: 2021-03-06 21:39+0000\n"
-"PO-Revision-Date: 2021-03-10 08:25+0100\n"
-"Last-Translator: Tim Sabsch <tim@sabsch.com>\n"
+"POT-Creation-Date: 2021-03-28 21:55+0000\n"
+"PO-Revision-Date: 2021-07-15 13:58+0200\n"
+"Last-Translator: Wolfgang Stoeggl <c72578@yahoo.de>\n"
 "Language-Team: German <gnome-de@gnome.org>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 2.4.2\n"
+"X-Generator: Poedit 3.0\n"
 
 #: data/gnome-commander.appdata.xml.in:7 data/gnome-commander.desktop.in.in:3
 #: src/gnome-cmd-main-win.cc:859
@@ -1876,10 +1876,12 @@ msgstr ""
 "%s"
 
 #: src/dialogs/gnome-cmd-delete-dialog.cc:207
+#: src/dialogs/gnome-cmd-delete-dialog.cc:296
 msgid "Delete problem"
 msgstr "Problem beim Löschen"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:208 src/gnome-cmd-xfer.cc:211
+#: src/dialogs/gnome-cmd-delete-dialog.cc:208
+#: src/dialogs/gnome-cmd-delete-dialog.cc:296 src/gnome-cmd-xfer.cc:211
 #: src/gnome-cmd-xfer.cc:230
 msgid "Abort"
 msgstr "Abbruch"
@@ -1890,36 +1892,64 @@ msgid "Retry"
 msgstr "Wiederholen"
 
 #: src/dialogs/gnome-cmd-delete-dialog.cc:208
+#: src/dialogs/gnome-cmd-delete-dialog.cc:310
 #: src/gnome-cmd-file-selector.cc:1382 src/gnome-cmd-xfer.cc:211
 #: src/gnome-cmd-xfer.cc:230
 msgid "Skip"
 msgstr "Überspringen"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:277
+#: src/dialogs/gnome-cmd-delete-dialog.cc:294
 #, c-format
-msgid "Do you want to delete “%s”?"
-msgstr "Möchten Sie »%s« löschen?"
+msgid ""
+"Error while deleting: \n"
+"\n"
+"%s"
+msgstr ""
+"Fehler beim Löschen von: \n"
+"\n"
+"%s"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:281
+#: src/dialogs/gnome-cmd-delete-dialog.cc:307
 #, c-format
-msgid "Do you want to delete the selected file?"
-msgid_plural "Do you want to delete the %d selected files?"
-msgstr[0] "Möchten Sie die gewählte Datei löschen?"
-msgstr[1] "Möchten Sie die %d gewählten Dateien löschen?"
+msgid "The directory “%s” is not empty. Do you really want to delete it?"
+msgstr "Der Ordner »%s« ist nicht leer. Möchten Sie ihn wirklich löschen?"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:287
-#: src/dialogs/gnome-cmd-delete-dialog.cc:288
+#: src/dialogs/gnome-cmd-delete-dialog.cc:308
+#: src/dialogs/gnome-cmd-delete-dialog.cc:312
+#: src/dialogs/gnome-cmd-delete-dialog.cc:383
+#: src/dialogs/gnome-cmd-delete-dialog.cc:384
 #: src/dialogs/gnome-cmd-options-dialog.cc:1039
 #: src/gnome-cmd-file-popmenu.cc:727 src/gnome-cmd-main-win.cc:243
 #: src/gnome-cmd-user-actions.cc:213
 msgid "Delete"
 msgstr "Löschen"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:288 src/gnome-cmd-file-list.cc:1279
+#: src/dialogs/gnome-cmd-delete-dialog.cc:310
+#: src/dialogs/gnome-cmd-delete-dialog.cc:384 src/gnome-cmd-file-list.cc:1279
 #: src/gnome-cmd-file-list.cc:1307 src/gnome-cmd-file-selector.cc:1382
 #: src/gnome-cmd-user-actions.cc:819
 msgid "Cancel"
 msgstr "Abbrechen"
+
+#: src/dialogs/gnome-cmd-delete-dialog.cc:311
+msgid "Delete All"
+msgstr "Alles löschen"
+
+#: src/dialogs/gnome-cmd-delete-dialog.cc:311
+msgid "Delete Remaining"
+msgstr "Verbleibende löschen"
+
+#: src/dialogs/gnome-cmd-delete-dialog.cc:373
+#, c-format
+msgid "Do you want to delete “%s”?"
+msgstr "Möchten Sie »%s« löschen?"
+
+#: src/dialogs/gnome-cmd-delete-dialog.cc:377
+#, c-format
+msgid "Do you want to delete the selected file?"
+msgid_plural "Do you want to delete the %d selected files?"
+msgstr[0] "Möchten Sie die gewählte Datei löschen?"
+msgstr[1] "Möchten Sie die %d gewählten Dateien löschen?"
 
 #: src/dialogs/gnome-cmd-edit-bookmark-dialog.cc:43
 msgid "Bookmark name is missing."
@@ -3569,7 +3599,7 @@ msgstr "Gehe zu: Samba-Netzwerk"
 msgid "link to %s"
 msgstr "Link zu %s"
 
-#: src/gnome-cmd-dir.cc:512
+#: src/gnome-cmd-dir.cc:516
 msgid "Waiting for file list"
 msgstr "Warte auf Dateiliste"
 
@@ -3581,11 +3611,11 @@ msgstr "Aktuellen Ordner hinzufügen"
 msgid "Manage bookmarks…"
 msgstr "Lesezeichen verwalten …"
 
-#: src/gnome-cmd-file.cc:563
+#: src/gnome-cmd-file.cc:592
 msgid "_Open"
 msgstr "Ö_ffnen"
 
-#: src/gnome-cmd-file.cc:566
+#: src/gnome-cmd-file.cc:595
 #, c-format
 msgid "_Open with “%s”"
 msgstr "Ö_ffnen mit »%s«"
