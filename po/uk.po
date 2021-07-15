@@ -6,9 +6,9 @@
 # Yuri Chornoivan <yurchor@ukr.net>, 2020, 2021.
 msgid ""
 msgstr ""
-"Project-Id-Version: ru\n"
+"Project-Id-Version: gnome-commander 1.3.0\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-commander/issues\n"
-"POT-Creation-Date: 2021-07-12 16:02+0000\n"
+"POT-Creation-Date: 2021-07-15 13:08+0000\n"
 "PO-Revision-Date: 2021-07-12 19:05+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
@@ -16,8 +16,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=n==1 ? 3 : n%10==1 && n%100!=11 ? 0 : n"
-"%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"Plural-Forms: nplurals=4; plural=n==1 ? 3 : n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 "X-Generator: Lokalize 20.12.0\n"
 
 #: data/gnome-commander.appdata.xml.in:7 data/gnome-commander.desktop.in.in:3
@@ -1822,8 +1821,6 @@ msgstr "Інше місце"
 
 #: src/dialogs/gnome-cmd-delete-dialog.cc:94
 #, c-format
-#| msgid "Deleted %ld of %ld file"
-#| msgid_plural "Deleted %ld of %ld files"
 msgid "Deleted %lu of %lu file"
 msgid_plural "Deleted %lu of %lu files"
 msgstr[0] "Вилучено %lu з %lu файла"
@@ -3689,7 +3686,6 @@ msgstr "Виконати"
 
 #: src/gnome-cmd-file-list.cc:1339
 #, c-format
-#| msgid "No default application found for the application type %s."
 msgid "No default application found for the file type %s."
 msgstr "Не знайдено типової програми для типу файлів %s."
 
@@ -9073,57 +9069,3 @@ msgstr "Помилка при показі допомоги."
 #, c-format
 msgid "Couldn’t move path from “%s” to “%s”: %s"
 msgstr "Не вдалося пересунути шлях з «%s» до «%s»: %s"
-
-#~| msgid "Delete"
-#~ msgid "Deleted %"
-#~ msgid_plural "Deleted %"
-#~ msgstr[0] "Вилучено %"
-#~ msgstr[1] "Вилучено %"
-#~ msgstr[2] "Вилучено %"
-#~ msgstr[3] "Вилучено %"
-
-#~ msgid "Skip device mounting"
-#~ msgstr "Пропускати монтування пристроїв"
-
-#~ msgid ""
-#~ "This option defines if mounting of devices should be skipped when they "
-#~ "are opened."
-#~ msgstr ""
-#~ "Цей параметр визначає, чи слід пропускати монтування пристроїв, якщо їх "
-#~ "відкрито."
-
-#~ msgid "Skip mounting (useful when using super-mount)"
-#~ msgstr "Не виконувати монтування (корисно при використанні super-mount)"
-
-#~ msgid "Device is now safe to remove"
-#~ msgstr "Пристрій готовий до безпечного вилучення"
-
-#~ msgid "Unknown error"
-#~ msgstr "Невідома помилка"
-
-#~ msgid "Hide FIFO pipes"
-#~ msgstr "Приховувати канали FIFO"
-
-#~ msgid "Hide sockets"
-#~ msgstr "Приховувати сокети"
-
-#~ msgid "Hide block devices"
-#~ msgstr "Приховати блокові пристрої"
-
-#~ msgid "Type:"
-#~ msgstr "Тип:"
-
-#~ msgid "MIME Type:"
-#~ msgstr "Тип MIME:"
-
-#~ msgid "Fifo files"
-#~ msgstr "Fifo файли"
-
-#~ msgid "Socket files"
-#~ msgstr "Файли сокетів"
-
-#~ msgid "Character devices"
-#~ msgstr "Символьні пристрої "
-
-#~ msgid "Block devices"
-#~ msgstr "Блокові пристрої"
