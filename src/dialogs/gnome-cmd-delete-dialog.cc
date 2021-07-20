@@ -63,94 +63,94 @@ struct DeleteData
 };
 
 
-inline void cleanup (DeleteData *data)
+inline void cleanup (DeleteData *deleteData)
 {
-    gnome_cmd_file_list_free (data->gnomeCmdFiles);
-    gnome_cmd_file_list_free (data->deletedGnomeCmdFiles);
-    g_free (data);
+    gnome_cmd_file_list_free (deleteData->gnomeCmdFiles);
+    gnome_cmd_file_list_free (deleteData->deletedGnomeCmdFiles);
+    g_free (deleteData);
 }
 
 
-static void delete_progress_update (DeleteData *data)
+static void delete_progress_update (DeleteData *deleteData)
 {
-    g_mutex_lock (&data->mutex);
+    g_mutex_lock (&deleteData->mutex);
 
-    if (data->error)
+    if (deleteData->error)
     {
-        data->problem = TRUE;
+        deleteData->problem = TRUE;
 
-        g_mutex_unlock (&data->mutex);
-        while (data->problem_action == -1)
+        g_mutex_unlock (&deleteData->mutex);
+        while (deleteData->problem_action == -1)
             g_thread_yield ();
-        g_mutex_lock (&data->mutex);
-        data->problem_file_name = nullptr;
-        g_clear_error (&(data->error));
+        g_mutex_lock (&deleteData->mutex);
+        deleteData->problem_file_name = nullptr;
+        g_clear_error (&(deleteData->error));
     }
 
-    if (data->itemsDeleted > 0)
+    if (deleteData->itemsDeleted > 0)
     {
-        gfloat f = (gfloat)data->itemsDeleted/(gfloat)data->itemsTotal;
-        g_free (data->msg);
-        data->msg = g_strdup_printf (ngettext("Deleted %lu of %lu file",
+        gfloat f = (gfloat)deleteData->itemsDeleted/(gfloat)deleteData->itemsTotal;
+        g_free (deleteData->msg);
+        deleteData->msg = g_strdup_printf (ngettext("Deleted %lu of %lu file",
                                               "Deleted %lu of %lu files",
-                                              data->itemsTotal),
-                                     data->itemsDeleted, data->itemsTotal);
+                                              deleteData->itemsTotal),
+                                     deleteData->itemsDeleted, deleteData->itemsTotal);
         if (f < 0.001f) f = 0.001f;
         if (f > 0.999f) f = 0.999f;
-        data->progress = f;
+        deleteData->progress = f;
     }
 
-    g_mutex_unlock (&data->mutex);
+    g_mutex_unlock (&deleteData->mutex);
 }
 
 
-static void on_cancel (GtkButton *btn, DeleteData *data)
+static void on_cancel (GtkButton *btn, DeleteData *deleteData)
 {
-    data->stop = TRUE;
-    gtk_widget_set_sensitive (GTK_WIDGET (data->progwin), FALSE);
+    deleteData->stop = TRUE;
+    gtk_widget_set_sensitive (GTK_WIDGET (deleteData->progwin), FALSE);
 }
 
 
-static gboolean on_progwin_destroy (GtkWidget *win, DeleteData *data)
+static gboolean on_progwin_destroy (GtkWidget *win, DeleteData *deleteData)
 {
-    data->stop = TRUE;
+    deleteData->stop = TRUE;
 
     return FALSE;
 }
 
 
-inline void create_delete_progress_win (DeleteData *data)
+inline void create_delete_progress_win (DeleteData *deleteData)
 {
     GtkWidget *vbox;
     GtkWidget *bbox;
     GtkWidget *button;
 
-    data->progwin = gtk_window_new (GTK_WINDOW_TOPLEVEL);
-    gtk_window_set_title (GTK_WINDOW (data->progwin), _("Deleting…"));
-    gtk_window_set_policy (GTK_WINDOW (data->progwin), FALSE, FALSE, FALSE);
-    gtk_window_set_position (GTK_WINDOW (data->progwin), GTK_WIN_POS_CENTER);
-    gtk_widget_set_size_request (GTK_WIDGET (data->progwin), 300, -1);
-    g_signal_connect (data->progwin, "destroy-event", G_CALLBACK (on_progwin_destroy), data);
+    deleteData->progwin = gtk_window_new (GTK_WINDOW_TOPLEVEL);
+    gtk_window_set_title (GTK_WINDOW (deleteData->progwin), _("Deleting…"));
+    gtk_window_set_policy (GTK_WINDOW (deleteData->progwin), FALSE, FALSE, FALSE);
+    gtk_window_set_position (GTK_WINDOW (deleteData->progwin), GTK_WIN_POS_CENTER);
+    gtk_widget_set_size_request (GTK_WIDGET (deleteData->progwin), 300, -1);
+    g_signal_connect (deleteData->progwin, "destroy-event", G_CALLBACK (on_progwin_destroy), deleteData);
 
-    vbox = create_vbox (data->progwin, FALSE, 6);
-    gtk_container_add (GTK_CONTAINER (data->progwin), vbox);
+    vbox = create_vbox (deleteData->progwin, FALSE, 6);
+    gtk_container_add (GTK_CONTAINER (deleteData->progwin), vbox);
     gtk_container_set_border_width (GTK_CONTAINER (vbox), 5);
 
-    data->proglabel = create_label (data->progwin, "");
-    gtk_container_add (GTK_CONTAINER (vbox), data->proglabel);
+    deleteData->proglabel = create_label (deleteData->progwin, "");
+    gtk_container_add (GTK_CONTAINER (vbox), deleteData->proglabel);
 
-    data->progbar = create_progress_bar (data->progwin);
-    gtk_container_add (GTK_CONTAINER (vbox), data->progbar);
+    deleteData->progbar = create_progress_bar (deleteData->progwin);
+    gtk_container_add (GTK_CONTAINER (vbox), deleteData->progbar);
 
-    bbox = create_hbuttonbox (data->progwin);
+    bbox = create_hbuttonbox (deleteData->progwin);
     gtk_container_add (GTK_CONTAINER (vbox), bbox);
 
-    button = create_stock_button_with_data (data->progwin, GTK_STOCK_CANCEL, GTK_SIGNAL_FUNC (on_cancel), data);
+    button = create_stock_button_with_data (deleteData->progwin, GTK_STOCK_CANCEL, GTK_SIGNAL_FUNC (on_cancel), deleteData);
     GTK_WIDGET_SET_FLAGS (button, GTK_CAN_DEFAULT);
     gtk_container_add (GTK_CONTAINER (bbox), button);
 
-    g_object_ref (data->progwin);
-    gtk_widget_show (data->progwin);
+    g_object_ref (deleteData->progwin);
+    gtk_widget_show (deleteData->progwin);
 }
 
 /**
@@ -214,7 +214,6 @@ static gboolean perform_delete_operation_r(DeleteData *deleteData, GList *gnomeC
             else
             {
                 deleteData->deletedGnomeCmdFiles = g_list_append(deleteData->deletedGnomeCmdFiles, gnomeCmdFile);
-                //gnome_cmd_file_unref(gnomeCmdFile);
                 deleteData->itemsDeleted++;
                 delete_progress_update(deleteData);
                 if (deleteData->stop)
@@ -250,8 +249,6 @@ static gboolean perform_delete_operation_r(DeleteData *deleteData, GList *gnomeC
 
                 auto subGnomeCmdFile = (GnomeCmdFile *) subFolderItem->data;
 
-                //auto subFilename = GetGfileAttributeString(subGnomeCmdFile->gFile, G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME);
-                //if (!subGnomeCmdFile->is_dotdot && g_strcmp0 (subFilename, ".") != 0)
                 if (!subGnomeCmdFile->is_dotdot)
                 {
                     GList *subGnomeCmdFileList = nullptr;
@@ -260,7 +257,6 @@ static gboolean perform_delete_operation_r(DeleteData *deleteData, GList *gnomeC
                     deleted = perform_delete_operation_r (deleteData, subGnomeCmdFileList);
                     g_list_free(subGnomeCmdFileList);
                 }
-                //g_free(subFilename);
             }
             gnome_cmd_dir_unref (gnomeCmdDir);
 
@@ -517,9 +513,9 @@ void gnome_cmd_delete_dialog_show (GList *files)
     if (files == nullptr)
         return;
 
-    DeleteData *data = g_new0 (DeleteData, 1);
+    DeleteData *deleteData = g_new0 (DeleteData, 1);
 
-    data->gnomeCmdFiles = files;
+    deleteData->gnomeCmdFiles = files;
 
-    do_delete (data);
+    do_delete (deleteData);
 }
