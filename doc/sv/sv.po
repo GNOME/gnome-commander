@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander master\n"
-"POT-Creation-Date: 2021-05-29 20:51+0000\n"
-"PO-Revision-Date: 2021-05-30 14:37+0200\n"
+"POT-Creation-Date: 2021-07-20 14:57+0000\n"
+"PO-Revision-Date: 2021-07-20 21:54+0200\n"
 "Last-Translator: Anders Jonsson <anders.jonsson@norsjovallen.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "Language: sv\n"
@@ -12156,7 +12156,7 @@ msgstr ""
 
 #. (itstool) path: row/entry
 #: C/index.docbook:5114
-msgid "<_:para-1/> <guilabel>MIME icon settings</guilabel>"
+msgid "<_:para-1/> <guilabel>MIME icon settings</guilabel>"
 msgstr "<_:para-1/> <guilabel>Inställningar för MIME-ikoner</guilabel>"
 
 #. (itstool) path: entry/para
@@ -16622,7 +16622,6 @@ msgstr "1.12.2"
 
 #. (itstool) path: entry/para
 #: C/releases.xml:52
-#| msgid "2021-03-25"
 msgid "2021-05-29"
 msgstr "2021-05-29"
 
