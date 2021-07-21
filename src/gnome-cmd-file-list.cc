@@ -1220,6 +1220,11 @@ static void do_mime_exec_single (gpointer *args)
     auto dpath = (gchar *) args[2];
 
     auto gnomeCmdFile = gnome_cmd_file_new(path);
+
+    if (gnomeCmdFile == nullptr)
+        return;
+
+    gnome_cmd_file_ref(gnomeCmdFile);
     GList *gFileList = nullptr;
     gFileList = g_list_append(gFileList, gnomeCmdFile->gFile);
     g_app_info_launch (gnomeCmdFile->GetAppInfoForContentType(), gFileList, nullptr, nullptr);
@@ -1260,8 +1265,8 @@ static void on_tmp_download_response (GtkWidget *w, gint id, TmpDlData *dldata)
         g_free (dldata->args);
     }
 
-    g_free (dldata);
     gtk_widget_destroy (dldata->dialog);
+    g_free (dldata);
 }
 
 
@@ -1355,6 +1360,7 @@ static void mime_exec_single (GnomeCmdFile *f)
             g_app_info_launch (gAppInfo, gFileList, nullptr, nullptr);
             g_object_unref(gFileFromUri);
             g_list_free(gFileList);
+            gnome_cmd_app_free(app);
         }
         else
         {
@@ -1372,7 +1378,6 @@ static void mime_exec_single (GnomeCmdFile *f)
             g_free (msg);
         }
     }
-    gnome_cmd_app_free(app);
 }
 
 
