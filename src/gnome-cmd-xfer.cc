@@ -452,9 +452,9 @@ gnome_cmd_xfer_start (GList *src_files,
     g_return_if_fail (src_files != nullptr);
     g_return_if_fail (GNOME_CMD_IS_DIR (to_dir));
 
-    GList *src_uri_list = file_list_to_gfile_list (src_files);
+    GList *srcGFileList = gnome_cmd_file_list_to_gfile_list (src_files);
 
-    gnome_cmd_xfer_uris_start (src_uri_list,
+    gnome_cmd_xfer_uris_start (srcGFileList,
                                to_dir,
                                src_fl,
                                src_files,

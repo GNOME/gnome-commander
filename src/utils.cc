@@ -767,9 +767,9 @@ GdkColor *gdk_color_new (gushort r, gushort g, gushort b)
 }
 
 
-GList *file_list_to_gfile_list (GList *files)
+GList *gnome_cmd_file_list_to_gfile_list (GList *files)
 {
-    GList *gFiles = NULL;
+    GList *gFiles = nullptr;
 
     for (; files; files = files->next)
     {
@@ -777,7 +777,7 @@ GList *file_list_to_gfile_list (GList *files)
         auto gFile = f->get_gfile();
 
         if (!gFile)
-            g_warning ("NULL uri!!!");
+            g_warning ("gnome_cmd_file_list_to_gfile_list: no gFile!!!");
         else
             gFiles = g_list_append (gFiles, gFile);
     }
