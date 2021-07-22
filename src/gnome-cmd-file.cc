@@ -873,17 +873,16 @@ void gnome_cmd_file_view (GnomeCmdFile *f, gint internal_viewer)
     if (!path_str)  return;
 
     GnomeCmdPlainPath path(path_str);
-    GnomeVFSURI *src_uri = f->get_uri();
-    GnomeVFSURI *dest_uri = gnome_cmd_con_create_uri (get_home_con (), &path);
+    auto srcGFile = f->get_gfile();
+    auto destGFile = gnome_cmd_con_create_gfile (get_home_con (), &path);
     auto gFile = gnome_cmd_con_create_gfile (get_home_con (), &path);
 
     g_printerr ("Copying to: %s\n", path_str);
     g_free (path_str);
 
-    gnome_cmd_xfer_tmp_download (src_uri,
-                                 dest_uri,
-                                 GNOME_VFS_XFER_FOLLOW_LINKS,
-                                 GNOME_VFS_XFER_OVERWRITE_MODE_REPLACE,
+    gnome_cmd_xfer_tmp_download (srcGFile,
+                                 destGFile,
+                                 G_FILE_COPY_OVERWRITE,
                                  GTK_SIGNAL_FUNC (on_file_downloaded_for_view),
                                  gFile);
 }

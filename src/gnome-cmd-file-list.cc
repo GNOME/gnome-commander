@@ -1248,14 +1248,13 @@ static void on_tmp_download_response (GtkWidget *w, gint id, TmpDlData *dldata)
 
         dldata->args[1] = (gpointer) path_str;
 
-        GnomeVFSURI *src_uri = gnome_vfs_uri_dup (dldata->f->get_uri());
+        auto sourceGFile = g_file_dup (dldata->f->get_gfile());
         GnomeCmdPlainPath path(path_str);
-        GnomeVFSURI *dest_uri = gnome_cmd_con_create_uri (get_home_con (), &path);
+        auto destGFile = gnome_cmd_con_create_gfile (get_home_con (), &path);
 
-        gnome_cmd_xfer_tmp_download (src_uri,
-                                     dest_uri,
-                                     GNOME_VFS_XFER_FOLLOW_LINKS,
-                                     GNOME_VFS_XFER_OVERWRITE_MODE_REPLACE,
+        gnome_cmd_xfer_tmp_download (sourceGFile,
+                                     destGFile,
+                                     G_FILE_COPY_OVERWRITE,
                                      GTK_SIGNAL_FUNC (do_mime_exec_single),
                                      dldata->args);
     }
