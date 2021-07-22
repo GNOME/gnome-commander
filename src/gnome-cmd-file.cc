@@ -170,7 +170,8 @@ GnomeCmdFile *gnome_cmd_file_new (GFileInfo *gFileInfo, GnomeCmdDir *dir)
 GnomeCmdFile *gnome_cmd_file_new_from_gfile (GFile *gFile)
 {
     g_return_val_if_fail (gFile != nullptr, nullptr);
-    GError *error;
+    g_return_val_if_fail (G_IS_FILE(gFile), nullptr);
+    GError *error = nullptr;
 
     auto gFileInfo = g_file_query_info(gFile, "*", G_FILE_QUERY_INFO_NONE, nullptr, &error);
     if (!gFileInfo || error)
@@ -591,8 +592,9 @@ GFile *GnomeCmdFile::get_gfile(const gchar *name)
         else
             g_assert ("Non directory file without owning directory");
     }
-
-    return gnome_cmd_dir_get_child_gfile (::get_parent_dir (this), name ? name : g_file_get_basename(gFile));
+    auto filename = g_file_get_basename(gFile);
+    return gnome_cmd_dir_get_child_gfile (::get_parent_dir (this), name ? name : filename);
+    g_free(filename);
 }
 
 
