@@ -1812,6 +1812,12 @@ static void save_tabs(GSettings *gSettings, const char *gSettingsKey)
         g_list_free (tabs);
     }
     fileListTabs = g_variant_builder_end (&gVariantBuilder);
+
+    if (!fileListTabs)
+    {
+        return;
+    }
+
     g_settings_set_value(gSettings, gSettingsKey, fileListTabs);
 }
 
