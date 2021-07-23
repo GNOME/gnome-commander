@@ -142,7 +142,7 @@ static gboolean update_xfer_gui (XferData *xferData)
 
     if (xferData->problem && xferData->error)
     {
-        gchar *msg = g_strdup_printf (_("Error while transfering “%s”\n\n%s"),
+        gchar *msg = g_strdup_printf (_("Error while transferring “%s”\n\n%s"),
                                         xferData->problem_file_name,
                                         xferData->error->message);
 
