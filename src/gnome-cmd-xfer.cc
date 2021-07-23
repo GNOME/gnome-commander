@@ -286,7 +286,7 @@ inline gboolean file_is_already_in_dir (GnomeVFSURI *uri, GnomeCmdDir *dir)
 
 
 void
-gnome_cmd_xfer_uris_start (GList *src_uri_list,
+gnome_cmd_xfer_uris_start (GList *srcGFileGList,
                            GnomeCmdDir *to_dir,
                            GnomeCmdFileList *src_fl,
                            GList *src_files,
@@ -440,25 +440,25 @@ gnome_cmd_xfer_tmp_download (GFile *srcGFile,
 }
 
 void
-gnome_cmd_xfer_start (GList *src_files,
-                      GnomeCmdDir *to_dir,
-                      GnomeCmdFileList *src_fl,
-                      gchar *dest_fn,
+gnome_cmd_xfer_start (GList *srcGnomeCmdFileGList,
+                      GnomeCmdDir *toGnomeCmdDir,
+                      GnomeCmdFileList *srcGnomeCmdFileList,
+                      gchar *destFileName,
                       GnomeVFSXferOptions xferOptions,
                       GnomeVFSXferOverwriteMode xferOverwriteMode,
                       GtkSignalFunc on_completed_func,
                       gpointer on_completed_data)
 {
-    g_return_if_fail (src_files != nullptr);
-    g_return_if_fail (GNOME_CMD_IS_DIR (to_dir));
+    g_return_if_fail (srcGnomeCmdFileGList != nullptr);
+    g_return_if_fail (GNOME_CMD_IS_DIR (toGnomeCmdDir));
 
-    GList *srcGFileList = gnome_cmd_file_list_to_gfile_list (src_files);
+    GList *srcGFileList = gnome_cmd_file_list_to_gfile_list (srcGnomeCmdFileGList);
 
     gnome_cmd_xfer_uris_start (srcGFileList,
-                               to_dir,
-                               src_fl,
-                               src_files,
-                               dest_fn,
+                               toGnomeCmdDir,
+                               srcGnomeCmdFileList,
+                               srcGnomeCmdFileGList,
+                               destFileName,
                                xferOptions,
                                xferOverwriteMode,
                                on_completed_func,
