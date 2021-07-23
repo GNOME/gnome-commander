@@ -286,7 +286,7 @@ inline gboolean file_is_already_in_dir (GnomeVFSURI *uri, GnomeCmdDir *dir)
 
 
 void
-gnome_cmd_xfer_uris_start (GList *srcGFileGList,
+gnome_cmd_xfer_gfiles_start (GList *srcGFileGList,
                            GnomeCmdDir *to_dir,
                            GnomeCmdFileList *src_fl,
                            GList *src_files,
@@ -454,7 +454,7 @@ gnome_cmd_xfer_start (GList *srcGnomeCmdFileGList,
 
     GList *srcGFileList = gnome_cmd_file_list_to_gfile_list (srcGnomeCmdFileGList);
 
-    gnome_cmd_xfer_uris_start (srcGFileList,
+    gnome_cmd_xfer_gfiles_start (srcGFileList,
                                toGnomeCmdDir,
                                srcGnomeCmdFileList,
                                srcGnomeCmdFileGList,

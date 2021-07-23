@@ -79,7 +79,7 @@ gnome_cmd_xfer_start (GList *src_files,
 
 
 void
-gnome_cmd_xfer_uris_start (GList *src_uri_list,
+gnome_cmd_xfer_gfiles_start (GList *src_uri_list,
                            GnomeCmdDir *to,
                            GnomeCmdFileList *src_fl,
                            GList *src_files,

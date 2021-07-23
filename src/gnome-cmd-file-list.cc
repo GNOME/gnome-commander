@@ -3248,7 +3248,7 @@ void GnomeCmdFileList::drop_files(GnomeVFSXferOptions xferOptions, GList *uri_li
     g_return_if_fail (GNOME_CMD_IS_DIR (dir));
 
     // start the xfer
-    gnome_cmd_xfer_uris_start (uri_list,
+    gnome_cmd_xfer_gfiles_start (uri_list,
                                gnome_cmd_dir_ref (dir),
                                nullptr,
                                nullptr,
