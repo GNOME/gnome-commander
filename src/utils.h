@@ -225,7 +225,6 @@ GList *gnome_cmd_file_list_to_gfile_list (GList *files);
 
 int is_dir_existing(const gchar *dpath);
 gboolean create_dir_if_needed (const gchar *dpath);
-void fix_uri (GnomeVFSURI *uri);
 
 inline gboolean uri_is_valid (const gchar *uri)
 {

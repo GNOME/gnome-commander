@@ -857,36 +857,6 @@ gboolean create_dir_if_needed (const gchar *dpath)
 }
 
 
-void fix_uri (GnomeVFSURI *uri)
-{
-#ifdef FIX_PW_HACK
-    gchar *p, *t;
-    const gchar *hn, *pw;
-
-    hn = gnome_vfs_uri_get_host_name (uri);
-    if (!hn) return;
-
-    pw = gnome_vfs_uri_get_password (uri);
-
-    t = g_strdup (hn);
-    p = strrchr(t,'@');
-    if (p && p[1] != '\0')
-    {
-        gchar *hn2;
-        gchar *pw2;
-        *p = '\0';
-        hn2 = g_strdup (p+1);
-        pw2 = g_strdup_printf ("%s@%s", pw, t);
-        gnome_vfs_uri_set_host_name (uri, hn2);
-        gnome_vfs_uri_set_password (uri, pw2);
-        g_free (hn2);
-        g_free (pw2);
-    }
-    g_free (t);
-#endif
-}
-
-
 GList *patlist_new (const gchar *pattern_string)
 {
     g_return_val_if_fail (pattern_string != NULL, NULL);
