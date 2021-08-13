@@ -54,6 +54,8 @@ GnomeCmdPath *GnomeCmdPlainPath::get_parent()
 
 GnomeCmdPath *GnomeCmdPlainPath::get_child(const gchar *child)
 {
+    g_return_val_if_fail(child != nullptr, nullptr);
+
     auto fullPath = *path == '/'
                         ? *child != '/' && strlen(path) > 1
                             ? g_strconcat(path, G_DIR_SEPARATOR_S, child, nullptr)
