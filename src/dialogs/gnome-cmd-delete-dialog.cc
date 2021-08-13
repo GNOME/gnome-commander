@@ -48,7 +48,7 @@ struct DeleteData
 
     gboolean problem{FALSE};              // signals to the main thread that the work thread is waiting for an answer on what to do
     gint problem_action;                  // where the answer is delivered
-    const gchar *problem_file_name;       // the filename of the file that can't be deleted
+    const gchar *problemFileName;         // the filename of the file that can't be deleted
     GError *error{nullptr};               // the cause that the file cant be deleted
     GThread *thread{nullptr};             // the work thread
     GList *gnomeCmdFiles{nullptr};        // the GnomeCmdFiles that should be deleted (can be folders, too)
@@ -83,7 +83,7 @@ static void delete_progress_update (DeleteData *deleteData)
         while (deleteData->problem_action == -1)
             g_thread_yield ();
         g_mutex_lock (&deleteData->mutex);
-        deleteData->problem_file_name = nullptr;
+        deleteData->problemFileName = nullptr;
         g_clear_error (&(deleteData->error));
     }
 
@@ -191,7 +191,7 @@ static gboolean perform_delete_operation_r(DeleteData *deleteData, GList *gnomeC
         {
                 g_warning ("Failed to measure disk usage of %s: %s", g_file_peek_path (gFile), tmpError->message);
                 g_propagate_error (&(deleteData->error), tmpError);
-                deleteData->problem_file_name = g_file_peek_path(gFile);
+                deleteData->problemFileName = g_file_peek_path(gFile);
                 delete_progress_update(deleteData);
                 return FALSE;
         }
@@ -206,7 +206,7 @@ static gboolean perform_delete_operation_r(DeleteData *deleteData, GList *gnomeC
             {
                 g_warning ("Failed to delete %s: %s", g_file_peek_path (gFile), tmpError->message);
                 g_propagate_error (&(deleteData->error), tmpError);
-                deleteData->problem_file_name = g_file_peek_path(gFile);
+                deleteData->problemFileName = g_file_peek_path(gFile);
                 delete_progress_update(deleteData);
                 if (deleteData->stop)
                     return FALSE;
@@ -292,7 +292,7 @@ static gboolean update_delete_status_widgets (DeleteData *deleteData)
     if (deleteData->problem)
     {
         gchar *msg = g_strdup_printf (_("Error while deleting “%s”\n\n%s"),
-                                        deleteData->problem_file_name,
+                                        deleteData->problemFileName,
                                         deleteData->error->message);
 
         deleteData->problem_action = run_simple_dialog (
