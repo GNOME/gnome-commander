@@ -184,7 +184,7 @@ inline gboolean state_is_ctrl_alt_shift (gint state)
     return (state & GDK_SHIFT_MASK) && (state & GDK_CONTROL_MASK) && (state & GDK_MOD1_MASK);
 }
 
-GList *strings_to_uris (gchar *data);
+GList *uri_strings_to_gfiles (gchar *data);
 
 gchar *create_nice_size_str (guint64 size);
 

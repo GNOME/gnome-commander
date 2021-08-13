@@ -412,31 +412,34 @@ void clear_event_key (GdkEventKey *event)
 
 
 /**
- * Transform a "\r\n" separated string into a GList with GnomeVFSURI's
+ * Transform a "\r\n" separated string into a GList with GFiles's
  */
-GList *strings_to_uris (gchar *data)
+GList *uri_strings_to_gfiles (gchar *data)
 {
-    GList *uri_list = NULL;
+    GList *gFileGList = NULL;
     gchar **filenames = g_strsplit (data, "\r\n", STRINGS_TO_URIS_CHUNK);
 
     for (gint i=0; filenames[i] != NULL; i++)
     {
         if (i == STRINGS_TO_URIS_CHUNK)
         {
-            uri_list = g_list_concat (uri_list, strings_to_uris (filenames[i]));
+            gFileGList = g_list_concat (gFileGList, uri_strings_to_gfiles (filenames[i]));
             break;
         }
 
         gchar *fn = g_strdup (filenames[i]);
-        GnomeVFSURI *uri = gnome_vfs_uri_new (fn);
-        fix_uri (uri);
-        if (uri)
-            uri_list = g_list_append (uri_list, uri);
+        if (!fn || strcmp(fn, "") == 0)
+        {
+            g_free(fn);
+            continue;
+        }
+        auto gFile = g_file_new_for_uri(fn);
+            gFileGList = g_list_append (gFileGList, gFile);
         g_free (fn);
     }
 
     g_strfreev (filenames);
-    return uri_list;
+    return gFileGList;
 }
 
 GList *string_history_add (GList *in, const gchar *value, guint maxsize)

@@ -3113,8 +3113,8 @@ static void drag_data_received (GtkWidget *widget, GdkDragContext *context, gint
             ? gnome_cmd_dir_get_parent (to)
             : gnome_cmd_dir_get_child (to, g_file_info_get_display_name(f->gFileInfo));
 
-    // transform the drag data to a list with URIs
-    GList *uri_list = strings_to_uris ((gchar *) selection_data->data);
+    // transform the drag data to a list with GFiles
+    GList *gFileGlist = uri_strings_to_gfiles ((gchar *) selection_data->data);
 
     GdkModifierType mask;
 
