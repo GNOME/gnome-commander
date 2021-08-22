@@ -320,7 +320,7 @@ static gboolean update_delete_status_widgets (DeleteData *deleteData)
 }
 
 
-inline void do_delete (DeleteData *deleteData)
+void do_delete (DeleteData *deleteData)
 {
     g_return_if_fail(GNOME_CMD_IS_FILE(deleteData->gnomeCmdFiles->data));
 

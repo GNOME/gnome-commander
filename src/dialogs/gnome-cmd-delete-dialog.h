@@ -42,4 +42,6 @@ struct DeleteData
     guint64 itemsTotal{0};                // total number of items which should be deleted
 };
 
+void do_delete (DeleteData *deleteData);
+
 void gnome_cmd_delete_dialog_show (GList *files);
