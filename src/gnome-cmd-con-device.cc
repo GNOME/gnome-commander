@@ -390,13 +390,24 @@ static GnomeVFSURI *dev_create_uri (GnomeCmdCon *con, GnomeCmdPath *path)
 }
 
 
-static GFile *dev_create_gfile (GnomeCmdCon *con, GnomeCmdPath *unused)
+static GFile *dev_create_gfile (GnomeCmdCon *con, GnomeCmdPath *gnomeCmdPath)
 {
     g_return_val_if_fail (GNOME_CMD_IS_CON_DEVICE (con), nullptr);
 
+    GFile *newGFile = nullptr;
     GnomeCmdConDevice *dev_con = GNOME_CMD_CON_DEVICE (con);
 
-    return g_mount_get_default_location (dev_con->priv->gMount);
+    if (gnomeCmdPath)
+    {
+        auto gMountGFile = g_mount_get_default_location (dev_con->priv->gMount);
+        newGFile = g_file_get_child (gMountGFile, gnomeCmdPath->get_path());
+        g_object_unref(gMountGFile);
+    }
+    else
+    {
+        newGFile = g_mount_get_default_location (dev_con->priv->gMount);
+    }
+    return newGFile;
 }
 
 
