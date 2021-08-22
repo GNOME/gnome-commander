@@ -40,29 +40,6 @@ using namespace std;
 #define DELETE_ERROR_ACTION_RETRY 1
 #define DELETE_ERROR_ACTION_SKIP  2
 
-struct DeleteData
-{
-    GtkWidget *progbar;
-    GtkWidget *proglabel;
-    GtkWidget *progwin;
-
-    gboolean problem{FALSE};              // signals to the main thread that the work thread is waiting for an answer on what to do
-    gint problem_action;                  // where the answer is delivered
-    const gchar *problemFileName;         // the filename of the file that can't be deleted
-    GError *error{nullptr};               // the cause that the file cant be deleted
-    GThread *thread{nullptr};             // the work thread
-    GList *gnomeCmdFiles{nullptr};        // the GnomeCmdFiles that should be deleted (can be folders, too)
-    GList *deletedGnomeCmdFiles{nullptr}; // this is the real list of deleted files (can be different from the list above)
-    gboolean stop{FALSE};                 // tells the work thread to stop working
-    gboolean deleteDone{FALSE};           // tells the main thread that the work thread is done
-    gchar *msg{nullptr};                  // a message descriping the current status of the delete operation
-    gfloat progress{0};                   // a float values between 0 and 1 representing the progress of the whole operation
-    GMutex mutex{nullptr};                // used to sync the main and worker thread
-    guint64 itemsDeleted{0};              // items deleted in the current run
-    guint64 itemsTotal{0};                // total number of items which should be deleted
-};
-
-
 inline void cleanup (DeleteData *deleteData)
 {
     gnome_cmd_file_list_free (deleteData->gnomeCmdFiles);
