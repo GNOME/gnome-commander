@@ -662,7 +662,7 @@ gboolean app_needs_terminal (GnomeCmdFile *f)
     return needTerminal;
 }
 
-
+// ToDo: This function should be reworked using GIO / GFile
 gchar *get_temp_download_filepath (const gchar *fname)
 {
     const gchar *tmp_dir = g_get_tmp_dir ();
