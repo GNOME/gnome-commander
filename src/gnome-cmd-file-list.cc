@@ -3077,9 +3077,9 @@ inline void restore_drag_indicator (GnomeCmdFileList *fl)
 }
 
 
-static void unref_uri_list (GList *list)
+static void unref_gfile_list (GList *list)
 {
-    g_list_foreach (list, (GFunc) gnome_vfs_uri_unref, nullptr);
+    g_list_foreach (list, (GFunc) g_object_unref, nullptr);
 }
 
 
