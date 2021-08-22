@@ -266,8 +266,11 @@ static gboolean update_delete_status_widgets (DeleteData *deleteData)
 {
     g_mutex_lock (&deleteData->mutex);
 
-    gtk_label_set_text (GTK_LABEL (deleteData->proglabel), deleteData->msg);
-    gtk_progress_set_percentage (GTK_PROGRESS (deleteData->progbar), deleteData->progress);
+    if (deleteData->progwin)
+    {
+        gtk_label_set_text (GTK_LABEL (deleteData->proglabel), deleteData->msg);
+        gtk_progress_set_percentage (GTK_PROGRESS (deleteData->progbar), deleteData->progress);
+    }
 
     if (deleteData->problem)
     {
@@ -303,7 +306,10 @@ static gboolean update_delete_status_widgets (DeleteData *deleteData)
             }
         }
 
-        gtk_widget_destroy (deleteData->progwin);
+        if (deleteData->progwin)
+        {
+            gtk_widget_destroy (deleteData->progwin);
+        }
 
         cleanup (deleteData);
 
