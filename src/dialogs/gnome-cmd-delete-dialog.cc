@@ -202,6 +202,9 @@ static gboolean perform_delete_operation_r(DeleteData *deleteData, GList *gnomeC
             gboolean deleted = TRUE;
             gboolean dirIsEmpty = TRUE;
 
+            if (!GNOME_CMD_IS_DIR (gnomeCmdFile))
+                return false;
+
             auto gnomeCmdDir = gnome_cmd_dir_ref (GNOME_CMD_DIR (gnomeCmdFile));
             gnome_cmd_dir_list_files (gnomeCmdDir, FALSE);
             for (GList *subFolderItem = gnome_cmd_dir_get_files (gnomeCmdDir); subFolderItem; subFolderItem = subFolderItem->next)
