@@ -134,16 +134,16 @@ inline void create_delete_progress_win (DeleteData *deleteData)
  * This function recursively removes files of a given GnomeCmdFile list and stores
  * possible errors or the progress information in the deleteData object.
  */
-static gboolean perform_delete_operation_r(DeleteData *deleteData, GList *gnomeCmdFileList)
+static gboolean perform_delete_operation_r(DeleteData *deleteData, GList *gnomeCmdFileGList)
 {
-    for (GList *gCmdFileListItem = gnomeCmdFileList; gCmdFileListItem; gCmdFileListItem = gCmdFileListItem->next)
+    for (GList *gCmdFileGListItem = gnomeCmdFileGList; gCmdFileGListItem; gCmdFileGListItem = gCmdFileGListItem->next)
     {
         if (deleteData->stop)
         {
             return FALSE;
         }
 
-        auto gnomeCmdFile = (GnomeCmdFile *) gCmdFileListItem->data;
+        auto gnomeCmdFile = (GnomeCmdFile *) gCmdFileGListItem->data;
 
         g_return_val_if_fail (GNOME_CMD_IS_FILE(gnomeCmdFile), FALSE);
         g_return_val_if_fail (G_IS_FILE_INFO(gnomeCmdFile->gFileInfo), FALSE);
@@ -282,7 +282,6 @@ static gboolean update_delete_status_widgets (DeleteData *deleteData)
     }
 
     g_mutex_unlock (&deleteData->mutex);
-
 
     if (deleteData->deleteDone)
     {
