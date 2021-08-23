@@ -53,10 +53,10 @@ GtkWidget *gnome_cmd_xfer_progress_win_new (guint no_of_files=0);
 GtkType gnome_cmd_xfer_progress_win_get_type ();
 
 void gnome_cmd_xfer_progress_win_set_total_progress (GnomeCmdXferProgressWin *win,
-                                                     GnomeVFSFileSize file_bytes_copied,
-                                                     GnomeVFSFileSize file_size,
-                                                     GnomeVFSFileSize bytes_copied,
-                                                     GnomeVFSFileSize bytes_total);
+                                                     guint64 file_bytes_copied,
+                                                     guint64 file_size,
+                                                     guint64 bytes_copied,
+                                                     guint64 bytes_total);
 
 void gnome_cmd_xfer_progress_win_set_msg (GnomeCmdXferProgressWin *win, const gchar *string);
 

@@ -157,17 +157,17 @@ GtkType gnome_cmd_xfer_progress_win_get_type ()
 
 
 void gnome_cmd_xfer_progress_win_set_total_progress (GnomeCmdXferProgressWin *win,
-                                                     GnomeVFSFileSize file_bytes_copied,
-                                                     GnomeVFSFileSize file_size,
+                                                     guint64 file_bytes_copied,
+                                                     guint64 file_size,
                                                      guint64 bytes_copied,
                                                      guint64 bytes_total)
 {
     gfloat total_prog = bytes_total>0 ? (gdouble) bytes_copied/(gdouble) bytes_total : -1.0f;
     gtk_progress_set_percentage (GTK_PROGRESS (win->totalprog), total_prog);
 
-    if (win->fileprog)
+    if (win->fileprog && file_size > 0)
     {
-        gfloat file_prog = file_size>0 ? (gdouble) file_bytes_copied/(gdouble) file_size : -1.0f;
+        gfloat file_prog = (gdouble) file_bytes_copied/(gdouble) file_size;
         gtk_progress_set_percentage (GTK_PROGRESS (win->fileprog), file_prog);
     }
 
