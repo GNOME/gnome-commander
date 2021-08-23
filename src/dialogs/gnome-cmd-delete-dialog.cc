@@ -320,7 +320,7 @@ static gboolean update_delete_status_widgets (DeleteData *deleteData)
 }
 
 
-void do_delete (DeleteData *deleteData)
+void do_delete (DeleteData *deleteData, gboolean showProgress = true)
 {
     g_return_if_fail(GNOME_CMD_IS_FILE(deleteData->gnomeCmdFiles->data));
 
@@ -347,7 +347,8 @@ void do_delete (DeleteData *deleteData)
         deleteData->itemsTotal += num_files + num_dirs;
     }
 
-    create_delete_progress_win (deleteData);
+    if (showProgress)
+        create_delete_progress_win (deleteData);
 
     deleteData->thread = g_thread_new (NULL, (GThreadFunc) perform_delete_operation, deleteData);
     g_timeout_add (gnome_cmd_data.gui_update_rate, (GSourceFunc) update_delete_status_widgets, deleteData);
