@@ -375,7 +375,8 @@ static GList *remove_items_from_list_to_be_deleted(GList *files)
     for (auto file = files; file; file = file->next)
     {
         auto gnomeCmdFile = (GnomeCmdFile*) file->data;
-        if (gnomeCmdFile->GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE) == G_FILE_TYPE_DIRECTORY)
+        if (!gnomeCmdFile->GetGfileAttributeBoolean(G_FILE_ATTRIBUTE_STANDARD_IS_SYMLINK)
+            && gnomeCmdFile->GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE) == G_FILE_TYPE_DIRECTORY)
         {
             GError *error;
             error = nullptr;
