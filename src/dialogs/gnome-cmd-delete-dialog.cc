@@ -43,7 +43,11 @@ using namespace std;
 inline void cleanup (DeleteData *deleteData)
 {
     gnome_cmd_file_list_free (deleteData->gnomeCmdFiles);
-    gnome_cmd_file_list_free (deleteData->deletedGnomeCmdFiles);
+
+    //Just set deletedGnomeCmdFiles back to null as it is a subset of gnomeCmdFiles
+    g_list_free (deleteData->deletedGnomeCmdFiles);
+    deleteData->deletedGnomeCmdFiles = nullptr;
+
     g_free (deleteData);
 }
 
@@ -503,6 +507,9 @@ void gnome_cmd_delete_dialog_show (GList *files)
     DeleteData *deleteData = g_new0 (DeleteData, 1);
 
     deleteData->gnomeCmdFiles = files;
+
+    // Refing files for the delete procedure
+    gnome_cmd_file_list_ref (deleteData->gnomeCmdFiles);
 
     do_delete (deleteData);
 }
