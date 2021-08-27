@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander 1.3.0\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-commander/issues\n"
-"POT-Creation-Date: 2021-07-24 20:47+0000\n"
-"PO-Revision-Date: 2021-07-25 18:00+0300\n"
+"POT-Creation-Date: 2021-08-27 18:14+0000\n"
+"PO-Revision-Date: 2021-08-28 00:07+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -1545,7 +1545,7 @@ msgstr "Файл"
 #: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:369
 #: src/dialogs/gnome-cmd-options-dialog.cc:1497
 #: src/dialogs/gnome-cmd-options-dialog.cc:2158
-#: src/dialogs/gnome-cmd-prepare-copy-dialog.cc:129
+#: src/dialogs/gnome-cmd-prepare-copy-dialog.cc:140
 #: src/dialogs/gnome-cmd-prepare-move-dialog.cc:115
 #: src/dialogs/gnome-cmd-remote-dialog.cc:442 src/gnome-cmd-user-actions.cc:252
 msgid "Options"
@@ -1819,7 +1819,7 @@ msgstr "Безпечний WebDAV (HTTPS)"
 msgid "Custom location"
 msgstr "Інше місце"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:94
+#: src/dialogs/gnome-cmd-delete-dialog.cc:71
 #, c-format
 msgid "Deleted %lu of %lu file"
 msgid_plural "Deleted %lu of %lu files"
@@ -1828,11 +1828,11 @@ msgstr[1] "Вилучено %lu з %lu файлів"
 msgstr[2] "Вилучено %lu з %lu файлів"
 msgstr[3] "Вилучено %lu з %lu файла"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:129
+#: src/dialogs/gnome-cmd-delete-dialog.cc:106
 msgid "Deleting…"
 msgstr "Вилучення…"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:294
+#: src/dialogs/gnome-cmd-delete-dialog.cc:277
 #, c-format
 msgid ""
 "Error while deleting “%s”\n"
@@ -1843,28 +1843,38 @@ msgstr ""
 "\n"
 "%s"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:299
-#: src/dialogs/gnome-cmd-delete-dialog.cc:412
+#: src/dialogs/gnome-cmd-delete-dialog.cc:282
+#: src/dialogs/gnome-cmd-delete-dialog.cc:399
 msgid "Delete problem"
 msgstr "Проблема з вилученням"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:300
-#: src/dialogs/gnome-cmd-delete-dialog.cc:412 src/gnome-cmd-xfer.cc:151
+#: src/dialogs/gnome-cmd-delete-dialog.cc:283
+#: src/dialogs/gnome-cmd-delete-dialog.cc:399 src/gnome-cmd-xfer.cc:117
+#: src/gnome-cmd-xfer.cc:157 src/gnome-cmd-xfer.cc:160
+#: src/gnome-cmd-xfer.cc:212 src/gnome-cmd-xfer.cc:215
+#: src/gnome-cmd-xfer.cc:272 src/gnome-cmd-xfer.cc:275
+#: src/gnome-cmd-xfer.cc:327 src/gnome-cmd-xfer.cc:330
 msgid "Abort"
 msgstr "Перервати"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:300
-#: src/gnome-cmd-file-selector.cc:1393 src/gnome-cmd-xfer.cc:151
+#: src/dialogs/gnome-cmd-delete-dialog.cc:283
+#: src/gnome-cmd-file-selector.cc:1393 src/gnome-cmd-xfer.cc:117
+#: src/gnome-cmd-xfer.cc:157 src/gnome-cmd-xfer.cc:160
+#: src/gnome-cmd-xfer.cc:212 src/gnome-cmd-xfer.cc:215
+#: src/gnome-cmd-xfer.cc:272 src/gnome-cmd-xfer.cc:275
+#: src/gnome-cmd-xfer.cc:327 src/gnome-cmd-xfer.cc:330
 msgid "Retry"
 msgstr "Повторити"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:300
-#: src/dialogs/gnome-cmd-delete-dialog.cc:425
-#: src/gnome-cmd-file-selector.cc:1393 src/gnome-cmd-xfer.cc:151
+#: src/dialogs/gnome-cmd-delete-dialog.cc:283
+#: src/dialogs/gnome-cmd-delete-dialog.cc:412
+#: src/gnome-cmd-file-selector.cc:1393 src/gnome-cmd-xfer.cc:117
+#: src/gnome-cmd-xfer.cc:157 src/gnome-cmd-xfer.cc:212
+#: src/gnome-cmd-xfer.cc:272 src/gnome-cmd-xfer.cc:327
 msgid "Skip"
 msgstr "Пропустити"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:410
+#: src/dialogs/gnome-cmd-delete-dialog.cc:397
 #, c-format
 msgid ""
 "Error while deleting: \n"
@@ -1875,42 +1885,42 @@ msgstr ""
 "\n"
 "%s"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:422
+#: src/dialogs/gnome-cmd-delete-dialog.cc:409
 #, c-format
 msgid "The directory “%s” is not empty. Do you really want to delete it?"
 msgstr "Каталог «%s» містить дані. Ви справді хочете його вилучити?"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:423
-#: src/dialogs/gnome-cmd-delete-dialog.cc:427
-#: src/dialogs/gnome-cmd-delete-dialog.cc:501
-#: src/dialogs/gnome-cmd-delete-dialog.cc:502
+#: src/dialogs/gnome-cmd-delete-dialog.cc:410
+#: src/dialogs/gnome-cmd-delete-dialog.cc:414
+#: src/dialogs/gnome-cmd-delete-dialog.cc:488
+#: src/dialogs/gnome-cmd-delete-dialog.cc:489
 #: src/dialogs/gnome-cmd-options-dialog.cc:1039
 #: src/gnome-cmd-file-popmenu.cc:730 src/gnome-cmd-main-win.cc:243
 #: src/gnome-cmd-user-actions.cc:213
 msgid "Delete"
 msgstr "Видалити"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:425
-#: src/dialogs/gnome-cmd-delete-dialog.cc:502 src/gnome-cmd-file-list.cc:1289
-#: src/gnome-cmd-file-list.cc:1318 src/gnome-cmd-file-selector.cc:1393
+#: src/dialogs/gnome-cmd-delete-dialog.cc:412
+#: src/dialogs/gnome-cmd-delete-dialog.cc:489 src/gnome-cmd-file-list.cc:1312
+#: src/gnome-cmd-file-list.cc:1341 src/gnome-cmd-file-selector.cc:1393
 #: src/gnome-cmd-user-actions.cc:819
 msgid "Cancel"
 msgstr "Скасувати"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:426
+#: src/dialogs/gnome-cmd-delete-dialog.cc:413
 msgid "Delete All"
 msgstr "Вилучити все"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:426
+#: src/dialogs/gnome-cmd-delete-dialog.cc:413
 msgid "Delete Remaining"
 msgstr "Вилучити решту"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:492
+#: src/dialogs/gnome-cmd-delete-dialog.cc:479
 #, c-format
 msgid "Do you want to delete “%s”?"
 msgstr "Хочете вилучити «%s»?"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:495
+#: src/dialogs/gnome-cmd-delete-dialog.cc:482
 #, c-format
 msgid "Do you want to delete the selected file?"
 msgid_plural "Do you want to delete the %d selected files?"
@@ -2141,7 +2151,7 @@ msgid "No file name entered"
 msgstr "Не введена назва файлу"
 
 #: src/dialogs/gnome-cmd-make-copy-dialog.cc:137
-#: src/dialogs/gnome-cmd-prepare-copy-dialog.cc:139
+#: src/dialogs/gnome-cmd-prepare-copy-dialog.cc:150
 #, c-format
 msgid "Copy “%s” to"
 msgstr "Копіювати «%s» до"
@@ -2642,7 +2652,7 @@ msgstr "Копіювання з перезаписом"
 #. Create prepare copy specific widgets
 #: src/dialogs/gnome-cmd-options-dialog.cc:1059
 #: src/dialogs/gnome-cmd-options-dialog.cc:1079
-#: src/dialogs/gnome-cmd-prepare-copy-dialog.cc:91
+#: src/dialogs/gnome-cmd-prepare-copy-dialog.cc:102
 #: src/dialogs/gnome-cmd-prepare-move-dialog.cc:84
 msgid "Silently"
 msgstr "Без перепитування"
@@ -2654,7 +2664,9 @@ msgstr "Перепитати"
 
 #: src/dialogs/gnome-cmd-options-dialog.cc:1067
 #: src/dialogs/gnome-cmd-options-dialog.cc:1087
-#: src/gnome-cmd-file-selector.cc:1393
+#: src/gnome-cmd-file-selector.cc:1393 src/gnome-cmd-xfer.cc:157
+#: src/gnome-cmd-xfer.cc:212 src/gnome-cmd-xfer.cc:272
+#: src/gnome-cmd-xfer.cc:327
 msgid "Skip all"
 msgstr "Пропустити все"
 
@@ -2922,33 +2934,33 @@ msgstr "Позначити за взірцем"
 msgid "Unselect Using Pattern"
 msgstr "Зняти позначення за взірцем"
 
-#: src/dialogs/gnome-cmd-prepare-copy-dialog.cc:85
+#: src/dialogs/gnome-cmd-prepare-copy-dialog.cc:96
 #: src/gnome-cmd-file-popmenu.cc:729 src/gnome-cmd-main-win.cc:241
 #: src/gnome-cmd-user-actions.cc:210
 msgid "Copy"
 msgstr "Копіювати"
 
-#: src/dialogs/gnome-cmd-prepare-copy-dialog.cc:98
+#: src/dialogs/gnome-cmd-prepare-copy-dialog.cc:109
 #: src/dialogs/gnome-cmd-prepare-move-dialog.cc:91
 msgid "Query First"
 msgstr "Перепитувати"
 
-#: src/dialogs/gnome-cmd-prepare-copy-dialog.cc:105
+#: src/dialogs/gnome-cmd-prepare-copy-dialog.cc:116
 #: src/dialogs/gnome-cmd-prepare-move-dialog.cc:98
 msgid "Skip All"
 msgstr "Пропустити все"
 
-#: src/dialogs/gnome-cmd-prepare-copy-dialog.cc:115
+#: src/dialogs/gnome-cmd-prepare-copy-dialog.cc:126
 msgid "Follow Links"
 msgstr "Прямувати за посиланнями"
 
 #. Customize prepare xfer widgets
-#: src/dialogs/gnome-cmd-prepare-copy-dialog.cc:124
+#: src/dialogs/gnome-cmd-prepare-copy-dialog.cc:135
 #: src/dialogs/gnome-cmd-prepare-move-dialog.cc:110
 msgid "Overwrite Files"
 msgstr "Перезаписувати файли"
 
-#: src/dialogs/gnome-cmd-prepare-copy-dialog.cc:142
+#: src/dialogs/gnome-cmd-prepare-copy-dialog.cc:153
 #, c-format
 msgid "copy %d file to"
 msgid_plural "copy %d files to"
@@ -3487,27 +3499,27 @@ msgstr ""
 msgid "Volume successfully unmounted"
 msgstr "Том успішно демонтовано"
 
-#: src/gnome-cmd-con-device.cc:522
+#: src/gnome-cmd-con-device.cc:533
 #, c-format
 msgid "Mounting %s"
 msgstr "Підключається %s"
 
-#: src/gnome-cmd-con-device.cc:539
+#: src/gnome-cmd-con-device.cc:550
 #, c-format
 msgid "Go to: %s (%s)"
 msgstr "Перейти до: %s (%s)"
 
-#: src/gnome-cmd-con-device.cc:541 src/gnome-cmd-con.h:211
+#: src/gnome-cmd-con-device.cc:552 src/gnome-cmd-con.h:211
 #, c-format
 msgid "Go to: %s"
 msgstr "Перейти до: %s"
 
-#: src/gnome-cmd-con-device.cc:542
+#: src/gnome-cmd-con-device.cc:553
 #, c-format
 msgid "Mount: %s"
 msgstr "Підключення: %s"
 
-#: src/gnome-cmd-con-device.cc:543
+#: src/gnome-cmd-con-device.cc:554
 #, c-format
 msgid "Unmount: %s"
 msgstr "Демонтування: %s"
@@ -3587,11 +3599,11 @@ msgstr "Додати поточний каталог"
 msgid "Manage bookmarks…"
 msgstr "Керування закладками…"
 
-#: src/gnome-cmd-file.cc:564
+#: src/gnome-cmd-file.cc:567
 msgid "_Open"
 msgstr "В_ідкрити"
 
-#: src/gnome-cmd-file.cc:567
+#: src/gnome-cmd-file.cc:570
 #, c-format
 msgid "_Open with “%s”"
 msgstr "В_ідкрити за допомогою «%s»"
@@ -3628,23 +3640,23 @@ msgstr "власник"
 msgid "gid"
 msgstr "група"
 
-#: src/gnome-cmd-file-list.cc:224
+#: src/gnome-cmd-file-list.cc:226
 msgid "/_Copy here"
 msgstr "/_Копіювати сюди"
 
-#: src/gnome-cmd-file-list.cc:225
+#: src/gnome-cmd-file-list.cc:227
 msgid "/_Move here"
 msgstr "/Пер_есунути сюди"
 
-#: src/gnome-cmd-file-list.cc:226
+#: src/gnome-cmd-file-list.cc:228
 msgid "/_Link here"
 msgstr "/_Створити посилання тут"
 
-#: src/gnome-cmd-file-list.cc:228
+#: src/gnome-cmd-file-list.cc:230
 msgid "/C_ancel"
 msgstr "/_Скасувати"
 
-#: src/gnome-cmd-file-list.cc:1286
+#: src/gnome-cmd-file-list.cc:1309
 #, c-format
 msgid ""
 "“%s” seems to be a binary executable file but it lacks the executable bit. "
@@ -3653,15 +3665,15 @@ msgstr ""
 "Здається, «%s» є виконуваним двійковим файлом, але для нього не встановлено "
 "біт виконання. Чи бажаєте ви встановити цей біт і запустити програму?"
 
-#: src/gnome-cmd-file-list.cc:1288
+#: src/gnome-cmd-file-list.cc:1311
 msgid "Make Executable?"
 msgstr "Зробити виконуваним?"
 
-#: src/gnome-cmd-file-list.cc:1289
+#: src/gnome-cmd-file-list.cc:1312
 msgid "OK"
 msgstr "Гаразд"
 
-#: src/gnome-cmd-file-list.cc:1316
+#: src/gnome-cmd-file-list.cc:1339
 #, c-format
 msgid ""
 "“%s” is an executable text file. Do you want to run it, or display its "
@@ -3670,33 +3682,29 @@ msgstr ""
 "«%s» є текстовим файлом зі встановленим бітом виконання. Хочете його "
 "виконати чи переглянути вміст?"
 
-#: src/gnome-cmd-file-list.cc:1317
+#: src/gnome-cmd-file-list.cc:1340
 msgid "Run or Display"
 msgstr "Виконати чи відобразити"
 
-#: src/gnome-cmd-file-list.cc:1318
+#: src/gnome-cmd-file-list.cc:1341
 msgid "Display"
 msgstr "Відобразити"
 
-#: src/gnome-cmd-file-list.cc:1318
+#: src/gnome-cmd-file-list.cc:1341
 msgid "Run"
 msgstr "Виконати"
 
-#: src/gnome-cmd-file-list.cc:1334
+#: src/gnome-cmd-file-list.cc:1357
 #, c-format
 msgid "No default application found for the file type %s."
 msgstr "Не знайдено типової програми для типу файлів %s."
 
-#: src/gnome-cmd-file-list.cc:1335
-#| msgid ""
-#| "Open the \"File types and programs\" page in the Control Center to add "
-#| "one."
+#: src/gnome-cmd-file-list.cc:1358
 msgid "Open the \"Applications\" page in the Control Center to add one."
 msgstr ""
-"Відкрийте сторінку «програми» у Центрі керування, щоб додати "
-"прив'язку."
+"Відкрийте сторінку «програми» у Центрі керування, щоб додати прив'язку."
 
-#: src/gnome-cmd-file-list.cc:1366
+#: src/gnome-cmd-file-list.cc:1389
 #, c-format
 msgid ""
 "%s does not know how to open remote file. Do you want to download the file "
@@ -3705,15 +3713,15 @@ msgstr ""
 "%s не знає, яким чином відкрити віддалений файл. Хочете завантажити файл до "
 "тимчасового каталогу, а потім відкрити його?"
 
-#: src/gnome-cmd-file-list.cc:1650
+#: src/gnome-cmd-file-list.cc:1673
 msgid "Directory listing failed."
 msgstr "Не вдалося вивести вміст каталогу."
 
-#: src/gnome-cmd-file-list.cc:1705
+#: src/gnome-cmd-file-list.cc:1728
 msgid "Failed to open connection."
 msgstr "Не вдалося відкрити з'єднання."
 
-#: src/gnome-cmd-file-list.cc:2425 src/gnome-cmd-file-list.cc:2440
+#: src/gnome-cmd-file-list.cc:2450 src/gnome-cmd-file-list.cc:2465
 msgid "Not an ordinary file."
 msgstr "Не є звичайним файлом."
 
@@ -3754,7 +3762,11 @@ msgstr "Відкрити за допо_могою…"
 msgid "Cut"
 msgstr "Вирізати"
 
-#: src/gnome-cmd-file-popmenu.cc:731
+#: src/gnome-cmd-file-popmenu.cc:731 src/gnome-cmd-xfer.cc:157
+#: src/gnome-cmd-xfer.cc:160 src/gnome-cmd-xfer.cc:212
+#: src/gnome-cmd-xfer.cc:215 src/gnome-cmd-xfer.cc:272
+#: src/gnome-cmd-xfer.cc:275 src/gnome-cmd-xfer.cc:327
+#: src/gnome-cmd-xfer.cc:330
 msgid "Rename"
 msgstr "Перей_менувати"
 
@@ -4628,12 +4640,13 @@ msgstr ""
 msgid "translator-credits"
 msgstr "Maxim Dziumanenko <mvd@mylinux.com.ua>"
 
-#: src/gnome-cmd-xfer.cc:145
+#: src/gnome-cmd-xfer.cc:116
+msgid "Transfer problem"
+msgstr "Проблема перенесення даних"
+
+#: src/gnome-cmd-xfer.cc:141 src/gnome-cmd-xfer.cc:256
+#: src/gnome-cmd-xfer.cc:471
 #, c-format
-#| msgid ""
-#| "Error while transfering “%s”\n"
-#| "\n"
-#| "%s"
 msgid ""
 "Error while transferring “%s”\n"
 "\n"
@@ -4643,29 +4656,118 @@ msgstr ""
 "\n"
 "%s"
 
-#: src/gnome-cmd-xfer.cc:150
-msgid "Transfer problem"
-msgstr "Проблема перенесення даних"
+#: src/gnome-cmd-xfer.cc:156 src/gnome-cmd-xfer.cc:159
+#: src/gnome-cmd-xfer.cc:211 src/gnome-cmd-xfer.cc:214
+#: src/gnome-cmd-xfer.cc:326 src/gnome-cmd-xfer.cc:329
+#| msgid "Copy File"
+msgid "Copy problem"
+msgstr "Проблема із копіюванням"
 
-#. if (xferData->cur_phase == GNOME_VFS_XFER_PHASE_COPYING)
-#. {
-#. if (xferData->prev_phase != GNOME_VFS_XFER_PHASE_COPYING)
-#. {
-#: src/gnome-cmd-xfer.cc:204
+#: src/gnome-cmd-xfer.cc:157 src/gnome-cmd-xfer.cc:160
+#: src/gnome-cmd-xfer.cc:272 src/gnome-cmd-xfer.cc:275
+#| msgid "Copying"
+msgid "Copy into"
+msgstr "Копіювати до"
+
+#: src/gnome-cmd-xfer.cc:157 src/gnome-cmd-xfer.cc:212
+#: src/gnome-cmd-xfer.cc:272 src/gnome-cmd-xfer.cc:327
+#| msgid "Rename"
+msgid "Rename all"
+msgstr "Перейменувати все"
+
+#: src/gnome-cmd-xfer.cc:199 src/gnome-cmd-xfer.cc:314
+#, c-format
+msgid ""
+"Overwrite file:\n"
+"\n"
+"<b>%s</b>\n"
+"<span color='dimgray' size='smaller'>%s</span>\n"
+"\n"
+"With:\n"
+"\n"
+"<b>%s</b>\n"
+"<span color='dimgray' size='smaller'>%s</span>"
+msgstr ""
+"Перезаписати файл:\n"
+"\n"
+"<b>%s</b>\n"
+"<span color='dimgray' size='smaller'>%s</span>\n"
+"\n"
+"Файлом:\n"
+"\n"
+"<b>%s</b>\n"
+"<span color='dimgray' size='smaller'>%s</span>"
+
+#: src/gnome-cmd-xfer.cc:212 src/gnome-cmd-xfer.cc:215
+#: src/gnome-cmd-xfer.cc:327 src/gnome-cmd-xfer.cc:330
+msgid "Replace"
+msgstr "Замінити"
+
+#: src/gnome-cmd-xfer.cc:212 src/gnome-cmd-xfer.cc:327
+#| msgid "Replace All"
+msgid "Replace all"
+msgstr "Замінити все"
+
+#: src/gnome-cmd-xfer.cc:271 src/gnome-cmd-xfer.cc:274
+#| msgid "Delete problem"
+msgid "Move problem"
+msgstr "Проблема із пересуванням"
+
+#: src/gnome-cmd-xfer.cc:431
 msgid "copying…"
 msgstr "копіювання…"
 
-#: src/gnome-cmd-xfer.cc:310
+#: src/gnome-cmd-xfer.cc:435
+#, c-format
+msgid "[file %ld of %ld] “%s”"
+msgstr "[файл %ld з %ld] «%s»"
+
+#: src/gnome-cmd-xfer.cc:619
 msgid "Copying a directory into itself is a bad idea."
 msgstr "Не варто копіювати каталог сам у себе."
 
-#: src/gnome-cmd-xfer.cc:310
+#: src/gnome-cmd-xfer.cc:619 src/gnome-cmd-xfer.cc:699
+#: src/gnome-cmd-xfer.cc:780
 msgid "The whole operation was cancelled."
 msgstr "Операція цілком відмінена."
 
-#: src/gnome-cmd-xfer.cc:341
+#: src/gnome-cmd-xfer.cc:666 src/gnome-cmd-xfer.cc:746
+msgid "preparing…"
+msgstr "приготування…"
+
+#: src/gnome-cmd-xfer.cc:699 src/gnome-cmd-xfer.cc:780
+#| msgid "Copying a directory into itself is a bad idea."
+msgid "Moving a directory into itself is a bad idea."
+msgstr "Не варто пересувати каталог сам у себе."
+
+#: src/gnome-cmd-xfer.cc:861
 msgid "downloading to /tmp"
 msgstr "завантаження в /tmp"
+
+#: src/gnome-cmd-xfer.cc:910
+#, c-format
+#| msgid ""
+#| "Error while deleting “%s”\n"
+#| "\n"
+#| "%s"
+msgid ""
+"Error while creating symlink “%s”\n"
+"\n"
+"%s"
+msgstr ""
+"Помилка під час спроби створення символічного посилання «%s»\n"
+"\n"
+"%s"
+
+#: src/gnome-cmd-xfer.cc:915
+msgid "Symlink creation problem"
+msgstr ""
+"Проблема зі створенням символічного посилання"
+
+#: src/gnome-cmd-xfer.cc:916
+msgid "Ignore"
+msgstr ""
+"Ігнорувати"
 
 #: src/gnome-cmd-xfer-progress-win.cc:42
 msgid "stopping…"
@@ -8988,7 +9090,7 @@ msgstr "Немає"
 msgid "10-15ms"
 msgstr "10-15 мс"
 
-#: src/utils.cc:479
+#: src/utils.cc:482
 #, c-format
 msgid "(%sbyte)"
 msgid_plural "(%sbytes)"
@@ -8997,7 +9099,7 @@ msgstr[1] "(%sбайти)"
 msgstr[2] "(%sбайтів)"
 msgstr[3] "(%sбайт)"
 
-#: src/utils.cc:482
+#: src/utils.cc:485
 #, c-format
 msgid "%sbyte"
 msgid_plural "%sbytes"
@@ -9006,64 +9108,37 @@ msgstr[1] "%sбайти"
 msgstr[2] "%sбайтів"
 msgstr[3] "%sбайт"
 
-#: src/utils.cc:671
+#: src/utils.cc:674
 msgid "Failed to change working directory to a temporary directory."
 msgstr "Не вдалося змінити робочий каталог на тимчасовий каталог."
 
-#: src/utils.cc:681
+#: src/utils.cc:684
 msgid "Failed to create a directory in which to store temporary files."
 msgstr "Не вдалося створити каталог для зберігання тимчасових файлів."
 
-#: src/utils.cc:807
+#: src/utils.cc:810
 #, c-format
 msgid "Couldn’t read from the directory %s: %s"
 msgstr "Не вдалося прочитати дані з каталогу %s: %s"
 
-#: src/utils.cc:831
+#: src/utils.cc:834
 #, c-format
 msgid "Creating directory %s… "
 msgstr "Створення каталогу %s…"
 
-#: src/utils.cc:838
+#: src/utils.cc:841
 #, c-format
 msgid "Failed to create the directory %s"
 msgstr "Не вдалося створити каталог %s"
 
-#: src/utils.cc:984
+#: src/utils.cc:957
 msgid "There was an error displaying help."
 msgstr "Помилка при показі допомоги."
 
-#: src/utils.cc:1113
+#: src/utils.cc:1086
 #, c-format
 msgid "Couldn’t move path from “%s” to “%s”: %s"
 msgstr "Не вдалося пересунути шлях з «%s» до «%s»: %s"
-
-#~ msgid ""
-#~ "Overwrite file:\n"
-#~ "\n"
-#~ "<b>%s</b>\n"
-#~ "<span color='dimgray' size='smaller'>%s</span>\n"
-#~ "\n"
-#~ "With:\n"
-#~ "\n"
-#~ "<b>%s</b>\n"
-#~ "<span color='dimgray' size='smaller'>%s</span>"
-#~ msgstr ""
-#~ "Перезаписати файл:\n"
-#~ "\n"
-#~ "<b>%s</b>\n"
-#~ "<span color='dimgray' size='smaller'>%s</span>\n"
-#~ "\n"
-#~ "Файлом:\n"
-#~ "\n"
-#~ "<b>%s</b>\n"
-#~ "<span color='dimgray' size='smaller'>%s</span>"
-
-#~ msgid "Replace"
-#~ msgstr "Замінити"
-
-#~ msgid "Replace All"
-#~ msgstr "Замінити все"
 
 #~ msgid ""
 #~ "Error while copying to %s\n"
@@ -9073,9 +9148,3 @@ msgstr "Не вдалося пересунути шлях з «%s» до «%s»:
 #~ "Помилка при копіюванні %s\n"
 #~ "\n"
 #~ "%s"
-
-#~ msgid "[file %ld of %ld] “%s”"
-#~ msgstr "[файл %ld з %ld] «%s»"
-
-#~ msgid "preparing…"
-#~ msgstr "приготування…"
