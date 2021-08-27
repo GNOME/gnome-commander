@@ -23,6 +23,8 @@
 #include <unistd.h>
 
 #include "gnome-cmd-includes.h"
+#include "gnome-cmd-con-list.h"
+#include "gnome-cmd-plain-path.h"
 #include "gnome-cmd-xfer.h"
 #include "gnome-cmd-file-selector.h"
 #include "gnome-cmd-file-list.h"
@@ -30,16 +32,9 @@
 #include "gnome-cmd-main-win.h"
 #include "gnome-cmd-data.h"
 #include "utils.h"
+#include "src/dialogs/gnome-cmd-delete-dialog.h"
 
 using namespace std;
-
-
-#define XFER_PRIORITY GNOME_VFS_PRIORITY_DEFAULT
-
-#define XFER_ERROR_ACTION_DEFAULT -1
-#define XFER_ERROR_ACTION_ABORT 0
-#define XFER_ERROR_ACTION_RETRY 1
-#define XFER_ERROR_ACTION_SKIP  2
 
 inline void free_xfer_data (XferData *xferData)
 {
@@ -73,49 +68,30 @@ create_xfer_data (GFileCopyFlags copyFlags, GList *srcGFileList, GList *destGFil
     xferData->copyFlags = copyFlags;
     xferData->srcGFileList = srcGFileList;
     xferData->destGFileList = destGFileList;
-    xferData->to_dir = to_dir;
+    xferData->destGnomeCmdDir = to_dir;
     xferData->src_fl = src_fl;
     xferData->src_files = src_files;
     xferData->win = nullptr;
     xferData->cur_file_name = nullptr;
-    xferData->cur_file = -1;
-    xferData->prev_file = -1;
-    xferData->files_total = 0;
-    xferData->prev_totalprog = (gfloat) 0.00;
+    xferData->curFileNumber = 0;
+    xferData->filesTotal = 0;
     xferData->first_time = TRUE;
     xferData->on_completed_func = on_completed_func;
     xferData->on_completed_data = on_completed_data;
     xferData->done = FALSE;
     xferData->aborted = FALSE;
     xferData->problem = FALSE;
-    xferData->problem_action = -1;
-    xferData->problem_file_name = nullptr;
+    xferData->problem_action = COPY_ERROR_ACTION_NO_ACTION_YET;
     xferData->thread = nullptr;
     xferData->error = nullptr;
-
-    //ToDo: Fix this to complete migration from gnome-vfs to gvfs
-    // If this is a move-operation, determine totals
-    // The async_xfer_callback-results for file and byte totals are not reliable
-    //if (xferOptions == GNOME_VFS_XFER_REMOVESOURCE) {
-    //    GList *uris;
-    //    xferData->bytes_total = 0;
-    //    xferData->files_total = 0;
-    //    for (uris = xferData->srcGFileList; uris != nullptr; uris = uris->next) {
-    //        GnomeVFSURI *uri;
-    //        uri = (GnomeVFSURI*)uris->xferData;
-    //        xferData->bytes_total += calc_tree_size(uri,&(xferData->files_total));
-    //        g_object_unref(gFile);
-    //    }
-    //}
 
     return xferData;
 }
 
 
-inline gchar *file_details(const gchar *text_uri)
+inline gchar *get_file_details_string(GFile *gFile)
 {
-    auto gFileTmp = g_file_new_for_uri(text_uri);
-    auto gFileInfoTmp = g_file_query_info(gFileTmp,
+    auto gFileInfoTmp = g_file_query_info(gFile,
                             G_FILE_ATTRIBUTE_STANDARD_SIZE "," G_FILE_ATTRIBUTE_TIME_MODIFIED,
                             G_FILE_QUERY_INFO_NONE, nullptr, nullptr);
     gchar *size = create_nice_size_str (g_file_info_get_attribute_uint64(gFileInfoTmp, G_FILE_ATTRIBUTE_STANDARD_SIZE));
@@ -133,22 +109,370 @@ inline gchar *file_details(const gchar *text_uri)
 }
 
 
-static gint async_xfer_callback (GnomeVFSAsyncHandle *handle, GnomeVFSXferProgressInfo *info, XferData *data)
+static void run_simple_error_dialog(const char *msg, XferData *xferData)
+{
+    gdk_threads_enter ();
+    gint guiResponse = run_simple_dialog (
+        *main_win, TRUE, GTK_MESSAGE_ERROR, msg, _("Transfer problem"),
+        -1, _("Abort"), _("Retry"), _("Skip"), NULL);
+    gdk_threads_leave ();
 
+    switch (guiResponse)
+    {
+        case 0:
+            xferData->problem_action = COPY_ERROR_ACTION_ABORT;
+            break;
+        case 1:
+            xferData->problem_action = COPY_ERROR_ACTION_RETRY;
+            break;
+        case 2:
+            xferData->problem_action = COPY_ERROR_ACTION_SKIP;
+            break;
+        default:
+            xferData->problem_action = COPY_ERROR_ACTION_RETRY;
+            break;
+    }
+}
 
-static gboolean update_xfer_gui (XferData *xferData)
+static void update_transfer_gui_error_copy (XferData *xferData)
+{
+    gint guiResponse = -1;
+
+    gchar *msg = g_strdup_printf (_("Error while transferring “%s”\n\n%s"),
+                                    g_file_peek_path(xferData->problemSrcGFile),
+                                    xferData->error->message);
+
+    if(!g_error_matches(xferData->error, G_IO_ERROR, G_IO_ERROR_EXISTS))
+    {
+        run_simple_error_dialog(msg, xferData);
+    }
+    else
+    {
+        if (xferData->currentFileType == G_FILE_TYPE_DIRECTORY)
+        {
+            gdk_threads_enter ();
+            g_list_length(xferData->srcGFileList) > 1
+            ? guiResponse = run_simple_dialog (
+                *main_win, TRUE, GTK_MESSAGE_ERROR, msg, _("Copy problem"),
+                -1, _("Abort"), _("Retry"), _("Copy into"), _("Rename"), _("Rename all"), _("Skip"), _("Skip all"), NULL)
+            : guiResponse = run_simple_dialog (
+                *main_win, TRUE, GTK_MESSAGE_ERROR, msg, _("Copy problem"),
+                -1, _("Abort"), _("Retry"), _("Copy into"), _("Rename"), NULL);
+            gdk_threads_leave ();
+            switch (guiResponse)
+            {
+                case 0:
+                    xferData->problem_action = COPY_ERROR_ACTION_ABORT;
+                    break;
+                case 1:
+                    xferData->problem_action = COPY_ERROR_ACTION_RETRY;
+                    break;
+                case 2:
+                    xferData->problem_action = COPY_ERROR_ACTION_COPY_INTO;
+                    break;
+                case 3:
+                    xferData->problem_action = COPY_ERROR_ACTION_RENAME;
+                    break;
+                case 4:
+                    xferData->problem_action = COPY_ERROR_ACTION_RENAME_ALL;
+                    break;
+                case 5:
+                    xferData->problem_action = COPY_ERROR_ACTION_SKIP;
+                    break;
+                case 6:
+                    xferData->problem_action = COPY_ERROR_ACTION_SKIP_ALL;
+                    break;
+                default:
+                    xferData->problem_action = COPY_ERROR_ACTION_RETRY;
+                    break;
+            }
+        }
+        if (xferData->currentFileType == G_FILE_TYPE_REGULAR)
+        {
+            auto problemSrcBasename = get_gfile_attribute_string(xferData->problemSrcGFile,
+                                                        G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME);
+            auto problemDestBasename = get_gfile_attribute_string(xferData->problemDestGFile,
+                                                        G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME);
+            auto sourceDetails = get_file_details_string (xferData->problemSrcGFile);
+            auto targetDetails = get_file_details_string (xferData->problemDestGFile);
+            g_free(msg);
+            msg = g_strdup_printf (_("Overwrite file:\n\n<b>%s</b>\n<span color='dimgray' size='smaller'>%s</span>\n\nWith:\n\n<b>%s</b>\n<span color='dimgray' size='smaller'>%s</span>"),
+                    problemDestBasename,
+                    targetDetails,
+                    problemSrcBasename,
+                    sourceDetails);
+            g_free (problemSrcBasename);
+            g_free (problemDestBasename);
+            g_free (sourceDetails);
+            g_free (targetDetails);
+            gdk_threads_enter ();
+            xferData->filesTotal > 1
+            ? guiResponse = run_simple_dialog (
+                *main_win, TRUE, GTK_MESSAGE_ERROR, msg, _("Copy problem"),
+                -1, _("Abort"), _("Retry"), _("Replace"), _("Rename"), _("Skip"), _("Replace all"), _("Rename all"), _("Skip all"), NULL)
+            : guiResponse = run_simple_dialog (
+                *main_win, TRUE, GTK_MESSAGE_ERROR, msg, _("Copy problem"),
+                -1, _("Abort"), _("Retry"), _("Replace"), _("Rename"), NULL);
+            gdk_threads_leave ();
+            switch (guiResponse)
+            {
+                case 0:
+                    xferData->problem_action = COPY_ERROR_ACTION_ABORT;
+                    break;
+                case 1:
+                    xferData->problem_action = COPY_ERROR_ACTION_RETRY;
+                    break;
+                case 2:
+                    xferData->problem_action = COPY_ERROR_ACTION_REPLACE;
+                    break;
+                case 3:
+                    xferData->problem_action = COPY_ERROR_ACTION_RENAME;
+                    break;
+                case 4:
+                    xferData->problem_action = COPY_ERROR_ACTION_SKIP;
+                    break;
+                case 5:
+                    xferData->problem_action = COPY_ERROR_ACTION_REPLACE_ALL;
+                    break;
+                case 6:
+                    xferData->problem_action = COPY_ERROR_ACTION_RENAME_ALL;
+                    break;
+                case 7:
+                    xferData->problem_action = COPY_ERROR_ACTION_SKIP_ALL;
+                    break;
+                default:
+                    xferData->problem_action = COPY_ERROR_ACTION_RETRY;
+                    break;
+            }
+        }
+    }
+    g_free (msg);
+}
+
+static void update_transfer_gui_error_move (XferData *xferData)
+{
+    gint guiResponse = -1;
+
+    gchar *msg = g_strdup_printf (_("Error while transferring “%s”\n\n%s"),
+                                    g_file_peek_path(xferData->problemSrcGFile),
+                                    xferData->error->message);
+
+    if(!g_error_matches(xferData->error, G_IO_ERROR, G_IO_ERROR_EXISTS))
+    {
+        run_simple_error_dialog(msg, xferData);
+    }
+    else
+    {
+        if (xferData->currentFileType == G_FILE_TYPE_DIRECTORY)
+        {
+            gdk_threads_enter ();
+            g_list_length(xferData->srcGFileList) > 1
+            ? guiResponse = run_simple_dialog (
+                *main_win, TRUE, GTK_MESSAGE_ERROR, msg, _("Move problem"),
+                -1, _("Abort"), _("Retry"), _("Copy into"), _("Rename"), _("Rename all"), _("Skip"), _("Skip all"), NULL)
+            : guiResponse = run_simple_dialog (
+                *main_win, TRUE, GTK_MESSAGE_ERROR, msg, _("Move problem"),
+                -1, _("Abort"), _("Retry"), _("Copy into"), _("Rename"), NULL);
+            gdk_threads_leave ();
+            switch (guiResponse)
+            {
+                case 0:
+                    xferData->problem_action = COPY_ERROR_ACTION_ABORT;
+                    break;
+                case 1:
+                    xferData->problem_action = COPY_ERROR_ACTION_RETRY;
+                    break;
+                case 2:
+                    xferData->problem_action = COPY_ERROR_ACTION_COPY_INTO;
+                    break;
+                case 3:
+                    xferData->problem_action = COPY_ERROR_ACTION_RENAME;
+                    break;
+                case 4:
+                    xferData->problem_action = COPY_ERROR_ACTION_RENAME_ALL;
+                    break;
+                case 5:
+                    xferData->problem_action = COPY_ERROR_ACTION_SKIP;
+                    break;
+                case 6:
+                    xferData->problem_action = COPY_ERROR_ACTION_SKIP_ALL;
+                    break;
+                default:
+                    xferData->problem_action = COPY_ERROR_ACTION_RETRY;
+                    break;
+            }
+        }
+        if (xferData->currentFileType == G_FILE_TYPE_REGULAR)
+        {
+            auto problemSrcBasename = get_gfile_attribute_string(xferData->problemSrcGFile,
+                                                        G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME);
+            auto problemDestBasename = get_gfile_attribute_string(xferData->problemDestGFile,
+                                                        G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME);
+            auto sourceDetails = get_file_details_string (xferData->problemSrcGFile);
+            auto targetDetails = get_file_details_string (xferData->problemDestGFile);
+            g_free(msg);
+            msg = g_strdup_printf (_("Overwrite file:\n\n<b>%s</b>\n<span color='dimgray' size='smaller'>%s</span>\n\nWith:\n\n<b>%s</b>\n<span color='dimgray' size='smaller'>%s</span>"),
+                    problemDestBasename,
+                    targetDetails,
+                    problemSrcBasename,
+                    sourceDetails);
+            g_free (problemSrcBasename);
+            g_free (problemDestBasename);
+            g_free (sourceDetails);
+            g_free (targetDetails);
+            gdk_threads_enter ();
+            xferData->filesTotal > 1
+            ? guiResponse = run_simple_dialog (
+                *main_win, TRUE, GTK_MESSAGE_ERROR, msg, _("Copy problem"),
+                -1, _("Abort"), _("Retry"), _("Replace"), _("Rename"), _("Skip"), _("Replace all"), _("Rename all"), _("Skip all"), NULL)
+            : guiResponse = run_simple_dialog (
+                *main_win, TRUE, GTK_MESSAGE_ERROR, msg, _("Copy problem"),
+                -1, _("Abort"), _("Retry"), _("Replace"), _("Rename"), NULL);
+            gdk_threads_leave ();
+            switch (guiResponse)
+            {
+                case 0:
+                    xferData->problem_action = COPY_ERROR_ACTION_ABORT;
+                    break;
+                case 1:
+                    xferData->problem_action = COPY_ERROR_ACTION_RETRY;
+                    break;
+                case 2:
+                    xferData->problem_action = COPY_ERROR_ACTION_REPLACE;
+                    break;
+                case 3:
+                    xferData->problem_action = COPY_ERROR_ACTION_RENAME;
+                    break;
+                case 4:
+                    xferData->problem_action = COPY_ERROR_ACTION_SKIP;
+                    break;
+                case 5:
+                    xferData->problem_action = COPY_ERROR_ACTION_REPLACE_ALL;
+                    break;
+                case 6:
+                    xferData->problem_action = COPY_ERROR_ACTION_RENAME_ALL;
+                    break;
+                case 7:
+                    xferData->problem_action = COPY_ERROR_ACTION_SKIP_ALL;
+                    break;
+                default:
+                    xferData->problem_action = COPY_ERROR_ACTION_RETRY;
+                    break;
+            }
+        }
+    }
+    g_free (msg);
+}
+
+static gboolean update_transfer_gui (XferData *xferData)
+{
+    g_mutex_lock (&xferData->mutex);
+
+    if (xferData->problem && xferData->error)
+    {
+        switch (xferData->transferType)
+        {
+            case COPY:
+                update_transfer_gui_error_copy(xferData);
+                break;
+            case MOVE:
+                update_transfer_gui_error_move(xferData);
+                break;
+            case LINK:
+                break;
+        }
+
+        xferData->problem = FALSE;
+    }
+
+    if (xferData->win && xferData->win->cancel_pressed)
+    {
+        xferData->aborted = TRUE;
+
+        if (xferData->on_completed_func)
+            xferData->on_completed_func (xferData->on_completed_data, nullptr);
+
+        gtk_widget_destroy (GTK_WIDGET (xferData->win));
+        free_xfer_data (xferData);
+        return FALSE;
+    }
+
+    if (xferData->done)
+    {
+        //  Only update the files if needed
+        if (xferData->destGnomeCmdDir)
+        {
+            gnome_cmd_dir_relist_files (xferData->destGnomeCmdDir, FALSE);
+            main_win->focus_file_lists();
+            gnome_cmd_dir_unref (xferData->destGnomeCmdDir);
+            xferData->destGnomeCmdDir = nullptr;
+        }
+
+        if (xferData->win)
+        {
+            gtk_widget_destroy (GTK_WIDGET (xferData->win));
+            xferData->win = nullptr;
+        }
+
+        // ToDo: If more than one file should be transferred and one file could not be
+        // transferred successsfully, we have to check for this error here
+        if (xferData->problem_action == COPY_ERROR_ACTION_NO_ACTION_YET
+            && xferData->on_completed_func)
+        {
+            xferData->on_completed_func (xferData->on_completed_data, nullptr);
+        }
+
+        free_xfer_data (xferData);
+
+        return FALSE;
+    }
+
+    if (xferData->bytesTotalTransferred == 0)
+        gnome_cmd_xfer_progress_win_set_action (xferData->win, _("copying…"));
+
+    if (xferData->curFileNumber)
+    {
+        gchar *msg = g_strdup_printf (_("[file %ld of %ld] “%s”"), xferData->curFileNumber,
+                                        xferData->filesTotal, xferData->curSrcFileName);
+
+        gnome_cmd_xfer_progress_win_set_msg (xferData->win, msg);
+
+        g_free (msg);
+    }
+
+    if (xferData->bytesTotal > 0)
+    {
+        gfloat totalProgress =
+            (gfloat)((gdouble)(xferData->bytesTotalTransferred + xferData->bytesCopiedFile)
+                / (gdouble)xferData->bytesTotal);
+
+        if ((totalProgress >= 0.0 && totalProgress <= 1.0) || xferData->first_time)
+        {
+            xferData->first_time = FALSE;
+            gnome_cmd_xfer_progress_win_set_total_progress (xferData->win, xferData->bytesCopiedFile,
+                                                            xferData->fileSize,
+                                                            xferData->bytesTotalTransferred + xferData->bytesCopiedFile,
+                                                            xferData->bytesTotal);
+            while (gtk_events_pending ())
+                gtk_main_iteration_do (FALSE);
+        }
+    }
+    g_mutex_unlock (&xferData->mutex);
+
+    return TRUE;
+}
+
+static gboolean update_tmp_download_gui (XferData *xferData)
 {
     g_mutex_lock (&xferData->mutex);
 
     if (xferData->problem && xferData->error)
     {
         gchar *msg = g_strdup_printf (_("Error while transferring “%s”\n\n%s"),
-                                        xferData->problem_file_name,
+                                        g_file_peek_path(xferData->problemSrcGFile),
                                         xferData->error->message);
 
-        xferData->problem_action = run_simple_dialog (
-            *main_win, TRUE, GTK_MESSAGE_ERROR, msg, _("Transfer problem"),
-            -1, _("Abort"), _("Retry"), _("Skip"), NULL);
+        run_simple_error_dialog(msg, xferData);
 
         g_free (msg);
 
@@ -170,12 +494,12 @@ static gboolean update_xfer_gui (XferData *xferData)
     if (xferData->done)
     {
         //  Only update the files if needed
-        if (xferData->to_dir)
+        if (xferData->destGnomeCmdDir)
         {
-            gnome_cmd_dir_relist_files (xferData->to_dir, FALSE);
+            gnome_cmd_dir_relist_files (xferData->destGnomeCmdDir, FALSE);
             main_win->focus_file_lists();
-            gnome_cmd_dir_unref (xferData->to_dir);
-            xferData->to_dir = nullptr;
+            gnome_cmd_dir_unref (xferData->destGnomeCmdDir);
+            xferData->destGnomeCmdDir = nullptr;
         }
 
         if (xferData->win)
@@ -184,9 +508,7 @@ static gboolean update_xfer_gui (XferData *xferData)
             xferData->win = nullptr;
         }
 
-        // ToDo: If more than one file should be transfered and one file could not be
-        // transfered successsfully, we have to check for this error here
-        if (xferData->problem_action == XFER_ERROR_ACTION_DEFAULT
+        if (xferData->problem_action == COPY_ERROR_ACTION_NO_ACTION_YET
             && xferData->on_completed_func)
         {
             xferData->on_completed_func (xferData->on_completed_data, nullptr);
@@ -197,43 +519,6 @@ static gboolean update_xfer_gui (XferData *xferData)
         return FALSE;
     }
 
-//    if (xferData->cur_phase == GNOME_VFS_XFER_PHASE_COPYING)
-//    {
-//        if (xferData->prev_phase != GNOME_VFS_XFER_PHASE_COPYING)
-//        {
-       gnome_cmd_xfer_progress_win_set_action (xferData->win, _("copying…"));
-//            xferData->prev_file = -1;
-//        }
-//
-//        if (xferData->prev_file != xferData->cur_file)
-//        {
-//            gchar *t = str_uri_basename (xferData->cur_file_name);
-//            gchar *fn = get_utf8 (t);
-//            gchar *msg = g_strdup_printf (_("[file %ld of %ld] “%s”"), xferData->cur_file, xferData->files_total, fn);
-//
-//            gnome_cmd_xfer_progress_win_set_msg (xferData->win, msg);
-//
-//            xferData->prev_file = xferData->cur_file;
-//
-//            g_free (msg);
-//            g_free (fn);
-//            g_free (t);
-//        }
-//
-//        if (xferData->bytes_total > 0)
-//        {
-//            gfloat total_prog = (gfloat)((gdouble)xferData->total_bytes_copied / (gdouble)xferData->bytes_total);
-//            gfloat total_diff = total_prog - xferData->prev_totalprog;
-//
-//            if ((total_diff > (gfloat)0.01 && total_prog >= 0.0 && total_prog <= 1.0) || xferData->first_time)
-//            {
-//                xferData->first_time = FALSE;
-//                gnome_cmd_xfer_progress_win_set_total_progress (xferData->win, xferData->bytes_copied, xferData->file_size, xferData->total_bytes_copied, xferData->bytes_total);
-//                while (gtk_events_pending ())
-//                    gtk_main_iteration_do (FALSE);
-//            }
-//        }
-//    }
     g_mutex_unlock (&xferData->mutex);
 
     return TRUE;
@@ -254,7 +539,7 @@ inline gboolean gfile_is_parent_to_dir_or_equal (GFile *gFile, GnomeCmdDir *dir)
 }
 
 
-inline gchar *remove_basename (gchar *in)
+inline gchar *remove_basename (const gchar *in)
 {
     gchar *out = g_strdup (in);
 
@@ -269,56 +554,291 @@ inline gchar *remove_basename (gchar *in)
 }
 
 
-inline gboolean file_is_already_in_dir (GnomeVFSURI *uri, GnomeCmdDir *dir)
+inline gboolean file_is_already_in_dir (GFile *gFile, GnomeCmdDir *dir)
 {
-    gchar *tmp = gnome_vfs_uri_to_string (uri, GNOME_VFS_URI_HIDE_PASSWORD);
-    gchar *uri_str = remove_basename (tmp);
+    gchar *uri_str = remove_basename (g_file_get_uri(gFile));
+
+    if (!uri_str)
+        return false;
+
     gchar *dir_uri_str = GNOME_CMD_FILE (dir)->get_uri_str();
 
     gboolean ret = (strcmp (uri_str, dir_uri_str) == 0);
 
     g_free (uri_str);
     g_free (dir_uri_str);
-    g_free (tmp);
 
     return ret;
 }
 
+static void
+set_files_total(XferData *xferData)
+{
+    for(auto gFileSrcListItem = xferData->srcGFileList; gFileSrcListItem; gFileSrcListItem = gFileSrcListItem->next)
+    {
+        guint64 diskUsage = 0;
+        guint64 numFiles = 0;
+        auto gFile = (GFile *) gFileSrcListItem->data;
+        g_return_if_fail(G_IS_FILE(gFile));
+
+        g_file_measure_disk_usage (gFile,
+           G_FILE_MEASURE_NONE,
+           nullptr, nullptr, nullptr,
+           &diskUsage,
+           nullptr,
+           &numFiles,
+           nullptr);
+        xferData->bytesTotal = diskUsage;
+        xferData->filesTotal += numFiles;
+    }
+}
+
 
 void
-gnome_cmd_xfer_gfiles_start (GList *srcGFileGList,
-                           GnomeCmdDir *to_dir,
-                           GnomeCmdFileList *src_fl,
-                           GList *src_files,
-                           gchar *dest_fn,
-                           GnomeVFSXferOptions xferOptions,
-                           GnomeVFSXferOverwriteMode xferOverwriteMode,
-                           GtkSignalFunc on_completed_func,
-                           gpointer on_completed_data)
+gnome_cmd_copy_gfiles_start (GList *srcGFileGList,
+                             GnomeCmdDir *destGnomeCmdDir,
+                             GnomeCmdFileList *srcGnomeCmdFileList,
+                             GList *srcFilesGList,
+                             gchar *destFileName,
+                             GFileCopyFlags copyFlags,
+                             gboolean skipAsk,
+                             GtkSignalFunc on_completed_func,
+                             gpointer on_completed_data)
 {
-    g_return_if_fail (src_uri_list != nullptr);
-    g_return_if_fail (GNOME_CMD_IS_DIR (to_dir));
+    g_return_if_fail (srcGFileGList != nullptr);
+    g_return_if_fail (GNOME_CMD_IS_DIR (destGnomeCmdDir));
 
-    GnomeVFSURI *src_uri, *dest_uri;
+    GFile *srcGFile, *destGFile;
 
     // Sanity check
-    for (GList *i = src_uri_list; i; i = i->next)
+    for (GList *i = srcGFileGList; i; i = i->next)
     {
-        src_uri = (GnomeVFSURI *) i->data;
-        if (uri_is_parent_to_dir_or_equal (src_uri, to_dir))
+        srcGFile = (GFile *) i->data;
+        if (gfile_is_parent_to_dir_or_equal (srcGFile, destGnomeCmdDir))
         {
             gnome_cmd_show_message (*main_win, _("Copying a directory into itself is a bad idea."), _("The whole operation was cancelled."));
             return;
         }
-        if (file_is_already_in_dir (src_uri, to_dir))
-            if (dest_fn && strcmp (dest_fn, gnome_vfs_uri_extract_short_name (src_uri)) == 0)
+        if (file_is_already_in_dir (srcGFile, destGnomeCmdDir))
+        {
+            auto srcFilename = g_file_get_basename(srcGFile);
+            if (destFileName && strcmp (destFileName, srcFilename) == 0)
             {
+                g_free(srcFilename);
                 DEBUG ('x', "Copying a file to the same directory as it's already in, is not permitted\n");
                 return;
             }
+            g_free(srcFilename);
+        }
     }
+
+    XferData *xferData = create_xfer_data (copyFlags, srcGFileGList, nullptr,
+                            destGnomeCmdDir, srcGnomeCmdFileList, srcFilesGList,
+                            (GFunc) on_completed_func, on_completed_data);
+    xferData->transferType = COPY;
+
+    if (g_list_length (srcGFileGList) == 1 && destFileName != nullptr)
+    {
+        destGFile = gnome_cmd_dir_get_child_gfile (destGnomeCmdDir, destFileName);
+
+        xferData->destGFileList = g_list_append (xferData->destGFileList, destGFile);
+    }
+    else
+    {
+        for (auto srcGFileGListItem = srcGFileGList; srcGFileGListItem; srcGFileGListItem = srcGFileGListItem->next)
+        {
+            srcGFile = (GFile *) srcGFileGListItem->data;
+            auto basename = g_file_get_basename(srcGFile);
+
+            destGFile = gnome_cmd_dir_get_child_gfile (destGnomeCmdDir, basename);
+            g_free (basename);
+
+            xferData->destGFileList = g_list_append (xferData->destGFileList, destGFile);
+        }
+    }
+
+    g_free (destFileName);
+
+    set_files_total(xferData);
+
+    xferData->win = GNOME_CMD_XFER_PROGRESS_WIN (gnome_cmd_xfer_progress_win_new (xferData->filesTotal));
+    gtk_widget_ref (GTK_WIDGET (xferData->win));
+    gtk_window_set_title (GTK_WINDOW (xferData->win), _("preparing…"));
+    gtk_widget_show (GTK_WIDGET (xferData->win));
+
+    g_mutex_init(&xferData->mutex);
+
+    //  start the transfer
+    xferData->thread = g_thread_new (NULL, (GThreadFunc) gnome_cmd_transfer_gfiles, xferData);
+    g_timeout_add (gnome_cmd_data.gui_update_rate, (GSourceFunc) update_transfer_gui, xferData);
+    g_mutex_clear(&xferData->mutex);
+}
+
 void
-gnome_cmd_xfer_tmp_download (GFile *srcGFile,
+gnome_cmd_move_gfiles_start (GList *srcGFileGList,
+                             GnomeCmdDir *destGnomeCmdDir,
+                             GnomeCmdFileList *srcGnomeCmdFileList,
+                             GList *srcGnomeCmdFileGList,
+                             gchar *destFileName,
+                             GFileCopyFlags copyFlags,
+                             gboolean skipAsk,
+                             GtkSignalFunc on_completed_func,
+                             gpointer on_completed_data)
+{
+    g_return_if_fail (srcGFileGList != nullptr);
+    g_return_if_fail (GNOME_CMD_IS_DIR (destGnomeCmdDir));
+
+    GFile *srcGFile, *destGFile;
+
+    // Sanity check
+    for (GList *i = srcGFileGList; i; i = i->next)
+    {
+        srcGFile = (GFile *) i->data;
+        if (gfile_is_parent_to_dir_or_equal (srcGFile, destGnomeCmdDir))
+        {
+            gnome_cmd_show_message (*main_win, _("Moving a directory into itself is a bad idea."), _("The whole operation was cancelled."));
+            return;
+        }
+        if (file_is_already_in_dir (srcGFile, destGnomeCmdDir))
+        {
+            auto srcFilename = g_file_get_basename(srcGFile);
+            if (destFileName && strcmp (destFileName, srcFilename) == 0)
+            {
+                g_free(srcFilename);
+                DEBUG ('x', "Moving a file to the same directory as it's already in, is not permitted\n");
+                return;
+            }
+            g_free(srcFilename);
+        }
+    }
+
+    XferData *xferData = create_xfer_data (copyFlags, srcGFileGList, nullptr,
+                            destGnomeCmdDir, srcGnomeCmdFileList, srcGnomeCmdFileGList,
+                            (GFunc) on_completed_func, on_completed_data);
+    xferData->transferType = MOVE;
+
+    if (g_list_length (srcGFileGList) == 1 && destFileName != nullptr)
+    {
+        destGFile = gnome_cmd_dir_get_child_gfile (destGnomeCmdDir, destFileName);
+
+        xferData->destGFileList = g_list_append (xferData->destGFileList, destGFile);
+    }
+    else
+    {
+        for (auto srcGFileGListItem = srcGFileGList; srcGFileGListItem; srcGFileGListItem = srcGFileGListItem->next)
+        {
+            srcGFile = (GFile *) srcGFileGListItem->data;
+            auto basename = g_file_get_basename(srcGFile);
+
+            destGFile = gnome_cmd_dir_get_child_gfile (destGnomeCmdDir, basename);
+            g_free (basename);
+
+            xferData->destGFileList = g_list_append (xferData->destGFileList, destGFile);
+        }
+    }
+
+    g_free (destFileName);
+
+    set_files_total(xferData);
+
+    xferData->win = GNOME_CMD_XFER_PROGRESS_WIN (gnome_cmd_xfer_progress_win_new (xferData->filesTotal));
+    gtk_widget_ref (GTK_WIDGET (xferData->win));
+    gtk_window_set_title (GTK_WINDOW (xferData->win), _("preparing…"));
+    gtk_widget_show (GTK_WIDGET (xferData->win));
+
+    g_mutex_init(&xferData->mutex);
+
+    //  start the transfer
+    xferData->thread = g_thread_new (NULL, (GThreadFunc) gnome_cmd_transfer_gfiles, xferData);
+    g_timeout_add (gnome_cmd_data.gui_update_rate, (GSourceFunc) update_transfer_gui, xferData);
+    g_mutex_clear(&xferData->mutex);
+}
+
+
+void
+gnome_cmd_link_gfiles_start (GList *srcGFileGList,
+                             GnomeCmdDir *destGnomeCmdDir,
+                             GnomeCmdFileList *srcGnomeCmdFileList,
+                             GList *srcGnomeCmdFileGList,
+                             gchar *destFileName,
+                             GFileCopyFlags copyFlags,
+                             gboolean skipAsk,
+                             GtkSignalFunc on_completed_func,
+                             gpointer on_completed_data)
+{
+    g_return_if_fail (srcGFileGList != nullptr);
+    g_return_if_fail (GNOME_CMD_IS_DIR (destGnomeCmdDir));
+
+    GFile *srcGFile, *destGFile;
+
+    // Sanity check
+    for (GList *i = srcGFileGList; i; i = i->next)
+    {
+        srcGFile = (GFile *) i->data;
+        if (gfile_is_parent_to_dir_or_equal (srcGFile, destGnomeCmdDir))
+        {
+            gnome_cmd_show_message (*main_win, _("Moving a directory into itself is a bad idea."), _("The whole operation was cancelled."));
+            return;
+        }
+        if (file_is_already_in_dir (srcGFile, destGnomeCmdDir))
+        {
+            auto srcFilename = g_file_get_basename(srcGFile);
+            if (destFileName && strcmp (destFileName, srcFilename) == 0)
+            {
+                g_free(srcFilename);
+                DEBUG ('x', "Moving a file to the same directory as it's already in, is not permitted\n");
+                return;
+            }
+            g_free(srcFilename);
+        }
+    }
+
+    XferData *xferData = create_xfer_data (copyFlags, srcGFileGList, nullptr,
+                            destGnomeCmdDir, srcGnomeCmdFileList, srcGnomeCmdFileGList,
+                            (GFunc) on_completed_func, on_completed_data);
+    xferData->transferType = LINK;
+
+    if (g_list_length (srcGFileGList) == 1 && destFileName != nullptr)
+    {
+        destGFile = gnome_cmd_dir_get_child_gfile (destGnomeCmdDir, destFileName);
+
+        xferData->destGFileList = g_list_append (xferData->destGFileList, destGFile);
+    }
+    else
+    {
+        for (auto srcGFileGListItem = srcGFileGList; srcGFileGListItem; srcGFileGListItem = srcGFileGListItem->next)
+        {
+            srcGFile = (GFile *) srcGFileGListItem->data;
+            auto basename = g_file_get_basename(srcGFile);
+
+            destGFile = gnome_cmd_dir_get_child_gfile (destGnomeCmdDir, basename);
+            g_free (basename);
+
+            xferData->destGFileList = g_list_append (xferData->destGFileList, destGFile);
+        }
+    }
+
+    g_free (destFileName);
+
+    set_files_total(xferData);
+
+    //xferData->win = GNOME_CMD_XFER_PROGRESS_WIN (gnome_cmd_xfer_progress_win_new (xferData->filesTotal));
+    //gtk_widget_ref (GTK_WIDGET (xferData->win));
+    //gtk_window_set_title (GTK_WINDOW (xferData->win), _("preparing…"));
+    //gtk_widget_show (GTK_WIDGET (xferData->win));
+
+    //g_mutex_init(&xferData->mutex);
+
+    //  start the transfer
+    gnome_cmd_transfer_gfiles(xferData);
+    //xferData->thread = g_thread_new (NULL, (GThreadFunc) gnome_cmd_transfer_gfiles, xferData);
+    //g_timeout_add (gnome_cmd_data.gui_update_rate, (GSourceFunc) update_transfer_gui, xferData);
+    //g_mutex_clear(&xferData->mutex);
+}
+
+
+void
+gnome_cmd_tmp_download (GFile *srcGFile,
                              GFile *destGFile,
                              GFileCopyFlags copyFlags,
                              GtkSignalFunc on_completed_func,
@@ -333,23 +853,23 @@ gnome_cmd_xfer_tmp_download (GFile *srcGFile,
     auto xferData = create_xfer_data (copyFlags, srcGFileList, destGFileList,
                              nullptr, nullptr, nullptr,
                              (GFunc) on_completed_func, on_completed_data);
+    xferData->transferType = COPY;
 
     g_mutex_init(&xferData->mutex);
 
-    // ToDo: This must be extracted in an own method
     xferData->win = GNOME_CMD_XFER_PROGRESS_WIN (gnome_cmd_xfer_progress_win_new (g_list_length (xferData->srcGFileList)));
     gtk_window_set_title (GTK_WINDOW (xferData->win), _("downloading to /tmp"));
-    g_object_ref(xferData->win);
+    gtk_widget_ref (GTK_WIDGET (xferData->win));
     gtk_widget_show (GTK_WIDGET (xferData->win));
 
-    xferData->thread = g_thread_new (NULL, (GThreadFunc) gnome_cmd_xfer_tmp_download_multiple, xferData);
-    g_timeout_add (gnome_cmd_data.gui_update_rate, (GSourceFunc) update_xfer_gui, xferData);
+    xferData->thread = g_thread_new (NULL, (GThreadFunc) gnome_cmd_transfer_gfiles, xferData);
+    g_timeout_add (gnome_cmd_data.gui_update_rate, (GSourceFunc) update_tmp_download_gui, xferData);
     g_mutex_clear(&xferData->mutex);
 }
 
 
 void
-gnome_cmd_xfer_tmp_download_multiple (XferData *xferData)
+gnome_cmd_transfer_gfiles (XferData *xferData)
 {
     g_return_if_fail (xferData->srcGFileList != nullptr);
     g_return_if_fail (xferData->destGFileList != nullptr);
@@ -357,35 +877,71 @@ gnome_cmd_xfer_tmp_download_multiple (XferData *xferData)
     if (g_list_length(xferData->srcGFileList) != g_list_length(xferData->destGFileList))
         return;
 
+    GError *error = nullptr;
+
     auto gFileDestListItem = xferData->destGFileList;
 
-    for (auto gFileSrcListItem = xferData->srcGFileList; gFileSrcListItem; gFileSrcListItem = gFileSrcListItem->next)
+    for (auto gFileSrcListItem = xferData->srcGFileList; gFileSrcListItem; gFileSrcListItem = gFileSrcListItem->next,
+                                                                           gFileDestListItem = gFileDestListItem->next)
     {
         auto srcGFile = (GFile *) gFileSrcListItem->data;
         auto destGFile = (GFile *) gFileDestListItem->data;
 
-        gnome_cmd_xfer_tmp_download(srcGFile, destGFile, xferData->copyFlags, xferData);
+         switch (xferData->transferType)
+        {
+            case COPY:
+                gnome_cmd_copy_gfile_recursive(srcGFile, destGFile, xferData->copyFlags, xferData);
+                break;
+            case MOVE:
+                gnome_cmd_move_gfile_recursive(srcGFile, destGFile, xferData->copyFlags, xferData);
+                break;
+            case LINK:
+                auto symlinkSrcPath = g_file_get_path(srcGFile);
 
-        if (xferData->problem_action == XFER_ERROR_ACTION_ABORT)
-            break;
+                g_file_make_symbolic_link (destGFile,
+                                   symlinkSrcPath,
+                                   nullptr,
+                                   &error);
 
-        gFileDestListItem = xferData->destGFileList->next;
+                g_free(symlinkSrcPath);
+
+                if (error)
+                {
+                    gchar *msg = g_strdup_printf (_("Error while creating symlink “%s”\n\n%s"),
+                                                    g_file_peek_path(destGFile),
+                                                    error->message);
+
+                    run_simple_dialog (
+                        *main_win, TRUE, GTK_MESSAGE_ERROR, msg, _("Symlink creation problem"),
+                        -1, _("Ignore"), NULL);
+                    g_free(msg);
+                    g_error_free(error);
+                    error = nullptr;
+                }
+                break;
+        }
     }
 
+    main_win->focus_file_lists();
     xferData->done = TRUE;
 }
 
+
 static void
-update_copied_xfer_data (goffset current_num_bytes,
-                 goffset total_num_bytes,
+update_transferred_data (goffset currentNumBytes,
+                 goffset totalNumBytes,
                  gpointer xferDataPointer)
 {
     auto xferData = (XferData *) xferDataPointer;
-    xferData->total_bytes_copied = current_num_bytes;
-    xferData->bytes_total = total_num_bytes;
+    xferData->bytesCopiedFile = currentNumBytes;
+    xferData->fileSize = totalNumBytes;
 }
 
 
+/**
+ * This function forces the thread for copying files and folders to wait until
+ * the user clicked something on the popup gui which makes problem_action becomes != -1.
+ */
 static void xfer_progress_update (XferData *xferData)
 {
     g_mutex_lock (&xferData->mutex);
@@ -398,7 +954,8 @@ static void xfer_progress_update (XferData *xferData)
         while (xferData->problem_action == -1)
             g_thread_yield ();
         g_mutex_lock (&xferData->mutex);
-        xferData->problem_file_name = nullptr;
+        g_object_unref(xferData->problemSrcGFile);
+        g_object_unref(xferData->problemDestGFile);
         g_clear_error (&(xferData->error));
     }
 
@@ -406,46 +963,415 @@ static void xfer_progress_update (XferData *xferData)
 }
 
 
-void
-gnome_cmd_xfer_tmp_download (GFile *srcGFile,
-                             GFile *destGFile,
-                             GFileCopyFlags copyFlags,
-                             gpointer xferDataPointer)
+static void
+do_the_copy(GFile *srcGFile, GFile *destGFile, GFileCopyFlags copyFlags, gpointer xferDataPointer)
 {
-    GError *tmpError = nullptr;
+    g_return_if_fail(xferDataPointer != nullptr);
+    g_return_if_fail(srcGFile != nullptr);
+    g_return_if_fail(destGFile != nullptr);
 
-    g_return_if_fail(G_IS_FILE(srcGFile));
-    g_return_if_fail(G_IS_FILE(destGFile));
+    GError *tmpError = nullptr;
     auto xferData = (XferData *) xferDataPointer;
 
-    // Start the transfer
-    if (!g_file_copy (srcGFile, destGFile, copyFlags, nullptr, update_copied_xfer_data, xferDataPointer, &tmpError))
+    g_free(xferData->curSrcFileName);
+    xferData->curSrcFileName = get_gfile_attribute_string(srcGFile, G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME);
+    if(!g_file_copy(srcGFile, destGFile, copyFlags, nullptr, update_transferred_data, xferDataPointer, &tmpError))
     {
-        g_warning("g_file_copy: File could not be copied: %s\n", tmpError->message);
         g_propagate_error(&(xferData->error), tmpError);
-        xferData->problem_file_name = g_file_peek_path(srcGFile);
+        xferData->problemSrcGFile = g_file_dup(srcGFile);
+        xferData->problemDestGFile = g_file_dup(destGFile);
         xfer_progress_update(xferData);
     }
     else
     {
-        // Set back to default value because transfering the file might work only after the first try
-        xferData->problem_action = XFER_ERROR_ACTION_DEFAULT;
-    }
-
-    if(xferData->problem_action == XFER_ERROR_ACTION_RETRY)
-    {
-        xferData->problem_action = XFER_ERROR_ACTION_DEFAULT;
-        gnome_cmd_xfer_tmp_download(srcGFile, destGFile, copyFlags, xferData);
+        xferData->curFileNumber++;
+        xferData->bytesTotalTransferred += xferData->fileSize;
+        if (xferData->problem_action == COPY_ERROR_ACTION_RETRY)
+            xferData->problem_action = COPY_ERROR_ACTION_NO_ACTION_YET;
     }
 }
 
+static GFile*
+get_new_dest_gfile(GFile *srcGFile, GFile *destGFile, const char *copyString, guint increment)
+{
+    auto destGFileParent = g_file_get_parent(destGFile);
+    auto srcBasename = g_file_get_basename(srcGFile);
+    auto newDestGFilePath = g_strdup_printf("%s%s%s (%s %d)",
+                                            g_file_peek_path(destGFileParent),
+                                            G_DIR_SEPARATOR_S,
+                                            srcBasename,
+                                            copyString,
+                                            increment);
+    auto newDestGFile = g_file_new_for_path(newDestGFilePath);
+    g_free(newDestGFilePath);
+    g_free(srcBasename);
+    g_object_unref(destGFileParent);
+
+    return newDestGFile;
+}
+
+static void
+set_new_nonexisting_dest_gfile(GFile *srcGFile, GFile **destGFile, XferData *xferData)
+{
+    // Translators: Translate 'Copy' as a noun here
+    auto copyString = C_("Filename suffix", "Copy");
+    guint increment = 1;
+
+    auto newDestGFile = get_new_dest_gfile(srcGFile, *destGFile, copyString, increment);
+
+    while (g_file_query_exists(newDestGFile, nullptr))
+    {
+        g_object_unref(newDestGFile);
+        increment++;
+        newDestGFile = get_new_dest_gfile(srcGFile, *destGFile, copyString, increment);
+    }
+
+    // If destGFile is an item of the user-provided list of items
+    // to be transferred, we have to update this list-item also
+    auto oldDestItem = g_list_find(xferData->destGFileList, *destGFile);
+    if (oldDestItem)
+    {
+        oldDestItem->data = newDestGFile;
+    }
+
+    g_object_unref(*destGFile);
+
+    *destGFile = newDestGFile;
+}
+
+/**
+ * This function moves directories and files from srcGFile to destGFile.
+ * ...
+ */
+gboolean
+gnome_cmd_move_gfile_recursive (GFile *srcGFile,
+                                GFile *destGFile,
+                                GFileCopyFlags copyFlags,
+                                gpointer xferDataPointer)
+{
+    auto xferData = (XferData *) xferDataPointer;
+    if (xferData->error)
+    {
+        return false;
+    }
+
+    g_return_val_if_fail(G_IS_FILE(srcGFile), false);
+    g_return_val_if_fail(G_IS_FILE(destGFile), false);
+
+    GError *tmpError = nullptr;
+
+    g_free(xferData->curSrcFileName);
+    xferData->curSrcFileName = get_gfile_attribute_string(srcGFile, G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME);
+    if(!g_file_move(srcGFile, destGFile, copyFlags, nullptr, update_transferred_data, xferDataPointer, &tmpError))
+    {
+        if(g_file_query_file_type(srcGFile, G_FILE_QUERY_INFO_NONE, nullptr) == G_FILE_TYPE_DIRECTORY
+           && g_error_matches(tmpError, G_IO_ERROR, G_IO_ERROR_WOULD_RECURSE))
+        {
+            g_message("Folder could not be copied natively, trying a copy-delete...");
+            g_error_free(tmpError);
+            tmpError = nullptr;
+            if (gnome_cmd_copy_gfile_recursive(srcGFile, destGFile, xferData->copyFlags, xferData))
+            {
+                auto gFileInfo = g_file_query_info(srcGFile, "*", G_FILE_QUERY_INFO_NONE, nullptr, &tmpError);
+                if (!gFileInfo || tmpError)
+                {
+                    g_propagate_error(&(xferData->error), tmpError);
+                    xferData->problemSrcGFile = g_file_dup(srcGFile);
+                    xferData->problemDestGFile = g_file_dup(destGFile);
+                    xfer_progress_update(xferData);
+                    g_object_unref (gFileInfo);
+                    //ToDo: Decide what to do here!
+                    return false;
+                }
+
+                auto srcGFileParent = g_file_get_parent(srcGFile);
+                if (!srcGFileParent)
+                {
+                    g_object_unref(gFileInfo);
+                    return false;
+                }
+                auto gFileParentPath = g_file_get_path(srcGFileParent);
+                auto gnomeCmdDirParent = gnome_cmd_dir_new (get_home_con(), new GnomeCmdPlainPath(gFileParentPath));
+                auto gnomeCmdDir = gnome_cmd_dir_new_from_gfileinfo(gFileInfo, gnomeCmdDirParent);
+
+                auto deleteData = g_new0 (DeleteData, 1);
+                deleteData->gnomeCmdFiles = g_list_append(nullptr, gnomeCmdDir);
+                do_delete (deleteData, false); // false -> do not show progress window
+
+                g_free(gFileParentPath);
+                g_object_unref(srcGFileParent);
+            }
+        }
+        else
+        {
+            g_propagate_error(&(xferData->error), tmpError);
+            xferData->problemSrcGFile = g_file_dup(srcGFile);
+            xferData->problemDestGFile = g_file_dup(destGFile);
+            xfer_progress_update(xferData);
+        }
+    }
+    else
+    {
+        xferData->curFileNumber++;
+        xferData->bytesTotalTransferred += xferData->fileSize;
+        if (xferData->problem_action == COPY_ERROR_ACTION_RETRY)
+            xferData->problem_action = COPY_ERROR_ACTION_NO_ACTION_YET;
+    }
+
+    return true;
+}
+
+/**
+ * This function recursively copies directories and files from srcGFile to destGFile.
+ * As the function can call itself multiple times, some logic is build into it to handle the
+ * case when the destination is already existing and the user decides up on that.
+ *
+ * The function does return when it copied a regular file or when something went wrong
+ * unexpectedly. It calls itself if a directory should be copied or if a rename should happen
+ * as the original destination exists already.
+ */
+gboolean
+gnome_cmd_copy_gfile_recursive (GFile *srcGFile,
+                                GFile *destGFile,
+                                GFileCopyFlags copyFlags,
+                                gpointer xferDataPointer)
+{
+    auto xferData = (XferData *) xferDataPointer;
+    if (xferData->error)
+    {
+        return false;
+    }
+
+    g_return_val_if_fail(G_IS_FILE(srcGFile), false);
+    g_return_val_if_fail(G_IS_FILE(destGFile), false);
+
+    GError *tmpError = nullptr;
+
+    switch (g_file_query_file_type(srcGFile, G_FILE_QUERY_INFO_NONE, nullptr))
+    {
+        case G_FILE_TYPE_DIRECTORY:
+        {
+            xferData->currentFileType = G_FILE_TYPE_DIRECTORY;
+            switch (xferData->problem_action)
+            {
+                case COPY_ERROR_ACTION_NO_ACTION_YET:
+                    // Try to create the dest directory
+                    if (!g_file_make_directory (destGFile, nullptr, &tmpError))
+                    {
+                        g_warning("g_file_make_directory error: %s\n", tmpError->message);
+                        g_propagate_error(&(xferData->error), tmpError);
+                        xferData->problemSrcGFile = g_file_dup(srcGFile);
+                        xferData->problemDestGFile = g_file_dup(destGFile);
+                        xfer_progress_update(xferData);
+                        return gnome_cmd_copy_gfile_recursive(srcGFile, destGFile, copyFlags, xferData);
+                    }
+                    break;
+                case COPY_ERROR_ACTION_RENAME:
+                    xferData->problem_action = COPY_ERROR_ACTION_NO_ACTION_YET;
+                    set_new_nonexisting_dest_gfile(srcGFile, &destGFile, xferData);
+                    if (!g_file_make_directory (destGFile, nullptr, &tmpError))
+                    {
+                        g_warning("g_file_make_directory error: %s\n", tmpError->message);
+                        g_propagate_error(&(xferData->error), tmpError);
+                        xferData->problemSrcGFile = g_file_dup(srcGFile);
+                        xferData->problemDestGFile = g_file_dup(destGFile);
+                        xfer_progress_update(xferData);
+                        return false;
+                    }
+                    break;
+                case COPY_ERROR_ACTION_COPY_INTO:
+                    xferData->problem_action = COPY_ERROR_ACTION_NO_ACTION_YET;
+                    break;
+                case COPY_ERROR_ACTION_RENAME_ALL:
+                    set_new_nonexisting_dest_gfile(srcGFile, &destGFile, xferData);
+                    if (!g_file_make_directory (destGFile, nullptr, &tmpError))
+                    {
+                        g_warning("g_file_make_directory error: %s\n", tmpError->message);
+                        g_propagate_error(&(xferData->error), tmpError);
+                        xferData->problemSrcGFile = g_file_dup(srcGFile);
+                        xferData->problemDestGFile = g_file_dup(destGFile);
+                        xfer_progress_update(xferData);
+                        return false;
+                    }
+                    break;
+                case COPY_ERROR_ACTION_SKIP:
+                    xferData->problem_action = COPY_ERROR_ACTION_NO_ACTION_YET;
+                    return true;
+                case COPY_ERROR_ACTION_SKIP_ALL:
+                    return true;
+                case COPY_ERROR_ACTION_RETRY:
+                    xferData->problem_action = COPY_ERROR_ACTION_NO_ACTION_YET;
+                    return gnome_cmd_copy_gfile_recursive(srcGFile, destGFile, copyFlags, xferData);
+                case COPY_ERROR_ACTION_ABORT:
+                    return false;
+                case COPY_ERROR_ACTION_REPLACE:     // This is not handled for directories when copying
+                case COPY_ERROR_ACTION_REPLACE_ALL: // This is not handled for directories when copying
+                default:
+                    return false;
+            }
+
+            auto enumerator = g_file_enumerate_children(srcGFile, "*", G_FILE_QUERY_INFO_NONE, NULL, &tmpError);
+            if (tmpError)
+            {
+                g_warning("g_file_enumerate_children error: %s\n", tmpError->message);
+                g_propagate_error(&(xferData->error), tmpError);
+                xferData->problemSrcGFile = g_file_dup(srcGFile);
+                xferData->problemDestGFile = g_file_dup(destGFile);
+                xfer_progress_update(xferData);
+                return false;
+            }
+
+            // Loop through the items of the directory.
+            // Probably this can be extracted into an own function.
+            auto gFileInfoChildFile = g_file_enumerator_next_file(enumerator, nullptr, &tmpError);
+            while(gFileInfoChildFile != nullptr && !tmpError)
+            {
+                if(g_file_info_get_file_type(gFileInfoChildFile) == G_FILE_TYPE_DIRECTORY)
+                {
+                    auto dirNameChildGFile = g_file_info_get_name(gFileInfoChildFile);
+                    auto sourceChildGFile = g_file_get_child(g_file_enumerator_get_container(enumerator), dirNameChildGFile);
+                    auto targetPath = g_strdup_printf("%s%s%s", g_file_peek_path(destGFile), G_DIR_SEPARATOR_S, dirNameChildGFile);
+                    auto targetGFile = g_file_new_for_path(targetPath);
+
+                    gnome_cmd_copy_gfile_recursive(sourceChildGFile, targetGFile, copyFlags, xferData);
+
+                    g_object_unref(sourceChildGFile);
+                    g_object_unref(targetGFile);
+                    g_free(targetPath);
+                }
+                else if(g_file_info_get_file_type(gFileInfoChildFile) == G_FILE_TYPE_REGULAR)
+                {
+                    xferData->currentFileType = G_FILE_TYPE_REGULAR;
+                    auto fileNameChildGFile = g_file_info_get_name(gFileInfoChildFile);
+                    auto srcChildGFile = g_file_get_child(g_file_enumerator_get_container(enumerator), fileNameChildGFile);
+                    auto targetPath = g_strdup_printf("%s%s%s", g_file_peek_path(destGFile), G_DIR_SEPARATOR_S, fileNameChildGFile);
+                    auto targetGFile = g_file_new_for_path(targetPath);
+
+                    do_the_copy(srcChildGFile, targetGFile, copyFlags, xferDataPointer);
+                    switch (xferData->problem_action)
+                    {
+                        case COPY_ERROR_ACTION_RETRY:
+                            xferData->problem_action = COPY_ERROR_ACTION_NO_ACTION_YET;
+                            return gnome_cmd_copy_gfile_recursive(srcChildGFile, targetGFile, copyFlags, xferData);
+                        case COPY_ERROR_ACTION_REPLACE:
+                            xferData->problem_action = COPY_ERROR_ACTION_NO_ACTION_YET;
+                            gnome_cmd_copy_gfile_recursive(srcChildGFile, targetGFile, G_FILE_COPY_OVERWRITE, xferData);
+                            break;
+                        case COPY_ERROR_ACTION_RENAME:
+                            xferData->problem_action = COPY_ERROR_ACTION_NO_ACTION_YET;
+                            set_new_nonexisting_dest_gfile(srcChildGFile, &targetGFile, xferData);
+                            gnome_cmd_copy_gfile_recursive(srcChildGFile, targetGFile, copyFlags, xferData);
+                            break;
+                        case COPY_ERROR_ACTION_SKIP:
+                            xferData->problem_action = COPY_ERROR_ACTION_NO_ACTION_YET;
+                            break;
+                        case COPY_ERROR_ACTION_REPLACE_ALL:
+                            gnome_cmd_copy_gfile_recursive(srcChildGFile, targetGFile, G_FILE_COPY_OVERWRITE, xferData);
+                            break;
+                        case COPY_ERROR_ACTION_SKIP_ALL:
+                            g_object_unref(srcChildGFile);
+                            g_object_unref(targetGFile);
+                            g_free(targetPath);
+                            g_object_unref(gFileInfoChildFile);
+                            g_file_enumerator_close (enumerator, nullptr, nullptr);
+                            return true;
+                        case COPY_ERROR_ACTION_RENAME_ALL:
+                            set_new_nonexisting_dest_gfile(srcChildGFile, &targetGFile, xferData);
+                            gnome_cmd_copy_gfile_recursive(srcChildGFile, targetGFile, G_FILE_COPY_OVERWRITE, xferData);
+                            break;
+                        case COPY_ERROR_ACTION_ABORT:
+                        case COPY_ERROR_ACTION_COPY_INTO:
+                            g_object_unref(srcChildGFile);
+                            g_object_unref(targetGFile);
+                            g_free(targetPath);
+                            g_object_unref(gFileInfoChildFile);
+                            g_file_enumerator_close (enumerator, nullptr, nullptr);
+                            return false;
+                        case COPY_ERROR_ACTION_NO_ACTION_YET:
+                        default:
+                            break;
+                    }
+                    g_object_unref(srcChildGFile);
+                    g_object_unref(targetGFile);
+                    g_free(targetPath);
+                }
+                g_object_unref(gFileInfoChildFile);
+                gFileInfoChildFile = g_file_enumerator_next_file(enumerator, NULL, &tmpError);
+            }
+            if (tmpError)
+            {
+                printf("g_file_enumerator_next_file: %s\n", tmpError->message);
+                g_propagate_error(&(xferData->error), tmpError);
+                xfer_progress_update(xferData);
+            }
+
+            g_file_enumerator_close (enumerator, nullptr, nullptr);
+            break;
+        }
+        case G_FILE_TYPE_REGULAR:
+        {
+            xferData->currentFileType = G_FILE_TYPE_REGULAR;
+            do_the_copy(srcGFile, destGFile, copyFlags, xferDataPointer);
+            switch (xferData->problem_action)
+            {
+                case COPY_ERROR_ACTION_RETRY:
+                    xferData->problem_action = COPY_ERROR_ACTION_NO_ACTION_YET;
+                    return gnome_cmd_copy_gfile_recursive(srcGFile, destGFile, copyFlags, xferData);
+                case COPY_ERROR_ACTION_REPLACE:
+                    xferData->problem_action = COPY_ERROR_ACTION_NO_ACTION_YET;
+                    gnome_cmd_copy_gfile_recursive(srcGFile, destGFile, G_FILE_COPY_OVERWRITE, xferData);
+                    break;
+                case COPY_ERROR_ACTION_RENAME:
+                    xferData->problem_action = COPY_ERROR_ACTION_NO_ACTION_YET;
+                    set_new_nonexisting_dest_gfile(srcGFile, &destGFile, xferData);
+                    gnome_cmd_copy_gfile_recursive(srcGFile, destGFile, copyFlags, xferData);
+                    break;
+                case COPY_ERROR_ACTION_SKIP:
+                    xferData->problem_action = COPY_ERROR_ACTION_NO_ACTION_YET;
+                    break;
+                case COPY_ERROR_ACTION_REPLACE_ALL:
+                    gnome_cmd_copy_gfile_recursive(srcGFile, destGFile, G_FILE_COPY_OVERWRITE, xferData);
+                    break;
+                case COPY_ERROR_ACTION_SKIP_ALL:
+                    return true;
+                case COPY_ERROR_ACTION_RENAME_ALL:
+                    set_new_nonexisting_dest_gfile(srcGFile, &destGFile, xferData);
+                    gnome_cmd_copy_gfile_recursive(srcGFile, destGFile, copyFlags, xferData);
+                    break;
+                case COPY_ERROR_ACTION_COPY_INTO: // This is not handled for files when copying
+                case COPY_ERROR_ACTION_ABORT:
+                    return false;
+                case COPY_ERROR_ACTION_NO_ACTION_YET:
+                default:
+                    break;
+            }
+        }
+
+        case G_FILE_TYPE_MOUNTABLE:
+        case G_FILE_TYPE_UNKNOWN:
+        case G_FILE_TYPE_SHORTCUT:
+        case G_FILE_TYPE_SPECIAL:
+        case G_FILE_TYPE_SYMBOLIC_LINK:
+        default:
+            break;
+    }
+
+    if(xferData->problem_action == COPY_ERROR_ACTION_RETRY)
+    {
+        xferData->problem_action = COPY_ERROR_ACTION_NO_ACTION_YET;
+        gnome_cmd_copy_gfile_recursive(srcGFile, destGFile, copyFlags, xferData);
+    }
+
+    return true;
+}
+
 void
-gnome_cmd_xfer_start (GList *srcGnomeCmdFileGList,
+gnome_cmd_copy_start (GList *srcGnomeCmdFileGList,
                       GnomeCmdDir *toGnomeCmdDir,
                       GnomeCmdFileList *srcGnomeCmdFileList,
                       gchar *destFileName,
-                      GnomeVFSXferOptions xferOptions,
-                      GnomeVFSXferOverwriteMode xferOverwriteMode,
+                      GFileCopyFlags copyFlags,
+                      gboolean skipAsk,
                       GtkSignalFunc on_completed_func,
                       gpointer on_completed_data)
 {
@@ -454,13 +1380,39 @@ gnome_cmd_xfer_start (GList *srcGnomeCmdFileGList,
 
     GList *srcGFileList = gnome_cmd_file_list_to_gfile_list (srcGnomeCmdFileGList);
 
-    gnome_cmd_xfer_gfiles_start (srcGFileList,
+    gnome_cmd_copy_gfiles_start (srcGFileList,
                                toGnomeCmdDir,
                                srcGnomeCmdFileList,
                                srcGnomeCmdFileGList,
                                destFileName,
-                               xferOptions,
-                               xferOverwriteMode,
+                               copyFlags,
+                               skipAsk,
                                on_completed_func,
                                on_completed_data);
+}
+
+void
+gnome_cmd_move_start (GList *srcGnomeCmdFileGList,
+                      GnomeCmdDir *toGnomeCmdDir,
+                      GnomeCmdFileList *srcGnomeCmdFileList,
+                      gchar *destFileName,
+                      GFileCopyFlags copyFlags,
+                      gboolean skipAsk,
+                      GtkSignalFunc on_completed_func,
+                      gpointer on_completed_data)
+{
+    g_return_if_fail (srcGnomeCmdFileGList != nullptr);
+    g_return_if_fail (GNOME_CMD_IS_DIR (toGnomeCmdDir));
+
+    GList *srcGFileList = gnome_cmd_file_list_to_gfile_list (srcGnomeCmdFileGList);
+
+    gnome_cmd_move_gfiles_start (srcGFileList,
+                                 toGnomeCmdDir,
+                                 srcGnomeCmdFileList,
+                                 srcGnomeCmdFileGList,
+                                 destFileName,
+                                 copyFlags,
+                                 skipAsk,
+                                 on_completed_func,
+                                 on_completed_data);
 }

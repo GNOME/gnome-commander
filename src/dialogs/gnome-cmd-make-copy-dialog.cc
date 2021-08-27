@@ -1,4 +1,4 @@
-/** 
+/**
  * @file gnome-cmd-make-copy-dialog.cc
  * @copyright (C) 2001-2006 Marcus Bjurman\n
  * @copyright (C) 2007-2012 Piotr Eljasiak\n
@@ -43,12 +43,12 @@ inline void copy_file (GnomeCmdFile *f, GnomeCmdDir *dir, const gchar *filename)
 {
     GList *src_files = g_list_append (NULL, f);
 
-    gnome_cmd_xfer_start (src_files,
+    gnome_cmd_copy_start (src_files,
                           dir,
                           NULL,
                           g_strdup (filename),
-                          GNOME_VFS_XFER_RECURSIVE,
-                          GNOME_VFS_XFER_OVERWRITE_MODE_QUERY,
+                          G_FILE_COPY_NONE,
+                          true,
                           NULL,
                           NULL);
 }

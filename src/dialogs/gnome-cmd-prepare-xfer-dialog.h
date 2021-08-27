@@ -44,6 +44,7 @@ struct GnomeCmdPrepareXferDialog
     GtkWidget *ok_button;
     GtkWidget *cancel_button;
 
+    GFileCopyFlags gFileCopyFlags;
     GnomeVFSXferOptions xferOptions;
     GnomeVFSXferOverwriteMode xferOverwriteMode;
 

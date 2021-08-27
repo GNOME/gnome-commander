@@ -185,7 +185,9 @@ struct GnomeCmdFileList::Private
 
     static gchar *translate_menu(const gchar *path, gpointer);
 
-    static void on_dnd_popup_menu(GnomeCmdFileList *fl, GnomeVFSXferOptions xferOptions, GtkWidget *widget);
+    static void on_dnd_popup_menu_copy(GnomeCmdFileList *fl, GFileCopyFlags gFileCopyFlags, GtkWidget *widget);
+    static void on_dnd_popup_menu_move(GnomeCmdFileList *fl, GFileCopyFlags gFileCopyFlags, GtkWidget *widget);
+    static void on_dnd_popup_menu_link(GnomeCmdFileList *fl, GFileCopyFlags gFileCopyFlags, GtkWidget *widget);
 };
 
 
@@ -221,11 +223,11 @@ GnomeCmdFileList::Private::Private(GnomeCmdFileList *fl)
         gtk_clist_set_column_resizeable (*fl, i, TRUE);
 
     static GtkItemFactoryEntry items[] = {
-                                            {(gchar*) N_("/_Copy here"), (gchar*) "<control>", (GtkItemFactoryCallback) on_dnd_popup_menu, GNOME_VFS_XFER_RECURSIVE, (gchar*) "<StockItem>", GTK_STOCK_COPY},
-                                            {(gchar*) N_("/_Move here"), (gchar*) "<shift>", (GtkItemFactoryCallback) on_dnd_popup_menu, GNOME_VFS_XFER_REMOVESOURCE, (gchar*) "<StockItem>", GTK_STOCK_COPY},
-                                            {(gchar*) N_("/_Link here"), (gchar*) "<control><shift>", (GtkItemFactoryCallback) on_dnd_popup_menu,GNOME_VFS_XFER_LINK_ITEMS, (gchar*) "<StockItem>", GTK_STOCK_CONVERT},
+                                            {(gchar*) N_("/_Copy here"), (gchar*) "<control>", (GtkItemFactoryCallback) on_dnd_popup_menu_copy, G_FILE_COPY_NONE, (gchar*) "<StockItem>", GTK_STOCK_COPY},
+                                            {(gchar*) N_("/_Move here"), (gchar*) "<shift>", (GtkItemFactoryCallback) on_dnd_popup_menu_move, G_FILE_COPY_NONE, (gchar*) "<StockItem>", GTK_STOCK_COPY},
+                                            {(gchar*) N_("/_Link here"), (gchar*) "<control><shift>", (GtkItemFactoryCallback) on_dnd_popup_menu_link,G_FILE_COPY_NONE, (gchar*) "<StockItem>", GTK_STOCK_CONVERT},
                                             {(gchar*) "/", nullptr, nullptr, 0, (gchar*) "<Separator>"},
-                                            {(gchar*) N_("/C_ancel"), (gchar*) "Esc", (GtkItemFactoryCallback) on_dnd_popup_menu, 0, (gchar*) "<StockItem>", GTK_STOCK_CANCEL}
+                                            {(gchar*) N_("/C_ancel"), (gchar*) "Esc", nullptr, 1, (gchar*) "<StockItem>", GTK_STOCK_CANCEL}
                                          };
 
     ifac = gtk_item_factory_new (GTK_TYPE_MENU, (const gchar*) "<main>", nullptr);
@@ -246,19 +248,40 @@ gchar *GnomeCmdFileList::Private::translate_menu(const gchar *path, gpointer unu
 }
 
 
-void GnomeCmdFileList::Private::on_dnd_popup_menu(GnomeCmdFileList *fl, GnomeVFSXferOptions xferOptions, GtkWidget *widget)
+void GnomeCmdFileList::Private::on_dnd_popup_menu_copy(GnomeCmdFileList *fl, GFileCopyFlags gFileCopyFlags, GtkWidget *widget)
+{
+    g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl));
+
+    auto data = (gpointer *) gtk_item_factory_popup_data_from_widget (widget);
+    auto gFileGlist = (GList *) data[0];
+    auto to = static_cast<GnomeCmdDir*> (data[1]);
+
+    data[0] = nullptr;
+    fl->drop_files(GnomeCmdFileList::DndMode::COPY, gFileCopyFlags, gFileGlist, to);
+}
+
+void GnomeCmdFileList::Private::on_dnd_popup_menu_move(GnomeCmdFileList *fl, GFileCopyFlags gFileCopyFlags, GtkWidget *widget)
 {
     g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl));
 
     gpointer *data = (gpointer *) gtk_item_factory_popup_data_from_widget (widget);
-    GList *uri_list = (GList *) data[0];
+    GList *gFileGlist = (GList *) data[0];
     auto to = static_cast<GnomeCmdDir*> (data[1]);
 
-    if (xferOptions)
-    {
-        data[0] = nullptr;
-        fl->drop_files(xferOptions,uri_list,to);
-    }
+    data[0] = nullptr;
+    fl->drop_files(GnomeCmdFileList::DndMode::MOVE, gFileCopyFlags, gFileGlist, to);
+}
+
+void GnomeCmdFileList::Private::on_dnd_popup_menu_link(GnomeCmdFileList *fl, GFileCopyFlags gFileCopyFlags, GtkWidget *widget)
+{
+    g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl));
+
+    gpointer *data = (gpointer *) gtk_item_factory_popup_data_from_widget (widget);
+    GList *gFileGlist = (GList *) data[0];
+    auto to = static_cast<GnomeCmdDir*> (data[1]);
+
+    data[0] = nullptr;
+    fl->drop_files(GnomeCmdFileList::DndMode::LINK, gFileCopyFlags, gFileGlist, to);
 }
 
 
@@ -1252,7 +1275,7 @@ static void on_tmp_download_response (GtkWidget *w, gint id, TmpDlData *dldata)
         GnomeCmdPlainPath path(path_str);
         auto destGFile = gnome_cmd_con_create_gfile (get_home_con (), &path);
 
-        gnome_cmd_xfer_tmp_download (sourceGFile,
+        gnome_cmd_tmp_download (sourceGFile,
                                      destGFile,
                                      G_FILE_COPY_OVERWRITE,
                                      GTK_SIGNAL_FUNC (do_mime_exec_single),
@@ -2212,6 +2235,8 @@ void GnomeCmdFileList::toggle_and_step()
 
 void GnomeCmdFileList::focus_file(const gchar *file_to_focus, gboolean scroll_to_file)
 {
+    g_return_if_fail(file_to_focus != nullptr);
+
     for (auto i = get_visible_files(); i; i = i->next)
     {
         auto f = static_cast<GnomeCmdFile*> (i->data);
@@ -2223,7 +2248,7 @@ void GnomeCmdFileList::focus_file(const gchar *file_to_focus, gboolean scroll_to
             return;
 
         auto basename = g_file_get_basename(f->gFile);
-        if (strcmp (basename, file_to_focus) == 0)
+        if (basename && strcmp (basename, file_to_focus) == 0)
         {
             g_free(basename);
             priv->cur_file = row;
@@ -3087,8 +3112,8 @@ static void free_dnd_popup_data (gpointer *data)
 {
     if (data)
     {
-        GList *uri_list = (GList *) data[0];
-        unref_uri_list (uri_list);
+        GList *gFileGlist = (GList *) data[0];
+        unref_gfile_list (gFileGlist);
     }
 
     g_free (data);
@@ -3124,15 +3149,13 @@ static void drag_data_received (GtkWidget *widget, GdkDragContext *context, gint
     {
         gpointer *arr = g_new (gpointer, 2);
 
-        arr[0] = uri_list;
+        arr[0] = gFileGlist;
         arr[1] = to;
 
         gtk_item_factory_popup_with_data (fl->priv->ifac, arr, (GDestroyNotify) free_dnd_popup_data, x, y, 0, time);
 
         return;
     }
-
-    GnomeVFSXferOptions xferOptions;
 
     // find out what operation to perform
 #if defined (__GNUC__)
@@ -3142,15 +3165,15 @@ static void drag_data_received (GtkWidget *widget, GdkDragContext *context, gint
     switch (context->action)
     {
         case GDK_ACTION_MOVE:
-            xferOptions = GNOME_VFS_XFER_REMOVESOURCE;
+            fl->drop_files(GnomeCmdFileList::DndMode::MOVE, G_FILE_COPY_NONE, gFileGlist, to);
             break;
 
         case GDK_ACTION_COPY:
-            xferOptions = GNOME_VFS_XFER_RECURSIVE;
+            fl->drop_files(GnomeCmdFileList::DndMode::COPY, G_FILE_COPY_NONE, gFileGlist, to);
             break;
 
         case GDK_ACTION_LINK:
-            xferOptions = GNOME_VFS_XFER_LINK_ITEMS;
+            fl->drop_files(GnomeCmdFileList::DndMode::LINK, G_FILE_COPY_NONE, gFileGlist, to);
             break;
 
         default:
@@ -3160,8 +3183,6 @@ static void drag_data_received (GtkWidget *widget, GdkDragContext *context, gint
 #if defined (__GNUC__)
 #pragma GCC diagnostic pop
 #endif
-
-    fl->drop_files(xferOptions,uri_list,to);
 }
 
 
@@ -3242,19 +3263,46 @@ void GnomeCmdFileList::init_dnd()
     g_signal_connect (this, "drag-data-received", G_CALLBACK (drag_data_received), this);
 }
 
-
-void GnomeCmdFileList::drop_files(GnomeVFSXferOptions xferOptions, GList *uri_list, GnomeCmdDir *dir)
+void GnomeCmdFileList::drop_files(DndMode dndMode, GFileCopyFlags gFileCopyFlags, GList *gFileGlist, GnomeCmdDir *dir)
 {
     g_return_if_fail (GNOME_CMD_IS_DIR (dir));
 
-    // start the xfer
-    gnome_cmd_xfer_gfiles_start (uri_list,
-                               gnome_cmd_dir_ref (dir),
-                               nullptr,
-                               nullptr,
-                               g_list_length (uri_list) == 1 ? gnome_vfs_unescape_string (gnome_vfs_uri_extract_short_name ((GnomeVFSURI *) uri_list->data), 0) : nullptr,
-                               xferOptions,
-                               GNOME_VFS_XFER_OVERWRITE_MODE_QUERY,
-                               GTK_SIGNAL_FUNC (unref_uri_list),
-                               uri_list);
+    switch (dndMode)
+    {
+        case COPY:
+            gnome_cmd_copy_gfiles_start (gFileGlist,
+                                         gnome_cmd_dir_ref (dir),
+                                         nullptr,
+                                         nullptr,
+                                         g_list_length (gFileGlist) == 1 ? g_file_get_basename ((GFile *) gFileGlist->data) : nullptr,
+                                         gFileCopyFlags,
+                                         true,
+                                         nullptr,
+                                         nullptr);
+            break;
+        case MOVE:
+            gnome_cmd_move_gfiles_start (gFileGlist,
+                                         gnome_cmd_dir_ref (dir),
+                                         nullptr,
+                                         nullptr,
+                                         g_list_length (gFileGlist) == 1 ? g_file_get_basename ((GFile *) gFileGlist->data) : nullptr,
+                                         gFileCopyFlags,
+                                         true,
+                                         nullptr,
+                                         nullptr);
+            break;
+        case LINK:
+            gnome_cmd_link_gfiles_start (gFileGlist,
+                                         gnome_cmd_dir_ref (dir),
+                                         nullptr,
+                                         nullptr,
+                                         g_list_length (gFileGlist) == 1 ? g_file_get_basename ((GFile *) gFileGlist->data) : nullptr,
+                                         gFileCopyFlags,
+                                         true,
+                                         nullptr,
+                                         nullptr);
+            break;
+        default:
+            return;
+    }
 }

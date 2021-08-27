@@ -443,6 +443,9 @@ gchar *GnomeCmdFile::get_path()
 
     auto filename = g_file_info_get_name (this->gFileInfo);
 
+    if (!filename)
+        return nullptr;
+
     if (strcmp (filename, G_DIR_SEPARATOR_S) == 0)
         return g_strdup(filename);
 
@@ -593,8 +596,9 @@ GFile *GnomeCmdFile::get_gfile(const gchar *name)
             g_assert ("Non directory file without owning directory");
     }
     auto filename = g_file_get_basename(gFile);
-    return gnome_cmd_dir_get_child_gfile (::get_parent_dir (this), name ? name : filename);
+    auto childGFile = gnome_cmd_dir_get_child_gfile (::get_parent_dir (this), name ? name : filename);
     g_free(filename);
+    return childGFile;
 }
 
 
@@ -882,7 +886,7 @@ void gnome_cmd_file_view (GnomeCmdFile *f, gint internal_viewer)
     g_printerr ("Copying to: %s\n", path_str);
     g_free (path_str);
 
-    gnome_cmd_xfer_tmp_download (srcGFile,
+    gnome_cmd_tmp_download (srcGFile,
                                  destGFile,
                                  G_FILE_COPY_OVERWRITE,
                                  GTK_SIGNAL_FUNC (on_file_downloaded_for_view),

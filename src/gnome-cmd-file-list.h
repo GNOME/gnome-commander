@@ -151,7 +151,7 @@ struct GnomeCmdFileList
      * Returns a list with all files shown in the file list. The list is
      * the same as that in the file list it self so make a copy and ref
      * the files if needed
-     */    
+     */
     GList *get_visible_files();
 
     /**
@@ -160,13 +160,13 @@ struct GnomeCmdFileList
      * list is however not refed before returning
      */
     GList *get_selected_files();
-    
+
     /**
      * Returns a collection of all selected files.
      * A marked file is a file that has been selected with ins etc. The file that is currently focused is not marked.
      */
     GnomeCmd::Collection<GnomeCmdFile *> &get_marked_files();
-                                              
+
     /**
      * Returns the currently focused file if any. The returned file is
      * not reffed. The ".." file is returned if focused
@@ -215,8 +215,15 @@ struct GnomeCmdFileList
 
     gboolean key_pressed(GdkEventKey *event);
 
+    enum DndMode
+    {
+        COPY,
+        MOVE,
+        LINK
+    };
+
     void init_dnd();
-    void drop_files(GnomeVFSXferOptions xferOptions, GList *uri_list, GnomeCmdDir *dir);
+    void drop_files(DndMode dndMode, GFileCopyFlags gFileCopyFlags, GList *uri_list, GnomeCmdDir *dir);
 };
 
 

@@ -1,4 +1,4 @@
-/** 
+/**
  * @file cap.cc
  * @copyright (C) 2001-2006 Marcus Bjurman\n
  * @copyright (C) 2007-2012 Piotr Eljasiak\n
@@ -57,12 +57,12 @@ inline void update_refs (GnomeCmdFileList *fl, GList *files)
 
 inline void cut_and_paste (GnomeCmdDir *to)
 {
-    gnome_cmd_xfer_start (_files,
+    gnome_cmd_move_start (_files,
                           gnome_cmd_dir_ref (to),
                           _fl,
                           NULL,
-                          GNOME_VFS_XFER_REMOVESOURCE,
-                          GNOME_VFS_XFER_OVERWRITE_MODE_QUERY,
+                          G_FILE_COPY_NONE,
+                          true,
                           GTK_SIGNAL_FUNC (on_xfer_done), _files);
     _files = NULL;
     _fl = NULL;
@@ -72,12 +72,12 @@ inline void cut_and_paste (GnomeCmdDir *to)
 
 inline void copy_and_paste (GnomeCmdDir *to)
 {
-    gnome_cmd_xfer_start (_files,
+    gnome_cmd_copy_start (_files,
                           gnome_cmd_dir_ref (to),
                           _fl,
                           NULL,
-                          GNOME_VFS_XFER_RECURSIVE,
-                          GNOME_VFS_XFER_OVERWRITE_MODE_QUERY,
+                          G_FILE_COPY_NONE,
+                          true,
                           GTK_SIGNAL_FUNC (on_xfer_done), _files);
     _files = NULL;
     _fl = NULL;

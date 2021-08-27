@@ -51,8 +51,13 @@ static void on_ok (GtkButton *button, gpointer user_data)
     PrepareCopyData *data = (PrepareCopyData *) user_data;
     GnomeCmdPrepareXferDialog *dlg = data->dialog;
 
+    guint gFileCopyFlags = 0;
+
     if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (data->silent)))
+    {
         dlg->xferOverwriteMode = GNOME_VFS_XFER_OVERWRITE_MODE_REPLACE;
+        gFileCopyFlags |= G_FILE_COPY_OVERWRITE;
+    }
     else
         if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (data->query)))
             dlg->xferOverwriteMode = GNOME_VFS_XFER_OVERWRITE_MODE_QUERY;
@@ -62,9 +67,15 @@ static void on_ok (GtkButton *button, gpointer user_data)
     guint xferOptions = GNOME_VFS_XFER_RECURSIVE;
 
     if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (data->follow_links)))
+    {
         xferOptions |= GNOME_VFS_XFER_FOLLOW_LINKS;
-
+    }
+    else
+    {
+        gFileCopyFlags |= G_FILE_COPY_NOFOLLOW_SYMLINKS;
+    }
     dlg->xferOptions = (GnomeVFSXferOptions) xferOptions;
+    dlg->gFileCopyFlags = (GFileCopyFlags) gFileCopyFlags;
 }
 
 
