@@ -328,30 +328,28 @@ GnomeCmdDir *gnome_cmd_dir_new (GnomeCmdCon *con, GnomeCmdPath *path, gboolean i
         return dir;
     }
 
-    //ToDo. Verallgemeinere das mit _from_uri()!
     auto gFileTmp = g_file_new_for_path(path->get_path());
     auto gFileInfo = g_file_query_info(gFileTmp, "*", G_FILE_QUERY_INFO_NONE, nullptr, &error);
     g_object_unref(gFileTmp);
 
-    if (!error)
-    {
-        dir = static_cast<GnomeCmdDir*> (g_object_new (GNOME_CMD_TYPE_DIR, nullptr));
-        gnome_cmd_dir_set_path (dir, path);
-        gnome_cmd_file_setup (GNOME_CMD_FILE (dir), gFileInfo, nullptr);
-
-        dir->priv->con = con;
-        dir->priv->needs_mtime_update = FALSE;
-
-        gnome_cmd_con_add_to_cache (con, dir);
-    }
-    else
+    if (error)
     {
         if (!isStartup)
         {
             gnome_cmd_show_message (*main_win, path->get_display_path(), error->message);
             g_error_free(error);
         }
+        return nullptr;
     }
+
+    dir = static_cast<GnomeCmdDir*> (g_object_new (GNOME_CMD_TYPE_DIR, nullptr));
+    gnome_cmd_dir_set_path (dir, path);
+    gnome_cmd_file_setup (GNOME_CMD_FILE (dir), gFileInfo, nullptr);
+
+    dir->priv->con = con;
+    dir->priv->needs_mtime_update = FALSE;
+
+    gnome_cmd_con_add_to_cache (con, dir);
 
     return dir;
 }
