@@ -252,13 +252,12 @@ GnomeCmdDir *gnome_cmd_dir_new_from_gfileinfo (GFileInfo *gFileInfo, GnomeCmdDir
         return nullptr;
     }
 
-    GnomeVFSURI *uri = gnome_cmd_con_create_uri (con, path);
-    gchar *uri_str = gnome_vfs_uri_to_string (uri, GNOME_VFS_URI_HIDE_PASSWORD);
+    auto gFile = gnome_cmd_con_create_gfile (con, path);
+    auto uriString = g_file_get_uri (gFile);
 
-    // ToDo: Do it with gFile!
-    GnomeCmdDir *dir = gnome_cmd_con_cache_lookup (gnome_cmd_dir_get_connection (parent), uri_str);
-    g_free (uri_str);
-    gnome_vfs_uri_unref (uri);
+    GnomeCmdDir *dir = gnome_cmd_con_cache_lookup (gnome_cmd_dir_get_connection (parent), uriString);
+    g_free (uriString);
+    g_object_unref (gFile);
 
     if (dir)
     {
@@ -316,14 +315,14 @@ GnomeCmdDir *gnome_cmd_dir_new (GnomeCmdCon *con, GnomeCmdPath *path, gboolean i
     g_return_val_if_fail (path!=nullptr, nullptr);
     GError *error = nullptr;
 
-    auto gnomeVFSUri = gnome_cmd_con_create_uri (con, path);
-    if (!gnomeVFSUri) return nullptr;
+    auto gFile = gnome_cmd_con_create_gfile (con, path);
+    if (!gFile) return nullptr;
 
-    gchar *uri_str = gnome_vfs_uri_to_string (gnomeVFSUri, GNOME_VFS_URI_HIDE_PASSWORD);
-    gnome_vfs_uri_unref (gnomeVFSUri);
+    auto uriString = g_file_get_uri (gFile);
+    g_object_unref (gFile);
 
-    GnomeCmdDir *dir = gnome_cmd_con_cache_lookup (con, uri_str);
-    g_free (uri_str);
+    GnomeCmdDir *dir = gnome_cmd_con_cache_lookup (con, uriString);
+    g_free (uriString);
     if (dir)
     {
         return dir;
