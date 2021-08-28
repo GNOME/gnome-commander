@@ -38,14 +38,13 @@ GSList *make_gfile_list (GnomeCmdDir *dir, string filename)
     // make an absolute filename from one that is starting with a tilde
     if (filename.compare(0, 2, "~/")==0)
     {
-        //ToDo: Take care of this only if we are in local dir, when migration to gvfs is done
-//        if (gnome_cmd_dir_is_local (dir))
-//            {
-        auto absolutePath = g_strdup_printf("%s" G_DIR_SEPARATOR_S "%s", g_get_home_dir(), filename.substr(2).c_str());
-        stringify (filename, absolutePath);
-//            }
-//        else
-//            filename.erase(0,1);
+        if (gnome_cmd_dir_is_local (dir))
+        {
+            auto absolutePath = g_strdup_printf("%s" G_DIR_SEPARATOR_S "%s", g_get_home_dir(), filename.substr(2).c_str());
+            stringify (filename, absolutePath);
+        }
+        else
+            filename.erase(0,1);
     }
 
 #ifdef HAVE_SAMBA
@@ -119,6 +118,7 @@ static void response_callback (GtkDialog *dialog, int response_id, GnomeCmdDir *
                         auto mkdir_gFile = (GFile *) i->data;
 
                         auto mkdirPath = g_file_get_path(mkdir_gFile);
+                        // create the directory
                         auto result = g_mkdir_with_parents (mkdirPath, perm);
                         g_free(mkdirPath);
 
