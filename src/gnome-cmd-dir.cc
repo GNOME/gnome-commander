@@ -405,55 +405,6 @@ GList *gnome_cmd_dir_get_files (GnomeCmdDir *dir)
 }
 
 
-//static GList *create_file_list (GnomeCmdDir *dir, GList *info_list)
-//{
-//    GList *file_list = nullptr;
-//
-//    // create a new list with GnomeCmdFile objects
-//
-//    for (GList *i = info_list; i; i = i->next)
-//    {
-//        GnomeVFSFileInfo *info = (GnomeVFSFileInfo *) i->data;
-//
-//        if (info && info->name)
-//        {
-//            if (strcmp (info->name, ".") == 0 || strcmp (info->name, "..") == 0)
-//            {
-//                gnome_vfs_file_info_unref (info);
-//                continue;
-//            }
-//
-//#ifdef HAVE_SAMBA
-//            GnomeCmdCon *con = gnome_cmd_dir_get_connection (dir);
-//            if (GNOME_CMD_IS_CON_SMB (con)
-//                && info->mime_type
-//                && (strcmp (info->mime_type, "application/x-gnome-app-info") == 0 ||
-//                    strcmp (info->mime_type, "application/x-desktop") == 0)
-//                && strcmp (info->name, ".directory"))
-//            {
-//                // This is a hack to make samba workgroups etc
-//                // look like normal directories
-//                info->type = GNOME_VFS_FILE_TYPE_DIRECTORY;
-//                // Determining smb MIME type: workgroup or server
-//                gchar *uri_str = GNOME_CMD_FILE (dir)->get_uri_str();
-//
-//                info->mime_type = strcmp (uri_str, "smb:///") == 0 ? g_strdup ("x-directory/smb-workgroup") :
-//                                                                     g_strdup ("x-directory/smb-server");
-//            }
-//#endif
-//
-//            GnomeCmdFile *f = info->type == GNOME_VFS_FILE_TYPE_DIRECTORY ? GNOME_CMD_FILE (gnome_cmd_dir_new_from_info (info, dir)) :
-//                                                                            gnome_cmd_file_new (info, dir);
-//
-//            gnome_cmd_file_ref (f);
-//            file_list = g_list_append (file_list, f);
-//        }
-//    }
-//
-//    return file_list;
-//}
-
-
 static GList *create_gnome_cmd_file_list_from_gfileinfo_list (GnomeCmdDir *dir, GList *info_list)
 {
     GList *file_list = nullptr;
@@ -688,6 +639,7 @@ GFile *gnome_cmd_dir_get_absolute_path_gfile (GnomeCmdDir *dir, string absolute_
 {
     g_return_val_if_fail (GNOME_CMD_IS_DIR (dir), nullptr);
 
+//ToDo: This has to be tested after the migration to GIO/gvfs is done
 #ifdef HAVE_SAMBA
     // include workgroups and shares for smb uris
     GFile *dir_gFile = gnome_cmd_dir_get_gfile (dir);
@@ -703,7 +655,6 @@ GFile *gnome_cmd_dir_get_absolute_path_gfile (GnomeCmdDir *dir, string absolute_
             dir_gFile = gFileParent;
         }
 
-        //ToDo: This has to be tested after the migration to GIO/gvfs is done
         auto server_and_share = g_file_get_uri(dir_gFile);
         stringify (absolute_filename, g_build_filename (server_and_share, absolute_filename.c_str(), nullptr));
         g_free (server_and_share);
