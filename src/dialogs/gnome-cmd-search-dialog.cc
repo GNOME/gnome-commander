@@ -45,7 +45,7 @@ static char *msgs[] = {N_("Search local directories only"),
 #endif
 
 
-#define PBAR_MAX   50 /**< Absolute width of a progress bar */
+#define PBAR_MAX   50 // Absolute width of a progress bar
 
 #define SEARCH_JUMP_SIZE     4096U
 #define SEARCH_BUFFER_SIZE  (SEARCH_JUMP_SIZE * 10U)
@@ -66,7 +66,7 @@ struct SearchFileData
     GnomeVFSHandle *handle;
     gint            offset;
     guint           len;
-    gchar           mem[SEARCH_BUFFER_SIZE];     /**< memory to search in the content of a file */
+    gchar           mem[SEARCH_BUFFER_SIZE];     // memory to search in the content of a file
 };
 
 
@@ -83,29 +83,45 @@ struct SearchData
 
     GnomeCmdSearchDialog *dialog;
 
-    GnomeCmdDir *start_dir {nullptr};                     /**< the directory to start searching from */
+    // the directory to start searching from
+    GnomeCmdDir *start_dir {nullptr};
 
     Filter *name_filter {nullptr};
     regex_t *content_regex {nullptr};
-    gint context_id {0};                            /**< the context id of the status bar */
-    GList *match_dirs {nullptr};                          /**< the directories which we found matching files in */
+
+    // the context id of the status bar
+    gint context_id {0};
+
+    //the directories which we found matching files in
+    GList *match_dirs {nullptr};
     GThread *thread {nullptr};
     ProtectedData pdata;
     gint update_gui_timeout_id {0};
 
     gboolean search_done {TRUE};
-    gboolean stopped {TRUE};                           /**< stops the search routine if set to TRUE. This is done by the stop_button */
-    gboolean dialog_destroyed {FALSE};                  /**< set when the search dialog is destroyed, also stops the search of course */
+
+    //stops the search routine if set to TRUE. This is done by the stop_button
+    gboolean stopped {TRUE};
+
+    // set when the search dialog is destroyed, also stops the search of course
+    gboolean dialog_destroyed {FALSE};
 
     explicit SearchData(GnomeCmdSearchDialog *dlg);
 
     void set_statusmsg(const gchar *msg=NULL);
     gchar *build_search_command();
-    void search_dir_r(GnomeCmdDir *dir, long level);  /**< searches a given directory for files that matches the criteria given by data */
 
-    gboolean name_matches(const char *name)  {  return name_filter->match(name);  } /**< determines if the name of a file matches an regexp */
-    gboolean content_matches(GnomeCmdFile *f);                                      /**< determines if the content of a file matches an regexp */
-    gboolean read_search_file(SearchFileData *, GnomeCmdFile *f);                   /**< loads a file in chunks and returns the content */
+    // searches a given directory for files that matches the criteria given by data
+    void search_dir_r(GnomeCmdDir *dir, long level);
+
+    // determines if the name of a file matches an regexp
+    gboolean name_matches(const char *name)  {  return name_filter->match(name);  }
+
+    // determines if the content of a file matches an regexp
+    gboolean content_matches(GnomeCmdFile *f);
+
+    // loads a file in chunks and returns the content
+    gboolean read_search_file(SearchFileData *, GnomeCmdFile *f);
     gboolean start_generic_search();
     gboolean start_local_search();
 
@@ -115,7 +131,8 @@ struct SearchData
 
 struct GnomeCmdSearchDialog::Private
 {
-    SearchData data;                            /**< holds data needed by the search routines */
+    // holds data needed by the search routines
+    SearchData data;
 
     GtkWidget *vbox;
     GnomeCmdSelectionProfileComponent *profile_component;
