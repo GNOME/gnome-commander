@@ -108,7 +108,7 @@ struct SearchData
 
     explicit SearchData(GnomeCmdSearchDialog *dlg);
 
-    void set_statusmsg(const gchar *msg=NULL);
+    void set_statusmsg(const gchar *msg=nullptr);
     gchar *BuildSearchCommand();
 
     // searches a given directory for files that matches the criteria given by data
@@ -165,13 +165,13 @@ struct GnomeCmdSearchDialog::Private
 
 inline GnomeCmdSearchDialog::Private::Private(GnomeCmdSearchDialog *dlg): data(dlg)
 {
-    vbox = NULL;
-    profile_component = NULL;
-    dir_browser = NULL;
-    result_list = NULL;
-    statusbar = NULL;
-    pbar = NULL;
-    profile_menu_button = NULL;
+    vbox = nullptr;
+    profile_component = nullptr;
+    dir_browser = nullptr;
+    result_list = nullptr;
+    statusbar = nullptr;
+    pbar = nullptr;
+    profile_menu_button = nullptr;
 }
 
 
@@ -191,7 +191,7 @@ inline GtkWidget *GnomeCmdSearchDialog::Private::create_placeholder_menu(GnomeCm
     guint items_size = cfg.profiles.empty() ? 1 : cfg.profiles.size()+3;
     GtkItemFactoryEntry *items = g_try_new0 (GtkItemFactoryEntry, items_size);
 
-    g_return_val_if_fail (items!=NULL, NULL);
+    g_return_val_if_fail (items!=nullptr, nullptr);
 
     GtkItemFactoryEntry *i = items;
 
@@ -216,7 +216,7 @@ inline GtkWidget *GnomeCmdSearchDialog::Private::create_placeholder_menu(GnomeCm
 
         for (vector<GnomeCmdData::SearchProfile>::const_iterator p=cfg.profiles.begin(); p!=cfg.profiles.end(); ++p, ++i)
         {
-            i->path = g_strconcat ("/", p->name.c_str(), NULL);
+            i->path = g_strconcat ("/", p->name.c_str(), nullptr);
             i->callback = (GtkItemFactoryCallback) load_profile;
             i->callback_action = (i-items)-3;
             i->item_type = (gchar*) "<StockItem>";
@@ -224,7 +224,7 @@ inline GtkWidget *GnomeCmdSearchDialog::Private::create_placeholder_menu(GnomeCm
         }
     }
 
-    GtkItemFactory *ifac = gtk_item_factory_new (GTK_TYPE_MENU, "<main>", NULL);
+    GtkItemFactory *ifac = gtk_item_factory_new (GTK_TYPE_MENU, "<main>", nullptr);
 
     gtk_item_factory_create_items (ifac, items_size, items, this);
 
@@ -269,7 +269,7 @@ void GnomeCmdSearchDialog::Private::load_profile(GnomeCmdSearchDialog::Private *
 {
     GtkWidget *dialog = gtk_widget_get_ancestor (priv->profile_menu_button, GNOME_CMD_TYPE_SEARCH_DIALOG);
 
-    g_return_if_fail (dialog!=NULL);
+    g_return_if_fail (dialog!=nullptr);
 
     GnomeCmdData::SearchConfig &cfg = GNOME_CMD_SEARCH_DIALOG(dialog)->defaults;
 
@@ -351,7 +351,7 @@ gboolean SearchData::ReadSearchFile(SearchFileData *searchFileData, GnomeCmdFile
 
 inline gboolean SearchData::ContentMatches(GnomeCmdFile *f)
 {
-    g_return_val_if_fail (f != NULL, FALSE);
+    g_return_val_if_fail (f != nullptr, FALSE);
 
     if (get_gfile_attribute_uint64(f->gFile, G_FILE_ATTRIBUTE_STANDARD_SIZE) == 0)
         return FALSE;
@@ -472,30 +472,30 @@ static gpointer perform_search_operation (SearchData *data)
     // unref all directories which contained matching files from last search
     if (data->match_dirs)
     {
-        g_list_foreach (data->match_dirs, (GFunc) gnome_cmd_dir_unref, NULL);
+        g_list_foreach (data->match_dirs, (GFunc) gnome_cmd_dir_unref, nullptr);
         g_list_free (data->match_dirs);
-        data->match_dirs = NULL;
+        data->match_dirs = nullptr;
     }
 
     data->SearchDirRecursive(data->start_dir, data->dialog->defaults.default_profile.max_depth);
 
     // free regexps
     delete data->name_filter;
-    data->name_filter = NULL;
+    data->name_filter = nullptr;
 
     if (data->dialog->defaults.default_profile.content_search)
     {
         regfree (data->content_regex);
         g_free (data->content_regex);
-        data->content_regex = NULL;
+        data->content_regex = nullptr;
     }
 
     gnome_cmd_dir_unref (data->start_dir);      //  FIXME:  ???
-    data->start_dir = NULL;
+    data->start_dir = nullptr;
 
     data->search_done = TRUE;
 
-    return NULL;
+    return nullptr;
 }
 
 #pragma GCC diagnostic push
@@ -510,7 +510,7 @@ static gboolean update_search_status_widgets (SearchData *data)
         g_mutex_lock (data->pdata.mutex);
 
         GList *files = data->pdata.files;
-        data->pdata.files = NULL;
+        data->pdata.files = nullptr;
 
         data->set_statusmsg(data->pdata.msg);                       // update status bar with the latest message
 
@@ -582,10 +582,10 @@ gboolean SearchData::join_thread_func (SearchData *data)
 
 gboolean SearchData::StartGenericSearch()
 {
-    // create an re for file name matching
+    // create an regex for file name matching
     name_filter = new Filter(dialog->defaults.default_profile.filename_pattern.c_str(), dialog->defaults.default_profile.match_case, dialog->defaults.default_profile.syntax);
 
-    // if we're going to search through file content create an re for that too
+    // if we're going to search through file content create an regex for that too
     if (dialog->defaults.default_profile.content_search)
     {
         content_regex = g_new0 (regex_t, 1);
@@ -595,7 +595,7 @@ gboolean SearchData::StartGenericSearch()
     if (!pdata.mutex)
         g_mutex_init(pdata.mutex);
 
-    thread = g_thread_new (NULL, (GThreadFunc) perform_search_operation, this);
+    thread = g_thread_new (nullptr, (GThreadFunc) perform_search_operation, this);
 
     return TRUE;
 }
@@ -607,7 +607,7 @@ gboolean SearchData::StartGenericSearch()
 gchar *SearchData::BuildSearchCommand()
 {
     gchar *file_pattern_utf8 = g_strdup (dialog->defaults.default_profile.filename_pattern.c_str());
-    GError *error = NULL;
+    GError *error = nullptr;
 
     switch (dialog->defaults.default_profile.syntax)
     {
@@ -621,7 +621,7 @@ gchar *SearchData::BuildSearchCommand()
                 if (!g_utf8_strchr (file_pattern_utf8, -1, '*') && !g_utf8_strchr (file_pattern_utf8, -1, '?'))
                 {
                     gchar *tmp = file_pattern_utf8;
-                    file_pattern_utf8 = g_strconcat ("*", file_pattern_utf8, "*", NULL);
+                    file_pattern_utf8 = g_strconcat ("*", file_pattern_utf8, "*", nullptr);
                     g_free (tmp);
                 }
             break;
@@ -633,21 +633,21 @@ gchar *SearchData::BuildSearchCommand()
             break;
     }
 
-    gchar *file_pattern_locale = g_locale_from_utf8 (file_pattern_utf8, -1, NULL, NULL, &error);
+    gchar *file_pattern_locale = g_locale_from_utf8 (file_pattern_utf8, -1, nullptr, nullptr, &error);
 
     if (!file_pattern_locale)
     {
         gnome_cmd_error_message (file_pattern_utf8, error);
         g_free (file_pattern_utf8);
-        return NULL;
+        return nullptr;
     }
 
     gchar *file_pattern_quoted = quote_if_needed (file_pattern_locale);
     gchar *look_in_folder_utf8 = GNOME_CMD_FILE (start_dir)->get_real_path();
-    gchar *look_in_folder_locale = g_locale_from_utf8 (look_in_folder_utf8, -1, NULL, NULL, NULL);
+    gchar *look_in_folder_locale = g_locale_from_utf8 (look_in_folder_utf8, -1, nullptr, nullptr, nullptr);
 
     if (!look_in_folder_locale)     // if for some reason a path was not returned, fallback to the user's home directory
-        look_in_folder_locale = g_strconcat (g_get_home_dir (), G_DIR_SEPARATOR_S, NULL);
+        look_in_folder_locale = g_strconcat (g_get_home_dir (), G_DIR_SEPARATOR_S, nullptr);
 
     gchar *look_in_folder_quoted = quote_if_needed (look_in_folder_locale);
 
@@ -709,9 +709,9 @@ static gboolean handle_search_command_stdout_io (GIOChannel *ioc, GIOCondition c
 
     if (condition & G_IO_IN)
     {
-        GError *error = NULL;
+        GError *error = nullptr;
 
-        GString *string = g_string_new (NULL);
+        GString *string = g_string_new (nullptr);
 
         GTimer *timer = g_timer_new ();
         g_timer_start (timer);
@@ -730,7 +730,7 @@ static gboolean handle_search_command_stdout_io (GIOChannel *ioc, GIOCondition c
 
             do
             {
-                status = g_io_channel_read_line_string (ioc, string, NULL, &error);
+                status = g_io_channel_read_line_string (ioc, string, nullptr, &error);
 
                 if (status == G_IO_STATUS_EOF)
                     broken_pipe = TRUE;
@@ -798,7 +798,7 @@ static gboolean handle_search_command_stdout_io (GIOChannel *ioc, GIOCondition c
 
     if (!(condition & G_IO_IN) || broken_pipe)
     {
-        g_io_channel_shutdown (ioc, TRUE, NULL);
+        g_io_channel_shutdown (ioc, TRUE, nullptr);
 
         data->search_done = TRUE;
 
@@ -813,15 +813,15 @@ gboolean SearchData::StartLocalSearch()
 {
     gchar *command = BuildSearchCommand();
 
-    g_return_val_if_fail (command!=NULL, FALSE);
+    g_return_val_if_fail (command!=nullptr, FALSE);
 
     DEBUG ('g', "running: %s\n", command);
 
-    GError *error = NULL;
-    gchar **argv  = NULL;
+    GError *error = nullptr;
+    gchar **argv  = nullptr;
     gint child_stdout;
 
-    if (!g_shell_parse_argv (command, NULL, &argv, &error))
+    if (!g_shell_parse_argv (command, nullptr, &argv, &error))
     {
         gnome_cmd_error_message (_("Error parsing the search command."), error);
 
@@ -833,7 +833,7 @@ gboolean SearchData::StartLocalSearch()
 
     g_free (command);
 
-    if (!g_spawn_async_with_pipes (NULL, argv, NULL, GSpawnFlags (G_SPAWN_SEARCH_PATH | G_SPAWN_STDERR_TO_DEV_NULL), child_command_set_pgid_cb, NULL, NULL, NULL, &child_stdout, NULL, &error))
+    if (!g_spawn_async_with_pipes (nullptr, argv, nullptr, GSpawnFlags (G_SPAWN_SEARCH_PATH | G_SPAWN_STDERR_TO_DEV_NULL), child_command_set_pgid_cb, nullptr, nullptr, nullptr, &child_stdout, nullptr, &error))
     {
         gnome_cmd_error_message (_("Error running the search command."), error);
 
@@ -848,8 +848,8 @@ gboolean SearchData::StartLocalSearch()
     GIOChannel *ioc_stdout = g_io_channel_unix_new (child_stdout);
 #endif
 
-    g_io_channel_set_encoding (ioc_stdout, NULL, NULL);
-    g_io_channel_set_flags (ioc_stdout, G_IO_FLAG_NONBLOCK, NULL);
+    g_io_channel_set_encoding (ioc_stdout, nullptr, nullptr);
+    g_io_channel_set_flags (ioc_stdout, G_IO_FLAG_NONBLOCK, nullptr);
     g_io_add_watch (ioc_stdout, GIOCondition (G_IO_IN | G_IO_HUP), (GIOFunc) handle_search_command_stdout_io, this);
 
     g_io_channel_unref (ioc_stdout);
@@ -924,7 +924,7 @@ void GnomeCmdSearchDialog::Private::on_dialog_response(GtkDialog *window, int re
                 if (data.thread)
                 {
                     g_thread_join (data.thread);
-                    data.thread = NULL;
+                    data.thread = nullptr;
                 }
 
                 data.search_done = TRUE;
@@ -932,8 +932,8 @@ void GnomeCmdSearchDialog::Private::on_dialog_response(GtkDialog *window, int re
                 data.dialog_destroyed = FALSE;
 
                 data.context_id = gtk_statusbar_get_context_id (GTK_STATUSBAR (dialog->priv->statusbar), "info");
-                data.content_regex = NULL;
-                data.match_dirs = NULL;
+                data.content_regex = nullptr;
+                data.match_dirs = nullptr;
 
                 gchar *dir_str = gtk_file_chooser_get_uri (GTK_FILE_CHOOSER (dialog->priv->dir_browser));
                 GnomeVFSURI *uri = gnome_vfs_uri_new (dir_str);
@@ -1073,7 +1073,7 @@ static void gnome_cmd_search_dialog_init (GnomeCmdSearchDialog *dialog)
 
 
     // file list
-    GtkWidget *sw = gtk_scrolled_window_new (NULL, NULL);
+    GtkWidget *sw = gtk_scrolled_window_new (nullptr, nullptr);
     gtk_box_pack_start (GTK_BOX (dialog->priv->vbox), sw, TRUE, TRUE, 0);
     gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (sw), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
 
@@ -1125,9 +1125,9 @@ static void gnome_cmd_search_dialog_finalize (GObject *object)
         g_mutex_lock (data.pdata.mutex);
         if (data.match_dirs)
         {
-            g_list_foreach (data.match_dirs, (GFunc) gnome_cmd_dir_unref, NULL);
+            g_list_foreach (data.match_dirs, (GFunc) gnome_cmd_dir_unref, nullptr);
             g_list_free (data.match_dirs);
-            data.match_dirs = NULL;
+            data.match_dirs = nullptr;
         }
         g_mutex_unlock (data.pdata.mutex);
     }
@@ -1174,7 +1174,7 @@ GnomeCmdSearchDialog::GnomeCmdSearchDialog(GnomeCmdData::SearchConfig &cfg): def
                             GTK_STOCK_JUMP_TO, GCMD_RESPONSE_GOTO,
                             GTK_STOCK_STOP, GCMD_RESPONSE_STOP,
                             GTK_STOCK_FIND, GCMD_RESPONSE_FIND,
-                            NULL);
+                            nullptr);
 
     gtk_dialog_set_response_sensitive (*this, GCMD_RESPONSE_GOTO, FALSE);
     gtk_dialog_set_response_sensitive (*this, GCMD_RESPONSE_STOP, FALSE);
