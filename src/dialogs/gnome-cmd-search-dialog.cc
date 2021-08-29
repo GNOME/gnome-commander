@@ -109,21 +109,21 @@ struct SearchData
     explicit SearchData(GnomeCmdSearchDialog *dlg);
 
     void set_statusmsg(const gchar *msg=NULL);
-    gchar *build_search_command();
+    gchar *BuildSearchCommand();
 
     // searches a given directory for files that matches the criteria given by data
-    void search_dir_r(GnomeCmdDir *dir, long level);
+    void SearchDirRecursive(GnomeCmdDir *dir, long level);
 
     // determines if the name of a file matches an regexp
-    gboolean name_matches(const char *name)  {  return name_filter->match(name);  }
+    gboolean NameMatches(const char *name)  {  return name_filter->match(name);  }
 
     // determines if the content of a file matches an regexp
-    gboolean content_matches(GnomeCmdFile *f);
+    gboolean ContentMatches(GnomeCmdFile *f);
 
     // loads a file in chunks and returns the content
-    gboolean read_search_file(SearchFileData *, GnomeCmdFile *f);
-    gboolean start_generic_search();
-    gboolean start_local_search();
+    gboolean ReadSearchFile(SearchFileData *, GnomeCmdFile *f);
+    gboolean StartGenericSearch();
+    gboolean StartLocalSearch();
 
     static gboolean join_thread_func(SearchData *data);
 };
@@ -298,7 +298,7 @@ inline void free_search_file_data (SearchFileData *searchfile_data)
 }
 
 
-gboolean SearchData::read_search_file(SearchFileData *searchFileData, GnomeCmdFile *f)
+gboolean SearchData::ReadSearchFile(SearchFileData *searchFileData, GnomeCmdFile *f)
 {
     if (stopped)     // if the stop button was pressed, let's abort here
     {
@@ -349,7 +349,7 @@ gboolean SearchData::read_search_file(SearchFileData *searchFileData, GnomeCmdFi
 }
 
 
-inline gboolean SearchData::content_matches(GnomeCmdFile *f)
+inline gboolean SearchData::ContentMatches(GnomeCmdFile *f)
 {
     g_return_val_if_fail (f != NULL, FALSE);
 
@@ -369,7 +369,7 @@ inline gboolean SearchData::content_matches(GnomeCmdFile *f)
 
     regmatch_t match;
 
-    while (read_search_file(searchFileData, f))
+    while (ReadSearchFile(searchFileData, f))
         if (regexec (content_regex, searchFileData->mem, 1, &match, 0) != REG_NOMATCH)
             return TRUE;        // stop on first match
 
@@ -400,7 +400,7 @@ inline void SearchData::set_statusmsg(const gchar *msg)
 }
 
 
-void SearchData::search_dir_r(GnomeCmdDir *dir, long level)
+void SearchData::SearchDirRecursive(GnomeCmdDir *dir, long level)
 {
     if (!dir)
         return;
@@ -442,7 +442,7 @@ void SearchData::search_dir_r(GnomeCmdDir *dir, long level)
                 if (new_dir)
                 {
                     gnome_cmd_dir_ref (new_dir);
-                    search_dir_r(new_dir, level-1);
+                    SearchDirRecursive(new_dir, level-1);
                     gnome_cmd_dir_unref (new_dir);
                 }
             }
@@ -450,10 +450,10 @@ void SearchData::search_dir_r(GnomeCmdDir *dir, long level)
         else                                                            // if the file is a regular one, it might match the search criteria
             if (f->GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE) == G_FILE_TYPE_DIRECTORY)
             {
-                if (!name_matches(g_file_info_get_display_name(f->gFileInfo)))                       // if the name doesn't match, let's go to the next file
+                if (!NameMatches(g_file_info_get_display_name(f->gFileInfo)))                       // if the name doesn't match, let's go to the next file
                     continue;
 
-                if (dialog->defaults.default_profile.content_search && !content_matches(f))              // if the user wants to we should do some content matching here
+                if (dialog->defaults.default_profile.content_search && !ContentMatches(f))              // if the user wants to we should do some content matching here
                     continue;
 
                 g_mutex_lock (pdata.mutex);                             // the file matched the search criteria, let's add it to the list
@@ -477,7 +477,7 @@ static gpointer perform_search_operation (SearchData *data)
         data->match_dirs = NULL;
     }
 
-    data->search_dir_r(data->start_dir, data->dialog->defaults.default_profile.max_depth);
+    data->SearchDirRecursive(data->start_dir, data->dialog->defaults.default_profile.max_depth);
 
     // free regexps
     delete data->name_filter;
@@ -580,7 +580,7 @@ gboolean SearchData::join_thread_func (SearchData *data)
 }
 
 
-gboolean SearchData::start_generic_search()
+gboolean SearchData::StartGenericSearch()
 {
     // create an re for file name matching
     name_filter = new Filter(dialog->defaults.default_profile.filename_pattern.c_str(), dialog->defaults.default_profile.match_case, dialog->defaults.default_profile.syntax);
@@ -604,7 +604,7 @@ gboolean SearchData::start_generic_search()
 /**
  * local search - using findutils
  */
-gchar *SearchData::build_search_command()
+gchar *SearchData::BuildSearchCommand()
 {
     gchar *file_pattern_utf8 = g_strdup (dialog->defaults.default_profile.filename_pattern.c_str());
     GError *error = NULL;
@@ -809,9 +809,9 @@ static gboolean handle_search_command_stdout_io (GIOChannel *ioc, GIOCondition c
 }
 
 
-gboolean SearchData::start_local_search()
+gboolean SearchData::StartLocalSearch()
 {
-    gchar *command = build_search_command();
+    gchar *command = BuildSearchCommand();
 
     g_return_val_if_fail (command!=NULL, FALSE);
 
@@ -988,9 +988,9 @@ void GnomeCmdSearchDialog::Private::on_dialog_response(GtkDialog *window, int re
                 dialog->priv->result_list->remove_all_files();
 
                 gchar *base_dir_utf8 = GNOME_CMD_FILE (data.start_dir)->get_real_path();
-                dialog->priv->result_list->set_base_dir(base_dir_utf8); 
+                dialog->priv->result_list->set_base_dir(base_dir_utf8);
 
-                if (gnome_cmd_con_is_local (con) ? data.start_local_search() : data.start_generic_search())
+                if (gnome_cmd_con_is_local (con) ? data.StartLocalSearch() : data.StartGenericSearch())
                 {
                     data.set_statusmsg();
                     gtk_widget_show (dialog->priv->pbar);
