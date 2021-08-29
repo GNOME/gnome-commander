@@ -447,22 +447,27 @@ void SearchData::SearchDirRecursive(GnomeCmdDir *dir, long level)
                 }
             }
         }
-        else                                                            // if the file is a regular one, it might match the search criteria
-            if (f->GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE) == G_FILE_TYPE_DIRECTORY)
-            {
-                if (!NameMatches(g_file_info_get_display_name(f->gFileInfo)))                       // if the name doesn't match, let's go to the next file
-                    continue;
 
-                if (dialog->defaults.default_profile.content_search && !ContentMatches(f))              // if the user wants to we should do some content matching here
-                    continue;
+        // if the file is a regular one, it might match the search criteria
+        if (f->GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE) == G_FILE_TYPE_DIRECTORY)
+        {
+            // if the name doesn't match, let's go to the next file
+            if (!NameMatches(g_file_info_get_display_name(f->gFileInfo)))
+                continue;
 
-                g_mutex_lock (pdata.mutex);                             // the file matched the search criteria, let's add it to the list
-                pdata.files = g_list_append (pdata.files, f->ref());
-                g_mutex_unlock (pdata.mutex);
+            // if the user wants to we should do some content matching here
+            if (dialog->defaults.default_profile.content_search && !ContentMatches(f))
+                continue;
 
-                if (g_list_index (match_dirs, dir) == -1)               // also ref each directory that has a matching file
-                    match_dirs = g_list_append (match_dirs, gnome_cmd_dir_ref (dir));
-            }
+            // the file matched the search criteria, let's add it to the list
+            g_mutex_lock (pdata.mutex);
+            pdata.files = g_list_append (pdata.files, f->ref());
+            g_mutex_unlock (pdata.mutex);
+
+            // also ref each directory that has a matching file
+            if (g_list_index (match_dirs, dir) == -1)
+                match_dirs = g_list_append (match_dirs, gnome_cmd_dir_ref (dir));
+        }
     }
 }
 
