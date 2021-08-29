@@ -356,21 +356,21 @@ inline gboolean SearchData::content_matches(GnomeCmdFile *f)
     if (get_gfile_attribute_uint64(f->gFile, G_FILE_ATTRIBUTE_STANDARD_SIZE) == 0)
         return FALSE;
 
-    SearchFileData *search_file = g_new0 (SearchFileData, 1);
-    search_file->uri_str = f->get_uri_str();
-    search_file->result  = gnome_vfs_open (&search_file->handle, search_file->uri_str, GNOME_VFS_OPEN_READ);
+    SearchFileData *searchFileData = g_new0 (SearchFileData, 1);
+    searchFileData->uri_str = f->get_uri_str();
+    searchFileData->result  = gnome_vfs_open (&searchFileData->handle, searchFileData->uri_str, GNOME_VFS_OPEN_READ);
 
-    if (search_file->result != GNOME_VFS_OK)
+    if (searchFileData->result != GNOME_VFS_OK)
     {
-        g_warning (_("Failed to read file %s: %s"), search_file->uri_str, gnome_vfs_result_to_string (search_file->result));
-        free_search_file_data (search_file);
+        g_warning (_("Failed to read file %s: %s"), searchFileData->uri_str, gnome_vfs_result_to_string (searchFileData->result));
+        free_search_file_data (searchFileData);
         return FALSE;
     }
 
     regmatch_t match;
 
-    while (read_search_file(search_file, f))
-        if (regexec (content_regex, search_file->mem, 1, &match, 0) != REG_NOMATCH)
+    while (read_search_file(searchFileData, f))
+        if (regexec (content_regex, searchFileData->mem, 1, &match, 0) != REG_NOMATCH)
             return TRUE;        // stop on first match
 
     return FALSE;
