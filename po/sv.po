@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-commander/issues\n"
-"POT-Creation-Date: 2021-08-27 18:14+0000\n"
-"PO-Revision-Date: 2021-08-28 01:17+0200\n"
+"POT-Creation-Date: 2021-09-01 20:38+0000\n"
+"PO-Revision-Date: 2021-09-01 22:52+0200\n"
 "Last-Translator: Anders Jonsson <anders.jonsson@norsjovallen.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "Language: sv\n"
@@ -1573,17 +1573,17 @@ msgstr ""
 "utveckla en ny insticksmodul"
 
 #: src/dialogs/gnome-cmd-advrename-dialog.cc:126
-#: src/dialogs/gnome-cmd-search-dialog.cc:181
+#: src/dialogs/gnome-cmd-search-dialog.cc:195
 msgid "/_Save Profile As…"
 msgstr "/_Spara profil som…"
 
 #: src/dialogs/gnome-cmd-advrename-dialog.cc:135
-#: src/dialogs/gnome-cmd-search-dialog.cc:190
+#: src/dialogs/gnome-cmd-search-dialog.cc:204
 msgid "/_Manage Profiles…"
 msgstr "/_Hantera profiler…"
 
 #: src/dialogs/gnome-cmd-advrename-dialog.cc:187
-#: src/dialogs/gnome-cmd-search-dialog.cc:240
+#: src/dialogs/gnome-cmd-search-dialog.cc:254
 msgid "Profiles"
 msgstr "Profiler"
 
@@ -1650,7 +1650,7 @@ msgid "File modification date"
 msgstr "Filändringsdatum"
 
 #: src/dialogs/gnome-cmd-advrename-dialog.cc:693
-#: src/dialogs/gnome-cmd-search-dialog.cc:1150
+#: src/dialogs/gnome-cmd-search-dialog.cc:925
 msgid "Profiles…"
 msgstr "Profiler…"
 
@@ -1798,18 +1798,18 @@ msgstr "Säker WebDAV (HTTPS)"
 msgid "Custom location"
 msgstr "Anpassad plats"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:71
+#: src/dialogs/gnome-cmd-delete-dialog.cc:75
 #, c-format
 msgid "Deleted %lu of %lu file"
 msgid_plural "Deleted %lu of %lu files"
 msgstr[0] "Tog bort %lu av %lu fil"
 msgstr[1] "Tog bort %lu av %lu filer"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:106
+#: src/dialogs/gnome-cmd-delete-dialog.cc:110
 msgid "Deleting…"
 msgstr "Tar bort…"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:277
+#: src/dialogs/gnome-cmd-delete-dialog.cc:281
 #, c-format
 msgid ""
 "Error while deleting “%s”\n"
@@ -1820,13 +1820,13 @@ msgstr ""
 "\n"
 "%s"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:282
-#: src/dialogs/gnome-cmd-delete-dialog.cc:399
+#: src/dialogs/gnome-cmd-delete-dialog.cc:286
+#: src/dialogs/gnome-cmd-delete-dialog.cc:403
 msgid "Delete problem"
 msgstr "Problem vid borttagning"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:283
-#: src/dialogs/gnome-cmd-delete-dialog.cc:399 src/gnome-cmd-xfer.cc:117
+#: src/dialogs/gnome-cmd-delete-dialog.cc:287
+#: src/dialogs/gnome-cmd-delete-dialog.cc:403 src/gnome-cmd-xfer.cc:117
 #: src/gnome-cmd-xfer.cc:157 src/gnome-cmd-xfer.cc:160
 #: src/gnome-cmd-xfer.cc:212 src/gnome-cmd-xfer.cc:215
 #: src/gnome-cmd-xfer.cc:272 src/gnome-cmd-xfer.cc:275
@@ -1834,7 +1834,7 @@ msgstr "Problem vid borttagning"
 msgid "Abort"
 msgstr "Avbryt"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:283
+#: src/dialogs/gnome-cmd-delete-dialog.cc:287
 #: src/gnome-cmd-file-selector.cc:1393 src/gnome-cmd-xfer.cc:117
 #: src/gnome-cmd-xfer.cc:157 src/gnome-cmd-xfer.cc:160
 #: src/gnome-cmd-xfer.cc:212 src/gnome-cmd-xfer.cc:215
@@ -1843,15 +1843,15 @@ msgstr "Avbryt"
 msgid "Retry"
 msgstr "Försök igen"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:283
-#: src/dialogs/gnome-cmd-delete-dialog.cc:412
+#: src/dialogs/gnome-cmd-delete-dialog.cc:287
+#: src/dialogs/gnome-cmd-delete-dialog.cc:416
 #: src/gnome-cmd-file-selector.cc:1393 src/gnome-cmd-xfer.cc:117
 #: src/gnome-cmd-xfer.cc:157 src/gnome-cmd-xfer.cc:212
 #: src/gnome-cmd-xfer.cc:272 src/gnome-cmd-xfer.cc:327
 msgid "Skip"
 msgstr "Hoppa över"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:397
+#: src/dialogs/gnome-cmd-delete-dialog.cc:401
 #, c-format
 msgid ""
 "Error while deleting: \n"
@@ -1862,42 +1862,42 @@ msgstr ""
 "\n"
 "%s"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:409
+#: src/dialogs/gnome-cmd-delete-dialog.cc:413
 #, c-format
 msgid "The directory “%s” is not empty. Do you really want to delete it?"
 msgstr "Katalogen ”%s” är inte tom. Vill du verkligen ta bort den?"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:410
 #: src/dialogs/gnome-cmd-delete-dialog.cc:414
-#: src/dialogs/gnome-cmd-delete-dialog.cc:488
-#: src/dialogs/gnome-cmd-delete-dialog.cc:489
+#: src/dialogs/gnome-cmd-delete-dialog.cc:418
+#: src/dialogs/gnome-cmd-delete-dialog.cc:492
+#: src/dialogs/gnome-cmd-delete-dialog.cc:493
 #: src/dialogs/gnome-cmd-options-dialog.cc:1039
 #: src/gnome-cmd-file-popmenu.cc:730 src/gnome-cmd-main-win.cc:243
 #: src/gnome-cmd-user-actions.cc:213
 msgid "Delete"
 msgstr "Ta bort"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:412
-#: src/dialogs/gnome-cmd-delete-dialog.cc:489 src/gnome-cmd-file-list.cc:1312
+#: src/dialogs/gnome-cmd-delete-dialog.cc:416
+#: src/dialogs/gnome-cmd-delete-dialog.cc:493 src/gnome-cmd-file-list.cc:1312
 #: src/gnome-cmd-file-list.cc:1341 src/gnome-cmd-file-selector.cc:1393
 #: src/gnome-cmd-user-actions.cc:819
 msgid "Cancel"
 msgstr "Avbryt"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:413
+#: src/dialogs/gnome-cmd-delete-dialog.cc:417
 msgid "Delete All"
 msgstr "Ta bort alla"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:413
+#: src/dialogs/gnome-cmd-delete-dialog.cc:417
 msgid "Delete Remaining"
 msgstr "Ta bort kvarvarande"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:479
+#: src/dialogs/gnome-cmd-delete-dialog.cc:483
 #, c-format
 msgid "Do you want to delete “%s”?"
 msgstr "Vill du ta bort ”%s”?"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:482
+#: src/dialogs/gnome-cmd-delete-dialog.cc:486
 #, c-format
 msgid "Do you want to delete the selected file?"
 msgid_plural "Do you want to delete the %d selected files?"
@@ -2209,7 +2209,7 @@ msgstr ""
 msgid "_Duplicate"
 msgstr "_Duplicera"
 
-#: src/dialogs/gnome-cmd-mkdir-dialog.cc:104
+#: src/dialogs/gnome-cmd-mkdir-dialog.cc:103
 msgid "A directory name must be entered"
 msgstr "Katalognamn måste anges"
 
@@ -3010,60 +3010,47 @@ msgstr "Sök endast i lokala kataloger"
 msgid "Files _not containing text"
 msgstr "Filer som _ej innehåller text"
 
-#: src/dialogs/gnome-cmd-search-dialog.cc:315
-#: src/dialogs/gnome-cmd-search-dialog.cc:324
-#: src/dialogs/gnome-cmd-search-dialog.cc:348
+#: src/dialogs/gnome-cmd-search-dialog.cc:326
+#, c-format
+msgid "Failed to read file %s: File is not searchable"
+msgstr "Kunde inte läsa filen %s: Filen är inte sökbar"
+
+#: src/dialogs/gnome-cmd-search-dialog.cc:335
+#: src/dialogs/gnome-cmd-search-dialog.cc:347
+#: src/dialogs/gnome-cmd-search-dialog.cc:375
 #, c-format
 msgid "Failed to read file %s: %s"
 msgstr "Kunde inte läsa filen %s: %s"
 
-#: src/dialogs/gnome-cmd-search-dialog.cc:400
+#: src/dialogs/gnome-cmd-search-dialog.cc:433
 #, c-format
 msgid "Searching in: %s"
 msgstr "Söker i: %s"
 
-#: src/dialogs/gnome-cmd-search-dialog.cc:517
+#: src/dialogs/gnome-cmd-search-dialog.cc:555
 #, c-format
 msgid "Found %d match — search aborted"
 msgid_plural "Found %d matches — search aborted"
 msgstr[0] "Hittade %d träff — sökning avbruten"
 msgstr[1] "Hittade %d träffar — sökning avbruten"
 
-#: src/dialogs/gnome-cmd-search-dialog.cc:518
+#: src/dialogs/gnome-cmd-search-dialog.cc:556
 #, c-format
 msgid "Found %d match"
 msgid_plural "Found %d matches"
 msgstr[0] "Hittade %d träff"
 msgstr[1] "Hittade %d träffar"
 
-#: src/dialogs/gnome-cmd-search-dialog.cc:685
-#, c-format
-msgid "Failed to set process group id of child %d: %s.\n"
-msgstr "Misslyckades med att ange processgrupp-ID för barnet %d: %s.\n"
-
-#: src/dialogs/gnome-cmd-search-dialog.cc:809
-msgid "Error parsing the search command."
-msgstr "Fel vid tolkning av sökkommandot."
-
-#: src/dialogs/gnome-cmd-search-dialog.cc:821
-msgid "Error running the search command."
-msgstr "Fel vid körning av sökkommandot."
-
-#: src/dialogs/gnome-cmd-search-dialog.cc:935
-#, c-format
-msgid "Failed to change directory outside of %s"
-msgstr "Kunde inte ändra katalog utanför %s"
-
-#: src/dialogs/gnome-cmd-search-dialog.cc:1047
+#: src/dialogs/gnome-cmd-search-dialog.cc:825
 msgid "Search…"
 msgstr "Sök…"
 
 #. search in
-#: src/dialogs/gnome-cmd-search-dialog.cc:1168
+#: src/dialogs/gnome-cmd-search-dialog.cc:943
 msgid "Select Directory"
 msgstr "Välj katalog"
 
-#: src/dialogs/gnome-cmd-search-dialog.cc:1171
+#: src/dialogs/gnome-cmd-search-dialog.cc:946
 msgid "_Look in folder:"
 msgstr "_Sök i mapp:"
 
@@ -3429,7 +3416,7 @@ msgstr "Nummervy:"
 
 #: src/gnome-cmd-con-device.cc:119
 msgid "Failed to execute the mount command"
-msgstr "Kunde ej exekvera monteringskommandot"
+msgstr "Kunde inte exekvera monteringskommandot"
 
 #: src/gnome-cmd-con-device.cc:127
 msgid "Mount failed: permission denied"
@@ -3546,7 +3533,7 @@ msgstr "Gå till: Samba-nätverket"
 msgid "link to %s"
 msgstr "länk till %s"
 
-#: src/gnome-cmd-dir.cc:562
+#: src/gnome-cmd-dir.cc:510
 msgid "Waiting for file list"
 msgstr "Väntar på fillistan"
 
@@ -9054,6 +9041,18 @@ msgstr "Ett fel uppstod vid visande av hjälp."
 #, c-format
 msgid "Couldn’t move path from “%s” to “%s”: %s"
 msgstr "Kunde inte ändra sökväg från ”%s” till ”%s”: %s"
+
+#~ msgid "Failed to set process group id of child %d: %s.\n"
+#~ msgstr "Misslyckades med att ange processgrupp-ID för barnet %d: %s.\n"
+
+#~ msgid "Error parsing the search command."
+#~ msgstr "Fel vid tolkning av sökkommandot."
+
+#~ msgid "Error running the search command."
+#~ msgstr "Fel vid körning av sökkommandot."
+
+#~ msgid "Failed to change directory outside of %s"
+#~ msgstr "Kunde inte ändra katalog utanför %s"
 
 #~ msgid "Deleted %"
 #~ msgid_plural "Deleted %"
