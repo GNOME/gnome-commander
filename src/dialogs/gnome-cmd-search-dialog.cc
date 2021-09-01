@@ -61,9 +61,8 @@ struct GnomeCmdSearchDialogClass
 
 struct SearchFileData
 {
-    GnomeVFSResult  result;
+    GFileInputStream *inputStream;
     gchar          *uriString;
-    GnomeVFSHandle *handle;
     gint            offset;
     guint           len;
     gchar           mem[SEARCH_BUFFER_SIZE];     // memory to search in the content of a file
@@ -76,40 +75,39 @@ struct SearchData
     {
         GList  *files;
         gchar  *msg;
-        GMutex *mutex;
+        GMutex  mutex;
 
-        ProtectedData(): files(0), msg(0), mutex(0)     {}
+        ProtectedData() : files(nullptr), msg(nullptr) {}
     };
 
     GnomeCmdSearchDialog *dialog;
 
     // the directory to start searching from
-    GnomeCmdDir *start_dir {nullptr};
+    GnomeCmdDir *start_dir = nullptr;
 
-    Filter *name_filter {nullptr};
-    regex_t *content_regex {nullptr};
+    Filter *name_filter = nullptr;
+    regex_t *content_regex = nullptr;
 
     // the context id of the status bar
-    gint context_id {0};
+    gint context_id = 0;
 
     //the directories which we found matching files in
-    GList *match_dirs {nullptr};
-    GThread *thread {nullptr};
+    GList *match_dirs = nullptr;
+    GThread *thread = nullptr;
     ProtectedData pdata;
     gint update_gui_timeout_id {0};
 
-    gboolean search_done {TRUE};
+    gboolean search_done = TRUE;
 
     //stops the search routine if set to TRUE. This is done by the stop_button
-    gboolean stopped {TRUE};
+    gboolean stopped = TRUE;
 
     // set when the search dialog is destroyed, also stops the search of course
-    gboolean dialog_destroyed {FALSE};
+    gboolean dialog_destroyed = FALSE;
 
     explicit SearchData(GnomeCmdSearchDialog *dlg);
 
-    void set_statusmsg(const gchar *msg=nullptr);
-    gchar *BuildSearchCommand();
+    void set_statusmsg(const gchar *msg = nullptr);
 
     // searches a given directory for files that matches the criteria given by data
     void SearchDirRecursive(GnomeCmdDir *dir, long level);
@@ -122,8 +120,7 @@ struct SearchData
 
     // loads a file in chunks and returns the content
     gboolean ReadSearchFile(SearchFileData *, GnomeCmdFile *f);
-    gboolean StartGenericSearch();
-    gboolean StartLocalSearch();
+    gboolean StartSearch();
 
     static gboolean join_thread_func(SearchData *data);
 };
@@ -288,13 +285,13 @@ inline SearchData::SearchData(GnomeCmdSearchDialog *dlg): dialog(dlg)
 G_DEFINE_TYPE (GnomeCmdSearchDialog, gnome_cmd_search_dialog, GTK_TYPE_DIALOG)
 
 
-inline void free_search_file_data (SearchFileData *searchfile_data)
+inline void free_search_file_data (SearchFileData *searchfileData)
 {
-    if (searchfile_data->handle)
-        gnome_vfs_close (searchfile_data->handle);
+    if (searchfileData->inputStream)
+        g_object_unref(searchfileData->inputStream);
 
-    g_free (searchfile_data->uriString);
-    g_free (searchfile_data);
+    g_free (searchfileData->uriString);
+    g_free (searchfileData);
 }
 
 
@@ -302,7 +299,6 @@ gboolean SearchData::ReadSearchFile(SearchFileData *searchFileData, GnomeCmdFile
 {
     if (stopped)     // if the stop button was pressed, let's abort here
     {
-        free_search_file_data (searchFileData);
         return FALSE;
     }
 
@@ -312,7 +308,6 @@ gboolean SearchData::ReadSearchFile(SearchFileData *searchFileData, GnomeCmdFile
     {
         if ((searchFileData->offset + searchFileData->len) >= size)   // end, all has been read
         {
-            free_search_file_data (searchFileData);
             return FALSE;
         }
 
@@ -326,24 +321,37 @@ gboolean SearchData::ReadSearchFile(SearchFileData *searchFileData, GnomeCmdFile
     else   // first time call of this function
         searchFileData->len = MIN (size, SEARCH_BUFFER_SIZE - 1);
 
-    searchFileData->result = gnome_vfs_seek (searchFileData->handle, GNOME_VFS_SEEK_START, searchFileData->offset);
-    if (searchFileData->result != GNOME_VFS_OK)
+    if (!g_seekable_can_seek ((GSeekable *) searchFileData->inputStream))
     {
-        g_warning (_("Failed to read file %s: %s"), searchFileData->uriString, gnome_vfs_result_to_string (searchFileData->result));
-        free_search_file_data (searchFileData);
+        g_warning (_("Failed to read file %s: File is not searchable"), searchFileData->uriString);
         return FALSE;
     }
 
-    GnomeVFSFileSize ret;
-    searchFileData->result = gnome_vfs_read (searchFileData->handle, searchFileData->mem, searchFileData->len, &ret);
-    if (searchFileData->result != GNOME_VFS_OK)
+    GError *error = nullptr;
+
+    if (!g_seekable_seek ((GSeekable *) searchFileData->inputStream, searchFileData->offset, G_SEEK_SET, nullptr, &error)
+        || error)
     {
-        g_warning (_("Failed to read file %s: %s"), searchFileData->uriString, gnome_vfs_result_to_string (searchFileData->result));
-        free_search_file_data (searchFileData);
+        g_warning (_("Failed to read file %s: %s"), searchFileData->uriString, error->message);
+        g_error_free(error);
         return FALSE;
     }
 
-    searchFileData->mem[searchFileData->len] = '\0';
+    g_input_stream_read ((GInputStream*) searchFileData->inputStream,
+                         searchFileData->mem,
+                         searchFileData->len,
+                         nullptr,
+                         &error);
+    if (error)
+    {
+        g_warning (_("Failed to read file %s: %s"), searchFileData->uriString, error->message);
+        g_error_free(error);
+        return FALSE;
+    }
+
+    searchFileData->mem[searchFileData->len < SEARCH_BUFFER_SIZE
+                        ? searchFileData->len
+                        : SEARCH_BUFFER_SIZE] = '\0';
 
     return TRUE;
 }
@@ -356,24 +364,32 @@ inline gboolean SearchData::ContentMatches(GnomeCmdFile *f)
     if (get_gfile_attribute_uint64(f->gFile, G_FILE_ATTRIBUTE_STANDARD_SIZE) == 0)
         return FALSE;
 
-    SearchFileData *searchFileData = g_new0 (SearchFileData, 1);
-    searchFileData->uriString = f->get_uri_str();
-    searchFileData->result  = gnome_vfs_open (&searchFileData->handle, searchFileData->uriString, GNOME_VFS_OPEN_READ);
+    GError *error = nullptr;
 
-    if (searchFileData->result != GNOME_VFS_OK)
+    auto searchFileData = g_new0(SearchFileData, 1);
+    searchFileData->uriString = f->get_uri_str();
+    searchFileData->inputStream = g_file_read (f->gFile, nullptr, &error);
+
+    if (error)
     {
-        g_warning (_("Failed to read file %s: %s"), searchFileData->uriString, gnome_vfs_result_to_string (searchFileData->result));
+        g_warning (_("Failed to read file %s: %s"), searchFileData->uriString, error->message);
         free_search_file_data (searchFileData);
+        g_error_free(error);
         return FALSE;
     }
 
     regmatch_t match;
+    gboolean retValue = FALSE;
 
     while (ReadSearchFile(searchFileData, f))
         if (regexec (content_regex, searchFileData->mem, 1, &match, 0) != REG_NOMATCH)
-            return TRUE;        // stop on first match
+        {
+            retValue = TRUE;        // stop on first match
+        }
 
-    return FALSE;
+    // Todo: Fix this later
+    //free_search_file_data (searchFileData);
+    return retValue;
 }
 
 
@@ -411,12 +427,12 @@ void SearchData::SearchDirRecursive(GnomeCmdDir *dir, long level)
     // update the search status data
     if (!dialog_destroyed)
     {
-        g_mutex_lock (pdata.mutex);
+        g_mutex_lock (&pdata.mutex);
 
         g_free (pdata.msg);
         pdata.msg = g_strdup_printf (_("Searching in: %s"), gnome_cmd_dir_get_display_path (dir));
 
-        g_mutex_unlock (pdata.mutex);
+        g_mutex_unlock (&pdata.mutex);
     }
 
     gnome_cmd_dir_list_files (dir, FALSE);
@@ -449,7 +465,7 @@ void SearchData::SearchDirRecursive(GnomeCmdDir *dir, long level)
         }
 
         // if the file is a regular one, it might match the search criteria
-        if (f->GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE) == G_FILE_TYPE_DIRECTORY)
+        if (f->GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE) == G_FILE_TYPE_REGULAR)
         {
             // if the name doesn't match, let's go to the next file
             if (!NameMatches(g_file_info_get_display_name(f->gFileInfo)))
@@ -460,9 +476,9 @@ void SearchData::SearchDirRecursive(GnomeCmdDir *dir, long level)
                 continue;
 
             // the file matched the search criteria, let's add it to the list
-            g_mutex_lock (pdata.mutex);
+            g_mutex_lock (&pdata.mutex);
             pdata.files = g_list_append (pdata.files, f->ref());
-            g_mutex_unlock (pdata.mutex);
+            g_mutex_unlock (&pdata.mutex);
 
             // also ref each directory that has a matching file
             if (g_list_index (match_dirs, dir) == -1)
@@ -508,26 +524,26 @@ static gpointer perform_search_operation (SearchData *data)
 
 static gboolean update_search_status_widgets (SearchData *data)
 {
-    progress_bar_update (data->dialog->priv->pbar, PBAR_MAX);        // update the progress bar
+    // update the progress bar
+    progress_bar_update (data->dialog->priv->pbar, PBAR_MAX);
 
-    if (data->pdata.mutex)
-    {
-        g_mutex_lock (data->pdata.mutex);
+    g_mutex_lock (&data->pdata.mutex);
 
-        GList *files = data->pdata.files;
-        data->pdata.files = nullptr;
+    GList *files = data->pdata.files;
+    data->pdata.files = nullptr;
 
-        data->set_statusmsg(data->pdata.msg);                       // update status bar with the latest message
+    // update status bar with the latest message
+    data->set_statusmsg(data->pdata.msg);
 
-        g_mutex_unlock (data->pdata.mutex);
+    g_mutex_unlock (&data->pdata.mutex);
 
-        GnomeCmdFileList *fl = data->dialog->priv->result_list;
+    GnomeCmdFileList *fl = data->dialog->priv->result_list;
 
-        for (GList *i = files; i; i = i->next)                      // add all files found since last update to the list
-            fl->append_file(GNOME_CMD_FILE (i->data));
+    // add all files found since last update to the list
+    for (GList *i = files; i; i = i->next)
+        fl->append_file(GNOME_CMD_FILE (i->data));
 
-        gnome_cmd_file_list_free (files);
-    }
+    gnome_cmd_file_list_free (files);
 
     if ((!data->search_done && !data->stopped) || data->pdata.files)
         return TRUE;
@@ -553,12 +569,12 @@ static gboolean update_search_status_widgets (SearchData *data)
 
         if (matches)
         {
-            GnomeCmdFileList *fl = data->dialog->priv->result_list;
-            gtk_widget_grab_focus (*fl);         // set focus to result list
+            GnomeCmdFileList *flmatches = data->dialog->priv->result_list;
+            gtk_widget_grab_focus (*flmatches);         // set focus to result list
             // select one file, as matches is non-zero, there should be at least one entry
-            if (!fl->get_focused_file())
+            if (!flmatches->get_focused_file())
             {
-                fl->select_row(0);
+                flmatches->select_row(0);
             }
         }
     }
@@ -578,14 +594,13 @@ gboolean SearchData::join_thread_func (SearchData *data)
     if (data->thread)
         g_thread_join (data->thread);
 
-    if (data->pdata.mutex)
-        g_mutex_clear (data->pdata.mutex);
+    g_mutex_clear (&data->pdata.mutex);
 
     return FALSE;
 }
 
 
-gboolean SearchData::StartGenericSearch()
+gboolean SearchData::StartSearch()
 {
     // create an regex for file name matching
     name_filter = new Filter(dialog->defaults.default_profile.filename_pattern.c_str(), dialog->defaults.default_profile.match_case, dialog->defaults.default_profile.syntax);
@@ -597,268 +612,9 @@ gboolean SearchData::StartGenericSearch()
         regcomp (content_regex, dialog->defaults.default_profile.text_pattern.c_str(), dialog->defaults.default_profile.match_case ? 0 : REG_ICASE);
     }
 
-    if (!pdata.mutex)
-        g_mutex_init(pdata.mutex);
+    g_mutex_init(&pdata.mutex);
 
     thread = g_thread_new (nullptr, (GThreadFunc) perform_search_operation, this);
-
-    return TRUE;
-}
-
-
-/**
- * local search - using findutils
- */
-gchar *SearchData::BuildSearchCommand()
-{
-    gchar *file_pattern_utf8 = g_strdup (dialog->defaults.default_profile.filename_pattern.c_str());
-    GError *error = nullptr;
-
-    switch (dialog->defaults.default_profile.syntax)
-    {
-        case Filter::TYPE_FNMATCH:
-            if (!file_pattern_utf8 || !*file_pattern_utf8)
-            {
-                g_free (file_pattern_utf8);
-                file_pattern_utf8 = g_strdup ("*");
-            }
-            else
-                if (!g_utf8_strchr (file_pattern_utf8, -1, '*') && !g_utf8_strchr (file_pattern_utf8, -1, '?'))
-                {
-                    gchar *tmp = file_pattern_utf8;
-                    file_pattern_utf8 = g_strconcat ("*", file_pattern_utf8, "*", nullptr);
-                    g_free (tmp);
-                }
-            break;
-
-        case Filter::TYPE_REGEX:
-            break;
-
-        default:
-            break;
-    }
-
-    gchar *file_pattern_locale = g_locale_from_utf8 (file_pattern_utf8, -1, nullptr, nullptr, &error);
-
-    if (!file_pattern_locale)
-    {
-        gnome_cmd_error_message (file_pattern_utf8, error);
-        g_free (file_pattern_utf8);
-        return nullptr;
-    }
-
-    gchar *file_pattern_quoted = quote_if_needed (file_pattern_locale);
-    gchar *look_in_folder_utf8 = GNOME_CMD_FILE (start_dir)->get_real_path();
-    gchar *look_in_folder_locale = g_locale_from_utf8 (look_in_folder_utf8, -1, nullptr, nullptr, nullptr);
-
-    if (!look_in_folder_locale)     // if for some reason a path was not returned, fallback to the user's home directory
-        look_in_folder_locale = g_strconcat (g_get_home_dir (), G_DIR_SEPARATOR_S, nullptr);
-
-    gchar *look_in_folder_quoted = quote_if_needed (look_in_folder_locale);
-
-    GString *command = g_string_sized_new (512);
-
-    g_string_append (command, "find ");
-    g_string_append (command, look_in_folder_quoted);
-
-    g_string_append (command, " -mindepth 1"); // exclude the directory itself
-    if (dialog->defaults.default_profile.max_depth!=-1)
-        g_string_append_printf (command, " -maxdepth %i", dialog->defaults.default_profile.max_depth+1);
-
-    switch (dialog->defaults.default_profile.syntax)
-    {
-        case Filter::TYPE_FNMATCH:
-            g_string_append_printf (command, " -iname '%s'", file_pattern_utf8);
-            break;
-
-        case Filter::TYPE_REGEX:
-            g_string_append_printf (command, " -regextype posix-extended -iregex '.*/.*%s.*'", file_pattern_utf8);
-            break;
-        default:
-            ;
-    }
-
-    if (dialog->defaults.default_profile.content_search)
-    {
-        static const gchar GREP_COMMAND[] = "grep";
-
-        if (dialog->defaults.default_profile.match_case)
-            g_string_append_printf (command, " '!' -type p -exec %s -E -q '%s' {} \\;", GREP_COMMAND, dialog->defaults.default_profile.text_pattern.c_str());
-        else
-            g_string_append_printf (command, " '!' -type p -exec %s -E -q -i '%s' {} \\;", GREP_COMMAND, dialog->defaults.default_profile.text_pattern.c_str());
-    }
-
-    g_string_append (command, " -print");
-
-    g_free (file_pattern_utf8);
-    g_free (file_pattern_locale);
-    g_free (file_pattern_quoted);
-    g_free (look_in_folder_utf8);
-    g_free (look_in_folder_locale);
-    g_free (look_in_folder_quoted);
-
-    return g_string_free (command, FALSE);
-}
-
-
-static void child_command_set_pgid_cb (gpointer unused)
-{
-    if (setpgid (0, 0) < 0)
-        g_print (_("Failed to set process group id of child %d: %s.\n"), getpid (), g_strerror (errno));
-}
-
-
-static gboolean handle_search_command_stdout_io (GIOChannel *ioc, GIOCondition condition, SearchData *data)
-{
-    gboolean broken_pipe = FALSE;
-
-    if (condition & G_IO_IN)
-    {
-        GError *error = nullptr;
-
-        GString *string = g_string_new (nullptr);
-
-        GTimer *timer = g_timer_new ();
-        g_timer_start (timer);
-
-        while (!ioc->is_readable);
-
-        do
-        {
-            gint status;
-
-            if (data->stopped)
-            {
-                broken_pipe = TRUE;
-                break;
-            }
-
-            do
-            {
-                status = g_io_channel_read_line_string (ioc, string, nullptr, &error);
-
-                if (status == G_IO_STATUS_EOF)
-                    broken_pipe = TRUE;
-                else
-                    if (status == G_IO_STATUS_AGAIN)
-                        while (gtk_events_pending ())
-                        {
-                            if (data->stopped)
-                                return FALSE;
-
-                            gtk_main_iteration ();
-                        }
-            }
-            while (status == G_IO_STATUS_AGAIN && !broken_pipe);
-
-            if (broken_pipe)
-                break;
-
-            if (status != G_IO_STATUS_NORMAL)
-            {
-                if (error)
-                {
-                    g_warning ("handle_search_command_stdout_io(): %s", error->message);
-                    g_error_free (error);
-                }
-                continue;
-            }
-
-            string = g_string_truncate (string, string->len - 1);
-
-            if (string->len <= 1)
-                continue;
-
-            gchar *utf8 = g_filename_display_name (string->str);
-
-            GnomeCmdFile *f = gnome_cmd_file_new (utf8);
-
-            if (f)
-                data->dialog->priv->result_list->append_file(f);
-
-            g_free (utf8);
-
-            gulong duration;
-
-            g_timer_elapsed (timer, &duration);
-
-            if (duration > GNOME_SEARCH_TOOL_REFRESH_DURATION)
-            {
-                while (gtk_events_pending ())
-                {
-                    if (data->stopped)
-                        return FALSE;
-
-                    gtk_main_iteration ();
-                }
-
-                g_timer_reset (timer);
-            }
-        }
-        while (g_io_channel_get_buffer_condition (ioc) & G_IO_IN);
-
-        g_string_free (string, TRUE);
-        g_timer_destroy (timer);
-    }
-
-    if (!(condition & G_IO_IN) || broken_pipe)
-    {
-        g_io_channel_shutdown (ioc, TRUE, nullptr);
-
-        data->search_done = TRUE;
-
-        return FALSE;
-    }
-
-    return TRUE;
-}
-
-
-gboolean SearchData::StartLocalSearch()
-{
-    gchar *command = BuildSearchCommand();
-
-    g_return_val_if_fail (command!=nullptr, FALSE);
-
-    DEBUG ('g', "running: %s\n", command);
-
-    GError *error = nullptr;
-    gchar **argv  = nullptr;
-    gint child_stdout;
-
-    if (!g_shell_parse_argv (command, nullptr, &argv, &error))
-    {
-        gnome_cmd_error_message (_("Error parsing the search command."), error);
-
-        g_free (command);
-        g_strfreev (argv);
-
-        return FALSE;
-    }
-
-    g_free (command);
-
-    if (!g_spawn_async_with_pipes (nullptr, argv, nullptr, GSpawnFlags (G_SPAWN_SEARCH_PATH | G_SPAWN_STDERR_TO_DEV_NULL), child_command_set_pgid_cb, nullptr, nullptr, nullptr, &child_stdout, nullptr, &error))
-    {
-        gnome_cmd_error_message (_("Error running the search command."), error);
-
-        g_strfreev (argv);
-
-        return FALSE;
-    }
-
-#ifdef G_OS_WIN32
-    GIOChannel *ioc_stdout = g_io_channel_win32_new_fd (child_stdout);
-#else
-    GIOChannel *ioc_stdout = g_io_channel_unix_new (child_stdout);
-#endif
-
-    g_io_channel_set_encoding (ioc_stdout, nullptr, nullptr);
-    g_io_channel_set_flags (ioc_stdout, G_IO_FLAG_NONBLOCK, nullptr);
-    g_io_add_watch (ioc_stdout, GIOCondition (G_IO_IN | G_IO_HUP), (GIOFunc) handle_search_command_stdout_io, this);
-
-    g_io_channel_unref (ioc_stdout);
-    g_strfreev (argv);
 
     return TRUE;
 }
@@ -940,28 +696,28 @@ void GnomeCmdSearchDialog::Private::on_dialog_response(GtkDialog *window, int re
                 data.content_regex = nullptr;
                 data.match_dirs = nullptr;
 
-                gchar *dir_str = gtk_file_chooser_get_uri (GTK_FILE_CHOOSER (dialog->priv->dir_browser));
-                GnomeVFSURI *uri = gnome_vfs_uri_new (dir_str);
-                g_free (dir_str);
+                auto uriString = gtk_file_chooser_get_uri (GTK_FILE_CHOOSER (dialog->priv->dir_browser));
+                auto dirGFile = g_file_new_for_uri (uriString);
+                g_free (uriString);
 
-                dir_str = gnome_vfs_unescape_string (gnome_vfs_uri_get_path (uri), NULL);
-                gchar *dir_path = g_strconcat (dir_str, G_DIR_SEPARATOR_S, NULL);
-                g_free (dir_str);
+                auto dirPathString = g_file_get_path (dirGFile);
+                gchar *dir_path = g_strconcat (dirPathString, G_DIR_SEPARATOR_S, nullptr);
+                g_free (dirPathString);
 
                 GnomeCmdCon *con = gnome_cmd_dir_get_connection (data.start_dir);
 
-                if (strncmp(dir_path, gnome_cmd_con_get_root_path (con), con->root_path->len)!=0)
+                if (strncmp(dir_path, gnome_cmd_con_get_root_path (con), con->root_path->len) != 0)
                 {
-                    if (!gnome_vfs_uri_is_local (uri))
-                    {
-                        gnome_cmd_show_message (*dialog, stringify(g_strdup_printf (_("Failed to change directory outside of %s"),
-                                                                                              gnome_cmd_con_get_root_path (con))));
-                        gnome_vfs_uri_unref (uri);
-                        g_free (dir_path);
-
-                        break;
-                    }
-                    else
+                    //if (!gnome_vfs_uri_is_local (dirGFile))
+                    //{
+                    //    gnome_cmd_show_message (*dialog, stringify(g_strdup_printf (_("Failed to change directory outside of %s"),
+                    //                                                                          gnome_cmd_con_get_root_path (con))));
+                    //    gnome_vfs_uri_unref (dirGFile);
+                    //    g_free (dir_path);
+                    //
+                    //    break;
+                    //}
+                    //else
                         data.start_dir = gnome_cmd_dir_new (get_home_con (), gnome_cmd_con_create_path (get_home_con (), dir_path));
                 }
                 else
@@ -969,7 +725,7 @@ void GnomeCmdSearchDialog::Private::on_dialog_response(GtkDialog *window, int re
 
                 gnome_cmd_dir_ref (data.start_dir);
 
-                gnome_vfs_uri_unref (uri);
+                g_object_unref (dirGFile);
                 g_free (dir_path);
 
                 // save default settings
@@ -995,7 +751,7 @@ void GnomeCmdSearchDialog::Private::on_dialog_response(GtkDialog *window, int re
                 gchar *base_dir_utf8 = GNOME_CMD_FILE (data.start_dir)->get_real_path();
                 dialog->priv->result_list->set_base_dir(base_dir_utf8);
 
-                if (gnome_cmd_con_is_local (con) ? data.StartLocalSearch() : data.StartGenericSearch())
+                if (data.StartSearch())
                 {
                     data.set_statusmsg();
                     gtk_widget_show (dialog->priv->pbar);
@@ -1125,17 +881,14 @@ static void gnome_cmd_search_dialog_finalize (GObject *object)
     g_timeout_add (1, (GSourceFunc) SearchData::join_thread_func, &data);
 
     // unref all directories which contained matching files from last search
-    if (data.pdata.mutex)
+    g_mutex_lock (&data.pdata.mutex);
+    if (data.match_dirs)
     {
-        g_mutex_lock (data.pdata.mutex);
-        if (data.match_dirs)
-        {
-            g_list_foreach (data.match_dirs, (GFunc) gnome_cmd_dir_unref, nullptr);
-            g_list_free (data.match_dirs);
-            data.match_dirs = nullptr;
-        }
-        g_mutex_unlock (data.pdata.mutex);
+        g_list_foreach (data.match_dirs, (GFunc) gnome_cmd_dir_unref, nullptr);
+        g_list_free (data.match_dirs);
+        data.match_dirs = nullptr;
     }
+    g_mutex_unlock (&data.pdata.mutex);
 
     delete dialog->priv;
 
