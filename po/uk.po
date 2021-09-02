@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander 1.3.0\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-commander/issues\n"
-"POT-Creation-Date: 2021-08-27 18:14+0000\n"
-"PO-Revision-Date: 2021-08-28 00:07+0300\n"
+"POT-Creation-Date: 2021-09-01 20:38+0000\n"
+"PO-Revision-Date: 2021-09-02 08:58+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -1594,17 +1594,17 @@ msgstr ""
 "модулів"
 
 #: src/dialogs/gnome-cmd-advrename-dialog.cc:126
-#: src/dialogs/gnome-cmd-search-dialog.cc:181
+#: src/dialogs/gnome-cmd-search-dialog.cc:195
 msgid "/_Save Profile As…"
 msgstr "/_Зберегти профіль як…"
 
 #: src/dialogs/gnome-cmd-advrename-dialog.cc:135
-#: src/dialogs/gnome-cmd-search-dialog.cc:190
+#: src/dialogs/gnome-cmd-search-dialog.cc:204
 msgid "/_Manage Profiles…"
 msgstr "/_Керування профілями…"
 
 #: src/dialogs/gnome-cmd-advrename-dialog.cc:187
-#: src/dialogs/gnome-cmd-search-dialog.cc:240
+#: src/dialogs/gnome-cmd-search-dialog.cc:254
 msgid "Profiles"
 msgstr "Профілі"
 
@@ -1671,7 +1671,7 @@ msgid "File modification date"
 msgstr "Дата модифікації файла"
 
 #: src/dialogs/gnome-cmd-advrename-dialog.cc:693
-#: src/dialogs/gnome-cmd-search-dialog.cc:1150
+#: src/dialogs/gnome-cmd-search-dialog.cc:925
 msgid "Profiles…"
 msgstr "Профілі…"
 
@@ -1819,7 +1819,7 @@ msgstr "Безпечний WebDAV (HTTPS)"
 msgid "Custom location"
 msgstr "Інше місце"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:71
+#: src/dialogs/gnome-cmd-delete-dialog.cc:75
 #, c-format
 msgid "Deleted %lu of %lu file"
 msgid_plural "Deleted %lu of %lu files"
@@ -1828,11 +1828,11 @@ msgstr[1] "Вилучено %lu з %lu файлів"
 msgstr[2] "Вилучено %lu з %lu файлів"
 msgstr[3] "Вилучено %lu з %lu файла"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:106
+#: src/dialogs/gnome-cmd-delete-dialog.cc:110
 msgid "Deleting…"
 msgstr "Вилучення…"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:277
+#: src/dialogs/gnome-cmd-delete-dialog.cc:281
 #, c-format
 msgid ""
 "Error while deleting “%s”\n"
@@ -1843,13 +1843,13 @@ msgstr ""
 "\n"
 "%s"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:282
-#: src/dialogs/gnome-cmd-delete-dialog.cc:399
+#: src/dialogs/gnome-cmd-delete-dialog.cc:286
+#: src/dialogs/gnome-cmd-delete-dialog.cc:403
 msgid "Delete problem"
 msgstr "Проблема з вилученням"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:283
-#: src/dialogs/gnome-cmd-delete-dialog.cc:399 src/gnome-cmd-xfer.cc:117
+#: src/dialogs/gnome-cmd-delete-dialog.cc:287
+#: src/dialogs/gnome-cmd-delete-dialog.cc:403 src/gnome-cmd-xfer.cc:117
 #: src/gnome-cmd-xfer.cc:157 src/gnome-cmd-xfer.cc:160
 #: src/gnome-cmd-xfer.cc:212 src/gnome-cmd-xfer.cc:215
 #: src/gnome-cmd-xfer.cc:272 src/gnome-cmd-xfer.cc:275
@@ -1857,7 +1857,7 @@ msgstr "Проблема з вилученням"
 msgid "Abort"
 msgstr "Перервати"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:283
+#: src/dialogs/gnome-cmd-delete-dialog.cc:287
 #: src/gnome-cmd-file-selector.cc:1393 src/gnome-cmd-xfer.cc:117
 #: src/gnome-cmd-xfer.cc:157 src/gnome-cmd-xfer.cc:160
 #: src/gnome-cmd-xfer.cc:212 src/gnome-cmd-xfer.cc:215
@@ -1866,15 +1866,15 @@ msgstr "Перервати"
 msgid "Retry"
 msgstr "Повторити"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:283
-#: src/dialogs/gnome-cmd-delete-dialog.cc:412
+#: src/dialogs/gnome-cmd-delete-dialog.cc:287
+#: src/dialogs/gnome-cmd-delete-dialog.cc:416
 #: src/gnome-cmd-file-selector.cc:1393 src/gnome-cmd-xfer.cc:117
 #: src/gnome-cmd-xfer.cc:157 src/gnome-cmd-xfer.cc:212
 #: src/gnome-cmd-xfer.cc:272 src/gnome-cmd-xfer.cc:327
 msgid "Skip"
 msgstr "Пропустити"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:397
+#: src/dialogs/gnome-cmd-delete-dialog.cc:401
 #, c-format
 msgid ""
 "Error while deleting: \n"
@@ -1885,42 +1885,42 @@ msgstr ""
 "\n"
 "%s"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:409
+#: src/dialogs/gnome-cmd-delete-dialog.cc:413
 #, c-format
 msgid "The directory “%s” is not empty. Do you really want to delete it?"
 msgstr "Каталог «%s» містить дані. Ви справді хочете його вилучити?"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:410
 #: src/dialogs/gnome-cmd-delete-dialog.cc:414
-#: src/dialogs/gnome-cmd-delete-dialog.cc:488
-#: src/dialogs/gnome-cmd-delete-dialog.cc:489
+#: src/dialogs/gnome-cmd-delete-dialog.cc:418
+#: src/dialogs/gnome-cmd-delete-dialog.cc:492
+#: src/dialogs/gnome-cmd-delete-dialog.cc:493
 #: src/dialogs/gnome-cmd-options-dialog.cc:1039
 #: src/gnome-cmd-file-popmenu.cc:730 src/gnome-cmd-main-win.cc:243
 #: src/gnome-cmd-user-actions.cc:213
 msgid "Delete"
 msgstr "Видалити"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:412
-#: src/dialogs/gnome-cmd-delete-dialog.cc:489 src/gnome-cmd-file-list.cc:1312
+#: src/dialogs/gnome-cmd-delete-dialog.cc:416
+#: src/dialogs/gnome-cmd-delete-dialog.cc:493 src/gnome-cmd-file-list.cc:1312
 #: src/gnome-cmd-file-list.cc:1341 src/gnome-cmd-file-selector.cc:1393
 #: src/gnome-cmd-user-actions.cc:819
 msgid "Cancel"
 msgstr "Скасувати"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:413
+#: src/dialogs/gnome-cmd-delete-dialog.cc:417
 msgid "Delete All"
 msgstr "Вилучити все"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:413
+#: src/dialogs/gnome-cmd-delete-dialog.cc:417
 msgid "Delete Remaining"
 msgstr "Вилучити решту"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:479
+#: src/dialogs/gnome-cmd-delete-dialog.cc:483
 #, c-format
 msgid "Do you want to delete “%s”?"
 msgstr "Хочете вилучити «%s»?"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:482
+#: src/dialogs/gnome-cmd-delete-dialog.cc:486
 #, c-format
 msgid "Do you want to delete the selected file?"
 msgid_plural "Do you want to delete the %d selected files?"
@@ -2235,7 +2235,7 @@ msgstr ""
 msgid "_Duplicate"
 msgstr "_Дублювати"
 
-#: src/dialogs/gnome-cmd-mkdir-dialog.cc:104
+#: src/dialogs/gnome-cmd-mkdir-dialog.cc:103
 msgid "A directory name must be entered"
 msgstr "Потрібно ввести назву каталогу"
 
@@ -3042,19 +3042,26 @@ msgid "Files _not containing text"
 msgstr "Файли, що _не містять текст"
 
 # c-format
-#: src/dialogs/gnome-cmd-search-dialog.cc:315
-#: src/dialogs/gnome-cmd-search-dialog.cc:324
-#: src/dialogs/gnome-cmd-search-dialog.cc:348
+#: src/dialogs/gnome-cmd-search-dialog.cc:326
+#, c-format
+#| msgid "Failed to read file %s: %s"
+msgid "Failed to read file %s: File is not searchable"
+msgstr "Не вдалося прочитати файл %s: файл є непридатним для пошуку даних"
+
+# c-format
+#: src/dialogs/gnome-cmd-search-dialog.cc:335
+#: src/dialogs/gnome-cmd-search-dialog.cc:347
+#: src/dialogs/gnome-cmd-search-dialog.cc:375
 #, c-format
 msgid "Failed to read file %s: %s"
 msgstr "Не вдалося прочитати файл %s: %s"
 
-#: src/dialogs/gnome-cmd-search-dialog.cc:400
+#: src/dialogs/gnome-cmd-search-dialog.cc:433
 #, c-format
 msgid "Searching in: %s"
 msgstr "Пошук в: %s"
 
-#: src/dialogs/gnome-cmd-search-dialog.cc:517
+#: src/dialogs/gnome-cmd-search-dialog.cc:555
 #, c-format
 msgid "Found %d match — search aborted"
 msgid_plural "Found %d matches — search aborted"
@@ -3063,7 +3070,7 @@ msgstr[1] "Знайдено %d відповідності — пошук пер�
 msgstr[2] "Знайдено %d відповідностей — пошук перервано"
 msgstr[3] "Знайдено %d відповідність — пошук перервано"
 
-#: src/dialogs/gnome-cmd-search-dialog.cc:518
+#: src/dialogs/gnome-cmd-search-dialog.cc:556
 #, c-format
 msgid "Found %d match"
 msgid_plural "Found %d matches"
@@ -3072,36 +3079,16 @@ msgstr[1] "Знайдено %d відповідності"
 msgstr[2] "Знайдено %d відповідностей"
 msgstr[3] "Знайдено %d відповідність"
 
-#: src/dialogs/gnome-cmd-search-dialog.cc:685
-#, c-format
-msgid "Failed to set process group id of child %d: %s.\n"
-msgstr ""
-"Не вдалося встановити ідентифікатор групи процесів дочірнього процесу %d: "
-"%s.\n"
-
-#: src/dialogs/gnome-cmd-search-dialog.cc:809
-msgid "Error parsing the search command."
-msgstr "Помилка під час обробки команди пошуку."
-
-#: src/dialogs/gnome-cmd-search-dialog.cc:821
-msgid "Error running the search command."
-msgstr "Помилка під час запуску команди пошуку."
-
-#: src/dialogs/gnome-cmd-search-dialog.cc:935
-#, c-format
-msgid "Failed to change directory outside of %s"
-msgstr "Не вдалося перейти до каталогу поза %s"
-
-#: src/dialogs/gnome-cmd-search-dialog.cc:1047
+#: src/dialogs/gnome-cmd-search-dialog.cc:825
 msgid "Search…"
 msgstr "Шукати…"
 
 #. search in
-#: src/dialogs/gnome-cmd-search-dialog.cc:1168
+#: src/dialogs/gnome-cmd-search-dialog.cc:943
 msgid "Select Directory"
 msgstr "Виберіть каталог"
 
-#: src/dialogs/gnome-cmd-search-dialog.cc:1171
+#: src/dialogs/gnome-cmd-search-dialog.cc:946
 msgid "_Look in folder:"
 msgstr "_Шукати у теці:"
 
@@ -3587,7 +3574,7 @@ msgstr "Перейти до: мережа Samba"
 msgid "link to %s"
 msgstr "посилання на %s"
 
-#: src/gnome-cmd-dir.cc:562
+#: src/gnome-cmd-dir.cc:510
 msgid "Waiting for file list"
 msgstr "Очікування на список файлів"
 
@@ -4659,19 +4646,16 @@ msgstr ""
 #: src/gnome-cmd-xfer.cc:156 src/gnome-cmd-xfer.cc:159
 #: src/gnome-cmd-xfer.cc:211 src/gnome-cmd-xfer.cc:214
 #: src/gnome-cmd-xfer.cc:326 src/gnome-cmd-xfer.cc:329
-#| msgid "Copy File"
 msgid "Copy problem"
 msgstr "Проблема із копіюванням"
 
 #: src/gnome-cmd-xfer.cc:157 src/gnome-cmd-xfer.cc:160
 #: src/gnome-cmd-xfer.cc:272 src/gnome-cmd-xfer.cc:275
-#| msgid "Copying"
 msgid "Copy into"
 msgstr "Копіювати до"
 
 #: src/gnome-cmd-xfer.cc:157 src/gnome-cmd-xfer.cc:212
 #: src/gnome-cmd-xfer.cc:272 src/gnome-cmd-xfer.cc:327
-#| msgid "Rename"
 msgid "Rename all"
 msgstr "Перейменувати все"
 
@@ -4704,12 +4688,10 @@ msgid "Replace"
 msgstr "Замінити"
 
 #: src/gnome-cmd-xfer.cc:212 src/gnome-cmd-xfer.cc:327
-#| msgid "Replace All"
 msgid "Replace all"
 msgstr "Замінити все"
 
 #: src/gnome-cmd-xfer.cc:271 src/gnome-cmd-xfer.cc:274
-#| msgid "Delete problem"
 msgid "Move problem"
 msgstr "Проблема із пересуванням"
 
@@ -4736,7 +4718,6 @@ msgid "preparing…"
 msgstr "приготування…"
 
 #: src/gnome-cmd-xfer.cc:699 src/gnome-cmd-xfer.cc:780
-#| msgid "Copying a directory into itself is a bad idea."
 msgid "Moving a directory into itself is a bad idea."
 msgstr "Не варто пересувати каталог сам у себе."
 
@@ -4746,10 +4727,6 @@ msgstr "завантаження в /tmp"
 
 #: src/gnome-cmd-xfer.cc:910
 #, c-format
-#| msgid ""
-#| "Error while deleting “%s”\n"
-#| "\n"
-#| "%s"
 msgid ""
 "Error while creating symlink “%s”\n"
 "\n"
@@ -4761,13 +4738,11 @@ msgstr ""
 
 #: src/gnome-cmd-xfer.cc:915
 msgid "Symlink creation problem"
-msgstr ""
-"Проблема зі створенням символічного посилання"
+msgstr "Проблема зі створенням символічного посилання"
 
 #: src/gnome-cmd-xfer.cc:916
 msgid "Ignore"
-msgstr ""
-"Ігнорувати"
+msgstr "Ігнорувати"
 
 #: src/gnome-cmd-xfer-progress-win.cc:42
 msgid "stopping…"
@@ -9139,6 +9114,20 @@ msgstr "Помилка при показі допомоги."
 #, c-format
 msgid "Couldn’t move path from “%s” to “%s”: %s"
 msgstr "Не вдалося пересунути шлях з «%s» до «%s»: %s"
+
+#~ msgid "Failed to set process group id of child %d: %s.\n"
+#~ msgstr ""
+#~ "Не вдалося встановити ідентифікатор групи процесів дочірнього процесу %d: "
+#~ "%s.\n"
+
+#~ msgid "Error parsing the search command."
+#~ msgstr "Помилка під час обробки команди пошуку."
+
+#~ msgid "Error running the search command."
+#~ msgstr "Помилка під час запуску команди пошуку."
+
+#~ msgid "Failed to change directory outside of %s"
+#~ msgstr "Не вдалося перейти до каталогу поза %s"
 
 #~ msgid ""
 #~ "Error while copying to %s\n"
