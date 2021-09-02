@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander.HEAD\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-commander/issues\n"
-"POT-Creation-Date: 2021-08-27 18:14+0000\n"
-"PO-Revision-Date: 2021-08-27 20:30+0200\n"
+"POT-Creation-Date: 2021-09-01 20:38+0000\n"
+"PO-Revision-Date: 2021-09-02 13:06+0200\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: Spanish - Spain <gnome-es-list@gnome.org>\n"
 "Language: es_ES\n"
@@ -380,7 +380,7 @@ msgstr "Posición horizontal de la ventana principal"
 
 #: data/org.gnome.gnome-commander.gschema.xml:232
 msgid "Position of the main window in horizontal direction."
-msgstr "Posición de la ventana principal en dirección horizontal"
+msgstr "Posición de la ventana principal en dirección horizontal."
 
 #: data/org.gnome.gnome-commander.gschema.xml:238
 msgid "Main window vertical position"
@@ -388,7 +388,7 @@ msgstr "Posición vertical de la ventana principal"
 
 #: data/org.gnome.gnome-commander.gschema.xml:239
 msgid "Position of the main window in vertical direction."
-msgstr "Posición de la ventana principal en dirección vertical"
+msgstr "Posición de la ventana principal en dirección vertical."
 
 #: data/org.gnome.gnome-commander.gschema.xml:245
 msgid "Main window width"
@@ -903,7 +903,7 @@ msgstr "Ocultar archivos de enlaces directos (sistemas Windows)"
 
 #: data/org.gnome.gnome-commander.gschema.xml:639
 msgid "Hide mountable locations"
-msgstr "ocultar ubicaciones que es puedan montar"
+msgstr "Ocultar ubicaciones que se puedan montar"
 
 #: data/org.gnome.gnome-commander.gschema.xml:643
 msgid "Hide virtual files"
@@ -1011,7 +1011,8 @@ msgstr "Comando para ejecución en terminal"
 #: data/org.gnome.gnome-commander.gschema.xml:720
 msgid ""
 "This string defines the command for executing another command in a terminal."
-msgstr "Esta cadena define Comando para ejecución en terminal"
+msgstr ""
+"Esta cadena define el comando para ejecutar otro comando en una terminal."
 
 #: data/org.gnome.gnome-commander.gschema.xml:726
 msgid "Send to command"
@@ -1600,17 +1601,17 @@ msgstr ""
 "los aspirantes a hackers de complementos"
 
 #: src/dialogs/gnome-cmd-advrename-dialog.cc:126
-#: src/dialogs/gnome-cmd-search-dialog.cc:181
+#: src/dialogs/gnome-cmd-search-dialog.cc:195
 msgid "/_Save Profile As…"
 msgstr "/_Guardar perfil como…"
 
 #: src/dialogs/gnome-cmd-advrename-dialog.cc:135
-#: src/dialogs/gnome-cmd-search-dialog.cc:190
+#: src/dialogs/gnome-cmd-search-dialog.cc:204
 msgid "/_Manage Profiles…"
 msgstr "/_Gestionar perfiles…"
 
 #: src/dialogs/gnome-cmd-advrename-dialog.cc:187
-#: src/dialogs/gnome-cmd-search-dialog.cc:240
+#: src/dialogs/gnome-cmd-search-dialog.cc:254
 msgid "Profiles"
 msgstr "Perfiles"
 
@@ -1677,7 +1678,7 @@ msgid "File modification date"
 msgstr "Fecha de modificación del archivo"
 
 #: src/dialogs/gnome-cmd-advrename-dialog.cc:693
-#: src/dialogs/gnome-cmd-search-dialog.cc:1150
+#: src/dialogs/gnome-cmd-search-dialog.cc:925
 msgid "Profiles…"
 msgstr "Perfiles…"
 
@@ -1825,18 +1826,18 @@ msgstr "WebDAV seguro (HTTPS)"
 msgid "Custom location"
 msgstr "Ubicación personalizada"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:71
+#: src/dialogs/gnome-cmd-delete-dialog.cc:75
 #, c-format
 msgid "Deleted %lu of %lu file"
 msgid_plural "Deleted %lu of %lu files"
 msgstr[0] "Se eliminó %lu de %lu archivo"
 msgstr[1] "Se eliminaron %lu de %lu archivos"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:106
+#: src/dialogs/gnome-cmd-delete-dialog.cc:110
 msgid "Deleting…"
 msgstr "Eliminando…"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:277
+#: src/dialogs/gnome-cmd-delete-dialog.cc:281
 #, c-format
 msgid ""
 "Error while deleting “%s”\n"
@@ -1847,13 +1848,13 @@ msgstr ""
 "\n"
 "%s"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:282
-#: src/dialogs/gnome-cmd-delete-dialog.cc:399
+#: src/dialogs/gnome-cmd-delete-dialog.cc:286
+#: src/dialogs/gnome-cmd-delete-dialog.cc:403
 msgid "Delete problem"
 msgstr "Problema al eliminar"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:283
-#: src/dialogs/gnome-cmd-delete-dialog.cc:399 src/gnome-cmd-xfer.cc:117
+#: src/dialogs/gnome-cmd-delete-dialog.cc:287
+#: src/dialogs/gnome-cmd-delete-dialog.cc:403 src/gnome-cmd-xfer.cc:117
 #: src/gnome-cmd-xfer.cc:157 src/gnome-cmd-xfer.cc:160
 #: src/gnome-cmd-xfer.cc:212 src/gnome-cmd-xfer.cc:215
 #: src/gnome-cmd-xfer.cc:272 src/gnome-cmd-xfer.cc:275
@@ -1861,7 +1862,7 @@ msgstr "Problema al eliminar"
 msgid "Abort"
 msgstr "Abortar"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:283
+#: src/dialogs/gnome-cmd-delete-dialog.cc:287
 #: src/gnome-cmd-file-selector.cc:1393 src/gnome-cmd-xfer.cc:117
 #: src/gnome-cmd-xfer.cc:157 src/gnome-cmd-xfer.cc:160
 #: src/gnome-cmd-xfer.cc:212 src/gnome-cmd-xfer.cc:215
@@ -1870,15 +1871,15 @@ msgstr "Abortar"
 msgid "Retry"
 msgstr "Reintentar"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:283
-#: src/dialogs/gnome-cmd-delete-dialog.cc:412
+#: src/dialogs/gnome-cmd-delete-dialog.cc:287
+#: src/dialogs/gnome-cmd-delete-dialog.cc:416
 #: src/gnome-cmd-file-selector.cc:1393 src/gnome-cmd-xfer.cc:117
 #: src/gnome-cmd-xfer.cc:157 src/gnome-cmd-xfer.cc:212
 #: src/gnome-cmd-xfer.cc:272 src/gnome-cmd-xfer.cc:327
 msgid "Skip"
 msgstr "Saltar"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:397
+#: src/dialogs/gnome-cmd-delete-dialog.cc:401
 #, c-format
 msgid ""
 "Error while deleting: \n"
@@ -1889,42 +1890,42 @@ msgstr ""
 "\n"
 "%s"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:409
+#: src/dialogs/gnome-cmd-delete-dialog.cc:413
 #, c-format
 msgid "The directory “%s” is not empty. Do you really want to delete it?"
 msgstr "La carpeta «%s» no está vacía. ¿Realmente quiere eliminarla?"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:410
 #: src/dialogs/gnome-cmd-delete-dialog.cc:414
-#: src/dialogs/gnome-cmd-delete-dialog.cc:488
-#: src/dialogs/gnome-cmd-delete-dialog.cc:489
+#: src/dialogs/gnome-cmd-delete-dialog.cc:418
+#: src/dialogs/gnome-cmd-delete-dialog.cc:492
+#: src/dialogs/gnome-cmd-delete-dialog.cc:493
 #: src/dialogs/gnome-cmd-options-dialog.cc:1039
 #: src/gnome-cmd-file-popmenu.cc:730 src/gnome-cmd-main-win.cc:243
 #: src/gnome-cmd-user-actions.cc:213
 msgid "Delete"
 msgstr "Eliminar"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:412
-#: src/dialogs/gnome-cmd-delete-dialog.cc:489 src/gnome-cmd-file-list.cc:1312
+#: src/dialogs/gnome-cmd-delete-dialog.cc:416
+#: src/dialogs/gnome-cmd-delete-dialog.cc:493 src/gnome-cmd-file-list.cc:1312
 #: src/gnome-cmd-file-list.cc:1341 src/gnome-cmd-file-selector.cc:1393
 #: src/gnome-cmd-user-actions.cc:819
 msgid "Cancel"
 msgstr "Cancelar"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:413
+#: src/dialogs/gnome-cmd-delete-dialog.cc:417
 msgid "Delete All"
 msgstr "Eliminar todo"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:413
+#: src/dialogs/gnome-cmd-delete-dialog.cc:417
 msgid "Delete Remaining"
 msgstr "Eliminar lo restante"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:479
+#: src/dialogs/gnome-cmd-delete-dialog.cc:483
 #, c-format
 msgid "Do you want to delete “%s”?"
 msgstr "¿Quiere eliminar «%s»?"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:482
+#: src/dialogs/gnome-cmd-delete-dialog.cc:486
 #, c-format
 msgid "Do you want to delete the selected file?"
 msgid_plural "Do you want to delete the %d selected files?"
@@ -2236,7 +2237,7 @@ msgstr ""
 msgid "_Duplicate"
 msgstr "_Duplicar"
 
-#: src/dialogs/gnome-cmd-mkdir-dialog.cc:104
+#: src/dialogs/gnome-cmd-mkdir-dialog.cc:103
 msgid "A directory name must be entered"
 msgstr "Debe introducirse un nombre de carpeta"
 
@@ -3038,60 +3039,47 @@ msgstr "Buscar sólo carpetas locales"
 msgid "Files _not containing text"
 msgstr "Archivos que _no contengan texto"
 
-#: src/dialogs/gnome-cmd-search-dialog.cc:315
-#: src/dialogs/gnome-cmd-search-dialog.cc:324
-#: src/dialogs/gnome-cmd-search-dialog.cc:348
+#: src/dialogs/gnome-cmd-search-dialog.cc:326
+#, c-format
+msgid "Failed to read file %s: File is not searchable"
+msgstr "Falló al leer del archivo %s: el archivo no permite búsqueda"
+
+#: src/dialogs/gnome-cmd-search-dialog.cc:335
+#: src/dialogs/gnome-cmd-search-dialog.cc:347
+#: src/dialogs/gnome-cmd-search-dialog.cc:375
 #, c-format
 msgid "Failed to read file %s: %s"
 msgstr "Falló al leer del archivo %s: %s"
 
-#: src/dialogs/gnome-cmd-search-dialog.cc:400
+#: src/dialogs/gnome-cmd-search-dialog.cc:433
 #, c-format
 msgid "Searching in: %s"
 msgstr "Buscando en: %s"
 
-#: src/dialogs/gnome-cmd-search-dialog.cc:517
+#: src/dialogs/gnome-cmd-search-dialog.cc:555
 #, c-format
 msgid "Found %d match — search aborted"
 msgid_plural "Found %d matches — search aborted"
 msgstr[0] "Se encontró %d coincidencia - búsqueda abortada"
 msgstr[1] "Se encontraron %d coincidencias - búsqueda abortada"
 
-#: src/dialogs/gnome-cmd-search-dialog.cc:518
+#: src/dialogs/gnome-cmd-search-dialog.cc:556
 #, c-format
 msgid "Found %d match"
 msgid_plural "Found %d matches"
 msgstr[0] "Se encontró %d coincidencia"
 msgstr[1] "Se encontraron %d coincidencias"
 
-#: src/dialogs/gnome-cmd-search-dialog.cc:685
-#, c-format
-msgid "Failed to set process group id of child %d: %s.\n"
-msgstr "Falló al establecer el id del grupo de proceso del hijo %d: %s.\n"
-
-#: src/dialogs/gnome-cmd-search-dialog.cc:809
-msgid "Error parsing the search command."
-msgstr "Error al analizar el comando de búsqueda."
-
-#: src/dialogs/gnome-cmd-search-dialog.cc:821
-msgid "Error running the search command."
-msgstr "Error al ejecutar el comando de búsqueda."
-
-#: src/dialogs/gnome-cmd-search-dialog.cc:935
-#, c-format
-msgid "Failed to change directory outside of %s"
-msgstr "Falló al cambiar a la carpeta fuera de %s"
-
-#: src/dialogs/gnome-cmd-search-dialog.cc:1047
+#: src/dialogs/gnome-cmd-search-dialog.cc:825
 msgid "Search…"
 msgstr "Buscar…"
 
 #. search in
-#: src/dialogs/gnome-cmd-search-dialog.cc:1168
+#: src/dialogs/gnome-cmd-search-dialog.cc:943
 msgid "Select Directory"
 msgstr "Seleccionar carpeta"
 
-#: src/dialogs/gnome-cmd-search-dialog.cc:1171
+#: src/dialogs/gnome-cmd-search-dialog.cc:946
 msgid "_Look in folder:"
 msgstr "_Buscar en la carpeta:"
 
@@ -3574,7 +3562,7 @@ msgstr "Ir a: Red Samba"
 msgid "link to %s"
 msgstr "enlace a %s"
 
-#: src/gnome-cmd-dir.cc:562
+#: src/gnome-cmd-dir.cc:510
 msgid "Waiting for file list"
 msgstr "Esperando la lista de archivos"
 
@@ -4826,8 +4814,8 @@ msgstr[1] "píxeles"
 #: src/intviewer/viewer-widget.cc:242
 msgid "bit/sample"
 msgid_plural "bits/sample"
-msgstr[0] "Bit por muestra"
-msgstr[1] "Bits por muestra"
+msgstr[0] "bit por muestra"
+msgstr[1] "bits por muestra"
 
 #: src/intviewer/viewer-widget.cc:244
 msgid "(fit to window)"
@@ -5164,7 +5152,7 @@ msgstr "Códec"
 
 #: src/tags/gnome-cmd-tags.cc:126
 msgid "Codec encoding description."
-msgstr "Descripción del códec"
+msgstr "Descripción de codificación del códec."
 
 #: src/tags/gnome-cmd-tags.cc:127
 msgid "Codec Version"
@@ -5280,7 +5268,7 @@ msgstr "ID del álbum en MB"
 
 #: src/tags/gnome-cmd-tags.cc:140
 msgid "MusicBrainz album ID in UUID format."
-msgstr "ID del álbum en MusicBrainz en formato UUID"
+msgstr "ID del álbum en MusicBrainz en formato UUID."
 
 #: src/tags/gnome-cmd-tags.cc:141
 msgid "MB Artist ID"
@@ -5450,7 +5438,7 @@ msgstr "Contar las celdas"
 
 #: src/tags/gnome-cmd-tags.cc:161
 msgid "Number of cells in the spreadsheet document."
-msgstr "Número de celdas en la hoja de cálculo"
+msgstr "Número de celdas en la hoja de cálculo."
 
 #: src/tags/gnome-cmd-tags.cc:162
 msgid "Character Count"
@@ -5482,7 +5470,7 @@ msgstr "Empresa"
 
 #: src/tags/gnome-cmd-tags.cc:165
 msgid "Organization that the <Doc.Creator> entity is associated with."
-msgstr "Organizacion en la que la entidad <Doc.Creator> esta asociada"
+msgstr "Organización con la que la entidad <Doc.Creator> esta asociada."
 
 #: src/tags/gnome-cmd-tags.cc:167 src/tags/gnome-cmd-tags.cc:422
 msgid "Creator"
@@ -5775,7 +5763,7 @@ msgstr "La plantilla en uso para generar este documento."
 
 #: src/tags/gnome-cmd-tags.cc:202
 msgid "Title of the document."
-msgstr "Título del documento"
+msgstr "Título del documento."
 
 #: src/tags/gnome-cmd-tags.cc:203
 msgid "Word Count"
@@ -5837,7 +5825,7 @@ msgid ""
 "in the range of -99.99 to 99.99."
 msgstr ""
 "El valor del brillo. La unidad de medida es el valor APEX. Generalmente se "
-"da en el rango de -99.99 a 99.99. "
+"da en el rango de -99.99 a 99.99."
 
 #: src/tags/gnome-cmd-tags.cc:209 src/tags/gnome-cmd-tags.cc:272
 msgid "CFA Pattern"
@@ -5858,7 +5846,7 @@ msgstr "Patrón de repetición CFA"
 
 #: src/tags/gnome-cmd-tags.cc:210
 msgid "CFA Repeat Pattern Dim."
-msgstr "Patrón repetitivo CFA"
+msgstr "Dim. de patrón repetitivo CFA."
 
 #: src/tags/gnome-cmd-tags.cc:211
 msgid "Color Space"
@@ -7279,7 +7267,8 @@ msgstr "Textos/notas editables libremente."
 #: src/tags/gnome-cmd-tags.cc:323
 msgid ""
 "MIME type of the file or if a directory it should contain value “Folder”."
-msgstr "El tipo MIME del archivo o carpeta debería contener el valor «Folder»"
+msgstr ""
+"El tipo MIME del archivo o si una carpeta debería contener el valor «Folder»."
 
 #: src/tags/gnome-cmd-tags.cc:324
 msgid "Editable array of keywords."
@@ -7307,7 +7296,7 @@ msgstr "Nombre del archivo, excluyendo la ruta pero incluyendo la extensión."
 
 #: src/tags/gnome-cmd-tags.cc:328
 msgid "Full file path of file excluding the file name."
-msgstr "Ruta completa del archivo, excluyendo el nombre de archivo"
+msgstr "Ruta completa del archivo, excluyendo el nombre de archivo."
 
 #: src/tags/gnome-cmd-tags.cc:329
 msgid "Permission string in unix format eg “-rw-r--r--”."
@@ -8663,7 +8652,7 @@ msgstr "Versión de grabación"
 
 #: src/tags/gnome-cmd-tags.cc:499
 msgid "Identifies the version of the IIM, Part 2."
-msgstr "Identifica la versión del IIM, parte 2"
+msgstr "Identifica la versión del IIM, parte 2."
 
 #: src/tags/gnome-cmd-tags.cc:500
 msgid "Reference Date"
@@ -9157,6 +9146,18 @@ msgstr "Hubo un error al mostrar la ayuda."
 #, c-format
 msgid "Couldn’t move path from “%s” to “%s”: %s"
 msgstr "No se pudo mover la ruta de «%s» a «%s»: %s"
+
+#~ msgid "Failed to set process group id of child %d: %s.\n"
+#~ msgstr "Falló al establecer el id del grupo de proceso del hijo %d: %s.\n"
+
+#~ msgid "Error parsing the search command."
+#~ msgstr "Error al analizar el comando de búsqueda."
+
+#~ msgid "Error running the search command."
+#~ msgstr "Error al ejecutar el comando de búsqueda."
+
+#~ msgid "Failed to change directory outside of %s"
+#~ msgstr "Falló al cambiar a la carpeta fuera de %s"
 
 #~ msgid "Skip device mounting"
 #~ msgstr "Omitir montaje de dispositivos"
