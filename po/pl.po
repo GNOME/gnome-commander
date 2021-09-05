@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-commander/issues\n"
-"POT-Creation-Date: 2021-08-27 18:14+0000\n"
-"PO-Revision-Date: 2021-08-29 14:49+0200\n"
+"POT-Creation-Date: 2021-09-01 20:38+0000\n"
+"PO-Revision-Date: 2021-09-05 17:21+0200\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <community-poland@mozilla.org>\n"
 "Language: pl\n"
@@ -1568,17 +1568,17 @@ msgstr ""
 "dla kandydatów na twórców wtyczek"
 
 #: src/dialogs/gnome-cmd-advrename-dialog.cc:126
-#: src/dialogs/gnome-cmd-search-dialog.cc:181
+#: src/dialogs/gnome-cmd-search-dialog.cc:195
 msgid "/_Save Profile As…"
 msgstr "/Zapi_sz profil jako…"
 
 #: src/dialogs/gnome-cmd-advrename-dialog.cc:135
-#: src/dialogs/gnome-cmd-search-dialog.cc:190
+#: src/dialogs/gnome-cmd-search-dialog.cc:204
 msgid "/_Manage Profiles…"
 msgstr "/_Zarządzaj profilami…"
 
 #: src/dialogs/gnome-cmd-advrename-dialog.cc:187
-#: src/dialogs/gnome-cmd-search-dialog.cc:240
+#: src/dialogs/gnome-cmd-search-dialog.cc:254
 msgid "Profiles"
 msgstr "Profile"
 
@@ -1645,7 +1645,7 @@ msgid "File modification date"
 msgstr "Data modyfikacji pliku"
 
 #: src/dialogs/gnome-cmd-advrename-dialog.cc:693
-#: src/dialogs/gnome-cmd-search-dialog.cc:1150
+#: src/dialogs/gnome-cmd-search-dialog.cc:925
 msgid "Profiles…"
 msgstr "Profile…"
 
@@ -1793,7 +1793,7 @@ msgstr "Bezpieczne WebDAV (HTTPS)"
 msgid "Custom location"
 msgstr "Inne położenie"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:71
+#: src/dialogs/gnome-cmd-delete-dialog.cc:75
 #, c-format
 msgid "Deleted %lu of %lu file"
 msgid_plural "Deleted %lu of %lu files"
@@ -1801,11 +1801,11 @@ msgstr[0] "Usunięto %lu z %lu pliku"
 msgstr[1] "Usunięto %lu z %lu plików"
 msgstr[2] "Usunięto %lu z %lu plików"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:106
+#: src/dialogs/gnome-cmd-delete-dialog.cc:110
 msgid "Deleting…"
 msgstr "Usuwanie…"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:277
+#: src/dialogs/gnome-cmd-delete-dialog.cc:281
 #, c-format
 msgid ""
 "Error while deleting “%s”\n"
@@ -1816,13 +1816,13 @@ msgstr ""
 "\n"
 "%s"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:282
-#: src/dialogs/gnome-cmd-delete-dialog.cc:399
+#: src/dialogs/gnome-cmd-delete-dialog.cc:286
+#: src/dialogs/gnome-cmd-delete-dialog.cc:403
 msgid "Delete problem"
 msgstr "Problem podczas usuwania"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:283
-#: src/dialogs/gnome-cmd-delete-dialog.cc:399 src/gnome-cmd-xfer.cc:117
+#: src/dialogs/gnome-cmd-delete-dialog.cc:287
+#: src/dialogs/gnome-cmd-delete-dialog.cc:403 src/gnome-cmd-xfer.cc:117
 #: src/gnome-cmd-xfer.cc:157 src/gnome-cmd-xfer.cc:160
 #: src/gnome-cmd-xfer.cc:212 src/gnome-cmd-xfer.cc:215
 #: src/gnome-cmd-xfer.cc:272 src/gnome-cmd-xfer.cc:275
@@ -1830,7 +1830,7 @@ msgstr "Problem podczas usuwania"
 msgid "Abort"
 msgstr "Przerwij"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:283
+#: src/dialogs/gnome-cmd-delete-dialog.cc:287
 #: src/gnome-cmd-file-selector.cc:1393 src/gnome-cmd-xfer.cc:117
 #: src/gnome-cmd-xfer.cc:157 src/gnome-cmd-xfer.cc:160
 #: src/gnome-cmd-xfer.cc:212 src/gnome-cmd-xfer.cc:215
@@ -1839,15 +1839,15 @@ msgstr "Przerwij"
 msgid "Retry"
 msgstr "Ponów"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:283
-#: src/dialogs/gnome-cmd-delete-dialog.cc:412
+#: src/dialogs/gnome-cmd-delete-dialog.cc:287
+#: src/dialogs/gnome-cmd-delete-dialog.cc:416
 #: src/gnome-cmd-file-selector.cc:1393 src/gnome-cmd-xfer.cc:117
 #: src/gnome-cmd-xfer.cc:157 src/gnome-cmd-xfer.cc:212
 #: src/gnome-cmd-xfer.cc:272 src/gnome-cmd-xfer.cc:327
 msgid "Skip"
 msgstr "Pomiń"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:397
+#: src/dialogs/gnome-cmd-delete-dialog.cc:401
 #, c-format
 msgid ""
 "Error while deleting: \n"
@@ -1858,42 +1858,42 @@ msgstr ""
 "\n"
 "%s"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:409
+#: src/dialogs/gnome-cmd-delete-dialog.cc:413
 #, c-format
 msgid "The directory “%s” is not empty. Do you really want to delete it?"
 msgstr "Katalog „%s” nie jest pusty. Na pewno go usunąć?"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:410
 #: src/dialogs/gnome-cmd-delete-dialog.cc:414
-#: src/dialogs/gnome-cmd-delete-dialog.cc:488
-#: src/dialogs/gnome-cmd-delete-dialog.cc:489
+#: src/dialogs/gnome-cmd-delete-dialog.cc:418
+#: src/dialogs/gnome-cmd-delete-dialog.cc:492
+#: src/dialogs/gnome-cmd-delete-dialog.cc:493
 #: src/dialogs/gnome-cmd-options-dialog.cc:1039
 #: src/gnome-cmd-file-popmenu.cc:730 src/gnome-cmd-main-win.cc:243
 #: src/gnome-cmd-user-actions.cc:213
 msgid "Delete"
 msgstr "Usuń"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:412
-#: src/dialogs/gnome-cmd-delete-dialog.cc:489 src/gnome-cmd-file-list.cc:1312
+#: src/dialogs/gnome-cmd-delete-dialog.cc:416
+#: src/dialogs/gnome-cmd-delete-dialog.cc:493 src/gnome-cmd-file-list.cc:1312
 #: src/gnome-cmd-file-list.cc:1341 src/gnome-cmd-file-selector.cc:1393
 #: src/gnome-cmd-user-actions.cc:819
 msgid "Cancel"
 msgstr "Anuluj"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:413
+#: src/dialogs/gnome-cmd-delete-dialog.cc:417
 msgid "Delete All"
 msgstr "Usuń wszystko"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:413
+#: src/dialogs/gnome-cmd-delete-dialog.cc:417
 msgid "Delete Remaining"
 msgstr "Usuń pozostałe"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:479
+#: src/dialogs/gnome-cmd-delete-dialog.cc:483
 #, c-format
 msgid "Do you want to delete “%s”?"
 msgstr "Usunąć „%s”?"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:482
+#: src/dialogs/gnome-cmd-delete-dialog.cc:486
 #, c-format
 msgid "Do you want to delete the selected file?"
 msgid_plural "Do you want to delete the %d selected files?"
@@ -2208,7 +2208,7 @@ msgstr ""
 msgid "_Duplicate"
 msgstr "_Powiel"
 
-#: src/dialogs/gnome-cmd-mkdir-dialog.cc:104
+#: src/dialogs/gnome-cmd-mkdir-dialog.cc:103
 msgid "A directory name must be entered"
 msgstr "Należy podać nazwę katalogu"
 
@@ -3010,19 +3010,24 @@ msgstr "Przeszukiwanie tylko lokalnych katalogów"
 msgid "Files _not containing text"
 msgstr "Pliki _niezawierające tekstu"
 
-#: src/dialogs/gnome-cmd-search-dialog.cc:315
-#: src/dialogs/gnome-cmd-search-dialog.cc:324
-#: src/dialogs/gnome-cmd-search-dialog.cc:348
+#: src/dialogs/gnome-cmd-search-dialog.cc:326
+#, c-format
+msgid "Failed to read file %s: File is not searchable"
+msgstr "Nie można odczytać pliku %s: pliku nie można wyszukiwać"
+
+#: src/dialogs/gnome-cmd-search-dialog.cc:335
+#: src/dialogs/gnome-cmd-search-dialog.cc:347
+#: src/dialogs/gnome-cmd-search-dialog.cc:375
 #, c-format
 msgid "Failed to read file %s: %s"
 msgstr "Nie można odczytać pliku %s: %s"
 
-#: src/dialogs/gnome-cmd-search-dialog.cc:400
+#: src/dialogs/gnome-cmd-search-dialog.cc:433
 #, c-format
 msgid "Searching in: %s"
 msgstr "Wyszukiwanie w: %s"
 
-#: src/dialogs/gnome-cmd-search-dialog.cc:517
+#: src/dialogs/gnome-cmd-search-dialog.cc:555
 #, c-format
 msgid "Found %d match — search aborted"
 msgid_plural "Found %d matches — search aborted"
@@ -3030,7 +3035,7 @@ msgstr[0] "Odnaleziono %d pasujący — przerwano wyszukiwanie"
 msgstr[1] "Odnaleziono %d pasujące — przerwano wyszukiwanie"
 msgstr[2] "Odnaleziono %d pasujących — przerwano wyszukiwanie"
 
-#: src/dialogs/gnome-cmd-search-dialog.cc:518
+#: src/dialogs/gnome-cmd-search-dialog.cc:556
 #, c-format
 msgid "Found %d match"
 msgid_plural "Found %d matches"
@@ -3038,36 +3043,16 @@ msgstr[0] "Odnaleziono %d pasujący"
 msgstr[1] "Odnaleziono %d pasujące"
 msgstr[2] "Odnaleziono %d pasujących"
 
-#: src/dialogs/gnome-cmd-search-dialog.cc:685
-#, c-format
-msgid "Failed to set process group id of child %d: %s.\n"
-msgstr ""
-"Ustawienie identyfikatora grupy procesu elementu potomnego %d się nie "
-"powiodło: %s.\n"
-
-#: src/dialogs/gnome-cmd-search-dialog.cc:809
-msgid "Error parsing the search command."
-msgstr "Błąd podczas przetwarzania polecenia wyszukiwania."
-
-#: src/dialogs/gnome-cmd-search-dialog.cc:821
-msgid "Error running the search command."
-msgstr "Błąd podczas wykonywania polecenia wyszukiwania."
-
-#: src/dialogs/gnome-cmd-search-dialog.cc:935
-#, c-format
-msgid "Failed to change directory outside of %s"
-msgstr "Zmiana katalogu poza %s się nie powiodła"
-
-#: src/dialogs/gnome-cmd-search-dialog.cc:1047
+#: src/dialogs/gnome-cmd-search-dialog.cc:825
 msgid "Search…"
 msgstr "Znajdź…"
 
 #. search in
-#: src/dialogs/gnome-cmd-search-dialog.cc:1168
+#: src/dialogs/gnome-cmd-search-dialog.cc:943
 msgid "Select Directory"
 msgstr "Wybór katalogu"
 
-#: src/dialogs/gnome-cmd-search-dialog.cc:1171
+#: src/dialogs/gnome-cmd-search-dialog.cc:946
 msgid "_Look in folder:"
 msgstr "_Wyszukiwanie w katalogu:"
 
@@ -3552,7 +3537,7 @@ msgstr "Przejście do: Sieć Samby"
 msgid "link to %s"
 msgstr "dowiązanie do %s"
 
-#: src/gnome-cmd-dir.cc:562
+#: src/gnome-cmd-dir.cc:510
 msgid "Waiting for file list"
 msgstr "Oczekiwanie na listę plików"
 
