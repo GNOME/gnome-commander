@@ -10,14 +10,14 @@
 # Lucas Lommer <llommer@svn.gnome.org>, 2008.
 # Petr Kovar <pknbe@volny.cz>, 2008.
 # Dusan Hokuv <dusan@mirc.cz>, 2007, 2010.
-# Marek Černocký <marek@manet.cz>, 2010, 2011, 2012, 2014, 2015, 2016, 2017, 2019, 2020.
+# Marek Černocký <marek@manet.cz>, 2010, 2011, 2012, 2014, 2015, 2016, 2017, 2019, 2020, 2021.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: gnome-commander\n"
+"Project-Id-Version: gnome-commander gcmd-1.12\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-commander/issues\n"
-"POT-Creation-Date: 2020-10-10 00:14+0000\n"
-"PO-Revision-Date: 2020-10-10 15:40+0200\n"
+"POT-Creation-Date: 2021-07-20 14:56+0000\n"
+"PO-Revision-Date: 2021-09-07 18:08+0200\n"
 "Last-Translator: Marek Černocký <marek@manet.cz>\n"
 "Language-Team: čeština <gnome-cs-list@gnome.org>\n"
 "Language: cs\n"
@@ -154,7 +154,7 @@ msgstr ""
 "Určuje, jak se má zobrazovat velikost souborů v příslušném sloupci v panelu."
 
 #: data/org.gnome.gnome-commander.gschema.xml:88
-#: src/dialogs/gnome-cmd-options-dialog.cc:372
+#: src/dialogs/gnome-cmd-options-dialog.cc:388
 msgid "Permission display mode"
 msgstr "Režim zobrazení přístupových práv"
 
@@ -190,7 +190,7 @@ msgid "'%F %R'"
 msgstr "'%-d.%-m.%Y %k∶%M'"
 
 #: data/org.gnome.gnome-commander.gschema.xml:112
-#: src/dialogs/gnome-cmd-options-dialog.cc:388
+#: src/dialogs/gnome-cmd-options-dialog.cc:404
 msgid "Date format"
 msgstr "Formát data"
 
@@ -603,7 +603,7 @@ msgid "Defines if the tab bar is always shown."
 msgstr "Určuje, jestli se má vždy zobrazovat lišta s oušky karet."
 
 #: data/org.gnome.gnome-commander.gschema.xml:428
-#: src/dialogs/gnome-cmd-options-dialog.cc:956
+#: src/dialogs/gnome-cmd-options-dialog.cc:972
 msgid "Tab lock indicator"
 msgstr "Indikátor zamknuté karty"
 
@@ -881,43 +881,51 @@ msgid "Hide directories"
 msgstr "Skrývat složky"
 
 #: data/org.gnome.gnome-commander.gschema.xml:634
-msgid "Hide FIFO pipes"
-msgstr "Skrývat roury FIFO"
-
-#: data/org.gnome.gnome-commander.gschema.xml:638
-msgid "Hide sockets"
-msgstr "Skrývat sokety"
-
-#: data/org.gnome.gnome-commander.gschema.xml:642
-msgid "Hide character devices"
-msgstr "Skrývat znaková zařízení"
-
-#: data/org.gnome.gnome-commander.gschema.xml:646
-msgid "Hide block devices"
-msgstr "Skrývat bloková zařízení"
-
-#: data/org.gnome.gnome-commander.gschema.xml:650
 msgid "Hide symbolic links"
 msgstr "Skrývat symbolické odkazy"
 
+#: data/org.gnome.gnome-commander.gschema.xml:638
+msgid ""
+"Hide special files, such as a socket, fifo, block devices, or character "
+"devices."
+msgstr ""
+"Skrývat speciální soubory, jako jsou sokety, pojmenované roury, bloková "
+"zařízení nebo znaková zařízení."
+
+#: data/org.gnome.gnome-commander.gschema.xml:642
+msgid "Hide shortcut files (Windows systems)"
+msgstr "Skrývat soubory zástupců (systémy Windows)"
+
+#: data/org.gnome.gnome-commander.gschema.xml:646
+msgid "Hide mountable locations"
+msgstr "Skrývat připojitelná umístění"
+
+#: data/org.gnome.gnome-commander.gschema.xml:650
+msgid "Hide virtual files"
+msgstr "Skrývat virtuální soubory"
+
 #: data/org.gnome.gnome-commander.gschema.xml:654
+msgid "Hide volatile files"
+msgstr "Skrývat dočasné soubory"
+
+#: data/org.gnome.gnome-commander.gschema.xml:658
 msgid "Hide files and folders starting with a dot"
 msgstr "Skrývat soubory a složky začínající tečkou"
 
-#: data/org.gnome.gnome-commander.gschema.xml:658
+#: data/org.gnome.gnome-commander.gschema.xml:662
 msgid "Hide backup files"
 msgstr "Skrývat záložní soubory"
 
-#: data/org.gnome.gnome-commander.gschema.xml:659
+#: data/org.gnome.gnome-commander.gschema.xml:663
 msgid "Hide all files with a suffix defined as the backup pattern."
 msgstr ""
 "Skrývat všechny soubory, jejich přípona je odpovídá vzoru záložních souborů."
 
-#: data/org.gnome.gnome-commander.gschema.xml:663
+#: data/org.gnome.gnome-commander.gschema.xml:667
 msgid "Backup file pattern"
 msgstr "Vzor záložních souborů"
 
-#: data/org.gnome.gnome-commander.gschema.xml:664
+#: data/org.gnome.gnome-commander.gschema.xml:668
 msgid ""
 "The given string defines suffixes (separated by semicolon) for files which "
 "should be filtered out if backup files should be hidden."
@@ -925,11 +933,11 @@ msgstr ""
 "Zadaný řetězec určuje přípony (oddělené středníky) pro soubory, které mají "
 "být odfiltrovány, když je požadováno skrytí záložních souborů."
 
-#: data/org.gnome.gnome-commander.gschema.xml:673
+#: data/org.gnome.gnome-commander.gschema.xml:677
 msgid "Do not download files"
 msgstr "Nestahovat soubory"
 
-#: data/org.gnome.gnome-commander.gschema.xml:674
+#: data/org.gnome.gnome-commander.gschema.xml:678
 msgid ""
 "This option defines if remote files should be downloaded before opened by "
 "external programs."
@@ -937,46 +945,46 @@ msgstr ""
 "Tato volba určuje, jestli se mají stahovat vzdálené soubory před jejich "
 "otevřením v externím programu."
 
-#: data/org.gnome.gnome-commander.gschema.xml:680
+#: data/org.gnome.gnome-commander.gschema.xml:684
 msgid "Use internal viewer"
 msgstr "Používat interní prohlížeč"
 
-#: data/org.gnome.gnome-commander.gschema.xml:681
+#: data/org.gnome.gnome-commander.gschema.xml:685
 msgid "This option defines if the internal viewer should be used by default."
 msgstr ""
 "Tato volba určuje, jestli se má jako výchozí používat interní prohlížeč."
 
-#: data/org.gnome.gnome-commander.gschema.xml:687
+#: data/org.gnome.gnome-commander.gschema.xml:691
 msgid "Viewer command"
 msgstr "Příkaz pro prohlížeč"
 
-#: data/org.gnome.gnome-commander.gschema.xml:688
+#: data/org.gnome.gnome-commander.gschema.xml:692
 msgid "This string defines the command for starting the (external) viewer."
 msgstr "Řetězec určující příkaz, který spustí (externí) prohlížeč."
 
-#: data/org.gnome.gnome-commander.gschema.xml:694
+#: data/org.gnome.gnome-commander.gschema.xml:698
 msgid "Editor command"
 msgstr "Příkaz pro editor"
 
-#: data/org.gnome.gnome-commander.gschema.xml:695
+#: data/org.gnome.gnome-commander.gschema.xml:699
 msgid "This string defines the command for starting the editor."
 msgstr "Řetězec určující příkaz, který spustí editor."
 
-#: data/org.gnome.gnome-commander.gschema.xml:701
+#: data/org.gnome.gnome-commander.gschema.xml:705
 msgid "Differ command"
 msgstr "Příkaz pro rozdíly"
 
-#: data/org.gnome.gnome-commander.gschema.xml:702
+#: data/org.gnome.gnome-commander.gschema.xml:706
 msgid "This string defines the command for starting the diff tool."
 msgstr ""
 "Tento řetězec určuje příkaz pro spuštění nástroje, který zobrazí rozdíly "
 "mezi soubory."
 
-#: data/org.gnome.gnome-commander.gschema.xml:708
+#: data/org.gnome.gnome-commander.gschema.xml:712
 msgid "Leave terminal open"
 msgstr "Ponechávat terminál otevřený"
 
-#: data/org.gnome.gnome-commander.gschema.xml:709
+#: data/org.gnome.gnome-commander.gschema.xml:713
 msgid ""
 "This option defines if a terminal window should stay open after a command "
 "finishes inside of it."
@@ -984,108 +992,108 @@ msgstr ""
 "Tato volba určuje, jestli má terminálové okno po dokončení příkazu, který "
 "jste v něm spustili, zůstat otevřené."
 
-#: data/org.gnome.gnome-commander.gschema.xml:715
+#: data/org.gnome.gnome-commander.gschema.xml:719
 msgid "Command for opening a terminal"
 msgstr "Příkaz pro otevření terminálu"
 
-#: data/org.gnome.gnome-commander.gschema.xml:716
+#: data/org.gnome.gnome-commander.gschema.xml:720
 msgid "This string defines the command for opening a terminal."
 msgstr "Tento řetězec určuje příkaz pro otevření v terminálu."
 
-#: data/org.gnome.gnome-commander.gschema.xml:722
+#: data/org.gnome.gnome-commander.gschema.xml:726
 msgid "Command for execution in terminal"
 msgstr "Příkaz pro spuštění v terminálu"
 
-#: data/org.gnome.gnome-commander.gschema.xml:723
+#: data/org.gnome.gnome-commander.gschema.xml:727
 msgid ""
 "This string defines the command for executing another command in a terminal."
 msgstr "Tento řetězec určuje příkaz pro spuštění jiného příkazu v terminálu."
 
-#: data/org.gnome.gnome-commander.gschema.xml:729
+#: data/org.gnome.gnome-commander.gschema.xml:733
 msgid "Send to command"
 msgstr "Příkaz pro odeslání souborů"
 
-#: data/org.gnome.gnome-commander.gschema.xml:730
+#: data/org.gnome.gnome-commander.gschema.xml:734
 msgid "This string defines the command for sending files to a receiver."
 msgstr "Tento řetězec určuje příkaz pro odesílání souborů příjemci."
 
-#: data/org.gnome.gnome-commander.gschema.xml:738
+#: data/org.gnome.gnome-commander.gschema.xml:742
 msgid "Color theme"
 msgstr "Motiv barev"
 
-#: data/org.gnome.gnome-commander.gschema.xml:739
+#: data/org.gnome.gnome-commander.gschema.xml:743
 msgid "This option defines the current color theme."
 msgstr "Tato volba určuje aktuální motiv barev."
 
-#: data/org.gnome.gnome-commander.gschema.xml:745
+#: data/org.gnome.gnome-commander.gschema.xml:749
 msgid "Normal foreground color"
 msgstr "Barva normálního popředí"
 
-#: data/org.gnome.gnome-commander.gschema.xml:746
+#: data/org.gnome.gnome-commander.gschema.xml:750
 msgid "Normal foreground color in custom mode."
 msgstr "Barva normálního popředí ve vlastním režimu."
 
-#: data/org.gnome.gnome-commander.gschema.xml:752
+#: data/org.gnome.gnome-commander.gschema.xml:756
 msgid "Normal background color"
 msgstr "Barva normálního pozadí"
 
-#: data/org.gnome.gnome-commander.gschema.xml:753
+#: data/org.gnome.gnome-commander.gschema.xml:757
 msgid "Normal background color in custom mode."
 msgstr "Barva normálního pozadí ve vlastním režimu."
 
-#: data/org.gnome.gnome-commander.gschema.xml:759
+#: data/org.gnome.gnome-commander.gschema.xml:763
 msgid "Alternate foreground color"
 msgstr "Střídavá barva popředí"
 
-#: data/org.gnome.gnome-commander.gschema.xml:760
+#: data/org.gnome.gnome-commander.gschema.xml:764
 msgid "Alternate foreground color in custom mode."
 msgstr "Barva střídavého popředí ve vlastním režimu."
 
-#: data/org.gnome.gnome-commander.gschema.xml:766
+#: data/org.gnome.gnome-commander.gschema.xml:770
 msgid "Alternate background color"
 msgstr "Střídavá barva pozadí"
 
-#: data/org.gnome.gnome-commander.gschema.xml:767
+#: data/org.gnome.gnome-commander.gschema.xml:771
 msgid "Alternate background color in custom mode."
 msgstr "Barva střídavého pozadí ve vlastním režimu."
 
-#: data/org.gnome.gnome-commander.gschema.xml:773
+#: data/org.gnome.gnome-commander.gschema.xml:777
 msgid "Selection foreground color"
 msgstr "Barva popředí výběru"
 
-#: data/org.gnome.gnome-commander.gschema.xml:774
+#: data/org.gnome.gnome-commander.gschema.xml:778
 msgid "Foreground color for selections in custom mode."
 msgstr "Barva popředí pro výběr ve vlastním režimu."
 
-#: data/org.gnome.gnome-commander.gschema.xml:780
+#: data/org.gnome.gnome-commander.gschema.xml:784
 msgid "Selection background color"
 msgstr "Barva pozadí výběru"
 
-#: data/org.gnome.gnome-commander.gschema.xml:781
+#: data/org.gnome.gnome-commander.gschema.xml:785
 msgid "Background color for selections in custom mode."
 msgstr "Barva pozadí pro výběr ve vlastním režimu."
 
-#: data/org.gnome.gnome-commander.gschema.xml:787
+#: data/org.gnome.gnome-commander.gschema.xml:791
 msgid "Cursor foreground color"
 msgstr "Barva popředí kurzoru"
 
-#: data/org.gnome.gnome-commander.gschema.xml:788
+#: data/org.gnome.gnome-commander.gschema.xml:792
 msgid "Cursor foreground color in custom mode."
 msgstr "Barva popředí kurzoru ve vlastním režimu."
 
-#: data/org.gnome.gnome-commander.gschema.xml:794
+#: data/org.gnome.gnome-commander.gschema.xml:798
 msgid "Cursor background color"
 msgstr "Barva pozadí kurzoru"
 
-#: data/org.gnome.gnome-commander.gschema.xml:795
+#: data/org.gnome.gnome-commander.gschema.xml:799
 msgid "Cursor background color in custom mode."
 msgstr "Barva pozadí kurzoru ve vlastním režimu."
 
-#: data/org.gnome.gnome-commander.gschema.xml:801
+#: data/org.gnome.gnome-commander.gschema.xml:805
 msgid "Use LS colors"
 msgstr "Používat barvy LS"
 
-#: data/org.gnome.gnome-commander.gschema.xml:802
+#: data/org.gnome.gnome-commander.gschema.xml:806
 msgid ""
 "This option triggers if the value of the environment variable LS_COLORS "
 "should be used to dye files and folders."
@@ -1093,171 +1101,171 @@ msgstr ""
 "Tato volba aktivuje, jestli se má k obarvení souborů a složek použít hodnota "
 "proměnné prostředí LS_COLORS."
 
-#: data/org.gnome.gnome-commander.gschema.xml:809
+#: data/org.gnome.gnome-commander.gschema.xml:813
 msgid "LS_COLORS black foreground mapping"
 msgstr "Mapování černého popředí LS_COLORS"
 
-#: data/org.gnome.gnome-commander.gschema.xml:810
+#: data/org.gnome.gnome-commander.gschema.xml:814
 msgid ""
 "This option adjusts the foreground color mapping for LS_COLORS black value."
 msgstr ""
 "Tato volba upravuje mapování barvy popředí pro hodnotu černé z LS_COLORS."
 
-#: data/org.gnome.gnome-commander.gschema.xml:816
+#: data/org.gnome.gnome-commander.gschema.xml:820
 msgid "LS_COLORS black background mapping"
 msgstr "Mapování černého pozadí LS_COLORS"
 
-#: data/org.gnome.gnome-commander.gschema.xml:817
+#: data/org.gnome.gnome-commander.gschema.xml:821
 msgid ""
 "This option adjusts the background color mapping for LS_COLORS black value."
 msgstr ""
 "Tato volba upravuje mapování barvy pozadí pro hodnotu černé z LS_COLORS."
 
-#: data/org.gnome.gnome-commander.gschema.xml:823
+#: data/org.gnome.gnome-commander.gschema.xml:827
 msgid "LS_COLORS red foreground mapping"
 msgstr "Mapování červeného popředí LS_COLORS"
 
-#: data/org.gnome.gnome-commander.gschema.xml:824
+#: data/org.gnome.gnome-commander.gschema.xml:828
 msgid ""
 "This option adjusts the foreground color mapping for LS_COLORS red value."
 msgstr ""
 "Tato volba upravuje mapování barvy popředí pro hodnotu červené z LS_COLORS."
 
-#: data/org.gnome.gnome-commander.gschema.xml:830
+#: data/org.gnome.gnome-commander.gschema.xml:834
 msgid "LS_COLORS red background mapping"
 msgstr "Mapování červeného pozadí LS_COLORS"
 
-#: data/org.gnome.gnome-commander.gschema.xml:831
+#: data/org.gnome.gnome-commander.gschema.xml:835
 msgid ""
 "This option adjusts the background color mapping for LS_COLORS red value."
 msgstr ""
 "Tato volba upravuje mapování barvy pozadí pro hodnotu červené z LS_COLORS."
 
-#: data/org.gnome.gnome-commander.gschema.xml:837
+#: data/org.gnome.gnome-commander.gschema.xml:841
 msgid "LS_COLORS green foreground mapping"
 msgstr "Mapování zeleného popředí LS_COLORS"
 
-#: data/org.gnome.gnome-commander.gschema.xml:838
+#: data/org.gnome.gnome-commander.gschema.xml:842
 msgid ""
 "This option adjusts the foreground color mapping for LS_COLORS green value."
 msgstr ""
 "Tato volba upravuje mapování barvy popředí pro hodnotu zelené z LS_COLORS."
 
-#: data/org.gnome.gnome-commander.gschema.xml:844
+#: data/org.gnome.gnome-commander.gschema.xml:848
 msgid "LS_COLORS green background mapping"
 msgstr "Mapování zeleného pozadí LS_COLORS"
 
-#: data/org.gnome.gnome-commander.gschema.xml:845
+#: data/org.gnome.gnome-commander.gschema.xml:849
 msgid ""
 "This option adjusts the background color mapping for LS_COLORS green value."
 msgstr ""
 "Tato volba upravuje mapování barvy pozadí pro hodnotu zelené z LS_COLORS."
 
-#: data/org.gnome.gnome-commander.gschema.xml:851
+#: data/org.gnome.gnome-commander.gschema.xml:855
 msgid "LS_COLORS yellow foreground mapping"
 msgstr "Mapování žlutého popředí LS_COLORS"
 
-#: data/org.gnome.gnome-commander.gschema.xml:852
+#: data/org.gnome.gnome-commander.gschema.xml:856
 msgid ""
 "This option adjusts the foreground color mapping for LS_COLORS yellow value."
 msgstr ""
 "Tato volba upravuje mapování barvy popředí pro hodnotu žluté z LS_COLORS."
 
-#: data/org.gnome.gnome-commander.gschema.xml:858
+#: data/org.gnome.gnome-commander.gschema.xml:862
 msgid "LS_COLORS yellow background mapping"
 msgstr "Mapování žlutého pozadí LS_COLORS"
 
-#: data/org.gnome.gnome-commander.gschema.xml:859
+#: data/org.gnome.gnome-commander.gschema.xml:863
 msgid ""
 "This option adjusts the background color mapping for LS_COLORS yellow value."
 msgstr ""
 "Tato volba upravuje mapování barvy pozadí pro hodnotu žluté z LS_COLORS."
 
-#: data/org.gnome.gnome-commander.gschema.xml:865
+#: data/org.gnome.gnome-commander.gschema.xml:869
 msgid "LS_COLORS blue foreground mapping"
 msgstr "Mapování modrého popředí LS_COLORS"
 
-#: data/org.gnome.gnome-commander.gschema.xml:866
+#: data/org.gnome.gnome-commander.gschema.xml:870
 msgid ""
 "This option adjusts the foreground color mapping for LS_COLORS blue value."
 msgstr ""
 "Tato volba upravuje mapování barvy popředí pro hodnotu modré z LS_COLORS."
 
-#: data/org.gnome.gnome-commander.gschema.xml:872
+#: data/org.gnome.gnome-commander.gschema.xml:876
 msgid "LS_COLORS blue background mapping"
 msgstr "Mapování modrého pozadí LS_COLORS"
 
-#: data/org.gnome.gnome-commander.gschema.xml:873
+#: data/org.gnome.gnome-commander.gschema.xml:877
 msgid ""
 "This option adjusts the background color mapping for LS_COLORS blue value."
 msgstr ""
 "Tato volba upravuje mapování barvy pozadí pro hodnotu modré z LS_COLORS."
 
-#: data/org.gnome.gnome-commander.gschema.xml:879
+#: data/org.gnome.gnome-commander.gschema.xml:883
 msgid "LS_COLORS magenta foreground mapping"
 msgstr "Mapování purpurového popředí LS_COLORS"
 
-#: data/org.gnome.gnome-commander.gschema.xml:880
+#: data/org.gnome.gnome-commander.gschema.xml:884
 msgid ""
 "This option adjusts the foreground color mapping for LS_COLORS magenta value."
 msgstr ""
 "Tato volba upravuje mapování barvy popředí pro hodnotu purpurové z LS_COLORS."
 
-#: data/org.gnome.gnome-commander.gschema.xml:886
+#: data/org.gnome.gnome-commander.gschema.xml:890
 msgid "LS_COLORS magenta background mapping"
 msgstr "Mapování purpurového pozadí LS_COLORS"
 
-#: data/org.gnome.gnome-commander.gschema.xml:887
+#: data/org.gnome.gnome-commander.gschema.xml:891
 msgid ""
 "This option adjusts the background color mapping for LS_COLORS magenta value."
 msgstr ""
 "Tato volba upravuje mapování barvy pozadí pro hodnotu purpurové z LS_COLORS."
 
-#: data/org.gnome.gnome-commander.gschema.xml:893
+#: data/org.gnome.gnome-commander.gschema.xml:897
 msgid "LS_COLORS cyan foreground mapping"
 msgstr "Mapování azurového popředí LS_COLORS"
 
-#: data/org.gnome.gnome-commander.gschema.xml:894
+#: data/org.gnome.gnome-commander.gschema.xml:898
 msgid ""
 "This option adjusts the foreground color mapping for LS_COLORS cyan value."
 msgstr ""
 "Tato volba upravuje mapování barvy popředí pro hodnotu azurové z LS_COLORS."
 
-#: data/org.gnome.gnome-commander.gschema.xml:900
+#: data/org.gnome.gnome-commander.gschema.xml:904
 msgid "LS_COLORS cyan background mapping"
 msgstr "Mapování azurového pozadí LS_COLORS"
 
-#: data/org.gnome.gnome-commander.gschema.xml:901
+#: data/org.gnome.gnome-commander.gschema.xml:905
 msgid ""
 "This option adjusts the background color mapping for LS_COLORS cyan value."
 msgstr ""
 "Tato volba upravuje mapování barvy pozadí pro hodnotu azurové z LS_COLORS."
 
-#: data/org.gnome.gnome-commander.gschema.xml:907
+#: data/org.gnome.gnome-commander.gschema.xml:911
 msgid "LS_COLORS white foreground mapping"
 msgstr "Mapování bílého popředí LS_COLORS"
 
-#: data/org.gnome.gnome-commander.gschema.xml:908
+#: data/org.gnome.gnome-commander.gschema.xml:912
 msgid ""
 "This option adjusts the foreground color mapping for LS_COLORS white value."
 msgstr ""
 "Tato volba upravuje mapování barvy popředí pro hodnotu bílé z LS_COLORS."
 
-#: data/org.gnome.gnome-commander.gschema.xml:914
+#: data/org.gnome.gnome-commander.gschema.xml:918
 msgid "LS_COLORS white background mapping"
 msgstr "Mapování bílého pozadí LS_COLORS"
 
-#: data/org.gnome.gnome-commander.gschema.xml:915
+#: data/org.gnome.gnome-commander.gschema.xml:919
 msgid ""
 "This option adjusts the background color mapping for LS_COLORS white value."
 msgstr ""
 "Tato volba upravuje mapování barvy pozadí pro hodnotu bílé z LS_COLORS."
 
-#: data/org.gnome.gnome-commander.gschema.xml:923
+#: data/org.gnome.gnome-commander.gschema.xml:927
 msgid "Case sensitive search"
 msgstr "Rozlišovat velikost písmen při hledání"
 
-#: data/org.gnome.gnome-commander.gschema.xml:924
+#: data/org.gnome.gnome-commander.gschema.xml:928
 msgid ""
 "This option defines if searching within the internal viewer is case "
 "sensitive."
@@ -1265,11 +1273,11 @@ msgstr ""
 "Volba určující, jestli se má při hledání v interním prohlížeči rozlišovat "
 "velikost písmen."
 
-#: data/org.gnome.gnome-commander.gschema.xml:930
+#: data/org.gnome.gnome-commander.gschema.xml:934
 msgid "Search mode"
 msgstr "Režim hledání"
 
-#: data/org.gnome.gnome-commander.gschema.xml:931
+#: data/org.gnome.gnome-commander.gschema.xml:935
 msgid "This option defines the search mode of the internal viewer."
 msgstr "Volba určující režim hledání v interním prohlížeči."
 
@@ -1278,39 +1286,39 @@ msgstr "Volba určující režim hledání v interním prohlížeči."
 #. an encoding that is common in your country.
 #. See https://gitlab.gnome.org/GNOME/gnome-commander/blob/master/src/intviewer/viewer-window.cc#L360 for
 #. a list of supported encodings.
-#: data/org.gnome.gnome-commander.gschema.xml:941
+#: data/org.gnome.gnome-commander.gschema.xml:945
 msgid "'UTF8'"
 msgstr "'UTF8'"
 
-#: data/org.gnome.gnome-commander.gschema.xml:942
+#: data/org.gnome.gnome-commander.gschema.xml:946
 msgid "Character set"
 msgstr "Znaková sada"
 
-#: data/org.gnome.gnome-commander.gschema.xml:943
+#: data/org.gnome.gnome-commander.gschema.xml:947
 msgid "This option defines the default character encoding."
 msgstr "Volba určující výchozí kódování znaků."
 
-#: data/org.gnome.gnome-commander.gschema.xml:949
+#: data/org.gnome.gnome-commander.gschema.xml:953
 msgid "Fixed font name"
 msgstr "Název fontu s pevnou šířkou"
 
-#: data/org.gnome.gnome-commander.gschema.xml:950
+#: data/org.gnome.gnome-commander.gschema.xml:954
 msgid "Name of the default font with fixed character width."
 msgstr "Název výchozího fontu s pevnou šířkou znaků."
 
-#: data/org.gnome.gnome-commander.gschema.xml:956
+#: data/org.gnome.gnome-commander.gschema.xml:960
 msgid "Variable font name"
 msgstr "Název fontu s proměnnou šířkou"
 
-#: data/org.gnome.gnome-commander.gschema.xml:957
+#: data/org.gnome.gnome-commander.gschema.xml:961
 msgid "Name of the default font with variable character width."
 msgstr "Název výchozího fontu s proměnnou šířkou."
 
-#: data/org.gnome.gnome-commander.gschema.xml:963
+#: data/org.gnome.gnome-commander.gschema.xml:967
 msgid "Display hex offset"
 msgstr "Zobrazovat pozici šestnáctkově"
 
-#: data/org.gnome.gnome-commander.gschema.xml:964
+#: data/org.gnome.gnome-commander.gschema.xml:968
 msgid ""
 "This option defines if the hexadecimal offset should be displayed in hex "
 "mode."
@@ -1318,37 +1326,37 @@ msgstr ""
 "Tato volba určuje, jestli se má pozice v souboru pro šestnáctkový režim "
 "zobrazovat také šestnáctkově."
 
-#: data/org.gnome.gnome-commander.gschema.xml:970
+#: data/org.gnome.gnome-commander.gschema.xml:974
 msgid "Wrap mode"
 msgstr "Režim zalamování"
 
-#: data/org.gnome.gnome-commander.gschema.xml:971
+#: data/org.gnome.gnome-commander.gschema.xml:975
 msgid "This option defines if too long text lines should be wrapped."
 msgstr "Tato volba určuje, jestli se mají dlouhé řádky textu zalamovat."
 
-#: data/org.gnome.gnome-commander.gschema.xml:977
+#: data/org.gnome.gnome-commander.gschema.xml:981
 msgid "Font size"
 msgstr "Velikost fontu"
 
-#: data/org.gnome.gnome-commander.gschema.xml:978
+#: data/org.gnome.gnome-commander.gschema.xml:982
 msgid "This option defines the default font size."
 msgstr "Tato volba určuje velikost výchozího fontu."
 
-#: data/org.gnome.gnome-commander.gschema.xml:984
+#: data/org.gnome.gnome-commander.gschema.xml:988
 msgid "Tab size"
 msgstr "Velkost tabulátoru"
 
-#: data/org.gnome.gnome-commander.gschema.xml:985
+#: data/org.gnome.gnome-commander.gschema.xml:989
 msgid ""
 "This option defines the indentation width in terms of characters for a "
 "tabulator character."
 msgstr "Tato volba určuje odsazení, uvedené v počtu znaků, pro znak tabulátor."
 
-#: data/org.gnome.gnome-commander.gschema.xml:991
+#: data/org.gnome.gnome-commander.gschema.xml:995
 msgid "Bytes per line in binary mode"
 msgstr "Počet bajtů na řádek v binárním režimu"
 
-#: data/org.gnome.gnome-commander.gschema.xml:992
+#: data/org.gnome.gnome-commander.gschema.xml:996
 msgid ""
 "This option defines how many bytes should be displayed in one line in binary "
 "mode."
@@ -1356,19 +1364,19 @@ msgstr ""
 "Tato volba určuje, kolik bajtů se má zobrazovat na jednom řádku v binárním "
 "režimu."
 
-#: data/org.gnome.gnome-commander.gschema.xml:998
+#: data/org.gnome.gnome-commander.gschema.xml:1002
 msgid "Metadata view"
 msgstr "Zobrazení metadata"
 
-#: data/org.gnome.gnome-commander.gschema.xml:999
+#: data/org.gnome.gnome-commander.gschema.xml:1003
 msgid "This option defines if metadata should be visible."
 msgstr "Tato volba určuje, jestli mají být viditelná metadata."
 
-#: data/org.gnome.gnome-commander.gschema.xml:1005
+#: data/org.gnome.gnome-commander.gschema.xml:1009
 msgid "Horizontal offset"
 msgstr "Vodorovný posun"
 
-#: data/org.gnome.gnome-commander.gschema.xml:1006
+#: data/org.gnome.gnome-commander.gschema.xml:1010
 msgid ""
 "This option defines the visual offset of the internal file viewer in "
 "horizontal direction."
@@ -1376,11 +1384,11 @@ msgstr ""
 "Tato volba určuje, o kolik posunutý ve vodorovném směru vůči hlavnímu oknu "
 "má být zobrazen interní prohlížeč souborů."
 
-#: data/org.gnome.gnome-commander.gschema.xml:1012
+#: data/org.gnome.gnome-commander.gschema.xml:1016
 msgid "Vertical offset"
 msgstr "Svislý posun"
 
-#: data/org.gnome.gnome-commander.gschema.xml:1013
+#: data/org.gnome.gnome-commander.gschema.xml:1017
 msgid ""
 "This option defines the visual offset of the internal file viewer in "
 "vertical direction."
@@ -1388,27 +1396,27 @@ msgstr ""
 "Tato volba určuje, o kolik posunutý ve svislém směru vůči hlavnímu oknu má "
 "být zobrazen interní prohlížeč souborů."
 
-#: data/org.gnome.gnome-commander.gschema.xml:1019
+#: data/org.gnome.gnome-commander.gschema.xml:1023
 msgid "Window width"
 msgstr "Šířka okna"
 
-#: data/org.gnome.gnome-commander.gschema.xml:1020
+#: data/org.gnome.gnome-commander.gschema.xml:1024
 msgid "The width of the internal file viewer window."
 msgstr "Šířka okna s interním prohlížečem souborů."
 
-#: data/org.gnome.gnome-commander.gschema.xml:1026
+#: data/org.gnome.gnome-commander.gschema.xml:1030
 msgid "Window height"
 msgstr "Výška okna"
 
-#: data/org.gnome.gnome-commander.gschema.xml:1027
+#: data/org.gnome.gnome-commander.gschema.xml:1031
 msgid "The height of the internal file viewer window."
 msgstr "Výška okna s interním prohlížečem souborů."
 
-#: data/org.gnome.gnome-commander.gschema.xml:1033
+#: data/org.gnome.gnome-commander.gschema.xml:1037
 msgid "Search pattern for text"
 msgstr "Vyhledávací vzor pro text"
 
-#: data/org.gnome.gnome-commander.gschema.xml:1034
+#: data/org.gnome.gnome-commander.gschema.xml:1038
 msgid ""
 "This string array stores the history of text searches within the internal "
 "file viewer."
@@ -1416,11 +1424,11 @@ msgstr ""
 "Jedná se o pole řetězců uchovávajících historii hledání textu v interním "
 "prohlížeči souborů."
 
-#: data/org.gnome.gnome-commander.gschema.xml:1040
+#: data/org.gnome.gnome-commander.gschema.xml:1044
 msgid "Search pattern for hex values"
 msgstr "Vyhledávací vzor pro šestnáctkové hodnoty"
 
-#: data/org.gnome.gnome-commander.gschema.xml:1041
+#: data/org.gnome.gnome-commander.gschema.xml:1045
 msgid ""
 "This string array stores the history of searches for hex values within the "
 "internal file viewer."
@@ -1428,20 +1436,20 @@ msgstr ""
 "Jedná se o pole řetězců uchovávajících historii hledání šestnáctkových "
 "hodnot v interním prohlížeči souborů."
 
-#: data/org.gnome.gnome-commander.gschema.xml:1049
+#: data/org.gnome.gnome-commander.gschema.xml:1053
 msgid "File suffix"
 msgstr "Přípona souboru"
 
-#: data/org.gnome.gnome-commander.gschema.xml:1050
+#: data/org.gnome.gnome-commander.gschema.xml:1054
 msgid "Default file suffix of archives created with the File Roller plugin."
 msgstr ""
 "Výchozí přípona archivů vytvořených pomocí zásuvného modul File Roller."
 
-#: data/org.gnome.gnome-commander.gschema.xml:1056
+#: data/org.gnome.gnome-commander.gschema.xml:1060
 msgid "Prefix pattern"
 msgstr "Vzor předpony"
 
-#: data/org.gnome.gnome-commander.gschema.xml:1057
+#: data/org.gnome.gnome-commander.gschema.xml:1061
 msgid ""
 "The prefix pattern is used to build up the name for an archive created with "
 "the File Roller plugin."
@@ -1449,11 +1457,11 @@ msgstr ""
 "Vzor předpony se používá k sestavení názvu pro archivu vytvořeného pomocí "
 "zásuvného modul File Roller."
 
-#: data/org.gnome.gnome-commander.gschema.xml:1065
+#: data/org.gnome.gnome-commander.gschema.xml:1069
 msgid "Automatically loaded plugins"
 msgstr "Automaticky načítané zásuvné moduly"
 
-#: data/org.gnome.gnome-commander.gschema.xml:1066
+#: data/org.gnome.gnome-commander.gschema.xml:1070
 msgid ""
 "This is the list of automatically loaded plugins, whereas each entry "
 "represents the file name of the plugin."
@@ -1481,69 +1489,69 @@ msgstr "Výběr složky"
 msgid "File selection"
 msgstr "Výběr souboru"
 
-#: plugins/fileroller/file-roller-plugin.cc:109 src/gnome-cmd-data.cc:83
+#: plugins/fileroller/file-roller-plugin.cc:111 src/gnome-cmd-data.cc:83
 #, c-format
 msgid "Could not load schemas from %s: %s\n"
 msgstr "Nelze načíst schéma z %s: %s\n"
 
-#: plugins/fileroller/file-roller-plugin.cc:368
+#: plugins/fileroller/file-roller-plugin.cc:365
 msgid "What file name should the new archive have?"
 msgstr "Jaký název souboru by měl mít nový archiv?"
 
-#: plugins/fileroller/file-roller-plugin.cc:370
+#: plugins/fileroller/file-roller-plugin.cc:367
 msgid "Create Archive"
 msgstr "Vytvořit archiv"
 
-#: plugins/fileroller/file-roller-plugin.cc:485
+#: plugins/fileroller/file-roller-plugin.cc:481
 msgid "Create Archive…"
 msgstr "Vytvořit archiv…"
 
-#: plugins/fileroller/file-roller-plugin.cc:497
+#: plugins/fileroller/file-roller-plugin.cc:493
 msgid "Extract in Current Directory"
 msgstr "Rozbalit do aktuální složky"
 
-#: plugins/fileroller/file-roller-plugin.cc:504
-#: plugins/fileroller/file-roller-plugin.cc:514
+#: plugins/fileroller/file-roller-plugin.cc:500
+#: plugins/fileroller/file-roller-plugin.cc:513
 #, c-format
 msgid "Extract to “%s”"
 msgstr "Rozbalit do „%s“"
 
-#: plugins/fileroller/file-roller-plugin.cc:571
+#: plugins/fileroller/file-roller-plugin.cc:574
 #: src/gnome-cmd-advrename-profile-component.cc:941 src/plugin_manager.cc:419
 #: src/tags/gnome-cmd-tags.cc:692
 msgid "File"
 msgstr "Soubor"
 
 #. destroy model automatically with view
-#: plugins/fileroller/file-roller-plugin.cc:588
-#: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:362
-#: src/dialogs/gnome-cmd-options-dialog.cc:1474
-#: src/dialogs/gnome-cmd-options-dialog.cc:2142
+#: plugins/fileroller/file-roller-plugin.cc:591
+#: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:369
+#: src/dialogs/gnome-cmd-options-dialog.cc:1497
+#: src/dialogs/gnome-cmd-options-dialog.cc:2165
 #: src/dialogs/gnome-cmd-prepare-copy-dialog.cc:129
 #: src/dialogs/gnome-cmd-prepare-move-dialog.cc:115
 #: src/dialogs/gnome-cmd-remote-dialog.cc:442 src/gnome-cmd-user-actions.cc:252
 msgid "Options"
 msgstr "Volby"
 
-#: plugins/fileroller/file-roller-plugin.cc:600
+#: plugins/fileroller/file-roller-plugin.cc:603
 msgid "File-roller options"
 msgstr "Volby aplikace file-roller"
 
-#: plugins/fileroller/file-roller-plugin.cc:603
+#: plugins/fileroller/file-roller-plugin.cc:606
 msgid "Default archive type"
 msgstr "Výchozí typ archivu"
 
 #. The pattern defining the file name prefix of the archive to be created
-#: plugins/fileroller/file-roller-plugin.cc:611
+#: plugins/fileroller/file-roller-plugin.cc:614
 msgid "File prefix pattern"
 msgstr "Vzory předpony souborů"
 
-#: plugins/fileroller/file-roller-plugin.cc:622
-#: src/dialogs/gnome-cmd-options-dialog.cc:402
+#: plugins/fileroller/file-roller-plugin.cc:625
+#: src/dialogs/gnome-cmd-options-dialog.cc:418
 msgid "Test result:"
 msgstr "Výsledek testu:"
 
-#: plugins/fileroller/file-roller-plugin.cc:629
+#: plugins/fileroller/file-roller-plugin.cc:632
 msgid ""
 "Use $N as a pattern for the original file name. See the manual page for "
 "“strftime” for other patterns."
@@ -1551,7 +1559,7 @@ msgstr ""
 "Pro původní název souboru použijte zástupnou proměnnou $N. Další proměnné "
 "viz manuálová stránka funkce „strftime“."
 
-#: plugins/fileroller/file-roller-plugin.cc:785
+#: plugins/fileroller/file-roller-plugin.cc:814
 msgid ""
 "A plugin that adds File Roller shortcuts for creating and extracting "
 "compressed archives."
@@ -1645,7 +1653,7 @@ msgid "File modification date"
 msgstr "Datum úpravy souboru"
 
 #: src/dialogs/gnome-cmd-advrename-dialog.cc:694
-#: src/dialogs/gnome-cmd-search-dialog.cc:1146
+#: src/dialogs/gnome-cmd-search-dialog.cc:1147
 msgid "Profiles…"
 msgstr "Profily…"
 
@@ -1669,7 +1677,7 @@ msgid "_Match case"
 msgstr "_Shoda velikosti písmen"
 
 #: src/dialogs/gnome-cmd-chmod-dialog.cc:45
-#: src/dialogs/gnome-cmd-options-dialog.cc:1495
+#: src/dialogs/gnome-cmd-options-dialog.cc:1518
 msgid "All files"
 msgstr "Všechny soubory"
 
@@ -1677,11 +1685,11 @@ msgstr "Všechny soubory"
 msgid "Directories only"
 msgstr "Pouze složky"
 
-#: src/dialogs/gnome-cmd-chmod-dialog.cc:178
+#: src/dialogs/gnome-cmd-chmod-dialog.cc:180
 msgid "Access Permissions"
 msgstr "Přístupová práva"
 
-#: src/dialogs/gnome-cmd-chmod-dialog.cc:194
+#: src/dialogs/gnome-cmd-chmod-dialog.cc:196
 msgid "Apply Recursively for"
 msgstr "Použít rekurzivně pro"
 
@@ -1812,51 +1820,81 @@ msgstr ""
 "%s"
 
 #: src/dialogs/gnome-cmd-delete-dialog.cc:207
+#: src/dialogs/gnome-cmd-delete-dialog.cc:296
 msgid "Delete problem"
 msgstr "Problém při odstraňování"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:208 src/gnome-cmd-xfer.cc:209
-#: src/gnome-cmd-xfer.cc:228
+#: src/dialogs/gnome-cmd-delete-dialog.cc:208
+#: src/dialogs/gnome-cmd-delete-dialog.cc:296 src/gnome-cmd-xfer.cc:211
+#: src/gnome-cmd-xfer.cc:230
 msgid "Abort"
 msgstr "Přerušit"
 
 #: src/dialogs/gnome-cmd-delete-dialog.cc:208
-#: src/gnome-cmd-file-selector.cc:1380 src/gnome-cmd-xfer.cc:228
+#: src/gnome-cmd-file-selector.cc:1387 src/gnome-cmd-xfer.cc:230
 msgid "Retry"
 msgstr "Opakovat"
 
 #: src/dialogs/gnome-cmd-delete-dialog.cc:208
-#: src/gnome-cmd-file-selector.cc:1380 src/gnome-cmd-xfer.cc:209
-#: src/gnome-cmd-xfer.cc:228
+#: src/dialogs/gnome-cmd-delete-dialog.cc:310
+#: src/gnome-cmd-file-selector.cc:1387 src/gnome-cmd-xfer.cc:211
+#: src/gnome-cmd-xfer.cc:230
 msgid "Skip"
 msgstr "Přeskočit"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:277
+#: src/dialogs/gnome-cmd-delete-dialog.cc:294
+#, c-format
+msgid ""
+"Error while deleting: \n"
+"\n"
+"%s"
+msgstr ""
+"Chyba při odstraňování:\n"
+"\n"
+"%s"
+
+#: src/dialogs/gnome-cmd-delete-dialog.cc:307
+#, c-format
+msgid "The directory “%s” is not empty. Do you really want to delete it?"
+msgstr "Složka „%s“ není prázdná. Opravdu ji chcete odstranit?"
+
+#: src/dialogs/gnome-cmd-delete-dialog.cc:308
+#: src/dialogs/gnome-cmd-delete-dialog.cc:312
+#: src/dialogs/gnome-cmd-delete-dialog.cc:383
+#: src/dialogs/gnome-cmd-delete-dialog.cc:384
+#: src/dialogs/gnome-cmd-options-dialog.cc:1039
+#: src/gnome-cmd-file-popmenu.cc:727 src/gnome-cmd-main-win.cc:243
+#: src/gnome-cmd-user-actions.cc:213
+msgid "Delete"
+msgstr "Odstranit"
+
+#: src/dialogs/gnome-cmd-delete-dialog.cc:310
+#: src/dialogs/gnome-cmd-delete-dialog.cc:384 src/gnome-cmd-file-list.cc:1279
+#: src/gnome-cmd-file-list.cc:1307 src/gnome-cmd-file-selector.cc:1387
+#: src/gnome-cmd-user-actions.cc:819
+msgid "Cancel"
+msgstr "Zrušit"
+
+#: src/dialogs/gnome-cmd-delete-dialog.cc:311
+msgid "Delete All"
+msgstr "Odstranit vše"
+
+#: src/dialogs/gnome-cmd-delete-dialog.cc:311
+msgid "Delete Remaining"
+msgstr "Odstranit zbývající"
+
+#: src/dialogs/gnome-cmd-delete-dialog.cc:373
 #, c-format
 msgid "Do you want to delete “%s”?"
 msgstr "Chcete odstranit „%s“?"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:281
+#: src/dialogs/gnome-cmd-delete-dialog.cc:377
 #, c-format
 msgid "Do you want to delete the selected file?"
 msgid_plural "Do you want to delete the %d selected files?"
 msgstr[0] "Chcete odstranit vybraný soubor?"
 msgstr[1] "Chcete odstranit %d vybrané soubory?"
 msgstr[2] "Chcete odstranit %d vybraných souborů?"
-
-#: src/dialogs/gnome-cmd-delete-dialog.cc:287
-#: src/dialogs/gnome-cmd-delete-dialog.cc:288
-#: src/dialogs/gnome-cmd-options-dialog.cc:1023
-#: src/gnome-cmd-file-popmenu.cc:800 src/gnome-cmd-main-win.cc:243
-#: src/gnome-cmd-user-actions.cc:213
-msgid "Delete"
-msgstr "Odstranit"
-
-#: src/dialogs/gnome-cmd-delete-dialog.cc:288 src/gnome-cmd-file-list.cc:1262
-#: src/gnome-cmd-file-list.cc:1290 src/gnome-cmd-file-selector.cc:1380
-#: src/gnome-cmd-user-actions.cc:819
-msgid "Cancel"
-msgstr "Zrušit"
 
 #: src/dialogs/gnome-cmd-edit-bookmark-dialog.cc:43
 msgid "Bookmark name is missing."
@@ -1892,7 +1930,7 @@ msgid "Directory name:"
 msgstr "Název složky:"
 
 #: src/dialogs/gnome-cmd-file-props-dialog.cc:344
-#: src/gnome-cmd-file-selector.cc:1165
+#: src/gnome-cmd-file-selector.cc:1172
 msgid "File name:"
 msgstr "Název souboru:"
 
@@ -1913,48 +1951,44 @@ msgid "Free space:"
 msgstr "Volné místo:"
 
 #: src/dialogs/gnome-cmd-file-props-dialog.cc:420
-msgid "Type:"
-msgstr "Typ:"
+msgid "Content Type:"
+msgstr "Typ obsahu:"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:427
-msgid "MIME Type:"
-msgstr "Typ MIME:"
-
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:438
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:432
 msgid "Opens with:"
 msgstr "Otevřít pomocí:"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:449
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:443
 msgid "No default application registered"
 msgstr "Není zaregistrována žádná výchozí aplikace"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:460
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:454
 msgid "Modified:"
 msgstr "Změněn:"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:466
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:460
 msgid "Accessed:"
 msgstr "Použit:"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:476
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:470
 msgid "Size:"
 msgstr "Velikost:"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:522
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:516
 msgid "Owner and group"
 msgstr "Vlastník a skupina"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:532
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:526
 msgid "Access permissions"
 msgstr "Přístupová práva"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:616
-#: src/intviewer/viewer-window.cc:1348
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:610
+#: src/intviewer/viewer-window.cc:1353
 msgid "Type"
 msgstr "Typ"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:617
-#: src/intviewer/viewer-window.cc:1349
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:611
+#: src/intviewer/viewer-window.cc:1354
 msgid "Metadata namespace"
 msgstr "Jmenný prostor metadat"
 
@@ -1964,65 +1998,65 @@ msgstr "Jmenný prostor metadat"
 #. "foreground-set", TRUE,
 #. "foreground", "DarkGray",
 #. NULL);
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:624
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:618
 #: src/dialogs/gnome-cmd-manage-bookmarks-dialog.cc:244
 #: src/dialogs/gnome-cmd-remote-dialog.cc:353
-#: src/intviewer/viewer-window.cc:1356 src/plugin_manager.cc:417
+#: src/intviewer/viewer-window.cc:1361 src/plugin_manager.cc:417
 #: src/tags/gnome-cmd-tags.cc:327
 msgid "Name"
 msgstr "Název"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:625
-#: src/intviewer/viewer-window.cc:1357
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:619
+#: src/intviewer/viewer-window.cc:1362
 msgid "Tag name"
 msgstr "Název štítku"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:627
-#: src/intviewer/viewer-window.cc:1359
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:621
+#: src/intviewer/viewer-window.cc:1364
 msgid "Value"
 msgstr "Hodnota"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:628
-#: src/intviewer/viewer-window.cc:1360
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:622
+#: src/intviewer/viewer-window.cc:1365
 msgid "Tag value"
 msgstr "Hodnota štítku"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:630
-#: src/intviewer/viewer-window.cc:1362 src/tags/gnome-cmd-tags.cc:171
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:624
+#: src/intviewer/viewer-window.cc:1367 src/tags/gnome-cmd-tags.cc:171
 #: src/tags/gnome-cmd-tags.cc:322 src/tags/gnome-cmd-tags.cc:424
 #: src/tags/gnome-cmd-tags.cc:535
 msgid "Description"
 msgstr "Popis"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:631
-#: src/intviewer/viewer-window.cc:1363
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:625
+#: src/intviewer/viewer-window.cc:1368
 msgid "Metadata tag description"
 msgstr "Popis metadat štítku"
 
 #. data->thread = 0;
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:686
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:680
 msgid "File Properties"
 msgstr "Vlastnosti souboru"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:709
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:703
 #: src/gnome-cmd-user-actions.cc:233
 msgid "Properties"
 msgstr "Vlastnosti"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:710
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:704
 #: src/tags/gnome-cmd-tags.cc:329
 msgid "Permissions"
 msgstr "Práva"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:711
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:705
 msgid "Metadata"
 msgstr "Metadata"
 
-#: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:194
+#: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:201
 msgid "Keyboard Shortcuts"
 msgstr "Klávesové zkratky"
 
-#: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:220
+#: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:227
 msgid ""
 "To edit a shortcut key, click on the corresponding row and type a new "
 "accelerator, or press escape to cancel."
@@ -2030,55 +2064,55 @@ msgstr ""
 "Chcete-li upravit klávesové zkratky, klikněte do odpovídajícího řádku a "
 "napište ji nebo akci zrušte stiskem klávesy Escape."
 
-#: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:347
+#: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:354
 msgid "Shortcut Key"
 msgstr "Klávesová zkratka"
 
-#: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:348
+#: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:355
 msgid "Keyboard shortcut for selected action"
 msgstr "Klávesová zkratka pro vybranou akci"
 
-#: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:355
+#: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:362
 msgid "Action"
 msgstr "Činnost"
 
-#: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:356
+#: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:363
 msgid "User action"
 msgstr "Uživatelská akce"
 
-#: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:363
+#: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:370
 msgid "Optional data"
 msgstr "Volitelná data"
 
-#: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:490
+#: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:497
 #, c-format
 msgid "Shortcut “%s” is already taken by “%s”."
 msgstr "Klávesová zkratka „%s“ je již používána pro  „%s“."
 
-#: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:493
+#: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:500
 msgid "_Reassign shortcut"
 msgstr "_Znovu přiřadit zkratku"
 
-#: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:496
+#: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:503
 msgid "Conflicting Shortcuts"
 msgstr "Klávesové zkratky v konfliktu"
 
-#: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:497
+#: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:504
 #, c-format
 msgid "Reassigning the shortcut will cause it to be removed from “%s”."
 msgstr "Změna klávesové zkratky způsobí její odebrání z „%s“."
 
-#: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:553
+#: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:560
 msgid "Invalid shortcut."
 msgstr "Neplatná klávesová zkratka."
 
-#: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:632
+#: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:639
 #: src/gnome-cmd-user-actions.cc:251
 msgid "Do nothing"
 msgstr "Nedělat nic"
 
 #: src/dialogs/gnome-cmd-make-copy-dialog.cc:67
-#: src/gnome-cmd-file-selector.cc:1095
+#: src/gnome-cmd-file-selector.cc:1102
 msgid "No file name entered"
 msgstr "Nebyl zadán název souboru"
 
@@ -2174,93 +2208,93 @@ msgstr "Musí být zadán název složky"
 msgid "Make Directory"
 msgstr "Vytvořit složku"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:98
+#: src/dialogs/gnome-cmd-options-dialog.cc:114
 msgid "Left mouse button"
 msgstr "Levé tlačítko myši"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:101
+#: src/dialogs/gnome-cmd-options-dialog.cc:117
 msgid "Single click to open items"
 msgstr "Položku otevřít jednoduchým kliknutím"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:105
+#: src/dialogs/gnome-cmd-options-dialog.cc:121
 msgid "Double click to open items"
 msgstr "Položku otevřít dvojitým kliknutím"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:110
+#: src/dialogs/gnome-cmd-options-dialog.cc:126
 msgid "Single click unselects files"
 msgstr "Jednoduché kliknutí zruší označení souborů"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:117
+#: src/dialogs/gnome-cmd-options-dialog.cc:133
 msgid "Middle mouse button"
 msgstr "Prostřední tlačítko myši"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:120 src/gnome-cmd-main-win.cc:234
+#: src/dialogs/gnome-cmd-options-dialog.cc:136 src/gnome-cmd-main-win.cc:234
 #: src/gnome-cmd-user-actions.cc:282
 msgid "Up one directory"
 msgstr "O úroveň výš"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:124
+#: src/dialogs/gnome-cmd-options-dialog.cc:140
 msgid "Opens new tab"
 msgstr "Otevřít novou kartu"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:132
+#: src/dialogs/gnome-cmd-options-dialog.cc:148
 msgid "Right mouse button"
 msgstr "Pravé tlačítko myši"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:135
+#: src/dialogs/gnome-cmd-options-dialog.cc:151
 msgid "Shows popup menu"
 msgstr "Zobrazit kontextovou nabídku"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:139
+#: src/dialogs/gnome-cmd-options-dialog.cc:155
 msgid "Selects files"
 msgstr "Vybrat soubory"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:147
+#: src/dialogs/gnome-cmd-options-dialog.cc:163
 msgid "Selection"
 msgstr "Výběr"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:150
+#: src/dialogs/gnome-cmd-options-dialog.cc:166
 msgid "Select directories"
 msgstr "Vybrat složky"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:157
+#: src/dialogs/gnome-cmd-options-dialog.cc:173
 msgid "Sorting/Quick search"
 msgstr "Řazení/rychlé hledání"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:160
+#: src/dialogs/gnome-cmd-options-dialog.cc:176
 msgid "Case sensitive"
 msgstr "Rozlišovat velikost písmen"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:167
+#: src/dialogs/gnome-cmd-options-dialog.cc:183
 #: src/gnome-cmd-user-actions.cc:216
 msgid "Quick search"
 msgstr "Rychlé hledání"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:170
+#: src/dialogs/gnome-cmd-options-dialog.cc:186
 msgid "CTRL+ALT+letters"
 msgstr "CTRL+ALT+písmena"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:174
+#: src/dialogs/gnome-cmd-options-dialog.cc:190
 msgid "ALT+letters (menu access with F12)"
 msgstr "ALT+písmena (přístup k nabídce pomocí F12)"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:178
+#: src/dialogs/gnome-cmd-options-dialog.cc:194
 msgid "Just letters (command line access with CTRL+ALT+C)"
 msgstr "Jen písmena (přístup k příkazové řádce pomocí CTRL+ALT+C)"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:183
+#: src/dialogs/gnome-cmd-options-dialog.cc:199
 msgid "Match beginning of the file name"
 msgstr "Porovnávat začátek názvu souboru"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:187
+#: src/dialogs/gnome-cmd-options-dialog.cc:203
 msgid "Match end of the file name"
 msgstr "Porovnávat konec názvu souboru"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:193
+#: src/dialogs/gnome-cmd-options-dialog.cc:209
 msgid "Search Window"
 msgstr "Okno vyhledávání"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:196
+#: src/dialogs/gnome-cmd-options-dialog.cc:212
 msgid ""
 "Search window is minimizable\n"
 "(Needs program restart if altered)"
@@ -2268,390 +2302,394 @@ msgstr ""
 "Okno vyhledávání lze minimalizovat\n"
 "(po změně nastavení je potřeba restart aplikace)"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:203
+#: src/dialogs/gnome-cmd-options-dialog.cc:219
 msgid "Multiple instances"
 msgstr "Vícenásobné spuštění"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:206
+#: src/dialogs/gnome-cmd-options-dialog.cc:222
 msgid "Don’t start a new instance"
 msgstr "Nespouštět více instancí"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:213
+#: src/dialogs/gnome-cmd-options-dialog.cc:229
 msgid "Save on exit"
 msgstr "Při ukončení uložit"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:216
-#: src/dialogs/gnome-cmd-options-dialog.cc:1174
+#: src/dialogs/gnome-cmd-options-dialog.cc:232
+#: src/dialogs/gnome-cmd-options-dialog.cc:1190
 msgid "Directories"
 msgstr "Složky"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:220
-#: src/dialogs/gnome-cmd-options-dialog.cc:2169
+#: src/dialogs/gnome-cmd-options-dialog.cc:236
+#: src/dialogs/gnome-cmd-options-dialog.cc:2192
 msgid "Tabs"
 msgstr "Karty"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:225
+#: src/dialogs/gnome-cmd-options-dialog.cc:241
 msgid "Directory history"
 msgstr "Historie složky"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:229
+#: src/dialogs/gnome-cmd-options-dialog.cc:245
 msgid "Commandline history"
 msgstr "Historie příkazového řádku"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:233
+#: src/dialogs/gnome-cmd-options-dialog.cc:249
 msgid "Search history"
 msgstr "Historie hledání"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:344
+#: src/dialogs/gnome-cmd-options-dialog.cc:360
 msgid "Size display mode"
 msgstr "Režim zobrazení velikosti"
 
 #. Translators: 'Powered' refers to the mode of file size display (here - display using units of data: kB, MB, GB, ...)
-#: src/dialogs/gnome-cmd-options-dialog.cc:348
+#: src/dialogs/gnome-cmd-options-dialog.cc:364
 msgid "Powered"
 msgstr "Násobky bajtů"
 
 #. Translators: '<locale>' refers to the mode of file size display (here - use current locale settings)
-#: src/dialogs/gnome-cmd-options-dialog.cc:354
+#: src/dialogs/gnome-cmd-options-dialog.cc:370
 msgid "<locale>"
 msgstr "<národní prostředí>"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:359
+#: src/dialogs/gnome-cmd-options-dialog.cc:375
 msgid "Grouped"
 msgstr "Seskupený"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:364
+#: src/dialogs/gnome-cmd-options-dialog.cc:380
 msgid "Plain"
 msgstr "Jednoduchý"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:375
+#: src/dialogs/gnome-cmd-options-dialog.cc:391
 msgid "Text (rw-r--r--)"
 msgstr "Textově (rw-r--r--)"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:380
+#: src/dialogs/gnome-cmd-options-dialog.cc:396
 msgid "Number (644)"
 msgstr "Číselně (644)"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:391
+#: src/dialogs/gnome-cmd-options-dialog.cc:407
 msgid "Format:"
 msgstr "Formát:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:409
+#: src/dialogs/gnome-cmd-options-dialog.cc:425
 msgid ""
 "See the manual page for “strftime” for help on how to set the format string."
 msgstr ""
 "Nápovědu k nastavení formátovacího řetězce najdete v manuálové stránce k "
 "„strftime“."
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:493
+#: src/dialogs/gnome-cmd-options-dialog.cc:509
 msgid "Edit Colors…"
 msgstr "Upravit barvy…"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:506
+#: src/dialogs/gnome-cmd-options-dialog.cc:522
 msgid "Colors"
 msgstr "Barvy"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:537
+#: src/dialogs/gnome-cmd-options-dialog.cc:553
 msgid "Foreground"
 msgstr "Popředí"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:539
+#: src/dialogs/gnome-cmd-options-dialog.cc:555
 msgid "Background"
 msgstr "Pozadí"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:541
+#: src/dialogs/gnome-cmd-options-dialog.cc:557
 msgid "Default:"
 msgstr "Výchozí:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:543
+#: src/dialogs/gnome-cmd-options-dialog.cc:559
 msgid "Alternate:"
 msgstr "Střídající:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:545
+#: src/dialogs/gnome-cmd-options-dialog.cc:561
 msgid "Selected file:"
 msgstr "Vybraný soubor:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:547
+#: src/dialogs/gnome-cmd-options-dialog.cc:563
 msgid "Cursor:"
 msgstr "Kurzor:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:628
+#: src/dialogs/gnome-cmd-options-dialog.cc:644
 msgid "Edit LS_COLORS Palette"
 msgstr "Upravit paletu LS_COLORS"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:640
+#: src/dialogs/gnome-cmd-options-dialog.cc:656
 msgid "Palette"
 msgstr "Paleta"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:695
+#: src/dialogs/gnome-cmd-options-dialog.cc:711
 msgid "Foreground:"
 msgstr "Popředí:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:697
+#: src/dialogs/gnome-cmd-options-dialog.cc:713
 msgid "Background:"
 msgstr "Pozadí:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:699
+#: src/dialogs/gnome-cmd-options-dialog.cc:715
 msgid "Black"
 msgstr "Černá"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:702
+#: src/dialogs/gnome-cmd-options-dialog.cc:718
 msgid "Red"
 msgstr "Červená"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:705
+#: src/dialogs/gnome-cmd-options-dialog.cc:721
 msgid "Green"
 msgstr "Zelená"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:708
+#: src/dialogs/gnome-cmd-options-dialog.cc:724
 msgid "Yellow"
 msgstr "Žlutá"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:711
+#: src/dialogs/gnome-cmd-options-dialog.cc:727
 msgid "Blue"
 msgstr "Modrá"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:714
+#: src/dialogs/gnome-cmd-options-dialog.cc:730
 msgid "Magenta"
 msgstr "Purpurová"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:717
+#: src/dialogs/gnome-cmd-options-dialog.cc:733
 msgid "Cyan"
 msgstr "Azurová"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:720
+#: src/dialogs/gnome-cmd-options-dialog.cc:736
 msgid "White"
 msgstr "Bílá"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:724
+#: src/dialogs/gnome-cmd-options-dialog.cc:740
 msgid "_Reset"
 msgstr "_Výchozí"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:738
+#: src/dialogs/gnome-cmd-options-dialog.cc:754
 msgid "With file name"
 msgstr "S názvem souboru"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:739
+#: src/dialogs/gnome-cmd-options-dialog.cc:755
 msgid "In separate column"
 msgstr "V samostatném sloupci"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:740
+#: src/dialogs/gnome-cmd-options-dialog.cc:756
 msgid "In both columns"
 msgstr "V obou sloupcích"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:744
+#: src/dialogs/gnome-cmd-options-dialog.cc:760
 msgid "No icons"
 msgstr "Žádné ikony"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:745
+#: src/dialogs/gnome-cmd-options-dialog.cc:761
 msgid "File type icons"
 msgstr "Ikony typů souborů"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:746
+#: src/dialogs/gnome-cmd-options-dialog.cc:762
 msgid "MIME icons"
 msgstr "Ikony MIME"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:750
+#: src/dialogs/gnome-cmd-options-dialog.cc:766
 msgid "Respect theme colors"
 msgstr "Brát ohled na barvy motivu"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:751
+#: src/dialogs/gnome-cmd-options-dialog.cc:767
 msgid "Modern"
 msgstr "Moderní"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:752
+#: src/dialogs/gnome-cmd-options-dialog.cc:768
 msgid "Fusion"
 msgstr "Fusion"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:753
+#: src/dialogs/gnome-cmd-options-dialog.cc:769
 msgid "Classic"
 msgstr "Klasické"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:754
+#: src/dialogs/gnome-cmd-options-dialog.cc:770
 msgid "Deep blue"
 msgstr "Tmavě modrá"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:755
+#: src/dialogs/gnome-cmd-options-dialog.cc:771
 msgid "Cafezinho"
 msgstr "Cafezinho"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:756
+#: src/dialogs/gnome-cmd-options-dialog.cc:772
 msgid "Green tiger"
 msgstr "Zelený tygr"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:757
+#: src/dialogs/gnome-cmd-options-dialog.cc:773
 msgid "Winter"
 msgstr "Zima"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:758
+#: src/dialogs/gnome-cmd-options-dialog.cc:774
 msgid "Custom"
 msgstr "Vlastní"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:778
+#: src/dialogs/gnome-cmd-options-dialog.cc:794
 msgid "File panes"
 msgstr "Panely souborů"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:788
+#: src/dialogs/gnome-cmd-options-dialog.cc:804
 msgid "Font:"
 msgstr "Font:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:790
+#: src/dialogs/gnome-cmd-options-dialog.cc:806
 msgid "Row height:"
 msgstr "Výška řádku:"
 
 #. File extensions
-#: src/dialogs/gnome-cmd-options-dialog.cc:794
+#: src/dialogs/gnome-cmd-options-dialog.cc:810
 msgid "Display file extensions:"
 msgstr "Přípony souborů  zobrazovat:"
 
 #. Graphical mode
-#: src/dialogs/gnome-cmd-options-dialog.cc:802
+#: src/dialogs/gnome-cmd-options-dialog.cc:818
 msgid "Graphical mode:"
 msgstr "Grafický režim:"
 
 #. Color scheme
-#: src/dialogs/gnome-cmd-options-dialog.cc:811
+#: src/dialogs/gnome-cmd-options-dialog.cc:827
 msgid "Color scheme:"
 msgstr "Schéma barev:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:823
+#: src/dialogs/gnome-cmd-options-dialog.cc:839
 msgid "Edit…"
 msgstr "Upravit…"
 
 #. LS_COLORS
-#: src/dialogs/gnome-cmd-options-dialog.cc:830
+#: src/dialogs/gnome-cmd-options-dialog.cc:846
 msgid "Colorize files according to the LS_COLORS environment variable"
 msgstr "Barvy souborů podle proměnné prostředí LS_COLORS"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:838
+#: src/dialogs/gnome-cmd-options-dialog.cc:854
 msgid "Edit colors…"
 msgstr "Upravit barvy…"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:846
+#: src/dialogs/gnome-cmd-options-dialog.cc:862
 msgid "MIME icon settings"
 msgstr "Nastavení ikon MIME"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:857
+#: src/dialogs/gnome-cmd-options-dialog.cc:873
 msgid "Icon size:"
 msgstr "Velikost ikon:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:859
+#: src/dialogs/gnome-cmd-options-dialog.cc:875
 msgid "Scaling quality:"
 msgstr "Kvalita změny velikosti:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:861
+#: src/dialogs/gnome-cmd-options-dialog.cc:877
 msgid "Theme icon directory:"
 msgstr "Složka ikon motivu:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:947
+#: src/dialogs/gnome-cmd-options-dialog.cc:963
 msgid "Tab bar"
 msgstr "Lišta karet"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:950
+#: src/dialogs/gnome-cmd-options-dialog.cc:966
 msgid "Always show the tab bar"
 msgstr "Vždy zobrazovat lištu karet"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:959
+#: src/dialogs/gnome-cmd-options-dialog.cc:975
 msgid "Lock icon"
 msgstr "Ikona zámku"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:964
+#: src/dialogs/gnome-cmd-options-dialog.cc:980
 msgid "* (asterisk)"
 msgstr "* (hvězdička)"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:969
+#: src/dialogs/gnome-cmd-options-dialog.cc:985
 msgid "Styled text"
 msgstr "Nastylovaný text"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1026
+#: src/dialogs/gnome-cmd-options-dialog.cc:1042
 msgid "Confirm before delete"
 msgstr "Potvrzovat před odstraněním"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1031
+#: src/dialogs/gnome-cmd-options-dialog.cc:1047
 msgid "Confirm defaults to OK"
 msgstr "Výchozí volbu v potvrzení na „Budiž“"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1040
+#: src/dialogs/gnome-cmd-options-dialog.cc:1056
 msgid "Copy overwrite"
 msgstr "Přepisovat při kopírování"
 
 #. Create prepare copy specific widgets
-#: src/dialogs/gnome-cmd-options-dialog.cc:1043
-#: src/dialogs/gnome-cmd-options-dialog.cc:1063
+#: src/dialogs/gnome-cmd-options-dialog.cc:1059
+#: src/dialogs/gnome-cmd-options-dialog.cc:1079
 #: src/dialogs/gnome-cmd-prepare-copy-dialog.cc:91
 #: src/dialogs/gnome-cmd-prepare-move-dialog.cc:84
 msgid "Silently"
 msgstr "Tichý souhlas"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1047
-#: src/dialogs/gnome-cmd-options-dialog.cc:1067
+#: src/dialogs/gnome-cmd-options-dialog.cc:1063
+#: src/dialogs/gnome-cmd-options-dialog.cc:1083
 msgid "Query first"
 msgstr "Nejprve se dotázat"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1051
-#: src/dialogs/gnome-cmd-options-dialog.cc:1071
-#: src/gnome-cmd-file-selector.cc:1380
+#: src/dialogs/gnome-cmd-options-dialog.cc:1067
+#: src/dialogs/gnome-cmd-options-dialog.cc:1087
+#: src/gnome-cmd-file-selector.cc:1387
 msgid "Skip all"
 msgstr "Přeskočit vše"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1060
+#: src/dialogs/gnome-cmd-options-dialog.cc:1076
 msgid "Move overwrite"
 msgstr "Přepisování při přesunu"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1080
+#: src/dialogs/gnome-cmd-options-dialog.cc:1096
 msgid "Drag and Drop"
 msgstr "Operace „táhni a pusť“"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1083
+#: src/dialogs/gnome-cmd-options-dialog.cc:1099
 msgid "Confirm mouse operation"
 msgstr "Potvrzovat operace prováděné myší"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1165
+#: src/dialogs/gnome-cmd-options-dialog.cc:1181
 msgid "Filetypes to hide"
 msgstr "Skrývat tyto typy souborů"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1168
+#: src/dialogs/gnome-cmd-options-dialog.cc:1184
 msgid "Unknown"
 msgstr "Neznámé"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1171
+#: src/dialogs/gnome-cmd-options-dialog.cc:1187
 msgid "Regular files"
 msgstr "Obyčejné soubory"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1177
-msgid "Fifo files"
-msgstr "Soubory fifo"
+#: src/dialogs/gnome-cmd-options-dialog.cc:1193
+msgid "Socket, fifo, block, or character devices"
+msgstr "Sokety, roury, bloková a znaková zařízení"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1180
-msgid "Socket files"
-msgstr "Soubory soketů"
+#: src/dialogs/gnome-cmd-options-dialog.cc:1196
+msgid "Shortcuts (Windows systems)"
+msgstr "Zástupce (systém Windows)"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1183
-msgid "Character devices"
-msgstr "Znaková zařízení"
+#: src/dialogs/gnome-cmd-options-dialog.cc:1199
+msgid "Mountable locations"
+msgstr "Připojitelná umístění"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1186
-msgid "Block devices"
-msgstr "Bloková zařízení"
+#: src/dialogs/gnome-cmd-options-dialog.cc:1202
+msgid "Virtual files"
+msgstr "Virtuální soubory"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1192
+#: src/dialogs/gnome-cmd-options-dialog.cc:1205
+msgid "Volatile files"
+msgstr "Dočasné soubory"
+
+#: src/dialogs/gnome-cmd-options-dialog.cc:1210
 msgid "Also hide"
 msgstr "Rovněž skrýt"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1195
+#: src/dialogs/gnome-cmd-options-dialog.cc:1213
 msgid "Hidden files"
 msgstr "Skryté soubory"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1198
-#: src/dialogs/gnome-cmd-options-dialog.cc:1207
+#: src/dialogs/gnome-cmd-options-dialog.cc:1216
+#: src/dialogs/gnome-cmd-options-dialog.cc:1225
 msgid "Backup files"
 msgstr "Záložní soubory"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1201
+#: src/dialogs/gnome-cmd-options-dialog.cc:1219
 msgid "Symlinks"
 msgstr "Symbolické odkazy"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1380
+#: src/dialogs/gnome-cmd-options-dialog.cc:1403
 msgid ""
 "An app with this label exists already.\n"
 "Please choose another label."
@@ -2659,178 +2697,178 @@ msgstr ""
 "Aplikace s tímto popiskem již existuje.\n"
 "Zvolte prosím jiný popisek."
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1451
+#: src/dialogs/gnome-cmd-options-dialog.cc:1474
 msgid "Label:"
 msgstr "Popisek:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1453
+#: src/dialogs/gnome-cmd-options-dialog.cc:1476
 msgid "Command:"
 msgstr "Příkaz:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1455
-#: src/dialogs/gnome-cmd-options-dialog.cc:1903
+#: src/dialogs/gnome-cmd-options-dialog.cc:1478
+#: src/dialogs/gnome-cmd-options-dialog.cc:1926
 msgid "Icon:"
 msgstr "Ikona:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1477
+#: src/dialogs/gnome-cmd-options-dialog.cc:1500
 msgid "Can handle multiple files"
 msgstr "Umí zpracovat více souborů"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1481
+#: src/dialogs/gnome-cmd-options-dialog.cc:1504
 msgid "Can handle URIs"
 msgstr "Umí zpracovat adresy URI"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1485
+#: src/dialogs/gnome-cmd-options-dialog.cc:1508
 msgid "Requires terminal"
 msgstr "Vyžaduje terminál"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1492
+#: src/dialogs/gnome-cmd-options-dialog.cc:1515
 msgid "Show for"
 msgstr "Zobrazovat pro"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1501
+#: src/dialogs/gnome-cmd-options-dialog.cc:1524
 msgid "All directories"
 msgstr "Všechny složky"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1506
+#: src/dialogs/gnome-cmd-options-dialog.cc:1529
 msgid "All directories and files"
 msgstr "Všechny složky a soubory"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1511
+#: src/dialogs/gnome-cmd-options-dialog.cc:1534
 msgid "Some files"
 msgstr "Některé soubory"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1520
+#: src/dialogs/gnome-cmd-options-dialog.cc:1543
 msgid "File patterns"
 msgstr "Vzory souborů"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1542
+#: src/dialogs/gnome-cmd-options-dialog.cc:1565
 msgid "New Application"
 msgstr "Nová aplikace"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1552
+#: src/dialogs/gnome-cmd-options-dialog.cc:1575
 msgid "Edit Application"
 msgstr "Upravit aplikaci"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1636
+#: src/dialogs/gnome-cmd-options-dialog.cc:1659
 msgid "Always download remote files before opening in external programs"
 msgstr ""
 "Vždy stahovat vzdálené soubory před jejich otevřením v externím programu"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1638
+#: src/dialogs/gnome-cmd-options-dialog.cc:1661
 msgid "MIME applications"
 msgstr "Aplikace pro MIME"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1642
+#: src/dialogs/gnome-cmd-options-dialog.cc:1665
 msgid "Standard programs"
 msgstr "Standardní programy"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1645
+#: src/dialogs/gnome-cmd-options-dialog.cc:1668
 msgid "Viewer:"
 msgstr "Prohlížeč:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1647
+#: src/dialogs/gnome-cmd-options-dialog.cc:1670
 msgid "Editor:"
 msgstr "Editor:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1649
+#: src/dialogs/gnome-cmd-options-dialog.cc:1672
 msgid "Differ:"
 msgstr "Zjištění rozdílů (diff):"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1651
+#: src/dialogs/gnome-cmd-options-dialog.cc:1674
 msgid "Send files:"
 msgstr "Odeslat soubory:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1653
+#: src/dialogs/gnome-cmd-options-dialog.cc:1676
 msgid "Terminal:"
 msgstr "Terminál:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1659
+#: src/dialogs/gnome-cmd-options-dialog.cc:1682
 msgid "Use Internal Viewer"
 msgstr "Používat interní prohlížeč"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1678
+#: src/dialogs/gnome-cmd-options-dialog.cc:1701
 msgid "Other favourite apps"
 msgstr "Jiné oblíbené aplikace"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1685
+#: src/dialogs/gnome-cmd-options-dialog.cc:1708
 msgid "Label"
 msgstr "Popisek"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1686
+#: src/dialogs/gnome-cmd-options-dialog.cc:1709
 msgid "Command"
 msgstr "Příkaz"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1721
+#: src/dialogs/gnome-cmd-options-dialog.cc:1744
 msgid "Global app options"
 msgstr "Globální volby aplikace"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1724
+#: src/dialogs/gnome-cmd-options-dialog.cc:1747
 msgid "Terminal command for apps in the list above:"
 msgstr "Terminálový příkaz pro aplikace v seznamu výše:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1730
+#: src/dialogs/gnome-cmd-options-dialog.cc:1753
 msgid "Leave terminal window open"
 msgstr "Nechávat okno s terminálem otevřené"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1897
+#: src/dialogs/gnome-cmd-options-dialog.cc:1920
 msgid "Alias:"
 msgstr "Přezdívka:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1899
+#: src/dialogs/gnome-cmd-options-dialog.cc:1922
 msgid "Device:"
 msgstr "Zařízení:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1901
+#: src/dialogs/gnome-cmd-options-dialog.cc:1924
 msgid "Mount point:"
 msgstr "Přípojný bod:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1942
+#: src/dialogs/gnome-cmd-options-dialog.cc:1965
 msgid "New Device"
 msgstr "Nové zařízení"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1955
+#: src/dialogs/gnome-cmd-options-dialog.cc:1978
 msgid "Edit Device"
 msgstr "Úprava zařízení"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:2037
-#: src/dialogs/gnome-cmd-options-dialog.cc:2173
+#: src/dialogs/gnome-cmd-options-dialog.cc:2060
+#: src/dialogs/gnome-cmd-options-dialog.cc:2196
 msgid "Devices"
 msgstr "Zařízení"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:2047
+#: src/dialogs/gnome-cmd-options-dialog.cc:2070
 msgid "Alias"
 msgstr "Přezdívka"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:2077
+#: src/dialogs/gnome-cmd-options-dialog.cc:2100
 msgid "Show only the icons"
 msgstr "Zobrazovat pouze ikony"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:2081
+#: src/dialogs/gnome-cmd-options-dialog.cc:2104
 msgid "Skip mounting (useful when using super-mount)"
 msgstr "Přeskočit připojování (užitečné, pokud používáte super-mount)"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:2166
+#: src/dialogs/gnome-cmd-options-dialog.cc:2189
 msgid "General"
 msgstr "Obecné"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:2167 src/tags/gnome-cmd-tags.cc:323
+#: src/dialogs/gnome-cmd-options-dialog.cc:2190 src/tags/gnome-cmd-tags.cc:323
 msgid "Format"
 msgstr "Formát"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:2168
+#: src/dialogs/gnome-cmd-options-dialog.cc:2191
 msgid "Layout"
 msgstr "Vzhled"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:2170
+#: src/dialogs/gnome-cmd-options-dialog.cc:2193
 msgid "Confirmation"
 msgstr "Potvrzování"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:2171
+#: src/dialogs/gnome-cmd-options-dialog.cc:2194
 msgid "Filters"
 msgstr "Filtry"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:2172
+#: src/dialogs/gnome-cmd-options-dialog.cc:2195
 msgid "Programs"
 msgstr "Programy"
 
@@ -2859,7 +2897,7 @@ msgid "Unselect Using Pattern"
 msgstr "Zrušit výběr podle vzoru"
 
 #: src/dialogs/gnome-cmd-prepare-copy-dialog.cc:85
-#: src/gnome-cmd-file-popmenu.cc:799 src/gnome-cmd-main-win.cc:241
+#: src/gnome-cmd-file-popmenu.cc:726 src/gnome-cmd-main-win.cc:241
 #: src/gnome-cmd-user-actions.cc:210
 msgid "Copy"
 msgstr "Kopírovat"
@@ -2870,7 +2908,7 @@ msgid "Query First"
 msgstr "Nejdřív se zeptat"
 
 #: src/dialogs/gnome-cmd-prepare-copy-dialog.cc:105
-#: src/dialogs/gnome-cmd-prepare-move-dialog.cc:98 src/gnome-cmd-xfer.cc:209
+#: src/dialogs/gnome-cmd-prepare-move-dialog.cc:98 src/gnome-cmd-xfer.cc:211
 msgid "Skip All"
 msgstr "Přeskočit vše"
 
@@ -2920,7 +2958,6 @@ msgstr "Složka „%s“ neexistuje, chcete jej vytvořit?"
 #: src/gnome-cmd-advrename-profile-component.cc:433
 #: src/gnome-cmd-advrename-profile-component.cc:761
 #: src/gnome-cmd-advrename-profile-component.cc:793
-#: src/gnome-cmd-file-popmenu.cc:139
 msgid "No"
 msgstr "Ne"
 
@@ -2928,7 +2965,6 @@ msgstr "Ne"
 #: src/gnome-cmd-advrename-profile-component.cc:433
 #: src/gnome-cmd-advrename-profile-component.cc:761
 #: src/gnome-cmd-advrename-profile-component.cc:793
-#: src/gnome-cmd-file-popmenu.cc:139
 msgid "Yes"
 msgstr "Ano"
 
@@ -2993,34 +3029,34 @@ msgstr[0] "Nalezen %d výskyt"
 msgstr[1] "Nalezeny %d výskyty"
 msgstr[2] "Nalezeno %d výskytů"
 
-#: src/dialogs/gnome-cmd-search-dialog.cc:681
+#: src/dialogs/gnome-cmd-search-dialog.cc:682
 #, c-format
 msgid "Failed to set process group id of child %d: %s.\n"
 msgstr "Selhalo nastavení id skupiny procesů %d: %s.\n"
 
-#: src/dialogs/gnome-cmd-search-dialog.cc:805
+#: src/dialogs/gnome-cmd-search-dialog.cc:806
 msgid "Error parsing the search command."
 msgstr "Chyba při zpracování příkazu vyhledávání."
 
-#: src/dialogs/gnome-cmd-search-dialog.cc:817
+#: src/dialogs/gnome-cmd-search-dialog.cc:818
 msgid "Error running the search command."
 msgstr "Chyba při spuštění příkazu vyhledávání."
 
-#: src/dialogs/gnome-cmd-search-dialog.cc:931
+#: src/dialogs/gnome-cmd-search-dialog.cc:932
 #, c-format
 msgid "Failed to change directory outside of %s"
 msgstr "Selhala změna složky mimo %s"
 
-#: src/dialogs/gnome-cmd-search-dialog.cc:1043
+#: src/dialogs/gnome-cmd-search-dialog.cc:1044
 msgid "Search…"
 msgstr "Hledat…"
 
 #. search in
-#: src/dialogs/gnome-cmd-search-dialog.cc:1164
+#: src/dialogs/gnome-cmd-search-dialog.cc:1165
 msgid "Select Directory"
 msgstr "Vybrat složku"
 
-#: src/dialogs/gnome-cmd-search-dialog.cc:1167
+#: src/dialogs/gnome-cmd-search-dialog.cc:1168
 msgid "_Look in folder:"
 msgstr "H_ledat ve složce:"
 
@@ -3439,39 +3475,39 @@ msgstr "Připojit: %s"
 msgid "Unmount: %s"
 msgstr "Odpojit: %s"
 
-#: src/gnome-cmd-con.h:203
+#: src/gnome-cmd-con.h:205
 msgid "<New connection>"
 msgstr "<Nové připojení>"
 
-#: src/gnome-cmd-con.h:205
+#: src/gnome-cmd-con.h:207
 #, c-format
 msgid "Go to: %s"
 msgstr "Přejít na: %s"
 
-#: src/gnome-cmd-con.h:206
+#: src/gnome-cmd-con.h:208
 #, c-format
 msgid "Connect to: %s"
 msgstr "Připojit se k: %s"
 
-#: src/gnome-cmd-con.h:207
+#: src/gnome-cmd-con.h:209
 #, c-format
 msgid "Disconnect from: %s"
 msgstr "Odpojit se od: %s"
 
-#: src/gnome-cmd-con.h:214
+#: src/gnome-cmd-con.h:216
 #, c-format
 msgid "Connecting to %s\n"
 msgstr "Připojuje se k %s\n"
 
-#: src/gnome-cmd-con.h:369
+#: src/gnome-cmd-con.h:371
 msgid "Unknown disk usage"
 msgstr "Informaci o obsazení disku nelze zjistit"
 
-#: src/gnome-cmd-con-home.cc:118
+#: src/gnome-cmd-con-home.cc:125
 msgid "Home"
 msgstr "Domů"
 
-#: src/gnome-cmd-con-home.cc:127
+#: src/gnome-cmd-con-home.cc:134
 msgid "Go to: Home"
 msgstr "Přejít domů"
 
@@ -3501,12 +3537,12 @@ msgstr "Hledají se pracovní skupiny a počítače"
 msgid "Go to: Samba Network"
 msgstr "Přejít na síť Samba"
 
-#: src/gnome-cmd-data.cc:3147 src/gnome-cmd-data.cc:3848
+#: src/gnome-cmd-data.cc:3163 src/gnome-cmd-data.cc:3865
 #, c-format
 msgid "link to %s"
 msgstr "Symbolický odkaz na %s"
 
-#: src/gnome-cmd-dir.cc:514
+#: src/gnome-cmd-dir.cc:516
 msgid "Waiting for file list"
 msgstr "Čeká se na seznam souborů"
 
@@ -3517,6 +3553,15 @@ msgstr "Přidat aktuální složku"
 #: src/gnome-cmd-dir-indicator.cc:416
 msgid "Manage bookmarks…"
 msgstr "Spravovat záložky…"
+
+#: src/gnome-cmd-file.cc:592
+msgid "_Open"
+msgstr "_Otevřít"
+
+#: src/gnome-cmd-file.cc:595
+#, c-format
+msgid "_Open with “%s”"
+msgstr "_Otevřít pomocí „%s“"
 
 #: src/gnome-cmd-file-list.cc:124
 msgid "name"
@@ -3566,7 +3611,7 @@ msgstr "/Vytvořit zde _odkaz"
 msgid "/C_ancel"
 msgstr "/_Zrušit"
 
-#: src/gnome-cmd-file-list.cc:1259
+#: src/gnome-cmd-file-list.cc:1276
 #, c-format
 msgid ""
 "“%s” seems to be a binary executable file but it lacks the executable bit. "
@@ -3575,15 +3620,15 @@ msgstr ""
 "„%s“ vypadá jako binární spustitelný soubor, ale nemá nastaven příznak "
 "spustitelnosti. Chcete jej nastavit a pak soubor spustit?"
 
-#: src/gnome-cmd-file-list.cc:1261
+#: src/gnome-cmd-file-list.cc:1278
 msgid "Make Executable?"
 msgstr "Nastavit jako spustitelný?"
 
-#: src/gnome-cmd-file-list.cc:1262
+#: src/gnome-cmd-file-list.cc:1279
 msgid "OK"
 msgstr "Budiž"
 
-#: src/gnome-cmd-file-list.cc:1288
+#: src/gnome-cmd-file-list.cc:1305
 #, c-format
 msgid ""
 "“%s” is an executable text file. Do you want to run it, or display its "
@@ -3592,122 +3637,104 @@ msgstr ""
 "„%s“ je spustitelný textový soubor. Chcete jej spustit nebo zobrazit jeho "
 "obsah?"
 
-#: src/gnome-cmd-file-list.cc:1289
+#: src/gnome-cmd-file-list.cc:1306
 msgid "Run or Display"
 msgstr "Spustit nebo zobrazit"
 
-#: src/gnome-cmd-file-list.cc:1290
+#: src/gnome-cmd-file-list.cc:1307
 msgid "Display"
 msgstr "Zobrazit"
 
-#: src/gnome-cmd-file-list.cc:1290
+#: src/gnome-cmd-file-list.cc:1307
 msgid "Run"
 msgstr "Spustit"
 
-#: src/gnome-cmd-file-list.cc:1306
+#: src/gnome-cmd-file-list.cc:1323
 #, c-format
 msgid "No default application found for the MIME type %s."
 msgstr "Pro typ MIME %s nebyla nalezena výchozí aplikace."
 
-#: src/gnome-cmd-file-list.cc:1335 src/gnome-cmd-file-popmenu.cc:136
+#: src/gnome-cmd-file-list.cc:1353
 #, c-format
 msgid ""
 "%s does not know how to open remote file. Do you want to download the file "
 "to a temporary location and then open it?"
-msgid_plural ""
-"%s does not know how to open remote files. Do you want to download the files "
-"to a temporary location and then open them?"
-msgstr[0] ""
+msgstr ""
 "Aplikace %s neumí otevřít vzdálený soubor. Chcete soubor stáhnout do složky "
 "pro dočasné soubory a poté jej otevřít?"
-msgstr[1] ""
-"Aplikace %s neumí otevřít vzdálené soubory. Chcete soubor stáhnout do složky "
-"pro dočasné soubory a poté jej otevřít?"
-msgstr[2] ""
-"Aplikace %s neumí otevřít vzdálené soubory. Chcete soubor stáhnout do složky "
-"pro dočasné soubory a poté jej otevřít?"
 
-#: src/gnome-cmd-file-list.cc:1613
+#: src/gnome-cmd-file-list.cc:1632
 msgid "Directory listing failed."
 msgstr "Výpis složky selhal."
 
-#: src/gnome-cmd-file-list.cc:1666
+#: src/gnome-cmd-file-list.cc:1685
 msgid "Failed to open connection."
 msgstr "Nelze otevřít spojení."
 
-#: src/gnome-cmd-file-list.cc:2383 src/gnome-cmd-file-list.cc:2398
+#: src/gnome-cmd-file-list.cc:2403 src/gnome-cmd-file-list.cc:2418
 msgid "Not an ordinary file."
 msgstr "Není normální soubor."
 
-#: src/gnome-cmd-file-popmenu.cc:232
+#: src/gnome-cmd-file-popmenu.cc:244
 msgid "Couldn’t retrieve MIME type of the file."
 msgstr "Nelze zjistit typ MIME souboru."
 
-#: src/gnome-cmd-file-popmenu.cc:247
+#: src/gnome-cmd-file-popmenu.cc:259
 msgid "Invalid command"
 msgstr "Neplatný příkaz"
 
-#: src/gnome-cmd-file-popmenu.cc:271
+#: src/gnome-cmd-file-popmenu.cc:283
 msgid "Application:"
 msgstr "Aplikace:"
 
-#: src/gnome-cmd-file-popmenu.cc:274
+#: src/gnome-cmd-file-popmenu.cc:286
 msgid "Open with other…"
 msgstr "Otevřít pomocí…"
 
-#: src/gnome-cmd-file-popmenu.cc:279
+#: src/gnome-cmd-file-popmenu.cc:291
 msgid "Needs terminal"
 msgstr "Vyžaduje terminál"
 
-#: src/gnome-cmd-file-popmenu.cc:589
-msgid "_Open"
-msgstr "_Otevřít"
-
-#: src/gnome-cmd-file-popmenu.cc:592
-#, c-format
-msgid "_Open with “%s”"
-msgstr "_Otevřít pomocí „%s“"
-
-#: src/gnome-cmd-file-popmenu.cc:795
+#: src/gnome-cmd-file-popmenu.cc:722
 msgid "Open Wit_h"
 msgstr "Otevřít _pomocí"
 
-#: src/gnome-cmd-file-popmenu.cc:796
+#: src/gnome-cmd-file-popmenu.cc:723
 msgid "Other _Application…"
 msgstr "Jiná _aplikace…"
 
-#: src/gnome-cmd-file-popmenu.cc:797
+#: src/gnome-cmd-file-popmenu.cc:724
 msgid "Open Wit_h…"
 msgstr "Otevřít _pomocí…"
 
-#: src/gnome-cmd-file-popmenu.cc:798 src/gnome-cmd-main-win.cc:240
+#: src/gnome-cmd-file-popmenu.cc:725 src/gnome-cmd-main-win.cc:240
 #: src/gnome-cmd-user-actions.cc:212
 msgid "Cut"
 msgstr "Vyjmout"
 
-#: src/gnome-cmd-file-popmenu.cc:801
+#: src/gnome-cmd-file-popmenu.cc:728
 msgid "Rename"
 msgstr "Přejmenovat"
 
 #. {file_run, "file.run"},
-#: src/gnome-cmd-file-popmenu.cc:802 src/gnome-cmd-main-win.cc:245
+#: src/gnome-cmd-file-popmenu.cc:729 src/gnome-cmd-main-win.cc:245
 #: src/gnome-cmd-user-actions.cc:236
 msgid "Send files"
 msgstr "Odeslat soubory"
 
-#: src/gnome-cmd-file-popmenu.cc:803 src/gnome-cmd-main-menu.cc:307
+#: src/gnome-cmd-file-popmenu.cc:730 src/gnome-cmd-main-menu.cc:307
 msgid "_Properties…"
 msgstr "_Vlastnosti…"
 
-#: src/gnome-cmd-file-popmenu.cc:804
+#: src/gnome-cmd-file-popmenu.cc:731
 msgid "E_xecute"
 msgstr "S_pustit"
 
-#: src/gnome-cmd-file-popmenu.cc:805 src/gnome-cmd-list-popmenu.cc:108
+#: src/gnome-cmd-file-popmenu.cc:732 src/gnome-cmd-list-popmenu.cc:108
 msgid "Open _terminal here"
 msgstr "Otevřít _terminál zde"
 
-#: src/gnome-cmd-file-popmenu.cc:806 src/gnome-cmd-user-actions.cc:211
+#: src/gnome-cmd-file-popmenu.cc:733 src/gnome-cmd-user-actions.cc:211
 msgid "Copy file names"
 msgstr "Kopírovat názvy souborů"
 
@@ -3732,61 +3759,61 @@ msgstr[2] "%s, %d z %d vybraných složek"
 msgid "%s free"
 msgstr "%s volných"
 
-#: src/gnome-cmd-file-selector.cc:631 src/gnome-cmd-file-selector.cc:706
+#: src/gnome-cmd-file-selector.cc:635 src/gnome-cmd-file-selector.cc:711
 #: src/gnome-cmd-user-actions.cc:1670 src/gnome-cmd-user-actions.cc:1678
 msgid "The tab is locked, close anyway?"
 msgstr "Karta je zamknutá. Přesto ji zavřít?"
 
-#: src/gnome-cmd-file-selector.cc:649 src/gnome-cmd-main-menu.cc:347
+#: src/gnome-cmd-file-selector.cc:654 src/gnome-cmd-main-menu.cc:347
 msgid "Open in New _Tab"
 msgstr "Otevřít v nové _kartě"
 
-#: src/gnome-cmd-file-selector.cc:656
+#: src/gnome-cmd-file-selector.cc:661
 msgid "_Unlock Tab"
 msgstr "_Odemknout kartu"
 
-#: src/gnome-cmd-file-selector.cc:656
+#: src/gnome-cmd-file-selector.cc:661
 msgid "_Lock Tab"
 msgstr "_Zamknout kartu"
 
-#: src/gnome-cmd-file-selector.cc:661
+#: src/gnome-cmd-file-selector.cc:666
 msgid "_Refresh Tab"
 msgstr "_Aktualizivat karty"
 
-#: src/gnome-cmd-file-selector.cc:666
+#: src/gnome-cmd-file-selector.cc:671
 msgid "Copy Tab to Other _Pane"
 msgstr "Kopírovat kartu na jiný _panel"
 
-#: src/gnome-cmd-file-selector.cc:672 src/gnome-cmd-main-menu.cc:348
+#: src/gnome-cmd-file-selector.cc:677 src/gnome-cmd-main-menu.cc:348
 msgid "_Close Tab"
 msgstr "_Zavřít kartu"
 
-#: src/gnome-cmd-file-selector.cc:677 src/gnome-cmd-main-menu.cc:349
+#: src/gnome-cmd-file-selector.cc:682 src/gnome-cmd-main-menu.cc:349
 msgid "Close _All Tabs"
 msgstr "Z_avřít všechny karty"
 
-#: src/gnome-cmd-file-selector.cc:682
+#: src/gnome-cmd-file-selector.cc:687
 msgid "Close _Duplicate Tabs"
 msgstr "Zavřít _duplicitní karty"
 
-#: src/gnome-cmd-file-selector.cc:1137
+#: src/gnome-cmd-file-selector.cc:1144
 msgid "No file name given"
 msgstr "Nebyl zadán název souboru"
 
-#: src/gnome-cmd-file-selector.cc:1168
+#: src/gnome-cmd-file-selector.cc:1175
 msgid "New Text File"
 msgstr "Nový textový soubor"
 
-#: src/gnome-cmd-file-selector.cc:1314
+#: src/gnome-cmd-file-selector.cc:1321
 msgid "Symbolic link name:"
 msgstr "Název symbolického odkazu:"
 
-#: src/gnome-cmd-file-selector.cc:1327 src/gnome-cmd-file-selector.cc:1380
+#: src/gnome-cmd-file-selector.cc:1334 src/gnome-cmd-file-selector.cc:1387
 #: src/gnome-cmd-user-actions.cc:819
 msgid "Create Symbolic Link"
 msgstr "Vytvořit symbolický odkaz"
 
-#: src/gnome-cmd-file-selector.cc:1451
+#: src/gnome-cmd-file-selector.cc:1458
 msgid "Filter:"
 msgstr "Filtr:"
 
@@ -3810,7 +3837,7 @@ msgstr "_Složka"
 msgid "_Text File"
 msgstr "_Textový soubor"
 
-#: src/gnome-cmd-main-menu.cc:302 src/intviewer/viewer-window.cc:594
+#: src/gnome-cmd-main-menu.cc:302 src/intviewer/viewer-window.cc:599
 msgid "_File"
 msgstr "_Soubor"
 
@@ -3918,7 +3945,7 @@ msgstr "_Obnovit výběr"
 msgid "_Compare Directories"
 msgstr "_Porovnat složky"
 
-#: src/gnome-cmd-main-menu.cc:343 src/intviewer/viewer-window.cc:608
+#: src/gnome-cmd-main-menu.cc:343 src/intviewer/viewer-window.cc:613
 msgid "_View"
 msgstr "_Zobrazit"
 
@@ -3970,7 +3997,7 @@ msgstr "Zobrazovat záložní soubory"
 msgid "Horizontal Orientation"
 msgstr "Vodorovné otočení"
 
-#: src/gnome-cmd-main-menu.cc:368 src/intviewer/viewer-window.cc:673
+#: src/gnome-cmd-main-menu.cc:368 src/intviewer/viewer-window.cc:678
 msgid "_Settings"
 msgstr "Na_stavení"
 
@@ -4014,7 +4041,7 @@ msgstr "Zásuvné _moduly"
 msgid "_Configure Plugins…"
 msgstr "_Nastavit zásuvné moduly…"
 
-#: src/gnome-cmd-main-menu.cc:395 src/intviewer/viewer-window.cc:692
+#: src/gnome-cmd-main-menu.cc:395 src/intviewer/viewer-window.cc:697
 msgid "_Help"
 msgstr "_Nápověda"
 
@@ -4022,7 +4049,7 @@ msgstr "_Nápověda"
 msgid "_Documentation"
 msgstr "_Dokumentace"
 
-#: src/gnome-cmd-main-menu.cc:397 src/intviewer/viewer-window.cc:694
+#: src/gnome-cmd-main-menu.cc:397 src/intviewer/viewer-window.cc:699
 msgid "_Keyboard Shortcuts"
 msgstr "_Klávesové zkratky"
 
@@ -4561,7 +4588,7 @@ msgstr ""
 "Lucas Lommer <llommer@svn.gnome.org>\n"
 "Marek Černocký <marek@manet.cz>"
 
-#: src/gnome-cmd-xfer.cc:199
+#: src/gnome-cmd-xfer.cc:201
 #, c-format
 msgid ""
 "Overwrite file:\n"
@@ -4584,15 +4611,15 @@ msgstr ""
 "<b>%s</b>\n"
 "<span color='dimgray' size='smaller'>%s</span>"
 
-#: src/gnome-cmd-xfer.cc:209
+#: src/gnome-cmd-xfer.cc:211
 msgid "Replace"
 msgstr "Nahradit"
 
-#: src/gnome-cmd-xfer.cc:209
+#: src/gnome-cmd-xfer.cc:211
 msgid "Replace All"
 msgstr "Nahradit vše"
 
-#: src/gnome-cmd-xfer.cc:224
+#: src/gnome-cmd-xfer.cc:226
 #, c-format
 msgid ""
 "Error while copying to %s\n"
@@ -4603,32 +4630,32 @@ msgstr ""
 "\n"
 "%s"
 
-#: src/gnome-cmd-xfer.cc:227
+#: src/gnome-cmd-xfer.cc:229
 msgid "Transfer problem"
 msgstr "Problém přenosu"
 
-#: src/gnome-cmd-xfer.cc:266
+#: src/gnome-cmd-xfer.cc:268
 msgid "copying…"
 msgstr "kopíruje se…"
 
-#: src/gnome-cmd-xfer.cc:274
+#: src/gnome-cmd-xfer.cc:276
 #, c-format
 msgid "[file %ld of %ld] “%s”"
 msgstr "[soubor %ld z %ld] „%s“"
 
-#: src/gnome-cmd-xfer.cc:425
+#: src/gnome-cmd-xfer.cc:427
 msgid "Copying a directory into itself is a bad idea."
 msgstr "Kopírování složky do sebe sama není dobrý nápad."
 
-#: src/gnome-cmd-xfer.cc:425
+#: src/gnome-cmd-xfer.cc:427
 msgid "The whole operation was cancelled."
 msgstr "Celá operace byla zrušena."
 
-#: src/gnome-cmd-xfer.cc:466
+#: src/gnome-cmd-xfer.cc:468
 msgid "preparing…"
 msgstr "připravuje se…"
 
-#: src/gnome-cmd-xfer.cc:545
+#: src/gnome-cmd-xfer.cc:547
 msgid "downloading to /tmp"
 msgstr "stahuje se do /tmp"
 
@@ -4650,14 +4677,14 @@ msgstr "%s z %s zkopírováno"
 msgid "%.0f%% copied"
 msgstr "%.0f%% zkopírováno"
 
-#: src/imageloader.cc:109
+#: src/imageloader.cc:110
 #, c-format
 msgid "Couldn’t load installed file type pixmap, trying to load %s instead"
 msgstr ""
 "Nelze načíst nainstalovaný soubor typu pixelová mapa, místo něj se zkouší "
 "načíst %s"
 
-#: src/imageloader.cc:113 src/imageloader.cc:137
+#: src/imageloader.cc:114 src/imageloader.cc:138
 #, c-format
 msgid ""
 "Can’t find the pixmap anywhere. Make sure you have installed the program or "
@@ -4667,7 +4694,7 @@ msgstr ""
 "nainstalovali nebo že spouštíte gnome-commander ze složky gnome-commander-%s/"
 "src"
 
-#: src/imageloader.cc:134
+#: src/imageloader.cc:135
 #, c-format
 msgid "Couldn’t load installed pixmap, trying to load %s instead"
 msgstr ""
@@ -4678,12 +4705,12 @@ msgid "Find"
 msgstr "Najít"
 
 #. Search mode radio buttons
-#: src/intviewer/search-dlg.cc:273 src/intviewer/viewer-window.cc:600
-#: src/intviewer/viewer-window.cc:617
+#: src/intviewer/search-dlg.cc:273 src/intviewer/viewer-window.cc:605
+#: src/intviewer/viewer-window.cc:622
 msgid "_Text"
 msgstr "_Text"
 
-#: src/intviewer/search-dlg.cc:274 src/intviewer/viewer-window.cc:602
+#: src/intviewer/search-dlg.cc:274 src/intviewer/viewer-window.cc:607
 msgid "_Hexadecimal"
 msgstr "Še_stnáctkově"
 
@@ -4728,220 +4755,220 @@ msgstr "(přizpůsobeno velikosti okna)"
 msgid "_Copy selection"
 msgstr "_Kopírovat výběr"
 
-#: src/intviewer/viewer-window.cc:595
+#: src/intviewer/viewer-window.cc:600
 msgid "_Close"
 msgstr "_Zavřít"
 
-#: src/intviewer/viewer-window.cc:601
+#: src/intviewer/viewer-window.cc:606
 msgid "_Binary"
 msgstr "_Binární data"
 
-#: src/intviewer/viewer-window.cc:603 src/intviewer/viewer-window.cc:663
+#: src/intviewer/viewer-window.cc:608 src/intviewer/viewer-window.cc:668
 msgid "_Image"
 msgstr "_Obrázek"
 
-#: src/intviewer/viewer-window.cc:609
+#: src/intviewer/viewer-window.cc:614
 msgid "_Zoom In"
 msgstr "Př_iblížit"
 
-#: src/intviewer/viewer-window.cc:610
+#: src/intviewer/viewer-window.cc:615
 msgid "_Zoom Out"
 msgstr "_Oddálit"
 
-#: src/intviewer/viewer-window.cc:611
+#: src/intviewer/viewer-window.cc:616
 msgid "_Normal Size"
 msgstr "_Normální velikost"
 
-#: src/intviewer/viewer-window.cc:612
+#: src/intviewer/viewer-window.cc:617
 msgid "_Best Fit"
 msgstr "Přizpůso_bit oknu"
 
-#: src/intviewer/viewer-window.cc:618
+#: src/intviewer/viewer-window.cc:623
 msgid "_Copy Text Selection"
 msgstr "_Zkopírovat vybraný text"
 
-#: src/intviewer/viewer-window.cc:619
+#: src/intviewer/viewer-window.cc:624
 msgid "Find…"
 msgstr "Najít…"
 
-#: src/intviewer/viewer-window.cc:620
+#: src/intviewer/viewer-window.cc:625
 msgid "Find Next"
 msgstr "Najít následující"
 
-#: src/intviewer/viewer-window.cc:621
+#: src/intviewer/viewer-window.cc:626
 msgid "Find Previous"
 msgstr "Najít předchozí"
 
-#: src/intviewer/viewer-window.cc:622
+#: src/intviewer/viewer-window.cc:627
 msgid "_Encoding"
 msgstr "_Kódování"
 
-#: src/intviewer/viewer-window.cc:627
+#: src/intviewer/viewer-window.cc:632
 msgid "_Wrap lines"
 msgstr "_Zalamovat řádky"
 
-#: src/intviewer/viewer-window.cc:632
+#: src/intviewer/viewer-window.cc:637
 msgid "_UTF-8"
 msgstr "_UTF-8"
 
-#: src/intviewer/viewer-window.cc:633
+#: src/intviewer/viewer-window.cc:638
 msgid "English (US-_ASCII)"
 msgstr "Angliské (US-_ASCII)"
 
-#: src/intviewer/viewer-window.cc:634
+#: src/intviewer/viewer-window.cc:639
 msgid "Terminal (CP437)"
 msgstr "Terminál (CP437)"
 
-#: src/intviewer/viewer-window.cc:635
+#: src/intviewer/viewer-window.cc:640
 msgid "Arabic (ISO-8859-6)"
 msgstr "Arabské (ISO-8859-6)"
 
-#: src/intviewer/viewer-window.cc:636
+#: src/intviewer/viewer-window.cc:641
 msgid "Arabic (Windows, CP1256)"
 msgstr "Arabské (Windows, CP1256)"
 
-#: src/intviewer/viewer-window.cc:637
+#: src/intviewer/viewer-window.cc:642
 msgid "Arabic (Dos, CP864)"
 msgstr "Arabské (DOS, CP864)"
 
-#: src/intviewer/viewer-window.cc:638
+#: src/intviewer/viewer-window.cc:643
 msgid "Baltic (ISO-8859-4)"
 msgstr "Pobaltské (ISO-8859-4)"
 
-#: src/intviewer/viewer-window.cc:639
+#: src/intviewer/viewer-window.cc:644
 msgid "Central European (ISO-8859-2)"
 msgstr "Středoevropské (ISO-8859-2)"
 
-#: src/intviewer/viewer-window.cc:640
+#: src/intviewer/viewer-window.cc:645
 msgid "Central European (CP1250)"
 msgstr "Středoevropské (CP1250)"
 
-#: src/intviewer/viewer-window.cc:641
+#: src/intviewer/viewer-window.cc:646
 msgid "Cyrillic (ISO-8859-5)"
 msgstr "Azbuka (ISO-8859-5)"
 
-#: src/intviewer/viewer-window.cc:642
+#: src/intviewer/viewer-window.cc:647
 msgid "Cyrillic (CP1251)"
 msgstr "Azbuka (CP1251)"
 
-#: src/intviewer/viewer-window.cc:643
+#: src/intviewer/viewer-window.cc:648
 msgid "Greek (ISO-8859-7)"
 msgstr "Řecké (ISO-8859-7)"
 
-#: src/intviewer/viewer-window.cc:644
+#: src/intviewer/viewer-window.cc:649
 msgid "Greek (CP1253)"
 msgstr "Řecké (CP1253)"
 
-#: src/intviewer/viewer-window.cc:645
+#: src/intviewer/viewer-window.cc:650
 msgid "Hebrew (Windows, CP1255)"
 msgstr "Hebrejské (Windows, CP1255)"
 
-#: src/intviewer/viewer-window.cc:646
+#: src/intviewer/viewer-window.cc:651
 msgid "Hebrew (Dos, CP862)"
 msgstr "Hebrejské (DOS, CP862)"
 
-#: src/intviewer/viewer-window.cc:647
+#: src/intviewer/viewer-window.cc:652
 msgid "Hebrew (ISO-8859-8)"
 msgstr "Hebrejské (ISO-8859-8)"
 
-#: src/intviewer/viewer-window.cc:648
+#: src/intviewer/viewer-window.cc:653
 msgid "Latin 9 (ISO-8859-15)"
 msgstr "Latinka 9 (ISO-8859-15)"
 
-#: src/intviewer/viewer-window.cc:649
+#: src/intviewer/viewer-window.cc:654
 msgid "Maltese (ISO-8859-3)"
 msgstr "Maltské (ISO-8859-3)"
 
-#: src/intviewer/viewer-window.cc:650
+#: src/intviewer/viewer-window.cc:655
 msgid "Turkish (ISO-8859-9)"
 msgstr "Turecké (ISO-8859-9)"
 
-#: src/intviewer/viewer-window.cc:651
+#: src/intviewer/viewer-window.cc:656
 msgid "Turkish (CP1254)"
 msgstr "Turecké (CP1254)"
 
-#: src/intviewer/viewer-window.cc:652
+#: src/intviewer/viewer-window.cc:657
 msgid "Western (CP1252)"
 msgstr "Západní (CP1252)"
 
-#: src/intviewer/viewer-window.cc:653
+#: src/intviewer/viewer-window.cc:658
 msgid "Western (ISO-8859-1)"
 msgstr "Západní (ISO-8859-1)"
 
-#: src/intviewer/viewer-window.cc:658
+#: src/intviewer/viewer-window.cc:663
 msgid "Show Metadata _Tags"
 msgstr "Zobrazit š_títky metadat"
 
-#: src/intviewer/viewer-window.cc:664
+#: src/intviewer/viewer-window.cc:669
 msgid "Rotate Clockwise"
 msgstr "Otočit po směru hodinových ručiček"
 
-#: src/intviewer/viewer-window.cc:665
+#: src/intviewer/viewer-window.cc:670
 msgid "Rotate Counter Clockwis_e"
 msgstr "Otočit _proti směru hodinových ručiček"
 
-#: src/intviewer/viewer-window.cc:666
+#: src/intviewer/viewer-window.cc:671
 msgid "Rotate 180°"
 msgstr "Otočit o 180°"
 
-#: src/intviewer/viewer-window.cc:667
+#: src/intviewer/viewer-window.cc:672
 msgid "Flip _Vertical"
 msgstr "Překlopit _svisle"
 
-#: src/intviewer/viewer-window.cc:668
+#: src/intviewer/viewer-window.cc:673
 msgid "Flip _Horizontal"
 msgstr "Překlopit _vodorovně"
 
-#: src/intviewer/viewer-window.cc:674
+#: src/intviewer/viewer-window.cc:679
 msgid "_Binary Mode"
 msgstr "Režim _binárních dat"
 
-#: src/intviewer/viewer-window.cc:675
+#: src/intviewer/viewer-window.cc:680
 msgid "_Save Current Settings"
 msgstr "_Uložit současné nastavení"
 
-#: src/intviewer/viewer-window.cc:680
+#: src/intviewer/viewer-window.cc:685
 msgid "_Hexadecimal Offset"
 msgstr "_Pozice šestnáctkově"
 
-#: src/intviewer/viewer-window.cc:685
+#: src/intviewer/viewer-window.cc:690
 msgid "_20 chars/line"
 msgstr "_20 znaků na řádek"
 
-#: src/intviewer/viewer-window.cc:686
+#: src/intviewer/viewer-window.cc:691
 msgid "_40 chars/line"
 msgstr "_40 znaků na řádek"
 
-#: src/intviewer/viewer-window.cc:687
+#: src/intviewer/viewer-window.cc:692
 msgid "_80 chars/line"
 msgstr "_80 znaků na řádek"
 
-#: src/intviewer/viewer-window.cc:693
+#: src/intviewer/viewer-window.cc:698
 msgid "Quick _Help"
 msgstr "Rychlá _nápověda"
 
-#: src/intviewer/viewer-window.cc:1002
+#: src/intviewer/viewer-window.cc:1007
 #, c-format
 msgid "Pattern “%s” was not found"
 msgstr "Vzor „%s“ nebyl nalezen"
 
-#: src/main.cc:60
+#: src/main.cc:59
 msgid "Specify debug flags to use"
 msgstr "Určuje ladicí příznaky, které se mají použít"
 
-#: src/main.cc:61
+#: src/main.cc:60
 msgid "Specify the start directory for the left pane"
 msgstr "Určuje počáteční složku pro levý panel"
 
-#: src/main.cc:62
+#: src/main.cc:61
 msgid "Specify the start directory for the right pane"
 msgstr "Určuje počáteční složku pro pravý panel"
 
-#: src/main.cc:63
+#: src/main.cc:62
 msgid "Specify the directory for configuration files"
 msgstr "Určuje složku pro soubory s nastavením"
 
-#: src/main.cc:119
+#: src/main.cc:110
 msgid "File Manager"
 msgstr "Správce souborů"
 
@@ -8903,51 +8930,51 @@ msgstr "%s, na výšku"
 msgid "%s, Landscape"
 msgstr "%s, na šířku"
 
-#: src/tags/gnome-cmd-tags-taglib.cc:73
+#: src/tags/gnome-cmd-tags-taglib.cc:75
 msgid "Stereo"
 msgstr "Stereo"
 
-#: src/tags/gnome-cmd-tags-taglib.cc:74
+#: src/tags/gnome-cmd-tags-taglib.cc:76
 msgid "Joint stereo"
 msgstr "Spojené stereo"
 
-#: src/tags/gnome-cmd-tags-taglib.cc:75
+#: src/tags/gnome-cmd-tags-taglib.cc:77
 msgid "Dual channel"
 msgstr "Dva kanály"
 
-#: src/tags/gnome-cmd-tags-taglib.cc:76
+#: src/tags/gnome-cmd-tags-taglib.cc:78
 msgid "Single channel"
 msgstr "Jeden kanál"
 
-#: src/tags/gnome-cmd-tags-taglib.cc:81
+#: src/tags/gnome-cmd-tags-taglib.cc:83
 msgid "Undefined"
 msgstr "Nedefinováno"
 
-#: src/tags/gnome-cmd-tags-taglib.cc:82
+#: src/tags/gnome-cmd-tags-taglib.cc:84
 msgid "Layer I"
 msgstr "Úroveň I"
 
-#: src/tags/gnome-cmd-tags-taglib.cc:83
+#: src/tags/gnome-cmd-tags-taglib.cc:85
 msgid "Layer II"
 msgstr "Úroveň II"
 
-#: src/tags/gnome-cmd-tags-taglib.cc:84
+#: src/tags/gnome-cmd-tags-taglib.cc:86
 msgid "Layer III"
 msgstr "Úroveň III"
 
-#: src/tags/gnome-cmd-tags-taglib.cc:92 src/tags/gnome-cmd-tags-taglib.cc:103
+#: src/tags/gnome-cmd-tags-taglib.cc:94 src/tags/gnome-cmd-tags-taglib.cc:105
 msgid "Reserved"
 msgstr "Rezervováno"
 
-#: src/tags/gnome-cmd-tags-taglib.cc:101
+#: src/tags/gnome-cmd-tags-taglib.cc:103
 msgid "None"
 msgstr "Žádné"
 
-#: src/tags/gnome-cmd-tags-taglib.cc:102
+#: src/tags/gnome-cmd-tags-taglib.cc:104
 msgid "10-15ms"
 msgstr "10 – 15 ms"
 
-#: src/utils.cc:557
+#: src/utils.cc:488
 #, c-format
 msgid "(%sbyte)"
 msgid_plural "(%sbytes)"
@@ -8955,7 +8982,7 @@ msgstr[0] "(%s bajt)"
 msgstr[1] "(%s bajty)"
 msgstr[2] "(%s bajtů)"
 
-#: src/utils.cc:560
+#: src/utils.cc:491
 #, c-format
 msgid "%sbyte"
 msgid_plural "%sbytes"
@@ -8963,34 +8990,35 @@ msgstr[0] "%s bajt"
 msgstr[1] "%s bajty"
 msgstr[2] "%s bajtů"
 
-#: src/utils.cc:738
+#: src/utils.cc:680
 msgid "Failed to change working directory to a temporary directory."
 msgstr "Selhalo vytvoření složky, do které se ukládají dočasné soubory."
 
-#: src/utils.cc:748
+#: src/utils.cc:690
 msgid "Failed to create a directory in which to store temporary files."
 msgstr "Selhalo vytvoření složky, do které se ukládají dočasné soubory."
 
-#: src/utils.cc:874
+#: src/utils.cc:816
 #, c-format
 msgid "Couldn’t read from the directory %s: %s"
 msgstr "Nelze číst ze složky %s: %s"
 
-#: src/utils.cc:898
+#: src/utils.cc:840
 #, c-format
 msgid "Creating directory %s… "
 msgstr "Vytváří se složka %s… "
 
-#: src/utils.cc:905
+#: src/utils.cc:847
 #, c-format
 msgid "Failed to create the directory %s"
 msgstr "Selhalo vytvoření složky %s"
 
-#: src/utils.cc:1051
+#: src/utils.cc:993
 msgid "There was an error displaying help."
 msgstr "Při zobrazování nápovědy došlo k chybě."
 
-#: src/utils.cc:1173
+#: src/utils.cc:1122
 #, c-format
 msgid "Couldn’t move path from “%s” to “%s”: %s"
 msgstr "Nezdařilo se přesunout cestu z „%s“ do „%s“: %s"
+
