@@ -230,7 +230,7 @@ static void on_ok (GtkButton *button, GnomeCmdPrepareXferDialog *dialog)
                           dialog->src_fs->file_list(),
                           dest_fn,
                           dialog->gFileCopyFlags,
-                          dialog->xferOverwriteMode,
+                          dialog->overwriteMode,
                           NULL, NULL);
 //    gnome_cmd_move_start (dialog->src_files,
 //                          dest_dir,

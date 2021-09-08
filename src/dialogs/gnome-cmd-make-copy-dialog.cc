@@ -48,7 +48,7 @@ inline void copy_file (GnomeCmdFile *f, GnomeCmdDir *dir, const gchar *filename)
                           NULL,
                           g_strdup (filename),
                           G_FILE_COPY_NONE,
-                          true,
+                          GNOME_CMD_CONFIRM_OVERWRITE_QUERY,
                           NULL,
                           NULL);
 }

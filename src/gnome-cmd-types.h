@@ -85,11 +85,12 @@ typedef enum // Watch out for the usage of GNOME_CMD_COLOR_CUSTOM in gnome-cmd-d
 }GnomeCmdColorMode;
 
 
-typedef enum // The (reversed) order of following enums is significant
+typedef enum // The (reversed) order of following enums compared to the occurence in the GUI is significant
 {
+    GNOME_CMD_CONFIRM_OVERWRITE_SILENTLY,
     GNOME_CMD_CONFIRM_OVERWRITE_SKIP_ALL,
-    GNOME_CMD_CONFIRM_OVERWRITE_QUERY,
-    GNOME_CMD_CONFIRM_OVERWRITE_SILENTLY
+    GNOME_CMD_CONFIRM_OVERWRITE_RENAME_ALL,
+    GNOME_CMD_CONFIRM_OVERWRITE_QUERY
 }GnomeCmdConfirmOverwriteMode;
 
 

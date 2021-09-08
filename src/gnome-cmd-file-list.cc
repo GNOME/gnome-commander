@@ -3276,7 +3276,7 @@ void GnomeCmdFileList::drop_files(DndMode dndMode, GFileCopyFlags gFileCopyFlags
                                          nullptr,
                                          g_list_length (gFileGlist) == 1 ? g_file_get_basename ((GFile *) gFileGlist->data) : nullptr,
                                          gFileCopyFlags,
-                                         true,
+                                         GNOME_CMD_CONFIRM_OVERWRITE_QUERY,
                                          nullptr,
                                          nullptr);
             break;
@@ -3287,7 +3287,7 @@ void GnomeCmdFileList::drop_files(DndMode dndMode, GFileCopyFlags gFileCopyFlags
                                          nullptr,
                                          g_list_length (gFileGlist) == 1 ? g_file_get_basename ((GFile *) gFileGlist->data) : nullptr,
                                          gFileCopyFlags,
-                                         true,
+                                         GNOME_CMD_CONFIRM_OVERWRITE_QUERY,
                                          nullptr,
                                          nullptr);
             break;
@@ -3298,7 +3298,7 @@ void GnomeCmdFileList::drop_files(DndMode dndMode, GFileCopyFlags gFileCopyFlags
                                          nullptr,
                                          g_list_length (gFileGlist) == 1 ? g_file_get_basename ((GFile *) gFileGlist->data) : nullptr,
                                          gFileCopyFlags,
-                                         true,
+                                         GNOME_CMD_CONFIRM_OVERWRITE_QUERY,
                                          nullptr,
                                          nullptr);
             break;

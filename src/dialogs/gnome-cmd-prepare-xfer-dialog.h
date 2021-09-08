@@ -1,4 +1,4 @@
-/** 
+/**
  * @file gnome-cmd-prepare-xfer-dialog.h
  * @copyright (C) 2001-2006 Marcus Bjurman\n
  * @copyright (C) 2007-2012 Piotr Eljasiak\n
@@ -46,7 +46,7 @@ struct GnomeCmdPrepareXferDialog
 
     GFileCopyFlags gFileCopyFlags;
     GnomeVFSXferOptions xferOptions;
-    GnomeVFSXferOverwriteMode xferOverwriteMode;
+    GnomeCmdConfirmOverwriteMode overwriteMode;
 
     GList *src_files;
     GnomeCmdFileSelector *src_fs;

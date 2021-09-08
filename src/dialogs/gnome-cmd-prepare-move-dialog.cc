@@ -50,12 +50,12 @@ static void on_ok (GtkButton *button, gpointer user_data)
     GnomeCmdPrepareXferDialog *dlg = data->dialog;
 
     if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (data->silent)))
-        dlg->xferOverwriteMode = GNOME_VFS_XFER_OVERWRITE_MODE_REPLACE;
+        dlg->overwriteMode = GNOME_CMD_CONFIRM_OVERWRITE_SILENTLY;
     else
         if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (data->query)))
-            dlg->xferOverwriteMode = GNOME_VFS_XFER_OVERWRITE_MODE_QUERY;
+            dlg->overwriteMode = GNOME_CMD_CONFIRM_OVERWRITE_QUERY;
         else
-            dlg->xferOverwriteMode = GNOME_VFS_XFER_OVERWRITE_MODE_SKIP;
+            dlg->overwriteMode = GNOME_CMD_CONFIRM_OVERWRITE_SKIP_ALL;
 
     dlg->xferOptions = GNOME_VFS_XFER_REMOVESOURCE;
 }

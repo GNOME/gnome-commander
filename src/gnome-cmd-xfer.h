@@ -21,6 +21,7 @@
 
 #pragma once
 
+#include "gnome-cmd-types.h"
 #include "gnome-cmd-dir.h"
 #include "gnome-cmd-file-list.h"
 #include "gnome-cmd-xfer-progress-win.h"
@@ -49,6 +50,7 @@ enum TRANSFER_TYPE
 struct XferData
 {
     GFileCopyFlags copyFlags;
+    GnomeCmdConfirmOverwriteMode overwriteMode;
     GnomeVFSXferOptions xferOptions;
     GnomeVFSAsyncHandle *handle;
     TRANSFER_TYPE transferType{COPY};
@@ -96,7 +98,7 @@ gnome_cmd_copy_start (GList *src_files,
                       GnomeCmdFileList *src_fl,
                       gchar *dest_fn,
                       GFileCopyFlags copyFlags,
-                      gboolean skipAsk,
+                      GnomeCmdConfirmOverwriteMode overwriteMode,
                       GtkSignalFunc on_completed_func,
                       gpointer on_completed_data);
 
@@ -106,7 +108,7 @@ gnome_cmd_move_start (GList *src_files,
                       GnomeCmdFileList *src_fl,
                       gchar *dest_fn,
                       GFileCopyFlags copyFlags,
-                      gboolean skipAsk,
+                      GnomeCmdConfirmOverwriteMode overwriteMode,
                       GtkSignalFunc on_completed_func,
                       gpointer on_completed_data);
 
@@ -117,7 +119,7 @@ gnome_cmd_copy_gfiles_start (GList *src_uri_list,
                            GList *src_files,
                            gchar *dest_fn,
                            GFileCopyFlags copyFlags,
-                           gboolean skipAsk,
+                           GnomeCmdConfirmOverwriteMode overwriteMode,
                            GtkSignalFunc on_completed_func,
                            gpointer on_completed_data);
 
@@ -128,7 +130,7 @@ gnome_cmd_move_gfiles_start (GList *src_uri_list,
                            GList *src_files,
                            gchar *dest_fn,
                            GFileCopyFlags copyFlags,
-                           gboolean skipAsk,
+                           GnomeCmdConfirmOverwriteMode overwriteMode,
                            GtkSignalFunc on_completed_func,
                            gpointer on_completed_data);
 
@@ -139,7 +141,7 @@ gnome_cmd_link_gfiles_start (GList *src_uri_list,
                            GList *src_files,
                            gchar *dest_fn,
                            GFileCopyFlags copyFlags,
-                           gboolean skipAsk,
+                           GnomeCmdConfirmOverwriteMode overwriteMode,
                            GtkSignalFunc on_completed_func,
                            gpointer on_completed_data);
 

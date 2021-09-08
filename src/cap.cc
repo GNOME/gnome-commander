@@ -62,7 +62,7 @@ inline void cut_and_paste (GnomeCmdDir *to)
                           _fl,
                           NULL,
                           G_FILE_COPY_NONE,
-                          true,
+                          gnome_cmd_data.options.confirm_move_overwrite,
                           GTK_SIGNAL_FUNC (on_xfer_done), _files);
     _files = NULL;
     _fl = NULL;
@@ -77,7 +77,7 @@ inline void copy_and_paste (GnomeCmdDir *to)
                           _fl,
                           NULL,
                           G_FILE_COPY_NONE,
-                          true,
+                          gnome_cmd_data.options.confirm_copy_overwrite,
                           GTK_SIGNAL_FUNC (on_xfer_done), _files);
     _files = NULL;
     _fl = NULL;

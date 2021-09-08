@@ -1053,20 +1053,24 @@ static GtkWidget *create_confirmation_tab (GtkWidget *parent, GnomeCmdData::Opti
     /* Copy overwrite options
      */
     cat_box = create_vbox (parent, FALSE, 0);
-    cat = create_category (parent, cat_box, _("Copy overwrite"));
+    cat = create_category (parent, cat_box, _("Preselected overwride action in copy dialog"));
     gtk_box_pack_start (GTK_BOX (vbox), cat, FALSE, TRUE, 0);
 
-    radio = create_radio (parent, NULL, _("Silently"), "copy_overwrite_silently");
-    gtk_box_pack_start (GTK_BOX (cat_box), radio, FALSE, TRUE, 0);
-    if (cfg.confirm_copy_overwrite==GNOME_CMD_CONFIRM_OVERWRITE_SILENTLY)
-        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
-    radio = create_radio (parent, get_radio_group (radio), _("Query first"), "copy_overwrite_query");
+    radio = create_radio (parent, NULL, _("Query first"), "copy_overwrite_query");
     gtk_container_add (GTK_CONTAINER (cat_box), radio);
     if (cfg.confirm_copy_overwrite==GNOME_CMD_CONFIRM_OVERWRITE_QUERY)
         gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
-    radio = create_radio (parent, get_radio_group (radio), _("Skip all"), "copy_overwrite_skip_all");
+    radio = create_radio (parent, get_radio_group (radio), _("Rename"), "copy_rename_all");
+    gtk_container_add (GTK_CONTAINER (cat_box), radio);
+    if (cfg.confirm_copy_overwrite==GNOME_CMD_CONFIRM_OVERWRITE_RENAME_ALL)
+        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
+    radio = create_radio (parent, get_radio_group (radio), _("Skip"), "copy_overwrite_skip_all");
     gtk_container_add (GTK_CONTAINER (cat_box), radio);
     if (cfg.confirm_copy_overwrite==GNOME_CMD_CONFIRM_OVERWRITE_SKIP_ALL)
+        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
+    radio = create_radio (parent, get_radio_group (radio), _("Overwrite silently"), "copy_overwrite_silently");
+    gtk_box_pack_start (GTK_BOX (cat_box), radio, FALSE, TRUE, 0);
+    if (cfg.confirm_copy_overwrite==GNOME_CMD_CONFIRM_OVERWRITE_SILENTLY)
         gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
 
 
@@ -1076,7 +1080,7 @@ static GtkWidget *create_confirmation_tab (GtkWidget *parent, GnomeCmdData::Opti
     cat = create_category (parent, cat_box, _("Move overwrite"));
     gtk_box_pack_start (GTK_BOX (vbox), cat, FALSE, TRUE, 0);
 
-    radio = create_radio (parent, NULL, _("Silently"), "move_overwrite_silently");
+    radio = create_radio (parent, NULL, _("Overwrite silently"), "move_overwrite_silently");
     gtk_box_pack_start (GTK_BOX (cat_box), radio, FALSE, TRUE, 0);
     if (cfg.confirm_move_overwrite==GNOME_CMD_CONFIRM_OVERWRITE_SILENTLY)
         gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
@@ -1111,6 +1115,7 @@ void store_confirmation_options (GtkWidget *dialog, GnomeCmdData::Options &cfg)
     GtkWidget *delete_default_check = lookup_widget (dialog, "delete_default_check");
     GtkWidget *confirm_copy_silent = lookup_widget (dialog, "copy_overwrite_silently");
     GtkWidget *confirm_copy_query = lookup_widget (dialog, "copy_overwrite_query");
+    GtkWidget *confirm_copy_rename_all = lookup_widget (dialog, "copy_rename_all");
     GtkWidget *confirm_copy_skip_all = lookup_widget (dialog, "copy_overwrite_skip_all");
     GtkWidget *confirm_move_silent = lookup_widget (dialog, "move_overwrite_silently");
     GtkWidget *confirm_move_query = lookup_widget (dialog, "move_overwrite_query");
@@ -1125,6 +1130,8 @@ void store_confirmation_options (GtkWidget *dialog, GnomeCmdData::Options &cfg)
         cfg.confirm_copy_overwrite = GNOME_CMD_CONFIRM_OVERWRITE_SILENTLY;
     else if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (confirm_copy_query)))
         cfg.confirm_copy_overwrite = GNOME_CMD_CONFIRM_OVERWRITE_QUERY;
+    else if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (confirm_copy_rename_all)))
+        cfg.confirm_copy_overwrite = GNOME_CMD_CONFIRM_OVERWRITE_RENAME_ALL;
     else if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (confirm_copy_skip_all)))
         cfg.confirm_copy_overwrite = GNOME_CMD_CONFIRM_OVERWRITE_SKIP_ALL;
 
