@@ -265,7 +265,9 @@ void store_general_options (GtkWidget *dialog, GnomeCmdData::Options &cfg)
     GtkWidget *case_sens_check = lookup_widget (dialog, "case_sens_check");
     GtkWidget *ctrl_alt_quick_search = lookup_widget (dialog, "ctrl_alt_quick_search");
     GtkWidget *alt_quick_search = lookup_widget (dialog, "alt_quick_search");
+#ifdef HAVE_UNIQUE
     GtkWidget *multiple_instance_check = lookup_widget (dialog, "multiple_instance_check");
+#endif
     GtkWidget *qsearch_exact_match_begin = lookup_widget (dialog, "qsearch_exact_match_begin");
     GtkWidget *qsearch_exact_match_end = lookup_widget (dialog, "qsearch_exact_match_end");
     GtkWidget *search_window_transient = lookup_widget (dialog, "search_window_transient");
@@ -293,7 +295,9 @@ void store_general_options (GtkWidget *dialog, GnomeCmdData::Options &cfg)
         cfg.quick_search = GNOME_CMD_QUICK_SEARCH_ALT;
     else
         cfg.quick_search = GNOME_CMD_QUICK_SEARCH_JUST_A_CHARACTER;
+#ifdef HAVE_UNIQUE
     cfg.allow_multiple_instances = !gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (multiple_instance_check));
+#endif
     cfg.quick_search_exact_match_begin = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (qsearch_exact_match_begin));
     cfg.quick_search_exact_match_end = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (qsearch_exact_match_end));
     cfg.search_window_is_transient = !gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (search_window_transient));
