@@ -1057,7 +1057,7 @@ static GtkWidget *create_confirmation_tab (GtkWidget *parent, GnomeCmdData::Opti
     /* Copy overwrite options
      */
     cat_box = create_vbox (parent, FALSE, 0);
-    cat = create_category (parent, cat_box, _("Preselected overwride action in copy dialog"));
+    cat = create_category (parent, cat_box, _("Preselected overwrite action in copy dialog"));
     gtk_box_pack_start (GTK_BOX (vbox), cat, FALSE, TRUE, 0);
 
     radio = create_radio (parent, NULL, _("Query first"), "copy_overwrite_query");
