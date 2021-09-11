@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-commander/issues\n"
-"POT-Creation-Date: 2021-09-08 20:30+0000\n"
+"POT-Creation-Date: 2021-09-11 13:06+0000\n"
 "PO-Revision-Date: 2021-09-11 15:05+0200\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <community-poland@mozilla.org>\n"
@@ -2619,7 +2619,7 @@ msgid "Confirm defaults to OK"
 msgstr "„OK” jest domyślnym działaniem potwierdzenia"
 
 #: src/dialogs/gnome-cmd-options-dialog.cc:1060
-msgid "Preselected overwride action in copy dialog"
+msgid "Preselected overwrite action in copy dialog"
 msgstr "Domyślnie wybrane działanie zastępowania w oknie kopiowania"
 
 #: src/dialogs/gnome-cmd-options-dialog.cc:1063
