@@ -14,8 +14,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-commander/issues\n"
-"POT-Creation-Date: 2021-02-27 20:10+0000\n"
-"PO-Revision-Date: 2021-03-18 00:37+0100\n"
+"POT-Creation-Date: 2021-09-07 16:39+0000\n"
+"PO-Revision-Date: 2021-09-12 02:14+0200\n"
 "Last-Translator: Balázs Úr <ur.balazs at fsf dot hu>\n"
 "Language-Team: Hungarian <gnome-hu-list at gnome dot org>\n"
 "Language: hu\n"
@@ -904,25 +904,22 @@ msgid ""
 "Hide special files, such as a socket, fifo, block devices, or character "
 "devices."
 msgstr ""
-"Különleges fájlok elrejtése, mint például foglalat, fifo, blokkeszközök vagy"
-" karakteres eszközök."
+"Különleges fájlok elrejtése, mint például foglalat, fifo, blokkeszközök vagy "
+"karakteres eszközök."
 
 #: data/org.gnome.gnome-commander.gschema.xml:642
 msgid "Hide shortcut files (Windows systems)"
 msgstr "Parancsikonfájlok elrejtése (Windows rendszerek)"
 
 #: data/org.gnome.gnome-commander.gschema.xml:646
-#| msgid "Remote Connections"
 msgid "Hide mountable locations"
 msgstr "Csatolható helyek elrejtése"
 
 #: data/org.gnome.gnome-commander.gschema.xml:650
-#| msgid "Hide regular files"
 msgid "Hide virtual files"
 msgstr "Virtuális fájlok elrejtése"
 
 #: data/org.gnome.gnome-commander.gschema.xml:654
-#| msgid "Hide regular files"
 msgid "Hide volatile files"
 msgstr "Változékony fájlok elrejtése"
 
@@ -1668,7 +1665,7 @@ msgid "File modification date"
 msgstr "Fájl módosítási dátuma"
 
 #: src/dialogs/gnome-cmd-advrename-dialog.cc:694
-#: src/dialogs/gnome-cmd-search-dialog.cc:1146
+#: src/dialogs/gnome-cmd-search-dialog.cc:1147
 msgid "Profiles…"
 msgstr "Profilok…"
 
@@ -1834,50 +1831,87 @@ msgstr ""
 "%s"
 
 #: src/dialogs/gnome-cmd-delete-dialog.cc:207
+#: src/dialogs/gnome-cmd-delete-dialog.cc:296
 msgid "Delete problem"
 msgstr "Törlési hiba"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:208 src/gnome-cmd-xfer.cc:211
+#: src/dialogs/gnome-cmd-delete-dialog.cc:208
+#: src/dialogs/gnome-cmd-delete-dialog.cc:296 src/gnome-cmd-xfer.cc:211
 #: src/gnome-cmd-xfer.cc:230
 msgid "Abort"
 msgstr "Megszakítás"
 
 #: src/dialogs/gnome-cmd-delete-dialog.cc:208
-#: src/gnome-cmd-file-selector.cc:1382 src/gnome-cmd-xfer.cc:230
+#: src/gnome-cmd-file-selector.cc:1387 src/gnome-cmd-xfer.cc:230
 msgid "Retry"
 msgstr "Újra"
 
 #: src/dialogs/gnome-cmd-delete-dialog.cc:208
-#: src/gnome-cmd-file-selector.cc:1382 src/gnome-cmd-xfer.cc:211
+#: src/dialogs/gnome-cmd-delete-dialog.cc:310
+#: src/gnome-cmd-file-selector.cc:1387 src/gnome-cmd-xfer.cc:211
 #: src/gnome-cmd-xfer.cc:230
 msgid "Skip"
 msgstr "Kihagyás"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:277
+#: src/dialogs/gnome-cmd-delete-dialog.cc:294
 #, c-format
-msgid "Do you want to delete “%s”?"
-msgstr "Valóban törölni akarja a következőt: „%s”?"
+#| msgid ""
+#| "Error while deleting “%s”\n"
+#| "\n"
+#| "%s"
+msgid ""
+"Error while deleting: \n"
+"\n"
+"%s"
+msgstr ""
+"Hiba a törlés közben: \n"
+"\n"
+"%s"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:281
+#: src/dialogs/gnome-cmd-delete-dialog.cc:307
 #, c-format
-msgid "Do you want to delete the selected file?"
-msgid_plural "Do you want to delete the %d selected files?"
-msgstr[0] "Valóban törölni akarja a kijelölt fájlt?"
-msgstr[1] "Valóban törölni akarja a kijelölt %d fájlt?"
+#| msgid "The directory “%s” doesn’t exist, do you want to create it?"
+msgid "The directory “%s” is not empty. Do you really want to delete it?"
+msgstr "A(z) „%s” könyvtár nem üres. Valóban törölni szeretné?"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:287
-#: src/dialogs/gnome-cmd-delete-dialog.cc:288
+#: src/dialogs/gnome-cmd-delete-dialog.cc:308
+#: src/dialogs/gnome-cmd-delete-dialog.cc:312
+#: src/dialogs/gnome-cmd-delete-dialog.cc:383
+#: src/dialogs/gnome-cmd-delete-dialog.cc:384
 #: src/dialogs/gnome-cmd-options-dialog.cc:1039
 #: src/gnome-cmd-file-popmenu.cc:727 src/gnome-cmd-main-win.cc:243
 #: src/gnome-cmd-user-actions.cc:213
 msgid "Delete"
 msgstr "Törlés"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:288 src/gnome-cmd-file-list.cc:1279
-#: src/gnome-cmd-file-list.cc:1307 src/gnome-cmd-file-selector.cc:1382
+#: src/dialogs/gnome-cmd-delete-dialog.cc:310
+#: src/dialogs/gnome-cmd-delete-dialog.cc:384 src/gnome-cmd-file-list.cc:1279
+#: src/gnome-cmd-file-list.cc:1307 src/gnome-cmd-file-selector.cc:1387
 #: src/gnome-cmd-user-actions.cc:819
 msgid "Cancel"
 msgstr "Mégse"
+
+#: src/dialogs/gnome-cmd-delete-dialog.cc:311
+#| msgid "_Select All"
+msgid "Delete All"
+msgstr "Összes törlése"
+
+#: src/dialogs/gnome-cmd-delete-dialog.cc:311
+#| msgid "Delete default"
+msgid "Delete Remaining"
+msgstr "Hátralévők törlése"
+
+#: src/dialogs/gnome-cmd-delete-dialog.cc:373
+#, c-format
+msgid "Do you want to delete “%s”?"
+msgstr "Valóban törölni akarja a következőt: „%s”?"
+
+#: src/dialogs/gnome-cmd-delete-dialog.cc:377
+#, c-format
+msgid "Do you want to delete the selected file?"
+msgid_plural "Do you want to delete the %d selected files?"
+msgstr[0] "Valóban törölni akarja a kijelölt fájlt?"
+msgstr[1] "Valóban törölni akarja a kijelölt %d fájlt?"
 
 #: src/dialogs/gnome-cmd-edit-bookmark-dialog.cc:43
 msgid "Bookmark name is missing."
@@ -1913,7 +1947,7 @@ msgid "Directory name:"
 msgstr "Könyvtárnév:"
 
 #: src/dialogs/gnome-cmd-file-props-dialog.cc:344
-#: src/gnome-cmd-file-selector.cc:1167
+#: src/gnome-cmd-file-selector.cc:1172
 msgid "File name:"
 msgstr "Fájlnév:"
 
@@ -1934,7 +1968,6 @@ msgid "Free space:"
 msgstr "Szabad hely:"
 
 #: src/dialogs/gnome-cmd-file-props-dialog.cc:420
-#| msgid "Content Type"
 msgid "Content Type:"
 msgstr "Tartalom típusa:"
 
@@ -2098,7 +2131,7 @@ msgid "Do nothing"
 msgstr "Ne tegyen semmit"
 
 #: src/dialogs/gnome-cmd-make-copy-dialog.cc:67
-#: src/gnome-cmd-file-selector.cc:1097
+#: src/gnome-cmd-file-selector.cc:1102
 msgid "No file name entered"
 msgstr "Nem adott meg fájlnevet"
 
@@ -2611,7 +2644,7 @@ msgstr "Kérdezzen rá"
 
 #: src/dialogs/gnome-cmd-options-dialog.cc:1067
 #: src/dialogs/gnome-cmd-options-dialog.cc:1087
-#: src/gnome-cmd-file-selector.cc:1382
+#: src/gnome-cmd-file-selector.cc:1387
 msgid "Skip all"
 msgstr "Összes kihagyása"
 
@@ -2640,7 +2673,6 @@ msgid "Regular files"
 msgstr "Szabályos fájlok"
 
 #: src/dialogs/gnome-cmd-options-dialog.cc:1193
-#| msgid "Hide character devices"
 msgid "Socket, fifo, block, or character devices"
 msgstr "Foglalat, fifo, blokk vagy karakteres eszközök"
 
@@ -2649,17 +2681,14 @@ msgid "Shortcuts (Windows systems)"
 msgstr "Parancsikonok (Windows rendszerek)"
 
 #: src/dialogs/gnome-cmd-options-dialog.cc:1199
-#| msgid "Custom location"
 msgid "Mountable locations"
 msgstr "Csatolható helyek"
 
 #: src/dialogs/gnome-cmd-options-dialog.cc:1202
-#| msgid "Hide regular files"
 msgid "Virtual files"
 msgstr "Virtuális fájlok"
 
 #: src/dialogs/gnome-cmd-options-dialog.cc:1205
-#| msgid "All files"
 msgid "Volatile files"
 msgstr "Változékony fájlok"
 
@@ -3016,35 +3045,35 @@ msgid_plural "Found %d matches"
 msgstr[0] "%d egyezés található"
 msgstr[1] "%d egyezés található"
 
-#: src/dialogs/gnome-cmd-search-dialog.cc:681
+#: src/dialogs/gnome-cmd-search-dialog.cc:682
 #, c-format
 msgid "Failed to set process group id of child %d: %s.\n"
 msgstr ""
 "Nem sikerült beállítani a(z) %d gyermekfolyamat csoportazonosítóját: %s.\n"
 
-#: src/dialogs/gnome-cmd-search-dialog.cc:805
+#: src/dialogs/gnome-cmd-search-dialog.cc:806
 msgid "Error parsing the search command."
 msgstr "Hiba történt a keresési parancs értelmezése közben."
 
-#: src/dialogs/gnome-cmd-search-dialog.cc:817
+#: src/dialogs/gnome-cmd-search-dialog.cc:818
 msgid "Error running the search command."
 msgstr "Hiba történt a keresési parancs futtatása közben."
 
-#: src/dialogs/gnome-cmd-search-dialog.cc:931
+#: src/dialogs/gnome-cmd-search-dialog.cc:932
 #, c-format
 msgid "Failed to change directory outside of %s"
 msgstr "Nem sikerült a(z) %s helyen kívüli könyvtár váltása"
 
-#: src/dialogs/gnome-cmd-search-dialog.cc:1043
+#: src/dialogs/gnome-cmd-search-dialog.cc:1044
 msgid "Search…"
 msgstr "Keresés…"
 
 #. search in
-#: src/dialogs/gnome-cmd-search-dialog.cc:1164
+#: src/dialogs/gnome-cmd-search-dialog.cc:1165
 msgid "Select Directory"
 msgstr "Könyvtár kiválasztása"
 
-#: src/dialogs/gnome-cmd-search-dialog.cc:1167
+#: src/dialogs/gnome-cmd-search-dialog.cc:1168
 msgid "_Look in folder:"
 msgstr "_Keresés ebben a mappában:"
 
@@ -3530,7 +3559,7 @@ msgstr "Ugrás a Samba hálózatba"
 msgid "link to %s"
 msgstr "hivatkozás erre: %s"
 
-#: src/gnome-cmd-dir.cc:512
+#: src/gnome-cmd-dir.cc:516
 msgid "Waiting for file list"
 msgstr "Várakozás a fájllistára"
 
@@ -3542,11 +3571,11 @@ msgstr "Jelenlegi könyvtár hozzáadása"
 msgid "Manage bookmarks…"
 msgstr "Könyvjelzők kezelése…"
 
-#: src/gnome-cmd-file.cc:563
+#: src/gnome-cmd-file.cc:592
 msgid "_Open"
 msgstr "Me_gnyitás"
 
-#: src/gnome-cmd-file.cc:566
+#: src/gnome-cmd-file.cc:595
 #, c-format
 msgid "_Open with “%s”"
 msgstr "Megnyitás _ezzel: „%s”"
@@ -3644,18 +3673,12 @@ msgstr "Nem található alapértelmezett alkalmazás a(z) %s MIME-típushoz."
 
 #: src/gnome-cmd-file-list.cc:1353
 #, c-format
-#| msgid ""
-#| "%s does not know how to open remote file. Do you want to download the "
-#| "file to a temporary location and then open it?"
-#| msgid_plural ""
-#| "%s does not know how to open remote files. Do you want to download the "
-#| "files to a temporary location and then open them?"
 msgid ""
 "%s does not know how to open remote file. Do you want to download the file "
 "to a temporary location and then open it?"
 msgstr ""
-"A(z) %s nem tudja, hogyan nyissa meg a távoli fájlt. Szeretné letölteni a"
-" fájlt egy átmeneti helyre, és azután megnyitni azt?"
+"A(z) %s nem tudja, hogyan nyissa meg a távoli fájlt. Szeretné letölteni a "
+"fájlt egy átmeneti helyre, és azután megnyitni azt?"
 
 #: src/gnome-cmd-file-list.cc:1632
 msgid "Directory listing failed."
@@ -3751,61 +3774,61 @@ msgstr[1] "%s, %d a(z) %d könyvtárból kijelölve"
 msgid "%s free"
 msgstr "%s szabad"
 
-#: src/gnome-cmd-file-selector.cc:633 src/gnome-cmd-file-selector.cc:708
+#: src/gnome-cmd-file-selector.cc:635 src/gnome-cmd-file-selector.cc:711
 #: src/gnome-cmd-user-actions.cc:1670 src/gnome-cmd-user-actions.cc:1678
 msgid "The tab is locked, close anyway?"
 msgstr "A lap zárolva van, mindenképp bezárja?"
 
-#: src/gnome-cmd-file-selector.cc:651 src/gnome-cmd-main-menu.cc:347
+#: src/gnome-cmd-file-selector.cc:654 src/gnome-cmd-main-menu.cc:347
 msgid "Open in New _Tab"
 msgstr "Megnyitás új _lapon"
 
-#: src/gnome-cmd-file-selector.cc:658
+#: src/gnome-cmd-file-selector.cc:661
 msgid "_Unlock Tab"
 msgstr "Lap _feloldása"
 
-#: src/gnome-cmd-file-selector.cc:658
+#: src/gnome-cmd-file-selector.cc:661
 msgid "_Lock Tab"
 msgstr "Lap _zárolása"
 
-#: src/gnome-cmd-file-selector.cc:663
+#: src/gnome-cmd-file-selector.cc:666
 msgid "_Refresh Tab"
 msgstr "Lap _frissítése"
 
-#: src/gnome-cmd-file-selector.cc:668
+#: src/gnome-cmd-file-selector.cc:671
 msgid "Copy Tab to Other _Pane"
 msgstr "Lap másolása a másik _panelre"
 
-#: src/gnome-cmd-file-selector.cc:674 src/gnome-cmd-main-menu.cc:348
+#: src/gnome-cmd-file-selector.cc:677 src/gnome-cmd-main-menu.cc:348
 msgid "_Close Tab"
 msgstr "Lap _bezárása"
 
-#: src/gnome-cmd-file-selector.cc:679 src/gnome-cmd-main-menu.cc:349
+#: src/gnome-cmd-file-selector.cc:682 src/gnome-cmd-main-menu.cc:349
 msgid "Close _All Tabs"
 msgstr "_Minden lap bezárása"
 
-#: src/gnome-cmd-file-selector.cc:684
+#: src/gnome-cmd-file-selector.cc:687
 msgid "Close _Duplicate Tabs"
 msgstr "_Kettőzött lapok bezárása"
 
-#: src/gnome-cmd-file-selector.cc:1139
+#: src/gnome-cmd-file-selector.cc:1144
 msgid "No file name given"
 msgstr "Nem adott meg fájlnevet"
 
-#: src/gnome-cmd-file-selector.cc:1170
+#: src/gnome-cmd-file-selector.cc:1175
 msgid "New Text File"
 msgstr "Új szöveges fájl"
 
-#: src/gnome-cmd-file-selector.cc:1316
+#: src/gnome-cmd-file-selector.cc:1321
 msgid "Symbolic link name:"
 msgstr "Szimbolikus link neve:"
 
-#: src/gnome-cmd-file-selector.cc:1329 src/gnome-cmd-file-selector.cc:1382
+#: src/gnome-cmd-file-selector.cc:1334 src/gnome-cmd-file-selector.cc:1387
 #: src/gnome-cmd-user-actions.cc:819
 msgid "Create Symbolic Link"
 msgstr "Szimbolikus link létrehozása"
 
-#: src/gnome-cmd-file-selector.cc:1453
+#: src/gnome-cmd-file-selector.cc:1458
 msgid "Filter:"
 msgstr "Szűrő:"
 
