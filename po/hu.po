@@ -14,8 +14,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-commander/issues\n"
-"POT-Creation-Date: 2021-09-07 16:39+0000\n"
-"PO-Revision-Date: 2021-09-12 02:14+0200\n"
+"POT-Creation-Date: 2021-09-12 00:16+0000\n"
+"PO-Revision-Date: 2021-09-12 02:30+0200\n"
 "Last-Translator: Balázs Úr <ur.balazs at fsf dot hu>\n"
 "Language-Team: Hungarian <gnome-hu-list at gnome dot org>\n"
 "Language: hu\n"
@@ -1826,7 +1826,7 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-"Hiba történt „%s” törlése közben\n"
+"Hiba a(z) „%s” törlése közben\n"
 "\n"
 "%s"
 
@@ -1855,10 +1855,6 @@ msgstr "Kihagyás"
 
 #: src/dialogs/gnome-cmd-delete-dialog.cc:294
 #, c-format
-#| msgid ""
-#| "Error while deleting “%s”\n"
-#| "\n"
-#| "%s"
 msgid ""
 "Error while deleting: \n"
 "\n"
@@ -1870,7 +1866,6 @@ msgstr ""
 
 #: src/dialogs/gnome-cmd-delete-dialog.cc:307
 #, c-format
-#| msgid "The directory “%s” doesn’t exist, do you want to create it?"
 msgid "The directory “%s” is not empty. Do you really want to delete it?"
 msgstr "A(z) „%s” könyvtár nem üres. Valóban törölni szeretné?"
 
@@ -1892,12 +1887,10 @@ msgid "Cancel"
 msgstr "Mégse"
 
 #: src/dialogs/gnome-cmd-delete-dialog.cc:311
-#| msgid "_Select All"
 msgid "Delete All"
 msgstr "Összes törlése"
 
 #: src/dialogs/gnome-cmd-delete-dialog.cc:311
-#| msgid "Delete default"
 msgid "Delete Remaining"
 msgstr "Hátralévők törlése"
 
