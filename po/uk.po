@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander 1.3.0\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-commander/issues\n"
-"POT-Creation-Date: 2021-09-08 20:39+0000\n"
-"PO-Revision-Date: 2021-09-09 12:12+0300\n"
+"POT-Creation-Date: 2021-09-14 06:51+0000\n"
+"PO-Revision-Date: 2021-09-14 10:45+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -2648,7 +2648,6 @@ msgid "Confirm defaults to OK"
 msgstr "Підтвердження типового «Гаразд»"
 
 #: src/dialogs/gnome-cmd-options-dialog.cc:1060
-#| msgid "Preselected overwride action in copy dialog"
 msgid "Preselected overwrite action in copy dialog"
 msgstr "Попередньо вибрана дія з перезапису у вікні копіювання"
 
@@ -4749,6 +4748,13 @@ msgstr "Проблема зі створенням символічного по
 #: src/gnome-cmd-xfer.cc:963
 msgid "Ignore"
 msgstr "Ігнорувати"
+
+#. Translators: Translate 'Copy' as a noun here
+#: src/gnome-cmd-xfer.cc:1064
+#| msgid "Copy"
+msgctxt "Filename suffix"
+msgid "Copy"
+msgstr "Копія"
 
 #: src/gnome-cmd-xfer-progress-win.cc:42
 msgid "stopping…"
