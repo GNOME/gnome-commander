@@ -54,7 +54,6 @@ inline void update_refs (GnomeCmdFileList *fl, GList *files)
     _fl = fl;
 }
 
-
 inline void cut_and_paste (GnomeCmdDir *to)
 {
     gnome_cmd_move_start (_files,
@@ -62,7 +61,7 @@ inline void cut_and_paste (GnomeCmdDir *to)
                           _fl,
                           NULL,
                           G_FILE_COPY_NONE,
-                          gnome_cmd_data.options.confirm_move_overwrite,
+                          GNOME_CMD_CONFIRM_OVERWRITE_QUERY,
                           GTK_SIGNAL_FUNC (on_xfer_done), _files);
     _files = NULL;
     _fl = NULL;
@@ -77,7 +76,7 @@ inline void copy_and_paste (GnomeCmdDir *to)
                           _fl,
                           NULL,
                           G_FILE_COPY_NONE,
-                          gnome_cmd_data.options.confirm_copy_overwrite,
+                          GNOME_CMD_CONFIRM_OVERWRITE_QUERY,
                           GTK_SIGNAL_FUNC (on_xfer_done), _files);
     _files = NULL;
     _fl = NULL;
