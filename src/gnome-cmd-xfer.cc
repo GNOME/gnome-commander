@@ -1343,6 +1343,7 @@ gnome_cmd_copy_gfile_recursive (GFile *srcGFile,
                     auto targetPath = g_strdup_printf("%s%s%s", g_file_peek_path(destGFile), G_DIR_SEPARATOR_S, fileNameChildGFile);
                     auto targetGFile = g_file_new_for_path(targetPath);
                     do_the_copy(srcChildGFile, targetGFile, copyFlags, xferDataPointer);
+                    guint copyFlagsTemp = copyFlags;
                     switch (xferData->problem_action)
                     {
                         case COPY_ERROR_ACTION_RETRY:
@@ -1350,7 +1351,8 @@ gnome_cmd_copy_gfile_recursive (GFile *srcGFile,
                             return gnome_cmd_copy_gfile_recursive(srcChildGFile, targetGFile, copyFlags, xferData);
                         case COPY_ERROR_ACTION_REPLACE:
                             xferData->problem_action = COPY_ERROR_ACTION_NO_ACTION_YET;
-                            gnome_cmd_copy_gfile_recursive(srcChildGFile, targetGFile, G_FILE_COPY_OVERWRITE, xferData);
+                            copyFlagsTemp = copyFlags | G_FILE_COPY_OVERWRITE;
+                            gnome_cmd_copy_gfile_recursive(srcChildGFile, targetGFile, (GFileCopyFlags) copyFlagsTemp, xferData);
                             break;
                         case COPY_ERROR_ACTION_RENAME:
                             xferData->problem_action = COPY_ERROR_ACTION_NO_ACTION_YET;
@@ -1361,7 +1363,8 @@ gnome_cmd_copy_gfile_recursive (GFile *srcGFile,
                             xferData->problem_action = COPY_ERROR_ACTION_NO_ACTION_YET;
                             break;
                         case COPY_ERROR_ACTION_REPLACE_ALL:
-                            gnome_cmd_copy_gfile_recursive(srcChildGFile, targetGFile, G_FILE_COPY_OVERWRITE, xferData);
+                            copyFlagsTemp = copyFlags | G_FILE_COPY_OVERWRITE;
+                            gnome_cmd_copy_gfile_recursive(srcChildGFile, targetGFile, (GFileCopyFlags) copyFlagsTemp, xferData);
                             break;
                         case COPY_ERROR_ACTION_SKIP_ALL:
                             g_object_unref(srcChildGFile);
@@ -1372,7 +1375,7 @@ gnome_cmd_copy_gfile_recursive (GFile *srcGFile,
                             return true;
                         case COPY_ERROR_ACTION_RENAME_ALL:
                             set_new_nonexisting_dest_gfile(srcChildGFile, &targetGFile, xferData);
-                            gnome_cmd_copy_gfile_recursive(srcChildGFile, targetGFile, G_FILE_COPY_OVERWRITE, xferData);
+                            gnome_cmd_copy_gfile_recursive(srcChildGFile, targetGFile, copyFlags, xferData);
                             break;
                         case COPY_ERROR_ACTION_ABORT:
                         case COPY_ERROR_ACTION_COPY_INTO:
