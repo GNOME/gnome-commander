@@ -185,7 +185,7 @@ static void run_file_copy_overwrite_dialog(XferData *xferData)
     auto problemDestBasename = get_gfile_attribute_string(xferData->problemDestGFile, G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME);
     auto sourceDetails = get_file_details_string (xferData->problemSrcGFile);
     auto targetDetails = get_file_details_string (xferData->problemDestGFile);
-
+    // ToDo: Adjust wording dynamically, see also below at run_move_overwrite_dialog
     auto msg = g_strdup_printf (_("Overwrite file:\n\n<b>%s</b>\n<span color='dimgray' size='smaller'>%s</span>\n\nWith:\n\n<b>%s</b>\n<span color='dimgray' size='smaller'>%s</span>"),
                                 problemDestBasename,
                                 targetDetails,
@@ -306,7 +306,7 @@ static void run_move_overwrite_dialog(XferData *xferData)
                                                 G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME);
     auto sourceDetails = get_file_details_string (xferData->problemSrcGFile);
     auto targetDetails = get_file_details_string (xferData->problemDestGFile);
-    // ToDo: Fix wording for files/folders
+    // ToDo: Adjust wording dynamically, see also above at run_file_copy_overwrite_dialog
     auto msg = g_strdup_printf (_("Overwrite file:\n\n<b>%s</b>\n<span color='dimgray' size='smaller'>%s</span>\n\nWith:\n\n<b>%s</b>\n<span color='dimgray' size='smaller'>%s</span>"),
             problemDestBasename,
             targetDetails,
@@ -355,7 +355,7 @@ static void run_move_overwrite_dialog(XferData *xferData)
     }
 }
 
-//ToDo: Merge with 'update_transfer_gui_error_copy'
+
 static void update_transfer_gui_error_move (XferData *xferData)
 {
     if(!g_error_matches(xferData->error, G_IO_ERROR, G_IO_ERROR_EXISTS))
@@ -1177,7 +1177,7 @@ gnome_cmd_move_gfile_recursive (GFile *srcGFile,
                         break;
                     case COPY_ERROR_ACTION_SKIP_ALL:
                         return true;
-                    // ToDo: Copy into can only be selected in case of copying a directory into an
+                    // Copy into can only be selected in case of copying a directory into an
                     // already exising directory, so we are ignoring this here because we deal with
                     // moving files in this if branch.
                     case COPY_ERROR_ACTION_COPY_INTO:
