@@ -141,12 +141,12 @@ static void run_directory_copy_overwrite_dialog(const char *msg, XferData *xferD
 {
     gint guiResponse = -1;
     g_list_length(xferData->srcGFileList) > 1
-    ? guiResponse = run_simple_dialog (
-        *main_win, TRUE, GTK_MESSAGE_ERROR, msg, _("Copy problem"),
-        -1, _("Abort"), _("Retry"), _("Copy into"), _("Rename"), _("Rename all"), _("Skip"), _("Skip all"), NULL)
-    : guiResponse = run_simple_dialog (
-        *main_win, TRUE, GTK_MESSAGE_ERROR, msg, _("Copy problem"),
-        -1, _("Abort"), _("Retry"), _("Copy into"), _("Rename"), NULL);
+        ? guiResponse = run_simple_dialog (
+            *main_win, TRUE, GTK_MESSAGE_ERROR, msg, _("Copy problem"),
+            -1, _("Abort"), _("Retry"), _("Copy into"), _("Rename"), _("Rename all"), _("Skip"), _("Skip all"), NULL)
+        : guiResponse = run_simple_dialog (
+            *main_win, TRUE, GTK_MESSAGE_ERROR, msg, _("Copy problem"),
+            -1, _("Abort"), _("Retry"), _("Copy into"), _("Rename"), NULL);
 
     switch (guiResponse)
     {
@@ -853,18 +853,7 @@ gnome_cmd_link_gfiles_start (GList *srcGFileGList,
 
     set_files_total(xferData);
 
-    //xferData->win = GNOME_CMD_XFER_PROGRESS_WIN (gnome_cmd_xfer_progress_win_new (xferData->filesTotal));
-    //gtk_widget_ref (GTK_WIDGET (xferData->win));
-    //gtk_window_set_title (GTK_WINDOW (xferData->win), _("preparing…"));
-    //gtk_widget_show (GTK_WIDGET (xferData->win));
-
-    //g_mutex_init(&xferData->mutex);
-
-    //  start the transfer
     gnome_cmd_transfer_gfiles(xferData);
-    //xferData->thread = g_thread_new (NULL, (GThreadFunc) gnome_cmd_transfer_gfiles, xferData);
-    //g_timeout_add (gnome_cmd_data.gui_update_rate, (GSourceFunc) update_transfer_gui, xferData);
-    //g_mutex_clear(&xferData->mutex);
 }
 
 
