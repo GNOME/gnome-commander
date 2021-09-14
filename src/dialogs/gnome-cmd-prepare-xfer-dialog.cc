@@ -225,20 +225,31 @@ static void on_ok (GtkButton *button, GnomeCmdPrepareXferDialog *dialog)
 
 
     gnome_cmd_dir_ref (dest_dir);
-    gnome_cmd_copy_start (dialog->src_files,
-                          dest_dir,
-                          dialog->src_fs->file_list(),
-                          dest_fn,
-                          dialog->gFileCopyFlags,
-                          dialog->overwriteMode,
-                          NULL, NULL);
-//    gnome_cmd_move_start (dialog->src_files,
-//                          dest_dir,
-//                          dialog->src_fs->file_list(),
-//                          dest_fn,
-//                          dialog->gFileCopyFlags,
-//                          dialog->xferOverwriteMode,
-//                          NULL, NULL);
+
+    switch (dialog->gnomeCmdTransferType)
+    {
+        case COPY:
+            gnome_cmd_copy_start (dialog->src_files,
+                                  dest_dir,
+                                  dialog->src_fs->file_list(),
+                                  dest_fn,
+                                  dialog->gFileCopyFlags,
+                                  dialog->overwriteMode,
+                                  NULL, NULL);
+            break;
+        case MOVE:
+            gnome_cmd_move_start (dialog->src_files,
+                      dest_dir,
+                      dialog->src_fs->file_list(),
+                      dest_fn,
+                      dialog->gFileCopyFlags,
+                      dialog->overwriteMode,
+                      NULL, NULL);
+            break;
+        case LINK:
+        default:
+            break;
+    }
 
 bailout:
     g_free (dest_path);

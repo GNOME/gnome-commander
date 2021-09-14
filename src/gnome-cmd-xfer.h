@@ -40,20 +40,13 @@ enum COPY_ERROR_ACTION
     COPY_ERROR_ACTION_REPLACE_ALL
 };
 
-enum TRANSFER_TYPE
-{
-    COPY,
-    MOVE,
-    LINK
-};
-
 struct XferData
 {
     GFileCopyFlags copyFlags;
     GnomeCmdConfirmOverwriteMode overwriteMode;
     GnomeVFSXferOptions xferOptions;
     GnomeVFSAsyncHandle *handle;
-    TRANSFER_TYPE transferType{COPY};
+    GnomeCmdTransferType transferType{COPY};
 
     // Source and target GFile's. The first srcGFile should be transfered to the first destGFile and so on...
     GList *srcGFileList;

@@ -296,10 +296,68 @@ static void update_transfer_gui_error_copy (XferData *xferData)
     g_free (msg);
 }
 
-static void update_transfer_gui_error_move (XferData *xferData)
+
+static void run_move_overwrite_dialog(XferData *xferData)
 {
     gint guiResponse = -1;
+    auto problemSrcBasename = get_gfile_attribute_string(xferData->problemSrcGFile,
+                                                G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME);
+    auto problemDestBasename = get_gfile_attribute_string(xferData->problemDestGFile,
+                                                G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME);
+    auto sourceDetails = get_file_details_string (xferData->problemSrcGFile);
+    auto targetDetails = get_file_details_string (xferData->problemDestGFile);
+    // ToDo: Fix wording for files/folders
+    auto msg = g_strdup_printf (_("Overwrite file:\n\n<b>%s</b>\n<span color='dimgray' size='smaller'>%s</span>\n\nWith:\n\n<b>%s</b>\n<span color='dimgray' size='smaller'>%s</span>"),
+            problemDestBasename,
+            targetDetails,
+            problemSrcBasename,
+            sourceDetails);
+    g_free (problemSrcBasename);
+    g_free (problemDestBasename);
+    g_free (sourceDetails);
+    g_free (targetDetails);
+    xferData->filesTotal > 1
+        ? guiResponse = run_simple_dialog (
+            *main_win, TRUE, GTK_MESSAGE_ERROR, msg, _("Move problem"),
+            -1, _("Abort"), _("Retry"), _("Replace"), _("Rename"), _("Skip"), _("Replace all"), _("Rename all"), _("Skip all"), NULL)
+        : guiResponse = run_simple_dialog (
+            *main_win, TRUE, GTK_MESSAGE_ERROR, msg, _("Move problem"),
+            -1, _("Abort"), _("Retry"), _("Replace"), _("Rename"), NULL);
+    switch (guiResponse)
+    {
+        case 0:
+            xferData->problem_action = COPY_ERROR_ACTION_ABORT;
+            break;
+        case 1:
+            xferData->problem_action = COPY_ERROR_ACTION_RETRY;
+            break;
+        case 2:
+            xferData->problem_action = COPY_ERROR_ACTION_REPLACE;
+            break;
+        case 3:
+            xferData->problem_action = COPY_ERROR_ACTION_RENAME;
+            break;
+        case 4:
+            xferData->problem_action = COPY_ERROR_ACTION_SKIP;
+            break;
+        case 5:
+            xferData->problem_action = COPY_ERROR_ACTION_REPLACE_ALL;
+            break;
+        case 6:
+            xferData->problem_action = COPY_ERROR_ACTION_RENAME_ALL;
+            break;
+        case 7:
+            xferData->problem_action = COPY_ERROR_ACTION_SKIP_ALL;
+            break;
+        default:
+            xferData->problem_action = COPY_ERROR_ACTION_RETRY;
+            break;
+    }
+}
 
+//ToDo: Merge with 'update_transfer_gui_error_copy'
+static void update_transfer_gui_error_move (XferData *xferData)
+{
     gchar *msg = g_strdup_printf (_("Error while transferring “%s”\n\n%s"),
                                     g_file_peek_path(xferData->problemSrcGFile),
                                     xferData->error->message);
@@ -310,103 +368,29 @@ static void update_transfer_gui_error_move (XferData *xferData)
     }
     else
     {
-        if (xferData->currentFileType == G_FILE_TYPE_DIRECTORY)
+        gdk_threads_enter ();
+        switch(xferData->overwriteMode)
         {
-            gdk_threads_enter ();
-            g_list_length(xferData->srcGFileList) > 1
-            ? guiResponse = run_simple_dialog (
-                *main_win, TRUE, GTK_MESSAGE_ERROR, msg, _("Move problem"),
-                -1, _("Abort"), _("Retry"), _("Copy into"), _("Rename"), _("Rename all"), _("Skip"), _("Skip all"), NULL)
-            : guiResponse = run_simple_dialog (
-                *main_win, TRUE, GTK_MESSAGE_ERROR, msg, _("Move problem"),
-                -1, _("Abort"), _("Retry"), _("Copy into"), _("Rename"), NULL);
-            gdk_threads_leave ();
-            switch (guiResponse)
-            {
-                case 0:
-                    xferData->problem_action = COPY_ERROR_ACTION_ABORT;
-                    break;
-                case 1:
-                    xferData->problem_action = COPY_ERROR_ACTION_RETRY;
-                    break;
-                case 2:
-                    xferData->problem_action = COPY_ERROR_ACTION_COPY_INTO;
-                    break;
-                case 3:
-                    xferData->problem_action = COPY_ERROR_ACTION_RENAME;
-                    break;
-                case 4:
-                    xferData->problem_action = COPY_ERROR_ACTION_RENAME_ALL;
-                    break;
-                case 5:
-                    xferData->problem_action = COPY_ERROR_ACTION_SKIP;
-                    break;
-                case 6:
-                    xferData->problem_action = COPY_ERROR_ACTION_SKIP_ALL;
-                    break;
-                default:
-                    xferData->problem_action = COPY_ERROR_ACTION_RETRY;
-                    break;
-            }
+            case GNOME_CMD_CONFIRM_OVERWRITE_SKIP_ALL:
+                xferData->problem_action = COPY_ERROR_ACTION_SKIP_ALL;
+                break;
+            case GNOME_CMD_CONFIRM_OVERWRITE_RENAME_ALL:
+                xferData->problem_action = COPY_ERROR_ACTION_RENAME_ALL;
+                break;
+            case GNOME_CMD_CONFIRM_OVERWRITE_SILENTLY:
+                // Note: When doing a native move operation, there is no option to
+                // move a folder into another folder like it is available for the copy
+                // process. The reason is that in the former case, we don't step recursively
+                // through the subdirectories. That's why we only offer a 'replace', but no
+                // 'copy into' when moving folders.
+                xferData->problem_action = COPY_ERROR_ACTION_REPLACE_ALL;
+                break;
+            case GNOME_CMD_CONFIRM_OVERWRITE_QUERY:
+            default:
+                run_move_overwrite_dialog(xferData);
+                break;
         }
-        if (xferData->currentFileType == G_FILE_TYPE_REGULAR)
-        {
-            auto problemSrcBasename = get_gfile_attribute_string(xferData->problemSrcGFile,
-                                                        G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME);
-            auto problemDestBasename = get_gfile_attribute_string(xferData->problemDestGFile,
-                                                        G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME);
-            auto sourceDetails = get_file_details_string (xferData->problemSrcGFile);
-            auto targetDetails = get_file_details_string (xferData->problemDestGFile);
-            g_free(msg);
-            msg = g_strdup_printf (_("Overwrite file:\n\n<b>%s</b>\n<span color='dimgray' size='smaller'>%s</span>\n\nWith:\n\n<b>%s</b>\n<span color='dimgray' size='smaller'>%s</span>"),
-                    problemDestBasename,
-                    targetDetails,
-                    problemSrcBasename,
-                    sourceDetails);
-            g_free (problemSrcBasename);
-            g_free (problemDestBasename);
-            g_free (sourceDetails);
-            g_free (targetDetails);
-            gdk_threads_enter ();
-            xferData->filesTotal > 1
-            ? guiResponse = run_simple_dialog (
-                *main_win, TRUE, GTK_MESSAGE_ERROR, msg, _("Copy problem"),
-                -1, _("Abort"), _("Retry"), _("Replace"), _("Rename"), _("Skip"), _("Replace all"), _("Rename all"), _("Skip all"), NULL)
-            : guiResponse = run_simple_dialog (
-                *main_win, TRUE, GTK_MESSAGE_ERROR, msg, _("Copy problem"),
-                -1, _("Abort"), _("Retry"), _("Replace"), _("Rename"), NULL);
-            gdk_threads_leave ();
-            switch (guiResponse)
-            {
-                case 0:
-                    xferData->problem_action = COPY_ERROR_ACTION_ABORT;
-                    break;
-                case 1:
-                    xferData->problem_action = COPY_ERROR_ACTION_RETRY;
-                    break;
-                case 2:
-                    xferData->problem_action = COPY_ERROR_ACTION_REPLACE;
-                    break;
-                case 3:
-                    xferData->problem_action = COPY_ERROR_ACTION_RENAME;
-                    break;
-                case 4:
-                    xferData->problem_action = COPY_ERROR_ACTION_SKIP;
-                    break;
-                case 5:
-                    xferData->problem_action = COPY_ERROR_ACTION_REPLACE_ALL;
-                    break;
-                case 6:
-                    xferData->problem_action = COPY_ERROR_ACTION_RENAME_ALL;
-                    break;
-                case 7:
-                    xferData->problem_action = COPY_ERROR_ACTION_SKIP_ALL;
-                    break;
-                default:
-                    xferData->problem_action = COPY_ERROR_ACTION_RETRY;
-                    break;
-            }
-        }
+        gdk_threads_leave ();
     }
     g_free (msg);
 }
@@ -1109,9 +1093,12 @@ gnome_cmd_move_gfile_recursive (GFile *srcGFile,
 
     g_free(xferData->curSrcFileName);
     xferData->curSrcFileName = get_gfile_attribute_string(srcGFile, G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME);
+    xferData->currentFileType = g_file_query_file_type(srcGFile, G_FILE_QUERY_INFO_NONE, nullptr);
+
     if(!g_file_move(srcGFile, destGFile, copyFlags, nullptr, update_transferred_data, xferDataPointer, &tmpError))
     {
         if(g_file_query_file_type(srcGFile, G_FILE_QUERY_INFO_NONE, nullptr) == G_FILE_TYPE_DIRECTORY
+           && g_file_query_exists(destGFile, nullptr)
            && g_error_matches(tmpError, G_IO_ERROR, G_IO_ERROR_WOULD_RECURSE))
         {
             g_message("Folder could not be copied natively, trying a copy-delete...");
@@ -1151,10 +1138,64 @@ gnome_cmd_move_gfile_recursive (GFile *srcGFile,
         }
         else
         {
-            g_propagate_error(&(xferData->error), tmpError);
-            xferData->problemSrcGFile = g_file_dup(srcGFile);
-            xferData->problemDestGFile = g_file_dup(destGFile);
-            xfer_progress_update(xferData);
+            // If G_FILE_COPY_OVERWRITE is not specified (i.e. when not 'Overwrite silently' is selected)
+            // and the target exists and is a file, then the error G_IO_ERROR_EXISTS is returned.
+            if(g_error_matches(tmpError, G_IO_ERROR, G_IO_ERROR_EXISTS))
+            {
+                g_propagate_error(&(xferData->error), tmpError);
+                xferData->problemSrcGFile = g_file_dup(srcGFile);
+                xferData->problemDestGFile = g_file_dup(destGFile);
+                xfer_progress_update(xferData);
+
+                guint copyFlagsTemp = copyFlags;
+
+                switch (xferData->problem_action)
+                {
+                    case COPY_ERROR_ACTION_RETRY:
+                        xferData->problem_action = COPY_ERROR_ACTION_NO_ACTION_YET;
+                        return gnome_cmd_move_gfile_recursive(srcGFile, destGFile, copyFlags, xferData);
+                    case COPY_ERROR_ACTION_REPLACE:
+                        xferData->problem_action = COPY_ERROR_ACTION_NO_ACTION_YET;
+                        copyFlagsTemp = copyFlags | G_FILE_COPY_OVERWRITE;
+                        gnome_cmd_move_gfile_recursive(srcGFile, destGFile, (GFileCopyFlags) copyFlagsTemp, xferData);
+                        break;
+                    case COPY_ERROR_ACTION_REPLACE_ALL:
+                        copyFlagsTemp = copyFlags | G_FILE_COPY_OVERWRITE;
+                        gnome_cmd_move_gfile_recursive(srcGFile, destGFile, (GFileCopyFlags) copyFlagsTemp, xferData);
+                        break;
+                    case COPY_ERROR_ACTION_RENAME:
+                        xferData->problem_action = COPY_ERROR_ACTION_NO_ACTION_YET;
+                        set_new_nonexisting_dest_gfile(srcGFile, &destGFile, xferData);
+                        // ToDo: Handle tmpError, also on other occurences!
+                        g_file_move(srcGFile, destGFile, copyFlags, nullptr, update_transferred_data, xferDataPointer, &tmpError);
+                        break;
+                    case COPY_ERROR_ACTION_RENAME_ALL:
+                        set_new_nonexisting_dest_gfile(srcGFile, &destGFile, xferData);
+                        g_file_move(srcGFile, destGFile, copyFlags, nullptr, update_transferred_data, xferDataPointer, &tmpError);
+                        break;
+                    case COPY_ERROR_ACTION_SKIP:
+                        xferData->problem_action = COPY_ERROR_ACTION_NO_ACTION_YET;
+                        break;
+                    case COPY_ERROR_ACTION_SKIP_ALL:
+                        return true;
+                    // ToDo: Copy into can only be selected in case of copying a directory into an
+                    // already exising directory, so we are ignoring this here because we deal with
+                    // moving files in this if branch.
+                    case COPY_ERROR_ACTION_COPY_INTO:
+                    case COPY_ERROR_ACTION_ABORT:
+                        return false;
+                    case COPY_ERROR_ACTION_NO_ACTION_YET:
+                    default:
+                        break;
+                }
+            }
+            else
+            {
+                g_propagate_error(&(xferData->error), tmpError);
+                xferData->problemSrcGFile = g_file_dup(srcGFile);
+                xferData->problemDestGFile = g_file_dup(destGFile);
+                xfer_progress_update(xferData);
+            }
         }
     }
     else
@@ -1163,6 +1204,12 @@ gnome_cmd_move_gfile_recursive (GFile *srcGFile,
         xferData->bytesTotalTransferred += xferData->fileSize;
         if (xferData->problem_action == COPY_ERROR_ACTION_RETRY)
             xferData->problem_action = COPY_ERROR_ACTION_NO_ACTION_YET;
+    }
+
+    if(xferData->problem_action == COPY_ERROR_ACTION_RETRY)
+    {
+        xferData->problem_action = COPY_ERROR_ACTION_NO_ACTION_YET;
+        gnome_cmd_move_gfile_recursive(srcGFile, destGFile, copyFlags, xferData);
     }
 
     return true;

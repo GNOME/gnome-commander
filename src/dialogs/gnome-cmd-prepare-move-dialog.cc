@@ -39,6 +39,7 @@ typedef struct
     GnomeCmdPrepareXferDialog *dialog;
     GtkWidget *silent;
     GtkWidget *query;
+    GtkWidget *rename;
     GtkWidget *skip;
 
 } PrepareMoveData;
@@ -48,16 +49,25 @@ static void on_ok (GtkButton *button, gpointer user_data)
 {
     PrepareMoveData *data = (PrepareMoveData *) user_data;
     GnomeCmdPrepareXferDialog *dlg = data->dialog;
+    dlg->gnomeCmdTransferType = MOVE;
+
+    guint gFileCopyFlags = G_FILE_COPY_NONE;
 
     if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (data->silent)))
+    {
         dlg->overwriteMode = GNOME_CMD_CONFIRM_OVERWRITE_SILENTLY;
+        gFileCopyFlags |= G_FILE_COPY_OVERWRITE;
+    }
     else
         if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (data->query)))
             dlg->overwriteMode = GNOME_CMD_CONFIRM_OVERWRITE_QUERY;
         else
-            dlg->overwriteMode = GNOME_CMD_CONFIRM_OVERWRITE_SKIP_ALL;
+            if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (data->rename)))
+                dlg->overwriteMode = GNOME_CMD_CONFIRM_OVERWRITE_RENAME_ALL;
+            else
+                dlg->overwriteMode = GNOME_CMD_CONFIRM_OVERWRITE_SKIP_ALL;
 
-    dlg->xferOptions = GNOME_VFS_XFER_REMOVESOURCE;
+    dlg->gFileCopyFlags = (GFileCopyFlags) gFileCopyFlags;
 }
 
 
@@ -79,14 +89,7 @@ void gnome_cmd_prepare_move_dialog_show (GnomeCmdFileSelector *from, GnomeCmdFil
     gtk_widget_ref (GTK_WIDGET (data->dialog));
 
 
-    // Create prepare copy specific widgets
-
-    data->silent = gtk_radio_button_new_with_label (group, _("Silently"));
-    group = gtk_radio_button_get_group (GTK_RADIO_BUTTON (data->silent));
-    gtk_widget_ref (data->silent);
-    g_object_set_data_full (G_OBJECT (data->dialog), "silent", data->silent, g_object_unref);
-    gtk_widget_show (data->silent);
-    gtk_box_pack_start (GTK_BOX (data->dialog->left_vbox), data->silent, FALSE, FALSE, 0);
+    // Create prepare move specific widgets
 
     data->query = gtk_radio_button_new_with_label (group, _("Query First"));
     group = gtk_radio_button_get_group (GTK_RADIO_BUTTON (data->query));
@@ -95,12 +98,26 @@ void gnome_cmd_prepare_move_dialog_show (GnomeCmdFileSelector *from, GnomeCmdFil
     gtk_widget_show (data->query);
     gtk_box_pack_start (GTK_BOX (data->dialog->left_vbox), data->query, FALSE, FALSE, 0);
 
-    data->skip = gtk_radio_button_new_with_label (group, _("Skip All"));
+    data->rename = gtk_radio_button_new_with_label (group, _("Rename"));
+    group = gtk_radio_button_get_group (GTK_RADIO_BUTTON (data->rename));
+    gtk_widget_ref (data->rename);
+    g_object_set_data_full (G_OBJECT (data->dialog), "rename", data->rename, g_object_unref);
+    gtk_widget_show (data->rename);
+    gtk_box_pack_start (GTK_BOX (data->dialog->left_vbox), data->rename, FALSE, FALSE, 0);
+
+    data->skip = gtk_radio_button_new_with_label (group, _("Skip"));
     group = gtk_radio_button_get_group (GTK_RADIO_BUTTON (data->skip));
     gtk_widget_ref (data->skip);
     g_object_set_data_full (G_OBJECT (data->dialog), "skip", data->skip, g_object_unref);
     gtk_widget_show (data->skip);
     gtk_box_pack_start (GTK_BOX (data->dialog->left_vbox), data->skip, FALSE, FALSE, 0);
+
+    data->silent = gtk_radio_button_new_with_label (group, _("Overwrite silently"));
+    group = gtk_radio_button_get_group (GTK_RADIO_BUTTON (data->silent));
+    gtk_widget_ref (data->silent);
+    g_object_set_data_full (G_OBJECT (data->dialog), "silent", data->silent, g_object_unref);
+    gtk_widget_show (data->silent);
+    gtk_box_pack_start (GTK_BOX (data->dialog->left_vbox), data->silent, FALSE, FALSE, 0);
 
     gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (g_slist_nth_data (group, gnome_cmd_data.options.confirm_move_overwrite)), TRUE);
 

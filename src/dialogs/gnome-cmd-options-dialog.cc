@@ -1081,20 +1081,24 @@ static GtkWidget *create_confirmation_tab (GtkWidget *parent, GnomeCmdData::Opti
     /* Move overwrite options
      */
     cat_box = create_vbox (parent, FALSE, 0);
-    cat = create_category (parent, cat_box, _("Move overwrite"));
+    cat = create_category (parent, cat_box, _("Preselected overwrite action in move dialog"));
     gtk_box_pack_start (GTK_BOX (vbox), cat, FALSE, TRUE, 0);
 
-    radio = create_radio (parent, NULL, _("Overwrite silently"), "move_overwrite_silently");
-    gtk_box_pack_start (GTK_BOX (cat_box), radio, FALSE, TRUE, 0);
-    if (cfg.confirm_move_overwrite==GNOME_CMD_CONFIRM_OVERWRITE_SILENTLY)
-        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
-    radio = create_radio (parent, get_radio_group (radio), _("Query first"), "move_overwrite_query");
+    radio = create_radio (parent, NULL, _("Query first"), "move_overwrite_query");
     gtk_container_add (GTK_CONTAINER (cat_box), radio);
     if (cfg.confirm_move_overwrite==GNOME_CMD_CONFIRM_OVERWRITE_QUERY)
         gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
-    radio = create_radio (parent, get_radio_group (radio), _("Skip all"), "move_overwrite_skip_all");
+    radio = create_radio (parent, get_radio_group (radio), _("Rename"), "move_rename_all");
+    gtk_container_add (GTK_CONTAINER (cat_box), radio);
+    if (cfg.confirm_move_overwrite==GNOME_CMD_CONFIRM_OVERWRITE_RENAME_ALL)
+        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
+    radio = create_radio (parent, get_radio_group (radio), _("Skip"), "move_overwrite_skip_all");
     gtk_container_add (GTK_CONTAINER (cat_box), radio);
     if (cfg.confirm_move_overwrite==GNOME_CMD_CONFIRM_OVERWRITE_SKIP_ALL)
+        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
+    radio = create_radio (parent, get_radio_group (radio), _("Overwrite silently"), "move_overwrite_silently");
+    gtk_box_pack_start (GTK_BOX (cat_box), radio, FALSE, TRUE, 0);
+    if (cfg.confirm_move_overwrite==GNOME_CMD_CONFIRM_OVERWRITE_SILENTLY)
         gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
 
 
@@ -1123,6 +1127,7 @@ void store_confirmation_options (GtkWidget *dialog, GnomeCmdData::Options &cfg)
     GtkWidget *confirm_copy_skip_all = lookup_widget (dialog, "copy_overwrite_skip_all");
     GtkWidget *confirm_move_silent = lookup_widget (dialog, "move_overwrite_silently");
     GtkWidget *confirm_move_query = lookup_widget (dialog, "move_overwrite_query");
+    GtkWidget *confirm_move_rename_all = lookup_widget (dialog, "move_rename_all");
     GtkWidget *confirm_move_skip_all = lookup_widget (dialog, "move_overwrite_skip_all");
     GtkWidget *confirm_mouse_dnd_check = lookup_widget (dialog, "confirm_mouse_dnd_check");
 
@@ -1143,6 +1148,8 @@ void store_confirmation_options (GtkWidget *dialog, GnomeCmdData::Options &cfg)
         cfg.confirm_move_overwrite = GNOME_CMD_CONFIRM_OVERWRITE_SILENTLY;
     else if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (confirm_move_query)))
         cfg.confirm_move_overwrite = GNOME_CMD_CONFIRM_OVERWRITE_QUERY;
+    else if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (confirm_move_rename_all)))
+        cfg.confirm_move_overwrite = GNOME_CMD_CONFIRM_OVERWRITE_RENAME_ALL;
     else if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (confirm_move_skip_all)))
         cfg.confirm_move_overwrite = GNOME_CMD_CONFIRM_OVERWRITE_SKIP_ALL;
 
