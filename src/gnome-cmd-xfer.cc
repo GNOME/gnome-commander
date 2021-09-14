@@ -1090,26 +1090,30 @@ gnome_cmd_move_gfile_recursive (GFile *srcGFile,
            && g_file_query_exists(destGFile, nullptr)
            && g_error_matches(tmpError, G_IO_ERROR, G_IO_ERROR_WOULD_RECURSE))
         {
-            g_message("Folder could not be copied natively, trying a copy-delete...");
             g_error_free(tmpError);
             tmpError = nullptr;
             if (gnome_cmd_copy_gfile_recursive(srcGFile, destGFile, xferData->copyFlags, xferData))
             {
+                // Folder was copied, now delete the source for completing the move operation
                 auto gFileInfo = g_file_query_info(srcGFile, "*", G_FILE_QUERY_INFO_NONE, nullptr, &tmpError);
-                if (!gFileInfo || tmpError)
+                if (tmpError)
                 {
-                    g_propagate_error(&(xferData->error), tmpError);
-                    xferData->problemSrcGFile = g_file_dup(srcGFile);
-                    xferData->problemDestGFile = g_file_dup(destGFile);
-                    xfer_progress_update(xferData);
-                    g_object_unref (gFileInfo);
-                    //ToDo: Decide what to do here!
+                    auto srcFileName = g_file_get_basename(srcGFile);
+                    auto msg = g_strdup_printf(_("Source “%s” could not be deleted. Aborting!\n\n%s"), srcFileName, tmpError->message);
+                    run_simple_dialog ( *main_win, TRUE, GTK_MESSAGE_ERROR, msg, _("Transfer problem"), -1, _("Abort"), NULL);
+                    g_free (srcFileName);
+                    g_error_free(tmpError);
                     return false;
                 }
 
                 auto srcGFileParent = g_file_get_parent(srcGFile);
                 if (!srcGFileParent)
                 {
+                    auto srcFileName = g_file_get_basename(srcGFile);
+                    auto msg = g_strdup_printf(_("Source “%s” could not be deleted. Aborting!\n\n%s"), srcFileName, tmpError->message);
+                    run_simple_dialog ( *main_win, TRUE, GTK_MESSAGE_ERROR, msg, _("Transfer problem"), -1, _("Abort"), NULL);
+                    g_free (srcFileName);
+                    g_error_free(tmpError);
                     g_object_unref(gFileInfo);
                     return false;
                 }
@@ -1123,6 +1127,15 @@ gnome_cmd_move_gfile_recursive (GFile *srcGFile,
 
                 g_free(gFileParentPath);
                 g_object_unref(srcGFileParent);
+            }
+            else
+            {
+                auto srcFileName = g_file_get_basename(srcGFile);
+                auto msg = g_strdup_printf(_("Source “%s” could not be copied. Aborting!"), srcFileName);
+                run_simple_dialog ( *main_win, TRUE, GTK_MESSAGE_ERROR, msg, _("Transfer problem"), -1, _("Abort"), NULL);
+                g_free (srcFileName);
+                g_error_free(tmpError);
+                return false;
             }
         }
         else
