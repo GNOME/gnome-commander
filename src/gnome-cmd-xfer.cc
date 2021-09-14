@@ -358,13 +358,13 @@ static void run_move_overwrite_dialog(XferData *xferData)
 //ToDo: Merge with 'update_transfer_gui_error_copy'
 static void update_transfer_gui_error_move (XferData *xferData)
 {
-    gchar *msg = g_strdup_printf (_("Error while transferring “%s”\n\n%s"),
-                                    g_file_peek_path(xferData->problemSrcGFile),
-                                    xferData->error->message);
-
     if(!g_error_matches(xferData->error, G_IO_ERROR, G_IO_ERROR_EXISTS))
     {
+        gchar *msg = g_strdup_printf (_("Error while transferring “%s”\n\n%s"),
+                                        g_file_peek_path(xferData->problemSrcGFile),
+                                        xferData->error->message);
         run_simple_error_dialog(msg, xferData);
+        g_free (msg);
     }
     else
     {
@@ -392,7 +392,6 @@ static void update_transfer_gui_error_move (XferData *xferData)
         }
         gdk_threads_leave ();
     }
-    g_free (msg);
 }
 
 static gboolean update_transfer_gui (XferData *xferData)
@@ -445,8 +444,6 @@ static gboolean update_transfer_gui (XferData *xferData)
             xferData->win = nullptr;
         }
 
-        // ToDo: If more than one file should be transferred and one file could not be
-        // transferred successsfully, we have to check for this error here
         if (xferData->problem_action == COPY_ERROR_ACTION_NO_ACTION_YET
             && xferData->on_completed_func)
         {
