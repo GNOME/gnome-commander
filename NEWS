@@ -1,4 +1,16 @@
 ===================================
+gnome-commander 1.14
+---------------
+
+New features:
+ * ...
+
+Bug fixes:
+ * Fixed issue #5 ("Follow Links" option does not work when copying files)
+
+
+
+===================================
 gnome-commander 1.12
 ---------------
 
@@ -596,7 +608,7 @@ Bug fixes:
        de (Mario Blättermann), el (Dimitris Spingos), fr (Bruno Brouard)
  * New or updated translations: 
        da (Ask H. Larsen), de (Mario Blättermann, Uwe Scholz), 
-       el (Dimitris Spingos), fr (Bruno Brouard), hu (Balázs Úr), 
+       el (Dimitris Spingos), fr (Bruno Brouard), hu (Balázs Úr),
        id (Andika Triwidada), pt_br (Adorilson Bezerra, Juan Diego Martins
        da Costa Cruz), ru (Aleksej Kabanov), sl (Martin Srebotnjak), 
        th (Akom Chotiphantawanon)
