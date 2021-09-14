@@ -82,7 +82,7 @@ struct XferData
     GThread *thread{nullptr};                // the work thread
     GMutex mutex{nullptr};                   // used to sync the main and worker thread
     GError *error{nullptr};                  // the cause that the file cant be deleted
-    GType currentFileType;                   // the file type of the file which is currently copied
+    GType currentSrcFileType;                // the file type of the file which is currently copied
 };
 
 void

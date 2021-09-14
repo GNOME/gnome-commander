@@ -252,7 +252,7 @@ static void update_transfer_gui_error_copy (XferData *xferData)
     }
     else
     {
-        if (xferData->currentFileType == G_FILE_TYPE_DIRECTORY)
+        if (xferData->currentSrcFileType == G_FILE_TYPE_DIRECTORY)
         {
             gdk_threads_enter ();
             switch(xferData->overwriteMode)
@@ -273,7 +273,7 @@ static void update_transfer_gui_error_copy (XferData *xferData)
             }
             gdk_threads_leave ();
         }
-        if (xferData->currentFileType == G_FILE_TYPE_REGULAR)
+        if (xferData->currentSrcFileType == G_FILE_TYPE_REGULAR)
         {
             switch(xferData->overwriteMode)
             {
@@ -1082,7 +1082,7 @@ gnome_cmd_move_gfile_recursive (GFile *srcGFile,
 
     g_free(xferData->curSrcFileName);
     xferData->curSrcFileName = get_gfile_attribute_string(srcGFile, G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME);
-    xferData->currentFileType = g_file_query_file_type(srcGFile, G_FILE_QUERY_INFO_NONE, nullptr);
+    xferData->currentSrcFileType = g_file_query_file_type(srcGFile, G_FILE_QUERY_INFO_NONE, nullptr);
 
     if(!g_file_move(srcGFile, destGFile, copyFlags, nullptr, update_transferred_data, xferDataPointer, &tmpError))
     {
@@ -1247,7 +1247,7 @@ gnome_cmd_copy_gfile_recursive (GFile *srcGFile,
     {
         case G_FILE_TYPE_DIRECTORY:
         {
-            xferData->currentFileType = G_FILE_TYPE_DIRECTORY;
+            xferData->currentSrcFileType = G_FILE_TYPE_DIRECTORY;
 
             switch (xferData->problem_action)
             {
@@ -1337,7 +1337,7 @@ gnome_cmd_copy_gfile_recursive (GFile *srcGFile,
                 }
                 else if(g_file_info_get_file_type(gFileInfoChildFile) == G_FILE_TYPE_REGULAR)
                 {
-                    xferData->currentFileType = G_FILE_TYPE_REGULAR;
+                    xferData->currentSrcFileType = G_FILE_TYPE_REGULAR;
                     auto fileNameChildGFile = g_file_info_get_name(gFileInfoChildFile);
                     auto srcChildGFile = g_file_get_child(g_file_enumerator_get_container(enumerator), fileNameChildGFile);
                     auto targetPath = g_strdup_printf("%s%s%s", g_file_peek_path(destGFile), G_DIR_SEPARATOR_S, fileNameChildGFile);
@@ -1407,7 +1407,7 @@ gnome_cmd_copy_gfile_recursive (GFile *srcGFile,
         }
         case G_FILE_TYPE_REGULAR:
         {
-            xferData->currentFileType = G_FILE_TYPE_REGULAR;
+            xferData->currentSrcFileType = G_FILE_TYPE_REGULAR;
             do_the_copy(srcGFile, destGFile, copyFlags, xferDataPointer);
             switch (xferData->problem_action)
             {
