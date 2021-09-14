@@ -51,8 +51,73 @@
             </entry>
         </row>
         <row valign="top">
+            <entry><para>1.12.2</para></entry>
+            <entry><para>2021-05-29</para></entry>
+            <entry>
+                <para>Bug fixes:</para>
+                <para>
+                    <itemizedlist>
+                        <listitem>
+                            <para>Fixed issue #104 (Segmentation fault when pressing Ctrl+Right / Ctrl+Left / Ctrl+Shift+.)</para>
+                        </listitem>
+                    </itemizedlist>
+                </para>
+                <para>New features:</para>
+                <para>
+                    <itemizedlist>
+                        <listitem>
+                            <para>New or updated translations: es, id, ro</para>
+                        </listitem>
+                        <listitem>
+                            <para>New or updated docs: sv</para>
+                        </listitem>
+                    </itemizedlist>
+                </para>
+            </entry>
+        </row>
+        <row valign="top">
+            <entry><para>1.12.1</para></entry>
+            <entry><para>2021-04-17</para></entry>
+            <entry>
+                <para>Bug fixes:</para>
+                <para>
+                    <itemizedlist>
+                        <listitem>
+                            <para>Fixed issue #12 (Ask for the second time when trying to delete non-empty directory)</para>
+                        </listitem>
+                        <listitem>
+                            <para>Fixed issue #97 ("Execute" not shown in file popup menu for executable files)</para>
+                        </listitem>
+                        <listitem>
+                            <para>Fixed issue #98 ("Execute" doesn't work on files with space in filename)</para>
+                        </listitem>
+                        <listitem>
+                            <para>Fixed issue #55 (Theme does not change in all tabs when applied)</para>
+                        </listitem>
+                        <listitem>
+                            <para>Fixed issue #102 (Compilation error when TagLib is not available)</para>
+                        </listitem>
+                        <listitem>
+                            <para>Fixed issue #103 (Crash when empty string is given for search)</para>
+                        </listitem>
+                    </itemizedlist>
+                </para>
+                <para>New features:</para>
+                <para>
+                    <itemizedlist>
+                        <listitem>
+                            <para>New or updated translations: pl, pt_BR, sr, sv, uk</para>
+                        </listitem>
+                        <listitem>
+                            <para>New or updated docs: sv</para>
+                        </listitem>
+                    </itemizedlist>
+                </para>
+            </entry>
+        </row>
+        <row valign="top">
             <entry><para>1.12.0</para></entry>
-            <entry><para>2021-??-??</para></entry>
+            <entry><para>2021-03-25</para></entry>
             <entry>
                 <para>Bug fixes:</para>
                 <para>
@@ -75,10 +140,10 @@
                             <para>Use GIO instead of Gnome-VFS for filtering the file list, and on various other parts of the program</para>
                         </listitem>
                         <listitem>
-                            <para>New or updated translations: ...</para>
+                            <para>New or updated translations: ca, cs, da, de, eo, es, eu, fi, hu, id, kk, pl, pt_BR, ro, sl, sr, tr, uk</para>
                         </listitem>
                         <listitem>
-                            <para>New or updated docs: ...</para>
+                            <para>New or updated docs: cs, de, es, sv</para>
                         </listitem>
                     </itemizedlist>
                 </para>

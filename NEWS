@@ -8,13 +8,49 @@ New features:
 Bug fixes:
  * Fixed issue #5 ("Follow Links" option does not work when copying files)
 
+===================================
+gnome-commander 1.12.2
+---------------
 
+Bug fixes:
+ * Fixed issue #104 (Segmentation fault when pressing Ctrl+Right / Ctrl+Left / Ctrl+Shift+.)
+
+New or updated translations:
+ * es (Daniel Mustieles)
+ * id (Andika Triwidada
+ * ro (Daniel Șerbănescu)
+
+New or updated docs:
+ * sv (Anders Jonsson)
 
 ===================================
-gnome-commander 1.12
+gnome-commander 1.12.1
+---------------
+
+Bug fixes:
+ * Fixed issue #12 (Ask for the second time when trying to delete non-empty directory)
+ * Fixed issue #97 ("Execute" not shown in file popup menu for executable files)
+ * Fixed issue #98 ("Execute" doesn't work on files with space in filename)
+ * Fixed issue #55 (Theme does not change in all tabs when applied)
+ * Fixed issue #102 (Compilation error when TagLib is not available)
+ * Fixed issue #103 (Crash when empty string is given for search)
+
+New or updated translations:
+ * pl (Piotr Drąg)
+ * pt_BR (Enrico Nicoletto)
+ * sr (Мирослав Николић)
+ * sv (Anders Jonsson)
+ * uk (Yuri Chornoivan)
+
+New or updated docs:
+ * sv (Anders Jonsson)
+
+===================================
+gnome-commander 1.12.0
 ---------------
 
 New features:
+ * Gnome Commander depends on GIO now. Migration away from GnomeVFS is ongoing
  * Use GIO instead of Gnome-VFS for opening files with default application
  * Use GIO instead of Gnome-VFS for filtering the file list, and on various other parts of the program
 
@@ -22,6 +58,33 @@ Bug fixes:
  * Fixed issue #95 (InternalViewer: Scrolling images via mouse, mouse scroll wheel or keyboard arrow keys)
  * Fixed issue #96 (Segmentation fault when opening file/directory properties using keyboard)
  * Minor memory optimizations
+
+New or updated translations:
+ * ca (Jordi Mas)
+ * cs (Marek Černocký)
+ * da (Ask Hjorth Larsen)
+ * de (Mario Blättermann, Stephan Woidowski, Tim Sabsch, Wolfgang Stöggl)
+ * eo (Kristjan SCHMIDT)
+ * es (Daniel Mustieles)
+ * eu (Asier Sarasua Garmendia)
+ * fi (Jiri Grönroos)
+ * hu (Balázs Meskó, Balázs Úr)
+ * id (Andika Triwidada, Kukuh Syafaat)
+ * kk (Baurzhan Muftakhidinov)
+ * pl (Piotr Drąg)
+ * pt_BR (Rafael Fontenelle)
+ * ro (Daniel Șerbănescu)
+ * sl (Matej Urbančič)
+ * sr (Мирослав Николић)
+ * sv (Anders Jonsson)
+ * tr (Sabri Ünal)
+ * uk (Yuri Chornoivan)
+
+New or updated docs:
+ * cs (Marek Černocký)
+ * de (Mario Blättermann, Stephan Woidowski)
+ * es (Daniel Mustieles)
+ * sv (Anders Jonsson)
 
 ===================================
 gnome-commander 1.10.3
