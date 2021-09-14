@@ -12,6 +12,7 @@ XGETTEXT_OPTIONS = \
   --from-code=UTF-8 \
   --keyword=_ --flag=_:1:pass-c-format \
   --keyword=N_ --flag=N_:1:pass-c-format \
+  --keyword=C_:1c,2 \
   --flag=g_log:3:c-format --flag=g_logv:3:c-format \
   --flag=g_error:1:c-format --flag=g_message:1:c-format \
   --flag=g_critical:1:c-format --flag=g_warning:1:c-format \
