@@ -1165,12 +1165,29 @@ gnome_cmd_move_gfile_recursive (GFile *srcGFile,
                     case COPY_ERROR_ACTION_RENAME:
                         xferData->problem_action = COPY_ERROR_ACTION_NO_ACTION_YET;
                         set_new_nonexisting_dest_gfile(srcGFile, &destGFile, xferData);
-                        // ToDo: Handle tmpError, also on other occurences!
                         g_file_move(srcGFile, destGFile, copyFlags, nullptr, update_transferred_data, xferDataPointer, &tmpError);
+                        if (tmpError)
+                        {
+                            g_warning("g_file_move error: %s\n", tmpError->message);
+                            g_propagate_error(&(xferData->error), tmpError);
+                            xferData->problemSrcGFile = g_file_dup(srcGFile);
+                            xferData->problemDestGFile = g_file_dup(destGFile);
+                            xfer_progress_update(xferData);
+                            return false;
+                        }
                         break;
                     case COPY_ERROR_ACTION_RENAME_ALL:
                         set_new_nonexisting_dest_gfile(srcGFile, &destGFile, xferData);
                         g_file_move(srcGFile, destGFile, copyFlags, nullptr, update_transferred_data, xferDataPointer, &tmpError);
+                        if (tmpError)
+                        {
+                            g_warning("g_file_move error: %s\n", tmpError->message);
+                            g_propagate_error(&(xferData->error), tmpError);
+                            xferData->problemSrcGFile = g_file_dup(srcGFile);
+                            xferData->problemDestGFile = g_file_dup(destGFile);
+                            xfer_progress_update(xferData);
+                            return false;
+                        }
                         break;
                     case COPY_ERROR_ACTION_SKIP:
                         xferData->problem_action = COPY_ERROR_ACTION_NO_ACTION_YET;
