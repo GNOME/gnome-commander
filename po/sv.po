@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-commander/issues\n"
-"POT-Creation-Date: 2021-09-14 06:51+0000\n"
-"PO-Revision-Date: 2021-09-14 21:58+0200\n"
+"POT-Creation-Date: 2021-09-14 20:09+0000\n"
+"PO-Revision-Date: 2021-09-14 22:19+0200\n"
 "Last-Translator: Anders Jonsson <anders.jonsson@norsjovallen.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "Language: sv\n"
@@ -1522,10 +1522,10 @@ msgstr "Fil"
 #. destroy model automatically with view
 #: plugins/fileroller/file-roller-plugin.cc:591
 #: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:369
-#: src/dialogs/gnome-cmd-options-dialog.cc:1508
-#: src/dialogs/gnome-cmd-options-dialog.cc:2169
-#: src/dialogs/gnome-cmd-prepare-copy-dialog.cc:151
-#: src/dialogs/gnome-cmd-prepare-move-dialog.cc:115
+#: src/dialogs/gnome-cmd-options-dialog.cc:1515
+#: src/dialogs/gnome-cmd-options-dialog.cc:2176
+#: src/dialogs/gnome-cmd-prepare-copy-dialog.cc:145
+#: src/dialogs/gnome-cmd-prepare-move-dialog.cc:132
 #: src/dialogs/gnome-cmd-remote-dialog.cc:442 src/gnome-cmd-user-actions.cc:252
 msgid "Options"
 msgstr "Alternativ"
@@ -1674,7 +1674,7 @@ msgid "_Match case"
 msgstr "_Matcha skiftläge"
 
 #: src/dialogs/gnome-cmd-chmod-dialog.cc:45
-#: src/dialogs/gnome-cmd-options-dialog.cc:1529
+#: src/dialogs/gnome-cmd-options-dialog.cc:1536
 msgid "All files"
 msgstr "Alla filer"
 
@@ -1829,8 +1829,9 @@ msgstr "Problem vid borttagning"
 #: src/dialogs/gnome-cmd-delete-dialog.cc:403 src/gnome-cmd-xfer.cc:119
 #: src/gnome-cmd-xfer.cc:146 src/gnome-cmd-xfer.cc:149
 #: src/gnome-cmd-xfer.cc:204 src/gnome-cmd-xfer.cc:207
-#: src/gnome-cmd-xfer.cc:319 src/gnome-cmd-xfer.cc:322
-#: src/gnome-cmd-xfer.cc:374 src/gnome-cmd-xfer.cc:377
+#: src/gnome-cmd-xfer.cc:322 src/gnome-cmd-xfer.cc:325
+#: src/gnome-cmd-xfer.cc:1100 src/gnome-cmd-xfer.cc:1111
+#: src/gnome-cmd-xfer.cc:1132
 msgid "Abort"
 msgstr "Avbryt"
 
@@ -1838,18 +1839,19 @@ msgstr "Avbryt"
 #: src/gnome-cmd-file-selector.cc:1393 src/gnome-cmd-xfer.cc:119
 #: src/gnome-cmd-xfer.cc:146 src/gnome-cmd-xfer.cc:149
 #: src/gnome-cmd-xfer.cc:204 src/gnome-cmd-xfer.cc:207
-#: src/gnome-cmd-xfer.cc:319 src/gnome-cmd-xfer.cc:322
-#: src/gnome-cmd-xfer.cc:374 src/gnome-cmd-xfer.cc:377
+#: src/gnome-cmd-xfer.cc:322 src/gnome-cmd-xfer.cc:325
 msgid "Retry"
 msgstr "Försök igen"
 
 #: src/dialogs/gnome-cmd-delete-dialog.cc:287
 #: src/dialogs/gnome-cmd-delete-dialog.cc:416
 #: src/dialogs/gnome-cmd-options-dialog.cc:1071
-#: src/dialogs/gnome-cmd-prepare-copy-dialog.cc:120
+#: src/dialogs/gnome-cmd-options-dialog.cc:1095
+#: src/dialogs/gnome-cmd-prepare-copy-dialog.cc:114
+#: src/dialogs/gnome-cmd-prepare-move-dialog.cc:108
 #: src/gnome-cmd-file-selector.cc:1393 src/gnome-cmd-xfer.cc:119
 #: src/gnome-cmd-xfer.cc:146 src/gnome-cmd-xfer.cc:204
-#: src/gnome-cmd-xfer.cc:319 src/gnome-cmd-xfer.cc:374
+#: src/gnome-cmd-xfer.cc:322
 msgid "Skip"
 msgstr "Hoppa över"
 
@@ -2127,7 +2129,7 @@ msgid "No file name entered"
 msgstr "Inget filnamn angivet"
 
 #: src/dialogs/gnome-cmd-make-copy-dialog.cc:137
-#: src/dialogs/gnome-cmd-prepare-copy-dialog.cc:161
+#: src/dialogs/gnome-cmd-prepare-copy-dialog.cc:155
 #, c-format
 msgid "Copy “%s” to"
 msgstr "Kopiera ”%s” till"
@@ -2331,12 +2333,12 @@ msgid "Save on exit"
 msgstr "Spara vid avslut"
 
 #: src/dialogs/gnome-cmd-options-dialog.cc:232
-#: src/dialogs/gnome-cmd-options-dialog.cc:1201
+#: src/dialogs/gnome-cmd-options-dialog.cc:1208
 msgid "Directories"
 msgstr "Kataloger"
 
 #: src/dialogs/gnome-cmd-options-dialog.cc:236
-#: src/dialogs/gnome-cmd-options-dialog.cc:2196
+#: src/dialogs/gnome-cmd-options-dialog.cc:2203
 msgid "Tabs"
 msgstr "Flikar"
 
@@ -2626,95 +2628,90 @@ msgid "Preselected overwrite action in copy dialog"
 msgstr "Förvald överskrivningsåtgärd i kopieringsdialogen"
 
 #: src/dialogs/gnome-cmd-options-dialog.cc:1063
-#: src/dialogs/gnome-cmd-options-dialog.cc:1091
+#: src/dialogs/gnome-cmd-options-dialog.cc:1087
 msgid "Query first"
 msgstr "Fråga först"
 
 #: src/dialogs/gnome-cmd-options-dialog.cc:1067
-#: src/dialogs/gnome-cmd-prepare-copy-dialog.cc:113
+#: src/dialogs/gnome-cmd-options-dialog.cc:1091
+#: src/dialogs/gnome-cmd-prepare-copy-dialog.cc:107
+#: src/dialogs/gnome-cmd-prepare-move-dialog.cc:101
 #: src/gnome-cmd-file-popmenu.cc:731 src/gnome-cmd-xfer.cc:146
 #: src/gnome-cmd-xfer.cc:149 src/gnome-cmd-xfer.cc:204
-#: src/gnome-cmd-xfer.cc:207 src/gnome-cmd-xfer.cc:319
-#: src/gnome-cmd-xfer.cc:322 src/gnome-cmd-xfer.cc:374
-#: src/gnome-cmd-xfer.cc:377
+#: src/gnome-cmd-xfer.cc:207 src/gnome-cmd-xfer.cc:322
+#: src/gnome-cmd-xfer.cc:325
 msgid "Rename"
 msgstr "Byt namn"
 
 #: src/dialogs/gnome-cmd-options-dialog.cc:1075
-#: src/dialogs/gnome-cmd-options-dialog.cc:1087
-#: src/dialogs/gnome-cmd-prepare-copy-dialog.cc:127
+#: src/dialogs/gnome-cmd-options-dialog.cc:1099
+#: src/dialogs/gnome-cmd-prepare-copy-dialog.cc:121
+#: src/dialogs/gnome-cmd-prepare-move-dialog.cc:115
 msgid "Overwrite silently"
 msgstr "Skriv över tyst"
 
 #: src/dialogs/gnome-cmd-options-dialog.cc:1084
-msgid "Move overwrite"
-msgstr "Skriv över vid flytt"
+msgid "Preselected overwrite action in move dialog"
+msgstr "Förvald överskrivningsåtgärd i flyttdialogen"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1095
-#: src/gnome-cmd-file-selector.cc:1393 src/gnome-cmd-xfer.cc:146
-#: src/gnome-cmd-xfer.cc:204 src/gnome-cmd-xfer.cc:319
-#: src/gnome-cmd-xfer.cc:374
-msgid "Skip all"
-msgstr "Hoppa över alla"
-
-#: src/dialogs/gnome-cmd-options-dialog.cc:1104
+#: src/dialogs/gnome-cmd-options-dialog.cc:1108
 msgid "Drag and Drop"
 msgstr "Dra-och-släpp"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1107
+#: src/dialogs/gnome-cmd-options-dialog.cc:1111
 msgid "Confirm mouse operation"
 msgstr "Bekräfta musåtgärd"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1192
+#: src/dialogs/gnome-cmd-options-dialog.cc:1199
 msgid "Filetypes to hide"
 msgstr "Filtyper att dölja"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1195
+#: src/dialogs/gnome-cmd-options-dialog.cc:1202
 msgid "Unknown"
 msgstr "Okänd"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1198
+#: src/dialogs/gnome-cmd-options-dialog.cc:1205
 msgid "Regular files"
 msgstr "Vanliga filer"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1204
+#: src/dialogs/gnome-cmd-options-dialog.cc:1211
 msgid "Socket, fifo, block, or character devices"
 msgstr "Uttag, fifo, blockenheter eller teckenenheter"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1207
+#: src/dialogs/gnome-cmd-options-dialog.cc:1214
 msgid "Shortcuts (Windows systems)"
 msgstr "Genvägar (Windows-system)"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1210
+#: src/dialogs/gnome-cmd-options-dialog.cc:1217
 msgid "Mountable locations"
 msgstr "Monterbara platser"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1213
+#: src/dialogs/gnome-cmd-options-dialog.cc:1220
 msgid "Virtual files"
 msgstr "Virtuella filer"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1216
+#: src/dialogs/gnome-cmd-options-dialog.cc:1223
 msgid "Volatile files"
 msgstr "Flyktiga filer"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1221
+#: src/dialogs/gnome-cmd-options-dialog.cc:1228
 msgid "Also hide"
 msgstr "Dölj även"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1224
+#: src/dialogs/gnome-cmd-options-dialog.cc:1231
 msgid "Hidden files"
 msgstr "Dolda filer"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1227
-#: src/dialogs/gnome-cmd-options-dialog.cc:1236
+#: src/dialogs/gnome-cmd-options-dialog.cc:1234
+#: src/dialogs/gnome-cmd-options-dialog.cc:1243
 msgid "Backup files"
 msgstr "Säkerhetskopior"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1230
+#: src/dialogs/gnome-cmd-options-dialog.cc:1237
 msgid "Symlinks"
 msgstr "Symboliska länkar"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1414
+#: src/dialogs/gnome-cmd-options-dialog.cc:1421
 msgid ""
 "An app with this label exists already.\n"
 "Please choose another label."
@@ -2722,173 +2719,173 @@ msgstr ""
 "Ett program med denna etikett finns redan.\n"
 "Välj en annan etikett."
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1485
+#: src/dialogs/gnome-cmd-options-dialog.cc:1492
 msgid "Label:"
 msgstr "Etikett:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1487
+#: src/dialogs/gnome-cmd-options-dialog.cc:1494
 msgid "Command:"
 msgstr "Kommando:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1489
-#: src/dialogs/gnome-cmd-options-dialog.cc:1937
+#: src/dialogs/gnome-cmd-options-dialog.cc:1496
+#: src/dialogs/gnome-cmd-options-dialog.cc:1944
 msgid "Icon:"
 msgstr "Ikon:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1511
+#: src/dialogs/gnome-cmd-options-dialog.cc:1518
 msgid "Can handle multiple files"
 msgstr "Kan hantera flera filer"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1515
+#: src/dialogs/gnome-cmd-options-dialog.cc:1522
 msgid "Can handle URIs"
 msgstr "Kan hantera sökvägar i URI-form"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1519
+#: src/dialogs/gnome-cmd-options-dialog.cc:1526
 msgid "Requires terminal"
 msgstr "Kräver terminal"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1526
+#: src/dialogs/gnome-cmd-options-dialog.cc:1533
 msgid "Show for"
 msgstr "Visa för"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1535
+#: src/dialogs/gnome-cmd-options-dialog.cc:1542
 msgid "All directories"
 msgstr "Alla kataloger"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1540
+#: src/dialogs/gnome-cmd-options-dialog.cc:1547
 msgid "All directories and files"
 msgstr "Alla kataloger och filer"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1545
+#: src/dialogs/gnome-cmd-options-dialog.cc:1552
 msgid "Some files"
 msgstr "Vissa filer"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1554
+#: src/dialogs/gnome-cmd-options-dialog.cc:1561
 msgid "File patterns"
 msgstr "Filnamnsmönster"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1576
+#: src/dialogs/gnome-cmd-options-dialog.cc:1583
 msgid "New Application"
 msgstr "Nytt program"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1586
+#: src/dialogs/gnome-cmd-options-dialog.cc:1593
 msgid "Edit Application"
 msgstr "Redigera program"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1670
+#: src/dialogs/gnome-cmd-options-dialog.cc:1677
 msgid "Always download remote files before opening in external programs"
 msgstr "Hämta alltid ner icke-lokala filer innan de öppnas i externa program"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1672
+#: src/dialogs/gnome-cmd-options-dialog.cc:1679
 msgid "MIME applications"
 msgstr "MIME-program"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1676
+#: src/dialogs/gnome-cmd-options-dialog.cc:1683
 msgid "Standard programs"
 msgstr "Standardprogram"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1679
+#: src/dialogs/gnome-cmd-options-dialog.cc:1686
 msgid "Viewer:"
 msgstr "Visare:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1681
+#: src/dialogs/gnome-cmd-options-dialog.cc:1688
 msgid "Editor:"
 msgstr "Redigerare:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1683
+#: src/dialogs/gnome-cmd-options-dialog.cc:1690
 msgid "Differ:"
 msgstr "Jämförare (diff):"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1685
+#: src/dialogs/gnome-cmd-options-dialog.cc:1692
 msgid "Send files:"
 msgstr "Skicka filer:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1687
+#: src/dialogs/gnome-cmd-options-dialog.cc:1694
 msgid "Terminal:"
 msgstr "Terminal:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1693
+#: src/dialogs/gnome-cmd-options-dialog.cc:1700
 msgid "Use Internal Viewer"
 msgstr "Använd intern visare"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1712
+#: src/dialogs/gnome-cmd-options-dialog.cc:1719
 msgid "Other favourite apps"
 msgstr "Andra favoritprogram"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1719
+#: src/dialogs/gnome-cmd-options-dialog.cc:1726
 msgid "Label"
 msgstr "Etikett"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1720
+#: src/dialogs/gnome-cmd-options-dialog.cc:1727
 msgid "Command"
 msgstr "Kommando"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1755
+#: src/dialogs/gnome-cmd-options-dialog.cc:1762
 msgid "Global app options"
 msgstr "Globala programalternativ"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1758
+#: src/dialogs/gnome-cmd-options-dialog.cc:1765
 msgid "Terminal command for apps in the list above:"
 msgstr "Terminalkommando för program i listan ovan:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1764
+#: src/dialogs/gnome-cmd-options-dialog.cc:1771
 msgid "Leave terminal window open"
 msgstr "Lämna terminalfönster öppet"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1931
+#: src/dialogs/gnome-cmd-options-dialog.cc:1938
 msgid "Alias:"
 msgstr "Namn:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1933
+#: src/dialogs/gnome-cmd-options-dialog.cc:1940
 msgid "Device:"
 msgstr "Enhet:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1935
+#: src/dialogs/gnome-cmd-options-dialog.cc:1942
 msgid "Mount point:"
 msgstr "Monteringspunkt:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1976
+#: src/dialogs/gnome-cmd-options-dialog.cc:1983
 msgid "New Device"
 msgstr "Ny enhet"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1989
+#: src/dialogs/gnome-cmd-options-dialog.cc:1996
 msgid "Edit Device"
 msgstr "Redigera enhet"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:2071
-#: src/dialogs/gnome-cmd-options-dialog.cc:2200
+#: src/dialogs/gnome-cmd-options-dialog.cc:2078
+#: src/dialogs/gnome-cmd-options-dialog.cc:2207
 msgid "Devices"
 msgstr "Enheter"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:2081
+#: src/dialogs/gnome-cmd-options-dialog.cc:2088
 msgid "Alias"
 msgstr "Namn"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:2111
+#: src/dialogs/gnome-cmd-options-dialog.cc:2118
 msgid "Show only the icons"
 msgstr "Visa endast ikonerna"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:2193
+#: src/dialogs/gnome-cmd-options-dialog.cc:2200
 msgid "General"
 msgstr "Allmänt"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:2194 src/tags/gnome-cmd-tags.cc:323
+#: src/dialogs/gnome-cmd-options-dialog.cc:2201 src/tags/gnome-cmd-tags.cc:323
 msgid "Format"
 msgstr "Format"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:2195
+#: src/dialogs/gnome-cmd-options-dialog.cc:2202
 msgid "Layout"
 msgstr "Layout"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:2197
+#: src/dialogs/gnome-cmd-options-dialog.cc:2204
 msgid "Confirmation"
 msgstr "Bekräftelse"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:2198
+#: src/dialogs/gnome-cmd-options-dialog.cc:2205
 msgid "Filters"
 msgstr "Filter"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:2199
+#: src/dialogs/gnome-cmd-options-dialog.cc:2206
 msgid "Programs"
 msgstr "Program"
 
@@ -2916,54 +2913,46 @@ msgstr "Markera med mönster"
 msgid "Unselect Using Pattern"
 msgstr "Avmarkera med mönster"
 
-#: src/dialogs/gnome-cmd-prepare-copy-dialog.cc:100
+#: src/dialogs/gnome-cmd-prepare-copy-dialog.cc:94
 #: src/gnome-cmd-file-popmenu.cc:729 src/gnome-cmd-main-win.cc:241
 #: src/gnome-cmd-user-actions.cc:210
 msgid "Copy"
 msgstr "Kopiera"
 
 #. Create prepare copy specific widgets
-#: src/dialogs/gnome-cmd-prepare-copy-dialog.cc:106
-#: src/dialogs/gnome-cmd-prepare-move-dialog.cc:91
+#. Create prepare move specific widgets
+#: src/dialogs/gnome-cmd-prepare-copy-dialog.cc:100
+#: src/dialogs/gnome-cmd-prepare-move-dialog.cc:94
 msgid "Query First"
 msgstr "Fråga först"
 
-#: src/dialogs/gnome-cmd-prepare-copy-dialog.cc:137
+#: src/dialogs/gnome-cmd-prepare-copy-dialog.cc:131
 msgid "Follow Links"
 msgstr "Följ länkar"
 
 #. Customize prepare xfer widgets
-#: src/dialogs/gnome-cmd-prepare-copy-dialog.cc:146
-#: src/dialogs/gnome-cmd-prepare-move-dialog.cc:110
+#: src/dialogs/gnome-cmd-prepare-copy-dialog.cc:140
+#: src/dialogs/gnome-cmd-prepare-move-dialog.cc:127
 msgid "Overwrite Files"
 msgstr "Skriv över befintliga filer"
 
-#: src/dialogs/gnome-cmd-prepare-copy-dialog.cc:164
+#: src/dialogs/gnome-cmd-prepare-copy-dialog.cc:158
 #, c-format
 msgid "copy %d file to"
 msgid_plural "copy %d files to"
 msgstr[0] "kopiera %d fil till"
 msgstr[1] "kopiera %d filer till"
 
-#: src/dialogs/gnome-cmd-prepare-move-dialog.cc:78
+#: src/dialogs/gnome-cmd-prepare-move-dialog.cc:88
 msgid "Move"
 msgstr "Flytta"
 
-#. Create prepare copy specific widgets
-#: src/dialogs/gnome-cmd-prepare-move-dialog.cc:84
-msgid "Silently"
-msgstr "Tyst"
-
-#: src/dialogs/gnome-cmd-prepare-move-dialog.cc:98
-msgid "Skip All"
-msgstr "Hoppa över alla"
-
-#: src/dialogs/gnome-cmd-prepare-move-dialog.cc:125
+#: src/dialogs/gnome-cmd-prepare-move-dialog.cc:142
 #, c-format
 msgid "Move “%s” to"
 msgstr "Flytta ”%s” till"
 
-#: src/dialogs/gnome-cmd-prepare-move-dialog.cc:128
+#: src/dialogs/gnome-cmd-prepare-move-dialog.cc:145
 #, c-format
 msgid "move %d file to"
 msgid_plural "move %d files to"
@@ -3814,6 +3803,11 @@ msgstr "Symboliskt länknamn:"
 msgid "Create Symbolic Link"
 msgstr "Skapa symbolisk länk"
 
+#: src/gnome-cmd-file-selector.cc:1393 src/gnome-cmd-xfer.cc:146
+#: src/gnome-cmd-xfer.cc:204 src/gnome-cmd-xfer.cc:322
+msgid "Skip all"
+msgstr "Hoppa över alla"
+
 #: src/gnome-cmd-file-selector.cc:1465
 msgid "Filter:"
 msgstr "Filter:"
@@ -4583,32 +4577,34 @@ msgstr ""
 "Daniel Nylander <po@danielnylander.se>\n"
 "Magnus Stålnacke <jemamo@telia.com>\n"
 "Marcus Bjurman <marbj499@student.liu.se>\n"
+"Anders Jonsson <anders.jonsson@norsjovallen.se>\n"
 "Luna Jernberg <droidbittin@gmail.com>\n"
 "\n"
 "Skicka synpunkter på översättningen till:\n"
 "<tp-sv@listor.tp-sv.se>."
 
-#: src/gnome-cmd-xfer.cc:118
+#: src/gnome-cmd-xfer.cc:118 src/gnome-cmd-xfer.cc:1100
+#: src/gnome-cmd-xfer.cc:1111 src/gnome-cmd-xfer.cc:1132
 msgid "Transfer problem"
 msgstr "Problem vid överföring"
 
 #: src/gnome-cmd-xfer.cc:145 src/gnome-cmd-xfer.cc:148
 #: src/gnome-cmd-xfer.cc:203 src/gnome-cmd-xfer.cc:206
-#: src/gnome-cmd-xfer.cc:373 src/gnome-cmd-xfer.cc:376
 msgid "Copy problem"
 msgstr "Problem vid kopiering"
 
 #: src/gnome-cmd-xfer.cc:146 src/gnome-cmd-xfer.cc:149
-#: src/gnome-cmd-xfer.cc:319 src/gnome-cmd-xfer.cc:322
 msgid "Copy into"
 msgstr "Kopiera till"
 
 #: src/gnome-cmd-xfer.cc:146 src/gnome-cmd-xfer.cc:204
-#: src/gnome-cmd-xfer.cc:319 src/gnome-cmd-xfer.cc:374
+#: src/gnome-cmd-xfer.cc:322
 msgid "Rename all"
 msgstr "Byt namn på alla"
 
-#: src/gnome-cmd-xfer.cc:189 src/gnome-cmd-xfer.cc:361
+#. ToDo: Adjust wording dynamically, see also below at run_move_overwrite_dialog
+#. ToDo: Adjust wording dynamically, see also above at run_file_copy_overwrite_dialog
+#: src/gnome-cmd-xfer.cc:189 src/gnome-cmd-xfer.cc:310
 #, c-format
 msgid ""
 "Overwrite file:\n"
@@ -4632,16 +4628,16 @@ msgstr ""
 "<span color='dimgray' size='smaller'>%s</span>"
 
 #: src/gnome-cmd-xfer.cc:204 src/gnome-cmd-xfer.cc:207
-#: src/gnome-cmd-xfer.cc:374 src/gnome-cmd-xfer.cc:377
+#: src/gnome-cmd-xfer.cc:322 src/gnome-cmd-xfer.cc:325
 msgid "Replace"
 msgstr "Skriv över"
 
-#: src/gnome-cmd-xfer.cc:204 src/gnome-cmd-xfer.cc:374
+#: src/gnome-cmd-xfer.cc:204 src/gnome-cmd-xfer.cc:322
 msgid "Replace all"
 msgstr "Ersätt alla"
 
-#: src/gnome-cmd-xfer.cc:245 src/gnome-cmd-xfer.cc:303
-#: src/gnome-cmd-xfer.cc:518
+#: src/gnome-cmd-xfer.cc:245 src/gnome-cmd-xfer.cc:363
+#: src/gnome-cmd-xfer.cc:499
 #, c-format
 msgid ""
 "Error while transferring “%s”\n"
@@ -4652,41 +4648,41 @@ msgstr ""
 "\n"
 "%s"
 
-#: src/gnome-cmd-xfer.cc:318 src/gnome-cmd-xfer.cc:321
+#: src/gnome-cmd-xfer.cc:321 src/gnome-cmd-xfer.cc:324
 msgid "Move problem"
 msgstr "Problem vid flytt"
 
-#: src/gnome-cmd-xfer.cc:478
+#: src/gnome-cmd-xfer.cc:459
 msgid "copying…"
 msgstr "kopierar…"
 
-#: src/gnome-cmd-xfer.cc:482
+#: src/gnome-cmd-xfer.cc:463
 #, c-format
 msgid "[file %ld of %ld] “%s”"
 msgstr "[fil %ld av %ld] ”%s”"
 
-#: src/gnome-cmd-xfer.cc:666
+#: src/gnome-cmd-xfer.cc:647
 msgid "Copying a directory into itself is a bad idea."
 msgstr "Kopiera en katalog in i sig själv är ingen bra idé."
 
-#: src/gnome-cmd-xfer.cc:666 src/gnome-cmd-xfer.cc:746
-#: src/gnome-cmd-xfer.cc:827
+#: src/gnome-cmd-xfer.cc:647 src/gnome-cmd-xfer.cc:727
+#: src/gnome-cmd-xfer.cc:808
 msgid "The whole operation was cancelled."
 msgstr "Hela åtgärden avbröts."
 
-#: src/gnome-cmd-xfer.cc:713 src/gnome-cmd-xfer.cc:793
+#: src/gnome-cmd-xfer.cc:694 src/gnome-cmd-xfer.cc:774
 msgid "preparing…"
 msgstr "förbereder…"
 
-#: src/gnome-cmd-xfer.cc:746 src/gnome-cmd-xfer.cc:827
+#: src/gnome-cmd-xfer.cc:727 src/gnome-cmd-xfer.cc:808
 msgid "Moving a directory into itself is a bad idea."
 msgstr "Att flytta en katalog in i sig själv är ingen bra idé."
 
-#: src/gnome-cmd-xfer.cc:908
+#: src/gnome-cmd-xfer.cc:878
 msgid "downloading to /tmp"
 msgstr "hämtar till /tmp"
 
-#: src/gnome-cmd-xfer.cc:957
+#: src/gnome-cmd-xfer.cc:927
 #, c-format
 msgid ""
 "Error while creating symlink “%s”\n"
@@ -4697,19 +4693,35 @@ msgstr ""
 "\n"
 "%s"
 
-#: src/gnome-cmd-xfer.cc:962
+#: src/gnome-cmd-xfer.cc:932
 msgid "Symlink creation problem"
 msgstr "Problem vid skapande av symbolisk länk"
 
-#: src/gnome-cmd-xfer.cc:963
+#: src/gnome-cmd-xfer.cc:933
 msgid "Ignore"
 msgstr "Ignorera"
 
 #. Translators: Translate 'Copy' as a noun here
-#: src/gnome-cmd-xfer.cc:1064
+#: src/gnome-cmd-xfer.cc:1034
 msgctxt "Filename suffix"
 msgid "Copy"
 msgstr "Kopia"
+
+#: src/gnome-cmd-xfer.cc:1099 src/gnome-cmd-xfer.cc:1110
+#, c-format
+msgid ""
+"Source “%s” could not be deleted. Aborting!\n"
+"\n"
+"%s"
+msgstr ""
+"Källan ”%s” kunde inte tas bort. Avbryter!\n"
+"\n"
+"%s"
+
+#: src/gnome-cmd-xfer.cc:1131
+#, c-format
+msgid "Source “%s” could not be copied. Aborting!"
+msgstr "Källan ”%s” kunde inte kopieras. Avbryter!"
 
 #: src/gnome-cmd-xfer-progress-win.cc:42
 msgid "stopping…"
@@ -9053,6 +9065,15 @@ msgstr "Ett fel uppstod vid visande av hjälp."
 #, c-format
 msgid "Couldn’t move path from “%s” to “%s”: %s"
 msgstr "Kunde inte ändra sökväg från ”%s” till ”%s”: %s"
+
+#~ msgid "Move overwrite"
+#~ msgstr "Skriv över vid flytt"
+
+#~ msgid "Silently"
+#~ msgstr "Tyst"
+
+#~ msgid "Skip All"
+#~ msgstr "Hoppa över alla"
 
 #~ msgid "Copy overwrite"
 #~ msgstr "Skriv över vid kopiering"
