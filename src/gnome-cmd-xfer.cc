@@ -1165,7 +1165,10 @@ gnome_cmd_move_gfile_recursive (GFile *srcGFile,
                     case COPY_ERROR_ACTION_RENAME:
                         xferData->problem_action = COPY_ERROR_ACTION_NO_ACTION_YET;
                         set_new_nonexisting_dest_gfile(srcGFile, &destGFile, xferData);
-                        g_file_move(srcGFile, destGFile, copyFlags, nullptr, update_transferred_data, xferDataPointer, &tmpError);
+                        if(g_file_query_file_type(srcGFile, G_FILE_QUERY_INFO_NONE, nullptr) == G_FILE_TYPE_DIRECTORY)
+                            gnome_cmd_move_gfile_recursive(srcGFile, destGFile, (GFileCopyFlags) copyFlagsTemp, xferData);
+                        else
+                            g_file_move(srcGFile, destGFile, copyFlags, nullptr, update_transferred_data, xferDataPointer, &tmpError);
                         if (tmpError)
                         {
                             g_warning("g_file_move error: %s\n", tmpError->message);
@@ -1178,7 +1181,10 @@ gnome_cmd_move_gfile_recursive (GFile *srcGFile,
                         break;
                     case COPY_ERROR_ACTION_RENAME_ALL:
                         set_new_nonexisting_dest_gfile(srcGFile, &destGFile, xferData);
-                        g_file_move(srcGFile, destGFile, copyFlags, nullptr, update_transferred_data, xferDataPointer, &tmpError);
+                        if(g_file_query_file_type(srcGFile, G_FILE_QUERY_INFO_NONE, nullptr) == G_FILE_TYPE_DIRECTORY)
+                            gnome_cmd_move_gfile_recursive(srcGFile, destGFile, (GFileCopyFlags) copyFlagsTemp, xferData);
+                        else
+                            g_file_move(srcGFile, destGFile, copyFlags, nullptr, update_transferred_data, xferDataPointer, &tmpError);
                         if (tmpError)
                         {
                             g_warning("g_file_move error: %s\n", tmpError->message);
