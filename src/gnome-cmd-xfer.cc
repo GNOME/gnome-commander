@@ -1084,7 +1084,6 @@ gnome_cmd_move_gfile_recursive (GFile *srcGFile,
     if(!g_file_move(srcGFile, destGFile, copyFlags, nullptr, update_transferred_data, xferDataPointer, &tmpError))
     {
         if(g_file_query_file_type(srcGFile, G_FILE_QUERY_INFO_NONE, nullptr) == G_FILE_TYPE_DIRECTORY
-           && g_file_query_exists(destGFile, nullptr)
            && g_error_matches(tmpError, G_IO_ERROR, G_IO_ERROR_WOULD_RECURSE))
         {
             g_error_free(tmpError);
