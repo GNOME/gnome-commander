@@ -1141,6 +1141,7 @@ gnome_cmd_move_gfile_recursive (GFile *srcGFile,
             if(g_error_matches(tmpError, G_IO_ERROR, G_IO_ERROR_EXISTS))
             {
                 g_propagate_error(&(xferData->error), tmpError);
+                tmpError = nullptr;
                 xferData->problemSrcGFile = g_file_dup(srcGFile);
                 xferData->problemDestGFile = g_file_dup(destGFile);
                 xfer_progress_update(xferData);
