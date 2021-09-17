@@ -518,26 +518,27 @@ gboolean gnome_cmd_con_get_path_target_type (GnomeCmdCon *con, const gchar *path
 }
 
 
-GnomeVFSResult gnome_cmd_con_mkdir (GnomeCmdCon *con, const gchar *path_str)
+gboolean gnome_cmd_con_mkdir (GnomeCmdCon *con, const gchar *path_str, GError *error)
 {
-    GnomeVFSResult result;
+    GError *tmpError = nullptr;
 
-    g_return_val_if_fail (GNOME_CMD_IS_CON (con), GNOME_VFS_ERROR_BAD_PARAMETERS);
-    g_return_val_if_fail (path_str != nullptr, GNOME_VFS_ERROR_BAD_PARAMETERS);
+    g_return_val_if_fail (GNOME_CMD_IS_CON (con), false);
+    g_return_val_if_fail (path_str != nullptr, false);
 
-    GnomeCmdPath *path = gnome_cmd_con_create_path (con, path_str);
-    GnomeVFSURI *uri = gnome_cmd_con_create_uri (con, path);
+    auto path = gnome_cmd_con_create_path (con, path_str);
+    auto gFile = gnome_cmd_con_create_gfile (con, path);
 
-    result = gnome_vfs_make_directory_for_uri (
-        uri,
-        GNOME_CMD_PERM_USER_READ|GNOME_CMD_PERM_USER_WRITE|GNOME_CMD_PERM_USER_EXEC|
-        GNOME_CMD_PERM_GROUP_READ|GNOME_CMD_PERM_GROUP_EXEC|
-        GNOME_CMD_PERM_OTHER_READ|GNOME_CMD_PERM_OTHER_EXEC);
+    if (!g_file_make_directory (gFile, nullptr, &tmpError))
+    {
+        g_warning("g_file_make_directory error: %s\n", tmpError->message);
+        g_propagate_error(&error, tmpError);
+        return false;
+    }
 
-    gnome_vfs_uri_unref (uri);
+    g_object_unref (gFile);
     delete path;
 
-    return result;
+    return true;
 }
 
 

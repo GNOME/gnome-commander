@@ -343,7 +343,7 @@ void gnome_cmd_con_updated (GnomeCmdCon *con);
 
 gboolean gnome_cmd_con_get_path_target_type (GnomeCmdCon *con, const gchar *path, GFileType *type);
 
-GnomeVFSResult gnome_cmd_con_mkdir (GnomeCmdCon *con, const gchar *path_str);
+gboolean gnome_cmd_con_mkdir (GnomeCmdCon *con, const gchar *path_str, GError *error);
 
 void gnome_cmd_con_add_to_cache (GnomeCmdCon *con, GnomeCmdDir *dir);
 

@@ -157,10 +157,11 @@ static void on_ok (GtkButton *button, GnomeCmdPrepareXferDialog *dialog)
 
                         if (choice == 1)
                         {
-                            GnomeVFSResult mkdir_result = gnome_cmd_con_mkdir (con, parent_dir);
-                            if (mkdir_result != GNOME_VFS_OK)
+                            GError *error = nullptr;
+                            if (!gnome_cmd_con_mkdir (con, parent_dir, error))
                             {
-                                gnome_cmd_show_message (*main_win, gnome_vfs_result_to_string (mkdir_result));
+                                gnome_cmd_show_message (*main_win, error->message);
+                                g_error_free(error);
                                 g_free (dest_path);
                                 gtk_widget_destroy (GTK_WIDGET (dialog));
                                 return;
@@ -211,10 +212,11 @@ static void on_ok (GtkButton *button, GnomeCmdPrepareXferDialog *dialog)
 
                 if (choice == GTK_RESPONSE_OK)
                 {
-                    GnomeVFSResult mkdir_result = gnome_cmd_con_mkdir (con, dest_path);
-                    if (mkdir_result != GNOME_VFS_OK)
+                    GError *error = nullptr;
+                    if (!gnome_cmd_con_mkdir (con, dest_path, error))
                     {
-                        gnome_cmd_show_message (*main_win, gnome_vfs_result_to_string (mkdir_result));
+                        gnome_cmd_show_message (*main_win, error->message);
+                        g_error_free(error);
                         g_free (dest_path);
                         gtk_widget_destroy (GTK_WIDGET (dialog));
                         return;
