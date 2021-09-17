@@ -341,7 +341,7 @@ void gnome_cmd_con_erase_bookmark (GnomeCmdCon *con);
 
 void gnome_cmd_con_updated (GnomeCmdCon *con);
 
-GnomeVFSResult gnome_cmd_con_get_path_target_type (GnomeCmdCon *con, const gchar *path, GnomeVFSFileType *type);
+gboolean gnome_cmd_con_get_path_target_type (GnomeCmdCon *con, const gchar *path, GFileType *type);
 
 GnomeVFSResult gnome_cmd_con_mkdir (GnomeCmdCon *con, const gchar *path_str);
 

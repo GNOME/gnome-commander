@@ -489,29 +489,32 @@ void gnome_cmd_con_updated (GnomeCmdCon *con)
 }
 
 
-// Get the type of the file at the specified path.
-// If the operation succeeds GNOME_VFS_OK is returned and type is set
-GnomeVFSResult gnome_cmd_con_get_path_target_type (GnomeCmdCon *con, const gchar *path_str, GnomeVFSFileType *type)
+/**
+ *  Get the type of the file at the specified path.
+ *  If the file does not exists, the function will return false.
+ *  If the operation succeeds, true is returned and type is set.
+ */
+gboolean gnome_cmd_con_get_path_target_type (GnomeCmdCon *con, const gchar *path_str, GFileType *gFileType)
 {
-    g_return_val_if_fail (GNOME_CMD_IS_CON (con), GNOME_VFS_ERROR_BAD_PARAMETERS);
-    g_return_val_if_fail (path_str != nullptr, GNOME_VFS_ERROR_BAD_PARAMETERS);
+    g_return_val_if_fail (GNOME_CMD_IS_CON (con), false);
+    g_return_val_if_fail (path_str != nullptr, false);
 
     GnomeCmdPath *path = gnome_cmd_con_create_path (con, path_str);
-    GnomeVFSURI *uri = gnome_cmd_con_create_uri (con, path);
-    GnomeVFSFileInfo *info = gnome_vfs_file_info_new ();
-    GnomeVFSResult res = gnome_vfs_get_file_info_uri (uri, info, GNOME_VFS_FILE_INFO_DEFAULT);
+    auto gFile = gnome_cmd_con_create_gfile(con, path);
 
-    if (res == GNOME_VFS_OK && info->type == GNOME_VFS_FILE_TYPE_SYMBOLIC_LINK)         // resolve the symlink to get the real type of it
-        res = gnome_vfs_get_file_info_uri (uri, info, GNOME_VFS_FILE_INFO_FOLLOW_LINKS);
+    if (!g_file_query_exists(gFile, nullptr))
+    {
+        g_object_unref(gFile);
+        *gFileType = G_FILE_TYPE_UNKNOWN;
+        delete path;
+        return false;
+    }
 
-    if (res == GNOME_VFS_OK)
-        *type = info->type;
-
-    gnome_vfs_uri_unref (uri);
+    *gFileType = g_file_query_file_type(gFile, G_FILE_QUERY_INFO_NONE, nullptr);
+    g_object_unref(gFile);
     delete path;
-    gnome_vfs_file_info_unref (info);
 
-    return res;
+    return true;
 }
 
 
