@@ -137,6 +137,19 @@ static GnomeVFSURI *remote_create_uri (GnomeCmdCon *con, GnomeCmdPath *path)
 }
 
 
+static GFile *remote_create_gfile (GnomeCmdCon *con, GnomeCmdPath *path)
+{
+    g_return_val_if_fail (con->uri != nullptr, nullptr);
+
+    auto *gFileTmp = g_file_new_for_uri (con->uri);
+    auto gFile = g_file_resolve_relative_path (gFileTmp, path->get_path());
+
+    g_object_unref (gFileTmp);
+
+    return gFile;
+}
+
+
 static GnomeCmdPath *remote_create_path (GnomeCmdCon *con, const gchar *path_str)
 {
     return new GnomeCmdPlainPath(path_str);
@@ -174,6 +187,7 @@ static void class_init (GnomeCmdConRemoteClass *klass)
     con_class->cancel_open = remote_cancel_open;
     con_class->open_is_needed = remote_open_is_needed;
     con_class->create_uri = remote_create_uri;
+    con_class->create_gfile = remote_create_gfile;
     con_class->create_path = remote_create_path;
 }
 
