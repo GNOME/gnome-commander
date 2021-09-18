@@ -542,14 +542,17 @@ gboolean gnome_cmd_con_mkdir (GnomeCmdCon *con, const gchar *path_str, GError *e
 }
 
 
-void gnome_cmd_con_add_to_cache (GnomeCmdCon *con, GnomeCmdDir *dir)
+void gnome_cmd_con_add_to_cache (GnomeCmdCon *con, GnomeCmdDir *dir, gchar *uri_str)
 {
     g_return_if_fail (GNOME_CMD_IS_CON (con));
     g_return_if_fail (GNOME_CMD_IS_DIR (dir));
 
-    gchar *uri_str = GNOME_CMD_FILE (dir)->get_uri_str();
+    if (!uri_str)
+    {
+        uri_str = GNOME_CMD_FILE (dir)->get_uri_str();
+    }
 
-    if (uri_str == nullptr)
+    if (!uri_str)
     {
         return;
     }

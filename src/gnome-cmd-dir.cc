@@ -256,13 +256,13 @@ GnomeCmdDir *gnome_cmd_dir_new_from_gfileinfo (GFileInfo *gFileInfo, GnomeCmdDir
     auto uriString = g_file_get_uri (gFile);
 
     GnomeCmdDir *dir = gnome_cmd_con_cache_lookup (gnome_cmd_dir_get_connection (parent), uriString);
-    g_free (uriString);
     g_object_unref (gFile);
 
     if (dir)
     {
         delete path;
         GNOME_CMD_FILE (dir)->update_gFileInfo(gFileInfo);
+        g_free (uriString);
         return dir;
     }
 
@@ -273,7 +273,7 @@ GnomeCmdDir *gnome_cmd_dir_new_from_gfileinfo (GFileInfo *gFileInfo, GnomeCmdDir
     gnome_cmd_dir_set_path (dir, path);
     dir->priv->needs_mtime_update = FALSE;
 
-    gnome_cmd_con_add_to_cache (gnome_cmd_dir_get_connection (parent), dir);
+    gnome_cmd_con_add_to_cache (gnome_cmd_dir_get_connection (parent), dir, uriString);
 
     return dir;
 }
@@ -288,11 +288,11 @@ GnomeCmdDir *gnome_cmd_dir_new_with_con (GnomeCmdCon *con)
     auto uri_str = g_file_get_uri(gFile);
     g_object_unref (gFile);
     GnomeCmdDir *dir = gnome_cmd_con_cache_lookup (con, uri_str);
-    g_free (uri_str);
 
     if (dir)
     {
         GNOME_CMD_FILE (dir)->update_gFileInfo(con->base_gFileInfo);
+        g_free (uri_str);
         return dir;
     }
 
@@ -303,7 +303,7 @@ GnomeCmdDir *gnome_cmd_dir_new_with_con (GnomeCmdCon *con)
     dir->priv->con = con;
     dir->priv->needs_mtime_update = FALSE;
 
-    gnome_cmd_con_add_to_cache (con, dir);
+    gnome_cmd_con_add_to_cache (con, dir, uri_str);
 
     return dir;
 }
@@ -322,9 +322,9 @@ GnomeCmdDir *gnome_cmd_dir_new (GnomeCmdCon *con, GnomeCmdPath *path, gboolean i
     g_object_unref (gFile);
 
     GnomeCmdDir *dir = gnome_cmd_con_cache_lookup (con, uriString);
-    g_free (uriString);
     if (dir)
     {
+        g_free (uriString);
         return dir;
     }
 
@@ -339,6 +339,7 @@ GnomeCmdDir *gnome_cmd_dir_new (GnomeCmdCon *con, GnomeCmdPath *path, gboolean i
             gnome_cmd_show_message (*main_win, path->get_display_path(), error->message);
             g_error_free(error);
         }
+        g_free (uriString);
         return nullptr;
     }
 
@@ -349,7 +350,7 @@ GnomeCmdDir *gnome_cmd_dir_new (GnomeCmdCon *con, GnomeCmdPath *path, gboolean i
     dir->priv->con = con;
     dir->priv->needs_mtime_update = FALSE;
 
-    gnome_cmd_con_add_to_cache (con, dir);
+    gnome_cmd_con_add_to_cache (con, dir, uriString);
 
     return dir;
 }
