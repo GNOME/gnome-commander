@@ -36,22 +36,26 @@ static GnomeCmdConClass *parent_class = nullptr;
 
 static void get_file_info_func (GnomeCmdCon *con)
 {
-    GnomeVFSURI *uri = gnome_cmd_con_create_uri (con, con->base_path);
+    g_return_if_fail(GNOME_CMD_IS_CON(con));
 
-    GnomeVFSFileInfoOptions infoOpts = (GnomeVFSFileInfoOptions) (GNOME_VFS_FILE_INFO_FOLLOW_LINKS | GNOME_VFS_FILE_INFO_GET_MIME_TYPE | GNOME_VFS_FILE_INFO_FORCE_FAST_MIME_TYPE);
+    GError *error = nullptr;
+    auto gFile = gnome_cmd_con_create_gfile(con, con->base_path);
 
-    DEBUG('m', "Connecting to %s\n", gnome_vfs_uri_to_string (uri, GNOME_VFS_URI_HIDE_PASSWORD));
+    auto uri = g_file_get_uri(gFile);
+    DEBUG('m', "Connecting to %s\n", uri);
+    g_free(uri);
 
-    // Get basic file info - opens gnome-keyring dialog via libgnome-keyring for password input if needed
-    con->base_info = gnome_vfs_file_info_new ();
-    GnomeVFSResult res = gnome_vfs_get_file_info_uri (uri, con->base_info, infoOpts);
-
-    gnome_vfs_uri_unref (uri);
+    con->base_gFileInfo = g_file_query_info(gFile, "*", G_FILE_QUERY_INFO_NONE, nullptr, &error);
+    if (error)
+    {
+        DEBUG('m', "g_file_query_info error: %s\n", error->message);
+    }
+    g_object_unref (gFile);
 
     if (con->state == GnomeCmdCon::STATE_OPENING)
     {
         DEBUG('m', "State was OPENING, setting flags\n");
-        if (res == GNOME_VFS_OK)
+        if (!error)
         {
             con->state = GnomeCmdCon::STATE_OPEN;
             con->open_result = GnomeCmdCon::OPEN_OK;
@@ -59,7 +63,7 @@ static void get_file_info_func (GnomeCmdCon *con)
         else
         {
             con->state = GnomeCmdCon::STATE_CLOSED;
-            con->open_failed_reason = res;
+            con->open_failed_error = error;
             con->open_result = GnomeCmdCon::OPEN_FAILED;
         }
     }
