@@ -264,7 +264,7 @@ GnomeCmdFile *GnomeCmdFile::ref()
 
     char c = GNOME_CMD_IS_DIR (this) ? 'd' : 'f';
 
-    DEBUG (c, "refing: %p %s to %d\n", this, g_file_info_get_display_name(gFileInfo), priv->ref_cnt);
+    DEBUG (c, "refing: %p %s to %d\n", this, g_file_info_get_name(gFileInfo), priv->ref_cnt);
 
     return this;
 }
