@@ -374,22 +374,6 @@ static gboolean dev_open_is_needed (GnomeCmdCon *con)
 }
 
 
-static GnomeVFSURI *dev_create_uri (GnomeCmdCon *con, GnomeCmdPath *path)
-{
-    g_return_val_if_fail (GNOME_CMD_IS_CON_DEVICE (con), nullptr);
-    g_return_val_if_fail (path!=nullptr, nullptr);
-
-    GnomeCmdConDevice *dev_con = GNOME_CMD_CON_DEVICE (con);
-
-    gchar *p = g_build_filename (dev_con->priv->mountp, path->get_path(), nullptr);
-    GnomeVFSURI *u1 = gnome_vfs_uri_new ("file:");
-    GnomeVFSURI *u2 = gnome_vfs_uri_append_path (u1, p);
-    gnome_vfs_uri_unref (u1);
-
-    return u2;
-}
-
-
 static GFile *dev_create_gfile (GnomeCmdCon *con, GnomeCmdPath *gnomeCmdPath)
 {
     g_return_val_if_fail (GNOME_CMD_IS_CON_DEVICE (con), nullptr);
@@ -461,7 +445,6 @@ static void class_init (GnomeCmdConDeviceClass *klass)
     con_class->close = dev_close;
     con_class->cancel_open = dev_cancel_open;
     con_class->open_is_needed = dev_open_is_needed;
-    con_class->create_uri = dev_create_uri;
     con_class->create_gfile = dev_create_gfile;
     con_class->create_path = dev_create_path;
 }
