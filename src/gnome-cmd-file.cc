@@ -239,12 +239,25 @@ void gnome_cmd_file_setup (GnomeCmdFile *gnomeCmdFile, GFileInfo *gFileInfo, Gno
     }
 
     auto path = gnomeCmdFile->get_path();
-
     if (path)
     {
-        GNOME_CMD_FILE_BASE (gnomeCmdFile)->gFile = g_file_new_for_path(path);
-        gnomeCmdFile->gFile = GNOME_CMD_FILE_BASE (gnomeCmdFile)->gFile;
-        g_free(path);
+        auto con = gnome_cmd_dir_get_connection(dir);
+        if (con && !con->is_local)
+        {
+            auto conUri = gnome_cmd_con_get_uri(con);
+            auto gFileTmp = g_file_new_for_uri (conUri);
+
+            GNOME_CMD_FILE_BASE (gnomeCmdFile)->gFile = g_file_resolve_relative_path (gFileTmp, path);
+            gnomeCmdFile->gFile = GNOME_CMD_FILE_BASE (gnomeCmdFile)->gFile;
+            g_free(path);
+            g_object_unref (gFileTmp);
+        }
+        else
+        {
+            GNOME_CMD_FILE_BASE (gnomeCmdFile)->gFile = g_file_new_for_path(path);
+            gnomeCmdFile->gFile = GNOME_CMD_FILE_BASE (gnomeCmdFile)->gFile;
+            g_free(path);
+        }
     }
     // EVERY GnomeCmdFile instance must have a gFile reference
     if (!gnomeCmdFile->gFile)
