@@ -23,6 +23,7 @@
 
 #include "gnome-cmd-includes.h"
 #include "dirlist.h"
+#include "gnome-cmd-con.h"
 #include "gnome-cmd-data.h"
 #include "utils.h"
 
@@ -55,28 +56,34 @@ static gboolean update_list_progress (GnomeCmdDir *dir)
     return FALSE;
 }
 
-
-void async_list (GnomeCmdDir *dir)
+static GFileEnumerator *get_gfileenumerator_sync(GFile *gFile, GError *error)
 {
-    g_return_if_fail(dir != nullptr);
-    GError *error = nullptr;
-
-    gchar *uri_str = GNOME_CMD_FILE (dir)->get_uri_str();
-    DEBUG('l', "async_list: %s\n", uri_str);
-    g_free (uri_str);
-
-    dir->gFileInfoList = nullptr;
-
-    auto gFile = GNOME_CMD_FILE (dir)->gFile;
-
+    GError *tmpError;
     auto gFileEnumerator = g_file_enumerate_children (gFile,
                             "*",
                             G_FILE_QUERY_INFO_NONE,
                             nullptr,
-                            &error);
-    if( error )
+                            &tmpError);
+    if(tmpError)
     {
-        g_critical("Unable to enumerate children, error: %s", error->message);
+        g_critical("Unable to enumerate children, error: %s", tmpError->message);
+        g_propagate_error(&error, tmpError);
+        return nullptr;
+    }
+    return gFileEnumerator;
+}
+
+
+static void get_gfileenumerator_async_callback(GObject *gFileObject, GAsyncResult *result, gpointer gnomeCmdDirPointer)
+{
+    auto dir = GNOME_CMD_DIR(gnomeCmdDirPointer);
+    auto gFile = (GFile*) gFileObject;
+    GError *error = nullptr;
+
+    auto gFileEnumerator = g_file_enumerate_children_finish (gFile, result, &error);
+    if (error)
+    {
+        g_warning("g_file_enumerate_children_finish error: %s\n", error->message);
         g_error_free(error);
         return;
     }
@@ -88,9 +95,71 @@ void async_list (GnomeCmdDir *dir)
                     enumerate_children_callback,
                     dir);
 
+    g_timeout_add (gnome_cmd_data.gui_update_rate, (GSourceFunc) update_list_progress, dir);
+}
+
+static void get_gfileenumerator_async(GFile *gFile, GnomeCmdDir *dir, GError *error)
+{
+    g_file_enumerate_children_async (gFile,
+                                     "*",
+                                     G_FILE_QUERY_INFO_NONE,
+                                     G_PRIORITY_DEFAULT,
+                                     nullptr,
+                                     get_gfileenumerator_async_callback,
+                                     dir);
+}
+
+
+void async_list (GnomeCmdDir *dir)
+{
+    g_return_if_fail(dir != nullptr);
+    GError *error = nullptr;
+
+    dir->gFileInfoList = nullptr;
+    GFile *gFile;
+    auto con = gnome_cmd_dir_get_connection(dir);
+    if (con->is_local)
+    {
+        gFile = GNOME_CMD_FILE (dir)->gFile;
+    }
+    else
+    {
+        auto conUri = gnome_cmd_con_get_uri(con);
+        auto gFileTmp = g_file_new_for_uri (conUri);
+        auto dirPath = GNOME_CMD_FILE (dir)->get_path();
+        gFile = g_file_resolve_relative_path (gFileTmp, dirPath);
+
+        g_object_unref (gFileTmp);
+        g_free(dirPath);
+    }
+
+    gchar *uri_str = g_file_get_uri(gFile);
+    DEBUG('l', "async_list: %s\n", uri_str);
+    g_free (uri_str);
+
     dir->state = GnomeCmdDir::STATE_LISTING;
 
-    g_timeout_add (gnome_cmd_data.gui_update_rate, (GSourceFunc) update_list_progress, dir);
+    GFileEnumerator *gFileEnumerator;
+    if (con->is_local)
+    {
+        gFileEnumerator = get_gfileenumerator_sync(gFile, error);
+        if (error)
+        {
+            return;
+        }
+        g_file_enumerator_next_files_async(gFileEnumerator,
+                        FILES_PER_UPDATE,
+                        G_PRIORITY_LOW,
+                        nullptr,
+                        enumerate_children_callback,
+                        dir);
+
+        g_timeout_add (gnome_cmd_data.gui_update_rate, (GSourceFunc) update_list_progress, dir);
+    }
+    else
+    {
+        get_gfileenumerator_async(gFile, dir, error);
+    }
 }
 
 void sync_list (GnomeCmdDir *dir)
@@ -166,7 +235,7 @@ static void enumerate_children_callback(GObject *direnum, GAsyncResult *result, 
     {
         /* DONE */
         dir->state = GnomeCmdDir::STATE_LISTED;
-        DEBUG('l', "All files listed\n");
+        DEBUG('l', "All files listed, calling list_done func\n");
         dir->done_func (dir, dir->gFileInfoList, nullptr);
         g_file_enumerator_close(gFileEnumerator, nullptr, nullptr);
         g_object_unref(direnum);
