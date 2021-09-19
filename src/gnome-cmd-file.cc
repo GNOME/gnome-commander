@@ -938,6 +938,7 @@ void gnome_cmd_file_edit (GnomeCmdFile *f)
 void GnomeCmdFile::update_gFileInfo(GFileInfo *gFileInfo_new)
 {
     g_return_if_fail (gFileInfo_new != nullptr);
+    g_return_if_fail (G_IS_FILE_INFO(gFileInfo_new));
 
     g_free (collate_key);
     g_object_unref (this->gFileInfo);
