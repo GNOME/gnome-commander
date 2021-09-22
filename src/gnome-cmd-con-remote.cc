@@ -68,12 +68,14 @@ static void get_file_info_func (GnomeCmdCon *con)
         }
     }
     else
+    {
         if (con->state == GnomeCmdCon::STATE_CANCELLING)
             DEBUG('m', "The open operation was cancelled, doing nothing\n");
         else
             DEBUG('m', "Strange ConState %d\n", con->state);
+        con->state = GnomeCmdCon::STATE_CLOSED;
+    }
 }
-
 
 static gboolean start_get_file_info (GnomeCmdCon *con)
 {
