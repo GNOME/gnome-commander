@@ -308,7 +308,8 @@ static VIEWERDISPLAYMODE guess_display_mode(const char *filename, int len)
                                    &error);
     if (error)
     {
-        g_message ("retrieving file info failed: %s", error->message);
+        g_message ("guess_display_mode: retrieving file info for %s failed: %s",
+                    g_file_peek_path(gFile), error->message);
         g_error_free (error);
     }
 

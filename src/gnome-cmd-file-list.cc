@@ -2889,7 +2889,7 @@ gboolean GnomeCmdFileList::file_is_wanted(GnomeCmdFile *gnomeCmdFile)
                                    &error);
     if (error)
     {
-        g_message ("retrieving file info failed: %s", error->message);
+        g_message ("file_is_wanted: retrieving file info for %s failed: %s", g_file_info_get_name(gnomeCmdFile->gFileInfo), error->message);
         g_error_free (error);
         return TRUE;
     }
