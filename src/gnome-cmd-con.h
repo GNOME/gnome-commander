@@ -51,7 +51,8 @@ enum ConnectionMethodID        // Keep this order in sync with strings in gnome-
     CON_DAV,
     CON_DAVS,
     CON_URI,
-    CON_LOCAL      // CON_FILE ???
+    CON_FILE,
+    CON_INVALID
 };
 
 struct GnomeCmdCon
@@ -388,8 +389,10 @@ inline ConnectionMethodID gnome_cmd_con_get_scheme (GnomeVFSURI *uri)
     const gchar *scheme = gnome_vfs_uri_get_scheme (uri);       // do not g_free
     const gchar *user = gnome_vfs_uri_get_user_name (uri);      // do not g_free
 
-    return gnome_vfs_uri_is_local (uri) ? CON_LOCAL :
-           g_str_equal (scheme, "ftp")  ? (user && g_str_equal (user, "anonymous") ? CON_ANON_FTP : CON_FTP) :
+    return scheme == nullptr ? CON_INVALID :
+           g_str_equal (scheme, "file") ? CON_FILE :
+//           g_str_equal (scheme, "ftp")  ? (user && g_str_equal (user, "anonymous") ? CON_ANON_FTP : CON_FTP) :
+           g_str_equal (scheme, "ftp")  ? CON_FTP :
            g_str_equal (scheme, "sftp") ? CON_SSH :
            g_str_equal (scheme, "dav")  ? CON_DAV :
            g_str_equal (scheme, "davs") ? CON_DAVS :
@@ -460,7 +463,10 @@ inline std::string &gnome_cmd_con_make_uri (std::string &s, ConnectionMethodID m
 
         case CON_URI:       return gnome_cmd_con_make_custom_uri (s, uri);
 
-        case CON_LOCAL:
+        // ToDo: Check if this is valid!
+        case CON_INVALID:   return s;
+
+        case CON_FILE:
         default:            return s;
     }
 }

@@ -456,7 +456,7 @@ static void init (GnomeCmdConDevice *dev_con)
 
     dev_con->priv = g_new0 (GnomeCmdConDevicePrivate, 1);
 
-    con->method = CON_LOCAL;
+    con->method = CON_FILE;
     con->should_remember_dir = TRUE;
     con->needs_open_visprog = FALSE;
     con->needs_list_visprog = FALSE;

@@ -61,7 +61,7 @@ const gchar *icon_name[] = {"gnome-fs-ssh",            // CON_SSH
                             "gnome-fs-web",            // CON_DAV
                             "gnome-fs-web",            // CON_DAVS
                             "gnome-fs-network",        // CON_URI
-                            "gnome-fs-directory"};     // CON_LOCAL
+                            "gnome-fs-directory"};     // CON_FILE
 
 
 static void on_open_done (GnomeCmdCon *con)
