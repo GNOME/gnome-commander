@@ -273,32 +273,41 @@ GnomeCmdConRemote *gnome_cmd_con_remote_new (const gchar *alias, const string &u
 {
     gchar *canonical_uri = gnome_vfs_make_uri_canonical (uri_str.c_str());
 
-    GnomeVFSURI *uri = gnome_vfs_uri_new (canonical_uri);
-
-    g_return_val_if_fail (uri != nullptr, nullptr);
+    auto gFile = g_file_new_for_uri(canonical_uri);
 
     auto server = static_cast<GnomeCmdConRemote*> (g_object_new (GNOME_CMD_TYPE_CON_REMOTE, nullptr));
 
     g_return_val_if_fail (server != nullptr, nullptr);
 
-    const gchar *host = gnome_vfs_uri_get_host_name (uri);      // do not g_free
-    const gchar *password = gnome_vfs_uri_get_password (uri);   // do not g_free
-    gchar *path = gnome_vfs_unescape_string (gnome_vfs_uri_get_path (uri), nullptr);
+    GError *error = nullptr;
+    auto uri = g_file_get_uri(gFile);
+    auto gSocketConnectable = g_network_address_parse_uri (uri, 0, &error);
+    if (error)
+    {
+        g_warning("gnome_cmd_con_remote_new: g_network_address_parse_uri error: %s", error->message);
+        g_error_free(error);
+        return nullptr;
+    }
+
+    const gchar *host = g_network_address_get_hostname ((GNetworkAddress*) gSocketConnectable); // do not g_free
+    auto port = g_network_address_get_port ((GNetworkAddress*) gSocketConnectable); // do not g_free
+    auto path = g_file_get_path(gFile);
 
     GnomeCmdCon *con = GNOME_CMD_CON (server);
 
     gnome_cmd_con_set_alias (con, alias);
     gnome_cmd_con_set_uri (con, canonical_uri);
     gnome_cmd_con_set_host_name (con, host);
+    gnome_cmd_con_set_port (con, port);
     gnome_cmd_con_set_root_path (con, path);
 
     gnome_cmd_con_remote_set_host_name (server, host);
 
-    con->method = gnome_cmd_con_get_scheme (uri);
-    con->auth = con->method==CON_ANON_FTP ? GnomeCmdCon::NOT_REQUIRED : password ? GnomeCmdCon::SAVE_FOR_SESSION : GnomeCmdCon::SAVE_PERMANENTLY;
+    con->method = gnome_cmd_con_get_scheme (gFile);
+    con->auth = con->method==CON_ANON_FTP ? GnomeCmdCon::NOT_REQUIRED : GnomeCmdCon::SAVE_FOR_SESSION;
 
     g_free (path);
-    gnome_vfs_uri_unref (uri);
+    g_object_unref (gFile);
 
     return server;
 }
