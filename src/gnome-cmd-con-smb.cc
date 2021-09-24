@@ -40,45 +40,73 @@ struct GnomeCmdConSmbClass
 static GnomeCmdConClass *parent_class = nullptr;
 
 
-static void
-get_file_info_callback (GnomeVFSAsyncHandle *handle,
-                        GList *results, /* GnomeVFSGetFileInfoResult *items */
-                        GnomeCmdCon *con)
+static void get_file_info_func (GnomeCmdCon *con)
 {
-    g_return_if_fail (results != nullptr);
+    g_return_if_fail(GNOME_CMD_IS_CON(con));
+
+    // ToDo: Check if the error block below is executed if samba is not available on the system.
+    // ToDo: Check if password is visible in the logs below!
+    auto gFile = gnome_cmd_con_create_gfile (con, con->base_path);
+    if (!gFile)
+    {
+        DEBUG('s', "gnome_cmd_con_create_gfile returned NULL\n");
+        con->state = GnomeCmdCon::STATE_CLOSED;
+        con->open_result = GnomeCmdCon::OPEN_FAILED;
+        con->open_failed_error = g_error_new(G_IO_ERROR, G_IO_ERROR_INVALID_DATA, "Could not create a GFile object for \"smb:%s\"", con->base_path->get_path());
+        con->open_failed_msg = g_strdup (_("Failed to browse the network. Is Samba supported on the system?"));
+        return;
+    }
+
+    auto uriString = g_file_get_uri (gFile);
+    if (!con->uri)
+    {
+        con->uri = g_strdup(uriString);
+    }
+    DEBUG('s', "Connecting to %s\n", uriString);
+    g_free(uriString);
+
+    GError *error = nullptr;
+    auto base_gFileInfo = g_file_query_info(gFile, "*", G_FILE_QUERY_INFO_NONE, nullptr, &error);
+    if (error)
+    {
+        DEBUG('s', "g_file_query_info error: %s\n", error->message);
+    }
+    g_object_unref (gFile);
 
     if (con->state == GnomeCmdCon::STATE_OPENING)
     {
-        GnomeVFSGetFileInfoResult *r = (GnomeVFSGetFileInfoResult *) results->data;
+        DEBUG('s', "State was OPENING, setting flags\n");
 
-        if (r && r->result == GNOME_VFS_OK)
+        if (!error)
         {
-            gnome_vfs_file_info_ref (r->file_info);
             con->state = GnomeCmdCon::STATE_OPEN;
-            con->base_info = r->file_info;
+            con->base_gFileInfo = base_gFileInfo;
             con->open_result = GnomeCmdCon::OPEN_OK;
-        }
-        else if (r)
-        {
-            con->state = GnomeCmdCon::STATE_CLOSED;
-            con->open_result = GnomeCmdCon::OPEN_FAILED;
-            con->open_failed_reason = r->result;
         }
         else
         {
-            g_warning ("No result at all");
             con->state = GnomeCmdCon::STATE_CLOSED;
             con->open_result = GnomeCmdCon::OPEN_FAILED;
+            con->open_failed_error = error;
         }
     }
     else
     {
         if (con->state == GnomeCmdCon::STATE_CANCELLING)
-            DEBUG('m', "The open operation was cancelled, doing nothing\n");
+            DEBUG('s', "The open operation was cancelled, doing nothing\n");
         else
-            DEBUG('m', "Strange ConState %d\n", con->state);
+            DEBUG('s', "Strange ConState %d\n", con->state);
         con->state = GnomeCmdCon::STATE_CLOSED;
     }
+}
+
+
+static gboolean
+start_get_file_info (GnomeCmdCon *con)
+{
+    g_thread_new (nullptr, (GThreadFunc) get_file_info_func, con);
+
+    return FALSE;
 }
 
 
@@ -87,45 +115,30 @@ static void smb_open (GnomeCmdCon *con)
     if (!con->base_path)
         con->base_path = new GnomeCmdSmbPath(nullptr, nullptr, nullptr);
 
-    GnomeVFSURI *uri = gnome_cmd_con_create_uri (con, con->base_path);
-    if (!uri)
-    {
-        DEBUG('m', "gnome_cmd_con_create_uri returned NULL\n");
-        con->state = GnomeCmdCon::STATE_CLOSED;
-        con->open_result = GnomeCmdCon::OPEN_FAILED;
-        con->open_failed_msg = g_strdup (_("Failed to browse the network. Is the SMB module installed?"));
-        return;
-    }
-
-    DEBUG('l', "Connecting to %s\n", gnome_vfs_uri_to_string (uri,  GNOME_VFS_URI_HIDE_PASSWORD));
-    GList *uri_list = g_list_append (nullptr, uri);
-
     con->state = GnomeCmdCon::STATE_OPENING;
     con->open_result = GnomeCmdCon::OPEN_IN_PROGRESS;
 
-    GnomeVFSAsyncHandle *handle;
-    GnomeVFSFileInfoOptions infoOpts = (GnomeVFSFileInfoOptions) (GNOME_VFS_FILE_INFO_FOLLOW_LINKS |
-                                                                  GNOME_VFS_FILE_INFO_GET_MIME_TYPE |
-                                                                  GNOME_VFS_FILE_INFO_FORCE_FAST_MIME_TYPE);
+    g_timeout_add (1, (GSourceFunc) start_get_file_info, con);
 
-    gnome_vfs_async_get_file_info (
-        &handle,
-        uri_list,
-        infoOpts,
-        0,
-        (GnomeVFSAsyncGetFileInfoCallback) get_file_info_callback,
-        con);
 }
 
 
 static gboolean smb_close (GnomeCmdCon *con)
 {
+    // Copied from gnome-cmd-con-remote.cc:
+    gnome_cmd_con_set_default_dir (con, nullptr);
+    delete con->base_path;
+    con->base_path = nullptr;
+    con->state = GnomeCmdCon::STATE_CLOSED;
+    con->open_result = GnomeCmdCon::OPEN_NOT_STARTED;
+
     return FALSE;
 }
 
 
 static void smb_cancel_open (GnomeCmdCon *con)
 {
+    DEBUG('s', "Setting state CANCELLING\n");
     con->state = GnomeCmdCon::STATE_CANCELLING;
 }
 
@@ -136,24 +149,18 @@ static gboolean smb_open_is_needed (GnomeCmdCon *con)
 }
 
 
-static GnomeVFSURI *smb_create_uri (GnomeCmdCon *con, GnomeCmdPath *path)
+static GFile *smb_create_gfile (GnomeCmdCon *con, GnomeCmdPath *path)
 {
-    GnomeVFSURI *u1, *u2;
+    auto *gFileTmp = g_file_new_for_uri ("smb:");
+    auto gFile = g_file_resolve_relative_path (gFileTmp, path->get_path());
+    g_object_unref(gFileTmp);
 
-    u1 = gnome_vfs_uri_new ("smb:");
-    if (!u1) return nullptr;
+    if (!gFile)
+    {
+        return nullptr;
+    }
 
-    u2 = gnome_vfs_uri_append_path (u1, path->get_path());
-    gnome_vfs_uri_unref (u1);
-    if (!u2) return nullptr;
-
-    const gchar *p = gnome_vfs_uri_get_path (u2);
-    gchar *s = g_strdup_printf ("smb:/%s", p);
-    u1 = gnome_vfs_uri_new (s);
-    gnome_vfs_uri_unref (u2);
-    g_free (s);
-
-    return u1;
+    return gFile;
 }
 
 
@@ -175,6 +182,7 @@ static void destroy (GtkObject *object)
     gnome_cmd_pixmap_free (con_smb->parent.go_pixmap);
     gnome_cmd_pixmap_free (con_smb->parent.open_pixmap);
     gnome_cmd_pixmap_free (con_smb->parent.close_pixmap);
+    g_free(con_smb->parent.uri);
 
     if (GTK_OBJECT_CLASS (parent_class)->destroy)
         (*GTK_OBJECT_CLASS (parent_class)->destroy) (object);
@@ -194,7 +202,7 @@ static void class_init (GnomeCmdConSmbClass *klass)
     con_class->close = smb_close;
     con_class->cancel_open = smb_cancel_open;
     con_class->open_is_needed = smb_open_is_needed;
-    con_class->create_uri = smb_create_uri;
+    con_class->create_gfile = smb_create_gfile;
     con_class->create_path = smb_create_path;
 }
 
@@ -210,7 +218,7 @@ static void init (GnomeCmdConSmb *smb_con)
     con->open_msg = g_strdup (_("Searching for workgroups and hosts"));
     con->should_remember_dir = TRUE;
     con->needs_open_visprog = TRUE;
-    con->needs_list_visprog = FALSE;
+    con->needs_list_visprog = TRUE;
     con->can_show_free_space = FALSE;
     con->is_local = FALSE;
     con->is_closeable = FALSE;
