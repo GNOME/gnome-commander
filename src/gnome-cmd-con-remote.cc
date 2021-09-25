@@ -126,19 +126,6 @@ static gboolean remote_open_is_needed (GnomeCmdCon *con)
 }
 
 
-static GnomeVFSURI *remote_create_uri (GnomeCmdCon *con, GnomeCmdPath *path)
-{
-    g_return_val_if_fail (con->uri != nullptr, nullptr);
-
-    GnomeVFSURI *u0 = gnome_vfs_uri_new (con->uri);
-    GnomeVFSURI *u1 = gnome_vfs_uri_append_path (u0, path->get_path());
-
-    gnome_vfs_uri_unref (u0);
-
-    return u1;
-}
-
-
 static GFile *remote_create_gfile (GnomeCmdCon *con, GnomeCmdPath *path)
 {
     g_return_val_if_fail (con->uri != nullptr, nullptr);
@@ -188,7 +175,6 @@ static void class_init (GnomeCmdConRemoteClass *klass)
     con_class->close = remote_close;
     con_class->cancel_open = remote_cancel_open;
     con_class->open_is_needed = remote_open_is_needed;
-    con_class->create_uri = remote_create_uri;
     con_class->create_gfile = remote_create_gfile;
     con_class->create_path = remote_create_path;
 }
