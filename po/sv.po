@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-commander/issues\n"
-"POT-Creation-Date: 2021-09-14 20:09+0000\n"
-"PO-Revision-Date: 2021-09-14 22:19+0200\n"
+"POT-Creation-Date: 2021-09-24 21:54+0000\n"
+"PO-Revision-Date: 2021-09-25 10:43+0200\n"
 "Last-Translator: Anders Jonsson <anders.jonsson@norsjovallen.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "Language: sv\n"
@@ -1830,8 +1830,8 @@ msgstr "Problem vid borttagning"
 #: src/gnome-cmd-xfer.cc:146 src/gnome-cmd-xfer.cc:149
 #: src/gnome-cmd-xfer.cc:204 src/gnome-cmd-xfer.cc:207
 #: src/gnome-cmd-xfer.cc:322 src/gnome-cmd-xfer.cc:325
-#: src/gnome-cmd-xfer.cc:1100 src/gnome-cmd-xfer.cc:1111
-#: src/gnome-cmd-xfer.cc:1132
+#: src/gnome-cmd-xfer.cc:1099 src/gnome-cmd-xfer.cc:1110
+#: src/gnome-cmd-xfer.cc:1131
 msgid "Abort"
 msgstr "Avbryt"
 
@@ -2960,20 +2960,20 @@ msgstr[0] "flytta %d fil till"
 msgstr[1] "flytta %d filer till"
 
 #. Nothing exists, ask the user if a new directory might be suitable in the path that he specified
-#: src/dialogs/gnome-cmd-prepare-xfer-dialog.cc:150
-#: src/dialogs/gnome-cmd-prepare-xfer-dialog.cc:190
+#: src/dialogs/gnome-cmd-prepare-xfer-dialog.cc:152
+#: src/dialogs/gnome-cmd-prepare-xfer-dialog.cc:201
 #, c-format
 msgid "The directory “%s” doesn’t exist, do you want to create it?"
 msgstr "Katalogen ”%s” finns inte. Vill du skapa den?"
 
-#: src/dialogs/gnome-cmd-prepare-xfer-dialog.cc:153
+#: src/dialogs/gnome-cmd-prepare-xfer-dialog.cc:155
 #: src/gnome-cmd-advrename-profile-component.cc:433
 #: src/gnome-cmd-advrename-profile-component.cc:761
 #: src/gnome-cmd-advrename-profile-component.cc:793
 msgid "No"
 msgstr "Nej"
 
-#: src/dialogs/gnome-cmd-prepare-xfer-dialog.cc:153
+#: src/dialogs/gnome-cmd-prepare-xfer-dialog.cc:155
 #: src/gnome-cmd-advrename-profile-component.cc:433
 #: src/gnome-cmd-advrename-profile-component.cc:761
 #: src/gnome-cmd-advrename-profile-component.cc:793
@@ -3057,7 +3057,7 @@ msgstr "Välj katalog"
 msgid "_Look in folder:"
 msgstr "_Sök i mapp:"
 
-#: src/dirlist.cc:47
+#: src/dirlist.cc:48
 #, c-format
 msgid "%d file listed"
 msgid_plural "%d files listed"
@@ -3449,85 +3449,85 @@ msgstr ""
 msgid "Volume successfully unmounted"
 msgstr "Volymen avmonterades"
 
-#: src/gnome-cmd-con-device.cc:533
+#: src/gnome-cmd-con-device.cc:516
 #, c-format
 msgid "Mounting %s"
 msgstr "Monterar %s"
 
-#: src/gnome-cmd-con-device.cc:550
+#: src/gnome-cmd-con-device.cc:533
 #, c-format
 msgid "Go to: %s (%s)"
 msgstr "Gå till: %s (%s)"
 
-#: src/gnome-cmd-con-device.cc:552 src/gnome-cmd-con.h:211
+#: src/gnome-cmd-con-device.cc:535 src/gnome-cmd-con.h:212
 #, c-format
 msgid "Go to: %s"
 msgstr "Gå till: %s"
 
-#: src/gnome-cmd-con-device.cc:553
+#: src/gnome-cmd-con-device.cc:536
 #, c-format
 msgid "Mount: %s"
 msgstr "Montera: %s"
 
-#: src/gnome-cmd-con-device.cc:554
+#: src/gnome-cmd-con-device.cc:537
 #, c-format
 msgid "Unmount: %s"
 msgstr "Avmontera: %s"
 
-#: src/gnome-cmd-con.h:209
+#: src/gnome-cmd-con.h:210
 msgid "<New connection>"
 msgstr "<Ny anslutning>"
 
-#: src/gnome-cmd-con.h:212
+#: src/gnome-cmd-con.h:213
 #, c-format
 msgid "Connect to: %s"
 msgstr "Anslut till: %s"
 
-#: src/gnome-cmd-con.h:213
+#: src/gnome-cmd-con.h:214
 #, c-format
 msgid "Disconnect from: %s"
 msgstr "Koppla ner anslutningen till: %s"
 
-#: src/gnome-cmd-con.h:220
+#: src/gnome-cmd-con.h:221
 #, c-format
 msgid "Connecting to %s\n"
 msgstr "Kopplar upp mot %s\n"
 
-#: src/gnome-cmd-con.h:375
+#: src/gnome-cmd-con.h:376
 msgid "Unknown disk usage"
 msgstr "Okänd diskanvändning"
 
-#: src/gnome-cmd-con-home.cc:125
+#: src/gnome-cmd-con-home.cc:114
 msgid "Home"
 msgstr "Hem"
 
-#: src/gnome-cmd-con-home.cc:134
+#: src/gnome-cmd-con-home.cc:123
 msgid "Go to: Home"
 msgstr "Gå till: Hem"
 
-#: src/gnome-cmd-con-remote.cc:292
+#: src/gnome-cmd-con-remote.cc:321
 #, c-format
 msgid "Opens remote connection to %s"
 msgstr "Öppnar fjärranslutning till %s"
 
-#: src/gnome-cmd-con-remote.cc:293
+#: src/gnome-cmd-con-remote.cc:322
 #, c-format
 msgid "Closes remote connection to %s"
 msgstr "Stänger fjärranslutning mot %s"
 
-#: src/gnome-cmd-con-smb.cc:96
-msgid "Failed to browse the network. Is the SMB module installed?"
-msgstr "Kommer inte åt nätverket. Är SMB-modulen installerad?"
+#: src/gnome-cmd-con-smb.cc:56
+msgid "Failed to browse the network. Is Samba supported on the system?"
+msgstr "Kommer inte åt nätverket. Stöds Samba på systemet?"
 
-#: src/gnome-cmd-con-smb.cc:208
+#: src/gnome-cmd-con-smb.cc:216
 msgid "SMB"
 msgstr "SMB"
 
-#: src/gnome-cmd-con-smb.cc:210
+#: src/gnome-cmd-con-smb.cc:218
 msgid "Searching for workgroups and hosts"
 msgstr "Söker efter arbetsgrupper och datorer"
 
-#: src/gnome-cmd-con-smb.cc:217
+#: src/gnome-cmd-con-smb.cc:225
 msgid "Go to: Samba Network"
 msgstr "Gå till: Samba-nätverket"
 
@@ -3536,7 +3536,7 @@ msgstr "Gå till: Samba-nätverket"
 msgid "link to %s"
 msgstr "länk till %s"
 
-#: src/gnome-cmd-dir.cc:510
+#: src/gnome-cmd-dir.cc:511
 msgid "Waiting for file list"
 msgstr "Väntar på fillistan"
 
@@ -3548,11 +3548,11 @@ msgstr "Lägg till aktuell katalog"
 msgid "Manage bookmarks…"
 msgstr "Hantera bokmärken…"
 
-#: src/gnome-cmd-file.cc:567
+#: src/gnome-cmd-file.cc:580
 msgid "_Open"
 msgstr "_Öppna"
 
-#: src/gnome-cmd-file.cc:570
+#: src/gnome-cmd-file.cc:583
 #, c-format
 msgid "_Open with “%s”"
 msgstr "_Öppna med ”%s”"
@@ -4583,8 +4583,8 @@ msgstr ""
 "Skicka synpunkter på översättningen till:\n"
 "<tp-sv@listor.tp-sv.se>."
 
-#: src/gnome-cmd-xfer.cc:118 src/gnome-cmd-xfer.cc:1100
-#: src/gnome-cmd-xfer.cc:1111 src/gnome-cmd-xfer.cc:1132
+#: src/gnome-cmd-xfer.cc:118 src/gnome-cmd-xfer.cc:1099
+#: src/gnome-cmd-xfer.cc:1110 src/gnome-cmd-xfer.cc:1131
 msgid "Transfer problem"
 msgstr "Problem vid överföring"
 
@@ -4707,7 +4707,7 @@ msgctxt "Filename suffix"
 msgid "Copy"
 msgstr "Kopia"
 
-#: src/gnome-cmd-xfer.cc:1099 src/gnome-cmd-xfer.cc:1110
+#: src/gnome-cmd-xfer.cc:1098 src/gnome-cmd-xfer.cc:1109
 #, c-format
 msgid ""
 "Source “%s” could not be deleted. Aborting!\n"
@@ -4718,7 +4718,7 @@ msgstr ""
 "\n"
 "%s"
 
-#: src/gnome-cmd-xfer.cc:1131
+#: src/gnome-cmd-xfer.cc:1130
 #, c-format
 msgid "Source “%s” could not be copied. Aborting!"
 msgstr "Källan ”%s” kunde inte kopieras. Avbryter!"
