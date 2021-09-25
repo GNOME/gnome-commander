@@ -89,6 +89,8 @@ struct GnomeCmdCon
     ConnectionMethodID  method;
     Authentication      auth;
 
+    gchar               *hostname;
+    guint16             port;
     gchar               *open_msg;
     GnomeCmdPath        *base_path;
     GnomeVFSFileInfo    *base_info;
@@ -211,11 +213,31 @@ inline void gnome_cmd_con_set_alias (GnomeCmdCon *con, const gchar *alias=NULL)
     con->close_text = g_strdup_printf (_("Disconnect from: %s"), alias);
 }
 
+inline const char *gnome_cmd_con_get_host_name (GnomeCmdCon *con)
+{
+    g_return_val_if_fail (GNOME_CMD_IS_CON (con), nullptr);
+    return con->hostname;
+}
+
 inline void gnome_cmd_con_set_host_name (GnomeCmdCon *con, const gchar *host)
 {
     g_return_if_fail (GNOME_CMD_IS_CON (con));
     g_free (con->open_msg);
+    g_free (con->hostname);
+    con->hostname = g_strdup(host);
     con->open_msg = g_strdup_printf (_("Connecting to %s\n"), host ? host : "<?>");
+}
+
+inline void gnome_cmd_con_set_port (GnomeCmdCon *con, guint16 port)
+{
+    g_return_if_fail (GNOME_CMD_IS_CON (con));
+    con->port = port;
+}
+
+inline guint16 gnome_cmd_con_get_port (GnomeCmdCon *con)
+{
+    g_return_val_if_fail (GNOME_CMD_IS_CON (con), 0);
+    return con->port;
 }
 
 inline void gnome_cmd_con_set_host_name (GnomeCmdCon *con, const std::string &host)
