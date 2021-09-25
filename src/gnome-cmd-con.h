@@ -1,4 +1,4 @@
-/** 
+/**
  * @file gnome-cmd-con.h
  * @copyright (C) 2001-2006 Marcus Bjurman\n
  * @copyright (C) 2007-2012 Piotr Eljasiak\n
@@ -112,7 +112,6 @@ struct GnomeCmdCon
     GnomeCmdPixmap      *close_pixmap;
 
     OpenResult          open_result;
-    GnomeVFSResult      open_failed_reason;
     GError              *open_failed_error;
     gchar               *open_failed_msg;
 

@@ -204,7 +204,6 @@ static void init (GnomeCmdCon *con)
 
     con->state = GnomeCmdCon::STATE_CLOSED;
     con->open_result = GnomeCmdCon::OPEN_NOT_STARTED;
-    con->open_failed_reason = GNOME_VFS_OK;
     con->open_failed_msg = nullptr;
     con->open_failed_error = nullptr;
 
