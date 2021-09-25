@@ -383,14 +383,37 @@ inline gchar *gnome_cmd_con_get_free_space (GnomeCmdCon *con, GnomeCmdDir *dir, 
     return retval;
 }
 
-inline ConnectionMethodID gnome_cmd_con_get_scheme (GnomeVFSURI *uri)
+inline ConnectionMethodID gnome_cmd_con_get_scheme (const gchar *uriString)
 {
-    const gchar *scheme = gnome_vfs_uri_get_scheme (uri);       // do not g_free
-    const gchar *user = gnome_vfs_uri_get_user_name (uri);      // do not g_free
+    gchar *scheme = nullptr;
+    gchar *user = nullptr;
+    GError *error = nullptr;
 
-    return scheme == nullptr ? CON_INVALID :
+    g_uri_split_with_user (
+        uriString,
+        G_URI_FLAGS_HAS_PASSWORD,
+        &scheme, //scheme
+        &user, //user
+        nullptr, //password
+        nullptr, //auth_params
+        nullptr, //host
+        nullptr, //port
+        nullptr, //path
+        nullptr, //query
+        nullptr, //fragment
+        &error
+    );
+
+    if(error)
+    {
+        g_warning("gnome_cmd_con_get_scheme - g_uri_split_with_user error: %s", error->message);
+        g_error_free(error);
+        return CON_INVALID;
+    }
+
+    ConnectionMethodID retValue = scheme == nullptr ? CON_INVALID :
            g_str_equal (scheme, "file") ? CON_FILE :
-//           g_str_equal (scheme, "ftp")  ? (user && g_str_equal (user, "anonymous") ? CON_ANON_FTP : CON_FTP) :
+           g_str_equal (scheme, "ftp")  ? (user && g_str_equal (user, "anonymous") ? CON_ANON_FTP : CON_FTP) :
            g_str_equal (scheme, "ftp")  ? CON_FTP :
            g_str_equal (scheme, "sftp") ? CON_SSH :
            g_str_equal (scheme, "dav")  ? CON_DAV :
@@ -399,6 +422,10 @@ inline ConnectionMethodID gnome_cmd_con_get_scheme (GnomeVFSURI *uri)
            g_str_equal (scheme, "smb")  ? CON_SMB :
 #endif
                                           CON_URI;
+
+    g_free(user);
+    g_free(scheme);
+    return retValue;
 }
 
 std::string &__gnome_cmd_con_make_uri (std::string &s, const gchar *method, gboolean use_auth, std::string &server, std::string &port, std::string &folder, std::string &user, std::string &password);

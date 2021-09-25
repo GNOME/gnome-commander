@@ -34,7 +34,7 @@ dnl ===================
 dnl Check for libraries
 dnl ===================
 
-GLIB_REQ=2.62.0
+GLIB_REQ=2.66.0
 GMODULE_REQ=2.0.0
 GTK_REQ=2.24.0
 GNOMEVFS_REQ=2.0.0
