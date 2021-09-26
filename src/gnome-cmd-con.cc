@@ -169,7 +169,6 @@ static void class_init (GnomeCmdConClass *klass)
     klass->close = nullptr;
     klass->cancel_open = nullptr;
     klass->open_is_needed = nullptr;
-    klass->create_uri = nullptr;
     klass->create_gfile = nullptr;
     klass->create_path = nullptr;
 }
