@@ -89,6 +89,7 @@ struct GnomeCmdCon
     ConnectionMethodID  method;
     Authentication      auth;
 
+    gchar               *username;
     gchar               *hostname;
     guint16             port;
     gchar               *open_msg;
@@ -211,6 +212,19 @@ inline void gnome_cmd_con_set_alias (GnomeCmdCon *con, const gchar *alias=NULL)
     con->go_text = g_strdup_printf (_("Go to: %s"), alias);
     con->open_text = g_strdup_printf (_("Connect to: %s"), alias);
     con->close_text = g_strdup_printf (_("Disconnect from: %s"), alias);
+}
+
+inline const char *gnome_cmd_con_get_user_name (GnomeCmdCon *con)
+{
+    g_return_val_if_fail (GNOME_CMD_IS_CON (con), nullptr);
+    return con->username;
+}
+
+inline void gnome_cmd_con_set_user_name (GnomeCmdCon *con, const gchar *username)
+{
+    g_return_if_fail (GNOME_CMD_IS_CON (con));
+    g_free (con->username);
+    con->username = g_strdup(username);
 }
 
 inline const char *gnome_cmd_con_get_host_name (GnomeCmdCon *con)

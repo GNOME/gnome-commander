@@ -1,4 +1,4 @@
-/** 
+/**
  * @file gnome-cmd-con-dialog.cc
  * @copyright (C) 2001-2006 Marcus Bjurman\n
  * @copyright (C) 2007-2012 Piotr Eljasiak\n
@@ -268,7 +268,9 @@ inline void GnomeCmdConnectDialog::Private::show_entry(GtkWidget *table, GtkWidg
     ++i;
 }
 
-
+/**
+ * This method sets priv->uri_str to the URI created from values in the dialog if the URI is valid.
+ */
 gboolean GnomeCmdConnectDialog::verify_uri()
 {
     string uri;
@@ -541,7 +543,6 @@ gboolean gnome_cmd_connect_dialog_edit (GnomeCmdConRemote *server)
     g_return_val_if_fail (server != nullptr, FALSE);
 
     auto *dialog = reinterpret_cast<GnomeCmdConnectDialog*> (gtk_widget_new (GNOME_CMD_TYPE_CONNECT_DIALOG, nullptr));
-
     g_return_val_if_fail (dialog != nullptr, FALSE);
 
     auto *con = GNOME_CMD_CON (server);
@@ -558,21 +559,18 @@ gboolean gnome_cmd_connect_dialog_edit (GnomeCmdConRemote *server)
     else
         gtk_widget_set_sensitive (dialog->priv->alias_entry, FALSE);
 
+     auto host = g_strdup(gnome_cmd_con_get_host_name(con));
+     gint port = gnome_cmd_con_get_port (con);
+     auto path = gnome_cmd_con_get_root_path(con);
+     auto user_name = g_strdup(gnome_cmd_con_get_user_name (con));
+
     if (con->uri)
     {
         dialog->priv->uri_str = con->uri;
 
-        GnomeVFSURI *uri = gnome_vfs_uri_new (con->uri);
+        gtk_entry_set_text (GTK_ENTRY (dialog->priv->uri_entry), con->uri);
 
-        if (uri)
-        {
-            gtk_entry_set_text (GTK_ENTRY (dialog->priv->uri_entry), con->uri);
-
-            gtk_entry_set_text (GTK_ENTRY (dialog->priv->server_entry), gnome_vfs_uri_get_host_name (uri));
-
-            const gchar *path = gnome_vfs_uri_get_path (uri);
-            const gchar *user_name = gnome_vfs_uri_get_user_name (uri);
-            guint port = gnome_vfs_uri_get_host_port (uri);
+        gtk_entry_set_text (GTK_ENTRY (dialog->priv->server_entry), host);
 
 #ifdef HAVE_SAMBA
             if (con->method==CON_SMB)
@@ -610,31 +608,70 @@ gboolean gnome_cmd_connect_dialog_edit (GnomeCmdConRemote *server)
             }
 #endif
 
-            if (port)
-                gtk_entry_set_text (GTK_ENTRY (dialog->priv->port_entry), stringify(port).c_str());
-
-            gnome_vfs_uri_unref (uri);
-        }
+        if (port)
+            gtk_entry_set_text (GTK_ENTRY (dialog->priv->port_entry), stringify(port).c_str());
     }
 
     gint response = gtk_dialog_run (*dialog);
 
     if (response == GTK_RESPONSE_OK)
     {
-        GnomeVFSURI *uri = gnome_vfs_uri_new (dialog->priv->uri_str.c_str());
+        g_free(user_name);
+        g_free(host);
 
-        const gchar *alias = dialog->priv->alias ? dialog->priv->alias->c_str() : nullptr;
-        const gchar *host = gnome_vfs_uri_get_host_name (uri);
+        GError *error = nullptr;
 
+        if (dialog->priv->uri_str.c_str())
+        {
+            g_uri_split_with_user (
+                dialog->priv->uri_str.c_str(),
+                G_URI_FLAGS_HAS_PASSWORD,
+                nullptr, //scheme
+                &user_name,
+                nullptr, //password
+                nullptr, //auth_params
+                &host, //host
+                &port, //port
+                &path, //path
+                nullptr, //query
+                nullptr, //fragment
+                &error
+            );
+            if (error)
+            {
+                g_warning("gnome_cmd_connect_dialog_edit - g_uri_split_with_user error: %s", error->message);
+                g_error_free(error);
+                return FALSE;
+            }
+
+            gnome_cmd_con_set_uri (con, dialog->priv->uri_str);
+        }
+        else
+        {
+            user_name = g_strdup(gtk_entry_get_text (GTK_ENTRY (dialog->priv->user_entry)));
+            host = g_strdup(gtk_entry_get_text (GTK_ENTRY (dialog->priv->server_entry)));
+            path = g_strdup(gtk_entry_get_text (GTK_ENTRY (dialog->priv->folder_entry)));
+            auto portChar = gtk_entry_get_text (GTK_ENTRY (dialog->priv->port_entry));
+            port = portChar ? atoi(portChar) : 0;
+        }
+
+        auto alias = dialog->priv->alias ? dialog->priv->alias->c_str() : nullptr;
         gnome_cmd_con_set_alias (con, alias);
-        gnome_cmd_con_set_uri (con, dialog->priv->uri_str);
+
+        gnome_cmd_con_set_user_name (con, user_name);
         gnome_cmd_con_set_host_name (con, host);
+        gnome_cmd_con_set_root_path(con, path);
+        gnome_cmd_con_set_port(con, port);
+
+
         con->method = (ConnectionMethodID) gtk_combo_box_get_active (GTK_COMBO_BOX (dialog->priv->type_combo));
         con->auth = dialog->priv->auth;
 
         gnome_cmd_con_remote_set_host_name (server, host);
 
-        gnome_vfs_uri_unref (uri);
+        g_free(user_name);
+        g_free(host);
+        g_free(path);
     }
 
     gtk_widget_destroy (*dialog);
