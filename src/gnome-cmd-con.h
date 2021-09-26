@@ -51,8 +51,7 @@ enum ConnectionMethodID        // Keep this order in sync with strings in gnome-
     CON_DAV,
     CON_DAVS,
     CON_URI,
-    CON_FILE,
-    CON_INVALID
+    CON_FILE
 };
 
 struct GnomeCmdCon
@@ -442,10 +441,10 @@ inline ConnectionMethodID gnome_cmd_con_get_scheme (const gchar *uriString)
     {
         g_warning("gnome_cmd_con_get_scheme - g_uri_split_with_user error: %s", error->message);
         g_error_free(error);
-        return CON_INVALID;
+        return CON_SSH;
     }
 
-    ConnectionMethodID retValue = scheme == nullptr ? CON_INVALID :
+    ConnectionMethodID retValue = scheme == nullptr ? CON_FILE :
            g_str_equal (scheme, "file") ? CON_FILE :
            g_str_equal (scheme, "ftp")  ? (user && g_str_equal (user, "anonymous") ? CON_ANON_FTP : CON_FTP) :
            g_str_equal (scheme, "ftp")  ? CON_FTP :
@@ -522,9 +521,6 @@ inline std::string &gnome_cmd_con_make_uri (std::string &s, ConnectionMethodID m
         case CON_DAVS:      return gnome_cmd_con_make_davs_uri (s, use_auth, server, port, folder, user, password);
 
         case CON_URI:       return gnome_cmd_con_make_custom_uri (s, uri);
-
-        // ToDo: Check if this is valid!
-        case CON_INVALID:   return s;
 
         case CON_FILE:
         default:            return s;
