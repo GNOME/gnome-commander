@@ -173,7 +173,7 @@ inline void gnome_cmd_con_set_uri (GnomeCmdCon *con, const gchar *uri=NULL)
 {
     g_return_if_fail (GNOME_CMD_IS_CON (con));
     g_free (con->uri);
-    con->uri = (gchar *) uri;
+    con->uri = g_strdup(uri);
 }
 
 inline void gnome_cmd_con_set_uri (GnomeCmdCon *con, const std::string &uri)
