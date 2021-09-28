@@ -56,9 +56,9 @@ GnomeCmdPath *GnomeCmdSmbPath::get_parent()
     if (!workgroup)
         return nullptr;
 
-    gchar *a = nullptr,
-          *b = nullptr,
-          *c = nullptr;
+    gchar *workgroupCharP = nullptr,
+          *resourceCharP = nullptr,
+          *resourcePathCharP = nullptr;
 
     if (resource)
     {
@@ -73,21 +73,21 @@ GnomeCmdPath *GnomeCmdSmbPath::get_parent()
                 GnomeVFSURI *u2 = gnome_vfs_uri_get_parent (u1);
                 g_return_val_if_fail (u2 != nullptr, nullptr);
 
-                gchar *s = gnome_vfs_uri_to_string (u2, GNOME_VFS_URI_HIDE_PASSWORD);
+                auto uriCharP = gnome_vfs_uri_to_string (u2, GNOME_VFS_URI_HIDE_PASSWORD);
                 gnome_vfs_uri_unref (u2);
 
-                c = gnome_vfs_get_local_path_from_uri (s);
-                g_free (s);
+                resourcePathCharP = gnome_vfs_get_local_path_from_uri (uriCharP);
+                g_free (uriCharP);
             }
 
-            b = resource;
+            resourceCharP = resource;
             gnome_vfs_uri_unref (u1);
         }
 
-        a = workgroup;
+        workgroupCharP = workgroup;
     }
 
-    return new GnomeCmdSmbPath(a, b, c);
+    return new GnomeCmdSmbPath(workgroupCharP, resourceCharP, resourcePathCharP);
 }
 
 
