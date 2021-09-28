@@ -378,7 +378,10 @@ GnomeCmdDir *gnome_cmd_dir_get_child (GnomeCmdDir *dir, const gchar *child)
 
 GnomeCmdCon *gnome_cmd_dir_get_connection (GnomeCmdDir *dir)
 {
-    g_return_val_if_fail (GNOME_CMD_IS_DIR (dir), nullptr);
+    if (!GNOME_CMD_IS_DIR (dir))
+    {
+        return nullptr;
+    }
 
     return dir->priv->con;
 }
