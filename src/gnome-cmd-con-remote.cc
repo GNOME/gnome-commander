@@ -298,7 +298,7 @@ GnomeCmdConRemote *gnome_cmd_con_remote_new (const gchar *alias, const string &u
     gnome_cmd_con_set_port (con, port);
     gnome_cmd_con_set_root_path (con, path);
 
-    gnome_cmd_con_remote_set_host_name (server, host);
+    gnome_cmd_con_remote_set_tooltips (server, host);
 
     con->method = gnome_cmd_con_get_scheme (uri_str.c_str());
     con->auth = con->method==CON_ANON_FTP ? GnomeCmdCon::NOT_REQUIRED : GnomeCmdCon::SAVE_FOR_SESSION;
@@ -310,7 +310,7 @@ GnomeCmdConRemote *gnome_cmd_con_remote_new (const gchar *alias, const string &u
 }
 
 
-void gnome_cmd_con_remote_set_host_name (GnomeCmdConRemote *con, const gchar *host_name)
+void gnome_cmd_con_remote_set_tooltips (GnomeCmdConRemote *con, const gchar *host_name)
 {
     g_return_if_fail (con != nullptr);
     g_return_if_fail (host_name != nullptr);
