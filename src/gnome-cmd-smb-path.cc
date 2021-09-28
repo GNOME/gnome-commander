@@ -64,24 +64,21 @@ GnomeCmdPath *GnomeCmdSmbPath::get_parent()
     {
         if (resource_path)
         {
-            GnomeVFSURI *t = gnome_vfs_uri_new (G_DIR_SEPARATOR_S);
-            GnomeVFSURI *u1 = gnome_vfs_uri_append_path (t, resource_path);
-            gnome_vfs_uri_unref (t);
+            auto *gFileTmp = g_file_new_for_uri (G_DIR_SEPARATOR_S);
+            auto gFile = g_file_resolve_relative_path (gFileTmp, resource_path);
+            g_object_unref(gFileTmp);
 
-            if (u1 && gnome_vfs_uri_has_parent (u1))
+            if (g_file_has_parent (gFile, nullptr))
             {
-                GnomeVFSURI *u2 = gnome_vfs_uri_get_parent (u1);
-                g_return_val_if_fail (u2 != nullptr, nullptr);
+                auto gFile2 = g_file_get_parent (gFile);
+                g_return_val_if_fail (gFile2 != nullptr, nullptr);
 
-                auto uriCharP = gnome_vfs_uri_to_string (u2, GNOME_VFS_URI_HIDE_PASSWORD);
-                gnome_vfs_uri_unref (u2);
-
-                resourcePathCharP = gnome_vfs_get_local_path_from_uri (uriCharP);
-                g_free (uriCharP);
+                resourcePathCharP = g_file_get_path (gFile2);
+                g_object_unref (gFile2);
             }
 
             resourceCharP = resource;
-            gnome_vfs_uri_unref (u1);
+            g_object_unref (gFile);
         }
 
         workgroupCharP = workgroup;
