@@ -313,7 +313,10 @@ GnomeCmdConRemote *gnome_cmd_con_remote_new (const gchar *alias, const string &u
 void gnome_cmd_con_remote_set_tooltips (GnomeCmdConRemote *con, const gchar *host_name)
 {
     g_return_if_fail (con != nullptr);
-    g_return_if_fail (host_name != nullptr);
+    if (!host_name)
+    {
+        return;
+    }
 
     GNOME_CMD_CON (con)->open_tooltip = g_strdup_printf (_("Opens remote connection to %s"), host_name);
     GNOME_CMD_CON (con)->close_tooltip = g_strdup_printf (_("Closes remote connection to %s"), host_name);
