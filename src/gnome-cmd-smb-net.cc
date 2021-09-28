@@ -142,27 +142,27 @@ inline void rebuild_map ()
 
 SmbEntity *gnome_cmd_smb_net_get_entity (const gchar *name)
 {
-    gboolean b = FALSE;
+    gboolean rebuilt = FALSE;
 
     if (!entities)
     {
         DEBUG ('s', "Building the SMB database for the first time.\n");
         rebuild_map ();
-        b = TRUE;
+        rebuilt = TRUE;
     }
 
-    auto ent = static_cast<SmbEntity*> (g_hash_table_lookup (entities, name));
-    if (!ent && !b)
+    auto entity = static_cast<SmbEntity*> (g_hash_table_lookup (entities, name));
+    if (!entity && !rebuilt)
     {
         DEBUG ('s', "Entity not found, rebuilding the database\n");
         rebuild_map ();
-        ent = static_cast<SmbEntity*> (g_hash_table_lookup (entities, name));
+        entity = static_cast<SmbEntity*> (g_hash_table_lookup (entities, name));
     }
 
-    if (ent)
+    if (entity)
         DEBUG ('s', "Found entity for %s\n", name);
     else
         DEBUG ('s', "No entity named %s found\n", name);
 
-    return ent;
+    return entity;
 }

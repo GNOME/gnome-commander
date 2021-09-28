@@ -56,35 +56,35 @@ GnomeCmdPath *GnomeCmdSmbPath::get_parent()
     if (!workgroup)
         return nullptr;
 
-    gchar *workgroupCharP = nullptr,
-          *resourceCharP = nullptr,
-          *resourcePathCharP = nullptr;
+    gchar *workgroupString = nullptr,
+          *resourceString = nullptr,
+          *resourceParentString = nullptr;
 
     if (resource)
     {
         if (resource_path)
         {
             auto *gFileTmp = g_file_new_for_uri (G_DIR_SEPARATOR_S);
-            auto gFile = g_file_resolve_relative_path (gFileTmp, resource_path);
+            auto resourcePathGFile = g_file_resolve_relative_path (gFileTmp, resource_path);
             g_object_unref(gFileTmp);
 
-            if (g_file_has_parent (gFile, nullptr))
+            if (g_file_has_parent (resourcePathGFile, nullptr))
             {
-                auto gFile2 = g_file_get_parent (gFile);
-                g_return_val_if_fail (gFile2 != nullptr, nullptr);
+                auto resourceParentGFile = g_file_get_parent (resourcePathGFile);
+                g_return_val_if_fail (resourceParentGFile != nullptr, nullptr);
 
-                resourcePathCharP = g_file_get_path (gFile2);
-                g_object_unref (gFile2);
+                resourceParentString = g_file_get_path (resourceParentGFile);
+                g_object_unref (resourceParentGFile);
             }
 
-            resourceCharP = resource;
-            g_object_unref (gFile);
+            resourceString = resource;
+            g_object_unref (resourcePathGFile);
         }
 
-        workgroupCharP = workgroup;
+        workgroupString = workgroup;
     }
 
-    return new GnomeCmdSmbPath(workgroupCharP, resourceCharP, resourcePathCharP);
+    return new GnomeCmdSmbPath(workgroupString, resourceString, resourceParentString);
 }
 
 
