@@ -18,8 +18,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-commander/issues\n"
-"POT-Creation-Date: 2021-09-24 21:54+0000\n"
-"PO-Revision-Date: 2021-09-26 15:50-0300\n"
+"POT-Creation-Date: 2021-09-29 21:04+0000\n"
+"PO-Revision-Date: 2021-09-29 20:49-0300\n"
 "Last-Translator: Enrico Nicoletto <liverig@gmail.com>\n"
 "Language-Team: Brazilian Portuguese <gnome-pt_br-list@gnome.org>\n"
 "Language: pt_BR\n"
@@ -1763,57 +1763,57 @@ msgstr "_Usuário:"
 msgid "_Domain name:"
 msgstr "_Domínio:"
 
-#: src/dialogs/gnome-cmd-con-dialog.cc:308
+#: src/dialogs/gnome-cmd-con-dialog.cc:310
 msgid "You must enter a name for the server"
 msgstr "Você precisa digitar um nome para o servidor"
 
-#: src/dialogs/gnome-cmd-con-dialog.cc:308
+#: src/dialogs/gnome-cmd-con-dialog.cc:310
 msgid "Please enter a name and try again."
 msgstr "Por favor, digite um nome e tente novamente."
 
-#: src/dialogs/gnome-cmd-con-dialog.cc:323
+#: src/dialogs/gnome-cmd-con-dialog.cc:325
 #, c-format
 msgid "“%s” is not a valid location"
 msgstr "“%s” não é um local válido"
 
-#: src/dialogs/gnome-cmd-con-dialog.cc:324
+#: src/dialogs/gnome-cmd-con-dialog.cc:326
 msgid "Please check spelling and try again."
 msgstr "Por favor, verifique a digitação e tente novamente."
 
-#: src/dialogs/gnome-cmd-con-dialog.cc:421 src/gnome-cmd-main-win.cc:247
+#: src/dialogs/gnome-cmd-con-dialog.cc:423 src/gnome-cmd-main-win.cc:247
 msgid "Remote Server"
 msgstr "Servidor remoto"
 
-#: src/dialogs/gnome-cmd-con-dialog.cc:436
+#: src/dialogs/gnome-cmd-con-dialog.cc:438
 msgid "Service _type:"
 msgstr "_Tipo de serviço:"
 
 #. Keep this in sync with enum ConnectionMethodID in gnome-cmd-con.h
-#: src/dialogs/gnome-cmd-con-dialog.cc:448
+#: src/dialogs/gnome-cmd-con-dialog.cc:450
 msgid "SSH"
 msgstr "SSH"
 
-#: src/dialogs/gnome-cmd-con-dialog.cc:449
+#: src/dialogs/gnome-cmd-con-dialog.cc:451
 msgid "FTP (with login)"
 msgstr "FTP (com login)"
 
-#: src/dialogs/gnome-cmd-con-dialog.cc:450
+#: src/dialogs/gnome-cmd-con-dialog.cc:452
 msgid "Public FTP"
 msgstr "FTP público"
 
-#: src/dialogs/gnome-cmd-con-dialog.cc:452
+#: src/dialogs/gnome-cmd-con-dialog.cc:454
 msgid "Windows share"
 msgstr "Compartilhamento do windows"
 
-#: src/dialogs/gnome-cmd-con-dialog.cc:454
+#: src/dialogs/gnome-cmd-con-dialog.cc:456
 msgid "WebDAV (HTTP)"
 msgstr "WebDAV (HTTP)"
 
-#: src/dialogs/gnome-cmd-con-dialog.cc:455
+#: src/dialogs/gnome-cmd-con-dialog.cc:457
 msgid "Secure WebDAV (HTTPS)"
 msgstr "WebDAV seguro (HTTPS)"
 
-#: src/dialogs/gnome-cmd-con-dialog.cc:456
+#: src/dialogs/gnome-cmd-con-dialog.cc:458
 msgid "Custom location"
 msgstr "Local personalizado"
 
@@ -1849,8 +1849,8 @@ msgstr "Problema ao excluir"
 #: src/gnome-cmd-xfer.cc:146 src/gnome-cmd-xfer.cc:149
 #: src/gnome-cmd-xfer.cc:204 src/gnome-cmd-xfer.cc:207
 #: src/gnome-cmd-xfer.cc:322 src/gnome-cmd-xfer.cc:325
-#: src/gnome-cmd-xfer.cc:1099 src/gnome-cmd-xfer.cc:1110
-#: src/gnome-cmd-xfer.cc:1131
+#: src/gnome-cmd-xfer.cc:1096 src/gnome-cmd-xfer.cc:1107
+#: src/gnome-cmd-xfer.cc:1128
 msgid "Abort"
 msgstr "Cancelar"
 
@@ -1895,7 +1895,7 @@ msgstr "O diretório “%s” não está vazio. Deseja realmente excluí-lo?"
 #: src/dialogs/gnome-cmd-delete-dialog.cc:492
 #: src/dialogs/gnome-cmd-delete-dialog.cc:493
 #: src/dialogs/gnome-cmd-options-dialog.cc:1043
-#: src/gnome-cmd-file-popmenu.cc:730 src/gnome-cmd-main-win.cc:243
+#: src/gnome-cmd-file-popmenu.cc:744 src/gnome-cmd-main-win.cc:243
 #: src/gnome-cmd-user-actions.cc:213
 msgid "Delete"
 msgstr "Excluir"
@@ -2656,7 +2656,7 @@ msgstr "Perguntar primeiro"
 #: src/dialogs/gnome-cmd-options-dialog.cc:1091
 #: src/dialogs/gnome-cmd-prepare-copy-dialog.cc:107
 #: src/dialogs/gnome-cmd-prepare-move-dialog.cc:101
-#: src/gnome-cmd-file-popmenu.cc:731 src/gnome-cmd-xfer.cc:146
+#: src/gnome-cmd-file-popmenu.cc:745 src/gnome-cmd-xfer.cc:146
 #: src/gnome-cmd-xfer.cc:149 src/gnome-cmd-xfer.cc:204
 #: src/gnome-cmd-xfer.cc:207 src/gnome-cmd-xfer.cc:322
 #: src/gnome-cmd-xfer.cc:325
@@ -2934,7 +2934,7 @@ msgid "Unselect Using Pattern"
 msgstr "Desmarcar usando padrões"
 
 #: src/dialogs/gnome-cmd-prepare-copy-dialog.cc:94
-#: src/gnome-cmd-file-popmenu.cc:729 src/gnome-cmd-main-win.cc:241
+#: src/gnome-cmd-file-popmenu.cc:743 src/gnome-cmd-main-win.cc:241
 #: src/gnome-cmd-user-actions.cc:210
 msgid "Copy"
 msgstr "Copiar"
@@ -2990,6 +2990,7 @@ msgstr "O diretório “%s” não existe, você quer criá-lo?"
 #: src/gnome-cmd-advrename-profile-component.cc:433
 #: src/gnome-cmd-advrename-profile-component.cc:761
 #: src/gnome-cmd-advrename-profile-component.cc:793
+#: src/gnome-cmd-file-popmenu.cc:167
 msgid "No"
 msgstr "Não"
 
@@ -2997,6 +2998,7 @@ msgstr "Não"
 #: src/gnome-cmd-advrename-profile-component.cc:433
 #: src/gnome-cmd-advrename-profile-component.cc:761
 #: src/gnome-cmd-advrename-profile-component.cc:793
+#: src/gnome-cmd-file-popmenu.cc:167
 msgid "Yes"
 msgstr "Sim"
 
@@ -3480,7 +3482,7 @@ msgstr "Montando %s"
 msgid "Go to: %s (%s)"
 msgstr "Ir para: %s (%s)"
 
-#: src/gnome-cmd-con-device.cc:535 src/gnome-cmd-con.h:212
+#: src/gnome-cmd-con-device.cc:535 src/gnome-cmd-con.h:211
 #, c-format
 msgid "Go to: %s"
 msgstr "Ir para: %s"
@@ -3495,26 +3497,26 @@ msgstr "Montar %s"
 msgid "Unmount: %s"
 msgstr "Desmontar: %s"
 
-#: src/gnome-cmd-con.h:210
+#: src/gnome-cmd-con.h:209
 msgid "<New connection>"
 msgstr "<Nova conexão>"
 
-#: src/gnome-cmd-con.h:213
+#: src/gnome-cmd-con.h:212
 #, c-format
 msgid "Connect to: %s"
 msgstr "Conectar em: %s"
 
-#: src/gnome-cmd-con.h:214
+#: src/gnome-cmd-con.h:213
 #, c-format
 msgid "Disconnect from: %s"
 msgstr "Desconectando de %s"
 
-#: src/gnome-cmd-con.h:221
+#: src/gnome-cmd-con.h:241
 #, c-format
 msgid "Connecting to %s\n"
 msgstr "Conectando em %s\n"
 
-#: src/gnome-cmd-con.h:376
+#: src/gnome-cmd-con.h:408
 msgid "Unknown disk usage"
 msgstr "Utilização de disco desconhecida"
 
@@ -3557,7 +3559,7 @@ msgstr "Ir para: Rede Samba"
 msgid "link to %s"
 msgstr "link para %s"
 
-#: src/gnome-cmd-dir.cc:511
+#: src/gnome-cmd-dir.cc:514
 msgid "Waiting for file list"
 msgstr "Esperando por lista de arquivos"
 
@@ -3674,14 +3676,20 @@ msgstr "Sem aplicativo padrão para o tipo de arquivo %s."
 msgid "Open the \"Applications\" page in the Control Center to add one."
 msgstr "Abra a página “Aplicativos” no Centro de Controle para adicionar um."
 
-#: src/gnome-cmd-file-list.cc:1389
+#: src/gnome-cmd-file-list.cc:1389 src/gnome-cmd-file-popmenu.cc:164
 #, c-format
 msgid ""
 "%s does not know how to open remote file. Do you want to download the file "
 "to a temporary location and then open it?"
-msgstr ""
+msgid_plural ""
+"%s does not know how to open remote files. Do you want to download the files "
+"to a temporary location and then open them?"
+msgstr[0] ""
 "%s não sabe como abrir o arquivo remoto. Você gostaria de baixar o arquivo "
 "para um local temporário e depois abri-lo?"
+msgstr[1] ""
+"%s não sabe como abrir os arquivos remotos. Você gostaria de baixar os "
+"arquivos para um local temporário e depois abri-los?"
 
 #: src/gnome-cmd-file-list.cc:1673
 msgid "Directory listing failed."
@@ -3695,63 +3703,63 @@ msgstr "Falha ao abrir conexão."
 msgid "Not an ordinary file."
 msgstr "Não é um arquivo comum."
 
-#: src/gnome-cmd-file-popmenu.cc:246
+#: src/gnome-cmd-file-popmenu.cc:260
 msgid "Couldn’t retrieve MIME type of the file."
 msgstr "Não foi possível recuperar o tipo MIME do arquivo."
 
-#: src/gnome-cmd-file-popmenu.cc:261
+#: src/gnome-cmd-file-popmenu.cc:275
 msgid "Invalid command"
 msgstr "Comando inválido"
 
-#: src/gnome-cmd-file-popmenu.cc:285
+#: src/gnome-cmd-file-popmenu.cc:299
 msgid "Application:"
 msgstr "Aplicativo:"
 
-#: src/gnome-cmd-file-popmenu.cc:288
+#: src/gnome-cmd-file-popmenu.cc:302
 msgid "Open with other…"
 msgstr "Abrir com outro…"
 
-#: src/gnome-cmd-file-popmenu.cc:293
+#: src/gnome-cmd-file-popmenu.cc:307
 msgid "Needs terminal"
 msgstr "Terminal necessário"
 
-#: src/gnome-cmd-file-popmenu.cc:725
+#: src/gnome-cmd-file-popmenu.cc:739
 msgid "Open Wit_h"
 msgstr "Abrir _com"
 
-#: src/gnome-cmd-file-popmenu.cc:726
+#: src/gnome-cmd-file-popmenu.cc:740
 msgid "Other _Application…"
 msgstr "Outro _aplicativo…"
 
-#: src/gnome-cmd-file-popmenu.cc:727
+#: src/gnome-cmd-file-popmenu.cc:741
 msgid "Open Wit_h…"
 msgstr "Abrir _com…"
 
-#: src/gnome-cmd-file-popmenu.cc:728 src/gnome-cmd-main-win.cc:240
+#: src/gnome-cmd-file-popmenu.cc:742 src/gnome-cmd-main-win.cc:240
 #: src/gnome-cmd-user-actions.cc:212
 msgid "Cut"
 msgstr "Recortar"
 
 #. {file_run, "file.run"},
-#: src/gnome-cmd-file-popmenu.cc:732 src/gnome-cmd-main-win.cc:245
+#: src/gnome-cmd-file-popmenu.cc:746 src/gnome-cmd-main-win.cc:245
 #: src/gnome-cmd-user-actions.cc:236
 msgid "Send files"
 msgstr "Enviar arquivos"
 
-#: src/gnome-cmd-file-popmenu.cc:733 src/gnome-cmd-main-menu.cc:307
+#: src/gnome-cmd-file-popmenu.cc:747 src/gnome-cmd-main-menu.cc:307
 msgid "_Properties…"
 msgstr "_Propriedades…"
 
-#: src/gnome-cmd-file-popmenu.cc:734
+#: src/gnome-cmd-file-popmenu.cc:748
 msgid "E_xecute"
 msgstr "E_xecutar"
 
-#: src/gnome-cmd-file-popmenu.cc:735 src/gnome-cmd-list-popmenu.cc:108
+#: src/gnome-cmd-file-popmenu.cc:749 src/gnome-cmd-list-popmenu.cc:108
 msgid "Open _terminal here"
 msgstr "Abrir o _terminal aqui"
 
 # janela de atalhos
-#: src/gnome-cmd-file-popmenu.cc:736 src/gnome-cmd-user-actions.cc:211
+#: src/gnome-cmd-file-popmenu.cc:750 src/gnome-cmd-user-actions.cc:211
 msgid "Copy file names"
 msgstr "Copiar nomes de arquivos"
 
@@ -4638,8 +4646,8 @@ msgstr ""
 "Gustavo Marques <gutodisse@gmail.com>\n"
 "Rafael Fontenelle <rafaelff@gnome.org>"
 
-#: src/gnome-cmd-xfer.cc:118 src/gnome-cmd-xfer.cc:1099
-#: src/gnome-cmd-xfer.cc:1110 src/gnome-cmd-xfer.cc:1131
+#: src/gnome-cmd-xfer.cc:118 src/gnome-cmd-xfer.cc:1096
+#: src/gnome-cmd-xfer.cc:1107 src/gnome-cmd-xfer.cc:1128
 msgid "Transfer problem"
 msgstr "Problema na transferência"
 
@@ -4733,11 +4741,11 @@ msgstr "preparando…"
 msgid "Moving a directory into itself is a bad idea."
 msgstr "Mover um diretório para dentro dele mesmo é uma má ideia."
 
-#: src/gnome-cmd-xfer.cc:878
+#: src/gnome-cmd-xfer.cc:875
 msgid "downloading to /tmp"
 msgstr "baixando para /tmp"
 
-#: src/gnome-cmd-xfer.cc:927
+#: src/gnome-cmd-xfer.cc:924
 #, c-format
 msgid ""
 "Error while creating symlink “%s”\n"
@@ -4748,21 +4756,21 @@ msgstr ""
 "\n"
 "%s"
 
-#: src/gnome-cmd-xfer.cc:932
+#: src/gnome-cmd-xfer.cc:929
 msgid "Symlink creation problem"
 msgstr "Problema ao criar link simbólico"
 
-#: src/gnome-cmd-xfer.cc:933
+#: src/gnome-cmd-xfer.cc:930
 msgid "Ignore"
 msgstr "Ignorar"
 
 #. Translators: Translate 'Copy' as a noun here
-#: src/gnome-cmd-xfer.cc:1034
+#: src/gnome-cmd-xfer.cc:1031
 msgctxt "Filename suffix"
 msgid "Copy"
 msgstr "Cópia"
 
-#: src/gnome-cmd-xfer.cc:1098 src/gnome-cmd-xfer.cc:1109
+#: src/gnome-cmd-xfer.cc:1095 src/gnome-cmd-xfer.cc:1106
 #, c-format
 msgid ""
 "Source “%s” could not be deleted. Aborting!\n"
@@ -4773,7 +4781,7 @@ msgstr ""
 "\n"
 "%s"
 
-#: src/gnome-cmd-xfer.cc:1130
+#: src/gnome-cmd-xfer.cc:1127
 #, c-format
 msgid "Source “%s” could not be copied. Aborting!"
 msgstr "Não foi possível copiar a fonte “%s”. Terminando!"
