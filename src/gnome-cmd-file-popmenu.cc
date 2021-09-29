@@ -828,7 +828,6 @@ guint add_open_with_entries(GtkUIManager *ui_manager, GnomeCmdFileList *gnomeCmd
         gtk_ui_manager_add_ui (ui_manager, mergeIdOpenWith, "/FilePopup/OpenWithDefault", openWithDefaultAppLabel, "Open",
                                GTK_UI_MANAGER_AUTO, true);
         g_free (defaultAppIconPath);
-        g_free(openWithDefaultAppLabel);
         g_free(appStockId);
     }
     else
@@ -840,6 +839,7 @@ guint add_open_with_entries(GtkUIManager *ui_manager, GnomeCmdFileList *gnomeCmd
                                GTK_UI_MANAGER_SEPARATOR, false);
     }
     newTopMenuItems++;
+    g_free(openWithDefaultAppLabel);
 
     // Add menu items in the "Open with" submenu
     gint ii = -1;
