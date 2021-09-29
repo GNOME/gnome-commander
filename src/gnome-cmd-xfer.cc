@@ -855,17 +855,14 @@ gnome_cmd_link_gfiles_start (GList *srcGFileGList,
 
 
 void
-gnome_cmd_tmp_download (GFile *srcGFile,
-                             GFile *destGFile,
-                             GFileCopyFlags copyFlags,
-                             GtkSignalFunc on_completed_func,
-                             gpointer on_completed_data)
+gnome_cmd_tmp_download (GList *srcGFileList,
+                        GList *destGFileList,
+                        GFileCopyFlags copyFlags,
+                        GtkSignalFunc on_completed_func,
+                        gpointer on_completed_data)
 {
-    g_return_if_fail (srcGFile != nullptr && G_IS_FILE(srcGFile));
-    g_return_if_fail (destGFile != nullptr && G_IS_FILE(destGFile));
-
-    auto srcGFileList = g_list_append (nullptr, srcGFile);
-    auto destGFileList = g_list_append (nullptr, destGFile);
+    g_return_if_fail (srcGFileList != nullptr && srcGFileList->data != nullptr);
+    g_return_if_fail (destGFileList != nullptr && destGFileList->data != nullptr);
 
     auto xferData = create_xfer_data (copyFlags, srcGFileList, destGFileList,
                              nullptr, nullptr, nullptr, GNOME_CMD_CONFIRM_OVERWRITE_QUERY,

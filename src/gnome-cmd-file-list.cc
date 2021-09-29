@@ -1275,11 +1275,11 @@ static void on_tmp_download_response (GtkWidget *w, gint id, TmpDlData *dldata)
         GnomeCmdPlainPath path(path_str);
         auto destGFile = gnome_cmd_con_create_gfile (get_home_con (), &path);
 
-        gnome_cmd_tmp_download (sourceGFile,
-                                     destGFile,
-                                     G_FILE_COPY_OVERWRITE,
-                                     GTK_SIGNAL_FUNC (do_mime_exec_single),
-                                     dldata->args);
+        gnome_cmd_tmp_download (g_list_append (nullptr, sourceGFile),
+                                g_list_append (nullptr, destGFile),
+                                G_FILE_COPY_OVERWRITE,
+                                GTK_SIGNAL_FUNC (do_mime_exec_single),
+                                dldata->args);
     }
     else
     {

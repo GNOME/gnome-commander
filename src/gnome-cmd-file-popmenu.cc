@@ -88,17 +88,31 @@ static void do_mime_exec_multiple (gpointer *args)
             string cmdString = gnome_cmd_app_get_command (gnomeCmdApp);
 
             set<string> dirs;
-            auto files_tmp = files;
 
-            for (; files_tmp; files_tmp = files_tmp->next)
+            for (auto files_tmp = files; files_tmp; files_tmp = files_tmp->next)
             {
-                cmdString += ' ';
-                cmdString += stringify (g_shell_quote ( g_file_get_path((GFile *) files_tmp->data)));
+                auto gFile = (GFile *) files_tmp->data;
 
-                gchar *dpath = g_path_get_dirname (g_file_get_path((GFile *) files_tmp->data));
+                if (g_file_has_uri_scheme(gFile, "file"))
+                {
+                    auto localpath = g_file_get_path(gFile);
 
-                if (dpath)
-                    dirs.insert (stringify (dpath));
+                    cmdString += ' ';
+                    cmdString += stringify (g_shell_quote (localpath));
+
+                    auto dpath = g_path_get_dirname (localpath);
+
+                    if (dpath)
+                        dirs.insert (stringify (dpath));
+
+                    g_free(localpath);
+                }
+                else
+                {
+                    auto uri = g_file_get_uri(gFile);
+                    cmdString += ' ';
+                    cmdString += stringify (g_shell_quote (uri));
+                }
             }
 
             if (dirs.size()==1)
@@ -120,72 +134,72 @@ static void mime_exec_multiple (GList *files, GnomeCmdApp *app)
     g_return_if_fail (files != nullptr);
     g_return_if_fail (app != nullptr);
 
-//  GList *src_uri_list = nullptr;
-//  GList *dest_uri_list = nullptr;
-    GList *local_files = nullptr;
-//  gboolean asked = FALSE;
-//  guint no_of_remote_files = 0;
-//  gint retid;
+    GList *srcGFileList = nullptr;
+    GList *destGFileList = nullptr;
+    GList *localGFileList = nullptr;
+    gboolean asked = FALSE;
+    guint no_of_remote_files = 0;
+    gint retid;
 
     for (; files; files = files->next)
     {
         auto gnomeCmdFile = static_cast<GnomeCmdFile*> (files->data);
+        auto scheme = g_file_get_uri_scheme (gnomeCmdFile->gFile);
 
-//      if (gnome_vfs_uri_is_local (gnomeCmdFile->get_uri()))
-//      {
-        local_files = g_list_append (local_files, gnomeCmdFile->gFile);
-//      }
-        // TODO: Is this needed after gio / gvfs migration?
-//      else
-//      {
-//          ++no_of_remote_files;
-//          if (gnome_cmd_app_get_handles_uris (app) && gnome_cmd_data.options.honor_expect_uris)
-//          {
-//              local_files = g_list_append (local_files,  gnomeCmdFile->gFile);
-//          }
-//          else
-//          {
-//              if (!asked)
-//              {
-//                  gchar *msg = g_strdup_printf (ngettext("%s does not know how to open remote file. Do you want to download the file to a temporary location and then open it?",
-//                                                         "%s does not know how to open remote files. Do you want to download the files to a temporary location and then open them?", no_of_remote_files),
-//                                                gnome_cmd_app_get_name (app));
-//                  retid = run_simple_dialog (*main_win, TRUE, GTK_MESSAGE_QUESTION, msg, "", -1, _("No"), _("Yes"), nullptr);
-//                  asked = TRUE;
-//              }
-//
-//              if (retid==1)
-//              {
-//                  gchar *path_str = get_temp_download_filepath (gnomeCmdFile->get_name());
-//
-//                  if (!path_str) return;
-//
-//                  GnomeVFSURI *src_uri = gnome_vfs_uri_dup (gnomeCmdFile->get_uri());
-//                  GnomeCmdPlainPath path(path_str);
-//                  GnomeVFSURI *dest_uri = gnome_cmd_con_create_uri (get_home_con (), &path);
-//
-//                  src_uri_list = g_list_append (src_uri_list, src_uri);
-//                  dest_uri_list = g_list_append (dest_uri_list, dest_uri);
-//                  local_files = g_list_append (local_files, gnomeCmdFile->gFile);
-//              }
-//          }
-//      }
+        if (g_strcmp0(scheme, "file") == 0)
+        {
+            localGFileList = g_list_append (localGFileList, gnomeCmdFile->gFile);
+        }
+        else
+        {
+            ++no_of_remote_files;
+            if (gnome_cmd_app_get_handles_uris (app) && gnome_cmd_data.options.honor_expect_uris)
+            {
+                localGFileList = g_list_append (localGFileList, gnomeCmdFile->gFile);
+            }
+            else
+            {
+                if (!asked)
+                {
+                    gchar *msg = g_strdup_printf (ngettext("%s does not know how to open remote file. Do you want to download the file to a temporary location and then open it?",
+                                                           "%s does not know how to open remote files. Do you want to download the files to a temporary location and then open them?", no_of_remote_files),
+                                                  gnome_cmd_app_get_name (app));
+                    retid = run_simple_dialog (*main_win, TRUE, GTK_MESSAGE_QUESTION, msg, "", -1, _("No"), _("Yes"), nullptr);
+                    asked = TRUE;
+                }
+
+                if (retid==1)
+                {
+                    gchar *path_str = get_temp_download_filepath (gnomeCmdFile->get_name());
+
+                    if (!path_str) return;
+
+                    auto srcGFile = g_file_dup (gnomeCmdFile->get_gfile());
+                    GnomeCmdPlainPath path(path_str);
+                    auto destGFile = gnome_cmd_con_create_gfile (get_home_con (), &path);
+
+                    srcGFileList = g_list_append (srcGFileList, srcGFile);
+                    destGFileList = g_list_append (destGFileList, destGFile);
+                    localGFileList = g_list_append (localGFileList, destGFile);
+                }
+            }
+        }
+        g_free(scheme);
     }
 
     g_list_free (files);
 
     gpointer *args = g_new0 (gpointer, 2);
     args[0] = app;
-    args[1] = local_files;
+    args[1] = localGFileList;
 
-//  if (src_uri_list)
-//      gnome_cmd_xfer_tmp_download_multiple (src_uri_list,
-//                                            dest_uri_list,
-//                                            GNOME_VFS_XFER_FOLLOW_LINKS,
-//                                            GNOME_VFS_XFER_OVERWRITE_MODE_REPLACE,
-//                                            GTK_SIGNAL_FUNC (do_mime_exec_multiple),
-//                                            args);
-//  else
+    if (srcGFileList)
+        gnome_cmd_tmp_download(srcGFileList,
+                               destGFileList,
+                               G_FILE_COPY_OVERWRITE,
+                               GTK_SIGNAL_FUNC (do_mime_exec_multiple),
+                               args);
+    else
       do_mime_exec_multiple (args);
 }
 

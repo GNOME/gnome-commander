@@ -139,11 +139,11 @@ gnome_cmd_link_gfiles_start (GList *src_uri_list,
                            gpointer on_completed_data);
 
 void
-gnome_cmd_tmp_download (GFile *srcGFile,
-                             GFile *destGFile,
-                             GFileCopyFlags copyFlags,
-                             GtkSignalFunc on_completed_func,
-                             gpointer on_completed_data);
+gnome_cmd_tmp_download (GList *srcGFileList,
+                        GList *destGFileList,
+                        GFileCopyFlags copyFlags,
+                        GtkSignalFunc on_completed_func,
+                        gpointer on_completed_data);
 
 void
 gnome_cmd_transfer_gfiles (XferData *xferData);

@@ -899,11 +899,11 @@ void gnome_cmd_file_view (GnomeCmdFile *f, gint internal_viewer)
     g_printerr ("Copying to: %s\n", path_str);
     g_free (path_str);
 
-    gnome_cmd_tmp_download (srcGFile,
-                                 destGFile,
-                                 G_FILE_COPY_OVERWRITE,
-                                 GTK_SIGNAL_FUNC (on_file_downloaded_for_view),
-                                 gFile);
+    gnome_cmd_tmp_download (g_list_append (nullptr, srcGFile),
+                            g_list_append (nullptr, destGFile),
+                            G_FILE_COPY_OVERWRITE,
+                            GTK_SIGNAL_FUNC (on_file_downloaded_for_view),
+                            gFile);
 }
 
 
