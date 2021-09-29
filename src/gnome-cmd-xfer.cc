@@ -54,6 +54,7 @@ inline void free_xfer_data (XferData *xferData)
 
     g_list_free (xferData->destGFileList);
     g_list_free (xferData->srcGFileList);
+    g_free(xferData->curSrcFileName);
     g_free (xferData);
 }
 
