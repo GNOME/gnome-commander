@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander 1.3.0\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-commander/issues\n"
-"POT-Creation-Date: 2021-09-24 21:54+0000\n"
-"PO-Revision-Date: 2021-09-25 08:47+0300\n"
+"POT-Creation-Date: 2021-09-29 21:04+0000\n"
+"PO-Revision-Date: 2021-09-30 14:06+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -1765,57 +1765,57 @@ msgstr "_Користувач:"
 msgid "_Domain name:"
 msgstr "Ім'я _домену:"
 
-#: src/dialogs/gnome-cmd-con-dialog.cc:308
+#: src/dialogs/gnome-cmd-con-dialog.cc:310
 msgid "You must enter a name for the server"
 msgstr "Введіть назву сервера"
 
-#: src/dialogs/gnome-cmd-con-dialog.cc:308
+#: src/dialogs/gnome-cmd-con-dialog.cc:310
 msgid "Please enter a name and try again."
 msgstr "Будь ласка, введіть назву і повторіть спробу."
 
-#: src/dialogs/gnome-cmd-con-dialog.cc:323
+#: src/dialogs/gnome-cmd-con-dialog.cc:325
 #, c-format
 msgid "“%s” is not a valid location"
 msgstr "«%s» не є правильною адресою"
 
-#: src/dialogs/gnome-cmd-con-dialog.cc:324
+#: src/dialogs/gnome-cmd-con-dialog.cc:326
 msgid "Please check spelling and try again."
 msgstr "Будь ласка, перевірте правильність написання і повторіть спробу."
 
-#: src/dialogs/gnome-cmd-con-dialog.cc:421 src/gnome-cmd-main-win.cc:247
+#: src/dialogs/gnome-cmd-con-dialog.cc:423 src/gnome-cmd-main-win.cc:247
 msgid "Remote Server"
 msgstr "Віддалений сервер"
 
-#: src/dialogs/gnome-cmd-con-dialog.cc:436
+#: src/dialogs/gnome-cmd-con-dialog.cc:438
 msgid "Service _type:"
 msgstr "_Тип сервісу:"
 
 #. Keep this in sync with enum ConnectionMethodID in gnome-cmd-con.h
-#: src/dialogs/gnome-cmd-con-dialog.cc:448
+#: src/dialogs/gnome-cmd-con-dialog.cc:450
 msgid "SSH"
 msgstr "SSH"
 
-#: src/dialogs/gnome-cmd-con-dialog.cc:449
+#: src/dialogs/gnome-cmd-con-dialog.cc:451
 msgid "FTP (with login)"
 msgstr "FTP (з авторизацією)"
 
-#: src/dialogs/gnome-cmd-con-dialog.cc:450
+#: src/dialogs/gnome-cmd-con-dialog.cc:452
 msgid "Public FTP"
 msgstr "Публічний FTP"
 
-#: src/dialogs/gnome-cmd-con-dialog.cc:452
+#: src/dialogs/gnome-cmd-con-dialog.cc:454
 msgid "Windows share"
 msgstr "Мережна тека Windows"
 
-#: src/dialogs/gnome-cmd-con-dialog.cc:454
+#: src/dialogs/gnome-cmd-con-dialog.cc:456
 msgid "WebDAV (HTTP)"
 msgstr "WebDAV (HTTP)"
 
-#: src/dialogs/gnome-cmd-con-dialog.cc:455
+#: src/dialogs/gnome-cmd-con-dialog.cc:457
 msgid "Secure WebDAV (HTTPS)"
 msgstr "Безпечний WebDAV (HTTPS)"
 
-#: src/dialogs/gnome-cmd-con-dialog.cc:456
+#: src/dialogs/gnome-cmd-con-dialog.cc:458
 msgid "Custom location"
 msgstr "Інше місце"
 
@@ -1853,8 +1853,8 @@ msgstr "Проблема з вилученням"
 #: src/gnome-cmd-xfer.cc:146 src/gnome-cmd-xfer.cc:149
 #: src/gnome-cmd-xfer.cc:204 src/gnome-cmd-xfer.cc:207
 #: src/gnome-cmd-xfer.cc:322 src/gnome-cmd-xfer.cc:325
-#: src/gnome-cmd-xfer.cc:1099 src/gnome-cmd-xfer.cc:1110
-#: src/gnome-cmd-xfer.cc:1131
+#: src/gnome-cmd-xfer.cc:1096 src/gnome-cmd-xfer.cc:1107
+#: src/gnome-cmd-xfer.cc:1128
 msgid "Abort"
 msgstr "Перервати"
 
@@ -1899,7 +1899,7 @@ msgstr "Каталог «%s» містить дані. Ви справді хо�
 #: src/dialogs/gnome-cmd-delete-dialog.cc:492
 #: src/dialogs/gnome-cmd-delete-dialog.cc:493
 #: src/dialogs/gnome-cmd-options-dialog.cc:1043
-#: src/gnome-cmd-file-popmenu.cc:730 src/gnome-cmd-main-win.cc:243
+#: src/gnome-cmd-file-popmenu.cc:744 src/gnome-cmd-main-win.cc:243
 #: src/gnome-cmd-user-actions.cc:213
 msgid "Delete"
 msgstr "Видалити"
@@ -2662,7 +2662,7 @@ msgstr "Перепитати"
 #: src/dialogs/gnome-cmd-options-dialog.cc:1091
 #: src/dialogs/gnome-cmd-prepare-copy-dialog.cc:107
 #: src/dialogs/gnome-cmd-prepare-move-dialog.cc:101
-#: src/gnome-cmd-file-popmenu.cc:731 src/gnome-cmd-xfer.cc:146
+#: src/gnome-cmd-file-popmenu.cc:745 src/gnome-cmd-xfer.cc:146
 #: src/gnome-cmd-xfer.cc:149 src/gnome-cmd-xfer.cc:204
 #: src/gnome-cmd-xfer.cc:207 src/gnome-cmd-xfer.cc:322
 #: src/gnome-cmd-xfer.cc:325
@@ -2941,7 +2941,7 @@ msgid "Unselect Using Pattern"
 msgstr "Зняти позначення за взірцем"
 
 #: src/dialogs/gnome-cmd-prepare-copy-dialog.cc:94
-#: src/gnome-cmd-file-popmenu.cc:729 src/gnome-cmd-main-win.cc:241
+#: src/gnome-cmd-file-popmenu.cc:743 src/gnome-cmd-main-win.cc:241
 #: src/gnome-cmd-user-actions.cc:210
 msgid "Copy"
 msgstr "Копіювати"
@@ -3001,6 +3001,7 @@ msgstr "Каталогу «%s» не існує, створити його?"
 #: src/gnome-cmd-advrename-profile-component.cc:433
 #: src/gnome-cmd-advrename-profile-component.cc:761
 #: src/gnome-cmd-advrename-profile-component.cc:793
+#: src/gnome-cmd-file-popmenu.cc:167
 msgid "No"
 msgstr "Ні"
 
@@ -3008,6 +3009,7 @@ msgstr "Ні"
 #: src/gnome-cmd-advrename-profile-component.cc:433
 #: src/gnome-cmd-advrename-profile-component.cc:761
 #: src/gnome-cmd-advrename-profile-component.cc:793
+#: src/gnome-cmd-file-popmenu.cc:167
 msgid "Yes"
 msgstr "Так"
 
@@ -3498,7 +3500,7 @@ msgstr "Підключається %s"
 msgid "Go to: %s (%s)"
 msgstr "Перейти до: %s (%s)"
 
-#: src/gnome-cmd-con-device.cc:535 src/gnome-cmd-con.h:212
+#: src/gnome-cmd-con-device.cc:535 src/gnome-cmd-con.h:211
 #, c-format
 msgid "Go to: %s"
 msgstr "Перейти до: %s"
@@ -3513,27 +3515,27 @@ msgstr "Підключення: %s"
 msgid "Unmount: %s"
 msgstr "Демонтування: %s"
 
-#: src/gnome-cmd-con.h:210
+#: src/gnome-cmd-con.h:209
 msgid "<New connection>"
 msgstr "<Нове з'єднання>"
 
-#: src/gnome-cmd-con.h:213
+#: src/gnome-cmd-con.h:212
 #, c-format
 msgid "Connect to: %s"
 msgstr "З'єднання з: %s"
 
-#: src/gnome-cmd-con.h:214
+#: src/gnome-cmd-con.h:213
 #, c-format
 msgid "Disconnect from: %s"
 msgstr "Від'єднання від: %s"
 
 # c-format
-#: src/gnome-cmd-con.h:221
+#: src/gnome-cmd-con.h:241
 #, c-format
 msgid "Connecting to %s\n"
 msgstr "З'єднання з %s\n"
 
-#: src/gnome-cmd-con.h:376
+#: src/gnome-cmd-con.h:408
 msgid "Unknown disk usage"
 msgstr "Невідоме використання диску"
 
@@ -3556,7 +3558,6 @@ msgid "Closes remote connection to %s"
 msgstr "Закриває віддалене з'єднання з %s"
 
 #: src/gnome-cmd-con-smb.cc:56
-#| msgid "Failed to browse the network. Is the SMB module installed?"
 msgid "Failed to browse the network. Is Samba supported on the system?"
 msgstr "Помилка огляду мережі. Чи встановлено у системі підтримку Samba?"
 
@@ -3577,7 +3578,7 @@ msgstr "Перейти до: мережа Samba"
 msgid "link to %s"
 msgstr "посилання на %s"
 
-#: src/gnome-cmd-dir.cc:511
+#: src/gnome-cmd-dir.cc:514
 msgid "Waiting for file list"
 msgstr "Очікування на список файлів"
 
@@ -3694,12 +3695,27 @@ msgid "Open the \"Applications\" page in the Control Center to add one."
 msgstr ""
 "Відкрийте сторінку «програми» у Центрі керування, щоб додати прив'язку."
 
-#: src/gnome-cmd-file-list.cc:1389
+#: src/gnome-cmd-file-list.cc:1389 src/gnome-cmd-file-popmenu.cc:164
 #, c-format
+#| msgid ""
+#| "%s does not know how to open remote file. Do you want to download the "
+#| "file to a temporary location and then open it?"
 msgid ""
 "%s does not know how to open remote file. Do you want to download the file "
 "to a temporary location and then open it?"
-msgstr ""
+msgid_plural ""
+"%s does not know how to open remote files. Do you want to download the files "
+"to a temporary location and then open them?"
+msgstr[0] ""
+"%s не знає, яким чином відкрити віддалені файли. Хочете завантажити файли до "
+"тимчасового каталогу, а потім відкрити їх?"
+msgstr[1] ""
+"%s не знає, яким чином відкрити віддалені файли. Хочете завантажити файли до "
+"тимчасового каталогу, а потім відкрити їх?"
+msgstr[2] ""
+"%s не знає, яким чином відкрити віддалені файли. Хочете завантажити файли до "
+"тимчасового каталогу, а потім відкрити їх?"
+msgstr[3] ""
 "%s не знає, яким чином відкрити віддалений файл. Хочете завантажити файл до "
 "тимчасового каталогу, а потім відкрити його?"
 
@@ -3715,62 +3731,62 @@ msgstr "Не вдалося відкрити з'єднання."
 msgid "Not an ordinary file."
 msgstr "Не є звичайним файлом."
 
-#: src/gnome-cmd-file-popmenu.cc:246
+#: src/gnome-cmd-file-popmenu.cc:260
 msgid "Couldn’t retrieve MIME type of the file."
 msgstr "Не вдалося отримати тип MIME файла."
 
-#: src/gnome-cmd-file-popmenu.cc:261
+#: src/gnome-cmd-file-popmenu.cc:275
 msgid "Invalid command"
 msgstr "Неприпустима команда"
 
-#: src/gnome-cmd-file-popmenu.cc:285
+#: src/gnome-cmd-file-popmenu.cc:299
 msgid "Application:"
 msgstr "Додаток:"
 
-#: src/gnome-cmd-file-popmenu.cc:288
+#: src/gnome-cmd-file-popmenu.cc:302
 msgid "Open with other…"
 msgstr "Відкрити за допомогою іншої…"
 
-#: src/gnome-cmd-file-popmenu.cc:293
+#: src/gnome-cmd-file-popmenu.cc:307
 msgid "Needs terminal"
 msgstr "Запустити у терміналі"
 
-#: src/gnome-cmd-file-popmenu.cc:725
+#: src/gnome-cmd-file-popmenu.cc:739
 msgid "Open Wit_h"
 msgstr "Відкрити за допо_могою"
 
-#: src/gnome-cmd-file-popmenu.cc:726
+#: src/gnome-cmd-file-popmenu.cc:740
 msgid "Other _Application…"
 msgstr "Інша п_рограма…"
 
-#: src/gnome-cmd-file-popmenu.cc:727
+#: src/gnome-cmd-file-popmenu.cc:741
 msgid "Open Wit_h…"
 msgstr "Відкрити за допо_могою…"
 
-#: src/gnome-cmd-file-popmenu.cc:728 src/gnome-cmd-main-win.cc:240
+#: src/gnome-cmd-file-popmenu.cc:742 src/gnome-cmd-main-win.cc:240
 #: src/gnome-cmd-user-actions.cc:212
 msgid "Cut"
 msgstr "Вирізати"
 
 #. {file_run, "file.run"},
-#: src/gnome-cmd-file-popmenu.cc:732 src/gnome-cmd-main-win.cc:245
+#: src/gnome-cmd-file-popmenu.cc:746 src/gnome-cmd-main-win.cc:245
 #: src/gnome-cmd-user-actions.cc:236
 msgid "Send files"
 msgstr "Відправити файли"
 
-#: src/gnome-cmd-file-popmenu.cc:733 src/gnome-cmd-main-menu.cc:307
+#: src/gnome-cmd-file-popmenu.cc:747 src/gnome-cmd-main-menu.cc:307
 msgid "_Properties…"
 msgstr "В_ластивості…"
 
-#: src/gnome-cmd-file-popmenu.cc:734
+#: src/gnome-cmd-file-popmenu.cc:748
 msgid "E_xecute"
 msgstr "_Виконати"
 
-#: src/gnome-cmd-file-popmenu.cc:735 src/gnome-cmd-list-popmenu.cc:108
+#: src/gnome-cmd-file-popmenu.cc:749 src/gnome-cmd-list-popmenu.cc:108
 msgid "Open _terminal here"
 msgstr "Запустити у _терміналі"
 
-#: src/gnome-cmd-file-popmenu.cc:736 src/gnome-cmd-user-actions.cc:211
+#: src/gnome-cmd-file-popmenu.cc:750 src/gnome-cmd-user-actions.cc:211
 msgid "Copy file names"
 msgstr "Копіювати назви файлів"
 
@@ -4627,8 +4643,8 @@ msgstr ""
 msgid "translator-credits"
 msgstr "Maxim Dziumanenko <mvd@mylinux.com.ua>"
 
-#: src/gnome-cmd-xfer.cc:118 src/gnome-cmd-xfer.cc:1099
-#: src/gnome-cmd-xfer.cc:1110 src/gnome-cmd-xfer.cc:1131
+#: src/gnome-cmd-xfer.cc:118 src/gnome-cmd-xfer.cc:1096
+#: src/gnome-cmd-xfer.cc:1107 src/gnome-cmd-xfer.cc:1128
 msgid "Transfer problem"
 msgstr "Проблема перенесення даних"
 
@@ -4722,11 +4738,11 @@ msgstr "приготування…"
 msgid "Moving a directory into itself is a bad idea."
 msgstr "Не варто пересувати каталог сам у себе."
 
-#: src/gnome-cmd-xfer.cc:878
+#: src/gnome-cmd-xfer.cc:875
 msgid "downloading to /tmp"
 msgstr "завантаження в /tmp"
 
-#: src/gnome-cmd-xfer.cc:927
+#: src/gnome-cmd-xfer.cc:924
 #, c-format
 msgid ""
 "Error while creating symlink “%s”\n"
@@ -4737,21 +4753,21 @@ msgstr ""
 "\n"
 "%s"
 
-#: src/gnome-cmd-xfer.cc:932
+#: src/gnome-cmd-xfer.cc:929
 msgid "Symlink creation problem"
 msgstr "Проблема зі створенням символічного посилання"
 
-#: src/gnome-cmd-xfer.cc:933
+#: src/gnome-cmd-xfer.cc:930
 msgid "Ignore"
 msgstr "Ігнорувати"
 
 #. Translators: Translate 'Copy' as a noun here
-#: src/gnome-cmd-xfer.cc:1034
+#: src/gnome-cmd-xfer.cc:1031
 msgctxt "Filename suffix"
 msgid "Copy"
 msgstr "Копія"
 
-#: src/gnome-cmd-xfer.cc:1098 src/gnome-cmd-xfer.cc:1109
+#: src/gnome-cmd-xfer.cc:1095 src/gnome-cmd-xfer.cc:1106
 #, c-format
 msgid ""
 "Source “%s” could not be deleted. Aborting!\n"
@@ -4762,7 +4778,7 @@ msgstr ""
 "\n"
 "%s"
 
-#: src/gnome-cmd-xfer.cc:1130
+#: src/gnome-cmd-xfer.cc:1127
 #, c-format
 msgid "Source “%s” could not be copied. Aborting!"
 msgstr "Не вдалося скопіювати джерело «%s» Перериваємо обробку!"
