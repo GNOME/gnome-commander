@@ -16,8 +16,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-commander/issues\n"
-"POT-Creation-Date: 2021-09-24 21:54+0000\n"
-"PO-Revision-Date: 2021-09-28 11:00+0200\n"
+"POT-Creation-Date: 2021-09-29 21:04+0000\n"
+"PO-Revision-Date: 2021-09-30 14:36+0200\n"
 "Last-Translator: Marek Černocký <marek@manet.cz>\n"
 "Language-Team: čeština <gnome-cs-list@gnome.org>\n"
 "Language: cs\n"
@@ -1735,57 +1735,57 @@ msgstr "Jméno _uživatele:"
 msgid "_Domain name:"
 msgstr "Název _domény:"
 
-#: src/dialogs/gnome-cmd-con-dialog.cc:308
+#: src/dialogs/gnome-cmd-con-dialog.cc:310
 msgid "You must enter a name for the server"
 msgstr "Musíte zadat název serveru"
 
-#: src/dialogs/gnome-cmd-con-dialog.cc:308
+#: src/dialogs/gnome-cmd-con-dialog.cc:310
 msgid "Please enter a name and try again."
 msgstr "Zadejte prosím jméno a zkuste to znovu."
 
-#: src/dialogs/gnome-cmd-con-dialog.cc:323
+#: src/dialogs/gnome-cmd-con-dialog.cc:325
 #, c-format
 msgid "“%s” is not a valid location"
 msgstr "„%s“ není platné umístění"
 
-#: src/dialogs/gnome-cmd-con-dialog.cc:324
+#: src/dialogs/gnome-cmd-con-dialog.cc:326
 msgid "Please check spelling and try again."
 msgstr "Zkontrolujte prosím překlepy a zkuste to znovu."
 
-#: src/dialogs/gnome-cmd-con-dialog.cc:421 src/gnome-cmd-main-win.cc:247
+#: src/dialogs/gnome-cmd-con-dialog.cc:423 src/gnome-cmd-main-win.cc:247
 msgid "Remote Server"
 msgstr "Vzdálený server"
 
-#: src/dialogs/gnome-cmd-con-dialog.cc:436
+#: src/dialogs/gnome-cmd-con-dialog.cc:438
 msgid "Service _type:"
 msgstr "_Typ služby:"
 
 #. Keep this in sync with enum ConnectionMethodID in gnome-cmd-con.h
-#: src/dialogs/gnome-cmd-con-dialog.cc:448
+#: src/dialogs/gnome-cmd-con-dialog.cc:450
 msgid "SSH"
 msgstr "SSH"
 
-#: src/dialogs/gnome-cmd-con-dialog.cc:449
+#: src/dialogs/gnome-cmd-con-dialog.cc:451
 msgid "FTP (with login)"
 msgstr "FTP (s přihlášením)"
 
-#: src/dialogs/gnome-cmd-con-dialog.cc:450
+#: src/dialogs/gnome-cmd-con-dialog.cc:452
 msgid "Public FTP"
 msgstr "Veřejné FTP"
 
-#: src/dialogs/gnome-cmd-con-dialog.cc:452
+#: src/dialogs/gnome-cmd-con-dialog.cc:454
 msgid "Windows share"
 msgstr "Sdílení Windows"
 
-#: src/dialogs/gnome-cmd-con-dialog.cc:454
+#: src/dialogs/gnome-cmd-con-dialog.cc:456
 msgid "WebDAV (HTTP)"
 msgstr "WebDAV (HTTP)"
 
-#: src/dialogs/gnome-cmd-con-dialog.cc:455
+#: src/dialogs/gnome-cmd-con-dialog.cc:457
 msgid "Secure WebDAV (HTTPS)"
 msgstr "Zabezpečené WebDAV (HTTPS)"
 
-#: src/dialogs/gnome-cmd-con-dialog.cc:456
+#: src/dialogs/gnome-cmd-con-dialog.cc:458
 msgid "Custom location"
 msgstr "Vlastní umístění"
 
@@ -1822,8 +1822,8 @@ msgstr "Problém s odstraňováním"
 #: src/gnome-cmd-xfer.cc:146 src/gnome-cmd-xfer.cc:149
 #: src/gnome-cmd-xfer.cc:204 src/gnome-cmd-xfer.cc:207
 #: src/gnome-cmd-xfer.cc:322 src/gnome-cmd-xfer.cc:325
-#: src/gnome-cmd-xfer.cc:1099 src/gnome-cmd-xfer.cc:1110
-#: src/gnome-cmd-xfer.cc:1131
+#: src/gnome-cmd-xfer.cc:1096 src/gnome-cmd-xfer.cc:1107
+#: src/gnome-cmd-xfer.cc:1128
 msgid "Abort"
 msgstr "Přerušit"
 
@@ -1868,7 +1868,7 @@ msgstr "Složka „%s“ není prázdná. Opravdu ji chcete odstranit?"
 #: src/dialogs/gnome-cmd-delete-dialog.cc:492
 #: src/dialogs/gnome-cmd-delete-dialog.cc:493
 #: src/dialogs/gnome-cmd-options-dialog.cc:1043
-#: src/gnome-cmd-file-popmenu.cc:730 src/gnome-cmd-main-win.cc:243
+#: src/gnome-cmd-file-popmenu.cc:744 src/gnome-cmd-main-win.cc:243
 #: src/gnome-cmd-user-actions.cc:213
 msgid "Delete"
 msgstr "Odstranit"
@@ -2628,7 +2628,7 @@ msgstr "Nejprve se dotázat"
 #: src/dialogs/gnome-cmd-options-dialog.cc:1091
 #: src/dialogs/gnome-cmd-prepare-copy-dialog.cc:107
 #: src/dialogs/gnome-cmd-prepare-move-dialog.cc:101
-#: src/gnome-cmd-file-popmenu.cc:731 src/gnome-cmd-xfer.cc:146
+#: src/gnome-cmd-file-popmenu.cc:745 src/gnome-cmd-xfer.cc:146
 #: src/gnome-cmd-xfer.cc:149 src/gnome-cmd-xfer.cc:204
 #: src/gnome-cmd-xfer.cc:207 src/gnome-cmd-xfer.cc:322
 #: src/gnome-cmd-xfer.cc:325
@@ -2907,7 +2907,7 @@ msgid "Unselect Using Pattern"
 msgstr "Zrušit výběr podle vzoru"
 
 #: src/dialogs/gnome-cmd-prepare-copy-dialog.cc:94
-#: src/gnome-cmd-file-popmenu.cc:729 src/gnome-cmd-main-win.cc:241
+#: src/gnome-cmd-file-popmenu.cc:743 src/gnome-cmd-main-win.cc:241
 #: src/gnome-cmd-user-actions.cc:210
 msgid "Copy"
 msgstr "Kopírovat"
@@ -2965,6 +2965,7 @@ msgstr "Složka „%s“ neexistuje, chcete jej vytvořit?"
 #: src/gnome-cmd-advrename-profile-component.cc:433
 #: src/gnome-cmd-advrename-profile-component.cc:761
 #: src/gnome-cmd-advrename-profile-component.cc:793
+#: src/gnome-cmd-file-popmenu.cc:167
 msgid "No"
 msgstr "Ne"
 
@@ -2972,6 +2973,7 @@ msgstr "Ne"
 #: src/gnome-cmd-advrename-profile-component.cc:433
 #: src/gnome-cmd-advrename-profile-component.cc:761
 #: src/gnome-cmd-advrename-profile-component.cc:793
+#: src/gnome-cmd-file-popmenu.cc:167
 msgid "Yes"
 msgstr "Ano"
 
@@ -3457,7 +3459,7 @@ msgstr "Připojuje se %s"
 msgid "Go to: %s (%s)"
 msgstr "Přejít na: %s (%s)"
 
-#: src/gnome-cmd-con-device.cc:535 src/gnome-cmd-con.h:212
+#: src/gnome-cmd-con-device.cc:535 src/gnome-cmd-con.h:211
 #, c-format
 msgid "Go to: %s"
 msgstr "Přejít na: %s"
@@ -3472,26 +3474,26 @@ msgstr "Připojit: %s"
 msgid "Unmount: %s"
 msgstr "Odpojit: %s"
 
-#: src/gnome-cmd-con.h:210
+#: src/gnome-cmd-con.h:209
 msgid "<New connection>"
 msgstr "<nové připojení>"
 
-#: src/gnome-cmd-con.h:213
+#: src/gnome-cmd-con.h:212
 #, c-format
 msgid "Connect to: %s"
 msgstr "Připojit se k: %s"
 
-#: src/gnome-cmd-con.h:214
+#: src/gnome-cmd-con.h:213
 #, c-format
 msgid "Disconnect from: %s"
 msgstr "Odpojit se od: %s"
 
-#: src/gnome-cmd-con.h:221
+#: src/gnome-cmd-con.h:241
 #, c-format
 msgid "Connecting to %s\n"
 msgstr "Připojuje se k %s\n"
 
-#: src/gnome-cmd-con.h:376
+#: src/gnome-cmd-con.h:408
 msgid "Unknown disk usage"
 msgstr "Informaci o obsazení disku nelze zjistit"
 
@@ -3534,7 +3536,7 @@ msgstr "Přejít na síť Samba"
 msgid "link to %s"
 msgstr "Symbolický odkaz na %s"
 
-#: src/gnome-cmd-dir.cc:511
+#: src/gnome-cmd-dir.cc:514
 msgid "Waiting for file list"
 msgstr "Čeká se na seznam souborů"
 
@@ -3650,14 +3652,23 @@ msgstr "Pro typ souboru %s nebyla nalezena výchozí aplikace."
 msgid "Open the \"Applications\" page in the Control Center to add one."
 msgstr "Jestli chcete nějakou přidat, otevřete panel „Aplikace“ v Nastaveních."
 
-#: src/gnome-cmd-file-list.cc:1389
+#: src/gnome-cmd-file-list.cc:1389 src/gnome-cmd-file-popmenu.cc:164
 #, c-format
 msgid ""
 "%s does not know how to open remote file. Do you want to download the file "
 "to a temporary location and then open it?"
-msgstr ""
+msgid_plural ""
+"%s does not know how to open remote files. Do you want to download the files "
+"to a temporary location and then open them?"
+msgstr[0] ""
 "Aplikace %s neumí otevřít vzdálený soubor. Chcete soubor stáhnout do složky "
 "pro dočasné soubory a poté jej otevřít?"
+msgstr[1] ""
+"Aplikace %s neumí otevírat vzdálené soubory. Chcete soubory stáhnout do složky "
+"pro dočasné soubory a poté je otevřít?"
+msgstr[2] ""
+"Aplikace %s neumí otevírat vzdálené soubory. Chcete soubory stáhnout do složky "
+"pro dočasné soubory a poté je otevřít?"
 
 #: src/gnome-cmd-file-list.cc:1673
 msgid "Directory listing failed."
@@ -3671,62 +3682,62 @@ msgstr "Nelze otevřít spojení."
 msgid "Not an ordinary file."
 msgstr "Není normální soubor."
 
-#: src/gnome-cmd-file-popmenu.cc:246
+#: src/gnome-cmd-file-popmenu.cc:260
 msgid "Couldn’t retrieve MIME type of the file."
 msgstr "Nelze zjistit typ MIME souboru."
 
-#: src/gnome-cmd-file-popmenu.cc:261
+#: src/gnome-cmd-file-popmenu.cc:275
 msgid "Invalid command"
 msgstr "Neplatný příkaz"
 
-#: src/gnome-cmd-file-popmenu.cc:285
+#: src/gnome-cmd-file-popmenu.cc:299
 msgid "Application:"
 msgstr "Aplikace:"
 
-#: src/gnome-cmd-file-popmenu.cc:288
+#: src/gnome-cmd-file-popmenu.cc:302
 msgid "Open with other…"
 msgstr "Otevřít pomocí…"
 
-#: src/gnome-cmd-file-popmenu.cc:293
+#: src/gnome-cmd-file-popmenu.cc:307
 msgid "Needs terminal"
 msgstr "Vyžaduje terminál"
 
-#: src/gnome-cmd-file-popmenu.cc:725
+#: src/gnome-cmd-file-popmenu.cc:739
 msgid "Open Wit_h"
 msgstr "Otevřít _pomocí"
 
-#: src/gnome-cmd-file-popmenu.cc:726
+#: src/gnome-cmd-file-popmenu.cc:740
 msgid "Other _Application…"
 msgstr "Jiná _aplikace…"
 
-#: src/gnome-cmd-file-popmenu.cc:727
+#: src/gnome-cmd-file-popmenu.cc:741
 msgid "Open Wit_h…"
 msgstr "Otevřít _pomocí…"
 
-#: src/gnome-cmd-file-popmenu.cc:728 src/gnome-cmd-main-win.cc:240
+#: src/gnome-cmd-file-popmenu.cc:742 src/gnome-cmd-main-win.cc:240
 #: src/gnome-cmd-user-actions.cc:212
 msgid "Cut"
 msgstr "Vyjmout"
 
 #. {file_run, "file.run"},
-#: src/gnome-cmd-file-popmenu.cc:732 src/gnome-cmd-main-win.cc:245
+#: src/gnome-cmd-file-popmenu.cc:746 src/gnome-cmd-main-win.cc:245
 #: src/gnome-cmd-user-actions.cc:236
 msgid "Send files"
 msgstr "Odeslat soubory"
 
-#: src/gnome-cmd-file-popmenu.cc:733 src/gnome-cmd-main-menu.cc:307
+#: src/gnome-cmd-file-popmenu.cc:747 src/gnome-cmd-main-menu.cc:307
 msgid "_Properties…"
 msgstr "_Vlastnosti…"
 
-#: src/gnome-cmd-file-popmenu.cc:734
+#: src/gnome-cmd-file-popmenu.cc:748
 msgid "E_xecute"
 msgstr "S_pustit"
 
-#: src/gnome-cmd-file-popmenu.cc:735 src/gnome-cmd-list-popmenu.cc:108
+#: src/gnome-cmd-file-popmenu.cc:749 src/gnome-cmd-list-popmenu.cc:108
 msgid "Open _terminal here"
 msgstr "Otevřít _terminál zde"
 
-#: src/gnome-cmd-file-popmenu.cc:736 src/gnome-cmd-user-actions.cc:211
+#: src/gnome-cmd-file-popmenu.cc:750 src/gnome-cmd-user-actions.cc:211
 msgid "Copy file names"
 msgstr "Kopírovat názvy souborů"
 
@@ -4585,8 +4596,8 @@ msgstr ""
 "Lucas Lommer <llommer@svn.gnome.org>\n"
 "Marek Černocký <marek@manet.cz>"
 
-#: src/gnome-cmd-xfer.cc:118 src/gnome-cmd-xfer.cc:1099
-#: src/gnome-cmd-xfer.cc:1110 src/gnome-cmd-xfer.cc:1131
+#: src/gnome-cmd-xfer.cc:118 src/gnome-cmd-xfer.cc:1096
+#: src/gnome-cmd-xfer.cc:1107 src/gnome-cmd-xfer.cc:1128
 msgid "Transfer problem"
 msgstr "Problém s přenosem"
 
@@ -4680,11 +4691,11 @@ msgstr "připravuje se…"
 msgid "Moving a directory into itself is a bad idea."
 msgstr "Přesouvat složku do sebe sama není dobrý nápad."
 
-#: src/gnome-cmd-xfer.cc:878
+#: src/gnome-cmd-xfer.cc:875
 msgid "downloading to /tmp"
 msgstr "stahuje se do /tmp"
 
-#: src/gnome-cmd-xfer.cc:927
+#: src/gnome-cmd-xfer.cc:924
 #, c-format
 msgid ""
 "Error while creating symlink “%s”\n"
@@ -4695,21 +4706,21 @@ msgstr ""
 "\n"
 "%s"
 
-#: src/gnome-cmd-xfer.cc:932
+#: src/gnome-cmd-xfer.cc:929
 msgid "Symlink creation problem"
 msgstr "Problém s vytvořením symbolického odkazu"
 
-#: src/gnome-cmd-xfer.cc:933
+#: src/gnome-cmd-xfer.cc:930
 msgid "Ignore"
 msgstr "Ignorovat"
 
 #. Translators: Translate 'Copy' as a noun here
-#: src/gnome-cmd-xfer.cc:1034
+#: src/gnome-cmd-xfer.cc:1031
 msgctxt "Filename suffix"
 msgid "Copy"
 msgstr "kopie"
 
-#: src/gnome-cmd-xfer.cc:1098 src/gnome-cmd-xfer.cc:1109
+#: src/gnome-cmd-xfer.cc:1095 src/gnome-cmd-xfer.cc:1106
 #, c-format
 msgid ""
 "Source “%s” could not be deleted. Aborting!\n"
@@ -4720,7 +4731,7 @@ msgstr ""
 "\n"
 "%s"
 
-#: src/gnome-cmd-xfer.cc:1130
+#: src/gnome-cmd-xfer.cc:1127
 #, c-format
 msgid "Source “%s” could not be copied. Aborting!"
 msgstr "Zdroj „%s“ nelze zkopírovat. Přerušuje se!"
@@ -9087,4 +9098,3 @@ msgstr "Při zobrazování nápovědy došlo k chybě."
 #, c-format
 msgid "Couldn’t move path from “%s” to “%s”: %s"
 msgstr "Nezdařilo se přesunout cestu z „%s“ do „%s“: %s"
-
