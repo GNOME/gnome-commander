@@ -615,7 +615,7 @@ string &__gnome_cmd_con_make_uri (string &s, const gchar *method, gboolean use_a
         user += password;
     }
 
-    folder = stringify (gnome_vfs_escape_path_string (folder.c_str()));
+    folder = stringify (g_uri_escape_string (folder.c_str(), nullptr, true));
 
     s = method;
 
@@ -659,7 +659,7 @@ std::string &gnome_cmd_con_make_smb_uri (std::string &s, gboolean use_auth, std:
     const gchar *joinSign = !folder.empty() && folder[0] != '/' ? "/" : "";
 
     folder = share + joinSign + folder;
-    folder = stringify (gnome_vfs_escape_path_string (folder.c_str()));
+    folder = stringify (g_uri_escape_string (folder.c_str(), nullptr, true));
 
     s = "smb://";
 
