@@ -319,7 +319,7 @@ gboolean GnomeCmdConnectDialog::verify_uri()
 
     gnome_cmd_con_make_uri (uri, (ConnectionMethodID) type, priv->auth==GnomeCmdCon::SAVE_PERMANENTLY, uri, server, share, port, folder, domain, user, password);
 
-    if (type==CON_URI && uri.empty())
+    if (type==CON_URI && !uri_is_valid(uri.c_str()))
     {
         gnome_cmd_show_message (*this,
                                 stringify(g_strdup_printf (_("“%s” is not a valid location"), uri.c_str())),

@@ -471,14 +471,12 @@ inline std::string &gnome_cmd_con_make_custom_uri (std::string &s, const std::st
     {
         g_warning ("g_uri_parse error of \"%s\": %s", uri.c_str(), error->message);
         g_error_free(error);
-        s.erase();
         return s;
     }
     stringify (s, g_uri_to_string(gUri));
 
     if (!uri_is_valid (s))
         s.erase();
-
     return s;
 }
 
