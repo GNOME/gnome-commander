@@ -228,14 +228,7 @@ gboolean create_dir_if_needed (const gchar *dpath);
 
 inline gboolean uri_is_valid (const gchar *uri)
 {
-    GnomeVFSURI *vfs_uri = gnome_vfs_uri_new (uri);         //      gnome_vfs_uri_new() returns NULL for !uri
-
-    if (!vfs_uri)
-        return FALSE;
-
-    gnome_vfs_uri_unref (vfs_uri);
-
-    return TRUE;
+    return g_uri_is_valid (uri, G_URI_FLAGS_NONE, nullptr);
 }
 
 inline gboolean uri_is_valid (const std::string &uri)

@@ -465,7 +465,16 @@ std::string &__gnome_cmd_con_make_uri (std::string &s, const gchar *method, gboo
 
 inline std::string &gnome_cmd_con_make_custom_uri (std::string &s, const std::string &uri)
 {
-    stringify (s, gnome_vfs_make_uri_from_input (uri.c_str()));
+    GError *error = nullptr;
+    auto gUri = g_uri_parse (uri.c_str(), G_URI_FLAGS_NONE, &error);
+    if (error != nullptr)
+    {
+        g_warning ("g_uri_parse error of \"%s\": %s", uri.c_str(), error->message);
+        g_error_free(error);
+        s.erase();
+        return s;
+    }
+    stringify (s, g_uri_to_string(gUri));
 
     if (!uri_is_valid (s))
         s.erase();
