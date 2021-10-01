@@ -2934,7 +2934,11 @@ void GnomeCmdFileList::goto_directory(const gchar *in_dir)
     gchar *dir;
 
     if (g_str_has_prefix (in_dir, "~"))
-        dir = gnome_vfs_expand_initial_tilde (in_dir);
+    {
+        strlen(in_dir) > 1
+            ? dir = g_strdup_printf("%s%s" , g_get_home_dir(), in_dir+1)
+            : dir = g_strdup_printf("%s" , g_get_home_dir());
+    }
     else
         dir = unquote_if_needed (in_dir);
 
