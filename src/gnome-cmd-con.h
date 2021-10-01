@@ -127,7 +127,7 @@ struct GnomeCmdConClass
     /* signals */
     void (* updated) (GnomeCmdCon *con);
     void (* open_done) (GnomeCmdCon *con);
-    void (* open_failed) (GnomeCmdCon *con, const gchar *msg, GnomeVFSResult result);
+    void (* open_failed) (GnomeCmdCon *con);
 
     /* virtual functions */
     void (* open) (GnomeCmdCon *con);

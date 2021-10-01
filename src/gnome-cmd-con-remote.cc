@@ -63,8 +63,10 @@ static void get_file_info_func (GnomeCmdCon *con)
         else
         {
             con->state = GnomeCmdCon::STATE_CLOSED;
-            con->open_failed_error = error;
+            con->open_failed_error = g_error_copy(error);
             con->open_result = GnomeCmdCon::OPEN_FAILED;
+            con->open_failed_msg = g_strdup (con->open_failed_error->message);
+            g_error_free(error);
         }
     }
     else

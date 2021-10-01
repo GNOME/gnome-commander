@@ -70,11 +70,10 @@ static void on_open_done (GnomeCmdCon *con)
 }
 
 
-static void on_open_failed (GnomeCmdCon *con, const gchar *msg, GnomeVFSResult result)
+static void on_open_failed (GnomeCmdCon *con)
 {
     // gnome_cmd_con_updated (con);
-    // ToDo: Show error and later on g_error_free con->open_failed_error
-    g_critical("open_failed - error: %s\n", con->open_failed_error->message);
+    // Free the error because the error handling is done now. (Logging happened already.)
     g_error_free(con->open_failed_error);
     con->open_failed_msg = nullptr;
 }
@@ -155,9 +154,9 @@ static void class_init (GnomeCmdConClass *klass)
             GTK_RUN_LAST,
             G_OBJECT_CLASS_TYPE (object_class),
             GTK_SIGNAL_OFFSET (GnomeCmdConClass, open_failed),
-            gtk_marshal_NONE__POINTER_INT,
+            gtk_marshal_NONE__NONE,
             GTK_TYPE_NONE,
-            2, GTK_TYPE_POINTER, GTK_TYPE_INT);
+            0);
 
     object_class->destroy = destroy;
 
@@ -278,7 +277,7 @@ static gboolean check_con_open_progress (GnomeCmdCon *con)
             {
                 DEBUG ('m', "GnomeCmdCon::OPEN_FAILED detected\n");
                 DEBUG ('m', "Emitting 'open-failed' signal\n");
-                gtk_signal_emit (GTK_OBJECT (con), signals[OPEN_FAILED], con->open_failed_msg, con->open_failed_error->code);
+                gtk_signal_emit (GTK_OBJECT (con), signals[OPEN_FAILED]);
             }
             return FALSE;
 

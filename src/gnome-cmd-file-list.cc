@@ -1711,7 +1711,7 @@ static void on_con_open_done (GnomeCmdCon *con, GnomeCmdFileList *fl)
 }
 
 
-static void on_con_open_failed (GnomeCmdCon *con, const gchar *msg, GnomeVFSResult result, GnomeCmdFileList *fl)
+static void on_con_open_failed (GnomeCmdCon *con, GnomeCmdFileList *fl)
 {
     DEBUG('m', "on_con_open_failed\n");
 
@@ -1722,10 +1722,7 @@ static void on_con_open_failed (GnomeCmdCon *con, const gchar *msg, GnomeVFSResu
 
     g_signal_handlers_disconnect_matched (con, G_SIGNAL_MATCH_DATA, 0, 0, nullptr, nullptr, fl);
 
-    if (msg)
-        gnome_cmd_show_message (nullptr, msg);
-    else
-        gnome_cmd_show_message (nullptr, _("Failed to open connection."), gnome_vfs_result_to_string (result));
+    gnome_cmd_show_message (nullptr,  _("Failed to open connection."), con->open_failed_msg);
 
     fl->priv->con_open_dialog = nullptr;
     fl->priv->con_opening = nullptr;
