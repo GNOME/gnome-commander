@@ -3069,11 +3069,13 @@ static void autoscroll_if_appropriate (GnomeCmdFileList *fl, gint x, gint y)
 static void drag_data_get (GtkWidget *widget, GdkDragContext *context, GtkSelectionData *selection_data, guint info, guint32 time, GnomeCmdFileList *fl)
 {
     int len;
-    GList *files;
+    GList *files = nullptr;
 
     gchar *data = (gchar *) build_selected_file_list (fl, &len);
 
     if (!data) return;
+
+    gchar **uriCharList, **uriCharListTmp = nullptr;
 
     switch (info)
     {
@@ -3083,10 +3085,16 @@ static void drag_data_get (GtkWidget *widget, GdkDragContext *context, GtkSelect
             break;
 
         case TARGET_URL:
-            files = gnome_vfs_uri_list_parse (data);
+            uriCharList = uriCharListTmp = g_uri_list_extract_uris (data);
+            for (auto uriChar = *uriCharListTmp; uriChar; uriChar=*++uriCharListTmp)
+            {
+                auto gFile = g_file_new_for_uri(uriChar);
+                files = g_list_append(files, gFile);
+            }
             if (files)
                 gtk_selection_data_set (selection_data, selection_data->target, 8, (const guchar *) files->data, strlen ((const char *) files->data));
-            g_list_foreach (files, (GFunc) g_free, nullptr);
+            g_list_foreach (files, (GFunc) g_object_unref, nullptr);
+            g_strfreev(uriCharList);
             break;
 
         default:
