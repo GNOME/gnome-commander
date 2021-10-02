@@ -697,36 +697,29 @@ void GnomeCmdSearchDialog::Private::on_dialog_response(GtkDialog *window, int re
                 data.match_dirs = nullptr;
 
                 auto uriString = gtk_file_chooser_get_uri (GTK_FILE_CHOOSER (dialog->priv->dir_browser));
-                auto dirGFile = g_file_new_for_uri (uriString);
+                auto gUri = g_uri_parse (uriString, G_URI_FLAGS_NONE, nullptr);
+
                 g_free (uriString);
 
-                auto dirPathString = g_file_get_path (dirGFile);
-                gchar *dir_path = g_strconcat (dirPathString, G_DIR_SEPARATOR_S, nullptr);
-                g_free (dirPathString);
+                auto dirPathString = g_uri_get_path (gUri);
 
                 GnomeCmdCon *con = gnome_cmd_dir_get_connection (data.start_dir);
 
-                if (strncmp(dir_path, gnome_cmd_con_get_root_path (con), con->root_path->len) != 0)
+                if (strncmp(dirPathString, gnome_cmd_con_get_root_path (con), con->root_path->len) != 0)
                 {
-                    //if (!gnome_vfs_uri_is_local (dirGFile))
-                    //{
-                    //    gnome_cmd_show_message (*dialog, stringify(g_strdup_printf (_("Failed to change directory outside of %s"),
-                    //                                                                          gnome_cmd_con_get_root_path (con))));
-                    //    gnome_vfs_uri_unref (dirGFile);
-                    //    g_free (dir_path);
-                    //
-                    //    break;
-                    //}
-                    //else
-                        data.start_dir = gnome_cmd_dir_new (get_home_con (), gnome_cmd_con_create_path (get_home_con (), dir_path));
+                    if (!g_strcmp0(g_uri_get_scheme (gUri), "file") != 0)
+                    {
+                        gnome_cmd_show_message (*dialog, stringify(g_strdup_printf (_("Failed to change directory outside of %s"),
+                                                                                              gnome_cmd_con_get_root_path (con))));
+                        break;
+                    }
+                    else
+                        data.start_dir = gnome_cmd_dir_new (get_home_con (), gnome_cmd_con_create_path (get_home_con (), dirPathString));
                 }
                 else
-                    data.start_dir = gnome_cmd_dir_new (con, gnome_cmd_con_create_path (con, dir_path + con->root_path->len));
+                    data.start_dir = gnome_cmd_dir_new (con, gnome_cmd_con_create_path (con, dirPathString + con->root_path->len));
 
                 gnome_cmd_dir_ref (data.start_dir);
-
-                g_object_unref (dirGFile);
-                g_free (dir_path);
 
                 // save default settings
                 dialog->priv->profile_component->copy();
