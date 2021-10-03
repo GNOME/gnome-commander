@@ -93,50 +93,53 @@ GnomeCmdPath *GnomeCmdSmbPath::get_parent()
     g_return_val_if_fail (child != nullptr, nullptr);
     g_return_val_if_fail (child[0] != '/', nullptr);
 
-    gchar *a = nullptr,
-          *b = nullptr,
-          *c = nullptr;
+    gchar *workgroupTmp = nullptr,
+          *resourceTmp = nullptr,
+          *resourcePathTmp = nullptr;
 
-    if (workgroup)
+    if (workgroupTmp)
     {
         if (resource)
         {
             if (resource_path)
             {
-                GnomeVFSURI *u1, *u2;
+                GFile *gFileTmp = g_file_new_for_uri (G_DIR_SEPARATOR_S);
+                auto resourcePathGFile = g_file_resolve_relative_path (gFileTmp, resource_path);
+                g_object_unref(gFileTmp);
 
-                GnomeVFSURI *t = gnome_vfs_uri_new (G_DIR_SEPARATOR_S);
-                u1 = gnome_vfs_uri_append_path (t, resource_path);
-                gnome_vfs_uri_unref (t);
+                GFile *childGFileTmp;
+
                 if (!strchr (child, '/'))
-                    u2 = gnome_vfs_uri_append_file_name (u1, child);
+                    childGFileTmp = g_file_resolve_relative_path (resourcePathGFile, child+1);
                 else
-                    u2 = gnome_vfs_uri_append_path (u1, child);
-                gnome_vfs_uri_unref (u1);
-                g_return_val_if_fail (u2 != nullptr, nullptr);
+                    childGFileTmp = g_file_resolve_relative_path (resourcePathGFile, child);
+                g_object_unref (resourcePathGFile);
+                g_return_val_if_fail (childGFileTmp != nullptr, nullptr);
 
-                c = gnome_vfs_unescape_string (gnome_vfs_uri_get_path (u2), 0);
-                gnome_vfs_uri_unref (u2);
+                auto childGFilePath = g_file_get_path (childGFileTmp);
+                resourcePathTmp = g_uri_unescape_string (childGFilePath, 0);
+                g_free(childGFilePath);
+                g_object_unref (childGFileTmp);
             }
             else
-                c = g_strdup_printf ("/%s", child);
+                resourcePathTmp = g_strdup_printf ("/%s", child);
 
-            b = g_strdup (resource);
+            resourceTmp = g_strdup (resource);
         }
         else
-            b = g_strdup (child);
+            resourceTmp = g_strdup (child);
 
-        a = g_strdup (workgroup);
+        workgroupTmp = g_strdup (workgroupTmp);
     }
     else
-        a = g_strdup (child);
+        workgroupTmp = g_strdup (child);
 
-    GnomeCmdPath *out = new GnomeCmdSmbPath(a, b, c);
-    g_free (a);
-    g_free (b);
-    g_free (c);
+    GnomeCmdPath *childGnomeCmdPath = new GnomeCmdSmbPath(workgroupTmp, resourceTmp, resourcePathTmp);
+    g_free (workgroupTmp);
+    g_free (resourceTmp);
+    g_free (resourcePathTmp);
 
-    return out;
+    return childGnomeCmdPath;
 }
 
 
