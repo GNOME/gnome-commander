@@ -587,17 +587,20 @@ gboolean gnome_cmd_connect_dialog_edit (GnomeCmdConRemote *server)
 
                 g_strfreev (a);
 
-                a = g_strsplit (user_name, ";", 2);
-
-                if (g_strv_length (a) > 1)
+                if (user_name)
                 {
-                    gtk_entry_set_text (GTK_ENTRY (dialog->priv->domain_entry), a[0]);
-                    gtk_entry_set_text (GTK_ENTRY (dialog->priv->user_entry), a[1]);
+                    a = g_strsplit (user_name, ";", 2);
+                    if (g_strv_length (a) > 1)
+                    {
+                        gtk_entry_set_text (GTK_ENTRY (dialog->priv->domain_entry), a[0]);
+                        gtk_entry_set_text (GTK_ENTRY (dialog->priv->user_entry), a[1]);
+                    }
+                    else
+                    {
+                        gtk_entry_set_text (GTK_ENTRY (dialog->priv->user_entry), user_name);
+                    }
+                    g_strfreev (a);
                 }
-                else
-                    gtk_entry_set_text (GTK_ENTRY (dialog->priv->user_entry), user_name);
-
-                g_strfreev (a);
             }
             else
             {
