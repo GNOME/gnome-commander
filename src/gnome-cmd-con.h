@@ -90,7 +90,7 @@ struct GnomeCmdCon
 
     gchar               *username;
     gchar               *hostname;
-    guint16             port;
+    guint16             port{0};
     gchar               *open_msg;
     GnomeCmdPath        *base_path;
     GnomeVFSFileInfo    *base_info;

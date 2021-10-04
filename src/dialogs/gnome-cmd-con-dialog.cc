@@ -664,7 +664,8 @@ gboolean gnome_cmd_connect_dialog_edit (GnomeCmdConRemote *server)
         gnome_cmd_con_set_user_name (con, user_name);
         gnome_cmd_con_set_host_name (con, host);
         gnome_cmd_con_set_root_path(con, path);
-        gnome_cmd_con_set_port(con, port);
+        if (port != -1)
+            gnome_cmd_con_set_port(con, port);
 
 
         con->method = (ConnectionMethodID) gtk_combo_box_get_active (GTK_COMBO_BOX (dialog->priv->type_combo));

@@ -297,7 +297,8 @@ GnomeCmdConRemote *gnome_cmd_con_remote_new (const gchar *alias, const string &u
     gnome_cmd_con_set_uri (con, uri_str.c_str());
     gnome_cmd_con_set_user_name (con, user);
     gnome_cmd_con_set_host_name (con, host);
-    gnome_cmd_con_set_port (con, port);
+    if (port != -1)
+        gnome_cmd_con_set_port (con, port);
     gnome_cmd_con_set_root_path (con, path);
 
     gnome_cmd_con_remote_set_tooltips (server, host);
