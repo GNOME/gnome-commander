@@ -641,8 +641,6 @@ string &__gnome_cmd_con_make_uri (string &s, const gchar *method, gboolean use_a
 #ifdef HAVE_SAMBA
 std::string &gnome_cmd_con_make_smb_uri (std::string &s, gboolean use_auth, std::string &server, std::string &share, std::string &folder, std::string &domain, std::string &user, std::string &password)
 {
-    share = '/' + share;
-
     user = stringify (g_strescape (user.c_str(), nullptr));
     password = stringify (g_strescape (password.c_str(), nullptr));
 
@@ -658,7 +656,11 @@ std::string &gnome_cmd_con_make_smb_uri (std::string &s, gboolean use_auth, std:
     const gchar *joinSign = !folder.empty() && folder[0] != '/' ? "/" : "";
 
     folder = share + joinSign + folder;
-    folder = stringify (g_uri_escape_string (folder.c_str(), nullptr, true));
+    // remove initial '/' character
+    if (folder.length() > 0 && folder[0] == '/')
+    {
+        folder = folder.length() == 1 ? folder.erase() : folder.substr(1);
+    }
 
     s = "smb://";
 
@@ -666,6 +668,7 @@ std::string &gnome_cmd_con_make_smb_uri (std::string &s, gboolean use_auth, std:
         s += user + '@';
 
     s += server;
+    s += "/";
     s += folder;
 
     return s;
