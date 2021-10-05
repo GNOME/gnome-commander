@@ -257,7 +257,7 @@ GtkType gnome_cmd_con_remote_get_type ()
 /**
  * Logic for setting up a new remote connection accordingly to the given uri_str.
  */
-GnomeCmdConRemote *gnome_cmd_con_remote_new (const gchar *alias, const string &uri_str, GnomeCmdCon::Authentication auth)
+GnomeCmdConRemote *gnome_cmd_con_remote_new (const gchar *alias, const string &uri_str)
 {
     auto server = static_cast<GnomeCmdConRemote*> (g_object_new (GNOME_CMD_TYPE_CON_REMOTE, nullptr));
 
@@ -304,7 +304,6 @@ GnomeCmdConRemote *gnome_cmd_con_remote_new (const gchar *alias, const string &u
     gnome_cmd_con_remote_set_tooltips (server, host);
 
     con->method = gnome_cmd_con_get_scheme (uri_str.c_str());
-    con->auth = con->method==CON_ANON_FTP ? GnomeCmdCon::NOT_REQUIRED : GnomeCmdCon::SAVE_FOR_SESSION;
 
     g_free (path);
     g_free(host);

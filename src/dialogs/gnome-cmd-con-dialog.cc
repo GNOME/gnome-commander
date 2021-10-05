@@ -62,8 +62,6 @@ struct GnomeCmdConnectDialog::Private
     string *alias {nullptr};
     string uri_str;
 
-    GnomeCmdCon::Authentication auth {GnomeCmdCon::SAVE_PERMANENTLY};
-
     GtkWidget *required_table {nullptr};
     GtkWidget *optional_table {nullptr};
 
@@ -312,12 +310,10 @@ gboolean GnomeCmdConnectDialog::verify_uri()
         return FALSE;
     }
 
-    priv->auth = type==CON_ANON_FTP ? GnomeCmdCon::NOT_REQUIRED : GnomeCmdCon::SAVE_PERMANENTLY;
-
     if (type==CON_ANON_FTP)
         user = "anonymous";
 
-    gnome_cmd_con_make_uri (uri, (ConnectionMethodID) type, priv->auth==GnomeCmdCon::SAVE_PERMANENTLY, uri, server, share, port, folder, domain, user, password);
+    gnome_cmd_con_make_uri (uri, (ConnectionMethodID) type, uri, server, share, port, folder, domain, user, password);
 
     if (type==CON_URI && !uri_is_valid(uri.c_str()))
     {
@@ -514,8 +510,6 @@ GnomeCmdConRemote *gnome_cmd_connect_dialog_new (gboolean has_alias)
 
     gtk_combo_box_set_active (GTK_COMBO_BOX (dialog->priv->type_combo), CON_SSH);
 
-    dialog->priv->auth = GnomeCmdCon::SAVE_PERMANENTLY;
-
     gint response = gtk_dialog_run (*dialog);
 
     GnomeCmdConRemote *server = nullptr;
@@ -529,7 +523,6 @@ GnomeCmdConRemote *gnome_cmd_connect_dialog_new (gboolean has_alias)
         GnomeCmdCon *con = GNOME_CMD_CON (server);
 
         con->method = (ConnectionMethodID) gtk_combo_box_get_active (GTK_COMBO_BOX (dialog->priv->type_combo));
-        con->auth = dialog->priv->auth;
     }
 
     gtk_widget_destroy (*dialog);
@@ -548,8 +541,6 @@ gboolean gnome_cmd_connect_dialog_edit (GnomeCmdConRemote *server)
     auto *con = GNOME_CMD_CON (server);
 
     gtk_combo_box_set_active (GTK_COMBO_BOX (dialog->priv->type_combo), con->method);
-
-    dialog->priv->auth = con->auth;
 
     if (con->alias)
     {
@@ -669,7 +660,6 @@ gboolean gnome_cmd_connect_dialog_edit (GnomeCmdConRemote *server)
 
 
         con->method = (ConnectionMethodID) gtk_combo_box_get_active (GTK_COMBO_BOX (dialog->priv->type_combo));
-        con->auth = dialog->priv->auth;
 
         gnome_cmd_con_remote_set_tooltips (server, host);
 

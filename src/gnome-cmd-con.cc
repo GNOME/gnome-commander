@@ -178,7 +178,6 @@ static void init (GnomeCmdCon *con)
     con->alias = nullptr;
     con->uri = nullptr;
     con->method = CON_URI;
-    con->auth = GnomeCmdCon::NOT_REQUIRED;
 
     con->base_path = nullptr;
     con->base_info = nullptr;
@@ -603,12 +602,12 @@ const gchar *gnome_cmd_con_get_icon_name (ConnectionMethodID method)
 }
 
 
-string &__gnome_cmd_con_make_uri (string &s, const gchar *method, gboolean use_auth, string &server, string &port, string &folder, string &user, string &password)
+string &__gnome_cmd_con_make_uri (string &s, const gchar *method, string &server, string &port, string &folder, string &user, string &password)
 {
     user = stringify (g_strescape (user.c_str(), nullptr));
     password = stringify (g_strescape (password.c_str(), nullptr));
 
-    if (!password.empty() && !use_auth)
+    if (!password.empty())
     {
         user += ':';
         user += password;
@@ -639,12 +638,12 @@ string &__gnome_cmd_con_make_uri (string &s, const gchar *method, gboolean use_a
 }
 
 #ifdef HAVE_SAMBA
-std::string &gnome_cmd_con_make_smb_uri (std::string &uriString, gboolean use_auth, std::string &server, std::string &share, std::string &folder, std::string &domain, std::string &user, std::string &password)
+std::string &gnome_cmd_con_make_smb_uri (std::string &uriString, std::string &server, std::string &share, std::string &folder, std::string &domain, std::string &user, std::string &password)
 {
     user = stringify (g_strescape (user.c_str(), nullptr));
     password = stringify (g_strescape (password.c_str(), nullptr));
 
-    if (!password.empty() && !use_auth)
+    if (!password.empty())
     {
         user += ':';
         user += password;
