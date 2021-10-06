@@ -160,7 +160,7 @@ static void on_ok (GtkButton *button, GnomeCmdPrepareXferDialog *dialog)
                             GError *error = nullptr;
                             if (!gnome_cmd_con_mkdir (con, parent_dir, error))
                             {
-                                gnome_cmd_show_message (*main_win, error->message);
+                                gnome_cmd_show_message (*main_win, error ? error->message : _("Unknown error"));
                                 g_error_free(error);
                                 g_free (dest_path);
                                 gtk_widget_destroy (GTK_WIDGET (dialog));

@@ -517,7 +517,7 @@ gboolean gnome_cmd_con_mkdir (GnomeCmdCon *con, const gchar *path_str, GError *e
 
     if (!g_file_make_directory (gFile, nullptr, &tmpError))
     {
-        g_warning("g_file_make_directory error: %s\n", tmpError->message);
+        g_warning("g_file_make_directory error: %s\n", tmpError ? tmpError->message : "unknown error");
         g_propagate_error(&error, tmpError);
         return false;
     }
