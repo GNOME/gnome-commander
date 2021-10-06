@@ -489,9 +489,10 @@ gboolean gnome_cmd_con_get_path_target_type (GnomeCmdCon *con, const gchar *path
     GnomeCmdPath *path = gnome_cmd_con_create_path (con, path_str);
     auto gFile = gnome_cmd_con_create_gfile(con, path);
 
-    if (!g_file_query_exists(gFile, nullptr))
+    if (!gFile || !g_file_query_exists(gFile, nullptr))
     {
-        g_object_unref(gFile);
+        if (!gFile)
+            g_object_unref(gFile);
         *gFileType = G_FILE_TYPE_UNKNOWN;
         delete path;
         return false;
