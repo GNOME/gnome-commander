@@ -33,7 +33,7 @@ struct SmbEntity
     gchar *name;
     SmbEntityType type;
 
-    // this one is only set if type == SMB_HOST and
+    // this one is only set if type == SMB_HOST
     gchar *workgroup_name;
 };
 

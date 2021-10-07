@@ -1,4 +1,4 @@
-/** 
+/**
  * @file gnome-cmd-smb-net.cc
  * @copyright (C) 2001-2006 Marcus Bjurman\n
  * @copyright (C) 2007-2012 Piotr Eljasiak\n
@@ -28,15 +28,15 @@
 using namespace std;
 
 
-static GHashTable *entities = NULL;
+static GHashTable *entities = nullptr;
 static gchar *current_wg_name;
 
 
-static void add_host_to_list (GnomeVFSFileInfo *info, GList **list)
+static void add_host_to_list (GFileInfo *info, GList **list)
 {
     SmbEntity *ent = g_new (SmbEntity, 1);
 
-    ent->name = info->name;
+    ent->name = g_strdup(g_file_info_get_name(info));
     ent->type = SMB_HOST;
     ent->workgroup_name = current_wg_name;
 
@@ -44,53 +44,87 @@ static void add_host_to_list (GnomeVFSFileInfo *info, GList **list)
 }
 
 
-static void add_wg_to_list (GnomeVFSFileInfo *info, GList **list)
+static void add_workgroup_to_list (GFileInfo *gFileInfo, GList **list)
 {
     SmbEntity *ent = g_new0 (SmbEntity, 1);
 
-    ent->name = info->name;
+    ent->name = g_strdup(g_file_info_get_name(gFileInfo));
     ent->type = SMB_WORKGROUP;
-    // ent->workgroup_name = NULL;
 
     *list = g_list_append (*list, ent);
 }
 
 
-inline GnomeVFSResult blocking_list (const gchar *uri_str, GList **list)
+inline gboolean enumerate_smb_uri (const gchar *uriString, GList **list)
 {
-    return gnome_vfs_directory_list_load (list, uri_str, GNOME_VFS_FILE_INFO_DEFAULT);
+    GError *error = nullptr;
+    auto gFileTmp = g_file_new_for_uri(uriString);
+
+    auto gFileEnumerator = g_file_enumerate_children (gFileTmp,
+                        "*",
+                        G_FILE_QUERY_INFO_NONE,
+                        nullptr,
+                        &error);
+    if(error)
+    {
+        g_warning("enumerate_smb_uri: Unable to enumerate %s children, error: %s", uriString, error->message);
+        g_error_free(error);
+        return false;
+    }
+
+    GFileInfo *gFileInfoTmp = nullptr;
+    do
+    {
+        gFileInfoTmp = g_file_enumerator_next_file(gFileEnumerator, nullptr, &error);
+        if(error)
+        {
+            g_critical("sync_list: Unable to enumerate next file, error: %s", error->message);
+            break;
+        }
+        if (gFileInfoTmp)
+        {
+            *list = g_list_append(*list, gFileInfoTmp);
+        }
+    }
+    while (gFileInfoTmp && !error);
+
+    g_file_enumerator_close (gFileEnumerator, nullptr, nullptr);
+
+    return true;
 }
 
 
 inline GList *get_hosts (const gchar *wg)
 {
-    GList *fileinfos;
+    GList *gFileInfoList;
 
     gchar *uri_str = g_strdup_printf ("smb://%s", wg);
-    GnomeVFSResult result = blocking_list (uri_str, &fileinfos);
+    auto result = enumerate_smb_uri (uri_str, &gFileInfoList);
     g_free (uri_str);
 
-    GList *list = NULL;
+    GList *list = nullptr;
 
-    if (result == GNOME_VFS_OK)
-        g_list_foreach (fileinfos, (GFunc) add_host_to_list, &list);
+    if (result)
+        g_list_foreach (gFileInfoList, (GFunc) add_host_to_list, &list);
 
     return list;
 }
 
 
-inline GList *get_wgs ()
+inline GList *get_workgroups ()
 {
-    GList *fileinfos;
+    GList *gFileInfoList = nullptr;
 
-    GnomeVFSResult result = blocking_list ("smb://", &fileinfos);
+    auto result = enumerate_smb_uri ("smb:", &gFileInfoList);
 
-    GList *list = NULL;
+    GList *smbEntitiesList = nullptr;
 
-    if (result == GNOME_VFS_OK)
-        g_list_foreach (fileinfos, (GFunc) add_wg_to_list, &list);
+    if (result && gFileInfoList)
+        g_list_foreach (gFileInfoList, (GFunc) add_workgroup_to_list, &smbEntitiesList);
 
-    return list;
+    g_list_free(gFileInfoList);
+
+    return smbEntitiesList;
 }
 
 
@@ -101,7 +135,7 @@ static void add_host_to_map (SmbEntity *ent)
 }
 
 
-static void add_wg_to_map (SmbEntity *ent)
+static void add_workgroup_to_map (SmbEntity *ent)
 {
     GList *hosts;
 
@@ -109,7 +143,7 @@ static void add_wg_to_map (SmbEntity *ent)
     g_hash_table_insert (entities, ent->name, ent);
     current_wg_name = ent->name;
     hosts = get_hosts (ent->name);
-    g_list_foreach (hosts, (GFunc) add_host_to_map, NULL);
+    g_list_foreach (hosts, (GFunc) add_host_to_map, nullptr);
 }
 
 
@@ -136,7 +170,7 @@ inline void rebuild_map ()
     entities = g_hash_table_new_full (
         (GHashFunc) str_hash, (GEqualFunc) str_ncase_equal, (GDestroyNotify) g_free, (GDestroyNotify) g_free);
 
-    g_list_foreach (get_wgs (), (GFunc) add_wg_to_map, NULL);
+    g_list_foreach (get_workgroups (), (GFunc) add_workgroup_to_map, nullptr);
 }
 
 
