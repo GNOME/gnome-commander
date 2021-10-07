@@ -60,7 +60,6 @@ struct GnomeCmdDir
     gint voffset;
     GList *infolist;
     GList *gFileInfoList;
-    GnomeVFSAsyncHandle *list_handle;
     gint list_counter;
     State state;
     GError *error;

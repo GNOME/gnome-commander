@@ -180,7 +180,6 @@ static void init (GnomeCmdCon *con)
     con->method = CON_URI;
 
     con->base_path = nullptr;
-    con->base_info = nullptr;
     con->root_path = g_string_sized_new (128);
     con->open_msg = nullptr;
     con->should_remember_dir = FALSE;

@@ -262,7 +262,6 @@ void dirlist_list (GnomeCmdDir *dir, gboolean visualProgress)
 
     dir->infolist = NULL;
     dir->gFileInfoList = nullptr;
-    dir->list_handle = NULL;
     dir->list_counter = 0;
     dir->state = GnomeCmdDir::STATE_LISTING;
 

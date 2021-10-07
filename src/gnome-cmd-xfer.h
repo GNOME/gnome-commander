@@ -44,8 +44,6 @@ struct XferData
 {
     GFileCopyFlags copyFlags;
     GnomeCmdConfirmOverwriteMode overwriteMode;
-    GnomeVFSXferOptions xferOptions;
-    GnomeVFSAsyncHandle *handle;
     GnomeCmdTransferType transferType{COPY};
 
     // Source and target GFile's. The first srcGFile should be transfered to the first destGFile and so on...

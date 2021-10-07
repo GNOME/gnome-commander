@@ -84,7 +84,6 @@ struct GnomeCmdCon
     guint16             port{0};
     gchar               *open_msg;
     GnomeCmdPath        *base_path;
-    GnomeVFSFileInfo    *base_info;
     GFileInfo           *base_gFileInfo;
     GString             *root_path;             // Root path of the connection, used for calculation of relative paths
     gboolean            should_remember_dir;
