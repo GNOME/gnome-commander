@@ -192,7 +192,7 @@ static void gnome_cmd_chmod_dialog_init (GnomeCmdChmodDialog *dialog)
     gnome_cmd_dialog_add_expanding_category (GNOME_CMD_DIALOG (dialog), vbox);
 
 
-    dialog->priv->chmod_component = gnome_cmd_chmod_component_new ((GnomeVFSFilePermissions) 0);
+    dialog->priv->chmod_component = gnome_cmd_chmod_component_new (0);
     g_object_ref (dialog->priv->chmod_component);
     g_object_set_data_full (G_OBJECT (chmod_dialog), "chmod_component", dialog->priv->chmod_component, g_object_unref);
     gtk_widget_show (dialog->priv->chmod_component);

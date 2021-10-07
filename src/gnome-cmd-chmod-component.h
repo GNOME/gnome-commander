@@ -49,7 +49,7 @@ struct GnomeCmdChmodComponentClass
 };
 
 
-GtkWidget *gnome_cmd_chmod_component_new (GnomeVFSFilePermissions perms);
+GtkWidget *gnome_cmd_chmod_component_new (guint32 perms);
 
 GtkType gnome_cmd_chmod_component_get_type ();
 

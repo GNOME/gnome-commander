@@ -1095,5 +1095,5 @@ void GnomeCmdFile::invalidate_tree_size()
 
 gboolean GnomeCmdFile::has_tree_size()
 {
-    return priv->tree_size != (GnomeVFSFileSize)-1;
+    return priv->tree_size != (guint64)-1;
 }

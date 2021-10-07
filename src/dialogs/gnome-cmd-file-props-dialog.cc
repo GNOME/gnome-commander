@@ -501,7 +501,7 @@ inline GtkWidget *create_permissions_tab (GnomeCmdFilePropsDialogPrivate *data)
     gtk_box_pack_start (GTK_BOX (vbox), cat, TRUE, TRUE, 0);
 
 
-    data->chmod_component = gnome_cmd_chmod_component_new ((GnomeVFSFilePermissions) 0);
+    data->chmod_component = gnome_cmd_chmod_component_new (0);
     g_object_ref (data->chmod_component);
     g_object_set_data_full (G_OBJECT (data->dialog), "chmod_component", data->chmod_component, g_object_unref);
     gtk_widget_show (data->chmod_component);

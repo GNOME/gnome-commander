@@ -907,7 +907,7 @@ inline gint my_intcmp (gint i1, gint i2, gboolean raising)
 }
 
 
-inline gint my_filesizecmp (GnomeVFSFileSize i1, GnomeVFSFileSize i2, gboolean raising)
+inline gint my_filesizecmp (guint32 i1, guint32 i2, gboolean raising)
 {
     if (i1 > i2)
         return raising ? -1 : 1;

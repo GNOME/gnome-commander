@@ -169,7 +169,7 @@ static void init (GnomeCmdChmodComponent *comp)
  * Public functions
  ***********************************/
 
-GtkWidget *gnome_cmd_chmod_component_new (GnomeVFSFilePermissions perms)
+GtkWidget *gnome_cmd_chmod_component_new (guint32 perms)
 {
     auto comp = static_cast <GnomeCmdChmodComponent*> (g_object_new (GNOME_CMD_TYPE_CHMOD_COMPONENT, nullptr));
 
