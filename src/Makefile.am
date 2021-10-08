@@ -94,6 +94,7 @@ gnome_commander_LDADD = \
 	dialogs/libgcmd-dialogs.a \
 	tags/libgcmd-tags.a \
 	intviewer/libgviewer.a \
+	$(GMODULE_LIBS) \
 	$(GTK_LIBS) \
 	$(GNOMEVFS_LIBS) \
 	$(UNIQUE_LIBS) \
