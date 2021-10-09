@@ -472,6 +472,13 @@
           This option defines if only device icons should be shown instead of icons and text label.
       </description>
     </key>
+    <key name="show-samba-workgroup-button" type="b">
+      <default>false</default>
+      <summary>Show the samba workgroups icon</summary>
+      <description>
+          This option defines if the Samba workgroups icon should be shown in the devices list.
+      </description>
+    </key>
     <key name="mainmenu-visibility" type="b">
       <default>true</default>
       <summary>Main menu visibility</summary>

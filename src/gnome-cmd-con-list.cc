@@ -146,11 +146,13 @@ static void init (GnomeCmdConList *con_list)
 
     con_list->priv->home_con = gnome_cmd_con_home_new ();
 
-    con_list->priv->smb_con = gnome_cmd_con_smb_new ();
+    if (gnome_cmd_data.options.show_samba_workgroups_button)
+        con_list->priv->smb_con = gnome_cmd_con_smb_new ();
 
     con_list->priv->all_cons = g_list_append (nullptr, con_list->priv->home_con);
 
-    con_list->priv->all_cons = g_list_append (con_list->priv->all_cons, con_list->priv->smb_con);
+    if (gnome_cmd_data.options.show_samba_workgroups_button)
+        con_list->priv->all_cons = g_list_append (con_list->priv->all_cons, con_list->priv->smb_con);
 }
 
 

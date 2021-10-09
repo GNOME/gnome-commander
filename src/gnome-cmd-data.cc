@@ -824,6 +824,14 @@ static void on_dev_only_icon_changed()
     gnome_cmd_data.options.device_only_icon = dev_only_icon;
 }
 
+static void on_samba_device_icon_changed()
+{
+    gboolean show_samba_workgroups_button;
+
+    show_samba_workgroups_button = g_settings_get_boolean (gnome_cmd_data.options.gcmd_settings->general, GCMD_SETTINGS_SHOW_SAMBA_WORKGROUP_BUTTON);
+    gnome_cmd_data.options.show_samba_workgroups_button = show_samba_workgroups_button;
+}
+
 static void on_mainmenu_visibility_changed()
 {
     gboolean mainmenu_visibility;
@@ -1269,6 +1277,11 @@ static void gcmd_connect_gsettings_signals(GcmdSettings *gs)
                       nullptr);
 
     g_signal_connect (gs->general,
+                      "changed::show-samba-workgroup-button",
+                      G_CALLBACK (on_samba_device_icon_changed),
+                      nullptr);
+
+    g_signal_connect (gs->general,
                       "changed::mainmenu-visibility",
                       G_CALLBACK (on_mainmenu_visibility_changed),
                       nullptr);
@@ -1419,6 +1432,7 @@ GnomeCmdData::Options::Options(const Options &cfg)
     termexec = g_strdup (cfg.termexec);
     fav_apps = cfg.fav_apps;
     device_only_icon = cfg.device_only_icon;
+    show_samba_workgroups_button = cfg.show_samba_workgroups_button;
     gcmd_settings = nullptr;
 }
 
@@ -1480,6 +1494,7 @@ GnomeCmdData::Options &GnomeCmdData::Options::operator = (const Options &cfg)
         termexec = g_strdup (cfg.termexec);
         fav_apps = cfg.fav_apps;
         device_only_icon = cfg.device_only_icon;
+        show_samba_workgroups_button = cfg.show_samba_workgroups_button;
         gcmd_settings = nullptr;
     }
 
@@ -3082,6 +3097,7 @@ void GnomeCmdData::load()
     options.quick_search_exact_match_end = g_settings_get_boolean (options.gcmd_settings->general, GCMD_SETTINGS_QUICK_SEARCH_EXACT_MATCH_END);
 
     options.device_only_icon = g_settings_get_boolean(options.gcmd_settings->general, GCMD_SETTINGS_DEV_ONLY_ICON);
+    options.show_samba_workgroups_button = g_settings_get_boolean(options.gcmd_settings->general, GCMD_SETTINGS_SHOW_SAMBA_WORKGROUP_BUTTON);
 
     options.symlink_prefix = g_settings_get_string(options.gcmd_settings->general, GCMD_SETTINGS_SYMLINK_PREFIX);
     if (!*options.symlink_prefix || strcmp(options.symlink_prefix, _("link to %s"))==0)
@@ -3456,6 +3472,7 @@ void GnomeCmdData::save()
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_QUICK_SEARCH_EXACT_MATCH_END, &(options.quick_search_exact_match_end));
 
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_DEV_ONLY_ICON, &(options.device_only_icon));
+    set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_SHOW_SAMBA_WORKGROUP_BUTTON, &(options.show_samba_workgroups_button));
 
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_SHOW_TOOLBAR, &(show_toolbar));
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_SHOW_DEVBUTTONS, &(show_devbuttons));
