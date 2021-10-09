@@ -399,8 +399,6 @@ inline std::string join(const COLL<T, Compare, Allocator> &coll, const std::stri
 
 gint get_string_pixel_size (const char *s, int len);
 
-gboolean move_old_to_new_location(const gchar* oldPath, const gchar* newPath);
-
 gchar* get_package_config_dir();
 
 gchar *string_double_underscores (const gchar *string);

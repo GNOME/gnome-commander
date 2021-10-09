@@ -122,20 +122,11 @@ int main (int argc, char *argv[])
     gdk_rgb_init ();
     gnome_vfs_init ();
 
-
-    // ToDo: Remove somewhen after 1.10 release:
-    ///////////////////////////////////
-    auto userConfigDirOld = g_build_filename (g_get_home_dir (), "." PACKAGE, nullptr);
-
-    if (is_dir_existing(userConfigDirOld) == 1)
-    {
-        auto userPluginConfigDirNew = get_package_config_dir();
-        move_old_to_new_location(userConfigDirOld, userPluginConfigDirNew);
-    }
-    ///////////////////////////////////
-
     gchar *conf_dir = get_package_config_dir();
-    create_dir_if_needed (conf_dir);
+    if (!is_dir_existing(conf_dir))
+    {
+        create_dir (conf_dir);
+    }
     g_free (conf_dir);
 
     /* Load Settings */
