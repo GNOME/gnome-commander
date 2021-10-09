@@ -29,6 +29,7 @@
 #include "imageloader.h"
 #include "gnome-cmd-main-win.h"
 #include "gnome-cmd-about-plugin.h"
+#include "dirlist.h"
 
 using namespace std;
 
@@ -144,70 +145,38 @@ static void inactivate_plugin (PluginData *data)
 
 static void scan_plugins_in_dir (const gchar *dpath)
 {
-    DIR *dir = opendir (dpath);
-    char buff[256];
-    char *prev_dir;
-    struct dirent *ent;
+    auto gFileInfoList = sync_dir_list(dpath);
 
-    if (!dir)
-    {
-        g_warning ("Could not list files in %s: %s", dpath, strerror (errno));
+    if (g_list_length(gFileInfoList) == 0)
         return;
-    }
 
-    prev_dir = getcwd (buff, sizeof(buff));
-    if (chdir (dpath))
+    for (auto gFileInfoListItem = gFileInfoList; gFileInfoListItem; gFileInfoListItem = gFileInfoListItem->next)
     {
-        g_warning ("Could not change directory to %s: %s", dpath, strerror (errno));
-        return;
-    }
-
-    while ((ent = readdir (dir)) != nullptr)
-    {
-        struct stat buf;
-
-        if (strcmp (ent->d_name+strlen(ent->d_name)-strlen("." G_MODULE_SUFFIX), "." G_MODULE_SUFFIX) != 0)
+        auto gFileInfo = (GFileInfo*) gFileInfoListItem->data;
+        if (g_file_info_get_file_type(gFileInfo) != G_FILE_TYPE_REGULAR)
+            continue;
+        if (!g_str_has_suffix (g_file_info_get_name(gFileInfo), "." G_MODULE_SUFFIX))
             continue;
 
-        if (stat (ent->d_name, &buf) == 0)
+        // the direntry has the correct extension and is a regular file, let's accept it
+        PluginData *data = g_new0 (PluginData, 1);
+        data->fname = g_strdup (g_file_info_get_name(gFileInfo));
+        data->fpath = g_build_filename (dpath, g_file_info_get_name(gFileInfo), nullptr);
+        data->loaded = FALSE;
+        data->active = FALSE;
+        data->menu = nullptr;
+        data->autoload = FALSE;
+        activate_plugin (data);
+        if (!data->loaded)
         {
-            if (buf.st_mode & S_IFREG)
-            {
-                // the direntry has the correct extension and is a regular file, let's accept it
-                PluginData *data = g_new0 (PluginData, 1);
-                data->fname = g_strdup (ent->d_name);
-                data->fpath = g_build_filename (dpath, ent->d_name, nullptr);
-                data->loaded = FALSE;
-                data->active = FALSE;
-                data->menu = nullptr;
-                data->autoload = FALSE;
-                activate_plugin (data);
-                if (!data->loaded)
-                {
-                    g_free (data->fname);
-                    g_free (data->fpath);
-                    g_free (data);
-                }
-                else
-                    plugins = g_list_append (plugins, data);
-            }
-            else
-                printf ("%s is not a regular file\n", ent->d_name);
+            g_free (data->fname);
+            g_free (data->fpath);
+            g_free (data);
         }
         else
-            printf ("Failed to stat %s\n", ent->d_name);
+            plugins = g_list_append (plugins, data);
     }
-
-    closedir (dir);
-
-    if (prev_dir)
-    {
-        if (chdir (prev_dir))
-        {
-            g_warning ("Could not change directory back to %s: %s", prev_dir, strerror (errno));
-            return;
-        }
-    }
+    g_list_free_full(gFileInfoList, g_object_unref);
 }
 
 
