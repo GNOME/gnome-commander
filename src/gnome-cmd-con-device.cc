@@ -23,7 +23,6 @@
 #include <stdlib.h>
 #include <sys/types.h>
 #include <sys/wait.h>
-#include <libgnomevfs/gnome-vfs-volume.h>
 
 #include "gnome-cmd-includes.h"
 #include "gnome-cmd-data.h"

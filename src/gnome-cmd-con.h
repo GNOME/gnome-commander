@@ -45,9 +45,7 @@ enum ConnectionMethodID        // Keep this order in sync with strings in gnome-
     CON_SFTP = CON_SSH,
     CON_FTP,
     CON_ANON_FTP,
-#ifdef HAVE_SAMBA
     CON_SMB,
-#endif
     CON_DAV,
     CON_DAVS,
     CON_URI,
@@ -441,9 +439,7 @@ inline ConnectionMethodID gnome_cmd_con_get_scheme (const gchar *uriString)
            g_str_equal (scheme, "sftp") ? CON_SSH :
            g_str_equal (scheme, "dav")  ? CON_DAV :
            g_str_equal (scheme, "davs") ? CON_DAVS :
-#ifdef HAVE_SAMBA
            g_str_equal (scheme, "smb")  ? CON_SMB :
-#endif
                                           CON_URI;
 
     g_free(user);
@@ -485,9 +481,7 @@ inline std::string &gnome_cmd_con_make_ftp_uri (std::string &s, std::string &ser
     return __gnome_cmd_con_make_uri (s, "ftp://", server, port, folder, user, password);
 }
 
-#ifdef HAVE_SAMBA
 std::string &gnome_cmd_con_make_smb_uri (std::string &s, std::string &server, std::string &share, std::string &folder, std::string &domain, std::string &user, std::string &password);
-#endif
 
 inline std::string &gnome_cmd_con_make_dav_uri (std::string &s, std::string &server, std::string &port, std::string &folder, std::string &user, std::string &password)
 {
@@ -508,9 +502,7 @@ inline std::string &gnome_cmd_con_make_uri (std::string &s, ConnectionMethodID m
 
         case CON_SSH:       return gnome_cmd_con_make_ssh_uri (s, server, port, folder, user, password);
 
-#ifdef HAVE_SAMBA
         case CON_SMB:       return gnome_cmd_con_make_smb_uri (s, server, share, folder, domain, user, password);
-#endif
 
         case CON_DAV:       return gnome_cmd_con_make_dav_uri (s, server, port, folder, user, password);
 

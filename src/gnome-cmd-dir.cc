@@ -24,9 +24,7 @@
 #include "gnome-cmd-includes.h"
 #include "gnome-cmd-dir.h"
 #include "gnome-cmd-main-win.h"
-#ifdef HAVE_SAMBA
 #include "gnome-cmd-con-smb.h"
-#endif
 #include "gnome-cmd-data.h"
 #include "gnome-cmd-con.h"
 #include "gnome-cmd-file-collection.h"
@@ -643,8 +641,6 @@ GFile *gnome_cmd_dir_get_absolute_path_gfile (GnomeCmdDir *dir, string absolute_
 {
     g_return_val_if_fail (GNOME_CMD_IS_DIR (dir), nullptr);
 
-//ToDo: This has to be tested after the migration to GIO/gvfs is done
-#ifdef HAVE_SAMBA
     // include workgroups and shares for smb uris
     GFile *dir_gFile = gnome_cmd_dir_get_gfile (dir);
 
@@ -667,7 +663,6 @@ GFile *gnome_cmd_dir_get_absolute_path_gfile (GnomeCmdDir *dir, string absolute_
     g_free(uriScheme);
 
     g_object_unref (dir_gFile);
-#endif
 
     GnomeCmdPath *path = gnome_cmd_con_create_path (dir->priv->con, absolute_filename.c_str());
     auto gFile = gnome_cmd_con_create_gfile (dir->priv->con, path);

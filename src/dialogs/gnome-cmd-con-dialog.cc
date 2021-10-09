@@ -192,14 +192,12 @@ void GnomeCmdConnectDialog::Private::setup_for_type()
             show_domain = FALSE;
             break;
 
-#ifdef HAVE_SAMBA
         case CON_SMB:
             show_share = TRUE;
             show_port = FALSE;
             show_user = TRUE;
             show_domain = TRUE;
             break;
-#endif
     }
 
     show_entry (table, server_entry, _("_Server:"), i);
@@ -446,9 +444,7 @@ static void gnome_cmd_connect_dialog_init (GnomeCmdConnectDialog *dialog)
     gtk_combo_box_append_text (GTK_COMBO_BOX (combo), _("SSH"));
     gtk_combo_box_append_text (GTK_COMBO_BOX (combo), _("FTP (with login)"));
     gtk_combo_box_append_text (GTK_COMBO_BOX (combo), _("Public FTP"));
-#ifdef HAVE_SAMBA
     gtk_combo_box_append_text (GTK_COMBO_BOX (combo), _("Windows share"));
-#endif
     gtk_combo_box_append_text (GTK_COMBO_BOX (combo), _("WebDAV (HTTP)"));
     gtk_combo_box_append_text (GTK_COMBO_BOX (combo), _("Secure WebDAV (HTTPS)"));
     gtk_combo_box_append_text (GTK_COMBO_BOX (combo), _("Custom location"));
@@ -563,44 +559,37 @@ gboolean gnome_cmd_connect_dialog_edit (GnomeCmdConRemote *server)
 
         gtk_entry_set_text (GTK_ENTRY (dialog->priv->server_entry), host);
 
-#ifdef HAVE_SAMBA
-            if (con->method==CON_SMB)
+        if (con->method==CON_SMB)
+        {
+            gchar **a = g_strsplit (path, "/", 3);
+            if (g_strv_length (a) > 2)
             {
-                gchar **a = g_strsplit (path, "/", 3);
-
-                if (g_strv_length (a) > 2)
-                {
-                    gtk_entry_set_text (GTK_ENTRY (dialog->priv->share_entry), a[1]);
-                    gtk_entry_set_text (GTK_ENTRY (dialog->priv->folder_entry), a[2]);
-                }
-                else
-                    gtk_entry_set_text (GTK_ENTRY (dialog->priv->folder_entry), path);
-
-                g_strfreev (a);
-
-                if (user_name)
-                {
-                    a = g_strsplit (user_name, ";", 2);
-                    if (g_strv_length (a) > 1)
-                    {
-                        gtk_entry_set_text (GTK_ENTRY (dialog->priv->domain_entry), a[0]);
-                        gtk_entry_set_text (GTK_ENTRY (dialog->priv->user_entry), a[1]);
-                    }
-                    else
-                    {
-                        gtk_entry_set_text (GTK_ENTRY (dialog->priv->user_entry), user_name);
-                    }
-                    g_strfreev (a);
-                }
+                gtk_entry_set_text (GTK_ENTRY (dialog->priv->share_entry), a[1]);
+                gtk_entry_set_text (GTK_ENTRY (dialog->priv->folder_entry), a[2]);
             }
             else
-            {
-#endif
                 gtk_entry_set_text (GTK_ENTRY (dialog->priv->folder_entry), path);
-                gtk_entry_set_text (GTK_ENTRY (dialog->priv->user_entry), user_name);
-#ifdef HAVE_SAMBA
+            g_strfreev (a);
+            if (user_name)
+            {
+                a = g_strsplit (user_name, ";", 2);
+                if (g_strv_length (a) > 1)
+                {
+                    gtk_entry_set_text (GTK_ENTRY (dialog->priv->domain_entry), a[0]);
+                    gtk_entry_set_text (GTK_ENTRY (dialog->priv->user_entry), a[1]);
+                }
+                else
+                {
+                    gtk_entry_set_text (GTK_ENTRY (dialog->priv->user_entry), user_name);
+                }
+                g_strfreev (a);
             }
-#endif
+        }
+        else
+        {
+            gtk_entry_set_text (GTK_ENTRY (dialog->priv->folder_entry), path);
+            gtk_entry_set_text (GTK_ENTRY (dialog->priv->user_entry), user_name);
+        }
 
         if (port)
             gtk_entry_set_text (GTK_ENTRY (dialog->priv->port_entry), stringify(port).c_str());

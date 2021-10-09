@@ -120,7 +120,6 @@ int main (int argc, char *argv[])
         debug_flags = g_strdup("cdfgiklmnpstuvwyzx");
 
     gdk_rgb_init ();
-    gnome_vfs_init ();
 
     gchar *conf_dir = get_package_config_dir();
     if (!is_dir_existing(conf_dir))
@@ -185,8 +184,6 @@ int main (int argc, char *argv[])
 #ifdef HAVE_UNIQUE
     }
 #endif
-
-    gnome_vfs_shutdown ();
 
 #ifdef HAVE_UNIQUE
     g_object_unref (app);

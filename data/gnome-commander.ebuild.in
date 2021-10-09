@@ -13,19 +13,17 @@ HOMEPAGE="https://gcmd.github.io/"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="chm exif gsf pdf samba taglib test +unique"
+IUSE="chm exif gsf pdf taglib test +unique"
 RESTRICT="!test? ( test )"
 
 RDEPEND="
 	app-text/yelp-tools
 	>=dev-libs/glib-@GLIB_REQ@:2
-	>=gnome-base/gnome-vfs-@GNOMEVFS_REQ@
 	>=x11-libs/gtk+-@GTK_REQ@:2
 	chm? ( dev-libs/chmlib )
 	exif? ( >=media-gfx/exiv2-@EXIV2_REQ@ )
 	gsf? ( >=gnome-extra/libgsf-@LIBGSF_REQ@ )
 	pdf? ( >=app-text/poppler-@POPPLER_REQ@ )
-	samba? ( >=gnome-base/gnome-vfs-@GNOMEVFS_REQ@[samba] )
 	taglib? ( >=media-libs/taglib-@TAGLIB_REQ@ )
 	unique? ( >=dev-libs/libunique-@UNIQUE_REQ@:1 )
 "
@@ -53,7 +51,6 @@ src_configure() {
 		$(use_with exif exiv2) \
 		$(use_with gsf libgsf) \
 		$(use_with pdf poppler) \
-		$(use_with samba) \
 		$(use_with taglib) \
 		$(use_with unique)
 }

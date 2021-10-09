@@ -47,7 +47,6 @@ GSList *make_gfile_list (GnomeCmdDir *dir, string filename)
             filename.erase(0,1);
     }
 
-#ifdef HAVE_SAMBA
     // smb exception handling: test if we are in a samba share...
     // if not - change filename so that we can get a proper error message
     auto dir_gFile = gnome_cmd_dir_get_gfile (dir);
@@ -63,7 +62,6 @@ GSList *make_gfile_list (GnomeCmdDir *dir, string filename)
     }
     g_free(uriScheme);
     g_object_unref (dir_gFile);
-#endif
 
     GSList *gFile_list = NULL;
 

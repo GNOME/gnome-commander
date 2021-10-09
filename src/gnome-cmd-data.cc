@@ -129,9 +129,8 @@ static void gcmd_settings_dispose (GObject *object)
 static void on_bookmarks_changed ()
 {
     gnome_cmd_con_erase_bookmark (gnome_cmd_data.priv->con_list->get_home());
-#ifdef HAVE_SAMBA
+
     gnome_cmd_con_erase_bookmark (gnome_cmd_data.priv->con_list->get_smb());
-#endif
 
     gnome_cmd_data.load_bookmarks();
 
@@ -1547,10 +1546,8 @@ void GnomeCmdData::save_bookmarks()
     hasBookmarks |= add_bookmark_to_gvariant_builder(gVariantBuilder, "Home", con);
 
     // Samba
-#ifdef HAVE_SAMBA
     con = priv->con_list->get_smb();
     hasBookmarks |= add_bookmark_to_gvariant_builder(gVariantBuilder, "SMB", con);
-#endif
 
     // Others
     for (GList *i = gnome_cmd_con_list_get_all_remote (gnome_cmd_data.priv->con_list); i; i=i->next)
@@ -2160,13 +2157,11 @@ void GnomeCmdData::load_bookmarks()
             }
             else
             {
-#ifdef HAVE_SAMBA
                 if (strcmp(bookmarkGroupName, "SMB") == 0)
                 {
                     gnomeCmdCon = gnome_cmd_con_list_get()->get_smb();
                 }
                 else
-#endif
                     gnomeCmdCon = nullptr;
             }
         }
@@ -3337,9 +3332,7 @@ void GnomeCmdData::load()
     else
     {
         gnome_cmd_con_erase_bookmark (priv->con_list->get_home());
-#ifdef HAVE_SAMBA
         gnome_cmd_con_erase_bookmark (priv->con_list->get_smb());
-#endif
         advrename_defaults.profiles.clear();
     }
 
