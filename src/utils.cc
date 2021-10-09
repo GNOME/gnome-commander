@@ -789,71 +789,41 @@ GList *gnome_cmd_file_list_to_gfile_list (GList *files)
 }
 
 
-/**
- * returns  1 if dir is existing,
- * returns  0 if dir is not existing,
- * returns -1 if dir is not readable
- */
-int is_dir_existing(const gchar *dpath)
+gboolean is_dir_existing(const gchar *dpath)
 {
     g_return_val_if_fail (dpath, FALSE);
+    auto gFile = g_file_new_for_path(dpath);
 
-    DIR *dir = opendir (dpath);
+    auto returnValue = false;
 
-    if (!dir)
+    if (g_file_query_exists(gFile, nullptr))
     {
-        if (errno == ENOENT)
-        {
-            return 0;
-        }
-        else
-            g_warning (_("Couldn’t read from the directory %s: %s"), dpath, strerror (errno));
-
-        return -1;
+        returnValue = true;
     }
-
-    closedir (dir);
-    return 1;
+    g_object_unref(gFile);
+    return returnValue;
 }
 
 
-gboolean create_dir_if_needed (const gchar *dpath)
+gboolean create_dir (const gchar *dpath)
 {
     g_return_val_if_fail (dpath, FALSE);
 
-    auto dir_exists = is_dir_existing(dpath);
-
-    switch (dir_exists)
+    g_print (_("Creating directory %s… "), dpath);
+    GError *error = nullptr;
+    auto gFile = g_file_new_for_path(dpath);
+    if (g_file_make_directory (gFile, nullptr, &error))
     {
-        case -1:
-        {
-            return FALSE;
-        }
-        case 0:
-        {
-            g_print (_("Creating directory %s… "), dpath);
-            if (mkdir (dpath, S_IRUSR|S_IWUSR|S_IXUSR) == 0)
-            {
-                return TRUE;
-            }
-            else
-            {
-                gchar *msg = g_strdup_printf (_("Failed to create the directory %s"), dpath);
-                perror (msg);
-                g_free (msg);
-                return FALSE;
-            }
-            break;
-        }
-        case 1:
-        default:
-        {
-            return TRUE;
-        }
+        g_object_unref(gFile);
+        return TRUE;
     }
-
-    // never reached
-    return TRUE;
+    else
+    {
+        g_object_unref(gFile);
+        g_warning (_("Failed to create the directory %s: %s"), dpath, error->message);
+        g_error_free (error);
+        return FALSE;
+    }
 }
 
 

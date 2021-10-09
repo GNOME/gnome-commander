@@ -190,10 +190,13 @@ void plugin_manager_init ()
 
     // find user plugins
     gchar *user_dir = get_plugin_config_location();
-    if (create_dir_if_needed (user_dir))
+    if (!is_dir_existing(user_dir))
     {
-        scan_plugins_in_dir (user_dir);
+        create_dir (user_dir);
     }
+
+    scan_plugins_in_dir (user_dir);
+
     g_free (user_dir);
 
     // find system plugins
@@ -441,29 +444,12 @@ gchar* get_plugin_config_location()
     string userPluginConfigDir = get_package_config_dir();
     userPluginConfigDir += (char*) "/plugins";
 
-    auto dir_exists = is_dir_existing(userPluginConfigDir.c_str());
-
-    switch (dir_exists)
+    if (!is_dir_existing(userPluginConfigDir.c_str()))
     {
-        case 0:
-        {
-            if (create_dir_if_needed (userPluginConfigDir.c_str()))
-            {
-                returnString = g_strdup(userPluginConfigDir.c_str());
-            }
-            break;
-        }
-        case 1:
-        {
-            returnString = g_strdup(userPluginConfigDir.c_str());
-            break;
-        }
-        case -1:
-        default:
-        {
-            break;
-        }
+        create_dir (userPluginConfigDir.c_str());
     }
+
+    returnString = g_strdup(userPluginConfigDir.c_str());
 
     return returnString;
 }

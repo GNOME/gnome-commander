@@ -223,8 +223,8 @@ gchar *unix_to_unc (const gchar *path);
 GdkColor *gdk_color_new (gushort r, gushort g, gushort b);
 GList *gnome_cmd_file_list_to_gfile_list (GList *files);
 
-int is_dir_existing(const gchar *dpath);
-gboolean create_dir_if_needed (const gchar *dpath);
+gboolean is_dir_existing(const gchar *dpath);
+gboolean create_dir (const gchar *dpath);
 
 inline gboolean uri_is_valid (const gchar *uri)
 {
