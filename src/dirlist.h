@@ -25,3 +25,4 @@
 
 void dirlist_list (GnomeCmdDir *dir, gboolean visprog);
 void dirlist_cancel (GnomeCmdDir *dir);
+GList* sync_dir_list (const gchar *absDirPath);

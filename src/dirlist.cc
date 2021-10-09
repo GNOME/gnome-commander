@@ -282,3 +282,61 @@ void dirlist_cancel (GnomeCmdDir *dir)
     // ToDo: Add a cancel-trigger for the async dir listing
     DEBUG('l', "Cancel dir-listing not implemented yet...\n");
 }
+
+
+GList* sync_dir_list (const gchar *absDirPath)
+{
+    g_return_val_if_fail (absDirPath != nullptr, nullptr);
+
+    GError *error = nullptr;
+
+    DEBUG('l', "sync_dir_list: %s\n", absDirPath);
+
+    GList *gFileInfoList = nullptr;
+
+    auto gFile = g_file_new_for_path(absDirPath);
+
+    if (!g_file_query_exists(gFile, nullptr))
+    {
+        g_warning("sync_dir_list error: \"%s\" does not exist", absDirPath);
+        g_object_unref(gFile);
+        return nullptr;
+    }
+
+    auto gFileEnumerator = g_file_enumerate_children (gFile,
+                            "*",
+                            G_FILE_QUERY_INFO_NONE,
+                            nullptr,
+                            &error);
+    if(error)
+    {
+        g_critical("sync_dir_list: Unable to enumerate children, error: %s", error->message);
+        g_error_free(error);
+        return nullptr;
+    }
+
+    GFileInfo *gFileInfoTmp = nullptr;
+    do
+    {
+        gFileInfoTmp = g_file_enumerator_next_file(gFileEnumerator, nullptr, &error);
+        if(error)
+        {
+            g_critical("sync_dir_list: Unable to enumerate next file, error: %s", error->message);
+            break;
+        }
+        if (gFileInfoTmp)
+        {
+            gFileInfoList = g_list_append(gFileInfoList, gFileInfoTmp);
+        }
+    }
+    while (gFileInfoTmp && !error);
+
+    if (error)
+    {
+        g_error_free(error);
+    }
+
+    g_file_enumerator_close (gFileEnumerator, nullptr, nullptr);
+    g_object_unref(gFileEnumerator);
+    return gFileInfoList;
+}

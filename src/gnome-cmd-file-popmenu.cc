@@ -35,6 +35,7 @@
 #include "gnome-cmd-plain-path.h"
 #include "gnome-cmd-xfer.h"
 #include "imageloader.h"
+#include "dirlist.h"
 
 #include <fnmatch.h>
 
@@ -501,6 +502,8 @@ static void destroy (GtkObject *object)
     g_list_foreach (menu->priv->data_list, (GFunc) g_free, nullptr);
     g_list_free (menu->priv->data_list);
 
+    g_free(menu->scriptsDir);
+
     g_free (menu->priv);
 
     if (GTK_OBJECT_CLASS (parent_class)->destroy)
@@ -531,37 +534,37 @@ static void init (GnomeCmdFilePopmenu *menu)
 {
     menu->priv = g_new0 (GnomeCmdFilePopmenuPrivate, 1);
 
+    menu->scriptsDir = g_build_filename (g_get_user_config_dir (), PACKAGE SCRIPT_DIRECTORY, nullptr);
+
     // Create scripts directory if needed
-    gchar *scripts_dir = g_build_filename (g_get_user_config_dir (), PACKAGE "/scripts", nullptr);
-    create_dir_if_needed(scripts_dir);
-    g_free (scripts_dir);
+    if (!is_dir_existing(menu->scriptsDir))
+    {
+        create_dir(menu->scriptsDir);
+    }
 }
 
 
 inline GList *get_list_of_action_script_file_names(const gchar* scriptsDir)
 {
-    DIR *dp = opendir (scriptsDir);
+    g_return_val_if_fail (scriptsDir != nullptr, nullptr);
+
+    auto gFileInfoList = sync_dir_list(scriptsDir);
+
+    if (g_list_length (gFileInfoList) == 0)
+        return nullptr;
+
     GList *scriptList = nullptr;
-    if (dp != nullptr)
+    for (auto gFileInfoListItem = gFileInfoList; gFileInfoListItem; gFileInfoListItem = gFileInfoListItem->next)
     {
-        struct dirent *directoryEntry;
-        while ((directoryEntry = readdir (dp)))
+        auto gFileInfo = (GFileInfo*) gFileInfoListItem->data;
+        if (g_file_info_get_file_type(gFileInfo) == G_FILE_TYPE_REGULAR)
         {
-            char *fileName = directoryEntry->d_name;
-            struct stat buf;
-            string scriptPath (scriptsDir);
-            scriptPath.append ("/").append (fileName);
-            if (stat (scriptPath.c_str(), &buf) == 0)
-            {
-                if (buf.st_mode & S_IFREG)
-                {
-                    DEBUG('p', "Adding \'%s\' to the list of scripts.\n", scriptPath.c_str());
-                    scriptList = g_list_append (scriptList, g_strdup(fileName));
-                }
-            }
+            DEBUG('p', "Adding \'%s\' to the list of scripts.\n", g_file_info_get_name(gFileInfo));
+            scriptList = g_list_append (scriptList, g_strdup(g_file_info_get_name(gFileInfo)));
         }
-        closedir (dp);
+
     }
+    g_list_free_full(gFileInfoList, g_object_unref);
     return scriptList;
 }
 

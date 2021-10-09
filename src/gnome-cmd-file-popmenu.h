@@ -40,6 +40,8 @@ struct GnomeCmdFilePopmenu
     GtkMenu parent;
 
     GnomeCmdFilePopmenuPrivate *priv;
+
+    gchar* scriptsDir;
 };
 
 
