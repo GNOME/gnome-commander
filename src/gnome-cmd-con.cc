@@ -55,7 +55,9 @@ static GtkObjectClass *parent_class = nullptr;
 const gchar *icon_name[] = {"gnome-fs-ssh",            // CON_SSH
                             "gnome-fs-ftp",            // CON_FTP
                             "gnome-fs-ftp",            // CON_ANON_FTP
+#ifdef HAVE_SAMBA
                             "gnome-fs-smb",            // CON_SMB
+#endif
                             "gnome-fs-web",            // CON_DAV
                             "gnome-fs-web",            // CON_DAVS
                             "gnome-fs-network",        // CON_URI
@@ -635,6 +637,7 @@ string &__gnome_cmd_con_make_uri (string &s, const gchar *method, string &server
     return s;
 }
 
+#ifdef HAVE_SAMBA
 std::string &gnome_cmd_con_make_smb_uri (std::string &uriString, std::string &server, std::string &share, std::string &folder, std::string &domain, std::string &user, std::string &password)
 {
     user = stringify (g_strescape (user.c_str(), nullptr));
@@ -669,3 +672,4 @@ std::string &gnome_cmd_con_make_smb_uri (std::string &uriString, std::string &se
 
     return uriString;
 }
+#endif

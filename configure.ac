@@ -91,6 +91,18 @@ else
    AC_MSG_WARN([unique >= ${UNIQUE_REQ} not found, disabling unique support])
 fi
 
+dnl Check for samba support
+AC_ARG_WITH(samba, [AS_HELP_STRING([--without-samba], [disable SAMBA support])])
+have_samba=no
+if test "x$with_samba" != "xno"; then
+ have_samba=yes
+fi
+if test "x$have_samba" = "xyes"; then
+   AC_DEFINE(HAVE_SAMBA, 1, [Define to 1 if you have SAMBA support])
+fi
+AM_CONDITIONAL([HAVE_SAMBA],[test "x$have_samba" = "xyes"])
+
+
 dnl Check for exiv2 support
 AC_ARG_WITH(exiv2, [AS_HELP_STRING([--without-exiv2], [disable EXIF and IPTC support])])
 have_exiv2=no
@@ -258,6 +270,7 @@ echo "  CXXFLAGS         : ${CXXFLAGS}"
 echo "  LDFLAGS          : ${LDFLAGS}"
 echo ""
 echo "  libunique support:      ${have_unique}"
+echo "  Samba support:          ${have_samba}"
 echo ""
 echo "Optional file metadata support:"
 echo ""

@@ -80,10 +80,14 @@ gnome_commander_SOURCES = \
 	tuple.h \
 	utils.h utils.cc \
 	utils-no-dependencies.h utils-no-dependencies.cc \
-	widget-factory.h \
+	widget-factory.h
+
+if HAVE_SAMBA
+gnome_commander_SOURCES += \
 	gnome-cmd-con-smb.h gnome-cmd-con-smb.cc \
 	gnome-cmd-smb-net.h gnome-cmd-smb-net.cc \
 	gnome-cmd-smb-path.h gnome-cmd-smb-path.cc
+endif
 
 gnome_commander_LDADD = \
 	$(top_builddir)/libgcmd/libgcmd.la \
