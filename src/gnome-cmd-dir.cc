@@ -267,7 +267,7 @@ GnomeCmdDir *gnome_cmd_dir_new_from_gfileinfo (GFileInfo *gFileInfo, GnomeCmdDir
     }
 
     dir = static_cast<GnomeCmdDir*> (g_object_new (GNOME_CMD_TYPE_DIR, nullptr));
-    gnome_cmd_file_setup (GNOME_CMD_FILE (dir), gFileInfo, parent);
+    gnome_cmd_file_setup (G_OBJECT (dir), gFileInfo, parent);
 
     dir->priv->con = con;
     gnome_cmd_dir_set_path (dir, path);
@@ -298,9 +298,11 @@ GnomeCmdDir *gnome_cmd_dir_new_with_con (GnomeCmdCon *con)
 
     dir = static_cast<GnomeCmdDir*> (g_object_new (GNOME_CMD_TYPE_DIR, nullptr));
     gnome_cmd_dir_set_path (dir, con->base_path->clone());
-    gnome_cmd_file_setup (GNOME_CMD_FILE (dir), con->base_gFileInfo, nullptr);
 
     dir->priv->con = con;
+
+    gnome_cmd_file_setup (G_OBJECT(dir), con->base_gFileInfo, nullptr);
+
     dir->priv->needs_mtime_update = FALSE;
 
     gnome_cmd_con_add_to_cache (con, dir, uri_str);
@@ -345,7 +347,7 @@ GnomeCmdDir *gnome_cmd_dir_new (GnomeCmdCon *con, GnomeCmdPath *path, gboolean i
 
     dir = static_cast<GnomeCmdDir*> (g_object_new (GNOME_CMD_TYPE_DIR, nullptr));
     gnome_cmd_dir_set_path (dir, path);
-    gnome_cmd_file_setup (GNOME_CMD_FILE (dir), gFileInfo, nullptr);
+    gnome_cmd_file_setup (G_OBJECT (dir), gFileInfo, nullptr);
 
     dir->priv->con = con;
     dir->priv->needs_mtime_update = FALSE;

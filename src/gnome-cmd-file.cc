@@ -155,7 +155,7 @@ GnomeCmdFile *gnome_cmd_file_new (GFileInfo *gFileInfo, GnomeCmdDir *dir)
 {
     auto gnomeCmdFile = static_cast<GnomeCmdFile*> (g_object_new (GNOME_CMD_TYPE_FILE, nullptr));
 
-    gnome_cmd_file_setup (gnomeCmdFile, gFileInfo, dir);
+    gnome_cmd_file_setup (G_OBJECT(gnomeCmdFile), gFileInfo, dir);
 
     if(!gnomeCmdFile->gFile)
     {
@@ -207,11 +207,13 @@ void GnomeCmdFile::invalidate_metadata()
 }
 
 
-void gnome_cmd_file_setup (GnomeCmdFile *gnomeCmdFile, GFileInfo *gFileInfo, GnomeCmdDir *dir)
+void gnome_cmd_file_setup (GObject *gObject, GFileInfo *gFileInfo, GnomeCmdDir *parentDir)
 {
-    g_return_if_fail (gnomeCmdFile != nullptr);
+    g_return_if_fail (gObject != nullptr);
+    g_return_if_fail (GNOME_CMD_IS_FILE(gObject));
     g_return_if_fail (gFileInfo != nullptr);
 
+    auto gnomeCmdFile = (GnomeCmdFile*) gObject;
     gnomeCmdFile->gFileInfo = gFileInfo;
 
     auto filename = g_file_info_get_attribute_string (gFileInfo, G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME);
@@ -232,16 +234,27 @@ void gnome_cmd_file_setup (GnomeCmdFile *gnomeCmdFile, GFileInfo *gFileInfo, Gno
     gnomeCmdFile->collate_key = g_utf8_collate_key_for_filename (utf8_name, -1);
     g_free (utf8_name);
 
-    if (dir)
+    if (parentDir)
     {
-        gnomeCmdFile->priv->dir_handle = gnome_cmd_dir_get_handle (dir);
+        gnomeCmdFile->priv->dir_handle = gnome_cmd_dir_get_handle (parentDir);
         handle_ref (gnomeCmdFile->priv->dir_handle);
     }
 
     auto path = gnomeCmdFile->get_path();
     if (path)
     {
-        auto con = gnome_cmd_dir_get_connection(dir);
+        GnomeCmdCon *con = nullptr;
+        if (parentDir)
+        {
+            con = gnome_cmd_dir_get_connection(parentDir);
+        }
+        else
+        {
+            if (GNOME_CMD_IS_DIR(gObject))
+            {
+                con = gnome_cmd_dir_get_connection(GNOME_CMD_DIR(gObject));
+            }
+        }
         if (con && !con->is_local)
         {
             auto conUri = gnome_cmd_con_get_uri(con);
