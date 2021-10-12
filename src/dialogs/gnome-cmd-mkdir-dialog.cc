@@ -68,18 +68,21 @@ GSList *make_gfile_list (GnomeCmdDir *dir, string filename)
     GSList *gFile_list = NULL;
 
     if (g_path_is_absolute (filename.c_str()))
+    {
         while (filename.compare("/") != 0)
         {
             gFile_list = g_slist_prepend (gFile_list, gnome_cmd_dir_get_absolute_path_gfile (dir, filename));
             stringify (filename, g_path_get_dirname (filename.c_str()));
         }
+    }
     else
-        while (filename.compare(".") != 0)
+    {
+        while (filename.compare("..") != 0 && filename.compare(".") != 0)
         {
             gFile_list = g_slist_prepend (gFile_list, gnome_cmd_dir_get_child_gfile (dir, filename.c_str()));
             stringify (filename, g_path_get_dirname (filename.c_str()));
         }
-
+    }
     return gFile_list;
 }
 
