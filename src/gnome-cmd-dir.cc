@@ -807,8 +807,6 @@ void gnome_cmd_dir_start_monitoring (GnomeCmdDir *dir)
             nullptr,
             &error);
 
-        g_signal_connect (gFileMonitor, "changed", G_CALLBACK (monitor_callback), dir);
-
         if (error)
         {
             DEBUG ('n', "Failed to add monitor to %p %s: %s\n", dir, uri_str, error->message);
@@ -816,6 +814,8 @@ void gnome_cmd_dir_start_monitoring (GnomeCmdDir *dir)
             g_free(uri_str);
             return;
         }
+
+        g_signal_connect (gFileMonitor, "changed", G_CALLBACK (monitor_callback), dir);
 
         DEBUG('n', "Added monitor to %p %s\n", dir, uri_str);
         dir->priv->gFileMonitor = gFileMonitor;
