@@ -111,24 +111,20 @@ static void response_callback (GtkDialog *dialog, int response_id, GnomeCmdDir *
                     // the list of gFiles's to be created
                     GSList *gFileList = make_gfile_list (dir, filename);
 
-                    guint perm = ((GNOME_CMD_PERM_USER_ALL | GNOME_CMD_PERM_GROUP_ALL | GNOME_CMD_PERM_OTHER_ALL) & ~gnome_cmd_data.umask ) | GNOME_CMD_PERM_USER_WRITE | GNOME_CMD_PERM_USER_EXEC;
-
                     for (GSList *i = gFileList; i; i = g_slist_next (i))
                     {
                         auto mkdir_gFile = (GFile *) i->data;
-
-                        auto mkdirPath = g_file_get_path(mkdir_gFile);
+                        GError *error = nullptr;
                         // create the directory
-                        auto result = g_mkdir_with_parents (mkdirPath, perm);
-                        g_free(mkdirPath);
 
-                        if (result != 0)
+                        if (!g_file_make_directory_with_parents (mkdir_gFile, nullptr, &error))
                         {
                             auto mkdirBasename = g_file_get_basename (mkdir_gFile);
                             string dirname = stringify (mkdirBasename);
-                            auto msg = g_strdup_printf(_("Make directory failed: %s\n"), strerror(errno));
+                            auto msg = g_strdup_printf(_("Make directory failed: %s\n"), error->message);
                             gnome_cmd_show_message (GTK_WINDOW (dialog), dirname, msg);
                             g_free(msg);
+                            g_error_free(error);
                             g_signal_stop_emission_by_name (dialog, "response");
                             break;
                         }
