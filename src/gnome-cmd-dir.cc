@@ -880,7 +880,7 @@ gboolean gnome_cmd_dir_update_mtime (GnomeCmdDir *dir)
     g_free(uri);
     g_object_unref(gFileInfoCurrent);
 
-    if (currentMTime && cachedMTime && !g_date_time_compare(cachedMTime, currentMTime))
+    if (currentMTime && cachedMTime && g_date_time_compare(cachedMTime, currentMTime))
     {
         // cache is not up-to-date
         g_file_info_set_modification_date_time(GNOME_CMD_FILE (dir)->gFileInfo, currentMTime);
