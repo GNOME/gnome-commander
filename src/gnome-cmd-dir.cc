@@ -769,7 +769,7 @@ void gnome_cmd_dir_file_created (GnomeCmdDir *dir, const gchar *newDirUriStr)
     GnomeCmdFile *f;
 
     if (g_file_info_get_attribute_uint32 (gFileInfo, G_FILE_ATTRIBUTE_STANDARD_TYPE) == G_FILE_TYPE_DIRECTORY)
-        f = GNOME_CMD_FILE (gnome_cmd_dir_new_from_gfileinfo (gFileInfo, dir));
+        f = reinterpret_cast<GnomeCmdFile*> (gnome_cmd_dir_new_from_gfileinfo (gFileInfo, dir));
     else
         f = gnome_cmd_file_new (gFileInfo, dir);
 
