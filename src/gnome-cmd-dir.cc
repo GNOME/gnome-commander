@@ -748,21 +748,21 @@ inline gboolean file_already_exists (GnomeCmdDir *dir, const gchar *uri_str)
 }
 
 
-// A file has been created. Create a new GnomeCmdFile object for that file
-void gnome_cmd_dir_file_created (GnomeCmdDir *dir, const gchar *uri_str)
+// A file has been created. Create a new GnomeCmdFile object for that file and assign it to dir
+void gnome_cmd_dir_file_created (GnomeCmdDir *dir, const gchar *newDirUriStr)
 {
     g_return_if_fail (GNOME_CMD_IS_DIR (dir));
-    g_return_if_fail (uri_str != nullptr);
+    g_return_if_fail (newDirUriStr != nullptr);
     GError *error = nullptr;
 
-    if (file_already_exists (dir, uri_str))
+    if (file_already_exists (dir, newDirUriStr))
         return;
 
-    auto gFile = g_file_new_for_uri (uri_str);
+    auto gFile = g_file_new_for_uri (newDirUriStr);
     auto gFileInfo = g_file_query_info (gFile, "*", G_FILE_QUERY_INFO_NONE, nullptr, &error);
     if (error)
     {
-        DEBUG ('t', "Could not retrieve file information for %s, error: %s\n", uri_str, error->message);
+        DEBUG ('t', "Could not retrieve file information for %s, error: %s\n", newDirUriStr, error->message);
         g_error_free(error);
     }
 
