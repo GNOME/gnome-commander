@@ -624,6 +624,42 @@ gchar *gnome_cmd_dir_get_uri_str (GnomeCmdDir *dir)
     return dir_str;
 }
 
+/**
+ * This function returns a GFile object which is the result of the URI construction of
+ * two URI's: the connection URI, which is the private member of GnomeCmdDir,
+ * and the given filename string.
+ */
+GFile *gnome_cmd_dir_get_gfile_for_con_and_filename(GnomeCmdDir *dir, const gchar *filename)
+{
+    auto conUri = gnome_cmd_con_get_uri(dir->priv->con);
+    if (!conUri) // is usually set for a remote connection
+    {
+        return nullptr;
+    }
+
+    GError *error = nullptr;
+    auto gnomeCmdDirPath = gnome_cmd_dir_get_path(dir);
+    auto dirLastCharacter = gnomeCmdDirPath->get_path()[strlen(gnomeCmdDirPath->get_path())-1];
+    auto mergedDirAndFileNameString = dirLastCharacter != G_DIR_SEPARATOR
+        ? g_strdup_printf("%s" G_DIR_SEPARATOR_S "%s", gnomeCmdDirPath->get_path(), filename)
+        : g_strdup_printf("%s%s", gnomeCmdDirPath->get_path(), filename);
+    auto fullFileNameUri = g_uri_resolve_relative (
+                                conUri,
+                                mergedDirAndFileNameString,
+                                G_URI_FLAGS_NONE,
+                                &error);
+    if (error)
+    {
+        g_warning ("get_gfile_for_merged_paths error: %s", error->message);
+        g_error_free(error);
+        return nullptr;
+    }
+    auto gFile = g_file_new_for_uri(fullFileNameUri);
+    g_free(mergedDirAndFileNameString);
+    g_free(fullFileNameUri);
+    return gFile;
+}
+
 
 GFile *gnome_cmd_dir_get_child_gfile (GnomeCmdDir *dir, const gchar *filename)
 {

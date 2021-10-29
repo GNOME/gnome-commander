@@ -153,7 +153,7 @@ static GnomeCmdPath *remote_create_path (GnomeCmdCon *con, const gchar *path_str
 
 static void destroy (GtkObject *object)
 {
-    GnomeCmdConRemote *con_remote = GNOME_CMD_CON_REMOTE (object);
+    auto con_remote = GNOME_CMD_CON_REMOTE (object);
 
     gnome_cmd_pixmap_free (con_remote->parent.go_pixmap);
     gnome_cmd_pixmap_free (con_remote->parent.open_pixmap);
