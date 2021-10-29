@@ -239,43 +239,59 @@ static void gnome_cmd_dir_class_init (GnomeCmdDirClass *klass)
  * Public functions
  ***********************************/
 
-GnomeCmdDir *gnome_cmd_dir_new_from_gfileinfo (GFileInfo *gFileInfo, GnomeCmdDir *parent)
+GnomeCmdDir *gnome_cmd_dir_new_from_gfileinfo (GFileInfo *gFileInfo, GnomeCmdDir *gnomeCmdDirParent)
 {
     g_return_val_if_fail (gFileInfo != nullptr, nullptr);
-    g_return_val_if_fail (GNOME_CMD_IS_DIR (parent), nullptr);
+    g_return_val_if_fail (GNOME_CMD_IS_DIR (gnomeCmdDirParent), nullptr);
 
-    GnomeCmdCon *con = gnome_cmd_dir_get_connection (parent);
-    auto basename = g_file_info_get_display_name(gFileInfo);
-    GnomeCmdPath *path = gnome_cmd_dir_get_path (parent)->get_child(basename);
-    if (!path)
+    GnomeCmdCon *con = gnome_cmd_dir_get_connection (gnomeCmdDirParent);
+    auto dirName = g_file_info_get_name(gFileInfo);
+
+    GFile *gFile = nullptr;
+    GnomeCmdPath *dirPath = nullptr;
+
+    gFile = gnome_cmd_dir_get_gfile_for_con_and_filename(gnomeCmdDirParent, dirName);
+    if (gFile)
     {
-        return nullptr;
+        auto uriStringTmp = g_file_get_uri(gFile);
+        auto uriTmp = g_uri_parse(uriStringTmp, G_URI_FLAGS_NONE, nullptr);
+        auto pathTmp = g_uri_get_path(uriTmp);
+        dirPath = gnome_cmd_con_create_path(con, pathTmp);
+        g_free(uriStringTmp);
     }
+    else
+    {
+        dirPath = gnome_cmd_dir_get_path (gnomeCmdDirParent)->get_child(dirName);
+        if (!dirPath)
+        {
+            return nullptr;
+        }
 
-    auto gFile = gnome_cmd_con_create_gfile (con, path);
+        gFile = gnome_cmd_con_create_gfile (con, dirPath);
+    }
     auto uriString = g_file_get_uri (gFile);
 
-    GnomeCmdDir *dir = gnome_cmd_con_cache_lookup (gnome_cmd_dir_get_connection (parent), uriString);
+    auto *gnomeCmdDir = gnome_cmd_con_cache_lookup (gnome_cmd_dir_get_connection (gnomeCmdDirParent), uriString);
     g_object_unref (gFile);
 
-    if (dir)
+    if (gnomeCmdDir)
     {
-        delete path;
-        GNOME_CMD_FILE (dir)->update_gFileInfo(gFileInfo);
+        delete dirPath;
+        reinterpret_cast<GnomeCmdFile*>((gnomeCmdDir))->update_gFileInfo(gFileInfo);
         g_free (uriString);
-        return dir;
+        return gnomeCmdDir;
     }
 
-    dir = static_cast<GnomeCmdDir*> (g_object_new (GNOME_CMD_TYPE_DIR, nullptr));
-    gnome_cmd_file_setup (G_OBJECT (dir), gFileInfo, parent);
+    gnomeCmdDir = static_cast<GnomeCmdDir*> (g_object_new (GNOME_CMD_TYPE_DIR, nullptr));
+    gnome_cmd_file_setup (G_OBJECT (gnomeCmdDir), gFileInfo, gnomeCmdDirParent);
 
-    dir->priv->con = con;
-    gnome_cmd_dir_set_path (dir, path);
-    dir->priv->needs_mtime_update = FALSE;
+    gnomeCmdDir->priv->con = con;
+    gnome_cmd_dir_set_path (gnomeCmdDir, dirPath);
+    gnomeCmdDir->priv->needs_mtime_update = FALSE;
 
-    gnome_cmd_con_add_to_cache (gnome_cmd_dir_get_connection (parent), dir, uriString);
+    gnome_cmd_con_add_to_cache (gnome_cmd_dir_get_connection (gnomeCmdDirParent), gnomeCmdDir, uriString);
 
-    return dir;
+    return gnomeCmdDir;
 }
 
 
