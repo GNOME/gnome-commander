@@ -681,12 +681,20 @@ GFile *gnome_cmd_dir_get_child_gfile (GnomeCmdDir *dir, const gchar *filename)
 {
     g_return_val_if_fail (GNOME_CMD_IS_DIR (dir), nullptr);
 
+    GFile *gFile = gnome_cmd_dir_get_gfile_for_con_and_filename(dir, filename);
+
+    if (gFile)
+    {
+        return gFile;
+    }
+
     GnomeCmdPath *path = dir->priv->path->get_child(filename);
     if (!path)
     {
         return nullptr;
     }
-    GFile *gFile = gnome_cmd_con_create_gfile (dir->priv->con, path);
+
+    gFile = gnome_cmd_con_create_gfile (dir->priv->con, path);
     delete path;
 
     return gFile;
