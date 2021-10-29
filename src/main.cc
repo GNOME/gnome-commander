@@ -145,10 +145,24 @@ int main (int argc, char *argv[])
     {
 #endif
         if (start_dir_left)
+        {
+            if (!strcmp(start_dir_left, "."))
+            {
+                g_free(start_dir_left);
+                start_dir_left = g_get_current_dir ();
+            }
             gnome_cmd_data.tabs[LEFT].push_back(make_pair(string(start_dir_left),make_triple(GnomeCmdFileList::COLUMN_NAME,GTK_SORT_ASCENDING,FALSE)));
+        }
 
         if (start_dir_right)
+        {
+            if (!strcmp(start_dir_right, "."))
+            {
+                g_free(start_dir_right);
+                start_dir_right = g_get_current_dir ();
+            }
             gnome_cmd_data.tabs[RIGHT].push_back(make_pair(string(start_dir_right),make_triple(GnomeCmdFileList::COLUMN_NAME,GTK_SORT_ASCENDING,FALSE)));
+        }
 
         gcmd_user_actions.set_defaults();
         ls_colors_init ();

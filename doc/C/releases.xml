@@ -36,6 +36,9 @@
                             <para>Fixed issue #5 ("Follow Links" option does not work when copying files)</para>
                         </listitem>
                         <listitem>
+                            <para>Fixed issue #16 (Start-left-dir doesn't work on '.' (dot directory))</para>
+                        </listitem>
+                        <listitem>
                             <para>Fixed issue #33 (Get rid of deprecated gnome-vfs)</para>
                         </listitem>
                         <listitem>
