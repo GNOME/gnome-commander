@@ -96,7 +96,7 @@ static void do_legacy_mount(GnomeCmdCon *con)
 
     if (!is_mounted (dev_con))
     {
-        gchar *cmd;
+        gchar *cmd = nullptr;
         gchar *emsg = nullptr;
 
         if (dev_con->priv->device_fn != nullptr && dev_con->priv->mountp != nullptr)
@@ -107,6 +107,9 @@ static void do_legacy_mount(GnomeCmdCon *con)
             else
                 cmd = g_strdup_printf ("mount %s", dev_con->priv->mountp);
         }
+
+        if (!cmd)
+            return;
 
         DEBUG ('m', "Mount command: %s\n", cmd);
         ret = system (cmd);
