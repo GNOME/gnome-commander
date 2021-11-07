@@ -20,7 +20,7 @@ AX_CXX_COMPILE_STDCXX_11
 
 AC_PROG_CC
 AC_PROG_CXX
-AM_PROG_LEX
+AC_PROG_LEX(noyywrap)
 LT_INIT
 
 dnl ===================
