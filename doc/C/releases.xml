@@ -39,6 +39,9 @@
                             <para>Fixed issue #16 (Start-left-dir doesn't work on '.' (dot directory))</para>
                         </listitem>
                         <listitem>
+                            <para>Fixed issue #19 (FTP connections are not closed correctly)</para>
+                        </listitem>
+                        <listitem>
                             <para>Fixed issue #33 (Get rid of deprecated gnome-vfs)</para>
                         </listitem>
                         <listitem>

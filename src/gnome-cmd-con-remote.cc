@@ -103,13 +103,54 @@ static void remote_open (GnomeCmdCon *con)
 }
 
 
+static void remote_close_callback(GObject *gobj, GAsyncResult *result, gpointer user_data)
+{
+    auto gMount = (GMount*) gobj;
+    auto con = (GnomeCmdCon*) user_data;
+    GError *error = nullptr;
+
+    g_mount_unmount_with_operation_finish(gMount, result, &error);
+
+    if (error)
+    {
+        gnome_cmd_error_message(_("Disconnect error"), error);
+        return;
+    }
+
+    con->state = GnomeCmdCon::STATE_CLOSED;
+    con->open_result = GnomeCmdCon::OPEN_NOT_STARTED;
+}
+
 static gboolean remote_close (GnomeCmdCon *con)
 {
+    GError *error = nullptr;
+
     gnome_cmd_con_set_default_dir (con, nullptr);
     delete con->base_path;
     con->base_path = nullptr;
-    con->state = GnomeCmdCon::STATE_CLOSED;
-    con->open_result = GnomeCmdCon::OPEN_NOT_STARTED;
+
+    auto uri = gnome_cmd_con_get_uri(con);
+    auto gFileTmp = g_file_new_for_uri(uri);
+    DEBUG ('m', "Closing connection to %s\n", uri);
+
+    auto gMount = g_file_find_enclosing_mount (gFileTmp, nullptr, &error);
+    if (error)
+    {
+        g_warning("remote_close - g_file_find_enclosing_mount error: %s", error->message);
+        g_error_free(error);
+        return false;
+    }
+
+    g_mount_unmount_with_operation (
+        gMount,
+        G_MOUNT_UNMOUNT_NONE,
+        nullptr,
+        nullptr,
+        remote_close_callback,
+        con
+    );
+
+    g_object_unref(gFileTmp);
 
     return TRUE;
 }

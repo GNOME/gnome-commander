@@ -9,6 +9,7 @@ Bug fixes:
  * Fixed issue #3  (Mounted devices pluged when Commander is running are not noticed)
  * Fixed issue #5  ("Follow Links" option does not work when copying files)
  * Fixed issue #16 (Start-left-dir doesn't work on '.' (dot directory))
+ * Fixed issue #19 (FTP connections are not closed correctly)
  * Fixed issue #33 (Get rid of deprecated gnome-vfs)
  * Fixed issue #52 (Auto refresh when changing permissions etc)
  * Fixed issue #75 (Newly inserted DVD does not show up)
