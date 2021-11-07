@@ -187,7 +187,7 @@ AC_SUBST([GTEST_LDFLAGS])
 AC_SUBST([GTEST_LIBS])
 
 AC_MSG_RESULT([
-Google Test is now configured (for \"make check\")
+Google Test is now configured (for "make check")
 
     GTEST_CPPFLAGS  : $GTEST_CPPFLAGS
     GTEST_CXXFLAGS  : $GTEST_CXXFLAGS
