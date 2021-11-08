@@ -596,8 +596,10 @@ gboolean gnome_cmd_connect_dialog_edit (GnomeCmdConRemote *server)
             else
             {
 #endif
-                gtk_entry_set_text (GTK_ENTRY (dialog->priv->folder_entry), path);
-                gtk_entry_set_text (GTK_ENTRY (dialog->priv->user_entry), user_name);
+                if (path)
+                    gtk_entry_set_text (GTK_ENTRY (dialog->priv->folder_entry), path);
+                if (user_name)
+                    gtk_entry_set_text (GTK_ENTRY (dialog->priv->user_entry), user_name);
 #ifdef HAVE_SAMBA
             }
 #endif
