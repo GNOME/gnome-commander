@@ -2074,6 +2074,70 @@ inline gboolean device_mount_point_exists (GnomeCmdConList *list, const gchar *m
 }
 
 
+inline gboolean remote_con_stored_already (GnomeCmdConList *list, GFile *gFile)
+{
+    gboolean rc = FALSE;
+    GFile *conGFile = nullptr;
+    for (GList *tmp = gnome_cmd_con_list_get_all_remote(list); tmp; tmp = tmp->next)
+    {
+        auto con = static_cast <GnomeCmdCon*> (tmp->data);
+        auto uriString = static_cast<const char*>(gnome_cmd_con_get_uri(con));
+
+        conGFile = g_file_new_for_uri(uriString);
+        if(g_file_equal(conGFile, gFile))
+        {
+            rc = TRUE;
+            break;
+        }
+    }
+
+    if (conGFile)
+        g_object_unref(conGFile);
+
+    return rc;
+}
+
+
+/**
+ * This function will add mounts which are not for the 'file' scheme
+ * to the list of stored connections. This might be usefull when opening a remote
+ * connection with an external programm. This connection can be opened / used at
+ * a later time then also in Gnome Commander as it will be selectable from
+ * the connection list.
+ */
+static void add_gmount (GMount *gMount)
+{
+    g_return_if_fail (gMount != nullptr);
+
+    auto *gIcon = g_mount_get_icon (gMount);
+    char *name = g_mount_get_name (gMount);
+    auto gFile = g_mount_get_root(gMount);
+    auto uriString = g_file_get_uri(gFile);
+    auto scheme = g_file_get_uri_scheme(gFile);
+
+    //Don't care about 'local' mounts (for the moment)
+    if(!strcmp(scheme, "file"))
+    {
+        g_free (scheme);
+        g_free (name);
+        g_object_unref(gFile);
+        return;
+    }
+
+    if (!remote_con_stored_already (gnome_cmd_data.priv->con_list, gFile))
+    {
+        auto remoteCon = gnome_cmd_con_remote_new(name, uriString);
+        gnome_cmd_data.priv->con_list->add(remoteCon);
+    }
+
+    g_free (name);
+    g_free (uriString);
+    g_free (scheme);
+    g_object_unref (gIcon);
+    g_object_unref (gFile);
+}
+
+
 static void add_gvolume (GVolume *gVolume)
 {
     g_return_if_fail (gVolume != nullptr);
@@ -2118,6 +2182,16 @@ static void add_gvolume (GVolume *gVolume)
     g_object_unref (gVolume);
 }
 
+static void mount_added (GVolumeMonitor *volume_monitor, GMount *gMount)
+{
+    add_gmount (gMount);
+}
+
+static void mount_removed (GVolumeMonitor *volume_monitor, GMount *gMount)
+{
+    gnome_cmd_con_close_active_or_inactive_connection(gMount);
+}
+
 static void volume_added (GVolumeMonitor *volume_monitor, GVolume *gVolume)
 {
     add_gvolume (gVolume);
@@ -2132,6 +2206,8 @@ inline void set_g_volume_monitor ()
 {
     auto monitor = g_volume_monitor_get();
 
+    g_signal_connect (monitor, "mount-added",       G_CALLBACK (mount_added), nullptr);
+    g_signal_connect (monitor, "mount-removed",     G_CALLBACK (mount_removed), nullptr);
     g_signal_connect (monitor, "volume-added",      G_CALLBACK (volume_added), nullptr);
     g_signal_connect (monitor, "volume-removed",    G_CALLBACK (volume_removed), nullptr);
 }

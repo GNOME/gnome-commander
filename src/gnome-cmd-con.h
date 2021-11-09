@@ -522,3 +522,5 @@ inline std::string &gnome_cmd_con_make_uri (std::string &s, ConnectionMethodID m
         default:            return s;
     }
 }
+
+void gnome_cmd_con_close_active_or_inactive_connection (GMount *gMount);
