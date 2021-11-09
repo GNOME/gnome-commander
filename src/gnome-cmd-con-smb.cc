@@ -40,7 +40,7 @@ struct GnomeCmdConSmbClass
 static GnomeCmdConClass *parent_class = nullptr;
 
 
-static void get_file_info_func (GnomeCmdCon *con)
+static void mount_func (GnomeCmdCon *con)
 {
     g_return_if_fail(GNOME_CMD_IS_CON(con));
 
@@ -102,9 +102,9 @@ static void get_file_info_func (GnomeCmdCon *con)
 
 
 static gboolean
-start_get_file_info (GnomeCmdCon *con)
+start_mount_func (GnomeCmdCon *con)
 {
-    g_thread_new (nullptr, (GThreadFunc) get_file_info_func, con);
+    g_thread_new (nullptr, (GThreadFunc) mount_func, con);
 
     return FALSE;
 }
@@ -118,7 +118,7 @@ static void smb_open (GnomeCmdCon *con)
     con->state = GnomeCmdCon::STATE_OPENING;
     con->open_result = GnomeCmdCon::OPEN_IN_PROGRESS;
 
-    g_timeout_add (1, (GSourceFunc) start_get_file_info, con);
+    g_timeout_add (1, (GSourceFunc) start_mount_func, con);
 
 }
 

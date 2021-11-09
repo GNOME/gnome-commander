@@ -24,6 +24,7 @@
 #include "gnome-cmd-includes.h"
 #include "gnome-cmd-data.h"
 #include "gnome-cmd-con-remote.h"
+#include "gnome-cmd-main-win.h"
 #include "gnome-cmd-plain-path.h"
 #include "imageloader.h"
 #include "utils.h"
@@ -34,54 +35,75 @@ using namespace std;
 static GnomeCmdConClass *parent_class = nullptr;
 
 
-static void get_file_info_func (GnomeCmdCon *con)
+static void set_con_mount_failed(GnomeCmdCon *con)
+{
+    g_return_if_fail(GNOME_CMD_IS_CON(con));
+    con->base_gFileInfo = nullptr;
+    con->open_result = GnomeCmdCon::OPEN_FAILED;
+    con->state = GnomeCmdCon::STATE_CLOSED;
+    con->open_failed_msg = con->open_failed_error->message;
+}
+
+static void mount_remote_finish_callback(GObject *gobj, GAsyncResult *result, gpointer user_data)
+{
+    auto con = GNOME_CMD_CON(user_data);
+    g_return_if_fail(GNOME_CMD_IS_CON(user_data));
+    g_return_if_fail(gobj != nullptr);
+    auto gFile = G_FILE(gobj);
+    g_return_if_fail(G_IS_FILE(gFile));
+
+    GError *error = nullptr;
+    GError *errorQuery = nullptr;
+
+    // The volume might be mounted already, so we are trying to get some information about the
+    // underlying gFile to decide if we want to raise an error or not
+    g_file_mount_enclosing_volume_finish(gFile, result, &error);
+    con->base_gFileInfo = g_file_query_info(gFile, "*", G_FILE_QUERY_INFO_NONE, nullptr, &errorQuery);
+    if (errorQuery)
+    {
+        auto uriString = g_file_get_uri(gFile);
+        DEBUG('m', "Unable to query information for uri \"%s\", error: %s\n", uriString, errorQuery->message);
+        g_free(uriString);
+        if (error)
+        {
+            DEBUG('m', "... probably because of this error: %s\n", error->message);
+            g_error_free(error);
+        }
+        con->open_failed_error = g_error_copy(errorQuery);
+        g_error_free(errorQuery);
+        set_con_mount_failed(con);
+        g_object_unref(gFile);
+        return;
+    }
+
+    con->state = GnomeCmdCon::STATE_OPEN;
+    con->open_result = GnomeCmdCon::OPEN_OK;
+    g_object_unref(gFile);
+}
+
+
+static void mount_func (GnomeCmdCon *con)
 {
     g_return_if_fail(GNOME_CMD_IS_CON(con));
 
-    GError *error = nullptr;
     auto gFile = gnome_cmd_con_create_gfile(con, con->base_path);
 
     auto uri = g_file_get_uri(gFile);
     DEBUG('m', "Connecting to %s\n", uri);
-    g_free(uri);
 
-    con->base_gFileInfo = g_file_query_info(gFile, "*", G_FILE_QUERY_INFO_NONE, nullptr, &error);
-    if (error)
-    {
-        DEBUG('m', "g_file_query_info error: %s\n", error->message);
-    }
-    g_object_unref (gFile);
+    auto gMountOperation = gtk_mount_operation_new ((GtkWindow*) main_win);
 
-    if (con->state == GnomeCmdCon::STATE_OPENING)
-    {
-        DEBUG('m', "State was OPENING, setting flags\n");
-        if (!error)
-        {
-            con->state = GnomeCmdCon::STATE_OPEN;
-            con->open_result = GnomeCmdCon::OPEN_OK;
-        }
-        else
-        {
-            con->state = GnomeCmdCon::STATE_CLOSED;
-            con->open_failed_error = g_error_copy(error);
-            con->open_result = GnomeCmdCon::OPEN_FAILED;
-            con->open_failed_msg = g_strdup (con->open_failed_error->message);
-            g_error_free(error);
-        }
-    }
-    else
-    {
-        if (con->state == GnomeCmdCon::STATE_CANCELLING)
-            DEBUG('m', "The open operation was cancelled, doing nothing\n");
-        else
-            DEBUG('m', "Strange ConState %d\n", con->state);
-        con->state = GnomeCmdCon::STATE_CLOSED;
-    }
+    g_file_mount_enclosing_volume (gFile,
+                                   G_MOUNT_MOUNT_NONE,
+                                   gMountOperation,
+                                   nullptr,
+                                   mount_remote_finish_callback,
+                                   con);
 }
 
-static gboolean start_get_file_info (GnomeCmdCon *con)
+static gboolean start_mount_func (GnomeCmdCon *con)
 {
-    g_thread_new (nullptr, (GThreadFunc) get_file_info_func, con);
+    g_thread_new (nullptr, (GThreadFunc) mount_func, con);
 
     return FALSE;
 }
@@ -99,7 +121,7 @@ static void remote_open (GnomeCmdCon *con)
     if (!con->base_path)
         con->base_path = new GnomeCmdPlainPath(G_DIR_SEPARATOR_S);
 
-    g_timeout_add (1, (GSourceFunc) start_get_file_info, con);
+    g_timeout_add (1, (GSourceFunc) start_mount_func, con);
 }
 
 
@@ -111,11 +133,14 @@ static void remote_close_callback(GObject *gobj, GAsyncResult *result, gpointer 
 
     g_mount_unmount_with_operation_finish(gMount, result, &error);
 
-    if (error)
+    if (error && !g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CLOSED))
     {
         gnome_cmd_error_message(_("Disconnect error"), error);
+        g_error_free(error);
         return;
     }
+    if (error)
+        g_error_free(error);
 
     con->state = GnomeCmdCon::STATE_CLOSED;
     con->open_result = GnomeCmdCon::OPEN_NOT_STARTED;
@@ -136,7 +161,7 @@ static gboolean remote_close (GnomeCmdCon *con)
     auto gMount = g_file_find_enclosing_mount (gFileTmp, nullptr, &error);
     if (error)
     {
-        g_warning("remote_close - g_file_find_enclosing_mount error: %s", error->message);
+        g_warning("remote_close - g_file_find_enclosing_mount error: %s - %s", uri, error->message);
         g_error_free(error);
         return false;
     }
