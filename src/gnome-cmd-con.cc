@@ -455,6 +455,8 @@ void gnome_cmd_con_add_bookmark (GnomeCmdCon *con, gchar *name, gchar *path)
 
 void gnome_cmd_con_erase_bookmark (GnomeCmdCon *con)
 {
+    if (!con)
+        return;
     g_return_if_fail (GNOME_CMD_IS_CON (con));
 
     GnomeCmdBookmarkGroup *group = con->priv->bookmarks;
