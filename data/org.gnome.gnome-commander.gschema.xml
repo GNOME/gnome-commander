@@ -559,7 +559,7 @@
   </schema>
   <schema gettext-domain="gnome-commander" id="org.gnome.gnome-commander.preferences.network" path="/org/gnome/gnome-commander/preferences/network/">
     <key name="quick-connect-uri" type="s">
-      <default>'ftp://anonymous@ftp.gnome.org/pub/GNOME/'</default>
+      <default>''</default>
       <summary>Quick connect URI</summary>
       <description>
           Unified resource identifier for quick connections.
@@ -571,7 +571,7 @@
       <description></description>
     </key>
     <key name="ftp-anonymous-password" type="s">
-      <default>'you@provider.com'</default>
+      <default>''</default>
       <summary>Password for anonymous FTP connections</summary>
       <description>
           This string defines the password for anonymous FTP connections.
