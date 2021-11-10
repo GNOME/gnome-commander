@@ -96,7 +96,7 @@ inline gboolean enumerate_smb_uri (const gchar *uriString, GList **list)
 
 inline GList *get_hosts (const gchar *wg)
 {
-    GList *gFileInfoList;
+    GList *gFileInfoList = nullptr;
 
     gchar *uri_str = g_strdup_printf ("smb://%s", wg);
     auto result = enumerate_smb_uri (uri_str, &gFileInfoList);
