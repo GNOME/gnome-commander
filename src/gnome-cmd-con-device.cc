@@ -186,7 +186,7 @@ static void mount_finish_callback(GObject *gVol, GAsyncResult *result, gpointer 
     {
         set_con_base_path_for_gmount(con, dev_con->priv->gMount);
     }
-    if (!con->base_path)
+    if (con->base_path)
     {
         gnome_cmd_con_set_root_path(con, con->base_path->get_path());
     }
