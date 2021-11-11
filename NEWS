@@ -11,6 +11,7 @@ Bug fixes:
  * Fixed issue #16 (Start-left-dir doesn't work on '.' (dot directory))
  * Fixed issue #19 (FTP connections are not closed correctly)
  * Fixed issue #33 (Get rid of deprecated gnome-vfs)
+ * Fixed issue #39 (Copy fail when selecting a "drive")
  * Fixed issue #52 (Auto refresh when changing permissions etc)
  * Fixed issue #75 (Newly inserted DVD does not show up)
  * Fixed issue #74 (Does not show mounted external drives)

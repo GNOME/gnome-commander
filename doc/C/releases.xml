@@ -45,6 +45,9 @@
                             <para>Fixed issue #33 (Get rid of deprecated gnome-vfs)</para>
                         </listitem>
                         <listitem>
+                            <para>Fixed issue #39 (Copy fail when selecting a "drive")</para>
+                        </listitem>
+                        <listitem>
                             <para>Fixed issue #52 (Auto refresh when changing permissions etc)</para>
                         </listitem>
                         <listitem>
