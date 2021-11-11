@@ -738,7 +738,7 @@
   </schema>
   <schema gettext-domain="gnome-commander" id="org.gnome.gnome-commander.preferences.colors" path="/org/gnome/gnome-commander/preferences/colors/">
     <key name="theme" enum="org.gnome.gnome-commander.GnomeCmdColorMode">
-      <default>'green-tiger'</default>
+      <default>'fusion'</default>
       <summary>Color theme</summary>
       <description>
           This option defines the current color theme.
