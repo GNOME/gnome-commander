@@ -787,13 +787,88 @@ void gnome_cmd_dir_file_created (GnomeCmdDir *dir, const gchar *newDirUriStr)
 }
 
 
+/**
+ * This function will search in the file tree to retrieve the first
+ * physically existing parent dir for a given dir.
+ */
+GnomeCmdDir *gnome_cmd_dir_get_existing_parent(GnomeCmdDir *dir)
+{
+    auto parentDir = gnome_cmd_dir_get_parent(dir);
+    gchar *parentDirUri = nullptr;
+    GFile *gFileParent = nullptr;
+
+    GnomeCmdDir *returnDir = nullptr;
+    do
+    {
+        parentDirUri = gnome_cmd_dir_get_uri_str(parentDir);
+        gFileParent = g_file_new_for_uri(parentDirUri);
+        g_free(parentDirUri);
+        if (g_file_query_exists(gFileParent, nullptr))
+        {
+            returnDir = parentDir;
+        }
+        else
+        {
+            gnome_cmd_con_remove_from_cache (dir->priv->con, parentDir);
+            parentDir = gnome_cmd_dir_get_parent(parentDir);
+        }
+        g_object_unref(gFileParent);
+    } while (!returnDir);
+
+    return returnDir;
+}
+
+
+/**
+ * When a directory is deleted, this method will check if we are currently displaying this directory
+ * in one of the file panes. If yes, we will update the file pane in question and step up
+ * to a directory which is existing.
+ */
+void gnome_cmd_dir_update_file_selector(GnomeCmdDir *dir, const gchar *deletedDirUriString)
+{
+    auto dirUriSting = gnome_cmd_dir_get_uri_str(dir);
+    if (!g_strcmp0(deletedDirUriString, dirUriSting))
+    {
+        gnome_cmd_con_remove_from_cache (dir->priv->con, dir);
+
+        auto parentDir = gnome_cmd_dir_get_existing_parent(dir);
+
+        // Go to the parent directory in one of the file lists if necessary
+        auto parentDirPath = gnome_cmd_dir_get_path(parentDir)->get_path();
+
+        //ToDo: The following has to be done for the other open tabs, too.
+
+        auto fs = main_win->fs(ACTIVE);
+        auto fsDir = fs->get_directory();
+        auto urifsDir = gnome_cmd_dir_get_uri_str(fsDir);
+        if (!g_strcmp0(urifsDir, deletedDirUriString))
+        {
+            fs->goto_directory(parentDirPath);
+        }
+        g_free(urifsDir);
+
+        fs = main_win->fs(INACTIVE);
+        fsDir = fs->get_directory();
+        urifsDir = gnome_cmd_dir_get_uri_str(fsDir);
+        if (!g_strcmp0(urifsDir, deletedDirUriString))
+        {
+            fs->goto_directory(parentDirPath);
+        }
+        g_free(urifsDir);
+    }
+    g_free(dirUriSting);
+}
+
+
 // A file has been deleted. Remove the corresponding GnomeCmdFile
-void gnome_cmd_dir_file_deleted (GnomeCmdDir *dir, const gchar *uri_str)
+void gnome_cmd_dir_file_deleted (GnomeCmdDir *dir, const gchar *deletedDirUriString)
 {
     g_return_if_fail (GNOME_CMD_IS_DIR (dir));
-    g_return_if_fail (uri_str != nullptr);
+    g_return_if_fail (deletedDirUriString != nullptr);
 
-    GnomeCmdFile *f = dir->priv->file_collection->find(uri_str);
+    gnome_cmd_dir_update_file_selector(dir, deletedDirUriString);
+
+    GnomeCmdFile *f = dir->priv->file_collection->find(deletedDirUriString);
 
     if (!GNOME_CMD_IS_FILE (f))
         return;
@@ -802,7 +877,7 @@ void gnome_cmd_dir_file_deleted (GnomeCmdDir *dir, const gchar *uri_str)
 
     g_signal_emit (dir, signals[FILE_DELETED], 0, f);
 
-    dir->priv->file_collection->remove(uri_str);
+    dir->priv->file_collection->remove(deletedDirUriString);
     dir->priv->files = dir->priv->file_collection->get_list();
 }
 

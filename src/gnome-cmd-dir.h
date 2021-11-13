@@ -133,6 +133,9 @@ GFile *gnome_cmd_dir_get_child_gfile (GnomeCmdDir *dir, const gchar *filename);
 
 GFile *gnome_cmd_dir_get_absolute_path_gfile (GnomeCmdDir *dir, std::string absolute_filename);
 
+GnomeCmdDir *gnome_cmd_dir_get_existing_parent(GnomeCmdDir *dir);
+void gnome_cmd_dir_update_file_selector(GnomeCmdDir *dir, const gchar *deletedDirUriString);
+
 void gnome_cmd_dir_file_created (GnomeCmdDir *dir, const gchar *uri_str);
 void gnome_cmd_dir_file_deleted (GnomeCmdDir *dir, const gchar *uri_str);
 void gnome_cmd_dir_file_changed (GnomeCmdDir *dir, const gchar *uri_str);

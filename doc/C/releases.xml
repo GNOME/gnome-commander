@@ -51,6 +51,9 @@
                             <para>Fixed issue #41 (Directory not unreferenced correctly from cache when renamed)</para>
                         </listitem>
                         <listitem>
+                            <para>Fixed issue #46 (Automatic refresh of folder content is not correct)</para>
+                        </listitem>
+                        <listitem>
                             <para>Fixed issue #52 (Auto refresh when changing permissions etc)</para>
                         </listitem>
                         <listitem>

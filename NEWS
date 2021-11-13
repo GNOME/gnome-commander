@@ -13,9 +13,10 @@ Bug fixes:
  * Fixed issue #33 (Get rid of deprecated gnome-vfs)
  * Fixed issue #39 (Copy fail when selecting a "drive")
  * Fixed issue #41 (Directory not unreferenced correctly from cache when renamed)
+ * Fixed issue #46 (Automatic refresh of folder content is not correct)
  * Fixed issue #52 (Auto refresh when changing permissions etc)
- * Fixed issue #75 (Newly inserted DVD does not show up)
  * Fixed issue #74 (Does not show mounted external drives)
+ * Fixed issue #75 (Newly inserted DVD does not show up)
 
 ===================================
 gnome-commander 1.12.2
