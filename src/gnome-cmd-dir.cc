@@ -380,11 +380,7 @@ GnomeCmdDir *gnome_cmd_dir_get_parent (GnomeCmdDir *dir)
 
     GnomeCmdPath *path = dir->priv->path->get_parent();
 
-    auto gnomeCmdDir = path ? gnome_cmd_dir_new (dir->priv->con, path) : nullptr;
-
-    delete path;
-
-    return gnomeCmdDir;
+    return path ? gnome_cmd_dir_new (dir->priv->con, path) : nullptr;
 }
 
 
