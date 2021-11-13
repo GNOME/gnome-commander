@@ -249,9 +249,12 @@ static void do_mount (GnomeCmdCon *con)
         set_con_mount_succeed(con);
         return;
     }
+
+    auto gMountOperation = gtk_mount_operation_new ((GtkWindow*) main_win);
+
     g_volume_mount (dev_con->priv->gVolume,
         G_MOUNT_MOUNT_NONE,
-        nullptr,
+        gMountOperation,
         nullptr,
         mount_finish_callback,
         con);
