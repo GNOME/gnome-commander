@@ -395,6 +395,7 @@ struct GnomeCmdData
                    save_cmdline_history_on_exit(TRUE),
                    save_search_history_on_exit(TRUE),
                    symlink_prefix(nullptr),
+                   main_win_pos{0,25},
                    size_disp_mode(GNOME_CMD_SIZE_DISP_MODE_POWERED),
                    perm_disp_mode(GNOME_CMD_PERM_DISP_MODE_TEXT),
                    date_format(nullptr),
