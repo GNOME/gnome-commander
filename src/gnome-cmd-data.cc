@@ -451,10 +451,10 @@ static void on_confirm_move_overwrite_changed ()
 
 static void on_mouse_drag_and_drop_changed ()
 {
-    gboolean confirm_mouse_dnd;
+    gint mouse_dnd_default;
 
-    confirm_mouse_dnd = g_settings_get_boolean (gnome_cmd_data.options.gcmd_settings->confirm, GCMD_SETTINGS_CONFIRM_MOUSE_DRAG_AND_DROP);
-    gnome_cmd_data.options.confirm_mouse_dnd = confirm_mouse_dnd;
+    mouse_dnd_default = g_settings_get_enum (gnome_cmd_data.options.gcmd_settings->confirm, GCMD_SETTINGS_CONFIRM_MOUSE_DRAG_AND_DROP);
+    gnome_cmd_data.options.mouse_dnd_default = (GnomeCmdDefaultDndMode) mouse_dnd_default;
 }
 
 static void on_select_dirs_changed ()
@@ -1423,7 +1423,7 @@ GnomeCmdData::Options::Options(const Options &cfg)
     confirm_delete_default = cfg.confirm_delete_default;
     confirm_copy_overwrite = cfg.confirm_copy_overwrite;
     confirm_move_overwrite = cfg.confirm_move_overwrite;
-    confirm_mouse_dnd = cfg.confirm_mouse_dnd;
+    mouse_dnd_default = cfg.mouse_dnd_default;
     filter = cfg.filter;
     backup_pattern = g_strdup (cfg.backup_pattern);
     backup_pattern_list = patlist_new (cfg.backup_pattern);
@@ -1487,7 +1487,7 @@ GnomeCmdData::Options &GnomeCmdData::Options::operator = (const Options &cfg)
         confirm_delete = cfg.confirm_delete;
         confirm_copy_overwrite = cfg.confirm_copy_overwrite;
         confirm_move_overwrite = cfg.confirm_move_overwrite;
-        confirm_mouse_dnd = cfg.confirm_mouse_dnd;
+        mouse_dnd_default = cfg.mouse_dnd_default;
         filter = cfg.filter;
         backup_pattern = g_strdup (cfg.backup_pattern);
         backup_pattern_list = patlist_new (cfg.backup_pattern);
@@ -3120,7 +3120,7 @@ void GnomeCmdData::load()
     options.confirm_delete_default = (GtkButtonsType) g_settings_get_enum (options.gcmd_settings->confirm, GCMD_SETTINGS_CONFIRM_DELETE_DEFAULT);
     options.confirm_copy_overwrite = (GnomeCmdConfirmOverwriteMode) g_settings_get_enum (options.gcmd_settings->confirm, GCMD_SETTINGS_CONFIRM_COPY_OVERWRITE);
     options.confirm_move_overwrite = (GnomeCmdConfirmOverwriteMode) g_settings_get_enum (options.gcmd_settings->confirm, GCMD_SETTINGS_CONFIRM_MOVE_OVERWRITE);
-    options.confirm_mouse_dnd = g_settings_get_boolean (options.gcmd_settings->confirm, GCMD_SETTINGS_CONFIRM_MOUSE_DRAG_AND_DROP);
+    options.mouse_dnd_default      = (GnomeCmdDefaultDndMode) g_settings_get_enum (options.gcmd_settings->confirm, GCMD_SETTINGS_CONFIRM_MOUSE_DRAG_AND_DROP);
 
     options.filter.file_types[G_FILE_IS_UNKNOWN] = g_settings_get_boolean (options.gcmd_settings->filter, GCMD_SETTINGS_FILTER_HIDE_UNKNOWN);
     options.filter.file_types[G_FILE_IS_REGULAR] = g_settings_get_boolean (options.gcmd_settings->filter, GCMD_SETTINGS_FILTER_HIDE_REGULAR);
@@ -3494,7 +3494,7 @@ void GnomeCmdData::save()
     set_gsettings_enum_when_changed (options.gcmd_settings->confirm, GCMD_SETTINGS_CONFIRM_DELETE_DEFAULT, options.confirm_delete_default);
     set_gsettings_enum_when_changed (options.gcmd_settings->confirm, GCMD_SETTINGS_CONFIRM_COPY_OVERWRITE, options.confirm_copy_overwrite);
     set_gsettings_enum_when_changed (options.gcmd_settings->confirm, GCMD_SETTINGS_CONFIRM_MOVE_OVERWRITE, options.confirm_move_overwrite);
-    set_gsettings_when_changed      (options.gcmd_settings->confirm, GCMD_SETTINGS_CONFIRM_MOUSE_DRAG_AND_DROP, &(options.confirm_mouse_dnd));
+    set_gsettings_enum_when_changed (options.gcmd_settings->confirm, GCMD_SETTINGS_CONFIRM_MOUSE_DRAG_AND_DROP, options.mouse_dnd_default);
 
     set_gsettings_when_changed      (options.gcmd_settings->filter, GCMD_SETTINGS_FILTER_HIDE_UNKNOWN, &(options.filter.file_types[G_FILE_IS_UNKNOWN]));
     set_gsettings_when_changed      (options.gcmd_settings->filter, GCMD_SETTINGS_FILTER_HIDE_REGULAR, &(options.filter.file_types[G_FILE_IS_REGULAR]));

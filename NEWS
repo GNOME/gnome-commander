@@ -3,7 +3,7 @@ gnome-commander 1.14
 ---------------
 
 New features:
- * ...
+ * Selectable default action when drag-n-drop files with the mouse
 
 Bug fixes:
  * Fixed issue #3  (Mounted devices pluged when Commander is running are not noticed)
@@ -15,6 +15,7 @@ Bug fixes:
  * Fixed issue #41 (Directory not unreferenced correctly from cache when renamed)
  * Fixed issue #46 (Automatic refresh of folder content is not correct)
  * Fixed issue #47 (Duplicate directory when copying over an existing directory)
+ * Fixed issue #51 (Move and not copy by default on same filesystem)
  * Fixed issue #52 (Auto refresh when changing permissions etc)
  * Fixed issue #74 (Does not show mounted external drives)
  * Fixed issue #75 (Newly inserted DVD does not show up)

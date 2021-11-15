@@ -607,8 +607,8 @@
         This option defines the default behavior when items will be overwritten by a move command.
       </description>
     </key>
-    <key name="mouse-drag-and-drop" type="b">
-      <default>true</default>
+    <key name="mouse-drag-and-drop" enum="org.gnome.gnome-commander.GnomeCmdDefaultDndMode">
+      <default>'query'</default>
       <summary>Confirm mouse drag and drop</summary>
       <description>
           This option defines the behavior of mouse drag and drop operations.

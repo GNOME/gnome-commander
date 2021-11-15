@@ -57,6 +57,9 @@
                             <para>Fixed issue #47 (Duplicate directory when copying over an existing directory)</para>
                         </listitem>
                         <listitem>
+                            <para>Fixed issue #51 (Move and not copy by default on same filesystem)</para>
+                        </listitem>
+                        <listitem>
                             <para>Fixed issue #52 (Auto refresh when changing permissions etc)</para>
                         </listitem>
                         <listitem>
@@ -71,7 +74,7 @@
                 <para>
                     <itemizedlist>
                         <listitem>
-                            <para>...</para>
+                            <para>Selectable default action when drag-n-drop files with the mouse</para>
                         </listitem>
                         <listitem>
                             <para>New or updated translations: ...</para>

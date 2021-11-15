@@ -1105,13 +1105,21 @@ static GtkWidget *create_confirmation_tab (GtkWidget *parent, GnomeCmdData::Opti
     /* Drag and Drop options
      */
     cat_box = create_vbox (parent, FALSE, 0);
-    cat = create_category (parent, cat_box, _("Drag and Drop"));
+    cat = create_category (parent, cat_box, _("Default Drag and Drop Action"));
     gtk_box_pack_start (GTK_BOX (vbox), cat, FALSE, TRUE, 0);
 
-    check = create_check (parent, _("Confirm mouse operation"), "confirm_mouse_dnd_check");
-    gtk_box_pack_start (GTK_BOX (cat_box), check, FALSE, TRUE, 0);
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), cfg.confirm_mouse_dnd);
-
+    radio = create_radio (parent, NULL, _("Confirm mouse operation"), "mouse_dnd_default");
+    gtk_container_add (GTK_CONTAINER (cat_box), radio);
+    if (cfg.mouse_dnd_default==GNOME_CMD_DEFAULT_DND_QUERY)
+        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
+    radio = create_radio (parent, get_radio_group (radio), _("Copy"), "mouse_dnd_copy");
+    gtk_container_add (GTK_CONTAINER (cat_box), radio);
+    if (cfg.mouse_dnd_default==GNOME_CMD_DEFAULT_DND_COPY)
+        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
+    radio = create_radio (parent, get_radio_group (radio), _("Move"), "mouse_dnd_move");
+    gtk_container_add (GTK_CONTAINER (cat_box), radio);
+    if (cfg.mouse_dnd_default==GNOME_CMD_DEFAULT_DND_MOVE)
+        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
 
     return frame;
 }
@@ -1129,7 +1137,9 @@ void store_confirmation_options (GtkWidget *dialog, GnomeCmdData::Options &cfg)
     GtkWidget *confirm_move_query = lookup_widget (dialog, "move_overwrite_query");
     GtkWidget *confirm_move_rename_all = lookup_widget (dialog, "move_rename_all");
     GtkWidget *confirm_move_skip_all = lookup_widget (dialog, "move_overwrite_skip_all");
-    GtkWidget *confirm_mouse_dnd_check = lookup_widget (dialog, "confirm_mouse_dnd_check");
+    GtkWidget *mouse_dnd_query = lookup_widget (dialog, "mouse_dnd_default");
+    GtkWidget *mouse_dnd_copy = lookup_widget (dialog, "mouse_dnd_copy");
+    GtkWidget *mouse_dnd_move = lookup_widget (dialog, "mouse_dnd_move");
 
     cfg.confirm_delete = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (confirm_delete_check));
 
@@ -1153,7 +1163,12 @@ void store_confirmation_options (GtkWidget *dialog, GnomeCmdData::Options &cfg)
     else if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (confirm_move_skip_all)))
         cfg.confirm_move_overwrite = GNOME_CMD_CONFIRM_OVERWRITE_SKIP_ALL;
 
-    cfg.confirm_mouse_dnd = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (confirm_mouse_dnd_check));
+    if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (mouse_dnd_query)))
+        cfg.mouse_dnd_default = GNOME_CMD_DEFAULT_DND_QUERY;
+    else if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (mouse_dnd_copy)))
+        cfg.mouse_dnd_default = GNOME_CMD_DEFAULT_DND_COPY;
+    else if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (mouse_dnd_move)))
+        cfg.mouse_dnd_default = GNOME_CMD_DEFAULT_DND_MOVE;
 }
 
 

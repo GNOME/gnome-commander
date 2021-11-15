@@ -3129,7 +3129,9 @@ static void free_dnd_popup_data (gpointer *data)
 }
 
 
-static void drag_data_received (GtkWidget *widget, GdkDragContext *context, gint x, gint y, GtkSelectionData *selection_data, guint info, guint32 time, GnomeCmdFileList *fl)
+static void drag_data_received (GtkWidget *widget, GdkDragContext *context,
+                                gint x, gint y, GtkSelectionData *selection_data,
+                                guint info, guint32 time, GnomeCmdFileList *fl)
 {
     GtkCList *clist = *fl;
 
@@ -3154,19 +3156,30 @@ static void drag_data_received (GtkWidget *widget, GdkDragContext *context, gint
 
     gdk_display_get_pointer (gdk_display_get_default (), nullptr, &x, &y, &mask);
 
-    if (gnome_cmd_data.options.confirm_mouse_dnd && !(mask&(GDK_SHIFT_MASK|GDK_CONTROL_MASK)))
+    if (!(mask & (GDK_SHIFT_MASK | GDK_CONTROL_MASK)))
     {
-        gpointer *arr = g_new (gpointer, 2);
-
-        arr[0] = gFileGlist;
-        arr[1] = to;
-
-        gtk_item_factory_popup_with_data (fl->priv->ifac, arr, (GDestroyNotify) free_dnd_popup_data, x, y, 0, time);
-
+        gpointer *arr = nullptr;
+        switch (gnome_cmd_data.options.mouse_dnd_default)
+        {
+            case GNOME_CMD_DEFAULT_DND_QUERY:
+                arr = g_new (gpointer, 2);
+                arr[0] = gFileGlist;
+                arr[1] = to;
+                gtk_item_factory_popup_with_data (fl->priv->ifac, arr, (GDestroyNotify) free_dnd_popup_data, x, y, 0, time);
+                break;
+            case GNOME_CMD_DEFAULT_DND_MOVE:
+                fl->drop_files(GnomeCmdFileList::DndMode::MOVE, G_FILE_COPY_NONE, gFileGlist, to);
+                break;
+            case GNOME_CMD_DEFAULT_DND_COPY:
+                fl->drop_files(GnomeCmdFileList::DndMode::COPY, G_FILE_COPY_NONE, gFileGlist, to);
+                break;
+            default:
+                break;
+        }
         return;
     }
 
-    // find out what operation to perform
+    // find out what operation to perform if Shift or Control was pressed while DnD
 #if defined (__GNUC__)
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wswitch-enum"

@@ -357,7 +357,7 @@ struct GnomeCmdData
         GtkButtonsType               confirm_delete_default;
         GnomeCmdConfirmOverwriteMode confirm_copy_overwrite;
         GnomeCmdConfirmOverwriteMode confirm_move_overwrite;
-        gboolean                     confirm_mouse_dnd;
+        GnomeCmdDefaultDndMode       mouse_dnd_default;
         //  Filters
         FilterSettings               filter;
         gchar                       *backup_pattern;
@@ -414,7 +414,7 @@ struct GnomeCmdData
                    confirm_delete_default(GTK_BUTTONS_OK),
                    confirm_copy_overwrite(GNOME_CMD_CONFIRM_OVERWRITE_QUERY),
                    confirm_move_overwrite(GNOME_CMD_CONFIRM_OVERWRITE_QUERY),
-                   confirm_mouse_dnd(TRUE),
+                   mouse_dnd_default(GNOME_CMD_DEFAULT_DND_QUERY),
                    backup_pattern(nullptr),
                    backup_pattern_list(nullptr),
                    honor_expect_uris(FALSE),

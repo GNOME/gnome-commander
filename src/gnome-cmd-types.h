@@ -102,6 +102,14 @@ typedef enum // The (reversed) order of following enums compared to the occurenc
 }GnomeCmdConfirmOverwriteMode;
 
 
+typedef enum
+{
+    GNOME_CMD_DEFAULT_DND_QUERY,
+    GNOME_CMD_DEFAULT_DND_COPY,
+    GNOME_CMD_DEFAULT_DND_MOVE
+}GnomeCmdDefaultDndMode;
+
+
 struct GnomeCmdColorTheme
 {
     gboolean respect_theme {TRUE};
