@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander 1.3.0\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-commander/issues\n"
-"POT-Creation-Date: 2021-11-07 17:54+0000\n"
-"PO-Revision-Date: 2021-11-07 22:14+0200\n"
+"POT-Creation-Date: 2021-11-15 22:12+0000\n"
+"PO-Revision-Date: 2021-11-16 16:24+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -1555,8 +1555,8 @@ msgstr "Файл"
 #. destroy model automatically with view
 #: plugins/fileroller/file-roller-plugin.cc:591
 #: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:369
-#: src/dialogs/gnome-cmd-options-dialog.cc:1515
-#: src/dialogs/gnome-cmd-options-dialog.cc:2186
+#: src/dialogs/gnome-cmd-options-dialog.cc:1530
+#: src/dialogs/gnome-cmd-options-dialog.cc:2201
 #: src/dialogs/gnome-cmd-prepare-copy-dialog.cc:145
 #: src/dialogs/gnome-cmd-prepare-move-dialog.cc:132
 #: src/dialogs/gnome-cmd-remote-dialog.cc:442 src/gnome-cmd-user-actions.cc:252
@@ -1707,7 +1707,7 @@ msgid "_Match case"
 msgstr "Враховувати _регістр"
 
 #: src/dialogs/gnome-cmd-chmod-dialog.cc:45
-#: src/dialogs/gnome-cmd-options-dialog.cc:1536
+#: src/dialogs/gnome-cmd-options-dialog.cc:1551
 msgid "All files"
 msgstr "Усі файли"
 
@@ -2371,12 +2371,12 @@ msgid "Save on exit"
 msgstr "Зберігати при завершенні"
 
 #: src/dialogs/gnome-cmd-options-dialog.cc:232
-#: src/dialogs/gnome-cmd-options-dialog.cc:1208
+#: src/dialogs/gnome-cmd-options-dialog.cc:1223
 msgid "Directories"
 msgstr "Каталоги"
 
 #: src/dialogs/gnome-cmd-options-dialog.cc:236
-#: src/dialogs/gnome-cmd-options-dialog.cc:2213
+#: src/dialogs/gnome-cmd-options-dialog.cc:2228
 msgid "Tabs"
 msgstr "Вкладки"
 
@@ -2693,63 +2693,76 @@ msgid "Preselected overwrite action in move dialog"
 msgstr "Попередньо вибрана дія з перезапису у вікні пересування"
 
 #: src/dialogs/gnome-cmd-options-dialog.cc:1108
-msgid "Drag and Drop"
-msgstr "Перетягування зі скиданням"
+#| msgid "Drag and Drop"
+msgid "Default Drag and Drop Action"
+msgstr "Типова дія у відповідь на перетягування зі скиданням"
 
 #: src/dialogs/gnome-cmd-options-dialog.cc:1111
 msgid "Confirm mouse operation"
 msgstr "Підтвердження дії мишею"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1199
+#: src/dialogs/gnome-cmd-options-dialog.cc:1115
+#: src/dialogs/gnome-cmd-prepare-copy-dialog.cc:94
+#: src/gnome-cmd-file-popmenu.cc:746 src/gnome-cmd-main-win.cc:241
+#: src/gnome-cmd-user-actions.cc:210
+msgid "Copy"
+msgstr "Копіювати"
+
+#: src/dialogs/gnome-cmd-options-dialog.cc:1119
+#: src/dialogs/gnome-cmd-prepare-move-dialog.cc:88
+msgid "Move"
+msgstr "Пересування"
+
+#: src/dialogs/gnome-cmd-options-dialog.cc:1214
 msgid "Filetypes to hide"
 msgstr "Приховувати типи файлів"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1202
+#: src/dialogs/gnome-cmd-options-dialog.cc:1217
 msgid "Unknown"
 msgstr "Невідомі"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1205
+#: src/dialogs/gnome-cmd-options-dialog.cc:1220
 msgid "Regular files"
 msgstr "Звичайні файли"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1211
+#: src/dialogs/gnome-cmd-options-dialog.cc:1226
 msgid "Socket, fifo, block, or character devices"
 msgstr "Сокети, канали, блокові пристрої та символьні пристрої"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1214
+#: src/dialogs/gnome-cmd-options-dialog.cc:1229
 msgid "Shortcuts (Windows systems)"
 msgstr "Ярлики (системи Windows)"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1217
+#: src/dialogs/gnome-cmd-options-dialog.cc:1232
 msgid "Mountable locations"
 msgstr "Придатні до монтування місця"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1220
+#: src/dialogs/gnome-cmd-options-dialog.cc:1235
 msgid "Virtual files"
 msgstr "Віртуальні файли"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1223
+#: src/dialogs/gnome-cmd-options-dialog.cc:1238
 msgid "Volatile files"
 msgstr "Тимчасові файли"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1228
+#: src/dialogs/gnome-cmd-options-dialog.cc:1243
 msgid "Also hide"
 msgstr "Також приховувати"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1231
+#: src/dialogs/gnome-cmd-options-dialog.cc:1246
 msgid "Hidden files"
 msgstr "Приховані файли"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1234
-#: src/dialogs/gnome-cmd-options-dialog.cc:1243
+#: src/dialogs/gnome-cmd-options-dialog.cc:1249
+#: src/dialogs/gnome-cmd-options-dialog.cc:1258
 msgid "Backup files"
 msgstr "Резервні файли"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1237
+#: src/dialogs/gnome-cmd-options-dialog.cc:1252
 msgid "Symlinks"
 msgstr "Символічні посилання"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1421
+#: src/dialogs/gnome-cmd-options-dialog.cc:1436
 msgid ""
 "An app with this label exists already.\n"
 "Please choose another label."
@@ -2757,150 +2770,150 @@ msgstr ""
 "Програма з цією міткою вже існує.\n"
 "Будь ласка, виберіть іншу мітку."
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1492
+#: src/dialogs/gnome-cmd-options-dialog.cc:1507
 msgid "Label:"
 msgstr "Позначка:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1494
+#: src/dialogs/gnome-cmd-options-dialog.cc:1509
 msgid "Command:"
 msgstr "Команда:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1496
-#: src/dialogs/gnome-cmd-options-dialog.cc:1944
+#: src/dialogs/gnome-cmd-options-dialog.cc:1511
+#: src/dialogs/gnome-cmd-options-dialog.cc:1959
 msgid "Icon:"
 msgstr "Значок:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1518
+#: src/dialogs/gnome-cmd-options-dialog.cc:1533
 msgid "Can handle multiple files"
 msgstr "Підтримує декілька файлів у параметрах"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1522
+#: src/dialogs/gnome-cmd-options-dialog.cc:1537
 msgid "Can handle URIs"
 msgstr "Підтримує параметри у вигляді URI"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1526
+#: src/dialogs/gnome-cmd-options-dialog.cc:1541
 msgid "Requires terminal"
 msgstr "Запускати в терміналі"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1533
+#: src/dialogs/gnome-cmd-options-dialog.cc:1548
 msgid "Show for"
 msgstr "Показувати для"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1542
+#: src/dialogs/gnome-cmd-options-dialog.cc:1557
 msgid "All directories"
 msgstr "Усіх каталогів"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1547
+#: src/dialogs/gnome-cmd-options-dialog.cc:1562
 msgid "All directories and files"
 msgstr "Усіх каталогів та файлів"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1552
+#: src/dialogs/gnome-cmd-options-dialog.cc:1567
 msgid "Some files"
 msgstr "Деяких файлів"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1561
+#: src/dialogs/gnome-cmd-options-dialog.cc:1576
 msgid "File patterns"
 msgstr "Шаблони файлів"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1583
+#: src/dialogs/gnome-cmd-options-dialog.cc:1598
 msgid "New Application"
 msgstr "Новий додаток"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1593
+#: src/dialogs/gnome-cmd-options-dialog.cc:1608
 msgid "Edit Application"
 msgstr "Правка додатка"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1677
+#: src/dialogs/gnome-cmd-options-dialog.cc:1692
 msgid "Always download remote files before opening in external programs"
 msgstr ""
 "Завжди завантажувати віддалені файли перед відкриттям в зовнішніх програмах"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1679
+#: src/dialogs/gnome-cmd-options-dialog.cc:1694
 msgid "MIME applications"
 msgstr "MIME додатки"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1683
+#: src/dialogs/gnome-cmd-options-dialog.cc:1698
 msgid "Standard programs"
 msgstr "Стандартні програми"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1686
+#: src/dialogs/gnome-cmd-options-dialog.cc:1701
 msgid "Viewer:"
 msgstr "Переглядач:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1688
+#: src/dialogs/gnome-cmd-options-dialog.cc:1703
 msgid "Editor:"
 msgstr "Редактор:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1690
+#: src/dialogs/gnome-cmd-options-dialog.cc:1705
 msgid "Differ:"
 msgstr "Порівняння:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1692
+#: src/dialogs/gnome-cmd-options-dialog.cc:1707
 msgid "Send files:"
 msgstr "Надіслати файли:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1694
+#: src/dialogs/gnome-cmd-options-dialog.cc:1709
 msgid "Terminal:"
 msgstr "Термінал:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1700
+#: src/dialogs/gnome-cmd-options-dialog.cc:1715
 msgid "Use Internal Viewer"
 msgstr "Використати вбудований переглядач"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1719
+#: src/dialogs/gnome-cmd-options-dialog.cc:1734
 msgid "Other favourite apps"
 msgstr "Інші улюблені програми"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1726
+#: src/dialogs/gnome-cmd-options-dialog.cc:1741
 msgid "Label"
 msgstr "Позначка"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1727
+#: src/dialogs/gnome-cmd-options-dialog.cc:1742
 msgid "Command"
 msgstr "Команда"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1762
+#: src/dialogs/gnome-cmd-options-dialog.cc:1777
 msgid "Global app options"
 msgstr "Загальні параметри програм"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1765
+#: src/dialogs/gnome-cmd-options-dialog.cc:1780
 msgid "Terminal command for apps in the list above:"
 msgstr "Команда термінала для програм у наведеному вище списку:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1771
+#: src/dialogs/gnome-cmd-options-dialog.cc:1786
 msgid "Leave terminal window open"
 msgstr "Лишити вікно термінала відкритим"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1938
+#: src/dialogs/gnome-cmd-options-dialog.cc:1953
 msgid "Alias:"
 msgstr "Псевдоніми:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1940
+#: src/dialogs/gnome-cmd-options-dialog.cc:1955
 msgid "Device:"
 msgstr "Пристрій:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1942
+#: src/dialogs/gnome-cmd-options-dialog.cc:1957
 msgid "Mount point:"
 msgstr "Точка монтування:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1983
+#: src/dialogs/gnome-cmd-options-dialog.cc:1998
 msgid "New Device"
 msgstr "Новий пристрій"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1996
+#: src/dialogs/gnome-cmd-options-dialog.cc:2011
 msgid "Edit Device"
 msgstr "Правка пристрою"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:2078
-#: src/dialogs/gnome-cmd-options-dialog.cc:2217
+#: src/dialogs/gnome-cmd-options-dialog.cc:2093
+#: src/dialogs/gnome-cmd-options-dialog.cc:2232
 msgid "Devices"
 msgstr "Пристрої"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:2088
+#: src/dialogs/gnome-cmd-options-dialog.cc:2103
 msgid "Alias"
 msgstr "Псевдонім"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:2119
+#: src/dialogs/gnome-cmd-options-dialog.cc:2134
 msgid ""
 "Show Samba workgroups button\n"
 "(Needs program restart if altered)"
@@ -2908,31 +2921,31 @@ msgstr ""
 "Показувати кнопку робочих груп Samba\n"
 "(Потребує перезапуску програми для набуття чинності)"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:2124
+#: src/dialogs/gnome-cmd-options-dialog.cc:2139
 msgid "Show only the icons"
 msgstr "Показувати лише піктограми"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:2210
+#: src/dialogs/gnome-cmd-options-dialog.cc:2225
 msgid "General"
 msgstr "Загальне"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:2211 src/tags/gnome-cmd-tags.cc:323
+#: src/dialogs/gnome-cmd-options-dialog.cc:2226 src/tags/gnome-cmd-tags.cc:323
 msgid "Format"
 msgstr "Формат"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:2212
+#: src/dialogs/gnome-cmd-options-dialog.cc:2227
 msgid "Layout"
 msgstr "Розташування"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:2214
+#: src/dialogs/gnome-cmd-options-dialog.cc:2229
 msgid "Confirmation"
 msgstr "Підтвердження"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:2215
+#: src/dialogs/gnome-cmd-options-dialog.cc:2230
 msgid "Filters"
 msgstr "Фільтри"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:2216
+#: src/dialogs/gnome-cmd-options-dialog.cc:2231
 msgid "Programs"
 msgstr "Програми"
 
@@ -2960,12 +2973,6 @@ msgstr "Позначити за взірцем"
 msgid "Unselect Using Pattern"
 msgstr "Зняти позначення за взірцем"
 
-#: src/dialogs/gnome-cmd-prepare-copy-dialog.cc:94
-#: src/gnome-cmd-file-popmenu.cc:746 src/gnome-cmd-main-win.cc:241
-#: src/gnome-cmd-user-actions.cc:210
-msgid "Copy"
-msgstr "Копіювати"
-
 #. Create prepare copy specific widgets
 #. Create prepare move specific widgets
 #: src/dialogs/gnome-cmd-prepare-copy-dialog.cc:100
@@ -2991,10 +2998,6 @@ msgstr[0] "копіювати %d файл до"
 msgstr[1] "копіювати %d файли до"
 msgstr[2] "копіювати %d файлів до"
 msgstr[3] "копіювати %d файл до"
-
-#: src/dialogs/gnome-cmd-prepare-move-dialog.cc:88
-msgid "Move"
-msgstr "Пересування"
 
 #: src/dialogs/gnome-cmd-prepare-move-dialog.cc:142
 #, c-format
@@ -3487,24 +3490,24 @@ msgstr "Текстове представлення:"
 msgid "Number view:"
 msgstr "Числове представлення:"
 
-#: src/gnome-cmd-con-device.cc:118
+#: src/gnome-cmd-con-device.cc:121
 msgid "Failed to execute the mount command"
 msgstr "Не вдалося виконати команду mount"
 
-#: src/gnome-cmd-con-device.cc:126
+#: src/gnome-cmd-con-device.cc:129
 msgid "Mount failed: permission denied"
 msgstr "Не вдалося змонтувати: доступ заборонений"
 
-#: src/gnome-cmd-con-device.cc:129
+#: src/gnome-cmd-con-device.cc:132
 msgid "Mount failed: no medium found"
 msgstr "Не вдалося змонтувати: не знайдено носія"
 
-#: src/gnome-cmd-con-device.cc:132
+#: src/gnome-cmd-con-device.cc:135
 #, c-format
 msgid "Mount failed: mount exited with exitstatus %d"
 msgstr "Не вдалося змонтувати: команда mount завершилась зі станом виходу %d"
 
-#: src/gnome-cmd-con-device.cc:287
+#: src/gnome-cmd-con-device.cc:293
 #, c-format
 msgid ""
 "Cannot unmount the volume:\n"
@@ -3515,31 +3518,31 @@ msgstr ""
 "%s\n"
 "Код помилки: %d"
 
-#: src/gnome-cmd-con-device.cc:305
+#: src/gnome-cmd-con-device.cc:311
 msgid "Volume successfully unmounted"
 msgstr "Том успішно демонтовано"
 
-#: src/gnome-cmd-con-device.cc:515
+#: src/gnome-cmd-con-device.cc:521
 #, c-format
 msgid "Mounting %s"
 msgstr "Підключається %s"
 
-#: src/gnome-cmd-con-device.cc:532
+#: src/gnome-cmd-con-device.cc:538
 #, c-format
 msgid "Go to: %s (%s)"
 msgstr "Перейти до: %s (%s)"
 
-#: src/gnome-cmd-con-device.cc:534 src/gnome-cmd-con.h:201
+#: src/gnome-cmd-con-device.cc:540 src/gnome-cmd-con.h:201
 #, c-format
 msgid "Go to: %s"
 msgstr "Перейти до: %s"
 
-#: src/gnome-cmd-con-device.cc:535
+#: src/gnome-cmd-con-device.cc:541
 #, c-format
 msgid "Mount: %s"
 msgstr "Підключення: %s"
 
-#: src/gnome-cmd-con-device.cc:536
+#: src/gnome-cmd-con-device.cc:542
 #, c-format
 msgid "Unmount: %s"
 msgstr "Демонтування: %s"
@@ -3576,17 +3579,16 @@ msgstr "Домашній каталог"
 msgid "Go to: Home"
 msgstr "Перейти в: домашній каталог"
 
-#: src/gnome-cmd-con-remote.cc:116
-#| msgid "Disconnect from: %s"
+#: src/gnome-cmd-con-remote.cc:138
 msgid "Disconnect error"
 msgstr "Помилка під час від'єднання"
 
-#: src/gnome-cmd-con-remote.cc:364
+#: src/gnome-cmd-con-remote.cc:389
 #, c-format
 msgid "Opens remote connection to %s"
 msgstr "Створює віддалене з'єднання з %s"
 
-#: src/gnome-cmd-con-remote.cc:365
+#: src/gnome-cmd-con-remote.cc:390
 #, c-format
 msgid "Closes remote connection to %s"
 msgstr "Закриває віддалене з'єднання з %s"
@@ -3607,7 +3609,7 @@ msgstr "Пошук робочі групи і вузлів"
 msgid "Go to: Samba Network"
 msgstr "Перейти до: мережа Samba"
 
-#: src/gnome-cmd-data.cc:3117 src/gnome-cmd-data.cc:3821
+#: src/gnome-cmd-data.cc:3193 src/gnome-cmd-data.cc:3897
 #, c-format
 msgid "link to %s"
 msgstr "посилання на %s"
