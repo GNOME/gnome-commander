@@ -184,6 +184,28 @@ static GnomeCmdPluginClass *parent_class = NULL;
 
 gchar *GetGfileAttributeString(GFile *gFile, const char *attribute);
 
+static void run_cmd (const gchar *work_dir, const gchar *cmd)
+{
+    gint argc;
+    gchar **argv;
+    GError *err = nullptr;
+
+    g_shell_parse_argv (cmd, &argc, &argv, NULL);
+    if (!g_spawn_async (work_dir, argv, NULL, G_SPAWN_SEARCH_PATH, NULL, NULL, NULL, &err))
+    {
+        GtkWidget* dialog = gtk_message_dialog_new (NULL,
+            (GtkDialogFlags) 0,
+            GTK_MESSAGE_ERROR,
+            GTK_BUTTONS_CLOSE,
+            _("Error running \"%s\"\n\n%s"), cmd, err->message);
+        gtk_dialog_run (GTK_DIALOG (dialog));
+        gtk_widget_destroy (dialog);
+        g_error_free (err);
+    }
+
+    g_strfreev (argv);
+}
+
 static void on_extract_cwd (GtkMenuItem *item, GFile *gFile)
 {
     gchar *target_arg, *archive_arg;
@@ -191,8 +213,6 @@ static void on_extract_cwd (GtkMenuItem *item, GFile *gFile)
     gchar *target_name = (gchar *) g_object_get_data (G_OBJECT (item), TARGET_NAME);
     gchar *target_dir = (gchar *) g_object_get_data (G_OBJECT (item), TARGET_DIR);
     gchar *cmd, *t;
-    gint argc;
-    gchar **argv;
 
     if (!target_dir)
     {
@@ -210,9 +230,7 @@ static void on_extract_cwd (GtkMenuItem *item, GFile *gFile)
     cmd = g_strdup_printf ("file-roller %s %s", target_arg, archive_arg);
 
     t = g_path_get_dirname (local_path);
-    g_shell_parse_argv (cmd, &argc, &argv, NULL);
-    g_spawn_async (t, argv, NULL, G_SPAWN_SEARCH_PATH, NULL, NULL, NULL, NULL);
-    g_strfreev (argv);
+    run_cmd (t, cmd);
     g_free (t);
 
     g_free (target_arg);
@@ -230,8 +248,6 @@ inline void do_add_to_archive (const gchar *name, GnomeCmdState *state)
     gchar *cmd = g_strdup_printf ("file-roller %s ", arg);
     gchar *active_dir_path;
     GList *files;
-    gint argc;
-    gchar **argv;
 
     for (files = state->active_dir_selected_files; files; files = files->next)
     {
@@ -247,9 +263,7 @@ inline void do_add_to_archive (const gchar *name, GnomeCmdState *state)
 
     g_printerr ("add: %s\n", cmd);
     active_dir_path = g_file_get_path (state->activeDirGfile);
-    g_shell_parse_argv (cmd, &argc, &argv, NULL);
-    g_spawn_async (active_dir_path, argv, NULL, G_SPAWN_SEARCH_PATH, NULL, NULL, NULL, NULL);
-    g_strfreev (argv);
+    run_cmd (active_dir_path, cmd);
 
     g_free (cmd);
     g_free (active_dir_path);
