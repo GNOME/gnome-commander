@@ -1364,6 +1364,10 @@ msgstr "Извлечь в текущую директорию"
 msgid "Extract to '%s'"
 msgstr "Извлечь в «%s»"
 
+#: ../plugins/fileroller/file-roller-plugin.cc:199
+msgid "Error running \"%s\"\n\n%s"
+msgstr "Ошибка запуска \"%s\"\n\n%s"
+
 #: ../plugins/fileroller/file-roller-plugin.cc:499
 #: ../src/gnome-cmd-advrename-profile-component.cc:918
 #: ../src/plugin_manager.cc:406 ../src/tags/gnome-cmd-tags.cc:686
