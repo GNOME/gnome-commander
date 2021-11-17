@@ -44,9 +44,9 @@ static PluginInfo plugin_nfo = {
     NAME,
     VERSION,
     COPYRIGHT,
-    NULL,
-    NULL,
-    NULL,
+    nullptr,
+    nullptr,
+    nullptr,
     TRANSLATOR_CREDITS,
     WEBPAGE
 };
@@ -80,7 +80,7 @@ static const gchar *handled_extensions[NUMBER_OF_EXTENSIONS + 1] =
     ".war",         // jar
     ".zip",         // zip
     ".zoo",         // zoo
-    NULL
+    nullptr
 };
 
 
@@ -98,7 +98,7 @@ static GSettingsSchemaSource* GetGlobalSchemaSource()
     global_schema_source = g_settings_schema_source_get_default ();
 
     GSettingsSchemaSource *parent = global_schema_source;
-    GError *error = NULL;
+    GError *error = nullptr;
 
     global_schema_source = g_settings_schema_source_new_from_directory
                                ((gchar*) g_schema_path.c_str(),
@@ -106,7 +106,7 @@ static GSettingsSchemaSource* GetGlobalSchemaSource()
                                 FALSE,
                                 &error);
 
-    if (global_schema_source == NULL)
+    if (global_schema_source == nullptr)
     {
         g_printerr(_("Could not load schemas from %s: %s\n"),
                    (gchar*) g_schema_path.c_str(), error->message);
@@ -148,7 +148,7 @@ static void plugin_settings_class_init (PluginSettingsClass *klass)
 
 PluginSettings *plugin_settings_new ()
 {
-    return (PluginSettings *) g_object_new (PLUGIN_TYPE_SETTINGS, NULL);
+    return (PluginSettings *) g_object_new (PLUGIN_TYPE_SETTINGS, nullptr);
 }
 
 static void plugin_settings_init (PluginSettings *gs)
@@ -158,7 +158,7 @@ static void plugin_settings_init (PluginSettings *gs)
 
     global_schema_source = GetGlobalSchemaSource();
     global_schema = g_settings_schema_source_lookup (global_schema_source, GCMD_PLUGINS_FILE_ROLLER, FALSE);
-    gs->file_roller_plugin = g_settings_new_full (global_schema, NULL, NULL);
+    gs->file_roller_plugin = g_settings_new_full (global_schema, nullptr, nullptr);
 }
 
 
@@ -180,9 +180,31 @@ struct _FileRollerPluginPrivate
     PluginSettings *settings;
 };
 
-static GnomeCmdPluginClass *parent_class = NULL;
+static GnomeCmdPluginClass *parent_class = nullptr;
 
 gchar *GetGfileAttributeString(GFile *gFile, const char *attribute);
+
+static void run_cmd (const gchar *work_dir, const gchar *cmd)
+{
+    gint argc;
+    gchar **argv;
+    GError *err = nullptr;
+
+    g_shell_parse_argv (cmd, &argc, &argv, nullptr);
+    if (!g_spawn_async (work_dir, argv, nullptr, G_SPAWN_SEARCH_PATH, nullptr, nullptr, nullptr, &err))
+    {
+        GtkWidget* dialog = gtk_message_dialog_new (nullptr,
+            (GtkDialogFlags) 0,
+            GTK_MESSAGE_ERROR,
+            GTK_BUTTONS_CLOSE,
+            _("Error running \"%s\"\n\n%s"), cmd, err->message);
+        gtk_dialog_run (GTK_DIALOG (dialog));
+        gtk_widget_destroy (dialog);
+        g_error_free (err);
+    }
+
+    g_strfreev (argv);
+}
 
 static void on_extract_cwd (GtkMenuItem *item, GFile *gFile)
 {
@@ -191,13 +213,11 @@ static void on_extract_cwd (GtkMenuItem *item, GFile *gFile)
     gchar *target_name = (gchar *) g_object_get_data (G_OBJECT (item), TARGET_NAME);
     gchar *target_dir = (gchar *) g_object_get_data (G_OBJECT (item), TARGET_DIR);
     gchar *cmd, *t;
-    gint argc;
-    gchar **argv;
 
     if (!target_dir)
     {
         t = g_path_get_dirname (local_path);
-        target_dir = target_name ? g_build_filename (t, target_name, NULL) : g_strdup (t);
+        target_dir = target_name ? g_build_filename (t, target_name, nullptr) : g_strdup (t);
         g_free (t);
     }
     g_free (target_name);
@@ -210,9 +230,7 @@ static void on_extract_cwd (GtkMenuItem *item, GFile *gFile)
     cmd = g_strdup_printf ("file-roller %s %s", target_arg, archive_arg);
 
     t = g_path_get_dirname (local_path);
-    g_shell_parse_argv (cmd, &argc, &argv, NULL);
-    g_spawn_async (t, argv, NULL, G_SPAWN_SEARCH_PATH, NULL, NULL, NULL, NULL);
-    g_strfreev (argv);
+    run_cmd (t, cmd);
     g_free (t);
 
     g_free (target_arg);
@@ -230,8 +248,6 @@ inline void do_add_to_archive (const gchar *name, GnomeCmdState *state)
     gchar *cmd = g_strdup_printf ("file-roller %s ", arg);
     gchar *active_dir_path;
     GList *files;
-    gint argc;
-    gchar **argv;
 
     for (files = state->active_dir_selected_files; files; files = files->next)
     {
@@ -247,9 +263,7 @@ inline void do_add_to_archive (const gchar *name, GnomeCmdState *state)
 
     g_printerr ("add: %s\n", cmd);
     active_dir_path = g_file_get_path (state->activeDirGfile);
-    g_shell_parse_argv (cmd, &argc, &argv, NULL);
-    g_spawn_async (active_dir_path, argv, NULL, G_SPAWN_SEARCH_PATH, NULL, NULL, NULL, NULL);
-    g_strfreev (argv);
+    run_cmd (active_dir_path, cmd);
 
     g_free (cmd);
     g_free (active_dir_path);
@@ -258,16 +272,16 @@ inline void do_add_to_archive (const gchar *name, GnomeCmdState *state)
 
 static gchar* new_string_with_replaced_keyword(const char* string, const char* keyword, const char* replacement)
 {
-    gchar* new_string = NULL;
-    gchar* longer_string = NULL;
+    gchar* new_string = nullptr;
+    gchar* longer_string = nullptr;
     gchar* replacement_tmp;
 
-    if (keyword == NULL || strlen(keyword) == 0)
+    if (keyword == nullptr || strlen(keyword) == 0)
     {
         new_string = g_strdup(string);
         return new_string;
     }
-    if (replacement == NULL)
+    if (replacement == nullptr)
         replacement_tmp = g_strdup("");
     else
         replacement_tmp = (char*) replacement;
@@ -327,7 +341,7 @@ static gchar* new_string_with_replaced_keyword(const char* string, const char* k
         }
     }
 
-    if (replacement == NULL)
+    if (replacement == nullptr)
         g_free(replacement_tmp);
 
     if (!new_string)
@@ -340,7 +354,7 @@ static gchar* new_string_with_replaced_keyword(const char* string, const char* k
 static void on_add_to_archive (GtkMenuItem *item, FileRollerPlugin *plugin)
 {
     gint ret;
-    GtkWidget *dialog = NULL;
+    GtkWidget *dialog = nullptr;
     const gchar *name;
     gboolean name_ok = FALSE;
     GList *files;
@@ -358,7 +372,7 @@ static void on_add_to_archive (GtkMenuItem *item, FileRollerPlugin *plugin)
             gtk_widget_destroy (dialog);
 
         dialog = gtk_message_dialog_new (
-            NULL,
+            nullptr,
             (GtkDialogFlags) 0,
             GTK_MESSAGE_INFO,
             GTK_BUTTONS_OK_CANCEL,
@@ -376,9 +390,9 @@ static void on_add_to_archive (GtkMenuItem *item, FileRollerPlugin *plugin)
         gtk_widget_show (entry);
         gtk_box_pack_start (GTK_BOX (hbox), entry, TRUE, TRUE, 6);
 
-        gchar *locale_format = g_locale_from_utf8 (plugin->priv->file_prefix_pattern, -1, NULL, NULL, NULL);
+        gchar *locale_format = g_locale_from_utf8 (plugin->priv->file_prefix_pattern, -1, nullptr, nullptr, nullptr);
         char s[256];
-        time_t t = time (NULL);
+        time_t t = time (nullptr);
 
 #if defined (__GNUC__)
 #pragma GCC diagnostic push
@@ -389,7 +403,7 @@ static void on_add_to_archive (GtkMenuItem *item, FileRollerPlugin *plugin)
 #pragma GCC diagnostic pop
 #endif
         g_free (locale_format);
-        gchar *file_prefix = g_locale_to_utf8 (s, -1, NULL, NULL, NULL);
+        gchar *file_prefix = g_locale_to_utf8 (s, -1, nullptr, nullptr, nullptr);
 
         gchar *archive_name_tmp = g_strdup_printf("%s%s", file_prefix, plugin->priv->default_ext);
         auto file_name_tmp = GetGfileAttributeString(GNOME_CMD_FILE_BASE (files->data)->gFile, G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME);
@@ -407,7 +421,7 @@ static void on_add_to_archive (GtkMenuItem *item, FileRollerPlugin *plugin)
         ret = gtk_dialog_run (GTK_DIALOG (dialog));
 
         name = gtk_entry_get_text (GTK_ENTRY (entry));
-        if (name != NULL && strlen (name) > 0)
+        if (name != nullptr && strlen (name) > 0)
             name_ok = TRUE;
     }
     while (name_ok == FALSE && ret == GTK_RESPONSE_OK);
@@ -459,13 +473,13 @@ static GtkWidget *create_menu_item (const gchar *name, gboolean show_pixmap,
 
 static GtkWidget *create_main_menu (GnomeCmdPlugin *plugin, GnomeCmdState *state)
 {
-    return NULL;
+    return nullptr;
 }
 
 
 static GList *create_popup_menu_items (GnomeCmdPlugin *plugin, GnomeCmdState *state)
 {
-    GList *items = NULL;
+    GList *items = nullptr;
     GtkWidget *item;
     gint num_files;
     GList *gnomeCmdFileBaseGList;
@@ -474,7 +488,7 @@ static GList *create_popup_menu_items (GnomeCmdPlugin *plugin, GnomeCmdState *st
     num_files = g_list_length (gnomeCmdFileBaseGList);
 
     if (num_files <= 0)
-        return NULL;
+        return nullptr;
 
     FILE_ROLLER_PLUGIN (plugin)->priv->state = state;
 
@@ -556,10 +570,10 @@ static void on_date_format_update (GtkEditable *editable, GtkWidget *options_dia
     gchar *file_suffix = gtk_combo_box_text_get_active_text ((GtkComboBoxText*) combo_entry);
 
     const char *format = gtk_entry_get_text (GTK_ENTRY (format_entry));
-    gchar *locale_format = g_locale_from_utf8 (format, -1, NULL, NULL, NULL);
+    gchar *locale_format = g_locale_from_utf8 (format, -1, nullptr, nullptr, nullptr);
 
     char s[256];
-    time_t t = time (NULL);
+    time_t t = time (nullptr);
 
 #if defined (__GNUC__)
 #pragma GCC diagnostic push
@@ -569,7 +583,7 @@ static void on_date_format_update (GtkEditable *editable, GtkWidget *options_dia
 #if defined (__GNUC__)
 #pragma GCC diagnostic pop
 #endif
-    gchar *file_prefix = g_locale_to_utf8 (s, -1, NULL, NULL, NULL);
+    gchar *file_prefix = g_locale_to_utf8 (s, -1, nullptr, nullptr, nullptr);
     gchar *filename_tmp = g_strdup_printf("%s%s", file_prefix, file_suffix);
     gchar *replacement = g_strdup(_("File"));
     gchar *filename = new_string_with_replaced_keyword(filename_tmp, "$N", replacement);
@@ -614,7 +628,7 @@ static void configure (GnomeCmdPlugin *plugin)
     label = create_label (dialog, _("File prefix pattern"));
     table_add (table, label, 0, 2, (GtkAttachOptions) (GTK_EXPAND|GTK_FILL));
 
-    gchar *utf8_date_format = g_locale_to_utf8 (FILE_ROLLER_PLUGIN (plugin)->priv->file_prefix_pattern, -1, NULL, NULL, NULL);
+    gchar *utf8_date_format = g_locale_to_utf8 (FILE_ROLLER_PLUGIN (plugin)->priv->file_prefix_pattern, -1, nullptr, nullptr, nullptr);
     entry = create_entry (dialog, "file_prefix_pattern_entry", utf8_date_format);
     g_free (utf8_date_format);
     gtk_widget_grab_focus (entry);
@@ -636,7 +650,7 @@ static void configure (GnomeCmdPlugin *plugin)
     table_add (table, label, 1, 4, GTK_FILL);
     g_free(text);
 
-    for (gint i=0; handled_extensions[i] != NULL; i++)
+    for (gint i=0; handled_extensions[i] != nullptr; i++)
         gtk_combo_box_text_append_text ((GtkComboBoxText*) combo, handled_extensions[i]);
 
     for (gint i=0; handled_extensions[i]; ++i)
@@ -712,7 +726,7 @@ static void init (FileRollerPlugin *plugin)
 
         GVariant *variant;
         variant = g_settings_get_default_value (gsettings, GCMD_PLUGINS_FILE_ROLLER_DEFAULT_TYPE);
-        g_settings_set_string (gsettings, GCMD_PLUGINS_FILE_ROLLER_DEFAULT_TYPE, g_variant_get_string(variant, NULL));
+        g_settings_set_string (gsettings, GCMD_PLUGINS_FILE_ROLLER_DEFAULT_TYPE, g_variant_get_string(variant, nullptr));
         g_variant_unref (variant);
 
         plugin->priv->default_ext = g_settings_get_string (gsettings, GCMD_PLUGINS_FILE_ROLLER_DEFAULT_TYPE);
@@ -723,7 +737,7 @@ static void init (FileRollerPlugin *plugin)
 
         GVariant *variant;
         variant = g_settings_get_default_value (gsettings, GCMD_PLUGINS_FILE_ROLLER_PREFIX_PATTERN);
-        g_settings_set_string (gsettings, GCMD_PLUGINS_FILE_ROLLER_PREFIX_PATTERN, g_variant_get_string(variant, NULL));
+        g_settings_set_string (gsettings, GCMD_PLUGINS_FILE_ROLLER_PREFIX_PATTERN, g_variant_get_string(variant, nullptr));
         g_variant_unref (variant);
 
         plugin->priv->file_prefix_pattern = (gchar*) g_settings_get_default_value (gsettings, GCMD_PLUGINS_FILE_ROLLER_PREFIX_PATTERN);
@@ -774,9 +788,9 @@ GtkType file_roller_plugin_get_type ()
             sizeof (FileRollerPluginClass),
             (GtkClassInitFunc) class_init,
             (GtkObjectInitFunc) init,
-            /* reserved_1 */ NULL,
-            /* reserved_2 */ NULL,
-            (GtkClassInitFunc) NULL
+            /* reserved_1 */ nullptr,
+            /* reserved_2 */ nullptr,
+            (GtkClassInitFunc) nullptr
         };
 
         type = gtk_type_unique (GNOME_CMD_TYPE_PLUGIN, &info);
@@ -787,7 +801,7 @@ GtkType file_roller_plugin_get_type ()
 
 GnomeCmdPlugin *file_roller_plugin_new ()
 {
-    FileRollerPlugin *plugin = (FileRollerPlugin *) g_object_new (file_roller_plugin_get_type (), NULL);
+    FileRollerPlugin *plugin = (FileRollerPlugin *) g_object_new (file_roller_plugin_get_type (), nullptr);
 
     return GNOME_CMD_PLUGIN (plugin);
 }
@@ -810,7 +824,7 @@ extern "C"
         {
             plugin_nfo.authors = g_new0 (gchar *, 2);
             plugin_nfo.authors[0] = (gchar*) AUTHOR;
-            plugin_nfo.authors[1] = NULL;
+            plugin_nfo.authors[1] = nullptr;
             plugin_nfo.comments = g_strdup (_("A plugin that adds File Roller shortcuts for creating "
                                             "and extracting compressed archives."));
         }
