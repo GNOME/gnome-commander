@@ -30,7 +30,7 @@
                 <para>
                     <itemizedlist>
                         <listitem>
-                            <para>...</para>
+                            <para>Fixed issue #108 (Crash after right click on file)</para>
                         </listitem>
                     </itemizedlist>
                 </para>
