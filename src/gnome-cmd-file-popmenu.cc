@@ -602,6 +602,7 @@ guint add_action_script_entries(GtkUIManager *uiManager, GList *files)
         scriptPath.append ("/").append ((char*) scriptFileName->data);
         scriptData->path = g_strdup (scriptPath.c_str());
 
+        // Try to get the scriptname out of the script, otherwise take the filename
         char *scriptName = nullptr;
         FILE *fileStream = fopen (scriptData->path, "r");
         if (fileStream)
@@ -622,6 +623,7 @@ guint add_action_script_entries(GtkUIManager *uiManager, GList *files)
             }
             fclose (fileStream);
         }
+        scriptName = scriptName ? scriptName : g_strdup((char*) scriptFileName->data);
 
         auto dynAction = gtk_action_new (scriptName, scriptName, nullptr, GTK_STOCK_EXECUTE);
 
