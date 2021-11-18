@@ -671,7 +671,7 @@ inline const gchar *date2string (GDateTime *date, gboolean overide_disp_setting)
 #ifdef GLIB_2_70
 const gchar *GnomeCmdFile::get_adate(gboolean overide_disp_setting)
 {
-    g_return_val_if_fail (info != nullptr, nullptr);
+    g_return_val_if_fail (gFileInfo != nullptr, nullptr);
 
     return date2string (g_file_info_get_access_date_time(gFileInfo), overide_disp_setting);
 }
