@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander master\n"
-"POT-Creation-Date: 2021-07-20 14:57+0000\n"
-"PO-Revision-Date: 2021-07-20 21:54+0200\n"
+"POT-Creation-Date: 2021-11-17 22:03+0000\n"
+"PO-Revision-Date: 2021-11-18 18:31+0100\n"
 "Last-Translator: Anders Jonsson <anders.jonsson@norsjovallen.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "Language: sv\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 2.4.2\n"
+"X-Generator: Poedit 3.0\n"
 
 #. Put one translator per line, in the form NAME <EMAIL>, YEAR1, YEAR2
 msgctxt "_"
@@ -16583,9 +16583,9 @@ msgid "Bug fixes:"
 msgstr "Felfixar:"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:33 C/releases.xml:219 C/releases.xml:230
-msgid "..."
-msgstr "..."
+#: C/releases.xml:33
+msgid "Fixed issue #108 (Crash after right click on file)"
+msgstr "Fixade ärende #108 (Krasch efter högerklick på fil)"
 
 #. (itstool) path: entry/para
 #: C/releases.xml:37 C/releases.xml:62 C/releases.xml:102 C/releases.xml:130
@@ -16842,6 +16842,11 @@ msgstr "1.10.1"
 #: C/releases.xml:213
 msgid "2019-05-12"
 msgstr "2019-05-12"
+
+#. (itstool) path: listitem/para
+#: C/releases.xml:219 C/releases.xml:230
+msgid "..."
+msgstr "..."
 
 #. (itstool) path: listitem/para
 #: C/releases.xml:222
