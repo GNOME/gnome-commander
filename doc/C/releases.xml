@@ -68,9 +68,6 @@
                         <listitem>
                             <para>Fixed issue #75 (Newly inserted DVD does not show up)</para>
                         </listitem>
-                        <listitem>
-                            <para>File-roller plugin: Add run error handling (Thanks to Andrey Sokolov)</para>
-                        </listitem>
                     </itemizedlist>
                 </para>
                 <para>New features:</para>

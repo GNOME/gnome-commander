@@ -19,7 +19,6 @@ Bug fixes:
  * Fixed issue #52 (Auto refresh when changing permissions etc)
  * Fixed issue #74 (Does not show mounted external drives)
  * Fixed issue #75 (Newly inserted DVD does not show up)
- * File-roller plugin: Add run error handling (Thanks to Andrey Sokolov)
 
 ===================================
 gnome-commander 1.12.2
