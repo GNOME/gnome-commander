@@ -23,6 +23,31 @@
     </thead>
     <tbody>
         <row valign="top">
+            <entry><para>1.12.4</para></entry>
+            <entry><para>2021-??-??</para></entry>
+            <entry>
+                <para>Bug fixes:</para>
+                <para>
+                    <itemizedlist>
+                        <listitem>
+                            <para>...</para>
+                        </listitem>
+                    </itemizedlist>
+                </para>
+                <para>New features:</para>
+                <para>
+                    <itemizedlist>
+                        <listitem>
+                            <para>...</para>
+                        </listitem>
+                        <listitem>
+                            <para>...</para>
+                        </listitem>
+                    </itemizedlist>
+                </para>
+            </entry>
+        </row>
+        <row valign="top">
             <entry><para>1.12.3</para></entry>
             <entry><para>2021-11-20</para></entry>
             <entry>
