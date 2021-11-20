@@ -2,18 +2,18 @@
 gnome-commander 1.12.3
 ---------------
 
-New features:
- * ...
-
 Bug fixes:
  * Fixed issue #108 (Crash after right click on file)
  * File-roller plugin: Add run error handling (Thanks to Andrey Sokolov)
 
 New or updated translations:
- * ...
+ * cs (Marek Černocký)
+ * de (Wolfgang Stöggl)
+ * hu (Balázs Úr)
+ * ru (Andrey Sokolov)
 
 New or updated docs:
- * ...
+ * sv (Anders Jonsson)
 
 ===================================
 gnome-commander 1.12.2
