@@ -23,14 +23,14 @@
     </thead>
     <tbody>
         <row valign="top">
-            <entry><para>1.12.4</para></entry>
-            <entry><para>2021-??-??</para></entry>
+            <entry><para>1.12.3.1</para></entry>
+            <entry><para>2021-11-21</para></entry>
             <entry>
                 <para>Bug fixes:</para>
                 <para>
                     <itemizedlist>
                         <listitem>
-                            <para>...</para>
+                            <para>Fixed issue #110 (Make check fails on s390x, Thanks to Mamoru Tasaka)</para>
                         </listitem>
                     </itemizedlist>
                 </para>
@@ -38,10 +38,10 @@
                 <para>
                     <itemizedlist>
                         <listitem>
-                            <para>...</para>
+                            <para>New or updated translations: pl, sv, uk</para>
                         </listitem>
                         <listitem>
-                            <para>...</para>
+                            <para>New or updated docs: sv</para>
                         </listitem>
                     </itemizedlist>
                 </para>
@@ -66,7 +66,7 @@
                 <para>
                     <itemizedlist>
                         <listitem>
-                            <para>New or updated translations: cs,de, hu, ru</para>
+                            <para>New or updated translations: cs, de, hu, ru</para>
                         </listitem>
                         <listitem>
                             <para>New or updated docs: sv</para>

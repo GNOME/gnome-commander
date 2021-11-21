@@ -1,18 +1,17 @@
 ===================================
-gnome-commander 1.12.4
+gnome-commander 1.12.3.1
 ---------------
 
-New features:
- * ...
-
 Bug fixes:
- * ...
+ * Fixed issue #110 (Make check fails on s390x, Thanks to Mamoru Tasaka)
 
 New or updated translations:
- * ...
+ * pl (Piotr Drąg)
+ * sv (Anders Jonsson)
+ * uk (Yuri Chornoivan)
 
 New or updated docs:
- * ...
+ * sv (Anders Jonsson)
 
 ===================================
 gnome-commander 1.12.3
