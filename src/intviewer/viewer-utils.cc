@@ -29,39 +29,32 @@
 
 using namespace std;
 
-int unicode2utf8 (unsigned int unicode, char_type *out)
+void unicode2utf8 (unsigned int unicode, char_type *out)
 {
-    int bytes_needed = 0;
-    if (unicode<0x80)
+    if (unicode < 0x80) // bytes needed = 1
     {
-        bytes_needed = 1;
-        *out = (unsigned char)(unicode&0xFF);
+        *out = (char_type)(unicode & 0xFF);
     }
     else
-    if (unicode<0x0800)
+    if (unicode < 0x0800) // bytes needed = 2
     {
-        bytes_needed = 2;
-        *out  =  (unsigned char)(unicode>>6 | 0xC0);
-        *out |= ((unsigned char)((unicode&0x3F)| 0x80) << 8);
+        *out  =  (char_type)(  unicode         >> 6  | 0xC0);
+        *out |= ((char_type)(( unicode & 0x3F)       | 0x80) << 8);
     }
     else
-    if (unicode<0x10000)
+    if (unicode < 0x10000) // bytes needed = 3
     {
-        bytes_needed = 3;
-        *out  =  (unsigned char)((unicode>>12) | 0xE0);
-        *out |= ((unsigned char)(((unicode>>6) & 0x3F) | 0x80) << 8);
-        *out |= ((unsigned char)((unicode & 0x3F) | 0x80) << 16);
+        *out  =  (char_type) (( unicode >>   12) | 0xE0);
+        *out |= ((char_type)((( unicode >>    6) & 0x3F) | 0x80) <<  8);
+        *out |= ((char_type) ((  unicode & 0x3F) | 0x80)         << 16);
     }
-    else
+    else // bytes needed = 4
     {
-        bytes_needed = 4;
-        *out  =  (unsigned char)((unicode>>18) | 0xE0);
-        *out |= ((unsigned char)(((unicode>>12) & 0x3F) | 0x80) << 8);
-        *out |= ((unsigned char)(((unicode>>6) & 0x3F) | 0x80) << 16);
-        *out |= ((unsigned char)((unicode & 0x3F) | 0x80) << 24);
+        *out  =  (char_type) (( unicode >>  18) | 0xE0);
+        *out |= ((char_type)((( unicode >>  12) & 0x3F) | 0x80) <<  8);
+        *out |= ((char_type)((( unicode >>   6) & 0x3F) | 0x80) << 16);
+        *out |= ((char_type) (( unicode & 0x3F) | 0x80)         << 24);
     }
-
-    return bytes_needed;
 }
 
 
