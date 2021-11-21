@@ -29,36 +29,36 @@
 
 using namespace std;
 
-int unicode2utf8 (unsigned int unicode, unsigned char *out)
+int unicode2utf8 (unsigned int unicode, char_type *out)
 {
     int bytes_needed = 0;
     if (unicode<0x80)
     {
         bytes_needed = 1;
-        out[0] = (unsigned char)(unicode&0xFF);
+        *out = (unsigned char)(unicode&0xFF);
     }
     else
     if (unicode<0x0800)
     {
         bytes_needed = 2;
-        out[0] = (unsigned char)(unicode>>6 | 0xC0);
-        out[1] = (unsigned char)((unicode&0x3F)| 0x80);
+        *out  =  (unsigned char)(unicode>>6 | 0xC0);
+        *out |= ((unsigned char)((unicode&0x3F)| 0x80) << 8);
     }
     else
     if (unicode<0x10000)
     {
         bytes_needed = 3;
-        out[0] = (unsigned char)((unicode>>12) | 0xE0);
-        out[1] = (unsigned char)(((unicode>>6) & 0x3F) | 0x80);
-        out[2] = (unsigned char)((unicode & 0x3F) | 0x80);
+        *out  =  (unsigned char)((unicode>>12) | 0xE0);
+        *out |= ((unsigned char)(((unicode>>6) & 0x3F) | 0x80) << 8);
+        *out |= ((unsigned char)((unicode & 0x3F) | 0x80) << 16);
     }
     else
     {
         bytes_needed = 4;
-        out[0] = (unsigned char)((unicode>>18) | 0xE0);
-        out[1] = (unsigned char)(((unicode>>12) & 0x3F) | 0x80);
-        out[2] = (unsigned char)(((unicode>>6) & 0x3F) | 0x80);
-        out[3] = (unsigned char)((unicode & 0x3F) | 0x80);
+        *out  =  (unsigned char)((unicode>>18) | 0xE0);
+        *out |= ((unsigned char)(((unicode>>12) & 0x3F) | 0x80) << 8);
+        *out |= ((unsigned char)(((unicode>>6) & 0x3F) | 0x80) << 16);
+        *out |= ((unsigned char)((unicode & 0x3F) | 0x80) << 24);
     }
 
     return bytes_needed;
@@ -84,7 +84,7 @@ char_type *convert_utf8_to_chartype_array (const gchar *utf8text, /*out*/ int &a
     {
         unicode_char = g_utf8_get_char(pos);
 
-        unicode2utf8(unicode_char, (unsigned char*)&result[index]);
+        unicode2utf8(unicode_char, &result[index]);
 
         pos = g_utf8_next_char(pos);
         if (!pos)
