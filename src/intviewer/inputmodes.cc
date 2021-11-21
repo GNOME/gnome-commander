@@ -223,7 +223,7 @@ static void inputmode_ascii_activate(GVInputModesData *imd, const gchar *encodin
         {
             // these are defined in 'cp437.c'
             unsigned int unicode = ascii_cp437_to_unicode[i];
-            unicode2utf8(unicode, (unsigned char*)&imd->ascii_charset_translation[i]);
+            unicode2utf8(unicode, &imd->ascii_charset_translation[i]);
         }
         g_free (imd->input_mode_name);
         imd->input_mode_name = g_strdup ("CP437");
