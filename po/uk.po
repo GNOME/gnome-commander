@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander 1.3.0\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-commander/issues\n"
-"POT-Creation-Date: 2021-11-17 22:09+0000\n"
-"PO-Revision-Date: 2021-11-19 15:59+0200\n"
+"POT-Creation-Date: 2021-11-23 20:15+0000\n"
+"PO-Revision-Date: 2021-11-24 00:08+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -1526,10 +1526,6 @@ msgstr "Не вдалося завантажити схеми з «%s»: %s\n"
 
 #: plugins/fileroller/file-roller-plugin.cc:200
 #, c-format
-#| msgid ""
-#| "Error while copying to %s\n"
-#| "\n"
-#| "%s"
 msgid ""
 "Error running \"%s\"\n"
 "\n"
@@ -1846,7 +1842,7 @@ msgstr "Безпечний WebDAV (HTTPS)"
 msgid "Custom location"
 msgstr "Інше місце"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:75
+#: src/dialogs/gnome-cmd-delete-dialog.cc:77
 #, c-format
 msgid "Deleted %lu of %lu file"
 msgid_plural "Deleted %lu of %lu files"
@@ -1855,11 +1851,11 @@ msgstr[1] "Вилучено %lu з %lu файлів"
 msgstr[2] "Вилучено %lu з %lu файлів"
 msgstr[3] "Вилучено %lu з %lu файла"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:110
+#: src/dialogs/gnome-cmd-delete-dialog.cc:112
 msgid "Deleting…"
 msgstr "Вилучення…"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:281
+#: src/dialogs/gnome-cmd-delete-dialog.cc:265
 #, c-format
 msgid ""
 "Error while deleting “%s”\n"
@@ -1870,13 +1866,13 @@ msgstr ""
 "\n"
 "%s"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:286
-#: src/dialogs/gnome-cmd-delete-dialog.cc:403
+#: src/dialogs/gnome-cmd-delete-dialog.cc:270
+#: src/dialogs/gnome-cmd-delete-dialog.cc:405
 msgid "Delete problem"
 msgstr "Проблема з вилученням"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:287
-#: src/dialogs/gnome-cmd-delete-dialog.cc:403 src/gnome-cmd-xfer.cc:120
+#: src/dialogs/gnome-cmd-delete-dialog.cc:271
+#: src/dialogs/gnome-cmd-delete-dialog.cc:405 src/gnome-cmd-xfer.cc:120
 #: src/gnome-cmd-xfer.cc:147 src/gnome-cmd-xfer.cc:150
 #: src/gnome-cmd-xfer.cc:205 src/gnome-cmd-xfer.cc:208
 #: src/gnome-cmd-xfer.cc:323 src/gnome-cmd-xfer.cc:326
@@ -1885,7 +1881,7 @@ msgstr "Проблема з вилученням"
 msgid "Abort"
 msgstr "Перервати"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:287
+#: src/dialogs/gnome-cmd-delete-dialog.cc:271
 #: src/gnome-cmd-file-selector.cc:1393 src/gnome-cmd-xfer.cc:120
 #: src/gnome-cmd-xfer.cc:147 src/gnome-cmd-xfer.cc:150
 #: src/gnome-cmd-xfer.cc:205 src/gnome-cmd-xfer.cc:208
@@ -1893,8 +1889,8 @@ msgstr "Перервати"
 msgid "Retry"
 msgstr "Повторити"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:287
-#: src/dialogs/gnome-cmd-delete-dialog.cc:416
+#: src/dialogs/gnome-cmd-delete-dialog.cc:271
+#: src/dialogs/gnome-cmd-delete-dialog.cc:421
 #: src/dialogs/gnome-cmd-options-dialog.cc:1071
 #: src/dialogs/gnome-cmd-options-dialog.cc:1095
 #: src/dialogs/gnome-cmd-prepare-copy-dialog.cc:114
@@ -1905,7 +1901,7 @@ msgstr "Повторити"
 msgid "Skip"
 msgstr "Пропустити"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:401
+#: src/dialogs/gnome-cmd-delete-dialog.cc:403
 #, c-format
 msgid ""
 "Error while deleting: \n"
@@ -1916,42 +1912,48 @@ msgstr ""
 "\n"
 "%s"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:413
+#: src/dialogs/gnome-cmd-delete-dialog.cc:416
+#, c-format
+#| msgid "Do you want to delete “%s”?"
+msgid "Do you really want to delete “%s”?"
+msgstr "Хочете справді вилучити «%s»?"
+
+#: src/dialogs/gnome-cmd-delete-dialog.cc:417
 #, c-format
 msgid "The directory “%s” is not empty. Do you really want to delete it?"
 msgstr "Каталог «%s» містить дані. Ви справді хочете його вилучити?"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:414
-#: src/dialogs/gnome-cmd-delete-dialog.cc:418
-#: src/dialogs/gnome-cmd-delete-dialog.cc:492
-#: src/dialogs/gnome-cmd-delete-dialog.cc:493
+#: src/dialogs/gnome-cmd-delete-dialog.cc:419
+#: src/dialogs/gnome-cmd-delete-dialog.cc:423
+#: src/dialogs/gnome-cmd-delete-dialog.cc:497
+#: src/dialogs/gnome-cmd-delete-dialog.cc:498
 #: src/dialogs/gnome-cmd-options-dialog.cc:1043
 #: src/gnome-cmd-file-popmenu.cc:749 src/gnome-cmd-main-win.cc:243
 #: src/gnome-cmd-user-actions.cc:213
 msgid "Delete"
 msgstr "Видалити"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:416
-#: src/dialogs/gnome-cmd-delete-dialog.cc:493 src/gnome-cmd-file-list.cc:1312
+#: src/dialogs/gnome-cmd-delete-dialog.cc:421
+#: src/dialogs/gnome-cmd-delete-dialog.cc:498 src/gnome-cmd-file-list.cc:1312
 #: src/gnome-cmd-file-list.cc:1341 src/gnome-cmd-file-selector.cc:1393
 #: src/gnome-cmd-user-actions.cc:819
 msgid "Cancel"
 msgstr "Скасувати"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:417
+#: src/dialogs/gnome-cmd-delete-dialog.cc:422
 msgid "Delete All"
 msgstr "Вилучити все"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:417
+#: src/dialogs/gnome-cmd-delete-dialog.cc:422
 msgid "Delete Remaining"
 msgstr "Вилучити решту"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:483
+#: src/dialogs/gnome-cmd-delete-dialog.cc:488
 #, c-format
 msgid "Do you want to delete “%s”?"
 msgstr "Хочете вилучити «%s»?"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:486
+#: src/dialogs/gnome-cmd-delete-dialog.cc:491
 #, c-format
 msgid "Do you want to delete the selected file?"
 msgid_plural "Do you want to delete the %d selected files?"
