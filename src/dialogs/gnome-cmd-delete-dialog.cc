@@ -40,6 +40,8 @@ using namespace std;
 #define DELETE_ERROR_ACTION_RETRY 1
 #define DELETE_ERROR_ACTION_SKIP  2
 
+static gboolean perform_delete_operation_r(DeleteData *deleteData, GList *gnomeCmdFileGList);
+
 inline void cleanup (DeleteData *deleteData)
 {
     gnome_cmd_file_list_free (deleteData->gnomeCmdFiles);
@@ -134,12 +136,59 @@ inline void create_delete_progress_win (DeleteData *deleteData)
     gtk_widget_show (deleteData->progwin);
 }
 
+
+/**
+ * @brief This function is meant to be called from within the function perform_delete_operation_r().
+ * It will dive through a non-empty directory and tries to recursively delete all files and
+ * folders inside of it.
+ *
+ * @param gnomeCmdDir Directory to go through and which should be deleted
+ * @param deleteData DeleteData object
+ * @return TRUE if deletion was performed successfully
+ */
+static gboolean perform_delete_subdir(GnomeCmdDir *gnomeCmdDir, DeleteData *deleteData)
+{
+    gboolean deleted = TRUE;
+    for (GList *dirChildItem = gnome_cmd_dir_get_files (gnomeCmdDir); dirChildItem; dirChildItem = dirChildItem->next)
+    {
+        // 'deleted' can be set below within this for-loop
+        if (!deleted && deleteData->problem_action == DELETE_ERROR_ACTION_ABORT)
+        {
+            gnome_cmd_dir_unref (gnomeCmdDir);
+            return FALSE;
+        }
+        if (!deleted && deleteData->problem_action == DELETE_ERROR_ACTION_RETRY)
+        {
+            dirChildItem = dirChildItem->prev ? dirChildItem->prev : dirChildItem;
+            deleteData->problem_action = -1;
+        }
+        if (!deleted && deleteData->problem_action == DELETE_ERROR_ACTION_SKIP)
+        {
+            // just go on and set problem_action to the default value
+            deleteData->problem_action = -1;
+        }
+
+        auto gnomeCmdFile = static_cast<GnomeCmdFile*>(dirChildItem->data);
+
+        if (gnomeCmdFile->is_dotdot)
+            continue;
+
+        GList *childsList = nullptr;
+        childsList = g_list_append(childsList, gnomeCmdFile);
+        deleted = perform_delete_operation_r (deleteData, childsList);
+        g_list_free(childsList);
+    }
+    return deleted;
+}
+
 /**
  * This function recursively removes files of a given GnomeCmdFile list and stores
  * possible errors or the progress information in the deleteData object.
  */
 static gboolean perform_delete_operation_r(DeleteData *deleteData, GList *gnomeCmdFileGList)
 {
+    GError *tmpError = nullptr;
+
     for (GList *gCmdFileGListItem = gnomeCmdFileGList; gCmdFileGListItem; gCmdFileGListItem = gCmdFileGListItem->next)
     {
         if (deleteData->stop)
@@ -147,112 +196,47 @@ static gboolean perform_delete_operation_r(DeleteData *deleteData, GList *gnomeC
             return FALSE;
         }
 
-        auto gnomeCmdFile = (GnomeCmdFile *) gCmdFileGListItem->data;
+        auto gnomeCmdFile = static_cast<GnomeCmdFile*>(gCmdFileGListItem->data);
 
         g_return_val_if_fail (GNOME_CMD_IS_FILE(gnomeCmdFile), FALSE);
         g_return_val_if_fail (G_IS_FILE_INFO(gnomeCmdFile->gFileInfo), FALSE);
 
-        auto filenameTmp = g_file_info_get_display_name(gnomeCmdFile->gFileInfo);
+        auto filenameTmp = gnomeCmdFile->get_name();
 
         if (gnomeCmdFile->is_dotdot || strcmp(filenameTmp, ".") == 0)
             continue;
 
-        GError *tmpError = nullptr;
-        auto gFile = gnomeCmdFile->gFile;
+        g_file_delete (gnomeCmdFile->gFile, nullptr, &tmpError);
 
-        guint64 numFiles = 0;
-        guint64 numDirs = 0;
-
-        if (!g_file_measure_disk_usage (gFile,
-                G_FILE_MEASURE_NONE,
-                nullptr, nullptr, nullptr, nullptr,
-                &numDirs,
-                &numFiles,
-                &tmpError))
+        if (tmpError && g_error_matches (tmpError, G_IO_ERROR, G_IO_ERROR_NOT_EMPTY))
         {
-                g_warning ("Failed to measure disk usage of %s: %s", g_file_peek_path (gFile), tmpError->message);
-                g_propagate_error (&(deleteData->error), tmpError);
-                deleteData->problemFileName = g_file_peek_path(gFile);
-                delete_progress_update(deleteData);
+            auto gnomeCmdDir = GNOME_CMD_DIR (gnomeCmdFile);
+            gnome_cmd_dir_list_files (gnomeCmdDir, FALSE);
+
+            if (!perform_delete_subdir(gnomeCmdDir, deleteData))
+                return FALSE;
+
+            // Now remove the directory itself, as it is finally empty
+            GList *directory = nullptr;
+            directory = g_list_append(directory, gnomeCmdFile);
+            perform_delete_operation_r (deleteData, directory);
+            g_list_free(directory);
+        }
+        else if (tmpError)
+        {
+            g_warning ("Failed to delete %s: %s", gnomeCmdFile->get_name(), tmpError->message);
+            g_propagate_error (&(deleteData->error), tmpError);
+            deleteData->problemFileName = gnomeCmdFile->get_name();
+            delete_progress_update(deleteData);
+            if (deleteData->stop)
                 return FALSE;
         }
 
-        if ((numDirs == 1 && numFiles == 0) // Empty directory
-            || (get_gfile_attribute_boolean(gFile, G_FILE_ATTRIBUTE_STANDARD_IS_SYMLINK)) //We want delete symlinks!
-            || (get_gfile_attribute_uint32(gFile, G_FILE_ATTRIBUTE_STANDARD_TYPE) != G_FILE_TYPE_DIRECTORY)) // Not a directory
-        {
-            // DELETE IT!
-            if (!g_file_delete (gFile, nullptr, &tmpError) &&
-                !g_error_matches (tmpError, G_IO_ERROR, G_IO_ERROR_NOT_FOUND))
-            {
-                g_warning ("Failed to delete %s: %s", g_file_peek_path (gFile), tmpError->message);
-                g_propagate_error (&(deleteData->error), tmpError);
-                deleteData->problemFileName = g_file_peek_path(gFile);
-                delete_progress_update(deleteData);
-                if (deleteData->stop)
-                    return FALSE;
-            }
-            else
-            {
-                deleteData->deletedGnomeCmdFiles = g_list_append(deleteData->deletedGnomeCmdFiles, gnomeCmdFile);
-                deleteData->itemsDeleted++;
-                delete_progress_update(deleteData);
-                if (deleteData->stop)
-                    return FALSE;
-            }
-        }
-        else
-        {
-            gboolean deleted = TRUE;
-            gboolean dirIsEmpty = TRUE;
-
-            if (!GNOME_CMD_IS_DIR (gnomeCmdFile))
-                return false;
-
-            auto gnomeCmdDir = gnome_cmd_dir_ref (GNOME_CMD_DIR (gnomeCmdFile));
-            gnome_cmd_dir_list_files (gnomeCmdDir, FALSE);
-            for (GList *subFolderItem = gnome_cmd_dir_get_files (gnomeCmdDir); subFolderItem; subFolderItem = subFolderItem->next)
-            {
-                // retValue can be set below within this for-loop
-                if (!deleted && deleteData->problem_action == DELETE_ERROR_ACTION_ABORT)
-                {
-                    gnome_cmd_dir_unref (gnomeCmdDir);
-                    return FALSE;
-                }
-                if (!deleted && deleteData->problem_action == DELETE_ERROR_ACTION_RETRY)
-                {
-                    subFolderItem = subFolderItem->prev ? subFolderItem->prev : subFolderItem;
-                    deleteData->problem_action = -1;
-                }
-                if (!deleted && deleteData->problem_action == DELETE_ERROR_ACTION_SKIP)
-                {
-                    // do nothing, just go on
-                    deleteData->problem_action = -1;
-                    dirIsEmpty = FALSE;
-                }
-
-                auto subGnomeCmdFile = (GnomeCmdFile *) subFolderItem->data;
-
-                if (!subGnomeCmdFile->is_dotdot)
-                {
-                    GList *subGnomeCmdFileList = nullptr;
-
-                    subGnomeCmdFileList = g_list_append(subGnomeCmdFileList, subGnomeCmdFile);
-                    deleted = perform_delete_operation_r (deleteData, subGnomeCmdFileList);
-                    g_list_free(subGnomeCmdFileList);
-                }
-            }
-            gnome_cmd_dir_unref (gnomeCmdDir);
-
-            if (dirIsEmpty)
-            {
-                // Now remove the directory itself, if it is finally empty
-                GList *directory = nullptr;
-                directory = g_list_append(directory, gnomeCmdFile);
-                perform_delete_operation_r (deleteData, directory);
-                g_list_free(directory);
-            }
-        }
+        deleteData->deletedGnomeCmdFiles = g_list_append(deleteData->deletedGnomeCmdFiles, gnomeCmdFile);
+        deleteData->itemsDeleted++;
+        delete_progress_update(deleteData);
+        if (deleteData->stop)
+            return FALSE;
     }
     return TRUE;
 }
@@ -341,13 +325,24 @@ void do_delete (DeleteData *deleteData, gboolean showProgress = true)
         guint64 num_dirs = 0;
         auto gFile = GNOME_CMD_FILE(fileListItem->data)->gFile;
         g_return_if_fail(G_IS_FILE(gFile));
+        GError *error = nullptr;
 
         g_file_measure_disk_usage (gFile,
            G_FILE_MEASURE_NONE,
            nullptr, nullptr, nullptr, nullptr,
            &num_dirs,
            &num_files,
-           nullptr);
+           &error);
+
+        // If we cannot determine if gFile is empty or not, don't show progress dialog
+        if (g_error_matches (error, G_IO_ERROR, G_IO_ERROR_NOT_SUPPORTED))
+        {
+            showProgress = FALSE;
+            g_error_free (error);
+            error = nullptr;
+            break;
+        }
+
         deleteData->itemsTotal += num_files + num_dirs;
     }
 
@@ -386,6 +381,7 @@ static GList *remove_items_from_list_to_be_deleted(GList *files)
             error = nullptr;
             guint64 num_dirs;
             guint64 num_files;
+            gboolean canNotMeasure = FALSE;
 
             g_file_measure_disk_usage (gnomeCmdFile->gFile,
                        G_FILE_MEASURE_NONE,
@@ -393,7 +389,13 @@ static GList *remove_items_from_list_to_be_deleted(GList *files)
                        &num_dirs,
                        &num_files,
                        &error);
-
+            if (g_error_matches (error, G_IO_ERROR, G_IO_ERROR_NOT_SUPPORTED))
+            {
+                // If we cannot determine if gFile is empty or not, we have to assume it is not empty
+                canNotMeasure = TRUE;
+                g_error_free (error);
+                error = nullptr;
+            }
             if (error)
             {
                 g_message ("remove_items_from_list_to_be_deleted: g_file_measure_disk_usage failed: %s", error->message);
@@ -406,11 +408,14 @@ static GList *remove_items_from_list_to_be_deleted(GList *files)
                 g_error_free (error);
                 return 0;
             }
-            if (num_dirs != 1 || num_files != 0) // num_dirs = 1 -> this is the folder to be deleted
+            if (num_dirs != 1 || num_files != 0 || canNotMeasure) // num_dirs = 1 -> this is the folder to be deleted
             {
                 gchar *msg = NULL;
 
-                msg = g_strdup_printf (_("The directory “%s” is not empty. Do you really want to delete it?"), gnomeCmdFile->get_name());
+                msg = canNotMeasure
+                    ? g_strdup_printf (_("Do you really want to delete “%s”?"), gnomeCmdFile->get_name())
+                    : g_strdup_printf (_("The directory “%s” is not empty. Do you really want to delete it?"), gnomeCmdFile->get_name());
+
                 guiResponse = run_simple_dialog (*main_win, FALSE, GTK_MESSAGE_WARNING, msg, _("Delete"),
                                   gnome_cmd_data.options.confirm_delete_default==GTK_BUTTONS_CANCEL ? 0 : 3,
                                   _("Cancel"), _("Skip"),

@@ -66,6 +66,9 @@
                             <para>Fixed issue #57 (Remote connections: Gnome Commander misreads file ownership)</para>
                         </listitem>
                         <listitem>
+                            <para>Fixed issue #59 (On ssh connection, to delete a renamed folder/file don't work)</para>
+                        </listitem>
+                        <listitem>
                             <para>Fixed issue #74 (Does not show mounted external drives)</para>
                         </listitem>
                         <listitem>

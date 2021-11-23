@@ -18,6 +18,7 @@ Bug fixes:
  * Fixed issue #51 (Move and not copy by default on same filesystem)
  * Fixed issue #52 (Auto refresh when changing permissions etc)
  * Fixed issue #57 (Remote connections: Gnome Commander misreads file ownership)
+ * Fixed issue #59 (On ssh connection, to delete a renamed folder/file don't work)
  * Fixed issue #74 (Does not show mounted external drives)
  * Fixed issue #75 (Newly inserted DVD does not show up)
 
