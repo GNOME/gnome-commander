@@ -650,7 +650,19 @@ const gchar *GnomeCmdFile::get_owner()
 {
     g_return_val_if_fail (gFileInfo != nullptr, nullptr);
 
-    return g_file_info_get_attribute_string(gFileInfo, G_FILE_ATTRIBUTE_OWNER_USER);
+    const gchar *ownerString = nullptr;
+
+    ownerString = g_file_info_get_attribute_string(gFileInfo, G_FILE_ATTRIBUTE_OWNER_USER);
+
+    if (!ownerString)
+    {
+        static gchar owner_str[MAX_OWNER_LENGTH];
+        g_snprintf (owner_str, MAX_OWNER_LENGTH, "%d",
+            g_file_info_get_attribute_uint32(gFileInfo, G_FILE_ATTRIBUTE_UNIX_UID));
+        return owner_str;
+    }
+
+    return ownerString;
 }
 
 
@@ -658,7 +670,19 @@ const gchar *GnomeCmdFile::get_group()
 {
     g_return_val_if_fail (gFileInfo != nullptr, nullptr);
 
-    return g_file_info_get_attribute_string(gFileInfo, G_FILE_ATTRIBUTE_OWNER_GROUP);
+    const gchar *groupString = nullptr;
+
+    groupString = g_file_info_get_attribute_string(gFileInfo, G_FILE_ATTRIBUTE_OWNER_GROUP);
+
+    if (!groupString)
+    {
+        static gchar owner_str[MAX_OWNER_LENGTH];
+        g_snprintf (owner_str, MAX_OWNER_LENGTH, "%d",
+            g_file_info_get_attribute_uint32(gFileInfo, G_FILE_ATTRIBUTE_UNIX_GID));
+        return owner_str;
+    }
+
+    return groupString;
 }
 
 

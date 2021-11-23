@@ -157,9 +157,26 @@ void gnome_cmd_chown_component_set (GnomeCmdChownComponent *comp, uid_t uid, gid
     const gchar *gid_name = gcmd_owner.groups[gid];
 
     if (uid_name)
+    {
         gtk_entry_set_text (GTK_ENTRY (GTK_COMBO (comp->priv->user_combo)->entry), uid_name);
+    }
+    else
+    {
+        auto uidString = g_strdup_printf("%u", uid);
+        gtk_entry_set_text (GTK_ENTRY (GTK_COMBO (comp->priv->user_combo)->entry), uidString);
+        g_free(uidString);
+    }
+
     if (gid_name)
+    {
         gtk_entry_set_text (GTK_ENTRY (GTK_COMBO (comp->priv->group_combo)->entry), gid_name);
+    }
+    else
+    {
+        auto gidString = g_strdup_printf("%u", gid);
+        gtk_entry_set_text (GTK_ENTRY (GTK_COMBO (comp->priv->group_combo)->entry), gidString);
+        g_free(gidString);
+    }
 }
 
 
