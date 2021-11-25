@@ -2164,15 +2164,21 @@ static void add_gvolume (GVolume *gVolume)
     DEBUG('m',"icon path = %s\n", iconpath);
 
     // Don't create a new device connect if one already exists. This can happen if the user manually added the same device in "Options|Devices" menu
-    if (!device_mount_point_exists (gnome_cmd_data.priv->con_list, identifier))
+    if (identifier && (!device_mount_point_exists (gnome_cmd_data.priv->con_list, identifier)))
     {
         GnomeCmdConDevice *ConDev = gnome_cmd_con_device_new (name, identifier, nullptr, iconpath);
         gnome_cmd_con_device_set_autovol (ConDev, TRUE);
         gnome_cmd_con_device_set_gvolume (ConDev, gVolume);
         gnome_cmd_data.priv->con_list->add(ConDev);
     }
+    else if (identifier)
+    {
+         DEBUG('m', "Device for mountpoint(%s) already exists. AutoVolume not added\n", identifier);
+    }
     else
-        DEBUG('m', "Device for mountpoint(%s) already exists. AutoVolume not added\n", identifier);
+    {
+        DEBUG('m', "Device does not look like unix device. Skipping\n");
+    }
 
     g_free (uuid);
     g_free (name);
