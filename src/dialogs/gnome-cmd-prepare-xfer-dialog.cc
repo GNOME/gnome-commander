@@ -240,9 +240,9 @@ static void on_ok (GtkButton *button, GnomeCmdPrepareXferDialog *dialog)
     }
 
     if (g_list_length (dialog->src_files) == 1)
-        DEBUG ('x', "Starting xfer the file '%s' to '%s'\n", dest_fn, GNOME_CMD_FILE (dest_dir)->get_real_path());
+        DEBUG ('x', "Starting xfer the file '%s' to '%s'\n", dest_fn, GNOME_CMD_FILE (dest_dir)->get_uri_str());
     else
-        DEBUG ('x', "Starting xfer %d files to '%s'\n", g_list_length (dialog->src_files), GNOME_CMD_FILE (dest_dir)->get_real_path());
+        DEBUG ('x', "Starting xfer %d files to '%s'\n", g_list_length (dialog->src_files), GNOME_CMD_FILE (dest_dir)->get_uri_str());
 
 
     gnome_cmd_dir_ref (dest_dir);
@@ -443,6 +443,7 @@ GtkWidget *gnome_cmd_prepare_xfer_dialog_new (GnomeCmdFileSelector *from, GnomeC
         }
     }
     else
+    {
         if (num_files == 1)
         {
             GnomeCmdFile *f = (GnomeCmdFile *) dialog->src_files->data;
@@ -466,7 +467,7 @@ GtkWidget *gnome_cmd_prepare_xfer_dialog_new (GnomeCmdFileSelector *from, GnomeC
             dest_str = get_utf8 (t);
             g_free (t);
         }
-
+    }
     if (dest_str)
     {
         gtk_entry_set_text (GTK_ENTRY (dialog->dest_dir_entry), dest_str);
