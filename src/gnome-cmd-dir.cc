@@ -642,8 +642,8 @@ gchar *gnome_cmd_dir_get_uri_str (GnomeCmdDir *dir)
 
 /**
  * This function returns a GFile object which is the result of the URI construction of
- * two URI's: the connection URI, which is the private member of GnomeCmdDir,
- * and the given filename string.
+ * two URI's and a path: the connection URI, which is the private member of GnomeCmdDir,
+ * the directory path inside of that connection, and the given filename string.
  */
 GFile *gnome_cmd_dir_get_gfile_for_con_and_filename(GnomeCmdDir *dir, const gchar *filename)
 {
@@ -653,14 +653,21 @@ GFile *gnome_cmd_dir_get_gfile_for_con_and_filename(GnomeCmdDir *dir, const gcha
         return nullptr;
     }
 
+    //Always let the conection URI end with '/'
+    auto conLastCharacter = conUri[strlen(conUri)-1];
+    auto conUriTmp = conLastCharacter == G_DIR_SEPARATOR
+        ? g_strdup(conUri)
+        : g_strdup_printf("%s" G_DIR_SEPARATOR_S, conUri);
+
+    // Create the merged URI out of the connection URI, the directory path and the filename
     GError *error = nullptr;
     auto gnomeCmdDirPath = gnome_cmd_dir_get_path(dir);
     auto dirLastCharacter = gnomeCmdDirPath->get_path()[strlen(gnomeCmdDirPath->get_path())-1];
     auto mergedDirAndFileNameString = dirLastCharacter != G_DIR_SEPARATOR
-        ? g_strdup_printf("%s" G_DIR_SEPARATOR_S "%s", gnomeCmdDirPath->get_path(), filename)
-        : g_strdup_printf("%s%s", gnomeCmdDirPath->get_path(), filename);
+        ? g_strdup_printf(".%s" G_DIR_SEPARATOR_S "%s", gnomeCmdDirPath->get_path(), filename)
+        : g_strdup_printf(".%s%s", gnomeCmdDirPath->get_path(), filename);
     auto fullFileNameUri = g_uri_resolve_relative (
-                                conUri,
+                                conUriTmp,
                                 mergedDirAndFileNameString,
                                 G_URI_FLAGS_NONE,
                                 &error);
@@ -673,6 +680,7 @@ GFile *gnome_cmd_dir_get_gfile_for_con_and_filename(GnomeCmdDir *dir, const gcha
     auto gFile = g_file_new_for_uri(fullFileNameUri);
     g_free(mergedDirAndFileNameString);
     g_free(fullFileNameUri);
+    g_free(conUriTmp);
     return gFile;
 }
 
