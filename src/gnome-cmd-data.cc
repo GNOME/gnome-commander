@@ -2142,10 +2142,14 @@ static void add_gvolume (GVolume *gVolume)
 {
     g_return_if_fail (gVolume != nullptr);
 
-    char *uuid = g_volume_get_uuid (gVolume);
-    auto *gIcon = g_volume_get_icon (gVolume);
-    char *name = g_volume_get_name (gVolume);
-    auto identifier = g_volume_get_identifier(gVolume, G_VOLUME_IDENTIFIER_KIND_UNIX_DEVICE);
+    auto uuid             = g_volume_get_identifier(gVolume, G_VOLUME_IDENTIFIER_KIND_UUID);
+    auto unixDeviceString = g_volume_get_identifier(gVolume, G_VOLUME_IDENTIFIER_KIND_UNIX_DEVICE);
+    auto *gIcon           = g_volume_get_icon (gVolume);
+    char *name            = g_volume_get_name (gVolume);
+
+    DEBUG('m',"volume name = %s\n", name);
+    DEBUG('m',"volume uuid = %s\n", uuid);
+    DEBUG('m',"volume unix device = %s\n", unixDeviceString);
 
     // Try to load the icon, using current theme
     const gchar *iconpath = nullptr;
@@ -2158,32 +2162,31 @@ static void add_gvolume (GVolume *gVolume)
             iconpath = gtk_icon_info_get_filename (iconinfo);
     }
 
-    DEBUG('m',"name = %s\n", name);
-    DEBUG('m',"device path = %s\n", identifier);
-    DEBUG('m',"uuid = %s\n", uuid);
-    DEBUG('m',"icon path = %s\n", iconpath);
+    DEBUG('m',"volume icon path = %s\n", iconpath);
 
-    // Don't create a new device connect if one already exists. This can happen if the user manually added the same device in "Options|Devices" menu
-    if (identifier && (!device_mount_point_exists (gnome_cmd_data.priv->con_list, identifier)))
+    // Only create a new device connection if it does not already exist.
+    // This can happen if the user manually added the same device in "Options|Devices" menu
+    // We have to compare each connection in con_list with the unixDeviceString for this.
+    if (unixDeviceString && (device_mount_point_exists (gnome_cmd_data.priv->con_list, unixDeviceString)))
     {
-        GnomeCmdConDevice *ConDev = gnome_cmd_con_device_new (name, identifier, nullptr, iconpath);
+        DEBUG('m', "Device for mountpoint(%s) already exists. AutoVolume not added\n", unixDeviceString);
+    }
+    // If it does not exist already and a UUID is available, create the new device connection
+    else if (uuid)
+    {
+        GnomeCmdConDevice *ConDev = gnome_cmd_con_device_new (name, uuid, nullptr, iconpath);
         gnome_cmd_con_device_set_autovol (ConDev, TRUE);
         gnome_cmd_con_device_set_gvolume (ConDev, gVolume);
         gnome_cmd_data.priv->con_list->add(ConDev);
     }
-    else if (identifier)
-    {
-         DEBUG('m', "Device for mountpoint(%s) already exists. AutoVolume not added\n", identifier);
-    }
     else
     {
-        DEBUG('m', "Device does not look like unix device. Skipping\n");
+        DEBUG('m', "Device does not have a UUID. Skipping\n");
     }
 
-    g_free (uuid);
     g_free (name);
-    g_free (identifier);
-
+    g_free (uuid);
+    g_free (unixDeviceString);
     g_object_unref (gIcon);
     g_object_unref (gVolume);
 }

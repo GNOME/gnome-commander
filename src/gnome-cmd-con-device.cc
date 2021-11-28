@@ -39,7 +39,7 @@ using namespace std;
 struct GnomeCmdConDevicePrivate
 {
     gchar *alias {nullptr};
-    gchar *device_fn {nullptr};
+    gchar *device_fn {nullptr}; // The device identifier (either a linux device string or a uuid)
     gchar *mountp {nullptr};
     gchar *icon_path {nullptr};
     gboolean autovolume;
