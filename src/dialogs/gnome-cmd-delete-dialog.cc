@@ -146,7 +146,7 @@ inline void create_delete_progress_win (DeleteData *deleteData)
  * @param deleteData DeleteData object
  * @return TRUE if deletion was performed successfully
  */
-static gboolean perform_delete_subdir(GnomeCmdDir *gnomeCmdDir, DeleteData *deleteData)
+static gboolean perform_delete_subdirs(GnomeCmdDir *gnomeCmdDir, DeleteData *deleteData)
 {
     gboolean deleted = TRUE;
     for (GList *dirChildItem = gnome_cmd_dir_get_files (gnomeCmdDir); dirChildItem; dirChildItem = dirChildItem->next)
@@ -213,7 +213,7 @@ static gboolean perform_delete_operation_r(DeleteData *deleteData, GList *gnomeC
             auto gnomeCmdDir = GNOME_CMD_DIR (gnomeCmdFile);
             gnome_cmd_dir_list_files (gnomeCmdDir, FALSE);
 
-            if (!perform_delete_subdir(gnomeCmdDir, deleteData))
+            if (!perform_delete_subdirs(gnomeCmdDir, deleteData))
                 return FALSE;
 
             // Now remove the directory itself, as it is finally empty
