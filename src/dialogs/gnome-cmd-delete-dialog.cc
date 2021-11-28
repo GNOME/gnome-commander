@@ -214,14 +214,18 @@ static gboolean perform_delete_operation_r(DeleteData *deleteData, GList *gnomeC
             auto gnomeCmdDir = GNOME_CMD_DIR (gnomeCmdFile);
             gnome_cmd_dir_list_files (gnomeCmdDir, FALSE);
 
-            if (!perform_delete_subdirs(gnomeCmdDir, deleteData))
+            if (perform_delete_subdirs(gnomeCmdDir, deleteData))
+            {
+                // Now remove the directory itself, as it is finally empty
+                GList *directory = nullptr;
+                directory = g_list_append(directory, gnomeCmdFile);
+                perform_delete_operation_r (deleteData, directory);
+                g_list_free(directory);
+            }
+            else if (deleteData->stop)
+            {
                 return FALSE;
-
-            // Now remove the directory itself, as it is finally empty
-            GList *directory = nullptr;
-            directory = g_list_append(directory, gnomeCmdFile);
-            perform_delete_operation_r (deleteData, directory);
-            g_list_free(directory);
+            }
         }
         else if (tmpError)
         {
@@ -229,8 +233,7 @@ static gboolean perform_delete_operation_r(DeleteData *deleteData, GList *gnomeC
             g_propagate_error (&(deleteData->error), tmpError);
             deleteData->problemFileName = gnomeCmdFile->get_name();
             delete_progress_update(deleteData);
-            if (deleteData->stop)
-                return FALSE;
+            return FALSE;
         }
 
         deleteData->deletedGnomeCmdFiles = g_list_append(deleteData->deletedGnomeCmdFiles, gnomeCmdFile);
