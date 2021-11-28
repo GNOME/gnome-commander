@@ -206,6 +206,14 @@ static void do_legacy_mount_thread_func(GnomeCmdCon *con)
     do_legacy_mount(con);
 
     auto gFile = gnome_cmd_con_create_gfile(con, con->base_path);
+
+    if (!gFile)
+    {
+        con->open_failed_error = g_error_new(G_IO_ERROR, G_IO_ERROR_FAILED, "Unable to create a GFile object for the given path.");
+        set_con_mount_failed(con);
+        g_warning("Unable to create a GFile object for the given path.");
+        return;
+    }
     con->base_gFileInfo = g_file_query_info(gFile,
                               "*",
                               G_FILE_QUERY_INFO_NONE,
@@ -216,7 +224,7 @@ static void do_legacy_mount_thread_func(GnomeCmdCon *con)
     {
         con->open_failed_error = g_error_copy(error);
         set_con_mount_failed(con);
-        g_critical("Unable to mount the volume via legacy mount, error: %s", error->message);
+        g_warning("Unable to mount the volume via legacy mount, error: %s", error->message);
         g_error_free(error);
         return;
     }
@@ -385,6 +393,8 @@ static GFile *dev_create_gfile (GnomeCmdCon *con, GnomeCmdPath *gnomeCmdPath)
 
     GFile *newGFile = nullptr;
     GnomeCmdConDevice *dev_con = GNOME_CMD_CON_DEVICE (con);
+
+    g_return_val_if_fail (dev_con->priv->gMount != nullptr, nullptr);
 
     if (gnomeCmdPath)
     {

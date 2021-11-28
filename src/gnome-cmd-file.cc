@@ -64,6 +64,9 @@ G_DEFINE_TYPE (GnomeCmdFile, gnome_cmd_file, GNOME_CMD_TYPE_FILE_BASE)
 
 inline gboolean has_parent_dir (GnomeCmdFile *f)
 {
+    g_return_val_if_fail (f != nullptr, false);
+    g_return_val_if_fail (f->priv != nullptr, false);
+
     return f->priv->dir_handle && f->priv->dir_handle->ref;
 }
 
@@ -504,9 +507,13 @@ gchar *GnomeCmdFile::get_path()
 //ToDo: Try to remove usage of this method.
 gchar *GnomeCmdFile::get_real_path()
 {
-    auto gfile = get_gfile();
-    gchar *path = g_file_get_path (gfile);
-    g_object_unref (gfile);
+    auto gFileTmp = get_gfile();
+
+    if (!gFileTmp)
+        return nullptr;
+
+    gchar *path = g_file_get_path (gFileTmp);
+    g_object_unref (gFileTmp);
 
     return path;
 }
@@ -621,6 +628,9 @@ GFile *GnomeCmdFile::get_gfile(const gchar *name)
         else
             g_assert ("Non directory file without owning directory");
     }
+    if (!gFile)
+        return nullptr;
+
     auto filename = g_file_get_basename(gFile);
     auto childGFile = gnome_cmd_dir_get_child_gfile (::get_parent_dir (this), name ? name : filename);
     g_free(filename);

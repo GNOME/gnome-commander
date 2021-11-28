@@ -1789,6 +1789,8 @@ static void save_tabs(GSettings *gSettings, const char *gSettingsKey)
                 if (GNOME_CMD_FILE_LIST (fl) && gnome_cmd_con_is_local (fl->con))
                 {
                     gchar* realPath = GNOME_CMD_FILE (fl->cwd)->get_real_path();
+                    if (!realPath)
+                        continue;
                     g_variant_builder_add (&gVariantBuilder, GCMD_SETTINGS_FILE_LIST_TAB_FORMAT_STRING,
                                             realPath,
                                             (guchar) fileSelectorId,
@@ -1806,6 +1808,8 @@ static void save_tabs(GSettings *gSettings, const char *gSettingsKey)
                     if (GNOME_CMD_FILE_LIST (fl) && gnome_cmd_con_is_local (fl->con) && (fl==gnomeCmdFileSelector.file_list() || fl->locked))
                     {
                         gchar* realPath = GNOME_CMD_FILE (fl->cwd)->get_real_path();
+                        if (!realPath)
+                            continue;
                         g_variant_builder_add (&gVariantBuilder, GCMD_SETTINGS_FILE_LIST_TAB_FORMAT_STRING,
                                                 realPath,
                                                 (guchar) fileSelectorId,
@@ -1821,6 +1825,8 @@ static void save_tabs(GSettings *gSettings, const char *gSettingsKey)
                     if (GNOME_CMD_FILE_LIST (fl) && gnome_cmd_con_is_local (fl->con) && fl->locked)
                     {
                         gchar* realPath = GNOME_CMD_FILE (fl->cwd)->get_real_path();
+                        if (!realPath)
+                            continue;
                         g_variant_builder_add (&gVariantBuilder, GCMD_SETTINGS_FILE_LIST_TAB_FORMAT_STRING,
                                                 realPath,
                                                 (guchar) fileSelectorId,
