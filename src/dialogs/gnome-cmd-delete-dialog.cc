@@ -187,10 +187,9 @@ static gboolean perform_delete_subdirs(GnomeCmdDir *gnomeCmdDir, DeleteData *del
  */
 static gboolean perform_delete_operation_r(DeleteData *deleteData, GList *gnomeCmdFileGList)
 {
-    GError *tmpError = nullptr;
-
     for (GList *gCmdFileGListItem = gnomeCmdFileGList; gCmdFileGListItem; gCmdFileGListItem = gCmdFileGListItem->next)
     {
+        GError *tmpError = nullptr;
         if (deleteData->stop)
         {
             return FALSE;
