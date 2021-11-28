@@ -151,18 +151,18 @@ static gboolean perform_delete_subdirs(GnomeCmdDir *gnomeCmdDir, DeleteData *del
     gboolean deleted = TRUE;
     for (GList *dirChildItem = gnome_cmd_dir_get_files (gnomeCmdDir); dirChildItem; dirChildItem = dirChildItem->next)
     {
-        // 'deleted' can be set below within this for-loop
-        if (!deleted && deleteData->problem_action == DELETE_ERROR_ACTION_ABORT)
+        if (deleteData->problem_action == DELETE_ERROR_ACTION_ABORT)
         {
+            deleteData->stop = TRUE;
             gnome_cmd_dir_unref (gnomeCmdDir);
             return FALSE;
         }
-        if (!deleted && deleteData->problem_action == DELETE_ERROR_ACTION_RETRY)
+        if (deleteData->problem_action == DELETE_ERROR_ACTION_RETRY)
         {
             dirChildItem = dirChildItem->prev ? dirChildItem->prev : dirChildItem;
             deleteData->problem_action = -1;
         }
-        if (!deleted && deleteData->problem_action == DELETE_ERROR_ACTION_SKIP)
+        if (deleteData->problem_action == DELETE_ERROR_ACTION_SKIP)
         {
             // just go on and set problem_action to the default value
             deleteData->problem_action = -1;
@@ -175,7 +175,7 @@ static gboolean perform_delete_subdirs(GnomeCmdDir *gnomeCmdDir, DeleteData *del
 
         GList *childsList = nullptr;
         childsList = g_list_append(childsList, gnomeCmdFile);
-        deleted = perform_delete_operation_r (deleteData, childsList);
+        deleted &= perform_delete_operation_r (deleteData, childsList);
         g_list_free(childsList);
     }
     return deleted;
