@@ -209,6 +209,8 @@ static gboolean perform_delete_operation_r(DeleteData *deleteData, GList *gnomeC
 
         if (tmpError && g_error_matches (tmpError, G_IO_ERROR, G_IO_ERROR_NOT_EMPTY))
         {
+            g_error_free(tmpError);
+            tmpError = nullptr;
             auto gnomeCmdDir = GNOME_CMD_DIR (gnomeCmdFile);
             gnome_cmd_dir_list_files (gnomeCmdDir, FALSE);
 
