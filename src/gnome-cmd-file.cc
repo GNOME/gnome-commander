@@ -739,9 +739,6 @@ guint64 GnomeCmdFile::get_tree_size()
     if (is_dotdot)
         return 0;
 
-    if (priv->tree_size != (guint64)-1)
-        return priv->tree_size;
-
     priv->tree_size = calc_tree_size (nullptr);
 
     return priv->tree_size;
