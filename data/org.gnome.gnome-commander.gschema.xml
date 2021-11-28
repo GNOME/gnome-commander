@@ -694,7 +694,7 @@
       </description>
     </key>
     <key name="editor-cmd" type="s">
-      <default>'gedit %s'</default>
+      <default>'gedit %u'</default>
       <summary>Editor command</summary>
       <description>
           This string defines the command for starting the editor.
