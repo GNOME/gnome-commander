@@ -522,6 +522,10 @@ gchar *GnomeCmdFile::get_real_path()
 gchar *GnomeCmdFile::get_quoted_real_path()
 {
     gchar *path = get_real_path();
+
+    if (!path)
+        return nullptr;
+
     gchar *ret = quote_if_needed (path);
 
     g_free (path);

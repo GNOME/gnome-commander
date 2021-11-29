@@ -628,8 +628,12 @@ static void get_file_list (string &s, GList *sfl, F f)
     vector<string> a;
 
     for (GList *i = sfl; i; i = i->next)
-        a.push_back ((*f) (GNOME_CMD_FILE (i->data)));
+    {
+        auto value = (*f) (GNOME_CMD_FILE (i->data));
 
+        if (value)
+            a.push_back (value);
+    }
     join (s, a.begin(), a.end());
 }
 
@@ -640,7 +644,12 @@ inline void get_file_list (string &s, GList *sfl, F f, T t)
     vector<string> a;
 
     for (GList *i = sfl; i; i = i->next)
-        a.push_back ((*f) (GNOME_CMD_FILE (i->data), t));
+    {
+        auto value = (*f) (GNOME_CMD_FILE (i->data), t);
+
+        if (value)
+            a.push_back (value);
+    }
 
     join (s, a.begin(), a.end());
 }
