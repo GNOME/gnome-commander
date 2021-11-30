@@ -223,9 +223,9 @@ static void init (GnomeCmdConSmb *smb_con)
     con->is_local = FALSE;
     con->is_closeable = FALSE;
     con->go_text = g_strdup (_("Go to: Samba Network"));
-    con->go_pixmap = gnome_cmd_pixmap_new_from_icon ("gnome-fs-network", dev_icon_size);
-    con->open_pixmap = gnome_cmd_pixmap_new_from_icon ("gnome-fs-network", dev_icon_size);
-    con->close_pixmap = gnome_cmd_pixmap_new_from_icon ("gnome-fs-network", dev_icon_size);
+    con->go_pixmap = gnome_cmd_pixmap_new_from_icon ("folder-remote", dev_icon_size);
+    con->open_pixmap = gnome_cmd_pixmap_new_from_icon ("folder-remote", dev_icon_size);
+    con->close_pixmap = gnome_cmd_pixmap_new_from_icon ("folder-remote", dev_icon_size);
 }
 
 

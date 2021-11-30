@@ -121,9 +121,9 @@ static void init (GnomeCmdConHome *home_con)
     con->is_local = TRUE;
     con->is_closeable = FALSE;
     con->go_text = g_strdup (_("Go to: Home"));
-    con->go_pixmap = gnome_cmd_pixmap_new_from_icon ("gnome-fs-home", dev_icon_size);
-    con->open_pixmap = gnome_cmd_pixmap_new_from_icon ("gnome-fs-home", dev_icon_size);
-    con->close_pixmap = gnome_cmd_pixmap_new_from_icon ("gnome-fs-home", dev_icon_size);
+    con->go_pixmap = gnome_cmd_pixmap_new_from_icon ("user-home", dev_icon_size);
+    con->open_pixmap = gnome_cmd_pixmap_new_from_icon ("user-home", dev_icon_size);
+    con->close_pixmap = gnome_cmd_pixmap_new_from_icon ("user-home", dev_icon_size);
 
     GnomeCmdDir *dir = gnome_cmd_dir_new (con, new GnomeCmdPlainPath(g_get_home_dir ()));
 

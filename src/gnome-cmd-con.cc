@@ -54,16 +54,16 @@ static GtkObjectClass *parent_class = nullptr;
 
 
 // Keep this in sync with enum ConnectionMethodID in gnome-cmd-con.h
-const gchar *icon_name[] = {"gnome-fs-ssh",            // CON_SSH
-                            "gnome-fs-ftp",            // CON_FTP
-                            "gnome-fs-ftp",            // CON_ANON_FTP
+const gchar *icon_name[] = {"folder-remote",           // CON_SSH
+                            "folder-remote",           // CON_FTP
+                            "folder-remote",           // CON_ANON_FTP
 #ifdef HAVE_SAMBA
-                            "gnome-fs-smb",            // CON_SMB
+                            "folder-remote",           // CON_SMB
 #endif
-                            "gnome-fs-web",            // CON_DAV
-                            "gnome-fs-web",            // CON_DAVS
-                            "gnome-fs-network",        // CON_URI
-                            "gnome-fs-directory"};     // CON_FILE
+                            "folder-remote",           // CON_DAV
+                            "folder-remote",           // CON_DAVS
+                            "network-workgroup",       // CON_URI
+                            "folder"};                 // CON_FILE
 
 
 static void on_open_done (GnomeCmdCon *con)
