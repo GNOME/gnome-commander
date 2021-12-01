@@ -163,6 +163,7 @@ static gboolean remote_close (GnomeCmdCon *con)
     {
         g_warning("remote_close - g_file_find_enclosing_mount error: %s - %s", uri, error->message);
         g_error_free(error);
+        g_object_unref(gFileTmp);
         return false;
     }
 
