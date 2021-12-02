@@ -11,6 +11,7 @@ Bug fixes:
  * Fixed issue #13 (Directory size not updated while copying)
  * Fixed issue #16 (Start-left-dir doesn't work on '.' (dot directory))
  * Fixed issue #19 (FTP connections are not closed correctly)
+ * Fixed issue #28 (Write permissions are given to all users on an FTP server)
  * Fixed issue #33 (Get rid of deprecated gnome-vfs)
  * Fixed issue #39 (Copy fail when selecting a "drive")
  * Fixed issue #41 (Directory not unreferenced correctly from cache when renamed)

@@ -45,6 +45,9 @@
                             <para>Fixed issue #19 (FTP connections are not closed correctly)</para>
                         </listitem>
                         <listitem>
+                            <para>Fixed issue #28 (Write permissions are given to all users on an FTP server)</para>
+                        </listitem>
+                        <listitem>
                             <para>Fixed issue #33 (Get rid of deprecated gnome-vfs)</para>
                         </listitem>
                         <listitem>
