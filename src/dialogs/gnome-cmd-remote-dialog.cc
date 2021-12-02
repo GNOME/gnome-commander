@@ -110,7 +110,12 @@ inline void set_server (GtkListStore *store, GtkTreeIter *iter, GnomeCmdConRemot
                         -1);
 }
 
-
+/**
+ * @brief This function connects to the given GnomeCmdConRemote server.
+ *
+ * @param server The GnomeCmdConRemote to connect to.
+ * @return FALSE for the case it is called from g_timeout_add()
+ */
 static gboolean do_connect_real (GnomeCmdConRemote *server)
 {
     GnomeCmdCon *con = GNOME_CMD_CON (server);
