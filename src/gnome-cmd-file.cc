@@ -585,7 +585,7 @@ guint64 GnomeCmdFile::GetGfileAttributeUInt64(const char *attribute)
 }
 
 
-gchar *GnomeCmdFile::get_default_application_name_string()
+gchar *GnomeCmdFile::GetDefaultApplicationNameString()
 {
     auto contentType = GetGfileAttributeString (G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE);
 

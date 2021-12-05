@@ -108,7 +108,7 @@ struct GnomeCmdFile
     guint32 GetGfileAttributeUInt32(const char *attribute);
     guint64 GetGfileAttributeUInt64(const char *attribute);
     gchar *GetGfileAttributeString(const char *attribute);
-    gchar *get_default_application_name_string();
+    gchar *GetDefaultApplicationNameString();
     gchar *get_default_application_action_label(GAppInfo *gAppInfo);
     gchar *get_default_application_name(GAppInfo *gAppInfo);
     GAppInfo *GetAppInfoForContentType();

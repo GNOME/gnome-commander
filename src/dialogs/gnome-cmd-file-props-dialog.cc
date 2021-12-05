@@ -413,7 +413,7 @@ static GtkWidget *create_properties_tab (GnomeCmdFilePropsDialogPrivate *data)
         label = create_bold_label (dialog, _("Opens with:"));
         table_add (table, label, 0, y, GTK_FILL);
 
-        auto default_application_string = data->f->get_default_application_name_string();
+        auto default_application_string = data->f->GetDefaultApplicationNameString();
 
         if (default_application_string)
         {

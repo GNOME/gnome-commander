@@ -832,7 +832,7 @@ guint add_open_with_entries(GtkUIManager *ui_manager, GnomeCmdFileList *gnomeCmd
     gchar *openWithDefaultAppLabel = nullptr;
 
     // Only try to find a default application for the first file in the list of selected files
-    openWithDefaultAppName  = gnomeCmdFile->get_default_application_name_string();
+    openWithDefaultAppName  = gnomeCmdFile->GetDefaultApplicationNameString();
     auto gAppInfo = gnomeCmdFile->GetAppInfoForContentType();
     openWithDefaultAppLabel = gnomeCmdFile->get_default_application_action_label(gAppInfo);
 
