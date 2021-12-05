@@ -553,8 +553,14 @@ gchar *GnomeCmdFile::get_dirname()
 
 GAppInfo *GnomeCmdFile::GetAppInfoForContentType()
 {
-    auto contentTypeString = this->GetGfileAttributeString(G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE);
-    auto appInfo = g_app_info_get_default_for_type (contentTypeString, false);
+    auto contentTypeString = GetContentType();
+    GAppInfo *appInfo = nullptr;
+
+    if (g_file_has_uri_scheme(this->gFile, "file"))
+        appInfo = g_app_info_get_default_for_type (contentTypeString, false);
+    else
+        appInfo = g_app_info_get_default_for_type (contentTypeString, true);
+
     g_free(contentTypeString);
 
     return appInfo;
@@ -585,9 +591,23 @@ guint64 GnomeCmdFile::GetGfileAttributeUInt64(const char *attribute)
 }
 
 
-gchar *GnomeCmdFile::GetDefaultApplicationNameString()
+gchar *GnomeCmdFile::GetContentType()
 {
     auto contentType = GetGfileAttributeString (G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE);
+
+    if (!contentType)
+        contentType = GetGfileAttributeString(G_FILE_ATTRIBUTE_STANDARD_FAST_CONTENT_TYPE);
+
+    return contentType;
+}
+
+
+gchar *GnomeCmdFile::GetDefaultApplicationNameString()
+{
+    auto contentType = GetContentType();
+
+    if (!contentType)
+        return nullptr;
 
     auto appInfo = g_app_info_get_default_for_type (contentType, false);
 

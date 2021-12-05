@@ -863,7 +863,7 @@ guint add_open_with_entries(GtkUIManager *ui_manager, GnomeCmdFileList *gnomeCmd
     // Add menu items in the "Open with" submenu
     gint ii = -1;
     GList *gAppInfos, *tmp_list;
-    auto contentTypeString = gnomeCmdFile->GetGfileAttributeString(G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE);
+    auto contentTypeString = gnomeCmdFile->GetContentType();
     gAppInfos = tmp_list = g_app_info_get_all_for_type(contentTypeString);
     g_free(contentTypeString);
     for (; gAppInfos && ii < MAX_OPEN_WITH_APPS; gAppInfos = gAppInfos->next)
