@@ -1001,7 +1001,7 @@
           </para>
         </listitem>
       </itemizedlist>
-      <para>When not pressing a key while droping the selection, the default is to query for the action to be
+      <para>When not pressing a key while dropping the selection, the default is to query for the action to be
         executed, i.e. copy, move or create a symbolic link. In the &app; options you can change that behavior
         to copy or to move the selection. See also under <xref linkend="gnome-commander-prefs-confirmation"/>.
       </para>
