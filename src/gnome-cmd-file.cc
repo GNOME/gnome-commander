@@ -1036,10 +1036,10 @@ gboolean GnomeCmdFile::is_local()
 
 gboolean GnomeCmdFile::is_executable()
 {
-    if (GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE) != G_FILE_TYPE_REGULAR)
+    if (!is_local())
         return FALSE;
 
-    if (!is_local())
+    if (GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE) != G_FILE_TYPE_REGULAR)
         return FALSE;
 
     if (GetGfileAttributeBoolean(G_FILE_ATTRIBUTE_ACCESS_CAN_EXECUTE))
