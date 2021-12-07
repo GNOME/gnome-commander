@@ -1089,7 +1089,14 @@ void GnomeCmdFileSelector::update_style()
     update_connections();
 }
 
-
+/**
+ * @brief This function tries to create a new file.
+ *
+ * @param string_dialog a GnomeCmdStringDialog object reference
+ * @param values a pointer to char pointers
+ * @param fs a GnomeCmdFileSelector object reference
+ * @return TRUE if all went well, FALSE if not
+ */
 static gboolean on_new_textfile_ok (GnomeCmdStringDialog *string_dialog, const gchar **values, GnomeCmdFileSelector *fs)
 {
     g_return_val_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs), TRUE);
@@ -1105,26 +1112,27 @@ static gboolean on_new_textfile_ok (GnomeCmdStringDialog *string_dialog, const g
     GnomeCmdDir *dir = fs->get_directory();
     g_return_val_if_fail (GNOME_CMD_IS_DIR (dir), TRUE);
 
-    gchar *dpath = GNOME_CMD_FILE (dir)->get_real_path();
-    gchar *filepath = g_build_filename (dpath, fname, nullptr);
-    g_free (dpath);
-    g_return_val_if_fail (filepath, TRUE);
+    GError *error = nullptr;
+    auto uriBaseString = static_cast<gchar*>(GNOME_CMD_FILE (dir)->get_uri_str());
+    auto uriString = g_uri_resolve_relative (uriBaseString, fname, G_URI_FLAGS_NONE, &error);
+    g_free (uriBaseString);
+    if (error)
+    {
+        gnome_cmd_string_dialog_set_error_desc (string_dialog, g_strdup_printf("%s", error->message));
+        g_error_free(error);
+        return FALSE;
+    }
 
-    gchar *escaped_filepath = g_strdup_printf ("\"%s\"", filepath);
-#if defined (__GNUC__)
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wformat-nonliteral"
-#endif
-    gchar *cmd = g_strdup_printf (gnome_cmd_data.options.editor, escaped_filepath);
-#if defined (__GNUC__)
-#pragma GCC diagnostic pop
-#endif
-
-    g_free (filepath);
-    g_free (escaped_filepath);
-
-    if (cmd)
-        run_command (cmd);
+    auto gFile = g_file_new_for_uri(uriString);
+    g_free (uriString);
+    auto gFileOutputStream = g_file_create(gFile, G_FILE_CREATE_NONE, nullptr, &error);
+    if (error)
+    {
+        gnome_cmd_string_dialog_set_error_desc (string_dialog, g_strdup_printf("%s", error->message));
+        g_error_free(error);
+        return FALSE;
+    }
+    g_object_unref(gFileOutputStream);
 
     return TRUE;
 }
