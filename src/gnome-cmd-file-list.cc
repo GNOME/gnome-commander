@@ -2886,7 +2886,9 @@ gboolean GnomeCmdFileList::file_is_wanted(GnomeCmdFile *gnomeCmdFile)
                                    &error);
     if (error)
     {
-        g_message ("file_is_wanted: retrieving file info for %s failed: %s", g_file_info_get_name(gnomeCmdFile->gFileInfo), error->message);
+        auto uri = g_file_get_uri(gnomeCmdFile->gFile);
+        g_message ("file_is_wanted: retrieving file info for %s failed: %s", uri, error->message);
+        g_free(uri);
         g_error_free (error);
         return TRUE;
     }
