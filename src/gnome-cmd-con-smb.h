@@ -29,7 +29,13 @@
 #define GNOME_CMD_IS_CON_SMB_CLASS(klass)   (G_TYPE_CHECK_CLASS_TYPE ((klass), GNOME_CMD_TYPE_CON_SMB))
 #define GNOME_CMD_CON_SMB_GET_CLASS(obj)    (G_TYPE_INSTANCE_GET_CLASS((obj), GNOME_CMD_TYPE_CON_SMB, GnomeCmdConSmbClass))
 
-
+/**
+ * @brief Class for conecting to samba and show available workgroups
+ *
+ * This class is _not_ meant to be used when connecting to a single samba remote, e.g. to smb://server/share.
+ * Instead, it is used to search workgroups, therefore it will list available workgroubs through the connection
+ * to smb:///.
+ */
 struct GnomeCmdConSmb
 {
     GnomeCmdCon parent;
