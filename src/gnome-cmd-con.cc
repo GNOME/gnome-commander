@@ -91,6 +91,7 @@ static void destroy (GtkObject *object)
 
     g_free (con->alias);
     g_free (con->uri);
+    g_free (con->scheme);
 
     delete con->base_path;
     g_string_free (con->root_path, TRUE);
@@ -179,6 +180,7 @@ static void init (GnomeCmdCon *con)
 {
     con->alias = nullptr;
     con->uri = nullptr;
+    con->scheme = nullptr;
     con->method = CON_URI;
 
     con->base_path = nullptr;

@@ -77,6 +77,7 @@ struct GnomeCmdCon
 
     gchar               *alias;                 // coded as UTF-8
     gchar               *uri;
+    gchar               *scheme;
     ConnectionMethodID  method;
 
     gchar               *username;
@@ -171,6 +172,26 @@ inline void gnome_cmd_con_set_uri (GnomeCmdCon *con, const std::string &uri)
     g_return_if_fail (GNOME_CMD_IS_CON (con));
     g_free (con->uri);
     con->uri = uri.empty() ? NULL : g_strdup (uri.c_str());
+}
+
+inline const gchar *gnome_cmd_con_get_scheme (GnomeCmdCon *con)
+{
+    g_return_val_if_fail (GNOME_CMD_IS_CON (con), NULL);
+    return con->scheme;
+}
+
+inline void gnome_cmd_con_set_scheme (GnomeCmdCon *con, const gchar *scheme = nullptr)
+{
+    g_return_if_fail (GNOME_CMD_IS_CON (con));
+    g_free (con->scheme);
+    con->scheme = g_strdup(scheme);
+}
+
+inline void gnome_cmd_con_set_scheme (GnomeCmdCon *con, const std::string &scheme)
+{
+    g_return_if_fail (GNOME_CMD_IS_CON (con));
+    g_free (con->scheme);
+    con->scheme = scheme.empty() ? NULL : g_strdup (scheme.c_str());
 }
 
 GFile *gnome_cmd_con_create_gfile (GnomeCmdCon *con, GnomeCmdPath *path);

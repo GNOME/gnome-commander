@@ -614,6 +614,7 @@ gboolean gnome_cmd_connect_dialog_edit (GnomeCmdConRemote *server)
     {
         g_free(user_name);
         g_free(host);
+        gchar *scheme;
 
         GError *error = nullptr;
 
@@ -622,7 +623,7 @@ gboolean gnome_cmd_connect_dialog_edit (GnomeCmdConRemote *server)
             g_uri_split_with_user (
                 dialog->priv->uri_str.c_str(),
                 G_URI_FLAGS_HAS_PASSWORD,
-                nullptr, //scheme
+                &scheme,
                 &user_name,
                 nullptr, //password
                 nullptr, //auth_params
@@ -656,6 +657,7 @@ gboolean gnome_cmd_connect_dialog_edit (GnomeCmdConRemote *server)
 
         gnome_cmd_con_set_user_name (con, user_name);
         gnome_cmd_con_set_host_name (con, host);
+        gnome_cmd_con_set_scheme(con, scheme);
         gnome_cmd_con_set_root_path(con, path);
         if (port != -1)
             gnome_cmd_con_set_port(con, port);
@@ -668,6 +670,7 @@ gboolean gnome_cmd_connect_dialog_edit (GnomeCmdConRemote *server)
         g_free(user_name);
         g_free(host);
         g_free(path);
+        g_free(scheme);
     }
 
     gtk_widget_destroy (*dialog);

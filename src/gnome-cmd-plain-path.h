@@ -40,10 +40,12 @@ class GnomeCmdPlainPath: public GnomeCmdPath
   public:
 
     GnomeCmdPlainPath(const GnomeCmdPlainPath &thePath);
+
     explicit GnomeCmdPlainPath(const gchar *plain_path)
     {
       this->path = g_strdup (plain_path);
     }
+
     virtual ~GnomeCmdPlainPath()
     {
       g_free (path);

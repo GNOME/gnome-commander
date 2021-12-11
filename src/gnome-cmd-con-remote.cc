@@ -199,10 +199,9 @@ static GFile *remote_create_gfile (GnomeCmdCon *con, GnomeCmdPath *path)
 {
     g_return_val_if_fail (con->uri != nullptr, nullptr);
 
-    auto *gFileTmp = g_file_new_for_uri (con->uri);
-    auto gFile = g_file_resolve_relative_path (gFileTmp, path->get_path());
-
-    g_object_unref (gFileTmp);
+    auto uri = g_strdup_printf("%s://%s%s", con->scheme, con->hostname, path->get_path());
+    auto gFile = g_file_new_for_uri (uri);
+    g_free(uri);
 
     return gFile;
 }
