@@ -646,7 +646,7 @@ string &__gnome_cmd_con_make_uri (string &s, const gchar *method, string &server
 }
 
 #ifdef HAVE_SAMBA
-std::string &gnome_cmd_con_make_smb_uri (std::string &uriString, std::string &server, std::string &share, std::string &folder, std::string &domain, std::string &user, std::string &password)
+std::string &gnome_cmd_con_make_smb_uri (std::string &uriString, std::string &server, string &port, std::string &share, std::string &folder, std::string &domain, std::string &user, std::string &password)
 {
     user = stringify (g_strescape (user.c_str(), nullptr));
     password = stringify (g_strescape (password.c_str(), nullptr));
@@ -675,6 +675,10 @@ std::string &gnome_cmd_con_make_smb_uri (std::string &uriString, std::string &se
         uriString += user + '@';
 
     uriString += server;
+
+    if (!port.empty())
+        uriString += ':' + port;
+
     uriString += "/";
     uriString += folder;
 

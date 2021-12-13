@@ -604,7 +604,7 @@ gboolean gnome_cmd_connect_dialog_edit (GnomeCmdConRemote *server)
             }
 #endif
 
-        if (port)
+        if (port != -1)
             gtk_entry_set_text (GTK_ENTRY (dialog->priv->port_entry), stringify(port).c_str());
     }
 
@@ -649,7 +649,7 @@ gboolean gnome_cmd_connect_dialog_edit (GnomeCmdConRemote *server)
             host = g_strdup(gtk_entry_get_text (GTK_ENTRY (dialog->priv->server_entry)));
             path = g_strdup(gtk_entry_get_text (GTK_ENTRY (dialog->priv->folder_entry)));
             auto portChar = gtk_entry_get_text (GTK_ENTRY (dialog->priv->port_entry));
-            port = portChar ? atoi(portChar) : 0;
+            port = portChar ? atoi(portChar) : -1;
         }
 
         auto alias = dialog->priv->alias ? dialog->priv->alias->c_str() : nullptr;

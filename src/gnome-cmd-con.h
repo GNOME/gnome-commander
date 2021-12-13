@@ -82,7 +82,7 @@ struct GnomeCmdCon
 
     gchar               *username;
     gchar               *hostname;
-    guint16             port{0};
+    gint16              port{-1};
     gchar               *open_msg;
     GnomeCmdPath        *base_path;
     GFileInfo           *base_gFileInfo;
@@ -252,13 +252,13 @@ inline void gnome_cmd_con_set_host_name (GnomeCmdCon *con, const gchar *host)
     con->open_msg = g_strdup_printf (_("Connecting to %s\n"), host ? host : "<?>");
 }
 
-inline void gnome_cmd_con_set_port (GnomeCmdCon *con, guint16 port)
+inline void gnome_cmd_con_set_port (GnomeCmdCon *con, gint16 port)
 {
     g_return_if_fail (GNOME_CMD_IS_CON (con));
     con->port = port;
 }
 
-inline guint16 gnome_cmd_con_get_port (GnomeCmdCon *con)
+inline gint16 gnome_cmd_con_get_port (GnomeCmdCon *con)
 {
     g_return_val_if_fail (GNOME_CMD_IS_CON (con), 0);
     return con->port;
@@ -507,7 +507,7 @@ inline std::string &gnome_cmd_con_make_ftp_uri (std::string &s, std::string &ser
 }
 
 #ifdef HAVE_SAMBA
-std::string &gnome_cmd_con_make_smb_uri (std::string &s, std::string &server, std::string &share, std::string &folder, std::string &domain, std::string &user, std::string &password);
+std::string &gnome_cmd_con_make_smb_uri (std::string &s, std::string &server, std::string &port, std::string &share, std::string &folder, std::string &domain, std::string &user, std::string &password);
 #endif
 
 inline std::string &gnome_cmd_con_make_dav_uri (std::string &s, std::string &server, std::string &port, std::string &folder, std::string &user, std::string &password)
@@ -530,7 +530,7 @@ inline std::string &gnome_cmd_con_make_uri (std::string &s, ConnectionMethodID m
         case CON_SSH:       return gnome_cmd_con_make_ssh_uri (s, server, port, folder, user, password);
 
 #ifdef HAVE_SAMBA
-        case CON_SMB:       return gnome_cmd_con_make_smb_uri (s, server, share, folder, domain, user, password);
+        case CON_SMB:       return gnome_cmd_con_make_smb_uri (s, server, port, share, folder, domain, user, password);
 #endif
 
         case CON_DAV:       return gnome_cmd_con_make_dav_uri (s, server, port, folder, user, password);
