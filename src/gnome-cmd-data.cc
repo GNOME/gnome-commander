@@ -53,8 +53,6 @@ struct GnomeCmdData::Private
 {
     GnomeCmdConList *con_list;
     GList           *auto_load_plugins;
-
-    gchar           *ftp_anonymous_password;
 };
 
 GSettingsSchemaSource* GnomeCmdData::GetGlobalSchemaSource()
@@ -902,12 +900,6 @@ static void on_terminal_exec_cmd_changed()
     gnome_cmd_data.options.termexec = terminal_exec_cmd;
 }
 
-static void on_ftp_anonymous_password_changed()
-{
-    g_free(gnome_cmd_data.priv->ftp_anonymous_password);
-    gnome_cmd_data.priv->ftp_anonymous_password = g_settings_get_string (gnome_cmd_data.options.gcmd_settings->network, GCMD_SETTINGS_FTP_ANONYMOUS_PASSWORD);
-}
-
 static void on_use_gcmd_block_changed()
 {
     gnome_cmd_data.use_gcmd_block = g_settings_get_boolean (gnome_cmd_data.options.gcmd_settings->programs, GCMD_SETTINGS_USE_GCMD_BLOCK);
@@ -1334,11 +1326,6 @@ static void gcmd_connect_gsettings_signals(GcmdSettings *gs)
     g_signal_connect (gs->programs,
                       "changed::use-gcmd-block",
                       G_CALLBACK (on_use_gcmd_block_changed),
-                      nullptr);
-
-    g_signal_connect (gs->network,
-                      "changed::ftp-anonymous-password",
-                      G_CALLBACK (on_ftp_anonymous_password_changed),
                       nullptr);
 
 }
@@ -2710,9 +2697,6 @@ GnomeCmdData::~GnomeCmdData()
             // gtk_object_destroy (GTK_OBJECT (quick_connect));
         }
 
-        // free the anonymous password string
-        g_free (priv->ftp_anonymous_password);
-
         g_free (priv);
     }
 }
@@ -3240,8 +3224,6 @@ void GnomeCmdData::load()
 
     main_win_state = (GdkWindowState) g_settings_get_uint (options.gcmd_settings->general, GCMD_SETTINGS_MAIN_WIN_STATE);
 
-    priv->ftp_anonymous_password = g_settings_get_string (options.gcmd_settings->network, GCMD_SETTINGS_FTP_ANONYMOUS_PASSWORD);
-
     advrename_defaults.width = g_settings_get_uint (options.gcmd_settings->general, GCMD_SETTINGS_ADVRENAME_TOOL_WIDTH);
     advrename_defaults.height = g_settings_get_uint (options.gcmd_settings->general, GCMD_SETTINGS_ADVRENAME_TOOL_HEIGHT);
     advrename_defaults.templates.ents = get_list_from_gsettings_string_array (options.gcmd_settings->general, GCMD_SETTINGS_ADVRENAME_TOOL_TEMPLATE_HISTORY);
@@ -3639,8 +3621,6 @@ void GnomeCmdData::save()
 
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_MAIN_WIN_STATE, &(main_win_state));
 
-    set_gsettings_when_changed      (options.gcmd_settings->network, GCMD_SETTINGS_FTP_ANONYMOUS_PASSWORD, priv->ftp_anonymous_password);
-
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_ADVRENAME_TOOL_WIDTH, &(advrename_defaults.width));
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_ADVRENAME_TOOL_HEIGHT, &(advrename_defaults.height));
     set_gsettings_string_array_from_glist(options.gcmd_settings->general, GCMD_SETTINGS_ADVRENAME_TOOL_TEMPLATE_HISTORY, advrename_defaults.templates.ents);
@@ -3862,20 +3842,6 @@ GnomeCmdData::AdvrenameConfig::Profile::~Profile(){};
 gpointer gnome_cmd_data_get_con_list ()
 {
     return gnome_cmd_data.priv->con_list;
-}
-
-
-const gchar *gnome_cmd_data_get_ftp_anonymous_password ()
-{
-    return gnome_cmd_data.priv->ftp_anonymous_password;
-}
-
-
-void gnome_cmd_data_set_ftp_anonymous_password (const gchar *pw)
-{
-    g_free (gnome_cmd_data.priv->ftp_anonymous_password);
-
-    gnome_cmd_data.priv->ftp_anonymous_password = g_strdup (pw);
 }
 
 

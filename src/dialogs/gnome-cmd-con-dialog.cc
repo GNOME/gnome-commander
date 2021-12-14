@@ -74,7 +74,6 @@ struct GnomeCmdConnectDialog::Private
     GtkWidget *port_entry;
     GtkWidget *folder_entry;
     GtkWidget *domain_entry;
-    GtkWidget *user_entry;
 
     Private();
     ~Private();
@@ -93,7 +92,6 @@ inline GnomeCmdConnectDialog::Private::Private()
     port_entry = gtk_entry_new ();
     folder_entry = gtk_entry_new ();
     domain_entry = gtk_entry_new ();
-    user_entry = gtk_entry_new ();
 
     gtk_entry_set_activates_default (GTK_ENTRY (alias_entry), TRUE);
     gtk_entry_set_activates_default (GTK_ENTRY (uri_entry), TRUE);
@@ -101,7 +99,6 @@ inline GnomeCmdConnectDialog::Private::Private()
     gtk_entry_set_activates_default (GTK_ENTRY (share_entry), TRUE);
     gtk_entry_set_activates_default (GTK_ENTRY (port_entry), TRUE);
     gtk_entry_set_activates_default (GTK_ENTRY (folder_entry), TRUE);
-    gtk_entry_set_activates_default (GTK_ENTRY (user_entry), TRUE);
 
     // We need an extra ref so we can remove them from the table
     g_object_ref (alias_entry);
@@ -111,7 +108,6 @@ inline GnomeCmdConnectDialog::Private::Private()
     g_object_ref (port_entry);
     g_object_ref (folder_entry);
     g_object_ref (domain_entry);
-    g_object_ref (user_entry);
 }
 
 
@@ -124,7 +120,6 @@ inline GnomeCmdConnectDialog::Private::~Private()
     g_object_unref (port_entry);
     g_object_unref (folder_entry);
     g_object_unref (domain_entry);
-    g_object_unref (user_entry);
 
     delete alias;
 }
@@ -152,9 +147,6 @@ void GnomeCmdConnectDialog::Private::setup_for_type()
     if (folder_entry->parent)
         gtk_container_remove (GTK_CONTAINER (optional_table), folder_entry);
 
-    if (user_entry->parent)
-        gtk_container_remove (GTK_CONTAINER (optional_table), user_entry);
-
     if (domain_entry->parent)
         gtk_container_remove (GTK_CONTAINER (optional_table), domain_entry);
 
@@ -164,7 +156,7 @@ void GnomeCmdConnectDialog::Private::setup_for_type()
     gint i = 1;
     GtkWidget *table = required_table;
 
-    gboolean show_share, show_port, show_user, show_domain;
+    gboolean show_share, show_port, show_domain;
 
     show_entry (table, alias_entry, _("_Alias:"), i);
 
@@ -181,14 +173,12 @@ void GnomeCmdConnectDialog::Private::setup_for_type()
         case CON_DAVS:
             show_share = FALSE;
             show_port = TRUE;
-            show_user = TRUE;
             show_domain = FALSE;
             break;
 
        case CON_ANON_FTP:
             show_share = FALSE;
             show_port = TRUE;
-            show_user = FALSE;
             show_domain = FALSE;
             break;
 
@@ -196,7 +186,6 @@ void GnomeCmdConnectDialog::Private::setup_for_type()
         case CON_SMB:
             show_share = TRUE;
             show_port = FALSE;
-            show_user = TRUE;
             show_domain = TRUE;
             break;
 #endif
@@ -244,9 +233,6 @@ void GnomeCmdConnectDialog::Private::setup_for_type()
 
     show_entry (table, folder_entry, _("_Folder:"), i);
 
-    if (show_user)
-        show_entry (table, user_entry, _("_User name:"), i);
-
     if (show_domain)
         show_entry (table, domain_entry, _("_Domain name:"), i);
 }
@@ -277,8 +263,6 @@ gboolean GnomeCmdConnectDialog::verify_uri()
     string port;
     string folder;
     string domain;
-    string user;
-    string password;
 
     if (priv->uri_entry->parent)
         stringify (uri, gtk_editable_get_chars (GTK_EDITABLE (priv->uri_entry), 0, -1));
@@ -298,9 +282,6 @@ gboolean GnomeCmdConnectDialog::verify_uri()
     if (priv->domain_entry->parent)
         stringify (domain, gtk_editable_get_chars (GTK_EDITABLE (priv->domain_entry), 0, -1));
 
-    if (priv->user_entry->parent)
-        stringify (user, gtk_editable_get_chars (GTK_EDITABLE (priv->user_entry), 0, -1));
-
     int type = gtk_combo_box_get_active (GTK_COMBO_BOX (priv->type_combo));
 
     if (type!=CON_URI && server.empty())
@@ -310,10 +291,7 @@ gboolean GnomeCmdConnectDialog::verify_uri()
         return FALSE;
     }
 
-    if (type==CON_ANON_FTP)
-        user = "anonymous";
-
-    gnome_cmd_con_make_uri (uri, (ConnectionMethodID) type, uri, server, share, port, folder, domain, user, password);
+    gnome_cmd_con_make_uri (uri, (ConnectionMethodID) type, uri, server, share, port, folder, domain);
 
     if (type==CON_URI && !uri_is_valid(uri.c_str()))
     {
@@ -553,7 +531,6 @@ gboolean gnome_cmd_connect_dialog_edit (GnomeCmdConRemote *server)
      auto host = g_strdup(gnome_cmd_con_get_host_name(con));
      gint port = gnome_cmd_con_get_port (con);
      auto path = gnome_cmd_con_get_root_path(con);
-     auto user_name = g_strdup(gnome_cmd_con_get_user_name (con));
 
     if (con->uri)
     {
@@ -577,29 +554,12 @@ gboolean gnome_cmd_connect_dialog_edit (GnomeCmdConRemote *server)
                     gtk_entry_set_text (GTK_ENTRY (dialog->priv->folder_entry), path);
 
                 g_strfreev (a);
-
-                if (user_name)
-                {
-                    a = g_strsplit (user_name, ";", 2);
-                    if (g_strv_length (a) > 1)
-                    {
-                        gtk_entry_set_text (GTK_ENTRY (dialog->priv->domain_entry), a[0]);
-                        gtk_entry_set_text (GTK_ENTRY (dialog->priv->user_entry), a[1]);
-                    }
-                    else
-                    {
-                        gtk_entry_set_text (GTK_ENTRY (dialog->priv->user_entry), user_name);
-                    }
-                    g_strfreev (a);
-                }
             }
             else
             {
 #endif
                 if (path)
                     gtk_entry_set_text (GTK_ENTRY (dialog->priv->folder_entry), path);
-                if (user_name)
-                    gtk_entry_set_text (GTK_ENTRY (dialog->priv->user_entry), user_name);
 #ifdef HAVE_SAMBA
             }
 #endif
@@ -612,7 +572,6 @@ gboolean gnome_cmd_connect_dialog_edit (GnomeCmdConRemote *server)
 
     if (response == GTK_RESPONSE_OK)
     {
-        g_free(user_name);
         g_free(host);
         gchar *scheme;
 
@@ -620,12 +579,10 @@ gboolean gnome_cmd_connect_dialog_edit (GnomeCmdConRemote *server)
 
         if (dialog->priv->uri_str.c_str())
         {
-            g_uri_split_with_user (
+            g_uri_split (
                 dialog->priv->uri_str.c_str(),
-                G_URI_FLAGS_HAS_PASSWORD,
+                G_URI_FLAGS_NONE,
                 &scheme,
-                &user_name,
-                nullptr, //password
                 nullptr, //auth_params
                 &host, //host
                 &port, //port
@@ -636,16 +593,33 @@ gboolean gnome_cmd_connect_dialog_edit (GnomeCmdConRemote *server)
             );
             if (error)
             {
-                g_warning("gnome_cmd_connect_dialog_edit - g_uri_split_with_user error: %s", error->message);
+                g_warning("gnome_cmd_connect_dialog_edit - g_uri_split error: %s", error->message);
                 g_error_free(error);
                 return FALSE;
             }
-
-            gnome_cmd_con_set_uri (con, dialog->priv->uri_str);
+#ifdef HAVE_SAMBA
+            if (!strcmp(scheme, "smb"))
+            {
+                auto uriString = path
+                    ? g_strdup_printf("%s://%s/%s/", scheme, host, path)
+                    : g_strdup_printf("%s://%s/", scheme, host);
+                gnome_cmd_con_set_uri (con, uriString);
+                g_free(uriString);
+            }
+            else
+            {
+#endif
+                auto uriString = port != -1
+                    ? g_strdup_printf("%s://%s:%d/", scheme, host, port)
+                    : g_strdup_printf("%s://%s/", scheme, host);
+                gnome_cmd_con_set_uri (con, uriString);
+                g_free(uriString);
+#ifdef HAVE_SAMBA
+            }
+#endif
         }
         else
         {
-            user_name = g_strdup(gtk_entry_get_text (GTK_ENTRY (dialog->priv->user_entry)));
             host = g_strdup(gtk_entry_get_text (GTK_ENTRY (dialog->priv->server_entry)));
             path = g_strdup(gtk_entry_get_text (GTK_ENTRY (dialog->priv->folder_entry)));
             auto portChar = gtk_entry_get_text (GTK_ENTRY (dialog->priv->port_entry));
@@ -655,8 +629,6 @@ gboolean gnome_cmd_connect_dialog_edit (GnomeCmdConRemote *server)
         auto alias = dialog->priv->alias ? dialog->priv->alias->c_str() : nullptr;
         gnome_cmd_con_set_alias (con, alias);
 
-        gnome_cmd_con_set_user_name (con, user_name);
-        gnome_cmd_con_set_host_name (con, host);
         gnome_cmd_con_set_scheme(con, scheme);
         gnome_cmd_con_set_root_path(con, path);
         if (port != -1)
@@ -667,7 +639,6 @@ gboolean gnome_cmd_connect_dialog_edit (GnomeCmdConRemote *server)
 
         gnome_cmd_con_remote_set_tooltips (server, host);
 
-        g_free(user_name);
         g_free(host);
         g_free(path);
         g_free(scheme);

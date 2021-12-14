@@ -208,7 +208,6 @@ GcmdSettings *gcmd_settings_new (void);
 
 #define GCMD_PREF_NETWORK                             "org.gnome.gnome-commander.preferences.network"
 #define GCMD_SETTINGS_QUICK_CONNECT_URI               "quick-connect-uri"
-#define GCMD_SETTINGS_FTP_ANONYMOUS_PASSWORD          "ftp-anonymous-password"
 
 #define GCMD_PREF_INTERNAL_VIEWER                     "org.gnome.gnome-commander.preferences.internal-viewer"
 #define GCMD_SETTINGS_IV_CASE_SENSITIVE               "case-sensitive-search"
@@ -750,9 +749,6 @@ struct GnomeCmdData
 };
 
 gpointer gnome_cmd_data_get_con_list ();
-
-const gchar *gnome_cmd_data_get_ftp_anonymous_password ();
-void gnome_cmd_data_set_ftp_anonymous_password (const gchar *pw);
 
 GList *gnome_cmd_data_get_auto_load_plugins ();
 void gnome_cmd_data_set_auto_load_plugins (GList *plugins);

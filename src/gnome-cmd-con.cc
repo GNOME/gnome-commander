@@ -610,23 +610,11 @@ const gchar *gnome_cmd_con_get_icon_name (ConnectionMethodID method)
 }
 
 
-string &__gnome_cmd_con_make_uri (string &s, const gchar *method, string &server, string &port, string &folder, string &user, string &password)
+string &__gnome_cmd_con_make_uri (string &s, const gchar *method, string &server, string &port, string &folder)
 {
-    user = stringify (g_strescape (user.c_str(), nullptr));
-    password = stringify (g_strescape (password.c_str(), nullptr));
-
-    if (!password.empty())
-    {
-        user += ':';
-        user += password;
-    }
-
     folder = stringify (g_uri_escape_string (folder.c_str(), nullptr, true));
 
     s = method;
-
-    if (!user.empty())
-        s += user + '@';
 
     s += server;
 
@@ -646,20 +634,8 @@ string &__gnome_cmd_con_make_uri (string &s, const gchar *method, string &server
 }
 
 #ifdef HAVE_SAMBA
-std::string &gnome_cmd_con_make_smb_uri (std::string &uriString, std::string &server, string &port, std::string &share, std::string &folder, std::string &domain, std::string &user, std::string &password)
+std::string &gnome_cmd_con_make_smb_uri (std::string &uriString, std::string &server, std::string &share, std::string &folder, std::string &domain)
 {
-    user = stringify (g_strescape (user.c_str(), nullptr));
-    password = stringify (g_strescape (password.c_str(), nullptr));
-
-    if (!password.empty())
-    {
-        user += ':';
-        user += password;
-    }
-
-    if (!domain.empty())
-        user = domain + ';' + user;
-
     const gchar *joinSign = !folder.empty() && folder[0] != '/' ? "/" : "";
 
     folder = share + joinSign + folder;
@@ -671,13 +647,10 @@ std::string &gnome_cmd_con_make_smb_uri (std::string &uriString, std::string &se
 
     uriString = "smb://";
 
-    if (!user.empty())
-        uriString += user + '@';
+    if (!domain.empty())
+        uriString = domain + ';';
 
     uriString += server;
-
-    if (!port.empty())
-        uriString += ':' + port;
 
     uriString += "/";
     uriString += folder;

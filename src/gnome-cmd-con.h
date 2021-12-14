@@ -472,7 +472,7 @@ inline ConnectionMethodID gnome_cmd_con_get_scheme (const gchar *uriString)
     return retValue;
 }
 
-std::string &__gnome_cmd_con_make_uri (std::string &s, const gchar *method, std::string &server, std::string &port, std::string &folder, std::string &user, std::string &password);
+std::string &__gnome_cmd_con_make_uri (std::string &s, const gchar *method, std::string &server, std::string &port, std::string &folder);
 
 inline std::string &gnome_cmd_con_make_custom_uri (std::string &s, const std::string &uri)
 {
@@ -491,51 +491,46 @@ inline std::string &gnome_cmd_con_make_custom_uri (std::string &s, const std::st
     return s;
 }
 
-inline std::string &gnome_cmd_con_make_ssh_uri (std::string &s, std::string &server, std::string &port, std::string &folder, std::string &user, std::string &password)
+inline std::string &gnome_cmd_con_make_ssh_uri (std::string &s, std::string &server, std::string &port, std::string &folder)
 {
-    return __gnome_cmd_con_make_uri (s, "sftp://", server, port, folder, user, password);
+    return __gnome_cmd_con_make_uri (s, "sftp://", server, port, folder);
 }
 
-inline std::string &gnome_cmd_con_make_ftp_uri (std::string &s, std::string &server, std::string &port, std::string &folder, std::string &user, std::string &password)
+inline std::string &gnome_cmd_con_make_ftp_uri (std::string &s, std::string &server, std::string &port, std::string &folder)
 {
-    if (user=="anonymous")
-    {
-        password = gnome_cmd_data_get_ftp_anonymous_password ();
-    }
-
-    return __gnome_cmd_con_make_uri (s, "ftp://", server, port, folder, user, password);
+    return __gnome_cmd_con_make_uri (s, "ftp://", server, port, folder);
 }
 
 #ifdef HAVE_SAMBA
-std::string &gnome_cmd_con_make_smb_uri (std::string &s, std::string &server, std::string &port, std::string &share, std::string &folder, std::string &domain, std::string &user, std::string &password);
+std::string &gnome_cmd_con_make_smb_uri (std::string &s, std::string &server, std::string &share, std::string &folder, std::string &domain);
 #endif
 
-inline std::string &gnome_cmd_con_make_dav_uri (std::string &s, std::string &server, std::string &port, std::string &folder, std::string &user, std::string &password)
+inline std::string &gnome_cmd_con_make_dav_uri (std::string &s, std::string &server, std::string &port, std::string &folder)
 {
-    return __gnome_cmd_con_make_uri (s, "dav://", server, port, folder, user, password);
+    return __gnome_cmd_con_make_uri (s, "dav://", server, port, folder);
 }
 
-inline std::string &gnome_cmd_con_make_davs_uri (std::string &s, std::string &server, std::string &port, std::string &folder, std::string &user, std::string &password)
+inline std::string &gnome_cmd_con_make_davs_uri (std::string &s, std::string &server, std::string &port, std::string &folder)
 {
-    return __gnome_cmd_con_make_uri (s, "davs://", server, port, folder, user, password);
+    return __gnome_cmd_con_make_uri (s, "davs://", server, port, folder);
 }
 
-inline std::string &gnome_cmd_con_make_uri (std::string &s, ConnectionMethodID method, std::string &uri, std::string &server, std::string &share, std::string &port, std::string &folder, std::string &domain, std::string &user, std::string &password)
+inline std::string &gnome_cmd_con_make_uri (std::string &s, ConnectionMethodID method, std::string &uri, std::string &server, std::string &share, std::string &port, std::string &folder, std::string &domain)
 {
     switch (method)
     {
         case CON_FTP:
-        case CON_ANON_FTP:  return gnome_cmd_con_make_ftp_uri (s, server, port, folder, user, password);
+        case CON_ANON_FTP:  return gnome_cmd_con_make_ftp_uri (s, server, port, folder);
 
-        case CON_SSH:       return gnome_cmd_con_make_ssh_uri (s, server, port, folder, user, password);
+        case CON_SSH:       return gnome_cmd_con_make_ssh_uri (s, server, port, folder);
 
 #ifdef HAVE_SAMBA
-        case CON_SMB:       return gnome_cmd_con_make_smb_uri (s, server, port, share, folder, domain, user, password);
+        case CON_SMB:       return gnome_cmd_con_make_smb_uri (s, server, share, folder, domain);
 #endif
 
-        case CON_DAV:       return gnome_cmd_con_make_dav_uri (s, server, port, folder, user, password);
+        case CON_DAV:       return gnome_cmd_con_make_dav_uri (s, server, port, folder);
 
-        case CON_DAVS:      return gnome_cmd_con_make_davs_uri (s, server, port, folder, user, password);
+        case CON_DAVS:      return gnome_cmd_con_make_davs_uri (s, server, port, folder);
 
         case CON_URI:       return gnome_cmd_con_make_custom_uri (s, uri);
 

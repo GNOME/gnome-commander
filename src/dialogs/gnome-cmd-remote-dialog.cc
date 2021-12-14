@@ -38,7 +38,6 @@ using namespace std;
 struct GnomeCmdRemoteDialog::Private
 {
     GtkWidget *connection_list;
-    GtkWidget *anonymous_pw_entry;
     GtkWidget *connect_button;
 };
 
@@ -137,10 +136,6 @@ inline void GnomeCmdRemoteDialog::do_connect(GnomeCmdConRemote *server)
 
     if (!server)        // exit as there is no server selected
         return;
-
-    // store the anonymous ftp password as the user might have changed it
-    const gchar *anon_pw = gtk_entry_get_text (GTK_ENTRY (priv->anonymous_pw_entry));
-    gnome_cmd_data_set_ftp_anonymous_password (anon_pw);
 
     gtk_widget_destroy (*this);
 
@@ -405,7 +400,7 @@ static void gnome_cmd_remote_dialog_class_init (GnomeCmdRemoteDialogClass *klass
 
 static void gnome_cmd_remote_dialog_init (GnomeCmdRemoteDialog *dialog)
 {
-    GtkWidget *cat_box, *table, *cat, *sw, *label, *button, *bbox;
+    GtkWidget *cat_box, *table, *cat, *sw, *button, *bbox;
 
     dialog->priv = g_new0 (GnomeCmdRemoteDialog::Private, 1);
 
@@ -446,12 +441,6 @@ static void gnome_cmd_remote_dialog_init (GnomeCmdRemoteDialog *dialog)
     table = create_table (*dialog, 1, 2);
     cat = create_category (*dialog, table, _("Options"));
     gnome_cmd_dialog_add_category (*dialog, cat);
-
-    label = create_label (*dialog, _("Anonymous FTP password:"));
-    table_add (table, label, 0, 0, (GtkAttachOptions) 0);
-
-    dialog->priv->anonymous_pw_entry = create_entry (*dialog, "anonymous_pw_entry", gnome_cmd_data_get_ftp_anonymous_password ());
-    table_add (table, dialog->priv->anonymous_pw_entry, 1, 0, GTK_FILL);
 
     gnome_cmd_dialog_add_button (*dialog, GTK_STOCK_HELP, GTK_SIGNAL_FUNC (on_help_btn_clicked), dialog);
     gnome_cmd_dialog_add_button (*dialog, GTK_STOCK_CLOSE, GTK_SIGNAL_FUNC (on_close_btn_clicked), dialog);
