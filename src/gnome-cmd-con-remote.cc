@@ -325,9 +325,9 @@ GtkType gnome_cmd_con_remote_get_type ()
  */
 GnomeCmdConRemote *gnome_cmd_con_remote_new (const gchar *alias, const string &uri_str)
 {
-    auto server = static_cast<GnomeCmdConRemote*> (g_object_new (GNOME_CMD_TYPE_CON_REMOTE, nullptr));
+    auto gnomeCmdConRemote = static_cast<GnomeCmdConRemote*> (g_object_new (GNOME_CMD_TYPE_CON_REMOTE, nullptr));
 
-    g_return_val_if_fail (server != nullptr, nullptr);
+    g_return_val_if_fail (gnomeCmdConRemote != nullptr, nullptr);
 
     GError *error = nullptr;
 
@@ -357,7 +357,7 @@ GnomeCmdConRemote *gnome_cmd_con_remote_new (const gchar *alias, const string &u
         return nullptr;
     }
 
-    GnomeCmdCon *con = GNOME_CMD_CON (server);
+    GnomeCmdCon *con = GNOME_CMD_CON (gnomeCmdConRemote);
 
     gnome_cmd_con_set_alias (con, alias);
     gnome_cmd_con_set_uri (con, uri_str.c_str());
@@ -366,14 +366,14 @@ GnomeCmdConRemote *gnome_cmd_con_remote_new (const gchar *alias, const string &u
     gnome_cmd_con_set_port (con, port);
     gnome_cmd_con_set_root_path (con, path);
 
-    gnome_cmd_con_remote_set_tooltips (server, host);
+    gnome_cmd_con_remote_set_tooltips (gnomeCmdConRemote, host);
 
     con->method = gnome_cmd_con_get_scheme (uri_str.c_str());
 
     g_free (path);
     g_free(host);
 
-    return server;
+    return gnomeCmdConRemote;
 }
 
 
