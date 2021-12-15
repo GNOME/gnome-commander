@@ -292,7 +292,7 @@ static gboolean check_con_open_progress (GnomeCmdCon *con)
 }
 
 
-static void set_con_base_path(GnomeCmdCon *con, GnomeCmdPath *path)
+void gnome_cmd_con_set_base_path(GnomeCmdCon *con, GnomeCmdPath *path)
 {
     g_return_if_fail (con != nullptr);
     g_return_if_fail (GNOME_CMD_IS_CON (con));
@@ -316,7 +316,7 @@ void set_con_base_path_for_gmount(GnomeCmdCon *con, GMount *gMount)
     auto pathString = g_file_get_path(gFile);
     g_object_unref(gFile);
 
-    set_con_base_path(con, new GnomeCmdPlainPath(pathString));
+    gnome_cmd_con_set_base_path(con, new GnomeCmdPlainPath(pathString));
 
     g_free(pathString);
 }

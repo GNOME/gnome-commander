@@ -25,6 +25,7 @@
 #include "gnome-cmd-data.h"
 #include "utils.h"
 #include "dialogs/gnome-cmd-con-dialog.h"
+#include "gnome-cmd-plain-path.h"
 
 using namespace std;
 
@@ -601,7 +602,7 @@ gboolean gnome_cmd_connect_dialog_edit (GnomeCmdConRemote *server)
             if (!strcmp(scheme, "smb"))
             {
                 auto uriString = path
-                    ? g_strdup_printf("%s://%s/%s/", scheme, host, path)
+                    ? g_strdup_printf("%s://%s%s/", scheme, host, path)
                     : g_strdup_printf("%s://%s/", scheme, host);
                 gnome_cmd_con_set_uri (con, uriString);
                 g_free(uriString);
@@ -630,7 +631,9 @@ gboolean gnome_cmd_connect_dialog_edit (GnomeCmdConRemote *server)
         gnome_cmd_con_set_alias (con, alias);
 
         gnome_cmd_con_set_scheme(con, scheme);
+        gnome_cmd_con_set_base_path(con, path ? new GnomeCmdPlainPath(path) : new GnomeCmdPlainPath(G_DIR_SEPARATOR_S));
         gnome_cmd_con_set_root_path(con, path);
+        gnome_cmd_con_set_host_name (con, host);
         if (port != -1)
             gnome_cmd_con_set_port(con, port);
 

@@ -132,6 +132,7 @@ struct GnomeCmdConClass
 
 GtkType gnome_cmd_con_get_type ();
 
+void gnome_cmd_con_set_base_path(GnomeCmdCon *con, GnomeCmdPath *path);
 void set_con_base_path_for_gmount(GnomeCmdCon *con, GMount *gMount);
 gboolean set_con_base_gfileinfo(GnomeCmdCon *con);
 
@@ -160,7 +161,7 @@ inline const gchar *gnome_cmd_con_get_uri (GnomeCmdCon *con)
     return con->uri;
 }
 
-inline void gnome_cmd_con_set_uri (GnomeCmdCon *con, const gchar *uri=NULL)
+inline void gnome_cmd_con_set_uri (GnomeCmdCon *con, const gchar *uri = nullptr)
 {
     g_return_if_fail (GNOME_CMD_IS_CON (con));
     g_free (con->uri);
