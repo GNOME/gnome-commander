@@ -503,7 +503,7 @@ inline std::string &gnome_cmd_con_make_ftp_uri (std::string &s, std::string &ser
 }
 
 #ifdef HAVE_SAMBA
-std::string &gnome_cmd_con_make_smb_uri (std::string &s, std::string &server, std::string &share, std::string &folder, std::string &domain);
+std::string &gnome_cmd_con_make_smb_uri (std::string &s, std::string &server, std::string &folder, std::string &domain);
 #endif
 
 inline std::string &gnome_cmd_con_make_dav_uri (std::string &s, std::string &server, std::string &port, std::string &folder)
@@ -516,7 +516,7 @@ inline std::string &gnome_cmd_con_make_davs_uri (std::string &s, std::string &se
     return __gnome_cmd_con_make_uri (s, "davs://", server, port, folder);
 }
 
-inline std::string &gnome_cmd_con_make_uri (std::string &s, ConnectionMethodID method, std::string &uri, std::string &server, std::string &share, std::string &port, std::string &folder, std::string &domain)
+inline std::string &gnome_cmd_con_make_uri (std::string &s, ConnectionMethodID method, std::string &uri, std::string &server, std::string &port, std::string &folder, std::string &domain)
 {
     switch (method)
     {
@@ -526,7 +526,7 @@ inline std::string &gnome_cmd_con_make_uri (std::string &s, ConnectionMethodID m
         case CON_SSH:       return gnome_cmd_con_make_ssh_uri (s, server, port, folder);
 
 #ifdef HAVE_SAMBA
-        case CON_SMB:       return gnome_cmd_con_make_smb_uri (s, server, share, folder, domain);
+        case CON_SMB:       return gnome_cmd_con_make_smb_uri (s, server, folder, domain);
 #endif
 
         case CON_DAV:       return gnome_cmd_con_make_dav_uri (s, server, port, folder);

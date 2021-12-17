@@ -71,7 +71,6 @@ struct GnomeCmdConnectDialog::Private
     GtkWidget *alias_entry;
     GtkWidget *uri_entry;
     GtkWidget *server_entry;
-    GtkWidget *share_entry;
     GtkWidget *port_entry;
     GtkWidget *folder_entry;
     GtkWidget *domain_entry;
@@ -89,7 +88,6 @@ inline GnomeCmdConnectDialog::Private::Private()
     alias_entry = gtk_entry_new ();
     uri_entry = gtk_entry_new ();
     server_entry = gtk_entry_new ();
-    share_entry = gtk_entry_new ();
     port_entry = gtk_entry_new ();
     folder_entry = gtk_entry_new ();
     domain_entry = gtk_entry_new ();
@@ -97,7 +95,6 @@ inline GnomeCmdConnectDialog::Private::Private()
     gtk_entry_set_activates_default (GTK_ENTRY (alias_entry), TRUE);
     gtk_entry_set_activates_default (GTK_ENTRY (uri_entry), TRUE);
     gtk_entry_set_activates_default (GTK_ENTRY (server_entry), TRUE);
-    gtk_entry_set_activates_default (GTK_ENTRY (share_entry), TRUE);
     gtk_entry_set_activates_default (GTK_ENTRY (port_entry), TRUE);
     gtk_entry_set_activates_default (GTK_ENTRY (folder_entry), TRUE);
 
@@ -105,7 +102,6 @@ inline GnomeCmdConnectDialog::Private::Private()
     g_object_ref (alias_entry);
     g_object_ref (uri_entry);
     g_object_ref (server_entry);
-    g_object_ref (share_entry);
     g_object_ref (port_entry);
     g_object_ref (folder_entry);
     g_object_ref (domain_entry);
@@ -117,7 +113,6 @@ inline GnomeCmdConnectDialog::Private::~Private()
     g_object_unref (alias_entry);
     g_object_unref (uri_entry);
     g_object_unref (server_entry);
-    g_object_unref (share_entry);
     g_object_unref (port_entry);
     g_object_unref (folder_entry);
     g_object_unref (domain_entry);
@@ -139,9 +134,6 @@ void GnomeCmdConnectDialog::Private::setup_for_type()
     if (server_entry->parent)
         gtk_container_remove (GTK_CONTAINER (required_table), server_entry);
 
-    if (share_entry->parent)
-        gtk_container_remove (GTK_CONTAINER (optional_table), share_entry);
-
     if (port_entry->parent)
         gtk_container_remove (GTK_CONTAINER (optional_table), port_entry);
 
@@ -157,7 +149,7 @@ void GnomeCmdConnectDialog::Private::setup_for_type()
     gint i = 1;
     GtkWidget *table = required_table;
 
-    gboolean show_share, show_port, show_domain;
+    gboolean show_port, show_domain;
 
     show_entry (table, alias_entry, _("_Alias:"), i);
 
@@ -172,20 +164,17 @@ void GnomeCmdConnectDialog::Private::setup_for_type()
         case CON_FTP:
         case CON_DAV:
         case CON_DAVS:
-            show_share = FALSE;
             show_port = TRUE;
             show_domain = FALSE;
             break;
 
        case CON_ANON_FTP:
-            show_share = FALSE;
             show_port = TRUE;
             show_domain = FALSE;
             break;
 
 #ifdef HAVE_SAMBA
         case CON_SMB:
-            show_share = TRUE;
             show_port = FALSE;
             show_domain = TRUE;
             break;
@@ -226,9 +215,6 @@ void GnomeCmdConnectDialog::Private::setup_for_type()
 
     i = 0;
 
-    if (show_share)
-        show_entry (table, share_entry, _("S_hare:"), i);
-
     if (show_port)
         show_entry (table, port_entry, _("_Port:"), i);
 
@@ -260,7 +246,6 @@ gboolean GnomeCmdConnectDialog::verify_uri()
 {
     string uri;
     string server;
-    string share;
     string port;
     string folder;
     string domain;
@@ -270,9 +255,6 @@ gboolean GnomeCmdConnectDialog::verify_uri()
 
     if (priv->server_entry->parent)
         stringify (server, gtk_editable_get_chars (GTK_EDITABLE (priv->server_entry), 0, -1));
-
-    if (priv->share_entry->parent)
-        stringify (share, gtk_editable_get_chars (GTK_EDITABLE (priv->share_entry), 0, -1));
 
     if (priv->port_entry->parent)
         stringify (port, gtk_editable_get_chars (GTK_EDITABLE (priv->port_entry), 0, -1));
@@ -292,7 +274,7 @@ gboolean GnomeCmdConnectDialog::verify_uri()
         return FALSE;
     }
 
-    gnome_cmd_con_make_uri (uri, (ConnectionMethodID) type, uri, server, share, port, folder, domain);
+    gnome_cmd_con_make_uri (uri, (ConnectionMethodID) type, uri, server, port, folder, domain);
 
     if (type==CON_URI && !uri_is_valid(uri.c_str()))
     {
@@ -541,29 +523,8 @@ gboolean gnome_cmd_connect_dialog_edit (GnomeCmdConRemote *server)
 
         gtk_entry_set_text (GTK_ENTRY (dialog->priv->server_entry), host);
 
-#ifdef HAVE_SAMBA
-            if (con->method==CON_SMB)
-            {
-                gchar **a = g_strsplit (path, "/", 3);
-
-                if (g_strv_length (a) > 2)
-                {
-                    gtk_entry_set_text (GTK_ENTRY (dialog->priv->share_entry), a[1]);
-                    gtk_entry_set_text (GTK_ENTRY (dialog->priv->folder_entry), a[2]);
-                }
-                else
-                    gtk_entry_set_text (GTK_ENTRY (dialog->priv->folder_entry), path);
-
-                g_strfreev (a);
-            }
-            else
-            {
-#endif
-                if (path)
-                    gtk_entry_set_text (GTK_ENTRY (dialog->priv->folder_entry), path);
-#ifdef HAVE_SAMBA
-            }
-#endif
+        if (path)
+            gtk_entry_set_text (GTK_ENTRY (dialog->priv->folder_entry), path);
 
         if (port != -1)
             gtk_entry_set_text (GTK_ENTRY (dialog->priv->port_entry), stringify(port).c_str());

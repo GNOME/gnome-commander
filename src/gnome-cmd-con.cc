@@ -634,11 +634,11 @@ string &__gnome_cmd_con_make_uri (string &s, const gchar *method, string &server
 }
 
 #ifdef HAVE_SAMBA
-std::string &gnome_cmd_con_make_smb_uri (std::string &uriString, std::string &server, std::string &share, std::string &folder, std::string &domain)
+std::string &gnome_cmd_con_make_smb_uri (std::string &uriString, std::string &server, std::string &folder, std::string &domain)
 {
     const gchar *joinSign = !folder.empty() && folder[0] != '/' ? "/" : "";
 
-    folder = share + joinSign + folder;
+    folder = joinSign + folder;
     // remove initial '/' character
     if (folder.length() > 0 && folder[0] == '/')
     {
