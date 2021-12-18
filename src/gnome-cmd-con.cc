@@ -333,7 +333,9 @@ gboolean set_con_base_gfileinfo(GnomeCmdCon *con)
         con->base_gFileInfo = nullptr;
     }
 
-    auto gFile = gnome_cmd_con_create_gfile (con, con->base_path);
+    auto gFile = con->is_local
+        ? gnome_cmd_con_create_gfile (con, con->base_path)
+        : gnome_cmd_con_create_gfile (con, nullptr);
     con->base_gFileInfo = g_file_query_info(gFile, "*", G_FILE_QUERY_INFO_NONE, nullptr, &error);
     g_object_unref(gFile);
     if (error)

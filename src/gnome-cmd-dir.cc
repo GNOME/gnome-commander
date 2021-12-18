@@ -300,7 +300,10 @@ GnomeCmdDir *gnome_cmd_dir_new_with_con (GnomeCmdCon *con)
     g_return_val_if_fail (GNOME_CMD_IS_CON (con), nullptr);
     g_return_val_if_fail (con->base_gFileInfo != nullptr, nullptr);
 
-    auto gFile = gnome_cmd_con_create_gfile (con, con->base_path);
+    auto gFile = con->is_local
+        ? gnome_cmd_con_create_gfile (con, con->base_path)
+        : gnome_cmd_con_create_gfile (con, nullptr);
+
     auto uri_str = g_file_get_uri(gFile);
     g_object_unref (gFile);
     GnomeCmdDir *dir = gnome_cmd_con_cache_lookup (con, uri_str);

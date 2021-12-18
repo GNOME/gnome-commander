@@ -53,29 +53,18 @@ static void mount_remote_finish_callback(GObject *gobj, GAsyncResult *result, gp
     g_return_if_fail(G_IS_FILE(gFile));
 
     GError *error = nullptr;
-    GError *errorQuery = nullptr;
 
-    // The volume might be mounted already, so we are trying to get some information about the
-    // underlying gFile to decide if we want to raise an error or not
     g_file_mount_enclosing_volume_finish(gFile, result, &error);
-    con->base_gFileInfo = g_file_query_info(gFile, "*", G_FILE_QUERY_INFO_NONE, nullptr, &errorQuery);
-    if (errorQuery)
+    if (error && !g_error_matches(error, G_IO_ERROR, G_IO_ERROR_ALREADY_MOUNTED))
     {
-        auto uriString = g_file_get_uri(gFile);
-        DEBUG('m', "Unable to query information for uri \"%s\", error: %s\n", uriString, errorQuery->message);
-        g_free(uriString);
-        if (error)
-        {
-            DEBUG('m', "... probably because of this error: %s\n", error->message);
-            g_error_free(error);
-        }
-        con->open_failed_error = g_error_copy(errorQuery);
-        g_error_free(errorQuery);
+        DEBUG('m', "Unable to mount enclosing volume: %s\n", error->message);
+        con->open_failed_error = g_error_copy(error);
+        g_error_free(error);
         set_con_mount_failed(con);
         g_object_unref(gFile);
         return;
     }
-
+    set_con_base_gfileinfo(con);
     con->state = GnomeCmdCon::STATE_OPEN;
     con->open_result = GnomeCmdCon::OPEN_OK;
     g_object_unref(gFile);
