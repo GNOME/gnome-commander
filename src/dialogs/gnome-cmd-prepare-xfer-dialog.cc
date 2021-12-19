@@ -93,7 +93,7 @@ static void on_ok (GtkButton *button, GnomeCmdPrepareXferDialog *dialog)
         }
         else
         {
-            gchar *t = GNOME_CMD_FILE (dialog->src_fs->get_directory())->get_path();
+            gchar *t = GNOME_CMD_FILE (dialog->src_fs->get_directory())->GetPathStringThroughParent();
             dest_path = g_build_filename (t, user_path, NULL);
             g_free (t);
         }

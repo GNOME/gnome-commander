@@ -525,7 +525,7 @@ static void on_list_dir_changed (GnomeCmdFileList *fl, GnomeCmdDir *dir, GnomeCm
 {
     if (fs->priv->dir_history && !fs->priv->dir_history->locked())
     {
-        gchar *fpath = GNOME_CMD_FILE (dir)->get_path();
+        gchar *fpath = GNOME_CMD_FILE (dir)->GetPathStringThroughParent();
         fs->priv->dir_history->add(fpath);
         g_free (fpath);
     }

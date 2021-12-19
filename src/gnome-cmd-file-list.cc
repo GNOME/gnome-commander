@@ -340,7 +340,7 @@ FileFormatData::FileFormatData(GnomeCmdFileList *fl, GnomeCmdFile *f, gboolean t
         text[GnomeCmdFileList::COLUMN_ICON] = nullptr;
 
     // Prepare the strings to show
-    gchar *t1 = f->get_path();
+    gchar *t1 = f->GetPathStringThroughParent();
     gchar *t2 = g_path_get_dirname (t1);
     dpath = get_utf8 (t2);
     g_free (t1);
@@ -2021,7 +2021,7 @@ void GnomeCmdFileList::show_files(GnomeCmdDir *dir)
     }
 
     // Create a parent dir file (..) if appropriate
-    gchar *path = GNOME_CMD_FILE (dir)->get_path();
+    gchar *path = GNOME_CMD_FILE (dir)->GetPathStringThroughParent();
     if (path && strcmp (path, G_DIR_SEPARATOR_S) != 0)
         files = g_list_append (files, gnome_cmd_dir_new_parent_dir_file (dir));
     g_free (path);

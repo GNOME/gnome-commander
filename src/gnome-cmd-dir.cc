@@ -571,7 +571,7 @@ void gnome_cmd_dir_list_files (GnomeCmdDir *dir, gboolean visualProgress)
 
     if (!dir->priv->files || gnome_cmd_dir_is_local (dir))
     {
-        gchar *path = GNOME_CMD_FILE (dir)->get_path();
+        gchar *path = GNOME_CMD_FILE (dir)->GetPathStringThroughParent();
         DEBUG ('l', "relisting files for 0x%x %s %d\n",
                dir,
                path,

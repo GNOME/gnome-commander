@@ -1,4 +1,4 @@
-/** 
+/**
  * @file gnome-cmd-manage-bookmarks-dialog.cc
  * @copyright (C) 2001-2006 Marcus Bjurman\n
  * @copyright (C) 2007-2012 Piotr Eljasiak\n
@@ -214,7 +214,7 @@ static GtkTreeModel *create_and_fill_model (GtkTreePath *&current_group)
                                               G_TYPE_STRING,
                                               G_TYPE_POINTER);
     fill_tree (store, current_group);
-    
+
 
     return GTK_TREE_MODEL (store);
 }
@@ -364,9 +364,9 @@ static void remove_clicked_callback (GtkButton *button, GtkWidget *bm_view)
             g_free (bookmark->name);
             g_free (bookmark->path);
             g_free (bookmark);
-            
+
             main_win->update_bookmarks ();
-            
+
             gnome_cmd_data.save_bookmarks ();
         }
     }
@@ -536,7 +536,7 @@ void gnome_cmd_bookmark_goto (GnomeCmdBookmark *bookmark)
 
 void gnome_cmd_bookmark_add_current (GnomeCmdDir *dir)
 {
-    gchar *path = gnome_cmd_dir_is_local (dir) ? GNOME_CMD_FILE (dir)->get_real_path () : GNOME_CMD_FILE (dir)->get_path();
+    gchar *path = gnome_cmd_dir_is_local (dir) ? GNOME_CMD_FILE (dir)->get_real_path () : GNOME_CMD_FILE (dir)->GetPathStringThroughParent();
 
     if (!g_utf8_validate (path, -1, NULL))
     {
@@ -560,7 +560,7 @@ void gnome_cmd_bookmark_add_current (GnomeCmdDir *dir)
         group->bookmarks = g_list_append (group->bookmarks, bookmark);
 
         main_win->update_bookmarks();
-        
+
         gnome_cmd_data.save_bookmarks ();
     }
     else

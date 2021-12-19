@@ -243,7 +243,7 @@ void gnome_cmd_file_setup (GObject *gObject, GFileInfo *gFileInfo, GnomeCmdDir *
         handle_ref (gnomeCmdFile->priv->dir_handle);
     }
 
-    auto path = gnomeCmdFile->get_path();
+    auto path = gnomeCmdFile->GetPathStringThroughParent();
     if (path)
     {
         GnomeCmdCon *con = nullptr;
@@ -466,7 +466,7 @@ gchar *GnomeCmdFile::get_quoted_name()
 }
 
 
-gchar *GnomeCmdFile::get_path()
+gchar *GnomeCmdFile::GetPathStringThroughParent()
 {
     g_return_val_if_fail (gFileInfo != nullptr, nullptr);
 
