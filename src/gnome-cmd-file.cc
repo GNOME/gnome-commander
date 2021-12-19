@@ -475,9 +475,6 @@ gchar *GnomeCmdFile::GetPathStringThroughParent()
     if (!filename)
         return nullptr;
 
-    if (strcmp (filename, G_DIR_SEPARATOR_S) == 0)
-        return g_strdup(filename);
-
     GnomeCmdPath *path;
     gchar *path_str;
 
