@@ -74,57 +74,32 @@ static void do_mime_exec_multiple (gpointer *args)
 {
     auto gnomeCmdApp = static_cast<GnomeCmdApp*> (args[0]);
     auto files = static_cast<GList*> (args[1]);
-
     if (files)
     {
         if(gnomeCmdApp->gAppInfo != nullptr)
         {
-            // gio app
+            // gio app default by system
             DEBUG('g', "Launching \"%s\"\n", g_app_info_get_commandline(gnomeCmdApp->gAppInfo));
             g_app_info_launch(gnomeCmdApp->gAppInfo, files, nullptr, nullptr);
         }
         else
         {
-            // own app
+            // own app by user defined
             string cmdString = gnome_cmd_app_get_command (gnomeCmdApp);
-
             set<string> dirs;
-
             for (auto files_tmp = files; files_tmp; files_tmp = files_tmp->next)
             {
                 auto gFile = (GFile *) files_tmp->data;
-
-                if (g_file_has_uri_scheme(gFile, "file"))
-                {
-                    auto localpath = g_file_get_path(gFile);
-
-                    cmdString += ' ';
-                    cmdString += stringify (g_shell_quote (localpath));
-
-                    auto dpath = g_path_get_dirname (localpath);
-
-                    if (dpath)
-                        dirs.insert (stringify (dpath));
-
-                    g_free(localpath);
-                }
-                else
-                {
-                    auto uri = g_file_get_uri(gFile);
-                    cmdString += ' ';
-                    cmdString += stringify (g_shell_quote (uri));
-                }
+                auto localpath = g_file_get_path(gFile);
+                auto dpath = g_path_get_dirname (localpath);
+                if (dpath)
+                    dirs.insert (stringify (dpath));
+                g_free(localpath);
             }
-
-            if (dirs.size()==1)
-                run_command_indir (cmdString.c_str(), dirs.begin()->c_str(), gnome_cmd_app_get_requires_terminal (gnomeCmdApp));
-            else
-                run_command_indir (cmdString.c_str(), nullptr, gnome_cmd_app_get_requires_terminal (gnomeCmdApp));
+            run_command_indir (cmdString.c_str(), dirs.begin()->c_str(), gnome_cmd_app_get_requires_terminal (gnomeCmdApp));
         }
-
         g_list_free (files);
     }
-
     gnome_cmd_app_free (gnomeCmdApp);
     g_free (args);
 }

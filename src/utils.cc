@@ -32,6 +32,7 @@
 #include "gnome-cmd-data.h"
 #include "imageloader.h"
 #include "gnome-cmd-main-win.h"
+#include "gnome-cmd-user-actions.h"
 
 using namespace std;
 
@@ -126,7 +127,18 @@ void run_command_indir (const gchar *in_command, const gchar *dpath, gboolean te
     gchar **argv;
     GError *error = NULL;
 
-    g_shell_parse_argv (command, &argc, &argv, NULL);
+    // check if command includes % and replace
+    string cmd;
+	cmd.reserve(2000);
+	if (parse_command(&cmd, (const gchar*) command) == 0)
+	{
+	    DEBUG ('g', "run_command_indir: command is not valid.\n");
+	    gnome_cmd_show_message (*main_win, _("No valid command given."));
+	    return;
+	}
+
+    //g_shell_parse_argv (command, &argc, &argv, NULL);
+    g_shell_parse_argv (cmd.c_str(), &argc, &argv, NULL); // include parse_command
     if (!g_spawn_async (dpath, argv, NULL, G_SPAWN_SEARCH_PATH, NULL, NULL, NULL, &error))
         gnome_cmd_error_message (_("Unable to execute command."), error);
 
