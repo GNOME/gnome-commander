@@ -2073,35 +2073,34 @@ int parse_command(string *cmd, const gchar *command)
     cmdcap = cmd->capacity();
     cmdlen = cmd->length();
 
-    for (auto s = command; *s; ++s)
+    for (auto s = command; *s; ++s) // loop over chars of command-string set by user
     {
-        if (!percent)
+        if (!percent) // check if % not found
         {
-            percent = (*s == '%');
-
-            if (!percent)
-	    {
-		if (cmdcap < cmdlen + 1)
-		{
-		    cmd->reserve(cmdlen +1);
-		    cmdcap = cmd->capacity();
-		}
-		if (blcheck) // copy letter by letter, but remove trailing blanks
-		    *cmd += *s;
-		else
-		{
-		    if (*s == ' ' || *s == '\t')
-		    {
-			continue;
-		    }
-		    else
-		    {
-			blcheck = TRUE;
-			*cmd += *s;
-		    }
-		}
-		cmdlen = cmd->length();
-	    }
+            percent = (*s == '%'); // true: if s=%, false: if s!=%
+            if (!percent) // check if % not found
+            {
+                if (cmdcap < cmdlen + 1)
+                {
+                    cmd->reserve(cmdlen +1);
+                    cmdcap = cmd->capacity();
+                }
+                if (blcheck) // copy letter by letter, but remove trailing blanks
+                    *cmd += *s;
+                else
+                {
+                    if (*s == ' ' || *s == '\t')
+                    {
+                    continue;
+                    }
+                    else
+                    {
+                    blcheck = TRUE;
+                    *cmd += *s;
+                    }
+                }
+                cmdlen = cmd->length();
+            }
 
             continue;
         }
