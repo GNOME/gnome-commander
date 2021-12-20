@@ -243,8 +243,8 @@ void gnome_cmd_file_setup (GObject *gObject, GFileInfo *gFileInfo, GnomeCmdDir *
         handle_ref (gnomeCmdFile->priv->dir_handle);
     }
 
-    auto path = gnomeCmdFile->GetPathStringThroughParent();
-    if (path)
+    auto pathString = gnomeCmdFile->GetPathStringThroughParent();
+    if (pathString)
     {
         GnomeCmdCon *con = nullptr;
         if (parentDir)
@@ -263,16 +263,15 @@ void gnome_cmd_file_setup (GObject *gObject, GFileInfo *gFileInfo, GnomeCmdDir *
             auto conUri = gnome_cmd_con_get_uri(con);
             auto gFileTmp = g_file_new_for_uri (conUri);
 
-            GNOME_CMD_FILE_BASE (gnomeCmdFile)->gFile = g_file_resolve_relative_path (gFileTmp, path);
+            GNOME_CMD_FILE_BASE (gnomeCmdFile)->gFile = g_file_resolve_relative_path (gFileTmp, pathString);
             gnomeCmdFile->gFile = GNOME_CMD_FILE_BASE (gnomeCmdFile)->gFile;
-            g_free(path);
-            g_object_unref (gFileTmp);
+            g_free(pathString);
         }
         else
         {
-            GNOME_CMD_FILE_BASE (gnomeCmdFile)->gFile = g_file_new_for_path(path);
+            GNOME_CMD_FILE_BASE (gnomeCmdFile)->gFile = g_file_new_for_path(pathString);
             gnomeCmdFile->gFile = GNOME_CMD_FILE_BASE (gnomeCmdFile)->gFile;
-            g_free(path);
+            g_free(pathString);
         }
     }
     // EVERY GnomeCmdFile instance must have a gFile reference
