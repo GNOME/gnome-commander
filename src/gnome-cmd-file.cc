@@ -267,15 +267,14 @@ void gnome_cmd_file_setup (GObject *gObject, GFileInfo *gFileInfo, GnomeCmdDir *
 
             GNOME_CMD_FILE_BASE (gnomeCmdFile)->gFile = gFileFinal;
             gnomeCmdFile->gFile = GNOME_CMD_FILE_BASE (gnomeCmdFile)->gFile;
-            g_free(pathString);
             g_free(uriString);
         }
         else
         {
             GNOME_CMD_FILE_BASE (gnomeCmdFile)->gFile = g_file_new_for_path(pathString);
             gnomeCmdFile->gFile = GNOME_CMD_FILE_BASE (gnomeCmdFile)->gFile;
-            g_free(pathString);
         }
+        g_free(pathString);
     }
     // EVERY GnomeCmdFile instance must have a gFile reference
     if (!gnomeCmdFile->gFile)
