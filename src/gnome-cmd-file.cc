@@ -260,12 +260,15 @@ void gnome_cmd_file_setup (GObject *gObject, GFileInfo *gFileInfo, GnomeCmdDir *
         }
         if (con && !con->is_local)
         {
-            auto conUri = gnome_cmd_con_get_uri(con);
-            auto gFileTmp = g_file_new_for_uri (conUri);
+            auto uriObject = g_uri_build(G_URI_FLAGS_NONE, con->scheme, nullptr,
+                                         con->hostname, con->port, pathString, nullptr, nullptr);
+            auto uriString = g_uri_to_string(uriObject);
+            auto gFileFinal = g_file_new_for_uri (uriString);
 
-            GNOME_CMD_FILE_BASE (gnomeCmdFile)->gFile = g_file_resolve_relative_path (gFileTmp, pathString);
+            GNOME_CMD_FILE_BASE (gnomeCmdFile)->gFile = gFileFinal;
             gnomeCmdFile->gFile = GNOME_CMD_FILE_BASE (gnomeCmdFile)->gFile;
             g_free(pathString);
+            g_free(uriString);
         }
         else
         {
