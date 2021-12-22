@@ -955,6 +955,7 @@ void gnome_cmd_dir_start_monitoring (GnomeCmdDir *dir)
 
         if (error)
         {
+            gchar *uri_str = GNOME_CMD_FILE (dir)->get_uri_str();
             DEBUG ('n', "Failed to add monitor to %p %s: %s\n", dir, uri_str, error->message);
             g_error_free(error);
             g_free(uri_str);
@@ -963,6 +964,7 @@ void gnome_cmd_dir_start_monitoring (GnomeCmdDir *dir)
 
         g_signal_connect (gFileMonitor, "changed", G_CALLBACK (monitor_callback), dir);
 
+        gchar *uri_str = GNOME_CMD_FILE (dir)->get_uri_str();
         DEBUG('n', "Added monitor to %p %s\n", dir, uri_str);
         dir->priv->gFileMonitor = gFileMonitor;
         g_free (uri_str);
