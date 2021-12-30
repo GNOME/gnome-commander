@@ -1,16 +1,16 @@
 # Serbian translation of gnome-commander
-# Courtesy of Prevod.org team (http://www.prevod.org/) -- 2003—2021.
+# Courtesy of Prevod.org team (http://www.prevod.org/) -- 2003–2021.
 # This file is distributed under the same license as the gnome-commander package.
 # Данило Шеган <dsegan@gmx.net>
-# Мирослав Николић <miroslavnikolic@rocketmail.com>, 2013—2021.
+# Мирослав Николић <miroslavnikolic@rocketmail.com>, 2013–2021.
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-commander/issues\n"
-"POT-Creation-Date: 2021-03-28 21:55+0000\n"
-"PO-Revision-Date: 2021-04-11 20:51+0200\n"
+"POT-Creation-Date: 2021-12-05 03:49+0000\n"
+"PO-Revision-Date: 2021-12-30 13:36+0200\n"
 "Last-Translator: Мирослав Николић <miroslavnikolic@rocketmail.com>\n"
-"Language-Team: српски <gnome-sr@googlegroups.org>\n"
+"Language-Team: Serbian <(nothing)>\n"
 "Language: sr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1480,36 +1480,51 @@ msgstr "Избор датотеке"
 msgid "Could not load schemas from %s: %s\n"
 msgstr "Не могу да учитам шеме из „%s“: %s\n"
 
-#: plugins/fileroller/file-roller-plugin.cc:365
+#: plugins/fileroller/file-roller-plugin.cc:200
+#, c-format
+#| msgid ""
+#| "Error while copying to %s\n"
+#| "\n"
+#| "%s"
+msgid ""
+"Error running \"%s\"\n"
+"\n"
+"%s"
+msgstr ""
+"Грешка у раду „%s“\n"
+"\n"
+"%s"
+
+#: plugins/fileroller/file-roller-plugin.cc:379
 msgid "What file name should the new archive have?"
 msgstr "Који назив треба да носи нова архива?"
 
-#: plugins/fileroller/file-roller-plugin.cc:367
+#: plugins/fileroller/file-roller-plugin.cc:381
 msgid "Create Archive"
 msgstr "Направи архиву"
 
-#: plugins/fileroller/file-roller-plugin.cc:481
+#: plugins/fileroller/file-roller-plugin.cc:495
 msgid "Create Archive…"
 msgstr "Направи архиву…"
 
-#: plugins/fileroller/file-roller-plugin.cc:493
+#: plugins/fileroller/file-roller-plugin.cc:507
 msgid "Extract in Current Directory"
 msgstr "Распакуј у текућем директоријуму"
 
-#: plugins/fileroller/file-roller-plugin.cc:500
-#: plugins/fileroller/file-roller-plugin.cc:513
+#: plugins/fileroller/file-roller-plugin.cc:514
+#: plugins/fileroller/file-roller-plugin.cc:527
 #, c-format
 msgid "Extract to “%s”"
 msgstr "Распакуј у „%s“"
 
-#: plugins/fileroller/file-roller-plugin.cc:574
+#: plugins/fileroller/file-roller-plugin.cc:588
 #: src/gnome-cmd-advrename-profile-component.cc:941 src/plugin_manager.cc:419
 #: src/tags/gnome-cmd-tags.cc:692
 msgid "File"
 msgstr "Датотека"
 
 #. destroy model automatically with view
-#: plugins/fileroller/file-roller-plugin.cc:591
+#: plugins/fileroller/file-roller-plugin.cc:605
 #: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:369
 #: src/dialogs/gnome-cmd-options-dialog.cc:1497
 #: src/dialogs/gnome-cmd-options-dialog.cc:2165
@@ -1519,25 +1534,25 @@ msgstr "Датотека"
 msgid "Options"
 msgstr "Опције"
 
-#: plugins/fileroller/file-roller-plugin.cc:603
+#: plugins/fileroller/file-roller-plugin.cc:617
 msgid "File-roller options"
 msgstr "Опције управника архивом"
 
-#: plugins/fileroller/file-roller-plugin.cc:606
+#: plugins/fileroller/file-roller-plugin.cc:620
 msgid "Default archive type"
 msgstr "Подразумевана врста архиве"
 
 #. The pattern defining the file name prefix of the archive to be created
-#: plugins/fileroller/file-roller-plugin.cc:614
+#: plugins/fileroller/file-roller-plugin.cc:628
 msgid "File prefix pattern"
 msgstr "Образац префикса датотеке"
 
-#: plugins/fileroller/file-roller-plugin.cc:625
+#: plugins/fileroller/file-roller-plugin.cc:639
 #: src/dialogs/gnome-cmd-options-dialog.cc:418
 msgid "Test result:"
 msgstr "Резултат пробе:"
 
-#: plugins/fileroller/file-roller-plugin.cc:632
+#: plugins/fileroller/file-roller-plugin.cc:646
 msgid ""
 "Use $N as a pattern for the original file name. See the manual page for "
 "“strftime” for other patterns."
@@ -1545,7 +1560,7 @@ msgstr ""
 "Користите „$N“ као префикс за изворни назив датотеке. Погледајте на страници "
 "упутства „strftime“-а за другим обрасцима."
 
-#: plugins/fileroller/file-roller-plugin.cc:814
+#: plugins/fileroller/file-roller-plugin.cc:828
 msgid ""
 "A plugin that adds File Roller shortcuts for creating and extracting "
 "compressed archives."
@@ -1639,7 +1654,7 @@ msgid "File modification date"
 msgstr "Датум измене датотеке"
 
 #: src/dialogs/gnome-cmd-advrename-dialog.cc:694
-#: src/dialogs/gnome-cmd-search-dialog.cc:1146
+#: src/dialogs/gnome-cmd-search-dialog.cc:1147
 msgid "Profiles…"
 msgstr "Профили…"
 
@@ -1818,23 +1833,19 @@ msgid "Abort"
 msgstr "Прекини"
 
 #: src/dialogs/gnome-cmd-delete-dialog.cc:208
-#: src/gnome-cmd-file-selector.cc:1382 src/gnome-cmd-xfer.cc:230
+#: src/gnome-cmd-file-selector.cc:1387 src/gnome-cmd-xfer.cc:230
 msgid "Retry"
 msgstr "Понови"
 
 #: src/dialogs/gnome-cmd-delete-dialog.cc:208
 #: src/dialogs/gnome-cmd-delete-dialog.cc:310
-#: src/gnome-cmd-file-selector.cc:1382 src/gnome-cmd-xfer.cc:211
+#: src/gnome-cmd-file-selector.cc:1387 src/gnome-cmd-xfer.cc:211
 #: src/gnome-cmd-xfer.cc:230
 msgid "Skip"
 msgstr "Прескочи"
 
 #: src/dialogs/gnome-cmd-delete-dialog.cc:294
 #, c-format
-#| msgid ""
-#| "Error while deleting “%s”\n"
-#| "\n"
-#| "%s"
 msgid ""
 "Error while deleting: \n"
 "\n"
@@ -1846,7 +1857,6 @@ msgstr ""
 
 #: src/dialogs/gnome-cmd-delete-dialog.cc:307
 #, c-format
-#| msgid "The directory “%s” doesn’t exist, do you want to create it?"
 msgid "The directory “%s” is not empty. Do you really want to delete it?"
 msgstr "Директоријум „%s“ није празан. Да ли заиста желите да га обришете?"
 
@@ -1855,25 +1865,23 @@ msgstr "Директоријум „%s“ није празан. Да ли за�
 #: src/dialogs/gnome-cmd-delete-dialog.cc:383
 #: src/dialogs/gnome-cmd-delete-dialog.cc:384
 #: src/dialogs/gnome-cmd-options-dialog.cc:1039
-#: src/gnome-cmd-file-popmenu.cc:727 src/gnome-cmd-main-win.cc:243
+#: src/gnome-cmd-file-popmenu.cc:729 src/gnome-cmd-main-win.cc:243
 #: src/gnome-cmd-user-actions.cc:213
 msgid "Delete"
 msgstr "Обриши"
 
 #: src/dialogs/gnome-cmd-delete-dialog.cc:310
 #: src/dialogs/gnome-cmd-delete-dialog.cc:384 src/gnome-cmd-file-list.cc:1279
-#: src/gnome-cmd-file-list.cc:1307 src/gnome-cmd-file-selector.cc:1382
+#: src/gnome-cmd-file-list.cc:1307 src/gnome-cmd-file-selector.cc:1387
 #: src/gnome-cmd-user-actions.cc:819
 msgid "Cancel"
 msgstr "Откажи"
 
 #: src/dialogs/gnome-cmd-delete-dialog.cc:311
-#| msgid "_Select All"
 msgid "Delete All"
 msgstr "Обриши све"
 
 #: src/dialogs/gnome-cmd-delete-dialog.cc:311
-#| msgid "Delete default"
 msgid "Delete Remaining"
 msgstr "Обриши преостале"
 
@@ -1925,7 +1933,7 @@ msgid "Directory name:"
 msgstr "Назив директоријума:"
 
 #: src/dialogs/gnome-cmd-file-props-dialog.cc:344
-#: src/gnome-cmd-file-selector.cc:1167
+#: src/gnome-cmd-file-selector.cc:1172
 msgid "File name:"
 msgstr "Назив датотеке:"
 
@@ -2107,7 +2115,7 @@ msgid "Do nothing"
 msgstr "Не ради ништа"
 
 #: src/dialogs/gnome-cmd-make-copy-dialog.cc:67
-#: src/gnome-cmd-file-selector.cc:1097
+#: src/gnome-cmd-file-selector.cc:1102
 msgid "No file name entered"
 msgstr "Није унет назив датотеке"
 
@@ -2622,7 +2630,7 @@ msgstr "Прво упитај"
 
 #: src/dialogs/gnome-cmd-options-dialog.cc:1067
 #: src/dialogs/gnome-cmd-options-dialog.cc:1087
-#: src/gnome-cmd-file-selector.cc:1382
+#: src/gnome-cmd-file-selector.cc:1387
 msgid "Skip all"
 msgstr "Прескочи све"
 
@@ -2894,7 +2902,7 @@ msgid "Unselect Using Pattern"
 msgstr "Поништите избор користећи шаблон"
 
 #: src/dialogs/gnome-cmd-prepare-copy-dialog.cc:85
-#: src/gnome-cmd-file-popmenu.cc:726 src/gnome-cmd-main-win.cc:241
+#: src/gnome-cmd-file-popmenu.cc:728 src/gnome-cmd-main-win.cc:241
 #: src/gnome-cmd-user-actions.cc:210
 msgid "Copy"
 msgstr "Умножите"
@@ -3030,34 +3038,34 @@ msgstr[1] "Нашао сам %d поклапања"
 msgstr[2] "Нашао сам %d поклапања"
 msgstr[3] "Нашао сам једно поклапање"
 
-#: src/dialogs/gnome-cmd-search-dialog.cc:681
+#: src/dialogs/gnome-cmd-search-dialog.cc:682
 #, c-format
 msgid "Failed to set process group id of child %d: %s.\n"
 msgstr "Нисам успео да подесим иб групе процеса садржаног %d: %s.\n"
 
-#: src/dialogs/gnome-cmd-search-dialog.cc:805
+#: src/dialogs/gnome-cmd-search-dialog.cc:806
 msgid "Error parsing the search command."
 msgstr "Грешка приликом обраде наредбе за претрагу."
 
-#: src/dialogs/gnome-cmd-search-dialog.cc:817
+#: src/dialogs/gnome-cmd-search-dialog.cc:818
 msgid "Error running the search command."
 msgstr "Грешка приликом покретања наредбе за претрагу."
 
-#: src/dialogs/gnome-cmd-search-dialog.cc:931
+#: src/dialogs/gnome-cmd-search-dialog.cc:932
 #, c-format
 msgid "Failed to change directory outside of %s"
 msgstr "Нисам успео да изменим директоријум изван „%s“"
 
-#: src/dialogs/gnome-cmd-search-dialog.cc:1043
+#: src/dialogs/gnome-cmd-search-dialog.cc:1044
 msgid "Search…"
 msgstr "Тражи…"
 
 #. search in
-#: src/dialogs/gnome-cmd-search-dialog.cc:1164
+#: src/dialogs/gnome-cmd-search-dialog.cc:1165
 msgid "Select Directory"
 msgstr "Изаберите директоријум"
 
-#: src/dialogs/gnome-cmd-search-dialog.cc:1167
+#: src/dialogs/gnome-cmd-search-dialog.cc:1168
 msgid "_Look in folder:"
 msgstr "_Тражи у фасцикли:"
 
@@ -3545,7 +3553,7 @@ msgstr "Тражим радне групе и домаћине"
 msgid "Go to: Samba Network"
 msgstr "Иди на: Самба мрежу"
 
-#: src/gnome-cmd-data.cc:3163 src/gnome-cmd-data.cc:3865
+#: src/gnome-cmd-data.cc:3164 src/gnome-cmd-data.cc:3866
 #, c-format
 msgid "link to %s"
 msgstr "веза до „%s“"
@@ -3705,46 +3713,46 @@ msgstr "Отвори другим…"
 msgid "Needs terminal"
 msgstr "Захтева терминал"
 
-#: src/gnome-cmd-file-popmenu.cc:722
+#: src/gnome-cmd-file-popmenu.cc:724
 msgid "Open Wit_h"
 msgstr "Отвори _програмом"
 
-#: src/gnome-cmd-file-popmenu.cc:723
+#: src/gnome-cmd-file-popmenu.cc:725
 msgid "Other _Application…"
 msgstr "Други _програм…"
 
-#: src/gnome-cmd-file-popmenu.cc:724
+#: src/gnome-cmd-file-popmenu.cc:726
 msgid "Open Wit_h…"
 msgstr "Отвори _програмом…"
 
-#: src/gnome-cmd-file-popmenu.cc:725 src/gnome-cmd-main-win.cc:240
+#: src/gnome-cmd-file-popmenu.cc:727 src/gnome-cmd-main-win.cc:240
 #: src/gnome-cmd-user-actions.cc:212
 msgid "Cut"
 msgstr "Исеците"
 
-#: src/gnome-cmd-file-popmenu.cc:728
+#: src/gnome-cmd-file-popmenu.cc:730
 msgid "Rename"
 msgstr "Преименуј"
 
 #. {file_run, "file.run"},
-#: src/gnome-cmd-file-popmenu.cc:729 src/gnome-cmd-main-win.cc:245
+#: src/gnome-cmd-file-popmenu.cc:731 src/gnome-cmd-main-win.cc:245
 #: src/gnome-cmd-user-actions.cc:236
 msgid "Send files"
 msgstr "Пошаљи датотеке"
 
-#: src/gnome-cmd-file-popmenu.cc:730 src/gnome-cmd-main-menu.cc:307
+#: src/gnome-cmd-file-popmenu.cc:732 src/gnome-cmd-main-menu.cc:307
 msgid "_Properties…"
 msgstr "_Својства…"
 
-#: src/gnome-cmd-file-popmenu.cc:731
+#: src/gnome-cmd-file-popmenu.cc:733
 msgid "E_xecute"
 msgstr "_Изврши"
 
-#: src/gnome-cmd-file-popmenu.cc:732 src/gnome-cmd-list-popmenu.cc:108
+#: src/gnome-cmd-file-popmenu.cc:734 src/gnome-cmd-list-popmenu.cc:108
 msgid "Open _terminal here"
 msgstr "Овде отвори _терминал"
 
-#: src/gnome-cmd-file-popmenu.cc:733 src/gnome-cmd-user-actions.cc:211
+#: src/gnome-cmd-file-popmenu.cc:735 src/gnome-cmd-user-actions.cc:211
 msgid "Copy file names"
 msgstr "Умножи називе датотека"
 
@@ -3771,61 +3779,61 @@ msgstr[3] "%s, изабран је %d од %d директоријума"
 msgid "%s free"
 msgstr "%s слободно"
 
-#: src/gnome-cmd-file-selector.cc:633 src/gnome-cmd-file-selector.cc:708
+#: src/gnome-cmd-file-selector.cc:635 src/gnome-cmd-file-selector.cc:711
 #: src/gnome-cmd-user-actions.cc:1670 src/gnome-cmd-user-actions.cc:1678
 msgid "The tab is locked, close anyway?"
 msgstr "Језичак је закључан, да ипак затворим?"
 
-#: src/gnome-cmd-file-selector.cc:651 src/gnome-cmd-main-menu.cc:347
+#: src/gnome-cmd-file-selector.cc:654 src/gnome-cmd-main-menu.cc:347
 msgid "Open in New _Tab"
 msgstr "Отвори у новом _језичку"
 
-#: src/gnome-cmd-file-selector.cc:658
+#: src/gnome-cmd-file-selector.cc:661
 msgid "_Unlock Tab"
 msgstr "_Откључај језичак"
 
-#: src/gnome-cmd-file-selector.cc:658
+#: src/gnome-cmd-file-selector.cc:661
 msgid "_Lock Tab"
 msgstr "_Закључај језичак"
 
-#: src/gnome-cmd-file-selector.cc:663
+#: src/gnome-cmd-file-selector.cc:666
 msgid "_Refresh Tab"
 msgstr "_Освежи језичак"
 
-#: src/gnome-cmd-file-selector.cc:668
+#: src/gnome-cmd-file-selector.cc:671
 msgid "Copy Tab to Other _Pane"
 msgstr "Умножи језичак у друго _окно"
 
-#: src/gnome-cmd-file-selector.cc:674 src/gnome-cmd-main-menu.cc:348
+#: src/gnome-cmd-file-selector.cc:677 src/gnome-cmd-main-menu.cc:348
 msgid "_Close Tab"
 msgstr "_Затвори језичак"
 
-#: src/gnome-cmd-file-selector.cc:679 src/gnome-cmd-main-menu.cc:349
+#: src/gnome-cmd-file-selector.cc:682 src/gnome-cmd-main-menu.cc:349
 msgid "Close _All Tabs"
 msgstr "Затвори _све језичке"
 
-#: src/gnome-cmd-file-selector.cc:684
+#: src/gnome-cmd-file-selector.cc:687
 msgid "Close _Duplicate Tabs"
 msgstr "Затвори _удвостручене језичке"
 
-#: src/gnome-cmd-file-selector.cc:1139
+#: src/gnome-cmd-file-selector.cc:1144
 msgid "No file name given"
 msgstr "Није дат назив датотеке"
 
-#: src/gnome-cmd-file-selector.cc:1170
+#: src/gnome-cmd-file-selector.cc:1175
 msgid "New Text File"
 msgstr "Нова текстуална датотека"
 
-#: src/gnome-cmd-file-selector.cc:1316
+#: src/gnome-cmd-file-selector.cc:1321
 msgid "Symbolic link name:"
 msgstr "Назив симболичке везе:"
 
-#: src/gnome-cmd-file-selector.cc:1329 src/gnome-cmd-file-selector.cc:1382
+#: src/gnome-cmd-file-selector.cc:1334 src/gnome-cmd-file-selector.cc:1387
 #: src/gnome-cmd-user-actions.cc:819
 msgid "Create Symbolic Link"
 msgstr "Направи симболичку везу"
 
-#: src/gnome-cmd-file-selector.cc:1453
+#: src/gnome-cmd-file-selector.cc:1458
 msgid "Filter:"
 msgstr "Пропусник:"
 
