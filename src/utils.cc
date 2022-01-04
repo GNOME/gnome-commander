@@ -1106,8 +1106,10 @@ guint32 get_gfile_attribute_uint32(GFile *gFile, const char *attribute)
                                    &error);
     if (error)
     {
+        auto gFileUri = g_file_get_uri(gFile);
         g_message ("get_gfile_attribute_uint32: retrieving file info for %s failed: %s",
-                    g_file_peek_path(gFile), error->message);
+                    gFileUri, error->message);
+        g_free(gFileUri);
         g_error_free (error);
     }
     else
@@ -1133,8 +1135,10 @@ guint64 get_gfile_attribute_uint64(GFile *gFile, const char *attribute)
                                    &error);
     if (error)
     {
+        auto gFileUri = g_file_get_uri(gFile);
         g_message ("get_gfile_attribute_uint64: retrieving file info for %s failed: %s",
-                    g_file_peek_path(gFile), error->message);
+                    gFileUri, error->message);
+        g_free(gFileUri);
         g_error_free (error);
     }
     else
@@ -1160,8 +1164,10 @@ gboolean get_gfile_attribute_boolean(GFile *gFile, const char *attribute)
                                    &error);
     if (error)
     {
+        auto gFileUri = g_file_get_uri(gFile);
         g_message ("get_gfile_attribute_boolean: retrieving file info for %s failed: %s",
-                    g_file_peek_path(gFile), error->message);
+                    gFileUri, error->message);
+        g_free(gFileUri);
         g_error_free (error);
     }
     else
@@ -1185,8 +1191,10 @@ gchar *get_gfile_attribute_string(GFile *gFile, const char *attribute)
                                    &error);
     if (gcmdFileInfo && error)
     {
+        auto gFileUri = g_file_get_uri(gFile);
         g_message ("get_gfile_attribute_string: retrieving file info for %s failed: %s",
-                    g_file_peek_path(gFile), error->message);
+                    gFileUri, error->message);
+        g_free(gFileUri);
         g_error_free (error);
         return nullptr;
     }
