@@ -735,6 +735,8 @@ const gchar *GnomeCmdFile::get_group()
 
 inline const gchar *date2string (GDateTime *date, gboolean overide_disp_setting)
 {
+    if (!date) return nullptr;
+
     return time2string (date, overide_disp_setting ? "%c" : gnome_cmd_data.options.date_format);
 }
 
