@@ -628,15 +628,26 @@ GFile *gnome_cmd_dir_get_gfile (GnomeCmdDir *dir)
 }
 
 
-gchar *gnome_cmd_dir_get_uri_str (GnomeCmdDir *dir)
+gchar *gnome_cmd_dir_get_uri_str (GnomeCmdDir *dir, gboolean withTrailingSlash)
 {
     g_return_val_if_fail (GNOME_CMD_IS_DIR (dir), nullptr);
 
-    GFile *gFile = gnome_cmd_dir_get_gfile (dir);
+    auto gFile = gnome_cmd_dir_get_gfile (dir);
 
-    gchar *dir_str = g_file_get_uri (gFile);
+    g_return_val_if_fail(G_IS_FILE(gFile), nullptr);
 
-    return dir_str;
+    auto dirString = g_file_get_uri (gFile);
+
+    if (withTrailingSlash)
+    {
+        auto tmpString = dirString[strlen(dirString)-1] == G_DIR_SEPARATOR
+            ? g_strdup(dirString)
+            : g_strdup_printf("%s%s", dirString, G_DIR_SEPARATOR_S);
+        g_free(dirString);
+        dirString = tmpString;
+    }
+
+    return dirString;
 }
 
 /**

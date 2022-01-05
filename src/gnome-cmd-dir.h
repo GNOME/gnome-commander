@@ -126,7 +126,7 @@ void gnome_cmd_dir_update_path (GnomeCmdDir *dir);
 gchar *gnome_cmd_dir_get_display_path (GnomeCmdDir *dir);
 
 GFile       *gnome_cmd_dir_get_gfile (GnomeCmdDir *dir);
-gchar       *gnome_cmd_dir_get_uri_str (GnomeCmdDir *dir);
+gchar       *gnome_cmd_dir_get_uri_str (GnomeCmdDir *dir, gboolean withTrailingSlash = false);
 
 GFile *gnome_cmd_dir_get_gfile_for_con_and_filename(GnomeCmdDir *dir, const gchar *filename);
 GFile *gnome_cmd_dir_get_child_gfile (GnomeCmdDir *dir, const gchar *filename);
