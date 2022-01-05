@@ -75,7 +75,7 @@ static void mount_func (GnomeCmdCon *con)
 {
     g_return_if_fail(GNOME_CMD_IS_CON(con));
 
-    auto gFile = gnome_cmd_con_create_gfile(con, con->base_path);
+    auto gFile = gnome_cmd_con_create_gfile(con);
 
     auto uri = g_file_get_uri(gFile);
     DEBUG('m', "Connecting to %s\n", uri);
@@ -184,15 +184,29 @@ static gboolean remote_open_is_needed (GnomeCmdCon *con)
 }
 
 
+static GFile *create_remote_gfile_with_path(GnomeCmdCon *con, GnomeCmdPath *path)
+{
+    auto gUri = g_uri_build(G_URI_FLAGS_NONE, con->scheme, nullptr, con->hostname, con->port, path->get_path(), nullptr, nullptr);
+    auto gFilePathUriString = g_uri_to_string(gUri);
+    auto gFile = g_file_new_for_uri(gFilePathUriString);
+    g_free(gFilePathUriString);
+    return gFile;
+}
+
+
 static GFile *remote_create_gfile (GnomeCmdCon *con, GnomeCmdPath *path)
 {
     g_return_val_if_fail (con->uri != nullptr, nullptr);
 
-    auto uri = g_strdup_printf("%s://%s%s", con->scheme, con->hostname, path->get_path());
-    auto gFile = g_file_new_for_uri (uri);
-    g_free(uri);
-
-    return gFile;
+    if (path)
+    {
+        return create_remote_gfile_with_path(con, path);
+    }
+    else
+    {
+        auto gFile = g_file_new_for_uri (con->uri);
+        return gFile;
+    }
 }
 
 

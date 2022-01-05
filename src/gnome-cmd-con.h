@@ -195,7 +195,7 @@ inline void gnome_cmd_con_set_scheme (GnomeCmdCon *con, const std::string &schem
     con->scheme = scheme.empty() ? NULL : g_strdup (scheme.c_str());
 }
 
-GFile *gnome_cmd_con_create_gfile (GnomeCmdCon *con, GnomeCmdPath *path);
+GFile *gnome_cmd_con_create_gfile (GnomeCmdCon *con, GnomeCmdPath *path = nullptr);
 
 GnomeCmdPath *gnome_cmd_con_create_path (GnomeCmdCon *con, const gchar *path_str);
 
