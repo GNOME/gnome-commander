@@ -1114,7 +1114,10 @@ static gboolean on_new_textfile_ok (GnomeCmdStringDialog *string_dialog, const g
 
     GError *error = nullptr;
     auto uriBaseString = static_cast<gchar*>(GNOME_CMD_FILE (dir)->get_uri_str());
-    auto uriString = g_uri_resolve_relative (uriBaseString, fname, G_URI_FLAGS_NONE, &error);
+    auto relativeFileNamePath = g_build_filename(".", fname, nullptr);
+    auto uriString = g_uri_resolve_relative (uriBaseString, relativeFileNamePath,
+                                             G_URI_FLAGS_NONE, &error);
+    g_free(relativeFileNamePath);
     g_free (uriBaseString);
     if (error)
     {
