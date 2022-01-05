@@ -624,7 +624,7 @@ GFile *gnome_cmd_dir_get_gfile (GnomeCmdDir *dir)
 {
     g_return_val_if_fail (GNOME_CMD_IS_DIR (dir), nullptr);
 
-    return gnome_cmd_dir_get_child_gfile(dir, ".");
+    return GNOME_CMD_FILE(dir)->gFile;
 }
 
 
