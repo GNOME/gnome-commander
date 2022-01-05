@@ -225,17 +225,11 @@ void gnome_cmd_file_setup (GObject *gObject, GFileInfo *gFileInfo, GnomeCmdDir *
     gnomeCmdFile->is_dotdot = g_file_info_get_attribute_uint32 (gFileInfo, G_FILE_ATTRIBUTE_STANDARD_TYPE) == G_FILE_TYPE_DIRECTORY
                               && g_strcmp0(filename, "..") == 0;
 
-    gchar *utf8_name;
-
-    if (!gnome_cmd_data.options.case_sens_sort)
-    {
-        utf8_name = g_utf8_casefold (filename, -1);
-    }
-    else
-        utf8_name = g_strdup(filename);
-
-    gnomeCmdFile->collate_key = g_utf8_collate_key_for_filename (utf8_name, -1);
-    g_free (utf8_name);
+    auto utf8Name = gnome_cmd_data.options.case_sens_sort
+        ? g_strdup(filename)
+        : g_utf8_casefold (filename, -1);
+    gnomeCmdFile->collate_key = g_utf8_collate_key_for_filename (utf8Name, -1);
+    g_free (utf8Name);
 
     if (parentDir)
     {
