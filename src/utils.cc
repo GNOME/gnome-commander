@@ -1093,6 +1093,14 @@ gchar *string_double_underscores (const gchar *string)
     return escaped;
 }
 
+guint32 get_gfile_attribute_uint32(GFileInfo *gFileInfo, const char *attribute)
+{
+    g_return_val_if_fail(gFileInfo != nullptr, 0);
+    g_return_val_if_fail(G_IS_FILE_INFO(gFileInfo), 0);
+
+    return g_file_info_get_attribute_uint32 (gFileInfo, attribute);
+}
+
 guint32 get_gfile_attribute_uint32(GFile *gFile, const char *attribute)
 {
     GError *error;
@@ -1114,13 +1122,20 @@ guint32 get_gfile_attribute_uint32(GFile *gFile, const char *attribute)
     }
     else
     {
-        gFileAttributeUInt32 = g_file_info_get_attribute_uint32 (gcmdFileInfo, attribute);
+        gFileAttributeUInt32 = get_gfile_attribute_uint32 (gcmdFileInfo, attribute);
         g_object_unref(gcmdFileInfo);
     }
 
     return gFileAttributeUInt32;
 }
 
+guint64 get_gfile_attribute_uint64(GFileInfo *gFileInfo, const char *attribute)
+{
+    g_return_val_if_fail(gFileInfo != nullptr, 0);
+    g_return_val_if_fail(G_IS_FILE_INFO(gFileInfo), 0);
+
+    return g_file_info_get_attribute_uint64 (gFileInfo, attribute);
+}
 
 guint64 get_gfile_attribute_uint64(GFile *gFile, const char *attribute)
 {
@@ -1143,13 +1158,21 @@ guint64 get_gfile_attribute_uint64(GFile *gFile, const char *attribute)
     }
     else
     {
-        gFileAttributeUInt64 = g_file_info_get_attribute_uint64 (gcmdFileInfo, attribute);
+        gFileAttributeUInt64 = get_gfile_attribute_uint64 (gcmdFileInfo, attribute);
         g_object_unref(gcmdFileInfo);
     }
 
     return gFileAttributeUInt64;
 }
 
+
+gboolean get_gfile_attribute_boolean(GFileInfo *gFileInfo, const char *attribute)
+{
+    g_return_val_if_fail(gFileInfo != nullptr, FALSE);
+    g_return_val_if_fail(G_IS_FILE_INFO(gFileInfo), FALSE);
+
+    return g_file_info_get_attribute_boolean (gFileInfo, attribute);
+}
 
 gboolean get_gfile_attribute_boolean(GFile *gFile, const char *attribute)
 {
@@ -1172,13 +1195,20 @@ gboolean get_gfile_attribute_boolean(GFile *gFile, const char *attribute)
     }
     else
     {
-        gFileAttributeBoolean = g_file_info_get_attribute_boolean (gcmdFileInfo, attribute);
+        gFileAttributeBoolean = get_gfile_attribute_boolean (gcmdFileInfo, attribute);
         g_object_unref(gcmdFileInfo);
     }
 
     return gFileAttributeBoolean;
 }
 
+gchar *get_gfile_attribute_string(GFileInfo *gFileInfo, const char *attribute)
+{
+    g_return_val_if_fail(gFileInfo != nullptr, nullptr);
+    g_return_val_if_fail(G_IS_FILE_INFO(gFileInfo), nullptr);
+
+    return g_strdup(g_file_info_get_attribute_string (gFileInfo, attribute));
+}
 
 gchar *get_gfile_attribute_string(GFile *gFile, const char *attribute)
 {
@@ -1199,7 +1229,7 @@ gchar *get_gfile_attribute_string(GFile *gFile, const char *attribute)
         return nullptr;
     }
 
-    auto gFileAttributeString = g_strdup(g_file_info_get_attribute_string (gcmdFileInfo, attribute));
+    auto gFileAttributeString = get_gfile_attribute_string (gcmdFileInfo, attribute);
     g_object_unref(gcmdFileInfo);
 
     return gFileAttributeString;

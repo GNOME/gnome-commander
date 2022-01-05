@@ -567,25 +567,25 @@ GAppInfo *GnomeCmdFile::GetAppInfoForContentType()
 
 gboolean GnomeCmdFile::GetGfileAttributeBoolean(const char *attribute)
 {
-    return get_gfile_attribute_boolean(this->gFile, attribute);
+    return get_gfile_attribute_boolean(this->gFileInfo, attribute);
 }
 
 
 gchar *GnomeCmdFile::GetGfileAttributeString(const char *attribute)
 {
-    return get_gfile_attribute_string(this->gFile, attribute);
+    return get_gfile_attribute_string(this->gFileInfo, attribute);
 }
 
 
 guint32 GnomeCmdFile::GetGfileAttributeUInt32(const char *attribute)
 {
-    return get_gfile_attribute_uint32(this->gFile, attribute);
+    return get_gfile_attribute_uint32(this->gFileInfo, attribute);
 }
 
 
 guint64 GnomeCmdFile::GetGfileAttributeUInt64(const char *attribute)
 {
-    return get_gfile_attribute_uint64(this->gFile, attribute);
+    return get_gfile_attribute_uint64(this->gFileInfo, attribute);
 }
 
 

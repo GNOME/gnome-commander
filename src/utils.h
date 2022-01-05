@@ -403,10 +403,18 @@ gchar* get_package_config_dir();
 
 gchar *string_double_underscores (const gchar *string);
 
+gboolean get_gfile_attribute_boolean(GFileInfo *gFileInfo, const char *attribute);
+
 gboolean get_gfile_attribute_boolean(GFile *gFile, const char *attribute);
+
+guint32 get_gfile_attribute_uint32(GFileInfo *gFileInfo, const char *attribute);
 
 guint32 get_gfile_attribute_uint32(GFile *gFile, const char *attribute);
 
+guint64 get_gfile_attribute_uint64(GFileInfo *gFileInfo, const char *attribute);
+
 guint64 get_gfile_attribute_uint64(GFile *gFile, const char *attribute);
+
+gchar *get_gfile_attribute_string(GFileInfo *gFileInfo, const char *attribute);
 
 gchar *get_gfile_attribute_string(GFile *gFile, const char *attribute);
