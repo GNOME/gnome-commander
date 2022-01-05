@@ -650,6 +650,35 @@ gchar *gnome_cmd_dir_get_uri_str (GnomeCmdDir *dir, gboolean withTrailingSlash)
     return dirString;
 }
 
+
+/**
+ * @brief Get the relative directory path string for the given base path
+ *
+ * For example, let childPath be "/tmp/abc" and basePath is the path "/tmp/"
+ * (from the original URI smb://localhost/tmp/). Then the return would be
+ * the the address pointing to "/" (which is the second slash from "/tmp/").
+ * If childPath is pointing to "/tmp/abc" and the basePath points
+ * to "/xyz", then the return points to "/" because /xzy is relative
+ * to the /tmp on the same directory level.
+ */
+gchar *gnome_cmd_dir_get_relative_path_string(const char* childPath, const char* basePath)
+{
+    if (!childPath || *childPath == '\000')
+        return g_strdup(basePath);
+
+    if (!strcmp(basePath, G_DIR_SEPARATOR_S))
+        return g_strdup(childPath);
+
+    char *relPath = nullptr;
+
+    if (strstr(childPath, basePath) == childPath)
+    {
+        auto stringTmp = strchr((childPath + 1), G_DIR_SEPARATOR);
+        relPath = g_strdup(stringTmp != nullptr ? stringTmp : childPath);
+    }
+    return relPath ? relPath : g_strdup(G_DIR_SEPARATOR_S);
+}
+
 /**
  * This function returns a GFile object which is the result of the URI construction of
  * two URI's and a path: the connection URI, which is the private member of GnomeCmdDir,
@@ -663,34 +692,34 @@ GFile *gnome_cmd_dir_get_gfile_for_con_and_filename(GnomeCmdDir *dir, const gcha
         return nullptr;
     }
 
-    //Always let the conection URI end with '/'
+    //Always let the conection URI end with '/' because the last entry should be a directory
     auto conLastCharacter = conUri[strlen(conUri)-1];
     auto conUriTmp = conLastCharacter == G_DIR_SEPARATOR
         ? g_strdup(conUri)
-        : g_strdup_printf("%s" G_DIR_SEPARATOR_S, conUri);
+        : g_strdup_printf("%s%s", conUri, G_DIR_SEPARATOR_S);
 
     // Create the merged URI out of the connection URI, the directory path and the filename
+    auto gnomeCmdDirPathString = gnome_cmd_dir_get_path(dir)->get_path();
+
+    auto gUri = g_uri_parse(conUriTmp, G_URI_FLAGS_NONE, nullptr);
+    auto conUriPath = g_uri_get_path(gUri);
+    auto relDirToUriPath = gnome_cmd_dir_get_relative_path_string(gnomeCmdDirPathString, conUriPath);
+    auto mergedDirAndFileNameString = g_build_path(G_DIR_SEPARATOR_S, ".", relDirToUriPath, filename, nullptr);
+    g_free(relDirToUriPath);
+
     GError *error = nullptr;
-    auto gnomeCmdDirPath = gnome_cmd_dir_get_path(dir);
-    auto dirLastCharacter = gnomeCmdDirPath->get_path()[strlen(gnomeCmdDirPath->get_path())-1];
-    auto mergedDirAndFileNameString = dirLastCharacter != G_DIR_SEPARATOR
-        ? g_strdup_printf(".%s" G_DIR_SEPARATOR_S "%s", gnomeCmdDirPath->get_path(), filename)
-        : g_strdup_printf(".%s%s", gnomeCmdDirPath->get_path(), filename);
-    auto fullFileNameUri = g_uri_resolve_relative (
-                                conUriTmp,
-                                mergedDirAndFileNameString,
-                                G_URI_FLAGS_NONE,
-                                &error);
-    if (error)
+    auto fullFileNameUri = g_uri_resolve_relative (conUriTmp, mergedDirAndFileNameString, G_URI_FLAGS_NONE, &error);
+    if (!fullFileNameUri || error)
     {
-        g_warning ("get_gfile_for_merged_paths error: %s", error->message);
+        g_warning ("gnome_cmd_dir_get_uri_str error: %s", error ? error->message : "Could not resolve relative URI");
         g_error_free(error);
         return nullptr;
     }
+
     auto gFile = g_file_new_for_uri(fullFileNameUri);
-    g_free(mergedDirAndFileNameString);
-    g_free(fullFileNameUri);
     g_free(conUriTmp);
+    g_free(fullFileNameUri);
+    g_free(mergedDirAndFileNameString);
     return gFile;
 }
 

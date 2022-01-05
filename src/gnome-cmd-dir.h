@@ -128,6 +128,7 @@ gchar *gnome_cmd_dir_get_display_path (GnomeCmdDir *dir);
 GFile       *gnome_cmd_dir_get_gfile (GnomeCmdDir *dir);
 gchar       *gnome_cmd_dir_get_uri_str (GnomeCmdDir *dir, gboolean withTrailingSlash = false);
 
+gchar *gnome_cmd_dir_get_relative_path_string(const char* childPathString, const char* basePath);
 GFile *gnome_cmd_dir_get_gfile_for_con_and_filename(GnomeCmdDir *dir, const gchar *filename);
 GFile *gnome_cmd_dir_get_child_gfile (GnomeCmdDir *dir, const gchar *filename);
 
