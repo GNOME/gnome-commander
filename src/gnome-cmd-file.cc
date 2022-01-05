@@ -274,34 +274,21 @@ void gnome_cmd_file_setup (GObject *gObject, GFileInfo *gFileInfo, GnomeCmdDir *
     auto pathString = gnomeCmdFile->GetPathStringThroughParent();
     if (pathString)
     {
-        GnomeCmdCon *con = nullptr;
-        if (parentDir)
-        {
-            con = gnome_cmd_dir_get_connection(parentDir);
-        }
-        else
-        {
-            if (GNOME_CMD_IS_DIR(gObject))
-            {
-                con = gnome_cmd_dir_get_connection(GNOME_CMD_DIR(gObject));
-            }
-        }
-        if (con && !con->is_local)
-        {
-            auto uriObject = g_uri_build(G_URI_FLAGS_NONE, con->scheme, nullptr,
-                                         con->hostname, con->port, pathString, nullptr, nullptr);
-            auto uriString = g_uri_to_string(uriObject);
-            auto gFileFinal = g_file_new_for_uri (uriString);
+        auto con = gnome_cmd_dir_get_connection(parentDir ? parentDir : GNOME_CMD_DIR(gObject));
+        auto gUri = g_uri_build(G_URI_FLAGS_NONE,
+                                con && con->scheme ? con->scheme : "file",
+                                nullptr,
+                                con ? con->hostname : nullptr,
+                                con ? con->port : -1,
+                                pathString,
+                                nullptr,
+                                nullptr);
 
-            GNOME_CMD_FILE_BASE (gnomeCmdFile)->gFile = gFileFinal;
-            gnomeCmdFile->gFile = GNOME_CMD_FILE_BASE (gnomeCmdFile)->gFile;
-            g_free(uriString);
-        }
-        else
-        {
-            GNOME_CMD_FILE_BASE (gnomeCmdFile)->gFile = g_file_new_for_path(pathString);
-            gnomeCmdFile->gFile = GNOME_CMD_FILE_BASE (gnomeCmdFile)->gFile;
-        }
+        auto uriString = g_uri_to_string(gUri);
+        auto gFileFinal = g_file_new_for_uri (uriString);
+        GNOME_CMD_FILE_BASE (gnomeCmdFile)->gFile = gFileFinal;
+        gnomeCmdFile->gFile = GNOME_CMD_FILE_BASE (gnomeCmdFile)->gFile;
+        g_free(uriString);
         g_free(pathString);
     }
     // EVERY GnomeCmdFile instance must have a gFile reference
