@@ -535,50 +535,31 @@ gboolean gnome_cmd_connect_dialog_edit (GnomeCmdConRemote *server)
     if (response == GTK_RESPONSE_OK)
     {
         g_free(host);
-        gchar *scheme;
-
         GError *error = nullptr;
 
         if (dialog->priv->uri_str.c_str())
         {
-            g_uri_split (
-                dialog->priv->uri_str.c_str(),
-                G_URI_FLAGS_NONE,
-                &scheme,
-                nullptr, //auth_params
-                &host, //host
-                &port, //port
-                &path, //path
-                nullptr, //query
-                nullptr, //fragment
-                &error
-            );
+            auto uri = g_uri_parse(dialog->priv->uri_str.c_str(), G_URI_FLAGS_NONE, &error);
             if (error)
             {
-                g_warning("gnome_cmd_connect_dialog_edit - g_uri_split error: %s", error->message);
+                g_warning("gnome_cmd_connect_dialog_edit - g_uri_parse error: %s", error->message);
                 g_error_free(error);
                 return FALSE;
             }
-#ifdef HAVE_SAMBA
-            if (!strcmp(scheme, "smb"))
-            {
-                auto uriString = path
-                    ? g_strdup_printf("%s://%s%s/", scheme, host, path)
-                    : g_strdup_printf("%s://%s/", scheme, host);
-                gnome_cmd_con_set_uri (con, uriString);
-                g_free(uriString);
-            }
-            else
-            {
-#endif
-                auto uriString = port != -1
-                    ? g_strdup_printf("%s://%s:%d/", scheme, host, port)
-                    : g_strdup_printf("%s://%s/", scheme, host);
-                gnome_cmd_con_set_uri (con, uriString);
-                g_free(uriString);
-#ifdef HAVE_SAMBA
-            }
-#endif
+            auto uriScheme = g_uri_get_scheme(uri);
+            auto uriHost = g_uri_get_host(uri);
+            auto uriPath = g_uri_get_path(uri);
+            auto uriPort = g_uri_get_port(uri);
+            auto uriString = g_uri_to_string(uri);
+            gnome_cmd_con_set_uri (con, uriString);
+            g_free(uriString);
+
+            gnome_cmd_con_set_scheme(con, uriScheme);
+            gnome_cmd_con_set_base_path(con, uriPath ? new GnomeCmdPlainPath(uriPath) : new GnomeCmdPlainPath(G_DIR_SEPARATOR_S));
+            gnome_cmd_con_set_root_path(con, uriPath);
+            gnome_cmd_con_set_host_name (con, uriHost);
+            if (port != -1)
+                gnome_cmd_con_set_port(con, uriPort);
         }
         else
         {
@@ -586,26 +567,21 @@ gboolean gnome_cmd_connect_dialog_edit (GnomeCmdConRemote *server)
             path = g_strdup(gtk_entry_get_text (GTK_ENTRY (dialog->priv->folder_entry)));
             auto portChar = gtk_entry_get_text (GTK_ENTRY (dialog->priv->port_entry));
             port = portChar ? atoi(portChar) : -1;
+
+            gnome_cmd_con_set_base_path(con, path ? new GnomeCmdPlainPath(path) : new GnomeCmdPlainPath(G_DIR_SEPARATOR_S));
+            gnome_cmd_con_set_root_path(con, path);
+            gnome_cmd_con_set_host_name (con, host);
+            if (port != -1)
+                gnome_cmd_con_set_port(con, port);
+
+            g_free(host);
+            g_free(path);
         }
 
         auto alias = dialog->priv->alias ? dialog->priv->alias->c_str() : nullptr;
         gnome_cmd_con_set_alias (con, alias);
-
-        gnome_cmd_con_set_scheme(con, scheme);
-        gnome_cmd_con_set_base_path(con, path ? new GnomeCmdPlainPath(path) : new GnomeCmdPlainPath(G_DIR_SEPARATOR_S));
-        gnome_cmd_con_set_root_path(con, path);
-        gnome_cmd_con_set_host_name (con, host);
-        if (port != -1)
-            gnome_cmd_con_set_port(con, port);
-
-
         con->method = (ConnectionMethodID) gtk_combo_box_get_active (GTK_COMBO_BOX (dialog->priv->type_combo));
-
         gnome_cmd_con_remote_set_tooltips (server, host);
-
-        g_free(host);
-        g_free(path);
-        g_free(scheme);
     }
 
     gtk_widget_destroy (*dialog);

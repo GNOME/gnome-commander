@@ -25,6 +25,7 @@
 #include "gnome-cmd-remote-dialog.h"
 #include "gnome-cmd-con-list.h"
 #include "gnome-cmd-data.h"
+#include "gnome-cmd-con-smb.h"
 #include "gnome-cmd-treeview.h"
 #include "imageloader.h"
 #include "gnome-cmd-file-selector.h"
