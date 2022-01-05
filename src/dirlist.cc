@@ -116,23 +116,8 @@ void async_list (GnomeCmdDir *dir)
     GError *error = nullptr;
 
     dir->gFileInfoList = nullptr;
-    GFile *gFile;
-    auto con = gnome_cmd_dir_get_connection(dir);
-    if (con->is_local)
-    {
-        gFile = GNOME_CMD_FILE (dir)->gFile;
-    }
-    else
-    {
-        auto conUri = gnome_cmd_con_get_uri(con);
-        auto gFileTmp = g_file_new_for_uri (conUri);
-        auto dirPath = GNOME_CMD_FILE (dir)->get_path();
-        gFile = g_file_resolve_relative_path (gFileTmp, dirPath);
 
-        g_object_unref (gFileTmp);
-        g_free(dirPath);
-    }
-
+    auto gFile = GNOME_CMD_FILE (dir)->gFile;
     gchar *uri_str = g_file_get_uri(gFile);
     DEBUG('l', "async_list: %s\n", uri_str);
     g_free (uri_str);
@@ -140,7 +125,7 @@ void async_list (GnomeCmdDir *dir)
     dir->state = GnomeCmdDir::STATE_LISTING;
 
     GFileEnumerator *gFileEnumerator;
-    if (con->is_local)
+    if (gnome_cmd_dir_get_connection(dir)->is_local)
     {
         gFileEnumerator = get_gfileenumerator_sync(gFile, error);
         if (error)
