@@ -950,7 +950,6 @@ void gnome_cmd_dir_start_monitoring (GnomeCmdDir *dir)
 
     if (dir->priv->monitor_users == 0)
     {
-        gchar *uri_str = GNOME_CMD_FILE (dir)->get_uri_str();
         GError *error = nullptr;
 
         auto gFileMonitor = g_file_monitor_directory (
