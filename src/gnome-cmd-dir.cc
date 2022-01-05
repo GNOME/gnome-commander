@@ -337,43 +337,39 @@ GnomeCmdDir *gnome_cmd_dir_new (GnomeCmdCon *con, GnomeCmdPath *path, gboolean i
     GError *error = nullptr;
 
     auto gFile = gnome_cmd_con_create_gfile (con, path);
-    if (!gFile) return nullptr;
-
-    auto uriString = g_file_get_uri (gFile);
-    g_object_unref (gFile);
-
-    GnomeCmdDir *dir = gnome_cmd_con_cache_lookup (con, uriString);
-    if (dir)
+    if (!gFile)
     {
-        g_free (uriString);
-        return dir;
+        return nullptr;
     }
 
-    auto gFileTmp = g_file_new_for_path(path->get_path());
-    auto gFileInfo = g_file_query_info(gFileTmp, "*", G_FILE_QUERY_INFO_NONE, nullptr, &error);
-    g_object_unref(gFileTmp);
+    auto uriString = g_file_get_uri (gFile);
 
-    if (error)
+    auto gnomeCmdDir = gnome_cmd_con_cache_lookup (con, uriString);
+    if (gnomeCmdDir) // GnomeCmdDir instance is set up already
     {
-        if (!isStartup)
+        g_free (uriString);
+        g_object_unref (gFile);
+        return gnomeCmdDir;
+    }
+
+    gnomeCmdDir = static_cast<GnomeCmdDir*> (g_object_new (GNOME_CMD_TYPE_DIR, nullptr));
+    if (!gnome_cmd_file_setup (G_OBJECT (gnomeCmdDir), gFile, error))
+    {
+        if (error && !isStartup)
         {
             gnome_cmd_show_message (*main_win, path->get_display_path(), error->message);
             g_error_free(error);
         }
+        g_object_unref(gFile);
         g_free (uriString);
         return nullptr;
     }
+    gnome_cmd_dir_set_path (gnomeCmdDir, path);
+    gnomeCmdDir->priv->con = con;
+    gnomeCmdDir->priv->needs_mtime_update = FALSE;
+    gnome_cmd_con_add_to_cache (con, gnomeCmdDir, uriString);
 
-    dir = static_cast<GnomeCmdDir*> (g_object_new (GNOME_CMD_TYPE_DIR, nullptr));
-    gnome_cmd_dir_set_path (dir, path);
-    gnome_cmd_file_setup (G_OBJECT (dir), gFileInfo, nullptr);
-
-    dir->priv->con = con;
-    dir->priv->needs_mtime_update = FALSE;
-
-    gnome_cmd_con_add_to_cache (con, dir, uriString);
-
-    return dir;
+    return gnomeCmdDir;
 }
 
 

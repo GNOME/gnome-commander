@@ -210,6 +210,40 @@ void GnomeCmdFile::invalidate_metadata()
 }
 
 
+gboolean gnome_cmd_file_setup (GObject *gObject, GFile *gFile, GError *error)
+{
+    g_return_val_if_fail (gObject != nullptr, FALSE);
+    g_return_val_if_fail (GNOME_CMD_IS_FILE(gObject), FALSE);
+    g_return_val_if_fail (gFile != nullptr, FALSE);
+
+    GError *errorTmp = nullptr;
+    auto gnomeCmdFile = (GnomeCmdFile*) gObject;
+
+    gnomeCmdFile->gFileInfo = g_file_query_info(gFile, "*", G_FILE_QUERY_INFO_NONE, nullptr, &errorTmp);
+    if (errorTmp)
+    {
+        g_propagate_error(&error, errorTmp);
+        return FALSE;
+    }
+
+    auto filename = g_file_info_get_attribute_string (gnomeCmdFile->gFileInfo, G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME);
+
+    // check if file is '..'
+    gnomeCmdFile->is_dotdot = g_file_info_get_attribute_uint32 (gnomeCmdFile->gFileInfo, G_FILE_ATTRIBUTE_STANDARD_TYPE) == G_FILE_TYPE_DIRECTORY
+                              && g_strcmp0(filename, "..") == 0;
+
+    auto utf8Name = gnome_cmd_data.options.case_sens_sort
+        ? g_strdup(filename)
+        : g_utf8_casefold (filename, -1);
+    gnomeCmdFile->collate_key = g_utf8_collate_key_for_filename (utf8Name, -1);
+    g_free (utf8Name);
+
+    GNOME_CMD_FILE_BASE (gnomeCmdFile)->gFile = gFile;
+    gnomeCmdFile->gFile = GNOME_CMD_FILE_BASE (gnomeCmdFile)->gFile;
+    return TRUE;
+}
+
+
 void gnome_cmd_file_setup (GObject *gObject, GFileInfo *gFileInfo, GnomeCmdDir *parentDir)
 {
     g_return_if_fail (gObject != nullptr);
