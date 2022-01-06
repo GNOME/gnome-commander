@@ -731,7 +731,7 @@ GFile *gnome_cmd_dir_get_gfile_for_con_and_filename(GnomeCmdDir *dir, const gcha
     auto gUriForMount = g_uri_parse(mountUriTmp, G_URI_FLAGS_NONE, nullptr);
     auto conUriPath = g_uri_get_path(gUriForMount);
     auto relDirToUriPath = gnome_cmd_dir_get_relative_path_string(gnomeCmdDirPathString, conUriPath);
-    auto mergedDirAndFileNameString = g_build_path(G_DIR_SEPARATOR_S, ".", relDirToUriPath, filename, nullptr);
+    auto mergedDirAndFileNameString = g_build_filename(".", relDirToUriPath, filename, nullptr);
     g_free(relDirToUriPath);
 
     GError *error = nullptr;

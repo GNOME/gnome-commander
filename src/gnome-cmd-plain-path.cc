@@ -55,7 +55,7 @@ GnomeCmdPath *GnomeCmdPlainPath::get_parent()
 GnomeCmdPath *GnomeCmdPlainPath::get_child(const gchar *child)
 {
     g_return_val_if_fail(child != nullptr, nullptr);
-    auto fullPath = g_build_path(G_DIR_SEPARATOR_S, path && path[0] != '\0' ? path : G_DIR_SEPARATOR_S, child, nullptr);
+    auto fullPath = g_build_filename(path && path[0] != '\0' ? path : G_DIR_SEPARATOR_S, child, nullptr);
     auto child_path = new GnomeCmdPlainPath(fullPath);
     g_free (fullPath);
     return child_path;
