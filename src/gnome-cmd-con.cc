@@ -500,7 +500,7 @@ gboolean gnome_cmd_con_get_path_target_type (GnomeCmdCon *con, const gchar *path
 
     if (!gFile || !g_file_query_exists(gFile, nullptr))
     {
-        if (!gFile)
+        if (gFile)
             g_object_unref(gFile);
         *gFileType = G_FILE_TYPE_UNKNOWN;
         delete path;
