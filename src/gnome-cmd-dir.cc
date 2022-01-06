@@ -431,7 +431,6 @@ static GList *create_gnome_cmd_file_list_from_gfileinfo_list (GnomeCmdDir *dir, 
     GList *file_list = nullptr;
 
     // create a new list with GnomeCmdFile objects
-
     for (GList *i = info_list; i; i = i->next)
     {
         auto gFileInfo = (GFileInfo *) i->data;
@@ -679,6 +678,23 @@ gchar *gnome_cmd_dir_get_relative_path_string(const char* childPath, const char*
     return relPath ? relPath : g_strdup(G_DIR_SEPARATOR_S);
 }
 
+static gchar *gnome_cmd_dir_get_mount_uri(GnomeCmdCon *con)
+{
+    auto conUri = gnome_cmd_con_get_uri(con);
+    auto gFileConTmp = g_file_new_for_uri(conUri);
+    do
+    {
+        auto gFileConParent = g_file_get_parent(gFileConTmp);
+        if (!gFileConParent) break;
+        g_object_unref(gFileConTmp);
+        gFileConTmp = gFileConParent;
+    }
+    while (g_file_find_enclosing_mount(gFileConTmp, nullptr, nullptr));
+    auto conUriBase = g_file_get_uri(gFileConTmp);
+    g_object_unref(gFileConTmp);
+    return conUriBase;
+}
+
 /**
  * This function returns a GFile object which is the result of the URI construction of
  * two URI's and a path: the connection URI, which is the private member of GnomeCmdDir,
@@ -692,32 +708,39 @@ GFile *gnome_cmd_dir_get_gfile_for_con_and_filename(GnomeCmdDir *dir, const gcha
         return nullptr;
     }
 
-    //Always let the conection URI end with '/' because the last entry should be a directory
-    auto conLastCharacter = conUri[strlen(conUri)-1];
-    auto conUriTmp = conLastCharacter == G_DIR_SEPARATOR
-        ? g_strdup(conUri)
-        : g_strdup_printf("%s%s", conUri, G_DIR_SEPARATOR_S);
+    // Get the Uri for the mount which belongs to the GnomeCmdCon object
+    auto mountUri = gnome_cmd_dir_get_mount_uri(dir->priv->con);
+
+    // Always let the conection URI end with '/' because the last entry should be a directory
+    auto conLastCharacter = mountUri[strlen(mountUri)-1];
+    auto mountUriTmp = conLastCharacter == G_DIR_SEPARATOR
+        ? g_strdup(mountUri)
+        : g_strdup_printf("%s%s", mountUri, G_DIR_SEPARATOR_S);
+    g_free(mountUri);
 
     // Create the merged URI out of the connection URI, the directory path and the filename
     auto gnomeCmdDirPathString = gnome_cmd_dir_get_path(dir)->get_path();
 
-    auto gUri = g_uri_parse(conUriTmp, G_URI_FLAGS_NONE, nullptr);
-    auto conUriPath = g_uri_get_path(gUri);
+    auto gUriForMount = g_uri_parse(mountUriTmp, G_URI_FLAGS_NONE, nullptr);
+    auto conUriPath = g_uri_get_path(gUriForMount);
     auto relDirToUriPath = gnome_cmd_dir_get_relative_path_string(gnomeCmdDirPathString, conUriPath);
     auto mergedDirAndFileNameString = g_build_path(G_DIR_SEPARATOR_S, ".", relDirToUriPath, filename, nullptr);
     g_free(relDirToUriPath);
 
     GError *error = nullptr;
-    auto fullFileNameUri = g_uri_resolve_relative (conUriTmp, mergedDirAndFileNameString, G_URI_FLAGS_NONE, &error);
+    auto fullFileNameUri = g_uri_resolve_relative (mountUriTmp, mergedDirAndFileNameString, G_URI_FLAGS_NONE, &error);
     if (!fullFileNameUri || error)
     {
         g_warning ("gnome_cmd_dir_get_uri_str error: %s", error ? error->message : "Could not resolve relative URI");
+        g_free(mountUriTmp);
+        g_free(fullFileNameUri);
+        g_free(mergedDirAndFileNameString);
         g_error_free(error);
         return nullptr;
     }
 
     auto gFile = g_file_new_for_uri(fullFileNameUri);
-    g_free(conUriTmp);
+    g_free(mountUriTmp);
     g_free(fullFileNameUri);
     g_free(mergedDirAndFileNameString);
     return gFile;
