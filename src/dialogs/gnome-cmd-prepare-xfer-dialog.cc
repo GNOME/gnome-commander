@@ -108,13 +108,13 @@ static void on_ok (GtkButton *button, GnomeCmdPrepareXferDialog *dialog)
 
     if (g_list_length (dialog->src_files) == 1)
     {
-        GnomeCmdFile *f = GNOME_CMD_FILE (dialog->src_files->data);
+        GnomeCmdFile *gFile = GNOME_CMD_FILE (dialog->src_files->data);
 
         if (fileExists && gFileType == G_FILE_TYPE_DIRECTORY)
         {
             // There exists a directory, copy into it using the original filename
             dest_dir = gnome_cmd_dir_new (con, gnome_cmd_con_create_path (con, dest_path));
-            dest_fn = g_strdup (f->get_name());
+            dest_fn = g_strdup (gFile->get_name());
         }
         else
             if (fileExists)
@@ -424,7 +424,7 @@ GtkWidget *gnome_cmd_prepare_xfer_dialog_new (GnomeCmdFileSelector *from, GnomeC
     g_return_val_if_fail (from!=NULL, NULL);
     g_return_val_if_fail (to!=NULL, NULL);
 
-    gchar *dest_str = NULL;
+    gchar *destString = NULL;
     GnomeCmdPrepareXferDialog *dialog = (GnomeCmdPrepareXferDialog *) g_object_new (GNOME_CMD_TYPE_PREPARE_XFER_DIALOG, NULL);
 
     dialog->src_files = from->file_list()->get_selected_files();
@@ -438,40 +438,40 @@ GtkWidget *gnome_cmd_prepare_xfer_dialog_new (GnomeCmdFileSelector *from, GnomeC
     {
         if (num_files == 1)
         {
-            GnomeCmdFile *f = (GnomeCmdFile *) dialog->src_files->data;
-            dest_str = g_strdup (f->get_name());
+            auto gFile = static_cast<GnomeCmdFile*> (dialog->src_files->data);
+            destString = g_strdup (gFile->get_name());
         }
     }
     else
     {
         if (num_files == 1)
         {
-            GnomeCmdFile *f = (GnomeCmdFile *) dialog->src_files->data;
+            auto gFile = static_cast<GnomeCmdFile*> (dialog->src_files->data);
 
-            gchar *t = GNOME_CMD_FILE (dialog->default_dest_dir)->get_real_path();
-            gchar *path = get_utf8 (t);
-            g_free (t);
+            auto tempPathString = GNOME_CMD_FILE (dialog->default_dest_dir)->get_real_path();
+            auto path = get_utf8 (tempPathString);
+            g_free (tempPathString);
 
-            dest_str = g_build_filename (path, f->get_name(), NULL);
-            if (path_points_at_directory (to, dest_str))
+            destString = g_build_filename (path, gFile->get_name(), NULL);
+            if (path_points_at_directory (to, destString))
             {
-                g_free (dest_str);
-                dest_str = g_strdup (path);
+                g_free (destString);
+                destString = g_strdup (path);
             }
 
             g_free (path);
         }
         else
         {
-            gchar *t = GNOME_CMD_FILE (dialog->default_dest_dir)->get_real_path();
-            dest_str = get_utf8 (t);
-            g_free (t);
+            auto tempPathString = GNOME_CMD_FILE (dialog->default_dest_dir)->get_real_path();
+            destString = get_utf8 (tempPathString);
+            g_free (tempPathString);
         }
     }
-    if (dest_str)
+    if (destString)
     {
-        gtk_entry_set_text (GTK_ENTRY (dialog->dest_dir_entry), dest_str);
-        g_free (dest_str);
+        gtk_entry_set_text (GTK_ENTRY (dialog->dest_dir_entry), destString);
+        g_free (destString);
     }
 
     gtk_widget_grab_focus (GTK_WIDGET (dialog->dest_dir_entry));
