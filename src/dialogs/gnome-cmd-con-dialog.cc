@@ -560,6 +560,9 @@ gboolean gnome_cmd_connect_dialog_edit (GnomeCmdConRemote *server)
             gnome_cmd_con_set_host_name (con, uriHost);
             if (uriPort != -1)
                 gnome_cmd_con_set_port(con, uriPort);
+            // let GIO handle the port of the SMB connection
+            if (!strcmp(uriScheme, "smb") && uriPort != -1)
+                gnome_cmd_con_set_port(con, -1);
         }
         else
         {
