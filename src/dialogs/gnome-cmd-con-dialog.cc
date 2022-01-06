@@ -558,7 +558,7 @@ gboolean gnome_cmd_connect_dialog_edit (GnomeCmdConRemote *server)
             gnome_cmd_con_set_base_path(con, uriPath ? new GnomeCmdPlainPath(uriPath) : new GnomeCmdPlainPath(G_DIR_SEPARATOR_S));
             gnome_cmd_con_set_root_path(con, uriPath);
             gnome_cmd_con_set_host_name (con, uriHost);
-            if (port != -1)
+            if (uriPort != -1)
                 gnome_cmd_con_set_port(con, uriPort);
         }
         else
