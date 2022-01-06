@@ -89,7 +89,17 @@ static void on_ok (GtkButton *button, GnomeCmdPrepareXferDialog *dialog)
         if (!gnome_cmd_dir_is_local (dialog->default_dest_dir))
         {
             const gchar *t = gnome_cmd_dir_get_path (dialog->default_dest_dir)->get_path();
-            dest_path = g_build_filename (t, user_path, nullptr);
+            auto destPathTmp = g_build_filename (t, user_path, nullptr);
+            if (*destPathTmp != '/')
+            {
+                dest_path = g_strdup_printf("%s%s", G_DIR_SEPARATOR_S, destPathTmp);
+                g_free(destPathTmp);
+            }
+            else
+            {
+                dest_path = destPathTmp;
+            }
+
         }
         else
         {
