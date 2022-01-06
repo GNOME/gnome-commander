@@ -272,7 +272,6 @@ GnomeCmdDir *gnome_cmd_dir_new_from_gfileinfo (GFileInfo *gFileInfo, GnomeCmdDir
     auto uriString = g_file_get_uri (gFile);
 
     auto *gnomeCmdDir = gnome_cmd_con_cache_lookup (gnome_cmd_dir_get_connection (gnomeCmdDirParent), uriString);
-    g_object_unref (gFile);
 
     if (gnomeCmdDir)
     {
@@ -283,8 +282,15 @@ GnomeCmdDir *gnome_cmd_dir_new_from_gfileinfo (GFileInfo *gFileInfo, GnomeCmdDir
     }
 
     gnomeCmdDir = static_cast<GnomeCmdDir*> (g_object_new (GNOME_CMD_TYPE_DIR, nullptr));
-    gnome_cmd_file_setup (G_OBJECT (gnomeCmdDir), gFileInfo, gnomeCmdDirParent);
-
+    GError *error = nullptr;
+    if(!gnome_cmd_file_setup(G_OBJECT (gnomeCmdDir), gFile, error))
+    {
+        g_warning("gnome_cmd_dir_new_from_gfileinfo error on %s: %s", uriString, error->message);
+        g_error_free(error);
+        g_free (uriString);
+        g_object_unref(gnomeCmdDir);
+        return nullptr;
+    }
     gnomeCmdDir->priv->con = con;
     gnome_cmd_dir_set_path (gnomeCmdDir, dirPath);
     gnomeCmdDir->priv->needs_mtime_update = FALSE;
@@ -304,28 +310,32 @@ GnomeCmdDir *gnome_cmd_dir_new_with_con (GnomeCmdCon *con)
         ? gnome_cmd_con_create_gfile (con, con->base_path)
         : gnome_cmd_con_create_gfile (con, nullptr);
 
-    auto uri_str = g_file_get_uri(gFile);
-    g_object_unref (gFile);
-    GnomeCmdDir *dir = gnome_cmd_con_cache_lookup (con, uri_str);
+    auto uriString = g_file_get_uri(gFile);
+    GnomeCmdDir *dir = gnome_cmd_con_cache_lookup (con, uriString);
 
     if (dir)
     {
         GNOME_CMD_FILE (dir)->update_gFileInfo(con->base_gFileInfo);
-        g_free (uri_str);
+        g_object_unref (gFile);
+        g_free (uriString);
         return dir;
     }
 
     dir = static_cast<GnomeCmdDir*> (g_object_new (GNOME_CMD_TYPE_DIR, nullptr));
     gnome_cmd_dir_set_path (dir, con->base_path->clone());
-
     dir->priv->con = con;
-
-    gnome_cmd_file_setup (G_OBJECT(dir), con->base_gFileInfo, nullptr);
-
+    GError *error = nullptr;
+    if (!gnome_cmd_file_setup (G_OBJECT(dir), gFile, error))
+    {
+        g_warning("gnome_cmd_dir_new_with_con error on %s: %s", uriString, error->message);
+        g_warning("%s", error->message);
+        g_error_free(error);
+        g_free (uriString);
+        g_object_unref(dir);
+        return nullptr;
+    }
     dir->priv->needs_mtime_update = FALSE;
-
-    gnome_cmd_con_add_to_cache (con, dir, uri_str);
-
+    gnome_cmd_con_add_to_cache (con, dir, uriString);
     return dir;
 }
 
