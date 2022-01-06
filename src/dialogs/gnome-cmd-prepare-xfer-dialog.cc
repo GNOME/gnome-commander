@@ -33,7 +33,7 @@
 using namespace std;
 
 
-static GnomeCmdDialogClass *parent_class = NULL;
+static GnomeCmdDialogClass *parent_class = nullptr;
 
 
 inline gboolean con_device_has_path (FileSelectorID fsID, GnomeCmdCon *&dev, const gchar *user_path)
@@ -56,8 +56,8 @@ static void on_ok (GtkButton *button, GnomeCmdPrepareXferDialog *dialog)
         return;
     }
 
-    gchar *dest_path = NULL;
-    gchar *dest_fn = NULL;
+    gchar *dest_path = nullptr;
+    gchar *dest_fn = nullptr;
     gint user_path_len;
 
     user_path_len = strlen (user_path);
@@ -89,12 +89,12 @@ static void on_ok (GtkButton *button, GnomeCmdPrepareXferDialog *dialog)
         if (!gnome_cmd_dir_is_local (dialog->default_dest_dir))
         {
             const gchar *t = gnome_cmd_dir_get_path (dialog->default_dest_dir)->get_path();
-            dest_path = g_build_filename (t, user_path, NULL);
+            dest_path = g_build_filename (t, user_path, nullptr);
         }
         else
         {
             gchar *t = GNOME_CMD_FILE (dialog->src_fs->get_directory())->GetPathStringThroughParent();
-            dest_path = g_build_filename (t, user_path, NULL);
+            dest_path = g_build_filename (t, user_path, nullptr);
             g_free (t);
         }
         g_free (user_path);
@@ -152,7 +152,7 @@ static void on_ok (GtkButton *button, GnomeCmdPrepareXferDialog *dialog)
                         gchar *msg = g_strdup_printf (_("The directory “%s” doesn’t exist, do you want to create it?"),
                                                       g_path_get_basename (parent_dir));
                         gint choice = run_simple_dialog (GTK_WIDGET (dialog), TRUE, GTK_MESSAGE_QUESTION, msg, "",
-                                                         -1, _("No"), _("Yes"), NULL);
+                                                         -1, _("No"), _("Yes"), nullptr);
                         g_free (msg);
 
                         if (choice == 1)
@@ -421,11 +421,11 @@ inline gboolean path_points_at_directory (GnomeCmdFileSelector *to, const gchar 
 
 GtkWidget *gnome_cmd_prepare_xfer_dialog_new (GnomeCmdFileSelector *from, GnomeCmdFileSelector *to)
 {
-    g_return_val_if_fail (from!=NULL, NULL);
-    g_return_val_if_fail (to!=NULL, NULL);
+    g_return_val_if_fail (from!=nullptr, nullptr);
+    g_return_val_if_fail (to!=nullptr, nullptr);
 
-    gchar *destString = NULL;
-    GnomeCmdPrepareXferDialog *dialog = (GnomeCmdPrepareXferDialog *) g_object_new (GNOME_CMD_TYPE_PREPARE_XFER_DIALOG, NULL);
+    gchar *destString = nullptr;
+    GnomeCmdPrepareXferDialog *dialog = (GnomeCmdPrepareXferDialog *) g_object_new (GNOME_CMD_TYPE_PREPARE_XFER_DIALOG, nullptr);
 
     dialog->src_files = from->file_list()->get_selected_files();
     gnome_cmd_file_list_ref (dialog->src_files);
@@ -452,7 +452,7 @@ GtkWidget *gnome_cmd_prepare_xfer_dialog_new (GnomeCmdFileSelector *from, GnomeC
             auto path = get_utf8 (tempPathString);
             g_free (tempPathString);
 
-            destString = g_build_filename (path, gFile->get_name(), NULL);
+            destString = g_build_filename (path, gFile->get_name(), nullptr);
             if (path_points_at_directory (to, destString))
             {
                 g_free (destString);
