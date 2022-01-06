@@ -566,13 +566,10 @@ void gnome_cmd_dir_list_files (GnomeCmdDir *dir, gboolean visualProgress)
 
     if (!dir->priv->files || gnome_cmd_dir_is_local (dir))
     {
-        gchar *path = GNOME_CMD_FILE (dir)->GetPathStringThroughParent();
-        DEBUG ('l', "relisting files for 0x%x %s %d\n",
-               dir,
-               path,
-               visualProgress);
+        auto gUriString = g_file_get_uri(GNOME_CMD_FILE (dir)->gFile);
+        DEBUG ('l', "relisting files for 0x%x; %s\n", dir, gUriString);
         gnome_cmd_dir_relist_files (dir, visualProgress);
-        g_free(path);
+        g_free(gUriString);
     }
     else
         g_signal_emit (dir, signals[LIST_OK], 0, dir->priv->files);
