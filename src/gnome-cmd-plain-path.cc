@@ -1,4 +1,4 @@
-/** 
+/**
  * @file gnome-cmd-plain-path.cc
  * @copyright (C) 2001-2006 Marcus Bjurman\n
  * @copyright (C) 2007-2012 Piotr Eljasiak\n
@@ -55,23 +55,8 @@ GnomeCmdPath *GnomeCmdPlainPath::get_parent()
 GnomeCmdPath *GnomeCmdPlainPath::get_child(const gchar *child)
 {
     g_return_val_if_fail(child != nullptr, nullptr);
-
-    auto fullPath = *path == '/'
-                        ? *child != '/' && strlen(path) > 1
-                            ? g_strconcat(path, G_DIR_SEPARATOR_S, child, nullptr)
-                            : g_strconcat(path, child, nullptr)
-                        : *child != '/'
-                            ? g_strconcat(G_DIR_SEPARATOR_S, path, G_DIR_SEPARATOR_S, child, nullptr)
-                            : g_strconcat(G_DIR_SEPARATOR_S, path, child, nullptr);
-
-    auto childGFile = g_file_new_for_path(fullPath);
+    auto fullPath = g_build_path(G_DIR_SEPARATOR_S, path && path[0] != '\0' ? path : G_DIR_SEPARATOR_S, child, nullptr);
+    auto child_path = new GnomeCmdPlainPath(fullPath);
     g_free (fullPath);
-
-    gchar *pathString = g_file_get_path(childGFile);
-    g_object_unref(childGFile);
-
-    GnomeCmdPath *child_path = new GnomeCmdPlainPath(pathString);
-    g_free (pathString);
-
     return child_path;
 }
