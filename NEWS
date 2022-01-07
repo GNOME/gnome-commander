@@ -25,6 +25,7 @@ Bug fixes:
  * Fixed issue #59 (On ssh connection, to delete a renamed folder/file don't work)
  * Fixed issue #74 (Does not show mounted external drives)
  * Fixed issue #75 (Newly inserted DVD does not show up)
+ * Fixed issue #76 (Crash in Gnome Commander when using webDAV SSL)
 
 ===================================
 gnome-commander 1.12.3.1
