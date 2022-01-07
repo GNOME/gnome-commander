@@ -253,6 +253,8 @@ GNOME_CMD_USER_ACTION(mark_toggle);
 GNOME_CMD_USER_ACTION(mark_toggle_and_step);
 GNOME_CMD_USER_ACTION(mark_select_all);
 GNOME_CMD_USER_ACTION(mark_unselect_all);
+GNOME_CMD_USER_ACTION(mark_select_all_files);
+GNOME_CMD_USER_ACTION(mark_unselect_all_files);
 GNOME_CMD_USER_ACTION(mark_select_with_pattern);
 GNOME_CMD_USER_ACTION(mark_unselect_with_pattern);
 GNOME_CMD_USER_ACTION(mark_invert_selection);

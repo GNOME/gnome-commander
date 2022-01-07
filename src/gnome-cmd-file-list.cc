@@ -2180,6 +2180,42 @@ GnomeCmdFile *GnomeCmdFileList::get_focused_file()
 }
 
 
+void GnomeCmdFileList::select_all_files()
+{
+    for (auto i = get_visible_files(); i; i = i->next)
+    {
+        auto gnomeCmdFile = static_cast<GnomeCmdFile*> (i->data);
+        if (gnomeCmdFile)
+        {
+	        if(GNOME_CMD_IS_DIR(gnomeCmdFile))
+            {
+               unselect_file(gnomeCmdFile);
+            }
+            else
+            {
+               select_file(gnomeCmdFile);
+            }
+        }
+    }
+}
+
+
+void GnomeCmdFileList::unselect_all_files()
+{
+    for (auto i = get_visible_files(); i; i = i->next)
+    {
+        auto gnomeCmdFile = static_cast<GnomeCmdFile*> (i->data);
+        if (gnomeCmdFile)
+        {
+	        if(!GNOME_CMD_IS_DIR(gnomeCmdFile))
+            {
+               unselect_file(gnomeCmdFile);
+            }
+        }
+    }
+}
+
+
 void GnomeCmdFileList::select_all()
 {
     priv->selected_files.clear();

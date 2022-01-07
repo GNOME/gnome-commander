@@ -245,6 +245,8 @@ static UserActionData user_actions_data[] = {
                                              {mark_compare_directories, "mark.compare_directories", N_("Compare directories")},
                                              {mark_invert_selection, "mark.invert", N_("Invert selection")},
                                              {mark_select_all, "mark.select_all", N_("Select all")},
+                                             {mark_select_all_files, "mark.select_all_files", N_("Select all files")},
+                                             {mark_unselect_all_files, "mark.unselect_all_files", N_("Unselect all files")},
                                              {mark_toggle, "mark.toggle", N_("Toggle selection")},
                                              {mark_toggle_and_step, "mark.toggle_and_step", N_("Toggle selection and move cursor downward")},
                                              {mark_unselect_all, "mark.unselect_all", N_("Unselect all")},
@@ -1291,6 +1293,18 @@ void mark_toggle_and_step (GtkMenuItem *menuitem, gpointer not_used)
 void mark_select_all (GtkMenuItem *menuitem, gpointer not_used)
 {
     get_fl (ACTIVE)->select_all();
+}
+
+
+void mark_select_all_files (GtkMenuItem *menuitem, gpointer not_used)
+{
+    get_fl (ACTIVE)->select_all_files();
+}
+
+
+void mark_unselect_all_files (GtkMenuItem *menuitem, gpointer not_used)
+{
+    get_fl (ACTIVE)->unselect_all_files();
 }
 
 

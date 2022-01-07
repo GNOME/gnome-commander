@@ -89,6 +89,9 @@
                             <para>Selectable default action when drag-n-drop files with the mouse</para>
                         </listitem>
                         <listitem>
+                            <para>Menu entry for (un)selecting only files</para>
+                        </listitem>
+                        <listitem>
                             <para>New or updated translations: ...</para>
                         </listitem>
                         <listitem>

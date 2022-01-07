@@ -126,6 +126,8 @@ struct GnomeCmdFileList
     void unselect_file(GnomeCmdFile *f, gint row=-1);
     void select_all();
     void unselect_all();
+    void select_all_files();
+    void unselect_all_files();
 
     void toggle_file(GnomeCmdFile *f);
     void toggle();

@@ -239,6 +239,8 @@ static GtkUIManager *get_file_menu_ui_manager()
     "    <menu action='MarkMenu'>"
     "      <menuitem action='SelectAll'/>"
     "      <menuitem action='UnselectAll'/>"
+    "      <menuitem action='SelectAllFiles'/>"
+    "      <menuitem action='UnSelectAllFiles'/>"
     "      <menuitem action='SelectWPattern'/>"
     "      <menuitem action='UnSelectWPattern'/>"
     "      <menuitem action='SelectWExtension'/>"
@@ -329,6 +331,8 @@ static GtkUIManager *get_file_menu_ui_manager()
         { "MarkMenu",           nullptr,              _("_Mark") },
         { "SelectAll",          GTK_STOCK_SELECT_ALL, _("_Select All"),                   "<Control>KP_Add", nullptr, (GCallback) mark_select_all },
         { "UnselectAll",        nullptr,              _("_Unselect All"),                 "<Control>KP_Subtract", nullptr, (GCallback) mark_unselect_all },
+        { "SelectAllFiles",     nullptr,              _("Select all _Files"),              nullptr, nullptr, (GCallback) mark_select_all_files },
+        { "UnSelectAllFiles",   nullptr,              _("Unselect all Fi_les"),            nullptr, nullptr, (GCallback) mark_unselect_all_files },
         { "SelectWPattern",     nullptr,              _("Select with _Pattern"),          "KP_Add", nullptr, (GCallback) mark_select_with_pattern },
         { "UnSelectWPattern",   nullptr,              _("Unselect with P_attern"),        "KP_Subtract", nullptr, (GCallback) mark_unselect_with_pattern },
         { "SelectWExtension",   nullptr,              _("Select with same _Extension"),   nullptr, nullptr, (GCallback) mark_select_all_with_same_extension },
