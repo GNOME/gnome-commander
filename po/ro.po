@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-commander/issues\n"
-"POT-Creation-Date: 2021-05-09 16:06+0000\n"
-"PO-Revision-Date: 2021-05-09 23:02+0200\n"
+"POT-Creation-Date: 2021-11-20 16:57+0000\n"
+"PO-Revision-Date: 2022-01-07 13:23+0100\n"
 "Last-Translator: Daniel Șerbănescu <daniel@serbanescu.dk>\n"
 "Language-Team: Gnome Romanian Translation Team\n"
 "Language: ro\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n==0 || (n!=1 && n%100>=1 && n"
 "%100<=19) ? 1 : 2);\n"
-"X-Generator: Poedit 2.4.2\n"
+"X-Generator: Poedit 3.0.1\n"
 "X-Project-Style: gnome\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 
@@ -87,7 +87,7 @@ msgstr "Lățimea ferestrei uneltei de redenumire avansată"
 #: data/org.gnome.gnome-commander.gschema.xml:39
 msgid "This option defines the width of the advanced rename tool window."
 msgstr ""
-"Această opțiune definește lățimea ferestrei uneltei de redenumire avansată"
+"Această opțiune definește lățimea ferestrei uneltei de redenumire avansată."
 
 #: data/org.gnome.gnome-commander.gschema.xml:45
 msgid "Advanced rename tool window height"
@@ -1544,36 +1544,47 @@ msgstr "Selecție fișiere"
 msgid "Could not load schemas from %s: %s\n"
 msgstr "Nu s-a putut încărca scheme din %s: %s\n"
 
-#: plugins/fileroller/file-roller-plugin.cc:365
+#: plugins/fileroller/file-roller-plugin.cc:200
+#, c-format
+msgid ""
+"Error running \"%s\"\n"
+"\n"
+"%s"
+msgstr ""
+"Eroare în timpul rulării „%s”\n"
+"\n"
+"%s"
+
+#: plugins/fileroller/file-roller-plugin.cc:379
 msgid "What file name should the new archive have?"
 msgstr "Ce nume de fișier ar trebui să aibă noua arhivă?"
 
-#: plugins/fileroller/file-roller-plugin.cc:367
+#: plugins/fileroller/file-roller-plugin.cc:381
 msgid "Create Archive"
 msgstr "Creează arhivă"
 
-#: plugins/fileroller/file-roller-plugin.cc:481
+#: plugins/fileroller/file-roller-plugin.cc:495
 msgid "Create Archive…"
 msgstr "Creează arhivă…"
 
-#: plugins/fileroller/file-roller-plugin.cc:493
+#: plugins/fileroller/file-roller-plugin.cc:507
 msgid "Extract in Current Directory"
 msgstr "Extrage în directorul curent"
 
-#: plugins/fileroller/file-roller-plugin.cc:500
-#: plugins/fileroller/file-roller-plugin.cc:513
+#: plugins/fileroller/file-roller-plugin.cc:514
+#: plugins/fileroller/file-roller-plugin.cc:527
 #, c-format
 msgid "Extract to “%s”"
 msgstr "Extrage în „%s”"
 
-#: plugins/fileroller/file-roller-plugin.cc:574
+#: plugins/fileroller/file-roller-plugin.cc:588
 #: src/gnome-cmd-advrename-profile-component.cc:941 src/plugin_manager.cc:419
 #: src/tags/gnome-cmd-tags.cc:692
 msgid "File"
 msgstr "Fișier"
 
 #. destroy model automatically with view
-#: plugins/fileroller/file-roller-plugin.cc:591
+#: plugins/fileroller/file-roller-plugin.cc:605
 #: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:369
 #: src/dialogs/gnome-cmd-options-dialog.cc:1497
 #: src/dialogs/gnome-cmd-options-dialog.cc:2165
@@ -1583,25 +1594,25 @@ msgstr "Fișier"
 msgid "Options"
 msgstr "Opțiuni"
 
-#: plugins/fileroller/file-roller-plugin.cc:603
+#: plugins/fileroller/file-roller-plugin.cc:617
 msgid "File-roller options"
 msgstr "Opțiuni File-roller"
 
-#: plugins/fileroller/file-roller-plugin.cc:606
+#: plugins/fileroller/file-roller-plugin.cc:620
 msgid "Default archive type"
 msgstr "Tip de arhivă implicit"
 
 #. The pattern defining the file name prefix of the archive to be created
-#: plugins/fileroller/file-roller-plugin.cc:614
+#: plugins/fileroller/file-roller-plugin.cc:628
 msgid "File prefix pattern"
 msgstr "Mostră prefix de fișiere"
 
-#: plugins/fileroller/file-roller-plugin.cc:625
+#: plugins/fileroller/file-roller-plugin.cc:639
 #: src/dialogs/gnome-cmd-options-dialog.cc:418
 msgid "Test result:"
 msgstr "Rezultat test:"
 
-#: plugins/fileroller/file-roller-plugin.cc:632
+#: plugins/fileroller/file-roller-plugin.cc:646
 msgid ""
 "Use $N as a pattern for the original file name. See the manual page for "
 "“strftime” for other patterns."
@@ -1609,7 +1620,7 @@ msgstr ""
 "Utilizați $N ca mostră pentru numele de fișier original. Consultați pagina "
 "manualului „strftime” pentru alte mostre."
 
-#: plugins/fileroller/file-roller-plugin.cc:814
+#: plugins/fileroller/file-roller-plugin.cc:828
 msgid ""
 "A plugin that adds File Roller shortcuts for creating and extracting "
 "compressed archives."
@@ -1913,7 +1924,7 @@ msgstr "Directorul „%s” nu este gol. Doriți să îl ștergeți?"
 #: src/dialogs/gnome-cmd-delete-dialog.cc:383
 #: src/dialogs/gnome-cmd-delete-dialog.cc:384
 #: src/dialogs/gnome-cmd-options-dialog.cc:1039
-#: src/gnome-cmd-file-popmenu.cc:727 src/gnome-cmd-main-win.cc:243
+#: src/gnome-cmd-file-popmenu.cc:729 src/gnome-cmd-main-win.cc:243
 #: src/gnome-cmd-user-actions.cc:213
 msgid "Delete"
 msgstr "Șterge"
@@ -2950,7 +2961,7 @@ msgid "Unselect Using Pattern"
 msgstr "Deselectează utilizând șabloane"
 
 #: src/dialogs/gnome-cmd-prepare-copy-dialog.cc:85
-#: src/gnome-cmd-file-popmenu.cc:726 src/gnome-cmd-main-win.cc:241
+#: src/gnome-cmd-file-popmenu.cc:728 src/gnome-cmd-main-win.cc:241
 #: src/gnome-cmd-user-actions.cc:210
 msgid "Copy"
 msgstr "Copiază"
@@ -3750,46 +3761,46 @@ msgstr "Deschide cu altceva…"
 msgid "Needs terminal"
 msgstr "Necesită terminal"
 
-#: src/gnome-cmd-file-popmenu.cc:722
+#: src/gnome-cmd-file-popmenu.cc:724
 msgid "Open Wit_h"
 msgstr "D_eschide cu"
 
-#: src/gnome-cmd-file-popmenu.cc:723
+#: src/gnome-cmd-file-popmenu.cc:725
 msgid "Other _Application…"
 msgstr "_Altă aplicație…"
 
-#: src/gnome-cmd-file-popmenu.cc:724
+#: src/gnome-cmd-file-popmenu.cc:726
 msgid "Open Wit_h…"
 msgstr "D_eschide cu…"
 
-#: src/gnome-cmd-file-popmenu.cc:725 src/gnome-cmd-main-win.cc:240
+#: src/gnome-cmd-file-popmenu.cc:727 src/gnome-cmd-main-win.cc:240
 #: src/gnome-cmd-user-actions.cc:212
 msgid "Cut"
 msgstr "Taie"
 
-#: src/gnome-cmd-file-popmenu.cc:728
+#: src/gnome-cmd-file-popmenu.cc:730
 msgid "Rename"
 msgstr "Redenumește"
 
 #. {file_run, "file.run"},
-#: src/gnome-cmd-file-popmenu.cc:729 src/gnome-cmd-main-win.cc:245
+#: src/gnome-cmd-file-popmenu.cc:731 src/gnome-cmd-main-win.cc:245
 #: src/gnome-cmd-user-actions.cc:236
 msgid "Send files"
 msgstr "Trimite fișiere"
 
-#: src/gnome-cmd-file-popmenu.cc:730 src/gnome-cmd-main-menu.cc:307
+#: src/gnome-cmd-file-popmenu.cc:732 src/gnome-cmd-main-menu.cc:307
 msgid "_Properties…"
 msgstr "_Proprietăți…"
 
-#: src/gnome-cmd-file-popmenu.cc:731
+#: src/gnome-cmd-file-popmenu.cc:733
 msgid "E_xecute"
 msgstr "E_xecută"
 
-#: src/gnome-cmd-file-popmenu.cc:732 src/gnome-cmd-list-popmenu.cc:108
+#: src/gnome-cmd-file-popmenu.cc:734 src/gnome-cmd-list-popmenu.cc:108
 msgid "Open _terminal here"
 msgstr "Deschide _terminal aici"
 
-#: src/gnome-cmd-file-popmenu.cc:733 src/gnome-cmd-user-actions.cc:211
+#: src/gnome-cmd-file-popmenu.cc:735 src/gnome-cmd-user-actions.cc:211
 msgid "Copy file names"
 msgstr "Copiază numele de fișierele"
 
@@ -4640,7 +4651,7 @@ msgstr ""
 "Remus Boara <rem@eclipsedesign.net>\n"
 "Lucian Adrian Grijincu <lucian.grijincu@gmail.com>\n"
 "Cristian Buzdugă <cristianbzdg@gmail.com>\n"
-"Daniel Șerbănescu <daniel [at] serbanescu [dot] dk>, 2021"
+"Daniel Șerbănescu <daniel [at] serbanescu [dot] dk>, 2021-2022"
 
 #: src/gnome-cmd-xfer.cc:201
 #, c-format
