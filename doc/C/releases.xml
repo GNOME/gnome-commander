@@ -57,6 +57,9 @@
                             <para>Fixed issue #41 (Directory not unreferenced correctly from cache when renamed)</para>
                         </listitem>
                         <listitem>
+                            <para>Fixed issue #45 (Gnome Commander closes when clicking on SMB path \\xxx\dddddd)</para>
+                        </listitem>
+                        <listitem>
                             <para>Fixed issue #46 (Automatic refresh of folder content is not correct)</para>
                         </listitem>
                         <listitem>
@@ -96,6 +99,59 @@
                         </listitem>
                         <listitem>
                             <para>New or updated docs: ...</para>
+                        </listitem>
+                    </itemizedlist>
+                </para>
+            </entry>
+        </row>
+        <row valign="top">
+            <entry><para>1.12.3.1</para></entry>
+            <entry><para>2021-11-21</para></entry>
+            <entry>
+                <para>Bug fixes:</para>
+                <para>
+                    <itemizedlist>
+                        <listitem>
+                            <para>Fixed issue #110 (Make check fails on s390x, Thanks to Mamoru Tasaka)</para>
+                        </listitem>
+                    </itemizedlist>
+                </para>
+                <para>New features:</para>
+                <para>
+                    <itemizedlist>
+                        <listitem>
+                            <para>New or updated translations: pl, sv, uk</para>
+                        </listitem>
+                        <listitem>
+                            <para>New or updated docs: sv</para>
+                        </listitem>
+                    </itemizedlist>
+                </para>
+            </entry>
+        </row>
+        <row valign="top">
+            <entry><para>1.12.3</para></entry>
+            <entry><para>2021-11-20</para></entry>
+            <entry>
+                <para>Bug fixes:</para>
+                <para>
+                    <itemizedlist>
+                        <listitem>
+                            <para>Fixed issue #108 (Crash after right click on file)</para>
+                        </listitem>
+                        <listitem>
+                            <para>File-roller plugin: Add run error handling (Thanks to Andrey Sokolov)</para>
+                        </listitem>
+                    </itemizedlist>
+                </para>
+                <para>New features:</para>
+                <para>
+                    <itemizedlist>
+                        <listitem>
+                            <para>New or updated translations: cs, de, hu, ru</para>
+                        </listitem>
+                        <listitem>
+                            <para>New or updated docs: sv</para>
                         </listitem>
                     </itemizedlist>
                 </para>

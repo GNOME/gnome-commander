@@ -16,6 +16,7 @@ Bug fixes:
  * Fixed issue #33 (Get rid of deprecated gnome-vfs)
  * Fixed issue #39 (Copy fail when selecting a "drive")
  * Fixed issue #41 (Directory not unreferenced correctly from cache when renamed)
+ * Fixed issue #45 (Gnome Commander closes when clicking on SMB path \\xxx\dddddd)
  * Fixed issue #46 (Automatic refresh of folder content is not correct)
  * Fixed issue #47 (Duplicate directory when copying over an existing directory)
  * Fixed issue #51 (Move and not copy by default on same filesystem)
@@ -24,6 +25,38 @@ Bug fixes:
  * Fixed issue #59 (On ssh connection, to delete a renamed folder/file don't work)
  * Fixed issue #74 (Does not show mounted external drives)
  * Fixed issue #75 (Newly inserted DVD does not show up)
+
+===================================
+gnome-commander 1.12.3.1
+---------------
+
+Bug fixes:
+ * Fixed issue #110 (Make check fails on s390x, Thanks to Mamoru Tasaka)
+
+New or updated translations:
+ * pl (Piotr Drąg)
+ * sv (Anders Jonsson)
+ * uk (Yuri Chornoivan)
+
+New or updated docs:
+ * sv (Anders Jonsson)
+
+===================================
+gnome-commander 1.12.3
+---------------
+
+Bug fixes:
+ * Fixed issue #108 (Crash after right click on file)
+ * File-roller plugin: Add run error handling (Thanks to Andrey Sokolov)
+
+New or updated translations:
+ * cs (Marek Černocký)
+ * de (Wolfgang Stöggl)
+ * hu (Balázs Úr)
+ * ru (Andrey Sokolov)
+
+New or updated docs:
+ * sv (Anders Jonsson)
 
 ===================================
 gnome-commander 1.12.2
