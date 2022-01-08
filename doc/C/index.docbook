@@ -4422,8 +4422,7 @@
     <sect2 id="gnome-commander-prefs-general">
       <title>General</title>
       <para>The <guilabel>General</guilabel> tab is used to configure the &app; basic
-        behavior. It deals with the mouse, file matching, sorting and quick search
-        features.
+        behavior.
       </para>
       <para>The settings alter the behavior of the  following features:</para>
       <para>
@@ -4440,8 +4439,7 @@
             resulting from clicking the right mouse button.</para>
           </listitem>
           <listitem>
-            <para><guilabel>Match file names</guilabel> configures the pattern
-            matching system used.</para>
+            <para><guilabel>Deletion</guilabel> configures the usage of the trash can.</para>
           </listitem>
           <listitem>
             <para><guilabel>Selection</guilabel> makes directories selectable also by keyboard shortcuts.</para>
@@ -4451,8 +4449,11 @@
             case sensitive.</para>
           </listitem>
           <listitem>
-            <para><guilabel>Quick search using</guilabel> configures the combination
-            of keys used for quick search.</para>
+            <para><guilabel>Quick search</guilabel> configures the combination of keys used for quick search
+            and also the pattern matching system used.</para>
+          </listitem>
+          <listitem>
+            <para><guilabel>Search window</guilabel> configures search window options.</para>
           </listitem>
           <listitem>
             <para><guilabel>Multiple instances</guilabel> configures the number of &app; that can be launched</para>
@@ -4467,21 +4468,6 @@
        </para>
        <para>The options available are described in more details in the
          <xref linkend="gcmd-TBL-setting1"/>.</para>
-      <!-- ==== Figure ==== -->
-      <figure id="options-general-fig">
-        <title>General options</title>
-        <screenshot>
-          <mediaobject>
-            <imageobject>
-              <imagedata fileref="figures/gnome-commander_options_general.png" format="PNG"/>
-            </imageobject>
-            <textobject>
-              <phrase>Shows &app; general preferences dialog.</phrase>
-            </textobject>
-          </mediaobject>
-        </screenshot>
-      </figure>
-      <!-- ==== End of Figure ==== -->
       <para/>
       <table frame="topbot" id="gcmd-TBL-setting1">
         <title>General option tab</title>
@@ -4568,7 +4554,8 @@
                 <para>When selecting this option, a middle click on a directory in &app;
                 with the mouse will open it in a new tab.</para>
               </entry>
-            </row>            <row>
+            </row>
+            <row>
               <entry colname="colspec0" valign="top">
                 <para>
                   <guilabel>Right Mouse button</guilabel>
@@ -4593,6 +4580,19 @@
               <entry colname="colspec3" valign="top">
                 <para>When selecting this option, a right click on an item in &app;
                 with the mouse will select it.</para>
+              </entry>
+            </row>
+            <row>
+              <entry colname="colspec0" valign="top">
+                <para>
+                  <guilabel>Deletion</guilabel>
+                </para>
+              </entry>
+              <entry colname="colspec2" valign="top">
+                <para>Move to trash</para>
+              </entry>
+              <entry colname="colspec3" valign="top">
+                <para>When selecting this option files and folders are by default moved to trash instead of deleting them permanently.</para>
               </entry>
             </row>
             <row>
@@ -6680,6 +6680,16 @@
         <row valign="top">
             <entry><para><keycombo><keycap>DELETE</keycap></keycombo></para></entry>
             <entry><para>Delete files</para></entry>
+            <entry><para></para></entry>
+        </row>
+        <row valign="top">
+            <entry><para></para></entry>
+            <entry><para></para></entry>
+            <entry><para></para></entry>
+        </row>
+        <row valign="top">
+            <entry><para><keycombo><keycap>SHIFT</keycap><keycap>DELETE</keycap></keycombo></para></entry>
+            <entry><para>Delete files permanently (do not move them to the trash can, even if this is the configured in the options)</para></entry>
             <entry><para></para></entry>
         </row>
         <row valign="top">

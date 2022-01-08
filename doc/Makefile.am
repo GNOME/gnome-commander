@@ -32,7 +32,6 @@ HELP_MEDIA = \
 	figures/gnome-commander_options_devices.png             \
 	figures/gnome-commander_options_filters.png             \
 	figures/gnome-commander_options_format.png              \
-	figures/gnome-commander_options_general.png             \
 	figures/gnome-commander_options_layout.png              \
 	figures/gnome-commander_options_programs.png            \
 	figures/gnome-commander_options_tabs.png                \
