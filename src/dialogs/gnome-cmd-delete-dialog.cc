@@ -505,7 +505,10 @@ void gnome_cmd_delete_dialog_show (GList *files)
     }
 
     if (response != 1)
+    {
+        g_list_free (files);
         return;
+    }
 
     // eventually remove non-empty dirs from list
     files = remove_items_from_list_to_be_deleted(files);

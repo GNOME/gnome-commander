@@ -2412,7 +2412,6 @@ void gnome_cmd_file_list_show_delete_dialog (GnomeCmdFileList *fl)
     if (files)
     {
         gnome_cmd_delete_dialog_show (files);
-        g_list_free (files);
     }
 }
 
