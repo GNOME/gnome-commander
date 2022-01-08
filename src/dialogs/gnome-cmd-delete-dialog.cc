@@ -290,11 +290,11 @@ static gboolean update_delete_status_widgets (DeleteData *deleteData)
         {
             for (GList *i = deleteData->deletedGnomeCmdFiles; i; i = i->next)
             {
-                GnomeCmdFile *f = GNOME_CMD_FILE (i->data);
-                auto *gFile = f->get_gfile();
+                auto gnomeCmdFile = GNOME_CMD_FILE (i->data);
+                auto gFile = gnomeCmdFile->get_gfile();
 
                 if (!g_file_query_exists (gFile, nullptr))
-                    f->is_deleted();
+                    gnomeCmdFile->is_deleted();
             }
         }
 
