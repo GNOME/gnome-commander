@@ -1,13 +1,13 @@
 # Swedish translation for gnome-commander.
-# Copyright © 2019-2021 gnome-commander's COPYRIGHT HOLDER
+# Copyright © 2019-2022 gnome-commander's COPYRIGHT HOLDER
 # This file is distributed under the same license as the gnome-commander package.
-# Anders Jonsson <anders.jonsson@norsjovallen.se>, 2019, 2020, 2021.
+# Anders Jonsson <anders.jonsson@norsjovallen.se>, 2019, 2020, 2021, 2022.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander master\n"
-"POT-Creation-Date: 2021-12-05 19:59+0000\n"
-"PO-Revision-Date: 2021-12-05 22:28+0100\n"
+"POT-Creation-Date: 2022-01-07 23:15+0000\n"
+"PO-Revision-Date: 2022-01-08 15:07+0100\n"
 "Last-Translator: Anders Jonsson <anders.jonsson@norsjovallen.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "Language: sv\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.0\n"
+"X-Generator: Poedit 3.0.1\n"
 
 #. Put one translator per line, in the form NAME <EMAIL>, YEAR1, YEAR2
 msgctxt "_"
@@ -590,12 +590,12 @@ msgid "GTK-2 GUI with standard mouse interactions"
 msgstr "Grafiskt GTK-2-användargränssnitt med standardmusåtgärder"
 
 #. (itstool) path: listitem/para
-#: C/index.docbook:566 C/releases.xml:974
+#: C/index.docbook:566 C/releases.xml:1036
 msgid "Support for tabs"
 msgstr "Stöd för flikar"
 
 #. (itstool) path: listitem/para
-#: C/index.docbook:569 C/releases.xml:983
+#: C/index.docbook:569 C/releases.xml:1045
 msgid "One instance mode"
 msgstr "Enkelinstansläge"
 
@@ -15327,7 +15327,7 @@ msgstr "Öppna mapp"
 
 #. (itstool) path: entry/para
 #. (itstool) path: listitem/para
-#: C/index.docbook:7246 C/releases.xml:1717
+#: C/index.docbook:7246 C/releases.xml:1779
 msgid "Open the current location in Nautilus file manager"
 msgstr "Öppna aktuell katalog i filhanteraren Nautilus"
 
@@ -15338,7 +15338,7 @@ msgstr "Öppna terminal"
 
 #. (itstool) path: entry/para
 #. (itstool) path: listitem/para
-#: C/index.docbook:7250 C/releases.xml:1837
+#: C/index.docbook:7250 C/releases.xml:1899
 msgid "Open terminal in the current directory"
 msgstr "Öppna terminal i aktuell katalog"
 
@@ -15434,7 +15434,7 @@ msgstr "Skicka filer"
 
 #. (itstool) path: entry/para
 #. (itstool) path: listitem/para
-#: C/index.docbook:7306 C/releases.xml:1846
+#: C/index.docbook:7306 C/releases.xml:1908
 msgid "Send files via email or instant messenger (using nautilus-sendto)"
 msgstr ""
 "Skicka filer via e-post eller snabbmeddelandeklient (med nautilus-sendto)"
@@ -16400,24 +16400,24 @@ msgid "2021-??-??"
 msgstr "2021-??-??"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:29 C/releases.xml:105 C/releases.xml:130 C/releases.xml:170
-#: C/releases.xml:204 C/releases.xml:244 C/releases.xml:266 C/releases.xml:300
-#: C/releases.xml:340 C/releases.xml:414 C/releases.xml:438 C/releases.xml:464
-#: C/releases.xml:487 C/releases.xml:532 C/releases.xml:557 C/releases.xml:659
-#: C/releases.xml:684 C/releases.xml:709 C/releases.xml:740 C/releases.xml:777
-#: C/releases.xml:808 C/releases.xml:836 C/releases.xml:861 C/releases.xml:892
-#: C/releases.xml:926 C/releases.xml:1064 C/releases.xml:1089
-#: C/releases.xml:1120 C/releases.xml:1145 C/releases.xml:1162
-#: C/releases.xml:1176 C/releases.xml:1199 C/releases.xml:1230
-#: C/releases.xml:1259 C/releases.xml:1284 C/releases.xml:1304
-#: C/releases.xml:1330 C/releases.xml:1361 C/releases.xml:1387
-#: C/releases.xml:1413 C/releases.xml:1448 C/releases.xml:1471
-#: C/releases.xml:1494 C/releases.xml:1623 C/releases.xml:1681
-#: C/releases.xml:1750 C/releases.xml:1873 C/releases.xml:1974
-#: C/releases.xml:1988 C/releases.xml:2039 C/releases.xml:2111
-#: C/releases.xml:2201 C/releases.xml:2284 C/releases.xml:2347
-#: C/releases.xml:2381 C/releases.xml:2413 C/releases.xml:2472
-#: C/releases.xml:2497 C/releases.xml:2554
+#: C/releases.xml:29 C/releases.xml:114 C/releases.xml:139 C/releases.xml:167
+#: C/releases.xml:192 C/releases.xml:232 C/releases.xml:266 C/releases.xml:306
+#: C/releases.xml:328 C/releases.xml:362 C/releases.xml:402 C/releases.xml:476
+#: C/releases.xml:500 C/releases.xml:526 C/releases.xml:549 C/releases.xml:594
+#: C/releases.xml:619 C/releases.xml:721 C/releases.xml:746 C/releases.xml:771
+#: C/releases.xml:802 C/releases.xml:839 C/releases.xml:870 C/releases.xml:898
+#: C/releases.xml:923 C/releases.xml:954 C/releases.xml:988 C/releases.xml:1126
+#: C/releases.xml:1151 C/releases.xml:1182 C/releases.xml:1207
+#: C/releases.xml:1224 C/releases.xml:1238 C/releases.xml:1261
+#: C/releases.xml:1292 C/releases.xml:1321 C/releases.xml:1346
+#: C/releases.xml:1366 C/releases.xml:1392 C/releases.xml:1423
+#: C/releases.xml:1449 C/releases.xml:1475 C/releases.xml:1510
+#: C/releases.xml:1533 C/releases.xml:1556 C/releases.xml:1685
+#: C/releases.xml:1743 C/releases.xml:1812 C/releases.xml:1935
+#: C/releases.xml:2036 C/releases.xml:2050 C/releases.xml:2101
+#: C/releases.xml:2173 C/releases.xml:2263 C/releases.xml:2346
+#: C/releases.xml:2409 C/releases.xml:2443 C/releases.xml:2475
+#: C/releases.xml:2534 C/releases.xml:2559 C/releases.xml:2616
 msgid "Bug fixes:"
 msgstr "Felfixar:"
 
@@ -16481,40 +16481,49 @@ msgstr ""
 
 #. (itstool) path: listitem/para
 #: C/releases.xml:60
+msgid ""
+"Fixed issue #45 (Gnome Commander closes when clicking on SMB path \\\\xxx"
+"\\dddddd)"
+msgstr ""
+"Fixade ärende #45 (Gnome Commander stängs vid klick på SMB-sökvägen \\\\xxx"
+"\\dddddd)"
+
+#. (itstool) path: listitem/para
+#: C/releases.xml:63
 msgid "Fixed issue #46 (Automatic refresh of folder content is not correct)"
 msgstr ""
 "Fixade ärende #46 (Automatisk uppdatering av mappinnehåll är felaktigt)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:63
+#: C/releases.xml:66
 msgid ""
 "Fixed issue #47 (Duplicate directory when copying over an existing directory)"
 msgstr ""
 "Fixade ärende #47 (Dubblerad katalog vid kopiering över en befintlig katalog)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:66
+#: C/releases.xml:69
 msgid "Fixed issue #51 (Move and not copy by default on same filesystem)"
 msgstr ""
 "Fixade ärende #51 (Flytta istället för kopiera som standard på samma "
 "filsystem)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:69
+#: C/releases.xml:72
 msgid "Fixed issue #52 (Auto refresh when changing permissions etc)"
 msgstr ""
 "Fixade ärende #52 (Automatisk uppdatering vid ändringar av rättigheter o.s."
 "v.)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:72
+#: C/releases.xml:75
 msgid ""
 "Fixed issue #57 (Remote connections: Gnome Commander misreads file ownership)"
 msgstr ""
 "Fixade ärende #57 (Fjärranslutningar: Gnome Commander misstolkar filägarskap)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:75
+#: C/releases.xml:78
 msgid ""
 "Fixed issue #59 (On ssh connection, to delete a renamed folder/file don't "
 "work)"
@@ -16523,60 +16532,127 @@ msgstr ""
 "fil som har bytt namn)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:78
+#: C/releases.xml:81
 msgid "Fixed issue #74 (Does not show mounted external drives)"
 msgstr "Fixade ärende #74 (Visar inte monterade externa enheter)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:81
+#: C/releases.xml:84
 msgid "Fixed issue #75 (Newly inserted DVD does not show up)"
 msgstr "Fixade ärende #75 (Nyinsatta dvd-skivor dyker inte upp)"
 
+#. (itstool) path: listitem/para
+#: C/releases.xml:87
+msgid "Fixed issue #76 (Crash in Gnome Commander when using webDAV SSL)"
+msgstr "Fixade ärende #76 (Krasch i Gnome Commander när webDAV SSL används)"
+
 #. (itstool) path: entry/para
-#: C/releases.xml:85 C/releases.xml:113 C/releases.xml:153 C/releases.xml:181
-#: C/releases.xml:221 C/releases.xml:252 C/releases.xml:277 C/releases.xml:311
-#: C/releases.xml:351 C/releases.xml:377 C/releases.xml:449 C/releases.xml:472
-#: C/releases.xml:501 C/releases.xml:543 C/releases.xml:586 C/releases.xml:667
-#: C/releases.xml:692 C/releases.xml:723 C/releases.xml:760 C/releases.xml:791
-#: C/releases.xml:819 C/releases.xml:844 C/releases.xml:878 C/releases.xml:909
-#: C/releases.xml:970 C/releases.xml:1075 C/releases.xml:1103
-#: C/releases.xml:1128 C/releases.xml:1216 C/releases.xml:1270
-#: C/releases.xml:1347 C/releases.xml:1568 C/releases.xml:1649
-#: C/releases.xml:1707 C/releases.xml:1818 C/releases.xml:1902
-#: C/releases.xml:2011 C/releases.xml:2062 C/releases.xml:2140
-#: C/releases.xml:2229 C/releases.xml:2301 C/releases.xml:2367
-#: C/releases.xml:2443 C/releases.xml:2483 C/releases.xml:2520
-#: C/releases.xml:2534
+#: C/releases.xml:91 C/releases.xml:122 C/releases.xml:150 C/releases.xml:175
+#: C/releases.xml:215 C/releases.xml:243 C/releases.xml:283 C/releases.xml:314
+#: C/releases.xml:339 C/releases.xml:373 C/releases.xml:413 C/releases.xml:439
+#: C/releases.xml:511 C/releases.xml:534 C/releases.xml:563 C/releases.xml:605
+#: C/releases.xml:648 C/releases.xml:729 C/releases.xml:754 C/releases.xml:785
+#: C/releases.xml:822 C/releases.xml:853 C/releases.xml:881 C/releases.xml:906
+#: C/releases.xml:940 C/releases.xml:971 C/releases.xml:1032
+#: C/releases.xml:1137 C/releases.xml:1165 C/releases.xml:1190
+#: C/releases.xml:1278 C/releases.xml:1332 C/releases.xml:1409
+#: C/releases.xml:1630 C/releases.xml:1711 C/releases.xml:1769
+#: C/releases.xml:1880 C/releases.xml:1964 C/releases.xml:2073
+#: C/releases.xml:2124 C/releases.xml:2202 C/releases.xml:2291
+#: C/releases.xml:2363 C/releases.xml:2429 C/releases.xml:2505
+#: C/releases.xml:2545 C/releases.xml:2582 C/releases.xml:2596
 msgid "New features:"
 msgstr "Nya funktioner:"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:89
+#: C/releases.xml:95
 msgid "Selectable default action when drag-n-drop files with the mouse"
 msgstr "Valbar standardåtgärd vid drag-och-släpp av filer med musen"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:92
+#: C/releases.xml:98
+msgid "Menu entry for (un)selecting only files"
+msgstr "Menyobjekt för att (av)markera endast filer"
+
+#. (itstool) path: listitem/para
+#: C/releases.xml:101
 msgid "New or updated translations: ..."
 msgstr "Nya eller uppdaterade översättningar: ..."
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:95
+#: C/releases.xml:104
 msgid "New or updated docs: ..."
 msgstr "Ny eller uppdaterad dokumentation: ..."
 
 #. (itstool) path: entry/para
-#: C/releases.xml:102
+#: C/releases.xml:111
+#| msgid "1.12.1"
+msgid "1.12.3.1"
+msgstr "1.12.3.1"
+
+#. (itstool) path: entry/para
+#: C/releases.xml:112
+#| msgid "2014-11-11"
+msgid "2021-11-21"
+msgstr "2021-11-21"
+
+#. (itstool) path: listitem/para
+#: C/releases.xml:118
+msgid "Fixed issue #110 (Make check fails on s390x, Thanks to Mamoru Tasaka)"
+msgstr ""
+"Fixade ärende #110 (Make check misslyckas på s390x, tack till Mamoru Tasaka)"
+
+#. (itstool) path: listitem/para
+#: C/releases.xml:126
+msgid "New or updated translations: pl, sv, uk"
+msgstr "Nya eller uppdaterade översättningar: pl, sv, uk"
+
+#. (itstool) path: listitem/para
+#: C/releases.xml:129 C/releases.xml:157 C/releases.xml:182 C/releases.xml:222
+msgid "New or updated docs: sv"
+msgstr "Ny eller uppdaterad dokumentation: sv"
+
+#. (itstool) path: entry/para
+#: C/releases.xml:136
+#| msgid "1.12.2"
+msgid "1.12.3"
+msgstr "1.12.3"
+
+#. (itstool) path: entry/para
+#: C/releases.xml:137
+#| msgid "2016-11-06"
+msgid "2021-11-20"
+msgstr "2021-11-20"
+
+#. (itstool) path: listitem/para
+#: C/releases.xml:143
+msgid "Fixed issue #108 (Crash after right click on file)"
+msgstr "Fixade ärende #108 (Krasch efter högerklick på fil)"
+
+#. (itstool) path: listitem/para
+#: C/releases.xml:146
+msgid "File-roller plugin: Add run error handling (Thanks to Andrey Sokolov)"
+msgstr ""
+"File-roller-insticksmodul: Lägg till felhantering av körning (Tack till "
+"Andrey Sokolov)"
+
+#. (itstool) path: listitem/para
+#: C/releases.xml:154
+msgid "New or updated translations: cs, de, hu, ru"
+msgstr "Nya eller uppdaterade översättningar: cs, de, hu, ru"
+
+#. (itstool) path: entry/para
+#: C/releases.xml:164
 msgid "1.12.2"
 msgstr "1.12.2"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:103
+#: C/releases.xml:165
 msgid "2021-05-29"
 msgstr "2021-05-29"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:109
+#: C/releases.xml:171
 msgid ""
 "Fixed issue #104 (Segmentation fault when pressing Ctrl+Right / Ctrl+Left / "
 "Ctrl+Shift+.)"
@@ -16585,27 +16661,22 @@ msgstr ""
 "+Skift+. trycks ned)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:117
+#: C/releases.xml:179
 msgid "New or updated translations: es, id, ro"
 msgstr "Nya eller uppdaterade översättningar: es, id, ro"
 
-#. (itstool) path: listitem/para
-#: C/releases.xml:120 C/releases.xml:160
-msgid "New or updated docs: sv"
-msgstr "Ny eller uppdaterad dokumentation: sv"
-
 #. (itstool) path: entry/para
-#: C/releases.xml:127
+#: C/releases.xml:189
 msgid "1.12.1"
 msgstr "1.12.1"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:128
+#: C/releases.xml:190
 msgid "2021-04-17"
 msgstr "2021-04-17"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:134
+#: C/releases.xml:196
 msgid ""
 "Fixed issue #12 (Ask for the second time when trying to delete non-empty "
 "directory)"
@@ -16614,7 +16685,7 @@ msgstr ""
 "tom katalog)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:137
+#: C/releases.xml:199
 msgid ""
 "Fixed issue #97 (\"Execute\" not shown in file popup menu for executable "
 "files)"
@@ -16622,44 +16693,44 @@ msgstr ""
 "Fixade ärende #97 (”Kör” visas inte i filpoppuppmenyn för körbara filer)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:140
+#: C/releases.xml:202
 msgid ""
 "Fixed issue #98 (\"Execute\" doesn't work on files with space in filename)"
 msgstr ""
 "Fixade ärende #98 (”Kör” fungerar inte på filer med blanksteg i filnamnet)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:143
+#: C/releases.xml:205
 msgid "Fixed issue #55 (Theme does not change in all tabs when applied)"
 msgstr "Fixade ärende #55 (Tema ändras inte i alla flikar då det tillämpas)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:146
+#: C/releases.xml:208
 msgid "Fixed issue #102 (Compilation error when TagLib is not available)"
 msgstr "Fixade ärende #102 (Kompileringsfel då TagLib inte är tillgängligt)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:149
+#: C/releases.xml:211
 msgid "Fixed issue #103 (Crash when empty string is given for search)"
 msgstr "Fixade ärende #103 (Krasch när en tom sträng anges för sökning)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:157
+#: C/releases.xml:219
 msgid "New or updated translations: pl, pt_BR, sr, sv, uk"
 msgstr "Nya eller uppdaterade översättningar: pl, pt_BR, sr, sv, uk"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:167
+#: C/releases.xml:229
 msgid "1.12.0"
 msgstr "1.12.0"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:168
+#: C/releases.xml:230
 msgid "2021-03-25"
 msgstr "2021-03-25"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:174
+#: C/releases.xml:236
 msgid ""
 "Fixed issue #95 (InternalViewer: Scrolling images via mouse, mouse scroll "
 "wheel or keyboard arrow keys)"
@@ -16668,7 +16739,7 @@ msgstr ""
 "eller tangentbordets piltangenter)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:177
+#: C/releases.xml:239
 msgid ""
 "Fixed issue #96 (Segmentation fault when opening file/directory properties "
 "using keyboard)"
@@ -16677,13 +16748,13 @@ msgstr ""
 "tangentbordet)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:185
+#: C/releases.xml:247
 msgid "Use GIO instead of Gnome-VFS for opening files with default application"
 msgstr ""
 "Använd GIO istället för Gnome-VFS för att öppna filer med standardprogram"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:188
+#: C/releases.xml:250
 msgid ""
 "Use GIO instead of Gnome-VFS for filtering the file list, and on various "
 "other parts of the program"
@@ -16692,7 +16763,7 @@ msgstr ""
 "andra delar av programmet"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:191
+#: C/releases.xml:253
 msgid ""
 "New or updated translations: ca, cs, da, de, eo, es, eu, fi, hu, id, kk, pl, "
 "pt_BR, ro, sl, sr, tr, uk"
@@ -16701,22 +16772,22 @@ msgstr ""
 "id, kk, pl, pt_BR, ro, sl, sr, tr, uk"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:194 C/releases.xml:330
+#: C/releases.xml:256 C/releases.xml:392
 msgid "New or updated docs: cs, de, es, sv"
 msgstr "Ny eller uppdaterad dokumentation: cs, de, es, sv"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:201
+#: C/releases.xml:263
 msgid "1.10.3"
 msgstr "1.10.3"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:202
+#: C/releases.xml:264
 msgid "2020-06-19"
 msgstr "2020-06-19"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:208
+#: C/releases.xml:270
 msgid ""
 "Fixed issue #29 (Migrate deprecated GnomeFileEntry to GtkFileChooserButton)"
 msgstr ""
@@ -16724,34 +16795,34 @@ msgstr ""
 "GtkFileChooserButton)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:211
+#: C/releases.xml:273
 msgid "Fixed issue #34 (Get rid of deprecated libgnome and libgnomeui)"
 msgstr "Fixade ärende #34 (Bli av med föråldrade libgnome och libgnomeui)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:214
+#: C/releases.xml:276
 msgid "Fixed issue #65 (Search options: 'copy file name' does not work)"
 msgstr "Fixade ärende #65 (Sökalternativ: ”kopiera filnamn” fungerar inte)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:217
+#: C/releases.xml:279
 msgid "Switch from nautilus-sendto to xdg-email as default send-to command"
 msgstr ""
 "Växla från nautilus-sendto till xdg-email som standardkommando för e-"
 "postsändning"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:225
+#: C/releases.xml:287
 msgid "InternalViewer: Show metadata file information by default"
 msgstr "InternalViewer: Visa metadatafilinformation som standard"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:228
+#: C/releases.xml:290
 msgid "Minor memory management improvements"
 msgstr "Små förbättringar för minneshantering"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:231
+#: C/releases.xml:293
 msgid ""
 "New or updated translations: cs, de, es, eu, id, id, pl, pt_BR, pt_BR, sv, uk"
 msgstr ""
@@ -16759,47 +16830,47 @@ msgstr ""
 "pt_BR, sv, uk"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:234 C/releases.xml:826 C/releases.xml:916
+#: C/releases.xml:296 C/releases.xml:888 C/releases.xml:978
 msgid "New or updated docs: cs, es"
 msgstr "Ny eller uppdaterad dokumentation: cs, es"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:241
+#: C/releases.xml:303
 msgid "1.10.2"
 msgstr "1.10.2"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:242
+#: C/releases.xml:304
 msgid "2019-05-16"
 msgstr "2019-05-16"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:248
+#: C/releases.xml:310
 msgid "Fix for compilation error with exiv2 0.27.1 (Thanks to Mamoru Tasaka)"
 msgstr "Fix för kompileringsfel med exiv2 0.27.1 (Tack till Mamoru Tasaka)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:256
+#: C/releases.xml:318
 msgid "New or updated docs: es"
 msgstr "Ny eller uppdaterad dokumentation: es"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:263
+#: C/releases.xml:325
 msgid "1.10.1"
 msgstr "1.10.1"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:264
+#: C/releases.xml:326
 msgid "2019-05-12"
 msgstr "2019-05-12"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:270 C/releases.xml:281
+#: C/releases.xml:332 C/releases.xml:343
 msgid "..."
 msgstr "..."
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:273
+#: C/releases.xml:335
 msgid ""
 "Removed gnome-config references, fixing bgo#570733 and issue #27 on GitLab"
 msgstr ""
@@ -16807,13 +16878,13 @@ msgstr ""
 "#27 på GitLab"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:284
+#: C/releases.xml:346
 msgid ""
 "Search window can be optionally minimized or moved below the main window"
 msgstr "Sökfönstret kan valfritt minimeras eller flyttas bakom huvudfönstret"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:287
+#: C/releases.xml:349
 msgid ""
 "New or updated translations: ar, bg dz, de, en_CA, en_GB, es, ga, hr, hu, "
 "ne, pl, pt_BR, rw, sq, vi, zh_TW"
@@ -16822,37 +16893,37 @@ msgstr ""
 "hr, hu, ne, pl, pt_BR, rw, sq, vi, zh_TW"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:290
+#: C/releases.xml:352
 msgid "New or updated docs: de, es"
 msgstr "Ny eller uppdaterad dokumentation: de, es"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:297
+#: C/releases.xml:359
 msgid "1.10.0"
 msgstr "1.10.0"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:298
+#: C/releases.xml:360
 msgid "2019-03-31"
 msgstr "2019-03-31"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:304
+#: C/releases.xml:366
 msgid "Various warnings at compile time have been fixed"
 msgstr "Diverse varningar vid kompileringstid har fixats"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:307
+#: C/releases.xml:369
 msgid "Several code improvements and memory leaks have been fixed"
 msgstr "Flera kodförbättringar och minnesläckor har fixats"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:315
+#: C/releases.xml:377
 msgid "Gnome Commander icon and internal viewer icon refreshed"
 msgstr "Ikon för GNOME Commander och intern visare har uppdaterats"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:318
+#: C/releases.xml:380
 msgid ""
 "Gnome Commander settings are now completely migrated to GSettings under the "
 "key \"org.gnome.gnome-commander\""
@@ -16861,7 +16932,7 @@ msgstr ""
 "under nyckeln ”org.gnome.gnome-commander”"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:321
+#: C/releases.xml:383
 msgid ""
 "Options in ~/.gnome2/gnome-commander and in ~/.gnome-commander/* are "
 "migrated automatically"
@@ -16870,7 +16941,7 @@ msgstr ""
 "automatiskt"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:324
+#: C/releases.xml:386
 msgid ""
 "Script and plugin folder in ~/.gnome-commander is moved into ~/.config/gnome-"
 "commander"
@@ -16879,7 +16950,7 @@ msgstr ""
 "config/gnome-commander"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:327 C/releases.xml:364
+#: C/releases.xml:389 C/releases.xml:426
 msgid ""
 "New or updated translations: cs, da, de, es, hu, id, pl, pt_BR, sr, "
 "sr@latin, sv"
@@ -16888,32 +16959,32 @@ msgstr ""
 "sr@latin, sv"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:337
+#: C/releases.xml:399
 msgid "1.8.1"
 msgstr "1.8.1"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:338
+#: C/releases.xml:400
 msgid "2018-03-04"
 msgstr "2018-03-04"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:344
+#: C/releases.xml:406
 msgid "Fix simple script system for file names with spaces"
 msgstr "Fixa enkelt skriptsystem för filnamn med blanksteg"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:347
+#: C/releases.xml:409
 msgid "Fixed bgo#785505: Problem when compiling GCMD with flex 2.6.4"
 msgstr "Fixade bgo#785505: Problem vid kompilering av GCMD med flex 2.6.4"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:355
+#: C/releases.xml:417
 msgid "Store the size of the options dialog when closing itself"
 msgstr "Lagra storleken på dialogrutan för alternativ då den stängs"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:358
+#: C/releases.xml:420
 msgid ""
 "Remove unnecessary border lines from the options dialog tabs (thanks to "
 "Elijah)"
@@ -16922,28 +16993,28 @@ msgstr ""
 "till Elijah)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:361
+#: C/releases.xml:423
 msgid "Removed python support completely"
 msgstr "Tog fullständigt bort python-stöd"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:367 C/releases.xml:428 C/releases.xml:456 C/releases.xml:479
-#: C/releases.xml:674
+#: C/releases.xml:429 C/releases.xml:490 C/releases.xml:518 C/releases.xml:541
+#: C/releases.xml:736
 msgid "New or updated docs: cs, de, es"
 msgstr "Ny eller uppdaterad dokumentation: cs, de, es"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:374
+#: C/releases.xml:436
 msgid "1.8.0"
 msgstr "1.8.0"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:375
+#: C/releases.xml:437
 msgid "2017-08-10"
 msgstr "2017-08-10"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:381
+#: C/releases.xml:443
 msgid ""
 "Quick search can be activated by just typing a letter, adjustable in the "
 "options tab"
@@ -16952,17 +17023,17 @@ msgstr ""
 "alternativfliken"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:384
+#: C/releases.xml:446
 msgid "Option for saving/not saving the command line history on exit"
 msgstr "Alternativ för att spara/inte spara kommandoradshistorik vid avslut"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:387
+#: C/releases.xml:449
 msgid "Option for saving/not saving the search history on exit"
 msgstr "Alternativ för att spara/inte spara sökhistorik vid avslut"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:390
+#: C/releases.xml:452
 msgid ""
 "Added a settings option for deciding if the terminal window should stay open "
 "when a command finishes"
@@ -16971,7 +17042,7 @@ msgstr ""
 "förbli öppet då ett kommando slutförs"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:393
+#: C/releases.xml:455
 msgid ""
 "[build] Don't use gnome-autogen.sh anymore (Many thanks to Philip Withnall "
 "and David King)"
@@ -16980,14 +17051,14 @@ msgstr ""
 "och David King)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:396
+#: C/releases.xml:458
 msgid ""
 "[build] Translations are now handled by upstream gettext instead of intltool"
 msgstr ""
 "[bygge] Översättningar hanteras nu av uppströms gettext istället för intltool"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:399
+#: C/releases.xml:461
 msgid ""
 "[build] New documentation infrastructure: Use yelp-tools instead of gnome-"
 "doc-utils"
@@ -16996,22 +17067,22 @@ msgstr ""
 "doc-utils"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:403 C/releases.xml:645
+#: C/releases.xml:465 C/releases.xml:707
 msgid "Other changes:"
 msgstr "Andra ändringar:"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:407
+#: C/releases.xml:469
 msgid "Increased minimum GTK version from 2.8.0 to 2.18.0"
 msgstr "Ökade minsta GTK-version från 2.8.0 till 2.18.0"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:410 C/releases.xml:635
+#: C/releases.xml:472 C/releases.xml:697
 msgid "Code cleanup"
 msgstr "Koduppstädning"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:418
+#: C/releases.xml:480
 msgid ""
 "[build] Python is now found at build time, too, when its version is equal to "
 "or higher than 3.x"
@@ -17020,7 +17091,7 @@ msgstr ""
 "eller lika med 3.x"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:425
+#: C/releases.xml:487
 msgid ""
 "New or updated translations: ca, cs, de, eo, es, fi, hu, id, pl, pt_BR, sl, "
 "sr, sr@latin, sv"
@@ -17029,23 +17100,23 @@ msgstr ""
 "pt_BR, sl, sr, sr@latin, sv"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:435
+#: C/releases.xml:497
 msgid "1.6.4"
 msgstr "1.6.4"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:436
+#: C/releases.xml:498
 msgid "2017-05-28"
 msgstr "2017-05-28"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:442
+#: C/releases.xml:504
 msgid "Fixed problem bgo#779574 (Other favourite apps settings not saved)"
 msgstr ""
 "Fixade problem bgo#779574 (Andra favoritprogram-inställning sparas inte)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:445
+#: C/releases.xml:507
 msgid ""
 "Fixed problem bgo#619112 (Internal-viewer by default display incorrect code "
 "pages)"
@@ -17054,7 +17125,7 @@ msgstr ""
 "felaktiga teckenkodningar)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:453
+#: C/releases.xml:515
 msgid ""
 "New or updated translations: cs, de, eu, hu, id, pl, pt_BR, sr, sl@latin, sv"
 msgstr ""
@@ -17062,17 +17133,17 @@ msgstr ""
 "sl@latin, sv"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:461
+#: C/releases.xml:523
 msgid "1.6.3"
 msgstr "1.6.3"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:462
+#: C/releases.xml:524
 msgid "2017-02-26"
 msgstr "2017-02-26"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:468
+#: C/releases.xml:530
 msgid ""
 "libunique (sometimes called only 'unique') is now optional via configure "
 "option"
@@ -17081,23 +17152,23 @@ msgstr ""
 "konfigurationsflagga"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:476
+#: C/releases.xml:538
 msgid "New or updated translations: cs, es, pl, pt_BR, ru, sr, sl@latin"
 msgstr ""
 "Nya eller uppdaterade översättningar: cs, es, pl, pt_BR, ru, sr, sl@latin"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:484
+#: C/releases.xml:546
 msgid "1.6.2"
 msgstr "1.6.2"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:485
+#: C/releases.xml:547
 msgid "2016-11-06"
 msgstr "2016-11-06"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:491
+#: C/releases.xml:553
 msgid ""
 "Fixed problem bgo#398734 (Color of marked files does not change when using "
 "theme colors)"
@@ -17106,20 +17177,20 @@ msgstr ""
 "temafärger används)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:494
+#: C/releases.xml:556
 msgid "Device list entry width is set equal to the longest string in the list"
 msgstr ""
 "Postbredd för enhetslista sätts som samma som den längsta strängen i listan"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:497
+#: C/releases.xml:559
 msgid "Fixed a bug in advance rename tool when utilizing METATAGS"
 msgstr ""
 "Fixade ett fel i det avancerade namnbytesverktyget vid användning av METATAG:"
 "ar"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:505
+#: C/releases.xml:567
 msgid ""
 "Disk free space label is shown in status bar if device list isn't shown "
 "(works after restarting gcmd)"
@@ -17128,45 +17199,45 @@ msgstr ""
 "visas (fungerar efter att gcmd startats om)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:508
+#: C/releases.xml:570
 msgid "Shortcut can be assigned for:"
 msgstr "Kortkommandon kan tilldelas för:"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:511
+#: C/releases.xml:573
 msgid "Moving the cursor up or down (\"Move cursor one step up/down\")"
 msgstr "Flytta markören upp eller ned (”Flytta markören ett steg upp/ned”)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:514
+#: C/releases.xml:576
 msgid ""
 "Viewing bookmarks of current device (\"Show bookmarks of current device\")"
 msgstr ""
 "Visning av bokmärken för aktuell enhet (”Visa bokmärken för aktuell enhet”)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:519
+#: C/releases.xml:581
 msgid "New or updated translations: hu, de, pl, sr, sl@latin"
 msgstr "Nya eller uppdaterade översättningar: hu, de, pl, sr, sl@latin"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:522 C/releases.xml:547 C/releases.xml:730 C/releases.xml:798
-#: C/releases.xml:851
+#: C/releases.xml:584 C/releases.xml:609 C/releases.xml:792 C/releases.xml:860
+#: C/releases.xml:913
 msgid "New or updated docs: cs"
 msgstr "Ny eller uppdaterad dokumentation: cs"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:529
+#: C/releases.xml:591
 msgid "1.6.1"
 msgstr "1.6.1"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:530
+#: C/releases.xml:592
 msgid "2016-10-18"
 msgstr "2016-10-18"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:536
+#: C/releases.xml:598
 msgid ""
 "Fixed problem bgo#638174 (Selection background color not applied when using "
 "custom colors)"
@@ -17175,7 +17246,7 @@ msgstr ""
 "användning av anpassade färger)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:539
+#: C/releases.xml:601
 msgid ""
 "Fixed problem bgo#773063 (Compiles with gcc6 -Werror=format-security, Thanks "
 "to Mamoru Tasaka)"
@@ -17184,17 +17255,17 @@ msgstr ""
 "till Mamoru Tasaka)"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:554
+#: C/releases.xml:616
 msgid "1.6.0"
 msgstr "1.6.0"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:555
+#: C/releases.xml:617
 msgid "2016-10-04"
 msgstr "2016-10-04"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:561
+#: C/releases.xml:623
 msgid ""
 "Fixed problem bgo#671616 (Right-Mouse popup menu is displayed in wrong "
 "position, Thanks to Puux)"
@@ -17203,7 +17274,7 @@ msgstr ""
 "plats, tack till Puux)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:564
+#: C/releases.xml:626
 msgid ""
 "Fixed problem bgo#683087 (Crash opening properties window on certain "
 "objects, Thanks to Puux)"
@@ -17212,7 +17283,7 @@ msgstr ""
 "objekt, tack till Puux)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:567 C/releases.xml:756
+#: C/releases.xml:629 C/releases.xml:818
 msgid ""
 "Fixed problem bgo#742752 (Made options dialog resizable and added scrollbars)"
 msgstr ""
@@ -17220,7 +17291,7 @@ msgstr ""
 "storleksändringsbar och lade till rullningslister)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:570
+#: C/releases.xml:632
 msgid ""
 "Preserve focused file after renamed with AdvRenDialog (Thanks to Martin "
 "Mocko)"
@@ -17228,26 +17299,26 @@ msgstr ""
 "Bevara fokuserad fil efter namnbyte med AdvRenDialog (Tack till Martin Mocko)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:573
+#: C/releases.xml:635
 msgid "Fixed problem bgo#767158 (Shortcuts stop working after changing layout)"
 msgstr ""
 "Fixade problem bgo#767158 (Kortkommandon slutar fungera efter byte av layout)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:576
+#: C/releases.xml:638
 msgid "Fixed string escaping for directories with ampersand (see bgo#769309)"
 msgstr ""
 "Fixade strängkontrollsekvenser för kataloger med et-tecken (se bgo#769309)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:579
+#: C/releases.xml:641
 msgid ""
 "Fixed problem bgo#770062 (Memory leak in GnomeCmdPlainPath, Thanks to Eric)"
 msgstr ""
 "Fixade problem bgo#770062 (Minnesläcka i GnomeCmdPlainPath, tack till Eric)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:582
+#: C/releases.xml:644
 msgid ""
 "Fixed problem bgo#770063 (Memory leak in get_string_pixel_size, Thanks to "
 "Eric)"
@@ -17256,29 +17327,29 @@ msgstr ""
 "Eric)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:590
+#: C/releases.xml:652
 msgid "Always reopen the tab which was previously closed in the options dialog"
 msgstr "Öppna alltid fliken som tidigare stängdes i alternativdialogen"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:593
+#: C/releases.xml:655
 msgid "Samba support is now optionally available via configure option"
 msgstr "Samba-stöd finns nu valfritt tillgängligt genom konfigurationsflagga"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:596
+#: C/releases.xml:658
 msgid "Configurable command for sending files to a preferred application"
 msgstr ""
 "Konfigurerbart kommando för att skicka filer till ett föredraget program"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:599
+#: C/releases.xml:661
 msgid ""
 "Button 'Edit files' accepts more than one selected file at the same time"
 msgstr "Knappen ”Redigera filer” accepterar mer än en markerad fil åt gången"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:602
+#: C/releases.xml:664
 msgid ""
 "Device buttons and device list entries act as 'home buttons' for that device "
 "when it is already active"
@@ -17287,7 +17358,7 @@ msgstr ""
 "enheten då den redan är aktiv"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:605
+#: C/releases.xml:667
 msgid ""
 "Copy directory path to clipboard after right click on dir-indicator (Thanks "
 "to Puux)"
@@ -17296,25 +17367,25 @@ msgstr ""
 "(Tack till Puux)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:608
+#: C/releases.xml:670
 msgid "Show/hide mainmenu can be set as keyboard shortcut now (Thanks to Puux)"
 msgstr ""
 "Visa/dölj huvudmeny kan ställas in som en tangentbordsgenväg nu (Tack till "
 "Puux)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:611
+#: C/releases.xml:673
 msgid "Simple plug-in system for file context menu (Thanks to Puux)"
 msgstr "Enkelt insticksmodulsystem för filsnabbvalsmeny (Tack till Puux)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:614
+#: C/releases.xml:676
 msgid ""
 "Display of application icons in the \"Open With\" popup menu (Thanks to Puux)"
 msgstr "Visning av programikoner i poppuppmenyn ”Öppna med” (Tack till Puux)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:617
+#: C/releases.xml:679
 msgid ""
 "Write bookmark changes immediately to file, Sync bookmarks between all "
 "instances (Thanks to Puux)"
@@ -17323,7 +17394,7 @@ msgstr ""
 "alla instanser (Tack till Puux)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:620
+#: C/releases.xml:682
 msgid ""
 "Storage of options is done in the dconf database now instead of a gnome-"
 "config file (see bgo#570733)"
@@ -17332,12 +17403,12 @@ msgstr ""
 "fil (se bgo#570733)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:623
+#: C/releases.xml:685
 msgid "Devices and fav-apps are now stored within the GKeyFile format"
 msgstr "Enheter och favoritprogram lagras nu i GKeyFile-formatet"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:626
+#: C/releases.xml:688
 msgid ""
 "File Roller plugin can use patterns of strftime when creating the archive "
 "name"
@@ -17346,22 +17417,22 @@ msgstr ""
 "arkivnamnet"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:629
+#: C/releases.xml:691
 msgid "Started usage of google test framework for unit tests"
 msgstr "Började användning av google-testramverk för enhetstester"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:632
+#: C/releases.xml:694
 msgid "New colour theme 'Winter'"
 msgstr "Nytt färgtema ”Vinter”"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:638
+#: C/releases.xml:700
 msgid "New or updated docs: cs, de, el, es"
 msgstr "Ny eller uppdaterad dokumentation: cs, de, el, es"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:641
+#: C/releases.xml:703
 msgid ""
 "New or updated translations: bs, ca, cs, de, es, eu, fi, fr, hu, id, lt, nb, "
 "oc, pl, pt, pt_BR, ro, sk, sl, sr, sl@latin, sv, tr"
@@ -17370,22 +17441,22 @@ msgstr ""
 "id, lt, nb, oc, pl, pt, pt_BR, ro, sk, sl, sr, sl@latin, sv, tr"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:649
+#: C/releases.xml:711
 msgid "Removed \"Open folder\" command in popup menu and user actions"
 msgstr "Tog bort kommandot ”Öppna mapp” i poppuppmeny och användaråtgärder"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:656
+#: C/releases.xml:718
 msgid "1.4.9"
 msgstr "1.4.9"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:657
+#: C/releases.xml:719
 msgid "2016-09-18"
 msgstr "2016-09-18"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:663
+#: C/releases.xml:725
 msgid ""
 "Fixed bgo#764306 (Spelling mistake and wrong words in strings, thanks to "
 "Anders Jonsson)"
@@ -17393,7 +17464,7 @@ msgstr ""
 "Fixade bgo#764306 (Stavfel och fel ord i strängar, tack till Anders Jonsson)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:671
+#: C/releases.xml:733
 msgid ""
 "New or updated translations: cs, de, es, hu, hu, hu, id, pl, pt, ro, sk, sr, "
 "sr@latin, sv"
@@ -17402,17 +17473,17 @@ msgstr ""
 "ro, sk, sr, sr@latin, sv"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:681
+#: C/releases.xml:743
 msgid "1.4.8"
 msgstr "1.4.8"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:682
+#: C/releases.xml:744
 msgid "2016-03-14"
 msgstr "2016-03-14"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:688
+#: C/releases.xml:750
 msgid ""
 "Fixed problem bgo#761580 (Support gcc6 -Werror=format-security, thanks to "
 "Mamoru Tasaka)"
@@ -17421,27 +17492,27 @@ msgstr ""
 "Mamoru Tasaka)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:696
+#: C/releases.xml:758
 msgid "New or updated translations: cs, de, pl, pt, pt_BR, oc"
 msgstr "Nya eller uppdaterade översättningar: cs, de, pl, pt, pt_BR, oc"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:699
+#: C/releases.xml:761
 msgid "New or updated docs: cs, de"
 msgstr "Ny eller uppdaterad dokumentation: cs, de"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:706
+#: C/releases.xml:768
 msgid "1.4.7"
 msgstr "1.4.7"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:707
+#: C/releases.xml:769
 msgid "2015-05-30"
 msgstr "2015-05-30"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:713
+#: C/releases.xml:775
 msgid ""
 "Fixed problem bgo#745454 (Segmentation fault after find files, thanks to "
 "Mamoru Tasaka)"
@@ -17450,7 +17521,7 @@ msgstr ""
 "Mamoru Tasaka)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:716
+#: C/releases.xml:778
 msgid ""
 "Fixed problem bgo#749869 (Segfault on the second search, thanks to Mamoru "
 "Tasaka)"
@@ -17459,7 +17530,7 @@ msgstr ""
 "till Mamoru Tasaka)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:719
+#: C/releases.xml:781
 msgid ""
 "Fixed problem bgo#734032 (Clicking on .png file looks at wrong MIME type, "
 "thanks to Mamoru Tasaka)"
@@ -17468,28 +17539,28 @@ msgstr ""
 "till Mamoru Tasaka)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:727
+#: C/releases.xml:789
 msgid "New or updated translations: co"
 msgstr "Nya eller uppdaterade översättningar: co"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:737
+#: C/releases.xml:799
 msgid "1.4.6"
 msgstr "1.4.6"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:738
+#: C/releases.xml:800
 msgid "2015-05-19"
 msgstr "2015-05-19"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:744
+#: C/releases.xml:806
 msgid "Fixed problem bgo#748869 (crash when searching two times consecutively)"
 msgstr ""
 "Fixade problem bgo#748869 (krasch efter sökning två gånger efter varandra)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:747
+#: C/releases.xml:809
 msgid ""
 "Fixed problem bgo#746003 (crash on opening property dialog on ftp-directory "
 "with \"odd\" uid)"
@@ -17498,7 +17569,7 @@ msgstr ""
 "katalog med ”udda” uid)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:750
+#: C/releases.xml:812
 msgid ""
 "Fixed problem bgo#747771 (appdata.xml file is not being translated, thanks "
 "to Dominique Leuenberger)"
@@ -17507,7 +17578,7 @@ msgstr ""
 "Dominique Leuenberger)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:753
+#: C/releases.xml:815
 msgid ""
 "Fixed problem bgo#653573 (Passwords store in plain text in ./gnome-commander/"
 "connections)"
@@ -17516,32 +17587,32 @@ msgstr ""
 "connections)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:764
+#: C/releases.xml:826
 msgid "New or updated translations: bs, el, pt"
 msgstr "Nya eller uppdaterade översättningar: bs, el, pt"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:767
+#: C/releases.xml:829
 msgid "New or updated docs: cs, el"
 msgstr "Ny eller uppdaterad dokumentation: cs, el"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:774
+#: C/releases.xml:836
 msgid "1.4.5"
 msgstr "1.4.5"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:775
+#: C/releases.xml:837
 msgid "2015-01-24"
 msgstr "2015-01-24"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:781
+#: C/releases.xml:843
 msgid "Fixed problem bgo#741316 (Appdata missing in POT)"
 msgstr "Fixade problem bgo#741316 (Appdata saknas i POT)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:784
+#: C/releases.xml:846
 msgid ""
 "Fixed problem bgo#742716 (Option --start-right-dir crashes gnome-commander)"
 msgstr ""
@@ -17549,27 +17620,27 @@ msgstr ""
 "commander)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:787
+#: C/releases.xml:849
 msgid "Removed python-2.6 support from gentoo ebuild"
 msgstr "Tog bort python-2.6-stöd från gentoo ebuild"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:795
+#: C/releases.xml:857
 msgid "New or updated translations: cs, hu, id, sr, sr@latin"
 msgstr "Nya eller uppdaterade översättningar: cs, hu, id, sr, sr@latin"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:805
+#: C/releases.xml:867
 msgid "1.4.4"
 msgstr "1.4.4"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:806
+#: C/releases.xml:868
 msgid "2014-11-11"
 msgstr "2014-11-11"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:812
+#: C/releases.xml:874
 msgid ""
 "Fixed problem bgo#571495 (Migrated from gnome_execute_shell to g_spawn_async)"
 msgstr ""
@@ -17577,7 +17648,7 @@ msgstr ""
 "g_spawn_async)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:815
+#: C/releases.xml:877
 msgid ""
 "Fixed problem bgo#737088 (Support for user's terminal different from gnome-"
 "terminal)"
@@ -17585,22 +17656,22 @@ msgstr ""
 "Fixade problem bgo#737088 (Stöd för annan användarterminal än gnome-terminal)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:823
+#: C/releases.xml:885
 msgid "New or updated translations: cs, de, eu, fi, id, sr, sr@latin"
 msgstr "Nya eller uppdaterade översättningar: cs, de, eu, fi, id, sr, sr@latin"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:833
+#: C/releases.xml:895
 msgid "1.4.3"
 msgstr "1.4.3"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:834
+#: C/releases.xml:896
 msgid "2014-06-22"
 msgstr "2014-06-22"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:840
+#: C/releases.xml:902
 msgid ""
 "Fixed problem bgo#731557 (Crash when drag 'n drop via mouse and file aready "
 "exists)"
@@ -17609,22 +17680,22 @@ msgstr ""
 "existerar)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:848
+#: C/releases.xml:910
 msgid "New or updated translations: cs, de, eu, fi"
 msgstr "Nya eller uppdaterade översättningar: cs, de, eu, fi"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:858
+#: C/releases.xml:920
 msgid "1.4.2"
 msgstr "1.4.2"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:859
+#: C/releases.xml:921
 msgid "2014-05-23"
 msgstr "2014-05-23"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:865
+#: C/releases.xml:927
 msgid ""
 "Fixed Gentoo problem #509574 (Switched from python-r1 to python-single-r1 in "
 "ebuild)"
@@ -17633,7 +17704,7 @@ msgstr ""
 "ebuild)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:868
+#: C/releases.xml:930
 msgid ""
 "Fixed problem bgo#367949 (Corrected async_xfer_callback-results for moving "
 "folders)"
@@ -17642,7 +17713,7 @@ msgstr ""
 "flytt av mappar)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:871
+#: C/releases.xml:933
 msgid ""
 "Fixed problem bgo#598161 (Selecting text in internal viewer on lines with "
 "TAB characters)"
@@ -17651,7 +17722,7 @@ msgstr ""
 "tecken)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:874
+#: C/releases.xml:936
 msgid ""
 "Text selection in int. viewer works on lines with TAB characters (Thanks to "
 "Jan Vleeshouwers)"
@@ -17660,22 +17731,22 @@ msgstr ""
 "till Jan Vleeshouwers)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:882
+#: C/releases.xml:944
 msgid "New or updated translations: cs, el, sr, sr@latin"
 msgstr "Nya eller uppdaterade översättningar: cs, el, sr, sr@latin"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:889
+#: C/releases.xml:951
 msgid "1.4.1"
 msgstr "1.4.1"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:890
+#: C/releases.xml:952
 msgid "2014-04-05"
 msgstr "2014-04-05"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:896
+#: C/releases.xml:958
 msgid ""
 "Fixed problem bgo#641842 (Use poppler-glib instead of poppler internal API)"
 msgstr ""
@@ -17683,46 +17754,46 @@ msgstr ""
 "API)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:899
+#: C/releases.xml:961
 msgid "Fixed problem bgo#726682 (Patch to fix undefined reference to vtable)"
 msgstr ""
 "Fixade problem bgo#726682 (Patch för att fixa odefinierad referens till "
 "vtable)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:902
+#: C/releases.xml:964
 msgid ""
 "Support for utf8 encoded creation and modification dates in document metadata"
 msgstr "Stöd för utf8-kodade datum för skapande och ändring i dokumentmetadata"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:905
+#: C/releases.xml:967
 msgid "Moved Search, Quick Search and Enable Filter from Edit to File menu"
 msgstr ""
 "Flyttade Sök, Snabbsök och Aktivera filter från menyn Redigera till Arkiv"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:913
+#: C/releases.xml:975
 msgid "New or updated translations: cs, es, fr , id , pt_BR, sl"
 msgstr "Nya eller uppdaterade översättningar: cs, es, fr , id , pt_BR, sl"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:923
+#: C/releases.xml:985
 msgid "1.4.0"
 msgstr "1.4.0"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:924
+#: C/releases.xml:986
 msgid "2014-03-17"
 msgstr "2014-03-17"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:930
+#: C/releases.xml:992
 msgid "Fixed problem bgo#377463 (mkdir dialog loses focus)"
 msgstr "Fixade problem bgo#377463 (mkdir-dialogruta förlorar fokus)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:933
+#: C/releases.xml:995
 msgid ""
 "Fixed problem bgo#492479 (file replace prompt must show date and size of "
 "files)"
@@ -17731,7 +17802,7 @@ msgstr ""
 "för filer)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:936
+#: C/releases.xml:998
 msgid ""
 "Fixed problem bgo#617140 (GNOME Goal: Use accessor functions instead direct "
 "access)"
@@ -17740,7 +17811,7 @@ msgstr ""
 "direkt åtkomst)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:939
+#: C/releases.xml:1001
 msgid ""
 "Fixed problems bgo#632064, bgo#632208, bgo#633107, bgo#633167, bgo#633331, "
 "bgo#634972, bgo#637873, bgo#638059 (bugs in gnome-commander-help.master.po)"
@@ -17749,43 +17820,43 @@ msgstr ""
 "bgo#634972, bgo#637873, bgo#638059 (fel i gnome-commander-help.master.po)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:942
+#: C/releases.xml:1004
 msgid "Fixed problem bgo#660043 (shortcut ALT+DOWN not documented)"
 msgstr "Fixade problem bgo#660043 (kortkommandot ALT+NED inte dokumenterat)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:945
+#: C/releases.xml:1007
 msgid "Fixed problem bgo#660268 (remember directory history between sessions)"
 msgstr "Fixade problem bgo#660268 (kom ihåg kataloghistorik mellan sessioner)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:948
+#: C/releases.xml:1010
 msgid "Fixed problem bgo#667080 (delete confirmation defaults to YES/OK)"
 msgstr ""
 "Fixade problem bgo#667080 (borttagningsbekräftelse har standardvärdet JA/OK)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:951
+#: C/releases.xml:1013
 msgid "Fixed Ubuntu problem #117226 (bookmarks unification)"
 msgstr "Fixade Ubuntu-problem #117226 (bokmärkesunifiering)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:954
+#: C/releases.xml:1016
 msgid "Fixed problem with right mouse button selection not being precise"
 msgstr "Fixade problem där markering med höger musknapp inte var precis"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:957
+#: C/releases.xml:1019
 msgid "Fixed problem bgo#696227 (detect and support libgsf &gt;= 1.14.26)"
 msgstr "Fixade problem bgo#696227 (upptäck och stöd libgsf &gt;= 1.14.26)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:960
+#: C/releases.xml:1022
 msgid "Fixed problem bgo#684527 (Fixed typos in strings)"
 msgstr "Fixade problem bgo#684527 (Fixade stavfel i strängar)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:963
+#: C/releases.xml:1025
 msgid ""
 "Fixed problem bgo#660063 (define ALT+DOWN binding as user definable: view."
 "dir_history)"
@@ -17794,95 +17865,95 @@ msgstr ""
 "användardefinierbar: view.dir_history)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:966
+#: C/releases.xml:1028
 msgid "Fixed problem bgo#642178 (lock tabs for prev/next buttons)"
 msgstr "Fixade problem bgo#642178 (lås flikar för knapparna föregående/nästa)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:977
+#: C/releases.xml:1039
 msgid "Revamped bookmarks dialog"
 msgstr "Omarbetad dialogruta för bokmärken"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:980
+#: C/releases.xml:1042
 msgid "Revamped file properties dialog"
 msgstr "Omarbetad dialogruta för filegenskaper"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:986
+#: C/releases.xml:1048
 msgid "New colour theme: green tiger"
 msgstr "Nytt färgtema: grön tiger"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:989
+#: C/releases.xml:1051
 msgid "User defined LS_COLORS colours"
 msgstr "Användardefinierade LS_COLORS-färger"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:992
+#: C/releases.xml:1054
 msgid "Possibility to select/deselect files only"
 msgstr "Möjlighet att markera/avmarkera endast filer"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:995
+#: C/releases.xml:1057
 msgid "Support for automatic width counters in advanced file rename"
 msgstr "Stöd för automatiska breddräknare i avancerat filnamnsbyte"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:998
+#: C/releases.xml:1060
 msgid "Enhanced file name matching in quick search"
 msgstr "Förbättrad filnamnsmatchning i snabbsökning"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1001
+#: C/releases.xml:1063
 msgid "Open terminal with administrator privileges"
 msgstr "Öppna terminal med administratörsprivilegier"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1004
+#: C/releases.xml:1066
 msgid "Prompt to confirm drag &amp; drop operations"
 msgstr "Fråga för att bekräfta dra-och-släpp-åtgärder"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1007
+#: C/releases.xml:1069
 msgid "Right click popup menu for copying in internal viewer"
 msgstr "Högerklickspoppuppmeny för kopiering i intern visare"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1010
+#: C/releases.xml:1072
 msgid ""
 "--config-dir command line option for customized location of config files"
 msgstr ""
 "Kommandoradsflagga --config-dir för anpassad plats för konfigurationsfiler"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1013
+#: C/releases.xml:1075
 msgid "Several speed improvements including C++ rework and code cleanups"
 msgstr ""
 "Flera hastighetsförbättringar, inklusive C++-omarbete och kodupprensningar"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1016
+#: C/releases.xml:1078
 msgid "New python plugin: 'apply_patch'"
 msgstr "Ny python-insticksmodul: ”apply_patch”"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1019
+#: C/releases.xml:1081
 msgid "Dropped broken MIME type configuration"
 msgstr "Tog bort trasig MIME-typskonfiguration"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1022
+#: C/releases.xml:1084
 msgid "Dropped support for cvs plugin"
 msgstr "Tog bort stöd för cvs-insticksmodul"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1025
+#: C/releases.xml:1087
 msgid "New or updated docs: cs, de, en, es, el, fr, ru, sl"
 msgstr "Ny eller uppdaterad dokumentation: cs, de, en, es, el, fr, ru, sl"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1028
+#: C/releases.xml:1090
 msgid ""
 "New or updated translations: ca, cs, da, eo, es, eu, fr, hu, it, ja, ko, nb, "
 "pl, pt_BR, ro, ru, sl, sr, sr@latin, sv, uk, zh_CN"
@@ -17891,31 +17962,31 @@ msgstr ""
 "ja, ko, nb, pl, pt_BR, ro, ru, sl, sr, sr@latin, sv, uk, zh_CN"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1031 C/releases.xml:1597 C/releases.xml:1735
-#: C/releases.xml:1855 C/releases.xml:1950 C/releases.xml:2024
-#: C/releases.xml:2096 C/releases.xml:2177 C/releases.xml:2257
-#: C/releases.xml:2326
+#: C/releases.xml:1093 C/releases.xml:1659 C/releases.xml:1797
+#: C/releases.xml:1917 C/releases.xml:2012 C/releases.xml:2086
+#: C/releases.xml:2158 C/releases.xml:2239 C/releases.xml:2319
+#: C/releases.xml:2388
 msgid "New key bindings:"
 msgstr "Nya tangentbindningar:"
 
 #. (itstool) path: keycombo/keycap
-#: C/releases.xml:1034 C/releases.xml:1037 C/releases.xml:1040
-#: C/releases.xml:1043 C/releases.xml:1046 C/releases.xml:1600
-#: C/releases.xml:1858 C/releases.xml:1861 C/releases.xml:1953
-#: C/releases.xml:1956 C/releases.xml:1959 C/releases.xml:1962
-#: C/releases.xml:2027 C/releases.xml:2099 C/releases.xml:2189
-#: C/releases.xml:2260 C/releases.xml:2263 C/releases.xml:2266
-#: C/releases.xml:2269 C/releases.xml:2335
+#: C/releases.xml:1096 C/releases.xml:1099 C/releases.xml:1102
+#: C/releases.xml:1105 C/releases.xml:1108 C/releases.xml:1662
+#: C/releases.xml:1920 C/releases.xml:1923 C/releases.xml:2015
+#: C/releases.xml:2018 C/releases.xml:2021 C/releases.xml:2024
+#: C/releases.xml:2089 C/releases.xml:2161 C/releases.xml:2251
+#: C/releases.xml:2322 C/releases.xml:2325 C/releases.xml:2328
+#: C/releases.xml:2331 C/releases.xml:2397
 msgid "CTRL"
 msgstr "Ctrl"
 
 #. (itstool) path: keycombo/keycap
-#: C/releases.xml:1034 C/releases.xml:1608
+#: C/releases.xml:1096 C/releases.xml:1670
 msgid "T"
 msgstr "T"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1034
+#: C/releases.xml:1096
 msgid ""
 "<_:keycombo-1/> Open directory in a new tab (replaces the old Multi-Rename-"
 "Tool binding)"
@@ -17924,204 +17995,204 @@ msgstr ""
 "Tool-bindningen)"
 
 #. (itstool) path: keycombo/keycap
-#: C/releases.xml:1037 C/releases.xml:1040
+#: C/releases.xml:1099 C/releases.xml:1102
 msgid "W"
 msgstr "W"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1037
+#: C/releases.xml:1099
 msgid "<_:keycombo-1/> Close current tab"
 msgstr "<_:keycombo-1/> Stäng aktuell flik"
 
 #. (itstool) path: keycombo/keycap
-#: C/releases.xml:1040 C/releases.xml:1046 C/releases.xml:1962
-#: C/releases.xml:2027 C/releases.xml:2099 C/releases.xml:2180
-#: C/releases.xml:2189 C/releases.xml:2263
+#: C/releases.xml:1102 C/releases.xml:1108 C/releases.xml:2024
+#: C/releases.xml:2089 C/releases.xml:2161 C/releases.xml:2242
+#: C/releases.xml:2251 C/releases.xml:2325
 msgid "SHIFT"
 msgstr "Skift"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1040
+#: C/releases.xml:1102
 msgid "<_:keycombo-1/> Close all tabs"
 msgstr "<_:keycombo-1/> Stäng alla flikar"
 
 #. (itstool) path: keycombo/keycap
-#: C/releases.xml:1043 C/releases.xml:1046
+#: C/releases.xml:1105 C/releases.xml:1108
 msgid "TAB"
 msgstr "TABB"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1043
+#: C/releases.xml:1105
 msgid "<_:keycombo-1/> Switch to the next tab"
 msgstr "<_:keycombo-1/> Växla till nästa flik"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1046
+#: C/releases.xml:1108
 msgid "<_:keycombo-1/> Switch to the previous tab"
 msgstr "<_:keycombo-1/> Växla till föregående flik"
 
 #. (itstool) path: keycombo/keycap
-#: C/releases.xml:1049 C/releases.xml:1052 C/releases.xml:1738
+#: C/releases.xml:1111 C/releases.xml:1114 C/releases.xml:1800
 msgid "SUPER"
 msgstr "SUPER"
 
 #. (itstool) path: keycombo/keycap
-#: C/releases.xml:1049
+#: C/releases.xml:1111
 msgid "1"
 msgstr "1"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1049
+#: C/releases.xml:1111
 msgid "<_:keycombo-1/> Change left connection"
 msgstr "<_:keycombo-1/> Ändra vänster anslutning"
 
 #. (itstool) path: keycombo/keycap
-#: C/releases.xml:1052
+#: C/releases.xml:1114
 msgid "2"
 msgstr "2"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1052
+#: C/releases.xml:1114
 msgid "<_:keycombo-1/> Change right connection"
 msgstr "<_:keycombo-1/> Ändra höger anslutning"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:1061
+#: C/releases.xml:1123
 msgid "1.2.8.17"
 msgstr "1.2.8.17"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:1062
+#: C/releases.xml:1124
 msgid "2014-01-12"
 msgstr "2014-01-12"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1068
+#: C/releases.xml:1130
 msgid "Fixed problem bgo#721132 (Support build with -Werror=format-security)"
 msgstr "Fixade problem bgo#721132 (Stöd bygge med -Werror=format-security)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1071
+#: C/releases.xml:1133
 msgid "Updated GCMD home page location in source code"
 msgstr "Uppdaterade plats för GCMD:s webbsida i källkod"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1079
+#: C/releases.xml:1141
 msgid "Updated translations: es, id, pt_BR"
 msgstr "Uppdaterade översättningar: es, id, pt_BR"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:1086
+#: C/releases.xml:1148
 msgid "1.2.8.16"
 msgstr "1.2.8.16"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:1087
+#: C/releases.xml:1149
 msgid "2013-12-23"
 msgstr "2013-12-23"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1093
+#: C/releases.xml:1155
 msgid "Fixed gcc-4.7 compiling problem"
 msgstr "Fixade kompileringsproblem för gcc-4.7"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1096
+#: C/releases.xml:1158
 msgid "Fixed problem bgo#705724 (poppler &gt;= 0.24)"
 msgstr "Fixade problem bgo#705724 (poppler &gt;= 0.24)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1099
+#: C/releases.xml:1161
 msgid "Fixed problem bgo#676303 (poppler &gt;= 0.20.0)"
 msgstr "Fixade problem bgo#676303 (poppler &gt;= 0.20.0)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1107
+#: C/releases.xml:1169
 msgid "New or updated docs: de, el, fr"
 msgstr "Ny eller uppdaterad dokumentation: de, el, fr"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1110
+#: C/releases.xml:1172
 msgid "Updated translations: da, de, el, fr, hu, id, pt_br, ru, sl, th"
 msgstr "Uppdaterade översättningar: da, de, el, fr, hu, id, pt_br, ru, sl, th"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:1117
+#: C/releases.xml:1179
 msgid "1.2.8.15"
 msgstr "1.2.8.15"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:1118
+#: C/releases.xml:1180
 msgid "2011-12-06"
 msgstr "2011-12-06"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1124
+#: C/releases.xml:1186
 msgid "Fixed problem #65372 (missing links in gcmd-1.2.8 documentation)"
 msgstr "Fixade problem #65372 (saknade länkar i dokumentation för gcmd-1.2.8)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1132
+#: C/releases.xml:1194
 msgid "New or updated docs: cs, de, es, fr"
 msgstr "Ny eller uppdaterad dokumentation: cs, de, es, fr"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1135
+#: C/releases.xml:1197
 msgid "Updated translations: eo, es, sl"
 msgstr "Uppdaterade översättningar: eo, es, sl"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:1142
+#: C/releases.xml:1204
 msgid "1.2.8.14"
 msgstr "1.2.8.14"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:1143
+#: C/releases.xml:1205
 msgid "2011-10-04"
 msgstr "2011-10-04"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1149
+#: C/releases.xml:1211
 msgid "Fixed problem #621756 (custom port for ftp is not saved)"
 msgstr "Fixade problem #621756 (anpassad port för ftp sparas inte)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1152
+#: C/releases.xml:1214
 msgid "Fixed problem #657780 (bugs in nl.po)"
 msgstr "Fixade problem #657780 (fel i nl.po)"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:1159
+#: C/releases.xml:1221
 msgid "1.2.8.13"
 msgstr "1.2.8.13"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:1160
+#: C/releases.xml:1222
 msgid "2011-08-06"
 msgstr "2011-08-06"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1166
+#: C/releases.xml:1228
 msgid "Fixed problem #646871 (crash on file properties when connected to FTP)"
 msgstr "Fixade problem #646871 (krasch vid filegenskaper då ansluten till FTP)"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:1173
+#: C/releases.xml:1235
 msgid "1.2.8.12"
 msgstr "1.2.8.12"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:1174
+#: C/releases.xml:1236
 msgid "2011-06-15"
 msgstr "2011-06-15"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1180
+#: C/releases.xml:1242
 msgid "Fixed problem #618214 (crash when cancel a search)"
 msgstr "Fixade problem #618214 (krasch vid avbrott av en sökning)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1183
+#: C/releases.xml:1245
 msgid ""
 "Fixed problem #640387 (yet another fix for deprecated python modules: md5, "
 "sha1)"
@@ -18129,65 +18200,65 @@ msgstr ""
 "Fixade problem #640387 (ännu en fix för föråldrade python-moduler: md5, sha1)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1186
+#: C/releases.xml:1248
 msgid "Fixed problem #649375 (bookmarks not updated for newly added ones)"
 msgstr ""
 "Fixade problem #649375 (bokmärken inte uppdaterade för nyligen tillagda "
 "sådana)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1189
+#: C/releases.xml:1251
 msgid "Fixed problem with mkdir permissions"
 msgstr "Fixade problem med mkdir-rättigheter"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:1196
+#: C/releases.xml:1258
 msgid "1.2.8.11"
 msgstr "1.2.8.11"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:1197
+#: C/releases.xml:1259
 msgid "2011-05-01"
 msgstr "2011-05-01"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1203
+#: C/releases.xml:1265
 msgid "Fixed problem #639243 (misleading docs for F2 shortcut)"
 msgstr "Fixade problem #639243 (missledande dokumentation för F2-kortkommando)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1206
+#: C/releases.xml:1268
 msgid "Fixed problem #640387 (usage of deprecated python modules: md5, sha1)"
 msgstr ""
 "Fixade problem #640387 (användning av föråldrade python-moduler: md5, sha1)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1209
+#: C/releases.xml:1271
 msgid "Fixed problem with starting GNOME Commander as root"
 msgstr "Fixade problem med att starta GNOME Commander som root"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1212
+#: C/releases.xml:1274
 msgid "Fixed problem with Traditional Chinese translation"
 msgstr "Fixade problem med översättning för traditionell kinesiska"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1220
+#: C/releases.xml:1282
 msgid "Support for backward/forward mouse buttons"
 msgstr "Stöd för bakåt/framåt-musknappar"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:1227
+#: C/releases.xml:1289
 msgid "1.2.8.10"
 msgstr "1.2.8.10"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:1228
+#: C/releases.xml:1290
 msgid "2011-01-15"
 msgstr "2011-01-15"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1234
+#: C/releases.xml:1296
 msgid ""
 "Fixed problem #448941 (numeric keypad arrows don't work in the main window)"
 msgstr ""
@@ -18195,7 +18266,7 @@ msgstr ""
 "huvudfönstret)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1237
+#: C/releases.xml:1299
 msgid ""
 "Fixed problem #620275 (add menu item to copy full path and file name to "
 "clipboard)"
@@ -18204,13 +18275,13 @@ msgstr ""
 "sökväg och filnamn till urklipp)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1240
+#: C/releases.xml:1302
 msgid "Fixed problem #637501 (advrename: metatag popup menu shows wrong items)"
 msgstr ""
 "Fixade problem #637501 (advrename: metataggpoppuppmeny visar fel objekt)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1243
+#: C/releases.xml:1305
 msgid ""
 "Fixed problem with toggling path/basename/filename selections in copy/move "
 "dialogs"
@@ -18219,57 +18290,57 @@ msgstr ""
 "dialogrutor för kopiering/flytt"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1246
+#: C/releases.xml:1308
 msgid "Fixed problem with searching path for devices"
 msgstr "Fixade problem med sökning av sökväg för enheter"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1249
+#: C/releases.xml:1311
 msgid "Updated translations: de"
 msgstr "Uppdaterade översättningar: de"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:1256
+#: C/releases.xml:1318
 msgid "1.2.8.9"
 msgstr "1.2.8.9"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:1257
+#: C/releases.xml:1319
 msgid "2010-12-03"
 msgstr "2010-12-03"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1263
+#: C/releases.xml:1325
 msgid "Fixed problem #352024 (F10 key doesn't work)"
 msgstr "Fixade problem #352024 (F10-tangent fungerar inte)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1266
+#: C/releases.xml:1328
 msgid "Fixed problem #631243 (advrename $c(width) regression)"
 msgstr "Fixade problem #631243 (advrename $c(width)-regression)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1274
+#: C/releases.xml:1336
 msgid "Support for shell-style wildcards in quick search"
 msgstr "Stöd för jokertecken som i ett skal för snabbsökning"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:1281
+#: C/releases.xml:1343
 msgid "1.2.8.8"
 msgstr "1.2.8.8"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:1282
+#: C/releases.xml:1344
 msgid "2010-09-09"
 msgstr "2010-09-09"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1288
+#: C/releases.xml:1350
 msgid "Fixed problem #610764 (menu item won't stay checked)"
 msgstr "Fixade problem #610764 (menyobjekt förblir inte ikryssat)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1291
+#: C/releases.xml:1353
 msgid ""
 "Fixed problem #626469 (add support for other su-like programs: xdg-su, "
 "gnomesu)"
@@ -18278,235 +18349,235 @@ msgstr ""
 "su, gnomesu)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1294
+#: C/releases.xml:1356
 msgid "Fixed problem with broken Spanish translation"
 msgstr "Fixade problem med trasig spansk översättning"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:1301
+#: C/releases.xml:1363
 msgid "1.2.8.7"
 msgstr "1.2.8.7"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:1302
+#: C/releases.xml:1364
 msgid "2010-07-27"
 msgstr "2010-07-27"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1308
+#: C/releases.xml:1370
 msgid "Fixed problem #540438 (no GUI message if meld cannot be executed)"
 msgstr ""
 "Fixade problem #540438 (inget GUI-meddelande om meld inte kan exekveras)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1311
+#: C/releases.xml:1373
 msgid "Fixed problem #616367 (\"File not found\" dialog after startup)"
 msgstr "Fixade problem #616367 (”Filen hittades inte”-dialog efter uppstart)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1314
+#: C/releases.xml:1376
 msgid "Fixed problem #620650 (buffer overflow in load_fav_apps())"
 msgstr "Fixade problem #620650 (buffertöverspill i load_fav_apps())"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1317
+#: C/releases.xml:1379
 msgid "Fixed problem #622456 (do not build plugins as shared library objects)"
 msgstr ""
 "Fixade problem #622456 (bygg inte insticksmoduler som delade "
 "biblioteksobjekt)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1320
+#: C/releases.xml:1382
 msgid "Fixed problem with editing options for favourite apps and devices"
 msgstr ""
 "Fixade problem med redigeringsalternativ för favoritprogram och enheter"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:1327
+#: C/releases.xml:1389
 msgid "1.2.8.6"
 msgstr "1.2.8.6"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:1328
+#: C/releases.xml:1390
 msgid "2010-06-01"
 msgstr "2010-06-01"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1334
+#: C/releases.xml:1396
 msgid ""
 "Fixed problems #600292, #612685 (crashes when double-clicking on a bookmark)"
 msgstr ""
 "Fixade problemen #600292, #612685 (kraschar vid dubbelklick på ett bokmärke)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1337
+#: C/releases.xml:1399
 msgid "Fixed problem #602795 (file content search)"
 msgstr "Fixade problem #602795 (sökning i filinnehåll)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1340
+#: C/releases.xml:1402
 msgid "Fixed problem #609912 (build error with --as-needed)"
 msgstr "Fixade problem #609912 (byggfel med --as-needed)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1343
+#: C/releases.xml:1405
 msgid "Fixed problem #616891 (build error on RHEL 5.5)"
 msgstr "Fixade problem #616891 (byggfel på RHEL 5.5)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1351
+#: C/releases.xml:1413
 msgid "New translations: ko"
 msgstr "Nya översättningar: ko"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:1358
+#: C/releases.xml:1420
 msgid "1.2.8.5"
 msgstr "1.2.8.5"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:1359
+#: C/releases.xml:1421
 msgid "2010-02-13"
 msgstr "2010-02-13"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1365
+#: C/releases.xml:1427
 msgid "Fixed problem #604558 (cursor lost/placed in wrong position)"
 msgstr "Fixade problem #604558 (markör försvunnen/placerad på fel position)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1368
+#: C/releases.xml:1430
 msgid "Fixed problem #604904 (build error on OpenSolaris)"
 msgstr "Fixade problem #604904 (byggfel på OpenSolaris)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1371
+#: C/releases.xml:1433
 msgid "Fixed problem #609342 (do not show mtime for '..')"
 msgstr "Fixade problem #609342 (visa inte mtime for ”..”)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1374
+#: C/releases.xml:1436
 msgid "Fixed problem with editing connections to Windows network"
 msgstr "Fixade problem med att redigera anslutningar till Windows-nätverk"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1377
+#: C/releases.xml:1439
 msgid "Fixed problem with nonexistent user actions"
 msgstr "Fixade problem med ej existerande användaråtgärder"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:1384
+#: C/releases.xml:1446
 msgid "1.2.8.4"
 msgstr "1.2.8.4"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:1385
+#: C/releases.xml:1447
 msgid "2009-12-03"
 msgstr "2009-12-03"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1391
+#: C/releases.xml:1453
 msgid "Fixed problem #602916 (not working menu entry)"
 msgstr "Fixade problem #602916 (ej fungerande menyobjekt)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1394
+#: C/releases.xml:1456
 msgid "Fixed problem #603301 (crash when cancelling symlink creation by ESC)"
 msgstr "Fixade problem #603301 (krasch vid avbrott av symlänkskapande med ESC)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1397
+#: C/releases.xml:1459
 msgid "Fixed Ubuntu problem #369818 (incorrect sorting by size in panel)"
 msgstr ""
 "Fixade Ubuntu-problem #369818 (felaktig sortering efter storlek i panel)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1400
+#: C/releases.xml:1462
 msgid "Fixed problem with not working keypad enter in copy/move dialog"
 msgstr ""
 "Fixade problem med ej fungerande returknapp på numeriska tangentbordet i "
 "dialogrutan för kopiera/flytta"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1403
+#: C/releases.xml:1465
 msgid ""
 "Fixed problem with stalled keyboard after ALT+1/2 with hidden device list"
 msgstr ""
 "Fixade problem med tangentbordslåsningar efter ALT+1/2 med dold enhetslista"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:1410
+#: C/releases.xml:1472
 msgid "1.2.8.3"
 msgstr "1.2.8.3"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:1411
+#: C/releases.xml:1473
 msgid "2009-10-28"
 msgstr "2009-10-28"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1417
+#: C/releases.xml:1479
 msgid "Fixed problem #541891 (file names with % in advanced file rename tool)"
 msgstr ""
 "Fixade problem #541891 (filnamn med % i avancerat verktyg för namnbyte av "
 "filer)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1420
+#: C/releases.xml:1482
 msgid "Fixed problem #581645 (uncomfortable quick search)"
 msgstr "Fixade problem #581645 (obekväm snabbsökning)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1423
+#: C/releases.xml:1485
 msgid "Fixed problem #596768 (build warnings for python)"
 msgstr "Fixade problem #596768 (byggvarningar för python)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1426
+#: C/releases.xml:1488
 msgid "Fixed problem #596973 (documentation build error)"
 msgstr "Fixade problem #596973 (byggfel för dokumentation)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1429
+#: C/releases.xml:1491
 msgid "Fixed problem #597144 (missing call to pclose)"
 msgstr "Fixed problem #597144 (saknat anrop till pclose)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1432
+#: C/releases.xml:1494
 msgid "Fixed problem #597233 (validating of doc translations)"
 msgstr "Fixade problem #597233 (validering av dokumentationsöversättningar)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1435
+#: C/releases.xml:1497
 msgid "Fixed problem #597890 (wrong arguments passed to meld)"
 msgstr "Fixade problem #597890 (fel argument skickade till meld)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1438
+#: C/releases.xml:1500
 msgid "Fixed problem #598278 (memory leak)"
 msgstr "Fixade problem #598278 (minnesläcka)"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:1445
+#: C/releases.xml:1507
 msgid "1.2.8.2"
 msgstr "1.2.8.2"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:1446
+#: C/releases.xml:1508
 msgid "2009-09-22"
 msgstr "2009-09-22"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1452
+#: C/releases.xml:1514
 msgid "Fixed problem #591944 (permissions set to 000 after chmod)"
 msgstr "Fixade problem #591944 (rättigheter satta till 000 efter chmod)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1455
+#: C/releases.xml:1517
 msgid "Fixed problem #595097 (build error for poppler &gt;= 0.11.3)"
 msgstr "Fixade problem #595097 (byggfel för poppler &gt;= 0.11.3)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1458
+#: C/releases.xml:1520
 msgid ""
 "Fixed debian problem #438884 (wrong device label when switching panels with "
 "CTRL+U)"
@@ -18515,38 +18586,38 @@ msgstr ""
 "+U)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1461
+#: C/releases.xml:1523
 msgid "Fixed problem with broken file icon after renaming a symbolic link"
 msgstr ""
 "Fixade problem med trasig filikon efter att ha bytt namn på en symbolisk länk"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:1468
+#: C/releases.xml:1530
 msgid "1.2.8.1"
 msgstr "1.2.8.1"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:1469
+#: C/releases.xml:1531
 msgid "2009-08-10"
 msgstr "2009-08-10"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1475
+#: C/releases.xml:1537
 msgid "Fixed problem #587325 (crash in a clean chroot environment)"
 msgstr "Fixade problem #587325 (krasch i en ren chroot-miljö)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1478
+#: C/releases.xml:1540
 msgid "Fixed problem #589108 (build error on openSUSE)"
 msgstr "Fixade problem #589108 (byggfel på openSUSE)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1481
+#: C/releases.xml:1543
 msgid "Fixed problem #591206 (crash while sysconf() on FreeBSD)"
 msgstr "Fixade problem #591206 (krasch under sysconf() på FreeBSD)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1484
+#: C/releases.xml:1546
 msgid ""
 "Fixed problem with $c(16) counter formatting in advanced file rename "
 "templates"
@@ -18554,17 +18625,17 @@ msgstr ""
 "Fixade problem med $c(16)-räknarformatering i avancerade filnamnsbytesmallar"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:1491
+#: C/releases.xml:1553
 msgid "1.2.8"
 msgstr "1.2.8"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:1492
+#: C/releases.xml:1554
 msgid "2009-06-29"
 msgstr "2009-06-29"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1498
+#: C/releases.xml:1560
 msgid ""
 "Fixed problem #375357 (crash when cancelling calculation of dir properties)"
 msgstr ""
@@ -18572,22 +18643,22 @@ msgstr ""
 "katalogegenskaper)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1501
+#: C/releases.xml:1563
 msgid "Fixed problem #536446 (file name not focused for in-place renaming)"
 msgstr "Fixade problem #536446 (filnamn inte fokuserat för namnbyte på plats)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1504
+#: C/releases.xml:1566
 msgid "Fixed problem #539812 (crash when deleting files: broken it.po)"
 msgstr "Fixade problem #539812 (krasch då filer tas bort: trasig it.po)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1507
+#: C/releases.xml:1569
 msgid "Fixed problem #548947 (non-UTF8 locale date problem)"
 msgstr "Fixade problem #548947 (datumproblem för lokal som inte är UTF8)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1510
+#: C/releases.xml:1572
 msgid ""
 "Fixed problem #548948 (crash when home directory contains non-UTF8 "
 "characters)"
@@ -18596,52 +18667,52 @@ msgstr ""
 "UTF8)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1513
+#: C/releases.xml:1575
 msgid ""
 "Fixed problem #548961 (support for input method when rename or quicksearch)"
 msgstr ""
 "Fixade problem #548961 (stöd för inmatningsmetod vid namnbyte eller snabbsök)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1516
+#: C/releases.xml:1578
 msgid "Fixed problem #554586 (AC_PROG_CXX macro problem)"
 msgstr "Fixade problem #554586 (AC_PROG_CXX-makroproblem)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1519
+#: C/releases.xml:1581
 msgid "Fixed problem #554598 (GNOME Goal: LINGUAS)"
 msgstr "Fixade problem #554598 (GNOME-mål: LINGUAS)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1522
+#: C/releases.xml:1584
 msgid "Fixed problem #556664 (bookmarks can not be saved for mounted devices)"
 msgstr ""
 "Fixade problem #556664 (bokmärken kan inte sparas för monterade enheter)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1525
+#: C/releases.xml:1587
 msgid "Fixed problem #567404 (crash when INSERT pressed over subdir)"
 msgstr ""
 "Fixade problem #567404 (krasch då INSERT tryckts ned över underkatalog)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1528
+#: C/releases.xml:1590
 msgid "Fixed problem #556836 (pane scrolling when moving between panes)"
 msgstr "Fixade problem #556836 (panel rullar ner vid flytt mellan paneler)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1531
+#: C/releases.xml:1593
 msgid "Fixed problem #567506 (slow startup for systems with many users)"
 msgstr ""
 "Fixade problem #567506 (långsam uppstart för system med många användare)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1534
+#: C/releases.xml:1596
 msgid "Fixed problem #570727 (usage of deprecated gnome_url_show)"
 msgstr "Fixade problem #570727 (användning av föråldrad gnome_url_show)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1537
+#: C/releases.xml:1599
 msgid ""
 "Fixed problem #571239 (replacing obsoleted GnomeColorPicker with "
 "GtkColorButton)"
@@ -18649,12 +18720,12 @@ msgstr ""
 "Fixade problem #571239 (ersätt föråldrad GnomeColorPicker med GtkColorButton)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1540
+#: C/releases.xml:1602
 msgid "Fixed problem #571247 (replacing obsoleted GnomePixmap with GtkImage)"
 msgstr "Fixade problem #571247 (ersätt föråldrad GnomePixmap med GtkImage)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1543
+#: C/releases.xml:1605
 msgid ""
 "Fixed problem #571558 (replacing deprecated GNOME_STOCK_* buttons with "
 "GTK_STOCK_* counterparts)"
@@ -18663,7 +18734,7 @@ msgstr ""
 "GTK_STOCK_*-motsvarigheter)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1546
+#: C/releases.xml:1608
 msgid ""
 "Fixed problem #576174 (case insensitive file name sorting in non en_US.utf8 "
 "locale)"
@@ -18672,44 +18743,44 @@ msgstr ""
 "från en_US.utf8)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1549
+#: C/releases.xml:1611
 msgid "Fixed problem #579633 (accessing administrator privileges with gksudo)"
 msgstr "Fixade problem #579633 (komma åt administratörsprivilegier med gksudo)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1552
+#: C/releases.xml:1614
 msgid "Fixed problem #583135 (disabled 'Go to' button in search dialog)"
 msgstr "Fixade problem #583135 (inaktiverad ”Gå till”-knapp i sökdialog)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1555
+#: C/releases.xml:1617
 msgid "Fixed problem #583711 (crash when pressing ESC in bookmark dialog)"
 msgstr "Fixade problem #583711 (krasch vid tryck av ESC i bokmärkesdialog)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1558
+#: C/releases.xml:1620
 msgid "Fixed problem #584727 (wrong positioning of file popup menu)"
 msgstr "Fixade problem #584727 (fel positionering för filpoppuppmeny)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1561
+#: C/releases.xml:1623
 msgid "Fixed problem with setting equal pane size in horizontal mode"
 msgstr ""
 "Fixade problem med att ställa in samma panelstorlek i horisontellt läge"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1564
+#: C/releases.xml:1626
 msgid "Fixed problem with refreshing MIME information after file renaming"
 msgstr ""
 "Fixade problem med att uppdatera MIME-information efter namnbyte av fil"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1572
+#: C/releases.xml:1634
 msgid "Support for PDF metatags in advanced file rename templates"
 msgstr "Stöd för PDF-metataggar i avancerade filnamnsbytesmallar"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1575
+#: C/releases.xml:1637
 msgid ""
 "Revamped advanced file rename tool (regex backreferences ('\\number'), "
 "profiles, upper/lowercase conversion, blanks trimming and much more)"
@@ -18719,32 +18790,32 @@ msgstr ""
 "blankstegstrimning och mycket mer)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1579
+#: C/releases.xml:1641
 msgid "Support for metadata tags in internal viewer"
 msgstr "Stöd för metadatataggar i internt visningsprogram"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1582
+#: C/releases.xml:1644
 msgid "Support for single-click open mode"
 msgstr "Stöd för läge där enkelklick öppnar filer"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1585
+#: C/releases.xml:1647
 msgid "Support for row alternate background in colour themes"
 msgstr "Stöd för radalternerande bakgrund i färgteman"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1588
+#: C/releases.xml:1650
 msgid "New colour theme: cafezinho"
 msgstr "Nytt färgtema: cafezinho"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1591
+#: C/releases.xml:1653
 msgid "New or updated docs: de, en, es"
 msgstr "Ny eller uppdaterad dokumentation: de, en, es"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1594
+#: C/releases.xml:1656
 msgid ""
 "New or updated translations: ar, cs, de, es, eu, fr, it, ja, pl, pt_BR, sl, "
 "sv"
@@ -18753,106 +18824,106 @@ msgstr ""
 "pt_BR, sl, sv"
 
 #. (itstool) path: keycombo/keycap
-#: C/releases.xml:1600
+#: C/releases.xml:1662
 msgid "E"
 msgstr "E"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1600
+#: C/releases.xml:1662
 msgid "<_:keycombo-1/> Open the history list for the command line"
 msgstr "<_:keycombo-1/> Öppna historiklistan för kommandoraden"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1605
+#: C/releases.xml:1667
 msgid "New internal viewer key bindings:"
 msgstr "Nya tangentbindningar för internt visningsprogram:"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1608
+#: C/releases.xml:1670
 msgid "<_:keycombo-1/> Show metadata tags (replaces the old E)"
 msgstr "<_:keycombo-1/> Visa metadatataggar (ersätter det gamla E)"
 
 #. (itstool) path: keycombo/keycap
-#: C/releases.xml:1611 C/releases.xml:1659 C/releases.xml:2183
+#: C/releases.xml:1673 C/releases.xml:1721 C/releases.xml:2245
 msgid "ALT"
 msgstr "ALT"
 
 #. (itstool) path: keycombo/keycap
-#: C/releases.xml:1611
+#: C/releases.xml:1673
 msgid "ENTER"
 msgstr "RETUR"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1611
+#: C/releases.xml:1673
 msgid "<_:keycombo-1/> Show metadata tags"
 msgstr "<_:keycombo-1/> Visa metadatataggar"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:1620
+#: C/releases.xml:1682
 msgid "1.2.7"
 msgstr "1.2.7"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:1621
+#: C/releases.xml:1683
 msgid "2008-07-28"
 msgstr "2008-07-28"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1627
+#: C/releases.xml:1689
 msgid "Fixed problem #522430 (quick search for files starting with uppercase)"
 msgstr ""
 "Fixade problem #522430 (snabbsökning för filer som startar med stor bokstav)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1630
+#: C/releases.xml:1692
 msgid "Fixed problem #532615 (file operations on wrong file)"
 msgstr "Fixade problem #532615 (filåtgärder på fel fil)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1633
+#: C/releases.xml:1695
 msgid "Fixed problem #538806 (quick search in root dir)"
 msgstr "Fixade problem #538806 (snabbsökning i rotkatalog)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1636
+#: C/releases.xml:1698
 msgid "Fixed problem #539753 (build error on Solaris)"
 msgstr "Fixade problem #539753 (byggfel på Solaris)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1639
+#: C/releases.xml:1701
 msgid "Fixed problem #541404 (update of host names)"
 msgstr "Fixade problem #541404 (uppdatering av värdnamn)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1642
+#: C/releases.xml:1704
 msgid "Fixed problem with file sorting in advanced file rename tool"
 msgstr ""
 "Fixade problem med filsortering i avancerat verktyg för namnbyte av filer"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1645 C/releases.xml:1814 C/releases.xml:1898
+#: C/releases.xml:1707 C/releases.xml:1876 C/releases.xml:1960
 msgid "Build fixes"
 msgstr "Byggfixar"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1653
+#: C/releases.xml:1715
 msgid ""
 "Support for all GnomeVFS network protocols (including SSH+FTP and WebDAV)"
 msgstr ""
 "Stöd för alla GnomeVFS-nätverksprotokoll (inklusive SSH+FTP och WebDAV)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1656
+#: C/releases.xml:1718
 msgid "User defined shortcuts to arbitrary programs"
 msgstr "Användardefinierade kortkommandon till godtyckliga program"
 
 #. (itstool) path: keycombo/keycap
-#: C/releases.xml:1659
+#: C/releases.xml:1721
 msgid "click"
 msgstr "klick"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1659
+#: C/releases.xml:1721
 msgid ""
 "Copying selected URIs to clipboard with <_:keycombo-1/> on toolbar button"
 msgstr ""
@@ -18860,69 +18931,69 @@ msgstr ""
 "verktygsfältsknapp"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1662 C/releases.xml:1723
+#: C/releases.xml:1724 C/releases.xml:1785
 msgid "Revamped search dialog"
 msgstr "Omarbetad dialogruta för sökning"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1665
+#: C/releases.xml:1727
 msgid "Revamped transfer progress dialog"
 msgstr "Omarbetad dialogruta för överföringsförlopp"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1668 C/releases.xml:1729 C/releases.xml:1849
-#: C/releases.xml:1944 C/releases.xml:2018 C/releases.xml:2090
+#: C/releases.xml:1730 C/releases.xml:1791 C/releases.xml:1911
+#: C/releases.xml:2006 C/releases.xml:2080 C/releases.xml:2152
 msgid "Updated help docs"
 msgstr "Uppdaterad hjälpdokumentation"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1671
+#: C/releases.xml:1733
 msgid "New or updated translations: cs, de, es, fr, it, ja, oc, pl, pt_BR"
 msgstr ""
 "Nya eller uppdaterade översättningar: cs, de, es, fr, it, ja, oc, pl, pt_BR"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:1678
+#: C/releases.xml:1740
 msgid "1.2.6"
 msgstr "1.2.6"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:1679
+#: C/releases.xml:1741
 msgid "2008-06-01"
 msgstr "2008-06-01"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1685
+#: C/releases.xml:1747
 msgid "Fixed problem #392959 (dynamically changing user to root)"
 msgstr "Fixade problem #392959 (dynamiskt ändra användare till root)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1688
+#: C/releases.xml:1750
 msgid "Fixed problem #496150 (scrolling with mouse wheel)"
 msgstr "Fixade problem #496150 (rullning med mushjul)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1691
+#: C/releases.xml:1753
 msgid "Fixed problem #499761 (search window cleared when column sorted)"
 msgstr "Fixade problem #499761 (sökfönster töms då kolumn sorteras)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1694
+#: C/releases.xml:1756
 msgid "Fixed problem #499764 (multiple selection problem)"
 msgstr "Fixade problem #499764 (problem vid flermarkering)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1697
+#: C/releases.xml:1759
 msgid "Fixed problem with sorting of UTF-8 encoded file names"
 msgstr "Fixade problem med sortering av UTF-8-kodade filnamn"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1700
+#: C/releases.xml:1762
 msgid "Fixed problem with copying files to symlinked directories"
 msgstr "Fixade problem med att kopiera filer till symlänkade kataloger"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1703
+#: C/releases.xml:1765
 msgid ""
 "Fixed problem with full file path handling while copying/moving to mounted "
 "devices"
@@ -18931,17 +19002,17 @@ msgstr ""
 "till monterade enheter"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1711
+#: C/releases.xml:1773
 msgid "Root Mode for starting GNOME Commander with administrator privileges"
 msgstr "Root-läge för att starta GNOME Commander med administratörsprivilegier"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1714
+#: C/releases.xml:1776
 msgid "GUI for keyboard shortcuts management"
 msgstr "GUI för hantering av tangentbordsgenvägar"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1720
+#: C/releases.xml:1782
 msgid ""
 "Multi-Rename-Tool - new $x and $X placeholders for random hexadecimal numbers"
 msgstr ""
@@ -18949,7 +19020,7 @@ msgstr ""
 "tal"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1726
+#: C/releases.xml:1788
 msgid ""
 "Support for &lt;super&gt;, &lt;hyper&gt; and &lt;meta&gt; modifiers (since "
 "GTK+ 2.10)"
@@ -18958,7 +19029,7 @@ msgstr ""
 "GTK+ 2.10)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1732
+#: C/releases.xml:1794
 msgid ""
 "New or updated translations: cs, de, en_GB, es, eu, fi, fr, hu, it, oc, pl, "
 "sl"
@@ -18967,38 +19038,38 @@ msgstr ""
 "oc, pl, sl"
 
 #. (itstool) path: keycombo/keycap
-#: C/releases.xml:1738
+#: C/releases.xml:1800
 msgid "F"
 msgstr "F"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1738
+#: C/releases.xml:1800
 msgid "<_:keycombo-1/> Search files"
 msgstr "<_:keycombo-1/> Sök filer"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:1747
+#: C/releases.xml:1809
 msgid "1.2.5"
 msgstr "1.2.5"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:1748
+#: C/releases.xml:1810
 msgid "2008-02-29"
 msgstr "2008-02-29"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1754
+#: C/releases.xml:1816
 msgid "Fixed problem #345314 (cursor not staying on file while renaming)"
 msgstr "Fixade problem #345314 (markör stannar inte på fil vid namnbyte)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1757
+#: C/releases.xml:1819
 msgid "Fixed problem #353889 (disappearing files after failed move (F6))"
 msgstr ""
 "Fixade problem #353889 (försvinnande filer efter misslyckad flytt (F6))"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1760
+#: C/releases.xml:1822
 msgid ""
 "Fixed problems #346286, #424447, #447882, #467058 (crash when using regex in "
 "renaming tool)"
@@ -19007,51 +19078,51 @@ msgstr ""
 "av reguljära uttryck i namnbytesverktyg)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1763
+#: C/releases.xml:1825
 msgid "Fixed problems #365227 and #446361 (build issues on Solaris)"
 msgstr "Fixade problemen #365227 och #446361 (byggproblem på Solaris)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1766
+#: C/releases.xml:1828
 msgid "Fixed problem #424159 (column sort problem)"
 msgstr "Fixade problem #424159 (kolumnsorteringsproblem)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1769
+#: C/releases.xml:1831
 msgid "Fixed problem #434545 (Debian bug #421480: HUGE icons for device icons)"
 msgstr ""
 "Fixade problem #434545 (Debian-fel #421480: ENORMA ikoner för enhetsikoner)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1772
+#: C/releases.xml:1834
 msgid "Fixed problem #447415 (inability to launch executables)"
 msgstr "Fixade problem #447415 (oförmåga att köra exekverbara filer)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1775
+#: C/releases.xml:1837
 msgid ""
 "Fixed problem #448942 (SHIFT+ENTER: running a command in a separate terminal)"
 msgstr ""
 "Fixade problem #448942 (SKIFT+ENTER: köra ett kommando i en separat terminal)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1778
+#: C/releases.xml:1840
 msgid "Fixed problem #449137 (renamed directories not accessed by name)"
 msgstr ""
 "Fixade problem #449137 (kataloger som bytt namn går ej komma åt via namn)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1781
+#: C/releases.xml:1843
 msgid "Fixed problem #468685 (crash in python module)"
 msgstr "Fixade problem #468685 (krasch i python-modul)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1784
+#: C/releases.xml:1846
 msgid "Fixed problem #490431 (view files with name containing '%')"
 msgstr "Fixade problem #490431 (visa filer med namn innehållande ”%”)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1787
+#: C/releases.xml:1849
 msgid ""
 "Fixed problem #508565 (improper utf-8 handling in advanced file rename tool)"
 msgstr ""
@@ -19059,86 +19130,86 @@ msgstr ""
 "namnbyte av filer)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1790
+#: C/releases.xml:1852
 msgid "Fixed problem #510567 (failed assert when deleting dir)"
 msgstr "Fixade problem #510567 (misslyckad assert då katalog tas bort)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1793
+#: C/releases.xml:1855
 msgid "Fixed problem when creating ~/dir"
 msgstr "Fixade problem vid skapande av ~/kat"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1796
+#: C/releases.xml:1858
 msgid "Fixed problem with updating of internal viewer status bar"
 msgstr ""
 "Fixade problem med uppdatering av statusrad för internt visningsprogram"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1799
+#: C/releases.xml:1861
 msgid "Fixed crash when creating dir with absolute path on SMB share"
 msgstr ""
 "Fixade krasch vid skapande av katalog med absolut sökväg på SMB-delning"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1802
+#: C/releases.xml:1864
 msgid "Fixed crash when moving file with % in the name"
 msgstr "Fixade krasch vid flytt av fil med % i namnet"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1805
+#: C/releases.xml:1867
 msgid "Fixed problem with sporadically lost cursor in file pane"
 msgstr "Fixade problem med sporadiskt försvunnen markör i filpanel"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1808
+#: C/releases.xml:1870
 msgid "Fixed problem with mounting of devices with spaces in the name"
 msgstr "Fixade problem med montering av enheter med blanksteg i namnet"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1811
+#: C/releases.xml:1873
 msgid "Fixed problem with history of advrename templates"
 msgstr "Fixade problem med historik för advrename-mallar"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1822
+#: C/releases.xml:1884
 msgid ""
 "Support for APE, FLAC and Vorbis metatags in advanced file rename templates"
 msgstr ""
 "Stöd för APE-, FLAC- och Vorbis-metataggar i avancerade filnamnsbytesmallar"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1825
+#: C/releases.xml:1887
 msgid "Support for Exif makernotes metatags in advanced file rename templates"
 msgstr "Stöd för Exif-makernote-metataggar i avancerade filnamnsbytesmallar"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1828
+#: C/releases.xml:1890
 msgid "Support for file metatags in advanced file rename templates"
 msgstr "Stöd för filmetataggar i avancerade filnamnsbytesmallar"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1831
+#: C/releases.xml:1893
 msgid "Use the GNOME authentication manager for user's security credentials"
 msgstr "Använd GNOME authentication manager för användarens säkerhetsuppgifter"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1834
+#: C/releases.xml:1896
 msgid "Metadata tags in file properties dialog"
 msgstr "Metadatataggar i dialogrutan för filegenskaper"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1840
+#: C/releases.xml:1902
 msgid "Default GNOME theme icons for home, SMB and FTP locations"
 msgstr "Standard-GNOME-temaikoner för hem-, SMB- och FTP-platser"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1843
+#: C/releases.xml:1905
 msgid "User defined shortcuts to bookmarks"
 msgstr "Användardefinierade kortkommandon till bokmärken"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1852
+#: C/releases.xml:1914
 msgid ""
 "New or updated translations: ar, bg, cs, de, dz, eo, es, eu, fr, oc, pl, "
 "pt_BR, ro, sl, sv"
@@ -19147,12 +19218,12 @@ msgstr ""
 "oc, pl, pt_BR, ro, sl, sv"
 
 #. (itstool) path: keycombo/keycap
-#: C/releases.xml:1858
+#: C/releases.xml:1920
 msgid "LEFT/RIGHT"
 msgstr "VÄNSTER/HÖGER"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1858 C/releases.xml:2263
+#: C/releases.xml:1920 C/releases.xml:2325
 msgid ""
 "<_:keycombo-1/> Copying the current working directory from the active file "
 "list to the inactive one"
@@ -19161,17 +19232,17 @@ msgstr ""
 "fillistan till den inaktiva"
 
 #. (itstool) path: keycombo/keycap
-#: C/releases.xml:1861
+#: C/releases.xml:1923
 msgid "N"
 msgstr "N"
 
 #. (itstool) path: keycombo/keycap
-#: C/releases.xml:1861
+#: C/releases.xml:1923
 msgid "G"
 msgstr "G"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1861
+#: C/releases.xml:1923
 msgid ""
 "<_:keycombo-1/> Open new connection to remote server (replaces the old <_:"
 "keycombo-2/>)"
@@ -19180,125 +19251,125 @@ msgstr ""
 "keycombo-2/>)"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:1870
+#: C/releases.xml:1932
 msgid "1.2.4"
 msgstr "1.2.4"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:1871
+#: C/releases.xml:1933
 msgid "2007-06-09"
 msgstr "2007-06-09"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1877
+#: C/releases.xml:1939
 msgid "Fixed problem with opening dirs by intviewer"
 msgstr "Fixade problem med att öppna kataloger med intern visare"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1880
+#: C/releases.xml:1942
 msgid "Fixed problem with editing dirs by GNOME Commander"
 msgstr "Fixade problem med att redigera kataloger för GNOME Commander"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1883
+#: C/releases.xml:1945
 msgid "Fixed problem #351952 (crash while doing a content search)"
 msgstr "Fixade problem #351952 (krasch under en innehållssökning)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1886
+#: C/releases.xml:1948
 msgid "Fixed problem #352253 (scrolling behaviour of the viewer)"
 msgstr "Fixade problem #352253 (rullningsbeteende för visaren)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1889
+#: C/releases.xml:1951
 msgid "Fixed problem #360175 (crash while entering a dir with %)"
 msgstr "Fixade problem #360175 (krasch vid inmatning av en katalog med %)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1892
+#: C/releases.xml:1954
 msgid "Fixed problem #371948 and #388970 (file path not escaped)"
 msgstr ""
 "Fixade problemen #371948 och #388970 (filsökväg inte försedd med "
 "kontrollsekvens)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1895
+#: C/releases.xml:1957
 msgid "Fixed problem #412162 (build with --enable-python=no)"
 msgstr "Fixade problem #412162 (bygg med --enable-python=no)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1906
+#: C/releases.xml:1968
 msgid "Support for python plugins"
 msgstr "Stöd för python-insticksmoduler"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1909
+#: C/releases.xml:1971
 msgid "New python plugins:"
 msgstr "Nya python-insticksmoduler:"
 
 #. (itstool) path: para/command
-#: C/releases.xml:1912
+#: C/releases.xml:1974
 msgid "md5sum"
 msgstr "md5sum"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1912
+#: C/releases.xml:1974
 msgid "<_:command-1/> Create MD5 (128-bit) checksum"
 msgstr "<_:command-1/> Skapa MD5-kontrollsumma (128-bit)"
 
 #. (itstool) path: para/command
-#: C/releases.xml:1915
+#: C/releases.xml:1977
 msgid "sha1sum"
 msgstr "sha1sum"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1915
+#: C/releases.xml:1977
 msgid "<_:command-1/> Create SHA-1 (160-bit) checksum"
 msgstr "<_:command-1/> Skapa SHA-1-kontrollsumma (160-bit)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1920
+#: C/releases.xml:1982
 msgid "Support for OLE and ODF metatags in advanced file rename templates"
 msgstr "Stöd för OLE- och ODF-metataggar i avancerade filnamnsbytesmallar"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1923
+#: C/releases.xml:1985
 msgid "User defined shortcuts"
 msgstr "Användardefinierade kortkommandon"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1926
+#: C/releases.xml:1988
 msgid "SMB authentication"
 msgstr "SMB-autentisering"
 
 # TODO: subirs -> subdirs
 #. (itstool) path: listitem/para
-#: C/releases.xml:1929
+#: C/releases.xml:1991
 msgid "Displaying total size of files in selected subirs"
 msgstr "Visa total storlek för filer i markerade underkataloger"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1932
+#: C/releases.xml:1994
 msgid "'cd -' for changing to the previous working directory"
 msgstr "”cd -” för att ändra till föregående arbetskatalog"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1935
+#: C/releases.xml:1997
 msgid "More intuitive usage of diff tool"
 msgstr "Mer intuitiv användning av diff-verktyg"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1938
+#: C/releases.xml:2000
 msgid "Directory synchronizing"
 msgstr "Katalogsynkronisering"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1941
+#: C/releases.xml:2003
 msgid "Creating directories 'mkdir -p' like"
 msgstr "Skapa kataloger som ”mkdir -p”"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1947
+#: C/releases.xml:2009
 msgid ""
 "New or updated translations: ar, bg, cs, dz, en_GB, fr, it, oc, pl, sl, sv"
 msgstr ""
@@ -19306,158 +19377,158 @@ msgstr ""
 "sl, sv"
 
 #. (itstool) path: keycombo/keycap
-#: C/releases.xml:1953
+#: C/releases.xml:2015
 msgid "\\"
 msgstr "\\"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1953
+#: C/releases.xml:2015
 msgid "<_:keycombo-1/> Go to the root directory"
 msgstr "<_:keycombo-1/> Gå till rotkatalogen"
 
 #. (itstool) path: keycombo/keycap
-#: C/releases.xml:1956
+#: C/releases.xml:2018
 msgid "`"
 msgstr "`"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1956
+#: C/releases.xml:2018
 msgid "<_:keycombo-1/> Go to the home directory"
 msgstr "<_:keycombo-1/> Gå till hemkatalogen"
 
 #. (itstool) path: keycombo/keycap
-#: C/releases.xml:1959
+#: C/releases.xml:2021
 msgid "5"
 msgstr "5"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1959
+#: C/releases.xml:2021
 msgid "<_:keycombo-1/> Create MD5 (128-bit) checksum"
 msgstr "<_:keycombo-1/> Skapa MD5-kontrollsumma (128-bit)"
 
 #. (itstool) path: keycombo/keycap
-#: C/releases.xml:1962
+#: C/releases.xml:2024
 msgid "C"
 msgstr "C"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1962
+#: C/releases.xml:2024
 msgid "<_:keycombo-1/> Copy selected file names to clipboard"
 msgstr "<_:keycombo-1/> Kopiera markerade filnamn till urklipp"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:1971
+#: C/releases.xml:2033
 msgid "1.2.3"
 msgstr "1.2.3"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:1972 C/releases.xml:1986
+#: C/releases.xml:2034 C/releases.xml:2048
 msgid "2006-12-11"
 msgstr "2006-12-11"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1978
+#: C/releases.xml:2040
 msgid "Fixed problem #384752 (wrong permissions for new dirs)"
 msgstr "Fixade problem #384752 (fel rättigheter för nya kataloger)"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:1985
+#: C/releases.xml:2047
 msgid "1.2.2"
 msgstr "1.2.2"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1992
+#: C/releases.xml:2054
 msgid "Fixed problem with symlink creation for multiple file selection"
 msgstr "Fixade problem med skapande av symlänk för markering av flera filer"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1995
+#: C/releases.xml:2057
 msgid "Fixed problem with grouping of file size digits"
 msgstr "Fixade problem med gruppering av filstorlekssiffror"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1998
+#: C/releases.xml:2060
 msgid "Fixed problem with SMB UNC handling"
 msgstr "Fixade problem med SMB UNC-hantering"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:2001
+#: C/releases.xml:2063
 msgid "Fixed problem #367744 (filename not correctly displayed)"
 msgstr "Fixade problem #367744 (filnamn visas inte korrekt)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:2004
+#: C/releases.xml:2066
 msgid "Fixed problem #374282 (searching with recursive symlinks)"
 msgstr "Fixade problem #374282 (sökning med rekursiva symlänkar)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:2007
+#: C/releases.xml:2069
 msgid "Fixed problem #377706 (selecting files with SHIFT+PGDN)"
 msgstr "Fixade problem #377706 (markera filer med SKIFT+PGDN)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:2015
+#: C/releases.xml:2077
 msgid "Support for ID3 metatags in advanced file rename templates"
 msgstr "Stöd för ID3-metataggar i avancerade filnamnsbytesmallar"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:2021
+#: C/releases.xml:2083
 msgid "New or updated translations: ar, en_GB, es, fi, it, pl, sv"
 msgstr "Nya eller uppdaterade översättningar: ar, en_GB, es, fi, it, pl, sv"
 
 #. (itstool) path: keycombo/keycap
 #. (itstool) path: para/keycap
-#: C/releases.xml:2027 C/releases.xml:2266 C/releases.xml:2272
+#: C/releases.xml:2089 C/releases.xml:2328 C/releases.xml:2334
 msgid "="
 msgstr "="
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:2027
+#: C/releases.xml:2089
 msgid "<_:keycombo-1/> Set both panels equal"
 msgstr "<_:keycombo-1/> Ställ in båda panelerna till samma storlek"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:2036
+#: C/releases.xml:2098
 msgid "1.2.1"
 msgstr "1.2.1"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:2037
+#: C/releases.xml:2099
 msgid "2006-10-16"
 msgstr "2006-10-16"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:2043
+#: C/releases.xml:2105
 msgid "Fixed problem with scrollkeeper database update"
 msgstr "Fixade problem med scrollkeeper-databasuppdatering"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:2046
+#: C/releases.xml:2108
 msgid "Fix for crash when cmd dir indicator is empty"
 msgstr "Fix för krasch när kommandokatalogindikator är tom"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:2049
+#: C/releases.xml:2111
 msgid "Fixed problem with refreshing after chown or chmod"
 msgstr "Fixade problem med att uppdatera efter chown eller chmod"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:2052
+#: C/releases.xml:2114
 msgid "Fixed problem #333898 (deprecated icon suffix in desktop file)"
 msgstr "Fixade problem #333898 (föråldrat ikonsuffix i desktop-fil)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:2055
+#: C/releases.xml:2117
 msgid "Fixed problem #347561 (plugin directory set incorrectly)"
 msgstr "Fixade problem #347561 (insticksmodulkatalog felaktigt inställd)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:2058
+#: C/releases.xml:2120
 msgid "Fixed problem #347817 (incorrect use of Makefile linker flags)"
 msgstr "Fixade problem #347817 (felaktig användning av Makefile-länkarflaggor)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:2066
+#: C/releases.xml:2128
 msgid ""
 "Support for archives (gz, bz2, zip, lha, rar, jar, 7-zip, zoo, deb, rpm) via "
 "FileRoller plugin"
@@ -19466,42 +19537,42 @@ msgstr ""
 "FileRoller-insticksmodul"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:2069
+#: C/releases.xml:2131
 msgid "New python-like indices for advanced file rename templates"
 msgstr "Nya python-liknande index för avancerade filnamnsbytesmallar"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:2072
+#: C/releases.xml:2134
 msgid "Support for Exif and IPTC metatags in advanced file rename templates"
 msgstr "Stöd för Exif- och IPTC-metataggar i avancerade filnamnsbytesmallar"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:2075
+#: C/releases.xml:2137
 msgid "Fast access to advrename template placeholders"
 msgstr "Snabb åtkomst till advrename-mallplatshållare"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:2078
+#: C/releases.xml:2140
 msgid "In-place rename (SHIFT+F6)"
 msgstr "Namnbyte på plats (SKIFT+F6)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:2081
+#: C/releases.xml:2143
 msgid "Revamped application menus"
 msgstr "Omarbetade programmenyer"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:2084
+#: C/releases.xml:2146
 msgid "\"Find\" feature for internal viewer"
 msgstr "”Sök”-funktion för intern visare"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:2087
+#: C/releases.xml:2149
 msgid "New icon for internal viewer"
 msgstr "Ny ikon för internt visningsprogram"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:2093
+#: C/releases.xml:2155
 msgid ""
 "New or updated translations: ca, cs, de, el, en_GB, es, eu, fi, hu, it, ne, "
 "pl, ru, sv, vi"
@@ -19510,53 +19581,53 @@ msgstr ""
 "it, ne, pl, ru, sv, vi"
 
 #. (itstool) path: keycombo/keycap
-#: C/releases.xml:2099
+#: C/releases.xml:2161
 msgid "H"
 msgstr "H"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:2099
+#: C/releases.xml:2161
 msgid "<_:keycombo-1/> Toggle hidden files on/off"
 msgstr "<_:keycombo-1/> Visa/dölj dolda filer"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:2108
+#: C/releases.xml:2170
 msgid "1.2.0"
 msgstr "1.2.0"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:2109
+#: C/releases.xml:2171
 msgid "2006-05-12"
 msgstr "2006-05-12"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:2115
+#: C/releases.xml:2177
 msgid "Fixed problem #171051 (crashes on search with non-existent path)"
 msgstr ""
 "Fixade problem #171051 (kraschar vid sökning med ej existerande sökväg)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:2118
+#: C/releases.xml:2180
 msgid "Fixed problem with the lack of gnome menu entry"
 msgstr "Fixade problem med avsaknad av gnome-menyobjekt"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:2121
+#: C/releases.xml:2183
 msgid "Fixed a crash when viewing SMB connections"
 msgstr "Fixade en krasch vid visning av SMB-anslutningar"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:2124
+#: C/releases.xml:2186
 msgid "Fixed problem #309877 (strange artifacts with horizontal scrolling)"
 msgstr "Fixade problem #309877 (märkliga artefakter vid horisontell rullning)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:2127
+#: C/releases.xml:2189
 msgid "Fixed problem #332258 (left/right start directory parameter)"
 msgstr "Fixade problem #332258 (parameter för vänster/höger startkatalog)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:2130
+#: C/releases.xml:2192
 msgid ""
 "Fixed problem #332261 (exec_prefix not properly parsed during configure/"
 "makefiles)"
@@ -19565,12 +19636,12 @@ msgstr ""
 "makefile)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:2133
+#: C/releases.xml:2195
 msgid "Fixed problem #336649 (permission numbers presentation)"
 msgstr "Fixade problem #336649 (talrepresentation av rättigheter)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:2136
+#: C/releases.xml:2198
 msgid ""
 "Fixed problem with crashes when using broken or non-matching regex pattern "
 "in advrename"
@@ -19579,130 +19650,130 @@ msgstr ""
 "regex-mönster i advrename"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:2144
+#: C/releases.xml:2206
 msgid "Monitoring of mounted volumes"
 msgstr "Övervakning av monterade volymer"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:2147
+#: C/releases.xml:2209
 msgid "Rewritten internal viewer"
 msgstr "Det interna visningsprogrammet har skrivits om"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:2150
+#: C/releases.xml:2212
 msgid "External tools and Exif/IPTC tags viewer for internal viewer"
 msgstr "Externa verktyg och Exif/IPTC-taggvisare för den interna visaren"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:2153
+#: C/releases.xml:2215
 msgid "Zooming for internal viewer"
 msgstr "Zoomning för internt visningsprogram"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:2156
+#: C/releases.xml:2218
 msgid "Text selection for internal viewer"
 msgstr "Textmarkering för internt visningsprogram"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:2159
+#: C/releases.xml:2221
 msgid "Revamped toolbar layout"
 msgstr "Omarbetad verktygsfältslayout"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:2162
+#: C/releases.xml:2224
 msgid "Options for controlling copy and move overwriting"
 msgstr "Alternativ för att styra överskrivning vid kopiering och flytt"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:2165
+#: C/releases.xml:2227
 msgid "Copying selected full file paths with SHIFT+click on toolbar button"
 msgstr ""
 "Kopiera markerade fullständiga filsökvägar med SKIFT+klick på "
 "verktygsfältsknapp"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:2168
+#: C/releases.xml:2230
 msgid "Better handling the change of the column sorting key"
 msgstr "Bättre hantering av ändring av kolumnsorteringsnyckeln"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:2171
+#: C/releases.xml:2233
 msgid "Initial doc framework"
 msgstr "Inledande ramverk för dokumentation"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:2174
+#: C/releases.xml:2236
 msgid "New or updated translations: de, es, eu, hu, pl, ro, ru, sl, sv, vi"
 msgstr ""
 "Nya eller uppdaterade översättningar: de, es, eu, hu, pl, ro, ru, sl, sv, vi"
 
 #. (itstool) path: keycombo/keycap
-#: C/releases.xml:2180 C/releases.xml:2183
+#: C/releases.xml:2242 C/releases.xml:2245
 msgid "F3"
 msgstr "F3"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:2180
+#: C/releases.xml:2242
 msgid "<_:keycombo-1/> Internal viewer"
 msgstr "<_:keycombo-1/> Internt visningsprogram"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:2183
+#: C/releases.xml:2245
 msgid "<_:keycombo-1/> External viewer"
 msgstr "<_:keycombo-1/> Externt visningsprogram"
 
 #. (itstool) path: para/keycap
-#: C/releases.xml:2186
+#: C/releases.xml:2248
 msgid "ALT+letters"
 msgstr "ALT+bokstäver"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:2186
+#: C/releases.xml:2248
 msgid "<_:keycap-1/> Quick search"
 msgstr "<_:keycap-1/> Snabbsök"
 
 #. (itstool) path: keycombo/keycap
-#: C/releases.xml:2189
+#: C/releases.xml:2251
 msgid "A"
 msgstr "A"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:2189
+#: C/releases.xml:2251
 msgid "<_:keycombo-1/> Deselecting all files"
 msgstr "<_:keycombo-1/> Avmarkera alla filer"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:2198
+#: C/releases.xml:2260
 msgid "1.1.7"
 msgstr "1.1.7"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:2199
+#: C/releases.xml:2261
 msgid "2006-02-12"
 msgstr "2006-02-12"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:2205
+#: C/releases.xml:2267
 msgid "Fixed crash when trying to copy the currently selected files"
 msgstr "Fixade krasch vid försök att kopiera de aktuellt markerade filerna"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:2208
+#: C/releases.xml:2270
 msgid "Fixed filename escaping"
 msgstr "Fixade kontrollsekvenser för filnamn"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:2211
+#: C/releases.xml:2273
 msgid "Fixed CTRL+ALT+letter bad responsiveness when typing too fast"
 msgstr "Fixade dålig respons för CTRL+ALT+bokstav vid för snabb inmatning"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:2214
+#: C/releases.xml:2276
 msgid "Fixed debian bug #288933 (amd64/gcc-4.0 compiling errors)"
 msgstr "Fixade debian-fel #288933 (kompileringsfel för amd64/gcc-4.0)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:2217
+#: C/releases.xml:2279
 msgid ""
 "Fixed problem #138933 (infinite recursion when drag'n'dropping a directory "
 "to itself)"
@@ -19711,7 +19782,7 @@ msgstr ""
 "sig själv)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:2220
+#: C/releases.xml:2282
 msgid ""
 "Fixed problem with the disconnect button not behaving correctly when "
 "connecting to ftp-servers and being in supermount mode"
@@ -19720,32 +19791,32 @@ msgstr ""
 "anslutning till ftp-servrar då vi är i supermount-läge"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:2225
+#: C/releases.xml:2287
 msgid "Fixed update after renaming without FAM"
 msgstr "Fixade uppdatering efter namnbyte utan FAM"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:2233
+#: C/releases.xml:2295
 msgid "New GNOME Commander logo"
 msgstr "Ny GNOME Commander-logotyp"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:2236
+#: C/releases.xml:2298
 msgid "Added internal F3 viewer"
 msgstr "La till en intern F3-visare"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:2239
+#: C/releases.xml:2301
 msgid "Copying selected filename(s) to clipboard"
 msgstr "Kopiera markerade filnamn till urklipp"
 
 #. (itstool) path: para/keycap
-#: C/releases.xml:2242
+#: C/releases.xml:2304
 msgid "CTRL+SHIFT+ENTER"
 msgstr "CTRL+SKIFT+RETUR"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:2242
+#: C/releases.xml:2304
 msgid ""
 "Inserting selected file full path to the cmdline when pressing <_:keycap-1/>"
 msgstr ""
@@ -19753,13 +19824,13 @@ msgstr ""
 "keycap-1/>"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:2245
+#: C/releases.xml:2307
 msgid "Multi-Rename-Tool - new $g placeholder for grandparent dir"
 msgstr ""
 "Multi-Rename-Tool - ny platshållare $g för katalog två steg upp i hierarkin"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:2248
+#: C/releases.xml:2310
 msgid ""
 "Toolbar buttons (cut, copy and paste) are now sensitive to the current state"
 msgstr ""
@@ -19767,14 +19838,14 @@ msgstr ""
 "aktuellt tillstånd"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:2251
+#: C/releases.xml:2313
 msgid ""
 "Manage Bookmarks dialog is now accessible also via the bookmarks shortcut"
 msgstr ""
 "Dialogrutan Hantera bokmärken är nu även åtkomlig via bokmärkeskortkommandot"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:2254
+#: C/releases.xml:2316
 msgid ""
 "New or updated translations: el, en_CA, en_GB, eu, ga, hu, nb, ne, no, pa, "
 "pt_BR, rw, uk, zh_TW"
@@ -19783,52 +19854,52 @@ msgstr ""
 "no, pa, pt_BR, rw, uk, zh_TW"
 
 #. (itstool) path: keycombo/keycap
-#: C/releases.xml:2260
+#: C/releases.xml:2322
 msgid "M"
 msgstr "M"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:2260
+#: C/releases.xml:2322
 msgid "<_:keycombo-1/> Multi-Rename-Tool"
 msgstr "<_:keycombo-1/> Multi-Rename-Tool"
 
 #. (itstool) path: keycombo/keycap
-#: C/releases.xml:2263 C/releases.xml:2335
+#: C/releases.xml:2325 C/releases.xml:2397
 msgid "."
 msgstr "."
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:2266
+#: C/releases.xml:2328
 msgid "<_:keycombo-1/> Select all files"
 msgstr "<_:keycombo-1/> Markera alla filer"
 
 #. (itstool) path: keycombo/keycap
-#: C/releases.xml:2269
+#: C/releases.xml:2331
 msgid "-"
 msgstr "-"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:2269
+#: C/releases.xml:2331
 msgid "<_:keycombo-1/> Unselect all files"
 msgstr "<_:keycombo-1/> Avmarkera alla filer"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:2272
+#: C/releases.xml:2334
 msgid "<_:keycap-1/> Select files using a pattern"
 msgstr "<_:keycap-1/> Markera filer efter mönster"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:2281
+#: C/releases.xml:2343
 msgid "1.1.6"
 msgstr "1.1.6"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:2282
+#: C/releases.xml:2344
 msgid "2004-01-20"
 msgstr "2004-01-20"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:2288
+#: C/releases.xml:2350
 msgid ""
 "Fixed crash when navigating back in the history and then entering another dir"
 msgstr ""
@@ -19836,23 +19907,23 @@ msgstr ""
 "annan katalog"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:2291
+#: C/releases.xml:2353
 msgid "Fixed ftp-quick-connect problems"
 msgstr "Fixade problem med ftp-snabbanslutning"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:2294
+#: C/releases.xml:2356
 msgid ""
 "The quick-search function can now also be started by typing capital letters"
 msgstr "Snabbsökningsfunktionen kan nu också startas genom att skriva versaler"
 
 #. (itstool) path: para/keycap
-#: C/releases.xml:2297
+#: C/releases.xml:2359
 msgid "CTRL+ALT"
 msgstr "CTRL+ALT"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:2297
+#: C/releases.xml:2359
 msgid ""
 "<_:keycap-1/> no longer needs to be used to activate quick-search when the "
 "cmdline is hidden"
@@ -19861,14 +19932,14 @@ msgstr ""
 "kommandoraden är dold"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:2305
+#: C/releases.xml:2367
 msgid "Updated the cvs-plugin so that it can be used to diff and log files"
 msgstr ""
 "Uppdaterade cvs-insticksmodulen så att den kan användas för att ta diff och "
 "log på filer"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:2308
+#: C/releases.xml:2370
 msgid ""
 "Use bold text instead of underlined in the dir-indicator when focused by the "
 "mouse cursor"
@@ -19877,12 +19948,12 @@ msgstr ""
 "fokuseras med muspekaren"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:2311
+#: C/releases.xml:2373
 msgid "The cwd label is selectable now (the one left of the cmdline)"
 msgstr "Etiketten cwd är nu markerbar (den till vänster om kommandoraden)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:2314
+#: C/releases.xml:2376
 msgid ""
 "Removed the 'Save Position' menu item. Size and position are now saved "
 "automatically instead"
@@ -19891,38 +19962,38 @@ msgstr ""
 "istället automatiskt"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:2317
+#: C/releases.xml:2379
 msgid "Added button to the directory indicator to popup the directory history"
 msgstr ""
 "La till knapp till katalogindikatorn för att poppa upp kataloghistoriken"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:2320
+#: C/releases.xml:2382
 msgid "Added history to the select and unselect by pattern dialogs"
 msgstr "La till historik för dialogrutorna markera och avmarkera med mönster"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:2323
+#: C/releases.xml:2385
 msgid "Sorting column and direction is now remembered"
 msgstr "Sorteringskolumn och riktning koms nu ihåg"
 
 #. (itstool) path: para/keycap
-#: C/releases.xml:2329
+#: C/releases.xml:2391
 msgid "F2"
 msgstr "F2"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:2329
+#: C/releases.xml:2391
 msgid "<_:keycap-1/> Open the rename dialog"
 msgstr "<_:keycap-1/> Öppna dialogrutan för namnbyte"
 
 #. (itstool) path: para/keycap
-#: C/releases.xml:2332
+#: C/releases.xml:2394
 msgid "SHIFT+F10"
 msgstr "SKIFT+F10"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:2332
+#: C/releases.xml:2394
 msgid ""
 "<_:keycap-1/> Bring up the file context menu (the windows menu key also "
 "works)"
@@ -19930,7 +20001,7 @@ msgstr ""
 "<_:keycap-1/> Ta fram filsnabbvalsmenyn (Windows menytangent fungerar också)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:2335
+#: C/releases.xml:2397
 msgid ""
 "<_:keycombo-1/> Copy the current working directory from the inactive file "
 "list to the active one"
@@ -19939,17 +20010,17 @@ msgstr ""
 "fillistan till den aktiva"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:2344
+#: C/releases.xml:2406
 msgid "1.1.5"
 msgstr "1.1.5"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:2345
+#: C/releases.xml:2407
 msgid "2004-01-12"
 msgstr "2004-01-12"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:2351
+#: C/releases.xml:2413
 msgid ""
 "The ext column is now hidden when the extension is only showed together with "
 "the filename"
@@ -19957,12 +20028,12 @@ msgstr ""
 "Kolumnen ext döljs nu när filändelsen endast visas tillsammans med filnamnet"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:2354
+#: C/releases.xml:2416
 msgid "Fixed unnecessary redraws of the file list when dragging files over it"
 msgstr "Fixade onödigt omritande av fillistan när filer dras över den"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:2357
+#: C/releases.xml:2419
 msgid ""
 "Fixed problem with ftp-connections that didn't disappear from the connection "
 "toolbars when disconnected"
@@ -19971,17 +20042,17 @@ msgstr ""
 "anslutningsverktygsfälten då de kopplades från"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:2360
+#: C/releases.xml:2422
 msgid "The program no longer tries to center itself on the desktop"
 msgstr "Programmet försöker inte längre centrera sig på skrivbordet"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:2363
+#: C/releases.xml:2425
 msgid "Fixed problems when renaming directories"
 msgstr "Fixade problem med namnbyte av kataloger"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:2371
+#: C/releases.xml:2433
 msgid ""
 "The dir indicator above each file list can now be used to navigate upwards "
 "in the directory structure"
@@ -19990,22 +20061,22 @@ msgstr ""
 "uppåt i katalogstrukturen"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:2378
+#: C/releases.xml:2440
 msgid "1.1.4"
 msgstr "1.1.4"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:2379
+#: C/releases.xml:2441
 msgid "2003-11-24"
 msgstr "2003-11-24"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:2385
+#: C/releases.xml:2447
 msgid "Fixed bug when selecting multiple files with shift+mouse button"
 msgstr "Fixade fel vid markering av flera filer med skift+musknapp"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:2388
+#: C/releases.xml:2450
 msgid ""
 "Stopped superfluous updates of the file list on machines with the imon "
 "kernel patch applied"
@@ -20014,12 +20085,12 @@ msgstr ""
 "kernelpatchen har tillämpats"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:2391
+#: C/releases.xml:2453
 msgid "Cleaned up the file-popup menu"
 msgstr "Städade upp filpoppuppmenyn"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:2394
+#: C/releases.xml:2456
 msgid ""
 "Fixed \"File not found\"-bug when browsing to the parent dir when the parent "
 "dir contained spaces"
@@ -20028,34 +20099,34 @@ msgstr ""
 "den överordnade katalogen innehöll blanksteg"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:2397
+#: C/releases.xml:2459
 msgid "Fixed possible async error when cancelling a xfer operation"
 msgstr "Fixade möjligt async-fel vid avbrott av en överföringsoperation"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:2400
+#: C/releases.xml:2462
 msgid ""
 "Reworked the layout tab and removed the colors tab in the options dialog"
 msgstr ""
 "Omarbetade layoutfliken och tog bort färgfliken i dialogrutan för alternativ"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:2403
+#: C/releases.xml:2465
 msgid "Improved plugin-system"
 msgstr "Förbättrat insticksmodulsystem"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:2410
+#: C/releases.xml:2472
 msgid "1.1.3"
 msgstr "1.1.3"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:2411
+#: C/releases.xml:2473
 msgid "2003-11-14"
 msgstr "2003-11-14"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:2417
+#: C/releases.xml:2479
 msgid ""
 "Fixed a crash that happened when moving files on a machine with a snappy FAM "
 "installation. This lead to that GNOME Commander tried to remove the same "
@@ -20066,17 +20137,17 @@ msgstr ""
 "samma fil två gånger från en lista"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:2424
+#: C/releases.xml:2486
 msgid "Accessing files on mounted devices should now work better"
 msgstr "Att komma åt filer på monterade enheter ska nu fungera bättre"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:2427
+#: C/releases.xml:2489
 msgid "Devices without the device filename should not disappear anymore"
 msgstr "Enheter utan enhetsfilnamn bör inte längre försvinna"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:2430
+#: C/releases.xml:2492
 msgid ""
 "Fixed so that the feature where the terminal window stays open after a "
 "program has finished works more reliably"
@@ -20085,7 +20156,7 @@ msgstr ""
 "program har slutförts fungerar mer pålitligt"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:2436
+#: C/releases.xml:2498
 msgid ""
 "Fixes bug where a new directory would appear many times in the same file "
 "list until reloaded"
@@ -20094,17 +20165,17 @@ msgstr ""
 "tills den läses in på nytt"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:2447
+#: C/releases.xml:2509
 msgid "The delete confirmation can now be disabled"
 msgstr "Borttagningsbekräftelsen kan nu inaktiveras"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:2450
+#: C/releases.xml:2512
 msgid "Better error messages when a mount fails"
 msgstr "Bättre felmeddelanden då en montering misslyckas"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:2453
+#: C/releases.xml:2515
 msgid ""
 "Made the calculation of a directory's total size start automatically when "
 "the file prefs dialog is shown"
@@ -20113,7 +20184,7 @@ msgstr ""
 "dialogrutan för filegenskaper visas"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:2459
+#: C/releases.xml:2521
 msgid ""
 "Added filter for backup files and added that and the filter for hidden files "
 "to the main menu for faster access"
@@ -20122,58 +20193,58 @@ msgstr ""
 "filer till huvudmenyn för snabbare åtkomst"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:2469
+#: C/releases.xml:2531
 msgid "1.1.2"
 msgstr "1.1.2"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:2470
+#: C/releases.xml:2532
 msgid "2003-11-07"
 msgstr "2003-11-07"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:2476
+#: C/releases.xml:2538
 msgid "Much better handling of non UTF8 filenames"
 msgstr "Mycket bättre hantering av filnamn som inte är UTF8"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:2479
+#: C/releases.xml:2541
 msgid "Removed unsafe uri-creation"
 msgstr "Tog bort osäkert uri-skapande"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:2487
+#: C/releases.xml:2549
 msgid "Three ways to show with file extensions"
 msgstr "Tre sätt att visa med filändelser"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:2494
+#: C/releases.xml:2556
 msgid "1.1.1"
 msgstr "1.1.1"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:2495
+#: C/releases.xml:2557
 msgid "2003-11-05"
 msgstr "2003-11-05"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:2501
+#: C/releases.xml:2563
 msgid ""
 "Stopped showing the file extension in both the name column and the ext column"
 msgstr "Slutade visa filändelsen i både namnkolumnen och kolumnen ext"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:2504
+#: C/releases.xml:2566
 msgid "Fixed crashes that happened when browsing directories"
 msgstr "Fixade krascher som inträffade vid bläddring i kataloger"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:2507
+#: C/releases.xml:2569
 msgid "Fixed update problems when copying and moving files"
 msgstr "Fixade uppdateringsproblem vid kopiering och flytt av filer"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:2510
+#: C/releases.xml:2572
 msgid ""
 "The connection combo boxes should now show the correct connection as "
 "selected all the time"
@@ -20182,17 +20253,17 @@ msgstr ""
 "hela tiden"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:2513
+#: C/releases.xml:2575
 msgid "Removed some bugs related to selecting files using the keyboard"
 msgstr "Tog bort några fel relaterade till att markera filer med tangentbordet"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:2516
+#: C/releases.xml:2578
 msgid "Fixed the edit mime-types feature"
 msgstr "Fixade funktionen för att redigera mime-typer"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:2524
+#: C/releases.xml:2586
 msgid ""
 "Added a button to change the default MIME-app in the file properties dialog"
 msgstr ""
@@ -20200,62 +20271,62 @@ msgstr ""
 "filegenskaper"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:2531
+#: C/releases.xml:2593
 msgid "1.1.0"
 msgstr "1.1.0"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:2532
+#: C/releases.xml:2594
 msgid "2003-11-01"
 msgstr "2003-11-01"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:2538
+#: C/releases.xml:2600
 msgid "SMB browsing"
 msgstr "SMB-bläddring"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:2541
+#: C/releases.xml:2603
 msgid "Plugins"
 msgstr "Insticksmoduler"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:2544
+#: C/releases.xml:2606
 msgid "Major rewrite of a lot of code"
 msgstr "Stor omskrivning av mycket kod"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:2551
+#: C/releases.xml:2613
 msgid "1.0.1"
 msgstr "1.0.1"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:2552
+#: C/releases.xml:2614
 msgid "2003-06-27"
 msgstr "2003-06-27"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:2558
+#: C/releases.xml:2620
 msgid "Improved file list update in non-fam mode"
 msgstr "Förbättrad uppdatering av fillista i fam-löst läge"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:2561
+#: C/releases.xml:2623
 msgid "Empty directories can now be entered on ftp servers"
 msgstr "Tomma kataloger kan nu anges på ftp-servrar"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:2568
+#: C/releases.xml:2630
 msgid "1.0"
 msgstr "1.0"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:2569
+#: C/releases.xml:2631
 msgid "2003-06-05"
 msgstr "2003-06-05"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:2571
+#: C/releases.xml:2633
 msgid ""
 "This is the \"production stable\" 1.0 release. Mainly small bugfixes from "
 "previous version."
@@ -20264,32 +20335,32 @@ msgstr ""
 "föregående version."
 
 #. (itstool) path: entry/para
-#: C/releases.xml:2577
+#: C/releases.xml:2639
 msgid "0.9.12"
 msgstr "0.9.12"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:2578
+#: C/releases.xml:2640
 msgid "2003-03-18"
 msgstr "2003-03-18"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:2580
+#: C/releases.xml:2642
 msgid "Bugfixes"
 msgstr "Felfixar"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:2584
+#: C/releases.xml:2646
 msgid "0.9.11"
 msgstr "0.9.11"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:2585
+#: C/releases.xml:2647
 msgid "2003-03-13"
 msgstr "2003-03-13"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:2587
+#: C/releases.xml:2649
 msgid ""
 "Added support for $p in advrename dialog. This will give you the parent "
 "directory. Fixed a bug where deleting a directory sometimes only emptied the "
@@ -20302,17 +20373,17 @@ msgstr ""
 "synlig i ftp-sessioner."
 
 #. (itstool) path: entry/para
-#: C/releases.xml:2595
+#: C/releases.xml:2657
 msgid "0.9.10"
 msgstr "0.9.10"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:2596
+#: C/releases.xml:2658
 msgid "2003-03-24"
 msgstr "2003-03-24"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:2598
+#: C/releases.xml:2660
 msgid ""
 "Fixed an imageloading bug when using themes other than the default one. New "
 "bookmark feature. New template feature in the advanced-rename dialog. See "
@@ -20327,17 +20398,17 @@ msgstr ""
 "är nu möjligt. Verktygsfältet och knappraden kan nu döljas."
 
 #. (itstool) path: entry/para
-#: C/releases.xml:2609
+#: C/releases.xml:2671
 msgid "0.9.9"
 msgstr "0.9.9"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:2610
+#: C/releases.xml:2672
 msgid "2003-01-19"
 msgstr "2003-01-19"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:2612
+#: C/releases.xml:2674
 msgid ""
 "Improved the advanced rename tool Added quick connect feature. Improved "
 "search dialog and fixed some bugs in it. Added default low-res mime icon "
@@ -20349,17 +20420,17 @@ msgstr ""
 "sig mer normalt."
 
 #. (itstool) path: entry/para
-#: C/releases.xml:2622
+#: C/releases.xml:2684
 msgid "0.9.8"
 msgstr "0.9.8"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:2623
+#: C/releases.xml:2685
 msgid "2002-07-16"
 msgstr "2002-07-16"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:2625
+#: C/releases.xml:2687
 msgid ""
 "New things in this release are autoscroll at DND, better quicksearch, "
 "mounting and unmounting, file lists refresh without FAM, last visited "
@@ -20370,72 +20441,72 @@ msgstr ""
 "historik över senast besökta kataloger med mera."
 
 #. (itstool) path: entry/para
-#: C/releases.xml:2633
+#: C/releases.xml:2695
 msgid "0.9.7"
 msgstr "0.9.7"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:2634
+#: C/releases.xml:2696
 msgid "2002-06-07"
 msgstr "2002-06-07"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:2639
+#: C/releases.xml:2701
 msgid "0.9.6"
 msgstr "0.9.6"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:2640
+#: C/releases.xml:2702
 msgid "2002-04-04"
 msgstr "2002-04-04"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:2642
+#: C/releases.xml:2704
 msgid "MIME support has been added and bugs have been fixed."
 msgstr "MIME-stöd har lagts till och fel har fixats."
 
 #. (itstool) path: entry/para
-#: C/releases.xml:2646
+#: C/releases.xml:2708
 msgid "0.9.5"
 msgstr "0.9.5"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:2647
+#: C/releases.xml:2709
 msgid "2002-03-27"
 msgstr "2002-03-27"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:2649
+#: C/releases.xml:2711
 msgid "Added an embedded terminal and fixed some bugs."
 msgstr "La till en inbäddad terminal och fixade några fel."
 
 #. (itstool) path: entry/para
-#: C/releases.xml:2653
+#: C/releases.xml:2715
 msgid "0.9.4"
 msgstr "0.9.4"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:2654
+#: C/releases.xml:2716
 msgid "2002-03-21"
 msgstr "2002-03-21"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:2656
+#: C/releases.xml:2718
 msgid "Added FAM support, DnD and more."
 msgstr "Lade till stöd för FAM, dra-och-släpp med mera."
 
 #. (itstool) path: entry/para
-#: C/releases.xml:2660
+#: C/releases.xml:2722
 msgid "0.9.2"
 msgstr "0.9.2"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:2661
+#: C/releases.xml:2723
 msgid "2002-03-09"
 msgstr "2002-03-09"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:2663
+#: C/releases.xml:2725
 msgid ""
 "Improved stability and less memory leaks. CVS is disabled until it actually "
 "works well."
@@ -20444,156 +20515,31 @@ msgstr ""
 "faktiskt fungerar bra."
 
 #. (itstool) path: entry/para
-#: C/releases.xml:2667
+#: C/releases.xml:2729
 msgid "0.91-pre1"
 msgstr "0.91-pre1"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:2668
+#: C/releases.xml:2730
 msgid "2002-02-06"
 msgstr "2002-02-06"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:2670
+#: C/releases.xml:2732
 msgid "Improved user interface and lots of other small hacks."
 msgstr "Förbättrat användargränssnitt och många andra små hack."
 
 #. (itstool) path: entry/para
-#: C/releases.xml:2674
+#: C/releases.xml:2736
 msgid "0.90-pre1"
 msgstr "0.90-pre1"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:2675
+#: C/releases.xml:2737
 msgid "2001-08-02"
 msgstr "2001-08-02"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:2677
+#: C/releases.xml:2739
 msgid "The first public version of GNOME Commander."
 msgstr "Den första offentliga versionen av GNOME Commander."
-
-#~ msgid "%E"
-#~ msgstr "%E"
-
-#~ msgid "%U"
-#~ msgstr "%U"
-
-#~ msgid ""
-#~ "The week number of the current year as a decimal number, range 00 to 53, "
-#~ "starting with the first Sunday as the first day of week 01. See also %V "
-#~ "and %W"
-#~ msgstr ""
-#~ "Veckonumret för aktuellt år som ett decimaltal, intervall 00 till 53, "
-#~ "startar med första söndagen som första dagen vecka 01. Se också %V och %W"
-
-#~ msgid "%W"
-#~ msgstr "%W"
-
-#~ msgid ""
-#~ "The week number of the current year as a decimal number, range 00 to 53, "
-#~ "starting with the first Monday as the first day of week 01"
-#~ msgstr ""
-#~ "Veckonumret för nuvarande år som ett decimaltal, intervall 00 till 53, "
-#~ "med början den första måndagen som den första dagen vecka 01"
-
-#~ msgid ""
-#~ "<guilabel>Skip mounting</guilabel>: If activated, GNOME Commander will "
-#~ "not try to mount the devices by clicking on them."
-#~ msgstr ""
-#~ "<guilabel>Hoppa över montering</guilabel>: Om aktiverat kommer GNOME "
-#~ "Commander inte att försöka montera enheterna genom att klicka på dem."
-
-#~ msgid "Using removable media"
-#~ msgstr "Använda flyttbara media"
-
-#~ msgid ""
-#~ "This info might be partially outdated since modern desktop environments "
-#~ "or Linux distributions use automounters to mount devices into /media."
-#~ msgstr ""
-#~ "Denna information kan vara delvis inaktuell då moderna skrivbordsmiljöer "
-#~ "eller Linux-distributioner använder automatiska monterare för att montera "
-#~ "enheter till /media."
-
-#~ msgid ""
-#~ "If you use removable devices such as CDs, floppies and cameras a lot you "
-#~ "can make GNOME Commander automatically take care of mounting them by "
-#~ "following this guide:"
-#~ msgstr ""
-#~ "Om du ofta använder flyttbara enheter så som cd-skivor, disketter och "
-#~ "kameror kan du få GNOME Commander att automatiskt ta hand om montering av "
-#~ "dem genom att följa denna guide:"
-
-#~ msgid ""
-#~ "Open the <guimenu>Options</guimenu> dialog and go to the "
-#~ "<guimenuitem>Devices</guimenuitem> tab."
-#~ msgstr ""
-#~ "Öppna dialogrutan <guimenu>Alternativ</guimenu> och gå till fliken "
-#~ "<guimenuitem>Enheter</guimenuitem>."
-
-#~ msgid ""
-#~ "Add the devices that you are using. This is how the program looks with a "
-#~ "few added devices."
-#~ msgstr ""
-#~ "Lägg till enheterna som du använder. Detta är hur programmet ser ut med "
-#~ "några tillagda enheter."
-
-#~ msgctxt "_"
-#~ msgid ""
-#~ "external ref='figures/mounting.png' md5='8f178168a69c055b3c559acefd287091'"
-#~ msgstr ""
-#~ "external ref='figures/mounting.png' md5='8f178168a69c055b3c559acefd287091'"
-
-#~ msgid ""
-#~ "<imageobject> <imagedata fileref=\"figures/mounting.png\" format=\"PNG\"/"
-#~ "> </imageobject> <textobject> <phrase>Mounting in GNOME Commander.</"
-#~ "phrase> </textobject>"
-#~ msgstr ""
-#~ "<imageobject> <imagedata fileref=\"figures/mounting.png\" format=\"PNG\"/"
-#~ "> </imageobject> <textobject> <phrase>Montering i GNOME Commander.</"
-#~ "phrase> </textobject>"
-
-#~ msgid ""
-#~ "In the last image the red circle <guimenu>A</guimenu> shows the available "
-#~ "devices. If a device was mounted by GNOME Commander there is also a "
-#~ "button to press if you want to unmount the device, shown in the red "
-#~ "circle <guimenu>B</guimenu>. The icons that are used for the devices in "
-#~ "the example should be available in the $(prefix)/share/pixmaps/gnome-"
-#~ "commander/device-icons folder on your computer."
-#~ msgstr ""
-#~ "I den sista bilden visar den röda cirkeln <guimenu>A</guimenu> de "
-#~ "tillgängliga enheterna. Om en enhet monterades av GNOME Commander så "
-#~ "finns det också en knapp att trycka på om du vill avmontera enheten, "
-#~ "vilket visas i den röda cirkeln <guimenu>B</guimenu>. Ikonerna som "
-#~ "används för enheterna i exemplet bör finnas tillgängliga i mappen "
-#~ "$(prefix)/share/pixmaps/gnome-commander/device-icons på din dator."
-
-#~ msgid ""
-#~ "There is also an option to skip mounting in the option device tab. This "
-#~ "can be useful for making shortcuts to directories, or if you have some "
-#~ "automounting feature that mounts it at its mountpoint when available, or "
-#~ "if you use Supermount that does it on access basis."
-#~ msgstr ""
-#~ "Det finns också ett alternativ för att hoppa över montering i fliken "
-#~ "Enhetsalternativ. Detta kan vara användbart för att göra genvägar till "
-#~ "kataloger, eller om du har någon funktion för automatisk montering som "
-#~ "monterar det på sin monteringspunkt då den är tillgänglig, eller om du "
-#~ "använder Supermount som gör det efter åtkomsträttigheter."
-
-#~ msgid "Handling MIME types"
-#~ msgstr "Hantera MIME-typer"
-
-#~ msgid ""
-#~ "Since GNOME has changed to follow the freedesktop.org standard of "
-#~ "handling mimetypes, the editing of preferred programs in GNOME Commander "
-#~ "is broken (since v1.1.7). You have still some possibilities to change "
-#~ "preferred default programs. For more informations please have a look at "
-#~ "the <ulink type=\"http\" url=\"https://gcmd.github.io/doc.html#tips"
-#~ "\">Tips and Tricks section</ulink> of the GNOME Commander home page."
-#~ msgstr ""
-#~ "Eftersom GNOME har ändrat så att det följer standarden hos freedesktop."
-#~ "org för att hantera MIME-typer, så är redigeringen av föredragna program "
-#~ "i GNOME Commander trasig (sedan v1.1.7). Du har fortfarande möjligheter "
-#~ "att ändra föredragna standardprogram. För mer information, se <ulink type="
-#~ "\"http\" url=\"https://gcmd.github.io/doc.html#tips\">avsnittet Tips and "
-#~ "Tricks</ulink> på GNOME Commanders webbsida."
