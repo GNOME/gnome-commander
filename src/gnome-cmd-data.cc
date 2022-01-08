@@ -415,6 +415,14 @@ static void on_tab_lock_indicator_changed ()
     main_win->update_style();
 }
 
+static void on_use_trash_changed()
+{
+    gboolean use_trash;
+
+    use_trash = g_settings_get_boolean (gnome_cmd_data.options.gcmd_settings->general, GCMD_SETTINGS_USE_TRASH);
+    gnome_cmd_data.options.deleteToTrash = use_trash;
+}
+
 static void on_confirm_delete_changed ()
 {
     gboolean confirm_delete;
@@ -1071,6 +1079,11 @@ static void gcmd_connect_gsettings_signals(GcmdSettings *gs)
                       G_CALLBACK (on_tab_lock_indicator_changed),
                       nullptr);
 
+    g_signal_connect (gs->general,
+                      "changed::delete-to-trash",
+                      G_CALLBACK (on_use_trash_changed),
+                      nullptr);
+
     g_signal_connect (gs->confirm,
                       "changed::delete",
                       G_CALLBACK (on_confirm_delete_changed),
@@ -1424,6 +1437,7 @@ GnomeCmdData::Options::Options(const Options &cfg)
     termexec = g_strdup (cfg.termexec);
     fav_apps = cfg.fav_apps;
     device_only_icon = cfg.device_only_icon;
+    deleteToTrash = cfg.deleteToTrash;
 #ifdef HAVE_SAMBA
     show_samba_workgroups_button = cfg.show_samba_workgroups_button;
 #endif
@@ -3160,6 +3174,7 @@ void GnomeCmdData::load()
     options.left_mouse_button_unselects = g_settings_get_boolean (options.gcmd_settings->general, GCMD_SETTINGS_LEFT_MOUSE_BUTTON_UNSELECTS);
     options.middle_mouse_button_mode = (MiddleMouseButtonMode) g_settings_get_enum (options.gcmd_settings->general, GCMD_SETTINGS_MIDDLE_MOUSE_BUTTON_MODE);
     options.right_mouse_button_mode = (RightMouseButtonMode) g_settings_get_enum (options.gcmd_settings->general, GCMD_SETTINGS_RIGHT_MOUSE_BUTTON_MODE);
+    options.deleteToTrash = g_settings_get_boolean (options.gcmd_settings->general, GCMD_SETTINGS_USE_TRASH);
     options.icon_size = g_settings_get_uint (options.gcmd_settings->general, GCMD_SETTINGS_ICON_SIZE);
     dev_icon_size = g_settings_get_uint (options.gcmd_settings->general, GCMD_SETTINGS_DEV_ICON_SIZE);
     options.icon_scale_quality = (GdkInterpType) g_settings_get_enum (options.gcmd_settings->general, GCMD_SETTINGS_ICON_SCALE_QUALITY);
@@ -3546,6 +3561,7 @@ void GnomeCmdData::save()
     set_gsettings_enum_when_changed (options.gcmd_settings->general, GCMD_SETTINGS_MIDDLE_MOUSE_BUTTON_MODE, options.middle_mouse_button_mode);
     set_gsettings_enum_when_changed (options.gcmd_settings->general, GCMD_SETTINGS_RIGHT_MOUSE_BUTTON_MODE, options.right_mouse_button_mode);
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_ICON_SIZE, &(options.icon_size));
+    set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_USE_TRASH, &(options.deleteToTrash));
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_DEV_ICON_SIZE, &(dev_icon_size));
     set_gsettings_enum_when_changed (options.gcmd_settings->general, GCMD_SETTINGS_ICON_SCALE_QUALITY, options.icon_scale_quality);
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_MIME_ICON_DIR, options.theme_icon_dir);

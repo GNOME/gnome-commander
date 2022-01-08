@@ -22,6 +22,13 @@
 
 struct DeleteData
 {
+    enum OriginAction
+    {
+        MOVE,
+        DELETE,
+        FORCE_DELETE
+    };
+
     GtkWidget *progbar;
     GtkWidget *proglabel;
     GtkWidget *progwin;
@@ -40,8 +47,9 @@ struct DeleteData
     GMutex mutex{nullptr};                // used to sync the main and worker thread
     guint64 itemsDeleted{0};              // items deleted in the current run
     guint64 itemsTotal{0};                // total number of items which should be deleted
+    OriginAction originAction;            // As delete can also used when moving files, we have to distinguish here
 };
 
 void do_delete (DeleteData *deleteData, gboolean showProgress);
 
-void gnome_cmd_delete_dialog_show (GList *files);
+void gnome_cmd_delete_dialog_show (GList *files, gboolean forceDelete = false);

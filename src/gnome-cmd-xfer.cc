@@ -1117,6 +1117,7 @@ gnome_cmd_move_gfile_recursive (GFile *srcGFile,
 
                 auto deleteData = g_new0 (DeleteData, 1);
                 deleteData->gnomeCmdFiles = g_list_append(nullptr, gnomeCmdDir);
+                deleteData->originAction = DeleteData::OriginAction::MOVE;
                 do_delete (deleteData, false); // false -> do not show progress window
 
                 g_free(gFileParentPath);

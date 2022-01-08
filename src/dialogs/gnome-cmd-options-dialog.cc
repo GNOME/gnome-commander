@@ -158,6 +158,16 @@ static GtkWidget *create_general_tab (GtkWidget *parent, GnomeCmdData::Options &
         gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
 
 
+    // Delete options
+    cat_box = create_vbox (parent, FALSE, 0);
+    cat = create_category (parent, cat_box, _("Deletion"));
+    gtk_box_pack_start (GTK_BOX (vbox), cat, FALSE, TRUE, 0);
+
+    check = create_check (parent, _("Move to trash"), "delete_to_trash");
+    gtk_box_pack_start (GTK_BOX (cat_box), check, FALSE, TRUE, 0);
+    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), cfg.deleteToTrash);
+
+
     // Selection options
     cat_box = create_vbox (parent, FALSE, 0);
     cat = create_category (parent, cat_box, _("Selection"));
@@ -262,6 +272,7 @@ void store_general_options (GtkWidget *dialog, GnomeCmdData::Options &cfg)
     GtkWidget *mmb_cd_up_radio = lookup_widget (dialog, "mmb_cd_up_radio");
     GtkWidget *rmb_popup_radio = lookup_widget (dialog, "rmb_popup_radio");
     GtkWidget *select_dirs = lookup_widget (dialog, "select_dirs");
+    GtkWidget *delete_to_trash = lookup_widget (dialog, "delete_to_trash");
     GtkWidget *case_sens_check = lookup_widget (dialog, "case_sens_check");
     GtkWidget *ctrl_alt_quick_search = lookup_widget (dialog, "ctrl_alt_quick_search");
     GtkWidget *alt_quick_search = lookup_widget (dialog, "alt_quick_search");
@@ -288,6 +299,7 @@ void store_general_options (GtkWidget *dialog, GnomeCmdData::Options &cfg)
                                                                                                      : GnomeCmdData::RIGHT_BUTTON_SELECTS;
 
     cfg.select_dirs = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (select_dirs));
+    cfg.deleteToTrash = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (delete_to_trash));
     cfg.case_sens_sort = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (case_sens_check));
     if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (ctrl_alt_quick_search)))
         cfg.quick_search = GNOME_CMD_QUICK_SEARCH_CTRL_ALT;

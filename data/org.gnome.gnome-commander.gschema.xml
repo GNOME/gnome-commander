@@ -147,6 +147,13 @@
         Defines what happens when the right mouse button is clicked on an item.
       </description>
     </key>
+    <key name="delete-to-trash" type="b">
+      <default>true</default>
+      <summary>Use trash</summary>
+      <description>
+          Defines if items should be moved to trash by default instead of really deleting them.
+      </description>
+    </key>
     <key name="icon-size" type="u">
       <default>16</default>
       <summary>Icon size</summary>

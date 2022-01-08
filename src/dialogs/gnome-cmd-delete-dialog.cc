@@ -205,7 +205,19 @@ static gboolean perform_delete_operation_r(DeleteData *deleteData, GList *gnomeC
         if (gnomeCmdFile->is_dotdot || strcmp(filenameTmp, ".") == 0)
             continue;
 
-        g_file_delete (gnomeCmdFile->gFile, nullptr, &tmpError);
+        switch (deleteData->originAction)
+        {
+            case DeleteData::OriginAction::FORCE_DELETE:
+            case DeleteData::OriginAction::MOVE:
+                g_file_delete (gnomeCmdFile->gFile, nullptr, &tmpError);
+                break;
+            case DeleteData::OriginAction::DELETE:
+            default:
+                gnome_cmd_data.options.deleteToTrash
+                    ? g_file_trash (gnomeCmdFile->gFile, nullptr, &tmpError)
+                    : g_file_delete (gnomeCmdFile->gFile, nullptr, &tmpError);
+                break;
+        }
 
         if (tmpError && g_error_matches (tmpError, G_IO_ERROR, G_IO_ERROR_NOT_EMPTY))
         {
@@ -469,7 +481,7 @@ static GList *remove_items_from_list_to_be_deleted(GList *files)
 /**
  * Creates a delete dialog for the given list of GnomeCmdFiles
  */
-void gnome_cmd_delete_dialog_show (GList *files)
+void gnome_cmd_delete_dialog_show (GList *files, gboolean forceDelete)
 {
     g_return_if_fail (files != nullptr);
 
@@ -483,22 +495,34 @@ void gnome_cmd_delete_dialog_show (GList *files)
 
         if (n_files == 1)
         {
-            auto f = (GnomeCmdFile *) g_list_nth_data (files, 0);
-            g_return_if_fail (GNOME_CMD_IS_FILE(f));
+            auto gnomeCmdFile = static_cast<GnomeCmdFile*> (g_list_nth_data (files, 0));
+            g_return_if_fail (GNOME_CMD_IS_FILE(gnomeCmdFile));
 
-            if (f->is_dotdot)
+            if (gnomeCmdFile->is_dotdot)
                 return;
 
-            msg = g_strdup_printf (_("Do you want to delete “%s”?"), f->get_name());
+            msg = forceDelete || !gnome_cmd_data.options.deleteToTrash
+                ? g_strdup_printf (_("Do you want to permanently delete “%s”?"), gnomeCmdFile->get_name())
+                : g_strdup_printf (_("Do you want to move “%s” to the trash can?"), gnomeCmdFile->get_name());
         }
         else
-            msg = g_strdup_printf (ngettext("Do you want to delete the selected file?",
-                                            "Do you want to delete the %d selected files?",
+        {
+            msg = forceDelete || !gnome_cmd_data.options.deleteToTrash
+                ? g_strdup_printf (ngettext("Do you want to permanently delete the selected file?",
+                                            "Do you want to permanently delete the %d selected files?",
+                                            n_files),
+                                   n_files)
+                : g_strdup_printf (ngettext("Do you want to move the selected file to the trash can?",
+                                            "Do you want to move the %d selected files to the trash can?",
                                             n_files),
                                    n_files);
+        }
 
         response = run_simple_dialog (*main_win, FALSE,
-                                      GTK_MESSAGE_QUESTION, msg, _("Delete"),
+                                      forceDelete || !gnome_cmd_data.options.deleteToTrash
+                                        ? GTK_MESSAGE_WARNING
+                                        : GTK_MESSAGE_QUESTION,
+                                      msg, _("Delete"),
                                       gnome_cmd_data.options.confirm_delete_default==GTK_BUTTONS_CANCEL ? 0 : 1, _("Cancel"), _("Delete"), NULL);
 
         g_free (msg);
@@ -519,6 +543,9 @@ void gnome_cmd_delete_dialog_show (GList *files)
     DeleteData *deleteData = g_new0 (DeleteData, 1);
 
     deleteData->gnomeCmdFiles = files;
+    deleteData->originAction = forceDelete
+        ? DeleteData::OriginAction::FORCE_DELETE
+        : DeleteData::OriginAction::DELETE;
 
     // Refing files for the delete procedure
     gnome_cmd_file_list_ref (deleteData->gnomeCmdFiles);

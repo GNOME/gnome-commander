@@ -66,6 +66,7 @@ GcmdSettings *gcmd_settings_new (void);
 #define GCMD_SETTINGS_LEFT_MOUSE_BUTTON_UNSELECTS     "left-mouse-btn-unselects"
 #define GCMD_SETTINGS_RIGHT_MOUSE_BUTTON_MODE         "right-mouse-btn-mode"
 #define GCMD_SETTINGS_MIDDLE_MOUSE_BUTTON_MODE        "middle-mouse-btn-mode"
+#define GCMD_SETTINGS_USE_TRASH                       "delete-to-trash"
 #define GCMD_SETTINGS_ICON_SIZE                       "icon-size"
 #define GCMD_SETTINGS_DEV_ICON_SIZE                   "dev-icon-size"
 #define GCMD_SETTINGS_ICON_SCALE_QUALITY              "icon-scale-quality"
@@ -333,6 +334,7 @@ struct GnomeCmdData
         gboolean                     search_window_is_transient {true};
         gchar                       *symlink_prefix;
         gint                         main_win_pos[2];
+        gboolean                     deleteToTrash;
         // Format
         GnomeCmdSizeDispMode         size_disp_mode;
         GnomeCmdPermDispMode         perm_disp_mode;
@@ -395,6 +397,7 @@ struct GnomeCmdData
                    save_search_history_on_exit(TRUE),
                    symlink_prefix(nullptr),
                    main_win_pos{0,25},
+                   deleteToTrash(TRUE),
                    size_disp_mode(GNOME_CMD_SIZE_DISP_MODE_POWERED),
                    perm_disp_mode(GNOME_CMD_PERM_DISP_MODE_TEXT),
                    date_format(nullptr),

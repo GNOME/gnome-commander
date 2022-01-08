@@ -2403,7 +2403,7 @@ void gnome_cmd_file_list_show_rename_dialog (GnomeCmdFileList *fl)
 }
 
 
-void gnome_cmd_file_list_show_delete_dialog (GnomeCmdFileList *fl)
+void gnome_cmd_file_list_show_delete_dialog (GnomeCmdFileList *fl, gboolean forceDelete)
 {
     g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl));
 
@@ -2411,7 +2411,7 @@ void gnome_cmd_file_list_show_delete_dialog (GnomeCmdFileList *fl)
 
     if (files)
     {
-        gnome_cmd_delete_dialog_show (files);
+        gnome_cmd_delete_dialog_show (files, forceDelete);
     }
 }
 
@@ -2626,6 +2626,11 @@ gboolean GnomeCmdFileList::key_pressed(GdkEventKey *event)
             case GDK_KP_1:
                 priv->shift_down = TRUE;
                 g_signal_emit_by_name (this, "scroll-vertical", GTK_SCROLL_JUMP, 1.0);
+                return TRUE;
+
+            case GDK_Delete:
+            case GDK_KP_Delete:
+                gnome_cmd_file_list_show_delete_dialog (this, TRUE);
                 return TRUE;
 
             default:

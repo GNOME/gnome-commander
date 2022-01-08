@@ -322,7 +322,7 @@ static GtkUIManager *get_file_menu_ui_manager()
         { "Cut",           GTK_STOCK_CUT,    _("Cu_t"),            "<Control>X", nullptr, (GCallback) edit_cap_cut },
         { "Copy",          GTK_STOCK_COPY,   _("_Copy"),           "<Control>C", nullptr, (GCallback) edit_cap_copy },
         { "Paste",         GTK_STOCK_PASTE,  _("_Paste"),          "<Control>V", nullptr, (GCallback) edit_cap_paste },
-        { "Delete",        GTK_STOCK_DELETE, _("_Delete"),         "Delete",   nullptr, (GCallback) file_delete },
+        { "Delete",        GTK_STOCK_DELETE, _("_Delete"),         "Delete",     nullptr, (GCallback) file_delete },
         { "CopyFileNames", nullptr,          _("Copy _File Names"), nullptr,     nullptr, (GCallback) edit_copy_fnames }
     };
 
