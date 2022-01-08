@@ -1,18 +1,18 @@
 # Swedish translation of gnome-commander
-# Copyright © 2002-2021 Free Software Foundation, Inc.
+# Copyright © 2002-2022 Free Software Foundation, Inc.
 # Marcus Bjurman <marbj499@student.liu.se>, 2003.
 # Magnus Stålnacke <jemamo@telia.com>, 2006.
 # Daniel Nylander <po@danielnylander.se>, 2006, 2007, 2009, 2011.
 # Josef Andersson <josef.andersson@fripost.org>, 2016.
-# Anders Jonsson <anders.jonsson@norsjovallen.se>, 2017, 2019, 2020, 2021.
+# Anders Jonsson <anders.jonsson@norsjovallen.se>, 2017, 2019, 2020, 2021, 2022.
 # Luna Jernberg <droidbittin@gmail.com>, 2021.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-commander/issues\n"
-"POT-Creation-Date: 2021-12-02 21:30+0000\n"
-"PO-Revision-Date: 2021-12-07 00:26+0100\n"
+"POT-Creation-Date: 2022-01-07 18:47+0000\n"
+"PO-Revision-Date: 2022-01-07 21:02+0100\n"
 "Last-Translator: Anders Jonsson <anders.jonsson@norsjovallen.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "Language: sv\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.0\n"
+"X-Generator: Poedit 3.0.1\n"
 "X-Poedit-Bookmarks: -1,1165,-1,-1,-1,-1,-1,-1,-1,-1\n"
 "X-Project-Style: gnome\n"
 
@@ -1498,7 +1498,7 @@ msgstr "Mappval"
 msgid "File selection"
 msgstr "Filval"
 
-#: plugins/fileroller/file-roller-plugin.cc:111 src/gnome-cmd-data.cc:80
+#: plugins/fileroller/file-roller-plugin.cc:111 src/gnome-cmd-data.cc:78
 #, c-format
 msgid "Could not load schemas from %s: %s\n"
 msgstr "Kunde inte läsa in scheman från %s: %s\n"
@@ -1549,7 +1549,7 @@ msgstr "Fil"
 #: src/dialogs/gnome-cmd-options-dialog.cc:2201
 #: src/dialogs/gnome-cmd-prepare-copy-dialog.cc:145
 #: src/dialogs/gnome-cmd-prepare-move-dialog.cc:132
-#: src/dialogs/gnome-cmd-remote-dialog.cc:447 src/gnome-cmd-user-actions.cc:252
+#: src/dialogs/gnome-cmd-remote-dialog.cc:443 src/gnome-cmd-user-actions.cc:254
 msgid "Options"
 msgstr "Alternativ"
 
@@ -1731,93 +1731,85 @@ msgstr "Chown"
 msgid "Apply Recursively"
 msgstr "Tillämpa rekursivt"
 
-#: src/dialogs/gnome-cmd-con-dialog.cc:169
+#: src/dialogs/gnome-cmd-con-dialog.cc:154
 msgid "_Alias:"
 msgstr "_Alias:"
 
-#: src/dialogs/gnome-cmd-con-dialog.cc:174
+#: src/dialogs/gnome-cmd-con-dialog.cc:159
 msgid "_Location (URI):"
 msgstr "_Plats (URI):"
 
-#: src/dialogs/gnome-cmd-con-dialog.cc:205
+#: src/dialogs/gnome-cmd-con-dialog.cc:184
 msgid "_Server:"
 msgstr "_Server:"
 
-#: src/dialogs/gnome-cmd-con-dialog.cc:216
+#: src/dialogs/gnome-cmd-con-dialog.cc:195
 msgid "Optional information"
 msgstr "Ytterligare information"
 
-#: src/dialogs/gnome-cmd-con-dialog.cc:240
-msgid "S_hare:"
-msgstr "Ut_delning:"
-
-#: src/dialogs/gnome-cmd-con-dialog.cc:243
+#: src/dialogs/gnome-cmd-con-dialog.cc:219
 msgid "_Port:"
 msgstr "_Port:"
 
-#: src/dialogs/gnome-cmd-con-dialog.cc:245
+#: src/dialogs/gnome-cmd-con-dialog.cc:221
 msgid "_Folder:"
 msgstr "_Mapp:"
 
-#: src/dialogs/gnome-cmd-con-dialog.cc:248
-msgid "_User name:"
-msgstr "_Användare:"
-
-#: src/dialogs/gnome-cmd-con-dialog.cc:251
+#: src/dialogs/gnome-cmd-con-dialog.cc:224
 msgid "_Domain name:"
 msgstr "_Domännamn:"
 
-#: src/dialogs/gnome-cmd-con-dialog.cc:308
+#: src/dialogs/gnome-cmd-con-dialog.cc:272
 msgid "You must enter a name for the server"
 msgstr "Du måste ange ett namn för servern"
 
-#: src/dialogs/gnome-cmd-con-dialog.cc:308
+#: src/dialogs/gnome-cmd-con-dialog.cc:272
 msgid "Please enter a name and try again."
 msgstr "Ange ett namn och försök igen."
 
-#: src/dialogs/gnome-cmd-con-dialog.cc:321
+#: src/dialogs/gnome-cmd-con-dialog.cc:282
 #, c-format
 msgid "“%s” is not a valid location"
 msgstr "”%s” är inte en giltig plats"
 
-#: src/dialogs/gnome-cmd-con-dialog.cc:322
+#: src/dialogs/gnome-cmd-con-dialog.cc:283
 msgid "Please check spelling and try again."
 msgstr "Kontrollera stavning och försök igen."
 
-#: src/dialogs/gnome-cmd-con-dialog.cc:419 src/gnome-cmd-main-win.cc:247
+#: src/dialogs/gnome-cmd-con-dialog.cc:380 src/gnome-cmd-main-win.cc:247
 msgid "Remote Server"
 msgstr "Fjärrserver"
 
-#: src/dialogs/gnome-cmd-con-dialog.cc:434
+#: src/dialogs/gnome-cmd-con-dialog.cc:395
 msgid "Service _type:"
 msgstr "Tjänste_typ:"
 
 #. Keep this in sync with enum ConnectionMethodID in gnome-cmd-con.h
-#: src/dialogs/gnome-cmd-con-dialog.cc:446
+#: src/dialogs/gnome-cmd-con-dialog.cc:407
 msgid "SSH"
 msgstr "SSH"
 
-#: src/dialogs/gnome-cmd-con-dialog.cc:447
+#: src/dialogs/gnome-cmd-con-dialog.cc:408
 msgid "FTP (with login)"
 msgstr "FTP (med inloggning)"
 
-#: src/dialogs/gnome-cmd-con-dialog.cc:448
+#: src/dialogs/gnome-cmd-con-dialog.cc:409
 msgid "Public FTP"
 msgstr "Offentlig FTP"
 
-#: src/dialogs/gnome-cmd-con-dialog.cc:450
+#: src/dialogs/gnome-cmd-con-dialog.cc:411
 msgid "Windows share"
 msgstr "Windows-utdelning"
 
-#: src/dialogs/gnome-cmd-con-dialog.cc:452
+#: src/dialogs/gnome-cmd-con-dialog.cc:413
 msgid "WebDAV (HTTP)"
 msgstr "WebDAV (HTTP)"
 
-#: src/dialogs/gnome-cmd-con-dialog.cc:453
+#: src/dialogs/gnome-cmd-con-dialog.cc:414
 msgid "Secure WebDAV (HTTPS)"
 msgstr "Säker WebDAV (HTTPS)"
 
-#: src/dialogs/gnome-cmd-con-dialog.cc:454
+#: src/dialogs/gnome-cmd-con-dialog.cc:415
 msgid "Custom location"
 msgstr "Anpassad plats"
 
@@ -1859,7 +1851,7 @@ msgid "Abort"
 msgstr "Avbryt"
 
 #: src/dialogs/gnome-cmd-delete-dialog.cc:275
-#: src/gnome-cmd-file-selector.cc:1393 src/gnome-cmd-xfer.cc:120
+#: src/gnome-cmd-file-selector.cc:1404 src/gnome-cmd-xfer.cc:120
 #: src/gnome-cmd-xfer.cc:147 src/gnome-cmd-xfer.cc:150
 #: src/gnome-cmd-xfer.cc:205 src/gnome-cmd-xfer.cc:208
 #: src/gnome-cmd-xfer.cc:323 src/gnome-cmd-xfer.cc:326
@@ -1872,7 +1864,7 @@ msgstr "Försök igen"
 #: src/dialogs/gnome-cmd-options-dialog.cc:1095
 #: src/dialogs/gnome-cmd-prepare-copy-dialog.cc:114
 #: src/dialogs/gnome-cmd-prepare-move-dialog.cc:108
-#: src/gnome-cmd-file-selector.cc:1393 src/gnome-cmd-xfer.cc:120
+#: src/gnome-cmd-file-selector.cc:1404 src/gnome-cmd-xfer.cc:120
 #: src/gnome-cmd-xfer.cc:147 src/gnome-cmd-xfer.cc:205
 #: src/gnome-cmd-xfer.cc:323
 msgid "Skip"
@@ -1904,15 +1896,15 @@ msgstr "Katalogen ”%s” är inte tom. Vill du verkligen ta bort den?"
 #: src/dialogs/gnome-cmd-delete-dialog.cc:501
 #: src/dialogs/gnome-cmd-delete-dialog.cc:502
 #: src/dialogs/gnome-cmd-options-dialog.cc:1043
-#: src/gnome-cmd-file-popmenu.cc:749 src/gnome-cmd-main-win.cc:243
+#: src/gnome-cmd-file-popmenu.cc:724 src/gnome-cmd-main-win.cc:243
 #: src/gnome-cmd-user-actions.cc:213
 msgid "Delete"
 msgstr "Ta bort"
 
 #: src/dialogs/gnome-cmd-delete-dialog.cc:425
 #: src/dialogs/gnome-cmd-delete-dialog.cc:502 src/gnome-cmd-file-list.cc:1312
-#: src/gnome-cmd-file-list.cc:1341 src/gnome-cmd-file-selector.cc:1393
-#: src/gnome-cmd-user-actions.cc:828
+#: src/gnome-cmd-file-list.cc:1341 src/gnome-cmd-file-selector.cc:1404
+#: src/gnome-cmd-user-actions.cc:830
 msgid "Cancel"
 msgstr "Avbryt"
 
@@ -1970,7 +1962,7 @@ msgid "Directory name:"
 msgstr "Katalognamn:"
 
 #: src/dialogs/gnome-cmd-file-props-dialog.cc:329
-#: src/gnome-cmd-file-selector.cc:1177
+#: src/gnome-cmd-file-selector.cc:1188
 msgid "File name:"
 msgstr "Filnamn:"
 
@@ -2040,7 +2032,7 @@ msgstr "Namnrymd för metadata"
 #. NULL);
 #: src/dialogs/gnome-cmd-file-props-dialog.cc:602
 #: src/dialogs/gnome-cmd-manage-bookmarks-dialog.cc:244
-#: src/dialogs/gnome-cmd-remote-dialog.cc:358
+#: src/dialogs/gnome-cmd-remote-dialog.cc:354
 #: src/intviewer/viewer-window.cc:1361 src/plugin_manager.cc:389
 #: src/tags/gnome-cmd-tags.cc:327
 msgid "Name"
@@ -2147,12 +2139,12 @@ msgid "Invalid shortcut."
 msgstr "Ogiltigt kortkommando."
 
 #: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:639
-#: src/gnome-cmd-user-actions.cc:251
+#: src/gnome-cmd-user-actions.cc:253
 msgid "Do nothing"
 msgstr "Gör ingenting"
 
 #: src/dialogs/gnome-cmd-make-copy-dialog.cc:67
-#: src/gnome-cmd-file-selector.cc:1101
+#: src/gnome-cmd-file-selector.cc:1108
 msgid "No file name entered"
 msgstr "Inget filnamn angivet"
 
@@ -2275,7 +2267,7 @@ msgid "Middle mouse button"
 msgstr "Mittenmusknappen"
 
 #: src/dialogs/gnome-cmd-options-dialog.cc:136 src/gnome-cmd-main-win.cc:234
-#: src/gnome-cmd-user-actions.cc:282
+#: src/gnome-cmd-user-actions.cc:284
 msgid "Up one directory"
 msgstr "Upp en katalog"
 
@@ -2664,7 +2656,7 @@ msgstr "Fråga först"
 #: src/dialogs/gnome-cmd-options-dialog.cc:1091
 #: src/dialogs/gnome-cmd-prepare-copy-dialog.cc:107
 #: src/dialogs/gnome-cmd-prepare-move-dialog.cc:101
-#: src/gnome-cmd-file-popmenu.cc:750 src/gnome-cmd-xfer.cc:147
+#: src/gnome-cmd-file-popmenu.cc:725 src/gnome-cmd-xfer.cc:147
 #: src/gnome-cmd-xfer.cc:150 src/gnome-cmd-xfer.cc:205
 #: src/gnome-cmd-xfer.cc:208 src/gnome-cmd-xfer.cc:323
 #: src/gnome-cmd-xfer.cc:326
@@ -2692,7 +2684,7 @@ msgstr "Bekräfta musåtgärd"
 
 #: src/dialogs/gnome-cmd-options-dialog.cc:1115
 #: src/dialogs/gnome-cmd-prepare-copy-dialog.cc:94
-#: src/gnome-cmd-file-popmenu.cc:748 src/gnome-cmd-main-win.cc:241
+#: src/gnome-cmd-file-popmenu.cc:723 src/gnome-cmd-main-win.cc:241
 #: src/gnome-cmd-user-actions.cc:210
 msgid "Copy"
 msgstr "Kopiera"
@@ -2998,56 +2990,52 @@ msgstr[0] "flytta %d fil till"
 msgstr[1] "flytta %d filer till"
 
 #. Nothing exists, ask the user if a new directory might be suitable in the path that he specified
-#: src/dialogs/gnome-cmd-prepare-xfer-dialog.cc:152
-#: src/dialogs/gnome-cmd-prepare-xfer-dialog.cc:201
+#: src/dialogs/gnome-cmd-prepare-xfer-dialog.cc:162
+#: src/dialogs/gnome-cmd-prepare-xfer-dialog.cc:211
 #, c-format
 msgid "The directory “%s” doesn’t exist, do you want to create it?"
 msgstr "Katalogen ”%s” finns inte. Vill du skapa den?"
 
-#: src/dialogs/gnome-cmd-prepare-xfer-dialog.cc:155
+#: src/dialogs/gnome-cmd-prepare-xfer-dialog.cc:165
 #: src/gnome-cmd-advrename-profile-component.cc:433
 #: src/gnome-cmd-advrename-profile-component.cc:761
 #: src/gnome-cmd-advrename-profile-component.cc:793
-#: src/gnome-cmd-file-popmenu.cc:168
+#: src/gnome-cmd-file-popmenu.cc:143
 msgid "No"
 msgstr "Nej"
 
-#: src/dialogs/gnome-cmd-prepare-xfer-dialog.cc:155
+#: src/dialogs/gnome-cmd-prepare-xfer-dialog.cc:165
 #: src/gnome-cmd-advrename-profile-component.cc:433
 #: src/gnome-cmd-advrename-profile-component.cc:761
 #: src/gnome-cmd-advrename-profile-component.cc:793
-#: src/gnome-cmd-file-popmenu.cc:168
+#: src/gnome-cmd-file-popmenu.cc:143
 msgid "Yes"
 msgstr "Ja"
 
-#: src/dialogs/gnome-cmd-prepare-xfer-dialog.cc:163
+#: src/dialogs/gnome-cmd-prepare-xfer-dialog.cc:173
 msgid "Unknown error"
 msgstr "Okänt fel"
 
-#: src/dialogs/gnome-cmd-remote-dialog.cc:216
+#: src/dialogs/gnome-cmd-remote-dialog.cc:212
 #, c-format
 msgid "No server selected"
 msgstr "Ingen server är vald"
 
-#: src/dialogs/gnome-cmd-remote-dialog.cc:348
+#: src/dialogs/gnome-cmd-remote-dialog.cc:344
 msgid "Network protocol"
 msgstr "Nätverksprotokoll"
 
-#: src/dialogs/gnome-cmd-remote-dialog.cc:359
+#: src/dialogs/gnome-cmd-remote-dialog.cc:355
 msgid "Connection name"
 msgstr "Anslutningsnamn"
 
-#: src/dialogs/gnome-cmd-remote-dialog.cc:413
+#: src/dialogs/gnome-cmd-remote-dialog.cc:409
 msgid "Remote Connections"
 msgstr "Fjärranslutningar"
 
-#: src/dialogs/gnome-cmd-remote-dialog.cc:419
+#: src/dialogs/gnome-cmd-remote-dialog.cc:415
 msgid "Connections"
 msgstr "Anslutningar"
-
-#: src/dialogs/gnome-cmd-remote-dialog.cc:450
-msgid "Anonymous FTP password:"
-msgstr "Anonymt FTP-lösenord:"
 
 #: src/dialogs/gnome-cmd-search-dialog.cc:43
 msgid "Search local directories only"
@@ -3508,7 +3496,7 @@ msgstr "Monterar %s"
 msgid "Go to: %s (%s)"
 msgstr "Gå till: %s (%s)"
 
-#: src/gnome-cmd-con-device.cc:550 src/gnome-cmd-con.h:201
+#: src/gnome-cmd-con-device.cc:550 src/gnome-cmd-con.h:223
 #, c-format
 msgid "Go to: %s"
 msgstr "Gå till: %s"
@@ -3523,26 +3511,26 @@ msgstr "Montera: %s"
 msgid "Unmount: %s"
 msgstr "Avmontera: %s"
 
-#: src/gnome-cmd-con.h:199
+#: src/gnome-cmd-con.h:221
 msgid "<New connection>"
 msgstr "<Ny anslutning>"
 
-#: src/gnome-cmd-con.h:202
+#: src/gnome-cmd-con.h:224
 #, c-format
 msgid "Connect to: %s"
 msgstr "Anslut till: %s"
 
-#: src/gnome-cmd-con.h:203
+#: src/gnome-cmd-con.h:225
 #, c-format
 msgid "Disconnect from: %s"
 msgstr "Koppla ner anslutningen till: %s"
 
-#: src/gnome-cmd-con.h:231
+#: src/gnome-cmd-con.h:253
 #, c-format
 msgid "Connecting to %s\n"
 msgstr "Kopplar upp mot %s\n"
 
-#: src/gnome-cmd-con.h:398
+#: src/gnome-cmd-con.h:420
 msgid "Unknown disk usage"
 msgstr "Okänd diskanvändning"
 
@@ -3554,16 +3542,16 @@ msgstr "Hem"
 msgid "Go to: Home"
 msgstr "Gå till: Hem"
 
-#: src/gnome-cmd-con-remote.cc:138
+#: src/gnome-cmd-con-remote.cc:127
 msgid "Disconnect error"
 msgstr "Fel vid frånkoppling"
 
-#: src/gnome-cmd-con-remote.cc:390
+#: src/gnome-cmd-con-remote.cc:391
 #, c-format
 msgid "Opens remote connection to %s"
 msgstr "Öppnar fjärranslutning till %s"
 
-#: src/gnome-cmd-con-remote.cc:391
+#: src/gnome-cmd-con-remote.cc:392
 #, c-format
 msgid "Closes remote connection to %s"
 msgstr "Stänger fjärranslutning mot %s"
@@ -3584,12 +3572,12 @@ msgstr "Söker efter arbetsgrupper och datorer"
 msgid "Go to: Samba Network"
 msgstr "Gå till: Samba-nätverket"
 
-#: src/gnome-cmd-data.cc:3208 src/gnome-cmd-data.cc:3912
+#: src/gnome-cmd-data.cc:3192 src/gnome-cmd-data.cc:3878
 #, c-format
 msgid "link to %s"
 msgstr "länk till %s"
 
-#: src/gnome-cmd-dir.cc:532
+#: src/gnome-cmd-dir.cc:540
 msgid "Waiting for file list"
 msgstr "Väntar på fillistan"
 
@@ -3601,11 +3589,11 @@ msgstr "Lägg till aktuell katalog"
 msgid "Manage bookmarks…"
 msgstr "Hantera bokmärken…"
 
-#: src/gnome-cmd-file.cc:604
+#: src/gnome-cmd-file.cc:637
 msgid "_Open"
 msgstr "_Öppna"
 
-#: src/gnome-cmd-file.cc:607
+#: src/gnome-cmd-file.cc:640
 #, c-format
 msgid "_Open with “%s”"
 msgstr "_Öppna med ”%s”"
@@ -3703,7 +3691,7 @@ msgstr "Inget standardprogram hittades för filtypen %s."
 msgid "Open the \"Applications\" page in the Control Center to add one."
 msgstr "Öppna sidan ”Program” i Kontrollpanelen för att lägga till ett."
 
-#: src/gnome-cmd-file-list.cc:1389 src/gnome-cmd-file-popmenu.cc:165
+#: src/gnome-cmd-file-list.cc:1389 src/gnome-cmd-file-popmenu.cc:140
 #, c-format
 msgid ""
 "%s does not know how to open remote file. Do you want to download the file "
@@ -3726,66 +3714,66 @@ msgstr "Kataloglistningen misslyckades."
 msgid "Failed to open connection."
 msgstr "Kunde inte öppna anslutning."
 
-#: src/gnome-cmd-file-list.cc:2447 src/gnome-cmd-file-list.cc:2462
+#: src/gnome-cmd-file-list.cc:2483 src/gnome-cmd-file-list.cc:2498
 msgid "Not an ordinary file."
 msgstr "Inte en vanlig fil."
 
-#: src/gnome-cmd-file-popmenu.cc:261
+#: src/gnome-cmd-file-popmenu.cc:236
 msgid "Couldn’t retrieve MIME type of the file."
 msgstr "Kunde inte hämta MIME-typen för filen."
 
-#: src/gnome-cmd-file-popmenu.cc:276
+#: src/gnome-cmd-file-popmenu.cc:251
 msgid "Invalid command"
 msgstr "Ogiltigt kommando"
 
-#: src/gnome-cmd-file-popmenu.cc:300
+#: src/gnome-cmd-file-popmenu.cc:275
 msgid "Application:"
 msgstr "Program:"
 
-#: src/gnome-cmd-file-popmenu.cc:303
+#: src/gnome-cmd-file-popmenu.cc:278
 msgid "Open with other…"
 msgstr "Öppna med annat…"
 
-#: src/gnome-cmd-file-popmenu.cc:308
+#: src/gnome-cmd-file-popmenu.cc:283
 msgid "Needs terminal"
 msgstr "Behöver ett terminalfönster"
 
-#: src/gnome-cmd-file-popmenu.cc:744
+#: src/gnome-cmd-file-popmenu.cc:719
 msgid "Open Wit_h"
 msgstr "Öppna m_ed"
 
-#: src/gnome-cmd-file-popmenu.cc:745
+#: src/gnome-cmd-file-popmenu.cc:720
 msgid "Other _Application…"
 msgstr "Annat _program…"
 
-#: src/gnome-cmd-file-popmenu.cc:746
+#: src/gnome-cmd-file-popmenu.cc:721
 msgid "Open Wit_h…"
 msgstr "Öppna m_ed…"
 
-#: src/gnome-cmd-file-popmenu.cc:747 src/gnome-cmd-main-win.cc:240
+#: src/gnome-cmd-file-popmenu.cc:722 src/gnome-cmd-main-win.cc:240
 #: src/gnome-cmd-user-actions.cc:212
 msgid "Cut"
 msgstr "Klipp ut"
 
 #. {file_run, "file.run"},
-#: src/gnome-cmd-file-popmenu.cc:751 src/gnome-cmd-main-win.cc:245
+#: src/gnome-cmd-file-popmenu.cc:726 src/gnome-cmd-main-win.cc:245
 #: src/gnome-cmd-user-actions.cc:236
 msgid "Send files"
 msgstr "Skicka filer"
 
-#: src/gnome-cmd-file-popmenu.cc:752 src/gnome-cmd-main-menu.cc:307
+#: src/gnome-cmd-file-popmenu.cc:727 src/gnome-cmd-main-menu.cc:309
 msgid "_Properties…"
 msgstr "_Egenskaper…"
 
-#: src/gnome-cmd-file-popmenu.cc:753
+#: src/gnome-cmd-file-popmenu.cc:728
 msgid "E_xecute"
 msgstr "_Kör"
 
-#: src/gnome-cmd-file-popmenu.cc:754 src/gnome-cmd-list-popmenu.cc:108
+#: src/gnome-cmd-file-popmenu.cc:729 src/gnome-cmd-list-popmenu.cc:108
 msgid "Open _terminal here"
 msgstr "Öppna _terminalfönster här"
 
-#: src/gnome-cmd-file-popmenu.cc:755 src/gnome-cmd-user-actions.cc:211
+#: src/gnome-cmd-file-popmenu.cc:730 src/gnome-cmd-user-actions.cc:211
 msgid "Copy file names"
 msgstr "Kopiera filnamn"
 
@@ -3809,11 +3797,11 @@ msgid "%s free"
 msgstr "%s ledigt"
 
 #: src/gnome-cmd-file-selector.cc:634 src/gnome-cmd-file-selector.cc:710
-#: src/gnome-cmd-user-actions.cc:1682 src/gnome-cmd-user-actions.cc:1690
+#: src/gnome-cmd-user-actions.cc:1696 src/gnome-cmd-user-actions.cc:1704
 msgid "The tab is locked, close anyway?"
 msgstr "Fliken är låst, stäng ändå?"
 
-#: src/gnome-cmd-file-selector.cc:653 src/gnome-cmd-main-menu.cc:347
+#: src/gnome-cmd-file-selector.cc:653 src/gnome-cmd-main-menu.cc:351
 msgid "Open in New _Tab"
 msgstr "Öppna i ny fli_k"
 
@@ -3833,11 +3821,11 @@ msgstr "U_ppdatera flik"
 msgid "Copy Tab to Other _Pane"
 msgstr "Kopiera flik till andra _panelen"
 
-#: src/gnome-cmd-file-selector.cc:676 src/gnome-cmd-main-menu.cc:348
+#: src/gnome-cmd-file-selector.cc:676 src/gnome-cmd-main-menu.cc:352
 msgid "_Close Tab"
 msgstr "_Stäng flik"
 
-#: src/gnome-cmd-file-selector.cc:681 src/gnome-cmd-main-menu.cc:349
+#: src/gnome-cmd-file-selector.cc:681 src/gnome-cmd-main-menu.cc:353
 msgid "Close _All Tabs"
 msgstr "Stäng _alla flikar"
 
@@ -3845,29 +3833,29 @@ msgstr "Stäng _alla flikar"
 msgid "Close _Duplicate Tabs"
 msgstr "Stäng _duplicerade flikar"
 
-#: src/gnome-cmd-file-selector.cc:1144
+#: src/gnome-cmd-file-selector.cc:1155
 msgid "No file name given"
 msgstr "Inget filnamn angivet"
 
-#: src/gnome-cmd-file-selector.cc:1180
+#: src/gnome-cmd-file-selector.cc:1191
 msgid "New Text File"
 msgstr "Ny textfil"
 
-#: src/gnome-cmd-file-selector.cc:1329
+#: src/gnome-cmd-file-selector.cc:1340
 msgid "Symbolic link name:"
 msgstr "Symboliskt länknamn:"
 
-#: src/gnome-cmd-file-selector.cc:1340 src/gnome-cmd-file-selector.cc:1393
-#: src/gnome-cmd-user-actions.cc:828
+#: src/gnome-cmd-file-selector.cc:1351 src/gnome-cmd-file-selector.cc:1404
+#: src/gnome-cmd-user-actions.cc:830
 msgid "Create Symbolic Link"
 msgstr "Skapa symbolisk länk"
 
-#: src/gnome-cmd-file-selector.cc:1393 src/gnome-cmd-xfer.cc:147
+#: src/gnome-cmd-file-selector.cc:1404 src/gnome-cmd-xfer.cc:147
 #: src/gnome-cmd-xfer.cc:205 src/gnome-cmd-xfer.cc:323
 msgid "Skip all"
 msgstr "Hoppa över alla"
 
-#: src/gnome-cmd-file-selector.cc:1465
+#: src/gnome-cmd-file-selector.cc:1476
 msgid "Filter:"
 msgstr "Filter:"
 
@@ -3875,11 +3863,11 @@ msgstr "Filter:"
 msgid "_New"
 msgstr "_Ny"
 
-#: src/gnome-cmd-list-popmenu.cc:107 src/gnome-cmd-main-menu.cc:322
+#: src/gnome-cmd-list-popmenu.cc:107 src/gnome-cmd-main-menu.cc:324
 msgid "_Paste"
 msgstr "Klistra _in"
 
-#: src/gnome-cmd-list-popmenu.cc:109 src/gnome-cmd-main-menu.cc:346
+#: src/gnome-cmd-list-popmenu.cc:109 src/gnome-cmd-main-menu.cc:350
 msgid "_Refresh"
 msgstr "U_ppdatera"
 
@@ -3891,235 +3879,243 @@ msgstr "_Katalog"
 msgid "_Text File"
 msgstr "_Textfil"
 
-#: src/gnome-cmd-main-menu.cc:302 src/intviewer/viewer-window.cc:599
+#: src/gnome-cmd-main-menu.cc:304 src/intviewer/viewer-window.cc:599
 msgid "_File"
 msgstr "_Arkiv"
 
-#: src/gnome-cmd-main-menu.cc:303
+#: src/gnome-cmd-main-menu.cc:305
 msgid "Change _Owner/Group"
 msgstr "Ändra _ägare/grupp"
 
-#: src/gnome-cmd-main-menu.cc:304
+#: src/gnome-cmd-main-menu.cc:306
 msgid "Change Per_missions"
 msgstr "Ändra _rättigheter"
 
-#: src/gnome-cmd-main-menu.cc:305
+#: src/gnome-cmd-main-menu.cc:307
 msgid "Advanced _Rename Tool"
 msgstr "_Namnbytesverktyg för flera filer"
 
-#: src/gnome-cmd-main-menu.cc:306
+#: src/gnome-cmd-main-menu.cc:308
 msgid "Create _Symbolic Link"
 msgstr "Ny _symbolisk länk"
 
-#: src/gnome-cmd-main-menu.cc:308
+#: src/gnome-cmd-main-menu.cc:310
 msgid "_Search…"
 msgstr "_Sök…"
 
-#: src/gnome-cmd-main-menu.cc:309
+#: src/gnome-cmd-main-menu.cc:311
 msgid "_Quick Search…"
 msgstr "S_nabbsök…"
 
-#: src/gnome-cmd-main-menu.cc:310
+#: src/gnome-cmd-main-menu.cc:312
 msgid "_Enable Filter…"
 msgstr "_Aktivera filter…"
 
-#: src/gnome-cmd-main-menu.cc:311
+#: src/gnome-cmd-main-menu.cc:313
 msgid "_Diff"
 msgstr "_Diff"
 
-#: src/gnome-cmd-main-menu.cc:312
+#: src/gnome-cmd-main-menu.cc:314
 msgid "S_ynchronize Directories"
 msgstr "S_ynkronisera kataloger"
 
-#: src/gnome-cmd-main-menu.cc:313
+#: src/gnome-cmd-main-menu.cc:315
 msgid "Start _GNOME Commander as root"
 msgstr "Starta _GNOME Commander som root"
 
-#: src/gnome-cmd-main-menu.cc:314
+#: src/gnome-cmd-main-menu.cc:316
 msgid "_Quit"
 msgstr "_Avsluta"
 
-#: src/gnome-cmd-main-menu.cc:319
+#: src/gnome-cmd-main-menu.cc:321
 msgid "_Edit"
 msgstr "R_edigera"
 
-#: src/gnome-cmd-main-menu.cc:320
+#: src/gnome-cmd-main-menu.cc:322
 msgid "Cu_t"
 msgstr "Klipp _ut"
 
-#: src/gnome-cmd-main-menu.cc:321
+#: src/gnome-cmd-main-menu.cc:323
 msgid "_Copy"
 msgstr "_Kopiera"
 
-#: src/gnome-cmd-main-menu.cc:323
+#: src/gnome-cmd-main-menu.cc:325
 msgid "_Delete"
 msgstr "_Ta bort"
 
-#: src/gnome-cmd-main-menu.cc:324
+#: src/gnome-cmd-main-menu.cc:326
 msgid "Copy _File Names"
 msgstr "Kopiera _filnamn"
 
-#: src/gnome-cmd-main-menu.cc:329
+#: src/gnome-cmd-main-menu.cc:331
 msgid "_Mark"
 msgstr "_Markera"
 
-#: src/gnome-cmd-main-menu.cc:330
+#: src/gnome-cmd-main-menu.cc:332
 msgid "_Select All"
 msgstr "_Markera alla"
 
-#: src/gnome-cmd-main-menu.cc:331
+#: src/gnome-cmd-main-menu.cc:333
 msgid "_Unselect All"
 msgstr "_Avmarkera alla"
 
-#: src/gnome-cmd-main-menu.cc:332
+#: src/gnome-cmd-main-menu.cc:334
+msgid "Select all _Files"
+msgstr "Markera alla _filer"
+
+#: src/gnome-cmd-main-menu.cc:335
+msgid "Unselect all Fi_les"
+msgstr "Avmarkera alla fi_ler"
+
+#: src/gnome-cmd-main-menu.cc:336
 msgid "Select with _Pattern"
 msgstr "Markera med m_önster"
 
-#: src/gnome-cmd-main-menu.cc:333
+#: src/gnome-cmd-main-menu.cc:337
 msgid "Unselect with P_attern"
 msgstr "Avmarkera med mö_nster"
 
-#: src/gnome-cmd-main-menu.cc:334
+#: src/gnome-cmd-main-menu.cc:338
 msgid "Select with same _Extension"
 msgstr "Markera med samma f_iländelse"
 
-#: src/gnome-cmd-main-menu.cc:335
+#: src/gnome-cmd-main-menu.cc:339
 msgid "Unselect with same E_xtension"
 msgstr "Avmarkera med samma fi_ländelse"
 
-#: src/gnome-cmd-main-menu.cc:336
+#: src/gnome-cmd-main-menu.cc:340
 msgid "_Invert Selection"
 msgstr "_Invertera markering"
 
-#: src/gnome-cmd-main-menu.cc:337
+#: src/gnome-cmd-main-menu.cc:341
 msgid "_Restore Selection"
 msgstr "_Återställ markering"
 
-#: src/gnome-cmd-main-menu.cc:338
+#: src/gnome-cmd-main-menu.cc:342
 msgid "_Compare Directories"
 msgstr "_Jämför kataloger"
 
-#: src/gnome-cmd-main-menu.cc:343 src/intviewer/viewer-window.cc:613
+#: src/gnome-cmd-main-menu.cc:347 src/intviewer/viewer-window.cc:613
 msgid "_View"
 msgstr "_Visa"
 
-#: src/gnome-cmd-main-menu.cc:344
+#: src/gnome-cmd-main-menu.cc:348
 msgid "_Back"
 msgstr "_Bakåt"
 
-#: src/gnome-cmd-main-menu.cc:345
+#: src/gnome-cmd-main-menu.cc:349
 msgid "_Forward"
 msgstr "_Framåt"
 
-#: src/gnome-cmd-main-menu.cc:350
+#: src/gnome-cmd-main-menu.cc:354
 msgid "_Equal Panel Size"
 msgstr "_Samma panelstorlekar"
 
-#: src/gnome-cmd-main-menu.cc:351
+#: src/gnome-cmd-main-menu.cc:355
 msgid "Maximize Panel Size"
 msgstr "Maximera panelstorlek"
 
-#: src/gnome-cmd-main-menu.cc:356
+#: src/gnome-cmd-main-menu.cc:360
 msgid "Show Toolbar"
 msgstr "Visa verktygsfält"
 
-#: src/gnome-cmd-main-menu.cc:357
+#: src/gnome-cmd-main-menu.cc:361
 msgid "Show Device Buttons"
 msgstr "Visa enhetsknappar"
 
-#: src/gnome-cmd-main-menu.cc:358
+#: src/gnome-cmd-main-menu.cc:362
 msgid "Show Device List"
 msgstr "Visa enhetslista"
 
-#: src/gnome-cmd-main-menu.cc:359
+#: src/gnome-cmd-main-menu.cc:363
 msgid "Show Command Line"
 msgstr "Visa kommandorad"
 
-#: src/gnome-cmd-main-menu.cc:360
+#: src/gnome-cmd-main-menu.cc:364
 msgid "Show Buttonbar"
 msgstr "Visa knapprad"
 
-#: src/gnome-cmd-main-menu.cc:361
+#: src/gnome-cmd-main-menu.cc:365
 msgid "Show Hidden Files"
 msgstr "Visa dolda filer"
 
-#: src/gnome-cmd-main-menu.cc:362
+#: src/gnome-cmd-main-menu.cc:366
 msgid "Show Backup Files"
 msgstr "Visa säkerhetskopior"
 
-#: src/gnome-cmd-main-menu.cc:363
+#: src/gnome-cmd-main-menu.cc:367
 msgid "Horizontal Orientation"
 msgstr "Horisontell orientering"
 
-#: src/gnome-cmd-main-menu.cc:368 src/intviewer/viewer-window.cc:678
+#: src/gnome-cmd-main-menu.cc:372 src/intviewer/viewer-window.cc:678
 msgid "_Settings"
 msgstr "In_ställningar"
 
-#: src/gnome-cmd-main-menu.cc:369
+#: src/gnome-cmd-main-menu.cc:373
 msgid "_Options…"
 msgstr "_Alternativ…"
 
-#: src/gnome-cmd-main-menu.cc:370
+#: src/gnome-cmd-main-menu.cc:374
 msgid "_Keyboard Shortcuts…"
 msgstr "_Tangentbordsgenvägar…"
 
-#: src/gnome-cmd-main-menu.cc:375
+#: src/gnome-cmd-main-menu.cc:379
 msgid "_Connections"
 msgstr "_Anslutningar"
 
-#: src/gnome-cmd-main-menu.cc:376
+#: src/gnome-cmd-main-menu.cc:380
 msgid "_Remote Server…"
 msgstr "Fjä_rrserver…"
 
-#: src/gnome-cmd-main-menu.cc:377
+#: src/gnome-cmd-main-menu.cc:381
 msgid "New Connection…"
 msgstr "Ny anslutning…"
 
-#: src/gnome-cmd-main-menu.cc:382
+#: src/gnome-cmd-main-menu.cc:386
 msgid "_Bookmarks"
 msgstr "_Bokmärken"
 
-#: src/gnome-cmd-main-menu.cc:383
+#: src/gnome-cmd-main-menu.cc:387
 msgid "_Bookmark this Directory…"
 msgstr "_Bokmärk denna katalog…"
 
-#: src/gnome-cmd-main-menu.cc:384
+#: src/gnome-cmd-main-menu.cc:388
 msgid "_Manage Bookmarks…"
 msgstr "_Hantera bokmärken…"
 
-#: src/gnome-cmd-main-menu.cc:389
+#: src/gnome-cmd-main-menu.cc:393
 msgid "_Plugins"
 msgstr "_Insticksmoduler"
 
-#: src/gnome-cmd-main-menu.cc:390
+#: src/gnome-cmd-main-menu.cc:394
 msgid "_Configure Plugins…"
 msgstr "Konfigurera _insticksmoduler…"
 
-#: src/gnome-cmd-main-menu.cc:395 src/intviewer/viewer-window.cc:697
+#: src/gnome-cmd-main-menu.cc:399 src/intviewer/viewer-window.cc:697
 msgid "_Help"
 msgstr "_Hjälp"
 
-#: src/gnome-cmd-main-menu.cc:396
+#: src/gnome-cmd-main-menu.cc:400
 msgid "_Documentation"
 msgstr "_Dokumentation"
 
-#: src/gnome-cmd-main-menu.cc:397 src/intviewer/viewer-window.cc:699
+#: src/gnome-cmd-main-menu.cc:401 src/intviewer/viewer-window.cc:699
 msgid "_Keyboard Shortcuts"
 msgstr "_Tangentbordsgenvägar"
 
-#: src/gnome-cmd-main-menu.cc:398
+#: src/gnome-cmd-main-menu.cc:402
 msgid "GNOME Commander on the _Web"
 msgstr "GNOME Commander på _webben"
 
-#: src/gnome-cmd-main-menu.cc:399
+#: src/gnome-cmd-main-menu.cc:403
 msgid "Report a _Problem"
 msgstr "Rapportera ett _problem"
 
-#: src/gnome-cmd-main-menu.cc:400 src/plugin_manager.cc:405
+#: src/gnome-cmd-main-menu.cc:404 src/plugin_manager.cc:405
 msgid "_About"
 msgstr "_Om"
 
-#: src/gnome-cmd-main-win.cc:233 src/gnome-cmd-user-actions.cc:276
+#: src/gnome-cmd-main-win.cc:233 src/gnome-cmd-user-actions.cc:278
 msgid "Refresh"
 msgstr "Uppdatera"
 
@@ -4393,160 +4389,168 @@ msgid "Select all"
 msgstr "Markera allt"
 
 #: src/gnome-cmd-user-actions.cc:248
+msgid "Select all files"
+msgstr "Markera alla filer"
+
+#: src/gnome-cmd-user-actions.cc:249
+msgid "Unselect all files"
+msgstr "Avmarkera alla filer"
+
+#: src/gnome-cmd-user-actions.cc:250
 msgid "Toggle selection"
 msgstr "Växla markering"
 
-#: src/gnome-cmd-user-actions.cc:249
+#: src/gnome-cmd-user-actions.cc:251
 msgid "Toggle selection and move cursor downward"
 msgstr "Växla markering och flytta markören nedåt"
 
-#: src/gnome-cmd-user-actions.cc:250
+#: src/gnome-cmd-user-actions.cc:252
 msgid "Unselect all"
 msgstr "Avmarkera allt"
 
-#: src/gnome-cmd-user-actions.cc:253
+#: src/gnome-cmd-user-actions.cc:255
 msgid "Keyboard shortcuts"
 msgstr "Tangentbordsgenvägar"
 
-#: src/gnome-cmd-user-actions.cc:254
+#: src/gnome-cmd-user-actions.cc:256
 msgid "Configure plugins"
 msgstr "Konfigurera insticksmoduler"
 
-#: src/gnome-cmd-user-actions.cc:255
+#: src/gnome-cmd-user-actions.cc:257
 msgid "Back one directory"
 msgstr "Bakåt en katalog"
 
-#: src/gnome-cmd-user-actions.cc:256
+#: src/gnome-cmd-user-actions.cc:258
 msgid "Close the current tab"
 msgstr "Stäng aktuell flik"
 
-#: src/gnome-cmd-user-actions.cc:257
+#: src/gnome-cmd-user-actions.cc:259
 msgid "Close all tabs"
 msgstr "Stäng alla flikar"
 
-#: src/gnome-cmd-user-actions.cc:258
+#: src/gnome-cmd-user-actions.cc:260
 msgid "Close duplicate tabs"
 msgstr "Stäng dubblerade flikar"
 
-#: src/gnome-cmd-user-actions.cc:259
+#: src/gnome-cmd-user-actions.cc:261
 msgid "Change directory"
 msgstr "Ändra katalog"
 
-#: src/gnome-cmd-user-actions.cc:260
+#: src/gnome-cmd-user-actions.cc:262
 msgid "Show directory history"
 msgstr "Visa kataloghistorik"
 
-#: src/gnome-cmd-user-actions.cc:261
+#: src/gnome-cmd-user-actions.cc:263
 msgid "Equal panel size"
 msgstr "Samma panelstorlek"
 
-#: src/gnome-cmd-user-actions.cc:262
+#: src/gnome-cmd-user-actions.cc:264
 msgid "Maximize panel size"
 msgstr "Maximera panelstorlek"
 
-#: src/gnome-cmd-user-actions.cc:263
+#: src/gnome-cmd-user-actions.cc:265
 msgid "Back to the first directory"
 msgstr "Tillbaka till första katalogen"
 
-#: src/gnome-cmd-user-actions.cc:264
+#: src/gnome-cmd-user-actions.cc:266
 msgid "Forward one directory"
 msgstr "Framåt en katalog"
 
-#: src/gnome-cmd-user-actions.cc:265
+#: src/gnome-cmd-user-actions.cc:267
 msgid "Home directory"
 msgstr "Hemkatalog"
 
-#: src/gnome-cmd-user-actions.cc:266
+#: src/gnome-cmd-user-actions.cc:268
 msgid "Open directory in the active window"
 msgstr "Öppna katalogen i aktivt fönster"
 
-#: src/gnome-cmd-user-actions.cc:267
+#: src/gnome-cmd-user-actions.cc:269
 msgid "Open directory in the inactive window"
 msgstr "Öppna katalogen i inaktivt fönster"
 
-#: src/gnome-cmd-user-actions.cc:268
+#: src/gnome-cmd-user-actions.cc:270
 msgid "Open directory in the left window"
 msgstr "Öppna katalog i vänstra fönstret"
 
-#: src/gnome-cmd-user-actions.cc:269
+#: src/gnome-cmd-user-actions.cc:271
 msgid "Open directory in the right window"
 msgstr "Öppna katalog i högra fönstret"
 
-#: src/gnome-cmd-user-actions.cc:270
+#: src/gnome-cmd-user-actions.cc:272
 msgid "Open directory in the new tab"
 msgstr "Öppna katalogen i nya fliken"
 
-#: src/gnome-cmd-user-actions.cc:271
+#: src/gnome-cmd-user-actions.cc:273
 msgid "Open directory in the new tab (inactive window)"
 msgstr "Öppna katalogen i nya fliken (inaktivt fönster)"
 
-#: src/gnome-cmd-user-actions.cc:272
+#: src/gnome-cmd-user-actions.cc:274
 msgid "Forward to the last directory"
 msgstr "Framåt till sista katalogen"
 
-#: src/gnome-cmd-user-actions.cc:273
+#: src/gnome-cmd-user-actions.cc:275
 msgid "Next tab"
 msgstr "Nästa flik"
 
-#: src/gnome-cmd-user-actions.cc:274
+#: src/gnome-cmd-user-actions.cc:276
 msgid "Open directory in a new tab"
 msgstr "Öppna katalogen i en ny flik"
 
-#: src/gnome-cmd-user-actions.cc:275
+#: src/gnome-cmd-user-actions.cc:277
 msgid "Previous tab"
 msgstr "Föregående flik"
 
-#: src/gnome-cmd-user-actions.cc:277
+#: src/gnome-cmd-user-actions.cc:279
 msgid "Root directory"
 msgstr "Rotkatalog"
 
-#: src/gnome-cmd-user-actions.cc:278
+#: src/gnome-cmd-user-actions.cc:280
 msgid "Lock/unlock tab"
 msgstr "Lås/Lås upp flik"
 
-#: src/gnome-cmd-user-actions.cc:280
+#: src/gnome-cmd-user-actions.cc:282
 msgid "Show terminal"
 msgstr "Visa terminal"
 
-#: src/gnome-cmd-user-actions.cc:283
+#: src/gnome-cmd-user-actions.cc:285
 msgid "Display main menu"
 msgstr "Visa huvudmeny"
 
-#: src/gnome-cmd-user-actions.cc:284
+#: src/gnome-cmd-user-actions.cc:286
 msgid "Move cursor one step up"
 msgstr "Flytta markören ett steg upp"
 
-#: src/gnome-cmd-user-actions.cc:285
+#: src/gnome-cmd-user-actions.cc:287
 msgid "Move cursor one step down"
 msgstr "Flytta markören ett steg ned"
 
-#: src/gnome-cmd-user-actions.cc:745 src/gnome-cmd-user-actions.cc:884
-#: src/gnome-cmd-user-actions.cc:1160
+#: src/gnome-cmd-user-actions.cc:747 src/gnome-cmd-user-actions.cc:886
+#: src/gnome-cmd-user-actions.cc:1162 src/utils.cc:136
 msgid "No valid command given."
 msgstr "Inget giltigt kommando angivet."
 
-#: src/gnome-cmd-user-actions.cc:758 src/gnome-cmd-user-actions.cc:900
-#: src/gnome-cmd-user-actions.cc:1173 src/gnome-cmd-user-actions.cc:1212
-#: src/utils.cc:131
+#: src/gnome-cmd-user-actions.cc:760 src/gnome-cmd-user-actions.cc:902
+#: src/gnome-cmd-user-actions.cc:1175 src/gnome-cmd-user-actions.cc:1214
+#: src/utils.cc:143
 msgid "Unable to execute command."
 msgstr "Kunde inte köra kommando."
 
-#: src/gnome-cmd-user-actions.cc:823
+#: src/gnome-cmd-user-actions.cc:825
 #, c-format
 msgid "Create symbolic links of %i file in %s?"
 msgid_plural "Create symbolic links of %i files in %s?"
 msgstr[0] "Skapa symbolisk länk för %i fil i %s?"
 msgstr[1] "Skapa symboliska länkar för %i filer i %s?"
 
-#: src/gnome-cmd-user-actions.cc:828
+#: src/gnome-cmd-user-actions.cc:830
 msgid "Create"
 msgstr "Skapa"
 
-#: src/gnome-cmd-user-actions.cc:916
+#: src/gnome-cmd-user-actions.cc:918
 msgid "Warning"
 msgstr "Varning"
 
-#: src/gnome-cmd-user-actions.cc:916
+#: src/gnome-cmd-user-actions.cc:918
 msgid ""
 "The default send-to command only supports one selected file at a time. You "
 "can change the command in the program options."
@@ -4554,48 +4558,48 @@ msgstr ""
 "Standardkommandot för skicka-till stöder endast en vald fil åt gången. Du "
 "kan ändra kommandot i programalternativen."
 
-#: src/gnome-cmd-user-actions.cc:933 src/gnome-cmd-user-actions.cc:950
-#: src/gnome-cmd-user-actions.cc:996
+#: src/gnome-cmd-user-actions.cc:935 src/gnome-cmd-user-actions.cc:952
+#: src/gnome-cmd-user-actions.cc:998
 msgid "Operation not supported on remote file systems"
 msgstr "Operationen stöds ej i fjärranslutna filsystem"
 
-#: src/gnome-cmd-user-actions.cc:965
+#: src/gnome-cmd-user-actions.cc:967
 msgid "Too many selected files"
 msgstr "För många markerade filer"
 
-#: src/gnome-cmd-user-actions.cc:1245
+#: src/gnome-cmd-user-actions.cc:1247
 msgid "Unable to open terminal in root mode."
 msgstr "Kunde inte öppna terminal i root-läge."
 
-#: src/gnome-cmd-user-actions.cc:1250
+#: src/gnome-cmd-user-actions.cc:1252
 msgid "gksudo, xdg-su, gksu, gnomesu, kdesu or beesu is not found."
 msgstr "gksudo, xdg-su, gksu, gnomesu, kdesu eller beesu hittades inte."
 
-#: src/gnome-cmd-user-actions.cc:1269
+#: src/gnome-cmd-user-actions.cc:1271
 msgid "Unable to start GNOME Commander in root mode."
 msgstr "Kunde inte starta GNOME Commander i root-läge."
 
-#: src/gnome-cmd-user-actions.cc:1272
+#: src/gnome-cmd-user-actions.cc:1274
 msgid "gksudo, xdg-su, gksu, gnomesu, kdesu or beesu is not found"
 msgstr "gksudo, xdg-su, gksu, gnomesu, kdesu eller beesu hittades inte"
 
-#: src/gnome-cmd-user-actions.cc:1887
+#: src/gnome-cmd-user-actions.cc:1901
 msgid "Bookmarks"
 msgstr "Bokmärken"
 
-#: src/gnome-cmd-user-actions.cc:1974
+#: src/gnome-cmd-user-actions.cc:1988
 msgid "There was an error opening home page."
 msgstr "Ett fel uppstod vid öppnandet av hemsidan."
 
-#: src/gnome-cmd-user-actions.cc:1983
+#: src/gnome-cmd-user-actions.cc:1997
 msgid "There was an error reporting problem."
 msgstr "Ett fel uppstod vid rapportering av ett problem."
 
-#: src/gnome-cmd-user-actions.cc:2009
+#: src/gnome-cmd-user-actions.cc:2023
 msgid "A fast and powerful file manager for the GNOME desktop"
 msgstr "En snabb och kraftfull filhanterare för GNOME-skrivbordet"
 
-#: src/gnome-cmd-user-actions.cc:2013
+#: src/gnome-cmd-user-actions.cc:2027
 msgid ""
 "GNOME Commander is free software; you can redistribute it and/or modify it "
 "under the terms of the GNU General Public License as published by the Free "
@@ -4607,7 +4611,7 @@ msgstr ""
 "av Free Software Foundation; antingen version 2 av licensen, eller (om Ni så "
 "vill) någon senare version."
 
-#: src/gnome-cmd-user-actions.cc:2017
+#: src/gnome-cmd-user-actions.cc:2031
 msgid ""
 "GNOME Commander is distributed in the hope that it will be useful, but "
 "WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY "
@@ -4619,7 +4623,7 @@ msgstr ""
 "LÄMPLIGHET FÖR NÅGOT SPECIELLT ÄNDAMÅL.  Se GNU General Public License för "
 "ytterligare information."
 
-#: src/gnome-cmd-user-actions.cc:2021
+#: src/gnome-cmd-user-actions.cc:2035
 msgid ""
 "You should have received a copy of the GNU General Public License along with "
 "GNOME Commander; if not, write to the Free Software Foundation, Inc., 51 "
@@ -4629,7 +4633,7 @@ msgstr ""
 "webbläsaren. Om inte, skriv till Free Software Foundation, Inc., 51 Franklin "
 "Street, Fifth Floor, Boston, MA 02110-1301 USA."
 
-#: src/gnome-cmd-user-actions.cc:2038
+#: src/gnome-cmd-user-actions.cc:2052
 msgid "translator-credits"
 msgstr ""
 "Josef Andersson <josef.andersson@fripost.org>\n"
@@ -9079,41 +9083,50 @@ msgstr "Ingen"
 msgid "10-15ms"
 msgstr "10-15ms"
 
-#: src/utils.cc:482
+#: src/utils.cc:494
 #, c-format
 msgid "(%sbyte)"
 msgid_plural "(%sbytes)"
 msgstr[0] "(%sbyte)"
 msgstr[1] "(%sbyte)"
 
-#: src/utils.cc:485
+#: src/utils.cc:497
 #, c-format
 msgid "%sbyte"
 msgid_plural "%sbytes"
 msgstr[0] "%sbyte"
 msgstr[1] "%sbyte"
 
-#: src/utils.cc:674
+#: src/utils.cc:686
 msgid "Failed to change working directory to a temporary directory."
 msgstr "Kunde inte byta arbetskatalog till en temporär katalog."
 
-#: src/utils.cc:684
+#: src/utils.cc:696
 msgid "Failed to create a directory in which to store temporary files."
 msgstr "Kunde inte skapa en katalog för att spara temporära filer."
 
-#: src/utils.cc:812
+#: src/utils.cc:824
 #, c-format
 msgid "Creating directory %s… "
 msgstr "Skapar katalogen %s… "
 
-#: src/utils.cc:823
+#: src/utils.cc:835
 #, c-format
 msgid "Failed to create the directory %s: %s"
 msgstr "Kunde inte skapa katalogen %s: %s"
 
-#: src/utils.cc:927
+#: src/utils.cc:939
 msgid "There was an error displaying help."
 msgstr "Ett fel uppstod vid visande av hjälp."
+
+#~ msgid "S_hare:"
+#~ msgstr "Ut_delning:"
+
+#~ msgid "_User name:"
+#~ msgstr "_Användare:"
+
+#~ msgid "Anonymous FTP password:"
+#~ msgstr "Anonymt FTP-lösenord:"
 
 #~ msgid "Couldn’t read from the directory %s: %s"
 #~ msgstr "Kunde inte läsa från katalogen %s: %s"
