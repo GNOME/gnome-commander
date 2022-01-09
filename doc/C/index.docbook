@@ -6689,7 +6689,7 @@
         </row>
         <row valign="top">
             <entry><para><keycombo><keycap>SHIFT</keycap><keycap>DELETE</keycap></keycombo></para></entry>
-            <entry><para>Delete files permanently (do not move them to the trash can, even if this is the configured in the options)</para></entry>
+            <entry><para>Delete files permanently (do not move them to the trash can, even if this is configured in the options)</para></entry>
             <entry><para></para></entry>
         </row>
         <row valign="top">
