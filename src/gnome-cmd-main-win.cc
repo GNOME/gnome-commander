@@ -479,7 +479,7 @@ static void on_delete_clicked (GtkButton *button, GnomeCmdMainWin *mw)
 
 static void on_search_clicked (GtkButton *button, GnomeCmdMainWin *mw)
 {
-    edit_search (NULL);
+    file_search (NULL);
 }
 
 

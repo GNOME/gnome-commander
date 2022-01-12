@@ -213,8 +213,8 @@ static UserActionData user_actions_data[] = {
                                              {file_delete, "edit.delete", N_("Delete")},
                                              {edit_filter, "edit.filter", N_("Show user defined files")},
                                              {edit_cap_paste, "edit.paste", N_("Paste")},
-                                             {edit_quick_search, "edit.quick_search", N_("Quick search")},
-                                             {edit_search, "edit.search", N_("Search")},
+                                             {file_quick_search, "file.quick_search", N_("Quick search")},
+                                             {file_search, "file.search", N_("Search")},
                                              {file_advrename, "file.advrename", N_("Advanced rename tool")},
                                              {file_chmod, "file.chmod", N_("Change permissions")},
                                              {file_chown, "file.chown", N_("Change owner/group")},
@@ -771,6 +771,21 @@ void file_edit_new_doc (GtkMenuItem *menuitem, gpointer not_used)
 }
 
 
+void file_search (GtkMenuItem *menuitem, gpointer not_used)
+{
+    if (!main_win->file_search_dlg)
+        main_win->file_search_dlg = new GnomeCmdSearchDialog(gnome_cmd_data.search_defaults);
+
+    main_win->file_search_dlg->show_and_set_focus();
+}
+
+
+void file_quick_search (GtkMenuItem *menuitem, gpointer not_used)
+{
+    gnome_cmd_file_list_show_quicksearch (get_fl (ACTIVE), 0);
+}
+
+
 void file_chmod (GtkMenuItem *menuitem, gpointer not_used)
 {
     GList *files = get_fl (ACTIVE)->get_selected_files();
@@ -1063,21 +1078,6 @@ void edit_cap_copy (GtkMenuItem *menuitem, gpointer not_used)
 void edit_cap_paste (GtkMenuItem *menuitem, gpointer not_used)
 {
     gnome_cmd_file_selector_cap_paste (get_fs (ACTIVE));
-}
-
-
-void edit_search (GtkMenuItem *menuitem, gpointer not_used)
-{
-    if (!main_win->file_search_dlg)
-        main_win->file_search_dlg = new GnomeCmdSearchDialog(gnome_cmd_data.search_defaults);
-
-    main_win->file_search_dlg->show_and_set_focus();
-}
-
-
-void edit_quick_search (GtkMenuItem *menuitem, gpointer not_used)
-{
-    gnome_cmd_file_list_show_quicksearch (get_fl (ACTIVE), 0);
 }
 
 
