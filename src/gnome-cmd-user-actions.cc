@@ -92,7 +92,7 @@ static void gcmd_user_action_settings_class_init (GcmdUserActionSettingsClass *k
 
 GcmdUserActionSettings *gcmd_user_action_settings_new ()
 {
-    return (GcmdUserActionSettings *) g_object_new (USER_ACTION_SETTINGS, NULL);
+    return (GcmdUserActionSettings *) g_object_new (USER_ACTION_SETTINGS, nullptr);
 }
 
 static void gcmd_user_action_settings_init (GcmdUserActionSettings *gs)
@@ -103,13 +103,13 @@ static void gcmd_user_action_settings_init (GcmdUserActionSettings *gs)
     global_schema_source = GnomeCmdData::GetGlobalSchemaSource();
 
     global_schema = g_settings_schema_source_lookup (global_schema_source, GCMD_PREF_FILTER, FALSE);
-    gs->filter = g_settings_new_full (global_schema, NULL, NULL);
+    gs->filter = g_settings_new_full (global_schema, nullptr, nullptr);
 
     global_schema = g_settings_schema_source_lookup (global_schema_source, GCMD_PREF_GENERAL, FALSE);
-    gs->general = g_settings_new_full (global_schema, NULL, NULL);
+    gs->general = g_settings_new_full (global_schema, nullptr, nullptr);
 
     global_schema = g_settings_schema_source_lookup (global_schema_source, GCMD_PREF_PROGRAMS, FALSE);
-    gs->programs = g_settings_new_full (global_schema, NULL, NULL);
+    gs->programs = g_settings_new_full (global_schema, nullptr, nullptr);
 }
 
 /***********************************
@@ -125,7 +125,7 @@ GnomeCmdFileList *get_fl (const FileSelectorID fsID)
 {
     GnomeCmdFileSelector *fs = get_fs (fsID);
 
-    return fs ? fs->file_list() : NULL;
+    return fs ? fs->file_list() : nullptr;
 }
 
 // The file returned from this function is not to be unrefed
@@ -565,7 +565,7 @@ gboolean GnomeCmdUserActions::handle_key_event(GnomeCmdMainWin *mw, GnomeCmdFile
     DEBUG('u', "Key event:  %s (%#x)\n", key2str(*event).c_str(), event->keyval);
     DEBUG('u', "Handling key event by %s()\n", action_func[pos->second.func].c_str());
 
-    (*pos->second.func) (NULL, (gpointer) (pos->second.user_data.empty() ? NULL : pos->second.user_data.c_str()));
+    (*pos->second.func) (nullptr, (gpointer) (pos->second.user_data.empty() ? nullptr : pos->second.user_data.c_str()));
 
     return TRUE;
 }
@@ -726,7 +726,7 @@ void file_edit (GtkMenuItem *menuitem, gpointer not_used)
 {
     GdkModifierType mask;
 
-    gdk_window_get_pointer (NULL, NULL, NULL, &mask);
+    gdk_window_get_pointer (nullptr, nullptr, nullptr, &mask);
 
     if (mask & GDK_SHIFT_MASK)
         gnome_cmd_file_selector_show_new_textfile_dialog (get_fs (ACTIVE));
@@ -735,7 +735,7 @@ void file_edit (GtkMenuItem *menuitem, gpointer not_used)
 	    gchar       *command;
 
 	    command = g_strdup (gnome_cmd_data.options.editor);
-	    g_return_if_fail (command != NULL);
+	    g_return_if_fail (command != nullptr);
 
 	    string dir_path;
 	    string cmd;
@@ -749,14 +749,14 @@ void file_edit (GtkMenuItem *menuitem, gpointer not_used)
 	    }
 	    else
 	    {
-            GnomeCmdDir *dir = NULL;
+            GnomeCmdDir *dir = nullptr;
 	        gint     argc;
-	        gchar  **argv  = NULL;
-	        GError  *error = NULL;
+	        gchar  **argv  = nullptr;
+	        GError  *error = nullptr;
 	        DEBUG ('g', "Edit file: %s\n", cmd.c_str());
 
-	        g_shell_parse_argv (cmd.c_str(), &argc, &argv, NULL);
-	        if (!g_spawn_async (gnome_cmd_dir_is_local (dir) ? dir_path.c_str() : NULL, argv, NULL, G_SPAWN_SEARCH_PATH, NULL, NULL, NULL, &error))
+	        g_shell_parse_argv (cmd.c_str(), &argc, &argv, nullptr);
+	        if (!g_spawn_async (gnome_cmd_dir_is_local (dir) ? dir_path.c_str() : nullptr, argv, nullptr, G_SPAWN_SEARCH_PATH, nullptr, nullptr, nullptr, &error))
             gnome_cmd_error_message (_("Unable to execute command."), error);
 
 	        g_strfreev (argv);
@@ -827,7 +827,7 @@ void file_create_symlink (GtkMenuItem *menuitem, gpointer not_used)
                                                selected_files),
                                       selected_files, gnome_cmd_dir_get_display_path (inactive_fs->get_directory()));
 
-        gint choice = run_simple_dialog (*main_win, TRUE, GTK_MESSAGE_QUESTION, msg, _("Create Symbolic Link"), 1, _("Cancel"), _("Create"), NULL);
+        gint choice = run_simple_dialog (*main_win, TRUE, GTK_MESSAGE_QUESTION, msg, _("Create Symbolic Link"), 1, _("Cancel"), _("Create"), nullptr);
 
         g_free (msg);
 
@@ -1124,7 +1124,7 @@ void edit_copy_fnames (GtkMenuItem *menuitem, gpointer fileList)
 /************** Command Menu **************/
 void command_execute (GtkMenuItem *menuitem, gpointer command)
 {
-    g_return_if_fail (command != NULL);
+    g_return_if_fail (command != nullptr);
 
     DEBUG ('g', "invoking: %s\n", command);
 
@@ -1132,7 +1132,7 @@ void command_execute (GtkMenuItem *menuitem, gpointer command)
     string quoted_dir_path;
     string cmd;
 
-    GnomeCmdDir *dir = NULL;
+    GnomeCmdDir *dir = nullptr;
 
     GnomeCmdFileList *fl = get_fl (ACTIVE);
     GList *sfl = fl->get_selected_files();
@@ -1147,7 +1147,7 @@ void command_execute (GtkMenuItem *menuitem, gpointer command)
     for (; i && GNOME_CMD_FILE (i->data)->get_parent_dir()==dir; i=i->next);
 
     if (i)
-        dir = NULL;
+        dir = nullptr;
 
     if (dir)
     {
@@ -1166,12 +1166,12 @@ void command_execute (GtkMenuItem *menuitem, gpointer command)
     {
 	gint argc;
 	gchar **argv;
-	GError *error = NULL;
+	GError *error = nullptr;
 	
 	DEBUG ('g', "Running: %s\n", cmd.c_str());
 
-	g_shell_parse_argv (cmd.c_str(), &argc, &argv, NULL);
-	if (!g_spawn_async (gnome_cmd_dir_is_local (dir) ? dir_path.c_str() : NULL, argv, NULL, G_SPAWN_SEARCH_PATH, NULL, NULL, NULL, &error))
+	g_shell_parse_argv (cmd.c_str(), &argc, &argv, nullptr);
+	if (!g_spawn_async (gnome_cmd_dir_is_local (dir) ? dir_path.c_str() : nullptr, argv, nullptr, G_SPAWN_SEARCH_PATH, nullptr, nullptr, nullptr, &error))
 	    gnome_cmd_error_message (_("Unable to execute command."), error);
 
 	g_strfreev (argv);
@@ -1184,12 +1184,12 @@ void command_open_terminal__internal (GtkMenuItem *menuitem, gpointer not_used) 
 {
     GdkModifierType mask;
 
-    gdk_window_get_pointer (NULL, NULL, NULL, &mask);
+    gdk_window_get_pointer (nullptr, nullptr, nullptr, &mask);
 
     if (mask & GDK_SHIFT_MASK)
-        command_open_terminal_as_root (menuitem, NULL);
+        command_open_terminal_as_root (menuitem, nullptr);
     else
-        command_open_terminal (menuitem, NULL);
+        command_open_terminal (menuitem, nullptr);
 }
 
 /** 
@@ -1202,15 +1202,15 @@ void command_open_terminal (GtkMenuItem *menuitem, gpointer not_used)
     gchar **argv;
     gchar *command;
     gchar *dpath = GNOME_CMD_FILE (get_fs (ACTIVE)->get_directory())->get_real_path();
-    GError *error = NULL;
+    GError *error = nullptr;
 
     command = g_strdup (gnome_cmd_data.options.termopen);
     g_return_if_fail (command[0] != '\0');
 
     DEBUG ('g', "running: %s\n", command);
 
-    g_shell_parse_argv (command, &argc, &argv, NULL);
-    if (!g_spawn_async (dpath, argv, NULL, G_SPAWN_SEARCH_PATH, NULL, NULL, NULL, &error))
+    g_shell_parse_argv (command, &argc, &argv, nullptr);
+    if (!g_spawn_async (dpath, argv, nullptr, G_SPAWN_SEARCH_PATH, nullptr, nullptr, nullptr, &error))
         gnome_cmd_error_message (_("Unable to execute command."), error);
 
     g_strfreev (argv);
@@ -1232,7 +1232,7 @@ void command_open_terminal_as_root (GtkMenuItem *menuitem, gpointer not_used)
 
     command = g_strdup (gnome_cmd_data.options.termopen);
     // Parse the termopen string to get the number of arguments in argc
-    g_shell_parse_argv (command, &argc, &argv, NULL);
+    g_shell_parse_argv (command, &argc, &argv, nullptr);
     g_free (argv);
 
     argv = g_new0 (char *, argc+1);
@@ -1241,15 +1241,15 @@ void command_open_terminal_as_root (GtkMenuItem *menuitem, gpointer not_used)
     if (gnome_cmd_prepend_su_to_vector (argc, argv))
     {
         gchar *dpath = GNOME_CMD_FILE (get_fs (ACTIVE)->get_directory())->get_real_path();
-        GError *error = NULL;
+        GError *error = nullptr;
 
-        if (!g_spawn_async (dpath, argv, NULL, G_SPAWN_STDOUT_TO_DEV_NULL, NULL, NULL, NULL, &error))
+        if (!g_spawn_async (dpath, argv, nullptr, G_SPAWN_STDOUT_TO_DEV_NULL, nullptr, nullptr, nullptr, &error))
             gnome_cmd_error_message (_("Unable to open terminal in root mode."), error);
 
         g_free (dpath);
     }
     else
-        gnome_cmd_show_message (NULL, _("gksudo, xdg-su, gksu, gnomesu, kdesu or beesu is not found."));
+        gnome_cmd_show_message (nullptr, _("gksudo, xdg-su, gksu, gnomesu, kdesu or beesu is not found."));
 
     g_free (argv);
     g_free (command);
@@ -1265,13 +1265,13 @@ void command_root_mode (GtkMenuItem *menuitem, gpointer not_used)
 
     if (gnome_cmd_prepend_su_to_vector (argc, argv))
     {
-        GError *error = NULL;
+        GError *error = nullptr;
 
-        if (!g_spawn_async (NULL, argv, NULL, G_SPAWN_STDOUT_TO_DEV_NULL, NULL, NULL, NULL, &error))
+        if (!g_spawn_async (nullptr, argv, nullptr, G_SPAWN_STDOUT_TO_DEV_NULL, nullptr, nullptr, nullptr, &error))
             gnome_cmd_error_message (_("Unable to start GNOME Commander in root mode."), error);
     }
     else
-        gnome_cmd_show_message (NULL, _("gksudo, xdg-su, gksu, gnomesu, kdesu or beesu is not found"));
+        gnome_cmd_show_message (nullptr, _("gksudo, xdg-su, gksu, gnomesu, kdesu or beesu is not found"));
 
     g_strfreev (argv);
 }
@@ -1539,7 +1539,7 @@ void view_step_up (GtkMenuItem *menuitem, gpointer not_used)
     GnomeCmdFileSelector *fs = get_fs (ACTIVE);
     GnomeCmdFileList *fl = fs->file_list();
 
-    g_signal_emit_by_name (fl, "scroll-vertical", GTK_SCROLL_STEP_BACKWARD, 0.0, NULL);
+    g_signal_emit_by_name (fl, "scroll-vertical", GTK_SCROLL_STEP_BACKWARD, 0.0, nullptr);
 }
 
 void view_step_down (GtkMenuItem *menuitem, gpointer not_used)
@@ -1547,7 +1547,7 @@ void view_step_down (GtkMenuItem *menuitem, gpointer not_used)
     GnomeCmdFileSelector *fs = get_fs (ACTIVE);
     GnomeCmdFileList *fl = fs->file_list();
 
-    g_signal_emit_by_name (fl, "scroll-vertical", GTK_SCROLL_STEP_FORWARD, 0.0, NULL);
+    g_signal_emit_by_name (fl, "scroll-vertical", GTK_SCROLL_STEP_FORWARD, 0.0, nullptr);
 }
 
 void view_up (GtkMenuItem *menuitem, gpointer not_used)
@@ -1982,18 +1982,18 @@ void help_keyboard (GtkMenuItem *menuitem, gpointer not_used)
 
 void help_web (GtkMenuItem *menuitem, gpointer not_used)
 {
-    GError *error = NULL;
+    GError *error = nullptr;
 
-    if (!gtk_show_uri (NULL, "https://gcmd.github.io/", GDK_CURRENT_TIME, &error))
+    if (!gtk_show_uri (nullptr, "https://gcmd.github.io/", GDK_CURRENT_TIME, &error))
         gnome_cmd_error_message (_("There was an error opening home page."), error);
 }
 
 
 void help_problem (GtkMenuItem *menuitem, gpointer not_used)
 {
-    GError *error = NULL;
+    GError *error = nullptr;
 
-    if (!gtk_show_uri (NULL, "https://gitlab.gnome.org/GNOME/gnome-commander/issues", GDK_CURRENT_TIME, &error))
+    if (!gtk_show_uri (nullptr, "https://gitlab.gnome.org/GNOME/gnome-commander/issues", GDK_CURRENT_TIME, &error))
         gnome_cmd_error_message (_("There was an error reporting problem."), error);
 }
 
@@ -2005,7 +2005,7 @@ void help_about (GtkMenuItem *menuitem, gpointer not_used)
         "Piotr Eljasiak <epiotr@use.pl>",
         "Assaf Gordon <agordon88@gmail.com>",
         "Uwe Scholz <u.scholz83@gmx.de>",
-        NULL
+        nullptr
     };
 
     static const gchar *documenters[] = {
@@ -2013,7 +2013,7 @@ void help_about (GtkMenuItem *menuitem, gpointer not_used)
         "Piotr Eljasiak <epiotr@use.pl>",
         "Laurent Coudeur <laurentc@eircom.net>",
         "Uwe Scholz <u.scholz83@gmx.de>",
-        NULL
+        nullptr
     };
 
     static const gchar copyright[] = "Copyright \xc2\xa9 2001-2006 Marcus Bjurman\n"
@@ -2037,7 +2037,7 @@ void help_about (GtkMenuItem *menuitem, gpointer not_used)
            "51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.")
     };
 
-    gchar *license_trans = g_strjoin ("\n\n", _(license[0]), _(license[1]), _(license[2]), NULL);
+    gchar *license_trans = g_strjoin ("\n\n", _(license[0]), _(license[1]), _(license[2]), nullptr);
 
     gtk_show_about_dialog (*main_win,
                            "name", "GNOME Commander",
@@ -2052,7 +2052,7 @@ void help_about (GtkMenuItem *menuitem, gpointer not_used)
                            "translator-credits", _("translator-credits"),
                            "website", "https://gcmd.github.io",
                            "website-label", "GNOME Commander Website",
-                           NULL);
+                           nullptr);
 
     g_free (license_trans);
 }
