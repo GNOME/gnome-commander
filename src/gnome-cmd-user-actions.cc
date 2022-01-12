@@ -732,36 +732,36 @@ void file_edit (GtkMenuItem *menuitem, gpointer not_used)
         gnome_cmd_file_selector_show_new_textfile_dialog (get_fs (ACTIVE));
     else
     {
-	gchar       *command;
+	    gchar       *command;
 
-	command = g_strdup (gnome_cmd_data.options.editor);
-	g_return_if_fail (command != NULL);
+	    command = g_strdup (gnome_cmd_data.options.editor);
+	    g_return_if_fail (command != NULL);
 
-	string dir_path;
-	string cmd;
-	
-	cmd.reserve(2000);
-	if (parse_command(&cmd, (const gchar*) command) == 0)
-	{
-	    DEBUG ('g', "Edit file command is not valid.\n");
-	    gnome_cmd_show_message (*main_win, _("No valid command given."));
-	    return;
-	}
-	else
-	{
-        GnomeCmdDir *dir = NULL;
-	    gint     argc;
-	    gchar  **argv  = NULL;
-	    GError  *error = NULL;
-	    DEBUG ('g', "Edit file: %s\n", cmd.c_str());
-	    
-	    g_shell_parse_argv (cmd.c_str(), &argc, &argv, NULL);
-	    if (!g_spawn_async (gnome_cmd_dir_is_local (dir) ? dir_path.c_str() : NULL, argv, NULL, G_SPAWN_SEARCH_PATH, NULL, NULL, NULL, &error))
-		gnome_cmd_error_message (_("Unable to execute command."), error);
-	    
-	    g_strfreev (argv);
-	    g_free (command);
-	}
+	    string dir_path;
+	    string cmd;
+
+	    cmd.reserve(2000);
+	    if (parse_command(&cmd, (const gchar*) command) == 0)
+	    {
+	        DEBUG ('g', "Edit file command is not valid.\n");
+	        gnome_cmd_show_message (*main_win, _("No valid command given."));
+	        return;
+	    }
+	    else
+	    {
+            GnomeCmdDir *dir = NULL;
+	        gint     argc;
+	        gchar  **argv  = NULL;
+	        GError  *error = NULL;
+	        DEBUG ('g', "Edit file: %s\n", cmd.c_str());
+
+	        g_shell_parse_argv (cmd.c_str(), &argc, &argv, NULL);
+	        if (!g_spawn_async (gnome_cmd_dir_is_local (dir) ? dir_path.c_str() : NULL, argv, NULL, G_SPAWN_SEARCH_PATH, NULL, NULL, NULL, &error))
+            gnome_cmd_error_message (_("Unable to execute command."), error);
+
+	        g_strfreev (argv);
+	        g_free (command);
+	    }
     }
 }
 
