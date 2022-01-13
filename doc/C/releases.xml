@@ -98,6 +98,9 @@
                             <para>Optional usage of the trash can instead of permanent file deletion (see issue #2)</para>
                         </listitem>
                         <listitem>
+                            <para>Removed internal file search dialog, instead use external command for file search</para>
+                        </listitem>
+                        <listitem>
                             <para>Menu entry for (un)selecting only files</para>
                         </listitem>
                         <listitem>
