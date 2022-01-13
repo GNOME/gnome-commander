@@ -714,6 +714,13 @@
           This string defines the command for starting the diff tool.
       </description>
     </key>
+    <key name="search-cmd" type="s">
+      <default>''</default>
+      <summary>Search command</summary>
+      <description>
+          This string defines the command for starting an external file search tool.
+      </description>
+    </key>
     <key name="use-gcmd-block" type="b">
       <default>true</default>
       <summary>Leave terminal open</summary>
