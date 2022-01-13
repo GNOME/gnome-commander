@@ -773,10 +773,25 @@ void file_edit_new_doc (GtkMenuItem *menuitem, gpointer not_used)
 
 void file_search (GtkMenuItem *menuitem, gpointer not_used)
 {
-    if (!main_win->file_search_dlg)
-        main_win->file_search_dlg = new GnomeCmdSearchDialog(gnome_cmd_data.search_defaults);
+	    gchar       *command;
 
-    main_win->file_search_dlg->show_and_set_focus();
+	    command = g_strdup (gnome_cmd_data.options.search);
+	    if (!command || strlen(command) == 0)
+	    {
+	        DEBUG ('g', "Search command is empty.\n");
+	        gnome_cmd_show_message (*main_win, _("No search command given."), _("You can set a command for a search tool in the program options."));
+	        return;
+	    }
+
+        gint     argc;
+        gchar  **argv  = nullptr;
+        GError  *error = nullptr;
+        DEBUG ('g', "Executing: %s\n", command);
+        g_shell_parse_argv (command, &argc, &argv, nullptr);
+        if (!g_spawn_async (nullptr, argv, nullptr, G_SPAWN_SEARCH_PATH, nullptr, nullptr, nullptr, &error))
+           gnome_cmd_error_message (_("Unable to execute command."), error);
+        g_strfreev (argv);
+        g_free (command);
 }
 
 
