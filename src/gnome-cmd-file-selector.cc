@@ -1557,6 +1557,8 @@ GtkWidget *GnomeCmdFileSelector::new_tab(GnomeCmdDir *dir, GnomeCmdFileList::Col
 
 void GnomeCmdFileSelector::update_tab_label(GnomeCmdFileList *fl)
 {
+    g_return_if_fail(fl->cwd != nullptr);
+
     const gchar *name = GNOME_CMD_FILE (fl->cwd)->get_name();
 
     switch (gnome_cmd_data.options.tab_lock_indicator)
