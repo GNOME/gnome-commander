@@ -793,9 +793,6 @@ static void destroy (GtkObject *object)
     if (main_win && main_win->advrename_dlg)
         gtk_widget_destroy (*main_win->advrename_dlg);
 
-    if (main_win && main_win->file_search_dlg)
-        gtk_widget_destroy (*main_win->file_search_dlg);
-
     gtk_main_quit ();
 }
 
@@ -838,7 +835,6 @@ static void init (GnomeCmdMainWin *mw)
     main_win = GNOME_CMD_MAIN_WIN (mw);
 
     mw->advrename_dlg = NULL;
-    mw->file_search_dlg = NULL;
     mw->priv = g_new0 (GnomeCmdMainWin::Private, 1);
     mw->priv->current_fs = LEFT;
     mw->priv->accel_group = gtk_accel_group_new ();
