@@ -130,7 +130,6 @@ GcmdSettings *gcmd_settings_new (void);
 #define GCMD_SETTINGS_DIRECTORY_HISTORY               "directory-history"
 #define GCMD_SETTINGS_SEARCH_WIN_WIDTH                "search-win-width"
 #define GCMD_SETTINGS_SEARCH_WIN_HEIGHT               "search-win-height"
-#define GCMD_SETTINGS_SEARCH_WIN_IS_TRANSIENT         "search-win-is-transient"
 #define GCMD_SETTINGS_SEARCH_PATTERN_HISTORY          "search-pattern-history"
 #define GCMD_SETTINGS_SEARCH_TEXT_HISTORY             "search-text-history"
 #define GCMD_SETTINGS_SEARCH_PROFILES                 "search-profiles"
@@ -332,7 +331,6 @@ struct GnomeCmdData
         gboolean                     save_dir_history_on_exit;
         gboolean                     save_cmdline_history_on_exit;
         gboolean                     save_search_history_on_exit;
-        gboolean                     search_window_is_transient {true};
         gchar                       *symlink_prefix;
         gint                         main_win_pos[2];
         gboolean                     deleteToTrash;

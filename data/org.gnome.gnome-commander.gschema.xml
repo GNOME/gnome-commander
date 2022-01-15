@@ -535,13 +535,6 @@
           This option defines the height of the search window.
       </description>
     </key>
-    <key name="search-win-is-transient" type="b">
-      <default>true</default>
-      <summary>Search window is transient</summary>
-      <description>
-          Defines if the search window is transient or if it can be minimized and moved behind the main window.
-      </description>
-    </key>
     <key name="search-text-history" type="as">
       <default>[]</default>
       <summary>Search text history</summary>
