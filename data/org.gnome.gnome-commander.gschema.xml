@@ -416,13 +416,6 @@
           Defines if the history of commands in the commandline is saved on exit.
       </description>
     </key>
-    <key name="save-search-history-on-exit" type="b">
-      <default>true</default>
-      <summary>Save search history on exit</summary>
-      <description>
-          Defines if the history of search patterns is saved on exit.
-      </description>
-    </key>
     <key name="always-show-tabs" type="b">
       <default>false</default>
       <summary>Always show tab bar</summary>
