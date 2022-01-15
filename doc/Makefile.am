@@ -27,7 +27,6 @@ HELP_MEDIA = \
 	figures/gnome-commander_dialog_keyboard_shortcuts.png   \
 	figures/gnome-commander_dialog_remote_connections.png   \
 	figures/gnome-commander_dialog_remote_server.png        \
-	figures/gnome-commander_dialog_search.png               \
 	figures/gnome-commander_options_confirmation.png        \
 	figures/gnome-commander_options_devices.png             \
 	figures/gnome-commander_options_filters.png             \
