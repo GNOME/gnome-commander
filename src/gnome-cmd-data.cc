@@ -2054,7 +2054,7 @@ void GnomeCmdData::load_keybindings()
 
 inline void remove_gvolume (GVolume *gVolume)
 {
-    auto identifier = g_volume_get_identifier(gVolume, G_VOLUME_IDENTIFIER_KIND_UNIX_DEVICE);
+    auto uuid = g_volume_get_identifier(gVolume, G_VOLUME_IDENTIFIER_KIND_UUID);
 
     for (GList *i = gnome_cmd_con_list_get_all_dev (gnome_cmd_data.priv->con_list); i; i = i->next)
     {
@@ -2063,7 +2063,7 @@ inline void remove_gvolume (GVolume *gVolume)
         {
             gchar *device_fn = (gchar *) gnome_cmd_con_device_get_device_fn (device);
 
-            if ((g_strcmp0(device_fn, identifier)==0))
+            if ((g_strcmp0(device_fn, uuid)==0))
             {
                 DEBUG('m',"Remove Volume: %s\n", device_fn);
                 gnome_cmd_data.priv->con_list->remove(device);
@@ -2072,7 +2072,7 @@ inline void remove_gvolume (GVolume *gVolume)
         }
     }
 
-    g_free(identifier);
+    g_free(uuid);
 }
 
 
