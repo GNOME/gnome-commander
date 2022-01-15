@@ -662,7 +662,7 @@ struct GnomeCmdData
     void save_connections();
     void save_cmdline_history();
     void save_directory_history();
-    void save_search_history();
+    void save_search_pattern_history();
     void save_intviewer_defaults();
     void save_devices();
     void save_fav_apps();

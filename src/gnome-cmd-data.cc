@@ -2570,7 +2570,7 @@ void GnomeCmdData::save_directory_history()
 }
 
 
-void GnomeCmdData::save_search_history()
+void GnomeCmdData::save_search_pattern_history()
 {
     set_gsettings_string_array_from_glist(
         options.gcmd_settings->general,
@@ -3627,7 +3627,7 @@ void GnomeCmdData::save()
     save_fav_apps                   ();
     save_cmdline_history            ();
     save_directory_history          ();
-    save_search_history             ();
+    save_search_pattern_history     ();
     save_search_profiles            ();
     save_connections                ();
     save_bookmarks                  ();
