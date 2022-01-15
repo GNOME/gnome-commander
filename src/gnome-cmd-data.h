@@ -127,8 +127,6 @@ GcmdSettings *gcmd_settings_new (void);
 #define GCMD_SETTINGS_FAV_APPS                        "favorite-apps"
 #define GCMD_SETTINGS_FAV_APPS_FORMAT_STRING          "(ssssubbb)"
 #define GCMD_SETTINGS_DIRECTORY_HISTORY               "directory-history"
-#define GCMD_SETTINGS_SEARCH_WIN_WIDTH                "search-win-width"
-#define GCMD_SETTINGS_SEARCH_WIN_HEIGHT               "search-win-height"
 #define GCMD_SETTINGS_SEARCH_PATTERN_HISTORY          "search-pattern-history"
 #define GCMD_SETTINGS_SEARCH_TEXT_HISTORY             "search-text-history"
 #define GCMD_SETTINGS_SEARCH_PROFILES                 "search-profiles"
@@ -577,8 +575,6 @@ struct GnomeCmdData
 
     struct SearchConfig
     {
-        gint width, height;
-
         SearchProfile default_profile;
 
         History name_patterns;
@@ -587,8 +583,6 @@ struct GnomeCmdData
         std::vector<SearchProfile> &profiles;
 
         explicit SearchConfig(std::vector<SearchProfile> &searchProfiles):
-            width(600),
-            height(400),
             name_patterns(SEARCH_HISTORY_SIZE),
             content_patterns(SEARCH_HISTORY_SIZE),
             profiles(searchProfiles)
