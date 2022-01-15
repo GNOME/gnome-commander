@@ -202,6 +202,7 @@ GcmdSettings *gcmd_settings_new (void);
 #define GCMD_SETTINGS_VIEWER_CMD                      "viewer-cmd"
 #define GCMD_SETTINGS_EDITOR_CMD                      "editor-cmd"
 #define GCMD_SETTINGS_DIFFER_CMD                      "differ-cmd"
+#define GCMD_SETTINGS_SEARCH_CMD                      "search-cmd"
 #define GCMD_SETTINGS_SENDTO_CMD                      "sendto-cmd"
 #define GCMD_SETTINGS_TERMINAL_CMD                    "terminal-cmd"
 #define GCMD_SETTINGS_TERMINAL_EXEC_CMD               "terminal-exec-cmd"
@@ -369,6 +370,7 @@ struct GnomeCmdData
         gboolean                     use_internal_viewer;
         gchar                       *editor;
         gchar                       *differ;
+        gchar                       *search;
         gchar                       *sendto;
         gchar                       *termopen;
         gchar                       *termexec;
@@ -424,6 +426,7 @@ struct GnomeCmdData
                    use_internal_viewer(TRUE),
                    editor(nullptr),
                    differ(nullptr),
+                   search(nullptr),
                    sendto(nullptr),
                    termopen(nullptr),
                    termexec(nullptr),
@@ -452,6 +455,7 @@ struct GnomeCmdData
             g_free (viewer);
             g_free (editor);
             g_free (differ);
+            g_free (search);
             g_free (sendto);
             g_free (termopen);
             g_free (termexec);
@@ -512,6 +516,12 @@ struct GnomeCmdData
         {
             g_free (differ);
             differ = g_strdup (command);
+        }
+
+        void set_search(const gchar *command)
+        {
+            g_free (search);
+            search = g_strdup (command);
         }
 
         void set_sendto(const gchar *command)

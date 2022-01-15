@@ -884,6 +884,14 @@ static void on_differ_cmd_changed()
     gnome_cmd_data.options.differ = differ_cmd;
 }
 
+static void on_search_cmd_changed()
+{
+    gchar *search_cmd;
+    g_free(gnome_cmd_data.options.search);
+    search_cmd = g_settings_get_string (gnome_cmd_data.options.gcmd_settings->programs, GCMD_SETTINGS_SEARCH_CMD);
+    gnome_cmd_data.options.search = search_cmd;
+}
+
 static void on_sendto_cmd_changed()
 {
     gchar *sendto_cmd;
@@ -1322,6 +1330,11 @@ static void gcmd_connect_gsettings_signals(GcmdSettings *gs)
                       nullptr);
 
     g_signal_connect (gs->programs,
+                      "changed::search-cmd",
+                      G_CALLBACK (on_search_cmd_changed),
+                      nullptr);
+
+    g_signal_connect (gs->programs,
                       "changed::sendto-cmd",
                       G_CALLBACK (on_sendto_cmd_changed),
                       nullptr);
@@ -1432,6 +1445,7 @@ GnomeCmdData::Options::Options(const Options &cfg)
     use_internal_viewer = cfg.use_internal_viewer;
     editor = g_strdup (cfg.editor);
     differ = g_strdup (cfg.differ);
+    search = g_strdup (cfg.search);
     sendto = g_strdup (cfg.sendto);
     termopen = g_strdup (cfg.termopen);
     termexec = g_strdup (cfg.termexec);
@@ -1497,6 +1511,7 @@ GnomeCmdData::Options &GnomeCmdData::Options::operator = (const Options &cfg)
         use_internal_viewer = cfg.use_internal_viewer;
         editor = g_strdup (cfg.editor);
         differ = g_strdup (cfg.differ);
+        search = g_strdup (cfg.search);
         sendto = g_strdup (cfg.sendto);
         termopen = g_strdup (cfg.termopen);
         termexec = g_strdup (cfg.termexec);
@@ -3213,6 +3228,7 @@ void GnomeCmdData::load()
     options.viewer = g_settings_get_string(options.gcmd_settings->programs, GCMD_SETTINGS_VIEWER_CMD);
     options.editor = g_settings_get_string(options.gcmd_settings->programs, GCMD_SETTINGS_EDITOR_CMD);
     options.differ = g_settings_get_string(options.gcmd_settings->programs, GCMD_SETTINGS_DIFFER_CMD);
+    options.search = g_settings_get_string(options.gcmd_settings->programs, GCMD_SETTINGS_SEARCH_CMD);
     options.sendto = g_settings_get_string(options.gcmd_settings->programs, GCMD_SETTINGS_SENDTO_CMD);
     options.termopen = g_settings_get_string(options.gcmd_settings->programs, GCMD_SETTINGS_TERMINAL_CMD);
     options.termexec = g_settings_get_string(options.gcmd_settings->programs, GCMD_SETTINGS_TERMINAL_EXEC_CMD);
@@ -3594,6 +3610,7 @@ void GnomeCmdData::save()
     set_gsettings_when_changed      (options.gcmd_settings->programs, GCMD_SETTINGS_VIEWER_CMD, options.viewer);
     set_gsettings_when_changed      (options.gcmd_settings->programs, GCMD_SETTINGS_EDITOR_CMD, options.editor);
     set_gsettings_when_changed      (options.gcmd_settings->programs, GCMD_SETTINGS_DIFFER_CMD, options.differ);
+    set_gsettings_when_changed      (options.gcmd_settings->programs, GCMD_SETTINGS_SEARCH_CMD, options.search);
     set_gsettings_when_changed      (options.gcmd_settings->programs, GCMD_SETTINGS_SENDTO_CMD, options.sendto);
     set_gsettings_when_changed      (options.gcmd_settings->programs, GCMD_SETTINGS_TERMINAL_CMD, options.termopen);
     set_gsettings_when_changed      (options.gcmd_settings->programs, GCMD_SETTINGS_TERMINAL_EXEC_CMD, options.termexec);
