@@ -2,7 +2,7 @@
 .\" First parameter, NAME, should be all caps
 .\" Second parameter, SECTION, should be 1-8, maybe w/ subsection
 .\" other parameters are allowed: see man(7), man(1)
-.TH GNOME-COMMANDER 1 "Mar 17 2014"
+.TH GNOME-COMMANDER 1 "Jan 15 2021"
 .\" Please adjust this date whenever revising the manpage.
 .\"
 .\" Some roff macros, for reference:
@@ -98,18 +98,10 @@ Starts
 .B GNOME Commander
 with debugging of directory listings, internal viewer
 and directory monitoring facilities.
-.SH FILES
+.SH FOLDERS
 .TP
-.B ~/.gnome-commander/gnome-commander.xml
-.TP
-.B ~/.gnome-commander/devices
-List of user defined devices (see "Devices" tab in the "Options" dialog).
-.TP
-.B ~/.gnome-commander/fav-apps
-List of user defined applications (see "Programs" tab in the "Options" dialog).
-.TP
-.B ~/.gnome-commander/plugins
-User specific plugins.
+.B ~/.config/gnome-commander/scripts
+User specific scripts, used in the file popup menu.
 .TP
 .B /usr/lib/gnome-commander/plugins
 System-wide plugins.
@@ -127,10 +119,9 @@ Gordon added the internal viewer code and other features. Piotr Eljasiak
 was the project manager from 2006 until 2012. Since 2013 till now, Uwe
 Scholz <u.scholz83@gmx.de> is the current project manager.
 .br
-Translations and other contributions where made by numerous people. See the
-.B
-AUTHORS
-file in the source tarball for the detailed list.
+Translations and other contributions where made by numerous people. See
+.br
+https://gitlab.gnome.org/GNOME/gnome-commander/-/graphs/master
 
 The original manual page was written by Michael Vogt <mvo@debian.org>,
 for the Debian GNU/Linux system. Current manual page is maintained
