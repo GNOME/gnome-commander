@@ -144,28 +144,28 @@ inline void update_markup (GnomeCmdDirIndicator *indicator, gint i)
     if (!indicator->priv->slashCharPosition)
         return;
 
-    gchar *s, *m;
+    gchar *labelText, *markupText;
 
-    s = g_strdup (gtk_label_get_text (GTK_LABEL (indicator->priv->label)));
+    labelText = g_strdup (gtk_label_get_text (GTK_LABEL (indicator->priv->label)));
 
     if (i >= 0)
     {
-        gchar *t = g_strdup (&s[indicator->priv->slashCharPosition[i]]);
-        s[indicator->priv->slashCharPosition[i]] = '\0';
+        gchar *t = g_strdup (&labelText[indicator->priv->slashCharPosition[i]]);
+        labelText[indicator->priv->slashCharPosition[i]] = '\0';
 
-        gchar *mt = get_mono_text (t);
-        gchar *ms = get_bold_mono_text (s);
-        m = g_strconcat (ms, mt, nullptr);
+        gchar *monoText = get_mono_text (t);
+        gchar *boldMonoText = get_bold_mono_text (labelText);
+        markupText = g_strconcat (boldMonoText, monoText, nullptr);
         g_free (t);
-        g_free (mt);
-        g_free (ms);
+        g_free (monoText);
+        g_free (boldMonoText);
     }
     else
-        m = get_mono_text (s);
+        markupText = get_mono_text (labelText);
 
-    gtk_label_set_markup (GTK_LABEL (indicator->priv->label), m);
-    g_free (s);
-    g_free (m);
+    gtk_label_set_markup (GTK_LABEL (indicator->priv->label), markupText);
+    g_free (labelText);
+    g_free (markupText);
 }
 
 
