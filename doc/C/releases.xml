@@ -101,7 +101,10 @@
                             <para>Removed internal file search dialog, instead use external command for file search</para>
                         </listitem>
                         <listitem>
-                            <para>Menu entry for (un)selecting only files</para>
+                            <para>Name of connected remote server is shown in the directory indicator (see issue #71)</para>
+                        </listitem>
+                        <listitem>
+                            <para>New menu entry for (un)selecting only files</para>
                         </listitem>
                         <listitem>
                             <para>New or updated translations: ...</para>

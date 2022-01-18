@@ -6,7 +6,8 @@ New features:
  * Selectable default action when drag-n-drop files with the mouse
  * Optional usage of the trash can instead of permanent file deletion (see issue #2)
  * Removed internal file search dialog, instead use external command for file search
- * Menu entry for (un)selecting only files
+ * Name of connected remote server is shown in the directory indicator (see issue #71)
+ * New menu entry for (un)selecting only files
 
 Bug fixes:
  * Fixed issue #3  (Mounted devices pluged when Commander is running are not noticed)

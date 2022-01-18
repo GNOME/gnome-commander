@@ -215,13 +215,7 @@ inline void GnomeCmdFileSelector::update_direntry()
     if (!dir)
         return;
 
-    gchar *tmp = gnome_cmd_dir_get_display_path (dir);
-
-    g_return_if_fail (tmp != nullptr);
-
-    gnome_cmd_dir_indicator_set_dir (GNOME_CMD_DIR_INDICATOR (dir_indicator), tmp);
-
-    g_free (tmp);
+    gnome_cmd_dir_indicator_set_dir (GNOME_CMD_DIR_INDICATOR (dir_indicator), dir);
 }
 
 

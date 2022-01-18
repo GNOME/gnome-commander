@@ -50,7 +50,7 @@ GtkType gnome_cmd_dir_indicator_get_type ();
 
 GtkWidget *gnome_cmd_dir_indicator_new (GnomeCmdFileSelector *fs);
 
-void gnome_cmd_dir_indicator_set_dir (GnomeCmdDirIndicator *indicator, gchar *path);
+void gnome_cmd_dir_indicator_set_dir (GnomeCmdDirIndicator *indicator, GnomeCmdDir *dir);
 
 void gnome_cmd_dir_indicator_set_active (GnomeCmdDirIndicator *indicator, gboolean value);
 

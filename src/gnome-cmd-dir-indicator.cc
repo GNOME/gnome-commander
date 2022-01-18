@@ -81,6 +81,106 @@ static void class_init (GnomeCmdDirIndicatorClass *klass)
 }
 
 
+static void set_clipboard_from_indicator(GnomeCmdDirIndicator *indicator, const gchar *labelText, GdkEventButton *event)
+{
+    gchar *chTo = g_strdup (labelText);
+    gint x = (gint) event->x;
+
+    for (gint i=0; i < indicator->priv->numPositions; ++i)
+    {
+        if (x < indicator->priv->slashPixelPosition[i])
+        {
+            chTo[indicator->priv->slashCharPosition[i]] = 0;
+            gtk_clipboard_set_text (gtk_clipboard_get (GDK_SELECTION_CLIPBOARD), chTo, indicator->priv->slashCharPosition[i]);
+            break;
+        }
+    }
+    g_free (chTo);
+}
+
+
+static void change_dir_from_clicked_indicator(GdkEventButton *event, const gchar* chToDir, GnomeCmdFileSelector *fs)
+{
+    main_win->switch_fs(fs);
+    if (event->button==2 || event->state & GDK_CONTROL_MASK || fs->file_list()->locked)
+    {
+        GnomeCmdCon *con = fs->get_connection();
+        GnomeCmdDir *dir = gnome_cmd_dir_new (con, gnome_cmd_con_create_path (con, chToDir));
+        fs->new_tab(dir);
+    }
+    else
+    {
+        fs->goto_directory(chToDir);
+    }
+}
+
+
+static gboolean handle_remote_indicator_clicked (GnomeCmdDirIndicator *indicator, GdkEventButton *event, GnomeCmdFileSelector *fs)
+{
+    auto labelText = gtk_label_get_text (GTK_LABEL (indicator->priv->label));
+    auto colonPtr = strchr(labelText, ':');
+    auto colonIndex = (int)(colonPtr - labelText) + 1; // + 1 as we want to ignore "host:" until the colon
+
+    if (event->button==1 || event->button==2)
+    {
+        // left click - work out the path
+        auto chTo = g_strdup (colonPtr+1);
+        auto x = (gint) event->x;
+
+        for (gint slashIdx=0; slashIdx < indicator->priv->numPositions; ++slashIdx)
+        {
+            if (x < indicator->priv->slashPixelPosition[slashIdx])
+            {
+                chTo[indicator->priv->slashCharPosition[slashIdx] - colonIndex] = 0;
+                change_dir_from_clicked_indicator(event, chTo, fs);
+                break;
+            }
+        }
+        // pointer is after directory name - just return
+        g_free (chTo);
+        return TRUE;
+    }
+    else if (event->button==3)
+    {
+        set_clipboard_from_indicator(indicator, labelText, event);
+        return TRUE;
+    }
+    return FALSE;
+}
+
+
+static gboolean handle_local_indicator_clicked (GnomeCmdDirIndicator *indicator, GdkEventButton *event, GnomeCmdFileSelector *fs)
+{
+    auto labelText = gtk_label_get_text (GTK_LABEL (indicator->priv->label));
+
+    if (event->button==1 || event->button==2)
+    {
+        // left click - work out the path
+        auto chTo = g_strdup (labelText);
+        auto x = (gint) event->x;
+
+        for (gint slashIdx = 0; slashIdx < indicator->priv->numPositions; ++slashIdx)
+        {
+            if (x < indicator->priv->slashPixelPosition[slashIdx])
+            {
+                chTo[indicator->priv->slashCharPosition[slashIdx]] = 0;
+                change_dir_from_clicked_indicator(event, chTo, fs);
+                break;
+            }
+        }
+        // pointer is after directory name - just return
+        g_free (chTo);
+        return TRUE;
+    }
+    else if (event->button==3)
+    {
+        set_clipboard_from_indicator(indicator, labelText, event);
+        return TRUE;
+    }
+
+    return FALSE;
+}
+
 /*******************************
  * Event handlers
  *******************************/
@@ -91,80 +191,109 @@ static gboolean on_dir_indicator_clicked (GnomeCmdDirIndicator *indicator, GdkEv
     if (event->type!=GDK_BUTTON_PRESS)
         return FALSE;
 
-    if (event->button==1 || event->button==2)
+    const gchar *labelText = gtk_label_get_text (GTK_LABEL (indicator->priv->label));
+
+    if(strchr(labelText, ':'))
     {
-        // left click - work out the path
-        const gchar *labelText = gtk_label_get_text (GTK_LABEL (indicator->priv->label));
-        gchar *chTo = g_strdup (labelText);
-        gint x = (gint) event->x;
-
-        for (gint i=0; i < indicator->priv->numPositions; ++i)
-            if (x < indicator->priv->slashPixelPosition[i])
-            {
-                chTo[indicator->priv->slashCharPosition[i]] = 0;
-                main_win->switch_fs(fs);
-                if (event->button==2 || event->state&GDK_CONTROL_MASK || fs->file_list()->locked)
-                {
-                    GnomeCmdCon *con = fs->get_connection();
-                    GnomeCmdDir *dir = gnome_cmd_dir_new (con, gnome_cmd_con_create_path (con, chTo));
-                    fs->new_tab(dir);
-                }
-                else
-                    fs->goto_directory(chTo);
-                break;
-            }
-
-        // pointer is after directory name - just return
-        g_free (chTo);
-        return TRUE;
+        return handle_remote_indicator_clicked(indicator, event, fs);
     }
-    else if (event->button==3)
+    else
     {
-        const gchar *labelText = gtk_label_get_text (GTK_LABEL (indicator->priv->label));
-        gchar *chTo = g_strdup (labelText);
-        gint x = (gint) event->x;
-
-        for (gint i=0; i < indicator->priv->numPositions; ++i)
-            if (x < indicator->priv->slashPixelPosition[i])
-            {
-                chTo[indicator->priv->slashCharPosition[i]] = 0;
-                gtk_clipboard_set_text (gtk_clipboard_get (GDK_SELECTION_CLIPBOARD), chTo, indicator->priv->slashCharPosition[i]);
-                break;
-            }
-        g_free (chTo);
-        return TRUE;
+        return handle_local_indicator_clicked(indicator, event, fs);
     }
 
-    return FALSE;
 }
 
 
-inline void update_markup (GnomeCmdDirIndicator *indicator, gint i)
+static gchar* update_markup_for_remote(GnomeCmdDirIndicator *indicator, gint slashIdx)
+{
+    auto tmpLabelText = g_strdup (gtk_label_get_text (GTK_LABEL (indicator->priv->label)));
+    auto colonPtr = strchr(tmpLabelText, ':');
+    if (!colonPtr)
+    {
+        g_free(tmpLabelText);
+        return nullptr;
+    }
+
+    if (slashIdx == 0)
+    {
+        auto monoText = get_mono_text (tmpLabelText);
+        g_free(tmpLabelText);
+        return monoText;
+    }
+
+    auto colonIndex = (int)(colonPtr - tmpLabelText) + 1; // +1 as we want to ignore "host:" after the colon
+    auto startText = g_strndup(tmpLabelText, colonIndex);
+    auto startMonoText = get_mono_text (startText);
+
+    auto middleText = slashIdx > 0
+        ? g_strndup(&tmpLabelText[colonIndex], indicator->priv->slashCharPosition[slashIdx] - colonIndex)
+        : g_strdup("");
+    gchar *middleBoldText = get_bold_mono_text (middleText);
+
+    gchar *restText = slashIdx > 0
+        ? g_strdup (&tmpLabelText[indicator->priv->slashCharPosition[slashIdx]])
+        : &tmpLabelText[colonIndex];
+    gchar *restMonoText = get_mono_text (restText);
+
+    auto markupText = g_strconcat (startMonoText, middleBoldText, restMonoText, nullptr);
+
+    g_free (startText);
+    g_free (startMonoText);
+    g_free (middleText);
+    g_free (middleBoldText);
+    g_free (restText);
+    g_free (restMonoText);
+    g_free (tmpLabelText);
+    return markupText;
+}
+
+
+static gchar* update_markup_for_local(GnomeCmdDirIndicator *indicator, gint i)
+{
+    auto tmpLabelText = g_strdup (gtk_label_get_text (GTK_LABEL (indicator->priv->label)));
+    gchar *restText = g_strdup (&tmpLabelText[indicator->priv->slashCharPosition[i]]);
+
+    tmpLabelText[indicator->priv->slashCharPosition[i]] = '\0';
+    gchar *boldMonoText = get_bold_mono_text (tmpLabelText);
+    gchar *monoText = get_mono_text (restText);
+    auto markupText = g_strconcat (boldMonoText, monoText, nullptr);
+    g_free (restText);
+    g_free (monoText);
+    g_free (boldMonoText);
+    g_free (tmpLabelText);
+    return markupText;
+}
+
+
+static void update_markup (GnomeCmdDirIndicator *indicator, gint i)
 {
     if (!indicator->priv->slashCharPosition)
         return;
 
-    gchar *labelText, *markupText;
+    gchar *tmpLabelText, *markupText;
 
-    labelText = g_strdup (gtk_label_get_text (GTK_LABEL (indicator->priv->label)));
+    tmpLabelText = g_strdup (gtk_label_get_text (GTK_LABEL (indicator->priv->label)));
 
     if (i >= 0)
     {
-        gchar *t = g_strdup (&labelText[indicator->priv->slashCharPosition[i]]);
-        labelText[indicator->priv->slashCharPosition[i]] = '\0';
+        // If we are on a remote connection, there is a colon in the label
+        auto colonPosition = strstr(tmpLabelText, ":");
 
-        gchar *monoText = get_mono_text (t);
-        gchar *boldMonoText = get_bold_mono_text (labelText);
-        markupText = g_strconcat (boldMonoText, monoText, nullptr);
-        g_free (t);
-        g_free (monoText);
-        g_free (boldMonoText);
+        if (colonPosition)
+        {
+            markupText = update_markup_for_remote(indicator, i);
+        }
+        else
+        {
+            markupText = update_markup_for_local(indicator, i);
+        }
     }
     else
-        markupText = get_mono_text (labelText);
+        markupText = get_mono_text (tmpLabelText);
 
     gtk_label_set_markup (GTK_LABEL (indicator->priv->label), markupText);
-    g_free (labelText);
+    g_free (tmpLabelText);
     g_free (markupText);
 }
 
@@ -531,13 +660,8 @@ GtkWidget *gnome_cmd_dir_indicator_new (GnomeCmdFileSelector *fs)
 }
 
 
-void gnome_cmd_dir_indicator_set_dir (GnomeCmdDirIndicator *indicator, gchar *path)
+static void update_slash_positions(GnomeCmdDirIndicator *indicator, const gchar* path)
 {
-    gchar *s = get_utf8 (path);
-    gtk_label_set_text (GTK_LABEL (indicator->priv->label), s);
-    update_markup (indicator, -1);
-    g_free (s);
-
     g_free (indicator->priv->slashCharPosition);
     g_free (indicator->priv->slashPixelPosition);
     indicator->priv->numPositions = 0;
@@ -549,20 +673,24 @@ void gnome_cmd_dir_indicator_set_dir (GnomeCmdDirIndicator *indicator, gchar *pa
 
     gboolean isUNC = g_str_has_prefix (path, "\\\\");
 
-    if (!isUNC && *path!=G_DIR_SEPARATOR)
+    if (!isUNC && (*path!=G_DIR_SEPARATOR && !strstr(path, ":")))
         return;
 
     const gchar sep = isUNC ? '\\' : G_DIR_SEPARATOR;
-    GArray *pos = g_array_sized_new (FALSE, FALSE, sizeof(gint), 16);
+    GArray *sepPositions = g_array_sized_new (FALSE, FALSE, sizeof(gint), 16);
 
-    for (s = isUNC ? path+2 : path+1; *s; ++s)
-        if (*s==sep)
+    gchar *tmpPath = get_utf8 (path);
+
+    for (tmpPath = isUNC ? (gchar*) path+2 : (gchar*) path+1; *tmpPath; ++tmpPath)
+    {
+        if (*tmpPath == sep)
         {
-            gint i = s-path;
-            g_array_append_val (pos, i);
+            gint i = tmpPath - path;
+            g_array_append_val (sepPositions, i);
         }
+    }
 
-    gint path_len = s-path;
+    gint path_len = tmpPath - path;
 
     // allocate memory for storing (back)slashes positions
     // (both char positions within the string and their pixel positions in the display)
@@ -577,8 +705,8 @@ void gnome_cmd_dir_indicator_set_dir (GnomeCmdDirIndicator *indicator, gchar *pa
     //    [1..pos->len] is '/dir/dir' etc.
     //    last entry [pos->len+1] will be the whole path
 
-    indicator->priv->numPositions = isUNC ? pos->len :
-                                    path_len==1 ? pos->len+1 : pos->len+2;
+    indicator->priv->numPositions = isUNC ? sepPositions->len :
+                                    path_len==1 ? sepPositions->len+1 : sepPositions->len+2;
     indicator->priv->slashCharPosition = g_new (gint, indicator->priv->numPositions);
     indicator->priv->slashPixelPosition = g_new (gint, indicator->priv->numPositions);
 
@@ -587,13 +715,17 @@ void gnome_cmd_dir_indicator_set_dir (GnomeCmdDirIndicator *indicator, gchar *pa
     if (!isUNC && path_len>1)
     {
         indicator->priv->slashCharPosition[pos_idx] = 1;
+        //auto colonPtr = strchr(path, ':');
+        //colonPtr = colonPtr ? colonPtr : path;
+        //auto startLength = (int)(colonPtr - path) + 1; // +1 as we want to ignore "host:"
+        //indicator->priv->slashPixelPosition[pos_idx++] = get_string_pixel_size (path, startLength);
         indicator->priv->slashPixelPosition[pos_idx++] = get_string_pixel_size (path, 1);
     }
 
-    for (guint ii = isUNC ? 1 : 0; ii < pos->len; ii++)
+    for (guint ii = isUNC ? 1 : 0; ii < sepPositions->len; ii++)
     {
-        indicator->priv->slashCharPosition[pos_idx] = g_array_index (pos, gint, ii);
-        indicator->priv->slashPixelPosition[pos_idx++] = get_string_pixel_size (path, g_array_index (pos, gint, ii)+1);
+        indicator->priv->slashCharPosition[pos_idx] = g_array_index (sepPositions, gint, ii);
+        indicator->priv->slashPixelPosition[pos_idx++] = get_string_pixel_size (path, g_array_index (sepPositions, gint, ii)+1);
     }
 
     if (indicator->priv->numPositions>0)
@@ -602,7 +734,44 @@ void gnome_cmd_dir_indicator_set_dir (GnomeCmdDirIndicator *indicator, gchar *pa
         indicator->priv->slashPixelPosition[pos_idx] = get_string_pixel_size (path, path_len);
     }
 
-    g_array_free (pos, TRUE);
+    g_array_free (sepPositions, TRUE);
+}
+
+
+void gnome_cmd_dir_indicator_set_dir (GnomeCmdDirIndicator *indicator, GnomeCmdDir *dir)
+{
+    gchar *path = gnome_cmd_dir_get_display_path (dir);
+    g_return_if_fail (path != nullptr);
+
+    gchar* host = nullptr; // show host in dir indicator if we are not on a local connection
+    if (!gnome_cmd_dir_is_local(dir))
+    {
+        GError *error = nullptr;
+        auto dirUri = g_file_get_uri(GNOME_CMD_FILE(dir)->gFile);
+        auto gUri = g_uri_parse(dirUri, G_URI_FLAGS_NONE, &error);
+        if (error)
+        {
+            g_warning("g_uri_parse error %s: %s", dirUri, error->message);
+            g_error_free(error);
+        }
+        else
+        {
+            host = g_strdup(g_uri_get_host(gUri));
+        }
+        g_free(dirUri);
+    }
+
+    gchar *tmpPath = get_utf8 (path);
+    gchar *indicatorString = host
+        ? g_strdup_printf("%s:%s", host, tmpPath)
+        : g_strdup_printf("%s", tmpPath);
+    g_free (tmpPath);
+    gtk_label_set_text (GTK_LABEL (indicator->priv->label), indicatorString);
+    update_markup (indicator, -1);
+
+    update_slash_positions(indicator, indicatorString);
+    g_free(indicatorString);
+    g_free(path);
 }
 
 
