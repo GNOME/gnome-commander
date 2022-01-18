@@ -548,7 +548,6 @@
           <para role="publisher">GNOME Documentation Project</para>
         </revdescription>
       </revision>
-      <revision>
     </revhistory>
     <releaseinfo>This manual describes version &appversion; of &app;. </releaseinfo>
     <legalnotice>
