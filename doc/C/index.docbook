@@ -530,6 +530,25 @@
           <para role="publisher">GNOME Documentation Project</para>
         </revdescription>
       </revision>
+      <revision>
+        <revnumber>GNOME Commander Manual V1.12.3;</revnumber>
+        <date>2021-11-20</date>
+        <revdescription>
+          <para role="author">Uwe Scholz
+                <email>u.scholz83@gmx.de</email></para>
+          <para role="publisher">GNOME Documentation Project</para>
+        </revdescription>
+      </revision>
+      <revision>
+        <revnumber>GNOME Commander Manual V1.12.3.1;</revnumber>
+        <date>2021-11-21</date>
+        <revdescription>
+          <para role="author">Uwe Scholz
+                <email>u.scholz83@gmx.de</email></para>
+          <para role="publisher">GNOME Documentation Project</para>
+        </revdescription>
+      </revision>
+      <revision>
     </revhistory>
     <releaseinfo>This manual describes version &appversion; of &app;. </releaseinfo>
     <legalnotice>
