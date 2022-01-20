@@ -766,7 +766,9 @@ void gnome_cmd_dir_indicator_set_dir (GnomeCmdDirIndicator *indicator, GnomeCmdD
         ? g_strdup_printf("%s:%s", host, tmpPath)
         : g_strdup_printf("%s", tmpPath);
     g_free (tmpPath);
-    gtk_label_set_text (GTK_LABEL (indicator->priv->label), indicatorString);
+    gchar *monoIndicatorString = get_mono_text (indicatorString);
+    gtk_label_set_markup (GTK_LABEL (indicator->priv->label), monoIndicatorString);
+    g_free (monoIndicatorString);
     update_markup (indicator, -1);
 
     update_slash_positions(indicator, indicatorString);
