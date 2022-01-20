@@ -777,7 +777,25 @@ void gnome_cmd_dir_indicator_set_dir (GnomeCmdDirIndicator *indicator, GnomeCmdD
 }
 
 
-void gnome_cmd_dir_indicator_set_active (GnomeCmdDirIndicator *indicator, gboolean value)
+void gnome_cmd_dir_indicator_set_active (GnomeCmdDirIndicator *indicator, gboolean active)
 {
-    // FIXME: Do something creative here
+    switch (active)
+    {
+        case true:
+        {
+            auto tmpLabelText = g_strdup (gtk_label_get_text (GTK_LABEL (indicator->priv->label)));
+            gchar *result = g_strdup_printf("<span font_family=\"monospace\" underline=\"low\">%s</span>", tmpLabelText);
+            gtk_label_set_markup (GTK_LABEL (indicator->priv->label), result);
+            g_free (tmpLabelText);
+            break;
+        }
+        case false:
+        {
+            auto tmpLabelText = g_strdup (gtk_label_get_text (GTK_LABEL (indicator->priv->label)));
+            gchar *result = g_strdup_printf("<span font_family=\"monospace\">%s</span>", tmpLabelText);
+            gtk_label_set_markup (GTK_LABEL (indicator->priv->label), result);
+            g_free (tmpLabelText);
+            break;
+        }
+    }
 }
