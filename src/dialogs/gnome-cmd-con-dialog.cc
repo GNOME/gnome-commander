@@ -555,7 +555,9 @@ gboolean gnome_cmd_connect_dialog_edit (GnomeCmdConRemote *server)
             g_free(uriString);
 
             gnome_cmd_con_set_scheme(con, uriScheme);
-            gnome_cmd_con_set_base_path(con, uriPath ? new GnomeCmdPlainPath(uriPath) : new GnomeCmdPlainPath(G_DIR_SEPARATOR_S));
+            gnome_cmd_con_set_base_path(con, uriPath && strlen(uriPath) > 0
+                ? new GnomeCmdPlainPath(uriPath)
+                : new GnomeCmdPlainPath(G_DIR_SEPARATOR_S));
             gnome_cmd_con_set_root_path(con, uriPath);
             gnome_cmd_con_set_host_name (con, uriHost);
             if (uriPort != -1)
@@ -571,7 +573,9 @@ gboolean gnome_cmd_connect_dialog_edit (GnomeCmdConRemote *server)
             auto portChar = gtk_entry_get_text (GTK_ENTRY (dialog->priv->port_entry));
             port = portChar ? atoi(portChar) : -1;
 
-            gnome_cmd_con_set_base_path(con, path ? new GnomeCmdPlainPath(path) : new GnomeCmdPlainPath(G_DIR_SEPARATOR_S));
+            gnome_cmd_con_set_base_path(con, path && strlen(path) > 0
+                ? new GnomeCmdPlainPath(path)
+                : new GnomeCmdPlainPath(G_DIR_SEPARATOR_S));
             gnome_cmd_con_set_root_path(con, path);
             gnome_cmd_con_set_host_name (con, host);
             if (port != -1)
