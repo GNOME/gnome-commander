@@ -2021,10 +2021,18 @@ void GnomeCmdFileList::show_files(GnomeCmdDir *dir)
     }
 
     // Create a parent dir file (..) if appropriate
-    gchar *path = GNOME_CMD_FILE (dir)->GetPathStringThroughParent();
+    GError *error = nullptr;
+    auto uriString = GNOME_CMD_FILE (dir)->get_uri_str();
+    auto gUri = g_uri_parse(uriString, G_URI_FLAGS_NONE, &error);
+    if (error)
+    {
+        g_warning("show_files: g_uri_parse error of %s: %s", uriString, error->message);
+        g_error_free(error);
+    }
+    auto path = g_uri_get_path(gUri);
     if (path && strcmp (path, G_DIR_SEPARATOR_S) != 0)
         files = g_list_append (files, gnome_cmd_dir_new_parent_dir_file (dir));
-    g_free (path);
+    g_free (uriString);
 
     if (!files)
         return;
