@@ -16,12 +16,12 @@ msgstr ""
 "Content-Transfer-Encoding: 8-bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../data/gnome-commander.desktop.in.in.h:1 ../src/gnome-cmd-data.cc:416
+#: ../data/org.gnome.gnome-commander.desktop.in.in.h:1 ../src/gnome-cmd-data.cc:416
 #: ../src/gnome-cmd-main-win.cc:762
 msgid "GNOME Commander"
 msgstr "GNOME Commander"
 
-#: ../data/gnome-commander.desktop.in.in.h:2
+#: ../data/org.gnome.gnome-commander.desktop.in.in.h:2
 msgid "A two paned file manager"
 msgstr "En todelt filhåndterer"
 

@@ -18,11 +18,11 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
-#: ../data/gnome-commander.desktop.in.in.h:1
+#: ../data/org.gnome.gnome-commander.desktop.in.in.h:1
 msgid "A two paned file manager"
 msgstr "Двукрил файлов управител"
 
-#: ../data/gnome-commander.desktop.in.in.h:2
+#: ../data/org.gnome.gnome-commander.desktop.in.in.h:2
 msgid "GNOME Commander"
 msgstr "GNOME Commander"
 

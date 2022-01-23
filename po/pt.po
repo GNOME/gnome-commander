@@ -20,11 +20,11 @@ msgstr ""
 "X-Language: pt_PT\n"
 "X-Source-Language: C\n"
 
-#: ../data/gnome-commander.appdata.xml.in.h:1
+#: ../data/org.gnome.gnome-commander.appdata.xml.in.h:1
 msgid "Two-pane file manager"
 msgstr "Gestor de ficheiros em dois painéis"
 
-#: ../data/gnome-commander.appdata.xml.in.h:2
+#: ../data/org.gnome.gnome-commander.appdata.xml.in.h:2
 msgid ""
 "GNOME Commander is a \"two-pane\" graphical file manager for the GNOME "
 "desktop environment. It features separate tabs for each pane, setting up "
@@ -39,7 +39,7 @@ msgstr ""
 "de imagens, ferramenta para renomear ficheiros em lote e acesso a redes "
 "Samba e FTP."
 
-#: ../data/gnome-commander.appdata.xml.in.h:3
+#: ../data/org.gnome.gnome-commander.appdata.xml.in.h:3
 msgid ""
 "GNOME Commander aims to advanced users who like to focus on precise file "
 "management, working in parallel through special applications, and running "
@@ -49,16 +49,16 @@ msgstr ""
 "gestão de ficheiros precisa, trabalhando em paralelo através de aplicações "
 "especiais e execução de comandos inteligentes."
 
-#: ../data/gnome-commander.desktop.in.in.h:1 ../src/gnome-cmd-data.cc:583
+#: ../data/org.gnome.gnome-commander.desktop.in.in.h:1 ../src/gnome-cmd-data.cc:583
 #: ../src/gnome-cmd-main-win.cc:761
 msgid "GNOME Commander"
 msgstr "GNOME Commander"
 
-#: ../data/gnome-commander.desktop.in.in.h:2
+#: ../data/org.gnome.gnome-commander.desktop.in.in.h:2
 msgid "A two paned file manager"
 msgstr "Um gestor de ficheiros em dois painéis"
 
-#: ../data/gnome-commander.desktop.in.in.h:3
+#: ../data/org.gnome.gnome-commander.desktop.in.in.h:3
 msgid "File;Manager;"
 msgstr "Ficheiro;Gestor;"
 

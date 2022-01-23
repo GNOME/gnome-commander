@@ -18,16 +18,16 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
-#: data/gnome-commander.appdata.xml.in:7 data/gnome-commander.desktop.in.in:3
+#: data/org.gnome.gnome-commander.appdata.xml.in:7 data/org.gnome.gnome-commander.desktop.in.in:3
 #: src/gnome-cmd-data.cc:1866 src/gnome-cmd-main-win.cc:761
 msgid "GNOME Commander"
 msgstr "जीनोम कमांडर"
 
-#: data/gnome-commander.appdata.xml.in:8
+#: data/org.gnome.gnome-commander.appdata.xml.in:8
 msgid "Two-pane file manager"
 msgstr "दोन-पटल फाइल व्यवस्थापक"
 
-#: data/gnome-commander.appdata.xml.in:10
+#: data/org.gnome.gnome-commander.appdata.xml.in:10
 msgid ""
 "GNOME Commander is a \"two-pane\" graphical file manager for the GNOME "
 "desktop environment. It features separate tabs for each pane, setting up "
@@ -40,7 +40,7 @@ msgstr ""
 "पूर्णतः एकात्मिक आदेशलाइन, त्वरित शोध फाईल, अंतर्गत प्रतिमा दर्शक,"
 "एक शक्तिशाली बॅच पुनर्नामित साधन आणि FTP आणि साम्बा प्रवेश सेट करते."
 
-#: data/gnome-commander.appdata.xml.in:17
+#: data/org.gnome.gnome-commander.appdata.xml.in:17
 msgid ""
 "GNOME Commander aims to advanced users who like to focus on precise file "
 "management, working in parallel through special applications, and running "
@@ -49,17 +49,17 @@ msgstr ""
 "जीनोम कमांडरचा वापर प्रगत वापरकर्त्यांकडे करणे आहे जे विशिष्ट फाइल व्यवस्थापनावर लक्ष केंद्रित करणे,"
 "विशेष अनुप्रयोगांद्वारे समांतरमध्ये कार्य करणे आणि स्मार्ट आदेश चालवणे आवडते."
 
-#: data/gnome-commander.desktop.in.in:4
+#: data/org.gnome.gnome-commander.desktop.in.in:4
 msgid "A two paned file manager"
 msgstr "दोन-पंक्ती फाइल व्यवस्थापक"
 
 #. TRANSLATORS: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
-#: data/gnome-commander.desktop.in.in:6
+#: data/org.gnome.gnome-commander.desktop.in.in:6
 msgid "file;manager;folder;explore;disk;filesystem;"
 msgstr "फाइल; मॅनेजर; फोल्डर; एक्सप्लोर; डिस्क; फाइलसिस्टम;"
 
 #. TRANSLATORS: Do NOT translate or transliterate this text (this is an icon file name)!
-#: data/gnome-commander.desktop.in.in:9
+#: data/org.gnome.gnome-commander.desktop.in.in:9
 msgid "gnome-commander"
 msgstr "gnome-commander"
 

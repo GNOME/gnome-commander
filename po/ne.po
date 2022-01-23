@@ -25,11 +25,11 @@ msgstr ""
 "Plural-Forms: nplurals=2;plural=(n!=1)\n"
 "X-Generator: KBabel 1.10.2\n"
 
-#: ../data/gnome-commander.desktop.in.in.h:1
+#: ../data/org.gnome.gnome-commander.desktop.in.in.h:1
 msgid "A two paned file manager"
 msgstr "दुईवटा फलक भएको फाइल प्रबन्धक"
 
-#: ../data/gnome-commander.desktop.in.in.h:2
+#: ../data/org.gnome.gnome-commander.desktop.in.in.h:2
 msgid "GNOME Commander"
 msgstr "जिनोम कमान्डर"
 

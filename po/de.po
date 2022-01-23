@@ -29,16 +29,16 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 3.0\n"
 
-#: data/gnome-commander.appdata.xml.in:7 data/gnome-commander.desktop.in.in:3
+#: data/org.gnome.gnome-commander.appdata.xml.in:7 data/org.gnome.gnome-commander.desktop.in.in:3
 #: src/gnome-cmd-main-win.cc:858
 msgid "GNOME Commander"
 msgstr "GNOME Commander"
 
-#: data/gnome-commander.appdata.xml.in:8
+#: data/org.gnome.gnome-commander.appdata.xml.in:8
 msgid "Two-pane file manager"
 msgstr "Dateiverwaltung mit zweigeteilter Oberfläche"
 
-#: data/gnome-commander.appdata.xml.in:10
+#: data/org.gnome.gnome-commander.appdata.xml.in:10
 msgid ""
 "GNOME Commander is a “two-pane” graphical file manager for the GNOME desktop "
 "environment. It features separate tabs for each pane, setting up custom "
@@ -54,7 +54,7 @@ msgstr ""
 "benutzerdefinierten Geräteknöpfen, Verwaltung von Lesezeichen, schnelle "
 "Dateisuche und Zugriff per FTP und Samba."
 
-#: data/gnome-commander.appdata.xml.in:17
+#: data/org.gnome.gnome-commander.appdata.xml.in:17
 msgid ""
 "GNOME Commander aims to advanced users who like to focus on precise file "
 "management, working in parallel through special applications, and running "
@@ -64,12 +64,12 @@ msgstr ""
 "Dateiverwaltung wünschen, gerne parallel mit Spezialanwendungen arbeiten und "
 "clevere Befehle laufen lassen."
 
-#: data/gnome-commander.desktop.in.in:4
+#: data/org.gnome.gnome-commander.desktop.in.in:4
 msgid "A two paned file manager"
 msgstr "Ein Dateiverwaltungsprogramm mit zweigeteilter Oberfläche"
 
 #. TRANSLATORS: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
-#: data/gnome-commander.desktop.in.in:6
+#: data/org.gnome.gnome-commander.desktop.in.in:6
 msgid "file;manager;folder;explore;disk;filesystem;"
 msgstr ""
 "Datei;Verwaltung;Ordner;Verzeichnis;durchsuchen;Disk;Dateisystem;Datenträger;"

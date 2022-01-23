@@ -22,17 +22,17 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural= (n==1) ? 1 : (n>=2 && n<=4) ? 2 : 0;\n"
 "X-Generator: Poedit 1.8.6\n"
 
-#: ../data/gnome-commander.appdata.xml.in.h:1
-#: ../data/gnome-commander.desktop.in.in.h:1 ../src/gnome-cmd-data.cc:583
+#: ../data/org.gnome.gnome-commander.appdata.xml.in.h:1
+#: ../data/org.gnome.gnome-commander.desktop.in.in.h:1 ../src/gnome-cmd-data.cc:583
 #: ../src/gnome-cmd-main-win.cc:761
 msgid "GNOME Commander"
 msgstr "GNOME Commander"
 
-#: ../data/gnome-commander.appdata.xml.in.h:2
+#: ../data/org.gnome.gnome-commander.appdata.xml.in.h:2
 msgid "Two-pane file manager"
 msgstr "Dvojpanelový správca súborov"
 
-#: ../data/gnome-commander.appdata.xml.in.h:3
+#: ../data/org.gnome.gnome-commander.appdata.xml.in.h:3
 msgid ""
 "GNOME Commander is a \"two-pane\" graphical file manager for the GNOME "
 "desktop environment. It features separate tabs for each pane, setting up "
@@ -41,45 +41,45 @@ msgid ""
 "FTP and Samba access."
 msgstr ""
 
-#: ../data/gnome-commander.appdata.xml.in.h:4
+#: ../data/org.gnome.gnome-commander.appdata.xml.in.h:4
 msgid ""
 "GNOME Commander aims to advanced users who like to focus on precise file "
 "management, working in parallel through special applications, and running "
 "smart commands."
 msgstr ""
 
-#: ../data/gnome-commander.appdata.xml.in.h:5
+#: ../data/org.gnome.gnome-commander.appdata.xml.in.h:5
 msgid "filemanager"
 msgstr "správca súborov"
 
-#: ../data/gnome-commander.appdata.xml.in.h:6
+#: ../data/org.gnome.gnome-commander.appdata.xml.in.h:6
 msgid "rename"
 msgstr "premenovať"
 
-#: ../data/gnome-commander.appdata.xml.in.h:7
+#: ../data/org.gnome.gnome-commander.appdata.xml.in.h:7
 msgid "copy"
 msgstr "kopírovať"
 
 #. Keep this in sync with enum ConnectionMethodID in gnome-cmd-con.h
-#: ../data/gnome-commander.appdata.xml.in.h:8
+#: ../data/org.gnome.gnome-commander.appdata.xml.in.h:8
 #: ../src/dialogs/gnome-cmd-con-dialog.cc:452
 msgid "SSH"
 msgstr "SSH"
 
-#: ../data/gnome-commander.appdata.xml.in.h:9
+#: ../data/org.gnome.gnome-commander.appdata.xml.in.h:9
 msgid "FTP"
 msgstr "FTP"
 
-#: ../data/gnome-commander.appdata.xml.in.h:10
+#: ../data/org.gnome.gnome-commander.appdata.xml.in.h:10
 #| msgid "WebDAV (HTTP)"
 msgid "WebDAV"
 msgstr "WebDAV"
 
-#: ../data/gnome-commander.desktop.in.in.h:2
+#: ../data/org.gnome.gnome-commander.desktop.in.in.h:2
 msgid "A two paned file manager"
 msgstr "Dvojpanelový správca súborov"
 
-#: ../data/gnome-commander.desktop.in.in.h:3
+#: ../data/org.gnome.gnome-commander.desktop.in.in.h:3
 msgid "File;Manager;"
 msgstr "Súbor;Správca;"
 

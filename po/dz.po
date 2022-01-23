@@ -20,11 +20,11 @@ msgstr ""
 "X-Poedit-Country: BHUTAN\n"
 "X-Poedit-SourceCharset: utf-8\n"
 
-#: ../data/gnome-commander.desktop.in.in.h:1
+#: ../data/org.gnome.gnome-commander.desktop.in.in.h:1
 msgid "A two paned file manager"
 msgstr "པེན་གཉིས་ཡོད་མི་ཡིག་སྣོད་འཛིན་སྐྱོང་པ་ཅིག"
 
-#: ../data/gnome-commander.desktop.in.in.h:2
+#: ../data/org.gnome.gnome-commander.desktop.in.in.h:2
 msgid "GNOME Commander"
 msgstr "ཇི་ནོམ་གཙོ་དཔོན།"
 

@@ -29,17 +29,17 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n>1;\n"
 
-#: ../data/gnome-commander.appdata.xml.in.h:1
-#: ../data/gnome-commander.desktop.in.in.h:1 ../src/gnome-cmd-data.cc:1854
+#: ../data/org.gnome.gnome-commander.appdata.xml.in.h:1
+#: ../data/org.gnome.gnome-commander.desktop.in.in.h:1 ../src/gnome-cmd-data.cc:1854
 #: ../src/gnome-cmd-main-win.cc:761
 msgid "GNOME Commander"
 msgstr "GNOME Commander"
 
-#: ../data/gnome-commander.appdata.xml.in.h:2
+#: ../data/org.gnome.gnome-commander.appdata.xml.in.h:2
 msgid "Two-pane file manager"
 msgstr "Gestionnaire de fichiers à deux volets"
 
-#: ../data/gnome-commander.appdata.xml.in.h:3
+#: ../data/org.gnome.gnome-commander.appdata.xml.in.h:3
 msgid ""
 "GNOME Commander is a \"two-pane\" graphical file manager for the GNOME "
 "desktop environment. It features separate tabs for each pane, setting up "
@@ -48,41 +48,41 @@ msgid ""
 "FTP and Samba access."
 msgstr ""
 
-#: ../data/gnome-commander.appdata.xml.in.h:4
+#: ../data/org.gnome.gnome-commander.appdata.xml.in.h:4
 msgid ""
 "GNOME Commander aims to advanced users who like to focus on precise file "
 "management, working in parallel through special applications, and running "
 "smart commands."
 msgstr ""
 
-#: ../data/gnome-commander.appdata.xml.in.h:5
+#: ../data/org.gnome.gnome-commander.appdata.xml.in.h:5
 msgid "file manager"
 msgstr "gestionnaire de fichiers"
 
-#: ../data/gnome-commander.appdata.xml.in.h:6
+#: ../data/org.gnome.gnome-commander.appdata.xml.in.h:6
 msgid "file system"
 msgstr "système de fichiers"
 
 #. Keep this in sync with enum ConnectionMethodID in gnome-cmd-con.h
-#: ../data/gnome-commander.appdata.xml.in.h:7
+#: ../data/org.gnome.gnome-commander.appdata.xml.in.h:7
 #: ../src/dialogs/gnome-cmd-con-dialog.cc:452
 msgid "SSH"
 msgstr "SSH"
 
-#: ../data/gnome-commander.appdata.xml.in.h:8
+#: ../data/org.gnome.gnome-commander.appdata.xml.in.h:8
 msgid "FTP"
 msgstr "FTP"
 
-#: ../data/gnome-commander.appdata.xml.in.h:9
+#: ../data/org.gnome.gnome-commander.appdata.xml.in.h:9
 msgid "WebDAV"
 msgstr "WebDAV"
 
-#: ../data/gnome-commander.desktop.in.in.h:2
+#: ../data/org.gnome.gnome-commander.desktop.in.in.h:2
 msgid "A two paned file manager"
 msgstr "Un gestionnaire de fichiers à deux volets"
 
 #. TRANSLATORS: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
-#: ../data/gnome-commander.desktop.in.in.h:4
+#: ../data/org.gnome.gnome-commander.desktop.in.in.h:4
 msgid "file;manager;folder;explore;disk;filesystem;"
 msgstr "fichier;gestionnaire;dossier;explorer;disque;système;"
 

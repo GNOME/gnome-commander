@@ -16,12 +16,12 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../data/gnome-commander.desktop.in.in.h:1
+#: ../data/org.gnome.gnome-commander.desktop.in.in.h:1
 #, fuzzy
 msgid "A two paned file manager"
 msgstr "Oscail i mBainisteoir Comhad"
 
-#: ../data/gnome-commander.desktop.in.in.h:2
+#: ../data/org.gnome.gnome-commander.desktop.in.in.h:2
 #, fuzzy
 msgid "GNOME Commander"
 msgstr "Ceannasaí-Beag"

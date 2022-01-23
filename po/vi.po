@@ -17,11 +17,11 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: LocFactoryEditor 1.6fc1\n"
 
-#: ../data/gnome-commander.desktop.in.in.h:1
+#: ../data/org.gnome.gnome-commander.desktop.in.in.h:1
 msgid "A two paned file manager"
 msgstr "Bộ quản lý tập tin ô đôi"
 
-#: ../data/gnome-commander.desktop.in.in.h:2
+#: ../data/org.gnome.gnome-commander.desktop.in.in.h:2
 msgid "GNOME Commander"
 msgstr "GNOME Commander"
 

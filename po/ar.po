@@ -22,11 +22,11 @@ msgstr ""
 "3\n"
 "X-Generator: KBabel 1.11.4\n"
 
-#: ../data/gnome-commander.desktop.in.in.h:1
+#: ../data/org.gnome.gnome-commander.desktop.in.in.h:1
 msgid "A two paned file manager"
 msgstr "مدير ملفات ذو لوحتين"
 
-#: ../data/gnome-commander.desktop.in.in.h:2 ../src/gnome-cmd-data.cc:458
+#: ../data/org.gnome.gnome-commander.desktop.in.in.h:2 ../src/gnome-cmd-data.cc:458
 #: ../src/gnome-cmd-main-win.cc:764
 msgid "GNOME Commander"
 msgstr "فارس جنوم"

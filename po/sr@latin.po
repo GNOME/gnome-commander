@@ -20,16 +20,16 @@ msgstr ""
 "n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 "X-Project-Style: gnome\n"
 
-#: data/gnome-commander.appdata.xml.in:7 data/gnome-commander.desktop.in.in:3
+#: data/org.gnome.gnome-commander.appdata.xml.in:7 data/org.gnome.gnome-commander.desktop.in.in:3
 #: src/gnome-cmd-data.cc:1937 src/gnome-cmd-main-win.cc:809
 msgid "GNOME Commander"
 msgstr "Gnomov narednik"
 
-#: data/gnome-commander.appdata.xml.in:8
+#: data/org.gnome.gnome-commander.appdata.xml.in:8
 msgid "Two-pane file manager"
 msgstr "Upravnik datotekama sa dve površi"
 
-#: data/gnome-commander.appdata.xml.in:10
+#: data/org.gnome.gnome-commander.appdata.xml.in:10
 msgid ""
 "GNOME Commander is a “two-pane” graphical file manager for the GNOME desktop "
 "environment. It features separate tabs for each pane, setting up custom "
@@ -43,7 +43,7 @@ msgstr ""
 "konzola naredbi, brza pretraga datoteka, unutrašnji pregledač slika, moćan "
 "alat za grupno preimenovanje, kao i pristup FTP-u i Sambi."
 
-#: data/gnome-commander.appdata.xml.in:17
+#: data/org.gnome.gnome-commander.appdata.xml.in:17
 msgid ""
 "GNOME Commander aims to advanced users who like to focus on precise file "
 "management, working in parallel through special applications, and running "
@@ -53,17 +53,17 @@ msgstr ""
 "na preciznom upravljanju datotekama, radeći uporedno kroz posebne programe, i "
 "pokrećući pametne naredbe."
 
-#: data/gnome-commander.desktop.in.in:4
+#: data/org.gnome.gnome-commander.desktop.in.in:4
 msgid "A two paned file manager"
 msgstr "Upravnik datotekama sa dve površi"
 
 #. TRANSLATORS: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
-#: data/gnome-commander.desktop.in.in:6
+#: data/org.gnome.gnome-commander.desktop.in.in:6
 msgid "file;manager;folder;explore;disk;filesystem;"
 msgstr "datoteka;upravnik;fascikla;istraži;disk;sistem datoteka;"
 
 #. TRANSLATORS: Do NOT translate or transliterate this text (this is an icon file name)!
-#: data/gnome-commander.desktop.in.in:9
+#: data/org.gnome.gnome-commander.desktop.in.in:9
 msgid "gnome-commander"
 msgstr "gnome-commander"
 

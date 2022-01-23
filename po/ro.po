@@ -23,16 +23,16 @@ msgstr ""
 "X-Project-Style: gnome\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 
-#: data/gnome-commander.appdata.xml.in:7 data/gnome-commander.desktop.in.in:3
+#: data/org.gnome.gnome-commander.appdata.xml.in:7 data/org.gnome.gnome-commander.desktop.in.in:3
 #: src/gnome-cmd-main-win.cc:854
 msgid "GNOME Commander"
 msgstr "Commander GNOME"
 
-#: data/gnome-commander.appdata.xml.in:8
+#: data/org.gnome.gnome-commander.appdata.xml.in:8
 msgid "Two-pane file manager"
 msgstr "Manager de fișiere cu panou dublu"
 
-#: data/gnome-commander.appdata.xml.in:10
+#: data/org.gnome.gnome-commander.appdata.xml.in:10
 msgid ""
 "GNOME Commander is a “two-pane” graphical file manager for the GNOME desktop "
 "environment. It features separate tabs for each pane, setting up custom "
@@ -47,7 +47,7 @@ msgstr ""
 "vizualizator de imagini intern, o unealtă puternică de redenumire în masă, ș "
 "acces FTP și Samba."
 
-#: data/gnome-commander.appdata.xml.in:17
+#: data/org.gnome.gnome-commander.appdata.xml.in:17
 msgid ""
 "GNOME Commander aims to advanced users who like to focus on precise file "
 "management, working in parallel through special applications, and running "
@@ -57,12 +57,12 @@ msgstr ""
 "concentreze pe administrarea precisă a fișierelor, lucrul în paralel prin "
 "aplicații speciale, și rularea de comenzi inteligente."
 
-#: data/gnome-commander.desktop.in.in:4
+#: data/org.gnome.gnome-commander.desktop.in.in:4
 msgid "A two paned file manager"
 msgstr "Manager de fișiere dublu-panou"
 
 #. TRANSLATORS: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
-#: data/gnome-commander.desktop.in.in:6
+#: data/org.gnome.gnome-commander.desktop.in.in:6
 msgid "file;manager;folder;explore;disk;filesystem;"
 msgstr ""
 "file;manager;folder;explore;disk;filesystem;fișier;fișiere;administrare;"

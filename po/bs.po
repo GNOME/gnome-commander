@@ -21,11 +21,11 @@ msgstr ""
 "X-Generator: Launchpad (build 17341)\n"
 "X-Launchpad-Export-Date: 2015-02-17 06:21+0000\n"
 
-#: ../data/gnome-commander.appdata.xml.in.h:1
+#: ../data/org.gnome.gnome-commander.appdata.xml.in.h:1
 msgid "Two-pane file manager"
 msgstr "Upravnik datotekama sa dvije površi"
 
-#: ../data/gnome-commander.appdata.xml.in.h:2
+#: ../data/org.gnome.gnome-commander.appdata.xml.in.h:2
 msgid ""
 "GNOME Commander is a \"two-pane\" graphical file manager for the GNOME "
 "desktop environment. It features separate tabs for each pane, setting up "
@@ -39,7 +39,7 @@ msgstr ""
 "konzola naredbi, brza pretraga datoteka, unutrašnji pregledač slika, moćan "
 "alat za grupno preimenovanje, kao i pristup FTP-u i Sambi."
 
-#: ../data/gnome-commander.appdata.xml.in.h:3
+#: ../data/org.gnome.gnome-commander.appdata.xml.in.h:3
 msgid ""
 "GNOME Commander aims to advanced users who like to focus on precise file "
 "management, working in parallel through special applications, and running "
@@ -49,16 +49,16 @@ msgstr ""
 "usredsrede na preciznom upravljanju datotekama, radeći uporedno kroz posebne "
 "programe, i pokrećući pametne naredbe."
 
-#: ../data/gnome-commander.desktop.in.in.h:1 ../src/gnome-cmd-data.cc:420
+#: ../data/org.gnome.gnome-commander.desktop.in.in.h:1 ../src/gnome-cmd-data.cc:420
 #: ../src/gnome-cmd-main-win.cc:762
 msgid "GNOME Commander"
 msgstr "GNOME Commander"
 
-#: ../data/gnome-commander.desktop.in.in.h:2
+#: ../data/org.gnome.gnome-commander.desktop.in.in.h:2
 msgid "A two paned file manager"
 msgstr "Upravitelj datotekama s dva okna"
 
-#: ../data/gnome-commander.desktop.in.in.h:3
+#: ../data/org.gnome.gnome-commander.desktop.in.in.h:3
 msgid "File;Manager;"
 msgstr "datoteka;upravnik;"
 
