@@ -7,8 +7,9 @@
 <!-- This section contains info about the program releases.-->
   <sect1 id="gnome-commander-releases">
     <title>Release Overview</title>
-    <para>
-    </para>
+    <para>Starting after version 1.14.0, we provide release notes through the AppData file. As such, app stores (like GNOME Software) can show release notes to users.</para>
+    <para>Human-readable textual output can easily be generated with the following command:</para>
+    <para><command>appstream-util appdata-to-news /usr/share/metainfo/gnome-commander.appdata.xml</command></para>
     <informaltable frame="topbot">
     <tgroup cols="3">
         <colspec colname="col1"/>
@@ -24,7 +25,7 @@
     <tbody>
         <row valign="top">
             <entry><para>1.14.0</para></entry>
-            <entry><para>2021-??-??</para></entry>
+            <entry><para>2022-02-05</para></entry>
             <entry>
                 <para>Bug fixes:</para>
                 <para>

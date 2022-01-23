@@ -48,27 +48,39 @@
   <translation type="gettext">gnome-commander</translation>
 
   <releases>
-    <release version="1.10.4" date="2020-??-??">
+    <release type="stable" version="1.14.0" date="2022-02-05">
       <description>
         <p>
-          This release includes ...
+          This release includes the following features:
         </p>
         <ul>
-          <li>...</li>
+          <li>Selectable default action when drag-n-drop files with the mouse</li>
+          <li>Optional usage of the trash can instead of permanent file deletion (see issue #2)</li>
+          <li>Removed internal file search dialog, instead use external command for file search</li>
+          <li>Name of connected remote server is shown in the directory indicator (see issue #71)</li>
+          <li>New menu entry for (un)selecting only files</li>
         </ul>
-      </description>
-    </release>
-
-    <release version="1.10.3" date="2020-06-19">
-      <description>
-        <p>
-          This release includes bug fixes, library removals, translation updates and a small new feature
-        </p>
+        <p>This release fixes the following bugs:</p>
         <ul>
-          <li>InternalViewer: Show metadata file information by default</li>
-          <li>Get rid of deprecated libgnome and libgnomeui libraries</li>
-          <li>In the file search the option 'copy file name' does work again</li>
-          <li>Switched from nautilus-sendto to xdg-email as default send-to command</li>
+          <li>Issue #3 (Mounted devices pluged when Commander is running are not noticed)</li>
+          <li>Issue #5 ("Follow Links" option does not work when copying files)</li>
+          <li>Issue #13 (Directory size not updated while copying)</li>
+          <li>Issue #16 (Start-left-dir doesn't work on '.' (dot directory))</li>
+          <li>Issue #19 (FTP connections are not closed correctly)</li>
+          <li>Issue #28 (Write permissions are given to all users on an FTP server)</li>
+          <li>Issue #33 (Get rid of deprecated gnome-vfs)</li>
+          <li>Issue #39 (Copy fail when selecting a "drive")</li>
+          <li>Issue #41 (Directory not unreferenced correctly from cache when renamed)</li>
+          <li>Issue #45 (Gnome Commander closes when clicking on SMB path \\xxx\dddddd)</li>
+          <li>Issue #46 (Automatic refresh of folder content is not correct)</li>
+          <li>Issue #47 (Duplicate directory when copying over an existing directory)</li>
+          <li>Issue #51 (Move and not copy by default on same filesystem)</li>
+          <li>Issue #52 (Auto refresh when changing permissions etc)</li>
+          <li>Issue #57 (Remote connections: Gnome Commander misreads file ownership)</li>
+          <li>Issue #59 (On ssh connection, to delete a renamed folder/file don't work)</li>
+          <li>Issue #74 (Does not show mounted external drives)</li>
+          <li>Issue #75 (Newly inserted DVD does not show up)</li>
+          <li>Issue #76 (Crash in Gnome Commander when using webDAV SSL)</li>
         </ul>
       </description>
     </release>
