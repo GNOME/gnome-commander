@@ -375,9 +375,10 @@ GnomeCmdConRemote *gnome_cmd_con_remote_new (const gchar *alias, const string &u
 
     con->method = gnome_cmd_con_get_scheme (uri_str.c_str());
 
-    g_free (path);
     g_free (scheme);
     g_free(host);
+    g_free (path);
+    g_free (user);
 
     return gnomeCmdConRemote;
 }
