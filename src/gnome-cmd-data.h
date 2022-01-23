@@ -723,7 +723,7 @@ struct GnomeCmdData
     void load();
     void load_colors();
     void load_color_themes();
-    void load_tabs_from_gsettings();
+    void load_tabs();
     void load_devices();
     void load_fav_apps();
     void gsettings_init();

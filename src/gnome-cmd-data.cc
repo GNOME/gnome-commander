@@ -2741,7 +2741,7 @@ gboolean GnomeCmdData::set_valid_color_string(GSettings *settings_given, const c
 /**
  * Loads tabs from gSettings into gcmd options
  */
-void GnomeCmdData::load_tabs_from_gsettings()
+void GnomeCmdData::load_tabs()
 {
     GVariant *gvTabs, *tab;
     GVariantIter iter;
@@ -3227,7 +3227,7 @@ void GnomeCmdData::load()
     advrename_defaults.height = g_settings_get_uint (options.gcmd_settings->general, GCMD_SETTINGS_ADVRENAME_TOOL_HEIGHT);
     advrename_defaults.templates.ents = get_list_from_gsettings_string_array (options.gcmd_settings->general, GCMD_SETTINGS_ADVRENAME_TOOL_TEMPLATE_HISTORY);
 
-    load_tabs_from_gsettings();
+    load_tabs();
 
     static struct
     {
