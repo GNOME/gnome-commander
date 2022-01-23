@@ -1998,7 +1998,7 @@ void help_web (GtkMenuItem *menuitem, gpointer not_used)
 {
     GError *error = nullptr;
 
-    if (!gtk_show_uri (nullptr, "https://gcmd.github.io/", GDK_CURRENT_TIME, &error))
+    if (!gtk_show_uri (nullptr, PACKAGE_URL, GDK_CURRENT_TIME, &error))
         gnome_cmd_error_message (_("There was an error opening home page."), error);
 }
 
