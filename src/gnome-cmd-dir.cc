@@ -367,7 +367,7 @@ GnomeCmdDir *gnome_cmd_dir_new (GnomeCmdCon *con, GnomeCmdPath *path, gboolean i
     {
         if (error && !isStartup)
         {
-            gnome_cmd_show_message (*main_win, path->get_display_path(), error->message);
+            gnome_cmd_show_message (*main_win, uriString, error->message);
             g_error_free(error);
         }
         g_object_unref(gFile);
