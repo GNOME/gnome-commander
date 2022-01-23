@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Copyright 2014-2022 Uwe Scholz <u.scholz83@gmx.de> -->
 <component type="desktop">
-  <id>org.gnome.gnome-commander.desktop</id>
+  <id>org.gnome.gnome-commander</id>
   <metadata_license>CC0-1.0</metadata_license>
   <project_license>GPL-2.0+</project_license>
   <name>GNOME Commander</name>
@@ -43,9 +43,20 @@
   <url type="donation">https://gcmd.github.io/#donations</url>
   <url type="help">https://gcmd.github.io/doc.html</url>
   <url type="translate">https://gcmd.github.io/dev.html#trnsl</url>
-  <update_contact>gcmd-devel@nongnu.org</update_contact>
+  <update_contact>gcmd-devel_AT_nongnu.org</update_contact>
   <project_group>GNOME</project_group>
+  <developer_name>The GNOME Project</developer_name>
   <translation type="gettext">gnome-commander</translation>
+  <content_rating type="oars-1.0" />
+  <launchable type="desktop-id">org.gnome.gnome-commander.desktop</launchable>
+  <provides>
+    <binary>gnome-commander</binary>
+    <id>gnome-commander.desktop</id>
+  </provides>
+  <suggests type="upstream">
+    <id>org.gnome.meld.desktop</id>
+    <id>yelp.desktop</id>
+  </suggests>
 
   <releases>
     <release type="stable" version="1.14.0" date="2022-02-05">
