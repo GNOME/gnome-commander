@@ -334,6 +334,7 @@ GnomeCmdConRemote *gnome_cmd_con_remote_new (const gchar *alias, const string &u
 
     GError *error = nullptr;
 
+    gchar *scheme = nullptr;
     gchar *user = nullptr;
     gchar *host = nullptr;
     gint port = -1;
@@ -342,7 +343,7 @@ GnomeCmdConRemote *gnome_cmd_con_remote_new (const gchar *alias, const string &u
     g_uri_split_with_user (
         uri_str.c_str(),
         G_URI_FLAGS_HAS_PASSWORD,
-        nullptr, //scheme
+        &scheme,
         &user,
         nullptr, //password
         nullptr, //auth_params
@@ -364,6 +365,7 @@ GnomeCmdConRemote *gnome_cmd_con_remote_new (const gchar *alias, const string &u
 
     gnome_cmd_con_set_alias (con, alias);
     gnome_cmd_con_set_uri (con, uri_str.c_str());
+    gnome_cmd_con_set_scheme(con, scheme);
     gnome_cmd_con_set_user_name (con, user);
     gnome_cmd_con_set_host_name (con, host);
     gnome_cmd_con_set_port (con, port);
@@ -374,6 +376,7 @@ GnomeCmdConRemote *gnome_cmd_con_remote_new (const gchar *alias, const string &u
     con->method = gnome_cmd_con_get_scheme (uri_str.c_str());
 
     g_free (path);
+    g_free (scheme);
     g_free(host);
 
     return gnomeCmdConRemote;
