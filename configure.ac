@@ -232,7 +232,7 @@ AC_CONFIG_FILES([
 Makefile
 data/gnome-commander.ebuild
 data/gnome-commander.spec
-data/gnome-commander.desktop.in
+data/org.gnome.gnome-commander.desktop.in
 data/Makefile
 doc/Makefile
 libgcmd/Makefile

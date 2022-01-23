@@ -1,7 +1,7 @@
 # List of source files containing translatable strings.
 # Please keep this file sorted alphabetically.
-data/gnome-commander.appdata.xml.in
-data/gnome-commander.desktop.in.in
+data/org.gnome.gnome-commander.appdata.xml.in
+data/org.gnome.gnome-commander.desktop.in.in
 data/org.gnome.gnome-commander.gschema.xml
 libgcmd/gnome-cmd-string-dialog.cc
 libgcmd/libgcmd-widget-factory.cc

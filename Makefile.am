@@ -55,7 +55,7 @@ ChangeLog:
 #
 GITIGNOREFILES = \
 	doc/doxygen/ \
-	data/gnome-commander.desktop.in \
+	data/org.gnome.gnome-commander.desktop.in \
 	data/gnome-commander.ebuild \
 	data/gnome-commander.spec \
 	po/gnome-commander.pot \

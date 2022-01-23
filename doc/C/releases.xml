@@ -9,7 +9,7 @@
     <title>Release Overview</title>
     <para>Starting after version 1.14.0, we provide release notes through the AppData file. As such, app stores (like GNOME Software) can show release notes to users.</para>
     <para>Human-readable textual output can easily be generated with the following command:</para>
-    <para><command>appstream-util appdata-to-news /usr/share/metainfo/gnome-commander.appdata.xml</command></para>
+    <para><command>appstream-util appdata-to-news /usr/share/metainfo/org.gnome.gnome-commander.appdata.xml</command></para>
     <informaltable frame="topbot">
     <tgroup cols="3">
         <colspec colname="col1"/>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Copyright 2014-2022 Uwe Scholz <u.scholz83@gmx.de> -->
 <component type="desktop">
-  <id>gnome-commander.desktop</id>
+  <id>org.gnome.gnome-commander.desktop</id>
   <metadata_license>CC0-1.0</metadata_license>
   <project_license>GPL-2.0+</project_license>
   <name>GNOME Commander</name>
@@ -85,5 +85,4 @@
       </description>
     </release>
   </releases>
-
 </component>
