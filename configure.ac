@@ -18,9 +18,23 @@ AX_COMPILER_FLAGS
 AX_COMPILER_FLAGS_CXXFLAGS
 AX_CXX_COMPILE_STDCXX_11
 
+dnl ===================
+dnl Check for flex
+dnl ===================
+AC_PROG_LEX(noyywrap)
+AC_PATH_PROG(FLEX, flex)
+if test -z "$FLEX"; then
+   AC_MSG_ERROR([You need the 'flex' lexer generator to compile Gnome Commander])
+else
+   FLEX_VERSION=`$FLEX --version | sed 's,.*\ \([0-9]*\.[0-9]*\.[0-9]*\)$,\1,'`
+   AX_COMPARE_VERSION([2.0.0],[gt],[$FLEX_VERSION],
+      AC_MSG_WARN([Could not identify the version of the installed flex command.]))
+   AX_COMPARE_VERSION([2.0.0],[gt],[$FLEX_VERSION],
+      AC_MSG_WARN([Make sure to install the official 'flex' lexer generator to compile Gnome Commander correctly.]))
+fi
+
 AC_PROG_CC
 AC_PROG_CXX
-AC_PROG_LEX(noyywrap)
 LT_INIT
 
 dnl ===================
@@ -160,7 +174,6 @@ fi
 if test "x$have_pdf" = "xyes"; then
    AC_DEFINE(HAVE_PDF, 1, [Define to 1 if you have PDF support])
 fi
-
 
 dnl =====================
 dnl     Google Test
