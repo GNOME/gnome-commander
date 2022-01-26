@@ -92,6 +92,7 @@
           <li>Issue #74 (Does not show mounted external drives)</li>
           <li>Issue #75 (Newly inserted DVD does not show up)</li>
           <li>Issue #76 (Crash in Gnome Commander when using webDAV SSL)</li>
+          <li>Issue #115 (No error on autogen when flex is missing)</li>
         </ul>
       </description>
     </release>
