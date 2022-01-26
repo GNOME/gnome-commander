@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: gnome-commander master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-commander/issues\n"
 "POT-Creation-Date: 2022-01-19 06:19+0000\n"
-"PO-Revision-Date: 2022-01-24 22:01+0100\n"
+"PO-Revision-Date: 2022-01-25 16:59+0100\n"
 "Last-Translator: Matej Urbančič <mateju@src.gnome.org>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
 "Language: sl_SI\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || n"
 "%100==4 ? 3 : 0);\n"
 "X-Poedit-SourceCharset: utf-8\n"
-"X-Generator: Poedit 3.0\n"
+"X-Generator: Poedit 3.0.1\n"
 
 #: data/gnome-commander.appdata.xml.in:7 data/gnome-commander.desktop.in.in:3
 #: src/gnome-cmd-main-win.cc:854
@@ -313,7 +313,7 @@ msgstr "Hitrost posodabljanja grafičnega vmesnika"
 
 #: data/org.gnome.gnome-commander.gschema.xml:200
 msgid "Update rate of the graphical user interphase in 1/1000ths of a second."
-msgstr "HItrost posodabljanja grafičnega vmesnika v tisočinkah sekunde."
+msgstr "Hitrost posodabljanja grafičnega vmesnika v tisočinkah sekunde."
 
 #: data/org.gnome.gnome-commander.gschema.xml:204
 msgid "Show device buttons"
@@ -341,7 +341,7 @@ msgstr "Nastavitev določa, ali je prikazana ukazna vrstica."
 
 #: data/org.gnome.gnome-commander.gschema.xml:219
 msgid "Show toolbar"
-msgstr "Show toolbar"
+msgstr "Pokaži orodno vrstico"
 
 #: data/org.gnome.gnome-commander.gschema.xml:220
 msgid "Defines if the toolbar is shown."
@@ -368,7 +368,7 @@ msgid ""
 msgstr ""
 "Niz določa privzeto ime novo ustvarjene simbolne povezave. Prazno polje "
 "določa uporabo privzete vrednosti, vpisane v kodi programa. Vrednost »%s« se "
-"razširi na ime elementa, za katerega je treba ustvariti povezavo."
+"razširi na ime predmeta, za katerega je treba ustvariti povezavo."
 
 #: data/org.gnome.gnome-commander.gschema.xml:238
 msgid "Main window horizontal position"
@@ -613,7 +613,7 @@ msgstr "Razvrščaj, upoštevajoč velikost črk"
 
 #: data/org.gnome.gnome-commander.gschema.xml:436
 msgid "This option defines if sorting should be case sensitive."
-msgstr ""
+msgstr "Možnost določa, ali naj se pri razvrščanju upošteva tudi velikost črk."
 
 #: data/org.gnome.gnome-commander.gschema.xml:442
 msgid "Select directories when all is marked"
@@ -633,11 +633,11 @@ msgstr "Omogoči odpiranje več primerkov programa"
 
 #: data/org.gnome.gnome-commander.gschema.xml:450
 msgid "This option defines if multiple instances are allowed."
-msgstr ""
+msgstr "Možnost določa, ali je dovoljen zagon več kot enega primerka programa."
 
 #: data/org.gnome.gnome-commander.gschema.xml:456
 msgid "Quick search exact match begin"
-msgstr ""
+msgstr "Upoštevaj natančno skladnost niza z začetkom imena"
 
 #: data/org.gnome.gnome-commander.gschema.xml:457
 msgid ""
@@ -649,7 +649,7 @@ msgstr ""
 
 #: data/org.gnome.gnome-commander.gschema.xml:463
 msgid "Quick search exact match end"
-msgstr ""
+msgstr "Upoštevaj natančno skladnost niza s koncem imena"
 
 #: data/org.gnome.gnome-commander.gschema.xml:464
 msgid ""
@@ -693,7 +693,7 @@ msgstr "Možnost določa, ali je glavni meni programa prikazan ali ne."
 
 #: data/org.gnome.gnome-commander.gschema.xml:491
 msgid "Quick search shortcut"
-msgstr "Tipkovna bližnica za hitro iskanje"
+msgstr "Tipkovna bližnjica za hitro iskanje"
 
 #: data/org.gnome.gnome-commander.gschema.xml:492
 msgid "This option defines the shortcut for quick search."
@@ -716,7 +716,7 @@ msgstr "Seznam naprav"
 
 #: data/org.gnome.gnome-commander.gschema.xml:506
 msgid "The entries in this list represent the devices configured by the user."
-msgstr ""
+msgstr "Vnosi na seznamu pomenijo naprave, ki jih je nastavil uporabnik."
 
 #: data/org.gnome.gnome-commander.gschema.xml:512
 msgid "List of favorite apps"
@@ -726,6 +726,8 @@ msgstr "Seznam programov"
 msgid ""
 "The entries in this list represent the favorite apps configured by the user."
 msgstr ""
+"Vnosi na seznamu pomenijo priljubljene programe, ki jih je nastavil "
+"uporabnik."
 
 #: data/org.gnome.gnome-commander.gschema.xml:519
 msgid "Search pattern history"
@@ -752,11 +754,11 @@ msgstr ""
 
 #: data/org.gnome.gnome-commander.gschema.xml:535
 msgid "Quick connect URI"
-msgstr "Naslov URI za hitra povezavo"
+msgstr "Določilo URI za hitro povezavo"
 
 #: data/org.gnome.gnome-commander.gschema.xml:536
 msgid "Unified resource identifier for quick connections."
-msgstr ""
+msgstr "Določilo URI za vzpostavljanje hitre povezave."
 
 #: data/org.gnome.gnome-commander.gschema.xml:547
 msgid "Password for anonymous FTP connections"
@@ -772,7 +774,7 @@ msgstr "Zahtevaj potrditev pred brisanjem"
 
 #: data/org.gnome.gnome-commander.gschema.xml:557
 msgid "Defines if deletion of an item should be confirmed."
-msgstr ""
+msgstr "Možnost določa, ali naj se brisanje predmetov uporabniško potrjuje."
 
 #: data/org.gnome.gnome-commander.gschema.xml:563
 msgid "Delete default"
@@ -798,7 +800,7 @@ msgstr ""
 
 #: data/org.gnome.gnome-commander.gschema.xml:577
 msgid "Confirm move overwrite"
-msgstr "Zahtevaj potrdtev premakanja s prepisom"
+msgstr "Zahtevaj potrditev premikanja s prepisom"
 
 #: data/org.gnome.gnome-commander.gschema.xml:578
 msgid ""
@@ -810,11 +812,11 @@ msgstr ""
 
 #: data/org.gnome.gnome-commander.gschema.xml:584
 msgid "Confirm mouse drag and drop"
-msgstr "Zahtevaj potrdtev dejanja povleci in spusti"
+msgstr "Zahtevaj potrditev dejanja povleci in spusti"
 
 #: data/org.gnome.gnome-commander.gschema.xml:585
 msgid "This option defines the behavior of mouse drag and drop operations."
-msgstr ""
+msgstr "Možnost določa obnašanje miške pri uporabi opravil povleci in spusti."
 
 #: data/org.gnome.gnome-commander.gschema.xml:593
 msgid "Hide unknown filetypes"
@@ -822,7 +824,7 @@ msgstr "Skrij neznane vrste datotek"
 
 #: data/org.gnome.gnome-commander.gschema.xml:594
 msgid "Hide files which type does not match to one of the other types."
-msgstr ""
+msgstr "Skrij datoteke, ki niso skladne z nobeno izmed določenih vrst."
 
 #: data/org.gnome.gnome-commander.gschema.xml:598
 msgid "Hide regular files"
@@ -841,6 +843,8 @@ msgid ""
 "Hide special files, such as a socket, fifo, block devices, or character "
 "devices."
 msgstr ""
+"Skrij posebne datoteke, kot so vtiči, bločne naprave, znakovne naprave, "
+"datoteke fifo ..."
 
 #: data/org.gnome.gnome-commander.gschema.xml:614
 msgid "Hide shortcut files (Windows systems)"
@@ -860,7 +864,7 @@ msgstr "Skrij spremenljive datoteke"
 
 #: data/org.gnome.gnome-commander.gschema.xml:630
 msgid "Hide files and folders starting with a dot"
-msgstr "Onemogoči prikaz datotek in map, ki se začnejo s piko"
+msgstr "Skrij datoteke in mape, ki se začnejo s piko"
 
 #: data/org.gnome.gnome-commander.gschema.xml:634
 msgid "Hide backup files"
@@ -868,7 +872,7 @@ msgstr "Skrij datoteke varnostnih kopij"
 
 #: data/org.gnome.gnome-commander.gschema.xml:635
 msgid "Hide all files with a suffix defined as the backup pattern."
-msgstr ""
+msgstr "Skrij datoteke s pripono, opredeljeno kot vzorec za varnostne kopije."
 
 #: data/org.gnome.gnome-commander.gschema.xml:639
 msgid "Backup file pattern"
@@ -901,6 +905,7 @@ msgstr "Uporabi notranji pregledovalnik"
 #: data/org.gnome.gnome-commander.gschema.xml:657
 msgid "This option defines if the internal viewer should be used by default."
 msgstr ""
+"Možnost določa, ali naj bo privzeto uporabljen notranji pregledovalnik."
 
 #: data/org.gnome.gnome-commander.gschema.xml:663
 msgid "Viewer command"
@@ -944,6 +949,8 @@ msgid ""
 "This option defines if a terminal window should stay open after a command "
 "finishes inside of it."
 msgstr ""
+"Možnost določa, ali naj okno terminala ostane odprto, ko se izvedba ukaza "
+"konča."
 
 #: data/org.gnome.gnome-commander.gschema.xml:698
 msgid "Command for opening a terminal"
@@ -1209,13 +1216,15 @@ msgstr ""
 
 #: data/org.gnome.gnome-commander.gschema.xml:906
 msgid "Case sensitive search"
-msgstr "Iskanje z upoštevanjem velikosti črk"
+msgstr "Išči z upoštevanjem velikosti črk"
 
 #: data/org.gnome.gnome-commander.gschema.xml:907
 msgid ""
 "This option defines if searching within the internal viewer is case "
 "sensitive."
 msgstr ""
+"Možnost določa, ali naj iskanje v notranjem pregledovalniku upošteva "
+"velikost črk."
 
 #: data/org.gnome.gnome-commander.gschema.xml:913
 msgid "Search mode"
@@ -1223,7 +1232,7 @@ msgstr "Iskalni način"
 
 #: data/org.gnome.gnome-commander.gschema.xml:914
 msgid "This option defines the search mode of the internal viewer."
-msgstr ""
+msgstr "Možnost določa iskalni način notranjega pregledovalnika."
 
 #. Translators: This is the default string of encoding used by the internal viewer
 #. for displaying the file in the given encoding. You may want to customize it by using
@@ -1267,6 +1276,8 @@ msgid ""
 "This option defines if the hexadecimal offset should be displayed in hex "
 "mode."
 msgstr ""
+"Možnost določa šestnajstiški odmik notranjega pregledovalnika v "
+"šestnajstiškem načinu pogleda."
 
 #: data/org.gnome.gnome-commander.gschema.xml:953
 msgid "Wrap mode"
@@ -1275,6 +1286,8 @@ msgstr "Način preloma"
 #: data/org.gnome.gnome-commander.gschema.xml:954
 msgid "This option defines if too long text lines should be wrapped."
 msgstr ""
+"Možnost določa, ali naj se predolge besedilne vrstice prelomijo po določenem "
+"številu znakov."
 
 #: data/org.gnome.gnome-commander.gschema.xml:960
 msgid "Font size"
@@ -1286,23 +1299,23 @@ msgstr "Možnost določa privzeto velikost pisave."
 
 #: data/org.gnome.gnome-commander.gschema.xml:967
 msgid "Tab size"
-msgstr "Velikost zavihka"
+msgstr "Velikost zamika tabulatorja"
 
 #: data/org.gnome.gnome-commander.gschema.xml:968
 msgid ""
 "This option defines the indentation width in terms of characters for a "
 "tabulator character."
-msgstr ""
+msgstr "Možnost določa širino zamika kot število znakov za znake tabulatorja."
 
 #: data/org.gnome.gnome-commander.gschema.xml:974
 msgid "Bytes per line in binary mode"
-msgstr "Število bitov v vrstici v dvojiškem načinu"
+msgstr "Število bajtov v vrstici v dvojiškem načinu"
 
 #: data/org.gnome.gnome-commander.gschema.xml:975
 msgid ""
 "This option defines how many bytes should be displayed in one line in binary "
 "mode."
-msgstr ""
+msgstr "Možnost določa velikost prikazane vrstice dvojiškega izpisa v bajtih."
 
 #: data/org.gnome.gnome-commander.gschema.xml:981
 msgid "Metadata view"
@@ -1321,6 +1334,7 @@ msgid ""
 "This option defines the visual offset of the internal file viewer in "
 "horizontal direction."
 msgstr ""
+"Možnost določa odmik notranjega pregledovalnika datotek v vodoravni smeri."
 
 #: data/org.gnome.gnome-commander.gschema.xml:995
 msgid "Vertical offset"
@@ -1331,6 +1345,8 @@ msgid ""
 "This option defines the visual offset of the internal file viewer in "
 "vertical direction."
 msgstr ""
+"Možnost določa vidni zamik notranjega pregledovalnika datotek v navpični "
+"smeri."
 
 #: data/org.gnome.gnome-commander.gschema.xml:1002
 msgid "Window width"
@@ -1357,6 +1373,8 @@ msgid ""
 "This string array stores the history of text searches within the internal "
 "file viewer."
 msgstr ""
+"Niz določa shranjeno zgodovino besedilnih iskanj v notranjem pregledovalniku "
+"datotek."
 
 #: data/org.gnome.gnome-commander.gschema.xml:1023
 msgid "Search pattern for hex values"
@@ -1367,6 +1385,8 @@ msgid ""
 "This string array stores the history of searches for hex values within the "
 "internal file viewer."
 msgstr ""
+"Niz določa shranjeno zgodovina iskanj za šestnajstiške vrednosti v notranjem "
+"pregledovalniku datotek."
 
 #: data/org.gnome.gnome-commander.gschema.xml:1032
 msgid "File suffix"
@@ -1374,7 +1394,7 @@ msgstr "Pripona datoteke"
 
 #: data/org.gnome.gnome-commander.gschema.xml:1033
 msgid "Default file suffix of archives created with the File Roller plugin."
-msgstr ""
+msgstr "Privzeta pripona arhivov, ki so ustvarjeni z vstavkom File Roller."
 
 #: data/org.gnome.gnome-commander.gschema.xml:1039
 msgid "Prefix pattern"
@@ -1385,6 +1405,8 @@ msgid ""
 "The prefix pattern is used to build up the name for an archive created with "
 "the File Roller plugin."
 msgstr ""
+"Vzorec predpone se uporablja za izgradnjo imena arhiva, ustvarjenega z "
+"vstavkom File Roller."
 
 #: data/org.gnome.gnome-commander.gschema.xml:1048
 msgid "Automatically loaded plugins"
@@ -1395,6 +1417,8 @@ msgid ""
 "This is the list of automatically loaded plugins, whereas each entry "
 "represents the file name of the plugin."
 msgstr ""
+"To je seznam samodejno naloženih vstavkov, vsak vnos pa predstavlja ime "
+"datoteke tega vstavka."
 
 #: libgcmd/gnome-cmd-string-dialog.cc:127
 msgid "No error description available"
@@ -1494,14 +1518,16 @@ msgid ""
 "Use $N as a pattern for the original file name. See the manual page for "
 "“strftime” for other patterns."
 msgstr ""
+"Uporabi $N za vzorec imena izvorne datoteke. Drugi vzorci so predstavljeni "
+"na straneh priročnika pri zapisih »strftime«."
 
 #: plugins/fileroller/file-roller-plugin.cc:828
 msgid ""
 "A plugin that adds File Roller shortcuts for creating and extracting "
 "compressed archives."
 msgstr ""
-"Vstavek, ki doda bližnjico File Roller za ustvarjanje in razširjanje "
-"skrčenih datotek."
+"Vstavek, ki doda bližnjico do programa File Roller za ustvarjanje in "
+"razširjanje stisnjenih datotek."
 
 #: plugins/test/test-plugin.cc:242
 msgid ""
@@ -2058,12 +2084,11 @@ msgid "Conflicting Shortcuts"
 msgstr "Bližnjice v sporu"
 
 #: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:504
-#, fuzzy, c-format
-#| msgid "Reassigning the shortcut will cause it to be removed from \"%s\"."
+#, c-format
 msgid "Reassigning the shortcut will cause it to be removed from “%s”."
 msgstr ""
-"Ponovno določanje bližnjice bo bližnjico odstranilo od trenutne izbire \"%s"
-"\"."
+"Ponovno dodeljevanje bližnjice bo obstoječo odstranilo s trenutne izbire "
+"»%s«."
 
 #: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:560
 msgid "Invalid shortcut."
@@ -2257,7 +2282,7 @@ msgstr "ALT+črke (dostop do menija z F12)"
 
 #: src/dialogs/gnome-cmd-options-dialog.cc:204
 msgid "Just letters (command line access with CTRL+ALT+C)"
-msgstr ""
+msgstr "Le črke (dostop v ukazni vrstici z CTRL+ALT+C)"
 
 #: src/dialogs/gnome-cmd-options-dialog.cc:209
 msgid "Match beginning of the file name"
@@ -2332,15 +2357,11 @@ msgid "Format:"
 msgstr "Zapis:"
 
 #: src/dialogs/gnome-cmd-options-dialog.cc:423
-#, fuzzy
-#| msgid ""
-#| "See the manual page for \"strftime\" for help on how to set the format "
-#| "string."
 msgid ""
 "See the manual page for “strftime” for help on how to set the format string."
 msgstr ""
-"Več podrobnosti o vrstici \"strftime\" je zapisanih v priročnik za "
-"nastavitve oblike zapisa."
+"Več podrobnosti o vrstici »strftime« je zapisanih v priročnik za nastavitve "
+"oblike zapisa."
 
 #: src/dialogs/gnome-cmd-options-dialog.cc:507
 msgid "Edit Colors…"
@@ -2634,10 +2655,8 @@ msgid "Regular files"
 msgstr "Običajne datoteke"
 
 #: src/dialogs/gnome-cmd-options-dialog.cc:1220
-#, fuzzy
-#| msgid "Hide character devices"
 msgid "Socket, fifo, block, or character devices"
-msgstr "Skrij znakovne naprave"
+msgstr "Vtiči, bločne, znakovne naprave, datoteke fifo"
 
 #: src/dialogs/gnome-cmd-options-dialog.cc:1223
 msgid "Shortcuts (Windows systems)"
@@ -2831,6 +2850,8 @@ msgid ""
 "Show Samba workgroups button\n"
 "(Needs program restart if altered)"
 msgstr ""
+"Pokaži gumb omrežnih povezav Samba\n"
+"(sprememba zahteva ponovni zagon)"
 
 #: src/dialogs/gnome-cmd-options-dialog.cc:2139
 msgid "Show only the icons"
@@ -3571,7 +3592,7 @@ msgstr "Ni določenega privzetega programa za vrsto datoteke %s."
 
 #: src/gnome-cmd-file-list.cc:1358
 msgid "Open the \"Applications\" page in the Control Center to add one."
-msgstr ""
+msgstr "Odprite stran »Programov« v Nadzornem središču in program dodajte."
 
 #: src/gnome-cmd-file-list.cc:1389 src/gnome-cmd-file-popmenu.cc:140
 #, c-format
@@ -4067,7 +4088,7 @@ msgstr "F6 Premakni"
 
 #: src/gnome-cmd-main-win.cc:503
 msgid "F7 Mkdir"
-msgstr "F7 Mkdir"
+msgstr "F7 Nova mapa"
 
 #: src/gnome-cmd-main-win.cc:505
 msgid "F8 Delete"
@@ -4437,7 +4458,7 @@ msgstr "Ni podanega veljavnega ukaza za iskanje."
 
 #: src/gnome-cmd-user-actions.cc:781
 msgid "You can set a command for a search tool in the program options."
-msgstr ""
+msgstr "Ukaz za iskalnik je mogoče nastaviti med možnostmi programa."
 
 #: src/gnome-cmd-user-actions.cc:854
 #, c-format
@@ -4699,18 +4720,14 @@ msgid "%.0f%% copied"
 msgstr "%.0f%% kopirano"
 
 #: src/imageloader.cc:110
-#, fuzzy, c-format
-#| msgid "Couldn't load installed file type pixmap, trying to load %s instead"
+#, c-format
 msgid "Couldn’t load installed file type pixmap, trying to load %s instead"
 msgstr ""
-"Ni mogoče naložiti nameščene sličice vrste datotek, zato bo naložena sličica "
-"%s"
+"Ni mogoče naložiti nameščene sličice za izbrano vrsto datoteke, zato bo "
+"naložena sličica %s"
 
 #: src/imageloader.cc:114 src/imageloader.cc:138
-#, fuzzy, c-format
-#| msgid ""
-#| "Can't find the pixmap anywhere. Make sure you have installed the program "
-#| "or is executing gnome-commander from the gnome-commander-%s/src directory"
+#, c-format
 msgid ""
 "Can’t find the pixmap anywhere. Make sure you have installed the program or "
 "is executing gnome-commander from the gnome-commander-%s/src directory"
@@ -4719,10 +4736,9 @@ msgstr ""
 "da je zagnan iz mape gnome-commander-%s/src"
 
 #: src/imageloader.cc:135
-#, fuzzy, c-format
-#| msgid "Couldn't load installed pixmap, trying to load %s instead"
+#, c-format
 msgid "Couldn’t load installed pixmap, trying to load %s instead"
-msgstr "Ni mogoče naložiti nameščene sličice, zato bo naložena sličica %s"
+msgstr "Ni mogoče naložiti nameščene sličice, zato bo naložena %s"
 
 #: src/intviewer/search-dlg.cc:243
 msgid "Find"
@@ -5024,19 +5040,19 @@ msgstr "_Nastavitve"
 
 #: src/tags/gnome-cmd-tags.cc:64
 msgid "<Exif and IPTC tags not supported>"
-msgstr "<Exif in IPTC oznake niso podprte>"
+msgstr "<oznake Exif in IPTC niso podprte>"
 
 #: src/tags/gnome-cmd-tags.cc:68
 msgid "<ID3, APE, FLAC and Vorbis tags not supported>"
-msgstr "<ID3, APE, FLAC in Vorbis oznake niso podprte>"
+msgstr "<oznake ID3, APE, FLAC in Vorbis niso podprte>"
 
 #: src/tags/gnome-cmd-tags.cc:73
 msgid "<OLE2 and ODF tags not supported>"
-msgstr "<OLE2 in ODF oznake niso podprte>"
+msgstr "<oznake OLE2 in ODF niso podprte>"
 
 #: src/tags/gnome-cmd-tags.cc:78
 msgid "<PDF tags not supported>"
-msgstr "<PDF oznake niso podprte>"
+msgstr "<oznake PDF niso podprte>"
 
 #: src/tags/gnome-cmd-tags.cc:118 src/tags/gnome-cmd-tags.cc:419
 msgid "Album"
@@ -5056,19 +5072,19 @@ msgstr "Izvajalec albuma"
 
 #: src/tags/gnome-cmd-tags.cc:120
 msgid "Album Gain"
-msgstr "Ojačenje albuma"
+msgstr "Okrepitev zvoka albuma"
 
 #: src/tags/gnome-cmd-tags.cc:120
 msgid "Gain adjustment of the album."
-msgstr "Prilagoditev ojačitve za album."
+msgstr "Prilagoditev okrepitve zvoka za celoten album."
 
 #: src/tags/gnome-cmd-tags.cc:121
 msgid "Album Peak Gain"
-msgstr "Ojačanje vrha albuma."
+msgstr "Okrepitev vrha albuma."
 
 #: src/tags/gnome-cmd-tags.cc:121
 msgid "Peak gain adjustment of album."
-msgstr "Prilagoditev ojačitve vrhov albuma."
+msgstr "Prilagoditev okrepitve vrhov albuma."
 
 #: src/tags/gnome-cmd-tags.cc:122
 msgid "Album Track Count"
@@ -5133,7 +5149,7 @@ msgstr "Avtorske pravice"
 
 #: src/tags/gnome-cmd-tags.cc:129 src/tags/gnome-cmd-tags.cc:345
 msgid "Copyright message."
-msgstr "Avtorsko sporočilo."
+msgstr "Sporočilo o uveljavljanju avtorske zaščite."
 
 #: src/tags/gnome-cmd-tags.cc:130
 msgid "Cover Album Thumbnail Path"
@@ -5165,7 +5181,7 @@ msgstr "Trajanje [MM:SS]"
 
 #: src/tags/gnome-cmd-tags.cc:133
 msgid "Duration of track as MM:SS."
-msgstr "Trajanje sledi  MM:SS."
+msgstr "Trajanje sledi MM:SS."
 
 #: src/tags/gnome-cmd-tags.cc:134
 msgid "Genre"
@@ -5205,7 +5221,7 @@ msgstr "Besedilo"
 
 #: src/tags/gnome-cmd-tags.cc:138
 msgid "Lyrics of the track."
-msgstr "Besedilo sledi."
+msgstr "Besedilo skladbe."
 
 #: src/tags/gnome-cmd-tags.cc:139
 msgid "MB album artist ID"
@@ -5213,7 +5229,7 @@ msgstr "ID izvajalca albuma"
 
 #: src/tags/gnome-cmd-tags.cc:139
 msgid "MusicBrainz album artist ID in UUID format."
-msgstr "MusicBrainz ID izvajalca albuma v UUID obliki."
+msgstr "MusicBrainz ID izvajalca albuma v zapisu UUID."
 
 #: src/tags/gnome-cmd-tags.cc:140
 msgid "MB Album ID"
@@ -5221,7 +5237,7 @@ msgstr "MB ID albuma"
 
 #: src/tags/gnome-cmd-tags.cc:140
 msgid "MusicBrainz album ID in UUID format."
-msgstr "MusicBrainz ID albuma v UUID obliki."
+msgstr "MusicBrainz ID albuma v zapisu UUID."
 
 #: src/tags/gnome-cmd-tags.cc:141
 msgid "MB Artist ID"
@@ -5229,7 +5245,7 @@ msgstr "MB ID izvajalca"
 
 #: src/tags/gnome-cmd-tags.cc:141
 msgid "MusicBrainz artist ID in UUID format."
-msgstr "MusicBrainz ID izvajalca v UUID obliki."
+msgstr "MusicBrainz ID izvajalca v zapisu UUID."
 
 #: src/tags/gnome-cmd-tags.cc:142
 msgid "MB Track ID"
@@ -5237,7 +5253,7 @@ msgstr "MB ID sledi"
 
 #: src/tags/gnome-cmd-tags.cc:142
 msgid "MusicBrainz track ID in UUID format."
-msgstr "MusicBrainz ID sledi v UUID obliki."
+msgstr "MusicBrainz ID sledi v zapisu UUID."
 
 #: src/tags/gnome-cmd-tags.cc:143
 msgid "Channel Mode"
@@ -5245,7 +5261,7 @@ msgstr "Kanalni način"
 
 #: src/tags/gnome-cmd-tags.cc:143
 msgid "MPEG channel mode."
-msgstr "MPEG kanalski način."
+msgstr "Kanalni način MPEG."
 
 #: src/tags/gnome-cmd-tags.cc:144
 msgid "Copyrighted"
@@ -5265,7 +5281,7 @@ msgstr "MPEG sloj."
 
 #: src/tags/gnome-cmd-tags.cc:146
 msgid "Original Audio"
-msgstr "Izvirni zvok."
+msgstr "Izvorni zvok"
 
 #: src/tags/gnome-cmd-tags.cc:146
 msgid "“1” if the “original” bit is set."
@@ -5273,11 +5289,11 @@ msgstr "Vrednost » 1 «, če je določen » izvorni « bit."
 
 #: src/tags/gnome-cmd-tags.cc:147
 msgid "MPEG Version"
-msgstr "MPEG različica"
+msgstr "Različica MPEG"
 
 #: src/tags/gnome-cmd-tags.cc:147
 msgid "MPEG version."
-msgstr "MPEG različica."
+msgstr "Uporabljena različica MPEG."
 
 #: src/tags/gnome-cmd-tags.cc:148
 msgid "Performer"
@@ -5322,11 +5338,11 @@ msgstr "Naslov sledi."
 
 #: src/tags/gnome-cmd-tags.cc:153
 msgid "Track Gain"
-msgstr "Ojačanje sledi"
+msgstr "Okrepitev zvoka sledi"
 
 #: src/tags/gnome-cmd-tags.cc:153
 msgid "Gain adjustment of the track."
-msgstr "Prilagoditev ojačitve sledi."
+msgstr "Prilagoditev okrepitve zvoka sledi."
 
 #: src/tags/gnome-cmd-tags.cc:154
 msgid "Track Number"
@@ -5338,11 +5354,11 @@ msgstr "Lega sledi v albumu."
 
 #: src/tags/gnome-cmd-tags.cc:155
 msgid "Track Peak Gain"
-msgstr "Ojačanje vrhov sledi"
+msgstr "Okrepitev zvočnih vrhov sledi"
 
 #: src/tags/gnome-cmd-tags.cc:155
 msgid "Peak gain adjustment of track."
-msgstr "Prilagoditev ojačitve vrhov sledi."
+msgstr "Prilagoditev okrepitve zvočnih vrhov sledi."
 
 #: src/tags/gnome-cmd-tags.cc:156
 msgid "Year"
@@ -5564,7 +5580,7 @@ msgstr "Pomanjkljive povezave"
 
 #: src/tags/gnome-cmd-tags.cc:183
 msgid "Links dirty."
-msgstr "Pomanjkljive povezave"
+msgstr "Pomanjkljive povezave v dokumentu."
 
 #: src/tags/gnome-cmd-tags.cc:184
 msgid "Locale System Default"
@@ -5584,11 +5600,11 @@ msgstr "Ime upravljalnika predmeta <Doc.Creator>."
 
 #: src/tags/gnome-cmd-tags.cc:186
 msgid "Multimedia Clip Count"
-msgstr "Štetje predstavnih klipov"
+msgstr "Štetje predstavnih predmetov"
 
 #: src/tags/gnome-cmd-tags.cc:186
 msgid "Number of multimedia clips in the document."
-msgstr "Število predstavnih klipov v dokumentu."
+msgstr "Število predstavnih predmetov v dokumentu."
 
 #: src/tags/gnome-cmd-tags.cc:187
 msgid "Note Count"
@@ -5627,11 +5643,9 @@ msgid "Presentation Format"
 msgstr "Oblika predstavitve"
 
 #: src/tags/gnome-cmd-tags.cc:191
-#, fuzzy
-#| msgid "Type of presentation, like \"On-screen Show\", \"SlideView\", etc."
 msgid "Type of presentation, like “On-screen Show”, “SlideView”, etc."
 msgstr ""
-"Vrsta predstavitve, npr.: \"zaslonski prikaz\", \"diaprojekcija\", in drugo."
+"Vrsta predstavitve, npr.: »zaslonski prikaz«, »predstavitev«, in drugo."
 
 #: src/tags/gnome-cmd-tags.cc:192
 msgid "Print Date"
@@ -5670,16 +5684,12 @@ msgid "Security"
 msgstr "Varnost"
 
 #: src/tags/gnome-cmd-tags.cc:196
-#, fuzzy
-#| msgid ""
-#| "One of: \"Password protected\", \"Read-only recommended\", \"Read-only "
-#| "enforced\" or \"Locked for annotations\"."
 msgid ""
 "One of: “Password protected”, “Read-only recommended”, “Read-only enforced” "
 "or “Locked for annotations”."
 msgstr ""
-"Izbrane možnosti: \"Zaščiteno z geslom\", \"Priporočeno le za branje\", "
-"\"Zahtevano le za branje\" ali \"Zaklenjeno za pripombe\"."
+"Izbrane možnosti: »Zaščiteno z geslom«, »Priporočeno le za branje«, "
+"»Vsiljeno le za branje« ali »Zaklenjeno za pripombe«."
 
 #: src/tags/gnome-cmd-tags.cc:197
 msgid "Slide Count"
@@ -5763,7 +5773,7 @@ msgid ""
 "is used instead of this tag."
 msgstr ""
 "Število bitov na enoto slike. Vsaka enota slike ima 8 bitov, zato je "
-"vrednost oznake 8. Pri JPEG skrčenih slikah je uporabljena JPEG oznaka "
+"vrednost oznake 8. Pri stisnjenih datotekah JPEG je uporabljena oznaka JPEG "
 "namesto te oznake."
 
 #: src/tags/gnome-cmd-tags.cc:208
@@ -5838,7 +5848,7 @@ msgstr ""
 
 #: src/tags/gnome-cmd-tags.cc:213
 msgid "Compressed Bits per Pixel"
-msgstr "Skrčenost bitov na točko"
+msgstr "Stisnjenost v bitih na točko"
 
 #: src/tags/gnome-cmd-tags.cc:213
 msgid ""
@@ -6173,11 +6183,11 @@ msgstr ""
 
 #: src/tags/gnome-cmd-tags.cc:242
 msgid "Gain Control"
-msgstr "Nadzor ojačitve"
+msgstr "Nadzor okrepitve"
 
 #: src/tags/gnome-cmd-tags.cc:242
 msgid "This tag indicates the degree of overall image gain adjustment."
-msgstr "Oznaka določa raven splošne prilagoditve ojačitve slike."
+msgstr "Oznaka določa raven splošne prilagoditve okrepitve slike."
 
 #: src/tags/gnome-cmd-tags.cc:243
 msgid "Gamma"
@@ -6212,7 +6222,7 @@ msgid ""
 "meters."
 msgstr ""
 "Določa nadmorsko višino kot referenčno vrednost. V primeru, da je referenčna "
-"vrednost nadmorska višina, dejanksa pa je nad to vrednostjo, se zabeleži "
+"vrednost nadmorska višina, dejanska pa je nad to vrednostjo, se zabeleži "
 "vrednost 0. Nadmorska višina pod ravnjo gladine morja določi vrednost 1, "
 "dejanska vrednost pa se zabeleži kot absolutna vrednost v oznaki <Exif.GPS."
 "Altitude>. Vrednost je v metrih."
@@ -6250,16 +6260,12 @@ msgid "North or South Latitude"
 msgstr "Severna ali južna zemljepisna širina"
 
 #: src/tags/gnome-cmd-tags.cc:248
-#, fuzzy
-#| msgid ""
-#| "Indicates whether the latitude is north or south latitude. The ASCII "
-#| "value 'N' indicates north latitude, and 'S' is south latitude."
 msgid ""
 "Indicates whether the latitude is north or south latitude. The ASCII value "
 "“N” indicates north latitude, and “S” is south latitude."
 msgstr ""
-"Določa zemljepisno širino kot sever in jug. ASCII vrednost 'N' določa "
-"severno zemljepisno širino in vrednost 'S' južno."
+"Določa zemljepisno širino kot sever in jug. ASCII vrednost »N« določa "
+"severno zemljepisno širino in vrednost »S« južno."
 
 #: src/tags/gnome-cmd-tags.cc:249
 msgid "Longitude"
@@ -6382,7 +6388,7 @@ msgstr ""
 "Vzajemnost IFD sestavljajo oznake ki hranijo podrobnosti vzajemnosti "
 "delovanja in jih kaže oznaka v Exif IFD. Zgradba vzajemnosti delovanja IFD "
 "je enaka TIFF določeni zgradbi IFD, vendar ne vključuje podatkov slike "
-"primerjalno z običajnim  TIFF IFD."
+"primerjalno z običajnim TIFF IFD."
 
 #: src/tags/gnome-cmd-tags.cc:259
 msgid "Interoperability Index"
@@ -6417,7 +6423,7 @@ msgid ""
 "The ISO Speed and ISO Latitude of the camera or input device as specified in "
 "ISO 12232."
 msgstr ""
-"Hitrost ISO in  širina ISO aparata ali druge vhodne naprave kot to določa "
+"Hitrost ISO in širina ISO aparata ali druge vhodne naprave kot to določa "
 "standard ISO 12232."
 
 #: src/tags/gnome-cmd-tags.cc:263
@@ -6477,8 +6483,8 @@ msgid ""
 "When the field is left blank, it is treated as unknown."
 msgstr ""
 "Proizvajalec naprave za snemanje, podrobneje DSC, optičnega bralnika, video "
-"digitalnika in drugih naprav, ki so ustvarile sliko. Prazno polje se "
-"obravnava kot neznana vrednost."
+"digitalnika in drugih naprav, ki so ustvarile sliko. Prazno polje določa "
+"neznano vrednost."
 
 #: src/tags/gnome-cmd-tags.cc:268
 msgid "Maker Note"
@@ -6633,7 +6639,6 @@ msgid "Reference Black/White"
 msgstr "Sklicna črnina/belina"
 
 #: src/tags/gnome-cmd-tags.cc:281
-#, fuzzy
 msgid ""
 "The reference black point value and reference white point value. No defaults "
 "are given in TIFF, but the values below are given as defaults here. The "
@@ -6647,7 +6652,7 @@ msgstr ""
 
 #: src/tags/gnome-cmd-tags.cc:282
 msgid "Related Image File Format"
-msgstr "Sorodna slikovna oblika datoteke"
+msgstr "Skladna oblika zapisa slikovne datoteke"
 
 #: src/tags/gnome-cmd-tags.cc:282
 msgid "Related image file format."
@@ -6655,45 +6660,25 @@ msgstr "Privzeti slikovni zapis datoteke."
 
 #: src/tags/gnome-cmd-tags.cc:283
 msgid "Related Image Length"
-msgstr "Sorodna dolžina slike"
+msgstr "Skladna dolžina slike"
 
 #: src/tags/gnome-cmd-tags.cc:283
 msgid "Related image length."
-msgstr "Privzeta dolžina slike"
+msgstr "Po razmerju določena dolžina slike."
 
 #: src/tags/gnome-cmd-tags.cc:284
 msgid "Related Image Width"
-msgstr "Sorodna širina slike"
+msgstr "Skladna širina slike"
 
 #: src/tags/gnome-cmd-tags.cc:284
 msgid "Related image width."
-msgstr "Privzeta širina slike."
+msgstr "Po razmerju določena širina slike."
 
 #: src/tags/gnome-cmd-tags.cc:285
 msgid "Related Sound File"
 msgstr "Sorodna zvočna datoteka"
 
 #: src/tags/gnome-cmd-tags.cc:285
-#, fuzzy
-#| msgid ""
-#| "This tag is used to record the name of an audio file related to the image "
-#| "data. The only relational information recorded here is the Exif audio "
-#| "file name and extension (an ASCII string consisting of 8 characters + '.' "
-#| "+ 3 characters). The path is not recorded. When using this tag, audio "
-#| "files must be recorded in conformance to the Exif audio format. Writers "
-#| "are also allowed to store the data such as Audio within APP2 as FlashPix "
-#| "extension stream data. Audio files must be recorded in conformance to the "
-#| "Exif audio format. If multiple files are mapped to one file, the above "
-#| "format is used to record just one audio file name. If there are multiple "
-#| "audio files, the first recorded file is given. When there are three Exif "
-#| "audio files \"SND00001.WAV\", \"SND00002.WAV\" and \"SND00003.WAV\", the "
-#| "Exif image file name for each of them, \"DSC00001.JPG\", is indicated. By "
-#| "combining multiple relational information, a variety of playback "
-#| "possibilities can be supported. The method of using relational "
-#| "information is left to the implementation on the playback side. Since "
-#| "this information is an ASCII character string, it is terminated by NULL. "
-#| "When this tag is used to map audio files, the relation of the audio file "
-#| "to image data must also be indicated on the audio file end."
 msgid ""
 "This tag is used to record the name of an audio file related to the image "
 "data. The only relational information recorded here is the Exif audio file "
@@ -6714,12 +6699,24 @@ msgid ""
 "audio files, the relation of the audio file to image data must also be "
 "indicated on the audio file end."
 msgstr ""
-"Oznaka se uporablja za shranjevanje imena zvočne datoteke v povezavi s "
-"podatki slike, kot so podatki Exif ime zvočne datoteke in pripona (datotečni "
-"DOS zapis z 8.3 znaki). Pot datoteke ni shranjena. V primeru, da je zvočna "
-"datoteka razdeljena na več delov, je zapis prirejen za primer \"SND00001.WAV"
-"\", \"SND00002.WAV\" in \"SND00003.WAV\"v Exif zapis \"DSC00001.JPG\". Z "
-"združevanjem več podrobnosti se razširijo možnosti predvajanja."
+"Oznaka se uporablja za zapis imena zvočne datoteke, povezane s slikovnimi "
+"podatki. Edina relacijska informacija, ki se zapiše na tem mestu, je ime "
+"zvočne datoteke Exif in razširitev (niz ASCII, sestavljen iz 8 znakov + \"."
+"\" + 3 znaki). Pot se ne vpiše. Pri uporabi te oznake morajo biti zvočne "
+"datoteke zapisane v skladu z zvočnim formatom Exif. Zapisovalci lahko "
+"podatke, kot je Audio, shranijo tudi v APP2 kot podatke toka z razširitvijo "
+"FlashPix. Zvočne datoteke morajo biti zapisane v skladu z zvočnim formatom "
+"Exif. Če je več datotek preslikanih v eno datoteko, se zgornji format "
+"uporabi za zapis samo enega imena zvočne datoteke. Če je zvočnih datotek "
+"več, se navede prva zapisana datoteka. Če obstajajo tri zvočne datoteke Exif "
+"\"SND00001.WAV\", \"SND00002.WAV\" in \"SND00003.WAV\", je navedeno ime "
+"slikovne datoteke Exif za vsako od njih, \"DSC00001.JPG\". Z združevanjem "
+"več relacijskih informacij je mogoče podpirati različne možnosti "
+"predvajanja. Način uporabe relacijskih informacij je prepuščen izvedbi na "
+"strani predvajanja. Ker so te informacije niz znakov ASCII, se končajo z "
+"NULL. Kadar se ta oznaka uporablja za preslikavo zvočnih datotek, je treba "
+"na koncu zvočne datoteke navesti tudi razmerje med zvočno datoteko in "
+"slikovnimi podatki."
 
 #: src/tags/gnome-cmd-tags.cc:286
 msgid "Resolution Unit"
@@ -6995,26 +6992,6 @@ msgid "User Comment"
 msgstr "Opomba uporabnika"
 
 #: src/tags/gnome-cmd-tags.cc:311
-#, fuzzy
-#| msgid ""
-#| "A tag for Exif users to write keywords or comments on the image besides "
-#| "those in <Exif.ImageDescription>, and without the character code "
-#| "limitations of the <Exif.ImageDescription> tag. The character code used "
-#| "in the <Exif.UserComment> tag is identified based on an ID code in a "
-#| "fixed 8-byte area at the start of the tag data area. The unused portion "
-#| "of the area is padded with NULL (\"00.h\"). ID codes are assigned by "
-#| "means of registration. The value of CountN is determinated based on the 8 "
-#| "bytes in the character code area and the number of bytes in the user "
-#| "comment part. Since the TYPE is not ASCII, NULL termination is not "
-#| "necessary. The ID code for the <Exif.UserComment> area may be a Defined "
-#| "code such as JIS or ASCII, or may be Undefined. The Undefined name is "
-#| "UndefinedText, and the ID code is filled with 8 bytes of all \"NULL"
-#| "\" (\"00.H\"). An Exif reader that reads the <Exif.UserComment> tag must "
-#| "have a function for determining the ID code. This function is not "
-#| "required in Exif readers that do not use the <Exif.UserComment> tag. When "
-#| "a <Exif.UserComment> area is set aside, it is recommended that the ID "
-#| "code be ASCII and that the following user comment part be filled with "
-#| "blank characters [20.H]."
 msgid ""
 "A tag for Exif users to write keywords or comments on the image besides "
 "those in <Exif.ImageDescription>, and without the character code limitations "
@@ -7034,9 +7011,23 @@ msgid ""
 "recommended that the ID code be ASCII and that the following user comment "
 "part be filled with blank characters [20.H]."
 msgstr ""
-"Oznaka za zapisovanje opomb ob že obstoječih opombah v oznaki <Exif."
-"ImageDescription> brez omejitve znakovnih kod v oznaki <Exif."
-"ImageDescription>."
+"Oznaka za uporabnike določil Exif, s katerimi je mogoče ob ključnih besedah "
+"in komentarjih k sliki zapisati tudi druge oznake <Exif.ImageDescription> in "
+"brez omejitev znakovne kode oznake <Exif.ImageDescription>. Znakovna koda, "
+"uporabljena v oznaki <Exif.UserComment>, je določena na podlagi "
+"identifikacijske kode v stalnem 8-bajtnem območju na začetku podatkovnega "
+"območja oznake. Neizkoriščeni del območja je zapolnjen z NULL (\"00.h\"). ID "
+"določila se dodelijo z registracijo. Vrednost CountN se določi na podlagi 8 "
+"bajtov v območju kod znakov in števila bajtov v delu z uporabniškim "
+"komentarjem. Ker TYPE ni ASCII, zaključek NULL ni potreben. ID koda za "
+"območje <Exif.UserComment> je lahko opredeljena koda, kot sta JIS ali ASCII, "
+"ali pa je nedoločena. Nedoločeno ime je UndefinedText, ID koda pa je "
+"napolnjena z 8 bajti vseh \"NULL\" (\"00.H\"). Bralnik Exif, ki bere oznako "
+"<Exif.UserComment>, mora imeti funkcijo za določanje kode ID. Ta funkcija ni "
+"potrebna v bralnikih Exif, ki ne uporabljajo oznake <Exif.UserComment>. "
+"Kadar je območje <Exif.UserComment> rezervirano, je priporočljivo, da je ID "
+"koda ASCII in da je naslednji del uporabniškega komentarja izpolnjen s "
+"praznimi znaki [20.H]."
 
 #: src/tags/gnome-cmd-tags.cc:312 src/tags/gnome-cmd-tags.cc:439
 msgid "White Balance"
@@ -7083,7 +7074,6 @@ msgid "YCbCr Coefficients"
 msgstr "Koeficient YCbCr"
 
 #: src/tags/gnome-cmd-tags.cc:316
-#, fuzzy
 msgid ""
 "The matrix coefficients for transformation from RGB to YCbCr image data. No "
 "default is given in TIFF; but here “Color Space Guidelines” is used as the "
@@ -7117,7 +7107,7 @@ msgid ""
 msgstr ""
 "Lega barvitosti v povezavi z osvetljenostjo slike. Polje določa vrednost le "
 "za stisnjene JPEG podatke ali nestisnjene podatke YCbCr. Privzeta TIFF "
-"vrednosti je 1 (sredinjeno); vendar je priporočena za  razmerje Y:Cb:Cr = "
+"vrednosti je 1 (sredinjeno); vendar je priporočena za razmerje Y:Cb:Cr = "
 "4:2:2 vrednost 2 za shranjevanje podatkov, z namenom izboljšanja kakovosti "
 "slike pri pregledovanju preko TV zaslonov. V primeru, da polje ne obstaja, "
 "bralnik slik privzame vrednost 1. V primeru razmerja Y:Cb:Cr = 4:2:0, je "
@@ -7204,7 +7194,7 @@ msgstr "Polna pot datoteke brez imena datoteke."
 
 #: src/tags/gnome-cmd-tags.cc:329
 msgid "Permission string in unix format eg “-rw-r--r--”."
-msgstr "Niz dovoljenj v zapisanu unix (primer: » -rw-r--r-- «)."
+msgstr "Niz dovoljenj v zapisu unix (primer: » -rw-r--r-- «)."
 
 #: src/tags/gnome-cmd-tags.cc:330 src/tags/gnome-cmd-tags.cc:389
 msgid "Publisher"
@@ -7227,7 +7217,7 @@ msgid ""
 "Editable file rank for grading favourites. Value should be in the range "
 "1..10."
 msgstr ""
-"Uredljiv rank datoteke za ocenjevanje priljubljenih. Vrednost mora biti v "
+"Uredljiv rang datoteke za ocenjevanje priljubljenih. Vrednost mora biti v "
 "območju med 1 in 10."
 
 #: src/tags/gnome-cmd-tags.cc:332
@@ -7770,7 +7760,7 @@ msgstr "Pogoji uporabe"
 
 #: src/tags/gnome-cmd-tags.cc:402
 msgid "Terms of use."
-msgstr "Pogoji uporabe"
+msgstr "Dokumentacija pogojev uporabe."
 
 #: src/tags/gnome-cmd-tags.cc:403
 msgid "Time"
@@ -7786,7 +7776,7 @@ msgstr "Razvrščanje naslovov"
 
 #: src/tags/gnome-cmd-tags.cc:404
 msgid "Title sort order."
-msgstr "Razvrščanje naslovov"
+msgstr "Določen način razvrščanja naslovov."
 
 #: src/tags/gnome-cmd-tags.cc:405
 msgid "Unique File ID"
@@ -7818,7 +7808,7 @@ msgstr "Prilagajanje glasnosti"
 
 #: src/tags/gnome-cmd-tags.cc:408 src/tags/gnome-cmd-tags.cc:409
 msgid "Relative volume adjustment."
-msgstr "Relativno prilagajanje glasnosti"
+msgstr "Relativno prilagajanje glasnosti."
 
 #: src/tags/gnome-cmd-tags.cc:409
 msgid "Volume Adjustment 2"
@@ -8011,17 +8001,12 @@ msgid "Action Advised"
 msgstr "Priporočeno dejanje"
 
 #: src/tags/gnome-cmd-tags.cc:441
-#, fuzzy
-#| msgid ""
-#| "The type of action that this object provides to a previous object. '01' "
-#| "Object Kill, '02' Object Replace, '03' Object Append, '04' Object "
-#| "Reference."
 msgid ""
 "The type of action that this object provides to a previous object. “01” "
 "Object Kill, “02” Object Replace, “03” Object Append, “04” Object Reference."
 msgstr ""
-"Vrsta dejanja, ki ga predmet ponuja glede na predhodni predmet. '01' predmet "
-"uniči, '02' predmet zamenjaj, '03' predmet pripni, '04' predmet naveži."
+"Vrsta dejanja, ki ga predmet ponuja glede na predhodni predmet. »01« predmet "
+"uniči, »02« predmet zamenjaj, »03« predmet pripni, »04« predmet naveži."
 
 #: src/tags/gnome-cmd-tags.cc:442
 msgid "ARM Identifier"
@@ -8259,18 +8244,13 @@ msgid "Editorial Update"
 msgstr "Uredniška posodobitev"
 
 #: src/tags/gnome-cmd-tags.cc:468
-#, fuzzy
-#| msgid ""
-#| "The type of update this object provides to a previous object. The link to "
-#| "the previous object is made using the ARM. '01' indicates an additional "
-#| "language."
 msgid ""
 "The type of update this object provides to a previous object. The link to "
 "the previous object is made using the ARM. “01” indicates an additional "
 "language."
 msgstr ""
 "Vrsta posodobitve predmeta glede na predhodni predmet. Povezava s predhodnim "
-"predmetom je ustvarjena z ARM.  '01' določa dodatni jezik."
+"predmetom je ustvarjena z ARM. »01» določa dodatni jezik."
 
 #: src/tags/gnome-cmd-tags.cc:469
 msgid "Edit Status"
@@ -8293,18 +8273,14 @@ msgid "Envelope Priority"
 msgstr "Prednost ovojnice"
 
 #: src/tags/gnome-cmd-tags.cc:471
-#, fuzzy
-#| msgid ""
-#| "Specifies the envelope handling priority and not the editorial urgency. "
-#| "'1' for most urgent, '5' for normal, and '8' for least urgent. '9' is "
-#| "user-defined."
 msgid ""
 "Specifies the envelope handling priority and not the editorial urgency. “1” "
 "for most urgent, “5” for normal, and “8” for least urgent. “9” is user-"
 "defined."
 msgstr ""
-"Določa prednost upravljanja z ovojnico in ne nujnost urejanja. '1' za nujno, "
-"'5' za običajno, in '8' za odložljivo. Vrednost '9' je po meri."
+"Določa prednost upravljanja z ovojnico in ne nujnost urejanja. Vrednost »1« "
+"določa nujno, »5« običajno in »8« odložljivo. Vrednost »9« določa prednost "
+"po meri."
 
 #: src/tags/gnome-cmd-tags.cc:472
 msgid "Expiration Date"
@@ -8363,15 +8339,11 @@ msgid "Image Orientation"
 msgstr "Usmerjenost slike"
 
 #: src/tags/gnome-cmd-tags.cc:478
-#, fuzzy
-#| msgid ""
-#| "The layout of the image area: 'P' for portrait, 'L' for landscape, and "
-#| "'S' for square."
 msgid ""
 "The layout of the image area: “P” for portrait, “L” for landscape, and “S” "
 "for square."
 msgstr ""
-"Razpored območja slike: 'P' za portret, 'L' za ležeče in 'S' za kvadratno "
+"Razpored območja slike: »P« portret, »L« za ležeče in »S« za kvadratno "
 "območje."
 
 #: src/tags/gnome-cmd-tags.cc:479
@@ -8399,7 +8371,7 @@ msgid ""
 "The major national language of the object, according to the 2-letter codes "
 "of ISO 639:1988."
 msgstr ""
-"Določilo jezika predmeta v obliki dvo-črkovne kode  ISO 639 standarda: 1988."
+"Določilo jezika predmeta v obliki dvo-črkovne kode ISO 639 standarda: 1988."
 
 #: src/tags/gnome-cmd-tags.cc:482
 msgid "Maximum Object Size"
@@ -8447,7 +8419,7 @@ msgstr "Kroženje predmeta"
 #: src/tags/gnome-cmd-tags.cc:486
 msgid "Where “a” is morning, “p” is evening, “b” is both."
 msgstr ""
-"Vrednost » a « določa dopoldanski čas, » p « popoldanksi, » b « obe "
+"Vrednost » a « določa dopoldanski čas, » p « popoldanski, » b « obe "
 "vrednosti."
 
 #: src/tags/gnome-cmd-tags.cc:487
@@ -8541,14 +8513,14 @@ msgstr "Okraj ali območje od koder predmet izvira."
 
 #: src/tags/gnome-cmd-tags.cc:498
 msgid "Rasterized Caption"
-msgstr "Rasterska oznaka"
+msgstr "Rastrska oznaka"
 
 #: src/tags/gnome-cmd-tags.cc:498
 msgid ""
 "Contains rasterized object description and is used where characters that "
 "have not been coded are required for the caption."
 msgstr ""
-"Vsebuje opis rasterskega predmeta in je uporabljen tam, kjer so znaki, ki "
+"Vsebuje opis rastrskega predmeta in je uporabljen tam, kjer so znaki, ki "
 "niso kodirani, zahtevani v naslovu."
 
 #: src/tags/gnome-cmd-tags.cc:499
@@ -8668,7 +8640,7 @@ msgstr "Dopolnilna kategorija"
 
 #: src/tags/gnome-cmd-tags.cc:513
 msgid "Further refines the subject of the object (Deprecated)."
-msgstr "Podrobneje določe naslov predmeta (opuščeno)"
+msgstr "Podrobneje določa naslov predmeta (opuščeno)"
 
 #: src/tags/gnome-cmd-tags.cc:514
 msgid "Time Created"
@@ -8708,17 +8680,12 @@ msgid "Urgency"
 msgstr "Nujnost"
 
 #: src/tags/gnome-cmd-tags.cc:517
-#, fuzzy
-#| msgid ""
-#| "Specifies the editorial urgency of content and not necessarily the "
-#| "envelope handling priority. '1' is most urgent, '5' normal, and '8' least "
-#| "urgent."
 msgid ""
 "Specifies the editorial urgency of content and not necessarily the envelope "
 "handling priority. “1” is most urgent, “5” normal, and “8” least urgent."
 msgstr ""
-"Določa prednost upravljanja z ovojnico in ne nujnost urejanja. '1' za nujno, "
-"'5' za običajno, in '8' za odložljivo."
+"Določa prednost urejanja in ne nujno upravljanja z ovojnico. Vrednost »1« "
+"pomeni nujno, »5« običajno in »8« odložljivo."
 
 #: src/tags/gnome-cmd-tags.cc:518
 msgid "Writer/Editor"
