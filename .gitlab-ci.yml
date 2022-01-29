@@ -1,0 +1,26 @@
+image: ubuntu:21.10
+
+stages:          # List of stages for jobs, and their order of execution
+  - build_test_deploy_check
+
+build-job:       # This job runs in the build stage, which runs first.
+  stage: build_test_deploy_check
+  script:
+    - apt-get update -qq && env DEBIAN_FRONTEND=noninteractive apt-get install make autoconf-archive flex yelp-tools libunique-dev cmake libgtest-dev -y
+    - GCMD_PATH="$(pwd)"
+    - echo "Installing gtest for unit tests..."
+    - cd /usr/src/gtest
+    - cmake .
+    - make -j4
+    - ln -s /usr/src/gtest/libgtest.a /usr/lib/libgtest.a
+    - ln -s /usr/src/gtest/libgtest_main.a /usr/lib/libgtest_main.a
+    - cp -r . $GCMD_PATH
+    - cd $GCMD_PATH
+    - echo "Compiling the code..."
+    - ./autogen.sh
+    - make
+    - echo "Compile complete. Starting Unit test phase..."
+    - make check
+    - echo "Unit tests finished. Starting deploy-test phase"
+    - make distcheck
+    - echo "Application could be deployed."
