@@ -183,7 +183,7 @@ TEST_F(BmByteTest, chartype_test) {
         else
             j += bm_chartype_get_advancement(data, i, ct_text[i+j]);
     }
-    ASSERT_EQ(found_at, 217) << "String with UTF-8 letters not found in text where it should be found.";
+    ASSERT_EQ(found_at, 227) << "String with UTF-8 letters not found in text where it should be found.";
 
     g_free(ct_text);
     free_bm_chartype_data(data);
