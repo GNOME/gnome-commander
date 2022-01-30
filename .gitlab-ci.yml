@@ -20,5 +20,6 @@ build-job:       # This job runs in the build stage, which runs first.
     - ./autogen.sh
     - make
     - echo "Compile complete. Starting Unit test phase..."
-    - make check || echo "Unit tests fail" && cat tests/test-suite.log && exit 1
-    - echo "Unit tests finished."
+    - exit_code=0
+    - make check || exit_code=$?; if [ "$exit_code" != "0" ]; then echo "Unit tests failed."; cat tests/test-suite.log; exit 1; fi;
+    - echo "Unit tests passed."
