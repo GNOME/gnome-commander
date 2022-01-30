@@ -42,12 +42,6 @@
   like: copy/move/rename/delete for all subdirs files. _Very_ handy.
 
 
-// Search tool
-
-* File search - advanced criteria (according to file size, date or attr)
-* Support for file meta tags (exif, iptc, icc, mp3, vorbis, *ml, pdf, video, ...)
-
-
 // Advrename tool
 
 * Support for file meta tags (icc, *ml, video, ...)
