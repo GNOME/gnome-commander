@@ -1,6 +1,6 @@
 #!/bin/sh
 
-make && make check
+git-scripts/update-project-status.sh && make && make check
 
 RESULT=$?
 
