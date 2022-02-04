@@ -1,11 +1,11 @@
-# Copyright 1999-2021 Gentoo Authors
+# Copyright 1999-2022 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
 
 GNOME2_LA_PUNT="yes"
 
-inherit gnome2 optfeature toolchain-funcs
+inherit gnome2 optfeature
 
 DESCRIPTION="A graphical, full featured, twin-panel file manager"
 HOMEPAGE="https://gcmd.github.io/"
@@ -18,32 +18,34 @@ RESTRICT="!test? ( test )"
 
 RDEPEND="
 	app-text/yelp-tools
-	>=dev-libs/glib-@GLIB_REQ@:2
-	>=x11-libs/gtk+-@GTK_REQ@:2
+	dev-libs/atk
+	dev-libs/glib:2
+	gnome-base/gconf:2
+	gnome-base/gnome-vfs
+	media-libs/fontconfig
+	media-libs/freetype
+	media-libs/harfbuzz:=
+	x11-libs/cairo
+	x11-libs/gdk-pixbuf:2
+	x11-libs/gtk+:2
+	x11-libs/pango
 	chm? ( dev-libs/chmlib )
 	exif? ( >=media-gfx/exiv2-@EXIV2_REQ@ )
-	gsf? ( >=gnome-extra/libgsf-@LIBGSF_REQ@ )
+	gsf? ( gnome-extra/libgsf:= )
 	pdf? ( >=app-text/poppler-@POPPLER_REQ@ )
 	samba? ( gnome-base/gvfs[samba] )
 	taglib? ( >=media-libs/taglib-@TAGLIB_REQ@ )
 	unique? ( >=dev-libs/libunique-@UNIQUE_REQ@:1 )
 "
 BDEPEND="
+	${RDEPEND}
 	dev-util/gtk-doc-am
 	sys-devel/gettext
 	virtual/pkgconfig
 "
 DEPEND="
-	${RDEPEND}
 	test? ( >=dev-cpp/gtest-@GTEST_REQ@ )
 "
-
-pkg_pretend() {
-	if tc-is-gcc && [[ $(gcc-major-version) -lt 8 ]]; then
-		eerror "Compilation with gcc older than version 8 is not supported"
-		die "GCC too old, please use gcc-8 or above"
-	fi
-}
 
 src_configure() {
 	gnome2_src_configure \
