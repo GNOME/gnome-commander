@@ -772,25 +772,31 @@ void file_edit_new_doc (GtkMenuItem *menuitem, gpointer not_used)
 
 void file_search (GtkMenuItem *menuitem, gpointer not_used)
 {
-	    gchar       *command;
+    string commandString;
+    commandString.reserve(2000);
 
-	    command = g_strdup (gnome_cmd_data.options.search);
-	    if (!command || strlen(command) == 0)
-	    {
-	        DEBUG ('g', "Search command is empty.\n");
-	        gnome_cmd_show_message (*main_win, _("No search command given."), _("You can set a command for a search tool in the program options."));
-	        return;
-	    }
-
+    if (parse_command(&commandString, (const gchar*) gnome_cmd_data.options.search) == 0)
+    {
+	    DEBUG ('g', "Search command is empty.\n");
+	    gnome_cmd_show_message (*main_win, _("No search command given."), _("You can set a command for a search tool in the program options."));
+	    return;
+    }
+    else
+    {
         gint     argc;
         gchar  **argv  = nullptr;
         GError  *error = nullptr;
-        DEBUG ('g', "Executing: %s\n", command);
-        g_shell_parse_argv (command, &argc, &argv, nullptr);
+
+        DEBUG ('g', "Invoking search: %s\n", commandString.c_str());
+        // put command into argv
+        g_shell_parse_argv (commandString.c_str(), &argc, &argv, nullptr);
+        // execute command
         if (!g_spawn_async (nullptr, argv, nullptr, G_SPAWN_SEARCH_PATH, nullptr, nullptr, nullptr, &error))
-           gnome_cmd_error_message (_("Unable to execute command."), error);
+        {
+            gnome_cmd_error_message (_("Unable to execute command."), error);
+        }
         g_strfreev (argv);
-        g_free (command);
+    }
 }
 
 
