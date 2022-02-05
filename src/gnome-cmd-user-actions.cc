@@ -2113,6 +2113,20 @@ int parse_command(string *cmd, const gchar *command)
     GnomeCmdFileList *fl = get_fl (ACTIVE);
     GList *sfl = fl->get_selected_files();
 
+    if (sfl)
+    {
+        auto gnomeCmdFile = (GnomeCmdFile*) sfl->data;
+        auto gFileParent = g_file_get_parent(gnomeCmdFile->gFile);
+        dir_path = g_file_get_path(gFileParent);
+        g_object_unref(gFileParent);
+    }
+    else
+    {
+        // ToDo: Fix this misleading usage of the home directory
+        dir_path = g_get_home_dir();
+    }
+
+
     cmdcap = cmd->capacity();
     cmdlen = cmd->length();
 
