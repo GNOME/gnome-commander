@@ -88,6 +88,9 @@
                             <para>Fixed issue #76 (Crash in Gnome Commander when using webDAV SSL)</para>
                         </listitem>
                         <listitem>
+                            <para>Fixed issue #107 (Wrong parsing of command string)</para>
+                        </listitem>
+                        <listitem>
                             <para>Fixed issue #115 (No error on autogen when flex is missing)</para>
                         </listitem>
                     </itemizedlist>

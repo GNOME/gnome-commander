@@ -35,6 +35,7 @@ Bug fixes:
  * Fixed issue #74 (Does not show mounted external drives)
  * Fixed issue #75 (Newly inserted DVD does not show up)
  * Fixed issue #76 (Crash in Gnome Commander when using webDAV SSL)
+ * Fixed issue #107 (Wrong parsing of command string)
  * Fixed issue #115 (No error on autogen when flex is missing)
 
 ===================================
