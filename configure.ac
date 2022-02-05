@@ -139,13 +139,6 @@ if test "x$have_taglib" = "xyes"; then
 fi
 
 
-dnl Check for libchm support
-AC_ARG_WITH(libchm, [AS_HELP_STRING([--without-libchm], [disable CHM support])])
-have_chm=no
-AC_CHECK_LIB(chm, chm_open, have_chm=yes, have_chm=no)
-AM_CONDITIONAL(HAVE_CHM, test "x$have_chm" = "xyes")
-
-
 dnl Check for libgsf support
 AC_ARG_WITH(libgsf, [AS_HELP_STRING([--without-libgsf], [disable OLE and ODF support])])
 have_gsf=no
