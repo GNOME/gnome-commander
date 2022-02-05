@@ -114,10 +114,13 @@
                             <para>New menu entry for (un)selecting only files</para>
                         </listitem>
                         <listitem>
-                            <para>New or updated translations: ...</para>
+                            <para>List of developers: Uwe Scholz, Mamoru Tasaka, Andrey Sokolov, Maik Pertermann, Philipp Kiemle</para>
                         </listitem>
                         <listitem>
-                            <para>New or updated docs: ...</para>
+                            <para>New or updated translations: ca, cs, da, de, es, eu, fi, hu, id, pl, pt_BR, ro, ru, sl, sr, sv, tr, uk, zh_CN</para>
+                        </listitem>
+                        <listitem>
+                            <para>New or updated docs: es, sv</para>
                         </listitem>
                     </itemizedlist>
                 </para>

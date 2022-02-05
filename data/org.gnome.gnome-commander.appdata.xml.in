@@ -95,6 +95,9 @@
           <li>Issue #107 (Wrong parsing of command string)</li>
           <li>Issue #115 (No error on autogen when flex is missing)</li>
         </ul>
+        <p>List of developers: Uwe Scholz, Mamoru Tasaka, Andrey Sokolov, Maik Pertermann, Philipp Kiemle</p>
+        <p>New or updated translations: ca, cs, da, de, es, eu, fi, hu, id, pl, pt_BR, ro, ru, sl, sr, sv, tr, uk, zh_CN</p>
+        <p>New or updated docs: es, sv</p>
       </description>
     </release>
   </releases>

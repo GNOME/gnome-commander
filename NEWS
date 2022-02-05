@@ -38,6 +38,39 @@ Bug fixes:
  * Fixed issue #107 (Wrong parsing of command string)
  * Fixed issue #115 (No error on autogen when flex is missing)
 
+List of developers:
+ * Uwe Scholz
+ * Mamoru Tasaka
+ * Andrey Sokolov
+ * Maik Pertermann
+ * Philipp Kiemle
+
+New or updated translations:
+ * ca (Jordi Mas)
+ * cs (Marek Černocký)
+ * da (Alan Mortensen, Ask Hjorth Larsen)
+ * de (Tim Sabsch, Wolfgang Stöggl)
+ * es (Daniel Mustieles, Rodrigo Lledó)
+ * eu (Asier Sarasua Garmendia)
+ * fi (Jiri Grönroos)
+ * hu (Balázs Úr)
+ * id (Andika Triwidada, Kukuh Syafaat)
+ * pl (Piotr Drąg)
+ * pt_BR (Enrico Nicoletto, Matheus Barbosa, Rafael Fontenelle)
+ * ro (Daniel Șerbănescu)
+ * ru (Andrey Sokolov, Олеся Герасименко)
+ * sl (Matej Urbančič)
+ * sr (Мирослав Николић)
+ * sv (Anders Jonsson, Luna Jernberg)
+ * tr (Muhammet Kara)
+ * uk (Yuri Chornoivan)
+ * zh_CN (Boyuan Yang)
+
+New or updated docs:
+ * es (Daniel Mustieles)
+ * sv (Anders Jonsson)
+
+
 ===================================
 gnome-commander 1.12.3.1
 ---------------
