@@ -30,7 +30,8 @@ RDEPEND="
 BDEPEND="
 	app-text/yelp-tools
 	dev-util/gtk-doc-am
-	sys-devel/gettext
+	sys-devel/flex
+	>=sys-devel/gettext-0.19.7
 	virtual/pkgconfig
 "
 DEPEND="
@@ -41,7 +42,6 @@ DEPEND="
 src_configure() {
 	gnome2_src_configure \
 		--disable-static \
-		--without-libchm \
 		$(use_with exif exiv2) \
 		$(use_with gsf libgsf) \
 		$(use_with pdf poppler) \
