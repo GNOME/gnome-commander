@@ -32,8 +32,7 @@ GCMD_LIBS = \
 ADDITIONAL_LDADD = \
 	$(top_builddir)/src/intviewer/libgviewer.a \
 	$(GOBJECT_LIBS) \
-	$(GTK_LIBS) \
-	$(GNOMEVFS_LIBS)
+	$(GTK_LIBS)
 
 IV_TESTS = \
 	iv_viewerwidget \
