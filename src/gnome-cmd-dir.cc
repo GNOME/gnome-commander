@@ -283,7 +283,7 @@ GnomeCmdDir *gnome_cmd_dir_new_from_gfileinfo (GFileInfo *gFileInfo, GnomeCmdDir
 
     gnomeCmdDir = static_cast<GnomeCmdDir*> (g_object_new (GNOME_CMD_TYPE_DIR, nullptr));
     GError *error = nullptr;
-    if(!gnome_cmd_file_setup(G_OBJECT (gnomeCmdDir), gFile, error))
+    if(!gnome_cmd_file_setup(G_OBJECT (gnomeCmdDir), gFile, &error))
     {
         g_warning("gnome_cmd_dir_new_from_gfileinfo error on %s: %s", uriString, error->message);
         g_error_free(error);
@@ -325,7 +325,7 @@ GnomeCmdDir *gnome_cmd_dir_new_with_con (GnomeCmdCon *con)
     gnome_cmd_dir_set_path (dir, con->base_path->clone());
     dir->priv->con = con;
     GError *error = nullptr;
-    if (!gnome_cmd_file_setup (G_OBJECT(dir), gFile, error))
+    if (!gnome_cmd_file_setup (G_OBJECT(dir), gFile, &error))
     {
         g_warning("gnome_cmd_dir_new_with_con error on %s: %s", uriString, error->message);
         g_warning("%s", error->message);
@@ -363,11 +363,11 @@ GnomeCmdDir *gnome_cmd_dir_new (GnomeCmdCon *con, GnomeCmdPath *path, gboolean i
     }
 
     gnomeCmdDir = static_cast<GnomeCmdDir*> (g_object_new (GNOME_CMD_TYPE_DIR, nullptr));
-    if (!gnome_cmd_file_setup (G_OBJECT (gnomeCmdDir), gFile, error))
+    if (!gnome_cmd_file_setup (G_OBJECT (gnomeCmdDir), gFile, &error))
     {
         if (error && !isStartup)
         {
-            gnome_cmd_show_message (*main_win, path->get_display_path(), error->message);
+            gnome_cmd_show_message (*main_win, uriString, error->message);
             g_error_free(error);
         }
         g_object_unref(gFile);

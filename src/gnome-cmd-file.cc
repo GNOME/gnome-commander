@@ -210,7 +210,7 @@ void GnomeCmdFile::invalidate_metadata()
 }
 
 
-gboolean gnome_cmd_file_setup (GObject *gObject, GFile *gFile, GError *error)
+gboolean gnome_cmd_file_setup (GObject *gObject, GFile *gFile, GError **error)
 {
     g_return_val_if_fail (gObject != nullptr, FALSE);
     g_return_val_if_fail (GNOME_CMD_IS_FILE(gObject), FALSE);
@@ -222,7 +222,7 @@ gboolean gnome_cmd_file_setup (GObject *gObject, GFile *gFile, GError *error)
     gnomeCmdFile->gFileInfo = g_file_query_info(gFile, "*", G_FILE_QUERY_INFO_NONE, nullptr, &errorTmp);
     if (errorTmp)
     {
-        g_propagate_error(&error, errorTmp);
+        g_propagate_error(error, errorTmp);
         return FALSE;
     }
 

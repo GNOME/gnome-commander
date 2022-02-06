@@ -1794,18 +1794,18 @@ static void save_tabs(GSettings *gSettings, const char *gSettingsKey)
             if (gnome_cmd_data.options.save_tabs_on_exit)
             {
                 auto fl = reinterpret_cast <GnomeCmdFileList*> (gtk_bin_get_child (GTK_BIN (i->data)));
-                if (GNOME_CMD_FILE_LIST (fl) && gnome_cmd_con_is_local (fl->con))
+                if (GNOME_CMD_FILE_LIST (fl))
                 {
-                    gchar* realPath = GNOME_CMD_FILE (fl->cwd)->get_real_path();
-                    if (!realPath)
+                    gchar* uriString = GNOME_CMD_FILE (fl->cwd)->get_uri_str();
+                    if (!uriString)
                         continue;
                     g_variant_builder_add (&gVariantBuilder, GCMD_SETTINGS_FILE_LIST_TAB_FORMAT_STRING,
-                                            realPath,
+                                            uriString,
                                             (guchar) fileSelectorId,
                                             fl->get_sort_column(),
                                             fl->get_sort_order(),
                                             fl->locked);
-                    g_free(realPath);
+                    g_free(uriString);
                 }
             }
             else
@@ -1813,35 +1813,35 @@ static void save_tabs(GSettings *gSettings, const char *gSettingsKey)
                 if (gnome_cmd_data.options.save_dirs_on_exit)
                 {
                     auto fl = reinterpret_cast <GnomeCmdFileList*> (gtk_bin_get_child (GTK_BIN (i->data)));
-                    if (GNOME_CMD_FILE_LIST (fl) && gnome_cmd_con_is_local (fl->con) && (fl==gnomeCmdFileSelector.file_list() || fl->locked))
+                    if (GNOME_CMD_FILE_LIST (fl) && (fl==gnomeCmdFileSelector.file_list() || fl->locked))
                     {
-                        gchar* realPath = GNOME_CMD_FILE (fl->cwd)->get_real_path();
-                        if (!realPath)
+                        gchar* uriString = GNOME_CMD_FILE (fl->cwd)->get_uri_str();
+                        if (!uriString)
                             continue;
                         g_variant_builder_add (&gVariantBuilder, GCMD_SETTINGS_FILE_LIST_TAB_FORMAT_STRING,
-                                                realPath,
+                                                uriString,
                                                 (guchar) fileSelectorId,
                                                 fl->get_sort_column(),
                                                 fl->get_sort_order(),
                                                 fl->locked);
-                        g_free(realPath);
+                        g_free(uriString);
                     }
                 }
                 else
                 {
                     auto fl = reinterpret_cast<GnomeCmdFileList*> (gtk_bin_get_child (GTK_BIN (i->data)));
-                    if (GNOME_CMD_FILE_LIST (fl) && gnome_cmd_con_is_local (fl->con) && fl->locked)
+                    if (GNOME_CMD_FILE_LIST (fl) && fl->locked)
                     {
-                        gchar* realPath = GNOME_CMD_FILE (fl->cwd)->get_real_path();
-                        if (!realPath)
+                        gchar* uriString = GNOME_CMD_FILE (fl->cwd)->get_uri_str();
+                        if (!uriString)
                             continue;
                         g_variant_builder_add (&gVariantBuilder, GCMD_SETTINGS_FILE_LIST_TAB_FORMAT_STRING,
-                                                realPath,
+                                                uriString,
                                                 (guchar) fileSelectorId,
                                                 fl->get_sort_column(),
                                                 fl->get_sort_order(),
                                                 fl->locked);
-                        g_free(realPath);
+                        g_free(uriString);
                     }
                 }
             }
@@ -2741,7 +2741,7 @@ gboolean GnomeCmdData::set_valid_color_string(GSettings *settings_given, const c
 /**
  * Loads tabs from gSettings into gcmd options
  */
-void GnomeCmdData::load_tabs_from_gsettings()
+void GnomeCmdData::load_tabs()
 {
     GVariant *gvTabs, *tab;
     GVariantIter iter;
@@ -2752,19 +2752,19 @@ void GnomeCmdData::load_tabs_from_gsettings()
 
 	while ((tab = g_variant_iter_next_value (&iter)) != nullptr)
     {
-        gchar *path;
+        gchar *uriCharString;
         gboolean sort_order, locked;
         guchar fileSelectorId, sort_column;
 
 		g_assert (g_variant_is_of_type (tab, G_VARIANT_TYPE (GCMD_SETTINGS_FILE_LIST_TAB_FORMAT_STRING)));
-		g_variant_get(tab, GCMD_SETTINGS_FILE_LIST_TAB_FORMAT_STRING, &path, &fileSelectorId, &sort_column, &sort_order, &locked);
-        string directory_path(path);
-        if (!directory_path.empty() && sort_column < GnomeCmdFileList::NUM_COLUMNS)
+		g_variant_get(tab, GCMD_SETTINGS_FILE_LIST_TAB_FORMAT_STRING, &uriCharString, &fileSelectorId, &sort_column, &sort_order, &locked);
+        string uriString(uriCharString);
+        if (!uriString.empty() && sort_column < GnomeCmdFileList::NUM_COLUMNS)
         {
-            this->tabs[(FileSelectorID) fileSelectorId].push_back(make_pair(directory_path, make_triple((GnomeCmdFileList::ColumnID) sort_column, (GtkSortType) sort_order, locked)));
+            this->tabs[(FileSelectorID) fileSelectorId].push_back(make_pair(uriString, make_triple((GnomeCmdFileList::ColumnID) sort_column, (GtkSortType) sort_order, locked)));
         }
 		g_variant_unref(tab);
-        g_free(path);
+        g_free(uriCharString);
     }
     g_variant_unref(gvTabs);
 }
@@ -3227,7 +3227,7 @@ void GnomeCmdData::load()
     advrename_defaults.height = g_settings_get_uint (options.gcmd_settings->general, GCMD_SETTINGS_ADVRENAME_TOOL_HEIGHT);
     advrename_defaults.templates.ents = get_list_from_gsettings_string_array (options.gcmd_settings->general, GCMD_SETTINGS_ADVRENAME_TOOL_TEMPLATE_HISTORY);
 
-    load_tabs_from_gsettings();
+    load_tabs();
 
     static struct
     {

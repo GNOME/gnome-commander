@@ -1203,8 +1203,6 @@ gboolean GnomeCmdMainWin::key_pressed(GdkEventKey *event)
 
 void GnomeCmdMainWin::open_tabs(FileSelectorID id)
 {
-    GnomeCmdCon *home = get_home_con ();
-
     if (gnome_cmd_data.tabs[id].empty())
         gnome_cmd_data.tabs[id].push_back(make_pair(string(g_get_home_dir ()), make_triple(GnomeCmdFileList::COLUMN_NAME, GTK_SORT_ASCENDING, FALSE)));
 
@@ -1212,8 +1210,54 @@ void GnomeCmdMainWin::open_tabs(FileSelectorID id)
 
     for (auto tab=gnome_cmd_data.tabs[id].begin(); tab!=last_tab; ++tab)
     {
-        auto *gnomeCmdDir = gnome_cmd_dir_new (home, gnome_cmd_con_create_path (home, tab->first.c_str()));
-        fs(id)->new_tab(gnomeCmdDir, tab->second.first, tab->second.second, tab->second.third, TRUE);
+        auto uriString = tab->first;
+        auto uriScheme = g_uri_peek_scheme (uriString.c_str());
+        auto uriIsRelative = false;
+
+        if (!uriScheme)
+        {
+            g_warning("Stored URI is either not absolute or invalid: %s", uriString.c_str());
+            uriScheme = g_strdup("file");
+            uriIsRelative = true;
+        }
+
+        if (strcmp(uriScheme, "file") == 0 || uriIsRelative)
+        {
+            GnomeCmdCon *home = get_home_con ();
+            gchar *path = nullptr;
+            if (uriIsRelative)
+            {
+                path = g_strdup(tab->first.c_str());
+            }
+            else
+            {
+                auto gUri = g_uri_parse(tab->first.c_str(), G_URI_FLAGS_NONE, nullptr);
+                path = g_strdup(g_uri_get_path(gUri));
+            }
+            auto *gnomeCmdDir = gnome_cmd_dir_new (home, gnome_cmd_con_create_path (home, path));
+            fs(id)->new_tab(gnomeCmdDir, tab->second.first, tab->second.second, tab->second.third, TRUE);
+            g_free(path);
+        }
+        else
+        {
+            GError *error = nullptr;
+            gchar *path = nullptr;
+            auto gUri = g_uri_parse(tab->first.c_str(), G_URI_FLAGS_NONE, &error);
+            if (error)
+            {
+                g_warning("Stored URI is invalid: %s", error->message);
+                g_error_free(error);
+                // open home directory instead
+                path = g_strdup(g_get_home_dir());
+            }
+            path = path ? path : g_strdup(g_uri_get_path(gUri));
+
+            GnomeCmdConRemote *con = gnome_cmd_con_remote_new(nullptr, uriString);
+            auto gnomeCmdPath = gnome_cmd_con_create_path((GnomeCmdCon*) con, path);
+            auto gnomeCmdDir = gnome_cmd_dir_new((GnomeCmdCon*) con, gnomeCmdPath, true);
+            fs(id)->new_tab(gnomeCmdDir, tab->second.first, tab->second.second, tab->second.third, TRUE);
+            g_free(path);
+        }
     }
 }
 
