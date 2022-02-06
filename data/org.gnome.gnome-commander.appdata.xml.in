@@ -59,6 +59,23 @@
   </suggests>
 
   <releases>
+    <release type="stable" version="1.14.1" date="2022-??-??">
+      <description>
+        <p>
+          This release includes the following features:
+        </p>
+        <ul>
+          <li>...</li>
+        </ul>
+        <p>This release fixes the following bugs:</p>
+        <ul>
+          <li>Issue #30: Store URI for tab instead of storing absolute path</li>
+        </ul>
+        <p>List of developers: ...</p>
+        <p>New or updated translations: ...</p>
+        <p>New or updated docs: ...</p>
+      </description>
+    </release>
     <release type="stable" version="1.14.0" date="2022-02-05">
       <description>
         <p>
