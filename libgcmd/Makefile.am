@@ -24,7 +24,7 @@ libgcmd_la_SOURCES = \
 	libgcmd-deps.h \
 	libgcmd.h
 
-libgcmd_la_LIBADD = $(GTK_LIBS) $(GNOMEVFS_LIBS)
-libgcmd_la_LDFLAGS = $(GTK_LIBS) $(GNOMEVFS_LIBS)
+libgcmd_la_LIBADD = $(GTK_LIBS)
+libgcmd_la_LDFLAGS = $(GTK_LIBS)
 
 -include $(top_srcdir)/git.mk

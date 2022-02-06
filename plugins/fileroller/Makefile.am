@@ -19,6 +19,6 @@ libfileroller_la_SOURCES = \
 	file-roller-plugin.h file-roller-plugin.cc \
 	file-roller.xpm file-roller-small.xpm
 
-libfileroller_la_LDFLAGS = $(GTK_LIBS) $(GNOMEVFS_LIBS) -module -avoid-version
+libfileroller_la_LDFLAGS = $(GTK_LIBS) -module -avoid-version
 
 -include $(top_srcdir)/git.mk

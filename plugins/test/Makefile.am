@@ -20,6 +20,6 @@ libtest_la_SOURCES = \
 	test-plugin.h test-plugin.cc \
 	test-plugin.xpm
 
-libtest_la_LDFLAGS = $(GTK_LIBS) $(GNOMEVFS_LIBS) -module -avoid-version
+libtest_la_LDFLAGS = $(GTK_LIBS) -module -avoid-version
 
 -include $(top_srcdir)/git.mk
