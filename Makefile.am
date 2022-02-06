@@ -12,7 +12,6 @@ EXTRA_DIST =                \
 	BUGS                    \
 	autogen.sh              \
 	mkinstalldirs           \
-	ChangeLog-20090629      \
 	xmldocs.make            \
 	omf.make                \
 	m4                      \
