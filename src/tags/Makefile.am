@@ -11,7 +11,6 @@ AM_CPPFLAGS = \
 	-I$(top_srcdir) \
 	-I$(srcdir)/.. \
 	$(GTK_CFLAGS) \
-	$(GNOMEVFS_CFLAGS) \
 	$(EXIV2_CFLAGS) \
 	$(TAGLIB_CFLAGS) \
 	$(CHM_CFLAGS) \

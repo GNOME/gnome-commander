@@ -7,7 +7,6 @@ AM_CPPFLAGS = \
 	$(GLIB_CFLAGS) \
 	$(GOBJECT_CFLAGS) \
 	$(GTK_CFLAGS) \
-	$(GNOMEVFS_CFLAGS) \
 	$(GTEST_CPPFLAGS) \
 	-I$(top_builddir)/src \
 	-I$(top_srcdir) \
