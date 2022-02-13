@@ -403,10 +403,13 @@ const gchar *time2string (GDateTime *gDateTime, const gchar *dateFormat)
 
     static gchar buf[64];
 
-    auto dateString = g_date_time_format (gDateTime, dateFormat);
+    auto localGDateTime = g_date_time_to_local (gDateTime);
+
+    auto dateString = g_date_time_format (localGDateTime, dateFormat);
 
     strncpy (buf, dateString, sizeof(buf)-1);
 
+    g_date_time_unref(localGDateTime);
     g_free (dateString);
 
     return buf;
