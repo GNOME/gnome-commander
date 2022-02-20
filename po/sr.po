@@ -1902,7 +1902,7 @@ msgid_plural "Do you want to permanently delete the %d selected files?"
 msgstr[0] "Да ли желите трајно да обришете %d изабрану датотеку?"
 msgstr[1] "Да ли желите трајно да обришете %d изабране датотеке?"
 msgstr[2] "Да ли желите трајно да обришете %d изабраних датотека?"
-msgstr[3] "Да ли желите да обришете једну изабрану датотеку?"
+msgstr[3] "Да ли желите трајно да обришете једну изабрану датотеку?"
 
 #: src/dialogs/gnome-cmd-delete-dialog.cc:515
 #, c-format
@@ -1913,7 +1913,7 @@ msgid_plural "Do you want to move the %d selected files to the trash can?"
 msgstr[0] "Да ли желите да преместите %d изабрану датотеку у смеће?"
 msgstr[1] "Да ли желите да преместите %d изабране датотеке у смеће?"
 msgstr[2] "Да ли желите да преместите %d изабраних датотека у смеће?"
-msgstr[3] "Да ли желите да обришете једну изабрану датотеку?"
+msgstr[3] "Да ли желите да преместите једну изабрану датотеку у смеће?"
 
 #: src/dialogs/gnome-cmd-edit-bookmark-dialog.cc:43
 msgid "Bookmark name is missing."
