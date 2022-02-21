@@ -71,6 +71,7 @@
         <ul>
           <li>File modification time in the file list is set to local timezone</li>
           <li>Issue #30: Store URI for tab instead of storing absolute path</li>
+          <li>Issue #119: New Text File not created in current directory</li>
         </ul>
         <p>List of developers: ...</p>
         <p>New or updated translations: ...</p>
