@@ -1106,13 +1106,20 @@ static gboolean on_new_textfile_ok (GnomeCmdStringDialog *string_dialog, const g
     GnomeCmdDir *dir = fs->get_directory();
     g_return_val_if_fail (GNOME_CMD_IS_DIR (dir), TRUE);
 
-    GError *error = nullptr;
     auto uriBaseString = static_cast<gchar*>(GNOME_CMD_FILE (dir)->get_uri_str());
+    // Let the URI to the current directory end with '/'
+    auto conLastCharacter = uriBaseString[strlen(uriBaseString)-1];
+    auto uriBaseStringSep = conLastCharacter == G_DIR_SEPARATOR
+        ? g_strdup(uriBaseString)
+        : g_strdup_printf("%s%s", uriBaseString, G_DIR_SEPARATOR_S);
+    g_free (uriBaseString);
+
     auto relativeFileNamePath = g_build_filename(".", fname, nullptr);
-    auto uriString = g_uri_resolve_relative (uriBaseString, relativeFileNamePath,
+    GError *error = nullptr;
+    auto uriString = g_uri_resolve_relative (uriBaseStringSep, relativeFileNamePath,
                                              G_URI_FLAGS_NONE, &error);
     g_free(relativeFileNamePath);
-    g_free (uriBaseString);
+    g_free (uriBaseStringSep);
     if (error)
     {
         gnome_cmd_string_dialog_set_error_desc (string_dialog, g_strdup_printf("%s", error->message));
