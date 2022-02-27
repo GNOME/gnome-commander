@@ -10,8 +10,8 @@
 msgid ""
 msgstr "Project-Id-Version: gnome-commander master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-commander/issues\n"
-"POT-Creation-Date: 2021-03-17 17:09+0000\n"
-"PO-Revision-Date: 2021-03-20 10:00+0100\n"
+"POT-Creation-Date: 2022-02-05 20:29+0000\n"
+"PO-Revision-Date: 2022-02-05 10:00+0100\n"
 "Last-Translator: Asier Sarasua Garmendia <asiersarasua@ni.eus>\n"
 "Language-Team: Basque <librezale@librezale.eus>\n"
 "Language: eu\n"
@@ -21,8 +21,8 @@ msgstr "Project-Id-Version: gnome-commander master\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "\n"
 
-#: data/org.gnome.gnome-commander.appdata.xml.in:7 data/org.gnome.gnome-commander.desktop.in.in:3
-#: src/gnome-cmd-main-win.cc:859
+#: data/org.gnome.gnome-commander.appdata.xml.in:7
+#: data/org.gnome.gnome-commander.desktop.in.in:3 src/gnome-cmd-main-win.cc:854
 msgid "GNOME Commander"
 msgstr "GNOME Commander"
 
@@ -45,6 +45,10 @@ msgid ""
 "management, working in parallel through special applications, and running "
 "smart commands."
 msgstr "GNOME Commander erabiltzaile aurreratuak ditu jomugan, fitxategien kudeaketa zehatza nahi dutenak, aplikazio berezituen bidez paraleloan lan egiten dutenak eta komando adimentsuak exekutatzen dituztenak."
+
+#: data/org.gnome.gnome-commander.appdata.xml.in:48
+msgid "The GNOME Project"
+msgstr "GNOME proiektua"
 
 #: data/org.gnome.gnome-commander.desktop.in.in:4
 msgid "A two paned file manager"
@@ -129,7 +133,7 @@ msgid ""
 msgstr "Fitxategi-tamaina hari lotutako panel-zutabean nola bistaratuko den definitzen du."
 
 #: data/org.gnome.gnome-commander.gschema.xml:88
-#: src/dialogs/gnome-cmd-options-dialog.cc:388
+#: src/dialogs/gnome-cmd-options-dialog.cc:386
 msgid "Permission display mode"
 msgstr "Baimenak bistaratzeko modua"
 
@@ -163,7 +167,7 @@ msgid "'%F %R'"
 msgstr "'%F %R'"
 
 #: data/org.gnome.gnome-commander.gschema.xml:112
-#: src/dialogs/gnome-cmd-options-dialog.cc:404
+#: src/dialogs/gnome-cmd-options-dialog.cc:402
 msgid "Date format"
 msgstr "Data-formatua"
 
@@ -213,115 +217,125 @@ msgid "Defines what happens when the right mouse button is clicked on an item."
 msgstr "Saguaren eskuineko botoiarekin elementu baten klik egitean zer gertatzen den definitzen du."
 
 #: data/org.gnome.gnome-commander.gschema.xml:152
+msgid "Use trash"
+msgstr "Erabili zakarrontzia"
+
+#: data/org.gnome.gnome-commander.gschema.xml:153
+msgid ""
+"Defines if items should be moved to trash by default instead of really "
+"deleting them."
+msgstr "Elementuak ezabatu ordez, zakarrontzira eraman behar diren ala ez definitzen du."
+
+#: data/org.gnome.gnome-commander.gschema.xml:159
 msgid "Icon size"
 msgstr "Ikonoaren tamaina"
 
-#: data/org.gnome.gnome-commander.gschema.xml:153
+#: data/org.gnome.gnome-commander.gschema.xml:160
 msgid "Size of icons in the file pane."
 msgstr "Fitxategi-paneleko ikonoen tamaina."
 
-#: data/org.gnome.gnome-commander.gschema.xml:157
+#: data/org.gnome.gnome-commander.gschema.xml:164
 msgid "Device icon size"
 msgstr "Gailuen ikonoen tamaina"
 
-#: data/org.gnome.gnome-commander.gschema.xml:158
+#: data/org.gnome.gnome-commander.gschema.xml:165
 msgid "Icon size in the device list."
 msgstr "Gailu-zerrendako ikonoen tamaina."
 
-#: data/org.gnome.gnome-commander.gschema.xml:162
+#: data/org.gnome.gnome-commander.gschema.xml:169
 msgid "Icon scale quality"
 msgstr "Ikono-eskalaren kalitatea"
 
-#: data/org.gnome.gnome-commander.gschema.xml:163
+#: data/org.gnome.gnome-commander.gschema.xml:170
 msgid ""
 "Describes the different interpolation modes that can be used with the "
 "scaling functions."
 msgstr "Eskalatze-funtzioetan erabil daitezkeen interpolazio modu desberdinak deskribatzen ditu."
 
-#: data/org.gnome.gnome-commander.gschema.xml:167
+#: data/org.gnome.gnome-commander.gschema.xml:174
 msgid "MIME icon directory"
 msgstr "MIME ikonoen direktorioa"
 
-#: data/org.gnome.gnome-commander.gschema.xml:168
+#: data/org.gnome.gnome-commander.gschema.xml:175
 msgid "Directory in which MIME icons are located."
 msgstr "MIME ikonoen kokaleku den direktorioa."
 
-#: data/org.gnome.gnome-commander.gschema.xml:172
+#: data/org.gnome.gnome-commander.gschema.xml:179
 msgid "Command line history"
 msgstr "Komando-lerroaren historia"
 
-#: data/org.gnome.gnome-commander.gschema.xml:173
+#: data/org.gnome.gnome-commander.gschema.xml:180
 msgid ""
 "This string array represents the history of commands executed in the command "
 "line."
 msgstr "Kate-matrize honek komando-lerroan exekutatutako komandoen historia ordezkatzen du."
 
-#: data/org.gnome.gnome-commander.gschema.xml:180
+#: data/org.gnome.gnome-commander.gschema.xml:187
 msgid "Command line history length"
 msgstr "Komando-lerroaren historiaren luzera"
 
-#: data/org.gnome.gnome-commander.gschema.xml:184
+#: data/org.gnome.gnome-commander.gschema.xml:191
 msgid "Horizontal orientation"
 msgstr "Orientazio horizontala"
 
-#: data/org.gnome.gnome-commander.gschema.xml:185
+#: data/org.gnome.gnome-commander.gschema.xml:192
 msgid ""
 "Defines if the orientation of the file panes should be horizontal or not."
 msgstr "Fitxategi-panelen orientazioak horizontala izan behar duen ala ez definitzen du."
 
-#: data/org.gnome.gnome-commander.gschema.xml:192
+#: data/org.gnome.gnome-commander.gschema.xml:199
 msgid "GUI update rate"
 msgstr "Interfaze grafikoaren eguneratze-tasa"
 
-#: data/org.gnome.gnome-commander.gschema.xml:193
+#: data/org.gnome.gnome-commander.gschema.xml:200
 msgid "Update rate of the graphical user interphase in 1/1000ths of a second."
 msgstr "Erabiltzailearen interfaze grafikoaren eguneratze-tasa segundoen 1/1000etan"
 
-#: data/org.gnome.gnome-commander.gschema.xml:197
+#: data/org.gnome.gnome-commander.gschema.xml:204
 msgid "Show device buttons"
 msgstr "Erakutsi gailuen botoiak"
 
-#: data/org.gnome.gnome-commander.gschema.xml:198
+#: data/org.gnome.gnome-commander.gschema.xml:205
 msgid "Defines if device buttons are shown."
 msgstr "Gailuen botoiak erakutsiko diren ala ez definitzen du."
 
-#: data/org.gnome.gnome-commander.gschema.xml:202
+#: data/org.gnome.gnome-commander.gschema.xml:209
 msgid "Show device list"
 msgstr "Erakutsi gailuen zerrenda"
 
-#: data/org.gnome.gnome-commander.gschema.xml:203
+#: data/org.gnome.gnome-commander.gschema.xml:210
 msgid "Defines if the list of devices is shown."
 msgstr "Gailuen zerrenda erakutsiko den ala ez definitzen du."
 
-#: data/org.gnome.gnome-commander.gschema.xml:207
+#: data/org.gnome.gnome-commander.gschema.xml:214
 msgid "Show command line"
 msgstr "Erakutsi komando-lerroa"
 
-#: data/org.gnome.gnome-commander.gschema.xml:208
+#: data/org.gnome.gnome-commander.gschema.xml:215
 msgid "Defines if command line is shown."
 msgstr "Komando-lerroa erakutsiko den ala ez definitzen du."
 
-#: data/org.gnome.gnome-commander.gschema.xml:212
+#: data/org.gnome.gnome-commander.gschema.xml:219
 msgid "Show toolbar"
 msgstr "Erakutsi tresna-barra"
 
-#: data/org.gnome.gnome-commander.gschema.xml:213
+#: data/org.gnome.gnome-commander.gschema.xml:220
 msgid "Defines if the toolbar is shown."
 msgstr "Tresna-barra erakutsiko den ala ez definitzen du."
 
-#: data/org.gnome.gnome-commander.gschema.xml:217
+#: data/org.gnome.gnome-commander.gschema.xml:224
 msgid "Show buttonbar"
 msgstr "Erakutsi botoi-barra"
 
-#: data/org.gnome.gnome-commander.gschema.xml:218
+#: data/org.gnome.gnome-commander.gschema.xml:225
 msgid "Defines if the buttonbar is shown."
 msgstr "Botoi-barra erakutsiko den ala ez definitzen du."
 
-#: data/org.gnome.gnome-commander.gschema.xml:222
+#: data/org.gnome.gnome-commander.gschema.xml:229
 msgid "Symlink string"
 msgstr "Esteka sinbolikoen katea"
 
-#: data/org.gnome.gnome-commander.gschema.xml:223
+#: data/org.gnome.gnome-commander.gschema.xml:230
 msgid ""
 "This string defines the default name of a newly created symlink. Leave the "
 "string empty to use the default value which is hard coded into the program "
@@ -329,227 +343,219 @@ msgid ""
 "created."
 msgstr "Kate honek esteka sinboliko sortu berri baten izen lehenetsia definitzen du. Utzi hutsik programa-kodean idatzita dagoen balio lehenetsia erabiltzeko. “%s” bat esteka sortu behar zaion elementuaren izenera hedatuko da."
 
-#: data/org.gnome.gnome-commander.gschema.xml:231
+#: data/org.gnome.gnome-commander.gschema.xml:238
 msgid "Main window horizontal position"
 msgstr "Leiho nagusiaren posizio horizontala"
 
-#: data/org.gnome.gnome-commander.gschema.xml:232
+#: data/org.gnome.gnome-commander.gschema.xml:239
 msgid "Position of the main window in horizontal direction."
 msgstr "Leiho nagusiaren posizioa norabide horizontalean"
 
-#: data/org.gnome.gnome-commander.gschema.xml:238
+#: data/org.gnome.gnome-commander.gschema.xml:245
 msgid "Main window vertical position"
 msgstr "Leiho nagusiaren posizio bertikala"
 
-#: data/org.gnome.gnome-commander.gschema.xml:239
+#: data/org.gnome.gnome-commander.gschema.xml:246
 msgid "Position of the main window in vertical direction."
 msgstr "Leiho nagusiaren posizioa norabide bertikalean"
 
-#: data/org.gnome.gnome-commander.gschema.xml:245
+#: data/org.gnome.gnome-commander.gschema.xml:252
 msgid "Main window width"
 msgstr "Leiho nagusiaren zabalera"
 
-#: data/org.gnome.gnome-commander.gschema.xml:246
+#: data/org.gnome.gnome-commander.gschema.xml:253
 msgid "This option defines the width of the main window."
 msgstr "Aukera honek leiho nagusiaren zabalera definitzen du."
 
-#: data/org.gnome.gnome-commander.gschema.xml:252
+#: data/org.gnome.gnome-commander.gschema.xml:259
 msgid "List of bookmarks"
 msgstr "Laster-marken zerrenda"
 
-#: data/org.gnome.gnome-commander.gschema.xml:253
+#: data/org.gnome.gnome-commander.gschema.xml:260
 msgid "Each entry in this list represents a bookmark."
 msgstr "Zerrenda honetako sarrera bakoitzak laster-marka bat ordezkatzen du."
 
-#: data/org.gnome.gnome-commander.gschema.xml:259
+#: data/org.gnome.gnome-commander.gschema.xml:266
 msgid "Bookmarks window width"
 msgstr "Laster-marken leihoaren zabalera"
 
-#: data/org.gnome.gnome-commander.gschema.xml:260
+#: data/org.gnome.gnome-commander.gschema.xml:267
 msgid "This option defines the width of the bookmarks window."
 msgstr "Aukera honek laster-marken leihoaren zabalera definitzen du."
 
-#: data/org.gnome.gnome-commander.gschema.xml:266
+#: data/org.gnome.gnome-commander.gschema.xml:273
 msgid "Bookmarks window height"
 msgstr "Laster-marken leihoaren altuera"
 
-#: data/org.gnome.gnome-commander.gschema.xml:267
+#: data/org.gnome.gnome-commander.gschema.xml:274
 msgid "This option defines the height of the bookmarks window."
 msgstr "Aukera honek laster-marken leihoaren altuera definitzen du."
 
-#: data/org.gnome.gnome-commander.gschema.xml:273
+#: data/org.gnome.gnome-commander.gschema.xml:280
 msgid "List of connections"
 msgstr "Konexioen zerrenda"
 
-#: data/org.gnome.gnome-commander.gschema.xml:274
+#: data/org.gnome.gnome-commander.gschema.xml:281
 msgid "Each entry in this list represents a connection."
 msgstr "Zerrenda honetako sarrera bakoitzak konexio bat ordezkatzen du."
 
-#: data/org.gnome.gnome-commander.gschema.xml:280
+#: data/org.gnome.gnome-commander.gschema.xml:287
 msgid "Main window height"
 msgstr "Leiho nagusiaren altuera"
 
-#: data/org.gnome.gnome-commander.gschema.xml:281
+#: data/org.gnome.gnome-commander.gschema.xml:288
 msgid "This option defines the height of the main window."
 msgstr "Aukera honek leiho nagusiaren altuera definitzen du."
 
-#: data/org.gnome.gnome-commander.gschema.xml:287
+#: data/org.gnome.gnome-commander.gschema.xml:294
 msgid "Options dialog width"
 msgstr "Aukeren elkarrizketa-koadroaren zabalera"
 
-#: data/org.gnome.gnome-commander.gschema.xml:288
+#: data/org.gnome.gnome-commander.gschema.xml:295
 msgid "This setting defines the width of the options dialog window."
 msgstr "Ezarpen honek aukeren elkarrizketa-koadroaren zabalera definitzen du."
 
-#: data/org.gnome.gnome-commander.gschema.xml:294
+#: data/org.gnome.gnome-commander.gschema.xml:301
 msgid "Options dialog height"
 msgstr "Aukeren elkarrizketa-koadroaren altuera"
 
-#: data/org.gnome.gnome-commander.gschema.xml:295
+#: data/org.gnome.gnome-commander.gschema.xml:302
 msgid "This setting defines the height of the options dialog window."
 msgstr "Ezarpen honek aukeren elkarrizketa-koadroaren altuera definitzen du."
 
-#: data/org.gnome.gnome-commander.gschema.xml:301
+#: data/org.gnome.gnome-commander.gschema.xml:308
 msgid "Width of icon column"
 msgstr "Ikonoen zutabearen zabalera"
 
-#: data/org.gnome.gnome-commander.gschema.xml:302
+#: data/org.gnome.gnome-commander.gschema.xml:309
 msgid "This option defines the width of the icon column."
 msgstr "Aukera honek ikonoen zutabearen zabalera definitzen du."
 
-#: data/org.gnome.gnome-commander.gschema.xml:308
+#: data/org.gnome.gnome-commander.gschema.xml:315
 msgid "Width of name column"
 msgstr "Izenaren zutabearen zabalera"
 
-#: data/org.gnome.gnome-commander.gschema.xml:309
+#: data/org.gnome.gnome-commander.gschema.xml:316
 msgid "This option defines the width of the name column."
 msgstr "Aukera honek izenaren zutabearen zabalera definitzen du."
 
-#: data/org.gnome.gnome-commander.gschema.xml:315
+#: data/org.gnome.gnome-commander.gschema.xml:322
 msgid "Width of extension column"
 msgstr "Luzapenen zutabearen zabalera"
 
-#: data/org.gnome.gnome-commander.gschema.xml:316
+#: data/org.gnome.gnome-commander.gschema.xml:323
 msgid "This option defines the width of the extension column."
 msgstr "Aukera honek luzapenen zutabearen zabalera definitzen du."
 
-#: data/org.gnome.gnome-commander.gschema.xml:322
+#: data/org.gnome.gnome-commander.gschema.xml:329
 msgid "Width of directory column"
 msgstr "Direktorioen zutabearen zabalera"
 
-#: data/org.gnome.gnome-commander.gschema.xml:323
+#: data/org.gnome.gnome-commander.gschema.xml:330
 msgid "This option defines the width of the directory column."
 msgstr "Aukera honek direktorioen zutabearen zabalera definitzen du."
 
-#: data/org.gnome.gnome-commander.gschema.xml:329
+#: data/org.gnome.gnome-commander.gschema.xml:336
 msgid "Width of size column"
 msgstr "Tamainaren zutabearen zabalera"
 
-#: data/org.gnome.gnome-commander.gschema.xml:330
+#: data/org.gnome.gnome-commander.gschema.xml:337
 msgid "This option defines the width of the size column."
 msgstr "Aukera honek tamainaren zutabearen zabalera definitzen du."
 
-#: data/org.gnome.gnome-commander.gschema.xml:336
+#: data/org.gnome.gnome-commander.gschema.xml:343
 msgid "Width of date column"
 msgstr "Dataren zutabearen zabalera"
 
-#: data/org.gnome.gnome-commander.gschema.xml:337
+#: data/org.gnome.gnome-commander.gschema.xml:344
 msgid "This option defines the width of the date column."
 msgstr "Aukera honek dataren zutabearen zabalera definitzen du."
 
-#: data/org.gnome.gnome-commander.gschema.xml:343
+#: data/org.gnome.gnome-commander.gschema.xml:350
 msgid "Width of permissions column"
 msgstr "Baimenen zutabearen zabalera"
 
-#: data/org.gnome.gnome-commander.gschema.xml:344
+#: data/org.gnome.gnome-commander.gschema.xml:351
 msgid "This option defines the width of the permissions column."
 msgstr "Aukera honek baimenen zutabearen zabalera definitzen du."
 
-#: data/org.gnome.gnome-commander.gschema.xml:350
+#: data/org.gnome.gnome-commander.gschema.xml:357
 msgid "Width of owner column"
 msgstr "Jabearen zutabearen zabalera"
 
-#: data/org.gnome.gnome-commander.gschema.xml:351
+#: data/org.gnome.gnome-commander.gschema.xml:358
 msgid "This option defines the width of the owner column."
 msgstr "Aukera honek jabearen zutabearen zabalera definitzen du."
 
-#: data/org.gnome.gnome-commander.gschema.xml:357
+#: data/org.gnome.gnome-commander.gschema.xml:364
 msgid "Width of group column"
 msgstr "Taldearen zutabearen zabalera"
 
-#: data/org.gnome.gnome-commander.gschema.xml:358
+#: data/org.gnome.gnome-commander.gschema.xml:365
 msgid "This option defines the width of the group column."
 msgstr "Aukera honek taldearen zutabearen zabalera definitzen du."
 
-#: data/org.gnome.gnome-commander.gschema.xml:364
+#: data/org.gnome.gnome-commander.gschema.xml:371
 msgid "List of keybindings"
 msgstr "Laster-teklen zerrenda"
 
-#: data/org.gnome.gnome-commander.gschema.xml:365
+#: data/org.gnome.gnome-commander.gschema.xml:372
 msgid "Each entry in this list represents a keybinding."
 msgstr "Zerrenda honetako sarrera bakoitzak laster-tekla bat ordezkatzen du."
 
-#: data/org.gnome.gnome-commander.gschema.xml:372
+#: data/org.gnome.gnome-commander.gschema.xml:379
 msgid "Main window state"
 msgstr "Leihoaren egoera nagusia"
 
-#: data/org.gnome.gnome-commander.gschema.xml:373
+#: data/org.gnome.gnome-commander.gschema.xml:380
 msgid ""
 "The number represents the main window state, e.g. “maximized”, “fullscreen”, "
 "etc. and is calculated internally."
 msgstr "Zenbakiak leiho nagusiaren egoera ordezkatzen du, adibidez “maximizatua”, “pantaila osoa” eta abar, eta barnean kalkulatzen da."
 
-#: data/org.gnome.gnome-commander.gschema.xml:379
+#: data/org.gnome.gnome-commander.gschema.xml:386
 msgid "Middle mouse button mode"
 msgstr "Saguaren erdiko botoiaren modua"
 
-#: data/org.gnome.gnome-commander.gschema.xml:380
+#: data/org.gnome.gnome-commander.gschema.xml:387
 msgid "Defines what happens when the middle mouse button is clicked."
 msgstr "Saguaren erdiko botoiarekin klik egitean zer gertatzen den definitzen du."
 
-#: data/org.gnome.gnome-commander.gschema.xml:386
+#: data/org.gnome.gnome-commander.gschema.xml:393
 msgid "Save directories on exit"
 msgstr "Gorde direktorioak irtetean"
 
-#: data/org.gnome.gnome-commander.gschema.xml:387
+#: data/org.gnome.gnome-commander.gschema.xml:394
 msgid ""
 "Defines if the current directories are opened again when GNOME Commander is "
 "restarted."
 msgstr "GNOME Commander berrabiaraztean uneko direktorioak irekiko diren ala ez definitzen du."
 
-#: data/org.gnome.gnome-commander.gschema.xml:393
+#: data/org.gnome.gnome-commander.gschema.xml:400
 msgid "Save tabs on exit"
 msgstr "Gorde fitxak irtetean"
 
-#: data/org.gnome.gnome-commander.gschema.xml:394
+#: data/org.gnome.gnome-commander.gschema.xml:401
 msgid ""
 "Defines if the current open tabs are opened again when GNOME Commander is "
 "restarted."
 msgstr "GNOME Commander berrabiaraztean uneko fitxak irekiko diren ala ez definitzen du."
 
-#: data/org.gnome.gnome-commander.gschema.xml:400
+#: data/org.gnome.gnome-commander.gschema.xml:407
 msgid "Save directory history on exit"
 msgstr "Gorde direktorioaren historia irtetean"
 
-#: data/org.gnome.gnome-commander.gschema.xml:401
+#: data/org.gnome.gnome-commander.gschema.xml:408
 msgid "Defines if the history of visited directories is saved on exit."
 msgstr "Irtetean, bisitatutako direktorioen historia gordeko den ala ez definitzen du."
 
-#: data/org.gnome.gnome-commander.gschema.xml:407
+#: data/org.gnome.gnome-commander.gschema.xml:414
 msgid "Save commandline history on exit"
 msgstr "Gorde komando-lerroaren historia irtetean"
 
-#: data/org.gnome.gnome-commander.gschema.xml:408
+#: data/org.gnome.gnome-commander.gschema.xml:415
 msgid "Defines if the history of commands in the commandline is saved on exit."
 msgstr "Irtetean, komando-lerroaren historia gordeko den ala ez definitzen du."
-
-#: data/org.gnome.gnome-commander.gschema.xml:414
-msgid "Save search history on exit"
-msgstr "Gorde bilaketen historia irtetean"
-
-#: data/org.gnome.gnome-commander.gschema.xml:415
-msgid "Defines if the history of search patterns is saved on exit."
-msgstr "Irtetean, bilaketen historia gordeko den ala ez definitzen du."
 
 #: data/org.gnome.gnome-commander.gschema.xml:421
 msgid "Always show tab bar"
@@ -560,7 +566,7 @@ msgid "Defines if the tab bar is always shown."
 msgstr "Fitxa-barra beti erakutsiko den ala ez definitzen du."
 
 #: data/org.gnome.gnome-commander.gschema.xml:428
-#: src/dialogs/gnome-cmd-options-dialog.cc:972
+#: src/dialogs/gnome-cmd-options-dialog.cc:970
 msgid "Tab lock indicator"
 msgstr "Fitxen blokeoaren adierazlea"
 
@@ -625,14 +631,14 @@ msgid ""
 msgstr "Aukera honek definitzen du gailu-ikonoak soilik erakutsiko diren, ikonoak eta testu-etiketa erakutsi ordez."
 
 #: data/org.gnome.gnome-commander.gschema.xml:477
-msgid "Skip device mounting"
-msgstr "Saltatu gailuen muntatzea"
+msgid "Show the samba workgroups icon"
+msgstr "Erakutsi samba lan-taldeen ikonoa"
 
 #: data/org.gnome.gnome-commander.gschema.xml:478
 msgid ""
-"This option defines if mounting of devices should be skipped when they are "
-"opened."
-msgstr "Aukera honek definitzen du gailuen muntaketa saltatu behar den ala ez haiek irekitzen direnean."
+"This option defines if the Samba workgroups icon should be shown in the "
+"devices list."
+msgstr "Aukera honek definitzen du Samba lan-taldeen ikonoa gailuen zerrendan erakutsiko den ala ez."
 
 #: data/org.gnome.gnome-commander.gschema.xml:484
 msgid "Main menu visibility"
@@ -678,504 +684,478 @@ msgid ""
 msgstr "Zerrenda honetako sarrerak erabiltzaileak konfiguratutako gogoko aplikazioak ordezkatzen dituzte."
 
 #: data/org.gnome.gnome-commander.gschema.xml:519
-msgid "Search window width"
-msgstr "Bilaketa-leihoaren zabalera"
-
-#: data/org.gnome.gnome-commander.gschema.xml:520
-msgid "This option defines the width of the search window."
-msgstr "Aukera honek bilaketa-leihoaren zabalera definitzen du."
-
-#: data/org.gnome.gnome-commander.gschema.xml:526
-msgid "Search window height"
-msgstr "Bilaketa-leihoaren altuera"
-
-#: data/org.gnome.gnome-commander.gschema.xml:527
-msgid "This option defines the height of the search window."
-msgstr "Aukera honek bilaketa-leihoaren altuera definitzen du."
-
-#: data/org.gnome.gnome-commander.gschema.xml:533
-msgid "Search window is transient"
-msgstr "Bilaketa-leihoa behin-behinekoa da"
-
-#: data/org.gnome.gnome-commander.gschema.xml:534
-msgid ""
-"Defines if the search window is transient or if it can be minimized and "
-"moved behind the main window."
-msgstr "Bilaketa-leihoa behin-behinekoa den ala hura minimizatu eta leiho nagusiaren atzera mugitu ahal den definitzen du."
-
-#: data/org.gnome.gnome-commander.gschema.xml:540
-msgid "Search text history"
-msgstr "Bilaketa-testuaren historia"
-
-#: data/org.gnome.gnome-commander.gschema.xml:541
-msgid ""
-"This string array represents the history of text searches in the search tool."
-msgstr "Kate-matrize honek bilaketa-tresnak erabilitako bilaketa-testuen historia ordezkatzen du."
-
-#: data/org.gnome.gnome-commander.gschema.xml:547
 msgid "Search pattern history"
 msgstr "Bilaketa-ereduen historia"
 
-#: data/org.gnome.gnome-commander.gschema.xml:548
+#: data/org.gnome.gnome-commander.gschema.xml:520
 msgid ""
 "This string array represents the history of regular expression searches in "
 "the search tool."
 msgstr "Kate-matrize honek bilaketa-tresnak erabilitako adierazpen erregularren historia ordezkatzen du."
 
-#: data/org.gnome.gnome-commander.gschema.xml:554
+#: data/org.gnome.gnome-commander.gschema.xml:526
 msgid "List of search tool profiles"
 msgstr "Bilaketa-tresnaren profilen zerrenda"
 
-#: data/org.gnome.gnome-commander.gschema.xml:555
+#: data/org.gnome.gnome-commander.gschema.xml:527
 msgid ""
 "The entries in this array represent the profiles in the search tool with "
 "specific settings for each profile."
 msgstr "Matrize honetako sarrerek bilaketa-tresnako profilak ordezkatzen dituzte, eta profil bakoitzerako ezarpenak espezifikoak dituzte."
 
-#: data/org.gnome.gnome-commander.gschema.xml:563
+#: data/org.gnome.gnome-commander.gschema.xml:535
 msgid "Quick connect URI"
 msgstr "Konexio azkarrerako URIa"
 
-#: data/org.gnome.gnome-commander.gschema.xml:564
+#: data/org.gnome.gnome-commander.gschema.xml:536
 msgid "Unified resource identifier for quick connections."
 msgstr "Konexio azkarretarako baliabideen identifikatzaile bateratua (URIa)."
 
-#: data/org.gnome.gnome-commander.gschema.xml:575
+#: data/org.gnome.gnome-commander.gschema.xml:547
 msgid "Password for anonymous FTP connections"
 msgstr "FTP konexio anonimoetarako pasahitza"
 
-#: data/org.gnome.gnome-commander.gschema.xml:576
+#: data/org.gnome.gnome-commander.gschema.xml:548
 msgid "This string defines the password for anonymous FTP connections."
 msgstr "Kate honek FTP konexio anonimoetarako pasahitza definitzen du."
 
-#: data/org.gnome.gnome-commander.gschema.xml:584
+#: data/org.gnome.gnome-commander.gschema.xml:556
 msgid "Confirm delete"
 msgstr "Baieztatu ezabatzea"
 
-#: data/org.gnome.gnome-commander.gschema.xml:585
+#: data/org.gnome.gnome-commander.gschema.xml:557
 msgid "Defines if deletion of an item should be confirmed."
 msgstr "Elementu baten ezabatzea baieztatu behar den ala ez definitzen du."
 
-#: data/org.gnome.gnome-commander.gschema.xml:591
+#: data/org.gnome.gnome-commander.gschema.xml:563
 msgid "Delete default"
 msgstr "Ezabatzearen lehenespena"
 
-#: data/org.gnome.gnome-commander.gschema.xml:592
+#: data/org.gnome.gnome-commander.gschema.xml:564
 msgid ""
 "This setting defines the default active option in the delete confirmation "
 "dialog."
 msgstr "Ezarpen honek ezabatzeak gauzatzeko baieztapen-koadroan aktibo egongo den aukera lehenetsia definitzen du."
 
-#: data/org.gnome.gnome-commander.gschema.xml:598
+#: data/org.gnome.gnome-commander.gschema.xml:570
 msgid "Confirm copy overwrite"
 msgstr "Baieztatu gainidaztea kopiatzean"
 
-#: data/org.gnome.gnome-commander.gschema.xml:599
+#: data/org.gnome.gnome-commander.gschema.xml:571
 msgid ""
 "This option defines the default behavior when items will be overwritten by a "
 "copy command."
 msgstr "Aukera honek kopiatzeko komandoa erabiltzean elementuak gainidatziko diren ala ez definitzen du."
 
-#: data/org.gnome.gnome-commander.gschema.xml:605
+#: data/org.gnome.gnome-commander.gschema.xml:577
 msgid "Confirm move overwrite"
 msgstr "Baieztatu gainidaztea lekuz aldatzean"
 
-#: data/org.gnome.gnome-commander.gschema.xml:606
+#: data/org.gnome.gnome-commander.gschema.xml:578
 msgid ""
 "This option defines the default behavior when items will be overwritten by a "
 "move command."
 msgstr "Aukera honek lekuz aldatzeko komandoa erabiltzean elementuak gainidatziko diren ala ez definitzen du."
 
-#: data/org.gnome.gnome-commander.gschema.xml:612
+#: data/org.gnome.gnome-commander.gschema.xml:584
 msgid "Confirm mouse drag and drop"
 msgstr "Baieztatu saguaren arrastatzea eta jaregitea"
 
-#: data/org.gnome.gnome-commander.gschema.xml:613
+#: data/org.gnome.gnome-commander.gschema.xml:585
 msgid "This option defines the behavior of mouse drag and drop operations."
 msgstr "Aukera honek saguaren arrastatzeko eta jaregiteko eragiketen portaera definitzen du."
 
-#: data/org.gnome.gnome-commander.gschema.xml:621
+#: data/org.gnome.gnome-commander.gschema.xml:593
 msgid "Hide unknown filetypes"
 msgstr "Ezkutatu fitxategi mota ezezagunak"
 
-#: data/org.gnome.gnome-commander.gschema.xml:622
+#: data/org.gnome.gnome-commander.gschema.xml:594
 msgid "Hide files which type does not match to one of the other types."
 msgstr "Ezkutatu beste motetako batekin bat ez datozen motak dituzten fitxategiak."
 
-#: data/org.gnome.gnome-commander.gschema.xml:626
+#: data/org.gnome.gnome-commander.gschema.xml:598
 msgid "Hide regular files"
 msgstr "Ezkutatu fitxategi arruntak"
 
-#: data/org.gnome.gnome-commander.gschema.xml:630
+#: data/org.gnome.gnome-commander.gschema.xml:602
 msgid "Hide directories"
 msgstr "Ezkutatu direktorioak"
 
-#: data/org.gnome.gnome-commander.gschema.xml:634
+#: data/org.gnome.gnome-commander.gschema.xml:606
 msgid "Hide symbolic links"
 msgstr "Ezkutatu esteka sinbolikoak"
 
-#: data/org.gnome.gnome-commander.gschema.xml:638
+#: data/org.gnome.gnome-commander.gschema.xml:610
 msgid ""
 "Hide special files, such as a socket, fifo, block devices, or character "
 "devices."
 msgstr "Ezkutatu fitxategi bereziak, esaterako socketak, fifoak, bloke-gailuak edo karaktere-gailuak."
 
-#: data/org.gnome.gnome-commander.gschema.xml:642
+#: data/org.gnome.gnome-commander.gschema.xml:614
 msgid "Hide shortcut files (Windows systems)"
 msgstr "Ezkutatu lastebide-fitxategiak (Windows sistemak)"
 
-#: data/org.gnome.gnome-commander.gschema.xml:646
+#: data/org.gnome.gnome-commander.gschema.xml:618
 msgid "Hide mountable locations"
 msgstr "Ezkutatu kokaleku muntagarriak"
 
-#: data/org.gnome.gnome-commander.gschema.xml:650
+#: data/org.gnome.gnome-commander.gschema.xml:622
 msgid "Hide virtual files"
 msgstr "Ezkutatu fitxategi birtualak"
 
-#: data/org.gnome.gnome-commander.gschema.xml:654
+#: data/org.gnome.gnome-commander.gschema.xml:626
 msgid "Hide volatile files"
 msgstr "Ezkutatu fitxategi hegazkorrak"
 
-#: data/org.gnome.gnome-commander.gschema.xml:658
+#: data/org.gnome.gnome-commander.gschema.xml:630
 msgid "Hide files and folders starting with a dot"
 msgstr "Ezkutatu puntu batekin hasten diren fitxategiak eta karpetak"
 
-#: data/org.gnome.gnome-commander.gschema.xml:662
+#: data/org.gnome.gnome-commander.gschema.xml:634
 msgid "Hide backup files"
 msgstr "Ezkutatu babeskopia-fitxategiak"
 
-#: data/org.gnome.gnome-commander.gschema.xml:663
+#: data/org.gnome.gnome-commander.gschema.xml:635
 msgid "Hide all files with a suffix defined as the backup pattern."
 msgstr "Ezkutatu babeskopia-eredu izateko definitu den aurrizki bat dituzten fitxategi guztiak"
 
-#: data/org.gnome.gnome-commander.gschema.xml:667
+#: data/org.gnome.gnome-commander.gschema.xml:639
 msgid "Backup file pattern"
 msgstr "Babeskopia-fitxategien eredua"
 
-#: data/org.gnome.gnome-commander.gschema.xml:668
+#: data/org.gnome.gnome-commander.gschema.xml:640
 msgid ""
 "The given string defines suffixes (separated by semicolon) for files which "
 "should be filtered out if backup files should be hidden."
 msgstr "Emandako kateak babeskopiako fitxategiak ezkutuan egon behar badute iragaziko diren fitxategietako atzizkiak (puntu eta komaz bereiziak) definitzen ditu."
 
-#: data/org.gnome.gnome-commander.gschema.xml:677
+#: data/org.gnome.gnome-commander.gschema.xml:649
 msgid "Do not download files"
 msgstr "Ez deskargatu fitxategiak"
 
-#: data/org.gnome.gnome-commander.gschema.xml:678
+#: data/org.gnome.gnome-commander.gschema.xml:650
 msgid ""
 "This option defines if remote files should be downloaded before opened by "
 "external programs."
 msgstr "Aukera honek urruneko fitxategiak, kanpoko programekin ireki baino lehen, deskargatu behar diren ala ez definitzen du."
 
-#: data/org.gnome.gnome-commander.gschema.xml:684
+#: data/org.gnome.gnome-commander.gschema.xml:656
 msgid "Use internal viewer"
 msgstr "Erabili barneko ikustailea"
 
-#: data/org.gnome.gnome-commander.gschema.xml:685
+#: data/org.gnome.gnome-commander.gschema.xml:657
 msgid "This option defines if the internal viewer should be used by default."
 msgstr "Aukera honek barneko ikustailea lehenetsi gisa erabili behar den definitzen du."
 
-#: data/org.gnome.gnome-commander.gschema.xml:691
+#: data/org.gnome.gnome-commander.gschema.xml:663
 msgid "Viewer command"
 msgstr "Ikustailearen komandoa"
 
-#: data/org.gnome.gnome-commander.gschema.xml:692
+#: data/org.gnome.gnome-commander.gschema.xml:664
 msgid "This string defines the command for starting the (external) viewer."
 msgstr "Kate honek (kanpoko) ikustailea abiarazteko komandoa definitzen du."
 
-#: data/org.gnome.gnome-commander.gschema.xml:698
+#: data/org.gnome.gnome-commander.gschema.xml:670
 msgid "Editor command"
 msgstr "Editorearen komandoa"
 
-#: data/org.gnome.gnome-commander.gschema.xml:699
+#: data/org.gnome.gnome-commander.gschema.xml:671
 msgid "This string defines the command for starting the editor."
 msgstr "Kate honek editorea abiarazteko komandoa definitzen du."
 
-#: data/org.gnome.gnome-commander.gschema.xml:705
+#: data/org.gnome.gnome-commander.gschema.xml:677
 msgid "Differ command"
 msgstr "Differ komandoa"
 
-#: data/org.gnome.gnome-commander.gschema.xml:706
+#: data/org.gnome.gnome-commander.gschema.xml:678
 msgid "This string defines the command for starting the diff tool."
 msgstr "Kate honek diff tresna abiarazteko komandoa definitzen du."
 
-#: data/org.gnome.gnome-commander.gschema.xml:712
+#: data/org.gnome.gnome-commander.gschema.xml:684
+msgid "Search command"
+msgstr "Bilaketa-komandoa"
+
+#: data/org.gnome.gnome-commander.gschema.xml:685
+msgid ""
+"This string defines the command for starting an external file search tool."
+msgstr "Kate honek definitzen du kanpoko fitxategien bilaketa-tresna bat abiarazteko komandoa."
+
+#: data/org.gnome.gnome-commander.gschema.xml:691
 msgid "Leave terminal open"
 msgstr "Utzi terminala irekita"
 
-#: data/org.gnome.gnome-commander.gschema.xml:713
+#: data/org.gnome.gnome-commander.gschema.xml:692
 msgid ""
 "This option defines if a terminal window should stay open after a command "
 "finishes inside of it."
 msgstr "Aukera honek komando bat amaitu ondoren terminalaren leihoa irekita utzi behar den ala ez definitzen du."
 
-#: data/org.gnome.gnome-commander.gschema.xml:719
+#: data/org.gnome.gnome-commander.gschema.xml:698
 msgid "Command for opening a terminal"
 msgstr "Terminal bat irekitzeko komandoa"
 
-#: data/org.gnome.gnome-commander.gschema.xml:720
+#: data/org.gnome.gnome-commander.gschema.xml:699
 msgid "This string defines the command for opening a terminal."
 msgstr "Kate honek terminal bat irekitzeko komandoa definitzen du."
 
-#: data/org.gnome.gnome-commander.gschema.xml:726
+#: data/org.gnome.gnome-commander.gschema.xml:705
 msgid "Command for execution in terminal"
 msgstr "Terminalean exekutatzeko komandoa"
 
-#: data/org.gnome.gnome-commander.gschema.xml:727
+#: data/org.gnome.gnome-commander.gschema.xml:706
 msgid ""
 "This string defines the command for executing another command in a terminal."
 msgstr "Kate honek terminal batean beste komando bat exekutatzeko komandoa definitzen du."
 
-#: data/org.gnome.gnome-commander.gschema.xml:733
+#: data/org.gnome.gnome-commander.gschema.xml:712
 msgid "Send to command"
 msgstr "Bidali komandora"
 
-#: data/org.gnome.gnome-commander.gschema.xml:734
+#: data/org.gnome.gnome-commander.gschema.xml:713
 msgid "This string defines the command for sending files to a receiver."
 msgstr "Kate honek fitxategiak jasotzaile bati bidaltzeko komandoa definitzen du."
 
-#: data/org.gnome.gnome-commander.gschema.xml:742
+#: data/org.gnome.gnome-commander.gschema.xml:721
 msgid "Color theme"
 msgstr "Kolore-gaia"
 
-#: data/org.gnome.gnome-commander.gschema.xml:743
+#: data/org.gnome.gnome-commander.gschema.xml:722
 msgid "This option defines the current color theme."
 msgstr "Aukera honek uneko kolore-gaia definitzen du."
 
-#: data/org.gnome.gnome-commander.gschema.xml:749
+#: data/org.gnome.gnome-commander.gschema.xml:728
 msgid "Normal foreground color"
 msgstr "Aurreko planoaren kolore normala"
 
-#: data/org.gnome.gnome-commander.gschema.xml:750
+#: data/org.gnome.gnome-commander.gschema.xml:729
 msgid "Normal foreground color in custom mode."
 msgstr "Aurreko planoaren kolore normala modu pertsonalizatuan."
 
-#: data/org.gnome.gnome-commander.gschema.xml:756
+#: data/org.gnome.gnome-commander.gschema.xml:735
 msgid "Normal background color"
 msgstr "Atzeko planoaren kolore normala"
 
-#: data/org.gnome.gnome-commander.gschema.xml:757
+#: data/org.gnome.gnome-commander.gschema.xml:736
 msgid "Normal background color in custom mode."
 msgstr "Atzeko planoaren kolore normala modu pertsonalizatuan."
 
-#: data/org.gnome.gnome-commander.gschema.xml:763
+#: data/org.gnome.gnome-commander.gschema.xml:742
 msgid "Alternate foreground color"
 msgstr "Aurreko planoaren ordezko kolorea"
 
-#: data/org.gnome.gnome-commander.gschema.xml:764
+#: data/org.gnome.gnome-commander.gschema.xml:743
 msgid "Alternate foreground color in custom mode."
 msgstr "Aurreko planoaren ordezko kolorea modu pertsonalizatuan."
 
-#: data/org.gnome.gnome-commander.gschema.xml:770
+#: data/org.gnome.gnome-commander.gschema.xml:749
 msgid "Alternate background color"
 msgstr "Atzeko planoaren ordezko kolorea"
 
-#: data/org.gnome.gnome-commander.gschema.xml:771
+#: data/org.gnome.gnome-commander.gschema.xml:750
 msgid "Alternate background color in custom mode."
 msgstr "Atzeko planoaren ordezko kolorea modu pertsonalizatuan."
 
-#: data/org.gnome.gnome-commander.gschema.xml:777
+#: data/org.gnome.gnome-commander.gschema.xml:756
 msgid "Selection foreground color"
 msgstr "Hautapenaren aurreko planoaren kolorea"
 
-#: data/org.gnome.gnome-commander.gschema.xml:778
+#: data/org.gnome.gnome-commander.gschema.xml:757
 msgid "Foreground color for selections in custom mode."
 msgstr "Hautapenaren aurreko planoaren kolore modu pertsonalizatuan."
 
-#: data/org.gnome.gnome-commander.gschema.xml:784
+#: data/org.gnome.gnome-commander.gschema.xml:763
 msgid "Selection background color"
 msgstr "Hautapenaren atzeko planoaren kolorea"
 
-#: data/org.gnome.gnome-commander.gschema.xml:785
+#: data/org.gnome.gnome-commander.gschema.xml:764
 msgid "Background color for selections in custom mode."
 msgstr "Hautapenaren atzeko planoaren kolore modu pertsonalizatuan."
 
-#: data/org.gnome.gnome-commander.gschema.xml:791
+#: data/org.gnome.gnome-commander.gschema.xml:770
 msgid "Cursor foreground color"
 msgstr "Kurtsorearen aurreko planoaren kolorea"
 
-#: data/org.gnome.gnome-commander.gschema.xml:792
+#: data/org.gnome.gnome-commander.gschema.xml:771
 msgid "Cursor foreground color in custom mode."
 msgstr "Kurtsorearen aurreko planoaren kolorea modu pertsonalizatuan."
 
-#: data/org.gnome.gnome-commander.gschema.xml:798
+#: data/org.gnome.gnome-commander.gschema.xml:777
 msgid "Cursor background color"
 msgstr "Kurtsorearen atzeko planoaren kolorea"
 
-#: data/org.gnome.gnome-commander.gschema.xml:799
+#: data/org.gnome.gnome-commander.gschema.xml:778
 msgid "Cursor background color in custom mode."
 msgstr "Kurtsorearen atzeko planoaren kolorea modu pertsonalizatuan."
 
-#: data/org.gnome.gnome-commander.gschema.xml:805
+#: data/org.gnome.gnome-commander.gschema.xml:784
 msgid "Use LS colors"
 msgstr "Erabili LS koloreak"
 
-#: data/org.gnome.gnome-commander.gschema.xml:806
+#: data/org.gnome.gnome-commander.gschema.xml:785
 msgid ""
 "This option triggers if the value of the environment variable LS_COLORS "
 "should be used to dye files and folders."
 msgstr "Aukera honek fitxategiak eta karpetak margotzeko LS_COLORS ingurumen-aldagaiaren balioa erabili behar den ala ez definitzen du."
 
-#: data/org.gnome.gnome-commander.gschema.xml:813
+#: data/org.gnome.gnome-commander.gschema.xml:792
 msgid "LS_COLORS black foreground mapping"
 msgstr "LS_COLORS aurreko plano beltzaren mapatzea"
 
-#: data/org.gnome.gnome-commander.gschema.xml:814
+#: data/org.gnome.gnome-commander.gschema.xml:793
 msgid ""
 "This option adjusts the foreground color mapping for LS_COLORS black value."
 msgstr "Aukera honek aurreko planoaren kolore-mapatzea doitzen du LS_COLORS balio beltzerako."
 
-#: data/org.gnome.gnome-commander.gschema.xml:820
+#: data/org.gnome.gnome-commander.gschema.xml:799
 msgid "LS_COLORS black background mapping"
 msgstr "LS_COLORS atzeko plano beltzaren mapatzea"
 
-#: data/org.gnome.gnome-commander.gschema.xml:821
+#: data/org.gnome.gnome-commander.gschema.xml:800
 msgid ""
 "This option adjusts the background color mapping for LS_COLORS black value."
 msgstr "Aukera honek atzeko planoaren kolore-mapatzea doitzen du LS_COLORS balio beltzerako."
 
-#: data/org.gnome.gnome-commander.gschema.xml:827
+#: data/org.gnome.gnome-commander.gschema.xml:806
 msgid "LS_COLORS red foreground mapping"
 msgstr "LS_COLORS aurreko plano gorriaren mapatzea"
 
-#: data/org.gnome.gnome-commander.gschema.xml:828
+#: data/org.gnome.gnome-commander.gschema.xml:807
 msgid ""
 "This option adjusts the foreground color mapping for LS_COLORS red value."
 msgstr "Aukera honek aurreko planoaren kolore-mapatzea doitzen du LS_COLORS balio gorrirako."
 
-#: data/org.gnome.gnome-commander.gschema.xml:834
+#: data/org.gnome.gnome-commander.gschema.xml:813
 msgid "LS_COLORS red background mapping"
 msgstr "LS_COLORS atzeko plano gorriaren mapatzea"
 
-#: data/org.gnome.gnome-commander.gschema.xml:835
+#: data/org.gnome.gnome-commander.gschema.xml:814
 msgid ""
 "This option adjusts the background color mapping for LS_COLORS red value."
 msgstr "Aukera honek atzeko planoaren kolore-mapatzea doitzen du LS_COLORS balio gorrirako."
 
-#: data/org.gnome.gnome-commander.gschema.xml:841
+#: data/org.gnome.gnome-commander.gschema.xml:820
 msgid "LS_COLORS green foreground mapping"
 msgstr "LS_COLORS aurreko plano berdearen mapatzea"
 
-#: data/org.gnome.gnome-commander.gschema.xml:842
+#: data/org.gnome.gnome-commander.gschema.xml:821
 msgid ""
 "This option adjusts the foreground color mapping for LS_COLORS green value."
 msgstr "Aukera honek aurreko planoaren kolore-mapatzea doitzen du LS_COLORS balio berderako."
 
-#: data/org.gnome.gnome-commander.gschema.xml:848
+#: data/org.gnome.gnome-commander.gschema.xml:827
 msgid "LS_COLORS green background mapping"
 msgstr "LS_COLORS atzeko plano berdearen mapatzea"
 
-#: data/org.gnome.gnome-commander.gschema.xml:849
+#: data/org.gnome.gnome-commander.gschema.xml:828
 msgid ""
 "This option adjusts the background color mapping for LS_COLORS green value."
 msgstr "Aukera honek atzeko planoaren kolore-mapatzea doitzen du LS_COLORS balio berderako."
 
-#: data/org.gnome.gnome-commander.gschema.xml:855
+#: data/org.gnome.gnome-commander.gschema.xml:834
 msgid "LS_COLORS yellow foreground mapping"
 msgstr "LS_COLORS aurreko plano horiaren mapatzea"
 
-#: data/org.gnome.gnome-commander.gschema.xml:856
+#: data/org.gnome.gnome-commander.gschema.xml:835
 msgid ""
 "This option adjusts the foreground color mapping for LS_COLORS yellow value."
 msgstr "Aukera honek aurreko planoaren kolore-mapatzea doitzen du LS_COLORS balio horirako."
 
-#: data/org.gnome.gnome-commander.gschema.xml:862
+#: data/org.gnome.gnome-commander.gschema.xml:841
 msgid "LS_COLORS yellow background mapping"
 msgstr "LS_COLORS atzeko plano horiaren mapatzea"
 
-#: data/org.gnome.gnome-commander.gschema.xml:863
+#: data/org.gnome.gnome-commander.gschema.xml:842
 msgid ""
 "This option adjusts the background color mapping for LS_COLORS yellow value."
 msgstr "Aukera honek atzeko planoaren kolore-mapatzea doitzen du LS_COLORS balio horirako."
 
-#: data/org.gnome.gnome-commander.gschema.xml:869
+#: data/org.gnome.gnome-commander.gschema.xml:848
 msgid "LS_COLORS blue foreground mapping"
 msgstr "LS_COLORS aurreko plano urdinaren mapatzea"
 
-#: data/org.gnome.gnome-commander.gschema.xml:870
+#: data/org.gnome.gnome-commander.gschema.xml:849
 msgid ""
 "This option adjusts the foreground color mapping for LS_COLORS blue value."
 msgstr "Aukera honek aurreko planoaren kolore-mapatzea doitzen du LS_COLORS balio urdinerako."
 
-#: data/org.gnome.gnome-commander.gschema.xml:876
+#: data/org.gnome.gnome-commander.gschema.xml:855
 msgid "LS_COLORS blue background mapping"
 msgstr "LS_COLORS atzeko plano urdinaren mapatzea"
 
-#: data/org.gnome.gnome-commander.gschema.xml:877
+#: data/org.gnome.gnome-commander.gschema.xml:856
 msgid ""
 "This option adjusts the background color mapping for LS_COLORS blue value."
 msgstr "Aukera honek atzeko planoaren kolore-mapatzea doitzen du LS_COLORS balio urdinerako."
 
-#: data/org.gnome.gnome-commander.gschema.xml:883
+#: data/org.gnome.gnome-commander.gschema.xml:862
 msgid "LS_COLORS magenta foreground mapping"
 msgstr "LS_COLORS aurreko plano magentaren mapatzea"
 
-#: data/org.gnome.gnome-commander.gschema.xml:884
+#: data/org.gnome.gnome-commander.gschema.xml:863
 msgid ""
 "This option adjusts the foreground color mapping for LS_COLORS magenta value."
 msgstr "Aukera honek aurreko planoaren kolore-mapatzea doitzen du LS_COLORS balio magentarako."
 
-#: data/org.gnome.gnome-commander.gschema.xml:890
+#: data/org.gnome.gnome-commander.gschema.xml:869
 msgid "LS_COLORS magenta background mapping"
 msgstr "LS_COLORS atzeko plano magentaren mapatzea"
 
-#: data/org.gnome.gnome-commander.gschema.xml:891
+#: data/org.gnome.gnome-commander.gschema.xml:870
 msgid ""
 "This option adjusts the background color mapping for LS_COLORS magenta value."
 msgstr "Aukera honek atzeko planoaren kolore-mapatzea doitzen du LS_COLORS balio magentarako."
 
-#: data/org.gnome.gnome-commander.gschema.xml:897
+#: data/org.gnome.gnome-commander.gschema.xml:876
 msgid "LS_COLORS cyan foreground mapping"
 msgstr "LS_COLORS aurreko plano cyanaren mapatzea"
 
-#: data/org.gnome.gnome-commander.gschema.xml:898
+#: data/org.gnome.gnome-commander.gschema.xml:877
 msgid ""
 "This option adjusts the foreground color mapping for LS_COLORS cyan value."
 msgstr "Aukera honek aurreko planoaren kolore-mapatzea doitzen du LS_COLORS balio cyanerako."
 
-#: data/org.gnome.gnome-commander.gschema.xml:904
+#: data/org.gnome.gnome-commander.gschema.xml:883
 msgid "LS_COLORS cyan background mapping"
 msgstr "LS_COLORS atzeko plano cyanaren mapatzea"
 
-#: data/org.gnome.gnome-commander.gschema.xml:905
+#: data/org.gnome.gnome-commander.gschema.xml:884
 msgid ""
 "This option adjusts the background color mapping for LS_COLORS cyan value."
 msgstr "Aukera honek atzeko planoaren kolore-mapatzea doitzen du LS_COLORS balio cyanerako."
 
-#: data/org.gnome.gnome-commander.gschema.xml:911
+#: data/org.gnome.gnome-commander.gschema.xml:890
 msgid "LS_COLORS white foreground mapping"
 msgstr "LS_COLORS aurreko plano zuriaren mapatzea"
 
-#: data/org.gnome.gnome-commander.gschema.xml:912
+#: data/org.gnome.gnome-commander.gschema.xml:891
 msgid ""
 "This option adjusts the foreground color mapping for LS_COLORS white value."
 msgstr "Aukera honek aurreko planoaren kolore-mapatzea doitzen du LS_COLORS balio zurirako."
 
-#: data/org.gnome.gnome-commander.gschema.xml:918
+#: data/org.gnome.gnome-commander.gschema.xml:897
 msgid "LS_COLORS white background mapping"
 msgstr "LS_COLORS atzeko plano zuriaren mapatzea"
 
-#: data/org.gnome.gnome-commander.gschema.xml:919
+#: data/org.gnome.gnome-commander.gschema.xml:898
 msgid ""
 "This option adjusts the background color mapping for LS_COLORS white value."
 msgstr "Aukera honek atzeko planoaren kolore-mapatzea doitzen du LS_COLORS balio zurirako."
 
-#: data/org.gnome.gnome-commander.gschema.xml:927
+#: data/org.gnome.gnome-commander.gschema.xml:906
 msgid "Case sensitive search"
 msgstr "Maiuskulen/minuskulen araberako bilaketa"
 
-#: data/org.gnome.gnome-commander.gschema.xml:928
+#: data/org.gnome.gnome-commander.gschema.xml:907
 msgid ""
 "This option defines if searching within the internal viewer is case "
 "sensitive."
 msgstr "Aukera honek barneko ikustailearen bilaketak maiuskulak eta minuskulak kontuan hartuko dituen definitzen du."
 
-#: data/org.gnome.gnome-commander.gschema.xml:934
+#: data/org.gnome.gnome-commander.gschema.xml:913
 msgid "Search mode"
 msgstr "Bilaketaren modua"
 
-#: data/org.gnome.gnome-commander.gschema.xml:935
+#: data/org.gnome.gnome-commander.gschema.xml:914
 msgid "This option defines the search mode of the internal viewer."
 msgstr "Aukera honek barneko ikustailearen bilaketa modua definitzen du."
 
@@ -1184,167 +1164,167 @@ msgstr "Aukera honek barneko ikustailearen bilaketa modua definitzen du."
 #. an encoding that is common in your country.
 #. See https://gitlab.gnome.org/GNOME/gnome-commander/blob/master/src/intviewer/viewer-window.cc#L360 for
 #. a list of supported encodings.
-#: data/org.gnome.gnome-commander.gschema.xml:945
+#: data/org.gnome.gnome-commander.gschema.xml:924
 msgid "'UTF8'"
 msgstr "'UTF8'"
 
-#: data/org.gnome.gnome-commander.gschema.xml:946
+#: data/org.gnome.gnome-commander.gschema.xml:925
 msgid "Character set"
 msgstr "Karaktere multzoa"
 
-#: data/org.gnome.gnome-commander.gschema.xml:947
+#: data/org.gnome.gnome-commander.gschema.xml:926
 msgid "This option defines the default character encoding."
 msgstr "Aukera honek karaktere-kodeketa lehenetsia definitzen du."
 
-#: data/org.gnome.gnome-commander.gschema.xml:953
+#: data/org.gnome.gnome-commander.gschema.xml:932
 msgid "Fixed font name"
 msgstr "Letra-tipo finkoaren izena"
 
-#: data/org.gnome.gnome-commander.gschema.xml:954
+#: data/org.gnome.gnome-commander.gschema.xml:933
 msgid "Name of the default font with fixed character width."
 msgstr "Karaktere-zabalera finkoa duen letra-tipo lehenetsiaren izena."
 
-#: data/org.gnome.gnome-commander.gschema.xml:960
+#: data/org.gnome.gnome-commander.gschema.xml:939
 msgid "Variable font name"
 msgstr "Letra-tipo aldakorraren izena"
 
-#: data/org.gnome.gnome-commander.gschema.xml:961
+#: data/org.gnome.gnome-commander.gschema.xml:940
 msgid "Name of the default font with variable character width."
 msgstr "Karaktere-zabalera aldakorra duen letra-tipo lehenetsiaren izena."
 
-#: data/org.gnome.gnome-commander.gschema.xml:967
+#: data/org.gnome.gnome-commander.gschema.xml:946
 msgid "Display hex offset"
 msgstr "Bistaratu hex desplazamendua"
 
-#: data/org.gnome.gnome-commander.gschema.xml:968
+#: data/org.gnome.gnome-commander.gschema.xml:947
 msgid ""
 "This option defines if the hexadecimal offset should be displayed in hex "
 "mode."
 msgstr "Aukera honek desplazamendu hamaseitarra hex moduan bistaratu behar den ala ez definitzen du."
 
-#: data/org.gnome.gnome-commander.gschema.xml:974
+#: data/org.gnome.gnome-commander.gschema.xml:953
 msgid "Wrap mode"
 msgstr "Egokitze-modua"
 
-#: data/org.gnome.gnome-commander.gschema.xml:975
+#: data/org.gnome.gnome-commander.gschema.xml:954
 msgid "This option defines if too long text lines should be wrapped."
 msgstr "Aukera honek testu-lerro luzeegiak egokituko diren ala ez definitzen du."
 
-#: data/org.gnome.gnome-commander.gschema.xml:981
+#: data/org.gnome.gnome-commander.gschema.xml:960
 msgid "Font size"
 msgstr "Letra-tamaina"
 
-#: data/org.gnome.gnome-commander.gschema.xml:982
+#: data/org.gnome.gnome-commander.gschema.xml:961
 msgid "This option defines the default font size."
 msgstr "Aukera honek letra-tamaina lehenetsia definitzen du."
 
-#: data/org.gnome.gnome-commander.gschema.xml:988
+#: data/org.gnome.gnome-commander.gschema.xml:967
 msgid "Tab size"
 msgstr "Fitxa-tamaina"
 
-#: data/org.gnome.gnome-commander.gschema.xml:989
+#: data/org.gnome.gnome-commander.gschema.xml:968
 msgid ""
 "This option defines the indentation width in terms of characters for a "
 "tabulator character."
 msgstr "Aukera honek koskatzearen zabalera definitzen du tabuladore-karaktere baten karaktereen arabera."
 
-#: data/org.gnome.gnome-commander.gschema.xml:995
+#: data/org.gnome.gnome-commander.gschema.xml:974
 msgid "Bytes per line in binary mode"
 msgstr "Byte-ak lerroko modu bitarrean"
 
-#: data/org.gnome.gnome-commander.gschema.xml:996
+#: data/org.gnome.gnome-commander.gschema.xml:975
 msgid ""
 "This option defines how many bytes should be displayed in one line in binary "
 "mode."
 msgstr "Aukera honek lerro batek modu bitarrean zenbat byte bistaratu behar dituen definitzen du."
 
-#: data/org.gnome.gnome-commander.gschema.xml:1002
+#: data/org.gnome.gnome-commander.gschema.xml:981
 msgid "Metadata view"
 msgstr "Metadatuen ikuspegia"
 
-#: data/org.gnome.gnome-commander.gschema.xml:1003
+#: data/org.gnome.gnome-commander.gschema.xml:982
 msgid "This option defines if metadata should be visible."
 msgstr "Aukera honek definitzen du metadatuak ikusgai egongo diren ala ez."
 
-#: data/org.gnome.gnome-commander.gschema.xml:1009
+#: data/org.gnome.gnome-commander.gschema.xml:988
 msgid "Horizontal offset"
 msgstr "Desplazamendu horizontala"
 
-#: data/org.gnome.gnome-commander.gschema.xml:1010
+#: data/org.gnome.gnome-commander.gschema.xml:989
 msgid ""
 "This option defines the visual offset of the internal file viewer in "
 "horizontal direction."
 msgstr "Aukera honek barneko fitxategi-ikustaileak norabide horizontalean duen ikusizko desplazamendua definitzen du."
 
-#: data/org.gnome.gnome-commander.gschema.xml:1016
+#: data/org.gnome.gnome-commander.gschema.xml:995
 msgid "Vertical offset"
 msgstr "Desplazamendu bertikala"
 
-#: data/org.gnome.gnome-commander.gschema.xml:1017
+#: data/org.gnome.gnome-commander.gschema.xml:996
 msgid ""
 "This option defines the visual offset of the internal file viewer in "
 "vertical direction."
 msgstr "Aukera honek barneko fitxategi-ikustaileak norabide bertikalean duen ikusizko desplazamendua definitzen du."
 
-#: data/org.gnome.gnome-commander.gschema.xml:1023
+#: data/org.gnome.gnome-commander.gschema.xml:1002
 msgid "Window width"
 msgstr "Leihoaren zabalera"
 
-#: data/org.gnome.gnome-commander.gschema.xml:1024
+#: data/org.gnome.gnome-commander.gschema.xml:1003
 msgid "The width of the internal file viewer window."
 msgstr "Barneko fitxategi-ikustailearen leihoaren zabalera."
 
-#: data/org.gnome.gnome-commander.gschema.xml:1030
+#: data/org.gnome.gnome-commander.gschema.xml:1009
 msgid "Window height"
 msgstr "Leihoaren altuera"
 
-#: data/org.gnome.gnome-commander.gschema.xml:1031
+#: data/org.gnome.gnome-commander.gschema.xml:1010
 msgid "The height of the internal file viewer window."
 msgstr "Barneko fitxategi-ikustailearen leihoaren altuera."
 
-#: data/org.gnome.gnome-commander.gschema.xml:1037
+#: data/org.gnome.gnome-commander.gschema.xml:1016
 msgid "Search pattern for text"
 msgstr "Bilaketa-eredua testurako"
 
-#: data/org.gnome.gnome-commander.gschema.xml:1038
+#: data/org.gnome.gnome-commander.gschema.xml:1017
 msgid ""
 "This string array stores the history of text searches within the internal "
 "file viewer."
 msgstr "Kate-matrize honek barneko fitxategi-ikustailean egindako testu-bilaketen historia gordetzen du."
 
-#: data/org.gnome.gnome-commander.gschema.xml:1044
+#: data/org.gnome.gnome-commander.gschema.xml:1023
 msgid "Search pattern for hex values"
 msgstr "Bilaketa-eredua hex balioetarako"
 
-#: data/org.gnome.gnome-commander.gschema.xml:1045
+#: data/org.gnome.gnome-commander.gschema.xml:1024
 msgid ""
 "This string array stores the history of searches for hex values within the "
 "internal file viewer."
 msgstr "Kate-matrize honek barneko fitxategi-ikustailean egindako hex-bilaketen historia gordetzen du."
 
-#: data/org.gnome.gnome-commander.gschema.xml:1053
+#: data/org.gnome.gnome-commander.gschema.xml:1032
 msgid "File suffix"
 msgstr "Fitxategi-atzizkia"
 
-#: data/org.gnome.gnome-commander.gschema.xml:1054
+#: data/org.gnome.gnome-commander.gschema.xml:1033
 msgid "Default file suffix of archives created with the File Roller plugin."
 msgstr "File Roller pluginarekin sortutako artxiboen fitxategi-atzizki lehenetsia."
 
-#: data/org.gnome.gnome-commander.gschema.xml:1060
+#: data/org.gnome.gnome-commander.gschema.xml:1039
 msgid "Prefix pattern"
 msgstr "Aurrizki-eredua"
 
-#: data/org.gnome.gnome-commander.gschema.xml:1061
+#: data/org.gnome.gnome-commander.gschema.xml:1040
 msgid ""
 "The prefix pattern is used to build up the name for an archive created with "
 "the File Roller plugin."
 msgstr "File Roller pluginarekin sortutako artxiboen izenak sortzeko erabiliko den aurrizki-eredua."
 
-#: data/org.gnome.gnome-commander.gschema.xml:1069
+#: data/org.gnome.gnome-commander.gschema.xml:1048
 msgid "Automatically loaded plugins"
 msgstr "Automatikoki kargatutako pluginak"
 
-#: data/org.gnome.gnome-commander.gschema.xml:1070
+#: data/org.gnome.gnome-commander.gschema.xml:1049
 msgid ""
 "This is the list of automatically loaded plugins, whereas each entry "
 "represents the file name of the plugin."
@@ -1370,75 +1350,85 @@ msgstr "Karpeta-hautapena"
 msgid "File selection"
 msgstr "Fitxategi-hautapena"
 
-#: plugins/fileroller/file-roller-plugin.cc:111 src/gnome-cmd-data.cc:83
+#: plugins/fileroller/file-roller-plugin.cc:111 src/gnome-cmd-data.cc:78
 #, c-format
 msgid "Could not load schemas from %s: %s\n"
 msgstr "Ezin izan dira eskemarik '%s'(e)ndik kargatu : %s\n"
 
-#: plugins/fileroller/file-roller-plugin.cc:365
+#: plugins/fileroller/file-roller-plugin.cc:200
+#, c-format
+msgid ""
+"Error running \"%s\"\n"
+"\n"
+"%s"
+msgstr "Errorea \"%s\" exekutatzean\n"
+"\n"
+"%s"
+
+#: plugins/fileroller/file-roller-plugin.cc:379
 msgid "What file name should the new archive have?"
 msgstr "Zein fitxategi-izen eduki beharko luke artxibo berriak?"
 
-#: plugins/fileroller/file-roller-plugin.cc:367
+#: plugins/fileroller/file-roller-plugin.cc:381
 msgid "Create Archive"
 msgstr "Sortu artxiboa"
 
-#: plugins/fileroller/file-roller-plugin.cc:481
+#: plugins/fileroller/file-roller-plugin.cc:495
 msgid "Create Archive…"
 msgstr "Sortu artxiboa…"
 
-#: plugins/fileroller/file-roller-plugin.cc:493
+#: plugins/fileroller/file-roller-plugin.cc:507
 msgid "Extract in Current Directory"
 msgstr "Atera uneko direktorioan"
 
-#: plugins/fileroller/file-roller-plugin.cc:500
-#: plugins/fileroller/file-roller-plugin.cc:513
+#: plugins/fileroller/file-roller-plugin.cc:514
+#: plugins/fileroller/file-roller-plugin.cc:527
 #, c-format
 msgid "Extract to “%s”"
 msgstr "Erauzi hona: “%s”"
 
-#: plugins/fileroller/file-roller-plugin.cc:574
-#: src/gnome-cmd-advrename-profile-component.cc:941 src/plugin_manager.cc:419
+#: plugins/fileroller/file-roller-plugin.cc:588
+#: src/gnome-cmd-advrename-profile-component.cc:941 src/plugin_manager.cc:391
 #: src/tags/gnome-cmd-tags.cc:692
 msgid "File"
 msgstr "Fitxategia"
 
 #. destroy model automatically with view
-#: plugins/fileroller/file-roller-plugin.cc:591
+#: plugins/fileroller/file-roller-plugin.cc:605
 #: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:369
-#: src/dialogs/gnome-cmd-options-dialog.cc:1497
-#: src/dialogs/gnome-cmd-options-dialog.cc:2165
-#: src/dialogs/gnome-cmd-prepare-copy-dialog.cc:129
-#: src/dialogs/gnome-cmd-prepare-move-dialog.cc:115
-#: src/dialogs/gnome-cmd-remote-dialog.cc:442 src/gnome-cmd-user-actions.cc:252
+#: src/dialogs/gnome-cmd-options-dialog.cc:1524
+#: src/dialogs/gnome-cmd-options-dialog.cc:2201
+#: src/dialogs/gnome-cmd-prepare-copy-dialog.cc:145
+#: src/dialogs/gnome-cmd-prepare-move-dialog.cc:132
+#: src/dialogs/gnome-cmd-remote-dialog.cc:443 src/gnome-cmd-user-actions.cc:253
 msgid "Options"
 msgstr "Aukerak"
 
-#: plugins/fileroller/file-roller-plugin.cc:603
+#: plugins/fileroller/file-roller-plugin.cc:617
 msgid "File-roller options"
 msgstr "File-roller aukerak"
 
-#: plugins/fileroller/file-roller-plugin.cc:606
+#: plugins/fileroller/file-roller-plugin.cc:620
 msgid "Default archive type"
 msgstr "Artxibo mota lehenetsia"
 
 #. The pattern defining the file name prefix of the archive to be created
-#: plugins/fileroller/file-roller-plugin.cc:614
+#: plugins/fileroller/file-roller-plugin.cc:628
 msgid "File prefix pattern"
 msgstr "Fitxategi-aurrizkien eredua"
 
-#: plugins/fileroller/file-roller-plugin.cc:625
-#: src/dialogs/gnome-cmd-options-dialog.cc:418
+#: plugins/fileroller/file-roller-plugin.cc:639
+#: src/dialogs/gnome-cmd-options-dialog.cc:416
 msgid "Test result:"
 msgstr "Probaren emaitza:"
 
-#: plugins/fileroller/file-roller-plugin.cc:632
+#: plugins/fileroller/file-roller-plugin.cc:646
 msgid ""
 "Use $N as a pattern for the original file name. See the manual page for "
 "“strftime” for other patterns."
 msgstr "Erabili $N jatorrizko fitxategi-izenaren eredu modura. Ikus “strftime” eskuliburuan beste eredu batzuk ikasteko."
 
-#: plugins/fileroller/file-roller-plugin.cc:814
+#: plugins/fileroller/file-roller-plugin.cc:828
 msgid ""
 "A plugin that adds File Roller shortcuts for creating and extracting "
 "compressed archives."
@@ -1451,17 +1441,14 @@ msgid ""
 msgstr "Pluginetan hacker-a izan nahi dutenentzat adibide soil gisa oso erabilgarria da plugin adibide hau"
 
 #: src/dialogs/gnome-cmd-advrename-dialog.cc:126
-#: src/dialogs/gnome-cmd-search-dialog.cc:181
 msgid "/_Save Profile As…"
 msgstr "/_Gorde profila honela…"
 
 #: src/dialogs/gnome-cmd-advrename-dialog.cc:135
-#: src/dialogs/gnome-cmd-search-dialog.cc:190
 msgid "/_Manage Profiles…"
 msgstr "/_Kudeatu profilak…"
 
 #: src/dialogs/gnome-cmd-advrename-dialog.cc:187
-#: src/dialogs/gnome-cmd-search-dialog.cc:240
 msgid "Profiles"
 msgstr "Profilak"
 
@@ -1471,7 +1458,7 @@ msgstr "Kendu fitxategi-zerrendatik"
 
 #. {file_umount, "file.umount"},
 #: src/dialogs/gnome-cmd-advrename-dialog.cc:335
-#: src/gnome-cmd-user-actions.cc:239
+#: src/gnome-cmd-user-actions.cc:238
 msgid "View file"
 msgstr "Ikusi fitxategia"
 
@@ -1483,56 +1470,55 @@ msgstr "Fitxategiaren propietateak"
 msgid "Update file list"
 msgstr "Eguneratu fitxategien zerrenda"
 
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:523
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:522
 msgid "Advanced Rename Tool"
 msgstr "Izena aldatzeko tresna aurreratua"
 
 #. Results
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:534
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:533
 msgid "Results"
 msgstr "Emaitzak"
 
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:605
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:604
 msgid "Old name"
 msgstr "Izen zaharra"
 
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:609
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:608
 msgid "Current file name"
 msgstr "Uneko fitxategi-izena"
 
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:611
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:610
 msgid "New name"
 msgstr "Izen berria"
 
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:615
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:614
 msgid "New file name"
 msgstr "Fitxategi-izen berria"
 
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:617 src/tags/gnome-cmd-tags.cc:332
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:616 src/tags/gnome-cmd-tags.cc:332
 #: src/tags/gnome-cmd-tags.cc:396
 msgid "Size"
 msgstr "Tamaina"
 
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:621
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:620
 msgid "File size"
 msgstr "Fitxategiaren tamaina"
 
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:623
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:622
 #: src/gnome-cmd-advrename-profile-component.cc:943
 #: src/tags/gnome-cmd-tags.cc:347 src/tags/gnome-cmd-tags.cc:423
 msgid "Date"
 msgstr "Data"
 
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:627
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:626
 msgid "File modification date"
 msgstr "Fitxategiaren aldatze-data"
 
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:694
-#: src/dialogs/gnome-cmd-search-dialog.cc:1146
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:693
 msgid "Profiles…"
 msgstr "Profilak…"
 
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:699
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:698
 #: src/dialogs/gnome-cmd-edit-profile-dialog.h:83
 msgid "Reset"
 msgstr "Berrezarri"
@@ -1552,7 +1538,7 @@ msgid "_Match case"
 msgstr "_Maiuskula/minuskula"
 
 #: src/dialogs/gnome-cmd-chmod-dialog.cc:45
-#: src/dialogs/gnome-cmd-options-dialog.cc:1518
+#: src/dialogs/gnome-cmd-options-dialog.cc:1545
 msgid "All files"
 msgstr "Fitxategi denak"
 
@@ -1560,129 +1546,126 @@ msgstr "Fitxategi denak"
 msgid "Directories only"
 msgstr "Direktorioak soilik"
 
-#: src/dialogs/gnome-cmd-chmod-dialog.cc:180
+#: src/dialogs/gnome-cmd-chmod-dialog.cc:75
+#, c-format
+msgid "Could not chmod %s"
+msgstr "Ezin da chmod %s egin"
+
+#: src/dialogs/gnome-cmd-chmod-dialog.cc:189
 msgid "Access Permissions"
 msgstr "Atzitzeko baimenak"
 
-#: src/dialogs/gnome-cmd-chmod-dialog.cc:196
+#: src/dialogs/gnome-cmd-chmod-dialog.cc:205
 msgid "Apply Recursively for"
 msgstr "Aplikatu errekurtsiboki -"
 
-#: src/dialogs/gnome-cmd-chown-dialog.cc:57
+#: src/dialogs/gnome-cmd-chown-dialog.cc:55
 #, c-format
 msgid "Could not chown %s"
 msgstr "Ezin izan da lortu chown %s egitea"
 
-#: src/dialogs/gnome-cmd-chown-dialog.cc:157
+#: src/dialogs/gnome-cmd-chown-dialog.cc:159
 msgid "Chown"
 msgstr "Chown"
 
-#: src/dialogs/gnome-cmd-chown-dialog.cc:168
+#: src/dialogs/gnome-cmd-chown-dialog.cc:170
 msgid "Apply Recursively"
 msgstr "Aplikatu errekurtsiboki"
 
-#: src/dialogs/gnome-cmd-con-dialog.cc:171
+#: src/dialogs/gnome-cmd-con-dialog.cc:154
 msgid "_Alias:"
 msgstr "_Aliasa:"
 
-#: src/dialogs/gnome-cmd-con-dialog.cc:176
+#: src/dialogs/gnome-cmd-con-dialog.cc:159
 msgid "_Location (URI):"
 msgstr "_Helbidea (URIa):"
 
-#: src/dialogs/gnome-cmd-con-dialog.cc:207
+#: src/dialogs/gnome-cmd-con-dialog.cc:184
 msgid "_Server:"
 msgstr "_Zerbitzaria:"
 
-#: src/dialogs/gnome-cmd-con-dialog.cc:218
+#: src/dialogs/gnome-cmd-con-dialog.cc:195
 msgid "Optional information"
 msgstr "Aukerako informazioa."
 
-#: src/dialogs/gnome-cmd-con-dialog.cc:242
-msgid "S_hare:"
-msgstr "_Partekatu:"
-
-#: src/dialogs/gnome-cmd-con-dialog.cc:245
+#: src/dialogs/gnome-cmd-con-dialog.cc:219
 msgid "_Port:"
 msgstr "_Ataka:"
 
-#: src/dialogs/gnome-cmd-con-dialog.cc:247
+#: src/dialogs/gnome-cmd-con-dialog.cc:221
 msgid "_Folder:"
 msgstr "_Karpeta:"
 
-#: src/dialogs/gnome-cmd-con-dialog.cc:250
-msgid "_User name:"
-msgstr "_Erabiltzaile-izena:"
-
-#: src/dialogs/gnome-cmd-con-dialog.cc:253
+#: src/dialogs/gnome-cmd-con-dialog.cc:224
 msgid "_Domain name:"
 msgstr "_Domeinu-izena:"
 
-#: src/dialogs/gnome-cmd-con-dialog.cc:308
+#: src/dialogs/gnome-cmd-con-dialog.cc:272
 msgid "You must enter a name for the server"
 msgstr "Zerbitzariaren izena idatzi behar duzu"
 
-#: src/dialogs/gnome-cmd-con-dialog.cc:308
+#: src/dialogs/gnome-cmd-con-dialog.cc:272
 msgid "Please enter a name and try again."
 msgstr "Sartu izen bat eta saiatu berriro."
 
-#: src/dialogs/gnome-cmd-con-dialog.cc:323
+#: src/dialogs/gnome-cmd-con-dialog.cc:282
 #, c-format
 msgid "“%s” is not a valid location"
 msgstr "“%s” ez baliozko kokalekua"
 
-#: src/dialogs/gnome-cmd-con-dialog.cc:324
+#: src/dialogs/gnome-cmd-con-dialog.cc:283
 msgid "Please check spelling and try again."
 msgstr "Egiaztatu ortografia eta saiatu berriro."
 
-#: src/dialogs/gnome-cmd-con-dialog.cc:421 src/gnome-cmd-main-win.cc:247
+#: src/dialogs/gnome-cmd-con-dialog.cc:380 src/gnome-cmd-main-win.cc:247
 msgid "Remote Server"
 msgstr "Urruneko zerbitzaria"
 
-#: src/dialogs/gnome-cmd-con-dialog.cc:436
+#: src/dialogs/gnome-cmd-con-dialog.cc:395
 msgid "Service _type:"
 msgstr "Zerbitzu _mota:"
 
 #. Keep this in sync with enum ConnectionMethodID in gnome-cmd-con.h
-#: src/dialogs/gnome-cmd-con-dialog.cc:448
+#: src/dialogs/gnome-cmd-con-dialog.cc:407
 msgid "SSH"
 msgstr "SSH"
 
-#: src/dialogs/gnome-cmd-con-dialog.cc:449
+#: src/dialogs/gnome-cmd-con-dialog.cc:408
 msgid "FTP (with login)"
 msgstr "FTP (saioarekin)"
 
-#: src/dialogs/gnome-cmd-con-dialog.cc:450
+#: src/dialogs/gnome-cmd-con-dialog.cc:409
 msgid "Public FTP"
 msgstr "FTP publikoa"
 
-#: src/dialogs/gnome-cmd-con-dialog.cc:452
+#: src/dialogs/gnome-cmd-con-dialog.cc:411
 msgid "Windows share"
 msgstr "Windows-ek partekatua"
 
-#: src/dialogs/gnome-cmd-con-dialog.cc:454
+#: src/dialogs/gnome-cmd-con-dialog.cc:413
 msgid "WebDAV (HTTP)"
 msgstr "WebDAV (HTTP)"
 
-#: src/dialogs/gnome-cmd-con-dialog.cc:455
+#: src/dialogs/gnome-cmd-con-dialog.cc:414
 msgid "Secure WebDAV (HTTPS)"
 msgstr "WebDAV segurua (HTTPS)"
 
-#: src/dialogs/gnome-cmd-con-dialog.cc:456
+#: src/dialogs/gnome-cmd-con-dialog.cc:415
 msgid "Custom location"
 msgstr "Kokaleku pertsonalizatua"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:90
+#: src/dialogs/gnome-cmd-delete-dialog.cc:77
 #, c-format
-msgid "Deleted %ld of %ld file"
-msgid_plural "Deleted %ld of %ld files"
-msgstr[0] "Ezabatutako fitxategia: %ld / %ld"
-msgstr[1] "Ezabatutako fitxategiak: %ld / %ld"
+msgid "Deleted %lu of %lu file"
+msgid_plural "Deleted %lu of %lu files"
+msgstr[0] "%lu / %lu fitxategi ezabatu da"
+msgstr[1] "%lu / %lu fitxategi ezabatu dira"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:132
+#: src/dialogs/gnome-cmd-delete-dialog.cc:112
 msgid "Deleting…"
 msgstr "Ezabatzen…"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:204
+#: src/dialogs/gnome-cmd-delete-dialog.cc:281
 #, c-format
 msgid ""
 "Error while deleting “%s”\n"
@@ -1692,51 +1675,109 @@ msgstr "Errorea “%s” ezabatzean\n"
 "\n"
 "%s"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:207
+#: src/dialogs/gnome-cmd-delete-dialog.cc:286
+#: src/dialogs/gnome-cmd-delete-dialog.cc:421
 msgid "Delete problem"
 msgstr "Ezabatzeko arazoa"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:208 src/gnome-cmd-xfer.cc:211
-#: src/gnome-cmd-xfer.cc:230
+#: src/dialogs/gnome-cmd-delete-dialog.cc:287
+#: src/dialogs/gnome-cmd-delete-dialog.cc:421 src/gnome-cmd-xfer.cc:120
+#: src/gnome-cmd-xfer.cc:147 src/gnome-cmd-xfer.cc:150
+#: src/gnome-cmd-xfer.cc:205 src/gnome-cmd-xfer.cc:208
+#: src/gnome-cmd-xfer.cc:323 src/gnome-cmd-xfer.cc:326
+#: src/gnome-cmd-xfer.cc:1097 src/gnome-cmd-xfer.cc:1108
+#: src/gnome-cmd-xfer.cc:1130
 msgid "Abort"
 msgstr "Abortatu"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:208
-#: src/gnome-cmd-file-selector.cc:1382 src/gnome-cmd-xfer.cc:230
+#: src/dialogs/gnome-cmd-delete-dialog.cc:287
+#: src/gnome-cmd-file-selector.cc:1398 src/gnome-cmd-xfer.cc:120
+#: src/gnome-cmd-xfer.cc:147 src/gnome-cmd-xfer.cc:150
+#: src/gnome-cmd-xfer.cc:205 src/gnome-cmd-xfer.cc:208
+#: src/gnome-cmd-xfer.cc:323 src/gnome-cmd-xfer.cc:326
 msgid "Retry"
 msgstr "Saiatu berriro"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:208
-#: src/gnome-cmd-file-selector.cc:1382 src/gnome-cmd-xfer.cc:211
-#: src/gnome-cmd-xfer.cc:230
+#: src/dialogs/gnome-cmd-delete-dialog.cc:287
+#: src/dialogs/gnome-cmd-delete-dialog.cc:437
+#: src/dialogs/gnome-cmd-options-dialog.cc:1065
+#: src/dialogs/gnome-cmd-options-dialog.cc:1089
+#: src/dialogs/gnome-cmd-prepare-copy-dialog.cc:114
+#: src/dialogs/gnome-cmd-prepare-move-dialog.cc:108
+#: src/gnome-cmd-file-selector.cc:1398 src/gnome-cmd-xfer.cc:120
+#: src/gnome-cmd-xfer.cc:147 src/gnome-cmd-xfer.cc:205
+#: src/gnome-cmd-xfer.cc:323
 msgid "Skip"
 msgstr "Saltatu"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:277
+#: src/dialogs/gnome-cmd-delete-dialog.cc:419
 #, c-format
-msgid "Do you want to delete “%s”?"
-msgstr "“%s” ezabatu nahi duzu?"
+msgid ""
+"Error while deleting: \n"
+"\n"
+"%s"
+msgstr "Errorera honakoa ezabatzean: \n"
+"\n"
+"%s"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:281
+#: src/dialogs/gnome-cmd-delete-dialog.cc:432
 #, c-format
-msgid "Do you want to delete the selected file?"
-msgid_plural "Do you want to delete the %d selected files?"
-msgstr[0] "Hautatutako fitxategia ordeztu nahi duzu?"
-msgstr[1] "Hautatutako %d fitxategiak ordeztu nahi dituzu?"
+msgid "Do you really want to delete “%s”?"
+msgstr "Benetan ezabatu nahi duzu “%s”?"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:287
-#: src/dialogs/gnome-cmd-delete-dialog.cc:288
-#: src/dialogs/gnome-cmd-options-dialog.cc:1039
-#: src/gnome-cmd-file-popmenu.cc:727 src/gnome-cmd-main-win.cc:243
-#: src/gnome-cmd-user-actions.cc:213
+#: src/dialogs/gnome-cmd-delete-dialog.cc:433
+#, c-format
+msgid "The directory “%s” is not empty. Do you really want to delete it?"
+msgstr "“%s” direktorioa ez dago hutsik. Benetan ezabatu nahi duzu?"
+
+#: src/dialogs/gnome-cmd-delete-dialog.cc:435
+#: src/dialogs/gnome-cmd-delete-dialog.cc:439
+#: src/dialogs/gnome-cmd-delete-dialog.cc:525
+#: src/dialogs/gnome-cmd-delete-dialog.cc:526
+#: src/dialogs/gnome-cmd-options-dialog.cc:1037
+#: src/gnome-cmd-file-popmenu.cc:724 src/gnome-cmd-main-win.cc:243
+#: src/gnome-cmd-user-actions.cc:212
 msgid "Delete"
 msgstr "Ezabatu"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:288 src/gnome-cmd-file-list.cc:1279
-#: src/gnome-cmd-file-list.cc:1307 src/gnome-cmd-file-selector.cc:1382
-#: src/gnome-cmd-user-actions.cc:819
+#: src/dialogs/gnome-cmd-delete-dialog.cc:437
+#: src/dialogs/gnome-cmd-delete-dialog.cc:526 src/gnome-cmd-file-list.cc:1312
+#: src/gnome-cmd-file-list.cc:1341 src/gnome-cmd-file-selector.cc:1398
+#: src/gnome-cmd-user-actions.cc:865
 msgid "Cancel"
 msgstr "Utzi"
+
+#: src/dialogs/gnome-cmd-delete-dialog.cc:438
+msgid "Delete All"
+msgstr "Ezabatu denak"
+
+#: src/dialogs/gnome-cmd-delete-dialog.cc:438
+msgid "Delete Remaining"
+msgstr "Ezabatu geratzen direnak"
+
+#: src/dialogs/gnome-cmd-delete-dialog.cc:505
+#, c-format
+msgid "Do you want to permanently delete “%s”?"
+msgstr "Benetan “%s” behin-betiko ezabatu nahi duzu?"
+
+#: src/dialogs/gnome-cmd-delete-dialog.cc:506
+#, c-format
+msgid "Do you want to move “%s” to the trash can?"
+msgstr "“%s” zakarrontzira eraman nahi duzu?"
+
+#: src/dialogs/gnome-cmd-delete-dialog.cc:511
+#, c-format
+msgid "Do you want to permanently delete the selected file?"
+msgid_plural "Do you want to permanently delete the %d selected files?"
+msgstr[0] "Hautatutako fitxategia behin-betiko ezabatu nahi duzu?"
+msgstr[1] "Hautatutako %d fitxategiak ordeztu nahi dituzu?"
+
+#: src/dialogs/gnome-cmd-delete-dialog.cc:515
+#, c-format
+msgid "Do you want to move the selected file to the trash can?"
+msgid_plural "Do you want to move the %d selected files to the trash can?"
+msgstr[0] "Hautatutako fitxategia zakarrontzira eraman nahi duzu?"
+msgstr[1] "Hautatutako %d fitxategiak ordeztu nahi dituzu?"
 
 #: src/dialogs/gnome-cmd-edit-bookmark-dialog.cc:43
 msgid "Bookmark name is missing."
@@ -1762,74 +1803,74 @@ msgstr "Editatu profila"
 msgid "_Name"
 msgstr "_Izena"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:319
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:305
 msgid "Image:"
 msgstr "Irudia:"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:344
-#: src/dialogs/gnome-cmd-mkdir-dialog.cc:181
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:329
+#: src/dialogs/gnome-cmd-mkdir-dialog.cc:195
 msgid "Directory name:"
 msgstr "Direktorio-izena:"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:344
-#: src/gnome-cmd-file-selector.cc:1167
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:329
+#: src/gnome-cmd-file-selector.cc:1182
 msgid "File name:"
 msgstr "Fitxategi-izena:"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:355
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:338
 msgid "Symlink target:"
 msgstr "Esteka sinbolikoaren helburua:"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:370
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:353
 msgid "Location:"
 msgstr "Kokalekua:"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:378
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:361
 msgid "Volume:"
 msgstr "Bolumena:"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:408
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:389
 msgid "Free space:"
 msgstr "Leku librea:"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:420
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:401
 msgid "Content Type:"
 msgstr "Eduki mota:"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:432
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:413
 msgid "Opens with:"
 msgstr "Honek irekitzen du:"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:443
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:424
 msgid "No default application registered"
 msgstr "Ez da aplikazio lehenetsirik erregistratu"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:454
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:435
 msgid "Modified:"
 msgstr "Aldatze-data:"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:460
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:442
 msgid "Accessed:"
 msgstr "Atzitze-data:"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:470
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:452
 msgid "Size:"
 msgstr "Tamaina:"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:516
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:499
 msgid "Owner and group"
 msgstr "Jabea eta taldea"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:526
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:510
 msgid "Access permissions"
 msgstr "Atzitzeko baimenak"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:610
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:594
 #: src/intviewer/viewer-window.cc:1353
 msgid "Type"
 msgstr "Mota"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:611
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:595
 #: src/intviewer/viewer-window.cc:1354
 msgid "Metadata namespace"
 msgstr "Metadatuen izen-lekua"
@@ -1840,57 +1881,57 @@ msgstr "Metadatuen izen-lekua"
 #. "foreground-set", TRUE,
 #. "foreground", "DarkGray",
 #. NULL);
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:618
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:602
 #: src/dialogs/gnome-cmd-manage-bookmarks-dialog.cc:244
-#: src/dialogs/gnome-cmd-remote-dialog.cc:353
-#: src/intviewer/viewer-window.cc:1361 src/plugin_manager.cc:417
+#: src/dialogs/gnome-cmd-remote-dialog.cc:354
+#: src/intviewer/viewer-window.cc:1361 src/plugin_manager.cc:389
 #: src/tags/gnome-cmd-tags.cc:327
 msgid "Name"
 msgstr "Izena"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:619
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:603
 #: src/intviewer/viewer-window.cc:1362
 msgid "Tag name"
 msgstr "Etiketa-izena"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:621
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:605
 #: src/intviewer/viewer-window.cc:1364
 msgid "Value"
 msgstr "Balioa"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:622
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:606
 #: src/intviewer/viewer-window.cc:1365
 msgid "Tag value"
 msgstr "Etiketa-balioa"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:624
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:608
 #: src/intviewer/viewer-window.cc:1367 src/tags/gnome-cmd-tags.cc:171
 #: src/tags/gnome-cmd-tags.cc:322 src/tags/gnome-cmd-tags.cc:424
 #: src/tags/gnome-cmd-tags.cc:535
 msgid "Description"
 msgstr "Azalpena"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:625
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:609
 #: src/intviewer/viewer-window.cc:1368
 msgid "Metadata tag description"
 msgstr "Metadatuen etiketaren azalpena."
 
 #. data->thread = 0;
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:680
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:664
 msgid "File Properties"
 msgstr "Fitxategiaren propietateak"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:703
-#: src/gnome-cmd-user-actions.cc:233
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:686
+#: src/gnome-cmd-user-actions.cc:232
 msgid "Properties"
 msgstr "Propietateak"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:704
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:687
 #: src/tags/gnome-cmd-tags.cc:329
 msgid "Permissions"
 msgstr "Baimenak"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:705
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:688
 msgid "Metadata"
 msgstr "Metadatuak"
 
@@ -1947,17 +1988,17 @@ msgid "Invalid shortcut."
 msgstr "Laster-tekla baliobagea."
 
 #: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:639
-#: src/gnome-cmd-user-actions.cc:251
+#: src/gnome-cmd-user-actions.cc:252
 msgid "Do nothing"
 msgstr "Ez egin ezer"
 
 #: src/dialogs/gnome-cmd-make-copy-dialog.cc:67
-#: src/gnome-cmd-file-selector.cc:1097
+#: src/gnome-cmd-file-selector.cc:1102
 msgid "No file name entered"
 msgstr "Ez da fitxategi-izenik sartu"
 
 #: src/dialogs/gnome-cmd-make-copy-dialog.cc:137
-#: src/dialogs/gnome-cmd-prepare-copy-dialog.cc:140
+#: src/dialogs/gnome-cmd-prepare-copy-dialog.cc:155
 #, c-format
 msgid "Copy “%s” to"
 msgstr "Kopiatu “%s” hona:"
@@ -2037,11 +2078,16 @@ msgstr "Profila bat izenez aldateko, egin klik dagokion errenkadan eta idatzi iz
 msgid "_Duplicate"
 msgstr "_Bikoiztu"
 
-#: src/dialogs/gnome-cmd-mkdir-dialog.cc:96
+#: src/dialogs/gnome-cmd-mkdir-dialog.cc:106
 msgid "A directory name must be entered"
 msgstr "Direktorio-izen bat sartu behar da"
 
-#: src/dialogs/gnome-cmd-mkdir-dialog.cc:157
+#: src/dialogs/gnome-cmd-mkdir-dialog.cc:127
+#, c-format
+msgid "Make directory failed: %s\n"
+msgstr "Direktorioa sortzeak huts egin du: %s\n"
+
+#: src/dialogs/gnome-cmd-mkdir-dialog.cc:171
 msgid "Make Directory"
 msgstr "Sortu direktorioa"
 
@@ -2066,7 +2112,7 @@ msgid "Middle mouse button"
 msgstr "Saguaren erdiko botoia"
 
 #: src/dialogs/gnome-cmd-options-dialog.cc:136 src/gnome-cmd-main-win.cc:234
-#: src/gnome-cmd-user-actions.cc:282
+#: src/gnome-cmd-user-actions.cc:283
 msgid "Up one directory"
 msgstr "Igo direktorio bat"
 
@@ -2087,620 +2133,636 @@ msgid "Selects files"
 msgstr "Fitxategiak hautatzen ditu"
 
 #: src/dialogs/gnome-cmd-options-dialog.cc:163
+msgid "Deletion"
+msgstr "Ezabaketa"
+
+#: src/dialogs/gnome-cmd-options-dialog.cc:166
+msgid "Move to trash"
+msgstr "Bota zakarrontzira"
+
+#: src/dialogs/gnome-cmd-options-dialog.cc:173
 msgid "Selection"
 msgstr "Hautapena"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:166
+#: src/dialogs/gnome-cmd-options-dialog.cc:176
 msgid "Select directories"
 msgstr "Hautatu direktorioak"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:173
+#: src/dialogs/gnome-cmd-options-dialog.cc:183
 msgid "Sorting/Quick search"
 msgstr "Ordenatzea/bilaketa azkarra"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:176
+#: src/dialogs/gnome-cmd-options-dialog.cc:186
 msgid "Case sensitive"
 msgstr "Maiuskulak/minuskulak"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:183
-#: src/gnome-cmd-user-actions.cc:216
+#: src/dialogs/gnome-cmd-options-dialog.cc:193
+#: src/gnome-cmd-user-actions.cc:215
 msgid "Quick search"
 msgstr "Bilaketa azkarra"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:186
+#: src/dialogs/gnome-cmd-options-dialog.cc:196
 msgid "CTRL+ALT+letters"
 msgstr "CTRL+ALT+letrak"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:190
+#: src/dialogs/gnome-cmd-options-dialog.cc:200
 msgid "ALT+letters (menu access with F12)"
 msgstr "ALT+letrak (menura sartzeko: F12)"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:194
+#: src/dialogs/gnome-cmd-options-dialog.cc:204
 msgid "Just letters (command line access with CTRL+ALT+C)"
 msgstr "Letrak soilik (komando-lerroaren bidezko sarbidea CTRL+ALT+C bidez)"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:199
+#: src/dialogs/gnome-cmd-options-dialog.cc:209
 msgid "Match beginning of the file name"
 msgstr "Bat etorri fitxategi-izenaren hasierarekin"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:203
+#: src/dialogs/gnome-cmd-options-dialog.cc:213
 msgid "Match end of the file name"
 msgstr "Bat etorri fitxategi-izenaren amaierarekin"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:209
-msgid "Search Window"
-msgstr "Bilaketa-leihoa"
-
-#: src/dialogs/gnome-cmd-options-dialog.cc:212
-msgid ""
-"Search window is minimizable\n"
-"(Needs program restart if altered)"
-msgstr "Bilaketa-leihoa minimizatu egin daiteke\n"
-"(programa berrabiarazi behar da)"
-
-#: src/dialogs/gnome-cmd-options-dialog.cc:219
+#: src/dialogs/gnome-cmd-options-dialog.cc:220
 msgid "Multiple instances"
 msgstr "Hainbat instantzia"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:222
+#: src/dialogs/gnome-cmd-options-dialog.cc:223
 msgid "Don’t start a new instance"
 msgstr "Ez hasi instantzia berria"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:229
+#: src/dialogs/gnome-cmd-options-dialog.cc:230
 msgid "Save on exit"
 msgstr "Gorde irtetean"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:232
-#: src/dialogs/gnome-cmd-options-dialog.cc:1190
+#: src/dialogs/gnome-cmd-options-dialog.cc:233
+#: src/dialogs/gnome-cmd-options-dialog.cc:1217
 msgid "Directories"
 msgstr "Direktorioak"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:236
-#: src/dialogs/gnome-cmd-options-dialog.cc:2192
+#: src/dialogs/gnome-cmd-options-dialog.cc:237
+#: src/dialogs/gnome-cmd-options-dialog.cc:2228
 msgid "Tabs"
 msgstr "Fitxak"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:241
+#: src/dialogs/gnome-cmd-options-dialog.cc:242
 msgid "Directory history"
 msgstr "Direktorioaren historia"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:245
+#: src/dialogs/gnome-cmd-options-dialog.cc:246
 msgid "Commandline history"
 msgstr "Komando-lerroaren historia"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:249
-msgid "Search history"
-msgstr "Garbitu historia"
-
-#: src/dialogs/gnome-cmd-options-dialog.cc:360
+#: src/dialogs/gnome-cmd-options-dialog.cc:358
 msgid "Size display mode"
 msgstr "Tamaina bistaratzeko modua"
 
 #. Translators: 'Powered' refers to the mode of file size display (here - display using units of data: kB, MB, GB, ...)
-#: src/dialogs/gnome-cmd-options-dialog.cc:364
+#: src/dialogs/gnome-cmd-options-dialog.cc:362
 msgid "Powered"
 msgstr "Aurreratua"
 
 #. Translators: '<locale>' refers to the mode of file size display (here - use current locale settings)
-#: src/dialogs/gnome-cmd-options-dialog.cc:370
+#: src/dialogs/gnome-cmd-options-dialog.cc:368
 msgid "<locale>"
 msgstr "<locale>"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:375
+#: src/dialogs/gnome-cmd-options-dialog.cc:373
 msgid "Grouped"
 msgstr "Taldekatua"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:380
+#: src/dialogs/gnome-cmd-options-dialog.cc:378
 msgid "Plain"
 msgstr "Soila"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:391
+#: src/dialogs/gnome-cmd-options-dialog.cc:389
 msgid "Text (rw-r--r--)"
 msgstr "Testua (rw-r--r--)"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:396
+#: src/dialogs/gnome-cmd-options-dialog.cc:394
 msgid "Number (644)"
 msgstr "Zenbakia (644)"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:407
+#: src/dialogs/gnome-cmd-options-dialog.cc:405
 msgid "Format:"
 msgstr "Formatua:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:425
+#: src/dialogs/gnome-cmd-options-dialog.cc:423
 msgid ""
 "See the manual page for “strftime” for help on how to set the format string."
 msgstr "Ikus eskuliburuaren “strftime” orria formatu-katea nola ezarri ikasteko."
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:509
+#: src/dialogs/gnome-cmd-options-dialog.cc:507
 msgid "Edit Colors…"
 msgstr "Editatu koloreak…"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:522
+#: src/dialogs/gnome-cmd-options-dialog.cc:520
 msgid "Colors"
 msgstr "Koloreak"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:553
+#: src/dialogs/gnome-cmd-options-dialog.cc:551
 msgid "Foreground"
 msgstr "Aurreko planoa"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:555
+#: src/dialogs/gnome-cmd-options-dialog.cc:553
 msgid "Background"
 msgstr "Atzeko planoa"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:557
+#: src/dialogs/gnome-cmd-options-dialog.cc:555
 msgid "Default:"
 msgstr "Lehenetsia:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:559
+#: src/dialogs/gnome-cmd-options-dialog.cc:557
 msgid "Alternate:"
 msgstr "Txandakatu:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:561
+#: src/dialogs/gnome-cmd-options-dialog.cc:559
 msgid "Selected file:"
 msgstr "Hautatutako fitxategia:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:563
+#: src/dialogs/gnome-cmd-options-dialog.cc:561
 msgid "Cursor:"
 msgstr "Kurtsorea:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:644
+#: src/dialogs/gnome-cmd-options-dialog.cc:642
 msgid "Edit LS_COLORS Palette"
 msgstr "Editatu LS_COLORS paleta"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:656
+#: src/dialogs/gnome-cmd-options-dialog.cc:654
 msgid "Palette"
 msgstr "Paleta"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:711
+#: src/dialogs/gnome-cmd-options-dialog.cc:709
 msgid "Foreground:"
 msgstr "Aurreko planoa:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:713
+#: src/dialogs/gnome-cmd-options-dialog.cc:711
 msgid "Background:"
 msgstr "Atzeko planoa:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:715
+#: src/dialogs/gnome-cmd-options-dialog.cc:713
 msgid "Black"
 msgstr "Beltza"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:718
+#: src/dialogs/gnome-cmd-options-dialog.cc:716
 msgid "Red"
 msgstr "Gorria"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:721
+#: src/dialogs/gnome-cmd-options-dialog.cc:719
 msgid "Green"
 msgstr "Berdea"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:724
+#: src/dialogs/gnome-cmd-options-dialog.cc:722
 msgid "Yellow"
 msgstr "Horia"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:727
+#: src/dialogs/gnome-cmd-options-dialog.cc:725
 msgid "Blue"
 msgstr "Urdina"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:730
+#: src/dialogs/gnome-cmd-options-dialog.cc:728
 msgid "Magenta"
 msgstr "Magenta"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:733
+#: src/dialogs/gnome-cmd-options-dialog.cc:731
 msgid "Cyan"
 msgstr "Cyana"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:736
+#: src/dialogs/gnome-cmd-options-dialog.cc:734
 msgid "White"
 msgstr "Zuria"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:740
+#: src/dialogs/gnome-cmd-options-dialog.cc:738
 msgid "_Reset"
 msgstr "_Berrezarri"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:754
+#: src/dialogs/gnome-cmd-options-dialog.cc:752
 msgid "With file name"
 msgstr "Fitxategi-izenarekin"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:755
+#: src/dialogs/gnome-cmd-options-dialog.cc:753
 msgid "In separate column"
 msgstr "Aparteko zutabean"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:756
+#: src/dialogs/gnome-cmd-options-dialog.cc:754
 msgid "In both columns"
 msgstr "Bi zutabeetan"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:760
+#: src/dialogs/gnome-cmd-options-dialog.cc:758
 msgid "No icons"
 msgstr "Ikonorik ez"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:761
+#: src/dialogs/gnome-cmd-options-dialog.cc:759
 msgid "File type icons"
 msgstr "Fitxategi-motaren ikonoak"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:762
+#: src/dialogs/gnome-cmd-options-dialog.cc:760
 msgid "MIME icons"
 msgstr "MIME ikonoak"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:766
+#: src/dialogs/gnome-cmd-options-dialog.cc:764
 msgid "Respect theme colors"
 msgstr "Errespetatu gaiaren koloreak"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:767
+#: src/dialogs/gnome-cmd-options-dialog.cc:765
 msgid "Modern"
 msgstr "Modernoa"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:768
+#: src/dialogs/gnome-cmd-options-dialog.cc:766
 msgid "Fusion"
 msgstr "Fusioa"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:769
+#: src/dialogs/gnome-cmd-options-dialog.cc:767
 msgid "Classic"
 msgstr "klasikoa"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:770
+#: src/dialogs/gnome-cmd-options-dialog.cc:768
 msgid "Deep blue"
 msgstr "Urdin sakona"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:771
+#: src/dialogs/gnome-cmd-options-dialog.cc:769
 msgid "Cafezinho"
 msgstr "Brasilgo kafea"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:772
+#: src/dialogs/gnome-cmd-options-dialog.cc:770
 msgid "Green tiger"
 msgstr "Tigre berdea"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:773
+#: src/dialogs/gnome-cmd-options-dialog.cc:771
 msgid "Winter"
 msgstr "Negua"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:774
+#: src/dialogs/gnome-cmd-options-dialog.cc:772
 msgid "Custom"
 msgstr "Pertsonalizatua"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:794
+#: src/dialogs/gnome-cmd-options-dialog.cc:792
 msgid "File panes"
 msgstr "Fitxategi-panelak"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:804
+#: src/dialogs/gnome-cmd-options-dialog.cc:802
 msgid "Font:"
 msgstr "Letra-tipoa:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:806
+#: src/dialogs/gnome-cmd-options-dialog.cc:804
 msgid "Row height:"
 msgstr "Errenkada-altuera:"
 
 #. File extensions
-#: src/dialogs/gnome-cmd-options-dialog.cc:810
+#: src/dialogs/gnome-cmd-options-dialog.cc:808
 msgid "Display file extensions:"
 msgstr "Bistaratu fitxategi-luzapenak:"
 
 #. Graphical mode
-#: src/dialogs/gnome-cmd-options-dialog.cc:818
+#: src/dialogs/gnome-cmd-options-dialog.cc:816
 msgid "Graphical mode:"
 msgstr "Modu grafikoa:"
 
 #. Color scheme
-#: src/dialogs/gnome-cmd-options-dialog.cc:827
+#: src/dialogs/gnome-cmd-options-dialog.cc:825
 msgid "Color scheme:"
 msgstr "Kolore-eskema:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:839
+#: src/dialogs/gnome-cmd-options-dialog.cc:837
 msgid "Edit…"
 msgstr "Editatu…"
 
 #. LS_COLORS
-#: src/dialogs/gnome-cmd-options-dialog.cc:846
+#: src/dialogs/gnome-cmd-options-dialog.cc:844
 msgid "Colorize files according to the LS_COLORS environment variable"
 msgstr "Koloreztatu fitxategiak LS_COLORS ingurune-aldagaiaren arabera"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:854
+#: src/dialogs/gnome-cmd-options-dialog.cc:852
 msgid "Edit colors…"
 msgstr "Editatu koloreak…"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:862
+#: src/dialogs/gnome-cmd-options-dialog.cc:860
 msgid "MIME icon settings"
 msgstr "MIME ikonoen ezarpenak"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:873
+#: src/dialogs/gnome-cmd-options-dialog.cc:871
 msgid "Icon size:"
 msgstr "Ikono-tamaina:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:875
+#: src/dialogs/gnome-cmd-options-dialog.cc:873
 msgid "Scaling quality:"
 msgstr "Eskalatze-kalitatea:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:877
+#: src/dialogs/gnome-cmd-options-dialog.cc:875
 msgid "Theme icon directory:"
 msgstr "Gai-ikonoen direktorioa:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:963
+#: src/dialogs/gnome-cmd-options-dialog.cc:961
 msgid "Tab bar"
 msgstr "Fitxa-barra"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:966
+#: src/dialogs/gnome-cmd-options-dialog.cc:964
 msgid "Always show the tab bar"
 msgstr "Beti erakutsi fitxa-barra"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:975
+#: src/dialogs/gnome-cmd-options-dialog.cc:973
 msgid "Lock icon"
 msgstr "Blokeoaren ikonoa"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:980
+#: src/dialogs/gnome-cmd-options-dialog.cc:978
 msgid "* (asterisk)"
 msgstr "* (izartxoa)"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:985
+#: src/dialogs/gnome-cmd-options-dialog.cc:983
 msgid "Styled text"
 msgstr "Estilodun testua"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1042
+#: src/dialogs/gnome-cmd-options-dialog.cc:1040
 msgid "Confirm before delete"
 msgstr "Berretsi ezabatu aurretik"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1047
+#: src/dialogs/gnome-cmd-options-dialog.cc:1045
 msgid "Confirm defaults to OK"
 msgstr "Berretsi lehenespena Ados-era"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1056
-msgid "Copy overwrite"
-msgstr "Kopiatu gainidatziz"
+#: src/dialogs/gnome-cmd-options-dialog.cc:1054
+msgid "Preselected overwrite action in copy dialog"
+msgstr "Aurrez hautatutako gainidazte-ekintza kopiatzeko elkarrizketa-koadroan"
 
-#. Create prepare copy specific widgets
-#: src/dialogs/gnome-cmd-options-dialog.cc:1059
-#: src/dialogs/gnome-cmd-options-dialog.cc:1079
-#: src/dialogs/gnome-cmd-prepare-copy-dialog.cc:91
-#: src/dialogs/gnome-cmd-prepare-move-dialog.cc:84
-msgid "Silently"
-msgstr "Modu isilean"
-
-#: src/dialogs/gnome-cmd-options-dialog.cc:1063
-#: src/dialogs/gnome-cmd-options-dialog.cc:1083
+#: src/dialogs/gnome-cmd-options-dialog.cc:1057
+#: src/dialogs/gnome-cmd-options-dialog.cc:1081
 msgid "Query first"
 msgstr "Kontsultatu lehendabizi"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1067
-#: src/dialogs/gnome-cmd-options-dialog.cc:1087
-#: src/gnome-cmd-file-selector.cc:1382
-msgid "Skip all"
-msgstr "Saltatu denak"
+#: src/dialogs/gnome-cmd-options-dialog.cc:1061
+#: src/dialogs/gnome-cmd-options-dialog.cc:1085
+#: src/dialogs/gnome-cmd-prepare-copy-dialog.cc:107
+#: src/dialogs/gnome-cmd-prepare-move-dialog.cc:101
+#: src/gnome-cmd-file-popmenu.cc:725 src/gnome-cmd-xfer.cc:147
+#: src/gnome-cmd-xfer.cc:150 src/gnome-cmd-xfer.cc:205
+#: src/gnome-cmd-xfer.cc:208 src/gnome-cmd-xfer.cc:323
+#: src/gnome-cmd-xfer.cc:326
+msgid "Rename"
+msgstr "Aldatu izena"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1076
-msgid "Move overwrite"
-msgstr "Aldatu lekuz gainidatziz"
+#: src/dialogs/gnome-cmd-options-dialog.cc:1069
+#: src/dialogs/gnome-cmd-options-dialog.cc:1093
+#: src/dialogs/gnome-cmd-prepare-copy-dialog.cc:121
+#: src/dialogs/gnome-cmd-prepare-move-dialog.cc:115
+msgid "Overwrite silently"
+msgstr "Gainidatzi isilean"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1096
-msgid "Drag and Drop"
-msgstr "Arrastatu eta jaregin"
+#: src/dialogs/gnome-cmd-options-dialog.cc:1078
+msgid "Preselected overwrite action in move dialog"
+msgstr "Aurrez hautatutako gainidazte-ekintza lekuz aldatzeko elkarrizketa-koadroan"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1099
+#: src/dialogs/gnome-cmd-options-dialog.cc:1102
+msgid "Default Drag and Drop Action"
+msgstr "Arrastatu eta jaregiteko ekintza lehenetsia"
+
+#: src/dialogs/gnome-cmd-options-dialog.cc:1105
 msgid "Confirm mouse operation"
 msgstr "Berretsi saguaren eragiketa"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1181
+#: src/dialogs/gnome-cmd-options-dialog.cc:1109
+#: src/dialogs/gnome-cmd-prepare-copy-dialog.cc:94
+#: src/gnome-cmd-file-popmenu.cc:723 src/gnome-cmd-main-win.cc:241
+#: src/gnome-cmd-user-actions.cc:209
+msgid "Copy"
+msgstr "Kopiatu"
+
+#: src/dialogs/gnome-cmd-options-dialog.cc:1113
+#: src/dialogs/gnome-cmd-prepare-move-dialog.cc:88
+msgid "Move"
+msgstr "Mugitu"
+
+#: src/dialogs/gnome-cmd-options-dialog.cc:1208
 msgid "Filetypes to hide"
 msgstr "Ezkutatzeko fitxategi-motak"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1184
+#: src/dialogs/gnome-cmd-options-dialog.cc:1211
 msgid "Unknown"
 msgstr "Ezezaguna"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1187
+#: src/dialogs/gnome-cmd-options-dialog.cc:1214
 msgid "Regular files"
 msgstr "Fitxategi erregularrak"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1193
+#: src/dialogs/gnome-cmd-options-dialog.cc:1220
 msgid "Socket, fifo, block, or character devices"
 msgstr "Socketak, fifoak, bloke-gailuak edo karaktere-gailuak"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1196
+#: src/dialogs/gnome-cmd-options-dialog.cc:1223
 msgid "Shortcuts (Windows systems)"
 msgstr "Lasterbideak (Windows sistemak)"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1199
+#: src/dialogs/gnome-cmd-options-dialog.cc:1226
 msgid "Mountable locations"
 msgstr "Kokaleku muntagarriak"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1202
+#: src/dialogs/gnome-cmd-options-dialog.cc:1229
 msgid "Virtual files"
 msgstr "Fitxategi birtualak"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1205
+#: src/dialogs/gnome-cmd-options-dialog.cc:1232
 msgid "Volatile files"
 msgstr "Fitxategi hegazkorrak"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1210
+#: src/dialogs/gnome-cmd-options-dialog.cc:1237
 msgid "Also hide"
 msgstr "Ezkutatu halaber"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1213
+#: src/dialogs/gnome-cmd-options-dialog.cc:1240
 msgid "Hidden files"
 msgstr "Ezkutuko fitxategiak"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1216
-#: src/dialogs/gnome-cmd-options-dialog.cc:1225
+#: src/dialogs/gnome-cmd-options-dialog.cc:1243
+#: src/dialogs/gnome-cmd-options-dialog.cc:1252
 msgid "Backup files"
 msgstr "Babeskopia-fitxategiak"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1219
+#: src/dialogs/gnome-cmd-options-dialog.cc:1246
 msgid "Symlinks"
 msgstr "Esteka sinbolikoak"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1403
+#: src/dialogs/gnome-cmd-options-dialog.cc:1430
 msgid ""
 "An app with this label exists already.\n"
 "Please choose another label."
 msgstr "Badago etiketa hori duen aplikazio bat.\n"
 "Aukeratu beste etiketa bat."
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1474
+#: src/dialogs/gnome-cmd-options-dialog.cc:1501
 msgid "Label:"
 msgstr "Etiketa:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1476
+#: src/dialogs/gnome-cmd-options-dialog.cc:1503
 msgid "Command:"
 msgstr "Komandoa:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1478
-#: src/dialogs/gnome-cmd-options-dialog.cc:1926
+#: src/dialogs/gnome-cmd-options-dialog.cc:1505
+#: src/dialogs/gnome-cmd-options-dialog.cc:1959
 msgid "Icon:"
 msgstr "Ikonoa:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1500
+#: src/dialogs/gnome-cmd-options-dialog.cc:1527
 msgid "Can handle multiple files"
 msgstr "Hainbat fitxategi maneia ditzake"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1504
+#: src/dialogs/gnome-cmd-options-dialog.cc:1531
 msgid "Can handle URIs"
 msgstr "URIak maneia ditzake"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1508
+#: src/dialogs/gnome-cmd-options-dialog.cc:1535
 msgid "Requires terminal"
 msgstr "Terminala behar du"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1515
+#: src/dialogs/gnome-cmd-options-dialog.cc:1542
 msgid "Show for"
 msgstr "Erakutsi"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1524
+#: src/dialogs/gnome-cmd-options-dialog.cc:1551
 msgid "All directories"
 msgstr "Direktorio guztiak"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1529
+#: src/dialogs/gnome-cmd-options-dialog.cc:1556
 msgid "All directories and files"
 msgstr "Direktorio eta fitxategi guztiak"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1534
+#: src/dialogs/gnome-cmd-options-dialog.cc:1561
 msgid "Some files"
 msgstr "Fitxategi batzuk"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1543
+#: src/dialogs/gnome-cmd-options-dialog.cc:1570
 msgid "File patterns"
 msgstr "Fitxategi-ereduak"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1565
+#: src/dialogs/gnome-cmd-options-dialog.cc:1592
 msgid "New Application"
 msgstr "Aplikazio berria"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1575
+#: src/dialogs/gnome-cmd-options-dialog.cc:1602
 msgid "Edit Application"
 msgstr "Editatu aplikazioa"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1659
+#: src/dialogs/gnome-cmd-options-dialog.cc:1686
 msgid "Always download remote files before opening in external programs"
 msgstr "Deskargatu beti urruneko fitxategiak kanpoko programetan ireki aurretik"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1661
+#: src/dialogs/gnome-cmd-options-dialog.cc:1688
 msgid "MIME applications"
 msgstr "MIME aplikazioak"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1665
+#: src/dialogs/gnome-cmd-options-dialog.cc:1692
 msgid "Standard programs"
 msgstr "Programa estandarrak"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1668
+#: src/dialogs/gnome-cmd-options-dialog.cc:1695
 msgid "Viewer:"
 msgstr "Ikustailea:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1670
+#: src/dialogs/gnome-cmd-options-dialog.cc:1697
 msgid "Editor:"
 msgstr "Editorea:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1672
+#: src/dialogs/gnome-cmd-options-dialog.cc:1699
 msgid "Differ:"
 msgstr "Diferentziatzailea:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1674
+#: src/dialogs/gnome-cmd-options-dialog.cc:1701
+msgid "Search:"
+msgstr "Bilatu:"
+
+#: src/dialogs/gnome-cmd-options-dialog.cc:1703
 msgid "Send files:"
 msgstr "Bidali fitxategiak:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1676
+#: src/dialogs/gnome-cmd-options-dialog.cc:1705
 msgid "Terminal:"
 msgstr "Terminala:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1682
+#: src/dialogs/gnome-cmd-options-dialog.cc:1711
 msgid "Use Internal Viewer"
 msgstr "Erabili barneko ikustailea"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1701
+#: src/dialogs/gnome-cmd-options-dialog.cc:1732
 msgid "Other favourite apps"
 msgstr "Beste gogoko aplikazio batzuk"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1708
+#: src/dialogs/gnome-cmd-options-dialog.cc:1739
 msgid "Label"
 msgstr "Etiketa"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1709
+#: src/dialogs/gnome-cmd-options-dialog.cc:1740
 msgid "Command"
 msgstr "Komandoa"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1744
+#: src/dialogs/gnome-cmd-options-dialog.cc:1775
 msgid "Global app options"
 msgstr "Aplikazioaren aukera globalak"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1747
+#: src/dialogs/gnome-cmd-options-dialog.cc:1778
 msgid "Terminal command for apps in the list above:"
 msgstr "Goiko zerrendako aplikazioetarako terminal-komandoak:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1753
+#: src/dialogs/gnome-cmd-options-dialog.cc:1784
 msgid "Leave terminal window open"
 msgstr "Utzi irekita terminalaren leihoa"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1920
+#: src/dialogs/gnome-cmd-options-dialog.cc:1953
 msgid "Alias:"
 msgstr "Aliasa:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1922
+#: src/dialogs/gnome-cmd-options-dialog.cc:1955
 msgid "Device:"
 msgstr "Gailua:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1924
+#: src/dialogs/gnome-cmd-options-dialog.cc:1957
 msgid "Mount point:"
 msgstr "Muntatze-puntua:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1965
+#: src/dialogs/gnome-cmd-options-dialog.cc:1998
 msgid "New Device"
 msgstr "Gailu berria"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1978
+#: src/dialogs/gnome-cmd-options-dialog.cc:2011
 msgid "Edit Device"
 msgstr "Editatu gailua"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:2060
-#: src/dialogs/gnome-cmd-options-dialog.cc:2196
+#: src/dialogs/gnome-cmd-options-dialog.cc:2093
+#: src/dialogs/gnome-cmd-options-dialog.cc:2232
 msgid "Devices"
 msgstr "Gailuak"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:2070
+#: src/dialogs/gnome-cmd-options-dialog.cc:2103
 msgid "Alias"
 msgstr "Aliasa"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:2100
+#: src/dialogs/gnome-cmd-options-dialog.cc:2134
+msgid ""
+"Show Samba workgroups button\n"
+"(Needs program restart if altered)"
+msgstr "Erakutsi Sambaren lan-taldeen botoia\n"
+"(programa berrabiarazi behar da)"
+
+#: src/dialogs/gnome-cmd-options-dialog.cc:2139
 msgid "Show only the icons"
 msgstr "Erakutsi ikonoak soilik"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:2104
-msgid "Skip mounting (useful when using super-mount)"
-msgstr "Saltatu muntatzea (erosoa 'super-mount'ekin)"
-
-#: src/dialogs/gnome-cmd-options-dialog.cc:2189
+#: src/dialogs/gnome-cmd-options-dialog.cc:2225
 msgid "General"
 msgstr "Orokorra"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:2190 src/tags/gnome-cmd-tags.cc:323
+#: src/dialogs/gnome-cmd-options-dialog.cc:2226 src/tags/gnome-cmd-tags.cc:323
 msgid "Format"
 msgstr "Formatua"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:2191
+#: src/dialogs/gnome-cmd-options-dialog.cc:2227
 msgid "Layout"
 msgstr "Diseinua"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:2193
+#: src/dialogs/gnome-cmd-options-dialog.cc:2229
 msgid "Confirmation"
 msgstr "Berrespena"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:2194
+#: src/dialogs/gnome-cmd-options-dialog.cc:2230
 msgid "Filters"
 msgstr "Iragazkiak"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:2195
+#: src/dialogs/gnome-cmd-options-dialog.cc:2231
 msgid "Programs"
 msgstr "Programak"
 
@@ -2728,49 +2790,36 @@ msgstr "Hautatu ereduekin"
 msgid "Unselect Using Pattern"
 msgstr "Desautatu ereduekin"
 
-#: src/dialogs/gnome-cmd-prepare-copy-dialog.cc:85
-#: src/gnome-cmd-file-popmenu.cc:726 src/gnome-cmd-main-win.cc:241
-#: src/gnome-cmd-user-actions.cc:210
-msgid "Copy"
-msgstr "Kopiatu"
-
-#: src/dialogs/gnome-cmd-prepare-copy-dialog.cc:98
-#: src/dialogs/gnome-cmd-prepare-move-dialog.cc:91
+#. Create prepare copy specific widgets
+#. Create prepare move specific widgets
+#: src/dialogs/gnome-cmd-prepare-copy-dialog.cc:100
+#: src/dialogs/gnome-cmd-prepare-move-dialog.cc:94
 msgid "Query First"
 msgstr "Kontsultatu lehendabizi"
 
-#: src/dialogs/gnome-cmd-prepare-copy-dialog.cc:105
-#: src/dialogs/gnome-cmd-prepare-move-dialog.cc:98 src/gnome-cmd-xfer.cc:211
-msgid "Skip All"
-msgstr "Saltatu guztiak"
-
-#: src/dialogs/gnome-cmd-prepare-copy-dialog.cc:115
+#: src/dialogs/gnome-cmd-prepare-copy-dialog.cc:131
 msgid "Follow Links"
 msgstr "Jarraitu estekak"
 
 #. Customize prepare xfer widgets
-#: src/dialogs/gnome-cmd-prepare-copy-dialog.cc:124
-#: src/dialogs/gnome-cmd-prepare-move-dialog.cc:110
+#: src/dialogs/gnome-cmd-prepare-copy-dialog.cc:140
+#: src/dialogs/gnome-cmd-prepare-move-dialog.cc:127
 msgid "Overwrite Files"
 msgstr "Gainidatzi fitxategiak"
 
-#: src/dialogs/gnome-cmd-prepare-copy-dialog.cc:144
+#: src/dialogs/gnome-cmd-prepare-copy-dialog.cc:158
 #, c-format
 msgid "copy %d file to"
 msgid_plural "copy %d files to"
 msgstr[0] "kopiatu fitxategi %d hemen:"
 msgstr[1] "kopiatu %d fitxategi hemen:"
 
-#: src/dialogs/gnome-cmd-prepare-move-dialog.cc:78
-msgid "Move"
-msgstr "Mugitu"
-
-#: src/dialogs/gnome-cmd-prepare-move-dialog.cc:126
+#: src/dialogs/gnome-cmd-prepare-move-dialog.cc:142
 #, c-format
 msgid "Move “%s” to"
 msgstr "Mugitu “%s” hona:"
 
-#: src/dialogs/gnome-cmd-prepare-move-dialog.cc:130
+#: src/dialogs/gnome-cmd-prepare-move-dialog.cc:145
 #, c-format
 msgid "move %d file to"
 msgid_plural "move %d files to"
@@ -2778,117 +2827,54 @@ msgstr[0] "mugitu fitxategi %d hona:"
 msgstr[1] "mugitu %d fitxategi hona:"
 
 #. Nothing exists, ask the user if a new directory might be suitable in the path that he specified
-#: src/dialogs/gnome-cmd-prepare-xfer-dialog.cc:150
-#: src/dialogs/gnome-cmd-prepare-xfer-dialog.cc:190
+#: src/dialogs/gnome-cmd-prepare-xfer-dialog.cc:162
+#: src/dialogs/gnome-cmd-prepare-xfer-dialog.cc:211
 #, c-format
 msgid "The directory “%s” doesn’t exist, do you want to create it?"
 msgstr "“%s” direktoriorik ez dago. Sortu nahi duzu?"
 
-#: src/dialogs/gnome-cmd-prepare-xfer-dialog.cc:153
+#: src/dialogs/gnome-cmd-prepare-xfer-dialog.cc:165
 #: src/gnome-cmd-advrename-profile-component.cc:433
 #: src/gnome-cmd-advrename-profile-component.cc:761
 #: src/gnome-cmd-advrename-profile-component.cc:793
+#: src/gnome-cmd-file-popmenu.cc:143
 msgid "No"
 msgstr "Ez"
 
-#: src/dialogs/gnome-cmd-prepare-xfer-dialog.cc:153
+#: src/dialogs/gnome-cmd-prepare-xfer-dialog.cc:165
 #: src/gnome-cmd-advrename-profile-component.cc:433
 #: src/gnome-cmd-advrename-profile-component.cc:761
 #: src/gnome-cmd-advrename-profile-component.cc:793
+#: src/gnome-cmd-file-popmenu.cc:143
 msgid "Yes"
 msgstr "Bai"
 
-#: src/dialogs/gnome-cmd-remote-dialog.cc:211
+#: src/dialogs/gnome-cmd-prepare-xfer-dialog.cc:173
+msgid "Unknown error"
+msgstr "Errore ezezaguna"
+
+#: src/dialogs/gnome-cmd-remote-dialog.cc:212
 #, c-format
 msgid "No server selected"
 msgstr "Ez da zerbitzaririk hautatu"
 
-#: src/dialogs/gnome-cmd-remote-dialog.cc:343
+#: src/dialogs/gnome-cmd-remote-dialog.cc:344
 msgid "Network protocol"
 msgstr "Sareko protokoloa"
 
-#: src/dialogs/gnome-cmd-remote-dialog.cc:354
+#: src/dialogs/gnome-cmd-remote-dialog.cc:355
 msgid "Connection name"
 msgstr "Konexioaren izena"
 
-#: src/dialogs/gnome-cmd-remote-dialog.cc:408
+#: src/dialogs/gnome-cmd-remote-dialog.cc:409
 msgid "Remote Connections"
 msgstr "Urruneko konexioak"
 
-#: src/dialogs/gnome-cmd-remote-dialog.cc:414
+#: src/dialogs/gnome-cmd-remote-dialog.cc:415
 msgid "Connections"
 msgstr "Konexioak"
 
-#: src/dialogs/gnome-cmd-remote-dialog.cc:445
-msgid "Anonymous FTP password:"
-msgstr "FTP anonimoaren pasahitza:"
-
-#: src/dialogs/gnome-cmd-search-dialog.cc:43
-msgid "Search local directories only"
-msgstr "Bilatu lokaleko direktorioak soilik"
-
-#: src/dialogs/gnome-cmd-search-dialog.cc:44
-msgid "Files _not containing text"
-msgstr "Testurik _ez duten fitxategiak"
-
-#: src/dialogs/gnome-cmd-search-dialog.cc:313
-#: src/dialogs/gnome-cmd-search-dialog.cc:322
-#: src/dialogs/gnome-cmd-search-dialog.cc:347
-#, c-format
-msgid "Failed to read file %s: %s"
-msgstr "Huts egin du %s fitxategia irakurtzean: %s"
-
-#: src/dialogs/gnome-cmd-search-dialog.cc:399
-#, c-format
-msgid "Searching in: %s"
-msgstr "Hemen bilatzen: %s"
-
-#: src/dialogs/gnome-cmd-search-dialog.cc:514
-#, c-format
-msgid "Found %d match — search aborted"
-msgid_plural "Found %d matches — search aborted"
-msgstr[0] "Bat etortze %d aurkitu da - bilaketa abortatuta"
-msgstr[1] "%d bat etortze aurkitu dira - bilaketa abortatuta"
-
-#: src/dialogs/gnome-cmd-search-dialog.cc:515
-#, c-format
-msgid "Found %d match"
-msgid_plural "Found %d matches"
-msgstr[0] "Bat etortze %d aurkitu da"
-msgstr[1] "%d bat etortze aurkitu dira"
-
-#: src/dialogs/gnome-cmd-search-dialog.cc:681
-#, c-format
-msgid "Failed to set process group id of child %d: %s.\n"
-msgstr "Huts egin du %d umearen prozesu-taldearen IDa ezartzean: %s\n"
-
-#: src/dialogs/gnome-cmd-search-dialog.cc:805
-msgid "Error parsing the search command."
-msgstr "Errorea bilaketaren komandoa analizatzean."
-
-#: src/dialogs/gnome-cmd-search-dialog.cc:817
-msgid "Error running the search command."
-msgstr "Errorea bilaketaren komandoa exekutatzean."
-
-#: src/dialogs/gnome-cmd-search-dialog.cc:931
-#, c-format
-msgid "Failed to change directory outside of %s"
-msgstr "Huts egin du direktorioa %s(e)tik kanpora aldatzean"
-
-#: src/dialogs/gnome-cmd-search-dialog.cc:1043
-msgid "Search…"
-msgstr "Bilatu…"
-
-#. search in
-#: src/dialogs/gnome-cmd-search-dialog.cc:1164
-msgid "Select Directory"
-msgstr "Hautatu direktorioa"
-
-#: src/dialogs/gnome-cmd-search-dialog.cc:1167
-msgid "_Look in folder:"
-msgstr "_Bilatu karpetan:"
-
-#: src/dirlist.cc:75
+#: src/dirlist.cc:48
 #, c-format
 msgid "%d file listed"
 msgid_plural "%d files listed"
@@ -3248,143 +3234,145 @@ msgstr "Testu-ikuspegia:"
 msgid "Number view:"
 msgstr "Zenbaki-ikuspegia:"
 
-#: src/gnome-cmd-con-device.cc:118
+#: src/gnome-cmd-con-device.cc:121
 msgid "Failed to execute the mount command"
 msgstr "Huts egin du muntatzeko komandoa exekutatzean"
 
-#: src/gnome-cmd-con-device.cc:126
+#: src/gnome-cmd-con-device.cc:129
 msgid "Mount failed: permission denied"
 msgstr "Muntatzeak huts egin du: baimena ukatuta"
 
-#: src/gnome-cmd-con-device.cc:129
+#: src/gnome-cmd-con-device.cc:132
 msgid "Mount failed: no medium found"
 msgstr "Muntatzeak huts egin du: ez da euskarririk aurkitu"
 
-#: src/gnome-cmd-con-device.cc:132
+#: src/gnome-cmd-con-device.cc:135
 #, c-format
 msgid "Mount failed: mount exited with exitstatus %d"
 msgstr "Muntatzeak huts egin du: muntatzetik irten da %d irteera-egoerarekin"
 
-#: src/gnome-cmd-con-device.cc:203
-msgid "Device is now safe to remove"
-msgstr "Gailua orain deskonektatu daiteke"
-
-#: src/gnome-cmd-con-device.cc:209
+#: src/gnome-cmd-con-device.cc:301
 #, c-format
 msgid ""
 "Cannot unmount the volume:\n"
-"%s %s"
+"%s\n"
+"Error code: %d"
 msgstr "Ezin da bolumena desmuntatu:\n"
-"%s %s"
+"%s\n"
+"Errore-kodea: %d"
 
-#: src/gnome-cmd-con-device.cc:210
-msgid "Unknown error"
-msgstr "Errore ezezaguna"
+#: src/gnome-cmd-con-device.cc:319
+msgid "Volume successfully unmounted"
+msgstr "Bolumena ongi desmuntatu da"
 
-#: src/gnome-cmd-con-device.cc:402
+#: src/gnome-cmd-con-device.cc:531
 #, c-format
 msgid "Mounting %s"
 msgstr "%s muntatzen"
 
-#: src/gnome-cmd-con-device.cc:418
+#: src/gnome-cmd-con-device.cc:548
 #, c-format
 msgid "Go to: %s (%s)"
 msgstr "Joan hona: %s (%s)"
 
-#: src/gnome-cmd-con-device.cc:419
-#, c-format
-msgid "Mount: %s"
-msgstr "Muntatu: %s"
-
-#: src/gnome-cmd-con-device.cc:420
-#, c-format
-msgid "Unmount: %s"
-msgstr "Desmuntatu: %s"
-
-#: src/gnome-cmd-con.h:205
-msgid "<New connection>"
-msgstr "<Konexio berria>"
-
-#: src/gnome-cmd-con.h:207
+#: src/gnome-cmd-con-device.cc:550 src/gnome-cmd-con.h:223
 #, c-format
 msgid "Go to: %s"
 msgstr "Joan hona: %s"
 
-#: src/gnome-cmd-con.h:208
+#: src/gnome-cmd-con-device.cc:551
+#, c-format
+msgid "Mount: %s"
+msgstr "Muntatu: %s"
+
+#: src/gnome-cmd-con-device.cc:552
+#, c-format
+msgid "Unmount: %s"
+msgstr "Desmuntatu: %s"
+
+#: src/gnome-cmd-con.h:221
+msgid "<New connection>"
+msgstr "<Konexio berria>"
+
+#: src/gnome-cmd-con.h:224
 #, c-format
 msgid "Connect to: %s"
 msgstr "Konektatu: %s"
 
-#: src/gnome-cmd-con.h:209
+#: src/gnome-cmd-con.h:225
 #, c-format
 msgid "Disconnect from: %s"
 msgstr "Deskonektatu hemendik: %s"
 
-#: src/gnome-cmd-con.h:216
+#: src/gnome-cmd-con.h:253
 #, c-format
 msgid "Connecting to %s\n"
 msgstr "%s(e)ra konektatzen\n"
 
-#: src/gnome-cmd-con.h:371
+#: src/gnome-cmd-con.h:420
 msgid "Unknown disk usage"
 msgstr "Diskoaren erabilpen ezezaguna"
 
-#: src/gnome-cmd-con-home.cc:125
+#: src/gnome-cmd-con-home.cc:114
 msgid "Home"
 msgstr "Karpeta nagusia"
 
-#: src/gnome-cmd-con-home.cc:134
+#: src/gnome-cmd-con-home.cc:123
 msgid "Go to: Home"
 msgstr "Joan hona: hasierako direktorioa"
 
-#: src/gnome-cmd-con-remote.cc:292
+#: src/gnome-cmd-con-remote.cc:127
+msgid "Disconnect error"
+msgstr "Deskonexio-errorea"
+
+#: src/gnome-cmd-con-remote.cc:391
 #, c-format
 msgid "Opens remote connection to %s"
 msgstr "%s(e)rako urruneko konexioa irekitzen du"
 
-#: src/gnome-cmd-con-remote.cc:293
+#: src/gnome-cmd-con-remote.cc:392
 #, c-format
 msgid "Closes remote connection to %s"
 msgstr "%s(e)rako urruneko konexioa ixten du"
 
-#: src/gnome-cmd-con-smb.cc:96
-msgid "Failed to browse the network. Is the SMB module installed?"
-msgstr "Huts egin du sarea arakatzean. SMB modulua instalatuta dago?"
+#: src/gnome-cmd-con-smb.cc:56
+msgid "Failed to browse the network. Is Samba supported on the system?"
+msgstr "Huts egin du sarea arakatzeak. Samba onartzen al da sistema honetan?"
 
-#: src/gnome-cmd-con-smb.cc:208
+#: src/gnome-cmd-con-smb.cc:216
 msgid "SMB"
 msgstr "SMB"
 
-#: src/gnome-cmd-con-smb.cc:210
+#: src/gnome-cmd-con-smb.cc:218
 msgid "Searching for workgroups and hosts"
 msgstr "Lantaldeak eta ostalariak bilatzen"
 
-#: src/gnome-cmd-con-smb.cc:217
+#: src/gnome-cmd-con-smb.cc:225
 msgid "Go to: Samba Network"
 msgstr "Joan hona: Samba sarea"
 
-#: src/gnome-cmd-data.cc:3163 src/gnome-cmd-data.cc:3865
+#: src/gnome-cmd-data.cc:3195 src/gnome-cmd-data.cc:3875
 #, c-format
 msgid "link to %s"
 msgstr "Estekatu hona: %s"
 
-#: src/gnome-cmd-dir.cc:512
+#: src/gnome-cmd-dir.cc:540
 msgid "Waiting for file list"
 msgstr "Fitxategi-zerrendaren zain"
 
-#: src/gnome-cmd-dir-indicator.cc:415
+#: src/gnome-cmd-dir-indicator.cc:544
 msgid "Add current dir"
 msgstr "Gehitu uneko direktorioa"
 
-#: src/gnome-cmd-dir-indicator.cc:416
+#: src/gnome-cmd-dir-indicator.cc:545
 msgid "Manage bookmarks…"
 msgstr "Kudeatu laster-markak…"
 
-#: src/gnome-cmd-file.cc:572
+#: src/gnome-cmd-file.cc:637
 msgid "_Open"
 msgstr "_Ireki"
 
-#: src/gnome-cmd-file.cc:575
+#: src/gnome-cmd-file.cc:640
 #, c-format
 msgid "_Open with “%s”"
 msgstr "_Ireki “%s” aplikazioarekin"
@@ -3421,140 +3409,144 @@ msgstr "uid"
 msgid "gid"
 msgstr "gid"
 
-#: src/gnome-cmd-file-list.cc:224
+#: src/gnome-cmd-file-list.cc:226
 msgid "/_Copy here"
 msgstr "/_Kopiatu hemen"
 
-#: src/gnome-cmd-file-list.cc:225
+#: src/gnome-cmd-file-list.cc:227
 msgid "/_Move here"
 msgstr "/Eraman _hona"
 
-#: src/gnome-cmd-file-list.cc:226
+#: src/gnome-cmd-file-list.cc:228
 msgid "/_Link here"
 msgstr "/_Estekatu hemen"
 
-#: src/gnome-cmd-file-list.cc:228
+#: src/gnome-cmd-file-list.cc:230
 msgid "/C_ancel"
 msgstr "/_Utzi"
 
-#: src/gnome-cmd-file-list.cc:1276
+#: src/gnome-cmd-file-list.cc:1309
 #, c-format
 msgid ""
 "“%s” seems to be a binary executable file but it lacks the executable bit. "
 "Do you want to set it and then run the file?"
 msgstr "Badirudi “%s” fitxategi exekutagarria dela baina ez du bit exekutagarria. Hura ezarri eta fitxategia exekutatu nahi duzu?"
 
-#: src/gnome-cmd-file-list.cc:1278
+#: src/gnome-cmd-file-list.cc:1311
 msgid "Make Executable?"
 msgstr "Exekutagarri bihurtu nahi duzu?"
 
-#: src/gnome-cmd-file-list.cc:1279
+#: src/gnome-cmd-file-list.cc:1312
 msgid "OK"
 msgstr "Ados"
 
-#: src/gnome-cmd-file-list.cc:1305
+#: src/gnome-cmd-file-list.cc:1339
 #, c-format
 msgid ""
 "“%s” is an executable text file. Do you want to run it, or display its "
 "contents?"
 msgstr "“%s” testu-fitxategi exekutagarria da. Exekutatu nahi duzu, ala edukia ikusi?"
 
-#: src/gnome-cmd-file-list.cc:1306
+#: src/gnome-cmd-file-list.cc:1340
 msgid "Run or Display"
 msgstr "Exekutatu edo bistaratu"
 
-#: src/gnome-cmd-file-list.cc:1307
+#: src/gnome-cmd-file-list.cc:1341
 msgid "Display"
 msgstr "Pantaila"
 
-#: src/gnome-cmd-file-list.cc:1307
+#: src/gnome-cmd-file-list.cc:1341
 msgid "Run"
 msgstr "Exekutatu"
 
-#: src/gnome-cmd-file-list.cc:1323
+#: src/gnome-cmd-file-list.cc:1357
 #, c-format
-msgid "No default application found for the MIME type %s."
-msgstr "Ez da aplikazio lehenetsirik aurkitu %s MIME motarentzako."
+msgid "No default application found for the file type %s."
+msgstr "Ez da aplikazio lehenetsirik aurkitu %s fitxategi motarako."
 
-#: src/gnome-cmd-file-list.cc:1353
+#: src/gnome-cmd-file-list.cc:1358
+msgid "Open the \"Applications\" page in the Control Center to add one."
+msgstr "Ireki kontrol-zentroko \"Aplikazioak\" orria bat gehitzeko."
+
+#: src/gnome-cmd-file-list.cc:1389 src/gnome-cmd-file-popmenu.cc:140
 #, c-format
 msgid ""
 "%s does not know how to open remote file. Do you want to download the file "
 "to a temporary location and then open it?"
-msgstr "%s(e)k ez daki urruneko fitxategia nola ireki. Fitxategia aldi baterako direktorio batera deskargatu eta ondoren ireki nahi duzu?"
+msgid_plural ""
+"%s does not know how to open remote files. Do you want to download the files "
+"to a temporary location and then open them?"
+msgstr[0] "%s(e)k ez daki nola ireki urruneko fitxategia. Fitxategia aldi baterako kokaleku batean deskargatu eta ondoren ireki nahi al duzu?"
+msgstr[1] "%s(e)k ez daki urruneko fitxategia nola ireki. Fitxategia aldi baterako direktorio batean deskargatu eta ondoren ireki nahi duzu?"
 
-#: src/gnome-cmd-file-list.cc:1632
+#: src/gnome-cmd-file-list.cc:1673
 msgid "Directory listing failed."
 msgstr "Huts egin du direktorioa zerrendatzean."
 
-#: src/gnome-cmd-file-list.cc:1685
+#: src/gnome-cmd-file-list.cc:1725
 msgid "Failed to open connection."
 msgstr "Huts egin du konexioa irekitzean."
 
-#: src/gnome-cmd-file-list.cc:2403 src/gnome-cmd-file-list.cc:2418
+#: src/gnome-cmd-file-list.cc:2490 src/gnome-cmd-file-list.cc:2505
 msgid "Not an ordinary file."
 msgstr "Ez da fitxategi arrunta."
 
-#: src/gnome-cmd-file-popmenu.cc:244
+#: src/gnome-cmd-file-popmenu.cc:236
 msgid "Couldn’t retrieve MIME type of the file."
 msgstr "Ezin izan da fitxategiaren MIME mota eskuratu."
 
-#: src/gnome-cmd-file-popmenu.cc:259
+#: src/gnome-cmd-file-popmenu.cc:251
 msgid "Invalid command"
 msgstr "Komando baliogabea"
 
-#: src/gnome-cmd-file-popmenu.cc:283
+#: src/gnome-cmd-file-popmenu.cc:275
 msgid "Application:"
 msgstr "Aplikazioa:"
 
-#: src/gnome-cmd-file-popmenu.cc:286
+#: src/gnome-cmd-file-popmenu.cc:278
 msgid "Open with other…"
 msgstr "Ireki beste honekin…"
 
-#: src/gnome-cmd-file-popmenu.cc:291
+#: src/gnome-cmd-file-popmenu.cc:283
 msgid "Needs terminal"
 msgstr "Terminala behar du"
 
-#: src/gnome-cmd-file-popmenu.cc:722
+#: src/gnome-cmd-file-popmenu.cc:719
 msgid "Open Wit_h"
 msgstr "Ireki _honekin"
 
-#: src/gnome-cmd-file-popmenu.cc:723
+#: src/gnome-cmd-file-popmenu.cc:720
 msgid "Other _Application…"
 msgstr "Beste _aplikazio bat…"
 
-#: src/gnome-cmd-file-popmenu.cc:724
+#: src/gnome-cmd-file-popmenu.cc:721
 msgid "Open Wit_h…"
 msgstr "Ireki _honekin…"
 
-#: src/gnome-cmd-file-popmenu.cc:725 src/gnome-cmd-main-win.cc:240
-#: src/gnome-cmd-user-actions.cc:212
+#: src/gnome-cmd-file-popmenu.cc:722 src/gnome-cmd-main-win.cc:240
+#: src/gnome-cmd-user-actions.cc:211
 msgid "Cut"
 msgstr "Ebaki"
 
-#: src/gnome-cmd-file-popmenu.cc:728
-msgid "Rename"
-msgstr "Aldatu izena"
-
 #. {file_run, "file.run"},
-#: src/gnome-cmd-file-popmenu.cc:729 src/gnome-cmd-main-win.cc:245
-#: src/gnome-cmd-user-actions.cc:236
+#: src/gnome-cmd-file-popmenu.cc:726 src/gnome-cmd-main-win.cc:245
+#: src/gnome-cmd-user-actions.cc:235
 msgid "Send files"
 msgstr "Bidali fitxategiak"
 
-#: src/gnome-cmd-file-popmenu.cc:730 src/gnome-cmd-main-menu.cc:307
+#: src/gnome-cmd-file-popmenu.cc:727 src/gnome-cmd-main-menu.cc:309
 msgid "_Properties…"
 msgstr "_Propietateak…"
 
-#: src/gnome-cmd-file-popmenu.cc:731
+#: src/gnome-cmd-file-popmenu.cc:728
 msgid "E_xecute"
 msgstr "E_xekutatu"
 
-#: src/gnome-cmd-file-popmenu.cc:732 src/gnome-cmd-list-popmenu.cc:108
+#: src/gnome-cmd-file-popmenu.cc:729 src/gnome-cmd-list-popmenu.cc:108
 msgid "Open _terminal here"
 msgstr "Ireki _terminala hemen"
 
-#: src/gnome-cmd-file-popmenu.cc:733 src/gnome-cmd-user-actions.cc:211
+#: src/gnome-cmd-file-popmenu.cc:730 src/gnome-cmd-user-actions.cc:210
 msgid "Copy file names"
 msgstr "Kopiatu fitxategi-izenak"
 
@@ -3572,66 +3564,71 @@ msgid_plural "%s, %d of %d dirs selected"
 msgstr[0] "%s / %d - %d direktorio hautatuan"
 msgstr[1] "%s / %d  - %d direktorio hautatuetan"
 
-#: src/gnome-cmd-file-selector.cc:237
+#: src/gnome-cmd-file-selector.cc:231
 #, c-format
 msgid "%s free"
 msgstr "%s libre"
 
-#: src/gnome-cmd-file-selector.cc:633 src/gnome-cmd-file-selector.cc:708
-#: src/gnome-cmd-user-actions.cc:1670 src/gnome-cmd-user-actions.cc:1678
+#: src/gnome-cmd-file-selector.cc:628 src/gnome-cmd-file-selector.cc:704
+#: src/gnome-cmd-user-actions.cc:1716 src/gnome-cmd-user-actions.cc:1724
 msgid "The tab is locked, close anyway?"
 msgstr "Fitxa blokeatuta dago. Itxi dena den?"
 
-#: src/gnome-cmd-file-selector.cc:651 src/gnome-cmd-main-menu.cc:347
+#: src/gnome-cmd-file-selector.cc:647 src/gnome-cmd-main-menu.cc:351
 msgid "Open in New _Tab"
 msgstr "Ireki _fitxa berrian"
 
-#: src/gnome-cmd-file-selector.cc:658
+#: src/gnome-cmd-file-selector.cc:654
 msgid "_Unlock Tab"
 msgstr "_Desblokeatu fitxa"
 
-#: src/gnome-cmd-file-selector.cc:658
+#: src/gnome-cmd-file-selector.cc:654
 msgid "_Lock Tab"
 msgstr "_Blokeatu fitxa"
 
-#: src/gnome-cmd-file-selector.cc:663
+#: src/gnome-cmd-file-selector.cc:659
 msgid "_Refresh Tab"
 msgstr "_Freskatu fitxa"
 
-#: src/gnome-cmd-file-selector.cc:668
+#: src/gnome-cmd-file-selector.cc:664
 msgid "Copy Tab to Other _Pane"
 msgstr "Kopiatu fitxa beste _panelean"
 
-#: src/gnome-cmd-file-selector.cc:674 src/gnome-cmd-main-menu.cc:348
+#: src/gnome-cmd-file-selector.cc:670 src/gnome-cmd-main-menu.cc:352
 msgid "_Close Tab"
 msgstr "It_xi fitxa"
 
-#: src/gnome-cmd-file-selector.cc:679 src/gnome-cmd-main-menu.cc:349
+#: src/gnome-cmd-file-selector.cc:675 src/gnome-cmd-main-menu.cc:353
 msgid "Close _All Tabs"
 msgstr "Itxi fitxa _guztiak"
 
-#: src/gnome-cmd-file-selector.cc:684
+#: src/gnome-cmd-file-selector.cc:680
 msgid "Close _Duplicate Tabs"
 msgstr "Itxi _bikoiztutako fitxak"
 
-#: src/gnome-cmd-file-selector.cc:1139
+#: src/gnome-cmd-file-selector.cc:1149
 msgid "No file name given"
 msgstr "Ez da fitxategi-izenik eman"
 
-#: src/gnome-cmd-file-selector.cc:1170
+#: src/gnome-cmd-file-selector.cc:1185
 msgid "New Text File"
 msgstr "Testu-fitxategi berria"
 
-#: src/gnome-cmd-file-selector.cc:1316
+#: src/gnome-cmd-file-selector.cc:1334
 msgid "Symbolic link name:"
 msgstr "Esteka sinbolikoaren izena:"
 
-#: src/gnome-cmd-file-selector.cc:1329 src/gnome-cmd-file-selector.cc:1382
-#: src/gnome-cmd-user-actions.cc:819
+#: src/gnome-cmd-file-selector.cc:1345 src/gnome-cmd-file-selector.cc:1398
+#: src/gnome-cmd-user-actions.cc:865
 msgid "Create Symbolic Link"
 msgstr "Sortu esteka sinbolikoa"
 
-#: src/gnome-cmd-file-selector.cc:1453
+#: src/gnome-cmd-file-selector.cc:1398 src/gnome-cmd-xfer.cc:147
+#: src/gnome-cmd-xfer.cc:205 src/gnome-cmd-xfer.cc:323
+msgid "Skip all"
+msgstr "Saltatu denak"
+
+#: src/gnome-cmd-file-selector.cc:1470
 msgid "Filter:"
 msgstr "Iragazkia:"
 
@@ -3639,11 +3636,11 @@ msgstr "Iragazkia:"
 msgid "_New"
 msgstr "_Berria"
 
-#: src/gnome-cmd-list-popmenu.cc:107 src/gnome-cmd-main-menu.cc:322
+#: src/gnome-cmd-list-popmenu.cc:107 src/gnome-cmd-main-menu.cc:324
 msgid "_Paste"
 msgstr "_Itsatsi"
 
-#: src/gnome-cmd-list-popmenu.cc:109 src/gnome-cmd-main-menu.cc:346
+#: src/gnome-cmd-list-popmenu.cc:109 src/gnome-cmd-main-menu.cc:350
 msgid "_Refresh"
 msgstr "_Freskatu"
 
@@ -3655,235 +3652,243 @@ msgstr "_Direktorioa"
 msgid "_Text File"
 msgstr "_Testu-fitxategia"
 
-#: src/gnome-cmd-main-menu.cc:302 src/intviewer/viewer-window.cc:599
+#: src/gnome-cmd-main-menu.cc:304 src/intviewer/viewer-window.cc:599
 msgid "_File"
 msgstr "_Fitxategia"
 
-#: src/gnome-cmd-main-menu.cc:303
+#: src/gnome-cmd-main-menu.cc:305
 msgid "Change _Owner/Group"
 msgstr "Aldatu _Jabea/Taldea"
 
-#: src/gnome-cmd-main-menu.cc:304
+#: src/gnome-cmd-main-menu.cc:306
 msgid "Change Per_missions"
 msgstr "Aldatu bai_menak"
 
-#: src/gnome-cmd-main-menu.cc:305
+#: src/gnome-cmd-main-menu.cc:307
 msgid "Advanced _Rename Tool"
 msgstr "I_zena aldatzeko tresna aurreratua"
 
-#: src/gnome-cmd-main-menu.cc:306
+#: src/gnome-cmd-main-menu.cc:308
 msgid "Create _Symbolic Link"
 msgstr "Sortu _esteka sinbolikoa"
 
-#: src/gnome-cmd-main-menu.cc:308
+#: src/gnome-cmd-main-menu.cc:310
 msgid "_Search…"
 msgstr "_Bilatu…"
 
-#: src/gnome-cmd-main-menu.cc:309
+#: src/gnome-cmd-main-menu.cc:311
 msgid "_Quick Search…"
 msgstr "Bi_laketa azkarra…"
 
-#: src/gnome-cmd-main-menu.cc:310
+#: src/gnome-cmd-main-menu.cc:312
 msgid "_Enable Filter…"
 msgstr "_Gaitu iragazkia…"
 
-#: src/gnome-cmd-main-menu.cc:311
+#: src/gnome-cmd-main-menu.cc:313
 msgid "_Diff"
 msgstr "_Diff"
 
-#: src/gnome-cmd-main-menu.cc:312
+#: src/gnome-cmd-main-menu.cc:314
 msgid "S_ynchronize Directories"
 msgstr "_Sinkronizatu direktorioak"
 
-#: src/gnome-cmd-main-menu.cc:313
+#: src/gnome-cmd-main-menu.cc:315
 msgid "Start _GNOME Commander as root"
 msgstr "Abiarazi _GNOME Commander 'root' gisa"
 
-#: src/gnome-cmd-main-menu.cc:314
+#: src/gnome-cmd-main-menu.cc:316
 msgid "_Quit"
 msgstr "I_rten"
 
-#: src/gnome-cmd-main-menu.cc:319
+#: src/gnome-cmd-main-menu.cc:321
 msgid "_Edit"
 msgstr "_Editatu"
 
-#: src/gnome-cmd-main-menu.cc:320
+#: src/gnome-cmd-main-menu.cc:322
 msgid "Cu_t"
 msgstr "_Ebaki"
 
-#: src/gnome-cmd-main-menu.cc:321
+#: src/gnome-cmd-main-menu.cc:323
 msgid "_Copy"
 msgstr "_Kopiatu"
 
-#: src/gnome-cmd-main-menu.cc:323
+#: src/gnome-cmd-main-menu.cc:325
 msgid "_Delete"
 msgstr "Ez_abatu"
 
-#: src/gnome-cmd-main-menu.cc:324
+#: src/gnome-cmd-main-menu.cc:326
 msgid "Copy _File Names"
 msgstr "Kopiatu _fitxategi-izenak"
 
-#: src/gnome-cmd-main-menu.cc:329
+#: src/gnome-cmd-main-menu.cc:331
 msgid "_Mark"
 msgstr "_Markatu"
 
-#: src/gnome-cmd-main-menu.cc:330
+#: src/gnome-cmd-main-menu.cc:332
 msgid "_Select All"
 msgstr "_Hautatu denak"
 
-#: src/gnome-cmd-main-menu.cc:331
+#: src/gnome-cmd-main-menu.cc:333
 msgid "_Unselect All"
 msgstr "_Desautatu denak"
 
-#: src/gnome-cmd-main-menu.cc:332
+#: src/gnome-cmd-main-menu.cc:334
+msgid "Select all _Files"
+msgstr "Hautatu _fitxategi guztiak"
+
+#: src/gnome-cmd-main-menu.cc:335
+msgid "Unselect all Fi_les"
+msgstr "Desautatu f_itxategi guztiak"
+
+#: src/gnome-cmd-main-menu.cc:336
 msgid "Select with _Pattern"
 msgstr "Hautatu _ereduarekin"
 
-#: src/gnome-cmd-main-menu.cc:333
+#: src/gnome-cmd-main-menu.cc:337
 msgid "Unselect with P_attern"
 msgstr "Desautatu e_reduarekin"
 
-#: src/gnome-cmd-main-menu.cc:334
+#: src/gnome-cmd-main-menu.cc:338
 msgid "Select with same _Extension"
-msgstr "Hautatu _luzapen berarekin"
+msgstr "Hautatu lu_zapen berarekin"
 
-#: src/gnome-cmd-main-menu.cc:335
+#: src/gnome-cmd-main-menu.cc:339
 msgid "Unselect with same E_xtension"
 msgstr "Desautatu l_uzapen berarekin"
 
-#: src/gnome-cmd-main-menu.cc:336
+#: src/gnome-cmd-main-menu.cc:340
 msgid "_Invert Selection"
 msgstr "_Alderantzikatu hautapena"
 
-#: src/gnome-cmd-main-menu.cc:337
+#: src/gnome-cmd-main-menu.cc:341
 msgid "_Restore Selection"
 msgstr "_Leheneratu hautapena"
 
-#: src/gnome-cmd-main-menu.cc:338
+#: src/gnome-cmd-main-menu.cc:342
 msgid "_Compare Directories"
 msgstr "_Konparatu direktorioak"
 
-#: src/gnome-cmd-main-menu.cc:343 src/intviewer/viewer-window.cc:613
+#: src/gnome-cmd-main-menu.cc:347 src/intviewer/viewer-window.cc:613
 msgid "_View"
 msgstr "_Ikusi"
 
-#: src/gnome-cmd-main-menu.cc:344
+#: src/gnome-cmd-main-menu.cc:348
 msgid "_Back"
 msgstr "At_zera"
 
-#: src/gnome-cmd-main-menu.cc:345
+#: src/gnome-cmd-main-menu.cc:349
 msgid "_Forward"
 msgstr "A_urrera"
 
-#: src/gnome-cmd-main-menu.cc:350
+#: src/gnome-cmd-main-menu.cc:354
 msgid "_Equal Panel Size"
 msgstr "Panel _berdinaren tamaina"
 
-#: src/gnome-cmd-main-menu.cc:351
+#: src/gnome-cmd-main-menu.cc:355
 msgid "Maximize Panel Size"
 msgstr "Maximizatu panelaren tamaina"
 
-#: src/gnome-cmd-main-menu.cc:356
+#: src/gnome-cmd-main-menu.cc:360
 msgid "Show Toolbar"
 msgstr "Erakutsi tresna-barra"
 
-#: src/gnome-cmd-main-menu.cc:357
+#: src/gnome-cmd-main-menu.cc:361
 msgid "Show Device Buttons"
 msgstr "Erakutsi gailuaren botoiak"
 
-#: src/gnome-cmd-main-menu.cc:358
+#: src/gnome-cmd-main-menu.cc:362
 msgid "Show Device List"
 msgstr "Erakutsi gailuen zerrenda"
 
-#: src/gnome-cmd-main-menu.cc:359
+#: src/gnome-cmd-main-menu.cc:363
 msgid "Show Command Line"
 msgstr "Erakutsi komando-lerroa"
 
-#: src/gnome-cmd-main-menu.cc:360
+#: src/gnome-cmd-main-menu.cc:364
 msgid "Show Buttonbar"
 msgstr "Erakutsi botoi-barra"
 
-#: src/gnome-cmd-main-menu.cc:361
+#: src/gnome-cmd-main-menu.cc:365
 msgid "Show Hidden Files"
 msgstr "Erakutsi ezkutuko fitxategiak"
 
-#: src/gnome-cmd-main-menu.cc:362
+#: src/gnome-cmd-main-menu.cc:366
 msgid "Show Backup Files"
 msgstr "Erakutsi babeskopia-fitxategiak"
 
-#: src/gnome-cmd-main-menu.cc:363
+#: src/gnome-cmd-main-menu.cc:367
 msgid "Horizontal Orientation"
 msgstr "Orientazio horizontala"
 
-#: src/gnome-cmd-main-menu.cc:368 src/intviewer/viewer-window.cc:678
+#: src/gnome-cmd-main-menu.cc:372 src/intviewer/viewer-window.cc:678
 msgid "_Settings"
 msgstr "E_zarpenak"
 
-#: src/gnome-cmd-main-menu.cc:369
+#: src/gnome-cmd-main-menu.cc:373
 msgid "_Options…"
 msgstr "_Aukerak…"
 
-#: src/gnome-cmd-main-menu.cc:370
+#: src/gnome-cmd-main-menu.cc:374
 msgid "_Keyboard Shortcuts…"
 msgstr "Laster_bideak…"
 
-#: src/gnome-cmd-main-menu.cc:375
+#: src/gnome-cmd-main-menu.cc:379
 msgid "_Connections"
 msgstr "_Konexioak"
 
-#: src/gnome-cmd-main-menu.cc:376
+#: src/gnome-cmd-main-menu.cc:380
 msgid "_Remote Server…"
 msgstr "_Urruneko zerbitzaria…"
 
-#: src/gnome-cmd-main-menu.cc:377
+#: src/gnome-cmd-main-menu.cc:381
 msgid "New Connection…"
 msgstr "Konexio berria…"
 
-#: src/gnome-cmd-main-menu.cc:382
+#: src/gnome-cmd-main-menu.cc:386
 msgid "_Bookmarks"
 msgstr "Laster-_markak"
 
-#: src/gnome-cmd-main-menu.cc:383
+#: src/gnome-cmd-main-menu.cc:387
 msgid "_Bookmark this Directory…"
 msgstr "Ezarri _laster-marka direktorio honi…"
 
-#: src/gnome-cmd-main-menu.cc:384
+#: src/gnome-cmd-main-menu.cc:388
 msgid "_Manage Bookmarks…"
 msgstr "K_udeatu laster-markak…"
 
-#: src/gnome-cmd-main-menu.cc:389
+#: src/gnome-cmd-main-menu.cc:393
 msgid "_Plugins"
 msgstr "_Pluginak"
 
-#: src/gnome-cmd-main-menu.cc:390
+#: src/gnome-cmd-main-menu.cc:394
 msgid "_Configure Plugins…"
 msgstr "_Konfiguratu pluginak…"
 
-#: src/gnome-cmd-main-menu.cc:395 src/intviewer/viewer-window.cc:697
+#: src/gnome-cmd-main-menu.cc:399 src/intviewer/viewer-window.cc:697
 msgid "_Help"
 msgstr "_Laguntza"
 
-#: src/gnome-cmd-main-menu.cc:396
+#: src/gnome-cmd-main-menu.cc:400
 msgid "_Documentation"
 msgstr "_Dokumentazioa"
 
-#: src/gnome-cmd-main-menu.cc:397 src/intviewer/viewer-window.cc:699
+#: src/gnome-cmd-main-menu.cc:401 src/intviewer/viewer-window.cc:699
 msgid "_Keyboard Shortcuts"
 msgstr "Las_ter-teklak"
 
-#: src/gnome-cmd-main-menu.cc:398
+#: src/gnome-cmd-main-menu.cc:402
 msgid "GNOME Commander on the _Web"
 msgstr "GNOME Commander, web gunean"
 
-#: src/gnome-cmd-main-menu.cc:399
+#: src/gnome-cmd-main-menu.cc:403
 msgid "Report a _Problem"
 msgstr "Bidali mezua _arazoaren berri emanez"
 
-#: src/gnome-cmd-main-menu.cc:400 src/plugin_manager.cc:433
+#: src/gnome-cmd-main-menu.cc:404 src/plugin_manager.cc:405
 msgid "_About"
 msgstr "Honi _buruz"
 
-#: src/gnome-cmd-main-win.cc:233 src/gnome-cmd-user-actions.cc:276
+#: src/gnome-cmd-main-win.cc:233 src/gnome-cmd-user-actions.cc:277
 msgid "Refresh"
 msgstr "Freskatu"
 
@@ -3907,7 +3912,7 @@ msgstr "Joan azkenera"
 msgid "Copy file names (SHIFT for full paths, ALT for URIs)"
 msgstr "Kopiatu fitxategi-izenak (MAIUS -> bide-izen osoa, ALT -> URIak)"
 
-#: src/gnome-cmd-main-win.cc:242 src/gnome-cmd-user-actions.cc:215
+#: src/gnome-cmd-main-win.cc:242 src/gnome-cmd-user-actions.cc:214
 msgid "Paste"
 msgstr "Itsatsi"
 
@@ -3951,11 +3956,11 @@ msgstr "F8 Ezabatu"
 msgid "F9 Search"
 msgstr "F9 Bilatu"
 
-#: src/gnome-cmd-main-win.cc:858
+#: src/gnome-cmd-main-win.cc:853
 msgid "GNOME Commander — ROOT PRIVILEGES"
 msgstr "GNOME Commander — ERRO-PRIBILEGIOAK"
 
-#: src/gnome-cmd-quicksearch-popup.cc:272 src/gnome-cmd-user-actions.cc:217
+#: src/gnome-cmd-quicksearch-popup.cc:274 src/gnome-cmd-user-actions.cc:216
 msgid "Search"
 msgstr "Bilatu"
 
@@ -3996,368 +4001,384 @@ msgstr "Testua _dauka:"
 msgid "Case sensiti_ve"
 msgstr "_Maiuskula/minuskula"
 
-#: src/gnome-cmd-user-actions.cc:137
+#: src/gnome-cmd-user-actions.cc:136
 msgid "No file selected"
 msgstr "Ez da fitxategirik hautatu"
 
-#: src/gnome-cmd-user-actions.cc:197
+#: src/gnome-cmd-user-actions.cc:196
 msgid "Bookmark current directory"
 msgstr "Sortu uneko direktorioaren laster-marka"
 
-#: src/gnome-cmd-user-actions.cc:198
+#: src/gnome-cmd-user-actions.cc:197
 msgid "Manage bookmarks"
 msgstr "Kudeatu laster-markak"
 
-#: src/gnome-cmd-user-actions.cc:199
+#: src/gnome-cmd-user-actions.cc:198
 msgid "Go to bookmarked location"
 msgstr "Joan laster-markatutako kokalekura"
 
-#: src/gnome-cmd-user-actions.cc:200
+#: src/gnome-cmd-user-actions.cc:199
 msgid "Show bookmarks of current device"
 msgstr "Erakutsi uneko gailuaren laster-markak"
 
-#: src/gnome-cmd-user-actions.cc:201
+#: src/gnome-cmd-user-actions.cc:200
 msgid "Execute command"
 msgstr "Exekutatu komandoa"
 
-#: src/gnome-cmd-user-actions.cc:202
+#: src/gnome-cmd-user-actions.cc:201
 msgid "Open terminal"
 msgstr "Ireki terminala"
 
-#: src/gnome-cmd-user-actions.cc:203
+#: src/gnome-cmd-user-actions.cc:202
 msgid "Open terminal as root"
 msgstr "Ireki terminala 'root' gisa"
 
-#: src/gnome-cmd-user-actions.cc:204
+#: src/gnome-cmd-user-actions.cc:203
 msgid "Start GNOME Commander as root"
 msgstr "Abiarazi GNOME Commander 'root' gisa"
 
-#: src/gnome-cmd-user-actions.cc:205
+#: src/gnome-cmd-user-actions.cc:204
 msgid "Close connection"
 msgstr "Itxi konexioa"
 
-#: src/gnome-cmd-user-actions.cc:206
+#: src/gnome-cmd-user-actions.cc:205
 msgid "New connection"
 msgstr "Konexio berria"
 
-#: src/gnome-cmd-user-actions.cc:207
+#: src/gnome-cmd-user-actions.cc:206
 msgid "Open connection"
 msgstr "Ireki konexioa"
 
-#: src/gnome-cmd-user-actions.cc:208
+#: src/gnome-cmd-user-actions.cc:207
 msgid "Change left connection"
 msgstr "Aldatu ezkerreko konexioa"
 
-#: src/gnome-cmd-user-actions.cc:209
+#: src/gnome-cmd-user-actions.cc:208
 msgid "Change right connection"
 msgstr "Aldatu eskuineko konexioa"
 
-#: src/gnome-cmd-user-actions.cc:214
+#: src/gnome-cmd-user-actions.cc:213
 msgid "Show user defined files"
 msgstr "Erakutsi erabiltzaileak definitutako fitxategiak"
 
-#: src/gnome-cmd-user-actions.cc:218
+#: src/gnome-cmd-user-actions.cc:217
 msgid "Advanced rename tool"
 msgstr "Izena aldatzeko tresna aurreratua"
 
-#: src/gnome-cmd-user-actions.cc:219
+#: src/gnome-cmd-user-actions.cc:218
 msgid "Change permissions"
 msgstr "Aldatu baimenak"
 
-#: src/gnome-cmd-user-actions.cc:220
+#: src/gnome-cmd-user-actions.cc:219
 msgid "Change owner/group"
 msgstr "Aldatu jabea/taldea"
 
-#: src/gnome-cmd-user-actions.cc:221
+#: src/gnome-cmd-user-actions.cc:220
 msgid "Copy files"
 msgstr "Kopiatu fitxategiak"
 
-#: src/gnome-cmd-user-actions.cc:222
+#: src/gnome-cmd-user-actions.cc:221
 msgid "Copy files with rename"
 msgstr "Kopiatu fitxategiak izenez aldatuz"
 
-#: src/gnome-cmd-user-actions.cc:223
+#: src/gnome-cmd-user-actions.cc:222
 msgid "Create symbolic link"
 msgstr "Sortu esteka sinbolikoa"
 
-#: src/gnome-cmd-user-actions.cc:224
+#: src/gnome-cmd-user-actions.cc:223
 msgid "Delete files"
 msgstr "Ezabatu fitxategiak"
 
-#: src/gnome-cmd-user-actions.cc:225
+#: src/gnome-cmd-user-actions.cc:224
 msgid "Compare files (diff)"
 msgstr "Konparatu fitxategiak (diff)"
 
-#: src/gnome-cmd-user-actions.cc:226
+#: src/gnome-cmd-user-actions.cc:225
 msgid "Edit file"
 msgstr "Editatu fitxategia"
 
-#: src/gnome-cmd-user-actions.cc:227
+#: src/gnome-cmd-user-actions.cc:226
 msgid "Edit a new file"
 msgstr "Editatu fitxategi berria"
 
-#: src/gnome-cmd-user-actions.cc:228
+#: src/gnome-cmd-user-actions.cc:227
 msgid "Quit"
 msgstr "Irten"
 
-#: src/gnome-cmd-user-actions.cc:229
+#: src/gnome-cmd-user-actions.cc:228
 msgid "View with external viewer"
 msgstr "Ikusi kanpoko ikustailearekin"
 
-#: src/gnome-cmd-user-actions.cc:230
+#: src/gnome-cmd-user-actions.cc:229
 msgid "View with internal viewer"
 msgstr "Ikusi barneko ikustailearekin"
 
-#: src/gnome-cmd-user-actions.cc:231
+#: src/gnome-cmd-user-actions.cc:230
 msgid "Create directory"
 msgstr "Sortu direktorioa"
 
-#: src/gnome-cmd-user-actions.cc:232
+#: src/gnome-cmd-user-actions.cc:231
 msgid "Move files"
 msgstr "Lekuz aldatu fitxategiak"
 
-#: src/gnome-cmd-user-actions.cc:234
+#: src/gnome-cmd-user-actions.cc:233
 msgid "Rename files"
 msgstr "Aldatu izena fitxategiei"
 
-#: src/gnome-cmd-user-actions.cc:237
+#: src/gnome-cmd-user-actions.cc:236
 msgid "Synchronize directories"
 msgstr "Sinkronizatu direktorioak"
 
-#: src/gnome-cmd-user-actions.cc:240
+#: src/gnome-cmd-user-actions.cc:239
 msgid "About GNOME Commander"
 msgstr "GNOME Commander-i buruz"
 
-#: src/gnome-cmd-user-actions.cc:241
+#: src/gnome-cmd-user-actions.cc:240
 msgid "Help contents"
 msgstr "Laguntzaren edukia"
 
-#: src/gnome-cmd-user-actions.cc:242
+#: src/gnome-cmd-user-actions.cc:241
 msgid "Help on keyboard shortcuts"
 msgstr "Mantendu laster-teklak"
 
-#: src/gnome-cmd-user-actions.cc:243
+#: src/gnome-cmd-user-actions.cc:242
 msgid "Report a problem"
 msgstr "Bidali mezua arazoaren berri emanez"
 
-#: src/gnome-cmd-user-actions.cc:244
+#: src/gnome-cmd-user-actions.cc:243
 msgid "GNOME Commander on the web"
 msgstr "GNOME Commander, web gunean"
 
-#: src/gnome-cmd-user-actions.cc:245
+#: src/gnome-cmd-user-actions.cc:244
 msgid "Compare directories"
 msgstr "Konparatu direktorioak"
 
-#: src/gnome-cmd-user-actions.cc:246
+#: src/gnome-cmd-user-actions.cc:245
 msgid "Invert selection"
 msgstr "Alderantzikatu hautapena"
 
-#: src/gnome-cmd-user-actions.cc:247
+#: src/gnome-cmd-user-actions.cc:246
 msgid "Select all"
 msgstr "Hautatu dena"
 
+#: src/gnome-cmd-user-actions.cc:247
+msgid "Select all files"
+msgstr "Hautatu fitxategi guztiak"
+
 #: src/gnome-cmd-user-actions.cc:248
+msgid "Unselect all files"
+msgstr "Desautatu fitxategi guztiak"
+
+#: src/gnome-cmd-user-actions.cc:249
 msgid "Toggle selection"
 msgstr "Txandakatu hautapena"
 
-#: src/gnome-cmd-user-actions.cc:249
+#: src/gnome-cmd-user-actions.cc:250
 msgid "Toggle selection and move cursor downward"
 msgstr "Txandakatu hautapena eta eraman kurtsorea beherantz"
 
-#: src/gnome-cmd-user-actions.cc:250
+#: src/gnome-cmd-user-actions.cc:251
 msgid "Unselect all"
 msgstr "Desautatu dena"
 
-#: src/gnome-cmd-user-actions.cc:253
+#: src/gnome-cmd-user-actions.cc:254
 msgid "Keyboard shortcuts"
 msgstr "Laster-teklak"
 
-#: src/gnome-cmd-user-actions.cc:254
+#: src/gnome-cmd-user-actions.cc:255
 msgid "Configure plugins"
 msgstr "Konfiguratu pluginak"
 
-#: src/gnome-cmd-user-actions.cc:255
+#: src/gnome-cmd-user-actions.cc:256
 msgid "Back one directory"
 msgstr "Itzuli aurreko direktoriora"
 
-#: src/gnome-cmd-user-actions.cc:256
+#: src/gnome-cmd-user-actions.cc:257
 msgid "Close the current tab"
 msgstr "Itxi uneko fitxa"
 
-#: src/gnome-cmd-user-actions.cc:257
+#: src/gnome-cmd-user-actions.cc:258
 msgid "Close all tabs"
 msgstr "Itxi fitxa guztiak"
 
-#: src/gnome-cmd-user-actions.cc:258
+#: src/gnome-cmd-user-actions.cc:259
 msgid "Close duplicate tabs"
 msgstr "Itxi bikoiztutako fitxak"
 
-#: src/gnome-cmd-user-actions.cc:259
+#: src/gnome-cmd-user-actions.cc:260
 msgid "Change directory"
 msgstr "Aldatu direktorioa"
 
-#: src/gnome-cmd-user-actions.cc:260
+#: src/gnome-cmd-user-actions.cc:261
 msgid "Show directory history"
 msgstr "Erakutsi direktorioaren historia"
 
-#: src/gnome-cmd-user-actions.cc:261
+#: src/gnome-cmd-user-actions.cc:262
 msgid "Equal panel size"
 msgstr "Berdindu panel-tamaina"
 
-#: src/gnome-cmd-user-actions.cc:262
+#: src/gnome-cmd-user-actions.cc:263
 msgid "Maximize panel size"
 msgstr "Maximizatu panelaren tamaina"
 
-#: src/gnome-cmd-user-actions.cc:263
+#: src/gnome-cmd-user-actions.cc:264
 msgid "Back to the first directory"
 msgstr "Itzuli aurreneko direktoriora"
 
-#: src/gnome-cmd-user-actions.cc:264
+#: src/gnome-cmd-user-actions.cc:265
 msgid "Forward one directory"
 msgstr "Joan hurrengo direktoriora"
 
-#: src/gnome-cmd-user-actions.cc:265
+#: src/gnome-cmd-user-actions.cc:266
 msgid "Home directory"
 msgstr "Karpeta nagusia"
 
-#: src/gnome-cmd-user-actions.cc:266
+#: src/gnome-cmd-user-actions.cc:267
 msgid "Open directory in the active window"
 msgstr "Ireki direktorioa leiho aktiboan"
 
-#: src/gnome-cmd-user-actions.cc:267
+#: src/gnome-cmd-user-actions.cc:268
 msgid "Open directory in the inactive window"
 msgstr "Ireki direktorioa leiho inaktiboan"
 
-#: src/gnome-cmd-user-actions.cc:268
+#: src/gnome-cmd-user-actions.cc:269
 msgid "Open directory in the left window"
 msgstr "Ireki direktorioa ezkerreko leihoan"
 
-#: src/gnome-cmd-user-actions.cc:269
+#: src/gnome-cmd-user-actions.cc:270
 msgid "Open directory in the right window"
 msgstr "Ireki direktorioa eskuineko leihoan"
 
-#: src/gnome-cmd-user-actions.cc:270
+#: src/gnome-cmd-user-actions.cc:271
 msgid "Open directory in the new tab"
 msgstr "Ireki direktorioa fitxa berrian"
 
-#: src/gnome-cmd-user-actions.cc:271
+#: src/gnome-cmd-user-actions.cc:272
 msgid "Open directory in the new tab (inactive window)"
 msgstr "Ireki direktorioa fitxa berrian (leiho inaktiboa)"
 
-#: src/gnome-cmd-user-actions.cc:272
+#: src/gnome-cmd-user-actions.cc:273
 msgid "Forward to the last directory"
 msgstr "Joan azkenengo direktoriora"
 
-#: src/gnome-cmd-user-actions.cc:273
+#: src/gnome-cmd-user-actions.cc:274
 msgid "Next tab"
 msgstr "Hurrengo fitxa"
 
-#: src/gnome-cmd-user-actions.cc:274
+#: src/gnome-cmd-user-actions.cc:275
 msgid "Open directory in a new tab"
 msgstr "Ireki direktorioa fitxa berri batean"
 
-#: src/gnome-cmd-user-actions.cc:275
+#: src/gnome-cmd-user-actions.cc:276
 msgid "Previous tab"
 msgstr "Aurreko fitxa"
 
-#: src/gnome-cmd-user-actions.cc:277
+#: src/gnome-cmd-user-actions.cc:278
 msgid "Root directory"
 msgstr "Erroko direktorioa"
 
-#: src/gnome-cmd-user-actions.cc:278
+#: src/gnome-cmd-user-actions.cc:279
 msgid "Lock/unlock tab"
 msgstr "Blokeatu/Desblokeatu fitxa"
 
-#: src/gnome-cmd-user-actions.cc:280
+#: src/gnome-cmd-user-actions.cc:281
 msgid "Show terminal"
 msgstr "Erakutsi terminala"
 
-#: src/gnome-cmd-user-actions.cc:283
+#: src/gnome-cmd-user-actions.cc:284
 msgid "Display main menu"
 msgstr "Bistaratu menu nagusia"
 
-#: src/gnome-cmd-user-actions.cc:284
+#: src/gnome-cmd-user-actions.cc:285
 msgid "Move cursor one step up"
 msgstr "Mugitu kurtsorea urrats bat gora"
 
-#: src/gnome-cmd-user-actions.cc:285
+#: src/gnome-cmd-user-actions.cc:286
 msgid "Move cursor one step down"
 msgstr "Mugitu kurtsorea urrats bat behera"
 
-#: src/gnome-cmd-user-actions.cc:736 src/gnome-cmd-user-actions.cc:875
-#: src/gnome-cmd-user-actions.cc:1151
+#: src/gnome-cmd-user-actions.cc:746 src/gnome-cmd-user-actions.cc:921
+#: src/gnome-cmd-user-actions.cc:1182 src/utils.cc:136
 msgid "No valid command given."
 msgstr "Ez da baliozko komandorik eman."
 
-#: src/gnome-cmd-user-actions.cc:749 src/gnome-cmd-user-actions.cc:891
-#: src/gnome-cmd-user-actions.cc:1164 src/gnome-cmd-user-actions.cc:1203
-#: src/utils.cc:131
+#: src/gnome-cmd-user-actions.cc:759 src/gnome-cmd-user-actions.cc:796
+#: src/gnome-cmd-user-actions.cc:937 src/gnome-cmd-user-actions.cc:1195
+#: src/gnome-cmd-user-actions.cc:1234 src/utils.cc:143
 msgid "Unable to execute command."
 msgstr "Ezin da komandoa exekutatu."
 
-#: src/gnome-cmd-user-actions.cc:814
+#: src/gnome-cmd-user-actions.cc:781
+msgid "No search command given."
+msgstr "Ez da bilaketa-komandorik eman."
+
+#: src/gnome-cmd-user-actions.cc:781
+msgid "You can set a command for a search tool in the program options."
+msgstr "Bilaketa-tresna baten komandoa ezarri daiteke programaren aukeretan."
+
+#: src/gnome-cmd-user-actions.cc:860
 #, c-format
 msgid "Create symbolic links of %i file in %s?"
 msgid_plural "Create symbolic links of %i files in %s?"
 msgstr[0] "Sortu %i fitxategiaren esteka sinbolikoa %s(e)n?"
 msgstr[1] "Sortu %i fitxategien esteka sinbolikoak %s(e)n?"
 
-#: src/gnome-cmd-user-actions.cc:819
+#: src/gnome-cmd-user-actions.cc:865
 msgid "Create"
 msgstr "Sorrera"
 
-#: src/gnome-cmd-user-actions.cc:907
+#: src/gnome-cmd-user-actions.cc:953
 msgid "Warning"
 msgstr "Abisua"
 
-#: src/gnome-cmd-user-actions.cc:907
+#: src/gnome-cmd-user-actions.cc:953
 msgid ""
 "The default send-to command only supports one selected file at a time. You "
 "can change the command in the program options."
 msgstr "send-to komando lehenetsiak hautatutako fitxategi bakar bat onartzen du ekintza bakoitzean. Programaren aukeretan komando hori aldatu daiteke."
 
-#: src/gnome-cmd-user-actions.cc:924 src/gnome-cmd-user-actions.cc:941
-#: src/gnome-cmd-user-actions.cc:987
+#: src/gnome-cmd-user-actions.cc:970 src/gnome-cmd-user-actions.cc:987
+#: src/gnome-cmd-user-actions.cc:1033
 msgid "Operation not supported on remote file systems"
 msgstr "Eragiketa ez dago onartuta urruneko fitxategi-sistemetan"
 
-#: src/gnome-cmd-user-actions.cc:956
+#: src/gnome-cmd-user-actions.cc:1002
 msgid "Too many selected files"
 msgstr "Hautatutako fitxategi gehiegi"
 
-#: src/gnome-cmd-user-actions.cc:1236
+#: src/gnome-cmd-user-actions.cc:1267
 msgid "Unable to open terminal in root mode."
 msgstr "Ezin da terminala 'root' moduan ireki."
 
-#: src/gnome-cmd-user-actions.cc:1241
+#: src/gnome-cmd-user-actions.cc:1272
 msgid "gksudo, xdg-su, gksu, gnomesu, kdesu or beesu is not found."
 msgstr "gksudo, xdg-su, gksu, gnomesu, kdesu edo beesu ez da aurkitu."
 
-#: src/gnome-cmd-user-actions.cc:1260
+#: src/gnome-cmd-user-actions.cc:1291
 msgid "Unable to start GNOME Commander in root mode."
 msgstr "Ezin da GNOME Commander root moduan abiarazi."
 
-#: src/gnome-cmd-user-actions.cc:1263
+#: src/gnome-cmd-user-actions.cc:1294
 msgid "gksudo, xdg-su, gksu, gnomesu, kdesu or beesu is not found"
 msgstr "gksudo, xdg-su, gksu, gnomesu, kdesu edo beesu ez da aurkitu"
 
-#: src/gnome-cmd-user-actions.cc:1875
+#: src/gnome-cmd-user-actions.cc:1921
 msgid "Bookmarks"
 msgstr "Laster-markak"
 
-#: src/gnome-cmd-user-actions.cc:1962
+#: src/gnome-cmd-user-actions.cc:2008
 msgid "There was an error opening home page."
 msgstr "Errorea gertatu da gune nagusia irekitzean."
 
-#: src/gnome-cmd-user-actions.cc:1971
+#: src/gnome-cmd-user-actions.cc:2017
 msgid "There was an error reporting problem."
 msgstr "Errorea gertatu da arazoari buruz berri ematean."
 
-#: src/gnome-cmd-user-actions.cc:1997
+#: src/gnome-cmd-user-actions.cc:2043
 msgid "A fast and powerful file manager for the GNOME desktop"
 msgstr "GNOME mahaigainerako fitxategi-kudeatzaile azkarra eta eraginkorra"
 
-#: src/gnome-cmd-user-actions.cc:2001
+#: src/gnome-cmd-user-actions.cc:2047
 msgid ""
 "GNOME Commander is free software; you can redistribute it and/or modify it "
 "under the terms of the GNU General Public License as published by the Free "
@@ -4365,7 +4386,7 @@ msgid ""
 "any later version."
 msgstr "GNOME Commander software librea da; birbana eta/edo alda dezakezu Software Foundation-ek argitaratutako GNU Lizentzia Publiko Orokorraren 2. bertsioan, edo (nahiago baduzu) beste berriago batean, jasotako baldintzak betez gero."
 
-#: src/gnome-cmd-user-actions.cc:2005
+#: src/gnome-cmd-user-actions.cc:2051
 msgid ""
 "GNOME Commander is distributed in the hope that it will be useful, but "
 "WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY "
@@ -4373,18 +4394,39 @@ msgid ""
 "more details."
 msgstr "GNOME Commander erabilgarria izango delakoan banatzen da, baina, INOLAKO BERMERIK GABE; era berean, ez da bermatzen beraren EGOKITASUNA MERKATURATZEKO edo HELBURU PARTIKULARRETARAKO ERABILTZEKO. Argibide gehiago nahi izanez gero, ikus GNU Lizentzia Publiko Orokorra."
 
-#: src/gnome-cmd-user-actions.cc:2009
+#: src/gnome-cmd-user-actions.cc:2055
 msgid ""
 "You should have received a copy of the GNU General Public License along with "
 "GNOME Commander; if not, write to the Free Software Foundation, Inc., 51 "
 "Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA."
 msgstr "GNOME Commander programarekin batera GNU Lizentzia Publiko Orokorraren kopia bat jasoko zenuen; hala ez bada, idatzi hona: Free SoftwareFoundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA."
 
-#: src/gnome-cmd-user-actions.cc:2026
+#: src/gnome-cmd-user-actions.cc:2072
 msgid "translator-credits"
 msgstr "Asier Sarasua Garmendia <asier.sarasua@gmail.com>"
 
-#: src/gnome-cmd-xfer.cc:201
+#: src/gnome-cmd-xfer.cc:119 src/gnome-cmd-xfer.cc:1097
+#: src/gnome-cmd-xfer.cc:1108 src/gnome-cmd-xfer.cc:1130
+msgid "Transfer problem"
+msgstr "Transferentzia-arazoa"
+
+#: src/gnome-cmd-xfer.cc:146 src/gnome-cmd-xfer.cc:149
+#: src/gnome-cmd-xfer.cc:204 src/gnome-cmd-xfer.cc:207
+msgid "Copy problem"
+msgstr "Arazoa kopiatzean"
+
+#: src/gnome-cmd-xfer.cc:147 src/gnome-cmd-xfer.cc:150
+msgid "Copy into"
+msgstr "Kopiatu hemen:"
+
+#: src/gnome-cmd-xfer.cc:147 src/gnome-cmd-xfer.cc:205
+#: src/gnome-cmd-xfer.cc:323
+msgid "Rename all"
+msgstr "Aldatu denen izenak"
+
+#. ToDo: Adjust wording dynamically, see also below at run_move_overwrite_dialog
+#. ToDo: Adjust wording dynamically, see also above at run_file_copy_overwrite_dialog
+#: src/gnome-cmd-xfer.cc:190 src/gnome-cmd-xfer.cc:311
 #, c-format
 msgid ""
 "Overwrite file:\n"
@@ -4406,52 +4448,98 @@ msgstr "Gainidatzi fitxategia:\n"
 "<b>%s</b>\n"
 "<span color='dimgray' size='smaller'>%s</span>"
 
-#: src/gnome-cmd-xfer.cc:211
+#: src/gnome-cmd-xfer.cc:205 src/gnome-cmd-xfer.cc:208
+#: src/gnome-cmd-xfer.cc:323 src/gnome-cmd-xfer.cc:326
 msgid "Replace"
 msgstr "Ordeztu"
 
-#: src/gnome-cmd-xfer.cc:211
-msgid "Replace All"
+#: src/gnome-cmd-xfer.cc:205 src/gnome-cmd-xfer.cc:323
+msgid "Replace all"
 msgstr "Ordeztu denak"
 
-#: src/gnome-cmd-xfer.cc:226
+#: src/gnome-cmd-xfer.cc:246 src/gnome-cmd-xfer.cc:364
+#: src/gnome-cmd-xfer.cc:500
 #, c-format
 msgid ""
-"Error while copying to %s\n"
+"Error while transferring “%s”\n"
 "\n"
 "%s"
-msgstr "Errorea %s(e)n kopiatzean\n"
+msgstr "Errorea “%s” transferitzean\n"
 "\n"
 "%s"
 
-#: src/gnome-cmd-xfer.cc:229
-msgid "Transfer problem"
-msgstr "Transferentzia-arazoa"
+#: src/gnome-cmd-xfer.cc:322 src/gnome-cmd-xfer.cc:325
+msgid "Move problem"
+msgstr "Arazoa lekuz aldatzean"
 
-#: src/gnome-cmd-xfer.cc:268
+#: src/gnome-cmd-xfer.cc:460
 msgid "copying…"
 msgstr "kopiatzen…"
 
-#: src/gnome-cmd-xfer.cc:276
+#: src/gnome-cmd-xfer.cc:464
 #, c-format
 msgid "[file %ld of %ld] “%s”"
 msgstr "[%ld / %ld fitxategi] “%s”"
 
-#: src/gnome-cmd-xfer.cc:427
+#: src/gnome-cmd-xfer.cc:648
 msgid "Copying a directory into itself is a bad idea."
 msgstr "Direktorio bat ezin da kopiatu bere buruaren gainean."
 
-#: src/gnome-cmd-xfer.cc:427
+#: src/gnome-cmd-xfer.cc:648 src/gnome-cmd-xfer.cc:728
+#: src/gnome-cmd-xfer.cc:809
 msgid "The whole operation was cancelled."
 msgstr "Eragiketa osoa bertan behera utzi da."
 
-#: src/gnome-cmd-xfer.cc:468
+#: src/gnome-cmd-xfer.cc:695 src/gnome-cmd-xfer.cc:775
 msgid "preparing…"
 msgstr "prestatzen…"
 
-#: src/gnome-cmd-xfer.cc:547
+#: src/gnome-cmd-xfer.cc:728 src/gnome-cmd-xfer.cc:809
+msgid "Moving a directory into itself is a bad idea."
+msgstr "Direktorio bat bere baitara eramatea ideia txarra da."
+
+#: src/gnome-cmd-xfer.cc:876
 msgid "downloading to /tmp"
 msgstr "hona deskargatzen: /tmp"
+
+#: src/gnome-cmd-xfer.cc:925
+#, c-format
+msgid ""
+"Error while creating symlink “%s”\n"
+"\n"
+"%s"
+msgstr "Errorea “%s” esteka sinbolikoa sortzean\n"
+"\n"
+"%s"
+
+#: src/gnome-cmd-xfer.cc:930
+msgid "Symlink creation problem"
+msgstr "Arazoa esteka sinbolikoa sortzean"
+
+#: src/gnome-cmd-xfer.cc:931
+msgid "Ignore"
+msgstr "Ez ikusi egin"
+
+#. Translators: Translate 'Copy' as a noun here
+#: src/gnome-cmd-xfer.cc:1032
+msgctxt "Filename suffix"
+msgid "Copy"
+msgstr "Kopiatu"
+
+#: src/gnome-cmd-xfer.cc:1096 src/gnome-cmd-xfer.cc:1107
+#, c-format
+msgid ""
+"Source “%s” could not be deleted. Aborting!\n"
+"\n"
+"%s"
+msgstr "“%s” iturburua ezin da ezabatu. Abortatzen!\n"
+"\n"
+"%s"
+
+#: src/gnome-cmd-xfer.cc:1129
+#, c-format
+msgid "Source “%s” could not be copied. Aborting!"
+msgstr "“%s” iturburua ezin da kopiatu. Abortatzen!"
 
 #: src/gnome-cmd-xfer-progress-win.cc:42
 msgid "stopping…"
@@ -4758,27 +4846,27 @@ msgstr "Zehaztu direktorioa konfigurazioko fitxategientzako"
 msgid "File Manager"
 msgstr "Fitxategi-kudeatzailea"
 
-#: src/plugin_manager.cc:349
+#: src/plugin_manager.cc:321
 msgid "Disable"
 msgstr "Desgaitu"
 
-#: src/plugin_manager.cc:349
+#: src/plugin_manager.cc:321
 msgid "Enable"
 msgstr "Gaitu"
 
-#: src/plugin_manager.cc:411
+#: src/plugin_manager.cc:383
 msgid "Available plugins"
 msgstr "Erabilgarri dauden pluginak"
 
-#: src/plugin_manager.cc:418
+#: src/plugin_manager.cc:390
 msgid "Version"
 msgstr "Bertsioa"
 
-#: src/plugin_manager.cc:424
+#: src/plugin_manager.cc:396
 msgid "_Enable"
 msgstr "_Gaitu"
 
-#: src/plugin_manager.cc:428
+#: src/plugin_manager.cc:400
 msgid "_Configure"
 msgstr "_Konfiguratu"
 
@@ -8405,51 +8493,171 @@ msgstr "Bat ere ez"
 msgid "10-15ms"
 msgstr "10-15ms"
 
-#: src/utils.cc:488
+#: src/utils.cc:494
 #, c-format
 msgid "(%sbyte)"
 msgid_plural "(%sbytes)"
 msgstr[0] "(byte %s)"
 msgstr[1] "(%s byte)"
 
-#: src/utils.cc:491
+#: src/utils.cc:497
 #, c-format
 msgid "%sbyte"
 msgid_plural "%sbytes"
 msgstr[0] "byte %s"
 msgstr[1] "%s byte"
 
-#: src/utils.cc:680
+#: src/utils.cc:686
 msgid "Failed to change working directory to a temporary directory."
 msgstr "Huts egin du laneko direktoriotik aldi baterako direktorio batera aldatzeak."
 
-#: src/utils.cc:690
+#: src/utils.cc:696
 msgid "Failed to create a directory in which to store temporary files."
 msgstr "Huts egin du aldi baterako fitxategiak gordetzeko direktorioa sortzeak."
 
-#: src/utils.cc:816
-#, c-format
-msgid "Couldn’t read from the directory %s: %s"
-msgstr "Ezin izan da irakurri %s direktoriotik: %s"
-
-#: src/utils.cc:840
+#: src/utils.cc:824
 #, c-format
 msgid "Creating directory %s… "
 msgstr "%s direktorioa sortzen… "
 
-#: src/utils.cc:847
+#: src/utils.cc:835
 #, c-format
-msgid "Failed to create the directory %s"
-msgstr "Huts egin du %s fitxategia sortzeak"
+msgid "Failed to create the directory %s: %s"
+msgstr "Huts egin du%s direktorioa sortzeak: %s"
 
-#: src/utils.cc:993
+#: src/utils.cc:939
 msgid "There was an error displaying help."
 msgstr "Errorea gertatu da laguntza bistaratzean."
 
-#: src/utils.cc:1122
-#, c-format
-msgid "Couldn’t move path from “%s” to “%s”: %s"
-msgstr "Ezin da bidea lekuz aldatu “%s” kokalekutik “%s” kokalekura: %s"
+#~ msgid "Save search history on exit"
+#~ msgstr "Gorde bilaketen historia irtetean"
+
+#~ msgid "Defines if the history of search patterns is saved on exit."
+#~ msgstr "Irtetean, bilaketen historia gordeko den ala ez definitzen du."
+
+#~ msgid "Skip device mounting"
+#~ msgstr "Saltatu gailuen muntatzea"
+
+#~ msgid ""
+#~ "This option defines if mounting of devices should be skipped when they "
+#~ "are opened."
+#~ msgstr ""
+#~ "Aukera honek definitzen du gailuen muntaketa saltatu behar den ala ez "
+#~ "haiek irekitzen direnean."
+
+#~ msgid "Search window width"
+#~ msgstr "Bilaketa-leihoaren zabalera"
+
+#~ msgid "This option defines the width of the search window."
+#~ msgstr "Aukera honek bilaketa-leihoaren zabalera definitzen du."
+
+#~ msgid "Search window height"
+#~ msgstr "Bilaketa-leihoaren altuera"
+
+#~ msgid "This option defines the height of the search window."
+#~ msgstr "Aukera honek bilaketa-leihoaren altuera definitzen du."
+
+#~ msgid "Search window is transient"
+#~ msgstr "Bilaketa-leihoa behin-behinekoa da"
+
+#~ msgid ""
+#~ "Defines if the search window is transient or if it can be minimized and "
+#~ "moved behind the main window."
+#~ msgstr ""
+#~ "Bilaketa-leihoa behin-behinekoa den ala hura minimizatu eta leiho "
+#~ "nagusiaren atzera mugitu ahal den definitzen du."
+
+#~ msgid "Search text history"
+#~ msgstr "Bilaketa-testuaren historia"
+
+#~ msgid ""
+#~ "This string array represents the history of text searches in the search "
+#~ "tool."
+#~ msgstr ""
+#~ "Kate-matrize honek bilaketa-tresnak erabilitako bilaketa-testuen historia "
+#~ "ordezkatzen du."
+
+#~ msgid "S_hare:"
+#~ msgstr "_Partekatu:"
+
+#~ msgid "_User name:"
+#~ msgstr "_Erabiltzaile-izena:"
+
+#~ msgid "Search Window"
+#~ msgstr "Bilaketa-leihoa"
+
+#~ msgid "Search history"
+#~ msgstr "Garbitu historia"
+
+#~ msgid "Copy overwrite"
+#~ msgstr "Kopiatu gainidatziz"
+
+#~ msgid "Silently"
+#~ msgstr "Modu isilean"
+
+#~ msgid "Move overwrite"
+#~ msgstr "Aldatu lekuz gainidatziz"
+
+#~ msgid "Skip mounting (useful when using super-mount)"
+#~ msgstr "Saltatu muntatzea (erosoa 'super-mount'ekin)"
+
+#~ msgid "Skip All"
+#~ msgstr "Saltatu guztiak"
+
+#~ msgid "Anonymous FTP password:"
+#~ msgstr "FTP anonimoaren pasahitza:"
+
+#~ msgid "Search local directories only"
+#~ msgstr "Bilatu lokaleko direktorioak soilik"
+
+#~ msgid "Files _not containing text"
+#~ msgstr "Testurik _ez duten fitxategiak"
+
+#~ msgid "Failed to read file %s: %s"
+#~ msgstr "Huts egin du %s fitxategia irakurtzean: %s"
+
+#~ msgid "Searching in: %s"
+#~ msgstr "Hemen bilatzen: %s"
+
+#~ msgid "Found %d match — search aborted"
+#~ msgid_plural "Found %d matches — search aborted"
+#~ msgstr[0] "Bat etortze %d aurkitu da - bilaketa abortatuta"
+#~ msgstr[1] "%d bat etortze aurkitu dira - bilaketa abortatuta"
+
+#~ msgid "Found %d match"
+#~ msgid_plural "Found %d matches"
+#~ msgstr[0] "Bat etortze %d aurkitu da"
+#~ msgstr[1] "%d bat etortze aurkitu dira"
+
+#~ msgid "Failed to set process group id of child %d: %s.\n"
+#~ msgstr "Huts egin du %d umearen prozesu-taldearen IDa ezartzean: %s\n"
+
+#~ msgid "Error parsing the search command."
+#~ msgstr "Errorea bilaketaren komandoa analizatzean."
+
+#~ msgid "Error running the search command."
+#~ msgstr "Errorea bilaketaren komandoa exekutatzean."
+
+#~ msgid "Failed to change directory outside of %s"
+#~ msgstr "Huts egin du direktorioa %s(e)tik kanpora aldatzean"
+
+#~ msgid "Search…"
+#~ msgstr "Bilatu…"
+
+#~ msgid "Select Directory"
+#~ msgstr "Hautatu direktorioa"
+
+#~ msgid "_Look in folder:"
+#~ msgstr "_Bilatu karpetan:"
+
+#~ msgid "Device is now safe to remove"
+#~ msgstr "Gailua orain deskonektatu daiteke"
+
+#~ msgid "Couldn’t read from the directory %s: %s"
+#~ msgstr "Ezin izan da irakurri %s direktoriotik: %s"
+
+#~ msgid "Couldn’t move path from “%s” to “%s”: %s"
+#~ msgstr "Ezin da bidea lekuz aldatu “%s” kokalekutik “%s” kokalekura: %s"
 
 #~ msgid "Hide FIFO pipes"
 #~ msgstr "Ezkutatu FIFO kanalizazioak"
