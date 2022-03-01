@@ -59,23 +59,16 @@
   </suggests>
 
   <releases>
-    <release type="stable" version="1.14.1" date="2022-??-??">
+    <release type="stable" version="1.14.1" date="2022-03-01">
       <description>
-        <p>
-          This release includes the following features:
-        </p>
-        <ul>
-          <li>...</li>
-        </ul>
         <p>This release fixes the following bugs:</p>
         <ul>
           <li>Issue #30: Store URI for tab instead of storing absolute path</li>
           <li>Issue #119: New Text File not created in current directory</li>
           <li>Issue #120: File list panel shows GMT time not local time</li>
         </ul>
-        <p>List of developers: ...</p>
-        <p>New or updated translations: ...</p>
-        <p>New or updated docs: ...</p>
+        <p>New or updated translations: eu (Asier Sarasua Garmendia), ro (Daniel Șerbănescu), sr (Мирослав Николић)</p>
+        <p>New or updated docs: sv (Anders Jonsson)</p>
       </description>
     </release>
     <release type="stable" version="1.14.0" date="2022-02-05">
