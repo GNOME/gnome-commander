@@ -1446,7 +1446,8 @@ gnome_cmd_copy_gfile_recursive (GFile *srcGFile,
                     xferData->problem_action = COPY_ERROR_ACTION_NO_ACTION_YET;
                     break;
                 case COPY_ERROR_ACTION_REPLACE_ALL:
-                    gnome_cmd_copy_gfile_recursive(srcGFile, destGFile, G_FILE_COPY_OVERWRITE, xferData);
+                    if (copyFlags != G_FILE_COPY_OVERWRITE)
+                        gnome_cmd_copy_gfile_recursive(srcGFile, destGFile, G_FILE_COPY_OVERWRITE, xferData);
                     break;
                 case COPY_ERROR_ACTION_SKIP_ALL:
                     return true;
