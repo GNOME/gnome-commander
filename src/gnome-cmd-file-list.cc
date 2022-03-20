@@ -1012,6 +1012,22 @@ static gint sort_by_size (GnomeCmdFile *f1, GnomeCmdFile *f2, GnomeCmdFileList *
     gboolean raising = fl->priv->sort_raising[fl->priv->current_col];
     gboolean file_raising = fl->priv->sort_raising[1];
 
+    // Check if both items are directories. In this case, just compare their names.
+    if ((f1->GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE) == G_FILE_TYPE_DIRECTORY)
+        && (f2->GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE) == G_FILE_TYPE_DIRECTORY))
+    {
+        return my_strcmp (f1->get_collation_fname(), f2->get_collation_fname(), file_raising);
+    }
+    // If just one item is a directory, return a fixed value.
+    if (f1->GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE) == G_FILE_TYPE_DIRECTORY)
+    {
+        return -1;
+    }
+    if (f2->GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE) == G_FILE_TYPE_DIRECTORY)
+    {
+        return 1;
+    }
+
     gint ret = my_intcmp (f1->GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE),
                           f2->GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE), TRUE);
 
