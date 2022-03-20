@@ -63,7 +63,7 @@
       <description>
         <p>This release fixes the following bugs:</p>
         <ul>
-          <li>...</li>
+          <li>Issue #121: File sorting by size fails</li>
         </ul>
         <p>New or updated translations: ...</p>
         <p>New or updated docs: ...</p>

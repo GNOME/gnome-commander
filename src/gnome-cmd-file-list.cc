@@ -1033,8 +1033,9 @@ static gint sort_by_size (GnomeCmdFile *f1, GnomeCmdFile *f2, GnomeCmdFileList *
 
     if (!ret)
     {
-        ret = my_filesizecmp (f1->GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_SIZE),
-                              f2->GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_SIZE), raising);
+        ret = my_filesizecmp (f1->GetGfileAttributeUInt64(G_FILE_ATTRIBUTE_STANDARD_SIZE),
+                              f2->GetGfileAttributeUInt64(G_FILE_ATTRIBUTE_STANDARD_SIZE), raising);
+
         if (!ret)
             ret = my_strcmp (f1->get_collation_fname(), f2->get_collation_fname(), file_raising);
     }
