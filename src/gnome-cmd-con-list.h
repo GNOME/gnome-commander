@@ -115,3 +115,5 @@ inline GList *get_remote_cons ()
 {
     return gnome_cmd_con_list_get_all_remote (gnome_cmd_con_list_get ());
 }
+
+GnomeCmdCon *get_remote_con_for_gfile(GFile *gFile);

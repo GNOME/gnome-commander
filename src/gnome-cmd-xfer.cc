@@ -1111,8 +1111,30 @@ gnome_cmd_move_gfile_recursive (GFile *srcGFile,
                     g_object_unref(gFileInfo);
                     return false;
                 }
-                auto gFileParentPath = g_file_get_path(srcGFileParent);
-                auto gnomeCmdDirParent = gnome_cmd_dir_new (get_home_con(), new GnomeCmdPlainPath(gFileParentPath));
+
+                GnomeCmdDir *gnomeCmdDirParent = nullptr;
+                GnomeCmdCon *gnomeCmdCon = nullptr;
+                auto srcUriSchema = g_file_get_uri_scheme(srcGFileParent);
+                if (strcmp(srcUriSchema, "file") && (strcmp(srcUriSchema, "smb")))
+                {
+                    gnomeCmdCon = get_remote_con_for_gfile(srcGFileParent);
+                    if (gnomeCmdCon)
+                    {
+                        auto gFileParentUri = g_file_get_uri(srcGFileParent);
+                        auto gUriParent = g_uri_parse(gFileParentUri, G_URI_FLAGS_NONE, nullptr);
+                        auto gFileParentPathFromUri = g_uri_get_path(gUriParent);
+                        gnomeCmdDirParent = gnome_cmd_dir_new (gnomeCmdCon, new GnomeCmdPlainPath(gFileParentPathFromUri));
+                        g_free(gFileParentUri);
+                    }
+                }
+                else if (strcmp(srcUriSchema, "file"))
+                {
+                    auto gFileParentPath = g_file_get_path(srcGFileParent);
+                    gnomeCmdCon = get_home_con();
+                    gnomeCmdDirParent = gnome_cmd_dir_new (gnomeCmdCon, new GnomeCmdPlainPath(gFileParentPath));
+                    g_free(gFileParentPath);
+                }
+
                 auto gnomeCmdDir = gnome_cmd_dir_new_from_gfileinfo(gFileInfo, gnomeCmdDirParent);
 
                 auto deleteData = g_new0 (DeleteData, 1);
@@ -1120,8 +1142,8 @@ gnome_cmd_move_gfile_recursive (GFile *srcGFile,
                 deleteData->originAction = DeleteData::OriginAction::MOVE;
                 do_delete (deleteData, false); // false -> do not show progress window
 
-                g_free(gFileParentPath);
                 g_object_unref(srcGFileParent);
+                g_free(srcUriSchema);
             }
             else
             {
