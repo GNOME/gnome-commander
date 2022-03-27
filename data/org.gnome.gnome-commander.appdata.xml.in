@@ -59,11 +59,12 @@
   </suggests>
 
   <releases>
-    <release type="stable" version="1.14.2" date="2022-??-??">
+    <release type="stable" version="1.14.2" date="2022-03-27">
       <description>
         <p>This release fixes the following bugs:</p>
         <ul>
           <li>Issue #121: File sorting by size fails</li>
+          <li>Fix issue when recursively copying directories</li>
           <li>Fix issue when moving directory from a remote connection</li>
         </ul>
         <p>New or updated translations: cs (Marek Černocký), es (Daniel Mustieles), hu (Balázs Úr), id (Andika Triwidada)</p>
