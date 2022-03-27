@@ -2,8 +2,8 @@
 <!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd" [
   <!ENTITY author "Uwe Scholz">
   <!ENTITY legal SYSTEM "legal.xml">
-  <!ENTITY appversion "1.14.2">
-  <!ENTITY manrevision "1.14.2">
+  <!ENTITY appversion "1.14.3">
+  <!ENTITY manrevision "1.14.3">
   <!ENTITY date "??? 2022">
   <!ENTITY app "GNOME Commander">
 ]>
@@ -568,6 +568,15 @@
       </revision>
       <revision>
         <revnumber>GNOME Commander Manual V1.14.2;</revnumber>
+        <date>2022-03-27</date>
+        <revdescription>
+          <para role="author">Uwe Scholz
+                <email>u.scholz83@gmx.de</email></para>
+          <para role="publisher">GNOME Documentation Project</para>
+        </revdescription>
+      </revision>
+      <revision>
+        <revnumber>GNOME Commander Manual V1.14.3;</revnumber>
         <date>2022-??-??</date>
         <revdescription>
           <para role="author">Uwe Scholz
