@@ -3,8 +3,6 @@
 
 EAPI=8
 
-GNOME2_LA_PUNT="yes"
-
 inherit gnome2 optfeature
 
 DESCRIPTION="A graphical, full featured, twin-panel file manager"
