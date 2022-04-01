@@ -2133,11 +2133,11 @@ msgstr "Nebyl zadán název souboru"
 #: src/dialogs/gnome-cmd-prepare-copy-dialog.cc:155
 #, c-format
 msgid "Copy “%s” to"
-msgstr "Kopírovat „%s“ do"
+msgstr "Zkopírovat „%s“ do"
 
 #: src/dialogs/gnome-cmd-make-copy-dialog.cc:144
 msgid "Copy File"
-msgstr "Kopírovat soubor"
+msgstr "Zkopírovat soubor"
 
 #: src/dialogs/gnome-cmd-manage-bookmarks-dialog.cc:236
 msgid "Group"
@@ -2659,7 +2659,7 @@ msgstr "Potvrzovat operace prováděné myší"
 #: src/gnome-cmd-file-popmenu.cc:723 src/gnome-cmd-main-win.cc:241
 #: src/gnome-cmd-user-actions.cc:209
 msgid "Copy"
-msgstr "Kopírovat"
+msgstr "Zkopírovat"
 
 #: src/dialogs/gnome-cmd-options-dialog.cc:1113
 #: src/dialogs/gnome-cmd-prepare-move-dialog.cc:88
@@ -2939,7 +2939,7 @@ msgstr "Nejdřív se zeptat"
 
 #: src/dialogs/gnome-cmd-prepare-copy-dialog.cc:131
 msgid "Follow Links"
-msgstr "Následovat symbolické odkazy"
+msgstr "Následovat odkazy"
 
 #. Customize prepare xfer widgets
 #: src/dialogs/gnome-cmd-prepare-copy-dialog.cc:140
@@ -2951,9 +2951,9 @@ msgstr "Přepsat soubory"
 #, c-format
 msgid "copy %d file to"
 msgid_plural "copy %d files to"
-msgstr[0] "kopírovat %d soubor do"
-msgstr[1] "kopírovat %d soubory do"
-msgstr[2] "kopírovat %d souborů do"
+msgstr[0] "zkopírovat %d soubor do"
+msgstr[1] "zkopírovat %d soubory do"
+msgstr[2] "zkopírovat %d souborů do"
 
 #: src/dialogs/gnome-cmd-prepare-move-dialog.cc:142
 #, c-format
@@ -3555,7 +3555,7 @@ msgstr "id skupiny (gid)"
 
 #: src/gnome-cmd-file-list.cc:226
 msgid "/_Copy here"
-msgstr "/_Kopírovat sem"
+msgstr "/Z_kopírovat sem"
 
 #: src/gnome-cmd-file-list.cc:227
 msgid "/_Move here"
@@ -3703,7 +3703,7 @@ msgstr "Otevřít _terminál zde"
 
 #: src/gnome-cmd-file-popmenu.cc:730 src/gnome-cmd-user-actions.cc:210
 msgid "Copy file names"
-msgstr "Kopírovat názvy souborů"
+msgstr "Zkopírovat názvy souborů"
 
 #: src/gnome-cmd-file-selector.cc:178
 #, c-format
@@ -3749,7 +3749,7 @@ msgstr "_Aktualizivat karty"
 
 #: src/gnome-cmd-file-selector.cc:664
 msgid "Copy Tab to Other _Pane"
-msgstr "Kopírovat kartu na jiný _panel"
+msgstr "Zkopírovat kartu na jiný _panel"
 
 #: src/gnome-cmd-file-selector.cc:670 src/gnome-cmd-main-menu.cc:352
 msgid "_Close Tab"
@@ -3867,7 +3867,7 @@ msgstr "_Vyjmout"
 
 #: src/gnome-cmd-main-menu.cc:323
 msgid "_Copy"
-msgstr "_Kopírovat"
+msgstr "Z_kopírovat"
 
 #: src/gnome-cmd-main-menu.cc:325
 msgid "_Delete"
@@ -3875,7 +3875,7 @@ msgstr "_Odstranit"
 
 #: src/gnome-cmd-main-menu.cc:326
 msgid "Copy _File Names"
-msgstr "Kopírovat _názvy souborů"
+msgstr "Zkopírovat _názvy souborů"
 
 #: src/gnome-cmd-main-menu.cc:331
 msgid "_Mark"
@@ -4067,7 +4067,7 @@ msgstr "Přejít na nejnovější"
 
 #: src/gnome-cmd-main-win.cc:239
 msgid "Copy file names (SHIFT for full paths, ALT for URIs)"
-msgstr "Kopírovat názvy souborů (SHIFT pro úplné cesty, ALT pro adresy URI)"
+msgstr "Zkopírovat názvy souborů (SHIFT pro úplné cesty, ALT pro adresy URI)"
 
 #: src/gnome-cmd-main-win.cc:242 src/gnome-cmd-user-actions.cc:214
 msgid "Paste"
@@ -4095,7 +4095,7 @@ msgstr "F4 Upravit"
 
 #: src/gnome-cmd-main-win.cc:499
 msgid "F5 Copy"
-msgstr "F5 Kopírovat"
+msgstr "F5 Zkopírovat"
 
 #: src/gnome-cmd-main-win.cc:501
 msgid "F6 Move"
@@ -4233,11 +4233,11 @@ msgstr "Změnit vlastníka/skupinu"
 
 #: src/gnome-cmd-user-actions.cc:220
 msgid "Copy files"
-msgstr "Kopírovat soubory"
+msgstr "Zkopírovat soubory"
 
 #: src/gnome-cmd-user-actions.cc:221
 msgid "Copy files with rename"
-msgstr "Kopírovat a zároveň přejmenovat soubory"
+msgstr "Zkopírovat a zároveň přejmenovat soubory"
 
 #: src/gnome-cmd-user-actions.cc:222
 msgid "Create symbolic link"
@@ -4820,7 +4820,7 @@ msgstr "(přizpůsobeno velikosti okna)"
 
 #: src/intviewer/viewer-widget.cc:260
 msgid "_Copy selection"
-msgstr "_Kopírovat výběr"
+msgstr "Z_kopírovat výběr"
 
 #: src/intviewer/viewer-window.cc:600
 msgid "_Close"
@@ -4852,7 +4852,7 @@ msgstr "Přizpůso_bit oknu"
 
 #: src/intviewer/viewer-window.cc:623
 msgid "_Copy Text Selection"
-msgstr "_Zkopírovat vybraný text"
+msgstr "Z_kopírovat vybraný text"
 
 #: src/intviewer/viewer-window.cc:624
 msgid "Find…"
