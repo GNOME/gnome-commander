@@ -2305,17 +2305,14 @@ void GnomeCmdFileList::focus_file(const gchar *file_to_focus, gboolean scroll_to
         if (row == -1)
             return;
 
-        auto basename = g_file_get_basename(f->gFile);
-        if (basename && strcmp (basename, file_to_focus) == 0)
+        if (strcmp (f->get_name(), file_to_focus) == 0)
         {
-            g_free(basename);
             priv->cur_file = row;
             focus_file_at_row (this, row);
             if (scroll_to_file)
                 gtk_clist_moveto (*this, row, 0, 0, 0);
             return;
         }
-        g_free(basename);
     }
 
     /* The file was not found, remember the filename in case the file gets
