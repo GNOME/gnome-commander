@@ -108,7 +108,6 @@ static void response_callback (GtkDialog *dialog, int response_id, GnomeCmdDir *
                 }
                 else
                 {
-                    auto dir_gFile = gnome_cmd_dir_get_gfile (dir);
                     gboolean new_dir_focused = FALSE;
 
                     // the list of gFiles's to be created
@@ -134,7 +133,7 @@ static void response_callback (GtkDialog *dialog, int response_id, GnomeCmdDir *
 
                         // focus the created directory (if possible)
                         auto parentGFile = g_file_get_parent (mkdir_gFile);
-                        if (g_file_equal (parentGFile, dir_gFile) && !new_dir_focused)
+                        if (g_file_equal (parentGFile, gnome_cmd_dir_get_gfile (dir)) && !new_dir_focused)
                         {
                             string focus_filename = stringify (g_file_get_basename (mkdir_gFile));
                             string mkdir_uri_str = stringify (g_file_get_uri (mkdir_gFile));
@@ -150,7 +149,6 @@ static void response_callback (GtkDialog *dialog, int response_id, GnomeCmdDir *
                         g_object_unref ((GFile *) i->data);
 
                     g_slist_free (gFileList);
-                    g_object_unref (dir_gFile);
                 }
             }
             break;
