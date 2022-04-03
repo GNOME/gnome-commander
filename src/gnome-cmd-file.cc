@@ -446,8 +446,9 @@ gboolean GnomeCmdFile::rename(const gchar *new_name, GError **error)
         return FALSE;
     }
 
-    g_object_unref(this->gFile);
-    this->gFile = newgFile;
+    g_object_unref(GNOME_CMD_FILE_BASE (this)->gFile);
+    GNOME_CMD_FILE_BASE (this)->gFile = newgFile;
+    this->gFile = GNOME_CMD_FILE_BASE (this)->gFile;
 
     auto gFileInfoNew = g_file_query_info(gFile,
                                           "*",
