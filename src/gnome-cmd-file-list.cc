@@ -2291,9 +2291,11 @@ void GnomeCmdFileList::toggle_and_step()
 }
 
 
-void GnomeCmdFileList::focus_file(const gchar *file_to_focus, gboolean scroll_to_file)
+void GnomeCmdFileList::focus_file(const gchar *fileToFocus, gboolean scrollToFile)
 {
-    g_return_if_fail(file_to_focus != nullptr);
+    g_return_if_fail(fileToFocus != nullptr);
+
+    auto fileToFocusNormalized = g_utf8_normalize(fileToFocus, -1, G_NORMALIZE_DEFAULT);
 
     for (auto i = get_visible_files(); i; i = i->next)
     {
@@ -2305,20 +2307,25 @@ void GnomeCmdFileList::focus_file(const gchar *file_to_focus, gboolean scroll_to
         if (row == -1)
             return;
 
-        if (strcmp (f->get_name(), file_to_focus) == 0)
+        auto currentFilename = g_utf8_normalize(f->get_name(), -1, G_NORMALIZE_DEFAULT);
+        if (g_strcmp0 (currentFilename, fileToFocusNormalized) == 0)
         {
             priv->cur_file = row;
             focus_file_at_row (this, row);
-            if (scroll_to_file)
+            if (scrollToFile)
                 gtk_clist_moveto (*this, row, 0, 0, 0);
+            g_free(fileToFocusNormalized);
+            g_free(currentFilename);
             return;
         }
+        g_free(currentFilename);
     }
 
     /* The file was not found, remember the filename in case the file gets
        added to the list in the future (after a FAM event etc). */
     g_free (priv->focus_later);
-    priv->focus_later = g_strdup (file_to_focus);
+    priv->focus_later = g_strdup (fileToFocus);
+    g_free(fileToFocusNormalized);
 }
 
 
@@ -2993,7 +3000,7 @@ void GnomeCmdFileList::goto_directory(const gchar *in_dir)
     g_return_if_fail (in_dir != nullptr);
 
     GnomeCmdDir *new_dir = nullptr;
-    const gchar *focus_dir = nullptr;
+    gchar *focus_dir = nullptr;
     gchar *dir;
 
     if (g_str_has_prefix (in_dir, "~"))
@@ -3014,7 +3021,7 @@ void GnomeCmdFileList::goto_directory(const gchar *in_dir)
             g_free (dir);
             return;
         }
-        focus_dir = GNOME_CMD_FILE (cwd)->get_name();
+        focus_dir = strdup(GNOME_CMD_FILE (cwd)->get_name());
     }
     else
     {
@@ -3039,7 +3046,10 @@ void GnomeCmdFileList::goto_directory(const gchar *in_dir)
 
     // focus the current dir when going back to the parent dir
     if (focus_dir)
+    {
         focus_file(focus_dir, FALSE);
+        g_free(focus_dir);
+    }
 
     g_free (dir);
 }
