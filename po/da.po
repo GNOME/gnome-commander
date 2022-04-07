@@ -18,8 +18,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-commander/issues\n"
-"POT-Creation-Date: 2022-01-16 12:03+0000\n"
-"PO-Revision-Date: 2022-01-20 17:32+0100\n"
+"POT-Creation-Date: 2022-02-05 20:30+0000\n"
+"PO-Revision-Date: 2022-03-21 17:35+0100\n"
 "Last-Translator: Alan Mortensen <alanmortensen.am@gmail.com>\n"
 "Language-Team: Danish <dansk@dansk-gruppen.dk>\n"
 "Language: da\n"
@@ -29,8 +29,8 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 2.3\n"
 
-#: data/org.gnome.gnome-commander.appdata.xml.in:7 data/org.gnome.gnome-commander.desktop.in.in:3
-#: src/gnome-cmd-main-win.cc:854
+#: data/org.gnome.gnome-commander.appdata.xml.in:7
+#: data/org.gnome.gnome-commander.desktop.in.in:3 src/gnome-cmd-main-win.cc:854
 msgid "GNOME Commander"
 msgstr "GNOME Commander"
 
@@ -62,6 +62,10 @@ msgstr ""
 "GNOME Commander er henvendt til viderekomne brugere, som fokuserer på præcis "
 "filhåndtering, parallelarbejde gennem specialiserede programmer, samt brug "
 "af kommandoer."
+
+#: data/org.gnome.gnome-commander.appdata.xml.in:48
+msgid "The GNOME Project"
+msgstr "GNOME-projektet"
 
 #: data/org.gnome.gnome-commander.desktop.in.in:4
 msgid "A two paned file manager"
@@ -1837,7 +1841,7 @@ msgid "Abort"
 msgstr "Afbryd"
 
 #: src/dialogs/gnome-cmd-delete-dialog.cc:287
-#: src/gnome-cmd-file-selector.cc:1404 src/gnome-cmd-xfer.cc:120
+#: src/gnome-cmd-file-selector.cc:1398 src/gnome-cmd-xfer.cc:120
 #: src/gnome-cmd-xfer.cc:147 src/gnome-cmd-xfer.cc:150
 #: src/gnome-cmd-xfer.cc:205 src/gnome-cmd-xfer.cc:208
 #: src/gnome-cmd-xfer.cc:323 src/gnome-cmd-xfer.cc:326
@@ -1850,7 +1854,7 @@ msgstr "Prøv igen"
 #: src/dialogs/gnome-cmd-options-dialog.cc:1089
 #: src/dialogs/gnome-cmd-prepare-copy-dialog.cc:114
 #: src/dialogs/gnome-cmd-prepare-move-dialog.cc:108
-#: src/gnome-cmd-file-selector.cc:1404 src/gnome-cmd-xfer.cc:120
+#: src/gnome-cmd-file-selector.cc:1398 src/gnome-cmd-xfer.cc:120
 #: src/gnome-cmd-xfer.cc:147 src/gnome-cmd-xfer.cc:205
 #: src/gnome-cmd-xfer.cc:323
 msgid "Skip"
@@ -1889,8 +1893,8 @@ msgstr "Slet"
 
 #: src/dialogs/gnome-cmd-delete-dialog.cc:437
 #: src/dialogs/gnome-cmd-delete-dialog.cc:526 src/gnome-cmd-file-list.cc:1312
-#: src/gnome-cmd-file-list.cc:1341 src/gnome-cmd-file-selector.cc:1404
-#: src/gnome-cmd-user-actions.cc:859
+#: src/gnome-cmd-file-list.cc:1341 src/gnome-cmd-file-selector.cc:1398
+#: src/gnome-cmd-user-actions.cc:865
 msgid "Cancel"
 msgstr "Annullér"
 
@@ -1960,7 +1964,7 @@ msgid "Directory name:"
 msgstr "Mappenavn:"
 
 #: src/dialogs/gnome-cmd-file-props-dialog.cc:329
-#: src/gnome-cmd-file-selector.cc:1188
+#: src/gnome-cmd-file-selector.cc:1182
 msgid "File name:"
 msgstr "Filnavn:"
 
@@ -2142,7 +2146,7 @@ msgid "Do nothing"
 msgstr "Gør intet"
 
 #: src/dialogs/gnome-cmd-make-copy-dialog.cc:67
-#: src/gnome-cmd-file-selector.cc:1108
+#: src/gnome-cmd-file-selector.cc:1102
 msgid "No file name entered"
 msgstr "Intet filnavn angivet"
 
@@ -3522,11 +3526,11 @@ msgstr "link til %s"
 msgid "Waiting for file list"
 msgstr "Venter på filliste"
 
-#: src/gnome-cmd-dir-indicator.cc:415
+#: src/gnome-cmd-dir-indicator.cc:544
 msgid "Add current dir"
 msgstr "Tilføj aktuelle mappe"
 
-#: src/gnome-cmd-dir-indicator.cc:416
+#: src/gnome-cmd-dir-indicator.cc:545
 msgid "Manage bookmarks…"
 msgstr "Håndtér bogmærker …"
 
@@ -3656,7 +3660,7 @@ msgstr "Fejl ved mappeoversigt."
 msgid "Failed to open connection."
 msgstr "Kunne ikke åbne forbindelse."
 
-#: src/gnome-cmd-file-list.cc:2482 src/gnome-cmd-file-list.cc:2497
+#: src/gnome-cmd-file-list.cc:2490 src/gnome-cmd-file-list.cc:2505
 msgid "Not an ordinary file."
 msgstr "Ikke en almindelig fil."
 
@@ -3733,71 +3737,71 @@ msgid_plural "%s, %d of %d dirs selected"
 msgstr[0] "%s, %d af %d mappe markeret"
 msgstr[1] "%s, %d af %d mapper markeret"
 
-#: src/gnome-cmd-file-selector.cc:237
+#: src/gnome-cmd-file-selector.cc:231
 #, c-format
 msgid "%s free"
 msgstr "%s fri"
 
-#: src/gnome-cmd-file-selector.cc:634 src/gnome-cmd-file-selector.cc:710
-#: src/gnome-cmd-user-actions.cc:1710 src/gnome-cmd-user-actions.cc:1718
+#: src/gnome-cmd-file-selector.cc:628 src/gnome-cmd-file-selector.cc:704
+#: src/gnome-cmd-user-actions.cc:1716 src/gnome-cmd-user-actions.cc:1724
 msgid "The tab is locked, close anyway?"
 msgstr "Fanebladet er låst - luk alligevel?"
 
-#: src/gnome-cmd-file-selector.cc:653 src/gnome-cmd-main-menu.cc:351
+#: src/gnome-cmd-file-selector.cc:647 src/gnome-cmd-main-menu.cc:351
 msgid "Open in New _Tab"
 msgstr "Åbn i nyt _faneblad"
 
-#: src/gnome-cmd-file-selector.cc:660
+#: src/gnome-cmd-file-selector.cc:654
 msgid "_Unlock Tab"
 msgstr "Lås faneblad _op"
 
-#: src/gnome-cmd-file-selector.cc:660
+#: src/gnome-cmd-file-selector.cc:654
 msgid "_Lock Tab"
 msgstr "_Lås faneblad"
 
-#: src/gnome-cmd-file-selector.cc:665
+#: src/gnome-cmd-file-selector.cc:659
 msgid "_Refresh Tab"
 msgstr "_Opdatér faneblad"
 
-#: src/gnome-cmd-file-selector.cc:670
+#: src/gnome-cmd-file-selector.cc:664
 msgid "Copy Tab to Other _Pane"
 msgstr "Kopiér faneblad til anden _rude"
 
-#: src/gnome-cmd-file-selector.cc:676 src/gnome-cmd-main-menu.cc:352
+#: src/gnome-cmd-file-selector.cc:670 src/gnome-cmd-main-menu.cc:352
 msgid "_Close Tab"
 msgstr "_Luk faneblad"
 
-#: src/gnome-cmd-file-selector.cc:681 src/gnome-cmd-main-menu.cc:353
+#: src/gnome-cmd-file-selector.cc:675 src/gnome-cmd-main-menu.cc:353
 msgid "Close _All Tabs"
 msgstr "Luk _alle faneblade"
 
-#: src/gnome-cmd-file-selector.cc:686
+#: src/gnome-cmd-file-selector.cc:680
 msgid "Close _Duplicate Tabs"
 msgstr "Luk _ens faneblade"
 
-#: src/gnome-cmd-file-selector.cc:1155
+#: src/gnome-cmd-file-selector.cc:1149
 msgid "No file name given"
 msgstr "Intet filnavn givet"
 
-#: src/gnome-cmd-file-selector.cc:1191
+#: src/gnome-cmd-file-selector.cc:1185
 msgid "New Text File"
 msgstr "Ny tekstfil"
 
-#: src/gnome-cmd-file-selector.cc:1340
+#: src/gnome-cmd-file-selector.cc:1334
 msgid "Symbolic link name:"
 msgstr "Navn på symbolsk link:"
 
-#: src/gnome-cmd-file-selector.cc:1351 src/gnome-cmd-file-selector.cc:1404
-#: src/gnome-cmd-user-actions.cc:859
+#: src/gnome-cmd-file-selector.cc:1345 src/gnome-cmd-file-selector.cc:1398
+#: src/gnome-cmd-user-actions.cc:865
 msgid "Create Symbolic Link"
 msgstr "Opret symbolsk link"
 
-#: src/gnome-cmd-file-selector.cc:1404 src/gnome-cmd-xfer.cc:147
+#: src/gnome-cmd-file-selector.cc:1398 src/gnome-cmd-xfer.cc:147
 #: src/gnome-cmd-xfer.cc:205 src/gnome-cmd-xfer.cc:323
 msgid "Skip all"
 msgstr "Spring alle over"
 
-#: src/gnome-cmd-file-selector.cc:1476
+#: src/gnome-cmd-file-selector.cc:1470
 msgid "Filter:"
 msgstr "Filter:"
 
@@ -4466,14 +4470,14 @@ msgstr "Flyt markøren et trin op"
 msgid "Move cursor one step down"
 msgstr "Flyt markøren et trin ned"
 
-#: src/gnome-cmd-user-actions.cc:746 src/gnome-cmd-user-actions.cc:915
-#: src/gnome-cmd-user-actions.cc:1176 src/utils.cc:136
+#: src/gnome-cmd-user-actions.cc:746 src/gnome-cmd-user-actions.cc:921
+#: src/gnome-cmd-user-actions.cc:1182 src/utils.cc:136
 msgid "No valid command given."
 msgstr "Ingen gyldig kommando givet."
 
-#: src/gnome-cmd-user-actions.cc:759 src/gnome-cmd-user-actions.cc:791
-#: src/gnome-cmd-user-actions.cc:931 src/gnome-cmd-user-actions.cc:1189
-#: src/gnome-cmd-user-actions.cc:1228 src/utils.cc:143
+#: src/gnome-cmd-user-actions.cc:759 src/gnome-cmd-user-actions.cc:796
+#: src/gnome-cmd-user-actions.cc:937 src/gnome-cmd-user-actions.cc:1195
+#: src/gnome-cmd-user-actions.cc:1234 src/utils.cc:143
 msgid "Unable to execute command."
 msgstr "Kan ikke køre kommando."
 
@@ -4485,22 +4489,22 @@ msgstr "Ingen søgekommando givet."
 msgid "You can set a command for a search tool in the program options."
 msgstr "Du kan angive en kommando for et søgeværktøj i programindstillinger."
 
-#: src/gnome-cmd-user-actions.cc:854
+#: src/gnome-cmd-user-actions.cc:860
 #, c-format
 msgid "Create symbolic links of %i file in %s?"
 msgid_plural "Create symbolic links of %i files in %s?"
 msgstr[0] "Opret symbolsk link for %i fil i %s?"
 msgstr[1] "Opret symbolske links for %i filer i %s?"
 
-#: src/gnome-cmd-user-actions.cc:859
+#: src/gnome-cmd-user-actions.cc:865
 msgid "Create"
 msgstr "Opret"
 
-#: src/gnome-cmd-user-actions.cc:947
+#: src/gnome-cmd-user-actions.cc:953
 msgid "Warning"
 msgstr "Advarsel"
 
-#: src/gnome-cmd-user-actions.cc:947
+#: src/gnome-cmd-user-actions.cc:953
 msgid ""
 "The default send-to command only supports one selected file at a time. You "
 "can change the command in the program options."
@@ -4508,48 +4512,48 @@ msgstr ""
 "Standardkommandoen for send-til understøtter kun en valgt fil ad gangen. Du "
 "kan ændre kommandoen i programindstillinger."
 
-#: src/gnome-cmd-user-actions.cc:964 src/gnome-cmd-user-actions.cc:981
-#: src/gnome-cmd-user-actions.cc:1027
+#: src/gnome-cmd-user-actions.cc:970 src/gnome-cmd-user-actions.cc:987
+#: src/gnome-cmd-user-actions.cc:1033
 msgid "Operation not supported on remote file systems"
 msgstr "Operationen understøttes ikke på fjernfilsystemer"
 
-#: src/gnome-cmd-user-actions.cc:996
+#: src/gnome-cmd-user-actions.cc:1002
 msgid "Too many selected files"
 msgstr "For mange markerede filer"
 
-#: src/gnome-cmd-user-actions.cc:1261
+#: src/gnome-cmd-user-actions.cc:1267
 msgid "Unable to open terminal in root mode."
 msgstr "Kan ikke åbne terminal i root-tilstand."
 
-#: src/gnome-cmd-user-actions.cc:1266
+#: src/gnome-cmd-user-actions.cc:1272
 msgid "gksudo, xdg-su, gksu, gnomesu, kdesu or beesu is not found."
 msgstr "gksudo, xdg-su, gksu, gnomesu, kdesu eller beesu ikke fundet."
 
-#: src/gnome-cmd-user-actions.cc:1285
+#: src/gnome-cmd-user-actions.cc:1291
 msgid "Unable to start GNOME Commander in root mode."
 msgstr "Kan ikke starte GNOME Commander i root-tilstand."
 
-#: src/gnome-cmd-user-actions.cc:1288
+#: src/gnome-cmd-user-actions.cc:1294
 msgid "gksudo, xdg-su, gksu, gnomesu, kdesu or beesu is not found"
 msgstr "gksudo, xdg-su, gksu, gnomesu, kdesu eller beesu ikke fundet"
 
-#: src/gnome-cmd-user-actions.cc:1915
+#: src/gnome-cmd-user-actions.cc:1921
 msgid "Bookmarks"
 msgstr "Bogmærker"
 
-#: src/gnome-cmd-user-actions.cc:2002
+#: src/gnome-cmd-user-actions.cc:2008
 msgid "There was an error opening home page."
 msgstr "Der opstod en fejl under åbning af hjemmeside."
 
-#: src/gnome-cmd-user-actions.cc:2011
+#: src/gnome-cmd-user-actions.cc:2017
 msgid "There was an error reporting problem."
 msgstr "Der opstod en fejl ved rapportering af problem."
 
-#: src/gnome-cmd-user-actions.cc:2037
+#: src/gnome-cmd-user-actions.cc:2043
 msgid "A fast and powerful file manager for the GNOME desktop"
 msgstr "Et hurtigt og kraftfuldt filhåndteringsprogram til GNOME-skrivebordet"
 
-#: src/gnome-cmd-user-actions.cc:2041
+#: src/gnome-cmd-user-actions.cc:2047
 msgid ""
 "GNOME Commander is free software; you can redistribute it and/or modify it "
 "under the terms of the GNU General Public License as published by the Free "
@@ -4561,7 +4565,7 @@ msgstr ""
 "udgivet af Free Software Foundation. Enten version 2 af licensen eller "
 "(efter eget valg) enhver senere version."
 
-#: src/gnome-cmd-user-actions.cc:2045
+#: src/gnome-cmd-user-actions.cc:2051
 msgid ""
 "GNOME Commander is distributed in the hope that it will be useful, but "
 "WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY "
@@ -4573,7 +4577,7 @@ msgstr ""
 "SALGBARHED eller EGNETHED TIL ET BESTEMT FORMÅL. Yderligere detaljer kan "
 "læses i GNU General Public License."
 
-#: src/gnome-cmd-user-actions.cc:2049
+#: src/gnome-cmd-user-actions.cc:2055
 msgid ""
 "You should have received a copy of the GNU General Public License along with "
 "GNOME Commander; if not, write to the Free Software Foundation, Inc., 51 "
@@ -4583,7 +4587,7 @@ msgstr ""
 "program. Hvis ikke, så skriv til Free Software Foundation, Inc., Franklin "
 "Street 51, femte sal, Boston, MA 02110-1301, USA."
 
-#: src/gnome-cmd-user-actions.cc:2066
+#: src/gnome-cmd-user-actions.cc:2072
 msgid "translator-credits"
 msgstr ""
 "Ask Hjorth Larsen <asklarsen@gmail.com>\n"
