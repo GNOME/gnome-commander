@@ -1234,7 +1234,7 @@ void GnomeCmdMainWin::open_tabs(FileSelectorID id)
                 auto gUri = g_uri_parse(tab->first.c_str(), G_URI_FLAGS_NONE, nullptr);
                 path = g_strdup(g_uri_get_path(gUri));
             }
-            auto *gnomeCmdDir = gnome_cmd_dir_new (home, gnome_cmd_con_create_path (home, path));
+            auto *gnomeCmdDir = gnome_cmd_dir_new (home, gnome_cmd_con_create_path (home, path), true);
             fs(id)->new_tab(gnomeCmdDir, tab->second.first, tab->second.second, tab->second.third, TRUE);
             g_free(path);
         }
