@@ -399,7 +399,7 @@ static GFile *dev_create_gfile (GnomeCmdCon *con, GnomeCmdPath *gnomeCmdPath)
     if (gnomeCmdPath)
     {
         auto gMountGFile = g_mount_get_default_location (dev_con->priv->gMount);
-        newGFile = g_file_get_child (gMountGFile, gnomeCmdPath->get_path());
+        newGFile = g_file_resolve_relative_path(gMountGFile, gnomeCmdPath->get_path());
         g_object_unref(gMountGFile);
     }
     else
