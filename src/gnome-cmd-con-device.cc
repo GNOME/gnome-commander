@@ -690,7 +690,7 @@ const gchar *gnome_cmd_con_device_get_device_fn (GnomeCmdConDevice *dev)
     g_return_val_if_fail (dev != nullptr, nullptr);
     g_return_val_if_fail (dev->priv != nullptr, nullptr);
 
-    return dev->priv->device_fn;
+    return dev->priv->device_fn != nullptr ? dev->priv->device_fn : "";
 }
 
 
