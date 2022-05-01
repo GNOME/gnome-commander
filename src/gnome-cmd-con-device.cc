@@ -201,7 +201,16 @@ static void do_legacy_mount_thread_func(GnomeCmdCon *con)
     GError *error = nullptr;
 
     if (!con->base_path)
-        con->base_path = new GnomeCmdPlainPath(G_DIR_SEPARATOR_S);
+    {
+        if (GNOME_CMD_CON_DEVICE(con)->priv->mountp)
+        {
+            con->base_path = new GnomeCmdPlainPath(GNOME_CMD_CON_DEVICE(con)->priv->mountp);
+        }
+        else
+        {
+            con->base_path = new GnomeCmdPlainPath(G_DIR_SEPARATOR_S);
+        }
+    }
 
     do_legacy_mount(con);
 
@@ -394,17 +403,25 @@ static GFile *dev_create_gfile (GnomeCmdCon *con, GnomeCmdPath *gnomeCmdPath)
     GFile *newGFile = nullptr;
     GnomeCmdConDevice *dev_con = GNOME_CMD_CON_DEVICE (con);
 
-    g_return_val_if_fail (dev_con->priv->gMount != nullptr, nullptr);
-
-    if (gnomeCmdPath)
+    if (dev_con->priv->gMount != nullptr)
     {
-        auto gMountGFile = g_mount_get_default_location (dev_con->priv->gMount);
-        newGFile = g_file_resolve_relative_path(gMountGFile, gnomeCmdPath->get_path());
-        g_object_unref(gMountGFile);
+        if (gnomeCmdPath)
+        {
+            auto gMountGFile = g_mount_get_default_location (dev_con->priv->gMount);
+            newGFile = g_file_resolve_relative_path(gMountGFile, gnomeCmdPath->get_path());
+            g_object_unref(gMountGFile);
+        }
+        else
+        {
+            newGFile = g_mount_get_default_location (dev_con->priv->gMount);
+        }
     }
     else
     {
-        newGFile = g_mount_get_default_location (dev_con->priv->gMount);
+        if (gnomeCmdPath != nullptr)
+        {
+            newGFile = g_file_new_for_path(gnomeCmdPath->get_path());
+        }
     }
     return newGFile;
 }
