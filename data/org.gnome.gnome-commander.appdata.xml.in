@@ -66,6 +66,7 @@
           <li>Fix for crash after doing a file rename</li>
           <li>Fix leading to not mounting user-defined devices</li>
           <li>Some memory improvements when walking through directories</li>
+          <li>Issue #124: Unable to switch to USB flash disk with glib 2.72</li>
         </ul>
         <p>New or updated translations: ...</p>
         <p>New or updated docs: ...</p>
