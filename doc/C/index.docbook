@@ -6073,10 +6073,12 @@
       <title>Devices</title>
       <!--Brief description -->
       <para>This section of the option dialog lets you configure devices so that you can access them by pressing a button in the device buttons toolbar or an entry in the connections menu.</para>
+      <para>This can be usefull if you have configured devices through your fstab file. In this case, those devices might not be shown automatically in the devices list.</para>
       <itemizedlist>
 	<listitem><para>In the <guilabel>Devices</guilabel> window all devices which have been added manually are shown together with their icon.</para></listitem>
        	<listitem><para>Below the <guilabel>Devices</guilabel> window you have two options:
 	<itemizedlist>
+	  <listitem><para><guilabel>Show Samba workgroups icons</guilabel>: If activated, a SMB workgroups icon will be shown in the in the device buttons toolbar.</para></listitem>
 	  <listitem><para><guilabel>Show only the icons</guilabel>: If activated, device icons are shown without their alias name in the device buttons toolbar.</para></listitem>
 	</itemizedlist></para></listitem>
       </itemizedlist>
@@ -6194,25 +6196,8 @@
           </tgroup>
         </table>
       </para>
-      <note><para>The dialog box used to add new and to modify existing devices is the same. Look at the figure <xref linkend="options-edit-dev"></xref> and the explanation below.</para></note>
+      <note><para>The dialog box used to add new and to modify existing devices is the same. The explanation for this one follows below.</para></note>
       <para>
-         <!-- ==== Figure ==== -->
-      <figure id="options-edit-dev">
-        <title>Application options</title>
-        <screenshot>
-          <mediaobject>
-            <imageobject>
-              <imagedata fileref="figures/dev_cd.png" format="PNG"/>
-            </imageobject>
-            <textobject>
-              <phrase>Shows &app; new devices dialog.</phrase>
-            </textobject>
-          </mediaobject>
-        </screenshot>
-      </figure>
-      <!-- ==== End of Figure ==== -->
-      </para>
-            <para>
       	<table frame="topbot" id="options-edit-dev-tab">
         		<title>Devices option tab</title>
         			<tgroup cols="2" colsep="0" rowsep="0">
@@ -6250,7 +6235,7 @@
             				<row>
               					<entry>
                 					<para>
-					                  <guilabel>Device:</guilabel>
+					                  <guilabel>Device/Label:</guilabel>
                					</para>
               					</entry>
               					<entry colname="colspec2">
@@ -6258,7 +6243,8 @@
                 					</para>
               					</entry>
               					<entry colname="colspec3">
-                					<para>This text box contains the device which should be accessed. Usually it is located in the /dev directory.
+                          <para>This text box contains the device which should be accessed. Usually it is located in the /dev directory, so you can for example write /dev/sdx1 here. The device would then be mounted via "mount /dev/sdx1".
+                          On the other hand you can also add a label of a device which you have configured in the system fstab. If the string entered in the text box does not start with a "/" character (e.g. Media), the device is mounted with "mount -L" (e.g. "mount -L Media").
                 					</para>
               					</entry>
             				</row>
@@ -6273,8 +6259,7 @@
                 					</para>
               					</entry>
               					<entry colname="colspec3">
-                					<para>Here you specify where the device should be mounted to. Usually this is a directory in /mnt
-                					</para>
+                          <para>Here you specify where the device should be mounted to, so that Gnome Commander knows where to jump to when the mount was successfull, for example /mnt/crdom.</para>
               					</entry>
             				</row>
             				<row>

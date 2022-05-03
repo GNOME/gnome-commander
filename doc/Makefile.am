@@ -16,7 +16,6 @@ HELP_FILES = \
 	releases.xml
 HELP_MEDIA = \
 	figures/create_archive.png                              \
-	figures/dev_cd.png                                      \
 	figures/extract_archive.png                             \
 	figures/gnome-commander_dialog_adv_rename.png           \
 	figures/gnome-commander_dialog_application.png          \
