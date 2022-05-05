@@ -1874,30 +1874,35 @@ void get_device_dialog_values (GtkWidget *dialog, gchar **alias, gchar **device_
     GtkWidget *mountp_entry = lookup_widget (dialog, "mountp_entry");
     GtkWidget *iconWidget = lookup_widget (dialog, "device_iconentry");
 
-    gchar* device = (gchar *) gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (device_entry));
+    gchar* device = (gchar *) gtk_entry_get_text (GTK_ENTRY (device_entry));
     gchar* mountp = (gchar *) gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (mountp_entry));
 
     *alias = (gchar *) gtk_entry_get_text (GTK_ENTRY (alias_entry));
-    *device_utf8 = g_filename_to_utf8(device, -1, nullptr, nullptr, nullptr);
-    *mountp_utf8 = g_filename_to_utf8(mountp, -1, nullptr, nullptr, nullptr);
+    if (device && strlen(device) > 0)
+        *device_utf8 = g_filename_to_utf8(device, -1, nullptr, nullptr, nullptr);
+    if (mountp && strlen(mountp) > 0)
+        *mountp_utf8 = g_filename_to_utf8(mountp, -1, nullptr, nullptr, nullptr);
     // Get device_iconentry path
     g_object_get (G_OBJECT (gtk_button_get_image (GTK_BUTTON (iconWidget))), "file", icon_path, NULL);
 
-
-    g_free(device);
     g_free(mountp);
 }
 
 
 static void on_add_device_dialog_ok (GtkButton *button, GtkWidget *dialog)
 {
-    gchar *alias, *device, *mountp, *icon_path;
+    gchar *alias = nullptr;
+    gchar *device = nullptr;
+    gchar *mountp = nullptr;
+    gchar *icon_path = nullptr;
 
     GtkWidget *options_dialog = lookup_widget (dialog, "options_dialog");
     GtkWidget *clist = lookup_widget (options_dialog, "device_clist");
 
     get_device_dialog_values (dialog, &alias, &device, &mountp, &icon_path);
-    if (!alias || strlen (alias) < 1) return;
+    if ((!alias || strlen (alias) < 1) ||
+        (!device || strlen(device) < 1) ||
+        (!mountp || strlen(mountp) < 1)) return;
 
     GnomeCmdConDevice *dev = gnome_cmd_con_device_new (alias, device, mountp, icon_path);
     add_device_to_list (GTK_CLIST (clist), GNOME_CMD_CON_DEVICE (dev));
@@ -1919,7 +1924,9 @@ static void on_edit_device_dialog_ok (GtkButton *button, GtkWidget *dialog)
     GtkWidget *clist = lookup_widget (options_dialog, "device_clist");
 
     get_device_dialog_values (dialog, &alias, &device, &mountp, &icon_path);
-    if (!alias || strlen (alias) < 1) return;
+    if ((!alias || strlen (alias) < 1) ||
+        (!device || strlen(device) < 1) ||
+        (!mountp || strlen(mountp) < 1)) return;
 
     GnomeCmdConDevice *dev = GNOME_CMD_CON_DEVICE (g_object_get_data (G_OBJECT (options_dialog), "selected_device"));
     if (!dev) return;
@@ -1932,6 +1939,11 @@ static void on_edit_device_dialog_ok (GtkButton *button, GtkWidget *dialog)
     g_free (icon_path);
 }
 
+
+static void on_dialog_help (GtkButton *button,  GtkWidget *unused)
+{
+    gnome_cmd_help_display ("gnome-commander.xml", "gnome-commander-prefs-devices");
+}
 
 static GtkWidget *create_device_dialog (GnomeCmdConDevice *dev, GtkSignalFunc on_ok, GtkSignalFunc on_cancel, GtkWidget *options_dialog)
 {
@@ -1952,7 +1964,7 @@ static GtkWidget *create_device_dialog (GnomeCmdConDevice *dev, GtkSignalFunc on
 
     label = create_label (dialog, _("Alias:"));
     table_add (table, label, 0, 0, GTK_FILL);
-    label = create_label (dialog, _("Device:"));
+    label = create_label (dialog, _("Device/Label:"));
     table_add (table, label, 0, 1, GTK_FILL);
     label = create_label (dialog, _("Mount point:"));
     table_add (table, label, 0, 2, GTK_FILL);
@@ -1965,18 +1977,21 @@ static GtkWidget *create_device_dialog (GnomeCmdConDevice *dev, GtkSignalFunc on
     gtk_widget_grab_focus (entry);
 
     if (dev) s = gnome_cmd_con_device_get_device_fn (dev);
-    entry = create_file_chooser_button (dialog, "device_entry", s);
+    entry = create_entry (dialog, "device_entry", s);
     table_add (table, entry, 1, 1, (GtkAttachOptions) (GTK_EXPAND|GTK_FILL));
 
     if (dev) s = gnome_cmd_con_device_get_mountp_string (dev);
     entry = create_directory_chooser_button (dialog, "mountp_entry", s);
     table_add (table, entry, 1, 2, (GtkAttachOptions) (GTK_EXPAND|GTK_FILL));
 
-    s = gnome_cmd_con_device_get_icon_path (dev);
+    if (dev) s = gnome_cmd_con_device_get_icon_path (dev);
     entry = create_icon_button_widget (dialog, "device_iconentry", s);
 
     table_add (table, entry, 1, 3, GTK_FILL);
 
+    gnome_cmd_dialog_add_button (
+        GNOME_CMD_DIALOG (dialog), GTK_STOCK_HELP,
+        GTK_SIGNAL_FUNC (on_dialog_help), nullptr);
     gnome_cmd_dialog_add_button (
         GNOME_CMD_DIALOG (dialog), GTK_STOCK_CANCEL,
         GTK_SIGNAL_FUNC (on_cancel), dialog);
