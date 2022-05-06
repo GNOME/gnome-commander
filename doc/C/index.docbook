@@ -5590,7 +5590,7 @@
     <sect2 id="gnome-commander-prefs-programs">
       <title>Programs</title>
       <!-- Brief description-->
-      <para>This section of the options dialog lets you configure preferred applications for different tasks. 
+      <para>This section of the options dialog lets you configure preferred applications for different tasks.
       In the <guilabel>Other favourite apps</guilabel> section you can specify even more applications for opening 
       certain document types. See <xref linkend="gcmd-TBL-setting6"></xref> and below for more information.</para>
       <!-- == Figure ==== -->
@@ -6073,14 +6073,14 @@
       <title>Devices</title>
       <!--Brief description -->
       <para>This section of the option dialog lets you configure devices so that you can access them by pressing a button in the device buttons toolbar or an entry in the connections menu.</para>
-      <para>This can be usefull if you have configured devices through your fstab file. In this case, those devices might not be shown automatically in the devices list.</para>
+      <para>This can be useful if you have configured devices through your fstab file. In this case, these devices might not be shown automatically in the devices buttons toolbar.</para>
       <itemizedlist>
-	<listitem><para>In the <guilabel>Devices</guilabel> window all devices which have been added manually are shown together with their icon.</para></listitem>
+	      <listitem><para>In the <guilabel>Devices</guilabel> window all devices which have been added manually are shown together with their icon.</para></listitem>
        	<listitem><para>Below the <guilabel>Devices</guilabel> window you have two options:
-	<itemizedlist>
-	  <listitem><para><guilabel>Show Samba workgroups icons</guilabel>: If activated, a SMB workgroups icon will be shown in the in the device buttons toolbar.</para></listitem>
-	  <listitem><para><guilabel>Show only the icons</guilabel>: If activated, device icons are shown without their alias name in the device buttons toolbar.</para></listitem>
-	</itemizedlist></para></listitem>
+	        <itemizedlist>
+	          <listitem><para><guilabel>Show Samba workgroups icons</guilabel>: If activated, a SMB workgroups icon will be shown in the device buttons toolbar.</para></listitem>
+	          <listitem><para><guilabel>Show only the icons</guilabel>: If activated, device icons are shown without their alias name in the device buttons toolbar.</para></listitem>
+	      </itemizedlist></para></listitem>
       </itemizedlist>
       <para>On the right hand side there are five buttons, described in the <xref linkend="gcmd-dev"></xref> table below.</para>
       <!-- ==== Figure ==== -->
@@ -6259,7 +6259,7 @@
                 					</para>
               					</entry>
               					<entry colname="colspec3">
-                          <para>Here you specify where the device should be mounted to, so that Gnome Commander knows where to jump to when the mount was successfull, for example /mnt/crdom.</para>
+                          <para>Here you specify where the device should be mounted to, so that Gnome Commander knows where to jump to when the mount was successful, for example /mnt/cdrom.</para>
               					</entry>
             				</row>
             				<row>
