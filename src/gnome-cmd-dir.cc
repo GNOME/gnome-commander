@@ -967,7 +967,8 @@ void gnome_cmd_dir_file_changed (GnomeCmdDir *dir, const gchar *uri_str)
 
     GnomeCmdFile *f = dir->priv->file_collection->find(uri_str);
 
-    g_return_if_fail(f != nullptr);
+    if (f == nullptr)
+        return;
 
     dir->priv->needs_mtime_update = TRUE;
 
