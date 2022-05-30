@@ -5,28 +5,28 @@
 # Kaan Özdinçer <kaanozdincer@gmail.com>, 2015
 # Necdet Yücel <necdetyucel@gmail.com>, 2015.
 # Gökhan Gurbetoğlu <ggurbet@gmail.com>, 2016.
-# Sabri Ünal <libreajans@gmail.com, 2019.
-# Emin Tufan Çetin <etcetin@gmail.com>, 2019.
 # Muhammet Kara <muhammetk@gmail.com>, 2016-2021.
+# Emin Tufan Çetin <etcetin@gmail.com>, 2019, 2022.
+# Sabri Ünal <libreajans@gmail.com, 2019, 2022.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-commander/issues\n"
-"POT-Creation-Date: 2021-03-09 07:05+0000\n"
-"PO-Revision-Date: 2021-03-12 00:20+0300\n"
-"Last-Translator: Muhammet Kara <muhammetk@gmail.com>\n"
+"POT-Creation-Date: 2022-05-23 20:08+0000\n"
+"PO-Revision-Date: 2022-05-31 02:01+0300\n"
+"Last-Translator: Emin Tufan Çetin <etcetin@gmail.com>\n"
 "Language-Team: Turkish <gnometurk@gnome.org>\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=1; plural=0\n"
-"X-Generator: Gtranslator 3.38.0\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Poedit 3.0.1\n"
 "X-POOTLE-MTIME: 1429308288.000000\n"
 
-#: data/org.gnome.gnome-commander.appdata.xml.in:7 data/org.gnome.gnome-commander.desktop.in.in:3
-#: src/gnome-cmd-main-win.cc:859
+#: data/org.gnome.gnome-commander.appdata.xml.in:7
+#: data/org.gnome.gnome-commander.desktop.in.in:3 src/gnome-cmd-main-win.cc:854
 msgid "GNOME Commander"
 msgstr "GNOME Commander"
 
@@ -44,7 +44,7 @@ msgid ""
 msgstr ""
 "Gnome Commander, GNOME masaüstü ortamı için “iki bölmeli” grafiksel dosya "
 "yönetisidir. Her bölmeyi sekmelere ayırma, özel aygıt düğme ayarları, yer "
-"imlerini yöneticisi, tümleşik komut satırı, hızlı dosya arama, dahili resim "
+"imlerini yöneticisi, tümleşik komut satırı, hızlı dosya arama, gömülü resim "
 "göstericisi, güçlü bir toplu yeniden adlandırma aracı ve FTP, Samba erişimi "
 "sunar."
 
@@ -57,6 +57,10 @@ msgstr ""
 "GNOME Commander, hassas dosya yönetimi gibi işlemler yapan, gelişmiş "
 "kullanıcıları hedefler, özel uygulamalar ile paralel çalışır ve akıllı "
 "komutları çalıştırır."
+
+#: data/org.gnome.gnome-commander.appdata.xml.in:48
+msgid "The GNOME Project"
+msgstr "GNOME Projesi"
 
 #: data/org.gnome.gnome-commander.desktop.in.in:4
 msgid "A two paned file manager"
@@ -154,7 +158,7 @@ msgstr ""
 "tanımlar."
 
 #: data/org.gnome.gnome-commander.gschema.xml:88
-#: src/dialogs/gnome-cmd-options-dialog.cc:388
+#: src/dialogs/gnome-cmd-options-dialog.cc:386
 msgid "Permission display mode"
 msgstr "İzin görünüm kipi"
 
@@ -190,7 +194,7 @@ msgid "'%F %R'"
 msgstr "'%F %R'"
 
 #: data/org.gnome.gnome-commander.gschema.xml:112
-#: src/dialogs/gnome-cmd-options-dialog.cc:404
+#: src/dialogs/gnome-cmd-options-dialog.cc:402
 msgid "Date format"
 msgstr "Tarih biçimi"
 
@@ -242,26 +246,38 @@ msgid "Defines what happens when the right mouse button is clicked on an item."
 msgstr "Bir nesneye sağ fare tuşuyla tıklandığında ne olacağını tanımlar."
 
 #: data/org.gnome.gnome-commander.gschema.xml:152
+msgid "Use trash"
+msgstr "Çöp kutusu kullan"
+
+#: data/org.gnome.gnome-commander.gschema.xml:153
+msgid ""
+"Defines if items should be moved to trash by default instead of really "
+"deleting them."
+msgstr ""
+"Ögelerin gerçekten silmek yerine öntanımlı olarak çöp kutusuna taşınması "
+"durumunu tanımlar."
+
+#: data/org.gnome.gnome-commander.gschema.xml:159
 msgid "Icon size"
 msgstr "Simge boyutu"
 
-#: data/org.gnome.gnome-commander.gschema.xml:153
+#: data/org.gnome.gnome-commander.gschema.xml:160
 msgid "Size of icons in the file pane."
 msgstr "Belge bölmesindeki simgelerin boyutu."
 
-#: data/org.gnome.gnome-commander.gschema.xml:157
+#: data/org.gnome.gnome-commander.gschema.xml:164
 msgid "Device icon size"
 msgstr "Aygıt simge boyutu"
 
-#: data/org.gnome.gnome-commander.gschema.xml:158
+#: data/org.gnome.gnome-commander.gschema.xml:165
 msgid "Icon size in the device list."
 msgstr "Aygıt listesinde simge boyutu."
 
-#: data/org.gnome.gnome-commander.gschema.xml:162
+#: data/org.gnome.gnome-commander.gschema.xml:169
 msgid "Icon scale quality"
 msgstr "Simge ölçekleme kalitesi"
 
-#: data/org.gnome.gnome-commander.gschema.xml:163
+#: data/org.gnome.gnome-commander.gschema.xml:170
 msgid ""
 "Describes the different interpolation modes that can be used with the "
 "scaling functions."
@@ -269,19 +285,19 @@ msgstr ""
 "Ölçeklendirme işlevleriyle kullanılabilecek farklı ara değerleme kiplerini "
 "açıklar."
 
-#: data/org.gnome.gnome-commander.gschema.xml:167
+#: data/org.gnome.gnome-commander.gschema.xml:174
 msgid "MIME icon directory"
 msgstr "MIME simge dizini"
 
-#: data/org.gnome.gnome-commander.gschema.xml:168
+#: data/org.gnome.gnome-commander.gschema.xml:175
 msgid "Directory in which MIME icons are located."
 msgstr "MIME simgelerinin bulunduğu dizin."
 
-#: data/org.gnome.gnome-commander.gschema.xml:172
+#: data/org.gnome.gnome-commander.gschema.xml:179
 msgid "Command line history"
 msgstr "Komut satırı geçmişi"
 
-#: data/org.gnome.gnome-commander.gschema.xml:173
+#: data/org.gnome.gnome-commander.gschema.xml:180
 msgid ""
 "This string array represents the history of commands executed in the command "
 "line."
@@ -289,248 +305,248 @@ msgstr ""
 "Bu dizge dizisi, komut satırında çalıştırılmış komutların geçmişini temsil "
 "eder."
 
-#: data/org.gnome.gnome-commander.gschema.xml:180
+#: data/org.gnome.gnome-commander.gschema.xml:187
 msgid "Command line history length"
 msgstr "Komut satırı geçmişinin uzunluğu"
 
-#: data/org.gnome.gnome-commander.gschema.xml:184
+#: data/org.gnome.gnome-commander.gschema.xml:191
 msgid "Horizontal orientation"
 msgstr "Yatay yönelim"
 
-#: data/org.gnome.gnome-commander.gschema.xml:185
+#: data/org.gnome.gnome-commander.gschema.xml:192
 msgid ""
 "Defines if the orientation of the file panes should be horizontal or not."
 msgstr "Dosya bölmelerinin yönünün yatay durumunu tanımlar."
 
-#: data/org.gnome.gnome-commander.gschema.xml:192
+#: data/org.gnome.gnome-commander.gschema.xml:199
 msgid "GUI update rate"
 msgstr "Arayüz güncelleme hızı"
 
-#: data/org.gnome.gnome-commander.gschema.xml:193
+#: data/org.gnome.gnome-commander.gschema.xml:200
 msgid "Update rate of the graphical user interphase in 1/1000ths of a second."
 msgstr "Kullanıcı arayüzünün güncellenme hızı (ms. cinsinden)"
 
-#: data/org.gnome.gnome-commander.gschema.xml:197
+#: data/org.gnome.gnome-commander.gschema.xml:204
 msgid "Show device buttons"
 msgstr "Aygıt düğmelerini göster"
 
-#: data/org.gnome.gnome-commander.gschema.xml:198
+#: data/org.gnome.gnome-commander.gschema.xml:205
 msgid "Defines if device buttons are shown."
 msgstr "Aygıt düğmelerinin gösterim durumunu tanımlar."
 
-#: data/org.gnome.gnome-commander.gschema.xml:202
+#: data/org.gnome.gnome-commander.gschema.xml:209
 msgid "Show device list"
 msgstr "Aygıt listesini göster"
 
-#: data/org.gnome.gnome-commander.gschema.xml:203
+#: data/org.gnome.gnome-commander.gschema.xml:210
 msgid "Defines if the list of devices is shown."
 msgstr "Aygıt listesinin gösterim durumunu tanımlar."
 
-#: data/org.gnome.gnome-commander.gschema.xml:207
+#: data/org.gnome.gnome-commander.gschema.xml:214
 msgid "Show command line"
 msgstr "Komut satırını göster"
 
-#: data/org.gnome.gnome-commander.gschema.xml:208
+#: data/org.gnome.gnome-commander.gschema.xml:215
 msgid "Defines if command line is shown."
 msgstr "Komut satırının gösterim durumunu tanımlar."
 
-#: data/org.gnome.gnome-commander.gschema.xml:212
+#: data/org.gnome.gnome-commander.gschema.xml:219
 msgid "Show toolbar"
 msgstr "Araç çubuğunu göster"
 
-#: data/org.gnome.gnome-commander.gschema.xml:213
+#: data/org.gnome.gnome-commander.gschema.xml:220
 msgid "Defines if the toolbar is shown."
 msgstr "Araç çubuğunun gösterim durumunu tanımlar."
 
-#: data/org.gnome.gnome-commander.gschema.xml:217
+#: data/org.gnome.gnome-commander.gschema.xml:224
 msgid "Show buttonbar"
 msgstr "Düğme çubuğunu göster"
 
-#: data/org.gnome.gnome-commander.gschema.xml:218
+#: data/org.gnome.gnome-commander.gschema.xml:225
 msgid "Defines if the buttonbar is shown."
-msgstr "Düğme çubuğunun gösterim durumun tanımlar."
+msgstr "Düğme çubuğunun gösterim durumunu tanımlar."
 
-#: data/org.gnome.gnome-commander.gschema.xml:222
+#: data/org.gnome.gnome-commander.gschema.xml:229
 msgid "Symlink string"
 msgstr "Sembolik bağlantı dizgesi"
 
-#: data/org.gnome.gnome-commander.gschema.xml:223
+#: data/org.gnome.gnome-commander.gschema.xml:230
 msgid ""
 "This string defines the default name of a newly created symlink. Leave the "
 "string empty to use the default value which is hard coded into the program "
 "code. A “%s” will be expanded to the item name for which a link should be "
 "created."
 msgstr ""
-"Bu dizge, yeni oluşturulan sembolik bağlantının öntanımlı ismini tanımlar. "
+"Bu dizge, yeni oluşturulan sembolik bağlantının öntanımlı adını tanımlar. "
 "Yazılım koduna sabit kodlanmış öntanımlı değeri kullanmak için dizgeyi boş "
 "bırakın. Bağlantı oluşturulması gereken nesne adına bir “%s” "
 "genişletilecektir."
 
-#: data/org.gnome.gnome-commander.gschema.xml:231
+#: data/org.gnome.gnome-commander.gschema.xml:238
 msgid "Main window horizontal position"
 msgstr "Ana pencere yatay konumu"
 
-#: data/org.gnome.gnome-commander.gschema.xml:232
+#: data/org.gnome.gnome-commander.gschema.xml:239
 msgid "Position of the main window in horizontal direction."
 msgstr "Ana pencerenin yatay yöndeki konumu."
 
-#: data/org.gnome.gnome-commander.gschema.xml:238
+#: data/org.gnome.gnome-commander.gschema.xml:245
 msgid "Main window vertical position"
 msgstr "Ana pencere dikey konumu"
 
-#: data/org.gnome.gnome-commander.gschema.xml:239
+#: data/org.gnome.gnome-commander.gschema.xml:246
 msgid "Position of the main window in vertical direction."
 msgstr "Ana pencerenin dikey yönteki konumu."
 
-#: data/org.gnome.gnome-commander.gschema.xml:245
+#: data/org.gnome.gnome-commander.gschema.xml:252
 msgid "Main window width"
 msgstr "Ana pencere genişliği"
 
-#: data/org.gnome.gnome-commander.gschema.xml:246
+#: data/org.gnome.gnome-commander.gschema.xml:253
 msgid "This option defines the width of the main window."
 msgstr "Bu seçenek, ana pencere genişliğin tanımlar."
 
-#: data/org.gnome.gnome-commander.gschema.xml:252
+#: data/org.gnome.gnome-commander.gschema.xml:259
 msgid "List of bookmarks"
 msgstr "Yer imleri listesi"
 
-#: data/org.gnome.gnome-commander.gschema.xml:253
+#: data/org.gnome.gnome-commander.gschema.xml:260
 msgid "Each entry in this list represents a bookmark."
 msgstr "Bu listedeki her giriş bir yer imini temsil eder."
 
-#: data/org.gnome.gnome-commander.gschema.xml:259
+#: data/org.gnome.gnome-commander.gschema.xml:266
 msgid "Bookmarks window width"
 msgstr "Yer imleri pencere genişliği"
 
-#: data/org.gnome.gnome-commander.gschema.xml:260
+#: data/org.gnome.gnome-commander.gschema.xml:267
 msgid "This option defines the width of the bookmarks window."
 msgstr "Bu seçenek, yer imi sütunu genişliğini tanımlar."
 
-#: data/org.gnome.gnome-commander.gschema.xml:266
+#: data/org.gnome.gnome-commander.gschema.xml:273
 msgid "Bookmarks window height"
 msgstr "Yer imleri pencere yüksekliği"
 
-#: data/org.gnome.gnome-commander.gschema.xml:267
+#: data/org.gnome.gnome-commander.gschema.xml:274
 msgid "This option defines the height of the bookmarks window."
 msgstr "Bu seçenek, yerimleri penceresi yüksekliğini tanımlar."
 
-#: data/org.gnome.gnome-commander.gschema.xml:273
+#: data/org.gnome.gnome-commander.gschema.xml:280
 msgid "List of connections"
 msgstr "Bağlantı listesi"
 
-#: data/org.gnome.gnome-commander.gschema.xml:274
+#: data/org.gnome.gnome-commander.gschema.xml:281
 msgid "Each entry in this list represents a connection."
 msgstr "Bu listedeki her giriş bir bağlantıyı temsil eder."
 
-#: data/org.gnome.gnome-commander.gschema.xml:280
+#: data/org.gnome.gnome-commander.gschema.xml:287
 msgid "Main window height"
 msgstr "Ana pencere yüksekliği"
 
-#: data/org.gnome.gnome-commander.gschema.xml:281
+#: data/org.gnome.gnome-commander.gschema.xml:288
 msgid "This option defines the height of the main window."
 msgstr "Bu seçenek, ana pencere yüksekliğini tanımlar."
 
-#: data/org.gnome.gnome-commander.gschema.xml:287
+#: data/org.gnome.gnome-commander.gschema.xml:294
 msgid "Options dialog width"
 msgstr "Seçenekler iletişim kutusu genişliği"
 
-#: data/org.gnome.gnome-commander.gschema.xml:288
+#: data/org.gnome.gnome-commander.gschema.xml:295
 msgid "This setting defines the width of the options dialog window."
 msgstr "Bu ayar, seçenekler iletişim penceresi genişliğini tanımlar."
 
-#: data/org.gnome.gnome-commander.gschema.xml:294
+#: data/org.gnome.gnome-commander.gschema.xml:301
 msgid "Options dialog height"
 msgstr "Seçenekler iletişim kutusu yüksekliği"
 
-#: data/org.gnome.gnome-commander.gschema.xml:295
+#: data/org.gnome.gnome-commander.gschema.xml:302
 msgid "This setting defines the height of the options dialog window."
 msgstr "Bu ayar, seçenekler iletişim penceresi yüksekliğini tanımlar."
 
-#: data/org.gnome.gnome-commander.gschema.xml:301
+#: data/org.gnome.gnome-commander.gschema.xml:308
 msgid "Width of icon column"
 msgstr "Simge sütunu genişliği"
 
-#: data/org.gnome.gnome-commander.gschema.xml:302
+#: data/org.gnome.gnome-commander.gschema.xml:309
 msgid "This option defines the width of the icon column."
 msgstr "Bu seçenek, simge sütunu genişliğini tanımlar."
 
-#: data/org.gnome.gnome-commander.gschema.xml:308
-msgid "Width of name column"
-msgstr "İsim sütunu genişliği"
-
-#: data/org.gnome.gnome-commander.gschema.xml:309
-msgid "This option defines the width of the name column."
-msgstr "Bu seçenek, isim sütunu genişliğini tanımlar."
-
 #: data/org.gnome.gnome-commander.gschema.xml:315
+msgid "Width of name column"
+msgstr "Ad sütunu genişliği"
+
+#: data/org.gnome.gnome-commander.gschema.xml:316
+msgid "This option defines the width of the name column."
+msgstr "Bu seçenek, ad sütunu genişliğini tanımlar."
+
+#: data/org.gnome.gnome-commander.gschema.xml:322
 msgid "Width of extension column"
 msgstr "Uzantı sütunu genişliği"
 
-#: data/org.gnome.gnome-commander.gschema.xml:316
+#: data/org.gnome.gnome-commander.gschema.xml:323
 msgid "This option defines the width of the extension column."
 msgstr "Bu seçenek, uzantı sütunu genişliğini tanımlar."
 
-#: data/org.gnome.gnome-commander.gschema.xml:322
+#: data/org.gnome.gnome-commander.gschema.xml:329
 msgid "Width of directory column"
 msgstr "Dizin sutunu genişliği"
 
-#: data/org.gnome.gnome-commander.gschema.xml:323
+#: data/org.gnome.gnome-commander.gschema.xml:330
 msgid "This option defines the width of the directory column."
 msgstr "Bu seçenek, dizin sütunu genişliğini tanımlar."
 
-#: data/org.gnome.gnome-commander.gschema.xml:329
+#: data/org.gnome.gnome-commander.gschema.xml:336
 msgid "Width of size column"
 msgstr "Boyut sütunu genişliği"
 
-#: data/org.gnome.gnome-commander.gschema.xml:330
+#: data/org.gnome.gnome-commander.gschema.xml:337
 msgid "This option defines the width of the size column."
 msgstr "Bu seçenek, boyut sütunu genişliğini tanımlar."
 
-#: data/org.gnome.gnome-commander.gschema.xml:336
+#: data/org.gnome.gnome-commander.gschema.xml:343
 msgid "Width of date column"
 msgstr "Tarih sütunu genişliği"
 
-#: data/org.gnome.gnome-commander.gschema.xml:337
+#: data/org.gnome.gnome-commander.gschema.xml:344
 msgid "This option defines the width of the date column."
 msgstr "Bu seçenek, tarih sütunu genişliğini tanımlar."
 
-#: data/org.gnome.gnome-commander.gschema.xml:343
+#: data/org.gnome.gnome-commander.gschema.xml:350
 msgid "Width of permissions column"
 msgstr "İzinler sütunu genişliğ"
 
-#: data/org.gnome.gnome-commander.gschema.xml:344
+#: data/org.gnome.gnome-commander.gschema.xml:351
 msgid "This option defines the width of the permissions column."
 msgstr "Bu seçenek, izinler sütunu genişliğini tanımlar."
 
-#: data/org.gnome.gnome-commander.gschema.xml:350
+#: data/org.gnome.gnome-commander.gschema.xml:357
 msgid "Width of owner column"
 msgstr "Sahip sütunu genişliği"
 
-#: data/org.gnome.gnome-commander.gschema.xml:351
+#: data/org.gnome.gnome-commander.gschema.xml:358
 msgid "This option defines the width of the owner column."
 msgstr "Bu seçenek, sahip sütunu genişliğini tanımlar."
 
-#: data/org.gnome.gnome-commander.gschema.xml:357
+#: data/org.gnome.gnome-commander.gschema.xml:364
 msgid "Width of group column"
 msgstr "Grup sutünu genişliği"
 
-#: data/org.gnome.gnome-commander.gschema.xml:358
+#: data/org.gnome.gnome-commander.gschema.xml:365
 msgid "This option defines the width of the group column."
 msgstr "Bu seçenek, grup sütunu genişliğini tanımlar."
 
-#: data/org.gnome.gnome-commander.gschema.xml:364
+#: data/org.gnome.gnome-commander.gschema.xml:371
 msgid "List of keybindings"
 msgstr "Anahtarbağlama listesi"
 
-#: data/org.gnome.gnome-commander.gschema.xml:365
+#: data/org.gnome.gnome-commander.gschema.xml:372
 msgid "Each entry in this list represents a keybinding."
 msgstr "Listedeki her giriş bir anahtarbağlamayı temsil eder."
 
-#: data/org.gnome.gnome-commander.gschema.xml:372
+#: data/org.gnome.gnome-commander.gschema.xml:379
 msgid "Main window state"
 msgstr "Ana pencere durumu"
 
-#: data/org.gnome.gnome-commander.gschema.xml:373
+#: data/org.gnome.gnome-commander.gschema.xml:380
 msgid ""
 "The number represents the main window state, e.g. “maximized”, “fullscreen”, "
 "etc. and is calculated internally."
@@ -538,19 +554,19 @@ msgstr ""
 "Bu sayı, ana pencere durumunu, örn. “maximized”, “fullscreen”, vb. temsil "
 "eder ve dahili olarak hesaplanır."
 
-#: data/org.gnome.gnome-commander.gschema.xml:379
+#: data/org.gnome.gnome-commander.gschema.xml:386
 msgid "Middle mouse button mode"
 msgstr "Orta fare düğmesi kipi"
 
-#: data/org.gnome.gnome-commander.gschema.xml:380
+#: data/org.gnome.gnome-commander.gschema.xml:387
 msgid "Defines what happens when the middle mouse button is clicked."
 msgstr "Orta fare tuşu tıklandığında ne olacağını tanımlar."
 
-#: data/org.gnome.gnome-commander.gschema.xml:386
+#: data/org.gnome.gnome-commander.gschema.xml:393
 msgid "Save directories on exit"
 msgstr "Çıkışta dizinleri kaydet"
 
-#: data/org.gnome.gnome-commander.gschema.xml:387
+#: data/org.gnome.gnome-commander.gschema.xml:394
 msgid ""
 "Defines if the current directories are opened again when GNOME Commander is "
 "restarted."
@@ -558,11 +574,11 @@ msgstr ""
 "Bu değer, GNOME Commander yeniden başlatıldığında geçerli açık dizinlerin "
 "tekrar açılması durumunu tanımlar."
 
-#: data/org.gnome.gnome-commander.gschema.xml:393
+#: data/org.gnome.gnome-commander.gschema.xml:400
 msgid "Save tabs on exit"
 msgstr "Çıkışta sekmeleri kaydet"
 
-#: data/org.gnome.gnome-commander.gschema.xml:394
+#: data/org.gnome.gnome-commander.gschema.xml:401
 msgid ""
 "Defines if the current open tabs are opened again when GNOME Commander is "
 "restarted."
@@ -570,31 +586,23 @@ msgstr ""
 "Bu değer, GNOME Commander yeniden başlatıldığında geçerli açık sekmelerin "
 "tekrar açılması durumunu tanımlar."
 
-#: data/org.gnome.gnome-commander.gschema.xml:400
+#: data/org.gnome.gnome-commander.gschema.xml:407
 msgid "Save directory history on exit"
 msgstr "Çıkışta dizin geçmişini kaydet"
 
-#: data/org.gnome.gnome-commander.gschema.xml:401
+#: data/org.gnome.gnome-commander.gschema.xml:408
 msgid "Defines if the history of visited directories is saved on exit."
 msgstr ""
 "Bu değer, ziyaret edilen dizinler geçmişinin çıkışta kayıt durumunu tanımlar."
 
-#: data/org.gnome.gnome-commander.gschema.xml:407
+#: data/org.gnome.gnome-commander.gschema.xml:414
 msgid "Save commandline history on exit"
 msgstr "Çıkışta komut satırı geçmişini kaydet"
 
-#: data/org.gnome.gnome-commander.gschema.xml:408
+#: data/org.gnome.gnome-commander.gschema.xml:415
 msgid "Defines if the history of commands in the commandline is saved on exit."
 msgstr ""
 "Bu değer, komut satırı komut geçmişinin çıkışta kayıt durumunu tanımlar."
-
-#: data/org.gnome.gnome-commander.gschema.xml:414
-msgid "Save search history on exit"
-msgstr "Çıkışta arama geçmişini kaydet"
-
-#: data/org.gnome.gnome-commander.gschema.xml:415
-msgid "Defines if the history of search patterns is saved on exit."
-msgstr "Bu değer, arama desenleri geçmişinin çıkışta kayıt durumunu tanımlar."
 
 #: data/org.gnome.gnome-commander.gschema.xml:421
 msgid "Always show tab bar"
@@ -605,7 +613,7 @@ msgid "Defines if the tab bar is always shown."
 msgstr "Bu değer, sekme çubuğunun her zaman gösterim durumunu tanımlar."
 
 #: data/org.gnome.gnome-commander.gschema.xml:428
-#: src/dialogs/gnome-cmd-options-dialog.cc:972
+#: src/dialogs/gnome-cmd-options-dialog.cc:970
 msgid "Tab lock indicator"
 msgstr "Sekme kilitleme göstegesi"
 
@@ -668,25 +676,27 @@ msgstr ""
 
 #: data/org.gnome.gnome-commander.gschema.xml:470
 msgid "Only device icons"
-msgstr "Sadece aygıt simgeleri"
+msgstr "Yalnızca aygıt simgeleri"
 
 #: data/org.gnome.gnome-commander.gschema.xml:471
 msgid ""
 "This option defines if only device icons should be shown instead of icons "
 "and text label."
 msgstr ""
-"Bu seçenek, simge ve metin etiketi yerine sadece aygıt simgesinin gösterim "
+"Bu seçenek, simge ve metin etiketi yerine yalnızca aygıt simgesinin gösterim "
 "durumunu tanımlar."
 
 #: data/org.gnome.gnome-commander.gschema.xml:477
-msgid "Skip device mounting"
-msgstr "Aygıt bağlamayı geç"
+msgid "Show the samba workgroups icon"
+msgstr "Samba çalışma kümeleri simgesini göster"
 
 #: data/org.gnome.gnome-commander.gschema.xml:478
 msgid ""
-"This option defines if mounting of devices should be skipped when they are "
-"opened."
-msgstr "Bu seçenek, aygıtın bağlanması açıldığında atlanma durumunu tanımlar."
+"This option defines if the Samba workgroups icon should be shown in the "
+"devices list."
+msgstr ""
+"Bu seçenek, aygıtlar listesinde Samba çalışma kümeleri simgesinin gösterilme "
+"durumunu tanımlar."
 
 #: data/org.gnome.gnome-commander.gschema.xml:484
 msgid "Main menu visibility"
@@ -713,7 +723,7 @@ msgid ""
 "The entries in this list are used for restoring the tabs from the last "
 "session."
 msgstr ""
-"Bu listedeki girişler, sekmeleri son oturumdan geri yüklemek için kullanılır."
+"Bu listedeki girdiler, sekmeleri son oturumdan geri yüklemek için kullanılır."
 
 #: data/org.gnome.gnome-commander.gschema.xml:505
 msgid "List of devices"
@@ -722,63 +732,24 @@ msgstr "Aygıt listesi"
 #: data/org.gnome.gnome-commander.gschema.xml:506
 msgid "The entries in this list represent the devices configured by the user."
 msgstr ""
-"Bu listedeki girişler, kullanıcı tarafından yapılandırılan aygıtları temsil "
-"eder."
+"Bu listedeki girdiler, kullanıcıca yapılandırılan aygıtları yansıtır."
 
 #: data/org.gnome.gnome-commander.gschema.xml:512
 msgid "List of favorite apps"
-msgstr "Favori uygulamalar listesi"
+msgstr "Gözde uygulamalar listesi"
 
 #: data/org.gnome.gnome-commander.gschema.xml:513
 msgid ""
 "The entries in this list represent the favorite apps configured by the user."
 msgstr ""
-"Bu listedeki girişler, kullanıcı tarafından yapılandırılan favori "
-"uygulamaları temsil eder."
+"Bu listedeki girdiler, kullanıcıca yapılandırılan gözde "
+"uygulamaları yansıtır."
 
 #: data/org.gnome.gnome-commander.gschema.xml:519
-msgid "Search window width"
-msgstr "Arama penceresi genişliği"
-
-#: data/org.gnome.gnome-commander.gschema.xml:520
-msgid "This option defines the width of the search window."
-msgstr "Bu seçenek, arama penceresi genişliğini tanımlar."
-
-#: data/org.gnome.gnome-commander.gschema.xml:526
-msgid "Search window height"
-msgstr "Arama penceresi yüksekliği"
-
-#: data/org.gnome.gnome-commander.gschema.xml:527
-msgid "This option defines the height of the search window."
-msgstr "Bu seçenek, arama penceresi yüksekliğini tanımlar."
-
-#: data/org.gnome.gnome-commander.gschema.xml:533
-msgid "Search window is transient"
-msgstr "Arama penceresi geçirgen"
-
-#: data/org.gnome.gnome-commander.gschema.xml:534
-msgid ""
-"Defines if the search window is transient or if it can be minimized and "
-"moved behind the main window."
-msgstr ""
-"Arama penceresinin geçirgenlik durumunu veya küçültülüp ana pencerenin "
-"arkasına taşınabilme durumunu tanımlar."
-
-#: data/org.gnome.gnome-commander.gschema.xml:540
-msgid "Search text history"
-msgstr "Arama metni geçmişi"
-
-#: data/org.gnome.gnome-commander.gschema.xml:541
-msgid ""
-"This string array represents the history of text searches in the search tool."
-msgstr ""
-"Bu dizge dizisi, arama aracındaki metin aramaların geçmişini temsil eder."
-
-#: data/org.gnome.gnome-commander.gschema.xml:547
 msgid "Search pattern history"
 msgstr "Arama deseni geçmişi"
 
-#: data/org.gnome.gnome-commander.gschema.xml:548
+#: data/org.gnome.gnome-commander.gschema.xml:520
 msgid ""
 "This string array represents the history of regular expression searches in "
 "the search tool."
@@ -786,11 +757,11 @@ msgstr ""
 "Bu dizge dizisi, arama aracında aranmış düzenli ifadelerin geçmişini temsil "
 "eder."
 
-#: data/org.gnome.gnome-commander.gschema.xml:554
+#: data/org.gnome.gnome-commander.gschema.xml:526
 msgid "List of search tool profiles"
 msgstr "Arama araç profillerinin listesi"
 
-#: data/org.gnome.gnome-commander.gschema.xml:555
+#: data/org.gnome.gnome-commander.gschema.xml:527
 msgid ""
 "The entries in this array represent the profiles in the search tool with "
 "specific settings for each profile."
@@ -798,35 +769,35 @@ msgstr ""
 "Bu dizideki girişler, arama aracındaki profilleri, her profil için özel "
 "ayarlarla gösterir."
 
-#: data/org.gnome.gnome-commander.gschema.xml:563
+#: data/org.gnome.gnome-commander.gschema.xml:535
 msgid "Quick connect URI"
 msgstr "Hızlı bağlan adresi"
 
-#: data/org.gnome.gnome-commander.gschema.xml:564
+#: data/org.gnome.gnome-commander.gschema.xml:536
 msgid "Unified resource identifier for quick connections."
 msgstr "Hızlı bağlantılar için birleşik kaynak tanımlayıcı."
 
-#: data/org.gnome.gnome-commander.gschema.xml:575
+#: data/org.gnome.gnome-commander.gschema.xml:547
 msgid "Password for anonymous FTP connections"
 msgstr "Anonim FTP bağlantıları için parola"
 
-#: data/org.gnome.gnome-commander.gschema.xml:576
+#: data/org.gnome.gnome-commander.gschema.xml:548
 msgid "This string defines the password for anonymous FTP connections."
 msgstr "Bu dizge, anonim FTP bağlantıları için parolaları tanımlar."
 
-#: data/org.gnome.gnome-commander.gschema.xml:584
+#: data/org.gnome.gnome-commander.gschema.xml:556
 msgid "Confirm delete"
 msgstr "Silmeden önce onayla"
 
-#: data/org.gnome.gnome-commander.gschema.xml:585
+#: data/org.gnome.gnome-commander.gschema.xml:557
 msgid "Defines if deletion of an item should be confirmed."
 msgstr "Bu değer, silme işlemi için onaylan durumunu tanımlar."
 
-#: data/org.gnome.gnome-commander.gschema.xml:591
+#: data/org.gnome.gnome-commander.gschema.xml:563
 msgid "Delete default"
 msgstr "Öntanımlı sil"
 
-#: data/org.gnome.gnome-commander.gschema.xml:592
+#: data/org.gnome.gnome-commander.gschema.xml:564
 msgid ""
 "This setting defines the default active option in the delete confirmation "
 "dialog."
@@ -834,11 +805,11 @@ msgstr ""
 "Bu ayar, silme doğrulama iletişim penceresinde öntanımlı etkin seçeneği "
 "tanımlar."
 
-#: data/org.gnome.gnome-commander.gschema.xml:598
+#: data/org.gnome.gnome-commander.gschema.xml:570
 msgid "Confirm copy overwrite"
 msgstr "Kopyala üzerine yazmayı doğrula"
 
-#: data/org.gnome.gnome-commander.gschema.xml:599
+#: data/org.gnome.gnome-commander.gschema.xml:571
 msgid ""
 "This option defines the default behavior when items will be overwritten by a "
 "copy command."
@@ -846,11 +817,11 @@ msgstr ""
 "Bu seçenek, nesnelerin bir kopyalama komutu tarafından üzerine yazılacağı "
 "öntanımlı davranışı tanımlar."
 
-#: data/org.gnome.gnome-commander.gschema.xml:605
+#: data/org.gnome.gnome-commander.gschema.xml:577
 msgid "Confirm move overwrite"
 msgstr "Taşı üzerine yazmayı doğrula"
 
-#: data/org.gnome.gnome-commander.gschema.xml:606
+#: data/org.gnome.gnome-commander.gschema.xml:578
 msgid ""
 "This option defines the default behavior when items will be overwritten by a "
 "move command."
@@ -858,76 +829,74 @@ msgstr ""
 "Bu seçenek, nesnelerin bir taşıma komutu tarafından üzerine yazılacağı "
 "öntanımlı davranışı tanımlar."
 
-#: data/org.gnome.gnome-commander.gschema.xml:612
+#: data/org.gnome.gnome-commander.gschema.xml:584
 msgid "Confirm mouse drag and drop"
 msgstr "Fare sürükle bırak işlemlerini onayla"
 
-#: data/org.gnome.gnome-commander.gschema.xml:613
+#: data/org.gnome.gnome-commander.gschema.xml:585
 msgid "This option defines the behavior of mouse drag and drop operations."
 msgstr "Bu seçenek, fare sürükle bırak işlemlerinin davranışını tanımlar."
 
-#: data/org.gnome.gnome-commander.gschema.xml:621
+#: data/org.gnome.gnome-commander.gschema.xml:593
 msgid "Hide unknown filetypes"
 msgstr "Bilinmeyen dosya türlerini gizle"
 
-#: data/org.gnome.gnome-commander.gschema.xml:622
+#: data/org.gnome.gnome-commander.gschema.xml:594
 msgid "Hide files which type does not match to one of the other types."
 msgstr "Diğer türlerden biriyle uyuşmayan dosyaları gizle."
 
-#: data/org.gnome.gnome-commander.gschema.xml:626
+#: data/org.gnome.gnome-commander.gschema.xml:598
 msgid "Hide regular files"
 msgstr "Normal dosyaları gizle"
 
-#: data/org.gnome.gnome-commander.gschema.xml:630
+#: data/org.gnome.gnome-commander.gschema.xml:602
 msgid "Hide directories"
 msgstr "Dizinleri gizle"
 
-#: data/org.gnome.gnome-commander.gschema.xml:634
+#: data/org.gnome.gnome-commander.gschema.xml:606
 msgid "Hide symbolic links"
 msgstr "Sembolik bağlantıları gizle"
 
-#: data/org.gnome.gnome-commander.gschema.xml:638
+#: data/org.gnome.gnome-commander.gschema.xml:610
 msgid ""
 "Hide special files, such as a socket, fifo, block devices, or character "
 "devices."
 msgstr ""
+"Soket, fifo, blok aygıt veya karakter aygıtları gibi özel dosyaları gizle."
 
-#: data/org.gnome.gnome-commander.gschema.xml:642
+#: data/org.gnome.gnome-commander.gschema.xml:614
 msgid "Hide shortcut files (Windows systems)"
-msgstr ""
+msgstr "Kısayol dosyalarını gizle (Windows sistemleri)"
 
-#: data/org.gnome.gnome-commander.gschema.xml:646
-#| msgid "/Remote location..."
+#: data/org.gnome.gnome-commander.gschema.xml:618
 msgid "Hide mountable locations"
 msgstr "Bağlanabilir konumları gizle"
 
-#: data/org.gnome.gnome-commander.gschema.xml:650
-#| msgid "Hide regular files"
+#: data/org.gnome.gnome-commander.gschema.xml:622
 msgid "Hide virtual files"
 msgstr "Sanal dosyaları gizle"
 
-#: data/org.gnome.gnome-commander.gschema.xml:654
-#| msgid "Hide regular files"
+#: data/org.gnome.gnome-commander.gschema.xml:626
 msgid "Hide volatile files"
 msgstr "Uçucu dosyaları gizle"
 
-#: data/org.gnome.gnome-commander.gschema.xml:658
+#: data/org.gnome.gnome-commander.gschema.xml:630
 msgid "Hide files and folders starting with a dot"
 msgstr "Gizli dosyaları gizle"
 
-#: data/org.gnome.gnome-commander.gschema.xml:662
+#: data/org.gnome.gnome-commander.gschema.xml:634
 msgid "Hide backup files"
 msgstr "Yedek dosyalarını gizle"
 
-#: data/org.gnome.gnome-commander.gschema.xml:663
+#: data/org.gnome.gnome-commander.gschema.xml:635
 msgid "Hide all files with a suffix defined as the backup pattern."
 msgstr "Yedek deseniyle tanımlanmış uzantılara sahip tüm dosyaları gizle."
 
-#: data/org.gnome.gnome-commander.gschema.xml:667
+#: data/org.gnome.gnome-commander.gschema.xml:639
 msgid "Backup file pattern"
 msgstr "Yedek dosya deseni"
 
-#: data/org.gnome.gnome-commander.gschema.xml:668
+#: data/org.gnome.gnome-commander.gschema.xml:640
 msgid ""
 "The given string defines suffixes (separated by semicolon) for files which "
 "should be filtered out if backup files should be hidden."
@@ -935,11 +904,11 @@ msgstr ""
 "Verilen dizge, yedekleme dosyalarının gizlenmesi durumunda filtrelenmesi "
 "gereken dosyaların uzantılarını (noktalı virgülle ayrılmış olarak) tanımlar."
 
-#: data/org.gnome.gnome-commander.gschema.xml:677
+#: data/org.gnome.gnome-commander.gschema.xml:649
 msgid "Do not download files"
 msgstr "Dosyaları indirme"
 
-#: data/org.gnome.gnome-commander.gschema.xml:678
+#: data/org.gnome.gnome-commander.gschema.xml:650
 msgid ""
 "This option defines if remote files should be downloaded before opened by "
 "external programs."
@@ -947,153 +916,163 @@ msgstr ""
 "Bu seçenek, uzak dosyaların harici programlar tarafından açılmadan önce "
 "indirilmesi durumunu tanımlar."
 
-#: data/org.gnome.gnome-commander.gschema.xml:684
+#: data/org.gnome.gnome-commander.gschema.xml:656
 msgid "Use internal viewer"
 msgstr "Dahili görüntüleyiciyi kullan"
 
-#: data/org.gnome.gnome-commander.gschema.xml:685
+#: data/org.gnome.gnome-commander.gschema.xml:657
 msgid "This option defines if the internal viewer should be used by default."
 msgstr ""
 "Bu seçenek, dahili görüntüleyicinin öntanımlı kullanım davranışını tanımlar."
 
-#: data/org.gnome.gnome-commander.gschema.xml:691
+#: data/org.gnome.gnome-commander.gschema.xml:663
 msgid "Viewer command"
 msgstr "Görüntüleyici komutu"
 
-#: data/org.gnome.gnome-commander.gschema.xml:692
+#: data/org.gnome.gnome-commander.gschema.xml:664
 msgid "This string defines the command for starting the (external) viewer."
 msgstr "Bu dizge, (dahili) görüntüleyicinin başlatılma komutunu tanımlar."
 
-#: data/org.gnome.gnome-commander.gschema.xml:698
+#: data/org.gnome.gnome-commander.gschema.xml:670
 msgid "Editor command"
 msgstr "Düzenleyici komutu"
 
-#: data/org.gnome.gnome-commander.gschema.xml:699
+#: data/org.gnome.gnome-commander.gschema.xml:671
 msgid "This string defines the command for starting the editor."
 msgstr "Bu dizge, düzenleyicinin başlatılma komutunu tanımlar."
 
-#: data/org.gnome.gnome-commander.gschema.xml:705
+#: data/org.gnome.gnome-commander.gschema.xml:677
 msgid "Differ command"
 msgstr "Kıyaslayıcı komutu"
 
-#: data/org.gnome.gnome-commander.gschema.xml:706
+#: data/org.gnome.gnome-commander.gschema.xml:678
 msgid "This string defines the command for starting the diff tool."
 msgstr "Bu dizge, kıyaslama aracını başlatma komutunu tanımlar."
 
-#: data/org.gnome.gnome-commander.gschema.xml:712
-msgid "Leave terminal open"
-msgstr "Terminali açık bırak"
+# Arama işlemi için kullanılacak komut anlamında
+#: data/org.gnome.gnome-commander.gschema.xml:684
+msgid "Search command"
+msgstr "Arama komutu"
 
-#: data/org.gnome.gnome-commander.gschema.xml:713
+#: data/org.gnome.gnome-commander.gschema.xml:685
+msgid ""
+"This string defines the command for starting an external file search tool."
+msgstr "Bu dizge, dış dosya arama aracınının başlatma komutunu tanımlar."
+
+#: data/org.gnome.gnome-commander.gschema.xml:691
+msgid "Leave terminal open"
+msgstr "Uçbirimi açık bırak"
+
+#: data/org.gnome.gnome-commander.gschema.xml:692
 msgid ""
 "This option defines if a terminal window should stay open after a command "
 "finishes inside of it."
 msgstr ""
-"Bu seçenek, bir terminal penceresinin komut tamamlandıktan sonra açık kalma "
+"Bu seçenek, uçbirim penceresinin komut tamamlandıktan sonra açık kalma "
 "durumunu tanımlar."
 
-#: data/org.gnome.gnome-commander.gschema.xml:719
+#: data/org.gnome.gnome-commander.gschema.xml:698
 msgid "Command for opening a terminal"
-msgstr "Terminal açma komutu"
+msgstr "Uçbirim açma komutu"
 
-#: data/org.gnome.gnome-commander.gschema.xml:720
+#: data/org.gnome.gnome-commander.gschema.xml:699
 msgid "This string defines the command for opening a terminal."
-msgstr "Bu dizge, terminalin başlatılma komutunu tanımlar."
+msgstr "Bu dizge, uçbirimin başlatılma komutunu tanımlar."
 
-#: data/org.gnome.gnome-commander.gschema.xml:726
+#: data/org.gnome.gnome-commander.gschema.xml:705
 msgid "Command for execution in terminal"
-msgstr "Terminalde çalıştırılacak komut"
+msgstr "Uçbirimde çalıştırılacak komut"
 
-#: data/org.gnome.gnome-commander.gschema.xml:727
+#: data/org.gnome.gnome-commander.gschema.xml:706
 msgid ""
 "This string defines the command for executing another command in a terminal."
-msgstr "Bu dizge, terminalde bir başka komut çalıştırma komutunu tanımlar."
+msgstr "Bu dizge, uçbirimde başka komut çalıştırma komutunu tanımlar."
 
-#: data/org.gnome.gnome-commander.gschema.xml:733
+#: data/org.gnome.gnome-commander.gschema.xml:712
 msgid "Send to command"
 msgstr "Şuna gönder komutu"
 
-#: data/org.gnome.gnome-commander.gschema.xml:734
+#: data/org.gnome.gnome-commander.gschema.xml:713
 msgid "This string defines the command for sending files to a receiver."
 msgstr "Bu dizge, dosyaları bir alıcıya gönderme komutunu tanımlar."
 
-#: data/org.gnome.gnome-commander.gschema.xml:742
+#: data/org.gnome.gnome-commander.gschema.xml:721
 msgid "Color theme"
 msgstr "Renk teması"
 
-#: data/org.gnome.gnome-commander.gschema.xml:743
+#: data/org.gnome.gnome-commander.gschema.xml:722
 msgid "This option defines the current color theme."
 msgstr "Bu seçenek, geçerli renk temasını tanımlar."
 
-#: data/org.gnome.gnome-commander.gschema.xml:749
+#: data/org.gnome.gnome-commander.gschema.xml:728
 msgid "Normal foreground color"
-msgstr "Normal önplan rengi"
+msgstr "Normal ön plan rengi"
+
+#: data/org.gnome.gnome-commander.gschema.xml:729
+msgid "Normal foreground color in custom mode."
+msgstr "Özel kipte normal ön plan rengi."
+
+#: data/org.gnome.gnome-commander.gschema.xml:735
+msgid "Normal background color"
+msgstr "Normal arka plan rengi"
+
+#: data/org.gnome.gnome-commander.gschema.xml:736
+msgid "Normal background color in custom mode."
+msgstr "Özel kipte normal arka plan rengi."
+
+#: data/org.gnome.gnome-commander.gschema.xml:742
+msgid "Alternate foreground color"
+msgstr "Alternatif ön plan rengi"
+
+#: data/org.gnome.gnome-commander.gschema.xml:743
+msgid "Alternate foreground color in custom mode."
+msgstr "Özel kipte alternatif ön plan rengi."
+
+#: data/org.gnome.gnome-commander.gschema.xml:749
+msgid "Alternate background color"
+msgstr "Alternatif arka plan rengi"
 
 #: data/org.gnome.gnome-commander.gschema.xml:750
-msgid "Normal foreground color in custom mode."
-msgstr "Özel kipte normal önplan rengi."
+msgid "Alternate background color in custom mode."
+msgstr "Özel kipte alternatif arka plan rengi."
 
 #: data/org.gnome.gnome-commander.gschema.xml:756
-msgid "Normal background color"
-msgstr "Normal arkaplan rengi"
+msgid "Selection foreground color"
+msgstr "Seçim ön plan rengi"
 
 #: data/org.gnome.gnome-commander.gschema.xml:757
-msgid "Normal background color in custom mode."
-msgstr "Özel kipte normal arkaplan rengi."
+msgid "Foreground color for selections in custom mode."
+msgstr "Özel kipte seçim için ön plan rengi."
 
 #: data/org.gnome.gnome-commander.gschema.xml:763
-msgid "Alternate foreground color"
-msgstr "Alternatif önplan rengi"
+msgid "Selection background color"
+msgstr "Seçim arka plan rengi"
 
 #: data/org.gnome.gnome-commander.gschema.xml:764
-msgid "Alternate foreground color in custom mode."
-msgstr "Özel kipte alternatif önplan rengi."
+msgid "Background color for selections in custom mode."
+msgstr "Özel kipte seçim için arka plan rengi."
 
 #: data/org.gnome.gnome-commander.gschema.xml:770
-msgid "Alternate background color"
-msgstr "Alternatif arkaplan rengi"
+msgid "Cursor foreground color"
+msgstr "İmleç ön plan rengi"
 
 #: data/org.gnome.gnome-commander.gschema.xml:771
-msgid "Alternate background color in custom mode."
-msgstr "Özel kipte alternatif arkaplan rengi."
+msgid "Cursor foreground color in custom mode."
+msgstr "Özel kipte imleç ön plan rengi."
 
 #: data/org.gnome.gnome-commander.gschema.xml:777
-msgid "Selection foreground color"
-msgstr "Seçim önplan rengi"
+msgid "Cursor background color"
+msgstr "İmle arka plan rengi"
 
 #: data/org.gnome.gnome-commander.gschema.xml:778
-msgid "Foreground color for selections in custom mode."
-msgstr "Özel kipte seçim için önplan rengi."
+msgid "Cursor background color in custom mode."
+msgstr "Özel kipte imleç arka plan rengi."
 
 #: data/org.gnome.gnome-commander.gschema.xml:784
-msgid "Selection background color"
-msgstr "Seçim arkaplan rengi"
-
-#: data/org.gnome.gnome-commander.gschema.xml:785
-msgid "Background color for selections in custom mode."
-msgstr "Özel kipte seçim için arkaplan rengi."
-
-#: data/org.gnome.gnome-commander.gschema.xml:791
-msgid "Cursor foreground color"
-msgstr "İmleç önplan rengi"
-
-#: data/org.gnome.gnome-commander.gschema.xml:792
-msgid "Cursor foreground color in custom mode."
-msgstr "Özel kipte imleç önplan rengi."
-
-#: data/org.gnome.gnome-commander.gschema.xml:798
-msgid "Cursor background color"
-msgstr "İmle arkaplan rengi"
-
-#: data/org.gnome.gnome-commander.gschema.xml:799
-msgid "Cursor background color in custom mode."
-msgstr "Özel kipte imleç arkaplan rengi."
-
-#: data/org.gnome.gnome-commander.gschema.xml:805
 msgid "Use LS colors"
 msgstr "LS renklerini kullan"
 
-#: data/org.gnome.gnome-commander.gschema.xml:806
+#: data/org.gnome.gnome-commander.gschema.xml:785
 msgid ""
 "This option triggers if the value of the environment variable LS_COLORS "
 "should be used to dye files and folders."
@@ -1101,156 +1080,156 @@ msgstr ""
 "Bu seçenek, dosya ve dizinleri boyamak için LS_COLORS ortam değişkeni "
 "değerinin kullanılması gerektiğini tetikler."
 
-#: data/org.gnome.gnome-commander.gschema.xml:813
+#: data/org.gnome.gnome-commander.gschema.xml:792
 msgid "LS_COLORS black foreground mapping"
-msgstr "LS_COLORS siyah önplan eşlemi"
+msgstr "LS_COLORS siyah ön plan eşlemi"
 
-#: data/org.gnome.gnome-commander.gschema.xml:814
+#: data/org.gnome.gnome-commander.gschema.xml:793
 msgid ""
 "This option adjusts the foreground color mapping for LS_COLORS black value."
 msgstr "Bu seçenek, LS_COLORS siyah değeri için önpalan eşlemini ayarlar."
 
-#: data/org.gnome.gnome-commander.gschema.xml:820
+#: data/org.gnome.gnome-commander.gschema.xml:799
 msgid "LS_COLORS black background mapping"
-msgstr "LS_COLORS siyah arkaplan eşlemi"
+msgstr "LS_COLORS siyah arka plan eşlemi"
 
-#: data/org.gnome.gnome-commander.gschema.xml:821
+#: data/org.gnome.gnome-commander.gschema.xml:800
 msgid ""
 "This option adjusts the background color mapping for LS_COLORS black value."
-msgstr "Bu seçenek, LS_COLORS siyah değeri için arkaplan eşlemini ayarlar."
+msgstr "Bu seçenek, LS_COLORS siyah değeri için arka plan eşlemini ayarlar."
 
-#: data/org.gnome.gnome-commander.gschema.xml:827
+#: data/org.gnome.gnome-commander.gschema.xml:806
 msgid "LS_COLORS red foreground mapping"
-msgstr "LS_COLORS kırmızı önplan eşlemi"
+msgstr "LS_COLORS kırmızı ön plan eşlemi"
 
-#: data/org.gnome.gnome-commander.gschema.xml:828
+#: data/org.gnome.gnome-commander.gschema.xml:807
 msgid ""
 "This option adjusts the foreground color mapping for LS_COLORS red value."
 msgstr "Bu seçenek, LS_COLORS kırmızı değeri için önpalan eşlemini ayarlar."
 
-#: data/org.gnome.gnome-commander.gschema.xml:834
+#: data/org.gnome.gnome-commander.gschema.xml:813
 msgid "LS_COLORS red background mapping"
-msgstr "LS_COLORS kırmızı arkaplan eşlemi"
+msgstr "LS_COLORS kırmızı arka plan eşlemi"
 
-#: data/org.gnome.gnome-commander.gschema.xml:835
+#: data/org.gnome.gnome-commander.gschema.xml:814
 msgid ""
 "This option adjusts the background color mapping for LS_COLORS red value."
-msgstr "Bu seçenek, LS_COLORS kırmızı değeri için arkaplan eşlemini ayarlar."
+msgstr "Bu seçenek, LS_COLORS kırmızı değeri için arka plan eşlemini ayarlar."
 
-#: data/org.gnome.gnome-commander.gschema.xml:841
+#: data/org.gnome.gnome-commander.gschema.xml:820
 msgid "LS_COLORS green foreground mapping"
-msgstr "LS_COLORS yeşil önplan eşlemi"
+msgstr "LS_COLORS yeşil ön plan eşlemi"
 
-#: data/org.gnome.gnome-commander.gschema.xml:842
+#: data/org.gnome.gnome-commander.gschema.xml:821
 msgid ""
 "This option adjusts the foreground color mapping for LS_COLORS green value."
 msgstr "Bu seçenek, LS_COLORS yeşil değeri için önpalan eşlemini ayarlar."
 
-#: data/org.gnome.gnome-commander.gschema.xml:848
+#: data/org.gnome.gnome-commander.gschema.xml:827
 msgid "LS_COLORS green background mapping"
-msgstr "LS_COLORS yeşil arkaplan eşlemi"
+msgstr "LS_COLORS yeşil arka plan eşlemi"
 
-#: data/org.gnome.gnome-commander.gschema.xml:849
+#: data/org.gnome.gnome-commander.gschema.xml:828
 msgid ""
 "This option adjusts the background color mapping for LS_COLORS green value."
-msgstr "Bu seçenek, LS_COLORS yeşil değeri için arkaplan eşlemini ayarlar."
+msgstr "Bu seçenek, LS_COLORS yeşil değeri için arka plan eşlemini ayarlar."
 
-#: data/org.gnome.gnome-commander.gschema.xml:855
+#: data/org.gnome.gnome-commander.gschema.xml:834
 msgid "LS_COLORS yellow foreground mapping"
-msgstr "LS_COLORS sarı önplan eşlemi"
+msgstr "LS_COLORS sarı ön plan eşlemi"
 
-#: data/org.gnome.gnome-commander.gschema.xml:856
+#: data/org.gnome.gnome-commander.gschema.xml:835
 msgid ""
 "This option adjusts the foreground color mapping for LS_COLORS yellow value."
 msgstr "Bu seçenek, LS_COLORS sarı değeri için önpalan eşlemini ayarlar."
 
-#: data/org.gnome.gnome-commander.gschema.xml:862
+#: data/org.gnome.gnome-commander.gschema.xml:841
 msgid "LS_COLORS yellow background mapping"
-msgstr "LS_COLORS sarı arkaplan eşlemi"
+msgstr "LS_COLORS sarı arka plan eşlemi"
 
-#: data/org.gnome.gnome-commander.gschema.xml:863
+#: data/org.gnome.gnome-commander.gschema.xml:842
 msgid ""
 "This option adjusts the background color mapping for LS_COLORS yellow value."
-msgstr "Bu seçenek, LS_COLORS sarı değeri için arkaplan eşlemini ayarlar."
+msgstr "Bu seçenek, LS_COLORS sarı değeri için arka plan eşlemini ayarlar."
 
-#: data/org.gnome.gnome-commander.gschema.xml:869
+#: data/org.gnome.gnome-commander.gschema.xml:848
 msgid "LS_COLORS blue foreground mapping"
-msgstr "LS_COLORS mavi önplan eşlemi"
+msgstr "LS_COLORS mavi ön plan eşlemi"
 
-#: data/org.gnome.gnome-commander.gschema.xml:870
+#: data/org.gnome.gnome-commander.gschema.xml:849
 msgid ""
 "This option adjusts the foreground color mapping for LS_COLORS blue value."
 msgstr "Bu seçenek, LS_COLORS mavi değeri için önpalan eşlemini ayarlar."
 
-#: data/org.gnome.gnome-commander.gschema.xml:876
+#: data/org.gnome.gnome-commander.gschema.xml:855
 msgid "LS_COLORS blue background mapping"
-msgstr "LS_COLORS mavi arkaplan eşlemi"
+msgstr "LS_COLORS mavi arka plan eşlemi"
 
-#: data/org.gnome.gnome-commander.gschema.xml:877
+#: data/org.gnome.gnome-commander.gschema.xml:856
 msgid ""
 "This option adjusts the background color mapping for LS_COLORS blue value."
-msgstr "Bu seçenek, LS_COLORS mavi değeri için arkaplan eşlemini ayarlar."
+msgstr "Bu seçenek, LS_COLORS mavi değeri için arka plan eşlemini ayarlar."
 
-#: data/org.gnome.gnome-commander.gschema.xml:883
+#: data/org.gnome.gnome-commander.gschema.xml:862
 msgid "LS_COLORS magenta foreground mapping"
-msgstr "LS_COLORS galibarda önplan eşlemi"
+msgstr "LS_COLORS galibarda ön plan eşlemi"
 
-#: data/org.gnome.gnome-commander.gschema.xml:884
+#: data/org.gnome.gnome-commander.gschema.xml:863
 msgid ""
 "This option adjusts the foreground color mapping for LS_COLORS magenta value."
 msgstr "Bu seçenek, LS_COLORS galibarda değeri için önpalan eşlemini ayarlar."
 
-#: data/org.gnome.gnome-commander.gschema.xml:890
+#: data/org.gnome.gnome-commander.gschema.xml:869
 msgid "LS_COLORS magenta background mapping"
-msgstr "LS_COLORS galibarda arkaplan eşlemi"
+msgstr "LS_COLORS galibarda arka plan eşlemi"
 
-#: data/org.gnome.gnome-commander.gschema.xml:891
+#: data/org.gnome.gnome-commander.gschema.xml:870
 msgid ""
 "This option adjusts the background color mapping for LS_COLORS magenta value."
-msgstr "Bu seçenek, LS_COLORS galibarda değeri için arkaplan eşlemini ayarlar."
+msgstr "Bu seçenek, LS_COLORS galibarda değeri için arka plan eşlemini ayarlar."
 
-#: data/org.gnome.gnome-commander.gschema.xml:897
+#: data/org.gnome.gnome-commander.gschema.xml:876
 msgid "LS_COLORS cyan foreground mapping"
-msgstr "LS_COLORS cam göbeği önplan eşlemi"
+msgstr "LS_COLORS cam göbeği ön plan eşlemi"
 
-#: data/org.gnome.gnome-commander.gschema.xml:898
+#: data/org.gnome.gnome-commander.gschema.xml:877
 msgid ""
 "This option adjusts the foreground color mapping for LS_COLORS cyan value."
 msgstr "Bu seçenek, LS_COLORS cam göbeği değeri için önpalan eşlemini ayarlar."
 
-#: data/org.gnome.gnome-commander.gschema.xml:904
+#: data/org.gnome.gnome-commander.gschema.xml:883
 msgid "LS_COLORS cyan background mapping"
-msgstr "LS_COLORS cam göbeği arkaplan eşlemi"
+msgstr "LS_COLORS cam göbeği arka plan eşlemi"
 
-#: data/org.gnome.gnome-commander.gschema.xml:905
+#: data/org.gnome.gnome-commander.gschema.xml:884
 msgid ""
 "This option adjusts the background color mapping for LS_COLORS cyan value."
 msgstr ""
-"Bu seçenek, LS_COLORS cam göbeği değeri için arkaplan eşlemini ayarlar."
+"Bu seçenek, LS_COLORS cam göbeği değeri için arka plan eşlemini ayarlar."
 
-#: data/org.gnome.gnome-commander.gschema.xml:911
+#: data/org.gnome.gnome-commander.gschema.xml:890
 msgid "LS_COLORS white foreground mapping"
-msgstr "LS_COLORS beyaz önplan eşlemi"
+msgstr "LS_COLORS beyaz ön plan eşlemi"
 
-#: data/org.gnome.gnome-commander.gschema.xml:912
+#: data/org.gnome.gnome-commander.gschema.xml:891
 msgid ""
 "This option adjusts the foreground color mapping for LS_COLORS white value."
 msgstr "Bu seçenek, LS_COLORS beyaz değeri için önpalan eşlemini ayarlar."
 
-#: data/org.gnome.gnome-commander.gschema.xml:918
+#: data/org.gnome.gnome-commander.gschema.xml:897
 msgid "LS_COLORS white background mapping"
-msgstr "LS_COLORS beyaz arkaplan eşlemi"
+msgstr "LS_COLORS beyaz arka plan eşlemi"
 
-#: data/org.gnome.gnome-commander.gschema.xml:919
+#: data/org.gnome.gnome-commander.gschema.xml:898
 msgid ""
 "This option adjusts the background color mapping for LS_COLORS white value."
-msgstr "Bu seçenek, LS_COLORS beyaz değeri için arkaplan eşlemini ayarlar."
+msgstr "Bu seçenek, LS_COLORS beyaz değeri için arka plan eşlemini ayarlar."
 
-#: data/org.gnome.gnome-commander.gschema.xml:927
+#: data/org.gnome.gnome-commander.gschema.xml:906
 msgid "Case sensitive search"
 msgstr "Büyük/küçük harf duyarlı arama"
 
-#: data/org.gnome.gnome-commander.gschema.xml:928
+#: data/org.gnome.gnome-commander.gschema.xml:907
 msgid ""
 "This option defines if searching within the internal viewer is case "
 "sensitive."
@@ -1258,11 +1237,11 @@ msgstr ""
 "Bu seçenek, daili görüntüleyici içindeki aramaların büyük küçük harf "
 "duyarlılık davranışını tanımlar."
 
-#: data/org.gnome.gnome-commander.gschema.xml:934
+#: data/org.gnome.gnome-commander.gschema.xml:913
 msgid "Search mode"
 msgstr "Arama kipi"
 
-#: data/org.gnome.gnome-commander.gschema.xml:935
+#: data/org.gnome.gnome-commander.gschema.xml:914
 msgid "This option defines the search mode of the internal viewer."
 msgstr "Bu seçenek, dahili görüntüleyicinin arama kipini tanımlar."
 
@@ -1271,39 +1250,39 @@ msgstr "Bu seçenek, dahili görüntüleyicinin arama kipini tanımlar."
 #. an encoding that is common in your country.
 #. See https://gitlab.gnome.org/GNOME/gnome-commander/blob/master/src/intviewer/viewer-window.cc#L360 for
 #. a list of supported encodings.
-#: data/org.gnome.gnome-commander.gschema.xml:945
+#: data/org.gnome.gnome-commander.gschema.xml:924
 msgid "'UTF8'"
 msgstr "'UTF8'"
 
-#: data/org.gnome.gnome-commander.gschema.xml:946
+#: data/org.gnome.gnome-commander.gschema.xml:925
 msgid "Character set"
 msgstr "Karakter kümesi"
 
-#: data/org.gnome.gnome-commander.gschema.xml:947
+#: data/org.gnome.gnome-commander.gschema.xml:926
 msgid "This option defines the default character encoding."
 msgstr "Bu seçenek, öntanımlı karakter kodlamasını tanımlar."
 
-#: data/org.gnome.gnome-commander.gschema.xml:953
+#: data/org.gnome.gnome-commander.gschema.xml:932
 msgid "Fixed font name"
 msgstr "Sabit yazı tipi adı"
 
-#: data/org.gnome.gnome-commander.gschema.xml:954
+#: data/org.gnome.gnome-commander.gschema.xml:933
 msgid "Name of the default font with fixed character width."
 msgstr "Sabit karakter genişliğine sahip öntanımlı yazı tipinin adı."
 
-#: data/org.gnome.gnome-commander.gschema.xml:960
+#: data/org.gnome.gnome-commander.gschema.xml:939
 msgid "Variable font name"
 msgstr "Değişken yazı tipi adı"
 
-#: data/org.gnome.gnome-commander.gschema.xml:961
+#: data/org.gnome.gnome-commander.gschema.xml:940
 msgid "Name of the default font with variable character width."
 msgstr "Değişken karakter genişliğine sahip öntanımlı yazı tipinin adı."
 
-#: data/org.gnome.gnome-commander.gschema.xml:967
+#: data/org.gnome.gnome-commander.gschema.xml:946
 msgid "Display hex offset"
 msgstr "Onaltılık uzaklık göster"
 
-#: data/org.gnome.gnome-commander.gschema.xml:968
+#: data/org.gnome.gnome-commander.gschema.xml:947
 msgid ""
 "This option defines if the hexadecimal offset should be displayed in hex "
 "mode."
@@ -1311,28 +1290,28 @@ msgstr ""
 "Bu seçenek, onaltılık uzaklığın onaltılık kipde gösterim davranışını "
 "tanımlar."
 
-#: data/org.gnome.gnome-commander.gschema.xml:974
+#: data/org.gnome.gnome-commander.gschema.xml:953
 msgid "Wrap mode"
 msgstr "Sarma kipi"
 
-#: data/org.gnome.gnome-commander.gschema.xml:975
+#: data/org.gnome.gnome-commander.gschema.xml:954
 msgid "This option defines if too long text lines should be wrapped."
 msgstr ""
 "Bu seçenek, çok uzun metin satırlarının sarmalanma davranışını tanımlar."
 
-#: data/org.gnome.gnome-commander.gschema.xml:981
+#: data/org.gnome.gnome-commander.gschema.xml:960
 msgid "Font size"
 msgstr "Yazı tipi boyutu"
 
-#: data/org.gnome.gnome-commander.gschema.xml:982
+#: data/org.gnome.gnome-commander.gschema.xml:961
 msgid "This option defines the default font size."
 msgstr "Bu seçenek, öntanımlı yazı tipini tanımlar."
 
-#: data/org.gnome.gnome-commander.gschema.xml:988
+#: data/org.gnome.gnome-commander.gschema.xml:967
 msgid "Tab size"
 msgstr "Sekme boyutu"
 
-#: data/org.gnome.gnome-commander.gschema.xml:989
+#: data/org.gnome.gnome-commander.gschema.xml:968
 msgid ""
 "This option defines the indentation width in terms of characters for a "
 "tabulator character."
@@ -1340,11 +1319,11 @@ msgstr ""
 "Bu seçenek, girintileme genişliğini bir tabulator karakter için karakter "
 "cinsinden tanımlar."
 
-#: data/org.gnome.gnome-commander.gschema.xml:995
+#: data/org.gnome.gnome-commander.gschema.xml:974
 msgid "Bytes per line in binary mode"
 msgstr "İkili kipte her satırdaki bitler"
 
-#: data/org.gnome.gnome-commander.gschema.xml:996
+#: data/org.gnome.gnome-commander.gschema.xml:975
 msgid ""
 "This option defines how many bytes should be displayed in one line in binary "
 "mode."
@@ -1352,23 +1331,19 @@ msgstr ""
 "Bu seçenek, ikili kipte tek satırda kaç bayt gösterilmesi gerektiğini "
 "tanımlar."
 
-#: data/org.gnome.gnome-commander.gschema.xml:1002
-#| msgid "Metadata"
+#: data/org.gnome.gnome-commander.gschema.xml:981
 msgid "Metadata view"
 msgstr "Üstveri görünümü"
 
-#: data/org.gnome.gnome-commander.gschema.xml:1003
-#, fuzzy
-#| msgid "This option defines if sorting should be case sensitive."
+#: data/org.gnome.gnome-commander.gschema.xml:982
 msgid "This option defines if metadata should be visible."
-msgstr ""
-"Bu seçenek, sıralamanın büyük küçük harf duyarlılık davranışını tanımlar."
+msgstr "Bu seçenek, üst verilerin görünür olma durumunu tanımlar."
 
-#: data/org.gnome.gnome-commander.gschema.xml:1009
+#: data/org.gnome.gnome-commander.gschema.xml:988
 msgid "Horizontal offset"
 msgstr "Yatay uzaklık"
 
-#: data/org.gnome.gnome-commander.gschema.xml:1010
+#: data/org.gnome.gnome-commander.gschema.xml:989
 msgid ""
 "This option defines the visual offset of the internal file viewer in "
 "horizontal direction."
@@ -1376,11 +1351,11 @@ msgstr ""
 "Bu seçenek, dahili dosya görüntüleyicinin görsel konumunu yatay yönde "
 "tanımlar."
 
-#: data/org.gnome.gnome-commander.gschema.xml:1016
+#: data/org.gnome.gnome-commander.gschema.xml:995
 msgid "Vertical offset"
 msgstr "Dikey konum"
 
-#: data/org.gnome.gnome-commander.gschema.xml:1017
+#: data/org.gnome.gnome-commander.gschema.xml:996
 msgid ""
 "This option defines the visual offset of the internal file viewer in "
 "vertical direction."
@@ -1388,27 +1363,27 @@ msgstr ""
 "Bu seçenek, dahili dosya görüntüleyicinin görsel konumunu dikey yönde "
 "tanımlar."
 
-#: data/org.gnome.gnome-commander.gschema.xml:1023
+#: data/org.gnome.gnome-commander.gschema.xml:1002
 msgid "Window width"
 msgstr "Pencere genişliği"
 
-#: data/org.gnome.gnome-commander.gschema.xml:1024
+#: data/org.gnome.gnome-commander.gschema.xml:1003
 msgid "The width of the internal file viewer window."
 msgstr "Dahili görüntüleyici penceresi genişliği."
 
-#: data/org.gnome.gnome-commander.gschema.xml:1030
+#: data/org.gnome.gnome-commander.gschema.xml:1009
 msgid "Window height"
 msgstr "Pencere yüksekliği"
 
-#: data/org.gnome.gnome-commander.gschema.xml:1031
+#: data/org.gnome.gnome-commander.gschema.xml:1010
 msgid "The height of the internal file viewer window."
 msgstr "Dahili dosya görüntüleyici penceresi yüksekliği."
 
-#: data/org.gnome.gnome-commander.gschema.xml:1037
+#: data/org.gnome.gnome-commander.gschema.xml:1016
 msgid "Search pattern for text"
 msgstr "Metin için arama deseni"
 
-#: data/org.gnome.gnome-commander.gschema.xml:1038
+#: data/org.gnome.gnome-commander.gschema.xml:1017
 msgid ""
 "This string array stores the history of text searches within the internal "
 "file viewer."
@@ -1416,11 +1391,11 @@ msgstr ""
 "Bu dizge dizisi, metin aramaların geçmişini dahili dosya görüntüleyide "
 "saklar."
 
-#: data/org.gnome.gnome-commander.gschema.xml:1044
+#: data/org.gnome.gnome-commander.gschema.xml:1023
 msgid "Search pattern for hex values"
 msgstr "Onaltılık değerler için arama deseni"
 
-#: data/org.gnome.gnome-commander.gschema.xml:1045
+#: data/org.gnome.gnome-commander.gschema.xml:1024
 msgid ""
 "This string array stores the history of searches for hex values within the "
 "internal file viewer."
@@ -1428,20 +1403,20 @@ msgstr ""
 "Bu dizge dizisi, onaltılık değer aramaların geçmişini dahili dosya "
 "görüntüleyicide saklar."
 
-#: data/org.gnome.gnome-commander.gschema.xml:1053
+#: data/org.gnome.gnome-commander.gschema.xml:1032
 msgid "File suffix"
 msgstr "Dosya uzantısı"
 
-#: data/org.gnome.gnome-commander.gschema.xml:1054
+#: data/org.gnome.gnome-commander.gschema.xml:1033
 msgid "Default file suffix of archives created with the File Roller plugin."
 msgstr ""
 "File Roller eklentisiyle oluşturulan arşivler için öntanımlı dosya uzantısı."
 
-#: data/org.gnome.gnome-commander.gschema.xml:1060
+#: data/org.gnome.gnome-commander.gschema.xml:1039
 msgid "Prefix pattern"
 msgstr "Önek deseni"
 
-#: data/org.gnome.gnome-commander.gschema.xml:1061
+#: data/org.gnome.gnome-commander.gschema.xml:1040
 msgid ""
 "The prefix pattern is used to build up the name for an archive created with "
 "the File Roller plugin."
@@ -1449,11 +1424,11 @@ msgstr ""
 "Önek deseni, File Roller eklentisi ile oluşturulan bir arşivin adını "
 "oluşturmak için kullanılır."
 
-#: data/org.gnome.gnome-commander.gschema.xml:1069
+#: data/org.gnome.gnome-commander.gschema.xml:1048
 msgid "Automatically loaded plugins"
 msgstr "Kendiliğinden yüklenmiş eklentiler"
 
-#: data/org.gnome.gnome-commander.gschema.xml:1070
+#: data/org.gnome.gnome-commander.gschema.xml:1049
 msgid ""
 "This is the list of automatically loaded plugins, whereas each entry "
 "represents the file name of the plugin."
@@ -1463,10 +1438,9 @@ msgstr ""
 
 #: libgcmd/gnome-cmd-string-dialog.cc:127
 msgid "No error description available"
-msgstr "Hata açıklaması mevcut değil"
+msgstr "Hata açıklaması yok"
 
 #: libgcmd/libgcmd-widget-factory.cc:357
-#| msgid "_Select range:"
 msgid "Select an Image File"
 msgstr "Görüntü Dosyası Seç"
 
@@ -1475,78 +1449,87 @@ msgid "Choose Icon"
 msgstr "Simge Seç"
 
 #: libgcmd/libgcmd-widget-factory.cc:442
-#| msgid "Toggle selection"
 msgid "Folder selection"
 msgstr "Klasör seçimi"
 
 #: libgcmd/libgcmd-widget-factory.cc:462
-#| msgid "Toggle selection"
 msgid "File selection"
 msgstr "Dosya seçimi"
 
-#: plugins/fileroller/file-roller-plugin.cc:111 src/gnome-cmd-data.cc:83
+#: plugins/fileroller/file-roller-plugin.cc:111 src/gnome-cmd-data.cc:78
 #, c-format
 msgid "Could not load schemas from %s: %s\n"
 msgstr "%s dizininden şema yüklenemedi: %s\n"
 
-#: plugins/fileroller/file-roller-plugin.cc:365
+#: plugins/fileroller/file-roller-plugin.cc:200
+#, c-format
+msgid ""
+"Error running \"%s\"\n"
+"\n"
+"%s"
+msgstr ""
+"\"%s\" çalıştırılırken hata oluştu\n"
+"\n"
+"%s"
+
+#: plugins/fileroller/file-roller-plugin.cc:379
 msgid "What file name should the new archive have?"
 msgstr "Yeni arşivin dosya adı ne olmalıdır?"
 
-#: plugins/fileroller/file-roller-plugin.cc:367
+#: plugins/fileroller/file-roller-plugin.cc:381
 msgid "Create Archive"
 msgstr "Arşiv Oluştur"
 
-#: plugins/fileroller/file-roller-plugin.cc:481
+#: plugins/fileroller/file-roller-plugin.cc:495
 msgid "Create Archive…"
 msgstr "Arşiv Oluştur…"
 
-#: plugins/fileroller/file-roller-plugin.cc:493
+#: plugins/fileroller/file-roller-plugin.cc:507
 msgid "Extract in Current Directory"
-msgstr "Mevcut Dizine Çıkar"
+msgstr "Geçerli Dizine Çıkar"
 
-#: plugins/fileroller/file-roller-plugin.cc:500
-#: plugins/fileroller/file-roller-plugin.cc:513
+#: plugins/fileroller/file-roller-plugin.cc:514
+#: plugins/fileroller/file-roller-plugin.cc:527
 #, c-format
 msgid "Extract to “%s”"
 msgstr "Şuraya çıkar: “%s”"
 
-#: plugins/fileroller/file-roller-plugin.cc:574
-#: src/gnome-cmd-advrename-profile-component.cc:941 src/plugin_manager.cc:419
+#: plugins/fileroller/file-roller-plugin.cc:588
+#: src/gnome-cmd-advrename-profile-component.cc:941 src/plugin_manager.cc:391
 #: src/tags/gnome-cmd-tags.cc:692
 msgid "File"
 msgstr "Dosya"
 
 #. destroy model automatically with view
-#: plugins/fileroller/file-roller-plugin.cc:591
+#: plugins/fileroller/file-roller-plugin.cc:605
 #: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:369
-#: src/dialogs/gnome-cmd-options-dialog.cc:1497
-#: src/dialogs/gnome-cmd-options-dialog.cc:2165
-#: src/dialogs/gnome-cmd-prepare-copy-dialog.cc:129
-#: src/dialogs/gnome-cmd-prepare-move-dialog.cc:115
-#: src/dialogs/gnome-cmd-remote-dialog.cc:442 src/gnome-cmd-user-actions.cc:252
+#: src/dialogs/gnome-cmd-options-dialog.cc:1524
+#: src/dialogs/gnome-cmd-options-dialog.cc:2216
+#: src/dialogs/gnome-cmd-prepare-copy-dialog.cc:145
+#: src/dialogs/gnome-cmd-prepare-move-dialog.cc:132
+#: src/dialogs/gnome-cmd-remote-dialog.cc:443 src/gnome-cmd-user-actions.cc:253
 msgid "Options"
 msgstr "Seçenekler"
 
-#: plugins/fileroller/file-roller-plugin.cc:603
+#: plugins/fileroller/file-roller-plugin.cc:617
 msgid "File-roller options"
 msgstr "File-roller seçenekleri"
 
-#: plugins/fileroller/file-roller-plugin.cc:606
+#: plugins/fileroller/file-roller-plugin.cc:620
 msgid "Default archive type"
 msgstr "Öntanımlı arşiv türü"
 
 #. The pattern defining the file name prefix of the archive to be created
-#: plugins/fileroller/file-roller-plugin.cc:614
+#: plugins/fileroller/file-roller-plugin.cc:628
 msgid "File prefix pattern"
 msgstr "Dosya önek deseni"
 
-#: plugins/fileroller/file-roller-plugin.cc:625
-#: src/dialogs/gnome-cmd-options-dialog.cc:418
+#: plugins/fileroller/file-roller-plugin.cc:639
+#: src/dialogs/gnome-cmd-options-dialog.cc:416
 msgid "Test result:"
 msgstr "Test sonuçları:"
 
-#: plugins/fileroller/file-roller-plugin.cc:632
+#: plugins/fileroller/file-roller-plugin.cc:646
 msgid ""
 "Use $N as a pattern for the original file name. See the manual page for "
 "“strftime” for other patterns."
@@ -1554,7 +1537,7 @@ msgstr ""
 "Özgün dosya adı desenini belirtmek için $N kullanın. Diğer desenler için "
 "“strftime” kılavuz sayfasına bakın."
 
-#: plugins/fileroller/file-roller-plugin.cc:814
+#: plugins/fileroller/file-roller-plugin.cc:828
 msgid ""
 "A plugin that adds File Roller shortcuts for creating and extracting "
 "compressed archives."
@@ -1569,17 +1552,14 @@ msgid ""
 msgstr "Eklenti geliştirmeyi amaçlayanlar için çok kullanışlı basit bir örnek"
 
 #: src/dialogs/gnome-cmd-advrename-dialog.cc:126
-#: src/dialogs/gnome-cmd-search-dialog.cc:181
 msgid "/_Save Profile As…"
 msgstr "/Profili Farklı _Kaydet…"
 
 #: src/dialogs/gnome-cmd-advrename-dialog.cc:135
-#: src/dialogs/gnome-cmd-search-dialog.cc:190
 msgid "/_Manage Profiles…"
 msgstr "/Profilleri _Yönet…"
 
 #: src/dialogs/gnome-cmd-advrename-dialog.cc:187
-#: src/dialogs/gnome-cmd-search-dialog.cc:240
 msgid "Profiles"
 msgstr "Profiller"
 
@@ -1589,7 +1569,7 @@ msgstr "Dosya listesinden kaldır"
 
 #. {file_umount, "file.umount"},
 #: src/dialogs/gnome-cmd-advrename-dialog.cc:335
-#: src/gnome-cmd-user-actions.cc:239
+#: src/gnome-cmd-user-actions.cc:238
 msgid "View file"
 msgstr "Dosyayı görüntüle"
 
@@ -1601,56 +1581,55 @@ msgstr "Dosya özellikleri"
 msgid "Update file list"
 msgstr "Dosya listesini güncelle"
 
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:523
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:522
 msgid "Advanced Rename Tool"
 msgstr "Gelişmiş Yeniden Adlandırma Aracı"
 
 #. Results
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:534
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:533
 msgid "Results"
 msgstr "Sonuçlar"
 
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:605
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:604
 msgid "Old name"
 msgstr "Eski adı"
 
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:609
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:608
 msgid "Current file name"
-msgstr "Mevcut dosya adı"
+msgstr "Geçerli dosya adı"
 
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:611
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:610
 msgid "New name"
 msgstr "Yeni adı"
 
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:615
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:614
 msgid "New file name"
 msgstr "Yeni dosya adı"
 
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:617 src/tags/gnome-cmd-tags.cc:332
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:616 src/tags/gnome-cmd-tags.cc:332
 #: src/tags/gnome-cmd-tags.cc:396
 msgid "Size"
 msgstr "Boyut"
 
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:621
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:620
 msgid "File size"
 msgstr "Dosya boyutu"
 
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:623
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:622
 #: src/gnome-cmd-advrename-profile-component.cc:943
 #: src/tags/gnome-cmd-tags.cc:347 src/tags/gnome-cmd-tags.cc:423
 msgid "Date"
 msgstr "Tarih"
 
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:627
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:626
 msgid "File modification date"
 msgstr "Dosya değiştirilme tarihi"
 
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:694
-#: src/dialogs/gnome-cmd-search-dialog.cc:1146
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:693
 msgid "Profiles…"
 msgstr "Profiller…"
 
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:699
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:698
 #: src/dialogs/gnome-cmd-edit-profile-dialog.h:83
 msgid "Reset"
 msgstr "Sıfırla"
@@ -1670,136 +1649,133 @@ msgid "_Match case"
 msgstr "_Büyük/küçük duyarlı"
 
 #: src/dialogs/gnome-cmd-chmod-dialog.cc:45
-#: src/dialogs/gnome-cmd-options-dialog.cc:1518
+#: src/dialogs/gnome-cmd-options-dialog.cc:1545
 msgid "All files"
 msgstr "Tüm dosyalar"
 
 #: src/dialogs/gnome-cmd-chmod-dialog.cc:46
 msgid "Directories only"
-msgstr "Sadece dizinler"
+msgstr "Yalnızca dizinler"
 
-#: src/dialogs/gnome-cmd-chmod-dialog.cc:180
+#: src/dialogs/gnome-cmd-chmod-dialog.cc:75
+#, c-format
+msgid "Could not chmod %s"
+msgstr "%s chmod yapılamadı"
+
+#: src/dialogs/gnome-cmd-chmod-dialog.cc:189
 msgid "Access Permissions"
 msgstr "Erişim İzinleri"
 
-#: src/dialogs/gnome-cmd-chmod-dialog.cc:196
+#: src/dialogs/gnome-cmd-chmod-dialog.cc:205
 msgid "Apply Recursively for"
 msgstr "Yinelemeli olarak uygula"
 
-#: src/dialogs/gnome-cmd-chown-dialog.cc:57
+#: src/dialogs/gnome-cmd-chown-dialog.cc:55
 #, c-format
 msgid "Could not chown %s"
 msgstr "%s chown yapılamadı"
 
-#: src/dialogs/gnome-cmd-chown-dialog.cc:157
+#: src/dialogs/gnome-cmd-chown-dialog.cc:159
 msgid "Chown"
 msgstr "Chown"
 
-#: src/dialogs/gnome-cmd-chown-dialog.cc:168
+#: src/dialogs/gnome-cmd-chown-dialog.cc:170
 msgid "Apply Recursively"
 msgstr "Yinelemeli olarak uygula"
 
-#: src/dialogs/gnome-cmd-con-dialog.cc:171
+#: src/dialogs/gnome-cmd-con-dialog.cc:154
 msgid "_Alias:"
 msgstr "_Rumuz:"
 
-#: src/dialogs/gnome-cmd-con-dialog.cc:176
+#: src/dialogs/gnome-cmd-con-dialog.cc:159
 msgid "_Location (URI):"
 msgstr "_Konum (URI):"
 
-#: src/dialogs/gnome-cmd-con-dialog.cc:207
+#: src/dialogs/gnome-cmd-con-dialog.cc:184
 msgid "_Server:"
 msgstr "_Sunucu:"
 
-#: src/dialogs/gnome-cmd-con-dialog.cc:218
+#: src/dialogs/gnome-cmd-con-dialog.cc:195
 msgid "Optional information"
 msgstr "İsteğe bağlı bilgi"
 
-#: src/dialogs/gnome-cmd-con-dialog.cc:242
-msgid "S_hare:"
-msgstr "Pa_ylaş:"
-
-#: src/dialogs/gnome-cmd-con-dialog.cc:245
+#: src/dialogs/gnome-cmd-con-dialog.cc:219
 msgid "_Port:"
 msgstr "_Bağlantı noktası:"
 
-#: src/dialogs/gnome-cmd-con-dialog.cc:247
+#: src/dialogs/gnome-cmd-con-dialog.cc:221
 msgid "_Folder:"
 msgstr "_Dizin:"
 
-#: src/dialogs/gnome-cmd-con-dialog.cc:250
-msgid "_User name:"
-msgstr "_Kullanıcı adı:"
-
-#: src/dialogs/gnome-cmd-con-dialog.cc:253
+#: src/dialogs/gnome-cmd-con-dialog.cc:224
 msgid "_Domain name:"
 msgstr "_Alan adı:"
 
-#: src/dialogs/gnome-cmd-con-dialog.cc:308
+#: src/dialogs/gnome-cmd-con-dialog.cc:272
 msgid "You must enter a name for the server"
 msgstr "Sunucu için bir ad girmelisiniz"
 
-#: src/dialogs/gnome-cmd-con-dialog.cc:308
+#: src/dialogs/gnome-cmd-con-dialog.cc:272
 msgid "Please enter a name and try again."
 msgstr "Lütfen bir ad girin ve yeniden deneyin."
 
-#: src/dialogs/gnome-cmd-con-dialog.cc:323
+#: src/dialogs/gnome-cmd-con-dialog.cc:282
 #, c-format
 msgid "“%s” is not a valid location"
 msgstr "“%s” geçerli bir konum değil"
 
-#: src/dialogs/gnome-cmd-con-dialog.cc:324
+#: src/dialogs/gnome-cmd-con-dialog.cc:283
 msgid "Please check spelling and try again."
 msgstr "Lütfen yazım hatalarını kontrol edin ve tekrar deneyin."
 
-#: src/dialogs/gnome-cmd-con-dialog.cc:421 src/gnome-cmd-main-win.cc:247
+#: src/dialogs/gnome-cmd-con-dialog.cc:380 src/gnome-cmd-main-win.cc:247
 msgid "Remote Server"
 msgstr "Uzak Sunucu"
 
-#: src/dialogs/gnome-cmd-con-dialog.cc:436
+#: src/dialogs/gnome-cmd-con-dialog.cc:395
 msgid "Service _type:"
 msgstr "Servis _türü:"
 
 #. Keep this in sync with enum ConnectionMethodID in gnome-cmd-con.h
-#: src/dialogs/gnome-cmd-con-dialog.cc:448
+#: src/dialogs/gnome-cmd-con-dialog.cc:407
 msgid "SSH"
 msgstr "SSH"
 
-#: src/dialogs/gnome-cmd-con-dialog.cc:449
+#: src/dialogs/gnome-cmd-con-dialog.cc:408
 msgid "FTP (with login)"
 msgstr "FTP (giriş ile)"
 
-#: src/dialogs/gnome-cmd-con-dialog.cc:450
+#: src/dialogs/gnome-cmd-con-dialog.cc:409
 msgid "Public FTP"
 msgstr "Açık FTP"
 
-#: src/dialogs/gnome-cmd-con-dialog.cc:452
+#: src/dialogs/gnome-cmd-con-dialog.cc:411
 msgid "Windows share"
 msgstr "Windows paylaşımı"
 
-#: src/dialogs/gnome-cmd-con-dialog.cc:454
+#: src/dialogs/gnome-cmd-con-dialog.cc:413
 msgid "WebDAV (HTTP)"
 msgstr "WebDAV (HTTP)"
 
-#: src/dialogs/gnome-cmd-con-dialog.cc:455
+#: src/dialogs/gnome-cmd-con-dialog.cc:414
 msgid "Secure WebDAV (HTTPS)"
 msgstr "Güvenli WebDAV (HTTPS)"
 
-#: src/dialogs/gnome-cmd-con-dialog.cc:456
+#: src/dialogs/gnome-cmd-con-dialog.cc:415
 msgid "Custom location"
 msgstr "Özel konum"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:90
+#: src/dialogs/gnome-cmd-delete-dialog.cc:77
 #, c-format
-msgid "Deleted %ld of %ld file"
-msgid_plural "Deleted %ld of %ld files"
-msgstr[0] "%ld dosya silindi, toplam %ld"
+msgid "Deleted %lu of %lu file"
+msgid_plural "Deleted %lu of %lu files"
+msgstr[0] "%lu dosya silindi, toplam %lu "
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:132
+#: src/dialogs/gnome-cmd-delete-dialog.cc:112
 msgid "Deleting…"
 msgstr "Siliniyor…"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:204
+#: src/dialogs/gnome-cmd-delete-dialog.cc:281
 #, c-format
 msgid ""
 "Error while deleting “%s”\n"
@@ -1810,71 +1786,108 @@ msgstr ""
 "\n"
 "%s"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:207
+#: src/dialogs/gnome-cmd-delete-dialog.cc:286
+#: src/dialogs/gnome-cmd-delete-dialog.cc:421
 msgid "Delete problem"
 msgstr "Problemi sil"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:208 src/gnome-cmd-xfer.cc:211
-#: src/gnome-cmd-xfer.cc:230
+#: src/dialogs/gnome-cmd-delete-dialog.cc:287
+#: src/dialogs/gnome-cmd-delete-dialog.cc:421 src/gnome-cmd-xfer.cc:120
+#: src/gnome-cmd-xfer.cc:147 src/gnome-cmd-xfer.cc:150
+#: src/gnome-cmd-xfer.cc:205 src/gnome-cmd-xfer.cc:208
+#: src/gnome-cmd-xfer.cc:323 src/gnome-cmd-xfer.cc:326
+#: src/gnome-cmd-xfer.cc:1097 src/gnome-cmd-xfer.cc:1108
+#: src/gnome-cmd-xfer.cc:1152
 msgid "Abort"
 msgstr "Vazgeç"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:208
-#: src/gnome-cmd-file-selector.cc:1382 src/gnome-cmd-xfer.cc:230
+#: src/dialogs/gnome-cmd-delete-dialog.cc:287
+#: src/gnome-cmd-file-selector.cc:1405 src/gnome-cmd-xfer.cc:120
+#: src/gnome-cmd-xfer.cc:147 src/gnome-cmd-xfer.cc:150
+#: src/gnome-cmd-xfer.cc:205 src/gnome-cmd-xfer.cc:208
+#: src/gnome-cmd-xfer.cc:323 src/gnome-cmd-xfer.cc:326
 msgid "Retry"
 msgstr "Yeniden Dene"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:208
-#: src/dialogs/gnome-cmd-delete-dialog.cc:304
-#: src/gnome-cmd-file-selector.cc:1382 src/gnome-cmd-xfer.cc:211
-#: src/gnome-cmd-xfer.cc:230
+#: src/dialogs/gnome-cmd-delete-dialog.cc:287
+#: src/dialogs/gnome-cmd-delete-dialog.cc:437
+#: src/dialogs/gnome-cmd-options-dialog.cc:1065
+#: src/dialogs/gnome-cmd-options-dialog.cc:1089
+#: src/dialogs/gnome-cmd-prepare-copy-dialog.cc:114
+#: src/dialogs/gnome-cmd-prepare-move-dialog.cc:108
+#: src/gnome-cmd-file-selector.cc:1405 src/gnome-cmd-xfer.cc:120
+#: src/gnome-cmd-xfer.cc:147 src/gnome-cmd-xfer.cc:205
+#: src/gnome-cmd-xfer.cc:323
 msgid "Skip"
 msgstr "Atla"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:301
+#: src/dialogs/gnome-cmd-delete-dialog.cc:419
 #, c-format
-#| msgid "The directory “%s” doesn’t exist, do you want to create it?"
+msgid ""
+"Error while deleting: \n"
+"\n"
+"%s"
+msgstr ""
+"Silme sırasında hata oluştu: \n"
+"\n"
+"%s"
+
+#: src/dialogs/gnome-cmd-delete-dialog.cc:432
+#, c-format
+msgid "Do you really want to delete “%s”?"
+msgstr "“%s” gerçekten silmek istiyor musunuz?"
+
+#: src/dialogs/gnome-cmd-delete-dialog.cc:433
+#, c-format
 msgid "The directory “%s” is not empty. Do you really want to delete it?"
 msgstr "“%s” dizini boş değil. Gerçekten silmek istiyor musunuz?"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:302
-#: src/dialogs/gnome-cmd-delete-dialog.cc:306
-#: src/dialogs/gnome-cmd-delete-dialog.cc:374
-#: src/dialogs/gnome-cmd-delete-dialog.cc:375
-#: src/dialogs/gnome-cmd-options-dialog.cc:1039
-#: src/gnome-cmd-file-popmenu.cc:728 src/gnome-cmd-main-win.cc:243
-#: src/gnome-cmd-user-actions.cc:213
+#: src/dialogs/gnome-cmd-delete-dialog.cc:435
+#: src/dialogs/gnome-cmd-delete-dialog.cc:439
+#: src/dialogs/gnome-cmd-delete-dialog.cc:525
+#: src/dialogs/gnome-cmd-delete-dialog.cc:526
+#: src/dialogs/gnome-cmd-options-dialog.cc:1037
+#: src/gnome-cmd-file-popmenu.cc:724 src/gnome-cmd-main-win.cc:243
+#: src/gnome-cmd-user-actions.cc:212
 msgid "Delete"
 msgstr "Sil"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:304
-#: src/dialogs/gnome-cmd-delete-dialog.cc:375 src/gnome-cmd-file-list.cc:1279
-#: src/gnome-cmd-file-list.cc:1307 src/gnome-cmd-file-selector.cc:1382
-#: src/gnome-cmd-user-actions.cc:819
+#: src/dialogs/gnome-cmd-delete-dialog.cc:437
+#: src/dialogs/gnome-cmd-delete-dialog.cc:526 src/gnome-cmd-file-list.cc:1329
+#: src/gnome-cmd-file-list.cc:1358 src/gnome-cmd-file-selector.cc:1405
+#: src/gnome-cmd-user-actions.cc:865
 msgid "Cancel"
 msgstr "İptal"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:305
-#| msgid "_Select All"
+#: src/dialogs/gnome-cmd-delete-dialog.cc:438
 msgid "Delete All"
 msgstr "Tümünü Sil"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:305
-#, fuzzy
-#| msgid "Delete default"
+#: src/dialogs/gnome-cmd-delete-dialog.cc:438
 msgid "Delete Remaining"
-msgstr "Öntanımlı sil"
+msgstr "Kalanı Sil"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:364
+#: src/dialogs/gnome-cmd-delete-dialog.cc:505
 #, c-format
-msgid "Do you want to delete “%s”?"
-msgstr "“%s” silmek istiyor musunuz?"
+msgid "Do you want to permanently delete “%s”?"
+msgstr "“%s” kalıcı olarak silmek istiyor musunuz?"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:368
+#: src/dialogs/gnome-cmd-delete-dialog.cc:506
 #, c-format
-msgid "Do you want to delete the selected file?"
-msgid_plural "Do you want to delete the %d selected files?"
-msgstr[0] "Seçilmiş %d dosyayı silmek istiyor musunuz?"
+msgid "Do you want to move “%s” to the trash can?"
+msgstr "“%s” çöpe taşımak istiyor musunuz?"
+
+#: src/dialogs/gnome-cmd-delete-dialog.cc:511
+#, c-format
+msgid "Do you want to permanently delete the selected file?"
+msgid_plural "Do you want to permanently delete the %d selected files?"
+msgstr[0] "Seçilmiş %d dosyayı kalıcı olarak silmek istiyor musunuz?"
+
+#: src/dialogs/gnome-cmd-delete-dialog.cc:515
+#, c-format
+msgid "Do you want to move the selected file to the trash can?"
+msgid_plural "Do you want to move the %d selected files to the trash can?"
+msgstr[0] "Seçilen %d dosyayı çöpe taşımak istiyor musunuz?"
 
 #: src/dialogs/gnome-cmd-edit-bookmark-dialog.cc:43
 msgid "Bookmark name is missing."
@@ -1900,75 +1913,74 @@ msgstr "Profili Düzenle"
 msgid "_Name"
 msgstr "_Ad"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:319
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:305
 msgid "Image:"
 msgstr "Resim:"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:344
-#: src/dialogs/gnome-cmd-mkdir-dialog.cc:181
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:329
+#: src/dialogs/gnome-cmd-mkdir-dialog.cc:193
 msgid "Directory name:"
 msgstr "Dizin adı:"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:344
-#: src/gnome-cmd-file-selector.cc:1167
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:329
+#: src/gnome-cmd-file-selector.cc:1189
 msgid "File name:"
 msgstr "Dosya adı:"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:355
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:338
 msgid "Symlink target:"
 msgstr "Sembolik bağlantı hedefi:"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:370
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:353
 msgid "Location:"
 msgstr "Konum:"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:378
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:361
 msgid "Volume:"
 msgstr "Birim:"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:408
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:389
 msgid "Free space:"
 msgstr "Boş alan:"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:420
-#| msgid "Content Type"
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:401
 msgid "Content Type:"
 msgstr "İçerik Türü:"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:432
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:413
 msgid "Opens with:"
 msgstr "Birlikte aç:"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:443
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:424
 msgid "No default application registered"
 msgstr "Kaydedilmiş bir öntanımlı uygulama yok"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:454
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:435
 msgid "Modified:"
 msgstr "Değiştirilme:"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:460
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:442
 msgid "Accessed:"
 msgstr "Erişilme:"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:470
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:452
 msgid "Size:"
 msgstr "Boyut:"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:516
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:499
 msgid "Owner and group"
 msgstr "Sahibi ve grubu"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:526
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:510
 msgid "Access permissions"
 msgstr "Erişim izinleri"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:610
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:594
 #: src/intviewer/viewer-window.cc:1353
 msgid "Type"
 msgstr "Tür"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:611
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:595
 #: src/intviewer/viewer-window.cc:1354
 msgid "Metadata namespace"
 msgstr "Üstveri ad alanı"
@@ -1979,57 +1991,57 @@ msgstr "Üstveri ad alanı"
 #. "foreground-set", TRUE,
 #. "foreground", "DarkGray",
 #. NULL);
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:618
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:602
 #: src/dialogs/gnome-cmd-manage-bookmarks-dialog.cc:244
-#: src/dialogs/gnome-cmd-remote-dialog.cc:353
-#: src/intviewer/viewer-window.cc:1361 src/plugin_manager.cc:417
+#: src/dialogs/gnome-cmd-remote-dialog.cc:354
+#: src/intviewer/viewer-window.cc:1361 src/plugin_manager.cc:389
 #: src/tags/gnome-cmd-tags.cc:327
 msgid "Name"
 msgstr "Ad"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:619
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:603
 #: src/intviewer/viewer-window.cc:1362
 msgid "Tag name"
 msgstr "Etiket adı"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:621
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:605
 #: src/intviewer/viewer-window.cc:1364
 msgid "Value"
 msgstr "Değer"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:622
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:606
 #: src/intviewer/viewer-window.cc:1365
 msgid "Tag value"
 msgstr "Etiket değeri"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:624
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:608
 #: src/intviewer/viewer-window.cc:1367 src/tags/gnome-cmd-tags.cc:171
 #: src/tags/gnome-cmd-tags.cc:322 src/tags/gnome-cmd-tags.cc:424
 #: src/tags/gnome-cmd-tags.cc:535
 msgid "Description"
 msgstr "Tanımlama"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:625
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:609
 #: src/intviewer/viewer-window.cc:1368
 msgid "Metadata tag description"
 msgstr "Üstveri etiket tanımlaması"
 
 #. data->thread = 0;
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:680
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:664
 msgid "File Properties"
 msgstr "Dosya Özellikleri"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:703
-#: src/gnome-cmd-user-actions.cc:233
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:686
+#: src/gnome-cmd-user-actions.cc:232
 msgid "Properties"
 msgstr "Özellikler"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:704
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:687
 #: src/tags/gnome-cmd-tags.cc:329
 msgid "Permissions"
 msgstr "İzinler"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:705
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:688
 msgid "Metadata"
 msgstr "Üstveri"
 
@@ -2088,17 +2100,17 @@ msgid "Invalid shortcut."
 msgstr "Geçersiz kısayol."
 
 #: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:639
-#: src/gnome-cmd-user-actions.cc:251
+#: src/gnome-cmd-user-actions.cc:252
 msgid "Do nothing"
 msgstr "Hiçbir şey yapma"
 
 #: src/dialogs/gnome-cmd-make-copy-dialog.cc:67
-#: src/gnome-cmd-file-selector.cc:1097
+#: src/gnome-cmd-file-selector.cc:1102
 msgid "No file name entered"
 msgstr "Dosya adı girilmemiş"
 
 #: src/dialogs/gnome-cmd-make-copy-dialog.cc:137
-#: src/dialogs/gnome-cmd-prepare-copy-dialog.cc:140
+#: src/dialogs/gnome-cmd-prepare-copy-dialog.cc:155
 #, c-format
 msgid "Copy “%s” to"
 msgstr "“%s” şuraya kopyala"
@@ -2182,11 +2194,16 @@ msgstr ""
 msgid "_Duplicate"
 msgstr "_Çoğalt"
 
-#: src/dialogs/gnome-cmd-mkdir-dialog.cc:96
+#: src/dialogs/gnome-cmd-mkdir-dialog.cc:106
 msgid "A directory name must be entered"
 msgstr "Bir dizin adı girilmelidir"
 
-#: src/dialogs/gnome-cmd-mkdir-dialog.cc:157
+#: src/dialogs/gnome-cmd-mkdir-dialog.cc:126
+#, c-format
+msgid "Make directory failed: %s\n"
+msgstr "Dizin oluşturma başarısız: %s\n"
+
+#: src/dialogs/gnome-cmd-mkdir-dialog.cc:169
 msgid "Make Directory"
 msgstr "Dizin Oluştur"
 
@@ -2211,7 +2228,7 @@ msgid "Middle mouse button"
 msgstr "Orta fare düğmesi"
 
 #: src/dialogs/gnome-cmd-options-dialog.cc:136 src/gnome-cmd-main-win.cc:234
-#: src/gnome-cmd-user-actions.cc:282
+#: src/gnome-cmd-user-actions.cc:283
 msgid "Up one directory"
 msgstr "Üst dizine"
 
@@ -2232,451 +2249,454 @@ msgid "Selects files"
 msgstr "Dosyaları seçer"
 
 #: src/dialogs/gnome-cmd-options-dialog.cc:163
+msgid "Deletion"
+msgstr "Silinme"
+
+#: src/dialogs/gnome-cmd-options-dialog.cc:166
+msgid "Move to trash"
+msgstr "Çöpe taşı"
+
+#: src/dialogs/gnome-cmd-options-dialog.cc:173
 msgid "Selection"
 msgstr "Seçim"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:166
+#: src/dialogs/gnome-cmd-options-dialog.cc:176
 msgid "Select directories"
 msgstr "Dizinleri seç"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:173
+#: src/dialogs/gnome-cmd-options-dialog.cc:183
 msgid "Sorting/Quick search"
 msgstr "Sıralama/Hızlı arama"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:176
+#: src/dialogs/gnome-cmd-options-dialog.cc:186
 msgid "Case sensitive"
 msgstr "Büyük/küçük harf duyarlı"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:183
-#: src/gnome-cmd-user-actions.cc:216
+#: src/dialogs/gnome-cmd-options-dialog.cc:193
+#: src/gnome-cmd-user-actions.cc:215
 msgid "Quick search"
 msgstr "Hızlı arama"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:186
+#: src/dialogs/gnome-cmd-options-dialog.cc:196
 msgid "CTRL+ALT+letters"
 msgstr "CTRL+ALT+harfler"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:190
+#: src/dialogs/gnome-cmd-options-dialog.cc:200
 msgid "ALT+letters (menu access with F12)"
 msgstr "ALT+harfler (F12 ile menü erişimi)"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:194
+#: src/dialogs/gnome-cmd-options-dialog.cc:204
 msgid "Just letters (command line access with CTRL+ALT+C)"
-msgstr "Sadece harfler (komut satırı erişimi CTRL+ALT+C)"
+msgstr "Yalnızca harfler (komut satırı erişimi CTRL+ALT+C)"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:199
+#: src/dialogs/gnome-cmd-options-dialog.cc:209
 msgid "Match beginning of the file name"
 msgstr "Dosya adının başlangıcıyla eşleştir"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:203
+#: src/dialogs/gnome-cmd-options-dialog.cc:213
 msgid "Match end of the file name"
 msgstr "Dosya adının sonuyla eşleştir"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:209
-msgid "Search Window"
-msgstr "Arama Penceresi"
-
-#: src/dialogs/gnome-cmd-options-dialog.cc:212
-msgid ""
-"Search window is minimizable\n"
-"(Needs program restart if altered)"
-msgstr ""
-"Arama penceresi küçültülebilir\n"
-"(Eğer değiştirilirse program yeniden başlatılmalı)"
-
-#: src/dialogs/gnome-cmd-options-dialog.cc:219
+#: src/dialogs/gnome-cmd-options-dialog.cc:220
 msgid "Multiple instances"
 msgstr "Çoklu gerçekleme"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:222
+#: src/dialogs/gnome-cmd-options-dialog.cc:223
 msgid "Don’t start a new instance"
 msgstr "Yeni bir gerçekleme başlatma"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:229
+#: src/dialogs/gnome-cmd-options-dialog.cc:230
 msgid "Save on exit"
 msgstr "Çıkışta kaydet"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:232
-#: src/dialogs/gnome-cmd-options-dialog.cc:1190
+#: src/dialogs/gnome-cmd-options-dialog.cc:233
+#: src/dialogs/gnome-cmd-options-dialog.cc:1217
 msgid "Directories"
 msgstr "Dizinler"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:236
-#: src/dialogs/gnome-cmd-options-dialog.cc:2192
+#: src/dialogs/gnome-cmd-options-dialog.cc:237
+#: src/dialogs/gnome-cmd-options-dialog.cc:2243
 msgid "Tabs"
 msgstr "Sekmeler"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:241
+#: src/dialogs/gnome-cmd-options-dialog.cc:242
 msgid "Directory history"
 msgstr "Dizin geçmişi"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:245
+#: src/dialogs/gnome-cmd-options-dialog.cc:246
 msgid "Commandline history"
 msgstr "Komut satırı geçmişi"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:249
-msgid "Search history"
-msgstr "Arama geçmişi"
-
-#: src/dialogs/gnome-cmd-options-dialog.cc:360
+#: src/dialogs/gnome-cmd-options-dialog.cc:358
 msgid "Size display mode"
 msgstr "Boyut gösterim kipi"
 
 #. Translators: 'Powered' refers to the mode of file size display (here - display using units of data: kB, MB, GB, ...)
-#: src/dialogs/gnome-cmd-options-dialog.cc:364
+#: src/dialogs/gnome-cmd-options-dialog.cc:362
 msgid "Powered"
 msgstr "Tür"
 
 #. Translators: '<locale>' refers to the mode of file size display (here - use current locale settings)
-#: src/dialogs/gnome-cmd-options-dialog.cc:370
+#: src/dialogs/gnome-cmd-options-dialog.cc:368
 msgid "<locale>"
 msgstr "<yerel>"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:375
+#: src/dialogs/gnome-cmd-options-dialog.cc:373
 msgid "Grouped"
 msgstr "Gruplandırılmış"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:380
+#: src/dialogs/gnome-cmd-options-dialog.cc:378
 msgid "Plain"
 msgstr "Düz"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:391
+#: src/dialogs/gnome-cmd-options-dialog.cc:389
 msgid "Text (rw-r--r--)"
 msgstr "Metin (rw-r--r--)"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:396
+#: src/dialogs/gnome-cmd-options-dialog.cc:394
 msgid "Number (644)"
 msgstr "Numara (644)"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:407
+#: src/dialogs/gnome-cmd-options-dialog.cc:405
 msgid "Format:"
 msgstr "Biçim:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:425
+#: src/dialogs/gnome-cmd-options-dialog.cc:423
 msgid ""
 "See the manual page for “strftime” for help on how to set the format string."
 msgstr ""
 "“strftime” için biçim dizgesinin nasıl ayarlanacağı hakkında yardım almak "
 "için, klavuz sayfasına gözatın."
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:509
+#: src/dialogs/gnome-cmd-options-dialog.cc:507
 msgid "Edit Colors…"
 msgstr "Renkleri Düzenle…"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:522
+#: src/dialogs/gnome-cmd-options-dialog.cc:520
 msgid "Colors"
 msgstr "Renkler"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:553
+#: src/dialogs/gnome-cmd-options-dialog.cc:551
 msgid "Foreground"
-msgstr "Önplan"
+msgstr "Ön plan"
+
+#: src/dialogs/gnome-cmd-options-dialog.cc:553
+msgid "Background"
+msgstr "Arka plan"
 
 #: src/dialogs/gnome-cmd-options-dialog.cc:555
-msgid "Background"
-msgstr "Arkaplan"
-
-#: src/dialogs/gnome-cmd-options-dialog.cc:557
 msgid "Default:"
 msgstr "Öntanımlı:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:559
+#: src/dialogs/gnome-cmd-options-dialog.cc:557
 msgid "Alternate:"
 msgstr "Alternatif:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:561
+#: src/dialogs/gnome-cmd-options-dialog.cc:559
 msgid "Selected file:"
 msgstr "Seçilmiş dosya:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:563
+#: src/dialogs/gnome-cmd-options-dialog.cc:561
 msgid "Cursor:"
 msgstr "İmleç:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:644
+#: src/dialogs/gnome-cmd-options-dialog.cc:642
 msgid "Edit LS_COLORS Palette"
 msgstr "LS_COLORS Paletini Düzenle"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:656
+#: src/dialogs/gnome-cmd-options-dialog.cc:654
 msgid "Palette"
 msgstr "Palet"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:711
+#: src/dialogs/gnome-cmd-options-dialog.cc:709
 msgid "Foreground:"
-msgstr "Önplan:"
+msgstr "Ön plan:"
+
+#: src/dialogs/gnome-cmd-options-dialog.cc:711
+msgid "Background:"
+msgstr "Arka plan:"
 
 #: src/dialogs/gnome-cmd-options-dialog.cc:713
-msgid "Background:"
-msgstr "Arkaplan:"
-
-#: src/dialogs/gnome-cmd-options-dialog.cc:715
 msgid "Black"
 msgstr "Siyah"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:718
+#: src/dialogs/gnome-cmd-options-dialog.cc:716
 msgid "Red"
 msgstr "Kırmızı"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:721
+#: src/dialogs/gnome-cmd-options-dialog.cc:719
 msgid "Green"
 msgstr "Yeşil"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:724
+#: src/dialogs/gnome-cmd-options-dialog.cc:722
 msgid "Yellow"
 msgstr "Sarı"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:727
+#: src/dialogs/gnome-cmd-options-dialog.cc:725
 msgid "Blue"
 msgstr "Mavi"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:730
+#: src/dialogs/gnome-cmd-options-dialog.cc:728
 msgid "Magenta"
 msgstr "Galibarda"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:733
+#: src/dialogs/gnome-cmd-options-dialog.cc:731
 msgid "Cyan"
 msgstr "Cam göbeği"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:736
+#: src/dialogs/gnome-cmd-options-dialog.cc:734
 msgid "White"
 msgstr "Beyaz"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:740
+#: src/dialogs/gnome-cmd-options-dialog.cc:738
 msgid "_Reset"
 msgstr "_Sıfırla"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:754
+#: src/dialogs/gnome-cmd-options-dialog.cc:752
 msgid "With file name"
 msgstr "Dosya adı ile"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:755
+#: src/dialogs/gnome-cmd-options-dialog.cc:753
 msgid "In separate column"
 msgstr "Ayrılmış sütunlarda"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:756
+#: src/dialogs/gnome-cmd-options-dialog.cc:754
 msgid "In both columns"
 msgstr "Her iki sütunda"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:760
+#: src/dialogs/gnome-cmd-options-dialog.cc:758
 msgid "No icons"
 msgstr "Simgeler yok"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:761
+#: src/dialogs/gnome-cmd-options-dialog.cc:759
 msgid "File type icons"
 msgstr "Dosya türü simgeleri"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:762
+#: src/dialogs/gnome-cmd-options-dialog.cc:760
 msgid "MIME icons"
 msgstr "MIME simgeleri"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:766
+#: src/dialogs/gnome-cmd-options-dialog.cc:764
 msgid "Respect theme colors"
 msgstr "Respect teması renkleri"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:767
+#: src/dialogs/gnome-cmd-options-dialog.cc:765
 msgid "Modern"
 msgstr "Modern"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:768
+#: src/dialogs/gnome-cmd-options-dialog.cc:766
 msgid "Fusion"
 msgstr "Füzyon"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:769
+#: src/dialogs/gnome-cmd-options-dialog.cc:767
 msgid "Classic"
 msgstr "Klasik"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:770
+#: src/dialogs/gnome-cmd-options-dialog.cc:768
 msgid "Deep blue"
 msgstr "Koyu mavi"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:771
+#: src/dialogs/gnome-cmd-options-dialog.cc:769
 msgid "Cafezinho"
 msgstr "Cafezinho"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:772
+#: src/dialogs/gnome-cmd-options-dialog.cc:770
 msgid "Green tiger"
 msgstr "Yeşil kaplan"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:773
+#: src/dialogs/gnome-cmd-options-dialog.cc:771
 msgid "Winter"
 msgstr "Kış"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:774
+#: src/dialogs/gnome-cmd-options-dialog.cc:772
 msgid "Custom"
 msgstr "Özel"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:794
+#: src/dialogs/gnome-cmd-options-dialog.cc:792
 msgid "File panes"
 msgstr "Dosya bölmeleri"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:804
+#: src/dialogs/gnome-cmd-options-dialog.cc:802
 msgid "Font:"
 msgstr "Yazı tipi:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:806
+#: src/dialogs/gnome-cmd-options-dialog.cc:804
 msgid "Row height:"
 msgstr "Satır yüksekliği:"
 
 #. File extensions
-#: src/dialogs/gnome-cmd-options-dialog.cc:810
+#: src/dialogs/gnome-cmd-options-dialog.cc:808
 msgid "Display file extensions:"
 msgstr "Dosya uzantılarını göster:"
 
 #. Graphical mode
-#: src/dialogs/gnome-cmd-options-dialog.cc:818
+#: src/dialogs/gnome-cmd-options-dialog.cc:816
 msgid "Graphical mode:"
 msgstr "Grafik kipi:"
 
 #. Color scheme
-#: src/dialogs/gnome-cmd-options-dialog.cc:827
+#: src/dialogs/gnome-cmd-options-dialog.cc:825
 msgid "Color scheme:"
 msgstr "Renk şeması:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:839
+#: src/dialogs/gnome-cmd-options-dialog.cc:837
 msgid "Edit…"
 msgstr "Düzenle…"
 
 #. LS_COLORS
-#: src/dialogs/gnome-cmd-options-dialog.cc:846
+#: src/dialogs/gnome-cmd-options-dialog.cc:844
 msgid "Colorize files according to the LS_COLORS environment variable"
 msgstr "LS_COLORS çevre değişkenine göre dosyaları renklendir"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:854
+#: src/dialogs/gnome-cmd-options-dialog.cc:852
 msgid "Edit colors…"
 msgstr "Renkleri düzenle…"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:862
+#: src/dialogs/gnome-cmd-options-dialog.cc:860
 msgid "MIME icon settings"
 msgstr "MIME simge ayarları"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:873
+#: src/dialogs/gnome-cmd-options-dialog.cc:871
 msgid "Icon size:"
 msgstr "Simge boyutu:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:875
+#: src/dialogs/gnome-cmd-options-dialog.cc:873
 msgid "Scaling quality:"
 msgstr "Ölçekleme kalitesi:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:877
+#: src/dialogs/gnome-cmd-options-dialog.cc:875
 msgid "Theme icon directory:"
 msgstr "Tema simge dizini:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:963
+#: src/dialogs/gnome-cmd-options-dialog.cc:961
 msgid "Tab bar"
 msgstr "Sekme çubuğu"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:966
+#: src/dialogs/gnome-cmd-options-dialog.cc:964
 msgid "Always show the tab bar"
 msgstr "Sekme çubuğunu her zaman göster"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:975
+#: src/dialogs/gnome-cmd-options-dialog.cc:973
 msgid "Lock icon"
 msgstr "Kilit simgesi"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:980
+#: src/dialogs/gnome-cmd-options-dialog.cc:978
 msgid "* (asterisk)"
 msgstr "* (yıldız)"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:985
+#: src/dialogs/gnome-cmd-options-dialog.cc:983
 msgid "Styled text"
 msgstr "Biçimlenmiş metin"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1042
+#: src/dialogs/gnome-cmd-options-dialog.cc:1040
 msgid "Confirm before delete"
 msgstr "Silmeden önce onayla"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1047
+#: src/dialogs/gnome-cmd-options-dialog.cc:1045
 msgid "Confirm defaults to OK"
 msgstr "Öntanımlı onayı Tamam yap"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1056
-msgid "Copy overwrite"
-msgstr "Kopyala üzerine yaz"
+#: src/dialogs/gnome-cmd-options-dialog.cc:1054
+msgid "Preselected overwrite action in copy dialog"
+msgstr "Kopyala iletişim kutusunda önceden seçilmiş üzerine yazma eylemi"
 
-#. Create prepare copy specific widgets
-#: src/dialogs/gnome-cmd-options-dialog.cc:1059
-#: src/dialogs/gnome-cmd-options-dialog.cc:1079
-#: src/dialogs/gnome-cmd-prepare-copy-dialog.cc:91
-#: src/dialogs/gnome-cmd-prepare-move-dialog.cc:84
-msgid "Silently"
-msgstr "Sessizce"
-
-#: src/dialogs/gnome-cmd-options-dialog.cc:1063
-#: src/dialogs/gnome-cmd-options-dialog.cc:1083
+#: src/dialogs/gnome-cmd-options-dialog.cc:1057
+#: src/dialogs/gnome-cmd-options-dialog.cc:1081
 msgid "Query first"
 msgstr "Önce sorgu"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1067
-#: src/dialogs/gnome-cmd-options-dialog.cc:1087
-#: src/gnome-cmd-file-selector.cc:1382
-msgid "Skip all"
-msgstr "Tümünü atla"
+#: src/dialogs/gnome-cmd-options-dialog.cc:1061
+#: src/dialogs/gnome-cmd-options-dialog.cc:1085
+#: src/dialogs/gnome-cmd-prepare-copy-dialog.cc:107
+#: src/dialogs/gnome-cmd-prepare-move-dialog.cc:101
+#: src/gnome-cmd-file-popmenu.cc:725 src/gnome-cmd-xfer.cc:147
+#: src/gnome-cmd-xfer.cc:150 src/gnome-cmd-xfer.cc:205
+#: src/gnome-cmd-xfer.cc:208 src/gnome-cmd-xfer.cc:323
+#: src/gnome-cmd-xfer.cc:326
+msgid "Rename"
+msgstr "Yeniden Adlandır"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1076
-msgid "Move overwrite"
-msgstr "Taşı üzerine yaz"
+#: src/dialogs/gnome-cmd-options-dialog.cc:1069
+#: src/dialogs/gnome-cmd-options-dialog.cc:1093
+#: src/dialogs/gnome-cmd-prepare-copy-dialog.cc:121
+#: src/dialogs/gnome-cmd-prepare-move-dialog.cc:115
+msgid "Overwrite silently"
+msgstr "Sessizce üstüne yaz"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1096
-msgid "Drag and Drop"
-msgstr "Sürükle ve Bırak"
+#: src/dialogs/gnome-cmd-options-dialog.cc:1078
+msgid "Preselected overwrite action in move dialog"
+msgstr "Taşıma iletişim kutusunda önceden seçilmiş üzerine yazma eylemi"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1099
+#: src/dialogs/gnome-cmd-options-dialog.cc:1102
+msgid "Default Drag and Drop Action"
+msgstr "Öntanımlı Sürükle ve Bırak Eylemi"
+
+#: src/dialogs/gnome-cmd-options-dialog.cc:1105
 msgid "Confirm mouse operation"
 msgstr "Fare işlemlerini onayla"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1181
+#: src/dialogs/gnome-cmd-options-dialog.cc:1109
+#: src/dialogs/gnome-cmd-prepare-copy-dialog.cc:94
+#: src/gnome-cmd-file-popmenu.cc:723 src/gnome-cmd-main-win.cc:241
+#: src/gnome-cmd-user-actions.cc:209
+msgid "Copy"
+msgstr "Kopyala"
+
+#: src/dialogs/gnome-cmd-options-dialog.cc:1113
+#: src/dialogs/gnome-cmd-prepare-move-dialog.cc:88
+msgid "Move"
+msgstr "Taşı"
+
+#: src/dialogs/gnome-cmd-options-dialog.cc:1208
 msgid "Filetypes to hide"
 msgstr "Gizlenecek dosya türleri"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1184
+#: src/dialogs/gnome-cmd-options-dialog.cc:1211
 msgid "Unknown"
 msgstr "Bilinmeyen"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1187
+#: src/dialogs/gnome-cmd-options-dialog.cc:1214
 msgid "Regular files"
 msgstr "Normal dosyalar"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1193
-#, fuzzy
-#| msgid "Hide character devices"
+#: src/dialogs/gnome-cmd-options-dialog.cc:1220
 msgid "Socket, fifo, block, or character devices"
-msgstr "Karakter aygıtlarını gizle"
+msgstr "Soket, fifo, blok, ya da karakter aygıtları"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1196
+#: src/dialogs/gnome-cmd-options-dialog.cc:1223
 msgid "Shortcuts (Windows systems)"
-msgstr ""
+msgstr "Kısayollar (Windows sistemleri)"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1199
-#| msgid "Custom location"
+#: src/dialogs/gnome-cmd-options-dialog.cc:1226
 msgid "Mountable locations"
 msgstr "Bağlanabilir konumlar"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1202
-#| msgid "Hide regular files"
+#: src/dialogs/gnome-cmd-options-dialog.cc:1229
 msgid "Virtual files"
 msgstr "Sanal dosyalar"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1205
-#| msgid "All files"
+#: src/dialogs/gnome-cmd-options-dialog.cc:1232
 msgid "Volatile files"
 msgstr "Uçucu dosyalar"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1210
+#: src/dialogs/gnome-cmd-options-dialog.cc:1237
 msgid "Also hide"
 msgstr "Aynı zamanda gizle"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1213
+#: src/dialogs/gnome-cmd-options-dialog.cc:1240
 msgid "Hidden files"
 msgstr "Gizli dosyalar"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1216
-#: src/dialogs/gnome-cmd-options-dialog.cc:1225
+#: src/dialogs/gnome-cmd-options-dialog.cc:1243
+#: src/dialogs/gnome-cmd-options-dialog.cc:1252
 msgid "Backup files"
 msgstr "Yedek dosyaları"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1219
+#: src/dialogs/gnome-cmd-options-dialog.cc:1246
 msgid "Symlinks"
 msgstr "Sembolik bağlantılar"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1403
+#: src/dialogs/gnome-cmd-options-dialog.cc:1430
 msgid ""
 "An app with this label exists already.\n"
 "Please choose another label."
@@ -2684,177 +2704,185 @@ msgstr ""
 "Bu etikete sahip bir uygulama zaten bulunuyor.\n"
 "Lütfen başka bir etiket seçiniz."
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1474
+#: src/dialogs/gnome-cmd-options-dialog.cc:1501
 msgid "Label:"
 msgstr "Etiket:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1476
+#: src/dialogs/gnome-cmd-options-dialog.cc:1503
 msgid "Command:"
 msgstr "Komut:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1478
-#: src/dialogs/gnome-cmd-options-dialog.cc:1926
+#: src/dialogs/gnome-cmd-options-dialog.cc:1505
+#: src/dialogs/gnome-cmd-options-dialog.cc:1971
 msgid "Icon:"
 msgstr "Simge:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1500
+#: src/dialogs/gnome-cmd-options-dialog.cc:1527
 msgid "Can handle multiple files"
 msgstr "Çoklu dosyalar işlenebilir"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1504
+#: src/dialogs/gnome-cmd-options-dialog.cc:1531
 msgid "Can handle URIs"
 msgstr "Adresler işlenebilir"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1508
+#: src/dialogs/gnome-cmd-options-dialog.cc:1535
 msgid "Requires terminal"
-msgstr "Terminal gerekir"
+msgstr "Uçbirim gerekir"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1515
+#: src/dialogs/gnome-cmd-options-dialog.cc:1542
 msgid "Show for"
 msgstr "Göster"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1524
+#: src/dialogs/gnome-cmd-options-dialog.cc:1551
 msgid "All directories"
 msgstr "Tüm dizinler"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1529
+#: src/dialogs/gnome-cmd-options-dialog.cc:1556
 msgid "All directories and files"
 msgstr "Tüm dizinler ve dosyalar"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1534
+#: src/dialogs/gnome-cmd-options-dialog.cc:1561
 msgid "Some files"
 msgstr "Bazı dosyalar"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1543
+#: src/dialogs/gnome-cmd-options-dialog.cc:1570
 msgid "File patterns"
 msgstr "Dosya desenleri"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1565
+#: src/dialogs/gnome-cmd-options-dialog.cc:1592
 msgid "New Application"
 msgstr "Yeni Uygulama"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1575
+#: src/dialogs/gnome-cmd-options-dialog.cc:1602
 msgid "Edit Application"
 msgstr "Uygulamayı Düzenle"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1659
+#: src/dialogs/gnome-cmd-options-dialog.cc:1686
 msgid "Always download remote files before opening in external programs"
 msgstr "Uzak dosyaları, harici programlarla açmadan önce her zaman indir"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1661
+#: src/dialogs/gnome-cmd-options-dialog.cc:1688
 msgid "MIME applications"
 msgstr "MIME uygulamaları"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1665
+#: src/dialogs/gnome-cmd-options-dialog.cc:1692
 msgid "Standard programs"
 msgstr "Standart programlar"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1668
+#: src/dialogs/gnome-cmd-options-dialog.cc:1695
 msgid "Viewer:"
 msgstr "Görüntüleyici:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1670
+#: src/dialogs/gnome-cmd-options-dialog.cc:1697
 msgid "Editor:"
 msgstr "Düzenleyici:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1672
+#: src/dialogs/gnome-cmd-options-dialog.cc:1699
 msgid "Differ:"
 msgstr "Kıyaslayıcı:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1674
+#: src/dialogs/gnome-cmd-options-dialog.cc:1701
+msgid "Search:"
+msgstr "Ara:"
+
+#: src/dialogs/gnome-cmd-options-dialog.cc:1703
 msgid "Send files:"
 msgstr "Dosyaları gönder:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1676
+#: src/dialogs/gnome-cmd-options-dialog.cc:1705
 msgid "Terminal:"
-msgstr "Terminal:"
+msgstr "Uçbirim:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1682
+#: src/dialogs/gnome-cmd-options-dialog.cc:1711
 msgid "Use Internal Viewer"
 msgstr "Dahili Görüntüleyiciyi Kullan"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1701
+#: src/dialogs/gnome-cmd-options-dialog.cc:1732
 msgid "Other favourite apps"
-msgstr "Diğer favori uygulamalar"
+msgstr "Diğer gözde uygulamalar"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1708
+#: src/dialogs/gnome-cmd-options-dialog.cc:1739
 msgid "Label"
 msgstr "Etiket"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1709
+#: src/dialogs/gnome-cmd-options-dialog.cc:1740
 msgid "Command"
 msgstr "Komut"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1744
+#: src/dialogs/gnome-cmd-options-dialog.cc:1775
 msgid "Global app options"
 msgstr "Evrensel uygulama seçenekleri"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1747
+#: src/dialogs/gnome-cmd-options-dialog.cc:1778
 msgid "Terminal command for apps in the list above:"
-msgstr "Yukarıdaki listeki uygulamalar için terminal komutu:"
+msgstr "Yukarıdaki listeki uygulamalar için uçbirim komutu:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1753
+#: src/dialogs/gnome-cmd-options-dialog.cc:1784
 msgid "Leave terminal window open"
-msgstr "Terminal penceresini açık bırak"
+msgstr "Uçbirim penceresini açık bırak"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1920
+#: src/dialogs/gnome-cmd-options-dialog.cc:1965
 msgid "Alias:"
-msgstr "Rumuz:"
+msgstr "Takma ad:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1922
-msgid "Device:"
-msgstr "Aygıt:"
+#: src/dialogs/gnome-cmd-options-dialog.cc:1967
+msgid "Device/Label:"
+msgstr "Aygıt/Etiket:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1924
+#: src/dialogs/gnome-cmd-options-dialog.cc:1969
 msgid "Mount point:"
 msgstr "Bağlama noktası:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1965
+#: src/dialogs/gnome-cmd-options-dialog.cc:2013
 msgid "New Device"
 msgstr "Yeni Aygıt"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1978
+#: src/dialogs/gnome-cmd-options-dialog.cc:2026
 msgid "Edit Device"
 msgstr "Aygıtı Düzenle"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:2060
-#: src/dialogs/gnome-cmd-options-dialog.cc:2196
+#: src/dialogs/gnome-cmd-options-dialog.cc:2108
+#: src/dialogs/gnome-cmd-options-dialog.cc:2247
 msgid "Devices"
 msgstr "Aygıtlar"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:2070
+#: src/dialogs/gnome-cmd-options-dialog.cc:2118
 msgid "Alias"
 msgstr "Rumuz"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:2100
+#: src/dialogs/gnome-cmd-options-dialog.cc:2149
+msgid ""
+"Show Samba workgroups button\n"
+"(Needs program restart if altered)"
+msgstr ""
+"Samba çalışma kümeleri düğmesini göster\n"
+"(Eğer değiştirilirse program yeniden başlatılmalı)"
+
+#: src/dialogs/gnome-cmd-options-dialog.cc:2154
 msgid "Show only the icons"
-msgstr "Sadece simgeleri göster"
+msgstr "Yalnızca simgeleri göster"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:2104
-msgid "Skip mounting (useful when using super-mount)"
-msgstr "Bağlamayı atla (super-mount kullanılırken kullanışlıdır)"
-
-#: src/dialogs/gnome-cmd-options-dialog.cc:2189
+#: src/dialogs/gnome-cmd-options-dialog.cc:2240
 msgid "General"
 msgstr "Genel"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:2190 src/tags/gnome-cmd-tags.cc:323
+#: src/dialogs/gnome-cmd-options-dialog.cc:2241 src/tags/gnome-cmd-tags.cc:323
 msgid "Format"
 msgstr "Biçim"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:2191
+#: src/dialogs/gnome-cmd-options-dialog.cc:2242
 msgid "Layout"
 msgstr "Düzen"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:2193
+#: src/dialogs/gnome-cmd-options-dialog.cc:2244
 msgid "Confirmation"
 msgstr "Onaylama"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:2194
+#: src/dialogs/gnome-cmd-options-dialog.cc:2245
 msgid "Filters"
 msgstr "Süzgeçler"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:2195
+#: src/dialogs/gnome-cmd-options-dialog.cc:2246
 msgid "Programs"
 msgstr "Programlar"
 
@@ -2882,163 +2910,89 @@ msgstr "Kullanım Deseni Seç"
 msgid "Unselect Using Pattern"
 msgstr "Kullanım Deseni Seçme"
 
-#: src/dialogs/gnome-cmd-prepare-copy-dialog.cc:85
-#: src/gnome-cmd-file-popmenu.cc:727 src/gnome-cmd-main-win.cc:241
-#: src/gnome-cmd-user-actions.cc:210
-msgid "Copy"
-msgstr "Kopyala"
-
-#: src/dialogs/gnome-cmd-prepare-copy-dialog.cc:98
-#: src/dialogs/gnome-cmd-prepare-move-dialog.cc:91
+#. Create prepare copy specific widgets
+#. Create prepare move specific widgets
+#: src/dialogs/gnome-cmd-prepare-copy-dialog.cc:100
+#: src/dialogs/gnome-cmd-prepare-move-dialog.cc:94
 msgid "Query First"
 msgstr "Önce Sorgu"
 
-#: src/dialogs/gnome-cmd-prepare-copy-dialog.cc:105
-#: src/dialogs/gnome-cmd-prepare-move-dialog.cc:98 src/gnome-cmd-xfer.cc:211
-msgid "Skip All"
-msgstr "Hepsini Atla"
-
-#: src/dialogs/gnome-cmd-prepare-copy-dialog.cc:115
+#: src/dialogs/gnome-cmd-prepare-copy-dialog.cc:131
 msgid "Follow Links"
 msgstr "Bağlantıları Takip Et"
 
 #. Customize prepare xfer widgets
-#: src/dialogs/gnome-cmd-prepare-copy-dialog.cc:124
-#: src/dialogs/gnome-cmd-prepare-move-dialog.cc:110
+#: src/dialogs/gnome-cmd-prepare-copy-dialog.cc:140
+#: src/dialogs/gnome-cmd-prepare-move-dialog.cc:127
 msgid "Overwrite Files"
 msgstr "Dosyaların Üstüne Yaz"
 
-#: src/dialogs/gnome-cmd-prepare-copy-dialog.cc:144
+#: src/dialogs/gnome-cmd-prepare-copy-dialog.cc:158
 #, c-format
 msgid "copy %d file to"
 msgid_plural "copy %d files to"
 msgstr[0] "%d dosyasını şuraya kopyala"
 
-#: src/dialogs/gnome-cmd-prepare-move-dialog.cc:78
-msgid "Move"
-msgstr "Taşı"
-
-#: src/dialogs/gnome-cmd-prepare-move-dialog.cc:126
+#: src/dialogs/gnome-cmd-prepare-move-dialog.cc:142
 #, c-format
 msgid "Move “%s” to"
 msgstr "“%s” ögesini şuraya taşı"
 
-#: src/dialogs/gnome-cmd-prepare-move-dialog.cc:130
+#: src/dialogs/gnome-cmd-prepare-move-dialog.cc:145
 #, c-format
 msgid "move %d file to"
 msgid_plural "move %d files to"
 msgstr[0] "%d dosyasını şuraya taşı"
 
 #. Nothing exists, ask the user if a new directory might be suitable in the path that he specified
-#: src/dialogs/gnome-cmd-prepare-xfer-dialog.cc:150
-#: src/dialogs/gnome-cmd-prepare-xfer-dialog.cc:190
+#: src/dialogs/gnome-cmd-prepare-xfer-dialog.cc:162
+#: src/dialogs/gnome-cmd-prepare-xfer-dialog.cc:211
 #, c-format
 msgid "The directory “%s” doesn’t exist, do you want to create it?"
-msgstr "“%s” dizini mevcut değil, oluşturmak istiyor musunuz?"
+msgstr "“%s” dizini yok, oluşturmak istiyor musunuz?"
 
-#: src/dialogs/gnome-cmd-prepare-xfer-dialog.cc:153
+#: src/dialogs/gnome-cmd-prepare-xfer-dialog.cc:165
 #: src/gnome-cmd-advrename-profile-component.cc:433
 #: src/gnome-cmd-advrename-profile-component.cc:761
 #: src/gnome-cmd-advrename-profile-component.cc:793
+#: src/gnome-cmd-file-popmenu.cc:143
 msgid "No"
 msgstr "Hayır"
 
-#: src/dialogs/gnome-cmd-prepare-xfer-dialog.cc:153
+#: src/dialogs/gnome-cmd-prepare-xfer-dialog.cc:165
 #: src/gnome-cmd-advrename-profile-component.cc:433
 #: src/gnome-cmd-advrename-profile-component.cc:761
 #: src/gnome-cmd-advrename-profile-component.cc:793
+#: src/gnome-cmd-file-popmenu.cc:143
 msgid "Yes"
 msgstr "Evet"
 
-#: src/dialogs/gnome-cmd-remote-dialog.cc:211
+#: src/dialogs/gnome-cmd-prepare-xfer-dialog.cc:173
+msgid "Unknown error"
+msgstr "Bilinmeyen hata"
+
+#: src/dialogs/gnome-cmd-remote-dialog.cc:212
 #, c-format
 msgid "No server selected"
 msgstr "Hiç sunucu seçilmemiş"
 
-#: src/dialogs/gnome-cmd-remote-dialog.cc:343
+#: src/dialogs/gnome-cmd-remote-dialog.cc:344
 msgid "Network protocol"
 msgstr "Ağ protokolü"
 
-#: src/dialogs/gnome-cmd-remote-dialog.cc:354
+#: src/dialogs/gnome-cmd-remote-dialog.cc:355
 msgid "Connection name"
 msgstr "Bağlantı adı"
 
-#: src/dialogs/gnome-cmd-remote-dialog.cc:408
+#: src/dialogs/gnome-cmd-remote-dialog.cc:409
 msgid "Remote Connections"
 msgstr "Uzak Bağlantılar"
 
-#: src/dialogs/gnome-cmd-remote-dialog.cc:414
+#: src/dialogs/gnome-cmd-remote-dialog.cc:415
 msgid "Connections"
 msgstr "Bağlantılar"
 
-#: src/dialogs/gnome-cmd-remote-dialog.cc:445
-msgid "Anonymous FTP password:"
-msgstr "Anonim FTP parolası:"
-
-#: src/dialogs/gnome-cmd-search-dialog.cc:43
-msgid "Search local directories only"
-msgstr "Sadece yerel dizinleri ara"
-
-#: src/dialogs/gnome-cmd-search-dialog.cc:44
-msgid "Files _not containing text"
-msgstr "Dosyalar _metni içermiyor"
-
-#: src/dialogs/gnome-cmd-search-dialog.cc:313
-#: src/dialogs/gnome-cmd-search-dialog.cc:322
-#: src/dialogs/gnome-cmd-search-dialog.cc:347
-#, c-format
-msgid "Failed to read file %s: %s"
-msgstr "%s dosyası okunamadı: %s"
-
-#: src/dialogs/gnome-cmd-search-dialog.cc:399
-#, c-format
-msgid "Searching in: %s"
-msgstr "Şurada arama: %s"
-
-#: src/dialogs/gnome-cmd-search-dialog.cc:514
-#, c-format
-msgid "Found %d match — search aborted"
-msgid_plural "Found %d matches — search aborted"
-msgstr[0] "%d eşleşme bulundu — arama iptal edildi"
-
-#: src/dialogs/gnome-cmd-search-dialog.cc:515
-#, c-format
-msgid "Found %d match"
-msgid_plural "Found %d matches"
-msgstr[0] "%d eşleşme bulundu"
-
-#: src/dialogs/gnome-cmd-search-dialog.cc:681
-#, c-format
-msgid "Failed to set process group id of child %d: %s.\n"
-msgstr "%d alt sürecine grup kimliği ataması başarısız oldu: %s.\n"
-
-#: src/dialogs/gnome-cmd-search-dialog.cc:805
-msgid "Error parsing the search command."
-msgstr "Arama komutu ayrıştırma hatası."
-
-#: src/dialogs/gnome-cmd-search-dialog.cc:817
-msgid "Error running the search command."
-msgstr "Arama komutu çalıştırma hatası."
-
-#: src/dialogs/gnome-cmd-search-dialog.cc:931
-#, c-format
-msgid "Failed to change directory outside of %s"
-msgstr "%s dışında dizin değiştirilemedi"
-
-#: src/dialogs/gnome-cmd-search-dialog.cc:1043
-msgid "Search…"
-msgstr "Ara…"
-
-#. search in
-#: src/dialogs/gnome-cmd-search-dialog.cc:1164
-msgid "Select Directory"
-msgstr "Dizin Seç"
-
-#: src/dialogs/gnome-cmd-search-dialog.cc:1167
-msgid "_Look in folder:"
-msgstr "Dizin içinde _bak:"
-
-#: src/dirlist.cc:75
+#: src/dirlist.cc:48
 #, c-format
 msgid "%d file listed"
 msgid_plural "%d files listed"
@@ -3397,144 +3351,146 @@ msgstr "Metin görünümü:"
 msgid "Number view:"
 msgstr "Sayı görünümü:"
 
-#: src/gnome-cmd-con-device.cc:118
+#: src/gnome-cmd-con-device.cc:122
 msgid "Failed to execute the mount command"
 msgstr "Malesef mount komutu yürütülemedi"
 
-#: src/gnome-cmd-con-device.cc:126
+#: src/gnome-cmd-con-device.cc:130
 msgid "Mount failed: permission denied"
 msgstr "Bağlama başarısız: erişim engellendi"
 
-#: src/gnome-cmd-con-device.cc:129
+#: src/gnome-cmd-con-device.cc:133
 msgid "Mount failed: no medium found"
 msgstr "Bağlama başarısız: ortam bulunamadı"
 
-#: src/gnome-cmd-con-device.cc:132
+#: src/gnome-cmd-con-device.cc:136
 #, c-format
 msgid "Mount failed: mount exited with exitstatus %d"
 msgstr "Bağlama başarısız: mount komutu %d ile bitti"
 
-#: src/gnome-cmd-con-device.cc:203
-msgid "Device is now safe to remove"
-msgstr "Aygıt, kaldırılmak için güvenli değil"
+#: src/gnome-cmd-con-device.cc:300
+msgid "Volume successfully unmounted"
+msgstr "Birimin bağı başarıyla kaldırıldı"
 
-#: src/gnome-cmd-con-device.cc:209
+#: src/gnome-cmd-con-device.cc:321
 #, c-format
 msgid ""
 "Cannot unmount the volume:\n"
-"%s %s"
+"%s\n"
+"Error code: %d"
 msgstr ""
 "Birim bağlantısından ayrılamıyor:\n"
-"%s %s"
+"%s\n"
+"Hata kodu: %d"
 
-#: src/gnome-cmd-con-device.cc:210
-msgid "Unknown error"
-msgstr "Bilinmeyen hata"
-
-#: src/gnome-cmd-con-device.cc:402
+#: src/gnome-cmd-con-device.cc:554
 #, c-format
 msgid "Mounting %s"
 msgstr "%s bağlanıyor"
 
-#: src/gnome-cmd-con-device.cc:418
+#: src/gnome-cmd-con-device.cc:571
 #, c-format
 msgid "Go to: %s (%s)"
 msgstr "Şuraya git: %s (%s)"
 
-#: src/gnome-cmd-con-device.cc:419
-#, c-format
-msgid "Mount: %s"
-msgstr "Bağla: %s"
-
-#: src/gnome-cmd-con-device.cc:420
-#, c-format
-msgid "Unmount: %s"
-msgstr "Ayır: %s"
-
-#: src/gnome-cmd-con.h:205
-msgid "<New connection>"
-msgstr "<Yeni bağlantı>"
-
-#: src/gnome-cmd-con.h:207
+#: src/gnome-cmd-con-device.cc:573 src/gnome-cmd-con.h:223
 #, c-format
 msgid "Go to: %s"
 msgstr "Şuraya git: %s"
 
-#: src/gnome-cmd-con.h:208
+#: src/gnome-cmd-con-device.cc:574
+#, c-format
+msgid "Mount: %s"
+msgstr "Bağla: %s"
+
+#: src/gnome-cmd-con-device.cc:575
+#, c-format
+msgid "Unmount: %s"
+msgstr "Ayır: %s"
+
+#: src/gnome-cmd-con.h:221
+msgid "<New connection>"
+msgstr "<Yeni bağlantı>"
+
+#: src/gnome-cmd-con.h:224
 #, c-format
 msgid "Connect to: %s"
 msgstr "Şuraya bağlan: %s"
 
-#: src/gnome-cmd-con.h:209
+#: src/gnome-cmd-con.h:225
 #, c-format
 msgid "Disconnect from: %s"
 msgstr "Şuradan bağlantıyı kes: %s"
 
-#: src/gnome-cmd-con.h:216
+#: src/gnome-cmd-con.h:253
 #, c-format
 msgid "Connecting to %s\n"
 msgstr "Şuraya bağlan: %s\n"
 
-#: src/gnome-cmd-con.h:371
+#: src/gnome-cmd-con.h:420
 msgid "Unknown disk usage"
 msgstr "Bilinmeyen disk kullanımı"
 
-#: src/gnome-cmd-con-home.cc:125
+#: src/gnome-cmd-con-home.cc:114
 msgid "Home"
 msgstr "Başlangıç"
 
-#: src/gnome-cmd-con-home.cc:134
+#: src/gnome-cmd-con-home.cc:123
 msgid "Go to: Home"
 msgstr "Şuraya git: Başlangıç"
 
-#: src/gnome-cmd-con-remote.cc:292
+#: src/gnome-cmd-con-remote.cc:127
+msgid "Disconnect error"
+msgstr "Bağlantıyı kesilme hatası"
+
+#: src/gnome-cmd-con-remote.cc:395
 #, c-format
 msgid "Opens remote connection to %s"
 msgstr "Şuraya uzak bağlantı açar: %s"
 
-#: src/gnome-cmd-con-remote.cc:293
+#: src/gnome-cmd-con-remote.cc:396
 #, c-format
 msgid "Closes remote connection to %s"
 msgstr "Şuradaki uzak bağlantıyı kapatır: %s"
 
-#: src/gnome-cmd-con-smb.cc:96
-msgid "Failed to browse the network. Is the SMB module installed?"
-msgstr "Ağ gözatılamadı. SMB modülü kurulu mu?"
+#: src/gnome-cmd-con-smb.cc:56
+msgid "Failed to browse the network. Is Samba supported on the system?"
+msgstr "Ağa göz atılamadı. Samba sistemde destekleniyor mu?"
 
-#: src/gnome-cmd-con-smb.cc:208
+#: src/gnome-cmd-con-smb.cc:216
 msgid "SMB"
 msgstr "SMB"
 
-#: src/gnome-cmd-con-smb.cc:210
+#: src/gnome-cmd-con-smb.cc:218
 msgid "Searching for workgroups and hosts"
 msgstr "Çalışma grupları ve makinelerde arama"
 
-#: src/gnome-cmd-con-smb.cc:217
+#: src/gnome-cmd-con-smb.cc:225
 msgid "Go to: Samba Network"
 msgstr "Şuraya git: Samba Ağı"
 
-#: src/gnome-cmd-data.cc:3163 src/gnome-cmd-data.cc:3865
+#: src/gnome-cmd-data.cc:3195 src/gnome-cmd-data.cc:3875
 #, c-format
 msgid "link to %s"
 msgstr "şuraya bağlantılı: %s"
 
-#: src/gnome-cmd-dir.cc:512
+#: src/gnome-cmd-dir.cc:540
 msgid "Waiting for file list"
 msgstr "Dosya listesi bekleniyor"
 
-#: src/gnome-cmd-dir-indicator.cc:415
+#: src/gnome-cmd-dir-indicator.cc:544
 msgid "Add current dir"
-msgstr "Mevcut dizini ekle"
+msgstr "Geçerli dizini ekle"
 
-#: src/gnome-cmd-dir-indicator.cc:416
+#: src/gnome-cmd-dir-indicator.cc:545
 msgid "Manage bookmarks…"
 msgstr "Yer imlerini yönet…"
 
-#: src/gnome-cmd-file.cc:563
+#: src/gnome-cmd-file.cc:638
 msgid "_Open"
 msgstr "_Aç"
 
-#: src/gnome-cmd-file.cc:566
+#: src/gnome-cmd-file.cc:641
 #, c-format
 msgid "_Open with “%s”"
 msgstr "“%s” ile _aç"
@@ -3571,23 +3527,23 @@ msgstr "uid"
 msgid "gid"
 msgstr "gid"
 
-#: src/gnome-cmd-file-list.cc:224
+#: src/gnome-cmd-file-list.cc:226
 msgid "/_Copy here"
 msgstr "/Buraya _kopyala"
 
-#: src/gnome-cmd-file-list.cc:225
+#: src/gnome-cmd-file-list.cc:227
 msgid "/_Move here"
 msgstr "/Bıraya _taşı"
 
-#: src/gnome-cmd-file-list.cc:226
+#: src/gnome-cmd-file-list.cc:228
 msgid "/_Link here"
 msgstr "/Buraya _bağla"
 
-#: src/gnome-cmd-file-list.cc:228
+#: src/gnome-cmd-file-list.cc:230
 msgid "/C_ancel"
 msgstr "/İ_ptal"
 
-#: src/gnome-cmd-file-list.cc:1276
+#: src/gnome-cmd-file-list.cc:1326
 #, c-format
 msgid ""
 "“%s” seems to be a binary executable file but it lacks the executable bit. "
@@ -3596,15 +3552,15 @@ msgstr ""
 "“%s” ikili bir dosya gibi gözüküyor, ancak çalıştırılabilir biti eksik. Onu "
 "ayarlamak ve dosyayı çalıştırmak istiyor musunuz?"
 
-#: src/gnome-cmd-file-list.cc:1278
+#: src/gnome-cmd-file-list.cc:1328
 msgid "Make Executable?"
 msgstr "Çalıştırılabilir Yapılsın?"
 
-#: src/gnome-cmd-file-list.cc:1279
+#: src/gnome-cmd-file-list.cc:1329
 msgid "OK"
 msgstr "Tamam"
 
-#: src/gnome-cmd-file-list.cc:1305
+#: src/gnome-cmd-file-list.cc:1356
 #, c-format
 msgid ""
 "“%s” is an executable text file. Do you want to run it, or display its "
@@ -3613,112 +3569,108 @@ msgstr ""
 "“%s” bir çalıştırılabilir metin dosyası. Çalıştırmak istiyor musunuz? Yoksa "
 "içeriği mi gösterilsin?"
 
-#: src/gnome-cmd-file-list.cc:1306
+#: src/gnome-cmd-file-list.cc:1357
 msgid "Run or Display"
 msgstr "Çalıştır ya da Göster"
 
-#: src/gnome-cmd-file-list.cc:1307
+#: src/gnome-cmd-file-list.cc:1358
 msgid "Display"
 msgstr "Göster"
 
-#: src/gnome-cmd-file-list.cc:1307
+#: src/gnome-cmd-file-list.cc:1358
 msgid "Run"
 msgstr "Çalıştır"
 
-#: src/gnome-cmd-file-list.cc:1323
+#: src/gnome-cmd-file-list.cc:1374
 #, c-format
-msgid "No default application found for the MIME type %s."
-msgstr "%s MIME türü için öntanımlı uygulama bulunamadı."
+msgid "No default application found for the file type %s."
+msgstr "%s dosya türü için öntanımlı uygulama bulunamadı."
 
-#: src/gnome-cmd-file-list.cc:1353
-#, fuzzy, c-format
-#| msgid ""
-#| "%s does not know how to open remote file. Do you want to download the "
-#| "file to a temporary location and then open it?"
-#| msgid_plural ""
-#| "%s does not know how to open remote files. Do you want to download the "
-#| "files to a temporary location and then open them?"
+#: src/gnome-cmd-file-list.cc:1375
+msgid "Open the \"Applications\" page in the Control Center to add one."
+msgstr ""
+"Bir tane eklemek için Denetim Merkezindeki \"Uygulamalar\" sayfasını açın."
+
+#: src/gnome-cmd-file-list.cc:1406 src/gnome-cmd-file-popmenu.cc:140
+#, c-format
 msgid ""
 "%s does not know how to open remote file. Do you want to download the file "
 "to a temporary location and then open it?"
-msgstr ""
+msgid_plural ""
+"%s does not know how to open remote files. Do you want to download the files "
+"to a temporary location and then open them?"
+msgstr[0] ""
 "%s uzak dosyayı nasıl açacağını bilmiyor. Dosyayı geçici bir konuma indirmek "
 "ve açmak istiyor musunuz?"
 
-#: src/gnome-cmd-file-list.cc:1632
+#: src/gnome-cmd-file-list.cc:1690
 msgid "Directory listing failed."
 msgstr "Dizin listeleme başarısız."
 
-#: src/gnome-cmd-file-list.cc:1685
+#: src/gnome-cmd-file-list.cc:1742
 msgid "Failed to open connection."
 msgstr "Bağlantı açılamadı."
 
-#: src/gnome-cmd-file-list.cc:2403 src/gnome-cmd-file-list.cc:2418
+#: src/gnome-cmd-file-list.cc:2511 src/gnome-cmd-file-list.cc:2526
 msgid "Not an ordinary file."
 msgstr "Normal bir dosya değil."
 
-#: src/gnome-cmd-file-popmenu.cc:244
+#: src/gnome-cmd-file-popmenu.cc:236
 msgid "Couldn’t retrieve MIME type of the file."
 msgstr "Dosyanın MIME türü alınamadı."
 
-#: src/gnome-cmd-file-popmenu.cc:259
+#: src/gnome-cmd-file-popmenu.cc:251
 msgid "Invalid command"
 msgstr "Geçersiz komut"
 
-#: src/gnome-cmd-file-popmenu.cc:283
+#: src/gnome-cmd-file-popmenu.cc:275
 msgid "Application:"
 msgstr "Uygulama:"
 
-#: src/gnome-cmd-file-popmenu.cc:286
+#: src/gnome-cmd-file-popmenu.cc:278
 msgid "Open with other…"
 msgstr "Birlikte aç…"
 
-#: src/gnome-cmd-file-popmenu.cc:291
+#: src/gnome-cmd-file-popmenu.cc:283
 msgid "Needs terminal"
-msgstr "Terminal gerektirir"
+msgstr "Uçbirim gerektirir"
 
-#: src/gnome-cmd-file-popmenu.cc:723
+#: src/gnome-cmd-file-popmenu.cc:719
 msgid "Open Wit_h"
 msgstr "B_irlikte Aç"
 
-#: src/gnome-cmd-file-popmenu.cc:724
+#: src/gnome-cmd-file-popmenu.cc:720
 msgid "Other _Application…"
 msgstr "Diğer _Uygulama…"
 
-#: src/gnome-cmd-file-popmenu.cc:725
-#, fuzzy
-#| msgid "Open Wit_h"
+#: src/gnome-cmd-file-popmenu.cc:721
 msgid "Open Wit_h…"
-msgstr "B_irlikte Aç"
+msgstr "B_irlikte Aç…"
 
-#: src/gnome-cmd-file-popmenu.cc:726 src/gnome-cmd-main-win.cc:240
-#: src/gnome-cmd-user-actions.cc:212
+#: src/gnome-cmd-file-popmenu.cc:722 src/gnome-cmd-main-win.cc:240
+#: src/gnome-cmd-user-actions.cc:211
 msgid "Cut"
 msgstr "Kes"
 
-#: src/gnome-cmd-file-popmenu.cc:729
-msgid "Rename"
-msgstr "Yeniden Adlandır"
-
 #. {file_run, "file.run"},
-#: src/gnome-cmd-file-popmenu.cc:730 src/gnome-cmd-main-win.cc:245
-#: src/gnome-cmd-user-actions.cc:236
+#: src/gnome-cmd-file-popmenu.cc:726 src/gnome-cmd-main-win.cc:245
+#: src/gnome-cmd-user-actions.cc:235
 msgid "Send files"
 msgstr "Dosyaları gönder"
 
-#: src/gnome-cmd-file-popmenu.cc:731 src/gnome-cmd-main-menu.cc:307
+#: src/gnome-cmd-file-popmenu.cc:727 src/gnome-cmd-main-menu.cc:309
 msgid "_Properties…"
 msgstr "_Özellikler…"
 
-#: src/gnome-cmd-file-popmenu.cc:732
+#: src/gnome-cmd-file-popmenu.cc:728
 msgid "E_xecute"
 msgstr "Y_ürüt"
 
-#: src/gnome-cmd-file-popmenu.cc:733 src/gnome-cmd-list-popmenu.cc:108
+#: src/gnome-cmd-file-popmenu.cc:729 src/gnome-cmd-list-popmenu.cc:108
 msgid "Open _terminal here"
-msgstr "Burada _terminal aç"
+msgstr "Burada _uçbirim aç"
 
-#: src/gnome-cmd-file-popmenu.cc:734 src/gnome-cmd-user-actions.cc:211
+#: src/gnome-cmd-file-popmenu.cc:730 src/gnome-cmd-user-actions.cc:210
 msgid "Copy file names"
 msgstr "Dosya adlarını kopyala"
 
@@ -3734,66 +3686,71 @@ msgid "%s, %d of %d dir selected"
 msgid_plural "%s, %d of %d dirs selected"
 msgstr[0] "%s, %d, %d dizini seçilmiş"
 
-#: src/gnome-cmd-file-selector.cc:237
+#: src/gnome-cmd-file-selector.cc:231
 #, c-format
 msgid "%s free"
 msgstr "%s boş"
 
-#: src/gnome-cmd-file-selector.cc:633 src/gnome-cmd-file-selector.cc:708
-#: src/gnome-cmd-user-actions.cc:1670 src/gnome-cmd-user-actions.cc:1678
+#: src/gnome-cmd-file-selector.cc:628 src/gnome-cmd-file-selector.cc:704
+#: src/gnome-cmd-user-actions.cc:1716 src/gnome-cmd-user-actions.cc:1724
 msgid "The tab is locked, close anyway?"
 msgstr "Sekme kilitli, yinede kapansın mı?"
 
-#: src/gnome-cmd-file-selector.cc:651 src/gnome-cmd-main-menu.cc:347
+#: src/gnome-cmd-file-selector.cc:647 src/gnome-cmd-main-menu.cc:351
 msgid "Open in New _Tab"
 msgstr "Yeni _Sekmede Aç"
 
-#: src/gnome-cmd-file-selector.cc:658
+#: src/gnome-cmd-file-selector.cc:654
 msgid "_Unlock Tab"
 msgstr "Sekmenin Kili_dini Aç"
 
-#: src/gnome-cmd-file-selector.cc:658
+#: src/gnome-cmd-file-selector.cc:654
 msgid "_Lock Tab"
 msgstr "Sekmeyi _Kilitle"
 
-#: src/gnome-cmd-file-selector.cc:663
+#: src/gnome-cmd-file-selector.cc:659
 msgid "_Refresh Tab"
 msgstr "Sekmeyi _Tazele"
 
-#: src/gnome-cmd-file-selector.cc:668
+#: src/gnome-cmd-file-selector.cc:664
 msgid "Copy Tab to Other _Pane"
 msgstr "Sekmeyi Diğer _Bölmeye Kopyala"
 
-#: src/gnome-cmd-file-selector.cc:674 src/gnome-cmd-main-menu.cc:348
+#: src/gnome-cmd-file-selector.cc:670 src/gnome-cmd-main-menu.cc:352
 msgid "_Close Tab"
 msgstr "Sekmeyi _Kapat"
 
-#: src/gnome-cmd-file-selector.cc:679 src/gnome-cmd-main-menu.cc:349
+#: src/gnome-cmd-file-selector.cc:675 src/gnome-cmd-main-menu.cc:353
 msgid "Close _All Tabs"
 msgstr "_Tüm Sekmeleri Kapat"
 
-#: src/gnome-cmd-file-selector.cc:684
+#: src/gnome-cmd-file-selector.cc:680
 msgid "Close _Duplicate Tabs"
 msgstr "_Aynı Sekmeleri Kapat"
 
-#: src/gnome-cmd-file-selector.cc:1139
+#: src/gnome-cmd-file-selector.cc:1156
 msgid "No file name given"
 msgstr "Bir dosya adı verilmemiş"
 
-#: src/gnome-cmd-file-selector.cc:1170
+#: src/gnome-cmd-file-selector.cc:1192
 msgid "New Text File"
 msgstr "Yeni Metin Dosyası"
 
-#: src/gnome-cmd-file-selector.cc:1316
+#: src/gnome-cmd-file-selector.cc:1341
 msgid "Symbolic link name:"
 msgstr "Sembolik bağlantı adı:"
 
-#: src/gnome-cmd-file-selector.cc:1329 src/gnome-cmd-file-selector.cc:1382
-#: src/gnome-cmd-user-actions.cc:819
+#: src/gnome-cmd-file-selector.cc:1352 src/gnome-cmd-file-selector.cc:1405
+#: src/gnome-cmd-user-actions.cc:865
 msgid "Create Symbolic Link"
 msgstr "Sembolik Bağlantı Oluştur"
 
-#: src/gnome-cmd-file-selector.cc:1453
+#: src/gnome-cmd-file-selector.cc:1405 src/gnome-cmd-xfer.cc:147
+#: src/gnome-cmd-xfer.cc:205 src/gnome-cmd-xfer.cc:323
+msgid "Skip all"
+msgstr "Tümünü atla"
+
+#: src/gnome-cmd-file-selector.cc:1477
 msgid "Filter:"
 msgstr "Süzgeç:"
 
@@ -3801,11 +3758,11 @@ msgstr "Süzgeç:"
 msgid "_New"
 msgstr "_Yeni"
 
-#: src/gnome-cmd-list-popmenu.cc:107 src/gnome-cmd-main-menu.cc:322
+#: src/gnome-cmd-list-popmenu.cc:107 src/gnome-cmd-main-menu.cc:324
 msgid "_Paste"
 msgstr "_Yapıştır"
 
-#: src/gnome-cmd-list-popmenu.cc:109 src/gnome-cmd-main-menu.cc:346
+#: src/gnome-cmd-list-popmenu.cc:109 src/gnome-cmd-main-menu.cc:350
 msgid "_Refresh"
 msgstr "_Tazele"
 
@@ -3817,235 +3774,243 @@ msgstr "_Dizin"
 msgid "_Text File"
 msgstr "_Metin Dosyası"
 
-#: src/gnome-cmd-main-menu.cc:302 src/intviewer/viewer-window.cc:599
+#: src/gnome-cmd-main-menu.cc:304 src/intviewer/viewer-window.cc:599
 msgid "_File"
 msgstr "_Dosya"
 
-#: src/gnome-cmd-main-menu.cc:303
+#: src/gnome-cmd-main-menu.cc:305
 msgid "Change _Owner/Group"
 msgstr "_Sahibi/Grubu Değiştir"
 
-#: src/gnome-cmd-main-menu.cc:304
+#: src/gnome-cmd-main-menu.cc:306
 msgid "Change Per_missions"
 msgstr "İzin_leri Değiştir"
 
-#: src/gnome-cmd-main-menu.cc:305
+#: src/gnome-cmd-main-menu.cc:307
 msgid "Advanced _Rename Tool"
 msgstr "Gelişmiş _Yeniden Adlandırma Aracı"
 
-#: src/gnome-cmd-main-menu.cc:306
+#: src/gnome-cmd-main-menu.cc:308
 msgid "Create _Symbolic Link"
 msgstr "_Sembolik Bağlantı Oluştur"
 
-#: src/gnome-cmd-main-menu.cc:308
+#: src/gnome-cmd-main-menu.cc:310
 msgid "_Search…"
 msgstr "_Ara…"
 
-#: src/gnome-cmd-main-menu.cc:309
+#: src/gnome-cmd-main-menu.cc:311
 msgid "_Quick Search…"
 msgstr "_Hızlı Ara…"
 
-#: src/gnome-cmd-main-menu.cc:310
+#: src/gnome-cmd-main-menu.cc:312
 msgid "_Enable Filter…"
 msgstr "Süzgeçi _Etkinleştir…"
 
-#: src/gnome-cmd-main-menu.cc:311
+#: src/gnome-cmd-main-menu.cc:313
 msgid "_Diff"
 msgstr "_Kıyasla"
 
-#: src/gnome-cmd-main-menu.cc:312
+#: src/gnome-cmd-main-menu.cc:314
 msgid "S_ynchronize Directories"
 msgstr "Dizinleri E_şitle"
 
-#: src/gnome-cmd-main-menu.cc:313
+#: src/gnome-cmd-main-menu.cc:315
 msgid "Start _GNOME Commander as root"
 msgstr "_GNOME Commander uygulamasını yönetici olarak başlat"
 
-#: src/gnome-cmd-main-menu.cc:314
+#: src/gnome-cmd-main-menu.cc:316
 msgid "_Quit"
 msgstr "_Çık"
 
-#: src/gnome-cmd-main-menu.cc:319
+#: src/gnome-cmd-main-menu.cc:321
 msgid "_Edit"
 msgstr "_Düzenle"
 
-#: src/gnome-cmd-main-menu.cc:320
+#: src/gnome-cmd-main-menu.cc:322
 msgid "Cu_t"
 msgstr "Ke_s"
 
-#: src/gnome-cmd-main-menu.cc:321
+#: src/gnome-cmd-main-menu.cc:323
 msgid "_Copy"
 msgstr "_Kopyala"
 
-#: src/gnome-cmd-main-menu.cc:323
+#: src/gnome-cmd-main-menu.cc:325
 msgid "_Delete"
 msgstr "_Sil"
 
-#: src/gnome-cmd-main-menu.cc:324
+#: src/gnome-cmd-main-menu.cc:326
 msgid "Copy _File Names"
 msgstr "_Dosya Adlarını Kopyala"
 
-#: src/gnome-cmd-main-menu.cc:329
+#: src/gnome-cmd-main-menu.cc:331
 msgid "_Mark"
 msgstr "_İşaretle"
 
-#: src/gnome-cmd-main-menu.cc:330
+#: src/gnome-cmd-main-menu.cc:332
 msgid "_Select All"
 msgstr "_Tümünü Seç"
 
-#: src/gnome-cmd-main-menu.cc:331
+#: src/gnome-cmd-main-menu.cc:333
 msgid "_Unselect All"
 msgstr "_Tüm Seçimleri Kaldır"
 
-#: src/gnome-cmd-main-menu.cc:332
+#: src/gnome-cmd-main-menu.cc:334
+msgid "Select all _Files"
+msgstr "Tüm Dosyaları _Seç"
+
+#: src/gnome-cmd-main-menu.cc:335
+msgid "Unselect all Fi_les"
+msgstr "Tüm Dosya Seçimleri _kaldır"
+
+#: src/gnome-cmd-main-menu.cc:336
 msgid "Select with _Pattern"
 msgstr "_Desen ile Seç"
 
-#: src/gnome-cmd-main-menu.cc:333
+#: src/gnome-cmd-main-menu.cc:337
 msgid "Unselect with P_attern"
 msgstr "D_esen ile Seçileri Kaldır"
 
-#: src/gnome-cmd-main-menu.cc:334
+#: src/gnome-cmd-main-menu.cc:338
 msgid "Select with same _Extension"
 msgstr "Aynı _Uzantı ile Seç"
 
-#: src/gnome-cmd-main-menu.cc:335
+#: src/gnome-cmd-main-menu.cc:339
 msgid "Unselect with same E_xtension"
 msgstr "Aynı U_zantı ile Seçimleri Kaldır"
 
-#: src/gnome-cmd-main-menu.cc:336
+#: src/gnome-cmd-main-menu.cc:340
 msgid "_Invert Selection"
 msgstr "Seçimleri _Tersine Çevir"
 
-#: src/gnome-cmd-main-menu.cc:337
+#: src/gnome-cmd-main-menu.cc:341
 msgid "_Restore Selection"
 msgstr "Seçimi _Geri Al"
 
-#: src/gnome-cmd-main-menu.cc:338
+#: src/gnome-cmd-main-menu.cc:342
 msgid "_Compare Directories"
 msgstr "Dizinleri _Karşılaştır"
 
-#: src/gnome-cmd-main-menu.cc:343 src/intviewer/viewer-window.cc:613
+#: src/gnome-cmd-main-menu.cc:347 src/intviewer/viewer-window.cc:613
 msgid "_View"
 msgstr "_Görünüm"
 
-#: src/gnome-cmd-main-menu.cc:344
+#: src/gnome-cmd-main-menu.cc:348
 msgid "_Back"
 msgstr "_Geri"
 
-#: src/gnome-cmd-main-menu.cc:345
+#: src/gnome-cmd-main-menu.cc:349
 msgid "_Forward"
 msgstr "_İleri"
 
-#: src/gnome-cmd-main-menu.cc:350
+#: src/gnome-cmd-main-menu.cc:354
 msgid "_Equal Panel Size"
 msgstr "_Eşit Pano Boyutu"
 
-#: src/gnome-cmd-main-menu.cc:351
+#: src/gnome-cmd-main-menu.cc:355
 msgid "Maximize Panel Size"
 msgstr "Pano Boyutunu Maksimum"
 
-#: src/gnome-cmd-main-menu.cc:356
+#: src/gnome-cmd-main-menu.cc:360
 msgid "Show Toolbar"
 msgstr "Araç Çubuğunu Göster"
 
-#: src/gnome-cmd-main-menu.cc:357
+#: src/gnome-cmd-main-menu.cc:361
 msgid "Show Device Buttons"
 msgstr "Aygıt Düğmelerini Göster"
 
-#: src/gnome-cmd-main-menu.cc:358
+#: src/gnome-cmd-main-menu.cc:362
 msgid "Show Device List"
 msgstr "Aygıt Listesini Göster"
 
-#: src/gnome-cmd-main-menu.cc:359
+#: src/gnome-cmd-main-menu.cc:363
 msgid "Show Command Line"
 msgstr "Komut Satırını Göster"
 
-#: src/gnome-cmd-main-menu.cc:360
+#: src/gnome-cmd-main-menu.cc:364
 msgid "Show Buttonbar"
 msgstr "Düğme Çubuğunu Göster"
 
-#: src/gnome-cmd-main-menu.cc:361
+#: src/gnome-cmd-main-menu.cc:365
 msgid "Show Hidden Files"
 msgstr "Gizli Dosyaları Göster"
 
-#: src/gnome-cmd-main-menu.cc:362
+#: src/gnome-cmd-main-menu.cc:366
 msgid "Show Backup Files"
 msgstr "Yedek Dosyalarını Göster"
 
-#: src/gnome-cmd-main-menu.cc:363
+#: src/gnome-cmd-main-menu.cc:367
 msgid "Horizontal Orientation"
 msgstr "Yatay Yönelim"
 
-#: src/gnome-cmd-main-menu.cc:368 src/intviewer/viewer-window.cc:678
+#: src/gnome-cmd-main-menu.cc:372 src/intviewer/viewer-window.cc:678
 msgid "_Settings"
 msgstr "_Ayarlar"
 
-#: src/gnome-cmd-main-menu.cc:369
+#: src/gnome-cmd-main-menu.cc:373
 msgid "_Options…"
 msgstr "_Seçenekler…"
 
-#: src/gnome-cmd-main-menu.cc:370
+#: src/gnome-cmd-main-menu.cc:374
 msgid "_Keyboard Shortcuts…"
 msgstr "_Klavye Kısayolları…"
 
-#: src/gnome-cmd-main-menu.cc:375
+#: src/gnome-cmd-main-menu.cc:379
 msgid "_Connections"
 msgstr "_Bağlantılar"
 
-#: src/gnome-cmd-main-menu.cc:376
+#: src/gnome-cmd-main-menu.cc:380
 msgid "_Remote Server…"
 msgstr "_Uzak Sunucu…"
 
-#: src/gnome-cmd-main-menu.cc:377
+#: src/gnome-cmd-main-menu.cc:381
 msgid "New Connection…"
 msgstr "Yeni Bağlantı…"
 
-#: src/gnome-cmd-main-menu.cc:382
+#: src/gnome-cmd-main-menu.cc:386
 msgid "_Bookmarks"
 msgstr "_Yer İmleri"
 
-#: src/gnome-cmd-main-menu.cc:383
+#: src/gnome-cmd-main-menu.cc:387
 msgid "_Bookmark this Directory…"
 msgstr "Bu Dizini _Yer İmlerine Ekle…"
 
-#: src/gnome-cmd-main-menu.cc:384
+#: src/gnome-cmd-main-menu.cc:388
 msgid "_Manage Bookmarks…"
 msgstr "Yer İmlerini _Yönet…"
 
-#: src/gnome-cmd-main-menu.cc:389
+#: src/gnome-cmd-main-menu.cc:393
 msgid "_Plugins"
 msgstr "_Eklentiler"
 
-#: src/gnome-cmd-main-menu.cc:390
+#: src/gnome-cmd-main-menu.cc:394
 msgid "_Configure Plugins…"
 msgstr "Eklentileri _Yapılandır…"
 
-#: src/gnome-cmd-main-menu.cc:395 src/intviewer/viewer-window.cc:697
+#: src/gnome-cmd-main-menu.cc:399 src/intviewer/viewer-window.cc:697
 msgid "_Help"
 msgstr "_Yardım"
 
-#: src/gnome-cmd-main-menu.cc:396
+#: src/gnome-cmd-main-menu.cc:400
 msgid "_Documentation"
 msgstr "_Belgeleme"
 
-#: src/gnome-cmd-main-menu.cc:397 src/intviewer/viewer-window.cc:699
+#: src/gnome-cmd-main-menu.cc:401 src/intviewer/viewer-window.cc:699
 msgid "_Keyboard Shortcuts"
 msgstr "_Klavye Kısayolları"
 
-#: src/gnome-cmd-main-menu.cc:398
+#: src/gnome-cmd-main-menu.cc:402
 msgid "GNOME Commander on the _Web"
 msgstr "GNOME Commander _Web Sayfası"
 
-#: src/gnome-cmd-main-menu.cc:399
+#: src/gnome-cmd-main-menu.cc:403
 msgid "Report a _Problem"
 msgstr "Bir _Hata Raporla"
 
-#: src/gnome-cmd-main-menu.cc:400 src/plugin_manager.cc:433
+#: src/gnome-cmd-main-menu.cc:404 src/plugin_manager.cc:405
 msgid "_About"
 msgstr "_Hakkına"
 
-#: src/gnome-cmd-main-win.cc:233 src/gnome-cmd-user-actions.cc:276
+#: src/gnome-cmd-main-win.cc:233 src/gnome-cmd-user-actions.cc:277
 msgid "Refresh"
 msgstr "Tazele"
 
@@ -4069,7 +4034,7 @@ msgstr "En sonuncuya git"
 msgid "Copy file names (SHIFT for full paths, ALT for URIs)"
 msgstr "Dosya adlarını kopyala (Tüm yollar için SHIFT, URI için ALT)"
 
-#: src/gnome-cmd-main-win.cc:242 src/gnome-cmd-user-actions.cc:215
+#: src/gnome-cmd-main-win.cc:242 src/gnome-cmd-user-actions.cc:214
 msgid "Paste"
 msgstr "Yapıştır"
 
@@ -4079,7 +4044,7 @@ msgstr "Düzenle (Yeni belge için SHIFT)"
 
 #: src/gnome-cmd-main-win.cc:246
 msgid "Open terminal (SHIFT for root privileges)"
-msgstr "Terminal aç (Yönetici hakları için SHIFT)"
+msgstr "Uçbirim aç (Yönetici hakları için SHIFT)"
 
 #: src/gnome-cmd-main-win.cc:248
 msgid "Drop connection"
@@ -4113,11 +4078,11 @@ msgstr "F8 Sil"
 msgid "F9 Search"
 msgstr "F9 Ara"
 
-#: src/gnome-cmd-main-win.cc:858
+#: src/gnome-cmd-main-win.cc:853
 msgid "GNOME Commander — ROOT PRIVILEGES"
 msgstr "GNOME Commander — YÖNETİCİ HAKLARIYLA"
 
-#: src/gnome-cmd-quicksearch-popup.cc:272 src/gnome-cmd-user-actions.cc:217
+#: src/gnome-cmd-quicksearch-popup.cc:274 src/gnome-cmd-user-actions.cc:216
 msgid "Search"
 msgstr "Ara"
 
@@ -4127,7 +4092,7 @@ msgstr "Düzenli ifade ile eşleşen yol:"
 
 #: src/gnome-cmd-selection-profile-component.cc:126
 msgid "Name contains:"
-msgstr "İsmin içerdiği:"
+msgstr "Adın içerdiği:"
 
 #: src/gnome-cmd-selection-profile-component.cc:135
 msgid "Unlimited depth"
@@ -4135,7 +4100,7 @@ msgstr "Sınırsız derinlik"
 
 #: src/gnome-cmd-selection-profile-component.cc:136
 msgid "Current directory only"
-msgstr "Sadece mevcut dizin"
+msgstr "Yalnızca geçerli dizin"
 
 #: src/gnome-cmd-selection-profile-component.cc:139
 #, c-format
@@ -4157,367 +4122,385 @@ msgstr "_Metnini içeren:"
 msgid "Case sensiti_ve"
 msgstr "Büyük/küçük _harf duyarlı"
 
-#: src/gnome-cmd-user-actions.cc:137
+#: src/gnome-cmd-user-actions.cc:136
 msgid "No file selected"
 msgstr "Seçilmiş dosya yok"
 
-#: src/gnome-cmd-user-actions.cc:197
+#: src/gnome-cmd-user-actions.cc:196
 msgid "Bookmark current directory"
-msgstr "Mevcut dizini yer imlerine ekle"
+msgstr "Geçerli dizini yer imlerine ekle"
 
-#: src/gnome-cmd-user-actions.cc:198
+#: src/gnome-cmd-user-actions.cc:197
 msgid "Manage bookmarks"
 msgstr "Yer imlerini yönet"
 
-#: src/gnome-cmd-user-actions.cc:199
+#: src/gnome-cmd-user-actions.cc:198
 msgid "Go to bookmarked location"
 msgstr "Yer imlerindeki konuma git"
 
-#: src/gnome-cmd-user-actions.cc:200
+#: src/gnome-cmd-user-actions.cc:199
 msgid "Show bookmarks of current device"
-msgstr "Mevcut aygıtın yer imlerini göster"
+msgstr "Geçerli aygıtın yer imlerini göster"
 
-#: src/gnome-cmd-user-actions.cc:201
+#: src/gnome-cmd-user-actions.cc:200
 msgid "Execute command"
 msgstr "Komut çalıştır"
 
-#: src/gnome-cmd-user-actions.cc:202
+#: src/gnome-cmd-user-actions.cc:201
 msgid "Open terminal"
-msgstr "Terminal aç"
+msgstr "Uçbirim aç"
+
+#: src/gnome-cmd-user-actions.cc:202
+msgid "Open terminal as root"
+msgstr "Yönetici olarak uçbirim aç"
 
 #: src/gnome-cmd-user-actions.cc:203
-msgid "Open terminal as root"
-msgstr "Terminal yönetici olarak aç"
-
-#: src/gnome-cmd-user-actions.cc:204
 msgid "Start GNOME Commander as root"
 msgstr "GNOME Commander uygulamasını yönetici olarak başlat"
 
-#: src/gnome-cmd-user-actions.cc:205
+#: src/gnome-cmd-user-actions.cc:204
 msgid "Close connection"
 msgstr "Bağlantıyı kapat"
 
-#: src/gnome-cmd-user-actions.cc:206
+#: src/gnome-cmd-user-actions.cc:205
 msgid "New connection"
 msgstr "Yeni bağlantı"
 
-#: src/gnome-cmd-user-actions.cc:207
+#: src/gnome-cmd-user-actions.cc:206
 msgid "Open connection"
 msgstr "Bağlantı aç"
 
-#: src/gnome-cmd-user-actions.cc:208
+#: src/gnome-cmd-user-actions.cc:207
 msgid "Change left connection"
 msgstr "Sol bağlantıyı değiştir"
 
-#: src/gnome-cmd-user-actions.cc:209
+#: src/gnome-cmd-user-actions.cc:208
 msgid "Change right connection"
 msgstr "Sağ bağlantıyı değiştir"
 
-#: src/gnome-cmd-user-actions.cc:214
+#: src/gnome-cmd-user-actions.cc:213
 msgid "Show user defined files"
 msgstr "Kullanıcı tanımlı dosyaları göster"
 
-#: src/gnome-cmd-user-actions.cc:218
+#: src/gnome-cmd-user-actions.cc:217
 msgid "Advanced rename tool"
 msgstr "Gelişmiş yeniden adlandırma aracı"
 
-#: src/gnome-cmd-user-actions.cc:219
+#: src/gnome-cmd-user-actions.cc:218
 msgid "Change permissions"
 msgstr "İzinleri değiştir"
 
-#: src/gnome-cmd-user-actions.cc:220
+#: src/gnome-cmd-user-actions.cc:219
 msgid "Change owner/group"
 msgstr "Sahibi/grubu değiştir"
 
-#: src/gnome-cmd-user-actions.cc:221
+#: src/gnome-cmd-user-actions.cc:220
 msgid "Copy files"
 msgstr "Dosyaları kopyala"
 
-#: src/gnome-cmd-user-actions.cc:222
+#: src/gnome-cmd-user-actions.cc:221
 msgid "Copy files with rename"
 msgstr "Dosyaları yeniden adlandırarak kopyala"
 
-#: src/gnome-cmd-user-actions.cc:223
+#: src/gnome-cmd-user-actions.cc:222
 msgid "Create symbolic link"
 msgstr "Sembolik bağlantı oluştur"
 
-#: src/gnome-cmd-user-actions.cc:224
+#: src/gnome-cmd-user-actions.cc:223
 msgid "Delete files"
 msgstr "Dosyaları sil"
 
-#: src/gnome-cmd-user-actions.cc:225
+#: src/gnome-cmd-user-actions.cc:224
 msgid "Compare files (diff)"
 msgstr "Dosyaları kıyasla (kıyasla)"
 
-#: src/gnome-cmd-user-actions.cc:226
+#: src/gnome-cmd-user-actions.cc:225
 msgid "Edit file"
 msgstr "Dosya düzenle"
 
-#: src/gnome-cmd-user-actions.cc:227
+#: src/gnome-cmd-user-actions.cc:226
 msgid "Edit a new file"
 msgstr "Yeni bir dosya düzenle"
 
-#: src/gnome-cmd-user-actions.cc:228
+#: src/gnome-cmd-user-actions.cc:227
 msgid "Quit"
 msgstr "Çık"
 
-#: src/gnome-cmd-user-actions.cc:229
+#: src/gnome-cmd-user-actions.cc:228
 msgid "View with external viewer"
 msgstr "Harici görüntüleyici ile görüntüle"
 
-#: src/gnome-cmd-user-actions.cc:230
+#: src/gnome-cmd-user-actions.cc:229
 msgid "View with internal viewer"
 msgstr "Dahili görüntüleyici ile görüntüle"
 
-#: src/gnome-cmd-user-actions.cc:231
+#: src/gnome-cmd-user-actions.cc:230
 msgid "Create directory"
 msgstr "Dizin oluştur"
 
-#: src/gnome-cmd-user-actions.cc:232
+#: src/gnome-cmd-user-actions.cc:231
 msgid "Move files"
 msgstr "Dosyaları taşı"
 
-#: src/gnome-cmd-user-actions.cc:234
+#: src/gnome-cmd-user-actions.cc:233
 msgid "Rename files"
 msgstr "Dosyaları yeniden adlandır"
 
-#: src/gnome-cmd-user-actions.cc:237
+#: src/gnome-cmd-user-actions.cc:236
 msgid "Synchronize directories"
 msgstr "Dizinleri eşitle"
 
-#: src/gnome-cmd-user-actions.cc:240
+#: src/gnome-cmd-user-actions.cc:239
 msgid "About GNOME Commander"
 msgstr "GNOME Commander Hakkında"
 
-#: src/gnome-cmd-user-actions.cc:241
+#: src/gnome-cmd-user-actions.cc:240
 msgid "Help contents"
 msgstr "Yardım içeriği"
 
-#: src/gnome-cmd-user-actions.cc:242
+#: src/gnome-cmd-user-actions.cc:241
 msgid "Help on keyboard shortcuts"
 msgstr "Klavye kısayolları yardımı"
 
-#: src/gnome-cmd-user-actions.cc:243
+#: src/gnome-cmd-user-actions.cc:242
 msgid "Report a problem"
 msgstr "Bir hata raporla"
 
-#: src/gnome-cmd-user-actions.cc:244
+#: src/gnome-cmd-user-actions.cc:243
 msgid "GNOME Commander on the web"
 msgstr "GNOME Commander web sayfası"
 
-#: src/gnome-cmd-user-actions.cc:245
+#: src/gnome-cmd-user-actions.cc:244
 msgid "Compare directories"
 msgstr "Dizinleri kıyasla"
 
-#: src/gnome-cmd-user-actions.cc:246
+#: src/gnome-cmd-user-actions.cc:245
 msgid "Invert selection"
 msgstr "Seçimi ters çevir"
 
-#: src/gnome-cmd-user-actions.cc:247
+#: src/gnome-cmd-user-actions.cc:246
 msgid "Select all"
 msgstr "Tümünü seç"
 
+#: src/gnome-cmd-user-actions.cc:247
+msgid "Select all files"
+msgstr "Tüm dosyaları seç"
+
 #: src/gnome-cmd-user-actions.cc:248
+msgid "Unselect all files"
+msgstr "Tüm dosya seçimlerini kaldır"
+
+#: src/gnome-cmd-user-actions.cc:249
 msgid "Toggle selection"
 msgstr "Seçimi değiştir"
 
-#: src/gnome-cmd-user-actions.cc:249
+#: src/gnome-cmd-user-actions.cc:250
 msgid "Toggle selection and move cursor downward"
 msgstr "Seçimi değiştir ve imleçi aşağı taşı"
 
-#: src/gnome-cmd-user-actions.cc:250
+#: src/gnome-cmd-user-actions.cc:251
 msgid "Unselect all"
 msgstr "Tüm seçimleri kaldır"
 
-#: src/gnome-cmd-user-actions.cc:253
+#: src/gnome-cmd-user-actions.cc:254
 msgid "Keyboard shortcuts"
 msgstr "Klavye kısayolları"
 
-#: src/gnome-cmd-user-actions.cc:254
+#: src/gnome-cmd-user-actions.cc:255
 msgid "Configure plugins"
 msgstr "Eklentileri yapılandır"
 
-#: src/gnome-cmd-user-actions.cc:255
+#: src/gnome-cmd-user-actions.cc:256
 msgid "Back one directory"
 msgstr "Bir dizin geriye"
 
-#: src/gnome-cmd-user-actions.cc:256
-msgid "Close the current tab"
-msgstr "Mevcut sekmeyi kapat"
-
 #: src/gnome-cmd-user-actions.cc:257
+msgid "Close the current tab"
+msgstr "Geçerli sekmeyi kapat"
+
+#: src/gnome-cmd-user-actions.cc:258
 msgid "Close all tabs"
 msgstr "Tüm sekmeleri kapat"
 
-#: src/gnome-cmd-user-actions.cc:258
+#: src/gnome-cmd-user-actions.cc:259
 msgid "Close duplicate tabs"
 msgstr "Aynı olan sekmeleri kapat"
 
-#: src/gnome-cmd-user-actions.cc:259
+#: src/gnome-cmd-user-actions.cc:260
 msgid "Change directory"
 msgstr "Dizini değiştir"
 
-#: src/gnome-cmd-user-actions.cc:260
+#: src/gnome-cmd-user-actions.cc:261
 msgid "Show directory history"
 msgstr "Dizin geçmişini göster"
 
-#: src/gnome-cmd-user-actions.cc:261
+#: src/gnome-cmd-user-actions.cc:262
 msgid "Equal panel size"
 msgstr "Eşit pano boyutu"
 
-#: src/gnome-cmd-user-actions.cc:262
+#: src/gnome-cmd-user-actions.cc:263
 msgid "Maximize panel size"
 msgstr "Pano boyutunu maksimum yap"
 
-#: src/gnome-cmd-user-actions.cc:263
+#: src/gnome-cmd-user-actions.cc:264
 msgid "Back to the first directory"
 msgstr "İlk dizine geri dön"
 
-#: src/gnome-cmd-user-actions.cc:264
+#: src/gnome-cmd-user-actions.cc:265
 msgid "Forward one directory"
 msgstr "Bir dizin ilerle"
 
-#: src/gnome-cmd-user-actions.cc:265
+#: src/gnome-cmd-user-actions.cc:266
 msgid "Home directory"
 msgstr "Ev dizini"
 
-#: src/gnome-cmd-user-actions.cc:266
+#: src/gnome-cmd-user-actions.cc:267
 msgid "Open directory in the active window"
 msgstr "Dizini, etkin bir pencerede aç"
 
-#: src/gnome-cmd-user-actions.cc:267
+#: src/gnome-cmd-user-actions.cc:268
 msgid "Open directory in the inactive window"
 msgstr "Dizini, etkin olmayan bir pencerede aç"
 
-#: src/gnome-cmd-user-actions.cc:268
+#: src/gnome-cmd-user-actions.cc:269
 msgid "Open directory in the left window"
 msgstr "Dizini, sol pencerede aç"
 
-#: src/gnome-cmd-user-actions.cc:269
+#: src/gnome-cmd-user-actions.cc:270
 msgid "Open directory in the right window"
 msgstr "Dizini, sağ pencerede aç"
 
-#: src/gnome-cmd-user-actions.cc:270
+#: src/gnome-cmd-user-actions.cc:271
 msgid "Open directory in the new tab"
 msgstr "Dizini, yeni bir sekmede aç"
 
-#: src/gnome-cmd-user-actions.cc:271
+#: src/gnome-cmd-user-actions.cc:272
 msgid "Open directory in the new tab (inactive window)"
 msgstr "Dizini, yeni bir sekmede aç (etkin olmayan pencere)"
 
-#: src/gnome-cmd-user-actions.cc:272
+#: src/gnome-cmd-user-actions.cc:273
 msgid "Forward to the last directory"
 msgstr "Son dizine ilerle"
 
-#: src/gnome-cmd-user-actions.cc:273
+#: src/gnome-cmd-user-actions.cc:274
 msgid "Next tab"
 msgstr "Sonraki sekme"
 
-#: src/gnome-cmd-user-actions.cc:274
+#: src/gnome-cmd-user-actions.cc:275
 msgid "Open directory in a new tab"
 msgstr "Dizini, yeni bir sekmede aç"
 
-#: src/gnome-cmd-user-actions.cc:275
+#: src/gnome-cmd-user-actions.cc:276
 msgid "Previous tab"
 msgstr "Önceki sekme"
 
-#: src/gnome-cmd-user-actions.cc:277
+#: src/gnome-cmd-user-actions.cc:278
 msgid "Root directory"
 msgstr "Kök dizini"
 
-#: src/gnome-cmd-user-actions.cc:278
+#: src/gnome-cmd-user-actions.cc:279
 msgid "Lock/unlock tab"
 msgstr "Sekmeye kilitle/aç"
 
-#: src/gnome-cmd-user-actions.cc:280
+#: src/gnome-cmd-user-actions.cc:281
 msgid "Show terminal"
-msgstr "Terminali göster"
+msgstr "Uçbirimi göster"
 
-#: src/gnome-cmd-user-actions.cc:283
+#: src/gnome-cmd-user-actions.cc:284
 msgid "Display main menu"
 msgstr "Ana menüyü göster"
 
-#: src/gnome-cmd-user-actions.cc:284
+#: src/gnome-cmd-user-actions.cc:285
 msgid "Move cursor one step up"
 msgstr "İmleci bir üst satıra taşı"
 
-#: src/gnome-cmd-user-actions.cc:285
+#: src/gnome-cmd-user-actions.cc:286
 msgid "Move cursor one step down"
 msgstr "İmleci bir alt satıra taşı"
 
-#: src/gnome-cmd-user-actions.cc:736 src/gnome-cmd-user-actions.cc:875
-#: src/gnome-cmd-user-actions.cc:1151
+#: src/gnome-cmd-user-actions.cc:746 src/gnome-cmd-user-actions.cc:921
+#: src/gnome-cmd-user-actions.cc:1182 src/utils.cc:136
 msgid "No valid command given."
 msgstr "Geçersiz komut."
 
-#: src/gnome-cmd-user-actions.cc:749 src/gnome-cmd-user-actions.cc:891
-#: src/gnome-cmd-user-actions.cc:1164 src/gnome-cmd-user-actions.cc:1203
-#: src/utils.cc:131
+#: src/gnome-cmd-user-actions.cc:759 src/gnome-cmd-user-actions.cc:796
+#: src/gnome-cmd-user-actions.cc:937 src/gnome-cmd-user-actions.cc:1195
+#: src/gnome-cmd-user-actions.cc:1234 src/utils.cc:143
 msgid "Unable to execute command."
 msgstr "Komut çalıştırılamıyor."
 
-#: src/gnome-cmd-user-actions.cc:814
+#: src/gnome-cmd-user-actions.cc:781
+msgid "No search command given."
+msgstr "Arama komutu girilmedi."
+
+#: src/gnome-cmd-user-actions.cc:781
+msgid "You can set a command for a search tool in the program options."
+msgstr "Program seçeneklerinde, arama aracı için komut ayarlayabilirsiniz."
+
+#: src/gnome-cmd-user-actions.cc:860
 #, c-format
 msgid "Create symbolic links of %i file in %s?"
 msgid_plural "Create symbolic links of %i files in %s?"
 msgstr[0] "%i dosyanın sembolik bağlantısı %s içinde oluşturulsun mu?"
 
-#: src/gnome-cmd-user-actions.cc:819
+#: src/gnome-cmd-user-actions.cc:865
 msgid "Create"
 msgstr "Oluştur"
 
-#: src/gnome-cmd-user-actions.cc:907
+#: src/gnome-cmd-user-actions.cc:953
 msgid "Warning"
 msgstr "Uyarı"
 
-#: src/gnome-cmd-user-actions.cc:907
+#: src/gnome-cmd-user-actions.cc:953
 msgid ""
 "The default send-to command only supports one selected file at a time. You "
 "can change the command in the program options."
 msgstr ""
+"Öntanımlı gönder komutu, tek seferde yalnızca bir seçili dosyayı destekler. "
+"Komutu program seçeneklerinden değiştirebilirsiniz."
 
-#: src/gnome-cmd-user-actions.cc:924 src/gnome-cmd-user-actions.cc:941
-#: src/gnome-cmd-user-actions.cc:987
+#: src/gnome-cmd-user-actions.cc:970 src/gnome-cmd-user-actions.cc:987
+#: src/gnome-cmd-user-actions.cc:1033
 msgid "Operation not supported on remote file systems"
 msgstr "İşlem, uzak dosya sisteminde desteklenmiyor"
 
-#: src/gnome-cmd-user-actions.cc:956
+#: src/gnome-cmd-user-actions.cc:1002
 msgid "Too many selected files"
 msgstr "Çok fazla seçili dosya"
 
-#: src/gnome-cmd-user-actions.cc:1236
+#: src/gnome-cmd-user-actions.cc:1267
 msgid "Unable to open terminal in root mode."
-msgstr "Terminal, yönetici kipinde açılamıyor."
+msgstr "Uçbirim, yönetici kipinde açılamıyor."
 
-#: src/gnome-cmd-user-actions.cc:1241
+#: src/gnome-cmd-user-actions.cc:1272
 msgid "gksudo, xdg-su, gksu, gnomesu, kdesu or beesu is not found."
 msgstr "gksudo, xdg-su, gksu, gnomesu, kdesu veya beesu bulunamadı."
 
-#: src/gnome-cmd-user-actions.cc:1260
+#: src/gnome-cmd-user-actions.cc:1291
 msgid "Unable to start GNOME Commander in root mode."
 msgstr "GNOME Commander, yönetici kipinde başlatılamıyor."
 
-#: src/gnome-cmd-user-actions.cc:1263
+#: src/gnome-cmd-user-actions.cc:1294
 msgid "gksudo, xdg-su, gksu, gnomesu, kdesu or beesu is not found"
 msgstr "gksudo, xdg-su, gksu, gnomesu, kdesu veya beesu bulunamadı"
 
-#: src/gnome-cmd-user-actions.cc:1875
+#: src/gnome-cmd-user-actions.cc:1921
 msgid "Bookmarks"
 msgstr "Yer İmleri"
 
-#: src/gnome-cmd-user-actions.cc:1962
+#: src/gnome-cmd-user-actions.cc:2008
 msgid "There was an error opening home page."
 msgstr "Ev sayfası açılırken hata oluştu."
 
-#: src/gnome-cmd-user-actions.cc:1971
+#: src/gnome-cmd-user-actions.cc:2017
 msgid "There was an error reporting problem."
 msgstr "Hata raporlanırken hata oluştu."
 
-#: src/gnome-cmd-user-actions.cc:1997
+#: src/gnome-cmd-user-actions.cc:2043
 msgid "A fast and powerful file manager for the GNOME desktop"
 msgstr "GNOME masaüstü için hızlı ve güçlü bir dosya yöneticisi"
 
-#: src/gnome-cmd-user-actions.cc:2001
+#: src/gnome-cmd-user-actions.cc:2047
 msgid ""
 "GNOME Commander is free software; you can redistribute it and/or modify it "
 "under the terms of the GNU General Public License as published by the Free "
@@ -4528,7 +4511,7 @@ msgstr ""
 "yayınlanan GNU Genel Kamu Lisansı sürüm 2 veya daha sonraki bir sürümün "
 "şartları altında yeniden dağıtabilir ve/veya değiştirebilirsiniz."
 
-#: src/gnome-cmd-user-actions.cc:2005
+#: src/gnome-cmd-user-actions.cc:2051
 msgid ""
 "GNOME Commander is distributed in the hope that it will be useful, but "
 "WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY "
@@ -4540,7 +4523,7 @@ msgstr ""
 "de yoktur.  Daha fazla ayrıntı için GNU Genel Kamu Lisansı'na bakın."
 
 # Link koymak, mektup yazmaktan daha faydalı.
-#: src/gnome-cmd-user-actions.cc:2009
+#: src/gnome-cmd-user-actions.cc:2055
 msgid ""
 "You should have received a copy of the GNU General Public License along with "
 "GNOME Commander; if not, write to the Free Software Foundation, Inc., 51 "
@@ -4550,7 +4533,7 @@ msgstr ""
 "birlikte almış olmalısınız; almadıysanız, <https://www.gnu.org/licenses/> "
 "adresine bakınız."
 
-#: src/gnome-cmd-user-actions.cc:2026
+#: src/gnome-cmd-user-actions.cc:2072
 msgid "translator-credits"
 msgstr ""
 "Kaan Özdinçer <kaanozdincer@gmail.com>\n"
@@ -4560,7 +4543,28 @@ msgstr ""
 "Sabri Ünal <libreajans@gmail.com>\n"
 "Emin Tufan Çetin <etcetin@gmail.com>"
 
-#: src/gnome-cmd-xfer.cc:201
+#: src/gnome-cmd-xfer.cc:119 src/gnome-cmd-xfer.cc:1097
+#: src/gnome-cmd-xfer.cc:1108 src/gnome-cmd-xfer.cc:1152
+msgid "Transfer problem"
+msgstr "Aktarım sorunu"
+
+#: src/gnome-cmd-xfer.cc:146 src/gnome-cmd-xfer.cc:149
+#: src/gnome-cmd-xfer.cc:204 src/gnome-cmd-xfer.cc:207
+msgid "Copy problem"
+msgstr "Kopyalama sorunu"
+
+#: src/gnome-cmd-xfer.cc:147 src/gnome-cmd-xfer.cc:150
+msgid "Copy into"
+msgstr "Şuraya kopyala"
+
+#: src/gnome-cmd-xfer.cc:147 src/gnome-cmd-xfer.cc:205
+#: src/gnome-cmd-xfer.cc:323
+msgid "Rename all"
+msgstr "Tümünü yeniden adlandır"
+
+#. ToDo: Adjust wording dynamically, see also below at run_move_overwrite_dialog
+#. ToDo: Adjust wording dynamically, see also above at run_file_copy_overwrite_dialog
+#: src/gnome-cmd-xfer.cc:190 src/gnome-cmd-xfer.cc:311
 #, c-format
 msgid ""
 "Overwrite file:\n"
@@ -4583,53 +4587,101 @@ msgstr ""
 "<b>%s</b>\n"
 "<span color='dimgray' size='smaller'>%s</span>"
 
-#: src/gnome-cmd-xfer.cc:211
+#: src/gnome-cmd-xfer.cc:205 src/gnome-cmd-xfer.cc:208
+#: src/gnome-cmd-xfer.cc:323 src/gnome-cmd-xfer.cc:326
 msgid "Replace"
 msgstr "Değiştir"
 
-#: src/gnome-cmd-xfer.cc:211
-msgid "Replace All"
-msgstr "Tümünü Değiştir"
+#: src/gnome-cmd-xfer.cc:205 src/gnome-cmd-xfer.cc:323
+msgid "Replace all"
+msgstr "Tümünü değiştir"
 
-#: src/gnome-cmd-xfer.cc:226
+#: src/gnome-cmd-xfer.cc:246 src/gnome-cmd-xfer.cc:364
+#: src/gnome-cmd-xfer.cc:500
 #, c-format
 msgid ""
-"Error while copying to %s\n"
+"Error while transferring “%s”\n"
 "\n"
 "%s"
 msgstr ""
-"%s hedefine kopyalanırken hata oluştu\n"
+"“%s” aktarılırken hata oluştu\n"
 "\n"
 "%s"
 
-#: src/gnome-cmd-xfer.cc:229
-msgid "Transfer problem"
-msgstr "Aktarım sorunu"
+#: src/gnome-cmd-xfer.cc:322 src/gnome-cmd-xfer.cc:325
+msgid "Move problem"
+msgstr "Taşıma sorunu"
 
-#: src/gnome-cmd-xfer.cc:268
+#: src/gnome-cmd-xfer.cc:460
 msgid "copying…"
 msgstr "kopyalanıyor…"
 
-#: src/gnome-cmd-xfer.cc:276
+#: src/gnome-cmd-xfer.cc:464
 #, c-format
 msgid "[file %ld of %ld] “%s”"
 msgstr "[dosya %ld toplam %ld] “%s”"
 
-#: src/gnome-cmd-xfer.cc:427
+#: src/gnome-cmd-xfer.cc:648
 msgid "Copying a directory into itself is a bad idea."
 msgstr "Bir dizini kendi içine kopyalamak kötü bir fikir."
 
-#: src/gnome-cmd-xfer.cc:427
+#: src/gnome-cmd-xfer.cc:648 src/gnome-cmd-xfer.cc:728
+#: src/gnome-cmd-xfer.cc:809
 msgid "The whole operation was cancelled."
 msgstr "Tüm işlem iptal edildi."
 
-#: src/gnome-cmd-xfer.cc:468
+#: src/gnome-cmd-xfer.cc:695 src/gnome-cmd-xfer.cc:775
 msgid "preparing…"
 msgstr "hazırlanıyor…"
 
-#: src/gnome-cmd-xfer.cc:547
+#: src/gnome-cmd-xfer.cc:728 src/gnome-cmd-xfer.cc:809
+msgid "Moving a directory into itself is a bad idea."
+msgstr "Bir dizini kendi içine taşımak kötü bir fikir."
+
+#: src/gnome-cmd-xfer.cc:876
 msgid "downloading to /tmp"
 msgstr "/tmp hedefine indiriliyor"
+
+#: src/gnome-cmd-xfer.cc:925
+#, c-format
+msgid ""
+"Error while creating symlink “%s”\n"
+"\n"
+"%s"
+msgstr ""
+"Simgesel bağlantı “%s” oluşturulurken hata oluştu\n"
+"\n"
+"%s"
+
+#: src/gnome-cmd-xfer.cc:930
+msgid "Symlink creation problem"
+msgstr "Simgesel bağlantı oluşturma sorunu"
+
+#: src/gnome-cmd-xfer.cc:931
+msgid "Ignore"
+msgstr "Yoksay"
+
+#. Translators: Translate 'Copy' as a noun here
+#: src/gnome-cmd-xfer.cc:1032
+msgctxt "Filename suffix"
+msgid "Copy"
+msgstr "Kopyala"
+
+#: src/gnome-cmd-xfer.cc:1096 src/gnome-cmd-xfer.cc:1107
+#, c-format
+msgid ""
+"Source “%s” could not be deleted. Aborting!\n"
+"\n"
+"%s"
+msgstr ""
+"Kaynak “%s” silinemedi. İptal ediliyor!\n"
+"\n"
+"%s"
+
+#: src/gnome-cmd-xfer.cc:1151
+#, c-format
+msgid "Source “%s” could not be copied. Aborting!"
+msgstr "Kaynak “%s” kopyalanamadı. İptal ediliyor!"
 
 #: src/gnome-cmd-xfer-progress-win.cc:42
 msgid "stopping…"
@@ -4740,7 +4792,6 @@ msgid "_Zoom In"
 msgstr "_Yakınlaştır"
 
 #: src/intviewer/viewer-window.cc:615
-#| msgid "Zoom _Out"
 msgid "_Zoom Out"
 msgstr "_Uzaklaştır"
 
@@ -4749,7 +4800,6 @@ msgid "_Normal Size"
 msgstr "_Normal Boyut"
 
 #: src/intviewer/viewer-window.cc:617
-#| msgid "Best _Fit"
 msgid "_Best Fit"
 msgstr "_En Uygun"
 
@@ -4783,111 +4833,103 @@ msgstr "_UTF-8"
 
 #: src/intviewer/viewer-window.cc:638
 msgid "English (US-_ASCII)"
-msgstr ""
+msgstr "İngilizce (US-_ASCII)"
 
 #: src/intviewer/viewer-window.cc:639
-#, fuzzy
-#| msgid "Terminal:"
 msgid "Terminal (CP437)"
-msgstr "Terminal:"
+msgstr "Uçbirim (CP437)"
 
 #: src/intviewer/viewer-window.cc:640
 msgid "Arabic (ISO-8859-6)"
-msgstr ""
+msgstr "Arapça (ISO-8859-6)"
 
 #: src/intviewer/viewer-window.cc:641
 msgid "Arabic (Windows, CP1256)"
-msgstr ""
+msgstr "Arapça (Windows, CP1256)"
 
 #: src/intviewer/viewer-window.cc:642
 msgid "Arabic (Dos, CP864)"
-msgstr ""
+msgstr "Arapça (Dos, CP864)"
 
 #: src/intviewer/viewer-window.cc:643
 msgid "Baltic (ISO-8859-4)"
-msgstr ""
+msgstr "Baltık (ISO-8859-4)"
 
 #: src/intviewer/viewer-window.cc:644
 msgid "Central European (ISO-8859-2)"
-msgstr ""
+msgstr "Merkez Avrupa (ISO-8859-2)"
 
 #: src/intviewer/viewer-window.cc:645
 msgid "Central European (CP1250)"
-msgstr ""
+msgstr "Merkez Avrupa (CP1250)"
 
 #: src/intviewer/viewer-window.cc:646
 msgid "Cyrillic (ISO-8859-5)"
-msgstr ""
+msgstr "Kiril (ISO-8859-5)"
 
 #: src/intviewer/viewer-window.cc:647
 msgid "Cyrillic (CP1251)"
-msgstr ""
+msgstr "Kiril  (CP1251)"
 
 #: src/intviewer/viewer-window.cc:648
 msgid "Greek (ISO-8859-7)"
-msgstr ""
+msgstr "Yunanca (ISO-8859-7)"
 
 #: src/intviewer/viewer-window.cc:649
 msgid "Greek (CP1253)"
-msgstr ""
+msgstr "Yunanca (CP1253)"
 
 #: src/intviewer/viewer-window.cc:650
 msgid "Hebrew (Windows, CP1255)"
-msgstr ""
+msgstr "İbranice (Windows, CP1255)"
 
 #: src/intviewer/viewer-window.cc:651
 msgid "Hebrew (Dos, CP862)"
-msgstr ""
+msgstr "İbranice (Dos, CP862)"
 
 #: src/intviewer/viewer-window.cc:652
 msgid "Hebrew (ISO-8859-8)"
-msgstr ""
+msgstr "İbranice (ISO-8859-8)"
 
 #: src/intviewer/viewer-window.cc:653
 msgid "Latin 9 (ISO-8859-15)"
-msgstr ""
+msgstr "Latin 9 (ISO-8859-15)"
 
 #: src/intviewer/viewer-window.cc:654
 msgid "Maltese (ISO-8859-3)"
-msgstr ""
+msgstr "Maltaca (ISO-8859-3)"
 
 #: src/intviewer/viewer-window.cc:655
 msgid "Turkish (ISO-8859-9)"
-msgstr ""
+msgstr "Türkçe (ISO-8859-9)"
 
 #: src/intviewer/viewer-window.cc:656
-#, fuzzy
-#| msgid "Turkish"
 msgid "Turkish (CP1254)"
-msgstr "Türkçe"
+msgstr "Türkçe (CP1254)"
 
 #: src/intviewer/viewer-window.cc:657
 msgid "Western (CP1252)"
-msgstr ""
+msgstr "Batı (CP1252)"
 
 #: src/intviewer/viewer-window.cc:658
 msgid "Western (ISO-8859-1)"
-msgstr ""
+msgstr "Batı (ISO-8859-1)"
 
 #: src/intviewer/viewer-window.cc:663
 msgid "Show Metadata _Tags"
 msgstr "Üstveri _Etiketlerini Göster"
 
 #: src/intviewer/viewer-window.cc:669
-#, fuzzy
-#| msgid "_Rotate Clockwise"
 msgid "Rotate Clockwise"
-msgstr "Saat Yönünde _Çevir"
+msgstr "Saat Yönüne Çevir"
 
 #: src/intviewer/viewer-window.cc:670
 msgid "Rotate Counter Clockwis_e"
 msgstr "Saat Yönünün Tersine _Çevir"
 
 #: src/intviewer/viewer-window.cc:671
-#, fuzzy
-#| msgid "_Rotate 180°"
 msgid "Rotate 180°"
-msgstr "180° _Çevir"
+msgstr "180° Çevir"
 
 #: src/intviewer/viewer-window.cc:672
 msgid "Flip _Vertical"
@@ -4950,27 +4992,27 @@ msgstr "Yapılandırma dosyaları için olan dizini belirt"
 msgid "File Manager"
 msgstr "Dosya Yöneticisi"
 
-#: src/plugin_manager.cc:349
+#: src/plugin_manager.cc:321
 msgid "Disable"
 msgstr "Kapat"
 
-#: src/plugin_manager.cc:349
+#: src/plugin_manager.cc:321
 msgid "Enable"
 msgstr "Etkinleştir"
 
-#: src/plugin_manager.cc:411
+#: src/plugin_manager.cc:383
 msgid "Available plugins"
 msgstr "Kıllanılabilir eklentiler"
 
-#: src/plugin_manager.cc:418
+#: src/plugin_manager.cc:390
 msgid "Version"
 msgstr "Sürüm"
 
-#: src/plugin_manager.cc:424
+#: src/plugin_manager.cc:396
 msgid "_Enable"
 msgstr "_Etkinleştir"
 
-#: src/plugin_manager.cc:428
+#: src/plugin_manager.cc:400
 msgid "_Configure"
 msgstr "_Yapılandır"
 
@@ -5781,7 +5823,7 @@ msgstr ""
 "Bilgiye özgü sıkıştırılmış veri. Her bir bileşenin kanalları, 1 den 4. "
 "bileşene kadar sırayla düzenlenir. Sılıştırılmamış veri için, veri "
 "düzenlenmesi <Exif.PhotometricInterpretation> etiketi ile yapılır. Ancak, "
-"<Exif.PhotometricInterpretation> sadece Y, Cb ve Cr sırasında ifade "
+"<Exif.PhotometricInterpretation> yalnızca Y, Cb ve Cr sırasında ifade "
 "edilebilir. Bu etiket, sıkıştırılmış veri Y, Cb, Cr ve diğer bileşenler "
 "desteği ile kullıldığında durumlar sağlar."
 
@@ -5851,8 +5893,8 @@ msgstr ""
 "düzenleyiciler arasındaki telif haklarında net bir ayrım olduğunda, NULL ile "
 "ayrılmış şekilde önce düzenleyici sonra fotoğrafçının telif hakları yazılır "
 "(Bu durumda ifadede NULL ile biter ve iki adet NULL kodu kullanılır) (şuraya "
-"gözatın: örnek 1). Sadece fotoğrafçı verildiğinde, tek bir NULL kodu ile "
-"bitirilir. Sadece düzenleyici verildiğinde ise, fotoğrafçının telif hakkı "
+"göz atın: örnek 1). Yalnızca fotoğrafçı verildiğinde, tek bir NULL kodu ile "
+"bitirilir. Yalnızca düzenleyici verildiğinde ise, fotoğrafçının telif hakkı "
 "bölümünden sora bir boşluk ve arkasından NULL kodu kullanılır. Alan boş "
 "bırakıldığında, bilinmeyen olarak algılanacaktır."
 
@@ -5908,7 +5950,7 @@ msgid ""
 "The tag is used only to indicate the picture-taking conditions in the reader."
 msgstr ""
 "Belirli bir kamera modelinin fotoğraf çekme koşullarına ilişkin bilgiler. "
-"Etiket, sadece fotoğraf çekme koşullarının okuyucuda belirtmek için "
+"Etiket, yalnızca fotoğraf çekme koşullarının okuyucuda belirtmek için "
 "kullanılır."
 
 #: src/tags/gnome-cmd-tags.cc:222
@@ -6259,7 +6301,7 @@ msgid ""
 "Indicates the version of <Exif.GPS.InfoIFD>. This tag is mandatory when "
 "<Exif.GPS.Info> tag is present."
 msgstr ""
-"<Exif.GPS.InfoIFD> sürümünü gösterir. <Exif.GPS.Info> etiketi mevcut "
+"<Exif.GPS.InfoIFD> sürümünü gösterir. <Exif.GPS.Info> etiketi var "
 "olduğunda bu etiket te zorunludur."
 
 #: src/tags/gnome-cmd-tags.cc:252
@@ -6580,7 +6622,7 @@ msgid ""
 msgstr ""
 "Piksel bileşenlerinin bodur veya düzlemsel biçiminde kaydedilip "
 "kaydedilmediğini gösterir. JPEG sıkıştırılmış bir JPEG işaretçisi bu etiket "
-"yerine kullanılır. Bu alan mevcut değilse, TIFF öntanımlısı 1 (bodur) kabul "
+"yerine kullanılır. Bu alan yoksa, TIFF öntanımlısı 1 (bodur) kabul "
 "edilir."
 
 #: src/tags/gnome-cmd-tags.cc:280
@@ -6669,7 +6711,7 @@ msgstr ""
 "olarak kaydedilmiş olması gerekir. Ayrıca, yazarlar FlashPix uzatma akışı "
 "veri olarak APP2 içinde ses gibi verileri depolaması için izin verilir. Ses "
 "dosyaları Exif ses formatı uygun olarak kaydedilmiş olması gerekir. Birden "
-"fazla dosya bir dosya eşlenen ise, yukarıda formatı sadece tek bir ses "
+"çok dosya bir dosya eşlenen ise, yukarıda biçimi yalnızca tek bir ses "
 "dosyası adını kaydetmek için kullanılır. Birden fazla ses dosyaları varsa, "
 "ilk kaydedilen dosya verilir. Üç Exif ses dosyası, “SND00001.WAV”, “SND00002."
 "WAV” ve “SND00003.WAV” olduğunda, bunların her biri için Exif görüntü dosya "
@@ -7073,7 +7115,7 @@ msgid ""
 "positioning."
 msgstr ""
 "Parlaklık bileşeni ile ilişkili olarak renklilik bileşenlerine konumu. Bu "
-"alan sadece JPEG sıkıştırılmış veri veya sıkıştırılmamış YCbCr veriler için "
+"alan yalnızca JPEG sıkıştırılmış veri veya sıkıştırılmamış YCbCr veriler için "
 "belirlenmiştir. TIFF öntanımlı 1 (merkezli) bir; ama ne zaman Y: Cb: Cr = 4: "
 "2:2 (ko-sited) TV sistemleri üzerinde bakıldığında görüntü kalitesini "
 "artırmak amacıyla ve veriyi kaydetmek için kullanılması tavsiye edilir. Bu "
@@ -7186,14 +7228,14 @@ msgid ""
 "Editable file rank for grading favourites. Value should be in the range "
 "1..10."
 msgstr ""
-"Favorileri derecelendirmek için düzenlenebilir dosya derecesi. Değer 1..10 "
+"Gözdeleri derecelendirmek için düzenlenebilir dosya derecesi. Değer 1..10 "
 "arası olmalıdır."
 
 #: src/tags/gnome-cmd-tags.cc:332
 msgid ""
 "Size of the file in bytes or if a directory number of items it contains."
 msgstr ""
-"Bayt cinsinden dosyanının boyutu veya dizinse, içerdiği ögelerin sayısı."
+"Bayt türünden dosyanının boyutu veya dizinse, içerdiği ögelerin sayısı."
 
 #: src/tags/gnome-cmd-tags.cc:333
 msgid "Album Sort Order"
@@ -8110,7 +8152,7 @@ msgid ""
 "The person or organization which can provide further background information "
 "on the object (multiple values allowed)."
 msgstr ""
-"Nesne üzerine bir arkaplan ve bilgi sunabilen kişi veya kuruluş (birden çok "
+"Nesne üzerine bir arka plan ve bilgi sunabilen kişi veya kuruluş (birden çok "
 "değer verilebilir)."
 
 #: src/tags/gnome-cmd-tags.cc:457
@@ -8506,7 +8548,7 @@ msgstr "Kaynak Tarihi"
 
 #: src/tags/gnome-cmd-tags.cc:500
 msgid "The date of a prior envelope to which the current object refers."
-msgstr "Mevcut nesneye referans olarak gösterilen önceki zarfın tarihi."
+msgstr "Geçerli nesneye referans olarak gösterilen önceki zarfın tarihi."
 
 #: src/tags/gnome-cmd-tags.cc:501
 msgid "Reference Number"
@@ -8515,7 +8557,7 @@ msgstr "Referans Numarası"
 #: src/tags/gnome-cmd-tags.cc:501
 msgid ""
 "The Envelope Number of a prior envelope to which the current object refers."
-msgstr "Mevcut nesneye referans olarak gösterilen zarfın sayısı."
+msgstr "Geçerli nesneye referans olarak gösterilen zarfın sayısı."
 
 #: src/tags/gnome-cmd-tags.cc:502
 msgid "Reference Service"
@@ -8526,7 +8568,7 @@ msgid ""
 "The Service Identifier of a prior envelope to which the current object "
 "refers."
 msgstr ""
-"Mevcut nesneye referans olarak gösterilen, kıdemli zatfın servis "
+"Geçerli nesneye referans olarak gösterilen, kıdemli zatfın servis "
 "tanımlayıcısı."
 
 #: src/tags/gnome-cmd-tags.cc:503
@@ -8935,49 +8977,166 @@ msgstr "Yok"
 msgid "10-15ms"
 msgstr "10-15ms"
 
-#: src/utils.cc:488
+#: src/utils.cc:497
 #, c-format
 msgid "(%sbyte)"
 msgid_plural "(%sbytes)"
 msgstr[0] "(%sbayt)"
 
-#: src/utils.cc:491
+#: src/utils.cc:500
 #, c-format
 msgid "%sbyte"
 msgid_plural "%sbytes"
 msgstr[0] "%sbayt"
 
-#: src/utils.cc:680
+#: src/utils.cc:689
 msgid "Failed to change working directory to a temporary directory."
 msgstr "Geçici dosyaların depolanacağı dizin değiştirilemedi."
 
-#: src/utils.cc:690
+#: src/utils.cc:699
 msgid "Failed to create a directory in which to store temporary files."
 msgstr "Geçici dosyaların depolanacağı dizin oluşturulamadı."
 
-#: src/utils.cc:816
-#, c-format
-msgid "Couldn’t read from the directory %s: %s"
-msgstr "%s dizininden okunamadı: %s"
-
-#: src/utils.cc:840
+#: src/utils.cc:827
 #, c-format
 msgid "Creating directory %s… "
 msgstr "%s dizini oluşturuluyor…"
 
-#: src/utils.cc:847
+#: src/utils.cc:838
 #, c-format
-msgid "Failed to create the directory %s"
-msgstr "%s dizini oluşturulamadı"
+msgid "Failed to create the directory %s: %s"
+msgstr "%s dizini oluşturulamadı: %s"
 
-#: src/utils.cc:993
+#: src/utils.cc:942
 msgid "There was an error displaying help."
 msgstr "Yardım görüntülenirken bir hata oluştu."
 
-#: src/utils.cc:1122
-#, c-format
-msgid "Couldn’t move path from “%s” to “%s”: %s"
-msgstr "Yolu “%s” den “%s” ye taşıyamadı: %s"
+#~ msgid "Save search history on exit"
+#~ msgstr "Çıkışta arama geçmişini kaydet"
+
+#~ msgid "Defines if the history of search patterns is saved on exit."
+#~ msgstr ""
+#~ "Bu değer, arama desenleri geçmişinin çıkışta kayıt durumunu tanımlar."
+
+#~ msgid "Skip device mounting"
+#~ msgstr "Aygıt bağlamayı geç"
+
+#~ msgid ""
+#~ "This option defines if mounting of devices should be skipped when they "
+#~ "are opened."
+#~ msgstr ""
+#~ "Bu seçenek, aygıtın bağlanması açıldığında atlanma durumunu tanımlar."
+
+#~ msgid "Search window width"
+#~ msgstr "Arama penceresi genişliği"
+
+#~ msgid "This option defines the width of the search window."
+#~ msgstr "Bu seçenek, arama penceresi genişliğini tanımlar."
+
+#~ msgid "Search window height"
+#~ msgstr "Arama penceresi yüksekliği"
+
+#~ msgid "This option defines the height of the search window."
+#~ msgstr "Bu seçenek, arama penceresi yüksekliğini tanımlar."
+
+#~ msgid "Search window is transient"
+#~ msgstr "Arama penceresi geçirgen"
+
+#~ msgid ""
+#~ "Defines if the search window is transient or if it can be minimized and "
+#~ "moved behind the main window."
+#~ msgstr ""
+#~ "Arama penceresinin geçirgenlik durumunu veya küçültülüp ana pencerenin "
+#~ "arkasına taşınabilme durumunu tanımlar."
+
+#~ msgid "Search text history"
+#~ msgstr "Arama metni geçmişi"
+
+#~ msgid ""
+#~ "This string array represents the history of text searches in the search "
+#~ "tool."
+#~ msgstr ""
+#~ "Bu dizge dizisi, arama aracındaki metin aramaların geçmişini temsil eder."
+
+#~ msgid "S_hare:"
+#~ msgstr "Pa_ylaş:"
+
+#~ msgid "_User name:"
+#~ msgstr "_Kullanıcı adı:"
+
+#~ msgid "Search Window"
+#~ msgstr "Arama Penceresi"
+
+#~ msgid "Search history"
+#~ msgstr "Arama geçmişi"
+
+#~ msgid "Copy overwrite"
+#~ msgstr "Kopyala üzerine yaz"
+
+#~ msgid "Silently"
+#~ msgstr "Sessizce"
+
+#~ msgid "Move overwrite"
+#~ msgstr "Taşı üzerine yaz"
+
+#~ msgid "Skip mounting (useful when using super-mount)"
+#~ msgstr "Bağlamayı atla (super-mount kullanılırken kullanışlıdır)"
+
+#~ msgid "Skip All"
+#~ msgstr "Hepsini Atla"
+
+#~ msgid "Anonymous FTP password:"
+#~ msgstr "Anonim FTP parolası:"
+
+#~ msgid "Search local directories only"
+#~ msgstr "Sadece yerel dizinleri ara"
+
+#~ msgid "Files _not containing text"
+#~ msgstr "Dosyalar _metni içermiyor"
+
+#~ msgid "Failed to read file %s: %s"
+#~ msgstr "%s dosyası okunamadı: %s"
+
+#~ msgid "Searching in: %s"
+#~ msgstr "Şurada arama: %s"
+
+#~ msgid "Found %d match — search aborted"
+#~ msgid_plural "Found %d matches — search aborted"
+#~ msgstr[0] "%d eşleşme bulundu — arama iptal edildi"
+
+#~ msgid "Found %d match"
+#~ msgid_plural "Found %d matches"
+#~ msgstr[0] "%d eşleşme bulundu"
+
+#~ msgid "Failed to set process group id of child %d: %s.\n"
+#~ msgstr "%d alt sürecine grup kimliği ataması başarısız oldu: %s.\n"
+
+#~ msgid "Error parsing the search command."
+#~ msgstr "Arama komutu ayrıştırma hatası."
+
+#~ msgid "Error running the search command."
+#~ msgstr "Arama komutu çalıştırma hatası."
+
+#~ msgid "Failed to change directory outside of %s"
+#~ msgstr "%s dışında dizin değiştirilemedi"
+
+#~ msgid "Search…"
+#~ msgstr "Ara…"
+
+#~ msgid "Select Directory"
+#~ msgstr "Dizin Seç"
+
+#~ msgid "_Look in folder:"
+#~ msgstr "Dizin içinde _bak:"
+
+#~ msgid "Device is now safe to remove"
+#~ msgstr "Aygıt, kaldırılmak için güvenli değil"
+
+#~ msgid "Couldn’t read from the directory %s: %s"
+#~ msgstr "%s dizininden okunamadı: %s"
+
+#~ msgid "Couldn’t move path from “%s” to “%s”: %s"
+#~ msgstr "Yolu “%s” den “%s” ye taşıyamadı: %s"
 
 #~ msgid "Hide FIFO pipes"
 #~ msgstr "FIFO tünellerini gizle"
