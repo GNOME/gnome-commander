@@ -59,7 +59,7 @@
   </suggests>
 
   <releases>
-    <release type="stable" version="1.14.3" date="2022-??-??">
+    <release type="stable" version="1.14.3" date="2022-06-18">
       <description>
         <p>This release fixes the following bugs:</p>
         <ul>
@@ -68,8 +68,8 @@
           <li>Some memory improvements when walking through directories</li>
           <li>Issue #124: Unable to switch to USB flash disk with glib 2.72</li>
         </ul>
-        <p>New or updated translations: ...</p>
-        <p>New or updated docs: ...</p>
+        <p>New or updated translations: cs (Marek Černocký), eu (Asier Sarasua Garmendia), id (Kukuh Syafaat), pl (Piotr Drąg), pt_B (Rafael FontenelleR), sv (Anders Jonsson), uk (Yuri Chornoivan)</p>
+        <p>New or updated docs: cs (Marek Černocký), sv (Anders Jonsson)</p>
       </description>
     </release>
     <release type="stable" version="1.14.2" date="2022-03-27">
