@@ -11,9 +11,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.1.3\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-commander/issues\n"
-"POT-Creation-Date: 2022-04-01 19:34+0000\n"
-"PO-Revision-Date: 2022-05-01 08:58+1000\n"
-"Last-Translator: Ser82-png <sw@atrus.ru>\n"
+"POT-Creation-Date: 2022-06-15 08:26+0000\n"
+"PO-Revision-Date: 2022-06-29 00:27+1000\n"
+"Last-Translator: Ser82-png <asvmail.as@gmail.com>\n"
 "Language-Team: Basealt Translation Team\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
@@ -1555,7 +1555,7 @@ msgstr "Файл"
 #: plugins/fileroller/file-roller-plugin.cc:605
 #: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:369
 #: src/dialogs/gnome-cmd-options-dialog.cc:1524
-#: src/dialogs/gnome-cmd-options-dialog.cc:2201
+#: src/dialogs/gnome-cmd-options-dialog.cc:2216
 #: src/dialogs/gnome-cmd-prepare-copy-dialog.cc:145
 #: src/dialogs/gnome-cmd-prepare-move-dialog.cc:132
 #: src/dialogs/gnome-cmd-remote-dialog.cc:443 src/gnome-cmd-user-actions.cc:253
@@ -1850,7 +1850,7 @@ msgstr "Ошибка удаления"
 #: src/gnome-cmd-xfer.cc:205 src/gnome-cmd-xfer.cc:208
 #: src/gnome-cmd-xfer.cc:323 src/gnome-cmd-xfer.cc:326
 #: src/gnome-cmd-xfer.cc:1097 src/gnome-cmd-xfer.cc:1108
-#: src/gnome-cmd-xfer.cc:1130
+#: src/gnome-cmd-xfer.cc:1152
 msgid "Abort"
 msgstr "Прервать"
 
@@ -1975,7 +1975,7 @@ msgid "Image:"
 msgstr "Изображение:"
 
 #: src/dialogs/gnome-cmd-file-props-dialog.cc:329
-#: src/dialogs/gnome-cmd-mkdir-dialog.cc:195
+#: src/dialogs/gnome-cmd-mkdir-dialog.cc:193
 msgid "Directory name:"
 msgstr "Имя каталога:"
 
@@ -2255,12 +2255,12 @@ msgstr "_Дублировать"
 msgid "A directory name must be entered"
 msgstr "Нужно ввести имя каталога"
 
-#: src/dialogs/gnome-cmd-mkdir-dialog.cc:127
+#: src/dialogs/gnome-cmd-mkdir-dialog.cc:126
 #, c-format
 msgid "Make directory failed: %s\n"
 msgstr "Не удалось создать каталог: %s\n"
 
-#: src/dialogs/gnome-cmd-mkdir-dialog.cc:171
+#: src/dialogs/gnome-cmd-mkdir-dialog.cc:169
 msgid "Make Directory"
 msgstr "Создать каталог"
 
@@ -2372,7 +2372,7 @@ msgid "Directories"
 msgstr "Каталоги"
 
 #: src/dialogs/gnome-cmd-options-dialog.cc:237
-#: src/dialogs/gnome-cmd-options-dialog.cc:2228
+#: src/dialogs/gnome-cmd-options-dialog.cc:2243
 msgid "Tabs"
 msgstr "Вкладки"
 
@@ -2770,7 +2770,7 @@ msgid "Command:"
 msgstr "Команда:"
 
 #: src/dialogs/gnome-cmd-options-dialog.cc:1505
-#: src/dialogs/gnome-cmd-options-dialog.cc:1959
+#: src/dialogs/gnome-cmd-options-dialog.cc:1971
 msgid "Icon:"
 msgstr "Значок:"
 
@@ -2878,36 +2878,36 @@ msgstr "Команда терминала для приложений в спи�
 msgid "Leave terminal window open"
 msgstr "Оставить окно терминала открытым"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1953
+#: src/dialogs/gnome-cmd-options-dialog.cc:1965
 msgid "Alias:"
 msgstr "Псевдоним:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1955
-msgid "Device:"
-msgstr "Устройство:"
+#: src/dialogs/gnome-cmd-options-dialog.cc:1967
+msgid "Device/Label:"
+msgstr "Устройство/Метка:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1957
+#: src/dialogs/gnome-cmd-options-dialog.cc:1969
 msgid "Mount point:"
 msgstr "Точка монтирования:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1998
+#: src/dialogs/gnome-cmd-options-dialog.cc:2013
 msgid "New Device"
 msgstr "Новое устройство"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:2011
+#: src/dialogs/gnome-cmd-options-dialog.cc:2026
 msgid "Edit Device"
 msgstr "Правка устройства"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:2093
-#: src/dialogs/gnome-cmd-options-dialog.cc:2232
+#: src/dialogs/gnome-cmd-options-dialog.cc:2108
+#: src/dialogs/gnome-cmd-options-dialog.cc:2247
 msgid "Devices"
 msgstr "Устройства"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:2103
+#: src/dialogs/gnome-cmd-options-dialog.cc:2118
 msgid "Alias"
 msgstr "Псевдоним"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:2134
+#: src/dialogs/gnome-cmd-options-dialog.cc:2149
 msgid ""
 "Show Samba workgroups button\n"
 "(Needs program restart if altered)"
@@ -2915,31 +2915,31 @@ msgstr ""
 "Показывать кнопку рабочих групп Samba\n"
 "(при изменении параметра требуется перезапуск программы)"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:2139
+#: src/dialogs/gnome-cmd-options-dialog.cc:2154
 msgid "Show only the icons"
 msgstr "Показывать только значки"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:2225
+#: src/dialogs/gnome-cmd-options-dialog.cc:2240
 msgid "General"
 msgstr "Общее"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:2226 src/tags/gnome-cmd-tags.cc:323
+#: src/dialogs/gnome-cmd-options-dialog.cc:2241 src/tags/gnome-cmd-tags.cc:323
 msgid "Format"
 msgstr "Формат"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:2227
+#: src/dialogs/gnome-cmd-options-dialog.cc:2242
 msgid "Layout"
 msgstr "Вид"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:2229
+#: src/dialogs/gnome-cmd-options-dialog.cc:2244
 msgid "Confirmation"
 msgstr "Подтверждение"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:2230
+#: src/dialogs/gnome-cmd-options-dialog.cc:2245
 msgid "Filters"
 msgstr "Фильтры"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:2231
+#: src/dialogs/gnome-cmd-options-dialog.cc:2246
 msgid "Programs"
 msgstr "Программы"
 
@@ -3414,24 +3414,28 @@ msgstr "Просмотр текста:"
 msgid "Number view:"
 msgstr "Просмотр номера:"
 
-#: src/gnome-cmd-con-device.cc:121
+#: src/gnome-cmd-con-device.cc:122
 msgid "Failed to execute the mount command"
 msgstr "Ошибка выполнения команды монтирования"
 
-#: src/gnome-cmd-con-device.cc:129
+#: src/gnome-cmd-con-device.cc:130
 msgid "Mount failed: permission denied"
 msgstr "Ошибка монтирования: доступ запрещён"
 
-#: src/gnome-cmd-con-device.cc:132
+#: src/gnome-cmd-con-device.cc:133
 msgid "Mount failed: no medium found"
 msgstr "Ошибка монтирования: носитель не найден"
 
-#: src/gnome-cmd-con-device.cc:135
+#: src/gnome-cmd-con-device.cc:136
 #, c-format
 msgid "Mount failed: mount exited with exitstatus %d"
 msgstr "Ошибка монтирования: команда mount завершилась с кодом %d"
 
-#: src/gnome-cmd-con-device.cc:301
+#: src/gnome-cmd-con-device.cc:300
+msgid "Volume successfully unmounted"
+msgstr "Том успешно отключён"
+
+#: src/gnome-cmd-con-device.cc:321
 #, c-format
 msgid ""
 "Cannot unmount the volume:\n"
@@ -3442,31 +3446,27 @@ msgstr ""
 "%s\n"
 "Код ошибки: %d"
 
-#: src/gnome-cmd-con-device.cc:319
-msgid "Volume successfully unmounted"
-msgstr "Том успешно отключён"
-
-#: src/gnome-cmd-con-device.cc:531
+#: src/gnome-cmd-con-device.cc:554
 #, c-format
 msgid "Mounting %s"
 msgstr "Монтируется %s"
 
-#: src/gnome-cmd-con-device.cc:548
+#: src/gnome-cmd-con-device.cc:571
 #, c-format
 msgid "Go to: %s (%s)"
 msgstr "Перейти к: %s(%s)"
 
-#: src/gnome-cmd-con-device.cc:550 src/gnome-cmd-con.h:223
+#: src/gnome-cmd-con-device.cc:573 src/gnome-cmd-con.h:223
 #, c-format
 msgid "Go to: %s"
 msgstr "Перейти к: %s"
 
-#: src/gnome-cmd-con-device.cc:551
+#: src/gnome-cmd-con-device.cc:574
 #, c-format
 msgid "Mount: %s"
 msgstr "Монтирование: %s"
 
-#: src/gnome-cmd-con-device.cc:552
+#: src/gnome-cmd-con-device.cc:575
 #, c-format
 msgid "Unmount: %s"
 msgstr "Отключение: %s"
@@ -3549,11 +3549,11 @@ msgstr "Добавить текущий каталог"
 msgid "Manage bookmarks…"
 msgstr "Редактировать закладки…"
 
-#: src/gnome-cmd-file.cc:637
+#: src/gnome-cmd-file.cc:638
 msgid "_Open"
 msgstr "Открыть"
 
-#: src/gnome-cmd-file.cc:640
+#: src/gnome-cmd-file.cc:641
 #, c-format
 msgid "_Open with “%s”"
 msgstr "_Открыть с помощью «%s»"
@@ -3681,7 +3681,7 @@ msgstr "Не удалось вывести содержимое каталога
 msgid "Failed to open connection."
 msgstr "Не удалось открыть соединение."
 
-#: src/gnome-cmd-file-list.cc:2507 src/gnome-cmd-file-list.cc:2522
+#: src/gnome-cmd-file-list.cc:2511 src/gnome-cmd-file-list.cc:2526
 msgid "Not an ordinary file."
 msgstr "Не обычный файл."
 
@@ -4624,7 +4624,7 @@ msgstr ""
 "Alexey Rubtsov <rushills@gmail.com>, 2021"
 
 #: src/gnome-cmd-xfer.cc:119 src/gnome-cmd-xfer.cc:1097
-#: src/gnome-cmd-xfer.cc:1108 src/gnome-cmd-xfer.cc:1130
+#: src/gnome-cmd-xfer.cc:1108 src/gnome-cmd-xfer.cc:1152
 msgid "Transfer problem"
 msgstr "Ошибка передачи"
 
@@ -4758,7 +4758,7 @@ msgstr ""
 "\n"
 "%s"
 
-#: src/gnome-cmd-xfer.cc:1129
+#: src/gnome-cmd-xfer.cc:1151
 #, c-format
 msgid "Source “%s” could not be copied. Aborting!"
 msgstr "Не удалось скопировать источник «%s». Прерывание обработки!"
