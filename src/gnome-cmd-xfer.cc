@@ -617,7 +617,7 @@ set_files_total(XferData *xferData)
            nullptr,
            &numFiles,
            nullptr);
-        xferData->bytesTotal = diskUsage;
+        xferData->bytesTotal += diskUsage;
         xferData->filesTotal += numFiles;
     }
 }
