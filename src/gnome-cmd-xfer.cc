@@ -395,6 +395,29 @@ static void update_transfer_gui_error_move (XferData *xferData)
     }
 }
 
+static void finish_xfer(XferData *xferData)
+{
+    //  Only update the files if needed
+    if (xferData->destGnomeCmdDir)
+    {
+        gnome_cmd_dir_relist_files (xferData->destGnomeCmdDir, FALSE);
+        main_win->focus_file_lists();
+        gnome_cmd_dir_unref (xferData->destGnomeCmdDir);
+        xferData->destGnomeCmdDir = nullptr;
+    }
+    if (xferData->win)
+    {
+        gtk_widget_destroy (GTK_WIDGET (xferData->win));
+        xferData->win = nullptr;
+    }
+    if (xferData->problem_action == COPY_ERROR_ACTION_NO_ACTION_YET
+        && xferData->on_completed_func)
+    {
+        xferData->on_completed_func (xferData->on_completed_data, nullptr);
+    }
+    free_xfer_data (xferData);
+}
+
 static gboolean update_transfer_gui (XferData *xferData)
 {
     g_mutex_lock (&xferData->mutex);
@@ -428,34 +451,6 @@ static gboolean update_transfer_gui (XferData *xferData)
         return FALSE;
     }
 
-    if (xferData->done)
-    {
-        //  Only update the files if needed
-        if (xferData->destGnomeCmdDir)
-        {
-            gnome_cmd_dir_relist_files (xferData->destGnomeCmdDir, FALSE);
-            main_win->focus_file_lists();
-            gnome_cmd_dir_unref (xferData->destGnomeCmdDir);
-            xferData->destGnomeCmdDir = nullptr;
-        }
-
-        if (xferData->win)
-        {
-            gtk_widget_destroy (GTK_WIDGET (xferData->win));
-            xferData->win = nullptr;
-        }
-
-        if (xferData->problem_action == COPY_ERROR_ACTION_NO_ACTION_YET
-            && xferData->on_completed_func)
-        {
-            xferData->on_completed_func (xferData->on_completed_data, nullptr);
-        }
-
-        free_xfer_data (xferData);
-
-        return FALSE;
-    }
-
     if (xferData->bytesTotalTransferred == 0)
         gnome_cmd_xfer_progress_win_set_action (xferData->win, _("copying…"));
 
@@ -486,7 +481,14 @@ static gboolean update_transfer_gui (XferData *xferData)
                 gtk_main_iteration_do (FALSE);
         }
     }
+
     g_mutex_unlock (&xferData->mutex);
+
+    if (xferData->done)
+    {
+        finish_xfer(xferData);
+        return FALSE;
+    }
 
     return TRUE;
 }
