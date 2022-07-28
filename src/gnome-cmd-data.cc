@@ -40,9 +40,6 @@
 
 using namespace std;
 
-
-#define MAX_GUI_UPDATE_RATE 1000
-#define MIN_GUI_UPDATE_RATE 10
 #define DEFAULT_GUI_UPDATE_RATE 100
 
 GnomeCmdData gnome_cmd_data;
