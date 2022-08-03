@@ -113,7 +113,7 @@ inline void do_chmod_files (GnomeCmdChmodDialog *dialog)
     {
         GnomeCmdFile *f = (GnomeCmdFile *) i->data;
         gboolean recursive = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (dialog->priv->recurse_check));
-        const gchar *mode_text = get_combo_text (dialog->priv->recurse_combo);
+        const gchar *mode_text = get_combo_box_entry_text (dialog->priv->recurse_combo);
         //ToDo: This needs a fix. It does not work with Gcmd working in non-english language.
         ChmodRecursiveMode mode = strcmp (mode_text, recurse_opts[CHMOD_ALL_FILES]) == 0 ? CHMOD_ALL_FILES :
                                                                                            CHMOD_DIRS_ONLY;
@@ -205,7 +205,7 @@ static void gnome_cmd_chmod_dialog_init (GnomeCmdChmodDialog *dialog)
     dialog->priv->recurse_check = create_check (chmod_dialog, _("Apply Recursively for"), "check");
     gtk_box_pack_start (GTK_BOX (vbox), dialog->priv->recurse_check, TRUE, TRUE, 0);
 
-    dialog->priv->recurse_combo = create_combo (chmod_dialog);
+    dialog->priv->recurse_combo = create_combo_box_text_with_entry (chmod_dialog);
     gtk_box_pack_start (GTK_BOX (vbox), dialog->priv->recurse_combo, TRUE, TRUE, 0);
     gtk_widget_set_sensitive (dialog->priv->recurse_combo, FALSE);
 
@@ -238,12 +238,9 @@ GtkWidget *gnome_cmd_chmod_dialog_new (GList *files)
 
     show_perms (dialog);
 
-    GList *strings = NULL;
-
-    strings = g_list_append (strings, _(recurse_opts[CHMOD_ALL_FILES]));
-    strings = g_list_append (strings, _(recurse_opts[CHMOD_DIRS_ONLY]));
-
-    gtk_combo_set_popdown_strings (GTK_COMBO (dialog->priv->recurse_combo), strings);
+    gtk_combo_box_text_append_text ((GtkComboBoxText*) dialog->priv->recurse_combo, _(recurse_opts[CHMOD_ALL_FILES]));
+    gtk_combo_box_text_append_text ((GtkComboBoxText*) dialog->priv->recurse_combo, _(recurse_opts[CHMOD_DIRS_ONLY]));
+    gtk_combo_box_set_active ((GtkComboBox*) dialog->priv->recurse_combo, 0);
 
     return GTK_WIDGET (dialog);
 }
