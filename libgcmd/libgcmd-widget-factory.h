@@ -1,4 +1,4 @@
-/** 
+/**
  * @file libgcmd-widget-factory.h
  * @copyright (C) 2001-2006 Marcus Bjurman\n
  * @copyright (C) 2007-2012 Piotr Eljasiak\n
@@ -121,15 +121,13 @@ GtkWidget *create_vbuttonbox (GtkWidget *parent);
 
 GtkWidget *create_hbuttonbox (GtkWidget *parent);
 
-GtkWidget *create_combo (GtkWidget *parent);
-
-GtkWidget *create_combo_new (GtkWidget *parent);
+GtkWidget *create_combo_box_text_with_entry (GtkWidget *parent);
 
 GtkWidget *create_option_menu (GtkWidget *parent, const gchar **items);
 
-inline const gchar *get_combo_text (GtkWidget *combo)
+inline const gchar *get_combo_box_entry_text (GtkWidget *combo)
 {
-    return gtk_entry_get_text (GTK_ENTRY (GTK_COMBO (combo)->entry));
+    return gtk_entry_get_text (GTK_ENTRY (gtk_bin_get_child (GTK_BIN (combo))));
 }
 
 inline GSList *get_radio_group (GtkWidget *radio)

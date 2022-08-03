@@ -534,17 +534,7 @@ GtkWidget *create_hbuttonbox (GtkWidget *parent)
     return w;
 }
 
-//deprecated since GTK2.4
-GtkWidget *create_combo (GtkWidget *parent)
-{
-    GtkWidget *combo = gtk_combo_new ();
-    g_object_ref (combo);
-    g_object_set_data_full (G_OBJECT (parent), "combo", combo, g_object_unref);
-    gtk_widget_show (combo);
-    return combo;
-}
-
-GtkWidget *create_combo_new (GtkWidget *parent)
+GtkWidget *create_combo_box_text_with_entry (GtkWidget *parent)
 {
     GtkWidget *combo = gtk_combo_box_text_new_with_entry ();
     g_object_ref (combo);

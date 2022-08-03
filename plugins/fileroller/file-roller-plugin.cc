@@ -620,7 +620,7 @@ static void configure (GnomeCmdPlugin *plugin)
     label = create_label (dialog, _("Default archive type"));
     table_add (table, label, 0, 1, (GtkAttachOptions) 0);
 
-    combo = create_combo_new (dialog);
+    combo = create_combo_box_text_with_entry (dialog);
     g_signal_connect (G_OBJECT(combo), "changed", G_CALLBACK (on_date_format_update), dialog);
     table_add (table, combo, 1, 1, GTK_FILL);
 

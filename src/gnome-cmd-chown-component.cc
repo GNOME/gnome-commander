@@ -1,4 +1,4 @@
-/** 
+/**
  * @file gnome-cmd-chown-component.cc
  * @copyright (C) 2001-2006 Marcus Bjurman\n
  * @copyright (C) 2007-2012 Piotr Eljasiak\n
@@ -89,10 +89,10 @@ static void init (GnomeCmdChownComponent *comp)
     label = create_label (GTK_WIDGET (comp), _("Group:"));
     table_add (GTK_WIDGET (comp), label, 0, 1, GTK_FILL);
 
-    comp->priv->user_combo = create_combo (GTK_WIDGET (comp));
+    comp->priv->user_combo = create_combo_box_text_with_entry (GTK_WIDGET (comp));
     table_add (GTK_WIDGET (comp), comp->priv->user_combo, 1, 0, (GtkAttachOptions) (GTK_FILL|GTK_EXPAND));
 
-    comp->priv->group_combo = create_combo (GTK_WIDGET (comp));
+    comp->priv->group_combo = create_combo_box_text_with_entry (GTK_WIDGET (comp));
     table_add (GTK_WIDGET (comp), comp->priv->group_combo, 1, 1, (GtkAttachOptions) (GTK_FILL|GTK_EXPAND));
 }
 
@@ -105,15 +105,16 @@ inline void load_users_and_groups (GnomeCmdChownComponent *comp)
 {
     // disable user combo if user is not root, else fill the combo with all users in the system
     if (gcmd_owner.is_root())
-        gtk_combo_set_popdown_strings (GTK_COMBO (comp->priv->user_combo), gcmd_owner.users.get_names());
+        for (auto list = gcmd_owner.users.get_names(); list; list = list->next)
+            gtk_combo_box_text_append_text ((GtkComboBoxText*) comp->priv->user_combo, (const gchar*) list->data);
     else
         gtk_widget_set_sensitive (comp->priv->user_combo, FALSE);
 
     if (gcmd_owner.get_group_names())
-        gtk_combo_set_popdown_strings (GTK_COMBO (comp->priv->group_combo), gcmd_owner.get_group_names());      // fill the groups combo with all groups that the user is part of
-                                                                                                                // if ordinary user or all groups if root
+        for (auto list = gcmd_owner.get_group_names(); list; list = list->next)                                     // fill the groups combo with all groups that the user is part of
+            gtk_combo_box_text_append_text ((GtkComboBoxText*) comp->priv->group_combo, (const gchar*) list->data); // if ordinary user or all groups if root
     else
-        gtk_widget_set_sensitive (comp->priv->group_combo, FALSE);                                              // disable group combo if yet not loaded
+        gtk_widget_set_sensitive (comp->priv->group_combo, FALSE);                                                  // disable group combo if yet not loaded
 }
 
 
@@ -158,23 +159,23 @@ void gnome_cmd_chown_component_set (GnomeCmdChownComponent *comp, uid_t uid, gid
 
     if (uid_name)
     {
-        gtk_entry_set_text (GTK_ENTRY (GTK_COMBO (comp->priv->user_combo)->entry), uid_name);
+        gtk_entry_set_text (GTK_ENTRY (gtk_bin_get_child (GTK_BIN (comp->priv->user_combo))), uid_name);
     }
     else
     {
         auto uidString = g_strdup_printf("%u", uid);
-        gtk_entry_set_text (GTK_ENTRY (GTK_COMBO (comp->priv->user_combo)->entry), uidString);
+        gtk_entry_set_text (GTK_ENTRY (gtk_bin_get_child (GTK_BIN (comp->priv->user_combo))), uidString);
         g_free(uidString);
     }
 
     if (gid_name)
     {
-        gtk_entry_set_text (GTK_ENTRY (GTK_COMBO (comp->priv->group_combo)->entry), gid_name);
+        gtk_entry_set_text (GTK_ENTRY (gtk_bin_get_child (GTK_BIN (comp->priv->group_combo))), gid_name);
     }
     else
     {
         auto gidString = g_strdup_printf("%u", gid);
-        gtk_entry_set_text (GTK_ENTRY (GTK_COMBO (comp->priv->group_combo)->entry), gidString);
+        gtk_entry_set_text (GTK_ENTRY (gtk_bin_get_child (GTK_BIN (comp->priv->group_combo))), gidString);
         g_free(gidString);
     }
 }
@@ -182,7 +183,7 @@ void gnome_cmd_chown_component_set (GnomeCmdChownComponent *comp, uid_t uid, gid
 
 uid_t gnome_cmd_chown_component_get_owner (GnomeCmdChownComponent *component)
 {
-    const gchar *owner = get_combo_text (component->priv->user_combo);
+    const gchar *owner = get_combo_box_entry_text (component->priv->user_combo);
 
     return gcmd_owner.users[owner];
 }
@@ -190,7 +191,7 @@ uid_t gnome_cmd_chown_component_get_owner (GnomeCmdChownComponent *component)
 
 gid_t gnome_cmd_chown_component_get_group (GnomeCmdChownComponent *component)
 {
-    const gchar *group = get_combo_text (component->priv->group_combo);
+    const gchar *group = get_combo_box_entry_text (component->priv->group_combo);
 
     return gcmd_owner.groups[group];
 }

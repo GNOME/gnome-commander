@@ -1,4 +1,4 @@
-/** 
+/**
  * @file gnome-cmd-patternsel-dialog.cc
  * @copyright (C) 2001-2006 Marcus Bjurman\n
  * @copyright (C) 2007-2012 Piotr Eljasiak\n
@@ -55,7 +55,7 @@ static void on_ok (GtkButton *button, GnomeCmdPatternselDialog *dialog)
     const gchar *s = gtk_entry_get_text (GTK_ENTRY (dialog->priv->pattern_entry));
 
     Filter pattern(s, case_sens, gnome_cmd_data.search_defaults.default_profile.syntax);
-    
+
     if (dialog->priv->mode)
         dialog->priv->fl->select(pattern);
     else
@@ -100,11 +100,12 @@ static void gnome_cmd_patternsel_dialog_init (GnomeCmdPatternselDialog *dialog)
     vbox = create_vbox (GTK_WIDGET (dialog), FALSE, 6);
     hbox = create_hbox (GTK_WIDGET (dialog), FALSE, 6);
 
-    dialog->priv->pattern_combo = create_combo (GTK_WIDGET (dialog));
-    gtk_combo_disable_activate (GTK_COMBO (dialog->priv->pattern_combo));
-    if (!defaults.name_patterns.empty())
-        gtk_combo_set_popdown_strings (GTK_COMBO (dialog->priv->pattern_combo), defaults.name_patterns.ents);
-    dialog->priv->pattern_entry = GTK_COMBO (dialog->priv->pattern_combo)->entry;
+    dialog->priv->pattern_combo = create_combo_box_text_with_entry (GTK_WIDGET (dialog));
+    for (auto list = defaults.name_patterns.ents; list; list = list->next)
+        gtk_combo_box_text_append_text ((GtkComboBoxText*) dialog->priv->pattern_combo, (const gchar*) list->data);
+    if (defaults.name_patterns.ents)
+        gtk_combo_box_set_active ((GtkComboBox*) dialog->priv->pattern_combo, 0);
+    dialog->priv->pattern_entry = gtk_bin_get_child (GTK_BIN (dialog->priv->pattern_combo));
     g_signal_connect_swapped (dialog->priv->pattern_entry, "activate", G_CALLBACK (gtk_window_activate_default), dialog);
     gtk_editable_select_region (GTK_EDITABLE (dialog->priv->pattern_entry), 0, -1);
 
