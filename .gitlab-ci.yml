@@ -1,4 +1,4 @@
-image: ubuntu:21.10
+image: ubuntu:22.04
 
 stages:          # List of stages for jobs, and their order of execution
   - build_and_test_check
