@@ -461,24 +461,24 @@ void store_format_options (GtkWidget *dialog, GnomeCmdData::Options &cfg)
  *
  **********************************************************************/
 
-static void on_layout_mode_changed (GtkOptionMenu *optmenu, GtkWidget *dialog)
+static void on_layout_mode_changed (GtkComboBox *combo, GtkWidget *dialog)
 {
-    g_return_if_fail (GTK_IS_OPTION_MENU (optmenu));
+    g_return_if_fail (GTK_IS_COMBO_BOX (combo));
 
     GtkWidget *icon_frame = lookup_widget (GTK_WIDGET (dialog), "mime_icon_settings_frame");
-    GnomeCmdLayout mode = (GnomeCmdLayout) gtk_option_menu_get_history (GTK_OPTION_MENU (optmenu));
+    GnomeCmdLayout mode = (GnomeCmdLayout) gtk_combo_box_get_active (combo);
 
     if (icon_frame)
         gtk_widget_set_sensitive (icon_frame, mode == GNOME_CMD_LAYOUT_MIME_ICONS);
 }
 
 
-static void on_color_mode_changed (GtkOptionMenu *optmenu, GtkWidget *dialog)
+static void on_color_mode_changed (GtkComboBox *combo, GtkWidget *dialog)
 {
-    g_return_if_fail (GTK_IS_OPTION_MENU (optmenu));
+    g_return_if_fail (GTK_IS_COMBO_BOX (combo));
 
     GtkWidget *btn = lookup_widget (GTK_WIDGET (dialog), "color_btn");
-    GnomeCmdColorMode mode = (GnomeCmdColorMode) gtk_option_menu_get_history (GTK_OPTION_MENU (optmenu));
+    GnomeCmdColorMode mode = (GnomeCmdColorMode) gtk_combo_box_get_active (combo);
 
     if (btn)
         gtk_widget_set_sensitive (btn, mode == GNOME_CMD_COLOR_CUSTOM);
@@ -747,7 +747,7 @@ static GtkWidget *create_layout_tab (GtkWidget *parent, GnomeCmdData::Options &c
 {
     GtkWidget *frame, *hbox, *scrolled_window, *vbox, *cat;
     GtkWidget *entry, *spin, *scale, *table, *label, *fpicker, *btn;
-    GtkWidget *lm_optmenu, *cm_optmenu, *fe_optmenu, *check;
+    GtkWidget *lm_combo, *cm_combo, *fe_combo, *check;
     const gchar *ext_modes[] = {
         _("With file name"),
         _("In separate column"),
@@ -808,18 +808,18 @@ static GtkWidget *create_layout_tab (GtkWidget *parent, GnomeCmdData::Options &c
     label = create_label (parent, _("Display file extensions:"));
     table_add (table, label, 0, 2, GTK_FILL);
 
-    fe_optmenu = create_option_menu (parent, ext_modes);
-    g_object_set_data (G_OBJECT (parent), "fe_optmenu", fe_optmenu);
-    table_add (table, fe_optmenu, 1, 2, (GtkAttachOptions) (GTK_FILL|GTK_EXPAND));
+    fe_combo = create_combo_box_text (parent, ext_modes);
+    g_object_set_data (G_OBJECT (parent), "fe_combo", fe_combo);
+    table_add (table, fe_combo, 1, 2, (GtkAttachOptions) (GTK_FILL|GTK_EXPAND));
 
     // Graphical mode
     label = create_label (parent, _("Graphical mode:"));
     table_add (table, label, 0, 3, GTK_FILL);
 
-    lm_optmenu = create_option_menu (parent, gfx_modes);
-    g_object_set_data (G_OBJECT (parent), "lm_optmenu", lm_optmenu);
-    g_signal_connect (lm_optmenu, "changed", G_CALLBACK (on_layout_mode_changed), parent);
-    table_add (table, lm_optmenu, 1, 3, (GtkAttachOptions) (GTK_FILL|GTK_EXPAND));
+    lm_combo = create_combo_box_text (parent, gfx_modes);
+    g_object_set_data (G_OBJECT (parent), "lm_combo", lm_combo);
+    g_signal_connect (lm_combo, "changed", G_CALLBACK (on_layout_mode_changed), parent);
+    table_add (table, lm_combo, 1, 3, (GtkAttachOptions) (GTK_FILL|GTK_EXPAND));
 
     // Color scheme
     label = create_label (parent, _("Color scheme:"));
@@ -828,10 +828,10 @@ static GtkWidget *create_layout_tab (GtkWidget *parent, GnomeCmdData::Options &c
     hbox = create_hbox (parent, FALSE, 6);
     table_add (table, hbox, 1, 4, (GtkAttachOptions) (GTK_FILL|GTK_EXPAND));
 
-    cm_optmenu = create_option_menu (parent, color_modes);
-    g_object_set_data (G_OBJECT (parent), "cm_optmenu", cm_optmenu);
-    g_signal_connect (cm_optmenu, "changed", G_CALLBACK (on_color_mode_changed), parent);
-    gtk_box_pack_start (GTK_BOX (hbox), cm_optmenu, TRUE, TRUE, 0);
+    cm_combo = create_combo_box_text (parent, color_modes);
+    g_object_set_data (G_OBJECT (parent), "cm_combo", cm_combo);
+    g_signal_connect (cm_combo, "changed", G_CALLBACK (on_color_mode_changed), parent);
+    gtk_box_pack_start (GTK_BOX (hbox), cm_combo, TRUE, TRUE, 0);
 
 
     btn = create_button_with_data (parent, _("Edit…"), GTK_SIGNAL_FUNC (on_colors_edit), parent);
@@ -875,9 +875,9 @@ static GtkWidget *create_layout_tab (GtkWidget *parent, GnomeCmdData::Options &c
     label = create_label (parent, _("Theme icon directory:"));
     table_add (table, label, 0, 2, (GtkAttachOptions) GTK_FILL);
 
-    gtk_option_menu_set_history (GTK_OPTION_MENU (fe_optmenu), (gint) cfg.ext_disp_mode);
-    gtk_option_menu_set_history (GTK_OPTION_MENU (lm_optmenu), (gint) cfg.layout);
-    gtk_option_menu_set_history (GTK_OPTION_MENU (cm_optmenu), (gint) cfg.color_mode);
+    gtk_combo_box_set_active (GTK_COMBO_BOX (fe_combo), (gint) cfg.ext_disp_mode);
+    gtk_combo_box_set_active (GTK_COMBO_BOX (lm_combo), (gint) cfg.layout);
+    gtk_combo_box_set_active (GTK_COMBO_BOX (cm_combo), (gint) cfg.color_mode);
 
     return frame;
 }
@@ -891,15 +891,15 @@ void store_layout_options (GtkWidget *dialog, GnomeCmdData::Options &cfg)
     GtkWidget *row_height_spin     = lookup_widget (dialog, "row_height_spin");
     GtkWidget *use_ls              = lookup_widget (dialog, "use_ls_colors");
 
-    GtkWidget *lm_optmenu = lookup_widget (dialog, "lm_optmenu");
-    GtkWidget *fe_optmenu = lookup_widget (dialog, "fe_optmenu");
-    GtkWidget *cm_optmenu = lookup_widget (dialog, "cm_optmenu");
+    GtkWidget *lm_combo = lookup_widget (dialog, "lm_combo");
+    GtkWidget *fe_combo = lookup_widget (dialog, "fe_combo");
+    GtkWidget *cm_combo = lookup_widget (dialog, "cm_combo");
 
     GtkWidget *list_font_picker = lookup_widget (dialog, "list_font_picker");
 
-    cfg.ext_disp_mode = (GnomeCmdExtDispMode) gtk_option_menu_get_history (GTK_OPTION_MENU (fe_optmenu));
-    cfg.layout = (GnomeCmdLayout) gtk_option_menu_get_history (GTK_OPTION_MENU (lm_optmenu));
-    cfg.color_mode = (GnomeCmdColorMode) gtk_option_menu_get_history (GTK_OPTION_MENU (cm_optmenu));
+    cfg.ext_disp_mode = (GnomeCmdExtDispMode) gtk_combo_box_get_active (GTK_COMBO_BOX (fe_combo));
+    cfg.layout = (GnomeCmdLayout) gtk_combo_box_get_active (GTK_COMBO_BOX (lm_combo));
+    cfg.color_mode = (GnomeCmdColorMode) gtk_combo_box_get_active (GTK_COMBO_BOX (cm_combo));
 
     cfg.use_ls_colors = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (use_ls));
 

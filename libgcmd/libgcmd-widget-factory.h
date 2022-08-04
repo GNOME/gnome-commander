@@ -123,7 +123,7 @@ GtkWidget *create_hbuttonbox (GtkWidget *parent);
 
 GtkWidget *create_combo_box_text_with_entry (GtkWidget *parent);
 
-GtkWidget *create_option_menu (GtkWidget *parent, const gchar **items);
+GtkWidget *create_combo_box_text (GtkWidget *parent, const gchar **items);
 
 inline const gchar *get_combo_box_entry_text (GtkWidget *combo)
 {
