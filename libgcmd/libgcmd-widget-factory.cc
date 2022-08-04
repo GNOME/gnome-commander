@@ -543,26 +543,17 @@ GtkWidget *create_combo_box_text_with_entry (GtkWidget *parent)
     return combo;
 }
 
-GtkWidget *create_option_menu (GtkWidget *parent, const gchar **items)
+GtkWidget *create_combo_box_text (GtkWidget *parent, const gchar **items)
 {
-    GtkWidget *optmenu = gtk_option_menu_new ();
-    g_object_ref (optmenu);
-    g_object_set_data_full (G_OBJECT (parent), "optmenu", optmenu, g_object_unref);
-    gtk_widget_show (optmenu);
-
-    GtkWidget *menu = gtk_menu_new ();
-    gtk_widget_show (menu);
+    GtkWidget *combo = gtk_combo_box_text_new ();
+    g_object_ref (combo);
+    g_object_set_data_full (G_OBJECT (parent), "combo", combo, g_object_unref);
+    gtk_widget_show (combo);
 
     for (gint i = 0; items[i]; i++)
-    {
-        GtkWidget *item = gtk_menu_item_new_with_label (items[i]);
-        gtk_widget_show (item);
-        gtk_menu_shell_append (GTK_MENU_SHELL (menu), item);
-    }
+        gtk_combo_box_text_append_text ((GtkComboBoxText*) combo, items[i]);
 
-    gtk_option_menu_set_menu (GTK_OPTION_MENU (optmenu), menu);
-
-    return optmenu;
+    return combo;
 }
 
 
