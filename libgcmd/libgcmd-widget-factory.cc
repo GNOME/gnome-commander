@@ -563,7 +563,7 @@ GtkWidget *create_progress_bar (GtkWidget *parent)
     g_object_ref (w);
     g_object_set_data_full (G_OBJECT (parent), "progress_bar", w, g_object_unref);
     gtk_widget_show (w);
-    gtk_progress_set_show_text (GTK_PROGRESS (w), TRUE);
+    gtk_progress_bar_set_show_text (GTK_PROGRESS_BAR (w), TRUE);
     return w;
 }
 
@@ -576,16 +576,6 @@ GtkWidget *create_sw (GtkWidget *parent)
     gtk_widget_show (scrolledwindow);
     gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolledwindow), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
     return scrolledwindow;
-}
-
-
-void progress_bar_update (GtkWidget *pbar, gint max)
-{
-    gint value = (gint)gtk_progress_get_value (GTK_PROGRESS (pbar)) + 1;
-
-    if (value >= max) value = 0;
-
-    gtk_progress_set_value (GTK_PROGRESS (pbar), (gfloat)value);
 }
 
 

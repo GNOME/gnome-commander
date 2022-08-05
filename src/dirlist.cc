@@ -47,7 +47,7 @@ static gboolean update_list_progress (GnomeCmdDir *dir)
     {
         gchar *msg = g_strdup_printf (ngettext ("%d file listed", "%d files listed", dir->list_counter), dir->list_counter);
         gtk_label_set_text (GTK_LABEL (dir->label), msg);
-        progress_bar_update (dir->pbar, 50);
+        gtk_progress_bar_pulse (GTK_PROGRESS_BAR (dir->pbar));
         DEBUG('l', "%s\n", msg);
         g_free (msg);
         return TRUE;

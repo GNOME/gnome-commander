@@ -540,9 +540,8 @@ static void create_list_progress_dialog (GnomeCmdDir *dir)
     dir->label = create_label (dir->dialog, _("Waiting for file list"));
 
     dir->pbar = create_progress_bar (dir->dialog);
-    gtk_progress_set_show_text (GTK_PROGRESS (dir->pbar), FALSE);
-    gtk_progress_set_activity_mode (GTK_PROGRESS (dir->pbar), TRUE);
-    gtk_progress_configure (GTK_PROGRESS (dir->pbar), 0, 0, DIR_PBAR_MAX);
+    gtk_progress_bar_set_show_text (GTK_PROGRESS_BAR (dir->pbar), FALSE);
+    gtk_progress_bar_set_pulse_step (GTK_PROGRESS_BAR (dir->pbar), 1.0 / (gdouble) DIR_PBAR_MAX);
 
     gtk_box_pack_start (GTK_BOX (vbox), dir->label, TRUE, TRUE, 0);
     gtk_box_pack_start (GTK_BOX (vbox), dir->pbar, FALSE, TRUE, 0);
