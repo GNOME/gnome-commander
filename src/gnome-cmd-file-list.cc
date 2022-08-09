@@ -1769,7 +1769,7 @@ static gboolean update_con_open_progress (GnomeCmdFileList *fl)
 
     const gchar *msg = gnome_cmd_con_get_open_msg (fl->priv->con_opening);
     gtk_label_set_text (GTK_LABEL (fl->priv->con_open_dialog_label), msg);
-    progress_bar_update (fl->priv->con_open_dialog_pbar, FL_PBAR_MAX);
+    gtk_progress_bar_pulse (GTK_PROGRESS_BAR (fl->priv->con_open_dialog_pbar));
 
     return TRUE;
 }
@@ -1791,9 +1791,8 @@ static void create_con_open_progress_dialog (GnomeCmdFileList *fl)
     fl->priv->con_open_dialog_label = create_label (fl->priv->con_open_dialog, "");
 
     fl->priv->con_open_dialog_pbar = create_progress_bar (fl->priv->con_open_dialog);
-    gtk_progress_set_show_text (GTK_PROGRESS (fl->priv->con_open_dialog_pbar), FALSE);
-    gtk_progress_set_activity_mode (GTK_PROGRESS (fl->priv->con_open_dialog_pbar), TRUE);
-    gtk_progress_configure (GTK_PROGRESS (fl->priv->con_open_dialog_pbar), 0, 0, FL_PBAR_MAX);
+    gtk_progress_bar_set_show_text (GTK_PROGRESS_BAR (fl->priv->con_open_dialog_pbar), FALSE);
+    gtk_progress_bar_set_pulse_step (GTK_PROGRESS_BAR (fl->priv->con_open_dialog_pbar), 1.0 / (gdouble) FL_PBAR_MAX);
 
     gtk_box_pack_start (GTK_BOX (vbox), fl->priv->con_open_dialog_label, TRUE, TRUE, 0);
     gtk_box_pack_start (GTK_BOX (vbox), fl->priv->con_open_dialog_pbar, FALSE, TRUE, 0);

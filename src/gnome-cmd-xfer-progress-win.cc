@@ -163,12 +163,12 @@ void gnome_cmd_xfer_progress_win_set_total_progress (GnomeCmdXferProgressWin *wi
                                                      guint64 bytes_total)
 {
     gfloat total_prog = bytes_total>0 ? (gdouble) bytes_copied/(gdouble) bytes_total : -1.0f;
-    gtk_progress_set_percentage (GTK_PROGRESS (win->totalprog), total_prog);
+    gtk_progress_bar_set_fraction (GTK_PROGRESS_BAR (win->totalprog), total_prog);
 
     if (win->fileprog && file_size > 0)
     {
         gfloat file_prog = (gdouble) file_bytes_copied/(gdouble) file_size;
-        gtk_progress_set_percentage (GTK_PROGRESS (win->fileprog), file_prog);
+        gtk_progress_bar_set_fraction (GTK_PROGRESS_BAR (win->fileprog), file_prog);
     }
 
     gchar *bytes_total_str = g_strdup (size2string (bytes_total, gnome_cmd_data.options.size_disp_mode));

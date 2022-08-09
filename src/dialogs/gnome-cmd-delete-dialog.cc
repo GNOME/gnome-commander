@@ -273,7 +273,7 @@ static gboolean update_delete_status_widgets (DeleteData *deleteData)
     if (deleteData->progwin)
     {
         gtk_label_set_text (GTK_LABEL (deleteData->proglabel), deleteData->msg);
-        gtk_progress_set_percentage (GTK_PROGRESS (deleteData->progbar), deleteData->progress);
+        gtk_progress_bar_set_fraction (GTK_PROGRESS_BAR (deleteData->progbar), deleteData->progress);
     }
 
     if (deleteData->problem)
