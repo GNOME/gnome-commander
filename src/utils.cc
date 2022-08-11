@@ -541,7 +541,7 @@ GtkWidget *create_styled_pixmap_button (const gchar *text, GnomeCmdPixmap *pm)
     GtkWidget *btn = create_styled_button (NULL);
     GtkWidget *hbox = gtk_hbox_new (FALSE, 1);
     GtkWidget *label = NULL;
-    GtkWidget *pixmap = NULL;
+    GtkWidget *image = NULL;
 
     g_object_set_data_full (G_OBJECT (btn), "hbox", hbox, g_object_unref);
     g_object_ref (hbox);
@@ -549,12 +549,12 @@ GtkWidget *create_styled_pixmap_button (const gchar *text, GnomeCmdPixmap *pm)
 
     if (pm)
     {
-        pixmap = gtk_pixmap_new (pm->pixmap, pm->mask);
-        if (pixmap)
+        image = gtk_image_new_from_pixmap (pm->pixmap, pm->mask);
+        if (image)
         {
-            g_object_ref (pixmap);
-            g_object_set_data_full (G_OBJECT (btn), "pixmap", pixmap, g_object_unref);
-            gtk_widget_show (pixmap);
+            g_object_ref (image);
+            g_object_set_data_full (G_OBJECT (btn), "image", image, g_object_unref);
+            gtk_widget_show (image);
         }
     }
 
@@ -567,13 +567,13 @@ GtkWidget *create_styled_pixmap_button (const gchar *text, GnomeCmdPixmap *pm)
     }
 
     if (pm && !text)
-        gtk_container_add (GTK_CONTAINER (btn), pixmap);
+        gtk_container_add (GTK_CONTAINER (btn), image);
     else
         if (!pm && text)
             gtk_container_add (GTK_CONTAINER (btn), label);
         else
         {
-            gtk_box_pack_start (GTK_BOX (hbox), pixmap, FALSE, TRUE, 0);
+            gtk_box_pack_start (GTK_BOX (hbox), image, FALSE, TRUE, 0);
             gtk_box_pack_start (GTK_BOX (hbox), label, TRUE, TRUE, 0);
             gtk_container_add (GTK_CONTAINER (btn), hbox);
         }
