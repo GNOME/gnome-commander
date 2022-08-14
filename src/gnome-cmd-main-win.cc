@@ -643,7 +643,7 @@ void GnomeCmdMainWin::update_drop_con_button(GnomeCmdFileList *fl)
         return;
 
     GnomeCmdPixmap *pm = NULL;
-    static GtkWidget *prev_pixmap = NULL;
+    static GtkWidget *prev_widget = NULL;
 
     GnomeCmdCon *con = fl->con;
     if (!con)
@@ -655,10 +655,10 @@ void GnomeCmdMainWin::update_drop_con_button(GnomeCmdFileList *fl)
     GtkWidget *btn = priv->tb_con_drop_btn;
     g_return_if_fail (GTK_IS_TOOL_BUTTON (btn));
 
-    if (prev_pixmap)
+    if (prev_widget)
     {
-        gtk_widget_destroy (prev_pixmap);
-        prev_pixmap = nullptr;
+        gtk_widget_destroy (prev_widget);
+        prev_widget = nullptr;
     }
 
     if (gnome_cmd_con_is_closeable (con))
@@ -674,13 +674,13 @@ void GnomeCmdMainWin::update_drop_con_button(GnomeCmdFileList *fl)
 
     if (pm)
     {
-        GtkWidget *pixmap = gtk_pixmap_new (pm->pixmap, pm->mask);
-        if (pixmap)
+        GtkWidget *image = gtk_image_new_from_pixmap (pm->pixmap, pm->mask);
+        if (image)
         {
-            g_object_ref (pixmap);
-            gtk_widget_show (pixmap);
-            gtk_tool_button_set_icon_widget (GTK_TOOL_BUTTON(btn), pixmap);
-            prev_pixmap = pixmap;
+            g_object_ref (image);
+            gtk_widget_show (image);
+            gtk_tool_button_set_icon_widget (GTK_TOOL_BUTTON(btn), image);
+            prev_widget = image;
         }
     }
     else
@@ -691,7 +691,7 @@ void GnomeCmdMainWin::update_drop_con_button(GnomeCmdFileList *fl)
             g_object_ref (label);
             gtk_widget_show (label);
             gtk_tool_button_set_label_widget(GTK_TOOL_BUTTON(btn), label);
-            prev_pixmap = label;
+            prev_widget = label;
         }
     }
 }

@@ -87,19 +87,19 @@ add_menu_item (GnomeCmdMainMenu *main_menu,
     g_return_val_if_fail (GTK_IS_MENU_SHELL (menu), nullptr);
 
     GtkWidget *item, *label;
-    GtkWidget *pixmap_widget = nullptr;
+    GtkWidget *image_widget = nullptr;
 
     item = gtk_image_menu_item_new ();
 
     gtk_widget_set_tooltip_text (item, tooltip);
 
     if (pixmap && mask)
-        pixmap_widget = gtk_pixmap_new (pixmap, mask);
+        image_widget = gtk_image_new_from_pixmap (pixmap, mask);
 
-    if (pixmap_widget)
+    if (image_widget)
     {
-        gtk_widget_show (pixmap_widget);
-        gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (item), pixmap_widget);
+        gtk_widget_show (image_widget);
+        gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (item), image_widget);
     }
 
     gtk_widget_show (item);

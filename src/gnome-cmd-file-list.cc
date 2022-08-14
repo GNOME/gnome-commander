@@ -147,7 +147,7 @@ struct GnomeCmdFileListClass
 
 struct GnomeCmdFileList::Private
 {
-    GtkWidget *column_pixmaps[NUM_COLUMNS];
+    GtkWidget *column_images[NUM_COLUMNS];
     GtkWidget *column_labels[NUM_COLUMNS];
 
     gint cur_file = -1;
@@ -193,7 +193,7 @@ struct GnomeCmdFileList::Private
 
 GnomeCmdFileList::Private::Private(GnomeCmdFileList *fl)
 {
-    memset(column_pixmaps, 0, sizeof(column_pixmaps));
+    memset(column_images, 0, sizeof(column_images));
     memset(column_labels, 0, sizeof(column_labels));
 
     base_dir = nullptr;
@@ -691,7 +691,7 @@ void GnomeCmdFileList::create_column_titles()
 
     for (gint i=COLUMN_NAME; i<NUM_COLUMNS; i++)
     {
-        GtkWidget *hbox, *pixmap;
+        GtkWidget *hbox, *image;
 
         GdkPixmap *pm = IMAGE_get_pixmap (PIXMAP_FLIST_ARROW_BLANK);
         GdkBitmap *bm = IMAGE_get_mask (PIXMAP_FLIST_ARROW_BLANK);
@@ -707,14 +707,13 @@ void GnomeCmdFileList::create_column_titles()
         gtk_widget_show (priv->column_labels[i]);
         gtk_box_pack_start (GTK_BOX (hbox), priv->column_labels[i], TRUE, TRUE, 0);
 
-        // ToDo: Replace GtkPixmap with GtkImage
-        pixmap = gtk_pixmap_new (pm, bm);
-        g_object_ref (pixmap);
-        g_object_set_data_full (*this, "column-pixmap", pixmap, g_object_unref);
-        gtk_widget_show (pixmap);
-        gtk_box_pack_start (GTK_BOX (hbox), pixmap, FALSE, FALSE, 0);
+        image = gtk_image_new_from_pixmap (pm, bm);
+        g_object_ref (image);
+        g_object_set_data_full (*this, "column-image", image, g_object_unref);
+        gtk_widget_show (image);
+        gtk_box_pack_start (GTK_BOX (hbox), image, FALSE, FALSE, 0);
 
-        priv->column_pixmaps[i] = pixmap;
+        priv->column_images[i] = image;
         gtk_clist_set_column_widget (*this, i, hbox);
     }
 
@@ -735,18 +734,18 @@ static void update_column_sort_arrows (GnomeCmdFileList *fl)
     for (gint i=GnomeCmdFileList::COLUMN_NAME; i<GnomeCmdFileList::NUM_COLUMNS; i++)
     {
         if (i != fl->priv->current_col)
-            gtk_pixmap_set (GTK_PIXMAP (fl->priv->column_pixmaps[i]),
-                            IMAGE_get_pixmap (PIXMAP_FLIST_ARROW_BLANK),
-                            IMAGE_get_mask (PIXMAP_FLIST_ARROW_BLANK));
+            gtk_image_set_from_pixmap (GTK_IMAGE (fl->priv->column_images[i]),
+                                       IMAGE_get_pixmap (PIXMAP_FLIST_ARROW_BLANK),
+                                       IMAGE_get_mask (PIXMAP_FLIST_ARROW_BLANK));
         else
             if (fl->priv->sort_raising[i])
-                gtk_pixmap_set (GTK_PIXMAP (fl->priv->column_pixmaps[i]),
-                                IMAGE_get_pixmap (PIXMAP_FLIST_ARROW_UP),
-                                IMAGE_get_mask (PIXMAP_FLIST_ARROW_UP));
+                gtk_image_set_from_pixmap (GTK_IMAGE (fl->priv->column_images[i]),
+                                           IMAGE_get_pixmap (PIXMAP_FLIST_ARROW_UP),
+                                           IMAGE_get_mask (PIXMAP_FLIST_ARROW_UP));
             else
-                gtk_pixmap_set (GTK_PIXMAP (fl->priv->column_pixmaps[i]),
-                                IMAGE_get_pixmap (PIXMAP_FLIST_ARROW_DOWN),
-                                IMAGE_get_mask (PIXMAP_FLIST_ARROW_DOWN));
+                gtk_image_set_from_pixmap (GTK_IMAGE (fl->priv->column_images[i]),
+                                           IMAGE_get_pixmap (PIXMAP_FLIST_ARROW_DOWN),
+                                           IMAGE_get_mask (PIXMAP_FLIST_ARROW_DOWN));
     }
 }
 

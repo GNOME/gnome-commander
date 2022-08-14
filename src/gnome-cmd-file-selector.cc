@@ -385,13 +385,13 @@ static void create_con_buttons (GnomeCmdFileSelector *fs)
 
         if (pm)
         {
-            GtkWidget *pixmap = gtk_pixmap_new (pm->pixmap, pm->mask);
-            if (pixmap)
+            GtkWidget *image = gtk_image_new_from_pixmap (pm->pixmap, pm->mask);
+            if (image)
             {
-                g_object_ref (pixmap);
-                g_object_set_data_full (*fs, "con-pixmap", pixmap, g_object_unref);
-                gtk_widget_show (pixmap);
-                gtk_box_pack_start (GTK_BOX (hbox), pixmap, TRUE, TRUE, 0);
+                g_object_ref (image);
+                g_object_set_data_full (*fs, "con-image", image, g_object_unref);
+                gtk_widget_show (image);
+                gtk_box_pack_start (GTK_BOX (hbox), image, TRUE, TRUE, 0);
             }
         }
 
