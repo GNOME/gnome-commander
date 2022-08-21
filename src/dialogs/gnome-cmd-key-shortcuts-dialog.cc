@@ -1,4 +1,4 @@
-/** 
+/**
  * @file gnome-cmd-key-shortcuts-dialog.cc
  * @copyright (C) 2001-2006 Marcus Bjurman\n
  * @copyright (C) 2007-2012 Piotr Eljasiak\n
@@ -201,12 +201,12 @@ static void gnome_cmd_key_shortcuts_dialog_init (GnomeCmdKeyShortcutsDialog *dia
     gtk_window_set_title (GTK_WINDOW (dialog), _("Keyboard Shortcuts"));
     gtk_dialog_set_has_separator (GTK_DIALOG (dialog), FALSE);
     gtk_container_set_border_width (GTK_CONTAINER (dialog), 5);
-    gtk_box_set_spacing (GTK_BOX (GTK_DIALOG (dialog)->vbox), 2);
+    gtk_box_set_spacing (GTK_BOX (gtk_dialog_get_content_area (GTK_DIALOG (dialog))), 2);
     gtk_window_set_resizable (GTK_WINDOW (dialog), TRUE);
 
     GtkWidget *vbox = gtk_vbox_new (FALSE, 12);
     gtk_container_set_border_width (GTK_CONTAINER (vbox), 12);
-    gtk_container_add (GTK_CONTAINER (GTK_DIALOG (dialog)->vbox), vbox);
+    gtk_container_add (GTK_CONTAINER (gtk_dialog_get_content_area (GTK_DIALOG (dialog))), vbox);
     gtk_widget_show (vbox);
 
     GtkWidget *hbox = gtk_hbox_new (FALSE, 12);
@@ -352,7 +352,7 @@ GtkWidget *create_view_and_model (GnomeCmdUserActions &user_actions)
     GtkTreeViewColumn *col = NULL;
 
     col = create_new_accel_column (GTK_TREE_VIEW (view), renderer, COL_ACCEL_KEY, COL_ACCEL_MASK, _("Shortcut Key"));
-    gtk_widget_set_tooltip_text (col->button, _("Keyboard shortcut for selected action"));
+    gtk_widget_set_tooltip_text (gtk_tree_view_column_get_button (col), _("Keyboard shortcut for selected action"));
     gtk_tree_view_column_set_sort_column_id (col, SORTID_ACCEL);
 
     g_signal_connect (renderer, "accel-edited", G_CALLBACK (accel_edited_callback), view);
@@ -360,14 +360,14 @@ GtkWidget *create_view_and_model (GnomeCmdUserActions &user_actions)
     GtkTreeModel *combo_model = gnome_cmd_user_actions_create_model ();
 
     col = create_new_combo_column (GTK_TREE_VIEW (view), combo_model, renderer, COL_ACTION, _("Action"));
-    gtk_widget_set_tooltip_text (col->button, _("User action"));
+    gtk_widget_set_tooltip_text (gtk_tree_view_column_get_button (col), _("User action"));
     gtk_tree_view_column_set_sort_column_id (col, SORTID_ACTION);
     g_signal_connect (renderer, "edited", (GCallback) cell_edited_callback, view);
 
     g_object_unref (combo_model);          // destroy model automatically with view
 
     col = gnome_cmd_treeview_create_new_text_column (GTK_TREE_VIEW (view), renderer, COL_OPTION, _("Options"));
-    gtk_widget_set_tooltip_text (col->button, _("Optional data"));
+    gtk_widget_set_tooltip_text (gtk_tree_view_column_get_button (col), _("Optional data"));
     gtk_tree_view_column_set_sort_column_id (col, SORTID_OPTION);
     g_signal_connect (renderer, "edited", (GCallback) cell_edited_callback, view);
 

@@ -167,7 +167,7 @@ static gint gnome_cmd_key_snooper(GtkWidget *grab_widget, GdkEventKey *event, Gn
         return FALSE;
     }
 
-    if (!GTK_WIDGET_HAS_FOCUS (GTK_WIDGET (fs->file_list())))
+    if (!gtk_widget_has_focus (GTK_WIDGET (fs->file_list())))
     {
         return FALSE;
     }
@@ -320,49 +320,67 @@ static void create_toolbar (GnomeCmdMainWin *mw)
 
 static void slide_set_100_0 (GtkMenu *menu, gpointer user_data)
 {
+    GtkAllocation main_win_allocation;
+    gtk_widget_get_allocation (GTK_WIDGET (main_win), &main_win_allocation);
+
     gtk_paned_set_position (GTK_PANED (main_win->priv->paned),
-                            gnome_cmd_data.horizontal_orientation ? GTK_WIDGET (main_win)->allocation.height :
-                                                              GTK_WIDGET (main_win)->allocation.width);
+                            gnome_cmd_data.horizontal_orientation ? main_win_allocation.height :
+                                                              main_win_allocation.width);
 }
 
 
 static void slide_set_80_20 (GtkMenu *menu, gpointer user_data)
 {
+    GtkAllocation main_win_allocation;
+    gtk_widget_get_allocation (GTK_WIDGET (main_win), &main_win_allocation);
+
     gtk_paned_set_position (GTK_PANED (main_win->priv->paned),
-                            gnome_cmd_data.horizontal_orientation ? (int)(GTK_WIDGET (main_win)->allocation.height*0.8f) :
-                                                              (int)(GTK_WIDGET (main_win)->allocation.width*0.8f));
+                            gnome_cmd_data.horizontal_orientation ? (int)(main_win_allocation.height*0.8f) :
+                                                              (int)(main_win_allocation.width*0.8f));
 }
 
 
 static void slide_set_60_40 (GtkMenu *menu, gpointer user_data)
 {
+    GtkAllocation main_win_allocation;
+    gtk_widget_get_allocation (GTK_WIDGET (main_win), &main_win_allocation);
+
     gtk_paned_set_position (GTK_PANED (main_win->priv->paned),
-                            gnome_cmd_data.horizontal_orientation ? (int)(GTK_WIDGET (main_win)->allocation.height*0.6f) :
-                                                              (int)(GTK_WIDGET (main_win)->allocation.width*0.6f));
+                            gnome_cmd_data.horizontal_orientation ? (int)(main_win_allocation.height*0.6f) :
+                                                              (int)(main_win_allocation.width*0.6f));
 }
 
 
 static void slide_set_50_50 (GtkMenu *menu, gpointer user_data)
 {
+    GtkAllocation main_win_allocation;
+    gtk_widget_get_allocation (GTK_WIDGET (main_win), &main_win_allocation);
+
     gtk_paned_set_position (GTK_PANED (main_win->priv->paned),
-                            gnome_cmd_data.horizontal_orientation ? (int)(GTK_WIDGET (main_win)->allocation.height*0.5f) :
-                                                              (int)(GTK_WIDGET (main_win)->allocation.width*0.5f));
+                            gnome_cmd_data.horizontal_orientation ? (int)(main_win_allocation.height*0.5f) :
+                                                              (int)(main_win_allocation.width*0.5f));
 }
 
 
 static void slide_set_40_60 (GtkMenu *menu, gpointer user_data)
 {
+    GtkAllocation main_win_allocation;
+    gtk_widget_get_allocation (GTK_WIDGET (main_win), &main_win_allocation);
+
     gtk_paned_set_position (GTK_PANED (main_win->priv->paned),
-                            gnome_cmd_data.horizontal_orientation ? (int)(GTK_WIDGET (main_win)->allocation.height*0.4f) :
-                                                              (int)(GTK_WIDGET (main_win)->allocation.width*0.4f));
+                            gnome_cmd_data.horizontal_orientation ? (int)(main_win_allocation.height*0.4f) :
+                                                              (int)(main_win_allocation.width*0.4f));
 }
 
 
 static void slide_set_20_80 (GtkMenu *menu, gpointer user_data)
 {
+    GtkAllocation main_win_allocation;
+    gtk_widget_get_allocation (GTK_WIDGET (main_win), &main_win_allocation);
+
     gtk_paned_set_position (GTK_PANED (main_win->priv->paned),
-                            gnome_cmd_data.horizontal_orientation ? (int)(GTK_WIDGET (main_win)->allocation.height*0.2f) :
-                                                              (int)(GTK_WIDGET (main_win)->allocation.width*0.2f));
+                            gnome_cmd_data.horizontal_orientation ? (int)(main_win_allocation.height*0.2f) :
+                                                              (int)(main_win_allocation.width*0.2f));
 }
 
 
@@ -527,7 +545,7 @@ static gboolean on_slide_button_press (GtkWidget *widget, GdkEventButton *event,
         GtkPaned *paned = GTK_PANED (mw->priv->paned);
 
         // Check that the handle was clicked and not one of the children
-        if (paned->handle == event->window)
+        if (gtk_paned_get_handle_window (paned) == event->window)
         {
             gtk_menu_popup (GTK_MENU (create_slide_popup ()), NULL, NULL, NULL, NULL, event->button, event->time);
             return TRUE;
@@ -552,7 +570,7 @@ static void on_main_win_realize (GtkWidget *widget, GnomeCmdMainWin *mw)
         // g_free (dpath);
     // }
 
-    gdk_window_set_icon (GTK_WIDGET (mw)->window, NULL, IMAGE_get_pixmap (PIXMAP_LOGO), IMAGE_get_mask (PIXMAP_LOGO));
+    gdk_window_set_icon (gtk_widget_get_window (GTK_WIDGET (mw)), NULL, IMAGE_get_pixmap (PIXMAP_LOGO), IMAGE_get_mask (PIXMAP_LOGO));
 }
 
 
@@ -765,7 +783,7 @@ static gboolean on_window_state_event (GtkWidget *mw, GdkEventWindowState *event
         __attribute__ ((fallthrough));
 #endif
         default:            // other are usable
-            gdk_window_get_root_origin (mw->window, &x, &y);
+            gdk_window_get_root_origin (gtk_widget_get_window (mw), &x, &y);
             gnome_cmd_data_set_main_win_pos (x, y);
     }
 

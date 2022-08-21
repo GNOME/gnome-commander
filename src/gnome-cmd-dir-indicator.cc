@@ -316,7 +316,7 @@ static gint on_dir_indicator_motion (GnomeCmdDirIndicator *indicator, GdkEventMo
         {
             // underline the part that is selected
             GdkCursor *cursor = gdk_cursor_new (GDK_HAND2);
-            gdk_window_set_cursor (GTK_WIDGET (indicator)->window, cursor);
+            gdk_window_set_cursor (gtk_widget_get_window (GTK_WIDGET (indicator)), cursor);
             gdk_cursor_unref (cursor);
 
             update_markup (indicator, i);
@@ -326,7 +326,7 @@ static gint on_dir_indicator_motion (GnomeCmdDirIndicator *indicator, GdkEventMo
 
         // clear underline, cursor=pointer
         update_markup (indicator, -1);
-        gdk_window_set_cursor (GTK_WIDGET (indicator)->window, nullptr);
+        gdk_window_set_cursor (gtk_widget_get_window (GTK_WIDGET (indicator)), nullptr);
     }
 
     return TRUE;
@@ -339,7 +339,7 @@ static gint on_dir_indicator_leave (GnomeCmdDirIndicator *indicator, GdkEventMot
 
     // clear underline, cursor=pointer
     update_markup (indicator, -1);
-    gdk_window_set_cursor (GTK_WIDGET (indicator)->window, nullptr);
+    gdk_window_set_cursor (gtk_widget_get_window (GTK_WIDGET (indicator)), nullptr);
 
     return TRUE;
 }
@@ -447,7 +447,7 @@ static void get_popup_pos (GtkMenu *menu, gint *x, gint *y, gboolean push_in, Gn
 
     GtkWidget *w = GTK_WIDGET (indicator->priv->fs->file_list());
 
-    gdk_window_get_origin (w->window, x, y);
+    gdk_window_get_origin (gtk_widget_get_window (w), x, y);
 }
 
 
@@ -499,8 +499,11 @@ void gnome_cmd_dir_indicator_show_history (GnomeCmdDirIndicator *indicator)
 
     gint w = -1;
 
-    if (GTK_WIDGET (indicator)->allocation.width > 100)
-        w = GTK_WIDGET (indicator)->allocation.width;
+    GtkAllocation indicator_allocation;
+    gtk_widget_get_allocation (GTK_WIDGET (indicator), &indicator_allocation);
+
+    if (indicator_allocation.width > 100)
+        w = indicator_allocation.width;
 
     gtk_widget_set_size_request (indicator->priv->dir_history_popup, w, -1);
 }
@@ -554,8 +557,11 @@ void gnome_cmd_dir_indicator_show_bookmarks (GnomeCmdDirIndicator *indicator)
 
     gint w = -1;
 
-    if (GTK_WIDGET (indicator)->allocation.width > 100)
-        w = GTK_WIDGET (indicator)->allocation.width;
+    GtkAllocation indicator_allocation;
+    gtk_widget_get_allocation (GTK_WIDGET (indicator), &indicator_allocation);
+
+    if (indicator_allocation.width > 100)
+        w = indicator_allocation.width;
 
     gtk_widget_set_size_request (indicator->priv->bookmark_popup, w, -1);
 }
@@ -588,7 +594,7 @@ static void init (GnomeCmdDirIndicator *indicator)
 
     // create the history popup button
     indicator->priv->history_button = gtk_button_new ();
-    GTK_WIDGET_UNSET_FLAGS (indicator->priv->history_button, GTK_CAN_FOCUS);
+    gtk_widget_set_can_focus (indicator->priv->history_button, FALSE);
     g_object_ref (indicator->priv->history_button);
     gtk_button_set_relief (GTK_BUTTON (indicator->priv->history_button), GTK_RELIEF_NONE);
     g_object_set_data_full (G_OBJECT (indicator), "button", indicator->priv->history_button, g_object_unref);
@@ -602,7 +608,7 @@ static void init (GnomeCmdDirIndicator *indicator)
 
     // create the bookmark popup button
     indicator->priv->bookmark_button = create_styled_pixmap_button (nullptr, IMAGE_get_gnome_cmd_pixmap (PIXMAP_BOOKMARK));
-    GTK_WIDGET_UNSET_FLAGS (indicator->priv->bookmark_button, GTK_CAN_FOCUS);
+    gtk_widget_set_can_focus (indicator->priv->bookmark_button, FALSE);
     gtk_button_set_relief (GTK_BUTTON (indicator->priv->bookmark_button), GTK_RELIEF_NONE);
     g_object_set_data_full (G_OBJECT (indicator), "button", indicator->priv->bookmark_button, g_object_unref);
     gtk_widget_show (indicator->priv->bookmark_button);

@@ -186,13 +186,13 @@ static void gnome_cmd_about_plugin_display_credits_dialog (GnomeCmdAboutPlugin *
     gtk_dialog_set_default_response (GTK_DIALOG (dialog), GTK_RESPONSE_CLOSE);
     gtk_dialog_set_has_separator (GTK_DIALOG (dialog), FALSE);
     gtk_container_set_border_width (GTK_CONTAINER (dialog), 5);
-    gtk_box_set_spacing (GTK_BOX (GTK_DIALOG (dialog)->vbox), 2);
+    gtk_box_set_spacing (GTK_BOX (gtk_dialog_get_content_area (GTK_DIALOG (dialog))), 2);
     g_signal_connect (dialog, "response", G_CALLBACK (gtk_widget_destroy), dialog);
     g_signal_connect (dialog, "destroy", G_CALLBACK (gtk_widget_destroyed), &(about->priv->credits_dialog));
 
     notebook = gtk_notebook_new ();
     gtk_container_set_border_width (GTK_CONTAINER (notebook), 5);
-    gtk_box_pack_start (GTK_BOX (GTK_DIALOG (dialog)->vbox), notebook, TRUE, TRUE, 0);
+    gtk_box_pack_start (GTK_BOX (gtk_dialog_get_content_area (GTK_DIALOG (dialog))), notebook, TRUE, TRUE, 0);
 
     if (about->priv->authors != nullptr)
     {
@@ -201,7 +201,7 @@ static void gnome_cmd_about_plugin_display_credits_dialog (GnomeCmdAboutPlugin *
         sw = gtk_scrolled_window_new (nullptr, nullptr);
         gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (sw), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
         gtk_scrolled_window_add_with_viewport (GTK_SCROLLED_WINDOW (sw), label);
-        gtk_viewport_set_shadow_type (GTK_VIEWPORT (GTK_BIN (sw)->child), GTK_SHADOW_NONE);
+        gtk_viewport_set_shadow_type (GTK_VIEWPORT (gtk_bin_get_child (GTK_BIN (sw))), GTK_SHADOW_NONE);
 
         gtk_notebook_append_page (GTK_NOTEBOOK (notebook), sw, gtk_label_new (_("Written by")));
         gnome_cmd_about_plugin_update_authors_label (about, label);
@@ -214,7 +214,7 @@ static void gnome_cmd_about_plugin_display_credits_dialog (GnomeCmdAboutPlugin *
         sw = gtk_scrolled_window_new (nullptr, nullptr);
         gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (sw), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
         gtk_scrolled_window_add_with_viewport (GTK_SCROLLED_WINDOW (sw), label);
-        gtk_viewport_set_shadow_type (GTK_VIEWPORT (GTK_BIN (sw)->child), GTK_SHADOW_NONE);
+        gtk_viewport_set_shadow_type (GTK_VIEWPORT (gtk_bin_get_child (GTK_BIN (sw))), GTK_SHADOW_NONE);
 
         gtk_notebook_append_page (GTK_NOTEBOOK (notebook), sw, gtk_label_new (_("Documented by")));
         gnome_cmd_about_plugin_update_documenters_label (about, label);
@@ -227,7 +227,7 @@ static void gnome_cmd_about_plugin_display_credits_dialog (GnomeCmdAboutPlugin *
         sw = gtk_scrolled_window_new (nullptr, nullptr);
         gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (sw), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
         gtk_scrolled_window_add_with_viewport (GTK_SCROLLED_WINDOW (sw), label);
-        gtk_viewport_set_shadow_type (GTK_VIEWPORT (GTK_BIN (sw)->child), GTK_SHADOW_NONE);
+        gtk_viewport_set_shadow_type (GTK_VIEWPORT (gtk_bin_get_child (GTK_BIN (sw))), GTK_SHADOW_NONE);
 
         gtk_notebook_append_page (GTK_NOTEBOOK (notebook), sw, gtk_label_new (_("Translated by")));
         gnome_cmd_about_plugin_update_translation_information_label (about, label);
@@ -265,13 +265,13 @@ static void gnome_cmd_about_plugin_init (GnomeCmdAboutPlugin *about)
 
     gtk_dialog_set_has_separator (GTK_DIALOG (about), FALSE);
     gtk_container_set_border_width (GTK_CONTAINER (about), 5);
-    gtk_box_set_spacing (GTK_BOX (GTK_DIALOG (about)->vbox), 5);
+    gtk_box_set_spacing (GTK_BOX (gtk_dialog_get_content_area (GTK_DIALOG (about))), 5);
 
     // Widgets
     vbox = gtk_vbox_new (FALSE, 8);
     gtk_container_set_border_width (GTK_CONTAINER (vbox), 5);
 
-    gtk_box_pack_start (GTK_BOX (GTK_DIALOG (about)->vbox), vbox, TRUE, TRUE, 0);
+    gtk_box_pack_start (GTK_BOX (gtk_dialog_get_content_area (GTK_DIALOG (about))), vbox, TRUE, TRUE, 0);
 
     priv->name_label = gtk_label_new (nullptr);
     gtk_widget_show (priv->name_label);
@@ -320,7 +320,7 @@ static void gnome_cmd_about_plugin_init (GnomeCmdAboutPlugin *about)
     gtk_widget_show_all (button);
 
     gtk_dialog_add_action_widget (GTK_DIALOG (about), button, GNOME_RESPONSE_CREDITS);
-    gtk_button_box_set_child_secondary (GTK_BUTTON_BOX (GTK_DIALOG (about)->action_area), button, TRUE);
+    gtk_button_box_set_child_secondary (GTK_BUTTON_BOX (gtk_dialog_get_action_area (GTK_DIALOG (about))), button, TRUE);
 
     gtk_window_set_resizable (GTK_WINDOW (about), FALSE);
 
@@ -699,7 +699,7 @@ static void gnome_cmd_about_plugin_get_property (GObject *object, guint prop_id,
  * function, @c authors is not checked to be non-NULL, so callers must
  * be careful, since bad things will happen if this condition is not
  * met.
- * 
+ *
  * @param about An existing GnomeCmdAboutPlugin instance.
  * @param name The name of the application.
  * @param version The version string of the application.

@@ -222,7 +222,7 @@ static void image_render_init (ImageRender *w)
     w->priv->orig_pixbuf = NULL;
     w->priv->disp_pixbuf = NULL;
 
-    GTK_WIDGET_SET_FLAGS (GTK_WIDGET (w), GTK_CAN_FOCUS);
+    gtk_widget_set_can_focus (GTK_WIDGET (w), TRUE);
 }
 
 
@@ -490,15 +490,18 @@ static void image_render_realize (GtkWidget *widget)
 {
     g_return_if_fail (IS_IMAGE_RENDER (widget));
 
-    GTK_WIDGET_SET_FLAGS (widget, GTK_REALIZED);
+    gtk_widget_set_realized (widget, TRUE);
     ImageRender *obj = IMAGE_RENDER (widget);
 
     GdkWindowAttr attributes;
 
-    attributes.x = widget->allocation.x;
-    attributes.y = widget->allocation.y;
-    attributes.width = widget->allocation.width;
-    attributes.height = widget->allocation.height;
+    GtkAllocation widget_allocation;
+    gtk_widget_get_allocation (widget, &widget_allocation);
+
+    attributes.x = widget_allocation.x;
+    attributes.y = widget_allocation.y;
+    attributes.width = widget_allocation.width;
+    attributes.height = widget_allocation.height;
     attributes.wclass = GDK_INPUT_OUTPUT;
     attributes.window_type = GDK_WINDOW_CHILD;
     attributes.event_mask = gtk_widget_get_events (widget) |
@@ -510,12 +513,12 @@ static void image_render_realize (GtkWidget *widget)
 
     gint attributes_mask = GDK_WA_X | GDK_WA_Y | GDK_WA_VISUAL | GDK_WA_COLORMAP;
 
-    GdkWindow *window = gdk_window_new (widget->parent->window, &attributes, attributes_mask);
+    GdkWindow *window = gdk_window_new (gtk_widget_get_parent_window (widget), &attributes, attributes_mask);
     gtk_widget_set_window (widget, window);
 
-    widget->style = gtk_style_attach (widget->style, window);
+    gtk_widget_style_attach (widget);
     gdk_window_set_user_data (window, widget);
-    gtk_style_set_background (widget->style, window, GTK_STATE_ACTIVE);
+    gtk_style_set_background (gtk_widget_get_style (widget), window, GTK_STATE_ACTIVE);
 
     // image_render_prepare_disp_pixbuf (obj);
     if (!obj->priv->scaled_pixbuf_loaded)
@@ -525,7 +528,7 @@ static void image_render_realize (GtkWidget *widget)
 
 static void image_render_redraw (ImageRender *w)
 {
-    if (!GTK_WIDGET_REALIZED(GTK_WIDGET (w)))
+    if (!gtk_widget_get_realized (GTK_WIDGET (w)))
         return;
 
     image_render_notify_status_changed (w);
@@ -545,9 +548,9 @@ static void image_render_size_allocate (GtkWidget *widget, GtkAllocation *alloca
     g_return_if_fail (IS_IMAGE_RENDER (widget));
     g_return_if_fail (allocation != NULL);
 
-    widget->allocation = *allocation;
+    gtk_widget_set_allocation (widget, allocation);
 
-    if (GTK_WIDGET_REALIZED (widget))
+    if (gtk_widget_get_realized (widget))
     {
         gdk_window_move_resize (gtk_widget_get_window (widget), allocation->x, allocation->y, allocation->width, allocation->height);
         image_render_prepare_disp_pixbuf (IMAGE_RENDER (widget));
@@ -565,7 +568,10 @@ static gboolean image_render_expose (GtkWidget *widget, GdkEventExpose *event)
 
     ImageRender *w = IMAGE_RENDER (widget);
 
-    gdk_window_clear_area (gtk_widget_get_window (widget), 0, 0, widget->allocation.width, widget->allocation.height);
+    GtkAllocation widget_allocation;
+    gtk_widget_get_allocation (widget, &widget_allocation);
+
+    gdk_window_clear_area (gtk_widget_get_window (widget), 0, 0, widget_allocation.width, widget_allocation.height);
 
     if (!w->priv->disp_pixbuf)
         return FALSE;
@@ -573,11 +579,11 @@ static gboolean image_render_expose (GtkWidget *widget, GdkEventExpose *event)
     gint xc, yc;
 
     if (w->priv->best_fit ||
-        (gdk_pixbuf_get_width (w->priv->disp_pixbuf) < widget->allocation.width &&
-         gdk_pixbuf_get_height (w->priv->disp_pixbuf) < widget->allocation.height))
+        (gdk_pixbuf_get_width (w->priv->disp_pixbuf) < widget_allocation.width &&
+         gdk_pixbuf_get_height (w->priv->disp_pixbuf) < widget_allocation.height))
     {
-        xc = widget->allocation.width / 2 - gdk_pixbuf_get_width (w->priv->disp_pixbuf)/2;
-        yc = widget->allocation.height / 2 - gdk_pixbuf_get_height (w->priv->disp_pixbuf)/2;
+        xc = widget_allocation.width / 2 - gdk_pixbuf_get_width (w->priv->disp_pixbuf)/2;
+        yc = widget_allocation.height / 2 - gdk_pixbuf_get_height (w->priv->disp_pixbuf)/2;
 
         gdk_draw_pixbuf (gtk_widget_get_window (widget),
                 NULL,
@@ -593,17 +599,17 @@ static gboolean image_render_expose (GtkWidget *widget, GdkEventExpose *event)
         gint dst_x, dst_y;
         gint width, height;
 
-        if (widget->allocation.width > gdk_pixbuf_get_width (w->priv->disp_pixbuf))
+        if (widget_allocation.width > gdk_pixbuf_get_width (w->priv->disp_pixbuf))
         {
             src_x = 0;
-            dst_x = widget->allocation.width / 2 - gdk_pixbuf_get_width (w->priv->disp_pixbuf)/2;
+            dst_x = widget_allocation.width / 2 - gdk_pixbuf_get_width (w->priv->disp_pixbuf)/2;
             width = gdk_pixbuf_get_width (w->priv->disp_pixbuf);
         }
         else
         {
             src_x = (int) gtk_adjustment_get_value (w->priv->h_adjustment);
             dst_x = 0;
-            width = MIN(widget->allocation.width, gdk_pixbuf_get_width (w->priv->disp_pixbuf));
+            width = MIN(widget_allocation.width, gdk_pixbuf_get_width (w->priv->disp_pixbuf));
             if (src_x + width > gdk_pixbuf_get_width (w->priv->disp_pixbuf))
                 src_x = gdk_pixbuf_get_width (w->priv->disp_pixbuf) - width;
         }
@@ -612,14 +618,14 @@ static gboolean image_render_expose (GtkWidget *widget, GdkEventExpose *event)
         if ((int) gtk_adjustment_get_value (w->priv->h_adjustment) > gdk_pixbuf_get_height (w->priv->disp_pixbuf))
         {
             src_y = 0;
-            dst_y = widget->allocation.height / 2 - gdk_pixbuf_get_height (w->priv->disp_pixbuf)/2;
+            dst_y = widget_allocation.height / 2 - gdk_pixbuf_get_height (w->priv->disp_pixbuf)/2;
             height = gdk_pixbuf_get_height (w->priv->disp_pixbuf);
         }
         else
         {
             src_y = (int) gtk_adjustment_get_value (w->priv->v_adjustment);
             dst_y = 0;
-            height = MIN(widget->allocation.height, gdk_pixbuf_get_height (w->priv->disp_pixbuf));
+            height = MIN(widget_allocation.height, gdk_pixbuf_get_height (w->priv->disp_pixbuf));
 
             if (src_y + height > gdk_pixbuf_get_height (w->priv->disp_pixbuf))
                 src_y = gdk_pixbuf_get_height (w->priv->disp_pixbuf) - height;
@@ -632,8 +638,8 @@ static gboolean image_render_expose (GtkWidget *widget, GdkEventExpose *event)
                 width, height,
                 gdk_pixbuf_get_width (w->priv->disp_pixbuf),
                 gdk_pixbuf_get_height (w->priv->disp_pixbuf),
-                widget->allocation.width,
-                widget->allocation.height,
+                widget_allocation.width,
+                widget_allocation.height,
                 (int)w->priv->h_adjustment->value,
                 (int)w->priv->v_adjustment->value);
 #endif
@@ -931,14 +937,14 @@ void image_render_load_scaled_pixbuf (ImageRender *obj)
     g_return_if_fail (obj->priv->filename!=NULL);
     g_return_if_fail (obj->priv->scaled_pixbuf_loaded==FALSE);
 
-    g_return_if_fail (GTK_WIDGET_REALIZED(GTK_WIDGET (obj)));
+    g_return_if_fail (gtk_widget_get_realized (GTK_WIDGET (obj)));
 
-    int width = GTK_WIDGET (obj)->allocation.width;
-    int height = GTK_WIDGET (obj)->allocation.height;
+    GtkAllocation obj_allocation;
+    gtk_widget_get_allocation (GTK_WIDGET (obj), &obj_allocation);
 
     GError *err = NULL;
 
-    obj->priv->disp_pixbuf  = gdk_pixbuf_new_from_file_at_scale (obj->priv->filename, width, height, TRUE, &err);
+    obj->priv->disp_pixbuf  = gdk_pixbuf_new_from_file_at_scale (obj->priv->filename, obj_allocation.width, obj_allocation.height, TRUE, &err);
 
     if (err)
     {
@@ -991,7 +997,7 @@ static void image_render_prepare_disp_pixbuf (ImageRender *obj)
     if (g_atomic_int_get (&obj->priv->orig_pixbuf_loaded)==0)
         return;
 
-    if (!GTK_WIDGET_REALIZED (GTK_WIDGET (obj)))
+    if (!gtk_widget_get_realized (GTK_WIDGET (obj)))
         return;
 
     if (obj->priv->disp_pixbuf)
@@ -1003,8 +1009,11 @@ static void image_render_prepare_disp_pixbuf (ImageRender *obj)
 
     if (obj->priv->best_fit)
     {
-        if (gdk_pixbuf_get_height (obj->priv->orig_pixbuf) < GTK_WIDGET (obj)->allocation.height &&
-            gdk_pixbuf_get_width (obj->priv->orig_pixbuf) < GTK_WIDGET (obj)->allocation.width)
+        GtkAllocation obj_allocation;
+        gtk_widget_get_allocation (GTK_WIDGET (obj), &obj_allocation);
+
+        if (gdk_pixbuf_get_height (obj->priv->orig_pixbuf) < obj_allocation.height &&
+            gdk_pixbuf_get_width (obj->priv->orig_pixbuf) < obj_allocation.width)
         {
             // no need to scale down
 
@@ -1013,15 +1022,15 @@ static void image_render_prepare_disp_pixbuf (ImageRender *obj)
             return;
         }
 
-        int height = GTK_WIDGET (obj)->allocation.height;
-        int width = (((double) GTK_WIDGET (obj)->allocation.height) /
+        int height = obj_allocation.height;
+        int width = (((double) obj_allocation.height) /
                   gdk_pixbuf_get_height (obj->priv->orig_pixbuf))*
                     gdk_pixbuf_get_width (obj->priv->orig_pixbuf);
 
-        if (width >= GTK_WIDGET (obj)->allocation.width)
+        if (width >= obj_allocation.width)
         {
-            width = GTK_WIDGET (obj)->allocation.width;
-            height = (((double)GTK_WIDGET (obj)->allocation.width) /
+            width = obj_allocation.width;
+            height = (((double)obj_allocation.width) /
                   gdk_pixbuf_get_width (obj->priv->orig_pixbuf))*
                     gdk_pixbuf_get_height (obj->priv->orig_pixbuf);
         }
@@ -1055,9 +1064,12 @@ static void image_render_update_adjustments (ImageRender *obj)
     if (!obj->priv->disp_pixbuf)
         return;
 
+    GtkAllocation obj_allocation;
+    gtk_widget_get_allocation (GTK_WIDGET (obj), &obj_allocation);
+
     if (obj->priv->best_fit ||
-        (gdk_pixbuf_get_width (obj->priv->disp_pixbuf) < GTK_WIDGET (obj)->allocation.width  &&
-         gdk_pixbuf_get_height (obj->priv->disp_pixbuf) < GTK_WIDGET (obj)->allocation.height))
+        (gdk_pixbuf_get_width (obj->priv->disp_pixbuf) < obj_allocation.width  &&
+         gdk_pixbuf_get_height (obj->priv->disp_pixbuf) < obj_allocation.height))
     {
         if (obj->priv->h_adjustment)
         {
@@ -1080,14 +1092,14 @@ static void image_render_update_adjustments (ImageRender *obj)
         {
             gtk_adjustment_set_lower (obj->priv->h_adjustment, 0);
             gtk_adjustment_set_upper (obj->priv->h_adjustment, gdk_pixbuf_get_width (obj->priv->disp_pixbuf));
-            gtk_adjustment_set_page_size (obj->priv->h_adjustment, GTK_WIDGET (obj)->allocation.width);
+            gtk_adjustment_set_page_size (obj->priv->h_adjustment, obj_allocation.width);
             gtk_adjustment_changed (obj->priv->h_adjustment);
         }
         if (obj->priv->v_adjustment)
         {
             gtk_adjustment_set_lower (obj->priv->v_adjustment, 0);
             gtk_adjustment_set_upper (obj->priv->v_adjustment, gdk_pixbuf_get_height (obj->priv->disp_pixbuf));
-            gtk_adjustment_set_page_size (obj->priv->v_adjustment, GTK_WIDGET (obj)->allocation.height);
+            gtk_adjustment_set_page_size (obj->priv->v_adjustment, obj_allocation.height);
             gtk_adjustment_changed (obj->priv->v_adjustment);
         }
     }

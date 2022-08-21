@@ -1,4 +1,4 @@
-/** 
+/**
  * @file gnome-cmd-manage-profiles-dialog.h
  * @copyright (C) 2001-2006 Marcus Bjurman\n
  * @copyright (C) 2007-2012 Piotr Eljasiak\n
@@ -119,7 +119,7 @@ namespace GnomeCmd
         GtkTreeViewColumn *col = NULL;
 
         col = gnome_cmd_treeview_create_new_text_column (GTK_TREE_VIEW (view), renderer, COL_NAME, _("Profile"));
-        gtk_widget_set_tooltip_text (col->button, _("Profile name"));
+        gtk_widget_set_tooltip_text (gtk_tree_view_column_get_button (col), _("Profile name"));
         g_signal_connect (renderer, "edited", G_CALLBACK (cell_edited_callback), view);
 
         g_object_set (renderer,
@@ -127,7 +127,7 @@ namespace GnomeCmd
                       NULL);
 
         col = gnome_cmd_treeview_create_new_text_column (GTK_TREE_VIEW (view), renderer, COL_TEMPLATE, _("Template"));
-        gtk_widget_set_tooltip_text (col->button, _("Template"));
+        gtk_widget_set_tooltip_text (gtk_tree_view_column_get_button (col), _("Template"));
 
         g_object_set (renderer,
                       "foreground-set", TRUE,

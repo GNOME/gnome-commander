@@ -1,4 +1,4 @@
-/** 
+/**
  * @file eggcellrendererkeys.cc
  * @copyright (C) 2001-2006 Marcus Bjurman\n
  * @copyright (C) 2007-2012 Piotr Eljasiak\n
@@ -613,7 +613,7 @@ egg_cell_renderer_keys_start_editing (GtkCellRenderer      *cell,
                                       GdkRectangle         *cell_area,
                                       GtkCellRendererState  flags)
 {
-    g_return_val_if_fail (widget->window != NULL, NULL);
+    g_return_val_if_fail (gtk_widget_get_window (widget) != NULL, NULL);
 
     GtkWidget *label;
     GtkWidget *eventbox;
@@ -628,14 +628,17 @@ egg_cell_renderer_keys_start_editing (GtkCellRenderer      *cell,
 #pragma GCC diagnostic pop
 #endif
 
+    gboolean celltext_editable;
+    g_object_get (celltext, "editable", &celltext_editable, NULL);
+
     // If the cell isn't editable we return NULL
-    if (celltext->editable == FALSE)
+    if (celltext_editable == FALSE)
         return NULL;
 
-    if (gdk_keyboard_grab (widget->window, FALSE, gdk_event_get_time (event)) != GDK_GRAB_SUCCESS)
+    if (gdk_keyboard_grab (gtk_widget_get_window (widget), FALSE, gdk_event_get_time (event)) != GDK_GRAB_SUCCESS)
         return NULL;
 
-    if (gdk_pointer_grab (widget->window, FALSE,
+    if (gdk_pointer_grab (gtk_widget_get_window (widget), FALSE,
                           GDK_BUTTON_PRESS_MASK,
                           NULL, NULL,
                           gdk_event_get_time (event)) != GDK_GRAB_SUCCESS)
@@ -655,9 +658,9 @@ egg_cell_renderer_keys_start_editing (GtkCellRenderer      *cell,
     label = gtk_label_new (NULL);
     gtk_misc_set_alignment (GTK_MISC (label), 0.0, 0.5);
 
-    gtk_widget_modify_bg (eventbox, GTK_STATE_NORMAL, &widget->style->bg[GTK_STATE_SELECTED]);
+    gtk_widget_modify_bg (eventbox, GTK_STATE_NORMAL, &gtk_widget_get_style (widget)->bg[GTK_STATE_SELECTED]);
 
-    gtk_widget_modify_fg (label, GTK_STATE_NORMAL, &widget->style->fg[GTK_STATE_SELECTED]);
+    gtk_widget_modify_fg (label, GTK_STATE_NORMAL, &gtk_widget_get_style(widget)->fg[GTK_STATE_SELECTED]);
 
     gtk_label_set_text (GTK_LABEL (label), _("New accelerator…"));
 

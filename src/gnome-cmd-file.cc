@@ -921,7 +921,7 @@ inline void do_view_file (GnomeCmdFile *f, gint internal_viewer=-1)
         case TRUE : {
                         GtkWidget *viewer = gviewer_window_file_view (f);
                         gtk_widget_show (viewer);
-                        gdk_window_set_icon (viewer->window, nullptr,
+                        gdk_window_set_icon (gtk_widget_get_window (viewer), nullptr,
                                              IMAGE_get_pixmap (PIXMAP_INTERNAL_VIEWER),
                                              IMAGE_get_mask (PIXMAP_INTERNAL_VIEWER));
                     }

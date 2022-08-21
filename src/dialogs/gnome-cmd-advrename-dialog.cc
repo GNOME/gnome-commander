@@ -1,4 +1,4 @@
-/** 
+/**
  * @file gnome-cmd-advrename-dialog.cc
  * @copyright (C) 2001-2006 Marcus Bjurman\n
  * @copyright (C) 2007-2012 Piotr Eljasiak\n
@@ -605,25 +605,25 @@ inline GtkWidget *create_files_view ()
     g_object_set (renderer, "foreground", "red", "style", PANGO_STYLE_ITALIC, NULL);
     gtk_tree_view_column_add_attribute (col, renderer, "foreground-set", GnomeCmdAdvrenameDialog::COL_RENAME_FAILED);
     gtk_tree_view_column_add_attribute (col, renderer, "style-set", GnomeCmdAdvrenameDialog::COL_RENAME_FAILED);
-    gtk_widget_set_tooltip_text (col->button, _("Current file name"));
+    gtk_widget_set_tooltip_text (gtk_tree_view_column_get_button (col), _("Current file name"));
 
     col = gnome_cmd_treeview_create_new_text_column (GTK_TREE_VIEW (view), renderer, GnomeCmdAdvrenameDialog::COL_NEW_NAME, _("New name"));
     g_object_set (renderer, "foreground", "red", "style", PANGO_STYLE_ITALIC, NULL);
     gtk_tree_view_column_add_attribute (col, renderer, "foreground-set", GnomeCmdAdvrenameDialog::COL_RENAME_FAILED);
     gtk_tree_view_column_add_attribute (col, renderer, "style-set", GnomeCmdAdvrenameDialog::COL_RENAME_FAILED);
-    gtk_widget_set_tooltip_text (col->button, _("New file name"));
+    gtk_widget_set_tooltip_text (gtk_tree_view_column_get_button (col), _("New file name"));
 
     col = gnome_cmd_treeview_create_new_text_column (GTK_TREE_VIEW (view), renderer, GnomeCmdAdvrenameDialog::COL_SIZE, _("Size"));
     g_object_set (renderer, "xalign", 1.0, "foreground", "red", "style", PANGO_STYLE_ITALIC, NULL);
     gtk_tree_view_column_add_attribute (col, renderer, "foreground-set", GnomeCmdAdvrenameDialog::COL_RENAME_FAILED);
     gtk_tree_view_column_add_attribute (col, renderer, "style-set", GnomeCmdAdvrenameDialog::COL_RENAME_FAILED);
-    gtk_widget_set_tooltip_text (col->button, _("File size"));
+    gtk_widget_set_tooltip_text (gtk_tree_view_column_get_button (col), _("File size"));
 
     col = gnome_cmd_treeview_create_new_text_column (GTK_TREE_VIEW (view), renderer, GnomeCmdAdvrenameDialog::COL_DATE, _("Date"));
     g_object_set (renderer, "foreground", "red", "style", PANGO_STYLE_ITALIC, NULL);
     gtk_tree_view_column_add_attribute (col, renderer, "foreground-set", GnomeCmdAdvrenameDialog::COL_RENAME_FAILED);
     gtk_tree_view_column_add_attribute (col, renderer, "style-set", GnomeCmdAdvrenameDialog::COL_RENAME_FAILED);
-    gtk_widget_set_tooltip_text (col->button, _("File modification date"));
+    gtk_widget_set_tooltip_text (gtk_tree_view_column_get_button (col), _("File modification date"));
 
     return view;
 }

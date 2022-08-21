@@ -171,4 +171,9 @@ inline void gtk_progress_bar_set_show_text (GtkProgressBar *pbar, gboolean show_
     gtk_progress_bar_set_text (pbar, nullptr);
     pbar->progress.show_text = show_text;
 }
+
+inline GtkWidget *gtk_tree_view_column_get_button (GtkTreeViewColumn *tree_column)
+{
+    return tree_column->button;
+}
 #endif

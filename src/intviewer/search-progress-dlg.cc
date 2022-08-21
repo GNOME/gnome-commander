@@ -81,7 +81,7 @@ static void search_progress_dlg_init (GViewerSearchProgressDlg *sdlg)
     // Text Label
     sdlg->priv->label = gtk_label_new("");
 
-    gtk_box_pack_start(GTK_BOX(dlg->vbox), sdlg->priv->label, FALSE, TRUE, 5);
+    gtk_box_pack_start(GTK_BOX(gtk_dialog_get_content_area (dlg)), sdlg->priv->label, FALSE, TRUE, 5);
 
     // Progress Bar
     sdlg->priv->progressbar = gtk_progress_bar_new();
@@ -95,9 +95,9 @@ static void search_progress_dlg_init (GViewerSearchProgressDlg *sdlg)
 #pragma GCC diagnostic pop
 #endif
 
-    gtk_box_pack_start(GTK_BOX(dlg->vbox), sdlg->priv->progressbar, TRUE, TRUE, 0);
+    gtk_box_pack_start(GTK_BOX(gtk_dialog_get_content_area (dlg)), sdlg->priv->progressbar, TRUE, TRUE, 0);
 
-    gtk_widget_show_all(dlg->vbox);
+    gtk_widget_show_all(gtk_dialog_get_content_area (dlg));
 
     gtk_widget_show (GTK_WIDGET (dlg));
 }

@@ -918,7 +918,7 @@ void store_layout_options (GtkWidget *dialog, GnomeCmdData::Options &cfg)
 #endif
 
     GtkAdjustment *adj = gtk_range_get_adjustment (GTK_RANGE (iconquality_scale));
-    cfg.icon_scale_quality = (GdkInterpType) adj->value;
+    cfg.icon_scale_quality = (GdkInterpType) gtk_adjustment_get_value (adj);
 
 #if defined (__GNUC__)
 #pragma GCC diagnostic push
@@ -1744,27 +1744,27 @@ static GtkWidget *create_programs_tab (GtkWidget *parent, GnomeCmdData::Options 
     gtk_box_pack_start (GTK_BOX (hbox), bbox, FALSE, TRUE, 0);
 
     button = create_stock_button (parent, GTK_STOCK_ADD, GTK_SIGNAL_FUNC (on_app_add));
-    GTK_WIDGET_SET_FLAGS (button, GTK_CAN_DEFAULT);
+    gtk_widget_set_can_default (button, TRUE);
     gtk_container_add (GTK_CONTAINER (bbox), button);
 
     button = create_stock_button (parent, GTK_STOCK_EDIT, GTK_SIGNAL_FUNC (on_app_edit));
     g_object_set_data (G_OBJECT (parent), "edit_app_button", button);
-    GTK_WIDGET_SET_FLAGS (button, GTK_CAN_DEFAULT);
+    gtk_widget_set_can_default (button, TRUE);
     gtk_widget_set_sensitive (button, FALSE);
     gtk_container_add (GTK_CONTAINER (bbox), button);
 
     button = create_stock_button (parent, GTK_STOCK_REMOVE, GTK_SIGNAL_FUNC (on_app_remove));
     g_object_set_data (G_OBJECT (parent), "remove_app_button", button);
-    GTK_WIDGET_SET_FLAGS (button, GTK_CAN_DEFAULT);
+    gtk_widget_set_can_default (button, TRUE);
     gtk_widget_set_sensitive (button, FALSE);
     gtk_container_add (GTK_CONTAINER (bbox), button);
 
     button = create_stock_button (parent, GTK_STOCK_GO_UP, GTK_SIGNAL_FUNC (on_app_move_up));
-    GTK_WIDGET_SET_FLAGS (button, GTK_CAN_DEFAULT);
+    gtk_widget_set_can_default (button, TRUE);
     gtk_container_add (GTK_CONTAINER (bbox), button);
 
     button = create_stock_button (parent, GTK_STOCK_GO_DOWN, GTK_SIGNAL_FUNC (on_app_move_down));
-    GTK_WIDGET_SET_FLAGS (button, GTK_CAN_DEFAULT);
+    gtk_widget_set_can_default (button, TRUE);
     gtk_container_add (GTK_CONTAINER (bbox), button);
 
     clist = (GtkWidget *) g_object_get_data (G_OBJECT (parent), "app_clist");
@@ -2122,27 +2122,27 @@ static GtkWidget *create_devices_tab (GtkWidget *parent, GnomeCmdData::Options &
     gtk_box_pack_start (GTK_BOX (hbox), bbox, FALSE, TRUE, 0);
 
     button = create_stock_button (parent, GTK_STOCK_ADD, GTK_SIGNAL_FUNC (on_device_add));
-    GTK_WIDGET_SET_FLAGS (button, GTK_CAN_DEFAULT);
+    gtk_widget_set_can_default (button, TRUE);
     gtk_container_add (GTK_CONTAINER (bbox), button);
 
     button = create_stock_button (parent, GTK_STOCK_EDIT, GTK_SIGNAL_FUNC (on_device_edit));
     g_object_set_data (G_OBJECT (parent), "edit_device_button", button);
-    GTK_WIDGET_SET_FLAGS (button, GTK_CAN_DEFAULT);
+    gtk_widget_set_can_default (button, TRUE);
     gtk_widget_set_sensitive (button, FALSE);
     gtk_container_add (GTK_CONTAINER (bbox), button);
 
     button = create_stock_button (parent, GTK_STOCK_REMOVE, GTK_SIGNAL_FUNC (on_device_remove));
     g_object_set_data (G_OBJECT (parent), "remove_device_button", button);
-    GTK_WIDGET_SET_FLAGS (button, GTK_CAN_DEFAULT);
+    gtk_widget_set_can_default (button, TRUE);
     gtk_widget_set_sensitive (button, FALSE);
     gtk_container_add (GTK_CONTAINER (bbox), button);
 
     button = create_stock_button (parent, GTK_STOCK_GO_UP, GTK_SIGNAL_FUNC (on_device_move_up));
-    GTK_WIDGET_SET_FLAGS (button, GTK_CAN_DEFAULT);
+    gtk_widget_set_can_default (button, TRUE);
     gtk_container_add (GTK_CONTAINER (bbox), button);
 
     button = create_stock_button (parent, GTK_STOCK_GO_DOWN, GTK_SIGNAL_FUNC (on_device_move_down));
-    GTK_WIDGET_SET_FLAGS (button, GTK_CAN_DEFAULT);
+    gtk_widget_set_can_default (button, TRUE);
     gtk_container_add (GTK_CONTAINER (bbox), button);
 
 #ifdef HAVE_SAMBA
@@ -2269,8 +2269,11 @@ gboolean gnome_cmd_options_dialog (GtkWindow *parent, GnomeCmdData::Options &cfg
         store_devices_options (dialog, cfg);
     }
 
-    gnome_cmd_data.opts_dialog_width = dialog->allocation.width;
-    gnome_cmd_data.opts_dialog_height = dialog->allocation.height;
+    GtkAllocation dialog_allocation;
+    gtk_widget_get_allocation (dialog, &dialog_allocation);
+
+    gnome_cmd_data.opts_dialog_width = dialog_allocation.width;
+    gnome_cmd_data.opts_dialog_height = dialog_allocation.height;
 
     // store the current active tab
     activetab = notebook->get_current_page();

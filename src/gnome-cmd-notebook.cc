@@ -1,4 +1,4 @@
-/** 
+/**
  * @file gnome-cmd-notebook.cc
  * @copyright (C) 2001-2006 Marcus Bjurman\n
  * @copyright (C) 2007-2012 Piotr Eljasiak\n
@@ -115,24 +115,27 @@ int GnomeCmdNotebook::find_tab_num_at_pos(gint screen_x, gint screen_y) const
 
         g_return_val_if_fail (tab!=NULL, -1);
 
-        if (!GTK_WIDGET_MAPPED (GTK_WIDGET (tab)))
+        if (!gtk_widget_get_mapped (GTK_WIDGET (tab)))
             continue;
 
         gint x_root, y_root;
 
-        gdk_window_get_origin (tab->window, &x_root, &y_root);
+        gdk_window_get_origin (gtk_widget_get_window (tab), &x_root, &y_root);
+
+        GtkAllocation tab_allocation;
+        gtk_widget_get_allocation (tab, &tab_allocation);
 
         switch (tab_pos)
         {
             case GTK_POS_TOP:
             case GTK_POS_BOTTOM:
                 {
-                    gint y = screen_y - y_root - tab->allocation.y;
+                    gint y = screen_y - y_root - tab_allocation.y;
 
-                    if (y < 0 || y > tab->allocation.height)
+                    if (y < 0 || y > tab_allocation.height)
                         return -1;
 
-                    if (screen_x <= x_root + tab->allocation.x + tab->allocation.width)
+                    if (screen_x <= x_root + tab_allocation.x + tab_allocation.width)
                         return page_num;
                 }
                 break;
@@ -140,12 +143,12 @@ int GnomeCmdNotebook::find_tab_num_at_pos(gint screen_x, gint screen_y) const
             case GTK_POS_LEFT:
             case GTK_POS_RIGHT:
                 {
-                    gint x = screen_x - x_root - tab->allocation.x;
+                    gint x = screen_x - x_root - tab_allocation.x;
 
-                    if (x < 0 || x > tab->allocation.width)
+                    if (x < 0 || x > tab_allocation.width)
                         return -1;
 
-                    if (screen_y <= y_root + tab->allocation.y + tab->allocation.height)
+                    if (screen_y <= y_root + tab_allocation.y + tab_allocation.height)
                         return page_num;
                 }
 

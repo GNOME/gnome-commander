@@ -374,7 +374,7 @@ static void create_con_buttons (GnomeCmdFileSelector *fs)
         g_object_set_data (G_OBJECT (btn), "con", con);
         g_signal_connect (btn, "button-press-event", (GtkSignalFunc) on_con_btn_clicked, fs);
         gtk_box_pack_start (GTK_BOX (fs->con_btns_hbox), btn, FALSE, FALSE, 0);
-        GTK_WIDGET_UNSET_FLAGS (btn, GTK_CAN_FOCUS);
+        gtk_widget_set_can_focus (btn, FALSE);
         fs->priv->old_btns = g_list_append (fs->priv->old_btns, btn);
         gtk_widget_set_tooltip_text (btn, gnome_cmd_con_get_go_text (con));
 
@@ -808,7 +808,7 @@ static void init (GnomeCmdFileSelector *fs)
     gtk_entry_set_editable (GTK_ENTRY (fs->con_combo->entry), FALSE);
     gtk_clist_set_column_width (GTK_CLIST (fs->con_combo->list), 0, 20);
     gtk_clist_set_column_width (GTK_CLIST (fs->con_combo->list), 1, 60);
-    GTK_WIDGET_UNSET_FLAGS (fs->con_combo->button, GTK_CAN_FOCUS);
+    gtk_widget_set_can_focus (fs->con_combo->button, FALSE);
 
     // create the free space on volume label
     fs->vol_label = gtk_label_new ("");
