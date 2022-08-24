@@ -1,4 +1,4 @@
-/** 
+/**
  * @file gnome-cmd-remote-dialog.cc
  * @copyright (C) 2001-2006 Marcus Bjurman\n
  * @copyright (C) 2007-2012 Piotr Eljasiak\n
@@ -341,7 +341,7 @@ inline GtkWidget *create_view_and_model (GList *list)
     // col = gnome_cmd_treeview_create_new_text_column (GTK_TREE_VIEW (view), renderer, COL_AUTH);
 
     col = gnome_cmd_treeview_create_new_pixbuf_column (GTK_TREE_VIEW (view), renderer, COL_METHOD);
-    gtk_widget_set_tooltip_text (col->button, _("Network protocol"));
+    gtk_widget_set_tooltip_text (gtk_tree_view_column_get_button (col), _("Network protocol"));
     gtk_tree_view_column_set_sort_column_id (col, SORTID_METHOD);
 
     // col = gnome_cmd_treeview_create_new_text_column (GTK_TREE_VIEW (view), renderer, COL_METHOD);
@@ -352,7 +352,7 @@ inline GtkWidget *create_view_and_model (GList *list)
                   // NULL);
 
     col = gnome_cmd_treeview_create_new_text_column (GTK_TREE_VIEW (view), renderer, COL_NAME, _("Name"));
-    gtk_widget_set_tooltip_text (col->button, _("Connection name"));
+    gtk_widget_set_tooltip_text (gtk_tree_view_column_get_button (col), _("Connection name"));
     gtk_tree_view_column_set_sort_column_id (col, SORTID_NAME);
     g_object_set (renderer,
                   "ellipsize-set", TRUE,

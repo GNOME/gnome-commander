@@ -1,4 +1,4 @@
-/** 
+/**
  * @file gnome-cmd-combo.cc
  * @copyright (C) 2001-2006 Marcus Bjurman\n
  * @copyright (C) 2007-2012 Piotr Eljasiak\n
@@ -83,14 +83,20 @@ static void size_allocate (GtkWidget *widget, GtkAllocation *allocation)
 
     GnomeCmdCombo *combo = GNOME_CMD_COMBO (widget);
 
-    if (combo->entry->allocation.height > combo->entry->requisition.height)
+    GtkRequisition entry_requisition;
+    gtk_widget_get_requisition (combo->entry, &entry_requisition);
+
+    GtkAllocation entry_allocation;
+    gtk_widget_get_allocation (combo->entry, &entry_allocation);
+
+    if (entry_allocation.height > entry_requisition.height)
     {
         GtkAllocation button_allocation;
 
-        button_allocation = combo->button->allocation;
-        button_allocation.height = combo->entry->requisition.height;
-        button_allocation.y = combo->entry->allocation.y +
-            (combo->entry->allocation.height - combo->entry->requisition.height) / 2;
+        gtk_widget_get_allocation (combo->button, &button_allocation);
+        button_allocation.height = entry_requisition.height;
+        button_allocation.y = entry_allocation.y +
+            (entry_allocation.height - entry_requisition.height) / 2;
         gtk_widget_size_allocate (combo->button, &button_allocation);
     }
 }
@@ -103,7 +109,10 @@ inline void get_pos (GnomeCmdCombo *combo, gint *x, gint *y, gint *height, gint 
     GtkBin *popwin = GTK_BIN (combo->popwin);
 
     gint real_height;
+    GtkRequisition entry_requisition;
     GtkRequisition list_requisition;
+    GtkRequisition vscrollbar_requisition;
+    GtkRequisition hscrollbar_requisition;
     gboolean show_hscroll = FALSE;
     gboolean show_vscroll = FALSE;
     gint avail_height;
@@ -112,29 +121,36 @@ inline void get_pos (GnomeCmdCombo *combo, gint *x, gint *y, gint *height, gint 
     gint work_height;
     gint old_height;
     gint old_width;
+    GtkAllocation entry_allocation;
+    GtkAllocation widget_allocation;
 
-    gdk_window_get_origin (combo->entry->window, x, y);
-    real_height = MIN (combo->entry->requisition.height, combo->entry->allocation.height);
+    gdk_window_get_origin (gtk_widget_get_window (combo->entry), x, y);
+    gtk_widget_get_requisition (combo->entry, &entry_requisition);
+    gtk_widget_get_allocation (combo->entry, &entry_allocation);
+    real_height = MIN (entry_requisition.height, entry_allocation.height);
     *y += real_height;
     avail_height = gdk_screen_height () - *y;
 
     gtk_widget_size_request (combo->list, &list_requisition);
-    min_height = MIN (list_requisition.height, popup->vscrollbar->requisition.height);
+    gtk_widget_get_requisition (gtk_scrolled_window_get_vscrollbar (popup), &vscrollbar_requisition);
+    min_height = MIN (list_requisition.height, vscrollbar_requisition.height);
     if (!GTK_CLIST (combo->list)->rows)
         list_requisition.height += EMPTY_LIST_HEIGHT;
 
-    alloc_width = (widget->allocation.width -
-                   2 * popwin->child->style->xthickness -
-                   2 * GTK_CONTAINER (popwin->child)->border_width -
-                   2 * GTK_CONTAINER (combo->popup)->border_width -
-                   2 * GTK_CONTAINER (GTK_BIN (popup)->child)->border_width -
-                   2 * GTK_BIN (popup)->child->style->xthickness) + 100;
+    gtk_widget_get_allocation (widget, &widget_allocation);
 
-    work_height = (2 * popwin->child->style->ythickness +
-                   2 * GTK_CONTAINER (popwin->child)->border_width +
-                   2 * GTK_CONTAINER (combo->popup)->border_width +
-                   2 * GTK_CONTAINER (GTK_BIN (popup)->child)->border_width +
-                   2 * GTK_BIN (popup)->child->style->xthickness)+20;
+    alloc_width = (widget_allocation.width -
+                   2 * gtk_widget_get_style (gtk_bin_get_child (popwin))->xthickness -
+                   2 * gtk_container_get_border_width (GTK_CONTAINER (gtk_bin_get_child (popwin))) -
+                   2 * gtk_container_get_border_width (GTK_CONTAINER (combo->popup)) -
+                   2 * gtk_container_get_border_width (GTK_CONTAINER (gtk_bin_get_child (GTK_BIN (popup)))) -
+                   2 * gtk_widget_get_style (gtk_bin_get_child (GTK_BIN (popup)))->xthickness) + 100;
+
+    work_height = (2 * gtk_widget_get_style (gtk_bin_get_child (popwin))->ythickness +
+                   2 * gtk_container_get_border_width (GTK_CONTAINER (gtk_bin_get_child (popwin))) +
+                   2 * gtk_container_get_border_width (GTK_CONTAINER (combo->popup)) +
+                   2 * gtk_container_get_border_width (GTK_CONTAINER (gtk_bin_get_child (GTK_BIN (popup)))) +
+                   2 * gtk_widget_get_style (gtk_bin_get_child (GTK_BIN (popup)))->xthickness)+20;
 
     do
     {
@@ -143,7 +159,8 @@ inline void get_pos (GnomeCmdCombo *combo, gint *x, gint *y, gint *height, gint 
 
         if (!show_hscroll && alloc_width < list_requisition.width)
         {
-            work_height += popup->hscrollbar->requisition.height +
+            gtk_widget_get_requisition (gtk_scrolled_window_get_hscrollbar (popup), &hscrollbar_requisition);
+            work_height += hscrollbar_requisition.height +
                 GTK_SCROLLED_WINDOW_GET_CLASS
                 (combo->popup)->scrollbar_spacing;
             show_hscroll = TRUE;
@@ -156,14 +173,14 @@ inline void get_pos (GnomeCmdCombo *combo, gint *x, gint *y, gint *height, gint 
                 break;
             }
             alloc_width -=
-                popup->vscrollbar->requisition.width +
+                vscrollbar_requisition.width +
                 GTK_SCROLLED_WINDOW_GET_CLASS
                 (combo->popup)->scrollbar_spacing;
             show_vscroll = TRUE;
         }
     } while (old_width != alloc_width || old_height != work_height);
 
-    *width = widget->allocation.width;
+    *width = widget_allocation.width;
     if (*width < 200)
         *width = 200;
 
@@ -183,7 +200,7 @@ void GnomeCmdCombo::popup_list()
     gtk_widget_set_uposition (popwin, x, y);
     gtk_widget_set_size_request (popwin, width, height);
     gtk_widget_realize (popwin);
-    gdk_window_resize (popwin->window, width, height);
+    gdk_window_resize (gtk_widget_get_window (popwin), width, height);
     gtk_widget_show (popwin);
 }
 
@@ -225,7 +242,7 @@ static gboolean on_popwin_button_released (GtkWidget *button, GdkEventButton *ev
     // Check to see if we clicked inside the popwin
     GtkWidget *child = gtk_get_event_widget ((GdkEvent *) event);
     while (child && child != (combo->popwin))
-        child = child->parent;
+        child = gtk_widget_get_parent (child);
 
     if (child != combo->popwin)
     {
@@ -375,7 +392,7 @@ static void init (GnomeCmdCombo *combo)
     gtk_widget_show (combo->entry);
     gtk_widget_set_size_request (combo->entry, 60, -1);
     gtk_entry_set_editable (GTK_ENTRY (combo->entry), FALSE);
-    GTK_WIDGET_UNSET_FLAGS (combo->entry, GTK_CAN_FOCUS);
+    gtk_widget_set_can_focus (combo->entry, FALSE);
 
     combo->button = gtk_button_new ();
     g_object_ref (combo->button);
@@ -417,7 +434,7 @@ static void init (GnomeCmdCombo *combo)
     gtk_widget_realize (event_box);
 
     cursor = gdk_cursor_new (GDK_TOP_LEFT_ARROW);
-    gdk_window_set_cursor (event_box->window, cursor);
+    gdk_window_set_cursor (gtk_widget_get_window (event_box), cursor);
     gdk_cursor_unref (cursor);
 
     frame = gtk_frame_new (NULL);
@@ -431,8 +448,8 @@ static void init (GnomeCmdCombo *combo)
     g_object_ref (combo->popup);
     g_object_set_data_full (*combo, "combo->popup", combo->popup, g_object_unref);
     gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (combo->popup), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
-    GTK_WIDGET_UNSET_FLAGS (GTK_SCROLLED_WINDOW (combo->popup)->hscrollbar, GTK_CAN_FOCUS);
-    GTK_WIDGET_UNSET_FLAGS (GTK_SCROLLED_WINDOW (combo->popup)->vscrollbar, GTK_CAN_FOCUS);
+    gtk_widget_set_can_focus (gtk_scrolled_window_get_hscrollbar (GTK_SCROLLED_WINDOW (combo->popup)), FALSE);
+    gtk_widget_set_can_focus (gtk_scrolled_window_get_vscrollbar (GTK_SCROLLED_WINDOW (combo->popup)), FALSE);
     gtk_container_add (GTK_CONTAINER (frame), combo->popup);
     gtk_widget_show (combo->popup);
 }

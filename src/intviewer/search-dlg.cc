@@ -252,7 +252,7 @@ static void search_dlg_init (GViewerSearchDlg *sdlg)
     table = GTK_TABLE (gtk_table_new (2, 2, FALSE));
     gtk_table_set_row_spacings (GTK_TABLE (table), 6);
     gtk_table_set_col_spacings (GTK_TABLE (table), 6);
-    gtk_box_pack_start (GTK_BOX (dlg->vbox), GTK_WIDGET (table), FALSE, TRUE, 0);
+    gtk_box_pack_start (GTK_BOX (gtk_dialog_get_content_area (dlg)), GTK_WIDGET (table), FALSE, TRUE, 0);
     sdlg->priv->table = GTK_WIDGET (table);
 
     // Label

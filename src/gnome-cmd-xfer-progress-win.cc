@@ -107,7 +107,7 @@ static void init (GnomeCmdXferProgressWin *win)
     gtk_container_add (GTK_CONTAINER (vbox), bbox);
 
     button = create_stock_button (w, GTK_STOCK_CANCEL, GTK_SIGNAL_FUNC (on_cancel));
-    GTK_WIDGET_SET_FLAGS (button, GTK_CAN_DEFAULT);
+    gtk_widget_set_can_default (button, TRUE);
     gtk_container_add (GTK_CONTAINER (bbox), button);
 }
 

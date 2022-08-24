@@ -244,8 +244,8 @@ static void init (GnomeCmdCmdline *cmdline)
     gtk_box_pack_start (GTK_BOX (cmdline), *cmdline->priv->combo, TRUE, TRUE, 2);
     gtk_widget_show (*cmdline->priv->combo);
     gtk_entry_set_editable (GTK_ENTRY (cmdline->priv->combo->entry), TRUE);
-    GTK_WIDGET_UNSET_FLAGS (cmdline->priv->combo->button, GTK_CAN_FOCUS);
-    GTK_WIDGET_SET_FLAGS (cmdline->priv->combo->entry, GTK_CAN_FOCUS);
+    gtk_widget_set_can_focus (cmdline->priv->combo->button, FALSE);
+    gtk_widget_set_can_focus (cmdline->priv->combo->entry, TRUE);
 
     g_signal_connect (cmdline->priv->combo->entry, "key-press-event", G_CALLBACK (on_key_pressed), cmdline);
     g_signal_connect (cmdline->priv->combo, "item-selected", G_CALLBACK (on_combo_item_selected), cmdline);

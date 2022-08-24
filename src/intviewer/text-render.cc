@@ -191,9 +191,9 @@ void text_render_set_h_adjustment (TextRender *obj, GtkAdjustment *adjustment)
     g_signal_connect (adjustment, "changed", G_CALLBACK (text_render_h_adjustment_changed), obj);
     g_signal_connect (adjustment, "value-changed", G_CALLBACK (text_render_h_adjustment_value_changed), obj);
 
-    obj->priv->old_h_adj_value = adjustment->value;
-    obj->priv->old_h_adj_lower = adjustment->lower;
-    obj->priv->old_h_adj_upper = adjustment->upper;
+    obj->priv->old_h_adj_value = gtk_adjustment_get_value (adjustment);
+    obj->priv->old_h_adj_lower = gtk_adjustment_get_lower (adjustment);
+    obj->priv->old_h_adj_upper = gtk_adjustment_get_upper (adjustment);
 
     text_render_h_adjustment_update (obj);
 }
@@ -215,9 +215,9 @@ void text_render_set_v_adjustment (TextRender *obj, GtkAdjustment *adjustment)
     g_signal_connect (adjustment, "changed", G_CALLBACK (text_render_v_adjustment_changed), obj);
     g_signal_connect (adjustment, "value-changed", G_CALLBACK (text_render_v_adjustment_value_changed), obj);
 
-    obj->priv->old_v_adj_value = adjustment->value;
-    obj->priv->old_v_adj_lower = adjustment->lower;
-    obj->priv->old_v_adj_upper = adjustment->upper;
+    obj->priv->old_v_adj_value = gtk_adjustment_get_value (adjustment);
+    obj->priv->old_v_adj_lower = gtk_adjustment_get_lower (adjustment);
+    obj->priv->old_v_adj_upper = gtk_adjustment_get_upper (adjustment);
 
     text_render_v_adjustment_update (obj);
 }
@@ -262,7 +262,7 @@ static void text_render_init (TextRender *w)
 
     w->priv->layout = gtk_widget_create_pango_layout (GTK_WIDGET (w), NULL);
 
-    GTK_WIDGET_SET_FLAGS(GTK_WIDGET (w), GTK_CAN_FOCUS);
+    gtk_widget_set_can_focus(GTK_WIDGET (w), TRUE);
 }
 
 
@@ -348,7 +348,7 @@ void text_render_notify_status_changed(TextRender *w)
 
 static void text_render_position_changed(TextRender *w)
 {
-    if (!GTK_WIDGET_REALIZED(GTK_WIDGET (w)))
+    if (!gtk_widget_get_realized (GTK_WIDGET (w)))
         return;
 
     text_render_notify_status_changed(w);
@@ -356,13 +356,13 @@ static void text_render_position_changed(TextRender *w)
     // update the hotz & vert adjustments
     if (w->priv->v_adjustment)
     {
-        w->priv->v_adjustment->value = w->priv->current_offset;
+        gtk_adjustment_set_value (w->priv->v_adjustment, w->priv->current_offset);
         gtk_adjustment_changed (w->priv->v_adjustment);
     }
 
     if (w->priv->h_adjustment)
     {
-        w->priv->h_adjustment->value = w->priv->column;
+        gtk_adjustment_set_value (w->priv->h_adjustment, w->priv->column);
         gtk_adjustment_changed (w->priv->h_adjustment);
     }
 }
@@ -370,10 +370,10 @@ static void text_render_position_changed(TextRender *w)
 
 static void text_render_redraw(TextRender *w)
 {
-    if (!GTK_WIDGET_REALIZED (GTK_WIDGET (w)))
+    if (!gtk_widget_get_realized (GTK_WIDGET (w)))
         return;
 
-    gdk_window_invalidate_rect (GTK_WIDGET (w)->window, NULL, FALSE);
+    gdk_window_invalidate_rect (gtk_widget_get_window (GTK_WIDGET (w)), NULL, FALSE);
 }
 
 
@@ -444,15 +444,18 @@ static void text_render_realize (GtkWidget *widget)
 {
     g_return_if_fail (IS_TEXT_RENDER (widget));
 
-    GTK_WIDGET_SET_FLAGS (widget, GTK_REALIZED);
+    gtk_widget_set_realized (widget, TRUE);
     TextRender *obj = TEXT_RENDER (widget);
 
     GdkWindowAttr attributes;
 
-    attributes.x = widget->allocation.x;
-    attributes.y = widget->allocation.y;
-    attributes.width = widget->allocation.width;
-    attributes.height = widget->allocation.height;
+    GtkAllocation widget_allocation;
+    gtk_widget_get_allocation (widget, &widget_allocation);
+
+    attributes.x = widget_allocation.x;
+    attributes.y = widget_allocation.y;
+    attributes.width = widget_allocation.width;
+    attributes.height = widget_allocation.height;
     attributes.wclass = GDK_INPUT_OUTPUT;
     attributes.window_type = GDK_WINDOW_CHILD;
     attributes.event_mask = gtk_widget_get_events (widget) |
@@ -463,15 +466,15 @@ static void text_render_realize (GtkWidget *widget)
     attributes.colormap = gtk_widget_get_colormap (widget);
 
     gint attributes_mask = GDK_WA_X | GDK_WA_Y | GDK_WA_VISUAL | GDK_WA_COLORMAP;
-    widget->window = gdk_window_new (widget->parent->window, &attributes, attributes_mask);
+    gtk_widget_set_window (widget, gdk_window_new (gtk_widget_get_parent_window (widget), &attributes, attributes_mask));
 
-    widget->style = gtk_style_attach (widget->style, widget->window);
+    gtk_widget_style_attach(widget);
 
-    gdk_window_set_user_data (widget->window, widget);
+    gdk_window_set_user_data (gtk_widget_get_window (widget), widget);
 
-    gtk_style_set_background (widget->style, widget->window, GTK_STATE_ACTIVE);
+    gtk_style_set_background (gtk_widget_get_style (widget), gtk_widget_get_window (widget), GTK_STATE_ACTIVE);
 
-    obj->priv->gc = gdk_gc_new (GTK_WIDGET (obj)->window);
+    obj->priv->gc = gdk_gc_new (gtk_widget_get_window (GTK_WIDGET (obj)));
     gdk_gc_set_exposures (obj->priv->gc, TRUE);
 
     text_render_setup_font(obj, obj->priv->fixed_font_name, obj->priv->font_size);
@@ -490,11 +493,11 @@ static void text_render_size_allocate (GtkWidget *widget, GtkAllocation *allocat
     g_return_if_fail (IS_TEXT_RENDER (widget));
     g_return_if_fail (allocation != NULL);
 
-    widget->allocation = *allocation;
+    gtk_widget_set_allocation (widget, allocation);
     TextRender *w = TEXT_RENDER (widget);
 
-    if (GTK_WIDGET_REALIZED (widget))
-        gdk_window_move_resize (widget->window, allocation->x, allocation->y, allocation->width, allocation->height);
+    if (gtk_widget_get_realized (widget))
+        gdk_window_move_resize (gtk_widget_get_window (widget), allocation->x, allocation->y, allocation->width, allocation->height);
 
     if (w->priv->dp && (w->priv->char_width>0))
     {
@@ -525,7 +528,10 @@ static gboolean text_render_expose(GtkWidget *widget, GdkEventExpose *event)
     if (w->priv->dp==NULL)
         return FALSE;
 
-    gdk_window_clear_area (widget->window, 0, 0, widget->allocation.width, widget->allocation.height);
+    GtkAllocation widget_allocation;
+    gtk_widget_get_allocation (widget, &widget_allocation);
+
+    gdk_window_clear_area (gtk_widget_get_window (widget), 0, 0, widget_allocation.width, widget_allocation.height);
 
     ofs = w->priv->current_offset;
     y = 0;
@@ -546,7 +552,7 @@ static gboolean text_render_expose(GtkWidget *widget, GdkEventExpose *event)
         ofs = eol_offset;
 
         y += w->priv->char_height;
-        if (y>=widget->allocation.height)
+        if (y>=widget_allocation.height)
             break;
 
     }
@@ -680,8 +686,8 @@ static gboolean text_render_motion_notify(GtkWidget *widget, GdkEventMotion *eve
         x = event->x;
         y = event->y;
 
-        if (event->is_hint || (event->window != widget->window))
-            gdk_window_get_pointer (widget->window, &x, &y, &mods);
+        if (event->is_hint || (event->window != gtk_widget_get_window (widget)))
+            gdk_window_get_pointer (gtk_widget_get_window (widget), &x, &y, &mods);
 
         // TODO: respond to motion event
         new_marker = w->priv->pixel_to_offset(w, x, y, FALSE);
@@ -701,17 +707,17 @@ static void text_render_h_adjustment_update (TextRender *obj)
 {
     g_return_if_fail (IS_TEXT_RENDER (obj));
 
-    gfloat new_value = obj->priv->h_adjustment->value;
+    gfloat new_value = gtk_adjustment_get_value (obj->priv->h_adjustment);
 
-    if (new_value < obj->priv->h_adjustment->lower)
-    new_value = obj->priv->h_adjustment->lower;
+    if (new_value < gtk_adjustment_get_lower (obj->priv->h_adjustment))
+    new_value = gtk_adjustment_get_lower (obj->priv->h_adjustment);
 
-    if (new_value > obj->priv->h_adjustment->upper)
-    new_value = obj->priv->h_adjustment->upper;
+    if (new_value > gtk_adjustment_get_upper (obj->priv->h_adjustment))
+    new_value = gtk_adjustment_get_upper (obj->priv->h_adjustment);
 
-    if (new_value != obj->priv->h_adjustment->value)
+    if (new_value != gtk_adjustment_get_value (obj->priv->h_adjustment))
     {
-        obj->priv->h_adjustment->value = new_value;
+        gtk_adjustment_set_value (obj->priv->h_adjustment, new_value);
         gtk_signal_emit_by_name (GTK_OBJECT (obj->priv->h_adjustment), "value-changed");
     }
 
@@ -728,15 +734,15 @@ static void text_render_h_adjustment_changed (GtkAdjustment *adjustment, gpointe
 
     TextRender *obj = TEXT_RENDER (data);
 
-    if ((obj->priv->old_h_adj_value != adjustment->value) ||
-        (obj->priv->old_h_adj_lower != adjustment->lower) ||
-        (obj->priv->old_h_adj_upper != adjustment->upper))
+    if ((obj->priv->old_h_adj_value != gtk_adjustment_get_value (adjustment)) ||
+        (obj->priv->old_h_adj_lower != gtk_adjustment_get_lower (adjustment)) ||
+        (obj->priv->old_h_adj_upper != gtk_adjustment_get_upper (adjustment)))
     {
         text_render_h_adjustment_update (obj);
 
-        obj->priv->old_h_adj_value = adjustment->value;
-        obj->priv->old_h_adj_lower = adjustment->lower;
-        obj->priv->old_h_adj_upper = adjustment->upper;
+        obj->priv->old_h_adj_value = gtk_adjustment_get_value (adjustment);
+        obj->priv->old_h_adj_lower = gtk_adjustment_get_lower (adjustment);
+        obj->priv->old_h_adj_upper = gtk_adjustment_get_upper (adjustment);
     }
 }
 
@@ -748,10 +754,10 @@ static void text_render_h_adjustment_value_changed (GtkAdjustment *adjustment, g
 
     TextRender *obj = TEXT_RENDER (data);
 
-    if (obj->priv->old_h_adj_value != adjustment->value)
+    if (obj->priv->old_h_adj_value != gtk_adjustment_get_value (adjustment))
     {
         text_render_h_adjustment_update (obj);
-        obj->priv->old_h_adj_value = adjustment->value;
+        obj->priv->old_h_adj_value = gtk_adjustment_get_value (adjustment);
     }
 }
 
@@ -761,13 +767,13 @@ static void text_render_v_adjustment_update (TextRender *obj)
     g_return_if_fail (obj != NULL);
     g_return_if_fail (IS_TEXT_RENDER (obj));
 
-    gfloat new_value = obj->priv->v_adjustment->value;
+    gfloat new_value = gtk_adjustment_get_value (obj->priv->v_adjustment);
 
-    if (new_value < obj->priv->v_adjustment->lower)
-        new_value = obj->priv->v_adjustment->lower;
+    if (new_value < gtk_adjustment_get_lower (obj->priv->v_adjustment))
+        new_value = gtk_adjustment_get_lower (obj->priv->v_adjustment);
 
-    if (new_value > obj->priv->v_adjustment->upper-1)
-        new_value = obj->priv->v_adjustment->upper-1;
+    if (new_value > gtk_adjustment_get_upper (obj->priv->v_adjustment)-1)
+        new_value = gtk_adjustment_get_upper (obj->priv->v_adjustment)-1;
 
     if ((offset_type)new_value==obj->priv->current_offset)
         return;
@@ -775,9 +781,9 @@ static void text_render_v_adjustment_update (TextRender *obj)
     if (obj->priv->dp)
         new_value = gv_align_offset_to_line_start(obj->priv->dp, (offset_type) new_value);
 
-    if (new_value != obj->priv->v_adjustment->value)
+    if (new_value != gtk_adjustment_get_value (obj->priv->v_adjustment))
     {
-        obj->priv->v_adjustment->value = new_value;
+        gtk_adjustment_set_value (obj->priv->v_adjustment, new_value);
         gtk_signal_emit_by_name (GTK_OBJECT (obj->priv->v_adjustment), "value-changed");
     }
 
@@ -794,15 +800,15 @@ static void text_render_v_adjustment_changed (GtkAdjustment *adjustment, gpointe
 
     TextRender *obj = TEXT_RENDER (data);
 
-    if ((obj->priv->old_v_adj_value != adjustment->value) ||
-        (obj->priv->old_v_adj_lower != adjustment->lower) ||
-        (obj->priv->old_v_adj_upper != adjustment->upper))
+    if ((obj->priv->old_v_adj_value != gtk_adjustment_get_value (adjustment)) ||
+        (obj->priv->old_v_adj_lower != gtk_adjustment_get_lower (adjustment)) ||
+        (obj->priv->old_v_adj_upper != gtk_adjustment_get_upper (adjustment)))
     {
         text_render_v_adjustment_update (obj);
 
-        obj->priv->old_v_adj_value = adjustment->value;
-        obj->priv->old_v_adj_lower = adjustment->lower;
-        obj->priv->old_v_adj_upper = adjustment->upper;
+        obj->priv->old_v_adj_value = gtk_adjustment_get_value (adjustment);
+        obj->priv->old_v_adj_lower = gtk_adjustment_get_lower (adjustment);
+        obj->priv->old_v_adj_upper = gtk_adjustment_get_upper (adjustment);
     }
 }
 
@@ -814,10 +820,10 @@ static void text_render_v_adjustment_value_changed (GtkAdjustment *adjustment, g
 
     TextRender *obj = TEXT_RENDER (data);
 
-    if (obj->priv->old_v_adj_value != adjustment->value)
+    if (obj->priv->old_v_adj_value != gtk_adjustment_get_value (adjustment))
     {
         text_render_v_adjustment_update (obj);
-        obj->priv->old_v_adj_value = adjustment->value;
+        obj->priv->old_v_adj_value = gtk_adjustment_get_value (adjustment);
     }
 }
 
@@ -914,21 +920,21 @@ static void text_render_update_adjustments_limits(TextRender *w)
 
     if (w->priv->v_adjustment)
     {
-        w->priv->v_adjustment->lower = 0;
-        w->priv->v_adjustment->upper = gv_file_get_max_offset(w->priv->fops)-1;
+        gtk_adjustment_set_lower (w->priv->v_adjustment, 0);
+        gtk_adjustment_set_upper (w->priv->v_adjustment, gv_file_get_max_offset(w->priv->fops)-1);
         gtk_adjustment_changed (w->priv->v_adjustment);
     }
 
     if (w->priv->h_adjustment)
     {
-        w->priv->h_adjustment->step_increment = 1;
-        w->priv->h_adjustment->page_increment = 5;
-        w->priv->h_adjustment->page_size = w->priv->chars_per_line;
-        w->priv->h_adjustment->lower = 0;
+        gtk_adjustment_set_step_increment (w->priv->h_adjustment, 1);
+        gtk_adjustment_set_page_increment (w->priv->h_adjustment, 5);
+        gtk_adjustment_set_page_size (w->priv->h_adjustment, w->priv->chars_per_line);
+        gtk_adjustment_set_lower (w->priv->h_adjustment, 0);
         if (gv_get_data_presentation_mode(w->priv->dp)==PRSNT_NO_WRAP)
-            w->priv->h_adjustment->upper = w->priv->max_column; // TODO: find our the real horz limit
+            gtk_adjustment_set_upper (w->priv->h_adjustment, w->priv->max_column); // TODO: find our the real horz limit
         else
-            w->priv->h_adjustment->upper = 0;
+            gtk_adjustment_set_upper (w->priv->h_adjustment, 0);
         gtk_adjustment_changed (w->priv->h_adjustment);
     }
 }
@@ -1679,7 +1685,7 @@ static int text_mode_display_line(TextRender *w, int y, int column, offset_type 
         marker_closer(w, marker_shown);
 
     pango_layout_set_markup (w->priv->layout, (gchar *) w->priv->utf8buf, w->priv->utf8buf_length);
-    gdk_draw_layout (GTK_WIDGET (w)->window, w->priv->gc, -(w->priv->char_width*column), y, w->priv->layout);
+    gdk_draw_layout (gtk_widget_get_window (GTK_WIDGET (w)), w->priv->gc, -(w->priv->char_width*column), y, w->priv->layout);
 
     return 0;
 }
@@ -1738,7 +1744,7 @@ static int binary_mode_display_line(TextRender *w, int y, int column, offset_typ
         marker_closer(w, marker_shown);
 
     pango_layout_set_markup (w->priv->layout, (gchar *) w->priv->utf8buf, w->priv->utf8buf_length);
-    gdk_draw_layout (GTK_WIDGET (w)->window, w->priv->gc, -(w->priv->char_width*column), y, w->priv->layout);
+    gdk_draw_layout (gtk_widget_get_window (GTK_WIDGET (w)), w->priv->gc, -(w->priv->char_width*column), y, w->priv->layout);
 
     return 0;
 }
@@ -1916,7 +1922,7 @@ static int hex_mode_display_line(TextRender *w, int y, int column, offset_type s
         marker_closer(w, marker_shown);
 
     pango_layout_set_markup (w->priv->layout, (gchar *) w->priv->utf8buf, w->priv->utf8buf_length);
-    gdk_draw_layout (GTK_WIDGET (w)->window, w->priv->gc, 0, y, w->priv->layout);
+    gdk_draw_layout (gtk_widget_get_window (GTK_WIDGET (w)), w->priv->gc, 0, y, w->priv->layout);
 
     return 0;
 }

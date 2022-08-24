@@ -64,7 +64,7 @@ get_cell_style (GtkCList     *clist,
 {
     gint fg_state;
 
-    if ((state == GTK_STATE_NORMAL) && (GTK_WIDGET (clist)->state == GTK_STATE_INSENSITIVE))
+    if ((state == GTK_STATE_NORMAL) && (gtk_widget_get_state (GTK_WIDGET (clist)) == GTK_STATE_INSENSITIVE))
         fg_state = GTK_STATE_INSENSITIVE;
     else
         fg_state = state;
@@ -100,15 +100,15 @@ get_cell_style (GtkCList     *clist,
         else
         {
             if (style)
-                *style = GTK_WIDGET (clist)->style;
+                *style = gtk_widget_get_style (GTK_WIDGET (clist));
             if (fg_gc)
-                *fg_gc = GTK_WIDGET (clist)->style->fg_gc[fg_state];
+                *fg_gc = gtk_widget_get_style (GTK_WIDGET (clist))->fg_gc[fg_state];
             if (bg_gc)
             {
                 if (state == GTK_STATE_SELECTED)
-                    *bg_gc = GTK_WIDGET (clist)->style->bg_gc[state];
+                    *bg_gc = gtk_widget_get_style (GTK_WIDGET (clist))->bg_gc[state];
                 else
-                    *bg_gc = GTK_WIDGET (clist)->style->base_gc[state];
+                    *bg_gc = gtk_widget_get_style (GTK_WIDGET (clist))->base_gc[state];
             }
 
             if (state != GTK_STATE_SELECTED)
@@ -223,7 +223,7 @@ static void draw_row (GtkCList *clist, GdkRectangle *area, gint row, GtkCListRow
     gint state;
 
     // bail out now if we aren't drawable yet
-    if (!GTK_WIDGET_DRAWABLE (clist) || row < 0 || row >= clist->rows)
+    if (!gtk_widget_is_drawable (GTK_WIDGET (clist)) || row < 0 || row >= clist->rows)
         return;
 
     GtkWidget *widget = GTK_WIDGET (clist);
@@ -267,7 +267,7 @@ static void draw_row (GtkCList *clist, GdkRectangle *area, gint row, GtkCListRow
         rect = &intersect_rectangle;
         if (gdk_rectangle_intersect (area, &cell_rectangle, &intersect_rectangle))
             gdk_draw_rectangle (clist->clist_window,
-                                widget->style->base_gc[GTK_STATE_NORMAL],
+                                gtk_widget_get_style (widget)->base_gc[GTK_STATE_NORMAL],
                                 TRUE,
                                 intersect_rectangle.x,
                                 intersect_rectangle.y,
@@ -281,7 +281,7 @@ static void draw_row (GtkCList *clist, GdkRectangle *area, gint row, GtkCListRow
 
             if (gdk_rectangle_intersect (area, &cell_rectangle, &intersect_rectangle))
                 gdk_draw_rectangle (clist->clist_window,
-                                    widget->style->base_gc[GTK_STATE_NORMAL],
+                                    gtk_widget_get_style (widget)->base_gc[GTK_STATE_NORMAL],
                                     TRUE,
                                     intersect_rectangle.x,
                                     intersect_rectangle.y,
@@ -297,7 +297,7 @@ static void draw_row (GtkCList *clist, GdkRectangle *area, gint row, GtkCListRow
     {
         rect = &clip_rectangle;
         gdk_draw_rectangle (clist->clist_window,
-                            widget->style->base_gc[GTK_STATE_NORMAL],
+                            gtk_widget_get_style (widget)->base_gc[GTK_STATE_NORMAL],
                             TRUE,
                             cell_rectangle.x,
                             cell_rectangle.y,
@@ -310,7 +310,7 @@ static void draw_row (GtkCList *clist, GdkRectangle *area, gint row, GtkCListRow
             cell_rectangle.y += clist->row_height + CELL_SPACING;
 
             gdk_draw_rectangle (clist->clist_window,
-                                widget->style->base_gc[GTK_STATE_NORMAL],
+                                gtk_widget_get_style (widget)->base_gc[GTK_STATE_NORMAL],
                                 TRUE,
                                 cell_rectangle.x,
                                 cell_rectangle.y,
@@ -503,7 +503,7 @@ static void on_realize (GtkCList *clist, gpointer data)
 {
     for (gint i=0; i<clist->columns; i++)
         if (clist->column[i].button)
-            GTK_WIDGET_UNSET_FLAGS (clist->column[i].button, GTK_CAN_FOCUS);
+            gtk_widget_set_can_focus (clist->column[i].button, FALSE);
 
     if (GTK_CLIST (clist)->hadjustment)
         g_signal_connect_after (GTK_CLIST(clist)->hadjustment, "value-changed", GTK_SIGNAL_FUNC (on_hadj_value_changed), clist);
@@ -609,7 +609,7 @@ gint gnome_cmd_clist_get_voffset (GnomeCmdCList *clist)
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wcast-align"
 #endif
-    return GTK_ADJUSTMENT(GTK_CLIST(clist)->vadjustment)->value;
+    return gtk_adjustment_get_value (GTK_ADJUSTMENT(GTK_CLIST(clist)->vadjustment));
 #if defined (__GNUC__)
 #pragma GCC diagnostic pop
 #endif

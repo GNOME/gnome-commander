@@ -1,4 +1,4 @@
-/** 
+/**
  * @file gnome-cmd-rename-dialog.cc
  * @copyright (C) 2001-2006 Marcus Bjurman\n
  * @copyright (C) 2007-2012 Piotr Eljasiak\n
@@ -45,8 +45,8 @@ static gboolean on_dialog_keypressed (GtkWidget *widget, GdkEventKey *event, gpo
 {
     GnomeCmdRenameDialog *dialog = GNOME_CMD_RENAME_DIALOG(widget);
 
-    if (dialog->priv->textbox->editable && event->type == GDK_KEY_PRESS)
-        if (gtk_im_context_filter_keypress (dialog->priv->textbox->im_context, event))
+    if (event->type == GDK_KEY_PRESS && gtk_editable_get_editable (GTK_EDITABLE (dialog->priv->textbox)))
+        if (gtk_entry_im_context_filter_keypress (dialog->priv->textbox, event))
             return TRUE;
 
     switch (event->keyval)

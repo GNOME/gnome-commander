@@ -587,7 +587,7 @@ void set_cursor_busy_for_widget (GtkWidget *widget)
     if (!cursor_busy)
         cursor_busy = gdk_cursor_new (GDK_WATCH);
 
-    gdk_window_set_cursor (widget->window, cursor_busy);
+    gdk_window_set_cursor (gtk_widget_get_window (widget), cursor_busy);
 
     while (gtk_events_pending ())
         gtk_main_iteration();

@@ -389,8 +389,8 @@ void gviewer_window_load_settings(GViewerWindow *gViewerWindow, GViewerWindowSet
 
 #if 0
     // This doesn't work because the window is not shown yet
-    if (GTK_WIDGET (obj)->window)
-        gdk_window_move (GTK_WIDGET (obj)->window, settings->rect.x, settings->rect.y);
+    if (gtk_widget_get_window (GTK_WIDGET (obj)))
+        gdk_window_move (gtk_widget_get_window (GTK_WIDGET (obj)), settings->rect.x, settings->rect.y);
 #endif
     gtk_window_set_position (GTK_WINDOW (gViewerWindow), GTK_WIN_POS_CENTER);
 }
@@ -404,11 +404,14 @@ void gviewer_window_get_current_settings(GViewerWindow *obj, /* out */ GViewerWi
 
     memset(settings, 0, sizeof(GViewerWindowSettings));
 
-    if (GTK_WIDGET (obj)->window)
+    if (gtk_widget_get_window (GTK_WIDGET (obj)))
     {
-        settings->rect.width = GTK_WIDGET (obj)->allocation.width;
-        settings->rect.height = GTK_WIDGET (obj)->allocation.height;
-        gdk_window_get_position(GTK_WIDGET (obj)->window, &settings->rect.x, &settings->rect.y);
+        GtkAllocation obj_allocation;
+        gtk_widget_get_allocation (GTK_WIDGET (obj), &obj_allocation);
+
+        settings->rect.width = obj_allocation.width;
+        settings->rect.height = obj_allocation.height;
+        gdk_window_get_position(gtk_widget_get_window (GTK_WIDGET (obj)), &settings->rect.x, &settings->rect.y);
     }
     else
     {
@@ -1351,7 +1354,7 @@ GtkWidget *create_view ()
     GtkTreeViewColumn *col = nullptr;
 
     col = gnome_cmd_treeview_create_new_text_column (GTK_TREE_VIEW (view), renderer, COL_TYPE, _("Type"));
-    gtk_widget_set_tooltip_text (col->button, _("Metadata namespace"));
+    gtk_widget_set_tooltip_text (gtk_tree_view_column_get_button (col), _("Metadata namespace"));
 
     g_object_set (renderer,
                   "weight-set", TRUE,
@@ -1359,13 +1362,13 @@ GtkWidget *create_view ()
                   nullptr);
 
     col = gnome_cmd_treeview_create_new_text_column (GTK_TREE_VIEW (view), COL_NAME, _("Name"));
-    gtk_widget_set_tooltip_text (col->button, _("Tag name"));
+    gtk_widget_set_tooltip_text (gtk_tree_view_column_get_button (col), _("Tag name"));
 
     col = gnome_cmd_treeview_create_new_text_column (GTK_TREE_VIEW (view), COL_VALUE, _("Value"));
-    gtk_widget_set_tooltip_text (col->button, _("Tag value"));
+    gtk_widget_set_tooltip_text (gtk_tree_view_column_get_button (col), _("Tag value"));
 
     col = gnome_cmd_treeview_create_new_text_column (GTK_TREE_VIEW (view), renderer, COL_DESC, _("Description"));
-    gtk_widget_set_tooltip_text (col->button, _("Metadata tag description"));
+    gtk_widget_set_tooltip_text (gtk_tree_view_column_get_button (col), _("Metadata tag description"));
 
     g_object_set (renderer,
                   "foreground-set", TRUE,

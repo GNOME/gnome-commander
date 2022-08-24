@@ -383,7 +383,7 @@ static void on_add_to_archive (GtkMenuItem *item, FileRollerPlugin *plugin)
         hbox = gtk_hbox_new (FALSE, 6);
         g_object_ref (hbox);
         gtk_widget_show (hbox);
-        gtk_box_pack_start (GTK_BOX (GTK_DIALOG (dialog)->vbox), hbox, FALSE, TRUE, 6);
+        gtk_box_pack_start (GTK_BOX (gtk_dialog_get_content_area (GTK_DIALOG (dialog))), hbox, FALSE, TRUE, 6);
 
         entry = gtk_entry_new ();
         g_object_ref (entry);
@@ -415,7 +415,7 @@ static void on_add_to_archive (GtkMenuItem *item, FileRollerPlugin *plugin)
 
 
         pixbuf = gdk_pixbuf_new_from_xpm_data ((const char**)file_roller_xpm);
-        gtk_image_set_from_pixbuf (GTK_IMAGE (GTK_MESSAGE_DIALOG (dialog)->image), pixbuf);
+        gtk_image_set_from_pixbuf (GTK_IMAGE (gtk_message_dialog_get_image (GTK_MESSAGE_DIALOG (dialog))), pixbuf);
         g_object_unref (pixbuf);
 
         ret = gtk_dialog_run (GTK_DIALOG (dialog));

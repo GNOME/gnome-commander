@@ -2395,7 +2395,7 @@ void GnomeCmdFileList::sort()
         add_file_to_clist (this, GNOME_CMD_FILE (list->data), -1);
 
     // refocus the previously selected file if this file list has the focus
-    if (selfile && GTK_WIDGET_HAS_FOCUS (this))
+    if (selfile && gtk_widget_has_focus (GTK_WIDGET (this)))
     {
         gint selrow = get_row_from_file(selfile);
         select_row(selrow);
@@ -3075,7 +3075,7 @@ static gboolean do_scroll (GnomeCmdFileList *fl)
     gint row_count;
     GtkCList *clist = *fl;
 
-    gdk_drawable_get_size (GTK_WIDGET (clist)->window, &w, &h);
+    gdk_drawable_get_size (gtk_widget_get_window (GTK_WIDGET (clist)), &w, &h);
 
     row_count = clist->rows;
     focus_row = gnome_cmd_clist_get_row (*fl, 1, fl->priv->autoscroll_y);
@@ -3107,7 +3107,7 @@ static void autoscroll_if_appropriate (GnomeCmdFileList *fl, gint x, gint y)
     GtkCList *clist = *fl;
     gint w, h;
 
-    gdk_drawable_get_size (GTK_WIDGET (clist)->window, &w, &h);
+    gdk_drawable_get_size (gtk_widget_get_window (GTK_WIDGET (clist)), &w, &h);
 
     gint smin = h/8;
     gint smax = h-smin;
@@ -3152,7 +3152,7 @@ static void drag_data_get (GtkWidget *widget, GdkDragContext *context, GtkSelect
     {
         case TARGET_URI_LIST:
         case TARGET_TEXT_PLAIN:
-            gtk_selection_data_set (selection_data, selection_data->target, 8, (const guchar *) data, len);
+            gtk_selection_data_set (selection_data, gtk_selection_data_get_target (selection_data), 8, (const guchar *) data, len);
             break;
 
         case TARGET_URL:
@@ -3163,7 +3163,7 @@ static void drag_data_get (GtkWidget *widget, GdkDragContext *context, GtkSelect
                 files = g_list_append(files, gFile);
             }
             if (files)
-                gtk_selection_data_set (selection_data, selection_data->target, 8, (const guchar *) files->data, strlen ((const char *) files->data));
+                gtk_selection_data_set (selection_data, gtk_selection_data_get_target (selection_data), 8, (const guchar *) files->data, strlen ((const char *) files->data));
             g_list_foreach (files, (GFunc) g_object_unref, nullptr);
             g_strfreev(uriCharList);
             break;
@@ -3207,7 +3207,7 @@ static void drag_data_received (GtkWidget *widget, GdkDragContext *context,
     GtkCList *clist = *fl;
 
     // find the row that the file was dropped on
-    y -= clist->column_title_area.height - GTK_CONTAINER (clist)->border_width;
+    y -= clist->column_title_area.height - gtk_container_get_border_width (GTK_CONTAINER (clist));
     if (y < 0) return;
 
     GnomeCmdFile *f = fl->get_file_at_row (gnome_cmd_clist_get_row (*fl, x, y));
@@ -3221,7 +3221,7 @@ static void drag_data_received (GtkWidget *widget, GdkDragContext *context,
             : gnome_cmd_dir_get_child (to, g_file_info_get_display_name(f->gFileInfo));
 
     // transform the drag data to a list with GFiles
-    GList *gFileGlist = uri_strings_to_gfiles ((gchar *) selection_data->data);
+    GList *gFileGlist = uri_strings_to_gfiles ((gchar *) gtk_selection_data_get_data (selection_data));
 
     GdkModifierType mask;
 
@@ -3255,7 +3255,7 @@ static void drag_data_received (GtkWidget *widget, GdkDragContext *context,
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wswitch-enum"
 #endif
-    switch (context->action)
+    switch (gdk_drag_context_get_selected_action (context))
     {
         case GDK_ACTION_MOVE:
             fl->drop_files(GnomeCmdFileList::DndMode::MOVE, G_FILE_COPY_NONE, gFileGlist, to);
@@ -3299,11 +3299,11 @@ static void drag_leave (GtkWidget *widget, GdkDragContext *context, guint time, 
 
 static gboolean drag_motion (GtkWidget *widget, GdkDragContext *context, gint x, gint y, guint time, GnomeCmdFileList *fl)
 {
-    gdk_drag_status (context, context->suggested_action, time);
+    gdk_drag_status (context, gdk_drag_context_get_suggested_action (context), time);
 
     GtkCList *clist = *fl;
 
-    y -= (clist->column_title_area.height - GTK_CONTAINER (clist)->border_width);
+    y -= (clist->column_title_area.height - gtk_container_get_border_width (GTK_CONTAINER (clist)));
 
     gint row = gnome_cmd_clist_get_row (*fl, x, y);
 

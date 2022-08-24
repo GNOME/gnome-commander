@@ -508,7 +508,7 @@ GtkType gnome_cmd_main_menu_get_type ()
 
 static void add_connection (GnomeCmdMainMenu *main_menu, GnomeCmdCon *con, const gchar *text, GnomeCmdPixmap *pixmap, GtkSignalFunc func)
 {
-    GtkMenuShell *connections_menu = GTK_MENU_SHELL (GTK_MENU_ITEM (main_menu->priv->connections_menu)->submenu);
+    GtkMenuShell *connections_menu = GTK_MENU_SHELL (gtk_menu_item_get_submenu (GTK_MENU_ITEM (main_menu->priv->connections_menu)));
     GtkWidget *item;
 
     item = add_menu_item (main_menu, connections_menu, text, nullptr, pixmap?pixmap->pixmap:nullptr, pixmap?pixmap->mask:nullptr, func, con);
@@ -521,7 +521,7 @@ void gnome_cmd_main_menu_update_connections (GnomeCmdMainMenu *main_menu)
 {
     g_return_if_fail (GNOME_CMD_IS_MAIN_MENU (main_menu));
 
-    GtkMenuShell *connections_menu = GTK_MENU_SHELL (GTK_MENU_ITEM (main_menu->priv->connections_menu)->submenu);
+    GtkMenuShell *connections_menu = GTK_MENU_SHELL (gtk_menu_item_get_submenu (GTK_MENU_ITEM (main_menu->priv->connections_menu)));
     GnomeCmdConList *con_list = gnome_cmd_con_list_get ();
     GList *all_cons = gnome_cmd_con_list_get_all (con_list);
     // GList *remote_cons = gnome_cmd_con_list_get_all_remote (con_list);
@@ -597,7 +597,7 @@ void gnome_cmd_main_menu_update_bookmarks (GnomeCmdMainMenu *main_menu)
     {
         GnomeCmdCon *con = GNOME_CMD_CON (cons->data);
         GnomeCmdBookmarkGroup *group = gnome_cmd_con_get_bookmarks (con);
-        GtkMenuShell *bookmarks_menu = GTK_MENU_SHELL (GTK_MENU_ITEM (main_menu->priv->bookmarks_menu)->submenu);
+        GtkMenuShell *bookmarks_menu = GTK_MENU_SHELL (gtk_menu_item_get_submenu (GTK_MENU_ITEM (main_menu->priv->bookmarks_menu)));
         if (group && group->bookmarks)
         {
             // separator
@@ -631,7 +631,7 @@ static void on_plugin_menu_activate (GtkMenuItem *item, PluginData *data)
 
 void gnome_cmd_main_menu_add_plugin_menu (GnomeCmdMainMenu *main_menu, PluginData *pluginData)
 {
-    gtk_menu_shell_append (GTK_MENU_SHELL (GTK_MENU_ITEM (main_menu->priv->plugins_menu)->submenu), pluginData->menu);
+    gtk_menu_shell_append (GTK_MENU_SHELL (gtk_menu_item_get_submenu (GTK_MENU_ITEM (main_menu->priv->plugins_menu))), pluginData->menu);
 
     g_signal_connect (pluginData->menu, "activate", G_CALLBACK (on_plugin_menu_activate), pluginData);
 }

@@ -1,4 +1,4 @@
-/** 
+/**
  * @file gnome-cmd-advrename-profile-component.cc
  * @copyright (C) 2001-2006 Marcus Bjurman\n
  * @copyright (C) 2007-2012 Piotr Eljasiak\n
@@ -565,7 +565,7 @@ void GnomeCmdAdvrenameProfileComponent::Private::insert_text_tag(GnomeCmdAdvrena
                                          "%M",          // 25
                                          "%S",          // 26
                                          "$c(a)"};      // 27
-    
+
     g_return_if_fail (n < G_N_ELEMENTS(placeholder));
 
     priv->insert_tag(placeholder[n]);
@@ -600,15 +600,15 @@ gchar *GnomeCmdAdvrenameProfileComponent::Private::get_selected_range (GtkWindow
 
     // HIG defaults
     gtk_container_set_border_width (GTK_CONTAINER (dialog), 5);
-    gtk_box_set_spacing (GTK_BOX (GTK_DIALOG (dialog)->vbox), 2);
-    gtk_container_set_border_width (GTK_CONTAINER (GTK_DIALOG (dialog)->action_area), 5);
-    gtk_box_set_spacing (GTK_BOX (GTK_DIALOG (dialog)->action_area),6);
+    gtk_box_set_spacing (GTK_BOX (gtk_dialog_get_content_area (GTK_DIALOG (dialog))), 2);
+    gtk_container_set_border_width (GTK_CONTAINER (gtk_dialog_get_action_area (GTK_DIALOG (dialog))), 5);
+    gtk_box_set_spacing (GTK_BOX (gtk_dialog_get_action_area (GTK_DIALOG (dialog))),6);
 
     GtkWidget *hbox, *label, *entry, *option;
 
     hbox = gtk_hbox_new (FALSE, 12);
     gtk_container_set_border_width (GTK_CONTAINER (hbox), 6);
-    gtk_box_pack_start (GTK_BOX (GTK_DIALOG (dialog)->vbox), hbox, FALSE, FALSE, 0);
+    gtk_box_pack_start (GTK_BOX (gtk_dialog_get_content_area (GTK_DIALOG (dialog))), hbox, FALSE, FALSE, 0);
 
     label = gtk_label_new_with_mnemonic (_("_Select range:"));
     gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, FALSE, 0);
@@ -622,9 +622,9 @@ gchar *GnomeCmdAdvrenameProfileComponent::Private::get_selected_range (GtkWindow
 
     option = gtk_check_button_new_with_mnemonic (_("_Inverse selection"));
     g_object_set_data (G_OBJECT (dialog), "inverse", option);
-    gtk_box_pack_start (GTK_BOX (GTK_DIALOG (dialog)->vbox), option, FALSE, FALSE, 0);
+    gtk_box_pack_start (GTK_BOX (gtk_dialog_get_content_area (GTK_DIALOG (dialog))), option, FALSE, FALSE, 0);
 
-    gtk_widget_show_all (GTK_DIALOG (dialog)->vbox);
+    gtk_widget_show_all (gtk_dialog_get_content_area (GTK_DIALOG (dialog)));
 
     gtk_dialog_set_default_response (GTK_DIALOG (dialog), GTK_RESPONSE_OK);
 
@@ -1258,17 +1258,17 @@ inline GtkWidget *create_regex_view ()
     col = gnome_cmd_treeview_create_new_text_column (GTK_TREE_VIEW (view), renderer, GnomeCmdAdvrenameProfileComponent::COL_PATTERN, _("Search for"));
     g_object_set (renderer, "foreground", "red", NULL);
     gtk_tree_view_column_add_attribute (col, renderer, "foreground-set", GnomeCmdAdvrenameProfileComponent::COL_MALFORMED_REGEX);
-    gtk_widget_set_tooltip_text (col->button, _("Regex pattern"));
+    gtk_widget_set_tooltip_text (gtk_tree_view_column_get_button (col), _("Regex pattern"));
 
     col = gnome_cmd_treeview_create_new_text_column (GTK_TREE_VIEW (view), renderer, GnomeCmdAdvrenameProfileComponent::COL_REPLACE, _("Replace with"));
     g_object_set (renderer, "foreground", "red", NULL);
     gtk_tree_view_column_add_attribute (col, renderer, "foreground-set", GnomeCmdAdvrenameProfileComponent::COL_MALFORMED_REGEX);
-    gtk_widget_set_tooltip_text (col->button, _("Replacement"));
+    gtk_widget_set_tooltip_text (gtk_tree_view_column_get_button (col), _("Replacement"));
 
     col = gnome_cmd_treeview_create_new_text_column (GTK_TREE_VIEW (view), renderer, GnomeCmdAdvrenameProfileComponent::COL_MATCH_CASE, _("Match case"));
     g_object_set (renderer, "foreground", "red", NULL);
     gtk_tree_view_column_add_attribute (col, renderer, "foreground-set", GnomeCmdAdvrenameProfileComponent::COL_MALFORMED_REGEX);
-    gtk_widget_set_tooltip_text (col->button, _("Case sensitive matching"));
+    gtk_widget_set_tooltip_text (gtk_tree_view_column_get_button (col), _("Case sensitive matching"));
 
     g_object_set (renderer,
                   "xalign", 0.0,

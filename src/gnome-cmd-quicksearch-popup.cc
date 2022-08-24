@@ -134,8 +134,8 @@ static void on_text_changed (GtkEntry *entry, GnomeCmdQuicksearchPopup *popup)
 
 static gboolean on_key_pressed (GtkWidget *entry, GdkEventKey *event, GnomeCmdQuicksearchPopup *popup)
 {
-    if (GTK_ENTRY (entry)->editable && event->type == GDK_KEY_PRESS)
-        if (gtk_im_context_filter_keypress (GTK_ENTRY (entry)->im_context, event))
+    if (event->type == GDK_KEY_PRESS && gtk_editable_get_editable (GTK_EDITABLE (entry)))
+        if (gtk_entry_im_context_filter_keypress (GTK_ENTRY (entry), event))
             return TRUE;
 
     // While in quicksearch, treat "ALT/CTRL + key" as a simple "key"
@@ -226,8 +226,8 @@ inline void set_popup_position (GnomeCmdQuicksearchPopup *popup)
 
     gint x, y, w, h;
 
-    gdk_window_get_origin (wid->window, &x, &y);
-    gdk_drawable_get_size (wid->window, &w, &h);
+    gdk_window_get_origin (gtk_widget_get_window (wid), &x, &y);
+    gdk_drawable_get_size (gtk_widget_get_window (wid), &w, &h);
 
     y += h;
 
@@ -332,7 +332,7 @@ GtkWidget *gnome_cmd_quicksearch_popup_new (GnomeCmdFileList *fl)
     GnomeCmdQuicksearchPopup *popup;
 
     popup = static_cast<GnomeCmdQuicksearchPopup*> (g_object_new (GNOME_CMD_TYPE_QUICKSEARCH_POPUP, nullptr));
-    GTK_WINDOW (popup)->type = GTK_WINDOW_POPUP;
+    g_object_set (GTK_WINDOW (popup), "type", GTK_WINDOW_POPUP, NULL);
     popup->priv->fl = fl;
     popup->priv->last_focused_file = nullptr;
     set_popup_position (popup);

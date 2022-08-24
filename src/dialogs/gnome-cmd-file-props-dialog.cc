@@ -592,7 +592,7 @@ static GtkWidget *create_view_and_model (GnomeCmdFile *f)
     GtkTreeViewColumn *col = nullptr;
 
     col = gnome_cmd_treeview_create_new_text_column (GTK_TREE_VIEW (view), renderer, COL_TYPE, _("Type"));
-    gtk_widget_set_tooltip_text (col->button, _("Metadata namespace"));
+    gtk_widget_set_tooltip_text (gtk_tree_view_column_get_button (col), _("Metadata namespace"));
 
     g_object_set (renderer,
                   "weight-set", TRUE,
@@ -600,13 +600,13 @@ static GtkWidget *create_view_and_model (GnomeCmdFile *f)
                   nullptr);
 
     col = gnome_cmd_treeview_create_new_text_column (GTK_TREE_VIEW (view), COL_NAME, _("Name"));
-    gtk_widget_set_tooltip_text (col->button, _("Tag name"));
+    gtk_widget_set_tooltip_text (gtk_tree_view_column_get_button (col), _("Tag name"));
 
     col = gnome_cmd_treeview_create_new_text_column (GTK_TREE_VIEW (view), COL_VALUE, _("Value"));
-    gtk_widget_set_tooltip_text (col->button, _("Tag value"));
+    gtk_widget_set_tooltip_text (gtk_tree_view_column_get_button (col), _("Tag value"));
 
     col = gnome_cmd_treeview_create_new_text_column (GTK_TREE_VIEW (view), renderer, COL_DESC, _("Description"));
-    gtk_widget_set_tooltip_text (col->button, _("Metadata tag description"));
+    gtk_widget_set_tooltip_text (gtk_tree_view_column_get_button (col), _("Metadata tag description"));
 
     g_object_set (renderer,
                   "foreground-set", TRUE,

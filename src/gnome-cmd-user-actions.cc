@@ -902,7 +902,7 @@ void file_advrename (GtkMenuItem *menuitem, gpointer not_used)
         {
             main_win->advrename_dlg->set(files);
             gtk_widget_show (*main_win->advrename_dlg);
-            // gdk_window_raise (GTK_WIDGET (main_win->advrename_dlg)->window);     //  FIXME:  bring dlg to top ???
+            // gdk_window_raise (gtk_widget_get_window (GTK_WIDGET (main_win->advrename_dlg)));     //  FIXME:  bring dlg to top ???
         }
 
         g_list_free (files);
@@ -1070,7 +1070,7 @@ void file_exit (GtkMenuItem *menuitem, gpointer not_used)
             break;
 
         default:
-            gdk_window_get_root_origin (GTK_WIDGET (main_win)->window, &x, &y);
+            gdk_window_get_root_origin (gtk_widget_get_window (GTK_WIDGET (main_win)), &x, &y);
             gnome_cmd_data_set_main_win_pos (x, y);
             break;
     }
@@ -1187,7 +1187,7 @@ void command_execute (GtkMenuItem *menuitem, gpointer command)
 	gint argc;
 	gchar **argv;
 	GError *error = nullptr;
-	
+
 	DEBUG ('g', "Running: %s\n", cmd.c_str());
 
 	g_shell_parse_argv (cmd.c_str(), &argc, &argv, nullptr);
@@ -1212,7 +1212,7 @@ void command_open_terminal__internal (GtkMenuItem *menuitem, gpointer not_used) 
         command_open_terminal (menuitem, nullptr);
 }
 
-/** 
+/**
  * Executes the command stored in gnome_cmd_data.options.termopen in the
  * active directory.
  */
@@ -1238,14 +1238,14 @@ void command_open_terminal (GtkMenuItem *menuitem, gpointer not_used)
     g_free (dpath);
 }
 
-/** 
+/**
  * Combines the command stored in gnome_cmd_data.options.termopen with a
  * command for a GUI for root login screen. The command is executed in
  * the active directory afterwards.
  */
 void command_open_terminal_as_root (GtkMenuItem *menuitem, gpointer not_used)
 {
-    
+
     int argc = 1;
     char **argv = g_new0 (char *, argc+1);  //initialize argv
     gchar *command;
@@ -1479,7 +1479,7 @@ void mark_compare_directories (GtkMenuItem *menuitem, gpointer not_used)
 
 void view_conbuttons (GtkToggleAction *toggleAction, gpointer not_used)
 {
-    if (!GTK_WIDGET_REALIZED (main_win)) return;
+    if (!gtk_widget_get_realized ( GTK_WIDGET (main_win))) return;
 
     auto active = gtk_toggle_action_get_active(toggleAction);
     g_settings_set_boolean (gcmd_user_actions.settings->general, GCMD_SETTINGS_SHOW_DEVBUTTONS, active);
@@ -1488,7 +1488,7 @@ void view_conbuttons (GtkToggleAction *toggleAction, gpointer not_used)
 
 void view_devlist (GtkToggleAction *toggleAction, gpointer not_used)
 {
-    if (!GTK_WIDGET_REALIZED (main_win)) return;
+    if (!gtk_widget_get_realized ( GTK_WIDGET (main_win))) return;
 
     auto active = gtk_toggle_action_get_active(toggleAction);
     g_settings_set_boolean (gcmd_user_actions.settings->general, GCMD_SETTINGS_SHOW_DEVLIST, active);
@@ -1497,7 +1497,7 @@ void view_devlist (GtkToggleAction *toggleAction, gpointer not_used)
 
 void view_toolbar (GtkToggleAction *toggleAction, gpointer not_used)
 {
-    if (!GTK_WIDGET_REALIZED (main_win)) return;
+    if (!gtk_widget_get_realized ( GTK_WIDGET (main_win))) return;
 
     auto active = gtk_toggle_action_get_active(toggleAction);
     g_settings_set_boolean (gcmd_user_actions.settings->general, GCMD_SETTINGS_SHOW_TOOLBAR, active);
@@ -1506,7 +1506,7 @@ void view_toolbar (GtkToggleAction *toggleAction, gpointer not_used)
 
 void view_buttonbar (GtkToggleAction *toggleAction, gpointer not_used)
 {
-    if (!GTK_WIDGET_REALIZED (main_win)) return;
+    if (!gtk_widget_get_realized ( GTK_WIDGET (main_win))) return;
 
     auto active = gtk_toggle_action_get_active(toggleAction);
     g_settings_set_boolean (gcmd_user_actions.settings->general, GCMD_SETTINGS_SHOW_BUTTONBAR, active);
@@ -1515,7 +1515,7 @@ void view_buttonbar (GtkToggleAction *toggleAction, gpointer not_used)
 
 void view_cmdline (GtkToggleAction *toggleAction, gpointer not_used)
 {
-    if (!GTK_WIDGET_REALIZED (main_win)) return;
+    if (!gtk_widget_get_realized ( GTK_WIDGET (main_win))) return;
 
     auto active = gtk_toggle_action_get_active(toggleAction);
     g_settings_set_boolean (gcmd_user_actions.settings->general, GCMD_SETTINGS_SHOW_CMDLINE, active);
@@ -1530,7 +1530,7 @@ void view_dir_history (GtkMenuItem *menuitem, gpointer not_used)
 
 void view_hidden_files (GtkToggleAction *toggleAction, gpointer not_used)
 {
-    if (!GTK_WIDGET_REALIZED (main_win)) return;
+    if (!gtk_widget_get_realized ( GTK_WIDGET (main_win))) return;
 
     auto active = gtk_toggle_action_get_active(toggleAction);
     g_settings_set_boolean (gcmd_user_actions.settings->filter, GCMD_SETTINGS_FILTER_HIDE_HIDDEN, !active);
@@ -1539,7 +1539,7 @@ void view_hidden_files (GtkToggleAction *toggleAction, gpointer not_used)
 
 void view_backup_files (GtkToggleAction *toggleAction, gpointer not_used)
 {
-    if (!GTK_WIDGET_REALIZED (main_win)) return;
+    if (!gtk_widget_get_realized ( GTK_WIDGET (main_win))) return;
 
     auto active = gtk_toggle_action_get_active(toggleAction);
     g_settings_set_boolean (gcmd_user_actions.settings->filter, GCMD_SETTINGS_FILTER_HIDE_BACKUPS, !active);
@@ -1548,7 +1548,7 @@ void view_backup_files (GtkToggleAction *toggleAction, gpointer not_used)
 
 void view_horizontal_orientation (GtkToggleAction *toggleAction, gpointer not_used)
 {
-    if (!GTK_WIDGET_REALIZED (main_win)) return;
+    if (!gtk_widget_get_realized ( GTK_WIDGET (main_win))) return;
 
     auto active = gtk_toggle_action_get_active(toggleAction);
     g_settings_set_boolean (gcmd_user_actions.settings->general, GCMD_SETTINGS_HORIZONTAL_ORIENTATION, active);
@@ -1583,7 +1583,7 @@ void view_up (GtkMenuItem *menuitem, gpointer not_used)
 
 void view_main_menu (GtkMenuItem *menuitem, gpointer not_used)
 {
-    if (!GTK_WIDGET_REALIZED (main_win)) return;
+    if (!gtk_widget_get_realized ( GTK_WIDGET (main_win))) return;
 
     gboolean mainmenu_visibility;
     mainmenu_visibility = g_settings_get_boolean (gcmd_user_actions.settings->general, GCMD_SETTINGS_MAINMENU_VISIBILITY);
@@ -2077,7 +2077,7 @@ void help_about (GtkMenuItem *menuitem, gpointer not_used)
     g_free (license_trans);
 }
 
-/** 
+/**
  * Parses a command, stored in a char array, and substitutes a certain
  * symbol with path or URI names. The result is stored in a string
  * variable, which is expanded if needed. Possible symbols are:

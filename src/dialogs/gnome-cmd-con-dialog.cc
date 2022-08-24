@@ -125,22 +125,22 @@ void GnomeCmdConnectDialog::Private::setup_for_type()
 {
     gint type = gtk_combo_box_get_active (GTK_COMBO_BOX (type_combo));
 
-    if (alias_entry->parent)
+    if (gtk_widget_get_parent (alias_entry))
         gtk_container_remove (GTK_CONTAINER (required_table), alias_entry);
 
-    if (uri_entry->parent)
+    if (gtk_widget_get_parent (uri_entry))
         gtk_container_remove (GTK_CONTAINER (required_table), uri_entry);
 
-    if (server_entry->parent)
+    if (gtk_widget_get_parent (server_entry))
         gtk_container_remove (GTK_CONTAINER (required_table), server_entry);
 
-    if (port_entry->parent)
+    if (gtk_widget_get_parent (port_entry))
         gtk_container_remove (GTK_CONTAINER (optional_table), port_entry);
 
-    if (folder_entry->parent)
+    if (gtk_widget_get_parent (folder_entry))
         gtk_container_remove (GTK_CONTAINER (optional_table), folder_entry);
 
-    if (domain_entry->parent)
+    if (gtk_widget_get_parent (domain_entry))
         gtk_container_remove (GTK_CONTAINER (optional_table), domain_entry);
 
     // Destroy all labels
@@ -250,19 +250,19 @@ gboolean GnomeCmdConnectDialog::verify_uri()
     string folder;
     string domain;
 
-    if (priv->uri_entry->parent)
+    if (gtk_widget_get_parent (priv->uri_entry))
         stringify (uri, gtk_editable_get_chars (GTK_EDITABLE (priv->uri_entry), 0, -1));
 
-    if (priv->server_entry->parent)
+    if (gtk_widget_get_parent (priv->server_entry))
         stringify (server, gtk_editable_get_chars (GTK_EDITABLE (priv->server_entry), 0, -1));
 
-    if (priv->port_entry->parent)
+    if (gtk_widget_get_parent (priv->port_entry))
         stringify (port, gtk_editable_get_chars (GTK_EDITABLE (priv->port_entry), 0, -1));
 
-    if (priv->folder_entry->parent)
+    if (gtk_widget_get_parent (priv->folder_entry))
         stringify (folder, gtk_editable_get_chars (GTK_EDITABLE (priv->folder_entry), 0, -1));
 
-    if (priv->domain_entry->parent)
+    if (gtk_widget_get_parent (priv->domain_entry))
         stringify (domain, gtk_editable_get_chars (GTK_EDITABLE (priv->domain_entry), 0, -1));
 
     int type = gtk_combo_box_get_active (GTK_COMBO_BOX (priv->type_combo));
@@ -380,12 +380,12 @@ static void gnome_cmd_connect_dialog_init (GnomeCmdConnectDialog *dialog)
     gtk_window_set_title (*dialog, _("Remote Server"));
     gtk_dialog_set_has_separator (*dialog, FALSE);
     gtk_container_set_border_width (GTK_CONTAINER (dialog), 5);
-    gtk_box_set_spacing (GTK_BOX (GTK_DIALOG (dialog)->vbox), 2);
+    gtk_box_set_spacing (GTK_BOX (gtk_dialog_get_content_area (GTK_DIALOG (dialog))), 2);
     gtk_window_set_resizable (*dialog, FALSE);
 
     vbox = gtk_vbox_new (FALSE, 6);
     gtk_container_set_border_width (GTK_CONTAINER (vbox), 5);
-    gtk_box_pack_start (GTK_BOX (GTK_DIALOG (dialog)->vbox), vbox, FALSE, TRUE, 0);
+    gtk_box_pack_start (GTK_BOX (gtk_dialog_get_content_area (GTK_DIALOG (dialog))), vbox, FALSE, TRUE, 0);
     gtk_widget_show (vbox);
 
     hbox = gtk_hbox_new (FALSE, 6);
