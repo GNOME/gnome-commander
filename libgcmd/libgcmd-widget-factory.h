@@ -113,9 +113,9 @@ GtkWidget *create_directory_chooser_button (GtkWidget *parent, const gchar *name
 
 GtkWidget *create_file_chooser_button (GtkWidget *parent, const gchar *name, const gchar *value);
 
-GtkWidget *create_clist (GtkWidget *parent, const gchar *name, gint cols, gint rowh, GtkSignalFunc on_row_selected, GtkSignalFunc on_row_moved);
+GtkWidget *create_treeview (GtkWidget *parent, const gchar *name, GtkTreeModel *model, gint rowh, GtkSignalFunc on_selection_changed, GtkSignalFunc on_rows_reordered);
 
-void create_clist_column (GtkWidget *sw, gint col, gint width, const gchar *label);
+void create_treeview_column (GtkWidget *sw, gint col, gint width, const gchar *label);
 
 GtkWidget *create_vbuttonbox (GtkWidget *parent);
 
@@ -175,5 +175,15 @@ inline void gtk_progress_bar_set_show_text (GtkProgressBar *pbar, gboolean show_
 inline GtkWidget *gtk_tree_view_column_get_button (GtkTreeViewColumn *tree_column)
 {
     return tree_column->button;
+}
+
+inline gboolean gtk_tree_model_iter_previous (GtkTreeModel *tree_model, GtkTreeIter *iter)
+{
+    GtkTreePath *path = gtk_tree_model_get_path (tree_model, iter);
+    gboolean result = gtk_tree_path_prev (path);
+    if (result)
+        result = gtk_tree_model_get_iter (tree_model, iter, path);
+    gtk_tree_path_free (path);
+    return result;
 }
 #endif
