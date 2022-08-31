@@ -477,9 +477,9 @@ GtkWidget *create_file_chooser_button (GtkWidget *parent, const gchar *name, con
 }
 
 
-GtkWidget *create_clist (GtkWidget *parent, const gchar *name, gint cols, gint rowh, GtkSignalFunc on_row_selected, GtkSignalFunc on_row_moved)
+GtkWidget *create_treeview (GtkWidget *parent, const gchar *name, GtkTreeModel *model, gint rowh, GtkSignalFunc on_selection_changed, GtkSignalFunc on_rows_reordered)
 {
-    GtkWidget *sw, *clist;
+    GtkWidget *sw, *view;
 
     sw = gtk_scrolled_window_new (nullptr, nullptr);
     g_object_ref (sw);
@@ -487,28 +487,64 @@ GtkWidget *create_clist (GtkWidget *parent, const gchar *name, gint cols, gint r
     gtk_widget_show (sw);
     gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (sw), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
 
-    clist = gtk_clist_new (cols);
-    g_object_ref (clist);
-    g_object_set_data (G_OBJECT (sw), "clist", clist);
-    g_object_set_data_full (G_OBJECT (parent), name, clist, g_object_unref);
-    gtk_widget_show (clist);
-    gtk_clist_set_row_height (GTK_CLIST (clist), rowh);
-    gtk_container_add (GTK_CONTAINER (sw), clist);
-    gtk_clist_column_titles_show (GTK_CLIST (clist));
+    view = gtk_tree_view_new_with_model (model);
+    g_object_ref (view);
+    g_object_set_data (G_OBJECT (sw), "view", view);
+    g_object_set_data (G_OBJECT (sw), "rowh", GINT_TO_POINTER (rowh));
+    g_object_set_data_full (G_OBJECT (parent), name, view, g_object_unref);
+    gtk_tree_view_set_fixed_height_mode (GTK_TREE_VIEW (view), TRUE);
+    gtk_tree_view_set_headers_clickable (GTK_TREE_VIEW (view), FALSE);
+    gtk_widget_show (view);
+    gtk_container_add (GTK_CONTAINER (sw), view);
 
-    if (on_row_selected)
-        g_signal_connect (clist, "select-row", G_CALLBACK (on_row_selected), parent);
-    if (on_row_moved)
-        g_signal_connect (clist, "row-move", G_CALLBACK (on_row_moved), parent);
+    g_object_unref (model);
+
+    GtkTreeSelection *selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (view));
+    gtk_tree_selection_set_mode (selection, GTK_SELECTION_SINGLE);
+
+    if (on_selection_changed)
+        g_signal_connect (selection, "changed", G_CALLBACK (on_selection_changed), parent);
+    if (on_rows_reordered)
+        g_signal_connect (model, "rows-reordered", G_CALLBACK (on_rows_reordered), parent);
     return sw;
 }
 
 
-void create_clist_column (GtkWidget *sw, gint col, gint width, const gchar *label)
+void create_treeview_column (GtkWidget *sw, gint col, gint width, const gchar *label)
 {
-    GtkWidget *clist = (GtkWidget *) g_object_get_data (G_OBJECT (sw), "clist");
-    gtk_clist_set_column_width (GTK_CLIST (clist), col, width);
-    gtk_clist_set_column_title (GTK_CLIST (clist), col, label);
+    GtkTreeView *view = GTK_TREE_VIEW (g_object_get_data (G_OBJECT (sw), "view"));
+    gint rowh = GPOINTER_TO_INT (g_object_get_data (G_OBJECT (sw), "rowh"));
+    GtkTreeModel *model = gtk_tree_view_get_model (view);
+
+    GtkCellRenderer *renderer;
+    const gchar *attribute;
+    GType type = gtk_tree_model_get_column_type (model, col);
+    switch (type)
+    {
+        case G_TYPE_STRING:
+            renderer = gtk_cell_renderer_text_new ();
+            attribute = "text";
+            break;
+        default:
+            if (type == GDK_TYPE_PIXBUF)
+            {
+                renderer = gtk_cell_renderer_pixbuf_new ();
+                attribute = "pixbuf";
+                break;
+            }
+            return;
+    }
+
+    gtk_cell_renderer_set_fixed_size (renderer, -1, rowh);
+
+    GtkTreeViewColumn *column = gtk_tree_view_column_new ();
+    gtk_tree_view_column_set_sizing (column, GTK_TREE_VIEW_COLUMN_FIXED);
+    gtk_tree_view_column_set_fixed_width (column, width);
+    gtk_tree_view_column_set_resizable (column, TRUE);
+    gtk_tree_view_column_set_title (column, label);
+    gtk_tree_view_column_pack_start (column, renderer, TRUE);
+    gtk_tree_view_column_add_attribute (column, renderer, attribute, col);
+    gtk_tree_view_insert_column (view, column, col);
 }
 
 

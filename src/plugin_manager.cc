@@ -40,10 +40,8 @@ using namespace std;
 
 
 static GList *plugins = nullptr;
-static GdkPixmap *exec_pixmap = nullptr;
-static GdkBitmap *exec_mask = nullptr;
-static GdkPixmap *blank_pixmap = nullptr;
-static GdkBitmap *blank_mask = nullptr;
+static GdkPixbuf *exec_pixbuf = nullptr;
+static GdkPixbuf *blank_pixbuf = nullptr;
 
 gchar* get_plugin_config_location();
 
@@ -246,50 +244,85 @@ GList *plugin_manager_get_all ()
 }
 
 
-static PluginData *get_selected_plugin (GtkCList *list)
+static PluginData *get_selected_plugin (GtkTreeView *view)
 {
-    return static_cast<PluginData*> (gtk_clist_get_row_data (list, list->focus_row));
+    GtkTreeModel *model;
+    GtkTreeIter iter;
+    PluginData *data;
+
+    g_return_val_if_fail (gtk_tree_selection_get_selected (gtk_tree_view_get_selection (view), &model, &iter), nullptr);
+    gtk_tree_model_get (model, &iter, 4, &data, -1);
+    return data;
 }
 
 
-static void update_plugin_list (GtkCList *list, GtkWidget *dialog)
+static void on_plugin_selection_changed (GtkTreeSelection *selection, GtkWidget *dialog)
 {
-    gint old_focus = list->focus_row;
-    gint row = 0;
-    gboolean only_update = (list->rows > 0);
+    GtkWidget *toggle_button = lookup_widget (dialog, "toggle_button");
+    GtkWidget *conf_button = lookup_widget (dialog, "conf_button");
+    GtkWidget *about_button = lookup_widget (dialog, "about_button");
+    GtkTreeModel *model;
+    GtkTreeIter iter;
+    PluginData *data;
 
-    for (GList *i=plugins; i; i=i->next, ++row)
+    if (gtk_tree_selection_get_selected (selection, &model, &iter))
+    {
+        gtk_tree_model_get (model, &iter, 4, &data, -1);
+        gtk_widget_set_sensitive (about_button, TRUE);
+        gtk_button_set_label (GTK_BUTTON (toggle_button), data->active ? _("Disable") : _("Enable"));
+        gtk_widget_set_sensitive (toggle_button, TRUE);
+        gtk_widget_set_sensitive (conf_button, data->active);
+    }
+    else
+    {
+        gtk_widget_set_sensitive (toggle_button, FALSE);
+        gtk_widget_set_sensitive (about_button, FALSE);
+        gtk_widget_set_sensitive (conf_button, FALSE);
+    }
+}
+
+
+static void update_plugin_list (GtkTreeView *view, GtkWidget *dialog)
+{
+    GtkTreeModel *model = gtk_tree_view_get_model (view);
+    GtkTreeIter iter;
+    gboolean only_update = gtk_tree_model_get_iter_first (model, &iter);
+    GtkListStore *store = GTK_LIST_STORE (model);
+
+    for (GList *i=plugins; i; i=i->next)
     {
         auto data = static_cast<PluginData*> (i->data);
-        gchar *text[5];
-
-        text[0] = nullptr;
-        text[1] = (gchar *) data->info->name;
-        text[2] = (gchar *) data->info->version;
-        text[3] = data->fname;
-        text[4] = nullptr;
 
         if (only_update)
-            gtk_clist_set_text (list, row, 1, text[1]);
+        {
+            gtk_list_store_set (store, &iter,
+                                0, data->active ? exec_pixbuf : blank_pixbuf,
+                                1, (gchar *) data->info->name,
+                                4, data,
+                                -1);
+            gtk_tree_model_iter_next (model, &iter);
+        }
         else
-            gtk_clist_append (list, text);
-
-        if (data->active)
-            gtk_clist_set_pixmap (list, row, 0, exec_pixmap, exec_mask);
-        else
-            gtk_clist_set_pixmap (list, row, 0, blank_pixmap, blank_mask);
-
-        gtk_clist_set_row_data (list, row, data);
+        {
+            gtk_list_store_append (store, &iter);
+            gtk_list_store_set (store, &iter,
+                                0, data->active ? exec_pixbuf : blank_pixbuf,
+                                1, (gchar *) data->info->name,
+                                2, (gchar *) data->info->version,
+                                3, data->fname,
+                                4, data,
+                                -1);
+        }
     }
 
-    gtk_clist_select_row (list, old_focus, 0);
+    on_plugin_selection_changed (gtk_tree_view_get_selection (view), dialog);
 }
 
 
 inline void do_toggle (GtkWidget *dialog)
 {
-    GtkCList *list = GTK_CLIST (lookup_widget (dialog, "avail_list"));
-    PluginData *data = get_selected_plugin (list);
+    GtkTreeView *view = GTK_TREE_VIEW (lookup_widget (dialog, "avail_view"));
+    PluginData *data = get_selected_plugin (view);
 
     if (!data) return;
 
@@ -298,41 +331,13 @@ inline void do_toggle (GtkWidget *dialog)
     else
         activate_plugin (data);
 
-    update_plugin_list (list, dialog);
+    update_plugin_list (view, dialog);
 }
 
 
-static void on_plugin_selected (GtkCList *list, gint row, gint column, GdkEventButton *event, GtkWidget *dialog)
+static void on_plugin_activated (GtkTreeView *view, GtkTreePath *path, GtkTreeViewColumn *column, GtkWidget *dialog)
 {
-    GtkWidget *toggle_button = lookup_widget (dialog, "toggle_button");
-    GtkWidget *conf_button = lookup_widget (dialog, "conf_button");
-    GtkWidget *about_button = lookup_widget (dialog, "about_button");
-
-    PluginData *data = get_selected_plugin (list);
-    g_return_if_fail (data != nullptr);
-
-    if (event && event->type == GDK_2BUTTON_PRESS && event->button == 1)
-    {
-        do_toggle (dialog);
-        return;
-    }
-
-    gtk_widget_set_sensitive (about_button, TRUE);
-    gtk_button_set_label (GTK_BUTTON (toggle_button), data->active ? _("Disable") : _("Enable"));
-    gtk_widget_set_sensitive (toggle_button, TRUE);
-    gtk_widget_set_sensitive (conf_button, data->active);
-}
-
-
-static void on_plugin_unselected (GtkCList *list, gint row, gint column, GdkEventButton *event, GtkWidget *dialog)
-{
-    GtkWidget *toggle_button = lookup_widget (dialog, "toggle_button");
-    GtkWidget *conf_button = lookup_widget (dialog, "conf_button");
-    GtkWidget *about_button = lookup_widget (dialog, "about_button");
-
-    gtk_widget_set_sensitive (toggle_button, FALSE);
-    gtk_widget_set_sensitive (about_button, FALSE);
-    gtk_widget_set_sensitive (conf_button, FALSE);
+    do_toggle (dialog);
 }
 
 
@@ -344,8 +349,8 @@ static void on_toggle (GtkButton *button, GtkWidget *dialog)
 
 static void on_configure (GtkButton *button, GtkWidget *dialog)
 {
-    GtkCList *list = GTK_CLIST (lookup_widget (dialog, "avail_list"));
-    PluginData *data = get_selected_plugin (list);
+    GtkTreeView *view = GTK_TREE_VIEW (lookup_widget (dialog, "avail_view"));
+    PluginData *data = get_selected_plugin (view);
 
     g_return_if_fail (data != nullptr);
     g_return_if_fail (data->active);
@@ -356,8 +361,8 @@ static void on_configure (GtkButton *button, GtkWidget *dialog)
 
 static void on_about (GtkButton *button, GtkWidget *dialog)
 {
-    GtkCList *list = GTK_CLIST (lookup_widget (dialog, "avail_list"));
-    PluginData *data = get_selected_plugin (list);
+    GtkTreeView *view = GTK_TREE_VIEW (lookup_widget (dialog, "avail_view"));
+    PluginData *data = get_selected_plugin (view);
 
     g_return_if_fail (data != nullptr);
 
@@ -378,17 +383,19 @@ static void on_close (GtkButton *button, GtkWidget *dialog)
 void plugin_manager_show ()
 {
     GtkWidget *dialog, *hbox, *bbox, *button;
-    GtkWidget *avail_list;
+    GtkListStore *avail_store;
+    GtkWidget *avail_view;
 
     dialog = gnome_cmd_dialog_new (_("Available plugins"));
     g_object_ref (dialog);
 
     hbox = create_vbox (dialog, FALSE, 6);
-    avail_list = create_clist (dialog, "avail_list", 4, 20, GTK_SIGNAL_FUNC (on_plugin_selected), nullptr);
-    create_clist_column (avail_list, 0, 20, "");
-    create_clist_column (avail_list, 1, 200, _("Name"));
-    create_clist_column (avail_list, 2, 50, _("Version"));
-    create_clist_column (avail_list, 3, 50, _("File"));
+    avail_store = gtk_list_store_new (5, GDK_TYPE_PIXBUF, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_POINTER);
+    avail_view = create_treeview (dialog, "avail_view", GTK_TREE_MODEL (avail_store), 20, GTK_SIGNAL_FUNC (on_plugin_selection_changed), nullptr);
+    create_treeview_column (avail_view, 0, 20, "");
+    create_treeview_column (avail_view, 1, 200, _("Name"));
+    create_treeview_column (avail_view, 2, 50, _("Version"));
+    create_treeview_column (avail_view, 3, 50, _("File"));
 
     bbox = create_hbuttonbox (dialog);
     gtk_button_box_set_layout (GTK_BUTTON_BOX (bbox), GTK_BUTTONBOX_START);
@@ -407,27 +414,21 @@ void plugin_manager_show ()
     gtk_widget_set_sensitive (button, FALSE);
     gtk_box_pack_start (GTK_BOX (bbox), button, TRUE, FALSE, 0);
 
-    gtk_box_pack_start (GTK_BOX (hbox), avail_list, TRUE, TRUE, 0);
+    gtk_box_pack_start (GTK_BOX (hbox), avail_view, TRUE, TRUE, 0);
     gtk_box_pack_start (GTK_BOX (hbox), bbox, FALSE, TRUE, 0);
 
     gnome_cmd_dialog_add_expanding_category (GNOME_CMD_DIALOG (dialog), hbox);
 
-    avail_list = lookup_widget (avail_list, "avail_list");
-    g_signal_connect (avail_list, "unselect-row", G_CALLBACK (on_plugin_unselected), dialog);
+    avail_view = lookup_widget (avail_view, "avail_view");
+    g_signal_connect (GTK_TREE_VIEW (avail_view), "row-activated", G_CALLBACK (on_plugin_activated), dialog);
 
-    if (!exec_pixmap)
-    {
-        exec_pixmap = IMAGE_get_pixmap (PIXMAP_EXEC_WHEEL);
-        exec_mask = IMAGE_get_mask (PIXMAP_EXEC_WHEEL);
-    }
+    if (!exec_pixbuf)
+        exec_pixbuf = IMAGE_get_pixbuf (PIXMAP_EXEC_WHEEL);
 
-    if (!blank_pixmap)
-    {
-        blank_pixmap = IMAGE_get_pixmap (PIXMAP_FLIST_ARROW_BLANK);
-        blank_mask = IMAGE_get_mask (PIXMAP_FLIST_ARROW_BLANK);
-    }
+    if (!blank_pixbuf)
+        blank_pixbuf = IMAGE_get_pixbuf (PIXMAP_FLIST_ARROW_BLANK);
 
-    update_plugin_list (GTK_CLIST (avail_list), dialog);
+    update_plugin_list (GTK_TREE_VIEW (avail_view), dialog);
 
     gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), GTK_STOCK_CLOSE, GTK_SIGNAL_FUNC(on_close), dialog);
     gtk_window_set_transient_for (GTK_WINDOW (dialog), *main_win);
