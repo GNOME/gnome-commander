@@ -2070,7 +2070,7 @@ void help_about (GtkMenuItem *menuitem, gpointer not_used)
 
     gtk_show_about_dialog (*main_win,
                            "name", "GNOME Commander",
-                           "version", VERSION,
+                           "version", PACKAGE_VERSION,
                            "comments", _(comments),
                            "copyright", copyright,
                            "license", license_trans,

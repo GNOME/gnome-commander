@@ -34,7 +34,7 @@
 static PluginInfo plugin_nfo = {
     GNOME_CMD_PLUGIN_SYSTEM_CURRENT_VERSION,
     NAME,
-    VERSION,
+    PACKAGE_VERSION,
     COPYRIGHT,
     NULL,
     NULL,

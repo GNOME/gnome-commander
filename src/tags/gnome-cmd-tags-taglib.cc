@@ -430,7 +430,7 @@ void gcmd_tags_taglib_init()
                   {TAG_VORBIS_LICENSE,"LICENSE"},
                   {TAG_VORBIS_LOCATION,"LOCATION"},
                   {TAG_VORBIS_ORGANIZATION,"ORGANIZATION"},
-                  {TAG_VORBIS_VERSION,"VERSION"}
+                  {TAG_VORBIS_VERSION,"PACKAGE_VERSION"}
                  };
 
     load_data(oggtags,ogg_data,sizeof(ogg_data)/sizeof(ogg_data[0]));
