@@ -200,7 +200,7 @@ static UserActionData user_actions_data[] = {
                                              {command_execute, "command.execute", N_("Execute command")},
                                              {command_open_terminal, "command.open_terminal", N_("Open terminal")},
                                              {command_open_terminal_as_root, "command.open_terminal_as_root", N_("Open terminal as root")},
-                                             {command_root_mode, "command.root_mode", N_("Start GNOME Commander as root")},
+                                             {command_root_mode, "command.root_mode", N_("Start Commander as root")},
                                              {connections_close_current, "connections.close", N_("Close connection")},
                                              {connections_new, "connections.new", N_("New connection")},
                                              {connections_open, "connections.open", N_("Open connection")},
@@ -236,11 +236,11 @@ static UserActionData user_actions_data[] = {
                                              {file_sync_dirs, "file.synchronize_directories", N_("Synchronize directories")},
                                              // {file_umount, "file.umount"},
                                              {file_view, "file.view", N_("View file")},
-                                             {help_about, "help.about", N_("About GNOME Commander")},
+                                             {help_about, "help.about", N_("About Commander")},
                                              {help_help, "help.help", N_("Help contents")},
                                              {help_keyboard, "help.keyboard", N_("Help on keyboard shortcuts")},
                                              {help_problem, "help.problem", N_("Report a problem")},
-                                             {help_web, "help.web", N_("GNOME Commander on the web")},
+                                             {help_web, "help.web", N_("Commander on the web")},
                                              {mark_compare_directories, "mark.compare_directories", N_("Compare directories")},
                                              {mark_invert_selection, "mark.invert", N_("Invert selection")},
                                              {mark_select_all, "mark.select_all", N_("Select all")},
@@ -1288,7 +1288,7 @@ void command_root_mode (GtkMenuItem *menuitem, gpointer not_used)
         GError *error = nullptr;
 
         if (!g_spawn_async (nullptr, argv, nullptr, G_SPAWN_STDOUT_TO_DEV_NULL, nullptr, nullptr, nullptr, &error))
-            gnome_cmd_error_message (_("Unable to start GNOME Commander in root mode."), error);
+            gnome_cmd_error_message (_("Unable to start Commander in root mode."), error);
     }
     else
         gnome_cmd_show_message (nullptr, _("gksudo, xdg-su, gksu, gnomesu, kdesu or beesu is not found"));
@@ -2044,23 +2044,23 @@ void help_about (GtkMenuItem *menuitem, gpointer not_used)
 
 
     static const gchar *license[] = {
-        N_("GNOME Commander is free software; you can redistribute it and/or modify "
+        N_("Commander is free software; you can redistribute it and/or modify "
            "it under the terms of the GNU General Public License as published by "
            "the Free Software Foundation; either version 2 of the License, or "
            "(at your option) any later version."),
-        N_("GNOME Commander is distributed in the hope that it will be useful, "
+        N_("Commander is distributed in the hope that it will be useful, "
            "but WITHOUT ANY WARRANTY; without even the implied warranty of "
            "MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the "
            "GNU General Public License for more details."),
         N_("You should have received a copy of the GNU General Public License "
-           "along with GNOME Commander; if not, write to the Free Software Foundation, Inc., "
+           "along with Commander; if not, write to the Free Software Foundation, Inc., "
            "51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.")
     };
 
     gchar *license_trans = g_strjoin ("\n\n", _(license[0]), _(license[1]), _(license[2]), nullptr);
 
     gtk_show_about_dialog (*main_win,
-                           "name", "GNOME Commander",
+                           "name", "Commander",
                            "version", VERSION,
                            "comments", _(comments),
                            "copyright", copyright,
@@ -2071,7 +2071,7 @@ void help_about (GtkMenuItem *menuitem, gpointer not_used)
                            "logo-icon-name", PACKAGE_NAME,
                            "translator-credits", _("translator-credits"),
                            "website", "https://gcmd.github.io",
-                           "website-label", "GNOME Commander Website",
+                           "website-label", "Commander Website",
                            nullptr);
 
     g_free (license_trans);

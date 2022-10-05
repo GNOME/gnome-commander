@@ -2,7 +2,7 @@ Internal-Viewer Internals
 -------------------------
 
 This short document will detail the internals of the 'libgviewer' library,
-which implements GNOME Commander's Internal-Viewer.
+which implements Commander's Internal-Viewer.
 
 If you plan to hack the internal viewer, add features or just browse the source
 for fun, I recommend reading this document first.
@@ -39,7 +39,7 @@ Table of Content
 1.  General
 -----------
 The 'libgviewer' library aims to be a complete, fast, useable, user-friendly
-viewer window for the GNOME Commander project.
+viewer window for the Commander project.
 
 Key Features:
   * Fast loading -

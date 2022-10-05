@@ -392,14 +392,14 @@
       <default>true</default>
       <summary>Save directories on exit</summary>
       <description>
-          Defines if the current directories are opened again when GNOME Commander is restarted.
+          Defines if the current directories are opened again when Commander is restarted.
       </description>
     </key>
     <key name="save-tabs-on-exit" type="b">
       <default>true</default>
       <summary>Save tabs on exit</summary>
       <description>
-          Defines if the current open tabs are opened again when GNOME Commander is restarted.
+          Defines if the current open tabs are opened again when Commander is restarted.
       </description>
     </key>
     <key name="save-dir-history-on-exit" type="b">

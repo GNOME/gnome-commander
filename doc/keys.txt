@@ -1,4 +1,4 @@
-Default keyboard mapping for GNOME Commander
+Default keyboard mapping for Commander
 --------------------------------------------
 
 F1              Help

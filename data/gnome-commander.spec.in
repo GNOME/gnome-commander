@@ -25,7 +25,7 @@ Epoch:         4
 Release:       %{rel}%{?dist}
 Summary:       A nice and fast file manager for the GNOME desktop
 Summary(pl):   Menadżer plików dla GNOME oparty o Norton Commander'a (TM)
-Summary(sv):   GNOME Commander är en snabb och smidig filhanderare för GNOME
+Summary(sv):   Commander är en snabb och smidig filhanderare för GNOME
 
 Group:         Applications/File
 License:       GPLv2+
@@ -74,17 +74,17 @@ Requires:        libgsf >= %{libgsf_ver}
 Requires:        poppler >= %{poppler_ver}
 
 %description
-GNOME Commander is a nice and fast file manager for the GNOME desktop.
+Commander is a nice and fast file manager for the GNOME desktop.
 In addition to performing the basic file manager functions the program is
 also an FTP-client and it can browse SMB-networks.
 
 %description -l cs
-GNOME Commander je pěkný a rychlý správce souborů pro GNOME desktop.
+Commander je pěkný a rychlý správce souborů pro GNOME desktop.
 Kromě základních funkcí správy souborů je program také
 FTP klient a umí procházet SMB sítěmi.
 
 %description -l pl
-GNOME Commander to niewielki i wydajny menadżer plików umożliwiający
+Commander to niewielki i wydajny menadżer plików umożliwiający
 wykonywanie za pomocą klawiatury wszystkich standardowych operacji na plikach.
 Dostępne są również dodatkowe funkcje jak np. obsługa FTP, czy też obsługa
 sieci SMB.
@@ -97,7 +97,7 @@ sieci SMB.
 Реализует на базовом уровне поддержку FTP через GnomeVFS.
 
 %description -l sv
-GNOME Commander är en snabb och smidig filhanderare för GNOME.
+Commander är en snabb och smidig filhanderare för GNOME.
 Utöver att kunna hantera filer på din egen dator så kan programmet även
 ansluta till FTP-servrar och SMB-nätverk.
 
