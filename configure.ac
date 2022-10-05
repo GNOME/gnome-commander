@@ -264,7 +264,7 @@ AC_OUTPUT
 echo ""
 echo ""
 echo "=========================================="
-echo " Ready to build GNOME Commander ${VERSION}"
+echo " Ready to build Commander ${VERSION}"
 echo "=========================================="
 echo ""
 echo "The following settings will be used:"

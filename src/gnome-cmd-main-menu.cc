@@ -312,7 +312,7 @@ static GtkUIManager *get_file_menu_ui_manager()
         { "EnableFilter",       GTK_STOCK_CLEAR, _("_Enable Filter…"),    nullptr, nullptr, (GCallback) edit_filter },
         { "Diff",               nullptr, _("_Diff"),                      nullptr, nullptr, (GCallback) file_diff },
         { "SyncDirs",           nullptr, _("S_ynchronize Directories"),   nullptr, nullptr, (GCallback) file_sync_dirs },
-        { "StartAsRoot",        GTK_STOCK_DIALOG_AUTHENTICATION,          _("Start _GNOME Commander as root"), nullptr, nullptr, (GCallback) command_root_mode },
+        { "StartAsRoot",        GTK_STOCK_DIALOG_AUTHENTICATION,          _("Start _Commander as root"), nullptr, nullptr, (GCallback) command_root_mode },
         { "Quit",               GTK_STOCK_QUIT, _("_Quit"), "<Control>Q", nullptr, (GCallback) file_exit }
     };
 
@@ -399,7 +399,7 @@ static GtkUIManager *get_file_menu_ui_manager()
         { "Help",              nullptr,          _("_Help") },
         { "Documentation",     GTK_STOCK_HELP,   _("_Documentation"),              "F1",    nullptr, (GCallback) help_help },
         { "KeyboardShortcuts", GTK_STOCK_ITALIC, _("_Keyboard Shortcuts"),         nullptr, nullptr, (GCallback) help_keyboard },
-        { "Web",               GTK_STOCK_HOME,   _("GNOME Commander on the _Web"), nullptr, nullptr, (GCallback) help_web },
+        { "Web",               GTK_STOCK_HOME,   _("Commander on the _Web"), nullptr, nullptr, (GCallback) help_web },
         { "Problem",           GTK_STOCK_CAPS_LOCK_WARNING, _("Report a _Problem"),           nullptr, nullptr, (GCallback) help_problem },
         { "About",             GTK_STOCK_ABOUT,  _("_About"),                      nullptr, nullptr, (GCallback) help_about },
     };
