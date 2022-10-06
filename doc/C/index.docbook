@@ -5,7 +5,7 @@
   <!ENTITY appversion "1.12.0">
   <!ENTITY manrevision "1.12.0">
   <!ENTITY date "??? 2022">
-  <!ENTITY app "Commander">
+  <!ENTITY app "GNOME Commander">
 ]>
 <!-- Information about the entities
        The legal.xml file contains legal information, there is no need to edit the file.
