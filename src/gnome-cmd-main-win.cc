@@ -868,8 +868,8 @@ static void init (GnomeCmdMainWin *mw)
 
     gtk_window_set_title (GTK_WINDOW (mw),
                           gcmd_owner.is_root()
-                            ? _("Commander — ROOT PRIVILEGES")
-                            : _("Commander"));
+                            ? _("GNOME Commander — ROOT PRIVILEGES")
+                            : _("GNOME Commander"));
 
     g_object_set_data (*mw, "main_win", mw);
     restore_size_and_pos (mw);

@@ -4,18 +4,18 @@
   <id>org.gnome.gnome-commander</id>
   <metadata_license>CC0-1.0</metadata_license>
   <project_license>GPL-2.0+</project_license>
-  <name>Commander</name>
+  <name>GNOME Commander</name>
   <summary>Two-pane file manager</summary>
   <description>
     <p>
-      Commander is a “two-pane” graphical file manager for the GNOME
+      GNOME Commander is a “two-pane” graphical file manager for the GNOME
       desktop environment. It features separate tabs for each pane,
       setting up custom device buttons, bookmark manager, fully integrated
       commandline, file quick search, an internal image viewer, a powerful
       batch renaming tool, and FTP and Samba access.
     </p>
     <p>
-      Commander aims to advanced users who like to focus on precise
+      GNOME Commander aims to advanced users who like to focus on precise
       file management, working in parallel through special applications,
       and running smart commands.
     </p>
@@ -45,7 +45,7 @@
   <url type="translate">https://gcmd.github.io/dev.html#trnsl</url>
   <update_contact>gcmd-devel_AT_nongnu.org</update_contact>
   <project_group>GNOME</project_group>
-  <developer_name>Uwe Scholz</developer_name>
+  <developer_name>The GNOME Project</developer_name>
   <translation type="gettext">gnome-commander</translation>
   <content_rating type="oars-1.0" />
   <launchable type="desktop-id">org.gnome.gnome-commander.desktop</launchable>
