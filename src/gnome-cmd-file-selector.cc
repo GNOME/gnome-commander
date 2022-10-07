@@ -800,15 +800,12 @@ static void init (GnomeCmdFileSelector *fs)
     }
 
     // create the connection combo
-    fs->con_combo = new GnomeCmdCombo(2, 1);
+    GtkListStore *store = gtk_list_store_new (3, GDK_TYPE_PIXBUF, G_TYPE_STRING, G_TYPE_POINTER);
+    fs->con_combo = GNOME_CMD_COMBO (gnome_cmd_combo_new_with_store(store, 2, 1, 2));
     g_object_ref (fs->con_combo);
     g_object_set_data_full (*fs, "con_combo", fs->con_combo, g_object_unref);
     gtk_widget_set_size_request (*fs->con_combo, max_string_size, -1);
-    gtk_clist_set_row_height (GTK_CLIST (fs->con_combo->list), 20);
-    gtk_entry_set_editable (GTK_ENTRY (fs->con_combo->entry), FALSE);
-    gtk_clist_set_column_width (GTK_CLIST (fs->con_combo->list), 0, 20);
-    gtk_clist_set_column_width (GTK_CLIST (fs->con_combo->list), 1, 60);
-    gtk_widget_set_can_focus (fs->con_combo->button, FALSE);
+    gtk_entry_set_editable (GTK_ENTRY (fs->con_combo->get_entry()), FALSE);
 
     // create the free space on volume label
     fs->vol_label = gtk_label_new ("");
@@ -1007,14 +1004,9 @@ void GnomeCmdFileSelector::update_connections()
     gboolean found_my_con = FALSE;
 
     con_combo->clear();
-    con_combo->highest_pixmap = 20;
-    con_combo->widest_pixmap = 20;
-    gtk_clist_set_row_height (GTK_CLIST (con_combo->list), 20);
-    gtk_clist_set_column_width (GTK_CLIST (con_combo->list), 0, 20);
 
     for (GList *l=gnome_cmd_con_list_get_all (gnome_cmd_con_list_get ()); l; l = l->next)
     {
-        gchar *text[3];
         auto con = static_cast<GnomeCmdCon*> (l->data);
 
 #ifdef HAVE_SAMBA
@@ -1027,18 +1019,10 @@ void GnomeCmdFileSelector::update_connections()
         if (con == get_connection())
             found_my_con = TRUE;
 
-        text[0] = nullptr;
-        text[1] = (gchar *) gnome_cmd_con_get_alias (con);
-        text[2] = nullptr;
-
         GnomeCmdPixmap *pixmap = gnome_cmd_con_get_go_pixmap (con);
 
         if (pixmap)
-        {
-            gint row = con_combo->append(text, con);
-
-            con_combo->set_pixmap(row, 0, pixmap);
-        }
+            con_combo->append((gchar *) gnome_cmd_con_get_alias (con), con, 0, pixmap->pixbuf, -1);
     }
 
     // If the connection is no longer available use the home connection
