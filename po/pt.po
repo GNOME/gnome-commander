@@ -3,7 +3,7 @@
 # This file is distributed under the same license as the gnome-commander package.
 # Duarte Loreto <happyguy_pt@hotmail.com>, 2002, 2003.
 # Pedro Albuquerque <palbuquerque73@gmail.com>, 2015.
-# # Hugo Carvalho <hugokarvalho@hotmail.com>, 2020, 2021, 2022.
+# Hugo Carvalho <hugokarvalho@hotmail.com>, 2020, 2021, 2022.
 #
 msgid ""
 msgstr ""
