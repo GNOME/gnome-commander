@@ -8,28 +8,28 @@
 # Daniel van Eeden <daniel_e@dds.nl>, 2004.
 # Tino Meinen <a.t.meinen@chello.nl>, 2004, 2005.
 # Hannie Dumoleyn <hannie@ubuntu-nl.org>, 2013, 2022.
+# Nathan Follens <nfollens@gnome.org>, 2022.
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander.HEAD\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-commander/issues\n"
-"POT-Creation-Date: 2022-01-26 20:53+0000\n"
-"PO-Revision-Date: 2022-02-08 10:26+0100\n"
-"Last-Translator: Hannie Dumoleyn <hannie@ubuntu-nl.org>\n"
-"Language-Team: Dutch <vertaling@vrijschrift.org>\n"
+"POT-Creation-Date: 2022-10-25 14:20+0000\n"
+"PO-Revision-Date: 2022-11-02 19:50+0100\n"
+"Last-Translator: Nathan Follens <nfollens@gnome.org>\n"
+"Language-Team: Dutch <gnome-nl-list@gnome.org>\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 19.12.3\n"
+"X-Generator: Poedit 3.1.1\n"
 
 #: data/org.gnome.gnome-commander.appdata.xml.in:7
-#: data/org.gnome.gnome-commander.desktop.in.in:3 src/gnome-cmd-main-win.cc:854
+#: data/org.gnome.gnome-commander.desktop.in.in:3 src/gnome-cmd-main-win.cc:872
 msgid "GNOME Commander"
 msgstr "GNOME Commander"
 
 #: data/org.gnome.gnome-commander.appdata.xml.in:8
-#| msgid "A two paned file manager"
 msgid "Two-pane file manager"
 msgstr "Bestandsbeheer met twee panelen"
 
@@ -41,12 +41,12 @@ msgid ""
 "search, an internal image viewer, a powerful batch renaming tool, and FTP "
 "and Samba access."
 msgstr ""
-"GNOME Commander is een grafische bestandsbeheerder met twee panelen voor de"
-" Gnome-bureaubladomgeving. Het beschikt over afzonderlijke tabbladen voor elk"
-" paneel, het instellen van aangepaste apparaatknoppen, bladwijzerbeheer,"
-" volledig geïntegreerde opdrachtregel, snel zoeken naar bestanden, een"
-" interne afbeeldingsviewer, een krachtig hulpmiddel voor het hernoemen van"
-" batches en FTP- en Samba-toegang."
+"GNOME Commander is een grafische bestandsbeheerder met twee panelen voor de "
+"Gnome-bureaubladomgeving. Het beschikt over afzonderlijke tabbladen voor elk "
+"paneel, het instellen van aangepaste apparaatknoppen, bladwijzerbeheer, "
+"volledig geïntegreerde opdrachtregel, snel zoeken naar bestanden, een "
+"interne afbeeldingsviewer, een krachtig hulpmiddel voor het hernoemen van "
+"batches en FTP- en Samba-toegang."
 
 #: data/org.gnome.gnome-commander.appdata.xml.in:17
 msgid ""
@@ -54,9 +54,9 @@ msgid ""
 "management, working in parallel through special applications, and running "
 "smart commands."
 msgstr ""
-"GNOME Commander is bedoeld voor gevorderde gebruikers die zich graag"
-" toeleggen op nauwkeurig bestandsbeheer, parallel werken via speciale"
-" toepassingen en slimme opdrachten uitvoeren."
+"GNOME Commander is bedoeld voor gevorderde gebruikers die zich graag "
+"toeleggen op nauwkeurig bestandsbeheer, parallel werken via speciale "
+"toepassingen en slimme opdrachten uitvoeren."
 
 #: data/org.gnome.gnome-commander.appdata.xml.in:48
 msgid "The GNOME Project"
@@ -70,11 +70,10 @@ msgstr "Bestandsbeheer met twee panelen"
 #: data/org.gnome.gnome-commander.desktop.in.in:6
 msgid "file;manager;folder;explore;disk;filesystem;"
 msgstr ""
-"file;bestand;manager;folder;map;explore;verkennen;disk;schijf;filesystem;besta"
-"ndssysteem;"
+"file;bestand;manager;folder;map;explore;verkennen;disk;schijf;filesystem;"
+"bestandssysteem;"
 
 #: data/org.gnome.gnome-commander.gschema.xml:31
-#| msgid "Advanced rename tool"
 msgid "List of advanced rename tool profiles"
 msgstr "Lijst met geavanceerd hernoemfunctieprofielen"
 
@@ -83,33 +82,30 @@ msgid ""
 "The entries in this array represent the profiles in the advanced rename tool "
 "with specific settings for each profile."
 msgstr ""
-"De items in deze reeks vertegenwoordigen de profielen in het geavanceerde"
-" hernoemfunctie met specifieke instellingen voor elk profiel."
+"De items in deze reeks vertegenwoordigen de profielen in het geavanceerde "
+"hernoemfunctie met specifieke instellingen voor elk profiel."
 
 #: data/org.gnome.gnome-commander.gschema.xml:38
-#| msgid "Advanced rename tool"
 msgid "Advanced rename tool window width"
 msgstr "Vensterbreedte geavanceerde hernoemfunctie"
 
 #: data/org.gnome.gnome-commander.gschema.xml:39
 msgid "This option defines the width of the advanced rename tool window."
 msgstr ""
-"Deze optie bepaalt de breedte van het venster van de geavanceerde"
-" hernoemfunctie."
+"Deze optie bepaalt de breedte van het venster van de geavanceerde "
+"hernoemfunctie."
 
 #: data/org.gnome.gnome-commander.gschema.xml:45
-#| msgid "Advanced rename tool"
 msgid "Advanced rename tool window height"
 msgstr "Vensterhoogte geavanceerde hernoemfunctie"
 
 #: data/org.gnome.gnome-commander.gschema.xml:46
 msgid "This option defines the height of the advanced rename tool window."
 msgstr ""
-"Deze optie definieert de hoogte van het venster van de geavanceerde"
-" hernoemfunctie."
+"Deze optie definieert de hoogte van het venster van de geavanceerde "
+"hernoemfunctie."
 
 #: data/org.gnome.gnome-commander.gschema.xml:52
-#| msgid "Advanced rename tool"
 msgid "Advanced rename tool template history"
 msgstr "Sjabloongeschiedenis geavanceerd hernoemfunctie"
 
@@ -118,11 +114,10 @@ msgid ""
 "This string array represents the history of templates in the advanced rename "
 "tool."
 msgstr ""
-"Deze tekenreeks vertegenwoordigt de geschiedenis van sjablonen in de"
-" geavanceerde hernoemfunctie."
+"Deze tekenreeks vertegenwoordigt de geschiedenis van sjablonen in de "
+"geavanceerde hernoemfunctie."
 
 #: data/org.gnome.gnome-commander.gschema.xml:59
-#| msgid "Compare directories"
 msgid "History of visited directories"
 msgstr "Geschiedenis van bezochte mappen"
 
@@ -139,12 +134,11 @@ msgid ""
 "Whether to use the system’s default fixed width font for the file panels "
 "instead of a font specific to gnome-commander."
 msgstr ""
-"Of het standaard lettertype met vaste breedte van het systeem gebruikt moet"
-" worden voor de bestandspanelen in plaats van een lettertype dat specifiek is"
-" voor gnome-commander."
+"Of het standaard lettertype met vaste breedte van het systeem gebruikt moet "
+"worden voor de bestandspanelen in plaats van een lettertype dat specifiek is "
+"voor gnome-commander."
 
 #: data/org.gnome.gnome-commander.gschema.xml:74
-#| msgid "Fixed font"
 msgid "Panel font"
 msgstr "Paneellettertype"
 
@@ -153,11 +147,10 @@ msgid ""
 "A custom font that will be used for the file panes if the “Use default font” "
 "option is turned off."
 msgstr ""
-"Een aangepast lettertype dat gebruikt zal worden voor de bestandspanelen als"
-" de optie ‘Standaard lettertype gebruiken’ is uitgeschakeld."
+"Een aangepast lettertype dat gebruikt zal worden voor de bestandspanelen als "
+"de optie ‘Standaard lettertype gebruiken’ is uitgeschakeld."
 
 #: data/org.gnome.gnome-commander.gschema.xml:81
-#| msgid "Size display mode"
 msgid "Filesize display mode"
 msgstr "Weergavemodus bestandsgrootte"
 
@@ -165,8 +158,8 @@ msgstr "Weergavemodus bestandsgrootte"
 msgid ""
 "Defines how the filesize will be displayed in the associated pane column."
 msgstr ""
-"Bepaalt hoe de bestandsgrootte wordt weergegeven in de bijbehorende"
-" paneelkolom."
+"Bepaalt hoe de bestandsgrootte wordt weergegeven in de bijbehorende "
+"paneelkolom."
 
 #: data/org.gnome.gnome-commander.gschema.xml:88
 #: src/dialogs/gnome-cmd-options-dialog.cc:386
@@ -178,11 +171,10 @@ msgid ""
 "Defines how the file permission will be displayed in the associated pane "
 "column."
 msgstr ""
-"Definieert hoe de bestandstoegang wordt weergegeven in de bijbehorende"
-" paneelkolom."
+"Definieert hoe de bestandstoegang wordt weergegeven in de bijbehorende "
+"paneelkolom."
 
 #: data/org.gnome.gnome-commander.gschema.xml:95
-#| msgid "Graphical mode:"
 msgid "Graphical layout mode"
 msgstr "Grafische opmaakmodus"
 
@@ -192,7 +184,6 @@ msgstr ""
 "Definieert de pictogramstijl van bestanden en mappen in de bestandspanelen."
 
 #: data/org.gnome.gnome-commander.gschema.xml:102
-#| msgid "Row height:"
 msgid "List row height"
 msgstr "Lijst rijhoogte"
 
@@ -213,22 +204,18 @@ msgid "Date format"
 msgstr "Datumopmaak"
 
 #: data/org.gnome.gnome-commander.gschema.xml:113
-#| msgid "Full file path of file excluding the file name."
 msgid "Format of the date in the file pane."
 msgstr "Formaat van de datum in het bestandspaneel."
 
 #: data/org.gnome.gnome-commander.gschema.xml:119
-#| msgid "Fixed font"
 msgid "List font"
 msgstr "Lijstlettertype"
 
 #: data/org.gnome.gnome-commander.gschema.xml:120
-#| msgid "Match end of the file name"
 msgid "The font in the file panes."
 msgstr "Het lettertype in de bestandspanelen."
 
 #: data/org.gnome.gnome-commander.gschema.xml:124
-#| msgid "Permission display mode"
 msgid "Extension display mode"
 msgstr "Extensie weergavemodus"
 
@@ -237,7 +224,6 @@ msgid "Defines where the file name extension is displayed."
 msgstr "Bepaalt waar de extensie van de bestandsnaam wordt weergegeven."
 
 #: data/org.gnome.gnome-commander.gschema.xml:131
-#| msgid "Left mouse button"
 msgid "Left mouse button mode"
 msgstr "Linkermuisknop-modus"
 
@@ -247,7 +233,6 @@ msgstr ""
 "Aantal klikken met de linkermuisknop voor het openen van een bestand of map."
 
 #: data/org.gnome.gnome-commander.gschema.xml:138
-#| msgid "Left mouse button"
 msgid "Left mouse button unselects"
 msgstr "Linkermuisknop maakt de selectie ongedaan"
 
@@ -255,11 +240,10 @@ msgstr "Linkermuisknop maakt de selectie ongedaan"
 msgid ""
 "Defines if a click on an unselected item unselects already selected items."
 msgstr ""
-"Bepaalt of een klik op een niet-geselecteerd item reeds geselecteerde"
-" items deselecteert."
+"Bepaalt of een klik op een niet-geselecteerd item reeds geselecteerde items "
+"deselecteert."
 
 #: data/org.gnome.gnome-commander.gschema.xml:145
-#| msgid "Right mouse button"
 msgid "Right mouse button mode"
 msgstr "Rechtermuisknop-modus"
 
@@ -277,21 +261,18 @@ msgid ""
 "Defines if items should be moved to trash by default instead of really "
 "deleting them."
 msgstr ""
-"Bepaalt of items standaard naar de prullenbak moeten worden verplaatst, in"
-" plaats van het echt verwijderen ervan."
+"Bepaalt of items standaard naar de prullenbak moeten worden verplaatst, in "
+"plaats van het echt verwijderen ervan."
 
 #: data/org.gnome.gnome-commander.gschema.xml:159
-#| msgid "Icon size:"
 msgid "Icon size"
 msgstr "pictogramgrootte"
 
 #: data/org.gnome.gnome-commander.gschema.xml:160
-#| msgid "Number of lines in the document."
 msgid "Size of icons in the file pane."
 msgstr "Grootte van pictogrammen in het bestandspaneel."
 
 #: data/org.gnome.gnome-commander.gschema.xml:164
-#| msgid "Icon size:"
 msgid "Device icon size"
 msgstr "Grootte apparaatpictogram"
 
@@ -300,7 +281,6 @@ msgid "Icon size in the device list."
 msgstr "Pictogramgrootte in de apparatenlijst."
 
 #: data/org.gnome.gnome-commander.gschema.xml:169
-#| msgid "Scaling quality:"
 msgid "Icon scale quality"
 msgstr "Kwaliteit van pictogramschaal"
 
@@ -309,11 +289,10 @@ msgid ""
 "Describes the different interpolation modes that can be used with the "
 "scaling functions."
 msgstr ""
-"Beschrijft de verschillende interpolatiemodi die gebruikt kunnen worden met"
-" de schaalfuncties."
+"Beschrijft de verschillende interpolatiemodi die gebruikt kunnen worden met "
+"de schaalfuncties."
 
 #: data/org.gnome.gnome-commander.gschema.xml:174
-#| msgid "Theme icon directory:"
 msgid "MIME icon directory"
 msgstr "Map voor MIME-pictogram"
 
@@ -330,15 +309,14 @@ msgid ""
 "This string array represents the history of commands executed in the command "
 "line."
 msgstr ""
-"Deze tekenreeks vertegenwoordigt de geschiedenis van opdrachten uitgevoerd in"
-" de opdrachtregel."
+"Deze tekenreeks vertegenwoordigt de geschiedenis van opdrachten uitgevoerd "
+"in de opdrachtregel."
 
 #: data/org.gnome.gnome-commander.gschema.xml:187
 msgid "Command line history length"
 msgstr "Lengte van opdrachtregelgeschiedenis"
 
 #: data/org.gnome.gnome-commander.gschema.xml:191
-#| msgid "Optional information"
 msgid "Horizontal orientation"
 msgstr "Horizontale oriëntatie"
 
@@ -346,8 +324,8 @@ msgstr "Horizontale oriëntatie"
 msgid ""
 "Defines if the orientation of the file panes should be horizontal or not."
 msgstr ""
-"Bepaalt of de oriëntatie van de bestandspanelen horizontaal moet zijn of"
-" niet."
+"Bepaalt of de oriëntatie van de bestandspanelen horizontaal moet zijn of "
+"niet."
 
 #: data/org.gnome.gnome-commander.gschema.xml:199
 msgid "GUI update rate"
@@ -356,11 +334,10 @@ msgstr "GUI-updatesnelheid"
 #: data/org.gnome.gnome-commander.gschema.xml:200
 msgid "Update rate of the graphical user interphase in 1/1000ths of a second."
 msgstr ""
-"Updatesnelheid van de grafische gebruikersinterface in 1/1000ste van een"
-" seconde."
+"Updatesnelheid van de grafische gebruikersinterface in 1/1000ste van een "
+"seconde."
 
 #: data/org.gnome.gnome-commander.gschema.xml:204
-#| msgid "Show Device Buttons"
 msgid "Show device buttons"
 msgstr "Apparaatknoppen tonen"
 
@@ -369,7 +346,6 @@ msgid "Defines if device buttons are shown."
 msgstr "Bepaalt of apparaatknoppen moeten worden weergegeven."
 
 #: data/org.gnome.gnome-commander.gschema.xml:209
-#| msgid "Show Device List"
 msgid "Show device list"
 msgstr "Apparaatlijst tonen"
 
@@ -378,7 +354,6 @@ msgid "Defines if the list of devices is shown."
 msgstr "Bepaalt of de lijst met apparaten moet worden weergegeven."
 
 #: data/org.gnome.gnome-commander.gschema.xml:214
-#| msgid "Show Command Line"
 msgid "Show command line"
 msgstr "Opdrachtregel tonen"
 
@@ -387,17 +362,14 @@ msgid "Defines if command line is shown."
 msgstr "Bepaalt of de opdrachtregel moet worden weergegeven."
 
 #: data/org.gnome.gnome-commander.gschema.xml:219
-#| msgid "Show Toolbar"
 msgid "Show toolbar"
 msgstr "Werkbalk weergeven"
 
 #: data/org.gnome.gnome-commander.gschema.xml:220
-#| msgid "Specifies which disc the track is on."
 msgid "Defines if the toolbar is shown."
 msgstr "Bepaalt of de werkbalk getoond wordt."
 
 #: data/org.gnome.gnome-commander.gschema.xml:224
-#| msgid "Show Buttonbar"
 msgid "Show buttonbar"
 msgstr "Knoppenbalk tonen"
 
@@ -406,7 +378,6 @@ msgid "Defines if the buttonbar is shown."
 msgstr "Bepaalt of de knoppenbalk getoond wordt."
 
 #: data/org.gnome.gnome-commander.gschema.xml:229
-#| msgid "Symlink target:"
 msgid "Symlink string"
 msgstr "Symlink-tekenreeks"
 
@@ -417,10 +388,10 @@ msgid ""
 "code. A “%s” will be expanded to the item name for which a link should be "
 "created."
 msgstr ""
-"Deze tekenreeks definieert de standaard naam van een nieuw aangemaakte"
-" symlink. Laat de tekenreeks leeg om de standaardwaarde te gebruiken die in"
-" de programmacode is geprogrammeerd. Eer wordt een ‘%s’ toegevoegd aan de"
-" naam van het item waarvoor een link moet worden aangemaakt."
+"Deze tekenreeks definieert de standaard naam van een nieuw aangemaakte "
+"symlink. Laat de tekenreeks leeg om de standaardwaarde te gebruiken die in "
+"de programmacode is geprogrammeerd. Eer wordt een ‘%s’ toegevoegd aan de "
+"naam van het item waarvoor een link moet worden aangemaakt."
 
 #: data/org.gnome.gnome-commander.gschema.xml:238
 msgid "Main window horizontal position"
@@ -447,7 +418,6 @@ msgid "This option defines the width of the main window."
 msgstr "Deze optie bepaalt de breedte van het hoofdvenster."
 
 #: data/org.gnome.gnome-commander.gschema.xml:259
-#| msgid "Edit Bookmark"
 msgid "List of bookmarks"
 msgstr "Lijst met bladwijzers"
 
@@ -456,7 +426,6 @@ msgid "Each entry in this list represents a bookmark."
 msgstr "Elk item in deze lijst vertegenwoordigt een bladwijzer."
 
 #: data/org.gnome.gnome-commander.gschema.xml:266
-#| msgid "Bookmarked path"
 msgid "Bookmarks window width"
 msgstr "Breedte bladwijzervenster"
 
@@ -465,7 +434,6 @@ msgid "This option defines the width of the bookmarks window."
 msgstr "Deze optie Bepaalt de breedte van het bladwijzervenster."
 
 #: data/org.gnome.gnome-commander.gschema.xml:273
-#| msgid "Bookmark name"
 msgid "Bookmarks window height"
 msgstr "Hoogte bladwijzervenster"
 
@@ -474,7 +442,6 @@ msgid "This option defines the height of the bookmarks window."
 msgstr "Deze optie Bepaalt de hoogte van het bladwijzervenster."
 
 #: data/org.gnome.gnome-commander.gschema.xml:280
-#| msgid "Drop connection"
 msgid "List of connections"
 msgstr "Lijst met verbindingen"
 
@@ -483,7 +450,6 @@ msgid "Each entry in this list represents a connection."
 msgstr "Elk item in deze lijst vertegenwoordigt een verbinding."
 
 #: data/org.gnome.gnome-commander.gschema.xml:287
-#| msgid "Row height:"
 msgid "Main window height"
 msgstr "Hoogte van het hoofdvenster"
 
@@ -492,7 +458,6 @@ msgid "This option defines the height of the main window."
 msgstr "Deze optie Bepaalt de hoogte van het hoofdvenster."
 
 #: data/org.gnome.gnome-commander.gschema.xml:294
-#| msgid "Optional data"
 msgid "Options dialog width"
 msgstr "Breedte dialoogvenster Opties"
 
@@ -517,7 +482,6 @@ msgid "This option defines the width of the icon column."
 msgstr "Deze optie Bepaalt de breedte van de pictogrammenkolom."
 
 #: data/org.gnome.gnome-commander.gschema.xml:315
-#| msgid "With file name"
 msgid "Width of name column"
 msgstr "Breedte van kolom ‘Naam’"
 
@@ -550,7 +514,6 @@ msgid "This option defines the width of the size column."
 msgstr "Deze optie Bepaalt de breedte van de kolom ‘Grootte’."
 
 #: data/org.gnome.gnome-commander.gschema.xml:343
-#| msgid "Title of the document."
 msgid "Width of date column"
 msgstr "Breedte van kolom ‘Datum’"
 
@@ -591,7 +554,6 @@ msgid "Each entry in this list represents a keybinding."
 msgstr "Elk item in deze lijst vertegenwoordigt een sneltoets."
 
 #: data/org.gnome.gnome-commander.gschema.xml:379
-#| msgid "Windows share"
 msgid "Main window state"
 msgstr "Status hoofdvenster"
 
@@ -600,11 +562,10 @@ msgid ""
 "The number represents the main window state, e.g. “maximized”, “fullscreen”, "
 "etc. and is calculated internally."
 msgstr ""
-"Het getal vertegenwoordigt de status van het hoofdvenster, bijvoorbeeld"
-" ‘gemaximaliseerd’, ‘volledig scherm’, enz. en wordt intern berekend."
+"Het getal vertegenwoordigt de status van het hoofdvenster, bijvoorbeeld "
+"‘gemaximaliseerd’, ‘volledig scherm’, enz. en wordt intern berekend."
 
 #: data/org.gnome.gnome-commander.gschema.xml:386
-#| msgid "Middle mouse button"
 msgid "Middle mouse button mode"
 msgstr "Middelste muisknop-modus"
 
@@ -613,7 +574,6 @@ msgid "Defines what happens when the middle mouse button is clicked."
 msgstr "Bepaalt wat er gebeurt wanneer u met op de middelste muisknop klikt."
 
 #: data/org.gnome.gnome-commander.gschema.xml:393
-#| msgid "Select directories"
 msgid "Save directories on exit"
 msgstr "Mappen opslaan bij afsluiten"
 
@@ -622,11 +582,10 @@ msgid ""
 "Defines if the current directories are opened again when GNOME Commander is "
 "restarted."
 msgstr ""
-"Bepaalt of de huidige mappen weer geopend worden wanneer Gnome Commander"
-" opnieuw gestart wordt."
+"Bepaalt of de huidige mappen weer geopend worden wanneer Gnome Commander "
+"opnieuw gestart wordt."
 
 #: data/org.gnome.gnome-commander.gschema.xml:400
-#| msgid "Save on exit"
 msgid "Save tabs on exit"
 msgstr "Tabbladen opslaan bij afsluiten"
 
@@ -635,18 +594,18 @@ msgid ""
 "Defines if the current open tabs are opened again when GNOME Commander is "
 "restarted."
 msgstr ""
-"Bepaalt of de huidige geopende tabbladen opnieuw worden geopend wanneer Gnome"
-" Commander opnieuw gestart wordt."
+"Bepaalt of de huidige geopende tabbladen opnieuw worden geopend wanneer "
+"Gnome Commander opnieuw gestart wordt."
 
 #: data/org.gnome.gnome-commander.gschema.xml:407
-#| msgid "Show directory history"
 msgid "Save directory history on exit"
 msgstr "Mapgeschiedenis opslaan bij afsluiten."
 
 #: data/org.gnome.gnome-commander.gschema.xml:408
 msgid "Defines if the history of visited directories is saved on exit."
 msgstr ""
-"Bepaalt of de geschiedenis van bezochte mappen wordt opgeslagen bij afsluiten."
+"Bepaalt of de geschiedenis van bezochte mappen wordt opgeslagen bij "
+"afsluiten."
 
 #: data/org.gnome.gnome-commander.gschema.xml:414
 msgid "Save commandline history on exit"
@@ -655,11 +614,10 @@ msgstr "Opdrachtregelgeschiedenis opslaan bij afsluiten"
 #: data/org.gnome.gnome-commander.gschema.xml:415
 msgid "Defines if the history of commands in the commandline is saved on exit."
 msgstr ""
-"Bepaalt of de geschiedenis van opdrachten in de opdrachtregel worden"
-" opgeslagen bij afsluiten."
+"Bepaalt of de geschiedenis van opdrachten in de opdrachtregel worden "
+"opgeslagen bij afsluiten."
 
 #: data/org.gnome.gnome-commander.gschema.xml:421
-#| msgid "Always show the tab bar"
 msgid "Always show tab bar"
 msgstr "Tabbalk altijd tonen"
 
@@ -677,7 +635,6 @@ msgid "Defines the style of the tab lock indicator."
 msgstr "Bepaalt de stijl van de tabvergrendelingsindicator."
 
 #: data/org.gnome.gnome-commander.gschema.xml:435
-#| msgid "Case sensitive matching"
 msgid "Case sensitive sorting"
 msgstr "Hoofdlettergevoelig sorteren"
 
@@ -686,7 +643,6 @@ msgid "This option defines if sorting should be case sensitive."
 msgstr "Deze optie bepaalt of sorteren hoofdlettergevoelig moet zijn."
 
 #: data/org.gnome.gnome-commander.gschema.xml:442
-#| msgid "Select directories"
 msgid "Select directories when all is marked"
 msgstr "Mappen selecteren wanneer alles is gemarkeerd"
 
@@ -695,11 +651,10 @@ msgid ""
 "This option defines if directories will be marked when all items in a file "
 "pane should be marked."
 msgstr ""
-"Deze optie bepaalt of mappen worden gemarkeerd wanneer alle items in een"
-" bestandspaneel moeten worden gemarkeerd."
+"Deze optie bepaalt of mappen worden gemarkeerd wanneer alle items in een "
+"bestandspaneel moeten worden gemarkeerd."
 
 #: data/org.gnome.gnome-commander.gschema.xml:449
-#| msgid "Multiple instances"
 msgid "Allow multiple instances"
 msgstr "Meerdere instanties toestaan"
 
@@ -716,8 +671,8 @@ msgid ""
 "This option defines if quick search should match explicitly at the beginning "
 "of an item name."
 msgstr ""
-"Deze optie bepaalt of snelzoeken aan het begin van een itemnaam expliciet"
-" moet overeenkomen."
+"Deze optie bepaalt of snelzoeken aan het begin van een itemnaam expliciet "
+"moet overeenkomen."
 
 #: data/org.gnome.gnome-commander.gschema.xml:463
 msgid "Quick search exact match end"
@@ -728,11 +683,10 @@ msgid ""
 "This option defines if quick search should match explicitly at the end of an "
 "item name."
 msgstr ""
-"Deze optie bepaalt of snelzoeken aan het einde van een itemnaam expliciet"
-" moet overeenkomen."
+"Deze optie bepaalt of snelzoeken aan het einde van een itemnaam expliciet "
+"moet overeenkomen."
 
 #: data/org.gnome.gnome-commander.gschema.xml:470
-#| msgid "Show only the icons"
 msgid "Only device icons"
 msgstr "Alleen apparaatpictogrammen"
 
@@ -741,8 +695,8 @@ msgid ""
 "This option defines if only device icons should be shown instead of icons "
 "and text label."
 msgstr ""
-"Deze optie bepaalt of alleen apparaatpictogrammen moeten worden getoond in"
-" plaats van pictogrammen en tekstlabel."
+"Deze optie bepaalt of alleen apparaatpictogrammen moeten worden getoond in "
+"plaats van pictogrammen en tekstlabel."
 
 #: data/org.gnome.gnome-commander.gschema.xml:477
 msgid "Show the samba workgroups icon"
@@ -753,8 +707,8 @@ msgid ""
 "This option defines if the Samba workgroups icon should be shown in the "
 "devices list."
 msgstr ""
-"Deze optie bepaalt of het pictogram van Samba-werkgroepen moet worden getoond"
-" in de apparatenlijst."
+"Deze optie bepaalt of het pictogram van Samba-werkgroepen moet worden "
+"getoond in de apparatenlijst."
 
 #: data/org.gnome.gnome-commander.gschema.xml:484
 msgid "Main menu visibility"
@@ -765,7 +719,6 @@ msgid "This option defines if the main menu is visible or not."
 msgstr "Deze optie bepaalt if het hoofdmenu zichtbaar is of niet."
 
 #: data/org.gnome.gnome-commander.gschema.xml:491
-#| msgid "Quick search"
 msgid "Quick search shortcut"
 msgstr "Sneltoets voor snelzoeken"
 
@@ -782,23 +735,20 @@ msgid ""
 "The entries in this list are used for restoring the tabs from the last "
 "session."
 msgstr ""
-"De items in deze lijst worden gebruikt voor het herstellen van de tabbladen"
-" van de vorige"
-"sessie."
+"De items in deze lijst worden gebruikt voor het herstellen van de tabbladen "
+"van de vorigesessie."
 
 #: data/org.gnome.gnome-commander.gschema.xml:505
-#| msgid "Block devices"
 msgid "List of devices"
 msgstr "Apparatenlijst"
 
 #: data/org.gnome.gnome-commander.gschema.xml:506
 msgid "The entries in this list represent the devices configured by the user."
 msgstr ""
-"De items in deze lijst vertegenwoordigen de apparaten die door de gebruiker"
-" zijn geconfigureerd."
+"De items in deze lijst vertegenwoordigen de apparaten die door de gebruiker "
+"zijn geconfigureerd."
 
 #: data/org.gnome.gnome-commander.gschema.xml:512
-#| msgid "Other favorite apps"
 msgid "List of favorite apps"
 msgstr "Lijst met favoriete toepassingen"
 
@@ -806,11 +756,10 @@ msgstr "Lijst met favoriete toepassingen"
 msgid ""
 "The entries in this list represent the favorite apps configured by the user."
 msgstr ""
-"De items in deze lijst vertegenwoordigen de favoriete toepassingen die door"
-" de gebruiker zijn geconfigureerd."
+"De items in deze lijst vertegenwoordigen de favoriete toepassingen die door "
+"de gebruiker zijn geconfigureerd."
 
 #: data/org.gnome.gnome-commander.gschema.xml:519
-#| msgid "Directory history"
 msgid "Search pattern history"
 msgstr "Zoekpatroongeschiedenis"
 
@@ -819,8 +768,8 @@ msgid ""
 "This string array represents the history of regular expression searches in "
 "the search tool."
 msgstr ""
-"Deze tekenreeks vertegenwoordigt de geschiedenis van zoekopdrachten naar"
-" reguliere expressies in de zoekfunctie."
+"Deze tekenreeks vertegenwoordigt de geschiedenis van zoekopdrachten naar "
+"reguliere expressies in de zoekfunctie."
 
 #: data/org.gnome.gnome-commander.gschema.xml:526
 msgid "List of search tool profiles"
@@ -831,11 +780,10 @@ msgid ""
 "The entries in this array represent the profiles in the search tool with "
 "specific settings for each profile."
 msgstr ""
-"De items in deze reeks vertegenwoordigen de profielen in de zoekfunctie met"
-" specifieke instellingen voor elk profiel."
+"De items in deze reeks vertegenwoordigen de profielen in de zoekfunctie met "
+"specifieke instellingen voor elk profiel."
 
 #: data/org.gnome.gnome-commander.gschema.xml:535
-#| msgid "FTP Quick Connect"
 msgid "Quick connect URI"
 msgstr "URI voor snel verbinden"
 
@@ -853,7 +801,6 @@ msgstr ""
 "Deze tekenreeks definieert het wachtwoord voor anonieme FTP-verbindingen."
 
 #: data/org.gnome.gnome-commander.gschema.xml:556
-#| msgid "Confirm before delete"
 msgid "Confirm delete"
 msgstr "Verwijderen bevestigen"
 
@@ -862,7 +809,6 @@ msgid "Defines if deletion of an item should be confirmed."
 msgstr "Bepaalt of het verwijderen van een item moet worden bevestigd."
 
 #: data/org.gnome.gnome-commander.gschema.xml:563
-#| msgid "Delete files"
 msgid "Delete default"
 msgstr "Standaard verwijderen"
 
@@ -871,11 +817,10 @@ msgid ""
 "This setting defines the default active option in the delete confirmation "
 "dialog."
 msgstr ""
-"Deze instelling definieert de standaard actieve optie in het dialoogvenster"
-" ‘verwijderen bevestigen’."
+"Deze instelling definieert de standaard actieve optie in het dialoogvenster "
+"‘verwijderen bevestigen’."
 
 #: data/org.gnome.gnome-commander.gschema.xml:570
-#| msgid "Copy overwrite"
 msgid "Confirm copy overwrite"
 msgstr "Kopie overschrijven bevestigen"
 
@@ -884,11 +829,10 @@ msgid ""
 "This option defines the default behavior when items will be overwritten by a "
 "copy command."
 msgstr ""
-"Deze optie definieert het standaardgedrag wanneer items worden overschreven"
-" door een kopieeropdracht."
+"Deze optie definieert het standaardgedrag wanneer items worden overschreven "
+"door een kopieeropdracht."
 
 #: data/org.gnome.gnome-commander.gschema.xml:577
-#| msgid "Move overwrite"
 msgid "Confirm move overwrite"
 msgstr "Verplaatsen overschrijven bevestigen"
 
@@ -897,11 +841,10 @@ msgid ""
 "This option defines the default behavior when items will be overwritten by a "
 "move command."
 msgstr ""
-"Deze optie definieert het standaardgedrag wanneer items worden overschreven"
-" door een verplaatsingsopdracht."
+"Deze optie definieert het standaardgedrag wanneer items worden overschreven "
+"door een verplaatsingsopdracht."
 
 #: data/org.gnome.gnome-commander.gschema.xml:584
-#| msgid "Confirm mouse operation"
 msgid "Confirm mouse drag and drop"
 msgstr "Slepen en neerzetten met de muis bevestigen"
 
@@ -911,28 +854,24 @@ msgstr ""
 "Deze optie definieert het gedrag van het met de muis slepen en neerzetten."
 
 #: data/org.gnome.gnome-commander.gschema.xml:593
-#| msgid "Unknown file type"
 msgid "Hide unknown filetypes"
 msgstr "Onbekend bestandstype verbergen"
 
 #: data/org.gnome.gnome-commander.gschema.xml:594
 msgid "Hide files which type does not match to one of the other types."
 msgstr ""
-"Bestanden verbergen waarvan het type niet overeenkomt met één van de andere"
-" typen."
+"Bestanden verbergen waarvan het type niet overeenkomt met één van de andere "
+"typen."
 
 #: data/org.gnome.gnome-commander.gschema.xml:598
-#| msgid "Regular files"
 msgid "Hide regular files"
 msgstr "Normale bestanden verbergen"
 
 #: data/org.gnome.gnome-commander.gschema.xml:602
-#| msgid "All directories"
 msgid "Hide directories"
 msgstr "Mappen verbergen"
 
 #: data/org.gnome.gnome-commander.gschema.xml:606
-#| msgid "Create symbolic link"
 msgid "Hide symbolic links"
 msgstr "Symbolische verwijzingen verbergen"
 
@@ -941,25 +880,22 @@ msgid ""
 "Hide special files, such as a socket, fifo, block devices, or character "
 "devices."
 msgstr ""
-"Speciale bestanden, zoals een socket, fifo, blokapparaten of"
-" karakterapparaten verbergen."
+"Speciale bestanden, zoals een socket, fifo, blokapparaten of "
+"karakterapparaten verbergen."
 
 #: data/org.gnome.gnome-commander.gschema.xml:614
 msgid "Hide shortcut files (Windows systems)"
 msgstr "Snelkoppelingsbestanden verbergen (Windows-systemen)"
 
 #: data/org.gnome.gnome-commander.gschema.xml:618
-#| msgid "/Remote location..."
 msgid "Hide mountable locations"
 msgstr "Aankoppelbare locaties verbergen"
 
 #: data/org.gnome.gnome-commander.gschema.xml:622
-#| msgid "Hidden files"
 msgid "Hide virtual files"
 msgstr "Virtuele bestanden verbergen"
 
 #: data/org.gnome.gnome-commander.gschema.xml:626
-#| msgid "Delete files"
 msgid "Hide volatile files"
 msgstr "Vluchtige bestanden verbergen"
 
@@ -968,18 +904,16 @@ msgid "Hide files and folders starting with a dot"
 msgstr "Bestanden en mappen die beginnen met een punt verbergen"
 
 #: data/org.gnome.gnome-commander.gschema.xml:634
-#| msgid "Backup files"
 msgid "Hide backup files"
 msgstr "Reservebestanden verbergen"
 
 #: data/org.gnome.gnome-commander.gschema.xml:635
 msgid "Hide all files with a suffix defined as the backup pattern."
 msgstr ""
-"Alle bestanden met een achtervoegsel dat is gedefinieerd als het"
-" reservebestandspatroon verbergen."
+"Alle bestanden met een achtervoegsel dat is gedefinieerd als het "
+"reservebestandspatroon verbergen."
 
 #: data/org.gnome.gnome-commander.gschema.xml:639
-#| msgid "Backup files"
 msgid "Backup file pattern"
 msgstr "Reservebestandspatroon"
 
@@ -988,25 +922,23 @@ msgid ""
 "The given string defines suffixes (separated by semicolon) for files which "
 "should be filtered out if backup files should be hidden."
 msgstr ""
-"De gegeven tekenreeks definieert achtervoegsels (gescheiden door puntkomma's)"
-" voor bestanden die moeten worden uitgefilterd als reservebestanden verborgen"
-" moeten worden."
+"De gegeven tekenreeks definieert achtervoegsels (gescheiden door "
+"puntkomma's) voor bestanden die moeten worden uitgefilterd als "
+"reservebestanden verborgen moeten worden."
 
 #: data/org.gnome.gnome-commander.gschema.xml:649
 msgid "Do not download files"
 msgstr "Bestanden niet ophalen"
 
 #: data/org.gnome.gnome-commander.gschema.xml:650
-#| msgid "Always download remote files before opening in external programs"
 msgid ""
 "This option defines if remote files should be downloaded before opened by "
 "external programs."
 msgstr ""
-"Deze optie bepaalt of externe bestanden moeten worden opgehaald voordat ze"
-" door externe programma's worden geopend."
+"Deze optie bepaalt of externe bestanden moeten worden opgehaald voordat ze "
+"door externe programma's worden geopend."
 
 #: data/org.gnome.gnome-commander.gschema.xml:656
-#| msgid "Use Internal Viewer"
 msgid "Use internal viewer"
 msgstr "Interne viewer gebruiken"
 
@@ -1016,18 +948,16 @@ msgstr ""
 "Deze optie bepaalt of de interne viewer standaard moet worden gebruikt."
 
 #: data/org.gnome.gnome-commander.gschema.xml:663
-#| msgid "Execute command"
 msgid "Viewer command"
 msgstr "Vieweropdracht"
 
 #: data/org.gnome.gnome-commander.gschema.xml:664
 msgid "This string defines the command for starting the (external) viewer."
 msgstr ""
-"Deze tekenreeks definieert de opdracht voor het starten van de (externe)"
-" viewer."
+"Deze tekenreeks definieert de opdracht voor het starten van de (externe) "
+"viewer."
 
 #: data/org.gnome.gnome-commander.gschema.xml:670
-#| msgid "Execute command"
 msgid "Editor command"
 msgstr "Editor-opdracht"
 
@@ -1036,18 +966,16 @@ msgid "This string defines the command for starting the editor."
 msgstr "Deze tekenreeks definieert de opdracht voor het starten van de editor."
 
 #: data/org.gnome.gnome-commander.gschema.xml:677
-#| msgid "Invalid command"
 msgid "Differ command"
 msgstr "Verschillenopdracht"
 
 #: data/org.gnome.gnome-commander.gschema.xml:678
 msgid "This string defines the command for starting the diff tool."
 msgstr ""
-"Deze tekenreeks definieert de opdracht voor het starten van het"
-" diff-hulpmiddel."
+"Deze tekenreeks definieert de opdracht voor het starten van het diff-"
+"hulpmiddel."
 
 #: data/org.gnome.gnome-commander.gschema.xml:684
-#| msgid "Execute command"
 msgid "Search command"
 msgstr "Zoekopdracht"
 
@@ -1055,11 +983,10 @@ msgstr "Zoekopdracht"
 msgid ""
 "This string defines the command for starting an external file search tool."
 msgstr ""
-"Deze tekenreeks definieert de opdracht voor het starten een extern"
-" zoekprogramma voor bestanden."
+"Deze tekenreeks definieert de opdracht voor het starten een extern "
+"zoekprogramma voor bestanden."
 
 #: data/org.gnome.gnome-commander.gschema.xml:691
-#| msgid "Needs terminal"
 msgid "Leave terminal open"
 msgstr "Terminal open laten"
 
@@ -1068,11 +995,10 @@ msgid ""
 "This option defines if a terminal window should stay open after a command "
 "finishes inside of it."
 msgstr ""
-"Deze optie definieert of een terminalvenster open moet blijven nadat er een"
-" opdracht in is uitgevoerd."
+"Deze optie definieert of een terminalvenster open moet blijven nadat er een "
+"opdracht in is uitgevoerd."
 
 #: data/org.gnome.gnome-commander.gschema.xml:698
-#| msgid "Unable to open terminal"
 msgid "Command for opening a terminal"
 msgstr "Opdracht voor het openen van een terminal"
 
@@ -1089,22 +1015,20 @@ msgstr "Opdracht tot uitvoering in terminal"
 msgid ""
 "This string defines the command for executing another command in a terminal."
 msgstr ""
-"Deze tekenreeks definieert de opdracht voor het uitvoeren van een andere"
-" opdracht in een terminal."
+"Deze tekenreeks definieert de opdracht voor het uitvoeren van een andere "
+"opdracht in een terminal."
 
 #: data/org.gnome.gnome-commander.gschema.xml:712
-#| msgid "Invalid command"
 msgid "Send to command"
 msgstr "Opdracht versturen naar"
 
 #: data/org.gnome.gnome-commander.gschema.xml:713
 msgid "This string defines the command for sending files to a receiver."
 msgstr ""
-"Deze tekenreeks definieert de opdracht voor het versturen van bestanden naar"
-" een ontvanger."
+"Deze tekenreeks definieert de opdracht voor het versturen van bestanden naar "
+"een ontvanger."
 
 #: data/org.gnome.gnome-commander.gschema.xml:721
-#| msgid "Color scheme:"
 msgid "Color theme"
 msgstr "Kleurenthema"
 
@@ -1177,7 +1101,6 @@ msgid "Cursor background color in custom mode."
 msgstr "Achtergrondkleur cursor in de aangepaste modus."
 
 #: data/org.gnome.gnome-commander.gschema.xml:784
-#| msgid "Respect theme colors"
 msgid "Use LS colors"
 msgstr "LS-kleuren gebruiken"
 
@@ -1186,8 +1109,8 @@ msgid ""
 "This option triggers if the value of the environment variable LS_COLORS "
 "should be used to dye files and folders."
 msgstr ""
-"Deze optie wordt geactiveerd als de waarde van de omgevingsvariabele"
-" LS_COLORS moet worden gebruikt om bestanden en mappen te kleuren."
+"Deze optie wordt geactiveerd als de waarde van de omgevingsvariabele "
+"LS_COLORS moet worden gebruikt om bestanden en mappen te kleuren."
 
 #: data/org.gnome.gnome-commander.gschema.xml:792
 msgid "LS_COLORS black foreground mapping"
@@ -1197,7 +1120,8 @@ msgstr "LS_COLORS zwarte voorgrondtoewijzing"
 msgid ""
 "This option adjusts the foreground color mapping for LS_COLORS black value."
 msgstr ""
-"Deze optie past de voorgrondkleurtoewijzing aan voor de LS_COLORS-zwartwaarde."
+"Deze optie past de voorgrondkleurtoewijzing aan voor de LS_COLORS-"
+"zwartwaarde."
 
 #: data/org.gnome.gnome-commander.gschema.xml:799
 msgid "LS_COLORS black background mapping"
@@ -1207,8 +1131,8 @@ msgstr "LS_COLORS zwarte achtergrondtoewijzing"
 msgid ""
 "This option adjusts the background color mapping for LS_COLORS black value."
 msgstr ""
-"Deze optie past de achtergrondkleurtoewijzing aan voor de"
-" LS_COLORS-zwartwaarde."
+"Deze optie past de achtergrondkleurtoewijzing aan voor de LS_COLORS-"
+"zwartwaarde."
 
 #: data/org.gnome.gnome-commander.gschema.xml:806
 msgid "LS_COLORS red foreground mapping"
@@ -1228,8 +1152,8 @@ msgstr "LS_COLORS rode achtergrondtoewijzing"
 msgid ""
 "This option adjusts the background color mapping for LS_COLORS red value."
 msgstr ""
-"Deze optie past de achtergrondkleurtoewijzing aan voor de"
-" LS_COLORS-roodwaarde."
+"Deze optie past de achtergrondkleurtoewijzing aan voor de LS_COLORS-"
+"roodwaarde."
 
 #: data/org.gnome.gnome-commander.gschema.xml:820
 msgid "LS_COLORS green foreground mapping"
@@ -1239,7 +1163,8 @@ msgstr "LS_COLORS groene voorgrondtoewijzing"
 msgid ""
 "This option adjusts the foreground color mapping for LS_COLORS green value."
 msgstr ""
-"Deze optie past de voorgrondkleurtoewijzing aan voor de LS_COLORS-groenwaarde."
+"Deze optie past de voorgrondkleurtoewijzing aan voor de LS_COLORS-"
+"groenwaarde."
 
 #: data/org.gnome.gnome-commander.gschema.xml:827
 msgid "LS_COLORS green background mapping"
@@ -1249,8 +1174,8 @@ msgstr "LS_COLORS groene achtergrondtoewijzing"
 msgid ""
 "This option adjusts the background color mapping for LS_COLORS green value."
 msgstr ""
-"Deze optie past de achtergrondkleurtoewijzing aan voor de"
-" LS_COLORS-groenwaarde."
+"Deze optie past de achtergrondkleurtoewijzing aan voor de LS_COLORS-"
+"groenwaarde."
 
 #: data/org.gnome.gnome-commander.gschema.xml:834
 msgid "LS_COLORS yellow foreground mapping"
@@ -1270,8 +1195,8 @@ msgstr "LS_COLORS gele achtergrondtoewijzing"
 msgid ""
 "This option adjusts the background color mapping for LS_COLORS yellow value."
 msgstr ""
-"Deze optie past de achtergrondkleurtoewijzing aan voor de"
-" LS_COLORS-geelwaarde."
+"Deze optie past de achtergrondkleurtoewijzing aan voor de LS_COLORS-"
+"geelwaarde."
 
 #: data/org.gnome.gnome-commander.gschema.xml:848
 msgid "LS_COLORS blue foreground mapping"
@@ -1281,7 +1206,8 @@ msgstr "LS_COLORS blauwe voorgrondtoewijzing"
 msgid ""
 "This option adjusts the foreground color mapping for LS_COLORS blue value."
 msgstr ""
-"Deze optie past de voorgrondkleurtoewijzing aan voor de LS_COLORS-blauwwaarde."
+"Deze optie past de voorgrondkleurtoewijzing aan voor de LS_COLORS-"
+"blauwwaarde."
 
 #: data/org.gnome.gnome-commander.gschema.xml:855
 msgid "LS_COLORS blue background mapping"
@@ -1291,8 +1217,8 @@ msgstr "LS_COLORS blauwe achtergrondtoewijzing"
 msgid ""
 "This option adjusts the background color mapping for LS_COLORS blue value."
 msgstr ""
-"Deze optie past de achtergrondkleurtoewijzing aan voor de"
-" LS_COLORS-blauwwaarde."
+"Deze optie past de achtergrondkleurtoewijzing aan voor de LS_COLORS-"
+"blauwwaarde."
 
 #: data/org.gnome.gnome-commander.gschema.xml:862
 msgid "LS_COLORS magenta foreground mapping"
@@ -1302,8 +1228,8 @@ msgstr "LS_COLORS magenta voorgrondtoewijzing"
 msgid ""
 "This option adjusts the foreground color mapping for LS_COLORS magenta value."
 msgstr ""
-"Deze optie past de voorgrondkleurtoewijzing aan voor de"
-" LS_COLORS-magentawaarde."
+"Deze optie past de voorgrondkleurtoewijzing aan voor de LS_COLORS-"
+"magentawaarde."
 
 #: data/org.gnome.gnome-commander.gschema.xml:869
 msgid "LS_COLORS magenta background mapping"
@@ -1313,8 +1239,8 @@ msgstr "LS_COLORS magenta achtergrondtoewijzing"
 msgid ""
 "This option adjusts the background color mapping for LS_COLORS magenta value."
 msgstr ""
-"Deze optie past de achtergrondkleurtoewijzing aan voor de"
-" LS_COLORS-magentawaarde."
+"Deze optie past de achtergrondkleurtoewijzing aan voor de LS_COLORS-"
+"magentawaarde."
 
 #: data/org.gnome.gnome-commander.gschema.xml:876
 msgid "LS_COLORS cyan foreground mapping"
@@ -1324,7 +1250,8 @@ msgstr "LS_COLORS cyaan voorgrondtoewijzing"
 msgid ""
 "This option adjusts the foreground color mapping for LS_COLORS cyan value."
 msgstr ""
-"Deze optie past de voorgrondkleurtoewijzing aan voor de LS_COLORS-cyaanwaarde."
+"Deze optie past de voorgrondkleurtoewijzing aan voor de LS_COLORS-"
+"cyaanwaarde."
 
 #: data/org.gnome.gnome-commander.gschema.xml:883
 msgid "LS_COLORS cyan background mapping"
@@ -1334,8 +1261,8 @@ msgstr "LS_COLORS cyaan achtergrondtoewijzing"
 msgid ""
 "This option adjusts the background color mapping for LS_COLORS cyan value."
 msgstr ""
-"Deze optie past de achtergrondkleurtoewijzing aan voor de"
-" LS_COLORS-cyaanwaarde."
+"Deze optie past de achtergrondkleurtoewijzing aan voor de LS_COLORS-"
+"cyaanwaarde."
 
 #: data/org.gnome.gnome-commander.gschema.xml:890
 msgid "LS_COLORS white foreground mapping"
@@ -1355,10 +1282,10 @@ msgstr "LS_COLORS witte achtergrondtoewijzing"
 msgid ""
 "This option adjusts the background color mapping for LS_COLORS white value."
 msgstr ""
-"Deze optie past de achtergrondkleurtoewijzing aan voor de LS_COLORS-witwaarde."
+"Deze optie past de achtergrondkleurtoewijzing aan voor de LS_COLORS-"
+"witwaarde."
 
 #: data/org.gnome.gnome-commander.gschema.xml:906
-#| msgid "Case sensitive matching"
 msgid "Case sensitive search"
 msgstr "Hoofdlettergevoelige zoekopdracht"
 
@@ -1367,11 +1294,10 @@ msgid ""
 "This option defines if searching within the internal viewer is case "
 "sensitive."
 msgstr ""
-"Deze optie bepaalt of het zoeken binnen de interne viewer hoofdlettergevoelig"
-" is."
+"Deze optie bepaalt of het zoeken binnen de interne viewer "
+"hoofdlettergevoelig is."
 
 #: data/org.gnome.gnome-commander.gschema.xml:913
-#| msgid "Search for"
 msgid "Search mode"
 msgstr "Zoekmodus"
 
@@ -1389,7 +1315,6 @@ msgid "'UTF8'"
 msgstr "‘UTF8’"
 
 #: data/org.gnome.gnome-commander.gschema.xml:925
-#| msgid "Character Count"
 msgid "Character set"
 msgstr "Tekenset"
 
@@ -1398,7 +1323,6 @@ msgid "This option defines the default character encoding."
 msgstr "Deze optie definieert de standaard tekencodering."
 
 #: data/org.gnome.gnome-commander.gschema.xml:932
-#| msgid "Fixed font"
 msgid "Fixed font name"
 msgstr "Naam van lettertype met vaste breedte"
 
@@ -1407,7 +1331,6 @@ msgid "Name of the default font with fixed character width."
 msgstr "Naam van het standaard lettertype met vaste breedte."
 
 #: data/org.gnome.gnome-commander.gschema.xml:939
-#| msgid "Profile name"
 msgid "Variable font name"
 msgstr "Naam van lettertype met variabele breedte"
 
@@ -1424,11 +1347,10 @@ msgid ""
 "This option defines if the hexadecimal offset should be displayed in hex "
 "mode."
 msgstr ""
-"Deze optie definieert of de hexadecimale offset moet worden weergegeven in de"
-" hexmodus."
+"Deze optie definieert of de hexadecimale offset moet worden weergegeven in "
+"de hexmodus."
 
 #: data/org.gnome.gnome-commander.gschema.xml:953
-#| msgid "Graphical mode:"
 msgid "Wrap mode"
 msgstr "Regelterugloopmodus"
 
@@ -1437,7 +1359,6 @@ msgid "This option defines if too long text lines should be wrapped."
 msgstr "Deze optie definieert of te lange regels moeten worden teruggelopen."
 
 #: data/org.gnome.gnome-commander.gschema.xml:960
-#| msgid "Icon size:"
 msgid "Font size"
 msgstr "Lettergrootte"
 
@@ -1446,7 +1367,6 @@ msgid "This option defines the default font size."
 msgstr "Deze optie definieert de standaard lettergrootte."
 
 #: data/org.gnome.gnome-commander.gschema.xml:967
-#| msgid "size"
 msgid "Tab size"
 msgstr "Tabgrootte"
 
@@ -1466,11 +1386,10 @@ msgid ""
 "This option defines how many bytes should be displayed in one line in binary "
 "mode."
 msgstr ""
-"Deze optie definieert hoeveel bytes er moeten worden weergegeven op één regel"
-" in de binaire modus."
+"Deze optie definieert hoeveel bytes er moeten worden weergegeven op één "
+"regel in de binaire modus."
 
 #: data/org.gnome.gnome-commander.gschema.xml:981
-#| msgid "Metadata"
 msgid "Metadata view"
 msgstr "Metadata bekijken"
 
@@ -1479,7 +1398,6 @@ msgid "This option defines if metadata should be visible."
 msgstr "Deze optie bepaalt of metadata zichtbaar moeten zijn."
 
 #: data/org.gnome.gnome-commander.gschema.xml:988
-#| msgid "Flip _Horizontal"
 msgid "Horizontal offset"
 msgstr "Horizontale offset"
 
@@ -1488,8 +1406,8 @@ msgid ""
 "This option defines the visual offset of the internal file viewer in "
 "horizontal direction."
 msgstr ""
-"Deze optie definieert de visuele offset van de interne bestandsviewer in"
-" horizontale richting."
+"Deze optie definieert de visuele offset van de interne bestandsviewer in "
+"horizontale richting."
 
 #: data/org.gnome.gnome-commander.gschema.xml:995
 msgid "Vertical offset"
@@ -1500,21 +1418,18 @@ msgid ""
 "This option defines the visual offset of the internal file viewer in "
 "vertical direction."
 msgstr ""
-"Deze optie definieert de visuele offset van de interne bestandsviewer in"
-" verticale richting."
+"Deze optie definieert de visuele offset van de interne bestandsviewer in "
+"verticale richting."
 
 #: data/org.gnome.gnome-commander.gschema.xml:1002
-#| msgid "Windows share"
 msgid "Window width"
 msgstr "Vensterbreedte"
 
 #: data/org.gnome.gnome-commander.gschema.xml:1003
-#| msgid "View with internal viewer"
 msgid "The width of the internal file viewer window."
 msgstr "De breedte van het interne bestandsviewervenster."
 
 #: data/org.gnome.gnome-commander.gschema.xml:1009
-#| msgid "Row height:"
 msgid "Window height"
 msgstr "Vensterhoogte"
 
@@ -1531,8 +1446,8 @@ msgid ""
 "This string array stores the history of text searches within the internal "
 "file viewer."
 msgstr ""
-"Deze tekenreeks slaat de geschiedenis op van tekstzoekopdrachten in de"
-" interne bestandsviewer."
+"Deze tekenreeks slaat de geschiedenis op van tekstzoekopdrachten in de "
+"interne bestandsviewer."
 
 #: data/org.gnome.gnome-commander.gschema.xml:1023
 msgid "Search pattern for hex values"
@@ -1543,22 +1458,20 @@ msgid ""
 "This string array stores the history of searches for hex values within the "
 "internal file viewer."
 msgstr ""
-"Deze tekenreeks slaat de geschiedenis op van zoekopdrachten naar hexadecimale"
-" waarden in de interne bestandsviewer."
+"Deze tekenreeks slaat de geschiedenis op van zoekopdrachten naar "
+"hexadecimale waarden in de interne bestandsviewer."
 
 #: data/org.gnome.gnome-commander.gschema.xml:1032
-#| msgid "File size"
 msgid "File suffix"
 msgstr "Bestandsachtervoegsel"
 
 #: data/org.gnome.gnome-commander.gschema.xml:1033
 msgid "Default file suffix of archives created with the File Roller plugin."
 msgstr ""
-"Standaard bestandsachtervoegsel van archieven die aangemaakt zijn met de File"
-" Roller-plug-in."
+"Standaard bestandsachtervoegsel van archieven die aangemaakt zijn met de "
+"File Roller-plug-in."
 
 #: data/org.gnome.gnome-commander.gschema.xml:1039
-#| msgid "Regex pattern"
 msgid "Prefix pattern"
 msgstr "Voorvoegselpatroon"
 
@@ -1567,11 +1480,10 @@ msgid ""
 "The prefix pattern is used to build up the name for an archive created with "
 "the File Roller plugin."
 msgstr ""
-"Het voorvoegselpatroon wordt gebruikt voor de opbouw van de naam voor een"
-" archief dat aangemaakt is met de File Roller-plug-in."
+"Het voorvoegselpatroon wordt gebruikt voor de opbouw van de naam voor een "
+"archief dat aangemaakt is met de File Roller-plug-in."
 
 #: data/org.gnome.gnome-commander.gschema.xml:1048
-#| msgid "Available plugins"
 msgid "Automatically loaded plugins"
 msgstr "Automatisch geladen plug-ins"
 
@@ -1580,15 +1492,14 @@ msgid ""
 "This is the list of automatically loaded plugins, whereas each entry "
 "represents the file name of the plugin."
 msgstr ""
-"Dit is de lijst met automatisch geladen plug-ins, waarbij elk item de"
-" bestandsnaam van de plug-in vertegenwoordigt."
+"Dit is de lijst met automatisch geladen plug-ins, waarbij elk item de "
+"bestandsnaam van de plug-in vertegenwoordigt."
 
 #: libgcmd/gnome-cmd-string-dialog.cc:127
 msgid "No error description available"
 msgstr "Geen foutbeschrijving beschikbaar"
 
 #: libgcmd/libgcmd-widget-factory.cc:357
-#| msgid "_Select range:"
 msgid "Select an Image File"
 msgstr "Een afbeeldingsbestand selecteren"
 
@@ -1597,29 +1508,20 @@ msgid "Choose Icon"
 msgstr "Pictogram kiezen"
 
 #: libgcmd/libgcmd-widget-factory.cc:442
-#| msgid "Toggle selection"
 msgid "Folder selection"
 msgstr "Mapselectie"
 
 #: libgcmd/libgcmd-widget-factory.cc:462
-#| msgid "Toggle selection"
 msgid "File selection"
 msgstr "Bestandsselectie"
 
-#: plugins/fileroller/file-roller-plugin.cc:111 src/gnome-cmd-data.cc:78
+#: plugins/fileroller/file-roller-plugin.cc:111 src/gnome-cmd-data.cc:75
 #, c-format
-#| msgid ""
-#| "Could not chmod %s\n"
-#| "%s"
 msgid "Could not load schemas from %s: %s\n"
 msgstr "Kan geen schema's laden van %s: %s\n"
 
 #: plugins/fileroller/file-roller-plugin.cc:200
 #, c-format
-#| msgid ""
-#| "Error while deleting \"%s\"\n"
-#| "\n"
-#| "%s"
 msgid ""
 "Error running \"%s\"\n"
 "\n"
@@ -1638,7 +1540,6 @@ msgid "Create Archive"
 msgstr "Archief aanmaken"
 
 #: plugins/fileroller/file-roller-plugin.cc:495
-#| msgid "Create Archive"
 msgid "Create Archive…"
 msgstr "Archief aanmaken…"
 
@@ -1649,12 +1550,11 @@ msgstr "In huidige map uitpakken"
 #: plugins/fileroller/file-roller-plugin.cc:514
 #: plugins/fileroller/file-roller-plugin.cc:527
 #, c-format
-#| msgid "Extract to '%s'"
 msgid "Extract to “%s”"
 msgstr "Uitpakken naar ‘%s’"
 
 #: plugins/fileroller/file-roller-plugin.cc:588
-#: src/gnome-cmd-advrename-profile-component.cc:941 src/plugin_manager.cc:391
+#: src/gnome-cmd-advrename-profile-component.cc:941 src/plugin_manager.cc:398
 #: src/tags/gnome-cmd-tags.cc:692
 msgid "File"
 msgstr "Bestand"
@@ -1662,8 +1562,8 @@ msgstr "Bestand"
 #. destroy model automatically with view
 #: plugins/fileroller/file-roller-plugin.cc:605
 #: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:369
-#: src/dialogs/gnome-cmd-options-dialog.cc:1524
-#: src/dialogs/gnome-cmd-options-dialog.cc:2201
+#: src/dialogs/gnome-cmd-options-dialog.cc:1538
+#: src/dialogs/gnome-cmd-options-dialog.cc:2294
 #: src/dialogs/gnome-cmd-prepare-copy-dialog.cc:145
 #: src/dialogs/gnome-cmd-prepare-move-dialog.cc:132
 #: src/dialogs/gnome-cmd-remote-dialog.cc:443 src/gnome-cmd-user-actions.cc:253
@@ -1675,13 +1575,11 @@ msgid "File-roller options"
 msgstr "Opties File-roller"
 
 #: plugins/fileroller/file-roller-plugin.cc:620
-#| msgid "Default type"
 msgid "Default archive type"
 msgstr "Standaard archieftype"
 
 #. The pattern defining the file name prefix of the archive to be created
 #: plugins/fileroller/file-roller-plugin.cc:628
-#| msgid "File patterns"
 msgid "File prefix pattern"
 msgstr "Bestandsvoorvoegselpatroon"
 
@@ -1695,8 +1593,8 @@ msgid ""
 "Use $N as a pattern for the original file name. See the manual page for "
 "“strftime” for other patterns."
 msgstr ""
-"Gebruik $N als patroon voor de originele bestandsnaam. Zie de handleiding"
-" voor ‘strftime’ voor andere patronen."
+"Gebruik $N als patroon voor de originele bestandsnaam. Zie de handleiding "
+"voor ‘strftime’ voor andere patronen."
 
 #: plugins/fileroller/file-roller-plugin.cc:828
 msgid ""
@@ -1715,12 +1613,10 @@ msgstr ""
 "voor aankomende plug-inschrijvers"
 
 #: src/dialogs/gnome-cmd-advrename-dialog.cc:126
-#| msgid "/_Save Profile As..."
 msgid "/_Save Profile As…"
 msgstr "/_Profiel opslaan als…"
 
 #: src/dialogs/gnome-cmd-advrename-dialog.cc:135
-#| msgid "/_Manage Profiles..."
 msgid "/_Manage Profiles…"
 msgstr "/Profielen _beheren…"
 
@@ -1791,7 +1687,6 @@ msgid "File modification date"
 msgstr "Wijzigingsdatum bestand"
 
 #: src/dialogs/gnome-cmd-advrename-dialog.cc:693
-#| msgid "Profiles"
 msgid "Profiles…"
 msgstr "Profielen…"
 
@@ -1815,7 +1710,7 @@ msgid "_Match case"
 msgstr "_Hoofdlettergevoelig"
 
 #: src/dialogs/gnome-cmd-chmod-dialog.cc:45
-#: src/dialogs/gnome-cmd-options-dialog.cc:1545
+#: src/dialogs/gnome-cmd-options-dialog.cc:1559
 msgid "All files"
 msgstr "Alle bestanden"
 
@@ -1825,9 +1720,6 @@ msgstr "Alleen mappen"
 
 #: src/dialogs/gnome-cmd-chmod-dialog.cc:75
 #, c-format
-#| msgid ""
-#| "Could not chmod %s\n"
-#| "%s"
 msgid "Could not chmod %s"
 msgstr "Kan %s niet aanpassen met chmod"
 
@@ -1890,7 +1782,6 @@ msgstr "Voer een naam in en probeer het opnieuw."
 
 #: src/dialogs/gnome-cmd-con-dialog.cc:282
 #, c-format
-#| msgid "\"%s\" is not a valid location"
 msgid "“%s” is not a valid location"
 msgstr "‘%s’ is geen geldige locatie"
 
@@ -1937,24 +1828,17 @@ msgstr "Aangepaste locatie"
 
 #: src/dialogs/gnome-cmd-delete-dialog.cc:77
 #, c-format
-#| msgid "Deleted %ld of %ld file"
-#| msgid_plural "Deleted %ld of %ld files"
 msgid "Deleted %lu of %lu file"
 msgid_plural "Deleted %lu of %lu files"
 msgstr[0] "%lu van %lu bestand verwijderd"
 msgstr[1] "%lu van %lu bestanden verwijderd"
 
 #: src/dialogs/gnome-cmd-delete-dialog.cc:112
-#| msgid "Deleting..."
 msgid "Deleting…"
 msgstr "Verwijderen…"
 
 #: src/dialogs/gnome-cmd-delete-dialog.cc:281
 #, c-format
-#| msgid ""
-#| "Error while deleting \"%s\"\n"
-#| "\n"
-#| "%s"
 msgid ""
 "Error while deleting “%s”\n"
 "\n"
@@ -1974,13 +1858,13 @@ msgstr "Verwijderingsprobleem"
 #: src/gnome-cmd-xfer.cc:147 src/gnome-cmd-xfer.cc:150
 #: src/gnome-cmd-xfer.cc:205 src/gnome-cmd-xfer.cc:208
 #: src/gnome-cmd-xfer.cc:323 src/gnome-cmd-xfer.cc:326
-#: src/gnome-cmd-xfer.cc:1097 src/gnome-cmd-xfer.cc:1108
-#: src/gnome-cmd-xfer.cc:1130
+#: src/gnome-cmd-xfer.cc:1099 src/gnome-cmd-xfer.cc:1110
+#: src/gnome-cmd-xfer.cc:1154
 msgid "Abort"
 msgstr "Afbreken"
 
 #: src/dialogs/gnome-cmd-delete-dialog.cc:287
-#: src/gnome-cmd-file-selector.cc:1398 src/gnome-cmd-xfer.cc:120
+#: src/gnome-cmd-file-selector.cc:1405 src/gnome-cmd-xfer.cc:120
 #: src/gnome-cmd-xfer.cc:147 src/gnome-cmd-xfer.cc:150
 #: src/gnome-cmd-xfer.cc:205 src/gnome-cmd-xfer.cc:208
 #: src/gnome-cmd-xfer.cc:323 src/gnome-cmd-xfer.cc:326
@@ -1993,7 +1877,7 @@ msgstr "Opnieuw proberen"
 #: src/dialogs/gnome-cmd-options-dialog.cc:1089
 #: src/dialogs/gnome-cmd-prepare-copy-dialog.cc:114
 #: src/dialogs/gnome-cmd-prepare-move-dialog.cc:108
-#: src/gnome-cmd-file-selector.cc:1398 src/gnome-cmd-xfer.cc:120
+#: src/gnome-cmd-file-selector.cc:1405 src/gnome-cmd-xfer.cc:120
 #: src/gnome-cmd-xfer.cc:147 src/gnome-cmd-xfer.cc:205
 #: src/gnome-cmd-xfer.cc:323
 msgid "Skip"
@@ -2001,10 +1885,6 @@ msgstr "Overslaan"
 
 #: src/dialogs/gnome-cmd-delete-dialog.cc:419
 #, c-format
-#| msgid ""
-#| "Error while deleting \"%s\"\n"
-#| "\n"
-#| "%s"
 msgid ""
 "Error while deleting: \n"
 "\n"
@@ -2016,13 +1896,11 @@ msgstr ""
 
 #: src/dialogs/gnome-cmd-delete-dialog.cc:432
 #, c-format
-#| msgid "Do you want to delete \"%s\"?"
 msgid "Do you really want to delete “%s”?"
 msgstr "Wilt u ‘%s’ echt verwijderen?"
 
 #: src/dialogs/gnome-cmd-delete-dialog.cc:433
 #, c-format
-#| msgid "The directory '%s' doesn't exist, do you want to create it?"
 msgid "The directory “%s” is not empty. Do you really want to delete it?"
 msgstr "De map ‘%s’ is niet leeg. Wilt u deze echt verwijderen?"
 
@@ -2037,25 +1915,22 @@ msgid "Delete"
 msgstr "Verwijderen"
 
 #: src/dialogs/gnome-cmd-delete-dialog.cc:437
-#: src/dialogs/gnome-cmd-delete-dialog.cc:526 src/gnome-cmd-file-list.cc:1312
-#: src/gnome-cmd-file-list.cc:1341 src/gnome-cmd-file-selector.cc:1398
-#: src/gnome-cmd-user-actions.cc:859
+#: src/dialogs/gnome-cmd-delete-dialog.cc:526 src/gnome-cmd-file-list.cc:1328
+#: src/gnome-cmd-file-list.cc:1357 src/gnome-cmd-file-selector.cc:1405
+#: src/gnome-cmd-user-actions.cc:865
 msgid "Cancel"
 msgstr "Annuleren"
 
 #: src/dialogs/gnome-cmd-delete-dialog.cc:438
-#| msgid "_Select All"
 msgid "Delete All"
 msgstr "Alles wissen"
 
 #: src/dialogs/gnome-cmd-delete-dialog.cc:438
-#| msgid "Delete problem"
 msgid "Delete Remaining"
 msgstr "Rest wissen"
 
 #: src/dialogs/gnome-cmd-delete-dialog.cc:505
 #, c-format
-#| msgid "Do you want to delete \"%s\"?"
 msgid "Do you want to permanently delete “%s”?"
 msgstr "Wilt u ‘%s’ definitief verwijderen?"
 
@@ -2066,8 +1941,6 @@ msgstr "Wilt u ‘%s’ naar de prullenbak verplaatsen?"
 
 #: src/dialogs/gnome-cmd-delete-dialog.cc:511
 #, c-format
-#| msgid "Do you want to delete the selected file?"
-#| msgid_plural "Do you want to delete the %d selected files?"
 msgid "Do you want to permanently delete the selected file?"
 msgid_plural "Do you want to permanently delete the %d selected files?"
 msgstr[0] "Wilt u het geselecteerde bestand definitief verwijderen?"
@@ -2075,8 +1948,6 @@ msgstr[1] "Wilt u de %d geselecteerde bestanden definitief verwijderen?"
 
 #: src/dialogs/gnome-cmd-delete-dialog.cc:515
 #, c-format
-#| msgid "Do you want to delete the selected file?"
-#| msgid_plural "Do you want to delete the %d selected files?"
 msgid "Do you want to move the selected file to the trash can?"
 msgid_plural "Do you want to move the %d selected files to the trash can?"
 msgstr[0] "Wilt u het geselecteerde bestand naar de prullenbak verplaatsen?"
@@ -2112,12 +1983,12 @@ msgid "Image:"
 msgstr "Image:"
 
 #: src/dialogs/gnome-cmd-file-props-dialog.cc:329
-#: src/dialogs/gnome-cmd-mkdir-dialog.cc:195
+#: src/dialogs/gnome-cmd-mkdir-dialog.cc:193
 msgid "Directory name:"
 msgstr "Mapnaam:"
 
 #: src/dialogs/gnome-cmd-file-props-dialog.cc:329
-#: src/gnome-cmd-file-selector.cc:1182
+#: src/gnome-cmd-file-selector.cc:1189
 msgid "File name:"
 msgstr "Bestandsnaam:"
 
@@ -2138,7 +2009,6 @@ msgid "Free space:"
 msgstr "Vrije ruimte:"
 
 #: src/dialogs/gnome-cmd-file-props-dialog.cc:401
-#| msgid "Content Type"
 msgid "Content Type:"
 msgstr "Soort inhoud:"
 
@@ -2171,12 +2041,12 @@ msgid "Access permissions"
 msgstr "Toegangsrechten"
 
 #: src/dialogs/gnome-cmd-file-props-dialog.cc:594
-#: src/intviewer/viewer-window.cc:1353
+#: src/intviewer/viewer-window.cc:1356
 msgid "Type"
 msgstr "Type"
 
 #: src/dialogs/gnome-cmd-file-props-dialog.cc:595
-#: src/intviewer/viewer-window.cc:1354
+#: src/intviewer/viewer-window.cc:1357
 msgid "Metadata namespace"
 msgstr "Naamruimte metadata"
 
@@ -2189,35 +2059,35 @@ msgstr "Naamruimte metadata"
 #: src/dialogs/gnome-cmd-file-props-dialog.cc:602
 #: src/dialogs/gnome-cmd-manage-bookmarks-dialog.cc:244
 #: src/dialogs/gnome-cmd-remote-dialog.cc:354
-#: src/intviewer/viewer-window.cc:1361 src/plugin_manager.cc:389
+#: src/intviewer/viewer-window.cc:1364 src/plugin_manager.cc:396
 #: src/tags/gnome-cmd-tags.cc:327
 msgid "Name"
 msgstr "Naam"
 
 #: src/dialogs/gnome-cmd-file-props-dialog.cc:603
-#: src/intviewer/viewer-window.cc:1362
+#: src/intviewer/viewer-window.cc:1365
 msgid "Tag name"
 msgstr "Tagnaam"
 
 #: src/dialogs/gnome-cmd-file-props-dialog.cc:605
-#: src/intviewer/viewer-window.cc:1364
+#: src/intviewer/viewer-window.cc:1367
 msgid "Value"
 msgstr "Waarde"
 
 #: src/dialogs/gnome-cmd-file-props-dialog.cc:606
-#: src/intviewer/viewer-window.cc:1365
+#: src/intviewer/viewer-window.cc:1368
 msgid "Tag value"
 msgstr "Tagwaarde"
 
 #: src/dialogs/gnome-cmd-file-props-dialog.cc:608
-#: src/intviewer/viewer-window.cc:1367 src/tags/gnome-cmd-tags.cc:171
+#: src/intviewer/viewer-window.cc:1370 src/tags/gnome-cmd-tags.cc:171
 #: src/tags/gnome-cmd-tags.cc:322 src/tags/gnome-cmd-tags.cc:424
 #: src/tags/gnome-cmd-tags.cc:535
 msgid "Description"
 msgstr "Omschrijving"
 
 #: src/dialogs/gnome-cmd-file-props-dialog.cc:609
-#: src/intviewer/viewer-window.cc:1368
+#: src/intviewer/viewer-window.cc:1371
 msgid "Metadata tag description"
 msgstr "Omschrijving metadatatag"
 
@@ -2274,7 +2144,6 @@ msgstr "Optionele data"
 
 #: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:497
 #, c-format
-#| msgid "Shortcut \"%s\" is already taken by \"%s\"."
 msgid "Shortcut “%s” is already taken by “%s”."
 msgstr "Sneltoets ‘%s’ wordt al gebruikt door ‘%s’."
 
@@ -2288,7 +2157,6 @@ msgstr "Conflicterende sneltoetsen"
 
 #: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:504
 #, c-format
-#| msgid "Reassigning the shortcut will cause it to be removed from \"%s\"."
 msgid "Reassigning the shortcut will cause it to be removed from “%s”."
 msgstr ""
 "Als u de sneltoets opnieuw toewijst zal deze niet langer gelden voor ‘%s’."
@@ -2310,7 +2178,6 @@ msgstr "Geen bestandsnaam ingevoerd"
 #: src/dialogs/gnome-cmd-make-copy-dialog.cc:137
 #: src/dialogs/gnome-cmd-prepare-copy-dialog.cc:155
 #, c-format
-#| msgid "Copy \"%s\" to"
 msgid "Copy “%s” to"
 msgstr "‘%s’ kopiëren naar"
 
@@ -2397,13 +2264,12 @@ msgstr "_Duplicaat"
 msgid "A directory name must be entered"
 msgstr "Geen mapnaam gegeven"
 
-#: src/dialogs/gnome-cmd-mkdir-dialog.cc:127
+#: src/dialogs/gnome-cmd-mkdir-dialog.cc:126
 #, c-format
-#| msgid "Make Directory"
 msgid "Make directory failed: %s\n"
 msgstr "Map maken mislukt: %s\n"
 
-#: src/dialogs/gnome-cmd-mkdir-dialog.cc:171
+#: src/dialogs/gnome-cmd-mkdir-dialog.cc:169
 msgid "Make Directory"
 msgstr "Map maken"
 
@@ -2449,7 +2315,6 @@ msgid "Selects files"
 msgstr "Selecteert bestanden"
 
 #: src/dialogs/gnome-cmd-options-dialog.cc:163
-#| msgid "Selection"
 msgid "Deletion"
 msgstr "Verwijdering"
 
@@ -2466,7 +2331,6 @@ msgid "Select directories"
 msgstr "Mappen selecteren"
 
 #: src/dialogs/gnome-cmd-options-dialog.cc:183
-#| msgid "Quick search"
 msgid "Sorting/Quick search"
 msgstr "Sorteren/Snelzoeken"
 
@@ -2484,7 +2348,6 @@ msgid "CTRL+ALT+letters"
 msgstr "CTRL+ALT+letters"
 
 #: src/dialogs/gnome-cmd-options-dialog.cc:200
-#| msgid "ALT+letters (menu access with F10)"
 msgid "ALT+letters (menu access with F12)"
 msgstr "ALT+letters (menutoegang met F12)"
 
@@ -2505,7 +2368,6 @@ msgid "Multiple instances"
 msgstr "Meerdere instanties"
 
 #: src/dialogs/gnome-cmd-options-dialog.cc:223
-#| msgid "Don't start a new instance"
 msgid "Don’t start a new instance"
 msgstr "Geen nieuwe instantie starten"
 
@@ -2519,7 +2381,7 @@ msgid "Directories"
 msgstr "Mappen"
 
 #: src/dialogs/gnome-cmd-options-dialog.cc:237
-#: src/dialogs/gnome-cmd-options-dialog.cc:2228
+#: src/dialogs/gnome-cmd-options-dialog.cc:2321
 msgid "Tabs"
 msgstr "Tabbladen"
 
@@ -2566,17 +2428,13 @@ msgid "Format:"
 msgstr "Opmaak:"
 
 #: src/dialogs/gnome-cmd-options-dialog.cc:423
-#| msgid ""
-#| "See the manual page for \"strftime\" for help on how to set the format "
-#| "string."
 msgid ""
 "See the manual page for “strftime” for help on how to set the format string."
 msgstr ""
-"Raadpleeg de handleiding voor ‘strftime’ voor extra hulp bij het instellen"
-" van de datumopmaak."
+"Raadpleeg de handleiding voor ‘strftime’ voor extra hulp bij het instellen "
+"van de datumopmaak."
 
 #: src/dialogs/gnome-cmd-options-dialog.cc:507
-#| msgid "Edit Colors..."
 msgid "Edit Colors…"
 msgstr "Kleuren bewerken…"
 
@@ -2713,7 +2571,6 @@ msgid "Green tiger"
 msgstr "Groen"
 
 #: src/dialogs/gnome-cmd-options-dialog.cc:771
-#| msgid "Counter"
 msgid "Winter"
 msgstr "Winter"
 
@@ -2749,7 +2606,6 @@ msgid "Color scheme:"
 msgstr "Kleurenschema:"
 
 #: src/dialogs/gnome-cmd-options-dialog.cc:837
-#| msgid "_Edit"
 msgid "Edit…"
 msgstr "Bewerken…"
 
@@ -2759,7 +2615,6 @@ msgid "Colorize files according to the LS_COLORS environment variable"
 msgstr "Bestanden kleuren volgens de LS_COLORS-omgevingsvariabele"
 
 #: src/dialogs/gnome-cmd-options-dialog.cc:852
-#| msgid "Edit colors..."
 msgid "Edit colors…"
 msgstr "Kleuren bewerken…"
 
@@ -2831,7 +2686,6 @@ msgstr "Hernoemen"
 #: src/dialogs/gnome-cmd-options-dialog.cc:1093
 #: src/dialogs/gnome-cmd-prepare-copy-dialog.cc:121
 #: src/dialogs/gnome-cmd-prepare-move-dialog.cc:115
-#| msgid "Overwrite Files"
 msgid "Overwrite silently"
 msgstr "Stil overschrijven"
 
@@ -2840,7 +2694,6 @@ msgid "Preselected overwrite action in move dialog"
 msgstr "Voorgeselecteerde overschrijfactie in verplaatsdialoog"
 
 #: src/dialogs/gnome-cmd-options-dialog.cc:1102
-#| msgid "Drag and Drop"
 msgid "Default Drag and Drop Action"
 msgstr "Standaard actie slepen en neerzetten"
 
@@ -2881,17 +2734,14 @@ msgid "Shortcuts (Windows systems)"
 msgstr "Sneltoetsen (Windowssystemen)"
 
 #: src/dialogs/gnome-cmd-options-dialog.cc:1226
-#| msgid "Custom location"
 msgid "Mountable locations"
 msgstr "Aankoppelbare locaties"
 
 #: src/dialogs/gnome-cmd-options-dialog.cc:1229
-#| msgid "All files"
 msgid "Virtual files"
 msgstr "Virtuele bestanden"
 
 #: src/dialogs/gnome-cmd-options-dialog.cc:1232
-#| msgid "All files"
 msgid "Volatile files"
 msgstr "Vluchtige bestanden"
 
@@ -2912,7 +2762,7 @@ msgstr "Reservebestanden"
 msgid "Symlinks"
 msgstr "Symbolische verwijzingen"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1430
+#: src/dialogs/gnome-cmd-options-dialog.cc:1444
 msgid ""
 "An app with this label exists already.\n"
 "Please choose another label."
@@ -2920,159 +2770,155 @@ msgstr ""
 "Er bestaat al een toepassing met dit label.\n"
 "Gelieve een ander label te kiezen."
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1501
+#: src/dialogs/gnome-cmd-options-dialog.cc:1515
 msgid "Label:"
 msgstr "Label:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1503
+#: src/dialogs/gnome-cmd-options-dialog.cc:1517
 msgid "Command:"
 msgstr "Opdracht:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1505
-#: src/dialogs/gnome-cmd-options-dialog.cc:1959
+#: src/dialogs/gnome-cmd-options-dialog.cc:1519
+#: src/dialogs/gnome-cmd-options-dialog.cc:2021
 msgid "Icon:"
 msgstr "Pictogram:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1527
+#: src/dialogs/gnome-cmd-options-dialog.cc:1541
 msgid "Can handle multiple files"
 msgstr "Kan meerdere bestanden in één keer verwerken"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1531
+#: src/dialogs/gnome-cmd-options-dialog.cc:1545
 msgid "Can handle URIs"
 msgstr "Kan meerdere URI's in één keer verwerken"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1535
+#: src/dialogs/gnome-cmd-options-dialog.cc:1549
 msgid "Requires terminal"
 msgstr "Terminal vereist"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1542
+#: src/dialogs/gnome-cmd-options-dialog.cc:1556
 msgid "Show for"
 msgstr "Weergeven voor"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1551
+#: src/dialogs/gnome-cmd-options-dialog.cc:1565
 msgid "All directories"
 msgstr "Alle mappen"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1556
+#: src/dialogs/gnome-cmd-options-dialog.cc:1570
 msgid "All directories and files"
 msgstr "Alle bestanden en mappen"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1561
+#: src/dialogs/gnome-cmd-options-dialog.cc:1575
 msgid "Some files"
 msgstr "Bepaalde bestanden"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1570
+#: src/dialogs/gnome-cmd-options-dialog.cc:1584
 msgid "File patterns"
 msgstr "Bestandspatronen"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1592
+#: src/dialogs/gnome-cmd-options-dialog.cc:1606
 msgid "New Application"
 msgstr "Nieuwe toepassing"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1602
+#: src/dialogs/gnome-cmd-options-dialog.cc:1616
 msgid "Edit Application"
 msgstr "Toepassing bewerken"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1686
+#: src/dialogs/gnome-cmd-options-dialog.cc:1725
 msgid "Always download remote files before opening in external programs"
 msgstr ""
 "Externe bestanden altijd downloaden alvorens deze te openen in een extern "
 "programma"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1688
+#: src/dialogs/gnome-cmd-options-dialog.cc:1727
 msgid "MIME applications"
 msgstr "MIME-toepassingen"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1692
+#: src/dialogs/gnome-cmd-options-dialog.cc:1731
 msgid "Standard programs"
 msgstr "Standaardprogramma's"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1695
+#: src/dialogs/gnome-cmd-options-dialog.cc:1734
 msgid "Viewer:"
 msgstr "Viewer:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1697
+#: src/dialogs/gnome-cmd-options-dialog.cc:1736
 msgid "Editor:"
 msgstr "Editor:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1699
+#: src/dialogs/gnome-cmd-options-dialog.cc:1738
 msgid "Differ:"
 msgstr "Verschil:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1701
-#| msgid "Search"
+#: src/dialogs/gnome-cmd-options-dialog.cc:1740
 msgid "Search:"
 msgstr "Zoeken:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1703
-#| msgid "Send files"
+#: src/dialogs/gnome-cmd-options-dialog.cc:1742
 msgid "Send files:"
 msgstr "Bestanden versturen:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1705
+#: src/dialogs/gnome-cmd-options-dialog.cc:1744
 msgid "Terminal:"
 msgstr "Terminal:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1711
+#: src/dialogs/gnome-cmd-options-dialog.cc:1750
 msgid "Use Internal Viewer"
 msgstr "Interne viewer gebruiken"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1732
-#| msgid "Other favorite apps"
+#: src/dialogs/gnome-cmd-options-dialog.cc:1771
 msgid "Other favourite apps"
 msgstr "Andere favoriete programma's"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1739
+#: src/dialogs/gnome-cmd-options-dialog.cc:1779
 msgid "Label"
 msgstr "Label"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1740
-#| msgid "Command:"
+#: src/dialogs/gnome-cmd-options-dialog.cc:1780
 msgid "Command"
 msgstr "Opdracht"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1775
+#: src/dialogs/gnome-cmd-options-dialog.cc:1815
 msgid "Global app options"
 msgstr "Opties algemene toepassing"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1778
+#: src/dialogs/gnome-cmd-options-dialog.cc:1818
 msgid "Terminal command for apps in the list above:"
 msgstr "Terminalopdracht voor toepassingen in de bovenstaande lijst:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1784
+#: src/dialogs/gnome-cmd-options-dialog.cc:1824
 msgid "Leave terminal window open"
 msgstr "Terminalvenster open laten"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1953
+#: src/dialogs/gnome-cmd-options-dialog.cc:2015
 msgid "Alias:"
 msgstr "Alias:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1955
-msgid "Device:"
-msgstr "Apparaat:"
+#: src/dialogs/gnome-cmd-options-dialog.cc:2017
+msgid "Device/Label:"
+msgstr "Apparaat/label:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1957
+#: src/dialogs/gnome-cmd-options-dialog.cc:2019
 msgid "Mount point:"
 msgstr "Koppelpunt:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1998
+#: src/dialogs/gnome-cmd-options-dialog.cc:2063
 msgid "New Device"
 msgstr "Nieuw apparaat"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:2011
+#: src/dialogs/gnome-cmd-options-dialog.cc:2076
 msgid "Edit Device"
 msgstr "Apparaat bewerken"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:2093
-#: src/dialogs/gnome-cmd-options-dialog.cc:2232
+#: src/dialogs/gnome-cmd-options-dialog.cc:2185
+#: src/dialogs/gnome-cmd-options-dialog.cc:2325
 msgid "Devices"
 msgstr "Apparaten"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:2103
+#: src/dialogs/gnome-cmd-options-dialog.cc:2196
 msgid "Alias"
 msgstr "Alias"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:2134
+#: src/dialogs/gnome-cmd-options-dialog.cc:2227
 msgid ""
 "Show Samba workgroups button\n"
 "(Needs program restart if altered)"
@@ -3080,55 +2926,55 @@ msgstr ""
 "Knop Sambawerkgroepen weeergeven\n"
 "(Programmaherstart nodig indien gewijzigd)"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:2139
+#: src/dialogs/gnome-cmd-options-dialog.cc:2232
 msgid "Show only the icons"
 msgstr "Alleen pictogrammen weergeven"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:2225
+#: src/dialogs/gnome-cmd-options-dialog.cc:2318
 msgid "General"
 msgstr "Algemeen"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:2226 src/tags/gnome-cmd-tags.cc:323
+#: src/dialogs/gnome-cmd-options-dialog.cc:2319 src/tags/gnome-cmd-tags.cc:323
 msgid "Format"
 msgstr "Formatteren"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:2227
+#: src/dialogs/gnome-cmd-options-dialog.cc:2320
 msgid "Layout"
 msgstr "Opmaak"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:2229
+#: src/dialogs/gnome-cmd-options-dialog.cc:2322
 msgid "Confirmation"
 msgstr "Bevestiging"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:2230
+#: src/dialogs/gnome-cmd-options-dialog.cc:2323
 msgid "Filters"
 msgstr "Filters"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:2231
+#: src/dialogs/gnome-cmd-options-dialog.cc:2324
 msgid "Programs"
 msgstr "Programma's"
 
-#: src/dialogs/gnome-cmd-patternsel-dialog.cc:111
+#: src/dialogs/gnome-cmd-patternsel-dialog.cc:112
 msgid "_Pattern:"
 msgstr "_Patronen:"
 
-#: src/dialogs/gnome-cmd-patternsel-dialog.cc:113
+#: src/dialogs/gnome-cmd-patternsel-dialog.cc:114
 msgid "Case _sensitive"
 msgstr "Hoofdletter_gevoelig"
 
-#: src/dialogs/gnome-cmd-patternsel-dialog.cc:123
+#: src/dialogs/gnome-cmd-patternsel-dialog.cc:124
 msgid "She_ll syntax"
 msgstr "shell_syntax"
 
-#: src/dialogs/gnome-cmd-patternsel-dialog.cc:127
+#: src/dialogs/gnome-cmd-patternsel-dialog.cc:128
 msgid "Rege_x syntax"
 msgstr "rege_x syntax"
 
-#: src/dialogs/gnome-cmd-patternsel-dialog.cc:157
+#: src/dialogs/gnome-cmd-patternsel-dialog.cc:158
 msgid "Select Using Pattern"
 msgstr "Selecteren met patroon"
 
-#: src/dialogs/gnome-cmd-patternsel-dialog.cc:157
+#: src/dialogs/gnome-cmd-patternsel-dialog.cc:158
 msgid "Unselect Using Pattern"
 msgstr "Deselecteren met patroon"
 
@@ -3158,7 +3004,6 @@ msgstr[1] "%d bestanden kopiëren naar"
 
 #: src/dialogs/gnome-cmd-prepare-move-dialog.cc:142
 #, c-format
-#| msgid "Move \"%s\" to"
 msgid "Move “%s” to"
 msgstr "‘%s’ verplaatsen naar"
 
@@ -3173,7 +3018,6 @@ msgstr[1] "%d bestanden verplaatsen naar"
 #: src/dialogs/gnome-cmd-prepare-xfer-dialog.cc:162
 #: src/dialogs/gnome-cmd-prepare-xfer-dialog.cc:211
 #, c-format
-#| msgid "The directory '%s' doesn't exist, do you want to create it?"
 msgid "The directory “%s” doesn’t exist, do you want to create it?"
 msgstr "De map ‘%s’ bestaat niet. Wilt u deze aanmaken?"
 
@@ -3245,8 +3089,7 @@ msgstr "Het type acceleratie"
 msgid "Disabled"
 msgstr "Uitgeschakeld"
 
-#: src/eggcellrendererkeys.cc:446 src/eggcellrendererkeys.cc:662
-#| msgid "New accelerator..."
+#: src/eggcellrendererkeys.cc:446 src/eggcellrendererkeys.cc:665
 msgid "New accelerator…"
 msgstr "Nieuwe sneltoets…"
 
@@ -3580,29 +3423,29 @@ msgstr "Tekstweergave:"
 msgid "Number view:"
 msgstr "Numerieke weergave:"
 
-#: src/gnome-cmd-con-device.cc:121
+#: src/gnome-cmd-con-device.cc:122
 msgid "Failed to execute the mount command"
 msgstr "Kan aankoppelopdracht niet uitvoeren"
 
-#: src/gnome-cmd-con-device.cc:129
+#: src/gnome-cmd-con-device.cc:130
 msgid "Mount failed: permission denied"
 msgstr "Aankoppelen mislukt: toegang geweigerd"
 
-#: src/gnome-cmd-con-device.cc:132
+#: src/gnome-cmd-con-device.cc:133
 msgid "Mount failed: no medium found"
 msgstr "Aankoppelen mislukt: geen medium gevonden"
 
-#: src/gnome-cmd-con-device.cc:135
+#: src/gnome-cmd-con-device.cc:136
 #, c-format
-#| msgid "Mount failed: mount exited with existatus %d"
 msgid "Mount failed: mount exited with exitstatus %d"
 msgstr "Aankoppelen mislukt: opdracht gaf eindstatus %d terug"
 
-#: src/gnome-cmd-con-device.cc:301
+#: src/gnome-cmd-con-device.cc:300
+msgid "Volume successfully unmounted"
+msgstr "Volumen succesvol ontkoppeld"
+
+#: src/gnome-cmd-con-device.cc:321
 #, c-format
-#| msgid ""
-#| "Cannot unmount the volume:\n"
-#| "%s %s"
 msgid ""
 "Cannot unmount the volume:\n"
 "%s\n"
@@ -3612,31 +3455,27 @@ msgstr ""
 "%s\n"
 "Foutcode: %d"
 
-#: src/gnome-cmd-con-device.cc:319
-msgid "Volume successfully unmounted"
-msgstr "Volumen succesvol ontkoppeld"
-
-#: src/gnome-cmd-con-device.cc:531
+#: src/gnome-cmd-con-device.cc:554
 #, c-format
 msgid "Mounting %s"
 msgstr "Aankoppelen van %s"
 
-#: src/gnome-cmd-con-device.cc:548
+#: src/gnome-cmd-con-device.cc:571
 #, c-format
 msgid "Go to: %s (%s)"
 msgstr "Ga naar: %s (%s)"
 
-#: src/gnome-cmd-con-device.cc:550 src/gnome-cmd-con.h:223
+#: src/gnome-cmd-con-device.cc:573 src/gnome-cmd-con.h:223
 #, c-format
 msgid "Go to: %s"
 msgstr "Ga naar: %s"
 
-#: src/gnome-cmd-con-device.cc:551
+#: src/gnome-cmd-con-device.cc:574
 #, c-format
 msgid "Mount: %s"
 msgstr "Aankoppelen: %s"
 
-#: src/gnome-cmd-con-device.cc:552
+#: src/gnome-cmd-con-device.cc:575
 #, c-format
 msgid "Unmount: %s"
 msgstr "Ontkoppelen: %s"
@@ -3673,22 +3512,20 @@ msgid "Go to: Home"
 msgstr "Ga naar: persoonlijke map"
 
 #: src/gnome-cmd-con-remote.cc:127
-#| msgid "Disconnect from: %s"
 msgid "Disconnect error"
 msgstr "Fout bij het verbreken van de verbinding"
 
-#: src/gnome-cmd-con-remote.cc:391
+#: src/gnome-cmd-con-remote.cc:395
 #, c-format
 msgid "Opens remote connection to %s"
 msgstr "Opent externe verbinding met %s"
 
-#: src/gnome-cmd-con-remote.cc:392
+#: src/gnome-cmd-con-remote.cc:396
 #, c-format
 msgid "Closes remote connection to %s"
 msgstr "Sluit externe verbinding met %s"
 
 #: src/gnome-cmd-con-smb.cc:56
-#| msgid "Failed to browse the network. Is the SMB module installed?"
 msgid "Failed to browse the network. Is Samba supported on the system?"
 msgstr ""
 "Kan niet door het netwerk bladeren. Wordt Samba op het systeem ondersteund?"
@@ -3705,7 +3542,7 @@ msgstr "Zoeken naar groepen en computers"
 msgid "Go to: Samba Network"
 msgstr "Ga naar: Samba netwerk"
 
-#: src/gnome-cmd-data.cc:3195 src/gnome-cmd-data.cc:3875
+#: src/gnome-cmd-data.cc:3192 src/gnome-cmd-data.cc:3872
 #, c-format
 msgid "link to %s"
 msgstr "koppeling naar %s"
@@ -3714,22 +3551,20 @@ msgstr "koppeling naar %s"
 msgid "Waiting for file list"
 msgstr "Wachten op bestandslijst"
 
-#: src/gnome-cmd-dir-indicator.cc:544
+#: src/gnome-cmd-dir-indicator.cc:547
 msgid "Add current dir"
 msgstr "Huidige map toevoegen"
 
-#: src/gnome-cmd-dir-indicator.cc:545
-#| msgid "Manage bookmarks"
+#: src/gnome-cmd-dir-indicator.cc:548
 msgid "Manage bookmarks…"
 msgstr "Bladwijzers beheren…"
 
-#: src/gnome-cmd-file.cc:637
+#: src/gnome-cmd-file.cc:638
 msgid "_Open"
 msgstr "_Openen"
 
-#: src/gnome-cmd-file.cc:640
+#: src/gnome-cmd-file.cc:641
 #, c-format
-#| msgid "_Open with \"%s\""
 msgid "_Open with “%s”"
 msgstr "_Openen met ‘%s’"
 
@@ -3781,62 +3616,55 @@ msgstr "/Hier _koppelen"
 msgid "/C_ancel"
 msgstr "/_Annuleren"
 
-#: src/gnome-cmd-file-list.cc:1309
+#: src/gnome-cmd-file-list.cc:1325
 #, c-format
-#| msgid ""
-#| "\"%s\" seems to be a binary executable file but it lacks the executable "
-#| "bit. Do you want to set it and then run the file?"
 msgid ""
 "“%s” seems to be a binary executable file but it lacks the executable bit. "
 "Do you want to set it and then run the file?"
 msgstr ""
-"‘%s’ lijkt een binair uitvoerbaar bestand te zijn, maar het uitvoerbaar-bit"
-" ontbreekt. Wilt u dit instellen en vervolgens het bestand uitvoeren?"
+"‘%s’ lijkt een binair uitvoerbaar bestand te zijn, maar het uitvoerbaar-bit "
+"ontbreekt. Wilt u dit instellen en vervolgens het bestand uitvoeren?"
 
-#: src/gnome-cmd-file-list.cc:1311
+#: src/gnome-cmd-file-list.cc:1327
 msgid "Make Executable?"
 msgstr "Uitvoerbaar maken?"
 
-#: src/gnome-cmd-file-list.cc:1312
+#: src/gnome-cmd-file-list.cc:1328
 msgid "OK"
 msgstr "OK"
 
-#: src/gnome-cmd-file-list.cc:1339
+#: src/gnome-cmd-file-list.cc:1355
 #, c-format
-#| msgid ""
-#| "\"%s\" is an executable text file. Do you want to run it, or display its "
-#| "contents?"
 msgid ""
 "“%s” is an executable text file. Do you want to run it, or display its "
 "contents?"
 msgstr ""
-"‘%s’ is een uitvoerbaar tekstbestand. Wilt u het uitvoeren, of de inhoud"
-" weergeven?"
+"‘%s’ is een uitvoerbaar tekstbestand. Wilt u het uitvoeren, of de inhoud "
+"weergeven?"
 
-#: src/gnome-cmd-file-list.cc:1340
+#: src/gnome-cmd-file-list.cc:1356
 msgid "Run or Display"
 msgstr "Uitvoeren of weergeven"
 
-#: src/gnome-cmd-file-list.cc:1341
+#: src/gnome-cmd-file-list.cc:1357
 msgid "Display"
 msgstr "Weergeven"
 
-#: src/gnome-cmd-file-list.cc:1341
+#: src/gnome-cmd-file-list.cc:1357
 msgid "Run"
 msgstr "Uitvoeren"
 
-#: src/gnome-cmd-file-list.cc:1357
+#: src/gnome-cmd-file-list.cc:1373
 #, c-format
-#| msgid "No default application found for the MIME type %s."
 msgid "No default application found for the file type %s."
 msgstr "Geen standaardtoepassing gevonden voor bestandstype %s."
 
-#: src/gnome-cmd-file-list.cc:1358
+#: src/gnome-cmd-file-list.cc:1374
 msgid "Open the \"Applications\" page in the Control Center to add one."
 msgstr ""
 "Open de ‘Toepassingen’-pagina in het controlecentrum om er een toe te voegen."
 
-#: src/gnome-cmd-file-list.cc:1389 src/gnome-cmd-file-popmenu.cc:140
+#: src/gnome-cmd-file-list.cc:1405 src/gnome-cmd-file-popmenu.cc:140
 #, c-format
 msgid ""
 "%s does not know how to open remote file. Do you want to download the file "
@@ -3851,20 +3679,19 @@ msgstr[1] ""
 "%s kan de bestanden op afstand niet openen. Wilt u deze downloaden naar een "
 "tijdelijke locatie en vanaf daar openen?"
 
-#: src/gnome-cmd-file-list.cc:1673
+#: src/gnome-cmd-file-list.cc:1689
 msgid "Directory listing failed."
 msgstr "Mappenlijst maken is mislukt…"
 
-#: src/gnome-cmd-file-list.cc:1725
+#: src/gnome-cmd-file-list.cc:1741
 msgid "Failed to open connection."
 msgstr "Kan geen verbinding maken."
 
-#: src/gnome-cmd-file-list.cc:2490 src/gnome-cmd-file-list.cc:2505
+#: src/gnome-cmd-file-list.cc:2509 src/gnome-cmd-file-list.cc:2524
 msgid "Not an ordinary file."
 msgstr "Geen gewoon bestand."
 
 #: src/gnome-cmd-file-popmenu.cc:236
-#| msgid "Couldn't retrieve MIME type of the file."
 msgid "Couldn’t retrieve MIME type of the file."
 msgstr "MIME-type van het bestand kon niet opgehaald worden."
 
@@ -3877,7 +3704,6 @@ msgid "Application:"
 msgstr "Toepassing:"
 
 #: src/gnome-cmd-file-popmenu.cc:278
-#| msgid "Open with other..."
 msgid "Open with other…"
 msgstr "Openen met andere toepassing…"
 
@@ -3890,12 +3716,10 @@ msgid "Open Wit_h"
 msgstr "Openen _met"
 
 #: src/gnome-cmd-file-popmenu.cc:720
-#| msgid "Other _Application..."
 msgid "Other _Application…"
 msgstr "Andere _toepassing…"
 
 #: src/gnome-cmd-file-popmenu.cc:721
-#| msgid "Open Wit_h"
 msgid "Open Wit_h…"
 msgstr "Openen _met…"
 
@@ -3911,7 +3735,6 @@ msgid "Send files"
 msgstr "Bestanden versturen"
 
 #: src/gnome-cmd-file-popmenu.cc:727 src/gnome-cmd-main-menu.cc:309
-#| msgid "Properties"
 msgid "_Properties…"
 msgstr "_Eigenschappen…"
 
@@ -3947,8 +3770,7 @@ msgid "%s free"
 msgstr "%s vrij"
 
 #: src/gnome-cmd-file-selector.cc:628 src/gnome-cmd-file-selector.cc:704
-#: src/gnome-cmd-user-actions.cc:1710 src/gnome-cmd-user-actions.cc:1718
-#| msgid "The tab is locked, close anyway ?"
+#: src/gnome-cmd-user-actions.cc:1716 src/gnome-cmd-user-actions.cc:1724
 msgid "The tab is locked, close anyway?"
 msgstr "Het tabblad is vergrendeld, toch sluiten?"
 
@@ -3984,29 +3806,29 @@ msgstr "_Alle tabbladen sluiten"
 msgid "Close _Duplicate Tabs"
 msgstr "_Duplicaat van tabbladen sluiten"
 
-#: src/gnome-cmd-file-selector.cc:1149
+#: src/gnome-cmd-file-selector.cc:1156
 msgid "No file name given"
 msgstr "Geen bestandsnaam gegeven"
 
-#: src/gnome-cmd-file-selector.cc:1185
+#: src/gnome-cmd-file-selector.cc:1192
 msgid "New Text File"
 msgstr "Nieuw tekstbestand"
 
-#: src/gnome-cmd-file-selector.cc:1334
+#: src/gnome-cmd-file-selector.cc:1341
 msgid "Symbolic link name:"
 msgstr "Naam symbolische verwijzing:"
 
-#: src/gnome-cmd-file-selector.cc:1345 src/gnome-cmd-file-selector.cc:1398
-#: src/gnome-cmd-user-actions.cc:859
+#: src/gnome-cmd-file-selector.cc:1352 src/gnome-cmd-file-selector.cc:1405
+#: src/gnome-cmd-user-actions.cc:865
 msgid "Create Symbolic Link"
 msgstr "Symbolische verwijzing maken"
 
-#: src/gnome-cmd-file-selector.cc:1398 src/gnome-cmd-xfer.cc:147
+#: src/gnome-cmd-file-selector.cc:1405 src/gnome-cmd-xfer.cc:147
 #: src/gnome-cmd-xfer.cc:205 src/gnome-cmd-xfer.cc:323
 msgid "Skip all"
 msgstr "Alles overslaan"
 
-#: src/gnome-cmd-file-selector.cc:1470
+#: src/gnome-cmd-file-selector.cc:1477
 msgid "Filter:"
 msgstr "Filter:"
 
@@ -4030,7 +3852,7 @@ msgstr "_Map"
 msgid "_Text File"
 msgstr "_Tekstbestand"
 
-#: src/gnome-cmd-main-menu.cc:304 src/intviewer/viewer-window.cc:599
+#: src/gnome-cmd-main-menu.cc:304 src/intviewer/viewer-window.cc:602
 msgid "_File"
 msgstr "_Bestand"
 
@@ -4051,17 +3873,14 @@ msgid "Create _Symbolic Link"
 msgstr "_Symbolische verwijzing maken"
 
 #: src/gnome-cmd-main-menu.cc:310
-#| msgid "Search"
 msgid "_Search…"
 msgstr " _Zoeken…"
 
 #: src/gnome-cmd-main-menu.cc:311
-#| msgid "_Quick Search..."
 msgid "_Quick Search…"
 msgstr "_Snelzoeken…"
 
 #: src/gnome-cmd-main-menu.cc:312
-#| msgid "_Enable Filter..."
 msgid "_Enable Filter…"
 msgstr "Filter inscha_kelen…"
 
@@ -4114,12 +3933,10 @@ msgid "_Unselect All"
 msgstr "Alles _deselecteren"
 
 #: src/gnome-cmd-main-menu.cc:334
-#| msgid "Select all"
 msgid "Select all _Files"
 msgstr "Alle _bestanden selecteren"
 
 #: src/gnome-cmd-main-menu.cc:335
-#| msgid "Unselect all"
 msgid "Unselect all Fi_les"
 msgstr "Alle bestanden _deselecteren"
 
@@ -4132,12 +3949,10 @@ msgid "Unselect with P_attern"
 msgstr "Deselecteren met p_atroon"
 
 #: src/gnome-cmd-main-menu.cc:338
-#| msgid "Select with _Pattern"
 msgid "Select with same _Extension"
 msgstr "Selecteren met dezelfde _extensie"
 
 #: src/gnome-cmd-main-menu.cc:339
-#| msgid "Unselect with P_attern"
 msgid "Unselect with same E_xtension"
 msgstr "Deselecteren met dezelfde e_xtensie"
 
@@ -4153,7 +3968,7 @@ msgstr "Selectie _herstellen"
 msgid "_Compare Directories"
 msgstr "Mappen ver_gelijken"
 
-#: src/gnome-cmd-main-menu.cc:347 src/intviewer/viewer-window.cc:613
+#: src/gnome-cmd-main-menu.cc:347 src/intviewer/viewer-window.cc:616
 msgid "_View"
 msgstr "Beel_d"
 
@@ -4202,21 +4017,18 @@ msgid "Show Backup Files"
 msgstr "Reservebestanden weergeven"
 
 #: src/gnome-cmd-main-menu.cc:367
-#| msgid "Image Orientation"
 msgid "Horizontal Orientation"
 msgstr "Horizontale oriëntatie"
 
-#: src/gnome-cmd-main-menu.cc:372 src/intviewer/viewer-window.cc:678
+#: src/gnome-cmd-main-menu.cc:372 src/intviewer/viewer-window.cc:681
 msgid "_Settings"
 msgstr "_Instellingen"
 
 #: src/gnome-cmd-main-menu.cc:373
-#| msgid "Options"
 msgid "_Options…"
 msgstr "_Opties…"
 
 #: src/gnome-cmd-main-menu.cc:374
-#| msgid "_Keyboard Shortcuts"
 msgid "_Keyboard Shortcuts…"
 msgstr "_Sneltoetsen…"
 
@@ -4225,12 +4037,10 @@ msgid "_Connections"
 msgstr "_Verbindingen"
 
 #: src/gnome-cmd-main-menu.cc:380
-#| msgid "Remote Server"
 msgid "_Remote Server…"
 msgstr "_Externe server…"
 
 #: src/gnome-cmd-main-menu.cc:381
-#| msgid "New connection"
 msgid "New Connection…"
 msgstr "Nieuwe verbinding…"
 
@@ -4239,12 +4049,10 @@ msgid "_Bookmarks"
 msgstr "Bl_adwijzers"
 
 #: src/gnome-cmd-main-menu.cc:387
-#| msgid "_Bookmark this Directory..."
 msgid "_Bookmark this Directory…"
 msgstr "_Bladwijzer maken van deze map…"
 
 #: src/gnome-cmd-main-menu.cc:388
-#| msgid "_Manage Bookmarks..."
 msgid "_Manage Bookmarks…"
 msgstr "Bla_dwijzers beheren…"
 
@@ -4253,20 +4061,18 @@ msgid "_Plugins"
 msgstr "_Plug-ins"
 
 #: src/gnome-cmd-main-menu.cc:394
-#| msgid "_Configure Plugins..."
 msgid "_Configure Plugins…"
 msgstr "Plug-ins _configureren…"
 
-#: src/gnome-cmd-main-menu.cc:399 src/intviewer/viewer-window.cc:697
+#: src/gnome-cmd-main-menu.cc:399 src/intviewer/viewer-window.cc:700
 msgid "_Help"
 msgstr "_Hulp"
 
 #: src/gnome-cmd-main-menu.cc:400
-#| msgid "Document Name"
 msgid "_Documentation"
 msgstr "_Documentatie"
 
-#: src/gnome-cmd-main-menu.cc:401 src/intviewer/viewer-window.cc:699
+#: src/gnome-cmd-main-menu.cc:401 src/intviewer/viewer-window.cc:702
 msgid "_Keyboard Shortcuts"
 msgstr "_Sneltoetsen"
 
@@ -4278,7 +4084,7 @@ msgstr "GNOME Commander op I_nternet"
 msgid "Report a _Problem"
 msgstr "Een probleem _melden"
 
-#: src/gnome-cmd-main-menu.cc:404 src/plugin_manager.cc:405
+#: src/gnome-cmd-main-menu.cc:404 src/plugin_manager.cc:412
 msgid "_About"
 msgstr "In_fo"
 
@@ -4322,36 +4128,35 @@ msgstr "Terminal openen (Shift voor root-privileges)"
 msgid "Drop connection"
 msgstr "Verbinding laten vallen"
 
-#: src/gnome-cmd-main-win.cc:495
+#: src/gnome-cmd-main-win.cc:513
 msgid "F3 View"
 msgstr "F3 Weergeven"
 
-#: src/gnome-cmd-main-win.cc:497
+#: src/gnome-cmd-main-win.cc:515
 msgid "F4 Edit"
 msgstr "F4 Bewerken"
 
-#: src/gnome-cmd-main-win.cc:499
+#: src/gnome-cmd-main-win.cc:517
 msgid "F5 Copy"
 msgstr "F5 Kopiëren"
 
-#: src/gnome-cmd-main-win.cc:501
+#: src/gnome-cmd-main-win.cc:519
 msgid "F6 Move"
 msgstr "F6 Verplaatsen"
 
-#: src/gnome-cmd-main-win.cc:503
+#: src/gnome-cmd-main-win.cc:521
 msgid "F7 Mkdir"
 msgstr "F7 Mkmap"
 
-#: src/gnome-cmd-main-win.cc:505
+#: src/gnome-cmd-main-win.cc:523
 msgid "F8 Delete"
 msgstr "F8 Verwijderen"
 
-#: src/gnome-cmd-main-win.cc:507
+#: src/gnome-cmd-main-win.cc:525
 msgid "F9 Search"
 msgstr "F9 Zoeken"
 
-#: src/gnome-cmd-main-win.cc:853
-#| msgid "GNOME Commander - ROOT PRIVILEGES"
+#: src/gnome-cmd-main-win.cc:871
 msgid "GNOME Commander — ROOT PRIVILEGES"
 msgstr "GNOME Commander — ROOT-PRIVILEGES"
 
@@ -4360,7 +4165,6 @@ msgid "Search"
 msgstr "Zoeken"
 
 #: src/gnome-cmd-selection-profile-component.cc:125
-#| msgid "Name matches regex:"
 msgid "Path matches regex:"
 msgstr "Pad komt overeen met regex:"
 
@@ -4414,7 +4218,6 @@ msgid "Go to bookmarked location"
 msgstr "Ga naar bladwijzerlocatie"
 
 #: src/gnome-cmd-user-actions.cc:199
-#| msgid "Bookmark current directory"
 msgid "Show bookmarks of current device"
 msgstr "Bladwijzers van huidig apparaat weergeven"
 
@@ -4559,12 +4362,10 @@ msgid "Select all"
 msgstr "Alles selecteren"
 
 #: src/gnome-cmd-user-actions.cc:247
-#| msgid "Selects files"
 msgid "Select all files"
 msgstr "Alle bestanden selecteren"
 
 #: src/gnome-cmd-user-actions.cc:248
-#| msgid "Unselect all"
 msgid "Unselect all files"
 msgstr "Selecteren van alle bestanden opheffen"
 
@@ -4696,15 +4497,14 @@ msgstr "Cursor één stap omhoog verplaatsen"
 msgid "Move cursor one step down"
 msgstr "Cursor één stap omlaag verplaatsen"
 
-#: src/gnome-cmd-user-actions.cc:746 src/gnome-cmd-user-actions.cc:915
-#: src/gnome-cmd-user-actions.cc:1176 src/utils.cc:136
-#| msgid "Invalid command"
+#: src/gnome-cmd-user-actions.cc:746 src/gnome-cmd-user-actions.cc:921
+#: src/gnome-cmd-user-actions.cc:1182 src/utils.cc:136
 msgid "No valid command given."
 msgstr "Geen geldige opdracht gegeven."
 
-#: src/gnome-cmd-user-actions.cc:759 src/gnome-cmd-user-actions.cc:791
-#: src/gnome-cmd-user-actions.cc:931 src/gnome-cmd-user-actions.cc:1189
-#: src/gnome-cmd-user-actions.cc:1228 src/utils.cc:143
+#: src/gnome-cmd-user-actions.cc:759 src/gnome-cmd-user-actions.cc:796
+#: src/gnome-cmd-user-actions.cc:937 src/gnome-cmd-user-actions.cc:1195
+#: src/gnome-cmd-user-actions.cc:1234 src/utils.cc:143
 msgid "Unable to execute command."
 msgstr "Kan opdracht niet uitvoeren."
 
@@ -4717,74 +4517,72 @@ msgid "You can set a command for a search tool in the program options."
 msgstr ""
 "U kunt een opdracht voor een zoekfunctie instellen in de programma-opties."
 
-#: src/gnome-cmd-user-actions.cc:854
+#: src/gnome-cmd-user-actions.cc:860
 #, c-format
 msgid "Create symbolic links of %i file in %s?"
 msgid_plural "Create symbolic links of %i files in %s?"
 msgstr[0] "Symbolische verwijzingen maken van %i bestand in %s?"
 msgstr[1] "Symbolische verwijzingen maken van %i bestanden in %s?"
 
-#: src/gnome-cmd-user-actions.cc:859
+#: src/gnome-cmd-user-actions.cc:865
 msgid "Create"
 msgstr "Maken"
 
-#: src/gnome-cmd-user-actions.cc:947
+#: src/gnome-cmd-user-actions.cc:953
 msgid "Warning"
 msgstr "Waarschuwing"
 
-#: src/gnome-cmd-user-actions.cc:947
+#: src/gnome-cmd-user-actions.cc:953
 msgid ""
 "The default send-to command only supports one selected file at a time. You "
 "can change the command in the program options."
 msgstr ""
-"De standaard opdracht voor verzenden naar ondersteunt slechts één"
-" geselecteerd bestand tegelijk. U kunt de opdracht wijzigen in de"
-" programma-opties."
+"De standaard opdracht voor verzenden naar ondersteunt slechts één "
+"geselecteerd bestand tegelijk. U kunt de opdracht wijzigen in de programma-"
+"opties."
 
-#: src/gnome-cmd-user-actions.cc:964 src/gnome-cmd-user-actions.cc:981
-#: src/gnome-cmd-user-actions.cc:1027
+#: src/gnome-cmd-user-actions.cc:970 src/gnome-cmd-user-actions.cc:987
+#: src/gnome-cmd-user-actions.cc:1033
 msgid "Operation not supported on remote file systems"
 msgstr "Bewerking wordt niet ondersteund op externe bestandssystemen"
 
-#: src/gnome-cmd-user-actions.cc:996
+#: src/gnome-cmd-user-actions.cc:1002
 msgid "Too many selected files"
 msgstr "Te veel bestanden geselecteerd"
 
-#: src/gnome-cmd-user-actions.cc:1261
+#: src/gnome-cmd-user-actions.cc:1267
 msgid "Unable to open terminal in root mode."
 msgstr "Terminal kan niet worden geopend in rootmodus."
 
-#: src/gnome-cmd-user-actions.cc:1266
-#| msgid "xdg-su, gksu, gnomesu, kdesu or beesu is not found."
+#: src/gnome-cmd-user-actions.cc:1272
 msgid "gksudo, xdg-su, gksu, gnomesu, kdesu or beesu is not found."
 msgstr "gksudo, xdg-su, gksu, gnomesu, kdesu of beesu niet gevonden."
 
-#: src/gnome-cmd-user-actions.cc:1285
+#: src/gnome-cmd-user-actions.cc:1291
 msgid "Unable to start GNOME Commander in root mode."
 msgstr "GNOME Commander kan niet gestart worden in rootmodus."
 
-#: src/gnome-cmd-user-actions.cc:1288
-#| msgid "xdg-su, gksu, gnomesu, kdesu or beesu is not found"
+#: src/gnome-cmd-user-actions.cc:1294
 msgid "gksudo, xdg-su, gksu, gnomesu, kdesu or beesu is not found"
 msgstr "gksudo, xdg-su, gksu, gnomesu, kdesu of beesu niet gevonden"
 
-#: src/gnome-cmd-user-actions.cc:1915
+#: src/gnome-cmd-user-actions.cc:1921
 msgid "Bookmarks"
 msgstr "Bladwijzers"
 
-#: src/gnome-cmd-user-actions.cc:2002
+#: src/gnome-cmd-user-actions.cc:2008
 msgid "There was an error opening home page."
 msgstr "Fout bij openen van hoofdpagina."
 
-#: src/gnome-cmd-user-actions.cc:2011
+#: src/gnome-cmd-user-actions.cc:2017
 msgid "There was an error reporting problem."
 msgstr "Fout bij het melden van een probleem."
 
-#: src/gnome-cmd-user-actions.cc:2037
+#: src/gnome-cmd-user-actions.cc:2043
 msgid "A fast and powerful file manager for the GNOME desktop"
 msgstr "Snel en krachtig bestandsbeheer voor de GNOME omgeving"
 
-#: src/gnome-cmd-user-actions.cc:2041
+#: src/gnome-cmd-user-actions.cc:2047
 msgid ""
 "GNOME Commander is free software; you can redistribute it and/or modify it "
 "under the terms of the GNU General Public License as published by the Free "
@@ -4796,7 +4594,7 @@ msgstr ""
 "Public License, zoals die gepubliceerd is door de Free Software Foundation; "
 "ofwel versie 2 van de licentie ofwel (indien u dat wenst) een latere versie."
 
-#: src/gnome-cmd-user-actions.cc:2045
+#: src/gnome-cmd-user-actions.cc:2051
 msgid ""
 "GNOME Commander is distributed in the hope that it will be useful, but "
 "WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY "
@@ -4808,7 +4606,7 @@ msgstr ""
 "GESCHIKTHEID VOOR EEN BEPAALD DOEL. Zie de GNU General Public License voor "
 "meer informatie."
 
-#: src/gnome-cmd-user-actions.cc:2049
+#: src/gnome-cmd-user-actions.cc:2055
 msgid ""
 "You should have received a copy of the GNU General Public License along with "
 "GNOME Commander; if not, write to the Free Software Foundation, Inc., 51 "
@@ -4819,32 +4617,31 @@ msgstr ""
 "Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, "
 "USA."
 
-#: src/gnome-cmd-user-actions.cc:2066
+#: src/gnome-cmd-user-actions.cc:2072
 msgid "translator-credits"
 msgstr ""
 "Tino Meinen\n"
 "Vincent van Adrighem <adrighem@gnome.org>\n"
-"Hannie Dumoleyn <hannie@ubuntu-nl.org>"
+"Hannie Dumoleyn <hannie@ubuntu-nl.org>\n"
+"Nathan Follens <nfollens@gnome.org>\n"
+"Meer info over Gnome-NL http://nl.gnome.org"
 
-#: src/gnome-cmd-xfer.cc:119 src/gnome-cmd-xfer.cc:1097
-#: src/gnome-cmd-xfer.cc:1108 src/gnome-cmd-xfer.cc:1130
+#: src/gnome-cmd-xfer.cc:119 src/gnome-cmd-xfer.cc:1099
+#: src/gnome-cmd-xfer.cc:1110 src/gnome-cmd-xfer.cc:1154
 msgid "Transfer problem"
 msgstr "Overdrachtsprobleem"
 
 #: src/gnome-cmd-xfer.cc:146 src/gnome-cmd-xfer.cc:149
 #: src/gnome-cmd-xfer.cc:204 src/gnome-cmd-xfer.cc:207
-#| msgid "Copy File"
 msgid "Copy problem"
 msgstr "Probleem kopiëren"
 
 #: src/gnome-cmd-xfer.cc:147 src/gnome-cmd-xfer.cc:150
-#| msgid "Copying"
 msgid "Copy into"
 msgstr "Kopiëren naar"
 
 #: src/gnome-cmd-xfer.cc:147 src/gnome-cmd-xfer.cc:205
 #: src/gnome-cmd-xfer.cc:323
-#| msgid "Rename"
 msgid "Rename all"
 msgstr "Alles hernoemen"
 
@@ -4879,17 +4676,12 @@ msgid "Replace"
 msgstr "Vervangen"
 
 #: src/gnome-cmd-xfer.cc:205 src/gnome-cmd-xfer.cc:323
-#| msgid "Replace All"
 msgid "Replace all"
 msgstr "Alles vervangen"
 
 #: src/gnome-cmd-xfer.cc:246 src/gnome-cmd-xfer.cc:364
-#: src/gnome-cmd-xfer.cc:500
+#: src/gnome-cmd-xfer.cc:502
 #, c-format
-#| msgid ""
-#| "Error while deleting \"%s\"\n"
-#| "\n"
-#| "%s"
 msgid ""
 "Error while transferring “%s”\n"
 "\n"
@@ -4900,50 +4692,41 @@ msgstr ""
 "%s"
 
 #: src/gnome-cmd-xfer.cc:322 src/gnome-cmd-xfer.cc:325
-#| msgid "Delete problem"
 msgid "Move problem"
 msgstr "Probleem verplaatsen"
 
-#: src/gnome-cmd-xfer.cc:460
-#| msgid "Copying"
+#: src/gnome-cmd-xfer.cc:455
 msgid "copying…"
 msgstr "Kopiëren…"
 
-#: src/gnome-cmd-xfer.cc:464
+#: src/gnome-cmd-xfer.cc:459
 #, c-format
-#| msgid "[file %ld of %ld] \"%s\""
 msgid "[file %ld of %ld] “%s”"
 msgstr "[bestand %ld van %ld] ‘%s’"
 
-#: src/gnome-cmd-xfer.cc:648
+#: src/gnome-cmd-xfer.cc:650
 msgid "Copying a directory into itself is a bad idea."
 msgstr "Een map naar zichzelf kopiëren is een slecht idee."
 
-#: src/gnome-cmd-xfer.cc:648 src/gnome-cmd-xfer.cc:728
-#: src/gnome-cmd-xfer.cc:809
+#: src/gnome-cmd-xfer.cc:650 src/gnome-cmd-xfer.cc:730
+#: src/gnome-cmd-xfer.cc:811
 msgid "The whole operation was cancelled."
 msgstr "De hele handeling werd geannuleerd."
 
-#: src/gnome-cmd-xfer.cc:695 src/gnome-cmd-xfer.cc:775
-#| msgid "preparing..."
+#: src/gnome-cmd-xfer.cc:697 src/gnome-cmd-xfer.cc:777
 msgid "preparing…"
 msgstr "voorbereiden…"
 
-#: src/gnome-cmd-xfer.cc:728 src/gnome-cmd-xfer.cc:809
-#| msgid "Copying a directory into itself is a bad idea."
+#: src/gnome-cmd-xfer.cc:730 src/gnome-cmd-xfer.cc:811
 msgid "Moving a directory into itself is a bad idea."
 msgstr "Een map naar zichzelf kopiëren is een slecht idee."
 
-#: src/gnome-cmd-xfer.cc:876
+#: src/gnome-cmd-xfer.cc:878
 msgid "downloading to /tmp"
 msgstr "downloaden naar /tmp"
 
-#: src/gnome-cmd-xfer.cc:925
+#: src/gnome-cmd-xfer.cc:927
 #, c-format
-#| msgid ""
-#| "Error while deleting \"%s\"\n"
-#| "\n"
-#| "%s"
 msgid ""
 "Error while creating symlink “%s”\n"
 "\n"
@@ -4953,22 +4736,21 @@ msgstr ""
 "\n"
 "%s"
 
-#: src/gnome-cmd-xfer.cc:930
+#: src/gnome-cmd-xfer.cc:932
 msgid "Symlink creation problem"
 msgstr "Probleem met aanmaken van symlink"
 
-#: src/gnome-cmd-xfer.cc:931
+#: src/gnome-cmd-xfer.cc:933
 msgid "Ignore"
 msgstr "Negeren"
 
 #. Translators: Translate 'Copy' as a noun here
-#: src/gnome-cmd-xfer.cc:1032
-#| msgid "Copy"
+#: src/gnome-cmd-xfer.cc:1034
 msgctxt "Filename suffix"
 msgid "Copy"
 msgstr "Kopiëren"
 
-#: src/gnome-cmd-xfer.cc:1096 src/gnome-cmd-xfer.cc:1107
+#: src/gnome-cmd-xfer.cc:1098 src/gnome-cmd-xfer.cc:1109
 #, c-format
 msgid ""
 "Source “%s” could not be deleted. Aborting!\n"
@@ -4979,13 +4761,12 @@ msgstr ""
 "\n"
 "%s"
 
-#: src/gnome-cmd-xfer.cc:1129
+#: src/gnome-cmd-xfer.cc:1153
 #, c-format
 msgid "Source “%s” could not be copied. Aborting!"
 msgstr "Bron ‘%s’ kon niet worden gekopieerd. Wordt afgebroken!"
 
 #: src/gnome-cmd-xfer-progress-win.cc:42
-#| msgid "stopping..."
 msgid "stopping…"
 msgstr "stoppen…"
 
@@ -5005,17 +4786,13 @@ msgstr "%.0f%% gekopieerd"
 
 #: src/imageloader.cc:110
 #, c-format
-#| msgid "Couldn't load installed file type pixmap, trying to load %s instead"
 msgid "Couldn’t load installed file type pixmap, trying to load %s instead"
 msgstr ""
-"Kan geïnstalleerd bestandstype pixmap niet laden. In plaats daarvan wordt"
-" geprobeerd om %s te laden."
+"Kan geïnstalleerd bestandstype pixmap niet laden. In plaats daarvan wordt "
+"geprobeerd om %s te laden."
 
 #: src/imageloader.cc:114 src/imageloader.cc:138
 #, c-format
-#| msgid ""
-#| "Can't find the pixmap anywhere. Make sure you have installed the program "
-#| "or is executing gnome-commander from the gnome-commander-%s/src directory"
 msgid ""
 "Can’t find the pixmap anywhere. Make sure you have installed the program or "
 "is executing gnome-commander from the gnome-commander-%s/src directory"
@@ -5026,7 +4803,6 @@ msgstr ""
 
 #: src/imageloader.cc:135
 #, c-format
-#| msgid "Couldn't load installed pixmap, trying to load %s instead"
 msgid "Couldn’t load installed pixmap, trying to load %s instead"
 msgstr ""
 "Kan geïnstalleerde pixmap niet laden. In plaats daarvan wordt geprobeerd om "
@@ -5037,24 +4813,22 @@ msgid "Find"
 msgstr "Zoeken"
 
 #. Search mode radio buttons
-#: src/intviewer/search-dlg.cc:273 src/intviewer/viewer-window.cc:605
-#: src/intviewer/viewer-window.cc:622
+#: src/intviewer/search-dlg.cc:273 src/intviewer/viewer-window.cc:608
+#: src/intviewer/viewer-window.cc:625
 msgid "_Text"
 msgstr "_Tekst"
 
-#: src/intviewer/search-dlg.cc:274 src/intviewer/viewer-window.cc:607
+#: src/intviewer/search-dlg.cc:274 src/intviewer/viewer-window.cc:610
 msgid "_Hexadecimal"
 msgstr "_Hexadecimaal"
 
 #. sdlg->priv->progress = 0;
 #: src/intviewer/search-progress-dlg.cc:75
-#| msgid "Searching..."
 msgid "Searching…"
 msgstr "Zoeken…"
 
 #: src/intviewer/search-progress-dlg.cc:199
 #, c-format
-#| msgid "Searching for \"%s\""
 msgid "Searching for “%s”"
 msgstr "Zoeken naar ‘%s’"
 
@@ -5087,209 +4861,201 @@ msgstr "(passend in venster)"
 msgid "_Copy selection"
 msgstr "Selectie _kopiëren"
 
-#: src/intviewer/viewer-window.cc:600
+#: src/intviewer/viewer-window.cc:603
 msgid "_Close"
 msgstr "_Sluiten"
 
-#: src/intviewer/viewer-window.cc:606
+#: src/intviewer/viewer-window.cc:609
 msgid "_Binary"
 msgstr "_Binair"
 
-#: src/intviewer/viewer-window.cc:608 src/intviewer/viewer-window.cc:668
+#: src/intviewer/viewer-window.cc:611 src/intviewer/viewer-window.cc:671
 msgid "_Image"
 msgstr "_Afbeelding"
 
-#: src/intviewer/viewer-window.cc:614
+#: src/intviewer/viewer-window.cc:617
 msgid "_Zoom In"
 msgstr "_Inzoomen"
 
-#: src/intviewer/viewer-window.cc:615
-#| msgid "Zoom _Out"
+#: src/intviewer/viewer-window.cc:618
 msgid "_Zoom Out"
 msgstr "_Uitzoomen"
 
-#: src/intviewer/viewer-window.cc:616
+#: src/intviewer/viewer-window.cc:619
 msgid "_Normal Size"
 msgstr "_Normale afmeting"
 
-#: src/intviewer/viewer-window.cc:617
-#| msgid "Best _Fit"
+#: src/intviewer/viewer-window.cc:620
 msgid "_Best Fit"
 msgstr "Best-_passend"
 
-#: src/intviewer/viewer-window.cc:623
+#: src/intviewer/viewer-window.cc:626
 msgid "_Copy Text Selection"
 msgstr "Tekstselectie _kopiëren"
 
-#: src/intviewer/viewer-window.cc:624
-#| msgid "Find"
+#: src/intviewer/viewer-window.cc:627
 msgid "Find…"
 msgstr "Zoeken…"
 
-#: src/intviewer/viewer-window.cc:625
+#: src/intviewer/viewer-window.cc:628
 msgid "Find Next"
 msgstr "Volgende zoeken"
 
-#: src/intviewer/viewer-window.cc:626
+#: src/intviewer/viewer-window.cc:629
 msgid "Find Previous"
 msgstr "Vorige zoeken"
 
-#: src/intviewer/viewer-window.cc:627
+#: src/intviewer/viewer-window.cc:630
 msgid "_Encoding"
 msgstr "_Coderen"
 
-#: src/intviewer/viewer-window.cc:632
+#: src/intviewer/viewer-window.cc:635
 msgid "_Wrap lines"
 msgstr "_Regelterugloop"
 
-#: src/intviewer/viewer-window.cc:637
+#: src/intviewer/viewer-window.cc:640
 msgid "_UTF-8"
 msgstr "_UTF-8"
 
-#: src/intviewer/viewer-window.cc:638
+#: src/intviewer/viewer-window.cc:641
 msgid "English (US-_ASCII)"
 msgstr "Engels (US-_ASCII)"
 
-#: src/intviewer/viewer-window.cc:639
-#| msgid "Terminal:"
+#: src/intviewer/viewer-window.cc:642
 msgid "Terminal (CP437)"
 msgstr "Terminal (CP437)"
 
-#: src/intviewer/viewer-window.cc:640
+#: src/intviewer/viewer-window.cc:643
 msgid "Arabic (ISO-8859-6)"
 msgstr "Arabisch (ISO-8859-6)"
 
-#: src/intviewer/viewer-window.cc:641
+#: src/intviewer/viewer-window.cc:644
 msgid "Arabic (Windows, CP1256)"
 msgstr "Arabisch (Windows, CP1256)"
 
-#: src/intviewer/viewer-window.cc:642
+#: src/intviewer/viewer-window.cc:645
 msgid "Arabic (Dos, CP864)"
 msgstr "Arabisch (Dos, CP864)"
 
-#: src/intviewer/viewer-window.cc:643
+#: src/intviewer/viewer-window.cc:646
 msgid "Baltic (ISO-8859-4)"
 msgstr "Baltisch (ISO-8859-4)"
 
-#: src/intviewer/viewer-window.cc:644
+#: src/intviewer/viewer-window.cc:647
 msgid "Central European (ISO-8859-2)"
 msgstr "Central Europees (ISO-8859-2)"
 
-#: src/intviewer/viewer-window.cc:645
+#: src/intviewer/viewer-window.cc:648
 msgid "Central European (CP1250)"
 msgstr "Centraal Europees (CP1250)"
 
-#: src/intviewer/viewer-window.cc:646
+#: src/intviewer/viewer-window.cc:649
 msgid "Cyrillic (ISO-8859-5)"
 msgstr "Cyrillisch (ISO-8859-5)"
 
-#: src/intviewer/viewer-window.cc:647
+#: src/intviewer/viewer-window.cc:650
 msgid "Cyrillic (CP1251)"
 msgstr "Cyrillisch (CP1251)"
 
-#: src/intviewer/viewer-window.cc:648
+#: src/intviewer/viewer-window.cc:651
 msgid "Greek (ISO-8859-7)"
 msgstr "Grieks (ISO-8859-7)"
 
-#: src/intviewer/viewer-window.cc:649
+#: src/intviewer/viewer-window.cc:652
 msgid "Greek (CP1253)"
 msgstr "Grieks (CP1253)"
 
-#: src/intviewer/viewer-window.cc:650
+#: src/intviewer/viewer-window.cc:653
 msgid "Hebrew (Windows, CP1255)"
 msgstr "Hebreeuws (Windows, CP1255)"
 
-#: src/intviewer/viewer-window.cc:651
+#: src/intviewer/viewer-window.cc:654
 msgid "Hebrew (Dos, CP862)"
 msgstr "Hebreeuws (Dos, CP862)"
 
-#: src/intviewer/viewer-window.cc:652
+#: src/intviewer/viewer-window.cc:655
 msgid "Hebrew (ISO-8859-8)"
 msgstr "Hebreeuws (ISO-8859-8)"
 
-#: src/intviewer/viewer-window.cc:653
+#: src/intviewer/viewer-window.cc:656
 msgid "Latin 9 (ISO-8859-15)"
 msgstr "Latijn 9 (ISO-8859-15)"
 
-#: src/intviewer/viewer-window.cc:654
+#: src/intviewer/viewer-window.cc:657
 msgid "Maltese (ISO-8859-3)"
 msgstr "Maltees (ISO-8859-3)"
 
-#: src/intviewer/viewer-window.cc:655
+#: src/intviewer/viewer-window.cc:658
 msgid "Turkish (ISO-8859-9)"
 msgstr "Turks (ISO-8859-9)"
 
-#: src/intviewer/viewer-window.cc:656
-#| msgid "Turkish"
+#: src/intviewer/viewer-window.cc:659
 msgid "Turkish (CP1254)"
 msgstr "Turks (CP1254)"
 
-#: src/intviewer/viewer-window.cc:657
+#: src/intviewer/viewer-window.cc:660
 msgid "Western (CP1252)"
 msgstr "Westers (CP1252)"
 
-#: src/intviewer/viewer-window.cc:658
+#: src/intviewer/viewer-window.cc:661
 msgid "Western (ISO-8859-1)"
 msgstr "Westers (ISO-8859-1)"
 
 # Voorlopig laat ik tag even onvertaald. (Hannie)
-#: src/intviewer/viewer-window.cc:663
+#: src/intviewer/viewer-window.cc:666
 msgid "Show Metadata _Tags"
 msgstr "Metadata_tags tonen"
 
-#: src/intviewer/viewer-window.cc:669
-#| msgid "_Rotate Clockwise"
+#: src/intviewer/viewer-window.cc:672
 msgid "Rotate Clockwise"
 msgstr "Met de klok mee draaien"
 
-#: src/intviewer/viewer-window.cc:670
+#: src/intviewer/viewer-window.cc:673
 msgid "Rotate Counter Clockwis_e"
 msgstr "Tegen de _klok in draaien"
 
-#: src/intviewer/viewer-window.cc:671
-#| msgid "_Rotate 180°"
+#: src/intviewer/viewer-window.cc:674
 msgid "Rotate 180°"
 msgstr "180° draaien"
 
-#: src/intviewer/viewer-window.cc:672
+#: src/intviewer/viewer-window.cc:675
 msgid "Flip _Vertical"
 msgstr "_Verticaal omdraaien"
 
-#: src/intviewer/viewer-window.cc:673
+#: src/intviewer/viewer-window.cc:676
 msgid "Flip _Horizontal"
 msgstr "_Horizontaal omdraaien"
 
-#: src/intviewer/viewer-window.cc:679
+#: src/intviewer/viewer-window.cc:682
 msgid "_Binary Mode"
 msgstr "_Binaire modus"
 
-#: src/intviewer/viewer-window.cc:680
+#: src/intviewer/viewer-window.cc:683
 msgid "_Save Current Settings"
 msgstr "Huidige instellingen _opslaan"
 
-#: src/intviewer/viewer-window.cc:685
+#: src/intviewer/viewer-window.cc:688
 msgid "_Hexadecimal Offset"
 msgstr "_Hexadecimale offset"
 
-#: src/intviewer/viewer-window.cc:690
+#: src/intviewer/viewer-window.cc:693
 msgid "_20 chars/line"
 msgstr "_20 tekens/regel"
 
-#: src/intviewer/viewer-window.cc:691
+#: src/intviewer/viewer-window.cc:694
 msgid "_40 chars/line"
 msgstr "_40 tekens/regel"
 
-#: src/intviewer/viewer-window.cc:692
+#: src/intviewer/viewer-window.cc:695
 msgid "_80 chars/line"
 msgstr "_80 tekens/regel"
 
-#: src/intviewer/viewer-window.cc:698
+#: src/intviewer/viewer-window.cc:701
 msgid "Quick _Help"
 msgstr "_Snelle hulp"
 
-#: src/intviewer/viewer-window.cc:1007
+#: src/intviewer/viewer-window.cc:1010
 #, c-format
-#| msgid "Pattern \"%s\" was not found"
 msgid "Pattern “%s” was not found"
 msgstr "Patroon ‘%s’ niet gevonden"
 
@@ -5313,27 +5079,27 @@ msgstr "De map voor configuratiebestanden opgeven"
 msgid "File Manager"
 msgstr "Bestandsbeheer"
 
-#: src/plugin_manager.cc:321
+#: src/plugin_manager.cc:272
 msgid "Disable"
 msgstr "Uitschakelen"
 
-#: src/plugin_manager.cc:321
+#: src/plugin_manager.cc:272
 msgid "Enable"
 msgstr "Inschakelen"
 
-#: src/plugin_manager.cc:383
+#: src/plugin_manager.cc:389
 msgid "Available plugins"
 msgstr "Beschikbare plug-ins"
 
-#: src/plugin_manager.cc:390
+#: src/plugin_manager.cc:397
 msgid "Version"
 msgstr "Versie"
 
-#: src/plugin_manager.cc:396
+#: src/plugin_manager.cc:403
 msgid "_Enable"
 msgstr "_Inschakelen"
 
-#: src/plugin_manager.cc:400
+#: src/plugin_manager.cc:407
 msgid "_Configure"
 msgstr "Con_figureren"
 
@@ -5495,7 +5261,6 @@ msgid "Is New"
 msgstr "Is nieuw"
 
 #: src/tags/gnome-cmd-tags.cc:135
-#| msgid "Set to \"1\" if track is new to the user (default \"0\")."
 msgid "Set to “1” if track is new to the user (default “0”)."
 msgstr ""
 "Ingesteld op ‘1’ als het nummer nieuw is voor de gebruiker (standaard ‘0’)."
@@ -5569,7 +5334,6 @@ msgid "Copyrighted"
 msgstr "Met auteursrechten"
 
 #: src/tags/gnome-cmd-tags.cc:144
-#| msgid "\"1\" if the copyrighted bit is set."
 msgid "“1” if the copyrighted bit is set."
 msgstr "‘1’ als het auteursrechtenbit is ingesteld."
 
@@ -5586,7 +5350,6 @@ msgid "Original Audio"
 msgstr "Originele audio"
 
 #: src/tags/gnome-cmd-tags.cc:146
-#| msgid "\"1\" if the \"original\" bit is set."
 msgid "“1” if the “original” bit is set."
 msgstr "‘1’ als het ‘origineel’-bit is ingesteld."
 
@@ -5920,7 +5683,6 @@ msgid "Note Count"
 msgstr "Notitieteller"
 
 #: src/tags/gnome-cmd-tags.cc:187
-#| msgid "Number of \"notes\" in the document."
 msgid "Number of “notes” in the document."
 msgstr "Aantal ‘notities’ in het document."
 
@@ -5953,7 +5715,6 @@ msgid "Presentation Format"
 msgstr "Presentatievorm"
 
 #: src/tags/gnome-cmd-tags.cc:191
-#| msgid "Type of presentation, like \"On-screen Show\", \"SlideView\", etc."
 msgid "Type of presentation, like “On-screen Show”, “SlideView”, etc."
 msgstr "Het soort presentatie, zoals ‘Schermvertoning’, ‘SlideView’, enz."
 
@@ -5964,8 +5725,8 @@ msgstr "Afdrukdatum"
 #: src/tags/gnome-cmd-tags.cc:192
 msgid "Specifies the date and time when the document was last printed."
 msgstr ""
-"Specificeert de datum en tijd waarop het document voor het laatst afgedrukt"
-" werd."
+"Specificeert de datum en tijd waarop het document voor het laatst afgedrukt "
+"werd."
 
 #: src/tags/gnome-cmd-tags.cc:193
 msgid "Printed By"
@@ -5996,15 +5757,12 @@ msgid "Security"
 msgstr "Beveiliging"
 
 #: src/tags/gnome-cmd-tags.cc:196
-#| msgid ""
-#| "One of: \"Password protected\", \"Read-only recommended\", \"Read-only "
-#| "enforced\" or \"Locked for annotations\"."
 msgid ""
 "One of: “Password protected”, “Read-only recommended”, “Read-only enforced” "
 "or “Locked for annotations”."
 msgstr ""
-"Eén van: ‘Met wachtwoord beveiligd’, ‘Alleen-lezen aanbevolen’, ‘Alleen-lezen"
-" toepassen’ of ‘Geblokkeerd voor aantekeningen’."
+"Eén van: ‘Met wachtwoord beveiligd’, ‘Alleen-lezen aanbevolen’, ‘Alleen-"
+"lezen toepassen’ of ‘Geblokkeerd voor aantekeningen’."
 
 #: src/tags/gnome-cmd-tags.cc:197
 msgid "Slide Count"
@@ -6207,22 +5965,6 @@ msgstr ""
 "De contrastbewerking toegepast door de camera toen de foto genomen werd."
 
 #: src/tags/gnome-cmd-tags.cc:216
-#| msgid ""
-#| "Copyright information. The tag is used to indicate both the photographer "
-#| "and editor copyrights. It is the copyright notice of the person or "
-#| "organization claiming rights to the image. The Interoperability copyright "
-#| "statement including date and rights should be written in this field; e."
-#| "g., \"Copyright, John Smith, 19xx. All rights reserved.\". The field "
-#| "records both the photographer and editor copyrights, with each recorded "
-#| "in a separate part of the statement. When there is a clear distinction "
-#| "between the photographer and editor copyrights, these are to be written "
-#| "in the order of photographer followed by editor copyright, separated by "
-#| "NULL (in this case, since the statement also ends with a NULL, there are "
-#| "two NULL codes) (see example 1). When only the photographer is given, it "
-#| "is terminated by one NULL code. When only the editor copyright is given, "
-#| "the photographer copyright part consists of one space followed by a "
-#| "terminating NULL code, then the editor copyright is given. When the field "
-#| "is left blank, it is treated as unknown."
 msgid ""
 "Copyright information. The tag is used to indicate both the photographer and "
 "editor copyrights. It is the copyright notice of the person or organization "
@@ -6244,17 +5986,17 @@ msgstr ""
 "auteursrechtaantekening van de persoon of organisatie die rechten claimt "
 "voor de afbeelding. Hier moeten de auteursrechtenverklaringen opgenomen "
 "worden, inclusief datum en omschrijving; bijvoorbeeld ‘Auteursrecht, John "
-"Smit, 19xx. Alle rechten voorbehouden.’. In dit veld staan de "
-"auteursrechten van zowel de fotograaf als de bewerker, elk in een gescheiden "
-"deel van de verklaring. Als er een groot verschil is tussen de "
-"auteursrechten van de fotograaf en de bewerker, moeten deze in de volgorde "
-"fotograaf, bewerker worden geschreven, gescheiden door NULL (in dit geval "
-"zijn er twee NULL codes, aangezien de verklaring ook eindigt met NULL) (zie "
-"voorbeeld 1). Als alleen de fotograaf is opgegeven, staat er één NULL code "
-"aan het einde. Als alleen de bewerker is opgegeven, bestaat het gedeelte van "
-"de fotograaf uit een spatie gevolgd door een NULL code aan het einde, daarna "
-"volgt het auteursrecht van de bewerker. Als het veld leeg is wordt het "
-"gezien als onbekend."
+"Smit, 19xx. Alle rechten voorbehouden.’. In dit veld staan de auteursrechten "
+"van zowel de fotograaf als de bewerker, elk in een gescheiden deel van de "
+"verklaring. Als er een groot verschil is tussen de auteursrechten van de "
+"fotograaf en de bewerker, moeten deze in de volgorde fotograaf, bewerker "
+"worden geschreven, gescheiden door NULL (in dit geval zijn er twee NULL "
+"codes, aangezien de verklaring ook eindigt met NULL) (zie voorbeeld 1). Als "
+"alleen de fotograaf is opgegeven, staat er één NULL code aan het einde. Als "
+"alleen de bewerker is opgegeven, bestaat het gedeelte van de fotograaf uit "
+"een spatie gevolgd door een NULL code aan het einde, daarna volgt het "
+"auteursrecht van de bewerker. Als het veld leeg is wordt het gezien als "
+"onbekend."
 
 #: src/tags/gnome-cmd-tags.cc:217
 msgid "Custom Rendered"
@@ -6621,9 +6363,6 @@ msgid "North or South Latitude"
 msgstr "Noorder- of zuiderbreedte"
 
 #: src/tags/gnome-cmd-tags.cc:248
-#| msgid ""
-#| "Indicates whether the latitude is north or south latitude. The ASCII "
-#| "value 'N' indicates north latitude, and 'S' is south latitude."
 msgid ""
 "Indicates whether the latitude is north or south latitude. The ASCII value "
 "“N” indicates north latitude, and “S” is south latitude."
@@ -6655,9 +6394,6 @@ msgid "East or West Longitude"
 msgstr "Ooster- of westerlengte"
 
 #: src/tags/gnome-cmd-tags.cc:250
-#| msgid ""
-#| "Indicates whether the longitude is east or west longitude. ASCII 'E' "
-#| "indicates east longitude, and 'W' is west longitude."
 msgid ""
 "Indicates whether the longitude is east or west longitude. ASCII “E” "
 "indicates east longitude, and “W” is west longitude."
@@ -6769,15 +6505,12 @@ msgid "Interoperability Index"
 msgstr "Interoperabiliteitsindex"
 
 #: src/tags/gnome-cmd-tags.cc:259
-#| msgid ""
-#| "Indicates the identification of the Interoperability rule. Use \"R98\" "
-#| "for stating ExifR98 Rules."
 msgid ""
 "Indicates the identification of the Interoperability rule. Use “R98” for "
 "stating ExifR98 Rules."
 msgstr ""
-"Geeft de identificatie aan van de interoperabiliteitsregel. Gebruik ‘R98’"
-" voor ExifR98-regels."
+"Geeft de identificatie aan van de interoperabiliteitsregel. Gebruik ‘R98’ "
+"voor ExifR98-regels."
 
 #: src/tags/gnome-cmd-tags.cc:260
 msgid "Interoperability Version"
@@ -7004,10 +6737,10 @@ msgid ""
 "format. In JPEG compressed files a JPEG marker is used instead of this tag. "
 "If this field does not exist, the TIFF default of 1 (chunky) is assumed."
 msgstr ""
-"Geeft aan of pixelcomponenten zijn opgenomen in een grof of vlak formaat. In"
-" JPEG-gecomprimeerde bestanden wordt een JPEG-markering gebruikt in plaats"
-" van deze tag. Als dit veld niet bestaat, wordt uitgegaan van de"
-" TIFF-standaard van 1 (grof)."
+"Geeft aan of pixelcomponenten zijn opgenomen in een grof of vlak formaat. In "
+"JPEG-gecomprimeerde bestanden wordt een JPEG-markering gebruikt in plaats "
+"van deze tag. Als dit veld niet bestaat, wordt uitgegaan van de TIFF-"
+"standaard van 1 (grof)."
 
 #: src/tags/gnome-cmd-tags.cc:280
 msgid "Primary Chromaticities"
@@ -7018,9 +6751,9 @@ msgid ""
 "The chromaticity of the three primary colors of the image. Normally this tag "
 "is not necessary, since colorspace is specified in <Exif.ColorSpace> tag."
 msgstr ""
-"De kleurkwaliteit van de drie primaire kleuren van de afbeelding. Normaal"
-" gesproken is deze tag niet nodig, omdat de kleurruimte gespecificeerd is in"
-" de tag <Exif.ColorSpace>."
+"De kleurkwaliteit van de drie primaire kleuren van de afbeelding. Normaal "
+"gesproken is deze tag niet nodig, omdat de kleurruimte gespecificeerd is in "
+"de tag <Exif.ColorSpace>."
 
 #: src/tags/gnome-cmd-tags.cc:281
 msgid "Reference Black/White"
@@ -7034,11 +6767,11 @@ msgid ""
 "being the value that gives the optimal image characteristics under these "
 "conditions."
 msgstr ""
-"De referentiewaarde voor het zwartpunt en de referentiewaarde voor het"
-" witpunt. In TIFF worden geen standaardwaarden gegeven, maar de onderstaande"
-" waarden worden hier als standaardwaarden gegeven. De kleurruimte wordt"
-" aangegeven in een kleurruimte-informatietag, waarbij de standaardwaarde de"
-" waarde is die onder deze omstandigheden de optimale beeldkenmerken geeft."
+"De referentiewaarde voor het zwartpunt en de referentiewaarde voor het "
+"witpunt. In TIFF worden geen standaardwaarden gegeven, maar de onderstaande "
+"waarden worden hier als standaardwaarden gegeven. De kleurruimte wordt "
+"aangegeven in een kleurruimte-informatietag, waarbij de standaardwaarde de "
+"waarde is die onder deze omstandigheden de optimale beeldkenmerken geeft."
 
 #: src/tags/gnome-cmd-tags.cc:282
 msgid "Related Image File Format"
@@ -7089,27 +6822,27 @@ msgid ""
 "audio files, the relation of the audio file to image data must also be "
 "indicated on the audio file end."
 msgstr ""
-"Deze tag wordt gebruikt om de naam van een audiobestand in relatie tot de"
-" afbeeldingsgegevens op te nemen. De enige relationele informatie die hier is"
-" vastgelegd, is de Exif-audiobestandsnaam en -extensie (een ASCII-tekenreeks"
-" bestaande uit 8 tekens + ‘.’ + 3 tekens). Het pad wordt niet opgenomen. Bij"
-" gebruik van deze tag moeten audiobestanden worden opgenomen in"
-" overeenstemming met het Exif-audioformaat. Auteurs mogen de gegevens zoals"
-" audio ook binnen APP2 opslaan als FlashPix-extensie stream data."
-" Audiobestanden moeten worden opgenomen in overeenstemming met het"
-" Exif-audioformaat. Als er meerdere bestanden aan één bestand worden"
-" toegewezen, wordt het bovenstaande formaat gebruikt om slechts één"
-" audiobestandsnaam op te nemen. Als er meerdere audiobestanden zijn, wordt"
-" het eerste opgenomen bestand gegeven. Als er drie Exif-audiobestanden"
-" ‘SND00001.WAV’, ‘SND00002.WAV’ en ‘SND00003.WAV’ zijn, wordt de naam van het"
-" Exif-beeldbestand voor elk van hen, ‘DSC00001.JPG’, aangegeven. Door"
-" meerdere relationele informatie te combineren, kunnen verschillende"
-" afspeelmogelijkheden worden ondersteund. De methode voor het gebruik van"
-" relationele informatie wordt overgelaten aan de implementatie aan de"
-" afspeelkant. Aangezien deze informatie een ASCII-tekenreeks is, wordt deze"
-" beëindigd met NULL. Wanneer deze tag wordt gebruikt om audiobestanden toe te"
-" wijzen, moet de relatie tussen het audiobestand en de afbeeldingsgegevens"
-" ook aan het einde van het audiobestand worden aangegeven."
+"Deze tag wordt gebruikt om de naam van een audiobestand in relatie tot de "
+"afbeeldingsgegevens op te nemen. De enige relationele informatie die hier is "
+"vastgelegd, is de Exif-audiobestandsnaam en -extensie (een ASCII-tekenreeks "
+"bestaande uit 8 tekens + ‘.’ + 3 tekens). Het pad wordt niet opgenomen. Bij "
+"gebruik van deze tag moeten audiobestanden worden opgenomen in "
+"overeenstemming met het Exif-audioformaat. Auteurs mogen de gegevens zoals "
+"audio ook binnen APP2 opslaan als FlashPix-extensie stream data. "
+"Audiobestanden moeten worden opgenomen in overeenstemming met het Exif-"
+"audioformaat. Als er meerdere bestanden aan één bestand worden toegewezen, "
+"wordt het bovenstaande formaat gebruikt om slechts één audiobestandsnaam op "
+"te nemen. Als er meerdere audiobestanden zijn, wordt het eerste opgenomen "
+"bestand gegeven. Als er drie Exif-audiobestanden ‘SND00001.WAV’, ‘SND00002."
+"WAV’ en ‘SND00003.WAV’ zijn, wordt de naam van het Exif-beeldbestand voor "
+"elk van hen, ‘DSC00001.JPG’, aangegeven. Door meerdere relationele "
+"informatie te combineren, kunnen verschillende afspeelmogelijkheden worden "
+"ondersteund. De methode voor het gebruik van relationele informatie wordt "
+"overgelaten aan de implementatie aan de afspeelkant. Aangezien deze "
+"informatie een ASCII-tekenreeks is, wordt deze beëindigd met NULL. Wanneer "
+"deze tag wordt gebruikt om audiobestanden toe te wijzen, moet de relatie "
+"tussen het audiobestand en de afbeeldingsgegevens ook aan het einde van het "
+"audiobestand worden aangegeven."
 
 #: src/tags/gnome-cmd-tags.cc:286
 msgid "Resolution Unit"
@@ -7121,10 +6854,10 @@ msgid ""
 "unit is used for both <Exif.XResolution> and <Exif.YResolution>. If the "
 "image resolution is unknown, 2 (inches) is designated."
 msgstr ""
-"De eenheid voor het meten van <Exif.XResolution> en <Exif.YResolution>."
-" Dezelfde "
-"eenheid wordt gebruikt voor zowel <Exif.XResolution> en <Exif.YResolution>."
-" Als de resolutie van de afbeelding onbekend is, wordt 2 (inch) aangewezen."
+"De eenheid voor het meten van <Exif.XResolution> en <Exif.YResolution>. "
+"Dezelfde eenheid wordt gebruikt voor zowel <Exif.XResolution> en <Exif."
+"YResolution>. Als de resolutie van de afbeelding onbekend is, wordt 2 (inch) "
+"aangewezen."
 
 #: src/tags/gnome-cmd-tags.cc:287
 msgid "Rows per Strip"
@@ -7136,10 +6869,10 @@ msgid ""
 "strip when an image is divided into strips. With JPEG compressed data this "
 "designation is not needed and is omitted."
 msgstr ""
-"Het aantal rijen per strip. Dit is het aantal rijen in de afbeelding van één"
-" strip wanneer een afbeelding in strips wordt verdeeld. Bij"
-" JPEG-gecomprimeerde gegevens is deze aanduiding niet nodig en wordt deze"
-" weggelaten."
+"Het aantal rijen per strip. Dit is het aantal rijen in de afbeelding van één "
+"strip wanneer een afbeelding in strips wordt verdeeld. Bij JPEG-"
+"gecomprimeerde gegevens is deze aanduiding niet nodig en wordt deze "
+"weggelaten."
 
 #: src/tags/gnome-cmd-tags.cc:288
 msgid "Samples per Pixel"
@@ -7151,10 +6884,10 @@ msgid ""
 "YCbCr images, the value set for this tag is 3. In JPEG compressed data a "
 "JPEG marker is used instead of this tag."
 msgstr ""
-"Het aantal componenten per pixel. Aangezien deze standaard van toepassing is"
-" op RGB- en YCbCr-afbeeldingen, is de waarde die voor deze tag is ingesteld"
-" 3. In JPEG-gecomprimeerde gegevens wordt een JPEG-markering gebruikt in"
-" plaats van deze tag."
+"Het aantal componenten per pixel. Aangezien deze standaard van toepassing is "
+"op RGB- en YCbCr-afbeeldingen, is de waarde die voor deze tag is ingesteld "
+"3. In JPEG-gecomprimeerde gegevens wordt een JPEG-markering gebruikt in "
+"plaats van deze tag."
 
 #: src/tags/gnome-cmd-tags.cc:289
 msgid "Saturation"
@@ -7165,8 +6898,8 @@ msgid ""
 "The direction of saturation processing applied by the camera when the image "
 "was shot."
 msgstr ""
-"De richting van de verzadigingsverwerking die door de camera werd toegepast"
-" toen de foto werd genomen."
+"De richting van de verzadigingsverwerking die door de camera werd toegepast "
+"toen de foto werd genomen."
 
 #: src/tags/gnome-cmd-tags.cc:290
 msgid "Scene Capture Type"
@@ -7177,9 +6910,9 @@ msgid ""
 "The type of scene that was shot. It can also be used to record the mode in "
 "which the image was shot. Note that this differs from <Exif.SceneType> tag."
 msgstr ""
-"Het soort tafereel dat is opgenomen. Het kan ook worden gebruikt om de modus"
-" op te nemen waarin de foto is gemaakt. Merk op dat dit verschilt van de <"
-"xif.SceneType>-tag."
+"Het soort tafereel dat is opgenomen. Het kan ook worden gebruikt om de modus "
+"op te nemen waarin de foto is gemaakt. Merk op dat dit verschilt van de <xif."
+"SceneType>-tag."
 
 #: src/tags/gnome-cmd-tags.cc:291
 msgid "Scene Type"
@@ -7190,9 +6923,9 @@ msgid ""
 "The type of scene. If a DSC recorded the image, this tag value must always "
 "be set to 1, indicating that the image was directly photographed."
 msgstr ""
-"Soort opname. Als een DSC het plaatje heeft opgenomen, moet deze tagwaarde"
-" altijd worden ingesteld op 1, wat aangeeft dat de afbeelding rechtstreeks is"
-" gefotografeerd."
+"Soort opname. Als een DSC het plaatje heeft opgenomen, moet deze tagwaarde "
+"altijd worden ingesteld op 1, wat aangeeft dat de afbeelding rechtstreeks is "
+"gefotografeerd."
 
 #: src/tags/gnome-cmd-tags.cc:292
 msgid "Sensing Method"
@@ -7211,8 +6944,8 @@ msgid ""
 "The direction of sharpness processing applied by the camera when the image "
 "was shot."
 msgstr ""
-"De richting van de scherpteverwerking die door de camera werd toegepast toen"
-" het beeld werd opgenomen."
+"De richting van de scherpteverwerking die door de camera werd toegepast toen "
+"het beeld werd opgenomen."
 
 #: src/tags/gnome-cmd-tags.cc:294
 msgid "Shutter Speed"
@@ -7223,8 +6956,8 @@ msgid ""
 "Shutter speed. The unit is the APEX (Additive System of Photographic "
 "Exposure) setting."
 msgstr ""
-"Sluitertijd. De eenheid is de APEX-instelling (Additive System of"
-" Photographic Exposure)."
+"Sluitertijd. De eenheid is de APEX-instelling (Additive System of "
+"Photographic Exposure)."
 
 #: src/tags/gnome-cmd-tags.cc:295 src/tags/gnome-cmd-tags.cc:437
 msgid "Software"
@@ -7236,9 +6969,9 @@ msgid ""
 "camera or image input device used to generate the image. When the field is "
 "left blank, it is treated as unknown."
 msgstr ""
-"Deze tag registreert de naam en versie van de software of firmware van de"
-" camera of het beeldinvoerapparaat dat wordt gebruikt om het beeld te"
-" genereren. Als het veld leeg wordt gelaten, wordt het als onbekend behandeld."
+"Deze tag registreert de naam en versie van de software of firmware van de "
+"camera of het beeldinvoerapparaat dat wordt gebruikt om het beeld te "
+"genereren. Als het veld leeg wordt gelaten, wordt het als onbekend behandeld."
 
 #: src/tags/gnome-cmd-tags.cc:296
 msgid "Spatial Frequency Response"
@@ -7250,9 +6983,9 @@ msgid ""
 "values in the direction of image width, image height, and diagonal "
 "direction, as specified in ISO 12233."
 msgstr ""
-"Deze tag registreert de ruimtelijke frequentietabel van de camera of het"
-" invoerapparaat en de SFR-waarden in de richting van de beeldbreedte,"
-" beeldhoogte en diagonale richting, zoals gespecificeerd in ISO 12233."
+"Deze tag registreert de ruimtelijke frequentietabel van de camera of het "
+"invoerapparaat en de SFR-waarden in de richting van de beeldbreedte, "
+"beeldhoogte en diagonale richting, zoals gespecificeerd in ISO 12233."
 
 #: src/tags/gnome-cmd-tags.cc:297
 msgid "Spectral Sensitivity"
@@ -7271,8 +7004,8 @@ msgid ""
 "The total number of bytes in each strip. With JPEG compressed data this "
 "designation is not needed and is omitted."
 msgstr ""
-"Het totale aantal bytes in elke strip. Bij JPEG-gecomprimeerde gegevens is"
-" deze aanduiding niet nodig en wordt weggelaten."
+"Het totale aantal bytes in elke strip. Bij JPEG-gecomprimeerde gegevens is "
+"deze aanduiding niet nodig en wordt weggelaten."
 
 #: src/tags/gnome-cmd-tags.cc:299
 msgid "Strip Offsets"
@@ -7284,10 +7017,10 @@ msgid ""
 "be selected so the number of strip bytes does not exceed 64 Kbytes. With "
 "JPEG compressed data this designation is not needed and is omitted."
 msgstr ""
-"Voor elke strip, de byte-offset van die strip. Het wordt aanbevolen om dit zo"
-" te selecteren dat het aantal stripbytes niet groter is dan 64 Kbytes. Bij"
-" JPEG-gecomprimeerde gegevens is deze aanduiding niet nodig en wordt deze"
-" weggelaten."
+"Voor elke strip, de byte-offset van die strip. Het wordt aanbevolen om dit "
+"zo te selecteren dat het aantal stripbytes niet groter is dan 64 Kbytes. Bij "
+"JPEG-gecomprimeerde gegevens is deze aanduiding niet nodig en wordt deze "
+"weggelaten."
 
 #: src/tags/gnome-cmd-tags.cc:300
 msgid "Sub IFD Offsets"
@@ -7296,8 +7029,8 @@ msgstr "Sub IFD Offsets"
 #: src/tags/gnome-cmd-tags.cc:300
 msgid "Defined by Adobe Corporation to enable TIFF Trees within a TIFF file."
 msgstr ""
-"Gedefinieerd door Adobe Corporation om TIFF-bomen binnen een TIFF-bestand"
-" mogelijk te maken."
+"Gedefinieerd door Adobe Corporation om TIFF-bomen binnen een TIFF-bestand "
+"mogelijk te maken."
 
 #: src/tags/gnome-cmd-tags.cc:301
 msgid "Subject Area"
@@ -7334,11 +7067,11 @@ msgid ""
 "edge, prior to rotation processing as per the <Exif.Rotation> tag. The first "
 "value indicates the X column number and second indicates the Y row number."
 msgstr ""
-"De locatie van het hoofdonderwerp in de opname. De waarde van deze tag"
-" vertegenwoordigt het beeldpunt in het midden van het hoofdonderwerp ten"
-" opzichte van de linkerrand, voorafgaand aan de rotatieverwerking volgens de"
-" <Exif.Rotation>-tag. De eerste waarde geeft het X-kolomnummer aan en de"
-" tweede geeft het Y-rijnummer aan."
+"De locatie van het hoofdonderwerp in de opname. De waarde van deze tag "
+"vertegenwoordigt het beeldpunt in het midden van het hoofdonderwerp ten "
+"opzichte van de linkerrand, voorafgaand aan de rotatieverwerking volgens de "
+"<Exif.Rotation>-tag. De eerste waarde geeft het X-kolomnummer aan en de "
+"tweede geeft het Y-rijnummer aan."
 
 #: src/tags/gnome-cmd-tags.cc:305
 msgid "Subsec Time"
@@ -7382,9 +7115,9 @@ msgid ""
 "tag is not necessary, since color space is specified in <Exif.ColorSpace> "
 "tag."
 msgstr ""
-"Een overdrachtsfunctie voor de afbeelding, beschreven in tabelstijl. Normaal"
-" gesproken is deze tag niet nodig, aangezien de kleurruimte is opgegeven in"
-" de <Exif.ColorSpace>-tag."
+"Een overdrachtsfunctie voor de afbeelding, beschreven in tabelstijl. Normaal "
+"gesproken is deze tag niet nodig, aangezien de kleurruimte is opgegeven in "
+"de <Exif.ColorSpace>-tag."
 
 #: src/tags/gnome-cmd-tags.cc:310
 msgid "Transfer Range"
@@ -7418,25 +7151,25 @@ msgid ""
 "recommended that the ID code be ASCII and that the following user comment "
 "part be filled with blank characters [20.H]."
 msgstr ""
-"Een tag voor Exif-gebruikers om trefwoorden of opmerkingen op de afbeelding"
-" te schrijven naast die in <Exif.ImageDescription>, en zonder de"
-" tekencodebeperkingen van de tag <Exif.ImageDescription>. De tekencode die"
-" wordt gebruikt in de <Exif.UserComment>-tag wordt geïdentificeerd op basis"
-" van een ID-code in een vast gebied van 8 bytes aan het begin van het"
-" taggegevensgebied. Het ongebruikte gedeelte van het gebied is opgevuld met"
-" NULL (\"00.h\"). ID-codes worden toegekend door middel van registratie. De"
-" waarde van CountN wordt bepaald op basis van de 8 bytes in het"
-" tekencodegebied en het aantal bytes in het gebruikerscommentaargedeelte."
-" Aangezien het TYPE geen ASCII is, is NULL-beëindiging niet nodig. De ID-code"
-" voor de <Exif.Het gebied UserComment> kan een gedefinieerde code zijn, zoals"
-" JIS of ASCII, of kan niet-gedefinieerd zijn. De niet-gedefinieerde naam is"
-" UndefinedText en de ID-code is gevuld met 8 bytes van alle \"NULL\""
-" (\"00.H\"). Een Exif-lezer die de <Exif.UserComment> tag moet een functie"
-" hebben voor het bepalen van de ID-code. Deze functie is niet vereist in"
-" Exif-lezers die geen gebruik maken van de <Exif.UserComment>-tag. Wanneer"
-" een gebied <Exif.UserComment> is gereserveerd, is het aanbevolen dat de"
-" ID-code ASCII is en dat het volgende gedeelte van de gebruikerscommentaar"
-" wordt gevuld met lege tekens [20.H]."
+"Een tag voor Exif-gebruikers om trefwoorden of opmerkingen op de afbeelding "
+"te schrijven naast die in <Exif.ImageDescription>, en zonder de "
+"tekencodebeperkingen van de tag <Exif.ImageDescription>. De tekencode die "
+"wordt gebruikt in de <Exif.UserComment>-tag wordt geïdentificeerd op basis "
+"van een ID-code in een vast gebied van 8 bytes aan het begin van het "
+"taggegevensgebied. Het ongebruikte gedeelte van het gebied is opgevuld met "
+"NULL (\"00.h\"). ID-codes worden toegekend door middel van registratie. De "
+"waarde van CountN wordt bepaald op basis van de 8 bytes in het "
+"tekencodegebied en het aantal bytes in het gebruikerscommentaargedeelte. "
+"Aangezien het TYPE geen ASCII is, is NULL-beëindiging niet nodig. De ID-code "
+"voor de <Exif.Het gebied UserComment> kan een gedefinieerde code zijn, zoals "
+"JIS of ASCII, of kan niet-gedefinieerd zijn. De niet-gedefinieerde naam is "
+"UndefinedText en de ID-code is gevuld met 8 bytes van alle \"NULL\" (\"00.H"
+"\"). Een Exif-lezer die de <Exif.UserComment> tag moet een functie hebben "
+"voor het bepalen van de ID-code. Deze functie is niet vereist in Exif-lezers "
+"die geen gebruik maken van de <Exif.UserComment>-tag. Wanneer een gebied "
+"<Exif.UserComment> is gereserveerd, is het aanbevolen dat de ID-code ASCII "
+"is en dat het volgende gedeelte van de gebruikerscommentaar wordt gevuld met "
+"lege tekens [20.H]."
 
 #: src/tags/gnome-cmd-tags.cc:312 src/tags/gnome-cmd-tags.cc:439
 msgid "White Balance"
@@ -7455,9 +7188,9 @@ msgid ""
 "The chromaticity of the white point of the image. Normally this tag is not "
 "necessary, since color space is specified in <Exif.ColorSpace> tag."
 msgstr ""
-"De kleurkwaliteit van het witpunt van het beeld. Normaal gesproken is deze"
-" tag niet nodig, aangezien de kleurruimte is opgegeven in de tag <"
-"Exif.ColorSpace>."
+"De kleurkwaliteit van het witpunt van het beeld. Normaal gesproken is deze "
+"tag niet nodig, aangezien de kleurruimte is opgegeven in de tag <Exif."
+"ColorSpace>."
 
 #: src/tags/gnome-cmd-tags.cc:314
 msgid "XML Packet"
@@ -7476,8 +7209,8 @@ msgid ""
 "The number of pixels per <Exif.ResolutionUnit> in the <Exif.ImageWidth> "
 "direction. When the image resolution is unknown, 72 [dpi] is designated."
 msgstr ""
-"Het aantal beeldpunten per <Exif.ResolutionUnit> in de richting <"
-"Exif.ImageWidth>. Als de beeldresolutie onbekend is, wordt 72 [dpi] toegekend."
+"Het aantal beeldpunten per <Exif.ResolutionUnit> in de richting <Exif."
+"ImageWidth>. Als de beeldresolutie onbekend is, wordt 72 [dpi] toegekend."
 
 #: src/tags/gnome-cmd-tags.cc:316
 msgid "YCbCr Coefficients"
@@ -7491,11 +7224,11 @@ msgid ""
 "the default being the value that gives the optimal image characteristics "
 "under this condition."
 msgstr ""
-"De matrixcoëfficiënten voor transformatie van RGB naar YCbCr-beeldgegevens."
-" Er wordt geen standaard gegeven in TIFF; maar hier wordt"
-" ‘Kleurruimterichtlijnen’ gebruikt als de standaard. De kleurruimte wordt"
-" aangegeven in een kleurruimte-informatielabel, waarbij de standaardwaarde de"
-" waarde is die de optimale beeldkenmerken geeft onder deze voorwaarde."
+"De matrixcoëfficiënten voor transformatie van RGB naar YCbCr-beeldgegevens. "
+"Er wordt geen standaard gegeven in TIFF; maar hier wordt "
+"‘Kleurruimterichtlijnen’ gebruikt als de standaard. De kleurruimte wordt "
+"aangegeven in een kleurruimte-informatielabel, waarbij de standaardwaarde de "
+"waarde is die de optimale beeldkenmerken geeft onder deze voorwaarde."
 
 #: src/tags/gnome-cmd-tags.cc:317
 msgid "YCbCr Positioning"
@@ -7515,17 +7248,17 @@ msgid ""
 "preferable that readers be able to support both centered and co-sited "
 "positioning."
 msgstr ""
-"De positie van chrominantiecomponenten ten opzichte van de"
-" luminantiecomponent. Dit veld is alleen bedoeld voor JPEG-gecomprimeerde"
-" gegevens of ongecomprimeerde YCbCr-gegevens. De TIFF-standaard is 1"
-" (gecentreerd); maar wanneer Y:Cb:Cr = 4:2:2 wordt aanbevolen om 2 (co-sited)"
-" te gebruiken om gegevens op te nemen, om de beeldkwaliteit bij weergave op"
-" tv-systemen te verbeteren. Als dit veld niet bestaat, gaat de lezer uit van"
-" de TIFF-standaard. In het geval van Y:Cb:Cr = 4:2:0 wordt de TIFF-standaard"
-" (gecentreerd) aanbevolen. Als de lezer niet in staat is om beide soorten <"
-"Exif.YCbCrPositioning> te ondersteunen, zal deze de TIFF-standaard volgen,"
-" ongeacht de waarde in dit veld. Het verdient de voorkeur dat lezers zowel"
-" gecentreerde als co-sited positionering kunnen ondersteunen."
+"De positie van chrominantiecomponenten ten opzichte van de "
+"luminantiecomponent. Dit veld is alleen bedoeld voor JPEG-gecomprimeerde "
+"gegevens of ongecomprimeerde YCbCr-gegevens. De TIFF-standaard is 1 "
+"(gecentreerd); maar wanneer Y:Cb:Cr = 4:2:2 wordt aanbevolen om 2 (co-sited) "
+"te gebruiken om gegevens op te nemen, om de beeldkwaliteit bij weergave op "
+"tv-systemen te verbeteren. Als dit veld niet bestaat, gaat de lezer uit van "
+"de TIFF-standaard. In het geval van Y:Cb:Cr = 4:2:0 wordt de TIFF-standaard "
+"(gecentreerd) aanbevolen. Als de lezer niet in staat is om beide soorten "
+"<Exif.YCbCrPositioning> te ondersteunen, zal deze de TIFF-standaard volgen, "
+"ongeacht de waarde in dit veld. Het verdient de voorkeur dat lezers zowel "
+"gecentreerde als co-sited positionering kunnen ondersteunen."
 
 #: src/tags/gnome-cmd-tags.cc:318
 msgid "YCbCr Sub-Sampling"
@@ -7536,9 +7269,9 @@ msgid ""
 "The sampling ratio of chrominance components in relation to the luminance "
 "component. In JPEG compressed data a JPEG marker is used instead of this tag."
 msgstr ""
-"De samplingverhouding van chrominantiecomponenten in relatie tot de"
-" luminantiecomponent. In JPEG-gecomprimeerde gegevens wordt een"
-" JPEG-markering gebruikt in plaats van deze tag."
+"De samplingverhouding van chrominantiecomponenten in relatie tot de "
+"luminantiecomponent. In JPEG-gecomprimeerde gegevens wordt een JPEG-"
+"markering gebruikt in plaats van deze tag."
 
 #: src/tags/gnome-cmd-tags.cc:319
 msgid "y Resolution"
@@ -7549,8 +7282,8 @@ msgid ""
 "The number of pixels per <Exif.ResolutionUnit> in the <Exif.ImageLength> "
 "direction. The same value as <Exif.XResolution> is designated."
 msgstr ""
-"Het aantal beeldpunten per <Exif.ResolutionUnit> in de richting <"
-"Exif.ImageLength>. Dezelfde waarde als <Exif.XResolution> wordt toegewezen."
+"Het aantal beeldpunten per <Exif.ResolutionUnit> in de richting <Exif."
+"ImageLength>. Dezelfde waarde als <Exif.XResolution> wordt toegewezen."
 
 #: src/tags/gnome-cmd-tags.cc:320
 msgid "Accessed"
@@ -7565,7 +7298,6 @@ msgid "Content"
 msgstr "Inhoud"
 
 #: src/tags/gnome-cmd-tags.cc:321
-#| msgid "File's contents filtered as plain text."
 msgid "File’s contents filtered as plain text."
 msgstr "Inhoud van bestand gefilterd als platte tekst."
 
@@ -7574,9 +7306,6 @@ msgid "Editable free text/notes."
 msgstr "Te bewerken vrije text/aantekeningen."
 
 #: src/tags/gnome-cmd-tags.cc:323
-#| msgid ""
-#| "MIME type of the file or if a directory it should contain value \"Folder"
-#| "\"."
 msgid ""
 "MIME type of the file or if a directory it should contain value “Folder”."
 msgstr ""
@@ -7612,7 +7341,6 @@ msgid "Full file path of file excluding the file name."
 msgstr "Volledige pad van het bestand zonder bestandsnaam."
 
 #: src/tags/gnome-cmd-tags.cc:329
-#| msgid "Permission string in unix format eg \"-rw-r--r--\"."
 msgid "Permission string in unix format eg “-rw-r--r--”."
 msgstr "Toegangstekenreeks in unix-formaat, bijv. ‘-rw-r--r--’."
 
@@ -8344,7 +8072,6 @@ msgid "Exposure time used to capture the photo in seconds."
 msgstr "Belichtingstijd gebruikt om de foto te nemen in seconden."
 
 #: src/tags/gnome-cmd-tags.cc:427
-#| msgid "Set to \"1\" if flash was fired."
 msgid "Set to “1” if flash was fired."
 msgstr "Ingesteld op ‘1’ indien flits is gebruikt."
 
@@ -8389,8 +8116,8 @@ msgid ""
 "Metering mode used to acquire the image (IE Unknown, Average, "
 "CenterWeightedAverage, Spot, MultiSpot, Pattern, Partial)."
 msgstr ""
-"Meetmodus die wordt gebruikt om het beeld te verkrijgen (zoals: Onbekend,"
-" Gemiddeld, CenterWeightedAverage, Spot, MultiSpot, Patroon, Gedeeltelijk)."
+"Meetmodus die wordt gebruikt om het beeld te verkrijgen (zoals: Onbekend, "
+"Gemiddeld, CenterWeightedAverage, Spot, MultiSpot, Patroon, Gedeeltelijk)."
 
 #: src/tags/gnome-cmd-tags.cc:435
 msgid "Model of camera used to take the image."
@@ -8401,8 +8128,8 @@ msgid ""
 "Represents the orientation of the image wrt camera (IE “top,left” or “bottom,"
 "right”)."
 msgstr ""
-"Vertegenwoordigt de oriëntatie van het beeld tov camera (zoals ‘boven,links’"
-" of ‘onder,rechts’)."
+"Vertegenwoordigt de oriëntatie van het beeld tov camera (zoals ‘boven,links’ "
+"of ‘onder,rechts’)."
 
 #: src/tags/gnome-cmd-tags.cc:437
 msgid "Software used to produce/enhance the image."
@@ -8437,8 +8164,8 @@ msgid ""
 "The type of action that this object provides to a previous object. “01” "
 "Object Kill, “02” Object Replace, “03” Object Append, “04” Object Reference."
 msgstr ""
-"Het type actie dat dit object geeft aan een vorig object. ‘01’ Object doden,"
-" ‘02’ Object vervangen, ‘03’ Object toevoegen, ‘04’ Objectreferentie."
+"Het type actie dat dit object geeft aan een vorig object. ‘01’ Object doden, "
+"‘02’ Object vervangen, ‘03’ Object toevoegen, ‘04’ Objectreferentie."
 
 #: src/tags/gnome-cmd-tags.cc:442
 msgid "ARM Identifier"
@@ -8683,9 +8410,9 @@ msgid ""
 "the previous object is made using the ARM. “01” indicates an additional "
 "language."
 msgstr ""
-"Het type update dat dit object geeft aan een vorig object. De koppeling naar"
-" het vorige object wordt gemaakt met behulp van de ARM. ‘01’ geeft een extra"
-" taal aan."
+"Het type update dat dit object geeft aan een vorig object. De koppeling naar "
+"het vorige object wordt gemaakt met behulp van de ARM. ‘01’ geeft een extra "
+"taal aan."
 
 #: src/tags/gnome-cmd-tags.cc:469
 msgid "Edit Status"
@@ -8713,9 +8440,9 @@ msgid ""
 "for most urgent, “5” for normal, and “8” for least urgent. “9” is user-"
 "defined."
 msgstr ""
-"Specificeert de prioriteit voor het verwerken van enveloppen en niet de"
-" redactionele urgentie. ‘1’ voor meest urgent, ‘5’ voor normaal en ‘8’ voor"
-" minst urgent. ‘9’ is door de gebruiker gedefinieerd."
+"Specificeert de prioriteit voor het verwerken van enveloppen en niet de "
+"redactionele urgentie. ‘1’ voor meest urgent, ‘5’ voor normaal en ‘8’ voor "
+"minst urgent. ‘9’ is door de gebruiker gedefinieerd."
 
 #: src/tags/gnome-cmd-tags.cc:472
 msgid "Expiration Date"
@@ -8776,9 +8503,6 @@ msgid "Image Orientation"
 msgstr "Oriëntatie van afbeelding"
 
 #: src/tags/gnome-cmd-tags.cc:478
-#| msgid ""
-#| "The layout of the image area: 'P' for portrait, 'L' for landscape, and "
-#| "'S' for square."
 msgid ""
 "The layout of the image area: “P” for portrait, “L” for landscape, and “S” "
 "for square."
@@ -8858,7 +8582,6 @@ msgid "Object Cycle"
 msgstr "Object Cycle"
 
 #: src/tags/gnome-cmd-tags.cc:486
-#| msgid "Where 'a' is morning, 'p' is evening, 'b' is both."
 msgid "Where “a” is morning, “p” is evening, “b” is both."
 msgstr ""
 "Hierbij staat ‘a’ voor voormiddag, ‘p’ voor namiddag en ‘b’ voor beide."
@@ -8964,8 +8687,8 @@ msgid ""
 "Contains rasterized object description and is used where characters that "
 "have not been coded are required for the caption."
 msgstr ""
-"Bevat een gerasterde objectbeschrijving en wordt gebruikt waar"
-" niet-gecodeerde tekens voor het bijschrift zijn vereist."
+"Bevat een gerasterde objectbeschrijving en wordt gebruikt waar niet-"
+"gecodeerde tekens voor het bijschrift zijn vereist."
 
 #: src/tags/gnome-cmd-tags.cc:499
 msgid "Record Version"
@@ -8991,8 +8714,8 @@ msgstr "Referentienummer"
 msgid ""
 "The Envelope Number of a prior envelope to which the current object refers."
 msgstr ""
-"Het envelopnummer van een eerdere envelop waarnaar het huidige object"
-" verwijst."
+"Het envelopnummer van een eerdere envelop waarnaar het huidige object "
+"verwijst."
 
 #: src/tags/gnome-cmd-tags.cc:502
 msgid "Reference Service"
@@ -9003,8 +8726,8 @@ msgid ""
 "The Service Identifier of a prior envelope to which the current object "
 "refers."
 msgstr ""
-"De Service Identifier van een eerdere envelop waarnaar het huidige object"
-" verwijst."
+"De Service Identifier van een eerdere envelop waarnaar het huidige object "
+"verwijst."
 
 #: src/tags/gnome-cmd-tags.cc:503
 msgid ""
@@ -9051,8 +8774,8 @@ msgstr "Speciale instructies"
 #: src/tags/gnome-cmd-tags.cc:508
 msgid "Other editorial instructions concerning the use of the object."
 msgstr ""
-"Overige redactionele instructies met betrekking tot het gebruik van het"
-" object."
+"Overige redactionele instructies met betrekking tot het gebruik van het "
+"object."
 
 #: src/tags/gnome-cmd-tags.cc:510
 msgid "Subfile"
@@ -9076,10 +8799,10 @@ msgid ""
 "digit Subject Reference Number and an optional Subject Name, Subject Matter "
 "Name, and Subject Detail Name each separated by a colon (:)."
 msgstr ""
-"Een gestructureerde omschrijving van het onderwerp. Het moet een IPR, een"
-" 8-cijferig onderwerpreferentienummer en een optionele onderwerpnaam,"
-" onderwerpnaam en onderwerpdetailnaam bevatten, elk gescheiden door een"
-" dubbele punt (:)."
+"Een gestructureerde omschrijving van het onderwerp. Het moet een IPR, een 8-"
+"cijferig onderwerpreferentienummer en een optionele onderwerpnaam, "
+"onderwerpnaam en onderwerpdetailnaam bevatten, elk gescheiden door een "
+"dubbele punt (:)."
 
 #: src/tags/gnome-cmd-tags.cc:512
 msgid "Sub-location"
@@ -9141,9 +8864,9 @@ msgid ""
 "Specifies the editorial urgency of content and not necessarily the envelope "
 "handling priority. “1” is most urgent, “5” normal, and “8” least urgent."
 msgstr ""
-"Specificeert de redactionele urgentie van de inhoud en niet noodzakelijk de"
-" prioriteit van de envelopafhandeling. ‘1’ is het meest urgent, ‘5’ normaal"
-" en ‘8’ minst urgent."
+"Specificeert de redactionele urgentie van de inhoud en niet noodzakelijk de "
+"prioriteit van de envelopafhandeling. ‘1’ is het meest urgent, ‘5’ normaal "
+"en ‘8’ minst urgent."
 
 #: src/tags/gnome-cmd-tags.cc:518
 msgid "Writer/Editor"
@@ -9210,7 +8933,6 @@ msgid "Fast Web View"
 msgstr "Snelle webweergave"
 
 #: src/tags/gnome-cmd-tags.cc:525
-#| msgid "Set to \"1\" if optimized for network access."
 msgid "Set to “1” if optimized for network access."
 msgstr "Ingesteld op ‘1’ indien geoptimaliseerd voor netwerktoegang."
 
@@ -9219,7 +8941,6 @@ msgid "Printing"
 msgstr "Afdrukken"
 
 #: src/tags/gnome-cmd-tags.cc:526
-#| msgid "Set to \"1\" if printing is allowed."
 msgid "Set to “1” if printing is allowed."
 msgstr "Ingesteld op ‘1’ indien afdrukken is toegestaan."
 
@@ -9228,7 +8949,6 @@ msgid "Printing in High Resolution"
 msgstr "Afdrukken in hoge resolutie"
 
 #: src/tags/gnome-cmd-tags.cc:527
-#| msgid "Set to \"1\" if high resolution printing is allowed."
 msgid "Set to “1” if high resolution printing is allowed."
 msgstr "Ingesteld op ‘1’ indien afdrukken in hoge resolutie is toegestaan."
 
@@ -9237,7 +8957,6 @@ msgid "Copying"
 msgstr "Kopiëren"
 
 #: src/tags/gnome-cmd-tags.cc:528
-#| msgid "Set to \"1\" if copying the contents is allowed."
 msgid "Set to “1” if copying the contents is allowed."
 msgstr "Ingesteld op ‘1’ indien kopiëren van de inhoud is toegestaan."
 
@@ -9246,7 +8965,6 @@ msgid "Modifying"
 msgstr "Wijzigen"
 
 #: src/tags/gnome-cmd-tags.cc:529
-#| msgid "Set to \"1\" if modifying the contents is allowed."
 msgid "Set to “1” if modifying the contents is allowed."
 msgstr "Ingesteld op ‘1’ indien wijzigen van de inhoud is toegestaan."
 
@@ -9255,9 +8973,6 @@ msgid "Document Assembly"
 msgstr "Samenstellen van document"
 
 #: src/tags/gnome-cmd-tags.cc:530
-#| msgid ""
-#| "Set to \"1\" if inserting, rotating, or deleting pages and creating "
-#| "navigation elements is allowed."
 msgid ""
 "Set to “1” if inserting, rotating, or deleting pages and creating navigation "
 "elements is allowed."
@@ -9270,7 +8985,6 @@ msgid "Commenting"
 msgstr "Commentaar"
 
 #: src/tags/gnome-cmd-tags.cc:531
-#| msgid "Set to \"1\" if adding or modifying text annotations is allowed."
 msgid "Set to “1” if adding or modifying text annotations is allowed."
 msgstr ""
 "Ingesteld op ‘1’ indien toevoegen/wijzigen van aantekeningen is toegestaan."
@@ -9280,7 +8994,6 @@ msgid "Form Filling"
 msgstr "Invullen van formulieren"
 
 #: src/tags/gnome-cmd-tags.cc:532
-#| msgid "Set to \"1\" if filling of form fields is allowed."
 msgid "Set to “1” if filling of form fields is allowed."
 msgstr ""
 "Ingesteld op ‘1’ indien het invullen van formuliervelden is toegestaan."
@@ -9290,8 +9003,6 @@ msgid "Accessibility Support"
 msgstr "Ondersteuning toegankelijkheid"
 
 #: src/tags/gnome-cmd-tags.cc:533
-#| msgid ""
-#| "Set to \"1\" if accessibility support (e.g. screen readers) is enabled."
 msgid "Set to “1” if accessibility support (e.g. screen readers) is enabled."
 msgstr ""
 "Ingesteld op ‘1’ indien toegankelijkheidsondersteuning (bijv. schermlezers) "
@@ -9379,7 +9090,6 @@ msgstr "Afbeelding"
 
 #: src/tags/gnome-cmd-tags-exiv2.cc:70
 #, c-format
-#| msgid "unsupported tag (suppressed %u B of binary data)"
 msgid "unsupported tag (suppressed %ld B of binary data)"
 msgstr "niet-ondersteunde tag (%ld B van binaire data onderdrukt)"
 
@@ -9440,7 +9150,7 @@ msgid "10-15ms"
 msgstr "10-15ms"
 
 # meervoud van byte is ook byte
-#: src/utils.cc:494
+#: src/utils.cc:497
 #, c-format
 msgid "(%sbyte)"
 msgid_plural "(%sbytes)"
@@ -9448,39 +9158,34 @@ msgstr[0] "(%s byte)"
 msgstr[1] "(%s bytes)"
 
 # meervoud van byte is ook byte
-#: src/utils.cc:497
+#: src/utils.cc:500
 #, c-format
-#| msgid "%s byte"
-#| msgid_plural "%s bytes"
 msgid "%sbyte"
 msgid_plural "%sbytes"
 msgstr[0] "%sbyte"
 msgstr[1] "%sbytes"
 
-#: src/utils.cc:686
-#| msgid "Failed to create a directory in which to store temporary files."
+#: src/utils.cc:689
 msgid "Failed to change working directory to a temporary directory."
 msgstr "Werkmap wijzigen in een tijdelijke map is mislukt."
 
-#: src/utils.cc:696
+#: src/utils.cc:699
 msgid "Failed to create a directory in which to store temporary files."
 msgstr ""
 "Aanmaken van map waarin tijdelijke bestanden moeten worden opgeslagen is "
 "mislukt."
 
-#: src/utils.cc:824
+#: src/utils.cc:827
 #, c-format
-#| msgid "Creating directory %s... "
 msgid "Creating directory %s… "
 msgstr "Map %s aanmaken… "
 
-#: src/utils.cc:835
+#: src/utils.cc:838
 #, c-format
-#| msgid "Failed to create the directory %s"
 msgid "Failed to create the directory %s: %s"
 msgstr "Aanmaken van de map %s: %s is mislukt"
 
-#: src/utils.cc:939
+#: src/utils.cc:942
 msgid "There was an error displaying help."
 msgstr "Fout bij weergeven van de hulpdocumentatie."
 
