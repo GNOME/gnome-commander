@@ -121,6 +121,9 @@ int main (int argc, char *argv[])
 
     gdk_rgb_init ();
 
+    // disable beeping for the application
+    gtk_rc_parse_string("gtk-error-bell=0");
+
     gchar *conf_dir = get_package_config_dir();
     if (!is_dir_existing(conf_dir))
     {

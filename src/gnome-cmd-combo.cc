@@ -80,8 +80,38 @@ G_DEFINE_TYPE_WITH_PRIVATE(GnomeCmdCombo, gnome_cmd_combo, GTK_TYPE_COMBO_BOX)
 
 static inline GtkWidget *gnome_cmd_combo_get_popup_widget (GnomeCmdCombo *combo)
 {
-    // minor hack to get the popup widget from combobox (menu or treeview)
-    return gtk_accessible_get_widget (GTK_ACCESSIBLE (gtk_combo_box_get_popup_accessible (&combo->parent_instance)));
+    // try to get the popup widget from combobox using accessible object
+    AtkObject *accesible = gtk_combo_box_get_popup_accessible (&combo->parent_instance);
+    if (GTK_IS_ACCESSIBLE(accesible))
+    {
+        return gtk_accessible_get_widget (GTK_ACCESSIBLE (accesible));
+    }
+
+    // alternative way of getting the popup widget from combobox by searching for the popup window
+    GtkWidget *popup_widget = NULL;
+    GtkWidget *toplevel = gtk_widget_get_toplevel (GTK_WIDGET (combo));
+    if (GTK_IS_WINDOW (toplevel))
+    {
+        GList *list = gtk_window_group_list_windows (gtk_window_get_group (GTK_WINDOW (toplevel)));
+
+        for (GList *i = list; i; i = i->next)
+        {
+            GtkWidget *window = (GtkWidget *) i->data;
+            if (!strcmp(gtk_widget_get_name (window), "gtk-combobox-popup-window"))
+            {
+                if (gtk_widget_get_visible (window))
+                {
+                    GtkWidget *scrolled_window = gtk_bin_get_child (GTK_BIN (window));
+                    popup_widget = gtk_bin_get_child (GTK_BIN (scrolled_window));
+                    break;
+                }
+            }
+        }
+
+        g_list_free (list);
+    }
+
+    return popup_widget;
 }
 
 
