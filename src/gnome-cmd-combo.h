@@ -1,4 +1,4 @@
-/** 
+/**
  * @file gnome-cmd-combo.h
  * @copyright (C) 2001-2006 Marcus Bjurman\n
  * @copyright (C) 2007-2012 Piotr Eljasiak\n
@@ -34,22 +34,22 @@
 #pragma once
 
 #include "imageloader.h"
-#include "gnome-cmd-pixmap.h"
 
 #define GNOME_CMD_TYPE_COMBO              (gnome_cmd_combo_get_type ())
-#define GNOME_CMD_COMBO(obj)              (G_TYPE_CHECK_INSTANCE_CAST((obj), GNOME_CMD_TYPE_COMBO, GnomeCmdCombo))
-#define GNOME_CMD_COMBO_CLASS(klass)      (G_TYPE_CHECK_CLASS_CAST((klass), GNOME_CMD_TYPE_COMBO, GnomeCmdComboClass))
-#define GNOME_CMD_IS_COMBO(obj)           (G_TYPE_CHECK_INSTANCE_TYPE((obj), GNOME_CMD_TYPE_COMBO))
-#define GNOME_CMD_IS_COMBO_CLASS(klass)   (G_TYPE_CHECK_CLASS_TYPE ((klass), GNOME_CMD_TYPE_COMBO))
-#define GNOME_CMD_COMBO_GET_CLASS(obj)    (G_TYPE_INSTANCE_GET_CLASS((obj), GNOME_CMD_TYPE_COMBO, GnomeCmdComboClass))
+#define GNOME_CMD_COMBO(obj)              (G_TYPE_CHECK_INSTANCE_CAST ((obj), GNOME_CMD_TYPE_COMBO, GnomeCmdCombo))
+#define GNOME_CMD_COMBO_CLASS(vtable)     (G_TYPE_CHECK_CLASS_CAST ((vtable), GNOME_CMD_TYPE_COMBO, GnomeCmdComboClass))
+#define GNOME_CMD_IS_COMBO(obj)           (G_TYPE_CHECK_INSTANCE_TYPE ((obj), GNOME_CMD_TYPE_COMBO))
+#define GNOME_CMD_IS_COMBO_CLASS(vtable)  (G_TYPE_CHECK_CLASS_TYPE ((vtable), GNOME_CMD_TYPE_COMBO))
+#define GNOME_CMD_COMBO_GET_CLASS(inst)   (G_TYPE_INSTANCE_GET_CLASS ((inst), GNOME_CMD_TYPE_COMBO, GnomeCmdComboClass))
 
-
-GtkType gnome_cmd_combo_get_type ();
-
+struct GnomeCmdComboClass;
+struct GnomeCmdComboPrivate;
 
 struct GnomeCmdCombo
 {
-    GtkHBox hbox;
+    GtkComboBox parent_instance;
+
+    GnomeCmdComboPrivate *priv;
 
   public:
 
@@ -57,57 +57,18 @@ struct GnomeCmdCombo
     operator GtkObject * () const       {  return GTK_OBJECT (this);       }
     operator GtkWidget * () const       {  return GTK_WIDGET (this);       }
 
-    GtkWidget *entry;
-    GtkWidget *list;
+    GtkWidget * get_entry();
 
-  public:       //  FIXME:  change to private
-
-    GtkWidget *button;
-    GtkWidget *popup;
-    GtkWidget *popwin;
-    gboolean is_popped;
-
-    guint entry_change_id;
-    guint list_change_id;
-
-    guint value_in_list:1;
-    guint ok_if_empty:1;
-
-    guint16 current_button;
-    guint activate_id;
-
-    gpointer sel_data;
-    gchar *sel_text;
-
-    gint widest_pixmap;
-    gint highest_pixmap;
-    gint text_col;
-
-  public:
-
-    void *operator new (size_t size);
-    void operator delete (void *p)      {  g_object_unref (p);  }
-
-    GnomeCmdCombo(gint num_cols, gint text_col, gchar **col_titles=NULL);
-    ~GnomeCmdCombo()                    {}
-
-    void clear()                                                {  gtk_clist_clear (GTK_CLIST (list));  }
-    gint append(gchar **text, gpointer data);
-    gint insert(gchar **text, gpointer data);
-
-    void set_pixmap(gint row, gint col, GnomeCmdPixmap *pixmap);
+    void clear();
+    void append(gchar *text, gpointer data, ...); // ... = pairs of column number and value, terminated with -1
 
     void popup_list();
 
     void select_data(gpointer data);
 
     void update_style();
-
-    gpointer get_selected_data() const                          {  return sel_data;  }
-    const gchar *get_selected_text() const                      {  return sel_text;  }
 };
 
-inline void *GnomeCmdCombo::operator new (size_t size)
-{
-    return g_object_new (GNOME_CMD_TYPE_COMBO, NULL);
-}
+GType gnome_cmd_combo_get_type (void) G_GNUC_CONST;
+GtkWidget *gnome_cmd_combo_new_with_store (GtkListStore *store, gint num_cols, gint text_col, gint data_col);
+
