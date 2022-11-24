@@ -1,4 +1,4 @@
-/** 
+/**
  * @file gnome-cmd-delete-dialog.h
  * @copyright (C) 2001-2006 Marcus Bjurman\n
  * @copyright (C) 2007-2012 Piotr Eljasiak\n
@@ -48,6 +48,7 @@ struct DeleteData
     guint64 itemsDeleted{0};              // items deleted in the current run
     guint64 itemsTotal{0};                // total number of items which should be deleted
     OriginAction originAction;            // As delete can also used when moving files, we have to distinguish here
+    GCancellable* cancellable{nullptr};
 };
 
 void do_delete (DeleteData *deleteData, gboolean showProgress);
