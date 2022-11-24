@@ -68,7 +68,22 @@ static gboolean on_ok (GnomeCmdStringDialog *string_dialog, const gchar **values
         return FALSE;
     }
 
-    copy_file (dialog->priv->f, dialog->priv->dir, filename);
+    if (filename[0] == '/')
+    {
+        gchar *parent_dir = g_path_get_dirname (filename);
+        gchar *dest_fn = g_path_get_basename (filename);
+
+        auto con = gnome_cmd_dir_get_connection (dialog->priv->dir);
+        auto conPath = gnome_cmd_con_create_path (con, parent_dir);
+        auto dir = gnome_cmd_dir_new (con, conPath);
+        delete conPath;
+        g_free (parent_dir);
+
+        copy_file (dialog->priv->f, dir, dest_fn);
+        g_free (dest_fn);
+    }
+    else
+        copy_file (dialog->priv->f, dialog->priv->dir, filename);
 
     return TRUE;
 }
