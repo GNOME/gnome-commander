@@ -62,7 +62,6 @@ GSList *make_gfile_list (GnomeCmdDir *dir, string filename)
         }
     }
     g_free(uriScheme);
-    g_object_unref (dir_gFile);
 #endif
 
     GSList *gFile_list = NULL;
