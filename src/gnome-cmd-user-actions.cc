@@ -736,7 +736,6 @@ void file_edit (GtkMenuItem *menuitem, gpointer not_used)
 	    command = g_strdup (gnome_cmd_data.options.editor);
 	    g_return_if_fail (command != nullptr);
 
-	    string dir_path;
 	    string cmd;
 
 	    cmd.reserve(2000);
@@ -748,14 +747,13 @@ void file_edit (GtkMenuItem *menuitem, gpointer not_used)
 	    }
 	    else
 	    {
-            GnomeCmdDir *dir = nullptr;
 	        gint     argc;
 	        gchar  **argv  = nullptr;
 	        GError  *error = nullptr;
 	        DEBUG ('g', "Edit file: %s\n", cmd.c_str());
 
 	        g_shell_parse_argv (cmd.c_str(), &argc, &argv, nullptr);
-	        if (!g_spawn_async (gnome_cmd_dir_is_local (dir) ? dir_path.c_str() : nullptr, argv, nullptr, G_SPAWN_SEARCH_PATH, nullptr, nullptr, nullptr, &error))
+	        if (!g_spawn_async (nullptr, argv, nullptr, G_SPAWN_SEARCH_PATH, nullptr, nullptr, nullptr, &error))
             gnome_cmd_error_message (_("Unable to execute command."), error);
 
 	        g_strfreev (argv);

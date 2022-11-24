@@ -1528,7 +1528,7 @@ static GtkWidget *create_app_dialog (GnomeCmdApp *app, GtkSignalFunc on_ok, GtkS
     entry = create_entry (dialog, "cmd_entry", s);
     table_add (table, entry, 1, 1, (GtkAttachOptions) (GTK_EXPAND|GTK_FILL));
 
-    s = gnome_cmd_app_get_icon_path (app);
+    if (app) s = gnome_cmd_app_get_icon_path (app);
     entry = create_icon_button_widget (dialog, "icon_entry", s);
 
     table_add (table, entry, 1, 2, GTK_FILL);
