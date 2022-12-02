@@ -1566,14 +1566,14 @@ GtkWidget *GnomeCmdFileSelector::new_tab(GnomeCmdDir *dir, GnomeCmdFileList::Col
     g_signal_connect (fl, "dir-changed", G_CALLBACK (on_list_dir_changed), this);
     g_signal_connect (fl, "files-changed", G_CALLBACK (on_list_files_changed), this);
 
+    if (dir)
+        fl->set_connection(gnome_cmd_dir_get_connection (dir), dir);
+
     if (activate)
     {
         notebook->set_current_page(n);
         gtk_widget_grab_focus (*fl);
     }
-
-    if (dir)
-        fl->set_connection(gnome_cmd_dir_get_connection (dir), dir);
 
     g_signal_connect (fl, "file-clicked", G_CALLBACK (on_list_file_clicked), this);
     g_signal_connect (fl, "file-released", G_CALLBACK (on_list_file_released), this);
