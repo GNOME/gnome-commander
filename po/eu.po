@@ -10,8 +10,8 @@
 msgid ""
 msgstr "Project-Id-Version: gnome-commander master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-commander/issues\n"
-"POT-Creation-Date: 2022-02-27 08:50+0000\n"
-"PO-Revision-Date: 2022-02-05 10:00+0100\n"
+"POT-Creation-Date: 2022-11-02 18:52+0000\n"
+"PO-Revision-Date: 2022-12-05 10:00+0100\n"
 "Last-Translator: Asier Sarasua Garmendia <asiersarasua@ni.eus>\n"
 "Language-Team: Basque <librezale@librezale.eus>\n"
 "Language: eu\n"
@@ -1397,7 +1397,7 @@ msgstr "Fitxategia"
 #: plugins/fileroller/file-roller-plugin.cc:605
 #: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:369
 #: src/dialogs/gnome-cmd-options-dialog.cc:1524
-#: src/dialogs/gnome-cmd-options-dialog.cc:2201
+#: src/dialogs/gnome-cmd-options-dialog.cc:2216
 #: src/dialogs/gnome-cmd-prepare-copy-dialog.cc:145
 #: src/dialogs/gnome-cmd-prepare-move-dialog.cc:132
 #: src/dialogs/gnome-cmd-remote-dialog.cc:443 src/gnome-cmd-user-actions.cc:253
@@ -1686,7 +1686,7 @@ msgstr "Ezabatzeko arazoa"
 #: src/gnome-cmd-xfer.cc:205 src/gnome-cmd-xfer.cc:208
 #: src/gnome-cmd-xfer.cc:323 src/gnome-cmd-xfer.cc:326
 #: src/gnome-cmd-xfer.cc:1097 src/gnome-cmd-xfer.cc:1108
-#: src/gnome-cmd-xfer.cc:1130
+#: src/gnome-cmd-xfer.cc:1152
 msgid "Abort"
 msgstr "Abortatu"
 
@@ -1741,8 +1741,8 @@ msgid "Delete"
 msgstr "Ezabatu"
 
 #: src/dialogs/gnome-cmd-delete-dialog.cc:437
-#: src/dialogs/gnome-cmd-delete-dialog.cc:526 src/gnome-cmd-file-list.cc:1312
-#: src/gnome-cmd-file-list.cc:1341 src/gnome-cmd-file-selector.cc:1405
+#: src/dialogs/gnome-cmd-delete-dialog.cc:526 src/gnome-cmd-file-list.cc:1329
+#: src/gnome-cmd-file-list.cc:1358 src/gnome-cmd-file-selector.cc:1405
 #: src/gnome-cmd-user-actions.cc:865
 msgid "Cancel"
 msgstr "Utzi"
@@ -1808,7 +1808,7 @@ msgid "Image:"
 msgstr "Irudia:"
 
 #: src/dialogs/gnome-cmd-file-props-dialog.cc:329
-#: src/dialogs/gnome-cmd-mkdir-dialog.cc:195
+#: src/dialogs/gnome-cmd-mkdir-dialog.cc:193
 msgid "Directory name:"
 msgstr "Direktorio-izena:"
 
@@ -2066,13 +2066,13 @@ msgstr "Txantiloia"
 
 #: src/dialogs/gnome-cmd-manage-profiles-dialog.h:285
 msgid "New profile"
-msgstr "Profila berria"
+msgstr "Profil berria"
 
 #: src/dialogs/gnome-cmd-manage-profiles-dialog.h:322
 msgid ""
 "To rename a profile, click on the corresponding row and type a new name, or "
 "press escape to cancel."
-msgstr "Profila bat izenez aldateko, egin klik dagokion errenkadan eta idatzi izen berria edo sakatu Ihes tekla bertan behera uzteko."
+msgstr "Profil bat izenez aldateko, egin klik dagokion errenkadan eta idatzi izen berria edo sakatu Ihes tekla bertan behera uzteko."
 
 #: src/dialogs/gnome-cmd-manage-profiles-dialog.h:330
 msgid "_Duplicate"
@@ -2082,12 +2082,12 @@ msgstr "_Bikoiztu"
 msgid "A directory name must be entered"
 msgstr "Direktorio-izen bat sartu behar da"
 
-#: src/dialogs/gnome-cmd-mkdir-dialog.cc:127
+#: src/dialogs/gnome-cmd-mkdir-dialog.cc:126
 #, c-format
 msgid "Make directory failed: %s\n"
 msgstr "Direktorioa sortzeak huts egin du: %s\n"
 
-#: src/dialogs/gnome-cmd-mkdir-dialog.cc:171
+#: src/dialogs/gnome-cmd-mkdir-dialog.cc:169
 msgid "Make Directory"
 msgstr "Sortu direktorioa"
 
@@ -2199,7 +2199,7 @@ msgid "Directories"
 msgstr "Direktorioak"
 
 #: src/dialogs/gnome-cmd-options-dialog.cc:237
-#: src/dialogs/gnome-cmd-options-dialog.cc:2228
+#: src/dialogs/gnome-cmd-options-dialog.cc:2243
 msgid "Tabs"
 msgstr "Fitxak"
 
@@ -2594,7 +2594,7 @@ msgid "Command:"
 msgstr "Komandoa:"
 
 #: src/dialogs/gnome-cmd-options-dialog.cc:1505
-#: src/dialogs/gnome-cmd-options-dialog.cc:1959
+#: src/dialogs/gnome-cmd-options-dialog.cc:1971
 msgid "Icon:"
 msgstr "Ikonoa:"
 
@@ -2702,67 +2702,67 @@ msgstr "Goiko zerrendako aplikazioetarako terminal-komandoak:"
 msgid "Leave terminal window open"
 msgstr "Utzi irekita terminalaren leihoa"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1953
+#: src/dialogs/gnome-cmd-options-dialog.cc:1965
 msgid "Alias:"
 msgstr "Aliasa:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1955
-msgid "Device:"
-msgstr "Gailua:"
+#: src/dialogs/gnome-cmd-options-dialog.cc:1967
+msgid "Device/Label:"
+msgstr "Gailua/Etiketa:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1957
+#: src/dialogs/gnome-cmd-options-dialog.cc:1969
 msgid "Mount point:"
 msgstr "Muntatze-puntua:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1998
+#: src/dialogs/gnome-cmd-options-dialog.cc:2013
 msgid "New Device"
 msgstr "Gailu berria"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:2011
+#: src/dialogs/gnome-cmd-options-dialog.cc:2026
 msgid "Edit Device"
 msgstr "Editatu gailua"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:2093
-#: src/dialogs/gnome-cmd-options-dialog.cc:2232
+#: src/dialogs/gnome-cmd-options-dialog.cc:2108
+#: src/dialogs/gnome-cmd-options-dialog.cc:2247
 msgid "Devices"
 msgstr "Gailuak"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:2103
+#: src/dialogs/gnome-cmd-options-dialog.cc:2118
 msgid "Alias"
 msgstr "Aliasa"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:2134
+#: src/dialogs/gnome-cmd-options-dialog.cc:2149
 msgid ""
 "Show Samba workgroups button\n"
 "(Needs program restart if altered)"
 msgstr "Erakutsi Sambaren lan-taldeen botoia\n"
 "(programa berrabiarazi behar da)"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:2139
+#: src/dialogs/gnome-cmd-options-dialog.cc:2154
 msgid "Show only the icons"
 msgstr "Erakutsi ikonoak soilik"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:2225
+#: src/dialogs/gnome-cmd-options-dialog.cc:2240
 msgid "General"
 msgstr "Orokorra"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:2226 src/tags/gnome-cmd-tags.cc:323
+#: src/dialogs/gnome-cmd-options-dialog.cc:2241 src/tags/gnome-cmd-tags.cc:323
 msgid "Format"
 msgstr "Formatua"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:2227
+#: src/dialogs/gnome-cmd-options-dialog.cc:2242
 msgid "Layout"
 msgstr "Diseinua"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:2229
+#: src/dialogs/gnome-cmd-options-dialog.cc:2244
 msgid "Confirmation"
 msgstr "Berrespena"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:2230
+#: src/dialogs/gnome-cmd-options-dialog.cc:2245
 msgid "Filters"
 msgstr "Iragazkiak"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:2231
+#: src/dialogs/gnome-cmd-options-dialog.cc:2246
 msgid "Programs"
 msgstr "Programak"
 
@@ -3234,24 +3234,28 @@ msgstr "Testu-ikuspegia:"
 msgid "Number view:"
 msgstr "Zenbaki-ikuspegia:"
 
-#: src/gnome-cmd-con-device.cc:121
+#: src/gnome-cmd-con-device.cc:122
 msgid "Failed to execute the mount command"
 msgstr "Huts egin du muntatzeko komandoa exekutatzean"
 
-#: src/gnome-cmd-con-device.cc:129
+#: src/gnome-cmd-con-device.cc:130
 msgid "Mount failed: permission denied"
 msgstr "Muntatzeak huts egin du: baimena ukatuta"
 
-#: src/gnome-cmd-con-device.cc:132
+#: src/gnome-cmd-con-device.cc:133
 msgid "Mount failed: no medium found"
 msgstr "Muntatzeak huts egin du: ez da euskarririk aurkitu"
 
-#: src/gnome-cmd-con-device.cc:135
+#: src/gnome-cmd-con-device.cc:136
 #, c-format
 msgid "Mount failed: mount exited with exitstatus %d"
 msgstr "Muntatzeak huts egin du: muntatzetik irten da %d irteera-egoerarekin"
 
-#: src/gnome-cmd-con-device.cc:301
+#: src/gnome-cmd-con-device.cc:300
+msgid "Volume successfully unmounted"
+msgstr "Bolumena ongi desmuntatu da"
+
+#: src/gnome-cmd-con-device.cc:321
 #, c-format
 msgid ""
 "Cannot unmount the volume:\n"
@@ -3261,31 +3265,27 @@ msgstr "Ezin da bolumena desmuntatu:\n"
 "%s\n"
 "Errore-kodea: %d"
 
-#: src/gnome-cmd-con-device.cc:319
-msgid "Volume successfully unmounted"
-msgstr "Bolumena ongi desmuntatu da"
-
-#: src/gnome-cmd-con-device.cc:531
+#: src/gnome-cmd-con-device.cc:554
 #, c-format
 msgid "Mounting %s"
 msgstr "%s muntatzen"
 
-#: src/gnome-cmd-con-device.cc:548
+#: src/gnome-cmd-con-device.cc:571
 #, c-format
 msgid "Go to: %s (%s)"
 msgstr "Joan hona: %s (%s)"
 
-#: src/gnome-cmd-con-device.cc:550 src/gnome-cmd-con.h:223
+#: src/gnome-cmd-con-device.cc:573 src/gnome-cmd-con.h:223
 #, c-format
 msgid "Go to: %s"
 msgstr "Joan hona: %s"
 
-#: src/gnome-cmd-con-device.cc:551
+#: src/gnome-cmd-con-device.cc:574
 #, c-format
 msgid "Mount: %s"
 msgstr "Muntatu: %s"
 
-#: src/gnome-cmd-con-device.cc:552
+#: src/gnome-cmd-con-device.cc:575
 #, c-format
 msgid "Unmount: %s"
 msgstr "Desmuntatu: %s"
@@ -3368,11 +3368,11 @@ msgstr "Gehitu uneko direktorioa"
 msgid "Manage bookmarks…"
 msgstr "Kudeatu laster-markak…"
 
-#: src/gnome-cmd-file.cc:637
+#: src/gnome-cmd-file.cc:638
 msgid "_Open"
 msgstr "_Ireki"
 
-#: src/gnome-cmd-file.cc:640
+#: src/gnome-cmd-file.cc:641
 #, c-format
 msgid "_Open with “%s”"
 msgstr "_Ireki “%s” aplikazioarekin"
@@ -3425,50 +3425,50 @@ msgstr "/_Estekatu hemen"
 msgid "/C_ancel"
 msgstr "/_Utzi"
 
-#: src/gnome-cmd-file-list.cc:1309
+#: src/gnome-cmd-file-list.cc:1326
 #, c-format
 msgid ""
 "“%s” seems to be a binary executable file but it lacks the executable bit. "
 "Do you want to set it and then run the file?"
 msgstr "Badirudi “%s” fitxategi exekutagarria dela baina ez du bit exekutagarria. Hura ezarri eta fitxategia exekutatu nahi duzu?"
 
-#: src/gnome-cmd-file-list.cc:1311
+#: src/gnome-cmd-file-list.cc:1328
 msgid "Make Executable?"
 msgstr "Exekutagarri bihurtu nahi duzu?"
 
-#: src/gnome-cmd-file-list.cc:1312
+#: src/gnome-cmd-file-list.cc:1329
 msgid "OK"
 msgstr "Ados"
 
-#: src/gnome-cmd-file-list.cc:1339
+#: src/gnome-cmd-file-list.cc:1356
 #, c-format
 msgid ""
 "“%s” is an executable text file. Do you want to run it, or display its "
 "contents?"
 msgstr "“%s” testu-fitxategi exekutagarria da. Exekutatu nahi duzu, ala edukia ikusi?"
 
-#: src/gnome-cmd-file-list.cc:1340
+#: src/gnome-cmd-file-list.cc:1357
 msgid "Run or Display"
 msgstr "Exekutatu edo bistaratu"
 
-#: src/gnome-cmd-file-list.cc:1341
+#: src/gnome-cmd-file-list.cc:1358
 msgid "Display"
 msgstr "Pantaila"
 
-#: src/gnome-cmd-file-list.cc:1341
+#: src/gnome-cmd-file-list.cc:1358
 msgid "Run"
 msgstr "Exekutatu"
 
-#: src/gnome-cmd-file-list.cc:1357
+#: src/gnome-cmd-file-list.cc:1374
 #, c-format
 msgid "No default application found for the file type %s."
 msgstr "Ez da aplikazio lehenetsirik aurkitu %s fitxategi motarako."
 
-#: src/gnome-cmd-file-list.cc:1358
+#: src/gnome-cmd-file-list.cc:1375
 msgid "Open the \"Applications\" page in the Control Center to add one."
 msgstr "Ireki kontrol-zentroko \"Aplikazioak\" orria bat gehitzeko."
 
-#: src/gnome-cmd-file-list.cc:1389 src/gnome-cmd-file-popmenu.cc:140
+#: src/gnome-cmd-file-list.cc:1406 src/gnome-cmd-file-popmenu.cc:140
 #, c-format
 msgid ""
 "%s does not know how to open remote file. Do you want to download the file "
@@ -3479,15 +3479,15 @@ msgid_plural ""
 msgstr[0] "%s(e)k ez daki nola ireki urruneko fitxategia. Fitxategia aldi baterako kokaleku batean deskargatu eta ondoren ireki nahi al duzu?"
 msgstr[1] "%s(e)k ez daki urruneko fitxategia nola ireki. Fitxategia aldi baterako direktorio batean deskargatu eta ondoren ireki nahi duzu?"
 
-#: src/gnome-cmd-file-list.cc:1673
+#: src/gnome-cmd-file-list.cc:1690
 msgid "Directory listing failed."
 msgstr "Huts egin du direktorioa zerrendatzean."
 
-#: src/gnome-cmd-file-list.cc:1725
+#: src/gnome-cmd-file-list.cc:1742
 msgid "Failed to open connection."
 msgstr "Huts egin du konexioa irekitzean."
 
-#: src/gnome-cmd-file-list.cc:2490 src/gnome-cmd-file-list.cc:2505
+#: src/gnome-cmd-file-list.cc:2511 src/gnome-cmd-file-list.cc:2526
 msgid "Not an ordinary file."
 msgstr "Ez da fitxategi arrunta."
 
@@ -4406,7 +4406,7 @@ msgid "translator-credits"
 msgstr "Asier Sarasua Garmendia <asier.sarasua@gmail.com>"
 
 #: src/gnome-cmd-xfer.cc:119 src/gnome-cmd-xfer.cc:1097
-#: src/gnome-cmd-xfer.cc:1108 src/gnome-cmd-xfer.cc:1130
+#: src/gnome-cmd-xfer.cc:1108 src/gnome-cmd-xfer.cc:1152
 msgid "Transfer problem"
 msgstr "Transferentzia-arazoa"
 
@@ -4536,7 +4536,7 @@ msgstr "“%s” iturburua ezin da ezabatu. Abortatzen!\n"
 "\n"
 "%s"
 
-#: src/gnome-cmd-xfer.cc:1129
+#: src/gnome-cmd-xfer.cc:1151
 #, c-format
 msgid "Source “%s” could not be copied. Aborting!"
 msgstr "“%s” iturburua ezin da kopiatu. Abortatzen!"
@@ -6382,7 +6382,7 @@ msgid ""
 "character string, it is terminated by NULL. When this tag is used to map "
 "audio files, the relation of the audio file to image data must also be "
 "indicated on the audio file end."
-msgstr ""
+msgstr "Etiketa hau irudi-datuei lotutako audio-fitxategi baten izena grabatzeko erabiltzen da. Hemen gordetzen den erlazio-informazio bakarra Exif audioaren fitxategi-izena eta luzapena dira (8 karaktere+ “.” + 3 karaktere dituen ASCII kate bat). Bide-izena ez da gragatzen. Etiketa hau erabiltzen denean, audio-fitxategiak Exis audio-formatuarekin bat etorrita grabatu behar dira. Idaleek datuak beste modu batean era biltegiratu ditzakete, APP2 barruko audio gisa, FlashPix luzapeneko korronte-datu gisa. Audio-fitxategien grabazioak Exif audio-fomatuarekin bat etorri behar du. Fitxategi anitz fitxategi bakarrarekin mapatzen badira, goiko formatu hori erabiliko da audioko fitxategi-izen bakarra grabatzeko. Audio-fitxategi anitz badaude, grabatutako lehen fitxategia emango da. Hiru Exif audio-fitxategi, “SND00001.WAV”, “SND00002.WAV” eta “SND00003.WAV”, badaude, haietako bakoitzaren Exif irudi-fitxategiaren izena, “DSC00001.JPG”, adieraziko da. Erlazio-informazio anitz konbinatuta, erreprodukziorako aukera anitz onartu daitezke. Erlazio-informazioa erabiltzeko metodoa erreprodukzioaren aldearen inplementazioaren esku uzten da. Informazioa ASCII karaktere-katea denez, NULL balioak amaitu egiten du. Etiketa hau audio-fitxategiak mapatzeko erabiltzen bada, audio-fitxategiaren eta irudi-daten arteko erlazioa audio-fitxategiaren amaieran ere adierazi behar da."
 
 #: src/tags/gnome-cmd-tags.cc:286
 msgid "Resolution Unit"
@@ -6644,7 +6644,7 @@ msgid ""
 "UserComment> tag. When a <Exif.UserComment> area is set aside, it is "
 "recommended that the ID code be ASCII and that the following user comment "
 "part be filled with blank characters [20.H]."
-msgstr ""
+msgstr "Exif erabiltzaileek irudietan gako-hitzak edo iruzkinak idazteko etiketa bat, <Exif.ImageDescription> etiketan idatzi daitezkeenetatik aparte eta <Exif.ImageDescription> etiketak dituen karaktere-kodeen mugarik gabe. <Exif.UserComment> etiketan erabilitako karaktere-kodea etiketen datu-arearen hasierako 8 byteko area finko bateko ID kode batean oinarrituta identifikatzen da. Area horretan erabili gabe geratzen den zatia NULL (“00.h”) kodeekin betetzen da. ID kodeak erregistroaren arabera esleitzen dira. CountN aldagaiaren balioa karaktere-kodearen areko 8 bytetan eta erabiltzailearen iruzkin-zatiaren byte kopuruaren arabera zehazten da. TYPE ez denez ASCII balioa, ez da beharrezkoa NULL amaierarik. <Exif.UserComment> arearen ID kodea kode definitua izan daiteke, adibidez JIS edo ASCII, edo definitu gabea izan daiteke. Definitu gabeko izena definitu gabeko testua da eta ID kodea “NULL” (“00.H”) karaktereen 8 bytekin betetzen da. <Exif.UserComment> etiketa irakurtzen duen Exif irakurleek ID kodea zehazteko funtzioa izan behar dute. Funtzio hori ez da beharrezkoa <Exif.UserComment> etiketa erabiltzen ez duten Exif irakurleetan. <Exif.UserComment> area bat aparte uzten bada, gomendagarria da ID kodea ASCII motakoa izan dadin eta haren ondoko erabiltzaile-iruzkina zuriuneekin [20.H] beteta egon dadin."
 
 #: src/tags/gnome-cmd-tags.cc:312 src/tags/gnome-cmd-tags.cc:439
 msgid "White Balance"
@@ -6656,7 +6656,7 @@ msgstr "Irudia kapturatu zenean ezarrita zegoen zuriaren balantzea."
 
 #: src/tags/gnome-cmd-tags.cc:313
 msgid "White Point"
-msgstr "Zuria puntua"
+msgstr "Puntu zuria"
 
 #: src/tags/gnome-cmd-tags.cc:313
 msgid ""
@@ -6740,7 +6740,7 @@ msgstr "Atzituta"
 
 #: src/tags/gnome-cmd-tags.cc:320
 msgid "Last access datetime."
-msgstr "Atzitu zen azken data eta ordua."
+msgstr "Azken atzitzearen data eta ordua."
 
 #: src/tags/gnome-cmd-tags.cc:321
 msgid "Content"
