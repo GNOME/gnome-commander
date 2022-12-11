@@ -1046,6 +1046,13 @@ void GnomeCmdFile::update_gFileInfo(GFileInfo *gFileInfo_new)
 
 gboolean GnomeCmdFile::is_local()
 {
+    if (!has_parent_dir (this))
+    {
+        if (GNOME_CMD_IS_DIR (this))
+            return gnome_cmd_dir_is_local (GNOME_CMD_DIR (this));
+        g_assert ("Non directory file without owning directory");
+    }
+
     return gnome_cmd_dir_is_local (::get_parent_dir (this));
 }
 

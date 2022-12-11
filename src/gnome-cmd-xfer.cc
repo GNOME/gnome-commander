@@ -395,8 +395,11 @@ static void update_transfer_gui_error_move (XferData *xferData)
     }
 }
 
-static void finish_xfer(XferData *xferData)
+static void finish_xfer(XferData *xferData, gboolean threaded)
 {
+    if (threaded)
+        g_thread_join (xferData->thread);
+
     //  Only update the files if needed
     if (xferData->destGnomeCmdDir)
     {
@@ -405,16 +408,27 @@ static void finish_xfer(XferData *xferData)
         gnome_cmd_dir_unref (xferData->destGnomeCmdDir);
         xferData->destGnomeCmdDir = nullptr;
     }
+    else
+        main_win->focus_file_lists();
+
     if (xferData->win)
     {
         gtk_widget_destroy (GTK_WIDGET (xferData->win));
         xferData->win = nullptr;
     }
-    if (xferData->problem_action == COPY_ERROR_ACTION_NO_ACTION_YET
+
+    if ((!threaded || xferData->aborted || xferData->problem_action == COPY_ERROR_ACTION_NO_ACTION_YET)
         && xferData->on_completed_func)
     {
         xferData->on_completed_func (xferData->on_completed_data, nullptr);
     }
+
+    if (threaded)
+        g_mutex_clear(&xferData->mutex);
+
+    if (xferData->cancellable)
+        g_object_unref (xferData->cancellable);
+
     free_xfer_data (xferData);
 }
 
@@ -442,12 +456,10 @@ static gboolean update_transfer_gui (XferData *xferData)
     if (xferData->win && xferData->win->cancel_pressed)
     {
         xferData->aborted = TRUE;
-
-        if (xferData->on_completed_func)
-            xferData->on_completed_func (xferData->on_completed_data, nullptr);
-
-        gtk_widget_destroy (GTK_WIDGET (xferData->win));
-        free_xfer_data (xferData);
+        if (xferData->cancellable)
+            g_cancellable_cancel (xferData->cancellable);
+        g_mutex_unlock (&xferData->mutex);
+        finish_xfer(xferData, TRUE);
         return FALSE;
     }
 
@@ -486,7 +498,7 @@ static gboolean update_transfer_gui (XferData *xferData)
 
     if (xferData->done)
     {
-        finish_xfer(xferData);
+        finish_xfer(xferData, TRUE);
         return FALSE;
     }
 
@@ -513,44 +525,20 @@ static gboolean update_tmp_download_gui (XferData *xferData)
     if (xferData->win && xferData->win->cancel_pressed)
     {
         xferData->aborted = TRUE;
-
-        if (xferData->on_completed_func)
-            xferData->on_completed_func (xferData->on_completed_data, nullptr);
-
-        gtk_widget_destroy (GTK_WIDGET (xferData->win));
-        free_xfer_data (xferData);
-        return FALSE;
-    }
-
-    if (xferData->done)
-    {
-        //  Only update the files if needed
-        if (xferData->destGnomeCmdDir)
-        {
-            gnome_cmd_dir_relist_files (xferData->destGnomeCmdDir, FALSE);
-            main_win->focus_file_lists();
-            gnome_cmd_dir_unref (xferData->destGnomeCmdDir);
-            xferData->destGnomeCmdDir = nullptr;
-        }
-
-        if (xferData->win)
-        {
-            gtk_widget_destroy (GTK_WIDGET (xferData->win));
-            xferData->win = nullptr;
-        }
-
-        if (xferData->problem_action == COPY_ERROR_ACTION_NO_ACTION_YET
-            && xferData->on_completed_func)
-        {
-            xferData->on_completed_func (xferData->on_completed_data, nullptr);
-        }
-
-        free_xfer_data (xferData);
-
+        if (xferData->cancellable)
+            g_cancellable_cancel (xferData->cancellable);
+        g_mutex_unlock (&xferData->mutex);
+        finish_xfer(xferData, TRUE);
         return FALSE;
     }
 
     g_mutex_unlock (&xferData->mutex);
+
+    if (xferData->done)
+    {
+        finish_xfer(xferData, TRUE);
+        return FALSE;
+    }
 
     return TRUE;
 }
@@ -690,6 +678,8 @@ gnome_cmd_copy_gfiles_start (GList *srcGFileGList,
 
     g_free (destFileName);
 
+    xferData->cancellable = g_cancellable_new();
+
     set_files_total(xferData);
 
     xferData->win = GNOME_CMD_XFER_PROGRESS_WIN (gnome_cmd_xfer_progress_win_new (xferData->filesTotal));
@@ -702,7 +692,6 @@ gnome_cmd_copy_gfiles_start (GList *srcGFileGList,
     //  start the transfer
     xferData->thread = g_thread_new (NULL, (GThreadFunc) gnome_cmd_transfer_gfiles, xferData);
     g_timeout_add (gnome_cmd_data.gui_update_rate, (GSourceFunc) update_transfer_gui, xferData);
-    g_mutex_clear(&xferData->mutex);
 }
 
 void
@@ -770,6 +759,8 @@ gnome_cmd_move_gfiles_start (GList *srcGFileGList,
 
     g_free (destFileName);
 
+    xferData->cancellable = g_cancellable_new();
+
     set_files_total(xferData);
 
     xferData->win = GNOME_CMD_XFER_PROGRESS_WIN (gnome_cmd_xfer_progress_win_new (xferData->filesTotal));
@@ -782,7 +773,6 @@ gnome_cmd_move_gfiles_start (GList *srcGFileGList,
     //  start the transfer
     xferData->thread = g_thread_new (NULL, (GThreadFunc) gnome_cmd_transfer_gfiles, xferData);
     g_timeout_add (gnome_cmd_data.gui_update_rate, (GSourceFunc) update_transfer_gui, xferData);
-    g_mutex_clear(&xferData->mutex);
 }
 
 
@@ -854,6 +844,8 @@ gnome_cmd_link_gfiles_start (GList *srcGFileGList,
     set_files_total(xferData);
 
     gnome_cmd_transfer_gfiles(xferData);
+
+    finish_xfer(xferData, FALSE);
 }
 
 
@@ -872,6 +864,8 @@ gnome_cmd_tmp_download (GList *srcGFileList,
                              (GFunc) on_completed_func, on_completed_data);
     xferData->transferType = COPY;
 
+    xferData->cancellable = g_cancellable_new();
+
     g_mutex_init(&xferData->mutex);
 
     xferData->win = GNOME_CMD_XFER_PROGRESS_WIN (gnome_cmd_xfer_progress_win_new (g_list_length (xferData->srcGFileList)));
@@ -881,7 +875,6 @@ gnome_cmd_tmp_download (GList *srcGFileList,
 
     xferData->thread = g_thread_new (NULL, (GThreadFunc) gnome_cmd_transfer_gfiles, xferData);
     g_timeout_add (gnome_cmd_data.gui_update_rate, (GSourceFunc) update_tmp_download_gui, xferData);
-    g_mutex_clear(&xferData->mutex);
 }
 
 
@@ -904,7 +897,10 @@ gnome_cmd_transfer_gfiles (XferData *xferData)
         auto srcGFile = (GFile *) gFileSrcListItem->data;
         auto destGFile = (GFile *) gFileDestListItem->data;
 
-         switch (xferData->transferType)
+        if (xferData->aborted)
+            break;
+
+        switch (xferData->transferType)
         {
             case COPY:
                 gnome_cmd_copy_gfile_recursive(srcGFile, destGFile, xferData->copyFlags, xferData);
@@ -939,7 +935,6 @@ gnome_cmd_transfer_gfiles (XferData *xferData)
         }
     }
 
-    main_win->focus_file_lists();
     xferData->done = TRUE;
 }
 
@@ -992,15 +987,24 @@ do_the_copy(GFile *srcGFile, GFile *destGFile, GFileCopyFlags copyFlags, gpointe
 
     g_free(xferData->curSrcFileName);
     xferData->curSrcFileName = get_gfile_attribute_string(srcGFile, G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME);
-    if(!g_file_copy(srcGFile, destGFile, copyFlags, nullptr, update_transferred_data, xferDataPointer, &tmpError))
+    if(!g_file_copy(srcGFile, destGFile, copyFlags, xferData->cancellable, update_transferred_data, xferDataPointer, &tmpError))
     {
-        g_propagate_error(&(xferData->error), tmpError);
-        xferData->problemSrcGFile = g_file_dup(srcGFile);
-        xferData->problemDestGFile = g_file_dup(destGFile);
-        xfer_progress_update(xferData);
+        //ToDo: Remove partially copied file ?
+        if (g_error_matches (tmpError, G_IO_ERROR, G_IO_ERROR_CANCELLED))
+        {
+            g_error_free(tmpError);
+        }
+        else
+        {
+            g_propagate_error(&(xferData->error), tmpError);
+            xferData->problemSrcGFile = g_file_dup(srcGFile);
+            xferData->problemDestGFile = g_file_dup(destGFile);
+            xfer_progress_update(xferData);
+        }
     }
     else
     {
+        xferData->bytesCopiedFile = 0;
         xferData->curFileNumber++;
         xferData->bytesTotalTransferred += xferData->fileSize;
         if (xferData->problem_action == COPY_ERROR_ACTION_RETRY)
@@ -1067,10 +1071,8 @@ gnome_cmd_move_gfile_recursive (GFile *srcGFile,
                                 gpointer xferDataPointer)
 {
     auto xferData = (XferData *) xferDataPointer;
-    if (xferData->error)
-    {
+    if (xferData->error || xferData->aborted)
         return false;
-    }
 
     g_return_val_if_fail(G_IS_FILE(srcGFile), false);
     g_return_val_if_fail(G_IS_FILE(destGFile), false);
@@ -1083,6 +1085,12 @@ gnome_cmd_move_gfile_recursive (GFile *srcGFile,
 
     if(!g_file_move(srcGFile, destGFile, copyFlags, nullptr, update_transferred_data, xferDataPointer, &tmpError))
     {
+        if (g_error_matches (tmpError, G_IO_ERROR, G_IO_ERROR_CANCELLED))
+        {
+            g_error_free(tmpError);
+            return false;
+        }
+
         if(g_file_query_file_type(srcGFile, G_FILE_QUERY_INFO_NONE, nullptr) == G_FILE_TYPE_DIRECTORY
            && g_error_matches(tmpError, G_IO_ERROR, G_IO_ERROR_WOULD_RECURSE))
         {
@@ -1149,11 +1157,14 @@ gnome_cmd_move_gfile_recursive (GFile *srcGFile,
             }
             else
             {
-                auto srcFileName = g_file_get_basename(srcGFile);
-                auto msg = g_strdup_printf(_("Source “%s” could not be copied. Aborting!"), srcFileName);
-                run_simple_dialog ( *main_win, TRUE, GTK_MESSAGE_ERROR, msg, _("Transfer problem"), -1, _("Abort"), NULL);
-                g_free (srcFileName);
-                g_error_free(tmpError);
+                if (!xferData->aborted)
+                {
+                    auto srcFileName = g_file_get_basename(srcGFile);
+                    auto msg = g_strdup_printf(_("Source “%s” could not be copied. Aborting!"), srcFileName);
+                    run_simple_dialog ( *main_win, TRUE, GTK_MESSAGE_ERROR, msg, _("Transfer problem"), -1, _("Abort"), NULL);
+                    g_free (srcFileName);
+                    g_error_free(tmpError);
+                }
                 return false;
             }
         }
@@ -1191,14 +1202,19 @@ gnome_cmd_move_gfile_recursive (GFile *srcGFile,
                         if(g_file_query_file_type(srcGFile, G_FILE_QUERY_INFO_NONE, nullptr) == G_FILE_TYPE_DIRECTORY)
                             gnome_cmd_move_gfile_recursive(srcGFile, destGFile, (GFileCopyFlags) copyFlagsTemp, xferData);
                         else
-                            g_file_move(srcGFile, destGFile, copyFlags, nullptr, update_transferred_data, xferDataPointer, &tmpError);
+                            g_file_move(srcGFile, destGFile, copyFlags, xferData->cancellable, update_transferred_data, xferDataPointer, &tmpError);
                         if (tmpError)
                         {
-                            g_warning("g_file_move error: %s\n", tmpError->message);
-                            g_propagate_error(&(xferData->error), tmpError);
-                            xferData->problemSrcGFile = g_file_dup(srcGFile);
-                            xferData->problemDestGFile = g_file_dup(destGFile);
-                            xfer_progress_update(xferData);
+                            if (g_error_matches (tmpError, G_IO_ERROR, G_IO_ERROR_CANCELLED))
+                                g_error_free(tmpError);
+                            else
+                            {
+                                g_warning("g_file_move error: %s\n", tmpError->message);
+                                g_propagate_error(&(xferData->error), tmpError);
+                                xferData->problemSrcGFile = g_file_dup(srcGFile);
+                                xferData->problemDestGFile = g_file_dup(destGFile);
+                                xfer_progress_update(xferData);
+                            }
                             return false;
                         }
                         break;
@@ -1207,14 +1223,19 @@ gnome_cmd_move_gfile_recursive (GFile *srcGFile,
                         if(g_file_query_file_type(srcGFile, G_FILE_QUERY_INFO_NONE, nullptr) == G_FILE_TYPE_DIRECTORY)
                             gnome_cmd_move_gfile_recursive(srcGFile, destGFile, (GFileCopyFlags) copyFlagsTemp, xferData);
                         else
-                            g_file_move(srcGFile, destGFile, copyFlags, nullptr, update_transferred_data, xferDataPointer, &tmpError);
+                            g_file_move(srcGFile, destGFile, copyFlags, xferData->cancellable, update_transferred_data, xferDataPointer, &tmpError);
                         if (tmpError)
                         {
-                            g_warning("g_file_move error: %s\n", tmpError->message);
-                            g_propagate_error(&(xferData->error), tmpError);
-                            xferData->problemSrcGFile = g_file_dup(srcGFile);
-                            xferData->problemDestGFile = g_file_dup(destGFile);
-                            xfer_progress_update(xferData);
+                            if (g_error_matches (tmpError, G_IO_ERROR, G_IO_ERROR_CANCELLED))
+                                g_error_free(tmpError);
+                            else
+                            {
+                                g_warning("g_file_move error: %s\n", tmpError->message);
+                                g_propagate_error(&(xferData->error), tmpError);
+                                xferData->problemSrcGFile = g_file_dup(srcGFile);
+                                xferData->problemDestGFile = g_file_dup(destGFile);
+                                xfer_progress_update(xferData);
+                            }
                             return false;
                         }
                         break;
@@ -1245,6 +1266,7 @@ gnome_cmd_move_gfile_recursive (GFile *srcGFile,
     }
     else
     {
+        xferData->bytesCopiedFile = 0;
         xferData->curFileNumber++;
         xferData->bytesTotalTransferred += xferData->fileSize;
         if (xferData->problem_action == COPY_ERROR_ACTION_RETRY)
@@ -1276,10 +1298,8 @@ gnome_cmd_copy_gfile_recursive (GFile *srcGFile,
                                 gpointer xferDataPointer)
 {
     auto xferData = (XferData *) xferDataPointer;
-    if (xferData->error)
-    {
+    if (xferData->error || xferData->aborted)
         return false;
-    }
 
     g_return_val_if_fail(G_IS_FILE(srcGFile), false);
     g_return_val_if_fail(G_IS_FILE(destGFile), false);
@@ -1365,6 +1385,13 @@ gnome_cmd_copy_gfile_recursive (GFile *srcGFile,
             auto gFileInfoChildFile = g_file_enumerator_next_file(enumerator, nullptr, &tmpError);
             while(gFileInfoChildFile != nullptr && !tmpError)
             {
+                if (xferData->aborted)
+                {
+                    g_object_unref(gFileInfoChildFile);
+                    g_file_enumerator_close (enumerator, nullptr, nullptr);
+                    return false;
+                }
+
                 if(g_file_info_get_file_type(gFileInfoChildFile) == G_FILE_TYPE_DIRECTORY)
                 {
                     auto dirNameChildGFile = g_file_info_get_name(gFileInfoChildFile);

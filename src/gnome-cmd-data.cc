@@ -2586,16 +2586,11 @@ inline void GnomeCmdData::save_intviewer_defaults()
 
 /**
  * This function saves all entries of the auto load plugin list in the associated GSettings string array.
- * @returns the return value of set_gsettings_string_array_from_glist() if there is anything to store, otherwise true.
+ * @returns the return value of set_gsettings_string_array_from_glist().
  */
 inline gboolean GnomeCmdData::save_auto_load_plugins()
 {
-    gboolean rv = true;
-
-    if (g_list_length (priv->auto_load_plugins) > 0)
-        rv = set_gsettings_string_array_from_glist(options.gcmd_settings->plugins, GCMD_SETTINGS_PLUGINS_AUTOLOAD, priv->auto_load_plugins);
-
-    return rv;
+    return set_gsettings_string_array_from_glist(options.gcmd_settings->plugins, GCMD_SETTINGS_PLUGINS_AUTOLOAD, priv->auto_load_plugins);
 }
 
 

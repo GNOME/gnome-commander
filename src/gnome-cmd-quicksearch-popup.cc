@@ -235,6 +235,22 @@ inline void set_popup_position (GnomeCmdQuicksearchPopup *popup)
 }
 
 
+static GObject *constructor (GType gtype, guint n_properties, GObjectConstructParam *properties)
+{
+    // change construct only properties
+    for (guint i = 0; i < n_properties; ++i)
+    {
+        gchar const *name = g_param_spec_get_name (properties[i].pspec);
+        if (!strcmp (name, "type"))
+        {
+            g_value_set_enum (properties[i].value, GTK_WINDOW_POPUP);
+            break;
+        }
+    }
+
+    return G_OBJECT_CLASS (parent_class)->constructor (gtype, n_properties, properties);
+}
+
 static void destroy (GtkObject *object)
 {
     GnomeCmdQuicksearchPopup *popup = GNOME_CMD_QUICKSEARCH_POPUP (object);
@@ -254,11 +270,13 @@ static void map (GtkWidget *widget)
 
 static void class_init (GnomeCmdQuicksearchPopupClass *klass)
 {
+    GObjectClass *gobject_class = G_OBJECT_CLASS (klass);
     GtkObjectClass *object_class = GTK_OBJECT_CLASS (klass);
     GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
 
     parent_class = (GtkWindowClass *) gtk_type_class (gtk_window_get_type ());
 
+    gobject_class->constructor = constructor;
     object_class->destroy = destroy;
     widget_class->map = ::map;
 }
@@ -332,7 +350,6 @@ GtkWidget *gnome_cmd_quicksearch_popup_new (GnomeCmdFileList *fl)
     GnomeCmdQuicksearchPopup *popup;
 
     popup = static_cast<GnomeCmdQuicksearchPopup*> (g_object_new (GNOME_CMD_TYPE_QUICKSEARCH_POPUP, nullptr));
-    g_object_set (GTK_WINDOW (popup), "type", GTK_WINDOW_POPUP, NULL);
     popup->priv->fl = fl;
     popup->priv->last_focused_file = nullptr;
     set_popup_position (popup);

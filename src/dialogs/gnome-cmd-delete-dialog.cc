@@ -50,6 +50,11 @@ inline void cleanup (DeleteData *deleteData)
     g_list_free (deleteData->deletedGnomeCmdFiles);
     deleteData->deletedGnomeCmdFiles = nullptr;
 
+    g_mutex_clear(&deleteData->mutex);
+
+    if (deleteData->cancellable)
+        g_object_unref (deleteData->cancellable);
+
     g_free (deleteData);
 }
 
@@ -70,7 +75,7 @@ static void delete_progress_update (DeleteData *deleteData)
         g_clear_error (&(deleteData->error));
     }
 
-    if (deleteData->itemsDeleted > 0)
+    if (deleteData->itemsDeleted > 0 && deleteData->itemsTotal > 0)
     {
         gfloat f = (gfloat)deleteData->itemsDeleted/(gfloat)deleteData->itemsTotal;
         g_free (deleteData->msg);
@@ -90,6 +95,8 @@ static void delete_progress_update (DeleteData *deleteData)
 static void on_cancel (GtkButton *btn, DeleteData *deleteData)
 {
     deleteData->stop = TRUE;
+    if (deleteData->cancellable)
+        g_cancellable_cancel (deleteData->cancellable);
     gtk_widget_set_sensitive (GTK_WIDGET (deleteData->progwin), FALSE);
 }
 
@@ -97,6 +104,8 @@ static void on_cancel (GtkButton *btn, DeleteData *deleteData)
 static gboolean on_progwin_destroy (GtkWidget *win, DeleteData *deleteData)
 {
     deleteData->stop = TRUE;
+    if (deleteData->cancellable)
+        g_cancellable_cancel (deleteData->cancellable);
 
     return FALSE;
 }
@@ -209,13 +218,13 @@ static gboolean perform_delete_operation_r(DeleteData *deleteData, GList *gnomeC
         {
             case DeleteData::OriginAction::FORCE_DELETE:
             case DeleteData::OriginAction::MOVE:
-                g_file_delete (gnomeCmdFile->gFile, nullptr, &tmpError);
+                g_file_delete (gnomeCmdFile->gFile, deleteData->cancellable, &tmpError);
                 break;
             case DeleteData::OriginAction::DELETE:
             default:
                 gnome_cmd_data.options.deleteToTrash
-                    ? g_file_trash (gnomeCmdFile->gFile, nullptr, &tmpError)
-                    : g_file_delete (gnomeCmdFile->gFile, nullptr, &tmpError);
+                    ? g_file_trash (gnomeCmdFile->gFile, deleteData->cancellable, &tmpError)
+                    : g_file_delete (gnomeCmdFile->gFile, deleteData->cancellable, &tmpError);
                 break;
         }
 
@@ -241,10 +250,15 @@ static gboolean perform_delete_operation_r(DeleteData *deleteData, GList *gnomeC
         }
         else if (tmpError)
         {
-            g_warning ("Failed to delete %s: %s", gnomeCmdFile->get_name(), tmpError->message);
-            g_propagate_error (&(deleteData->error), tmpError);
-            deleteData->problemFileName = gnomeCmdFile->get_name();
-            delete_progress_update(deleteData);
+            if (g_error_matches (tmpError, G_IO_ERROR, G_IO_ERROR_CANCELLED))
+                g_error_free(tmpError);
+            else
+            {
+                g_warning ("Failed to delete %s: %s", gnomeCmdFile->get_name(), tmpError->message);
+                g_propagate_error (&(deleteData->error), tmpError);
+                deleteData->problemFileName = gnomeCmdFile->get_name();
+                delete_progress_update(deleteData);
+            }
             return FALSE;
         }
 
@@ -295,6 +309,8 @@ static gboolean update_delete_status_widgets (DeleteData *deleteData)
 
     if (deleteData->deleteDone)
     {
+        g_thread_join (deleteData->thread);
+
         if (deleteData->error)
             gnome_cmd_show_message (*main_win, deleteData->error->message);
 
@@ -337,37 +353,45 @@ void do_delete (DeleteData *deleteData, gboolean showProgress = true)
 
     for(auto fileListItem = deleteData->gnomeCmdFiles; fileListItem; fileListItem = fileListItem->next)
     {
-        guint64 num_files = 0;
-        guint64 num_dirs = 0;
         auto gFile = GNOME_CMD_FILE(fileListItem->data)->gFile;
         g_return_if_fail(G_IS_FILE(gFile));
-        GError *error = nullptr;
 
-        g_file_measure_disk_usage (gFile,
-           G_FILE_MEASURE_NONE,
-           nullptr, nullptr, nullptr, nullptr,
-           &num_dirs,
-           &num_files,
-           &error);
-
-        // If we cannot determine if gFile is empty or not, don't show progress dialog
-        if (g_error_matches (error, G_IO_ERROR, G_IO_ERROR_NOT_SUPPORTED))
+        if (showProgress)
         {
-            showProgress = FALSE;
-            g_error_free (error);
-            error = nullptr;
-            break;
-        }
+            guint64 num_files = 0;
+            guint64 num_dirs = 0;
+            GError *error = nullptr;
 
-        deleteData->itemsTotal += num_files + num_dirs;
+            g_file_measure_disk_usage (gFile,
+               G_FILE_MEASURE_NONE,
+               nullptr, nullptr, nullptr, nullptr,
+               &num_dirs,
+               &num_files,
+               &error);
+
+            // If we cannot determine if gFile is empty or not, don't show progress dialog
+            if (g_error_matches (error, G_IO_ERROR, G_IO_ERROR_NOT_SUPPORTED))
+            {
+                showProgress = FALSE;
+                g_error_free (error);
+                error = nullptr;
+                break;
+            }
+
+            deleteData->itemsTotal += num_files + num_dirs;
+        }
     }
 
     if (showProgress)
+    {
         create_delete_progress_win (deleteData);
+        deleteData->cancellable = g_cancellable_new();
+    }
+    else
+        deleteData->itemsTotal = 0;
 
     deleteData->thread = g_thread_new (NULL, (GThreadFunc) perform_delete_operation, deleteData);
     g_timeout_add (gnome_cmd_data.gui_update_rate, (GSourceFunc) update_delete_status_widgets, deleteData);
-    g_mutex_clear(&deleteData->mutex);
 }
 
 

@@ -789,6 +789,8 @@ GFile *gnome_cmd_dir_get_absolute_path_gfile (GnomeCmdDir *dir, string absolute_
 
     if (uriScheme && strcmp (uriScheme, "smb") == 0)
     {
+        g_object_ref (dir_gFile);
+
         while (get_gfile_attribute_uint32(dir_gFile, G_FILE_ATTRIBUTE_STANDARD_TYPE) == G_FILE_TYPE_DIRECTORY)
         {
             auto gFileParent = g_file_get_parent(dir_gFile);
@@ -799,11 +801,11 @@ GFile *gnome_cmd_dir_get_absolute_path_gfile (GnomeCmdDir *dir, string absolute_
         auto server_and_share = g_file_get_uri(dir_gFile);
         stringify (absolute_filename, g_build_filename (server_and_share, absolute_filename.c_str(), nullptr));
         g_free (server_and_share);
+
+        g_object_unref (dir_gFile);
     }
 
     g_free(uriScheme);
-
-    g_object_unref (dir_gFile);
 #endif
 
     GnomeCmdPath *path = gnome_cmd_con_create_path (dir->priv->con, absolute_filename.c_str());

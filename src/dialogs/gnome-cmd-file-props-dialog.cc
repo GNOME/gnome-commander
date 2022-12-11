@@ -42,16 +42,14 @@ struct GnomeCmdFilePropsDialogPrivate
 {
     GtkWidget *dialog;
     GnomeCmdFile *f;
-    GThread *thread;
+    GCancellable* cancellable;
     gboolean count_done;
-    gchar *msg;
     guint updater_proc_id;
 
     GtkWidget *notebook;
     GtkWidget *copy_button;
 
     // Properties tab stuff
-    gboolean stop;
     guint64 size;
     GFile *gFile;
     GtkWidget *filename_entry;
@@ -65,26 +63,17 @@ struct GnomeCmdFilePropsDialogPrivate
 };
 
 
-// Tells the thread to exit and then waits for it to do so.
-static gboolean join_thread_func (GnomeCmdFilePropsDialogPrivate *data)
+static void on_dialog_destroy (GtkDialog *dialog, GnomeCmdFilePropsDialogPrivate *data)
 {
+    data->f->unref();
+
     if (data->updater_proc_id)
         g_source_remove (data->updater_proc_id);
 
-    if (data->thread)
-        g_thread_join (data->thread);
-
-    data->f->unref();
-    g_free (data);
-
-    return FALSE;
-}
-
-
-static void on_dialog_destroy (GtkDialog *dialog, GnomeCmdFilePropsDialogPrivate *data)
-{
-    data->stop = TRUE;
-    g_timeout_add (1, (GSourceFunc) join_thread_func, data);
+    if (data->cancellable)
+        g_cancellable_cancel (data->cancellable);
+    else
+        g_free (data);
 }
 
 
@@ -92,12 +81,14 @@ static gboolean update_count_status (GnomeCmdFilePropsDialogPrivate *data)
 {
     if (data->size_label && data->size != 0)
     {
-        data->msg = create_nice_size_str (data->size);
-        gtk_label_set_text (GTK_LABEL (data->size_label), data->msg);
+        gchar *msg = create_nice_size_str (data->size);
+        gtk_label_set_text (GTK_LABEL (data->size_label), msg);
+        g_free(msg);
     }
 
     if (data->count_done)
     {
+        data->updater_proc_id = 0;
         // Returning FALSE here stops the timeout callbacks
         return FALSE;
     }
@@ -115,15 +106,26 @@ static void g_file_measure_disk_usage_async_callback(GObject *unused, GAsyncResu
 
     g_file_measure_disk_usage_finish (data->gFile, result, &(data->size), nullptr, nullptr, &error);
 
-    if(error)
+    if (error)
     {
+        if (g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED))
+        {
+            // async task was cancelled
+            g_error_free(error);
+            g_object_unref (data->cancellable);
+            g_free (data);
+            return;
+        }
+
         g_message("g_file_measure_disk_usage_finish error: %s\n", error->message);
         g_error_free(error);
-        data->count_done = TRUE;
-        return;
     }
 
-    data->msg = create_nice_size_str (data->size);
+    if (data->cancellable)
+    {
+        g_object_unref (data->cancellable);
+        data->cancellable = nullptr;
+    }
 
     data->count_done = TRUE;
 }
@@ -145,14 +147,14 @@ static void do_calc_tree_size (GnomeCmdFilePropsDialogPrivate *data)
 {
     g_return_if_fail (data != nullptr);
 
-    data->stop = FALSE;
     data->size = 0;
     data->count_done = FALSE;
+    data->cancellable = g_cancellable_new();
 
     g_file_measure_disk_usage_async (data->gFile,
                                  G_FILE_MEASURE_NONE,
                                  G_PRIORITY_LOW,
-                                 nullptr, // ToDo: maybe change this cancalable thing later
+                                 data->cancellable,
                                  progress_callback,
                                  data,
                                  g_file_measure_disk_usage_async_callback,
@@ -346,9 +348,9 @@ static GtkWidget *create_properties_tab (GnomeCmdFilePropsDialogPrivate *data)
 
     if (data->f->is_local())
     {
-        GnomeCmdDir *dir = data->f->get_parent_dir();
+        GnomeCmdDir *dir = GNOME_CMD_IS_DIR (data->f) ? gnome_cmd_dir_get_parent (GNOME_CMD_DIR (data->f)) : data->f->get_parent_dir();
         GnomeCmdCon *con = dir ? gnome_cmd_dir_get_connection (dir) : nullptr;
-        gchar *location = GNOME_CMD_FILE (dir)->get_real_path();
+        gchar *location = data->f->get_dirname();
 
         label = create_bold_label (dialog, _("Location:"));
         table_add (table, label, 0, y, GTK_FILL);
@@ -659,7 +661,6 @@ GtkWidget *gnome_cmd_file_props_dialog_create (GnomeCmdFile *f)
         return nullptr;
 
     GnomeCmdFilePropsDialogPrivate *data = g_new0 (GnomeCmdFilePropsDialogPrivate, 1);
-    // data->thread = 0;
 
     GtkWidget *dialog = gnome_cmd_dialog_new (_("File Properties"));
     g_signal_connect (dialog, "destroy", G_CALLBACK (on_dialog_destroy), data);
@@ -670,7 +671,6 @@ GtkWidget *gnome_cmd_file_props_dialog_create (GnomeCmdFile *f)
     data->dialog = GTK_WIDGET (dialog);
     data->f = f;
     data->gFile = f->get_gfile();
-    data->msg = nullptr;
     data->notebook = notebook;
     f->ref();
 

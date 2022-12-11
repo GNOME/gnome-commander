@@ -1090,37 +1090,66 @@ static gboolean on_new_textfile_ok (GnomeCmdStringDialog *string_dialog, const g
     GnomeCmdDir *dir = fs->get_directory();
     g_return_val_if_fail (GNOME_CMD_IS_DIR (dir), TRUE);
 
-    auto uriBaseString = static_cast<gchar*>(GNOME_CMD_FILE (dir)->get_uri_str());
-    // Let the URI to the current directory end with '/'
-    auto conLastCharacter = uriBaseString[strlen(uriBaseString)-1];
-    auto uriBaseStringSep = conLastCharacter == G_DIR_SEPARATOR
-        ? g_strdup(uriBaseString)
-        : g_strdup_printf("%s%s", uriBaseString, G_DIR_SEPARATOR_S);
-    g_free (uriBaseString);
-
-    auto relativeFileNamePath = g_build_filename(".", fname, nullptr);
     GError *error = nullptr;
-    auto uriString = g_uri_resolve_relative (uriBaseStringSep, relativeFileNamePath,
-                                             G_URI_FLAGS_NONE, &error);
-    g_free(relativeFileNamePath);
-    g_free (uriBaseStringSep);
-    if (error)
+    GFile *gFile;
+
+    if (fname[0] == '/')
     {
-        gnome_cmd_string_dialog_set_error_desc (string_dialog, g_strdup_printf("%s", error->message));
-        g_error_free(error);
-        return FALSE;
+        auto con = gnome_cmd_dir_get_connection (dir);
+        auto conPath = gnome_cmd_con_create_path (con, fname);
+        gFile = gnome_cmd_con_create_gfile (con, conPath);
+        delete conPath;
+    }
+    else
+    {
+        auto uriBaseString = static_cast<gchar*>(GNOME_CMD_FILE (dir)->get_uri_str());
+        // Let the URI to the current directory end with '/'
+        auto conLastCharacter = uriBaseString[strlen(uriBaseString)-1];
+        auto uriBaseStringSep = conLastCharacter == G_DIR_SEPARATOR
+            ? g_strdup(uriBaseString)
+            : g_strdup_printf("%s%s", uriBaseString, G_DIR_SEPARATOR_S);
+        g_free (uriBaseString);
+
+        auto relativeFileNamePath = g_build_filename(".", fname, nullptr);
+        auto uriString = g_uri_resolve_relative (uriBaseStringSep, relativeFileNamePath,
+                                                 G_URI_FLAGS_NONE, &error);
+        g_free(relativeFileNamePath);
+        g_free (uriBaseStringSep);
+        if (error)
+        {
+            gnome_cmd_string_dialog_set_error_desc (string_dialog, g_strdup_printf("%s", error->message));
+            g_error_free(error);
+            return FALSE;
+        }
+
+        gFile = g_file_new_for_uri(uriString);
+        g_free (uriString);
     }
 
-    auto gFile = g_file_new_for_uri(uriString);
-    g_free (uriString);
     auto gFileOutputStream = g_file_create(gFile, G_FILE_CREATE_NONE, nullptr, &error);
     if (error)
     {
         gnome_cmd_string_dialog_set_error_desc (string_dialog, g_strdup_printf("%s", error->message));
         g_error_free(error);
+        g_object_unref (gFile);
         return FALSE;
     }
     g_object_unref(gFileOutputStream);
+
+    // focus the created file (if possible)
+    auto parentGFile = g_file_get_parent (gFile);
+    if (g_file_equal (parentGFile, gnome_cmd_dir_get_gfile (dir)))
+    {
+        gchar *uri_str = g_file_get_uri (gFile);
+        gnome_cmd_dir_file_created (dir, uri_str);
+        g_free (uri_str);
+        gchar *focus_filename = g_file_get_basename (gFile);
+        fs->file_list()->focus_file(focus_filename, TRUE);
+        g_free (focus_filename);
+    }
+    g_object_unref(parentGFile);
+
+    g_object_unref (gFile);
 
     return TRUE;
 }
@@ -1141,15 +1170,33 @@ static gboolean on_create_symlink_ok (GnomeCmdStringDialog *string_dialog, const
         return FALSE;
     }
 
-    auto gFile = gnome_cmd_dir_get_child_gfile (fs->get_directory(), fname);
+    GnomeCmdDir *dir = fs->get_directory();
+    g_return_val_if_fail (GNOME_CMD_IS_DIR (dir), TRUE);
+
+    GFile *gFile;
+    if (fname[0] == '/')
+    {
+        auto con = gnome_cmd_dir_get_connection (dir);
+        auto conPath = gnome_cmd_con_create_path (con, fname);
+        gFile = gnome_cmd_con_create_gfile (con, conPath);
+        delete conPath;
+    }
+    else
+        gFile = gnome_cmd_dir_get_child_gfile (dir, fname);
     auto absolutePath = g_file_get_parse_name(fs->priv->sym_file->gFile);
 
     //if (g_file_make_symbolic_link (gFile, fs->priv->sym_file->get_uri_str(), nullptr, &error))
     if (g_file_make_symbolic_link (gFile, absolutePath, nullptr, &error))
     {
-        gchar *uri_str = g_file_get_uri (gFile);
-        gnome_cmd_dir_file_created (fs->get_directory(), uri_str);
-        g_free (uri_str);
+        auto parentGFile = g_file_get_parent (gFile);
+        if (g_file_equal (parentGFile, gnome_cmd_dir_get_gfile (dir)))
+        {
+            gchar *uri_str = g_file_get_uri (gFile);
+            gnome_cmd_dir_file_created (dir, uri_str);
+            g_free (uri_str);
+        }
+        g_object_unref(parentGFile);
+
         g_free(absolutePath);
         g_object_unref (gFile);
         return TRUE;
@@ -1519,14 +1566,14 @@ GtkWidget *GnomeCmdFileSelector::new_tab(GnomeCmdDir *dir, GnomeCmdFileList::Col
     g_signal_connect (fl, "dir-changed", G_CALLBACK (on_list_dir_changed), this);
     g_signal_connect (fl, "files-changed", G_CALLBACK (on_list_files_changed), this);
 
+    if (dir)
+        fl->set_connection(gnome_cmd_dir_get_connection (dir), dir);
+
     if (activate)
     {
         notebook->set_current_page(n);
         gtk_widget_grab_focus (*fl);
     }
-
-    if (dir)
-        fl->set_connection(gnome_cmd_dir_get_connection (dir), dir);
 
     g_signal_connect (fl, "file-clicked", G_CALLBACK (on_list_file_clicked), this);
     g_signal_connect (fl, "file-released", G_CALLBACK (on_list_file_released), this);

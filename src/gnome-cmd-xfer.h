@@ -72,6 +72,7 @@ struct XferData
 
     gboolean done;
     gboolean aborted;
+    GCancellable* cancellable;
 
     gboolean problem{FALSE};                 // signals to the main thread that the work thread is waiting for an answer on what to do
     COPY_ERROR_ACTION problem_action;        // action to take when an error occurs
