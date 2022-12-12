@@ -40,6 +40,7 @@ libgcmd_dialogs_a_SOURCES = \
 	gnome-cmd-prepare-copy-dialog.h gnome-cmd-prepare-copy-dialog.cc \
 	gnome-cmd-prepare-move-dialog.h gnome-cmd-prepare-move-dialog.cc \
 	gnome-cmd-prepare-xfer-dialog.h gnome-cmd-prepare-xfer-dialog.cc \
+	gnome-cmd-search-dialog.h gnome-cmd-search-dialog.cc \
 	gnome-cmd-remote-dialog.h gnome-cmd-remote-dialog.cc \
 	gnome-cmd-rename-dialog.h gnome-cmd-rename-dialog.cc
 

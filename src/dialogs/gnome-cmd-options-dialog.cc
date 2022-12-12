@@ -214,6 +214,15 @@ static GtkWidget *create_general_tab (GtkWidget *parent, GnomeCmdData::Options &
     gtk_box_pack_start (GTK_BOX (cat_box), check, FALSE, TRUE, 0);
     gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), cfg.quick_search_exact_match_end);
 
+    // Search window options
+    cat_box = create_vbox (parent, FALSE, 0);
+    cat = create_category (parent, cat_box, _("Search Window"));
+    gtk_box_pack_start (GTK_BOX (vbox), cat, FALSE, TRUE, 0);
+
+    check = create_check (parent, _("Search window is minimizable\n(Needs program restart if altered)"), "search_window_transient");
+    gtk_box_pack_start (GTK_BOX (cat_box), check, FALSE, TRUE, 0);
+    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), !cfg.search_window_is_transient);
+
 #ifdef HAVE_UNIQUE
     // Multiple instances
     cat_box = create_vbox (parent, FALSE, 0);
@@ -247,6 +256,11 @@ static GtkWidget *create_general_tab (GtkWidget *parent, GnomeCmdData::Options &
     gtk_box_pack_start (GTK_BOX (cat_box), check, FALSE, TRUE, 0);
     gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), cfg.save_cmdline_history_on_exit);
 
+    check = create_check (parent, _("Search history"), "save_search_history");
+    gtk_box_pack_start (GTK_BOX (cat_box), check, FALSE, TRUE, 0);
+    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), cfg.save_search_history_on_exit);
+
+
     return frame;
 }
 
@@ -267,10 +281,12 @@ void store_general_options (GtkWidget *dialog, GnomeCmdData::Options &cfg)
 #endif
     GtkWidget *qsearch_exact_match_begin = lookup_widget (dialog, "qsearch_exact_match_begin");
     GtkWidget *qsearch_exact_match_end = lookup_widget (dialog, "qsearch_exact_match_end");
+    GtkWidget *search_window_transient = lookup_widget (dialog, "search_window_transient");
     GtkWidget *save_dirs = lookup_widget (dialog, "save_dirs");
     GtkWidget *save_tabs = lookup_widget (dialog, "save_tabs");
     GtkWidget *save_dir_history = lookup_widget (dialog, "save_dir_history");
     GtkWidget *save_cmdline_history = lookup_widget (dialog, "save_cmdline_history");
+    GtkWidget *save_search_history = lookup_widget (dialog, "save_search_history");
 
     cfg.left_mouse_button_mode = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (lmb_singleclick_radio)) ? GnomeCmdData::LEFT_BUTTON_OPENS_WITH_SINGLE_CLICK : GnomeCmdData::LEFT_BUTTON_OPENS_WITH_DOUBLE_CLICK;
 
@@ -296,10 +312,12 @@ void store_general_options (GtkWidget *dialog, GnomeCmdData::Options &cfg)
 #endif
     cfg.quick_search_exact_match_begin = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (qsearch_exact_match_begin));
     cfg.quick_search_exact_match_end = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (qsearch_exact_match_end));
+    cfg.search_window_is_transient = !gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (search_window_transient));
     cfg.save_dirs_on_exit = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (save_dirs));
     cfg.save_tabs_on_exit = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (save_tabs));
     cfg.save_dir_history_on_exit = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (save_dir_history));
     cfg.save_cmdline_history_on_exit = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (save_cmdline_history));
+    cfg.save_search_history_on_exit = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (save_search_history));
 }
 
 
@@ -1727,7 +1745,7 @@ static GtkWidget *create_programs_tab (GtkWidget *parent, GnomeCmdData::Options 
     cat = create_category (parent, check, _("MIME applications"));
     gtk_box_pack_start (GTK_BOX (vbox), cat, FALSE, FALSE, 0);
 
-    table1 = create_table (parent, 6, 2);
+    table1 = create_table (parent, 7, 2);
     cat = create_category (parent, table1, _("Standard programs"));
     gtk_box_pack_start (GTK_BOX (vbox), cat, FALSE, FALSE, 0);
 
@@ -1740,9 +1758,9 @@ static GtkWidget *create_programs_tab (GtkWidget *parent, GnomeCmdData::Options 
     label = create_label (parent, _("Search:"));
     table_add (table1, label, 0, 4, GTK_FILL);
     label = create_label (parent, _("Send files:"));
-    table_add (table1, label, 0, 5, GTK_FILL);
-    label = create_label (parent, _("Terminal:"));
     table_add (table1, label, 0, 6, GTK_FILL);
+    label = create_label (parent, _("Terminal:"));
+    table_add (table1, label, 0, 7, GTK_FILL);
 
     entry = create_entry (parent, "viewer", cfg.viewer);
     table_add (table1, entry, 1, 0, (GtkAttachOptions) (GTK_EXPAND|GTK_FILL));
@@ -1756,10 +1774,13 @@ static GtkWidget *create_programs_tab (GtkWidget *parent, GnomeCmdData::Options 
     table_add (table1, entry, 1, 3, (GtkAttachOptions) (GTK_EXPAND|GTK_FILL));
     entry = create_entry (parent, "search", cfg.search);
     table_add (table1, entry, 1, 4, (GtkAttachOptions) (GTK_EXPAND|GTK_FILL));
+    check = create_check (parent, _("Use Internal Search"), "use_internal_search");
+    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), cfg.use_internal_search);
+    table_add (table1, check, 1, 5, (GtkAttachOptions) (GTK_EXPAND|GTK_FILL));
     entry = create_entry (parent, "sendto", cfg.sendto);
-    table_add (table1, entry, 1, 5, (GtkAttachOptions) (GTK_EXPAND|GTK_FILL));
-    entry = create_entry (parent, "termopen", cfg.termopen);
     table_add (table1, entry, 1, 6, (GtkAttachOptions) (GTK_EXPAND|GTK_FILL));
+    entry = create_entry (parent, "termopen", cfg.termopen);
+    table_add (table1, entry, 1, 7, (GtkAttachOptions) (GTK_EXPAND|GTK_FILL));
 
     separator = gtk_separator_menu_item_new ();
     gtk_box_pack_start (GTK_BOX (vbox), separator, FALSE, FALSE, 0);
@@ -1841,6 +1862,7 @@ void store_programs_options (GtkWidget *dialog, GnomeCmdData::Options &cfg)
     GtkWidget *check_use_gcmd_block = lookup_widget (dialog, "is_use_gcmd_block");
     GtkWidget *check_uris = lookup_widget (dialog, "honor_expect_uris");
     GtkWidget *check_iv = lookup_widget (dialog, "use_internal_viewer");
+    GtkWidget *check_is = lookup_widget (dialog, "use_internal_search");
 
     cfg.set_viewer(gtk_entry_get_text (GTK_ENTRY (entry1)));
     cfg.set_editor(gtk_entry_get_text (GTK_ENTRY (entry2)));
@@ -1853,6 +1875,7 @@ void store_programs_options (GtkWidget *dialog, GnomeCmdData::Options &cfg)
 
     cfg.honor_expect_uris = !gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (check_uris));
     cfg.use_internal_viewer = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (check_iv));
+    cfg.use_internal_search = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (check_is));
 }
 
 

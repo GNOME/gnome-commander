@@ -797,6 +797,13 @@ static void on_use_internal_viewer_changed()
     gnome_cmd_data.options.use_internal_viewer = use_internal_viewer;
 }
 
+static void on_use_internal_search_changed()
+{
+    gboolean use_internal_search;
+    use_internal_search = g_settings_get_boolean (gnome_cmd_data.options.gcmd_settings->programs, GCMD_SETTINGS_USE_INTERNAL_SEARCH);
+    gnome_cmd_data.options.use_internal_search = use_internal_search;
+}
+
 static void on_quick_search_shortcut_changed()
 {
     GnomeCmdQuickSearchShortcut quick_search;
@@ -1269,6 +1276,11 @@ static void gcmd_connect_gsettings_signals(GcmdSettings *gs)
                       G_CALLBACK (on_use_internal_viewer_changed),
                       nullptr);
 
+    g_signal_connect (gs->programs,
+                      "changed::use-internal-search",
+                      G_CALLBACK (on_use_internal_search_changed),
+                      nullptr);
+
     g_signal_connect (gs->general,
                       "changed::quick-search",
                       G_CALLBACK (on_quick_search_shortcut_changed),
@@ -1410,6 +1422,7 @@ GnomeCmdData::Options::Options(const Options &cfg)
     save_tabs_on_exit = cfg.save_tabs_on_exit;
     save_dir_history_on_exit = cfg.save_dir_history_on_exit;
     save_cmdline_history_on_exit = cfg.save_cmdline_history_on_exit;
+    save_search_history_on_exit = cfg.save_search_history_on_exit;
     symlink_prefix = g_strdup (cfg.symlink_prefix);
     main_win_pos[0] = cfg.main_win_pos[0];
     main_win_pos[1] = cfg.main_win_pos[1];
@@ -1441,6 +1454,7 @@ GnomeCmdData::Options::Options(const Options &cfg)
     use_internal_viewer = cfg.use_internal_viewer;
     editor = g_strdup (cfg.editor);
     differ = g_strdup (cfg.differ);
+    use_internal_search = cfg.use_internal_search;
     search = g_strdup (cfg.search);
     sendto = g_strdup (cfg.sendto);
     termopen = g_strdup (cfg.termopen);
@@ -1476,6 +1490,7 @@ GnomeCmdData::Options &GnomeCmdData::Options::operator = (const Options &cfg)
         save_tabs_on_exit = cfg.save_tabs_on_exit;
         save_dir_history_on_exit = cfg.save_dir_history_on_exit;
         save_cmdline_history_on_exit = cfg.save_cmdline_history_on_exit;
+        save_search_history_on_exit = cfg.save_search_history_on_exit;
         symlink_prefix = g_strdup (cfg.symlink_prefix);
         main_win_pos[0] = cfg.main_win_pos[0];
         main_win_pos[1] = cfg.main_win_pos[1];
@@ -1506,6 +1521,7 @@ GnomeCmdData::Options &GnomeCmdData::Options::operator = (const Options &cfg)
         use_internal_viewer = cfg.use_internal_viewer;
         editor = g_strdup (cfg.editor);
         differ = g_strdup (cfg.differ);
+        use_internal_search = cfg.use_internal_search;
         search = g_strdup (cfg.search);
         sendto = g_strdup (cfg.sendto);
         termopen = g_strdup (cfg.termopen);
@@ -1643,7 +1659,13 @@ gboolean GnomeCmdData::add_bookmark_to_gvariant_builder(GVariantBuilder *gVarian
 void GnomeCmdData::save_search_profiles ()
 {
     GVariantBuilder* gVariantBuilder = g_variant_builder_new(G_VARIANT_TYPE_ARRAY);
-    add_search_profile_to_gvariant_builder(gVariantBuilder, search_defaults.default_profile);
+    if (options.save_search_history_on_exit)
+        add_search_profile_to_gvariant_builder(gVariantBuilder, search_defaults.default_profile);
+    else
+    {
+        SearchProfile searchProfile;
+        add_search_profile_to_gvariant_builder(gVariantBuilder, searchProfile);
+    }
 
     for (auto profile : profiles)
     {
@@ -2567,12 +2589,28 @@ void GnomeCmdData::save_directory_history()
 }
 
 
-void GnomeCmdData::save_search_pattern_history()
+void GnomeCmdData::save_search_history()
 {
-    set_gsettings_string_array_from_glist(
-        options.gcmd_settings->general,
-        GCMD_SETTINGS_SEARCH_PATTERN_HISTORY,
-        search_defaults.name_patterns.ents);
+    if (gnome_cmd_data.options.save_search_history_on_exit)
+    {
+        set_gsettings_string_array_from_glist(
+            options.gcmd_settings->general,
+            GCMD_SETTINGS_SEARCH_PATTERN_HISTORY,
+            search_defaults.name_patterns.ents);
+
+        set_gsettings_string_array_from_glist(
+            options.gcmd_settings->general,
+            GCMD_SETTINGS_SEARCH_TEXT_HISTORY,
+            search_defaults.content_patterns.ents);
+    }
+    else
+    {
+        GVariant* searchHistoryToStore = g_settings_get_default_value (options.gcmd_settings->general, GCMD_SETTINGS_SEARCH_PATTERN_HISTORY);
+        g_settings_set_value(options.gcmd_settings->general, GCMD_SETTINGS_SEARCH_PATTERN_HISTORY, searchHistoryToStore);
+
+        searchHistoryToStore = g_settings_get_default_value (options.gcmd_settings->general, GCMD_SETTINGS_SEARCH_TEXT_HISTORY);
+        g_settings_set_value(options.gcmd_settings->general, GCMD_SETTINGS_SEARCH_TEXT_HISTORY, searchHistoryToStore);
+    }
 }
 
 
@@ -2668,6 +2706,9 @@ GnomeCmdData::GnomeCmdData(): search_defaults(profiles)
     cmdline_history_length = 0;
 
     use_gcmd_block = TRUE;
+
+    main_win_width = 600;
+    main_win_height = 400;
 
     main_win_state = GDK_WINDOW_STATE_MAXIMIZED;
 
@@ -3175,6 +3216,7 @@ void GnomeCmdData::load()
     options.honor_expect_uris = g_settings_get_boolean (options.gcmd_settings->programs, GCMD_SETTINGS_DONT_DOWNLOAD);
     options.allow_multiple_instances = g_settings_get_boolean (options.gcmd_settings->general, GCMD_SETTINGS_MULTIPLE_INSTANCES);
     options.use_internal_viewer = g_settings_get_boolean (options.gcmd_settings->programs, GCMD_SETTINGS_USE_INTERNAL_VIEWER);
+    options.use_internal_search = g_settings_get_boolean (options.gcmd_settings->programs, GCMD_SETTINGS_USE_INTERNAL_SEARCH);
     options.quick_search = (GnomeCmdQuickSearchShortcut) g_settings_get_enum (options.gcmd_settings->general, GCMD_SETTINGS_QUICK_SEARCH_SHORTCUT);
     options.quick_search_exact_match_begin = g_settings_get_boolean (options.gcmd_settings->general, GCMD_SETTINGS_QUICK_SEARCH_EXACT_MATCH_BEGIN);
     options.quick_search_exact_match_end = g_settings_get_boolean (options.gcmd_settings->general, GCMD_SETTINGS_QUICK_SEARCH_EXACT_MATCH_END);
@@ -3203,6 +3245,11 @@ void GnomeCmdData::load()
     options.save_tabs_on_exit = g_settings_get_boolean (options.gcmd_settings->general, GCMD_SETTINGS_SAVE_TABS_ON_EXIT);
     options.save_dir_history_on_exit = g_settings_get_boolean (options.gcmd_settings->general, GCMD_SETTINGS_SAVE_DIR_HISTORY_ON_EXIT);
     options.save_cmdline_history_on_exit = g_settings_get_boolean (options.gcmd_settings->general, GCMD_SETTINGS_SAVE_CMDLINE_HISTORY_ON_EXIT);
+    options.save_search_history_on_exit = g_settings_get_boolean (options.gcmd_settings->general, GCMD_SETTINGS_SAVE_SEARCH_HISTORY_ON_EXIT);
+    options.search_window_is_transient = g_settings_get_boolean(options.gcmd_settings->general, GCMD_SETTINGS_SEARCH_WIN_IS_TRANSIENT);
+    search_defaults.height = g_settings_get_uint(options.gcmd_settings->general, GCMD_SETTINGS_SEARCH_WIN_HEIGHT);
+    search_defaults.width = g_settings_get_uint(options.gcmd_settings->general, GCMD_SETTINGS_SEARCH_WIN_WIDTH);
+    search_defaults.content_patterns.ents = get_list_from_gsettings_string_array (options.gcmd_settings->general, GCMD_SETTINGS_SEARCH_TEXT_HISTORY);
     search_defaults.name_patterns.ents = get_list_from_gsettings_string_array (options.gcmd_settings->general, GCMD_SETTINGS_SEARCH_PATTERN_HISTORY);
     bookmarks_defaults.width = g_settings_get_uint(options.gcmd_settings->general, GCMD_SETTINGS_BOOKMARKS_WINDOW_WIDTH);
     bookmarks_defaults.height = g_settings_get_uint(options.gcmd_settings->general, GCMD_SETTINGS_BOOKMARKS_WINDOW_HEIGHT);
@@ -3549,6 +3596,7 @@ void GnomeCmdData::save()
 
     set_gsettings_when_changed      (options.gcmd_settings->programs, GCMD_SETTINGS_DONT_DOWNLOAD, &(options.honor_expect_uris));
     set_gsettings_when_changed      (options.gcmd_settings->programs, GCMD_SETTINGS_USE_INTERNAL_VIEWER, &(options.use_internal_viewer));
+    set_gsettings_when_changed      (options.gcmd_settings->programs, GCMD_SETTINGS_USE_INTERNAL_SEARCH, &(options.use_internal_search));
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_QUICK_SEARCH_EXACT_MATCH_BEGIN, &(options.quick_search_exact_match_begin));
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_QUICK_SEARCH_EXACT_MATCH_END, &(options.quick_search_exact_match_end));
 
@@ -3599,6 +3647,10 @@ void GnomeCmdData::save()
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_SAVE_TABS_ON_EXIT, &(options.save_tabs_on_exit));
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_SAVE_DIR_HISTORY_ON_EXIT, &(options.save_dir_history_on_exit));
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_SAVE_CMDLINE_HISTORY_ON_EXIT, &(options.save_cmdline_history_on_exit));
+    set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_SAVE_SEARCH_HISTORY_ON_EXIT, &(options.save_search_history_on_exit));
+    set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_SEARCH_WIN_WIDTH, &(search_defaults.width));
+    set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_SEARCH_WIN_HEIGHT, &(search_defaults.height));
+    set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_SEARCH_WIN_IS_TRANSIENT , &(options.search_window_is_transient));
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_BOOKMARKS_WINDOW_WIDTH, &(bookmarks_defaults.width));
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_BOOKMARKS_WINDOW_HEIGHT, &(bookmarks_defaults.height));
 
@@ -3619,7 +3671,7 @@ void GnomeCmdData::save()
     save_fav_apps                   ();
     save_cmdline_history            ();
     save_directory_history          ();
-    save_search_pattern_history     ();
+    save_search_history             ();
     save_search_profiles            ();
     save_connections                ();
     save_bookmarks                  ();

@@ -614,6 +614,15 @@ const gchar *gnome_cmd_con_get_icon_name (ConnectionMethodID method)
 
 string &__gnome_cmd_con_make_uri (string &s, const gchar *method, string &server, string &port, string &folder)
 {
+    if (!folder.empty())
+    {
+        // remove initial '/' characters
+        size_t len = 0;
+        while (folder[len] == '/')
+            ++len;
+        folder.erase(0, len);
+    }
+
     folder = stringify (g_uri_escape_string (folder.c_str(), nullptr, true));
 
     s = method;
@@ -624,13 +633,7 @@ string &__gnome_cmd_con_make_uri (string &s, const gchar *method, string &server
         s += ':' + port;
 
     if (!folder.empty())
-    {
-        if (folder[0] != '/')
-        {
-            s += '/';
-        }
-        s += folder;
-    }
+        s += '/' + folder;
 
     return s;
 }
@@ -638,24 +641,24 @@ string &__gnome_cmd_con_make_uri (string &s, const gchar *method, string &server
 #ifdef HAVE_SAMBA
 std::string &gnome_cmd_con_make_smb_uri (std::string &uriString, std::string &server, std::string &folder, std::string &domain)
 {
-    const gchar *joinSign = !folder.empty() && folder[0] != '/' ? "/" : "";
-
-    folder = joinSign + folder;
-    // remove initial '/' character
-    if (folder.length() > 0 && folder[0] == '/')
+    if (!folder.empty())
     {
-        folder = folder.length() == 1 ? folder.erase() : folder.substr(1);
+        // remove initial '/' characters
+        size_t len = 0;
+        while (folder[len] == '/')
+            ++len;
+        folder.erase(0, len);
     }
 
     uriString = "smb://";
 
     if (!domain.empty())
-        uriString = domain + ';';
+        uriString += domain + ';';
 
     uriString += server;
 
-    uriString += "/";
-    uriString += folder;
+    if (!folder.empty())
+        uriString += '/' + folder;
 
     return uriString;
 }

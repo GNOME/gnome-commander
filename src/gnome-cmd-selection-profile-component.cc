@@ -213,6 +213,7 @@ GnomeCmdSelectionProfileComponent::GnomeCmdSelectionProfileComponent(GnomeCmdDat
 void GnomeCmdSelectionProfileComponent::update()
 {
     set_name_patterns_history(gnome_cmd_data.search_defaults.name_patterns.ents);
+    set_content_patterns_history(gnome_cmd_data.search_defaults.content_patterns.ents);
 
     gtk_entry_set_text (GTK_ENTRY (gtk_bin_get_child (GTK_BIN (priv->pattern_combo))), profile.filename_pattern.c_str());
     gtk_combo_box_set_active (GTK_COMBO_BOX (priv->filter_type_combo), (int) profile.syntax);

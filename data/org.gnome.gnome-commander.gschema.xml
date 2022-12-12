@@ -416,6 +416,13 @@
           Defines if the history of commands in the commandline is saved on exit.
       </description>
     </key>
+    <key name="save-search-history-on-exit" type="b">
+      <default>true</default>
+      <summary>Save search history on exit</summary>
+      <description>
+          Defines if the history of search patterns is saved on exit.
+      </description>
+    </key>
     <key name="always-show-tabs" type="b">
       <default>false</default>
       <summary>Always show tab bar</summary>
@@ -512,6 +519,34 @@
       <summary>List of favorite apps</summary>
       <description>
           The entries in this list represent the favorite apps configured by the user.
+      </description>
+    </key>
+    <key name="search-win-width" type="u">
+      <default>600</default>
+      <summary>Search window width</summary>
+      <description>
+          This option defines the width of the search window.
+      </description>
+    </key>
+    <key name="search-win-height" type="u">
+      <default>400</default>
+      <summary>Search window height</summary>
+      <description>
+          This option defines the height of the search window.
+      </description>
+    </key>
+    <key name="search-win-is-transient" type="b">
+      <default>true</default>
+      <summary>Search window is transient</summary>
+      <description>
+          Defines if the search window is transient or if it can be minimized and moved behind the main window.
+      </description>
+    </key>
+    <key name="search-text-history" type="as">
+      <default>[]</default>
+      <summary>Search text history</summary>
+      <description>
+          This string array represents the history of text searches in the search tool.
       </description>
     </key>
     <key name="search-pattern-history" type="as">
@@ -677,6 +712,13 @@
       <summary>Differ command</summary>
       <description>
           This string defines the command for starting the diff tool.
+      </description>
+    </key>
+    <key name="use-internal-search" type="b">
+      <default>true</default>
+      <summary>Use internal search</summary>
+      <description>
+          This option defines if the internal search should be used by default.
       </description>
     </key>
     <key name="search-cmd" type="s">

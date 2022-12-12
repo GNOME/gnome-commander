@@ -25,6 +25,7 @@
 #include "gnome-cmd-cmdline.h"
 #include "plugin_manager.h"
 #include "dialogs/gnome-cmd-advrename-dialog.h"
+#include "dialogs/gnome-cmd-search-dialog.h"
 
 #define GNOME_CMD_TYPE_MAIN_WIN              (gnome_cmd_main_win_get_type ())
 #define GNOME_CMD_MAIN_WIN(obj)              (G_TYPE_CHECK_INSTANCE_CAST((obj), GNOME_CMD_TYPE_MAIN_WIN, GnomeCmdMainWin))
@@ -61,6 +62,7 @@ struct GnomeCmdMainWin
     operator GtkWindow * () const       {  return GTK_WINDOW (this);       }
 
     GnomeCmdAdvrenameDialog *advrename_dlg;
+    GnomeCmdSearchDialog *file_search_dlg;
 
     FileSelectorID fs() const;
     FileSelectorID fs(GnomeCmdFileSelector *fs) const;

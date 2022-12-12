@@ -193,9 +193,12 @@ void sync_list (GnomeCmdDir *dir)
     while (gFileInfoTmp && !error);
 
     g_file_enumerator_close (gFileEnumerator, nullptr, nullptr);
+    g_object_unref(gFileEnumerator);
 
     dir->state = error ? GnomeCmdDir::STATE_EMPTY : GnomeCmdDir::STATE_LISTED;
     dir->done_func (dir, dir->gFileInfoList, error);
+    if (error)
+        g_error_free(error);
 }
 
 static void enumerate_children_callback(GObject *direnum, GAsyncResult *result, gpointer user_data)
@@ -210,9 +213,9 @@ static void enumerate_children_callback(GObject *direnum, GAsyncResult *result, 
     {
         g_critical("Unable to iterate the g_file_enumerator, error: %s", error->message);
         dir->state = GnomeCmdDir::STATE_EMPTY;
-        g_object_unref(direnum);
         dir->done_func (dir, dir->gFileInfoList, error);
         g_file_enumerator_close(gFileEnumerator, nullptr, nullptr);
+        g_object_unref(direnum);
         g_error_free(error);
         return;
     }
@@ -273,29 +276,46 @@ GList* sync_dir_list (const gchar *absDirPath)
 {
     g_return_val_if_fail (absDirPath != nullptr, nullptr);
 
-    GError *error = nullptr;
-
-    DEBUG('l', "sync_dir_list: %s\n", absDirPath);
-
-    GList *gFileInfoList = nullptr;
-
     auto gFile = g_file_new_for_path(absDirPath);
 
-    if (!g_file_query_exists(gFile, nullptr))
+    GList *gFileInfoList = sync_dir_list (gFile, nullptr);
+
+    g_object_unref(gFile);
+
+    return gFileInfoList;
+}
+
+GList* sync_dir_list (GFile *gFile, GCancellable* cancellable)
+{
+    g_return_val_if_fail (gFile != nullptr, nullptr);
+
+    gchar *pathOrUri = g_file_get_path (gFile);
+    if (!pathOrUri)
+        pathOrUri = g_file_get_uri (gFile);
+
+    DEBUG('l', "sync_dir_list: %s\n", pathOrUri);
+
+    if (!g_file_query_exists(gFile, cancellable))
     {
-        g_warning("sync_dir_list error: \"%s\" does not exist", absDirPath);
-        g_object_unref(gFile);
+        g_warning("sync_dir_list error: \"%s\" does not exist", pathOrUri);
+        g_free (pathOrUri);
         return nullptr;
     }
+
+    g_free (pathOrUri);
+
+    GError *error = nullptr;
+    GList *gFileInfoList = nullptr;
 
     auto gFileEnumerator = g_file_enumerate_children (gFile,
                             "*",
                             G_FILE_QUERY_INFO_NONE,
-                            nullptr,
+                            cancellable,
                             &error);
     if(error)
     {
-        g_critical("sync_dir_list: Unable to enumerate children, error: %s", error->message);
+        if (!g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED))
+            g_critical("sync_dir_list: Unable to enumerate children, error: %s", error->message);
         g_error_free(error);
         return nullptr;
     }
@@ -303,10 +323,11 @@ GList* sync_dir_list (const gchar *absDirPath)
     GFileInfo *gFileInfoTmp = nullptr;
     do
     {
-        gFileInfoTmp = g_file_enumerator_next_file(gFileEnumerator, nullptr, &error);
+        gFileInfoTmp = g_file_enumerator_next_file(gFileEnumerator, cancellable, &error);
         if(error)
         {
-            g_critical("sync_dir_list: Unable to enumerate next file, error: %s", error->message);
+            if (!g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED))
+                g_critical("sync_dir_list: Unable to enumerate next file, error: %s", error->message);
             break;
         }
         if (gFileInfoTmp)
@@ -317,9 +338,7 @@ GList* sync_dir_list (const gchar *absDirPath)
     while (gFileInfoTmp && !error);
 
     if (error)
-    {
         g_error_free(error);
-    }
 
     g_file_enumerator_close (gFileEnumerator, nullptr, nullptr);
     g_object_unref(gFileEnumerator);

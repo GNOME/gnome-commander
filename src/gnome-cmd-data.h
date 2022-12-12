@@ -87,6 +87,7 @@ GcmdSettings *gcmd_settings_new (void);
 #define GCMD_SETTINGS_SAVE_TABS_ON_EXIT               "save-tabs-on-exit"
 #define GCMD_SETTINGS_SAVE_DIR_HISTORY_ON_EXIT        "save-dir-history-on-exit"
 #define GCMD_SETTINGS_SAVE_CMDLINE_HISTORY_ON_EXIT    "save-cmdline-history-on-exit"
+#define GCMD_SETTINGS_SAVE_SEARCH_HISTORY_ON_EXIT     "save-search-history-on-exit"
 #define GCMD_SETTINGS_ALWAYS_SHOW_TABS                "always-show-tabs"
 #define GCMD_SETTINGS_TAB_LOCK_INDICATOR              "tab-lock-indicator"
 #define GCMD_SETTINGS_MAIN_WIN_STATE                  "main-win-state"
@@ -127,7 +128,11 @@ GcmdSettings *gcmd_settings_new (void);
 #define GCMD_SETTINGS_FAV_APPS                        "favorite-apps"
 #define GCMD_SETTINGS_FAV_APPS_FORMAT_STRING          "(ssssubbb)"
 #define GCMD_SETTINGS_DIRECTORY_HISTORY               "directory-history"
+#define GCMD_SETTINGS_SEARCH_WIN_WIDTH                "search-win-width"
+#define GCMD_SETTINGS_SEARCH_WIN_HEIGHT               "search-win-height"
+#define GCMD_SETTINGS_SEARCH_WIN_IS_TRANSIENT         "search-win-is-transient"
 #define GCMD_SETTINGS_SEARCH_PATTERN_HISTORY          "search-pattern-history"
+#define GCMD_SETTINGS_SEARCH_TEXT_HISTORY             "search-text-history"
 #define GCMD_SETTINGS_SEARCH_PROFILES                 "search-profiles"
 #define GCMD_SETTINGS_SEARCH_PROFILE_FORMAT_STRING    "(siisbbs)"
 #define GCMD_SETTINGS_SEARCH_PROFILES_FORMAT_STRING   "a(siisbbs)"
@@ -197,6 +202,7 @@ GcmdSettings *gcmd_settings_new (void);
 #define GCMD_SETTINGS_VIEWER_CMD                      "viewer-cmd"
 #define GCMD_SETTINGS_EDITOR_CMD                      "editor-cmd"
 #define GCMD_SETTINGS_DIFFER_CMD                      "differ-cmd"
+#define GCMD_SETTINGS_USE_INTERNAL_SEARCH             "use-internal-search"
 #define GCMD_SETTINGS_SEARCH_CMD                      "search-cmd"
 #define GCMD_SETTINGS_SENDTO_CMD                      "sendto-cmd"
 #define GCMD_SETTINGS_TERMINAL_CMD                    "terminal-cmd"
@@ -326,6 +332,8 @@ struct GnomeCmdData
         gboolean                     save_tabs_on_exit;
         gboolean                     save_dir_history_on_exit;
         gboolean                     save_cmdline_history_on_exit;
+        gboolean                     save_search_history_on_exit;
+        gboolean                     search_window_is_transient {true};
         gchar                       *symlink_prefix;
         gint                         main_win_pos[2];
         gboolean                     deleteToTrash;
@@ -363,6 +371,7 @@ struct GnomeCmdData
         gboolean                     use_internal_viewer;
         gchar                       *editor;
         gchar                       *differ;
+        gboolean                     use_internal_search;
         gchar                       *search;
         gchar                       *sendto;
         gchar                       *termopen;
@@ -389,6 +398,7 @@ struct GnomeCmdData
                    save_tabs_on_exit(TRUE),
                    save_dir_history_on_exit(TRUE),
                    save_cmdline_history_on_exit(TRUE),
+                   save_search_history_on_exit(TRUE),
                    symlink_prefix(nullptr),
                    main_win_pos{0,25},
                    deleteToTrash(TRUE),
@@ -418,6 +428,7 @@ struct GnomeCmdData
                    use_internal_viewer(TRUE),
                    editor(nullptr),
                    differ(nullptr),
+                   use_internal_search(TRUE),
                    search(nullptr),
                    sendto(nullptr),
                    termopen(nullptr),
@@ -574,14 +585,20 @@ struct GnomeCmdData
 
     struct SearchConfig
     {
+        gint width, height;
+
         SearchProfile default_profile;
 
         History name_patterns;
+        History content_patterns;
 
         std::vector<SearchProfile> &profiles;
 
         explicit SearchConfig(std::vector<SearchProfile> &searchProfiles):
+            width(600),
+            height(400),
             name_patterns(SEARCH_HISTORY_SIZE),
+            content_patterns(SEARCH_HISTORY_SIZE),
             profiles(searchProfiles)
         {
             default_profile.name = "Default";
@@ -662,7 +679,7 @@ struct GnomeCmdData
     void save_connections();
     void save_cmdline_history();
     void save_directory_history();
-    void save_search_pattern_history();
+    void save_search_history();
     void save_intviewer_defaults();
     void save_devices();
     void save_fav_apps();
