@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-commander/issues\n"
-"POT-Creation-Date: 2022-08-31 23:58+0000\n"
-"PO-Revision-Date: 2022-09-17 00:55+0300\n"
+"POT-Creation-Date: 2022-11-02 18:52+0000\n"
+"PO-Revision-Date: 2022-12-11 14:09+0300\n"
 "Last-Translator: Sabri Ünal <libreajans@gmail.com>\n"
 "Language-Team: Turkish <gnometurk@gnome.org>\n"
 "Language: tr\n"
@@ -1333,7 +1333,7 @@ msgstr ""
 
 #: data/org.gnome.gnome-commander.gschema.xml:981
 msgid "Metadata view"
-msgstr "Üstveri görünümü"
+msgstr "Üst veri görünümü"
 
 #: data/org.gnome.gnome-commander.gschema.xml:982
 msgid "This option defines if metadata should be visible."
@@ -1983,7 +1983,7 @@ msgstr "Tür"
 #: src/dialogs/gnome-cmd-file-props-dialog.cc:595
 #: src/intviewer/viewer-window.cc:1357
 msgid "Metadata namespace"
-msgstr "Üstveri ad alanı"
+msgstr "Üst veri ad alanı"
 
 #. col = gnome_cmd_treeview_create_new_text_column (GTK_TREE_VIEW (view), renderer, COL_METHOD);
 #. gtk_tree_view_column_set_sort_column_id (col, SORTID_METHOD);
@@ -2024,7 +2024,7 @@ msgstr "Tanımlama"
 #: src/dialogs/gnome-cmd-file-props-dialog.cc:609
 #: src/intviewer/viewer-window.cc:1371
 msgid "Metadata tag description"
-msgstr "Üstveri etiket tanımlaması"
+msgstr "Üst veri etiket tanımlaması"
 
 #. data->thread = 0;
 #: src/dialogs/gnome-cmd-file-props-dialog.cc:664
@@ -2043,7 +2043,7 @@ msgstr "İzinler"
 
 #: src/dialogs/gnome-cmd-file-props-dialog.cc:688
 msgid "Metadata"
-msgstr "Üstveri"
+msgstr "Üst veri"
 
 #: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:201
 msgid "Keyboard Shortcuts"
@@ -3214,7 +3214,7 @@ msgstr "Sayaç"
 
 #: src/gnome-cmd-advrename-profile-component.cc:944
 msgid "Metatag"
-msgstr "Üstveri etiketi"
+msgstr "Üst veri etiketi"
 
 #: src/gnome-cmd-advrename-profile-component.cc:971
 msgid "_Start:"
@@ -4917,7 +4917,7 @@ msgstr "Batı (ISO-8859-1)"
 
 #: src/intviewer/viewer-window.cc:666
 msgid "Show Metadata _Tags"
-msgstr "Üstveri _Etiketlerini Göster"
+msgstr "Üst Veri _Etiketlerini Göster"
 
 #: src/intviewer/viewer-window.cc:672
 msgid "Rotate Clockwise"
@@ -5401,7 +5401,7 @@ msgstr "Kod Sayfası"
 
 #: src/tags/gnome-cmd-tags.cc:163
 msgid "The MS codepage to encode strings for metadata."
-msgstr "Üstveri için kodlama dizgesinin MS kod sayfası."
+msgstr "Üst veri için kodlama dizgesinin MS kod sayfası."
 
 #: src/tags/gnome-cmd-tags.cc:164 src/tags/gnome-cmd-tags.cc:420
 msgid "Comments"
@@ -7063,7 +7063,7 @@ msgstr "XML Paketi"
 
 #: src/tags/gnome-cmd-tags.cc:314
 msgid "XMP metadata."
-msgstr "XMP üstveri."
+msgstr "XMP üst veri."
 
 #: src/tags/gnome-cmd-tags.cc:315
 msgid "x Resolution"
@@ -8315,7 +8315,7 @@ msgstr "Dosya Biçimi"
 
 #: src/tags/gnome-cmd-tags.cc:474
 msgid "File format of the data described by this metadata."
-msgstr "Üstveri tarafından sağlanan, tanımlanmış verinin, dosya biçimi."
+msgstr "Üst veri tarafından sağlanan, tanımlanmış verinin, dosya biçimi."
 
 #: src/tags/gnome-cmd-tags.cc:475
 msgid "File Version"
