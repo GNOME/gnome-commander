@@ -6,18 +6,24 @@ gsettings_enum_files = [
 
 gsettings_enum_file_ready = 'org.gnome.gnome-commander.enums.xml'
 
+glib_mkenums = find_program('glib-mkenums')
+schemasdir = join_paths(datadir, 'glib-2.0', 'schemas')
+
 # Generate gschema enums file
-generate_enums = gnome.mkenums(gsettings_enum_file_ready,
-  sources: gsettings_enum_files,
-  comments: '<!-- @comment@ -->',
-  fhead: '<schemalist>',
-  vhead: '  <@type@ id="org.gnome.gnome-commander.@EnumName@">',
-  vprod: '    <value nick="@valuenick@" value="@valuenum@"/>',
-  vtail: '  </@type@>',
-  ftail: '</schemalist>',
-  install_header: true,
-  install_dir: join_paths(datadir, 'glib-2.0', 'schemas'),
-)
+schemas = custom_target(
+  gsettings_enum_file_ready,
+  input: gsettings_enum_files,
+  output: gsettings_enum_file_ready,
+  command: [glib_mkenums,
+            '--comments', '<!-- @comment@ -->',
+            '--fhead', '<schemalist>',
+            '--vhead', '<@type@ id="org.gnome.desktop.@EnumName@">',
+            '--vprod', '    <value nick="@valuenick@" value="@valuenum@"/>',
+            '--vtail', '  </@type@>',
+            '--ftail', '</schemalist>', '@INPUT@'],
+  capture: true,
+  install: true,
+  install_dir: schemasdir)
 
 glib_compile_schemas = find_program(
   'glib-compile-schemas',
@@ -28,13 +34,14 @@ glib_compile_schemas = find_program(
 gschemas_compiled = custom_target('gschemas.compiled',
   input: [
     'org.gnome.gnome-commander.gschema.xml',
-    gsettings_enum_file_ready
+    schemas
   ],
   output: 'gschemas.compiled',
   command: [
     glib_compile_schemas,
     '--targetdir=' + meson.current_build_dir(),
-    meson.current_source_dir()]
+    meson.current_source_dir()],
+  depends: schemas
 )
 
 po_dir = meson.project_source_root() / 'po'
