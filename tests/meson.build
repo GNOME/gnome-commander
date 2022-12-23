@@ -29,6 +29,7 @@ test('test_iv_textrenderer',
     c_args: ['-DTEST_DIR="@0@"'.format(meson.current_source_dir())],
     link_with: [intviewer_lib],
   ),
+  workdir : meson.current_source_dir()
 )
 
 test('test_iv_viewerwidget_test',
@@ -39,6 +40,7 @@ test('test_iv_viewerwidget_test',
     c_args: ['-DTEST_DIR="@0@"'.format(meson.current_source_dir())],
     link_with: [intviewer_lib],
   ),
+  workdir : meson.current_source_dir()
 )
 
 test('test_iv_fileops_test',
@@ -49,6 +51,7 @@ test('test_iv_fileops_test',
     c_args: ['-DTEST_DIR="@0@"'.format(meson.current_source_dir())],
     link_with: [intviewer_lib],
   ),
+  workdir : meson.current_source_dir()
 )
 
 test('test_iv_bm_search_test',
