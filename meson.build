@@ -182,6 +182,12 @@ gtest = dependency('gtest', version: '>=' + GTEST_REQ, required: get_option('tes
 
 configure_file(output : 'config.h', configuration : conf_data)
 
+meson.add_dist_script(
+  find_program('check-news.sh').full_path(),
+  '@0@'.format(meson.project_version()),
+  'data/org.gnome.gnome-commander.appdata.xml.in'
+)
+
 summary = [
   '',
   '-----------',
