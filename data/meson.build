@@ -15,7 +15,7 @@ schemas = custom_target(
   command: [glib_mkenums,
             '--comments', '<!-- @comment@ -->',
             '--fhead', '<schemalist>',
-            '--vhead', '<@type@ id="org.gnome.desktop.@EnumName@">',
+            '--vhead', '<@type@ id="org.gnome.gnome-commander.@EnumName@">',
             '--vprod', '    <value nick="@valuenick@" value="@valuenum@"/>',
             '--vtail', '  </@type@>',
             '--ftail', '</schemalist>', '@INPUT@'],
