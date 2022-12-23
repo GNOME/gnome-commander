@@ -5,9 +5,7 @@ gsettings_enum_files = [
 ]
 
 gsettings_enum_file_ready = 'org.gnome.gnome-commander.enums.xml'
-
 glib_mkenums = find_program('glib-mkenums')
-schemasdir = join_paths(datadir, 'glib-2.0', 'schemas')
 
 # Generate gschema enums file
 schemas = custom_target(
@@ -23,7 +21,7 @@ schemas = custom_target(
             '--ftail', '</schemalist>', '@INPUT@'],
   capture: true,
   install: true,
-  install_dir: schemasdir)
+  install_dir: join_paths(datadir, 'glib-2.0', 'schemas'))
 
 glib_compile_schemas = find_program(
   'glib-compile-schemas',
