@@ -25,9 +25,12 @@ Read the section "Known Bugs and Limitations" in the documentation (by pressing 
 to see if there are some known problems with the version you are using. The TODO file 
 might also contain some clues when running into problems.
 
-The ChangeLog contains a detailed description on what has changed. For most
-users the NEWS file might be a better place to look since it contains
+The online available Git log contains a detailed description on what has changed.
+For most users the AppData file might be a better place to look since it contains
 change summaries between the different versions.
+
+Generate a human readable version of the appdata file with the following command:
+    appstream-util appdata-to-news data/org.gnome.gnome-commander.appdata.xml
 
 GNOME Commander is released under the GNU General Public License (GPL) version 2,
 see the file 'COPYING' for more information.
