@@ -642,9 +642,10 @@
     </itemizedlist>
     <note>
       <para>If you are using code from git repository, it is possible that the latest new features are not yet in
-      	this manual. Please read the
-      	<ulink type="http" url="http://git.gnome.org/cgit/gnome-commander/plain/ChangeLog">detailed ChangeLog
-      	online</ulink> or in the &app; sources to find out more about the new features.</para>
+        this manual. Please read the
+        <ulink type="http" url="https://gitlab.gnome.org/GNOME/gnome-commander/-/commits/master">detailed ChangeLog
+        online</ulink> or in the &app; sources to find out more about the new features.
+      </para>
     </note>
   </sect1>
 
