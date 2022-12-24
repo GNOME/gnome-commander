@@ -77,6 +77,7 @@ conf_data.set_quoted('PACKAGE_VERSION',   '@0@'.format(meson.project_version()),
 
 # Compulsory dependencies
 GLIB_REQ = '2.66.0'
+conf_data.set('GLIB_REQ', GLIB_REQ, description: 'Required version of glib library')
 GMODULE_REQ = '2.0.0'
 GTK_REQ = '2.24.0'
 conf_data.set('GTK_REQ', GTK_REQ, description: 'Required version of gtk library')
@@ -100,6 +101,7 @@ conf_data.set('TAGLIB_REQ', TAGLIB_REQ, description: 'Required version of popple
 TAGLIB_1_14_24 = '1.14.24'
 TAGLIB_1_14_26 = '1.14.26'
 LIBGSF_REQ = '1.12.0'
+conf_data.set('LIBGSF_REQ', LIBGSF_REQ, description: 'Required version of gsf library')
 POPPLER_REQ = '0.18'
 conf_data.set('POPPLER_REQ', POPPLER_REQ, description: 'Required version of poppler library')
 

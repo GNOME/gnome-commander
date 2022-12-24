@@ -4,7 +4,7 @@
 # Source archive's extension can be specified with rpm --define 'srcext .foo'
 # where .foo is the source archive's actual extension.
 # To compile an RPM from a .bz2 source archive, give the command
-#   rpmbuild -tb --define 'srcext .bz2' @PACKAGE@-@VERSION@.tar.bz2
+#   rpmbuild -tb --define 'srcext .bz2' @PACKAGE@-@PACKAGE_VERSION@.tar.bz2
 #
 
 %if %{?rel:0}%{!?rel:1}
@@ -20,7 +20,7 @@
 %define        poppler_ver           @POPPLER_REQ@
 
 Name:          @PACKAGE@
-Version:       @VERSION@
+Version:       @PACKAGE_VERSION@
 Epoch:         4
 Release:       %{rel}%{?dist}
 Summary:       A nice and fast file manager for the GNOME desktop
