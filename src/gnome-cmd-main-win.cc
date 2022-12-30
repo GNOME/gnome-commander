@@ -1040,6 +1040,9 @@ void GnomeCmdMainWin::update_style()
 
     if (gnome_cmd_data.cmdline_visibility)
         gnome_cmd_cmdline_update_style (GNOME_CMD_CMDLINE (priv->cmdline));
+
+    if (file_search_dlg)
+        file_search_dlg->update_style();
 }
 
 

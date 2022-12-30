@@ -1281,6 +1281,11 @@ void GnomeCmdSearchDialog::show_and_set_focus()
     priv->profile_component->set_focus();
 }
 
+void GnomeCmdSearchDialog::update_style()
+{
+    priv->result_list->update_style();
+}
+
 GnomeCmdSearchDialog::GnomeCmdSearchDialog(GnomeCmdData::SearchConfig &cfg): defaults(cfg)
 {
     gtk_window_set_default_size (*this, defaults.width, defaults.height);

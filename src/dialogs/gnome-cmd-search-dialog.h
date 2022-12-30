@@ -1,4 +1,4 @@
-/** 
+/**
  * @file gnome-cmd-search-dialog.h
  * @copyright (C) 2001-2006 Marcus Bjurman\n
  * @copyright (C) 2007-2012 Piotr Eljasiak\n
@@ -55,6 +55,7 @@ struct GnomeCmdSearchDialog
     GnomeCmdData::SearchConfig &defaults;
 
     void show_and_set_focus();
+    void update_style();
 
     explicit GnomeCmdSearchDialog(GnomeCmdData::SearchConfig &defaults);
     ~GnomeCmdSearchDialog();
