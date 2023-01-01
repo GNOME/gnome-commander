@@ -215,6 +215,7 @@ summary(
     'Use libgsf': have_gsf,
     'Use poppler': have_pdf,
     'Use samba': have_samba,
+    'Use taglib': have_taglib,
     'Use unique': have_unique,
     'Tests': gtest.found(),
   },
