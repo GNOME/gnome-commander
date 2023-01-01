@@ -46,6 +46,7 @@
 #include "dialogs/gnome-cmd-make-copy-dialog.h"
 #include "dialogs/gnome-cmd-manage-bookmarks-dialog.h"
 #include "dialogs/gnome-cmd-mkdir-dialog.h"
+#include "dialogs/gnome-cmd-search-dialog.h"
 #include "dialogs/gnome-cmd-options-dialog.h"
 #include "dialogs/gnome-cmd-prepare-copy-dialog.h"
 #include "dialogs/gnome-cmd-prepare-move-dialog.h"
@@ -770,30 +771,40 @@ void file_edit_new_doc (GtkMenuItem *menuitem, gpointer not_used)
 
 void file_search (GtkMenuItem *menuitem, gpointer not_used)
 {
-    string commandString;
-    commandString.reserve(2000);
-
-    if (parse_command(&commandString, (const gchar*) gnome_cmd_data.options.search) == 0)
+    if (gnome_cmd_data.options.use_internal_search)
     {
-	    DEBUG ('g', "Search command is empty.\n");
-	    gnome_cmd_show_message (*main_win, _("No search command given."), _("You can set a command for a search tool in the program options."));
-	    return;
+        if (!main_win->file_search_dlg)
+            main_win->file_search_dlg = new GnomeCmdSearchDialog(gnome_cmd_data.search_defaults);
+
+        main_win->file_search_dlg->show_and_set_focus();
     }
     else
     {
-        gint     argc;
-        gchar  **argv  = nullptr;
-        GError  *error = nullptr;
+        string commandString;
+        commandString.reserve(2000);
 
-        DEBUG ('g', "Invoking search: %s\n", commandString.c_str());
-        // put command into argv
-        g_shell_parse_argv (commandString.c_str(), &argc, &argv, nullptr);
-        // execute command
-        if (!g_spawn_async (nullptr, argv, nullptr, G_SPAWN_SEARCH_PATH, nullptr, nullptr, nullptr, &error))
+        if (parse_command(&commandString, (const gchar*) gnome_cmd_data.options.search) == 0)
         {
-            gnome_cmd_error_message (_("Unable to execute command."), error);
+            DEBUG ('g', "Search command is empty.\n");
+            gnome_cmd_show_message (*main_win, _("No search command given."), _("You can set a command for a search tool in the program options."));
+            return;
         }
-        g_strfreev (argv);
+        else
+        {
+            gint     argc;
+            gchar  **argv  = nullptr;
+            GError  *error = nullptr;
+
+            DEBUG ('g', "Invoking search: %s\n", commandString.c_str());
+            // put command into argv
+            g_shell_parse_argv (commandString.c_str(), &argc, &argv, nullptr);
+            // execute command
+            if (!g_spawn_async (nullptr, argv, nullptr, G_SPAWN_SEARCH_PATH, nullptr, nullptr, nullptr, &error))
+            {
+                gnome_cmd_error_message (_("Unable to execute command."), error);
+            }
+            g_strfreev (argv);
+        }
     }
 }
 

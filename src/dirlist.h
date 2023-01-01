@@ -1,4 +1,4 @@
-/** 
+/**
  * @file dirlist.h
  * @copyright (C) 2001-2006 Marcus Bjurman\n
  * @copyright (C) 2007-2012 Piotr Eljasiak\n
@@ -26,3 +26,4 @@
 void dirlist_list (GnomeCmdDir *dir, gboolean visprog);
 void dirlist_cancel (GnomeCmdDir *dir);
 GList* sync_dir_list (const gchar *absDirPath);
+GList* sync_dir_list (GFile *gFile, GCancellable* cancellable = nullptr);

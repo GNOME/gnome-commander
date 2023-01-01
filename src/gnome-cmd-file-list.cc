@@ -355,7 +355,7 @@ FileFormatData::FileFormatData(GnomeCmdFileList *fl, GnomeCmdFile *f, gboolean t
         fname = g_strdup(f->get_name());
 
     if (fl->priv->base_dir != nullptr)
-        text[GnomeCmdFileList::COLUMN_DIR] = g_strconcat(get_utf8("."), dpath + (strlen(fl->priv->base_dir)-1), nullptr);
+        text[GnomeCmdFileList::COLUMN_DIR] = g_strconcat(get_utf8("."), dpath + strlen(fl->priv->base_dir), nullptr);
     else
         text[GnomeCmdFileList::COLUMN_DIR] = dpath;
 
