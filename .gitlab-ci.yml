@@ -1,25 +1,34 @@
 image: ubuntu:22.04
 
-stages:          # List of stages for jobs, and their order of execution
-  - build_and_test_check
+variables:
+  UBUNTU_DEPS:
+    appstream-util
+    desktop-file-utils
+    build-essential
+    meson
+    flex
+    yelp-tools
+    libexiv2-dev
+    libgsf-1-dev
+    libgtk2.0-dev
+    libpoppler-glib-dev
+    libsmbclient-dev
+    libtag1-dev
+    libunique-dev
+    libgtest-dev
 
-build-job:       # This job runs in the build stage, which runs first.
-  stage: build_and_test_check
+before_script:
+  - export DEBIAN_FRONTEND=noninteractive
+  - apt-get update -qq
+  - apt-get install -y $UBUNTU_DEPS
+
+build-and-test-job:
   script:
-    - apt-get update -qq && env DEBIAN_FRONTEND=noninteractive apt-get install make autoconf-archive flex yelp-tools libunique-dev cmake libgtest-dev -y
-    - GCMD_PATH="$(pwd)"
-    - echo "Installing gtest for unit tests..."
-    - cd /usr/src/gtest
-    - cmake .
-    - make -j4
-    - ln -s /usr/src/gtest/libgtest.a /usr/lib/libgtest.a
-    - ln -s /usr/src/gtest/libgtest_main.a /usr/lib/libgtest_main.a
-    - cp -r . $GCMD_PATH
-    - cd $GCMD_PATH
+    - mkdir _builddir
+    - meson setup _builddir
     - echo "Compiling the code..."
-    - ./autogen.sh
-    - make
+    - meson compile -C _builddir
     - echo "Compile complete. Starting Unit test phase..."
     - exit_code=0
-    - make check || exit_code=$?; if [ "$exit_code" != "0" ]; then echo "Unit tests failed."; cat tests/test-suite.log; exit 1; fi;
+    - meson test -C _builddir || exit_code=$?; if [ "$exit_code" != "0" ]; then echo "Unit tests failed."; cat _builddir/meson-logs/testlog.txt; exit 1; fi;
     - echo "Unit tests passed."
