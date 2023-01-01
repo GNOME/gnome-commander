@@ -20,6 +20,7 @@ libgmcddialogs_headers = files(
 	'gnome-cmd-prepare-xfer-dialog.h',
 	'gnome-cmd-remote-dialog.h',
 	'gnome-cmd-rename-dialog.h',
+	'gnome-cmd-search-dialog.h',
 )
 
 install_headers(
@@ -46,7 +47,8 @@ libgmcddialogs_sources = files(
     'gnome-cmd-prepare-move-dialog.cc',
     'gnome-cmd-prepare-xfer-dialog.cc',
     'gnome-cmd-remote-dialog.cc',
-    'gnome-cmd-rename-dialog.cc'
+    'gnome-cmd-rename-dialog.cc',
+    'gnome-cmd-search-dialog.cc',
 )
 
 libgmcddialogs = static_library('dialogs',
