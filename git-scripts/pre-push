@@ -1,6 +1,6 @@
 #!/bin/sh
 
-git-scripts/update-project-status.sh && make && make check
+git-scripts/update-project-status.sh && meson compile -C builddir && meson test -C builddir
 
 RESULT=$?
 
