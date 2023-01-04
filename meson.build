@@ -83,11 +83,16 @@ GTK_REQ = '2.24.0'
 conf_data.set('GTK_REQ', GTK_REQ, description: 'Required version of gtk library')
 GIO_REQ = '2.0'
 
+gobject   = dependency('gobject-2.0', version: '>=' + GLIB_REQ)
 glib      = dependency('glib-2.0', version: '>=' + GLIB_REQ)
 glib_2_70 = dependency('glib-2.0', version: '>= 2.70.0', required: false)
 gmodule   = dependency('gmodule-2.0', version: '>=' + GMODULE_REQ)
-gtk       = dependency('gtk+-2.0', version: '>=' + GTK_REQ)
 gio       = dependency('gio-2.0', version: '>=' + GIO_REQ)
+gtk       = dependency('gtk+-2.0', version: '>=' + GTK_REQ)
+
+common_deps = [
+  glib, gmodule, gio, gobject, gtk
+]
 
 conf_data.set('GLIB_2_70', '@0@'.format(glib_2_70.found().to_int()), description : 'Define to 1 if you have glib >= 2.70')
 
@@ -165,17 +170,6 @@ endif
 if cpp.has_function('mmap', prefix : '#include<sys/mman.h>')
   conf_data.set('HAVE_MMAP', 1, description: 'Define to 1 if you have a working `mmap\' system call.')
 endif
-
-glib      = dependency('glib-2.0', version: '>=' + GLIB_REQ)
-glib_2_70 = dependency('glib-2.0', version: '>= 2.70.0', required: false)
-gmodule   = dependency('gmodule-2.0', version: '>=' + GMODULE_REQ)
-gio       = dependency('gio-2.0', version: '>=' + GIO_REQ)
-gobject   = dependency('gobject-2.0', version: '>=' + GLIB_REQ)
-gtk       = dependency('gtk+-2.0', version: '>=' + GTK_REQ)
-
-common_deps = [
-  glib, gmodule, gio, gobject, gtk
-]
 
 #Google Test library for 'meson test -C builddir'
 GTEST_REQ='1.7.0'
