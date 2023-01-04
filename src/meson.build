@@ -200,10 +200,16 @@ if real_prefix.startswith(meson.project_source_root())
   rpath = real_prefix / get_option('libdir')
 endif
 
+sources_deps = [common_deps, libgcmd_dep, libgcmdtags_dep, intviewer_dep, libgmcddialogs_dep]
+
+if have_unique
+  sources_deps += unique
+endif
+
 executable('gnome-commander',
   c_args: cc_args,
   sources: [sources_headers, sources_sources],
-  dependencies: [common_deps, libgcmd_dep, libgcmdtags_dep, intviewer_dep, libgmcddialogs_dep],
+  dependencies: sources_deps,
   include_directories: [configuration_inc, sources_inc, libgcmd_inc],
   install: true,
   link_with : [intviewer_lib, libgcmdtags, libgcmd, libgmcddialogs],
