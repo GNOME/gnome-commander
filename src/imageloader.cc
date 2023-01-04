@@ -111,7 +111,7 @@ void IMAGE_init ()
 
             pixmaps[i] = gnome_cmd_pixmap_new_from_file (path2);
             if (!pixmaps[i])
-                g_warning (_("Can’t find the pixmap anywhere. Make sure you have installed the program or is executing gnome-commander from the gnome-commander-%s/src directory"), VERSION);
+                g_warning (_("Can’t find the pixmap anywhere. Make sure you have installed the program or is executing gnome-commander from the gnome-commander-%s/src directory"), PACKAGE_VERSION);
 
             g_free (path2);
         }
@@ -135,7 +135,7 @@ void IMAGE_init ()
             g_warning (_("Couldn’t load installed pixmap, trying to load %s instead"), path2);
 
             if (!load_icon (path2, &e->pixmap, &e->mask, &e->lnk_pixmap, &e->lnk_mask))
-                g_warning (_("Can’t find the pixmap anywhere. Make sure you have installed the program or is executing gnome-commander from the gnome-commander-%s/src directory"), VERSION);
+                g_warning (_("Can’t find the pixmap anywhere. Make sure you have installed the program or is executing gnome-commander from the gnome-commander-%s/src directory"), PACKAGE_VERSION);
             g_free (path2);
         }
 

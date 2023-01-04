@@ -4,7 +4,7 @@
 # Source archive's extension can be specified with rpm --define 'srcext .foo'
 # where .foo is the source archive's actual extension.
 # To compile an RPM from a .bz2 source archive, give the command
-#   rpmbuild -tb --define 'srcext .bz2' @PACKAGE@-@VERSION@.tar.bz2
+#   rpmbuild -tb --define 'srcext .bz2' @PACKAGE@-@PACKAGE_VERSION@.tar.bz2
 #
 
 %if %{?rel:0}%{!?rel:1}
@@ -20,7 +20,7 @@
 %define        poppler_ver           @POPPLER_REQ@
 
 Name:          @PACKAGE@
-Version:       @VERSION@
+Version:       @PACKAGE_VERSION@
 Epoch:         4
 Release:       %{rel}%{?dist}
 Summary:       A nice and fast file manager for the GNOME desktop
@@ -30,7 +30,7 @@ Summary(sv):   GNOME Commander är en snabb och smidig filhanderare för GNOME
 Group:         Applications/File
 License:       GPLv2+
 URL:           https://gcmd.github.io/
-Source0:       ftp://ftp.gnome.org/pub/GNOME/sources/%{name}/1.2/%{name}-%{version}.tar%{srcext}
+Source0:       https://download.gnome.org/sources/@PACKAGE@/1.14/@PACKAGE@-@PACKAGE_VERSION@.tar.xz
 BuildRoot:     %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires: automake
@@ -139,7 +139,7 @@ scrollkeeper-update -q || :
 
 %files -f %{name}.lang
 %defattr(-,root,root,-)
-%doc AUTHORS BUGS ChangeLog COPYING INSTALL NEWS README TODO doc/*.txt
+%doc AUTHORS BUGS COPYING INSTALL NEWS README TODO doc/*.txt
 
 %{_bindir}/*
 %{_libdir}/%{name}/

@@ -2022,7 +2022,7 @@ void help_problem (GtkMenuItem *menuitem, gpointer not_used)
 {
     GError *error = nullptr;
 
-    if (!gtk_show_uri (nullptr, "https://gitlab.gnome.org/GNOME/gnome-commander/issues", GDK_CURRENT_TIME, &error))
+    if (!gtk_show_uri (nullptr, PACKAGE_BUGREPORT, GDK_CURRENT_TIME, &error))
         gnome_cmd_error_message (_("There was an error reporting problem."), error);
 }
 
@@ -2070,7 +2070,7 @@ void help_about (GtkMenuItem *menuitem, gpointer not_used)
 
     gtk_show_about_dialog (*main_win,
                            "name", "GNOME Commander",
-                           "version", VERSION,
+                           "version", PACKAGE_VERSION,
                            "comments", _(comments),
                            "copyright", copyright,
                            "license", license_trans,

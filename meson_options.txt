@@ -1,0 +1,8 @@
+option('help',            type: 'boolean', value: true,   description: 'Defines whether the documentation should be created.')
+option('without-exiv2',   type: 'boolean', value: false,  description: 'Disable EXIF and IPTC support.')
+option('without-libgsf',  type: 'boolean', value: false,  description: 'Disable OLE and ODF support.')
+option('without-poppler', type: 'boolean', value: false,  description: 'Disable PDF support.')
+option('without-samba',   type: 'boolean', value: false,  description: 'Disable SAMBA support.')
+option('without-taglib',  type: 'boolean', value: false,  description: 'Disable taglib (ID3, Vorbis, APE and FLAC) support.')
+option('without-unique',  type: 'boolean', value: false,  description: 'Disable unique support.')
+option('tests',           type: 'feature', value: 'auto', description: 'Build tests')

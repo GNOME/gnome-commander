@@ -1,0 +1,55 @@
+Prerequisites
+=============
+
+Gnome Commander requires the following packages:
+
+- A working GNOME platform including glib 2.66, gtk+ 2.24, and gio 2.0
+- meson
+
+Gnome Commander can also make use of the following packages:
+
+- libunique 0.9.3 or newer
+- libexiv2
+- taglib
+- libgsf
+- poppler
+- samba-client
+- yelp for documentation
+
+Many package managers provide a way to install all the build dependencies for
+a package, such as 'dnf builddep' or 'apt-get build-dep', which will install
+almost all of the above.  The requirements may have changed slightly between
+the version packaged in the distribution and the current development version,
+so you might have to install some additional packages.
+
+
+Simple install procedure
+========================
+
+  % meson setup builddir                         # prepare the build
+  % meson compile -C builddir                    # build Gnome Commander
+  % meson install -C builddir                    # install Gnome Commander
+
+This installs Gnome Commander to the default directory, usually under
+'/usr/local/bin/'.
+
+By default, the build will enable optional features if the packages they require
+are installed. To check which options are available and which are enabled,
+run 'meson configure builddir'.
+
+Changing project options would then work as follows:
+  % meson configure builddir -Doption=value
+
+Uninstall procedure
+===================
+
+If you want to uninstall Gnome Commander again, run as root:
+
+  % ninja -C builddir uninstall
+
+
+The Details
+===========
+
+More detailed installation instructions can be found in [meson's
+website](https://mesonbuild.com/Quick-guide.html).
