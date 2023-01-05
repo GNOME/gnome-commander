@@ -166,7 +166,6 @@ if intl_dep.found()
 endif
 
 #### Check for mmap #####
-
 if cpp.has_function('mmap', prefix : '#include<sys/mman.h>')
   conf_data.set('HAVE_MMAP', 1, description: 'Define to 1 if you have a working `mmap\' system call.')
 endif

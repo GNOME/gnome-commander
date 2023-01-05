@@ -77,10 +77,9 @@ Get the latest source from the [Gnome ftp server](https://download.gnome.org/sou
 ```bash
 ~ » tar -xf gnome-commander-$VERSION.tar.xz # unpack the sources
 ~ » cd gnome-commander-$VERSION             # change to the toplevel directory
-~ » ./configure                             # run the `configure' script
-~ » make                                    # build Gnome Commander
-  [ Become root if necessary ]
-~ » make install                            # install Gnome Commander
+~ » meson setup builddir                    # setup the output directory for building the sources through meson
+~ » meson compile -C builddir               # compile Gnome Commander into builddir directory
+~ » meson install -C builddir               # install Gnome Commander in the system
 ```
 
 For installing Gnome Commander using the sources in the git repository, do the following:
@@ -88,13 +87,9 @@ For installing Gnome Commander using the sources in the git repository, do the f
 ```bash
 ~ » git clone git@gitlab.gnome.org:GNOME/gnome-commander.git
 ~ » cd gnome-commander
-~ » ./autogen.sh
-~ » make
-  [ Become root if necessary ]
-~ » make install
 ```
 
-After executing ``./configure`` or ``./autogen.sh`` see the file ``INSTALL``
+and execut the meson commands from the section above. See the file ``INSTALL``
 for detailed information regarding the installation of Gnome Commander.
 
 ### Tip for working with git ###
