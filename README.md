@@ -101,11 +101,3 @@ activate each hook.
 
 Both scripts run simple checks before actually committing or pushing
 your source code changes.
-
-### Docker ###
-
-There exists also a [Dockerfile](Dockerfile) in the repository. At the
-moment, it is for testing purposes for the Ubuntu distribution only,
-i.e. when you do ``docker build .``, the GCMD sources are compiled on
-the Ubuntu base image. Feel free to push a merge request if you have
-cool ideas using Docker together with GCMD.
