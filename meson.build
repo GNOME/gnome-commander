@@ -94,7 +94,9 @@ common_deps = [
   glib, gmodule, gio, gobject, gtk
 ]
 
-conf_data.set('GLIB_2_70', '@0@'.format(glib_2_70.found().to_int()), description : 'Define to 1 if you have glib >= 2.70')
+if glib_2_70.found()
+  conf_data.set('GLIB_2_70', '@0@'.format(glib_2_70.found().to_int()), description : 'Define to 1 if you have glib >= 2.70')
+endif
 
 ##### Optional dependencies #####
 UNIQUE_REQ = '0.9.3'
