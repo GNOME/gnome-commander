@@ -1,7 +1,7 @@
 project('gnome-commander', 'cpp',
   version: '1.15.0',
   license: 'GPLv2',
-  meson_version: '>= 0.57'
+  meson_version: '>= 0.59'
 )
 
 # Importing modules
