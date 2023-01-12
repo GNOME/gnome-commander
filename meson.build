@@ -114,52 +114,52 @@ POPPLER_REQ = '0.18'
 conf_data.set('POPPLER_REQ', POPPLER_REQ, description: 'Required version of poppler library')
 
 # Check for exiv2 support
-exiv2 = dependency('exiv2', version: '>=' + EXIV2_REQ, required: false)
-have_exif2 = get_option('without-exiv2') ? false : exiv2.found()
+exiv2 = dependency('exiv2', version: '>=' + EXIV2_REQ, required: get_option('exiv2'))
+have_exif2 = exiv2.found()
 if have_exif2
-  conf_data.set('HAVE_EXIV2', '@0@'.format(have_exif2.to_int()), description : 'Define to 1 if you have EXIF and IPTC support')
+  conf_data.set('HAVE_EXIV2', '@0@'.format(have_exif2.to_int()), description : 'Defined if you have EXIF and IPTC support')
 endif
 
 # ToDo: Since latest libgsf is already version 1.14.50, reduce this to one flag instead of three.
 # Check for libgsf
-libgsf = dependency('libgsf-1', version: '>=' + LIBGSF_REQ, required: false)
-have_gsf = get_option('without-libgsf') ? false : libgsf.found()
+libgsf = dependency('libgsf-1', version: '>=' + LIBGSF_REQ, required: get_option('libgsf'))
+have_gsf = libgsf.found()
 if have_gsf
   conf_data.set('HAVE_GSF', '@0@'.format(have_gsf.to_int()), description : 'Define to 1 if you have libgsf (OLE and ODF) support')
 endif
 if have_gsf and libgsf.version().version_compare('>=' + TAGLIB_1_14_24)
-  have_gsf_1_14_24 = have_gsf == false ? false : dependency('libgsf-1', version: '>=' + TAGLIB_1_14_24, required: false).found()
-  conf_data.set('HAVE_GSF_1_14_24', '@0@'.format(have_gsf_1_14_24.to_int()), description : 'Define to 1 if you have libgsf >= 1.14.24')
-  have_gsf_1_14_26 = have_gsf == false ? false : dependency('libgsf-1', version: '>=' + TAGLIB_1_14_26, required: false).found()
-  conf_data.set('HAVE_GSF_1_14_26', '@0@'.format(have_gsf_1_14_26.to_int()), description : 'Define to 1 if you have libgsf >= 1.14.26')
+  have_gsf_1_14_24 = have_gsf == false ? false : dependency('libgsf-1', version: '>=' + TAGLIB_1_14_24, required: get_option('libgsf')).found()
+  conf_data.set('HAVE_GSF_1_14_24', '@0@'.format(have_gsf_1_14_24.to_int()), description : 'Defined if you have libgsf >= 1.14.24')
+  have_gsf_1_14_26 = have_gsf == false ? false : dependency('libgsf-1', version: '>=' + TAGLIB_1_14_26, required: get_option('libgsf')).found()
+  conf_data.set('HAVE_GSF_1_14_26', '@0@'.format(have_gsf_1_14_26.to_int()), description : 'Defined if you have libgsf >= 1.14.26')
 endif
 
 # Check for taglib
-taglib = dependency('taglib', version: '>=' + TAGLIB_REQ, required: false)
-have_taglib = get_option('without-taglib') ? false : taglib.found()
+taglib = dependency('taglib', version: '>=' + TAGLIB_REQ, required: get_option('taglib'))
+have_taglib = taglib.found()
 if have_taglib
-  conf_data.set('HAVE_ID3', '@0@'.format(have_taglib.to_int()), description : 'Define to 1 if you have taglib (ID3, Vorbis, APE and FLAC) support')
+  conf_data.set('HAVE_ID3', '@0@'.format(have_taglib.to_int()), description : 'Defined if you have taglib (ID3, Vorbis, APE and FLAC) support')
 endif
 
 # Check for poppler
-pdf = dependency('poppler-glib', version: '>=' + POPPLER_REQ, required: false)
-have_pdf = get_option('without-poppler') ? false : pdf.found()
+pdf = dependency('poppler-glib', version: '>=' + POPPLER_REQ, required: get_option('poppler'))
+have_pdf = pdf.found()
 if have_pdf
-  conf_data.set('HAVE_PDF', '@0@'.format(have_pdf.to_int()), description : 'Define to 1 if you have PDF support')
+  conf_data.set('HAVE_PDF', '@0@'.format(have_pdf.to_int()), description : 'Defined if you have PDF support')
 endif
 
 # Check for samba
-samba = dependency('smbclient', required: false)
-have_samba = get_option('without-samba') ? false : samba.found()
+samba = dependency('smbclient', required: get_option('samba'))
+have_samba = samba.found()
 if have_samba
-  conf_data.set('HAVE_SAMBA', '@0@'.format(have_samba.to_int()), description : 'Define to 1 if you have smbclient')
+  conf_data.set('HAVE_SAMBA', '@0@'.format(have_samba.to_int()), description : 'Defined if you have smbclient')
 endif
 
 # Check for libunique
-unique = dependency('unique-1.0', version: '>=' + UNIQUE_REQ, required: false)
-have_unique = get_option('without-unique') ? false : unique.found()
+unique = dependency('unique-1.0', version: '>=' + UNIQUE_REQ, required: get_option('unique'))
+have_unique = unique.found()
 if have_unique
-  conf_data.set('HAVE_UNIQUE', '@0@'.format(have_unique.to_int()), description : 'Define to 1 if you have unique support')
+  conf_data.set('HAVE_UNIQUE', '@0@'.format(have_unique.to_int()), description : 'Defined if you have unique support')
 endif
 
 # Check for gettext
