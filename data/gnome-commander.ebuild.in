@@ -11,11 +11,11 @@ HOMEPAGE="https://gcmd.github.io/"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="exif gsf pdf samba taglib test +unique"
+IUSE="doc exif gsf pdf samba taglib test +unique"
 RESTRICT="!test? ( test )"
 
 RDEPEND="
-	app-text/yelp-tools
+	doc? ( gnome-extra/yelp )
 	>=dev-libs/glib-2.70.0:2
 	>=x11-libs/gtk+-@GTK_REQ@:2
 	exif? ( >=media-gfx/exiv2-@EXIV2_REQ@ )
@@ -26,7 +26,7 @@ RDEPEND="
 	unique? ( >=dev-libs/libunique-@UNIQUE_REQ@:1 )
 "
 BDEPEND="
-	app-text/yelp-tools
+	doc? ( app-text/yelp-tools )
 	dev-util/glib-utils
 	dev-util/gtk-doc-am
 	sys-devel/flex
@@ -46,8 +46,8 @@ src_configure() {
 		$(meson_feature samba)
 		$(meson_feature taglib)
 		$(meson_feature unique)
-		-Dhelp=true
 		$(meson_feature test tests)
+		$(meson_use doc help)
 	)
 	meson_src_configure
 }
@@ -55,7 +55,6 @@ src_configure() {
 pkg_postinst() {
 	gnome2_pkg_postinst
 	optfeature "synchronizing files and directories" dev-util/meld
-	optfeature "viewing the documentation" gnome-extra/yelp
 }
 
 pkg_postrm() {
