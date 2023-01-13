@@ -10,6 +10,7 @@ pixmaps = [
   'gnome_cmd_arrow_blank.xpm',
   'gnome_cmd_arrow_down.xpm',
   'gnome_cmd_arrow_up.xpm',
+  'gnome-commander.svg',
   'internal-viewer.svg',
   'mail-send.png',
   'menu_bookmark.xpm',
