@@ -51,7 +51,7 @@ appdata_file = i18n.merge_file(
   output: appdata_file,
   po_dir: po_dir,
   install: true,
-  install_dir: appdatadir
+  install_dir: metainfodir
 )
 
 # Create desktop file
