@@ -31,9 +31,7 @@ Gnome Commander is
 [available in distributions](https://gcmd.github.io/download.html#external)
 like Fedora, Gentoo, Arch, etc.
 
-You can also download tarball releases from the Gnome server:
-
-    https://download.gnome.org/sources/gnome-commander/
+You can also download tarball releases from the [Gnome download server](https://download.gnome.org/sources/gnome-commander/).
 
 ## Contributing ##
 
