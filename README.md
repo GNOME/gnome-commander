@@ -8,16 +8,22 @@ Gnome Commander is a fast and powerful twin-panel file manager for the Linux des
 
 ![ScreenShot](https://gcmd.github.io/ss/MainWin-Classic.png)
 
-* Website: https://gcmd.github.io/
-* Bugs: https://gitlab.gnome.org/GNOME/gnome-commander/issues
+Gnome Commander is released under the GNU General Public License (GPL) version 2,
+see the file ``COPYING`` for more information.
+
+The online available Git log contains a detailed description on what has changed
+in each version. For program users the AppData file might be a better place to
+look since it contains change summaries between the different versions.
+
+Generate a human readable version of the appdata file with the following command:
+  `appstream-util appdata-to-news data/org.gnome.gnome-commander.appdata.xml`
+
+* Website with more information: https://gcmd.github.io/
 
 ### Mailing lists ###
 
 * https://lists.nongnu.org/mailman/listinfo/gcmd-users → for users
 * https://lists.nongnu.org/mailman/listinfo/gcmd-devel → for developers
-
-You can find email addresses of the people who have created Gnome Commander
-in the [AUTHORS](AUTHORS) file.
 
 ### Distribution packages ###
 
@@ -25,19 +31,20 @@ Gnome Commander is
 [available in distributions](https://gcmd.github.io/download.html#external)
 like Fedora, Gentoo, Arch, etc.
 
-## Contributing ##
+You can also download tarball releases from the Gnome server:
 
+    https://download.gnome.org/sources/gnome-commander/
+
+## Contributing ##
 
 ### Ideas ###
 
 If you have some good ideas for stuff you want to see in this program you
 should check the [TODO](TODO) file first before filing a feature request.
 
-
 ### Translations ###
 
 It would be great if you could help translating using [damned lies](https://l10n.gnome.org/).
-
 
 ### Cool hacks ###
 
@@ -45,34 +52,9 @@ Have a look in the [Gnome Wiki](https://wiki.gnome.org/GitLab#GitLab_workflow_fo
 
 Don't forget to write a good explanation of what your patch does.
 
-
-### Problem reporting ###
-
-Bugs should be reported on [Gnome GitLab](https://gitlab.gnome.org/GNOME/gnome-commander/issues).
-You will need to create an account for yourself.
-
-In the bug report please include:
-
-* Information about your system and anything else you think is relevant.
-For instance:
-  * What operating system and version
-  * What version of X
-  * What version of the gtk+, glib and gnome libraries
-  * For Linux, what version of the C library
-* How to reproduce the bug.
-* If the bug was a crash, the exact text that was printed out when the
-  crash occurred.
-* Further information such as stack traces may be useful, but is not
-  necessary. If you do send a stack trace, and the error is an X error,
-  it will be more useful if the stack trace is produced running the test
-  program with the --sync command line option.
-
-Also, have a look at the list of known bugs on GitLab bevore opening a new bug.
-
-
 ## Building ##
 
-Get the latest source from the [Gnome ftp server](https://download.gnome.org/sources/gnome-commander/).
+Get the latest source from the [Gnome server](https://download.gnome.org/sources/gnome-commander/).
 
 ```bash
 ~ » tar -xf gnome-commander-$VERSION.tar.xz # unpack the sources
@@ -89,8 +71,30 @@ For installing Gnome Commander using the sources in the git repository, do the f
 ~ » cd gnome-commander
 ```
 
-and execut the meson commands from the section above. See the file ``INSTALL``
+and execute the meson commands from the section above. See the file [INSTALL](INSTALL)
 for detailed information regarding the installation of Gnome Commander.
+
+### Problem reporting ###
+
+Bugs should be reported on [Gnome GitLab](https://gitlab.gnome.org/GNOME/gnome-commander/issues).
+You will need to create an account for yourself.
+
+In the bug report please include:
+
+* Information about your system and anything else you think is relevant.
+For instance:
+  * What operating system and version
+  * What desktop environment
+  * What version of the gtk+, glib and gnome libraries
+* How to reproduce the bug.
+* If the bug was a crash, the exact text that was printed out when the
+  crash occurred.
+* Further information such as stack traces may be useful, but is not
+  necessary. If you do send a stack trace, and the error is an X error,
+  it will be more useful if the stack trace is produced running the test
+  program with the --sync command line option.
+
+Also, have a look at the list of known bugs on GitLab before opening a new bug.
 
 ### Tip for working with git ###
 

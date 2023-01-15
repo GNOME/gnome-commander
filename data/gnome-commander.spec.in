@@ -139,7 +139,7 @@ scrollkeeper-update -q || :
 
 %files -f %{name}.lang
 %defattr(-,root,root,-)
-%doc AUTHORS BUGS COPYING INSTALL NEWS README TODO doc/*.txt
+%doc AUTHORS BUGS COPYING INSTALL NEWS TODO doc/*.txt
 
 %{_bindir}/*
 %{_libdir}/%{name}/

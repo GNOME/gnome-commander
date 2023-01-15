@@ -16,12 +16,19 @@ Gnome Commander can also make use of the following packages:
 - samba-client
 - yelp for documentation
 
+The minimum version requirements can be found in the top-level meson.config.
+
+If you install GNOME Commander by manually compiling the sources, keep in
+mind that on most Linux distributions you have to install the development
+packages for the above libraries to be found by the configure script.
+These packages are normaly indicated by a "-dev" or "-devel" suffix,
+e.g. libgnome-dev, taglib-dev, etc.
+
 Many package managers provide a way to install all the build dependencies for
 a package, such as 'dnf builddep' or 'apt-get build-dep', which will install
-almost all of the above.  The requirements may have changed slightly between
+almost all of the above. The requirements may have changed slightly between
 the version packaged in the distribution and the current development version,
 so you might have to install some additional packages.
-
 
 Simple install procedure
 ========================
