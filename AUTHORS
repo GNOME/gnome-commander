@@ -9,3 +9,7 @@ A list of contributers to the sources of Gnome Commander can be viewed with the 
 	git shortlog -s -n --no-merges
 
 after cloning the git repository from https://gitlab.gnome.org/GNOME/gnome-commander
+
+Additional contributors:
+
+- Dennis Gert Rebentrost <rebentrostde@gmail.com> ("Select all files" button)
