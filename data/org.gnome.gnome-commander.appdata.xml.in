@@ -59,6 +59,68 @@
   </suggests>
 
   <releases>
+    <release type="stable" version="1.16.0" date="2023-??-??">
+      <description>
+        <p>This release includes the following features and changes:</p>
+        <ul>
+          <li>New menu entry for (un)selecting only files (Thanks to Dennis Gert Rebentrost)</li>
+          <li>Restored internal search after it was removed in version 1.14.0 (Thanks to Roman Pauer)</li>
+          <li>Migrated build system from GNU autotools to Meson (see issue #117)</li>
+        </ul>
+        <p>This release fixes the following bugs:</p>
+        <ul>
+          <li>Fix for showing wrong progress percentage when transfering files</li>
+          <li>Get rid of several deprecated Gtk2 widgets (Thanks to Roman Pauer)</li>
+          <li>Fixes for copy/move; Fixes for canceling copy/move operations (Thanks to Roman Pauer)</li>
+          <li>Fixes for delete operation; Allow cancelling deletion of files; Fix for progress dialog (Thanks to Roman Pauer)</li>
+          <li>Fix for creating directory with enabled Samba support (Thanks to Roman Pauer)</li>
+          <li>Fix for disabling all plugins (Thanks to Roman Pauer)</li>
+          <li>Fix for some errors on console (Thanks to Roman Pauer)</li>
+          <li>Fix for changing the color scheme (Thanks to Roman Pauer)</li>
+          <li>Disable beeping when reaching the end of the file list</li>
+          <li>Various minor code improvements</li>
+        </ul>
+        <p>New or updated translations: cs (Marek Černocký), da (Alan Mortensen), de (Jürgen Benvenuti), es (Daniel Mustieles), eu (Asier Sarasua Garmendia), hu (Balázs Úr), id (Andika Triwidada), id (Kukuh Syafaat), ka (Zurab Kargareteli), nl (Hannie Dumoleyn), nl (Nathan Follens), pl (Piotr Drąg), pt (Hugo Carvalho), pt_BR (Rafael Fontenelle), ro (Daniel Șerbănescu), ru (Sergej A), sl (Matej Urbančič), sr (Мирослав Николић), sv (Anders Jonsson), tr (Sabri Ünal), uk (Yuri Chornoivan)</p>
+        <p>New or updated docs: cs (Marek Černocký), ru (Олеся Герасименко), sv (Anders Jonsson)</p>
+      </description>
+    </release>
+    <release type="stable" version="1.14.3" date="2022-06-18">
+      <description>
+        <p>This release fixes the following bugs:</p>
+        <ul>
+          <li>Fix for crash after doing a file rename</li>
+          <li>Fix leading to not mounting user-defined devices</li>
+          <li>Some memory improvements when walking through directories</li>
+          <li>Issue #124: Unable to switch to USB flash disk with glib 2.72</li>
+        </ul>
+        <p>New or updated translations: cs (Marek Černocký), eu (Asier Sarasua Garmendia), id (Kukuh Syafaat), pl (Piotr Drąg), pt_B (Rafael FontenelleR), sv (Anders Jonsson), uk (Yuri Chornoivan)</p>
+        <p>New or updated docs: cs (Marek Černocký), sv (Anders Jonsson)</p>
+      </description>
+    </release>
+    <release type="stable" version="1.14.2" date="2022-03-27">
+      <description>
+        <p>This release fixes the following bugs:</p>
+        <ul>
+          <li>Issue #121: File sorting by size fails</li>
+          <li>Fix issue when recursively copying directories</li>
+          <li>Fix issue when moving directory from a remote connection</li>
+        </ul>
+        <p>New or updated translations: cs (Marek Černocký), es (Daniel Mustieles), hu (Balázs Úr), id (Andika Triwidada)</p>
+        <p>New or updated docs: sv (Anders Jonsson)</p>
+      </description>
+    </release>
+    <release type="stable" version="1.14.1" date="2022-03-01">
+      <description>
+        <p>This release fixes the following bugs:</p>
+        <ul>
+          <li>Issue #30: Store URI for tab instead of storing absolute path</li>
+          <li>Issue #119: New Text File not created in current directory</li>
+          <li>Issue #120: File list panel shows GMT time not local time</li>
+        </ul>
+        <p>New or updated translations: eu (Asier Sarasua Garmendia), ro (Daniel Șerbănescu), sr (Мирослав Николић)</p>
+        <p>New or updated docs: sv (Anders Jonsson)</p>
+      </description>
+    </release>
     <release type="stable" version="1.14.0" date="2022-02-05">
       <description>
         <p>
