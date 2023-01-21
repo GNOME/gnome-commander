@@ -206,7 +206,7 @@ summary(
 
 summary(
   {
-    'help': get_option('help'),
+    'Generate doc': get_option('help'),
     'Use exiv2': have_exif2,
     'Use libgsf': have_gsf,
     'Use poppler': have_pdf,
