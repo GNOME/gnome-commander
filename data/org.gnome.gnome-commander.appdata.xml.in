@@ -59,6 +59,20 @@
   </suggests>
 
   <releases>
+    <release type="stable" version="1.17.0" date="2023-12-31">
+      <description>
+        <p>This release includes the following features and changes:</p>
+        <ul>
+          <li>...</li>
+        </ul>
+        <p>This release fixes the following bugs:</p>
+        <ul>
+          <li>...</li>
+        </ul>
+        <p>New or updated translations: ...</p>
+        <p>New or updated docs: ...</p>
+      </description>
+    </release>
     <release type="stable" version="1.16.0" date="2023-01-22">
       <description>
         <p>This release includes the following features and changes:</p>
