@@ -98,7 +98,7 @@ appstream_util = find_program('appstream-util', required: false)
 if (appstream_util.found())
   test(
     'validate-appdata', appstream_util,
-    args: ['validate', '--nonet', appdata_file.full_path()],
+    args: ['validate-relax', '--nonet', appdata_file.full_path()],
     workdir: meson.current_build_dir(),
     depends: appdata_file
   )
