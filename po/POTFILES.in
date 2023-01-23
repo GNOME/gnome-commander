@@ -28,6 +28,7 @@ src/dialogs/gnome-cmd-prepare-move-dialog.cc
 src/dialogs/gnome-cmd-prepare-xfer-dialog.cc
 src/dialogs/gnome-cmd-remote-dialog.cc
 src/dialogs/gnome-cmd-rename-dialog.cc
+src/dialogs/gnome-cmd-search-dialog.cc
 src/dirlist.cc
 src/eggcellrendererkeys.cc
 src/gnome-cmd-about-plugin.cc
