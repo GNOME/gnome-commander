@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: gnome-commander\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-commander/issues\n"
 "POT-Creation-Date: 2023-01-22 22:28+0000\n"
-"PO-Revision-Date: 2023-01-22 23:30+0100\n"
+"PO-Revision-Date: 2023-01-25 19:12+0100\n"
 "Last-Translator: Anders Jonsson <anders.jonsson@norsjovallen.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "Language: sv\n"
@@ -2433,7 +2433,7 @@ msgstr "Visa filstorlekar som"
 #. Translators: 'Powered' refers to the mode of file size display (here - display using units of data: kB, MB, GB, ...)
 #: src/dialogs/gnome-cmd-options-dialog.cc:380
 msgid "Powered"
-msgstr "GB, MB o.s.v."
+msgstr "Med GB, MB o.s.v."
 
 #. Translators: '<locale>' refers to the mode of file size display (here - use current locale settings)
 #: src/dialogs/gnome-cmd-options-dialog.cc:386
