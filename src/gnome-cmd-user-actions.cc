@@ -707,7 +707,7 @@ void file_delete (GtkMenuItem *menuitem, gpointer not_used)
 
 void file_view (GtkMenuItem *menuitem, gpointer not_used)
 {
-    gnome_cmd_file_list_view (get_fl (ACTIVE), -1);
+    gnome_cmd_file_list_view (get_fl (ACTIVE), gnome_cmd_data.options.use_internal_viewer);
 }
 
 
@@ -2126,7 +2126,14 @@ int parse_command(string *cmd, const gchar *command)
     {
         auto gnomeCmdFile = (GnomeCmdFile*) sfl->data;
         auto gFileParent = g_file_get_parent(gnomeCmdFile->gFile);
-        dir_path = g_file_get_path(gFileParent);
+        if (gnomeCmdFile->is_local())
+        {
+            dir_path = g_file_get_path(gFileParent);
+        }
+        else
+        {
+            dir_path = g_file_get_uri(gFileParent);
+        }
         g_object_unref(gFileParent);
     }
     else

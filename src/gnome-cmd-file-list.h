@@ -1,4 +1,4 @@
-/** 
+/**
  * @file gnome-cmd-file-list.h
  * @copyright (C) 2001-2006 Marcus Bjurman\n
  * @copyright (C) 2007-2012 Piotr Eljasiak\n
@@ -266,7 +266,7 @@ void gnome_cmd_file_list_show_selpat_dialog (GnomeCmdFileList *fl, gboolean mode
 void gnome_cmd_file_list_cap_cut (GnomeCmdFileList *fl);
 void gnome_cmd_file_list_cap_copy (GnomeCmdFileList *fl);
 
-void gnome_cmd_file_list_view (GnomeCmdFileList *fl, gint internal_viewer);
+void gnome_cmd_file_list_view (GnomeCmdFileList *fl, bool useInternalViewer);
 
 void gnome_cmd_file_list_edit (GnomeCmdFileList *fl);
 

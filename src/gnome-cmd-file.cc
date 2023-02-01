@@ -34,6 +34,7 @@
 #include "tags/gnome-cmd-tags.h"
 #include "intviewer/libgviewer.h"
 #include "dialogs/gnome-cmd-file-props-dialog.h"
+#include "gnome-cmd-user-actions.h"
 
 using namespace std;
 
@@ -911,83 +912,95 @@ void gnome_cmd_file_show_properties (GnomeCmdFile *f)
 }
 
 
-inline void do_view_file (GnomeCmdFile *f, gint internal_viewer=-1)
+static void view_file_with_internal_viewer (GFile *gFile)
 {
-    if (internal_viewer==-1)
-        internal_viewer = gnome_cmd_data.options.use_internal_viewer;
+    auto gnomeCmdFile = gnome_cmd_file_new_from_gfile (gFile);
 
-    switch (internal_viewer)
+    if (!gnomeCmdFile)
+        return;
+
+    GtkWidget *viewer = gviewer_window_file_view (gnomeCmdFile);
+    gtk_widget_show (viewer);
+    gdk_window_set_icon (gtk_widget_get_window (viewer), nullptr,
+                         IMAGE_get_pixmap (PIXMAP_INTERNAL_VIEWER),
+                         IMAGE_get_mask (PIXMAP_INTERNAL_VIEWER));
+
+    gnomeCmdFile->unref();
+}
+
+
+void gnome_cmd_file_view_internal(GnomeCmdFile *f)
+{
+    // If the file is local there is no need to download it
+    if (f->is_local())
     {
-        case TRUE : {
-                        GtkWidget *viewer = gviewer_window_file_view (f);
-                        gtk_widget_show (viewer);
-                        gdk_window_set_icon (gtk_widget_get_window (viewer), nullptr,
-                                             IMAGE_get_pixmap (PIXMAP_INTERNAL_VIEWER),
-                                             IMAGE_get_mask (PIXMAP_INTERNAL_VIEWER));
-                    }
-                    break;
+        view_file_with_internal_viewer (f->gFile);
+        return;
+    }
+    else
+    {
+        // The file is remote, let's download it to a temporary file first
+        gchar *path_str = get_temp_download_filepath (f->get_name());
+        if (!path_str)  return;
 
-        case FALSE: {
-                        gchar *filename = f->get_quoted_real_path();
-#if defined (__GNUC__)
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wformat-nonliteral"
-#endif
-                        gchar *command = g_strdup_printf (gnome_cmd_data.options.viewer, filename);
-#if defined (__GNUC__)
-#pragma GCC diagnostic pop
-#endif
-                        run_command (command);
-                        g_free (filename);
-                    }
-                    break;
+        GnomeCmdPlainPath path(path_str);
+        auto srcGFile = f->get_gfile();
+        auto destGFile = gnome_cmd_con_create_gfile (get_home_con (), &path);
+        auto gFile = gnome_cmd_con_create_gfile (get_home_con (), &path);
 
-        default: break;
+        g_printerr ("Copying to: %s\n", path_str);
+        g_free (path_str);
+
+        gnome_cmd_tmp_download (g_list_append (nullptr, srcGFile),
+                                g_list_append (nullptr, destGFile),
+                                G_FILE_COPY_OVERWRITE,
+                                GTK_SIGNAL_FUNC (view_file_with_internal_viewer),
+                                gFile);
     }
 }
 
-
-static void on_file_downloaded_for_view (GFile *gFile)
+void gnome_cmd_file_view_external(GnomeCmdFile *f)
 {
-    GnomeCmdFile *f = gnome_cmd_file_new_from_gfile (gFile);
-
-    if (!f)
+    string command;
+    if (parse_command(&command, gnome_cmd_data.options.viewer) == 0)
+    {
+        DEBUG ('g', "Edit file command is not valid.\n");
+        gnome_cmd_show_message (*main_win, _("No valid command given."));
         return;
-
-    do_view_file (f);
-    f->unref();
+    }
+    else
+    {
+        gint     argc;
+        gchar  **argv  = nullptr;
+        GError  *error = nullptr;
+        DEBUG ('g', "Edit file: %s\n", command.c_str());
+        g_shell_parse_argv (command.c_str(), &argc, &argv, nullptr);
+        if (!g_spawn_async (nullptr, argv, nullptr, G_SPAWN_SEARCH_PATH, nullptr, nullptr, nullptr, &error))
+        gnome_cmd_error_message (_("Unable to execute command."), error);
+        g_strfreev (argv);
+    }
 }
 
-
-void gnome_cmd_file_view (GnomeCmdFile *f, gint internal_viewer)
+void gnome_cmd_file_view (GnomeCmdFile *f)
 {
     g_return_if_fail (f != nullptr);
     g_return_if_fail (has_parent_dir (f));
 
-    // If the file is local there is no need to download it
-    if (f->is_local())
+    switch (gnome_cmd_data.options.use_internal_viewer)
     {
-        do_view_file (f, internal_viewer);
-        return;
+        case TRUE:
+        {
+            gnome_cmd_file_view_internal(f);
+            break;
+        }
+        case FALSE:
+        {
+            gnome_cmd_file_view_external(f);
+            break;
+        }
+        default:
+            break;
     }
-
-    // The file is remote, let's download it to a temporary file first
-    gchar *path_str = get_temp_download_filepath (f->get_name());
-    if (!path_str)  return;
-
-    GnomeCmdPlainPath path(path_str);
-    auto srcGFile = f->get_gfile();
-    auto destGFile = gnome_cmd_con_create_gfile (get_home_con (), &path);
-    auto gFile = gnome_cmd_con_create_gfile (get_home_con (), &path);
-
-    g_printerr ("Copying to: %s\n", path_str);
-    g_free (path_str);
-
-    gnome_cmd_tmp_download (g_list_append (nullptr, srcGFile),
-                            g_list_append (nullptr, destGFile),
-                            G_FILE_COPY_OVERWRITE,
-                            GTK_SIGNAL_FUNC (on_file_downloaded_for_view),
-                            gFile);
 }
 
 
