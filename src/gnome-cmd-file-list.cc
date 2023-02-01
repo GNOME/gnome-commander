@@ -2496,19 +2496,36 @@ void gnome_cmd_file_list_cap_copy (GnomeCmdFileList *fl)
 }
 
 
-void gnome_cmd_file_list_view (GnomeCmdFileList *fl, gint internal_viewer)
+void gnome_cmd_file_list_view (GnomeCmdFileList *fl, bool useInternalViewer)
 {
     g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl));
 
     GnomeCmdFile *f = fl->get_selected_file();
 
     if (!f)
+    {
         return;
+    }
 
     if (f->GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE) == G_FILE_TYPE_DIRECTORY)
+    {
         gnome_cmd_show_message (*main_win, _("Not an ordinary file."), g_file_info_get_display_name(f->gFileInfo));
-    else
-        gnome_cmd_file_view (f, internal_viewer);
+        return;
+    }
+
+    switch (useInternalViewer)
+    {
+        case TRUE:
+        {
+            gnome_cmd_file_view_internal(f);
+            break;
+        }
+        case FALSE:
+        {
+            gnome_cmd_file_view_external(f);
+            break;
+        }
+    }
 }
 
 

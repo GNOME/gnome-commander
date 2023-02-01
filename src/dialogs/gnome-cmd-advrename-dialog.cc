@@ -276,7 +276,7 @@ void GnomeCmdAdvrenameDialog::Private::on_files_view_popup_menu__view_file (GtkW
         gtk_tree_model_get (model, &iter, COL_FILE, &f, -1);
 
         if (f)
-            gnome_cmd_file_view (f, -1);
+            gnome_cmd_file_view (f);
     }
 }
 
