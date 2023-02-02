@@ -75,11 +75,6 @@ sources_headers = files(
   'utils-no-dependencies.h'
 )
 
-install_headers(
-  sources_headers,
-  subdir: meson.project_name() / 'src'
-)
-
 gnome_cmd_block_sources = files(
   'gnome-cmd-block.cc'
 )

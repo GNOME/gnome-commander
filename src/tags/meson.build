@@ -1,15 +1,10 @@
 tags_headers = files(
-	'gnome-cmd-tags.h',
-	'gnome-cmd-tags-doc.h',
-	'gnome-cmd-tags-exiv2.h',
-	'gnome-cmd-tags-file.h',
-	'gnome-cmd-tags-poppler.h',
-	'gnome-cmd-tags-taglib.h'
-)
-
-install_headers(
-    tags_headers,
-    subdir: meson.project_name() / 'src' / 'tags'
+    'gnome-cmd-tags.h',
+    'gnome-cmd-tags-doc.h',
+    'gnome-cmd-tags-exiv2.h',
+    'gnome-cmd-tags-file.h',
+    'gnome-cmd-tags-poppler.h',
+    'gnome-cmd-tags-taglib.h'
 )
 
 tags_sources = files(

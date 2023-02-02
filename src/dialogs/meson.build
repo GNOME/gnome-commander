@@ -23,11 +23,6 @@ libgmcddialogs_headers = files(
   'gnome-cmd-search-dialog.h',
 )
 
-install_headers(
-  libgmcddialogs_headers,
-  subdir: meson.project_name() / 'src' / 'dialogs'
-)
-
 libgmcddialogs_sources = files(
   'gnome-cmd-advrename-dialog.cc',
   'gnome-cmd-advrename-regex-dialog.cc',

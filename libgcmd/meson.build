@@ -10,11 +10,6 @@ libgcmd_headers = files(
   'libgcmd-widget-factory.h'
 )
 
-install_headers(
-  libgcmd_headers,
-  subdir: meson.project_name() / 'libgcmd'
-)
-
 libgcmd_sources = files(
   'libgcmd-widget-factory.cc',
   'gnome-cmd-dialog.cc',
