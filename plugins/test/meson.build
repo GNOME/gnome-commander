@@ -2,12 +2,7 @@
 testplugin_dir = plugin_dir
 
 testplugin_headers = files(
-	'test-plugin.h'
-)
-
-install_headers(
-    testplugin_headers,
-    subdir: meson.project_name() / 'src' / 'plugins' / 'test'
+    'test-plugin.h'
 )
 
 testplugin_sources = files(

@@ -4,13 +4,13 @@ intviewer_headers = files(
     'cp437.h',
     'datapresentation.h',
     'fileops.h',
-	'gvtypes.h',
+    'gvtypes.h',
     'image-render.h',
     'inputmodes.h',
-	'libgviewer.h',
+    'libgviewer.h',
     'scroll-box.h',
     'search-dlg.h',
-	'search-progress-dlg.h',
+    'search-progress-dlg.h',
     'searcher.h',
     'text-render.h',
     'viewer-utils.h',
@@ -18,27 +18,22 @@ intviewer_headers = files(
     'viewer-window.h'
 )
 
-install_headers(
-	intviewer_headers,
-	subdir: meson.project_name() / 'src'/ 'intviewer'
-)
-
 intviewer_sources = files(
-	'bm_byte.cc',
-	'bm_chartype.cc',
-	'cp437.cc',
-	'datapresentation.cc',
-	'fileops.cc',
-	'image-render.cc',
-	'inputmodes.cc',
-	'scroll-box.cc',
-	'search-dlg.cc',
-	'search-progress-dlg.cc',
-	'searcher.cc',
-	'text-render.cc',
-	'viewer-utils.cc',
-	'viewer-widget.cc',
-	'viewer-window.cc'
+    'bm_byte.cc',
+    'bm_chartype.cc',
+    'cp437.cc',
+    'datapresentation.cc',
+    'fileops.cc',
+    'image-render.cc',
+    'inputmodes.cc',
+    'scroll-box.cc',
+    'search-dlg.cc',
+    'search-progress-dlg.cc',
+    'searcher.cc',
+    'text-render.cc',
+    'viewer-utils.cc',
+    'viewer-widget.cc',
+    'viewer-window.cc'
 )
 
 intviewer_lib = static_library('gviewer',

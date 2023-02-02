@@ -2,12 +2,7 @@
 fileroller_plugin_dir = plugin_dir
 
 filerollerplugin_headers = files(
-	'file-roller-plugin.h'
-)
-
-install_headers(
-    filerollerplugin_headers,
-    subdir: meson.project_name() / 'src' / 'plugins' / 'fileroller'
+    'file-roller-plugin.h'
 )
 
 filerollerplugin_sources = files(
