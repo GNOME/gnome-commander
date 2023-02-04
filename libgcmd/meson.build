@@ -29,6 +29,5 @@ libgcmd_dep = declare_dependency(
 libgcmd = static_library('gcmd',
   include_directories: [libgcmd_includes],
   dependencies: common_deps,
-  install: true,
   sources: [libgcmd_headers, libgcmd_sources],
 )
