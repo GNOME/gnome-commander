@@ -1,25 +1,25 @@
 # Indonesian translation for gnome-commander.
 # Copyright (C) 2012 gnome-commander's COPYRIGHT HOLDER
 # This file is distributed under the same license as the gnome-commander package.
-# Andika Triwidada <andika@gmail.com>, 2012-2014, 2016-2017, 2020, 2021.
+# Andika Triwidada <andika@gmail.com>, 2012-2014, 2016, 2017, 2020-2023.
 # Kukuh Syafaat <kukuhsyafaat@gnome.org>, 2017, 2020, 2021, 2022.
 msgid ""
 msgstr ""
-"Project-Id-Version: gnome-commander gcnd-1-14\n"
+"Project-Id-Version: gnome-commander gcnd-1-16\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-commander/issues\n"
-"POT-Creation-Date: 2022-08-31 23:58+0000\n"
-"PO-Revision-Date: 2022-09-14 15:47+0700\n"
-"Last-Translator: Kukuh Syafaat <kukuhsyafaat@gnome.org>\n"
+"POT-Creation-Date: 2023-01-25 18:17+0000\n"
+"PO-Revision-Date: 2023-02-09 18:44+0700\n"
+"Last-Translator: Andika Triwidada <andika@gmail.com>\n"
 "Language-Team: Indonesian <gnome@i15n.org>\n"
 "Language: id\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 3.1.1\n"
+"X-Generator: Poedit 3.2.2\n"
 
 #: data/org.gnome.gnome-commander.appdata.xml.in:7
-#: data/org.gnome.gnome-commander.desktop.in.in:3 src/gnome-cmd-main-win.cc:872
+#: data/org.gnome.gnome-commander.desktop.in:3 src/gnome-cmd-main-win.cc:876
 msgid "GNOME Commander"
 msgstr "GNOME Commander"
 
@@ -55,12 +55,12 @@ msgstr ""
 msgid "The GNOME Project"
 msgstr "Proyek GNOME"
 
-#: data/org.gnome.gnome-commander.desktop.in.in:4
+#: data/org.gnome.gnome-commander.desktop.in:4
 msgid "A two paned file manager"
 msgstr "Manajer berkas dua panel"
 
 #. TRANSLATORS: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
-#: data/org.gnome.gnome-commander.desktop.in.in:6
+#: data/org.gnome.gnome-commander.desktop.in:6
 msgid "file;manager;folder;explore;disk;filesystem;"
 msgstr ""
 "berkas;file;manager;manajer;folder;direktori;eksplorasi;disk;sistem berkas;"
@@ -134,8 +134,8 @@ msgid ""
 "A custom font that will be used for the file panes if the “Use default font” "
 "option is turned off."
 msgstr ""
-"Fonta ubahan yang akan dipakai bagi panel berkas bila opsi \"Pakai fonta baku"
-"\" dimatikan."
+"Fonta ubahan yang akan dipakai bagi panel berkas bila opsi \"Pakai fonta "
+"baku\" dimatikan."
 
 #: data/org.gnome.gnome-commander.gschema.xml:81
 msgid "Filesize display mode"
@@ -149,7 +149,7 @@ msgstr ""
 "terkait."
 
 #: data/org.gnome.gnome-commander.gschema.xml:88
-#: src/dialogs/gnome-cmd-options-dialog.cc:386
+#: src/dialogs/gnome-cmd-options-dialog.cc:404
 msgid "Permission display mode"
 msgstr "Mode tampilan hak akses"
 
@@ -184,7 +184,7 @@ msgid "'%F %R'"
 msgstr "'%F %R'"
 
 #: data/org.gnome.gnome-commander.gschema.xml:112
-#: src/dialogs/gnome-cmd-options-dialog.cc:402
+#: src/dialogs/gnome-cmd-options-dialog.cc:420
 msgid "Date format"
 msgstr "Format tanggal"
 
@@ -599,36 +599,44 @@ msgstr ""
 "Menentukan apakah riwayat perintah pada baris perintah disimpan saat keluar."
 
 #: data/org.gnome.gnome-commander.gschema.xml:421
+msgid "Save search history on exit"
+msgstr "Simpan riwayat pencarian saat keluar"
+
+#: data/org.gnome.gnome-commander.gschema.xml:422
+msgid "Defines if the history of search patterns is saved on exit."
+msgstr "Menentukan apakah riwayat pola pencarian disimpan saat keluar."
+
+#: data/org.gnome.gnome-commander.gschema.xml:428
 msgid "Always show tab bar"
 msgstr "Selalu tampilkan bilah tab"
 
-#: data/org.gnome.gnome-commander.gschema.xml:422
+#: data/org.gnome.gnome-commander.gschema.xml:429
 msgid "Defines if the tab bar is always shown."
 msgstr "Menentukan apakah bilah tab selalu ditampilkan."
 
-#: data/org.gnome.gnome-commander.gschema.xml:428
-#: src/dialogs/gnome-cmd-options-dialog.cc:970
+#: data/org.gnome.gnome-commander.gschema.xml:435
+#: src/dialogs/gnome-cmd-options-dialog.cc:988
 msgid "Tab lock indicator"
 msgstr "Indikator kunci tab"
 
-#: data/org.gnome.gnome-commander.gschema.xml:429
+#: data/org.gnome.gnome-commander.gschema.xml:436
 msgid "Defines the style of the tab lock indicator."
 msgstr "Menentukan gaya indikator kunci tab."
 
-#: data/org.gnome.gnome-commander.gschema.xml:435
+#: data/org.gnome.gnome-commander.gschema.xml:442
 msgid "Case sensitive sorting"
 msgstr "Pengurutan peka huruf besar kecil"
 
-#: data/org.gnome.gnome-commander.gschema.xml:436
+#: data/org.gnome.gnome-commander.gschema.xml:443
 msgid "This option defines if sorting should be case sensitive."
 msgstr ""
 "Opsi ini menentukan apakah pengurutan mesti membedakan huruf besar kecil."
 
-#: data/org.gnome.gnome-commander.gschema.xml:442
+#: data/org.gnome.gnome-commander.gschema.xml:449
 msgid "Select directories when all is marked"
 msgstr "Pilih direktori ketika semua ditandai"
 
-#: data/org.gnome.gnome-commander.gschema.xml:443
+#: data/org.gnome.gnome-commander.gschema.xml:450
 msgid ""
 "This option defines if directories will be marked when all items in a file "
 "pane should be marked."
@@ -636,19 +644,19 @@ msgstr ""
 "Opsi ini menentukan apakah direktori ditandai ketika semua butir dalam "
 "sebuah panel berkas mesti ditandai."
 
-#: data/org.gnome.gnome-commander.gschema.xml:449
+#: data/org.gnome.gnome-commander.gschema.xml:456
 msgid "Allow multiple instances"
 msgstr "Izinkan instansi berganda"
 
-#: data/org.gnome.gnome-commander.gschema.xml:450
+#: data/org.gnome.gnome-commander.gschema.xml:457
 msgid "This option defines if multiple instances are allowed."
 msgstr "Opsi ini menentukan apakah instansi berganda diizinkan."
 
-#: data/org.gnome.gnome-commander.gschema.xml:456
+#: data/org.gnome.gnome-commander.gschema.xml:463
 msgid "Quick search exact match begin"
 msgstr "Awal cocok persis pencarian cepat"
 
-#: data/org.gnome.gnome-commander.gschema.xml:457
+#: data/org.gnome.gnome-commander.gschema.xml:464
 msgid ""
 "This option defines if quick search should match explicitly at the beginning "
 "of an item name."
@@ -656,11 +664,11 @@ msgstr ""
 "Opsi ini menentukan apakah pencarian cepat mesti secara eksplisit cocok di "
 "awal nama butir."
 
-#: data/org.gnome.gnome-commander.gschema.xml:463
+#: data/org.gnome.gnome-commander.gschema.xml:470
 msgid "Quick search exact match end"
 msgstr "Akhir cocok persis pencarian cepat"
 
-#: data/org.gnome.gnome-commander.gschema.xml:464
+#: data/org.gnome.gnome-commander.gschema.xml:471
 msgid ""
 "This option defines if quick search should match explicitly at the end of an "
 "item name."
@@ -668,11 +676,11 @@ msgstr ""
 "Opsi ini menentukan apakah pencarian cepat mesti secara eksplisit cocok di "
 "akhir nama butir."
 
-#: data/org.gnome.gnome-commander.gschema.xml:470
+#: data/org.gnome.gnome-commander.gschema.xml:477
 msgid "Only device icons"
 msgstr "Hanya ikon perangkat"
 
-#: data/org.gnome.gnome-commander.gschema.xml:471
+#: data/org.gnome.gnome-commander.gschema.xml:478
 msgid ""
 "This option defines if only device icons should be shown instead of icons "
 "and text label."
@@ -680,11 +688,11 @@ msgstr ""
 "Opsi ini menentukan apakah hanya ikon perangkat yang mesti ditampilkan bukan "
 "ikon dan label teks."
 
-#: data/org.gnome.gnome-commander.gschema.xml:477
+#: data/org.gnome.gnome-commander.gschema.xml:484
 msgid "Show the samba workgroups icon"
 msgstr "Tampilkan ikon workgroup samba"
 
-#: data/org.gnome.gnome-commander.gschema.xml:478
+#: data/org.gnome.gnome-commander.gschema.xml:485
 msgid ""
 "This option defines if the Samba workgroups icon should be shown in the "
 "devices list."
@@ -692,58 +700,96 @@ msgstr ""
 "Opsi ini menentukan apakah ikon workgroup Samba harus ditampilkan dalam "
 "daftar perangkat."
 
-#: data/org.gnome.gnome-commander.gschema.xml:484
+#: data/org.gnome.gnome-commander.gschema.xml:491
 msgid "Main menu visibility"
 msgstr "Kenampakan menu utama"
 
-#: data/org.gnome.gnome-commander.gschema.xml:485
+#: data/org.gnome.gnome-commander.gschema.xml:492
 msgid "This option defines if the main menu is visible or not."
 msgstr "Opsi ini menentukan apakah menu utama tampak atau tidak."
 
-#: data/org.gnome.gnome-commander.gschema.xml:491
+#: data/org.gnome.gnome-commander.gschema.xml:498
 msgid "Quick search shortcut"
 msgstr "Pintasan pencarian kilat"
 
-#: data/org.gnome.gnome-commander.gschema.xml:492
+#: data/org.gnome.gnome-commander.gschema.xml:499
 msgid "This option defines the shortcut for quick search."
 msgstr "Opsi ini menentukan pintasan untuk pencarian cepat."
 
-#: data/org.gnome.gnome-commander.gschema.xml:498
+#: data/org.gnome.gnome-commander.gschema.xml:505
 msgid "List of file tabs"
 msgstr "Daftar tab berkas"
 
-#: data/org.gnome.gnome-commander.gschema.xml:499
+#: data/org.gnome.gnome-commander.gschema.xml:506
 msgid ""
 "The entries in this list are used for restoring the tabs from the last "
 "session."
 msgstr ""
 "Entri dalam daftar ini digunakan untuk memulihkan tab dari sesi terakhir."
 
-#: data/org.gnome.gnome-commander.gschema.xml:505
+#: data/org.gnome.gnome-commander.gschema.xml:512
 msgid "List of devices"
 msgstr "Daftar peranti"
 
-#: data/org.gnome.gnome-commander.gschema.xml:506
+#: data/org.gnome.gnome-commander.gschema.xml:513
 msgid "The entries in this list represent the devices configured by the user."
 msgstr ""
 "Entri dalam daftar ini mewakili peranti yang dikonfigurasi oleh pengguna."
 
-#: data/org.gnome.gnome-commander.gschema.xml:512
+#: data/org.gnome.gnome-commander.gschema.xml:519
 msgid "List of favorite apps"
 msgstr "Daftar aplikasi favorit"
 
-#: data/org.gnome.gnome-commander.gschema.xml:513
+#: data/org.gnome.gnome-commander.gschema.xml:520
 msgid ""
 "The entries in this list represent the favorite apps configured by the user."
 msgstr ""
 "Entri dalam daftar ini mewakili aplikasi favorit yang dikonfigurasi oleh "
 "pengguna."
 
-#: data/org.gnome.gnome-commander.gschema.xml:519
+#: data/org.gnome.gnome-commander.gschema.xml:526
+msgid "Search window width"
+msgstr "Lebar jendela pencarian"
+
+#: data/org.gnome.gnome-commander.gschema.xml:527
+msgid "This option defines the width of the search window."
+msgstr "Opsi ini menentukan lebar jendela pencarian."
+
+#: data/org.gnome.gnome-commander.gschema.xml:533
+msgid "Search window height"
+msgstr "Tinggi jendela pencarian"
+
+#: data/org.gnome.gnome-commander.gschema.xml:534
+msgid "This option defines the height of the search window."
+msgstr "Opsi ini menentukan tinggi jendela pencarian."
+
+#: data/org.gnome.gnome-commander.gschema.xml:540
+msgid "Search window is transient"
+msgstr "Jendela pencarian adalah sementara"
+
+#: data/org.gnome.gnome-commander.gschema.xml:541
+msgid ""
+"Defines if the search window is transient or if it can be minimized and "
+"moved behind the main window."
+msgstr ""
+"Mendefinisikan jika jendela pencarian bersifat sementara atau jika dapat "
+"diminimalkan dan dipindahkan ke belakang jendela utama."
+
+#: data/org.gnome.gnome-commander.gschema.xml:547
+msgid "Search text history"
+msgstr "Riwayat teks pencarian"
+
+#: data/org.gnome.gnome-commander.gschema.xml:548
+msgid ""
+"This string array represents the history of text searches in the search tool."
+msgstr ""
+"Array string ini mewakili riwayat teks yang dicari dalam alat pencarian."
+
+#: data/org.gnome.gnome-commander.gschema.xml:554
 msgid "Search pattern history"
 msgstr "Riwayat pola pencarian"
 
-#: data/org.gnome.gnome-commander.gschema.xml:520
+#: data/org.gnome.gnome-commander.gschema.xml:555
 msgid ""
 "This string array represents the history of regular expression searches in "
 "the search tool."
@@ -751,11 +797,11 @@ msgstr ""
 "Larik string ini mewakili riwayat pencarian ekspresi reguler di alat "
 "pencarian."
 
-#: data/org.gnome.gnome-commander.gschema.xml:526
+#: data/org.gnome.gnome-commander.gschema.xml:561
 msgid "List of search tool profiles"
 msgstr "Daftar profil alat pencarian"
 
-#: data/org.gnome.gnome-commander.gschema.xml:527
+#: data/org.gnome.gnome-commander.gschema.xml:562
 msgid ""
 "The entries in this array represent the profiles in the search tool with "
 "specific settings for each profile."
@@ -763,46 +809,46 @@ msgstr ""
 "Entri dalam larik ini mewakili profil-profil dalam alat pencarian dengan "
 "pengaturan khusus untuk setiap profil."
 
-#: data/org.gnome.gnome-commander.gschema.xml:535
+#: data/org.gnome.gnome-commander.gschema.xml:570
 msgid "Quick connect URI"
 msgstr "URI penyambungan cepat"
 
-#: data/org.gnome.gnome-commander.gschema.xml:536
+#: data/org.gnome.gnome-commander.gschema.xml:571
 msgid "Unified resource identifier for quick connections."
 msgstr "Unified resource identifier untuk koneksi cepat."
 
-#: data/org.gnome.gnome-commander.gschema.xml:547
+#: data/org.gnome.gnome-commander.gschema.xml:582
 msgid "Password for anonymous FTP connections"
 msgstr "Sandi untuk koneksi FTP anonim"
 
-#: data/org.gnome.gnome-commander.gschema.xml:548
+#: data/org.gnome.gnome-commander.gschema.xml:583
 msgid "This string defines the password for anonymous FTP connections."
 msgstr "String ini menentukan sandi untuk koneksi FTP anonim."
 
-#: data/org.gnome.gnome-commander.gschema.xml:556
+#: data/org.gnome.gnome-commander.gschema.xml:591
 msgid "Confirm delete"
 msgstr "Konfirmasi hapus"
 
-#: data/org.gnome.gnome-commander.gschema.xml:557
+#: data/org.gnome.gnome-commander.gschema.xml:592
 msgid "Defines if deletion of an item should be confirmed."
 msgstr "Menentukan apakah penghapusan sebuah butir memerlukan konfirmasi."
 
-#: data/org.gnome.gnome-commander.gschema.xml:563
+#: data/org.gnome.gnome-commander.gschema.xml:598
 msgid "Delete default"
 msgstr "Baku hapus"
 
-#: data/org.gnome.gnome-commander.gschema.xml:564
+#: data/org.gnome.gnome-commander.gschema.xml:599
 msgid ""
 "This setting defines the default active option in the delete confirmation "
 "dialog."
 msgstr ""
 "Pengaturan ini menentukan opsi aktif baku dalam dialog konfirmasi hapus."
 
-#: data/org.gnome.gnome-commander.gschema.xml:570
+#: data/org.gnome.gnome-commander.gschema.xml:605
 msgid "Confirm copy overwrite"
 msgstr "Konfirmasi timpa salin"
 
-#: data/org.gnome.gnome-commander.gschema.xml:571
+#: data/org.gnome.gnome-commander.gschema.xml:606
 msgid ""
 "This option defines the default behavior when items will be overwritten by a "
 "copy command."
@@ -810,11 +856,11 @@ msgstr ""
 "Opsi ini menentukan perilaku baku ketika butir akan ditimpa oleh perintah "
 "salin."
 
-#: data/org.gnome.gnome-commander.gschema.xml:577
+#: data/org.gnome.gnome-commander.gschema.xml:612
 msgid "Confirm move overwrite"
 msgstr "Konfirmasi timpa pindah"
 
-#: data/org.gnome.gnome-commander.gschema.xml:578
+#: data/org.gnome.gnome-commander.gschema.xml:613
 msgid ""
 "This option defines the default behavior when items will be overwritten by a "
 "move command."
@@ -822,36 +868,36 @@ msgstr ""
 "Opsi ini menentukan perilaku baku ketika butir akan ditimpa oleh sebuah "
 "perintah pindah."
 
-#: data/org.gnome.gnome-commander.gschema.xml:584
+#: data/org.gnome.gnome-commander.gschema.xml:619
 msgid "Confirm mouse drag and drop"
 msgstr "Konfirmasi seret dan jatuhkan tetikus"
 
-#: data/org.gnome.gnome-commander.gschema.xml:585
+#: data/org.gnome.gnome-commander.gschema.xml:620
 msgid "This option defines the behavior of mouse drag and drop operations."
 msgstr "Opsi ini menentukan perilaku dari operasi seret dan jatuhkan tetikus."
 
-#: data/org.gnome.gnome-commander.gschema.xml:593
+#: data/org.gnome.gnome-commander.gschema.xml:628
 msgid "Hide unknown filetypes"
 msgstr "Sembunyikan tipe berkas yang tidak dikenal"
 
-#: data/org.gnome.gnome-commander.gschema.xml:594
+#: data/org.gnome.gnome-commander.gschema.xml:629
 msgid "Hide files which type does not match to one of the other types."
 msgstr ""
 "Sembunyikan berkas yang tipenya tidak cocok dengan satu dari tipe lain."
 
-#: data/org.gnome.gnome-commander.gschema.xml:598
+#: data/org.gnome.gnome-commander.gschema.xml:633
 msgid "Hide regular files"
 msgstr "Sembunyikan berkas biasa"
 
-#: data/org.gnome.gnome-commander.gschema.xml:602
+#: data/org.gnome.gnome-commander.gschema.xml:637
 msgid "Hide directories"
 msgstr "Sembunyikan direktori"
 
-#: data/org.gnome.gnome-commander.gschema.xml:606
+#: data/org.gnome.gnome-commander.gschema.xml:641
 msgid "Hide symbolic links"
 msgstr "Sembunyikan taut simbolik"
 
-#: data/org.gnome.gnome-commander.gschema.xml:610
+#: data/org.gnome.gnome-commander.gschema.xml:645
 msgid ""
 "Hide special files, such as a socket, fifo, block devices, or character "
 "devices."
@@ -859,41 +905,41 @@ msgstr ""
 "Sembunyikan berkas khusus, seperti soket, fifo, perangkat blok, atau "
 "perangkat karakter."
 
-#: data/org.gnome.gnome-commander.gschema.xml:614
+#: data/org.gnome.gnome-commander.gschema.xml:649
 msgid "Hide shortcut files (Windows systems)"
 msgstr "Sembunyikan berkas pintasan (sistem Windows)"
 
-#: data/org.gnome.gnome-commander.gschema.xml:618
+#: data/org.gnome.gnome-commander.gschema.xml:653
 msgid "Hide mountable locations"
 msgstr "Sembunyikan lokasi yang dapat dikait"
 
-#: data/org.gnome.gnome-commander.gschema.xml:622
+#: data/org.gnome.gnome-commander.gschema.xml:657
 msgid "Hide virtual files"
 msgstr "Sembunyikan berkas virtual"
 
-#: data/org.gnome.gnome-commander.gschema.xml:626
+#: data/org.gnome.gnome-commander.gschema.xml:661
 msgid "Hide volatile files"
 msgstr "Sembunyikan berkas volatil"
 
-#: data/org.gnome.gnome-commander.gschema.xml:630
+#: data/org.gnome.gnome-commander.gschema.xml:665
 msgid "Hide files and folders starting with a dot"
 msgstr "Sembunyikan berkas dan folder yang dimulai dengan sebuah titik"
 
-#: data/org.gnome.gnome-commander.gschema.xml:634
+#: data/org.gnome.gnome-commander.gschema.xml:669
 msgid "Hide backup files"
 msgstr "Sembunyikan berkas cadangan"
 
-#: data/org.gnome.gnome-commander.gschema.xml:635
+#: data/org.gnome.gnome-commander.gschema.xml:670
 msgid "Hide all files with a suffix defined as the backup pattern."
 msgstr ""
 "Sembunyikan semua berkas dengan sebuah sufiks yang didefinisikan sebagai "
 "pola cadangan."
 
-#: data/org.gnome.gnome-commander.gschema.xml:639
+#: data/org.gnome.gnome-commander.gschema.xml:674
 msgid "Backup file pattern"
 msgstr "Pola berkas cadangan"
 
-#: data/org.gnome.gnome-commander.gschema.xml:640
+#: data/org.gnome.gnome-commander.gschema.xml:675
 msgid ""
 "The given string defines suffixes (separated by semicolon) for files which "
 "should be filtered out if backup files should be hidden."
@@ -902,11 +948,11 @@ msgstr ""
 "untuk berkas-berkas yang mesti disaring bila berkas cadangan mesti "
 "disembunyikan."
 
-#: data/org.gnome.gnome-commander.gschema.xml:649
+#: data/org.gnome.gnome-commander.gschema.xml:684
 msgid "Do not download files"
 msgstr "Jangan unduh berkas"
 
-#: data/org.gnome.gnome-commander.gschema.xml:650
+#: data/org.gnome.gnome-commander.gschema.xml:685
 msgid ""
 "This option defines if remote files should be downloaded before opened by "
 "external programs."
@@ -914,54 +960,63 @@ msgstr ""
 "Opsi ini menentukan apakah berkas jauh mesti diunduh sebelum dibuka oleh "
 "program eksternal."
 
-#: data/org.gnome.gnome-commander.gschema.xml:656
+#: data/org.gnome.gnome-commander.gschema.xml:691
 msgid "Use internal viewer"
 msgstr "Gunakan penampil internal"
 
-#: data/org.gnome.gnome-commander.gschema.xml:657
+#: data/org.gnome.gnome-commander.gschema.xml:692
 msgid "This option defines if the internal viewer should be used by default."
 msgstr ""
 "Opsi ini menentukan apakah penampil internal mesti dipakai secara baku."
 
-#: data/org.gnome.gnome-commander.gschema.xml:663
+#: data/org.gnome.gnome-commander.gschema.xml:698
 msgid "Viewer command"
 msgstr "Perintah penampil"
 
-#: data/org.gnome.gnome-commander.gschema.xml:664
+#: data/org.gnome.gnome-commander.gschema.xml:699
 msgid "This string defines the command for starting the (external) viewer."
 msgstr "String ini menentukan perintah untuk memulai penampil (eksternal)."
 
-#: data/org.gnome.gnome-commander.gschema.xml:670
+#: data/org.gnome.gnome-commander.gschema.xml:705
 msgid "Editor command"
 msgstr "Perintah penyunting"
 
-#: data/org.gnome.gnome-commander.gschema.xml:671
+#: data/org.gnome.gnome-commander.gschema.xml:706
 msgid "This string defines the command for starting the editor."
 msgstr "String ini menentukan perintah untuk memulai penyunting."
 
-#: data/org.gnome.gnome-commander.gschema.xml:677
+#: data/org.gnome.gnome-commander.gschema.xml:712
 msgid "Differ command"
 msgstr "Perintah membeda"
 
-#: data/org.gnome.gnome-commander.gschema.xml:678
+#: data/org.gnome.gnome-commander.gschema.xml:713
 msgid "This string defines the command for starting the diff tool."
 msgstr "String ini menentukan perintah untuk memulai perkakas diff."
 
-#: data/org.gnome.gnome-commander.gschema.xml:684
+#: data/org.gnome.gnome-commander.gschema.xml:719
+msgid "Use internal search"
+msgstr "Gunakan pencarian internal"
+
+#: data/org.gnome.gnome-commander.gschema.xml:720
+msgid "This option defines if the internal search should be used by default."
+msgstr ""
+"Opsi ini menentukan apakah pencarian internal mesti digunakan secara baku."
+
+#: data/org.gnome.gnome-commander.gschema.xml:726
 msgid "Search command"
 msgstr "Perintah pencarian"
 
-#: data/org.gnome.gnome-commander.gschema.xml:685
+#: data/org.gnome.gnome-commander.gschema.xml:727
 msgid ""
 "This string defines the command for starting an external file search tool."
 msgstr ""
 "String ini menentukan perintah untuk memulai alat pencarian berkas eksternal."
 
-#: data/org.gnome.gnome-commander.gschema.xml:691
+#: data/org.gnome.gnome-commander.gschema.xml:733
 msgid "Leave terminal open"
 msgstr "Biarkan terminal terbuka"
 
-#: data/org.gnome.gnome-commander.gschema.xml:692
+#: data/org.gnome.gnome-commander.gschema.xml:734
 msgid ""
 "This option defines if a terminal window should stay open after a command "
 "finishes inside of it."
@@ -969,111 +1024,111 @@ msgstr ""
 "Opsi ini menentukan apakah sebuah jendela terminal mesti tetap terbuka "
 "setelah sebuah perintah berakhir di dalamnya."
 
-#: data/org.gnome.gnome-commander.gschema.xml:698
+#: data/org.gnome.gnome-commander.gschema.xml:740
 msgid "Command for opening a terminal"
 msgstr "Perintah untuk membuka sebuah terminal"
 
-#: data/org.gnome.gnome-commander.gschema.xml:699
+#: data/org.gnome.gnome-commander.gschema.xml:741
 msgid "This string defines the command for opening a terminal."
 msgstr "String ini menentukan perintah untuk membuka sebuah terminal."
 
-#: data/org.gnome.gnome-commander.gschema.xml:705
+#: data/org.gnome.gnome-commander.gschema.xml:747
 msgid "Command for execution in terminal"
 msgstr "Perintah untuk eksekusi dalam terminal"
 
-#: data/org.gnome.gnome-commander.gschema.xml:706
+#: data/org.gnome.gnome-commander.gschema.xml:748
 msgid ""
 "This string defines the command for executing another command in a terminal."
 msgstr ""
 "String ini menentukan perintah untuk mengeksekusi perintah lain dalam sebuah "
 "terminal."
 
-#: data/org.gnome.gnome-commander.gschema.xml:712
+#: data/org.gnome.gnome-commander.gschema.xml:754
 msgid "Send to command"
 msgstr "Perintah kirim ke"
 
-#: data/org.gnome.gnome-commander.gschema.xml:713
+#: data/org.gnome.gnome-commander.gschema.xml:755
 msgid "This string defines the command for sending files to a receiver."
 msgstr ""
 "String ini menentukan perintah untuk mengirim berkas ke suatu penerima."
 
-#: data/org.gnome.gnome-commander.gschema.xml:721
+#: data/org.gnome.gnome-commander.gschema.xml:763
 msgid "Color theme"
 msgstr "Tema warna"
 
-#: data/org.gnome.gnome-commander.gschema.xml:722
+#: data/org.gnome.gnome-commander.gschema.xml:764
 msgid "This option defines the current color theme."
 msgstr "Opsi ini menentukan tema warna saat ini."
 
-#: data/org.gnome.gnome-commander.gschema.xml:728
+#: data/org.gnome.gnome-commander.gschema.xml:770
 msgid "Normal foreground color"
 msgstr "Warna latar depan normal"
 
-#: data/org.gnome.gnome-commander.gschema.xml:729
+#: data/org.gnome.gnome-commander.gschema.xml:771
 msgid "Normal foreground color in custom mode."
 msgstr "Warna latar depan normal dalam mode ubahan."
 
-#: data/org.gnome.gnome-commander.gschema.xml:735
+#: data/org.gnome.gnome-commander.gschema.xml:777
 msgid "Normal background color"
 msgstr "Warna latar belakang normal"
 
-#: data/org.gnome.gnome-commander.gschema.xml:736
+#: data/org.gnome.gnome-commander.gschema.xml:778
 msgid "Normal background color in custom mode."
 msgstr "Warna latar belakang dalam mode ubahan."
 
-#: data/org.gnome.gnome-commander.gschema.xml:742
+#: data/org.gnome.gnome-commander.gschema.xml:784
 msgid "Alternate foreground color"
 msgstr "Warna latar depan alternatif"
 
-#: data/org.gnome.gnome-commander.gschema.xml:743
+#: data/org.gnome.gnome-commander.gschema.xml:785
 msgid "Alternate foreground color in custom mode."
 msgstr "Warna latar depan alternatif dalam mode ubahan."
 
-#: data/org.gnome.gnome-commander.gschema.xml:749
+#: data/org.gnome.gnome-commander.gschema.xml:791
 msgid "Alternate background color"
 msgstr "Warna latar belakang alternatif"
 
-#: data/org.gnome.gnome-commander.gschema.xml:750
+#: data/org.gnome.gnome-commander.gschema.xml:792
 msgid "Alternate background color in custom mode."
 msgstr "Warna latar belakang alternatif dalam mode ubahan."
 
-#: data/org.gnome.gnome-commander.gschema.xml:756
+#: data/org.gnome.gnome-commander.gschema.xml:798
 msgid "Selection foreground color"
 msgstr "Warna latar depan pilihan"
 
-#: data/org.gnome.gnome-commander.gschema.xml:757
+#: data/org.gnome.gnome-commander.gschema.xml:799
 msgid "Foreground color for selections in custom mode."
 msgstr "Warna latar depan untuk pilihan dalam mode ubahan."
 
-#: data/org.gnome.gnome-commander.gschema.xml:763
+#: data/org.gnome.gnome-commander.gschema.xml:805
 msgid "Selection background color"
 msgstr "Warna latar belakang pilihan"
 
-#: data/org.gnome.gnome-commander.gschema.xml:764
+#: data/org.gnome.gnome-commander.gschema.xml:806
 msgid "Background color for selections in custom mode."
 msgstr "Warna latar belakang untuk pilihan dalam mode ubahan."
 
-#: data/org.gnome.gnome-commander.gschema.xml:770
+#: data/org.gnome.gnome-commander.gschema.xml:812
 msgid "Cursor foreground color"
 msgstr "Warna latar depan kursor"
 
-#: data/org.gnome.gnome-commander.gschema.xml:771
+#: data/org.gnome.gnome-commander.gschema.xml:813
 msgid "Cursor foreground color in custom mode."
 msgstr "Warna latar depan kursor dalam mode ubahan."
 
-#: data/org.gnome.gnome-commander.gschema.xml:777
+#: data/org.gnome.gnome-commander.gschema.xml:819
 msgid "Cursor background color"
 msgstr "Warna latar belakang kursor"
 
-#: data/org.gnome.gnome-commander.gschema.xml:778
+#: data/org.gnome.gnome-commander.gschema.xml:820
 msgid "Cursor background color in custom mode."
 msgstr "Warna latar belakang kursor dalam mode ubahan."
 
-#: data/org.gnome.gnome-commander.gschema.xml:784
+#: data/org.gnome.gnome-commander.gschema.xml:826
 msgid "Use LS colors"
 msgstr "Gunakan warna LS"
 
-#: data/org.gnome.gnome-commander.gschema.xml:785
+#: data/org.gnome.gnome-commander.gschema.xml:827
 msgid ""
 "This option triggers if the value of the environment variable LS_COLORS "
 "should be used to dye files and folders."
@@ -1081,171 +1136,171 @@ msgstr ""
 "Opsi ini memicu apakah nilai dari variabel lingkungan LS_COLORS mesti "
 "dipakai untuk mewarnai berkas dan folder."
 
-#: data/org.gnome.gnome-commander.gschema.xml:792
+#: data/org.gnome.gnome-commander.gschema.xml:834
 msgid "LS_COLORS black foreground mapping"
 msgstr "Pemetaan latar depan hitam LS_COLORS"
 
-#: data/org.gnome.gnome-commander.gschema.xml:793
+#: data/org.gnome.gnome-commander.gschema.xml:835
 msgid ""
 "This option adjusts the foreground color mapping for LS_COLORS black value."
 msgstr ""
 "Opsi ini menyetel pemetaan warna latar depan bagi nilai hitam LS_COLORS."
 
-#: data/org.gnome.gnome-commander.gschema.xml:799
+#: data/org.gnome.gnome-commander.gschema.xml:841
 msgid "LS_COLORS black background mapping"
 msgstr "Pemetaan latar belakang hitam LS_COLORS"
 
-#: data/org.gnome.gnome-commander.gschema.xml:800
+#: data/org.gnome.gnome-commander.gschema.xml:842
 msgid ""
 "This option adjusts the background color mapping for LS_COLORS black value."
 msgstr ""
 "Opsi ini menyetel pemetaan warna latar belakang bagi nilai hitam LS_COLORS."
 
-#: data/org.gnome.gnome-commander.gschema.xml:806
+#: data/org.gnome.gnome-commander.gschema.xml:848
 msgid "LS_COLORS red foreground mapping"
 msgstr "Pemetaan latar depan merah LS_COLORS"
 
-#: data/org.gnome.gnome-commander.gschema.xml:807
+#: data/org.gnome.gnome-commander.gschema.xml:849
 msgid ""
 "This option adjusts the foreground color mapping for LS_COLORS red value."
 msgstr ""
 "Opsi ini menyetel pemetaan warna latar depan bagi nilai merah LS_COLORS."
 
-#: data/org.gnome.gnome-commander.gschema.xml:813
+#: data/org.gnome.gnome-commander.gschema.xml:855
 msgid "LS_COLORS red background mapping"
 msgstr "Pemetaan latar belakang merah LS_COLORS"
 
-#: data/org.gnome.gnome-commander.gschema.xml:814
+#: data/org.gnome.gnome-commander.gschema.xml:856
 msgid ""
 "This option adjusts the background color mapping for LS_COLORS red value."
 msgstr ""
 "Opsi ini menyetel pemetaan warna latar belakang bagi nilai merah LS_COLORS."
 
-#: data/org.gnome.gnome-commander.gschema.xml:820
+#: data/org.gnome.gnome-commander.gschema.xml:862
 msgid "LS_COLORS green foreground mapping"
 msgstr "Pemetaan latar depan hijau LS_COLORS"
 
-#: data/org.gnome.gnome-commander.gschema.xml:821
+#: data/org.gnome.gnome-commander.gschema.xml:863
 msgid ""
 "This option adjusts the foreground color mapping for LS_COLORS green value."
 msgstr ""
 "Opsi ini menyetel pemetaan warna latar depan bagi nilai hijau LS_COLORS."
 
-#: data/org.gnome.gnome-commander.gschema.xml:827
+#: data/org.gnome.gnome-commander.gschema.xml:869
 msgid "LS_COLORS green background mapping"
 msgstr "Pemetaan latar belakang hijau LS_COLORS"
 
-#: data/org.gnome.gnome-commander.gschema.xml:828
+#: data/org.gnome.gnome-commander.gschema.xml:870
 msgid ""
 "This option adjusts the background color mapping for LS_COLORS green value."
 msgstr ""
 "Opsi ini menyetel pemetaan warna latar belakang bagi nilai hijau LS_COLORS."
 
-#: data/org.gnome.gnome-commander.gschema.xml:834
+#: data/org.gnome.gnome-commander.gschema.xml:876
 msgid "LS_COLORS yellow foreground mapping"
 msgstr "Pemetaan latar depan kuning LS_COLORS"
 
-#: data/org.gnome.gnome-commander.gschema.xml:835
+#: data/org.gnome.gnome-commander.gschema.xml:877
 msgid ""
 "This option adjusts the foreground color mapping for LS_COLORS yellow value."
 msgstr ""
 "Opsi ini menyetel pemetaan warna latar depan bagi nilai kuning LS_COLORS."
 
-#: data/org.gnome.gnome-commander.gschema.xml:841
+#: data/org.gnome.gnome-commander.gschema.xml:883
 msgid "LS_COLORS yellow background mapping"
 msgstr "Pemetaan latar belakang kuning LS_COLORS"
 
-#: data/org.gnome.gnome-commander.gschema.xml:842
+#: data/org.gnome.gnome-commander.gschema.xml:884
 msgid ""
 "This option adjusts the background color mapping for LS_COLORS yellow value."
 msgstr ""
 "Opsi ini menyetel pemetaan warna latar belakang bagi nilai kuning LS_COLORS."
 
-#: data/org.gnome.gnome-commander.gschema.xml:848
+#: data/org.gnome.gnome-commander.gschema.xml:890
 msgid "LS_COLORS blue foreground mapping"
 msgstr "Pemetaan latar depan blue LS_COLORS"
 
-#: data/org.gnome.gnome-commander.gschema.xml:849
+#: data/org.gnome.gnome-commander.gschema.xml:891
 msgid ""
 "This option adjusts the foreground color mapping for LS_COLORS blue value."
 msgstr ""
 "Opsi ini menyetel pemetaan warna latar depan bagi nilai biru LS_COLORS."
 
-#: data/org.gnome.gnome-commander.gschema.xml:855
+#: data/org.gnome.gnome-commander.gschema.xml:897
 msgid "LS_COLORS blue background mapping"
 msgstr "Pemetaan latar belakang biru LS_COLORS"
 
-#: data/org.gnome.gnome-commander.gschema.xml:856
+#: data/org.gnome.gnome-commander.gschema.xml:898
 msgid ""
 "This option adjusts the background color mapping for LS_COLORS blue value."
 msgstr ""
 "Opsi ini menyetel pemetaan warna latar belakang bagi nilai biru LS_COLORS."
 
-#: data/org.gnome.gnome-commander.gschema.xml:862
+#: data/org.gnome.gnome-commander.gschema.xml:904
 msgid "LS_COLORS magenta foreground mapping"
 msgstr "Pemetaan latar depan magenta LS_COLORS"
 
-#: data/org.gnome.gnome-commander.gschema.xml:863
+#: data/org.gnome.gnome-commander.gschema.xml:905
 msgid ""
 "This option adjusts the foreground color mapping for LS_COLORS magenta value."
 msgstr ""
 "Opsi ini menyetel pemetaan warna latar depan bagi nilai magenta LS_COLORS."
 
-#: data/org.gnome.gnome-commander.gschema.xml:869
+#: data/org.gnome.gnome-commander.gschema.xml:911
 msgid "LS_COLORS magenta background mapping"
 msgstr "Pemetaan latar belakang magenta LS_COLORS"
 
-#: data/org.gnome.gnome-commander.gschema.xml:870
+#: data/org.gnome.gnome-commander.gschema.xml:912
 msgid ""
 "This option adjusts the background color mapping for LS_COLORS magenta value."
 msgstr ""
 "Opsi ini menyetel pemetaan warna latar belakang bagi nilai magenta LS_COLORS."
 
-#: data/org.gnome.gnome-commander.gschema.xml:876
+#: data/org.gnome.gnome-commander.gschema.xml:918
 msgid "LS_COLORS cyan foreground mapping"
 msgstr "Pemetaan latar depan cyan LS_COLORS"
 
-#: data/org.gnome.gnome-commander.gschema.xml:877
+#: data/org.gnome.gnome-commander.gschema.xml:919
 msgid ""
 "This option adjusts the foreground color mapping for LS_COLORS cyan value."
 msgstr ""
 "Opsi ini menyetel pemetaan warna latar depan bagi nilai cyan LS_COLORS."
 
-#: data/org.gnome.gnome-commander.gschema.xml:883
+#: data/org.gnome.gnome-commander.gschema.xml:925
 msgid "LS_COLORS cyan background mapping"
 msgstr "Pemetaan latar belakang cyan LS_COLORS"
 
-#: data/org.gnome.gnome-commander.gschema.xml:884
+#: data/org.gnome.gnome-commander.gschema.xml:926
 msgid ""
 "This option adjusts the background color mapping for LS_COLORS cyan value."
 msgstr ""
 "Opsi ini menyetel pemetaan warna latar belakang bagi nilai cyan LS_COLORS."
 
-#: data/org.gnome.gnome-commander.gschema.xml:890
+#: data/org.gnome.gnome-commander.gschema.xml:932
 msgid "LS_COLORS white foreground mapping"
 msgstr "Pemetaan latar depan putih LS_COLORS"
 
-#: data/org.gnome.gnome-commander.gschema.xml:891
+#: data/org.gnome.gnome-commander.gschema.xml:933
 msgid ""
 "This option adjusts the foreground color mapping for LS_COLORS white value."
 msgstr ""
 "Opsi ini menyetel pemetaan warna latar depan bagi nilai putih LS_COLORS."
 
-#: data/org.gnome.gnome-commander.gschema.xml:897
+#: data/org.gnome.gnome-commander.gschema.xml:939
 msgid "LS_COLORS white background mapping"
 msgstr "Pemetaan latar belakang putih LS_COLORS"
 
-#: data/org.gnome.gnome-commander.gschema.xml:898
+#: data/org.gnome.gnome-commander.gschema.xml:940
 msgid ""
 "This option adjusts the background color mapping for LS_COLORS white value."
 msgstr ""
 "Opsi ini menyetel pemetaan warna latar belakang bagi nilai putih LS_COLORS."
 
-#: data/org.gnome.gnome-commander.gschema.xml:906
+#: data/org.gnome.gnome-commander.gschema.xml:948
 msgid "Case sensitive search"
 msgstr "Pencarian peka huruf besar kecil"
 
-#: data/org.gnome.gnome-commander.gschema.xml:907
+#: data/org.gnome.gnome-commander.gschema.xml:949
 msgid ""
 "This option defines if searching within the internal viewer is case "
 "sensitive."
@@ -1253,11 +1308,11 @@ msgstr ""
 "Opsi ini menentukan apakah pencarian di dalam penampil internal peka huruf "
 "besar kecil."
 
-#: data/org.gnome.gnome-commander.gschema.xml:913
+#: data/org.gnome.gnome-commander.gschema.xml:955
 msgid "Search mode"
 msgstr "Mode cari"
 
-#: data/org.gnome.gnome-commander.gschema.xml:914
+#: data/org.gnome.gnome-commander.gschema.xml:956
 msgid "This option defines the search mode of the internal viewer."
 msgstr "Opsi ini menentukan mode pencarian penampil internal."
 
@@ -1266,39 +1321,39 @@ msgstr "Opsi ini menentukan mode pencarian penampil internal."
 #. an encoding that is common in your country.
 #. See https://gitlab.gnome.org/GNOME/gnome-commander/blob/master/src/intviewer/viewer-window.cc#L360 for
 #. a list of supported encodings.
-#: data/org.gnome.gnome-commander.gschema.xml:924
+#: data/org.gnome.gnome-commander.gschema.xml:966
 msgid "'UTF8'"
 msgstr "'UTF8'"
 
-#: data/org.gnome.gnome-commander.gschema.xml:925
+#: data/org.gnome.gnome-commander.gschema.xml:967
 msgid "Character set"
 msgstr "Gugus karakter"
 
-#: data/org.gnome.gnome-commander.gschema.xml:926
+#: data/org.gnome.gnome-commander.gschema.xml:968
 msgid "This option defines the default character encoding."
 msgstr "Opsi ini menentukan pengkodean karakter baku."
 
-#: data/org.gnome.gnome-commander.gschema.xml:932
+#: data/org.gnome.gnome-commander.gschema.xml:974
 msgid "Fixed font name"
 msgstr "Nama fonta tetap"
 
-#: data/org.gnome.gnome-commander.gschema.xml:933
+#: data/org.gnome.gnome-commander.gschema.xml:975
 msgid "Name of the default font with fixed character width."
 msgstr "Nama dari fonta baku dengan lebar karakter tetap."
 
-#: data/org.gnome.gnome-commander.gschema.xml:939
+#: data/org.gnome.gnome-commander.gschema.xml:981
 msgid "Variable font name"
 msgstr "Nama fonta variabel"
 
-#: data/org.gnome.gnome-commander.gschema.xml:940
+#: data/org.gnome.gnome-commander.gschema.xml:982
 msgid "Name of the default font with variable character width."
 msgstr "Nama dari fonta baku dengan lebar karakter variabel."
 
-#: data/org.gnome.gnome-commander.gschema.xml:946
+#: data/org.gnome.gnome-commander.gschema.xml:988
 msgid "Display hex offset"
 msgstr "Tampilkan ofset heksa"
 
-#: data/org.gnome.gnome-commander.gschema.xml:947
+#: data/org.gnome.gnome-commander.gschema.xml:989
 msgid ""
 "This option defines if the hexadecimal offset should be displayed in hex "
 "mode."
@@ -1306,28 +1361,28 @@ msgstr ""
 "Opsi ini menentukan apakah ofset heksadesimal mesti ditampilkan dalam mode "
 "heksa."
 
-#: data/org.gnome.gnome-commander.gschema.xml:953
+#: data/org.gnome.gnome-commander.gschema.xml:995
 msgid "Wrap mode"
 msgstr "Mode lipat"
 
-#: data/org.gnome.gnome-commander.gschema.xml:954
+#: data/org.gnome.gnome-commander.gschema.xml:996
 msgid "This option defines if too long text lines should be wrapped."
 msgstr ""
 "Opsi ini menentukan apakah baris teks yang terlalu panjang mesti dilipat."
 
-#: data/org.gnome.gnome-commander.gschema.xml:960
+#: data/org.gnome.gnome-commander.gschema.xml:1002
 msgid "Font size"
 msgstr "Ukuran font"
 
-#: data/org.gnome.gnome-commander.gschema.xml:961
+#: data/org.gnome.gnome-commander.gschema.xml:1003
 msgid "This option defines the default font size."
 msgstr "Opsi ini menentukan ukuran fonta baku."
 
-#: data/org.gnome.gnome-commander.gschema.xml:967
+#: data/org.gnome.gnome-commander.gschema.xml:1009
 msgid "Tab size"
 msgstr "Ukuran tab"
 
-#: data/org.gnome.gnome-commander.gschema.xml:968
+#: data/org.gnome.gnome-commander.gschema.xml:1010
 msgid ""
 "This option defines the indentation width in terms of characters for a "
 "tabulator character."
@@ -1335,11 +1390,11 @@ msgstr ""
 "Opsi ini menentukan lebar indentasi dalam satuan karakter bagi sebuah "
 "karater tabulator."
 
-#: data/org.gnome.gnome-commander.gschema.xml:974
+#: data/org.gnome.gnome-commander.gschema.xml:1016
 msgid "Bytes per line in binary mode"
 msgstr "Byte per baris dalam mode biner"
 
-#: data/org.gnome.gnome-commander.gschema.xml:975
+#: data/org.gnome.gnome-commander.gschema.xml:1017
 msgid ""
 "This option defines how many bytes should be displayed in one line in binary "
 "mode."
@@ -1347,19 +1402,19 @@ msgstr ""
 "Opsi ini menentukan berapa byte mesti ditampilkan di satu baris dalam mode "
 "biner."
 
-#: data/org.gnome.gnome-commander.gschema.xml:981
+#: data/org.gnome.gnome-commander.gschema.xml:1023
 msgid "Metadata view"
 msgstr "Tampilan metadata"
 
-#: data/org.gnome.gnome-commander.gschema.xml:982
+#: data/org.gnome.gnome-commander.gschema.xml:1024
 msgid "This option defines if metadata should be visible."
 msgstr "Opsi ini menentukan apakah metadata harus terlihat."
 
-#: data/org.gnome.gnome-commander.gschema.xml:988
+#: data/org.gnome.gnome-commander.gschema.xml:1030
 msgid "Horizontal offset"
 msgstr "Ofset horisontal"
 
-#: data/org.gnome.gnome-commander.gschema.xml:989
+#: data/org.gnome.gnome-commander.gschema.xml:1031
 msgid ""
 "This option defines the visual offset of the internal file viewer in "
 "horizontal direction."
@@ -1367,11 +1422,11 @@ msgstr ""
 "Opsi ini menentukan ofset visual dari penampil berkas internal dalam arah "
 "horisontal."
 
-#: data/org.gnome.gnome-commander.gschema.xml:995
+#: data/org.gnome.gnome-commander.gschema.xml:1037
 msgid "Vertical offset"
 msgstr "Ofset vertikal"
 
-#: data/org.gnome.gnome-commander.gschema.xml:996
+#: data/org.gnome.gnome-commander.gschema.xml:1038
 msgid ""
 "This option defines the visual offset of the internal file viewer in "
 "vertical direction."
@@ -1379,27 +1434,27 @@ msgstr ""
 "Opsi ini menentukan ofset visual dari penampil berkas internal dalam arah "
 "vertikal."
 
-#: data/org.gnome.gnome-commander.gschema.xml:1002
+#: data/org.gnome.gnome-commander.gschema.xml:1044
 msgid "Window width"
 msgstr "Lebar jendela"
 
-#: data/org.gnome.gnome-commander.gschema.xml:1003
+#: data/org.gnome.gnome-commander.gschema.xml:1045
 msgid "The width of the internal file viewer window."
 msgstr "Lebar jendela penampil berkas internal."
 
-#: data/org.gnome.gnome-commander.gschema.xml:1009
+#: data/org.gnome.gnome-commander.gschema.xml:1051
 msgid "Window height"
 msgstr "Tinggi jendela"
 
-#: data/org.gnome.gnome-commander.gschema.xml:1010
+#: data/org.gnome.gnome-commander.gschema.xml:1052
 msgid "The height of the internal file viewer window."
 msgstr "Tinggi jendela penampil berkas internal."
 
-#: data/org.gnome.gnome-commander.gschema.xml:1016
+#: data/org.gnome.gnome-commander.gschema.xml:1058
 msgid "Search pattern for text"
 msgstr "Pola pencarian teks"
 
-#: data/org.gnome.gnome-commander.gschema.xml:1017
+#: data/org.gnome.gnome-commander.gschema.xml:1059
 msgid ""
 "This string array stores the history of text searches within the internal "
 "file viewer."
@@ -1407,11 +1462,11 @@ msgstr ""
 "Larik string ini menyimpan riwayat pencarian teks di dalam penampil berkas "
 "internal."
 
-#: data/org.gnome.gnome-commander.gschema.xml:1023
+#: data/org.gnome.gnome-commander.gschema.xml:1065
 msgid "Search pattern for hex values"
 msgstr "Pola pencarian untuk nilai heksa"
 
-#: data/org.gnome.gnome-commander.gschema.xml:1024
+#: data/org.gnome.gnome-commander.gschema.xml:1066
 msgid ""
 "This string array stores the history of searches for hex values within the "
 "internal file viewer."
@@ -1419,19 +1474,19 @@ msgstr ""
 "Larik string ini menyimpan riwayat pencarian nilai heksa di dalam penampil "
 "berkas internal."
 
-#: data/org.gnome.gnome-commander.gschema.xml:1032
+#: data/org.gnome.gnome-commander.gschema.xml:1074
 msgid "File suffix"
 msgstr "Sufiks berkas"
 
-#: data/org.gnome.gnome-commander.gschema.xml:1033
+#: data/org.gnome.gnome-commander.gschema.xml:1075
 msgid "Default file suffix of archives created with the File Roller plugin."
 msgstr "Sufix berkas baku arsip yang dibuat dengan pengaya File Roller."
 
-#: data/org.gnome.gnome-commander.gschema.xml:1039
+#: data/org.gnome.gnome-commander.gschema.xml:1081
 msgid "Prefix pattern"
 msgstr "Pola prefiks"
 
-#: data/org.gnome.gnome-commander.gschema.xml:1040
+#: data/org.gnome.gnome-commander.gschema.xml:1082
 msgid ""
 "The prefix pattern is used to build up the name for an archive created with "
 "the File Roller plugin."
@@ -1439,11 +1494,11 @@ msgstr ""
 "Pola prefiks dipakai untuk membangun nama bagi suatu arsip yang dibuat "
 "dengan pengaya File Roller."
 
-#: data/org.gnome.gnome-commander.gschema.xml:1048
+#: data/org.gnome.gnome-commander.gschema.xml:1090
 msgid "Automatically loaded plugins"
 msgstr "Pengaya yang otomatis dimuat"
 
-#: data/org.gnome.gnome-commander.gschema.xml:1049
+#: data/org.gnome.gnome-commander.gschema.xml:1091
 msgid ""
 "This is the list of automatically loaded plugins, whereas each entry "
 "represents the file name of the plugin."
@@ -1518,11 +1573,11 @@ msgstr "Berkas"
 #. destroy model automatically with view
 #: plugins/fileroller/file-roller-plugin.cc:605
 #: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:369
-#: src/dialogs/gnome-cmd-options-dialog.cc:1538
-#: src/dialogs/gnome-cmd-options-dialog.cc:2294
+#: src/dialogs/gnome-cmd-options-dialog.cc:1556
+#: src/dialogs/gnome-cmd-options-dialog.cc:2317
 #: src/dialogs/gnome-cmd-prepare-copy-dialog.cc:145
 #: src/dialogs/gnome-cmd-prepare-move-dialog.cc:132
-#: src/dialogs/gnome-cmd-remote-dialog.cc:443 src/gnome-cmd-user-actions.cc:253
+#: src/dialogs/gnome-cmd-remote-dialog.cc:443 src/gnome-cmd-user-actions.cc:254
 msgid "Options"
 msgstr "Opsi"
 
@@ -1540,7 +1595,7 @@ msgid "File prefix pattern"
 msgstr "Pola prefiks berkas"
 
 #: plugins/fileroller/file-roller-plugin.cc:639
-#: src/dialogs/gnome-cmd-options-dialog.cc:416
+#: src/dialogs/gnome-cmd-options-dialog.cc:434
 msgid "Test result:"
 msgstr "Hasil uji:"
 
@@ -1569,14 +1624,17 @@ msgstr ""
 "calon hacker pengaya"
 
 #: src/dialogs/gnome-cmd-advrename-dialog.cc:126
+#: src/dialogs/gnome-cmd-search-dialog.cc:201
 msgid "/_Save Profile As…"
 msgstr "/_Simpan Profil Sebagai…"
 
 #: src/dialogs/gnome-cmd-advrename-dialog.cc:135
+#: src/dialogs/gnome-cmd-search-dialog.cc:210
 msgid "/_Manage Profiles…"
 msgstr "/_Kelola Profil…"
 
 #: src/dialogs/gnome-cmd-advrename-dialog.cc:187
+#: src/dialogs/gnome-cmd-search-dialog.cc:260
 msgid "Profiles"
 msgstr "Profil"
 
@@ -1586,7 +1644,7 @@ msgstr "Hapus dari daftar berkas"
 
 #. {file_umount, "file.umount"},
 #: src/dialogs/gnome-cmd-advrename-dialog.cc:335
-#: src/gnome-cmd-user-actions.cc:238
+#: src/gnome-cmd-user-actions.cc:239
 msgid "View file"
 msgstr "Tilik berkas"
 
@@ -1643,6 +1701,7 @@ msgid "File modification date"
 msgstr "Tanggal perubahan berkas"
 
 #: src/dialogs/gnome-cmd-advrename-dialog.cc:693
+#: src/dialogs/gnome-cmd-search-dialog.cc:1301
 msgid "Profiles…"
 msgstr "Profil…"
 
@@ -1666,7 +1725,7 @@ msgid "_Match case"
 msgstr "Cocok _huruf besar kecil"
 
 #: src/dialogs/gnome-cmd-chmod-dialog.cc:45
-#: src/dialogs/gnome-cmd-options-dialog.cc:1559
+#: src/dialogs/gnome-cmd-options-dialog.cc:1577
 msgid "All files"
 msgstr "Semua berkas"
 
@@ -1782,17 +1841,17 @@ msgstr "Secure WebDAV (HTTPS)"
 msgid "Custom location"
 msgstr "Lokasi Ubahan"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:77
+#: src/dialogs/gnome-cmd-delete-dialog.cc:82
 #, c-format
 msgid "Deleted %lu of %lu file"
 msgid_plural "Deleted %lu of %lu files"
 msgstr[0] "Menghapus %lu dari %lu berkas"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:112
+#: src/dialogs/gnome-cmd-delete-dialog.cc:121
 msgid "Deleting…"
 msgstr "Menghapus kontak…"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:281
+#: src/dialogs/gnome-cmd-delete-dialog.cc:295
 #, c-format
 msgid ""
 "Error while deleting “%s”\n"
@@ -1803,42 +1862,42 @@ msgstr ""
 "\n"
 "%s"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:286
-#: src/dialogs/gnome-cmd-delete-dialog.cc:421
+#: src/dialogs/gnome-cmd-delete-dialog.cc:300
+#: src/dialogs/gnome-cmd-delete-dialog.cc:445
 msgid "Delete problem"
 msgstr "Masalah penghapusan"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:287
-#: src/dialogs/gnome-cmd-delete-dialog.cc:421 src/gnome-cmd-xfer.cc:120
+#: src/dialogs/gnome-cmd-delete-dialog.cc:301
+#: src/dialogs/gnome-cmd-delete-dialog.cc:445 src/gnome-cmd-xfer.cc:120
 #: src/gnome-cmd-xfer.cc:147 src/gnome-cmd-xfer.cc:150
 #: src/gnome-cmd-xfer.cc:205 src/gnome-cmd-xfer.cc:208
 #: src/gnome-cmd-xfer.cc:323 src/gnome-cmd-xfer.cc:326
-#: src/gnome-cmd-xfer.cc:1099 src/gnome-cmd-xfer.cc:1110
-#: src/gnome-cmd-xfer.cc:1154
+#: src/gnome-cmd-xfer.cc:1107 src/gnome-cmd-xfer.cc:1118
+#: src/gnome-cmd-xfer.cc:1164
 msgid "Abort"
 msgstr "Gugur"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:287
-#: src/gnome-cmd-file-selector.cc:1405 src/gnome-cmd-xfer.cc:120
+#: src/dialogs/gnome-cmd-delete-dialog.cc:301
+#: src/gnome-cmd-file-selector.cc:1436 src/gnome-cmd-xfer.cc:120
 #: src/gnome-cmd-xfer.cc:147 src/gnome-cmd-xfer.cc:150
 #: src/gnome-cmd-xfer.cc:205 src/gnome-cmd-xfer.cc:208
 #: src/gnome-cmd-xfer.cc:323 src/gnome-cmd-xfer.cc:326
 msgid "Retry"
 msgstr "Coba lagi"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:287
-#: src/dialogs/gnome-cmd-delete-dialog.cc:437
-#: src/dialogs/gnome-cmd-options-dialog.cc:1065
-#: src/dialogs/gnome-cmd-options-dialog.cc:1089
+#: src/dialogs/gnome-cmd-delete-dialog.cc:301
+#: src/dialogs/gnome-cmd-delete-dialog.cc:461
+#: src/dialogs/gnome-cmd-options-dialog.cc:1083
+#: src/dialogs/gnome-cmd-options-dialog.cc:1107
 #: src/dialogs/gnome-cmd-prepare-copy-dialog.cc:114
 #: src/dialogs/gnome-cmd-prepare-move-dialog.cc:108
-#: src/gnome-cmd-file-selector.cc:1405 src/gnome-cmd-xfer.cc:120
+#: src/gnome-cmd-file-selector.cc:1436 src/gnome-cmd-xfer.cc:120
 #: src/gnome-cmd-xfer.cc:147 src/gnome-cmd-xfer.cc:205
 #: src/gnome-cmd-xfer.cc:323
 msgid "Skip"
 msgstr "Lewati"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:419
+#: src/dialogs/gnome-cmd-delete-dialog.cc:443
 #, c-format
 msgid ""
 "Error while deleting: \n"
@@ -1849,59 +1908,59 @@ msgstr ""
 "\n"
 "%s"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:432
+#: src/dialogs/gnome-cmd-delete-dialog.cc:456
 #, c-format
 msgid "Do you really want to delete “%s”?"
 msgstr "Apakah Anda yakin ingin menghapus \"%s\"?"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:433
+#: src/dialogs/gnome-cmd-delete-dialog.cc:457
 #, c-format
 msgid "The directory “%s” is not empty. Do you really want to delete it?"
 msgstr ""
 "Direktori \"%s\" tidak kosong. Apakah Anda benar-benar ingin menghapusnya?"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:435
-#: src/dialogs/gnome-cmd-delete-dialog.cc:439
-#: src/dialogs/gnome-cmd-delete-dialog.cc:525
-#: src/dialogs/gnome-cmd-delete-dialog.cc:526
-#: src/dialogs/gnome-cmd-options-dialog.cc:1037
+#: src/dialogs/gnome-cmd-delete-dialog.cc:459
+#: src/dialogs/gnome-cmd-delete-dialog.cc:463
+#: src/dialogs/gnome-cmd-delete-dialog.cc:549
+#: src/dialogs/gnome-cmd-delete-dialog.cc:550
+#: src/dialogs/gnome-cmd-options-dialog.cc:1055
 #: src/gnome-cmd-file-popmenu.cc:724 src/gnome-cmd-main-win.cc:243
-#: src/gnome-cmd-user-actions.cc:212
+#: src/gnome-cmd-user-actions.cc:213
 msgid "Delete"
 msgstr "Hapus"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:437
-#: src/dialogs/gnome-cmd-delete-dialog.cc:526 src/gnome-cmd-file-list.cc:1328
-#: src/gnome-cmd-file-list.cc:1357 src/gnome-cmd-file-selector.cc:1405
-#: src/gnome-cmd-user-actions.cc:865
+#: src/dialogs/gnome-cmd-delete-dialog.cc:461
+#: src/dialogs/gnome-cmd-delete-dialog.cc:550 src/gnome-cmd-file-list.cc:1328
+#: src/gnome-cmd-file-list.cc:1357 src/gnome-cmd-file-selector.cc:1436
+#: src/gnome-cmd-user-actions.cc:874
 msgid "Cancel"
 msgstr "Batal"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:438
+#: src/dialogs/gnome-cmd-delete-dialog.cc:462
 msgid "Delete All"
 msgstr "Hapus Semua"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:438
+#: src/dialogs/gnome-cmd-delete-dialog.cc:462
 msgid "Delete Remaining"
 msgstr "Hapus Sisa"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:505
+#: src/dialogs/gnome-cmd-delete-dialog.cc:529
 #, c-format
 msgid "Do you want to permanently delete “%s”?"
 msgstr "Apakah Anda ingin menghapus \"%s\" secara permanen?"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:506
+#: src/dialogs/gnome-cmd-delete-dialog.cc:530
 #, c-format
 msgid "Do you want to move “%s” to the trash can?"
 msgstr "Apakah Anda ingin memindah \"%s\" ke tong sampah?"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:511
+#: src/dialogs/gnome-cmd-delete-dialog.cc:535
 #, c-format
 msgid "Do you want to permanently delete the selected file?"
 msgid_plural "Do you want to permanently delete the %d selected files?"
 msgstr[0] "Apakah Anda ingin menghapus %d berkas yang dipilih secara permanen?"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:515
+#: src/dialogs/gnome-cmd-delete-dialog.cc:539
 #, c-format
 msgid "Do you want to move the selected file to the trash can?"
 msgid_plural "Do you want to move the %d selected files to the trash can?"
@@ -1931,74 +1990,74 @@ msgstr "Sunting Profil"
 msgid "_Name"
 msgstr "_Nama"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:305
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:307
 msgid "Image:"
 msgstr "Gambar:"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:329
-#: src/dialogs/gnome-cmd-mkdir-dialog.cc:193
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:331
+#: src/dialogs/gnome-cmd-mkdir-dialog.cc:192
 msgid "Directory name:"
 msgstr "Nama direktori:"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:329
-#: src/gnome-cmd-file-selector.cc:1189
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:331
+#: src/gnome-cmd-file-selector.cc:1220
 msgid "File name:"
 msgstr "Nama berkas:"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:338
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:340
 msgid "Symlink target:"
 msgstr "Target symlink:"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:353
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:355
 msgid "Location:"
 msgstr "Lokasi:"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:361
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:363
 msgid "Volume:"
 msgstr "Volume:"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:389
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:391
 msgid "Free space:"
 msgstr "Ruang bebas:"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:401
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:403
 msgid "Content Type:"
 msgstr "Tipe Isi:"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:413
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:415
 msgid "Opens with:"
 msgstr "Buka dengan:"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:424
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:426
 msgid "No default application registered"
 msgstr "Tak ada aplikasi baku yang terdaftar"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:435
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:437
 msgid "Modified:"
 msgstr "Diubah:"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:442
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:444
 msgid "Accessed:"
 msgstr "Diakses:"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:452
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:454
 msgid "Size:"
 msgstr "Ukuran:"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:499
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:501
 msgid "Owner and group"
 msgstr "Pemilik dan grup"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:510
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:512
 msgid "Access permissions"
 msgstr "Permisi akses"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:594
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:596
 #: src/intviewer/viewer-window.cc:1356
 msgid "Type"
 msgstr "Tipe"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:595
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:597
 #: src/intviewer/viewer-window.cc:1357
 msgid "Metadata namespace"
 msgstr "Ruang name metadata"
@@ -2009,7 +2068,7 @@ msgstr "Ruang name metadata"
 #. "foreground-set", TRUE,
 #. "foreground", "DarkGray",
 #. NULL);
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:602
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:604
 #: src/dialogs/gnome-cmd-manage-bookmarks-dialog.cc:244
 #: src/dialogs/gnome-cmd-remote-dialog.cc:354
 #: src/intviewer/viewer-window.cc:1364 src/plugin_manager.cc:396
@@ -2017,40 +2076,39 @@ msgstr "Ruang name metadata"
 msgid "Name"
 msgstr "Nama"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:603
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:605
 #: src/intviewer/viewer-window.cc:1365
 msgid "Tag name"
 msgstr "Nama tag"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:605
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:607
 #: src/intviewer/viewer-window.cc:1367
 msgid "Value"
 msgstr "Nilai"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:606
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:608
 #: src/intviewer/viewer-window.cc:1368
 msgid "Tag value"
 msgstr "Nilai tag"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:608
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:610
 #: src/intviewer/viewer-window.cc:1370 src/tags/gnome-cmd-tags.cc:171
 #: src/tags/gnome-cmd-tags.cc:322 src/tags/gnome-cmd-tags.cc:424
 #: src/tags/gnome-cmd-tags.cc:535
 msgid "Description"
 msgstr "Deskripsi"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:609
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:611
 #: src/intviewer/viewer-window.cc:1371
 msgid "Metadata tag description"
 msgstr "Deskripsi tag metadata"
 
-#. data->thread = 0;
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:664
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:665
 msgid "File Properties"
 msgstr "Properti Berkas"
 
 #: src/dialogs/gnome-cmd-file-props-dialog.cc:686
-#: src/gnome-cmd-user-actions.cc:232
+#: src/gnome-cmd-user-actions.cc:233
 msgid "Properties"
 msgstr "Properti"
 
@@ -2118,22 +2176,22 @@ msgid "Invalid shortcut."
 msgstr "Pintasan tak valid."
 
 #: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:639
-#: src/gnome-cmd-user-actions.cc:252
+#: src/gnome-cmd-user-actions.cc:253
 msgid "Do nothing"
 msgstr "Jangan lakukan apa pun"
 
 #: src/dialogs/gnome-cmd-make-copy-dialog.cc:67
-#: src/gnome-cmd-file-selector.cc:1102
+#: src/gnome-cmd-file-selector.cc:1086
 msgid "No file name entered"
 msgstr "Tak ada nama berkas yang dimasukkan"
 
-#: src/dialogs/gnome-cmd-make-copy-dialog.cc:137
+#: src/dialogs/gnome-cmd-make-copy-dialog.cc:152
 #: src/dialogs/gnome-cmd-prepare-copy-dialog.cc:155
 #, c-format
 msgid "Copy “%s” to"
 msgstr "Salin \"%s\" ke"
 
-#: src/dialogs/gnome-cmd-make-copy-dialog.cc:144
+#: src/dialogs/gnome-cmd-make-copy-dialog.cc:159
 msgid "Copy File"
 msgstr "Salin Berkas"
 
@@ -2212,16 +2270,16 @@ msgstr ""
 msgid "_Duplicate"
 msgstr "_Duplikatkan"
 
-#: src/dialogs/gnome-cmd-mkdir-dialog.cc:106
+#: src/dialogs/gnome-cmd-mkdir-dialog.cc:105
 msgid "A directory name must be entered"
 msgstr "Suatu nama direktori mesti dimasukkan"
 
-#: src/dialogs/gnome-cmd-mkdir-dialog.cc:126
+#: src/dialogs/gnome-cmd-mkdir-dialog.cc:125
 #, c-format
 msgid "Make directory failed: %s\n"
 msgstr "Pembuatan direktori gagal: %s\n"
 
-#: src/dialogs/gnome-cmd-mkdir-dialog.cc:169
+#: src/dialogs/gnome-cmd-mkdir-dialog.cc:168
 msgid "Make Directory"
 msgstr "Buat Direktori"
 
@@ -2246,7 +2304,7 @@ msgid "Middle mouse button"
 msgstr "Tombol tengah tetikus"
 
 #: src/dialogs/gnome-cmd-options-dialog.cc:136 src/gnome-cmd-main-win.cc:234
-#: src/gnome-cmd-user-actions.cc:283
+#: src/gnome-cmd-user-actions.cc:284
 msgid "Up one directory"
 msgstr "Naik satu direktori"
 
@@ -2291,7 +2349,7 @@ msgid "Case sensitive"
 msgstr "Peka huruf besar kecil"
 
 #: src/dialogs/gnome-cmd-options-dialog.cc:193
-#: src/gnome-cmd-user-actions.cc:215
+#: src/gnome-cmd-user-actions.cc:216
 msgid "Quick search"
 msgstr "Pencarian cepat"
 
@@ -2315,316 +2373,332 @@ msgstr "Cocokkan dengan awal nama berkas"
 msgid "Match end of the file name"
 msgstr "Cocok akhir nama berkas"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:220
+#: src/dialogs/gnome-cmd-options-dialog.cc:219
+msgid "Search Window"
+msgstr "Jendela Pencarian"
+
+#: src/dialogs/gnome-cmd-options-dialog.cc:222
+msgid ""
+"Search window is minimizable\n"
+"(Needs program restart if altered)"
+msgstr ""
+"Jendela pencarian dapat diminimalkan\n"
+"(Program perlu dijalankan ulang jika diubah)"
+
+#: src/dialogs/gnome-cmd-options-dialog.cc:229
 msgid "Multiple instances"
 msgstr "Instansi berganda"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:223
+#: src/dialogs/gnome-cmd-options-dialog.cc:232
 msgid "Don’t start a new instance"
 msgstr "Jangan memulai suatu instansi baru"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:230
+#: src/dialogs/gnome-cmd-options-dialog.cc:239
 msgid "Save on exit"
 msgstr "Simpan saat keluar"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:233
-#: src/dialogs/gnome-cmd-options-dialog.cc:1217
+#: src/dialogs/gnome-cmd-options-dialog.cc:242
+#: src/dialogs/gnome-cmd-options-dialog.cc:1235
 msgid "Directories"
 msgstr "Direktori"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:237
-#: src/dialogs/gnome-cmd-options-dialog.cc:2321
+#: src/dialogs/gnome-cmd-options-dialog.cc:246
+#: src/dialogs/gnome-cmd-options-dialog.cc:2344
 msgid "Tabs"
 msgstr "Tab"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:242
+#: src/dialogs/gnome-cmd-options-dialog.cc:251
 msgid "Directory history"
 msgstr "Riwayat direktori"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:246
+#: src/dialogs/gnome-cmd-options-dialog.cc:255
 msgid "Commandline history"
 msgstr "Riwayat baris perintah"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:358
+#: src/dialogs/gnome-cmd-options-dialog.cc:259
+msgid "Search history"
+msgstr "Riwayat pencarian"
+
+#: src/dialogs/gnome-cmd-options-dialog.cc:376
 msgid "Size display mode"
 msgstr "Mode tampilan ukuran"
 
 #. Translators: 'Powered' refers to the mode of file size display (here - display using units of data: kB, MB, GB, ...)
-#: src/dialogs/gnome-cmd-options-dialog.cc:362
+#: src/dialogs/gnome-cmd-options-dialog.cc:380
 msgid "Powered"
 msgstr "Berpangkat"
 
 #. Translators: '<locale>' refers to the mode of file size display (here - use current locale settings)
-#: src/dialogs/gnome-cmd-options-dialog.cc:368
+#: src/dialogs/gnome-cmd-options-dialog.cc:386
 msgid "<locale>"
 msgstr "<locale>"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:373
+#: src/dialogs/gnome-cmd-options-dialog.cc:391
 msgid "Grouped"
 msgstr "Dikelompokkan"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:378
+#: src/dialogs/gnome-cmd-options-dialog.cc:396
 msgid "Plain"
 msgstr "Polos"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:389
+#: src/dialogs/gnome-cmd-options-dialog.cc:407
 msgid "Text (rw-r--r--)"
 msgstr "Teks (rw-r--r--)"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:394
+#: src/dialogs/gnome-cmd-options-dialog.cc:412
 msgid "Number (644)"
 msgstr "Angka (644)"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:405
+#: src/dialogs/gnome-cmd-options-dialog.cc:423
 msgid "Format:"
 msgstr "Format:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:423
+#: src/dialogs/gnome-cmd-options-dialog.cc:441
 msgid ""
 "See the manual page for “strftime” for help on how to set the format string."
 msgstr ""
 "Lihat halaman manual bagi \"strftime\" untuk bantuan tentang bagaimana "
 "menata string format."
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:507
+#: src/dialogs/gnome-cmd-options-dialog.cc:525
 msgid "Edit Colors…"
 msgstr "Sunting Warna…"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:520
+#: src/dialogs/gnome-cmd-options-dialog.cc:538
 msgid "Colors"
 msgstr "Warna"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:551
+#: src/dialogs/gnome-cmd-options-dialog.cc:569
 msgid "Foreground"
 msgstr "Latar depan"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:553
+#: src/dialogs/gnome-cmd-options-dialog.cc:571
 msgid "Background"
 msgstr "Latar belakang"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:555
+#: src/dialogs/gnome-cmd-options-dialog.cc:573
 msgid "Default:"
 msgstr "Baku:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:557
+#: src/dialogs/gnome-cmd-options-dialog.cc:575
 msgid "Alternate:"
 msgstr "Alternatif:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:559
+#: src/dialogs/gnome-cmd-options-dialog.cc:577
 msgid "Selected file:"
 msgstr "Berkas yang dipilih:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:561
+#: src/dialogs/gnome-cmd-options-dialog.cc:579
 msgid "Cursor:"
 msgstr "Kursor:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:642
+#: src/dialogs/gnome-cmd-options-dialog.cc:660
 msgid "Edit LS_COLORS Palette"
 msgstr "Sunting Palet LS_COLORS"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:654
+#: src/dialogs/gnome-cmd-options-dialog.cc:672
 msgid "Palette"
 msgstr "Palet"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:709
+#: src/dialogs/gnome-cmd-options-dialog.cc:727
 msgid "Foreground:"
 msgstr "Latar depan:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:711
+#: src/dialogs/gnome-cmd-options-dialog.cc:729
 msgid "Background:"
 msgstr "Latar belakang:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:713
+#: src/dialogs/gnome-cmd-options-dialog.cc:731
 msgid "Black"
 msgstr "Hitam"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:716
+#: src/dialogs/gnome-cmd-options-dialog.cc:734
 msgid "Red"
 msgstr "Merah"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:719
+#: src/dialogs/gnome-cmd-options-dialog.cc:737
 msgid "Green"
 msgstr "Hijau"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:722
+#: src/dialogs/gnome-cmd-options-dialog.cc:740
 msgid "Yellow"
 msgstr "Kuning"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:725
+#: src/dialogs/gnome-cmd-options-dialog.cc:743
 msgid "Blue"
 msgstr "Biru"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:728
+#: src/dialogs/gnome-cmd-options-dialog.cc:746
 msgid "Magenta"
 msgstr "Ungu"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:731
+#: src/dialogs/gnome-cmd-options-dialog.cc:749
 msgid "Cyan"
 msgstr "Cyan"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:734
+#: src/dialogs/gnome-cmd-options-dialog.cc:752
 msgid "White"
 msgstr "Putih"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:738
+#: src/dialogs/gnome-cmd-options-dialog.cc:756
 msgid "_Reset"
 msgstr "_Reset"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:752
+#: src/dialogs/gnome-cmd-options-dialog.cc:770
 msgid "With file name"
 msgstr "Dengan nama berkas"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:753
+#: src/dialogs/gnome-cmd-options-dialog.cc:771
 msgid "In separate column"
 msgstr "Pada kolom terpisah"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:754
+#: src/dialogs/gnome-cmd-options-dialog.cc:772
 msgid "In both columns"
 msgstr "Pada kedua kolom"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:758
+#: src/dialogs/gnome-cmd-options-dialog.cc:776
 msgid "No icons"
 msgstr "Tanpa ikon"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:759
+#: src/dialogs/gnome-cmd-options-dialog.cc:777
 msgid "File type icons"
 msgstr "Ikon tipe berkas"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:760
+#: src/dialogs/gnome-cmd-options-dialog.cc:778
 msgid "MIME icons"
 msgstr "Ikon MIME"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:764
+#: src/dialogs/gnome-cmd-options-dialog.cc:782
 msgid "Respect theme colors"
 msgstr "Hormati warna tema"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:765
+#: src/dialogs/gnome-cmd-options-dialog.cc:783
 msgid "Modern"
 msgstr "Modern"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:766
+#: src/dialogs/gnome-cmd-options-dialog.cc:784
 msgid "Fusion"
 msgstr "Fusi"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:767
+#: src/dialogs/gnome-cmd-options-dialog.cc:785
 msgid "Classic"
 msgstr "Klasik"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:768
+#: src/dialogs/gnome-cmd-options-dialog.cc:786
 msgid "Deep blue"
 msgstr "Biru kelam"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:769
+#: src/dialogs/gnome-cmd-options-dialog.cc:787
 msgid "Cafezinho"
 msgstr "Cafezinho"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:770
+#: src/dialogs/gnome-cmd-options-dialog.cc:788
 msgid "Green tiger"
 msgstr "Hijau macan"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:771
+#: src/dialogs/gnome-cmd-options-dialog.cc:789
 msgid "Winter"
 msgstr "Musim Dingin"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:772
+#: src/dialogs/gnome-cmd-options-dialog.cc:790
 msgid "Custom"
 msgstr "Gubahan"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:792
+#: src/dialogs/gnome-cmd-options-dialog.cc:810
 msgid "File panes"
 msgstr "Panel berkas"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:802
+#: src/dialogs/gnome-cmd-options-dialog.cc:820
 msgid "Font:"
 msgstr "Fonta:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:804
+#: src/dialogs/gnome-cmd-options-dialog.cc:822
 msgid "Row height:"
 msgstr "Tinggi baris:"
 
 #. File extensions
-#: src/dialogs/gnome-cmd-options-dialog.cc:808
+#: src/dialogs/gnome-cmd-options-dialog.cc:826
 msgid "Display file extensions:"
 msgstr "Tampilkan ekstensi berkas:"
 
 #. Graphical mode
-#: src/dialogs/gnome-cmd-options-dialog.cc:816
+#: src/dialogs/gnome-cmd-options-dialog.cc:834
 msgid "Graphical mode:"
 msgstr "Mode grafis:"
 
 #. Color scheme
-#: src/dialogs/gnome-cmd-options-dialog.cc:825
+#: src/dialogs/gnome-cmd-options-dialog.cc:843
 msgid "Color scheme:"
 msgstr "Skema warna:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:837
+#: src/dialogs/gnome-cmd-options-dialog.cc:855
 msgid "Edit…"
 msgstr "Sunting…"
 
 #. LS_COLORS
-#: src/dialogs/gnome-cmd-options-dialog.cc:844
+#: src/dialogs/gnome-cmd-options-dialog.cc:862
 msgid "Colorize files according to the LS_COLORS environment variable"
 msgstr "Warnai berkas menurut variabel lingkungan LS_COLORS"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:852
+#: src/dialogs/gnome-cmd-options-dialog.cc:870
 msgid "Edit colors…"
 msgstr "Sunting warna…"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:860
+#: src/dialogs/gnome-cmd-options-dialog.cc:878
 msgid "MIME icon settings"
 msgstr "Pengaturan ikon MIME"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:871
+#: src/dialogs/gnome-cmd-options-dialog.cc:889
 msgid "Icon size:"
 msgstr "Ukuran ikon:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:873
+#: src/dialogs/gnome-cmd-options-dialog.cc:891
 msgid "Scaling quality:"
 msgstr "Kualitas penskalaan:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:875
+#: src/dialogs/gnome-cmd-options-dialog.cc:893
 msgid "Theme icon directory:"
 msgstr "Direktori ikon tema:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:961
+#: src/dialogs/gnome-cmd-options-dialog.cc:979
 msgid "Tab bar"
 msgstr "Bilah tab"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:964
+#: src/dialogs/gnome-cmd-options-dialog.cc:982
 msgid "Always show the tab bar"
 msgstr "Selalu tampilkan dalam bilah tab"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:973
+#: src/dialogs/gnome-cmd-options-dialog.cc:991
 msgid "Lock icon"
 msgstr "Kunci ikon"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:978
+#: src/dialogs/gnome-cmd-options-dialog.cc:996
 msgid "* (asterisk)"
 msgstr "* (asterisk)"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:983
+#: src/dialogs/gnome-cmd-options-dialog.cc:1001
 msgid "Styled text"
 msgstr "Teks bergaya"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1040
+#: src/dialogs/gnome-cmd-options-dialog.cc:1058
 msgid "Confirm before delete"
 msgstr "Konfirmasi sebelum hapus"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1045
+#: src/dialogs/gnome-cmd-options-dialog.cc:1063
 msgid "Confirm defaults to OK"
 msgstr "Konfirmasikan baku ke OK"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1054
+#: src/dialogs/gnome-cmd-options-dialog.cc:1072
 msgid "Preselected overwrite action in copy dialog"
 msgstr "Aksi timpa terprapilih dalam dialog salin"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1057
-#: src/dialogs/gnome-cmd-options-dialog.cc:1081
+#: src/dialogs/gnome-cmd-options-dialog.cc:1075
+#: src/dialogs/gnome-cmd-options-dialog.cc:1099
 msgid "Query first"
 msgstr "Tanya dulu"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1061
-#: src/dialogs/gnome-cmd-options-dialog.cc:1085
+#: src/dialogs/gnome-cmd-options-dialog.cc:1079
+#: src/dialogs/gnome-cmd-options-dialog.cc:1103
 #: src/dialogs/gnome-cmd-prepare-copy-dialog.cc:107
 #: src/dialogs/gnome-cmd-prepare-move-dialog.cc:101
 #: src/gnome-cmd-file-popmenu.cc:725 src/gnome-cmd-xfer.cc:147
@@ -2634,87 +2708,87 @@ msgstr "Tanya dulu"
 msgid "Rename"
 msgstr "Ubah Nama"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1069
-#: src/dialogs/gnome-cmd-options-dialog.cc:1093
+#: src/dialogs/gnome-cmd-options-dialog.cc:1087
+#: src/dialogs/gnome-cmd-options-dialog.cc:1111
 #: src/dialogs/gnome-cmd-prepare-copy-dialog.cc:121
 #: src/dialogs/gnome-cmd-prepare-move-dialog.cc:115
 msgid "Overwrite silently"
 msgstr "Timpa diam-diam"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1078
+#: src/dialogs/gnome-cmd-options-dialog.cc:1096
 msgid "Preselected overwrite action in move dialog"
 msgstr "Aksi timpa terprapilih dalam dialog pindah"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1102
+#: src/dialogs/gnome-cmd-options-dialog.cc:1120
 msgid "Default Drag and Drop Action"
 msgstr "Aksi Baku Seret dan Jatuhkan"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1105
+#: src/dialogs/gnome-cmd-options-dialog.cc:1123
 msgid "Confirm mouse operation"
 msgstr "Konfirmasikan operasi tetikus"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1109
+#: src/dialogs/gnome-cmd-options-dialog.cc:1127
 #: src/dialogs/gnome-cmd-prepare-copy-dialog.cc:94
 #: src/gnome-cmd-file-popmenu.cc:723 src/gnome-cmd-main-win.cc:241
-#: src/gnome-cmd-user-actions.cc:209
+#: src/gnome-cmd-user-actions.cc:210
 msgid "Copy"
 msgstr "Salin"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1113
+#: src/dialogs/gnome-cmd-options-dialog.cc:1131
 #: src/dialogs/gnome-cmd-prepare-move-dialog.cc:88
 msgid "Move"
 msgstr "Pindah"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1208
+#: src/dialogs/gnome-cmd-options-dialog.cc:1226
 msgid "Filetypes to hide"
 msgstr "Tipe berkas yang disembunyikan"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1211
+#: src/dialogs/gnome-cmd-options-dialog.cc:1229
 msgid "Unknown"
 msgstr "Tak dikenal"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1214
+#: src/dialogs/gnome-cmd-options-dialog.cc:1232
 msgid "Regular files"
 msgstr "Berkas biasa"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1220
+#: src/dialogs/gnome-cmd-options-dialog.cc:1238
 msgid "Socket, fifo, block, or character devices"
 msgstr "Perangkat soket, fifo, blok, atau karakter"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1223
+#: src/dialogs/gnome-cmd-options-dialog.cc:1241
 msgid "Shortcuts (Windows systems)"
 msgstr "Pintasan (sistem Windows)"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1226
+#: src/dialogs/gnome-cmd-options-dialog.cc:1244
 msgid "Mountable locations"
 msgstr "Lokasi yang dapat dikait"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1229
+#: src/dialogs/gnome-cmd-options-dialog.cc:1247
 msgid "Virtual files"
 msgstr "Berkas virtual"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1232
+#: src/dialogs/gnome-cmd-options-dialog.cc:1250
 msgid "Volatile files"
 msgstr "Berkas volatil"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1237
+#: src/dialogs/gnome-cmd-options-dialog.cc:1255
 msgid "Also hide"
 msgstr "Sembunyikan juga"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1240
+#: src/dialogs/gnome-cmd-options-dialog.cc:1258
 msgid "Hidden files"
 msgstr "Berkas tersembunyi"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1243
-#: src/dialogs/gnome-cmd-options-dialog.cc:1252
+#: src/dialogs/gnome-cmd-options-dialog.cc:1261
+#: src/dialogs/gnome-cmd-options-dialog.cc:1270
 msgid "Backup files"
 msgstr "Berkas cadangan"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1246
+#: src/dialogs/gnome-cmd-options-dialog.cc:1264
 msgid "Symlinks"
 msgstr "Symlink"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1444
+#: src/dialogs/gnome-cmd-options-dialog.cc:1462
 msgid ""
 "An app with this label exists already.\n"
 "Please choose another label."
@@ -2722,153 +2796,157 @@ msgstr ""
 "Sebuah app dengan label ini telah ada.\n"
 "Harap pilih label lain."
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1515
+#: src/dialogs/gnome-cmd-options-dialog.cc:1533
 msgid "Label:"
 msgstr "Label:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1517
+#: src/dialogs/gnome-cmd-options-dialog.cc:1535
 msgid "Command:"
 msgstr "Perintah:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1519
-#: src/dialogs/gnome-cmd-options-dialog.cc:2021
+#: src/dialogs/gnome-cmd-options-dialog.cc:1537
+#: src/dialogs/gnome-cmd-options-dialog.cc:2044
 msgid "Icon:"
 msgstr "Ikon:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1541
+#: src/dialogs/gnome-cmd-options-dialog.cc:1559
 msgid "Can handle multiple files"
 msgstr "Dapat menangani multi berkas"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1545
+#: src/dialogs/gnome-cmd-options-dialog.cc:1563
 msgid "Can handle URIs"
 msgstr "Dapat menangani URI"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1549
+#: src/dialogs/gnome-cmd-options-dialog.cc:1567
 msgid "Requires terminal"
 msgstr "Memerlukan terminal"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1556
+#: src/dialogs/gnome-cmd-options-dialog.cc:1574
 msgid "Show for"
 msgstr "Tunjukkan untuk"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1565
+#: src/dialogs/gnome-cmd-options-dialog.cc:1583
 msgid "All directories"
 msgstr "Semua direktori"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1570
+#: src/dialogs/gnome-cmd-options-dialog.cc:1588
 msgid "All directories and files"
 msgstr "Semua direktori dan berkas"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1575
+#: src/dialogs/gnome-cmd-options-dialog.cc:1593
 msgid "Some files"
 msgstr "Beberapa berkas"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1584
+#: src/dialogs/gnome-cmd-options-dialog.cc:1602
 msgid "File patterns"
 msgstr "Pola berkas"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1606
+#: src/dialogs/gnome-cmd-options-dialog.cc:1624
 msgid "New Application"
 msgstr "Aplikasi Baru"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1616
+#: src/dialogs/gnome-cmd-options-dialog.cc:1634
 msgid "Edit Application"
 msgstr "Sunting Aplikasi"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1725
+#: src/dialogs/gnome-cmd-options-dialog.cc:1743
 msgid "Always download remote files before opening in external programs"
 msgstr "Selalu unduh berkas jauh sebelum membuka dalam program terminal"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1727
+#: src/dialogs/gnome-cmd-options-dialog.cc:1745
 msgid "MIME applications"
 msgstr "Aplikasi MIME"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1731
+#: src/dialogs/gnome-cmd-options-dialog.cc:1749
 msgid "Standard programs"
 msgstr "Program standar"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1734
+#: src/dialogs/gnome-cmd-options-dialog.cc:1752
 msgid "Viewer:"
 msgstr "Penampil:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1736
+#: src/dialogs/gnome-cmd-options-dialog.cc:1754
 msgid "Editor:"
 msgstr "Penyunting:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1738
+#: src/dialogs/gnome-cmd-options-dialog.cc:1756
 msgid "Differ:"
 msgstr "Berbeda:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1740
+#: src/dialogs/gnome-cmd-options-dialog.cc:1758
 msgid "Search:"
 msgstr "Cari:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1742
+#: src/dialogs/gnome-cmd-options-dialog.cc:1760
 msgid "Send files:"
 msgstr "Kirim berkas:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1744
+#: src/dialogs/gnome-cmd-options-dialog.cc:1762
 msgid "Terminal:"
 msgstr "Terminal:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1750
+#: src/dialogs/gnome-cmd-options-dialog.cc:1768
 msgid "Use Internal Viewer"
 msgstr "Gunakan Penampil Internal"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1771
+#: src/dialogs/gnome-cmd-options-dialog.cc:1777
+msgid "Use Internal Search"
+msgstr "Gunakan Pencarian Internal"
+
+#: src/dialogs/gnome-cmd-options-dialog.cc:1792
 msgid "Other favourite apps"
 msgstr "Aplikasi favorit lain"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1779
+#: src/dialogs/gnome-cmd-options-dialog.cc:1800
 msgid "Label"
 msgstr "Label"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1780
+#: src/dialogs/gnome-cmd-options-dialog.cc:1801
 msgid "Command"
 msgstr "Perintah"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1815
+#: src/dialogs/gnome-cmd-options-dialog.cc:1836
 msgid "Global app options"
 msgstr "Opsi app global"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1818
+#: src/dialogs/gnome-cmd-options-dialog.cc:1839
 msgid "Terminal command for apps in the list above:"
 msgstr "Perintah terminal bagi app dalam daftar di atas:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1824
+#: src/dialogs/gnome-cmd-options-dialog.cc:1845
 msgid "Leave terminal window open"
 msgstr "Biarkan jendela terminal terbuka"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:2015
+#: src/dialogs/gnome-cmd-options-dialog.cc:2038
 msgid "Alias:"
 msgstr "Alias:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:2017
+#: src/dialogs/gnome-cmd-options-dialog.cc:2040
 msgid "Device/Label:"
 msgstr "Perangkat/Label:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:2019
+#: src/dialogs/gnome-cmd-options-dialog.cc:2042
 msgid "Mount point:"
 msgstr "Titik kait:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:2063
+#: src/dialogs/gnome-cmd-options-dialog.cc:2086
 msgid "New Device"
 msgstr "Perangkat Baru"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:2076
+#: src/dialogs/gnome-cmd-options-dialog.cc:2099
 msgid "Edit Device"
 msgstr "Sunting Perangkat"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:2185
-#: src/dialogs/gnome-cmd-options-dialog.cc:2325
+#: src/dialogs/gnome-cmd-options-dialog.cc:2208
+#: src/dialogs/gnome-cmd-options-dialog.cc:2348
 msgid "Devices"
 msgstr "Perangkat"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:2196
+#: src/dialogs/gnome-cmd-options-dialog.cc:2219
 msgid "Alias"
 msgstr "Alias"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:2227
+#: src/dialogs/gnome-cmd-options-dialog.cc:2250
 msgid ""
 "Show Samba workgroups button\n"
 "(Needs program restart if altered)"
@@ -2876,31 +2954,31 @@ msgstr ""
 "Tampilkan tombol workgroup Samba\n"
 "(Perlu memulai ulang program jika diubah)"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:2232
+#: src/dialogs/gnome-cmd-options-dialog.cc:2255
 msgid "Show only the icons"
 msgstr "Tampilkan hanya ikon"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:2318
+#: src/dialogs/gnome-cmd-options-dialog.cc:2341
 msgid "General"
 msgstr "Umum"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:2319 src/tags/gnome-cmd-tags.cc:323
+#: src/dialogs/gnome-cmd-options-dialog.cc:2342 src/tags/gnome-cmd-tags.cc:323
 msgid "Format"
 msgstr "Format"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:2320
+#: src/dialogs/gnome-cmd-options-dialog.cc:2343
 msgid "Layout"
 msgstr "Tata letak"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:2322
+#: src/dialogs/gnome-cmd-options-dialog.cc:2345
 msgid "Confirmation"
 msgstr "Konfirmasi"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:2323
+#: src/dialogs/gnome-cmd-options-dialog.cc:2346
 msgid "Filters"
 msgstr "Tapis"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:2324
+#: src/dialogs/gnome-cmd-options-dialog.cc:2347
 msgid "Programs"
 msgstr "Program"
 
@@ -2990,7 +3068,6 @@ msgid "Unknown error"
 msgstr "Galat tak dikenal"
 
 #: src/dialogs/gnome-cmd-remote-dialog.cc:212
-#, c-format
 msgid "No server selected"
 msgstr "Tak ada server yang dipilih"
 
@@ -3009,6 +3086,74 @@ msgstr "Koneksi Jauh"
 #: src/dialogs/gnome-cmd-remote-dialog.cc:415
 msgid "Connections"
 msgstr "Sambungan"
+
+#: src/dialogs/gnome-cmd-search-dialog.cc:44
+msgid "Search local directories only"
+msgstr "Hanya cari direktori lokal saja"
+
+#: src/dialogs/gnome-cmd-search-dialog.cc:45
+msgid "Files _not containing text"
+msgstr "Berkas ya_ng tak memuat teks"
+
+#: src/dialogs/gnome-cmd-search-dialog.cc:328
+#, c-format
+msgid "Failed to read file %s: File is not searchable"
+msgstr "Gagal membaca berkas %s: Berkas tidak dapat dicari"
+
+#: src/dialogs/gnome-cmd-search-dialog.cc:339
+#: src/dialogs/gnome-cmd-search-dialog.cc:352
+#: src/dialogs/gnome-cmd-search-dialog.cc:381
+#, c-format
+msgid "Failed to read file %s: %s"
+msgstr "Gagal membaca berkas %s: %s"
+
+#: src/dialogs/gnome-cmd-search-dialog.cc:441
+#, c-format
+msgid "Searching in: %s"
+msgstr "Mencari di: %s"
+
+#: src/dialogs/gnome-cmd-search-dialog.cc:605
+#, c-format
+msgid "Found %d match — search aborted"
+msgid_plural "Found %d matches — search aborted"
+msgstr[0] "Ditemukan %d kecocokan — pencarian digugurkan"
+
+#: src/dialogs/gnome-cmd-search-dialog.cc:606
+#, c-format
+msgid "Found %d match"
+msgid_plural "Found %d matches"
+msgstr[0] "Ditemukan %d kecocokan"
+
+#: src/dialogs/gnome-cmd-search-dialog.cc:815
+#, c-format
+msgid "Failed to set process group id of child %d: %s.\n"
+msgstr "Gagal menata id grup proses dari anak %d: %s.\n"
+
+#: src/dialogs/gnome-cmd-search-dialog.cc:951
+msgid "Error parsing the search command."
+msgstr "Galat saat mengurai perintah pencarian."
+
+#: src/dialogs/gnome-cmd-search-dialog.cc:963
+msgid "Error running the search command."
+msgstr "Galat saat menjalankan perintah pencarian."
+
+#: src/dialogs/gnome-cmd-search-dialog.cc:1090
+#, c-format
+msgid "Failed to change directory outside of %s"
+msgstr "Gagal pindah direktori di luar %s"
+
+#: src/dialogs/gnome-cmd-search-dialog.cc:1200
+msgid "Search…"
+msgstr "Cari…"
+
+#. search in
+#: src/dialogs/gnome-cmd-search-dialog.cc:1319
+msgid "Select Directory"
+msgstr "Pilih Direktori"
+
+#: src/dialogs/gnome-cmd-search-dialog.cc:1322
+msgid "_Look in folder:"
+msgstr "Cari da_lam folder:"
 
 #: src/dirlist.cc:48
 #, c-format
@@ -3487,7 +3632,7 @@ msgstr "Mencari workgroup dan host"
 msgid "Go to: Samba Network"
 msgstr "Ke: Jaringan Samba"
 
-#: src/gnome-cmd-data.cc:3192 src/gnome-cmd-data.cc:3872
+#: src/gnome-cmd-data.cc:3229 src/gnome-cmd-data.cc:3919
 #, c-format
 msgid "link to %s"
 msgstr "taut ke %s"
@@ -3665,13 +3810,13 @@ msgid "Open Wit_h…"
 msgstr "Buka _Dengan…"
 
 #: src/gnome-cmd-file-popmenu.cc:722 src/gnome-cmd-main-win.cc:240
-#: src/gnome-cmd-user-actions.cc:211
+#: src/gnome-cmd-user-actions.cc:212
 msgid "Cut"
 msgstr "Potong"
 
 #. {file_run, "file.run"},
 #: src/gnome-cmd-file-popmenu.cc:726 src/gnome-cmd-main-win.cc:245
-#: src/gnome-cmd-user-actions.cc:235
+#: src/gnome-cmd-user-actions.cc:236
 msgid "Send files"
 msgstr "Kirim berkas"
 
@@ -3687,7 +3832,7 @@ msgstr "_Eksekusi"
 msgid "Open _terminal here"
 msgstr "Buka _terminal di sini"
 
-#: src/gnome-cmd-file-popmenu.cc:730 src/gnome-cmd-user-actions.cc:210
+#: src/gnome-cmd-file-popmenu.cc:730 src/gnome-cmd-user-actions.cc:211
 msgid "Copy file names"
 msgstr "Salin nama berkas"
 
@@ -3709,7 +3854,7 @@ msgid "%s free"
 msgstr "%s bebas"
 
 #: src/gnome-cmd-file-selector.cc:628 src/gnome-cmd-file-selector.cc:704
-#: src/gnome-cmd-user-actions.cc:1716 src/gnome-cmd-user-actions.cc:1724
+#: src/gnome-cmd-user-actions.cc:1725 src/gnome-cmd-user-actions.cc:1733
 msgid "The tab is locked, close anyway?"
 msgstr "Tab terkunci, tutup saja?"
 
@@ -3745,29 +3890,29 @@ msgstr "Hapus Semu_a Tab"
 msgid "Close _Duplicate Tabs"
 msgstr "Tutup Tab _Duplikat"
 
-#: src/gnome-cmd-file-selector.cc:1156
+#: src/gnome-cmd-file-selector.cc:1169
 msgid "No file name given"
 msgstr "Tak ada nama berkas yang diberikan"
 
-#: src/gnome-cmd-file-selector.cc:1192
+#: src/gnome-cmd-file-selector.cc:1223
 msgid "New Text File"
 msgstr "Berkas Teks Baru"
 
-#: src/gnome-cmd-file-selector.cc:1341
+#: src/gnome-cmd-file-selector.cc:1372
 msgid "Symbolic link name:"
 msgstr "Nama taut simbolis:"
 
-#: src/gnome-cmd-file-selector.cc:1352 src/gnome-cmd-file-selector.cc:1405
-#: src/gnome-cmd-user-actions.cc:865
+#: src/gnome-cmd-file-selector.cc:1383 src/gnome-cmd-file-selector.cc:1436
+#: src/gnome-cmd-user-actions.cc:874
 msgid "Create Symbolic Link"
 msgstr "Buat Taut Simbolik"
 
-#: src/gnome-cmd-file-selector.cc:1405 src/gnome-cmd-xfer.cc:147
+#: src/gnome-cmd-file-selector.cc:1436 src/gnome-cmd-xfer.cc:147
 #: src/gnome-cmd-xfer.cc:205 src/gnome-cmd-xfer.cc:323
 msgid "Skip all"
 msgstr "Lewati semua"
 
-#: src/gnome-cmd-file-selector.cc:1477
+#: src/gnome-cmd-file-selector.cc:1508
 msgid "Filter:"
 msgstr "Penyaring:"
 
@@ -4027,7 +4172,7 @@ msgstr "La_porkan Masalah"
 msgid "_About"
 msgstr "Tent_ang"
 
-#: src/gnome-cmd-main-win.cc:233 src/gnome-cmd-user-actions.cc:277
+#: src/gnome-cmd-main-win.cc:233 src/gnome-cmd-user-actions.cc:278
 msgid "Refresh"
 msgstr "Segarkan"
 
@@ -4051,7 +4196,7 @@ msgstr "Ke yang terakhir"
 msgid "Copy file names (SHIFT for full paths, ALT for URIs)"
 msgstr "Salin nama berkas (SHIFT untuk path lengkap, ALT untuk URI)"
 
-#: src/gnome-cmd-main-win.cc:242 src/gnome-cmd-user-actions.cc:214
+#: src/gnome-cmd-main-win.cc:242 src/gnome-cmd-user-actions.cc:215
 msgid "Paste"
 msgstr "Tempel"
 
@@ -4095,11 +4240,11 @@ msgstr "F8 Hapus"
 msgid "F9 Search"
 msgstr "F9 Cari"
 
-#: src/gnome-cmd-main-win.cc:871
+#: src/gnome-cmd-main-win.cc:875
 msgid "GNOME Commander — ROOT PRIVILEGES"
 msgstr "GNOME Commander — PRIVILESE ROOT"
 
-#: src/gnome-cmd-quicksearch-popup.cc:274 src/gnome-cmd-user-actions.cc:216
+#: src/gnome-cmd-quicksearch-popup.cc:292 src/gnome-cmd-user-actions.cc:217
 msgid "Search"
 msgstr "Cari"
 
@@ -4139,338 +4284,338 @@ msgstr "Memuat _teks:"
 msgid "Case sensiti_ve"
 msgstr "_Peka huruf besar kecil"
 
-#: src/gnome-cmd-user-actions.cc:136
+#: src/gnome-cmd-user-actions.cc:137
 msgid "No file selected"
 msgstr "Tak ada berkas yang dipilih"
 
-#: src/gnome-cmd-user-actions.cc:196
+#: src/gnome-cmd-user-actions.cc:197
 msgid "Bookmark current directory"
 msgstr "Markahi direktori saat ini"
 
-#: src/gnome-cmd-user-actions.cc:197
+#: src/gnome-cmd-user-actions.cc:198
 msgid "Manage bookmarks"
 msgstr "Mengelola markah"
 
-#: src/gnome-cmd-user-actions.cc:198
+#: src/gnome-cmd-user-actions.cc:199
 msgid "Go to bookmarked location"
 msgstr "Ke lokasi yang dimarkahi"
 
-#: src/gnome-cmd-user-actions.cc:199
+#: src/gnome-cmd-user-actions.cc:200
 msgid "Show bookmarks of current device"
 msgstr "Tampilkan markah dari perangkat saat ini"
 
-#: src/gnome-cmd-user-actions.cc:200
+#: src/gnome-cmd-user-actions.cc:201
 msgid "Execute command"
 msgstr "Jalankan perintah"
 
-#: src/gnome-cmd-user-actions.cc:201
+#: src/gnome-cmd-user-actions.cc:202
 msgid "Open terminal"
 msgstr "Buka terminal"
 
-#: src/gnome-cmd-user-actions.cc:202
+#: src/gnome-cmd-user-actions.cc:203
 msgid "Open terminal as root"
 msgstr "Buka terminal sebagai root"
 
-#: src/gnome-cmd-user-actions.cc:203
+#: src/gnome-cmd-user-actions.cc:204
 msgid "Start GNOME Commander as root"
 msgstr "Mulai GNOME Commander sebagai root"
 
-#: src/gnome-cmd-user-actions.cc:204
+#: src/gnome-cmd-user-actions.cc:205
 msgid "Close connection"
 msgstr "Tutup koneksi"
 
-#: src/gnome-cmd-user-actions.cc:205
+#: src/gnome-cmd-user-actions.cc:206
 msgid "New connection"
 msgstr "Koneksi baru"
 
-#: src/gnome-cmd-user-actions.cc:206
+#: src/gnome-cmd-user-actions.cc:207
 msgid "Open connection"
 msgstr "Buka koneksi"
 
-#: src/gnome-cmd-user-actions.cc:207
+#: src/gnome-cmd-user-actions.cc:208
 msgid "Change left connection"
 msgstr "Ubah koneksi kiri"
 
-#: src/gnome-cmd-user-actions.cc:208
+#: src/gnome-cmd-user-actions.cc:209
 msgid "Change right connection"
 msgstr "Ubah koneksi kanan"
 
-#: src/gnome-cmd-user-actions.cc:213
+#: src/gnome-cmd-user-actions.cc:214
 msgid "Show user defined files"
 msgstr "Tampilkan berkas yang didefinisikan oleh pengguna"
 
-#: src/gnome-cmd-user-actions.cc:217
+#: src/gnome-cmd-user-actions.cc:218
 msgid "Advanced rename tool"
 msgstr "Alat ubah nama tingkat lanjut"
 
-#: src/gnome-cmd-user-actions.cc:218
+#: src/gnome-cmd-user-actions.cc:219
 msgid "Change permissions"
 msgstr "Ubah hak akses"
 
-#: src/gnome-cmd-user-actions.cc:219
+#: src/gnome-cmd-user-actions.cc:220
 msgid "Change owner/group"
 msgstr "Ubah pemilik/grup"
 
-#: src/gnome-cmd-user-actions.cc:220
+#: src/gnome-cmd-user-actions.cc:221
 msgid "Copy files"
 msgstr "Salin berkas"
 
-#: src/gnome-cmd-user-actions.cc:221
+#: src/gnome-cmd-user-actions.cc:222
 msgid "Copy files with rename"
 msgstr "Salin berkas sambil ubah nama"
 
-#: src/gnome-cmd-user-actions.cc:222
+#: src/gnome-cmd-user-actions.cc:223
 msgid "Create symbolic link"
 msgstr "Buat taut simbolik"
 
-#: src/gnome-cmd-user-actions.cc:223
+#: src/gnome-cmd-user-actions.cc:224
 msgid "Delete files"
 msgstr "Hapus Berkas"
 
-#: src/gnome-cmd-user-actions.cc:224
+#: src/gnome-cmd-user-actions.cc:225
 msgid "Compare files (diff)"
 msgstr "Bandingkan berkas (diff)"
 
-#: src/gnome-cmd-user-actions.cc:225
+#: src/gnome-cmd-user-actions.cc:226
 msgid "Edit file"
 msgstr "Sunting berkas"
 
-#: src/gnome-cmd-user-actions.cc:226
+#: src/gnome-cmd-user-actions.cc:227
 msgid "Edit a new file"
 msgstr "Sunting suatu berkas baru"
 
-#: src/gnome-cmd-user-actions.cc:227
+#: src/gnome-cmd-user-actions.cc:228
 msgid "Quit"
 msgstr "Keluar"
 
-#: src/gnome-cmd-user-actions.cc:228
+#: src/gnome-cmd-user-actions.cc:229
 msgid "View with external viewer"
 msgstr "Tilik dengan penampil eksternal"
 
-#: src/gnome-cmd-user-actions.cc:229
+#: src/gnome-cmd-user-actions.cc:230
 msgid "View with internal viewer"
 msgstr "Tilik dengan penampil internal"
 
-#: src/gnome-cmd-user-actions.cc:230
+#: src/gnome-cmd-user-actions.cc:231
 msgid "Create directory"
 msgstr "Buat direktori"
 
-#: src/gnome-cmd-user-actions.cc:231
+#: src/gnome-cmd-user-actions.cc:232
 msgid "Move files"
 msgstr "Memindah berkas"
 
-#: src/gnome-cmd-user-actions.cc:233
+#: src/gnome-cmd-user-actions.cc:234
 msgid "Rename files"
 msgstr "Ubah nama berkas"
 
-#: src/gnome-cmd-user-actions.cc:236
+#: src/gnome-cmd-user-actions.cc:237
 msgid "Synchronize directories"
 msgstr "Selaraskan direktori"
 
-#: src/gnome-cmd-user-actions.cc:239
+#: src/gnome-cmd-user-actions.cc:240
 msgid "About GNOME Commander"
 msgstr "Tentang GNOME Commander"
 
-#: src/gnome-cmd-user-actions.cc:240
+#: src/gnome-cmd-user-actions.cc:241
 msgid "Help contents"
 msgstr "Isi bantuan"
 
-#: src/gnome-cmd-user-actions.cc:241
+#: src/gnome-cmd-user-actions.cc:242
 msgid "Help on keyboard shortcuts"
 msgstr "Bantuan tentang pintasan papan tik"
 
-#: src/gnome-cmd-user-actions.cc:242
+#: src/gnome-cmd-user-actions.cc:243
 msgid "Report a problem"
 msgstr "Laporkan suatu masalah"
 
-#: src/gnome-cmd-user-actions.cc:243
+#: src/gnome-cmd-user-actions.cc:244
 msgid "GNOME Commander on the web"
 msgstr "GNOME Commander di Web"
 
-#: src/gnome-cmd-user-actions.cc:244
+#: src/gnome-cmd-user-actions.cc:245
 msgid "Compare directories"
 msgstr "Bandingkan direktori"
 
-#: src/gnome-cmd-user-actions.cc:245
+#: src/gnome-cmd-user-actions.cc:246
 msgid "Invert selection"
 msgstr "Balik pilihan"
 
-#: src/gnome-cmd-user-actions.cc:246
+#: src/gnome-cmd-user-actions.cc:247
 msgid "Select all"
 msgstr "Pilih semua"
 
-#: src/gnome-cmd-user-actions.cc:247
+#: src/gnome-cmd-user-actions.cc:248
 msgid "Select all files"
 msgstr "Pilih semua berkas"
 
-#: src/gnome-cmd-user-actions.cc:248
+#: src/gnome-cmd-user-actions.cc:249
 msgid "Unselect all files"
 msgstr "Pilih tak satupun"
 
-#: src/gnome-cmd-user-actions.cc:249
+#: src/gnome-cmd-user-actions.cc:250
 msgid "Toggle selection"
 msgstr "Jungkitkan pilihan"
 
-#: src/gnome-cmd-user-actions.cc:250
+#: src/gnome-cmd-user-actions.cc:251
 msgid "Toggle selection and move cursor downward"
 msgstr "Jungkitkan pilihan dan pindahkan kursor ke bawah"
 
-#: src/gnome-cmd-user-actions.cc:251
+#: src/gnome-cmd-user-actions.cc:252
 msgid "Unselect all"
 msgstr "Tidak pilih semua"
 
-#: src/gnome-cmd-user-actions.cc:254
+#: src/gnome-cmd-user-actions.cc:255
 msgid "Keyboard shortcuts"
 msgstr "Pintasan papan tik"
 
-#: src/gnome-cmd-user-actions.cc:255
+#: src/gnome-cmd-user-actions.cc:256
 msgid "Configure plugins"
 msgstr "Mengatur pengaya"
 
-#: src/gnome-cmd-user-actions.cc:256
+#: src/gnome-cmd-user-actions.cc:257
 msgid "Back one directory"
 msgstr "Mundur satu direktori"
 
-#: src/gnome-cmd-user-actions.cc:257
+#: src/gnome-cmd-user-actions.cc:258
 msgid "Close the current tab"
 msgstr "Tutup tab saat ini"
 
-#: src/gnome-cmd-user-actions.cc:258
+#: src/gnome-cmd-user-actions.cc:259
 msgid "Close all tabs"
 msgstr "Tutup semua tab"
 
-#: src/gnome-cmd-user-actions.cc:259
+#: src/gnome-cmd-user-actions.cc:260
 msgid "Close duplicate tabs"
 msgstr "Tutup tab yang duplikat"
 
-#: src/gnome-cmd-user-actions.cc:260
+#: src/gnome-cmd-user-actions.cc:261
 msgid "Change directory"
 msgstr "Ubah direktori"
 
-#: src/gnome-cmd-user-actions.cc:261
+#: src/gnome-cmd-user-actions.cc:262
 msgid "Show directory history"
 msgstr "Tampilkan riwayat direktori"
 
-#: src/gnome-cmd-user-actions.cc:262
+#: src/gnome-cmd-user-actions.cc:263
 msgid "Equal panel size"
 msgstr "Ukuran panel sama"
 
-#: src/gnome-cmd-user-actions.cc:263
+#: src/gnome-cmd-user-actions.cc:264
 msgid "Maximize panel size"
 msgstr "Maksimalkan ukuran panel"
 
-#: src/gnome-cmd-user-actions.cc:264
+#: src/gnome-cmd-user-actions.cc:265
 msgid "Back to the first directory"
 msgstr "Kembali ke direktori pertama"
 
-#: src/gnome-cmd-user-actions.cc:265
+#: src/gnome-cmd-user-actions.cc:266
 msgid "Forward one directory"
 msgstr "Maju satu direktori"
 
-#: src/gnome-cmd-user-actions.cc:266
+#: src/gnome-cmd-user-actions.cc:267
 msgid "Home directory"
 msgstr "Direktori rumah"
 
-#: src/gnome-cmd-user-actions.cc:267
+#: src/gnome-cmd-user-actions.cc:268
 msgid "Open directory in the active window"
 msgstr "Buka direktori dalam jendela aktif"
 
-#: src/gnome-cmd-user-actions.cc:268
+#: src/gnome-cmd-user-actions.cc:269
 msgid "Open directory in the inactive window"
 msgstr "Buka direktori dalam jendela yang tak aktif"
 
-#: src/gnome-cmd-user-actions.cc:269
+#: src/gnome-cmd-user-actions.cc:270
 msgid "Open directory in the left window"
 msgstr "Buka direktori di jendela kiri"
 
-#: src/gnome-cmd-user-actions.cc:270
+#: src/gnome-cmd-user-actions.cc:271
 msgid "Open directory in the right window"
 msgstr "Buka direktori di jendela kanan"
 
-#: src/gnome-cmd-user-actions.cc:271
+#: src/gnome-cmd-user-actions.cc:272
 msgid "Open directory in the new tab"
 msgstr "Buka direktori di tab baru"
 
-#: src/gnome-cmd-user-actions.cc:272
+#: src/gnome-cmd-user-actions.cc:273
 msgid "Open directory in the new tab (inactive window)"
 msgstr "Buka direktori dalam tab baru (jendela yang tak aktif)"
 
-#: src/gnome-cmd-user-actions.cc:273
+#: src/gnome-cmd-user-actions.cc:274
 msgid "Forward to the last directory"
 msgstr "Maju ke direktori terakhir"
 
-#: src/gnome-cmd-user-actions.cc:274
+#: src/gnome-cmd-user-actions.cc:275
 msgid "Next tab"
 msgstr "Tab selanjutnya"
 
-#: src/gnome-cmd-user-actions.cc:275
+#: src/gnome-cmd-user-actions.cc:276
 msgid "Open directory in a new tab"
 msgstr "Buka direktori dalam tab baru"
 
-#: src/gnome-cmd-user-actions.cc:276
+#: src/gnome-cmd-user-actions.cc:277
 msgid "Previous tab"
 msgstr "Tab sebelumnya"
 
-#: src/gnome-cmd-user-actions.cc:278
+#: src/gnome-cmd-user-actions.cc:279
 msgid "Root directory"
 msgstr "Direktori root"
 
-#: src/gnome-cmd-user-actions.cc:279
+#: src/gnome-cmd-user-actions.cc:280
 msgid "Lock/unlock tab"
 msgstr "Kunci/buka kunci tab"
 
-#: src/gnome-cmd-user-actions.cc:281
+#: src/gnome-cmd-user-actions.cc:282
 msgid "Show terminal"
 msgstr "Tampilkan terminal"
 
-#: src/gnome-cmd-user-actions.cc:284
+#: src/gnome-cmd-user-actions.cc:285
 msgid "Display main menu"
 msgstr "Tampilkan menu utama"
 
-#: src/gnome-cmd-user-actions.cc:285
+#: src/gnome-cmd-user-actions.cc:286
 msgid "Move cursor one step up"
 msgstr "Naikkan kursor satu langkah"
 
-#: src/gnome-cmd-user-actions.cc:286
+#: src/gnome-cmd-user-actions.cc:287
 msgid "Move cursor one step down"
 msgstr "Turunkan kursor satu langkah"
 
-#: src/gnome-cmd-user-actions.cc:746 src/gnome-cmd-user-actions.cc:921
-#: src/gnome-cmd-user-actions.cc:1182 src/utils.cc:136
+#: src/gnome-cmd-user-actions.cc:746 src/gnome-cmd-user-actions.cc:930
+#: src/gnome-cmd-user-actions.cc:1191 src/utils.cc:136
 msgid "No valid command given."
 msgstr "Tidak ada perintah valid yang diberikan."
 
-#: src/gnome-cmd-user-actions.cc:759 src/gnome-cmd-user-actions.cc:796
-#: src/gnome-cmd-user-actions.cc:937 src/gnome-cmd-user-actions.cc:1195
-#: src/gnome-cmd-user-actions.cc:1234 src/utils.cc:143
+#: src/gnome-cmd-user-actions.cc:758 src/gnome-cmd-user-actions.cc:804
+#: src/gnome-cmd-user-actions.cc:946 src/gnome-cmd-user-actions.cc:1204
+#: src/gnome-cmd-user-actions.cc:1243 src/utils.cc:143
 msgid "Unable to execute command."
 msgstr "Tak bisa mengeksekusi perintah."
 
-#: src/gnome-cmd-user-actions.cc:781
+#: src/gnome-cmd-user-actions.cc:789
 msgid "No search command given."
 msgstr "Tidak ada perintah pencarian yang diberikan."
 
-#: src/gnome-cmd-user-actions.cc:781
+#: src/gnome-cmd-user-actions.cc:789
 msgid "You can set a command for a search tool in the program options."
 msgstr ""
 "Anda dapat mengatur suatu perintah bagi sebuah alat pencarian dalam opsi "
 "program."
 
-#: src/gnome-cmd-user-actions.cc:860
+#: src/gnome-cmd-user-actions.cc:869
 #, c-format
 msgid "Create symbolic links of %i file in %s?"
 msgid_plural "Create symbolic links of %i files in %s?"
 msgstr[0] "Buat taut simbolik dari %i berkas dalam %s?"
 
-#: src/gnome-cmd-user-actions.cc:865
+#: src/gnome-cmd-user-actions.cc:874
 msgid "Create"
 msgstr "Buat"
 
-#: src/gnome-cmd-user-actions.cc:953
+#: src/gnome-cmd-user-actions.cc:962
 msgid "Warning"
 msgstr "Peringatan"
 
-#: src/gnome-cmd-user-actions.cc:953
+#: src/gnome-cmd-user-actions.cc:962
 msgid ""
 "The default send-to command only supports one selected file at a time. You "
 "can change the command in the program options."
@@ -4478,48 +4623,48 @@ msgstr ""
 "Perintah bawaan kirim-ke hanya mendukung satu berkas yang dipilih sekaligus. "
 "Anda dapat mengubah perintah di opsi program."
 
-#: src/gnome-cmd-user-actions.cc:970 src/gnome-cmd-user-actions.cc:987
-#: src/gnome-cmd-user-actions.cc:1033
+#: src/gnome-cmd-user-actions.cc:979 src/gnome-cmd-user-actions.cc:996
+#: src/gnome-cmd-user-actions.cc:1042
 msgid "Operation not supported on remote file systems"
 msgstr "Operasi tak didukung pada sistem berkas jauh"
 
-#: src/gnome-cmd-user-actions.cc:1002
+#: src/gnome-cmd-user-actions.cc:1011
 msgid "Too many selected files"
 msgstr "File yang dipilih terlalu banyak"
 
-#: src/gnome-cmd-user-actions.cc:1267
+#: src/gnome-cmd-user-actions.cc:1276
 msgid "Unable to open terminal in root mode."
 msgstr "Tak bisa membuka terminal dalam mode root."
 
-#: src/gnome-cmd-user-actions.cc:1272
+#: src/gnome-cmd-user-actions.cc:1281
 msgid "gksudo, xdg-su, gksu, gnomesu, kdesu or beesu is not found."
 msgstr "gksudo, xdg-su, gksu, gnomesu, kdesu, atau beesu tak ditemukan."
 
-#: src/gnome-cmd-user-actions.cc:1291
+#: src/gnome-cmd-user-actions.cc:1300
 msgid "Unable to start GNOME Commander in root mode."
 msgstr "Tak bisa memulai GNOME Commander dalam mode root."
 
-#: src/gnome-cmd-user-actions.cc:1294
+#: src/gnome-cmd-user-actions.cc:1303
 msgid "gksudo, xdg-su, gksu, gnomesu, kdesu or beesu is not found"
 msgstr "gksudo, xdg-su, gksu, gnomesu, kdesu, atau beesu tak ditemukan"
 
-#: src/gnome-cmd-user-actions.cc:1921
+#: src/gnome-cmd-user-actions.cc:1930
 msgid "Bookmarks"
 msgstr "Markah"
 
-#: src/gnome-cmd-user-actions.cc:2008
+#: src/gnome-cmd-user-actions.cc:2017
 msgid "There was an error opening home page."
 msgstr "Ada galat saat membuka laman web."
 
-#: src/gnome-cmd-user-actions.cc:2017
+#: src/gnome-cmd-user-actions.cc:2026
 msgid "There was an error reporting problem."
 msgstr "Ada galat saat melaporkan masalah."
 
-#: src/gnome-cmd-user-actions.cc:2043
+#: src/gnome-cmd-user-actions.cc:2052
 msgid "A fast and powerful file manager for the GNOME desktop"
 msgstr "Manajer berkas yang cepat dan bertenaga bagi desktop GNOME"
 
-#: src/gnome-cmd-user-actions.cc:2047
+#: src/gnome-cmd-user-actions.cc:2056
 msgid ""
 "GNOME Commander is free software; you can redistribute it and/or modify it "
 "under the terms of the GNU General Public License as published by the Free "
@@ -4531,7 +4676,7 @@ msgstr ""
 "sebagaimana dipublikasikan oleh Free Software Foundation; Lisensi versi 2 "
 "atau (sesuai pilihan Anda) sebarang versi setelahnya."
 
-#: src/gnome-cmd-user-actions.cc:2051
+#: src/gnome-cmd-user-actions.cc:2060
 msgid ""
 "GNOME Commander is distributed in the hope that it will be useful, but "
 "WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY "
@@ -4542,7 +4687,7 @@ msgstr ""
 "ADANYA JAMINAN; termasuk tanpa jaminan DAYA JUAL atau KELAIKAN UNTUK TUJUAN "
 "TERTENTU. Lihat GNU General Public License untuk rincian lebih lanjut."
 
-#: src/gnome-cmd-user-actions.cc:2055
+#: src/gnome-cmd-user-actions.cc:2064
 msgid ""
 "You should have received a copy of the GNU General Public License along with "
 "GNOME Commander; if not, write to the Free Software Foundation, Inc., 51 "
@@ -4552,14 +4697,14 @@ msgstr ""
 "GNOME Commander, jika tidak, tulislah surat ke Free Software Foundation, "
 "Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA."
 
-#: src/gnome-cmd-user-actions.cc:2072
+#: src/gnome-cmd-user-actions.cc:2081
 msgid "translator-credits"
 msgstr ""
-"Andika Triwidada <andika@gmail.com>, 2012-2014, 2016-2017, 2020-2022.\n"
+"Andika Triwidada <andika@gmail.com>, 2012-2014, 2016-2017, 2020-2023.\n"
 "Kukuh Syafaat <kukuhsyafaat@gnome.org>, 2017, 2020, 2021."
 
-#: src/gnome-cmd-xfer.cc:119 src/gnome-cmd-xfer.cc:1099
-#: src/gnome-cmd-xfer.cc:1110 src/gnome-cmd-xfer.cc:1154
+#: src/gnome-cmd-xfer.cc:119 src/gnome-cmd-xfer.cc:1107
+#: src/gnome-cmd-xfer.cc:1118 src/gnome-cmd-xfer.cc:1164
 msgid "Transfer problem"
 msgstr "Masalah transfer"
 
@@ -4612,7 +4757,7 @@ msgid "Replace all"
 msgstr "Ganti semua"
 
 #: src/gnome-cmd-xfer.cc:246 src/gnome-cmd-xfer.cc:364
-#: src/gnome-cmd-xfer.cc:502
+#: src/gnome-cmd-xfer.cc:514
 #, c-format
 msgid ""
 "Error while transferring “%s”\n"
@@ -4627,37 +4772,37 @@ msgstr ""
 msgid "Move problem"
 msgstr "Masalah pemindahan"
 
-#: src/gnome-cmd-xfer.cc:455
+#: src/gnome-cmd-xfer.cc:467
 msgid "copying…"
 msgstr "menyalin…"
 
-#: src/gnome-cmd-xfer.cc:459
+#: src/gnome-cmd-xfer.cc:471
 #, c-format
 msgid "[file %ld of %ld] “%s”"
 msgstr "[berkas %ld dari %ld] \"%s\""
 
-#: src/gnome-cmd-xfer.cc:650
+#: src/gnome-cmd-xfer.cc:638
 msgid "Copying a directory into itself is a bad idea."
 msgstr "Menyalin suatu direktori ke dirinya sendiri adalah ide buruk."
 
-#: src/gnome-cmd-xfer.cc:650 src/gnome-cmd-xfer.cc:730
-#: src/gnome-cmd-xfer.cc:811
+#: src/gnome-cmd-xfer.cc:638 src/gnome-cmd-xfer.cc:719
+#: src/gnome-cmd-xfer.cc:801
 msgid "The whole operation was cancelled."
 msgstr "Seluruh operasi dibatalkan."
 
-#: src/gnome-cmd-xfer.cc:697 src/gnome-cmd-xfer.cc:777
+#: src/gnome-cmd-xfer.cc:687 src/gnome-cmd-xfer.cc:768
 msgid "preparing…"
 msgstr "mempersiapkan…"
 
-#: src/gnome-cmd-xfer.cc:730 src/gnome-cmd-xfer.cc:811
+#: src/gnome-cmd-xfer.cc:719 src/gnome-cmd-xfer.cc:801
 msgid "Moving a directory into itself is a bad idea."
 msgstr "Memindah suatu direktori ke dirinya sendiri adalah ide buruk."
 
-#: src/gnome-cmd-xfer.cc:878
+#: src/gnome-cmd-xfer.cc:872
 msgid "downloading to /tmp"
 msgstr "mengunduh ke /tmp"
 
-#: src/gnome-cmd-xfer.cc:927
+#: src/gnome-cmd-xfer.cc:923
 #, c-format
 msgid ""
 "Error while creating symlink “%s”\n"
@@ -4668,21 +4813,21 @@ msgstr ""
 "\n"
 "%s"
 
-#: src/gnome-cmd-xfer.cc:932
+#: src/gnome-cmd-xfer.cc:928
 msgid "Symlink creation problem"
 msgstr "Masalah pembuatan symlink"
 
-#: src/gnome-cmd-xfer.cc:933
+#: src/gnome-cmd-xfer.cc:929
 msgid "Ignore"
 msgstr "Abaikan"
 
 #. Translators: Translate 'Copy' as a noun here
-#: src/gnome-cmd-xfer.cc:1034
+#: src/gnome-cmd-xfer.cc:1038
 msgctxt "Filename suffix"
 msgid "Copy"
 msgstr "Salinan"
 
-#: src/gnome-cmd-xfer.cc:1098 src/gnome-cmd-xfer.cc:1109
+#: src/gnome-cmd-xfer.cc:1106 src/gnome-cmd-xfer.cc:1117
 #, c-format
 msgid ""
 "Source “%s” could not be deleted. Aborting!\n"
@@ -4693,7 +4838,7 @@ msgstr ""
 "\n"
 "%s"
 
-#: src/gnome-cmd-xfer.cc:1153
+#: src/gnome-cmd-xfer.cc:1163
 #, c-format
 msgid "Source “%s” could not be copied. Aborting!"
 msgstr "Sumber \"%s\" tak bisa disalin. Menggugurkan!"
@@ -7050,12 +7195,12 @@ msgstr ""
 "bagian pengguna komentar. Karena TYPE bukan ASCII, NULL di akhir tidak "
 "diperlukan. ID kode untuk wilayah <Exif.UserComment> mungkin kode yang "
 "Ditetapkan seperti JIS atau ASCII, atau mungkin Undefined. Nama Undefined "
-"adalah UndefinedText, dan kode ID diisi dengan 8 byte semua \"NULL\" (\"00.H"
-"\"). Seorang pembaca Exif yang membaca tag <Exif.UserComment> harus memiliki "
-"fungsi untuk menentukan kode ID. Fungsi ini tidak diperlukan dalam pembaca "
-"Exif yang tidak menggunakan tag <Exif.UserComment>. Ketika area <Exif."
-"UserComment> disisihkan, dianjurkan bahwa kode ID menjadi ASCII dan bahwa "
-"pengguna komentar bagian berikut diisi dengan karakter kosong [20.H]."
+"adalah UndefinedText, dan kode ID diisi dengan 8 byte semua \"NULL\" (\"00."
+"H\"). Seorang pembaca Exif yang membaca tag <Exif.UserComment> harus "
+"memiliki fungsi untuk menentukan kode ID. Fungsi ini tidak diperlukan dalam "
+"pembaca Exif yang tidak menggunakan tag <Exif.UserComment>. Ketika area "
+"<Exif.UserComment> disisihkan, dianjurkan bahwa kode ID menjadi ASCII dan "
+"bahwa pengguna komentar bagian berikut diisi dengan karakter kosong [20.H]."
 
 #: src/tags/gnome-cmd-tags.cc:312 src/tags/gnome-cmd-tags.cc:439
 msgid "White Balance"
