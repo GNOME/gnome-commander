@@ -2018,13 +2018,13 @@ void GnomeCmdData::load_keybindings()
 
     g_variant_iter_init (&iter, gvKeybindings);
 
-	while ((keybinding = g_variant_iter_next_value (&iter)) != nullptr)
+    while ((keybinding = g_variant_iter_next_value (&iter)) != nullptr)
     {
         gchar *name, *action, *option;
         gboolean shift, control, alt, super, hyper, meta;
 
-		g_assert (g_variant_is_of_type (keybinding, G_VARIANT_TYPE (GCMD_SETTINGS_KEYBINDING_FORMAT_STRING)));
-		g_variant_get(keybinding, GCMD_SETTINGS_KEYBINDING_FORMAT_STRING,
+        g_assert (g_variant_is_of_type (keybinding, G_VARIANT_TYPE (GCMD_SETTINGS_KEYBINDING_FORMAT_STRING)));
+        g_variant_get(keybinding, GCMD_SETTINGS_KEYBINDING_FORMAT_STRING,
                       &name, &action, &option, &shift, &control, &alt, &super, &hyper, &meta);
 
         if (gcmd_user_actions.has_action(action))
@@ -2057,7 +2057,7 @@ void GnomeCmdData::load_keybindings()
         else
             g_warning ("<KeyBindings> unknown user action: '%s' - ignored", action);
 
-		g_variant_unref(keybinding);
+        g_variant_unref(keybinding);
     }
     g_variant_unref(gvKeybindings);
 }
@@ -2498,14 +2498,14 @@ void GnomeCmdData::load_fav_apps()
 
     gnome_cmd_data.options.fav_apps = nullptr;
 
-	while ((favApp = g_variant_iter_next_value (&iter)) != nullptr)
+    while ((favApp = g_variant_iter_next_value (&iter)) != nullptr)
     {
         gchar *name, *command, *iconPath, *pattern;
         guint target;
         gboolean handlesUris, handlesMutiple, requiresTerminal;
 
-		g_assert (g_variant_is_of_type (favApp, G_VARIANT_TYPE (GCMD_SETTINGS_FAV_APPS_FORMAT_STRING)));
-		g_variant_get(favApp, GCMD_SETTINGS_FAV_APPS_FORMAT_STRING, &name, &command, &iconPath, &pattern, &target, &handlesUris, &handlesMutiple, &requiresTerminal);
+        g_assert (g_variant_is_of_type (favApp, G_VARIANT_TYPE (GCMD_SETTINGS_FAV_APPS_FORMAT_STRING)));
+        g_variant_get(favApp, GCMD_SETTINGS_FAV_APPS_FORMAT_STRING, &name, &command, &iconPath, &pattern, &target, &handlesUris, &handlesMutiple, &requiresTerminal);
 
         gnome_cmd_data.options.fav_apps = g_list_append (
             gnome_cmd_data.options.fav_apps,
@@ -2513,7 +2513,7 @@ void GnomeCmdData::load_fav_apps()
             name, command, iconPath, (AppTarget) target, pattern,
             handlesUris, handlesMutiple, requiresTerminal, nullptr));
 
-		g_variant_unref(favApp);
+        g_variant_unref(favApp);
         g_free (name);
         g_free (command);
         g_free (iconPath);
@@ -2783,20 +2783,20 @@ void GnomeCmdData::load_tabs()
 
     g_variant_iter_init (&iter, gvTabs);
 
-	while ((tab = g_variant_iter_next_value (&iter)) != nullptr)
+    while ((tab = g_variant_iter_next_value (&iter)) != nullptr)
     {
         gchar *uriCharString;
         gboolean sort_order, locked;
         guchar fileSelectorId, sort_column;
 
-		g_assert (g_variant_is_of_type (tab, G_VARIANT_TYPE (GCMD_SETTINGS_FILE_LIST_TAB_FORMAT_STRING)));
-		g_variant_get(tab, GCMD_SETTINGS_FILE_LIST_TAB_FORMAT_STRING, &uriCharString, &fileSelectorId, &sort_column, &sort_order, &locked);
+        g_assert (g_variant_is_of_type (tab, G_VARIANT_TYPE (GCMD_SETTINGS_FILE_LIST_TAB_FORMAT_STRING)));
+        g_variant_get(tab, GCMD_SETTINGS_FILE_LIST_TAB_FORMAT_STRING, &uriCharString, &fileSelectorId, &sort_column, &sort_order, &locked);
         string uriString(uriCharString);
         if (!uriString.empty() && sort_column < GnomeCmdFileList::NUM_COLUMNS)
         {
             this->tabs[(FileSelectorID) fileSelectorId].push_back(make_pair(uriString, make_triple((GnomeCmdFileList::ColumnID) sort_column, (GtkSortType) sort_order, locked)));
         }
-		g_variant_unref(tab);
+        g_variant_unref(tab);
         g_free(uriCharString);
     }
     g_variant_unref(gvTabs);
@@ -2814,15 +2814,15 @@ void GnomeCmdData::load_devices()
 
     g_variant_iter_init (&iter, gvDevices);
 
-	while ((device = g_variant_iter_next_value (&iter)) != nullptr)
+    while ((device = g_variant_iter_next_value (&iter)) != nullptr)
     {
         g_autofree gchar *alias, *device_fn, *mountPoint, *iconPath;
 
-		g_variant_get(device, GCMD_SETTINGS_DEVICES_FORMAT_STRING, &alias, &device_fn, &mountPoint, &iconPath);
+        g_variant_get(device, GCMD_SETTINGS_DEVICES_FORMAT_STRING, &alias, &device_fn, &mountPoint, &iconPath);
 
         gnome_cmd_data.priv->con_list->add (gnome_cmd_con_device_new (alias, device_fn, mountPoint, iconPath));
 
-		g_variant_unref(device);
+        g_variant_unref(device);
     }
     g_variant_unref(gvDevices);
     load_available_gvolumes ();
@@ -2840,7 +2840,7 @@ void GnomeCmdData::load_connections()
 
     g_variant_iter_init (&iter, gvConnections);
 
-	while ((connection = g_variant_iter_next_value (&iter)) != nullptr)
+    while ((connection = g_variant_iter_next_value (&iter)) != nullptr)
     {
         gchar *name, *uri;
 
@@ -2860,7 +2860,7 @@ void GnomeCmdData::load_connections()
                 g_warning ("<Connection> invalid URI: '%s' - ignored", uri);
         }
 
-		g_variant_unref(connection);
+        g_variant_unref(connection);
     }
     g_variant_unref(gvConnections);
 }

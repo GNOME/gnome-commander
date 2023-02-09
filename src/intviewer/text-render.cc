@@ -1575,8 +1575,8 @@ static offset_type text_mode_pixel_to_offset(TextRender *obj, int x, int y, gboo
     while (column>choffcol && offset<next_line_offset)
     {
         offset = gv_input_get_next_char_offset(obj->priv->im, offset);
-	choff = gv_input_mode_get_utf8_char(obj->priv->im, offset);
-	choffcol += (choff=='\t') ? obj->priv->tab_size : 1;
+        choff = gv_input_mode_get_utf8_char(obj->priv->im, offset);
+        choffcol += (choff=='\t') ? obj->priv->tab_size : 1;
     }
 
     // Increment offset if doing end-marker

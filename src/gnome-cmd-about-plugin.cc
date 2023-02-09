@@ -241,8 +241,8 @@ static void link_button_clicked_callback (GtkWidget *widget, gpointer data)
 {
     const gchar *link;
 
-	link = gtk_link_button_get_uri (GTK_LINK_BUTTON (widget));
-	gtk_show_uri (nullptr, link, gtk_get_current_event_time(), nullptr);
+    link = gtk_link_button_get_uri (GTK_LINK_BUTTON (widget));
+    gtk_show_uri (nullptr, link, gtk_get_current_event_time(), nullptr);
 }
 
 

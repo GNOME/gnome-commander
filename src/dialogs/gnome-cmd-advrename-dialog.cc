@@ -479,7 +479,7 @@ void GnomeCmdAdvrenameDialog::Private::on_dialog_response (GnomeCmdAdvrenameDial
             {
                 main_win->fs(ACTIVE)->file_list()->focus_file(new_focused_file_name, TRUE);
                 g_free (new_focused_file_name);
-		new_focused_file_name = NULL;
+                new_focused_file_name = NULL;
             }
             dialog->update_new_filenames();
             dialog->defaults.templates.add(dialog->priv->profile_component->get_template_entry());

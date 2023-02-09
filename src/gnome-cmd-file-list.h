@@ -243,7 +243,7 @@ inline GnomeCmdFileList::~GnomeCmdFileList()
 inline void GnomeCmdFileList::remove_files (GList *files)
 {
     for (; files; files = files->next)
-	    remove_file(static_cast<GnomeCmdFile *>(files->data));
+        remove_file(static_cast<GnomeCmdFile *>(files->data));
 }
 
 inline gboolean GnomeCmdFileList::has_file(const GnomeCmdFile *f)

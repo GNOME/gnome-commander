@@ -129,13 +129,13 @@ void run_command_indir (const gchar *in_command, const gchar *dpath, gboolean te
 
     // check if command includes % and replace
     string cmd;
-	cmd.reserve(2000);
-	if (parse_command(&cmd, (const gchar*) command) == 0)
-	{
-	    DEBUG ('g', "run_command_indir: command is not valid.\n");
-	    gnome_cmd_show_message (*main_win, _("No valid command given."));
-	    return;
-	}
+    cmd.reserve(2000);
+    if (parse_command(&cmd, (const gchar*) command) == 0)
+    {
+        DEBUG ('g', "run_command_indir: command is not valid.\n");
+        gnome_cmd_show_message (*main_win, _("No valid command given."));
+        return;
+    }
 
     //g_shell_parse_argv (command, &argc, &argv, NULL);
     g_shell_parse_argv (cmd.c_str(), &argc, &argv, NULL); // include parse_command

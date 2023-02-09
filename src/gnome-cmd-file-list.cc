@@ -1426,7 +1426,7 @@ inline gboolean mime_exec_file (GnomeCmdFile *f)
     if (f->GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE) == G_FILE_TYPE_REGULAR)
     {
         mime_exec_single (f);
-	    return TRUE;
+        return TRUE;
     }
     return FALSE;
 
@@ -2210,7 +2210,7 @@ void GnomeCmdFileList::select_all_files()
         auto gnomeCmdFile = static_cast<GnomeCmdFile*> (i->data);
         if (gnomeCmdFile)
         {
-	        if(GNOME_CMD_IS_DIR(gnomeCmdFile))
+            if(GNOME_CMD_IS_DIR(gnomeCmdFile))
             {
                unselect_file(gnomeCmdFile);
             }
@@ -2230,7 +2230,7 @@ void GnomeCmdFileList::unselect_all_files()
         auto gnomeCmdFile = static_cast<GnomeCmdFile*> (i->data);
         if (gnomeCmdFile)
         {
-	        if(!GNOME_CMD_IS_DIR(gnomeCmdFile))
+            if(!GNOME_CMD_IS_DIR(gnomeCmdFile))
             {
                unselect_file(gnomeCmdFile);
             }

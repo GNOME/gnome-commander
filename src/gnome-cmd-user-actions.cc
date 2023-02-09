@@ -732,34 +732,34 @@ void file_edit (GtkMenuItem *menuitem, gpointer not_used)
         gnome_cmd_file_selector_show_new_textfile_dialog (get_fs (ACTIVE));
     else
     {
-	    gchar       *command;
+        gchar       *command;
 
-	    command = g_strdup (gnome_cmd_data.options.editor);
-	    g_return_if_fail (command != nullptr);
+        command = g_strdup (gnome_cmd_data.options.editor);
+        g_return_if_fail (command != nullptr);
 
-	    string cmd;
+        string cmd;
 
-	    cmd.reserve(2000);
-	    if (parse_command(&cmd, (const gchar*) command) == 0)
-	    {
-	        DEBUG ('g', "Edit file command is not valid.\n");
-	        gnome_cmd_show_message (*main_win, _("No valid command given."));
-	        return;
-	    }
-	    else
-	    {
-	        gint     argc;
-	        gchar  **argv  = nullptr;
-	        GError  *error = nullptr;
-	        DEBUG ('g', "Edit file: %s\n", cmd.c_str());
+        cmd.reserve(2000);
+        if (parse_command(&cmd, (const gchar*) command) == 0)
+        {
+            DEBUG ('g', "Edit file command is not valid.\n");
+            gnome_cmd_show_message (*main_win, _("No valid command given."));
+            return;
+        }
+        else
+        {
+            gint     argc;
+            gchar  **argv  = nullptr;
+            GError  *error = nullptr;
+            DEBUG ('g', "Edit file: %s\n", cmd.c_str());
 
-	        g_shell_parse_argv (cmd.c_str(), &argc, &argv, nullptr);
-	        if (!g_spawn_async (nullptr, argv, nullptr, G_SPAWN_SEARCH_PATH, nullptr, nullptr, nullptr, &error))
+            g_shell_parse_argv (cmd.c_str(), &argc, &argv, nullptr);
+            if (!g_spawn_async (nullptr, argv, nullptr, G_SPAWN_SEARCH_PATH, nullptr, nullptr, nullptr, &error))
             gnome_cmd_error_message (_("Unable to execute command."), error);
 
-	        g_strfreev (argv);
-	        g_free (command);
-	    }
+            g_strfreev (argv);
+            g_free (command);
+        }
     }
 }
 
@@ -926,9 +926,9 @@ void file_sendto (GtkMenuItem *menuitem, gpointer not_used)
 
     if (parse_command(&commandString, (const gchar*) gnome_cmd_data.options.sendto) == 0)
     {
-	    DEBUG ('g', "Sendto command is not valid.\n");
-	    gnome_cmd_show_message (*main_win, _("No valid command given."));
-	    return;
+        DEBUG ('g', "Sendto command is not valid.\n");
+        gnome_cmd_show_message (*main_win, _("No valid command given."));
+        return;
     }
     else
     {
@@ -1187,24 +1187,24 @@ void command_execute (GtkMenuItem *menuitem, gpointer command)
     cmd.reserve(2000);
     if (parse_command(&cmd, (const gchar*) command) == 0)
     {
-	DEBUG ('g', "Command is not valid.\n");
-	gnome_cmd_show_message (*main_win, _("No valid command given."));
-	return;
+        DEBUG ('g', "Command is not valid.\n");
+        gnome_cmd_show_message (*main_win, _("No valid command given."));
+        return;
     }
     else
     {
-	gint argc;
-	gchar **argv;
-	GError *error = nullptr;
+        gint argc;
+        gchar **argv;
+        GError *error = nullptr;
 
-	DEBUG ('g', "Running: %s\n", cmd.c_str());
+        DEBUG ('g', "Running: %s\n", cmd.c_str());
 
-	g_shell_parse_argv (cmd.c_str(), &argc, &argv, nullptr);
-	if (!g_spawn_async (gnome_cmd_dir_is_local (dir) ? dir_path.c_str() : nullptr, argv, nullptr, G_SPAWN_SEARCH_PATH, nullptr, nullptr, nullptr, &error))
-	    gnome_cmd_error_message (_("Unable to execute command."), error);
+        g_shell_parse_argv (cmd.c_str(), &argc, &argv, nullptr);
+        if (!g_spawn_async (gnome_cmd_dir_is_local (dir) ? dir_path.c_str() : nullptr, argv, nullptr, G_SPAWN_SEARCH_PATH, nullptr, nullptr, nullptr, &error))
+            gnome_cmd_error_message (_("Unable to execute command."), error);
 
-	g_strfreev (argv);
-	g_list_free (sfl);
+        g_strfreev (argv);
+        g_list_free (sfl);
     }
 }
 
@@ -2183,104 +2183,104 @@ int parse_command(string *cmd, const gchar *command)
             case 'f':           // %f  file name (or list for multiple selections)
                 if (filename.empty())
                     get_file_list (filename, sfl, gnome_cmd_file_get_name);
-		if (cmdcap < cmdlen + filename.length())
-		{
-		    cmd->reserve(cmdlen + filename.length());
-		    cmdcap = cmd->capacity();
-		}
+                if (cmdcap < cmdlen + filename.length())
+                {
+                    cmd->reserve(cmdlen + filename.length());
+                    cmdcap = cmd->capacity();
+                }
                 *cmd += filename;
-		cmdlen = cmd->length();
+                cmdlen = cmd->length();
                 break;
 
             case 'F':           // %F  quoted filename (or list for multiple selections)
                 if (quoted_filename.empty())
                     get_file_list (quoted_filename, sfl, gnome_cmd_file_get_quoted_name);
-		if (cmdcap < cmdlen + quoted_filename.length())
-		{
-		    cmd->reserve(cmdlen + quoted_filename.length());
-		    cmdcap = cmd->capacity();
-		}
+                if (cmdcap < cmdlen + quoted_filename.length())
+                {
+                    cmd->reserve(cmdlen + quoted_filename.length());
+                    cmdcap = cmd->capacity();
+                }
                 *cmd += quoted_filename;
-		cmdlen = cmd->length();
+                cmdlen = cmd->length();
                 break;
 
             case 'p':           // %p  full file system path (or list for multiple selections)
                 if (file_path.empty())
                     get_file_list (file_path, sfl, gnome_cmd_file_get_real_path);
-		if (cmdcap < cmdlen + file_path.length())
-		{
-		    cmd->reserve(cmdlen + file_path.length());
-		    cmdcap = cmd->capacity();
-		}
+                if (cmdcap < cmdlen + file_path.length())
+                {
+                    cmd->reserve(cmdlen + file_path.length());
+                    cmdcap = cmd->capacity();
+                }
                 *cmd += file_path;
-		cmdlen = cmd->length();
+        cmdlen = cmd->length();
                 break;
 
             case 'P':           // %P  quoted full file system path (or list for multiple selections)
             case 's':           // %s  synonym for %P (for compatibility with previous versions of gcmd)
                 if (quoted_file_path.empty())
                     get_file_list (quoted_file_path, sfl, gnome_cmd_file_get_quoted_real_path);
-		if (cmdcap < cmdlen + quoted_file_path.length())
-		{
-		    cmd->reserve(cmdlen + quoted_file_path.length());
-		    cmdcap = cmd->capacity();
-		}
+                if (cmdcap < cmdlen + quoted_file_path.length())
+                {
+                    cmd->reserve(cmdlen + quoted_file_path.length());
+                    cmdcap = cmd->capacity();
+                }
                 *cmd += quoted_file_path;
-		cmdlen = cmd->length();
+                cmdlen = cmd->length();
                 break;
 
             case 'u':           // %u  fully qualified URI for the file (or list for multiple selections)
                 if (uri.empty())
                     get_file_list (uri, sfl, gnome_cmd_file_get_uri_str);
-		if (cmdcap < cmdlen + uri.length())
-		{
-		    cmd->reserve(cmdlen + uri.length());
-		    cmdcap = cmd->capacity();
-		}
+                if (cmdcap < cmdlen + uri.length())
+                {
+                    cmd->reserve(cmdlen + uri.length());
+                    cmdcap = cmd->capacity();
+                }
                 *cmd += uri;
-		cmdlen = cmd->length();
+                cmdlen = cmd->length();
                 break;
 
             case 'd':           // %d  full path to the directory containing file
-		if (cmdcap < cmdlen + dir_path.length())
-		{
-		    cmd->reserve(cmdlen + dir_path.length());
-		    cmdcap = cmd->capacity();
-		}
+                if (cmdcap < cmdlen + dir_path.length())
+                {
+                    cmd->reserve(cmdlen + dir_path.length());
+                    cmdcap = cmd->capacity();
+                }
                 *cmd += dir_path;
-		cmdlen = cmd->length();
+                cmdlen = cmd->length();
                 break;
 
             case 'D':           // %D  quoted full path to the directory containg file
-		if (cmdcap < cmdlen + quoted_dir_path.length())
-		{
-		    cmd->reserve(cmdlen + quoted_dir_path.length());
-		    cmdcap = cmd->capacity();
-		}
+                if (cmdcap < cmdlen + quoted_dir_path.length())
+                {
+                    cmd->reserve(cmdlen + quoted_dir_path.length());
+                    cmdcap = cmd->capacity();
+                }
                 *cmd += quoted_dir_path;
-		cmdlen = cmd->length();
+        cmdlen = cmd->length();
                 break;
 
             default:
-		if (cmdcap < cmdlen + 1)
-		{
-		    cmd->reserve(cmdlen +1);
-		    cmdcap = cmd->capacity();
-		}
+                if (cmdcap < cmdlen + 1)
+                {
+                    cmd->reserve(cmdlen +1);
+                    cmdcap = cmd->capacity();
+                }
                 *cmd += '%';
-		cmdlen = cmd->length();
+                 cmdlen = cmd->length();
 #if defined (__GNUC__) && __GNUC__ >= 7
-		__attribute__ ((fallthrough));
+        __attribute__ ((fallthrough));
 #endif
 
             case '%':           // %%  percent sign
-		if (cmdcap < cmdlen + 1)
-		{
-		    cmd->reserve(cmdlen +1);
-		    cmdcap = cmd->capacity();
-		}
+                if (cmdcap < cmdlen + 1)
+                {
+                    cmd->reserve(cmdlen +1);
+                    cmdcap = cmd->capacity();
+                }
                 *cmd += *s;
-		cmdlen = cmd->length();
+                cmdlen = cmd->length();
                 break;
         }
 
