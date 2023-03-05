@@ -22,6 +22,7 @@
 #include <config.h>
 #include <glib/gi18n.h>
 #include <locale.h>
+// ToDo: When migrating to GTK>2, keep note about https://docs.gtk.org/gtk3/migrating-libunique.html
 #ifdef HAVE_UNIQUE
 #include <unique/unique.h>
 #endif
