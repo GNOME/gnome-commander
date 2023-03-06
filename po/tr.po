@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-commander/issues\n"
-"POT-Creation-Date: 2023-01-23 17:04+0000\n"
-"PO-Revision-Date: 2023-01-24 00:53+0300\n"
+"POT-Creation-Date: 2023-02-09 11:47+0000\n"
+"PO-Revision-Date: 2023-03-06 17:31+0300\n"
 "Last-Translator: Sabri Ünal <libreajans@gmail.com>\n"
 "Language-Team: Turkish <gnometurk@gnome.org>\n"
 "Language: tr\n"
@@ -3119,10 +3119,9 @@ msgid "Error running the search command."
 msgstr "Arama komutu yürütülemedi."
 
 #: src/dialogs/gnome-cmd-search-dialog.cc:1090
-#, fuzzy, c-format
-#| msgid "Failed to create the directory %s: %s"
+#, c-format
 msgid "Failed to change directory outside of %s"
-msgstr "%s dizini oluşturulamadı: %s"
+msgstr "Dizin %s dışına değiştirilemedi"
 
 #: src/dialogs/gnome-cmd-search-dialog.cc:1200
 msgid "Search…"
@@ -3631,14 +3630,27 @@ msgstr "Geçerli dizini ekle"
 msgid "Manage bookmarks…"
 msgstr "Yer imlerini yönet…"
 
-#: src/gnome-cmd-file.cc:638
+#: src/gnome-cmd-file.cc:639
 msgid "_Open"
 msgstr "_Aç"
 
-#: src/gnome-cmd-file.cc:641
+#: src/gnome-cmd-file.cc:642
 #, c-format
 msgid "_Open with “%s”"
 msgstr "“%s” ile _aç"
+
+#: src/gnome-cmd-file.cc:968 src/gnome-cmd-user-actions.cc:746
+#: src/gnome-cmd-user-actions.cc:930 src/gnome-cmd-user-actions.cc:1191
+#: src/utils.cc:136
+msgid "No valid command given."
+msgstr "Geçersiz komut."
+
+#: src/gnome-cmd-file.cc:979 src/gnome-cmd-user-actions.cc:758
+#: src/gnome-cmd-user-actions.cc:804 src/gnome-cmd-user-actions.cc:946
+#: src/gnome-cmd-user-actions.cc:1204 src/gnome-cmd-user-actions.cc:1243
+#: src/utils.cc:143
+msgid "Unable to execute command."
+msgstr "Komut çalıştırılamıyor."
 
 #: src/gnome-cmd-file-list.cc:124
 msgid "name"
@@ -3756,7 +3768,7 @@ msgstr "Dizin listeleme başarısız."
 msgid "Failed to open connection."
 msgstr "Bağlantı açılamadı."
 
-#: src/gnome-cmd-file-list.cc:2509 src/gnome-cmd-file-list.cc:2524
+#: src/gnome-cmd-file-list.cc:2512 src/gnome-cmd-file-list.cc:2541
 msgid "Not an ordinary file."
 msgstr "Normal bir dosya değil."
 
@@ -4562,17 +4574,6 @@ msgstr "İmleci bir üst satıra taşı"
 #: src/gnome-cmd-user-actions.cc:287
 msgid "Move cursor one step down"
 msgstr "İmleci bir alt satıra taşı"
-
-#: src/gnome-cmd-user-actions.cc:746 src/gnome-cmd-user-actions.cc:930
-#: src/gnome-cmd-user-actions.cc:1191 src/utils.cc:136
-msgid "No valid command given."
-msgstr "Geçersiz komut."
-
-#: src/gnome-cmd-user-actions.cc:758 src/gnome-cmd-user-actions.cc:804
-#: src/gnome-cmd-user-actions.cc:946 src/gnome-cmd-user-actions.cc:1204
-#: src/gnome-cmd-user-actions.cc:1243 src/utils.cc:143
-msgid "Unable to execute command."
-msgstr "Komut çalıştırılamıyor."
 
 #: src/gnome-cmd-user-actions.cc:789
 msgid "No search command given."
@@ -8337,7 +8338,7 @@ msgstr "Ülke Kodu"
 
 #: src/tags/gnome-cmd-tags.cc:460
 msgid "The code of the country/primary location where the object was created."
-msgstr "Nesnenin yaratıldığı ülkenin/birincil konumun kodu."
+msgstr "Nesnenin oluşturulduğu ülkenin/birincil konumun kodu."
 
 #: src/tags/gnome-cmd-tags.cc:461
 msgid "Country Name"
@@ -8345,7 +8346,7 @@ msgstr "Ülke Adı"
 
 #: src/tags/gnome-cmd-tags.cc:461
 msgid "The name of the country/primary location where the object was created."
-msgstr "Nesnenin yaratıldığı ülkenin/birincil konumun adı."
+msgstr "Nesnenin oluşturulduğu ülkenin/birincil konumun adı."
 
 #: src/tags/gnome-cmd-tags.cc:462
 msgid "Credit"
@@ -8354,7 +8355,7 @@ msgstr "Hazırlayanlar"
 #: src/tags/gnome-cmd-tags.cc:462
 msgid ""
 "Identifies the provider of the object, not necessarily the owner/creator."
-msgstr "Nesneyi sağlayanları belirtir, sahibi/yaratıcısı değildir."
+msgstr "Nesneyi sağlayanları belirtir, sahibi/oluşturucusu değildir."
 
 #: src/tags/gnome-cmd-tags.cc:463
 msgid ""
@@ -8386,7 +8387,7 @@ msgstr "Sayısal Oluşturma Tarihi"
 
 #: src/tags/gnome-cmd-tags.cc:466
 msgid "The date the digital representation of the object was created."
-msgstr "Nesnenin yaratılan sayısal kopyasının tarihi."
+msgstr "Nesnenin sayısal temsilinin oluşturulduğu tarih."
 
 #: src/tags/gnome-cmd-tags.cc:467
 msgid "Digital Creation Time"
@@ -8394,7 +8395,7 @@ msgstr "Sayısal Oluşturma Zamanı"
 
 #: src/tags/gnome-cmd-tags.cc:467
 msgid "The time the digital representation of the object was created."
-msgstr "Nesnenin yaratılan sayısal kopyasının zamanı."
+msgstr "Nesnenin sayısal sunumunun oluşturulduğu zaman."
 
 #: src/tags/gnome-cmd-tags.cc:468
 msgid "Editorial Update"
