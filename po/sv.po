@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-commander/issues\n"
-"POT-Creation-Date: 2023-01-22 22:28+0000\n"
+"POT-Creation-Date: 2023-03-05 14:14+0000\n"
 "PO-Revision-Date: 2023-01-22 23:30+0100\n"
 "Last-Translator: Anders Jonsson <anders.jonsson@norsjovallen.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
@@ -1633,14 +1633,17 @@ msgstr ""
 "utveckla en ny insticksmodul"
 
 #: src/dialogs/gnome-cmd-advrename-dialog.cc:126
+#: src/dialogs/gnome-cmd-search-dialog.cc:201
 msgid "/_Save Profile As…"
 msgstr "/_Spara profil som…"
 
 #: src/dialogs/gnome-cmd-advrename-dialog.cc:135
+#: src/dialogs/gnome-cmd-search-dialog.cc:210
 msgid "/_Manage Profiles…"
 msgstr "/_Hantera profiler…"
 
 #: src/dialogs/gnome-cmd-advrename-dialog.cc:187
+#: src/dialogs/gnome-cmd-search-dialog.cc:260
 msgid "Profiles"
 msgstr "Profiler"
 
@@ -1707,6 +1710,7 @@ msgid "File modification date"
 msgstr "Filändringsdatum"
 
 #: src/dialogs/gnome-cmd-advrename-dialog.cc:693
+#: src/dialogs/gnome-cmd-search-dialog.cc:1301
 msgid "Profiles…"
 msgstr "Profiler…"
 
@@ -3096,6 +3100,76 @@ msgstr "Fjärranslutningar"
 msgid "Connections"
 msgstr "Anslutningar"
 
+#: src/dialogs/gnome-cmd-search-dialog.cc:44
+msgid "Search local directories only"
+msgstr "Sök endast i lokala kataloger"
+
+#: src/dialogs/gnome-cmd-search-dialog.cc:45
+msgid "Files _not containing text"
+msgstr "Filer som _ej innehåller text"
+
+#: src/dialogs/gnome-cmd-search-dialog.cc:328
+#, c-format
+msgid "Failed to read file %s: File is not searchable"
+msgstr "Kunde inte läsa filen %s: Filen är inte sökbar"
+
+#: src/dialogs/gnome-cmd-search-dialog.cc:339
+#: src/dialogs/gnome-cmd-search-dialog.cc:352
+#: src/dialogs/gnome-cmd-search-dialog.cc:381
+#, c-format
+msgid "Failed to read file %s: %s"
+msgstr "Kunde inte läsa filen %s: %s"
+
+#: src/dialogs/gnome-cmd-search-dialog.cc:441
+#, c-format
+msgid "Searching in: %s"
+msgstr "Söker i: %s"
+
+#: src/dialogs/gnome-cmd-search-dialog.cc:605
+#, c-format
+msgid "Found %d match — search aborted"
+msgid_plural "Found %d matches — search aborted"
+msgstr[0] "Hittade %d träff — sökning avbruten"
+msgstr[1] "Hittade %d träffar — sökning avbruten"
+
+#: src/dialogs/gnome-cmd-search-dialog.cc:606
+#, c-format
+msgid "Found %d match"
+msgid_plural "Found %d matches"
+msgstr[0] "Hittade %d träff"
+msgstr[1] "Hittade %d träffar"
+
+#: src/dialogs/gnome-cmd-search-dialog.cc:815
+#, c-format
+msgid "Failed to set process group id of child %d: %s.\n"
+msgstr "Misslyckades med att ange processgrupp-ID för barnet %d: %s.\n"
+
+#: src/dialogs/gnome-cmd-search-dialog.cc:951
+msgid "Error parsing the search command."
+msgstr "Fel vid tolkning av sökkommandot."
+
+#: src/dialogs/gnome-cmd-search-dialog.cc:963
+msgid "Error running the search command."
+msgstr "Fel vid körning av sökkommandot."
+
+#: src/dialogs/gnome-cmd-search-dialog.cc:1090
+#, c-format
+msgid "Failed to change directory outside of %s"
+msgstr "Kunde inte ändra katalog utanför %s"
+
+#: src/dialogs/gnome-cmd-search-dialog.cc:1200
+msgid "Search…"
+msgstr "Sök…"
+
+#. search in
+#: src/dialogs/gnome-cmd-search-dialog.cc:1319
+msgid "Select Directory"
+msgstr "Välj katalog"
+
+#: src/dialogs/gnome-cmd-search-dialog.cc:1322
+msgid "_Look in folder:"
+msgstr "_Sök i mapp:"
+
 #: src/dirlist.cc:48
 #, c-format
 msgid "%d file listed"
@@ -3591,14 +3665,27 @@ msgstr "Lägg till aktuell katalog"
 msgid "Manage bookmarks…"
 msgstr "Hantera bokmärken…"
 
-#: src/gnome-cmd-file.cc:638
+#: src/gnome-cmd-file.cc:639
 msgid "_Open"
 msgstr "_Öppna"
 
-#: src/gnome-cmd-file.cc:641
+#: src/gnome-cmd-file.cc:642
 #, c-format
 msgid "_Open with “%s”"
 msgstr "_Öppna med ”%s”"
+
+#: src/gnome-cmd-file.cc:968 src/gnome-cmd-user-actions.cc:746
+#: src/gnome-cmd-user-actions.cc:930 src/gnome-cmd-user-actions.cc:1191
+#: src/utils.cc:136
+msgid "No valid command given."
+msgstr "Inget giltigt kommando angivet."
+
+#: src/gnome-cmd-file.cc:979 src/gnome-cmd-user-actions.cc:758
+#: src/gnome-cmd-user-actions.cc:804 src/gnome-cmd-user-actions.cc:946
+#: src/gnome-cmd-user-actions.cc:1204 src/gnome-cmd-user-actions.cc:1243
+#: src/utils.cc:143
+msgid "Unable to execute command."
+msgstr "Kunde inte köra kommando."
 
 #: src/gnome-cmd-file-list.cc:124
 msgid "name"
@@ -3716,7 +3803,7 @@ msgstr "Kataloglistningen misslyckades."
 msgid "Failed to open connection."
 msgstr "Kunde inte öppna anslutning."
 
-#: src/gnome-cmd-file-list.cc:2509 src/gnome-cmd-file-list.cc:2524
+#: src/gnome-cmd-file-list.cc:2512 src/gnome-cmd-file-list.cc:2541
 msgid "Not an ordinary file."
 msgstr "Inte en vanlig fil."
 
@@ -4525,17 +4612,6 @@ msgstr "Flytta markören ett steg upp"
 #: src/gnome-cmd-user-actions.cc:287
 msgid "Move cursor one step down"
 msgstr "Flytta markören ett steg ned"
-
-#: src/gnome-cmd-user-actions.cc:746 src/gnome-cmd-user-actions.cc:930
-#: src/gnome-cmd-user-actions.cc:1191 src/utils.cc:136
-msgid "No valid command given."
-msgstr "Inget giltigt kommando angivet."
-
-#: src/gnome-cmd-user-actions.cc:758 src/gnome-cmd-user-actions.cc:804
-#: src/gnome-cmd-user-actions.cc:946 src/gnome-cmd-user-actions.cc:1204
-#: src/gnome-cmd-user-actions.cc:1243 src/utils.cc:143
-msgid "Unable to execute command."
-msgstr "Kunde inte köra kommando."
 
 #: src/gnome-cmd-user-actions.cc:789
 msgid "No search command given."
@@ -9130,43 +9206,6 @@ msgstr "Kunde inte skapa katalogen %s: %s"
 msgid "There was an error displaying help."
 msgstr "Ett fel uppstod vid visande av hjälp."
 
-#~ msgid "Search local directories only"
-#~ msgstr "Sök endast i lokala kataloger"
-
-#~ msgid "Files _not containing text"
-#~ msgstr "Filer som _ej innehåller text"
-
-#~ msgid "Failed to read file %s: File is not searchable"
-#~ msgstr "Kunde inte läsa filen %s: Filen är inte sökbar"
-
-#~ msgid "Failed to read file %s: %s"
-#~ msgstr "Kunde inte läsa filen %s: %s"
-
-#~ msgid "Searching in: %s"
-#~ msgstr "Söker i: %s"
-
-#~ msgid "Found %d match — search aborted"
-#~ msgid_plural "Found %d matches — search aborted"
-#~ msgstr[0] "Hittade %d träff — sökning avbruten"
-#~ msgstr[1] "Hittade %d träffar — sökning avbruten"
-
-#~ msgid "Found %d match"
-#~ msgid_plural "Found %d matches"
-#~ msgstr[0] "Hittade %d träff"
-#~ msgstr[1] "Hittade %d träffar"
-
-#~ msgid "Failed to change directory outside of %s"
-#~ msgstr "Kunde inte ändra katalog utanför %s"
-
-#~ msgid "Search…"
-#~ msgstr "Sök…"
-
-#~ msgid "Select Directory"
-#~ msgstr "Välj katalog"
-
-#~ msgid "_Look in folder:"
-#~ msgstr "_Sök i mapp:"
-
 #~ msgid "S_hare:"
 #~ msgstr "Ut_delning:"
 
@@ -9193,15 +9232,6 @@ msgstr "Ett fel uppstod vid visande av hjälp."
 
 #~ msgid "Copy overwrite"
 #~ msgstr "Skriv över vid kopiering"
-
-#~ msgid "Failed to set process group id of child %d: %s.\n"
-#~ msgstr "Misslyckades med att ange processgrupp-ID för barnet %d: %s.\n"
-
-#~ msgid "Error parsing the search command."
-#~ msgstr "Fel vid tolkning av sökkommandot."
-
-#~ msgid "Error running the search command."
-#~ msgstr "Fel vid körning av sökkommandot."
 
 #~ msgid "Deleted %"
 #~ msgid_plural "Deleted %"
@@ -9481,15 +9511,6 @@ msgstr "Ett fel uppstod vid visande av hjälp."
 
 #~ msgid "Profiles..."
 #~ msgstr "Profiler…"
-
-#~ msgid ""
-#~ "Some regular expressions functionality is disabled. To enable it's "
-#~ "necessary to build GNOME Commander with GLib ≥ 2.14. Please contact your "
-#~ "package maintainer about that."
-#~ msgstr ""
-#~ "En del funktionalitet för reguljära uttryck är inaktiverade. För att "
-#~ "aktivera dem är det nödvändigt att bygga GNOME Commander med GLib ≥ 2.14. "
-#~ "Kontakta de paketansvariga för det."
 
 #~ msgid "Edit..."
 #~ msgstr "Redigera…"
