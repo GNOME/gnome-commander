@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-commander/issues\n"
-"POT-Creation-Date: 2023-02-09 11:47+0000\n"
-"PO-Revision-Date: 2023-03-06 17:31+0300\n"
+"POT-Creation-Date: 2023-04-22 10:40+0000\n"
+"PO-Revision-Date: 2023-04-23 23:22+0300\n"
 "Last-Translator: Sabri Ünal <libreajans@gmail.com>\n"
 "Language-Team: Turkish <gnometurk@gnome.org>\n"
 "Language: tr\n"
@@ -22,7 +22,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 3.1.1\n"
+"X-Generator: Poedit 3.2.2\n"
 "X-POOTLE-MTIME: 1429308288.000000\n"
 
 #: data/org.gnome.gnome-commander.appdata.xml.in:7
@@ -5067,15 +5067,15 @@ msgstr "Üst Veri _Etiketlerini Göster"
 
 #: src/intviewer/viewer-window.cc:672
 msgid "Rotate Clockwise"
-msgstr "Saat Yönüne Çevir"
+msgstr "Saat Yönüne Döndür"
 
 #: src/intviewer/viewer-window.cc:673
 msgid "Rotate Counter Clockwis_e"
-msgstr "Saat Yönünün Tersine _Çevir"
+msgstr "Saat Yönünün Tersine _Döndür"
 
 #: src/intviewer/viewer-window.cc:674
 msgid "Rotate 180°"
-msgstr "180° Çevir"
+msgstr "180° Döndür"
 
 #: src/intviewer/viewer-window.cc:675
 msgid "Flip _Vertical"
@@ -5118,23 +5118,23 @@ msgstr "Hızlı _Yardım"
 msgid "Pattern “%s” was not found"
 msgstr "“%s” deseni bulunamadı"
 
-#: src/main.cc:59
+#: src/main.cc:60
 msgid "Specify debug flags to use"
 msgstr "Kullanım için hata ayıklama bayraklarını belirt"
 
-#: src/main.cc:60
+#: src/main.cc:61
 msgid "Specify the start directory for the left pane"
 msgstr "Sol bölüm için başlangıç dizinini belirt"
 
-#: src/main.cc:61
+#: src/main.cc:62
 msgid "Specify the start directory for the right pane"
 msgstr "Sağ bölüm için başlangıç dizinini belirt"
 
-#: src/main.cc:62
+#: src/main.cc:63
 msgid "Specify the directory for configuration files"
 msgstr "Yapılandırma dosyaları için olan dizini belirt"
 
-#: src/main.cc:110
+#: src/main.cc:111
 msgid "File Manager"
 msgstr "Dosya Yöneticisi"
 
@@ -8953,7 +8953,7 @@ msgid ""
 "Set to “1” if inserting, rotating, or deleting pages and creating navigation "
 "elements is allowed."
 msgstr ""
-"Eğer ekleme, çıkarma, çevirme veya başka ögeler oluşturma izinli ise “1” "
+"Eğer ekleme, çıkarma, döndürme veya başka ögeler oluşturma izinli ise “1” "
 "olarak ayarla."
 
 #: src/tags/gnome-cmd-tags.cc:531
