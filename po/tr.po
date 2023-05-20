@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-commander/issues\n"
-"POT-Creation-Date: 2023-04-22 10:40+0000\n"
-"PO-Revision-Date: 2023-04-23 23:22+0300\n"
+"POT-Creation-Date: 2023-04-23 21:13+0000\n"
+"PO-Revision-Date: 2023-05-12 14:27+0300\n"
 "Last-Translator: Sabri Ünal <libreajans@gmail.com>\n"
 "Language-Team: Turkish <gnometurk@gnome.org>\n"
 "Language: tr\n"
@@ -1792,7 +1792,7 @@ msgstr "Uzak Sunucu"
 
 #: src/dialogs/gnome-cmd-con-dialog.cc:395
 msgid "Service _type:"
-msgstr "Servis _türü:"
+msgstr "Hizmet _türü:"
 
 #. Keep this in sync with enum ConnectionMethodID in gnome-cmd-con.h
 #: src/dialogs/gnome-cmd-con-dialog.cc:407
@@ -5563,7 +5563,7 @@ msgstr "Şirket"
 
 #: src/tags/gnome-cmd-tags.cc:165
 msgid "Organization that the <Doc.Creator> entity is associated with."
-msgstr "<Doc.Creator> girdisi ile ilişkili örgüt."
+msgstr "<Doc.Creator> girdisi ile ilişkili kuruluş."
 
 #: src/tags/gnome-cmd-tags.cc:167 src/tags/gnome-cmd-tags.cc:422
 msgid "Creator"
@@ -5574,8 +5574,8 @@ msgid ""
 "An entity primarily responsible for making the content of the resource, "
 "typically a person, organization, or service."
 msgstr ""
-"Kaynağın içeriğinin yapımı için bir sorumlu öncelikli girdi, bir kişi, kurum "
-"ya da servis."
+"Kaynağın içeriğinin yapımı için bir sorumlu öncelikli girdi, bir kişi, "
+"kuruluş ya da hizmet."
 
 #: src/tags/gnome-cmd-tags.cc:168
 msgid "Created"
@@ -5690,7 +5690,8 @@ msgstr "Son Kaydeden"
 msgid ""
 "The entity that made the last change to the document, typically a person, "
 "organization, or service."
-msgstr "Belge üzerinde değişiklik yapıp son kaydeden kişi, örgüt veya gizmet."
+msgstr ""
+"Belge üzerinde değişiklik yapıp son kaydeden kişi, kuruluş veya hizmet."
 
 #: src/tags/gnome-cmd-tags.cc:182
 msgid "Line Count"
@@ -8371,7 +8372,7 @@ msgstr "Gönderilme Tarihi"
 
 #: src/tags/gnome-cmd-tags.cc:464
 msgid "The day the service sent the material."
-msgstr "Servisin, malzemeyi gönderdiği gün."
+msgstr "Hizmetin malzemeyi gönderdiği gün."
 
 #: src/tags/gnome-cmd-tags.cc:465
 msgid "Destination"
@@ -8424,7 +8425,7 @@ msgstr "Zarf Numarası"
 
 #: src/tags/gnome-cmd-tags.cc:470
 msgid "A number unique for the date and the service ID."
-msgstr "Tarih ve servis kimliği için eşsiz bir numara."
+msgstr "Tarih ve hizmet kimliği için eşsiz bir numara."
 
 #: src/tags/gnome-cmd-tags.cc:471
 msgid "Envelope Priority"
@@ -8648,7 +8649,7 @@ msgstr "Ürün Kimliği"
 #: src/tags/gnome-cmd-tags.cc:495
 msgid "Allows a provider to identify subsets of its overall service."
 msgstr ""
-"Sağlayıcıya, tüm servislerinin alt kümeleri için tanımlama yapmasına izin "
+"Sağlayıcıya, tüm hizmetlerin alt kümeleri için tanımlama yapmasına izin "
 "verir."
 
 #: src/tags/gnome-cmd-tags.cc:496
@@ -8706,14 +8707,14 @@ msgstr "Geçerli nesneye referans olarak gösterilen zarfın sayısı."
 
 #: src/tags/gnome-cmd-tags.cc:502
 msgid "Reference Service"
-msgstr "Referans Servisi"
+msgstr "Referans Hizmeti"
 
 #: src/tags/gnome-cmd-tags.cc:502
 msgid ""
 "The Service Identifier of a prior envelope to which the current object "
 "refers."
 msgstr ""
-"Geçerli nesneye referans olarak gösterilen, kıdemli zatfın servis "
+"Geçerli nesneye referans olarak gösterilen, kıdemli zarfın hizmet "
 "tanımlayıcısı."
 
 #: src/tags/gnome-cmd-tags.cc:503
@@ -8728,7 +8729,7 @@ msgstr "Nesnenin kullanımına niyetindeki erken zamanı belirler."
 
 #: src/tags/gnome-cmd-tags.cc:505
 msgid "Service Identifier"
-msgstr "Servis Tanımlayıcısı"
+msgstr "Hizmet Tanımlayıcısı"
 
 #: src/tags/gnome-cmd-tags.cc:505
 msgid "Identifies the provider and product."
