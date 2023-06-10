@@ -68,6 +68,7 @@
         <p>This release fixes the following bugs:</p>
         <ul>
           <li>Fix problem when using the default external viewer and opening a file from remote</li>
+          <li>When choosing 'Other Application' to open a file, don't close the dialog if the given command is not found</li>
           <li>Issue #130: Do not install not needed header files</li>
         </ul>
         <p>New or updated translations: ...</p>
