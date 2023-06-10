@@ -254,7 +254,9 @@ static gboolean on_open_with_other_ok (GnomeCmdStringDialog *string_dialog, cons
 
     string cmdString = values[0];
 
-    for (; files; files = files->next)
+    GList *filesTmp = files;
+
+    for (; filesTmp; filesTmp = filesTmp->next)
     {
         cmdString += ' ';
         cmdString += stringify (GNOME_CMD_FILE (files->data)->get_quoted_real_path());
@@ -263,14 +265,19 @@ static gboolean on_open_with_other_ok (GnomeCmdStringDialog *string_dialog, cons
     GnomeCmdFileSelector *fs = main_win->fs(ACTIVE);
     GnomeCmdDir *dir = fs->get_directory();
     gchar *dpath = GNOME_CMD_FILE (dir)->get_real_path();
-    run_command_indir (cmdString.c_str(), dpath, gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (term_check)));
+    auto returnValue = run_command_indir (cmdString.c_str(), dpath, gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (term_check)));
+    if (!returnValue)
+    {
+        on_open_with_other (nullptr, files);
+    }
+
     g_free (dpath);
 
     return TRUE;
 }
 
 
-static void on_open_with_other (GtkMenuItem *menu_item, GList *files)
+void on_open_with_other (GtkMenuItem *menu_item, GList *files)
 {
     const gchar *labels[] = {_("Application:")};
     GtkWidget *dialog;

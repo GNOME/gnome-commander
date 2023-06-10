@@ -55,6 +55,8 @@ GtkWidget *gnome_cmd_file_popmenu_new (GnomeCmdFileList *fl);
 
 GtkType gnome_cmd_file_popmenu_get_type ();
 
+void on_open_with_other (GtkMenuItem *menu_item, GList *files);
+
 GtkUIManager *get_file_popup_ui_manager (GnomeCmdFileList *gnomeCmdFileList);
 guint add_open_with_entries (GtkUIManager *ui_manager, GnomeCmdFileList *gnomeCmdFileList);
 guint add_action_script_entries(GtkUIManager *uiManager, GList *files);

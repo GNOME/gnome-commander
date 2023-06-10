@@ -87,10 +87,10 @@ void DEBUG (gchar flag, const gchar *format, ...)
  * \param term If TRUE, the command is executed in a terminal window.
  * \sa GnomeCmdData::Options::termexec
  */
-void run_command_indir (const gchar *in_command, const gchar *dpath, gboolean term)
+gboolean run_command_indir (const gchar *in_command, const gchar *dpath, gboolean term)
 {
-    g_return_if_fail (in_command != NULL);
-    g_return_if_fail (strlen(in_command) != 0);
+    g_return_val_if_fail (in_command != NULL, FALSE);
+    g_return_val_if_fail (strlen(in_command) != 0, FALSE);
 
     gchar *command;
 
@@ -134,16 +134,21 @@ void run_command_indir (const gchar *in_command, const gchar *dpath, gboolean te
     {
         DEBUG ('g', "run_command_indir: command is not valid.\n");
         gnome_cmd_show_message (*main_win, _("No valid command given."));
-        return;
+        return FALSE;
     }
 
     //g_shell_parse_argv (command, &argc, &argv, NULL);
     g_shell_parse_argv (cmd.c_str(), &argc, &argv, NULL); // include parse_command
     if (!g_spawn_async (dpath, argv, NULL, G_SPAWN_SEARCH_PATH, NULL, NULL, NULL, &error))
+    {
         gnome_cmd_error_message (_("Unable to execute command."), error);
-
+        g_strfreev (argv);
+        g_free (command);
+        return FALSE;
+    }
     g_strfreev (argv);
     g_free (command);
+    return TRUE;
 }
 
 
