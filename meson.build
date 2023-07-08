@@ -1,5 +1,5 @@
 project('gnome-commander', 'cpp',
-  version: '1.16.1',
+  version: '1.16.2',
   license: 'GPLv2',
   meson_version: '>= 0.59'
 )
