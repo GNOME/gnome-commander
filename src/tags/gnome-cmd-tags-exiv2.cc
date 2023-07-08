@@ -398,7 +398,11 @@ void gcmd_tags_exiv2_load_metadata(GnomeCmdFile *f)
 #ifdef HAVE_EXIV2
     try
     {
+#if EXIV2_TEST_VERSION(0,28,0)
+        Exiv2::Image::UniquePtr image = ImageFactory::open(fname);
+#else
         Image::AutoPtr image = ImageFactory::open(fname);
+#endif
 
         image->readMetadata();
 
@@ -406,7 +410,11 @@ void gcmd_tags_exiv2_load_metadata(GnomeCmdFile *f)
         readTags(f->metadata, image->iptcData());
     }
 
+#if EXIV2_TEST_VERSION(0,28,0)
+    catch (Error &e)
+#else
     catch (AnyError &e)
+#endif
     {
     }
 #endif
