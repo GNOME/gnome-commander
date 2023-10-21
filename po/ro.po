@@ -9,22 +9,23 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-commander/issues\n"
-"POT-Creation-Date: 2022-02-05 20:29+0000\n"
-"PO-Revision-Date: 2022-02-19 14:46+0100\n"
-"Last-Translator: Daniel Șerbănescu <daniel@serbanescu.dk>\n"
+"POT-Creation-Date: 2023-01-23 17:04+0000\n"
+"PO-Revision-Date: 2023-10-21 14:38+0300\n"
+"Last-Translator: Florentina Mușat <florentina [dot] musat [dot] 28 [at] "
+"gmail [dot] com>\n"
 "Language-Team: Gnome Romanian Translation Team\n"
 "Language: ro\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n==0 || (n!=1 && n%100>=1 && n"
-"%100<=19) ? 1 : 2);\n"
-"X-Generator: Poedit 3.0.1\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n==0 || (n!=1 && n%100>=1 && "
+"n%100<=19) ? 1 : 2);\n"
+"X-Generator: Poedit 3.4\n"
 "X-Project-Style: gnome\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 
 #: data/org.gnome.gnome-commander.appdata.xml.in:7
-#: data/org.gnome.gnome-commander.desktop.in.in:3 src/gnome-cmd-main-win.cc:854
+#: data/org.gnome.gnome-commander.desktop.in:3 src/gnome-cmd-main-win.cc:876
 msgid "GNOME Commander"
 msgstr "Commander GNOME"
 
@@ -61,12 +62,12 @@ msgstr ""
 msgid "The GNOME Project"
 msgstr "Proiectul GNOME"
 
-#: data/org.gnome.gnome-commander.desktop.in.in:4
+#: data/org.gnome.gnome-commander.desktop.in:4
 msgid "A two paned file manager"
 msgstr "Manager de fișiere dublu-panou"
 
 #. TRANSLATORS: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
-#: data/org.gnome.gnome-commander.desktop.in.in:6
+#: data/org.gnome.gnome-commander.desktop.in:6
 msgid "file;manager;folder;explore;disk;filesystem;"
 msgstr ""
 "file;manager;folder;explore;disk;filesystem;fișier;fișiere;administrare;"
@@ -160,7 +161,7 @@ msgstr ""
 "asociat."
 
 #: data/org.gnome.gnome-commander.gschema.xml:88
-#: src/dialogs/gnome-cmd-options-dialog.cc:386
+#: src/dialogs/gnome-cmd-options-dialog.cc:404
 msgid "Permission display mode"
 msgstr "Mod afișare permisiuni"
 
@@ -197,7 +198,7 @@ msgid "'%F %R'"
 msgstr "„%F %R”"
 
 #: data/org.gnome.gnome-commander.gschema.xml:112
-#: src/dialogs/gnome-cmd-options-dialog.cc:402
+#: src/dialogs/gnome-cmd-options-dialog.cc:420
 msgid "Date format"
 msgstr "Formatul datei"
 
@@ -615,37 +616,45 @@ msgstr ""
 "Definește dacă istoricul comenzilor liniei de comandă este salvat la ieșire."
 
 #: data/org.gnome.gnome-commander.gschema.xml:421
+msgid "Save search history on exit"
+msgstr "Salvează istoricul căutărilor la ieșire"
+
+#: data/org.gnome.gnome-commander.gschema.xml:422
+msgid "Defines if the history of search patterns is saved on exit."
+msgstr "Definește dacă istoricul mostrelor de căutare este salvat la ieșire."
+
+#: data/org.gnome.gnome-commander.gschema.xml:428
 msgid "Always show tab bar"
 msgstr "Afișează întotdeauna bara taburilor"
 
-#: data/org.gnome.gnome-commander.gschema.xml:422
+#: data/org.gnome.gnome-commander.gschema.xml:429
 msgid "Defines if the tab bar is always shown."
 msgstr "Definește dacă bara de sus este afișată întotdeauna."
 
-#: data/org.gnome.gnome-commander.gschema.xml:428
-#: src/dialogs/gnome-cmd-options-dialog.cc:970
+#: data/org.gnome.gnome-commander.gschema.xml:435
+#: src/dialogs/gnome-cmd-options-dialog.cc:988
 msgid "Tab lock indicator"
 msgstr "Indicator de blocare a taburilor"
 
-#: data/org.gnome.gnome-commander.gschema.xml:429
+#: data/org.gnome.gnome-commander.gschema.xml:436
 msgid "Defines the style of the tab lock indicator."
 msgstr "Definește stilul indicatorului de blocare al taburilor."
 
-#: data/org.gnome.gnome-commander.gschema.xml:435
+#: data/org.gnome.gnome-commander.gschema.xml:442
 msgid "Case sensitive sorting"
 msgstr "Sortare cu majuscule semnificative"
 
-#: data/org.gnome.gnome-commander.gschema.xml:436
+#: data/org.gnome.gnome-commander.gschema.xml:443
 msgid "This option defines if sorting should be case sensitive."
 msgstr ""
 "Această opțiune definește dacă sortarea ar trebui să fie senzitivă la "
 "majuscule."
 
-#: data/org.gnome.gnome-commander.gschema.xml:442
+#: data/org.gnome.gnome-commander.gschema.xml:449
 msgid "Select directories when all is marked"
 msgstr "Selectați directoarele când totul este marcat"
 
-#: data/org.gnome.gnome-commander.gschema.xml:443
+#: data/org.gnome.gnome-commander.gschema.xml:450
 msgid ""
 "This option defines if directories will be marked when all items in a file "
 "pane should be marked."
@@ -653,19 +662,19 @@ msgstr ""
 "Această opțiune definește dacă directoarele vor fi marcate când toate "
 "elementele dintr-un panou cu fișiere trebuie marcate."
 
-#: data/org.gnome.gnome-commander.gschema.xml:449
+#: data/org.gnome.gnome-commander.gschema.xml:456
 msgid "Allow multiple instances"
 msgstr "Permite mai multe instanțe"
 
-#: data/org.gnome.gnome-commander.gschema.xml:450
+#: data/org.gnome.gnome-commander.gschema.xml:457
 msgid "This option defines if multiple instances are allowed."
 msgstr "Această opțiune definește dacă mai multe instanțe sunt permise."
 
-#: data/org.gnome.gnome-commander.gschema.xml:456
+#: data/org.gnome.gnome-commander.gschema.xml:463
 msgid "Quick search exact match begin"
 msgstr "Începutul căutării rapide cu potrivire exactă"
 
-#: data/org.gnome.gnome-commander.gschema.xml:457
+#: data/org.gnome.gnome-commander.gschema.xml:464
 msgid ""
 "This option defines if quick search should match explicitly at the beginning "
 "of an item name."
@@ -673,11 +682,11 @@ msgstr ""
 "Această opțiune definește dacă căutarea rapidă ar trebui să se potrivească "
 "explicit la începutul numelui unui element."
 
-#: data/org.gnome.gnome-commander.gschema.xml:463
+#: data/org.gnome.gnome-commander.gschema.xml:470
 msgid "Quick search exact match end"
 msgstr "Sfârșitul potriviri exacte a căutării rapide"
 
-#: data/org.gnome.gnome-commander.gschema.xml:464
+#: data/org.gnome.gnome-commander.gschema.xml:471
 msgid ""
 "This option defines if quick search should match explicitly at the end of an "
 "item name."
@@ -685,11 +694,11 @@ msgstr ""
 "Această opțiune definește dacă căutarea rapidă ar trebui să se potrivească "
 "explicit la sfârșitul numelui unui element."
 
-#: data/org.gnome.gnome-commander.gschema.xml:470
+#: data/org.gnome.gnome-commander.gschema.xml:477
 msgid "Only device icons"
 msgstr "Doar iconițe de dispozitive"
 
-#: data/org.gnome.gnome-commander.gschema.xml:471
+#: data/org.gnome.gnome-commander.gschema.xml:478
 msgid ""
 "This option defines if only device icons should be shown instead of icons "
 "and text label."
@@ -697,11 +706,11 @@ msgstr ""
 "Această opțiune definește dacă numai iconițele dispozitivelor ar trebui "
 "arătate în loc de iconițe și etichetă."
 
-#: data/org.gnome.gnome-commander.gschema.xml:477
+#: data/org.gnome.gnome-commander.gschema.xml:484
 msgid "Show the samba workgroups icon"
 msgstr "Arată iconița pentru grupurile de lucru samba"
 
-#: data/org.gnome.gnome-commander.gschema.xml:478
+#: data/org.gnome.gnome-commander.gschema.xml:485
 msgid ""
 "This option defines if the Samba workgroups icon should be shown in the "
 "devices list."
@@ -709,27 +718,27 @@ msgstr ""
 "Această opțiune definește dacă iconița pentru grupurile de lucru Samba ar "
 "trebui afișată în lista dispozitivelor."
 
-#: data/org.gnome.gnome-commander.gschema.xml:484
+#: data/org.gnome.gnome-commander.gschema.xml:491
 msgid "Main menu visibility"
 msgstr "Vizibilitatea meniului principal"
 
-#: data/org.gnome.gnome-commander.gschema.xml:485
+#: data/org.gnome.gnome-commander.gschema.xml:492
 msgid "This option defines if the main menu is visible or not."
 msgstr "Această opțiune definește dacă meniul principal este vizibil sau nu."
 
-#: data/org.gnome.gnome-commander.gschema.xml:491
+#: data/org.gnome.gnome-commander.gschema.xml:498
 msgid "Quick search shortcut"
 msgstr "Scurtătură căutare rapidă"
 
-#: data/org.gnome.gnome-commander.gschema.xml:492
+#: data/org.gnome.gnome-commander.gschema.xml:499
 msgid "This option defines the shortcut for quick search."
 msgstr "Această opțiune definește scurtătura pentru căutare rapidă."
 
-#: data/org.gnome.gnome-commander.gschema.xml:498
+#: data/org.gnome.gnome-commander.gschema.xml:505
 msgid "List of file tabs"
 msgstr "Listă de taburi fișiere"
 
-#: data/org.gnome.gnome-commander.gschema.xml:499
+#: data/org.gnome.gnome-commander.gschema.xml:506
 msgid ""
 "The entries in this list are used for restoring the tabs from the last "
 "session."
@@ -737,32 +746,71 @@ msgstr ""
 "Intrările din această listă sunt folosite pentru a restaura taburi din "
 "ultima sesiune."
 
-#: data/org.gnome.gnome-commander.gschema.xml:505
+#: data/org.gnome.gnome-commander.gschema.xml:512
 msgid "List of devices"
 msgstr "Lista dispozitivelor"
 
-#: data/org.gnome.gnome-commander.gschema.xml:506
+#: data/org.gnome.gnome-commander.gschema.xml:513
 msgid "The entries in this list represent the devices configured by the user."
 msgstr ""
 "Intrările din această listă reprezintă dispozitivele configurate de "
 "utilizator."
 
-#: data/org.gnome.gnome-commander.gschema.xml:512
+#: data/org.gnome.gnome-commander.gschema.xml:519
 msgid "List of favorite apps"
 msgstr "Lista aplicațiilor favorite"
 
-#: data/org.gnome.gnome-commander.gschema.xml:513
+#: data/org.gnome.gnome-commander.gschema.xml:520
 msgid ""
 "The entries in this list represent the favorite apps configured by the user."
 msgstr ""
 "Intrările din această listă reprezintă aplicațiile favorite configurate de "
 "utilizator."
 
-#: data/org.gnome.gnome-commander.gschema.xml:519
+#: data/org.gnome.gnome-commander.gschema.xml:526
+msgid "Search window width"
+msgstr "Lățimea ferestrei căutării"
+
+#: data/org.gnome.gnome-commander.gschema.xml:527
+msgid "This option defines the width of the search window."
+msgstr "Această opțiune definește lățimea ferestrei de căutare."
+
+#: data/org.gnome.gnome-commander.gschema.xml:533
+msgid "Search window height"
+msgstr "Înălțimea ferestrei căutării"
+
+#: data/org.gnome.gnome-commander.gschema.xml:534
+msgid "This option defines the height of the search window."
+msgstr "Această opțiune definește înălțimea ferestrei căutării."
+
+#: data/org.gnome.gnome-commander.gschema.xml:540
+msgid "Search window is transient"
+msgstr "Fereastra de căutare este trecătoare"
+
+#: data/org.gnome.gnome-commander.gschema.xml:541
+msgid ""
+"Defines if the search window is transient or if it can be minimized and "
+"moved behind the main window."
+msgstr ""
+"Definește dacă fereastra de căutare este trecătoare sau dacă poate fi "
+"minimalizate și mutată în spatele ferestrei principale."
+
+#: data/org.gnome.gnome-commander.gschema.xml:547
+msgid "Search text history"
+msgstr "Istoricul căutărilor text"
+
+#: data/org.gnome.gnome-commander.gschema.xml:548
+msgid ""
+"This string array represents the history of text searches in the search tool."
+msgstr ""
+"Această matrice de șiruri de caractere reprezintă istoricul de căutări text "
+"în unealta de căutare."
+
+#: data/org.gnome.gnome-commander.gschema.xml:554
 msgid "Search pattern history"
 msgstr "Istoricul mostrelor de căutare"
 
-#: data/org.gnome.gnome-commander.gschema.xml:520
+#: data/org.gnome.gnome-commander.gschema.xml:555
 msgid ""
 "This string array represents the history of regular expression searches in "
 "the search tool."
@@ -770,11 +818,11 @@ msgstr ""
 "Această matrice de șiruri de caractere reprezintă istoricul de căutări cu "
 "expresii regulate în unealta de căutare."
 
-#: data/org.gnome.gnome-commander.gschema.xml:526
+#: data/org.gnome.gnome-commander.gschema.xml:561
 msgid "List of search tool profiles"
 msgstr "Listă de profiluri pentru unealta de căutare"
 
-#: data/org.gnome.gnome-commander.gschema.xml:527
+#: data/org.gnome.gnome-commander.gschema.xml:562
 msgid ""
 "The entries in this array represent the profiles in the search tool with "
 "specific settings for each profile."
@@ -782,36 +830,36 @@ msgstr ""
 "Intrările din această matrice reprezintă profiluri în unealta de căutare cu "
 "configurări specifice pentru fiecare profil."
 
-#: data/org.gnome.gnome-commander.gschema.xml:535
+#: data/org.gnome.gnome-commander.gschema.xml:570
 msgid "Quick connect URI"
 msgstr "URI de conectare rapidă"
 
-#: data/org.gnome.gnome-commander.gschema.xml:536
+#: data/org.gnome.gnome-commander.gschema.xml:571
 msgid "Unified resource identifier for quick connections."
 msgstr "Identificator de resurse unificat pentru conexiunile rapide."
 
-#: data/org.gnome.gnome-commander.gschema.xml:547
+#: data/org.gnome.gnome-commander.gschema.xml:582
 msgid "Password for anonymous FTP connections"
 msgstr "Parola pentru conexiunile FTP anonime"
 
-#: data/org.gnome.gnome-commander.gschema.xml:548
+#: data/org.gnome.gnome-commander.gschema.xml:583
 msgid "This string defines the password for anonymous FTP connections."
 msgstr ""
 "Acest șir de caractere definește parola pentru conexiunile FTP anonime."
 
-#: data/org.gnome.gnome-commander.gschema.xml:556
+#: data/org.gnome.gnome-commander.gschema.xml:591
 msgid "Confirm delete"
 msgstr "Confirmă ștergerea"
 
-#: data/org.gnome.gnome-commander.gschema.xml:557
+#: data/org.gnome.gnome-commander.gschema.xml:592
 msgid "Defines if deletion of an item should be confirmed."
 msgstr "Definește dacă ștergerea unui element ar trebui confirmată."
 
-#: data/org.gnome.gnome-commander.gschema.xml:563
+#: data/org.gnome.gnome-commander.gschema.xml:598
 msgid "Delete default"
 msgstr "Șterge implicitul"
 
-#: data/org.gnome.gnome-commander.gschema.xml:564
+#: data/org.gnome.gnome-commander.gschema.xml:599
 msgid ""
 "This setting defines the default active option in the delete confirmation "
 "dialog."
@@ -819,11 +867,11 @@ msgstr ""
 "Această configurare definește opțiunea activă implicită în dialogul de "
 "confirmare la ștergere."
 
-#: data/org.gnome.gnome-commander.gschema.xml:570
+#: data/org.gnome.gnome-commander.gschema.xml:605
 msgid "Confirm copy overwrite"
 msgstr "Confirmă suprascrierea la copiere"
 
-#: data/org.gnome.gnome-commander.gschema.xml:571
+#: data/org.gnome.gnome-commander.gschema.xml:606
 msgid ""
 "This option defines the default behavior when items will be overwritten by a "
 "copy command."
@@ -831,11 +879,11 @@ msgstr ""
 "Această opțiune definește comportamentul implicit când elementele vor fi "
 "suprascrise de o comandă de copiere."
 
-#: data/org.gnome.gnome-commander.gschema.xml:577
+#: data/org.gnome.gnome-commander.gschema.xml:612
 msgid "Confirm move overwrite"
 msgstr "Confirmă suprascrierea la mutare"
 
-#: data/org.gnome.gnome-commander.gschema.xml:578
+#: data/org.gnome.gnome-commander.gschema.xml:613
 msgid ""
 "This option defines the default behavior when items will be overwritten by a "
 "move command."
@@ -843,38 +891,38 @@ msgstr ""
 "Această opțiune definește comportamentul implicit când elementele vor fi "
 "suprascrise de o comandă de mutare."
 
-#: data/org.gnome.gnome-commander.gschema.xml:584
+#: data/org.gnome.gnome-commander.gschema.xml:619
 msgid "Confirm mouse drag and drop"
 msgstr "Confirmă tragerea și plasarea"
 
-#: data/org.gnome.gnome-commander.gschema.xml:585
+#: data/org.gnome.gnome-commander.gschema.xml:620
 msgid "This option defines the behavior of mouse drag and drop operations."
 msgstr ""
 "Această opțiune definește comportamentul operațiilor de tragere și plasare "
 "ale mausului."
 
-#: data/org.gnome.gnome-commander.gschema.xml:593
+#: data/org.gnome.gnome-commander.gschema.xml:628
 msgid "Hide unknown filetypes"
 msgstr "Ascunde tipurile de fișiere necunoscute"
 
-#: data/org.gnome.gnome-commander.gschema.xml:594
+#: data/org.gnome.gnome-commander.gschema.xml:629
 msgid "Hide files which type does not match to one of the other types."
 msgstr ""
 "Ascunde fișierele al cărui tip nu se potrivesc cu unul din celelalte tipuri."
 
-#: data/org.gnome.gnome-commander.gschema.xml:598
+#: data/org.gnome.gnome-commander.gschema.xml:633
 msgid "Hide regular files"
 msgstr "Ascunde fișierele normale"
 
-#: data/org.gnome.gnome-commander.gschema.xml:602
+#: data/org.gnome.gnome-commander.gschema.xml:637
 msgid "Hide directories"
 msgstr "Ascunde directoarele"
 
-#: data/org.gnome.gnome-commander.gschema.xml:606
+#: data/org.gnome.gnome-commander.gschema.xml:641
 msgid "Hide symbolic links"
 msgstr "Ascunde legăturile simbolice"
 
-#: data/org.gnome.gnome-commander.gschema.xml:610
+#: data/org.gnome.gnome-commander.gschema.xml:645
 msgid ""
 "Hide special files, such as a socket, fifo, block devices, or character "
 "devices."
@@ -882,41 +930,41 @@ msgstr ""
 "Ascunde fișiere speciale, cum ar fi soclu, fifo, dispozitive bloc, sau "
 "dispozitive caracter."
 
-#: data/org.gnome.gnome-commander.gschema.xml:614
+#: data/org.gnome.gnome-commander.gschema.xml:649
 msgid "Hide shortcut files (Windows systems)"
 msgstr "Ascunde fișiere scurtătură (pe sisteme Windows)"
 
-#: data/org.gnome.gnome-commander.gschema.xml:618
+#: data/org.gnome.gnome-commander.gschema.xml:653
 msgid "Hide mountable locations"
 msgstr "Ascunde locațiile ce se pot monta"
 
-#: data/org.gnome.gnome-commander.gschema.xml:622
+#: data/org.gnome.gnome-commander.gschema.xml:657
 msgid "Hide virtual files"
 msgstr "Ascunde fișierele virtuale"
 
-#: data/org.gnome.gnome-commander.gschema.xml:626
+#: data/org.gnome.gnome-commander.gschema.xml:661
 msgid "Hide volatile files"
 msgstr "Ascunde fișierele volatile"
 
-#: data/org.gnome.gnome-commander.gschema.xml:630
+#: data/org.gnome.gnome-commander.gschema.xml:665
 msgid "Hide files and folders starting with a dot"
 msgstr "Ascunde fișierele și dosarele ce încep cu un punct"
 
-#: data/org.gnome.gnome-commander.gschema.xml:634
+#: data/org.gnome.gnome-commander.gschema.xml:669
 msgid "Hide backup files"
 msgstr "Ascunde copiile de siguranță"
 
-#: data/org.gnome.gnome-commander.gschema.xml:635
+#: data/org.gnome.gnome-commander.gschema.xml:670
 msgid "Hide all files with a suffix defined as the backup pattern."
 msgstr ""
 "Ascunde toate fișierele ce au un sufix definit ca mostră pentru copii de "
 "siguranță."
 
-#: data/org.gnome.gnome-commander.gschema.xml:639
+#: data/org.gnome.gnome-commander.gschema.xml:674
 msgid "Backup file pattern"
 msgstr "Mostra fișierului de copii de siguranță"
 
-#: data/org.gnome.gnome-commander.gschema.xml:640
+#: data/org.gnome.gnome-commander.gschema.xml:675
 msgid ""
 "The given string defines suffixes (separated by semicolon) for files which "
 "should be filtered out if backup files should be hidden."
@@ -925,11 +973,11 @@ msgstr ""
 "fișierelor care ar trebui filtrate dacă fișierele de copii de siguranță ar "
 "trebui ascunse."
 
-#: data/org.gnome.gnome-commander.gschema.xml:649
+#: data/org.gnome.gnome-commander.gschema.xml:684
 msgid "Do not download files"
 msgstr "Nu descărca fișiere"
 
-#: data/org.gnome.gnome-commander.gschema.xml:650
+#: data/org.gnome.gnome-commander.gschema.xml:685
 msgid ""
 "This option defines if remote files should be downloaded before opened by "
 "external programs."
@@ -937,59 +985,69 @@ msgstr ""
 "Această opțiune definește dacă fișierele aflate la distanță ar trebui "
 "descărcate înainte de a le deschide în programe externe."
 
-#: data/org.gnome.gnome-commander.gschema.xml:656
+#: data/org.gnome.gnome-commander.gschema.xml:691
 msgid "Use internal viewer"
 msgstr "Utilizează vizualizorul intern"
 
-#: data/org.gnome.gnome-commander.gschema.xml:657
+#: data/org.gnome.gnome-commander.gschema.xml:692
 msgid "This option defines if the internal viewer should be used by default."
 msgstr ""
 "Această opțiune definește dacă vizualizatorul intern ar trebui folosit în "
 "mod implicit."
 
-#: data/org.gnome.gnome-commander.gschema.xml:663
+#: data/org.gnome.gnome-commander.gschema.xml:698
 msgid "Viewer command"
 msgstr "Comanda vizualizatorului"
 
-#: data/org.gnome.gnome-commander.gschema.xml:664
+#: data/org.gnome.gnome-commander.gschema.xml:699
 msgid "This string defines the command for starting the (external) viewer."
 msgstr ""
 "Acest șir de caractere definește comanda pentru a porni vizualizatorul "
 "(extern)."
 
-#: data/org.gnome.gnome-commander.gschema.xml:670
+#: data/org.gnome.gnome-commander.gschema.xml:705
 msgid "Editor command"
 msgstr "Comanda editorului"
 
-#: data/org.gnome.gnome-commander.gschema.xml:671
+#: data/org.gnome.gnome-commander.gschema.xml:706
 msgid "This string defines the command for starting the editor."
 msgstr "Acest șir de caractere definește comanda pentru a porni editorul."
 
-#: data/org.gnome.gnome-commander.gschema.xml:677
+#: data/org.gnome.gnome-commander.gschema.xml:712
 msgid "Differ command"
 msgstr "Comandă diferită"
 
-#: data/org.gnome.gnome-commander.gschema.xml:678
+#: data/org.gnome.gnome-commander.gschema.xml:713
 msgid "This string defines the command for starting the diff tool."
 msgstr ""
 "Acest șir de caractere definește comanda pentru a porni unealta de diff."
 
-#: data/org.gnome.gnome-commander.gschema.xml:684
+#: data/org.gnome.gnome-commander.gschema.xml:719
+msgid "Use internal search"
+msgstr "Utilizează căutarea internă"
+
+#: data/org.gnome.gnome-commander.gschema.xml:720
+msgid "This option defines if the internal search should be used by default."
+msgstr ""
+"Această opțiune definește dacă ar trebui utilizată căutarea internă în mod "
+"implicit."
+
+#: data/org.gnome.gnome-commander.gschema.xml:726
 msgid "Search command"
 msgstr "Comandă de căutare"
 
-#: data/org.gnome.gnome-commander.gschema.xml:685
+#: data/org.gnome.gnome-commander.gschema.xml:727
 msgid ""
 "This string defines the command for starting an external file search tool."
 msgstr ""
 "Acest șir de caractere definește comanda pentru a porni unealta externă "
 "pentru căutare de fișiere."
 
-#: data/org.gnome.gnome-commander.gschema.xml:691
+#: data/org.gnome.gnome-commander.gschema.xml:733
 msgid "Leave terminal open"
 msgstr "Lasă terminalul deschis"
 
-#: data/org.gnome.gnome-commander.gschema.xml:692
+#: data/org.gnome.gnome-commander.gschema.xml:734
 msgid ""
 "This option defines if a terminal window should stay open after a command "
 "finishes inside of it."
@@ -997,113 +1055,113 @@ msgstr ""
 "Această opțiune definește dacă o fereastră de terminal ar trebui să rămână "
 "deschisă după ce comanda din interiorul ei se finalizează."
 
-#: data/org.gnome.gnome-commander.gschema.xml:698
+#: data/org.gnome.gnome-commander.gschema.xml:740
 msgid "Command for opening a terminal"
 msgstr "Comandă pentru deschiderea unui terminal"
 
-#: data/org.gnome.gnome-commander.gschema.xml:699
+#: data/org.gnome.gnome-commander.gschema.xml:741
 msgid "This string defines the command for opening a terminal."
 msgstr ""
 "Acest șir de caractere definește comanda pentru deschiderea unui terminal."
 
-#: data/org.gnome.gnome-commander.gschema.xml:705
+#: data/org.gnome.gnome-commander.gschema.xml:747
 msgid "Command for execution in terminal"
 msgstr "Comandă pentru execuția în terminal"
 
-#: data/org.gnome.gnome-commander.gschema.xml:706
+#: data/org.gnome.gnome-commander.gschema.xml:748
 msgid ""
 "This string defines the command for executing another command in a terminal."
 msgstr ""
 "Acest șir de caractere definește comanda de executat o altă comandă într-un "
 "terminal."
 
-#: data/org.gnome.gnome-commander.gschema.xml:712
+#: data/org.gnome.gnome-commander.gschema.xml:754
 msgid "Send to command"
 msgstr "Comandă trimite la"
 
-#: data/org.gnome.gnome-commander.gschema.xml:713
+#: data/org.gnome.gnome-commander.gschema.xml:755
 msgid "This string defines the command for sending files to a receiver."
 msgstr ""
 "Acest șir de caractere definește comanda pentru trimiterea fișiere către un "
 "primitor."
 
-#: data/org.gnome.gnome-commander.gschema.xml:721
+#: data/org.gnome.gnome-commander.gschema.xml:763
 msgid "Color theme"
 msgstr "Temă de culori"
 
-#: data/org.gnome.gnome-commander.gschema.xml:722
+#: data/org.gnome.gnome-commander.gschema.xml:764
 msgid "This option defines the current color theme."
 msgstr "Această opțiune definește tema de culori curentă."
 
-#: data/org.gnome.gnome-commander.gschema.xml:728
+#: data/org.gnome.gnome-commander.gschema.xml:770
 msgid "Normal foreground color"
 msgstr "Culoare de prim plan normală"
 
-#: data/org.gnome.gnome-commander.gschema.xml:729
+#: data/org.gnome.gnome-commander.gschema.xml:771
 msgid "Normal foreground color in custom mode."
 msgstr "Culoare de prim plan normală în modul personalizat."
 
-#: data/org.gnome.gnome-commander.gschema.xml:735
+#: data/org.gnome.gnome-commander.gschema.xml:777
 msgid "Normal background color"
 msgstr "Culoare de fundal normală"
 
-#: data/org.gnome.gnome-commander.gschema.xml:736
+#: data/org.gnome.gnome-commander.gschema.xml:778
 msgid "Normal background color in custom mode."
 msgstr "Culoare de fundal normală în modul personalizat."
 
-#: data/org.gnome.gnome-commander.gschema.xml:742
+#: data/org.gnome.gnome-commander.gschema.xml:784
 msgid "Alternate foreground color"
 msgstr "Culoare de prim plan alternativă"
 
-#: data/org.gnome.gnome-commander.gschema.xml:743
+#: data/org.gnome.gnome-commander.gschema.xml:785
 msgid "Alternate foreground color in custom mode."
 msgstr "Culoare de prim plan alternativă în modul personalizat."
 
-#: data/org.gnome.gnome-commander.gschema.xml:749
+#: data/org.gnome.gnome-commander.gschema.xml:791
 msgid "Alternate background color"
 msgstr "Culoare de fundal alternativă"
 
-#: data/org.gnome.gnome-commander.gschema.xml:750
+#: data/org.gnome.gnome-commander.gschema.xml:792
 msgid "Alternate background color in custom mode."
 msgstr "Culoare de fundal alternativă în modul personalizat."
 
-#: data/org.gnome.gnome-commander.gschema.xml:756
+#: data/org.gnome.gnome-commander.gschema.xml:798
 msgid "Selection foreground color"
 msgstr "Culoarea de prim plan a selecției"
 
-#: data/org.gnome.gnome-commander.gschema.xml:757
+#: data/org.gnome.gnome-commander.gschema.xml:799
 msgid "Foreground color for selections in custom mode."
 msgstr "Culoarea de prim plan pentru selecțiile din modul personalizat."
 
-#: data/org.gnome.gnome-commander.gschema.xml:763
+#: data/org.gnome.gnome-commander.gschema.xml:805
 msgid "Selection background color"
 msgstr "Culoarea de fundal a selecției"
 
-#: data/org.gnome.gnome-commander.gschema.xml:764
+#: data/org.gnome.gnome-commander.gschema.xml:806
 msgid "Background color for selections in custom mode."
 msgstr "Culoarea de fundal pentru selecțiile modului personalizat."
 
-#: data/org.gnome.gnome-commander.gschema.xml:770
+#: data/org.gnome.gnome-commander.gschema.xml:812
 msgid "Cursor foreground color"
 msgstr "Culoare de prim plan a cursorului"
 
-#: data/org.gnome.gnome-commander.gschema.xml:771
+#: data/org.gnome.gnome-commander.gschema.xml:813
 msgid "Cursor foreground color in custom mode."
 msgstr "Culoare de prim plan a cursorului în modul personalizat."
 
-#: data/org.gnome.gnome-commander.gschema.xml:777
+#: data/org.gnome.gnome-commander.gschema.xml:819
 msgid "Cursor background color"
 msgstr "Culoarea de fundal a cursorului"
 
-#: data/org.gnome.gnome-commander.gschema.xml:778
+#: data/org.gnome.gnome-commander.gschema.xml:820
 msgid "Cursor background color in custom mode."
 msgstr "Culoarea de fundal a cursorului în modul personalizat."
 
-#: data/org.gnome.gnome-commander.gschema.xml:784
+#: data/org.gnome.gnome-commander.gschema.xml:826
 msgid "Use LS colors"
 msgstr "Utilizează culorile LS"
 
-#: data/org.gnome.gnome-commander.gschema.xml:785
+#: data/org.gnome.gnome-commander.gschema.xml:827
 msgid ""
 "This option triggers if the value of the environment variable LS_COLORS "
 "should be used to dye files and folders."
@@ -1111,187 +1169,187 @@ msgstr ""
 "Această opțiune declanșează dacă valoarea variabilei de mediu LS_COLORS ar "
 "trebui să fie folosită la colorarea fișierelor și dosarelor."
 
-#: data/org.gnome.gnome-commander.gschema.xml:792
+#: data/org.gnome.gnome-commander.gschema.xml:834
 msgid "LS_COLORS black foreground mapping"
 msgstr "LS_COLORS mapare de prim plan neagră"
 
-#: data/org.gnome.gnome-commander.gschema.xml:793
+#: data/org.gnome.gnome-commander.gschema.xml:835
 msgid ""
 "This option adjusts the foreground color mapping for LS_COLORS black value."
 msgstr ""
 "Această opțiune ajustează maparea culorii de prim plan pentru valoarea "
 "neagră LS_COLORS."
 
-#: data/org.gnome.gnome-commander.gschema.xml:799
+#: data/org.gnome.gnome-commander.gschema.xml:841
 msgid "LS_COLORS black background mapping"
 msgstr "LS_COLORS mapare de fundal neagră"
 
-#: data/org.gnome.gnome-commander.gschema.xml:800
+#: data/org.gnome.gnome-commander.gschema.xml:842
 msgid ""
 "This option adjusts the background color mapping for LS_COLORS black value."
 msgstr ""
 "Această opțiune ajustează maparea culorii de fundal pentru valoarea neagră "
 "LS_COLORS."
 
-#: data/org.gnome.gnome-commander.gschema.xml:806
+#: data/org.gnome.gnome-commander.gschema.xml:848
 msgid "LS_COLORS red foreground mapping"
 msgstr "LS_COLORS mapare de prim plan roșie"
 
-#: data/org.gnome.gnome-commander.gschema.xml:807
+#: data/org.gnome.gnome-commander.gschema.xml:849
 msgid ""
 "This option adjusts the foreground color mapping for LS_COLORS red value."
 msgstr ""
 "Această opțiune ajustează maparea culorii de prim plan pentru valoarea roșie "
 "LS_COLORS."
 
-#: data/org.gnome.gnome-commander.gschema.xml:813
+#: data/org.gnome.gnome-commander.gschema.xml:855
 msgid "LS_COLORS red background mapping"
 msgstr "LS_COLORS mapare de fundal roșie"
 
-#: data/org.gnome.gnome-commander.gschema.xml:814
+#: data/org.gnome.gnome-commander.gschema.xml:856
 msgid ""
 "This option adjusts the background color mapping for LS_COLORS red value."
 msgstr ""
 "Această opțiune ajustează maparea culorii de fundal pentru valoarea roșie "
 "LS_COLORS."
 
-#: data/org.gnome.gnome-commander.gschema.xml:820
+#: data/org.gnome.gnome-commander.gschema.xml:862
 msgid "LS_COLORS green foreground mapping"
 msgstr "LS_COLORS mapare de prim plan verde"
 
-#: data/org.gnome.gnome-commander.gschema.xml:821
+#: data/org.gnome.gnome-commander.gschema.xml:863
 msgid ""
 "This option adjusts the foreground color mapping for LS_COLORS green value."
 msgstr ""
 "Această opțiune ajustează maparea culorii de prim plan pentru valoarea verde "
 "LS_COLORS."
 
-#: data/org.gnome.gnome-commander.gschema.xml:827
+#: data/org.gnome.gnome-commander.gschema.xml:869
 msgid "LS_COLORS green background mapping"
 msgstr "LS_COLORS mapare de fundal verde"
 
-#: data/org.gnome.gnome-commander.gschema.xml:828
+#: data/org.gnome.gnome-commander.gschema.xml:870
 msgid ""
 "This option adjusts the background color mapping for LS_COLORS green value."
 msgstr ""
 "Această opțiune ajustează maparea culorii de fundal pentru valoarea verde "
 "LS_COLORS."
 
-#: data/org.gnome.gnome-commander.gschema.xml:834
+#: data/org.gnome.gnome-commander.gschema.xml:876
 msgid "LS_COLORS yellow foreground mapping"
 msgstr "LS_COLORS mapare de prim plan galbenă"
 
-#: data/org.gnome.gnome-commander.gschema.xml:835
+#: data/org.gnome.gnome-commander.gschema.xml:877
 msgid ""
 "This option adjusts the foreground color mapping for LS_COLORS yellow value."
 msgstr ""
 "Această opțiune ajustează maparea culorii de prim plan pentru valoarea "
 "galbenă LS_COLORS."
 
-#: data/org.gnome.gnome-commander.gschema.xml:841
+#: data/org.gnome.gnome-commander.gschema.xml:883
 msgid "LS_COLORS yellow background mapping"
 msgstr "LS_COLORS mapare de fundal galbenă"
 
-#: data/org.gnome.gnome-commander.gschema.xml:842
+#: data/org.gnome.gnome-commander.gschema.xml:884
 msgid ""
 "This option adjusts the background color mapping for LS_COLORS yellow value."
 msgstr ""
 "Această opțiune ajustează maparea culorii de fundal pentru valoarea galbenă "
 "LS_COLORS."
 
-#: data/org.gnome.gnome-commander.gschema.xml:848
+#: data/org.gnome.gnome-commander.gschema.xml:890
 msgid "LS_COLORS blue foreground mapping"
 msgstr "LS_COLORS mapare de prim plan albastră"
 
-#: data/org.gnome.gnome-commander.gschema.xml:849
+#: data/org.gnome.gnome-commander.gschema.xml:891
 msgid ""
 "This option adjusts the foreground color mapping for LS_COLORS blue value."
 msgstr ""
 "Această opțiune ajustează maparea culorii de prim plan pentru valoarea "
 "albastră LS_COLORS."
 
-#: data/org.gnome.gnome-commander.gschema.xml:855
+#: data/org.gnome.gnome-commander.gschema.xml:897
 msgid "LS_COLORS blue background mapping"
 msgstr "LS_COLORS mapare de fundal albastră"
 
-#: data/org.gnome.gnome-commander.gschema.xml:856
+#: data/org.gnome.gnome-commander.gschema.xml:898
 msgid ""
 "This option adjusts the background color mapping for LS_COLORS blue value."
 msgstr ""
 "Această opțiune ajustează maparea culorii de fundal pentru valoarea albastră "
 "LS_COLORS."
 
-#: data/org.gnome.gnome-commander.gschema.xml:862
+#: data/org.gnome.gnome-commander.gschema.xml:904
 msgid "LS_COLORS magenta foreground mapping"
 msgstr "LS_COLORS mapare de prim plan magenta"
 
-#: data/org.gnome.gnome-commander.gschema.xml:863
+#: data/org.gnome.gnome-commander.gschema.xml:905
 msgid ""
 "This option adjusts the foreground color mapping for LS_COLORS magenta value."
 msgstr ""
 "Această opțiune ajustează maparea culorii de prim plan pentru valoarea "
 "magenta LS_COLORS."
 
-#: data/org.gnome.gnome-commander.gschema.xml:869
+#: data/org.gnome.gnome-commander.gschema.xml:911
 msgid "LS_COLORS magenta background mapping"
 msgstr "LS_COLORS mapare de fundal magenta"
 
-#: data/org.gnome.gnome-commander.gschema.xml:870
+#: data/org.gnome.gnome-commander.gschema.xml:912
 msgid ""
 "This option adjusts the background color mapping for LS_COLORS magenta value."
 msgstr ""
 "Această opțiune ajustează maparea culorii de fundal pentru valoarea magenta "
 "LS_COLORS."
 
-#: data/org.gnome.gnome-commander.gschema.xml:876
+#: data/org.gnome.gnome-commander.gschema.xml:918
 msgid "LS_COLORS cyan foreground mapping"
 msgstr "LS_COLORS mapare de prim plan cyan"
 
-#: data/org.gnome.gnome-commander.gschema.xml:877
+#: data/org.gnome.gnome-commander.gschema.xml:919
 msgid ""
 "This option adjusts the foreground color mapping for LS_COLORS cyan value."
 msgstr ""
 "Această opțiune ajustează maparea culorii de prim plan pentru valoarea cyan "
 "LS_COLORS."
 
-#: data/org.gnome.gnome-commander.gschema.xml:883
+#: data/org.gnome.gnome-commander.gschema.xml:925
 msgid "LS_COLORS cyan background mapping"
 msgstr "LS_COLORS mapare de fundal cyan"
 
-#: data/org.gnome.gnome-commander.gschema.xml:884
+#: data/org.gnome.gnome-commander.gschema.xml:926
 msgid ""
 "This option adjusts the background color mapping for LS_COLORS cyan value."
 msgstr ""
 "Această opțiune ajustează maparea culorii de fundal pentru valoarea cyan "
 "LS_COLORS."
 
-#: data/org.gnome.gnome-commander.gschema.xml:890
+#: data/org.gnome.gnome-commander.gschema.xml:932
 msgid "LS_COLORS white foreground mapping"
 msgstr "LS_COLORS mapare de prim plan albă"
 
-#: data/org.gnome.gnome-commander.gschema.xml:891
+#: data/org.gnome.gnome-commander.gschema.xml:933
 msgid ""
 "This option adjusts the foreground color mapping for LS_COLORS white value."
 msgstr ""
 "Această opțiune ajustează maparea culorii de prim plan pentru valoarea albă "
 "LS_COLORS."
 
-#: data/org.gnome.gnome-commander.gschema.xml:897
+#: data/org.gnome.gnome-commander.gschema.xml:939
 msgid "LS_COLORS white background mapping"
 msgstr "LS_COLORS mapare de fundal albă"
 
-#: data/org.gnome.gnome-commander.gschema.xml:898
+#: data/org.gnome.gnome-commander.gschema.xml:940
 msgid ""
 "This option adjusts the background color mapping for LS_COLORS white value."
 msgstr ""
 "Această opțiune ajustează maparea culorii de fundal pentru valoarea albă "
 "LS_COLORS."
 
-#: data/org.gnome.gnome-commander.gschema.xml:906
+#: data/org.gnome.gnome-commander.gschema.xml:948
 msgid "Case sensitive search"
 msgstr "Căutare cu majuscule semnificative"
 
-#: data/org.gnome.gnome-commander.gschema.xml:907
+#: data/org.gnome.gnome-commander.gschema.xml:949
 msgid ""
 "This option defines if searching within the internal viewer is case "
 "sensitive."
@@ -1299,11 +1357,11 @@ msgstr ""
 "Această opțiune definește dacă căutarea din vizualizatorul intern este "
 "senzitivă la majuscule."
 
-#: data/org.gnome.gnome-commander.gschema.xml:913
+#: data/org.gnome.gnome-commander.gschema.xml:955
 msgid "Search mode"
 msgstr "Modul de căutare"
 
-#: data/org.gnome.gnome-commander.gschema.xml:914
+#: data/org.gnome.gnome-commander.gschema.xml:956
 msgid "This option defines the search mode of the internal viewer."
 msgstr "Această opțiune definește modul de căutare al vizualizatorului intern."
 
@@ -1312,39 +1370,39 @@ msgstr "Această opțiune definește modul de căutare al vizualizatorului inter
 #. an encoding that is common in your country.
 #. See https://gitlab.gnome.org/GNOME/gnome-commander/blob/master/src/intviewer/viewer-window.cc#L360 for
 #. a list of supported encodings.
-#: data/org.gnome.gnome-commander.gschema.xml:924
+#: data/org.gnome.gnome-commander.gschema.xml:966
 msgid "'UTF8'"
 msgstr "„UTF8”"
 
-#: data/org.gnome.gnome-commander.gschema.xml:925
+#: data/org.gnome.gnome-commander.gschema.xml:967
 msgid "Character set"
 msgstr "Set de caractere"
 
-#: data/org.gnome.gnome-commander.gschema.xml:926
+#: data/org.gnome.gnome-commander.gschema.xml:968
 msgid "This option defines the default character encoding."
 msgstr "Această opțiune definește codarea de caractere implicită."
 
-#: data/org.gnome.gnome-commander.gschema.xml:932
+#: data/org.gnome.gnome-commander.gschema.xml:974
 msgid "Fixed font name"
 msgstr "Nume font fix"
 
-#: data/org.gnome.gnome-commander.gschema.xml:933
+#: data/org.gnome.gnome-commander.gschema.xml:975
 msgid "Name of the default font with fixed character width."
 msgstr "Numele fontului implicit cu lățime de caractere fixă."
 
-#: data/org.gnome.gnome-commander.gschema.xml:939
+#: data/org.gnome.gnome-commander.gschema.xml:981
 msgid "Variable font name"
 msgstr "Nume de font variabil"
 
-#: data/org.gnome.gnome-commander.gschema.xml:940
+#: data/org.gnome.gnome-commander.gschema.xml:982
 msgid "Name of the default font with variable character width."
 msgstr "Numele fontului implicit cu lățime de caractere variabilă."
 
-#: data/org.gnome.gnome-commander.gschema.xml:946
+#: data/org.gnome.gnome-commander.gschema.xml:988
 msgid "Display hex offset"
 msgstr "Afișează decalajul hex"
 
-#: data/org.gnome.gnome-commander.gschema.xml:947
+#: data/org.gnome.gnome-commander.gschema.xml:989
 msgid ""
 "This option defines if the hexadecimal offset should be displayed in hex "
 "mode."
@@ -1352,29 +1410,29 @@ msgstr ""
 "Această opțiune definește dacă decalajul hexazecimal ar trebui afișat în "
 "modul hex."
 
-#: data/org.gnome.gnome-commander.gschema.xml:953
+#: data/org.gnome.gnome-commander.gschema.xml:995
 msgid "Wrap mode"
 msgstr "Mod încadrare"
 
-#: data/org.gnome.gnome-commander.gschema.xml:954
+#: data/org.gnome.gnome-commander.gschema.xml:996
 msgid "This option defines if too long text lines should be wrapped."
 msgstr ""
 "Această opțiune definește dacă liniile de text prea lungi ar trebui "
 "împărțite."
 
-#: data/org.gnome.gnome-commander.gschema.xml:960
+#: data/org.gnome.gnome-commander.gschema.xml:1002
 msgid "Font size"
 msgstr "Dimensiune font"
 
-#: data/org.gnome.gnome-commander.gschema.xml:961
+#: data/org.gnome.gnome-commander.gschema.xml:1003
 msgid "This option defines the default font size."
 msgstr "Această opțiune definește dimensiunea implicită a fontului."
 
-#: data/org.gnome.gnome-commander.gschema.xml:967
+#: data/org.gnome.gnome-commander.gschema.xml:1009
 msgid "Tab size"
 msgstr "Dimensiune tab"
 
-#: data/org.gnome.gnome-commander.gschema.xml:968
+#: data/org.gnome.gnome-commander.gschema.xml:1010
 msgid ""
 "This option defines the indentation width in terms of characters for a "
 "tabulator character."
@@ -1382,11 +1440,11 @@ msgstr ""
 "Această opțiune definește lățimea indentării în numărul de caractere "
 "tabulator."
 
-#: data/org.gnome.gnome-commander.gschema.xml:974
+#: data/org.gnome.gnome-commander.gschema.xml:1016
 msgid "Bytes per line in binary mode"
 msgstr "Byțes pe linie în modul binar"
 
-#: data/org.gnome.gnome-commander.gschema.xml:975
+#: data/org.gnome.gnome-commander.gschema.xml:1017
 msgid ""
 "This option defines how many bytes should be displayed in one line in binary "
 "mode."
@@ -1394,19 +1452,19 @@ msgstr ""
 "Această opțiune definește câți bytes ar trebui să fie afișați pe o linie în "
 "modul binar."
 
-#: data/org.gnome.gnome-commander.gschema.xml:981
+#: data/org.gnome.gnome-commander.gschema.xml:1023
 msgid "Metadata view"
 msgstr "Vizualizare metadate"
 
-#: data/org.gnome.gnome-commander.gschema.xml:982
+#: data/org.gnome.gnome-commander.gschema.xml:1024
 msgid "This option defines if metadata should be visible."
 msgstr "Această opțiune definește dacă metadatele ar trebui să fie vizibile."
 
-#: data/org.gnome.gnome-commander.gschema.xml:988
+#: data/org.gnome.gnome-commander.gschema.xml:1030
 msgid "Horizontal offset"
 msgstr "Decalaj orizontal"
 
-#: data/org.gnome.gnome-commander.gschema.xml:989
+#: data/org.gnome.gnome-commander.gschema.xml:1031
 msgid ""
 "This option defines the visual offset of the internal file viewer in "
 "horizontal direction."
@@ -1414,11 +1472,11 @@ msgstr ""
 "Această opțiune definește decalajul vizual al vizualizatorului de fișiere "
 "intern în direcția orizontală."
 
-#: data/org.gnome.gnome-commander.gschema.xml:995
+#: data/org.gnome.gnome-commander.gschema.xml:1037
 msgid "Vertical offset"
 msgstr "Decalaj vertical"
 
-#: data/org.gnome.gnome-commander.gschema.xml:996
+#: data/org.gnome.gnome-commander.gschema.xml:1038
 msgid ""
 "This option defines the visual offset of the internal file viewer in "
 "vertical direction."
@@ -1426,27 +1484,27 @@ msgstr ""
 "Această opțiune definește decalajul vizual al vizualizatorului de fișiere "
 "intern în direcția verticală."
 
-#: data/org.gnome.gnome-commander.gschema.xml:1002
+#: data/org.gnome.gnome-commander.gschema.xml:1044
 msgid "Window width"
 msgstr "Lățimea ferestrei"
 
-#: data/org.gnome.gnome-commander.gschema.xml:1003
+#: data/org.gnome.gnome-commander.gschema.xml:1045
 msgid "The width of the internal file viewer window."
 msgstr "Lățimea ferestrei vizualizorului fișierului interne."
 
-#: data/org.gnome.gnome-commander.gschema.xml:1009
+#: data/org.gnome.gnome-commander.gschema.xml:1051
 msgid "Window height"
 msgstr "Înălțimea ferestrei"
 
-#: data/org.gnome.gnome-commander.gschema.xml:1010
+#: data/org.gnome.gnome-commander.gschema.xml:1052
 msgid "The height of the internal file viewer window."
 msgstr "Înălțimea ferestrei vizualizatorului intern de fișiere."
 
-#: data/org.gnome.gnome-commander.gschema.xml:1016
+#: data/org.gnome.gnome-commander.gschema.xml:1058
 msgid "Search pattern for text"
 msgstr "Mostre de căutare pentru text"
 
-#: data/org.gnome.gnome-commander.gschema.xml:1017
+#: data/org.gnome.gnome-commander.gschema.xml:1059
 msgid ""
 "This string array stores the history of text searches within the internal "
 "file viewer."
@@ -1454,11 +1512,11 @@ msgstr ""
 "Această matrice de șiruri de caractere stochează istoricul de căutări text "
 "în interiorul vizualizatorului de fișiere intern."
 
-#: data/org.gnome.gnome-commander.gschema.xml:1023
+#: data/org.gnome.gnome-commander.gschema.xml:1065
 msgid "Search pattern for hex values"
 msgstr "Mostră de căutare pentru valorile hex"
 
-#: data/org.gnome.gnome-commander.gschema.xml:1024
+#: data/org.gnome.gnome-commander.gschema.xml:1066
 msgid ""
 "This string array stores the history of searches for hex values within the "
 "internal file viewer."
@@ -1466,20 +1524,20 @@ msgstr ""
 "Această matrice de șiruri de caractere stochează istoricul de căutări după "
 "valori hex în interiorul vizualizatorului de fișiere intern."
 
-#: data/org.gnome.gnome-commander.gschema.xml:1032
+#: data/org.gnome.gnome-commander.gschema.xml:1074
 msgid "File suffix"
 msgstr "Sufix fișier"
 
-#: data/org.gnome.gnome-commander.gschema.xml:1033
+#: data/org.gnome.gnome-commander.gschema.xml:1075
 msgid "Default file suffix of archives created with the File Roller plugin."
 msgstr ""
 "Sufixul de fișier implicit pentru arhivele creeate cu modulul File Roller."
 
-#: data/org.gnome.gnome-commander.gschema.xml:1039
+#: data/org.gnome.gnome-commander.gschema.xml:1081
 msgid "Prefix pattern"
 msgstr "Prefixul mostrei"
 
-#: data/org.gnome.gnome-commander.gschema.xml:1040
+#: data/org.gnome.gnome-commander.gschema.xml:1082
 msgid ""
 "The prefix pattern is used to build up the name for an archive created with "
 "the File Roller plugin."
@@ -1487,11 +1545,11 @@ msgstr ""
 "Mostra de prefixe este utilizată în a construi numele arhivelor create cu "
 "modulul File Roller."
 
-#: data/org.gnome.gnome-commander.gschema.xml:1048
+#: data/org.gnome.gnome-commander.gschema.xml:1090
 msgid "Automatically loaded plugins"
 msgstr "Module încărcate automat"
 
-#: data/org.gnome.gnome-commander.gschema.xml:1049
+#: data/org.gnome.gnome-commander.gschema.xml:1091
 msgid ""
 "This is the list of automatically loaded plugins, whereas each entry "
 "represents the file name of the plugin."
@@ -1519,7 +1577,7 @@ msgstr "Selecție dosare"
 msgid "File selection"
 msgstr "Selecție fișiere"
 
-#: plugins/fileroller/file-roller-plugin.cc:111 src/gnome-cmd-data.cc:78
+#: plugins/fileroller/file-roller-plugin.cc:111 src/gnome-cmd-data.cc:75
 #, c-format
 msgid "Could not load schemas from %s: %s\n"
 msgstr "Nu s-a putut încărca scheme din %s: %s\n"
@@ -1558,7 +1616,7 @@ msgid "Extract to “%s”"
 msgstr "Extrage în „%s”"
 
 #: plugins/fileroller/file-roller-plugin.cc:588
-#: src/gnome-cmd-advrename-profile-component.cc:941 src/plugin_manager.cc:391
+#: src/gnome-cmd-advrename-profile-component.cc:941 src/plugin_manager.cc:398
 #: src/tags/gnome-cmd-tags.cc:692
 msgid "File"
 msgstr "Fișier"
@@ -1566,11 +1624,11 @@ msgstr "Fișier"
 #. destroy model automatically with view
 #: plugins/fileroller/file-roller-plugin.cc:605
 #: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:369
-#: src/dialogs/gnome-cmd-options-dialog.cc:1524
-#: src/dialogs/gnome-cmd-options-dialog.cc:2201
+#: src/dialogs/gnome-cmd-options-dialog.cc:1556
+#: src/dialogs/gnome-cmd-options-dialog.cc:2317
 #: src/dialogs/gnome-cmd-prepare-copy-dialog.cc:145
 #: src/dialogs/gnome-cmd-prepare-move-dialog.cc:132
-#: src/dialogs/gnome-cmd-remote-dialog.cc:443 src/gnome-cmd-user-actions.cc:253
+#: src/dialogs/gnome-cmd-remote-dialog.cc:443 src/gnome-cmd-user-actions.cc:254
 msgid "Options"
 msgstr "Opțiuni"
 
@@ -1588,7 +1646,7 @@ msgid "File prefix pattern"
 msgstr "Mostră prefix de fișiere"
 
 #: plugins/fileroller/file-roller-plugin.cc:639
-#: src/dialogs/gnome-cmd-options-dialog.cc:416
+#: src/dialogs/gnome-cmd-options-dialog.cc:434
 msgid "Test result:"
 msgstr "Rezultat test:"
 
@@ -1617,14 +1675,17 @@ msgstr ""
 "construiască acest fel de module"
 
 #: src/dialogs/gnome-cmd-advrename-dialog.cc:126
+#: src/dialogs/gnome-cmd-search-dialog.cc:201
 msgid "/_Save Profile As…"
 msgstr "/_Salvează profilul ca…"
 
 #: src/dialogs/gnome-cmd-advrename-dialog.cc:135
+#: src/dialogs/gnome-cmd-search-dialog.cc:210
 msgid "/_Manage Profiles…"
 msgstr "/Ad_ministrează profilurile…"
 
 #: src/dialogs/gnome-cmd-advrename-dialog.cc:187
+#: src/dialogs/gnome-cmd-search-dialog.cc:260
 msgid "Profiles"
 msgstr "Profiluri"
 
@@ -1634,7 +1695,7 @@ msgstr "Șterge din lista de fișiere"
 
 #. {file_umount, "file.umount"},
 #: src/dialogs/gnome-cmd-advrename-dialog.cc:335
-#: src/gnome-cmd-user-actions.cc:238
+#: src/gnome-cmd-user-actions.cc:239
 msgid "View file"
 msgstr "Vizualizează fișierul"
 
@@ -1691,6 +1752,7 @@ msgid "File modification date"
 msgstr "Data modificării fișierului"
 
 #: src/dialogs/gnome-cmd-advrename-dialog.cc:693
+#: src/dialogs/gnome-cmd-search-dialog.cc:1301
 msgid "Profiles…"
 msgstr "Profiluri…"
 
@@ -1714,7 +1776,7 @@ msgid "_Match case"
 msgstr "_Majuscule semnificative"
 
 #: src/dialogs/gnome-cmd-chmod-dialog.cc:45
-#: src/dialogs/gnome-cmd-options-dialog.cc:1545
+#: src/dialogs/gnome-cmd-options-dialog.cc:1577
 msgid "All files"
 msgstr "Toate fișierele"
 
@@ -1830,7 +1892,7 @@ msgstr "WebDAV Securizat (HTTPS)"
 msgid "Custom location"
 msgstr "Loc personalizat"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:77
+#: src/dialogs/gnome-cmd-delete-dialog.cc:82
 #, c-format
 msgid "Deleted %lu of %lu file"
 msgid_plural "Deleted %lu of %lu files"
@@ -1838,11 +1900,11 @@ msgstr[0] "A fost șters %lu din %lu fișiere"
 msgstr[1] "Au fost șterse %lu din %lu fișiere"
 msgstr[2] "Au fost șterse %lu din %lu de fișiere"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:112
+#: src/dialogs/gnome-cmd-delete-dialog.cc:121
 msgid "Deleting…"
 msgstr "Se șterge…"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:281
+#: src/dialogs/gnome-cmd-delete-dialog.cc:295
 #, c-format
 msgid ""
 "Error while deleting “%s”\n"
@@ -1853,42 +1915,42 @@ msgstr ""
 "\n"
 "%s"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:286
-#: src/dialogs/gnome-cmd-delete-dialog.cc:421
+#: src/dialogs/gnome-cmd-delete-dialog.cc:300
+#: src/dialogs/gnome-cmd-delete-dialog.cc:445
 msgid "Delete problem"
 msgstr "Problemă la ștergere"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:287
-#: src/dialogs/gnome-cmd-delete-dialog.cc:421 src/gnome-cmd-xfer.cc:120
+#: src/dialogs/gnome-cmd-delete-dialog.cc:301
+#: src/dialogs/gnome-cmd-delete-dialog.cc:445 src/gnome-cmd-xfer.cc:120
 #: src/gnome-cmd-xfer.cc:147 src/gnome-cmd-xfer.cc:150
 #: src/gnome-cmd-xfer.cc:205 src/gnome-cmd-xfer.cc:208
 #: src/gnome-cmd-xfer.cc:323 src/gnome-cmd-xfer.cc:326
-#: src/gnome-cmd-xfer.cc:1097 src/gnome-cmd-xfer.cc:1108
-#: src/gnome-cmd-xfer.cc:1130
+#: src/gnome-cmd-xfer.cc:1107 src/gnome-cmd-xfer.cc:1118
+#: src/gnome-cmd-xfer.cc:1164
 msgid "Abort"
 msgstr "Anulează"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:287
-#: src/gnome-cmd-file-selector.cc:1398 src/gnome-cmd-xfer.cc:120
+#: src/dialogs/gnome-cmd-delete-dialog.cc:301
+#: src/gnome-cmd-file-selector.cc:1436 src/gnome-cmd-xfer.cc:120
 #: src/gnome-cmd-xfer.cc:147 src/gnome-cmd-xfer.cc:150
 #: src/gnome-cmd-xfer.cc:205 src/gnome-cmd-xfer.cc:208
 #: src/gnome-cmd-xfer.cc:323 src/gnome-cmd-xfer.cc:326
 msgid "Retry"
 msgstr "Insistă"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:287
-#: src/dialogs/gnome-cmd-delete-dialog.cc:437
-#: src/dialogs/gnome-cmd-options-dialog.cc:1065
-#: src/dialogs/gnome-cmd-options-dialog.cc:1089
+#: src/dialogs/gnome-cmd-delete-dialog.cc:301
+#: src/dialogs/gnome-cmd-delete-dialog.cc:461
+#: src/dialogs/gnome-cmd-options-dialog.cc:1083
+#: src/dialogs/gnome-cmd-options-dialog.cc:1107
 #: src/dialogs/gnome-cmd-prepare-copy-dialog.cc:114
 #: src/dialogs/gnome-cmd-prepare-move-dialog.cc:108
-#: src/gnome-cmd-file-selector.cc:1398 src/gnome-cmd-xfer.cc:120
+#: src/gnome-cmd-file-selector.cc:1436 src/gnome-cmd-xfer.cc:120
 #: src/gnome-cmd-xfer.cc:147 src/gnome-cmd-xfer.cc:205
 #: src/gnome-cmd-xfer.cc:323
 msgid "Skip"
 msgstr "Omite"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:419
+#: src/dialogs/gnome-cmd-delete-dialog.cc:443
 #, c-format
 msgid ""
 "Error while deleting: \n"
@@ -1899,52 +1961,52 @@ msgstr ""
 "\n"
 "%s"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:432
+#: src/dialogs/gnome-cmd-delete-dialog.cc:456
 #, c-format
 msgid "Do you really want to delete “%s”?"
 msgstr "Doriți să ștergeți „%s”?"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:433
+#: src/dialogs/gnome-cmd-delete-dialog.cc:457
 #, c-format
 msgid "The directory “%s” is not empty. Do you really want to delete it?"
 msgstr "Directorul „%s” nu este gol. Doriți să îl ștergeți?"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:435
-#: src/dialogs/gnome-cmd-delete-dialog.cc:439
-#: src/dialogs/gnome-cmd-delete-dialog.cc:525
-#: src/dialogs/gnome-cmd-delete-dialog.cc:526
-#: src/dialogs/gnome-cmd-options-dialog.cc:1037
+#: src/dialogs/gnome-cmd-delete-dialog.cc:459
+#: src/dialogs/gnome-cmd-delete-dialog.cc:463
+#: src/dialogs/gnome-cmd-delete-dialog.cc:549
+#: src/dialogs/gnome-cmd-delete-dialog.cc:550
+#: src/dialogs/gnome-cmd-options-dialog.cc:1055
 #: src/gnome-cmd-file-popmenu.cc:724 src/gnome-cmd-main-win.cc:243
-#: src/gnome-cmd-user-actions.cc:212
+#: src/gnome-cmd-user-actions.cc:213
 msgid "Delete"
 msgstr "Șterge"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:437
-#: src/dialogs/gnome-cmd-delete-dialog.cc:526 src/gnome-cmd-file-list.cc:1312
-#: src/gnome-cmd-file-list.cc:1341 src/gnome-cmd-file-selector.cc:1398
-#: src/gnome-cmd-user-actions.cc:865
+#: src/dialogs/gnome-cmd-delete-dialog.cc:461
+#: src/dialogs/gnome-cmd-delete-dialog.cc:550 src/gnome-cmd-file-list.cc:1328
+#: src/gnome-cmd-file-list.cc:1357 src/gnome-cmd-file-selector.cc:1436
+#: src/gnome-cmd-user-actions.cc:874
 msgid "Cancel"
 msgstr "Anulează"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:438
+#: src/dialogs/gnome-cmd-delete-dialog.cc:462
 msgid "Delete All"
 msgstr "Șterge tot"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:438
+#: src/dialogs/gnome-cmd-delete-dialog.cc:462
 msgid "Delete Remaining"
 msgstr "Șterge cele rămase"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:505
+#: src/dialogs/gnome-cmd-delete-dialog.cc:529
 #, c-format
 msgid "Do you want to permanently delete “%s”?"
 msgstr "Doriți să ștergeți permanent „%s”?"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:506
+#: src/dialogs/gnome-cmd-delete-dialog.cc:530
 #, c-format
 msgid "Do you want to move “%s” to the trash can?"
 msgstr "Doriți să mutați „%s” la coșul de gunoi?"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:511
+#: src/dialogs/gnome-cmd-delete-dialog.cc:535
 #, c-format
 msgid "Do you want to permanently delete the selected file?"
 msgid_plural "Do you want to permanently delete the %d selected files?"
@@ -1952,7 +2014,7 @@ msgstr[0] "Doriți să ștergeți permanent fișierul selectat?"
 msgstr[1] "Doriți să ștergeți permanent cele %d fișiere selectate?"
 msgstr[2] "Doriți să ștergeți permanent cele %d de fișiere selectate?"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:515
+#: src/dialogs/gnome-cmd-delete-dialog.cc:539
 #, c-format
 msgid "Do you want to move the selected file to the trash can?"
 msgid_plural "Do you want to move the %d selected files to the trash can?"
@@ -1984,75 +2046,75 @@ msgstr "Modifică profil"
 msgid "_Name"
 msgstr "_Nume"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:305
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:307
 msgid "Image:"
 msgstr "Imagine:"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:329
-#: src/dialogs/gnome-cmd-mkdir-dialog.cc:195
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:331
+#: src/dialogs/gnome-cmd-mkdir-dialog.cc:192
 msgid "Directory name:"
 msgstr "Nume dosar:"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:329
-#: src/gnome-cmd-file-selector.cc:1182
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:331
+#: src/gnome-cmd-file-selector.cc:1220
 msgid "File name:"
 msgstr "Nume fișier:"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:338
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:340
 msgid "Symlink target:"
 msgstr "Ținta legăturii simbolice:"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:353
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:355
 msgid "Location:"
 msgstr "Loc:"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:361
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:363
 msgid "Volume:"
 msgstr "Volum:"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:389
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:391
 msgid "Free space:"
 msgstr "Spațiu liber:"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:401
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:403
 msgid "Content Type:"
 msgstr "Tip de conținut:"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:413
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:415
 msgid "Opens with:"
 msgstr "Deschide cu:"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:424
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:426
 msgid "No default application registered"
 msgstr "Nicio aplicație implicită înregistrată"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:435
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:437
 msgid "Modified:"
 msgstr "Modificat:"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:442
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:444
 msgid "Accessed:"
 msgstr "Accesat:"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:452
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:454
 msgid "Size:"
 msgstr "Dimensiune:"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:499
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:501
 msgid "Owner and group"
 msgstr "Proprietar și grup"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:510
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:512
 msgid "Access permissions"
 msgstr "Permisiuni acces"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:594
-#: src/intviewer/viewer-window.cc:1353
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:596
+#: src/intviewer/viewer-window.cc:1356
 msgid "Type"
 msgstr "Tip"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:595
-#: src/intviewer/viewer-window.cc:1354
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:597
+#: src/intviewer/viewer-window.cc:1357
 msgid "Metadata namespace"
 msgstr "Spațiu de nume metadate"
 
@@ -2062,48 +2124,47 @@ msgstr "Spațiu de nume metadate"
 #. "foreground-set", TRUE,
 #. "foreground", "DarkGray",
 #. NULL);
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:602
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:604
 #: src/dialogs/gnome-cmd-manage-bookmarks-dialog.cc:244
 #: src/dialogs/gnome-cmd-remote-dialog.cc:354
-#: src/intviewer/viewer-window.cc:1361 src/plugin_manager.cc:389
+#: src/intviewer/viewer-window.cc:1364 src/plugin_manager.cc:396
 #: src/tags/gnome-cmd-tags.cc:327
 msgid "Name"
 msgstr "Nume"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:603
-#: src/intviewer/viewer-window.cc:1362
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:605
+#: src/intviewer/viewer-window.cc:1365
 msgid "Tag name"
 msgstr "Nume etichetă"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:605
-#: src/intviewer/viewer-window.cc:1364
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:607
+#: src/intviewer/viewer-window.cc:1367
 msgid "Value"
 msgstr "Valoare"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:606
-#: src/intviewer/viewer-window.cc:1365
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:608
+#: src/intviewer/viewer-window.cc:1368
 msgid "Tag value"
 msgstr "Valoare etichetă"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:608
-#: src/intviewer/viewer-window.cc:1367 src/tags/gnome-cmd-tags.cc:171
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:610
+#: src/intviewer/viewer-window.cc:1370 src/tags/gnome-cmd-tags.cc:171
 #: src/tags/gnome-cmd-tags.cc:322 src/tags/gnome-cmd-tags.cc:424
 #: src/tags/gnome-cmd-tags.cc:535
 msgid "Description"
 msgstr "Descriere"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:609
-#: src/intviewer/viewer-window.cc:1368
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:611
+#: src/intviewer/viewer-window.cc:1371
 msgid "Metadata tag description"
 msgstr "Descriere etichetă metadate"
 
-#. data->thread = 0;
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:664
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:665
 msgid "File Properties"
 msgstr "Proprietăți fișier"
 
 #: src/dialogs/gnome-cmd-file-props-dialog.cc:686
-#: src/gnome-cmd-user-actions.cc:232
+#: src/gnome-cmd-user-actions.cc:233
 msgid "Properties"
 msgstr "Proprietăți"
 
@@ -2172,22 +2233,22 @@ msgid "Invalid shortcut."
 msgstr "Scurtătură nevalidă."
 
 #: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:639
-#: src/gnome-cmd-user-actions.cc:252
+#: src/gnome-cmd-user-actions.cc:253
 msgid "Do nothing"
 msgstr "Nu fă nimic"
 
 #: src/dialogs/gnome-cmd-make-copy-dialog.cc:67
-#: src/gnome-cmd-file-selector.cc:1102
+#: src/gnome-cmd-file-selector.cc:1086
 msgid "No file name entered"
 msgstr "Nu a fost introdus niciun nume de fișier"
 
-#: src/dialogs/gnome-cmd-make-copy-dialog.cc:137
+#: src/dialogs/gnome-cmd-make-copy-dialog.cc:152
 #: src/dialogs/gnome-cmd-prepare-copy-dialog.cc:155
 #, c-format
 msgid "Copy “%s” to"
 msgstr "Copiază „%s” la"
 
-#: src/dialogs/gnome-cmd-make-copy-dialog.cc:144
+#: src/dialogs/gnome-cmd-make-copy-dialog.cc:159
 msgid "Copy File"
 msgstr "Copiază fișier"
 
@@ -2266,16 +2327,16 @@ msgstr ""
 msgid "_Duplicate"
 msgstr "_Duplică"
 
-#: src/dialogs/gnome-cmd-mkdir-dialog.cc:106
+#: src/dialogs/gnome-cmd-mkdir-dialog.cc:105
 msgid "A directory name must be entered"
 msgstr "Trebuie să introduceți un nume de dosar"
 
-#: src/dialogs/gnome-cmd-mkdir-dialog.cc:127
+#: src/dialogs/gnome-cmd-mkdir-dialog.cc:125
 #, c-format
 msgid "Make directory failed: %s\n"
 msgstr "Crearea dosarului a eșuat: %s\n"
 
-#: src/dialogs/gnome-cmd-mkdir-dialog.cc:171
+#: src/dialogs/gnome-cmd-mkdir-dialog.cc:168
 msgid "Make Directory"
 msgstr "Creează dosar"
 
@@ -2300,7 +2361,7 @@ msgid "Middle mouse button"
 msgstr "Buton mijloc mous"
 
 #: src/dialogs/gnome-cmd-options-dialog.cc:136 src/gnome-cmd-main-win.cc:234
-#: src/gnome-cmd-user-actions.cc:283
+#: src/gnome-cmd-user-actions.cc:284
 msgid "Up one directory"
 msgstr "Un dosar mai sus"
 
@@ -2345,7 +2406,7 @@ msgid "Case sensitive"
 msgstr "Majuscule semnificative"
 
 #: src/dialogs/gnome-cmd-options-dialog.cc:193
-#: src/gnome-cmd-user-actions.cc:215
+#: src/gnome-cmd-user-actions.cc:216
 msgid "Quick search"
 msgstr "Căutare rapidă"
 
@@ -2369,316 +2430,332 @@ msgstr "Potrivește cu începutul numelui de fișier"
 msgid "Match end of the file name"
 msgstr "Potrivește cu sfârșitul numelui de fișier"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:220
+#: src/dialogs/gnome-cmd-options-dialog.cc:219
+msgid "Search Window"
+msgstr "Fereastra de căutare"
+
+#: src/dialogs/gnome-cmd-options-dialog.cc:222
+msgid ""
+"Search window is minimizable\n"
+"(Needs program restart if altered)"
+msgstr ""
+"Fereastra de căutare poate fi minimizată\n"
+"(Necesită repornirea programului la modificare)"
+
+#: src/dialogs/gnome-cmd-options-dialog.cc:229
 msgid "Multiple instances"
 msgstr "Mai multe instanțe"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:223
+#: src/dialogs/gnome-cmd-options-dialog.cc:232
 msgid "Don’t start a new instance"
 msgstr "Nu începe o nouă instanță"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:230
+#: src/dialogs/gnome-cmd-options-dialog.cc:239
 msgid "Save on exit"
 msgstr "Salvați la ieșire"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:233
-#: src/dialogs/gnome-cmd-options-dialog.cc:1217
+#: src/dialogs/gnome-cmd-options-dialog.cc:242
+#: src/dialogs/gnome-cmd-options-dialog.cc:1235
 msgid "Directories"
 msgstr "Dosare"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:237
-#: src/dialogs/gnome-cmd-options-dialog.cc:2228
+#: src/dialogs/gnome-cmd-options-dialog.cc:246
+#: src/dialogs/gnome-cmd-options-dialog.cc:2344
 msgid "Tabs"
 msgstr "Taburi"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:242
+#: src/dialogs/gnome-cmd-options-dialog.cc:251
 msgid "Directory history"
 msgstr "Istoricul dosarelor"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:246
+#: src/dialogs/gnome-cmd-options-dialog.cc:255
 msgid "Commandline history"
 msgstr "Istoricul liniei de comandă"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:358
+#: src/dialogs/gnome-cmd-options-dialog.cc:259
+msgid "Search history"
+msgstr "Istoricul căutărilor"
+
+#: src/dialogs/gnome-cmd-options-dialog.cc:376
 msgid "Size display mode"
 msgstr "Mod afișare dimensiune"
 
 #. Translators: 'Powered' refers to the mode of file size display (here - display using units of data: kB, MB, GB, ...)
-#: src/dialogs/gnome-cmd-options-dialog.cc:362
+#: src/dialogs/gnome-cmd-options-dialog.cc:380
 msgid "Powered"
 msgstr "Multiplicat"
 
 #. Translators: '<locale>' refers to the mode of file size display (here - use current locale settings)
-#: src/dialogs/gnome-cmd-options-dialog.cc:368
+#: src/dialogs/gnome-cmd-options-dialog.cc:386
 msgid "<locale>"
 msgstr "<local>"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:373
+#: src/dialogs/gnome-cmd-options-dialog.cc:391
 msgid "Grouped"
 msgstr "Grupat"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:378
+#: src/dialogs/gnome-cmd-options-dialog.cc:396
 msgid "Plain"
 msgstr "Simplu"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:389
+#: src/dialogs/gnome-cmd-options-dialog.cc:407
 msgid "Text (rw-r--r--)"
 msgstr "Text (rw-r--r--)"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:394
+#: src/dialogs/gnome-cmd-options-dialog.cc:412
 msgid "Number (644)"
 msgstr "Numeric (644)"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:405
+#: src/dialogs/gnome-cmd-options-dialog.cc:423
 msgid "Format:"
 msgstr "Format:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:423
+#: src/dialogs/gnome-cmd-options-dialog.cc:441
 msgid ""
 "See the manual page for “strftime” for help on how to set the format string."
 msgstr ""
 "Consultați pagina manualului „strftime” pentru ajutor la definirea șirului "
 "de format."
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:507
+#: src/dialogs/gnome-cmd-options-dialog.cc:525
 msgid "Edit Colors…"
 msgstr "Editare culori…"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:520
+#: src/dialogs/gnome-cmd-options-dialog.cc:538
 msgid "Colors"
 msgstr "Culori"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:551
+#: src/dialogs/gnome-cmd-options-dialog.cc:569
 msgid "Foreground"
 msgstr "Prim-plan"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:553
+#: src/dialogs/gnome-cmd-options-dialog.cc:571
 msgid "Background"
 msgstr "Fundal"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:555
+#: src/dialogs/gnome-cmd-options-dialog.cc:573
 msgid "Default:"
 msgstr "Implicit:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:557
+#: src/dialogs/gnome-cmd-options-dialog.cc:575
 msgid "Alternate:"
 msgstr "Alternativ:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:559
+#: src/dialogs/gnome-cmd-options-dialog.cc:577
 msgid "Selected file:"
 msgstr "Fișierul selectat:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:561
+#: src/dialogs/gnome-cmd-options-dialog.cc:579
 msgid "Cursor:"
 msgstr "Cursor:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:642
+#: src/dialogs/gnome-cmd-options-dialog.cc:660
 msgid "Edit LS_COLORS Palette"
 msgstr "Editează paletă LS_COLORS"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:654
+#: src/dialogs/gnome-cmd-options-dialog.cc:672
 msgid "Palette"
 msgstr "Paletă"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:709
+#: src/dialogs/gnome-cmd-options-dialog.cc:727
 msgid "Foreground:"
 msgstr "Prim-plan:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:711
+#: src/dialogs/gnome-cmd-options-dialog.cc:729
 msgid "Background:"
 msgstr "Fundal:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:713
+#: src/dialogs/gnome-cmd-options-dialog.cc:731
 msgid "Black"
 msgstr "Negru"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:716
+#: src/dialogs/gnome-cmd-options-dialog.cc:734
 msgid "Red"
 msgstr "Roșu"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:719
+#: src/dialogs/gnome-cmd-options-dialog.cc:737
 msgid "Green"
 msgstr "Verde"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:722
+#: src/dialogs/gnome-cmd-options-dialog.cc:740
 msgid "Yellow"
 msgstr "Galben"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:725
+#: src/dialogs/gnome-cmd-options-dialog.cc:743
 msgid "Blue"
 msgstr "Albastru"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:728
+#: src/dialogs/gnome-cmd-options-dialog.cc:746
 msgid "Magenta"
 msgstr "Purpuriu"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:731
+#: src/dialogs/gnome-cmd-options-dialog.cc:749
 msgid "Cyan"
 msgstr "Cyan"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:734
+#: src/dialogs/gnome-cmd-options-dialog.cc:752
 msgid "White"
 msgstr "Alb"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:738
+#: src/dialogs/gnome-cmd-options-dialog.cc:756
 msgid "_Reset"
 msgstr "_Resetează"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:752
+#: src/dialogs/gnome-cmd-options-dialog.cc:770
 msgid "With file name"
 msgstr "Cu numele de fișier"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:753
+#: src/dialogs/gnome-cmd-options-dialog.cc:771
 msgid "In separate column"
 msgstr "În coloană separată"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:754
+#: src/dialogs/gnome-cmd-options-dialog.cc:772
 msgid "In both columns"
 msgstr "În amândouă coloanele"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:758
+#: src/dialogs/gnome-cmd-options-dialog.cc:776
 msgid "No icons"
 msgstr "Fără iconițe"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:759
+#: src/dialogs/gnome-cmd-options-dialog.cc:777
 msgid "File type icons"
 msgstr "Tip fișier iconițe"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:760
+#: src/dialogs/gnome-cmd-options-dialog.cc:778
 msgid "MIME icons"
 msgstr "Iconițe MIME"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:764
+#: src/dialogs/gnome-cmd-options-dialog.cc:782
 msgid "Respect theme colors"
 msgstr "Respectă tema de culori"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:765
+#: src/dialogs/gnome-cmd-options-dialog.cc:783
 msgid "Modern"
 msgstr "Modern"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:766
+#: src/dialogs/gnome-cmd-options-dialog.cc:784
 msgid "Fusion"
 msgstr "Fuziune"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:767
+#: src/dialogs/gnome-cmd-options-dialog.cc:785
 msgid "Classic"
 msgstr "Clasic"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:768
+#: src/dialogs/gnome-cmd-options-dialog.cc:786
 msgid "Deep blue"
 msgstr "Albastru închis"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:769
+#: src/dialogs/gnome-cmd-options-dialog.cc:787
 msgid "Cafezinho"
 msgstr "Cafezino"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:770
+#: src/dialogs/gnome-cmd-options-dialog.cc:788
 msgid "Green tiger"
 msgstr "Verde tigru"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:771
+#: src/dialogs/gnome-cmd-options-dialog.cc:789
 msgid "Winter"
 msgstr "Iarnă"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:772
+#: src/dialogs/gnome-cmd-options-dialog.cc:790
 msgid "Custom"
 msgstr "Personal"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:792
+#: src/dialogs/gnome-cmd-options-dialog.cc:810
 msgid "File panes"
 msgstr "Panouri fișiere"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:802
+#: src/dialogs/gnome-cmd-options-dialog.cc:820
 msgid "Font:"
 msgstr "Font:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:804
+#: src/dialogs/gnome-cmd-options-dialog.cc:822
 msgid "Row height:"
 msgstr "Înălțime rând:"
 
 #. File extensions
-#: src/dialogs/gnome-cmd-options-dialog.cc:808
+#: src/dialogs/gnome-cmd-options-dialog.cc:826
 msgid "Display file extensions:"
 msgstr "Afișează extensiile fișierelor:"
 
 #. Graphical mode
-#: src/dialogs/gnome-cmd-options-dialog.cc:816
+#: src/dialogs/gnome-cmd-options-dialog.cc:834
 msgid "Graphical mode:"
 msgstr "Mod grafic:"
 
 #. Color scheme
-#: src/dialogs/gnome-cmd-options-dialog.cc:825
+#: src/dialogs/gnome-cmd-options-dialog.cc:843
 msgid "Color scheme:"
 msgstr "Schema de culori:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:837
+#: src/dialogs/gnome-cmd-options-dialog.cc:855
 msgid "Edit…"
 msgstr "Editare…"
 
 #. LS_COLORS
-#: src/dialogs/gnome-cmd-options-dialog.cc:844
+#: src/dialogs/gnome-cmd-options-dialog.cc:862
 msgid "Colorize files according to the LS_COLORS environment variable"
 msgstr "Colorează fișierele conform variabilei de mediu LS_COLORS"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:852
+#: src/dialogs/gnome-cmd-options-dialog.cc:870
 msgid "Edit colors…"
 msgstr "Editare culori…"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:860
+#: src/dialogs/gnome-cmd-options-dialog.cc:878
 msgid "MIME icon settings"
 msgstr "Configurări MIME pentru iconițe"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:871
+#: src/dialogs/gnome-cmd-options-dialog.cc:889
 msgid "Icon size:"
 msgstr "Dimensiune iconiță:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:873
+#: src/dialogs/gnome-cmd-options-dialog.cc:891
 msgid "Scaling quality:"
 msgstr "Calitate scalare:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:875
+#: src/dialogs/gnome-cmd-options-dialog.cc:893
 msgid "Theme icon directory:"
 msgstr "Dosar iconițe temă:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:961
+#: src/dialogs/gnome-cmd-options-dialog.cc:979
 msgid "Tab bar"
 msgstr "Bara de taburi"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:964
+#: src/dialogs/gnome-cmd-options-dialog.cc:982
 msgid "Always show the tab bar"
 msgstr "Afișează întotdeauna bara taburilor"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:973
+#: src/dialogs/gnome-cmd-options-dialog.cc:991
 msgid "Lock icon"
 msgstr "Iconiță de blocare"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:978
+#: src/dialogs/gnome-cmd-options-dialog.cc:996
 msgid "* (asterisk)"
 msgstr "* (asterisc)"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:983
+#: src/dialogs/gnome-cmd-options-dialog.cc:1001
 msgid "Styled text"
 msgstr "Text stilat"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1040
+#: src/dialogs/gnome-cmd-options-dialog.cc:1058
 msgid "Confirm before delete"
 msgstr "Confirmă înainte de ștergere"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1045
+#: src/dialogs/gnome-cmd-options-dialog.cc:1063
 msgid "Confirm defaults to OK"
 msgstr "Confirmă implicitele ca OK"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1054
+#: src/dialogs/gnome-cmd-options-dialog.cc:1072
 msgid "Preselected overwrite action in copy dialog"
 msgstr "Acțiune de suprascriere preselectată în dialogul de copiere"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1057
-#: src/dialogs/gnome-cmd-options-dialog.cc:1081
+#: src/dialogs/gnome-cmd-options-dialog.cc:1075
+#: src/dialogs/gnome-cmd-options-dialog.cc:1099
 msgid "Query first"
 msgstr "Întreabă mai întâi"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1061
-#: src/dialogs/gnome-cmd-options-dialog.cc:1085
+#: src/dialogs/gnome-cmd-options-dialog.cc:1079
+#: src/dialogs/gnome-cmd-options-dialog.cc:1103
 #: src/dialogs/gnome-cmd-prepare-copy-dialog.cc:107
 #: src/dialogs/gnome-cmd-prepare-move-dialog.cc:101
 #: src/gnome-cmd-file-popmenu.cc:725 src/gnome-cmd-xfer.cc:147
@@ -2688,87 +2765,87 @@ msgstr "Întreabă mai întâi"
 msgid "Rename"
 msgstr "Redenumește"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1069
-#: src/dialogs/gnome-cmd-options-dialog.cc:1093
+#: src/dialogs/gnome-cmd-options-dialog.cc:1087
+#: src/dialogs/gnome-cmd-options-dialog.cc:1111
 #: src/dialogs/gnome-cmd-prepare-copy-dialog.cc:121
 #: src/dialogs/gnome-cmd-prepare-move-dialog.cc:115
 msgid "Overwrite silently"
 msgstr "Suprascrie silențios"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1078
+#: src/dialogs/gnome-cmd-options-dialog.cc:1096
 msgid "Preselected overwrite action in move dialog"
 msgstr "Acțiune de suprascriere preselectată în dialogul de mutare"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1102
+#: src/dialogs/gnome-cmd-options-dialog.cc:1120
 msgid "Default Drag and Drop Action"
 msgstr "Acțiunea implicită pentru tragere și plasare"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1105
+#: src/dialogs/gnome-cmd-options-dialog.cc:1123
 msgid "Confirm mouse operation"
 msgstr "Confirmare operațiune de maus"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1109
+#: src/dialogs/gnome-cmd-options-dialog.cc:1127
 #: src/dialogs/gnome-cmd-prepare-copy-dialog.cc:94
 #: src/gnome-cmd-file-popmenu.cc:723 src/gnome-cmd-main-win.cc:241
-#: src/gnome-cmd-user-actions.cc:209
+#: src/gnome-cmd-user-actions.cc:210
 msgid "Copy"
 msgstr "Copiază"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1113
+#: src/dialogs/gnome-cmd-options-dialog.cc:1131
 #: src/dialogs/gnome-cmd-prepare-move-dialog.cc:88
 msgid "Move"
 msgstr "Mută"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1208
+#: src/dialogs/gnome-cmd-options-dialog.cc:1226
 msgid "Filetypes to hide"
 msgstr "Tipuri fișiere de ascuns"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1211
+#: src/dialogs/gnome-cmd-options-dialog.cc:1229
 msgid "Unknown"
 msgstr "Necunoscut"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1214
+#: src/dialogs/gnome-cmd-options-dialog.cc:1232
 msgid "Regular files"
 msgstr "Fișiere normale"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1220
+#: src/dialogs/gnome-cmd-options-dialog.cc:1238
 msgid "Socket, fifo, block, or character devices"
 msgstr "Dispozitive soclu,fifo, bloc sau caracter"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1223
+#: src/dialogs/gnome-cmd-options-dialog.cc:1241
 msgid "Shortcuts (Windows systems)"
 msgstr "Scurtături (sisteme Windows)"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1226
+#: src/dialogs/gnome-cmd-options-dialog.cc:1244
 msgid "Mountable locations"
 msgstr "Locații ce se pot monta"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1229
+#: src/dialogs/gnome-cmd-options-dialog.cc:1247
 msgid "Virtual files"
 msgstr "Fișierele virtuale"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1232
+#: src/dialogs/gnome-cmd-options-dialog.cc:1250
 msgid "Volatile files"
 msgstr "Fișiere volatile"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1237
+#: src/dialogs/gnome-cmd-options-dialog.cc:1255
 msgid "Also hide"
 msgstr "De asemenea ascunde"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1240
+#: src/dialogs/gnome-cmd-options-dialog.cc:1258
 msgid "Hidden files"
 msgstr "Fișiere ascunse"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1243
-#: src/dialogs/gnome-cmd-options-dialog.cc:1252
+#: src/dialogs/gnome-cmd-options-dialog.cc:1261
+#: src/dialogs/gnome-cmd-options-dialog.cc:1270
 msgid "Backup files"
 msgstr "Copii de siguranță"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1246
+#: src/dialogs/gnome-cmd-options-dialog.cc:1264
 msgid "Symlinks"
 msgstr "Legături simbolice"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1430
+#: src/dialogs/gnome-cmd-options-dialog.cc:1462
 msgid ""
 "An app with this label exists already.\n"
 "Please choose another label."
@@ -2776,155 +2853,159 @@ msgstr ""
 "O aplicație cu această etichetă există deja.\n"
 "Alegeți altă etichetă."
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1501
+#: src/dialogs/gnome-cmd-options-dialog.cc:1533
 msgid "Label:"
 msgstr "Eticheta:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1503
+#: src/dialogs/gnome-cmd-options-dialog.cc:1535
 msgid "Command:"
 msgstr "Comanda:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1505
-#: src/dialogs/gnome-cmd-options-dialog.cc:1959
+#: src/dialogs/gnome-cmd-options-dialog.cc:1537
+#: src/dialogs/gnome-cmd-options-dialog.cc:2044
 msgid "Icon:"
 msgstr "Iconița:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1527
+#: src/dialogs/gnome-cmd-options-dialog.cc:1559
 msgid "Can handle multiple files"
 msgstr "Poate manipula mai multe fișiere"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1531
+#: src/dialogs/gnome-cmd-options-dialog.cc:1563
 msgid "Can handle URIs"
 msgstr "Poate utiliza URIuri"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1535
+#: src/dialogs/gnome-cmd-options-dialog.cc:1567
 msgid "Requires terminal"
 msgstr "Necesită terminal"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1542
+#: src/dialogs/gnome-cmd-options-dialog.cc:1574
 msgid "Show for"
 msgstr "Arată pentru"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1551
+#: src/dialogs/gnome-cmd-options-dialog.cc:1583
 msgid "All directories"
 msgstr "Toate dosarele"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1556
+#: src/dialogs/gnome-cmd-options-dialog.cc:1588
 msgid "All directories and files"
 msgstr "Toate dosarele și fișierele"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1561
+#: src/dialogs/gnome-cmd-options-dialog.cc:1593
 msgid "Some files"
 msgstr "Unele fișiere"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1570
+#: src/dialogs/gnome-cmd-options-dialog.cc:1602
 msgid "File patterns"
 msgstr "Șabloane fișiere"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1592
+#: src/dialogs/gnome-cmd-options-dialog.cc:1624
 msgid "New Application"
 msgstr "Aplicație nouă"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1602
+#: src/dialogs/gnome-cmd-options-dialog.cc:1634
 msgid "Edit Application"
 msgstr "Modifică aplicația"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1686
+#: src/dialogs/gnome-cmd-options-dialog.cc:1743
 msgid "Always download remote files before opening in external programs"
 msgstr ""
 "Descarcă întotdeauna fișierele aflate la distanță înainte de a le deschide "
 "în programe externe"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1688
+#: src/dialogs/gnome-cmd-options-dialog.cc:1745
 msgid "MIME applications"
 msgstr "Aplicații MIME"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1692
+#: src/dialogs/gnome-cmd-options-dialog.cc:1749
 msgid "Standard programs"
 msgstr "Programe standard"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1695
+#: src/dialogs/gnome-cmd-options-dialog.cc:1752
 msgid "Viewer:"
 msgstr "Vizualizor:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1697
+#: src/dialogs/gnome-cmd-options-dialog.cc:1754
 msgid "Editor:"
 msgstr "Editor:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1699
+#: src/dialogs/gnome-cmd-options-dialog.cc:1756
 msgid "Differ:"
 msgstr "Comparator:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1701
+#: src/dialogs/gnome-cmd-options-dialog.cc:1758
 msgid "Search:"
 msgstr "Caută:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1703
+#: src/dialogs/gnome-cmd-options-dialog.cc:1760
 msgid "Send files:"
 msgstr "Trimite fișiere:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1705
+#: src/dialogs/gnome-cmd-options-dialog.cc:1762
 msgid "Terminal:"
 msgstr "Terminal:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1711
+#: src/dialogs/gnome-cmd-options-dialog.cc:1768
 msgid "Use Internal Viewer"
 msgstr "Folosește vizualizorul intern"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1732
+#: src/dialogs/gnome-cmd-options-dialog.cc:1777
+msgid "Use Internal Search"
+msgstr "Utilizează căutarea internă"
+
+#: src/dialogs/gnome-cmd-options-dialog.cc:1792
 msgid "Other favourite apps"
 msgstr "Alte aplicații favorite"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1739
+#: src/dialogs/gnome-cmd-options-dialog.cc:1800
 msgid "Label"
 msgstr "Etichetă"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1740
+#: src/dialogs/gnome-cmd-options-dialog.cc:1801
 msgid "Command"
 msgstr "Comandă"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1775
+#: src/dialogs/gnome-cmd-options-dialog.cc:1836
 msgid "Global app options"
 msgstr "Opțiuni globale pentru aplicație"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1778
+#: src/dialogs/gnome-cmd-options-dialog.cc:1839
 msgid "Terminal command for apps in the list above:"
 msgstr "Comandă de Terminal pentru aplicațiile din lista de deasupra:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1784
+#: src/dialogs/gnome-cmd-options-dialog.cc:1845
 msgid "Leave terminal window open"
 msgstr "Lasă fereastra terminalului deschisă"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1953
+#: src/dialogs/gnome-cmd-options-dialog.cc:2038
 msgid "Alias:"
 msgstr "Alias:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1955
-msgid "Device:"
-msgstr "Dispozitiv:"
+#: src/dialogs/gnome-cmd-options-dialog.cc:2040
+msgid "Device/Label:"
+msgstr "Dispozitiv/etichetă:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1957
+#: src/dialogs/gnome-cmd-options-dialog.cc:2042
 msgid "Mount point:"
 msgstr "Punct de montare:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1998
+#: src/dialogs/gnome-cmd-options-dialog.cc:2086
 msgid "New Device"
 msgstr "Dispozitiv nou"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:2011
+#: src/dialogs/gnome-cmd-options-dialog.cc:2099
 msgid "Edit Device"
 msgstr "Modifică dispozitivul"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:2093
-#: src/dialogs/gnome-cmd-options-dialog.cc:2232
+#: src/dialogs/gnome-cmd-options-dialog.cc:2208
+#: src/dialogs/gnome-cmd-options-dialog.cc:2348
 msgid "Devices"
 msgstr "Dispozitive"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:2103
+#: src/dialogs/gnome-cmd-options-dialog.cc:2219
 msgid "Alias"
 msgstr "Alias"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:2134
+#: src/dialogs/gnome-cmd-options-dialog.cc:2250
 msgid ""
 "Show Samba workgroups button\n"
 "(Needs program restart if altered)"
@@ -2932,55 +3013,55 @@ msgstr ""
 "Arată butonul pentru grupurile de lucru Samba\n"
 "(Necesită repornirea programului la modificare)"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:2139
+#: src/dialogs/gnome-cmd-options-dialog.cc:2255
 msgid "Show only the icons"
 msgstr "Arată doar iconițele"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:2225
+#: src/dialogs/gnome-cmd-options-dialog.cc:2341
 msgid "General"
 msgstr "General"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:2226 src/tags/gnome-cmd-tags.cc:323
+#: src/dialogs/gnome-cmd-options-dialog.cc:2342 src/tags/gnome-cmd-tags.cc:323
 msgid "Format"
 msgstr "Format"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:2227
+#: src/dialogs/gnome-cmd-options-dialog.cc:2343
 msgid "Layout"
 msgstr "Aranjament"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:2229
+#: src/dialogs/gnome-cmd-options-dialog.cc:2345
 msgid "Confirmation"
 msgstr "Confirmare"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:2230
+#: src/dialogs/gnome-cmd-options-dialog.cc:2346
 msgid "Filters"
 msgstr "Filtre"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:2231
+#: src/dialogs/gnome-cmd-options-dialog.cc:2347
 msgid "Programs"
 msgstr "Programe"
 
-#: src/dialogs/gnome-cmd-patternsel-dialog.cc:111
+#: src/dialogs/gnome-cmd-patternsel-dialog.cc:112
 msgid "_Pattern:"
 msgstr "_Model:"
 
-#: src/dialogs/gnome-cmd-patternsel-dialog.cc:113
+#: src/dialogs/gnome-cmd-patternsel-dialog.cc:114
 msgid "Case _sensitive"
 msgstr "Majuscule _semnificative"
 
-#: src/dialogs/gnome-cmd-patternsel-dialog.cc:123
+#: src/dialogs/gnome-cmd-patternsel-dialog.cc:124
 msgid "She_ll syntax"
 msgstr "Sintaxa She_ll"
 
-#: src/dialogs/gnome-cmd-patternsel-dialog.cc:127
+#: src/dialogs/gnome-cmd-patternsel-dialog.cc:128
 msgid "Rege_x syntax"
 msgstr "Sintaxa Rege_x"
 
-#: src/dialogs/gnome-cmd-patternsel-dialog.cc:157
+#: src/dialogs/gnome-cmd-patternsel-dialog.cc:158
 msgid "Select Using Pattern"
 msgstr "Selectează utilizând șabloane"
 
-#: src/dialogs/gnome-cmd-patternsel-dialog.cc:157
+#: src/dialogs/gnome-cmd-patternsel-dialog.cc:158
 msgid "Unselect Using Pattern"
 msgstr "Deselectează utilizând șabloane"
 
@@ -3050,7 +3131,6 @@ msgid "Unknown error"
 msgstr "Eroare necunoscută"
 
 #: src/dialogs/gnome-cmd-remote-dialog.cc:212
-#, c-format
 msgid "No server selected"
 msgstr "Nu a fost selectat nici un server"
 
@@ -3069,6 +3149,78 @@ msgstr "Conexiuni la distanță"
 #: src/dialogs/gnome-cmd-remote-dialog.cc:415
 msgid "Connections"
 msgstr "Conexiuni"
+
+#: src/dialogs/gnome-cmd-search-dialog.cc:44
+msgid "Search local directories only"
+msgstr "Caută numai în dosarele locale"
+
+#: src/dialogs/gnome-cmd-search-dialog.cc:45
+msgid "Files _not containing text"
+msgstr "Fișiere ce _nu conțin textul"
+
+#: src/dialogs/gnome-cmd-search-dialog.cc:328
+#, c-format
+msgid "Failed to read file %s: File is not searchable"
+msgstr "Nu s-a putut citi fișierul %s: fișierul nu poate fi căutat"
+
+#: src/dialogs/gnome-cmd-search-dialog.cc:339
+#: src/dialogs/gnome-cmd-search-dialog.cc:352
+#: src/dialogs/gnome-cmd-search-dialog.cc:381
+#, c-format
+msgid "Failed to read file %s: %s"
+msgstr "Nu s-a putut citi fișierul %s: %s"
+
+#: src/dialogs/gnome-cmd-search-dialog.cc:441
+#, c-format
+msgid "Searching in: %s"
+msgstr "Căutare în: %s"
+
+#: src/dialogs/gnome-cmd-search-dialog.cc:605
+#, c-format
+msgid "Found %d match — search aborted"
+msgid_plural "Found %d matches — search aborted"
+msgstr[0] "Am găsit %d potrivire — căutarea anulată"
+msgstr[1] "Am găsit %d potriviri — căutarea anulată"
+msgstr[2] "Am găsit %d de potriviri — căutarea anulată"
+
+#: src/dialogs/gnome-cmd-search-dialog.cc:606
+#, c-format
+msgid "Found %d match"
+msgid_plural "Found %d matches"
+msgstr[0] "A fost găsit %d potrivire"
+msgstr[1] "Au fost găsite %d potriviri"
+msgstr[2] "Au fost găsite %d de potriviri"
+
+#: src/dialogs/gnome-cmd-search-dialog.cc:815
+#, c-format
+msgid "Failed to set process group id of child %d: %s.\n"
+msgstr "Nu s-a putut definii id-ul pentru grupul de procese %d: %s.\n"
+
+#: src/dialogs/gnome-cmd-search-dialog.cc:951
+msgid "Error parsing the search command."
+msgstr "Eroare la analizarea comenzii de căutare."
+
+#: src/dialogs/gnome-cmd-search-dialog.cc:963
+msgid "Error running the search command."
+msgstr "Eroare la rularea comenzii de căutare."
+
+#: src/dialogs/gnome-cmd-search-dialog.cc:1090
+#, c-format
+msgid "Failed to change directory outside of %s"
+msgstr "Nu s-a putut schimba dosarul în afara %s"
+
+#: src/dialogs/gnome-cmd-search-dialog.cc:1200
+msgid "Search…"
+msgstr "Caută…"
+
+#. search in
+#: src/dialogs/gnome-cmd-search-dialog.cc:1319
+msgid "Select Directory"
+msgstr "Selectează Director"
+
+#: src/dialogs/gnome-cmd-search-dialog.cc:1322
+msgid "_Look in folder:"
+msgstr "_Caută în dosar:"
 
 #: src/dirlist.cc:48
 #, c-format
@@ -3098,7 +3250,7 @@ msgstr "Tipul acceleratorului."
 msgid "Disabled"
 msgstr "Dezactivat"
 
-#: src/eggcellrendererkeys.cc:446 src/eggcellrendererkeys.cc:662
+#: src/eggcellrendererkeys.cc:446 src/eggcellrendererkeys.cc:665
 msgid "New accelerator…"
 msgstr "Accelerator nou…"
 
@@ -3433,24 +3585,28 @@ msgstr "Afișare text:"
 msgid "Number view:"
 msgstr "Afișare număr:"
 
-#: src/gnome-cmd-con-device.cc:121
+#: src/gnome-cmd-con-device.cc:122
 msgid "Failed to execute the mount command"
 msgstr "Nu s-a putut executa comanda mount"
 
-#: src/gnome-cmd-con-device.cc:129
+#: src/gnome-cmd-con-device.cc:130
 msgid "Mount failed: permission denied"
 msgstr "Montare eșuată: acces refuzat"
 
-#: src/gnome-cmd-con-device.cc:132
+#: src/gnome-cmd-con-device.cc:133
 msgid "Mount failed: no medium found"
 msgstr "Montare eșuată: nu s-a găsit niciun mediu de stocare"
 
-#: src/gnome-cmd-con-device.cc:135
+#: src/gnome-cmd-con-device.cc:136
 #, c-format
 msgid "Mount failed: mount exited with exitstatus %d"
 msgstr "Montare eșuată: programul „mount” a ieșit cu codul de eroare %d"
 
-#: src/gnome-cmd-con-device.cc:301
+#: src/gnome-cmd-con-device.cc:300
+msgid "Volume successfully unmounted"
+msgstr "Volum demontat cu succes"
+
+#: src/gnome-cmd-con-device.cc:321
 #, c-format
 msgid ""
 "Cannot unmount the volume:\n"
@@ -3461,31 +3617,27 @@ msgstr ""
 "%s\n"
 "Cod de eroare: %d"
 
-#: src/gnome-cmd-con-device.cc:319
-msgid "Volume successfully unmounted"
-msgstr "Volum demontat cu succes"
-
-#: src/gnome-cmd-con-device.cc:531
+#: src/gnome-cmd-con-device.cc:554
 #, c-format
 msgid "Mounting %s"
 msgstr "Montez %s"
 
-#: src/gnome-cmd-con-device.cc:548
+#: src/gnome-cmd-con-device.cc:571
 #, c-format
 msgid "Go to: %s (%s)"
 msgstr "Du-te la: %s (%s)"
 
-#: src/gnome-cmd-con-device.cc:550 src/gnome-cmd-con.h:223
+#: src/gnome-cmd-con-device.cc:573 src/gnome-cmd-con.h:223
 #, c-format
 msgid "Go to: %s"
 msgstr "Du-te la: %s"
 
-#: src/gnome-cmd-con-device.cc:551
+#: src/gnome-cmd-con-device.cc:574
 #, c-format
 msgid "Mount: %s"
 msgstr "Montează: %s"
 
-#: src/gnome-cmd-con-device.cc:552
+#: src/gnome-cmd-con-device.cc:575
 #, c-format
 msgid "Unmount: %s"
 msgstr "Demontează: %s"
@@ -3525,12 +3677,12 @@ msgstr "Du-te la: Acasă"
 msgid "Disconnect error"
 msgstr "Eroare la deconectare"
 
-#: src/gnome-cmd-con-remote.cc:391
+#: src/gnome-cmd-con-remote.cc:395
 #, c-format
 msgid "Opens remote connection to %s"
 msgstr "Deschide o conexiune către %s"
 
-#: src/gnome-cmd-con-remote.cc:392
+#: src/gnome-cmd-con-remote.cc:396
 #, c-format
 msgid "Closes remote connection to %s"
 msgstr "Închide conexiunea cu %s"
@@ -3551,7 +3703,7 @@ msgstr "Căutare grupuri de lucru și servere gazde"
 msgid "Go to: Samba Network"
 msgstr "Du-te la: Rețea Samba"
 
-#: src/gnome-cmd-data.cc:3195 src/gnome-cmd-data.cc:3875
+#: src/gnome-cmd-data.cc:3229 src/gnome-cmd-data.cc:3919
 #, c-format
 msgid "link to %s"
 msgstr "legătură către %s"
@@ -3560,19 +3712,19 @@ msgstr "legătură către %s"
 msgid "Waiting for file list"
 msgstr "Se așteaptă lista de fișiere"
 
-#: src/gnome-cmd-dir-indicator.cc:544
+#: src/gnome-cmd-dir-indicator.cc:547
 msgid "Add current dir"
 msgstr "Adaugă dosarul curent"
 
-#: src/gnome-cmd-dir-indicator.cc:545
+#: src/gnome-cmd-dir-indicator.cc:548
 msgid "Manage bookmarks…"
 msgstr "Administrează marcajele…"
 
-#: src/gnome-cmd-file.cc:637
+#: src/gnome-cmd-file.cc:638
 msgid "_Open"
 msgstr "_Deschide"
 
-#: src/gnome-cmd-file.cc:640
+#: src/gnome-cmd-file.cc:641
 #, c-format
 msgid "_Open with “%s”"
 msgstr "_Deschide cu „%s”"
@@ -3625,7 +3777,7 @@ msgstr "/_Leagă aici"
 msgid "/C_ancel"
 msgstr "/R_enunță"
 
-#: src/gnome-cmd-file-list.cc:1309
+#: src/gnome-cmd-file-list.cc:1325
 #, c-format
 msgid ""
 "“%s” seems to be a binary executable file but it lacks the executable bit. "
@@ -3634,15 +3786,15 @@ msgstr ""
 "„%s” pare a fi un fișier executabil binar, dar nu are drepturile de execuție "
 "definite. Doriți să stabiliți drepturi de execuție și să executați fișierul?"
 
-#: src/gnome-cmd-file-list.cc:1311
+#: src/gnome-cmd-file-list.cc:1327
 msgid "Make Executable?"
 msgstr "Doriți să-l faceți executabil?"
 
-#: src/gnome-cmd-file-list.cc:1312
+#: src/gnome-cmd-file-list.cc:1328
 msgid "OK"
 msgstr "OK"
 
-#: src/gnome-cmd-file-list.cc:1339
+#: src/gnome-cmd-file-list.cc:1355
 #, c-format
 msgid ""
 "“%s” is an executable text file. Do you want to run it, or display its "
@@ -3651,29 +3803,29 @@ msgstr ""
 "„%s” este un fișier text executabil. Doriți să-l executați sau să-i afișați "
 "conținutul?"
 
-#: src/gnome-cmd-file-list.cc:1340
+#: src/gnome-cmd-file-list.cc:1356
 msgid "Run or Display"
 msgstr "Execută sau afișează"
 
-#: src/gnome-cmd-file-list.cc:1341
+#: src/gnome-cmd-file-list.cc:1357
 msgid "Display"
 msgstr "Afișează"
 
-#: src/gnome-cmd-file-list.cc:1341
+#: src/gnome-cmd-file-list.cc:1357
 msgid "Run"
 msgstr "Execută"
 
-#: src/gnome-cmd-file-list.cc:1357
+#: src/gnome-cmd-file-list.cc:1373
 #, c-format
 msgid "No default application found for the file type %s."
 msgstr "Nu s-a găsit nicio aplicație implicită pentru tipul de fișiere %s."
 
-#: src/gnome-cmd-file-list.cc:1358
+#: src/gnome-cmd-file-list.cc:1374
 msgid "Open the \"Applications\" page in the Control Center to add one."
 msgstr ""
 "Deschideți pagina „Aplicații” în Centrul de control pentru a adăuga unul."
 
-#: src/gnome-cmd-file-list.cc:1389 src/gnome-cmd-file-popmenu.cc:140
+#: src/gnome-cmd-file-list.cc:1405 src/gnome-cmd-file-popmenu.cc:140
 #, c-format
 msgid ""
 "%s does not know how to open remote file. Do you want to download the file "
@@ -3691,15 +3843,15 @@ msgstr[2] ""
 "%s nu știe cum să deschidă fișierul de la distanță. Doriți să descărcați "
 "fișierul într-o locație temporară și apoi să-l deschideți?"
 
-#: src/gnome-cmd-file-list.cc:1673
+#: src/gnome-cmd-file-list.cc:1689
 msgid "Directory listing failed."
 msgstr "Listarea dosarului a eșuat."
 
-#: src/gnome-cmd-file-list.cc:1725
+#: src/gnome-cmd-file-list.cc:1741
 msgid "Failed to open connection."
 msgstr "Nu s-a putut deschide conexiunea."
 
-#: src/gnome-cmd-file-list.cc:2490 src/gnome-cmd-file-list.cc:2505
+#: src/gnome-cmd-file-list.cc:2509 src/gnome-cmd-file-list.cc:2524
 msgid "Not an ordinary file."
 msgstr "Nu este un fișier obișnuit."
 
@@ -3736,13 +3888,13 @@ msgid "Open Wit_h…"
 msgstr "D_eschide cu…"
 
 #: src/gnome-cmd-file-popmenu.cc:722 src/gnome-cmd-main-win.cc:240
-#: src/gnome-cmd-user-actions.cc:211
+#: src/gnome-cmd-user-actions.cc:212
 msgid "Cut"
 msgstr "Taie"
 
 #. {file_run, "file.run"},
 #: src/gnome-cmd-file-popmenu.cc:726 src/gnome-cmd-main-win.cc:245
-#: src/gnome-cmd-user-actions.cc:235
+#: src/gnome-cmd-user-actions.cc:236
 msgid "Send files"
 msgstr "Trimite fișiere"
 
@@ -3758,7 +3910,7 @@ msgstr "E_xecută"
 msgid "Open _terminal here"
 msgstr "Deschide _terminal aici"
 
-#: src/gnome-cmd-file-popmenu.cc:730 src/gnome-cmd-user-actions.cc:210
+#: src/gnome-cmd-file-popmenu.cc:730 src/gnome-cmd-user-actions.cc:211
 msgid "Copy file names"
 msgstr "Copiază numele de fișierele"
 
@@ -3784,7 +3936,7 @@ msgid "%s free"
 msgstr "%s liber"
 
 #: src/gnome-cmd-file-selector.cc:628 src/gnome-cmd-file-selector.cc:704
-#: src/gnome-cmd-user-actions.cc:1716 src/gnome-cmd-user-actions.cc:1724
+#: src/gnome-cmd-user-actions.cc:1725 src/gnome-cmd-user-actions.cc:1733
 msgid "The tab is locked, close anyway?"
 msgstr "Tabul este blocat, închideți oricum?"
 
@@ -3820,29 +3972,29 @@ msgstr "Închide _toate taburile"
 msgid "Close _Duplicate Tabs"
 msgstr "Închide taburile _duplicat"
 
-#: src/gnome-cmd-file-selector.cc:1149
+#: src/gnome-cmd-file-selector.cc:1169
 msgid "No file name given"
 msgstr "Nu a fost dat niciun nume de fișier"
 
-#: src/gnome-cmd-file-selector.cc:1185
+#: src/gnome-cmd-file-selector.cc:1223
 msgid "New Text File"
 msgstr "Fișier text nou"
 
-#: src/gnome-cmd-file-selector.cc:1334
+#: src/gnome-cmd-file-selector.cc:1372
 msgid "Symbolic link name:"
 msgstr "Nume legătura simbolică:"
 
-#: src/gnome-cmd-file-selector.cc:1345 src/gnome-cmd-file-selector.cc:1398
-#: src/gnome-cmd-user-actions.cc:865
+#: src/gnome-cmd-file-selector.cc:1383 src/gnome-cmd-file-selector.cc:1436
+#: src/gnome-cmd-user-actions.cc:874
 msgid "Create Symbolic Link"
 msgstr "Creează legătură simbolică"
 
-#: src/gnome-cmd-file-selector.cc:1398 src/gnome-cmd-xfer.cc:147
+#: src/gnome-cmd-file-selector.cc:1436 src/gnome-cmd-xfer.cc:147
 #: src/gnome-cmd-xfer.cc:205 src/gnome-cmd-xfer.cc:323
 msgid "Skip all"
 msgstr "Omite tot"
 
-#: src/gnome-cmd-file-selector.cc:1470
+#: src/gnome-cmd-file-selector.cc:1508
 msgid "Filter:"
 msgstr "Filtru:"
 
@@ -3866,7 +4018,7 @@ msgstr "_Dosar"
 msgid "_Text File"
 msgstr "Fișier _text"
 
-#: src/gnome-cmd-main-menu.cc:304 src/intviewer/viewer-window.cc:599
+#: src/gnome-cmd-main-menu.cc:304 src/intviewer/viewer-window.cc:602
 msgid "_File"
 msgstr "_Fișier"
 
@@ -3982,7 +4134,7 @@ msgstr "_Restaurează selecția"
 msgid "_Compare Directories"
 msgstr "_Compară dosarele"
 
-#: src/gnome-cmd-main-menu.cc:347 src/intviewer/viewer-window.cc:613
+#: src/gnome-cmd-main-menu.cc:347 src/intviewer/viewer-window.cc:616
 msgid "_View"
 msgstr "_Vizualizare"
 
@@ -4034,7 +4186,7 @@ msgstr "Arată fișierele copii de siguranța"
 msgid "Horizontal Orientation"
 msgstr "Orientare orizontală"
 
-#: src/gnome-cmd-main-menu.cc:372 src/intviewer/viewer-window.cc:678
+#: src/gnome-cmd-main-menu.cc:372 src/intviewer/viewer-window.cc:681
 msgid "_Settings"
 msgstr "_Preferințe"
 
@@ -4078,7 +4230,7 @@ msgstr "M_odule"
 msgid "_Configure Plugins…"
 msgstr "_Configurare module…"
 
-#: src/gnome-cmd-main-menu.cc:399 src/intviewer/viewer-window.cc:697
+#: src/gnome-cmd-main-menu.cc:399 src/intviewer/viewer-window.cc:700
 msgid "_Help"
 msgstr "_Ajutor"
 
@@ -4086,7 +4238,7 @@ msgstr "_Ajutor"
 msgid "_Documentation"
 msgstr "_Documentație"
 
-#: src/gnome-cmd-main-menu.cc:401 src/intviewer/viewer-window.cc:699
+#: src/gnome-cmd-main-menu.cc:401 src/intviewer/viewer-window.cc:702
 msgid "_Keyboard Shortcuts"
 msgstr "S_curtături de taste"
 
@@ -4098,11 +4250,11 @@ msgstr "Commander GNOME pe _Web"
 msgid "Report a _Problem"
 msgstr "_Raportați o problemă"
 
-#: src/gnome-cmd-main-menu.cc:404 src/plugin_manager.cc:405
+#: src/gnome-cmd-main-menu.cc:404 src/plugin_manager.cc:412
 msgid "_About"
 msgstr "_Despre"
 
-#: src/gnome-cmd-main-win.cc:233 src/gnome-cmd-user-actions.cc:277
+#: src/gnome-cmd-main-win.cc:233 src/gnome-cmd-user-actions.cc:278
 msgid "Refresh"
 msgstr "Reîncarcă"
 
@@ -4127,7 +4279,7 @@ msgid "Copy file names (SHIFT for full paths, ALT for URIs)"
 msgstr ""
 "Copiază numele de fișiere (SHIFT pentru căi complete, ALT pentru URIuri)"
 
-#: src/gnome-cmd-main-win.cc:242 src/gnome-cmd-user-actions.cc:214
+#: src/gnome-cmd-main-win.cc:242 src/gnome-cmd-user-actions.cc:215
 msgid "Paste"
 msgstr "Lipește"
 
@@ -4143,39 +4295,39 @@ msgstr "Deschide terminal (SHIFT pentru drepturi de root)"
 msgid "Drop connection"
 msgstr "Anulează conexiunea"
 
-#: src/gnome-cmd-main-win.cc:495
+#: src/gnome-cmd-main-win.cc:513
 msgid "F3 View"
 msgstr "F3 Vizualizează"
 
-#: src/gnome-cmd-main-win.cc:497
+#: src/gnome-cmd-main-win.cc:515
 msgid "F4 Edit"
 msgstr "F4 Modifică"
 
-#: src/gnome-cmd-main-win.cc:499
+#: src/gnome-cmd-main-win.cc:517
 msgid "F5 Copy"
 msgstr "F5 Copiază"
 
-#: src/gnome-cmd-main-win.cc:501
+#: src/gnome-cmd-main-win.cc:519
 msgid "F6 Move"
 msgstr "F6 Mută"
 
-#: src/gnome-cmd-main-win.cc:503
+#: src/gnome-cmd-main-win.cc:521
 msgid "F7 Mkdir"
 msgstr "F7 Creează dosar"
 
-#: src/gnome-cmd-main-win.cc:505
+#: src/gnome-cmd-main-win.cc:523
 msgid "F8 Delete"
 msgstr "F8 Șterge"
 
-#: src/gnome-cmd-main-win.cc:507
+#: src/gnome-cmd-main-win.cc:525
 msgid "F9 Search"
 msgstr "F9 Caută"
 
-#: src/gnome-cmd-main-win.cc:853
+#: src/gnome-cmd-main-win.cc:875
 msgid "GNOME Commander — ROOT PRIVILEGES"
 msgstr "Commander GNOME - DREPTURI DE ROOT"
 
-#: src/gnome-cmd-quicksearch-popup.cc:274 src/gnome-cmd-user-actions.cc:216
+#: src/gnome-cmd-quicksearch-popup.cc:292 src/gnome-cmd-user-actions.cc:217
 msgid "Search"
 msgstr "Caută"
 
@@ -4217,324 +4369,324 @@ msgstr "Conține _textul:"
 msgid "Case sensiti_ve"
 msgstr "Majuscule semnificati_ve"
 
-#: src/gnome-cmd-user-actions.cc:136
+#: src/gnome-cmd-user-actions.cc:137
 msgid "No file selected"
 msgstr "Niciun fișier selectat"
 
-#: src/gnome-cmd-user-actions.cc:196
+#: src/gnome-cmd-user-actions.cc:197
 msgid "Bookmark current directory"
 msgstr "Adaugă acest dosar la semnele de carte"
 
-#: src/gnome-cmd-user-actions.cc:197
+#: src/gnome-cmd-user-actions.cc:198
 msgid "Manage bookmarks"
 msgstr "Administrează semnele de carte"
 
-#: src/gnome-cmd-user-actions.cc:198
+#: src/gnome-cmd-user-actions.cc:199
 msgid "Go to bookmarked location"
 msgstr "Du-te la locul semnului de carte"
 
-#: src/gnome-cmd-user-actions.cc:199
+#: src/gnome-cmd-user-actions.cc:200
 msgid "Show bookmarks of current device"
 msgstr "Arată marcajele dispozitivului curent"
 
-#: src/gnome-cmd-user-actions.cc:200
+#: src/gnome-cmd-user-actions.cc:201
 msgid "Execute command"
 msgstr "Execută comanda"
 
-#: src/gnome-cmd-user-actions.cc:201
+#: src/gnome-cmd-user-actions.cc:202
 msgid "Open terminal"
 msgstr "Deschide terminal"
 
-#: src/gnome-cmd-user-actions.cc:202
+#: src/gnome-cmd-user-actions.cc:203
 msgid "Open terminal as root"
 msgstr "Deschide terminal ca root"
 
-#: src/gnome-cmd-user-actions.cc:203
+#: src/gnome-cmd-user-actions.cc:204
 msgid "Start GNOME Commander as root"
 msgstr "Pornește Commander GNOME ca root"
 
-#: src/gnome-cmd-user-actions.cc:204
+#: src/gnome-cmd-user-actions.cc:205
 msgid "Close connection"
 msgstr "Închide conexiunea"
 
-#: src/gnome-cmd-user-actions.cc:205
+#: src/gnome-cmd-user-actions.cc:206
 msgid "New connection"
 msgstr "Conexiune nouă"
 
-#: src/gnome-cmd-user-actions.cc:206
+#: src/gnome-cmd-user-actions.cc:207
 msgid "Open connection"
 msgstr "Deschide conexiunea"
 
-#: src/gnome-cmd-user-actions.cc:207
+#: src/gnome-cmd-user-actions.cc:208
 msgid "Change left connection"
 msgstr "Schimbă conexiunea stânga"
 
-#: src/gnome-cmd-user-actions.cc:208
+#: src/gnome-cmd-user-actions.cc:209
 msgid "Change right connection"
 msgstr "Schimbă conexiunea dreapta"
 
-#: src/gnome-cmd-user-actions.cc:213
+#: src/gnome-cmd-user-actions.cc:214
 msgid "Show user defined files"
 msgstr "Arată fișierele definite de utilizator"
 
-#: src/gnome-cmd-user-actions.cc:217
+#: src/gnome-cmd-user-actions.cc:218
 msgid "Advanced rename tool"
 msgstr "Unealtă de redenumire avansată"
 
-#: src/gnome-cmd-user-actions.cc:218
+#: src/gnome-cmd-user-actions.cc:219
 msgid "Change permissions"
 msgstr "Schimbă permisiunile"
 
-#: src/gnome-cmd-user-actions.cc:219
+#: src/gnome-cmd-user-actions.cc:220
 msgid "Change owner/group"
 msgstr "Schimbă proprietar/grup"
 
-#: src/gnome-cmd-user-actions.cc:220
+#: src/gnome-cmd-user-actions.cc:221
 msgid "Copy files"
 msgstr "Copiază fișiere"
 
-#: src/gnome-cmd-user-actions.cc:221
+#: src/gnome-cmd-user-actions.cc:222
 msgid "Copy files with rename"
 msgstr "Copiază fișiere și redenumește"
 
-#: src/gnome-cmd-user-actions.cc:222
+#: src/gnome-cmd-user-actions.cc:223
 msgid "Create symbolic link"
 msgstr "Creează legătură simbolică"
 
-#: src/gnome-cmd-user-actions.cc:223
+#: src/gnome-cmd-user-actions.cc:224
 msgid "Delete files"
 msgstr "Șterge fișiere"
 
-#: src/gnome-cmd-user-actions.cc:224
+#: src/gnome-cmd-user-actions.cc:225
 msgid "Compare files (diff)"
 msgstr "Compară fișiere (diff)"
 
-#: src/gnome-cmd-user-actions.cc:225
+#: src/gnome-cmd-user-actions.cc:226
 msgid "Edit file"
 msgstr "Editează fișier"
 
-#: src/gnome-cmd-user-actions.cc:226
+#: src/gnome-cmd-user-actions.cc:227
 msgid "Edit a new file"
 msgstr "Editează un fișier nou"
 
-#: src/gnome-cmd-user-actions.cc:227
+#: src/gnome-cmd-user-actions.cc:228
 msgid "Quit"
 msgstr "Ieșire"
 
-#: src/gnome-cmd-user-actions.cc:228
+#: src/gnome-cmd-user-actions.cc:229
 msgid "View with external viewer"
 msgstr "Vezi cu vizualizor extern"
 
-#: src/gnome-cmd-user-actions.cc:229
+#: src/gnome-cmd-user-actions.cc:230
 msgid "View with internal viewer"
 msgstr "Vezi cu vizualizorul intern"
 
-#: src/gnome-cmd-user-actions.cc:230
+#: src/gnome-cmd-user-actions.cc:231
 msgid "Create directory"
 msgstr "Creează un dosar"
 
-#: src/gnome-cmd-user-actions.cc:231
+#: src/gnome-cmd-user-actions.cc:232
 msgid "Move files"
 msgstr "Mută fișiere"
 
-#: src/gnome-cmd-user-actions.cc:233
+#: src/gnome-cmd-user-actions.cc:234
 msgid "Rename files"
 msgstr "Redenumește fișiere"
 
-#: src/gnome-cmd-user-actions.cc:236
+#: src/gnome-cmd-user-actions.cc:237
 msgid "Synchronize directories"
 msgstr "S_incronizează dosarele"
 
-#: src/gnome-cmd-user-actions.cc:239
+#: src/gnome-cmd-user-actions.cc:240
 msgid "About GNOME Commander"
 msgstr "Despre Commander GNOME"
 
-#: src/gnome-cmd-user-actions.cc:240
+#: src/gnome-cmd-user-actions.cc:241
 msgid "Help contents"
 msgstr "Conținut manual"
 
-#: src/gnome-cmd-user-actions.cc:241
+#: src/gnome-cmd-user-actions.cc:242
 msgid "Help on keyboard shortcuts"
 msgstr "Manual scurtături de taste"
 
-#: src/gnome-cmd-user-actions.cc:242
+#: src/gnome-cmd-user-actions.cc:243
 msgid "Report a problem"
 msgstr "Raportați o problemă"
 
-#: src/gnome-cmd-user-actions.cc:243
+#: src/gnome-cmd-user-actions.cc:244
 msgid "GNOME Commander on the web"
 msgstr "Commander GNOME pe web"
 
-#: src/gnome-cmd-user-actions.cc:244
+#: src/gnome-cmd-user-actions.cc:245
 msgid "Compare directories"
 msgstr "Compară dosare"
 
-#: src/gnome-cmd-user-actions.cc:245
+#: src/gnome-cmd-user-actions.cc:246
 msgid "Invert selection"
 msgstr "Inversează selecția"
 
-#: src/gnome-cmd-user-actions.cc:246
+#: src/gnome-cmd-user-actions.cc:247
 msgid "Select all"
 msgstr "Selectează tot"
 
-#: src/gnome-cmd-user-actions.cc:247
+#: src/gnome-cmd-user-actions.cc:248
 msgid "Select all files"
 msgstr "Selectează toate fișierele"
 
-#: src/gnome-cmd-user-actions.cc:248
+#: src/gnome-cmd-user-actions.cc:249
 msgid "Unselect all files"
 msgstr "Deselectează toate fișierele"
 
-#: src/gnome-cmd-user-actions.cc:249
+#: src/gnome-cmd-user-actions.cc:250
 msgid "Toggle selection"
 msgstr "Comută selecția"
 
-#: src/gnome-cmd-user-actions.cc:250
+#: src/gnome-cmd-user-actions.cc:251
 msgid "Toggle selection and move cursor downward"
 msgstr "Comută selecția și mută cursorul în jos"
 
-#: src/gnome-cmd-user-actions.cc:251
+#: src/gnome-cmd-user-actions.cc:252
 msgid "Unselect all"
 msgstr "Deselectează tot"
 
-#: src/gnome-cmd-user-actions.cc:254
+#: src/gnome-cmd-user-actions.cc:255
 msgid "Keyboard shortcuts"
 msgstr "Scurtături de tastatură"
 
-#: src/gnome-cmd-user-actions.cc:255
+#: src/gnome-cmd-user-actions.cc:256
 msgid "Configure plugins"
 msgstr "Configurare module"
 
-#: src/gnome-cmd-user-actions.cc:256
+#: src/gnome-cmd-user-actions.cc:257
 msgid "Back one directory"
 msgstr "Înapoi un dosar"
 
-#: src/gnome-cmd-user-actions.cc:257
+#: src/gnome-cmd-user-actions.cc:258
 msgid "Close the current tab"
 msgstr "Închide tabul curent"
 
-#: src/gnome-cmd-user-actions.cc:258
+#: src/gnome-cmd-user-actions.cc:259
 msgid "Close all tabs"
 msgstr "Închide toate taburile"
 
-#: src/gnome-cmd-user-actions.cc:259
+#: src/gnome-cmd-user-actions.cc:260
 msgid "Close duplicate tabs"
 msgstr "Închide taburile duplicat"
 
-#: src/gnome-cmd-user-actions.cc:260
+#: src/gnome-cmd-user-actions.cc:261
 msgid "Change directory"
 msgstr "Schimbă dosarul"
 
-#: src/gnome-cmd-user-actions.cc:261
+#: src/gnome-cmd-user-actions.cc:262
 msgid "Show directory history"
 msgstr "Arată istoricul dosarului"
 
-#: src/gnome-cmd-user-actions.cc:262
+#: src/gnome-cmd-user-actions.cc:263
 msgid "Equal panel size"
 msgstr "Panouri de dimensiuni egale"
 
-#: src/gnome-cmd-user-actions.cc:263
+#: src/gnome-cmd-user-actions.cc:264
 msgid "Maximize panel size"
 msgstr "Maximizează dimensiunea panoului"
 
-#: src/gnome-cmd-user-actions.cc:264
+#: src/gnome-cmd-user-actions.cc:265
 msgid "Back to the first directory"
 msgstr "Înapoi la primul dosar"
 
-#: src/gnome-cmd-user-actions.cc:265
+#: src/gnome-cmd-user-actions.cc:266
 msgid "Forward one directory"
 msgstr "Înainte cu un dosar"
 
-#: src/gnome-cmd-user-actions.cc:266
+#: src/gnome-cmd-user-actions.cc:267
 msgid "Home directory"
 msgstr "Dosar acasă"
 
-#: src/gnome-cmd-user-actions.cc:267
+#: src/gnome-cmd-user-actions.cc:268
 msgid "Open directory in the active window"
 msgstr "Deschide dosarul în fereastra activă"
 
-#: src/gnome-cmd-user-actions.cc:268
+#: src/gnome-cmd-user-actions.cc:269
 msgid "Open directory in the inactive window"
 msgstr "Deschide dosarul în fereastra inactivă"
 
-#: src/gnome-cmd-user-actions.cc:269
+#: src/gnome-cmd-user-actions.cc:270
 msgid "Open directory in the left window"
 msgstr "Deschide dosarul în fereastra stânga"
 
-#: src/gnome-cmd-user-actions.cc:270
+#: src/gnome-cmd-user-actions.cc:271
 msgid "Open directory in the right window"
 msgstr "Deschide dosarul în fereastra dreapta"
 
-#: src/gnome-cmd-user-actions.cc:271
+#: src/gnome-cmd-user-actions.cc:272
 msgid "Open directory in the new tab"
 msgstr "Deschide dosarul în tab nou"
 
-#: src/gnome-cmd-user-actions.cc:272
+#: src/gnome-cmd-user-actions.cc:273
 msgid "Open directory in the new tab (inactive window)"
 msgstr "Deschide dosarul într-un tab nou (fereastră inactivă)"
 
-#: src/gnome-cmd-user-actions.cc:273
+#: src/gnome-cmd-user-actions.cc:274
 msgid "Forward to the last directory"
 msgstr "Continuă spre ultimul dosar"
 
-#: src/gnome-cmd-user-actions.cc:274
+#: src/gnome-cmd-user-actions.cc:275
 msgid "Next tab"
 msgstr "Următorul tab"
 
-#: src/gnome-cmd-user-actions.cc:275
+#: src/gnome-cmd-user-actions.cc:276
 msgid "Open directory in a new tab"
 msgstr "Deschide dosarul într-un tab nou"
 
-#: src/gnome-cmd-user-actions.cc:276
+#: src/gnome-cmd-user-actions.cc:277
 msgid "Previous tab"
 msgstr "Tabul anterior"
 
-#: src/gnome-cmd-user-actions.cc:278
+#: src/gnome-cmd-user-actions.cc:279
 msgid "Root directory"
 msgstr "Dosar rădăcină"
 
-#: src/gnome-cmd-user-actions.cc:279
+#: src/gnome-cmd-user-actions.cc:280
 msgid "Lock/unlock tab"
 msgstr "Blochează/deblochează tabul"
 
-#: src/gnome-cmd-user-actions.cc:281
+#: src/gnome-cmd-user-actions.cc:282
 msgid "Show terminal"
 msgstr "Arată terminal"
 
-#: src/gnome-cmd-user-actions.cc:284
+#: src/gnome-cmd-user-actions.cc:285
 msgid "Display main menu"
 msgstr "Afișează meniul principal"
 
-#: src/gnome-cmd-user-actions.cc:285
+#: src/gnome-cmd-user-actions.cc:286
 msgid "Move cursor one step up"
 msgstr "Mută cursorul cu un pas mai sus"
 
-#: src/gnome-cmd-user-actions.cc:286
+#: src/gnome-cmd-user-actions.cc:287
 msgid "Move cursor one step down"
 msgstr "Mută cursorul cu un pas mai jos"
 
-#: src/gnome-cmd-user-actions.cc:746 src/gnome-cmd-user-actions.cc:921
-#: src/gnome-cmd-user-actions.cc:1182 src/utils.cc:136
+#: src/gnome-cmd-user-actions.cc:746 src/gnome-cmd-user-actions.cc:930
+#: src/gnome-cmd-user-actions.cc:1191 src/utils.cc:136
 msgid "No valid command given."
 msgstr "Nicio comandă validă dată."
 
-#: src/gnome-cmd-user-actions.cc:759 src/gnome-cmd-user-actions.cc:796
-#: src/gnome-cmd-user-actions.cc:937 src/gnome-cmd-user-actions.cc:1195
-#: src/gnome-cmd-user-actions.cc:1234 src/utils.cc:143
+#: src/gnome-cmd-user-actions.cc:758 src/gnome-cmd-user-actions.cc:804
+#: src/gnome-cmd-user-actions.cc:946 src/gnome-cmd-user-actions.cc:1204
+#: src/gnome-cmd-user-actions.cc:1243 src/utils.cc:143
 msgid "Unable to execute command."
 msgstr "Comanda nu a putut fi executată."
 
-#: src/gnome-cmd-user-actions.cc:781
+#: src/gnome-cmd-user-actions.cc:789
 msgid "No search command given."
 msgstr "Nicio comandă de căutare dată."
 
-#: src/gnome-cmd-user-actions.cc:781
+#: src/gnome-cmd-user-actions.cc:789
 msgid "You can set a command for a search tool in the program options."
 msgstr ""
 "Puteți stabili o comandă pentru instrumentul de căutare din opțiunile "
 "programului."
 
-#: src/gnome-cmd-user-actions.cc:860
+#: src/gnome-cmd-user-actions.cc:869
 #, c-format
 msgid "Create symbolic links of %i file in %s?"
 msgid_plural "Create symbolic links of %i files in %s?"
@@ -4542,15 +4694,15 @@ msgstr[0] "Crează legătură simbolică pentru %i fișier din %s?"
 msgstr[1] "Doriți să se creeze legături simbolice pentru %i fișiere din %s?"
 msgstr[2] "Doriți să se creeze legături simbolice pentru %i de fișiere din %s?"
 
-#: src/gnome-cmd-user-actions.cc:865
+#: src/gnome-cmd-user-actions.cc:874
 msgid "Create"
 msgstr "Creează"
 
-#: src/gnome-cmd-user-actions.cc:953
+#: src/gnome-cmd-user-actions.cc:962
 msgid "Warning"
 msgstr "Avertisment"
 
-#: src/gnome-cmd-user-actions.cc:953
+#: src/gnome-cmd-user-actions.cc:962
 msgid ""
 "The default send-to command only supports one selected file at a time. You "
 "can change the command in the program options."
@@ -4558,50 +4710,50 @@ msgstr ""
 "Comanda implicită trimite-la suportă numai un fișier. Puteți modifica "
 "comanda în opțiunile programului."
 
-#: src/gnome-cmd-user-actions.cc:970 src/gnome-cmd-user-actions.cc:987
-#: src/gnome-cmd-user-actions.cc:1033
+#: src/gnome-cmd-user-actions.cc:979 src/gnome-cmd-user-actions.cc:996
+#: src/gnome-cmd-user-actions.cc:1042
 msgid "Operation not supported on remote file systems"
 msgstr "Operația nu este implementată pe sisteme de fișiere la distanță"
 
-#: src/gnome-cmd-user-actions.cc:1002
+#: src/gnome-cmd-user-actions.cc:1011
 msgid "Too many selected files"
 msgstr "Prea multe fișiere selectate"
 
-#: src/gnome-cmd-user-actions.cc:1267
+#: src/gnome-cmd-user-actions.cc:1276
 msgid "Unable to open terminal in root mode."
 msgstr "Nu s-a putut deschide terminalul ca root."
 
-#: src/gnome-cmd-user-actions.cc:1272
+#: src/gnome-cmd-user-actions.cc:1281
 msgid "gksudo, xdg-su, gksu, gnomesu, kdesu or beesu is not found."
 msgstr "gksudo, xdg-su, gksu, gnomesu, kdesu sau beesu nu sunt găsite."
 
-#: src/gnome-cmd-user-actions.cc:1291
+#: src/gnome-cmd-user-actions.cc:1300
 msgid "Unable to start GNOME Commander in root mode."
 msgstr "Commander GNOME nu poate fi pornit cu drepturi de root."
 
-#: src/gnome-cmd-user-actions.cc:1294
+#: src/gnome-cmd-user-actions.cc:1303
 msgid "gksudo, xdg-su, gksu, gnomesu, kdesu or beesu is not found"
 msgstr "gksudo, xdg-su, gksu, gnomesu, kdesu sau beesu nu sunt găsite"
 
-#: src/gnome-cmd-user-actions.cc:1921
+#: src/gnome-cmd-user-actions.cc:1930
 msgid "Bookmarks"
 msgstr "Semne de carte"
 
-#: src/gnome-cmd-user-actions.cc:2008
+#: src/gnome-cmd-user-actions.cc:2017
 msgid "There was an error opening home page."
 msgstr "A intervenit o eroare la deschiderea paginii acasă."
 
-#: src/gnome-cmd-user-actions.cc:2017
+#: src/gnome-cmd-user-actions.cc:2026
 msgid "There was an error reporting problem."
 msgstr "A intervenit o eroare la raportarea problemei."
 
-#: src/gnome-cmd-user-actions.cc:2043
+#: src/gnome-cmd-user-actions.cc:2052
 msgid "A fast and powerful file manager for the GNOME desktop"
 msgstr ""
 "Un puternic și rapid manager de fișiere cu dublu panou pentru desktop-ul "
 "GNOME"
 
-#: src/gnome-cmd-user-actions.cc:2047
+#: src/gnome-cmd-user-actions.cc:2056
 msgid ""
 "GNOME Commander is free software; you can redistribute it and/or modify it "
 "under the terms of the GNU General Public License as published by the Free "
@@ -4613,7 +4765,7 @@ msgstr ""
 "publicată de Fundația pentru Software Liber; fie versiunea 2 a Licenței, fie "
 "(la latitudinea dumneavoastră) orice versiune ulterioară."
 
-#: src/gnome-cmd-user-actions.cc:2051
+#: src/gnome-cmd-user-actions.cc:2060
 msgid ""
 "GNOME Commander is distributed in the hope that it will be useful, but "
 "WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY "
@@ -4624,7 +4776,7 @@ msgstr ""
 "GARANȚIE, fără garanție implicită de VANDABILITATE și CONFORMITATE UNUI "
 "ANUMIT SCOP. Citiți Licența Publică Generală GNU pentru detalii."
 
-#: src/gnome-cmd-user-actions.cc:2055
+#: src/gnome-cmd-user-actions.cc:2064
 msgid ""
 "You should have received a copy of the GNU General Public License along with "
 "GNOME Commander; if not, write to the Free Software Foundation, Inc., 51 "
@@ -4634,16 +4786,17 @@ msgstr ""
 "Commander GNOME; dacă nu, scrieți la Free Software Foundation, Inc., 51 "
 "Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA."
 
-#: src/gnome-cmd-user-actions.cc:2072
+#: src/gnome-cmd-user-actions.cc:2081
 msgid "translator-credits"
 msgstr ""
 "Remus Boara <rem@eclipsedesign.net>\n"
 "Lucian Adrian Grijincu <lucian.grijincu@gmail.com>\n"
 "Cristian Buzdugă <cristianbzdg@gmail.com>\n"
-"Daniel Șerbănescu <daniel [at] serbanescu [dot] dk>, 2021-2022"
+"Daniel Șerbănescu <daniel [at] serbanescu [dot] dk>, 2021-2022\n"
+"Florentina Mușat <florentina [dot] musat [dot] 28 [at] gmail [dot] com>, 2023"
 
-#: src/gnome-cmd-xfer.cc:119 src/gnome-cmd-xfer.cc:1097
-#: src/gnome-cmd-xfer.cc:1108 src/gnome-cmd-xfer.cc:1130
+#: src/gnome-cmd-xfer.cc:119 src/gnome-cmd-xfer.cc:1107
+#: src/gnome-cmd-xfer.cc:1118 src/gnome-cmd-xfer.cc:1164
 msgid "Transfer problem"
 msgstr "Problemă de transfer"
 
@@ -4696,7 +4849,7 @@ msgid "Replace all"
 msgstr "Înlocuiește toate"
 
 #: src/gnome-cmd-xfer.cc:246 src/gnome-cmd-xfer.cc:364
-#: src/gnome-cmd-xfer.cc:500
+#: src/gnome-cmd-xfer.cc:514
 #, c-format
 msgid ""
 "Error while transferring “%s”\n"
@@ -4711,37 +4864,37 @@ msgstr ""
 msgid "Move problem"
 msgstr "Problemă la mutare"
 
-#: src/gnome-cmd-xfer.cc:460
+#: src/gnome-cmd-xfer.cc:467
 msgid "copying…"
 msgstr "se copiază…"
 
-#: src/gnome-cmd-xfer.cc:464
+#: src/gnome-cmd-xfer.cc:471
 #, c-format
 msgid "[file %ld of %ld] “%s”"
 msgstr "[fișier %ld din %ld] „%s”"
 
-#: src/gnome-cmd-xfer.cc:648
+#: src/gnome-cmd-xfer.cc:638
 msgid "Copying a directory into itself is a bad idea."
 msgstr "Copierea unui dosar în el însuși nu este o idee bună."
 
-#: src/gnome-cmd-xfer.cc:648 src/gnome-cmd-xfer.cc:728
-#: src/gnome-cmd-xfer.cc:809
+#: src/gnome-cmd-xfer.cc:638 src/gnome-cmd-xfer.cc:719
+#: src/gnome-cmd-xfer.cc:801
 msgid "The whole operation was cancelled."
 msgstr "Întreaga operațiune a fost anulată."
 
-#: src/gnome-cmd-xfer.cc:695 src/gnome-cmd-xfer.cc:775
+#: src/gnome-cmd-xfer.cc:687 src/gnome-cmd-xfer.cc:768
 msgid "preparing…"
 msgstr "se pregătește…"
 
-#: src/gnome-cmd-xfer.cc:728 src/gnome-cmd-xfer.cc:809
+#: src/gnome-cmd-xfer.cc:719 src/gnome-cmd-xfer.cc:801
 msgid "Moving a directory into itself is a bad idea."
 msgstr "Mutarea unui dosar în el însuși nu este o idee bună."
 
-#: src/gnome-cmd-xfer.cc:876
+#: src/gnome-cmd-xfer.cc:872
 msgid "downloading to /tmp"
 msgstr "descărcare în /tmp"
 
-#: src/gnome-cmd-xfer.cc:925
+#: src/gnome-cmd-xfer.cc:923
 #, c-format
 msgid ""
 "Error while creating symlink “%s”\n"
@@ -4752,21 +4905,21 @@ msgstr ""
 "\n"
 "%s"
 
-#: src/gnome-cmd-xfer.cc:930
+#: src/gnome-cmd-xfer.cc:928
 msgid "Symlink creation problem"
 msgstr "Problemă la crearea legăturii simbolice"
 
-#: src/gnome-cmd-xfer.cc:931
+#: src/gnome-cmd-xfer.cc:929
 msgid "Ignore"
 msgstr "Ignoră"
 
 #. Translators: Translate 'Copy' as a noun here
-#: src/gnome-cmd-xfer.cc:1032
+#: src/gnome-cmd-xfer.cc:1038
 msgctxt "Filename suffix"
 msgid "Copy"
 msgstr "Copie"
 
-#: src/gnome-cmd-xfer.cc:1096 src/gnome-cmd-xfer.cc:1107
+#: src/gnome-cmd-xfer.cc:1106 src/gnome-cmd-xfer.cc:1117
 #, c-format
 msgid ""
 "Source “%s” could not be deleted. Aborting!\n"
@@ -4777,7 +4930,7 @@ msgstr ""
 "\n"
 "%s"
 
-#: src/gnome-cmd-xfer.cc:1129
+#: src/gnome-cmd-xfer.cc:1163
 #, c-format
 msgid "Source “%s” could not be copied. Aborting!"
 msgstr "Sursa „%s” nu a putut fi copiată. Se anulează!"
@@ -4827,12 +4980,12 @@ msgid "Find"
 msgstr "Găsește"
 
 #. Search mode radio buttons
-#: src/intviewer/search-dlg.cc:273 src/intviewer/viewer-window.cc:605
-#: src/intviewer/viewer-window.cc:622
+#: src/intviewer/search-dlg.cc:273 src/intviewer/viewer-window.cc:608
+#: src/intviewer/viewer-window.cc:625
 msgid "_Text"
 msgstr "_Text"
 
-#: src/intviewer/search-dlg.cc:274 src/intviewer/viewer-window.cc:607
+#: src/intviewer/search-dlg.cc:274 src/intviewer/viewer-window.cc:610
 msgid "_Hexadecimal"
 msgstr "_Hexazecimal"
 
@@ -4877,199 +5030,199 @@ msgstr "(potrivește în fereastră)"
 msgid "_Copy selection"
 msgstr "_Copiază selecția"
 
-#: src/intviewer/viewer-window.cc:600
+#: src/intviewer/viewer-window.cc:603
 msgid "_Close"
 msgstr "În_chide"
 
-#: src/intviewer/viewer-window.cc:606
+#: src/intviewer/viewer-window.cc:609
 msgid "_Binary"
 msgstr "_Binar"
 
-#: src/intviewer/viewer-window.cc:608 src/intviewer/viewer-window.cc:668
+#: src/intviewer/viewer-window.cc:611 src/intviewer/viewer-window.cc:671
 msgid "_Image"
 msgstr "_Imagine"
 
-#: src/intviewer/viewer-window.cc:614
+#: src/intviewer/viewer-window.cc:617
 msgid "_Zoom In"
 msgstr "Mă_rește"
 
-#: src/intviewer/viewer-window.cc:615
+#: src/intviewer/viewer-window.cc:618
 msgid "_Zoom Out"
 msgstr "Micșorea_ză"
 
-#: src/intviewer/viewer-window.cc:616
+#: src/intviewer/viewer-window.cc:619
 msgid "_Normal Size"
 msgstr "Dimensiune _normală"
 
-#: src/intviewer/viewer-window.cc:617
+#: src/intviewer/viewer-window.cc:620
 msgid "_Best Fit"
 msgstr "Cea mai _bună potrivire"
 
-#: src/intviewer/viewer-window.cc:623
+#: src/intviewer/viewer-window.cc:626
 msgid "_Copy Text Selection"
 msgstr "_Copiază textul selectat"
 
-#: src/intviewer/viewer-window.cc:624
+#: src/intviewer/viewer-window.cc:627
 msgid "Find…"
 msgstr "Găsește…"
 
-#: src/intviewer/viewer-window.cc:625
+#: src/intviewer/viewer-window.cc:628
 msgid "Find Next"
 msgstr "Găsește următorul"
 
-#: src/intviewer/viewer-window.cc:626
+#: src/intviewer/viewer-window.cc:629
 msgid "Find Previous"
 msgstr "Găsește anteriorul"
 
-#: src/intviewer/viewer-window.cc:627
+#: src/intviewer/viewer-window.cc:630
 msgid "_Encoding"
 msgstr "Codar_e"
 
-#: src/intviewer/viewer-window.cc:632
+#: src/intviewer/viewer-window.cc:635
 msgid "_Wrap lines"
 msgstr "_Desparte pe linii"
 
-#: src/intviewer/viewer-window.cc:637
+#: src/intviewer/viewer-window.cc:640
 msgid "_UTF-8"
 msgstr "_UTF-8"
 
-#: src/intviewer/viewer-window.cc:638
+#: src/intviewer/viewer-window.cc:641
 msgid "English (US-_ASCII)"
 msgstr "Engleză (US-_ASCII)"
 
-#: src/intviewer/viewer-window.cc:639
+#: src/intviewer/viewer-window.cc:642
 msgid "Terminal (CP437)"
 msgstr "Terminal (CP437)"
 
-#: src/intviewer/viewer-window.cc:640
+#: src/intviewer/viewer-window.cc:643
 msgid "Arabic (ISO-8859-6)"
 msgstr "Arabă (ISO-8859-6)"
 
-#: src/intviewer/viewer-window.cc:641
+#: src/intviewer/viewer-window.cc:644
 msgid "Arabic (Windows, CP1256)"
 msgstr "Arabă (Windows, CP1256)"
 
-#: src/intviewer/viewer-window.cc:642
+#: src/intviewer/viewer-window.cc:645
 msgid "Arabic (Dos, CP864)"
 msgstr "Arabă (Dos, CP864)"
 
-#: src/intviewer/viewer-window.cc:643
+#: src/intviewer/viewer-window.cc:646
 msgid "Baltic (ISO-8859-4)"
 msgstr "Baltică (ISO-8859-4)"
 
-#: src/intviewer/viewer-window.cc:644
+#: src/intviewer/viewer-window.cc:647
 msgid "Central European (ISO-8859-2)"
 msgstr "Central-europeană (ISO-8859-2)"
 
-#: src/intviewer/viewer-window.cc:645
+#: src/intviewer/viewer-window.cc:648
 msgid "Central European (CP1250)"
 msgstr "Central-europeană (CP1250)"
 
-#: src/intviewer/viewer-window.cc:646
+#: src/intviewer/viewer-window.cc:649
 msgid "Cyrillic (ISO-8859-5)"
 msgstr "Chirilică (ISO-8859-5)"
 
-#: src/intviewer/viewer-window.cc:647
+#: src/intviewer/viewer-window.cc:650
 msgid "Cyrillic (CP1251)"
 msgstr "Chirilică (CP1251)"
 
-#: src/intviewer/viewer-window.cc:648
+#: src/intviewer/viewer-window.cc:651
 msgid "Greek (ISO-8859-7)"
 msgstr "Greacă (ISO-8859-7)"
 
-#: src/intviewer/viewer-window.cc:649
+#: src/intviewer/viewer-window.cc:652
 msgid "Greek (CP1253)"
 msgstr "Greacă (CP1253)"
 
-#: src/intviewer/viewer-window.cc:650
+#: src/intviewer/viewer-window.cc:653
 msgid "Hebrew (Windows, CP1255)"
 msgstr "Ebraică (Windows, CP1255)"
 
-#: src/intviewer/viewer-window.cc:651
+#: src/intviewer/viewer-window.cc:654
 msgid "Hebrew (Dos, CP862)"
 msgstr "Ebraică (Dos, CP862)"
 
-#: src/intviewer/viewer-window.cc:652
+#: src/intviewer/viewer-window.cc:655
 msgid "Hebrew (ISO-8859-8)"
 msgstr "Ebraică (ISO-8859-8)"
 
-#: src/intviewer/viewer-window.cc:653
+#: src/intviewer/viewer-window.cc:656
 msgid "Latin 9 (ISO-8859-15)"
 msgstr "Latină 9 (ISO-8859-15)"
 
-#: src/intviewer/viewer-window.cc:654
+#: src/intviewer/viewer-window.cc:657
 msgid "Maltese (ISO-8859-3)"
 msgstr "Malteză (ISO-8859-3)"
 
-#: src/intviewer/viewer-window.cc:655
+#: src/intviewer/viewer-window.cc:658
 msgid "Turkish (ISO-8859-9)"
 msgstr "Turcă (ISO-8859-9)"
 
-#: src/intviewer/viewer-window.cc:656
+#: src/intviewer/viewer-window.cc:659
 msgid "Turkish (CP1254)"
 msgstr "Turcă (CP1254)"
 
-#: src/intviewer/viewer-window.cc:657
+#: src/intviewer/viewer-window.cc:660
 msgid "Western (CP1252)"
 msgstr "Vestică (CP1252)"
 
-#: src/intviewer/viewer-window.cc:658
+#: src/intviewer/viewer-window.cc:661
 msgid "Western (ISO-8859-1)"
 msgstr "Vestică (ISO-8859-1)"
 
-#: src/intviewer/viewer-window.cc:663
+#: src/intviewer/viewer-window.cc:666
 msgid "Show Metadata _Tags"
 msgstr "Arată etichetele _Metadate"
 
-#: src/intviewer/viewer-window.cc:669
+#: src/intviewer/viewer-window.cc:672
 msgid "Rotate Clockwise"
 msgstr "Rotește în sens orar"
 
-#: src/intviewer/viewer-window.cc:670
+#: src/intviewer/viewer-window.cc:673
 msgid "Rotate Counter Clockwis_e"
 msgstr "Rot_ește în sens antiorar"
 
-#: src/intviewer/viewer-window.cc:671
+#: src/intviewer/viewer-window.cc:674
 msgid "Rotate 180°"
 msgstr "Rotește 180°"
 
-#: src/intviewer/viewer-window.cc:672
+#: src/intviewer/viewer-window.cc:675
 msgid "Flip _Vertical"
 msgstr "Întoarce pe _verticală"
 
-#: src/intviewer/viewer-window.cc:673
+#: src/intviewer/viewer-window.cc:676
 msgid "Flip _Horizontal"
 msgstr "Întoarce pe ori_zontal"
 
-#: src/intviewer/viewer-window.cc:679
+#: src/intviewer/viewer-window.cc:682
 msgid "_Binary Mode"
 msgstr "Mod _binar"
 
-#: src/intviewer/viewer-window.cc:680
+#: src/intviewer/viewer-window.cc:683
 msgid "_Save Current Settings"
 msgstr "_Salvează setările curente"
 
-#: src/intviewer/viewer-window.cc:685
+#: src/intviewer/viewer-window.cc:688
 msgid "_Hexadecimal Offset"
 msgstr "Decalaj _hexazecimal"
 
-#: src/intviewer/viewer-window.cc:690
+#: src/intviewer/viewer-window.cc:693
 msgid "_20 chars/line"
 msgstr "_20 de caractere/linie"
 
-#: src/intviewer/viewer-window.cc:691
+#: src/intviewer/viewer-window.cc:694
 msgid "_40 chars/line"
 msgstr "_40 de caractere/linie"
 
-#: src/intviewer/viewer-window.cc:692
+#: src/intviewer/viewer-window.cc:695
 msgid "_80 chars/line"
 msgstr "_80 de caractere/linie"
 
-#: src/intviewer/viewer-window.cc:698
+#: src/intviewer/viewer-window.cc:701
 msgid "Quick _Help"
 msgstr "_Ajutor Rapid"
 
-#: src/intviewer/viewer-window.cc:1007
+#: src/intviewer/viewer-window.cc:1010
 #, c-format
 msgid "Pattern “%s” was not found"
 msgstr "Șablonul „%s” nu a fost găsit"
@@ -5094,27 +5247,27 @@ msgstr "Specifică dosarul pentru fișierele de configurare"
 msgid "File Manager"
 msgstr "Manager de fișiere"
 
-#: src/plugin_manager.cc:321
+#: src/plugin_manager.cc:272
 msgid "Disable"
 msgstr "Dezactivează"
 
-#: src/plugin_manager.cc:321
+#: src/plugin_manager.cc:272
 msgid "Enable"
 msgstr "Activează"
 
-#: src/plugin_manager.cc:383
+#: src/plugin_manager.cc:389
 msgid "Available plugins"
 msgstr "Module disponibile"
 
-#: src/plugin_manager.cc:390
+#: src/plugin_manager.cc:397
 msgid "Version"
 msgstr "Versiune"
 
-#: src/plugin_manager.cc:396
+#: src/plugin_manager.cc:403
 msgid "_Enable"
 msgstr "_Activează"
 
-#: src/plugin_manager.cc:400
+#: src/plugin_manager.cc:407
 msgid "_Configure"
 msgstr "_Configurează"
 
@@ -9151,7 +9304,7 @@ msgstr "Niciunul"
 msgid "10-15ms"
 msgstr "10-15ms"
 
-#: src/utils.cc:494
+#: src/utils.cc:497
 #, c-format
 msgid "(%sbyte)"
 msgid_plural "(%sbytes)"
@@ -9159,7 +9312,7 @@ msgstr[0] "%s octet"
 msgstr[1] "%s octeți"
 msgstr[2] "%s de octeți"
 
-#: src/utils.cc:497
+#: src/utils.cc:500
 #, c-format
 msgid "%sbyte"
 msgid_plural "%sbytes"
@@ -9167,34 +9320,27 @@ msgstr[0] "%s octet"
 msgstr[1] "%s octeți"
 msgstr[2] "%s de octeți"
 
-#: src/utils.cc:686
+#: src/utils.cc:689
 msgid "Failed to change working directory to a temporary directory."
 msgstr "Nu s-a putut schimba directorul de lucru într-un director temporar."
 
-#: src/utils.cc:696
+#: src/utils.cc:699
 msgid "Failed to create a directory in which to store temporary files."
 msgstr "Nu s-a putut crea dosarul pentru stocarea fișierelor temporare."
 
-#: src/utils.cc:824
+#: src/utils.cc:827
 #, c-format
 msgid "Creating directory %s… "
 msgstr "Se creează directorul %s... "
 
-#: src/utils.cc:835
+#: src/utils.cc:838
 #, c-format
 msgid "Failed to create the directory %s: %s"
 msgstr "Eșec la crearea directorului %s: %s"
 
-#: src/utils.cc:939
+#: src/utils.cc:942
 msgid "There was an error displaying help."
 msgstr "A apărut o eroare la afișarea ajutorului."
-
-#~ msgid "Save search history on exit"
-#~ msgstr "Salvează istoricul căutărilor la ieșire"
-
-#~ msgid "Defines if the history of search patterns is saved on exit."
-#~ msgstr ""
-#~ "Definește dacă istoricul mostrelor de căutare este salvat la ieșire."
 
 #~ msgid "Skip device mounting"
 #~ msgstr "Omite montarea dispozitivelor"
@@ -9206,49 +9352,11 @@ msgstr "A apărut o eroare la afișarea ajutorului."
 #~ "Această opțiune definește dacă montarea dispozitivelor ar trebui omisă "
 #~ "când ele sunt deschise."
 
-#~ msgid "Search window width"
-#~ msgstr "Lățimea ferestrei căutării"
-
-#~ msgid "This option defines the width of the search window."
-#~ msgstr "Această opțiune definește lățimea ferestrei de căutare."
-
-#~ msgid "Search window height"
-#~ msgstr "Înălțimea ferestrei căutării"
-
-#~ msgid "This option defines the height of the search window."
-#~ msgstr "Această opțiune definește înălțimea ferestrei căutării."
-
-#~ msgid "Search window is transient"
-#~ msgstr "Fereastra de căutare este trecătoare"
-
-#~ msgid ""
-#~ "Defines if the search window is transient or if it can be minimized and "
-#~ "moved behind the main window."
-#~ msgstr ""
-#~ "Definește dacă fereastra de căutare este trecătoare sau dacă poate fi "
-#~ "minimalizate și mutată în spatele ferestrei principale."
-
-#~ msgid "Search text history"
-#~ msgstr "Istoricul căutărilor text"
-
-#~ msgid ""
-#~ "This string array represents the history of text searches in the search "
-#~ "tool."
-#~ msgstr ""
-#~ "Această matrice de șiruri de caractere reprezintă istoricul de căutări "
-#~ "text în unealta de căutare."
-
 #~ msgid "S_hare:"
 #~ msgstr "Parta_jare:"
 
 #~ msgid "_User name:"
 #~ msgstr "_Utilizator:"
-
-#~ msgid "Search Window"
-#~ msgstr "Fereastra de căutare"
-
-#~ msgid "Search history"
-#~ msgstr "Istoricul căutărilor"
 
 #~ msgid "Copy overwrite"
 #~ msgstr "Suprascriere la copiere"
@@ -9267,51 +9375,6 @@ msgstr "A apărut o eroare la afișarea ajutorului."
 
 #~ msgid "Anonymous FTP password:"
 #~ msgstr "Parolă FTP anonim:"
-
-#~ msgid "Search local directories only"
-#~ msgstr "Caută numai în dosarele locale"
-
-#~ msgid "Files _not containing text"
-#~ msgstr "Fișiere ce _nu conțin textul"
-
-#~ msgid "Failed to read file %s: %s"
-#~ msgstr "Nu s-a putut citi fișierul %s: %s"
-
-#~ msgid "Searching in: %s"
-#~ msgstr "Căutare în: %s"
-
-#~ msgid "Found %d match — search aborted"
-#~ msgid_plural "Found %d matches — search aborted"
-#~ msgstr[0] "Am găsit %d potrivire — căutarea anulată"
-#~ msgstr[1] "Am găsit %d potriviri — căutarea anulată"
-#~ msgstr[2] "Am găsit %d de potriviri — căutarea anulată"
-
-#~ msgid "Found %d match"
-#~ msgid_plural "Found %d matches"
-#~ msgstr[0] "A fost găsit %d potrivire"
-#~ msgstr[1] "Au fost găsite %d potriviri"
-#~ msgstr[2] "Au fost găsite %d de potriviri"
-
-#~ msgid "Failed to set process group id of child %d: %s.\n"
-#~ msgstr "Nu s-a putut definii id-ul pentru grupul de procese %d: %s.\n"
-
-#~ msgid "Error parsing the search command."
-#~ msgstr "Eroare la analizarea comenzii de căutare."
-
-#~ msgid "Error running the search command."
-#~ msgstr "Eroare la rularea comenzii de căutare."
-
-#~ msgid "Failed to change directory outside of %s"
-#~ msgstr "Nu s-a putut schimba dosarul în afara %s"
-
-#~ msgid "Search…"
-#~ msgstr "Caută…"
-
-#~ msgid "Select Directory"
-#~ msgstr "Selectează Director"
-
-#~ msgid "_Look in folder:"
-#~ msgstr "_Caută în dosar:"
 
 #~ msgid "Device is now safe to remove"
 #~ msgstr "Puteți deconecta în siguranță dispozitivul"
