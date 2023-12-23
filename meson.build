@@ -1,7 +1,8 @@
 project('gnome-commander', 'cpp',
   version: '1.16.2',
   license: 'GPLv2',
-  meson_version: '>= 0.59'
+  meson_version: '>= 0.59',
+  default_options: ['cpp_std=gnu++11', 'build.cpp_std=gnu++11']
 )
 
 # Importing modules
