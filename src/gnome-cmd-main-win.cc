@@ -1229,7 +1229,7 @@ gboolean GnomeCmdMainWin::key_pressed(GdkEventKey *event)
 void GnomeCmdMainWin::open_tabs(FileSelectorID id)
 {
     if (gnome_cmd_data.tabs[id].empty())
-        gnome_cmd_data.tabs[id].push_back(make_pair(string(g_get_home_dir ()), make_triple(GnomeCmdFileList::COLUMN_NAME, GTK_SORT_ASCENDING, FALSE)));
+        gnome_cmd_data.tabs[id].push_back(make_pair(string(g_get_home_dir ()), make_tuple(GnomeCmdFileList::COLUMN_NAME, GTK_SORT_ASCENDING, FALSE)));
 
     auto last_tab = unique(gnome_cmd_data.tabs[id].begin(), gnome_cmd_data.tabs[id].end());
 
@@ -1260,7 +1260,9 @@ void GnomeCmdMainWin::open_tabs(FileSelectorID id)
                 path = g_strdup(g_uri_get_path(gUri));
             }
             auto *gnomeCmdDir = gnome_cmd_dir_new (home, gnome_cmd_con_create_path (home, path), true);
-            fs(id)->new_tab(gnomeCmdDir, tab->second.first, tab->second.second, tab->second.third, TRUE);
+            const auto& tabTuple = tab->second;
+
+            fs(id)->new_tab(gnomeCmdDir, std::get<0>(tabTuple), std::get<1>(tabTuple), std::get<2>(tabTuple), TRUE);
             g_free(path);
         }
         else
@@ -1280,7 +1282,9 @@ void GnomeCmdMainWin::open_tabs(FileSelectorID id)
             GnomeCmdConRemote *con = gnome_cmd_con_remote_new(nullptr, uriString);
             auto gnomeCmdPath = gnome_cmd_con_create_path((GnomeCmdCon*) con, path);
             auto gnomeCmdDir = gnome_cmd_dir_new((GnomeCmdCon*) con, gnomeCmdPath, true);
-            fs(id)->new_tab(gnomeCmdDir, tab->second.first, tab->second.second, tab->second.third, TRUE);
+            const auto& tabTuple = tab->second;
+
+            fs(id)->new_tab(gnomeCmdDir, std::get<0>(tabTuple), std::get<1>(tabTuple), std::get<2>(tabTuple), TRUE);
             g_free(path);
         }
     }

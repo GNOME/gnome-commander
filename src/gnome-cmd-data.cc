@@ -2794,7 +2794,7 @@ void GnomeCmdData::load_tabs()
         string uriString(uriCharString);
         if (!uriString.empty() && sort_column < GnomeCmdFileList::NUM_COLUMNS)
         {
-            this->tabs[(FileSelectorID) fileSelectorId].push_back(make_pair(uriString, make_triple((GnomeCmdFileList::ColumnID) sort_column, (GtkSortType) sort_order, locked)));
+            this->tabs[(FileSelectorID) fileSelectorId].push_back(make_pair(uriString, make_tuple((GnomeCmdFileList::ColumnID) sort_column, (GtkSortType) sort_order, locked)));
         }
         g_variant_unref(tab);
         g_free(uriCharString);

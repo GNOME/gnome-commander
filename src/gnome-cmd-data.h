@@ -37,7 +37,8 @@
 #include "filter.h"
 #include "history.h"
 #include "dict.h"
-#include "tuple.h"
+
+#include <tuple>
 
 #define GCMD_TYPE_SETTINGS (gcmd_settings_get_type ())
 
@@ -656,7 +657,7 @@ struct GnomeCmdData
         gint width {400}, height {250};
     };
 
-    typedef std::pair<std::string,triple<GnomeCmdFileList::ColumnID,GtkSortType,gboolean> > Tab;
+    typedef std::pair<std::string, std::tuple<GnomeCmdFileList::ColumnID,GtkSortType,gboolean> > Tab;
 
     static GSettingsSchemaSource* GetGlobalSchemaSource();
 

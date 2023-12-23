@@ -70,7 +70,6 @@ sources_headers = files(
   'imageloader.h',
   'ls_colors.h',
   'plugin_manager.h',
-  'tuple.h',
   'utils.h',
   'utils-no-dependencies.h'
 )
