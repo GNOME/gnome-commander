@@ -41,11 +41,15 @@
   <url type="homepage">https://gcmd.github.io/index.html</url>
   <url type="bugtracker">https://gitlab.gnome.org/GNOME/gnome-commander/issues</url>
   <url type="donation">https://gcmd.github.io/#donations</url>
+  <url type="contribute">https://gcmd.github.io/dev.html#contr</url>
   <url type="help">https://gcmd.github.io/doc.html</url>
   <url type="translate">https://gcmd.github.io/dev.html#trnsl</url>
+  <url type="vcs-browser">https://gitlab.gnome.org/GNOME/gnome-commander</url>
   <update_contact>gcmd-devel_AT_nongnu.org</update_contact>
   <project_group>GNOME</project_group>
-  <developer_name>The GNOME Project</developer_name>
+  <developer id="gnome.org">
+    <name>The GNOME Project</name>
+  </developer>
   <translation type="gettext">gnome-commander</translation>
   <content_rating type="oars-1.0" />
   <launchable type="desktop-id">org.gnome.gnome-commander.desktop</launchable>

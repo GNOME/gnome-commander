@@ -94,13 +94,12 @@ if (desktop_file_validate.found())
 endif
 
 # Validate appdata file
-appstream_util = find_program('appstream-util', required: false)
-if (appstream_util.found())
-  test(
-    'validate-appdata', appstream_util,
-    args: ['validate-relax', '--nonet', appdata_file.full_path()],
-    workdir: meson.current_build_dir(),
-    depends: appdata_file
+appstreamcli = find_program('appstreamcli', required: false)
+if (appstreamcli.found())
+  test('validate-appdata',
+    appstreamcli,
+    args: ['validate', '--no-net', '--explain', appdata_file.full_path()],
+    workdir: meson.current_build_dir()
   )
 endif
 
