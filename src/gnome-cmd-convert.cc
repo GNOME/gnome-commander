@@ -148,7 +148,7 @@ gchar *gcmd_convert_sentence_case (gchar *string)
         NULL
     };
 
-    gcmd_convert_lowercase (string);
+    string = gcmd_convert_lowercase (string);
 
     // Removes trailing whitespace
     gchar *i = string = g_strchomp (string);
