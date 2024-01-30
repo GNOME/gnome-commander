@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: gnome-commander.HEAD\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-commander/issues\n"
 "POT-Creation-Date: 2024-01-20 22:18+0000\n"
-"PO-Revision-Date: 2024-01-30 09:45+0100\n"
+"PO-Revision-Date: 2024-01-30 10:08+0100\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: Spanish - Spain <gnome-es-list@gnome.org>\n"
 "Language: es_ES\n"
@@ -22,7 +22,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"X-Generator: Gtranslator 45.alpha0\n"
+"X-Generator: Gtranslator 45.3\n"
 
 #: data/org.gnome.gnome-commander.appdata.xml.in:7
 #: data/org.gnome.gnome-commander.desktop.in:3 src/gnome-cmd-main-win.cc:876
@@ -2422,7 +2422,7 @@ msgid ""
 "Search window is minimizable\n"
 "(Needs program restart if altered)"
 msgstr ""
-"MLa ventana de búsqueda se puede minimizar\n"
+"La ventana de búsqueda se puede minimizar\n"
 "(Debe reiniciar el programa si la modifica)"
 
 #: src/dialogs/gnome-cmd-options-dialog.cc:229
