@@ -12,9 +12,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander master\n"
-"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-commander/issues\n"
-"POT-Creation-Date: 2023-08-11 11:28+0000\n"
-"PO-Revision-Date: 2023-10-17 17:53+0300\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-commander/"
+"issues/\n"
+"POT-Creation-Date: 2024-01-30 09:11+0000\n"
+"PO-Revision-Date: 2024-02-08 01:56+0300\n"
 "Last-Translator: Sabri Ünal <libreajans@gmail.com>\n"
 "Language-Team: Turkish <takim@gnome.org.tr>\n"
 "Language: tr\n"
@@ -22,7 +23,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 3.4\n"
+"X-Generator: Poedit 3.4.2\n"
 "X-POOTLE-MTIME: 1429308288.000000\n"
 
 #: data/org.gnome.gnome-commander.appdata.xml.in:7
@@ -58,7 +59,8 @@ msgstr ""
 "kullanıcıları hedefler, özel uygulamalar ile paralel çalışır ve akıllı "
 "komutları çalıştırır."
 
-#: data/org.gnome.gnome-commander.appdata.xml.in:48
+#. developer_name tag deprecated with Appstream 1.0
+#: data/org.gnome.gnome-commander.appdata.xml.in:51
 msgid "The GNOME Project"
 msgstr "GNOME Projesi"
 
@@ -2973,11 +2975,11 @@ msgstr "Büyük/küçük harf _duyarlı"
 
 #: src/dialogs/gnome-cmd-patternsel-dialog.cc:124
 msgid "She_ll syntax"
-msgstr "Kabu_k sözdizimi"
+msgstr "Kabu_k söz dizimi"
 
 #: src/dialogs/gnome-cmd-patternsel-dialog.cc:128
 msgid "Rege_x syntax"
-msgstr "Düzen_li ifade sözdizimi"
+msgstr "Düzen_li ifade söz dizimi"
 
 #: src/dialogs/gnome-cmd-patternsel-dialog.cc:158
 msgid "Select Using Pattern"
@@ -4805,7 +4807,7 @@ msgstr "Simgesel bağlantı oluşturma sorunu"
 
 #: src/gnome-cmd-xfer.cc:929
 msgid "Ignore"
-msgstr "Yoksay"
+msgstr "Yok say"
 
 #. Translators: Translate 'Copy' as a noun here
 #: src/gnome-cmd-xfer.cc:1038
