@@ -3,7 +3,7 @@
 # This file is distributed under the same license as the gnome-commander package.
 # Xavier Conde Rueda <xaviconde@eresmas.com>, 2003.
 # Jordi Serratosa <jordis@softcatala.cat>, 2017.
-# Jordi Mas <jmas@softcatala.org>, 2020
+# Jordi Mas i Hernàndez <jmas@softcatala.org>, 2020
 # Ma. Teresa Guix <maite.guix@gmail.com>, 2020
 # Jaume Jorba <jaume.jorba@gmail.com>, 2020
 # Miquel-Àngel Burgos i Fradeja <miquel.angel.burgos@gmail.com>, 2020
@@ -13,9 +13,8 @@ msgstr ""
 "Project-Id-Version: gnome-commander\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-commander/issues\n"
 "POT-Creation-Date: 2020-07-20 08:22+0000\n"
-"PO-Revision-Date: 2020-07-22 16:47+0000\n"
-"Last-Translator: Miquel-Àngel Burgos i Fradeja <miquel.angel.burgos@gmail."
-"com>, 2020\n"
+"PO-Revision-Date: 2024-02-20 16:47+0000\n"
+"Last-Translator: Miquel-Àngel Burgos i Fradeja <miquel.angel.burgos@gmail.com>\n"
 "Language-Team: Catalan (https://www.transifex.com/softcatala/teams/62837/"
 "ca/)\n"
 "Language: ca\n"
@@ -8679,7 +8678,7 @@ msgid ""
 "Name, and Subject Detail Name each separated by a colon (:)."
 msgstr ""
 "Una definició estructurada de l'assumpte. Ha de contenir un dret de "
-"propietat intel·lectual; un número de referencia de tema de 8 dígits, i un "
+"propietat intel·lectual; un número de referència de tema de 8 dígits, i un "
 "nom de tema, un nom d'assumpte i un nom d'assumpte detallat separats per dos "
 "punts (:)."
 
