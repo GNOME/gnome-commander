@@ -61,9 +61,6 @@ struct GnomeCmdMainWin
     operator GtkWidget * () const       {  return GTK_WIDGET (this);       }
     operator GtkWindow * () const       {  return GTK_WINDOW (this);       }
 
-    GnomeCmdAdvrenameDialog *advrename_dlg;
-    GnomeCmdSearchDialog *file_search_dlg;
-
     FileSelectorID fs() const;
     FileSelectorID fs(GnomeCmdFileSelector *fs) const;
     GnomeCmdFileSelector *fs(FileSelectorID id) const;
@@ -100,6 +97,9 @@ struct GnomeCmdMainWin
     void update_mainmenu_visibility();
 
     void plugins_updated();
+
+    GnomeCmdSearchDialog *get_or_create_search_dialog ();
+    GnomeCmdAdvrenameDialog *get_or_create_advrename_dialog ();
 };
 
 extern GnomeCmdMainWin *main_win;

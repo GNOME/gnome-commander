@@ -910,10 +910,8 @@ void file_search (GSimpleAction *action, GVariant *parameter, gpointer user_data
 
     if (gnome_cmd_data.options.use_internal_search)
     {
-        if (!main_win->file_search_dlg)
-            main_win->file_search_dlg = new GnomeCmdSearchDialog(gnome_cmd_data.search_defaults);
-
-        main_win->file_search_dlg->show_and_set_focus();
+        auto dlg = main_win->get_or_create_search_dialog ();
+        dlg->show_and_set_focus ();
     }
     else
     {
@@ -1053,19 +1051,10 @@ void file_advrename (GSimpleAction *action, GVariant *parameter, gpointer user_d
 
     if (files)
     {
-        if (!main_win->advrename_dlg)
-        {
-            main_win->advrename_dlg = new GnomeCmdAdvrenameDialog(gnome_cmd_data.advrename_defaults);
-            // g_object_ref (main_win->advrename_dlg);      //  FIXME:  ???
-            main_win->advrename_dlg->set(files);
-            gtk_widget_show_all (*main_win->advrename_dlg);
-        }
-        else
-        {
-            main_win->advrename_dlg->set(files);
-            gtk_widget_show (*main_win->advrename_dlg);
-            // gdk_window_raise (gtk_widget_get_window (GTK_WIDGET (main_win->advrename_dlg)));     //  FIXME:  bring dlg to top ???
-        }
+        auto dlg = main_win->get_or_create_advrename_dialog ();
+        gtk_widget_show_all (GTK_WIDGET (dlg));
+        dlg->set(files);
+        gtk_window_present (GTK_WINDOW (dlg));
 
         g_list_free (files);
     }
