@@ -3088,12 +3088,9 @@ void GnomeCmdFileList::invalidate_tree_size()
 
 static gboolean do_scroll (GnomeCmdFileList *fl)
 {
-    gint w, h;
     gint focus_row, top_row;
     gint row_count;
     GtkCList *clist = *fl;
-
-    gdk_drawable_get_size (gtk_widget_get_window (GTK_WIDGET (clist)), &w, &h);
 
     row_count = clist->rows;
     focus_row = gnome_cmd_clist_get_row (*fl, 1, fl->priv->autoscroll_y);
@@ -3123,9 +3120,9 @@ static void autoscroll_if_appropriate (GnomeCmdFileList *fl, gint x, gint y)
     if (y < 0) return;
 
     GtkCList *clist = *fl;
-    gint w, h;
+    gint h;
 
-    gdk_drawable_get_size (gtk_widget_get_window (GTK_WIDGET (clist)), &w, &h);
+    h = gdk_window_get_height (gtk_widget_get_window (GTK_WIDGET (clist)));
 
     gint smin = h/8;
     gint smax = h-smin;

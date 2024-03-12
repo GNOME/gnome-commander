@@ -224,10 +224,10 @@ inline void set_popup_position (GnomeCmdQuicksearchPopup *popup)
 {
     GtkWidget *wid = GTK_WIDGET (popup->priv->fl);
 
-    gint x, y, w, h;
+    gint x, y, h;
 
     gdk_window_get_origin (gtk_widget_get_window (wid), &x, &y);
-    gdk_drawable_get_size (gtk_widget_get_window (wid), &w, &h);
+    h = gdk_window_get_height (gtk_widget_get_window (wid));
 
     y += h;
 

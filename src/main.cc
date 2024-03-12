@@ -120,8 +120,6 @@ int main (int argc, char *argv[])
     if (debug_flags && strchr(debug_flags,'a'))
         debug_flags = g_strdup("cdfgiklmnpstuvwyzx");
 
-    gdk_rgb_init ();
-
     // disable beeping for the application
     gtk_rc_parse_string("gtk-error-bell=0");
 
