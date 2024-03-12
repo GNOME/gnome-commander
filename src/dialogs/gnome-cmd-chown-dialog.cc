@@ -47,7 +47,7 @@ G_DEFINE_TYPE (GnomeCmdChownDialog, gnome_cmd_chown_dialog, GNOME_CMD_TYPE_DIALO
 static void do_chown (GnomeCmdFile *in, uid_t uid, gid_t gid, gboolean recurse)
 {
     g_return_if_fail (in != nullptr);
-    g_return_if_fail (in->gFileInfo != nullptr);
+    g_return_if_fail (in->get_file_info() != nullptr);
     GError *error = nullptr;
 
     if(!in->chown(uid, gid, &error))
@@ -72,9 +72,9 @@ static void do_chown (GnomeCmdFile *in, uid_t uid, gid_t gid, gboolean recurse)
         {
             GnomeCmdFile *f = (GnomeCmdFile *) i->data;
 
-            auto filename = get_gfile_attribute_string(f->gFile, G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME);
+            auto filename = get_gfile_attribute_string(f->get_file(), G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME);
             if (!f->is_dotdot && strcmp (filename, ".") != 0
-                && !g_file_info_get_is_symlink(f->gFileInfo))
+                && !g_file_info_get_is_symlink(f->get_file_info()))
             {
                 do_chown (f, uid, gid, TRUE);
             }
@@ -188,8 +188,8 @@ GtkWidget *gnome_cmd_chown_dialog_new (GList *files)
     GnomeCmdFile *f = GNOME_CMD_FILE (dialog->priv->files->data);
 
     gnome_cmd_chown_component_set (GNOME_CMD_CHOWN_COMPONENT (dialog->priv->chown_component),
-        get_gfile_attribute_uint32(f->gFile, G_FILE_ATTRIBUTE_UNIX_UID),
-        get_gfile_attribute_uint32(f->gFile, G_FILE_ATTRIBUTE_UNIX_GID));
+        get_gfile_attribute_uint32(f->get_file(), G_FILE_ATTRIBUTE_UNIX_UID),
+        get_gfile_attribute_uint32(f->get_file(), G_FILE_ATTRIBUTE_UNIX_GID));
 
     return GTK_WIDGET (dialog);
 }

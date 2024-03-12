@@ -2125,7 +2125,7 @@ int parse_command(string *cmd, const gchar *command)
     if (sfl)
     {
         auto gnomeCmdFile = (GnomeCmdFile*) sfl->data;
-        auto gFileParent = g_file_get_parent(gnomeCmdFile->gFile);
+        auto gFileParent = g_file_get_parent(gnomeCmdFile->get_file());
         if (gnomeCmdFile->is_local())
         {
             dir_path = g_file_get_path(gFileParent);

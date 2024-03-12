@@ -158,7 +158,7 @@ inline gchar *gnome_cmd_dir_get_free_space (GnomeCmdDir *dir)
 
     GError *error = nullptr;
 
-    auto gFileInfo = g_file_query_filesystem_info (GNOME_CMD_FILE (dir)->gFile,
+    auto gFileInfo = g_file_query_filesystem_info (GNOME_CMD_FILE (dir)->get_file(),
                               G_FILE_ATTRIBUTE_FILESYSTEM_FREE,
                               nullptr,
                               &error);
@@ -166,7 +166,7 @@ inline gchar *gnome_cmd_dir_get_free_space (GnomeCmdDir *dir)
     if (error)
     {
         g_warning("Could not g_file_query_filesystem_info %s: %s\n",
-            g_file_peek_path(GNOME_CMD_FILE (dir)->gFile), error->message);
+            g_file_peek_path(GNOME_CMD_FILE (dir)->get_file()), error->message);
         g_error_free(error);
         return nullptr;
     }

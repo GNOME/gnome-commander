@@ -491,7 +491,7 @@ char *gnome_cmd_advrename_gen_fname (GnomeCmdFile *f, size_t new_fname_size)
   string fmt;
   fmt.reserve(256);
 
-  char *fname = get_gfile_attribute_string (f->gFile, G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME);
+  char *fname = get_gfile_attribute_string (f->get_file(), G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME);
   const char *ext = g_utf8_strrchr (fname, -1, '.');
 
   int full_name_len = g_utf8_strlen (fname, -1);
@@ -598,7 +598,7 @@ char *gnome_cmd_advrename_gen_fname (GnomeCmdFile *f, size_t new_fname_size)
   gboolean new_fname_has_percent = convert ((char *) fmt.c_str(), '%', ESC);
   convert ((char *) fmt.c_str(), SUB, '%');
 
-  auto dateTimeString = g_date_time_format (g_file_info_get_modification_date_time(f->gFileInfo), fmt.c_str());
+  auto dateTimeString = g_date_time_format (g_file_info_get_modification_date_time(f->get_file_info()), fmt.c_str());
   if (dateTimeString)
   {
     if ((gulong) g_utf8_strlen(dateTimeString, -1) >= new_fname_size+1)

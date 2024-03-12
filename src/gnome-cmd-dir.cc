@@ -575,7 +575,7 @@ void gnome_cmd_dir_list_files (GnomeCmdDir *dir, gboolean visualProgress)
 
     if (!dir->priv->files || gnome_cmd_dir_is_local (dir))
     {
-        auto gUriString = g_file_get_uri(GNOME_CMD_FILE (dir)->gFile);
+        auto gUriString = g_file_get_uri(GNOME_CMD_FILE (dir)->get_file());
         DEBUG ('l', "relisting files for 0x%x; %s\n", dir, gUriString);
         gnome_cmd_dir_relist_files (dir, visualProgress);
         g_free(gUriString);
@@ -629,7 +629,7 @@ GFile *gnome_cmd_dir_get_gfile (GnomeCmdDir *dir)
 {
     g_return_val_if_fail (GNOME_CMD_IS_DIR (dir), nullptr);
 
-    return GNOME_CMD_FILE(dir)->gFile;
+    return GNOME_CMD_FILE(dir)->get_file();
 }
 
 
@@ -975,11 +975,11 @@ void gnome_cmd_dir_file_changed (GnomeCmdDir *dir, const gchar *uri_str)
 
     dir->priv->needs_mtime_update = TRUE;
 
-    auto gFileInfo = g_file_query_info(f->gFile, "*", G_FILE_QUERY_INFO_NONE, nullptr, nullptr);
+    auto gFileInfo = g_file_query_info(f->get_file(), "*", G_FILE_QUERY_INFO_NONE, nullptr, nullptr);
     if (gFileInfo == nullptr)
     {
-        auto basename = g_file_get_basename(f->gFile);
-        DEBUG ('t', "Could not retrieve file information for changed file %s\n", g_file_get_basename(f->gFile));
+        auto basename = g_file_get_basename(f->get_file());
+        DEBUG ('t', "Could not retrieve file information for changed file %s\n", g_file_get_basename(f->get_file()));
         g_free(basename);
         return;
     }
@@ -1016,7 +1016,7 @@ void gnome_cmd_dir_start_monitoring (GnomeCmdDir *dir)
         GError *error = nullptr;
 
         auto gFileMonitor = g_file_monitor_directory (
-            GNOME_CMD_FILE (dir)->gFile,
+            GNOME_CMD_FILE (dir)->get_file(),
             //ToDo: We might want to activate G_FILE_MONITOR_WATCH_MOVES in the future
             G_FILE_MONITOR_NONE,
             nullptr,
@@ -1093,14 +1093,14 @@ gboolean gnome_cmd_dir_update_mtime (GnomeCmdDir *dir)
     auto gFileInfoCurrent = g_file_query_info(tempGFile, G_FILE_ATTRIBUTE_TIME_MODIFIED, G_FILE_QUERY_INFO_NONE, nullptr, nullptr);
     auto currentMTime     = g_file_info_get_modification_date_time(gFileInfoCurrent);
 
-    auto cachedMTime = g_file_info_get_modification_date_time(GNOME_CMD_FILE(dir)->gFileInfo);
+    auto cachedMTime = g_file_info_get_modification_date_time(GNOME_CMD_FILE(dir)->get_file_info());
     g_free(uri);
     g_object_unref(gFileInfoCurrent);
 
     if (currentMTime && cachedMTime && g_date_time_compare(cachedMTime, currentMTime))
     {
         // cache is not up-to-date
-        g_file_info_set_modification_date_time(GNOME_CMD_FILE (dir)->gFileInfo, currentMTime);
+        g_file_info_set_modification_date_time(GNOME_CMD_FILE (dir)->get_file_info(), currentMTime);
         returnValue = TRUE;
     }
 

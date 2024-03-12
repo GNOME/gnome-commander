@@ -86,7 +86,7 @@ static void set_filter (GnomeCmdQuicksearchPopup *popup, const gchar *text)
         auto f = static_cast<GnomeCmdFile*> (files->data);
 
         if (gnome_cmd_filter_fnmatch (pattern,
-                g_file_info_get_display_name(f->gFileInfo),
+                g_file_info_get_display_name(f->get_file_info()),
                 gnome_cmd_data.options.case_sens_sort))
         {
             if (first)

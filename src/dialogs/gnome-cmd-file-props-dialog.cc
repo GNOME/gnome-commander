@@ -188,7 +188,7 @@ static void on_dialog_ok (GtkButton *btn, GnomeCmdFilePropsDialogPrivate *data)
     {
         auto perms = gnome_cmd_chmod_component_get_perms (GNOME_CMD_CHMOD_COMPONENT (data->chmod_component));
 
-        if (perms != (get_gfile_attribute_uint32(data->f->gFile, G_FILE_ATTRIBUTE_UNIX_MODE) & 0xFFF ))
+        if (perms != (get_gfile_attribute_uint32(data->f->get_file(), G_FILE_ATTRIBUTE_UNIX_MODE) & 0xFFF ))
             retValue = data->f->chmod(perms, &error);
     }
 
@@ -197,8 +197,8 @@ static void on_dialog_ok (GtkButton *btn, GnomeCmdFilePropsDialogPrivate *data)
         uid_t uid = gnome_cmd_chown_component_get_owner (GNOME_CMD_CHOWN_COMPONENT (data->chown_component));
         gid_t gid = gnome_cmd_chown_component_get_group (GNOME_CMD_CHOWN_COMPONENT (data->chown_component));
 
-        if (   uid != get_gfile_attribute_uint32(data->f->gFile, G_FILE_ATTRIBUTE_UNIX_UID)
-            || gid != get_gfile_attribute_uint32(data->f->gFile, G_FILE_ATTRIBUTE_UNIX_GID))
+        if (   uid != get_gfile_attribute_uint32(data->f->get_file(), G_FILE_ATTRIBUTE_UNIX_UID)
+            || gid != get_gfile_attribute_uint32(data->f->get_file(), G_FILE_ATTRIBUTE_UNIX_GID))
         {
             retValue = data->f->chown(uid, gid, &error);
         }
@@ -331,16 +331,16 @@ static GtkWidget *create_properties_tab (GnomeCmdFilePropsDialogPrivate *data)
     label = create_bold_label (dialog, GNOME_CMD_IS_DIR (data->f) ? _("Directory name:") : _("File name:"));
     table_add (table, label, 0, y, GTK_FILL);
 
-    data->filename_entry = create_entry (dialog, "filename_entry", g_file_info_get_edit_name (data->f->gFileInfo));
+    data->filename_entry = create_entry (dialog, "filename_entry", g_file_info_get_edit_name (data->f->get_file_info()));
     table_add (table, data->filename_entry, 1, y++, (GtkAttachOptions) (GTK_FILL|GTK_EXPAND));
     gtk_editable_set_position (GTK_EDITABLE (data->filename_entry), 0);
 
-    if (g_file_info_get_is_symlink(data->f->gFileInfo))
+    if (g_file_info_get_is_symlink(data->f->get_file_info()))
     {
         label = create_bold_label (dialog, _("Symlink target:"));
         table_add (table, label, 0, y, GTK_FILL);
 
-        label = create_label (dialog, g_file_info_get_symlink_target (data->f->gFileInfo));
+        label = create_label (dialog, g_file_info_get_symlink_target (data->f->get_file_info()));
         table_add (table, label, 1, y++, GTK_FILL);
     }
 
@@ -454,7 +454,7 @@ static GtkWidget *create_properties_tab (GnomeCmdFilePropsDialogPrivate *data)
     label = create_bold_label (dialog, _("Size:"));
     table_add (table, label, 0, y, GTK_FILL);
 
-    gchar *s = create_nice_size_str (g_file_info_get_size (data->f->gFileInfo));
+    gchar *s = create_nice_size_str (g_file_info_get_size (data->f->get_file_info()));
     label = create_label (dialog, s);
     table_add (table, label, 1, y++, GTK_FILL);
     g_free (s);
@@ -495,8 +495,8 @@ inline GtkWidget *create_permissions_tab (GnomeCmdFilePropsDialogPrivate *data)
     g_object_set_data_full (G_OBJECT (data->dialog), "chown_component", data->chown_component, g_object_unref);
     gtk_widget_show (data->chown_component);
     gnome_cmd_chown_component_set (GNOME_CMD_CHOWN_COMPONENT (data->chown_component),
-        get_gfile_attribute_uint32(data->f->gFile, G_FILE_ATTRIBUTE_UNIX_UID),
-        get_gfile_attribute_uint32(data->f->gFile, G_FILE_ATTRIBUTE_UNIX_GID));
+        get_gfile_attribute_uint32(data->f->get_file(), G_FILE_ATTRIBUTE_UNIX_UID),
+        get_gfile_attribute_uint32(data->f->get_file(), G_FILE_ATTRIBUTE_UNIX_GID));
 
     GtkWidget *cat = create_category (data->dialog, data->chown_component, _("Owner and group"));
     gtk_box_pack_start (GTK_BOX (vbox), cat, TRUE, TRUE, 0);
@@ -507,7 +507,7 @@ inline GtkWidget *create_permissions_tab (GnomeCmdFilePropsDialogPrivate *data)
     g_object_set_data_full (G_OBJECT (data->dialog), "chmod_component", data->chmod_component, g_object_unref);
     gtk_widget_show (data->chmod_component);
     gnome_cmd_chmod_component_set_perms (GNOME_CMD_CHMOD_COMPONENT (data->chmod_component),
-        get_gfile_attribute_uint32(data->f->gFile, G_FILE_ATTRIBUTE_UNIX_MODE) & 0xFFF);
+        get_gfile_attribute_uint32(data->f->get_file(), G_FILE_ATTRIBUTE_UNIX_MODE) & 0xFFF);
 
     cat = create_category (data->dialog, data->chmod_component, _("Access permissions"));
     gtk_box_pack_start (GTK_BOX (vbox), cat, TRUE, TRUE, 0);
@@ -655,7 +655,7 @@ inline GtkWidget *create_metadata_tab (GnomeCmdFilePropsDialogPrivate *data)
 GtkWidget *gnome_cmd_file_props_dialog_create (GnomeCmdFile *f)
 {
     g_return_val_if_fail (f != nullptr, nullptr);
-    g_return_val_if_fail (f->gFileInfo != nullptr, nullptr);
+    g_return_val_if_fail (f->get_file_info() != nullptr, nullptr);
 
     if (f->is_dotdot)
         return nullptr;

@@ -461,7 +461,7 @@ void GnomeCmdAdvrenameDialog::Private::on_dialog_response (GnomeCmdAdvrenameDial
 
                 gboolean result = FALSE;
 
-                if (strcmp (g_file_info_get_display_name(f->gFileInfo), new_name) != 0)
+                if (strcmp (g_file_info_get_display_name(f->get_file_info()), new_name) != 0)
                     result = f->rename(new_name, nullptr);
 
                 gtk_list_store_set (GTK_LIST_STORE (dialog->files), &i,
@@ -470,7 +470,7 @@ void GnomeCmdAdvrenameDialog::Private::on_dialog_response (GnomeCmdAdvrenameDial
                                     -1);
 
                 if (!new_focused_file_name && result
-                    && !strcmp(old_focused_file_name, g_file_info_get_display_name(f->gFileInfo)))
+                    && !strcmp(old_focused_file_name, g_file_info_get_display_name(f->get_file_info())))
                     new_focused_file_name = g_strdup(new_name);
 
                 g_free (new_name);

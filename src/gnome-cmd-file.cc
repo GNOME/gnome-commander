@@ -91,7 +91,6 @@ static void gnome_cmd_file_init (GnomeCmdFile *f)
 
     // f->priv->last_update.tv_sec = 0;
     // f->priv->last_update.tv_usec = 0;
-
     f->priv->tree_size = -1;
 
     if (DEBUG_ENABLED ('c'))
@@ -108,11 +107,11 @@ static void gnome_cmd_file_finalize (GObject *object)
 
     delete f->metadata;
 
-    if (f->gFileInfo && strcmp(g_file_info_get_display_name(f->gFileInfo), "..") != 0)
-        DEBUG ('f', "file destroying %p %s\n", f, g_file_info_get_display_name(f->gFileInfo));
+    if (f->get_file_info() && strcmp(g_file_info_get_display_name(f->get_file_info()), "..") != 0)
+        DEBUG ('f', "file destroying %p %s\n", f, g_file_info_get_display_name(f->get_file_info()));
 
     g_free (f->collate_key);
-    g_object_unref(f->gFileInfo);
+    g_object_unref(f->get_file_info());
     if (f->priv->dir_handle)
         handle_unref (f->priv->dir_handle);
 
@@ -122,10 +121,6 @@ static void gnome_cmd_file_finalize (GObject *object)
         deleted_files_cnt++;
     }
 
-    if (f->gFile)
-    {
-        g_object_unref(f->gFile);
-    }
     g_free (f->priv);
 
     G_OBJECT_CLASS (gnome_cmd_file_parent_class)->finalize (object);
@@ -161,7 +156,7 @@ GnomeCmdFile *gnome_cmd_file_new (GFileInfo *gFileInfo, GnomeCmdDir *dir)
 
     gnome_cmd_file_setup (G_OBJECT(gnomeCmdFile), gFileInfo, dir);
 
-    if(!gnomeCmdFile->gFile)
+    if(!gnomeCmdFile->get_file())
     {
         g_object_unref(gnomeCmdFile);
         return nullptr;
@@ -220,17 +215,17 @@ gboolean gnome_cmd_file_setup (GObject *gObject, GFile *gFile, GError **error)
     GError *errorTmp = nullptr;
     auto gnomeCmdFile = (GnomeCmdFile*) gObject;
 
-    gnomeCmdFile->gFileInfo = g_file_query_info(gFile, "*", G_FILE_QUERY_INFO_NONE, nullptr, &errorTmp);
+    GNOME_CMD_FILE_BASE (gnomeCmdFile)->gFileInfo = g_file_query_info(gFile, "*", G_FILE_QUERY_INFO_NONE, nullptr, &errorTmp);
     if (errorTmp)
     {
         g_propagate_error(error, errorTmp);
         return FALSE;
     }
 
-    auto filename = g_file_info_get_attribute_string (gnomeCmdFile->gFileInfo, G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME);
+    auto filename = g_file_info_get_attribute_string (gnomeCmdFile->get_file_info(), G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME);
 
     // check if file is '..'
-    gnomeCmdFile->is_dotdot = g_file_info_get_attribute_uint32 (gnomeCmdFile->gFileInfo, G_FILE_ATTRIBUTE_STANDARD_TYPE) == G_FILE_TYPE_DIRECTORY
+    gnomeCmdFile->is_dotdot = g_file_info_get_attribute_uint32 (gnomeCmdFile->get_file_info(), G_FILE_ATTRIBUTE_STANDARD_TYPE) == G_FILE_TYPE_DIRECTORY
                               && g_strcmp0(filename, "..") == 0;
 
     auto utf8Name = gnome_cmd_data.options.case_sens_sort
@@ -240,7 +235,6 @@ gboolean gnome_cmd_file_setup (GObject *gObject, GFile *gFile, GError **error)
     g_free (utf8Name);
 
     GNOME_CMD_FILE_BASE (gnomeCmdFile)->gFile = gFile;
-    gnomeCmdFile->gFile = GNOME_CMD_FILE_BASE (gnomeCmdFile)->gFile;
     return TRUE;
 }
 
@@ -252,7 +246,7 @@ void gnome_cmd_file_setup (GObject *gObject, GFileInfo *gFileInfo, GnomeCmdDir *
     g_return_if_fail (gFileInfo != nullptr);
 
     auto gnomeCmdFile = (GnomeCmdFile*) gObject;
-    gnomeCmdFile->gFileInfo = gFileInfo;
+    GNOME_CMD_FILE_BASE (gnomeCmdFile)->gFileInfo = gFileInfo;
 
     auto filename = g_file_info_get_attribute_string (gFileInfo, G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME);
 
@@ -288,14 +282,13 @@ void gnome_cmd_file_setup (GObject *gObject, GFileInfo *gFileInfo, GnomeCmdDir *
         auto uriString = g_uri_to_string(gUri);
         auto gFileFinal = g_file_new_for_uri (uriString);
         GNOME_CMD_FILE_BASE (gnomeCmdFile)->gFile = gFileFinal;
-        gnomeCmdFile->gFile = GNOME_CMD_FILE_BASE (gnomeCmdFile)->gFile;
         g_free(uriString);
         g_free(pathString);
     }
     // EVERY GnomeCmdFile instance must have a gFile reference
-    if (!gnomeCmdFile->gFile)
+    if (!gnomeCmdFile->get_file())
     {
-        g_object_unref(gnomeCmdFile->gFileInfo);
+        g_object_unref(gnomeCmdFile->get_file_info());
         return;
     }
 }
@@ -310,7 +303,7 @@ GnomeCmdFile *GnomeCmdFile::ref()
 
     char c = GNOME_CMD_IS_DIR (this) ? 'd' : 'f';
 
-    DEBUG (c, "refing: %p %s to %d\n", this, g_file_info_get_name(gFileInfo), priv->ref_cnt);
+    DEBUG (c, "refing: %p %s to %d\n", this, g_file_info_get_name(get_file_info()), priv->ref_cnt);
 
     return this;
 }
@@ -322,7 +315,7 @@ void GnomeCmdFile::unref()
 
     char c = GNOME_CMD_IS_DIR (this) ? 'd' : 'f';
 
-    DEBUG (c, "un-refing: %p %s to %d\n", this, g_file_info_get_display_name(gFileInfo), priv->ref_cnt);
+    DEBUG (c, "un-refing: %p %s to %d\n", this, g_file_info_get_display_name(get_file_info()), priv->ref_cnt);
     if (priv->ref_cnt < 1)
         g_object_unref (this);
 }
@@ -332,7 +325,7 @@ gboolean GnomeCmdFile::chmod(guint32 permissions, GError **error)
 {
     GError *tmp_error = nullptr;
 
-    auto gFileInfoPerms = g_file_query_info(gFile,
+    auto gFileInfoPerms = g_file_query_info(get_file(),
                                             G_FILE_ATTRIBUTE_UNIX_MODE,
                                             G_FILE_QUERY_INFO_NONE,
                                             nullptr,
@@ -349,7 +342,7 @@ gboolean GnomeCmdFile::chmod(guint32 permissions, GError **error)
                                      G_FILE_ATTRIBUTE_UNIX_MODE,
                                      permissions);
 
-    g_file_set_attributes_from_info(gFile,
+    g_file_set_attributes_from_info(get_file(),
                                     gFileInfoPerms,
                                     G_FILE_QUERY_INFO_NONE,
                                     nullptr,
@@ -380,7 +373,7 @@ gboolean GnomeCmdFile::chown(uid_t uid, gid_t gid, GError **error)
 
     GError *tmp_error = nullptr;
 
-    auto gFileInfoMods = g_file_query_info(gFile,
+    auto gFileInfoMods = g_file_query_info(get_file(),
                                            G_FILE_ATTRIBUTE_UNIX_UID "," G_FILE_ATTRIBUTE_UNIX_GID,
                                            G_FILE_QUERY_INFO_NONE,
                                            nullptr,
@@ -404,7 +397,7 @@ gboolean GnomeCmdFile::chown(uid_t uid, gid_t gid, GError **error)
                                      G_FILE_ATTRIBUTE_UNIX_GID,
                                      gid);
 
-    g_file_set_attributes_from_info(gFile,
+    g_file_set_attributes_from_info(get_file(),
                                     gFileInfoMods,
                                     G_FILE_QUERY_INFO_NONE,
                                     nullptr,
@@ -431,14 +424,14 @@ gboolean GnomeCmdFile::chown(uid_t uid, gid_t gid, GError **error)
 
 gboolean GnomeCmdFile::rename(const gchar *new_name, GError **error)
 {
-    g_return_val_if_fail (gFileInfo, false);
+    g_return_val_if_fail (get_file_info(), false);
 
     gchar *old_uri_str = get_uri_str();
 
     GError *tmp_error;
     tmp_error = nullptr;
 
-    auto newgFile = g_file_set_display_name (this->gFile, new_name, nullptr, &tmp_error);
+    auto newgFile = g_file_set_display_name (this->get_file(), new_name, nullptr, &tmp_error);
 
     if (tmp_error || newgFile == nullptr)
     {
@@ -449,9 +442,8 @@ gboolean GnomeCmdFile::rename(const gchar *new_name, GError **error)
 
     g_object_unref(GNOME_CMD_FILE_BASE (this)->gFile);
     GNOME_CMD_FILE_BASE (this)->gFile = newgFile;
-    this->gFile = GNOME_CMD_FILE_BASE (this)->gFile;
 
-    auto gFileInfoNew = g_file_query_info(gFile,
+    auto gFileInfoNew = g_file_query_info(newgFile,
                                           "*",
                                           G_FILE_QUERY_INFO_NONE,
                                           nullptr,
@@ -478,17 +470,17 @@ gboolean GnomeCmdFile::rename(const gchar *new_name, GError **error)
 
 gchar *GnomeCmdFile::get_quoted_name()
 {
-    g_return_val_if_fail (gFileInfo != nullptr, nullptr);
+    g_return_val_if_fail (get_file_info() != nullptr, nullptr);
 
-    return quote_if_needed (g_file_info_get_display_name(gFileInfo));
+    return quote_if_needed (g_file_info_get_display_name(get_file_info()));
 }
 
 
 gchar *GnomeCmdFile::GetPathStringThroughParent()
 {
-    g_return_val_if_fail (gFileInfo != nullptr, nullptr);
+    g_return_val_if_fail (get_file_info() != nullptr, nullptr);
 
-    auto filename = g_file_info_get_name (this->gFileInfo);
+    auto filename = g_file_info_get_name (this->get_file_info());
 
     if (!filename)
         return nullptr;
@@ -571,7 +563,7 @@ GAppInfo *GnomeCmdFile::GetAppInfoForContentType()
     auto contentTypeString = GetContentType();
     GAppInfo *appInfo = nullptr;
 
-    if (g_file_has_uri_scheme(this->gFile, "file"))
+    if (g_file_has_uri_scheme(this->get_file(), "file"))
         appInfo = g_app_info_get_default_for_type (contentTypeString, false);
     else
         appInfo = g_app_info_get_default_for_type (contentTypeString, true);
@@ -584,25 +576,25 @@ GAppInfo *GnomeCmdFile::GetAppInfoForContentType()
 
 gboolean GnomeCmdFile::GetGfileAttributeBoolean(const char *attribute)
 {
-    return get_gfile_attribute_boolean(this->gFileInfo, attribute);
+    return get_gfile_attribute_boolean(this->get_file_info(), attribute);
 }
 
 
 gchar *GnomeCmdFile::GetGfileAttributeString(const char *attribute)
 {
-    return get_gfile_attribute_string(this->gFileInfo, attribute);
+    return get_gfile_attribute_string(this->get_file_info(), attribute);
 }
 
 
 guint32 GnomeCmdFile::GetGfileAttributeUInt32(const char *attribute)
 {
-    return get_gfile_attribute_uint32(this->gFileInfo, attribute);
+    return get_gfile_attribute_uint32(this->get_file_info(), attribute);
 }
 
 
 guint64 GnomeCmdFile::GetGfileAttributeUInt64(const char *attribute)
 {
-    return get_gfile_attribute_uint64(this->gFileInfo, attribute);
+    return get_gfile_attribute_uint64(this->get_file_info(), attribute);
 }
 
 
@@ -667,10 +659,10 @@ GFile *GnomeCmdFile::get_gfile(const gchar *name)
         else
             g_assert ("Non directory file without owning directory");
     }
-    if (!gFile)
+    if (!get_file())
         return nullptr;
 
-    auto filename = g_file_get_basename(gFile);
+    auto filename = g_file_get_basename(get_file());
     auto childGFile = gnome_cmd_dir_get_child_gfile (::get_parent_dir (this), name ? name : filename);
     g_free(filename);
     return childGFile;
@@ -679,35 +671,35 @@ GFile *GnomeCmdFile::get_gfile(const gchar *name)
 
 gchar *GnomeCmdFile::get_uri_str()
 {
-    return g_file_get_uri(this->gFile);
+    return g_file_get_uri(this->get_file());
 }
 
 
 const gchar *GnomeCmdFile::get_extension()
 {
-    g_return_val_if_fail (gFileInfo != nullptr, nullptr);
+    g_return_val_if_fail (get_file_info() != nullptr, nullptr);
 
     if (GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE) == G_FILE_TYPE_DIRECTORY)
         return nullptr;
 
-    const char *s = strrchr (g_file_info_get_name(gFileInfo), '.');
+    const char *s = strrchr (g_file_info_get_name(get_file_info()), '.');
     return s ? s+1 : nullptr;
 }
 
 
 const gchar *GnomeCmdFile::get_owner()
 {
-    g_return_val_if_fail (gFileInfo != nullptr, nullptr);
+    g_return_val_if_fail (get_file_info() != nullptr, nullptr);
 
     const gchar *ownerString = nullptr;
 
-    ownerString = g_file_info_get_attribute_string(gFileInfo, G_FILE_ATTRIBUTE_OWNER_USER);
+    ownerString = g_file_info_get_attribute_string(get_file_info(), G_FILE_ATTRIBUTE_OWNER_USER);
 
     if (!ownerString)
     {
         static gchar owner_str[MAX_OWNER_LENGTH];
         g_snprintf (owner_str, MAX_OWNER_LENGTH, "%d",
-            g_file_info_get_attribute_uint32(gFileInfo, G_FILE_ATTRIBUTE_UNIX_UID));
+            g_file_info_get_attribute_uint32(get_file_info(), G_FILE_ATTRIBUTE_UNIX_UID));
         return owner_str;
     }
 
@@ -717,17 +709,17 @@ const gchar *GnomeCmdFile::get_owner()
 
 const gchar *GnomeCmdFile::get_group()
 {
-    g_return_val_if_fail (gFileInfo != nullptr, nullptr);
+    g_return_val_if_fail (get_file_info() != nullptr, nullptr);
 
     const gchar *groupString = nullptr;
 
-    groupString = g_file_info_get_attribute_string(gFileInfo, G_FILE_ATTRIBUTE_OWNER_GROUP);
+    groupString = g_file_info_get_attribute_string (get_file_info(), G_FILE_ATTRIBUTE_OWNER_GROUP);
 
     if (!groupString)
     {
         static gchar owner_str[MAX_OWNER_LENGTH];
         g_snprintf (owner_str, MAX_OWNER_LENGTH, "%d",
-            g_file_info_get_attribute_uint32(gFileInfo, G_FILE_ATTRIBUTE_UNIX_GID));
+            g_file_info_get_attribute_uint32 (get_file_info(), G_FILE_ATTRIBUTE_UNIX_GID));
         return owner_str;
     }
 
@@ -746,17 +738,17 @@ inline const gchar *date2string (GDateTime *date, gboolean overide_disp_setting)
 #ifdef GLIB_2_70
 const gchar *GnomeCmdFile::get_adate(gboolean overide_disp_setting)
 {
-    g_return_val_if_fail (gFileInfo != nullptr, nullptr);
+    g_return_val_if_fail (get_file_info() != nullptr, nullptr);
 
-    return date2string (g_file_info_get_access_date_time(gFileInfo), overide_disp_setting);
+    return date2string (g_file_info_get_access_date_time(get_file_info()), overide_disp_setting);
 }
 #endif
 
 const gchar *GnomeCmdFile::get_mdate(gboolean overide_disp_setting)
 {
-    g_return_val_if_fail (gFileInfo != nullptr, nullptr);
+    g_return_val_if_fail (get_file_info() != nullptr, nullptr);
 
-    return date2string (g_file_info_get_modification_date_time(gFileInfo), overide_disp_setting);
+    return date2string (g_file_info_get_modification_date_time (get_file_info()), overide_disp_setting);
 }
 
 
@@ -775,7 +767,7 @@ const gchar *GnomeCmdFile::get_size()
 guint64 GnomeCmdFile::get_tree_size()
 {
     if (GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE) != G_FILE_TYPE_DIRECTORY)
-        return g_file_info_get_attribute_uint64 (gFileInfo, G_FILE_ATTRIBUTE_STANDARD_SIZE);
+        return g_file_info_get_attribute_uint64 (get_file_info(), G_FILE_ATTRIBUTE_STANDARD_SIZE);
 
     if (is_dotdot)
         return 0;
@@ -788,7 +780,7 @@ guint64 GnomeCmdFile::get_tree_size()
 
 guint64 GnomeCmdFile::calc_tree_size (gulong *count)
 {
-    g_return_val_if_fail (this->gFile != NULL, -1);
+    g_return_val_if_fail (this->get_file() != NULL, -1);
 
     guint64 size = 0;
 
@@ -797,7 +789,7 @@ guint64 GnomeCmdFile::calc_tree_size (gulong *count)
         GError *error;
         error = nullptr;
 
-        g_file_measure_disk_usage (this->gFile,
+        g_file_measure_disk_usage (this->get_file(),
                            G_FILE_MEASURE_NONE,
                            nullptr,
                            nullptr,
@@ -856,11 +848,11 @@ const gchar *GnomeCmdFile::get_type_string()
 
 gboolean GnomeCmdFile::get_type_pixmap_and_mask(GdkPixmap **pixmap, GdkBitmap **mask)
 {
-    g_return_val_if_fail (gFileInfo != nullptr, FALSE);
+    g_return_val_if_fail (get_file_info() != nullptr, FALSE);
 
     return IMAGE_get_pixmap_and_mask (GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE),
-                                      is_dotdot ? nullptr : g_file_info_get_content_type (gFileInfo),
-                                      is_dotdot ? false : g_file_info_get_is_symlink (gFileInfo),
+                                      is_dotdot ? nullptr : g_file_info_get_content_type (get_file_info()),
+                                      is_dotdot ? false : g_file_info_get_is_symlink (get_file_info()),
                                       pixmap,
                                       mask);
 }
@@ -934,7 +926,7 @@ void gnome_cmd_file_view_internal(GnomeCmdFile *f)
     // If the file is local there is no need to download it
     if (f->is_local())
     {
-        view_file_with_internal_viewer (f->gFile);
+        view_file_with_internal_viewer (f->get_file());
         return;
     }
     else
@@ -1012,7 +1004,7 @@ void gnome_cmd_file_edit (GnomeCmdFile *f)
         return;
 
     gchar *fpath = f->get_quoted_real_path();
-    auto parentDir = g_file_get_parent(f->gFile);
+    auto parentDir = g_file_get_parent(f->get_file());
     gchar *dpath = g_file_get_parse_name (parentDir);
     g_object_unref(parentDir);
 #if defined (__GNUC__)
@@ -1038,9 +1030,9 @@ void GnomeCmdFile::update_gFileInfo(GFileInfo *gFileInfo_new)
     g_return_if_fail (G_IS_FILE_INFO(gFileInfo_new));
 
     g_free (collate_key);
-    g_object_unref (this->gFileInfo);
+    g_object_unref (this->parent.gFileInfo);
     g_object_ref (gFileInfo_new);
-    this->gFileInfo = gFileInfo_new;
+    this->parent.gFileInfo = gFileInfo_new;
 
     gchar *filename;
 
