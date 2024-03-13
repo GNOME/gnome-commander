@@ -103,6 +103,7 @@ inline GnomeCmdFile *gnome_cmd_dir_new_parent_dir_file (GnomeCmdDir *dir)
     g_file_info_set_size(info, 0);
 
     auto gnomeCmdFile = gnome_cmd_file_new (info, dir);
+    gnomeCmdFile->is_dotdot = true;
     gnomeCmdFile->ref();
     return gnomeCmdFile;
 }

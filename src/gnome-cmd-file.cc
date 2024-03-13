@@ -859,8 +859,8 @@ gboolean GnomeCmdFile::get_type_pixmap_and_mask(GdkPixmap **pixmap, GdkBitmap **
     g_return_val_if_fail (gFileInfo != nullptr, FALSE);
 
     return IMAGE_get_pixmap_and_mask (GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE),
-                                      g_file_info_get_content_type(gFileInfo),
-                                      g_file_info_get_is_symlink (gFileInfo),
+                                      is_dotdot ? nullptr : g_file_info_get_content_type (gFileInfo),
+                                      is_dotdot ? false : g_file_info_get_is_symlink (gFileInfo),
                                       pixmap,
                                       mask);
 }
