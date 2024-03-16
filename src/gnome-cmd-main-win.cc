@@ -1322,7 +1322,7 @@ void GnomeCmdMainWin::set_fs_directory_to_opposite(FileSelectorID fsID)
         GnomeCmdFile *file = other->file_list()->get_selected_file();
 
         if (file && (file->GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE) == G_FILE_TYPE_DIRECTORY))
-            dir = GNOME_CMD_IS_DIR (file) ? GNOME_CMD_DIR (file) : gnome_cmd_dir_new_from_gfileinfo (file->gFileInfo, dir);
+            dir = GNOME_CMD_IS_DIR (file) ? GNOME_CMD_DIR (file) : gnome_cmd_dir_new_from_gfileinfo (file->get_file_info(), dir);
     }
 
     if (fselector->file_list()->locked)
@@ -1498,8 +1498,8 @@ GnomeCmdState *GnomeCmdMainWin::get_state() const
     GnomeCmdDir *dir2 = fs2->get_directory();
 
     GnomeCmdState *state = &priv->state;
-    state->activeDirGfile = dir1 ? GNOME_CMD_FILE (dir1)->gFile : nullptr;
-    state->inactiveDirGfile = dir2 ? GNOME_CMD_FILE (dir2)->gFile : nullptr;
+    state->activeDirGfile = dir1 ? GNOME_CMD_FILE (dir1)->get_file() : nullptr;
+    state->inactiveDirGfile = dir2 ? GNOME_CMD_FILE (dir2)->get_file() : nullptr;
     state->active_dir_files = fs1->file_list()->get_visible_files();
     state->inactive_dir_files = fs2->file_list()->get_visible_files();
     state->active_dir_selected_files = fs1->file_list()->get_selected_files();

@@ -407,7 +407,11 @@ inline gboolean is_modifier (guint keycode)
 {
     gboolean retval = FALSE;
 
-    XModifierKeymap *mod_keymap = XGetModifierMapping (gdk_display);
+    GdkScreen *screen = gdk_screen_get_default ();
+    GdkDisplay *gdk_display = gdk_screen_get_display (screen);
+    Display *display = gdk_x11_display_get_xdisplay (gdk_display);
+
+    XModifierKeymap *mod_keymap = XGetModifierMapping (display);
 
     gint map_size = 8 * mod_keymap->max_keypermod;
 

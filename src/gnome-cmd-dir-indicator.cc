@@ -753,7 +753,7 @@ void gnome_cmd_dir_indicator_set_dir (GnomeCmdDirIndicator *indicator, GnomeCmdD
     if (!gnome_cmd_dir_is_local(dir))
     {
         GError *error = nullptr;
-        auto dirUri = g_file_get_uri(GNOME_CMD_FILE(dir)->gFile);
+        auto dirUri = g_file_get_uri(GNOME_CMD_FILE(dir)->get_file());
         auto gUri = g_uri_parse(dirUri, G_URI_FLAGS_NONE, &error);
         if (error)
         {

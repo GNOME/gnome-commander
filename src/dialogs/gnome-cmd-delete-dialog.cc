@@ -207,7 +207,7 @@ static gboolean perform_delete_operation_r(DeleteData *deleteData, GList *gnomeC
         auto gnomeCmdFile = static_cast<GnomeCmdFile*>(gCmdFileGListItem->data);
 
         g_return_val_if_fail (GNOME_CMD_IS_FILE(gnomeCmdFile), FALSE);
-        g_return_val_if_fail (G_IS_FILE_INFO(gnomeCmdFile->gFileInfo), FALSE);
+        g_return_val_if_fail (G_IS_FILE_INFO(gnomeCmdFile->get_file_info()), FALSE);
 
         auto filenameTmp = gnomeCmdFile->get_name();
 
@@ -218,13 +218,13 @@ static gboolean perform_delete_operation_r(DeleteData *deleteData, GList *gnomeC
         {
             case DeleteData::OriginAction::FORCE_DELETE:
             case DeleteData::OriginAction::MOVE:
-                g_file_delete (gnomeCmdFile->gFile, deleteData->cancellable, &tmpError);
+                g_file_delete (gnomeCmdFile->get_file(), deleteData->cancellable, &tmpError);
                 break;
             case DeleteData::OriginAction::DELETE:
             default:
                 gnome_cmd_data.options.deleteToTrash
-                    ? g_file_trash (gnomeCmdFile->gFile, deleteData->cancellable, &tmpError)
-                    : g_file_delete (gnomeCmdFile->gFile, deleteData->cancellable, &tmpError);
+                    ? g_file_trash (gnomeCmdFile->get_file(), deleteData->cancellable, &tmpError)
+                    : g_file_delete (gnomeCmdFile->get_file(), deleteData->cancellable, &tmpError);
                 break;
         }
 
@@ -353,7 +353,7 @@ void do_delete (DeleteData *deleteData, gboolean showProgress = true)
 
     for(auto fileListItem = deleteData->gnomeCmdFiles; fileListItem; fileListItem = fileListItem->next)
     {
-        auto gFile = GNOME_CMD_FILE(fileListItem->data)->gFile;
+        auto gFile = GNOME_CMD_FILE(fileListItem->data)->get_file();
         g_return_if_fail(G_IS_FILE(gFile));
 
         if (showProgress)
@@ -423,7 +423,7 @@ static GList *remove_items_from_list_to_be_deleted(GList *files)
             guint64 num_files;
             gboolean canNotMeasure = FALSE;
 
-            g_file_measure_disk_usage (gnomeCmdFile->gFile,
+            g_file_measure_disk_usage (gnomeCmdFile->get_file(),
                        G_FILE_MEASURE_NONE,
                        nullptr, nullptr, nullptr, nullptr,
                        &num_dirs,

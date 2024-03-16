@@ -638,7 +638,7 @@ static void toggle_files_with_same_extension (GnomeCmdFileList *fl, gboolean sel
     {
         auto ff = static_cast<GnomeCmdFile*> (i->data);
 
-        if (ff && ff->gFileInfo)
+        if (ff && ff->get_file_info())
         {
             const gchar *ext2 = ff->get_extension();
 
@@ -661,7 +661,7 @@ void GnomeCmdFileList::toggle_with_pattern(Filter &pattern, gboolean mode)
         {
             auto f = static_cast<GnomeCmdFile*> (i->data);
 
-            if (f && f->gFileInfo && pattern.match(g_file_info_get_display_name(f->gFileInfo)))
+            if (f && f->get_file_info() && pattern.match(g_file_info_get_display_name(f->get_file_info())))
             {
                 if (mode)
                     select_file(f);
@@ -674,7 +674,7 @@ void GnomeCmdFileList::toggle_with_pattern(Filter &pattern, gboolean mode)
         {
             auto f = static_cast<GnomeCmdFile*> (i->data);
 
-            if (f && !GNOME_CMD_IS_DIR (f) && f->gFileInfo && pattern.match(g_file_info_get_display_name(f->gFileInfo)))
+            if (f && !GNOME_CMD_IS_DIR (f) && f->get_file_info() && pattern.match(g_file_info_get_display_name(f->get_file_info())))
             {
                 if (mode)
                     select_file(f);
@@ -926,10 +926,10 @@ static gint sort_by_name (GnomeCmdFile *f1, GnomeCmdFile *f2, GnomeCmdFileList *
     if (f2->is_dotdot)
         return 1;
 
-    if(g_file_info_get_file_type(f1->gFileInfo) > g_file_info_get_file_type(f2->gFileInfo))
+    if(g_file_info_get_file_type(f1->get_file_info()) > g_file_info_get_file_type(f2->get_file_info()))
         return -1;
 
-    if (g_file_info_get_file_type(f1->gFileInfo) < g_file_info_get_file_type(f2->gFileInfo))
+    if (g_file_info_get_file_type(f1->get_file_info()) < g_file_info_get_file_type(f2->get_file_info()))
         return 1;
 
     gboolean raising = fl->priv->sort_raising[fl->priv->current_col];
@@ -946,10 +946,10 @@ static gint sort_by_ext (GnomeCmdFile *f1, GnomeCmdFile *f2, GnomeCmdFileList *f
     if (f2->is_dotdot)
         return 1;
 
-    if(g_file_info_get_file_type(f1->gFileInfo) > g_file_info_get_file_type(f2->gFileInfo))
+    if(g_file_info_get_file_type(f1->get_file_info()) > g_file_info_get_file_type(f2->get_file_info()))
         return -1;
 
-    if (g_file_info_get_file_type(f1->gFileInfo) < g_file_info_get_file_type(f2->gFileInfo))
+    if (g_file_info_get_file_type(f1->get_file_info()) < g_file_info_get_file_type(f2->get_file_info()))
         return 1;
 
     gboolean raising = fl->priv->sort_raising[fl->priv->current_col];
@@ -1057,8 +1057,8 @@ static gint sort_by_perm (GnomeCmdFile *f1, GnomeCmdFile *f2, GnomeCmdFileList *
                           f2->GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE), TRUE);
     if (!ret)
     {
-        ret = my_intcmp (get_gfile_attribute_uint32(f1->gFile, G_FILE_ATTRIBUTE_UNIX_MODE),
-                         get_gfile_attribute_uint32(f2->gFile, G_FILE_ATTRIBUTE_UNIX_MODE), raising);
+        ret = my_intcmp (get_gfile_attribute_uint32(f1->get_file(), G_FILE_ATTRIBUTE_UNIX_MODE),
+                         get_gfile_attribute_uint32(f2->get_file(), G_FILE_ATTRIBUTE_UNIX_MODE), raising);
         if (!ret)
             ret = my_strcmp (f1->get_collation_fname(), f2->get_collation_fname(), file_raising);
     }
@@ -1265,7 +1265,7 @@ static void do_mime_exec_single (gpointer *args)
 
     gnome_cmd_file_ref(gnomeCmdFile);
     GList *gFileList = nullptr;
-    gFileList = g_list_append(gFileList, gnomeCmdFile->gFile);
+    gFileList = g_list_append(gFileList, gnomeCmdFile->get_file());
     g_app_info_launch (gnomeCmdFile->GetAppInfoForContentType(), gFileList, nullptr, nullptr);
 
     g_list_free(gFileList);
@@ -1311,7 +1311,7 @@ static void on_tmp_download_response (GtkWidget *w, gint id, TmpDlData *dldata)
 static void mime_exec_single (GnomeCmdFile *f)
 {
     g_return_if_fail (f != nullptr);
-    g_return_if_fail (f->gFileInfo != nullptr);
+    g_return_if_fail (f->get_file_info() != nullptr);
 
     gpointer *args;
     GnomeCmdApp *app;
@@ -1333,7 +1333,7 @@ static void mime_exec_single (GnomeCmdFile *f)
                 return;
             }
 
-           if(!f->chmod(get_gfile_attribute_uint32(f->gFile, G_FILE_ATTRIBUTE_UNIX_MODE) | GNOME_CMD_PERM_USER_EXEC, nullptr))
+           if(!f->chmod(get_gfile_attribute_uint32(f->get_file(), G_FILE_ATTRIBUTE_UNIX_MODE) | GNOME_CMD_PERM_USER_EXEC, nullptr))
            {
                return;
            }
@@ -1384,7 +1384,7 @@ static void mime_exec_single (GnomeCmdFile *f)
     if (f->is_local())
     {
         GList *gFileList = nullptr;
-        gFileList = g_list_append(gFileList, f->gFile);
+        gFileList = g_list_append(gFileList, f->get_file());
         g_app_info_launch (gAppInfo, gFileList, nullptr, nullptr);
         g_list_free(gFileList);
     }
@@ -2342,7 +2342,7 @@ void GnomeCmdFileList::invert_selection()
         {
             auto f = static_cast<GnomeCmdFile*> (i->data);
 
-            if (f && f->gFileInfo)
+            if (f && f->get_file_info())
             {
                 if (!sel.contain(f))
                     select_file(f);
@@ -2355,7 +2355,7 @@ void GnomeCmdFileList::invert_selection()
         {
             auto f = static_cast<GnomeCmdFile*> (i->data);
 
-            if (f && !GNOME_CMD_IS_DIR (f) && f->gFileInfo)
+            if (f && !GNOME_CMD_IS_DIR (f) && f->get_file_info())
             {
                 if (!sel.contain(f))
                     select_file(f);
@@ -2509,7 +2509,7 @@ void gnome_cmd_file_list_view (GnomeCmdFileList *fl, bool useInternalViewer)
 
     if (f->GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE) == G_FILE_TYPE_DIRECTORY)
     {
-        gnome_cmd_show_message (*main_win, _("Not an ordinary file."), g_file_info_get_display_name(f->gFileInfo));
+        gnome_cmd_show_message (*main_win, _("Not an ordinary file."), g_file_info_get_display_name(f->get_file_info()));
         return;
     }
 
@@ -2538,7 +2538,7 @@ void gnome_cmd_file_list_edit (GnomeCmdFileList *fl)
     if (!f)  return;
 
     if (f->GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE) == G_FILE_TYPE_DIRECTORY)
-        gnome_cmd_show_message (*main_win, _("Not an ordinary file."), g_file_info_get_display_name(f->gFileInfo));
+        gnome_cmd_show_message (*main_win, _("Not an ordinary file."), g_file_info_get_display_name(f->get_file_info()));
     else
         gnome_cmd_file_edit (f);
 }
@@ -2959,18 +2959,18 @@ void GnomeCmdFileList::update_style()
 gboolean GnomeCmdFileList::file_is_wanted(GnomeCmdFile *gnomeCmdFile)
 {
     g_return_val_if_fail (gnomeCmdFile != nullptr, FALSE);
-    g_return_val_if_fail (gnomeCmdFile->gFile != nullptr, FALSE);
+    g_return_val_if_fail (gnomeCmdFile->get_file() != nullptr, FALSE);
 
     GError *error = nullptr;
 
-    auto gFileInfo = g_file_query_info(gnomeCmdFile->gFile,
+    auto gFileInfo = g_file_query_info(gnomeCmdFile->get_file(),
                                    "standard::*",
                                    G_FILE_QUERY_INFO_NOFOLLOW_SYMLINKS,
                                    nullptr,
                                    &error);
     if (error)
     {
-        auto uri = g_file_get_uri(gnomeCmdFile->gFile);
+        auto uri = g_file_get_uri(gnomeCmdFile->get_file());
         g_message ("file_is_wanted: retrieving file info for %s failed: %s", uri, error->message);
         g_free(uri);
         g_error_free (error);
@@ -2985,7 +2985,7 @@ gboolean GnomeCmdFileList::file_is_wanted(GnomeCmdFile *gnomeCmdFile)
 
     auto returnValue = TRUE;
 
-    auto fileNameString = g_file_get_basename(gnomeCmdFile->gFile);
+    auto fileNameString = g_file_get_basename(gnomeCmdFile->get_file());
 
     if (strcmp ((const char*) fileNameString, ".") == 0)
         returnValue = FALSE;
@@ -3088,12 +3088,9 @@ void GnomeCmdFileList::invalidate_tree_size()
 
 static gboolean do_scroll (GnomeCmdFileList *fl)
 {
-    gint w, h;
     gint focus_row, top_row;
     gint row_count;
     GtkCList *clist = *fl;
-
-    gdk_drawable_get_size (gtk_widget_get_window (GTK_WIDGET (clist)), &w, &h);
 
     row_count = clist->rows;
     focus_row = gnome_cmd_clist_get_row (*fl, 1, fl->priv->autoscroll_y);
@@ -3123,9 +3120,9 @@ static void autoscroll_if_appropriate (GnomeCmdFileList *fl, gint x, gint y)
     if (y < 0) return;
 
     GtkCList *clist = *fl;
-    gint w, h;
+    gint h;
 
-    gdk_drawable_get_size (gtk_widget_get_window (GTK_WIDGET (clist)), &w, &h);
+    h = gdk_window_get_height (gtk_widget_get_window (GTK_WIDGET (clist)));
 
     gint smin = h/8;
     gint smax = h-smin;
@@ -3236,7 +3233,7 @@ static void drag_data_received (GtkWidget *widget, GdkDragContext *context,
     if (f && f->GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE) == G_FILE_TYPE_DIRECTORY)
         to = f->is_dotdot
             ? gnome_cmd_dir_get_parent (to)
-            : gnome_cmd_dir_get_child (to, g_file_info_get_display_name(f->gFileInfo));
+            : gnome_cmd_dir_get_child (to, g_file_info_get_display_name(f->get_file_info()));
 
     // transform the drag data to a list with GFiles
     GList *gFileGlist = uri_strings_to_gfiles ((gchar *) gtk_selection_data_get_data (selection_data));

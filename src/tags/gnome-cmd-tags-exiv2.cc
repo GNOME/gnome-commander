@@ -374,7 +374,7 @@ void gcmd_tags_exiv2_init()
 void gcmd_tags_exiv2_load_metadata(GnomeCmdFile *f)
 {
     g_return_if_fail (f != NULL);
-    g_return_if_fail (f->gFileInfo != NULL);
+    g_return_if_fail (f->get_file_info() != NULL);
 
     if (f->metadata && f->metadata->is_accessed(TAG_IMAGE))  return;
 

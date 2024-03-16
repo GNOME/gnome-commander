@@ -450,7 +450,7 @@ void SearchData::SearchDirRecursive(GnomeCmdDir *dir, long level)
     {
         // if list is not available or it's a local directory then create a new list, otherwise use already available list
         // gnome_cmd_dir_list_files is not used for creating a list, beacause it's tied to the GUI and that's not usable from other threads
-        files = sync_dir_list(GNOME_CMD_FILE (dir)->gFile, cancellable);
+        files = sync_dir_list(GNOME_CMD_FILE (dir)->get_file(), cancellable);
         isGnomeCmdFile = FALSE;
     }
 
@@ -460,7 +460,7 @@ void SearchData::SearchDirRecursive(GnomeCmdDir *dir, long level)
         if (stopped)         // if the stop button was pressed, let's abort here
             break;
 
-        GFileInfo *info = isGnomeCmdFile ? ((GnomeCmdFile *) i->data)->gFileInfo : (GFileInfo *) i->data;
+        GFileInfo *info = isGnomeCmdFile ? ((GnomeCmdFile *) i->data)->get_file_info() : (GFileInfo *) i->data;
 
         // if the file is a regular one, it might match the search criteria
         if (g_file_info_get_attribute_uint32 (info, G_FILE_ATTRIBUTE_STANDARD_TYPE) == G_FILE_TYPE_REGULAR)
@@ -472,7 +472,7 @@ void SearchData::SearchDirRecursive(GnomeCmdDir *dir, long level)
             // if the user wants to we should do some content matching here
             if (dialog->defaults.default_profile.content_search)
             {
-                GFile *file = isGnomeCmdFile ? ((GnomeCmdFile *) i->data)->gFile : g_file_get_child (((GnomeCmdFile *) dir)->gFile, g_file_info_get_name (info));
+                GFile *file = isGnomeCmdFile ? ((GnomeCmdFile *) i->data)->get_file() : g_file_get_child (((GnomeCmdFile *) dir)->get_file(), g_file_info_get_name (info));
                 gboolean matches = ContentMatches (file, info);
                 if (!isGnomeCmdFile)
                     g_object_unref (file);
@@ -506,7 +506,7 @@ void SearchData::SearchDirRecursive(GnomeCmdDir *dir, long level)
             if (stopped)         // if the stop button was pressed, let's abort here
                 break;
 
-            GFileInfo *info = isGnomeCmdFile ? ((GnomeCmdFile *) i->data)->gFileInfo : (GFileInfo *) i->data;
+            GFileInfo *info = isGnomeCmdFile ? ((GnomeCmdFile *) i->data)->get_file_info() : (GFileInfo *) i->data;
 
             // if the current file is a directory, let's continue our recursion
             if (g_file_info_get_attribute_uint32 (info, G_FILE_ATTRIBUTE_STANDARD_TYPE) == G_FILE_TYPE_DIRECTORY)

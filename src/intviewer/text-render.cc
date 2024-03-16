@@ -112,7 +112,6 @@ struct TextRender::Private
     PangoFontMetrics *disp_font_metrics;
     PangoFontDescription *font_desc;
     PangoLayout *layout;
-    GdkGC    *gc;
 
     unsigned char *utf8buf;
     int           utf8alloc;
@@ -473,9 +472,6 @@ static void text_render_realize (GtkWidget *widget)
     gdk_window_set_user_data (gtk_widget_get_window (widget), widget);
 
     gtk_style_set_background (gtk_widget_get_style (widget), gtk_widget_get_window (widget), GTK_STATE_ACTIVE);
-
-    obj->priv->gc = gdk_gc_new (gtk_widget_get_window (GTK_WIDGET (obj)));
-    gdk_gc_set_exposures (obj->priv->gc, TRUE);
 
     text_render_setup_font(obj, obj->priv->fixed_font_name, obj->priv->font_size);
 }
@@ -1685,7 +1681,10 @@ static int text_mode_display_line(TextRender *w, int y, int column, offset_type 
         marker_closer(w, marker_shown);
 
     pango_layout_set_markup (w->priv->layout, (gchar *) w->priv->utf8buf, w->priv->utf8buf_length);
-    gdk_draw_layout (gtk_widget_get_window (GTK_WIDGET (w)), w->priv->gc, -(w->priv->char_width*column), y, w->priv->layout);
+    cairo_t *cr = gdk_cairo_create (gtk_widget_get_window (GTK_WIDGET (w)));
+    cairo_translate (cr, -(w->priv->char_width*column), y);
+    pango_cairo_show_layout (cr, w->priv->layout);
+    cairo_destroy (cr);
 
     return 0;
 }
@@ -1744,7 +1743,10 @@ static int binary_mode_display_line(TextRender *w, int y, int column, offset_typ
         marker_closer(w, marker_shown);
 
     pango_layout_set_markup (w->priv->layout, (gchar *) w->priv->utf8buf, w->priv->utf8buf_length);
-    gdk_draw_layout (gtk_widget_get_window (GTK_WIDGET (w)), w->priv->gc, -(w->priv->char_width*column), y, w->priv->layout);
+    cairo_t *cr = gdk_cairo_create (gtk_widget_get_window (GTK_WIDGET (w)));
+    cairo_translate (cr, -(w->priv->char_width*column), y);
+    pango_cairo_show_layout (cr, w->priv->layout);
+    cairo_destroy (cr);
 
     return 0;
 }
@@ -1922,7 +1924,10 @@ static int hex_mode_display_line(TextRender *w, int y, int column, offset_type s
         marker_closer(w, marker_shown);
 
     pango_layout_set_markup (w->priv->layout, (gchar *) w->priv->utf8buf, w->priv->utf8buf_length);
-    gdk_draw_layout (gtk_widget_get_window (GTK_WIDGET (w)), w->priv->gc, 0, y, w->priv->layout);
+    cairo_t *cr = gdk_cairo_create (gtk_widget_get_window (GTK_WIDGET (w)));
+    cairo_translate (cr, 0, y);
+    pango_cairo_show_layout (cr, w->priv->layout);
+    cairo_destroy (cr);
 
     return 0;
 }

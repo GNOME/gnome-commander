@@ -130,7 +130,7 @@ inline void GnomeCmdFileSelector::update_selected_files_label()
 
             case G_FILE_TYPE_REGULAR:
                 num_files++;
-                total_bytes += g_file_info_get_size(f->gFileInfo);
+                total_bytes += g_file_info_get_size(f->get_file_info());
                 break;
 
             default:
@@ -1183,7 +1183,7 @@ static gboolean on_create_symlink_ok (GnomeCmdStringDialog *string_dialog, const
     }
     else
         gFile = gnome_cmd_dir_get_child_gfile (dir, fname);
-    auto absolutePath = g_file_get_parse_name(fs->priv->sym_file->gFile);
+    auto absolutePath = g_file_get_parse_name(fs->priv->sym_file->get_file());
 
     //if (g_file_make_symbolic_link (gFile, fs->priv->sym_file->get_uri_str(), nullptr, &error))
     if (g_file_make_symbolic_link (gFile, absolutePath, nullptr, &error))
@@ -1230,7 +1230,7 @@ void gnome_cmd_file_selector_show_new_textfile_dialog (GnomeCmdFileSelector *fs)
     {
         gnome_cmd_string_dialog_set_value (GNOME_CMD_STRING_DIALOG (dialog),
             0,
-            g_file_info_get_display_name(f->gFileInfo));
+            g_file_info_get_display_name(f->get_file_info()));
     }
     g_object_ref (dialog);
     gtk_widget_show (dialog);
@@ -1420,7 +1420,7 @@ void gnome_cmd_file_selector_create_symlinks (GnomeCmdFileSelector *fs, GList *f
 
         do
         {
-            auto absolutePathName = g_file_get_parse_name(f->gFile);
+            auto absolutePathName = g_file_get_parse_name(f->get_file());
             result = g_file_make_symbolic_link (gFile, absolutePathName, nullptr, &error);
             g_free(absolutePathName);
             if (!result) // 0 means it worked

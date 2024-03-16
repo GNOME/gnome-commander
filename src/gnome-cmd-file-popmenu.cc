@@ -120,18 +120,18 @@ static void mime_exec_multiple (GList *files, GnomeCmdApp *app)
     for (; files; files = files->next)
     {
         auto gnomeCmdFile = static_cast<GnomeCmdFile*> (files->data);
-        auto scheme = g_file_get_uri_scheme (gnomeCmdFile->gFile);
+        auto scheme = g_file_get_uri_scheme (gnomeCmdFile->get_file());
 
         if (g_strcmp0(scheme, "file") == 0)
         {
-            localGFileList = g_list_append (localGFileList, gnomeCmdFile->gFile);
+            localGFileList = g_list_append (localGFileList, gnomeCmdFile->get_file());
         }
         else
         {
             ++no_of_remote_files;
             if (gnome_cmd_app_get_handles_uris (app) && gnome_cmd_data.options.honor_expect_uris)
             {
-                localGFileList = g_list_append (localGFileList, gnomeCmdFile->gFile);
+                localGFileList = g_list_append (localGFileList, gnomeCmdFile->get_file());
             }
             else
             {
@@ -232,7 +232,7 @@ static void cb_exec_default (GtkMenuItem *menu_item, GList *files)
         }
         else
             gnome_cmd_show_message (nullptr,
-                g_file_info_get_display_name(file->gFileInfo),
+                g_file_info_get_display_name(file->get_file_info()),
                 _("Couldn’t retrieve MIME type of the file."));
     }
 
@@ -448,7 +448,7 @@ inline gboolean fav_app_matches_files (GnomeCmdApp *app, GList *files)
                 for (; patterns; patterns = patterns->next)
                 {
                     auto pattern = (gchar *) patterns->data;
-                    ok |= fnmatch (pattern, g_file_info_get_display_name(gnomeCmdFile->gFileInfo), fn_flags) == 0;
+                    ok |= fnmatch (pattern, g_file_info_get_display_name(gnomeCmdFile->get_file_info()), fn_flags) == 0;
                 }
 
                 if (!ok) return FALSE;

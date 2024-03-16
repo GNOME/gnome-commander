@@ -94,9 +94,9 @@ static void do_chmod (GnomeCmdFile *in, guint32 permissions, gboolean recursive,
         for (GList *i = gnome_cmd_dir_get_files (dir); i; i = i->next)
         {
             GnomeCmdFile *f = (GnomeCmdFile *) i->data;
-            auto filename = get_gfile_attribute_string(f->gFile, G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME);
+            auto filename = get_gfile_attribute_string(f->get_file(), G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME);
             if (!f->is_dotdot && strcmp (filename, ".") != 0
-                && !g_file_info_get_is_symlink(f->gFileInfo))
+                && !g_file_info_get_is_symlink(f->get_file_info()))
             {
                 do_chmod (f, permissions, TRUE, mode);
             }
@@ -234,7 +234,7 @@ GtkWidget *gnome_cmd_chmod_dialog_new (GList *files)
     dialog->priv->f = (GnomeCmdFile *) dialog->priv->files->data;
     g_return_val_if_fail (dialog->priv->f != NULL, NULL);
 
-    dialog->priv->permissions = get_gfile_attribute_uint32(dialog->priv->f->gFile, G_FILE_ATTRIBUTE_UNIX_MODE) & 0xFFF;
+    dialog->priv->permissions = get_gfile_attribute_uint32(dialog->priv->f->get_file(), G_FILE_ATTRIBUTE_UNIX_MODE) & 0xFFF;
 
     show_perms (dialog);
 

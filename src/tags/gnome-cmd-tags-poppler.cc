@@ -125,7 +125,7 @@ void gcmd_tags_poppler_load_metadata(GnomeCmdFile *f)
 {
 #ifdef HAVE_PDF
     g_return_if_fail (f != nullptr);
-    g_return_if_fail (f->gFileInfo != nullptr);
+    g_return_if_fail (f->get_file_info() != nullptr);
 
     if (f->metadata && f->metadata->is_accessed(TAG_PDF))  return;
 
@@ -139,13 +139,13 @@ void gcmd_tags_poppler_load_metadata(GnomeCmdFile *f)
     if (!f->is_local())  return;
 
     // skip non pdf files, as pdf metatags extraction is very expensive...
-    if (g_file_info_get_content_type (f->gFileInfo) == nullptr) return;
-    if (!strstr (g_file_info_get_content_type (f->gFileInfo), "pdf"))  return;
+    if (g_file_info_get_content_type (f->get_file_info()) == nullptr) return;
+    if (!strstr (g_file_info_get_content_type (f->get_file_info()), "pdf"))  return;
 
-    DEBUG('t', "Loading PDF metadata for '%s'\n", g_file_info_get_name(f->gFileInfo));
+    DEBUG('t', "Loading PDF metadata for '%s'\n", g_file_info_get_name(f->get_file_info()));
 
     GError *error = NULL;
-    gchar *uri = g_file_get_uri (f->gFile);
+    gchar *uri = g_file_get_uri (f->get_file());
 
     PopplerDocument *document = poppler_document_new_from_file(uri, NULL, &error);
     g_free(uri);

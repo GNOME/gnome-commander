@@ -585,13 +585,11 @@ static gboolean image_render_expose (GtkWidget *widget, GdkEventExpose *event)
         xc = widget_allocation.width / 2 - gdk_pixbuf_get_width (w->priv->disp_pixbuf)/2;
         yc = widget_allocation.height / 2 - gdk_pixbuf_get_height (w->priv->disp_pixbuf)/2;
 
-        gdk_draw_pixbuf (gtk_widget_get_window (widget),
-                NULL,
-                w->priv->disp_pixbuf,
-                0, 0, // source X, Y
-                xc, yc, // Dest X, Y
-                -1, -1, // Source W, H
-                 GDK_RGB_DITHER_NONE, 0, 0);
+        cairo_t *cr = gdk_cairo_create (gtk_widget_get_window (GTK_WIDGET (widget)));
+        cairo_translate (cr, xc, yc);
+        gdk_cairo_set_source_pixbuf (cr, w->priv->disp_pixbuf, 0.0, 0.0);
+        cairo_paint (cr);
+        cairo_destroy (cr);
     }
     else
     {
@@ -643,13 +641,11 @@ static gboolean image_render_expose (GtkWidget *widget, GdkEventExpose *event)
                 (int)w->priv->h_adjustment->value,
                 (int)w->priv->v_adjustment->value);
 #endif
-        gdk_draw_pixbuf(gtk_widget_get_window (widget),
-                        NULL,
-                        w->priv->disp_pixbuf,
-                        src_x, src_y,
-                        dst_x, dst_y,
-                        width, height,
-                        GDK_RGB_DITHER_NONE, 0, 0);
+        cairo_t *cr = gdk_cairo_create (gtk_widget_get_window (GTK_WIDGET (widget)));
+        cairo_translate (cr, -src_x, -src_y);
+        gdk_cairo_set_source_pixbuf (cr, w->priv->disp_pixbuf, dst_x, dst_y);
+        cairo_paint (cr);
+        cairo_destroy (cr);
     }
 
     if (g_atomic_int_get (&w->priv->orig_pixbuf_loaded)==0)

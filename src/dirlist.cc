@@ -117,7 +117,7 @@ void async_list (GnomeCmdDir *dir)
 
     dir->gFileInfoList = nullptr;
 
-    auto gFile = GNOME_CMD_FILE (dir)->gFile;
+    auto gFile = GNOME_CMD_FILE (dir)->get_file();
     gchar *uri_str = g_file_get_uri(gFile);
     DEBUG('l', "async_list: %s\n", uri_str);
     g_free (uri_str);
@@ -159,7 +159,7 @@ void sync_list (GnomeCmdDir *dir)
 
     dir->gFileInfoList = nullptr;
 
-    auto gFile = GNOME_CMD_FILE (dir)->gFile;
+    auto gFile = GNOME_CMD_FILE (dir)->get_file();
 
     auto gFileEnumerator = g_file_enumerate_children (gFile,
                             "*",

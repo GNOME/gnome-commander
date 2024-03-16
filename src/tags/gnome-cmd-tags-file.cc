@@ -32,7 +32,7 @@ using namespace std;
 void gcmd_tags_file_load_metadata(GnomeCmdFile *f)
 {
     g_return_if_fail (f != NULL);
-    g_return_if_fail (f->gFileInfo != NULL);
+    g_return_if_fail (f->get_file_info() != NULL);
 
     if (f->metadata && f->metadata->is_accessed(TAG_FILE))  return;
 
@@ -62,7 +62,7 @@ void gcmd_tags_file_load_metadata(GnomeCmdFile *f)
 
     f->metadata->add(TAG_FILE_SIZE, f->GetGfileAttributeUInt64(G_FILE_ATTRIBUTE_STANDARD_SIZE));
 
-    auto gFileInfo = g_file_query_info(f->gFile, "time::*" "," , G_FILE_QUERY_INFO_NONE, nullptr, nullptr);
+    auto gFileInfo = g_file_query_info(f->get_file(), "time::*" "," , G_FILE_QUERY_INFO_NONE, nullptr, nullptr);
 
 #ifdef GLIB_2_70
     auto accessTime = g_file_info_get_access_date_time (gFileInfo);
