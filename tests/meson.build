@@ -8,6 +8,7 @@ test('test_iv_viewerwidget',
     include_directories: [configuration_inc, libgcmd_inc, sources_inc],
     c_args: ['-DTEST_DIR="@0@"'.format(meson.current_source_dir())],
     link_with: [intviewer_lib],
+    override_options : ['c_std=c14', 'cpp_std=c++14'],
   ),
 )
 
@@ -18,6 +19,7 @@ test('test_iv_inputmodes',
     include_directories: [configuration_inc, libgcmd_inc, sources_inc],
     c_args: ['-DTEST_DIR="@0@"'.format(meson.current_source_dir())],
     link_with: [intviewer_lib],
+    override_options : ['c_std=c14', 'cpp_std=c++14'],
   ),
 )
 
@@ -28,6 +30,7 @@ test('test_iv_textrenderer',
     include_directories: [configuration_inc, libgcmd_inc, sources_inc],
     c_args: ['-DTEST_DIR="@0@"'.format(meson.current_source_dir())],
     link_with: [intviewer_lib],
+    override_options : ['c_std=c14', 'cpp_std=c++14'],
   ),
   workdir : meson.current_source_dir()
 )
@@ -39,6 +42,7 @@ test('test_iv_viewerwidget_test',
     include_directories: [configuration_inc, libgcmd_inc, sources_inc],
     c_args: ['-DTEST_DIR="@0@"'.format(meson.current_source_dir())],
     link_with: [intviewer_lib],
+    override_options : ['c_std=c14', 'cpp_std=c++14'],
   ),
   workdir : meson.current_source_dir()
 )
@@ -50,6 +54,7 @@ test('test_iv_fileops_test',
     include_directories: [configuration_inc, libgcmd_inc, sources_inc],
     c_args: ['-DTEST_DIR="@0@"'.format(meson.current_source_dir())],
     link_with: [intviewer_lib],
+    override_options : ['c_std=c14', 'cpp_std=c++14'],
   ),
   workdir : meson.current_source_dir()
 )
@@ -61,6 +66,7 @@ test('test_iv_bm_search_test',
     include_directories: [configuration_inc, libgcmd_inc, sources_inc],
     c_args: ['-DTEST_DIR="@0@"'.format(meson.current_source_dir())],
     link_with: [intviewer_lib],
+    override_options : ['c_std=c14', 'cpp_std=c++14'],
   ),
 )
 
@@ -71,6 +77,7 @@ test('test_iv_datapresentation_test',
     include_directories: [configuration_inc, libgcmd_inc, sources_inc],
     c_args: ['-DTEST_DIR="@0@"'.format(meson.current_source_dir())],
     link_with: [intviewer_lib],
+    override_options : ['c_std=c14', 'cpp_std=c++14'],
   ),
 )
 
@@ -81,5 +88,6 @@ test('test_utils_no_dependencies_tests',
     include_directories: [configuration_inc, libgcmd_inc, sources_inc],
     c_args: ['-DTEST_DIR="@0@"'.format(meson.current_source_dir())],
     link_with: [intviewer_lib],
+    override_options : ['c_std=c14', 'cpp_std=c++14'],
   ),
 )
