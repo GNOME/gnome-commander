@@ -36,8 +36,6 @@
 using namespace std;
 
 
-static GtkTableClass *parent_class = nullptr;
-
 // Class Private Data
 struct ScrollBoxPrivate
 {
@@ -53,33 +51,12 @@ static void scroll_box_class_init (ScrollBoxClass *klass);
 static void scroll_box_destroy (GtkObject *widget);
 static gboolean scroll_box_button_press(GtkWidget *widget, GdkEventButton *event, gpointer data);
 
+G_DEFINE_TYPE (ScrollBox, scroll_box, GTK_TYPE_TABLE)
+
 /*****************************************
     public functions
     (defined in the header file)
 *****************************************/
-GtkType scroll_box_get_type ()
-{
-    static GtkType type = 0;
-    if (type == 0)
-    {
-        GTypeInfo info =
-        {
-            sizeof (ScrollBoxClass),
-            nullptr,
-            nullptr,
-            (GClassInitFunc) scroll_box_class_init,
-            nullptr,
-            nullptr,
-            sizeof(ScrollBox),
-            0,
-            (GInstanceInitFunc) scroll_box_init
-        };
-        type = g_type_register_static (GTK_TYPE_TABLE, "scrollbox", &info, (GTypeFlags) 0);
-    }
-    return type;
-}
-
-
 GtkWidget* scroll_box_new ()
 {
     auto w = static_cast<ScrollBox*> (g_object_new (scroll_box_get_type (), nullptr));
@@ -93,7 +70,6 @@ static void scroll_box_class_init (ScrollBoxClass *klass)
     GtkObjectClass *object_class;
 
     object_class = GTK_OBJECT_CLASS (klass);
-    parent_class = (GtkTableClass *) gtk_type_class (gtk_table_get_type ());
 
     object_class->destroy = scroll_box_destroy;
 }
@@ -140,8 +116,7 @@ static void scroll_box_destroy (GtkObject *widget)
         w->priv = nullptr;
     }
 
-    if (GTK_OBJECT_CLASS (parent_class)->destroy)
-        (* GTK_OBJECT_CLASS (parent_class)->destroy)(widget);
+    GTK_OBJECT_CLASS (scroll_box_parent_class)->destroy (widget);
 }
 
 

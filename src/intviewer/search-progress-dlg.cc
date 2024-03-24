@@ -29,8 +29,6 @@
 using namespace std;
 
 
-static GtkDialogClass *parent_class = nullptr;
-
 static void search_progress_dlg_destroy (GtkObject *object);
 static void search_progress_dlg_action_response(GtkDialog *dlg, gint arg1, GViewerSearchProgressDlg *sdlg);
 
@@ -45,6 +43,9 @@ struct GViewerSearchProgressDlgPrivate
 };
 
 
+G_DEFINE_TYPE (GViewerSearchProgressDlg, gviewer_search_progress_dlg, GTK_TYPE_DIALOG)
+
+
 static void search_progress_dlg_action_response(GtkDialog *dlg, gint arg1, GViewerSearchProgressDlg *sdlg)
 {
     g_return_if_fail (sdlg != nullptr);
@@ -55,17 +56,15 @@ static void search_progress_dlg_action_response(GtkDialog *dlg, gint arg1, GView
 }
 
 
-static void search_progress_dlg_class_init(GViewerSearchProgressDlgClass *klass)
+static void gviewer_search_progress_dlg_class_init(GViewerSearchProgressDlgClass *klass)
 {
     GtkObjectClass *object_class = (GtkObjectClass *) klass;
-
-    parent_class = (GtkDialogClass *) gtk_type_class (gtk_dialog_get_type ());
 
     object_class->destroy = search_progress_dlg_destroy;
 }
 
 
-static void search_progress_dlg_init (GViewerSearchProgressDlg *sdlg)
+static void gviewer_search_progress_dlg_init (GViewerSearchProgressDlg *sdlg)
 {
     sdlg->priv = g_new0 (GViewerSearchProgressDlgPrivate, 1);
 
@@ -112,33 +111,7 @@ static void search_progress_dlg_destroy (GtkObject *object)
     g_free (w->priv);
     w->priv = nullptr;
 
-    if (GTK_OBJECT_CLASS (parent_class)->destroy)
-        (* GTK_OBJECT_CLASS (parent_class)->destroy) (object);
-}
-
-
-GType gviewer_search_progress_dlg_get_type ()
-{
-    static GType ttt_type = 0;
-    if (!ttt_type)
-    {
-        static const GTypeInfo ttt_info =
-        {
-            sizeof (GViewerSearchProgressDlgClass),
-            nullptr, // base_init
-            nullptr, // base_finalize
-            (GClassInitFunc) search_progress_dlg_class_init,
-            nullptr, // class_finalize
-            nullptr, // class_data
-            sizeof (GViewerSearchProgressDlg),
-            0, // n_preallocs
-            (GInstanceInitFunc) search_progress_dlg_init,
-        };
-
-        ttt_type = g_type_register_static (GTK_TYPE_DIALOG, "GViewerSearchProgressDlg", &ttt_info, (GTypeFlags) 0);
-    }
-
-  return ttt_type;
+    GTK_OBJECT_CLASS (gviewer_search_progress_dlg_parent_class)->destroy (object);
 }
 
 

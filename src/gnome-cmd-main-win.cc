@@ -119,9 +119,10 @@ struct GnomeCmdMainWin::Private
     guint key_snooper_id;
 };
 
-static GtkWindowClass *parent_class = nullptr;
-
 static guint signals[LAST_SIGNAL] = { 0 };
+
+G_DEFINE_TYPE (GnomeCmdMainWin, gnome_cmd_main_win, GTK_TYPE_WINDOW)
+
 
 static void gnome_cmd_main_win_real_switch_fs (GnomeCmdMainWin *mw, GnomeCmdFileSelector *fs);
 
@@ -820,17 +821,14 @@ static void destroy (GtkObject *object)
 
 static void map (GtkWidget *widget)
 {
-    if (GTK_WIDGET_CLASS (parent_class)->map != NULL)
-        GTK_WIDGET_CLASS (parent_class)->map (widget);
+    GTK_WIDGET_CLASS (gnome_cmd_main_win_parent_class)->map (widget);
 }
 
 
-static void class_init (GnomeCmdMainWinClass *klass)
+static void gnome_cmd_main_win_class_init (GnomeCmdMainWinClass *klass)
 {
     GtkObjectClass *object_class = GTK_OBJECT_CLASS (klass);
     GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
-
-    parent_class = (GtkWindowClass *) gtk_type_class (gtk_window_get_type ());
 
     signals[SWITCH_FS] =
         g_signal_new ("switch-fs",
@@ -848,7 +846,7 @@ static void class_init (GnomeCmdMainWinClass *klass)
 }
 
 
-static void init (GnomeCmdMainWin *mw)
+static void gnome_cmd_main_win_init (GnomeCmdMainWin *mw)
 {
     /* It is very important that this global variable gets assigned here so that
      * child widgets to this window can use that variable when initializing
@@ -951,31 +949,6 @@ static void init (GnomeCmdMainWin *mw)
     mw->focus_file_lists();
 
     mw->priv->key_snooper_id = gtk_key_snooper_install ((GtkKeySnoopFunc) gnome_cmd_key_snooper, mw);
-}
-
-
-GtkType gnome_cmd_main_win_get_type ()
-{
-    static GtkType mw_type = 0;
-
-    if (mw_type == 0)
-    {
-        GtkTypeInfo mw_info =
-        {
-            (gchar*) "GnomeCmdMainWin",
-            sizeof (GnomeCmdMainWin),
-            sizeof (GnomeCmdMainWinClass),
-            (GtkClassInitFunc) class_init,
-            (GtkObjectInitFunc) init,
-            /* reserved_1 */ NULL,
-            /* reserved_2 */ NULL,
-            (GtkClassInitFunc) NULL
-        };
-
-        mw_type = gtk_type_unique (gtk_window_get_type (), &mw_info);
-    }
-
-    return mw_type;
 }
 
 

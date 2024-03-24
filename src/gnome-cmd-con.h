@@ -130,7 +130,7 @@ struct GnomeCmdConClass
 };
 
 
-GtkType gnome_cmd_con_get_type ();
+GType gnome_cmd_con_get_type ();
 
 void gnome_cmd_con_set_base_path(GnomeCmdCon *con, GnomeCmdPath *path);
 void set_con_base_path_for_gmount(GnomeCmdCon *con, GMount *gMount);

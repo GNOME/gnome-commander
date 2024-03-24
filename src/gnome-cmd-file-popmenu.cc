@@ -62,13 +62,15 @@ struct ScriptData
     GList *allScripts;
 };
 
-static GtkMenuClass *parent_class = nullptr;
-
 
 struct GnomeCmdFilePopmenuPrivate
 {
     GList *data_list;
 };
+
+
+G_DEFINE_TYPE (GnomeCmdFilePopmenu, gnome_cmd_file_popmenu, GTK_TYPE_MENU)
+
 
 static void do_mime_exec_multiple (gpointer *args)
 {
@@ -488,31 +490,27 @@ static void destroy (GtkObject *object)
 
     g_free (menu->priv);
 
-    if (GTK_OBJECT_CLASS (parent_class)->destroy)
-        (*GTK_OBJECT_CLASS (parent_class)->destroy) (object);
+    GTK_OBJECT_CLASS (gnome_cmd_file_popmenu_parent_class)->destroy (object);
 }
 
 
 static void map (GtkWidget *widget)
 {
-    if (GTK_WIDGET_CLASS (parent_class)->map != nullptr)
-        GTK_WIDGET_CLASS (parent_class)->map (widget);
+    GTK_WIDGET_CLASS (gnome_cmd_file_popmenu_parent_class)->map (widget);
 }
 
 
-static void class_init (GnomeCmdFilePopmenuClass *klass)
+static void gnome_cmd_file_popmenu_class_init (GnomeCmdFilePopmenuClass *klass)
 {
     GtkObjectClass *object_class = GTK_OBJECT_CLASS (klass);
     GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
-
-    parent_class = (GtkMenuClass *) gtk_type_class (gtk_menu_get_type ());
 
     object_class->destroy = destroy;
     widget_class->map = ::map;
 }
 
 
-static void init (GnomeCmdFilePopmenu *menu)
+static void gnome_cmd_file_popmenu_init (GnomeCmdFilePopmenu *menu)
 {
     menu->priv = g_new0 (GnomeCmdFilePopmenuPrivate, 1);
 
@@ -691,29 +689,6 @@ GtkWidget *gnome_cmd_file_popmenu_new (GnomeCmdFileList *gnomeCmdFileList)
     return GTK_WIDGET (gtk_ui_manager_get_widget (uiManager, "/FilePopup"));
 }
 
-
-GtkType gnome_cmd_file_popmenu_get_type ()
-{
-    static GtkType dlg_type = 0;
-
-    if (dlg_type == 0)
-    {
-        GtkTypeInfo dlg_info =
-        {
-            (gchar*) "GnomeCmdFilePopmenu",
-            sizeof (GnomeCmdFilePopmenu),
-            sizeof (GnomeCmdFilePopmenuClass),
-            (GtkClassInitFunc) class_init,
-            (GtkObjectInitFunc) init,
-            /* reserved_1 */ nullptr,
-            /* reserved_2 */ nullptr,
-            (GtkClassInitFunc) nullptr
-        };
-
-        dlg_type = gtk_type_unique (gtk_menu_get_type (), &dlg_info);
-    }
-    return dlg_type;
-}
 
 /**
  * In this ui_manager the generic popup entries are placed. Dynamic entries will be added later.

@@ -46,7 +46,7 @@ struct GnomeCmdCmdlineClass
 
 GtkWidget *gnome_cmd_cmdline_new ();
 
-GtkType gnome_cmd_cmdline_get_type ();
+GType gnome_cmd_cmdline_get_type ();
 
 void gnome_cmd_cmdline_set_dir (GnomeCmdCmdline *cmdline, const gchar *cwd);
 

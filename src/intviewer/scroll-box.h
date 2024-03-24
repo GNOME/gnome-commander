@@ -42,7 +42,7 @@ struct ScrollBoxClass
 };
 
 GtkWidget     *scroll_box_new ();
-GtkType        scroll_box_get_type ();
+GType          scroll_box_get_type ();
 void           scroll_box_set_client (ScrollBox *obj, GtkWidget *client);
 GtkWidget     *scroll_box_get_client (ScrollBox *obj);
 

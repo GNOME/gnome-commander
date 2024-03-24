@@ -29,7 +29,7 @@
 using namespace std;
 
 
-static GtkWindowClass *parent_class = nullptr;
+G_DEFINE_TYPE(GnomeCmdXferProgressWin, gnome_cmd_xfer_progress_win, GTK_TYPE_WINDOW)
 
 
 /******************************
@@ -50,30 +50,27 @@ static void on_cancel (GtkButton *btn, GnomeCmdXferProgressWin *win)
 
 static void destroy (GtkObject *object)
 {
-    if (GTK_OBJECT_CLASS (parent_class)->destroy)
-        (*GTK_OBJECT_CLASS (parent_class)->destroy) (object);
+    GTK_OBJECT_CLASS (gnome_cmd_xfer_progress_win_parent_class)->destroy (object);
 }
 
 
 static void map (GtkWidget *widget)
 {
-    if (GTK_WIDGET_CLASS (parent_class)->map != nullptr)
-        GTK_WIDGET_CLASS (parent_class)->map (widget);
+    GTK_WIDGET_CLASS (gnome_cmd_xfer_progress_win_parent_class)->map (widget);
 }
 
 
-static void class_init (GnomeCmdXferProgressWinClass *klass)
+static void gnome_cmd_xfer_progress_win_class_init (GnomeCmdXferProgressWinClass *klass)
 {
     GtkObjectClass *object_class = GTK_OBJECT_CLASS (klass);
     GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
 
-    parent_class = (GtkWindowClass *) gtk_type_class (gtk_window_get_type ());
     object_class->destroy = destroy;
     widget_class->map = ::map;
 }
 
 
-static void init (GnomeCmdXferProgressWin *win)
+static void gnome_cmd_xfer_progress_win_init (GnomeCmdXferProgressWin *win)
 {
     GtkWidget *vbox;
     GtkWidget *bbox;
@@ -111,7 +108,6 @@ static void init (GnomeCmdXferProgressWin *win)
     gtk_container_add (GTK_CONTAINER (bbox), button);
 }
 
-
 /***********************************
  * Public functions
  ***********************************/
@@ -128,31 +124,6 @@ GtkWidget *gnome_cmd_xfer_progress_win_new (guint no_of_files)
     }
 
     return GTK_WIDGET (win);
-}
-
-
-GtkType gnome_cmd_xfer_progress_win_get_type ()
-{
-    static GtkType dlg_type = 0;
-
-    if (dlg_type == 0)
-    {
-        GtkTypeInfo dlg_info =
-        {
-            (gchar*) "GnomeCmdXferProgressWin",
-            sizeof (GnomeCmdXferProgressWin),
-            sizeof (GnomeCmdXferProgressWinClass),
-            (GtkClassInitFunc) class_init,
-            (GtkObjectInitFunc) init,
-            /* reserved_1 */ nullptr,
-            /* reserved_2 */ nullptr,
-            (GtkClassInitFunc) nullptr
-        };
-
-        dlg_type = gtk_type_unique (gtk_window_get_type (), &dlg_info);
-    }
-
-    return dlg_type;
 }
 
 

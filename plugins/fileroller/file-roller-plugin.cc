@@ -180,7 +180,9 @@ struct _FileRollerPluginPrivate
     PluginSettings *settings;
 };
 
-static GnomeCmdPluginClass *parent_class = nullptr;
+
+G_DEFINE_TYPE (FileRollerPlugin, file_roller_plugin, GNOME_CMD_TYPE_PLUGIN)
+
 
 gchar *GetGfileAttributeString(GFile *gFile, const char *attribute);
 
@@ -687,17 +689,14 @@ static void destroy (GtkObject *object)
     g_free (plugin->priv->file_prefix_pattern);
     g_free (plugin->priv);
 
-    if (GTK_OBJECT_CLASS (parent_class)->destroy)
-        (*GTK_OBJECT_CLASS (parent_class)->destroy) (object);
+    GTK_OBJECT_CLASS (file_roller_plugin_parent_class)->destroy (object);
 }
 
 
-static void class_init (FileRollerPluginClass *klass)
+static void file_roller_plugin_class_init (FileRollerPluginClass *klass)
 {
     GtkObjectClass *object_class = GTK_OBJECT_CLASS (klass);
     GnomeCmdPluginClass *plugin_class = GNOME_CMD_PLUGIN_CLASS (klass);
-
-    parent_class = (GnomeCmdPluginClass *) gtk_type_class (GNOME_CMD_TYPE_PLUGIN);
 
     object_class->destroy = destroy;
 
@@ -708,7 +707,7 @@ static void class_init (FileRollerPluginClass *klass)
 }
 
 
-static void init (FileRollerPlugin *plugin)
+static void file_roller_plugin_init (FileRollerPlugin *plugin)
 {
     GSettings *gsettings;
 
@@ -774,30 +773,6 @@ gchar *GetGfileAttributeString(GFile *gFile, const char *attribute)
 /***********************************
  * Public functions
  ***********************************/
-
-GtkType file_roller_plugin_get_type ()
-{
-    static GtkType type = 0;
-
-    if (type == 0)
-    {
-        GtkTypeInfo info =
-        {
-            (gchar*) "FileRollerPlugin",
-            sizeof (FileRollerPlugin),
-            sizeof (FileRollerPluginClass),
-            (GtkClassInitFunc) class_init,
-            (GtkObjectInitFunc) init,
-            /* reserved_1 */ nullptr,
-            /* reserved_2 */ nullptr,
-            (GtkClassInitFunc) nullptr
-        };
-
-        type = gtk_type_unique (GNOME_CMD_TYPE_PLUGIN, &info);
-    }
-    return type;
-}
-
 
 GnomeCmdPlugin *file_roller_plugin_new ()
 {

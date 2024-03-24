@@ -51,9 +51,6 @@ struct GnomeCmdFileSelectorClass
 };
 
 
-static GtkVBoxClass *parent_class = nullptr;
-
-
 class GnomeCmdFileSelector::Private
 {
   public:
@@ -75,6 +72,10 @@ class GnomeCmdFileSelector::Private
 enum {DIR_CHANGED, LAST_SIGNAL};
 
 static guint signals[LAST_SIGNAL] = { 0 };
+
+
+G_DEFINE_TYPE (GnomeCmdFileSelector, gnome_cmd_file_selector, GTK_TYPE_VBOX)
+
 
 /*******************************
  * Utility functions
@@ -730,24 +731,20 @@ static void destroy (GtkObject *object)
 
     delete fs->priv;
 
-    if (GTK_OBJECT_CLASS (parent_class)->destroy)
-        (*GTK_OBJECT_CLASS (parent_class)->destroy) (object);
+    GTK_OBJECT_CLASS (gnome_cmd_file_selector_parent_class)->destroy (object);
 }
 
 
 static void map (GtkWidget *widget)
 {
-    if (GTK_WIDGET_CLASS (parent_class)->map != nullptr)
-        GTK_WIDGET_CLASS (parent_class)->map (widget);
+    GTK_WIDGET_CLASS (gnome_cmd_file_selector_parent_class)->map (widget);
 }
 
 
-static void class_init (GnomeCmdFileSelectorClass *klass)
+static void gnome_cmd_file_selector_class_init (GnomeCmdFileSelectorClass *klass)
 {
     GtkObjectClass *object_class = GTK_OBJECT_CLASS (klass);;
     GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
-
-    parent_class = (GtkVBoxClass *) gtk_type_class (gtk_vbox_get_type ());
 
     signals[DIR_CHANGED] =
         gtk_signal_new ("dir-changed",
@@ -763,7 +760,7 @@ static void class_init (GnomeCmdFileSelectorClass *klass)
 }
 
 
-static void init (GnomeCmdFileSelector *fs)
+static void gnome_cmd_file_selector_init (GnomeCmdFileSelector *fs)
 {
     gint string_size = 0;
     gint max_string_size = 150;
@@ -858,35 +855,9 @@ static void init (GnomeCmdFileSelector *fs)
     fs->update_style();
 }
 
-
-
 /***********************************
  * Public functions
  ***********************************/
-
-GtkType gnome_cmd_file_selector_get_type ()
-{
-    static GtkType fs_type = 0;
-
-    if (fs_type == 0)
-    {
-        GtkTypeInfo fs_info =
-        {
-            (gchar*) "GnomeCmdFileSelector",
-            sizeof (GnomeCmdFileSelector),
-            sizeof (GnomeCmdFileSelectorClass),
-            (GtkClassInitFunc) class_init,
-            (GtkObjectInitFunc) init,
-            /* reserved_1 */ nullptr,
-            /* reserved_2 */ nullptr,
-            (GtkClassInitFunc) nullptr
-        };
-
-        fs_type = gtk_type_unique (gtk_vbox_get_type (), &fs_info);
-    }
-    return fs_type;
-}
-
 
 void GnomeCmdFileSelector::first()
 {

@@ -48,7 +48,7 @@ struct GnomeCmdConDevicePrivate
 };
 
 
-static GnomeCmdConClass *parent_class = nullptr;
+G_DEFINE_TYPE (GnomeCmdConDevice, gnome_cmd_con_device, GNOME_CMD_TYPE_CON)
 
 
 static gboolean is_mounted (GnomeCmdConDevice *dev_con)
@@ -463,19 +463,17 @@ static void destroy (GtkObject *object)
 
     g_free (con->priv);
 
-    if (GTK_OBJECT_CLASS (parent_class)->destroy)
-        (*GTK_OBJECT_CLASS (parent_class)->destroy) (object);
+    GTK_OBJECT_CLASS (gnome_cmd_con_device_parent_class)->destroy (object);
 }
 
 
-static void class_init (GnomeCmdConDeviceClass *klass)
+static void gnome_cmd_con_device_class_init (GnomeCmdConDeviceClass *klass)
 {
     GtkObjectClass *object_class;
     GnomeCmdConClass *con_class;
 
     object_class = GTK_OBJECT_CLASS (klass);
     con_class = GNOME_CMD_CON_CLASS (klass);
-    parent_class = static_cast<GnomeCmdConClass*> (gtk_type_class (GNOME_CMD_TYPE_CON));
 
     object_class->destroy = destroy;
 
@@ -488,7 +486,7 @@ static void class_init (GnomeCmdConDeviceClass *klass)
 }
 
 
-static void init (GnomeCmdConDevice *dev_con)
+static void gnome_cmd_con_device_init (GnomeCmdConDevice *dev_con)
 {
     GnomeCmdCon *con = GNOME_CMD_CON (dev_con);
 
@@ -506,34 +504,9 @@ static void init (GnomeCmdConDevice *dev_con)
     con->close_pixmap = nullptr;
 }
 
-
 /***********************************
  * Public functions
  ***********************************/
-
-GtkType gnome_cmd_con_device_get_type ()
-{
-    static GtkType type = 0;
-
-    if (type == 0)
-    {
-        GtkTypeInfo info =
-        {
-            (gchar *) "GnomeCmdConDevice",
-            sizeof (GnomeCmdConDevice),
-            sizeof (GnomeCmdConDeviceClass),
-            (GtkClassInitFunc) class_init,
-            (GtkObjectInitFunc) init,
-            /* reserved_1 */ nullptr,
-            /* reserved_2 */ nullptr,
-            (GtkClassInitFunc) nullptr
-        };
-
-        type = gtk_type_unique (GNOME_CMD_TYPE_CON, &info);
-    }
-    return type;
-}
-
 
 GnomeCmdConDevice *gnome_cmd_con_device_new (const gchar *alias, const gchar *device_fn, const gchar *mountp, const gchar *icon_path)
 {

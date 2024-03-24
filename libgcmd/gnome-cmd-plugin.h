@@ -51,7 +51,7 @@ struct _GnomeCmdPluginClass
 };
 
 
-GtkType gnome_cmd_plugin_get_type ();
+GType gnome_cmd_plugin_get_type ();
 
 GtkWidget *gnome_cmd_plugin_create_main_menu (GnomeCmdPlugin *plugin, GnomeCmdState *state);
 

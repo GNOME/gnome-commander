@@ -66,7 +66,7 @@ inline void gnome_cmd_string_dialog_setup (GnomeCmdStringDialog *dialog, const g
     gnome_cmd_string_dialog_setup_with_cancel (dialog, title, labels, rows, ok_cb, NULL, user_data);
 }
 
-GtkType gnome_cmd_string_dialog_get_type ();
+GType gnome_cmd_string_dialog_get_type ();
 
 void gnome_cmd_string_dialog_set_title (GnomeCmdStringDialog *dialog, const gchar *title);
 

@@ -33,7 +33,7 @@
 using namespace std;
 
 
-static GnomeCmdDialogClass *parent_class = nullptr;
+G_DEFINE_TYPE (GnomeCmdPrepareXferDialog, gnome_cmd_prepare_xfer_dialog, GNOME_CMD_TYPE_DIALOG)
 
 
 inline gboolean con_device_has_path (FileSelectorID fsID, GnomeCmdCon *&dev, const gchar *user_path)
@@ -325,31 +325,27 @@ static void destroy (GtkObject *object)
 
     gnome_cmd_file_list_unref (dialog->src_files);
 
-    if (GTK_OBJECT_CLASS (parent_class)->destroy)
-        (*GTK_OBJECT_CLASS (parent_class)->destroy) (object);
+    GTK_OBJECT_CLASS (gnome_cmd_prepare_xfer_dialog_parent_class)->destroy (object);
 }
 
 
 static void map (GtkWidget *widget)
 {
-    if (GTK_WIDGET_CLASS (parent_class)->map != NULL)
-        GTK_WIDGET_CLASS (parent_class)->map (widget);
+    GTK_WIDGET_CLASS (gnome_cmd_prepare_xfer_dialog_parent_class)->map (widget);
 }
 
 
-static void class_init (GnomeCmdPrepareXferDialogClass *klass)
+static void gnome_cmd_prepare_xfer_dialog_class_init (GnomeCmdPrepareXferDialogClass *klass)
 {
     GtkObjectClass *object_class = GTK_OBJECT_CLASS (klass);
     GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
-
-    parent_class = (GnomeCmdDialogClass *) gtk_type_class (GNOME_CMD_TYPE_DIALOG);
 
     object_class->destroy = destroy;
     widget_class->map = ::map;
 }
 
 
-static void init (GnomeCmdPrepareXferDialog *dialog)
+static void gnome_cmd_prepare_xfer_dialog_init (GnomeCmdPrepareXferDialog *dialog)
 {
     GtkWidget *dest_dir_vbox, *dir_entry;
 
@@ -394,30 +390,6 @@ static void init (GnomeCmdPrepareXferDialog *dialog)
 /***********************************
  * Public functions
  ***********************************/
-
-GtkType gnome_cmd_prepare_xfer_dialog_get_type ()
-{
-    static GtkType dlg_type = 0;
-
-    if (dlg_type == 0)
-    {
-        GtkTypeInfo dlg_info =
-        {
-            (gchar*) "GnomeCmdPrepareXferDialog",
-            sizeof (GnomeCmdPrepareXferDialog),
-            sizeof (GnomeCmdPrepareXferDialogClass),
-            (GtkClassInitFunc) class_init,
-            (GtkObjectInitFunc) init,
-            /* reserved_1 */ NULL,
-            /* reserved_2 */ NULL,
-            (GtkClassInitFunc) NULL
-        };
-
-        dlg_type = gtk_type_unique (GNOME_CMD_TYPE_DIALOG, &dlg_info);
-    }
-    return dlg_type;
-}
-
 
 inline gboolean path_points_at_directory (GnomeCmdFileSelector *to, const gchar *dest_path)
 {

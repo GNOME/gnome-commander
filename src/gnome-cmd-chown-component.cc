@@ -37,7 +37,7 @@ struct GnomeCmdChownComponentPrivate
 };
 
 
-static GtkTableClass *parent_class = NULL;
+G_DEFINE_TYPE (GnomeCmdChownComponent, gnome_cmd_chown_component, GTK_TYPE_TABLE)
 
 
 /*******************************
@@ -50,30 +50,27 @@ static void destroy (GtkObject *object)
 
     g_free (comp->priv);
 
-    if (GTK_OBJECT_CLASS (parent_class)->destroy)
-        (*GTK_OBJECT_CLASS (parent_class)->destroy) (object);
+    GTK_OBJECT_CLASS (gnome_cmd_chown_component_parent_class)->destroy (object);
 }
 
 
 static void map (GtkWidget *widget)
 {
-    if (GTK_WIDGET_CLASS (parent_class)->map != NULL)
-        GTK_WIDGET_CLASS (parent_class)->map (widget);
+    GTK_WIDGET_CLASS (gnome_cmd_chown_component_parent_class)->map (widget);
 }
 
 
-static void class_init (GnomeCmdChownComponentClass *klass)
+static void gnome_cmd_chown_component_class_init (GnomeCmdChownComponentClass *klass)
 {
     GtkObjectClass *object_class = GTK_OBJECT_CLASS (klass);
     GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
 
-    parent_class = (GtkTableClass *) gtk_type_class (gtk_table_get_type ());
     object_class->destroy = destroy;
     widget_class->map = ::map;
 }
 
 
-static void init (GnomeCmdChownComponent *comp)
+static void gnome_cmd_chown_component_init (GnomeCmdChownComponent *comp)
 {
     GtkWidget *label;
 
@@ -125,30 +122,6 @@ GtkWidget *gnome_cmd_chown_component_new ()
     load_users_and_groups (comp);
 
     return GTK_WIDGET (comp);
-}
-
-
-GtkType gnome_cmd_chown_component_get_type ()
-{
-    static GtkType type = 0;
-
-    if (type == 0)
-    {
-        GtkTypeInfo info =
-        {
-            (gchar*) "GnomeCmdChownComponent",
-            sizeof (GnomeCmdChownComponent),
-            sizeof (GnomeCmdChownComponentClass),
-            (GtkClassInitFunc) class_init,
-            (GtkObjectInitFunc) init,
-            /* reserved_1 */ NULL,
-            /* reserved_2 */ NULL,
-            (GtkClassInitFunc) NULL
-        };
-
-        type = gtk_type_unique (gtk_table_get_type (), &info);
-    }
-    return type;
 }
 
 

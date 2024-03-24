@@ -32,7 +32,7 @@
 using namespace std;
 
 
-static GtkMenuClass *parent_class = nullptr;
+G_DEFINE_TYPE (GnomeCmdListPopmenu, gnome_cmd_list_popmenu, GTK_TYPE_MENU)
 
 
 static void on_new_directory (GtkMenuItem *item, GnomeCmdFileSelector *fs)
@@ -65,30 +65,27 @@ static void on_paste (GtkMenuItem *item, GnomeCmdFileSelector *fs)
 
 static void destroy (GtkObject *object)
 {
-    if (GTK_OBJECT_CLASS (parent_class)->destroy)
-        (*GTK_OBJECT_CLASS (parent_class)->destroy) (object);
+    GTK_OBJECT_CLASS (gnome_cmd_list_popmenu_parent_class)->destroy (object);
 }
 
 
 static void map (GtkWidget *widget)
 {
-    if (GTK_WIDGET_CLASS (parent_class)->map != nullptr)
-        GTK_WIDGET_CLASS (parent_class)->map (widget);
+    GTK_WIDGET_CLASS (gnome_cmd_list_popmenu_parent_class)->map (widget);
 }
 
 
-static void class_init (GnomeCmdListPopmenuClass *klass)
+static void gnome_cmd_list_popmenu_class_init (GnomeCmdListPopmenuClass *klass)
 {
     GtkObjectClass *object_class = GTK_OBJECT_CLASS (klass);
     GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
 
-    parent_class = (GtkMenuClass *) gtk_type_class (gtk_menu_get_type ());
     object_class->destroy = destroy;
     widget_class->map = ::map;
 }
 
 
-static void init (GnomeCmdListPopmenu *menu)
+static void gnome_cmd_list_popmenu_init (GnomeCmdListPopmenu *menu)
 {
 }
 
@@ -149,26 +146,3 @@ GtkWidget *gnome_cmd_list_popmenu_new (GnomeCmdFileSelector *fs)
     return GTK_WIDGET (menu);
 }
 
-
-GtkType gnome_cmd_list_popmenu_get_type ()
-{
-    static GtkType type = 0;
-
-    if (type == 0)
-    {
-        GtkTypeInfo info =
-        {
-            (gchar*) "GnomeCmdListPopmenu",
-            sizeof (GnomeCmdListPopmenu),
-            sizeof (GnomeCmdListPopmenuClass),
-            (GtkClassInitFunc) class_init,
-            (GtkObjectInitFunc) init,
-            /* reserved_1 */ nullptr,
-            /* reserved_2 */ nullptr,
-            (GtkClassInitFunc) nullptr
-        };
-
-        type = gtk_type_unique (gtk_menu_get_type (), &info);
-    }
-    return type;
-}

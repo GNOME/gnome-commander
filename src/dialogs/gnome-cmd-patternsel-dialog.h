@@ -48,4 +48,4 @@ struct GnomeCmdPatternselDialogClass
 
 GtkWidget *gnome_cmd_patternsel_dialog_new (GnomeCmdFileList *fl, gboolean mode);
 
-GtkType gnome_cmd_patternsel_dialog_get_type ();
+GType gnome_cmd_patternsel_dialog_get_type ();

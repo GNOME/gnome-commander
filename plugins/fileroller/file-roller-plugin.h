@@ -49,7 +49,7 @@ struct _FileRollerPluginClass
     GnomeCmdPluginClass parent_class;
 };
 
-GtkType file_roller_plugin_get_type ();
+GType file_roller_plugin_get_type ();
 
 GnomeCmdPlugin *file_roller_plugin_new ();
 extern "C"

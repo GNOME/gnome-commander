@@ -68,8 +68,6 @@ struct GViewerPrivate
 
 };
 
-static GtkTableClass *parent_class = NULL;
-
 enum
 {
   STATUS_LINE_CHANGED,
@@ -90,33 +88,12 @@ static gboolean on_text_viewer_button_pressed (GtkWidget *treeview, GdkEventButt
 static VIEWERDISPLAYMODE guess_display_mode(const char *filename, int len);
 static void gviewer_auto_detect_display_mode(GViewer *obj);
 
+G_DEFINE_TYPE (GViewer, gviewer, GTK_TYPE_TABLE)
+
 /*****************************************
     public functions
     (defined in the header file)
 *****************************************/
-GtkType gviewer_get_type ()
-{
-    static GtkType type = 0;
-    if (type == 0)
-    {
-        GTypeInfo info =
-        {
-            sizeof (GViewerClass),
-            NULL,
-            NULL,
-            (GClassInitFunc) gviewer_class_init,
-            NULL,
-            NULL,
-            sizeof(GViewer),
-            0,
-            (GInstanceInitFunc) gviewer_init
-        };
-        type = g_type_register_static (GTK_TYPE_TABLE, "gviewerwidget", &info, (GTypeFlags) 0);
-    }
-
-    return type;
-}
-
 
 GtkWidget *gviewer_new ()
 {
@@ -129,8 +106,6 @@ GtkWidget *gviewer_new ()
 static void gviewer_class_init (GViewerClass *klass)
 {
     GtkObjectClass *object_class = GTK_OBJECT_CLASS(klass);
-
-    parent_class = (GtkTableClass *) gtk_type_class (gtk_table_get_type ());
 
     object_class->destroy = gviewer_destroy;
 
@@ -287,10 +262,7 @@ static void gviewer_destroy (GtkObject *widget)
         w->priv = NULL;
     }
 
-    if (GTK_OBJECT_CLASS(parent_class)->destroy)
-    {
-        (*GTK_OBJECT_CLASS(parent_class)->destroy) (widget);
-    }
+    GTK_OBJECT_CLASS (gviewer_parent_class)->destroy (widget);
 }
 
 

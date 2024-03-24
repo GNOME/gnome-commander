@@ -132,7 +132,7 @@ inline GtkWidget *GnomeCmdFileSelector::new_tab(GnomeCmdDir *dir, gboolean activ
     return new_tab(dir, file_list()->get_sort_column(), file_list()->get_sort_order(), FALSE, activate);
 }
 
-GtkType gnome_cmd_file_selector_get_type ();
+GType gnome_cmd_file_selector_get_type ();
 
 inline GtkWidget *gnome_cmd_file_selector_new ()
 {

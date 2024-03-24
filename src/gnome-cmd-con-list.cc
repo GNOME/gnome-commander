@@ -50,9 +50,6 @@ struct GnomeCmdConList::Private
     GList *all_cons;
 };
 
-
-static GtkObjectClass *parent_class = nullptr;
-
 enum
 {
     LIST_CHANGED,
@@ -63,6 +60,9 @@ enum
 };
 
 static guint signals[LAST_SIGNAL] = { 0 };
+
+
+G_DEFINE_TYPE (GnomeCmdConList, gnome_cmd_con_list, GTK_TYPE_OBJECT)
 
 
 static void on_con_updated (GnomeCmdCon *con, GnomeCmdConList *con_list)
@@ -96,15 +96,13 @@ static void destroy (GtkObject *object)
 
     g_free (con_list->priv);
 
-    if (GTK_OBJECT_CLASS (parent_class)->destroy)
-        (*GTK_OBJECT_CLASS (parent_class)->destroy) (object);
+    GTK_OBJECT_CLASS (gnome_cmd_con_list_parent_class)->destroy (object);
 }
 
 
-static void class_init (GnomeCmdConListClass *klass)
+static void gnome_cmd_con_list_class_init (GnomeCmdConListClass *klass)
 {
     GtkObjectClass *object_class = GTK_OBJECT_CLASS (klass);
-    parent_class = (GtkObjectClass *) gtk_type_class (gtk_object_get_type ());
 
     signals[LIST_CHANGED]           = gtk_signal_new ("list-changed",
                                                               GTK_RUN_LAST,
@@ -142,7 +140,7 @@ static void class_init (GnomeCmdConListClass *klass)
 }
 
 
-static void init (GnomeCmdConList *con_list)
+static void gnome_cmd_con_list_init (GnomeCmdConList *con_list)
 {
     con_list->priv = g_new0 (GnomeCmdConList::Private, 1);
 
@@ -163,35 +161,9 @@ static void init (GnomeCmdConList *con_list)
 #endif
 }
 
-
-
 /***********************************
  * Public functions
  ***********************************/
-
-GtkType gnome_cmd_con_list_get_type ()
-{
-    static GtkType type = 0;
-
-    if (type == 0)
-    {
-        GtkTypeInfo info =
-        {
-            (gchar*) "GnomeCmdConList",
-            sizeof (GnomeCmdConList),
-            sizeof (GnomeCmdConListClass),
-            (GtkClassInitFunc) class_init,
-            (GtkObjectInitFunc) init,
-            /* reserved_1 */ nullptr,
-            /* reserved_2 */ nullptr,
-            (GtkClassInitFunc) nullptr
-        };
-
-        type = gtk_type_unique (gtk_object_get_type (), &info);
-    }
-    return type;
-}
-
 
 void GnomeCmdConList::lock()
 {

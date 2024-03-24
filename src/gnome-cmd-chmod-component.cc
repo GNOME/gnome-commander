@@ -45,8 +45,10 @@ struct GnomeCmdChmodComponentPrivate
 enum {PERMS_CHANGED, LAST_SIGNAL};
 
 
-static GtkVBoxClass *parent_class = NULL;
 static guint chmod_component_signals[LAST_SIGNAL] = { 0 };
+
+
+G_DEFINE_TYPE (GnomeCmdChmodComponent, gnome_cmd_chmod_component, GTK_TYPE_VBOX)
 
 
 static void on_perms_changed (GnomeCmdChmodComponent *comp)
@@ -79,24 +81,21 @@ static void destroy (GtkObject *object)
 
     g_free (comp->priv);
 
-    if (GTK_OBJECT_CLASS (parent_class)->destroy)
-        (*GTK_OBJECT_CLASS (parent_class)->destroy) (object);
+    GTK_OBJECT_CLASS (gnome_cmd_chmod_component_parent_class)->destroy (object);
 }
 
 
 static void map (GtkWidget *widget)
 {
-    if (GTK_WIDGET_CLASS (parent_class)->map != NULL)
-        GTK_WIDGET_CLASS (parent_class)->map (widget);
+    GTK_WIDGET_CLASS (gnome_cmd_chmod_component_parent_class)->map (widget);
 }
 
 
-static void class_init (GnomeCmdChmodComponentClass *klass)
+static void gnome_cmd_chmod_component_class_init (GnomeCmdChmodComponentClass *klass)
 {
     GtkObjectClass *object_class = GTK_OBJECT_CLASS (klass);
     GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
 
-    parent_class = (GtkVBoxClass *) gtk_type_class (gtk_vbox_get_type ());
     object_class->destroy = destroy;
     widget_class->map = ::map;
 
@@ -113,7 +112,7 @@ static void class_init (GnomeCmdChmodComponentClass *klass)
 }
 
 
-static void init (GnomeCmdChmodComponent *comp)
+static void gnome_cmd_chmod_component_init (GnomeCmdChmodComponent *comp)
 {
     GtkWidget *label;
     GtkWidget *hsep;
@@ -164,7 +163,6 @@ static void init (GnomeCmdChmodComponent *comp)
     table_add (table, comp->priv->numberview_label, 1, 1, (GtkAttachOptions) (GTK_FILL|GTK_EXPAND));
 }
 
-
 /***********************************
  * Public functions
  ***********************************/
@@ -178,29 +176,6 @@ GtkWidget *gnome_cmd_chmod_component_new (guint32 perms)
     return GTK_WIDGET (comp);
 }
 
-
-GtkType gnome_cmd_chmod_component_get_type ()
-{
-    static GtkType type = 0;
-
-    if (type == 0)
-    {
-        GtkTypeInfo info =
-        {
-            (gchar*) "GnomeCmdChmodComponent",
-            sizeof (GnomeCmdChmodComponent),
-            sizeof (GnomeCmdChmodComponentClass),
-            (GtkClassInitFunc) class_init,
-            (GtkObjectInitFunc) init,
-            /* reserved_1 */ NULL,
-            /* reserved_2 */ NULL,
-            (GtkClassInitFunc) NULL
-        };
-
-        type = gtk_type_unique (gtk_vbox_get_type (), &info);
-    }
-    return type;
-}
 
 guint32 gnome_cmd_chmod_component_get_perms (GnomeCmdChmodComponent *comp)
 {

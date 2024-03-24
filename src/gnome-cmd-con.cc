@@ -50,7 +50,8 @@ enum
 
 static guint signals[LAST_SIGNAL] = { 0 };
 
-static GtkObjectClass *parent_class = nullptr;
+
+G_DEFINE_TYPE (GnomeCmdCon, gnome_cmd_con, GTK_TYPE_OBJECT)
 
 
 // Keep this in sync with enum ConnectionMethodID in gnome-cmd-con.h
@@ -113,17 +114,15 @@ static void destroy (GtkObject *object)
 
     g_free (con->priv);
 
-    if (GTK_OBJECT_CLASS (parent_class)->destroy)
-        (*GTK_OBJECT_CLASS (parent_class)->destroy) (object);
+    GTK_OBJECT_CLASS (gnome_cmd_con_parent_class)->destroy (object);
 }
 
 
-static void class_init (GnomeCmdConClass *klass)
+static void gnome_cmd_con_class_init (GnomeCmdConClass *klass)
 {
     GtkObjectClass *object_class;
 
     object_class = GTK_OBJECT_CLASS (klass);
-    parent_class = (GtkObjectClass *) gtk_type_class (gtk_object_get_type ());
 
     signals[UPDATED] =
         gtk_signal_new ("updated",
@@ -176,7 +175,7 @@ static void class_init (GnomeCmdConClass *klass)
 }
 
 
-static void init (GnomeCmdCon *con)
+static void gnome_cmd_con_init (GnomeCmdCon *con)
 {
     con->alias = nullptr;
     con->uri = nullptr;
@@ -219,34 +218,9 @@ static void init (GnomeCmdCon *con)
 }
 
 
-
 /***********************************
  * Public functions
  ***********************************/
-
-GtkType gnome_cmd_con_get_type ()
-{
-    static GtkType type = 0;
-
-    if (type == 0)
-    {
-        GtkTypeInfo info =
-        {
-            (gchar*) "GnomeCmdCon",
-            sizeof (GnomeCmdCon),
-            sizeof (GnomeCmdConClass),
-            (GtkClassInitFunc) class_init,
-            (GtkObjectInitFunc) init,
-            /* reserved_1 */ nullptr,
-            /* reserved_2 */ nullptr,
-            (GtkClassInitFunc) nullptr
-        };
-
-        type = gtk_type_unique (gtk_object_get_type (), &info);
-    }
-    return type;
-}
-
 
 static gboolean check_con_open_progress (GnomeCmdCon *con)
 {

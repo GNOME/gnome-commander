@@ -34,7 +34,7 @@ struct GnomeCmdStringDialog::Private
 };
 
 
-static GnomeCmdDialogClass *parent_class = NULL;
+G_DEFINE_TYPE (GnomeCmdStringDialog, gnome_cmd_string_dialog, GNOME_CMD_TYPE_DIALOG)
 
 
 static void on_ok (GtkButton *button, GnomeCmdStringDialog *dialog)
@@ -76,8 +76,7 @@ static void destroy (GtkObject *object)
 {
     GnomeCmdStringDialog *dialog = GNOME_CMD_STRING_DIALOG (object);
 
-    if (GTK_OBJECT_CLASS (parent_class)->destroy)
-        (*GTK_OBJECT_CLASS (parent_class)->destroy) (object);
+    GTK_OBJECT_CLASS (gnome_cmd_string_dialog_parent_class)->destroy (object);
 
     if (dialog->priv)
         g_free (dialog->priv->error_desc);
@@ -89,12 +88,11 @@ static void destroy (GtkObject *object)
 
 static void map (GtkWidget *widget)
 {
-    if (GTK_WIDGET_CLASS (parent_class)->map != NULL)
-        GTK_WIDGET_CLASS (parent_class)->map (widget);
+    GTK_WIDGET_CLASS (gnome_cmd_string_dialog_parent_class)->map (widget);
 }
 
 
-static void class_init (GnomeCmdStringDialogClass *klass)
+static void gnome_cmd_string_dialog_class_init (GnomeCmdStringDialogClass *klass)
 {
     GtkObjectClass *object_class;
     GtkWidgetClass *widget_class;
@@ -102,13 +100,12 @@ static void class_init (GnomeCmdStringDialogClass *klass)
     object_class = GTK_OBJECT_CLASS (klass);
     widget_class = GTK_WIDGET_CLASS (klass);
 
-    parent_class = (GnomeCmdDialogClass *) gtk_type_class (GNOME_CMD_TYPE_DIALOG);
     object_class->destroy = destroy;
     widget_class->map = map;
 }
 
 
-static void init (GnomeCmdStringDialog *string_dialog)
+static void gnome_cmd_string_dialog_init (GnomeCmdStringDialog *string_dialog)
 {
     string_dialog->priv = g_new0 (GnomeCmdStringDialog::Private, 1);
     string_dialog->rows = -1;
@@ -150,30 +147,6 @@ inline void setup_widget (GnomeCmdStringDialog *string_dialog, gint rows)
 /***********************************
  * Public functions
  ***********************************/
-
-GtkType gnome_cmd_string_dialog_get_type ()
-{
-    static GtkType dlg_type = 0;
-
-    if (dlg_type == 0)
-    {
-        GtkTypeInfo dlg_info =
-        {
-            (gchar*) "GnomeCmdStringDialog",
-            sizeof (GnomeCmdStringDialog),
-            sizeof (GnomeCmdStringDialogClass),
-            (GtkClassInitFunc) class_init,
-            (GtkObjectInitFunc) init,
-            /* reserved_1 */ NULL,
-            /* reserved_2 */ NULL,
-            (GtkClassInitFunc) NULL
-        };
-
-        dlg_type = gtk_type_unique (GNOME_CMD_TYPE_DIALOG, &dlg_info);
-    }
-    return dlg_type;
-}
-
 
 GtkWidget *gnome_cmd_string_dialog_new_with_cancel (const gchar *title, const gchar **labels, gint rows, GnomeCmdStringDialogCallback ok_cb, GtkSignalFunc cancel_cb, gpointer user_data)
 {

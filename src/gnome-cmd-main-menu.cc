@@ -53,7 +53,7 @@ struct GnomeCmdMainMenuPrivate
 };
 
 
-static GtkMenuBarClass *parent_class = nullptr;
+G_DEFINE_TYPE (GnomeCmdMainMenu, gnome_cmd_main_menu, GTK_TYPE_MENU_BAR)
 
 
 /*******************************
@@ -183,24 +183,21 @@ static void destroy (GtkObject *object)
 
     g_free (menu->priv);
 
-    if (GTK_OBJECT_CLASS (parent_class)->destroy)
-        (*GTK_OBJECT_CLASS (parent_class)->destroy) (object);
+    GTK_OBJECT_CLASS (gnome_cmd_main_menu_parent_class)->destroy (object);
 }
 
 
 static void map (GtkWidget *widget)
 {
-    if (GTK_WIDGET_CLASS (parent_class)->map != nullptr)
-        GTK_WIDGET_CLASS (parent_class)->map (widget);
+    GTK_WIDGET_CLASS (gnome_cmd_main_menu_parent_class)->map (widget);
 }
 
 
-static void class_init (GnomeCmdMainMenuClass *klass)
+static void gnome_cmd_main_menu_class_init (GnomeCmdMainMenuClass *klass)
 {
     GtkObjectClass *object_class = GTK_OBJECT_CLASS (klass);
     GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
 
-    parent_class = (GtkMenuBarClass *) gtk_type_class (gtk_menu_bar_get_type ());
     object_class->destroy = destroy;
     widget_class->map = ::map;
 }
@@ -434,7 +431,7 @@ static GtkUIManager *get_file_menu_ui_manager()
     return uiManager;
 }
 
-static void init (GnomeCmdMainMenu *main_menu)
+static void gnome_cmd_main_menu_init (GnomeCmdMainMenu *main_menu)
 {
 
     GtkUIManager *uiManager = get_file_menu_ui_manager();
@@ -470,8 +467,6 @@ static void init (GnomeCmdMainMenu *main_menu)
     gnome_cmd_main_menu_update_connections (main_menu);
 }
 
-
-
 /***********************************
  * Public functions
  ***********************************/
@@ -479,30 +474,6 @@ static void init (GnomeCmdMainMenu *main_menu)
 GtkWidget *gnome_cmd_main_menu_new ()
 {
     return (GtkWidget *) g_object_new (GNOME_CMD_TYPE_MAIN_MENU, nullptr);
-}
-
-
-GtkType gnome_cmd_main_menu_get_type ()
-{
-    static GtkType dlg_type = 0;
-
-    if (dlg_type == 0)
-    {
-        GtkTypeInfo dlg_info =
-        {
-            (gchar*) "GnomeCmdMainMenu",
-            sizeof (GnomeCmdMainMenu),
-            sizeof (GnomeCmdMainMenuClass),
-            (GtkClassInitFunc) class_init,
-            (GtkObjectInitFunc) init,
-            /* reserved_1 */ nullptr,
-            /* reserved_2 */ nullptr,
-            (GtkClassInitFunc) nullptr
-        };
-
-        dlg_type = gtk_type_unique (gtk_menu_bar_get_type (), &dlg_info);
-    }
-    return dlg_type;
 }
 
 

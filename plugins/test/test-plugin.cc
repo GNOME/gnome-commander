@@ -50,7 +50,8 @@ struct _TestPluginPrivate
 #endif
 };
 
-static GnomeCmdPluginClass *parent_class = NULL;
+
+G_DEFINE_TYPE(TestPlugin, test_plugin, GNOME_CMD_TYPE_PLUGIN)
 
 
 static void show_dummy_dialog()
@@ -156,19 +157,17 @@ static void destroy (GtkObject *object)
 {
     //TestPlugin *plugin = TEST_PLUGIN (object);
 
-    if (GTK_OBJECT_CLASS (parent_class)->destroy)
-        (*GTK_OBJECT_CLASS (parent_class)->destroy) (object);
+    GTK_OBJECT_CLASS (test_plugin_parent_class)->destroy (object);
 }
 
 
-static void class_init (TestPluginClass *klass)
+static void test_plugin_class_init (TestPluginClass *klass)
 {
     GtkObjectClass *object_class;
     GnomeCmdPluginClass *plugin_class;
 
     object_class = GTK_OBJECT_CLASS (klass);
     plugin_class = GNOME_CMD_PLUGIN_CLASS (klass);
-    parent_class = (GnomeCmdPluginClass *) gtk_type_class (GNOME_CMD_TYPE_PLUGIN);
 
     object_class->destroy = destroy;
 
@@ -179,40 +178,14 @@ static void class_init (TestPluginClass *klass)
 }
 
 
-static void init (TestPlugin *plugin)
+static void test_plugin_init (TestPlugin *plugin)
 {
     plugin->priv = g_new (TestPluginPrivate, 1);
 }
 
-
-
 /***********************************
  * Public functions
  ***********************************/
-
-GtkType test_plugin_get_type ()
-{
-    static GtkType type = 0;
-
-    if (type == 0)
-    {
-        GtkTypeInfo info =
-        {
-            (gchar*) "TestPlugin",
-            sizeof (TestPlugin),
-            sizeof (TestPluginClass),
-            (GtkClassInitFunc) class_init,
-            (GtkObjectInitFunc) init,
-            /* reserved_1 */ NULL,
-            /* reserved_2 */ NULL,
-            (GtkClassInitFunc) NULL
-        };
-
-        type = gtk_type_unique (GNOME_CMD_TYPE_PLUGIN, &info);
-    }
-    return type;
-}
-
 
 GnomeCmdPlugin *test_plugin_new ()
 {

@@ -62,4 +62,4 @@ struct GnomeCmdPrepareXferDialogClass
 
 GtkWidget *gnome_cmd_prepare_xfer_dialog_new (GnomeCmdFileSelector *from, GnomeCmdFileSelector *to);
 
-GtkType gnome_cmd_prepare_xfer_dialog_get_type ();
+GType gnome_cmd_prepare_xfer_dialog_get_type ();

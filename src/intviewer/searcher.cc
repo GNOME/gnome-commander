@@ -75,39 +75,15 @@ enum GViewerSearcherSignalType
 };
 
 /*static guint g_viewer_searcher_signals[LAST_SIGNAL] = { 0 };*/
-static GObjectClass *parent_class = nullptr;
 
 
-GType g_viewer_searcher_get_type()
-{
-    static GType type = 0;
-
-    if (type == 0)
-    {
-        static const GTypeInfo our_info = {
-            sizeof (GViewerSearcherClass),
-            nullptr,
-            nullptr,
-            (GClassInitFunc) g_viewer_searcher_class_init,
-            nullptr,
-            nullptr,
-            sizeof (GViewerSearcher),
-            0,
-            (GInstanceInitFunc) g_viewer_searcher_init,
-        };
-
-        type = g_type_register_static (G_TYPE_OBJECT, "GViewerSearcher", &our_info, (GTypeFlags) 0);
-    }
-
-    return type;
-}
+G_DEFINE_TYPE (GViewerSearcher, g_viewer_searcher, G_TYPE_OBJECT)
 
 
 static void g_viewer_searcher_class_init(GViewerSearcherClass *klass)
 {
     GObjectClass *object_class = G_OBJECT_CLASS (klass);
 
-    parent_class = (GObjectClass *) g_type_class_peek_parent(klass);
     object_class->finalize = g_viewer_searcher_finalize;
 
     /* Create signals here:
@@ -160,7 +136,7 @@ static void g_viewer_searcher_finalize(GObject *object)
         cobj->priv = nullptr;
     }
 
-    G_OBJECT_CLASS (parent_class)->finalize(object);
+    G_OBJECT_CLASS (g_viewer_searcher_parent_class)->finalize(object);
 }
 
 

@@ -43,7 +43,7 @@ struct GnomeCmdCListClass
 
 
 
-GtkType gnome_cmd_clist_get_type ();
+GType gnome_cmd_clist_get_type ();
 
 GtkWidget *gnome_cmd_clist_new_with_titles (gint columns, gchar **titles);
 

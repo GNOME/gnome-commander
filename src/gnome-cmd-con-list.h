@@ -34,7 +34,7 @@
 #define GNOME_CMD_CON_LIST_GET_CLASS(obj)    (G_TYPE_INSTANCE_GET_CLASS((obj), GNOME_CMD_TYPE_CON_LIST, GnomeCmdConListClass))
 
 
-GtkType gnome_cmd_con_list_get_type ();
+GType gnome_cmd_con_list_get_type ();
 
 
 struct GnomeCmdConList

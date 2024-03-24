@@ -52,7 +52,7 @@ struct GnomeCmdDirIndicatorPrivate
 };
 
 
-static GtkFrameClass *parent_class = nullptr;
+G_DEFINE_TYPE (GnomeCmdDirIndicator, gnome_cmd_dir_indicator, GTK_TYPE_FRAME)
 
 
 /*******************************
@@ -66,16 +66,13 @@ static void destroy (GtkObject *object)
     g_free (dir_indicator->priv->slashPixelPosition);
     g_free (dir_indicator->priv);
 
-    if (GTK_OBJECT_CLASS (parent_class)->destroy)
-        (*GTK_OBJECT_CLASS (parent_class)->destroy) (object);
+    GTK_OBJECT_CLASS (gnome_cmd_dir_indicator_parent_class)->destroy (object);
 }
 
 
-static void class_init (GnomeCmdDirIndicatorClass *klass)
+static void gnome_cmd_dir_indicator_class_init (GnomeCmdDirIndicatorClass *klass)
 {
     GtkObjectClass *object_class = GTK_OBJECT_CLASS (klass);
-
-    parent_class = (GtkFrameClass *) gtk_type_class (gtk_frame_get_type ());
 
     object_class->destroy = destroy;
 }
@@ -567,7 +564,7 @@ void gnome_cmd_dir_indicator_show_bookmarks (GnomeCmdDirIndicator *indicator)
 }
 
 
-static void init (GnomeCmdDirIndicator *indicator)
+static void gnome_cmd_dir_indicator_init (GnomeCmdDirIndicator *indicator)
 {
     GtkWidget *hbox, *arrow, *bbox;
 
@@ -626,33 +623,9 @@ static void init (GnomeCmdDirIndicator *indicator)
     g_signal_connect (indicator->priv->bookmark_button, "clicked", G_CALLBACK (on_bookmark_button_clicked), indicator);
 }
 
-
 /***********************************
  * Public functions
  ***********************************/
-GtkType gnome_cmd_dir_indicator_get_type ()
-{
-    static GtkType type = 0;
-
-    if (type == 0)
-    {
-        GtkTypeInfo info = {
-            (gchar*) "GnomeCmdDirIndicator",
-            sizeof(GnomeCmdDirIndicator),
-            sizeof(GnomeCmdDirIndicatorClass),
-            (GtkClassInitFunc) class_init,
-            (GtkObjectInitFunc) init,
-            /* reserved_1 */ nullptr,
-            /* reserved_2 */ nullptr,
-            (GtkClassInitFunc) nullptr
-        };
-
-        type = gtk_type_unique (gtk_frame_get_type (), &info);
-    }
-
-    return type;
-}
-
 
 GtkWidget *gnome_cmd_dir_indicator_new (GnomeCmdFileSelector *fs)
 {
