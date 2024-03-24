@@ -455,7 +455,7 @@ gboolean gnome_cmd_cmdline_keypressed (GnomeCmdCmdline *cmdline, GdkEventKey *ev
                                 gtk_widget_grab_focus (file_list);
                                 fs->set_active(TRUE);
 
-                                gtk_signal_emit_by_name (GTK_OBJECT (file_list), "key-press-event", &event2, &ret);
+                                g_signal_emit_by_name (file_list, "key-press-event", &event2, &ret);
                                 event->keyval = 0;
                             }
                             return FALSE;

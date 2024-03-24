@@ -687,14 +687,14 @@ GtkWidget *gnome_cmd_file_props_dialog_create (GnomeCmdFile *f)
     gtk_notebook_set_tab_label (GTK_NOTEBOOK (notebook), gtk_notebook_get_nth_page (GTK_NOTEBOOK (notebook), 1), gtk_label_new (_("Permissions")));
     gtk_notebook_set_tab_label (GTK_NOTEBOOK (notebook), gtk_notebook_get_nth_page (GTK_NOTEBOOK (notebook), 2), gtk_label_new (_("Metadata")));
 
-    gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), GTK_STOCK_HELP, GTK_SIGNAL_FUNC (on_dialog_help), data);
-    data->copy_button = gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), GTK_STOCK_COPY, GTK_SIGNAL_FUNC (on_copy_clipboard), data);
-    gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), GTK_STOCK_CANCEL, GTK_SIGNAL_FUNC (on_dialog_cancel), data);
-    gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), GTK_STOCK_OK, GTK_SIGNAL_FUNC (on_dialog_ok), data);
+    gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), GTK_STOCK_HELP, G_CALLBACK (on_dialog_help), data);
+    data->copy_button = gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), GTK_STOCK_COPY, G_CALLBACK (on_copy_clipboard), data);
+    gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), GTK_STOCK_CANCEL, G_CALLBACK (on_dialog_cancel), data);
+    gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), GTK_STOCK_OK, G_CALLBACK (on_dialog_ok), data);
 
     gtk_widget_set_sensitive (data->copy_button, gtk_notebook_get_current_page (GTK_NOTEBOOK (notebook))==2);
 
-    g_signal_connect (GTK_OBJECT (notebook), "switch-page", GTK_SIGNAL_FUNC (on_notebook_page_change), data);
+    g_signal_connect (G_OBJECT (notebook), "switch-page", G_CALLBACK (on_notebook_page_change), data);
 
     return dialog;
 }

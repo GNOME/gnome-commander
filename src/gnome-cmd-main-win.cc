@@ -875,7 +875,7 @@ static void gnome_cmd_main_win_init (GnomeCmdMainWin *mw)
 
     g_object_set_data (*mw, "main_win", mw);
     restore_size_and_pos (mw);
-    gtk_window_set_policy (*mw, TRUE, TRUE, FALSE);
+    gtk_window_set_resizable (*mw, TRUE);
 
     mw->priv->vbox = gtk_vbox_new (FALSE, 0);
     g_object_ref (mw->priv->vbox);

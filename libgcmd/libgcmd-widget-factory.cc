@@ -289,12 +289,12 @@ GtkWidget *create_radio_with_mnemonic (GtkWidget *parent, GSList *group, gchar *
 
 GtkWidget *create_spin (GtkWidget *parent, const gchar *name, gint min, gint max, gint value)
 {
-    GtkObject *adj = gtk_adjustment_new (value, min, max, 1, 10, 0);
+    GtkAdjustment *adj = GTK_ADJUSTMENT (gtk_adjustment_new (value, min, max, 1, 10, 0));
 #if defined (__GNUC__)
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wcast-align"
 #endif
-    GtkWidget *spin = gtk_spin_button_new (GTK_ADJUSTMENT (adj), 1, 0);
+    GtkWidget *spin = gtk_spin_button_new (adj, 1, 0);
 #if defined (__GNUC__)
 #pragma GCC diagnostic pop
 #endif
@@ -477,7 +477,7 @@ GtkWidget *create_file_chooser_button (GtkWidget *parent, const gchar *name, con
 }
 
 
-GtkWidget *create_treeview (GtkWidget *parent, const gchar *name, GtkTreeModel *model, gint rowh, GtkSignalFunc on_selection_changed, GtkSignalFunc on_rows_reordered)
+GtkWidget *create_treeview (GtkWidget *parent, const gchar *name, GtkTreeModel *model, gint rowh, GCallback on_selection_changed, GCallback on_rows_reordered)
 {
     GtkWidget *sw, *view;
 

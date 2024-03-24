@@ -62,7 +62,7 @@ inline void cut_and_paste (GnomeCmdDir *to)
                           NULL,
                           G_FILE_COPY_NONE,
                           GNOME_CMD_CONFIRM_OVERWRITE_QUERY,
-                          GTK_SIGNAL_FUNC (on_xfer_done), _files);
+                          G_CALLBACK (on_xfer_done), _files);
     _files = NULL;
     _fl = NULL;
     main_win->set_cap_state(FALSE);
@@ -77,7 +77,7 @@ inline void copy_and_paste (GnomeCmdDir *to)
                           NULL,
                           G_FILE_COPY_NONE,
                           GNOME_CMD_CONFIRM_OVERWRITE_QUERY,
-                          GTK_SIGNAL_FUNC (on_xfer_done), _files);
+                          G_CALLBACK (on_xfer_done), _files);
     _files = NULL;
     _fl = NULL;
     main_win->set_cap_state(FALSE);

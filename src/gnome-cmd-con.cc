@@ -245,7 +245,7 @@ static gboolean check_con_open_progress (GnomeCmdCon *con)
                 gnome_cmd_con_set_default_dir (con, dir);
 
                 DEBUG ('m', "Emitting 'open-done' signal\n");
-                gtk_signal_emit (GTK_OBJECT (con), signals[OPEN_DONE]);
+                g_signal_emit (con, signals[OPEN_DONE], 0);
             }
             return FALSE;
 
@@ -253,7 +253,7 @@ static gboolean check_con_open_progress (GnomeCmdCon *con)
             {
                 DEBUG ('m', "GnomeCmdCon::OPEN_FAILED detected\n");
                 DEBUG ('m', "Emitting 'open-failed' signal\n");
-                gtk_signal_emit (GTK_OBJECT (con), signals[OPEN_FAILED]);
+                g_signal_emit (con, signals[OPEN_FAILED], 0);
             }
             return FALSE;
 
@@ -353,8 +353,8 @@ gboolean gnome_cmd_con_close (GnomeCmdCon *con)
 
     if (gnome_cmd_con_is_closeable (con) && gnome_cmd_con_is_open(con))
     {
-        gtk_signal_emit (GTK_OBJECT (con), signals[CLOSE]);
-        gtk_signal_emit (GTK_OBJECT (con), signals[UPDATED]);
+        g_signal_emit (con, signals[CLOSE], 0);
+        g_signal_emit (con, signals[UPDATED], 0);
     }
 
     return TRUE;
@@ -455,7 +455,7 @@ void gnome_cmd_con_updated (GnomeCmdCon *con)
 {
     g_return_if_fail (GNOME_CMD_IS_CON (con));
 
-    gtk_signal_emit (GTK_OBJECT (con), signals[UPDATED]);
+    g_signal_emit (con, signals[UPDATED], 0);
 }
 
 

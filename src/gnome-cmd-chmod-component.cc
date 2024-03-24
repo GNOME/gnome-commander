@@ -67,7 +67,7 @@ static void on_perms_changed (GnomeCmdChmodComponent *comp)
 
 static void on_check_toggled (GtkToggleButton *togglebutton, GnomeCmdChmodComponent *component)
 {
-    gtk_signal_emit (GTK_OBJECT (component), chmod_component_signals[PERMS_CHANGED]);
+    g_signal_emit (component, chmod_component_signals[PERMS_CHANGED], 0);
 }
 
 

@@ -448,7 +448,7 @@ static void get_popup_pos (GtkMenu *menu, gint *x, gint *y, gboolean push_in, Gn
 }
 
 
-static void add_menu_item (GnomeCmdDirIndicator *indicator, GtkMenuShell *shell, const gchar *text, GtkSignalFunc func, gpointer data)
+static void add_menu_item (GnomeCmdDirIndicator *indicator, GtkMenuShell *shell, const gchar *text, GCallback func, gpointer data)
 {
     GtkWidget *item = text ? gtk_menu_item_new_with_label (text) : gtk_menu_item_new ();
 
@@ -482,7 +482,7 @@ void gnome_cmd_dir_indicator_show_history (GnomeCmdDirIndicator *indicator)
         add_menu_item (indicator,
                        GTK_MENU_SHELL (indicator->priv->dir_history_popup),
                        path,
-                       GTK_SIGNAL_FUNC (on_dir_history_item_selected),
+                       G_CALLBACK (on_dir_history_item_selected),
                        path);
     }
 
@@ -536,13 +536,13 @@ void gnome_cmd_dir_indicator_show_bookmarks (GnomeCmdDirIndicator *indicator)
         add_menu_item (indicator,
                        GTK_MENU_SHELL (indicator->priv->bookmark_popup),
                        bm->name,
-                       GTK_SIGNAL_FUNC (on_bookmark_item_selected),
+                       G_CALLBACK (on_bookmark_item_selected),
                        bm);
     }
 
     add_menu_item (indicator, GTK_MENU_SHELL (indicator->priv->bookmark_popup), nullptr, nullptr, indicator);
-    add_menu_item (indicator, GTK_MENU_SHELL (indicator->priv->bookmark_popup), _("Add current dir"), GTK_SIGNAL_FUNC (on_bookmarks_add_current), indicator);
-    add_menu_item (indicator, GTK_MENU_SHELL (indicator->priv->bookmark_popup), _("Manage bookmarks…"), GTK_SIGNAL_FUNC (on_bookmarks_manage), indicator);
+    add_menu_item (indicator, GTK_MENU_SHELL (indicator->priv->bookmark_popup), _("Add current dir"), G_CALLBACK (on_bookmarks_add_current), indicator);
+    add_menu_item (indicator, GTK_MENU_SHELL (indicator->priv->bookmark_popup), _("Manage bookmarks…"), G_CALLBACK (on_bookmarks_manage), indicator);
 
     gtk_menu_popup (GTK_MENU (indicator->priv->bookmark_popup),
                     nullptr,

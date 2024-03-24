@@ -301,7 +301,7 @@ static gboolean on_dest_dir_entry_keypressed (GtkEntry *entry, GdkEventKey *even
     {
         case GDK_Return:
         case GDK_KP_Enter:
-            gtk_signal_emit_by_name (GTK_OBJECT (dialog->ok_button), "clicked", dialog, NULL);
+            g_signal_emit_by_name (dialog->ok_button, "clicked", dialog, NULL);
             return TRUE;
 
         case GDK_F5:

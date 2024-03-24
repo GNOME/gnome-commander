@@ -91,7 +91,7 @@ gnome_cmd_copy_start (GList *src_files,
                       gchar *dest_fn,
                       GFileCopyFlags copyFlags,
                       GnomeCmdConfirmOverwriteMode overwriteMode,
-                      GtkSignalFunc on_completed_func,
+                      GCallback on_completed_func,
                       gpointer on_completed_data);
 
 void
@@ -101,7 +101,7 @@ gnome_cmd_move_start (GList *src_files,
                       gchar *dest_fn,
                       GFileCopyFlags copyFlags,
                       GnomeCmdConfirmOverwriteMode overwriteMode,
-                      GtkSignalFunc on_completed_func,
+                      GCallback on_completed_func,
                       gpointer on_completed_data);
 
 void
@@ -112,7 +112,7 @@ gnome_cmd_copy_gfiles_start (GList *src_uri_list,
                            gchar *dest_fn,
                            GFileCopyFlags copyFlags,
                            GnomeCmdConfirmOverwriteMode overwriteMode,
-                           GtkSignalFunc on_completed_func,
+                           GCallback on_completed_func,
                            gpointer on_completed_data);
 
 void
@@ -123,7 +123,7 @@ gnome_cmd_move_gfiles_start (GList *src_uri_list,
                            gchar *dest_fn,
                            GFileCopyFlags copyFlags,
                            GnomeCmdConfirmOverwriteMode overwriteMode,
-                           GtkSignalFunc on_completed_func,
+                           GCallback on_completed_func,
                            gpointer on_completed_data);
 
 void
@@ -134,14 +134,14 @@ gnome_cmd_link_gfiles_start (GList *src_uri_list,
                            gchar *dest_fn,
                            GFileCopyFlags copyFlags,
                            GnomeCmdConfirmOverwriteMode overwriteMode,
-                           GtkSignalFunc on_completed_func,
+                           GCallback on_completed_func,
                            gpointer on_completed_data);
 
 void
 gnome_cmd_tmp_download (GList *srcGFileList,
                         GList *destGFileList,
                         GFileCopyFlags copyFlags,
-                        GtkSignalFunc on_completed_func,
+                        GCallback on_completed_func,
                         gpointer on_completed_data);
 
 void

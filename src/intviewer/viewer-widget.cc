@@ -188,7 +188,7 @@ static void gviewer_text_status_update(TextRender *obj, TextRender::Status *stat
                status->column,
                status->wrap_mode?_("Wrap"):"");
 
-    gtk_signal_emit (GTK_OBJECT (viewer), gviewer_signals[STATUS_LINE_CHANGED], temp);
+    g_signal_emit (viewer, gviewer_signals[STATUS_LINE_CHANGED], 0, temp);
 }
 
 
@@ -220,7 +220,7 @@ static void gviewer_image_status_update(ImageRender *obj, ImageRender::Status *s
         free(size_string);
     }
 
-    gtk_signal_emit (GTK_OBJECT (viewer), gviewer_signals[STATUS_LINE_CHANGED], temp);
+    g_signal_emit (viewer, gviewer_signals[STATUS_LINE_CHANGED], 0, temp);
 }
 
 

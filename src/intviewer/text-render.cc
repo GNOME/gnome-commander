@@ -386,44 +386,44 @@ static gboolean text_render_key_pressed(GtkWidget *widget, GdkEventKey *event, g
 
     switch (event->keyval)
     {
-    case GDK_Up:
+    case GDK_KEY_Up:
         obj->priv->current_offset =
             gv_scroll_lines (obj->priv->dp, obj->priv->current_offset, -1);
         break;
 
-    case GDK_Page_Up:
+    case GDK_KEY_Page_Up:
         obj->priv->current_offset =
             gv_scroll_lines (obj->priv->dp, obj->priv->current_offset,
                 -1 *(obj->priv->lines_displayed-1));
         break;
 
-    case GDK_Page_Down:
+    case GDK_KEY_Page_Down:
         obj->priv->current_offset =
             gv_scroll_lines (obj->priv->dp, obj->priv->current_offset,
                 (obj->priv->lines_displayed-1));
         break;
 
-    case GDK_Down:
+    case GDK_KEY_Down:
         obj->priv->current_offset =
             gv_scroll_lines (obj->priv->dp, obj->priv->current_offset, 1);
         break;
 
-    case GDK_Left:
+    case GDK_KEY_Left:
         if (!obj->priv->wrapmode)
             if (obj->priv->column>0)
                 obj->priv->column--;
         break;
 
-    case GDK_Right:
+    case GDK_KEY_Right:
         if (!obj->priv->wrapmode)
             obj->priv->column++;
         break;
 
-    case GDK_Home:
+    case GDK_KEY_Home:
         obj->priv->current_offset = 0;
         break;
 
-    case GDK_End:
+    case GDK_KEY_End:
         obj->priv->current_offset =
             gv_align_offset_to_line_start(obj->priv->dp, gv_file_get_max_offset(obj->priv->fops)-1);
         break;
@@ -714,7 +714,7 @@ static void text_render_h_adjustment_update (TextRender *obj)
     if (new_value != gtk_adjustment_get_value (obj->priv->h_adjustment))
     {
         gtk_adjustment_set_value (obj->priv->h_adjustment, new_value);
-        gtk_signal_emit_by_name (GTK_OBJECT (obj->priv->h_adjustment), "value-changed");
+        g_signal_emit_by_name (obj->priv->h_adjustment, "value-changed");
     }
 
     obj->priv->column = (int) new_value;
@@ -780,7 +780,7 @@ static void text_render_v_adjustment_update (TextRender *obj)
     if (new_value != gtk_adjustment_get_value (obj->priv->v_adjustment))
     {
         gtk_adjustment_set_value (obj->priv->v_adjustment, new_value);
-        gtk_signal_emit_by_name (GTK_OBJECT (obj->priv->v_adjustment), "value-changed");
+        g_signal_emit_by_name (obj->priv->v_adjustment, "value-changed");
     }
 
     obj->priv->current_offset = (offset_type)new_value;

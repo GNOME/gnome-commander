@@ -506,7 +506,7 @@ static void on_realize (GtkCList *clist, gpointer data)
             gtk_widget_set_can_focus (clist->column[i].button, FALSE);
 
     if (GTK_CLIST (clist)->hadjustment)
-        g_signal_connect_after (GTK_CLIST(clist)->hadjustment, "value-changed", GTK_SIGNAL_FUNC (on_hadj_value_changed), clist);
+        g_signal_connect_after (GTK_CLIST(clist)->hadjustment, "value-changed", G_CALLBACK (on_hadj_value_changed), clist);
 }
 
 

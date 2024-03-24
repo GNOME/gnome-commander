@@ -184,7 +184,7 @@ static void gnome_cmd_chmod_dialog_init (GnomeCmdChmodDialog *dialog)
 
     dialog->priv = g_new (GnomeCmdChmodDialogPrivate, 1);
 
-    gtk_window_set_policy (GTK_WINDOW (chmod_dialog), FALSE, FALSE, FALSE);
+    gtk_window_set_resizable (GTK_WINDOW (chmod_dialog), FALSE);
     gtk_window_set_position (GTK_WINDOW (chmod_dialog), GTK_WIN_POS_CENTER);
     gtk_window_set_title (GTK_WINDOW (chmod_dialog), _("Access Permissions"));
 
@@ -211,9 +211,9 @@ static void gnome_cmd_chmod_dialog_init (GnomeCmdChmodDialog *dialog)
 
 
     gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), GTK_STOCK_CANCEL,
-                                 GTK_SIGNAL_FUNC (on_cancel), dialog);
+                                 G_CALLBACK (on_cancel), dialog);
     gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), GTK_STOCK_OK,
-                                 GTK_SIGNAL_FUNC (on_ok), dialog);
+                                 G_CALLBACK (on_ok), dialog);
 
     g_signal_connect (dialog->priv->recurse_check, "toggled", G_CALLBACK (on_toggle_recurse), chmod_dialog);
     g_signal_connect (dialog->priv->chmod_component, "perms-changed", G_CALLBACK (on_perms_changed), chmod_dialog);

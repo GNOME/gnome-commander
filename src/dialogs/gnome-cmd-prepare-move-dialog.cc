@@ -86,35 +86,35 @@ void gnome_cmd_prepare_move_dialog_show (GnomeCmdFileSelector *from, GnomeCmdFil
     g_return_if_fail (data->dialog->src_files != NULL);
 
     gtk_window_set_title (GTK_WINDOW (data->dialog), _("Move"));
-    gtk_widget_ref (GTK_WIDGET (data->dialog));
+    g_object_ref (GTK_WIDGET (data->dialog));
 
 
     // Create prepare move specific widgets
 
     data->query = gtk_radio_button_new_with_label (group, _("Query First"));
     group = gtk_radio_button_get_group (GTK_RADIO_BUTTON (data->query));
-    gtk_widget_ref (data->query);
+    g_object_ref (data->query);
     g_object_set_data_full (G_OBJECT (data->dialog), "query", data->query, g_object_unref);
     gtk_widget_show (data->query);
     gtk_box_pack_start (GTK_BOX (data->dialog->left_vbox), data->query, FALSE, FALSE, 0);
 
     data->rename = gtk_radio_button_new_with_label (group, _("Rename"));
     group = gtk_radio_button_get_group (GTK_RADIO_BUTTON (data->rename));
-    gtk_widget_ref (data->rename);
+    g_object_ref (data->rename);
     g_object_set_data_full (G_OBJECT (data->dialog), "rename", data->rename, g_object_unref);
     gtk_widget_show (data->rename);
     gtk_box_pack_start (GTK_BOX (data->dialog->left_vbox), data->rename, FALSE, FALSE, 0);
 
     data->skip = gtk_radio_button_new_with_label (group, _("Skip"));
     group = gtk_radio_button_get_group (GTK_RADIO_BUTTON (data->skip));
-    gtk_widget_ref (data->skip);
+    g_object_ref (data->skip);
     g_object_set_data_full (G_OBJECT (data->dialog), "skip", data->skip, g_object_unref);
     gtk_widget_show (data->skip);
     gtk_box_pack_start (GTK_BOX (data->dialog->left_vbox), data->skip, FALSE, FALSE, 0);
 
     data->silent = gtk_radio_button_new_with_label (group, _("Overwrite silently"));
     group = gtk_radio_button_get_group (GTK_RADIO_BUTTON (data->silent));
-    gtk_widget_ref (data->silent);
+    g_object_ref (data->silent);
     g_object_set_data_full (G_OBJECT (data->dialog), "silent", data->silent, g_object_unref);
     gtk_widget_show (data->silent);
     gtk_box_pack_start (GTK_BOX (data->dialog->left_vbox), data->silent, FALSE, FALSE, 0);

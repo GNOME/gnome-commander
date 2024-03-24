@@ -91,7 +91,7 @@ static void gnome_cmd_dialog_init (GnomeCmdDialog *dialog)
     dialog->buttons = NULL;
     dialog->priv = g_new0 (GnomeCmdDialogPrivate, 1);
 
-    gtk_window_set_policy (GTK_WINDOW (dialog), FALSE, FALSE, TRUE);
+    gtk_window_set_resizable (GTK_WINDOW (dialog), FALSE);
     gtk_window_set_position (GTK_WINDOW (dialog), GTK_WIN_POS_CENTER);
     gtk_window_set_title (GTK_WINDOW (dialog), " ");
     gtk_window_set_transient_for (GTK_WINDOW (dialog), GTK_WINDOW (main_win_widget));
@@ -128,7 +128,7 @@ GtkWidget *gnome_cmd_dialog_new (const gchar *title)
 }
 
 
-GtkWidget *gnome_cmd_dialog_add_button (GnomeCmdDialog *dialog, const gchar *stock_id, GtkSignalFunc on_click, gpointer data)
+GtkWidget *gnome_cmd_dialog_add_button (GnomeCmdDialog *dialog, const gchar *stock_id, GCallback on_click, gpointer data)
 {
     g_return_val_if_fail (GNOME_CMD_IS_DIALOG (dialog), NULL);
 

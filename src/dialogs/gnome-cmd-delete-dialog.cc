@@ -119,7 +119,7 @@ inline void create_delete_progress_win (DeleteData *deleteData)
 
     deleteData->progwin = gtk_window_new (GTK_WINDOW_TOPLEVEL);
     gtk_window_set_title (GTK_WINDOW (deleteData->progwin), _("Deleting…"));
-    gtk_window_set_policy (GTK_WINDOW (deleteData->progwin), FALSE, FALSE, FALSE);
+    gtk_window_set_resizable (GTK_WINDOW (deleteData->progwin), FALSE);
     gtk_window_set_position (GTK_WINDOW (deleteData->progwin), GTK_WIN_POS_CENTER);
     gtk_widget_set_size_request (GTK_WIDGET (deleteData->progwin), 300, -1);
     g_signal_connect (deleteData->progwin, "destroy-event", G_CALLBACK (on_progwin_destroy), deleteData);
@@ -137,7 +137,7 @@ inline void create_delete_progress_win (DeleteData *deleteData)
     bbox = create_hbuttonbox (deleteData->progwin);
     gtk_container_add (GTK_CONTAINER (vbox), bbox);
 
-    button = create_stock_button_with_data (deleteData->progwin, GTK_STOCK_CANCEL, GTK_SIGNAL_FUNC (on_cancel), deleteData);
+    button = create_stock_button_with_data (deleteData->progwin, GTK_STOCK_CANCEL, G_CALLBACK (on_cancel), deleteData);
     gtk_widget_set_can_default (button, TRUE);
     gtk_container_add (GTK_CONTAINER (bbox), button);
 

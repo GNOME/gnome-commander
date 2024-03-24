@@ -946,7 +946,7 @@ void gnome_cmd_file_view_internal(GnomeCmdFile *f)
         gnome_cmd_tmp_download (g_list_append (nullptr, srcGFile),
                                 g_list_append (nullptr, destGFile),
                                 G_FILE_COPY_OVERWRITE,
-                                GTK_SIGNAL_FUNC (view_file_with_internal_viewer),
+                                G_CALLBACK (view_file_with_internal_viewer),
                                 gFile);
     }
 }

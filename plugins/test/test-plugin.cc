@@ -74,7 +74,7 @@ static void on_dummy (GtkMenuItem *item, gpointer data)
 }
 
 
-static GtkWidget *create_menu_item (const gchar *name, gboolean show_pixmap, GtkSignalFunc callback, gpointer data)
+static GtkWidget *create_menu_item (const gchar *name, gboolean show_pixmap, GCallback callback, gpointer data)
 {
     GtkWidget *item, *label;
 
@@ -121,7 +121,7 @@ static GtkWidget *create_main_menu (GnomeCmdPlugin *plugin, GnomeCmdState *state
     gtk_menu_item_set_submenu (GTK_MENU_ITEM (item),
                                GTK_WIDGET (submenu));
 
-    child = create_menu_item ("Test plugin dummy operation", FALSE, GTK_SIGNAL_FUNC (on_dummy), state);
+    child = create_menu_item ("Test plugin dummy operation", FALSE, G_CALLBACK (on_dummy), state);
     gtk_menu_append (submenu, child);
 
     return item;
@@ -130,7 +130,7 @@ static GtkWidget *create_main_menu (GnomeCmdPlugin *plugin, GnomeCmdState *state
 
 static GList *create_popup_menu_items (GnomeCmdPlugin *plugin, GnomeCmdState *state)
 {
-    GtkWidget *item = create_menu_item ("Test plugin dummy operation", TRUE, GTK_SIGNAL_FUNC (on_dummy), state);
+    GtkWidget *item = create_menu_item ("Test plugin dummy operation", TRUE, G_CALLBACK (on_dummy), state);
 
     return g_list_append (NULL, item);
 }

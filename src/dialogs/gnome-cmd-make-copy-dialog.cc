@@ -157,7 +157,7 @@ GtkWidget *gnome_cmd_make_copy_dialog_new (GnomeCmdFile *f, GnomeCmdDir *dir)
                                                labels,
                                                1,
                                                (GnomeCmdStringDialogCallback) on_ok,
-                                               GTK_SIGNAL_FUNC (on_cancel),
+                                               (GnomeCmdCallback<GtkButton*>) on_cancel,
                                                dialog);
 
     gnome_cmd_string_dialog_set_value (GNOME_CMD_STRING_DIALOG (dialog), 0, g_file_info_get_display_name(f->get_file_info()));

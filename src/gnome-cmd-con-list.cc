@@ -71,12 +71,12 @@ static void on_con_updated (GnomeCmdCon *con, GnomeCmdConList *con_list)
     g_return_if_fail (GNOME_CMD_IS_CON_LIST (con_list));
 
     if (GNOME_CMD_IS_CON_REMOTE (con))
-        gtk_signal_emit (*con_list, signals[REMOTE_LIST_CHANGED]);
+        g_signal_emit (con_list, signals[REMOTE_LIST_CHANGED], 0);
     else
         if (GNOME_CMD_IS_CON_DEVICE (con))
-            gtk_signal_emit (*con_list, signals[DEVICE_LIST_CHANGED]);
+            g_signal_emit (con_list, signals[DEVICE_LIST_CHANGED], 0);
 
-    gtk_signal_emit (*con_list, signals[LIST_CHANGED]);
+    g_signal_emit (con_list, signals[LIST_CHANGED], 0);
 }
 
 
@@ -177,11 +177,11 @@ void GnomeCmdConList::lock()
 void GnomeCmdConList::unlock()
 {
     if (priv->changed)
-        gtk_signal_emit (*this, signals[LIST_CHANGED]);
+        g_signal_emit (this, signals[LIST_CHANGED], 0);
     if (priv->remote_cons_changed)
-        gtk_signal_emit (*this, signals[REMOTE_LIST_CHANGED]);
+        g_signal_emit (this, signals[REMOTE_LIST_CHANGED], 0);
     if (priv->device_cons_changed)
-        gtk_signal_emit (*this, signals[DEVICE_LIST_CHANGED]);
+        g_signal_emit (this, signals[DEVICE_LIST_CHANGED], 0);
 
     priv->update_lock = FALSE;
 }
@@ -204,8 +204,8 @@ void GnomeCmdConList::add(GnomeCmdConRemote *con)
     }
     else
     {
-        gtk_signal_emit (*this, signals[LIST_CHANGED]);
-        gtk_signal_emit (*this, signals[REMOTE_LIST_CHANGED]);
+        g_signal_emit (this, signals[LIST_CHANGED], 0);
+        g_signal_emit (this, signals[REMOTE_LIST_CHANGED], 0);
     }
 }
 
@@ -227,8 +227,8 @@ void GnomeCmdConList::remove(GnomeCmdConRemote *con)
     }
     else
     {
-        gtk_signal_emit (*this, signals[LIST_CHANGED]);
-        gtk_signal_emit (*this, signals[REMOTE_LIST_CHANGED]);
+        g_signal_emit (this, signals[LIST_CHANGED], 0);
+        g_signal_emit (this, signals[REMOTE_LIST_CHANGED], 0);
     }
 }
 
@@ -251,8 +251,8 @@ void gnome_cmd_con_list_add_quick_ftp (GnomeCmdConList *con_list, GnomeCmdConRem
     }
     else
     {
-        gtk_signal_emit (*con_list, signals[LIST_CHANGED]);
-        gtk_signal_emit (*con_list, signals[QUICK_FTP_LIST_CHANGED]);
+        g_signal_emit (con_list, signals[LIST_CHANGED], 0);
+        g_signal_emit (con_list, signals[QUICK_FTP_LIST_CHANGED], 0);
     }
 }
 
@@ -273,8 +273,8 @@ void GnomeCmdConList::add(GnomeCmdConDevice *con)
     }
     else
     {
-        gtk_signal_emit (*this, signals[LIST_CHANGED]);
-        gtk_signal_emit (*this, signals[DEVICE_LIST_CHANGED]);
+        g_signal_emit (this, signals[LIST_CHANGED], 0);
+        g_signal_emit (this, signals[DEVICE_LIST_CHANGED], 0);
     }
 }
 
@@ -295,8 +295,8 @@ void GnomeCmdConList::remove(GnomeCmdConDevice *con)
     }
     else
     {
-        gtk_signal_emit (*this, signals[LIST_CHANGED]);
-        gtk_signal_emit (*this, signals[DEVICE_LIST_CHANGED]);
+        g_signal_emit (this, signals[LIST_CHANGED], 0);
+        g_signal_emit (this, signals[DEVICE_LIST_CHANGED], 0);
     }
 }
 

@@ -217,7 +217,7 @@ static void on_button_press (GtkWidget *entry, GdkEventButton *event, GnomeCmdQu
 
     hide_popup (popup);
 
-    gtk_signal_emit_by_name (GTK_OBJECT (popup->priv->fl), "button-press-event", event, &ret);
+    g_signal_emit_by_name (popup->priv->fl, "button-press-event", event, &ret);
 }
 
 

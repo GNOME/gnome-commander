@@ -28,7 +28,7 @@
 struct GnomeCmdStringDialog::Private
 {
     GnomeCmdStringDialogCallback ok_cb;
-    GFunc cancel_cb;
+    GnomeCmdCallback<GtkButton*> cancel_cb;
     gpointer data;
     gchar *error_desc;
 };
@@ -136,8 +136,8 @@ inline void setup_widget (GnomeCmdStringDialog *string_dialog, gint rows)
         table_add (table, string_dialog->entries[i], 1, i, GtkAttachOptions (GTK_FILL|GTK_EXPAND));
     }
 
-    gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), GTK_STOCK_CANCEL, GTK_SIGNAL_FUNC (on_cancel), string_dialog);
-    btn = gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), GTK_STOCK_OK, GTK_SIGNAL_FUNC (on_ok), string_dialog);
+    gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), GTK_STOCK_CANCEL, G_CALLBACK (on_cancel), string_dialog);
+    btn = gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), GTK_STOCK_OK, G_CALLBACK (on_ok), string_dialog);
 
     gtk_widget_grab_focus (string_dialog->entries[0]);
     gtk_widget_grab_default (btn);
@@ -148,7 +148,7 @@ inline void setup_widget (GnomeCmdStringDialog *string_dialog, gint rows)
  * Public functions
  ***********************************/
 
-GtkWidget *gnome_cmd_string_dialog_new_with_cancel (const gchar *title, const gchar **labels, gint rows, GnomeCmdStringDialogCallback ok_cb, GtkSignalFunc cancel_cb, gpointer user_data)
+GtkWidget *gnome_cmd_string_dialog_new_with_cancel (const gchar *title, const gchar **labels, gint rows, GnomeCmdStringDialogCallback ok_cb, GnomeCmdCallback<GtkButton*> cancel_cb, gpointer user_data)
 {
     auto *dialog = static_cast< GnomeCmdStringDialog* >(g_object_new (GNOME_CMD_TYPE_STRING_DIALOG, NULL));
 
@@ -158,7 +158,7 @@ GtkWidget *gnome_cmd_string_dialog_new_with_cancel (const gchar *title, const gc
 }
 
 
-void gnome_cmd_string_dialog_setup_with_cancel (GnomeCmdStringDialog *dialog, const gchar *title, const gchar **labels, gint rows, GnomeCmdStringDialogCallback ok_cb, GtkSignalFunc cancel_cb, gpointer user_data)
+void gnome_cmd_string_dialog_setup_with_cancel (GnomeCmdStringDialog *dialog, const gchar *title, const gchar **labels, gint rows, GnomeCmdStringDialogCallback ok_cb, GnomeCmdCallback<GtkButton*> cancel_cb, gpointer user_data)
 {
     g_return_if_fail (GNOME_CMD_IS_STRING_DIALOG (dialog));
     g_return_if_fail (title != NULL);
@@ -213,11 +213,11 @@ void gnome_cmd_string_dialog_set_ok_cb (GnomeCmdStringDialog *dialog, GnomeCmdSt
 }
 
 
-void gnome_cmd_string_dialog_set_cancel_cb (GnomeCmdStringDialog *dialog, GtkSignalFunc cancel_cb)
+void gnome_cmd_string_dialog_set_cancel_cb (GnomeCmdStringDialog *dialog, GnomeCmdCallback<GtkButton*> cancel_cb)
 {
     g_return_if_fail (GNOME_CMD_IS_STRING_DIALOG (dialog));
 
-    dialog->priv->cancel_cb = (GFunc)cancel_cb;
+    dialog->priv->cancel_cb = cancel_cb;
 }
 
 

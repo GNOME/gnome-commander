@@ -436,7 +436,7 @@ static void on_add_to_archive (GtkMenuItem *item, FileRollerPlugin *plugin)
 
 
 static GtkWidget *create_menu_item (const gchar *name, gboolean show_pixmap,
-                                    GtkSignalFunc callback, gpointer data)
+                                    GCallback callback, gpointer data)
 {
     GtkWidget *item, *label;
 
@@ -494,7 +494,7 @@ static GList *create_popup_menu_items (GnomeCmdPlugin *plugin, GnomeCmdState *st
 
     FILE_ROLLER_PLUGIN (plugin)->priv->state = state;
 
-    item = create_menu_item (_("Create Archive…"), TRUE, GTK_SIGNAL_FUNC (on_add_to_archive), plugin);
+    item = create_menu_item (_("Create Archive…"), TRUE, G_CALLBACK (on_add_to_archive), plugin);
     items = g_list_append (items, item);
 
     if (num_files == 1)
@@ -506,7 +506,7 @@ static GList *create_popup_menu_items (GnomeCmdPlugin *plugin, GnomeCmdState *st
         for (i=0; handled_extensions[i]; ++i)
             if (g_str_has_suffix (fname, handled_extensions[i]))
             {
-                item = create_menu_item (_("Extract in Current Directory"), TRUE, GTK_SIGNAL_FUNC (on_extract_cwd), gnomeCmdFileBase->gFile);
+                item = create_menu_item (_("Extract in Current Directory"), TRUE, G_CALLBACK (on_extract_cwd), gnomeCmdFileBase->gFile);
                 items = g_list_append (items, item);
 
                 fname[strlen(fname)-strlen(handled_extensions[i])] = '\0';
@@ -514,7 +514,7 @@ static GList *create_popup_menu_items (GnomeCmdPlugin *plugin, GnomeCmdState *st
                 gchar *text;
 
                 text = g_strdup_printf (_("Extract to “%s”"), fname);
-                item = create_menu_item (text, TRUE, GTK_SIGNAL_FUNC (on_extract_cwd), gnomeCmdFileBase->gFile);
+                item = create_menu_item (text, TRUE, G_CALLBACK (on_extract_cwd), gnomeCmdFileBase->gFile);
                 g_object_set_data (G_OBJECT (item), TARGET_NAME, g_strdup (fname));
                 items = g_list_append (items, item);
                 g_free (text);
@@ -527,7 +527,7 @@ static GList *create_popup_menu_items (GnomeCmdPlugin *plugin, GnomeCmdState *st
                     auto basenameString = GetGfileAttributeString(state->inactiveDirGfile, G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME);
 
                     text = g_strdup_printf (_("Extract to “%s”"), basenameString);
-                    item = create_menu_item (text, TRUE, GTK_SIGNAL_FUNC (on_extract_cwd), gnomeCmdFileBase->gFile);
+                    item = create_menu_item (text, TRUE, G_CALLBACK (on_extract_cwd), gnomeCmdFileBase->gFile);
                     g_object_set_data (G_OBJECT (item), TARGET_DIR, basenameString);
                     items = g_list_append (items, item);
                     g_free (text);
@@ -609,7 +609,7 @@ static void configure (GnomeCmdPlugin *plugin)
     gtk_window_set_modal (GTK_WINDOW (dialog), TRUE);
 
     gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), GTK_STOCK_OK,
-                                 GTK_SIGNAL_FUNC (on_configure_close), plugin);
+                                 G_CALLBACK (on_configure_close), plugin);
 
     vbox = create_vbox (dialog, FALSE, 12);
     gnome_cmd_dialog_add_expanding_category (GNOME_CMD_DIALOG (dialog), vbox);

@@ -80,7 +80,7 @@ static void gnome_cmd_xfer_progress_win_init (GnomeCmdXferProgressWin *win)
     win->cancel_pressed = FALSE;
 
     gtk_window_set_title (GTK_WINDOW (win), _("Progress"));
-    gtk_window_set_policy (GTK_WINDOW (win), FALSE, FALSE, FALSE);
+    gtk_window_set_resizable (GTK_WINDOW (win), FALSE);
     gtk_window_set_position (GTK_WINDOW (win), GTK_WIN_POS_CENTER);
     gtk_widget_set_size_request (GTK_WIDGET (win), 300, -1);
 
@@ -103,7 +103,7 @@ static void gnome_cmd_xfer_progress_win_init (GnomeCmdXferProgressWin *win)
     bbox = create_hbuttonbox (w);
     gtk_container_add (GTK_CONTAINER (vbox), bbox);
 
-    button = create_stock_button (w, GTK_STOCK_CANCEL, GTK_SIGNAL_FUNC (on_cancel));
+    button = create_stock_button (w, GTK_STOCK_CANCEL, G_CALLBACK (on_cancel));
     gtk_widget_set_can_default (button, TRUE);
     gtk_container_add (GTK_CONTAINER (bbox), button);
 }

@@ -175,7 +175,7 @@ static void mime_exec_multiple (GList *files, GnomeCmdApp *app)
         gnome_cmd_tmp_download(srcGFileList,
                                destGFileList,
                                G_FILE_COPY_OVERWRITE,
-                               GTK_SIGNAL_FUNC (do_mime_exec_multiple),
+                               G_CALLBACK (do_mime_exec_multiple),
                                args);
     else
       do_mime_exec_multiple (args);
