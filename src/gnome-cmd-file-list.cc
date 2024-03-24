@@ -178,16 +178,12 @@ struct GnomeCmdFileList::Private
     GtkWidget *con_open_dialog_label;
     GtkWidget *con_open_dialog_pbar;
 
-    GtkItemFactory *ifac;
-
     explicit Private(GnomeCmdFileList *fl);
     ~Private();
 
-    static gchar *translate_menu(const gchar *path, gpointer);
-
-    static void on_dnd_popup_menu_copy(GnomeCmdFileList *fl, GFileCopyFlags gFileCopyFlags, GtkWidget *widget);
-    static void on_dnd_popup_menu_move(GnomeCmdFileList *fl, GFileCopyFlags gFileCopyFlags, GtkWidget *widget);
-    static void on_dnd_popup_menu_link(GnomeCmdFileList *fl, GFileCopyFlags gFileCopyFlags, GtkWidget *widget);
+    static void on_dnd_popup_menu_copy(GtkMenuItem *item, GnomeCmdFileList *fl);
+    static void on_dnd_popup_menu_move(GtkMenuItem *item, GnomeCmdFileList *fl);
+    static void on_dnd_popup_menu_link(GtkMenuItem *item, GnomeCmdFileList *fl);
 };
 
 
@@ -221,67 +217,90 @@ GnomeCmdFileList::Private::Private(GnomeCmdFileList *fl)
 
     for (gint i=0; i<NUM_COLUMNS; i++)
         gtk_clist_set_column_resizeable (*fl, i, TRUE);
+}
 
-    static GtkItemFactoryEntry items[] = {
-                                            {(gchar*) N_("/_Copy here"), (gchar*) "<control>", (GtkItemFactoryCallback) on_dnd_popup_menu_copy, G_FILE_COPY_NONE, (gchar*) "<StockItem>", GTK_STOCK_COPY},
-                                            {(gchar*) N_("/_Move here"), (gchar*) "<shift>", (GtkItemFactoryCallback) on_dnd_popup_menu_move, G_FILE_COPY_NONE, (gchar*) "<StockItem>", GTK_STOCK_COPY},
-                                            {(gchar*) N_("/_Link here"), (gchar*) "<control><shift>", (GtkItemFactoryCallback) on_dnd_popup_menu_link,G_FILE_COPY_NONE, (gchar*) "<StockItem>", GTK_STOCK_CONVERT},
-                                            {(gchar*) "/", nullptr, nullptr, 0, (gchar*) "<Separator>"},
-                                            {(gchar*) N_("/C_ancel"), (gchar*) "Esc", nullptr, 1, (gchar*) "<StockItem>", GTK_STOCK_CANCEL}
-                                         };
 
-    ifac = gtk_item_factory_new (GTK_TYPE_MENU, (const gchar*) "<main>", nullptr);
-    gtk_item_factory_set_translate_func (ifac, translate_menu, nullptr, nullptr);
-    gtk_item_factory_create_items (ifac, G_N_ELEMENTS (items), items, fl);
+static void unref_gfile_list (GList *list)
+{
+    g_list_foreach (list, (GFunc) g_object_unref, nullptr);
+}
+
+
+static GtkMenu *create_dnd_popup (GnomeCmdFileList *fl, GList *gFileGlist, GnomeCmdDir* to)
+{
+    GtkMenu *dnd_popup = GTK_MENU (gtk_menu_new ());
+    g_object_set_data_full (G_OBJECT (dnd_popup), "file-list", gFileGlist, (GDestroyNotify) unref_gfile_list);
+    g_object_set_data (G_OBJECT (dnd_popup), "to", to);
+    {
+        GtkImageMenuItem *item = GTK_IMAGE_MENU_ITEM (gtk_image_menu_item_new_from_stock (GTK_STOCK_COPY, NULL));
+        gtk_menu_item_set_use_underline (GTK_MENU_ITEM (item), TRUE);
+        gtk_menu_item_set_label (GTK_MENU_ITEM (item), _("_Copy here"));
+        g_signal_connect (G_OBJECT (item), "activate", G_CALLBACK (GnomeCmdFileList::Private::on_dnd_popup_menu_copy), fl);
+        gtk_menu_shell_append (GTK_MENU_SHELL (dnd_popup), GTK_WIDGET (item));
+    }
+    {
+        GtkImageMenuItem *item = GTK_IMAGE_MENU_ITEM (gtk_image_menu_item_new_from_stock (GTK_STOCK_COPY, NULL));
+        gtk_menu_item_set_use_underline (GTK_MENU_ITEM (item), TRUE);
+        gtk_menu_item_set_label (GTK_MENU_ITEM (item), _("_Move here"));
+        g_signal_connect (G_OBJECT (item), "activate", G_CALLBACK (GnomeCmdFileList::Private::on_dnd_popup_menu_move), fl);
+        gtk_menu_shell_append (GTK_MENU_SHELL (dnd_popup), GTK_WIDGET (item));
+    }
+    {
+        GtkImageMenuItem *item = GTK_IMAGE_MENU_ITEM (gtk_image_menu_item_new_from_stock (GTK_STOCK_CONVERT, NULL));
+        gtk_menu_item_set_use_underline (GTK_MENU_ITEM (item), TRUE);
+        gtk_menu_item_set_label (GTK_MENU_ITEM (item), _("_Link here"));
+        g_signal_connect (G_OBJECT (item), "activate", G_CALLBACK (GnomeCmdFileList::Private::on_dnd_popup_menu_link), fl);
+        gtk_menu_shell_append (GTK_MENU_SHELL (dnd_popup), GTK_WIDGET (item));
+    }
+    gtk_menu_shell_append (GTK_MENU_SHELL (dnd_popup), gtk_separator_menu_item_new ());
+    {
+        GtkImageMenuItem *item = GTK_IMAGE_MENU_ITEM (gtk_image_menu_item_new_from_stock (GTK_STOCK_CANCEL, NULL));
+        gtk_menu_item_set_use_underline (GTK_MENU_ITEM (item), TRUE);
+        gtk_menu_item_set_label (GTK_MENU_ITEM (item), _("C_ancel"));
+        gtk_menu_shell_append (GTK_MENU_SHELL (dnd_popup), GTK_WIDGET (item));
+    }
+
+    gtk_widget_show_all (GTK_WIDGET (dnd_popup));
+    return dnd_popup;
 }
 
 
 GnomeCmdFileList::Private::~Private()
 {
-    g_object_unref (ifac);
 }
 
 
-gchar *GnomeCmdFileList::Private::translate_menu(const gchar *path, gpointer unused)
-{
-    return _(path);
-}
-
-
-void GnomeCmdFileList::Private::on_dnd_popup_menu_copy(GnomeCmdFileList *fl, GFileCopyFlags gFileCopyFlags, GtkWidget *widget)
+void GnomeCmdFileList::Private::on_dnd_popup_menu_copy(GtkMenuItem *item, GnomeCmdFileList *fl)
 {
     g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl));
 
-    auto data = (gpointer *) gtk_item_factory_popup_data_from_widget (widget);
-    auto gFileGlist = (GList *) data[0];
-    auto to = static_cast<GnomeCmdDir*> (data[1]);
+    GtkWidget *dnd_popup = gtk_widget_get_ancestor (GTK_WIDGET (item), GTK_TYPE_MENU);
+    auto gFileGlist = static_cast<GList *> (g_object_steal_data (G_OBJECT (dnd_popup), "file-list"));
+    auto to = static_cast<GnomeCmdDir*> (g_object_steal_data (G_OBJECT (dnd_popup), "to"));
 
-    data[0] = nullptr;
-    fl->drop_files(GnomeCmdFileList::DndMode::COPY, gFileCopyFlags, gFileGlist, to);
+    fl->drop_files(GnomeCmdFileList::DndMode::COPY, G_FILE_COPY_NONE, gFileGlist, to);
 }
 
-void GnomeCmdFileList::Private::on_dnd_popup_menu_move(GnomeCmdFileList *fl, GFileCopyFlags gFileCopyFlags, GtkWidget *widget)
+void GnomeCmdFileList::Private::on_dnd_popup_menu_move(GtkMenuItem *item, GnomeCmdFileList *fl)
 {
     g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl));
 
-    gpointer *data = (gpointer *) gtk_item_factory_popup_data_from_widget (widget);
-    GList *gFileGlist = (GList *) data[0];
-    auto to = static_cast<GnomeCmdDir*> (data[1]);
+    GtkWidget *dnd_popup = gtk_widget_get_ancestor (GTK_WIDGET (item), GTK_TYPE_MENU);
+    auto gFileGlist = static_cast<GList *> (g_object_steal_data (G_OBJECT (dnd_popup), "file-list"));
+    auto to = static_cast<GnomeCmdDir*> (g_object_steal_data (G_OBJECT (dnd_popup), "to"));
 
-    data[0] = nullptr;
-    fl->drop_files(GnomeCmdFileList::DndMode::MOVE, gFileCopyFlags, gFileGlist, to);
+    fl->drop_files(GnomeCmdFileList::DndMode::MOVE, G_FILE_COPY_NONE, gFileGlist, to);
 }
 
-void GnomeCmdFileList::Private::on_dnd_popup_menu_link(GnomeCmdFileList *fl, GFileCopyFlags gFileCopyFlags, GtkWidget *widget)
+void GnomeCmdFileList::Private::on_dnd_popup_menu_link(GtkMenuItem *item, GnomeCmdFileList *fl)
 {
     g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl));
 
-    gpointer *data = (gpointer *) gtk_item_factory_popup_data_from_widget (widget);
-    GList *gFileGlist = (GList *) data[0];
-    auto to = static_cast<GnomeCmdDir*> (data[1]);
+    GtkWidget *dnd_popup = gtk_widget_get_ancestor (GTK_WIDGET (item), GTK_TYPE_MENU);
+    auto gFileGlist = static_cast<GList *> (g_object_steal_data (G_OBJECT (dnd_popup), "file-list"));
+    auto to = static_cast<GnomeCmdDir*> (g_object_steal_data (G_OBJECT (dnd_popup), "to"));
 
-    data[0] = nullptr;
-    fl->drop_files(GnomeCmdFileList::DndMode::LINK, gFileCopyFlags, gFileGlist, to);
+    fl->drop_files(GnomeCmdFileList::DndMode::LINK, G_FILE_COPY_NONE, gFileGlist, to);
 }
 
 
@@ -3197,24 +3216,6 @@ inline void restore_drag_indicator (GnomeCmdFileList *fl)
 }
 
 
-static void unref_gfile_list (GList *list)
-{
-    g_list_foreach (list, (GFunc) g_object_unref, nullptr);
-}
-
-
-static void free_dnd_popup_data (gpointer *data)
-{
-    if (data)
-    {
-        GList *gFileGlist = (GList *) data[0];
-        unref_gfile_list (gFileGlist);
-    }
-
-    g_free (data);
-}
-
-
 static void drag_data_received (GtkWidget *widget, GdkDragContext *context,
                                 gint x, gint y, GtkSelectionData *selection_data,
                                 guint info, guint32 time, GnomeCmdFileList *fl)
@@ -3244,14 +3245,13 @@ static void drag_data_received (GtkWidget *widget, GdkDragContext *context,
 
     if (!(mask & (GDK_SHIFT_MASK | GDK_CONTROL_MASK)))
     {
-        gpointer *arr = nullptr;
         switch (gnome_cmd_data.options.mouse_dnd_default)
         {
             case GNOME_CMD_DEFAULT_DND_QUERY:
-                arr = g_new (gpointer, 2);
-                arr[0] = gFileGlist;
-                arr[1] = to;
-                gtk_item_factory_popup_with_data (fl->priv->ifac, arr, (GDestroyNotify) free_dnd_popup_data, x, y, 0, time);
+                {
+                    auto dnd_popup = create_dnd_popup (fl, gFileGlist, to);
+                    gtk_menu_popup (dnd_popup, NULL, NULL, NULL, NULL, 1, time);
+                }
                 break;
             case GNOME_CMD_DEFAULT_DND_MOVE:
                 fl->drop_files(GnomeCmdFileList::DndMode::MOVE, G_FILE_COPY_NONE, gFileGlist, to);

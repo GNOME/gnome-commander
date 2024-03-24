@@ -60,13 +60,13 @@ struct GnomeCmdAdvrenameDialog::Private
     Private();
     ~Private();
 
-    static gchar *translate_menu (const gchar *path, gpointer data);
-
     GtkWidget *create_placeholder_menu(GnomeCmdData::AdvrenameConfig *cfg);
     GtkWidget *create_button_with_menu(gchar *label_text, GnomeCmdData::AdvrenameConfig *cfg=NULL);
 
-    static void manage_profiles(GnomeCmdAdvrenameDialog::Private *priv, guint unused, GtkWidget *menu);
-    static void load_profile(GnomeCmdAdvrenameDialog::Private *priv, guint profile_idx, GtkWidget *menu);
+    static void save_profile(GtkWidget *menu_item, GnomeCmdAdvrenameDialog::Private *priv);
+    static void manage_profiles(GtkWidget *menu_item, GnomeCmdAdvrenameDialog::Private *priv);
+    static void do_manage_profiles(GnomeCmdAdvrenameDialog::Private *priv, bool new_profile, GtkWidget *menu);
+    static void load_profile(GtkWidget *menu_item, GnomeCmdAdvrenameDialog::Private *priv);
 
     void files_view_popup_menu (GtkWidget *treeview, GnomeCmdAdvrenameDialog *dialog, GdkEventButton *event=NULL);
 
@@ -108,60 +108,43 @@ inline gboolean model_is_empty(GtkTreeModel *tree_model)
 }
 
 
-gchar *GnomeCmdAdvrenameDialog::Private::translate_menu (const gchar *path, gpointer data)
-{
-    return _(path);
-}
-
-
 inline GtkWidget *GnomeCmdAdvrenameDialog::Private::create_placeholder_menu(GnomeCmdData::AdvrenameConfig *cfg)
 {
-    guint items_size = cfg->profiles.empty() ? 1 : cfg->profiles.size()+3;
-    GtkItemFactoryEntry *items = g_try_new0 (GtkItemFactoryEntry, items_size);
+    GtkMenu *menu = GTK_MENU (gtk_menu_new ());
 
-    g_return_val_if_fail (items!=NULL, NULL);
-
-    GtkItemFactoryEntry *i = items;
-
-    i->path = g_strdup (_("/_Save Profile As…"));
-    i->callback = (GtkItemFactoryCallback) manage_profiles;
-    i->callback_action = TRUE;
-    i->item_type = (gchar *) "<StockItem>";
-    i->extra_data = GTK_STOCK_SAVE_AS;
-    ++i;
+    {
+        GtkImageMenuItem *item = GTK_IMAGE_MENU_ITEM (gtk_image_menu_item_new_from_stock (GTK_STOCK_SAVE_AS, NULL));
+        gtk_menu_item_set_use_underline (GTK_MENU_ITEM (item), TRUE);
+        gtk_menu_item_set_label (GTK_MENU_ITEM (item), _("_Save Profile As…"));
+        g_signal_connect (G_OBJECT (item), "activate", G_CALLBACK (save_profile), this);
+        gtk_menu_shell_append (GTK_MENU_SHELL (menu), GTK_WIDGET (item));
+    }
 
     if (!cfg->profiles.empty())
     {
-        i->path = g_strdup (_("/_Manage Profiles…"));
-        i->callback = (GtkItemFactoryCallback) manage_profiles;
-        i->item_type = (gchar *) "<StockItem>";
-        i->extra_data = GTK_STOCK_EDIT;
-        ++i;
+        {
+            GtkImageMenuItem *item = GTK_IMAGE_MENU_ITEM (gtk_image_menu_item_new_from_stock (GTK_STOCK_EDIT, NULL));
+            gtk_menu_item_set_use_underline (GTK_MENU_ITEM (item), TRUE);
+            gtk_menu_item_set_label (GTK_MENU_ITEM (item), _("_Manage Profiles…"));
+            g_signal_connect (G_OBJECT (item), "activate", G_CALLBACK (manage_profiles), this);
+            gtk_menu_shell_append (GTK_MENU_SHELL (menu), GTK_WIDGET (item));
+        }
 
-        i->path = g_strdup ("/");
-        i->item_type = (gchar *) "<Separator>";
-        ++i;
+        gtk_menu_shell_append (GTK_MENU_SHELL (menu), gtk_separator_menu_item_new ());
 
+        gsize i = 0;
         for (vector<GnomeCmdData::AdvrenameConfig::Profile>::const_iterator p=cfg->profiles.begin(); p!=cfg->profiles.end(); ++p, ++i)
         {
-            i->path = g_strconcat ("/", p->name.c_str(), NULL);
-            i->callback = (GtkItemFactoryCallback) load_profile;
-            i->callback_action = (i-items)-3;
-            i->item_type = (gchar *) "<StockItem>";
-            i->extra_data = GTK_STOCK_REVERT_TO_SAVED;
+            GtkImageMenuItem *item = GTK_IMAGE_MENU_ITEM (gtk_image_menu_item_new_from_stock (GTK_STOCK_REVERT_TO_SAVED, NULL));
+            gtk_menu_item_set_label (GTK_MENU_ITEM (item), p->name.c_str());
+            g_object_set_data (G_OBJECT (item), "profile-index", reinterpret_cast<gpointer> (i));
+            g_signal_connect (G_OBJECT (item), "activate", G_CALLBACK (load_profile), this);
+            gtk_menu_shell_append (GTK_MENU_SHELL (menu), GTK_WIDGET (item));
         }
     }
 
-    GtkItemFactory *ifac = gtk_item_factory_new (GTK_TYPE_MENU, "<main>", NULL);
-
-    gtk_item_factory_create_items (ifac, items_size, items, this);
-
-    for (guint ii=0; ii<items_size; ++ii)
-        g_free (items[ii].path);
-
-    g_free (items);
-
-    return gtk_item_factory_get_widget (ifac, "<main>");
+    gtk_widget_show_all (GTK_WIDGET (menu));
+    return GTK_WIDGET (menu);
 }
 
 
@@ -173,7 +156,19 @@ inline GtkWidget *GnomeCmdAdvrenameDialog::Private::create_button_with_menu(gcha
 }
 
 
-void GnomeCmdAdvrenameDialog::Private::manage_profiles(GnomeCmdAdvrenameDialog::Private *priv, guint new_profile, GtkWidget *widget)
+void GnomeCmdAdvrenameDialog::Private::save_profile(GtkWidget *menu_item, GnomeCmdAdvrenameDialog::Private *priv)
+{
+    GnomeCmdAdvrenameDialog::Private::do_manage_profiles(priv, true, menu_item);
+}
+
+
+void GnomeCmdAdvrenameDialog::Private::manage_profiles(GtkWidget *menu_item, GnomeCmdAdvrenameDialog::Private *priv)
+{
+    GnomeCmdAdvrenameDialog::Private::do_manage_profiles(priv, false, menu_item);
+}
+
+
+void GnomeCmdAdvrenameDialog::Private::do_manage_profiles(GnomeCmdAdvrenameDialog::Private *priv, bool new_profile, GtkWidget *widget)
 {
     GtkWidget *dialog = gtk_widget_get_ancestor (priv->profile_menu_button, GNOME_CMD_TYPE_ADVRENAME_DIALOG);
 
@@ -195,13 +190,15 @@ void GnomeCmdAdvrenameDialog::Private::manage_profiles(GnomeCmdAdvrenameDialog::
 }
 
 
-void GnomeCmdAdvrenameDialog::Private::load_profile(GnomeCmdAdvrenameDialog::Private *priv, guint profile_idx, GtkWidget *widget)
+void GnomeCmdAdvrenameDialog::Private::load_profile(GtkWidget *menu_item, GnomeCmdAdvrenameDialog::Private *priv)
 {
     GtkWidget *dialog = gtk_widget_get_ancestor (priv->profile_menu_button, GNOME_CMD_TYPE_ADVRENAME_DIALOG);
 
     g_return_if_fail (dialog!=NULL);
 
     GnomeCmdData::AdvrenameConfig &cfg = GNOME_CMD_ADVRENAME_DIALOG(dialog)->defaults;
+
+    gsize profile_idx = reinterpret_cast<gsize> (g_object_get_data (G_OBJECT (menu_item), "profile-index"));
 
     g_return_if_fail (profile_idx<cfg.profiles.size());
 
