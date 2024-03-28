@@ -14,9 +14,9 @@ msgstr ""
 "Project-Id-Version: gnome-commander master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-commander/"
 "issues/\n"
-"POT-Creation-Date: 2024-01-30 09:11+0000\n"
-"PO-Revision-Date: 2024-02-08 01:56+0300\n"
-"Last-Translator: Sabri Ünal <libreajans@gmail.com>\n"
+"POT-Creation-Date: 2024-02-10 11:07+0000\n"
+"PO-Revision-Date: 2024-03-25 17:30+0300\n"
+"Last-Translator: Sabri Ünal <yakushabb@gmail.com>\n"
 "Language-Team: Turkish <takim@gnome.org.tr>\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
@@ -612,7 +612,7 @@ msgstr "Çıkışta arama geçmişini kaydet"
 
 #: data/org.gnome.gnome-commander.gschema.xml:422
 msgid "Defines if the history of search patterns is saved on exit."
-msgstr "Bu değer, arama kalıpları geçmişinin çıkışta kayıt durumunu tanımlar."
+msgstr "Bu değer, arama örüntüleri geçmişinin çıkışta kayıt durumunu tanımlar."
 
 #: data/org.gnome.gnome-commander.gschema.xml:428
 msgid "Always show tab bar"
@@ -794,7 +794,7 @@ msgstr ""
 
 #: data/org.gnome.gnome-commander.gschema.xml:554
 msgid "Search pattern history"
-msgstr "Arama deseni geçmişi"
+msgstr "Arama örüntüsü geçmişi"
 
 #: data/org.gnome.gnome-commander.gschema.xml:555
 msgid ""
@@ -937,11 +937,11 @@ msgstr "Yedek dosyalarını gizle"
 
 #: data/org.gnome.gnome-commander.gschema.xml:670
 msgid "Hide all files with a suffix defined as the backup pattern."
-msgstr "Yedek deseniyle tanımlanmış uzantılara sahip tüm dosyaları gizle."
+msgstr "Yedek örüntüsüyle tanımlanmış uzantılara sahip tüm dosyaları gizle."
 
 #: data/org.gnome.gnome-commander.gschema.xml:674
 msgid "Backup file pattern"
-msgstr "Yedek dosya deseni"
+msgstr "Yedek dosya örüntüsü"
 
 #: data/org.gnome.gnome-commander.gschema.xml:675
 msgid ""
@@ -1437,7 +1437,7 @@ msgstr "Dahili dosya görüntüleyici penceresi yüksekliği."
 
 #: data/org.gnome.gnome-commander.gschema.xml:1058
 msgid "Search pattern for text"
-msgstr "Metin için arama deseni"
+msgstr "Metin için arama örüntüsü"
 
 #: data/org.gnome.gnome-commander.gschema.xml:1059
 msgid ""
@@ -1449,7 +1449,7 @@ msgstr ""
 
 #: data/org.gnome.gnome-commander.gschema.xml:1065
 msgid "Search pattern for hex values"
-msgstr "Onaltılık değerler için arama deseni"
+msgstr "Onaltılık değerler için arama örüntüsü"
 
 #: data/org.gnome.gnome-commander.gschema.xml:1066
 msgid ""
@@ -1470,14 +1470,14 @@ msgstr ""
 
 #: data/org.gnome.gnome-commander.gschema.xml:1081
 msgid "Prefix pattern"
-msgstr "Önek deseni"
+msgstr "Önek örüntüsü"
 
 #: data/org.gnome.gnome-commander.gschema.xml:1082
 msgid ""
 "The prefix pattern is used to build up the name for an archive created with "
 "the File Roller plugin."
 msgstr ""
-"Önek deseni, File Roller eklentisi ile oluşturulan bir arşivin adını "
+"Önek örüntüsü, File Roller eklentisi ile oluşturulan bir arşivin adını "
 "oluşturmak için kullanılır."
 
 #: data/org.gnome.gnome-commander.gschema.xml:1090
@@ -1578,7 +1578,7 @@ msgstr "Öntanımlı arşiv türü"
 #. The pattern defining the file name prefix of the archive to be created
 #: plugins/fileroller/file-roller-plugin.cc:628
 msgid "File prefix pattern"
-msgstr "Dosya önek deseni"
+msgstr "Dosya önek örüntüsü"
 
 #: plugins/fileroller/file-roller-plugin.cc:639
 #: src/dialogs/gnome-cmd-options-dialog.cc:434
@@ -1590,7 +1590,7 @@ msgid ""
 "Use $N as a pattern for the original file name. See the manual page for "
 "“strftime” for other patterns."
 msgstr ""
-"Özgün dosya adı desenini belirtmek için $N kullanın. Diğer desenler için "
+"Özgün dosya adı örüntüsünü belirtmek için $N kullanın. Diğer örüntüler için "
 "“strftime” kılavuz sayfasına bakın."
 
 #: plugins/fileroller/file-roller-plugin.cc:828
@@ -2822,7 +2822,7 @@ msgstr "Bazı dosyalar"
 
 #: src/dialogs/gnome-cmd-options-dialog.cc:1602
 msgid "File patterns"
-msgstr "Dosya desenleri"
+msgstr "Dosya örüntüleri"
 
 #: src/dialogs/gnome-cmd-options-dialog.cc:1624
 msgid "New Application"
@@ -2967,7 +2967,7 @@ msgstr "Programlar"
 
 #: src/dialogs/gnome-cmd-patternsel-dialog.cc:112
 msgid "_Pattern:"
-msgstr "_Desen:"
+msgstr "Örü_ntü:"
 
 #: src/dialogs/gnome-cmd-patternsel-dialog.cc:114
 msgid "Case _sensitive"
@@ -2983,11 +2983,11 @@ msgstr "Düzen_li ifade söz dizimi"
 
 #: src/dialogs/gnome-cmd-patternsel-dialog.cc:158
 msgid "Select Using Pattern"
-msgstr "Kullanım Deseni Seç"
+msgstr "Kullanım Örüntüsü Seç"
 
 #: src/dialogs/gnome-cmd-patternsel-dialog.cc:158
 msgid "Unselect Using Pattern"
-msgstr "Kullanım Deseni Seçme"
+msgstr "Kullanım Örüntüsü Seçme"
 
 #. Create prepare copy specific widgets
 #. Create prepare move specific widgets
@@ -3442,7 +3442,7 @@ msgstr "Şunu ara"
 
 #: src/gnome-cmd-advrename-profile-component.cc:1261
 msgid "Regex pattern"
-msgstr "Düzenli ifade deseni"
+msgstr "Düzenli ifade örüntüsü"
 
 #: src/gnome-cmd-advrename-profile-component.cc:1263
 msgid "Replace with"
@@ -4023,11 +4023,11 @@ msgstr "Tüm Dosya Seçimleri _kaldır"
 
 #: src/gnome-cmd-main-menu.cc:336
 msgid "Select with _Pattern"
-msgstr "_Desen ile Seç"
+msgstr "Örü_ntü ile Seç"
 
 #: src/gnome-cmd-main-menu.cc:337
 msgid "Unselect with P_attern"
-msgstr "D_esen ile Seçileri Kaldır"
+msgstr "Örü_ntü ile Seçileri Kaldır"
 
 #: src/gnome-cmd-main-menu.cc:338
 msgid "Select with same _Extension"
@@ -5118,7 +5118,7 @@ msgstr "Hızlı _Yardım"
 #: src/intviewer/viewer-window.cc:1010
 #, c-format
 msgid "Pattern “%s” was not found"
-msgstr "“%s” deseni bulunamadı"
+msgstr "“%s” örüntüsü bulunamadı"
 
 #: src/main.cc:60
 msgid "Specify debug flags to use"
@@ -5919,24 +5919,24 @@ msgstr ""
 
 #: src/tags/gnome-cmd-tags.cc:209 src/tags/gnome-cmd-tags.cc:272
 msgid "CFA Pattern"
-msgstr "CFA Deseni"
+msgstr "CFA Örüntüsü"
 
 #: src/tags/gnome-cmd-tags.cc:209 src/tags/gnome-cmd-tags.cc:272
 msgid ""
 "The color filter array (CFA) geometric pattern of the image sensor when a "
 "one-chip color area sensor is used. It does not apply to all sensing methods."
 msgstr ""
-"Görüntü algılayıcısının renk süzgeçi dizisi (CFA) geometrik deseni, tek tip "
-"renk alanı alıgayıcısı kullanıldığında kullanılır. Tüm alıgılama "
+"Görüntü algılayıcısının renk süzgeçi dizisi (CFA) geometrik örüntüsü, tek "
+"tip renk alanı alıgayıcısı kullanıldığında kullanılır. Tüm alıgılama "
 "yöntemlerine uygulanmaz."
 
 #: src/tags/gnome-cmd-tags.cc:210
 msgid "CFA Repeat Pattern Dim"
-msgstr "CFA Tekrarlama Deseni Dim"
+msgstr "CFA Tekrarlama Örüntüsü Dim"
 
 #: src/tags/gnome-cmd-tags.cc:210
 msgid "CFA Repeat Pattern Dim."
-msgstr "CFA Tekrarlama Deseni Dim."
+msgstr "CFA Tekrarlama Örüntüsü Dim."
 
 #: src/tags/gnome-cmd-tags.cc:211
 msgid "Color Space"
