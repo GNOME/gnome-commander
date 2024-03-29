@@ -137,7 +137,7 @@ static void inactivate_plugin (PluginData *data)
 
     data->active = FALSE;
     if (data->menu)
-        gtk_object_destroy (GTK_OBJECT (data->menu));
+        gtk_widget_destroy (data->menu);
 }
 
 
@@ -391,7 +391,7 @@ void plugin_manager_show ()
 
     hbox = create_vbox (dialog, FALSE, 6);
     avail_store = gtk_list_store_new (5, GDK_TYPE_PIXBUF, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_POINTER);
-    avail_view = create_treeview (dialog, "avail_view", GTK_TREE_MODEL (avail_store), 20, GTK_SIGNAL_FUNC (on_plugin_selection_changed), nullptr);
+    avail_view = create_treeview (dialog, "avail_view", GTK_TREE_MODEL (avail_store), 20, G_CALLBACK (on_plugin_selection_changed), nullptr);
     create_treeview_column (avail_view, 0, 20, "");
     create_treeview_column (avail_view, 1, 200, _("Name"));
     create_treeview_column (avail_view, 2, 50, _("Version"));
@@ -400,16 +400,16 @@ void plugin_manager_show ()
     bbox = create_hbuttonbox (dialog);
     gtk_button_box_set_layout (GTK_BUTTON_BOX (bbox), GTK_BUTTONBOX_START);
 
-    button = create_button (GTK_WIDGET (dialog), _("_Enable"), GTK_SIGNAL_FUNC (on_toggle));
+    button = create_button (GTK_WIDGET (dialog), _("_Enable"), G_CALLBACK (on_toggle));
     g_object_set_data (G_OBJECT (dialog), "toggle_button", button);
     gtk_box_pack_start (GTK_BOX (bbox), button, TRUE, FALSE, 0);
 
-    button = create_button (GTK_WIDGET (dialog), _("_Configure"), GTK_SIGNAL_FUNC (on_configure));
+    button = create_button (GTK_WIDGET (dialog), _("_Configure"), G_CALLBACK (on_configure));
     g_object_set_data (G_OBJECT (dialog), "conf_button", button);
     gtk_widget_set_sensitive (button, FALSE);
     gtk_box_pack_start (GTK_BOX (bbox), button, TRUE, FALSE, 0);
 
-    button = create_button (GTK_WIDGET (dialog), _("_About"), GTK_SIGNAL_FUNC (on_about));
+    button = create_button (GTK_WIDGET (dialog), _("_About"), G_CALLBACK (on_about));
     g_object_set_data (G_OBJECT (dialog), "about_button", button);
     gtk_widget_set_sensitive (button, FALSE);
     gtk_box_pack_start (GTK_BOX (bbox), button, TRUE, FALSE, 0);
@@ -430,7 +430,7 @@ void plugin_manager_show ()
 
     update_plugin_list (GTK_TREE_VIEW (avail_view), dialog);
 
-    gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), GTK_STOCK_CLOSE, GTK_SIGNAL_FUNC(on_close), dialog);
+    gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), GTK_STOCK_CLOSE, G_CALLBACK(on_close), dialog);
     gtk_window_set_transient_for (GTK_WINDOW (dialog), *main_win);
 
     gtk_widget_set_size_request (GTK_WIDGET (dialog), 500, 300);

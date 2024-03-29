@@ -51,9 +51,6 @@ struct GnomeCmdFileSelectorClass
 };
 
 
-static GtkVBoxClass *parent_class = nullptr;
-
-
 class GnomeCmdFileSelector::Private
 {
   public:
@@ -75,6 +72,10 @@ class GnomeCmdFileSelector::Private
 enum {DIR_CHANGED, LAST_SIGNAL};
 
 static guint signals[LAST_SIGNAL] = { 0 };
+
+
+G_DEFINE_TYPE (GnomeCmdFileSelector, gnome_cmd_file_selector, GTK_TYPE_VBOX)
+
 
 /*******************************
  * Utility functions
@@ -352,7 +353,7 @@ static void create_con_buttons (GnomeCmdFileSelector *fs)
         return;
 
     for (GList *l = fs->priv->old_btns; l; l=l->next)
-        gtk_object_destroy (GTK_OBJECT (l->data));
+        gtk_widget_destroy (GTK_WIDGET (l->data));
 
     g_list_free (fs->priv->old_btns);
     fs->priv->old_btns = nullptr;
@@ -372,7 +373,7 @@ static void create_con_buttons (GnomeCmdFileSelector *fs)
 
         GtkWidget *btn = create_styled_button (nullptr);
         g_object_set_data (G_OBJECT (btn), "con", con);
-        g_signal_connect (btn, "button-press-event", (GtkSignalFunc) on_con_btn_clicked, fs);
+        g_signal_connect (btn, "button-press-event", G_CALLBACK (on_con_btn_clicked), fs);
         gtk_box_pack_start (GTK_BOX (fs->con_btns_hbox), btn, FALSE, FALSE, 0);
         gtk_widget_set_can_focus (btn, FALSE);
         fs->priv->old_btns = g_list_append (fs->priv->old_btns, btn);
@@ -730,24 +731,20 @@ static void destroy (GtkObject *object)
 
     delete fs->priv;
 
-    if (GTK_OBJECT_CLASS (parent_class)->destroy)
-        (*GTK_OBJECT_CLASS (parent_class)->destroy) (object);
+    GTK_OBJECT_CLASS (gnome_cmd_file_selector_parent_class)->destroy (object);
 }
 
 
 static void map (GtkWidget *widget)
 {
-    if (GTK_WIDGET_CLASS (parent_class)->map != nullptr)
-        GTK_WIDGET_CLASS (parent_class)->map (widget);
+    GTK_WIDGET_CLASS (gnome_cmd_file_selector_parent_class)->map (widget);
 }
 
 
-static void class_init (GnomeCmdFileSelectorClass *klass)
+static void gnome_cmd_file_selector_class_init (GnomeCmdFileSelectorClass *klass)
 {
     GtkObjectClass *object_class = GTK_OBJECT_CLASS (klass);;
     GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
-
-    parent_class = (GtkVBoxClass *) gtk_type_class (gtk_vbox_get_type ());
 
     signals[DIR_CHANGED] =
         gtk_signal_new ("dir-changed",
@@ -763,7 +760,7 @@ static void class_init (GnomeCmdFileSelectorClass *klass)
 }
 
 
-static void init (GnomeCmdFileSelector *fs)
+static void gnome_cmd_file_selector_init (GnomeCmdFileSelector *fs)
 {
     gint string_size = 0;
     gint max_string_size = 150;
@@ -858,35 +855,9 @@ static void init (GnomeCmdFileSelector *fs)
     fs->update_style();
 }
 
-
-
 /***********************************
  * Public functions
  ***********************************/
-
-GtkType gnome_cmd_file_selector_get_type ()
-{
-    static GtkType fs_type = 0;
-
-    if (fs_type == 0)
-    {
-        GtkTypeInfo fs_info =
-        {
-            (gchar*) "GnomeCmdFileSelector",
-            sizeof (GnomeCmdFileSelector),
-            sizeof (GnomeCmdFileSelectorClass),
-            (GtkClassInitFunc) class_init,
-            (GtkObjectInitFunc) init,
-            /* reserved_1 */ nullptr,
-            /* reserved_2 */ nullptr,
-            (GtkClassInitFunc) nullptr
-        };
-
-        fs_type = gtk_type_unique (gtk_vbox_get_type (), &fs_info);
-    }
-    return fs_type;
-}
-
 
 void GnomeCmdFileSelector::first()
 {
@@ -1507,7 +1478,7 @@ void GnomeCmdFileSelector::show_filter()
     priv->filter_box = create_hbox (*this, FALSE, 0);
     GtkWidget *label = create_label (*this, _("Filter:"));
     GtkWidget *entry = create_entry (*this, "entry", "");
-    GtkWidget *close_btn = create_button_with_data (*main_win, "x", GTK_SIGNAL_FUNC (on_filter_box_close), this);
+    GtkWidget *close_btn = create_button_with_data (*main_win, "x", G_CALLBACK (on_filter_box_close), this);
 
     g_signal_connect (entry, "key-press-event", G_CALLBACK (on_filter_box_keypressed), this);
     gtk_box_pack_start (GTK_BOX (priv->filter_box), label, FALSE, TRUE, 6);

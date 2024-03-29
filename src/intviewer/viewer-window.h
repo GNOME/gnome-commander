@@ -96,7 +96,7 @@ struct GViewerWindowClass
 };
 
 
-GtkType gviewer_window_get_type ();
+GType gviewer_window_get_type ();
 
 GtkWidget *gviewer_window_new ();
 

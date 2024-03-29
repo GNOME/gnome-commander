@@ -113,7 +113,7 @@ GtkWidget *create_directory_chooser_button (GtkWidget *parent, const gchar *name
 
 GtkWidget *create_file_chooser_button (GtkWidget *parent, const gchar *name, const gchar *value);
 
-GtkWidget *create_treeview (GtkWidget *parent, const gchar *name, GtkTreeModel *model, gint rowh, GtkSignalFunc on_selection_changed, GtkSignalFunc on_rows_reordered);
+GtkWidget *create_treeview (GtkWidget *parent, const gchar *name, GtkTreeModel *model, gint rowh, GCallback on_selection_changed, GCallback on_rows_reordered);
 
 void create_treeview_column (GtkWidget *sw, gint col, gint width, const gchar *label);
 

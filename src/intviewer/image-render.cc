@@ -763,7 +763,7 @@ static void image_render_h_adjustment_update (ImageRender *obj)
     if (new_value != gtk_adjustment_get_value (obj->priv->h_adjustment))
     {
         gtk_adjustment_set_value (obj->priv->h_adjustment, new_value);
-        gtk_signal_emit_by_name (GTK_OBJECT (obj->priv->h_adjustment), "value-changed");
+        g_signal_emit_by_name (obj->priv->h_adjustment, "value-changed");
     }
 
     /* TODO: Update the widget in response to the adjusments' change
@@ -823,7 +823,7 @@ static void image_render_v_adjustment_update (ImageRender *obj)
     if (new_value != gtk_adjustment_get_value (obj->priv->v_adjustment))
     {
         gtk_adjustment_set_value (obj->priv->v_adjustment, new_value);
-        gtk_signal_emit_by_name (GTK_OBJECT (obj->priv->v_adjustment), "value-changed");
+        g_signal_emit_by_name (obj->priv->v_adjustment, "value-changed");
     }
 
     /* TODO: Update the widget in response to the adjusments' change

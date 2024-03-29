@@ -50,7 +50,8 @@ enum
 
 static guint signals[LAST_SIGNAL] = { 0 };
 
-static GtkObjectClass *parent_class = nullptr;
+
+G_DEFINE_TYPE (GnomeCmdCon, gnome_cmd_con, GTK_TYPE_OBJECT)
 
 
 // Keep this in sync with enum ConnectionMethodID in gnome-cmd-con.h
@@ -113,17 +114,15 @@ static void destroy (GtkObject *object)
 
     g_free (con->priv);
 
-    if (GTK_OBJECT_CLASS (parent_class)->destroy)
-        (*GTK_OBJECT_CLASS (parent_class)->destroy) (object);
+    GTK_OBJECT_CLASS (gnome_cmd_con_parent_class)->destroy (object);
 }
 
 
-static void class_init (GnomeCmdConClass *klass)
+static void gnome_cmd_con_class_init (GnomeCmdConClass *klass)
 {
     GtkObjectClass *object_class;
 
     object_class = GTK_OBJECT_CLASS (klass);
-    parent_class = (GtkObjectClass *) gtk_type_class (gtk_object_get_type ());
 
     signals[UPDATED] =
         gtk_signal_new ("updated",
@@ -176,7 +175,7 @@ static void class_init (GnomeCmdConClass *klass)
 }
 
 
-static void init (GnomeCmdCon *con)
+static void gnome_cmd_con_init (GnomeCmdCon *con)
 {
     con->alias = nullptr;
     con->uri = nullptr;
@@ -219,34 +218,9 @@ static void init (GnomeCmdCon *con)
 }
 
 
-
 /***********************************
  * Public functions
  ***********************************/
-
-GtkType gnome_cmd_con_get_type ()
-{
-    static GtkType type = 0;
-
-    if (type == 0)
-    {
-        GtkTypeInfo info =
-        {
-            (gchar*) "GnomeCmdCon",
-            sizeof (GnomeCmdCon),
-            sizeof (GnomeCmdConClass),
-            (GtkClassInitFunc) class_init,
-            (GtkObjectInitFunc) init,
-            /* reserved_1 */ nullptr,
-            /* reserved_2 */ nullptr,
-            (GtkClassInitFunc) nullptr
-        };
-
-        type = gtk_type_unique (gtk_object_get_type (), &info);
-    }
-    return type;
-}
-
 
 static gboolean check_con_open_progress (GnomeCmdCon *con)
 {
@@ -271,7 +245,7 @@ static gboolean check_con_open_progress (GnomeCmdCon *con)
                 gnome_cmd_con_set_default_dir (con, dir);
 
                 DEBUG ('m', "Emitting 'open-done' signal\n");
-                gtk_signal_emit (GTK_OBJECT (con), signals[OPEN_DONE]);
+                g_signal_emit (con, signals[OPEN_DONE], 0);
             }
             return FALSE;
 
@@ -279,7 +253,7 @@ static gboolean check_con_open_progress (GnomeCmdCon *con)
             {
                 DEBUG ('m', "GnomeCmdCon::OPEN_FAILED detected\n");
                 DEBUG ('m', "Emitting 'open-failed' signal\n");
-                gtk_signal_emit (GTK_OBJECT (con), signals[OPEN_FAILED]);
+                g_signal_emit (con, signals[OPEN_FAILED], 0);
             }
             return FALSE;
 
@@ -379,8 +353,8 @@ gboolean gnome_cmd_con_close (GnomeCmdCon *con)
 
     if (gnome_cmd_con_is_closeable (con) && gnome_cmd_con_is_open(con))
     {
-        gtk_signal_emit (GTK_OBJECT (con), signals[CLOSE]);
-        gtk_signal_emit (GTK_OBJECT (con), signals[UPDATED]);
+        g_signal_emit (con, signals[CLOSE], 0);
+        g_signal_emit (con, signals[UPDATED], 0);
     }
 
     return TRUE;
@@ -481,7 +455,7 @@ void gnome_cmd_con_updated (GnomeCmdCon *con)
 {
     g_return_if_fail (GNOME_CMD_IS_CON (con));
 
-    gtk_signal_emit (GTK_OBJECT (con), signals[UPDATED]);
+    g_signal_emit (con, signals[UPDATED], 0);
 }
 
 

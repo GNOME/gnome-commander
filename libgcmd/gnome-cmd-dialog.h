@@ -53,9 +53,9 @@ struct _GnomeCmdDialogClass
 
 GtkWidget *gnome_cmd_dialog_new (const gchar *title);
 
-GtkType gnome_cmd_dialog_get_type ();
+GType gnome_cmd_dialog_get_type ();
 
-GtkWidget *gnome_cmd_dialog_add_button (GnomeCmdDialog *dialog, const gchar *stock_id, GtkSignalFunc on_click, gpointer data);
+GtkWidget *gnome_cmd_dialog_add_button (GnomeCmdDialog *dialog, const gchar *stock_id, GCallback on_click, gpointer data);
 
 void gnome_cmd_dialog_add_category (GnomeCmdDialog *dialog, GtkWidget *category);
 

@@ -37,7 +37,7 @@ struct GnomeCmdConSmbClass
 };
 
 
-static GnomeCmdConClass *parent_class = nullptr;
+G_DEFINE_TYPE (GnomeCmdConSmb, gnome_cmd_con_smb, GNOME_CMD_TYPE_CON)
 
 
 static void mount_func (GnomeCmdCon *con)
@@ -184,17 +184,14 @@ static void destroy (GtkObject *object)
     gnome_cmd_pixmap_free (con_smb->parent.close_pixmap);
     g_free(con_smb->parent.uri);
 
-    if (GTK_OBJECT_CLASS (parent_class)->destroy)
-        (*GTK_OBJECT_CLASS (parent_class)->destroy) (object);
+    GTK_OBJECT_CLASS (gnome_cmd_con_smb_parent_class)->destroy (object);
 }
 
 
-static void class_init (GnomeCmdConSmbClass *klass)
+static void gnome_cmd_con_smb_class_init (GnomeCmdConSmbClass *klass)
 {
     GtkObjectClass *object_class = GTK_OBJECT_CLASS (klass);
     GnomeCmdConClass *con_class = GNOME_CMD_CON_CLASS (klass);
-
-    parent_class = static_cast<GnomeCmdConClass*> (gtk_type_class (GNOME_CMD_TYPE_CON));
 
     object_class->destroy = destroy;
 
@@ -207,7 +204,7 @@ static void class_init (GnomeCmdConSmbClass *klass)
 }
 
 
-static void init (GnomeCmdConSmb *smb_con)
+static void gnome_cmd_con_smb_init (GnomeCmdConSmb *smb_con)
 {
     guint dev_icon_size = gnome_cmd_data.dev_icon_size;
 
@@ -228,31 +225,3 @@ static void init (GnomeCmdConSmb *smb_con)
     con->close_pixmap = gnome_cmd_pixmap_new_from_icon ("folder-remote", dev_icon_size);
 }
 
-
-
-/***********************************
- * Public functions
- ***********************************/
-
-GtkType gnome_cmd_con_smb_get_type ()
-{
-    static GtkType type = 0;
-
-    if (type == 0)
-    {
-        GtkTypeInfo info =
-        {
-            (gchar*) "GnomeCmdConSmb",
-            sizeof (GnomeCmdConSmb),
-            sizeof (GnomeCmdConSmbClass),
-            (GtkClassInitFunc) class_init,
-            (GtkObjectInitFunc) init,
-            /* reserved_1 */ nullptr,
-            /* reserved_2 */ nullptr,
-            (GtkClassInitFunc) nullptr
-        };
-
-        type = gtk_type_unique (GNOME_CMD_TYPE_CON, &info);
-    }
-    return type;
-}

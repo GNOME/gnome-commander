@@ -49,4 +49,4 @@ struct GnomeCmdMakeCopyDialogClass
 
 GtkWidget *gnome_cmd_make_copy_dialog_new (GnomeCmdFile *f, GnomeCmdDir *dir);
 
-GtkType gnome_cmd_make_copy_dialog_get_type ();
+GType gnome_cmd_make_copy_dialog_get_type ();

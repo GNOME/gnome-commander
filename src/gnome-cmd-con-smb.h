@@ -41,7 +41,7 @@ struct GnomeCmdConSmb
     GnomeCmdCon parent;
 };
 
-GtkType gnome_cmd_con_smb_get_type ();
+GType gnome_cmd_con_smb_get_type ();
 
 inline GnomeCmdCon *gnome_cmd_con_smb_new ()
 {

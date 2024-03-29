@@ -35,8 +35,6 @@ using namespace std;
 // HEX history doesn't work yet
 #undef HEX_HISTORY
 
-static GtkDialogClass *parent_class = nullptr;
-
 void entry_changed(GtkEntry *entry, gpointer  user_data);
 static void search_dlg_destroy (GtkObject *object);
 static void search_dlg_action_response(GtkDialog *dlg, gint arg1, GViewerSearchDlg *sdlg);
@@ -55,6 +53,9 @@ struct GViewerSearchDlgPrivate
     guint8     *search_hex_buffer;
     guint      search_hex_buflen;
 };
+
+
+G_DEFINE_TYPE (GViewerSearchDlg, gviewer_search_dlg, GTK_TYPE_DIALOG)
 
 
 guint8 *gviewer_search_dlg_get_search_hex_buffer (GViewerSearchDlg *sdlg, /*out*/ guint &buflen)
@@ -193,11 +194,10 @@ static void search_dlg_action_response (GtkDialog *dlg, gint arg1, GViewerSearch
 }
 
 
-static void class_init (GViewerSearchDlgClass *klass)
+static void gviewer_search_dlg_class_init (GViewerSearchDlgClass *klass)
 {
     GtkObjectClass *object_class = (GtkObjectClass *) klass;
 
-    parent_class = (GtkDialogClass *) gtk_type_class (gtk_dialog_get_type ());
     object_class->destroy = search_dlg_destroy;
 }
 
@@ -229,7 +229,7 @@ void entry_changed (GtkEntry *entry, gpointer  user_data)
 }
 
 
-static void search_dlg_init (GViewerSearchDlg *sdlg)
+static void gviewer_search_dlg_init (GViewerSearchDlg *sdlg)
 {
     GtkDialog *dlg = GTK_DIALOG (sdlg);
 
@@ -324,33 +324,7 @@ static void search_dlg_destroy (GtkObject *object)
         w->priv = nullptr;
     }
 
-    if (GTK_OBJECT_CLASS (parent_class)->destroy)
-        (* GTK_OBJECT_CLASS (parent_class)->destroy) (object);
-}
-
-
-GType gviewer_search_dlg_get_type ()
-{
-  static GType ttt_type = 0;
-  if (!ttt_type)
-    {
-      static const GTypeInfo ttt_info =
-      {
-        sizeof (GViewerSearchDlgClass),
-        nullptr, // base_init
-        nullptr, // base_finalize
-        (GClassInitFunc) class_init,
-        nullptr, // class_finalize
-        nullptr, // class_data
-        sizeof (GViewerSearchDlg),
-        0, // n_preallocs
-        (GInstanceInitFunc) search_dlg_init,
-      };
-
-      ttt_type = g_type_register_static (GTK_TYPE_DIALOG, "GViewerSearchDlg", &ttt_info, (GTypeFlags) 0);
-    }
-
-  return ttt_type;
+    GTK_OBJECT_CLASS (gviewer_search_dlg_parent_class)->destroy (object);
 }
 
 

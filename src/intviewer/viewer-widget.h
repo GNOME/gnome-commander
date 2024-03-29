@@ -51,7 +51,7 @@ struct GViewerClass
 };
 
 GtkWidget     *gviewer_new ();
-GtkType        gviewer_get_type ();
+GType          gviewer_get_type ();
 void           gviewer_set_client (GViewer *obj, GtkWidget *client);
 GtkWidget     *gviewer_get_client (GViewer *obj);
 

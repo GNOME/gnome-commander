@@ -41,6 +41,7 @@ cpp = meson.get_compiler('cpp')
 
 common_ccflags = [
   '-DGLIB_DISABLE_DEPRECATION_WARNINGS',
+  '-DGTK_DISABLE_SINGLE_INCLUDES',
 ]
 test_cflags = [
   '-Wno-deprecated-declarations',

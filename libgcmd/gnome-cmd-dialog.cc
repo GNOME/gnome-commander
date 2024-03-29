@@ -31,7 +31,9 @@ struct _GnomeCmdDialogPrivate
 };
 
 
-static GtkWindowClass *parent_class = NULL;
+G_DEFINE_TYPE (GnomeCmdDialog, gnome_cmd_dialog, GTK_TYPE_WINDOW)
+
+
 extern GtkWidget *main_win;
 
 
@@ -60,40 +62,36 @@ static void destroy (GtkObject *object)
 {
     GnomeCmdDialog *dialog = GNOME_CMD_DIALOG (object);
 
-    if (GTK_OBJECT_CLASS (parent_class)->destroy)
-        (*GTK_OBJECT_CLASS (parent_class)->destroy) (object);
+    GTK_OBJECT_CLASS (gnome_cmd_dialog_parent_class)->destroy (object);
+    g_clear_pointer (&dialog->priv, g_free);
 
-    g_free (dialog->priv);
-    dialog->priv = NULL;
 }
 
 
 static void map (GtkWidget *widget)
 {
-    if (GTK_WIDGET_CLASS (parent_class)->map != NULL)
-        GTK_WIDGET_CLASS (parent_class)->map (widget);
+    GTK_WIDGET_CLASS (gnome_cmd_dialog_parent_class)->map (widget);
 }
 
 
-static void class_init (GnomeCmdDialogClass *klass)
+static void gnome_cmd_dialog_class_init (GnomeCmdDialogClass *klass)
 {
     GtkObjectClass *object_class = GTK_OBJECT_CLASS (klass);
     GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
 
-    parent_class = (GtkWindowClass *) gtk_type_class (gtk_window_get_type ());
     object_class->destroy = destroy;
     widget_class->map = map;
 }
 
 
-static void init (GnomeCmdDialog *dialog)
+static void gnome_cmd_dialog_init (GnomeCmdDialog *dialog)
 {
     GtkWidget *vbox;
 
     dialog->buttons = NULL;
     dialog->priv = g_new0 (GnomeCmdDialogPrivate, 1);
 
-    gtk_window_set_policy (GTK_WINDOW (dialog), FALSE, FALSE, TRUE);
+    gtk_window_set_resizable (GTK_WINDOW (dialog), FALSE);
     gtk_window_set_position (GTK_WINDOW (dialog), GTK_WIN_POS_CENTER);
     gtk_window_set_title (GTK_WINDOW (dialog), " ");
     gtk_window_set_transient_for (GTK_WINDOW (dialog), GTK_WINDOW (main_win_widget));
@@ -115,34 +113,9 @@ static void init (GnomeCmdDialog *dialog)
     g_signal_connect (dialog, "show", G_CALLBACK (on_dialog_show), dialog);
 }
 
-
 /***********************************
  * Public functions
  ***********************************/
-
-GtkType gnome_cmd_dialog_get_type ()
-{
-    static GtkType dlg_type = 0;
-
-    if (dlg_type == 0)
-    {
-        GtkTypeInfo dlg_info =
-        {
-            (gchar*) "GnomeCmdDialog",
-            sizeof (GnomeCmdDialog),
-            sizeof (GnomeCmdDialogClass),
-            (GtkClassInitFunc) class_init,
-            (GtkObjectInitFunc) init,
-            /* reserved_1 */ NULL,
-            /* reserved_2 */ NULL,
-            (GtkClassInitFunc) NULL
-        };
-
-        dlg_type = gtk_type_unique (gtk_window_get_type (), &dlg_info);
-    }
-    return dlg_type;
-}
-
 
 GtkWidget *gnome_cmd_dialog_new (const gchar *title)
 {
@@ -155,7 +128,7 @@ GtkWidget *gnome_cmd_dialog_new (const gchar *title)
 }
 
 
-GtkWidget *gnome_cmd_dialog_add_button (GnomeCmdDialog *dialog, const gchar *stock_id, GtkSignalFunc on_click, gpointer data)
+GtkWidget *gnome_cmd_dialog_add_button (GnomeCmdDialog *dialog, const gchar *stock_id, GCallback on_click, gpointer data)
 {
     g_return_val_if_fail (GNOME_CMD_IS_DIALOG (dialog), NULL);
 

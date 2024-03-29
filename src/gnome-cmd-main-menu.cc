@@ -53,7 +53,7 @@ struct GnomeCmdMainMenuPrivate
 };
 
 
-static GtkMenuBarClass *parent_class = nullptr;
+G_DEFINE_TYPE (GnomeCmdMainMenu, gnome_cmd_main_menu, GTK_TYPE_MENU_BAR)
 
 
 /*******************************
@@ -81,7 +81,7 @@ add_menu_item (GnomeCmdMainMenu *main_menu,
                const gchar *tooltip,
                GdkPixmap *pixmap,
                GdkBitmap *mask,
-               GtkSignalFunc callback,
+               GCallback callback,
                gpointer user_data)
 {
     g_return_val_if_fail (GTK_IS_MENU_SHELL (menu), nullptr);
@@ -140,7 +140,7 @@ static void add_bookmark_menu_item (GnomeCmdMainMenu *main_menu, GtkMenuShell *m
 
     item = add_menu_item (main_menu, menu, bookmark->name, nullptr,
                           IMAGE_get_pixmap (PIXMAP_BOOKMARK), IMAGE_get_mask (PIXMAP_BOOKMARK),
-                          GTK_SIGNAL_FUNC (on_bookmark_selected), bookmark);
+                          G_CALLBACK (on_bookmark_selected), bookmark);
 
     // Remember this bookmarks item-widget so that we can remove it later
     main_menu->priv->bookmark_menuitems = g_list_append (main_menu->priv->bookmark_menuitems, item);
@@ -183,24 +183,21 @@ static void destroy (GtkObject *object)
 
     g_free (menu->priv);
 
-    if (GTK_OBJECT_CLASS (parent_class)->destroy)
-        (*GTK_OBJECT_CLASS (parent_class)->destroy) (object);
+    GTK_OBJECT_CLASS (gnome_cmd_main_menu_parent_class)->destroy (object);
 }
 
 
 static void map (GtkWidget *widget)
 {
-    if (GTK_WIDGET_CLASS (parent_class)->map != nullptr)
-        GTK_WIDGET_CLASS (parent_class)->map (widget);
+    GTK_WIDGET_CLASS (gnome_cmd_main_menu_parent_class)->map (widget);
 }
 
 
-static void class_init (GnomeCmdMainMenuClass *klass)
+static void gnome_cmd_main_menu_class_init (GnomeCmdMainMenuClass *klass)
 {
     GtkObjectClass *object_class = GTK_OBJECT_CLASS (klass);
     GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
 
-    parent_class = (GtkMenuBarClass *) gtk_type_class (gtk_menu_bar_get_type ());
     object_class->destroy = destroy;
     widget_class->map = ::map;
 }
@@ -434,7 +431,7 @@ static GtkUIManager *get_file_menu_ui_manager()
     return uiManager;
 }
 
-static void init (GnomeCmdMainMenu *main_menu)
+static void gnome_cmd_main_menu_init (GnomeCmdMainMenu *main_menu)
 {
 
     GtkUIManager *uiManager = get_file_menu_ui_manager();
@@ -470,8 +467,6 @@ static void init (GnomeCmdMainMenu *main_menu)
     gnome_cmd_main_menu_update_connections (main_menu);
 }
 
-
-
 /***********************************
  * Public functions
  ***********************************/
@@ -482,31 +477,7 @@ GtkWidget *gnome_cmd_main_menu_new ()
 }
 
 
-GtkType gnome_cmd_main_menu_get_type ()
-{
-    static GtkType dlg_type = 0;
-
-    if (dlg_type == 0)
-    {
-        GtkTypeInfo dlg_info =
-        {
-            (gchar*) "GnomeCmdMainMenu",
-            sizeof (GnomeCmdMainMenu),
-            sizeof (GnomeCmdMainMenuClass),
-            (GtkClassInitFunc) class_init,
-            (GtkObjectInitFunc) init,
-            /* reserved_1 */ nullptr,
-            /* reserved_2 */ nullptr,
-            (GtkClassInitFunc) nullptr
-        };
-
-        dlg_type = gtk_type_unique (gtk_menu_bar_get_type (), &dlg_info);
-    }
-    return dlg_type;
-}
-
-
-static void add_connection (GnomeCmdMainMenu *main_menu, GnomeCmdCon *con, const gchar *text, GnomeCmdPixmap *pixmap, GtkSignalFunc func)
+static void add_connection (GnomeCmdMainMenu *main_menu, GnomeCmdCon *con, const gchar *text, GnomeCmdPixmap *pixmap, GCallback func)
 {
     GtkMenuShell *connections_menu = GTK_MENU_SHELL (gtk_menu_item_get_submenu (GTK_MENU_ITEM (main_menu->priv->connections_menu)));
     GtkWidget *item;
@@ -546,7 +517,7 @@ void gnome_cmd_main_menu_update_connections (GnomeCmdMainMenu *main_menu)
             add_connection (main_menu, con,
                             gnome_cmd_con_get_go_text (con),
                             gnome_cmd_con_get_go_pixmap (con),
-                            GTK_SIGNAL_FUNC (connections_change));
+                            G_CALLBACK (connections_change));
             match_count++;
         }
     }
@@ -565,7 +536,7 @@ void gnome_cmd_main_menu_update_connections (GnomeCmdMainMenu *main_menu)
             add_connection (main_menu, con,
                             gnome_cmd_con_get_close_text (con),
                             gnome_cmd_con_get_close_pixmap (con),
-                            GTK_SIGNAL_FUNC (connections_close));
+                            G_CALLBACK (connections_close));
     }
 }
 

@@ -46,7 +46,7 @@ struct _TestPluginClass
 };
 
 
-GtkType test_plugin_get_type ();
+GType test_plugin_get_type ();
 
 GnomeCmdPlugin *test_plugin_new ();
 extern "C"

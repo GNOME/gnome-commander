@@ -52,21 +52,21 @@ struct GnomeCmdStringDialogClass
 typedef gboolean (*GnomeCmdStringDialogCallback) (GnomeCmdStringDialog *dialog, const gchar **values, gpointer user_data);
 
 
-GtkWidget *gnome_cmd_string_dialog_new_with_cancel (const gchar *title, const gchar **labels, gint rows, GnomeCmdStringDialogCallback ok_cb, GtkSignalFunc cancel_cb, gpointer user_data);
+GtkWidget *gnome_cmd_string_dialog_new_with_cancel (const gchar *title, const gchar **labels, gint rows, GnomeCmdStringDialogCallback ok_cb, GnomeCmdCallback<GtkButton*> cancel_cb, gpointer user_data);
 
 inline GtkWidget *gnome_cmd_string_dialog_new (const gchar *title, const gchar **labels, gint rows, GnomeCmdStringDialogCallback ok_cb, gpointer user_data)
 {
     return gnome_cmd_string_dialog_new_with_cancel (title, labels, rows, ok_cb, NULL, user_data);
 }
 
-void gnome_cmd_string_dialog_setup_with_cancel (GnomeCmdStringDialog *dialog, const gchar *title, const gchar **labels, gint rows, GnomeCmdStringDialogCallback ok_cb, GtkSignalFunc cancel_cb, gpointer user_data);
+void gnome_cmd_string_dialog_setup_with_cancel (GnomeCmdStringDialog *dialog, const gchar *title, const gchar **labels, gint rows, GnomeCmdStringDialogCallback ok_cb, GnomeCmdCallback<GtkButton*> cancel_cb, gpointer user_data);
 
 inline void gnome_cmd_string_dialog_setup (GnomeCmdStringDialog *dialog, const gchar *title, const gchar **labels, gint rows, GnomeCmdStringDialogCallback ok_cb, gpointer user_data)
 {
     gnome_cmd_string_dialog_setup_with_cancel (dialog, title, labels, rows, ok_cb, NULL, user_data);
 }
 
-GtkType gnome_cmd_string_dialog_get_type ();
+GType gnome_cmd_string_dialog_get_type ();
 
 void gnome_cmd_string_dialog_set_title (GnomeCmdStringDialog *dialog, const gchar *title);
 
@@ -76,7 +76,7 @@ void gnome_cmd_string_dialog_set_userdata (GnomeCmdStringDialog *dialog, gpointe
 
 void gnome_cmd_string_dialog_set_ok_cb (GnomeCmdStringDialog *dialog, GnomeCmdStringDialogCallback ok_cb);
 
-void gnome_cmd_string_dialog_set_cancel_cb (GnomeCmdStringDialog *dialog, GtkSignalFunc cancel_cb);
+void gnome_cmd_string_dialog_set_cancel_cb (GnomeCmdStringDialog *dialog, GnomeCmdCallback<GtkButton*> cancel_cb);
 
 void gnome_cmd_string_dialog_set_value (GnomeCmdStringDialog *dialog, gint row, const gchar *value);
 

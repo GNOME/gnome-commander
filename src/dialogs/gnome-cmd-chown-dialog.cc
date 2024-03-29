@@ -154,7 +154,7 @@ static void gnome_cmd_chown_dialog_init (GnomeCmdChownDialog *dialog)
 
     dialog->priv = g_new0 (GnomeCmdChownDialogPrivate, 1);
 
-    gtk_window_set_policy (GTK_WINDOW (dialog), FALSE, FALSE, FALSE);
+    gtk_window_set_resizable (GTK_WINDOW (dialog), FALSE);
     gtk_window_set_position (GTK_WINDOW (dialog), GTK_WIN_POS_CENTER);
     gtk_window_set_title (GTK_WINDOW (dialog), _("Chown"));
 
@@ -170,8 +170,8 @@ static void gnome_cmd_chown_dialog_init (GnomeCmdChownDialog *dialog)
     dialog->priv->recurse_check = create_check (GTK_WIDGET (dialog), _("Apply Recursively"), "check");
     gtk_box_pack_start (GTK_BOX (vbox), dialog->priv->recurse_check, FALSE, FALSE, 0);
 
-    gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), GTK_STOCK_CANCEL, GTK_SIGNAL_FUNC (on_cancel), dialog);
-    gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), GTK_STOCK_OK, GTK_SIGNAL_FUNC (on_ok), dialog);
+    gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), GTK_STOCK_CANCEL, G_CALLBACK (on_cancel), dialog);
+    gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), GTK_STOCK_OK, G_CALLBACK (on_ok), dialog);
 }
 
 

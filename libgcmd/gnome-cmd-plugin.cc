@@ -25,10 +25,7 @@
 #include "gnome-cmd-state.h"
 #include "gnome-cmd-plugin.h"
 
-
-static GtkObjectClass *parent_class = NULL;
-
-
+G_DEFINE_TYPE (GnomeCmdPlugin, gnome_cmd_plugin, GTK_TYPE_OBJECT)
 
 /*******************************
  * Gtk class implementation
@@ -38,19 +35,17 @@ static void destroy (GtkObject *object)
 {
     //GnomeCmdPlugin *plugin = GNOME_CMD_PLUGIN (object);
 
-    if (GTK_OBJECT_CLASS (parent_class)->destroy)
-        (*GTK_OBJECT_CLASS (parent_class)->destroy) (object);
+    GTK_OBJECT_CLASS (gnome_cmd_plugin_parent_class)->destroy (object);
 }
 
 
-static void class_init (GnomeCmdPluginClass *klass)
+static void gnome_cmd_plugin_class_init (GnomeCmdPluginClass *klass)
 {
     GtkObjectClass *object_class;
     GnomeCmdPluginClass *plugin_class;
 
     object_class = GTK_OBJECT_CLASS (klass);
     plugin_class = GNOME_CMD_PLUGIN_CLASS (klass);
-    parent_class = (GtkObjectClass *) gtk_type_class (gtk_object_get_type ());
 
     object_class->destroy = destroy;
 
@@ -61,39 +56,13 @@ static void class_init (GnomeCmdPluginClass *klass)
 }
 
 
-static void init (GnomeCmdPlugin *plugin)
+static void gnome_cmd_plugin_init (GnomeCmdPlugin *plugin)
 {
 }
-
-
 
 /***********************************
  * Public functions
  ***********************************/
-
-GtkType gnome_cmd_plugin_get_type ()
-{
-    static GtkType type = 0;
-
-    if (type == 0)
-    {
-        static const GtkTypeInfo info =
-        {
-            (char*) "GnomeCmdPlugin",
-            sizeof (GnomeCmdPlugin),
-            sizeof (GnomeCmdPluginClass),
-            (GtkClassInitFunc) class_init,
-            (GtkObjectInitFunc) init,
-            /* reserved_1 */ NULL,
-            /* reserved_2 */ NULL,
-            (GtkClassInitFunc) NULL
-        };
-
-        type = gtk_type_unique (gtk_object_get_type (), &info);
-    }
-    return type;
-}
-
 
 GtkWidget *gnome_cmd_plugin_create_main_menu (GnomeCmdPlugin *plugin, GnomeCmdState *state)
 {

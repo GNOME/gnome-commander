@@ -33,8 +33,6 @@
 using namespace std;
 
 
-static GtkHBoxClass *parent_class = nullptr;
-
 struct GnomeCmdCmdlinePrivate
 {
     GnomeCmdCombo *combo;
@@ -42,6 +40,9 @@ struct GnomeCmdCmdlinePrivate
 
     GList *history;
 };
+
+
+G_DEFINE_TYPE (GnomeCmdCmdline, gnome_cmd_cmdline, GTK_TYPE_HBOX)
 
 
 inline void update_history_combo (GnomeCmdCmdline *cmdline)
@@ -185,30 +186,27 @@ static void destroy (GtkObject *object)
     g_signal_handlers_disconnect_by_func (main_win->fs(LEFT), (gpointer) on_fs_changed_dir, object);
     g_signal_handlers_disconnect_by_func (main_win->fs(RIGHT), (gpointer) on_fs_changed_dir, object);
 
-    if (GTK_OBJECT_CLASS (parent_class)->destroy)
-        (*GTK_OBJECT_CLASS (parent_class)->destroy) (object);
+    GTK_OBJECT_CLASS (gnome_cmd_cmdline_parent_class)->destroy (object);
 }
 
 
 static void map (GtkWidget *widget)
 {
-    if (GTK_WIDGET_CLASS (parent_class)->map != nullptr)
-        GTK_WIDGET_CLASS (parent_class)->map (widget);
+    GTK_WIDGET_CLASS (gnome_cmd_cmdline_parent_class)->map (widget);
 }
 
 
-static void class_init (GnomeCmdCmdlineClass *klass)
+static void gnome_cmd_cmdline_class_init (GnomeCmdCmdlineClass *klass)
 {
     GtkObjectClass *object_class = GTK_OBJECT_CLASS (klass);
     GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
 
-    parent_class = (GtkHBoxClass *) gtk_type_class (gtk_hbox_get_type ());
     object_class->destroy = destroy;
     widget_class->map = ::map;
 }
 
 
-static void init (GnomeCmdCmdline *cmdline)
+static void gnome_cmd_cmdline_init (GnomeCmdCmdline *cmdline)
 {
     g_return_if_fail (GNOME_CMD_IS_CMDLINE (cmdline));
 
@@ -250,7 +248,6 @@ static void init (GnomeCmdCmdline *cmdline)
     gnome_cmd_cmdline_update_style (cmdline);
 }
 
-
 /***********************************
  * Public functions
  ***********************************/
@@ -263,30 +260,6 @@ GtkWidget *gnome_cmd_cmdline_new ()
     update_history_combo (cmdline);
 
     return GTK_WIDGET (cmdline);
-}
-
-
-GtkType gnome_cmd_cmdline_get_type ()
-{
-    static GtkType dlg_type = 0;
-
-    if (dlg_type == 0)
-    {
-        GtkTypeInfo dlg_info =
-        {
-            (gchar*) "GnomeCmdCmdline",
-            sizeof (GnomeCmdCmdline),
-            sizeof (GnomeCmdCmdlineClass),
-            (GtkClassInitFunc) class_init,
-            (GtkObjectInitFunc) init,
-            /* reserved_1 */ nullptr,
-            /* reserved_2 */ nullptr,
-            (GtkClassInitFunc) nullptr
-        };
-
-        dlg_type = gtk_type_unique (gtk_hbox_get_type (), &dlg_info);
-    }
-    return dlg_type;
 }
 
 
@@ -482,7 +455,7 @@ gboolean gnome_cmd_cmdline_keypressed (GnomeCmdCmdline *cmdline, GdkEventKey *ev
                                 gtk_widget_grab_focus (file_list);
                                 fs->set_active(TRUE);
 
-                                gtk_signal_emit_by_name (GTK_OBJECT (file_list), "key-press-event", &event2, &ret);
+                                g_signal_emit_by_name (file_list, "key-press-event", &event2, &ret);
                                 event->keyval = 0;
                             }
                             return FALSE;

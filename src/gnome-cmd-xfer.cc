@@ -621,7 +621,7 @@ gnome_cmd_copy_gfiles_start (GList *srcGFileGList,
                              gchar *destFileName,
                              GFileCopyFlags copyFlags,
                              GnomeCmdConfirmOverwriteMode overwriteMode,
-                             GtkSignalFunc on_completed_func,
+                             GCallback on_completed_func,
                              gpointer on_completed_data)
 {
     g_return_if_fail (srcGFileGList != nullptr);
@@ -683,7 +683,7 @@ gnome_cmd_copy_gfiles_start (GList *srcGFileGList,
     set_files_total(xferData);
 
     xferData->win = GNOME_CMD_XFER_PROGRESS_WIN (gnome_cmd_xfer_progress_win_new (xferData->filesTotal));
-    gtk_widget_ref (GTK_WIDGET (xferData->win));
+    g_object_ref (GTK_WIDGET (xferData->win));
     gtk_window_set_title (GTK_WINDOW (xferData->win), _("preparing…"));
     gtk_widget_show (GTK_WIDGET (xferData->win));
 
@@ -702,7 +702,7 @@ gnome_cmd_move_gfiles_start (GList *srcGFileGList,
                              gchar *destFileName,
                              GFileCopyFlags copyFlags,
                              GnomeCmdConfirmOverwriteMode overwriteMode,
-                             GtkSignalFunc on_completed_func,
+                             GCallback on_completed_func,
                              gpointer on_completed_data)
 {
     g_return_if_fail (srcGFileGList != nullptr);
@@ -764,7 +764,7 @@ gnome_cmd_move_gfiles_start (GList *srcGFileGList,
     set_files_total(xferData);
 
     xferData->win = GNOME_CMD_XFER_PROGRESS_WIN (gnome_cmd_xfer_progress_win_new (xferData->filesTotal));
-    gtk_widget_ref (GTK_WIDGET (xferData->win));
+    g_object_ref (GTK_WIDGET (xferData->win));
     gtk_window_set_title (GTK_WINDOW (xferData->win), _("preparing…"));
     gtk_widget_show (GTK_WIDGET (xferData->win));
 
@@ -784,7 +784,7 @@ gnome_cmd_link_gfiles_start (GList *srcGFileGList,
                              gchar *destFileName,
                              GFileCopyFlags copyFlags,
                              GnomeCmdConfirmOverwriteMode overwriteMode,
-                             GtkSignalFunc on_completed_func,
+                             GCallback on_completed_func,
                              gpointer on_completed_data)
 {
     g_return_if_fail (srcGFileGList != nullptr);
@@ -853,7 +853,7 @@ void
 gnome_cmd_tmp_download (GList *srcGFileList,
                         GList *destGFileList,
                         GFileCopyFlags copyFlags,
-                        GtkSignalFunc on_completed_func,
+                        GCallback on_completed_func,
                         gpointer on_completed_data)
 {
     g_return_if_fail (srcGFileList != nullptr && srcGFileList->data != nullptr);
@@ -870,7 +870,7 @@ gnome_cmd_tmp_download (GList *srcGFileList,
 
     xferData->win = GNOME_CMD_XFER_PROGRESS_WIN (gnome_cmd_xfer_progress_win_new (g_list_length (xferData->srcGFileList)));
     gtk_window_set_title (GTK_WINDOW (xferData->win), _("downloading to /tmp"));
-    gtk_widget_ref (GTK_WIDGET (xferData->win));
+    g_object_ref (GTK_WIDGET (xferData->win));
     gtk_widget_show (GTK_WIDGET (xferData->win));
 
     xferData->thread = g_thread_new (NULL, (GThreadFunc) gnome_cmd_transfer_gfiles, xferData);
@@ -1540,7 +1540,7 @@ gnome_cmd_copy_start (GList *srcGnomeCmdFileGList,
                       gchar *destFileName,
                       GFileCopyFlags copyFlags,
                       GnomeCmdConfirmOverwriteMode overwriteMode,
-                      GtkSignalFunc on_completed_func,
+                      GCallback on_completed_func,
                       gpointer on_completed_data)
 {
     g_return_if_fail (srcGnomeCmdFileGList != nullptr);
@@ -1566,7 +1566,7 @@ gnome_cmd_move_start (GList *srcGnomeCmdFileGList,
                       gchar *destFileName,
                       GFileCopyFlags copyFlags,
                       GnomeCmdConfirmOverwriteMode overwriteMode,
-                      GtkSignalFunc on_completed_func,
+                      GCallback on_completed_func,
                       gpointer on_completed_data)
 {
     g_return_if_fail (srcGnomeCmdFileGList != nullptr);

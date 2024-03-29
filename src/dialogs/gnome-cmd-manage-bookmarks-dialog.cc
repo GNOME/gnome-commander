@@ -88,7 +88,7 @@ void gnome_cmd_bookmark_dialog_new (const gchar *title, GtkWindow *parent)
 
     vbox = gtk_vbox_new (FALSE, 12);
     gtk_container_set_border_width (GTK_CONTAINER (vbox), 12);
-   gtk_container_add (GTK_CONTAINER (content_area), vbox);
+    gtk_container_add (GTK_CONTAINER (content_area), vbox);
 
     hbox = gtk_hbox_new (FALSE, 12);
     gtk_container_add (GTK_CONTAINER (vbox), hbox);

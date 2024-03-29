@@ -45,4 +45,4 @@ struct GnomeCmdListPopmenuClass
 
 GtkWidget *gnome_cmd_list_popmenu_new (GnomeCmdFileSelector *fs);
 
-GtkType gnome_cmd_list_popmenu_get_type ();
+GType gnome_cmd_list_popmenu_get_type ();

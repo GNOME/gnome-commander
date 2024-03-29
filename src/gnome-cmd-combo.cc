@@ -129,7 +129,7 @@ static void gnome_cmd_combo_changed (GtkComboBox *widget, GnomeCmdCombo *combo)
         if (gtk_combo_box_get_active_iter (&combo->parent_instance, &iter))
         {
             gtk_tree_model_get (GTK_TREE_MODEL (combo->priv->store), &iter, combo->priv->data_col, &data, -1);
-            gtk_signal_emit (*combo, combo_signals[ITEM_SELECTED], data);
+            g_signal_emit (combo, combo_signals[ITEM_SELECTED], 0, data);
         }
     }
 }
@@ -165,7 +165,7 @@ static void gnome_cmd_combo_notify_popup_shown (GObject *gobject, GParamSpec *ps
         }
     }
     else
-        gtk_signal_emit (*combo, combo_signals[POPWIN_HIDDEN]);
+        g_signal_emit (combo, combo_signals[POPWIN_HIDDEN], 0);
 }
 
 

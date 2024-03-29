@@ -1294,7 +1294,7 @@ static void on_tmp_download_response (GtkWidget *w, gint id, TmpDlData *dldata)
         gnome_cmd_tmp_download (g_list_append (nullptr, sourceGFile),
                                 g_list_append (nullptr, destGFile),
                                 G_FILE_COPY_OVERWRITE,
-                                GTK_SIGNAL_FUNC (do_mime_exec_single),
+                                G_CALLBACK (do_mime_exec_single),
                                 dldata->args);
     }
     else
@@ -1783,7 +1783,7 @@ static void create_con_open_progress_dialog (GnomeCmdFileList *fl)
 
     gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (fl->priv->con_open_dialog),
                                  GTK_STOCK_CANCEL,
-                                 GTK_SIGNAL_FUNC (on_con_open_cancel), fl);
+                                 G_CALLBACK (on_con_open_cancel), fl);
 
     GtkWidget *vbox = create_vbox (fl->priv->con_open_dialog, FALSE, 0);
 

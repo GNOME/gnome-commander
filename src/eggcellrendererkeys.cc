@@ -86,33 +86,7 @@ enum
 };
 
 
-static GtkCellRendererTextClass *parent_class = NULL;
-
-
-GType egg_cell_renderer_keys_get_type ()
-{
-    static GType cell_keys_type = 0;
-
-    if (!cell_keys_type)
-    {
-        static const GTypeInfo cell_keys_info =
-        {
-            sizeof(EggCellRendererKeysClass),
-            NULL,                /* base_init */
-            NULL,                /* base_finalize */
-            (GClassInitFunc) egg_cell_renderer_keys_class_init,
-            NULL,                /* class_finalize */
-            NULL,                /* class_data */
-            sizeof(EggCellRendererKeys),
-            0,              /* n_preallocs */
-            (GInstanceInitFunc) egg_cell_renderer_keys_init
-        };
-
-        cell_keys_type = g_type_register_static (GTK_TYPE_CELL_RENDERER_TEXT, "EggCellRendererKeys", &cell_keys_info, GTypeFlags(0));
-    }
-
-    return cell_keys_type;
-}
+G_DEFINE_TYPE (EggCellRendererKeys, egg_cell_renderer_keys, GTK_TYPE_CELL_RENDERER_TEXT)
 
 
 static void egg_cell_renderer_keys_init (EggCellRendererKeys *cell_keys)
@@ -166,8 +140,6 @@ static void egg_cell_renderer_keys_class_init (EggCellRendererKeysClass *cell_ke
 {
     GObjectClass *object_class = G_OBJECT_CLASS (cell_keys_class);
     GtkCellRendererClass *cell_renderer_class = GTK_CELL_RENDERER_CLASS (cell_keys_class);
-
-    parent_class = (GtkCellRendererTextClass *) g_type_class_peek_parent (object_class);
 
     GTK_CELL_RENDERER_CLASS (cell_keys_class)->start_editing = egg_cell_renderer_keys_start_editing;
 
@@ -228,7 +200,7 @@ GtkCellRenderer *egg_cell_renderer_keys_new ()
 
 static void egg_cell_renderer_keys_finalize (GObject *object)
 {
-    (* G_OBJECT_CLASS (parent_class)->finalize) (object);
+    G_OBJECT_CLASS (egg_cell_renderer_keys_parent_class)->finalize (object);
 }
 
 
@@ -450,7 +422,7 @@ void egg_cell_renderer_keys_get_size (GtkCellRenderer *cell,
         keys->sizing_label = gtk_label_new (_("New accelerator…"));
 
     gtk_widget_size_request (keys->sizing_label, &requisition);
-    GTK_CELL_RENDERER_CLASS (parent_class)->get_size (cell, widget, cell_area, x_offset, y_offset, width, height);
+    GTK_CELL_RENDERER_CLASS (egg_cell_renderer_keys_parent_class)->get_size (cell, widget, cell_area, x_offset, y_offset, width, height);
 
     // FIXME: need to take the cell_area et al. into account
     if (width)

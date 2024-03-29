@@ -31,8 +31,6 @@
 using namespace std;
 
 
-static GtkWindowClass *parent_class = nullptr;
-
 struct GnomeCmdQuicksearchPopupPrivate
 {
     GnomeCmdFileList *fl;
@@ -41,6 +39,9 @@ struct GnomeCmdQuicksearchPopupPrivate
     GList *pos;
     GnomeCmdFile *last_focused_file;
 };
+
+
+G_DEFINE_TYPE (GnomeCmdQuicksearchPopup, gnome_cmd_quicksearch_popup, GTK_TYPE_WINDOW)
 
 
 inline void focus_file (GnomeCmdQuicksearchPopup *popup, GnomeCmdFile *f)
@@ -216,7 +217,7 @@ static void on_button_press (GtkWidget *entry, GdkEventButton *event, GnomeCmdQu
 
     hide_popup (popup);
 
-    gtk_signal_emit_by_name (GTK_OBJECT (popup->priv->fl), "button-press-event", event, &ret);
+    g_signal_emit_by_name (popup->priv->fl, "button-press-event", event, &ret);
 }
 
 
@@ -248,7 +249,7 @@ static GObject *constructor (GType gtype, guint n_properties, GObjectConstructPa
         }
     }
 
-    return G_OBJECT_CLASS (parent_class)->constructor (gtype, n_properties, properties);
+    return G_OBJECT_CLASS (gnome_cmd_quicksearch_popup_parent_class)->constructor (gtype, n_properties, properties);
 }
 
 static void destroy (GtkObject *object)
@@ -257,24 +258,20 @@ static void destroy (GtkObject *object)
 
     g_free (popup->priv);
 
-    if (GTK_OBJECT_CLASS (parent_class)->destroy)
-        (*GTK_OBJECT_CLASS (parent_class)->destroy) (object);
+    GTK_OBJECT_CLASS (gnome_cmd_quicksearch_popup_parent_class)->destroy (object);
 }
 
 static void map (GtkWidget *widget)
 {
-    if (GTK_WIDGET_CLASS (parent_class)->map != nullptr)
-        GTK_WIDGET_CLASS (parent_class)->map (widget);
+    GTK_WIDGET_CLASS (gnome_cmd_quicksearch_popup_parent_class)->map (widget);
 }
 
 
-static void class_init (GnomeCmdQuicksearchPopupClass *klass)
+static void gnome_cmd_quicksearch_popup_class_init (GnomeCmdQuicksearchPopupClass *klass)
 {
     GObjectClass *gobject_class = G_OBJECT_CLASS (klass);
     GtkObjectClass *object_class = GTK_OBJECT_CLASS (klass);
     GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
-
-    parent_class = (GtkWindowClass *) gtk_type_class (gtk_window_get_type ());
 
     gobject_class->constructor = constructor;
     object_class->destroy = destroy;
@@ -282,7 +279,7 @@ static void class_init (GnomeCmdQuicksearchPopupClass *klass)
 }
 
 
-static void init (GnomeCmdQuicksearchPopup *popup)
+static void gnome_cmd_quicksearch_popup_init (GnomeCmdQuicksearchPopup *popup)
 {
     popup->priv = g_new0 (GnomeCmdQuicksearchPopupPrivate, 1);
 
@@ -315,35 +312,9 @@ static void init (GnomeCmdQuicksearchPopup *popup)
     gtk_grab_add (popup->entry);
 }
 
-
-
 /***********************************
  * Public functions
  ***********************************/
-
-GtkType gnome_cmd_quicksearch_popup_get_type ()
-{
-    static GtkType type = 0;
-
-    if (type == 0)
-    {
-        GtkTypeInfo info =
-        {
-            (gchar*) "GnomeCmdQuicksearchPopup",
-            sizeof (GnomeCmdQuicksearchPopup),
-            sizeof (GnomeCmdQuicksearchPopupClass),
-            (GtkClassInitFunc) class_init,
-            (GtkObjectInitFunc) init,
-            /* reserved_1 */ nullptr,
-            /* reserved_2 */ nullptr,
-            (GtkClassInitFunc) nullptr
-        };
-
-        type = gtk_type_unique (gtk_window_get_type (), &info);
-    }
-    return type;
-}
-
 
 GtkWidget *gnome_cmd_quicksearch_popup_new (GnomeCmdFileList *fl)
 {

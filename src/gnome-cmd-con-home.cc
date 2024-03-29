@@ -30,8 +30,7 @@
 using namespace std;
 
 
-static GnomeCmdConClass *parent_class = nullptr;
-
+G_DEFINE_TYPE (GnomeCmdConHome, gnome_cmd_con_home, GNOME_CMD_TYPE_CON)
 
 
 static void home_open (GnomeCmdCon *con)
@@ -81,17 +80,14 @@ static void destroy (GtkObject *object)
     gnome_cmd_pixmap_free (con_home->parent.open_pixmap);
     gnome_cmd_pixmap_free (con_home->parent.close_pixmap);
 
-    if (GTK_OBJECT_CLASS (parent_class)->destroy)
-        (*GTK_OBJECT_CLASS (parent_class)->destroy) (object);
+    GTK_OBJECT_CLASS (gnome_cmd_con_home_parent_class)->destroy (object);
 }
 
 
-static void class_init (GnomeCmdConHomeClass *klass)
+static void gnome_cmd_con_home_class_init (GnomeCmdConHomeClass *klass)
 {
     GtkObjectClass *object_class = GTK_OBJECT_CLASS (klass);
     GnomeCmdConClass *con_class = GNOME_CMD_CON_CLASS (klass);
-
-    parent_class = static_cast<GnomeCmdConClass*>(gtk_type_class (GNOME_CMD_TYPE_CON));
 
     object_class->destroy = destroy;
 
@@ -104,7 +100,7 @@ static void class_init (GnomeCmdConHomeClass *klass)
 }
 
 
-static void init (GnomeCmdConHome *home_con)
+static void gnome_cmd_con_home_init (GnomeCmdConHome *home_con)
 {
     guint dev_icon_size = gnome_cmd_data.dev_icon_size;
 
@@ -130,35 +126,9 @@ static void init (GnomeCmdConHome *home_con)
     gnome_cmd_con_set_default_dir (con, dir);
 }
 
-
-
 /***********************************
  * Public functions
  ***********************************/
-
-GtkType gnome_cmd_con_home_get_type ()
-{
-    static GtkType type = 0;
-
-    if (type == 0)
-    {
-        GtkTypeInfo info =
-        {
-            (gchar*) "GnomeCmdConHome",
-            sizeof (GnomeCmdConHome),
-            sizeof (GnomeCmdConHomeClass),
-            (GtkClassInitFunc) class_init,
-            (GtkObjectInitFunc) init,
-            /* reserved_1 */ nullptr,
-            /* reserved_2 */ nullptr,
-            (GtkClassInitFunc) nullptr
-        };
-
-        type = gtk_type_unique (GNOME_CMD_TYPE_CON, &info);
-    }
-    return type;
-}
-
 
 GnomeCmdCon *gnome_cmd_con_home_new ()
 {

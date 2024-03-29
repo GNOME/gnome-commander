@@ -105,8 +105,6 @@ static void iv_settings_init (InternalViewerSettings *gs)
 
 /***********************************/
 
-static GtkWindowClass *parent_class = nullptr;
-
 static double image_scale_factors[] = {0.1, 0.2, 0.33, 0.5, 0.67, 1, 1.25, 1.50, 2, 3, 4, 5, 6, 7, 8};
 
 const static int MAX_SCALE_FACTOR_INDEX = G_N_ELEMENTS(image_scale_factors);
@@ -189,6 +187,10 @@ GtkTreeModel *create_model ();
 void fill_model (GtkTreeStore *treestore, GnomeCmdFile *f);
 GtkWidget *create_view ();
 
+
+G_DEFINE_TYPE (GViewerWindow, gviewer_window, GTK_TYPE_WINDOW)
+
+
 /*****************************************
     public functions
     (defined in the header file)
@@ -228,33 +230,9 @@ void gviewer_window_load_file (GViewerWindow *gViewerWindow, GnomeCmdFile *f)
 }
 
 
-GtkType gviewer_window_get_type ()
-{
-    static GtkType type = 0;
-    if (type == 0)
-    {
-        GTypeInfo info =
-        {
-            sizeof (GViewerWindowClass),
-            nullptr,
-            nullptr,
-            (GClassInitFunc) gviewer_window_class_init,
-            nullptr,
-            nullptr,
-            sizeof(GViewerWindow),
-            0,
-            (GInstanceInitFunc) gviewer_window_init
-        };
-        type = g_type_register_static (GTK_TYPE_WINDOW, "gviewerwindow", &info, (GTypeFlags) 0);
-    }
-    return type;
-}
-
-
 static void gviewer_window_map (GtkWidget *widget)
 {
-    if (GTK_WIDGET_CLASS (parent_class)->map != nullptr)
-        GTK_WIDGET_CLASS (parent_class)->map (widget);
+    GTK_WIDGET_CLASS (gviewer_window_parent_class)->map (widget);
 }
 
 
@@ -262,8 +240,6 @@ static void gviewer_window_class_init (GViewerWindowClass *klass)
 {
     GtkObjectClass *object_class = GTK_OBJECT_CLASS (klass);
     GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
-
-    parent_class = (GtkWindowClass *) gtk_type_class (gtk_window_get_type ());
 
     object_class->destroy = gviewer_window_destroy;
     widget_class->map = gviewer_window_map;
@@ -455,8 +431,7 @@ static void gviewer_window_destroy (GtkObject *widget)
         w->priv = nullptr;
     }
 
-    if (GTK_OBJECT_CLASS(parent_class)->destroy)
-        (*GTK_OBJECT_CLASS(parent_class)->destroy)(widget);
+    GTK_OBJECT_CLASS (gviewer_window_parent_class)->destroy (widget);
 }
 
 

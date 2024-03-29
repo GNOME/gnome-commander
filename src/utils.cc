@@ -1059,7 +1059,7 @@ gint get_string_pixel_size (const char *s, int len)
     PangoLayout *layout = gtk_label_get_layout (label);
     pango_layout_get_pixel_size (layout, &xSize, &ySize);
 
-    g_object_unref(GTK_OBJECT (label));
+    g_object_unref (label);
     g_free (utf8buf);
     g_free (buf);
 

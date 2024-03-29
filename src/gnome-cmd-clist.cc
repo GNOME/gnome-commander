@@ -29,7 +29,7 @@
 using namespace std;
 
 
-static GtkCListClass *parent_class = nullptr;
+G_DEFINE_TYPE (GnomeCmdCList, gnome_cmd_clist, GTK_TYPE_CLIST)
 
 
 /*******************************************
@@ -506,7 +506,7 @@ static void on_realize (GtkCList *clist, gpointer data)
             gtk_widget_set_can_focus (clist->column[i].button, FALSE);
 
     if (GTK_CLIST (clist)->hadjustment)
-        g_signal_connect_after (GTK_CLIST(clist)->hadjustment, "value-changed", GTK_SIGNAL_FUNC (on_hadj_value_changed), clist);
+        g_signal_connect_after (GTK_CLIST(clist)->hadjustment, "value-changed", G_CALLBACK (on_hadj_value_changed), clist);
 }
 
 
@@ -517,25 +517,21 @@ static void on_realize (GtkCList *clist, gpointer data)
 
 static void destroy (GtkObject *object)
 {
-    if (GTK_OBJECT_CLASS (parent_class)->destroy)
-        (*GTK_OBJECT_CLASS (parent_class)->destroy) (object);
+    GTK_OBJECT_CLASS (gnome_cmd_clist_parent_class)->destroy (object);
 }
 
 
 static void map (GtkWidget *widget)
 {
-    if (GTK_WIDGET_CLASS (parent_class)->map != nullptr)
-        GTK_WIDGET_CLASS (parent_class)->map (widget);
+    GTK_WIDGET_CLASS (gnome_cmd_clist_parent_class)->map (widget);
 }
 
 
-static void class_init (GnomeCmdCListClass *klass)
+static void gnome_cmd_clist_class_init (GnomeCmdCListClass *klass)
 {
     GtkObjectClass *object_class = GTK_OBJECT_CLASS (klass);
     GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
     GtkCListClass *clist_class = GTK_CLIST_CLASS (klass);
-
-    parent_class = (GtkCListClass *) gtk_type_class (gtk_clist_get_type ());
 
     object_class->destroy = destroy;
 
@@ -545,7 +541,7 @@ static void class_init (GnomeCmdCListClass *klass)
 }
 
 
-static void init (GnomeCmdCList *clist)
+static void gnome_cmd_clist_init (GnomeCmdCList *clist)
 {
     clist->drag_motion_row = -1;
 
@@ -561,30 +557,6 @@ static void init (GnomeCmdCList *clist)
 /***********************************
  * Public functions
  ***********************************/
-
-GtkType gnome_cmd_clist_get_type ()
-{
-    static GtkType type = 0;
-
-    if (type == 0)
-    {
-        GtkTypeInfo info =
-        {
-            (gchar*) "GnomeCmdCList",
-            sizeof (GnomeCmdCList),
-            sizeof (GnomeCmdCListClass),
-            (GtkClassInitFunc) class_init,
-            (GtkObjectInitFunc) init,
-            /* reserved_1 */ nullptr,
-            /* reserved_2 */ nullptr,
-            (GtkClassInitFunc) nullptr
-        };
-
-        type = gtk_type_unique (gtk_clist_get_type (), &info);
-    }
-    return type;
-}
-
 
 GtkWidget *gnome_cmd_clist_new_with_titles (gint columns, gchar **titles)
 {

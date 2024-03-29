@@ -51,7 +51,7 @@ struct GnomeCmdChmodComponentClass
 
 GtkWidget *gnome_cmd_chmod_component_new (guint32 perms);
 
-GtkType gnome_cmd_chmod_component_get_type ();
+GType gnome_cmd_chmod_component_get_type ();
 
 guint32 gnome_cmd_chmod_component_get_perms (GnomeCmdChmodComponent *component);
 void gnome_cmd_chmod_component_set_perms (GnomeCmdChmodComponent *component, guint32 permissions);
