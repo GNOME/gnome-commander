@@ -81,11 +81,6 @@ struct GnomeCmdAdvrenameProfileComponent::Private
 
     enum {DIR_MENU, FILE_MENU, COUNTER_MENU, DATE_MENU, METATAG_MENU, NUM_MENUS};
 
-    static GtkItemFactoryEntry dir_items[];
-    static GtkItemFactoryEntry name_items[];
-    static GtkItemFactoryEntry counter_items[];
-    static GtkItemFactoryEntry date_items[];
-    static GtkItemFactoryEntry *items[];
     static GnomeCmdTag metatags[];
 
     GtkWidget *menu_button[NUM_MENUS];
@@ -95,17 +90,15 @@ struct GnomeCmdAdvrenameProfileComponent::Private
 
     void fill_regex_model(const GnomeCmdData::AdvrenameConfig::Profile &profile);
 
-    static gchar *translate_menu (const gchar *path, gpointer data);
-
     GtkWidget *create_placeholder_menu(int menu_type);
     GtkWidget *create_button_with_menu(gchar *label_text, int menu_type);
     void insert_tag(const gchar *text);
 
     gchar *get_selected_range (GtkWindow *parent, const gchar *title, const gchar *placeholder, const gchar *filename=NULL);
 
-    static void insert_text_tag(GnomeCmdAdvrenameProfileComponent::Private *priv, guint n, GtkWidget *widget);
-    static void insert_num_tag(GnomeCmdAdvrenameProfileComponent::Private *priv, guint tag, GtkWidget *widget);
-    static void insert_range(Private *priv, guint unused, GtkWidget *widget);
+    static void insert_text_tag(GtkMenuItem *item, GnomeCmdAdvrenameProfileComponent::Private *priv);
+    static void insert_num_tag(GtkMenuItem *item, GnomeCmdAdvrenameProfileComponent::Private *priv);
+    static void insert_range(GtkMenuItem *item, Private *priv);
 
     static void on_template_entry_changed(GtkEntry *entry, GnomeCmdAdvrenameProfileComponent *component);
 
@@ -124,48 +117,6 @@ struct GnomeCmdAdvrenameProfileComponent::Private
     static void on_trim_combo_changed (GtkComboBox *combo, GnomeCmdAdvrenameProfileComponent *component);
 };
 
-
-GtkItemFactoryEntry GnomeCmdAdvrenameProfileComponent::Private::dir_items[] =
-    {{(gchar*) N_("/Grandparent"), NULL, (GtkItemFactoryCallback) GnomeCmdAdvrenameProfileComponent::Private::insert_text_tag, 0},
-     {(gchar*) N_("/Parent"), NULL, (GtkItemFactoryCallback) GnomeCmdAdvrenameProfileComponent::Private::insert_text_tag, 1}};
-
-GtkItemFactoryEntry GnomeCmdAdvrenameProfileComponent::Private::name_items[] =
-    {{(gchar*) N_("/File name"), NULL, (GtkItemFactoryCallback) GnomeCmdAdvrenameProfileComponent::Private::insert_text_tag, 2},
-     {(gchar*) N_("/File name (range)"), NULL, (GtkItemFactoryCallback) GnomeCmdAdvrenameProfileComponent::Private::insert_range, 2},
-     {(gchar*) N_("/File name without extension"), NULL, (GtkItemFactoryCallback) GnomeCmdAdvrenameProfileComponent::Private::insert_text_tag, 3},
-     {(gchar*) N_("/File name without extension (range)"), NULL, (GtkItemFactoryCallback) GnomeCmdAdvrenameProfileComponent::Private::insert_range,3},
-     {(gchar*) N_("/File extension"), NULL, (GtkItemFactoryCallback) GnomeCmdAdvrenameProfileComponent::Private::insert_text_tag, 4}};
-
-GtkItemFactoryEntry GnomeCmdAdvrenameProfileComponent::Private::counter_items[] =
-    {{(gchar*) N_("/Counter"), NULL, (GtkItemFactoryCallback) GnomeCmdAdvrenameProfileComponent::Private::insert_text_tag, 5},
-     {(gchar*) N_("/Counter (width)"), NULL, (GtkItemFactoryCallback) GnomeCmdAdvrenameProfileComponent::Private::insert_text_tag, 6},
-     {(gchar*) N_("/Counter (auto)"), NULL, (GtkItemFactoryCallback) GnomeCmdAdvrenameProfileComponent::Private::insert_text_tag, 27},
-     {(gchar*) N_("/Hexadecimal random number (width)"), NULL, (GtkItemFactoryCallback) GnomeCmdAdvrenameProfileComponent::Private::insert_text_tag, 7}};
-
-GtkItemFactoryEntry GnomeCmdAdvrenameProfileComponent::Private::date_items[] =
-    {{(gchar*) N_("/Date"), NULL, NULL, 0, (gchar*) "<Branch>"},
-     {(gchar*) N_("/Date/<locale>"), NULL, (GtkItemFactoryCallback) GnomeCmdAdvrenameProfileComponent::Private::insert_text_tag, 8},
-     {(gchar*) N_("/Date/yyyy-mm-dd"), NULL, (GtkItemFactoryCallback) GnomeCmdAdvrenameProfileComponent::Private::insert_text_tag, 9},
-     {(gchar*) N_("/Date/yy-mm-dd"), NULL, (GtkItemFactoryCallback) GnomeCmdAdvrenameProfileComponent::Private::insert_text_tag, 10},
-     {(gchar*) N_("/Date/yy.mm.dd"), NULL, (GtkItemFactoryCallback) GnomeCmdAdvrenameProfileComponent::Private::insert_text_tag, 11},
-     {(gchar*) N_("/Date/yymmdd"), NULL, (GtkItemFactoryCallback) GnomeCmdAdvrenameProfileComponent::Private::insert_text_tag, 12},
-     {(gchar*) N_("/Date/dd.mm.yy"), NULL, (GtkItemFactoryCallback) GnomeCmdAdvrenameProfileComponent::Private::insert_text_tag, 13},
-     {(gchar*) N_("/Date/mm-dd-yy"), NULL, (GtkItemFactoryCallback) GnomeCmdAdvrenameProfileComponent::Private::insert_text_tag, 14},
-     {(gchar*) N_("/Date/yyyy"), NULL, (GtkItemFactoryCallback) GnomeCmdAdvrenameProfileComponent::Private::insert_text_tag, 15},
-     {(gchar*) N_("/Date/yy"), NULL, (GtkItemFactoryCallback) GnomeCmdAdvrenameProfileComponent::Private::insert_text_tag, 16},
-     {(gchar*) N_("/Date/mm"), NULL, (GtkItemFactoryCallback) GnomeCmdAdvrenameProfileComponent::Private::insert_text_tag, 17},
-     {(gchar*) N_("/Date/mmm"), NULL, (GtkItemFactoryCallback) GnomeCmdAdvrenameProfileComponent::Private::insert_text_tag, 18},
-     {(gchar*) N_("/Date/dd"), NULL, (GtkItemFactoryCallback) GnomeCmdAdvrenameProfileComponent::Private::insert_text_tag, 19},
-     {(gchar*) N_("/Time"), NULL, NULL, 0, (gchar*) "<Branch>"},
-     {(gchar*) N_("/Time/<locale>"), NULL, (GtkItemFactoryCallback) GnomeCmdAdvrenameProfileComponent::Private::insert_text_tag, 20},
-     {(gchar*) N_("/Time/HH.MM.SS"), NULL, (GtkItemFactoryCallback) GnomeCmdAdvrenameProfileComponent::Private::insert_text_tag, 21},
-     {(gchar*) N_("/Time/HH-MM-SS"), NULL, (GtkItemFactoryCallback) GnomeCmdAdvrenameProfileComponent::Private::insert_text_tag, 22},
-     {(gchar*) N_("/Time/HHMMSS"), NULL, (GtkItemFactoryCallback) GnomeCmdAdvrenameProfileComponent::Private::insert_text_tag, 23},
-     {(gchar*) N_("/Time/HH"), NULL, (GtkItemFactoryCallback) GnomeCmdAdvrenameProfileComponent::Private::insert_text_tag, 24},
-     {(gchar*) N_("/Time/MM"), NULL, (GtkItemFactoryCallback) GnomeCmdAdvrenameProfileComponent::Private::insert_text_tag, 25},
-     {(gchar*) N_("/Time/SS"), NULL, (GtkItemFactoryCallback) GnomeCmdAdvrenameProfileComponent::Private::insert_text_tag, 26}};
-
-GtkItemFactoryEntry *GnomeCmdAdvrenameProfileComponent::Private::items[] = {dir_items, name_items, counter_items, date_items};
 
 GnomeCmdTag GnomeCmdAdvrenameProfileComponent::Private::metatags[] =
     {TAG_FILE_NAME, TAG_FILE_PATH,
@@ -436,77 +387,128 @@ void GnomeCmdAdvrenameProfileComponent::Private::fill_regex_model(const GnomeCmd
 }
 
 
-gchar *GnomeCmdAdvrenameProfileComponent::Private::translate_menu (const gchar *path, gpointer data)
+static void menu_add_item (
+        GnomeCmdAdvrenameProfileComponent::Private *self,
+        GtkMenu *menu,
+        const gchar *label,
+        GnomeCmdCallback<GtkMenuItem *, GnomeCmdAdvrenameProfileComponent::Private *> callback,
+        gsize value)
 {
-    return _(path);
+    GtkMenuItem *item = GTK_MENU_ITEM (gtk_image_menu_item_new_with_mnemonic (label));
+    g_object_set_data (G_OBJECT (item), "value", reinterpret_cast<gpointer> (value));
+    g_signal_connect (G_OBJECT (item), "activate", G_CALLBACK (callback), self);
+    gtk_menu_shell_append (GTK_MENU_SHELL (menu), GTK_WIDGET (item));
 }
 
 
+static GtkMenu * menu_add_submenu (GtkMenu *menu, const gchar *label)
+{
+    GtkMenu *submenu = GTK_MENU (gtk_menu_new ());
+    GtkMenuItem *item = GTK_MENU_ITEM (gtk_menu_item_new_with_mnemonic (label));
+    gtk_menu_item_set_submenu (item, GTK_WIDGET (submenu));
+    gtk_menu_shell_append (GTK_MENU_SHELL (menu), GTK_WIDGET (item));
+    return submenu;
+}
+
 inline GtkWidget *GnomeCmdAdvrenameProfileComponent::Private::create_placeholder_menu(int menu_type)
 {
-    static guint items_size[] = {G_N_ELEMENTS(dir_items),
-                                 G_N_ELEMENTS(name_items),
-                                 G_N_ELEMENTS(counter_items),
-                                 G_N_ELEMENTS(date_items)};
     switch (menu_type)
     {
         case DIR_MENU:
+            {
+                GtkMenu *menu = GTK_MENU (gtk_menu_new ());
+                menu_add_item (this, menu, _("Grandparent"), GnomeCmdAdvrenameProfileComponent::Private::insert_text_tag, 0);
+                menu_add_item (this, menu, _("Parent"), GnomeCmdAdvrenameProfileComponent::Private::insert_text_tag, 1);
+                gtk_widget_show_all (GTK_WIDGET (menu));
+                return GTK_WIDGET (menu);
+            }
         case FILE_MENU:
+            {
+                GtkMenu *menu = GTK_MENU (gtk_menu_new ());
+                menu_add_item (this, menu, _("File name"), GnomeCmdAdvrenameProfileComponent::Private::insert_text_tag, 2);
+                menu_add_item (this, menu, _("File name (range)"), GnomeCmdAdvrenameProfileComponent::Private::insert_range, 2);
+                menu_add_item (this, menu, _("File name without extension"), GnomeCmdAdvrenameProfileComponent::Private::insert_text_tag, 3);
+                menu_add_item (this, menu, _("File name without extension (range)"), GnomeCmdAdvrenameProfileComponent::Private::insert_range,3);
+                menu_add_item (this, menu, _("File extension"), GnomeCmdAdvrenameProfileComponent::Private::insert_text_tag, 4);
+                gtk_widget_show_all (GTK_WIDGET (menu));
+                return GTK_WIDGET (menu);
+            }
         case COUNTER_MENU:
+            {
+                GtkMenu *menu = GTK_MENU (gtk_menu_new ());
+                menu_add_item (this, menu, _("Counter"), GnomeCmdAdvrenameProfileComponent::Private::insert_text_tag, 5);
+                menu_add_item (this, menu, _("Counter (width)"), GnomeCmdAdvrenameProfileComponent::Private::insert_text_tag, 6);
+                menu_add_item (this, menu, _("Counter (auto)"), GnomeCmdAdvrenameProfileComponent::Private::insert_text_tag, 27);
+                menu_add_item (this, menu, _("Hexadecimal random number (width)"), GnomeCmdAdvrenameProfileComponent::Private::insert_text_tag, 7);
+                gtk_widget_show_all (GTK_WIDGET (menu));
+                return GTK_WIDGET (menu);
+            }
         case DATE_MENU:
             {
-                GtkItemFactory *ifac = gtk_item_factory_new (GTK_TYPE_MENU, "<main>", NULL);
+                GtkMenu *menu = GTK_MENU (gtk_menu_new ());
 
-                gtk_item_factory_set_translate_func (ifac, translate_menu, NULL, NULL);
-                gtk_item_factory_create_items (ifac, items_size[menu_type], items[menu_type], this);
-
-                return gtk_item_factory_get_widget (ifac, "<main>");
+                GtkMenu *date_menu = menu_add_submenu (menu, _("Date"));
+                menu_add_item (this, date_menu, _("<locale>"), GnomeCmdAdvrenameProfileComponent::Private::insert_text_tag, 8);
+                menu_add_item (this, date_menu, _("yyyy-mm-dd"), GnomeCmdAdvrenameProfileComponent::Private::insert_text_tag, 9);
+                menu_add_item (this, date_menu, _("yy-mm-dd"), GnomeCmdAdvrenameProfileComponent::Private::insert_text_tag, 10);
+                menu_add_item (this, date_menu, _("yy.mm.dd"), GnomeCmdAdvrenameProfileComponent::Private::insert_text_tag, 11);
+                menu_add_item (this, date_menu, _("yymmdd"), GnomeCmdAdvrenameProfileComponent::Private::insert_text_tag, 12);
+                menu_add_item (this, date_menu, _("dd.mm.yy"), GnomeCmdAdvrenameProfileComponent::Private::insert_text_tag, 13);
+                menu_add_item (this, date_menu, _("mm-dd-yy"), GnomeCmdAdvrenameProfileComponent::Private::insert_text_tag, 14);
+                menu_add_item (this, date_menu, _("yyyy"), GnomeCmdAdvrenameProfileComponent::Private::insert_text_tag, 15);
+                menu_add_item (this, date_menu, _("yy"), GnomeCmdAdvrenameProfileComponent::Private::insert_text_tag, 16);
+                menu_add_item (this, date_menu, _("mm"), GnomeCmdAdvrenameProfileComponent::Private::insert_text_tag, 17);
+                menu_add_item (this, date_menu, _("mmm"), GnomeCmdAdvrenameProfileComponent::Private::insert_text_tag, 18);
+                menu_add_item (this, date_menu, _("dd"), GnomeCmdAdvrenameProfileComponent::Private::insert_text_tag, 19);
+                GtkMenu *time_menu = menu_add_submenu (menu, _("Time"));
+                menu_add_item (this, time_menu, _("<locale>"), GnomeCmdAdvrenameProfileComponent::Private::insert_text_tag, 20);
+                menu_add_item (this, time_menu, _("HH.MM.SS"), GnomeCmdAdvrenameProfileComponent::Private::insert_text_tag, 21);
+                menu_add_item (this, time_menu, _("HH-MM-SS"), GnomeCmdAdvrenameProfileComponent::Private::insert_text_tag, 22);
+                menu_add_item (this, time_menu, _("HHMMSS"), GnomeCmdAdvrenameProfileComponent::Private::insert_text_tag, 23);
+                menu_add_item (this, time_menu, _("HH"), GnomeCmdAdvrenameProfileComponent::Private::insert_text_tag, 24);
+                menu_add_item (this, time_menu, _("MM"), GnomeCmdAdvrenameProfileComponent::Private::insert_text_tag, 25);
+                menu_add_item (this, time_menu, _("SS"), GnomeCmdAdvrenameProfileComponent::Private::insert_text_tag, 26);
+                gtk_widget_show_all (GTK_WIDGET (menu));
+                return GTK_WIDGET (menu);
             }
 
         case METATAG_MENU:
             {
                 const int BUFF_SIZE = 2048;
                 gchar *s = (gchar *) g_malloc0 (BUFF_SIZE);
-                GtkItemFactoryEntry *metatagItems = g_try_new0 (GtkItemFactoryEntry, G_N_ELEMENTS(metatags));
 
-                g_return_val_if_fail (metatagItems!=NULL, NULL);
-
+                GtkMenu *menu = GTK_MENU (gtk_menu_new ());
+                GtkMenu *submenu = nullptr;
+                const gchar *prev_class_name = nullptr;
                 for (guint ii=0; ii<G_N_ELEMENTS(metatags); ++ii)
                 {
                     GnomeCmdTag tag = metatags[ii];
                     const gchar *class_name = gcmd_tags_get_class_name(tag);
-                    GtkItemFactoryEntry *p = metatagItems+ii;
 
                     if (!class_name || *class_name==0)
                     {
-                        p->path = g_strdup("/");
-                        p->item_type = g_strdup("<Separator>");
+                        gtk_menu_shell_append (GTK_MENU_SHELL (menu), gtk_separator_menu_item_new ());
                     }
                     else
                     {
+                        if (prev_class_name != class_name)
+                            submenu = menu_add_submenu (menu, class_name);
+
                         strncpy (s, gcmd_tags_get_title (tag), BUFF_SIZE-1);
 
                         for (gchar *kk=s; *kk; ++kk)
                             if (*kk=='/')  *kk = ' ';
 
-                        p->path = g_strdup_printf ("/%s/%s", gcmd_tags_get_class_name(tag), s);
-                        p->callback = (GtkItemFactoryCallback) insert_num_tag;
-                        p->callback_action = tag;
+                        menu_add_item (this, submenu, s, insert_num_tag, tag);
                     }
+
+                    prev_class_name = class_name;
                 }
 
                 g_free (s);
 
-                GtkItemFactory *ifac = gtk_item_factory_new (GTK_TYPE_MENU, "<main>", NULL);
-
-                gtk_item_factory_create_items (ifac, G_N_ELEMENTS(metatags), metatagItems, this);
-
-                for (guint ii=0; ii<G_N_ELEMENTS(metatags); ++ii)
-                    g_free (metatagItems[ii].path);
-
-                g_free (metatagItems);
-
-                return gtk_item_factory_get_widget (ifac, "<main>");
+                gtk_widget_show_all (GTK_WIDGET (menu));
+                return GTK_WIDGET (menu);
             }
 
         default:
@@ -535,7 +537,7 @@ inline void GnomeCmdAdvrenameProfileComponent::Private::insert_tag(const gchar *
 }
 
 
-void GnomeCmdAdvrenameProfileComponent::Private::insert_text_tag(GnomeCmdAdvrenameProfileComponent::Private *priv, guint n, GtkWidget *widget)
+void GnomeCmdAdvrenameProfileComponent::Private::insert_text_tag(GtkMenuItem *item, GnomeCmdAdvrenameProfileComponent::Private *priv)
 {
     static const gchar *placeholder[] = {"$g",          //  0
                                          "$p",          //  1
@@ -566,15 +568,19 @@ void GnomeCmdAdvrenameProfileComponent::Private::insert_text_tag(GnomeCmdAdvrena
                                          "%S",          // 26
                                          "$c(a)"};      // 27
 
+    gsize n = reinterpret_cast<gsize> (g_object_get_data (G_OBJECT (item), "value"));
+
     g_return_if_fail (n < G_N_ELEMENTS(placeholder));
 
     priv->insert_tag(placeholder[n]);
 }
 
 
-void GnomeCmdAdvrenameProfileComponent::Private::insert_num_tag(GnomeCmdAdvrenameProfileComponent::Private *priv, guint tag, GtkWidget *widget)
+void GnomeCmdAdvrenameProfileComponent::Private::insert_num_tag(GtkMenuItem *item, GnomeCmdAdvrenameProfileComponent::Private *priv)
 {
-    gchar *s = g_strdup_printf ("$T(%s)", gcmd_tags_get_name((GnomeCmdTag) tag));
+    gsize value = reinterpret_cast<gsize> (g_object_get_data (G_OBJECT (item), "value"));
+    GnomeCmdTag tag = static_cast<GnomeCmdTag>(value);
+    gchar *s = g_strdup_printf ("$T(%s)", gcmd_tags_get_name(tag));
     priv->insert_tag(s);
     g_free (s);
 }
@@ -666,13 +672,15 @@ gchar *GnomeCmdAdvrenameProfileComponent::Private::get_selected_range (GtkWindow
 }
 
 
-void GnomeCmdAdvrenameProfileComponent::Private::insert_range(GnomeCmdAdvrenameProfileComponent::Private *priv, guint n, GtkWidget *widget)
+void GnomeCmdAdvrenameProfileComponent::Private::insert_range(GtkMenuItem *item, GnomeCmdAdvrenameProfileComponent::Private *priv)
 {
     static const gchar *placeholder[] = {"$g",          //  0
                                          "$p",          //  1
                                          "$N",          //  2
                                          "$n",          //  3
                                          "$e"};         //  4
+
+    gsize n = reinterpret_cast<gsize> (g_object_get_data (G_OBJECT (item), "value"));
 
     gchar *fname = NULL;
 
