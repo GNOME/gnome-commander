@@ -3,25 +3,26 @@
 #
 # Maxim Dubovoy <max@mylinux.com.ua>, 2004.
 # Maxim Dziumanenko <mvd@mylinux.com.ua>, 2004.
-# Yuri Chornoivan <yurchor@ukr.net>, 2020, 2021, 2022, 2023.
+# Yuri Chornoivan <yurchor@ukr.net>, 2020, 2021, 2022, 2023, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander 1.3.0\n"
-"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-commander/issues\n"
-"POT-Creation-Date: 2023-01-23 17:04+0000\n"
-"PO-Revision-Date: 2023-01-27 18:49+0200\n"
-"Last-Translator: Fracture dept <yurchor@ukr.net>\n"
-"Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-commander/issues/"
+"\n"
+"POT-Creation-Date: 2024-04-01 14:29+0000\n"
+"PO-Revision-Date: 2024-04-01 18:58+0300\n"
+"Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
+"Language-Team: Ukrainian\n"
 "Language: uk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=n==1 ? 3 : n%10==1 && n%100!=11 ? 0 : n"
 "%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Lokalize 20.12.0\n"
+"X-Generator: Lokalize 23.04.1\n"
 
 #: data/org.gnome.gnome-commander.appdata.xml.in:7
-#: data/org.gnome.gnome-commander.desktop.in:3 src/gnome-cmd-main-win.cc:876
+#: data/org.gnome.gnome-commander.desktop.in:3 src/gnome-cmd-main-win.cc:874
 msgid "GNOME Commander"
 msgstr "GNOME Commander"
 
@@ -55,7 +56,8 @@ msgstr ""
 "зосередитися на точному керуванні файлами, паралельній роботі із "
 "спеціалізованими програмами та виконанні добре продуманих команд."
 
-#: data/org.gnome.gnome-commander.appdata.xml.in:48
+#. developer_name tag deprecated with Appstream 1.0
+#: data/org.gnome.gnome-commander.appdata.xml.in:51
 msgid "The GNOME Project"
 msgstr "Проєкт GNOME"
 
@@ -1017,17 +1019,14 @@ msgstr ""
 "Цей рядок визначає команду для запуску засобу порівняння файлів і каталогів."
 
 #: data/org.gnome.gnome-commander.gschema.xml:719
-#| msgid "Use internal viewer"
 msgid "Use internal search"
 msgstr "Використати вбудований засіб пошуку"
 
 #: data/org.gnome.gnome-commander.gschema.xml:720
-#| msgid ""
-#| "This option defines if the internal viewer should be used by default."
 msgid "This option defines if the internal search should be used by default."
 msgstr ""
-"Цей параметр визначає, чи слід типово використовувати вбудований засіб"
-" пошуку."
+"Цей параметр визначає, чи слід типово використовувати вбудований засіб "
+"пошуку."
 
 #: data/org.gnome.gnome-commander.gschema.xml:726
 msgid "Search command"
@@ -1542,7 +1541,7 @@ msgstr ""
 "Це список автоматично завантажуваних додатків, у якому кожен запис "
 "відповідає назві файла додатка."
 
-#: libgcmd/gnome-cmd-string-dialog.cc:127
+#: libgcmd/gnome-cmd-string-dialog.cc:124
 msgid "No error description available"
 msgstr "Опис помилки відсутній"
 
@@ -1568,7 +1567,7 @@ msgstr "Вибір файла"
 msgid "Could not load schemas from %s: %s\n"
 msgstr "Не вдалося завантажити схеми з «%s»: %s\n"
 
-#: plugins/fileroller/file-roller-plugin.cc:200
+#: plugins/fileroller/file-roller-plugin.cc:202
 #, c-format
 msgid ""
 "Error running \"%s\"\n"
@@ -1579,36 +1578,36 @@ msgstr ""
 "\n"
 "%s"
 
-#: plugins/fileroller/file-roller-plugin.cc:379
+#: plugins/fileroller/file-roller-plugin.cc:381
 msgid "What file name should the new archive have?"
 msgstr "Який назву файлу повинен мати новий архів?"
 
-#: plugins/fileroller/file-roller-plugin.cc:381
+#: plugins/fileroller/file-roller-plugin.cc:383
 msgid "Create Archive"
 msgstr "Створення архіву"
 
-#: plugins/fileroller/file-roller-plugin.cc:495
+#: plugins/fileroller/file-roller-plugin.cc:497
 msgid "Create Archive…"
 msgstr "Створити архів…"
 
-#: plugins/fileroller/file-roller-plugin.cc:507
+#: plugins/fileroller/file-roller-plugin.cc:509
 msgid "Extract in Current Directory"
 msgstr "Розпакувати у поточний каталог"
 
-#: plugins/fileroller/file-roller-plugin.cc:514
-#: plugins/fileroller/file-roller-plugin.cc:527
+#: plugins/fileroller/file-roller-plugin.cc:516
+#: plugins/fileroller/file-roller-plugin.cc:529
 #, c-format
 msgid "Extract to “%s”"
 msgstr "Розпакувати до «%s»"
 
-#: plugins/fileroller/file-roller-plugin.cc:588
-#: src/gnome-cmd-advrename-profile-component.cc:941 src/plugin_manager.cc:398
+#: plugins/fileroller/file-roller-plugin.cc:590
+#: src/gnome-cmd-advrename-profile-component.cc:949 src/plugin_manager.cc:398
 #: src/tags/gnome-cmd-tags.cc:692
 msgid "File"
 msgstr "Файл"
 
 #. destroy model automatically with view
-#: plugins/fileroller/file-roller-plugin.cc:605
+#: plugins/fileroller/file-roller-plugin.cc:607
 #: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:369
 #: src/dialogs/gnome-cmd-options-dialog.cc:1556
 #: src/dialogs/gnome-cmd-options-dialog.cc:2317
@@ -1618,25 +1617,25 @@ msgstr "Файл"
 msgid "Options"
 msgstr "Параметри"
 
-#: plugins/fileroller/file-roller-plugin.cc:617
+#: plugins/fileroller/file-roller-plugin.cc:619
 msgid "File-roller options"
 msgstr "Параметри File-roller"
 
-#: plugins/fileroller/file-roller-plugin.cc:620
+#: plugins/fileroller/file-roller-plugin.cc:622
 msgid "Default archive type"
 msgstr "Типовий тип архівів"
 
 #. The pattern defining the file name prefix of the archive to be created
-#: plugins/fileroller/file-roller-plugin.cc:628
+#: plugins/fileroller/file-roller-plugin.cc:630
 msgid "File prefix pattern"
 msgstr "Взірець префіксів файлів"
 
-#: plugins/fileroller/file-roller-plugin.cc:639
+#: plugins/fileroller/file-roller-plugin.cc:641
 #: src/dialogs/gnome-cmd-options-dialog.cc:434
 msgid "Test result:"
 msgstr "Результат перевірки:"
 
-#: plugins/fileroller/file-roller-plugin.cc:646
+#: plugins/fileroller/file-roller-plugin.cc:648
 msgid ""
 "Use $N as a pattern for the original file name. See the manual page for "
 "“strftime” for other patterns."
@@ -1644,7 +1643,7 @@ msgstr ""
 "Скористайтеся замінником $N для початкової назви файла. Інші замінники можна "
 "знайти на сторінці підручника (man) програми «strftime»."
 
-#: plugins/fileroller/file-roller-plugin.cc:828
+#: plugins/fileroller/file-roller-plugin.cc:803
 msgid ""
 "A plugin that adds File Roller shortcuts for creating and extracting "
 "compressed archives."
@@ -1652,7 +1651,7 @@ msgstr ""
 "Модуль, що додає підтримку File Roller для створення та розпаковування "
 "архівів."
 
-#: plugins/test/test-plugin.cc:242
+#: plugins/test/test-plugin.cc:215
 msgid ""
 "This is an example plugin that is mostly useful as a simple example for "
 "aspiring plugin hackers"
@@ -1660,89 +1659,92 @@ msgstr ""
 "Це приклад модуля, який використовується лише як простий приклад для авторів "
 "модулів"
 
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:126
-#: src/dialogs/gnome-cmd-search-dialog.cc:201
-msgid "/_Save Profile As…"
-msgstr "/_Зберегти профіль як…"
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:118
+#: src/dialogs/gnome-cmd-search-dialog.cc:193
+#| msgid "/_Save Profile As…"
+msgid "_Save Profile As…"
+msgstr "_Зберегти профіль як…"
 
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:135
-#: src/dialogs/gnome-cmd-search-dialog.cc:210
-msgid "/_Manage Profiles…"
-msgstr "/_Керування профілями…"
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:128
+#: src/dialogs/gnome-cmd-search-dialog.cc:203
+#| msgid "/_Manage Profiles…"
+msgid "_Manage Profiles…"
+msgstr "_Керування профілями…"
 
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:187
-#: src/dialogs/gnome-cmd-search-dialog.cc:260
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:182
+#: src/dialogs/gnome-cmd-search-dialog.cc:255
 msgid "Profiles"
 msgstr "Профілі"
 
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:331
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:328
 msgid "Remove from file list"
 msgstr "Видалити зі списку файлів"
 
 #. {file_umount, "file.umount"},
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:335
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:332
 #: src/gnome-cmd-user-actions.cc:239
 msgid "View file"
 msgstr "Відобразити файл"
 
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:339
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:336
 msgid "File properties"
 msgstr "Властивості файлу"
 
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:345
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:342
 msgid "Update file list"
 msgstr "Обновити перелік файлів"
 
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:522
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:519
 msgid "Advanced Rename Tool"
 msgstr "Розширений засіб перейменування"
 
 #. Results
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:533
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:530
 msgid "Results"
 msgstr "Результат"
 
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:604
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:601
 msgid "Old name"
 msgstr "Старе ім'я:"
 
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:608
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:605
 msgid "Current file name"
 msgstr "Поточна назва файлу"
 
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:610
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:607
 msgid "New name"
 msgstr "Нове ім'я"
 
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:614
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:611
 msgid "New file name"
 msgstr "Нове ім'я файла"
 
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:616 src/tags/gnome-cmd-tags.cc:332
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:613 src/tags/gnome-cmd-tags.cc:332
 #: src/tags/gnome-cmd-tags.cc:396
 msgid "Size"
 msgstr "Розмір"
 
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:620
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:617
 msgid "File size"
 msgstr "Розмір файла"
 
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:622
-#: src/gnome-cmd-advrename-profile-component.cc:943
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:619
+#: src/gnome-cmd-advrename-profile-component.cc:450
+#: src/gnome-cmd-advrename-profile-component.cc:951
 #: src/tags/gnome-cmd-tags.cc:347 src/tags/gnome-cmd-tags.cc:423
 msgid "Date"
 msgstr "Дата"
 
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:626
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:623
 msgid "File modification date"
 msgstr "Дата модифікації файла"
 
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:693
-#: src/dialogs/gnome-cmd-search-dialog.cc:1301
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:690
+#: src/dialogs/gnome-cmd-search-dialog.cc:1298
 msgid "Profiles…"
 msgstr "Профілі…"
 
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:698
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:695
 #: src/dialogs/gnome-cmd-edit-profile-dialog.h:83
 msgid "Reset"
 msgstr "Скинути"
@@ -1841,7 +1843,7 @@ msgstr "«%s» не є правильною адресою"
 msgid "Please check spelling and try again."
 msgstr "Будь ласка, перевірте правильність написання і повторіть спробу."
 
-#: src/dialogs/gnome-cmd-con-dialog.cc:380 src/gnome-cmd-main-win.cc:247
+#: src/dialogs/gnome-cmd-con-dialog.cc:380 src/gnome-cmd-main-win.cc:248
 msgid "Remote Server"
 msgstr "Віддалений сервер"
 
@@ -1918,7 +1920,7 @@ msgid "Abort"
 msgstr "Перервати"
 
 #: src/dialogs/gnome-cmd-delete-dialog.cc:301
-#: src/gnome-cmd-file-selector.cc:1436 src/gnome-cmd-xfer.cc:120
+#: src/gnome-cmd-file-selector.cc:1407 src/gnome-cmd-xfer.cc:120
 #: src/gnome-cmd-xfer.cc:147 src/gnome-cmd-xfer.cc:150
 #: src/gnome-cmd-xfer.cc:205 src/gnome-cmd-xfer.cc:208
 #: src/gnome-cmd-xfer.cc:323 src/gnome-cmd-xfer.cc:326
@@ -1931,7 +1933,7 @@ msgstr "Повторити"
 #: src/dialogs/gnome-cmd-options-dialog.cc:1107
 #: src/dialogs/gnome-cmd-prepare-copy-dialog.cc:114
 #: src/dialogs/gnome-cmd-prepare-move-dialog.cc:108
-#: src/gnome-cmd-file-selector.cc:1436 src/gnome-cmd-xfer.cc:120
+#: src/gnome-cmd-file-selector.cc:1407 src/gnome-cmd-xfer.cc:120
 #: src/gnome-cmd-xfer.cc:147 src/gnome-cmd-xfer.cc:205
 #: src/gnome-cmd-xfer.cc:323
 msgid "Skip"
@@ -1963,14 +1965,14 @@ msgstr "Каталог «%s» містить дані. Ви справді хо�
 #: src/dialogs/gnome-cmd-delete-dialog.cc:549
 #: src/dialogs/gnome-cmd-delete-dialog.cc:550
 #: src/dialogs/gnome-cmd-options-dialog.cc:1055
-#: src/gnome-cmd-file-popmenu.cc:724 src/gnome-cmd-main-win.cc:243
+#: src/gnome-cmd-file-popmenu.cc:706 src/gnome-cmd-main-win.cc:244
 #: src/gnome-cmd-user-actions.cc:213
 msgid "Delete"
 msgstr "Видалити"
 
 #: src/dialogs/gnome-cmd-delete-dialog.cc:461
-#: src/dialogs/gnome-cmd-delete-dialog.cc:550 src/gnome-cmd-file-list.cc:1328
-#: src/gnome-cmd-file-list.cc:1357 src/gnome-cmd-file-selector.cc:1436
+#: src/dialogs/gnome-cmd-delete-dialog.cc:550 src/gnome-cmd-file-list.cc:1347
+#: src/gnome-cmd-file-list.cc:1376 src/gnome-cmd-file-selector.cc:1407
 #: src/gnome-cmd-user-actions.cc:874
 msgid "Cancel"
 msgstr "Скасувати"
@@ -2045,7 +2047,7 @@ msgid "Directory name:"
 msgstr "Назва каталогу:"
 
 #: src/dialogs/gnome-cmd-file-props-dialog.cc:331
-#: src/gnome-cmd-file-selector.cc:1220
+#: src/gnome-cmd-file-selector.cc:1191
 msgid "File name:"
 msgstr "Назва файлу:"
 
@@ -2098,12 +2100,12 @@ msgid "Access permissions"
 msgstr "Права доступу"
 
 #: src/dialogs/gnome-cmd-file-props-dialog.cc:596
-#: src/intviewer/viewer-window.cc:1356
+#: src/intviewer/viewer-window.cc:1331
 msgid "Type"
 msgstr "Тип"
 
 #: src/dialogs/gnome-cmd-file-props-dialog.cc:597
-#: src/intviewer/viewer-window.cc:1357
+#: src/intviewer/viewer-window.cc:1332
 msgid "Metadata namespace"
 msgstr "Простір імен метаданих"
 
@@ -2116,35 +2118,35 @@ msgstr "Простір імен метаданих"
 #: src/dialogs/gnome-cmd-file-props-dialog.cc:604
 #: src/dialogs/gnome-cmd-manage-bookmarks-dialog.cc:244
 #: src/dialogs/gnome-cmd-remote-dialog.cc:354
-#: src/intviewer/viewer-window.cc:1364 src/plugin_manager.cc:396
+#: src/intviewer/viewer-window.cc:1339 src/plugin_manager.cc:396
 #: src/tags/gnome-cmd-tags.cc:327
 msgid "Name"
 msgstr "Назва"
 
 #: src/dialogs/gnome-cmd-file-props-dialog.cc:605
-#: src/intviewer/viewer-window.cc:1365
+#: src/intviewer/viewer-window.cc:1340
 msgid "Tag name"
 msgstr "Назва тегу"
 
 #: src/dialogs/gnome-cmd-file-props-dialog.cc:607
-#: src/intviewer/viewer-window.cc:1367
+#: src/intviewer/viewer-window.cc:1342
 msgid "Value"
 msgstr "Значення"
 
 #: src/dialogs/gnome-cmd-file-props-dialog.cc:608
-#: src/intviewer/viewer-window.cc:1368
+#: src/intviewer/viewer-window.cc:1343
 msgid "Tag value"
 msgstr "Значення тегу"
 
 #: src/dialogs/gnome-cmd-file-props-dialog.cc:610
-#: src/intviewer/viewer-window.cc:1370 src/tags/gnome-cmd-tags.cc:171
+#: src/intviewer/viewer-window.cc:1345 src/tags/gnome-cmd-tags.cc:171
 #: src/tags/gnome-cmd-tags.cc:322 src/tags/gnome-cmd-tags.cc:424
 #: src/tags/gnome-cmd-tags.cc:535
 msgid "Description"
 msgstr "Опис"
 
 #: src/dialogs/gnome-cmd-file-props-dialog.cc:611
-#: src/intviewer/viewer-window.cc:1371
+#: src/intviewer/viewer-window.cc:1346
 msgid "Metadata tag description"
 msgstr "Опис теґу метаданих"
 
@@ -2227,17 +2229,17 @@ msgid "Do nothing"
 msgstr "Нічого не робити"
 
 #: src/dialogs/gnome-cmd-make-copy-dialog.cc:67
-#: src/gnome-cmd-file-selector.cc:1086
+#: src/gnome-cmd-file-selector.cc:1057
 msgid "No file name entered"
 msgstr "Не введена назва файлу"
 
-#: src/dialogs/gnome-cmd-make-copy-dialog.cc:152
+#: src/dialogs/gnome-cmd-make-copy-dialog.cc:149
 #: src/dialogs/gnome-cmd-prepare-copy-dialog.cc:155
 #, c-format
 msgid "Copy “%s” to"
 msgstr "Копіювати «%s» до"
 
-#: src/dialogs/gnome-cmd-make-copy-dialog.cc:159
+#: src/dialogs/gnome-cmd-make-copy-dialog.cc:156
 msgid "Copy File"
 msgstr "Копіювати файл"
 
@@ -2349,7 +2351,7 @@ msgstr "Скасування вибору файлів одним клацанн
 msgid "Middle mouse button"
 msgstr "Середня кнопка миші"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:136 src/gnome-cmd-main-win.cc:234
+#: src/dialogs/gnome-cmd-options-dialog.cc:136 src/gnome-cmd-main-win.cc:235
 #: src/gnome-cmd-user-actions.cc:284
 msgid "Up one directory"
 msgstr "Вище на один каталог"
@@ -2476,6 +2478,8 @@ msgstr "З префіксом"
 
 #. Translators: '<locale>' refers to the mode of file size display (here - use current locale settings)
 #: src/dialogs/gnome-cmd-options-dialog.cc:386
+#: src/gnome-cmd-advrename-profile-component.cc:451
+#: src/gnome-cmd-advrename-profile-component.cc:464
 msgid "<locale>"
 msgstr "<локаль>"
 
@@ -2747,7 +2751,7 @@ msgstr "Перепитати"
 #: src/dialogs/gnome-cmd-options-dialog.cc:1103
 #: src/dialogs/gnome-cmd-prepare-copy-dialog.cc:107
 #: src/dialogs/gnome-cmd-prepare-move-dialog.cc:101
-#: src/gnome-cmd-file-popmenu.cc:725 src/gnome-cmd-xfer.cc:147
+#: src/gnome-cmd-file-popmenu.cc:707 src/gnome-cmd-xfer.cc:147
 #: src/gnome-cmd-xfer.cc:150 src/gnome-cmd-xfer.cc:205
 #: src/gnome-cmd-xfer.cc:208 src/gnome-cmd-xfer.cc:323
 #: src/gnome-cmd-xfer.cc:326
@@ -2775,7 +2779,7 @@ msgstr "Підтвердження дії мишею"
 
 #: src/dialogs/gnome-cmd-options-dialog.cc:1127
 #: src/dialogs/gnome-cmd-prepare-copy-dialog.cc:94
-#: src/gnome-cmd-file-popmenu.cc:723 src/gnome-cmd-main-win.cc:241
+#: src/gnome-cmd-file-popmenu.cc:705 src/gnome-cmd-main-win.cc:242
 #: src/gnome-cmd-user-actions.cc:210
 msgid "Copy"
 msgstr "Копіювати"
@@ -2937,7 +2941,6 @@ msgid "Use Internal Viewer"
 msgstr "Використати вбудований переглядач"
 
 #: src/dialogs/gnome-cmd-options-dialog.cc:1777
-#| msgid "Use Internal Viewer"
 msgid "Use Internal Search"
 msgstr "Використати вбудований засіб пошуку"
 
@@ -3102,18 +3105,18 @@ msgid "The directory “%s” doesn’t exist, do you want to create it?"
 msgstr "Каталогу «%s» не існує, створити його?"
 
 #: src/dialogs/gnome-cmd-prepare-xfer-dialog.cc:165
-#: src/gnome-cmd-advrename-profile-component.cc:433
-#: src/gnome-cmd-advrename-profile-component.cc:761
-#: src/gnome-cmd-advrename-profile-component.cc:793
-#: src/gnome-cmd-file-popmenu.cc:143
+#: src/gnome-cmd-advrename-profile-component.cc:384
+#: src/gnome-cmd-advrename-profile-component.cc:769
+#: src/gnome-cmd-advrename-profile-component.cc:801
+#: src/gnome-cmd-file-popmenu.cc:145
 msgid "No"
 msgstr "Ні"
 
 #: src/dialogs/gnome-cmd-prepare-xfer-dialog.cc:165
-#: src/gnome-cmd-advrename-profile-component.cc:433
-#: src/gnome-cmd-advrename-profile-component.cc:761
-#: src/gnome-cmd-advrename-profile-component.cc:793
-#: src/gnome-cmd-file-popmenu.cc:143
+#: src/gnome-cmd-advrename-profile-component.cc:384
+#: src/gnome-cmd-advrename-profile-component.cc:769
+#: src/gnome-cmd-advrename-profile-component.cc:801
+#: src/gnome-cmd-file-popmenu.cc:145
 msgid "Yes"
 msgstr "Так"
 
@@ -3150,25 +3153,25 @@ msgid "Files _not containing text"
 msgstr "Файли, що _не містять текст"
 
 # c-format
-#: src/dialogs/gnome-cmd-search-dialog.cc:328
+#: src/dialogs/gnome-cmd-search-dialog.cc:325
 #, c-format
 msgid "Failed to read file %s: File is not searchable"
 msgstr "Не вдалося прочитати файл %s: файл є непридатним для пошуку даних"
 
 # c-format
-#: src/dialogs/gnome-cmd-search-dialog.cc:339
-#: src/dialogs/gnome-cmd-search-dialog.cc:352
-#: src/dialogs/gnome-cmd-search-dialog.cc:381
+#: src/dialogs/gnome-cmd-search-dialog.cc:336
+#: src/dialogs/gnome-cmd-search-dialog.cc:349
+#: src/dialogs/gnome-cmd-search-dialog.cc:378
 #, c-format
 msgid "Failed to read file %s: %s"
 msgstr "Не вдалося прочитати файл %s: %s"
 
-#: src/dialogs/gnome-cmd-search-dialog.cc:441
+#: src/dialogs/gnome-cmd-search-dialog.cc:438
 #, c-format
 msgid "Searching in: %s"
 msgstr "Пошук в: %s"
 
-#: src/dialogs/gnome-cmd-search-dialog.cc:605
+#: src/dialogs/gnome-cmd-search-dialog.cc:602
 #, c-format
 msgid "Found %d match — search aborted"
 msgid_plural "Found %d matches — search aborted"
@@ -3177,7 +3180,7 @@ msgstr[1] "Знайдено %d відповідності — пошук пер�
 msgstr[2] "Знайдено %d відповідностей — пошук перервано"
 msgstr[3] "Знайдено %d відповідність — пошук перервано"
 
-#: src/dialogs/gnome-cmd-search-dialog.cc:606
+#: src/dialogs/gnome-cmd-search-dialog.cc:603
 #, c-format
 msgid "Found %d match"
 msgid_plural "Found %d matches"
@@ -3186,36 +3189,36 @@ msgstr[1] "Знайдено %d відповідності"
 msgstr[2] "Знайдено %d відповідностей"
 msgstr[3] "Знайдено %d відповідність"
 
-#: src/dialogs/gnome-cmd-search-dialog.cc:815
+#: src/dialogs/gnome-cmd-search-dialog.cc:812
 #, c-format
 msgid "Failed to set process group id of child %d: %s.\n"
 msgstr ""
 "Не вдалося встановити ідентифікатор групи процесів дочірнього процесу %d: "
 "%s.\n"
 
-#: src/dialogs/gnome-cmd-search-dialog.cc:951
+#: src/dialogs/gnome-cmd-search-dialog.cc:948
 msgid "Error parsing the search command."
 msgstr "Помилка під час обробки команди пошуку."
 
-#: src/dialogs/gnome-cmd-search-dialog.cc:963
+#: src/dialogs/gnome-cmd-search-dialog.cc:960
 msgid "Error running the search command."
 msgstr "Помилка під час запуску команди пошуку."
 
-#: src/dialogs/gnome-cmd-search-dialog.cc:1090
+#: src/dialogs/gnome-cmd-search-dialog.cc:1087
 #, c-format
 msgid "Failed to change directory outside of %s"
 msgstr "Не вдалося перейти до каталогу поза %s"
 
-#: src/dialogs/gnome-cmd-search-dialog.cc:1200
+#: src/dialogs/gnome-cmd-search-dialog.cc:1197
 msgid "Search…"
 msgstr "Шукати…"
 
 #. search in
-#: src/dialogs/gnome-cmd-search-dialog.cc:1319
+#: src/dialogs/gnome-cmd-search-dialog.cc:1316
 msgid "Select Directory"
 msgstr "Виберіть каталог"
 
-#: src/dialogs/gnome-cmd-search-dialog.cc:1322
+#: src/dialogs/gnome-cmd-search-dialog.cc:1319
 msgid "_Look in folder:"
 msgstr "_Шукати у теці:"
 
@@ -3228,27 +3231,27 @@ msgstr[1] "%d файли"
 msgstr[2] "%d файлів"
 msgstr[3] "%d файл"
 
-#: src/eggcellrendererkeys.cc:183 src/eggcellrendererkeys.cc:184
+#: src/eggcellrendererkeys.cc:155 src/eggcellrendererkeys.cc:156
 msgid "Accelerator key"
 msgstr "Гаряча клавіша"
 
-#: src/eggcellrendererkeys.cc:193 src/eggcellrendererkeys.cc:194
+#: src/eggcellrendererkeys.cc:165 src/eggcellrendererkeys.cc:166
 msgid "Accelerator modifiers"
 msgstr "Модифікатори прискорювача"
 
-#: src/eggcellrendererkeys.cc:202
+#: src/eggcellrendererkeys.cc:174
 msgid "Accelerator Mode"
 msgstr "Режим прискорювача"
 
-#: src/eggcellrendererkeys.cc:203
+#: src/eggcellrendererkeys.cc:175
 msgid "The type of accelerator."
 msgstr "Тип прискорювача."
 
-#: src/eggcellrendererkeys.cc:238
+#: src/eggcellrendererkeys.cc:210
 msgid "Disabled"
 msgstr "Вимкнено"
 
-#: src/eggcellrendererkeys.cc:446 src/eggcellrendererkeys.cc:665
+#: src/eggcellrendererkeys.cc:422 src/eggcellrendererkeys.cc:641
 msgid "New accelerator…"
 msgstr "Нове скорочення…"
 
@@ -3281,266 +3284,272 @@ msgstr "_Подяки"
 msgid "About %s"
 msgstr "Про %s"
 
-#: src/gnome-cmd-advrename-profile-component.cc:129
-msgid "/Grandparent"
-msgstr "/Прабатьківська тека"
+#: src/gnome-cmd-advrename-profile-component.cc:420
+#| msgid "/Grandparent"
+msgid "Grandparent"
+msgstr "Прабатьківська тека"
 
-#: src/gnome-cmd-advrename-profile-component.cc:130
-msgid "/Parent"
-msgstr "/Батьківська тека"
+#: src/gnome-cmd-advrename-profile-component.cc:421
+#| msgid "/Parent"
+msgid "Parent"
+msgstr "Батьківська тека"
 
-#: src/gnome-cmd-advrename-profile-component.cc:133
-msgid "/File name"
-msgstr "/Назва файла"
+#: src/gnome-cmd-advrename-profile-component.cc:428
+#| msgid "File name:"
+msgid "File name"
+msgstr "Назва файла"
 
-#: src/gnome-cmd-advrename-profile-component.cc:134
-msgid "/File name (range)"
-msgstr "/Назва файла (діапазон)"
+#: src/gnome-cmd-advrename-profile-component.cc:429
+#| msgid "/File name (range)"
+msgid "File name (range)"
+msgstr "Назва файла (діапазон)"
 
-#: src/gnome-cmd-advrename-profile-component.cc:135
-msgid "/File name without extension"
-msgstr "/Назва файла без суфікса"
+#: src/gnome-cmd-advrename-profile-component.cc:430
+#| msgid "/File name without extension"
+msgid "File name without extension"
+msgstr "Назва файла без суфікса"
 
-#: src/gnome-cmd-advrename-profile-component.cc:136
-msgid "/File name without extension (range)"
-msgstr "/Назва файла без суфікса (діапазон)"
+#: src/gnome-cmd-advrename-profile-component.cc:431
+#| msgid "/File name without extension (range)"
+msgid "File name without extension (range)"
+msgstr "Назва файла без суфікса (діапазон)"
 
-#: src/gnome-cmd-advrename-profile-component.cc:137
-msgid "/File extension"
-msgstr "/Суфікс назви файла"
+#: src/gnome-cmd-advrename-profile-component.cc:432
+#| msgid "/File extension"
+msgid "File extension"
+msgstr "Суфікс назви файла"
 
-#: src/gnome-cmd-advrename-profile-component.cc:140
-msgid "/Counter"
-msgstr "/Лічильник"
-
-#: src/gnome-cmd-advrename-profile-component.cc:141
-msgid "/Counter (width)"
-msgstr "/Лічильник (ширина)"
-
-#: src/gnome-cmd-advrename-profile-component.cc:142
-msgid "/Counter (auto)"
-msgstr "/Лічильник (авто)"
-
-#: src/gnome-cmd-advrename-profile-component.cc:143
-msgid "/Hexadecimal random number (width)"
-msgstr "/Шістнадцятирічне випадкове число (ширина)"
-
-#: src/gnome-cmd-advrename-profile-component.cc:146
-msgid "/Date"
-msgstr "/Дата"
-
-#: src/gnome-cmd-advrename-profile-component.cc:147
-msgid "/Date/<locale>"
-msgstr "/Дата/<локаль>"
-
-#: src/gnome-cmd-advrename-profile-component.cc:148
-msgid "/Date/yyyy-mm-dd"
-msgstr "/Дата/рррр-мм-дд"
-
-#: src/gnome-cmd-advrename-profile-component.cc:149
-msgid "/Date/yy-mm-dd"
-msgstr "/Дата/рр-мм-дд"
-
-#: src/gnome-cmd-advrename-profile-component.cc:150
-msgid "/Date/yy.mm.dd"
-msgstr "/Дата/рр.мм.дд"
-
-#: src/gnome-cmd-advrename-profile-component.cc:151
-msgid "/Date/yymmdd"
-msgstr "/Дата/ррммдд"
-
-#: src/gnome-cmd-advrename-profile-component.cc:152
-msgid "/Date/dd.mm.yy"
-msgstr "/Дата/дд.мм.рр"
-
-#: src/gnome-cmd-advrename-profile-component.cc:153
-msgid "/Date/mm-dd-yy"
-msgstr "/Дата/мм-дд-рр"
-
-#: src/gnome-cmd-advrename-profile-component.cc:154
-msgid "/Date/yyyy"
-msgstr "/Дата/рррр"
-
-#: src/gnome-cmd-advrename-profile-component.cc:155
-msgid "/Date/yy"
-msgstr "/Дата/рр"
-
-#: src/gnome-cmd-advrename-profile-component.cc:156
-msgid "/Date/mm"
-msgstr "/Дата/мм"
-
-#: src/gnome-cmd-advrename-profile-component.cc:157
-msgid "/Date/mmm"
-msgstr "/Дата/ммм"
-
-#: src/gnome-cmd-advrename-profile-component.cc:158
-msgid "/Date/dd"
-msgstr "/Дата/дд"
-
-#: src/gnome-cmd-advrename-profile-component.cc:159
-msgid "/Time"
-msgstr "/Час"
-
-#: src/gnome-cmd-advrename-profile-component.cc:160
-msgid "/Time/<locale>"
-msgstr "/Час/<локаль>"
-
-#: src/gnome-cmd-advrename-profile-component.cc:161
-msgid "/Time/HH.MM.SS"
-msgstr "/Час/ГГ.ХХ.СС"
-
-#: src/gnome-cmd-advrename-profile-component.cc:162
-msgid "/Time/HH-MM-SS"
-msgstr "/Час/ГГ-ХХ-СС"
-
-#: src/gnome-cmd-advrename-profile-component.cc:163
-msgid "/Time/HHMMSS"
-msgstr "/Час/ГГХХСС"
-
-#: src/gnome-cmd-advrename-profile-component.cc:164
-msgid "/Time/HH"
-msgstr "/Час/ГГ"
-
-#: src/gnome-cmd-advrename-profile-component.cc:165
-msgid "/Time/MM"
-msgstr "/Час/ХХ"
-
-#: src/gnome-cmd-advrename-profile-component.cc:166
-msgid "/Time/SS"
-msgstr "/Час/СС"
-
-#: src/gnome-cmd-advrename-profile-component.cc:613
-msgid "_Select range:"
-msgstr "П_означити діапазон:"
-
-#: src/gnome-cmd-advrename-profile-component.cc:623
-msgid "_Inverse selection"
-msgstr "_Інвертувати позначення"
-
-#: src/gnome-cmd-advrename-profile-component.cc:687
-msgid "Range Selection"
-msgstr "Позначення діапазону"
-
-#: src/gnome-cmd-advrename-profile-component.cc:751
-msgid "Add Rule"
-msgstr "Додати правило"
-
-#: src/gnome-cmd-advrename-profile-component.cc:786
-msgid "Edit Rule"
-msgstr "Змінити правило"
-
-#: src/gnome-cmd-advrename-profile-component.cc:912
-msgid "_Template"
-msgstr "Ша_блон"
-
-#: src/gnome-cmd-advrename-profile-component.cc:940
-msgid "Directory"
-msgstr "Каталог"
-
-#: src/gnome-cmd-advrename-profile-component.cc:942
-#: src/gnome-cmd-advrename-profile-component.cc:954
+#: src/gnome-cmd-advrename-profile-component.cc:439
+#: src/gnome-cmd-advrename-profile-component.cc:950
+#: src/gnome-cmd-advrename-profile-component.cc:962
 msgid "Counter"
 msgstr "Лічильник"
 
-#: src/gnome-cmd-advrename-profile-component.cc:944
+#: src/gnome-cmd-advrename-profile-component.cc:440
+#| msgid "/Counter (width)"
+msgid "Counter (width)"
+msgstr "Лічильник (ширина)"
+
+#: src/gnome-cmd-advrename-profile-component.cc:441
+#| msgid "/Counter (auto)"
+msgid "Counter (auto)"
+msgstr "Лічильник (авто)"
+
+#: src/gnome-cmd-advrename-profile-component.cc:442
+#| msgid "/Hexadecimal random number (width)"
+msgid "Hexadecimal random number (width)"
+msgstr "Шістнадцятирічне випадкове число (ширина)"
+
+#: src/gnome-cmd-advrename-profile-component.cc:452
+#| msgid "/Date/yyyy-mm-dd"
+msgid "yyyy-mm-dd"
+msgstr "yyyy-mm-dd"
+
+#: src/gnome-cmd-advrename-profile-component.cc:453
+#| msgid "/Date/yy-mm-dd"
+msgid "yy-mm-dd"
+msgstr "yy-mm-dd"
+
+#: src/gnome-cmd-advrename-profile-component.cc:454
+#| msgid "/Date/yy.mm.dd"
+msgid "yy.mm.dd"
+msgstr "yy.mm.dd"
+
+#: src/gnome-cmd-advrename-profile-component.cc:455
+#| msgid "/Date/yymmdd"
+msgid "yymmdd"
+msgstr "yymmdd"
+
+#: src/gnome-cmd-advrename-profile-component.cc:456
+#| msgid "/Date/dd.mm.yy"
+msgid "dd.mm.yy"
+msgstr "dd.mm.yy"
+
+#: src/gnome-cmd-advrename-profile-component.cc:457
+#| msgid "/Date/mm-dd-yy"
+msgid "mm-dd-yy"
+msgstr "mm-dd-yy"
+
+#: src/gnome-cmd-advrename-profile-component.cc:458
+msgid "yyyy"
+msgstr "yyyy"
+
+#: src/gnome-cmd-advrename-profile-component.cc:459
+msgid "yy"
+msgstr "yy"
+
+#: src/gnome-cmd-advrename-profile-component.cc:460
+msgid "mm"
+msgstr "mm"
+
+#: src/gnome-cmd-advrename-profile-component.cc:461
+msgid "mmm"
+msgstr "mmm"
+
+#: src/gnome-cmd-advrename-profile-component.cc:462
+msgid "dd"
+msgstr "dd"
+
+#: src/gnome-cmd-advrename-profile-component.cc:463
+#: src/tags/gnome-cmd-tags.cc:403
+msgid "Time"
+msgstr "Час"
+
+#: src/gnome-cmd-advrename-profile-component.cc:465
+#| msgid "/Time/HH.MM.SS"
+msgid "HH.MM.SS"
+msgstr "HH.MM.SS"
+
+#: src/gnome-cmd-advrename-profile-component.cc:466
+#| msgid "/Time/HH-MM-SS"
+msgid "HH-MM-SS"
+msgstr "HH-MM-SS"
+
+#: src/gnome-cmd-advrename-profile-component.cc:467
+#| msgid "/Time/HHMMSS"
+msgid "HHMMSS"
+msgstr "HHMMSS"
+
+#: src/gnome-cmd-advrename-profile-component.cc:468
+msgid "HH"
+msgstr "HH"
+
+#: src/gnome-cmd-advrename-profile-component.cc:469
+msgid "MM"
+msgstr "MM"
+
+#: src/gnome-cmd-advrename-profile-component.cc:470
+#| msgid "SSH"
+msgid "SS"
+msgstr "SS"
+
+#: src/gnome-cmd-advrename-profile-component.cc:619
+msgid "_Select range:"
+msgstr "П_означити діапазон:"
+
+#: src/gnome-cmd-advrename-profile-component.cc:629
+msgid "_Inverse selection"
+msgstr "_Інвертувати позначення"
+
+#: src/gnome-cmd-advrename-profile-component.cc:695
+msgid "Range Selection"
+msgstr "Позначення діапазону"
+
+#: src/gnome-cmd-advrename-profile-component.cc:759
+msgid "Add Rule"
+msgstr "Додати правило"
+
+#: src/gnome-cmd-advrename-profile-component.cc:794
+msgid "Edit Rule"
+msgstr "Змінити правило"
+
+#: src/gnome-cmd-advrename-profile-component.cc:920
+msgid "_Template"
+msgstr "Ша_блон"
+
+#: src/gnome-cmd-advrename-profile-component.cc:948
+msgid "Directory"
+msgstr "Каталог"
+
+#: src/gnome-cmd-advrename-profile-component.cc:952
 msgid "Metatag"
 msgstr "Метатег"
 
-#: src/gnome-cmd-advrename-profile-component.cc:971
+#: src/gnome-cmd-advrename-profile-component.cc:979
 msgid "_Start:"
 msgstr "_Початок:"
 
-#: src/gnome-cmd-advrename-profile-component.cc:978
+#: src/gnome-cmd-advrename-profile-component.cc:986
 msgid "Ste_p:"
 msgstr "_Крок:"
 
-#: src/gnome-cmd-advrename-profile-component.cc:985
+#: src/gnome-cmd-advrename-profile-component.cc:993
 msgid "Di_gits:"
 msgstr "_Символи"
 
-#: src/gnome-cmd-advrename-profile-component.cc:989
+#: src/gnome-cmd-advrename-profile-component.cc:997
 msgid "auto"
 msgstr "авто"
 
-#: src/gnome-cmd-advrename-profile-component.cc:1003
+#: src/gnome-cmd-advrename-profile-component.cc:1011
 msgid "Regex replacing"
 msgstr "Заміна по регулярному виразу"
 
-#: src/gnome-cmd-advrename-profile-component.cc:1042
+#: src/gnome-cmd-advrename-profile-component.cc:1050
 msgid "Remove A_ll"
 msgstr "Вилучити _усі"
 
-#: src/gnome-cmd-advrename-profile-component.cc:1055
+#: src/gnome-cmd-advrename-profile-component.cc:1063
 msgid "Case"
 msgstr "Регістр"
 
-#: src/gnome-cmd-advrename-profile-component.cc:1067
+#: src/gnome-cmd-advrename-profile-component.cc:1075
 msgid "<unchanged>"
 msgstr "<без змін>"
 
-#: src/gnome-cmd-advrename-profile-component.cc:1068
+#: src/gnome-cmd-advrename-profile-component.cc:1076
 msgid "lowercase"
 msgstr "нижній регістр"
 
-#: src/gnome-cmd-advrename-profile-component.cc:1069
+#: src/gnome-cmd-advrename-profile-component.cc:1077
 msgid "UPPERCASE"
 msgstr "ВЕРХНІЙ РЕГІСТР"
 
-#: src/gnome-cmd-advrename-profile-component.cc:1071
+#: src/gnome-cmd-advrename-profile-component.cc:1079
 msgid "Sentence case"
 msgstr "нижній регістр"
 
 #. FIXME
-#: src/gnome-cmd-advrename-profile-component.cc:1072
+#: src/gnome-cmd-advrename-profile-component.cc:1080
 msgid "Initial Caps"
 msgstr "Початкові Великі"
 
 #. FIXME
-#: src/gnome-cmd-advrename-profile-component.cc:1073
+#: src/gnome-cmd-advrename-profile-component.cc:1081
 msgid "tOGGLE cASE"
 msgstr "зМІШАНИЙ рЕГІСТР"
 
-#: src/gnome-cmd-advrename-profile-component.cc:1083
+#: src/gnome-cmd-advrename-profile-component.cc:1091
 msgid "Trim blanks"
 msgstr "Прибрати пробіли"
 
-#: src/gnome-cmd-advrename-profile-component.cc:1095
+#: src/gnome-cmd-advrename-profile-component.cc:1103
 msgid "<none>"
 msgstr "<немає>"
 
-#: src/gnome-cmd-advrename-profile-component.cc:1096
+#: src/gnome-cmd-advrename-profile-component.cc:1104
 msgid "leading"
 msgstr "початкові"
 
-#: src/gnome-cmd-advrename-profile-component.cc:1097
+#: src/gnome-cmd-advrename-profile-component.cc:1105
 msgid "trailing"
 msgstr "замикаючий"
 
-#: src/gnome-cmd-advrename-profile-component.cc:1098
+#: src/gnome-cmd-advrename-profile-component.cc:1106
 msgid "leading and trailing"
 msgstr "початкові і завершальні"
 
-#: src/gnome-cmd-advrename-profile-component.cc:1258
+#: src/gnome-cmd-advrename-profile-component.cc:1266
 msgid "Search for"
 msgstr "Шукати"
 
-#: src/gnome-cmd-advrename-profile-component.cc:1261
+#: src/gnome-cmd-advrename-profile-component.cc:1269
 msgid "Regex pattern"
 msgstr "Формальний вираз"
 
-#: src/gnome-cmd-advrename-profile-component.cc:1263
+#: src/gnome-cmd-advrename-profile-component.cc:1271
 msgid "Replace with"
 msgstr "Замінити на"
 
-#: src/gnome-cmd-advrename-profile-component.cc:1266
+#: src/gnome-cmd-advrename-profile-component.cc:1274
 msgid "Replacement"
 msgstr "Заміна"
 
-#: src/gnome-cmd-advrename-profile-component.cc:1268
+#: src/gnome-cmd-advrename-profile-component.cc:1276
 msgid "Match case"
 msgstr "Враховуючи регістр"
 
-#: src/gnome-cmd-advrename-profile-component.cc:1271
+#: src/gnome-cmd-advrename-profile-component.cc:1279
 msgid "Case sensitive matching"
 msgstr "Враховувати регістр"
 
@@ -3549,35 +3558,35 @@ msgstr "Враховувати регістр"
 msgid "The program has now finished. Press Enter to close this window.\n"
 msgstr "Роботу програми завершено. Натисніть Enter, щоб закрити це вікно.\n"
 
-#: src/gnome-cmd-chmod-component.cc:121
+#: src/gnome-cmd-chmod-component.cc:120
 msgid "Read"
 msgstr "Читання"
 
-#: src/gnome-cmd-chmod-component.cc:121
+#: src/gnome-cmd-chmod-component.cc:120
 msgid "Write"
 msgstr "Запис"
 
-#: src/gnome-cmd-chmod-component.cc:121
+#: src/gnome-cmd-chmod-component.cc:120
 msgid "Execute"
 msgstr "Виконання"
 
-#: src/gnome-cmd-chmod-component.cc:122 src/gnome-cmd-chown-component.cc:86
+#: src/gnome-cmd-chmod-component.cc:121 src/gnome-cmd-chown-component.cc:83
 msgid "Owner:"
 msgstr "Власник:"
 
-#: src/gnome-cmd-chmod-component.cc:122 src/gnome-cmd-chown-component.cc:89
+#: src/gnome-cmd-chmod-component.cc:121 src/gnome-cmd-chown-component.cc:86
 msgid "Group:"
 msgstr "Група:"
 
-#: src/gnome-cmd-chmod-component.cc:122
+#: src/gnome-cmd-chmod-component.cc:121
 msgid "Others:"
 msgstr "Інші:"
 
-#: src/gnome-cmd-chmod-component.cc:154
+#: src/gnome-cmd-chmod-component.cc:153
 msgid "Text view:"
 msgstr "Текстове представлення:"
 
-#: src/gnome-cmd-chmod-component.cc:157
+#: src/gnome-cmd-chmod-component.cc:156
 msgid "Number view:"
 msgstr "Числове представлення:"
 
@@ -3613,27 +3622,27 @@ msgstr ""
 "%s\n"
 "Код помилки: %d"
 
-#: src/gnome-cmd-con-device.cc:554
+#: src/gnome-cmd-con-device.cc:527
 #, c-format
 msgid "Mounting %s"
 msgstr "Підключається %s"
 
-#: src/gnome-cmd-con-device.cc:571
+#: src/gnome-cmd-con-device.cc:544
 #, c-format
 msgid "Go to: %s (%s)"
 msgstr "Перейти до: %s (%s)"
 
-#: src/gnome-cmd-con-device.cc:573 src/gnome-cmd-con.h:223
+#: src/gnome-cmd-con-device.cc:546 src/gnome-cmd-con.h:223
 #, c-format
 msgid "Go to: %s"
 msgstr "Перейти до: %s"
 
-#: src/gnome-cmd-con-device.cc:574
+#: src/gnome-cmd-con-device.cc:547
 #, c-format
 msgid "Mount: %s"
 msgstr "Підключення: %s"
 
-#: src/gnome-cmd-con-device.cc:575
+#: src/gnome-cmd-con-device.cc:548
 #, c-format
 msgid "Unmount: %s"
 msgstr "Демонтування: %s"
@@ -3662,11 +3671,11 @@ msgstr "З'єднання з %s\n"
 msgid "Unknown disk usage"
 msgstr "Невідоме використання диску"
 
-#: src/gnome-cmd-con-home.cc:114
+#: src/gnome-cmd-con-home.cc:110
 msgid "Home"
 msgstr "Домашній каталог"
 
-#: src/gnome-cmd-con-home.cc:123
+#: src/gnome-cmd-con-home.cc:119
 msgid "Go to: Home"
 msgstr "Перейти в: домашній каталог"
 
@@ -3674,12 +3683,12 @@ msgstr "Перейти в: домашній каталог"
 msgid "Disconnect error"
 msgstr "Помилка під час від'єднання"
 
-#: src/gnome-cmd-con-remote.cc:395
+#: src/gnome-cmd-con-remote.cc:367
 #, c-format
 msgid "Opens remote connection to %s"
 msgstr "Створює віддалене з'єднання з %s"
 
-#: src/gnome-cmd-con-remote.cc:396
+#: src/gnome-cmd-con-remote.cc:368
 #, c-format
 msgid "Closes remote connection to %s"
 msgstr "Закриває віддалене з'єднання з %s"
@@ -3688,15 +3697,15 @@ msgstr "Закриває віддалене з'єднання з %s"
 msgid "Failed to browse the network. Is Samba supported on the system?"
 msgstr "Помилка огляду мережі. Чи встановлено у системі підтримку Samba?"
 
-#: src/gnome-cmd-con-smb.cc:216
+#: src/gnome-cmd-con-smb.cc:213
 msgid "SMB"
 msgstr "SMB"
 
-#: src/gnome-cmd-con-smb.cc:218
+#: src/gnome-cmd-con-smb.cc:215
 msgid "Searching for workgroups and hosts"
 msgstr "Пошук робочі групи і вузлів"
 
-#: src/gnome-cmd-con-smb.cc:225
+#: src/gnome-cmd-con-smb.cc:222
 msgid "Go to: Samba Network"
 msgstr "Перейти до: мережа Samba"
 
@@ -3709,22 +3718,35 @@ msgstr "посилання на %s"
 msgid "Waiting for file list"
 msgstr "Очікування на список файлів"
 
-#: src/gnome-cmd-dir-indicator.cc:547
+#: src/gnome-cmd-dir-indicator.cc:544
 msgid "Add current dir"
 msgstr "Додати поточний каталог"
 
-#: src/gnome-cmd-dir-indicator.cc:548
+#: src/gnome-cmd-dir-indicator.cc:545
 msgid "Manage bookmarks…"
 msgstr "Керування закладками…"
 
-#: src/gnome-cmd-file.cc:638
+#: src/gnome-cmd-file.cc:631
 msgid "_Open"
 msgstr "В_ідкрити"
 
-#: src/gnome-cmd-file.cc:641
+#: src/gnome-cmd-file.cc:634
 #, c-format
 msgid "_Open with “%s”"
 msgstr "В_ідкрити за допомогою «%s»"
+
+#: src/gnome-cmd-file.cc:960 src/gnome-cmd-user-actions.cc:746
+#: src/gnome-cmd-user-actions.cc:930 src/gnome-cmd-user-actions.cc:1191
+#: src/utils.cc:136
+msgid "No valid command given."
+msgstr "Не вказано коректної команди."
+
+#: src/gnome-cmd-file.cc:971 src/gnome-cmd-user-actions.cc:758
+#: src/gnome-cmd-user-actions.cc:804 src/gnome-cmd-user-actions.cc:946
+#: src/gnome-cmd-user-actions.cc:1204 src/gnome-cmd-user-actions.cc:1243
+#: src/utils.cc:144
+msgid "Unable to execute command."
+msgstr "Не вдалося виконати команду."
 
 #: src/gnome-cmd-file-list.cc:124
 msgid "name"
@@ -3758,23 +3780,27 @@ msgstr "власник"
 msgid "gid"
 msgstr "група"
 
-#: src/gnome-cmd-file-list.cc:226
-msgid "/_Copy here"
-msgstr "/_Копіювати сюди"
+#: src/gnome-cmd-file-list.cc:237
+#| msgid "/_Copy here"
+msgid "_Copy here"
+msgstr "_Копіювати сюди"
 
-#: src/gnome-cmd-file-list.cc:227
-msgid "/_Move here"
-msgstr "/Пер_есунути сюди"
+#: src/gnome-cmd-file-list.cc:244
+#| msgid "/_Move here"
+msgid "_Move here"
+msgstr "Пер_есунути сюди"
 
-#: src/gnome-cmd-file-list.cc:228
-msgid "/_Link here"
-msgstr "/_Створити посилання тут"
+#: src/gnome-cmd-file-list.cc:251
+#| msgid "/_Link here"
+msgid "_Link here"
+msgstr "_Створити посилання тут"
 
-#: src/gnome-cmd-file-list.cc:230
-msgid "/C_ancel"
-msgstr "/_Скасувати"
+#: src/gnome-cmd-file-list.cc:259
+#| msgid "/C_ancel"
+msgid "C_ancel"
+msgstr "_Скасувати"
 
-#: src/gnome-cmd-file-list.cc:1325
+#: src/gnome-cmd-file-list.cc:1344
 #, c-format
 msgid ""
 "“%s” seems to be a binary executable file but it lacks the executable bit. "
@@ -3783,15 +3809,15 @@ msgstr ""
 "Здається, «%s» є виконуваним двійковим файлом, але для нього не встановлено "
 "біт виконання. Чи бажаєте ви встановити цей біт і запустити програму?"
 
-#: src/gnome-cmd-file-list.cc:1327
+#: src/gnome-cmd-file-list.cc:1346
 msgid "Make Executable?"
 msgstr "Зробити виконуваним?"
 
-#: src/gnome-cmd-file-list.cc:1328
+#: src/gnome-cmd-file-list.cc:1347
 msgid "OK"
 msgstr "Гаразд"
 
-#: src/gnome-cmd-file-list.cc:1355
+#: src/gnome-cmd-file-list.cc:1374
 #, c-format
 msgid ""
 "“%s” is an executable text file. Do you want to run it, or display its "
@@ -3800,29 +3826,29 @@ msgstr ""
 "«%s» є текстовим файлом зі встановленим бітом виконання. Хочете його "
 "виконати чи переглянути вміст?"
 
-#: src/gnome-cmd-file-list.cc:1356
+#: src/gnome-cmd-file-list.cc:1375
 msgid "Run or Display"
 msgstr "Виконати чи відобразити"
 
-#: src/gnome-cmd-file-list.cc:1357
+#: src/gnome-cmd-file-list.cc:1376
 msgid "Display"
 msgstr "Відобразити"
 
-#: src/gnome-cmd-file-list.cc:1357
+#: src/gnome-cmd-file-list.cc:1376
 msgid "Run"
 msgstr "Виконати"
 
-#: src/gnome-cmd-file-list.cc:1373
+#: src/gnome-cmd-file-list.cc:1392
 #, c-format
 msgid "No default application found for the file type %s."
 msgstr "Не знайдено типової програми для типу файлів %s."
 
-#: src/gnome-cmd-file-list.cc:1374
+#: src/gnome-cmd-file-list.cc:1393
 msgid "Open the \"Applications\" page in the Control Center to add one."
 msgstr ""
 "Відкрийте сторінку «програми» у Центрі керування, щоб додати прив'язку."
 
-#: src/gnome-cmd-file-list.cc:1405 src/gnome-cmd-file-popmenu.cc:140
+#: src/gnome-cmd-file-list.cc:1424 src/gnome-cmd-file-popmenu.cc:142
 #, c-format
 msgid ""
 "%s does not know how to open remote file. Do you want to download the file "
@@ -3843,78 +3869,78 @@ msgstr[3] ""
 "%s не знає, яким чином відкрити віддалений файл. Хочете завантажити файл до "
 "тимчасового каталогу, а потім відкрити його?"
 
-#: src/gnome-cmd-file-list.cc:1689
+#: src/gnome-cmd-file-list.cc:1708
 msgid "Directory listing failed."
 msgstr "Не вдалося вивести вміст каталогу."
 
-#: src/gnome-cmd-file-list.cc:1741
+#: src/gnome-cmd-file-list.cc:1760
 msgid "Failed to open connection."
 msgstr "Не вдалося відкрити з'єднання."
 
-#: src/gnome-cmd-file-list.cc:2509 src/gnome-cmd-file-list.cc:2524
+#: src/gnome-cmd-file-list.cc:2531 src/gnome-cmd-file-list.cc:2560
 msgid "Not an ordinary file."
 msgstr "Не є звичайним файлом."
 
-#: src/gnome-cmd-file-popmenu.cc:236
+#: src/gnome-cmd-file-popmenu.cc:238
 msgid "Couldn’t retrieve MIME type of the file."
 msgstr "Не вдалося отримати тип MIME файла."
 
-#: src/gnome-cmd-file-popmenu.cc:251
+#: src/gnome-cmd-file-popmenu.cc:253
 msgid "Invalid command"
 msgstr "Неприпустима команда"
 
-#: src/gnome-cmd-file-popmenu.cc:275
+#: src/gnome-cmd-file-popmenu.cc:284
 msgid "Application:"
 msgstr "Додаток:"
 
-#: src/gnome-cmd-file-popmenu.cc:278
+#: src/gnome-cmd-file-popmenu.cc:287
 msgid "Open with other…"
 msgstr "Відкрити за допомогою іншої…"
 
-#: src/gnome-cmd-file-popmenu.cc:283
+#: src/gnome-cmd-file-popmenu.cc:292
 msgid "Needs terminal"
 msgstr "Запустити у терміналі"
 
-#: src/gnome-cmd-file-popmenu.cc:719
+#: src/gnome-cmd-file-popmenu.cc:701
 msgid "Open Wit_h"
 msgstr "Відкрити за допо_могою"
 
-#: src/gnome-cmd-file-popmenu.cc:720
+#: src/gnome-cmd-file-popmenu.cc:702
 msgid "Other _Application…"
 msgstr "Інша п_рограма…"
 
-#: src/gnome-cmd-file-popmenu.cc:721
+#: src/gnome-cmd-file-popmenu.cc:703
 msgid "Open Wit_h…"
 msgstr "Відкрити за допо_могою…"
 
-#: src/gnome-cmd-file-popmenu.cc:722 src/gnome-cmd-main-win.cc:240
+#: src/gnome-cmd-file-popmenu.cc:704 src/gnome-cmd-main-win.cc:241
 #: src/gnome-cmd-user-actions.cc:212
 msgid "Cut"
 msgstr "Вирізати"
 
 #. {file_run, "file.run"},
-#: src/gnome-cmd-file-popmenu.cc:726 src/gnome-cmd-main-win.cc:245
+#: src/gnome-cmd-file-popmenu.cc:708 src/gnome-cmd-main-win.cc:246
 #: src/gnome-cmd-user-actions.cc:236
 msgid "Send files"
 msgstr "Відправити файли"
 
-#: src/gnome-cmd-file-popmenu.cc:727 src/gnome-cmd-main-menu.cc:309
+#: src/gnome-cmd-file-popmenu.cc:709 src/gnome-cmd-main-menu.cc:306
 msgid "_Properties…"
 msgstr "В_ластивості…"
 
-#: src/gnome-cmd-file-popmenu.cc:728
+#: src/gnome-cmd-file-popmenu.cc:710
 msgid "E_xecute"
 msgstr "_Виконати"
 
-#: src/gnome-cmd-file-popmenu.cc:729 src/gnome-cmd-list-popmenu.cc:108
+#: src/gnome-cmd-file-popmenu.cc:711 src/gnome-cmd-list-popmenu.cc:105
 msgid "Open _terminal here"
 msgstr "Запустити у _терміналі"
 
-#: src/gnome-cmd-file-popmenu.cc:730 src/gnome-cmd-user-actions.cc:211
+#: src/gnome-cmd-file-popmenu.cc:712 src/gnome-cmd-user-actions.cc:211
 msgid "Copy file names"
 msgstr "Копіювати назви файлів"
 
-#: src/gnome-cmd-file-selector.cc:178
+#: src/gnome-cmd-file-selector.cc:179
 #, c-format
 msgid "%s of %s kB in %d of %d file"
 msgid_plural "%s of %s kB in %d of %d files"
@@ -3923,7 +3949,7 @@ msgstr[1] "%s з %s кБ в %d з %d файлів"
 msgstr[2] "%s з %s кБ в %d з %d файлів"
 msgstr[3] "%s з %s кБ у %d з %d файлі"
 
-#: src/gnome-cmd-file-selector.cc:182
+#: src/gnome-cmd-file-selector.cc:183
 #, c-format
 msgid "%s, %d of %d dir selected"
 msgid_plural "%s, %d of %d dirs selected"
@@ -3932,403 +3958,403 @@ msgstr[1] "%s, %d з %d каталогів вибрано"
 msgstr[2] "%s, %d з %d каталогів вибрано"
 msgstr[3] "%s, %d з %d каталогу вибрано"
 
-#: src/gnome-cmd-file-selector.cc:231
+#: src/gnome-cmd-file-selector.cc:232
 #, c-format
 msgid "%s free"
 msgstr "%s вільно"
 
-#: src/gnome-cmd-file-selector.cc:628 src/gnome-cmd-file-selector.cc:704
+#: src/gnome-cmd-file-selector.cc:629 src/gnome-cmd-file-selector.cc:705
 #: src/gnome-cmd-user-actions.cc:1725 src/gnome-cmd-user-actions.cc:1733
 msgid "The tab is locked, close anyway?"
 msgstr "Вкладку заблоковано. Закрити її попри це?"
 
-#: src/gnome-cmd-file-selector.cc:647 src/gnome-cmd-main-menu.cc:351
+#: src/gnome-cmd-file-selector.cc:648 src/gnome-cmd-main-menu.cc:348
 msgid "Open in New _Tab"
 msgstr "_Відкрити на новій вкладці"
 
-#: src/gnome-cmd-file-selector.cc:654
+#: src/gnome-cmd-file-selector.cc:655
 msgid "_Unlock Tab"
 msgstr "Р_озблокувати вкладку"
 
-#: src/gnome-cmd-file-selector.cc:654
+#: src/gnome-cmd-file-selector.cc:655
 msgid "_Lock Tab"
 msgstr "За_блокувати вкладку"
 
-#: src/gnome-cmd-file-selector.cc:659
+#: src/gnome-cmd-file-selector.cc:660
 msgid "_Refresh Tab"
 msgstr "_Оновити вкладку"
 
-#: src/gnome-cmd-file-selector.cc:664
+#: src/gnome-cmd-file-selector.cc:665
 msgid "Copy Tab to Other _Pane"
 msgstr "Копіювати вкладку у іншу _панель"
 
-#: src/gnome-cmd-file-selector.cc:670 src/gnome-cmd-main-menu.cc:352
+#: src/gnome-cmd-file-selector.cc:671 src/gnome-cmd-main-menu.cc:349
 msgid "_Close Tab"
 msgstr "_Закрити вкладки"
 
-#: src/gnome-cmd-file-selector.cc:675 src/gnome-cmd-main-menu.cc:353
+#: src/gnome-cmd-file-selector.cc:676 src/gnome-cmd-main-menu.cc:350
 msgid "Close _All Tabs"
 msgstr "_Закрити всі вкладки"
 
-#: src/gnome-cmd-file-selector.cc:680
+#: src/gnome-cmd-file-selector.cc:681
 msgid "Close _Duplicate Tabs"
 msgstr "Закрити _дублювати вкладок"
 
-#: src/gnome-cmd-file-selector.cc:1169
+#: src/gnome-cmd-file-selector.cc:1140
 msgid "No file name given"
 msgstr "Не надані назви файлів"
 
-#: src/gnome-cmd-file-selector.cc:1223
+#: src/gnome-cmd-file-selector.cc:1194
 msgid "New Text File"
 msgstr "Новий текстовий файл"
 
-#: src/gnome-cmd-file-selector.cc:1372
+#: src/gnome-cmd-file-selector.cc:1343
 msgid "Symbolic link name:"
 msgstr "Назва символічного посилання:"
 
-#: src/gnome-cmd-file-selector.cc:1383 src/gnome-cmd-file-selector.cc:1436
+#: src/gnome-cmd-file-selector.cc:1354 src/gnome-cmd-file-selector.cc:1407
 #: src/gnome-cmd-user-actions.cc:874
 msgid "Create Symbolic Link"
 msgstr "Створення символічного посилання"
 
-#: src/gnome-cmd-file-selector.cc:1436 src/gnome-cmd-xfer.cc:147
+#: src/gnome-cmd-file-selector.cc:1407 src/gnome-cmd-xfer.cc:147
 #: src/gnome-cmd-xfer.cc:205 src/gnome-cmd-xfer.cc:323
 msgid "Skip all"
 msgstr "Пропустити все"
 
-#: src/gnome-cmd-file-selector.cc:1508
+#: src/gnome-cmd-file-selector.cc:1479
 msgid "Filter:"
 msgstr "Фільтр:"
 
-#: src/gnome-cmd-list-popmenu.cc:106
+#: src/gnome-cmd-list-popmenu.cc:103
 msgid "_New"
 msgstr "С_творити"
 
-#: src/gnome-cmd-list-popmenu.cc:107 src/gnome-cmd-main-menu.cc:324
+#: src/gnome-cmd-list-popmenu.cc:104 src/gnome-cmd-main-menu.cc:321
 msgid "_Paste"
 msgstr "Вст_авити"
 
-#: src/gnome-cmd-list-popmenu.cc:109 src/gnome-cmd-main-menu.cc:350
+#: src/gnome-cmd-list-popmenu.cc:106 src/gnome-cmd-main-menu.cc:347
 msgid "_Refresh"
 msgstr "_Оновити"
 
-#: src/gnome-cmd-list-popmenu.cc:110
+#: src/gnome-cmd-list-popmenu.cc:107
 msgid "_Directory"
 msgstr "_Каталог"
 
-#: src/gnome-cmd-list-popmenu.cc:111
+#: src/gnome-cmd-list-popmenu.cc:108
 msgid "_Text File"
 msgstr "_Текстовий файл"
 
-#: src/gnome-cmd-main-menu.cc:304 src/intviewer/viewer-window.cc:602
+#: src/gnome-cmd-main-menu.cc:301 src/intviewer/viewer-window.cc:577
 msgid "_File"
 msgstr "_Файл"
 
-#: src/gnome-cmd-main-menu.cc:305
+#: src/gnome-cmd-main-menu.cc:302
 msgid "Change _Owner/Group"
 msgstr "Змінити _власника/групу"
 
-#: src/gnome-cmd-main-menu.cc:306
+#: src/gnome-cmd-main-menu.cc:303
 msgid "Change Per_missions"
 msgstr "Змінити _права доступу"
 
-#: src/gnome-cmd-main-menu.cc:307
+#: src/gnome-cmd-main-menu.cc:304
 msgid "Advanced _Rename Tool"
 msgstr "_Розширений інструмент перейменування"
 
-#: src/gnome-cmd-main-menu.cc:308
+#: src/gnome-cmd-main-menu.cc:305
 msgid "Create _Symbolic Link"
 msgstr "Створити _символічне посилання"
 
-#: src/gnome-cmd-main-menu.cc:310
+#: src/gnome-cmd-main-menu.cc:307
 msgid "_Search…"
 msgstr "З_найти…"
 
-#: src/gnome-cmd-main-menu.cc:311
+#: src/gnome-cmd-main-menu.cc:308
 msgid "_Quick Search…"
 msgstr "_Швидкий пошук…"
 
-#: src/gnome-cmd-main-menu.cc:312
+#: src/gnome-cmd-main-menu.cc:309
 msgid "_Enable Filter…"
 msgstr "_Увімкнути фільтр…"
 
-#: src/gnome-cmd-main-menu.cc:313
+#: src/gnome-cmd-main-menu.cc:310
 msgid "_Diff"
 msgstr "Показати ві_дміни"
 
-#: src/gnome-cmd-main-menu.cc:314
+#: src/gnome-cmd-main-menu.cc:311
 msgid "S_ynchronize Directories"
 msgstr "С_инхронізувати каталоги"
 
-#: src/gnome-cmd-main-menu.cc:315
+#: src/gnome-cmd-main-menu.cc:312
 msgid "Start _GNOME Commander as root"
 msgstr "Запуск _GCommander під Root-ом"
 
-#: src/gnome-cmd-main-menu.cc:316
+#: src/gnome-cmd-main-menu.cc:313
 msgid "_Quit"
 msgstr "Ви_йти"
 
-#: src/gnome-cmd-main-menu.cc:321
+#: src/gnome-cmd-main-menu.cc:318
 msgid "_Edit"
 msgstr "_Правка"
 
-#: src/gnome-cmd-main-menu.cc:322
+#: src/gnome-cmd-main-menu.cc:319
 msgid "Cu_t"
 msgstr "_Вирізати"
 
-#: src/gnome-cmd-main-menu.cc:323
+#: src/gnome-cmd-main-menu.cc:320
 msgid "_Copy"
 msgstr "_Копіювати"
 
-#: src/gnome-cmd-main-menu.cc:325
+#: src/gnome-cmd-main-menu.cc:322
 msgid "_Delete"
 msgstr "В_идалити"
 
-#: src/gnome-cmd-main-menu.cc:326
+#: src/gnome-cmd-main-menu.cc:323
 msgid "Copy _File Names"
 msgstr "Копіювати назву _файлу"
 
-#: src/gnome-cmd-main-menu.cc:331
+#: src/gnome-cmd-main-menu.cc:328
 msgid "_Mark"
 msgstr "В_ідмітка"
 
-#: src/gnome-cmd-main-menu.cc:332
+#: src/gnome-cmd-main-menu.cc:329
 msgid "_Select All"
 msgstr "Виді_лити все"
 
-#: src/gnome-cmd-main-menu.cc:333
+#: src/gnome-cmd-main-menu.cc:330
 msgid "_Unselect All"
 msgstr "_Зняти все позначення"
 
-#: src/gnome-cmd-main-menu.cc:334
+#: src/gnome-cmd-main-menu.cc:331
 msgid "Select all _Files"
 msgstr "Позначити усі _файли"
 
-#: src/gnome-cmd-main-menu.cc:335
+#: src/gnome-cmd-main-menu.cc:332
 msgid "Unselect all Fi_les"
 msgstr "Зняти позначення з усіх ф_айлів"
 
-#: src/gnome-cmd-main-menu.cc:336
+#: src/gnome-cmd-main-menu.cc:333
 msgid "Select with _Pattern"
 msgstr "Позначити за вз_ірцем"
 
-#: src/gnome-cmd-main-menu.cc:337
+#: src/gnome-cmd-main-menu.cc:334
 msgid "Unselect with P_attern"
 msgstr "З_няти позначення за взірцем"
 
-#: src/gnome-cmd-main-menu.cc:338
+#: src/gnome-cmd-main-menu.cc:335
 msgid "Select with same _Extension"
 msgstr "Позначити файли з тим самим су_фіксом"
 
-#: src/gnome-cmd-main-menu.cc:339
+#: src/gnome-cmd-main-menu.cc:336
 msgid "Unselect with same E_xtension"
 msgstr "Зняти позначення з файлів з тим самим с_уфіксом"
 
-#: src/gnome-cmd-main-menu.cc:340
+#: src/gnome-cmd-main-menu.cc:337
 msgid "_Invert Selection"
 msgstr "_Інвертувати позначення"
 
-#: src/gnome-cmd-main-menu.cc:341
+#: src/gnome-cmd-main-menu.cc:338
 msgid "_Restore Selection"
 msgstr "_Відновити позначення"
 
-#: src/gnome-cmd-main-menu.cc:342
+#: src/gnome-cmd-main-menu.cc:339
 msgid "_Compare Directories"
 msgstr "_Порівняти каталоги"
 
-#: src/gnome-cmd-main-menu.cc:347 src/intviewer/viewer-window.cc:616
+#: src/gnome-cmd-main-menu.cc:344 src/intviewer/viewer-window.cc:591
 msgid "_View"
 msgstr "_Вигляд"
 
-#: src/gnome-cmd-main-menu.cc:348
+#: src/gnome-cmd-main-menu.cc:345
 msgid "_Back"
 msgstr "Н_азад"
 
-#: src/gnome-cmd-main-menu.cc:349
+#: src/gnome-cmd-main-menu.cc:346
 msgid "_Forward"
 msgstr "В_перед"
 
-#: src/gnome-cmd-main-menu.cc:354
+#: src/gnome-cmd-main-menu.cc:351
 msgid "_Equal Panel Size"
 msgstr "З_рівняти розмір панелей"
 
-#: src/gnome-cmd-main-menu.cc:355
+#: src/gnome-cmd-main-menu.cc:352
 msgid "Maximize Panel Size"
 msgstr "Максимізувати розмір панелі"
 
-#: src/gnome-cmd-main-menu.cc:360
+#: src/gnome-cmd-main-menu.cc:357
 msgid "Show Toolbar"
 msgstr "Панель інструментів"
 
-#: src/gnome-cmd-main-menu.cc:361
+#: src/gnome-cmd-main-menu.cc:358
 msgid "Show Device Buttons"
 msgstr "Показати кнопки пристроїв"
 
-#: src/gnome-cmd-main-menu.cc:362
+#: src/gnome-cmd-main-menu.cc:359
 msgid "Show Device List"
 msgstr "Показати список пристроїв"
 
-#: src/gnome-cmd-main-menu.cc:363
+#: src/gnome-cmd-main-menu.cc:360
 msgid "Show Command Line"
 msgstr "Показати командний рядок"
 
-#: src/gnome-cmd-main-menu.cc:364
+#: src/gnome-cmd-main-menu.cc:361
 msgid "Show Buttonbar"
 msgstr "Показати панель кнопок"
 
-#: src/gnome-cmd-main-menu.cc:365
+#: src/gnome-cmd-main-menu.cc:362
 msgid "Show Hidden Files"
 msgstr "Показати приховані файли"
 
-#: src/gnome-cmd-main-menu.cc:366
+#: src/gnome-cmd-main-menu.cc:363
 msgid "Show Backup Files"
 msgstr "Показати резервні файли"
 
-#: src/gnome-cmd-main-menu.cc:367
+#: src/gnome-cmd-main-menu.cc:364
 msgid "Horizontal Orientation"
 msgstr "Горизонтальна орієнтація"
 
-#: src/gnome-cmd-main-menu.cc:372 src/intviewer/viewer-window.cc:681
+#: src/gnome-cmd-main-menu.cc:369 src/intviewer/viewer-window.cc:656
 msgid "_Settings"
 msgstr "Н_астройки"
 
-#: src/gnome-cmd-main-menu.cc:373
+#: src/gnome-cmd-main-menu.cc:370
 msgid "_Options…"
 msgstr "П_араметри…"
 
-#: src/gnome-cmd-main-menu.cc:374
+#: src/gnome-cmd-main-menu.cc:371
 msgid "_Keyboard Shortcuts…"
 msgstr "_Клавіатурні скорочення…"
 
-#: src/gnome-cmd-main-menu.cc:379
+#: src/gnome-cmd-main-menu.cc:376
 msgid "_Connections"
 msgstr "З'_єднання"
 
-#: src/gnome-cmd-main-menu.cc:380
+#: src/gnome-cmd-main-menu.cc:377
 msgid "_Remote Server…"
 msgstr "_Віддалений сервер…"
 
-#: src/gnome-cmd-main-menu.cc:381
+#: src/gnome-cmd-main-menu.cc:378
 msgid "New Connection…"
 msgstr "Нове з'єднання…"
 
-#: src/gnome-cmd-main-menu.cc:386
+#: src/gnome-cmd-main-menu.cc:383
 msgid "_Bookmarks"
 msgstr "_Закладки"
 
-#: src/gnome-cmd-main-menu.cc:387
+#: src/gnome-cmd-main-menu.cc:384
 msgid "_Bookmark this Directory…"
 msgstr "_Закладка на поточний каталог…"
 
-#: src/gnome-cmd-main-menu.cc:388
+#: src/gnome-cmd-main-menu.cc:385
 msgid "_Manage Bookmarks…"
 msgstr "_Керування закладками…"
 
-#: src/gnome-cmd-main-menu.cc:393
+#: src/gnome-cmd-main-menu.cc:390
 msgid "_Plugins"
 msgstr "_Модулі"
 
-#: src/gnome-cmd-main-menu.cc:394
+#: src/gnome-cmd-main-menu.cc:391
 msgid "_Configure Plugins…"
 msgstr "_Налаштувати додатки…"
 
-#: src/gnome-cmd-main-menu.cc:399 src/intviewer/viewer-window.cc:700
+#: src/gnome-cmd-main-menu.cc:396 src/intviewer/viewer-window.cc:675
 msgid "_Help"
 msgstr "_Довідка"
 
-#: src/gnome-cmd-main-menu.cc:400
+#: src/gnome-cmd-main-menu.cc:397
 msgid "_Documentation"
 msgstr "_Документація"
 
-#: src/gnome-cmd-main-menu.cc:401 src/intviewer/viewer-window.cc:702
+#: src/gnome-cmd-main-menu.cc:398 src/intviewer/viewer-window.cc:677
 msgid "_Keyboard Shortcuts"
 msgstr "_Комбінації клавіш"
 
-#: src/gnome-cmd-main-menu.cc:402
+#: src/gnome-cmd-main-menu.cc:399
 msgid "GNOME Commander on the _Web"
 msgstr "GNOME Commander у _веб"
 
-#: src/gnome-cmd-main-menu.cc:403
+#: src/gnome-cmd-main-menu.cc:400
 msgid "Report a _Problem"
 msgstr "Сповістити про _проблему"
 
-#: src/gnome-cmd-main-menu.cc:404 src/plugin_manager.cc:412
+#: src/gnome-cmd-main-menu.cc:401 src/plugin_manager.cc:412
 msgid "_About"
 msgstr "_Про модуль"
 
-#: src/gnome-cmd-main-win.cc:233 src/gnome-cmd-user-actions.cc:278
+#: src/gnome-cmd-main-win.cc:234 src/gnome-cmd-user-actions.cc:278
 msgid "Refresh"
 msgstr "Оновити"
 
-#: src/gnome-cmd-main-win.cc:235
+#: src/gnome-cmd-main-win.cc:236
 msgid "Go to the oldest"
 msgstr "Перейти до найстаршого"
 
-#: src/gnome-cmd-main-win.cc:236
+#: src/gnome-cmd-main-win.cc:237
 msgid "Go back"
 msgstr "Назад"
 
-#: src/gnome-cmd-main-win.cc:237
+#: src/gnome-cmd-main-win.cc:238
 msgid "Go forward"
 msgstr "Вперед"
 
-#: src/gnome-cmd-main-win.cc:238
+#: src/gnome-cmd-main-win.cc:239
 msgid "Go to the latest"
 msgstr "Перейти до останнього"
 
-#: src/gnome-cmd-main-win.cc:239
+#: src/gnome-cmd-main-win.cc:240
 msgid "Copy file names (SHIFT for full paths, ALT for URIs)"
 msgstr "Копіювати імена файлів (SHIFT для повного шляху, ALT для URI)"
 
-#: src/gnome-cmd-main-win.cc:242 src/gnome-cmd-user-actions.cc:215
+#: src/gnome-cmd-main-win.cc:243 src/gnome-cmd-user-actions.cc:215
 msgid "Paste"
 msgstr "Вставити"
 
-#: src/gnome-cmd-main-win.cc:244
+#: src/gnome-cmd-main-win.cc:245
 msgid "Edit (SHIFT for new document)"
 msgstr "Редагувати (SHIFT для нового документа)"
 
-#: src/gnome-cmd-main-win.cc:246
+#: src/gnome-cmd-main-win.cc:247
 msgid "Open terminal (SHIFT for root privileges)"
 msgstr "Відкрити термінал (SHIFT — права root)"
 
-#: src/gnome-cmd-main-win.cc:248
+#: src/gnome-cmd-main-win.cc:249
 msgid "Drop connection"
 msgstr "Розірвати з'єднання"
 
-#: src/gnome-cmd-main-win.cc:513
+#: src/gnome-cmd-main-win.cc:514
 msgid "F3 View"
 msgstr "F3 Перегляд"
 
-#: src/gnome-cmd-main-win.cc:515
+#: src/gnome-cmd-main-win.cc:516
 msgid "F4 Edit"
 msgstr "F4 Правка"
 
-#: src/gnome-cmd-main-win.cc:517
+#: src/gnome-cmd-main-win.cc:518
 msgid "F5 Copy"
 msgstr "F5 Копіювати"
 
-#: src/gnome-cmd-main-win.cc:519
+#: src/gnome-cmd-main-win.cc:520
 msgid "F6 Move"
 msgstr "F6 Пересунути"
 
-#: src/gnome-cmd-main-win.cc:521
+#: src/gnome-cmd-main-win.cc:522
 msgid "F7 Mkdir"
 msgstr "F7 Створ.кат."
 
-#: src/gnome-cmd-main-win.cc:523
+#: src/gnome-cmd-main-win.cc:524
 msgid "F8 Delete"
 msgstr "F8 Видалити"
 
-#: src/gnome-cmd-main-win.cc:525
+#: src/gnome-cmd-main-win.cc:526
 msgid "F9 Search"
 msgstr "F9 Знайти"
 
-#: src/gnome-cmd-main-win.cc:875
+#: src/gnome-cmd-main-win.cc:873
 msgid "GNOME Commander — ROOT PRIVILEGES"
 msgstr "GNOME Commander – З ПРАВАМИ ROOT"
 
-#: src/gnome-cmd-quicksearch-popup.cc:292 src/gnome-cmd-user-actions.cc:217
+#: src/gnome-cmd-quicksearch-popup.cc:289 src/gnome-cmd-user-actions.cc:217
 msgid "Search"
 msgstr "Пошук"
 
@@ -4667,17 +4693,6 @@ msgstr "Пересунути курсор на крок вище"
 msgid "Move cursor one step down"
 msgstr "Пересунути курсор на крок нижче"
 
-#: src/gnome-cmd-user-actions.cc:746 src/gnome-cmd-user-actions.cc:930
-#: src/gnome-cmd-user-actions.cc:1191 src/utils.cc:136
-msgid "No valid command given."
-msgstr "Не вказано коректної команди."
-
-#: src/gnome-cmd-user-actions.cc:758 src/gnome-cmd-user-actions.cc:804
-#: src/gnome-cmd-user-actions.cc:946 src/gnome-cmd-user-actions.cc:1204
-#: src/gnome-cmd-user-actions.cc:1243 src/utils.cc:143
-msgid "Unable to execute command."
-msgstr "Не вдалося виконати команду."
-
 #: src/gnome-cmd-user-actions.cc:789
 msgid "No search command given."
 msgstr "Не вказано команди пошуку."
@@ -4936,16 +4951,16 @@ msgstr "Не вдалося скопіювати джерело «%s» Пере�
 msgid "stopping…"
 msgstr "зупинення…"
 
-#: src/gnome-cmd-xfer-progress-win.cc:85
+#: src/gnome-cmd-xfer-progress-win.cc:82
 msgid "Progress"
 msgstr "Ход виконання"
 
-#: src/gnome-cmd-xfer-progress-win.cc:179
+#: src/gnome-cmd-xfer-progress-win.cc:150
 #, c-format
 msgid "%s of %s copied"
 msgstr "Скопійовано %s з %s"
 
-#: src/gnome-cmd-xfer-progress-win.cc:183
+#: src/gnome-cmd-xfer-progress-win.cc:154
 #, c-format
 msgid "%.0f%% copied"
 msgstr "Скопійовано %.0f%%"
@@ -4978,35 +4993,35 @@ msgid "Find"
 msgstr "Пошук"
 
 #. Search mode radio buttons
-#: src/intviewer/search-dlg.cc:273 src/intviewer/viewer-window.cc:608
-#: src/intviewer/viewer-window.cc:625
+#: src/intviewer/search-dlg.cc:273 src/intviewer/viewer-window.cc:583
+#: src/intviewer/viewer-window.cc:600
 msgid "_Text"
 msgstr "_Текст"
 
-#: src/intviewer/search-dlg.cc:274 src/intviewer/viewer-window.cc:610
+#: src/intviewer/search-dlg.cc:274 src/intviewer/viewer-window.cc:585
 msgid "_Hexadecimal"
 msgstr "_Шістнадцяткове"
 
 #. sdlg->priv->progress = 0;
-#: src/intviewer/search-progress-dlg.cc:75
+#: src/intviewer/search-progress-dlg.cc:74
 msgid "Searching…"
 msgstr "Пошук…"
 
-#: src/intviewer/search-progress-dlg.cc:199
+#: src/intviewer/search-progress-dlg.cc:172
 #, c-format
 msgid "Searching for “%s”"
 msgstr "Шукаємо «%s»"
 
-#: src/intviewer/viewer-widget.cc:210
+#: src/intviewer/viewer-widget.cc:185
 #, c-format
 msgid "Position: %lu of %lu\tColumn: %d\t%s"
 msgstr "Позиція: %lu з %lu\tСтовпець: %d\t%s"
 
-#: src/intviewer/viewer-widget.cc:214
+#: src/intviewer/viewer-widget.cc:189
 msgid "Wrap"
 msgstr "Прокрутка"
 
-#: src/intviewer/viewer-widget.cc:240
+#: src/intviewer/viewer-widget.cc:215
 msgid "pixel"
 msgid_plural "pixels"
 msgstr[0] "піксель"
@@ -5014,7 +5029,7 @@ msgstr[1] "пікселя"
 msgstr[2] "пікселів"
 msgstr[3] "піксель"
 
-#: src/intviewer/viewer-widget.cc:242
+#: src/intviewer/viewer-widget.cc:217
 msgid "bit/sample"
 msgid_plural "bits/sample"
 msgstr[0] "біт/семпл"
@@ -5022,228 +5037,228 @@ msgstr[1] "біта/семпл"
 msgstr[2] "бітів/семпл"
 msgstr[3] "біт/семпл"
 
-#: src/intviewer/viewer-widget.cc:244
+#: src/intviewer/viewer-widget.cc:219
 msgid "(fit to window)"
 msgstr "(до розміру вікна)"
 
-#: src/intviewer/viewer-widget.cc:260
+#: src/intviewer/viewer-widget.cc:235
 msgid "_Copy selection"
 msgstr "_Копіювати позначене"
 
-#: src/intviewer/viewer-window.cc:603
+#: src/intviewer/viewer-window.cc:578
 msgid "_Close"
 msgstr "_Закрити"
 
-#: src/intviewer/viewer-window.cc:609
+#: src/intviewer/viewer-window.cc:584
 msgid "_Binary"
 msgstr "_Бінарний"
 
-#: src/intviewer/viewer-window.cc:611 src/intviewer/viewer-window.cc:671
+#: src/intviewer/viewer-window.cc:586 src/intviewer/viewer-window.cc:646
 msgid "_Image"
 msgstr "_Зображення"
 
-#: src/intviewer/viewer-window.cc:617
+#: src/intviewer/viewer-window.cc:592
 msgid "_Zoom In"
 msgstr "_Збільшити"
 
-#: src/intviewer/viewer-window.cc:618
+#: src/intviewer/viewer-window.cc:593
 msgid "_Zoom Out"
 msgstr "З_меншити"
 
-#: src/intviewer/viewer-window.cc:619
+#: src/intviewer/viewer-window.cc:594
 msgid "_Normal Size"
 msgstr "_Нормальний розмір"
 
-#: src/intviewer/viewer-window.cc:620
+#: src/intviewer/viewer-window.cc:595
 msgid "_Best Fit"
 msgstr "_Оптимізувати"
 
-#: src/intviewer/viewer-window.cc:626
+#: src/intviewer/viewer-window.cc:601
 msgid "_Copy Text Selection"
 msgstr "_Копіювати позначений текст"
 
-#: src/intviewer/viewer-window.cc:627
+#: src/intviewer/viewer-window.cc:602
 msgid "Find…"
 msgstr "Знайти…"
 
-#: src/intviewer/viewer-window.cc:628
+#: src/intviewer/viewer-window.cc:603
 msgid "Find Next"
 msgstr "Знайти далі"
 
-#: src/intviewer/viewer-window.cc:629
+#: src/intviewer/viewer-window.cc:604
 msgid "Find Previous"
 msgstr "Знайти позаду"
 
-#: src/intviewer/viewer-window.cc:630
+#: src/intviewer/viewer-window.cc:605
 msgid "_Encoding"
 msgstr "_Кодування"
 
-#: src/intviewer/viewer-window.cc:635
+#: src/intviewer/viewer-window.cc:610
 msgid "_Wrap lines"
 msgstr "_Згорнути рядки"
 
-#: src/intviewer/viewer-window.cc:640
+#: src/intviewer/viewer-window.cc:615
 msgid "_UTF-8"
 msgstr "_UTF-8"
 
-#: src/intviewer/viewer-window.cc:641
+#: src/intviewer/viewer-window.cc:616
 msgid "English (US-_ASCII)"
 msgstr "Англійське (US-_ASCII)"
 
-#: src/intviewer/viewer-window.cc:642
+#: src/intviewer/viewer-window.cc:617
 msgid "Terminal (CP437)"
 msgstr "Термінал (CP437)"
 
-#: src/intviewer/viewer-window.cc:643
+#: src/intviewer/viewer-window.cc:618
 msgid "Arabic (ISO-8859-6)"
 msgstr "Арабське (ISO-8859-6)"
 
-#: src/intviewer/viewer-window.cc:644
+#: src/intviewer/viewer-window.cc:619
 msgid "Arabic (Windows, CP1256)"
 msgstr "Арабське (Windows, CP1256)"
 
-#: src/intviewer/viewer-window.cc:645
+#: src/intviewer/viewer-window.cc:620
 msgid "Arabic (Dos, CP864)"
 msgstr "Арабське (DOS, CP864)"
 
-#: src/intviewer/viewer-window.cc:646
+#: src/intviewer/viewer-window.cc:621
 msgid "Baltic (ISO-8859-4)"
 msgstr "Балтійське (ISO-8859-4)"
 
-#: src/intviewer/viewer-window.cc:647
+#: src/intviewer/viewer-window.cc:622
 msgid "Central European (ISO-8859-2)"
 msgstr "Центральноєвропейське (ISO-8859-2)"
 
-#: src/intviewer/viewer-window.cc:648
+#: src/intviewer/viewer-window.cc:623
 msgid "Central European (CP1250)"
 msgstr "Центральноєвропейське (CP1250)"
 
-#: src/intviewer/viewer-window.cc:649
+#: src/intviewer/viewer-window.cc:624
 msgid "Cyrillic (ISO-8859-5)"
 msgstr "Кирилиця (ISO-8859-5)"
 
-#: src/intviewer/viewer-window.cc:650
+#: src/intviewer/viewer-window.cc:625
 msgid "Cyrillic (CP1251)"
 msgstr "Кирилиця (CP1251)"
 
-#: src/intviewer/viewer-window.cc:651
+#: src/intviewer/viewer-window.cc:626
 msgid "Greek (ISO-8859-7)"
 msgstr "Грецьке (ISO 8859-7)"
 
-#: src/intviewer/viewer-window.cc:652
+#: src/intviewer/viewer-window.cc:627
 msgid "Greek (CP1253)"
 msgstr "Грецьке (CP1253)"
 
-#: src/intviewer/viewer-window.cc:653
+#: src/intviewer/viewer-window.cc:628
 msgid "Hebrew (Windows, CP1255)"
 msgstr "Іврит (Windows, CP1255)"
 
-#: src/intviewer/viewer-window.cc:654
+#: src/intviewer/viewer-window.cc:629
 msgid "Hebrew (Dos, CP862)"
 msgstr "Іврит (DOS, CP862)"
 
-#: src/intviewer/viewer-window.cc:655
+#: src/intviewer/viewer-window.cc:630
 msgid "Hebrew (ISO-8859-8)"
 msgstr "Іврит (ISO-8859-8)"
 
-#: src/intviewer/viewer-window.cc:656
+#: src/intviewer/viewer-window.cc:631
 msgid "Latin 9 (ISO-8859-15)"
 msgstr "Латиниця 9 (ISO-8859-15)"
 
-#: src/intviewer/viewer-window.cc:657
+#: src/intviewer/viewer-window.cc:632
 msgid "Maltese (ISO-8859-3)"
 msgstr "Мальтійська (ISO-8859-3)"
 
-#: src/intviewer/viewer-window.cc:658
+#: src/intviewer/viewer-window.cc:633
 msgid "Turkish (ISO-8859-9)"
 msgstr "Турецьке (ISO 8859-9)"
 
-#: src/intviewer/viewer-window.cc:659
+#: src/intviewer/viewer-window.cc:634
 msgid "Turkish (CP1254)"
 msgstr "Турецьке (CP1254)"
 
-#: src/intviewer/viewer-window.cc:660
+#: src/intviewer/viewer-window.cc:635
 msgid "Western (CP1252)"
 msgstr "Західноєвропейське (CP1252)"
 
-#: src/intviewer/viewer-window.cc:661
+#: src/intviewer/viewer-window.cc:636
 msgid "Western (ISO-8859-1)"
 msgstr "Західне (ISO-8859-1)"
 
-#: src/intviewer/viewer-window.cc:666
+#: src/intviewer/viewer-window.cc:641
 msgid "Show Metadata _Tags"
 msgstr "Показати _теги метаданих"
 
-#: src/intviewer/viewer-window.cc:672
+#: src/intviewer/viewer-window.cc:647
 msgid "Rotate Clockwise"
 msgstr "Обернути за годинниковою стрілкою"
 
-#: src/intviewer/viewer-window.cc:673
+#: src/intviewer/viewer-window.cc:648
 msgid "Rotate Counter Clockwis_e"
 msgstr "Розвернути _проти годинника"
 
-#: src/intviewer/viewer-window.cc:674
+#: src/intviewer/viewer-window.cc:649
 msgid "Rotate 180°"
 msgstr "Обернути на 180°"
 
-#: src/intviewer/viewer-window.cc:675
+#: src/intviewer/viewer-window.cc:650
 msgid "Flip _Vertical"
 msgstr "Відобразити _вертикально"
 
-#: src/intviewer/viewer-window.cc:676
+#: src/intviewer/viewer-window.cc:651
 msgid "Flip _Horizontal"
 msgstr "Відобразити _горизонтально"
 
-#: src/intviewer/viewer-window.cc:682
+#: src/intviewer/viewer-window.cc:657
 msgid "_Binary Mode"
 msgstr "_Бінарний режим"
 
-#: src/intviewer/viewer-window.cc:683
+#: src/intviewer/viewer-window.cc:658
 msgid "_Save Current Settings"
 msgstr "_Зберегти чинні налаштування"
 
-#: src/intviewer/viewer-window.cc:688
+#: src/intviewer/viewer-window.cc:663
 msgid "_Hexadecimal Offset"
 msgstr "_Шістнадцятковий зсув"
 
-#: src/intviewer/viewer-window.cc:693
+#: src/intviewer/viewer-window.cc:668
 msgid "_20 chars/line"
 msgstr "_20 символів на лінію"
 
-#: src/intviewer/viewer-window.cc:694
+#: src/intviewer/viewer-window.cc:669
 msgid "_40 chars/line"
 msgstr "_40 символів на лінію"
 
-#: src/intviewer/viewer-window.cc:695
+#: src/intviewer/viewer-window.cc:670
 msgid "_80 chars/line"
 msgstr "_80 символів на лінію"
 
-#: src/intviewer/viewer-window.cc:701
+#: src/intviewer/viewer-window.cc:676
 msgid "Quick _Help"
 msgstr "Швидка _довідка"
 
-#: src/intviewer/viewer-window.cc:1010
+#: src/intviewer/viewer-window.cc:985
 #, c-format
 msgid "Pattern “%s” was not found"
 msgstr "Взірець «%s» не знайдено"
 
-#: src/main.cc:59
+#: src/main.cc:60
 msgid "Specify debug flags to use"
 msgstr "Вказує використовувати налагоджувальні параметри"
 
-#: src/main.cc:60
+#: src/main.cc:61
 msgid "Specify the start directory for the left pane"
 msgstr "Вказує початковий каталог для лівої панелі"
 
-#: src/main.cc:61
+#: src/main.cc:62
 msgid "Specify the start directory for the right pane"
 msgstr "Вказує початковий каталог для правої панелі"
 
-#: src/main.cc:62
+#: src/main.cc:63
 msgid "Specify the directory for configuration files"
 msgstr "Вкажіть каталог файлів налаштувань"
 
-#: src/main.cc:110
+#: src/main.cc:111
 msgid "File Manager"
 msgstr "Менеджер файлів"
 
@@ -8040,10 +8055,6 @@ msgid "Terms of use."
 msgstr "Умови використання."
 
 #: src/tags/gnome-cmd-tags.cc:403
-msgid "Time"
-msgstr "Час"
-
-#: src/tags/gnome-cmd-tags.cc:403
 msgid "Time."
 msgstr "Час."
 
@@ -9255,7 +9266,7 @@ msgstr "Немає"
 msgid "10-15ms"
 msgstr "10-15 мс"
 
-#: src/utils.cc:497
+#: src/utils.cc:502
 #, c-format
 msgid "(%sbyte)"
 msgid_plural "(%sbytes)"
@@ -9264,7 +9275,7 @@ msgstr[1] "(%sбайти)"
 msgstr[2] "(%sбайтів)"
 msgstr[3] "(%sбайт)"
 
-#: src/utils.cc:500
+#: src/utils.cc:505
 #, c-format
 msgid "%sbyte"
 msgid_plural "%sbytes"
@@ -9273,27 +9284,69 @@ msgstr[1] "%sбайти"
 msgstr[2] "%sбайтів"
 msgstr[3] "%sбайт"
 
-#: src/utils.cc:689
+#: src/utils.cc:694
 msgid "Failed to change working directory to a temporary directory."
 msgstr "Не вдалося змінити робочий каталог на тимчасовий каталог."
 
-#: src/utils.cc:699
+#: src/utils.cc:704
 msgid "Failed to create a directory in which to store temporary files."
 msgstr "Не вдалося створити каталог для зберігання тимчасових файлів."
 
-#: src/utils.cc:827
+#: src/utils.cc:832
 #, c-format
 msgid "Creating directory %s… "
 msgstr "Створення каталогу %s…"
 
-#: src/utils.cc:838
+#: src/utils.cc:843
 #, c-format
 msgid "Failed to create the directory %s: %s"
 msgstr "Не вдалося створити каталог %s: %s"
 
-#: src/utils.cc:942
+#: src/utils.cc:947
 msgid "There was an error displaying help."
 msgstr "Помилка при показі допомоги."
+
+#~ msgid "/File name"
+#~ msgstr "/Назва файла"
+
+#~ msgid "/Counter"
+#~ msgstr "/Лічильник"
+
+#~ msgid "/Date"
+#~ msgstr "/Дата"
+
+#~ msgid "/Date/<locale>"
+#~ msgstr "/Дата/<локаль>"
+
+#~ msgid "/Date/yyyy"
+#~ msgstr "/Дата/рррр"
+
+#~ msgid "/Date/yy"
+#~ msgstr "/Дата/рр"
+
+#~ msgid "/Date/mm"
+#~ msgstr "/Дата/мм"
+
+#~ msgid "/Date/mmm"
+#~ msgstr "/Дата/ммм"
+
+#~ msgid "/Date/dd"
+#~ msgstr "/Дата/дд"
+
+#~ msgid "/Time"
+#~ msgstr "/Час"
+
+#~ msgid "/Time/<locale>"
+#~ msgstr "/Час/<локаль>"
+
+#~ msgid "/Time/HH"
+#~ msgstr "/Час/ГГ"
+
+#~ msgid "/Time/MM"
+#~ msgstr "/Час/ХХ"
+
+#~ msgid "/Time/SS"
+#~ msgstr "/Час/СС"
 
 #~ msgid "S_hare:"
 #~ msgstr "С_тан:"
