@@ -21,4 +21,9 @@
   <flag name="taglib">Add metadata support for ID3, Vorbis, FLAC and APE</flag>
   <flag name="unique">Enable single instance support using dev-libs/libunique</flag>
 </use>
+<recommends>
+  <control>keyboard</control>
+  <control>pointing</control>
+  <display_length compare="ge">medium</display_length>
+</recommends>
 </pkgmetadata>
