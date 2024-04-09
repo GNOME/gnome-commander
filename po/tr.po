@@ -6,16 +6,16 @@
 # Necdet Yücel <necdetyucel@gmail.com>, 2015.
 # Gökhan Gurbetoğlu <ggurbet@gmail.com>, 2016.
 # Muhammet Kara <muhammetk@gmail.com>, 2016-2021.
-# Emin Tufan Çetin <etcetin@gmail.com>, 2019, 2022.
-# Sabri Ünal <libreajans@gmail.com, 2019, 2022, 2023.
+# Emin Tufan Çetin <etcetin@gmail.com>, 2019, 2022, 2024.
+# Sabri Ünal <libreajans@gmail.com, 2019, 2022, 2023, 2024.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-commander/"
 "issues/\n"
-"POT-Creation-Date: 2024-02-10 11:07+0000\n"
-"PO-Revision-Date: 2024-03-25 17:30+0300\n"
+"POT-Creation-Date: 2024-04-04 16:04+0000\n"
+"PO-Revision-Date: 2024-04-05 02:53+0300\n"
 "Last-Translator: Sabri Ünal <yakushabb@gmail.com>\n"
 "Language-Team: Turkish <takim@gnome.org.tr>\n"
 "Language: tr\n"
@@ -27,7 +27,7 @@ msgstr ""
 "X-POOTLE-MTIME: 1429308288.000000\n"
 
 #: data/org.gnome.gnome-commander.appdata.xml.in:7
-#: data/org.gnome.gnome-commander.desktop.in:3 src/gnome-cmd-main-win.cc:876
+#: data/org.gnome.gnome-commander.desktop.in:3 src/gnome-cmd-main-win.cc:874
 msgid "GNOME Commander"
 msgstr "GNOME Commander"
 
@@ -1492,7 +1492,7 @@ msgstr ""
 "Bu, kendiliğinden yüklenen eklentilerin listesidir; her giriş, eklentinin "
 "dosya adını gösterir."
 
-#: libgcmd/gnome-cmd-string-dialog.cc:127
+#: libgcmd/gnome-cmd-string-dialog.cc:124
 msgid "No error description available"
 msgstr "Hata açıklaması yok"
 
@@ -1517,7 +1517,7 @@ msgstr "Dosya seçimi"
 msgid "Could not load schemas from %s: %s\n"
 msgstr "%s dizininden şema yüklenemedi: %s\n"
 
-#: plugins/fileroller/file-roller-plugin.cc:200
+#: plugins/fileroller/file-roller-plugin.cc:202
 #, c-format
 msgid ""
 "Error running \"%s\"\n"
@@ -1528,36 +1528,36 @@ msgstr ""
 "\n"
 "%s"
 
-#: plugins/fileroller/file-roller-plugin.cc:379
+#: plugins/fileroller/file-roller-plugin.cc:381
 msgid "What file name should the new archive have?"
 msgstr "Yeni arşivin dosya adı ne olmalıdır?"
 
-#: plugins/fileroller/file-roller-plugin.cc:381
+#: plugins/fileroller/file-roller-plugin.cc:383
 msgid "Create Archive"
 msgstr "Arşiv Oluştur"
 
-#: plugins/fileroller/file-roller-plugin.cc:495
+#: plugins/fileroller/file-roller-plugin.cc:497
 msgid "Create Archive…"
 msgstr "Arşiv Oluştur…"
 
-#: plugins/fileroller/file-roller-plugin.cc:507
+#: plugins/fileroller/file-roller-plugin.cc:509
 msgid "Extract in Current Directory"
 msgstr "Geçerli Dizine Çıkar"
 
-#: plugins/fileroller/file-roller-plugin.cc:514
-#: plugins/fileroller/file-roller-plugin.cc:527
+#: plugins/fileroller/file-roller-plugin.cc:516
+#: plugins/fileroller/file-roller-plugin.cc:529
 #, c-format
 msgid "Extract to “%s”"
 msgstr "Şuraya çıkar: “%s”"
 
-#: plugins/fileroller/file-roller-plugin.cc:588
-#: src/gnome-cmd-advrename-profile-component.cc:941 src/plugin_manager.cc:398
+#: plugins/fileroller/file-roller-plugin.cc:590
+#: src/gnome-cmd-advrename-profile-component.cc:949 src/plugin_manager.cc:398
 #: src/tags/gnome-cmd-tags.cc:692
 msgid "File"
 msgstr "Dosya"
 
 #. destroy model automatically with view
-#: plugins/fileroller/file-roller-plugin.cc:605
+#: plugins/fileroller/file-roller-plugin.cc:607
 #: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:369
 #: src/dialogs/gnome-cmd-options-dialog.cc:1556
 #: src/dialogs/gnome-cmd-options-dialog.cc:2317
@@ -1567,25 +1567,25 @@ msgstr "Dosya"
 msgid "Options"
 msgstr "Seçenekler"
 
-#: plugins/fileroller/file-roller-plugin.cc:617
+#: plugins/fileroller/file-roller-plugin.cc:619
 msgid "File-roller options"
 msgstr "File-roller seçenekleri"
 
-#: plugins/fileroller/file-roller-plugin.cc:620
+#: plugins/fileroller/file-roller-plugin.cc:622
 msgid "Default archive type"
 msgstr "Öntanımlı arşiv türü"
 
 #. The pattern defining the file name prefix of the archive to be created
-#: plugins/fileroller/file-roller-plugin.cc:628
+#: plugins/fileroller/file-roller-plugin.cc:630
 msgid "File prefix pattern"
 msgstr "Dosya önek örüntüsü"
 
-#: plugins/fileroller/file-roller-plugin.cc:639
+#: plugins/fileroller/file-roller-plugin.cc:641
 #: src/dialogs/gnome-cmd-options-dialog.cc:434
 msgid "Test result:"
 msgstr "Test sonuçları:"
 
-#: plugins/fileroller/file-roller-plugin.cc:646
+#: plugins/fileroller/file-roller-plugin.cc:648
 msgid ""
 "Use $N as a pattern for the original file name. See the manual page for "
 "“strftime” for other patterns."
@@ -1593,7 +1593,7 @@ msgstr ""
 "Özgün dosya adı örüntüsünü belirtmek için $N kullanın. Diğer örüntüler için "
 "“strftime” kılavuz sayfasına bakın."
 
-#: plugins/fileroller/file-roller-plugin.cc:828
+#: plugins/fileroller/file-roller-plugin.cc:803
 msgid ""
 "A plugin that adds File Roller shortcuts for creating and extracting "
 "compressed archives."
@@ -1601,95 +1601,96 @@ msgstr ""
 "Sıkışıtırılmış arşivler oluşturmak ve onları açmak için File Roller "
 "kısayolunu ekleyen bir eklenti."
 
-#: plugins/test/test-plugin.cc:242
+#: plugins/test/test-plugin.cc:215
 msgid ""
 "This is an example plugin that is mostly useful as a simple example for "
 "aspiring plugin hackers"
 msgstr "Eklenti geliştirmeyi amaçlayanlar için çok kullanışlı basit bir örnek"
 
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:126
-#: src/dialogs/gnome-cmd-search-dialog.cc:201
-msgid "/_Save Profile As…"
-msgstr "/Profili Farklı _Kaydet…"
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:118
+#: src/dialogs/gnome-cmd-search-dialog.cc:193
+msgid "_Save Profile As…"
+msgstr "Profili Farklı _Kaydet…"
 
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:135
-#: src/dialogs/gnome-cmd-search-dialog.cc:210
-msgid "/_Manage Profiles…"
-msgstr "/Profilleri _Yönet…"
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:128
+#: src/dialogs/gnome-cmd-search-dialog.cc:203
+msgid "_Manage Profiles…"
+msgstr "Profilleri _Yönet…"
 
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:187
-#: src/dialogs/gnome-cmd-search-dialog.cc:260
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:182
+#: src/dialogs/gnome-cmd-search-dialog.cc:255
 msgid "Profiles"
 msgstr "Profiller"
 
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:331
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:328
 msgid "Remove from file list"
 msgstr "Dosya listesinden kaldır"
 
 #. {file_umount, "file.umount"},
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:335
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:332
 #: src/gnome-cmd-user-actions.cc:239
 msgid "View file"
 msgstr "Dosyayı görüntüle"
 
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:339
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:336
 msgid "File properties"
 msgstr "Dosya özellikleri"
 
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:345
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:342
 msgid "Update file list"
 msgstr "Dosya listesini güncelle"
 
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:522
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:519
 msgid "Advanced Rename Tool"
 msgstr "Gelişmiş Yeniden Adlandırma Aracı"
 
 #. Results
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:533
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:530
 msgid "Results"
 msgstr "Sonuçlar"
 
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:604
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:601
 msgid "Old name"
 msgstr "Eski adı"
 
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:608
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:605
 msgid "Current file name"
 msgstr "Geçerli dosya adı"
 
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:610
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:607
 msgid "New name"
 msgstr "Yeni adı"
 
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:614
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:611
 msgid "New file name"
 msgstr "Yeni dosya adı"
 
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:616 src/tags/gnome-cmd-tags.cc:332
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:613 src/tags/gnome-cmd-tags.cc:332
 #: src/tags/gnome-cmd-tags.cc:396
 msgid "Size"
 msgstr "Boyut"
 
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:620
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:617
 msgid "File size"
 msgstr "Dosya boyutu"
 
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:622
-#: src/gnome-cmd-advrename-profile-component.cc:943
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:619
+#: src/gnome-cmd-advrename-profile-component.cc:450
+#: src/gnome-cmd-advrename-profile-component.cc:951
 #: src/tags/gnome-cmd-tags.cc:347 src/tags/gnome-cmd-tags.cc:423
 msgid "Date"
 msgstr "Tarih"
 
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:626
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:623
 msgid "File modification date"
 msgstr "Dosya değiştirilme tarihi"
 
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:693
-#: src/dialogs/gnome-cmd-search-dialog.cc:1301
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:690
+#: src/dialogs/gnome-cmd-search-dialog.cc:1298
 msgid "Profiles…"
 msgstr "Profiller…"
 
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:698
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:695
 #: src/dialogs/gnome-cmd-edit-profile-dialog.h:83
 msgid "Reset"
 msgstr "Sıfırla"
@@ -1788,7 +1789,7 @@ msgstr "“%s” geçerli bir konum değil"
 msgid "Please check spelling and try again."
 msgstr "Lütfen yazım hatalarını kontrol edin ve tekrar deneyin."
 
-#: src/dialogs/gnome-cmd-con-dialog.cc:380 src/gnome-cmd-main-win.cc:247
+#: src/dialogs/gnome-cmd-con-dialog.cc:380 src/gnome-cmd-main-win.cc:248
 msgid "Remote Server"
 msgstr "Uzak Sunucu"
 
@@ -1862,7 +1863,7 @@ msgid "Abort"
 msgstr "Vazgeç"
 
 #: src/dialogs/gnome-cmd-delete-dialog.cc:301
-#: src/gnome-cmd-file-selector.cc:1436 src/gnome-cmd-xfer.cc:120
+#: src/gnome-cmd-file-selector.cc:1407 src/gnome-cmd-xfer.cc:120
 #: src/gnome-cmd-xfer.cc:147 src/gnome-cmd-xfer.cc:150
 #: src/gnome-cmd-xfer.cc:205 src/gnome-cmd-xfer.cc:208
 #: src/gnome-cmd-xfer.cc:323 src/gnome-cmd-xfer.cc:326
@@ -1875,7 +1876,7 @@ msgstr "Yeniden Dene"
 #: src/dialogs/gnome-cmd-options-dialog.cc:1107
 #: src/dialogs/gnome-cmd-prepare-copy-dialog.cc:114
 #: src/dialogs/gnome-cmd-prepare-move-dialog.cc:108
-#: src/gnome-cmd-file-selector.cc:1436 src/gnome-cmd-xfer.cc:120
+#: src/gnome-cmd-file-selector.cc:1407 src/gnome-cmd-xfer.cc:120
 #: src/gnome-cmd-xfer.cc:147 src/gnome-cmd-xfer.cc:205
 #: src/gnome-cmd-xfer.cc:323
 msgid "Skip"
@@ -1907,14 +1908,14 @@ msgstr "“%s” dizini boş değil. Gerçekten silmek istiyor musunuz?"
 #: src/dialogs/gnome-cmd-delete-dialog.cc:549
 #: src/dialogs/gnome-cmd-delete-dialog.cc:550
 #: src/dialogs/gnome-cmd-options-dialog.cc:1055
-#: src/gnome-cmd-file-popmenu.cc:731 src/gnome-cmd-main-win.cc:243
+#: src/gnome-cmd-file-popmenu.cc:706 src/gnome-cmd-main-win.cc:244
 #: src/gnome-cmd-user-actions.cc:213
 msgid "Delete"
 msgstr "Sil"
 
 #: src/dialogs/gnome-cmd-delete-dialog.cc:461
-#: src/dialogs/gnome-cmd-delete-dialog.cc:550 src/gnome-cmd-file-list.cc:1328
-#: src/gnome-cmd-file-list.cc:1357 src/gnome-cmd-file-selector.cc:1436
+#: src/dialogs/gnome-cmd-delete-dialog.cc:550 src/gnome-cmd-file-list.cc:1347
+#: src/gnome-cmd-file-list.cc:1376 src/gnome-cmd-file-selector.cc:1407
 #: src/gnome-cmd-user-actions.cc:874
 msgid "Cancel"
 msgstr "İptal"
@@ -1983,7 +1984,7 @@ msgid "Directory name:"
 msgstr "Dizin adı:"
 
 #: src/dialogs/gnome-cmd-file-props-dialog.cc:331
-#: src/gnome-cmd-file-selector.cc:1220
+#: src/gnome-cmd-file-selector.cc:1191
 msgid "File name:"
 msgstr "Dosya adı:"
 
@@ -2036,12 +2037,12 @@ msgid "Access permissions"
 msgstr "Erişim izinleri"
 
 #: src/dialogs/gnome-cmd-file-props-dialog.cc:596
-#: src/intviewer/viewer-window.cc:1356
+#: src/intviewer/viewer-window.cc:1331
 msgid "Type"
 msgstr "Tür"
 
 #: src/dialogs/gnome-cmd-file-props-dialog.cc:597
-#: src/intviewer/viewer-window.cc:1357
+#: src/intviewer/viewer-window.cc:1332
 msgid "Metadata namespace"
 msgstr "Üst veri ad alanı"
 
@@ -2054,35 +2055,35 @@ msgstr "Üst veri ad alanı"
 #: src/dialogs/gnome-cmd-file-props-dialog.cc:604
 #: src/dialogs/gnome-cmd-manage-bookmarks-dialog.cc:244
 #: src/dialogs/gnome-cmd-remote-dialog.cc:354
-#: src/intviewer/viewer-window.cc:1364 src/plugin_manager.cc:396
+#: src/intviewer/viewer-window.cc:1339 src/plugin_manager.cc:396
 #: src/tags/gnome-cmd-tags.cc:327
 msgid "Name"
 msgstr "Ad"
 
 #: src/dialogs/gnome-cmd-file-props-dialog.cc:605
-#: src/intviewer/viewer-window.cc:1365
+#: src/intviewer/viewer-window.cc:1340
 msgid "Tag name"
 msgstr "Etiket adı"
 
 #: src/dialogs/gnome-cmd-file-props-dialog.cc:607
-#: src/intviewer/viewer-window.cc:1367
+#: src/intviewer/viewer-window.cc:1342
 msgid "Value"
 msgstr "Değer"
 
 #: src/dialogs/gnome-cmd-file-props-dialog.cc:608
-#: src/intviewer/viewer-window.cc:1368
+#: src/intviewer/viewer-window.cc:1343
 msgid "Tag value"
 msgstr "Etiket değeri"
 
 #: src/dialogs/gnome-cmd-file-props-dialog.cc:610
-#: src/intviewer/viewer-window.cc:1370 src/tags/gnome-cmd-tags.cc:171
+#: src/intviewer/viewer-window.cc:1345 src/tags/gnome-cmd-tags.cc:171
 #: src/tags/gnome-cmd-tags.cc:322 src/tags/gnome-cmd-tags.cc:424
 #: src/tags/gnome-cmd-tags.cc:535
 msgid "Description"
 msgstr "Tanımlama"
 
 #: src/dialogs/gnome-cmd-file-props-dialog.cc:611
-#: src/intviewer/viewer-window.cc:1371
+#: src/intviewer/viewer-window.cc:1346
 msgid "Metadata tag description"
 msgstr "Üst veri etiket tanımlaması"
 
@@ -2164,17 +2165,17 @@ msgid "Do nothing"
 msgstr "Hiçbir şey yapma"
 
 #: src/dialogs/gnome-cmd-make-copy-dialog.cc:67
-#: src/gnome-cmd-file-selector.cc:1086
+#: src/gnome-cmd-file-selector.cc:1057
 msgid "No file name entered"
 msgstr "Dosya adı girilmemiş"
 
-#: src/dialogs/gnome-cmd-make-copy-dialog.cc:152
+#: src/dialogs/gnome-cmd-make-copy-dialog.cc:149
 #: src/dialogs/gnome-cmd-prepare-copy-dialog.cc:155
 #, c-format
 msgid "Copy “%s” to"
 msgstr "“%s” şuraya kopyala"
 
-#: src/dialogs/gnome-cmd-make-copy-dialog.cc:159
+#: src/dialogs/gnome-cmd-make-copy-dialog.cc:156
 msgid "Copy File"
 msgstr "Dosyayı Kopyala"
 
@@ -2286,7 +2287,7 @@ msgstr "Tek tıklama, dosyaların seçimini kaldırır"
 msgid "Middle mouse button"
 msgstr "Orta fare düğmesi"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:136 src/gnome-cmd-main-win.cc:234
+#: src/dialogs/gnome-cmd-options-dialog.cc:136 src/gnome-cmd-main-win.cc:235
 #: src/gnome-cmd-user-actions.cc:284
 msgid "Up one directory"
 msgstr "Üst dizine"
@@ -2413,6 +2414,8 @@ msgstr "Tür"
 
 #. Translators: '<locale>' refers to the mode of file size display (here - use current locale settings)
 #: src/dialogs/gnome-cmd-options-dialog.cc:386
+#: src/gnome-cmd-advrename-profile-component.cc:451
+#: src/gnome-cmd-advrename-profile-component.cc:464
 msgid "<locale>"
 msgstr "<yerel>"
 
@@ -2684,7 +2687,7 @@ msgstr "Önce sorgu"
 #: src/dialogs/gnome-cmd-options-dialog.cc:1103
 #: src/dialogs/gnome-cmd-prepare-copy-dialog.cc:107
 #: src/dialogs/gnome-cmd-prepare-move-dialog.cc:101
-#: src/gnome-cmd-file-popmenu.cc:732 src/gnome-cmd-xfer.cc:147
+#: src/gnome-cmd-file-popmenu.cc:707 src/gnome-cmd-xfer.cc:147
 #: src/gnome-cmd-xfer.cc:150 src/gnome-cmd-xfer.cc:205
 #: src/gnome-cmd-xfer.cc:208 src/gnome-cmd-xfer.cc:323
 #: src/gnome-cmd-xfer.cc:326
@@ -2712,7 +2715,7 @@ msgstr "Fare işlemlerini onayla"
 
 #: src/dialogs/gnome-cmd-options-dialog.cc:1127
 #: src/dialogs/gnome-cmd-prepare-copy-dialog.cc:94
-#: src/gnome-cmd-file-popmenu.cc:730 src/gnome-cmd-main-win.cc:241
+#: src/gnome-cmd-file-popmenu.cc:705 src/gnome-cmd-main-win.cc:242
 #: src/gnome-cmd-user-actions.cc:210
 msgid "Copy"
 msgstr "Kopyala"
@@ -3031,18 +3034,18 @@ msgid "The directory “%s” doesn’t exist, do you want to create it?"
 msgstr "“%s” dizini yok, oluşturmak istiyor musunuz?"
 
 #: src/dialogs/gnome-cmd-prepare-xfer-dialog.cc:165
-#: src/gnome-cmd-advrename-profile-component.cc:433
-#: src/gnome-cmd-advrename-profile-component.cc:761
-#: src/gnome-cmd-advrename-profile-component.cc:793
-#: src/gnome-cmd-file-popmenu.cc:143
+#: src/gnome-cmd-advrename-profile-component.cc:384
+#: src/gnome-cmd-advrename-profile-component.cc:769
+#: src/gnome-cmd-advrename-profile-component.cc:801
+#: src/gnome-cmd-file-popmenu.cc:145
 msgid "No"
 msgstr "Hayır"
 
 #: src/dialogs/gnome-cmd-prepare-xfer-dialog.cc:165
-#: src/gnome-cmd-advrename-profile-component.cc:433
-#: src/gnome-cmd-advrename-profile-component.cc:761
-#: src/gnome-cmd-advrename-profile-component.cc:793
-#: src/gnome-cmd-file-popmenu.cc:143
+#: src/gnome-cmd-advrename-profile-component.cc:384
+#: src/gnome-cmd-advrename-profile-component.cc:769
+#: src/gnome-cmd-advrename-profile-component.cc:801
+#: src/gnome-cmd-file-popmenu.cc:145
 msgid "Yes"
 msgstr "Evet"
 
@@ -3078,63 +3081,63 @@ msgstr "Sadece yerel dizinleri ara"
 msgid "Files _not containing text"
 msgstr "Dosyalar _metin içermiyor"
 
-#: src/dialogs/gnome-cmd-search-dialog.cc:328
+#: src/dialogs/gnome-cmd-search-dialog.cc:325
 #, c-format
 msgid "Failed to read file %s: File is not searchable"
 msgstr "%s dosyası okunamadı: Dosya aranabilir değil"
 
-#: src/dialogs/gnome-cmd-search-dialog.cc:339
-#: src/dialogs/gnome-cmd-search-dialog.cc:352
-#: src/dialogs/gnome-cmd-search-dialog.cc:381
+#: src/dialogs/gnome-cmd-search-dialog.cc:336
+#: src/dialogs/gnome-cmd-search-dialog.cc:349
+#: src/dialogs/gnome-cmd-search-dialog.cc:378
 #, c-format
 msgid "Failed to read file %s: %s"
 msgstr "%s dosyası okunamadı: %s"
 
-#: src/dialogs/gnome-cmd-search-dialog.cc:441
+#: src/dialogs/gnome-cmd-search-dialog.cc:438
 #, c-format
 msgid "Searching in: %s"
 msgstr "“%s” içinde aranıyor"
 
-#: src/dialogs/gnome-cmd-search-dialog.cc:605
+#: src/dialogs/gnome-cmd-search-dialog.cc:602
 #, c-format
 msgid "Found %d match — search aborted"
 msgid_plural "Found %d matches — search aborted"
 msgstr[0] "%d eşleşme bulundu — arama durduruldu"
 
-#: src/dialogs/gnome-cmd-search-dialog.cc:606
+#: src/dialogs/gnome-cmd-search-dialog.cc:603
 #, c-format
 msgid "Found %d match"
 msgid_plural "Found %d matches"
 msgstr[0] "%d eşleşme bulundu"
 
-#: src/dialogs/gnome-cmd-search-dialog.cc:815
+#: src/dialogs/gnome-cmd-search-dialog.cc:812
 #, c-format
 msgid "Failed to set process group id of child %d: %s.\n"
 msgstr "%d alt sürecinin süreç grup kimliği ayarlanamadı: %s.\n"
 
-#: src/dialogs/gnome-cmd-search-dialog.cc:951
+#: src/dialogs/gnome-cmd-search-dialog.cc:948
 msgid "Error parsing the search command."
 msgstr "Arama komutu ayrıştırılamadı."
 
-#: src/dialogs/gnome-cmd-search-dialog.cc:963
+#: src/dialogs/gnome-cmd-search-dialog.cc:960
 msgid "Error running the search command."
 msgstr "Arama komutu yürütülemedi."
 
-#: src/dialogs/gnome-cmd-search-dialog.cc:1090
+#: src/dialogs/gnome-cmd-search-dialog.cc:1087
 #, c-format
 msgid "Failed to change directory outside of %s"
 msgstr "Dizin %s dışına değiştirilemedi"
 
-#: src/dialogs/gnome-cmd-search-dialog.cc:1200
+#: src/dialogs/gnome-cmd-search-dialog.cc:1197
 msgid "Search…"
 msgstr "Ara…"
 
 #. search in
-#: src/dialogs/gnome-cmd-search-dialog.cc:1319
+#: src/dialogs/gnome-cmd-search-dialog.cc:1316
 msgid "Select Directory"
 msgstr "Dizin Seç"
 
-#: src/dialogs/gnome-cmd-search-dialog.cc:1322
+#: src/dialogs/gnome-cmd-search-dialog.cc:1319
 msgid "_Look in folder:"
 msgstr "_Klasöre bak:"
 
@@ -3144,27 +3147,27 @@ msgid "%d file listed"
 msgid_plural "%d files listed"
 msgstr[0] "%d dosya listelenmiş"
 
-#: src/eggcellrendererkeys.cc:183 src/eggcellrendererkeys.cc:184
+#: src/eggcellrendererkeys.cc:155 src/eggcellrendererkeys.cc:156
 msgid "Accelerator key"
 msgstr "Hızlandırıcı tuş"
 
-#: src/eggcellrendererkeys.cc:193 src/eggcellrendererkeys.cc:194
+#: src/eggcellrendererkeys.cc:165 src/eggcellrendererkeys.cc:166
 msgid "Accelerator modifiers"
 msgstr "Hızlandırıcı düzenleyicileri"
 
-#: src/eggcellrendererkeys.cc:202
+#: src/eggcellrendererkeys.cc:174
 msgid "Accelerator Mode"
 msgstr "Hızlandırıcı Kipi"
 
-#: src/eggcellrendererkeys.cc:203
+#: src/eggcellrendererkeys.cc:175
 msgid "The type of accelerator."
 msgstr "Hızlandırıcının türü."
 
-#: src/eggcellrendererkeys.cc:238
+#: src/eggcellrendererkeys.cc:210
 msgid "Disabled"
 msgstr "Kapalı"
 
-#: src/eggcellrendererkeys.cc:446 src/eggcellrendererkeys.cc:665
+#: src/eggcellrendererkeys.cc:422 src/eggcellrendererkeys.cc:641
 msgid "New accelerator…"
 msgstr "Yeni hızlandırıcı…"
 
@@ -3197,266 +3200,252 @@ msgstr "_Geliştirenler"
 msgid "About %s"
 msgstr "%s Hakkında"
 
-#: src/gnome-cmd-advrename-profile-component.cc:129
-msgid "/Grandparent"
-msgstr "/Daha üst"
+#: src/gnome-cmd-advrename-profile-component.cc:420
+msgid "Grandparent"
+msgstr "Daha üst"
 
-#: src/gnome-cmd-advrename-profile-component.cc:130
-msgid "/Parent"
-msgstr "/Üst"
+#: src/gnome-cmd-advrename-profile-component.cc:421
+msgid "Parent"
+msgstr "Üst"
 
-#: src/gnome-cmd-advrename-profile-component.cc:133
-msgid "/File name"
-msgstr "/Dosya adı"
+#: src/gnome-cmd-advrename-profile-component.cc:428
+msgid "File name"
+msgstr "Dosya adı"
 
-#: src/gnome-cmd-advrename-profile-component.cc:134
-msgid "/File name (range)"
-msgstr "/Dosya adı (aralık)"
+#: src/gnome-cmd-advrename-profile-component.cc:429
+msgid "File name (range)"
+msgstr "Dosya adı (aralık)"
 
-#: src/gnome-cmd-advrename-profile-component.cc:135
-msgid "/File name without extension"
-msgstr "/Dosya adı uzantısız"
+#: src/gnome-cmd-advrename-profile-component.cc:430
+msgid "File name without extension"
+msgstr "Dosya adı uzantısız"
 
-#: src/gnome-cmd-advrename-profile-component.cc:136
-msgid "/File name without extension (range)"
-msgstr "/Dosya adı uzantısız (aralık)"
+#: src/gnome-cmd-advrename-profile-component.cc:431
+msgid "File name without extension (range)"
+msgstr "Dosya adı uzantısız (aralık)"
 
-#: src/gnome-cmd-advrename-profile-component.cc:137
-msgid "/File extension"
-msgstr "/Dosya uzantısı"
+#: src/gnome-cmd-advrename-profile-component.cc:432
+msgid "File extension"
+msgstr "Dosya uzantısı"
 
-#: src/gnome-cmd-advrename-profile-component.cc:140
-msgid "/Counter"
-msgstr "/Sayaç"
-
-#: src/gnome-cmd-advrename-profile-component.cc:141
-msgid "/Counter (width)"
-msgstr "/Sayaç (genişlik)"
-
-#: src/gnome-cmd-advrename-profile-component.cc:142
-msgid "/Counter (auto)"
-msgstr "/Sayaç (otomatik)"
-
-#: src/gnome-cmd-advrename-profile-component.cc:143
-msgid "/Hexadecimal random number (width)"
-msgstr "/Onaltılık rastgele numara (genişlik)"
-
-#: src/gnome-cmd-advrename-profile-component.cc:146
-msgid "/Date"
-msgstr "/Tarih"
-
-#: src/gnome-cmd-advrename-profile-component.cc:147
-msgid "/Date/<locale>"
-msgstr "/Tarih/<konum>"
-
-#: src/gnome-cmd-advrename-profile-component.cc:148
-msgid "/Date/yyyy-mm-dd"
-msgstr "/Tarih/yyyy-mm-dd"
-
-#: src/gnome-cmd-advrename-profile-component.cc:149
-msgid "/Date/yy-mm-dd"
-msgstr "/Tarih/yy-mm-dd"
-
-#: src/gnome-cmd-advrename-profile-component.cc:150
-msgid "/Date/yy.mm.dd"
-msgstr "/Tarih/yy.mm.dd"
-
-#: src/gnome-cmd-advrename-profile-component.cc:151
-msgid "/Date/yymmdd"
-msgstr "/Tarih/yymmdd"
-
-#: src/gnome-cmd-advrename-profile-component.cc:152
-msgid "/Date/dd.mm.yy"
-msgstr "/Tarih/dd.mm.yy"
-
-#: src/gnome-cmd-advrename-profile-component.cc:153
-msgid "/Date/mm-dd-yy"
-msgstr "/Tarih/mm-dd-yy"
-
-#: src/gnome-cmd-advrename-profile-component.cc:154
-msgid "/Date/yyyy"
-msgstr "/Tarih/yyyy"
-
-#: src/gnome-cmd-advrename-profile-component.cc:155
-msgid "/Date/yy"
-msgstr "/Tarih/yy"
-
-#: src/gnome-cmd-advrename-profile-component.cc:156
-msgid "/Date/mm"
-msgstr "/Tarih/mm"
-
-#: src/gnome-cmd-advrename-profile-component.cc:157
-msgid "/Date/mmm"
-msgstr "/Tarih/mmm"
-
-#: src/gnome-cmd-advrename-profile-component.cc:158
-msgid "/Date/dd"
-msgstr "/Date/dd"
-
-#: src/gnome-cmd-advrename-profile-component.cc:159
-msgid "/Time"
-msgstr "/Zaman"
-
-#: src/gnome-cmd-advrename-profile-component.cc:160
-msgid "/Time/<locale>"
-msgstr "/Zaman/<konum>"
-
-#: src/gnome-cmd-advrename-profile-component.cc:161
-msgid "/Time/HH.MM.SS"
-msgstr "/Zaman/HH.MM.SS"
-
-#: src/gnome-cmd-advrename-profile-component.cc:162
-msgid "/Time/HH-MM-SS"
-msgstr "/Zaman/HH-MM-SS"
-
-#: src/gnome-cmd-advrename-profile-component.cc:163
-msgid "/Time/HHMMSS"
-msgstr "/Zaman/HHMMSS"
-
-#: src/gnome-cmd-advrename-profile-component.cc:164
-msgid "/Time/HH"
-msgstr "/Zaman/HH"
-
-#: src/gnome-cmd-advrename-profile-component.cc:165
-msgid "/Time/MM"
-msgstr "/Saat/MM"
-
-#: src/gnome-cmd-advrename-profile-component.cc:166
-msgid "/Time/SS"
-msgstr "/Saat/SS"
-
-#: src/gnome-cmd-advrename-profile-component.cc:613
-msgid "_Select range:"
-msgstr "Aralık _seç:"
-
-#: src/gnome-cmd-advrename-profile-component.cc:623
-msgid "_Inverse selection"
-msgstr "Seçimi _ters çevir"
-
-#: src/gnome-cmd-advrename-profile-component.cc:687
-msgid "Range Selection"
-msgstr "Aralık Seçimi"
-
-#: src/gnome-cmd-advrename-profile-component.cc:751
-msgid "Add Rule"
-msgstr "Kural Ekle"
-
-#: src/gnome-cmd-advrename-profile-component.cc:786
-msgid "Edit Rule"
-msgstr "Kural Düzenle"
-
-#: src/gnome-cmd-advrename-profile-component.cc:912
-msgid "_Template"
-msgstr "_Şablon"
-
-#: src/gnome-cmd-advrename-profile-component.cc:940
-msgid "Directory"
-msgstr "Dizin"
-
-#: src/gnome-cmd-advrename-profile-component.cc:942
-#: src/gnome-cmd-advrename-profile-component.cc:954
+#: src/gnome-cmd-advrename-profile-component.cc:439
+#: src/gnome-cmd-advrename-profile-component.cc:950
+#: src/gnome-cmd-advrename-profile-component.cc:962
 msgid "Counter"
 msgstr "Sayaç"
 
-#: src/gnome-cmd-advrename-profile-component.cc:944
+#: src/gnome-cmd-advrename-profile-component.cc:440
+msgid "Counter (width)"
+msgstr "Sayaç (genişlik)"
+
+#: src/gnome-cmd-advrename-profile-component.cc:441
+msgid "Counter (auto)"
+msgstr "Sayaç (otomatik)"
+
+#: src/gnome-cmd-advrename-profile-component.cc:442
+msgid "Hexadecimal random number (width)"
+msgstr "Onaltılık rastgele numara (genişlik)"
+
+#: src/gnome-cmd-advrename-profile-component.cc:452
+msgid "yyyy-mm-dd"
+msgstr "yyyy-mm-dd"
+
+#: src/gnome-cmd-advrename-profile-component.cc:453
+msgid "yy-mm-dd"
+msgstr "yy-mm-dd"
+
+#: src/gnome-cmd-advrename-profile-component.cc:454
+msgid "yy.mm.dd"
+msgstr "yy.mm.dd"
+
+#: src/gnome-cmd-advrename-profile-component.cc:455
+msgid "yymmdd"
+msgstr "yymmdd"
+
+#: src/gnome-cmd-advrename-profile-component.cc:456
+msgid "dd.mm.yy"
+msgstr "dd.mm.yy"
+
+#: src/gnome-cmd-advrename-profile-component.cc:457
+msgid "mm-dd-yy"
+msgstr "mm-dd-yy"
+
+#: src/gnome-cmd-advrename-profile-component.cc:458
+msgid "yyyy"
+msgstr "yyyy"
+
+#: src/gnome-cmd-advrename-profile-component.cc:459
+msgid "yy"
+msgstr "yy"
+
+#: src/gnome-cmd-advrename-profile-component.cc:460
+msgid "mm"
+msgstr "mm"
+
+#: src/gnome-cmd-advrename-profile-component.cc:461
+msgid "mmm"
+msgstr "mmm"
+
+#: src/gnome-cmd-advrename-profile-component.cc:462
+msgid "dd"
+msgstr "dd"
+
+#: src/gnome-cmd-advrename-profile-component.cc:463
+#: src/tags/gnome-cmd-tags.cc:403
+msgid "Time"
+msgstr "Zaman"
+
+#: src/gnome-cmd-advrename-profile-component.cc:465
+msgid "HH.MM.SS"
+msgstr "HH.MM.SS"
+
+#: src/gnome-cmd-advrename-profile-component.cc:466
+msgid "HH-MM-SS"
+msgstr "HH-MM-SS"
+
+#: src/gnome-cmd-advrename-profile-component.cc:467
+msgid "HHMMSS"
+msgstr "HHMMSS"
+
+#: src/gnome-cmd-advrename-profile-component.cc:468
+msgid "HH"
+msgstr "HH"
+
+#: src/gnome-cmd-advrename-profile-component.cc:469
+msgid "MM"
+msgstr "MM"
+
+#: src/gnome-cmd-advrename-profile-component.cc:470
+msgid "SS"
+msgstr "SS"
+
+#: src/gnome-cmd-advrename-profile-component.cc:619
+msgid "_Select range:"
+msgstr "Aralık _seç:"
+
+#: src/gnome-cmd-advrename-profile-component.cc:629
+msgid "_Inverse selection"
+msgstr "Seçimi _ters çevir"
+
+#: src/gnome-cmd-advrename-profile-component.cc:695
+msgid "Range Selection"
+msgstr "Aralık Seçimi"
+
+#: src/gnome-cmd-advrename-profile-component.cc:759
+msgid "Add Rule"
+msgstr "Kural Ekle"
+
+#: src/gnome-cmd-advrename-profile-component.cc:794
+msgid "Edit Rule"
+msgstr "Kural Düzenle"
+
+#: src/gnome-cmd-advrename-profile-component.cc:920
+msgid "_Template"
+msgstr "_Şablon"
+
+#: src/gnome-cmd-advrename-profile-component.cc:948
+msgid "Directory"
+msgstr "Dizin"
+
+#: src/gnome-cmd-advrename-profile-component.cc:952
 msgid "Metatag"
 msgstr "Üst veri etiketi"
 
-#: src/gnome-cmd-advrename-profile-component.cc:971
+#: src/gnome-cmd-advrename-profile-component.cc:979
 msgid "_Start:"
 msgstr "_Başlangıç:"
 
-#: src/gnome-cmd-advrename-profile-component.cc:978
+#: src/gnome-cmd-advrename-profile-component.cc:986
 msgid "Ste_p:"
 msgstr "Adı_m:"
 
-#: src/gnome-cmd-advrename-profile-component.cc:985
+#: src/gnome-cmd-advrename-profile-component.cc:993
 msgid "Di_gits:"
 msgstr "Sa_yılar:"
 
-#: src/gnome-cmd-advrename-profile-component.cc:989
+#: src/gnome-cmd-advrename-profile-component.cc:997
 msgid "auto"
 msgstr "otomatik"
 
-#: src/gnome-cmd-advrename-profile-component.cc:1003
+#: src/gnome-cmd-advrename-profile-component.cc:1011
 msgid "Regex replacing"
 msgstr "Düzen ifade değişimi"
 
-#: src/gnome-cmd-advrename-profile-component.cc:1042
+#: src/gnome-cmd-advrename-profile-component.cc:1050
 msgid "Remove A_ll"
 msgstr "T_ümünü Kaldır"
 
-#: src/gnome-cmd-advrename-profile-component.cc:1055
+#: src/gnome-cmd-advrename-profile-component.cc:1063
 msgid "Case"
 msgstr "Büyük/küçük harf"
 
-#: src/gnome-cmd-advrename-profile-component.cc:1067
+#: src/gnome-cmd-advrename-profile-component.cc:1075
 msgid "<unchanged>"
 msgstr "<değişmemiş>"
 
-#: src/gnome-cmd-advrename-profile-component.cc:1068
+#: src/gnome-cmd-advrename-profile-component.cc:1076
 msgid "lowercase"
 msgstr "küçük harf"
 
-#: src/gnome-cmd-advrename-profile-component.cc:1069
+#: src/gnome-cmd-advrename-profile-component.cc:1077
 msgid "UPPERCASE"
 msgstr "BÜYÜKHARF"
 
-#: src/gnome-cmd-advrename-profile-component.cc:1071
+#: src/gnome-cmd-advrename-profile-component.cc:1079
 msgid "Sentence case"
 msgstr "Cümle düzeni"
 
 #. FIXME
-#: src/gnome-cmd-advrename-profile-component.cc:1072
+#: src/gnome-cmd-advrename-profile-component.cc:1080
 msgid "Initial Caps"
 msgstr "Başlangıç Ayarı"
 
 #. FIXME
-#: src/gnome-cmd-advrename-profile-component.cc:1073
+#: src/gnome-cmd-advrename-profile-component.cc:1081
 msgid "tOGGLE cASE"
 msgstr "bÜYÜKLÜĞÜ dEĞİŞTİR"
 
-#: src/gnome-cmd-advrename-profile-component.cc:1083
+#: src/gnome-cmd-advrename-profile-component.cc:1091
 msgid "Trim blanks"
 msgstr "Boşlukları Sil"
 
-#: src/gnome-cmd-advrename-profile-component.cc:1095
+#: src/gnome-cmd-advrename-profile-component.cc:1103
 msgid "<none>"
 msgstr "<none>"
 
-#: src/gnome-cmd-advrename-profile-component.cc:1096
+#: src/gnome-cmd-advrename-profile-component.cc:1104
 msgid "leading"
 msgstr "gelen"
 
-#: src/gnome-cmd-advrename-profile-component.cc:1097
+#: src/gnome-cmd-advrename-profile-component.cc:1105
 msgid "trailing"
 msgstr "izleyen"
 
-#: src/gnome-cmd-advrename-profile-component.cc:1098
+#: src/gnome-cmd-advrename-profile-component.cc:1106
 msgid "leading and trailing"
 msgstr "gelen ve izleyen"
 
-#: src/gnome-cmd-advrename-profile-component.cc:1258
+#: src/gnome-cmd-advrename-profile-component.cc:1266
 msgid "Search for"
 msgstr "Şunu ara"
 
-#: src/gnome-cmd-advrename-profile-component.cc:1261
+#: src/gnome-cmd-advrename-profile-component.cc:1269
 msgid "Regex pattern"
 msgstr "Düzenli ifade örüntüsü"
 
-#: src/gnome-cmd-advrename-profile-component.cc:1263
+#: src/gnome-cmd-advrename-profile-component.cc:1271
 msgid "Replace with"
 msgstr "Şununla yer değiştir"
 
-#: src/gnome-cmd-advrename-profile-component.cc:1266
+#: src/gnome-cmd-advrename-profile-component.cc:1274
 msgid "Replacement"
 msgstr "Yer değiştirme"
 
-#: src/gnome-cmd-advrename-profile-component.cc:1268
+#: src/gnome-cmd-advrename-profile-component.cc:1276
 msgid "Match case"
 msgstr "Eşleşme durumu"
 
-#: src/gnome-cmd-advrename-profile-component.cc:1271
+#: src/gnome-cmd-advrename-profile-component.cc:1279
 msgid "Case sensitive matching"
 msgstr "Büyük/küçük harf duyarlı eşleşme"
 
@@ -3465,35 +3454,35 @@ msgstr "Büyük/küçük harf duyarlı eşleşme"
 msgid "The program has now finished. Press Enter to close this window.\n"
 msgstr "Program tamamlandı. Pencereyi kapatmak için Enter tuşuna basın.\n"
 
-#: src/gnome-cmd-chmod-component.cc:121
+#: src/gnome-cmd-chmod-component.cc:120
 msgid "Read"
 msgstr "Okuma"
 
-#: src/gnome-cmd-chmod-component.cc:121
+#: src/gnome-cmd-chmod-component.cc:120
 msgid "Write"
 msgstr "Yazma"
 
-#: src/gnome-cmd-chmod-component.cc:121
+#: src/gnome-cmd-chmod-component.cc:120
 msgid "Execute"
 msgstr "Çalıştırma"
 
-#: src/gnome-cmd-chmod-component.cc:122 src/gnome-cmd-chown-component.cc:86
+#: src/gnome-cmd-chmod-component.cc:121 src/gnome-cmd-chown-component.cc:83
 msgid "Owner:"
 msgstr "Sahibi:"
 
-#: src/gnome-cmd-chmod-component.cc:122 src/gnome-cmd-chown-component.cc:89
+#: src/gnome-cmd-chmod-component.cc:121 src/gnome-cmd-chown-component.cc:86
 msgid "Group:"
 msgstr "Grubu:"
 
-#: src/gnome-cmd-chmod-component.cc:122
+#: src/gnome-cmd-chmod-component.cc:121
 msgid "Others:"
 msgstr "Diğerleri:"
 
-#: src/gnome-cmd-chmod-component.cc:154
+#: src/gnome-cmd-chmod-component.cc:153
 msgid "Text view:"
 msgstr "Metin görünümü:"
 
-#: src/gnome-cmd-chmod-component.cc:157
+#: src/gnome-cmd-chmod-component.cc:156
 msgid "Number view:"
 msgstr "Sayı görünümü:"
 
@@ -3529,27 +3518,27 @@ msgstr ""
 "%s\n"
 "Hata kodu: %d"
 
-#: src/gnome-cmd-con-device.cc:554
+#: src/gnome-cmd-con-device.cc:527
 #, c-format
 msgid "Mounting %s"
 msgstr "%s bağlanıyor"
 
-#: src/gnome-cmd-con-device.cc:571
+#: src/gnome-cmd-con-device.cc:544
 #, c-format
 msgid "Go to: %s (%s)"
 msgstr "Şuraya git: %s (%s)"
 
-#: src/gnome-cmd-con-device.cc:573 src/gnome-cmd-con.h:223
+#: src/gnome-cmd-con-device.cc:546 src/gnome-cmd-con.h:223
 #, c-format
 msgid "Go to: %s"
 msgstr "Şuraya git: %s"
 
-#: src/gnome-cmd-con-device.cc:574
+#: src/gnome-cmd-con-device.cc:547
 #, c-format
 msgid "Mount: %s"
 msgstr "Bağla: %s"
 
-#: src/gnome-cmd-con-device.cc:575
+#: src/gnome-cmd-con-device.cc:548
 #, c-format
 msgid "Unmount: %s"
 msgstr "Ayır: %s"
@@ -3577,11 +3566,11 @@ msgstr "Şuraya bağlan: %s\n"
 msgid "Unknown disk usage"
 msgstr "Bilinmeyen disk kullanımı"
 
-#: src/gnome-cmd-con-home.cc:114
+#: src/gnome-cmd-con-home.cc:110
 msgid "Home"
 msgstr "Başlangıç"
 
-#: src/gnome-cmd-con-home.cc:123
+#: src/gnome-cmd-con-home.cc:119
 msgid "Go to: Home"
 msgstr "Şuraya git: Başlangıç"
 
@@ -3589,12 +3578,12 @@ msgstr "Şuraya git: Başlangıç"
 msgid "Disconnect error"
 msgstr "Bağlantıyı kesilme hatası"
 
-#: src/gnome-cmd-con-remote.cc:395
+#: src/gnome-cmd-con-remote.cc:367
 #, c-format
 msgid "Opens remote connection to %s"
 msgstr "Şuraya uzak bağlantı açar: %s"
 
-#: src/gnome-cmd-con-remote.cc:396
+#: src/gnome-cmd-con-remote.cc:368
 #, c-format
 msgid "Closes remote connection to %s"
 msgstr "Şuradaki uzak bağlantıyı kapatır: %s"
@@ -3603,15 +3592,15 @@ msgstr "Şuradaki uzak bağlantıyı kapatır: %s"
 msgid "Failed to browse the network. Is Samba supported on the system?"
 msgstr "Ağa göz atılamadı. Samba sistemde destekleniyor mu?"
 
-#: src/gnome-cmd-con-smb.cc:216
+#: src/gnome-cmd-con-smb.cc:213
 msgid "SMB"
 msgstr "SMB"
 
-#: src/gnome-cmd-con-smb.cc:218
+#: src/gnome-cmd-con-smb.cc:215
 msgid "Searching for workgroups and hosts"
 msgstr "Çalışma grupları ve makinelerde arama"
 
-#: src/gnome-cmd-con-smb.cc:225
+#: src/gnome-cmd-con-smb.cc:222
 msgid "Go to: Samba Network"
 msgstr "Şuraya git: Samba Ağı"
 
@@ -3624,30 +3613,30 @@ msgstr "şuraya bağlantılı: %s"
 msgid "Waiting for file list"
 msgstr "Dosya listesi bekleniyor"
 
-#: src/gnome-cmd-dir-indicator.cc:547
+#: src/gnome-cmd-dir-indicator.cc:544
 msgid "Add current dir"
 msgstr "Geçerli dizini ekle"
 
-#: src/gnome-cmd-dir-indicator.cc:548
+#: src/gnome-cmd-dir-indicator.cc:545
 msgid "Manage bookmarks…"
 msgstr "Yer imlerini yönet…"
 
-#: src/gnome-cmd-file.cc:639
+#: src/gnome-cmd-file.cc:631
 msgid "_Open"
 msgstr "_Aç"
 
-#: src/gnome-cmd-file.cc:642
+#: src/gnome-cmd-file.cc:634
 #, c-format
 msgid "_Open with “%s”"
 msgstr "“%s” ile _aç"
 
-#: src/gnome-cmd-file.cc:968 src/gnome-cmd-user-actions.cc:746
+#: src/gnome-cmd-file.cc:960 src/gnome-cmd-user-actions.cc:746
 #: src/gnome-cmd-user-actions.cc:930 src/gnome-cmd-user-actions.cc:1191
 #: src/utils.cc:136
 msgid "No valid command given."
 msgstr "Geçersiz komut."
 
-#: src/gnome-cmd-file.cc:979 src/gnome-cmd-user-actions.cc:758
+#: src/gnome-cmd-file.cc:971 src/gnome-cmd-user-actions.cc:758
 #: src/gnome-cmd-user-actions.cc:804 src/gnome-cmd-user-actions.cc:946
 #: src/gnome-cmd-user-actions.cc:1204 src/gnome-cmd-user-actions.cc:1243
 #: src/utils.cc:144
@@ -3686,23 +3675,23 @@ msgstr "uid"
 msgid "gid"
 msgstr "gid"
 
-#: src/gnome-cmd-file-list.cc:226
-msgid "/_Copy here"
-msgstr "/Buraya _kopyala"
+#: src/gnome-cmd-file-list.cc:237
+msgid "_Copy here"
+msgstr "Buraya _kopyala"
 
-#: src/gnome-cmd-file-list.cc:227
-msgid "/_Move here"
-msgstr "/Bıraya _taşı"
+#: src/gnome-cmd-file-list.cc:244
+msgid "_Move here"
+msgstr "Buraya _taşı"
 
-#: src/gnome-cmd-file-list.cc:228
-msgid "/_Link here"
-msgstr "/Buraya _bağla"
+#: src/gnome-cmd-file-list.cc:251
+msgid "_Link here"
+msgstr "Buraya _bağla"
 
-#: src/gnome-cmd-file-list.cc:230
-msgid "/C_ancel"
-msgstr "/İ_ptal"
+#: src/gnome-cmd-file-list.cc:259
+msgid "C_ancel"
+msgstr "İ_ptal"
 
-#: src/gnome-cmd-file-list.cc:1325
+#: src/gnome-cmd-file-list.cc:1344
 #, c-format
 msgid ""
 "“%s” seems to be a binary executable file but it lacks the executable bit. "
@@ -3711,15 +3700,15 @@ msgstr ""
 "“%s” ikili bir dosya gibi gözüküyor, ancak çalıştırılabilir biti eksik. Onu "
 "ayarlamak ve dosyayı çalıştırmak istiyor musunuz?"
 
-#: src/gnome-cmd-file-list.cc:1327
+#: src/gnome-cmd-file-list.cc:1346
 msgid "Make Executable?"
 msgstr "Çalıştırılabilir Yapılsın?"
 
-#: src/gnome-cmd-file-list.cc:1328
+#: src/gnome-cmd-file-list.cc:1347
 msgid "OK"
 msgstr "Tamam"
 
-#: src/gnome-cmd-file-list.cc:1355
+#: src/gnome-cmd-file-list.cc:1374
 #, c-format
 msgid ""
 "“%s” is an executable text file. Do you want to run it, or display its "
@@ -3728,29 +3717,29 @@ msgstr ""
 "“%s” bir çalıştırılabilir metin dosyası. Çalıştırmak istiyor musunuz? Yoksa "
 "içeriği mi gösterilsin?"
 
-#: src/gnome-cmd-file-list.cc:1356
+#: src/gnome-cmd-file-list.cc:1375
 msgid "Run or Display"
 msgstr "Çalıştır ya da Göster"
 
-#: src/gnome-cmd-file-list.cc:1357
+#: src/gnome-cmd-file-list.cc:1376
 msgid "Display"
 msgstr "Göster"
 
-#: src/gnome-cmd-file-list.cc:1357
+#: src/gnome-cmd-file-list.cc:1376
 msgid "Run"
 msgstr "Çalıştır"
 
-#: src/gnome-cmd-file-list.cc:1373
+#: src/gnome-cmd-file-list.cc:1392
 #, c-format
 msgid "No default application found for the file type %s."
 msgstr "%s dosya türü için öntanımlı uygulama bulunamadı."
 
-#: src/gnome-cmd-file-list.cc:1374
+#: src/gnome-cmd-file-list.cc:1393
 msgid "Open the \"Applications\" page in the Control Center to add one."
 msgstr ""
 "Bir tane eklemek için Denetim Merkezindeki \"Uygulamalar\" sayfasını açın."
 
-#: src/gnome-cmd-file-list.cc:1405 src/gnome-cmd-file-popmenu.cc:140
+#: src/gnome-cmd-file-list.cc:1424 src/gnome-cmd-file-popmenu.cc:142
 #, c-format
 msgid ""
 "%s does not know how to open remote file. Do you want to download the file "
@@ -3762,486 +3751,486 @@ msgstr[0] ""
 "%s uzak dosyayı nasıl açacağını bilmiyor. Dosyayı geçici bir konuma indirmek "
 "ve açmak istiyor musunuz?"
 
-#: src/gnome-cmd-file-list.cc:1689
+#: src/gnome-cmd-file-list.cc:1708
 msgid "Directory listing failed."
 msgstr "Dizin listeleme başarısız."
 
-#: src/gnome-cmd-file-list.cc:1741
+#: src/gnome-cmd-file-list.cc:1760
 msgid "Failed to open connection."
 msgstr "Bağlantı açılamadı."
 
-#: src/gnome-cmd-file-list.cc:2512 src/gnome-cmd-file-list.cc:2541
+#: src/gnome-cmd-file-list.cc:2531 src/gnome-cmd-file-list.cc:2560
 msgid "Not an ordinary file."
 msgstr "Normal bir dosya değil."
 
-#: src/gnome-cmd-file-popmenu.cc:236
+#: src/gnome-cmd-file-popmenu.cc:238
 msgid "Couldn’t retrieve MIME type of the file."
 msgstr "Dosyanın MIME türü alınamadı."
 
-#: src/gnome-cmd-file-popmenu.cc:251
+#: src/gnome-cmd-file-popmenu.cc:253
 msgid "Invalid command"
 msgstr "Geçersiz komut"
 
-#: src/gnome-cmd-file-popmenu.cc:282
+#: src/gnome-cmd-file-popmenu.cc:284
 msgid "Application:"
 msgstr "Uygulama:"
 
-#: src/gnome-cmd-file-popmenu.cc:285
+#: src/gnome-cmd-file-popmenu.cc:287
 msgid "Open with other…"
 msgstr "Birlikte aç…"
 
-#: src/gnome-cmd-file-popmenu.cc:290
+#: src/gnome-cmd-file-popmenu.cc:292
 msgid "Needs terminal"
 msgstr "Uçbirim gerektirir"
 
-#: src/gnome-cmd-file-popmenu.cc:726
+#: src/gnome-cmd-file-popmenu.cc:701
 msgid "Open Wit_h"
 msgstr "B_irlikte Aç"
 
-#: src/gnome-cmd-file-popmenu.cc:727
+#: src/gnome-cmd-file-popmenu.cc:702
 msgid "Other _Application…"
 msgstr "Diğer _Uygulama…"
 
-#: src/gnome-cmd-file-popmenu.cc:728
+#: src/gnome-cmd-file-popmenu.cc:703
 msgid "Open Wit_h…"
 msgstr "B_irlikte Aç…"
 
-#: src/gnome-cmd-file-popmenu.cc:729 src/gnome-cmd-main-win.cc:240
+#: src/gnome-cmd-file-popmenu.cc:704 src/gnome-cmd-main-win.cc:241
 #: src/gnome-cmd-user-actions.cc:212
 msgid "Cut"
 msgstr "Kes"
 
 #. {file_run, "file.run"},
-#: src/gnome-cmd-file-popmenu.cc:733 src/gnome-cmd-main-win.cc:245
+#: src/gnome-cmd-file-popmenu.cc:708 src/gnome-cmd-main-win.cc:246
 #: src/gnome-cmd-user-actions.cc:236
 msgid "Send files"
 msgstr "Dosyaları gönder"
 
-#: src/gnome-cmd-file-popmenu.cc:734 src/gnome-cmd-main-menu.cc:309
+#: src/gnome-cmd-file-popmenu.cc:709 src/gnome-cmd-main-menu.cc:306
 msgid "_Properties…"
 msgstr "_Özellikler…"
 
-#: src/gnome-cmd-file-popmenu.cc:735
+#: src/gnome-cmd-file-popmenu.cc:710
 msgid "E_xecute"
 msgstr "Y_ürüt"
 
-#: src/gnome-cmd-file-popmenu.cc:736 src/gnome-cmd-list-popmenu.cc:108
+#: src/gnome-cmd-file-popmenu.cc:711 src/gnome-cmd-list-popmenu.cc:105
 msgid "Open _terminal here"
 msgstr "Burada _uçbirim aç"
 
-#: src/gnome-cmd-file-popmenu.cc:737 src/gnome-cmd-user-actions.cc:211
+#: src/gnome-cmd-file-popmenu.cc:712 src/gnome-cmd-user-actions.cc:211
 msgid "Copy file names"
 msgstr "Dosya adlarını kopyala"
 
-#: src/gnome-cmd-file-selector.cc:178
+#: src/gnome-cmd-file-selector.cc:179
 #, c-format
 msgid "%s of %s kB in %d of %d file"
 msgid_plural "%s of %s kB in %d of %d files"
 msgstr[0] "%s, %s kB, %d içinde, %d dosyasının"
 
-#: src/gnome-cmd-file-selector.cc:182
+#: src/gnome-cmd-file-selector.cc:183
 #, c-format
 msgid "%s, %d of %d dir selected"
 msgid_plural "%s, %d of %d dirs selected"
 msgstr[0] "%s, %d, %d dizini seçilmiş"
 
-#: src/gnome-cmd-file-selector.cc:231
+#: src/gnome-cmd-file-selector.cc:232
 #, c-format
 msgid "%s free"
 msgstr "%s boş"
 
-#: src/gnome-cmd-file-selector.cc:628 src/gnome-cmd-file-selector.cc:704
+#: src/gnome-cmd-file-selector.cc:629 src/gnome-cmd-file-selector.cc:705
 #: src/gnome-cmd-user-actions.cc:1725 src/gnome-cmd-user-actions.cc:1733
 msgid "The tab is locked, close anyway?"
 msgstr "Sekme kilitli, yinede kapansın mı?"
 
-#: src/gnome-cmd-file-selector.cc:647 src/gnome-cmd-main-menu.cc:351
+#: src/gnome-cmd-file-selector.cc:648 src/gnome-cmd-main-menu.cc:348
 msgid "Open in New _Tab"
 msgstr "Yeni _Sekmede Aç"
 
-#: src/gnome-cmd-file-selector.cc:654
+#: src/gnome-cmd-file-selector.cc:655
 msgid "_Unlock Tab"
 msgstr "Sekmenin Kili_dini Aç"
 
-#: src/gnome-cmd-file-selector.cc:654
+#: src/gnome-cmd-file-selector.cc:655
 msgid "_Lock Tab"
 msgstr "Sekmeyi _Kilitle"
 
-#: src/gnome-cmd-file-selector.cc:659
+#: src/gnome-cmd-file-selector.cc:660
 msgid "_Refresh Tab"
 msgstr "Sekmeyi _Tazele"
 
-#: src/gnome-cmd-file-selector.cc:664
+#: src/gnome-cmd-file-selector.cc:665
 msgid "Copy Tab to Other _Pane"
 msgstr "Sekmeyi Diğer _Bölmeye Kopyala"
 
-#: src/gnome-cmd-file-selector.cc:670 src/gnome-cmd-main-menu.cc:352
+#: src/gnome-cmd-file-selector.cc:671 src/gnome-cmd-main-menu.cc:349
 msgid "_Close Tab"
 msgstr "Sekmeyi _Kapat"
 
-#: src/gnome-cmd-file-selector.cc:675 src/gnome-cmd-main-menu.cc:353
+#: src/gnome-cmd-file-selector.cc:676 src/gnome-cmd-main-menu.cc:350
 msgid "Close _All Tabs"
 msgstr "_Tüm Sekmeleri Kapat"
 
-#: src/gnome-cmd-file-selector.cc:680
+#: src/gnome-cmd-file-selector.cc:681
 msgid "Close _Duplicate Tabs"
 msgstr "_Aynı Sekmeleri Kapat"
 
-#: src/gnome-cmd-file-selector.cc:1169
+#: src/gnome-cmd-file-selector.cc:1140
 msgid "No file name given"
 msgstr "Bir dosya adı verilmemiş"
 
-#: src/gnome-cmd-file-selector.cc:1223
+#: src/gnome-cmd-file-selector.cc:1194
 msgid "New Text File"
 msgstr "Yeni Metin Dosyası"
 
-#: src/gnome-cmd-file-selector.cc:1372
+#: src/gnome-cmd-file-selector.cc:1343
 msgid "Symbolic link name:"
 msgstr "Sembolik bağlantı adı:"
 
-#: src/gnome-cmd-file-selector.cc:1383 src/gnome-cmd-file-selector.cc:1436
+#: src/gnome-cmd-file-selector.cc:1354 src/gnome-cmd-file-selector.cc:1407
 #: src/gnome-cmd-user-actions.cc:874
 msgid "Create Symbolic Link"
 msgstr "Sembolik Bağlantı Oluştur"
 
-#: src/gnome-cmd-file-selector.cc:1436 src/gnome-cmd-xfer.cc:147
+#: src/gnome-cmd-file-selector.cc:1407 src/gnome-cmd-xfer.cc:147
 #: src/gnome-cmd-xfer.cc:205 src/gnome-cmd-xfer.cc:323
 msgid "Skip all"
 msgstr "Tümünü atla"
 
-#: src/gnome-cmd-file-selector.cc:1508
+#: src/gnome-cmd-file-selector.cc:1479
 msgid "Filter:"
 msgstr "Süzgeç:"
 
-#: src/gnome-cmd-list-popmenu.cc:106
+#: src/gnome-cmd-list-popmenu.cc:103
 msgid "_New"
 msgstr "_Yeni"
 
-#: src/gnome-cmd-list-popmenu.cc:107 src/gnome-cmd-main-menu.cc:324
+#: src/gnome-cmd-list-popmenu.cc:104 src/gnome-cmd-main-menu.cc:321
 msgid "_Paste"
 msgstr "_Yapıştır"
 
-#: src/gnome-cmd-list-popmenu.cc:109 src/gnome-cmd-main-menu.cc:350
+#: src/gnome-cmd-list-popmenu.cc:106 src/gnome-cmd-main-menu.cc:347
 msgid "_Refresh"
 msgstr "_Tazele"
 
-#: src/gnome-cmd-list-popmenu.cc:110
+#: src/gnome-cmd-list-popmenu.cc:107
 msgid "_Directory"
 msgstr "_Dizin"
 
-#: src/gnome-cmd-list-popmenu.cc:111
+#: src/gnome-cmd-list-popmenu.cc:108
 msgid "_Text File"
 msgstr "_Metin Dosyası"
 
-#: src/gnome-cmd-main-menu.cc:304 src/intviewer/viewer-window.cc:602
+#: src/gnome-cmd-main-menu.cc:301 src/intviewer/viewer-window.cc:577
 msgid "_File"
 msgstr "_Dosya"
 
-#: src/gnome-cmd-main-menu.cc:305
+#: src/gnome-cmd-main-menu.cc:302
 msgid "Change _Owner/Group"
 msgstr "_Sahibi/Grubu Değiştir"
 
-#: src/gnome-cmd-main-menu.cc:306
+#: src/gnome-cmd-main-menu.cc:303
 msgid "Change Per_missions"
 msgstr "İzin_leri Değiştir"
 
-#: src/gnome-cmd-main-menu.cc:307
+#: src/gnome-cmd-main-menu.cc:304
 msgid "Advanced _Rename Tool"
 msgstr "Gelişmiş _Yeniden Adlandırma Aracı"
 
-#: src/gnome-cmd-main-menu.cc:308
+#: src/gnome-cmd-main-menu.cc:305
 msgid "Create _Symbolic Link"
 msgstr "_Sembolik Bağlantı Oluştur"
 
-#: src/gnome-cmd-main-menu.cc:310
+#: src/gnome-cmd-main-menu.cc:307
 msgid "_Search…"
 msgstr "_Ara…"
 
-#: src/gnome-cmd-main-menu.cc:311
+#: src/gnome-cmd-main-menu.cc:308
 msgid "_Quick Search…"
 msgstr "_Hızlı Ara…"
 
-#: src/gnome-cmd-main-menu.cc:312
+#: src/gnome-cmd-main-menu.cc:309
 msgid "_Enable Filter…"
 msgstr "Süzgeçi _Etkinleştir…"
 
-#: src/gnome-cmd-main-menu.cc:313
+#: src/gnome-cmd-main-menu.cc:310
 msgid "_Diff"
 msgstr "_Kıyasla"
 
-#: src/gnome-cmd-main-menu.cc:314
+#: src/gnome-cmd-main-menu.cc:311
 msgid "S_ynchronize Directories"
 msgstr "Dizinleri E_şitle"
 
-#: src/gnome-cmd-main-menu.cc:315
+#: src/gnome-cmd-main-menu.cc:312
 msgid "Start _GNOME Commander as root"
 msgstr "_GNOME Commander uygulamasını yönetici olarak başlat"
 
-#: src/gnome-cmd-main-menu.cc:316
+#: src/gnome-cmd-main-menu.cc:313
 msgid "_Quit"
 msgstr "_Çık"
 
-#: src/gnome-cmd-main-menu.cc:321
+#: src/gnome-cmd-main-menu.cc:318
 msgid "_Edit"
 msgstr "_Düzenle"
 
-#: src/gnome-cmd-main-menu.cc:322
+#: src/gnome-cmd-main-menu.cc:319
 msgid "Cu_t"
 msgstr "Ke_s"
 
-#: src/gnome-cmd-main-menu.cc:323
+#: src/gnome-cmd-main-menu.cc:320
 msgid "_Copy"
 msgstr "_Kopyala"
 
-#: src/gnome-cmd-main-menu.cc:325
+#: src/gnome-cmd-main-menu.cc:322
 msgid "_Delete"
 msgstr "_Sil"
 
-#: src/gnome-cmd-main-menu.cc:326
+#: src/gnome-cmd-main-menu.cc:323
 msgid "Copy _File Names"
 msgstr "_Dosya Adlarını Kopyala"
 
-#: src/gnome-cmd-main-menu.cc:331
+#: src/gnome-cmd-main-menu.cc:328
 msgid "_Mark"
 msgstr "_İşaretle"
 
-#: src/gnome-cmd-main-menu.cc:332
+#: src/gnome-cmd-main-menu.cc:329
 msgid "_Select All"
 msgstr "_Tümünü Seç"
 
-#: src/gnome-cmd-main-menu.cc:333
+#: src/gnome-cmd-main-menu.cc:330
 msgid "_Unselect All"
 msgstr "_Tüm Seçimleri Kaldır"
 
-#: src/gnome-cmd-main-menu.cc:334
+#: src/gnome-cmd-main-menu.cc:331
 msgid "Select all _Files"
 msgstr "Tüm Dosyaları _Seç"
 
-#: src/gnome-cmd-main-menu.cc:335
+#: src/gnome-cmd-main-menu.cc:332
 msgid "Unselect all Fi_les"
 msgstr "Tüm Dosya Seçimleri _kaldır"
 
-#: src/gnome-cmd-main-menu.cc:336
+#: src/gnome-cmd-main-menu.cc:333
 msgid "Select with _Pattern"
 msgstr "Örü_ntü ile Seç"
 
-#: src/gnome-cmd-main-menu.cc:337
+#: src/gnome-cmd-main-menu.cc:334
 msgid "Unselect with P_attern"
 msgstr "Örü_ntü ile Seçileri Kaldır"
 
-#: src/gnome-cmd-main-menu.cc:338
+#: src/gnome-cmd-main-menu.cc:335
 msgid "Select with same _Extension"
 msgstr "Aynı _Uzantı ile Seç"
 
-#: src/gnome-cmd-main-menu.cc:339
+#: src/gnome-cmd-main-menu.cc:336
 msgid "Unselect with same E_xtension"
 msgstr "Aynı U_zantı ile Seçimleri Kaldır"
 
-#: src/gnome-cmd-main-menu.cc:340
+#: src/gnome-cmd-main-menu.cc:337
 msgid "_Invert Selection"
 msgstr "Seçimleri _Tersine Çevir"
 
-#: src/gnome-cmd-main-menu.cc:341
+#: src/gnome-cmd-main-menu.cc:338
 msgid "_Restore Selection"
 msgstr "Seçimi _Geri Al"
 
-#: src/gnome-cmd-main-menu.cc:342
+#: src/gnome-cmd-main-menu.cc:339
 msgid "_Compare Directories"
 msgstr "Dizinleri _Karşılaştır"
 
-#: src/gnome-cmd-main-menu.cc:347 src/intviewer/viewer-window.cc:616
+#: src/gnome-cmd-main-menu.cc:344 src/intviewer/viewer-window.cc:591
 msgid "_View"
 msgstr "_Görünüm"
 
-#: src/gnome-cmd-main-menu.cc:348
+#: src/gnome-cmd-main-menu.cc:345
 msgid "_Back"
 msgstr "_Geri"
 
-#: src/gnome-cmd-main-menu.cc:349
+#: src/gnome-cmd-main-menu.cc:346
 msgid "_Forward"
 msgstr "_İleri"
 
-#: src/gnome-cmd-main-menu.cc:354
+#: src/gnome-cmd-main-menu.cc:351
 msgid "_Equal Panel Size"
 msgstr "_Eşit Pano Boyutu"
 
-#: src/gnome-cmd-main-menu.cc:355
+#: src/gnome-cmd-main-menu.cc:352
 msgid "Maximize Panel Size"
 msgstr "Pano Boyutunu Maksimum"
 
-#: src/gnome-cmd-main-menu.cc:360
+#: src/gnome-cmd-main-menu.cc:357
 msgid "Show Toolbar"
 msgstr "Araç Çubuğunu Göster"
 
-#: src/gnome-cmd-main-menu.cc:361
+#: src/gnome-cmd-main-menu.cc:358
 msgid "Show Device Buttons"
 msgstr "Aygıt Düğmelerini Göster"
 
-#: src/gnome-cmd-main-menu.cc:362
+#: src/gnome-cmd-main-menu.cc:359
 msgid "Show Device List"
 msgstr "Aygıt Listesini Göster"
 
-#: src/gnome-cmd-main-menu.cc:363
+#: src/gnome-cmd-main-menu.cc:360
 msgid "Show Command Line"
 msgstr "Komut Satırını Göster"
 
-#: src/gnome-cmd-main-menu.cc:364
+#: src/gnome-cmd-main-menu.cc:361
 msgid "Show Buttonbar"
 msgstr "Düğme Çubuğunu Göster"
 
-#: src/gnome-cmd-main-menu.cc:365
+#: src/gnome-cmd-main-menu.cc:362
 msgid "Show Hidden Files"
 msgstr "Gizli Dosyaları Göster"
 
-#: src/gnome-cmd-main-menu.cc:366
+#: src/gnome-cmd-main-menu.cc:363
 msgid "Show Backup Files"
 msgstr "Yedek Dosyalarını Göster"
 
-#: src/gnome-cmd-main-menu.cc:367
+#: src/gnome-cmd-main-menu.cc:364
 msgid "Horizontal Orientation"
 msgstr "Yatay Yönelim"
 
-#: src/gnome-cmd-main-menu.cc:372 src/intviewer/viewer-window.cc:681
+#: src/gnome-cmd-main-menu.cc:369 src/intviewer/viewer-window.cc:656
 msgid "_Settings"
 msgstr "_Ayarlar"
 
-#: src/gnome-cmd-main-menu.cc:373
+#: src/gnome-cmd-main-menu.cc:370
 msgid "_Options…"
 msgstr "_Seçenekler…"
 
-#: src/gnome-cmd-main-menu.cc:374
+#: src/gnome-cmd-main-menu.cc:371
 msgid "_Keyboard Shortcuts…"
 msgstr "_Klavye Kısayolları…"
 
-#: src/gnome-cmd-main-menu.cc:379
+#: src/gnome-cmd-main-menu.cc:376
 msgid "_Connections"
 msgstr "_Bağlantılar"
 
-#: src/gnome-cmd-main-menu.cc:380
+#: src/gnome-cmd-main-menu.cc:377
 msgid "_Remote Server…"
 msgstr "_Uzak Sunucu…"
 
-#: src/gnome-cmd-main-menu.cc:381
+#: src/gnome-cmd-main-menu.cc:378
 msgid "New Connection…"
 msgstr "Yeni Bağlantı…"
 
-#: src/gnome-cmd-main-menu.cc:386
+#: src/gnome-cmd-main-menu.cc:383
 msgid "_Bookmarks"
 msgstr "_Yer İmleri"
 
-#: src/gnome-cmd-main-menu.cc:387
+#: src/gnome-cmd-main-menu.cc:384
 msgid "_Bookmark this Directory…"
 msgstr "Bu Dizini _Yer İmlerine Ekle…"
 
-#: src/gnome-cmd-main-menu.cc:388
+#: src/gnome-cmd-main-menu.cc:385
 msgid "_Manage Bookmarks…"
 msgstr "Yer İmlerini _Yönet…"
 
-#: src/gnome-cmd-main-menu.cc:393
+#: src/gnome-cmd-main-menu.cc:390
 msgid "_Plugins"
 msgstr "_Eklentiler"
 
-#: src/gnome-cmd-main-menu.cc:394
+#: src/gnome-cmd-main-menu.cc:391
 msgid "_Configure Plugins…"
 msgstr "Eklentileri _Yapılandır…"
 
-#: src/gnome-cmd-main-menu.cc:399 src/intviewer/viewer-window.cc:700
+#: src/gnome-cmd-main-menu.cc:396 src/intviewer/viewer-window.cc:675
 msgid "_Help"
 msgstr "_Yardım"
 
-#: src/gnome-cmd-main-menu.cc:400
+#: src/gnome-cmd-main-menu.cc:397
 msgid "_Documentation"
 msgstr "_Belgeleme"
 
-#: src/gnome-cmd-main-menu.cc:401 src/intviewer/viewer-window.cc:702
+#: src/gnome-cmd-main-menu.cc:398 src/intviewer/viewer-window.cc:677
 msgid "_Keyboard Shortcuts"
 msgstr "_Klavye Kısayolları"
 
-#: src/gnome-cmd-main-menu.cc:402
+#: src/gnome-cmd-main-menu.cc:399
 msgid "GNOME Commander on the _Web"
 msgstr "GNOME Commander _Web Sayfası"
 
-#: src/gnome-cmd-main-menu.cc:403
+#: src/gnome-cmd-main-menu.cc:400
 msgid "Report a _Problem"
 msgstr "Bir _Hata Raporla"
 
-#: src/gnome-cmd-main-menu.cc:404 src/plugin_manager.cc:412
+#: src/gnome-cmd-main-menu.cc:401 src/plugin_manager.cc:412
 msgid "_About"
 msgstr "_Hakkına"
 
-#: src/gnome-cmd-main-win.cc:233 src/gnome-cmd-user-actions.cc:278
+#: src/gnome-cmd-main-win.cc:234 src/gnome-cmd-user-actions.cc:278
 msgid "Refresh"
 msgstr "Tazele"
 
-#: src/gnome-cmd-main-win.cc:235
+#: src/gnome-cmd-main-win.cc:236
 msgid "Go to the oldest"
 msgstr "En eskiye git"
 
-#: src/gnome-cmd-main-win.cc:236
+#: src/gnome-cmd-main-win.cc:237
 msgid "Go back"
 msgstr "Geri git"
 
-#: src/gnome-cmd-main-win.cc:237
+#: src/gnome-cmd-main-win.cc:238
 msgid "Go forward"
 msgstr "İleri git"
 
-#: src/gnome-cmd-main-win.cc:238
+#: src/gnome-cmd-main-win.cc:239
 msgid "Go to the latest"
 msgstr "En sonuncuya git"
 
-#: src/gnome-cmd-main-win.cc:239
+#: src/gnome-cmd-main-win.cc:240
 msgid "Copy file names (SHIFT for full paths, ALT for URIs)"
 msgstr "Dosya adlarını kopyala (Tüm yollar için SHIFT, URI için ALT)"
 
-#: src/gnome-cmd-main-win.cc:242 src/gnome-cmd-user-actions.cc:215
+#: src/gnome-cmd-main-win.cc:243 src/gnome-cmd-user-actions.cc:215
 msgid "Paste"
 msgstr "Yapıştır"
 
-#: src/gnome-cmd-main-win.cc:244
+#: src/gnome-cmd-main-win.cc:245
 msgid "Edit (SHIFT for new document)"
 msgstr "Düzenle (Yeni belge için SHIFT)"
 
-#: src/gnome-cmd-main-win.cc:246
+#: src/gnome-cmd-main-win.cc:247
 msgid "Open terminal (SHIFT for root privileges)"
 msgstr "Uçbirim aç (Yönetici hakları için SHIFT)"
 
-#: src/gnome-cmd-main-win.cc:248
+#: src/gnome-cmd-main-win.cc:249
 msgid "Drop connection"
 msgstr "Bağlantıyı kes"
 
-#: src/gnome-cmd-main-win.cc:513
+#: src/gnome-cmd-main-win.cc:514
 msgid "F3 View"
 msgstr "F3 Görünüm"
 
-#: src/gnome-cmd-main-win.cc:515
+#: src/gnome-cmd-main-win.cc:516
 msgid "F4 Edit"
 msgstr "F4 Düzenle"
 
-#: src/gnome-cmd-main-win.cc:517
+#: src/gnome-cmd-main-win.cc:518
 msgid "F5 Copy"
 msgstr "F5 Kopyala"
 
-#: src/gnome-cmd-main-win.cc:519
+#: src/gnome-cmd-main-win.cc:520
 msgid "F6 Move"
 msgstr "F6 Taşı"
 
-#: src/gnome-cmd-main-win.cc:521
+#: src/gnome-cmd-main-win.cc:522
 msgid "F7 Mkdir"
 msgstr "F7 Dizin Oluştur"
 
-#: src/gnome-cmd-main-win.cc:523
+#: src/gnome-cmd-main-win.cc:524
 msgid "F8 Delete"
 msgstr "F8 Sil"
 
-#: src/gnome-cmd-main-win.cc:525
+#: src/gnome-cmd-main-win.cc:526
 msgid "F9 Search"
 msgstr "F9 Ara"
 
-#: src/gnome-cmd-main-win.cc:875
+#: src/gnome-cmd-main-win.cc:873
 msgid "GNOME Commander — ROOT PRIVILEGES"
 msgstr "GNOME Commander — YÖNETİCİ HAKLARIYLA"
 
-#: src/gnome-cmd-quicksearch-popup.cc:292 src/gnome-cmd-user-actions.cc:217
+#: src/gnome-cmd-quicksearch-popup.cc:289 src/gnome-cmd-user-actions.cc:217
 msgid "Search"
 msgstr "Ara"
 
@@ -4835,16 +4824,16 @@ msgstr "Kaynak “%s” kopyalanamadı. İptal ediliyor!"
 msgid "stopping…"
 msgstr "durduruluyor…"
 
-#: src/gnome-cmd-xfer-progress-win.cc:85
+#: src/gnome-cmd-xfer-progress-win.cc:82
 msgid "Progress"
 msgstr "İlerleme"
 
-#: src/gnome-cmd-xfer-progress-win.cc:179
+#: src/gnome-cmd-xfer-progress-win.cc:150
 #, c-format
 msgid "%s of %s copied"
 msgstr "%s kopyalandı, toplam %s"
 
-#: src/gnome-cmd-xfer-progress-win.cc:183
+#: src/gnome-cmd-xfer-progress-win.cc:154
 #, c-format
 msgid "%.0f%% copied"
 msgstr "%.0f%% kopyalandı"
@@ -4877,245 +4866,245 @@ msgid "Find"
 msgstr "Bul"
 
 #. Search mode radio buttons
-#: src/intviewer/search-dlg.cc:273 src/intviewer/viewer-window.cc:608
-#: src/intviewer/viewer-window.cc:625
+#: src/intviewer/search-dlg.cc:273 src/intviewer/viewer-window.cc:583
+#: src/intviewer/viewer-window.cc:600
 msgid "_Text"
 msgstr "_Metin"
 
-#: src/intviewer/search-dlg.cc:274 src/intviewer/viewer-window.cc:610
+#: src/intviewer/search-dlg.cc:274 src/intviewer/viewer-window.cc:585
 msgid "_Hexadecimal"
 msgstr "_Onaltılık"
 
 #. sdlg->priv->progress = 0;
-#: src/intviewer/search-progress-dlg.cc:75
+#: src/intviewer/search-progress-dlg.cc:74
 msgid "Searching…"
 msgstr "Aranıyor…"
 
-#: src/intviewer/search-progress-dlg.cc:199
+#: src/intviewer/search-progress-dlg.cc:172
 #, c-format
 msgid "Searching for “%s”"
 msgstr "“%s” aranıyor"
 
-#: src/intviewer/viewer-widget.cc:210
+#: src/intviewer/viewer-widget.cc:185
 #, c-format
 msgid "Position: %lu of %lu\tColumn: %d\t%s"
 msgstr "Konum: %lu, %lu\tSütun: %d\t%s"
 
-#: src/intviewer/viewer-widget.cc:214
+#: src/intviewer/viewer-widget.cc:189
 msgid "Wrap"
 msgstr "Kaydır"
 
-#: src/intviewer/viewer-widget.cc:240
+#: src/intviewer/viewer-widget.cc:215
 msgid "pixel"
 msgid_plural "pixels"
 msgstr[0] "piksel"
 
-#: src/intviewer/viewer-widget.cc:242
+#: src/intviewer/viewer-widget.cc:217
 msgid "bit/sample"
 msgid_plural "bits/sample"
 msgstr[0] "bit/örnek"
 
-#: src/intviewer/viewer-widget.cc:244
+#: src/intviewer/viewer-widget.cc:219
 msgid "(fit to window)"
 msgstr "(pencereye sığdır)"
 
-#: src/intviewer/viewer-widget.cc:260
+#: src/intviewer/viewer-widget.cc:235
 msgid "_Copy selection"
 msgstr "_Seçimi kopyala"
 
-#: src/intviewer/viewer-window.cc:603
+#: src/intviewer/viewer-window.cc:578
 msgid "_Close"
 msgstr "_Kapat"
 
-#: src/intviewer/viewer-window.cc:609
+#: src/intviewer/viewer-window.cc:584
 msgid "_Binary"
 msgstr "_İkili Değer"
 
-#: src/intviewer/viewer-window.cc:611 src/intviewer/viewer-window.cc:671
+#: src/intviewer/viewer-window.cc:586 src/intviewer/viewer-window.cc:646
 msgid "_Image"
 msgstr "_Resim"
 
-#: src/intviewer/viewer-window.cc:617
+#: src/intviewer/viewer-window.cc:592
 msgid "_Zoom In"
 msgstr "_Yakınlaştır"
 
-#: src/intviewer/viewer-window.cc:618
+#: src/intviewer/viewer-window.cc:593
 msgid "_Zoom Out"
 msgstr "_Uzaklaştır"
 
-#: src/intviewer/viewer-window.cc:619
+#: src/intviewer/viewer-window.cc:594
 msgid "_Normal Size"
 msgstr "_Normal Boyut"
 
-#: src/intviewer/viewer-window.cc:620
+#: src/intviewer/viewer-window.cc:595
 msgid "_Best Fit"
 msgstr "_En Uygun"
 
-#: src/intviewer/viewer-window.cc:626
+#: src/intviewer/viewer-window.cc:601
 msgid "_Copy Text Selection"
 msgstr "Seçilmiş Metni _Kopyala"
 
-#: src/intviewer/viewer-window.cc:627
+#: src/intviewer/viewer-window.cc:602
 msgid "Find…"
 msgstr "Bul…"
 
-#: src/intviewer/viewer-window.cc:628
+#: src/intviewer/viewer-window.cc:603
 msgid "Find Next"
 msgstr "Sonrakini Bul"
 
-#: src/intviewer/viewer-window.cc:629
+#: src/intviewer/viewer-window.cc:604
 msgid "Find Previous"
 msgstr "Öncekini Bul"
 
-#: src/intviewer/viewer-window.cc:630
+#: src/intviewer/viewer-window.cc:605
 msgid "_Encoding"
 msgstr "_Kodlama"
 
-#: src/intviewer/viewer-window.cc:635
+#: src/intviewer/viewer-window.cc:610
 msgid "_Wrap lines"
 msgstr "Satırları _Kaydır"
 
-#: src/intviewer/viewer-window.cc:640
+#: src/intviewer/viewer-window.cc:615
 msgid "_UTF-8"
 msgstr "_UTF-8"
 
-#: src/intviewer/viewer-window.cc:641
+#: src/intviewer/viewer-window.cc:616
 msgid "English (US-_ASCII)"
 msgstr "İngilizce (US-_ASCII)"
 
-#: src/intviewer/viewer-window.cc:642
+#: src/intviewer/viewer-window.cc:617
 msgid "Terminal (CP437)"
 msgstr "Uçbirim (CP437)"
 
-#: src/intviewer/viewer-window.cc:643
+#: src/intviewer/viewer-window.cc:618
 msgid "Arabic (ISO-8859-6)"
 msgstr "Arapça (ISO-8859-6)"
 
-#: src/intviewer/viewer-window.cc:644
+#: src/intviewer/viewer-window.cc:619
 msgid "Arabic (Windows, CP1256)"
 msgstr "Arapça (Windows, CP1256)"
 
-#: src/intviewer/viewer-window.cc:645
+#: src/intviewer/viewer-window.cc:620
 msgid "Arabic (Dos, CP864)"
 msgstr "Arapça (Dos, CP864)"
 
-#: src/intviewer/viewer-window.cc:646
+#: src/intviewer/viewer-window.cc:621
 msgid "Baltic (ISO-8859-4)"
 msgstr "Baltık (ISO-8859-4)"
 
-#: src/intviewer/viewer-window.cc:647
+#: src/intviewer/viewer-window.cc:622
 msgid "Central European (ISO-8859-2)"
 msgstr "Merkez Avrupa (ISO-8859-2)"
 
-#: src/intviewer/viewer-window.cc:648
+#: src/intviewer/viewer-window.cc:623
 msgid "Central European (CP1250)"
 msgstr "Merkez Avrupa (CP1250)"
 
-#: src/intviewer/viewer-window.cc:649
+#: src/intviewer/viewer-window.cc:624
 msgid "Cyrillic (ISO-8859-5)"
 msgstr "Kiril (ISO-8859-5)"
 
-#: src/intviewer/viewer-window.cc:650
+#: src/intviewer/viewer-window.cc:625
 msgid "Cyrillic (CP1251)"
 msgstr "Kiril  (CP1251)"
 
-#: src/intviewer/viewer-window.cc:651
+#: src/intviewer/viewer-window.cc:626
 msgid "Greek (ISO-8859-7)"
 msgstr "Yunanca (ISO-8859-7)"
 
-#: src/intviewer/viewer-window.cc:652
+#: src/intviewer/viewer-window.cc:627
 msgid "Greek (CP1253)"
 msgstr "Yunanca (CP1253)"
 
-#: src/intviewer/viewer-window.cc:653
+#: src/intviewer/viewer-window.cc:628
 msgid "Hebrew (Windows, CP1255)"
 msgstr "İbranice (Windows, CP1255)"
 
-#: src/intviewer/viewer-window.cc:654
+#: src/intviewer/viewer-window.cc:629
 msgid "Hebrew (Dos, CP862)"
 msgstr "İbranice (Dos, CP862)"
 
-#: src/intviewer/viewer-window.cc:655
+#: src/intviewer/viewer-window.cc:630
 msgid "Hebrew (ISO-8859-8)"
 msgstr "İbranice (ISO-8859-8)"
 
-#: src/intviewer/viewer-window.cc:656
+#: src/intviewer/viewer-window.cc:631
 msgid "Latin 9 (ISO-8859-15)"
 msgstr "Latin 9 (ISO-8859-15)"
 
-#: src/intviewer/viewer-window.cc:657
+#: src/intviewer/viewer-window.cc:632
 msgid "Maltese (ISO-8859-3)"
 msgstr "Maltaca (ISO-8859-3)"
 
-#: src/intviewer/viewer-window.cc:658
+#: src/intviewer/viewer-window.cc:633
 msgid "Turkish (ISO-8859-9)"
 msgstr "Türkçe (ISO-8859-9)"
 
-#: src/intviewer/viewer-window.cc:659
+#: src/intviewer/viewer-window.cc:634
 msgid "Turkish (CP1254)"
 msgstr "Türkçe (CP1254)"
 
-#: src/intviewer/viewer-window.cc:660
+#: src/intviewer/viewer-window.cc:635
 msgid "Western (CP1252)"
 msgstr "Batı (CP1252)"
 
-#: src/intviewer/viewer-window.cc:661
+#: src/intviewer/viewer-window.cc:636
 msgid "Western (ISO-8859-1)"
 msgstr "Batı (ISO-8859-1)"
 
-#: src/intviewer/viewer-window.cc:666
+#: src/intviewer/viewer-window.cc:641
 msgid "Show Metadata _Tags"
 msgstr "Üst Veri _Etiketlerini Göster"
 
-#: src/intviewer/viewer-window.cc:672
+#: src/intviewer/viewer-window.cc:647
 msgid "Rotate Clockwise"
 msgstr "Saat Yönüne Döndür"
 
-#: src/intviewer/viewer-window.cc:673
+#: src/intviewer/viewer-window.cc:648
 msgid "Rotate Counter Clockwis_e"
 msgstr "Saat Yönünün Tersine _Döndür"
 
-#: src/intviewer/viewer-window.cc:674
+#: src/intviewer/viewer-window.cc:649
 msgid "Rotate 180°"
 msgstr "180° Döndür"
 
-#: src/intviewer/viewer-window.cc:675
+#: src/intviewer/viewer-window.cc:650
 msgid "Flip _Vertical"
 msgstr "_Dikey Döndür"
 
-#: src/intviewer/viewer-window.cc:676
+#: src/intviewer/viewer-window.cc:651
 msgid "Flip _Horizontal"
 msgstr "_Yatay Döndür"
 
-#: src/intviewer/viewer-window.cc:682
+#: src/intviewer/viewer-window.cc:657
 msgid "_Binary Mode"
 msgstr "_İkili Kip"
 
-#: src/intviewer/viewer-window.cc:683
+#: src/intviewer/viewer-window.cc:658
 msgid "_Save Current Settings"
 msgstr "_Geçerli Ayarları Kaydet"
 
-#: src/intviewer/viewer-window.cc:688
+#: src/intviewer/viewer-window.cc:663
 msgid "_Hexadecimal Offset"
 msgstr "_Onaltılık Uzaklık"
 
-#: src/intviewer/viewer-window.cc:693
+#: src/intviewer/viewer-window.cc:668
 msgid "_20 chars/line"
 msgstr "_20 karakter/satır"
 
-#: src/intviewer/viewer-window.cc:694
+#: src/intviewer/viewer-window.cc:669
 msgid "_40 chars/line"
 msgstr "_40 karakter/satır"
 
-#: src/intviewer/viewer-window.cc:695
+#: src/intviewer/viewer-window.cc:670
 msgid "_80 chars/line"
 msgstr "_80 karakter/satır"
 
-#: src/intviewer/viewer-window.cc:701
+#: src/intviewer/viewer-window.cc:676
 msgid "Quick _Help"
 msgstr "Hızlı _Yardım"
 
-#: src/intviewer/viewer-window.cc:1010
+#: src/intviewer/viewer-window.cc:985
 #, c-format
 msgid "Pattern “%s” was not found"
 msgstr "“%s” örüntüsü bulunamadı"
@@ -7924,10 +7913,6 @@ msgid "Terms of use."
 msgstr "Kullanım şartları."
 
 #: src/tags/gnome-cmd-tags.cc:403
-msgid "Time"
-msgstr "Zaman"
-
-#: src/tags/gnome-cmd-tags.cc:403
 msgid "Time."
 msgstr "Zaman."
 
@@ -9158,3 +9143,45 @@ msgstr "%s dizini oluşturulamadı: %s"
 #: src/utils.cc:947
 msgid "There was an error displaying help."
 msgstr "Yardım görüntülenirken bir hata oluştu."
+
+#~ msgid "/File name"
+#~ msgstr "/Dosya adı"
+
+#~ msgid "/Counter"
+#~ msgstr "/Sayaç"
+
+#~ msgid "/Date"
+#~ msgstr "/Tarih"
+
+#~ msgid "/Date/<locale>"
+#~ msgstr "/Tarih/<konum>"
+
+#~ msgid "/Date/yyyy"
+#~ msgstr "/Tarih/yyyy"
+
+#~ msgid "/Date/yy"
+#~ msgstr "/Tarih/yy"
+
+#~ msgid "/Date/mm"
+#~ msgstr "/Tarih/mm"
+
+#~ msgid "/Date/mmm"
+#~ msgstr "/Tarih/mmm"
+
+#~ msgid "/Date/dd"
+#~ msgstr "/Date/dd"
+
+#~ msgid "/Time"
+#~ msgstr "/Zaman"
+
+#~ msgid "/Time/<locale>"
+#~ msgstr "/Zaman/<konum>"
+
+#~ msgid "/Time/HH"
+#~ msgstr "/Zaman/HH"
+
+#~ msgid "/Time/MM"
+#~ msgstr "/Saat/MM"
+
+#~ msgid "/Time/SS"
+#~ msgstr "/Saat/SS"
