@@ -575,7 +575,7 @@ static void on_main_win_realize (GtkWidget *widget, GnomeCmdMainWin *mw)
 }
 
 
-static gboolean on_left_fs_select (GtkCList *list, GdkEventButton *event, GnomeCmdMainWin *mw)
+static gboolean on_left_fs_select (GnomeCmdFileList *list, GdkEventButton *event, GnomeCmdMainWin *mw)
 {
     mw->priv->current_fs = LEFT;
 
@@ -586,7 +586,7 @@ static gboolean on_left_fs_select (GtkCList *list, GdkEventButton *event, GnomeC
 }
 
 
-static gboolean on_right_fs_select (GtkCList *list, GdkEventButton *event, GnomeCmdMainWin *mw)
+static gboolean on_right_fs_select (GnomeCmdFileList *list, GdkEventButton *event, GnomeCmdMainWin *mw)
 {
     mw->priv->current_fs = RIGHT;
 
@@ -597,18 +597,22 @@ static gboolean on_right_fs_select (GtkCList *list, GdkEventButton *event, Gnome
 }
 
 
-static void on_fs_list_resize_column (GtkCList *clist, gint column, gint width, GtkCList *other_clist)
+static void on_fs_list_resize_column (GnomeCmdFileList *list, guint column_index, GtkTreeViewColumn *column, GnomeCmdFileList *other_list)
 {
-    static gboolean column_resize_lock = FALSE;
+    static gint column_resize_lock = 0;
 
     /* the lock is used so that we dont get into the situation where
        the left list triggers the right witch triggers the left ... */
-    if (!column_resize_lock)
+    if (column_resize_lock == 0)
     {
-        column_resize_lock = TRUE;
-        gnome_cmd_data.fs_col_width[column] = width;
-        gtk_clist_set_column_width (other_clist, column, width);
-        column_resize_lock = FALSE;
+        column_resize_lock += 1;
+
+        GnomeCmdFileList::ColumnID column_id = static_cast<GnomeCmdFileList::ColumnID> (column_index);
+        gint width = gtk_tree_view_column_get_width (column);
+
+        other_list->resize_column (column_id, width);
+
+        column_resize_lock -= 1;
     }
 }
 
@@ -807,6 +811,12 @@ static void destroy (GtkObject *object)
     {
         gtk_key_snooper_remove (main_win->priv->key_snooper_id);
         main_win->priv->key_snooper_id = 0;
+    }
+
+    if (main_win && main_win->priv)
+    {
+        g_clear_pointer (&main_win->priv->state.active_dir_files, g_list_free);
+        g_clear_pointer (&main_win->priv->state.inactive_dir_files, g_list_free);
     }
 
     if (main_win && main_win->advrename_dlg)

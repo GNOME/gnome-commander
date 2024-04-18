@@ -32,10 +32,8 @@ using namespace std;
 struct CacheEntry
 {
     gboolean dead_end;
-    GdkPixmap *pixmap;
-    GdkBitmap *mask;
-    GdkPixmap *lnk_pixmap;
-    GdkBitmap *lnk_mask;
+    GdkPixbuf *pixbuf;
+    GdkPixbuf *lnk_pixbuf;
 };
 
 
@@ -84,7 +82,7 @@ static GdkPixbuf *symlink_pixbuf = nullptr;
 
 static const gint ICON_SIZE = 16;
 
-static gboolean load_icon (const gchar *icon_path, GdkPixmap **pm, GdkBitmap **bm, GdkPixmap **lpm, GdkBitmap **lbm);
+static gboolean load_icon (const gchar *icon_path, GdkPixbuf **pb, GdkPixbuf **lpb);
 
 
 /*
@@ -128,13 +126,13 @@ void IMAGE_init ()
 
         DEBUG ('i', "imageloader: loading pixmap: %s\n", path);
 
-        if (!load_icon (path, &e->pixmap, &e->mask, &e->lnk_pixmap, &e->lnk_mask))
+        if (!load_icon (path, &e->pixbuf, &e->lnk_pixbuf))
         {
             gchar *path2 = g_build_filename ("../pixmaps", pixmap_files[i], nullptr);
 
             g_warning (_("Couldn’t load installed pixmap, trying to load %s instead"), path2);
 
-            if (!load_icon (path2, &e->pixmap, &e->mask, &e->lnk_pixmap, &e->lnk_mask))
+            if (!load_icon (path2, &e->pixbuf, &e->lnk_pixbuf))
                 g_warning (_("Can’t find the pixmap anywhere. Make sure you have installed the program or is executing gnome-commander from the gnome-commander-%s/src directory"), PACKAGE_VERSION);
             g_free (path2);
         }
@@ -255,7 +253,7 @@ inline gchar *get_category_icon_path (const gchar *mime_type, const gchar *icon_
 /**
  * Tries to load an image from the specified path
  */
-static gboolean load_icon (const gchar *icon_path, GdkPixmap **pm, GdkBitmap **bm, GdkPixmap **lpm, GdkBitmap **lbm)
+static gboolean load_icon (const gchar *icon_path, GdkPixbuf **pb, GdkPixbuf **lpb)
 {
     GdkPixbuf *pixbuf;
     GdkPixbuf *lnk_pixbuf;
@@ -302,10 +300,8 @@ static gboolean load_icon (const gchar *icon_path, GdkPixmap **pm, GdkBitmap **b
 
     gdk_pixbuf_copy_area (symlink_pixbuf, 0, 0, sym_w, sym_h, lnk_pixbuf, x, y);
 
-    gdk_pixbuf_render_pixmap_and_mask (pixbuf, pm, bm, 128);
-    gdk_pixbuf_render_pixmap_and_mask (lnk_pixbuf, lpm, lbm, 128);
-    g_object_unref (pixbuf);
-    g_object_unref (lnk_pixbuf);
+    *pb = pixbuf;
+    *lpb = lnk_pixbuf;
 
     return TRUE;
 }
@@ -315,18 +311,16 @@ static gboolean load_icon (const gchar *icon_path, GdkPixmap **pm, GdkBitmap **b
  * Tries to load an image for the specifed mime-type in the specifed directory.
  * If symlink is true a smaller symlink image is painted over the image to indicate this.
  */
-static gboolean get_mime_icon_in_dir (const gchar *icon_dir,
-                                      guint32 type,
-                                      const gchar *mime_type,
-                                      gboolean symlink,
-                                      GdkPixmap **pixmap,
-                                      GdkBitmap **mask)
+static GdkPixbuf *get_mime_icon_in_dir (const gchar *icon_dir,
+                                        guint32 type,
+                                        const gchar *mime_type,
+                                        gboolean symlink)
 {
     if (!mime_type)
-        return FALSE;
+        return nullptr;
 
     if (type == G_FILE_TYPE_SYMBOLIC_LINK)
-        return FALSE;
+        return nullptr;
 
     auto entry = static_cast<CacheEntry*> (g_hash_table_lookup (mime_cache, mime_type));
     if (!entry)
@@ -336,10 +330,8 @@ static gboolean get_mime_icon_in_dir (const gchar *icon_dir,
         gchar *icon_path = nullptr;
         gchar *icon_path2 = nullptr;
         gchar *icon_path3 = nullptr;
-        GdkPixmap *pm = nullptr;
-        GdkBitmap *bm = nullptr;
-        GdkPixmap *lpm = nullptr;
-        GdkBitmap *lbm = nullptr;
+        GdkPixbuf *pb = nullptr;
+        GdkPixbuf *lpb = nullptr;
 
         DEBUG ('y', "Looking up pixmap for: %s\n", mime_type);
 
@@ -347,22 +339,22 @@ static gboolean get_mime_icon_in_dir (const gchar *icon_dir,
         DEBUG('z', "\nSearching for icon for %s\n", mime_type);
         DEBUG('z', "Trying %s\n", icon_path);
         if (icon_path)
-            load_icon (icon_path, &pm, &bm, &lpm, &lbm);
+            load_icon (icon_path, &pb, &lpb);
 
-        if (!pm)
+        if (!pb)
         {
             icon_path2 = get_category_icon_path (mime_type, icon_dir);
             DEBUG('z', "Trying %s\n", icon_path2);
             if (icon_path2)
-                load_icon (icon_path2, &pm, &bm, &lpm, &lbm);
+                load_icon (icon_path2, &pb, &lpb);
         }
 
-        if (!pm)
+        if (!pb)
         {
             icon_path3 = get_mime_file_type_icon_path (type, icon_dir);
             DEBUG('z', "Trying %s\n", icon_path3);
             if (icon_path3)
-                load_icon (icon_path3, &pm, &bm, &lpm, &lbm);
+                load_icon (icon_path3, &pb, &lpb);
         }
 
         g_free (icon_path);
@@ -370,56 +362,41 @@ static gboolean get_mime_icon_in_dir (const gchar *icon_dir,
         g_free (icon_path3);
 
         entry = g_new0 (CacheEntry, 1);
-        entry->dead_end = (pm == nullptr || bm == nullptr);
-        entry->pixmap = pm;
-        entry->mask = bm;
-        entry->lnk_pixmap = lpm;
-        entry->lnk_mask = lbm;
+        entry->dead_end = (pb == nullptr);
+        entry->pixbuf = pb;
+        entry->lnk_pixbuf = lpb;
 
         DEBUG('z', "Icon found?: %s\n", entry->dead_end ? "No" : "Yes");
 
         g_hash_table_insert (mime_cache, g_strdup (mime_type), entry);
     }
 
-    *pixmap = symlink ? entry->lnk_pixmap : entry->pixmap;
-    *mask   = symlink ? entry->lnk_mask   : entry->mask;
+    if (entry->dead_end)
+        return nullptr;
 
-    return !entry->dead_end;
+    return symlink ? entry->lnk_pixbuf : entry->pixbuf;
 }
 
 
-static gboolean get_mime_icon (guint32 type,
-                               const gchar *mime_type,
-                               gboolean symlink,
-                               GdkPixmap **pixmap,
-                               GdkBitmap **mask)
+static GdkPixbuf *get_mime_icon (guint32 type,
+                                 const gchar *mime_type,
+                                 gboolean symlink)
 {
-    if (get_mime_icon_in_dir (gnome_cmd_data.options.theme_icon_dir, type, mime_type, symlink, pixmap, mask))
-        return TRUE;
-    else
-        return FALSE;
+    return get_mime_icon_in_dir (gnome_cmd_data.options.theme_icon_dir, type, mime_type, symlink);
 }
 
 
-inline gboolean get_type_icon (guint32 type,
-                               gboolean symlink,
-                               GdkPixmap **pixmap,
-                               GdkBitmap **mask)
+inline GdkPixbuf *get_type_icon (guint32 type, gboolean symlink)
 {
-    if (type >= NUM_FILE_TYPE_PIXMAPS) return FALSE;
+    if (type >= NUM_FILE_TYPE_PIXMAPS) return nullptr;
 
-    *pixmap = symlink ? file_type_pixmaps[type].lnk_pixmap : file_type_pixmaps[type].pixmap;
-    *mask   = symlink ? file_type_pixmaps[type].lnk_mask   : file_type_pixmaps[type].mask;
-
-    return TRUE;
+    return symlink ? file_type_pixmaps[type].lnk_pixbuf : file_type_pixmaps[type].pixbuf;
 }
 
 
-gboolean IMAGE_get_pixmap_and_mask (guint32 type,
-                                    const gchar *mime_type,
-                                    gboolean symlink,
-                                    GdkPixmap **pixmap,
-                                    GdkBitmap **mask)
+GdkPixbuf *IMAGE_get_pixmap_and_mask (guint32 type,
+                                      const gchar *mime_type,
+                                      gboolean symlink)
 {
 #if defined (__GNUC__)
 #pragma GCC diagnostic push
@@ -428,21 +405,24 @@ gboolean IMAGE_get_pixmap_and_mask (guint32 type,
     switch (gnome_cmd_data.options.layout)
     {
         case GNOME_CMD_LAYOUT_TYPE_ICONS:
-            return get_type_icon (type, symlink, pixmap, mask);
+            return get_type_icon (type, symlink);
 
         case GNOME_CMD_LAYOUT_MIME_ICONS:
-            if (!get_mime_icon (type, mime_type, symlink, pixmap, mask))
-                return get_type_icon (type, symlink, pixmap, mask);
-            return TRUE;
+            {
+                auto pixbuf = get_mime_icon (type, mime_type, symlink);
+                if (pixbuf)
+                    return pixbuf;
+                return get_type_icon (type, symlink);
+            }
 
         default:
-            return FALSE;
+            return nullptr;
     }
 #if defined (__GNUC__)
 #pragma GCC diagnostic pop
 #endif
 
-    return FALSE;
+    return nullptr;
 }
 
 
@@ -452,8 +432,7 @@ static gboolean remove_entry (const gchar *key, CacheEntry *entry, gpointer user
 
     if (!entry->dead_end)
     {
-        g_object_unref (entry->pixmap);
-        g_object_unref (entry->mask);
+        g_object_unref (entry->pixbuf);
     }
 
     g_free (entry);

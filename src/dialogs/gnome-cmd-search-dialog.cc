@@ -1010,7 +1010,7 @@ void GnomeCmdSearchDialog::Private::on_dialog_hide(GtkWidget *widget, GnomeCmdSe
 {
     dialog->priv->profile_component->copy();
 
-    dialog->priv->result_list->remove_all_files();
+    dialog->priv->result_list->clear();
 }
 
 
@@ -1116,7 +1116,7 @@ void GnomeCmdSearchDialog::Private::on_dialog_response(GtkDialog *window, int re
                 data.search_done = FALSE;
                 data.stopped = FALSE;
 
-                dialog->priv->result_list->remove_all_files();
+                dialog->priv->result_list->clear();
 
                 gchar *base_dir_utf8 = GNOME_CMD_FILE (data.start_dir)->get_real_path();
                 dialog->priv->result_list->set_base_dir(base_dir_utf8);

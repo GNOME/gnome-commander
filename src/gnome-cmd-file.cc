@@ -846,15 +846,13 @@ const gchar *GnomeCmdFile::get_type_string()
 }
 
 
-gboolean GnomeCmdFile::get_type_pixmap_and_mask(GdkPixmap **pixmap, GdkBitmap **mask)
+GdkPixbuf *GnomeCmdFile::get_type_pixbuf()
 {
     g_return_val_if_fail (get_file_info() != nullptr, FALSE);
 
     return IMAGE_get_pixmap_and_mask (GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE),
                                       is_dotdot ? nullptr : g_file_info_get_content_type (get_file_info()),
-                                      is_dotdot ? false : g_file_info_get_is_symlink (get_file_info()),
-                                      pixmap,
-                                      mask);
+                                      is_dotdot ? false : g_file_info_get_is_symlink (get_file_info()));
 }
 
 

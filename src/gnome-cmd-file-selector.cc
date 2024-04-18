@@ -94,9 +94,9 @@ inline void show_list_popup (GnomeCmdFileSelector *fs)
 
 inline void GnomeCmdFileSelector::update_selected_files_label()
 {
-    GList *all_files = list->get_visible_files();
+    auto all_files = list->get_all_files();
 
-    if (!all_files)
+    if (all_files.size() == 0)
         return;
 
     guint64 sel_bytes = 0;
@@ -110,9 +110,9 @@ inline void GnomeCmdFileSelector::update_selected_files_label()
     if (size_mode==GNOME_CMD_SIZE_DISP_MODE_POWERED)
         size_mode = GNOME_CMD_SIZE_DISP_MODE_GROUPED;
 
-    for (GList *i = all_files; i; i = i->next)
+    for (auto i = all_files.begin(); i != all_files.end(); ++i)
     {
-        auto f = static_cast<GnomeCmdFile*> (i->data);
+        GnomeCmdFile *f = *i;
 
 #if defined (__GNUC__)
 #pragma GCC diagnostic push
@@ -142,7 +142,7 @@ inline void GnomeCmdFileSelector::update_selected_files_label()
 #endif
     }
 
-    GnomeCmd::Collection<GnomeCmdFile *> &marked_files = list->get_marked_files();
+    GnomeCmd::Collection<GnomeCmdFile *> marked_files = list->get_marked_files();
 
     for (GnomeCmd::Collection<GnomeCmdFile *>::const_iterator i=marked_files.begin(); i!=marked_files.end(); ++i)
     {
@@ -200,7 +200,8 @@ inline void GnomeCmdFileSelector::update_files()
     g_return_if_fail (GNOME_CMD_IS_DIR (dir));
 
     list->show_files(dir);
-    gnome_cmd_clist_set_voffset (*list, get_directory()->voffset);
+    if (priv->realized)
+        gtk_tree_view_scroll_to_point (*list, 0, 0);
 
     if (priv->realized)
         update_selected_files_label();
@@ -442,7 +443,7 @@ static void on_notebook_switch_page (GtkNotebook *notebook, GtkNotebookPage *pag
 }
 
 
-static void on_list_file_clicked (GnomeCmdFileList *fl, GnomeCmdFile *f, GdkEventButton *event, GnomeCmdFileSelector *fs)
+static void on_list_file_clicked (GnomeCmdFileList *fl, GnomeCmdFile *f, GtkTreeIter *iter, GdkEventButton *event, GnomeCmdFileSelector *fs)
 {
     if (event->type == GDK_2BUTTON_PRESS && event->button == 1 && gnome_cmd_data.options.left_mouse_button_mode == GnomeCmdData::LEFT_BUTTON_OPENS_WITH_DOUBLE_CLICK)
         fs->do_file_specific_action (fl, f);
@@ -456,7 +457,7 @@ static void on_list_file_released (GnomeCmdFileList *fl, GnomeCmdFile *f, GdkEve
 }
 
 
-static void on_list_list_clicked (GnomeCmdFileList *fl, GnomeCmdFile *f, GdkEventButton *event, GnomeCmdFileSelector *fs)
+static void on_list_list_clicked (GnomeCmdFileList *fl, GnomeCmdFile *f, GtkTreeIter *iter, GdkEventButton *event, GnomeCmdFileSelector *fs)
 {
     if (event->type == GDK_BUTTON_PRESS)
         switch (event->button)
@@ -538,15 +539,6 @@ static void on_list_dir_changed (GnomeCmdFileList *fl, GnomeCmdDir *dir, GnomeCm
     fs->update_files();
     fs->priv->sel_first_file = TRUE;
 
-    if (!fs->priv->active)
-    {
-        GTK_CLIST (fl)->focus_row = -1;
-        gtk_clist_unselect_all (*fl);
-    }
-
-    if (fs->priv->sel_first_file && fs->priv->active)
-        gtk_clist_select_row (*fl, 0, 0);
-
     fs->update_selected_files_label();
 
     g_signal_emit (fs, signals[DIR_CHANGED], 0, dir);
@@ -563,7 +555,7 @@ static void on_list_files_changed (GnomeCmdFileList *fl, GnomeCmdFileSelector *f
 
 
 // This function should only be called for input made when the file-selector was focused
-static gboolean on_list_key_pressed (GtkCList *clist, GdkEventKey *event, GnomeCmdFileSelector *fs)
+static gboolean on_list_key_pressed (GnomeCmdFileList *list, GdkEventKey *event, GnomeCmdFileSelector *fs)
 {
     if (!fs->file_list()->key_pressed(event) &&
         !fs->key_pressed(event) &&
@@ -571,13 +563,13 @@ static gboolean on_list_key_pressed (GtkCList *clist, GdkEventKey *event, GnomeC
         !gcmd_user_actions.handle_key_event(main_win, fs->file_list(), event))
         return FALSE;
 
-    g_signal_stop_emission_by_name (clist, "key-press-event");
+    g_signal_stop_emission_by_name (list, "key-press-event");
 
     return TRUE;
 }
 
 
-static gboolean on_list_key_pressed_private (GtkCList *clist, GdkEventKey *event, GnomeCmdFileSelector *fs)
+static gboolean on_list_key_pressed_private (GnomeCmdFileList *list, GdkEventKey *event, GnomeCmdFileSelector *fs)
 {
     if (state_is_blank (event->state) || state_is_shift (event->state))
     {
@@ -956,12 +948,7 @@ void GnomeCmdFileSelector::set_active(gboolean value)
     priv->active = value;
 
     if (value)
-    {
         gtk_widget_grab_focus (*list);
-        list->select_row(GTK_CLIST (list)->focus_row);
-    }
-    else
-        gtk_clist_unselect_all (*list);
 
     gnome_cmd_dir_indicator_set_active (GNOME_CMD_DIR_INDICATOR (dir_indicator), value);
 }
