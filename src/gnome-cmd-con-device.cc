@@ -48,11 +48,13 @@ struct GnomeCmdConDevicePrivate
 };
 
 
-G_DEFINE_TYPE (GnomeCmdConDevice, gnome_cmd_con_device, GNOME_CMD_TYPE_CON)
+G_DEFINE_TYPE_WITH_PRIVATE (GnomeCmdConDevice, gnome_cmd_con_device, GNOME_CMD_TYPE_CON)
 
 
 static gboolean is_mounted (GnomeCmdConDevice *dev_con)
 {
+    auto priv = static_cast<GnomeCmdConDevicePrivate *> (gnome_cmd_con_device_get_instance_private (dev_con));
+
     FILE *fd = fopen ("/etc/mtab", "r");
 
     if (!fd)
@@ -69,7 +71,7 @@ static gboolean is_mounted (GnomeCmdConDevice *dev_con)
         if (v[1])
         {
             gchar *dir = g_strcompress (v[1]);
-            if (strcmp (dir, dev_con->priv->mountp) == 0)
+            if (strcmp (dir, priv->mountp) == 0)
                 ret = TRUE;
             g_free (dir);
         }
@@ -91,6 +93,7 @@ static void do_legacy_mount(GnomeCmdCon *con)
     g_return_if_fail (GNOME_CMD_IS_CON_DEVICE (con));
 
     GnomeCmdConDevice *dev_con = GNOME_CMD_CON_DEVICE (con);
+    auto priv = static_cast<GnomeCmdConDevicePrivate *> (gnome_cmd_con_device_get_instance_private (dev_con));
 
     gint ret, estatus;
 
@@ -99,17 +102,17 @@ static void do_legacy_mount(GnomeCmdCon *con)
         gchar *cmd = nullptr;
         gchar *emsg = nullptr;
 
-        if (strlen(dev_con->priv->device_fn) == 0)
+        if (strlen(priv->device_fn) == 0)
             return;
 
-        DEBUG ('m', "mounting %s\n", dev_con->priv->device_fn);
-        if (dev_con->priv->device_fn[0] == G_DIR_SEPARATOR)
+        DEBUG ('m', "mounting %s\n", priv->device_fn);
+        if (priv->device_fn[0] == G_DIR_SEPARATOR)
         {
-            cmd = g_strdup_printf ("mount %s", dev_con->priv->device_fn);
+            cmd = g_strdup_printf ("mount %s", priv->device_fn);
         }
         else
         {
-            cmd = g_strdup_printf ("mount -L %s", dev_con->priv->device_fn);
+            cmd = g_strdup_printf ("mount -L %s", priv->device_fn);
         }
 
         DEBUG ('m', "Mount command: %s\n", cmd);
@@ -172,6 +175,7 @@ static void mount_finish_callback(GObject *gVol, GAsyncResult *result, gpointer 
 {
     GnomeCmdCon *con = GNOME_CMD_CON (user_data);
     GnomeCmdConDevice *dev_con = GNOME_CMD_CON_DEVICE (con);
+    auto priv = static_cast<GnomeCmdConDevicePrivate *> (gnome_cmd_con_device_get_instance_private (dev_con));
     auto gVolume = G_VOLUME(gVol);
     GError *error = nullptr;
 
@@ -183,10 +187,10 @@ static void mount_finish_callback(GObject *gVol, GAsyncResult *result, gpointer 
         g_error_free(error);
         return;
     }
-    dev_con->priv->gMount = g_volume_get_mount (gVolume);
+    priv->gMount = g_volume_get_mount (gVolume);
     if (!con->base_path)
     {
-        set_con_base_path_for_gmount(con, dev_con->priv->gMount);
+        set_con_base_path_for_gmount(con, priv->gMount);
     }
     if (con->base_path)
     {
@@ -199,19 +203,20 @@ static void mount_finish_callback(GObject *gVol, GAsyncResult *result, gpointer 
 static void do_legacy_mount_thread_func(GnomeCmdCon *con)
 {
     g_return_if_fail (GNOME_CMD_IS_CON_DEVICE (con));
+    auto priv = static_cast<GnomeCmdConDevicePrivate *> (gnome_cmd_con_device_get_instance_private (GNOME_CMD_CON_DEVICE (con)));
 
     GError *error = nullptr;
 
     if (!con->base_path)
     {
-        con->base_path = new GnomeCmdPlainPath(GNOME_CMD_CON_DEVICE(con)->priv->mountp);
+        con->base_path = new GnomeCmdPlainPath(priv->mountp);
     }
 
     do_legacy_mount(con);
 
     if (con->open_result == GnomeCmdCon::OPEN_FAILED)
     {
-        con->open_failed_error = g_error_new(G_IO_ERROR, G_IO_ERROR_FAILED, "Unable to mount %s", GNOME_CMD_CON_DEVICE (con)->priv->device_fn);
+        con->open_failed_error = g_error_new(G_IO_ERROR, G_IO_ERROR_FAILED, "Unable to mount %s", priv->device_fn);
         set_con_mount_failed(con);
         return;
     }
@@ -243,22 +248,23 @@ static void do_mount (GnomeCmdCon *con)
     g_return_if_fail (GNOME_CMD_IS_CON_DEVICE (con));
 
     GnomeCmdConDevice *dev_con = GNOME_CMD_CON_DEVICE (con);
+    auto priv = static_cast<GnomeCmdConDevicePrivate *> (gnome_cmd_con_device_get_instance_private (dev_con));
 
     // This is a legacy-mount: If mount point is given, we mount the device with system calls ('mount')
-    if (dev_con->priv->mountp)
+    if (priv->mountp)
     {
         auto gThread = g_thread_new (nullptr, (GThreadFunc) do_legacy_mount_thread_func, con);
         g_thread_unref(gThread);
     }
 
     // Check if the volume is already mounted:
-    if (dev_con->priv->gVolume)
+    if (priv->gVolume)
     {
-        auto gMount = g_volume_get_mount (dev_con->priv->gVolume);
+        auto gMount = g_volume_get_mount (priv->gVolume);
         if (gMount)
         {
-            dev_con->priv->gMount = gMount;
-            set_con_base_path_for_gmount(con, dev_con->priv->gMount);
+            priv->gMount = gMount;
+            set_con_base_path_for_gmount(con, priv->gMount);
             set_con_base_gfileinfo(con);
             set_con_mount_succeed(con);
             return;
@@ -266,7 +272,7 @@ static void do_mount (GnomeCmdCon *con)
 
         auto gMountOperation = gtk_mount_operation_new ((GtkWindow*) main_win);
 
-        g_volume_mount (dev_con->priv->gVolume,
+        g_volume_mount (priv->gVolume,
             G_MOUNT_MOUNT_NONE,
             gMountOperation,
             nullptr,
@@ -341,6 +347,7 @@ static gboolean dev_close (GnomeCmdCon *con)
     gint ret = 0;
 
     GnomeCmdConDevice *dev_con = GNOME_CMD_CON_DEVICE (con);
+    auto priv = static_cast<GnomeCmdConDevicePrivate *> (gnome_cmd_con_device_get_instance_private (dev_con));
 
     gnome_cmd_con_set_default_dir (con, nullptr);
 
@@ -349,15 +356,15 @@ static gboolean dev_close (GnomeCmdCon *con)
         DEBUG ('m', "Could not go back to home directory before unmounting\n");
     }
 
-    if (dev_con->priv->autovolume)
+    if (priv->autovolume)
     {
-        if (!g_mount_can_unmount(dev_con->priv->gMount))
+        if (!g_mount_can_unmount(priv->gMount))
             return ret == 0;
 
-        auto gMountName = g_mount_get_name(dev_con->priv->gMount);
+        auto gMountName = g_mount_get_name(priv->gMount);
         DEBUG ('m', "umounting GIO mount \"%s\"\n", gMountName);
         g_free(gMountName);
-        g_mount_unmount_with_operation (dev_con->priv->gMount,
+        g_mount_unmount_with_operation (priv->gMount,
                             G_MOUNT_UNMOUNT_NONE,
                             nullptr,
                             nullptr,
@@ -367,10 +374,10 @@ static gboolean dev_close (GnomeCmdCon *con)
     else
     {
         // Legacy unmount
-        if(dev_con->priv->mountp)
+        if(priv->mountp)
         {
-            DEBUG ('m', "umounting %s\n", dev_con->priv->mountp);
-            gchar *cmd = g_strdup_printf ("umount %s", dev_con->priv->mountp);
+            DEBUG ('m', "umounting %s\n", priv->mountp);
+            gchar *cmd = g_strdup_printf ("umount %s", priv->mountp);
             ret = system (cmd);
             DEBUG ('m', "umount returned %d\n", ret);
             g_free (cmd);
@@ -408,18 +415,19 @@ static GFile *dev_create_gfile (GnomeCmdCon *con, GnomeCmdPath *gnomeCmdPath)
 
     GFile *newGFile = nullptr;
     GnomeCmdConDevice *dev_con = GNOME_CMD_CON_DEVICE (con);
+    auto priv = static_cast<GnomeCmdConDevicePrivate *> (gnome_cmd_con_device_get_instance_private (dev_con));
 
-    if (dev_con->priv->gMount != nullptr)
+    if (priv->gMount != nullptr)
     {
         if (gnomeCmdPath)
         {
-            auto gMountGFile = g_mount_get_default_location (dev_con->priv->gMount);
+            auto gMountGFile = g_mount_get_default_location (priv->gMount);
             newGFile = g_file_resolve_relative_path(gMountGFile, gnomeCmdPath->get_path());
             g_object_unref(gMountGFile);
         }
         else
         {
-            newGFile = g_mount_get_default_location (dev_con->priv->gMount);
+            newGFile = g_mount_get_default_location (priv->gMount);
         }
     }
     else
@@ -446,36 +454,24 @@ static GnomeCmdPath *dev_create_path (GnomeCmdCon *con, const gchar *path_str)
  * Gtk class implementation
  *******************************/
 
-static void destroy (GtkObject *object)
+static void dispose (GObject *object)
 {
-    GnomeCmdConDevice *con = GNOME_CMD_CON_DEVICE (object);
+    GnomeCmdConDevice *dev = GNOME_CMD_CON_DEVICE (object);
+    auto priv = static_cast<GnomeCmdConDevicePrivate *> (gnome_cmd_con_device_get_instance_private (dev));
 
-    if (con->priv->gMount)
-    {
-        g_object_unref(con->priv->gMount);
-        con->priv->gMount = nullptr;
-    }
-    if (con->priv->gVolume)
-    {
-        g_object_unref(con->priv->gVolume);
-        con->priv->gVolume = nullptr;
-    }
+    g_clear_object (&priv->gMount);
+    g_clear_object (&priv->gVolume);
 
-    g_free (con->priv);
-
-    GTK_OBJECT_CLASS (gnome_cmd_con_device_parent_class)->destroy (object);
+    G_OBJECT_CLASS (gnome_cmd_con_device_parent_class)->dispose (object);
 }
 
 
 static void gnome_cmd_con_device_class_init (GnomeCmdConDeviceClass *klass)
 {
-    GtkObjectClass *object_class;
-    GnomeCmdConClass *con_class;
+    GObjectClass *object_class = G_OBJECT_CLASS (klass);
+    GnomeCmdConClass *con_class = GNOME_CMD_CON_CLASS (klass);
 
-    object_class = GTK_OBJECT_CLASS (klass);
-    con_class = GNOME_CMD_CON_CLASS (klass);
-
-    object_class->destroy = destroy;
+    object_class->dispose = dispose;
 
     con_class->open = dev_open;
     con_class->close = dev_close;
@@ -489,8 +485,6 @@ static void gnome_cmd_con_device_class_init (GnomeCmdConDeviceClass *klass)
 static void gnome_cmd_con_device_init (GnomeCmdConDevice *dev_con)
 {
     GnomeCmdCon *con = GNOME_CMD_CON (dev_con);
-
-    dev_con->priv = g_new0 (GnomeCmdConDevicePrivate, 1);
 
     con->method = CON_FILE;
     con->should_remember_dir = TRUE;
@@ -533,15 +527,15 @@ GnomeCmdConDevice *gnome_cmd_con_device_new (const gchar *alias, const gchar *de
 void gnome_cmd_con_device_set_alias (GnomeCmdConDevice *dev, const gchar *alias)
 {
     g_return_if_fail (dev != nullptr);
-    g_return_if_fail (dev->priv != nullptr);
     g_return_if_fail (alias != nullptr);
+    auto priv = static_cast<GnomeCmdConDevicePrivate *> (gnome_cmd_con_device_get_instance_private (dev));
 
-    g_free (dev->priv->alias);
+    g_free (priv->alias);
 
-    dev->priv->alias = g_strdup (alias);
+    priv->alias = g_strdup (alias);
     GNOME_CMD_CON (dev)->alias = g_strdup (alias);
-    if (dev->priv->mountp)
-        GNOME_CMD_CON (dev)->go_text = g_strdup_printf (_("Go to: %s (%s)"), alias, dev->priv->mountp);
+    if (priv->mountp)
+        GNOME_CMD_CON (dev)->go_text = g_strdup_printf (_("Go to: %s (%s)"), alias, priv->mountp);
     else
         GNOME_CMD_CON (dev)->go_text = g_strdup_printf (_("Go to: %s"), alias);
     GNOME_CMD_CON (dev)->open_text = g_strdup_printf (_("Mount: %s"), alias);
@@ -552,33 +546,33 @@ void gnome_cmd_con_device_set_alias (GnomeCmdConDevice *dev, const gchar *alias)
 void gnome_cmd_con_device_set_device_fn (GnomeCmdConDevice *dev, const gchar *device_fn)
 {
     g_return_if_fail (dev != nullptr);
-    g_return_if_fail (dev->priv != nullptr);
+    auto priv = static_cast<GnomeCmdConDevicePrivate *> (gnome_cmd_con_device_get_instance_private (dev));
 
-    g_free (dev->priv->device_fn);
+    g_free (priv->device_fn);
 
-    dev->priv->device_fn = g_strdup (device_fn ? device_fn : "");
+    priv->device_fn = g_strdup (device_fn ? device_fn : "");
 }
 
 
 void gnome_cmd_con_device_set_mountp (GnomeCmdConDevice *dev, const gchar *mountp)
 {
     g_return_if_fail (dev != nullptr);
-    g_return_if_fail (dev->priv != nullptr);
+    auto priv = static_cast<GnomeCmdConDevicePrivate *> (gnome_cmd_con_device_get_instance_private (dev));
 
     if (!mountp) return;
 
-    g_free (dev->priv->mountp);
+    g_free (priv->mountp);
 
-    dev->priv->mountp = g_strdup (mountp);
+    priv->mountp = g_strdup (mountp);
 }
 
 
 void gnome_cmd_con_device_set_icon_path (GnomeCmdConDevice *dev, const gchar *icon_path)
 {
     g_return_if_fail (dev != nullptr);
-    g_return_if_fail (dev->priv != nullptr);
+    auto priv = static_cast<GnomeCmdConDevicePrivate *> (gnome_cmd_con_device_get_instance_private (dev));
 
-    g_free (dev->priv->icon_path);
+    g_free (priv->icon_path);
 
     GnomeCmdCon *con = GNOME_CMD_CON (dev);
 
@@ -590,7 +584,7 @@ void gnome_cmd_con_device_set_icon_path (GnomeCmdConDevice *dev, const gchar *ic
     con->open_pixmap = nullptr;
     con->close_pixmap = nullptr;
 
-    dev->priv->icon_path = g_strdup (icon_path);
+    priv->icon_path = g_strdup (icon_path);
 
     if (icon_path)
     {
@@ -632,103 +626,103 @@ void gnome_cmd_con_device_set_icon_path (GnomeCmdConDevice *dev, const gchar *ic
 void gnome_cmd_con_device_set_autovol (GnomeCmdConDevice *dev, const gboolean autovol)
 {
     g_return_if_fail (dev != nullptr);
-    g_return_if_fail (dev->priv != nullptr);
+    auto priv = static_cast<GnomeCmdConDevicePrivate *> (gnome_cmd_con_device_get_instance_private (dev));
 
-    dev->priv->autovolume = autovol;
+    priv->autovolume = autovol;
 }
 
 
 void gnome_cmd_con_device_set_gmount (GnomeCmdConDevice *dev, GMount *gMount)
 {
     g_return_if_fail (dev != nullptr);
-    g_return_if_fail (dev->priv != nullptr);
+    auto priv = static_cast<GnomeCmdConDevicePrivate *> (gnome_cmd_con_device_get_instance_private (dev));
 
-    if (dev->priv->gMount)
+    if (priv->gMount)
     {
-        g_object_unref (dev->priv->gMount);
-        dev->priv->gMount = nullptr;
+        g_object_unref (priv->gMount);
+        priv->gMount = nullptr;
     }
 
-    dev->priv->gMount = gMount;
-    if (dev->priv->gMount)
-        g_object_ref(dev->priv->gMount);
+    priv->gMount = gMount;
+    if (priv->gMount)
+        g_object_ref(priv->gMount);
 }
 
 
 void gnome_cmd_con_device_set_gvolume (GnomeCmdConDevice *dev, GVolume *gVolume)
 {
     g_return_if_fail (dev != nullptr);
-    g_return_if_fail (dev->priv != nullptr);
+    auto priv = static_cast<GnomeCmdConDevicePrivate *> (gnome_cmd_con_device_get_instance_private (dev));
 
-    if (dev->priv->gVolume)
+    if (priv->gVolume)
     {
-        g_object_unref (dev->priv->gVolume);
-        dev->priv->gVolume = nullptr;
+        g_object_unref (priv->gVolume);
+        priv->gVolume = nullptr;
     }
 
-    dev->priv->gVolume = gVolume;
-    if (dev->priv->gVolume)
-        g_object_ref(dev->priv->gVolume);
+    priv->gVolume = gVolume;
+    if (priv->gVolume)
+        g_object_ref(priv->gVolume);
 }
 
 
 const gchar *gnome_cmd_con_device_get_alias (GnomeCmdConDevice *dev)
 {
     g_return_val_if_fail (dev != nullptr, nullptr);
-    g_return_val_if_fail (dev->priv != nullptr, nullptr);
+    auto priv = static_cast<GnomeCmdConDevicePrivate *> (gnome_cmd_con_device_get_instance_private (dev));
 
-    return dev->priv->alias;
+    return priv->alias;
 }
 
 
 const gchar *gnome_cmd_con_device_get_device_fn (GnomeCmdConDevice *dev)
 {
     g_return_val_if_fail (dev != nullptr, nullptr);
-    g_return_val_if_fail (dev->priv != nullptr, nullptr);
+    auto priv = static_cast<GnomeCmdConDevicePrivate *> (gnome_cmd_con_device_get_instance_private (dev));
 
-    return dev->priv->device_fn != nullptr ? dev->priv->device_fn : "";
+    return priv->device_fn != nullptr ? priv->device_fn : "";
 }
 
 
 const gchar *gnome_cmd_con_device_get_mountp_string (GnomeCmdConDevice *dev)
 {
     g_return_val_if_fail (dev != nullptr, nullptr);
-    g_return_val_if_fail (dev->priv != nullptr, nullptr);
+    auto priv = static_cast<GnomeCmdConDevicePrivate *> (gnome_cmd_con_device_get_instance_private (dev));
 
-    return dev->priv->mountp;
+    return priv->mountp;
 }
 
 
 const gchar *gnome_cmd_con_device_get_icon_path (GnomeCmdConDevice *dev)
 {
     g_return_val_if_fail (dev != nullptr, nullptr);
-    g_return_val_if_fail (dev->priv != nullptr, nullptr);
+    auto priv = static_cast<GnomeCmdConDevicePrivate *> (gnome_cmd_con_device_get_instance_private (dev));
 
-    return dev->priv->icon_path;
+    return priv->icon_path;
 }
 
 
 gboolean gnome_cmd_con_device_get_autovol (GnomeCmdConDevice *dev)
 {
     g_return_val_if_fail (dev != nullptr, FALSE);
-    g_return_val_if_fail (dev->priv != nullptr, FALSE);
+    auto priv = static_cast<GnomeCmdConDevicePrivate *> (gnome_cmd_con_device_get_instance_private (dev));
 
-    return dev->priv->autovolume;
+    return priv->autovolume;
 }
 
 
 GMount *gnome_cmd_con_device_get_gmount (GnomeCmdConDevice *dev)
 {
     g_return_val_if_fail (dev != nullptr, nullptr);
-    g_return_val_if_fail (dev->priv != nullptr, nullptr);
+    auto priv = static_cast<GnomeCmdConDevicePrivate *> (gnome_cmd_con_device_get_instance_private (dev));
 
-    return dev->priv->gMount;
+    return priv->gMount;
 }
 
 GVolume *gnome_cmd_con_device_get_gvolume (GnomeCmdConDevice *dev)
 {
     g_return_val_if_fail (dev != nullptr, nullptr);
-    g_return_val_if_fail (dev->priv != nullptr, nullptr);
+    auto priv = static_cast<GnomeCmdConDevicePrivate *> (gnome_cmd_con_device_get_instance_private (dev));
 
-    return dev->priv->gVolume;
+    return priv->gVolume;
 }

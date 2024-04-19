@@ -51,7 +51,7 @@ enum
 static guint signals[LAST_SIGNAL] = { 0 };
 
 
-G_DEFINE_TYPE (GnomeCmdCon, gnome_cmd_con, GTK_TYPE_OBJECT)
+G_DEFINE_TYPE_WITH_PRIVATE (GnomeCmdCon, gnome_cmd_con, G_TYPE_OBJECT)
 
 
 // Keep this in sync with enum ConnectionMethodID in gnome-cmd-con.h
@@ -86,44 +86,49 @@ static void on_open_failed (GnomeCmdCon *con)
  * Gtk class implementation
  *******************************/
 
-static void destroy (GtkObject *object)
+static void dispose (GObject *object)
 {
     GnomeCmdCon *con = GNOME_CMD_CON (object);
+    auto priv = static_cast<GnomeCmdConPrivate *> (gnome_cmd_con_get_instance_private (con));
 
-    g_free (con->alias);
-    g_free (con->uri);
-    g_free (con->scheme);
+    g_clear_pointer (&con->alias, g_free);
+    g_clear_pointer (&con->uri, g_free);
+    g_clear_pointer (&con->scheme, g_free);
 
-    delete con->base_path;
-    g_string_free (con->root_path, TRUE);
-    g_free (con->open_text);
-    g_free (con->open_tooltip);
-    gnome_cmd_pixmap_free (con->open_pixmap);
-    g_free (con->close_text);
-    g_free (con->close_tooltip);
-    g_object_unref(con->base_gFileInfo);
-    g_error_free(con->open_failed_error);
-    con->open_failed_msg = nullptr;
-    gnome_cmd_pixmap_free (con->close_pixmap);
-    gnome_cmd_pixmap_free (con->go_pixmap);
+    if (con->base_path != nullptr)
+    {
+        delete con->base_path;
+        con->base_path = nullptr;
+    }
+    if (con->root_path != nullptr)
+    {
+        g_string_free (con->root_path, TRUE);
+        con->root_path = nullptr;
+    }
+    g_clear_pointer (&con->open_text, g_free);
+    g_clear_pointer (&con->open_tooltip, g_free);
+    g_clear_pointer (&con->open_pixmap, gnome_cmd_pixmap_free);
+    g_clear_pointer (&con->close_text, g_free);
+    g_clear_pointer (&con->close_tooltip, g_free);
+    g_clear_object (&con->base_gFileInfo);
+    g_clear_error (&con->open_failed_error);
+    g_clear_pointer (&con->close_pixmap, gnome_cmd_pixmap_free);
+    g_clear_pointer (&con->go_pixmap, gnome_cmd_pixmap_free);
 
-    if (con->priv->default_dir)
-        gnome_cmd_dir_unref (con->priv->default_dir);
+    g_clear_pointer (&priv->default_dir, gnome_cmd_dir_unref);
 
-    delete con->priv->dir_history;
+    if (priv->dir_history != nullptr)
+    {
+        delete priv->dir_history;
+        priv->dir_history = nullptr;
+    }
 
-    g_free (con->priv);
-
-    GTK_OBJECT_CLASS (gnome_cmd_con_parent_class)->destroy (object);
+    G_OBJECT_CLASS (gnome_cmd_con_parent_class)->dispose (object);
 }
 
 
 static void gnome_cmd_con_class_init (GnomeCmdConClass *klass)
 {
-    GtkObjectClass *object_class;
-
-    object_class = GTK_OBJECT_CLASS (klass);
-
     signals[UPDATED] =
         g_signal_new ("updated",
             G_TYPE_FROM_CLASS (klass),
@@ -164,7 +169,7 @@ static void gnome_cmd_con_class_init (GnomeCmdConClass *klass)
             G_TYPE_NONE,
             0);
 
-    object_class->destroy = destroy;
+    G_OBJECT_CLASS (klass)->dispose = dispose;
 
     klass->updated = nullptr;
     klass->open_done = on_open_done;
@@ -181,6 +186,8 @@ static void gnome_cmd_con_class_init (GnomeCmdConClass *klass)
 
 static void gnome_cmd_con_init (GnomeCmdCon *con)
 {
+    auto priv = static_cast<GnomeCmdConPrivate *> (gnome_cmd_con_get_instance_private (con));
+
     con->alias = nullptr;
     con->uri = nullptr;
     con->scheme = nullptr;
@@ -210,15 +217,14 @@ static void gnome_cmd_con_init (GnomeCmdCon *con)
     con->open_failed_msg = nullptr;
     con->open_failed_error = nullptr;
 
-    con->priv = g_new0 (GnomeCmdConPrivate, 1);
-    con->priv->default_dir = nullptr;
-    con->priv->dir_history = new History(20);
-    con->priv->bookmarks = g_new0 (GnomeCmdBookmarkGroup, 1);
-    con->priv->bookmarks->con = con;
-    // con->priv->bookmarks->bookmarks = nullptr;
-    // con->priv->bookmarks->data = nullptr;
-    con->priv->all_dirs = nullptr;
-    con->priv->all_dirs_map = nullptr;
+    priv->default_dir = nullptr;
+    priv->dir_history = new History(20);
+    priv->bookmarks = g_new0 (GnomeCmdBookmarkGroup, 1);
+    priv->bookmarks->con = con;
+    // priv->bookmarks->bookmarks = nullptr;
+    // priv->bookmarks->data = nullptr;
+    priv->all_dirs = nullptr;
+    priv->all_dirs_map = nullptr;
 }
 
 
@@ -388,39 +394,43 @@ GnomeCmdPath *gnome_cmd_con_create_path (GnomeCmdCon *con, const gchar *path_str
 void gnome_cmd_con_set_default_dir (GnomeCmdCon *con, GnomeCmdDir *dir)
 {
     g_return_if_fail (GNOME_CMD_IS_CON (con));
+    auto priv = static_cast<GnomeCmdConPrivate *> (gnome_cmd_con_get_instance_private (con));
 
-    if (dir == con->priv->default_dir)
+    if (dir == priv->default_dir)
         return;
 
     if (dir)
         gnome_cmd_dir_ref (dir);
-    if (con->priv->default_dir)
-        gnome_cmd_dir_unref (con->priv->default_dir);
-    con->priv->default_dir = dir;
+    if (priv->default_dir)
+        gnome_cmd_dir_unref (priv->default_dir);
+    priv->default_dir = dir;
 }
 
 
 GnomeCmdDir *gnome_cmd_con_get_default_dir (GnomeCmdCon *con)
 {
     g_return_val_if_fail (GNOME_CMD_IS_CON (con), nullptr);
+    auto priv = static_cast<GnomeCmdConPrivate *> (gnome_cmd_con_get_instance_private (con));
 
-    return con->priv->default_dir;
+    return priv->default_dir;
 }
 
 
 History *gnome_cmd_con_get_dir_history (GnomeCmdCon *con)
 {
     g_return_val_if_fail (GNOME_CMD_IS_CON (con), nullptr);
+    auto priv = static_cast<GnomeCmdConPrivate *> (gnome_cmd_con_get_instance_private (con));
 
-    return con->priv->dir_history;
+    return priv->dir_history;
 }
 
 
 GnomeCmdBookmarkGroup *gnome_cmd_con_get_bookmarks (GnomeCmdCon *con)
 {
     g_return_val_if_fail (GNOME_CMD_IS_CON (con), nullptr);
+    auto priv = static_cast<GnomeCmdConPrivate *> (gnome_cmd_con_get_instance_private (con));
 
-    return con->priv->bookmarks;
+    return priv->bookmarks;
 }
 
 
@@ -440,8 +450,9 @@ void gnome_cmd_con_erase_bookmark (GnomeCmdCon *con)
     if (!con)
         return;
     g_return_if_fail (GNOME_CMD_IS_CON (con));
+    auto priv = static_cast<GnomeCmdConPrivate *> (gnome_cmd_con_get_instance_private (con));
 
-    GnomeCmdBookmarkGroup *group = con->priv->bookmarks;
+    GnomeCmdBookmarkGroup *group = priv->bookmarks;
     for(GList *l = group->bookmarks; l; l = l->next)
     {
         auto bookmark = static_cast<GnomeCmdBookmark*> (l->data);
@@ -450,8 +461,8 @@ void gnome_cmd_con_erase_bookmark (GnomeCmdCon *con)
         g_free (bookmark);
     }
     g_list_free(group->bookmarks);
-    con->priv->bookmarks = g_new0 (GnomeCmdBookmarkGroup, 1);
-    con->priv->bookmarks->con = con;
+    priv->bookmarks = g_new0 (GnomeCmdBookmarkGroup, 1);
+    priv->bookmarks->con = con;
 }
 
 
@@ -521,6 +532,7 @@ void gnome_cmd_con_add_to_cache (GnomeCmdCon *con, GnomeCmdDir *dir, gchar *uri_
 {
     g_return_if_fail (GNOME_CMD_IS_CON (con));
     g_return_if_fail (GNOME_CMD_IS_DIR (dir));
+    auto priv = static_cast<GnomeCmdConPrivate *> (gnome_cmd_con_get_instance_private (con));
 
     if (!uri_str)
     {
@@ -532,11 +544,11 @@ void gnome_cmd_con_add_to_cache (GnomeCmdCon *con, GnomeCmdDir *dir, gchar *uri_
         return;
     }
 
-    if (!con->priv->all_dirs_map)
-        con->priv->all_dirs_map = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, nullptr);
+    if (!priv->all_dirs_map)
+        priv->all_dirs_map = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, nullptr);
 
     DEBUG ('k', "ADDING %p %s to the cache\n", dir, uri_str);
-    g_hash_table_insert (con->priv->all_dirs_map, uri_str, dir);
+    g_hash_table_insert (priv->all_dirs_map, uri_str, dir);
 }
 
 
@@ -544,11 +556,12 @@ void gnome_cmd_con_remove_from_cache (GnomeCmdCon *con, GnomeCmdDir *dir)
 {
     g_return_if_fail (GNOME_CMD_IS_CON (con));
     g_return_if_fail (GNOME_CMD_IS_DIR (dir));
+    auto priv = static_cast<GnomeCmdConPrivate *> (gnome_cmd_con_get_instance_private (con));
 
     gchar *uri_str = GNOME_CMD_FILE (dir)->get_uri_str();
 
     DEBUG ('k', "REMOVING %p %s from the cache\n", dir, uri_str);
-    g_hash_table_remove (con->priv->all_dirs_map, uri_str);
+    g_hash_table_remove (priv->all_dirs_map, uri_str);
     g_free (uri_str);
 }
 
@@ -557,9 +570,10 @@ void gnome_cmd_con_remove_from_cache (GnomeCmdCon *con, const gchar *uri_str)
 {
     g_return_if_fail (GNOME_CMD_IS_CON (con));
     g_return_if_fail (uri_str != nullptr);
+    auto priv = static_cast<GnomeCmdConPrivate *> (gnome_cmd_con_get_instance_private (con));
 
     DEBUG ('k', "REMOVING %s from the cache\n", uri_str);
-    g_hash_table_remove (con->priv->all_dirs_map, uri_str);
+    g_hash_table_remove (priv->all_dirs_map, uri_str);
 }
 
 
@@ -567,12 +581,13 @@ GnomeCmdDir *gnome_cmd_con_cache_lookup (GnomeCmdCon *con, const gchar *uri_str)
 {
     g_return_val_if_fail (GNOME_CMD_IS_CON (con), nullptr);
     g_return_val_if_fail (uri_str != nullptr, nullptr);
+    auto priv = static_cast<GnomeCmdConPrivate *> (gnome_cmd_con_get_instance_private (con));
 
     GnomeCmdDir *dir = nullptr;
 
-    if (con->priv->all_dirs_map)
+    if (priv->all_dirs_map)
     {
-        dir = static_cast<GnomeCmdDir*> (g_hash_table_lookup (con->priv->all_dirs_map, uri_str));
+        dir = static_cast<GnomeCmdDir*> (g_hash_table_lookup (priv->all_dirs_map, uri_str));
     }
 
     if (dir)

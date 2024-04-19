@@ -28,8 +28,6 @@
 #define GNOME_CMD_IS_CON_CLASS(klass)   (G_TYPE_CHECK_CLASS_TYPE ((klass), GNOME_CMD_TYPE_CON))
 #define GNOME_CMD_CON_GET_CLASS(obj)    (G_TYPE_INSTANCE_GET_CLASS((obj), GNOME_CMD_TYPE_CON, GnomeCmdConClass))
 
-struct GnomeCmdConPrivate;
-
 #include <string>
 
 #include "gnome-cmd-path.h"
@@ -56,7 +54,7 @@ enum ConnectionMethodID        // Keep this order in sync with strings in gnome-
 
 struct GnomeCmdCon
 {
-    GtkObject parent;
+    GObject parent;
 
     enum State
     {
@@ -107,13 +105,11 @@ struct GnomeCmdCon
     OpenResult          open_result;
     GError              *open_failed_error;
     gchar               *open_failed_msg;
-
-    GnomeCmdConPrivate  *priv;
 };
 
 struct GnomeCmdConClass
 {
-    GtkObjectClass parent_class;
+    GObjectClass parent_class;
 
     /* signals */
     void (* updated) (GnomeCmdCon *con);

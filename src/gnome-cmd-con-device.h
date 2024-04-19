@@ -31,14 +31,9 @@
 #define GNOME_CMD_CON_DEVICE_GET_CLASS(obj)    (G_TYPE_INSTANCE_GET_CLASS((obj), GNOME_CMD_TYPE_CON_DEVICE, GnomeCmdConDeviceClass))
 
 
-struct GnomeCmdConDevicePrivate;
-
-
 struct GnomeCmdConDevice
 {
     GnomeCmdCon parent;
-
-    GnomeCmdConDevicePrivate *priv;
 };
 
 struct GnomeCmdConDeviceClass

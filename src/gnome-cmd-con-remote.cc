@@ -219,24 +219,9 @@ static GnomeCmdPath *remote_create_path (GnomeCmdCon *con, const gchar *path_str
  * Gtk class implementation
  *******************************/
 
-static void destroy (GtkObject *object)
-{
-    auto con_remote = GNOME_CMD_CON_REMOTE (object);
-
-    gnome_cmd_pixmap_free (con_remote->parent.go_pixmap);
-    gnome_cmd_pixmap_free (con_remote->parent.open_pixmap);
-    gnome_cmd_pixmap_free (con_remote->parent.close_pixmap);
-
-    GTK_OBJECT_CLASS (gnome_cmd_con_remote_parent_class)->destroy (object);
-}
-
-
 static void gnome_cmd_con_remote_class_init (GnomeCmdConRemoteClass *klass)
 {
-    GtkObjectClass *object_class = GTK_OBJECT_CLASS (klass);
     GnomeCmdConClass *con_class = GNOME_CMD_CON_CLASS (klass);
-
-    object_class->destroy = destroy;
 
     con_class->open = remote_open;
     con_class->close = remote_close;

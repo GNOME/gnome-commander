@@ -72,24 +72,9 @@ static GnomeCmdPath *home_create_path (GnomeCmdCon *con, const gchar *path_str)
  * Gtk class implementation
  *******************************/
 
-static void destroy (GtkObject *object)
-{
-    GnomeCmdConHome *con_home = GNOME_CMD_CON_HOME (object);
-
-    gnome_cmd_pixmap_free (con_home->parent.go_pixmap);
-    gnome_cmd_pixmap_free (con_home->parent.open_pixmap);
-    gnome_cmd_pixmap_free (con_home->parent.close_pixmap);
-
-    GTK_OBJECT_CLASS (gnome_cmd_con_home_parent_class)->destroy (object);
-}
-
-
 static void gnome_cmd_con_home_class_init (GnomeCmdConHomeClass *klass)
 {
-    GtkObjectClass *object_class = GTK_OBJECT_CLASS (klass);
     GnomeCmdConClass *con_class = GNOME_CMD_CON_CLASS (klass);
-
-    object_class->destroy = destroy;
 
     con_class->open = home_open;
     con_class->close = home_close;
