@@ -29,9 +29,7 @@
 #include <stdlib.h>
 
 #include <gtk/gtk.h>
-#include <gtk/gtkadjustment.h>
 #include <gdk/gdkkeysyms.h>
-#include <gtk/gtkmarshal.h>
 
 #include "gvtypes.h"
 #include "fileops.h"

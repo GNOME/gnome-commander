@@ -32,8 +32,6 @@
 #include <stdlib.h>
 
 #include <gtk/gtk.h>
-#include <gtk/gtktable.h>
-#include <gtk/gtkmarshal.h>
 
 #include "libgviewer.h"
 #include "gnome-cmd-includes.h"

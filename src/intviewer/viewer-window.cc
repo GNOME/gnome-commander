@@ -29,7 +29,6 @@
 #include <vector>
 
 #include <gtk/gtk.h>
-#include <gtk/gtktable.h>
 
 #include "libgviewer.h"
 #include "search-dlg.h"
