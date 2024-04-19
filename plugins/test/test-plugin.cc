@@ -153,23 +153,11 @@ static void configure (GnomeCmdPlugin *plugin)
  * Gtk class implementation
  *******************************/
 
-static void destroy (GtkObject *object)
-{
-    //TestPlugin *plugin = TEST_PLUGIN (object);
-
-    GTK_OBJECT_CLASS (test_plugin_parent_class)->destroy (object);
-}
-
-
 static void test_plugin_class_init (TestPluginClass *klass)
 {
-    GtkObjectClass *object_class;
     GnomeCmdPluginClass *plugin_class;
 
-    object_class = GTK_OBJECT_CLASS (klass);
     plugin_class = GNOME_CMD_PLUGIN_CLASS (klass);
-
-    object_class->destroy = destroy;
 
     plugin_class->create_main_menu = create_main_menu;
     plugin_class->create_popup_menu_items = create_popup_menu_items;

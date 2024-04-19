@@ -25,29 +25,17 @@
 #include "gnome-cmd-state.h"
 #include "gnome-cmd-plugin.h"
 
-G_DEFINE_TYPE (GnomeCmdPlugin, gnome_cmd_plugin, GTK_TYPE_OBJECT)
+G_DEFINE_TYPE (GnomeCmdPlugin, gnome_cmd_plugin, G_TYPE_OBJECT)
 
 /*******************************
  * Gtk class implementation
  *******************************/
 
-static void destroy (GtkObject *object)
-{
-    //GnomeCmdPlugin *plugin = GNOME_CMD_PLUGIN (object);
-
-    GTK_OBJECT_CLASS (gnome_cmd_plugin_parent_class)->destroy (object);
-}
-
-
 static void gnome_cmd_plugin_class_init (GnomeCmdPluginClass *klass)
 {
-    GtkObjectClass *object_class;
     GnomeCmdPluginClass *plugin_class;
 
-    object_class = GTK_OBJECT_CLASS (klass);
     plugin_class = GNOME_CMD_PLUGIN_CLASS (klass);
-
-    object_class->destroy = destroy;
 
     plugin_class->create_main_menu = NULL;
     plugin_class->create_popup_menu_items = NULL;

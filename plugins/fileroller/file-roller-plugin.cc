@@ -679,24 +679,24 @@ static void configure (GnomeCmdPlugin *plugin)
  * Gtk class implementation
  *******************************/
 
-static void destroy (GtkObject *object)
+static void dispose (GObject *object)
 {
     FileRollerPlugin *plugin = FILE_ROLLER_PLUGIN (object);
 
-    g_free (plugin->priv->default_ext);
-    g_free (plugin->priv->file_prefix_pattern);
-    g_free (plugin->priv);
+    g_clear_pointer (&plugin->priv->default_ext, g_free);
+    g_clear_pointer (&plugin->priv->file_prefix_pattern, g_free);
+    g_clear_pointer (&plugin->priv, g_free);
 
-    GTK_OBJECT_CLASS (file_roller_plugin_parent_class)->destroy (object);
+    G_OBJECT_CLASS (file_roller_plugin_parent_class)->dispose (object);
 }
 
 
 static void file_roller_plugin_class_init (FileRollerPluginClass *klass)
 {
-    GtkObjectClass *object_class = GTK_OBJECT_CLASS (klass);
+    GObjectClass *object_class = G_OBJECT_CLASS (klass);
     GnomeCmdPluginClass *plugin_class = GNOME_CMD_PLUGIN_CLASS (klass);
 
-    object_class->destroy = destroy;
+    object_class->dispose = dispose;
 
     plugin_class->create_main_menu = create_main_menu;
     plugin_class->create_popup_menu_items = create_popup_menu_items;
