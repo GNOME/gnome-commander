@@ -36,7 +36,7 @@ using namespace std;
 #undef HEX_HISTORY
 
 void entry_changed(GtkEntry *entry, gpointer  user_data);
-static void search_dlg_destroy (GtkObject *object);
+static void search_dlg_destroy (GtkWidget *object);
 static void search_dlg_action_response(GtkDialog *dlg, gint arg1, GViewerSearchDlg *sdlg);
 
 struct GViewerSearchDlgPrivate
@@ -201,9 +201,7 @@ static void search_dlg_action_response (GtkDialog *dlg, gint arg1, GViewerSearch
 
 static void gviewer_search_dlg_class_init (GViewerSearchDlgClass *klass)
 {
-    GtkObjectClass *object_class = (GtkObjectClass *) klass;
-
-    object_class->destroy = search_dlg_destroy;
+    GTK_WIDGET_CLASS(klass)->destroy = search_dlg_destroy;
 }
 
 
@@ -312,7 +310,7 @@ static void gviewer_search_dlg_init (GViewerSearchDlg *sdlg)
 }
 
 
-static void search_dlg_destroy (GtkObject *object)
+static void search_dlg_destroy (GtkWidget *object)
 {
     g_return_if_fail (IS_GVIEWER_SEARCH_DLG (object));
 
@@ -329,7 +327,7 @@ static void search_dlg_destroy (GtkObject *object)
         w->priv = nullptr;
     }
 
-    GTK_OBJECT_CLASS (gviewer_search_dlg_parent_class)->destroy (object);
+    GTK_WIDGET_CLASS (gviewer_search_dlg_parent_class)->destroy (object);
 }
 
 

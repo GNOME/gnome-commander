@@ -244,13 +244,13 @@ static GObject *constructor (GType gtype, guint n_properties, GObjectConstructPa
     return G_OBJECT_CLASS (gnome_cmd_quicksearch_popup_parent_class)->constructor (gtype, n_properties, properties);
 }
 
-static void destroy (GtkObject *object)
+static void destroy (GtkWidget *object)
 {
     GnomeCmdQuicksearchPopup *popup = GNOME_CMD_QUICKSEARCH_POPUP (object);
 
     g_free (popup->priv);
 
-    GTK_OBJECT_CLASS (gnome_cmd_quicksearch_popup_parent_class)->destroy (object);
+    GTK_WIDGET_CLASS (gnome_cmd_quicksearch_popup_parent_class)->destroy (object);
 }
 
 static void map (GtkWidget *widget)
@@ -262,11 +262,10 @@ static void map (GtkWidget *widget)
 static void gnome_cmd_quicksearch_popup_class_init (GnomeCmdQuicksearchPopupClass *klass)
 {
     GObjectClass *gobject_class = G_OBJECT_CLASS (klass);
-    GtkObjectClass *object_class = GTK_OBJECT_CLASS (klass);
     GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
 
     gobject_class->constructor = constructor;
-    object_class->destroy = destroy;
+    widget_class->destroy = destroy;
     widget_class->map = ::map;
 }
 

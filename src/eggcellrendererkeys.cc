@@ -55,8 +55,8 @@ static GtkCellEditable *egg_cell_renderer_keys_start_editing (GtkCellRenderer   
                                                               GdkEvent                 *event,
                                                               GtkWidget                *widget,
                                                               const gchar              *path,
-                                                              GdkRectangle             *background_area,
-                                                              GdkRectangle             *cell_area,
+                                                              const GdkRectangle       *background_area,
+                                                              const GdkRectangle       *cell_area,
                                                               GtkCellRendererState      flags);
 
 
@@ -68,13 +68,13 @@ static void egg_cell_renderer_keys_set_property (GObject         *object,
                                                  guint            param_id,
                                                  const GValue    *value,
                                                  GParamSpec      *pspec);
-static void egg_cell_renderer_keys_get_size     (GtkCellRenderer *cell,
-                                                 GtkWidget       *widget,
-                                                 GdkRectangle    *cell_area,
-                                                 gint            *x_offset,
-                                                 gint            *y_offset,
-                                                 gint            *width,
-                                                 gint            *height);
+static void egg_cell_renderer_keys_get_size     (GtkCellRenderer    *cell,
+                                                 GtkWidget          *widget,
+                                                 const GdkRectangle *cell_area,
+                                                 gint               *x_offset,
+                                                 gint               *y_offset,
+                                                 gint               *width,
+                                                 gint               *height);
 
 
 enum
@@ -141,12 +141,10 @@ static void egg_cell_renderer_keys_class_init (EggCellRendererKeysClass *cell_ke
     GObjectClass *object_class = G_OBJECT_CLASS (cell_keys_class);
     GtkCellRendererClass *cell_renderer_class = GTK_CELL_RENDERER_CLASS (cell_keys_class);
 
-    GTK_CELL_RENDERER_CLASS (cell_keys_class)->start_editing = egg_cell_renderer_keys_start_editing;
-
+    cell_renderer_class->start_editing = egg_cell_renderer_keys_start_editing;
+    cell_renderer_class->get_size = egg_cell_renderer_keys_get_size;
     object_class->get_property = egg_cell_renderer_keys_get_property;
     object_class->set_property = egg_cell_renderer_keys_set_property;
-    cell_renderer_class->get_size = egg_cell_renderer_keys_get_size;
-
     object_class->finalize = egg_cell_renderer_keys_finalize;
 
     g_object_class_install_property (object_class,
@@ -400,13 +398,13 @@ inline gboolean is_modifier (guint keycode)
 }
 
 
-void egg_cell_renderer_keys_get_size (GtkCellRenderer *cell,
-                                      GtkWidget       *widget,
-                                      GdkRectangle    *cell_area,
-                                      gint            *x_offset,
-                                      gint            *y_offset,
-                                      gint            *width,
-                                      gint            *height)
+void egg_cell_renderer_keys_get_size (GtkCellRenderer       *cell,
+                                      GtkWidget             *widget,
+                                      const GdkRectangle    *cell_area,
+                                      gint                  *x_offset,
+                                      gint                  *y_offset,
+                                      gint                  *width,
+                                      gint                  *height)
 {
 #if defined (__GNUC__)
 #pragma GCC diagnostic push
@@ -585,8 +583,8 @@ egg_cell_renderer_keys_start_editing (GtkCellRenderer      *cell,
                                       GdkEvent             *event,
                                       GtkWidget            *widget,
                                       const gchar          *path,
-                                      GdkRectangle         *background_area,
-                                      GdkRectangle         *cell_area,
+                                      const GdkRectangle   *background_area,
+                                      const GdkRectangle   *cell_area,
                                       GtkCellRendererState  flags)
 {
     g_return_val_if_fail (gtk_widget_get_window (widget) != NULL, NULL);

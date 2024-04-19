@@ -319,13 +319,13 @@ static gboolean on_dest_dir_entry_keypressed (GtkEntry *entry, GdkEventKey *even
  * Gtk class implementation
  *******************************/
 
-static void destroy (GtkObject *object)
+static void destroy (GtkWidget *object)
 {
     GnomeCmdPrepareXferDialog *dialog = GNOME_CMD_PREPARE_XFER_DIALOG (object);
 
     gnome_cmd_file_list_unref (dialog->src_files);
 
-    GTK_OBJECT_CLASS (gnome_cmd_prepare_xfer_dialog_parent_class)->destroy (object);
+    GTK_WIDGET_CLASS (gnome_cmd_prepare_xfer_dialog_parent_class)->destroy (object);
 }
 
 
@@ -337,10 +337,9 @@ static void map (GtkWidget *widget)
 
 static void gnome_cmd_prepare_xfer_dialog_class_init (GnomeCmdPrepareXferDialogClass *klass)
 {
-    GtkObjectClass *object_class = GTK_OBJECT_CLASS (klass);
     GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
 
-    object_class->destroy = destroy;
+    widget_class->destroy = destroy;
     widget_class->map = ::map;
 }
 

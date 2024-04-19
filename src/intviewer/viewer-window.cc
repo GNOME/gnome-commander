@@ -142,7 +142,7 @@ struct GViewerWindowPrivate
 
 static void gviewer_window_init(GViewerWindow *w);
 static void gviewer_window_class_init (GViewerWindowClass *klass);
-static void gviewer_window_destroy(GtkObject *widget);
+static void gviewer_window_destroy(GtkWidget *widget);
 
 static void gviewer_window_status_line_changed(GViewer *gViewer, const gchar *status_line, GViewerWindow *gViewerWindow);
 
@@ -237,10 +237,9 @@ static void gviewer_window_map (GtkWidget *widget)
 
 static void gviewer_window_class_init (GViewerWindowClass *klass)
 {
-    GtkObjectClass *object_class = GTK_OBJECT_CLASS (klass);
     GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
 
-    object_class->destroy = gviewer_window_destroy;
+    widget_class->destroy = gviewer_window_destroy;
     widget_class->map = gviewer_window_map;
 }
 
@@ -412,7 +411,7 @@ gboolean gviewerwindow_get_metadata_visble(GViewerWindow *gViewerWindow)
 }
 
 
-static void gviewer_window_destroy (GtkObject *widget)
+static void gviewer_window_destroy (GtkWidget *widget)
 {
     g_return_if_fail (IS_GVIEWER_WINDOW (widget));
 
@@ -430,7 +429,7 @@ static void gviewer_window_destroy (GtkObject *widget)
         w->priv = nullptr;
     }
 
-    GTK_OBJECT_CLASS (gviewer_window_parent_class)->destroy (widget);
+    GTK_WIDGET_CLASS (gviewer_window_parent_class)->destroy (widget);
 }
 
 

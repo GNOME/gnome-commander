@@ -101,9 +101,10 @@ static gboolean image_render_key_press (GtkWidget *widget, GdkEventKey *event);
 static gboolean image_render_scroll(GtkWidget *widget, GdkEventScroll *event);
 
 static void image_render_realize (GtkWidget *widget);
-static void image_render_size_request (GtkWidget *widget, GtkRequisition *requisition);
+static void image_render_get_preferred_width (GtkWidget *widget, gint *minimal_width, gint *natural_width);
+static void image_render_get_preferred_height (GtkWidget *widget, gint *minimal_height, gint *natural_height);
 static void image_render_size_allocate (GtkWidget *widget, GtkAllocation *allocation);
-static gboolean image_render_expose (GtkWidget *widget, GdkEventExpose *event);
+static gboolean image_render_draw (GtkWidget *widget, cairo_t *cr);
 static gboolean image_render_button_press (GtkWidget *widget, GdkEventButton *event);
 static gboolean image_render_button_release (GtkWidget *widget, GdkEventButton *event);
 static gboolean image_render_motion_notify (GtkWidget *widget, GdkEventMotion *event);
@@ -275,9 +276,10 @@ static void image_render_class_init (ImageRenderClass *klass)
     widget_class->button_release_event = image_render_button_release;
     widget_class->motion_notify_event = image_render_motion_notify;
 
-    widget_class->expose_event = image_render_expose;
+    widget_class->draw = image_render_draw;
 
-    widget_class->size_request = image_render_size_request;
+    widget_class->get_preferred_width = image_render_get_preferred_width;
+    widget_class->get_preferred_height = image_render_get_preferred_height;
     widget_class->size_allocate = image_render_size_allocate;
 
     widget_class->realize = image_render_realize;
@@ -507,9 +509,8 @@ static void image_render_realize (GtkWidget *widget)
         GDK_BUTTON_RELEASE_MASK | GDK_POINTER_MOTION_MASK |
         GDK_POINTER_MOTION_HINT_MASK | GDK_KEY_PRESS_MASK;
     attributes.visual = gtk_widget_get_visual (widget);
-    attributes.colormap = gtk_widget_get_colormap (widget);
 
-    gint attributes_mask = GDK_WA_X | GDK_WA_Y | GDK_WA_VISUAL | GDK_WA_COLORMAP;
+    gint attributes_mask = GDK_WA_X | GDK_WA_Y | GDK_WA_VISUAL;
 
     GdkWindow *window = gdk_window_new (gtk_widget_get_parent_window (widget), &attributes, attributes_mask);
     gtk_widget_set_window (widget, window);
@@ -534,10 +535,15 @@ static void image_render_redraw (ImageRender *w)
 }
 
 
-static void image_render_size_request (GtkWidget *widget, GtkRequisition *requisition)
+static void image_render_get_preferred_width (GtkWidget *widget, gint *minimal_width, gint *natural_width)
 {
-    requisition->width = IMAGE_RENDER_DEFAULT_WIDTH;
-    requisition->height = IMAGE_RENDER_DEFAULT_HEIGHT;
+    *minimal_width = *natural_width = IMAGE_RENDER_DEFAULT_WIDTH;
+}
+
+
+static void image_render_get_preferred_height (GtkWidget *widget, gint *minimal_height, gint *natural_height)
+{
+    *minimal_height = *natural_height = IMAGE_RENDER_DEFAULT_HEIGHT;
 }
 
 
@@ -556,20 +562,15 @@ static void image_render_size_allocate (GtkWidget *widget, GtkAllocation *alloca
 }
 
 
-static gboolean image_render_expose (GtkWidget *widget, GdkEventExpose *event)
+static gboolean image_render_draw (GtkWidget *widget, cairo_t *cr)
 {
     g_return_val_if_fail (IS_IMAGE_RENDER (widget), FALSE);
-    g_return_val_if_fail (event != NULL, FALSE);
-
-    if (event->count > 0)
-        return FALSE;
+    g_return_val_if_fail (cr != NULL, FALSE);
 
     ImageRender *w = IMAGE_RENDER (widget);
 
     GtkAllocation widget_allocation;
     gtk_widget_get_allocation (widget, &widget_allocation);
-
-    gdk_window_clear_area (gtk_widget_get_window (widget), 0, 0, widget_allocation.width, widget_allocation.height);
 
     if (!w->priv->disp_pixbuf)
         return FALSE;
@@ -639,11 +640,9 @@ static gboolean image_render_expose (GtkWidget *widget, GdkEventExpose *event)
                 (int)w->priv->h_adjustment->value,
                 (int)w->priv->v_adjustment->value);
 #endif
-        cairo_t *cr = gdk_cairo_create (gtk_widget_get_window (GTK_WIDGET (widget)));
         cairo_translate (cr, -src_x, -src_y);
         gdk_cairo_set_source_pixbuf (cr, w->priv->disp_pixbuf, dst_x, dst_y);
         cairo_paint (cr);
-        cairo_destroy (cr);
     }
 
     if (g_atomic_int_get (&w->priv->orig_pixbuf_loaded)==0)

@@ -82,7 +82,6 @@ struct GnomeCmdFileList
     void operator delete (void *p)      {  g_object_unref (p);  }
 
     operator GObject * () const         {  return G_OBJECT (this);         }
-    operator GtkObject * () const       {  return GTK_OBJECT (this);       }
     operator GtkWidget * () const       {  return GTK_WIDGET (this);       }
     operator GtkTreeView * () const     {  return GTK_TREE_VIEW (this);    }
 

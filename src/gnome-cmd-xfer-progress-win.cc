@@ -48,9 +48,9 @@ static void on_cancel (GtkButton *btn, GnomeCmdXferProgressWin *win)
  * Gtk class implementation
  *******************************/
 
-static void destroy (GtkObject *object)
+static void destroy (GtkWidget *object)
 {
-    GTK_OBJECT_CLASS (gnome_cmd_xfer_progress_win_parent_class)->destroy (object);
+    GTK_WIDGET_CLASS (gnome_cmd_xfer_progress_win_parent_class)->destroy (object);
 }
 
 
@@ -62,10 +62,9 @@ static void map (GtkWidget *widget)
 
 static void gnome_cmd_xfer_progress_win_class_init (GnomeCmdXferProgressWinClass *klass)
 {
-    GtkObjectClass *object_class = GTK_OBJECT_CLASS (klass);
     GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
 
-    object_class->destroy = destroy;
+    widget_class->destroy = destroy;
     widget_class->map = ::map;
 }
 

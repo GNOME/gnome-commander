@@ -180,13 +180,13 @@ static void on_fs_changed_dir (GnomeCmdFileSelector *fs, GnomeCmdDir *dir, Gnome
  * Gtk class implementation
  *******************************/
 
-static void destroy (GtkObject *object)
+static void destroy (GtkWidget *object)
 {
     g_signal_handlers_disconnect_by_func (main_win, (gpointer) on_switch_fs, object);
     g_signal_handlers_disconnect_by_func (main_win->fs(LEFT), (gpointer) on_fs_changed_dir, object);
     g_signal_handlers_disconnect_by_func (main_win->fs(RIGHT), (gpointer) on_fs_changed_dir, object);
 
-    GTK_OBJECT_CLASS (gnome_cmd_cmdline_parent_class)->destroy (object);
+    GTK_WIDGET_CLASS (gnome_cmd_cmdline_parent_class)->destroy (object);
 }
 
 
@@ -198,10 +198,9 @@ static void map (GtkWidget *widget)
 
 static void gnome_cmd_cmdline_class_init (GnomeCmdCmdlineClass *klass)
 {
-    GtkObjectClass *object_class = GTK_OBJECT_CLASS (klass);
     GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
 
-    object_class->destroy = destroy;
+    widget_class->destroy = destroy;
     widget_class->map = ::map;
 }
 

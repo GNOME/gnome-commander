@@ -479,7 +479,7 @@ inline void add_plugin_menu_items (GtkMenuShell *menu, GList *items, gint pos)
  * Gtk class implementation
  *******************************/
 
-static void destroy (GtkObject *object)
+static void destroy (GtkWidget *object)
 {
     GnomeCmdFilePopmenu *menu = GNOME_CMD_FILE_POPMENU (object);
 
@@ -490,7 +490,7 @@ static void destroy (GtkObject *object)
 
     g_free (menu->priv);
 
-    GTK_OBJECT_CLASS (gnome_cmd_file_popmenu_parent_class)->destroy (object);
+    GTK_WIDGET_CLASS (gnome_cmd_file_popmenu_parent_class)->destroy (object);
 }
 
 
@@ -502,10 +502,9 @@ static void map (GtkWidget *widget)
 
 static void gnome_cmd_file_popmenu_class_init (GnomeCmdFilePopmenuClass *klass)
 {
-    GtkObjectClass *object_class = GTK_OBJECT_CLASS (klass);
     GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
 
-    object_class->destroy = destroy;
+    widget_class->destroy = destroy;
     widget_class->map = ::map;
 }
 

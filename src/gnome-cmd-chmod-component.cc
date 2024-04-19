@@ -75,13 +75,13 @@ static void on_check_toggled (GtkToggleButton *togglebutton, GnomeCmdChmodCompon
  * Gtk class implementation
  *******************************/
 
-static void destroy (GtkObject *object)
+static void destroy (GtkWidget *object)
 {
     GnomeCmdChmodComponent *comp = GNOME_CMD_CHMOD_COMPONENT (object);
 
     g_free (comp->priv);
 
-    GTK_OBJECT_CLASS (gnome_cmd_chmod_component_parent_class)->destroy (object);
+    GTK_WIDGET_CLASS (gnome_cmd_chmod_component_parent_class)->destroy (object);
 }
 
 
@@ -93,10 +93,9 @@ static void map (GtkWidget *widget)
 
 static void gnome_cmd_chmod_component_class_init (GnomeCmdChmodComponentClass *klass)
 {
-    GtkObjectClass *object_class = GTK_OBJECT_CLASS (klass);
     GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
 
-    object_class->destroy = destroy;
+    widget_class->destroy = destroy;
     widget_class->map = ::map;
 
     klass->perms_changed = on_perms_changed;

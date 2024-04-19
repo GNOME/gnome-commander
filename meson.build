@@ -42,8 +42,8 @@ cpp = meson.get_compiler('cpp')
 common_ccflags = [
   '-DGLIB_DISABLE_DEPRECATION_WARNINGS',
   '-DGTK_DISABLE_SINGLE_INCLUDES',
-  '-DGDK_DISABLE_DEPRECATED',
-  '-DGTK_DISABLE_DEPRECATED',
+  # '-DGDK_DISABLE_DEPRECATED',
+  # '-DGTK_DISABLE_DEPRECATED',
 ]
 test_cflags = [
   '-Wno-deprecated-declarations',
@@ -84,7 +84,7 @@ conf_data.set_quoted('PACKAGE_VERSION',   '@0@'.format(meson.project_version()),
 GLIB_REQ = '2.66.0'
 conf_data.set('GLIB_REQ', GLIB_REQ, description: 'Required version of glib library')
 GMODULE_REQ = '2.0.0'
-GTK_REQ = '2.24.0'
+GTK_REQ = '3.24.0'
 conf_data.set('GTK_REQ', GTK_REQ, description: 'Required version of gtk library')
 GIO_REQ = '2.0'
 
@@ -93,7 +93,7 @@ glib      = dependency('glib-2.0', version: '>=' + GLIB_REQ)
 glib_2_70 = dependency('glib-2.0', version: '>= 2.70.0', required: false)
 gmodule   = dependency('gmodule-2.0', version: '>=' + GMODULE_REQ)
 gio       = dependency('gio-2.0', version: '>=' + GIO_REQ)
-gtk       = dependency('gtk+-2.0', version: '>=' + GTK_REQ)
+gtk       = dependency('gtk+-3.0', version: '>=' + GTK_REQ)
 
 common_deps = [
   glib, gmodule, gio, gobject, gtk
