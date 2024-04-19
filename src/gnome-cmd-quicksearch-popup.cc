@@ -224,7 +224,7 @@ inline void set_popup_position (GnomeCmdQuicksearchPopup *popup)
 
     y += h;
 
-    gtk_widget_set_uposition (GTK_WIDGET (popup), x, y);
+    gtk_window_move (GTK_WINDOW (popup), x, y);
 }
 
 

@@ -136,9 +136,8 @@ GtkWidget *gnome_cmd_rename_dialog_new (GnomeCmdFile *f, gint x, gint y, gint wi
     GnomeCmdRenameDialog *dialog = (GnomeCmdRenameDialog *) g_object_new (GNOME_CMD_TYPE_RENAME_DIALOG, NULL);
     dialog->priv->f = f->ref();
 
-    gtk_window_set_has_frame (GTK_WINDOW (dialog), 0);
     gtk_window_set_decorated (GTK_WINDOW (dialog), 0);
-    gtk_widget_set_uposition (GTK_WIDGET (dialog), x, y);
+    gtk_window_move (GTK_WINDOW (dialog), x, y);
     gtk_window_set_type_hint (GTK_WINDOW (dialog), GDK_WINDOW_TYPE_HINT_DIALOG);
     gtk_window_set_skip_taskbar_hint (GTK_WINDOW (dialog), TRUE);
 
