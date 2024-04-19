@@ -81,7 +81,6 @@ void gnome_cmd_bookmark_dialog_new (const gchar *title, GtkWindow *parent)
     GtkWidget *vbox, *hbox, *scrolled_window, *button;
 
     gtk_window_set_position (GTK_WINDOW (dialog), GTK_WIN_POS_CENTER);
-    gtk_dialog_set_has_separator (GTK_DIALOG (dialog), FALSE);
     gtk_container_set_border_width (GTK_CONTAINER (dialog), 5);
     gtk_box_set_spacing (GTK_BOX (content_area), 2);
     gtk_window_set_resizable (GTK_WINDOW (dialog), TRUE);

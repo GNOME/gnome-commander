@@ -184,7 +184,6 @@ static void gnome_cmd_about_plugin_display_credits_dialog (GnomeCmdAboutPlugin *
     about->priv->credits_dialog = dialog;
     gtk_window_set_default_size (GTK_WINDOW (dialog), 360, 260);
     gtk_dialog_set_default_response (GTK_DIALOG (dialog), GTK_RESPONSE_CLOSE);
-    gtk_dialog_set_has_separator (GTK_DIALOG (dialog), FALSE);
     gtk_container_set_border_width (GTK_CONTAINER (dialog), 5);
     gtk_box_set_spacing (GTK_BOX (gtk_dialog_get_content_area (GTK_DIALOG (dialog))), 2);
     g_signal_connect (dialog, "response", G_CALLBACK (gtk_widget_destroy), dialog);
@@ -263,7 +262,6 @@ static void gnome_cmd_about_plugin_init (GnomeCmdAboutPlugin *about)
     // priv->documenters = nullptr;
     // priv->webpage = nullptr;
 
-    gtk_dialog_set_has_separator (GTK_DIALOG (about), FALSE);
     gtk_container_set_border_width (GTK_CONTAINER (about), 5);
     gtk_box_set_spacing (GTK_BOX (gtk_dialog_get_content_area (GTK_DIALOG (about))), 5);
 

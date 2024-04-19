@@ -378,7 +378,6 @@ static void gnome_cmd_connect_dialog_init (GnomeCmdConnectDialog *dialog)
     g_return_if_fail (dialog->priv != NULL);
 
     gtk_window_set_title (*dialog, _("Remote Server"));
-    gtk_dialog_set_has_separator (*dialog, FALSE);
     gtk_container_set_border_width (GTK_CONTAINER (dialog), 5);
     gtk_box_set_spacing (GTK_BOX (gtk_dialog_get_content_area (GTK_DIALOG (dialog))), 2);
     gtk_window_set_resizable (*dialog, FALSE);

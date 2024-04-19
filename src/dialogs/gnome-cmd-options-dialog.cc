@@ -2325,7 +2325,6 @@ gboolean gnome_cmd_options_dialog (GtkWindow *parent, GnomeCmdData::Options &cfg
 
     GtkWidget *content_area = gtk_dialog_get_content_area (GTK_DIALOG (dialog));
 
-    gtk_dialog_set_has_separator (GTK_DIALOG (dialog), FALSE);
     gtk_window_set_default_size(GTK_WINDOW (dialog), gnome_cmd_data.opts_dialog_width, gnome_cmd_data.opts_dialog_height);
 
     // HIG defaults

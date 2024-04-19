@@ -64,7 +64,6 @@ gboolean gnome_cmd_advrename_regex_dialog_new (const gchar *title, GtkWindow *pa
     GtkWidget *content_area = gtk_dialog_get_content_area (GTK_DIALOG (dialog));
 
     gtk_window_set_resizable (GTK_WINDOW (dialog), FALSE);
-    gtk_dialog_set_has_separator (GTK_DIALOG (dialog), FALSE);
 
     // HIG defaults
     gtk_container_set_border_width (GTK_CONTAINER (dialog), 5);

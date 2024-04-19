@@ -602,7 +602,6 @@ gchar *GnomeCmdAdvrenameProfileComponent::Private::get_selected_range (GtkWindow
 
     gtk_window_set_resizable (GTK_WINDOW (dialog), FALSE);
     gtk_widget_set_size_request (dialog, 480, -1);
-    gtk_dialog_set_has_separator (GTK_DIALOG (dialog), FALSE);
 
     // HIG defaults
     gtk_container_set_border_width (GTK_CONTAINER (dialog), 5);
