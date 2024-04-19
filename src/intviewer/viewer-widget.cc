@@ -110,13 +110,14 @@ static void gviewer_class_init (GViewerClass *klass)
     object_class->destroy = gviewer_destroy;
 
     gviewer_signals[STATUS_LINE_CHANGED] =
-        gtk_signal_new ("status-line-changed",
-            GTK_RUN_LAST,
-            G_OBJECT_CLASS_TYPE (object_class),
-            GTK_SIGNAL_OFFSET (GViewerClass, status_line_changed),
-            gtk_marshal_NONE__STRING,
-            GTK_TYPE_NONE,
-            1, GTK_TYPE_STRING);
+        g_signal_new ("status-line-changed",
+                      G_TYPE_FROM_CLASS (klass),
+                      G_SIGNAL_RUN_LAST,
+                      G_STRUCT_OFFSET (GViewerClass, status_line_changed),
+                      nullptr, nullptr,
+                      g_cclosure_marshal_VOID__STRING,
+                      G_TYPE_NONE,
+                      1, G_TYPE_STRING);
 }
 
 

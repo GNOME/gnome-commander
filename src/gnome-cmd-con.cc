@@ -125,39 +125,43 @@ static void gnome_cmd_con_class_init (GnomeCmdConClass *klass)
     object_class = GTK_OBJECT_CLASS (klass);
 
     signals[UPDATED] =
-        gtk_signal_new ("updated",
-            GTK_RUN_LAST,
-            G_OBJECT_CLASS_TYPE (object_class),
-            GTK_SIGNAL_OFFSET (GnomeCmdConClass, updated),
-            gtk_marshal_NONE__NONE,
-            GTK_TYPE_NONE,
+        g_signal_new ("updated",
+            G_TYPE_FROM_CLASS (klass),
+            G_SIGNAL_RUN_LAST,
+            G_STRUCT_OFFSET (GnomeCmdConClass, updated),
+            nullptr, nullptr,
+            g_cclosure_marshal_VOID__VOID,
+            G_TYPE_NONE,
             0);
 
     signals[CLOSE] =
-        gtk_signal_new ("close",
-            GTK_RUN_LAST,
-            G_OBJECT_CLASS_TYPE (object_class),
-            GTK_SIGNAL_OFFSET (GnomeCmdConClass, close),
-            gtk_marshal_NONE__NONE,
-            GTK_TYPE_NONE,
+        g_signal_new ("close",
+            G_TYPE_FROM_CLASS (klass),
+            G_SIGNAL_RUN_LAST,
+            G_STRUCT_OFFSET (GnomeCmdConClass, close),
+            nullptr, nullptr,
+            g_cclosure_marshal_VOID__VOID,
+            G_TYPE_NONE,
             0);
 
     signals[OPEN_DONE] =
-        gtk_signal_new ("open-done",
-            GTK_RUN_LAST,
-            G_OBJECT_CLASS_TYPE (object_class),
-            GTK_SIGNAL_OFFSET (GnomeCmdConClass, open_done),
-            gtk_marshal_NONE__NONE,
-            GTK_TYPE_NONE,
+        g_signal_new ("open-done",
+            G_TYPE_FROM_CLASS (klass),
+            G_SIGNAL_RUN_LAST,
+            G_STRUCT_OFFSET (GnomeCmdConClass, open_done),
+            nullptr, nullptr,
+            g_cclosure_marshal_VOID__VOID,
+            G_TYPE_NONE,
             0);
 
     signals[OPEN_FAILED] =
-        gtk_signal_new ("open-failed",
-            GTK_RUN_LAST,
-            G_OBJECT_CLASS_TYPE (object_class),
-            GTK_SIGNAL_OFFSET (GnomeCmdConClass, open_failed),
-            gtk_marshal_NONE__NONE,
-            GTK_TYPE_NONE,
+        g_signal_new ("open-failed",
+            G_TYPE_FROM_CLASS (klass),
+            G_SIGNAL_RUN_LAST,
+            G_STRUCT_OFFSET (GnomeCmdConClass, open_failed),
+            nullptr, nullptr,
+            g_cclosure_marshal_VOID__VOID,
+            G_TYPE_NONE,
             0);
 
     object_class->destroy = destroy;

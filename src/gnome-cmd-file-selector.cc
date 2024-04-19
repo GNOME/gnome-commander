@@ -735,17 +735,18 @@ static void map (GtkWidget *widget)
 
 static void gnome_cmd_file_selector_class_init (GnomeCmdFileSelectorClass *klass)
 {
-    GtkObjectClass *object_class = GTK_OBJECT_CLASS (klass);;
+    GtkObjectClass *object_class = GTK_OBJECT_CLASS (klass);
     GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
 
     signals[DIR_CHANGED] =
-        gtk_signal_new ("dir-changed",
-            GTK_RUN_LAST,
-            G_OBJECT_CLASS_TYPE (object_class),
-            GTK_SIGNAL_OFFSET (GnomeCmdFileSelectorClass, dir_changed),
-            gtk_marshal_NONE__POINTER,
-            GTK_TYPE_NONE,
-            1, GTK_TYPE_POINTER);
+        g_signal_new ("dir-changed",
+            G_TYPE_FROM_CLASS (klass),
+            G_SIGNAL_RUN_LAST,
+            G_STRUCT_OFFSET (GnomeCmdFileSelectorClass, dir_changed),
+            nullptr, nullptr,
+            g_cclosure_marshal_VOID__POINTER,
+            G_TYPE_NONE,
+            1, G_TYPE_POINTER);
 
     object_class->destroy = destroy;
     widget_class->map = ::map;
