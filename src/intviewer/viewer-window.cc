@@ -802,7 +802,7 @@ static void menu_view_set_display_mode(GtkAction *notUsed, GtkRadioAction *radio
     gviewer_set_display_mode(gViewerWindow->priv->viewer, dispmode);
     gtk_widget_grab_focus (GTK_WIDGET (gViewerWindow->priv->viewer));
 
-    gtk_widget_draw (GTK_WIDGET (gViewerWindow->priv->viewer), nullptr);
+    gtk_widget_queue_draw (GTK_WIDGET (gViewerWindow->priv->viewer));
 }
 
 
@@ -816,7 +816,7 @@ static void menu_view_set_charset(GtkAction *notUsed, GtkRadioAction *radioActio
     g_return_if_fail (charset != nullptr);
 
     gviewer_set_encoding(gViewerWindow->priv->viewer, charset);
-    gtk_widget_draw (GTK_WIDGET (gViewerWindow->priv->viewer), nullptr);
+    gtk_widget_queue_draw (GTK_WIDGET (gViewerWindow->priv->viewer));
 }
 
 
@@ -829,7 +829,7 @@ static void menu_image_operation(GtkMenuItem *item, GViewerWindow *gViewerWindow
 
     gviewer_image_operation(gViewerWindow->priv->viewer, imageop);
 
-    gtk_widget_draw (GTK_WIDGET (gViewerWindow->priv->viewer), nullptr);
+    gtk_widget_queue_draw (GTK_WIDGET (gViewerWindow->priv->viewer));
 }
 
 
@@ -954,7 +954,7 @@ static void menu_settings_binary_bytes_per_line(GtkAction *notUsed, GtkRadioActi
     auto bytes_per_line = gtk_radio_action_get_current_value (radioAction);
 
     gviewer_set_fixed_limit(gViewerWindow->priv->viewer, bytes_per_line);
-    gtk_widget_draw (GTK_WIDGET (gViewerWindow), nullptr);
+    gtk_widget_queue_draw (GTK_WIDGET (gViewerWindow));
 }
 
 
@@ -1101,7 +1101,7 @@ static void menu_view_wrap(GtkToggleAction *item, GViewerWindow *gViewerWindow)
     gboolean wrap = gtk_toggle_action_get_active (item);
 
     gviewer_set_wrap_mode(gViewerWindow->priv->viewer, wrap);
-    gtk_widget_draw (GTK_WIDGET (gViewerWindow->priv->viewer), nullptr);
+    gtk_widget_queue_draw (GTK_WIDGET (gViewerWindow->priv->viewer));
 }
 
 
