@@ -96,7 +96,7 @@ inline GdkEventKey str2key(gchar *s, guint &state, guint &key_val)
     key_val = gdk_key_names[key];
     state = 0;
 
-     if (key_val==GDK_VoidSymbol)
+     if (key_val==GDK_KEY_VoidSymbol)
         if (strlen(key)==1 && ascii_isalnum (*key))
             key_val = *key;
 
@@ -110,7 +110,7 @@ inline GdkEventKey str2key(gchar *s, guint &state, guint &key_val)
                 continue;
             }
 
-        key_val = GDK_VoidSymbol;
+        key_val = GDK_KEY_VoidSymbol;
         break;
     }
 

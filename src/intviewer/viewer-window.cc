@@ -443,14 +443,14 @@ static gboolean gviewer_window_key_pressed(GtkWidget *widget, GdkEventKey *event
 
     switch (event->keyval)
     {
-        case GDK_plus:
-        case GDK_KP_Add:
-        case GDK_equal:
+        case GDK_KEY_plus:
+        case GDK_KEY_KP_Add:
+        case GDK_KEY_equal:
            menu_view_zoom_in(nullptr, w);
            return TRUE;
 
-        case GDK_minus:
-        case GDK_KP_Subtract:
+        case GDK_KEY_minus:
+        case GDK_KEY_KP_Subtract:
            menu_view_zoom_out(nullptr, w);
            return TRUE;
 
@@ -461,8 +461,8 @@ static gboolean gviewer_window_key_pressed(GtkWidget *widget, GdkEventKey *event
     if (state_is_ctrl(event->state))
         switch (event->keyval)
         {
-            case GDK_q:
-            case GDK_Q:
+            case GDK_KEY_q:
+            case GDK_KEY_Q:
                 gtk_widget_destroy (GTK_WIDGET (w));
                 return TRUE;
 

@@ -51,13 +51,13 @@ static gboolean on_dialog_keypressed (GtkWidget *widget, GdkEventKey *event, gpo
 
     switch (event->keyval)
     {
-        case GDK_Escape:
+        case GDK_KEY_Escape:
             dialog->priv->f->unref();
             gtk_widget_destroy(widget);
             return TRUE;
 
-        case GDK_Return:
-        case GDK_KP_Enter:
+        case GDK_KEY_Return:
+        case GDK_KEY_KP_Enter:
             {
                 GError *error = nullptr;
                 gchar *new_fname = g_strdup (gtk_entry_get_text (dialog->priv->textbox));
@@ -79,9 +79,9 @@ static gboolean on_dialog_keypressed (GtkWidget *widget, GdkEventKey *event, gpo
             }
             return TRUE;
 
-        case GDK_F2:
-        case GDK_F5:
-        case GDK_F6:
+        case GDK_KEY_F2:
+        case GDK_KEY_F5:
+        case GDK_KEY_F6:
             gnome_cmd_toggle_file_name_selection (GTK_WIDGET (dialog->priv->textbox));
             return TRUE;
 

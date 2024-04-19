@@ -113,13 +113,13 @@ static gboolean on_key_pressed (GtkWidget *entry, GdkEventKey *event, GnomeCmdCm
 {
     switch (event->keyval)
     {
-        case GDK_BackSpace:
-        case GDK_space:
-        case GDK_Home:
-        case GDK_End:
-        case GDK_Delete:
-        case GDK_Left:
-        case GDK_Right:
+        case GDK_KEY_BackSpace:
+        case GDK_KEY_space:
+        case GDK_KEY_Home:
+        case GDK_KEY_End:
+        case GDK_KEY_Delete:
+        case GDK_KEY_Left:
+        case GDK_KEY_Right:
             return gnome_cmd_cmdline_keypressed (cmdline, event);
 
         default:
@@ -394,11 +394,11 @@ gboolean gnome_cmd_cmdline_keypressed (GnomeCmdCmdline *cmdline, GdkEventKey *ev
     {
         switch (event->keyval)
         {
-            case GDK_Down:
+            case GDK_KEY_Down:
                 gnome_cmd_cmdline_show_history (cmdline);
                 return TRUE;
 
-            case GDK_Return:
+            case GDK_KEY_Return:
                 event->string[0] = '\0';
                 return FALSE;
             default:
@@ -411,9 +411,9 @@ gboolean gnome_cmd_cmdline_keypressed (GnomeCmdCmdline *cmdline, GdkEventKey *ev
         {
             switch (event->keyval)
             {
-                case GDK_Return:
+                case GDK_KEY_Return:
                     on_exec (cmdline, TRUE);
-                    event->keyval = GDK_Escape;
+                    event->keyval = GDK_KEY_Escape;
                     return TRUE;
                 default:
                     return FALSE;
@@ -425,7 +425,7 @@ gboolean gnome_cmd_cmdline_keypressed (GnomeCmdCmdline *cmdline, GdkEventKey *ev
             {
                 switch (event->keyval)
                 {
-                    case GDK_Return:
+                    case GDK_KEY_Return:
                         event->string[0] = '\0';
                         return FALSE;
                     default:
@@ -438,18 +438,18 @@ gboolean gnome_cmd_cmdline_keypressed (GnomeCmdCmdline *cmdline, GdkEventKey *ev
                 {
                     switch (event->keyval)
                     {
-                        case GDK_Return:
+                        case GDK_KEY_Return:
                             on_exec (cmdline, FALSE);
-                            event->keyval = GDK_Escape;
+                            event->keyval = GDK_KEY_Escape;
                             return TRUE;
 
-                        case GDK_Escape:
+                        case GDK_KEY_Escape:
                             gnome_cmd_cmdline_set_text (cmdline, "");
                             main_win->focus_file_lists();
                             return TRUE;
 
-                        case GDK_Up:
-                        case GDK_Down:
+                        case GDK_KEY_Up:
+                        case GDK_KEY_Down:
                             {
                                 gboolean ret;
                                 GdkEventKey event2 = *event;

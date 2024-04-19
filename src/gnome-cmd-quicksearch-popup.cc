@@ -136,21 +136,21 @@ static gboolean on_key_pressed (GtkWidget *entry, GdkEventKey *event, GnomeCmdQu
 
     switch (event->keyval)
     {
-        case GDK_Escape:
+        case GDK_KEY_Escape:
             // popup->priv->fl->select_row(GNOME_CMD_FILE_LIST (popup->priv->fl)->drag_motion_row);
             hide_popup (popup);
             return TRUE;
 
         // for more convenience do ENTER action directly on the current quicksearch item
-        case GDK_Return:
-        case GDK_KP_Enter:
+        case GDK_KEY_Return:
+        case GDK_KEY_KP_Enter:
 
         // for more convenience jump direct to Fx function on the current quicksearch item
-        case GDK_F3:
-        case GDK_F4:
-        case GDK_F5:
-        case GDK_F6:
-        case GDK_F8:
+        case GDK_KEY_F3:
+        case GDK_KEY_F4:
+        case GDK_KEY_F5:
+        case GDK_KEY_F6:
+        case GDK_KEY_F8:
             // popup->priv->fl->select_row(GNOME_CMD_FILE_LIST (popup->priv->fl)->drag_motion_row);
             hide_popup (popup);
             main_win->key_pressed(event);
@@ -168,7 +168,7 @@ static gboolean on_key_pressed_after (GtkWidget *entry, GdkEventKey *event, Gnom
 {
     switch (event->keyval)
     {
-        case GDK_Up:
+        case GDK_KEY_Up:
             {
                 if (popup->priv->pos)
                 {
@@ -180,7 +180,7 @@ static gboolean on_key_pressed_after (GtkWidget *entry, GdkEventKey *event, Gnom
             }
             break;
 
-        case GDK_Down:
+        case GDK_KEY_Down:
             {
                 if (popup->priv->pos)
                 {

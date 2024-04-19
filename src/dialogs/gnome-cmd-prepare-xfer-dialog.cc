@@ -299,13 +299,13 @@ static gboolean on_dest_dir_entry_keypressed (GtkEntry *entry, GdkEventKey *even
 {
     switch (event->keyval)
     {
-        case GDK_Return:
-        case GDK_KP_Enter:
+        case GDK_KEY_Return:
+        case GDK_KEY_KP_Enter:
             g_signal_emit_by_name (dialog->ok_button, "clicked", dialog, NULL);
             return TRUE;
 
-        case GDK_F5:
-        case GDK_F6:
+        case GDK_KEY_F5:
+        case GDK_KEY_F6:
             gnome_cmd_toggle_file_name_selection (dialog->dest_dir_entry);
             return TRUE;
 

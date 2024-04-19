@@ -141,21 +141,21 @@ static void response_callback (GnomeCmdKeyShortcutsDialog *dialog, int response_
                     g_free (options);
                 }
 
-                dialog->user_actions->unregister(GDK_F3);
-                dialog->user_actions->unregister(GDK_F4);
-                dialog->user_actions->unregister(GDK_F5);
-                dialog->user_actions->unregister(GDK_F6);
-                dialog->user_actions->unregister(GDK_F7);
-                dialog->user_actions->unregister(GDK_F8);
-                dialog->user_actions->unregister(GDK_F9);
+                dialog->user_actions->unregister(GDK_KEY_F3);
+                dialog->user_actions->unregister(GDK_KEY_F4);
+                dialog->user_actions->unregister(GDK_KEY_F5);
+                dialog->user_actions->unregister(GDK_KEY_F6);
+                dialog->user_actions->unregister(GDK_KEY_F7);
+                dialog->user_actions->unregister(GDK_KEY_F8);
+                dialog->user_actions->unregister(GDK_KEY_F9);
 
-                dialog->user_actions->register_action(GDK_F3, "file.view");
-                dialog->user_actions->register_action(GDK_F4, "file.edit");
-                dialog->user_actions->register_action(GDK_F5, "file.copy");
-                dialog->user_actions->register_action(GDK_F6, "file.rename");
-                dialog->user_actions->register_action(GDK_F7, "file.mkdir");
-                dialog->user_actions->register_action(GDK_F8, "file.delete");
-                dialog->user_actions->register_action(GDK_F9, "edit.search");
+                dialog->user_actions->register_action(GDK_KEY_F3, "file.view");
+                dialog->user_actions->register_action(GDK_KEY_F4, "file.edit");
+                dialog->user_actions->register_action(GDK_KEY_F5, "file.copy");
+                dialog->user_actions->register_action(GDK_KEY_F6, "file.rename");
+                dialog->user_actions->register_action(GDK_KEY_F7, "file.mkdir");
+                dialog->user_actions->register_action(GDK_KEY_F8, "file.delete");
+                dialog->user_actions->register_action(GDK_KEY_F9, "edit.search");
             }
 
             break;

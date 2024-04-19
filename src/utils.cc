@@ -185,7 +185,7 @@ static gboolean delete_event_callback (gpointer data, gpointer user_data)
 
 static gboolean on_run_dialog_keypress (GtkWidget *dialog, GdkEventKey *event, gpointer data)
 {
-    if (event->keyval == GDK_Escape)
+    if (event->keyval == GDK_KEY_Escape)
     {
         gtk_dialog_response (GTK_DIALOG (dialog), GTK_RESPONSE_NONE);
         return TRUE;
@@ -426,7 +426,7 @@ void clear_event_key (GdkEventKey *event)
     g_return_if_fail (event != NULL);
     g_return_if_fail (event->string != NULL);
 
-    event->keyval = GDK_VoidSymbol;
+    event->keyval = GDK_KEY_VoidSymbol;
     event->string[0] = '\0';
 }
 

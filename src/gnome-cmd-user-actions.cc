@@ -296,13 +296,13 @@ void GnomeCmdUserActions::init()
         action_name.add(user_actions_data[i].func, _(user_actions_data[i].description));
     }
 
-    register_action(GDK_F3, "file.view");
-    register_action(GDK_F4, "file.edit");
-    register_action(GDK_F5, "file.copy");
-    register_action(GDK_F6, "file.rename");
-    register_action(GDK_F7, "file.mkdir");
-    register_action(GDK_F8, "file.delete");
-    // register_action(GDK_F9, "edit.search");     //  do not register F9 here, as edit.search action wouldn't be checked for registration later
+    register_action(GDK_KEY_F3, "file.view");
+    register_action(GDK_KEY_F4, "file.edit");
+    register_action(GDK_KEY_F5, "file.copy");
+    register_action(GDK_KEY_F6, "file.rename");
+    register_action(GDK_KEY_F7, "file.mkdir");
+    register_action(GDK_KEY_F8, "file.delete");
+    // register_action(GDK_KEY_F9, "edit.search");     //  do not register F9 here, as edit.search action wouldn't be checked for registration later
     settings = gcmd_user_action_settings_new();
 }
 
@@ -310,162 +310,162 @@ void GnomeCmdUserActions::init()
  void GnomeCmdUserActions::set_defaults()
  {
     if (!registered("view.main_menu"))
-        register_action(GDK_F12, "view.main_menu");
+        register_action(GDK_KEY_F12, "view.main_menu");
 
    if (!registered("bookmarks.edit"))
-        register_action(GDK_CONTROL_MASK, GDK_D, "bookmarks.edit");
+        register_action(GDK_CONTROL_MASK, GDK_KEY_D, "bookmarks.edit");
 
     if (!registered("connections.new"))
-        register_action(GDK_CONTROL_MASK, GDK_N, "connections.new");
+        register_action(GDK_CONTROL_MASK, GDK_KEY_N, "connections.new");
 
     if (!registered("connections.open"))
-        register_action(GDK_CONTROL_MASK, GDK_F, "connections.open");
+        register_action(GDK_CONTROL_MASK, GDK_KEY_F, "connections.open");
 
     if (!registered("connections.close"))
-        register_action(GDK_CONTROL_MASK | GDK_SHIFT_MASK, GDK_F, "connections.close");
+        register_action(GDK_CONTROL_MASK | GDK_SHIFT_MASK, GDK_KEY_F, "connections.close");
 
     if (!registered("connections.change_left"))
     {
-        register_action(GDK_MOD1_MASK, GDK_1, "connections.change_left");
-        register_action(GDK_SUPER_MASK, GDK_1, "connections.change_left");
+        register_action(GDK_MOD1_MASK, GDK_KEY_1, "connections.change_left");
+        register_action(GDK_SUPER_MASK, GDK_KEY_1, "connections.change_left");
     }
 
     if (!registered("connections.change_right"))
     {
-        register_action(GDK_MOD1_MASK, GDK_2, "connections.change_right");
-        register_action(GDK_SUPER_MASK, GDK_2, "connections.change_right");
+        register_action(GDK_MOD1_MASK, GDK_KEY_2, "connections.change_right");
+        register_action(GDK_SUPER_MASK, GDK_KEY_2, "connections.change_right");
     }
 
     if (!registered("edit.copy_filenames"))
-        register_action(GDK_CONTROL_MASK | GDK_SHIFT_MASK, GDK_C, "edit.copy_filenames");
+        register_action(GDK_CONTROL_MASK | GDK_SHIFT_MASK, GDK_KEY_C, "edit.copy_filenames");
 
     if (!registered("edit.filter"))
-        register_action(GDK_CONTROL_MASK, GDK_F12, "edit.filter");
+        register_action(GDK_CONTROL_MASK, GDK_KEY_F12, "edit.filter");
 
     if (!registered("edit.search"))
     {
-        register_action(GDK_MOD1_MASK, GDK_F7, "edit.search");
-        register_action(GDK_SUPER_MASK, GDK_F, "edit.search");
+        register_action(GDK_MOD1_MASK, GDK_KEY_F7, "edit.search");
+        register_action(GDK_SUPER_MASK, GDK_KEY_F, "edit.search");
     }
 
     if (!registered("file.advrename"))
-        register_action(GDK_CONTROL_MASK, GDK_M, "file.advrename");
+        register_action(GDK_CONTROL_MASK, GDK_KEY_M, "file.advrename");
 
     if (!registered("file.copy_as"))
-        register_action(GDK_SHIFT_MASK, GDK_F5, "file.copy_as");
+        register_action(GDK_SHIFT_MASK, GDK_KEY_F5, "file.copy_as");
 
     if (!registered("file.create_symlink"))
-        register_action(GDK_CONTROL_MASK | GDK_SHIFT_MASK, GDK_F5, "file.create_symlink");
+        register_action(GDK_CONTROL_MASK | GDK_SHIFT_MASK, GDK_KEY_F5, "file.create_symlink");
 
     if (!registered("file.edit_new_doc"))
-        register_action(GDK_SHIFT_MASK, GDK_F4, "file.edit_new_doc");
+        register_action(GDK_SHIFT_MASK, GDK_KEY_F4, "file.edit_new_doc");
 
     if (!registered("file.exit"))
-        register_action(GDK_CONTROL_MASK, GDK_Q, "file.exit");
+        register_action(GDK_CONTROL_MASK, GDK_KEY_Q, "file.exit");
 
     if (!registered("file.external_view"))
-        register_action(GDK_MOD1_MASK, GDK_F3, "file.external_view");
+        register_action(GDK_MOD1_MASK, GDK_KEY_F3, "file.external_view");
 
     if (!registered("file.internal_view"))
-        register_action(GDK_SHIFT_MASK, GDK_F3, "file.internal_view");
+        register_action(GDK_SHIFT_MASK, GDK_KEY_F3, "file.internal_view");
 
     if (!registered("mark.compare_directories"))
-        register_action(GDK_SHIFT_MASK, GDK_F2, "mark.compare_directories");
+        register_action(GDK_SHIFT_MASK, GDK_KEY_F2, "mark.compare_directories");
 
     if (!registered("mark.select_all"))
     {
-        register_action(GDK_CONTROL_MASK, GDK_A, "mark.select_all");
-        register_action(GDK_CONTROL_MASK, GDK_equal, "mark.select_all");
-        register_action(GDK_CONTROL_MASK, GDK_KP_Add, "mark.select_all");
+        register_action(GDK_CONTROL_MASK, GDK_KEY_A, "mark.select_all");
+        register_action(GDK_CONTROL_MASK, GDK_KEY_equal, "mark.select_all");
+        register_action(GDK_CONTROL_MASK, GDK_KEY_KP_Add, "mark.select_all");
     }
 
     if (!registered("mark.unselect_all"))
     {
-        register_action(GDK_CONTROL_MASK | GDK_SHIFT_MASK, GDK_A, "mark.unselect_all");
-        register_action(GDK_CONTROL_MASK, GDK_minus, "mark.unselect_all");
-        register_action(GDK_CONTROL_MASK, GDK_KP_Subtract, "mark.unselect_all");
+        register_action(GDK_CONTROL_MASK | GDK_SHIFT_MASK, GDK_KEY_A, "mark.unselect_all");
+        register_action(GDK_CONTROL_MASK, GDK_KEY_minus, "mark.unselect_all");
+        register_action(GDK_CONTROL_MASK, GDK_KEY_KP_Subtract, "mark.unselect_all");
     }
 
     if (!registered("options.edit"))
-        register_action(GDK_CONTROL_MASK, GDK_O, "options.edit");
+        register_action(GDK_CONTROL_MASK, GDK_KEY_O, "options.edit");
 
     if (!registered("dir_history"))
     {
-        register_action(GDK_MOD1_MASK, GDK_Down, "view.dir_history");
-        register_action(GDK_MOD1_MASK, GDK_KP_Down, "view.dir_history");
+        register_action(GDK_MOD1_MASK, GDK_KEY_Down, "view.dir_history");
+        register_action(GDK_MOD1_MASK, GDK_KEY_KP_Down, "view.dir_history");
     }
 
     if (!registered("view.up"))
     {
-        register_action(GDK_CONTROL_MASK, GDK_Page_Up, "view.up");
-        register_action(GDK_CONTROL_MASK, GDK_KP_Page_Up, "view.up");
+        register_action(GDK_CONTROL_MASK, GDK_KEY_Page_Up, "view.up");
+        register_action(GDK_CONTROL_MASK, GDK_KEY_KP_Page_Up, "view.up");
     }
 
     if (!registered("view.equal_panes"))
-        register_action(GDK_CONTROL_MASK | GDK_SHIFT_MASK, GDK_plus, "view.equal_panes");
+        register_action(GDK_CONTROL_MASK | GDK_SHIFT_MASK, GDK_KEY_plus, "view.equal_panes");
 
     if (!registered("view.in_active_pane"))
-        register_action(GDK_CONTROL_MASK, GDK_period, "view.in_active_pane");
+        register_action(GDK_CONTROL_MASK, GDK_KEY_period, "view.in_active_pane");
 
     if (!registered("view.in_inactive_pane"))
-        register_action(GDK_CONTROL_MASK | GDK_SHIFT_MASK, GDK_greater, "view.in_inactive_pane");
+        register_action(GDK_CONTROL_MASK | GDK_SHIFT_MASK, GDK_KEY_greater, "view.in_inactive_pane");
 
     if (!registered("view.in_left_pane"))
     {
-        register_action(GDK_CONTROL_MASK, GDK_Left, "view.in_left_pane");
-        register_action(GDK_CONTROL_MASK, GDK_KP_Left, "view.in_left_pane");
+        register_action(GDK_CONTROL_MASK, GDK_KEY_Left, "view.in_left_pane");
+        register_action(GDK_CONTROL_MASK, GDK_KEY_KP_Left, "view.in_left_pane");
     }
 
     if (!registered("view.in_right_pane"))
     {
-        register_action(GDK_CONTROL_MASK, GDK_Right, "view.in_right_pane");
-        register_action(GDK_CONTROL_MASK, GDK_KP_Right, "view.in_right_pane");
+        register_action(GDK_CONTROL_MASK, GDK_KEY_Right, "view.in_right_pane");
+        register_action(GDK_CONTROL_MASK, GDK_KEY_KP_Right, "view.in_right_pane");
     }
 
     if (!registered("view.in_new_tab"))
     {
-        register_action(GDK_CONTROL_MASK, GDK_Up, "view.in_new_tab");
-        register_action(GDK_CONTROL_MASK, GDK_KP_Up, "view.in_new_tab");
+        register_action(GDK_CONTROL_MASK, GDK_KEY_Up, "view.in_new_tab");
+        register_action(GDK_CONTROL_MASK, GDK_KEY_KP_Up, "view.in_new_tab");
     }
 
     if (!registered("view.in_inactive_tab"))
     {
-        register_action(GDK_CONTROL_MASK | GDK_SHIFT_MASK, GDK_Up, "view.in_inactive_tab");
-        register_action(GDK_CONTROL_MASK | GDK_SHIFT_MASK, GDK_KP_Up, "view.in_inactive_tab");
+        register_action(GDK_CONTROL_MASK | GDK_SHIFT_MASK, GDK_KEY_Up, "view.in_inactive_tab");
+        register_action(GDK_CONTROL_MASK | GDK_SHIFT_MASK, GDK_KEY_KP_Up, "view.in_inactive_tab");
     }
 
     if (!registered("view.directory"))
     {
-        register_action(GDK_CONTROL_MASK, GDK_Page_Down, "view.directory");
-        register_action(GDK_CONTROL_MASK, GDK_KP_Page_Down, "view.directory");
+        register_action(GDK_CONTROL_MASK, GDK_KEY_Page_Down, "view.directory");
+        register_action(GDK_CONTROL_MASK, GDK_KEY_KP_Page_Down, "view.directory");
     }
 
     if (!registered("view.home"))
     {
-        register_action(GDK_CONTROL_MASK, GDK_quoteleft, "view.home");
-        register_action(GDK_CONTROL_MASK | GDK_SHIFT_MASK, GDK_asciitilde, "view.home");
+        register_action(GDK_CONTROL_MASK, GDK_KEY_quoteleft, "view.home");
+        register_action(GDK_CONTROL_MASK | GDK_SHIFT_MASK, GDK_KEY_asciitilde, "view.home");
     }
 
     if (!registered("view.root"))
-        register_action(GDK_CONTROL_MASK, GDK_backslash, "view.root");
+        register_action(GDK_CONTROL_MASK, GDK_KEY_backslash, "view.root");
 
     if (!registered("view.refresh"))
-        register_action(GDK_CONTROL_MASK, GDK_R, "view.refresh");
+        register_action(GDK_CONTROL_MASK, GDK_KEY_R, "view.refresh");
 
     if (!registered("view.new_tab"))
     {
-        unregister(GDK_CONTROL_MASK, GDK_T);                       // unregister CTRL+T as it was used previously for file.advrename
-        register_action(GDK_CONTROL_MASK, GDK_T, "view.new_tab");
+        unregister(GDK_CONTROL_MASK, GDK_KEY_T);                       // unregister CTRL+T as it was used previously for file.advrename
+        register_action(GDK_CONTROL_MASK, GDK_KEY_T, "view.new_tab");
     }
 
     if (!registered("view.close_tab"))
-        register_action(GDK_CONTROL_MASK, GDK_W, "view.close_tab");
+        register_action(GDK_CONTROL_MASK, GDK_KEY_W, "view.close_tab");
 
     if (!registered("view.close_all_tabs"))
-        register_action(GDK_CONTROL_MASK | GDK_SHIFT_MASK, GDK_W, "view.close_all_tabs");
+        register_action(GDK_CONTROL_MASK | GDK_SHIFT_MASK, GDK_KEY_W, "view.close_all_tabs");
 
-    unregister(GDK_F9);                                 // unregister F9 if defined in [key-bindings]
-    register_action(GDK_F9, "edit.search");             // and overwrite it with edit.search action
+    unregister(GDK_KEY_F9);                                 // unregister F9 if defined in [key-bindings]
+    register_action(GDK_KEY_F9, "edit.search");             // and overwrite it with edit.search action
  }
 
 
@@ -473,13 +473,13 @@ void GnomeCmdUserActions::shutdown()
 {
     // unregister Fn to avoid writing 'hardcoded' Fn actions to config file
 
-    unregister(GDK_F3);
-    unregister(GDK_F4);
-    unregister(GDK_F5);
-    unregister(GDK_F6);
-    unregister(GDK_F7);
-    unregister(GDK_F8);
-    unregister(GDK_F9);
+    unregister(GDK_KEY_F3);
+    unregister(GDK_KEY_F4);
+    unregister(GDK_KEY_F5);
+    unregister(GDK_KEY_F6);
+    unregister(GDK_KEY_F7);
+    unregister(GDK_KEY_F8);
+    unregister(GDK_KEY_F9);
 }
 
 

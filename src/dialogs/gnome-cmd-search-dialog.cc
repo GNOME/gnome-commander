@@ -400,11 +400,11 @@ inline gboolean handle_list_keypress (GnomeCmdFileList *fl, GdkEventKey *event)
 {
     switch (event->keyval)
     {
-        case GDK_F3:
+        case GDK_KEY_F3:
             gnome_cmd_file_list_view (fl, gnome_cmd_data.options.use_internal_viewer);
             return TRUE;
 
-        case GDK_F4:
+        case GDK_KEY_F4:
             gnome_cmd_file_list_edit (fl);
             return TRUE;
         default:
