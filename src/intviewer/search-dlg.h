@@ -24,9 +24,9 @@
 
 #pragma once
 
-#define GVIEWER_SEARCH_DLG(obj)          GTK_CHECK_CAST (obj, gviewer_search_dlg_get_type(), GViewerSearchDlg)
-#define GVIEWER_SEARCH_DLG_CLASS(klass)  GTK_CHECK_CLASS_CAST (klass, gviewer_search_dlg_get_type(), GViewerSearchDlgClass)
-#define IS_GVIEWER_SEARCH_DLG(obj)       GTK_CHECK_TYPE (obj, gviewer_search_dlg_get_type())
+#define GVIEWER_SEARCH_DLG(obj)          G_TYPE_CHECK_INSTANCE_CAST (obj, gviewer_search_dlg_get_type(), GViewerSearchDlg)
+#define GVIEWER_SEARCH_DLG_CLASS(klass)  G_TYPE_CHECK_CLASS_CAST (klass, gviewer_search_dlg_get_type(), GViewerSearchDlgClass)
+#define IS_GVIEWER_SEARCH_DLG(obj)       G_TYPE_CHECK_INSTANCE_TYPE (obj, gviewer_search_dlg_get_type())
 
 struct GViewerSearchDlgPrivate;
 

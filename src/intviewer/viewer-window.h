@@ -32,11 +32,11 @@ G_DECLARE_FINAL_TYPE (InternalViewerSettings, iv_settings, GCMD_IV, SETTINGS, GO
 InternalViewerSettings *iv_settings_new (void);
 
 #define GVIEWER_WINDOW(obj) \
-    GTK_CHECK_CAST (obj, gviewer_window_get_type (), GViewerWindow)
+    G_TYPE_CHECK_INSTANCE_CAST (obj, gviewer_window_get_type (), GViewerWindow)
 #define GVIEWER_WINDOW_CLASS(clss) \
-    GTK_CHECK_CLASS_CAST (clss, gviewer_window_get_type (), GViewerWindowClass)
+    G_TYPE_CHECK_CLASS_CAST (clss, gviewer_window_get_type (), GViewerWindowClass)
 #define IS_GVIEWER_WINDOW(obj) \
-    GTK_CHECK_TYPE (obj, gviewer_window_get_type ())
+    G_TYPE_CHECK_INSTANCE_TYPE (obj, gviewer_window_get_type ())
 
 #define UTF8      "UTF8"           // UTF-8
 #define ASCII     "ASCII"          // English (US-ASCII)

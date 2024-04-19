@@ -24,9 +24,9 @@
 
 #pragma once
 
-#define GVIEWER(obj)          GTK_CHECK_CAST (obj, gviewer_get_type (), GViewer)
-#define GVIEWER_CLASS(klass)  GTK_CHECK_CLASS_CAST (klass, gviewer_get_type (), GViewerClass)
-#define IS_GVIEWER(obj)       GTK_CHECK_TYPE (obj, gviewer_get_type ())
+#define GVIEWER(obj)          G_TYPE_CHECK_INSTANCE_CAST (obj, gviewer_get_type (), GViewer)
+#define GVIEWER_CLASS(klass)  G_TYPE_CHECK_CLASS_CAST (klass, gviewer_get_type (), GViewerClass)
+#define IS_GVIEWER(obj)       G_TYPE_CHECK_INSTANCE_TYPE (obj, gviewer_get_type ())
 
 struct GViewerPrivate;
 

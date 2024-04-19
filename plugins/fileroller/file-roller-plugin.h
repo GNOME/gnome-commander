@@ -26,11 +26,11 @@ G_DECLARE_FINAL_TYPE (PluginSettings, plugin_settings, GCMD, SETTINGS, GObject)
 PluginSettings *plugin_settings_new (void);
 
 #define FILE_ROLLER_PLUGIN(obj) \
-    GTK_CHECK_CAST (obj, file_roller_plugin_get_type (), FileRollerPlugin)
+    G_TYPE_CHECK_INSTANCE_CAST (obj, file_roller_plugin_get_type (), FileRollerPlugin)
 #define FILE_ROLLER_PLUGIN_CLASS(klass) \
-    GTK_CHECK_CLASS_CAST (klass, file_roller_plugin_get_type (), FileRollerPluginClass)
+    G_TYPE_CHECK_CLASS_CAST (klass, file_roller_plugin_get_type (), FileRollerPluginClass)
 #define IS_FILE_ROLLER_PLUGIN(obj) \
-    GTK_CHECK_TYPE (obj, file_roller_plugin_get_type ())
+    G_TYPE_CHECK_INSTANCE_TYPE (obj, file_roller_plugin_get_type ())
 
 
 typedef struct _FileRollerPlugin FileRollerPlugin;

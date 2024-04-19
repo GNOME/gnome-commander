@@ -22,11 +22,11 @@
 #pragma once
 
 #define TEST_PLUGIN(obj) \
-    GTK_CHECK_CAST (obj, test_plugin_get_type (), TestPlugin)
+    G_TYPE_CHECK_INSTANCE_CAST (obj, test_plugin_get_type (), TestPlugin)
 #define TEST_PLUGIN_CLASS(klass) \
-    GTK_CHECK_CLASS_CAST (klass, test_plugin_get_type (), TestPluginClass)
+    G_TYPE_CHECK_CLASS_CAST (klass, test_plugin_get_type (), TestPluginClass)
 #define IS_TEST_PLUGIN(obj) \
-    GTK_CHECK_TYPE (obj, test_plugin_get_type ())
+    G_TYPE_CHECK_INSTANCE_TYPE (obj, test_plugin_get_type ())
 
 
 typedef struct _TestPlugin TestPlugin;
