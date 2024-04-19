@@ -202,9 +202,9 @@ GtkWidget *create_named_button_with_data (GtkWidget *parent, const gchar *label,
 {
     guint key;
     GtkAccelGroup *accel_group = gtk_accel_group_new ();
-    GtkWidget *w = gtk_button_new_with_label ("");
+    GtkWidget *w = gtk_button_new_with_mnemonic (label);
 
-    key = gtk_label_parse_uline (GTK_LABEL (gtk_bin_get_child( GTK_BIN (w))), label);
+    key = gtk_label_get_mnemonic_keyval (GTK_LABEL (gtk_bin_get_child( GTK_BIN (w))));
     gtk_widget_add_accelerator (w, "clicked", accel_group, key, GDK_MOD1_MASK, (GtkAccelFlags) 0);
     gtk_window_add_accel_group (GTK_WINDOW (parent), accel_group);
     g_object_ref (w);

@@ -282,7 +282,7 @@ GtkWidget *gnome_cmd_combo_new_with_store (GtkListStore *store, gint num_cols, g
     priv->entry = gtk_bin_get_child (GTK_BIN (combo));
 
     gtk_widget_set_size_request (priv->entry, 60, -1);
-    gtk_entry_set_editable (GTK_ENTRY (priv->entry), FALSE);
+    gtk_editable_set_editable (GTK_EDITABLE (priv->entry), FALSE);
     gtk_widget_set_can_focus (priv->entry, FALSE);
 
     // TODO: in gtk3 - set button relief to none

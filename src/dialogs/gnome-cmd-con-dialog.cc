@@ -400,18 +400,18 @@ static void gnome_cmd_connect_dialog_init (GnomeCmdConnectDialog *dialog)
     gtk_widget_show (label);
     gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, FALSE, 0);
 
-    dialog->priv->type_combo = combo = gtk_combo_box_new_text ();
+    dialog->priv->type_combo = combo = gtk_combo_box_text_new ();
 
     // Keep this in sync with enum ConnectionMethodID in gnome-cmd-con.h
-    gtk_combo_box_append_text (GTK_COMBO_BOX (combo), _("SSH"));
-    gtk_combo_box_append_text (GTK_COMBO_BOX (combo), _("FTP (with login)"));
-    gtk_combo_box_append_text (GTK_COMBO_BOX (combo), _("Public FTP"));
+    gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (combo), _("SSH"));
+    gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (combo), _("FTP (with login)"));
+    gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (combo), _("Public FTP"));
 #ifdef HAVE_SAMBA
-    gtk_combo_box_append_text (GTK_COMBO_BOX (combo), _("Windows share"));
+    gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (combo), _("Windows share"));
 #endif
-    gtk_combo_box_append_text (GTK_COMBO_BOX (combo), _("WebDAV (HTTP)"));
-    gtk_combo_box_append_text (GTK_COMBO_BOX (combo), _("Secure WebDAV (HTTPS)"));
-    gtk_combo_box_append_text (GTK_COMBO_BOX (combo), _("Custom location"));
+    gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (combo), _("WebDAV (HTTP)"));
+    gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (combo), _("Secure WebDAV (HTTPS)"));
+    gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (combo), _("Custom location"));
     gtk_widget_show (combo);
     gtk_label_set_mnemonic_widget (GTK_LABEL (label), combo);
     gtk_box_pack_start (GTK_BOX (hbox), combo, TRUE, TRUE, 0);

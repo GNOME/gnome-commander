@@ -184,7 +184,6 @@ void GnomeCmdAdvrenameDialog::Private::do_manage_profiles(GnomeCmdAdvrenameDialo
         GtkWidget *menu = gtk_widget_get_parent(widget);
 
         gnome_cmd_button_menu_disconnect_handler (priv->profile_menu_button, menu);
-        g_object_unref (gtk_item_factory_from_widget (menu));
         gnome_cmd_button_menu_connect_handler (priv->profile_menu_button, priv->create_placeholder_menu(&cfg));
     }
 }

@@ -104,9 +104,14 @@ gboolean gviewer_search_dlg_get_case_sensitive (GViewerSearchDlg *sdlg)
 
 inline void set_text_history (GViewerSearchDlg *sdlg)
 {
+    GtkTreeModel *store = gtk_combo_box_get_model (GTK_COMBO_BOX (sdlg->priv->entry));
     for (GList *i=gnome_cmd_data.intviewer_defaults.text_patterns.ents; i; i=i->next)
         if (i->data)
-            gtk_combo_box_append_text (GTK_COMBO_BOX (sdlg->priv->entry), (gchar *) i->data);
+        {
+            GtkTreeIter iter;
+            gtk_list_store_append (GTK_LIST_STORE (store), &iter);
+            gtk_list_store_set (GTK_LIST_STORE (store), &iter, 0, (const gchar *) i->data, -1);
+        }
 }
 
 
@@ -173,7 +178,7 @@ static void search_dlg_action_response (GtkDialog *dlg, gint arg1, GViewerSearch
     g_return_if_fail (sdlg->priv->search_text_string==nullptr);
     g_return_if_fail (sdlg->priv->search_hex_buffer==nullptr);
 
-    gchar *pattern = gtk_combo_box_get_active_text (GTK_COMBO_BOX (sdlg->priv->entry));
+    const gchar *pattern = gtk_entry_get_text (GTK_ENTRY (gtk_bin_get_child (GTK_BIN (sdlg->priv->entry))));
 
     sdlg->priv->search_text_string = g_strdup (pattern);
 
@@ -261,7 +266,7 @@ static void gviewer_search_dlg_init (GViewerSearchDlg *sdlg)
     gtk_table_attach(table, sdlg->priv->label, 0, 1, 0, 1, GTK_FILL, GTK_FILL, 0, 0);
 
     // Entry Box
-    sdlg->priv->entry = gtk_combo_box_entry_new_text();
+    sdlg->priv->entry = gtk_combo_box_new_with_model_and_entry (GTK_TREE_MODEL (gtk_list_store_new (1, G_TYPE_STRING)));
     entry = gtk_bin_get_child (GTK_BIN (sdlg->priv->entry));
     g_object_set(entry, "activates-default", TRUE, nullptr);
     g_signal_connect (entry, "changed", G_CALLBACK (entry_changed), sdlg);

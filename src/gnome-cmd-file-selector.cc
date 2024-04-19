@@ -422,7 +422,7 @@ static void on_realize (GnomeCmdFileSelector *fs, gpointer user_data)
 }
 
 
-static void on_notebook_switch_page (GtkNotebook *notebook, GtkNotebookPage *page, guint n, GnomeCmdFileSelector *fs)
+static void on_notebook_switch_page (GtkNotebook *notebook, gpointer page, guint n, GnomeCmdFileSelector *fs)
 {
     g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
 
@@ -795,7 +795,7 @@ static void gnome_cmd_file_selector_init (GnomeCmdFileSelector *fs)
     g_object_ref (fs->con_combo);
     g_object_set_data_full (*fs, "con_combo", fs->con_combo, g_object_unref);
     gtk_widget_set_size_request (*fs->con_combo, max_string_size, -1);
-    gtk_entry_set_editable (GTK_ENTRY (fs->con_combo->get_entry()), FALSE);
+    gtk_editable_set_editable (GTK_EDITABLE (fs->con_combo->get_entry()), FALSE);
 
     // create the free space on volume label
     fs->vol_label = gtk_label_new ("");

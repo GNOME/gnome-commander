@@ -1242,7 +1242,7 @@ void gviewer_window_hide_metadata(GViewerWindow *gViewerWindow)
 
     gViewerWindow->priv->metadata_visible = FALSE;
     // gtk_container_remove (GTK_CONTAINER (obj->priv->vbox), obj->priv->metadata_view);
-    gtk_widget_hide_all (gViewerWindow->priv->metadata_view);
+    gtk_widget_hide (gViewerWindow->priv->metadata_view);
     gtk_widget_grab_focus (GTK_WIDGET (gViewerWindow->priv->viewer));
 }
 

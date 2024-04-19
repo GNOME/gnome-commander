@@ -262,7 +262,7 @@ static void on_dialog_help (GtkButton *button, GnomeCmdFilePropsDialogPrivate *d
 }
 
 
-static void on_notebook_page_change (GtkNotebook *notebook, GtkNotebookPage *page, guint page_num, GnomeCmdFilePropsDialogPrivate *data)
+static void on_notebook_page_change (GtkNotebook *notebook, gpointer page, guint page_num, GnomeCmdFilePropsDialogPrivate *data)
 {
     gtk_widget_set_sensitive (data->copy_button, page_num==2);
 }

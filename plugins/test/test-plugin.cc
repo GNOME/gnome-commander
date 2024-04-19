@@ -122,7 +122,7 @@ static GtkWidget *create_main_menu (GnomeCmdPlugin *plugin, GnomeCmdState *state
                                GTK_WIDGET (submenu));
 
     child = create_menu_item ("Test plugin dummy operation", FALSE, G_CALLBACK (on_dummy), state);
-    gtk_menu_append (submenu, child);
+    gtk_menu_shell_append (GTK_MENU_SHELL (submenu), child);
 
     return item;
 }

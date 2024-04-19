@@ -140,7 +140,7 @@ inline void GnomeCmdRemoteDialog::do_connect(GnomeCmdConRemote *server)
 
     gtk_widget_destroy (*this);
 
-    g_timeout_add (1, (GtkFunction) do_connect_real, server);
+    g_timeout_add (1, G_SOURCE_FUNC (do_connect_real), server);
 }
 
 
