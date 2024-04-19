@@ -58,32 +58,14 @@ enum Pixmap
 
     PIXMAP_INTERNAL_VIEWER,
 
-    NUM_PIXMAPS
+    NUM_PIXBUFS
 };
 
 
 void IMAGE_init ();
 void IMAGE_free ();
 
-GnomeCmdPixmap *IMAGE_get_gnome_cmd_pixmap (Pixmap pixmap_id);
-
-inline GdkPixmap *IMAGE_get_pixmap (Pixmap pixmap_id)
-{
-    GnomeCmdPixmap *pixmap = IMAGE_get_gnome_cmd_pixmap (pixmap_id);
-    return pixmap ? pixmap->pixmap : NULL;
-}
-
-inline GdkBitmap *IMAGE_get_mask (Pixmap pixmap_id)
-{
-    GnomeCmdPixmap *pixmap = IMAGE_get_gnome_cmd_pixmap (pixmap_id);
-    return pixmap ? pixmap->mask : NULL;
-}
-
-inline GdkPixbuf *IMAGE_get_pixbuf (Pixmap pixmap_id)
-{
-    GnomeCmdPixmap *pixmap = IMAGE_get_gnome_cmd_pixmap (pixmap_id);
-    return pixmap ? pixmap->pixbuf : NULL;
-}
+GdkPixbuf *IMAGE_get_pixbuf (Pixmap pixmap_id);
 
 GdkPixbuf *IMAGE_get_pixmap_and_mask (guint32 type,
                                       const gchar *mime_type,

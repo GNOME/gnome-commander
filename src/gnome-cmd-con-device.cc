@@ -493,9 +493,9 @@ static void gnome_cmd_con_device_init (GnomeCmdConDevice *dev_con)
     con->can_show_free_space = TRUE;
     con->is_local = TRUE;
     con->is_closeable = TRUE;
-    con->go_pixmap = nullptr;
-    con->open_pixmap = nullptr;
-    con->close_pixmap = nullptr;
+    con->go_pixbuf = nullptr;
+    con->open_pixbuf = nullptr;
+    con->close_pixbuf = nullptr;
 }
 
 /***********************************
@@ -576,13 +576,9 @@ void gnome_cmd_con_device_set_icon_path (GnomeCmdConDevice *dev, const gchar *ic
 
     GnomeCmdCon *con = GNOME_CMD_CON (dev);
 
-    gnome_cmd_pixmap_free (con->go_pixmap);
-    gnome_cmd_pixmap_free (con->open_pixmap);
-    gnome_cmd_pixmap_free (con->close_pixmap);
-
-    con->go_pixmap = nullptr;
-    con->open_pixmap = nullptr;
-    con->close_pixmap = nullptr;
+    g_clear_object (&con->go_pixbuf);
+    g_clear_object (&con->open_pixbuf);
+    g_clear_object (&con->close_pixbuf);
 
     priv->icon_path = g_strdup (icon_path);
 
@@ -590,33 +586,30 @@ void gnome_cmd_con_device_set_icon_path (GnomeCmdConDevice *dev, const gchar *ic
     {
         guint dev_icon_size = gnome_cmd_data.dev_icon_size;
 
-        con->go_pixmap = gnome_cmd_pixmap_new_from_file (icon_path, dev_icon_size, dev_icon_size);
-        con->open_pixmap = gnome_cmd_pixmap_new_from_file (icon_path, dev_icon_size, dev_icon_size);
+        con->go_pixbuf = pixbuf_from_file (icon_path, dev_icon_size, dev_icon_size);
+        con->open_pixbuf = pixbuf_from_file (icon_path, dev_icon_size, dev_icon_size);
 
-        if (con->open_pixmap)
+        if (con->open_pixbuf)
         {
-            GdkPixbuf *overlay = gdk_pixbuf_copy (con->open_pixmap->pixbuf);
+            GdkPixbuf *overlay = gdk_pixbuf_copy (con->open_pixbuf);
 
             if (overlay)
             {
                 GdkPixbuf *umount = IMAGE_get_pixbuf (PIXMAP_OVERLAY_UMOUNT);
-#if defined (__GNUC__)
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wsign-compare"
-#endif
+
                 if (umount)
                 {
                     gdk_pixbuf_copy_area (umount, 0, 0,
-                                          MIN (gdk_pixbuf_get_width (umount), dev_icon_size),
-                                          MIN (gdk_pixbuf_get_height (umount), dev_icon_size),
+                                          MIN (gdk_pixbuf_get_width (umount), (gint) dev_icon_size),
+                                          MIN (gdk_pixbuf_get_height (umount), (gint) dev_icon_size),
                                           overlay, 0, 0);
 
-                    con->close_pixmap = gnome_cmd_pixmap_new_from_pixbuf (overlay);
+                    con->close_pixbuf = overlay;
                 }
-#if defined (__GNUC__)
-#pragma GCC diagnostic pop
-#endif
-                g_object_unref (overlay);
+                else
+                {
+                    g_object_unref (overlay);
+                }
             }
         }
     }

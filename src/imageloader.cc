@@ -52,7 +52,7 @@ static const gchar *file_type_pixmap_files[] = {
 #define NUM_FILE_TYPE_PIXMAPS G_N_ELEMENTS(file_type_pixmap_files)
 
 
-static const gchar *pixmap_files[NUM_PIXMAPS] = {"",
+static const gchar *pixmap_files[NUM_PIXBUFS] = {"",
                                                  "gnome_cmd_arrow_up.xpm",
                                                  "gnome_cmd_arrow_down.xpm",
                                                  "gnome_cmd_arrow_blank.xpm",
@@ -74,7 +74,7 @@ static const gchar *categories[][2] = {{"text", "gnome-text-plain.png"},
                                        {"pack", "gnome-pack-plain.png"},
                                        {"font", "gnome-font-plain.png"}};
 
-static GnomeCmdPixmap *pixmaps[NUM_PIXMAPS];
+static GdkPixbuf *pixbufs[NUM_PIXBUFS];
 static CacheEntry file_type_pixmaps[NUM_FILE_TYPE_PIXMAPS];
 
 static GHashTable *mime_cache = nullptr;
@@ -94,21 +94,21 @@ void IMAGE_init ()
 
      // Load misc icons
 
-    for (gint i=1; i<NUM_PIXMAPS; i++)
+    for (gint i=1; i<NUM_PIXBUFS; i++)
     {
         gchar *path = g_build_filename (PIXMAPS_DIR, pixmap_files[i], nullptr);
 
         DEBUG ('i', "imageloader: loading pixmap: %s\n", path);
 
-        pixmaps[i] = gnome_cmd_pixmap_new_from_file (path);
-        if (!pixmaps[i])
+        pixbufs[i] = pixbuf_from_file (path);
+        if (!pixbufs[i])
         {
             gchar *path2 = g_build_filename ("../pixmaps", pixmap_files[i], nullptr);
 
             g_warning (_("Couldn’t load installed file type pixmap, trying to load %s instead"), path2);
 
-            pixmaps[i] = gnome_cmd_pixmap_new_from_file (path2);
-            if (!pixmaps[i])
+            pixbufs[i] = pixbuf_from_file (path2);
+            if (!pixbufs[i])
                 g_warning (_("Can’t find the pixmap anywhere. Make sure you have installed the program or is executing gnome-commander from the gnome-commander-%s/src directory"), PACKAGE_VERSION);
 
             g_free (path2);
@@ -144,9 +144,9 @@ void IMAGE_init ()
 }
 
 
-GnomeCmdPixmap *IMAGE_get_gnome_cmd_pixmap (Pixmap pixmap_id)
+GdkPixbuf *IMAGE_get_pixbuf (Pixmap pixmap_id)
 {
-    return pixmap_id > 0 && pixmap_id < NUM_PIXMAPS ? pixmaps[pixmap_id] : nullptr;
+    return pixmap_id > 0 && pixmap_id < NUM_PIXBUFS ? pixbufs[pixmap_id] : nullptr;
 }
 
 
@@ -222,7 +222,7 @@ inline gchar *get_mime_file_type_icon_path (guint32 type, const gchar *icon_dir)
 
 /**
  * Returns the full path the image representing the given mime-type in
- * the gived directory. There is no guarantee that the image exists this
+ * the given directory. There is no guarantee that the image exists this
  * function just returns the name that the icon should have if it exists.
  */
 inline gchar *get_mime_document_type_icon_path (const gchar *mime_type, const gchar *icon_dir)
@@ -269,8 +269,7 @@ static gboolean load_icon (const gchar *icon_path, GdkPixbuf **pb, GdkPixbuf **l
     // Load the symlink overlay pixmap
     if (!symlink_pixbuf)
     {
-        if (pixmaps[PIXMAP_OVERLAY_SYMLINK])
-            symlink_pixbuf = pixmaps[PIXMAP_OVERLAY_SYMLINK]->pixbuf;
+        symlink_pixbuf = pixbufs[PIXMAP_OVERLAY_SYMLINK];
     }
     sym_w = gdk_pixbuf_get_width (symlink_pixbuf);
     sym_h = gdk_pixbuf_get_height (symlink_pixbuf);
@@ -308,7 +307,7 @@ static gboolean load_icon (const gchar *icon_path, GdkPixbuf **pb, GdkPixbuf **l
 
 
 /**
- * Tries to load an image for the specifed mime-type in the specifed directory.
+ * Tries to load an image for the specified mime-type in the specified directory.
  * If symlink is true a smaller symlink image is painted over the image to indicate this.
  */
 static GdkPixbuf *get_mime_icon_in_dir (const gchar *icon_dir,
@@ -451,10 +450,9 @@ void IMAGE_clear_mime_cache ()
 
 void IMAGE_free ()
 {
-    for (int i=0; i<NUM_PIXMAPS; i++)
+    for (int i=0; i<NUM_PIXBUFS; i++)
     {
-        gnome_cmd_pixmap_free (pixmaps[i]);
-        pixmaps[i] = nullptr;
+        g_clear_object (&pixbufs[i]);
     }
 }
 

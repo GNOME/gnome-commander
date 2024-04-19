@@ -248,13 +248,13 @@ static void gnome_cmd_con_remote_init (GnomeCmdConRemote *remote_con)
     con->can_show_free_space = FALSE;
     con->is_local = FALSE;
     con->is_closeable = TRUE;
-    con->go_pixmap = gnome_cmd_pixmap_new_from_icon (gnome_cmd_con_get_icon_name (con), dev_icon_size);
-    con->open_pixmap = gnome_cmd_pixmap_new_from_icon (gnome_cmd_con_get_icon_name (con), dev_icon_size);
-    con->close_pixmap = gnome_cmd_pixmap_new_from_icon (gnome_cmd_con_get_icon_name (con), icon_size);
+    con->go_pixbuf = pixbuf_from_icon (gnome_cmd_con_get_icon_name (con), dev_icon_size);
+    con->open_pixbuf = pixbuf_from_icon (gnome_cmd_con_get_icon_name (con), dev_icon_size);
+    con->close_pixbuf = pixbuf_from_icon (gnome_cmd_con_get_icon_name (con), icon_size);
 
-    if (con->close_pixmap)
+    if (con->close_pixbuf)
     {
-        GdkPixbuf *overlay = gdk_pixbuf_copy (con->close_pixmap->pixbuf);
+        GdkPixbuf *overlay = gdk_pixbuf_copy (con->close_pixbuf);
 
         if (overlay)
         {
@@ -266,11 +266,14 @@ static void gnome_cmd_con_remote_init (GnomeCmdConRemote *remote_con)
                                       MIN (gdk_pixbuf_get_width (umount), icon_size),
                                       MIN (gdk_pixbuf_get_height (umount), icon_size),
                                       overlay, 0, 0);
-                // FIXME: free con->close_pixmap here
-                con->close_pixmap = gnome_cmd_pixmap_new_from_pixbuf (overlay);
-            }
 
-            g_object_unref (overlay);
+                g_object_unref (con->close_pixbuf);
+                con->close_pixbuf = overlay;
+            }
+            else
+            {
+                g_object_unref (overlay);
+            }
         }
     }
 }

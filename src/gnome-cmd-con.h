@@ -94,13 +94,13 @@ struct GnomeCmdCon
     gboolean            is_closeable;
     gchar               *go_text;
     gchar               *go_tooltip;
-    GnomeCmdPixmap      *go_pixmap;
+    GdkPixbuf           *go_pixbuf;
     gchar               *open_text;
     gchar               *open_tooltip;
-    GnomeCmdPixmap      *open_pixmap;
+    GdkPixbuf           *open_pixbuf;
     gchar               *close_text;
     gchar               *close_tooltip;
-    GnomeCmdPixmap      *close_pixmap;
+    GdkPixbuf           *close_pixbuf;
 
     OpenResult          open_result;
     GError              *open_failed_error;
@@ -356,22 +356,22 @@ inline const gchar *gnome_cmd_con_get_close_tooltip (GnomeCmdCon *con)
     return con->close_tooltip;
 }
 
-inline GnomeCmdPixmap *gnome_cmd_con_get_go_pixmap (GnomeCmdCon *con)
+inline GdkPixbuf *gnome_cmd_con_get_go_pixbuf (GnomeCmdCon *con)
 {
     g_return_val_if_fail (GNOME_CMD_IS_CON (con), NULL);
-    return con->go_pixmap;
+    return con->go_pixbuf;
 }
 
-inline GnomeCmdPixmap *gnome_cmd_con_get_open_pixmap (GnomeCmdCon *con)
+inline GdkPixbuf *gnome_cmd_con_get_open_pixbuf (GnomeCmdCon *con)
 {
     g_return_val_if_fail (GNOME_CMD_IS_CON (con), NULL);
-    return con->open_pixmap;
+    return con->open_pixbuf;
 }
 
-inline GnomeCmdPixmap *gnome_cmd_con_get_close_pixmap (GnomeCmdCon *con)
+inline GdkPixbuf *gnome_cmd_con_get_close_pixbuf (GnomeCmdCon *con)
 {
     g_return_val_if_fail (GNOME_CMD_IS_CON (con), NULL);
-    return con->close_pixmap;
+    return con->close_pixbuf;
 }
 
 GnomeCmdBookmarkGroup *gnome_cmd_con_get_bookmarks (GnomeCmdCon *con);

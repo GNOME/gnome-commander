@@ -107,13 +107,13 @@ static void dispose (GObject *object)
     }
     g_clear_pointer (&con->open_text, g_free);
     g_clear_pointer (&con->open_tooltip, g_free);
-    g_clear_pointer (&con->open_pixmap, gnome_cmd_pixmap_free);
+    g_clear_object (&con->open_pixbuf);
     g_clear_pointer (&con->close_text, g_free);
     g_clear_pointer (&con->close_tooltip, g_free);
     g_clear_object (&con->base_gFileInfo);
     g_clear_error (&con->open_failed_error);
-    g_clear_pointer (&con->close_pixmap, gnome_cmd_pixmap_free);
-    g_clear_pointer (&con->go_pixmap, gnome_cmd_pixmap_free);
+    g_clear_object (&con->close_pixbuf);
+    g_clear_object (&con->go_pixbuf);
 
     g_clear_pointer (&priv->default_dir, gnome_cmd_dir_unref);
 
@@ -204,13 +204,13 @@ static void gnome_cmd_con_init (GnomeCmdCon *con)
     con->is_closeable = FALSE;
     con->go_text = nullptr;
     con->go_tooltip = nullptr;
-    con->go_pixmap = nullptr;
+    con->go_pixbuf = nullptr;
     con->open_text = nullptr;
     con->open_tooltip = nullptr;
-    con->open_pixmap = nullptr;
+    con->open_pixbuf = nullptr;
     con->close_text = nullptr;
     con->close_tooltip = nullptr;
-    con->close_pixmap = nullptr;
+    con->close_pixbuf = nullptr;
 
     con->state = GnomeCmdCon::STATE_CLOSED;
     con->open_result = GnomeCmdCon::OPEN_NOT_STARTED;

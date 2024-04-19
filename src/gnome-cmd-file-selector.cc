@@ -370,7 +370,7 @@ static void create_con_buttons (GnomeCmdFileSelector *fs)
         if (!gnome_cmd_con_is_open (con) && !GNOME_CMD_IS_CON_DEVICE (con))  continue;
 #endif
 
-        GnomeCmdPixmap *pm = gnome_cmd_con_get_go_pixmap (con);
+        GdkPixbuf *pb = gnome_cmd_con_get_go_pixbuf (con);
 
         GtkWidget *btn = create_styled_button (nullptr);
         g_object_set_data (G_OBJECT (btn), "con", con);
@@ -385,9 +385,9 @@ static void create_con_buttons (GnomeCmdFileSelector *fs)
         g_object_set_data_full (*fs, "con-hbox", hbox, g_object_unref);
         gtk_widget_show (hbox);
 
-        if (pm)
+        if (pb)
         {
-            GtkWidget *image = gtk_image_new_from_pixmap (pm->pixmap, pm->mask);
+            GtkWidget *image = gtk_image_new_from_pixbuf (pb);
             if (image)
             {
                 g_object_ref (image);
@@ -397,7 +397,7 @@ static void create_con_buttons (GnomeCmdFileSelector *fs)
             }
         }
 
-        if (!gnome_cmd_data.options.device_only_icon || !pm)
+        if (!gnome_cmd_data.options.device_only_icon || !pb)
         {
             GtkWidget *label = gtk_label_new (gnome_cmd_con_get_alias (con));
             g_object_ref (label);
@@ -978,10 +978,10 @@ void GnomeCmdFileSelector::update_connections()
         if (con == get_connection())
             found_my_con = TRUE;
 
-        GnomeCmdPixmap *pixmap = gnome_cmd_con_get_go_pixmap (con);
+        GdkPixbuf *pixbuf = gnome_cmd_con_get_go_pixbuf (con);
 
-        if (pixmap)
-            con_combo->append((gchar *) gnome_cmd_con_get_alias (con), con, 0, pixmap->pixbuf, -1);
+        if (pixbuf)
+            con_combo->append((gchar *) gnome_cmd_con_get_alias (con), con, 0, pixbuf, -1);
     }
 
     // If the connection is no longer available use the home connection

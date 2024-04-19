@@ -604,7 +604,7 @@ static void gnome_cmd_dir_indicator_init (GnomeCmdDirIndicator *indicator)
     gtk_container_add (GTK_CONTAINER (indicator->priv->history_button), arrow);
 
     // create the bookmark popup button
-    indicator->priv->bookmark_button = create_styled_pixmap_button (nullptr, IMAGE_get_gnome_cmd_pixmap (PIXMAP_BOOKMARK));
+    indicator->priv->bookmark_button = create_styled_pixbuf_button (nullptr, IMAGE_get_pixbuf (PIXMAP_BOOKMARK));
     gtk_widget_set_can_focus (indicator->priv->bookmark_button, FALSE);
     gtk_button_set_relief (GTK_BUTTON (indicator->priv->bookmark_button), GTK_RELIEF_NONE);
     g_object_set_data_full (G_OBJECT (indicator), "button", indicator->priv->bookmark_button, g_object_unref);

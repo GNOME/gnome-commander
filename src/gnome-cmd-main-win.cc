@@ -571,7 +571,7 @@ static void on_main_win_realize (GtkWidget *widget, GnomeCmdMainWin *mw)
         // g_free (dpath);
     // }
 
-    gdk_window_set_icon (gtk_widget_get_window (GTK_WIDGET (mw)), NULL, IMAGE_get_pixmap (PIXMAP_LOGO), IMAGE_get_mask (PIXMAP_LOGO));
+    gtk_window_set_icon (GTK_WINDOW (mw), IMAGE_get_pixbuf (PIXMAP_LOGO));
 }
 
 
@@ -665,7 +665,7 @@ void GnomeCmdMainWin::update_drop_con_button(GnomeCmdFileList *fl)
     if (!fl)
         return;
 
-    GnomeCmdPixmap *pm = NULL;
+    GdkPixbuf *pb = NULL;
     static GtkWidget *prev_widget = NULL;
 
     GnomeCmdCon *con = fl->con;
@@ -685,7 +685,7 @@ void GnomeCmdMainWin::update_drop_con_button(GnomeCmdFileList *fl)
     }
 
     if (gnome_cmd_con_is_closeable (con))
-        pm = gnome_cmd_con_get_close_pixmap (con);
+        pb = gnome_cmd_con_get_close_pixbuf (con);
     else
     {
         gtk_widget_set_sensitive (btn, FALSE);
@@ -695,9 +695,9 @@ void GnomeCmdMainWin::update_drop_con_button(GnomeCmdFileList *fl)
     gtk_widget_set_tooltip_text(btn, gnome_cmd_con_get_close_tooltip (con));
     gtk_widget_set_sensitive (btn, TRUE);
 
-    if (pm)
+    if (pb)
     {
-        GtkWidget *image = gtk_image_new_from_pixmap (pm->pixmap, pm->mask);
+        GtkWidget *image = gtk_image_new_from_pixbuf (pb);
         if (image)
         {
             g_object_ref (image);
