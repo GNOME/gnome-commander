@@ -355,7 +355,7 @@ static void on_date_format_update (GtkEditable *editable, GtkWidget *options_dia
 
 static GtkWidget *create_format_tab (GtkWidget *parent, GnomeCmdData::Options &cfg)
 {
-    GtkWidget *frame, *hbox, *scrolled_window, *vbox, *cat, *cat_box, *table;
+    GtkWidget *frame, *hbox, *scrolled_window, *vbox, *cat, *cat_box, *grid;
     GtkWidget *radio, *label, *entry;
 
     frame = create_tabframe (parent);
@@ -416,12 +416,12 @@ static GtkWidget *create_format_tab (GtkWidget *parent, GnomeCmdData::Options &c
 
 
     // Date options
-    table = create_table (parent, 2, 3);
-    cat = create_category (parent, table, _("Date format"));
+    grid = create_grid (parent);
+    cat = create_category (parent, grid, _("Date format"));
     gtk_box_pack_start (GTK_BOX (vbox), cat, FALSE, FALSE, 0);
 
     label = create_label (parent, _("Format:"));
-    table_add (table, label, 0, 0, GTK_FILL);
+    gtk_grid_attach (GTK_GRID (grid), label, 0, 0, 1, 1);
 
     gchar *utf8_date_format = g_locale_to_utf8 (cfg.date_format, -1, NULL, NULL, NULL);
     entry = create_entry (parent, "date_format_entry", utf8_date_format);
@@ -429,18 +429,19 @@ static GtkWidget *create_format_tab (GtkWidget *parent, GnomeCmdData::Options &c
     gtk_widget_grab_focus (entry);
     g_signal_connect (entry, "realize", G_CALLBACK (on_date_format_update), parent);
     g_signal_connect (entry, "changed", G_CALLBACK (on_date_format_update), parent);
-    table_add (table, entry, 1, 0, GTK_FILL);
+    gtk_widget_set_hexpand (entry, TRUE);
+    gtk_grid_attach (GTK_GRID (grid), entry, 1, 0, 1, 1);
 
     label = create_label (parent, _("Test result:"));
-    table_add (table, label, 0, 1, GTK_FILL);
+    gtk_grid_attach (GTK_GRID (grid), label, 0, 1, 1, 1);
 
     label = create_label (parent, "");
     g_object_set_data (G_OBJECT (parent), "date_format_test_label", label);
-    table_add (table, label, 1, 1, (GtkAttachOptions) (GTK_EXPAND|GTK_FILL));
+    gtk_grid_attach (GTK_GRID (grid), label, 1, 1, 1, 1);
 
     label = create_label (parent, _("See the manual page for “strftime” for help on how to set the format string."));
     gtk_label_set_line_wrap (GTK_LABEL (label), TRUE);
-    table_add (table, label, 1, 2, GTK_FILL);
+    gtk_grid_attach (GTK_GRID (grid), label, 1, 2, 1, 1);
 
     return frame;
 }
@@ -529,7 +530,7 @@ static void on_colors_edit (GtkButton *btn, GtkWidget *parent)
     gtk_window_set_transient_for (GTK_WINDOW (dlg), GTK_WINDOW (parent));
 
     GtkWidget *cat, *cat_box;
-    GtkWidget *table, *label;
+    GtkWidget *grid, *label;
     GtkWidget *cbutton;
     GnomeCmdColorTheme *colors = gnome_cmd_data.options.get_custom_color_theme();
 
@@ -538,46 +539,54 @@ static void on_colors_edit (GtkButton *btn, GtkWidget *parent)
     cat = create_category (dlg, cat_box, _("Colors"));
     gnome_cmd_dialog_add_category (GNOME_CMD_DIALOG (dlg), cat);
 
-    table = create_table (dlg, 5, 3);
-    gtk_container_add (GTK_CONTAINER (cat_box), table);
+    grid = create_grid (dlg);
+    gtk_container_add (GTK_CONTAINER (cat_box), grid);
 
     cbutton = create_color_button (dlg, "default_fg");
-    table_add (table, cbutton, 1, 1, (GtkAttachOptions) 0);
+    gtk_grid_attach (GTK_GRID (grid), cbutton, 1, 1, 1, 1);
     gtk_color_button_set_color (GTK_COLOR_BUTTON (cbutton), colors->norm_fg);
+    gtk_widget_set_halign (cbutton, GTK_ALIGN_CENTER);
     cbutton = create_color_button (dlg, "default_bg");
-    table_add (table, cbutton, 2, 1, (GtkAttachOptions) 0);
+    gtk_grid_attach (GTK_GRID (grid), cbutton, 2, 1, 1, 1);
     gtk_color_button_set_color (GTK_COLOR_BUTTON (cbutton), colors->norm_bg);
+    gtk_widget_set_halign (cbutton, GTK_ALIGN_CENTER);
     cbutton = create_color_button (dlg, "alternate_fg");
-    table_add (table, cbutton, 1, 2, (GtkAttachOptions) 0);
+    gtk_grid_attach (GTK_GRID (grid), cbutton, 1, 2, 1, 1);
     gtk_color_button_set_color (GTK_COLOR_BUTTON (cbutton), colors->alt_fg);
+    gtk_widget_set_halign (cbutton, GTK_ALIGN_CENTER);
     cbutton = create_color_button (dlg, "alternate_bg");
-    table_add (table, cbutton, 2, 2, (GtkAttachOptions) 0);
+    gtk_grid_attach (GTK_GRID (grid), cbutton, 2, 2, 1, 1);
     gtk_color_button_set_color (GTK_COLOR_BUTTON (cbutton), colors->alt_bg);
+    gtk_widget_set_halign (cbutton, GTK_ALIGN_CENTER);
     cbutton = create_color_button (dlg, "selected_fg");
-    table_add (table, cbutton, 1, 3, (GtkAttachOptions) 0);
+    gtk_grid_attach (GTK_GRID (grid), cbutton, 1, 3, 1, 1);
     gtk_color_button_set_color (GTK_COLOR_BUTTON (cbutton), colors->sel_fg);
+    gtk_widget_set_halign (cbutton, GTK_ALIGN_CENTER);
     cbutton = create_color_button (dlg, "selected_bg");
-    table_add (table, cbutton, 2, 3, (GtkAttachOptions) 0);
+    gtk_grid_attach (GTK_GRID (grid), cbutton, 2, 3, 1, 1);
     gtk_color_button_set_color (GTK_COLOR_BUTTON (cbutton), colors->sel_bg);
+    gtk_widget_set_halign (cbutton, GTK_ALIGN_CENTER);
     cbutton = create_color_button (dlg, "cursor_fg");
-    table_add (table, cbutton, 1, 4, (GtkAttachOptions) 0);
+    gtk_grid_attach (GTK_GRID (grid), cbutton, 1, 4, 1, 1);
     gtk_color_button_set_color (GTK_COLOR_BUTTON (cbutton), colors->curs_fg);
+    gtk_widget_set_halign (cbutton, GTK_ALIGN_CENTER);
     cbutton = create_color_button (dlg, "cursor_bg");
-    table_add (table, cbutton, 2, 4, (GtkAttachOptions) 0);
+    gtk_grid_attach (GTK_GRID (grid), cbutton, 2, 4, 1, 1);
     gtk_color_button_set_color (GTK_COLOR_BUTTON (cbutton), colors->curs_bg);
+    gtk_widget_set_halign (cbutton, GTK_ALIGN_CENTER);
 
     label = create_label (dlg, _("Foreground"));
-    table_add (table, label, 1, 0, (GtkAttachOptions) GTK_FILL);
+    gtk_grid_attach (GTK_GRID (grid), label, 1, 0, 1, 1);
     label = create_label (dlg, _("Background"));
-    table_add (table, label, 2, 0, (GtkAttachOptions) GTK_FILL);
+    gtk_grid_attach (GTK_GRID (grid), label, 2, 0, 1, 1);
     label = create_label (dlg, _("Default:"));
-    table_add (table, label, 0, 1, (GtkAttachOptions) GTK_FILL);
+    gtk_grid_attach (GTK_GRID (grid), label, 0, 1, 1, 1);
     label = create_label (dlg, _("Alternate:"));
-    table_add (table, label, 0, 2, (GtkAttachOptions) GTK_FILL);
+    gtk_grid_attach (GTK_GRID (grid), label, 0, 2, 1, 1);
     label = create_label (dlg, _("Selected file:"));
-    table_add (table, label, 0, 3, (GtkAttachOptions) GTK_FILL);
+    gtk_grid_attach (GTK_GRID (grid), label, 0, 3, 1, 1);
     label = create_label (dlg, _("Cursor:"));
-    table_add (table, label, 0, 4, (GtkAttachOptions) GTK_FILL);
+    gtk_grid_attach (GTK_GRID (grid), label, 0, 4, 1, 1);
 
     gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dlg), GTK_STOCK_CLOSE,
                                  G_CALLBACK (on_edit_colors_close), dlg);
@@ -664,7 +673,7 @@ static void on_ls_colors_edit (GtkButton *btn, GtkWidget *parent)
     gtk_window_set_transient_for (GTK_WINDOW (dlg), GTK_WINDOW (parent));
 
     GtkWidget *cat, *cat_box;
-    GtkWidget *table, *label;
+    GtkWidget *grid, *label;
     GtkWidget *cbutton;
     GnomeCmdLsColorsPalette &palette = gnome_cmd_data.options.ls_colors_palette;
 
@@ -672,86 +681,102 @@ static void on_ls_colors_edit (GtkButton *btn, GtkWidget *parent)
     cat = create_category (dlg, cat_box, _("Palette"));
     gnome_cmd_dialog_add_category (GNOME_CMD_DIALOG (dlg), cat);
 
-    table = create_table (dlg, 3, 9);
-    gtk_container_add (GTK_CONTAINER (cat_box), table);
+    grid = create_grid (dlg);
+    gtk_container_add (GTK_CONTAINER (cat_box), grid);
 
     cbutton = create_color_button (dlg, "black_fg");
-    table_add (table, cbutton, 1, 1, (GtkAttachOptions) 0);
+    gtk_grid_attach (GTK_GRID (grid), cbutton, 1, 1, 1, 1);
     gtk_color_button_set_color (GTK_COLOR_BUTTON (cbutton), palette.black_fg);
+    gtk_widget_set_halign (cbutton, GTK_ALIGN_CENTER);
     cbutton = create_color_button (dlg, "black_bg");
-    table_add (table, cbutton, 1, 2, (GtkAttachOptions) 0);
+    gtk_grid_attach (GTK_GRID (grid), cbutton, 1, 2, 1, 1);
     gtk_color_button_set_color (GTK_COLOR_BUTTON (cbutton), palette.black_bg);
+    gtk_widget_set_halign (cbutton, GTK_ALIGN_CENTER);
     cbutton = create_color_button (dlg, "red_fg");
-    table_add (table, cbutton, 2, 1, (GtkAttachOptions) 0);
+    gtk_grid_attach (GTK_GRID (grid), cbutton, 2, 1, 1, 1);
     gtk_color_button_set_color (GTK_COLOR_BUTTON (cbutton), palette.red_fg);
+    gtk_widget_set_halign (cbutton, GTK_ALIGN_CENTER);
     cbutton = create_color_button (dlg, "red_bg");
-    table_add (table, cbutton, 2, 2, (GtkAttachOptions) 0);
+    gtk_grid_attach (GTK_GRID (grid), cbutton, 2, 2, 1, 1);
     gtk_color_button_set_color (GTK_COLOR_BUTTON (cbutton), palette.red_bg);
+    gtk_widget_set_halign (cbutton, GTK_ALIGN_CENTER);
     cbutton = create_color_button (dlg, "green_fg");
-    table_add (table, cbutton, 3, 1, (GtkAttachOptions) 0);
+    gtk_grid_attach (GTK_GRID (grid), cbutton, 3, 1, 1, 1);
     gtk_color_button_set_color (GTK_COLOR_BUTTON (cbutton), palette.green_fg);
+    gtk_widget_set_halign (cbutton, GTK_ALIGN_CENTER);
     cbutton = create_color_button (dlg, "green_bg");
-    table_add (table, cbutton, 3, 2, (GtkAttachOptions) 0);
+    gtk_grid_attach (GTK_GRID (grid), cbutton, 3, 2, 1, 1);
     gtk_color_button_set_color (GTK_COLOR_BUTTON (cbutton), palette.green_bg);
+    gtk_widget_set_halign (cbutton, GTK_ALIGN_CENTER);
     cbutton = create_color_button (dlg, "yellow_fg");
-    table_add (table, cbutton, 4, 1, (GtkAttachOptions) 0);
+    gtk_grid_attach (GTK_GRID (grid), cbutton, 4, 1, 1, 1);
     gtk_color_button_set_color (GTK_COLOR_BUTTON (cbutton), palette.yellow_fg);
+    gtk_widget_set_halign (cbutton, GTK_ALIGN_CENTER);
     cbutton = create_color_button (dlg, "yellow_bg");
-    table_add (table, cbutton, 4, 2, (GtkAttachOptions) 0);
+    gtk_grid_attach (GTK_GRID (grid), cbutton, 4, 2, 1, 1);
     gtk_color_button_set_color (GTK_COLOR_BUTTON (cbutton), palette.yellow_bg);
+    gtk_widget_set_halign (cbutton, GTK_ALIGN_CENTER);
     cbutton = create_color_button (dlg, "blue_fg");
-    table_add (table, cbutton, 5, 1, (GtkAttachOptions) 0);
+    gtk_grid_attach (GTK_GRID (grid), cbutton, 5, 1, 1, 1);
     gtk_color_button_set_color (GTK_COLOR_BUTTON (cbutton), palette.blue_fg);
+    gtk_widget_set_halign (cbutton, GTK_ALIGN_CENTER);
     cbutton = create_color_button (dlg, "blue_bg");
-    table_add (table, cbutton, 5, 2, (GtkAttachOptions) 0);
+    gtk_grid_attach (GTK_GRID (grid), cbutton, 5, 2, 1, 1);
     gtk_color_button_set_color (GTK_COLOR_BUTTON (cbutton), palette.blue_bg);
+    gtk_widget_set_halign (cbutton, GTK_ALIGN_CENTER);
     cbutton = create_color_button (dlg, "magenta_fg");
-    table_add (table, cbutton, 6, 1, (GtkAttachOptions) 0);
+    gtk_grid_attach (GTK_GRID (grid), cbutton, 6, 1, 1, 1);
     gtk_color_button_set_color (GTK_COLOR_BUTTON (cbutton), palette.magenta_fg);
+    gtk_widget_set_halign (cbutton, GTK_ALIGN_CENTER);
     cbutton = create_color_button (dlg, "magenta_bg");
-    table_add (table, cbutton, 6, 2, (GtkAttachOptions) 0);
+    gtk_grid_attach (GTK_GRID (grid), cbutton, 6, 2, 1, 1);
     gtk_color_button_set_color (GTK_COLOR_BUTTON (cbutton), palette.magenta_bg);
+    gtk_widget_set_halign (cbutton, GTK_ALIGN_CENTER);
     cbutton = create_color_button (dlg, "cyan_fg");
-    table_add (table, cbutton, 7, 1, (GtkAttachOptions) 0);
+    gtk_grid_attach (GTK_GRID (grid), cbutton, 7, 1, 1, 1);
     gtk_color_button_set_color (GTK_COLOR_BUTTON (cbutton), palette.cyan_fg);
+    gtk_widget_set_halign (cbutton, GTK_ALIGN_CENTER);
     cbutton = create_color_button (dlg, "cyan_bg");
-    table_add (table, cbutton, 7, 2, (GtkAttachOptions) 0);
+    gtk_grid_attach (GTK_GRID (grid), cbutton, 7, 2, 1, 1);
     gtk_color_button_set_color (GTK_COLOR_BUTTON (cbutton), palette.cyan_bg);
+    gtk_widget_set_halign (cbutton, GTK_ALIGN_CENTER);
     cbutton = create_color_button (dlg, "white_fg");
-    table_add (table, cbutton, 8, 1, (GtkAttachOptions) 0);
+    gtk_grid_attach (GTK_GRID (grid), cbutton, 8, 1, 1, 1);
     gtk_color_button_set_color (GTK_COLOR_BUTTON (cbutton), palette.white_fg);
+    gtk_widget_set_halign (cbutton, GTK_ALIGN_CENTER);
     cbutton = create_color_button (dlg, "white_bg");
-    table_add (table, cbutton, 8, 2, (GtkAttachOptions) 0);
+    gtk_grid_attach (GTK_GRID (grid), cbutton, 8, 2, 1, 1);
     gtk_color_button_set_color (GTK_COLOR_BUTTON (cbutton), palette.white_bg);
+    gtk_widget_set_halign (cbutton, GTK_ALIGN_CENTER);
 
     label = create_label (dlg, _("Foreground:"));
-    table_add (table, label, 0, 1, (GtkAttachOptions) GTK_FILL);
+    gtk_grid_attach (GTK_GRID (grid), label, 0, 1, 1, 1);
     label = create_label (dlg, _("Background:"));
-    table_add (table, label, 0, 2, (GtkAttachOptions) GTK_FILL);
+    gtk_grid_attach (GTK_GRID (grid), label, 0, 2, 1, 1);
     label = create_label (dlg, _("Black"));
     gtk_misc_set_alignment (GTK_MISC (label), 0.5, 1.0);
-    table_add (table, label, 1, 0, (GtkAttachOptions) GTK_FILL);
+    gtk_grid_attach (GTK_GRID (grid), label, 1, 0, 1, 1);
     label = create_label (dlg, _("Red"));
     gtk_misc_set_alignment (GTK_MISC (label), 0.5, 1.0);
-    table_add (table, label, 2, 0, (GtkAttachOptions) GTK_FILL);
+    gtk_grid_attach (GTK_GRID (grid), label, 2, 0, 1, 1);
     label = create_label (dlg, _("Green"));
     gtk_misc_set_alignment (GTK_MISC (label), 0.5, 1.0);
-    table_add (table, label, 3, 0, (GtkAttachOptions) GTK_FILL);
+    gtk_grid_attach (GTK_GRID (grid), label, 3, 0, 1, 1);
     label = create_label (dlg, _("Yellow"));
     gtk_misc_set_alignment (GTK_MISC (label), 0.5, 1.0);
-    table_add (table, label, 4, 0, (GtkAttachOptions) GTK_FILL);
+    gtk_grid_attach (GTK_GRID (grid), label, 4, 0, 1, 1);
     label = create_label (dlg, _("Blue"));
     gtk_misc_set_alignment (GTK_MISC (label), 0.5, 1.0);
-    table_add (table, label, 5, 0, (GtkAttachOptions) GTK_FILL);
+    gtk_grid_attach (GTK_GRID (grid), label, 5, 0, 1, 1);
     label = create_label (dlg, _("Magenta"));
     gtk_misc_set_alignment (GTK_MISC (label), 0.5, 1.0);
-    table_add (table, label, 6, 0, (GtkAttachOptions) GTK_FILL);
+    gtk_grid_attach (GTK_GRID (grid), label, 6, 0, 1, 1);
     label = create_label (dlg, _("Cyan"));
     gtk_misc_set_alignment (GTK_MISC (label), 0.5, 1.0);
-    table_add (table, label, 7, 0, (GtkAttachOptions) GTK_FILL);
+    gtk_grid_attach (GTK_GRID (grid), label, 7, 0, 1, 1);
     label = create_label (dlg, _("White"));
     gtk_misc_set_alignment (GTK_MISC (label), 0.5, 1.0);
-    table_add (table, label, 8, 0, (GtkAttachOptions) GTK_FILL);
+    gtk_grid_attach (GTK_GRID (grid), label, 8, 0, 1, 1);
 
     gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dlg), _("_Reset"), G_CALLBACK (on_edit_ls_colors_reset), dlg);
     gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dlg), GTK_STOCK_CANCEL, G_CALLBACK (on_edit_ls_colors_cancel), dlg);
@@ -764,7 +789,7 @@ static void on_ls_colors_edit (GtkButton *btn, GtkWidget *parent)
 static GtkWidget *create_layout_tab (GtkWidget *parent, GnomeCmdData::Options &cfg)
 {
     GtkWidget *frame, *hbox, *scrolled_window, *vbox, *cat;
-    GtkWidget *entry, *spin, *scale, *table, *label, *fpicker, *btn;
+    GtkWidget *entry, *spin, *scale, *grid, *label, *fpicker, *btn;
     GtkWidget *lm_combo, *cm_combo, *fe_combo, *check;
     const gchar *ext_modes[] = {
         _("With file name"),
@@ -805,46 +830,47 @@ static GtkWidget *create_layout_tab (GtkWidget *parent, GnomeCmdData::Options &c
     gtk_viewport_set_shadow_type(GTK_VIEWPORT (gtk_bin_get_child (GTK_BIN (scrolled_window))), GTK_SHADOW_NONE);
 
     // File panes
-    table = create_table (parent, 5, 2);
-    gtk_table_set_homogeneous (GTK_TABLE (table), FALSE);
-    cat = create_category (parent, table, _("File panes"));
+    grid = create_grid (parent);
+    cat = create_category (parent, grid, _("File panes"));
     gtk_box_pack_start (GTK_BOX (vbox), cat, FALSE, TRUE, 0);
 
     fpicker = create_font_picker (parent, "list_font_picker");
-    table_add (table, fpicker, 1, 0, GTK_FILL);
+    gtk_grid_attach (GTK_GRID (grid), fpicker, 1, 0, 1, 1);
     gtk_font_button_set_font_name (GTK_FONT_BUTTON (fpicker), cfg.list_font);
 
     spin = create_spin (parent, "row_height_spin", 8, 64, cfg.list_row_height);
-    table_add (table, spin, 1, 1, GTK_FILL);
+    gtk_grid_attach (GTK_GRID (grid), spin, 1, 1, 1, 1);
 
     label = create_label (parent, _("Font:"));
-    table_add (table, label, 0, 0, GTK_FILL);
+    gtk_grid_attach (GTK_GRID (grid), label, 0, 0, 1, 1);
     label = create_label (parent, _("Row height:"));
-    table_add (table, label, 0, 1, GTK_FILL);
+    gtk_grid_attach (GTK_GRID (grid), label, 0, 1, 1, 1);
 
     // File extensions
     label = create_label (parent, _("Display file extensions:"));
-    table_add (table, label, 0, 2, GTK_FILL);
+    gtk_grid_attach (GTK_GRID (grid), label, 0, 2, 1, 1);
 
     fe_combo = create_combo_box_text (parent, ext_modes);
     g_object_set_data (G_OBJECT (parent), "fe_combo", fe_combo);
-    table_add (table, fe_combo, 1, 2, (GtkAttachOptions) (GTK_FILL|GTK_EXPAND));
+    gtk_widget_set_hexpand (fe_combo, TRUE);
+    gtk_grid_attach (GTK_GRID (grid), fe_combo, 1, 2, 1, 1);
 
     // Graphical mode
     label = create_label (parent, _("Graphical mode:"));
-    table_add (table, label, 0, 3, GTK_FILL);
+    gtk_grid_attach (GTK_GRID (grid), label, 0, 3, 1, 1);
 
     lm_combo = create_combo_box_text (parent, gfx_modes);
     g_object_set_data (G_OBJECT (parent), "lm_combo", lm_combo);
     g_signal_connect (lm_combo, "changed", G_CALLBACK (on_layout_mode_changed), parent);
-    table_add (table, lm_combo, 1, 3, (GtkAttachOptions) (GTK_FILL|GTK_EXPAND));
+    gtk_widget_set_hexpand (lm_combo, TRUE);
+    gtk_grid_attach (GTK_GRID (grid), lm_combo, 1, 3, 1, 1);
 
     // Color scheme
     label = create_label (parent, _("Color scheme:"));
-    table_add (table, label, 0, 4, GTK_FILL);
+    gtk_grid_attach (GTK_GRID (grid), label, 0, 4, 1, 1);
 
     hbox = create_hbox (parent, FALSE, 6);
-    table_add (table, hbox, 1, 4, (GtkAttachOptions) (GTK_FILL|GTK_EXPAND));
+    gtk_grid_attach (GTK_GRID (grid), hbox, 1, 4, 1, 1);
 
     cm_combo = create_combo_box_text (parent, color_modes);
     g_object_set_data (G_OBJECT (parent), "cm_combo", cm_combo);
@@ -862,7 +888,7 @@ static GtkWidget *create_layout_tab (GtkWidget *parent, GnomeCmdData::Options &c
     check = create_check (parent, _("Colorize files according to the LS_COLORS environment variable"), "use_ls_colors");
     gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), cfg.use_ls_colors);
     hbox = create_hbox (parent, FALSE, 6);
-    gtk_table_attach (GTK_TABLE (table), hbox, 0, 2, 5, 6, GTK_FILL, GTK_FILL, 0, 0);
+    gtk_grid_attach (GTK_GRID (grid), hbox, 0, 5, 2, 1);
 
     g_signal_connect (check, "toggled", G_CALLBACK (on_ls_colors_toggled), parent);
     gtk_box_pack_start (GTK_BOX (hbox), check, TRUE, TRUE, 0);
@@ -874,24 +900,24 @@ static GtkWidget *create_layout_tab (GtkWidget *parent, GnomeCmdData::Options &c
 
 
      // MIME icon settings
-    table = create_table (parent, 4, 2);
-    cat = create_category (parent, table, _("MIME icon settings"));
+    grid = create_grid (parent);
+    cat = create_category (parent, grid, _("MIME icon settings"));
     g_object_set_data (G_OBJECT (parent), "mime_icon_settings_frame", cat);
     gtk_box_pack_start (GTK_BOX (vbox), cat, FALSE, FALSE, 0);
 
     spin = create_spin (parent, "iconsize_spin", 8, 64, cfg.icon_size);
-    table_add (table, spin, 1, 0, (GtkAttachOptions) GTK_FILL);
+    gtk_grid_attach (GTK_GRID (grid), spin, 1, 0, 1, 1);
     scale = create_scale (parent, "iconquality_scale", cfg.icon_scale_quality, 0, 3);
-    table_add (table, scale, 1, 1, (GtkAttachOptions) GTK_FILL);
+    gtk_grid_attach (GTK_GRID (grid), scale, 1, 1, 1, 1);
     entry = create_directory_chooser_button (parent, "theme_icondir_entry", cfg.theme_icon_dir);
-    table_add (table, entry, 1, 2, (GtkAttachOptions)0);
+    gtk_grid_attach (GTK_GRID (grid), entry, 1, 2, 1, 1);
 
     label = create_label (parent, _("Icon size:"));
-    table_add (table, label, 0, 0, (GtkAttachOptions) GTK_FILL);
+    gtk_grid_attach (GTK_GRID (grid), label, 0, 0, 1, 1);
     label = create_label (parent, _("Scaling quality:"));
-    table_add (table, label, 0, 1, (GtkAttachOptions) GTK_FILL);
+    gtk_grid_attach (GTK_GRID (grid), label, 0, 1, 1, 1);
     label = create_label (parent, _("Theme icon directory:"));
-    table_add (table, label, 0, 2, (GtkAttachOptions) GTK_FILL);
+    gtk_grid_attach (GTK_GRID (grid), label, 0, 2, 1, 1);
 
     gtk_combo_box_set_active (GTK_COMBO_BOX (fe_combo), (gint) cfg.ext_disp_mode);
     gtk_combo_box_set_active (GTK_COMBO_BOX (lm_combo), (gint) cfg.layout);
@@ -1509,7 +1535,7 @@ static void on_edit_app_dialog_ok (GtkButton *button, GtkWidget *dialog)
 
 static GtkWidget *create_app_dialog (GnomeCmdApp *app, GCallback on_ok, GCallback on_cancel, GtkWidget *options_dialog)
 {
-    GtkWidget *vbox, *hbox, *table, *entry, *label, *cat, *radio, *check;
+    GtkWidget *vbox, *hbox, *grid, *entry, *label, *cat, *radio, *check;
     const gchar *s = NULL;
 
     GtkWidget *dialog = gnome_cmd_dialog_new (NULL);
@@ -1523,53 +1549,55 @@ static GtkWidget *create_app_dialog (GnomeCmdApp *app, GCallback on_ok, GCallbac
     gnome_cmd_dialog_add_category (GNOME_CMD_DIALOG (dialog), hbox);
     vbox = create_vbox (dialog, FALSE, 6);
     gtk_container_add (GTK_CONTAINER (hbox), vbox);
-    table = create_table (dialog, 3, 2);
+    grid = create_grid (dialog);
 
 
-    gtk_container_add (GTK_CONTAINER (vbox), table);
+    gtk_container_add (GTK_CONTAINER (vbox), grid);
 
     label = create_label (dialog, _("Label:"));
-    table_add (table, label, 0, 0, GTK_FILL);
+    gtk_grid_attach (GTK_GRID (grid), label, 0, 0, 1, 1);
     label = create_label (dialog, _("Command:"));
-    table_add (table, label, 0, 1, GTK_FILL);
+    gtk_grid_attach (GTK_GRID (grid), label, 0, 1, 1, 1);
     label = create_label (dialog, _("Icon:"));
-    table_add (table, label, 0, 2, GTK_FILL);
+    gtk_grid_attach (GTK_GRID (grid), label, 0, 2, 1, 1);
 
     if (app) s = gnome_cmd_app_get_name (app);
     entry = create_entry (dialog, "name_entry", s);
-    table_add (table, entry, 1, 0, (GtkAttachOptions) (GTK_EXPAND|GTK_FILL));
+    gtk_widget_set_hexpand (entry, TRUE);
+    gtk_grid_attach (GTK_GRID (grid), entry, 1, 0, 1, 1);
     gtk_widget_grab_focus (entry);
 
     if (app) s = gnome_cmd_app_get_command (app);
     entry = create_entry (dialog, "cmd_entry", s);
-    table_add (table, entry, 1, 1, (GtkAttachOptions) (GTK_EXPAND|GTK_FILL));
+    gtk_widget_set_hexpand (entry, TRUE);
+    gtk_grid_attach (GTK_GRID (grid), entry, 1, 1, 1, 1);
 
     if (app) s = gnome_cmd_app_get_icon_path (app);
     entry = create_icon_button_widget (dialog, "icon_entry", s);
 
-    table_add (table, entry, 1, 2, GTK_FILL);
+    gtk_grid_attach (GTK_GRID (grid), entry, 1, 2, 1, 1);
 
 
-    table = create_table (dialog, 3, 1);
-    cat = create_category (dialog, table, _("Options"));
+    grid = create_grid (dialog);
+    cat = create_category (dialog, grid, _("Options"));
     gtk_box_pack_start (GTK_BOX (vbox), cat, FALSE, TRUE, 0);
 
     check = create_check (dialog, _("Can handle multiple files"), "handle_multiple");
     if (app) gtk_toggle_button_set_active (
         GTK_TOGGLE_BUTTON (check), gnome_cmd_app_get_handles_multiple (app));
-    table_add (table, check, 0, 0, GTK_FILL);
+    gtk_grid_attach (GTK_GRID (grid), check, 0, 0, 1, 1);
     check = create_check (dialog, _("Can handle URIs"), "handle_uris");
     if (app) gtk_toggle_button_set_active (
         GTK_TOGGLE_BUTTON (check), gnome_cmd_app_get_handles_uris (app));
-    table_add (table, check, 0, 1, GTK_FILL);
+    gtk_grid_attach (GTK_GRID (grid), check, 0, 1, 1, 1);
     check = create_check (dialog, _("Requires terminal"), "requires_terminal");
     if (app) gtk_toggle_button_set_active (
         GTK_TOGGLE_BUTTON (check), gnome_cmd_app_get_requires_terminal (app));
-    table_add (table, check, 0, 2, GTK_FILL);
+    gtk_grid_attach (GTK_GRID (grid), check, 0, 2, 1, 1);
 
 
-    table = create_table (dialog, 4, 2);
-    cat = create_category (dialog, table, _("Show for"));
+    grid = create_grid (dialog);
+    cat = create_category (dialog, grid, _("Show for"));
     gtk_box_pack_start (GTK_BOX (hbox), cat, FALSE, TRUE, 0);
 
     radio = create_radio (dialog, NULL, _("All files"),
@@ -1577,30 +1605,30 @@ static GtkWidget *create_app_dialog (GnomeCmdApp *app, GCallback on_ok, GCallbac
     if (app) gtk_toggle_button_set_active (
         GTK_TOGGLE_BUTTON (radio),
         gnome_cmd_app_get_target (app) == APP_TARGET_ALL_FILES);
-    gtk_table_attach (GTK_TABLE (table), radio, 0, 2, 0, 1, GTK_FILL, (GtkAttachOptions) 0, 0, 0);
+    gtk_grid_attach (GTK_GRID (grid), radio, 0, 0, 2, 1);
     radio = create_radio (dialog, get_radio_group (radio), _("All directories"), "show_for_all_dirs");
     if (app) gtk_toggle_button_set_active (
         GTK_TOGGLE_BUTTON (radio),
         gnome_cmd_app_get_target (app) == APP_TARGET_ALL_DIRS);
-    gtk_table_attach (GTK_TABLE (table), radio, 0, 2, 1, 2, GTK_FILL, (GtkAttachOptions) 0, 0, 0);
+    gtk_grid_attach (GTK_GRID (grid), radio, 0, 1, 2, 1);
     radio = create_radio (dialog, get_radio_group (radio), _("All directories and files"),
                           "show_for_all_dirs_and_files");
     if (app) gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio),
                                            gnome_cmd_app_get_target (app) == APP_TARGET_ALL_DIRS_AND_FILES);
-    gtk_table_attach (GTK_TABLE (table), radio, 0, 2, 2, 3, GTK_FILL, (GtkAttachOptions) 0, 0, 0);
+    gtk_grid_attach (GTK_GRID (grid), radio, 0, 2, 2, 1);
     radio = create_radio (dialog, get_radio_group (radio), _("Some files"),
                           "show_for_some_files");
     if (app) gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio),
                                            gnome_cmd_app_get_target (app) == APP_TARGET_SOME_FILES);
-    gtk_table_attach (GTK_TABLE (table), radio, 0, 2, 3, 4, GTK_FILL, (GtkAttachOptions) 0, 0, 0);
+    gtk_grid_attach (GTK_GRID (grid), radio, 0, 3, 2, 1);
     if (!app)
         gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
     g_signal_connect (radio, "toggled", G_CALLBACK (on_some_files_toggled), dialog);
 
     label = create_label (dialog, _("File patterns"));
-    table_add (table, label, 0, 4, (GtkAttachOptions) 0);
+    gtk_grid_attach (GTK_GRID (grid), label, 0, 4, 1, 1);
     entry = create_entry (dialog, "pattern_entry", app ? gnome_cmd_app_get_pattern_string (app) : "*.ext1;*.ext2");
-    table_add (table, entry, 1, 4, GTK_FILL);
+    gtk_grid_attach (GTK_GRID (grid), entry, 1, 4, 1, 1);
     if (app && gnome_cmd_app_get_target (app) != APP_TARGET_SOME_FILES)
         gtk_widget_set_sensitive (entry, FALSE);
 
@@ -1720,7 +1748,7 @@ static void on_app_move_down (GtkWidget *button, GtkWidget *frame)
 
 static GtkWidget *create_programs_tab (GtkWidget *parent, GnomeCmdData::Options &cfg)
 {
-    GtkWidget *frame, *hbox, *scrolled_window, *vbox, *cat, *table1, *table2;
+    GtkWidget *frame, *hbox, *scrolled_window, *vbox, *cat, *grid1, *grid2;
     GtkWidget *entry, *button, *label, *view, *bbox, *check;
     GtkWidget *separator;
     GtkListStore *store;
@@ -1743,42 +1771,43 @@ static GtkWidget *create_programs_tab (GtkWidget *parent, GnomeCmdData::Options 
     cat = create_category (parent, check, _("MIME applications"));
     gtk_box_pack_start (GTK_BOX (vbox), cat, FALSE, FALSE, 0);
 
-    table1 = create_table (parent, 7, 2);
-    cat = create_category (parent, table1, _("Standard programs"));
+    grid1 = create_grid (parent);
+    cat = create_category (parent, grid1, _("Standard programs"));
     gtk_box_pack_start (GTK_BOX (vbox), cat, FALSE, FALSE, 0);
 
     label = create_label (parent, _("Viewer:"));
-    table_add (table1, label, 0, 0, GTK_FILL);
+    gtk_grid_attach (GTK_GRID (grid1), label, 0, 0, 1, 1);
     label = create_label (parent, _("Editor:"));
-    table_add (table1, label, 0, 2, GTK_FILL);
+    gtk_grid_attach (GTK_GRID (grid1), label, 0, 2, 1, 1);
     label = create_label (parent, _("Differ:"));
-    table_add (table1, label, 0, 3, GTK_FILL);
+    gtk_grid_attach (GTK_GRID (grid1), label, 0, 3, 1, 1);
     label = create_label (parent, _("Search:"));
-    table_add (table1, label, 0, 4, GTK_FILL);
+    gtk_grid_attach (GTK_GRID (grid1), label, 0, 4, 1, 1);
     label = create_label (parent, _("Send files:"));
-    table_add (table1, label, 0, 6, GTK_FILL);
+    gtk_grid_attach (GTK_GRID (grid1), label, 0, 6, 1, 1);
     label = create_label (parent, _("Terminal:"));
-    table_add (table1, label, 0, 7, GTK_FILL);
+    gtk_grid_attach (GTK_GRID (grid1), label, 0, 7, 1, 1);
 
     entry = create_entry (parent, "viewer", cfg.viewer);
-    table_add (table1, entry, 1, 0, (GtkAttachOptions) (GTK_EXPAND|GTK_FILL));
+    gtk_widget_set_hexpand (entry, TRUE);
+    gtk_grid_attach (GTK_GRID (grid1), entry, 1, 0, 1, 1);
 
     check = create_check (parent, _("Use Internal Viewer"), "use_internal_viewer");
     gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), cfg.use_internal_viewer);
-    table_add (table1, check, 1, 1, (GtkAttachOptions) (GTK_EXPAND|GTK_FILL));
+    gtk_grid_attach (GTK_GRID (grid1), check, 1, 1, 1, 1);
     entry = create_entry (parent, "editor", cfg.editor);
-    table_add (table1, entry, 1, 2, (GtkAttachOptions) (GTK_EXPAND|GTK_FILL));
+    gtk_grid_attach (GTK_GRID (grid1), entry, 1, 2, 1, 1);
     entry = create_entry (parent, "differ", cfg.differ);
-    table_add (table1, entry, 1, 3, (GtkAttachOptions) (GTK_EXPAND|GTK_FILL));
+    gtk_grid_attach (GTK_GRID (grid1), entry, 1, 3, 1, 1);
     entry = create_entry (parent, "search", cfg.search);
-    table_add (table1, entry, 1, 4, (GtkAttachOptions) (GTK_EXPAND|GTK_FILL));
+    gtk_grid_attach (GTK_GRID (grid1), entry, 1, 4, 1, 1);
     check = create_check (parent, _("Use Internal Search"), "use_internal_search");
     gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), cfg.use_internal_search);
-    table_add (table1, check, 1, 5, (GtkAttachOptions) (GTK_EXPAND|GTK_FILL));
+    gtk_grid_attach (GTK_GRID (grid1), check, 1, 5, 1, 1);
     entry = create_entry (parent, "sendto", cfg.sendto);
-    table_add (table1, entry, 1, 6, (GtkAttachOptions) (GTK_EXPAND|GTK_FILL));
+    gtk_grid_attach (GTK_GRID (grid1), entry, 1, 6, 1, 1);
     entry = create_entry (parent, "termopen", cfg.termopen);
-    table_add (table1, entry, 1, 7, (GtkAttachOptions) (GTK_EXPAND|GTK_FILL));
+    gtk_grid_attach (GTK_GRID (grid1), entry, 1, 7, 1, 1);
 
     separator = gtk_separator_menu_item_new ();
     gtk_box_pack_start (GTK_BOX (vbox), separator, FALSE, FALSE, 0);
@@ -1830,18 +1859,19 @@ static GtkWidget *create_programs_tab (GtkWidget *parent, GnomeCmdData::Options 
     for (GList *apps = gnome_cmd_data.options.fav_apps; apps; apps = apps->next)
         add_app_to_list (GTK_TREE_VIEW (view), (GnomeCmdApp *) apps->data);
 
-    table2 = create_table (parent, 1, 3);
-    cat = create_category (parent, table2, _("Global app options"));
+    grid2 = create_grid (parent);
+    cat = create_category (parent, grid2, _("Global app options"));
     gtk_box_pack_start (GTK_BOX (vbox), cat, FALSE, FALSE, 0);
 
     label = create_label (parent, _("Terminal command for apps in the list above:"));
-    table_add (table2, label, 0, 0, GTK_FILL);
+    gtk_grid_attach (GTK_GRID (grid2), label, 0, 0, 1, 1);
 
     entry = create_entry (parent, "termexec", cfg.termexec);
-    table_add (table2, entry, 0, 1, (GtkAttachOptions) (GTK_EXPAND|GTK_FILL));
+    gtk_widget_set_hexpand (entry, TRUE);
+    gtk_grid_attach (GTK_GRID (grid2), entry, 0, 1, 1, 1);
 
     check = create_check (parent, _("Leave terminal window open"), "is_use_gcmd_block");
-    table_add (table2, check, 0, 2, GTK_FILL);
+    gtk_grid_attach (GTK_GRID (grid2), check, 0, 2, 1, 1);
     gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), gnome_cmd_data.use_gcmd_block);
 
     return frame;
@@ -2018,7 +2048,7 @@ static void on_dialog_help (GtkButton *button,  GtkWidget *unused)
 
 static GtkWidget *create_device_dialog (GnomeCmdConDevice *dev, GCallback on_ok, GCallback on_cancel, GtkWidget *options_dialog)
 {
-    GtkWidget *table, *entry, *label;
+    GtkWidget *grid, *entry, *label;
     GtkWidget *dialog;
     const gchar *s = NULL;
 
@@ -2030,35 +2060,36 @@ static GtkWidget *create_device_dialog (GnomeCmdConDevice *dev, GCallback on_ok,
     gtk_window_set_modal (GTK_WINDOW (dialog), TRUE);
     gtk_window_set_transient_for (GTK_WINDOW (dialog), GTK_WINDOW (options_dialog));
 
-    table = create_table (dialog, 4, 2);
-    gnome_cmd_dialog_add_category (GNOME_CMD_DIALOG (dialog), table);
+    grid = create_grid (dialog);
+    gnome_cmd_dialog_add_category (GNOME_CMD_DIALOG (dialog), grid);
 
     label = create_label (dialog, _("Alias:"));
-    table_add (table, label, 0, 0, GTK_FILL);
+    gtk_grid_attach (GTK_GRID (grid), label, 0, 0, 1, 1);
     label = create_label (dialog, _("Device/Label:"));
-    table_add (table, label, 0, 1, GTK_FILL);
+    gtk_grid_attach (GTK_GRID (grid), label, 0, 1, 1, 1);
     label = create_label (dialog, _("Mount point:"));
-    table_add (table, label, 0, 2, GTK_FILL);
+    gtk_grid_attach (GTK_GRID (grid), label, 0, 2, 1, 1);
     label = create_label (dialog, _("Icon:"));
-    table_add (table, label, 0, 3, GTK_FILL);
+    gtk_grid_attach (GTK_GRID (grid), label, 0, 3, 1, 1);
 
     if (dev) s = gnome_cmd_con_device_get_alias (dev);
     entry = create_entry (dialog, "alias_entry", s);
-    table_add (table, entry, 1, 0, (GtkAttachOptions) (GTK_EXPAND|GTK_FILL));
+    gtk_widget_set_hexpand (entry, TRUE);
+    gtk_grid_attach (GTK_GRID (grid), entry, 1, 0, 1, 1);
     gtk_widget_grab_focus (entry);
 
     if (dev) s = gnome_cmd_con_device_get_device_fn (dev);
     entry = create_entry (dialog, "device_entry", s);
-    table_add (table, entry, 1, 1, (GtkAttachOptions) (GTK_EXPAND|GTK_FILL));
+    gtk_grid_attach (GTK_GRID (grid), entry, 1, 1, 1, 1);
 
     if (dev) s = gnome_cmd_con_device_get_mountp_string (dev);
     entry = create_directory_chooser_button (dialog, "mountp_entry", s);
-    table_add (table, entry, 1, 2, (GtkAttachOptions) (GTK_EXPAND|GTK_FILL));
+    gtk_grid_attach (GTK_GRID (grid), entry, 1, 2, 1, 1);
 
     if (dev) s = gnome_cmd_con_device_get_icon_path (dev);
     entry = create_icon_button_widget (dialog, "device_iconentry", s);
 
-    table_add (table, entry, 1, 3, GTK_FILL);
+    gtk_grid_attach (GTK_GRID (grid), entry, 1, 3, 1, 1);
 
     gnome_cmd_dialog_add_button (
         GNOME_CMD_DIALOG (dialog), GTK_STOCK_HELP,
@@ -2332,6 +2363,8 @@ gboolean gnome_cmd_options_dialog (GtkWindow *parent, GnomeCmdData::Options &cfg
     gtk_box_set_spacing (GTK_BOX (content_area),6);
 
     GnomeCmdNotebook *notebook = new GnomeCmdNotebook(GnomeCmdNotebook::SHOW_TABS);
+    gtk_widget_set_hexpand (GTK_WIDGET (notebook), TRUE);
+    gtk_widget_set_vexpand (GTK_WIDGET (notebook), TRUE);
 
     gtk_container_add (GTK_CONTAINER (content_area), *notebook);
 

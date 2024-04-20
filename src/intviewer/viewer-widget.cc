@@ -86,7 +86,7 @@ static gboolean on_text_viewer_button_pressed (GtkWidget *treeview, GdkEventButt
 static VIEWERDISPLAYMODE guess_display_mode(const char *filename, int len);
 static void gviewer_auto_detect_display_mode(GViewer *obj);
 
-G_DEFINE_TYPE (GViewer, gviewer, GTK_TYPE_TABLE)
+G_DEFINE_TYPE (GViewer, gviewer, GTK_TYPE_GRID)
 
 /*****************************************
     public functions
@@ -121,9 +121,6 @@ static void gviewer_init (GViewer *w)
 {
     w->priv = g_new0 (GViewerPrivate, 1);
 
-    gtk_table_resize (GTK_TABLE (w), 1, 1);
-    gtk_table_set_homogeneous(GTK_TABLE (w), FALSE);
-
     w->priv->img_initialized = FALSE;
     w->priv->dispmode = DISP_MODE_TEXT_FIXED;
 
@@ -157,9 +154,9 @@ static void gviewer_init (GViewer *w)
     g_object_ref (w->priv->iscrollbox);
 
     w->priv->last_client = w->priv->tscrollbox;
-    gtk_table_attach (GTK_TABLE (w), GTK_WIDGET (w->priv->tscrollbox), 0, 1, 0, 1,
-                      (GtkAttachOptions)(GTK_FILL|GTK_EXPAND),
-                      (GtkAttachOptions)(GTK_FILL|GTK_EXPAND), 0, 0);
+    gtk_widget_set_hexpand (GTK_WIDGET (w->priv->tscrollbox), TRUE);
+    gtk_widget_set_vexpand (GTK_WIDGET (w->priv->tscrollbox), TRUE);
+    gtk_grid_attach (GTK_GRID (w), GTK_WIDGET (w->priv->tscrollbox), 0, 0, 1, 1);
 
     g_signal_connect (w, "destroy-event", G_CALLBACK (gviewer_destroy), w);
 
@@ -368,9 +365,9 @@ void gviewer_set_display_mode(GViewer *obj, VIEWERDISPLAYMODE mode)
             gtk_container_remove (GTK_CONTAINER(obj), obj->priv->last_client);
 
         gtk_widget_grab_focus (GTK_WIDGET (client));
-        gtk_table_attach (GTK_TABLE (obj), client , 0, 1, 0, 1,
-                    (GtkAttachOptions) (GTK_EXPAND | GTK_FILL),
-                    (GtkAttachOptions) (GTK_EXPAND | GTK_FILL), 0, 0);
+        gtk_widget_set_hexpand (client, TRUE);
+        gtk_widget_set_vexpand (client, TRUE);
+        gtk_grid_attach (GTK_GRID (obj), client, 0, 0, 1, 1);
 
         switch (mode)
         {

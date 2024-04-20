@@ -40,7 +40,7 @@ struct GnomeCmdConnectDialog
 {
     GtkDialog parent;
 
-    class Private;
+    struct Private;
 
     Private *priv;
 
@@ -63,8 +63,8 @@ struct GnomeCmdConnectDialog::Private
     string *alias {nullptr};
     string uri_str;
 
-    GtkWidget *required_table {nullptr};
-    GtkWidget *optional_table {nullptr};
+    GtkGrid *required_grid {nullptr};
+    GtkGrid *optional_grid {nullptr};
 
     GtkWidget *type_combo {nullptr};
 
@@ -79,7 +79,7 @@ struct GnomeCmdConnectDialog::Private
     ~Private();
 
     void setup_for_type();
-    void show_entry(GtkWidget *table, GtkWidget *entry, const gchar *text, gint &i);
+    void show_entry(GtkGrid *grid, GtkWidget *entry, const gchar *text, gint &i);
 };
 
 
@@ -126,37 +126,36 @@ void GnomeCmdConnectDialog::Private::setup_for_type()
     gint type = gtk_combo_box_get_active (GTK_COMBO_BOX (type_combo));
 
     if (gtk_widget_get_parent (alias_entry))
-        gtk_container_remove (GTK_CONTAINER (required_table), alias_entry);
+        gtk_container_remove (GTK_CONTAINER (required_grid), alias_entry);
 
     if (gtk_widget_get_parent (uri_entry))
-        gtk_container_remove (GTK_CONTAINER (required_table), uri_entry);
+        gtk_container_remove (GTK_CONTAINER (required_grid), uri_entry);
 
     if (gtk_widget_get_parent (server_entry))
-        gtk_container_remove (GTK_CONTAINER (required_table), server_entry);
+        gtk_container_remove (GTK_CONTAINER (required_grid), server_entry);
 
     if (gtk_widget_get_parent (port_entry))
-        gtk_container_remove (GTK_CONTAINER (optional_table), port_entry);
+        gtk_container_remove (GTK_CONTAINER (optional_grid), port_entry);
 
     if (gtk_widget_get_parent (folder_entry))
-        gtk_container_remove (GTK_CONTAINER (optional_table), folder_entry);
+        gtk_container_remove (GTK_CONTAINER (optional_grid), folder_entry);
 
     if (gtk_widget_get_parent (domain_entry))
-        gtk_container_remove (GTK_CONTAINER (optional_table), domain_entry);
+        gtk_container_remove (GTK_CONTAINER (optional_grid), domain_entry);
 
     // Destroy all labels
-    gtk_container_foreach (GTK_CONTAINER (required_table), (GtkCallback) gtk_widget_destroy, NULL);
+    gtk_container_foreach (GTK_CONTAINER (required_grid), (GtkCallback) gtk_widget_destroy, NULL);
 
     gint i = 1;
-    GtkWidget *table = required_table;
 
     gboolean show_port, show_domain;
 
-    show_entry (table, alias_entry, _("_Alias:"), i);
+    show_entry (required_grid, alias_entry, _("_Alias:"), i);
 
     switch (type)
     {
         case CON_URI:
-            show_entry (table, uri_entry, _("_Location (URI):"), i);
+            show_entry (required_grid, uri_entry, _("_Location (URI):"), i);
             return;
 
         default:
@@ -181,13 +180,13 @@ void GnomeCmdConnectDialog::Private::setup_for_type()
 #endif
     }
 
-    show_entry (table, server_entry, _("_Server:"), i);
+    show_entry (required_grid, server_entry, _("_Server:"), i);
 
     GtkWidget *align;
 
     align = gtk_alignment_new (0.0, 0.0, 1.0, 1.0);
     gtk_alignment_set_padding (GTK_ALIGNMENT (align), 12, 0, 0, 0);
-    gtk_table_attach (GTK_TABLE (table), align, 0, 2, i, i+1, GTK_FILL, GTK_FILL, 0, 0);
+    gtk_grid_attach (required_grid, align, 0, i, 2, 1);
     gtk_widget_show (align);
 
     i++;
@@ -203,38 +202,39 @@ void GnomeCmdConnectDialog::Private::setup_for_type()
 
     align = gtk_alignment_new (0.0, 0.0, 1.0, 1.0);
     gtk_alignment_set_padding (GTK_ALIGNMENT (align), 0, 0, 12, 0);
-    gtk_table_attach (GTK_TABLE (table), align, 0, 2, i, i+1, GTK_FILL, GTK_FILL, 0, 0);
+    gtk_grid_attach (required_grid, align, 0, i, 2, 1);
     gtk_widget_show (align);
 
 
-    optional_table = table = gtk_table_new (1, 2, FALSE);
-    gtk_table_set_row_spacings (GTK_TABLE (table), 6);
-    gtk_table_set_col_spacings (GTK_TABLE (table), 12);
-    gtk_widget_show (table);
-    gtk_container_add (GTK_CONTAINER (align), table);
+    optional_grid = GTK_GRID (gtk_grid_new ());
+    gtk_grid_set_row_spacing (optional_grid, 6);
+    gtk_grid_set_column_spacing (optional_grid, 12);
+    gtk_widget_show (GTK_WIDGET (optional_grid));
+    gtk_container_add (GTK_CONTAINER (align), GTK_WIDGET (optional_grid));
 
     i = 0;
 
     if (show_port)
-        show_entry (table, port_entry, _("_Port:"), i);
+        show_entry (optional_grid, port_entry, _("_Port:"), i);
 
-    show_entry (table, folder_entry, _("_Folder:"), i);
+    show_entry (optional_grid, folder_entry, _("_Folder:"), i);
 
     if (show_domain)
-        show_entry (table, domain_entry, _("_Domain name:"), i);
+        show_entry (optional_grid, domain_entry, _("_Domain name:"), i);
 }
 
 
-inline void GnomeCmdConnectDialog::Private::show_entry(GtkWidget *table, GtkWidget *entry, const gchar *text, gint &i)
+inline void GnomeCmdConnectDialog::Private::show_entry(GtkGrid *grid, GtkWidget *entry, const gchar *text, gint &i)
 {
     GtkWidget *label = gtk_label_new_with_mnemonic (text);
     gtk_misc_set_alignment (GTK_MISC (label), 0.0, 0.5);
     gtk_widget_show (label);
-    gtk_table_attach (GTK_TABLE (table), label, 0, 1, i, i+1, GTK_FILL, GTK_FILL, 0, 0);
+    gtk_grid_attach (GTK_GRID (grid), label, 0, i, 1, 1);
 
     gtk_label_set_mnemonic_widget (GTK_LABEL (label), entry);
     gtk_widget_show (entry);
-    gtk_table_attach (GTK_TABLE (table), entry, 1, 2, i, i+1, GtkAttachOptions (GTK_FILL | GTK_EXPAND), GTK_FILL, 0, 0);
+    gtk_widget_set_hexpand (entry, TRUE);
+    gtk_grid_attach (GTK_GRID (grid), entry, 1, i, 1, 1);
 
     ++i;
 }
@@ -368,7 +368,6 @@ static void gnome_cmd_connect_dialog_init (GnomeCmdConnectDialog *dialog)
 {
     GtkWidget *align;
     GtkWidget *label;
-    GtkWidget *table;
     GtkWidget *combo;
     GtkWidget *hbox;
     GtkWidget *vbox;
@@ -432,11 +431,11 @@ static void gnome_cmd_connect_dialog_init (GnomeCmdConnectDialog *dialog)
     gtk_widget_show (align);
 
 
-    dialog->priv->required_table = table = gtk_table_new (1, 2, FALSE);
-    gtk_table_set_row_spacings (GTK_TABLE (table), 6);
-    gtk_table_set_col_spacings (GTK_TABLE (table), 12);
-    gtk_widget_show (table);
-    gtk_container_add (GTK_CONTAINER (align), table);
+    dialog->priv->required_grid = GTK_GRID (gtk_grid_new ());
+    gtk_grid_set_row_spacing (dialog->priv->required_grid, 6);
+    gtk_grid_set_column_spacing (dialog->priv->required_grid, 12);
+    gtk_widget_show (GTK_WIDGET (dialog->priv->required_grid));
+    gtk_container_add (GTK_CONTAINER (align), GTK_WIDGET (dialog->priv->required_grid));
 
     g_signal_connect (dialog->priv->port_entry, "insert-text", G_CALLBACK (port_insert_text), NULL);
 

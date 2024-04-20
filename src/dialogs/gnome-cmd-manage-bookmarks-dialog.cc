@@ -85,12 +85,13 @@ void gnome_cmd_bookmark_dialog_new (const gchar *title, GtkWindow *parent)
     gtk_box_set_spacing (GTK_BOX (content_area), 2);
     gtk_window_set_resizable (GTK_WINDOW (dialog), TRUE);
 
-    vbox = gtk_vbox_new (FALSE, 12);
+    vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 12);
+    gtk_widget_set_vexpand (vbox, TRUE);
     gtk_container_set_border_width (GTK_CONTAINER (vbox), 12);
     gtk_container_add (GTK_CONTAINER (content_area), vbox);
 
-    hbox = gtk_hbox_new (FALSE, 12);
-    gtk_container_add (GTK_CONTAINER (vbox), hbox);
+    hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 12);
+    gtk_box_pack_start (GTK_BOX (vbox), hbox, TRUE, TRUE, 0);
 
     scrolled_window = gtk_scrolled_window_new (NULL, NULL);
     gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolled_window), GTK_POLICY_NEVER, GTK_POLICY_AUTOMATIC);
@@ -104,7 +105,7 @@ void gnome_cmd_bookmark_dialog_new (const gchar *title, GtkWindow *parent)
     g_signal_connect (view, "row-activated", G_CALLBACK (row_activated_callback), dialog);
     gtk_container_add (GTK_CONTAINER (scrolled_window), view);
 
-    vbox = gtk_vbox_new (FALSE, 12);
+    vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 12);
     gtk_box_pack_start (GTK_BOX (hbox), vbox, FALSE, FALSE, 0);
 
     button = gtk_button_new_from_stock (GTK_STOCK_EDIT);

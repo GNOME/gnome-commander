@@ -301,11 +301,11 @@ namespace GnomeCmd
         gtk_box_set_spacing (GTK_BOX (content_area), 2);
         gtk_window_set_resizable (GTK_WINDOW (dialog), TRUE);
 
-        vbox = gtk_vbox_new (FALSE, 12);
+        vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 12);
         gtk_container_set_border_width (GTK_CONTAINER (vbox), 12);
         gtk_container_add (GTK_CONTAINER (content_area), vbox);
 
-        hbox = gtk_hbox_new (FALSE, 12);
+        hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 12);
         gtk_container_add (GTK_CONTAINER (vbox), hbox);
 
         scrolled_window = gtk_scrolled_window_new (NULL, NULL);
@@ -323,7 +323,7 @@ namespace GnomeCmd
                                         "name, or press escape to cancel."));
         gtk_box_pack_start (GTK_BOX (vbox), box, FALSE, FALSE, 0);
 
-        vbox = gtk_vbox_new (FALSE, 12);
+        vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 12);
         gtk_box_pack_start (GTK_BOX (hbox), vbox, FALSE, FALSE, 0);
 
         button = gtk_button_new_with_mnemonic (_("_Duplicate"));

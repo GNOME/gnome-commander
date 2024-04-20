@@ -71,39 +71,39 @@ gboolean gnome_cmd_advrename_regex_dialog_new (const gchar *title, GtkWindow *pa
     gtk_container_set_border_width (GTK_CONTAINER (content_area), 5);
     gtk_box_set_spacing (GTK_BOX (content_area),6);
 
-    GtkWidget *table, *align, *label, *entry, *check;
+    GtkWidget *grid, *align, *label, *entry, *check;
 
-    table = gtk_table_new (3, 2, FALSE);
-    gtk_container_set_border_width (GTK_CONTAINER (table), 5);
-    gtk_table_set_row_spacings (GTK_TABLE (table), 6);
-    gtk_table_set_col_spacings (GTK_TABLE (table), 12);
-    gtk_container_add (GTK_CONTAINER (content_area), table);
+    grid = gtk_grid_new ();
+    gtk_container_set_border_width (GTK_CONTAINER (grid), 5);
+    gtk_grid_set_row_spacing (GTK_GRID (grid), 6);
+    gtk_grid_set_column_spacing (GTK_GRID (grid), 12);
+    gtk_container_add (GTK_CONTAINER (content_area), grid);
 
     label = gtk_label_new_with_mnemonic (_("_Search for:"));
     gtk_misc_set_alignment (GTK_MISC (label), 0.0, 0.5);
-    gtk_table_attach_defaults (GTK_TABLE (table), label, 0, 1, 0, 1);
+    gtk_grid_attach (GTK_GRID (grid), label, 0, 0, 1, 1);
 
     entry = gtk_entry_new ();
     gtk_label_set_mnemonic_widget (GTK_LABEL (label), entry);
     gtk_entry_set_text (GTK_ENTRY (entry), rx ? rx->pattern.c_str() : nullptr);
     g_object_set_data (G_OBJECT (dialog), "pattern", entry);
     gtk_entry_set_activates_default (GTK_ENTRY (entry), TRUE);
-    gtk_table_attach_defaults (GTK_TABLE (table), entry, 1, 2, 0, 1);
+    gtk_grid_attach (GTK_GRID (grid), entry, 1, 0, 1, 1);
 
     label = gtk_label_new_with_mnemonic (_("_Replace with:"));
     gtk_misc_set_alignment (GTK_MISC (label), 0.0, 0.5);
-    gtk_table_attach_defaults (GTK_TABLE (table), label, 0, 1, 1, 2);
+    gtk_grid_attach (GTK_GRID (grid), label, 0, 1, 1, 1);
 
     entry = gtk_entry_new ();
     gtk_label_set_mnemonic_widget (GTK_LABEL (label), entry);
     gtk_entry_set_text (GTK_ENTRY (entry), rx ? rx->replacement.c_str() : nullptr);
     g_object_set_data (G_OBJECT (dialog), "replace", entry);
     gtk_entry_set_activates_default (GTK_ENTRY (entry), TRUE);
-    gtk_table_attach_defaults (GTK_TABLE (table), entry, 1, 2, 1, 2);
+    gtk_grid_attach (GTK_GRID (grid), entry, 1, 1, 1, 1);
 
     align = gtk_alignment_new (0.0, 0.0, 1.0, 1.0);
     gtk_alignment_set_padding (GTK_ALIGNMENT (align), 6, 0, 12, 0);
-    gtk_table_attach_defaults (GTK_TABLE (table), align, 0, 2, 2, 3);
+    gtk_grid_attach (GTK_GRID (grid), align, 0, 2, 2, 1);
 
     check = gtk_check_button_new_with_mnemonic (_("_Match case"));
     g_object_set_data (G_OBJECT (dialog), "match_case", check);

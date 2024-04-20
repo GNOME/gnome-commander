@@ -41,7 +41,7 @@ struct GnomeCmdCombo;
 
 struct GnomeCmdFileSelector
 {
-    GtkVBox vbox;
+    GtkBox vbox;
 
     GtkWidget *con_btns_hbox;
     GtkWidget *con_hbox;

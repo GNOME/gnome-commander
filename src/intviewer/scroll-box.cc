@@ -50,7 +50,7 @@ static void scroll_box_class_init (ScrollBoxClass *klass);
 static void scroll_box_destroy (GtkWidget *widget);
 static gboolean scroll_box_button_press(GtkWidget *widget, GdkEventButton *event, gpointer data);
 
-G_DEFINE_TYPE (ScrollBox, scroll_box, GTK_TYPE_TABLE)
+G_DEFINE_TYPE (ScrollBox, scroll_box, GTK_TYPE_GRID)
 
 /*****************************************
     public functions
@@ -74,20 +74,13 @@ static void scroll_box_init (ScrollBox *w)
 {
     w->priv = g_new0 (ScrollBoxPrivate, 1);
 
-    gtk_table_resize (GTK_TABLE (w), 2, 2);
-    gtk_table_set_homogeneous (GTK_TABLE (w), FALSE);
-
     w->priv->vscroll = gtk_vscrollbar_new (nullptr);
     gtk_widget_show (w->priv->vscroll);
-    gtk_table_attach (GTK_TABLE (w), w->priv->vscroll, 1, 2, 0, 1,
-        (GtkAttachOptions) (GTK_FILL),
-        (GtkAttachOptions) (GTK_FILL), 0, 0);
+    gtk_grid_attach (GTK_GRID (w), w->priv->vscroll, 1, 0, 1, 1);
 
     w->priv->hscroll = gtk_hscrollbar_new (nullptr);
     gtk_widget_show (w->priv->hscroll);
-    gtk_table_attach (GTK_TABLE (w), w->priv->hscroll, 0, 1, 1, 2,
-            (GtkAttachOptions) (GTK_FILL),
-            (GtkAttachOptions) (GTK_FILL), 0, 0);
+    gtk_grid_attach (GTK_GRID (w), w->priv->hscroll, 0, 1, 1, 1);
     w->priv->client = nullptr;
 
     g_signal_connect (w, "button-press-event", G_CALLBACK (scroll_box_button_press), w);
@@ -149,9 +142,9 @@ void scroll_box_set_client (ScrollBox *obj, GtkWidget *client)
     g_object_ref (client);
     gtk_widget_show (client);
     obj->priv->client = client;
-    gtk_table_attach (GTK_TABLE (obj), client , 0, 1, 0, 1,
-                      (GtkAttachOptions) (GTK_EXPAND | GTK_FILL),
-                      (GtkAttachOptions) (GTK_EXPAND | GTK_FILL), 0, 0);
+    gtk_widget_set_hexpand (client, TRUE);
+    gtk_widget_set_vexpand (client, TRUE);
+    gtk_grid_attach (GTK_GRID (obj), client, 0, 0, 1, 1);
 }
 
 

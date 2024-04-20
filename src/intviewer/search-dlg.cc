@@ -41,7 +41,7 @@ static void search_dlg_action_response(GtkDialog *dlg, gint arg1, GViewerSearchD
 
 struct GViewerSearchDlgPrivate
 {
-    GtkWidget  *table;
+    GtkWidget  *grid;
     GtkWidget  *label;
     GtkWidget  *entry;
     GtkWidget  *text_mode, *hex_mode;
@@ -236,7 +236,7 @@ static void gviewer_search_dlg_init (GViewerSearchDlg *sdlg)
 {
     GtkDialog *dlg = GTK_DIALOG (sdlg);
 
-    GtkTable *table;
+    GtkGrid *grid;
     GtkWidget *entry;
 
     sdlg->priv = g_new0 (GViewerSearchDlgPrivate, 1);
@@ -252,23 +252,23 @@ static void gviewer_search_dlg_init (GViewerSearchDlg *sdlg)
     g_signal_connect_swapped (GTK_WIDGET (dlg), "response", G_CALLBACK (search_dlg_action_response), sdlg);
 
     // 2x4 Table
-    table = GTK_TABLE (gtk_table_new (2, 2, FALSE));
-    gtk_table_set_row_spacings (GTK_TABLE (table), 6);
-    gtk_table_set_col_spacings (GTK_TABLE (table), 6);
-    gtk_box_pack_start (GTK_BOX (gtk_dialog_get_content_area (dlg)), GTK_WIDGET (table), FALSE, TRUE, 0);
-    sdlg->priv->table = GTK_WIDGET (table);
+    grid = GTK_GRID (gtk_grid_new ());
+    gtk_grid_set_row_spacing (GTK_GRID (grid), 6);
+    gtk_grid_set_column_spacing (GTK_GRID (grid), 6);
+    gtk_box_pack_start (GTK_BOX (gtk_dialog_get_content_area (dlg)), GTK_WIDGET (grid), FALSE, TRUE, 0);
+    sdlg->priv->grid = GTK_WIDGET (grid);
 
     // Label
     sdlg->priv->label = gtk_label_new(nullptr);
     gtk_label_set_markup_with_mnemonic (GTK_LABEL (sdlg->priv->label), "_Search for:");
-    gtk_table_attach(table, sdlg->priv->label, 0, 1, 0, 1, GTK_FILL, GTK_FILL, 0, 0);
+    gtk_grid_attach(grid, sdlg->priv->label, 0, 0, 1, 1);
 
     // Entry Box
     sdlg->priv->entry = gtk_combo_box_new_with_model_and_entry (GTK_TREE_MODEL (gtk_list_store_new (1, G_TYPE_STRING)));
     entry = gtk_bin_get_child (GTK_BIN (sdlg->priv->entry));
     g_object_set(entry, "activates-default", TRUE, nullptr);
     g_signal_connect (entry, "changed", G_CALLBACK (entry_changed), sdlg);
-    gtk_table_attach(table, sdlg->priv->entry, 1, 3, 0, 1, GTK_FILL, GTK_FILL, 0, 0);
+    gtk_grid_attach(grid, sdlg->priv->entry, 1, 0, 2, 1);
 
     set_text_history (sdlg);
 
@@ -279,14 +279,14 @@ static void gviewer_search_dlg_init (GViewerSearchDlg *sdlg)
     g_signal_connect (sdlg->priv->text_mode, "toggled", G_CALLBACK (search_mode_text), sdlg);
     g_signal_connect (sdlg->priv->hex_mode, "toggled", G_CALLBACK (search_mode_hex), sdlg);
 
-    gtk_table_attach (table, sdlg->priv->text_mode, 1, 2, 1, 2, GTK_FILL, GTK_FILL, 0, 0);
-    gtk_table_attach (table, sdlg->priv->hex_mode, 1, 2, 2, 3, GTK_FILL, GTK_FILL, 0, 0);
+    gtk_grid_attach(grid, sdlg->priv->text_mode, 1, 1, 1, 1);
+    gtk_grid_attach(grid, sdlg->priv->hex_mode, 1, 2, 1, 1);
 
     // Case-Sensitive Checkbox
     sdlg->priv->case_sensitive_checkbox = gtk_check_button_new_with_mnemonic(_("_Match case"));
-    gtk_table_attach(table, sdlg->priv->case_sensitive_checkbox, 2, 3, 1, 2, GtkAttachOptions(GTK_EXPAND|GTK_FILL), GTK_FILL, 0, 0);
+    gtk_grid_attach(grid, sdlg->priv->case_sensitive_checkbox, 2, 1, 1, 1);
 
-    gtk_widget_show_all(sdlg->priv->table);
+    gtk_widget_show_all(sdlg->priv->grid);
     gtk_widget_show (GTK_WIDGET (dlg));
 
     // Restore the previously saved state (loaded with "load_search_dlg_state")

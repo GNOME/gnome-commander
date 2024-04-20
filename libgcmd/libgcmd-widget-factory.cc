@@ -82,23 +82,24 @@ GtkWidget *create_space_frame (GtkWidget *parent, gint space)
 }
 
 
-GtkWidget *create_table (GtkWidget *parent, gint rows, gint cols)
+GtkWidget *create_grid (GtkWidget *parent)
 {
-    GtkWidget *table = gtk_table_new (rows, cols, FALSE);
-    g_object_ref (table);
-    g_object_set_data_full (G_OBJECT (parent), "table", table, g_object_unref);
-    gtk_widget_show (table);
-    gtk_table_set_row_spacings (GTK_TABLE (table), 6);
-    gtk_table_set_col_spacings (GTK_TABLE (table), 12);
+    GtkWidget *grid = gtk_grid_new ();
+    g_object_ref (grid);
+    g_object_set_data_full (G_OBJECT (parent), "grid", grid, g_object_unref);
+    gtk_widget_show (grid);
+    gtk_grid_set_row_spacing (GTK_GRID (grid), 6);
+    gtk_grid_set_column_spacing (GTK_GRID (grid), 12);
 
-    return table;
+    return grid;
 }
 
 
 GtkWidget *create_vbox (GtkWidget *parent, gboolean h, gint s)
 {
-    GtkWidget *vbox = gtk_vbox_new (h, s);
+    GtkWidget *vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, s);
     g_object_ref (vbox);
+    gtk_box_set_homogeneous (GTK_BOX (vbox), h);
     g_object_set_data_full (G_OBJECT (parent), "vbox", vbox, g_object_unref);
     gtk_widget_show (vbox);
 
@@ -108,8 +109,9 @@ GtkWidget *create_vbox (GtkWidget *parent, gboolean h, gint s)
 
 GtkWidget *create_hbox (GtkWidget *parent, gboolean h, gint s)
 {
-    GtkWidget *hbox = gtk_hbox_new (h, s);
+    GtkWidget *hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, s);
     g_object_ref (hbox);
+    gtk_box_set_homogeneous (GTK_BOX (hbox), h);
     g_object_set_data_full (G_OBJECT (parent), "hbox", hbox, g_object_unref);
     gtk_widget_show (hbox);
 

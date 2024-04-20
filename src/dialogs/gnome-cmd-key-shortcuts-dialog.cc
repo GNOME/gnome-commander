@@ -203,13 +203,14 @@ static void gnome_cmd_key_shortcuts_dialog_init (GnomeCmdKeyShortcutsDialog *dia
     gtk_box_set_spacing (GTK_BOX (gtk_dialog_get_content_area (GTK_DIALOG (dialog))), 2);
     gtk_window_set_resizable (GTK_WINDOW (dialog), TRUE);
 
-    GtkWidget *vbox = gtk_vbox_new (FALSE, 12);
+    GtkWidget *vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 12);
+    gtk_widget_set_vexpand (vbox, TRUE);
     gtk_container_set_border_width (GTK_CONTAINER (vbox), 12);
     gtk_container_add (GTK_CONTAINER (gtk_dialog_get_content_area (GTK_DIALOG (dialog))), vbox);
     gtk_widget_show (vbox);
 
-    GtkWidget *hbox = gtk_hbox_new (FALSE, 12);
-    gtk_container_add (GTK_CONTAINER (vbox), hbox);
+    GtkWidget *hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 12);
+    gtk_box_pack_start (GTK_BOX (vbox), hbox, TRUE, TRUE, 0);
     gtk_widget_show (hbox);
 
     GtkWidget *scrolled_window = gtk_scrolled_window_new (NULL, NULL);
@@ -230,7 +231,7 @@ static void gnome_cmd_key_shortcuts_dialog_init (GnomeCmdKeyShortcutsDialog *dia
     gtk_box_pack_start (GTK_BOX (vbox), box, FALSE, FALSE, 0);
     gtk_widget_show (box);
 
-    vbox = gtk_vbox_new (FALSE, 12);
+    vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 12);
     gtk_box_pack_start (GTK_BOX (hbox), vbox, FALSE, FALSE, 0);
     gtk_widget_show (vbox);
 

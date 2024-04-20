@@ -45,7 +45,7 @@ using namespace std;
 
 struct GnomeCmdFileSelectorClass
 {
-    GtkVBoxClass parent_class;
+    GtkBoxClass parent_class;
 
     void (* dir_changed) (GnomeCmdFileSelector *fs, GnomeCmdDir *dir);
 };
@@ -74,7 +74,7 @@ enum {DIR_CHANGED, LAST_SIGNAL};
 static guint signals[LAST_SIGNAL] = { 0 };
 
 
-G_DEFINE_TYPE (GnomeCmdFileSelector, gnome_cmd_file_selector, GTK_TYPE_VBOX)
+G_DEFINE_TYPE (GnomeCmdFileSelector, gnome_cmd_file_selector, GTK_TYPE_BOX)
 
 
 /*******************************
@@ -761,7 +761,9 @@ static void gnome_cmd_file_selector_init (GnomeCmdFileSelector *fs)
 
     fs->priv = new GnomeCmdFileSelector::Private;
 
-    GtkVBox *vbox = GTK_VBOX (fs);
+    GtkBox *vbox = GTK_BOX (fs);
+
+    g_object_set (fs, "orientation", GTK_ORIENTATION_VERTICAL, NULL);
 
     // create the box used for packing the dir_combo and buttons
     fs->update_show_devbuttons();

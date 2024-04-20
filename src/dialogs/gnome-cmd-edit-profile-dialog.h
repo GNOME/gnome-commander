@@ -95,7 +95,7 @@ namespace GnomeCmd
         gtk_container_set_border_width (GTK_CONTAINER (content_area), 5);
         gtk_box_set_spacing (GTK_BOX (content_area),6);
 
-        GtkWidget *vbox = gtk_vbox_new (FALSE, 6);
+        GtkWidget *vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 6);
         gtk_container_set_border_width (GTK_CONTAINER (vbox), 5);
         gtk_box_pack_start (GTK_BOX (content_area), vbox, TRUE, TRUE, 0);
 

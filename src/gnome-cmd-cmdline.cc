@@ -42,7 +42,7 @@ struct GnomeCmdCmdlinePrivate
 };
 
 
-G_DEFINE_TYPE (GnomeCmdCmdline, gnome_cmd_cmdline, GTK_TYPE_HBOX)
+G_DEFINE_TYPE (GnomeCmdCmdline, gnome_cmd_cmdline, GTK_TYPE_BOX)
 
 
 inline void update_history_combo (GnomeCmdCmdline *cmdline)
@@ -208,6 +208,8 @@ static void gnome_cmd_cmdline_class_init (GnomeCmdCmdlineClass *klass)
 static void gnome_cmd_cmdline_init (GnomeCmdCmdline *cmdline)
 {
     g_return_if_fail (GNOME_CMD_IS_CMDLINE (cmdline));
+
+    g_object_set (cmdline, "orientation", GTK_ORIENTATION_HORIZONTAL, NULL);
 
     GtkWidget *label;
 

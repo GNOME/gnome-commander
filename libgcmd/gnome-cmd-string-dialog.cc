@@ -111,7 +111,7 @@ static void gnome_cmd_string_dialog_init (GnomeCmdStringDialog *string_dialog)
 inline void setup_widget (GnomeCmdStringDialog *string_dialog, gint rows)
 {
     GtkWidget *dialog = GTK_WIDGET (string_dialog);
-    GtkWidget *table;
+    GtkWidget *grid;
     GtkWidget *btn;
 
     string_dialog->rows = rows;
@@ -119,17 +119,18 @@ inline void setup_widget (GnomeCmdStringDialog *string_dialog, gint rows)
     string_dialog->entries = (GtkWidget**) g_new (gpointer, rows);
     string_dialog->priv->error_desc = g_strdup (_("No error description available"));
 
-    table = create_table (dialog, rows, 2);
-    gnome_cmd_dialog_add_category (GNOME_CMD_DIALOG (dialog), table);
+    grid = create_grid (dialog);
+    gnome_cmd_dialog_add_category (GNOME_CMD_DIALOG (dialog), grid);
 
     for (gint i=0; i<rows; i++)
     {
         string_dialog->labels[i] = create_label (dialog, "");
-        table_add (table, string_dialog->labels[i], 0, i, GTK_FILL);
+        gtk_grid_attach (GTK_GRID (grid), string_dialog->labels[i], 0, i, 1, 1);
 
         string_dialog->entries[i] = create_entry (dialog, "entry", "");
         gtk_entry_set_activates_default (GTK_ENTRY (string_dialog->entries[i]), TRUE);
-        table_add (table, string_dialog->entries[i], 1, i, GtkAttachOptions (GTK_FILL|GTK_EXPAND));
+        gtk_widget_set_hexpand (string_dialog->entries[i], TRUE);
+        gtk_grid_attach (GTK_GRID (grid), string_dialog->entries[i], 1, i, 1, 1);
     }
 
     gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), GTK_STOCK_CANCEL, G_CALLBACK (on_cancel), string_dialog);

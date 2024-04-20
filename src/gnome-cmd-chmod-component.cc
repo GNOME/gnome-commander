@@ -124,43 +124,45 @@ static void gnome_cmd_chmod_component_init (GnomeCmdChmodComponent *comp)
 
     gtk_box_set_spacing (GTK_BOX (comp), 5);
 
-    GtkWidget *table = create_table (GTK_WIDGET (comp), 3, 4);
-    gtk_box_pack_start (GTK_BOX (comp), table, FALSE, FALSE, 0);
-    gtk_table_set_row_spacings (GTK_TABLE (table), 6);
-    gtk_table_set_col_spacings (GTK_TABLE (table), 6);
+    GtkGrid *grid = GTK_GRID (gtk_grid_new ());
+    gtk_widget_show (GTK_WIDGET (grid));
+    gtk_box_pack_start (GTK_BOX (comp), GTK_WIDGET (grid), FALSE, FALSE, 0);
+    gtk_grid_set_row_spacing (grid, 6);
+    gtk_grid_set_column_spacing (grid, 6);
 
     for (gint y=0; y<3; y++)
     {
         GtkWidget *lbl = create_label (GTK_WIDGET (comp), check_categories[y]);
-        table_add (GTK_WIDGET (table), lbl, 0, y, GTK_FILL);
+        gtk_grid_attach (grid, lbl, 0, y, 1, 1);
 
         for (gint x=0; x<3; x++)
         {
             comp->priv->check_boxes[y][x] = create_check (GTK_WIDGET (comp), check_text[x], "check");
             g_signal_connect (comp->priv->check_boxes[y][x], "toggled", G_CALLBACK (on_check_toggled), comp);
-            table_add (GTK_WIDGET (table), comp->priv->check_boxes[y][x], x+1, y, GTK_FILL);
+            gtk_grid_attach (grid, comp->priv->check_boxes[y][x], x+1, y, 1, 1);
         }
     }
 
     hsep = create_hsep (GTK_WIDGET (comp));
     gtk_box_pack_start (GTK_BOX (comp), hsep, TRUE, TRUE, 0);
 
-    table = create_table (GTK_WIDGET (comp), 2, 2);
-    gtk_box_pack_start (GTK_BOX (comp), table, TRUE, TRUE, 0);
-    gtk_table_set_row_spacings (GTK_TABLE (table), 6);
-    gtk_table_set_col_spacings (GTK_TABLE (table), 6);
+    grid = GTK_GRID (gtk_grid_new ());
+    gtk_widget_show (GTK_WIDGET (grid));
+    gtk_box_pack_start (GTK_BOX (comp), GTK_WIDGET (grid), TRUE, TRUE, 0);
+    gtk_grid_set_row_spacing (grid, 6);
+    gtk_grid_set_column_spacing (grid, 6);
 
     label = create_label (GTK_WIDGET (comp), _("Text view:"));
-    table_add (table, label, 0, 0, GTK_FILL);
+    gtk_grid_attach (grid, label, 0, 0, 1, 1);
 
     label = create_label (GTK_WIDGET (comp), _("Number view:"));
-    table_add (table, label, 0, 1, GTK_FILL);
+    gtk_grid_attach (grid, label, 0, 1, 1, 1);
 
     comp->priv->textview_label = create_label (GTK_WIDGET (comp), "");
-    table_add (table, comp->priv->textview_label, 1, 0, (GtkAttachOptions) (GTK_FILL|GTK_EXPAND));
+    gtk_grid_attach (grid, comp->priv->textview_label, 1, 0, 1, 1);
 
     comp->priv->numberview_label = create_label (GTK_WIDGET (comp), "");
-    table_add (table, comp->priv->numberview_label, 1, 1, (GtkAttachOptions) (GTK_FILL|GTK_EXPAND));
+    gtk_grid_attach (grid, comp->priv->numberview_label, 1, 1, 1, 1);
 }
 
 /***********************************
