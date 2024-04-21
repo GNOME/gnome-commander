@@ -34,21 +34,17 @@
 GType gnome_cmd_rename_dialog_get_type ();
 
 
-struct GnomeCmdRenameDialogPrivate;
-
-
 struct GnomeCmdRenameDialog
 {
-    GtkWindow parent;
-
-    GnomeCmdRenameDialogPrivate *priv;
+    GtkPopover parent;
 };
 
 
 struct GnomeCmdRenameDialogClass
 {
-    GtkWindowClass parent_class;
+    GtkPopoverClass parent_class;
 };
 
 
-GtkWidget *gnome_cmd_rename_dialog_new (GnomeCmdFile *f, gint x, gint y, gint width, gint height);
+GtkWidget *gnome_cmd_rename_dialog_new (GnomeCmdFile *f, GtkWidget *parent, gint x, gint y, gint width, gint height);
+

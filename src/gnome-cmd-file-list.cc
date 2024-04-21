@@ -720,14 +720,8 @@ static void get_focus_row_coordinates (GnomeCmdFileList *fl, gint &x, gint &y, g
     gtk_tree_view_get_cell_area (*fl, path, fl->priv->columns[GnomeCmdFileList::COLUMN_EXT], &rect_ext);
     gtk_tree_path_free (path);
 
-    gint wx, wy;
-    gtk_tree_view_convert_bin_window_to_widget_coords (*fl, rect_name.x, rect_name.y, &wx, &wy);
+    gtk_tree_view_convert_bin_window_to_widget_coords (*fl, rect_name.x, rect_name.y, &x, &y);
 
-    gint ox, oy;
-    gdk_window_get_origin (gtk_widget_get_window (GTK_WIDGET (fl)), &ox, &oy);
-
-    x = ox + wx;
-    y = oy + wy;
     width = rect_name.width;
     height = rect_name.height;
     if (gnome_cmd_data.options.ext_disp_mode != GNOME_CMD_EXT_DISP_BOTH)
@@ -2678,10 +2672,10 @@ void gnome_cmd_file_list_show_rename_dialog (GnomeCmdFileList *fl)
 
         get_focus_row_coordinates (fl, x, y, w, h);
 
-        GtkWidget *dialog = gnome_cmd_rename_dialog_new (f, x, y, w, h);
+        GtkWidget *popover = gnome_cmd_rename_dialog_new (f, *fl, x, y, w, h);
 
-        g_object_ref (dialog);
-        gtk_widget_show (dialog);
+        gtk_widget_show_all (popover);
+        gtk_popover_popup (GTK_POPOVER (popover));
     }
 }
 

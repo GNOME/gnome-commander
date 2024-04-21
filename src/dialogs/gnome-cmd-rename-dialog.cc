@@ -38,21 +38,22 @@ struct GnomeCmdRenameDialogPrivate
 };
 
 
-G_DEFINE_TYPE (GnomeCmdRenameDialog, gnome_cmd_rename_dialog, GTK_TYPE_WINDOW)
+G_DEFINE_TYPE_WITH_PRIVATE (GnomeCmdRenameDialog, gnome_cmd_rename_dialog, GTK_TYPE_POPOVER)
 
 
 static gboolean on_dialog_keypressed (GtkWidget *widget, GdkEventKey *event, gpointer user_data)
 {
     GnomeCmdRenameDialog *dialog = GNOME_CMD_RENAME_DIALOG(widget);
+    auto priv = static_cast<GnomeCmdRenameDialogPrivate *> (gnome_cmd_rename_dialog_get_instance_private (dialog));
 
-    if (event->type == GDK_KEY_PRESS && gtk_editable_get_editable (GTK_EDITABLE (dialog->priv->textbox)))
-        if (gtk_entry_im_context_filter_keypress (dialog->priv->textbox, event))
+    if (event->type == GDK_KEY_PRESS && gtk_editable_get_editable (GTK_EDITABLE (priv->textbox)))
+        if (gtk_entry_im_context_filter_keypress (priv->textbox, event))
             return TRUE;
 
     switch (event->keyval)
     {
         case GDK_KEY_Escape:
-            dialog->priv->f->unref();
+            priv->f->unref();
             gtk_widget_destroy(widget);
             return TRUE;
 
@@ -60,13 +61,13 @@ static gboolean on_dialog_keypressed (GtkWidget *widget, GdkEventKey *event, gpo
         case GDK_KEY_KP_Enter:
             {
                 GError *error = nullptr;
-                gchar *new_fname = g_strdup (gtk_entry_get_text (dialog->priv->textbox));
-                gboolean result = dialog->priv->f->rename(new_fname, &error);
+                gchar *new_fname = g_strdup (gtk_entry_get_text (priv->textbox));
+                gboolean result = priv->f->rename(new_fname, &error);
 
                 if (result)
                     main_win->fs(ACTIVE)->file_list()->focus_file(new_fname, TRUE);
 
-                dialog->priv->f->unref();
+                priv->f->unref();
                 gtk_widget_destroy (widget);
 
                 if (!result)
@@ -82,7 +83,7 @@ static gboolean on_dialog_keypressed (GtkWidget *widget, GdkEventKey *event, gpo
         case GDK_KEY_F2:
         case GDK_KEY_F5:
         case GDK_KEY_F6:
-            gnome_cmd_toggle_file_name_selection (GTK_WIDGET (dialog->priv->textbox));
+            gnome_cmd_toggle_file_name_selection (GTK_WIDGET (priv->textbox));
             return TRUE;
 
         default:
@@ -93,33 +94,22 @@ static gboolean on_dialog_keypressed (GtkWidget *widget, GdkEventKey *event, gpo
 
 static gboolean on_focus_out (GtkWidget *widget, GdkEventKey *event)
 {
-    GNOME_CMD_RENAME_DIALOG(widget)->priv->f->unref();
+    GnomeCmdRenameDialog *dialog = GNOME_CMD_RENAME_DIALOG(widget);
+    auto priv = static_cast<GnomeCmdRenameDialogPrivate *> (gnome_cmd_rename_dialog_get_instance_private (dialog));
+
+    priv->f->unref();
     gtk_widget_destroy (widget);
     return TRUE;
 }
 
 
-static void gnome_cmd_rename_dialog_finalize (GObject *object)
-{
-    GnomeCmdRenameDialog *dialog = GNOME_CMD_RENAME_DIALOG (object);
-
-    g_free (dialog->priv);
-
-    G_OBJECT_CLASS (gnome_cmd_rename_dialog_parent_class)->finalize (object);
-}
-
-
 static void gnome_cmd_rename_dialog_class_init (GnomeCmdRenameDialogClass *klass)
 {
-    GObjectClass *object_class = G_OBJECT_CLASS (klass);
-
-    object_class->finalize = gnome_cmd_rename_dialog_finalize;
 }
 
 
 static void gnome_cmd_rename_dialog_init (GnomeCmdRenameDialog *dialog)
 {
-    dialog->priv = g_new0 (GnomeCmdRenameDialogPrivate, 1);
     g_signal_connect (dialog, "key-press-event", G_CALLBACK (on_dialog_keypressed), NULL);
     g_signal_connect (dialog, "focus-out-event", G_CALLBACK (on_focus_out), NULL);
 }
@@ -129,30 +119,29 @@ static void gnome_cmd_rename_dialog_init (GnomeCmdRenameDialog *dialog)
  * Public functions
  ***********************************/
 
-GtkWidget *gnome_cmd_rename_dialog_new (GnomeCmdFile *f, gint x, gint y, gint width, gint height)
+GtkWidget *gnome_cmd_rename_dialog_new (GnomeCmdFile *f, GtkWidget *parent, gint x, gint y, gint width, gint height)
 {
     g_return_val_if_fail (f != NULL, NULL);
 
     GnomeCmdRenameDialog *dialog = (GnomeCmdRenameDialog *) g_object_new (GNOME_CMD_TYPE_RENAME_DIALOG, NULL);
-    dialog->priv->f = f->ref();
+    auto priv = static_cast<GnomeCmdRenameDialogPrivate *> (gnome_cmd_rename_dialog_get_instance_private (dialog));
 
-    gtk_window_set_decorated (GTK_WINDOW (dialog), 0);
-    gtk_window_move (GTK_WINDOW (dialog), x, y);
-    gtk_window_set_type_hint (GTK_WINDOW (dialog), GDK_WINDOW_TYPE_HINT_DIALOG);
-    gtk_window_set_skip_taskbar_hint (GTK_WINDOW (dialog), TRUE);
+    priv->f = f->ref();
 
-    gtk_widget_set_size_request (GTK_WIDGET (dialog), width+1, height+1);
-    dialog->priv->textbox = GTK_ENTRY (gtk_entry_new ());
-    gtk_widget_set_size_request (GTK_WIDGET (dialog->priv->textbox), width, height);
-    gtk_container_add (GTK_CONTAINER (dialog), GTK_WIDGET (dialog->priv->textbox));
-    gtk_widget_set_style (GTK_WIDGET (dialog->priv->textbox), list_style);
+    gtk_popover_set_relative_to (GTK_POPOVER (dialog), parent);
+    GdkRectangle rect = { x, y, width, height };
+    gtk_popover_set_pointing_to (GTK_POPOVER (dialog), &rect);
 
-    gtk_entry_set_text (dialog->priv->textbox, f->get_name());
+    priv->textbox = GTK_ENTRY (gtk_entry_new ());
+    gtk_widget_set_size_request (GTK_WIDGET (priv->textbox), width, height);
+    gtk_container_add (GTK_CONTAINER (dialog), GTK_WIDGET (priv->textbox));
+    gtk_widget_set_style (GTK_WIDGET (priv->textbox), list_style);
 
-    gtk_window_set_focus (GTK_WINDOW (dialog), GTK_WIDGET (dialog->priv->textbox));
-    gtk_widget_grab_focus (GTK_WIDGET (dialog->priv->textbox));
-    gtk_editable_select_region (GTK_EDITABLE (dialog->priv->textbox), 0, -1);
-    gtk_widget_show (GTK_WIDGET (dialog->priv->textbox));
+    gtk_entry_set_text (priv->textbox, f->get_name());
+
+    gtk_widget_grab_focus (GTK_WIDGET (priv->textbox));
+    gtk_editable_select_region (GTK_EDITABLE (priv->textbox), 0, -1);
+    gtk_widget_show (GTK_WIDGET (priv->textbox));
 
     return GTK_WIDGET (dialog);
 }
