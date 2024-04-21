@@ -122,6 +122,7 @@ static void gnome_cmd_chmod_component_init (GnomeCmdChmodComponent *comp)
 
     comp->priv = g_new (GnomeCmdChmodComponentPrivate, 1);
 
+    g_object_set (comp, "orientation", GTK_ORIENTATION_VERTICAL, NULL);
     gtk_box_set_spacing (GTK_BOX (comp), 5);
 
     GtkGrid *grid = GTK_GRID (gtk_grid_new ());

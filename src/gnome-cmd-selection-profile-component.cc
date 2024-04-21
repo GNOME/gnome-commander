@@ -33,7 +33,7 @@ using namespace std;
 
 struct GnomeCmdSelectionProfileComponentClass
 {
-    GtkVBoxClass parent_class;
+    GtkBoxClass parent_class;
 };
 
 
@@ -116,6 +116,8 @@ G_DEFINE_TYPE (GnomeCmdSelectionProfileComponent, gnome_cmd_selection_profile_co
 
 static void gnome_cmd_selection_profile_component_init (GnomeCmdSelectionProfileComponent *component)
 {
+    g_object_set (component, "orientation", GTK_ORIENTATION_VERTICAL, NULL);
+
     component->priv = new GnomeCmdSelectionProfileComponent::Private;
 
     component->priv->grid = gtk_grid_new ();

@@ -257,7 +257,7 @@ static void gviewer_window_init (GViewerWindow *w)
 
     g_signal_connect (w, "key-press-event", G_CALLBACK (gviewer_window_key_pressed), nullptr);
 
-    w->priv->vbox = gtk_vbox_new (FALSE, 0);
+    w->priv->vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 0);
     gtk_widget_show (w->priv->vbox);
 
     w->priv->menubar = gviewer_window_create_menus(w);

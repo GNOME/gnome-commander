@@ -35,9 +35,9 @@ GType gnome_cmd_advrename_profile_component_get_type ();
 
 struct GnomeCmdAdvrenameProfileComponent
 {
-    GtkVBox parent;
+    GtkBox parent;
 
-    class Private;
+    struct Private;
 
     Private *priv;
 

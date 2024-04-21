@@ -382,7 +382,7 @@ static void on_add_to_archive (GtkMenuItem *item, FileRollerPlugin *plugin)
 
         gtk_window_set_title (GTK_WINDOW (dialog), _("Create Archive"));
 
-        hbox = gtk_hbox_new (FALSE, 6);
+        hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 6);
         g_object_ref (hbox);
         gtk_widget_show (hbox);
         gtk_box_pack_start (GTK_BOX (gtk_dialog_get_content_area (GTK_DIALOG (dialog))), hbox, FALSE, TRUE, 6);

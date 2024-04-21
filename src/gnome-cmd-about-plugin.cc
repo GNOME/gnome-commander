@@ -266,7 +266,7 @@ static void gnome_cmd_about_plugin_init (GnomeCmdAboutPlugin *about)
     gtk_box_set_spacing (GTK_BOX (gtk_dialog_get_content_area (GTK_DIALOG (about))), 5);
 
     // Widgets
-    vbox = gtk_vbox_new (FALSE, 8);
+    vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 8);
     gtk_container_set_border_width (GTK_CONTAINER (vbox), 5);
 
     gtk_box_pack_start (GTK_BOX (gtk_dialog_get_content_area (GTK_DIALOG (about))), vbox, TRUE, TRUE, 0);
@@ -306,7 +306,7 @@ static void gnome_cmd_about_plugin_init (GnomeCmdAboutPlugin *about)
 
     label = gtk_label_new_with_mnemonic (_("C_redits"));
 
-    hbox = gtk_hbox_new (FALSE, 2);
+    hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 2);
     gtk_box_pack_start (GTK_BOX (hbox), image, FALSE, FALSE, 0);
     gtk_box_pack_end (GTK_BOX (hbox), label, FALSE, FALSE, 0);
 

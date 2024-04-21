@@ -163,7 +163,7 @@ GtkWidget *create_bold_label (GtkWidget *parent, const gchar *text)
 
 GtkWidget *create_hsep (GtkWidget *parent)
 {
-    GtkWidget *sep = gtk_hseparator_new ();
+    GtkWidget *sep = gtk_separator_new (GTK_ORIENTATION_HORIZONTAL);
     g_object_ref (sep);
     g_object_set_data_full (G_OBJECT (parent), "sep", sep, g_object_unref);
     gtk_widget_show (sep);
@@ -424,7 +424,7 @@ GtkWidget *create_scale (GtkWidget *parent, const gchar *name, gint value, gint 
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wcast-align"
 #endif
-    GtkWidget *scale = gtk_hscale_new (GTK_ADJUSTMENT (gtk_adjustment_new (value, min, max, 0, 0, 0)));
+    GtkWidget *scale = gtk_scale_new (GTK_ORIENTATION_HORIZONTAL, GTK_ADJUSTMENT (gtk_adjustment_new (value, min, max, 0, 0, 0)));
 #if defined (__GNUC__)
 #pragma GCC diagnostic pop
 #endif
@@ -552,7 +552,7 @@ void create_treeview_column (GtkWidget *sw, gint col, gint width, const gchar *l
 
 GtkWidget *create_vbuttonbox (GtkWidget *parent)
 {
-    GtkWidget *w = gtk_vbutton_box_new ();
+    GtkWidget *w = gtk_button_box_new (GTK_ORIENTATION_VERTICAL);
     g_object_ref (w);
     g_object_set_data_full (G_OBJECT (parent), "vbuttonbox", w, g_object_unref);
     gtk_widget_show (w);
@@ -564,7 +564,7 @@ GtkWidget *create_vbuttonbox (GtkWidget *parent)
 
 GtkWidget *create_hbuttonbox (GtkWidget *parent)
 {
-    GtkWidget *w = gtk_hbutton_box_new ();
+    GtkWidget *w = gtk_button_box_new (GTK_ORIENTATION_HORIZONTAL);
     g_object_ref (w);
     g_object_set_data_full (G_OBJECT (parent), "hbuttonbox", w, g_object_unref);
     gtk_widget_show (w);

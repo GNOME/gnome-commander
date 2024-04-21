@@ -33,7 +33,7 @@
 #include "tags/gnome-cmd-tags.h"
 #include "utils.h"
 
-// This define is used to remove warnings for CLAMP makro when doying CLAMP((uint) 1, 0, 2)
+// This define is used to remove warnings for CLAMP macro when doing CLAMP((uint) 1, 0, 2)
 #define MYCLAMP(x, low, high) (((x) > (high)) ? (high) : (((x) <= (low)) ? (low) : (x)))
 
 using namespace std;
@@ -41,7 +41,7 @@ using namespace std;
 
 struct GnomeCmdAdvrenameProfileComponentClass
 {
-    GtkVBoxClass parent_class;
+    GtkBoxClass parent_class;
 
     void (* template_changed) (GnomeCmdAdvrenameProfileComponent *component);
     void (* counter_changed) (GnomeCmdAdvrenameProfileComponent *component);
@@ -611,7 +611,7 @@ gchar *GnomeCmdAdvrenameProfileComponent::Private::get_selected_range (GtkWindow
 
     GtkWidget *hbox, *label, *entry, *option;
 
-    hbox = gtk_hbox_new (FALSE, 12);
+    hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 12);
     gtk_container_set_border_width (GTK_CONTAINER (hbox), 6);
     gtk_box_pack_start (GTK_BOX (gtk_dialog_get_content_area (GTK_DIALOG (dialog))), hbox, FALSE, FALSE, 0);
 
@@ -906,13 +906,15 @@ static void gnome_cmd_advrename_profile_component_init (GnomeCmdAdvrenameProfile
 
     gchar *str;
 
-    hbox = gtk_hbox_new (FALSE, 18);
+    g_object_set (component, "orientation", GTK_ORIENTATION_VERTICAL, NULL);
+
+    hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 18);
     gtk_box_pack_start (GTK_BOX (component), hbox, FALSE, FALSE, 0);
 
 
     // Template
     {
-        GtkWidget *vbox = gtk_vbox_new (FALSE, 6);
+        GtkWidget *vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 6);
         gtk_box_pack_start (GTK_BOX (hbox), vbox, TRUE, TRUE, 0);
 
         str = g_strdup_printf ("<b>%s</b>", _("_Template"));
@@ -935,7 +937,7 @@ static void gnome_cmd_advrename_profile_component_init (GnomeCmdAdvrenameProfile
             gtk_box_pack_start (GTK_BOX (local_vbox), combo, FALSE, FALSE, 0);
             g_object_ref (component->priv->template_entry);
 
-            GtkWidget *local_bbox = gtk_hbutton_box_new ();
+            GtkWidget *local_bbox = gtk_button_box_new (GTK_ORIENTATION_HORIZONTAL);
             gtk_box_pack_start (GTK_BOX (local_vbox), local_bbox, TRUE, FALSE, 0);
 
             gtk_button_box_set_layout (GTK_BUTTON_BOX (local_bbox), GTK_BUTTONBOX_START);
@@ -951,7 +953,7 @@ static void gnome_cmd_advrename_profile_component_init (GnomeCmdAdvrenameProfile
 
     // Counter
     {
-        GtkWidget *vbox = gtk_vbox_new (FALSE, 6);
+        GtkWidget *vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 6);
         gtk_box_pack_start (GTK_BOX (hbox), vbox, FALSE, FALSE, 0);
 
         str = g_strdup_printf ("<b>%s</b>", _("Counter"));
@@ -1026,7 +1028,7 @@ static void gnome_cmd_advrename_profile_component_init (GnomeCmdAdvrenameProfile
         component->priv->regex_view = create_regex_view ();
         gtk_container_add (GTK_CONTAINER (scrolled_window), component->priv->regex_view);
 
-        bbox = gtk_vbutton_box_new ();
+        bbox = gtk_button_box_new (GTK_ORIENTATION_VERTICAL);
         gtk_button_box_set_layout (GTK_BUTTON_BOX (bbox), GTK_BUTTONBOX_END);
         gtk_box_set_spacing (GTK_BOX (bbox), 12);
         gtk_grid_attach (GTK_GRID (grid), bbox, 1, 0, 1, 1);

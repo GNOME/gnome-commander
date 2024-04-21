@@ -42,7 +42,7 @@ static void on_menu_button_clicked (GtkButton *widget, GtkWidget *menu)
 inline GtkWidget *create_menu_button (const gchar *stock_id, const gchar *label_text, GtkWidget *menu)
 {
     GtkWidget *button = gtk_button_new ();
-    GtkWidget *hbox = gtk_hbox_new (FALSE, 3);
+    GtkWidget *hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 3);
     GtkWidget *label = gtk_label_new_with_mnemonic (label_text ? label_text : stock_id);
 
     gtk_container_add (GTK_CONTAINER (button), hbox);

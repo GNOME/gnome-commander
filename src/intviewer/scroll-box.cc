@@ -74,11 +74,11 @@ static void scroll_box_init (ScrollBox *w)
 {
     w->priv = g_new0 (ScrollBoxPrivate, 1);
 
-    w->priv->vscroll = gtk_vscrollbar_new (nullptr);
+    w->priv->vscroll = gtk_scrollbar_new (GTK_ORIENTATION_VERTICAL, nullptr);
     gtk_widget_show (w->priv->vscroll);
     gtk_grid_attach (GTK_GRID (w), w->priv->vscroll, 1, 0, 1, 1);
 
-    w->priv->hscroll = gtk_hscrollbar_new (nullptr);
+    w->priv->hscroll = gtk_scrollbar_new (GTK_ORIENTATION_HORIZONTAL, nullptr);
     gtk_widget_show (w->priv->hscroll);
     gtk_grid_attach (GTK_GRID (w), w->priv->hscroll, 0, 1, 1, 1);
     w->priv->client = nullptr;
