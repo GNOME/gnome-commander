@@ -122,7 +122,7 @@ static GtkWidget *create_main_menu (GnomeCmdPlugin *plugin, GnomeCmdState *state
                                GTK_WIDGET (submenu));
 
     child = create_menu_item ("Test plugin dummy operation", FALSE, G_CALLBACK (on_dummy), state);
-    gtk_menu_append (submenu, child);
+    gtk_menu_shell_append (GTK_MENU_SHELL (submenu), child);
 
     return item;
 }
@@ -153,23 +153,11 @@ static void configure (GnomeCmdPlugin *plugin)
  * Gtk class implementation
  *******************************/
 
-static void destroy (GtkObject *object)
-{
-    //TestPlugin *plugin = TEST_PLUGIN (object);
-
-    GTK_OBJECT_CLASS (test_plugin_parent_class)->destroy (object);
-}
-
-
 static void test_plugin_class_init (TestPluginClass *klass)
 {
-    GtkObjectClass *object_class;
     GnomeCmdPluginClass *plugin_class;
 
-    object_class = GTK_OBJECT_CLASS (klass);
     plugin_class = GNOME_CMD_PLUGIN_CLASS (klass);
-
-    object_class->destroy = destroy;
 
     plugin_class->create_main_menu = create_main_menu;
     plugin_class->create_popup_menu_items = create_popup_menu_items;

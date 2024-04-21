@@ -113,13 +113,13 @@ static gboolean on_key_pressed (GtkWidget *entry, GdkEventKey *event, GnomeCmdCm
 {
     switch (event->keyval)
     {
-        case GDK_BackSpace:
-        case GDK_space:
-        case GDK_Home:
-        case GDK_End:
-        case GDK_Delete:
-        case GDK_Left:
-        case GDK_Right:
+        case GDK_KEY_BackSpace:
+        case GDK_KEY_space:
+        case GDK_KEY_Home:
+        case GDK_KEY_End:
+        case GDK_KEY_Delete:
+        case GDK_KEY_Left:
+        case GDK_KEY_Right:
             return gnome_cmd_cmdline_keypressed (cmdline, event);
 
         default:
@@ -235,7 +235,7 @@ static void gnome_cmd_cmdline_init (GnomeCmdCmdline *cmdline)
     g_object_set_data_full (G_OBJECT (cmdline), "combo", cmdline->priv->combo, g_object_unref);
     gtk_box_pack_start (GTK_BOX (cmdline), *cmdline->priv->combo, TRUE, TRUE, 2);
     gtk_widget_show (*cmdline->priv->combo);
-    gtk_entry_set_editable (GTK_ENTRY (cmdline->priv->combo->get_entry()), TRUE);
+    gtk_editable_set_editable (GTK_EDITABLE (cmdline->priv->combo->get_entry()), TRUE);
     gtk_widget_set_can_focus (cmdline->priv->combo->get_entry(), TRUE);
 
     g_signal_connect (cmdline->priv->combo->get_entry(), "key-press-event", G_CALLBACK (on_key_pressed), cmdline);
@@ -285,10 +285,14 @@ void gnome_cmd_cmdline_append_text (GnomeCmdCmdline *cmdline, const gchar *text)
     const gchar *curtext = gtk_entry_get_text (entry);
 
     if (curtext[strlen(curtext)-1] != ' ' && strlen(curtext) > 0)
-        gtk_entry_append_text (entry, " ");
+    {
+        gint tmp = gtk_entry_get_text_length (entry);
+        gtk_editable_insert_text (GTK_EDITABLE (entry), " ", -1, &tmp);
+    }
 
     gint curpos = gtk_editable_get_position (GTK_EDITABLE (entry));
-    gtk_entry_append_text (entry, text);
+    gint tmp = gtk_entry_get_text_length (entry);
+    gtk_editable_insert_text (GTK_EDITABLE (entry), text, -1, &tmp);
     gtk_editable_set_position (GTK_EDITABLE (entry), curpos + strlen (text));
 }
 
@@ -390,11 +394,11 @@ gboolean gnome_cmd_cmdline_keypressed (GnomeCmdCmdline *cmdline, GdkEventKey *ev
     {
         switch (event->keyval)
         {
-            case GDK_Down:
+            case GDK_KEY_Down:
                 gnome_cmd_cmdline_show_history (cmdline);
                 return TRUE;
 
-            case GDK_Return:
+            case GDK_KEY_Return:
                 event->string[0] = '\0';
                 return FALSE;
             default:
@@ -407,9 +411,9 @@ gboolean gnome_cmd_cmdline_keypressed (GnomeCmdCmdline *cmdline, GdkEventKey *ev
         {
             switch (event->keyval)
             {
-                case GDK_Return:
+                case GDK_KEY_Return:
                     on_exec (cmdline, TRUE);
-                    event->keyval = GDK_Escape;
+                    event->keyval = GDK_KEY_Escape;
                     return TRUE;
                 default:
                     return FALSE;
@@ -421,7 +425,7 @@ gboolean gnome_cmd_cmdline_keypressed (GnomeCmdCmdline *cmdline, GdkEventKey *ev
             {
                 switch (event->keyval)
                 {
-                    case GDK_Return:
+                    case GDK_KEY_Return:
                         event->string[0] = '\0';
                         return FALSE;
                     default:
@@ -434,18 +438,18 @@ gboolean gnome_cmd_cmdline_keypressed (GnomeCmdCmdline *cmdline, GdkEventKey *ev
                 {
                     switch (event->keyval)
                     {
-                        case GDK_Return:
+                        case GDK_KEY_Return:
                             on_exec (cmdline, FALSE);
-                            event->keyval = GDK_Escape;
+                            event->keyval = GDK_KEY_Escape;
                             return TRUE;
 
-                        case GDK_Escape:
+                        case GDK_KEY_Escape:
                             gnome_cmd_cmdline_set_text (cmdline, "");
                             main_win->focus_file_lists();
                             return TRUE;
 
-                        case GDK_Up:
-                        case GDK_Down:
+                        case GDK_KEY_Up:
+                        case GDK_KEY_Down:
                             {
                                 gboolean ret;
                                 GdkEventKey event2 = *event;

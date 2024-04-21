@@ -103,7 +103,11 @@ void GnomeCmdSelectionProfileComponent::Private::on_find_text_toggled(GtkToggleB
 
 static void combo_box_insert_text (const gchar *text, GtkComboBox *widget)
 {
-    gtk_combo_box_append_text (widget, text);
+    GtkTreeModel *store = gtk_combo_box_get_model (GTK_COMBO_BOX (widget));
+
+    GtkTreeIter iter;
+    gtk_list_store_append (GTK_LIST_STORE (store), &iter);
+    gtk_list_store_set (GTK_LIST_STORE (store), &iter, 0, text, -1);
 }
 
 
@@ -121,23 +125,23 @@ static void gnome_cmd_selection_profile_component_init (GnomeCmdSelectionProfile
 
 
     // search for
-    component->priv->filter_type_combo = gtk_combo_box_new_text ();
-    gtk_combo_box_append_text (GTK_COMBO_BOX (component->priv->filter_type_combo), _("Path matches regex:"));
-    gtk_combo_box_append_text (GTK_COMBO_BOX (component->priv->filter_type_combo), _("Name contains:"));
-    component->priv->pattern_combo = gtk_combo_box_entry_new_text ();
+    component->priv->filter_type_combo = gtk_combo_box_text_new ();
+    gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (component->priv->filter_type_combo), _("Path matches regex:"));
+    gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (component->priv->filter_type_combo), _("Name contains:"));
+    component->priv->pattern_combo = gtk_combo_box_new_with_model_and_entry (GTK_TREE_MODEL (gtk_list_store_new (1, G_TYPE_STRING)));
     table_add (component->priv->table, component->priv->filter_type_combo, 0, 0, GTK_FILL);
     table_add (component->priv->table, component->priv->pattern_combo, 1, 0, (GtkAttachOptions) (GTK_EXPAND|GTK_FILL));
 
 
     // recurse check
-    component->priv->recurse_combo = gtk_combo_box_new_text ();
+    component->priv->recurse_combo = gtk_combo_box_text_new ();
 
-    gtk_combo_box_append_text (GTK_COMBO_BOX (component->priv->recurse_combo), _("Unlimited depth"));
-    gtk_combo_box_append_text (GTK_COMBO_BOX (component->priv->recurse_combo), _("Current directory only"));
+    gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (component->priv->recurse_combo), _("Unlimited depth"));
+    gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (component->priv->recurse_combo), _("Current directory only"));
     for (int i=1; i<=40; ++i)
     {
        gchar *item = g_strdup_printf (ngettext("%i level", "%i levels", i), i);
-       gtk_combo_box_append_text (GTK_COMBO_BOX (component->priv->recurse_combo), item);
+       combo_box_insert_text (item, GTK_COMBO_BOX (component->priv->recurse_combo));
        g_free (item);
     }
 
@@ -149,7 +153,7 @@ static void gnome_cmd_selection_profile_component_init (GnomeCmdSelectionProfile
     component->priv->find_text_check = create_check_with_mnemonic (*component, _("Contains _text:"), "find_text");
     table_add (component->priv->table, component->priv->find_text_check, 0, 3, GTK_FILL);
 
-    component->priv->find_text_combo = gtk_combo_box_entry_new_text ();
+    component->priv->find_text_combo = gtk_combo_box_new_with_model_and_entry (GTK_TREE_MODEL (gtk_list_store_new (1, G_TYPE_STRING)));
     table_add (component->priv->table, component->priv->find_text_combo, 1, 3, (GtkAttachOptions) (GTK_EXPAND|GTK_FILL));
     gtk_widget_set_sensitive (component->priv->find_text_combo, FALSE);
 
@@ -225,10 +229,12 @@ void GnomeCmdSelectionProfileComponent::update()
 
 void GnomeCmdSelectionProfileComponent::copy()
 {
-    stringify(profile.filename_pattern, gtk_combo_box_get_active_text (GTK_COMBO_BOX (priv->pattern_combo)));
+    const char *pattern_text = gtk_entry_get_text (GTK_ENTRY (gtk_bin_get_child (GTK_BIN (priv->pattern_combo))));
+    stringify(profile.filename_pattern, pattern_text);
     profile.syntax = (Filter::Type) gtk_combo_box_get_active (GTK_COMBO_BOX (priv->filter_type_combo));
     profile.max_depth = gtk_combo_box_get_active (GTK_COMBO_BOX (priv->recurse_combo)) - 1;
-    stringify(profile.text_pattern, gtk_combo_box_get_active_text (GTK_COMBO_BOX (priv->find_text_combo)));
+    const char *find_text = gtk_entry_get_text (GTK_ENTRY (gtk_bin_get_child (GTK_BIN (priv->find_text_combo))));
+    stringify(profile.text_pattern, find_text);
     profile.content_search = !profile.text_pattern.empty() && gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->find_text_check));
     profile.match_case = profile.content_search && gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->case_check));
 }
@@ -236,10 +242,12 @@ void GnomeCmdSelectionProfileComponent::copy()
 
 void GnomeCmdSelectionProfileComponent::copy(GnomeCmdData::SearchProfile &profile_in)
 {
-    stringify(profile_in.filename_pattern, gtk_combo_box_get_active_text (GTK_COMBO_BOX (priv->pattern_combo)));
+    const char *pattern_text = gtk_entry_get_text (GTK_ENTRY (gtk_bin_get_child (GTK_BIN (priv->pattern_combo))));
+    stringify(profile_in.filename_pattern, pattern_text);
     profile_in.syntax = (Filter::Type) gtk_combo_box_get_active (GTK_COMBO_BOX (priv->filter_type_combo));
     profile_in.max_depth = gtk_combo_box_get_active (GTK_COMBO_BOX (priv->recurse_combo)) - 1;
-    stringify(profile_in.text_pattern, gtk_combo_box_get_active_text (GTK_COMBO_BOX (priv->find_text_combo)));
+    const char *find_text = gtk_entry_get_text (GTK_ENTRY (gtk_bin_get_child (GTK_BIN (priv->find_text_combo))));
+    stringify(profile_in.text_pattern, find_text);
     profile_in.content_search = !profile_in.text_pattern.empty() && gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->find_text_check));
     profile_in.match_case = profile_in.content_search && gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->case_check));
 }

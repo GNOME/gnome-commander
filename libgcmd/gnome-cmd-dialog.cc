@@ -39,7 +39,7 @@ extern GtkWidget *main_win;
 
 static gboolean on_dialog_keypressed (GtkWidget *dialog, GdkEventKey *event, gpointer user_data)
 {
-    if (event->keyval == GDK_Escape)
+    if (event->keyval == GDK_KEY_Escape)
     {
         gtk_widget_destroy (dialog);
         return TRUE;

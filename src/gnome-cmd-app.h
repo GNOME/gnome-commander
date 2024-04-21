@@ -47,7 +47,7 @@ struct GnomeCmdApp
     gboolean handles_multiple;
     gboolean requires_terminal;
 
-    GnomeCmdPixmap *pixmap;
+    GdkPixbuf *pixbuf;
 };
 
 GnomeCmdApp *gnome_cmd_app_new ();
@@ -94,4 +94,4 @@ void gnome_cmd_app_set_handles_multiple (GnomeCmdApp *app, gboolean handles_mult
 gboolean gnome_cmd_app_get_requires_terminal (GnomeCmdApp *app);
 void gnome_cmd_app_set_requires_terminal (GnomeCmdApp *app, gboolean requires_terminal);
 
-GnomeCmdPixmap *gnome_cmd_app_get_pixmap (GnomeCmdApp *app);
+GdkPixbuf *gnome_cmd_app_get_pixbuf (GnomeCmdApp *app);

@@ -29,7 +29,6 @@
 #include <stdlib.h>
 
 #include <gtk/gtk.h>
-#include <gtk/gtktable.h>
 
 #include "scroll-box.h"
 

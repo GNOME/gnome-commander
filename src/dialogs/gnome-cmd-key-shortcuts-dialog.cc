@@ -141,21 +141,21 @@ static void response_callback (GnomeCmdKeyShortcutsDialog *dialog, int response_
                     g_free (options);
                 }
 
-                dialog->user_actions->unregister(GDK_F3);
-                dialog->user_actions->unregister(GDK_F4);
-                dialog->user_actions->unregister(GDK_F5);
-                dialog->user_actions->unregister(GDK_F6);
-                dialog->user_actions->unregister(GDK_F7);
-                dialog->user_actions->unregister(GDK_F8);
-                dialog->user_actions->unregister(GDK_F9);
+                dialog->user_actions->unregister(GDK_KEY_F3);
+                dialog->user_actions->unregister(GDK_KEY_F4);
+                dialog->user_actions->unregister(GDK_KEY_F5);
+                dialog->user_actions->unregister(GDK_KEY_F6);
+                dialog->user_actions->unregister(GDK_KEY_F7);
+                dialog->user_actions->unregister(GDK_KEY_F8);
+                dialog->user_actions->unregister(GDK_KEY_F9);
 
-                dialog->user_actions->register_action(GDK_F3, "file.view");
-                dialog->user_actions->register_action(GDK_F4, "file.edit");
-                dialog->user_actions->register_action(GDK_F5, "file.copy");
-                dialog->user_actions->register_action(GDK_F6, "file.rename");
-                dialog->user_actions->register_action(GDK_F7, "file.mkdir");
-                dialog->user_actions->register_action(GDK_F8, "file.delete");
-                dialog->user_actions->register_action(GDK_F9, "edit.search");
+                dialog->user_actions->register_action(GDK_KEY_F3, "file.view");
+                dialog->user_actions->register_action(GDK_KEY_F4, "file.edit");
+                dialog->user_actions->register_action(GDK_KEY_F5, "file.copy");
+                dialog->user_actions->register_action(GDK_KEY_F6, "file.rename");
+                dialog->user_actions->register_action(GDK_KEY_F7, "file.mkdir");
+                dialog->user_actions->register_action(GDK_KEY_F8, "file.delete");
+                dialog->user_actions->register_action(GDK_KEY_F9, "edit.search");
             }
 
             break;
@@ -199,7 +199,6 @@ static void gnome_cmd_key_shortcuts_dialog_init (GnomeCmdKeyShortcutsDialog *dia
 
     gtk_window_set_position (GTK_WINDOW (dialog), GTK_WIN_POS_CENTER);
     gtk_window_set_title (GTK_WINDOW (dialog), _("Keyboard Shortcuts"));
-    gtk_dialog_set_has_separator (GTK_DIALOG (dialog), FALSE);
     gtk_container_set_border_width (GTK_CONTAINER (dialog), 5);
     gtk_box_set_spacing (GTK_BOX (gtk_dialog_get_content_area (GTK_DIALOG (dialog))), 2);
     gtk_window_set_resizable (GTK_WINDOW (dialog), TRUE);

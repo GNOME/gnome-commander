@@ -64,7 +64,7 @@ inline GtkStyle *create_list_style (GnomeCmdColorTheme *cols, const gchar *font_
     }
     else
     {
-        GtkWidget *widget = gtk_combo_new ();
+        GtkWidget *widget = gtk_combo_box_new ();
         GtkStyle *default_style = gtk_rc_get_style(widget);
         gtk_widget_destroy (widget);
 
@@ -111,7 +111,7 @@ inline GtkStyle *create_alt_list_style (GnomeCmdColorTheme *cols, const gchar *f
     }
     else
     {
-        GtkWidget *widget = gtk_combo_new ();
+        GtkWidget *widget = gtk_combo_box_new ();
         GtkStyle *default_style = gtk_rc_get_style(widget);
         gtk_widget_destroy (widget);
 
@@ -159,7 +159,7 @@ inline GtkStyle *create_sel_list_style (GnomeCmdColorTheme *cols, const gchar *f
     }
     else
     {
-        GtkWidget *widget = gtk_combo_new ();
+        GtkWidget *widget = gtk_combo_box_new ();
         GtkStyle *default_style = gtk_rc_get_style(widget);
         gtk_widget_destroy (widget);
 
@@ -213,7 +213,7 @@ inline GtkStyle *create_alt_sel_list_style (GnomeCmdColorTheme *cols, const gcha
     }
     else
     {
-        GtkWidget *widget = gtk_combo_new ();
+        GtkWidget *widget = gtk_combo_box_new ();
         GtkStyle *default_style = gtk_rc_get_style(widget);
         gtk_widget_destroy (widget);
 

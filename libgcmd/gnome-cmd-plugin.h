@@ -37,12 +37,12 @@ typedef GnomeCmdPlugin *(*PluginConstructorFunc)(void);
 
 struct _GnomeCmdPlugin
 {
-    GtkObject parent;
+    GObject parent;
 };
 
 struct _GnomeCmdPluginClass
 {
-    GtkObjectClass parent_class;
+    GObjectClass parent_class;
 
     GtkWidget *(* create_main_menu) (GnomeCmdPlugin *plugin, GnomeCmdState *state);
     GList *(* create_popup_menu_items) (GnomeCmdPlugin *plugin, GnomeCmdState *state);

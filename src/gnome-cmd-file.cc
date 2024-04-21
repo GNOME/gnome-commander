@@ -911,9 +911,7 @@ static void view_file_with_internal_viewer (GFile *gFile)
 
     GtkWidget *viewer = gviewer_window_file_view (gnomeCmdFile);
     gtk_widget_show (viewer);
-    gdk_window_set_icon (gtk_widget_get_window (viewer), nullptr,
-                         IMAGE_get_pixmap (PIXMAP_INTERNAL_VIEWER),
-                         IMAGE_get_mask (PIXMAP_INTERNAL_VIEWER));
+    gtk_window_set_icon (GTK_WINDOW (viewer), IMAGE_get_pixbuf (PIXMAP_INTERNAL_VIEWER));
 
     gnomeCmdFile->unref();
 }

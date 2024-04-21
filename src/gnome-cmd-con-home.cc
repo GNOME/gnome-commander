@@ -72,24 +72,9 @@ static GnomeCmdPath *home_create_path (GnomeCmdCon *con, const gchar *path_str)
  * Gtk class implementation
  *******************************/
 
-static void destroy (GtkObject *object)
-{
-    GnomeCmdConHome *con_home = GNOME_CMD_CON_HOME (object);
-
-    gnome_cmd_pixmap_free (con_home->parent.go_pixmap);
-    gnome_cmd_pixmap_free (con_home->parent.open_pixmap);
-    gnome_cmd_pixmap_free (con_home->parent.close_pixmap);
-
-    GTK_OBJECT_CLASS (gnome_cmd_con_home_parent_class)->destroy (object);
-}
-
-
 static void gnome_cmd_con_home_class_init (GnomeCmdConHomeClass *klass)
 {
-    GtkObjectClass *object_class = GTK_OBJECT_CLASS (klass);
     GnomeCmdConClass *con_class = GNOME_CMD_CON_CLASS (klass);
-
-    object_class->destroy = destroy;
 
     con_class->open = home_open;
     con_class->close = home_close;
@@ -117,9 +102,9 @@ static void gnome_cmd_con_home_init (GnomeCmdConHome *home_con)
     con->is_local = TRUE;
     con->is_closeable = FALSE;
     con->go_text = g_strdup (_("Go to: Home"));
-    con->go_pixmap = gnome_cmd_pixmap_new_from_icon ("user-home", dev_icon_size);
-    con->open_pixmap = gnome_cmd_pixmap_new_from_icon ("user-home", dev_icon_size);
-    con->close_pixmap = gnome_cmd_pixmap_new_from_icon ("user-home", dev_icon_size);
+    con->go_pixbuf = pixbuf_from_icon ("user-home", dev_icon_size);
+    con->open_pixbuf = pixbuf_from_icon ("user-home", dev_icon_size);
+    con->close_pixbuf = pixbuf_from_icon ("user-home", dev_icon_size);
 
     GnomeCmdDir *dir = gnome_cmd_dir_new (con, new GnomeCmdPlainPath(g_get_home_dir ()));
 

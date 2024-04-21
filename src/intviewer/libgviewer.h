@@ -25,8 +25,6 @@
 #pragma once
 
 #include <gtk/gtk.h>
-#include <gtk/gtkadjustment.h>
-#include <gtk/gtktable.h>
 
 #include "gvtypes.h"
 #include "viewer-utils.h"

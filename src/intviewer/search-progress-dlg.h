@@ -24,9 +24,9 @@
 
 #pragma once
 
-#define GVIEWER_SEARCH_PROGRESS_DLG(obj)          GTK_CHECK_CAST (obj, gviewer_search_progress_dlg_get_type(), GViewerSearchProgressDlg)
-#define GVIEWER_SEARCH_PROGRESS_DLG_CLASS(klass)  GTK_CHECK_CLASS_CAST (klass, gviewer_search_progress_dlg_get_type(), GViewerSearchProgressDlgClass)
-#define IS_GVIEWER_SEARCH_PROGRESS_DLG(obj)       GTK_CHECK_TYPE (obj, gviewer_search_progress_dlg_get_type())
+#define GVIEWER_SEARCH_PROGRESS_DLG(obj)          G_TYPE_CHECK_INSTANCE_CAST (obj, gviewer_search_progress_dlg_get_type(), GViewerSearchProgressDlg)
+#define GVIEWER_SEARCH_PROGRESS_DLG_CLASS(klass)  G_TYPE_CHECK_CLASS_CAST (klass, gviewer_search_progress_dlg_get_type(), GViewerSearchProgressDlgClass)
+#define IS_GVIEWER_SEARCH_PROGRESS_DLG(obj)       G_TYPE_CHECK_INSTANCE_TYPE (obj, gviewer_search_progress_dlg_get_type())
 
 struct GViewerSearchProgressDlgPrivate;
 

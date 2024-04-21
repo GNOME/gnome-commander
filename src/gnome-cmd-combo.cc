@@ -175,24 +175,24 @@ static void gnome_cmd_combo_notify_popup_shown (GObject *gobject, GParamSpec *ps
 
 static void gnome_cmd_combo_class_init (GnomeCmdComboClass *klass)
 {
-    GtkObjectClass *object_class = (GtkObjectClass *) klass;
-
     combo_signals[ITEM_SELECTED] =
-        gtk_signal_new ("item-selected",
-            GTK_RUN_LAST,
-            G_OBJECT_CLASS_TYPE (object_class),
-            GTK_SIGNAL_OFFSET (GnomeCmdComboClass, item_selected),
-            gtk_marshal_NONE__POINTER,
-            GTK_TYPE_NONE,
-            1, GTK_TYPE_POINTER);
+        g_signal_new ("item-selected",
+            G_TYPE_FROM_CLASS (klass),
+            G_SIGNAL_RUN_LAST,
+            G_STRUCT_OFFSET (GnomeCmdComboClass, item_selected),
+            nullptr, nullptr,
+            g_cclosure_marshal_VOID__POINTER,
+            G_TYPE_NONE,
+            1, G_TYPE_POINTER);
 
     combo_signals[POPWIN_HIDDEN] =
-        gtk_signal_new ("popwin-hidden",
-            GTK_RUN_LAST,
-            G_OBJECT_CLASS_TYPE (object_class),
-            GTK_SIGNAL_OFFSET (GnomeCmdComboClass, popwin_hidden),
-            gtk_marshal_NONE__NONE,
-            GTK_TYPE_NONE,
+        g_signal_new ("popwin-hidden",
+            G_TYPE_FROM_CLASS (klass),
+            G_SIGNAL_RUN_LAST,
+            G_STRUCT_OFFSET (GnomeCmdComboClass, popwin_hidden),
+            nullptr, nullptr,
+            g_cclosure_marshal_VOID__VOID,
+            G_TYPE_NONE,
             0);
 
     klass->item_selected = NULL;
@@ -282,7 +282,7 @@ GtkWidget *gnome_cmd_combo_new_with_store (GtkListStore *store, gint num_cols, g
     priv->entry = gtk_bin_get_child (GTK_BIN (combo));
 
     gtk_widget_set_size_request (priv->entry, 60, -1);
-    gtk_entry_set_editable (GTK_ENTRY (priv->entry), FALSE);
+    gtk_editable_set_editable (GTK_EDITABLE (priv->entry), FALSE);
     gtk_widget_set_can_focus (priv->entry, FALSE);
 
     // TODO: in gtk3 - set button relief to none

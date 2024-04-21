@@ -439,12 +439,12 @@ static gboolean grab_key_callback (GtkWidget *widget, GdkEventKey *event, EggCel
 
     switch (event->keyval)
     {
-        case GDK_Super_L:
-        case GDK_Super_R:
-        // case GDK_Meta_L:
-        // case GDK_Meta_R:
-        // case GDK_Hyper_L:
-        // case GDK_Hyper_R:
+        case GDK_KEY_Super_L:
+        case GDK_KEY_Super_R:
+        // case GDK_KEY_Meta_L:
+        // case GDK_KEY_Meta_R:
+        // case GDK_KEY_Hyper_L:
+        // case GDK_KEY_Hyper_R:
             return TRUE;
         default:
             break;
@@ -465,8 +465,8 @@ static gboolean grab_key_callback (GtkWidget *widget, GdkEventKey *event, EggCel
     guint accel_key = gdk_keyval_to_lower (event->keyval);
     guint accel_mods = 0;
 
-    if (accel_key == GDK_ISO_Left_Tab)
-        accel_key = GDK_Tab;
+    if (accel_key == GDK_KEY_ISO_Left_Tab)
+        accel_key = GDK_KEY_Tab;
 
     accel_mods = event->state & gtk_accelerator_get_default_mod_mask ();
 
@@ -485,7 +485,7 @@ static gboolean grab_key_callback (GtkWidget *widget, GdkEventKey *event, EggCel
     if (accel_mods == 0)
         switch (event->keyval)
         {
-            case GDK_Escape:
+            case GDK_KEY_Escape:
                 accel_key = 0;
                 accel_mods = 0;
 
@@ -496,7 +496,7 @@ static gboolean grab_key_callback (GtkWidget *widget, GdkEventKey *event, EggCel
         }
 
     if (keys->accel_mode == GTK_CELL_RENDERER_ACCEL_MODE_GTK)
-        if (accel_key != GDK_Tab && !gtk_accelerator_valid (accel_key, (GdkModifierType) accel_mods))
+        if (accel_key != GDK_KEY_Tab && !gtk_accelerator_valid (accel_key, (GdkModifierType) accel_mods))
         {
             gtk_widget_error_bell (widget);
             return TRUE;

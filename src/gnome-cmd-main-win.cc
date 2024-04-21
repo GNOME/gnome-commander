@@ -136,9 +136,9 @@ static gint gnome_cmd_key_snooper(GtkWidget *grab_widget, GdkEventKey *event, Gn
         return FALSE;
     }
 
-    if (!((event->keyval >= GDK_A && event->keyval <= GDK_Z) || (event->keyval >= GDK_a && event->keyval <= GDK_z) ||
-          (event->keyval >= GDK_0 && event->keyval <= GDK_9) ||
-          event->keyval == GDK_period || event->keyval == GDK_question|| event->keyval == GDK_asterisk || event->keyval == GDK_bracketleft))
+    if (!((event->keyval >= GDK_KEY_A && event->keyval <= GDK_KEY_Z) || (event->keyval >= GDK_KEY_a && event->keyval <= GDK_KEY_z) ||
+          (event->keyval >= GDK_KEY_0 && event->keyval <= GDK_KEY_9) ||
+          event->keyval == GDK_KEY_period || event->keyval == GDK_KEY_question || event->keyval == GDK_KEY_asterisk || event->keyval == GDK_KEY_bracketleft))
     {
         return FALSE;
     }
@@ -571,7 +571,7 @@ static void on_main_win_realize (GtkWidget *widget, GnomeCmdMainWin *mw)
         // g_free (dpath);
     // }
 
-    gdk_window_set_icon (gtk_widget_get_window (GTK_WIDGET (mw)), NULL, IMAGE_get_pixmap (PIXMAP_LOGO), IMAGE_get_mask (PIXMAP_LOGO));
+    gtk_window_set_icon (GTK_WINDOW (mw), IMAGE_get_pixbuf (PIXMAP_LOGO));
 }
 
 
@@ -665,7 +665,7 @@ void GnomeCmdMainWin::update_drop_con_button(GnomeCmdFileList *fl)
     if (!fl)
         return;
 
-    GnomeCmdPixmap *pm = NULL;
+    GdkPixbuf *pb = NULL;
     static GtkWidget *prev_widget = NULL;
 
     GnomeCmdCon *con = fl->con;
@@ -685,7 +685,7 @@ void GnomeCmdMainWin::update_drop_con_button(GnomeCmdFileList *fl)
     }
 
     if (gnome_cmd_con_is_closeable (con))
-        pm = gnome_cmd_con_get_close_pixmap (con);
+        pb = gnome_cmd_con_get_close_pixbuf (con);
     else
     {
         gtk_widget_set_sensitive (btn, FALSE);
@@ -695,9 +695,9 @@ void GnomeCmdMainWin::update_drop_con_button(GnomeCmdFileList *fl)
     gtk_widget_set_tooltip_text(btn, gnome_cmd_con_get_close_tooltip (con));
     gtk_widget_set_sensitive (btn, TRUE);
 
-    if (pm)
+    if (pb)
     {
-        GtkWidget *image = gtk_image_new_from_pixmap (pm->pixmap, pm->mask);
+        GtkWidget *image = gtk_image_new_from_pixbuf (pb);
         if (image)
         {
             g_object_ref (image);
@@ -1051,8 +1051,8 @@ gboolean GnomeCmdMainWin::key_pressed(GdkEventKey *event)
     {
         switch (event->keyval)
         {
-            case GDK_c:
-            case GDK_C:
+            case GDK_KEY_c:
+            case GDK_KEY_C:
                 if (gnome_cmd_data.cmdline_visibility && (gnome_cmd_data.options.quick_search == GNOME_CMD_QUICK_SEARCH_JUST_A_CHARACTER))
                     gnome_cmd_cmdline_focus(main_win->get_cmdline());
                 return TRUE;
@@ -1063,7 +1063,7 @@ gboolean GnomeCmdMainWin::key_pressed(GdkEventKey *event)
     {
         switch (event->keyval)
         {
-            case GDK_F8:
+            case GDK_KEY_F8:
                 if (gnome_cmd_data.cmdline_visibility)
                     gnome_cmd_cmdline_show_history (GNOME_CMD_CMDLINE (priv->cmdline));
                 return TRUE;
@@ -1075,8 +1075,8 @@ gboolean GnomeCmdMainWin::key_pressed(GdkEventKey *event)
     {
         switch (event->keyval)
         {
-            case GDK_H:
-            case GDK_h:
+            case GDK_KEY_H:
+            case GDK_KEY_h:
                 gnome_cmd_data.options.filter.file_types[GnomeCmdData::G_FILE_IS_HIDDEN] =
                     !gnome_cmd_data.options.filter.file_types[GnomeCmdData::G_FILE_IS_HIDDEN];
                 gnome_cmd_data.save();
@@ -1089,15 +1089,15 @@ gboolean GnomeCmdMainWin::key_pressed(GdkEventKey *event)
     {
         switch (event->keyval)
         {
-            case GDK_e:
-            case GDK_E:
-            case GDK_Down:
+            case GDK_KEY_e:
+            case GDK_KEY_E:
+            case GDK_KEY_Down:
                 if (gnome_cmd_data.cmdline_visibility)
                     gnome_cmd_cmdline_show_history (GNOME_CMD_CMDLINE (priv->cmdline));
                 return TRUE;
 
-            case GDK_u:
-            case GDK_U:
+            case GDK_KEY_u:
+            case GDK_KEY_U:
                 {
                     GnomeCmdFileSelector *fs1 = fs(LEFT);
                     GnomeCmdFileSelector *fs2 = fs(RIGHT);
@@ -1136,13 +1136,13 @@ gboolean GnomeCmdMainWin::key_pressed(GdkEventKey *event)
     {
         switch (event->keyval)
         {
-            case GDK_P:
-            case GDK_p:
+            case GDK_KEY_P:
+            case GDK_KEY_p:
                 plugin_manager_show ();
                 break;
 
-            case GDK_f:
-            case GDK_F:
+            case GDK_KEY_f:
+            case GDK_KEY_F:
             {
                 GnomeCmdConRemote *con = GNOME_CMD_CON_REMOTE (gnome_cmd_con_list_get_all_remote (gnome_cmd_con_list_get ())->data);
 
@@ -1158,46 +1158,46 @@ gboolean GnomeCmdMainWin::key_pressed(GdkEventKey *event)
         if (state_is_blank (event->state))
             switch (event->keyval)
             {
-                case GDK_Tab:
-                case GDK_ISO_Left_Tab:
+                case GDK_KEY_Tab:
+                case GDK_KEY_ISO_Left_Tab:
                     // hack to avoid the default handling of TAB
                     clear_event_key (event);
                     switch_fs(fs(INACTIVE));
                     return TRUE;
 
-                case GDK_F1:
+                case GDK_KEY_F1:
                     on_help_clicked (NULL, this);
                     return TRUE;
 
-                case GDK_F2:
+                case GDK_KEY_F2:
                     on_rename_clicked (NULL, this);
                     return TRUE;
 
-                case GDK_F3:
+                case GDK_KEY_F3:
                     on_view_clicked (NULL, this);
                     return TRUE;
 
-                case GDK_F4:
+                case GDK_KEY_F4:
                     on_edit_clicked (NULL, this);
                     return TRUE;
 
-                case GDK_F5:
+                case GDK_KEY_F5:
                     on_copy_clicked (NULL, this);
                     return TRUE;
 
-                case GDK_F6:
+                case GDK_KEY_F6:
                     on_move_clicked (NULL, this);
                     return TRUE;
 
-                case GDK_F7:
+                case GDK_KEY_F7:
                     on_mkdir_clicked (NULL, this);
                     return TRUE;
 
-                case GDK_F8:
+                case GDK_KEY_F8:
                     on_delete_clicked (NULL, this);
                     return TRUE;
 
-                case GDK_F9:
+                case GDK_KEY_F9:
                     on_search_clicked (NULL, this);
                     return TRUE;
 

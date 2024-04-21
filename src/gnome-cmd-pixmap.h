@@ -21,31 +21,6 @@
 
 #pragma once
 
-struct GnomeCmdPixmap
-{
-    GdkPixbuf *pixbuf;
-    GdkPixmap *pixmap;
-    GdkBitmap *mask;
-    gint width;
-    gint height;
-};
+GdkPixbuf *pixbuf_from_file (const gchar *filepath, int width=-1, int height=-1);
+GdkPixbuf *pixbuf_from_icon (const gchar *icon_name, gint size, GtkIconLookupFlags flags=(GtkIconLookupFlags) 0);
 
-
-GnomeCmdPixmap *gnome_cmd_pixmap_new_from_file (const gchar *filepath, int width=-1, int height=-1);
-GnomeCmdPixmap *gnome_cmd_pixmap_new_from_icon (const gchar *icon_name, gint size, GtkIconLookupFlags flags=(GtkIconLookupFlags) 0);
-GnomeCmdPixmap *gnome_cmd_pixmap_new_from_pixbuf (GdkPixbuf *pixbuf);
-
-inline void gnome_cmd_pixmap_free (GnomeCmdPixmap *pixmap)
-{
-    if (!pixmap)
-        return;
-
-    if (pixmap->pixbuf != NULL)
-        g_object_unref (pixmap->pixbuf);
-    if (pixmap->pixmap != NULL)
-        g_object_unref (pixmap->pixmap);
-    if (pixmap->mask != NULL)
-        g_object_unref (pixmap->mask);
-
-    g_free (pixmap);
-}

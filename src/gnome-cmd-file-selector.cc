@@ -370,7 +370,7 @@ static void create_con_buttons (GnomeCmdFileSelector *fs)
         if (!gnome_cmd_con_is_open (con) && !GNOME_CMD_IS_CON_DEVICE (con))  continue;
 #endif
 
-        GnomeCmdPixmap *pm = gnome_cmd_con_get_go_pixmap (con);
+        GdkPixbuf *pb = gnome_cmd_con_get_go_pixbuf (con);
 
         GtkWidget *btn = create_styled_button (nullptr);
         g_object_set_data (G_OBJECT (btn), "con", con);
@@ -385,9 +385,9 @@ static void create_con_buttons (GnomeCmdFileSelector *fs)
         g_object_set_data_full (*fs, "con-hbox", hbox, g_object_unref);
         gtk_widget_show (hbox);
 
-        if (pm)
+        if (pb)
         {
-            GtkWidget *image = gtk_image_new_from_pixmap (pm->pixmap, pm->mask);
+            GtkWidget *image = gtk_image_new_from_pixbuf (pb);
             if (image)
             {
                 g_object_ref (image);
@@ -397,7 +397,7 @@ static void create_con_buttons (GnomeCmdFileSelector *fs)
             }
         }
 
-        if (!gnome_cmd_data.options.device_only_icon || !pm)
+        if (!gnome_cmd_data.options.device_only_icon || !pb)
         {
             GtkWidget *label = gtk_label_new (gnome_cmd_con_get_alias (con));
             g_object_ref (label);
@@ -422,7 +422,7 @@ static void on_realize (GnomeCmdFileSelector *fs, gpointer user_data)
 }
 
 
-static void on_notebook_switch_page (GtkNotebook *notebook, GtkNotebookPage *page, guint n, GnomeCmdFileSelector *fs)
+static void on_notebook_switch_page (GtkNotebook *notebook, gpointer page, guint n, GnomeCmdFileSelector *fs)
 {
     g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
 
@@ -573,9 +573,9 @@ static gboolean on_list_key_pressed_private (GnomeCmdFileList *list, GdkEventKey
 {
     if (state_is_blank (event->state) || state_is_shift (event->state))
     {
-        if ((event->keyval>=GDK_A && event->keyval<=GDK_Z) ||
-            (event->keyval>=GDK_a && event->keyval<=GDK_z) ||
-            event->keyval==GDK_period)
+        if ((event->keyval>=GDK_KEY_A && event->keyval<=GDK_KEY_Z) ||
+            (event->keyval>=GDK_KEY_a && event->keyval<=GDK_KEY_z) ||
+            event->keyval==GDK_KEY_period)
         {
             static gchar text[2];
 
@@ -735,17 +735,18 @@ static void map (GtkWidget *widget)
 
 static void gnome_cmd_file_selector_class_init (GnomeCmdFileSelectorClass *klass)
 {
-    GtkObjectClass *object_class = GTK_OBJECT_CLASS (klass);;
+    GtkObjectClass *object_class = GTK_OBJECT_CLASS (klass);
     GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
 
     signals[DIR_CHANGED] =
-        gtk_signal_new ("dir-changed",
-            GTK_RUN_LAST,
-            G_OBJECT_CLASS_TYPE (object_class),
-            GTK_SIGNAL_OFFSET (GnomeCmdFileSelectorClass, dir_changed),
-            gtk_marshal_NONE__POINTER,
-            GTK_TYPE_NONE,
-            1, GTK_TYPE_POINTER);
+        g_signal_new ("dir-changed",
+            G_TYPE_FROM_CLASS (klass),
+            G_SIGNAL_RUN_LAST,
+            G_STRUCT_OFFSET (GnomeCmdFileSelectorClass, dir_changed),
+            nullptr, nullptr,
+            g_cclosure_marshal_VOID__POINTER,
+            G_TYPE_NONE,
+            1, G_TYPE_POINTER);
 
     object_class->destroy = destroy;
     widget_class->map = ::map;
@@ -794,7 +795,7 @@ static void gnome_cmd_file_selector_init (GnomeCmdFileSelector *fs)
     g_object_ref (fs->con_combo);
     g_object_set_data_full (*fs, "con_combo", fs->con_combo, g_object_unref);
     gtk_widget_set_size_request (*fs->con_combo, max_string_size, -1);
-    gtk_entry_set_editable (GTK_ENTRY (fs->con_combo->get_entry()), FALSE);
+    gtk_editable_set_editable (GTK_EDITABLE (fs->con_combo->get_entry()), FALSE);
 
     // create the free space on volume label
     fs->vol_label = gtk_label_new ("");
@@ -977,10 +978,10 @@ void GnomeCmdFileSelector::update_connections()
         if (con == get_connection())
             found_my_con = TRUE;
 
-        GnomeCmdPixmap *pixmap = gnome_cmd_con_get_go_pixmap (con);
+        GdkPixbuf *pixbuf = gnome_cmd_con_get_go_pixbuf (con);
 
-        if (pixmap)
-            con_combo->append((gchar *) gnome_cmd_con_get_alias (con), con, 0, pixmap->pixbuf, -1);
+        if (pixbuf)
+            con_combo->append((gchar *) gnome_cmd_con_get_alias (con), con, 0, pixbuf, -1);
     }
 
     // If the connection is no longer available use the home connection
@@ -1216,13 +1217,13 @@ gboolean GnomeCmdFileSelector::key_pressed(GdkEventKey *event)
     {
         switch (event->keyval)
         {
-            case GDK_Tab:
-            case GDK_ISO_Left_Tab:
+            case GDK_KEY_Tab:
+            case GDK_KEY_ISO_Left_Tab:
                 view_prev_tab ();
                 return TRUE;
 
-            case GDK_Return:
-            case GDK_KP_Enter:
+            case GDK_KEY_Return:
+            case GDK_KEY_KP_Enter:
                 add_file_to_cmdline (list, TRUE);
                 return TRUE;
 
@@ -1234,14 +1235,14 @@ gboolean GnomeCmdFileSelector::key_pressed(GdkEventKey *event)
     {
         switch (event->keyval)
         {
-            case GDK_Left:
-            case GDK_KP_Left:
+            case GDK_KEY_Left:
+            case GDK_KEY_KP_Left:
                 back();
                 g_signal_stop_emission_by_name (list, "key-press-event");
                 return TRUE;
 
-            case GDK_Right:
-            case GDK_KP_Right:
+            case GDK_KEY_Right:
+            case GDK_KEY_KP_Right:
                 forward();
                 g_signal_stop_emission_by_name (list, "key-press-event");
                 return TRUE;
@@ -1254,23 +1255,23 @@ gboolean GnomeCmdFileSelector::key_pressed(GdkEventKey *event)
     {
         switch (event->keyval)
         {
-            case GDK_V:
-            case GDK_v:
+            case GDK_KEY_V:
+            case GDK_KEY_v:
                 gnome_cmd_file_selector_cap_paste (this);
                 return TRUE;
 
-            case GDK_P:
-            case GDK_p:
+            case GDK_KEY_P:
+            case GDK_KEY_p:
                 add_cwd_to_cmdline (list);
                 return TRUE;
 
-            case GDK_Tab:
-            case GDK_ISO_Left_Tab:
+            case GDK_KEY_Tab:
+            case GDK_KEY_ISO_Left_Tab:
                 view_next_tab ();
                 return TRUE;
 
-            case GDK_Return:
-            case GDK_KP_Enter:
+            case GDK_KEY_Return:
+            case GDK_KEY_KP_Enter:
                 add_file_to_cmdline (list, FALSE);
                 return TRUE;
 
@@ -1282,9 +1283,9 @@ gboolean GnomeCmdFileSelector::key_pressed(GdkEventKey *event)
     {
         switch (event->keyval)
         {
-            case GDK_Left:
-            case GDK_KP_Left:
-            case GDK_BackSpace:
+            case GDK_KEY_Left:
+            case GDK_KEY_KP_Left:
+            case GDK_KEY_BackSpace:
                 if (!list->locked)
                 {
                     list->invalidate_tree_size();
@@ -1294,16 +1295,16 @@ gboolean GnomeCmdFileSelector::key_pressed(GdkEventKey *event)
                     new_tab(gnome_cmd_dir_get_parent (list->cwd));
                 return TRUE;
 
-            case GDK_Right:
-            case GDK_KP_Right:
+            case GDK_KEY_Right:
+            case GDK_KEY_KP_Right:
                 f = list->get_selected_file();
                 if (f && f->GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE) == G_FILE_TYPE_DIRECTORY)
                     do_file_specific_action (list, f);
                 g_signal_stop_emission_by_name (list, "key-press-event");
                 return TRUE;
 
-            case GDK_Return:
-            case GDK_KP_Enter:
+            case GDK_KEY_Return:
+            case GDK_KEY_KP_Enter:
                 if (gnome_cmd_data.cmdline_visibility
                     && gnome_cmd_cmdline_is_empty (main_win->get_cmdline()))
                     gnome_cmd_cmdline_exec (main_win->get_cmdline());
@@ -1311,7 +1312,7 @@ gboolean GnomeCmdFileSelector::key_pressed(GdkEventKey *event)
                     do_file_specific_action (list, list->get_focused_file());
                 return TRUE;
 
-            case GDK_Escape:
+            case GDK_KEY_Escape:
                 if (gnome_cmd_data.cmdline_visibility)
                     gnome_cmd_cmdline_set_text (main_win->get_cmdline(), "");
                 return TRUE;
@@ -1448,7 +1449,7 @@ static void on_filter_box_close (GtkButton *btn, GnomeCmdFileSelector *fs)
 static gboolean on_filter_box_keypressed (GtkEntry *entry, GdkEventKey *event, GnomeCmdFileSelector *fs)
 {
     if (state_is_blank (event->state))
-        if (event->keyval == GDK_Escape)
+        if (event->keyval == GDK_KEY_Escape)
         {
             on_filter_box_close (nullptr, fs);
             return TRUE;

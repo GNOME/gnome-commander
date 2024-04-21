@@ -22,6 +22,6 @@
 #pragma once
 
 #include <libgcmd/libgcmd.h>
-#include <gtk/gtkmarshal.h>
+#include <gtk/gtk.h>
 
 typedef void *(*PthreadFunc)(void *);

@@ -62,7 +62,7 @@ enum
 static guint signals[LAST_SIGNAL] = { 0 };
 
 
-G_DEFINE_TYPE (GnomeCmdConList, gnome_cmd_con_list, GTK_TYPE_OBJECT)
+G_DEFINE_TYPE (GnomeCmdConList, gnome_cmd_con_list, G_TYPE_OBJECT)
 
 
 static void on_con_updated (GnomeCmdCon *con, GnomeCmdConList *con_list)
@@ -90,53 +90,55 @@ static gint compare_alias (const GnomeCmdCon *c1, const GnomeCmdCon *c2)
  * Gtk class implementation
  *******************************/
 
-static void destroy (GtkObject *object)
+static void dispose (GObject *object)
 {
     GnomeCmdConList *con_list = GNOME_CMD_CON_LIST (object);
 
-    g_free (con_list->priv);
+    g_clear_pointer (&con_list->priv, g_free);
 
-    GTK_OBJECT_CLASS (gnome_cmd_con_list_parent_class)->destroy (object);
+    G_OBJECT_CLASS (gnome_cmd_con_list_parent_class)->dispose (object);
 }
 
 
 static void gnome_cmd_con_list_class_init (GnomeCmdConListClass *klass)
 {
-    GtkObjectClass *object_class = GTK_OBJECT_CLASS (klass);
+    signals[LIST_CHANGED]           = g_signal_new ("list-changed",
+                                                    G_TYPE_FROM_CLASS (klass),
+                                                    G_SIGNAL_RUN_LAST,
+                                                    G_STRUCT_OFFSET (GnomeCmdConListClass, list_changed),
+                                                    nullptr, nullptr,
+                                                    g_cclosure_marshal_VOID__VOID,
+                                                    G_TYPE_NONE,
+                                                    0);
 
-    signals[LIST_CHANGED]           = gtk_signal_new ("list-changed",
-                                                              GTK_RUN_LAST,
-                                                              G_OBJECT_CLASS_TYPE (object_class),
-                                                              GTK_SIGNAL_OFFSET (GnomeCmdConListClass, list_changed),
-                                                              gtk_marshal_NONE__NONE,
-                                                              GTK_TYPE_NONE,
-                                                              0);
+    signals[REMOTE_LIST_CHANGED]    = g_signal_new ("remote-list-changed",
+                                                    G_TYPE_FROM_CLASS (klass),
+                                                    G_SIGNAL_RUN_LAST,
+                                                    G_STRUCT_OFFSET (GnomeCmdConListClass, ftp_list_changed),
+                                                    nullptr, nullptr,
+                                                    g_cclosure_marshal_VOID__VOID,
+                                                    G_TYPE_NONE,
+                                                    0);
 
-    signals[REMOTE_LIST_CHANGED]    = gtk_signal_new ("remote-list-changed",
-                                                               GTK_RUN_LAST,
-                                                               G_OBJECT_CLASS_TYPE (object_class),
-                                                               GTK_SIGNAL_OFFSET (GnomeCmdConListClass, ftp_list_changed),
-                                                               gtk_marshal_NONE__NONE,
-                                                               GTK_TYPE_NONE,
-                                                               0);
+    signals[DEVICE_LIST_CHANGED]    = g_signal_new ("device-list-changed",
+                                                    G_TYPE_FROM_CLASS (klass),
+                                                    G_SIGNAL_RUN_LAST,
+                                                    G_STRUCT_OFFSET (GnomeCmdConListClass, device_list_changed),
+                                                    nullptr, nullptr,
+                                                    g_cclosure_marshal_VOID__VOID,
+                                                    G_TYPE_NONE,
+                                                    0);
 
-    signals[DEVICE_LIST_CHANGED]    = gtk_signal_new ("device-list-changed",
-                                                               GTK_RUN_LAST,
-                                                               G_OBJECT_CLASS_TYPE (object_class),
-                                                               GTK_SIGNAL_OFFSET (GnomeCmdConListClass, device_list_changed),
-                                                               gtk_marshal_NONE__NONE,
-                                                               GTK_TYPE_NONE,
-                                                               0);
+    signals[QUICK_FTP_LIST_CHANGED] = g_signal_new ("quick-ftp-list-changed",
+                                                    G_TYPE_FROM_CLASS (klass),
+                                                    G_SIGNAL_RUN_LAST,
+                                                    G_STRUCT_OFFSET (GnomeCmdConListClass, quick_ftp_list_changed),
+                                                    nullptr, nullptr,
+                                                    g_cclosure_marshal_VOID__VOID,
+                                                    G_TYPE_NONE,
+                                                    0);
 
-    signals[QUICK_FTP_LIST_CHANGED] = gtk_signal_new ("quick-ftp-list-changed",
-                                                               GTK_RUN_LAST,
-                                                               G_OBJECT_CLASS_TYPE (object_class),
-                                                               GTK_SIGNAL_OFFSET (GnomeCmdConListClass, quick_ftp_list_changed),
-                                                               gtk_marshal_NONE__NONE,
-                                                               GTK_TYPE_NONE,
-                                                               0);
-
-    object_class->destroy = destroy;
+    G_OBJECT_CLASS (klass)->dispose = dispose;
 }
 
 

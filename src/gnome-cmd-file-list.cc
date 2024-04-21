@@ -2809,16 +2809,16 @@ gboolean GnomeCmdFileList::key_pressed(GdkEventKey *event)
     {
         switch (event->keyval)
         {
-            case GDK_Return:
-            case GDK_KP_Enter:
+            case GDK_KEY_Return:
+            case GDK_KEY_KP_Enter:
                 gnome_cmd_file_list_show_properties_dialog (this);
                 return TRUE;
 
-            case GDK_KP_Add:
+            case GDK_KEY_KP_Add:
                 toggle_files_with_same_extension (this, TRUE);
                 break;
 
-            case GDK_KP_Subtract:
+            case GDK_KEY_KP_Subtract:
                 toggle_files_with_same_extension (this, FALSE);
                 break;
 
@@ -2829,71 +2829,71 @@ gboolean GnomeCmdFileList::key_pressed(GdkEventKey *event)
     else if ((gnome_cmd_data.options.quick_search == GNOME_CMD_QUICK_SEARCH_CTRL_ALT)
              && (state_is_ctrl_alt (event->state) || state_is_ctrl_alt_shift (event->state)))
     {
-        if ((event->keyval >= GDK_a && event->keyval <= GDK_z)
-            || (event->keyval >= GDK_A && event->keyval <= GDK_Z)
-            || event->keyval == GDK_period)
+        if ((event->keyval >= GDK_KEY_a && event->keyval <= GDK_KEY_z)
+            || (event->keyval >= GDK_KEY_A && event->keyval <= GDK_KEY_Z)
+            || event->keyval == GDK_KEY_period)
             gnome_cmd_file_list_show_quicksearch (this, (gchar) event->keyval);
     }
     else if (state_is_shift (event->state))
     {
         switch (event->keyval)
         {
-            case GDK_F6:
+            case GDK_KEY_F6:
                 gnome_cmd_file_list_show_rename_dialog (this);
                 return TRUE;
 
-            case GDK_F10:
+            case GDK_KEY_F10:
                 show_file_popup (this, nullptr);
                 return TRUE;
 
-            case GDK_Left:
-            case GDK_KP_Left:
-            case GDK_Right:
-            case GDK_KP_Right:
+            case GDK_KEY_Left:
+            case GDK_KEY_KP_Left:
+            case GDK_KEY_Right:
+            case GDK_KEY_KP_Right:
                 event->state -= GDK_SHIFT_MASK;
                 return FALSE;
 
-            case GDK_Page_Up:
-            case GDK_KP_Page_Up:
-            case GDK_KP_9:
+            case GDK_KEY_Page_Up:
+            case GDK_KEY_KP_Page_Up:
+            case GDK_KEY_KP_9:
                 priv->shift_down_key = 3;
                 priv->shift_down_row.reset (gtk_tree_iter_copy (get_focused_file_iter().get()));
                 return FALSE;
 
-            case GDK_Page_Down:
-            case GDK_KP_Page_Down:
-            case GDK_KP_3:
+            case GDK_KEY_Page_Down:
+            case GDK_KEY_KP_Page_Down:
+            case GDK_KEY_KP_3:
                 priv->shift_down_key = 4;
                 priv->shift_down_row.reset (gtk_tree_iter_copy (get_focused_file_iter().get()));
                 return FALSE;
 
-            case GDK_Up:
-            case GDK_KP_Up:
-            case GDK_KP_8:
-            case GDK_Down:
-            case GDK_KP_Down:
-            case GDK_KP_2:
+            case GDK_KEY_Up:
+            case GDK_KEY_KP_Up:
+            case GDK_KEY_KP_8:
+            case GDK_KEY_Down:
+            case GDK_KEY_KP_Down:
+            case GDK_KEY_KP_2:
                 priv->shift_down_key = 1; // 2
                 if (auto focused = get_focused_file_iter())
                     toggle_file(focused.get());
                 return FALSE;
 
-            case GDK_Home:
-            case GDK_KP_Home:
-            case GDK_KP_7:
+            case GDK_KEY_Home:
+            case GDK_KEY_KP_Home:
+            case GDK_KEY_KP_7:
                 priv->shift_down_key = 5;
                 priv->shift_down_row.reset (gtk_tree_iter_copy (get_focused_file_iter().get()));
                 return FALSE;
 
-            case GDK_End:
-            case GDK_KP_End:
-            case GDK_KP_1:
+            case GDK_KEY_End:
+            case GDK_KEY_KP_End:
+            case GDK_KEY_KP_1:
                 priv->shift_down_key = 6;
                 priv->shift_down_row.reset (gtk_tree_iter_copy (get_focused_file_iter().get()));
                 return FALSE;
 
-            case GDK_Delete:
-            case GDK_KP_Delete:
+            case GDK_KEY_Delete:
+            case GDK_KEY_KP_Delete:
                 gnome_cmd_file_list_show_delete_dialog (this, TRUE);
                 return TRUE;
 
@@ -2905,8 +2905,8 @@ gboolean GnomeCmdFileList::key_pressed(GdkEventKey *event)
     {
         switch (event->keyval)
         {
-            case GDK_Return:
-            case GDK_KP_Enter:
+            case GDK_KEY_Return:
+            case GDK_KEY_KP_Enter:
                 show_visible_tree_sizes();
                 return TRUE;
             default:
@@ -2917,29 +2917,29 @@ gboolean GnomeCmdFileList::key_pressed(GdkEventKey *event)
     {
         switch (event->keyval)
         {
-            case GDK_X:
-            case GDK_x:
+            case GDK_KEY_X:
+            case GDK_KEY_x:
                 gnome_cmd_file_list_cap_cut (this);
                 return TRUE;
 
-            case GDK_C:
-            case GDK_c:
+            case GDK_KEY_C:
+            case GDK_KEY_c:
                 gnome_cmd_file_list_cap_copy (this);
                 return TRUE;
 
-            case GDK_F3:
+            case GDK_KEY_F3:
                 on_column_clicked (priv->columns[COLUMN_NAME], this);
                 return TRUE;
 
-            case GDK_F4:
+            case GDK_KEY_F4:
                 on_column_clicked (priv->columns[COLUMN_EXT], this);
                 return TRUE;
 
-            case GDK_F5:
+            case GDK_KEY_F5:
                 on_column_clicked (priv->columns[COLUMN_DATE], this);
                 return TRUE;
 
-            case GDK_F6:
+            case GDK_KEY_F6:
                 on_column_clicked (priv->columns[COLUMN_SIZE], this);
                 return TRUE;
 
@@ -2951,11 +2951,11 @@ gboolean GnomeCmdFileList::key_pressed(GdkEventKey *event)
     {
         switch (event->keyval)
         {
-            case GDK_Return:
-            case GDK_KP_Enter:
+            case GDK_KEY_Return:
+            case GDK_KEY_KP_Enter:
                 return mime_exec_file (get_focused_file());
 
-            case GDK_space:
+            case GDK_KEY_space:
                 set_cursor_busy ();
                 toggle();
                 if (GnomeCmdFile *selfile = get_selected_file())
@@ -2965,27 +2965,27 @@ gboolean GnomeCmdFileList::key_pressed(GdkEventKey *event)
                 set_cursor_default ();
                 return TRUE;
 
-            case GDK_KP_Add:
-            case GDK_plus:
-            case GDK_equal:
+            case GDK_KEY_KP_Add:
+            case GDK_KEY_plus:
+            case GDK_KEY_equal:
                 gnome_cmd_file_list_show_selpat_dialog (this, TRUE);
                 return TRUE;
 
-            case GDK_KP_Subtract:
-            case GDK_minus:
+            case GDK_KEY_KP_Subtract:
+            case GDK_KEY_minus:
                 gnome_cmd_file_list_show_selpat_dialog (this, FALSE);
                 return TRUE;
 
-            case GDK_KP_Multiply:
+            case GDK_KEY_KP_Multiply:
                 invert_selection();
                 return TRUE;
 
-            case GDK_KP_Divide:
+            case GDK_KEY_KP_Divide:
                 restore_selection();
                 return TRUE;
 
-            case GDK_Insert:
-            case GDK_KP_Insert:
+            case GDK_KEY_Insert:
+            case GDK_KEY_KP_Insert:
                 toggle();
                 {
                     auto iter = get_focused_file_iter();
@@ -2994,24 +2994,24 @@ gboolean GnomeCmdFileList::key_pressed(GdkEventKey *event)
                 }
                 return TRUE;
 
-            case GDK_KP_Page_Up:
-                event->keyval = GDK_Page_Up;
+            case GDK_KEY_KP_Page_Up:
+                event->keyval = GDK_KEY_Page_Up;
                 return FALSE;
 
-            case GDK_KP_Page_Down:
-                event->keyval = GDK_Page_Down;
+            case GDK_KEY_KP_Page_Down:
+                event->keyval = GDK_KEY_Page_Down;
                 return FALSE;
 
-            case GDK_KP_Up:
-                event->keyval = GDK_Up;
+            case GDK_KEY_KP_Up:
+                event->keyval = GDK_KEY_Up;
                 return FALSE;
 
-            case GDK_KP_Down:
-                event->keyval = GDK_Down;
+            case GDK_KEY_KP_Down:
+                event->keyval = GDK_KEY_Down;
                 return FALSE;
 
-            case GDK_Home:
-            case GDK_KP_Home:
+            case GDK_KEY_Home:
+            case GDK_KEY_KP_Home:
                 {
                     GtkTreeIter iter;
                     if (gtk_tree_model_get_iter_first (GTK_TREE_MODEL (priv->store), &iter))
@@ -3019,8 +3019,8 @@ gboolean GnomeCmdFileList::key_pressed(GdkEventKey *event)
                 }
                 return TRUE;
 
-            case GDK_End:
-            case GDK_KP_End:
+            case GDK_KEY_End:
+            case GDK_KEY_KP_End:
                 {
                     gint n = gtk_tree_model_iter_n_children(GTK_TREE_MODEL (priv->store), nullptr);
                     if (n > 0) {
@@ -3031,18 +3031,18 @@ gboolean GnomeCmdFileList::key_pressed(GdkEventKey *event)
                 }
                 return TRUE;
 
-            case GDK_Delete:
-            case GDK_KP_Delete:
+            case GDK_KEY_Delete:
+            case GDK_KEY_KP_Delete:
                 gnome_cmd_file_list_show_delete_dialog (this);
                 return TRUE;
 
-            case GDK_Shift_L:
-            case GDK_Shift_R:
+            case GDK_KEY_Shift_L:
+            case GDK_KEY_Shift_R:
                 if (!priv->shift_down)
                     priv->shift_down_row = get_focused_file_iter();
                 return TRUE;
 
-            case GDK_Menu:
+            case GDK_KEY_Menu:
                 show_file_popup (this, nullptr);
                 return TRUE;
 

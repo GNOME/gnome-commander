@@ -257,7 +257,6 @@ void GnomeCmdSearchDialog::Private::do_manage_profiles(GnomeCmdSearchDialog::Pri
         GtkWidget *menu = gtk_widget_get_parent (menu_item);
 
         gnome_cmd_button_menu_disconnect_handler (priv->profile_menu_button, menu);
-        g_object_unref (gtk_item_factory_from_widget (menu));
         gnome_cmd_button_menu_connect_handler (priv->profile_menu_button, priv->create_placeholder_menu(dialog->defaults));
     }
 }
@@ -401,11 +400,11 @@ inline gboolean handle_list_keypress (GnomeCmdFileList *fl, GdkEventKey *event)
 {
     switch (event->keyval)
     {
-        case GDK_F3:
+        case GDK_KEY_F3:
             gnome_cmd_file_list_view (fl, gnome_cmd_data.options.use_internal_viewer);
             return TRUE;
 
-        case GDK_F4:
+        case GDK_KEY_F4:
             gnome_cmd_file_list_edit (fl);
             return TRUE;
         default:
@@ -1196,7 +1195,6 @@ static void gnome_cmd_search_dialog_init (GnomeCmdSearchDialog *dialog)
 
     gtk_window_set_title (*dialog, _("Search…"));
     gtk_window_set_resizable (*dialog, TRUE);
-    gtk_dialog_set_has_separator (*dialog, FALSE);
     gtk_container_set_border_width (GTK_CONTAINER (dialog), 5);
     gtk_box_set_spacing (GTK_BOX (gtk_dialog_get_content_area (GTK_DIALOG (dialog))), 2);
 

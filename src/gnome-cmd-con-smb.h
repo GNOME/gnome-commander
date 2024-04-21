@@ -30,7 +30,7 @@
 #define GNOME_CMD_CON_SMB_GET_CLASS(obj)    (G_TYPE_INSTANCE_GET_CLASS((obj), GNOME_CMD_TYPE_CON_SMB, GnomeCmdConSmbClass))
 
 /**
- * @brief Class for conecting to samba and show available workgroups
+ * @brief Class for connecting to samba and show available workgroups
  *
  * This class is _not_ meant to be used when connecting to a single samba remote, e.g. to smb://server/share.
  * Instead, it is used to search workgroups, therefore it will list available workgroubs through the connection

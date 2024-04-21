@@ -602,7 +602,6 @@ gchar *GnomeCmdAdvrenameProfileComponent::Private::get_selected_range (GtkWindow
 
     gtk_window_set_resizable (GTK_WINDOW (dialog), FALSE);
     gtk_widget_set_size_request (dialog, 480, -1);
-    gtk_dialog_set_has_separator (GTK_DIALOG (dialog), FALSE);
 
     // HIG defaults
     gtk_container_set_border_width (GTK_CONTAINER (dialog), 5);
@@ -933,7 +932,7 @@ static void gnome_cmd_advrename_profile_component_init (GnomeCmdAdvrenameProfile
             GtkWidget *local_vbox = gtk_vbox_new (FALSE, 6);
             gtk_container_add (GTK_CONTAINER (align), local_vbox);
 
-            component->priv->template_combo = combo = gtk_combo_box_entry_new_text ();
+            component->priv->template_combo = combo = gtk_combo_box_new_with_model_and_entry (GTK_TREE_MODEL (gtk_list_store_new (1, G_TYPE_STRING)));
             component->priv->template_entry = gtk_bin_get_child (GTK_BIN (component->priv->template_combo));
             gtk_entry_set_activates_default (GTK_ENTRY (component->priv->template_entry), TRUE);
             gtk_label_set_mnemonic_widget (GTK_LABEL (label), combo);
@@ -992,12 +991,12 @@ static void gnome_cmd_advrename_profile_component_init (GnomeCmdAdvrenameProfile
 
         label = gtk_label_new_with_mnemonic (_("Di_gits:"));
         gtk_misc_set_alignment (GTK_MISC (label), 0.0, 0.5);
-        component->priv->counter_digits_combo = combo = gtk_combo_box_new_text ();
+        component->priv->counter_digits_combo = combo = gtk_combo_box_text_new ();
 
         static const char *digit_widths[] = {N_("auto"),"1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16",NULL};
 
         for (const char **i=digit_widths; *i; ++i)
-            gtk_combo_box_append_text (GTK_COMBO_BOX (combo), *i);
+            gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (combo), *i);
 
         gtk_label_set_mnemonic_widget (GTK_LABEL (label), combo);
         gtk_table_attach_defaults (GTK_TABLE (table), label, 0, 1, 2, 3);
@@ -1068,7 +1067,7 @@ static void gnome_cmd_advrename_profile_component_init (GnomeCmdAdvrenameProfile
         gtk_misc_set_alignment (GTK_MISC (label), 0.0, 0.5);
         gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, FALSE, 0);
 
-        component->priv->case_combo = combo = gtk_combo_box_new_text ();
+        component->priv->case_combo = combo = gtk_combo_box_text_new ();
         gtk_label_set_mnemonic_widget (GTK_LABEL (label), combo);
 
         gchar *case_modes[] = {
@@ -1083,7 +1082,7 @@ static void gnome_cmd_advrename_profile_component_init (GnomeCmdAdvrenameProfile
                               };
 
         for (gchar **items=case_modes; *items; ++items)
-            gtk_combo_box_append_text (GTK_COMBO_BOX (combo), _(*items));
+            gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (combo), _(*items));
 
         gtk_box_pack_start (GTK_BOX (hbox), combo, FALSE, FALSE, 0);
 
@@ -1096,7 +1095,7 @@ static void gnome_cmd_advrename_profile_component_init (GnomeCmdAdvrenameProfile
         gtk_misc_set_alignment (GTK_MISC (label), 0.0, 0.5);
         gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, FALSE, 0);
 
-        component->priv->trim_combo = combo = gtk_combo_box_new_text ();
+        component->priv->trim_combo = combo = gtk_combo_box_text_new ();
         gtk_label_set_mnemonic_widget (GTK_LABEL (label), combo);
 
         gchar *trim_modes[] = {
@@ -1108,7 +1107,7 @@ static void gnome_cmd_advrename_profile_component_init (GnomeCmdAdvrenameProfile
                               };
 
         for (gchar **items=trim_modes; *items; ++items)
-            gtk_combo_box_append_text (GTK_COMBO_BOX (combo), _(*items));
+            gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (combo), _(*items));
 
         gtk_box_pack_start (GTK_BOX (hbox), combo, FALSE, FALSE, 0);
     }
@@ -1335,7 +1334,11 @@ void GnomeCmdAdvrenameProfileComponent::set_template_history(GList *history)
     gtk_list_store_clear (GTK_LIST_STORE (store));
 
     for (GList *i=history; i; i=i->next)
-        gtk_combo_box_append_text (GTK_COMBO_BOX (priv->template_combo), (const gchar *) i->data);
+    {
+        GtkTreeIter iter;
+        gtk_list_store_append (GTK_LIST_STORE (store), &iter);
+        gtk_list_store_set (GTK_LIST_STORE (store), &iter, 0, (const gchar *) i->data, -1);
+    }
 }
 
 

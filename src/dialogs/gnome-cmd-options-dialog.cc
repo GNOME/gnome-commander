@@ -1344,11 +1344,9 @@ void add_app_to_list (GtkTreeView *view, GnomeCmdApp *app)
     GtkListStore *store = GTK_LIST_STORE (gtk_tree_view_get_model (view));
     GtkTreeIter iter;
 
-    GnomeCmdPixmap *pm = gnome_cmd_app_get_pixmap (app);
-
     gtk_list_store_append (store, &iter);
     gtk_list_store_set (store, &iter,
-                        0, pm ? pm->pixbuf : nullptr,
+                        0, gnome_cmd_app_get_pixbuf (app),
                         1, (gchar *) gnome_cmd_app_get_name (app),
                         2, (gchar *) gnome_cmd_app_get_command (app),
                         3, app,
@@ -1358,7 +1356,7 @@ void add_app_to_list (GtkTreeView *view, GnomeCmdApp *app)
 
 void update_app_in_list (GtkTreeView *view, GnomeCmdApp *app)
 {
-    GnomeCmdPixmap *pm = gnome_cmd_app_get_pixmap (app);
+    GdkPixbuf *pixbuf = gnome_cmd_app_get_pixbuf (app);
 
     GtkTreeModel *model = gtk_tree_view_get_model (view);
     GtkTreeIter iter;
@@ -1373,7 +1371,7 @@ void update_app_in_list (GtkTreeView *view, GnomeCmdApp *app)
             if (row_app == app)
             {
                 gtk_list_store_set (GTK_LIST_STORE (model), &iter,
-                                    0, pm ? pm->pixbuf : nullptr,
+                                    0, pixbuf,
                                     1, (gchar *) gnome_cmd_app_get_name (app),
                                     -1);
                 break;
@@ -1890,11 +1888,11 @@ void add_device_to_list (GtkTreeView *view, GnomeCmdConDevice *dev)
     GtkListStore *store = GTK_LIST_STORE (gtk_tree_view_get_model (view));
     GtkTreeIter iter;
 
-    GnomeCmdPixmap *pm = gnome_cmd_con_get_open_pixmap (GNOME_CMD_CON (dev));
+    GdkPixbuf *pixbuf = gnome_cmd_con_get_open_pixbuf (GNOME_CMD_CON (dev));
 
     gtk_list_store_append (store, &iter);
     gtk_list_store_set (store, &iter,
-                        0, pm ? pm->pixbuf : nullptr,
+                        0, pixbuf,
                         1, (gchar *) gnome_cmd_con_device_get_alias (dev),
                         2, dev,
                         -1);
@@ -1908,7 +1906,7 @@ void update_device_in_list (GtkTreeView *view, GnomeCmdConDevice *dev, gchar *al
     gnome_cmd_con_device_set_mountp (dev, mountp);
     gnome_cmd_con_device_set_icon_path (dev, icon_path);
 
-    GnomeCmdPixmap *pm = gnome_cmd_con_get_open_pixmap (GNOME_CMD_CON (dev));
+    GdkPixbuf *pixbuf = gnome_cmd_con_get_open_pixbuf (GNOME_CMD_CON (dev));
 
     GtkTreeModel *model = gtk_tree_view_get_model (view);
     GtkTreeIter iter;
@@ -1923,7 +1921,7 @@ void update_device_in_list (GtkTreeView *view, GnomeCmdConDevice *dev, gchar *al
             if (row_dev == dev)
             {
                 gtk_list_store_set (GTK_LIST_STORE (model), &iter,
-                                    0, pm ? pm->pixbuf : nullptr,
+                                    0, pixbuf,
                                     1, alias,
                                     -1);
                 break;
@@ -2325,7 +2323,6 @@ gboolean gnome_cmd_options_dialog (GtkWindow *parent, GnomeCmdData::Options &cfg
 
     GtkWidget *content_area = gtk_dialog_get_content_area (GTK_DIALOG (dialog));
 
-    gtk_dialog_set_has_separator (GTK_DIALOG (dialog), FALSE);
     gtk_window_set_default_size(GTK_WINDOW (dialog), gnome_cmd_data.opts_dialog_width, gnome_cmd_data.opts_dialog_height);
 
     // HIG defaults

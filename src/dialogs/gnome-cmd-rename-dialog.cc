@@ -51,13 +51,13 @@ static gboolean on_dialog_keypressed (GtkWidget *widget, GdkEventKey *event, gpo
 
     switch (event->keyval)
     {
-        case GDK_Escape:
+        case GDK_KEY_Escape:
             dialog->priv->f->unref();
             gtk_widget_destroy(widget);
             return TRUE;
 
-        case GDK_Return:
-        case GDK_KP_Enter:
+        case GDK_KEY_Return:
+        case GDK_KEY_KP_Enter:
             {
                 GError *error = nullptr;
                 gchar *new_fname = g_strdup (gtk_entry_get_text (dialog->priv->textbox));
@@ -79,9 +79,9 @@ static gboolean on_dialog_keypressed (GtkWidget *widget, GdkEventKey *event, gpo
             }
             return TRUE;
 
-        case GDK_F2:
-        case GDK_F5:
-        case GDK_F6:
+        case GDK_KEY_F2:
+        case GDK_KEY_F5:
+        case GDK_KEY_F6:
             gnome_cmd_toggle_file_name_selection (GTK_WIDGET (dialog->priv->textbox));
             return TRUE;
 
@@ -136,9 +136,8 @@ GtkWidget *gnome_cmd_rename_dialog_new (GnomeCmdFile *f, gint x, gint y, gint wi
     GnomeCmdRenameDialog *dialog = (GnomeCmdRenameDialog *) g_object_new (GNOME_CMD_TYPE_RENAME_DIALOG, NULL);
     dialog->priv->f = f->ref();
 
-    gtk_window_set_has_frame (GTK_WINDOW (dialog), 0);
     gtk_window_set_decorated (GTK_WINDOW (dialog), 0);
-    gtk_widget_set_uposition (GTK_WIDGET (dialog), x, y);
+    gtk_window_move (GTK_WINDOW (dialog), x, y);
     gtk_window_set_type_hint (GTK_WINDOW (dialog), GDK_WINDOW_TYPE_HINT_DIALOG);
     gtk_window_set_skip_taskbar_hint (GTK_WINDOW (dialog), TRUE);
 

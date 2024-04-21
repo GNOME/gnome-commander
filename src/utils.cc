@@ -185,7 +185,7 @@ static gboolean delete_event_callback (gpointer data, gpointer user_data)
 
 static gboolean on_run_dialog_keypress (GtkWidget *dialog, GdkEventKey *event, gpointer data)
 {
-    if (event->keyval == GDK_Escape)
+    if (event->keyval == GDK_KEY_Escape)
     {
         gtk_dialog_response (GTK_DIALOG (dialog), GTK_RESPONSE_NONE);
         return TRUE;
@@ -426,7 +426,7 @@ void clear_event_key (GdkEventKey *event)
     g_return_if_fail (event != NULL);
     g_return_if_fail (event->string != NULL);
 
-    event->keyval = GDK_VoidSymbol;
+    event->keyval = GDK_KEY_VoidSymbol;
     event->string[0] = '\0';
 }
 
@@ -539,9 +539,9 @@ GtkWidget *create_styled_button (const gchar *text)
 }
 
 
-GtkWidget *create_styled_pixmap_button (const gchar *text, GnomeCmdPixmap *pm)
+GtkWidget *create_styled_pixbuf_button (const gchar *text, GdkPixbuf *pb)
 {
-    g_return_val_if_fail (text || pm, NULL);
+    g_return_val_if_fail (text || pb, NULL);
 
     GtkWidget *btn = create_styled_button (NULL);
     GtkWidget *hbox = gtk_hbox_new (FALSE, 1);
@@ -552,9 +552,9 @@ GtkWidget *create_styled_pixmap_button (const gchar *text, GnomeCmdPixmap *pm)
     g_object_ref (hbox);
     gtk_widget_show (hbox);
 
-    if (pm)
+    if (pb)
     {
-        image = gtk_image_new_from_pixmap (pm->pixmap, pm->mask);
+        image = gtk_image_new_from_pixbuf (pb);
         if (image)
         {
             g_object_ref (image);
@@ -571,10 +571,10 @@ GtkWidget *create_styled_pixmap_button (const gchar *text, GnomeCmdPixmap *pm)
         gtk_widget_show (label);
     }
 
-    if (pm && !text)
+    if (pb && !text)
         gtk_container_add (GTK_CONTAINER (btn), image);
     else
-        if (!pm && text)
+        if (!pb && text)
             gtk_container_add (GTK_CONTAINER (btn), label);
         else
         {

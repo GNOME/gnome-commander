@@ -175,25 +175,9 @@ static GnomeCmdPath *smb_create_path (GnomeCmdCon *con, const gchar *path_str)
  * Gtk class implementation
  *******************************/
 
-static void destroy (GtkObject *object)
-{
-    GnomeCmdConSmb *con_smb = GNOME_CMD_CON_SMB (object);
-
-    gnome_cmd_pixmap_free (con_smb->parent.go_pixmap);
-    gnome_cmd_pixmap_free (con_smb->parent.open_pixmap);
-    gnome_cmd_pixmap_free (con_smb->parent.close_pixmap);
-    g_free(con_smb->parent.uri);
-
-    GTK_OBJECT_CLASS (gnome_cmd_con_smb_parent_class)->destroy (object);
-}
-
-
 static void gnome_cmd_con_smb_class_init (GnomeCmdConSmbClass *klass)
 {
-    GtkObjectClass *object_class = GTK_OBJECT_CLASS (klass);
     GnomeCmdConClass *con_class = GNOME_CMD_CON_CLASS (klass);
-
-    object_class->destroy = destroy;
 
     con_class->open = smb_open;
     con_class->close = smb_close;
@@ -220,8 +204,8 @@ static void gnome_cmd_con_smb_init (GnomeCmdConSmb *smb_con)
     con->is_local = FALSE;
     con->is_closeable = FALSE;
     con->go_text = g_strdup (_("Go to: Samba Network"));
-    con->go_pixmap = gnome_cmd_pixmap_new_from_icon ("folder-remote", dev_icon_size);
-    con->open_pixmap = gnome_cmd_pixmap_new_from_icon ("folder-remote", dev_icon_size);
-    con->close_pixmap = gnome_cmd_pixmap_new_from_icon ("folder-remote", dev_icon_size);
+    con->go_pixbuf = pixbuf_from_icon ("folder-remote", dev_icon_size);
+    con->open_pixbuf = pixbuf_from_icon ("folder-remote", dev_icon_size);
+    con->close_pixbuf = pixbuf_from_icon ("folder-remote", dev_icon_size);
 }
 

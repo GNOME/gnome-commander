@@ -103,7 +103,7 @@ void GnomeCmdNotebook::show_tabs(TabBarVisibility _show_tabs)
 
 int GnomeCmdNotebook::find_tab_num_at_pos(gint screen_x, gint screen_y) const
 {
-    if (!GTK_NOTEBOOK (this)->first_tab)
+    if (gtk_notebook_get_n_pages (GTK_NOTEBOOK (this)) == 0)
         return -1;
 
     GtkPositionType tab_pos = gtk_notebook_get_tab_pos (*this);

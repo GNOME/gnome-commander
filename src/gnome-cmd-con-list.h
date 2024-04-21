@@ -39,14 +39,13 @@ GType gnome_cmd_con_list_get_type ();
 
 struct GnomeCmdConList
 {
-    GtkObject parent;
+    GObject parent;
 
     class Private;
 
     Private *priv;
 
     operator GObject * () const         {  return G_OBJECT (this);    }
-    operator GtkObject * () const       {  return GTK_OBJECT (this);  }
 
     void lock();
     void unlock();
@@ -70,7 +69,7 @@ struct GnomeCmdConList
 
 struct GnomeCmdConListClass
 {
-    GtkObjectClass parent_class;
+    GObjectClass parent_class;
 
     /* signals */
     void (* list_changed) (GnomeCmdConList *list);

@@ -159,7 +159,7 @@ void gnome_cmd_app_free (GnomeCmdApp *app)
     g_free (app->name);
     g_free (app->cmd);
     g_free (app->icon_path);
-    gnome_cmd_pixmap_free (app->pixmap);
+    g_clear_object (&app->pixbuf);
 
     g_free (app);
 }
@@ -196,7 +196,7 @@ void gnome_cmd_app_set_icon_path (GnomeCmdApp *app, const gchar *icon_path)
 
     g_free (app->icon_path);
 
-    gnome_cmd_pixmap_free (app->pixmap);
+    g_clear_object (&app->pixbuf);
 
     app->icon_path = g_strdup (icon_path);
 
@@ -205,11 +205,7 @@ void gnome_cmd_app_set_icon_path (GnomeCmdApp *app, const gchar *icon_path)
 
     if (tmp)
     {
-        GdkPixbuf *pixbuf = gdk_pixbuf_scale_simple (tmp, 16, 16, GDK_INTERP_HYPER);
-
-        if (pixbuf)
-            app->pixmap = gnome_cmd_pixmap_new_from_pixbuf (pixbuf);
-
+        app->pixbuf = gdk_pixbuf_scale_simple (tmp, 16, 16, GDK_INTERP_HYPER);
         g_object_unref (tmp);
     }
 }
@@ -289,9 +285,9 @@ const gchar *gnome_cmd_app_get_icon_path (GnomeCmdApp *app)
 }
 
 
-GnomeCmdPixmap *gnome_cmd_app_get_pixmap (GnomeCmdApp *app)
+GdkPixbuf *gnome_cmd_app_get_pixbuf (GnomeCmdApp *app)
 {
-    return app->pixmap;
+    return app->pixbuf;
 }
 
 

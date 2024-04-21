@@ -102,12 +102,13 @@ static void gnome_cmd_chmod_component_class_init (GnomeCmdChmodComponentClass *k
     klass->perms_changed = on_perms_changed;
 
     chmod_component_signals[PERMS_CHANGED] =
-        gtk_signal_new ("perms-changed",
-            GTK_RUN_LAST,
-            G_OBJECT_CLASS_TYPE (object_class),
-            GTK_SIGNAL_OFFSET (GnomeCmdChmodComponentClass, perms_changed),
-            gtk_marshal_NONE__NONE,
-            GTK_TYPE_NONE,
+        g_signal_new ("perms-changed",
+            G_TYPE_FROM_CLASS (klass),
+            G_SIGNAL_RUN_LAST,
+            G_STRUCT_OFFSET (GnomeCmdChmodComponentClass, perms_changed),
+            nullptr, nullptr,
+            g_cclosure_marshal_VOID__VOID,
+            G_TYPE_NONE,
             0);
 }
 
