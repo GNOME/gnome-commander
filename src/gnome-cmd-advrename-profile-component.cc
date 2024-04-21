@@ -897,7 +897,6 @@ static void gnome_cmd_advrename_profile_component_init (GnomeCmdAdvrenameProfile
 {
     component->priv = new GnomeCmdAdvrenameProfileComponent::Private;
 
-    GtkWidget *align;
     GtkWidget *label;
     GtkWidget *grid;
     GtkWidget *combo;
@@ -924,13 +923,10 @@ static void gnome_cmd_advrename_profile_component_init (GnomeCmdAdvrenameProfile
         gtk_misc_set_alignment (GTK_MISC (label), 0.0, 0.5);
         gtk_box_pack_start (GTK_BOX (vbox), label, FALSE, FALSE, 0);
 
-        align = gtk_alignment_new (0.0, 0.0, 1.0, 1.0);
-        gtk_alignment_set_padding (GTK_ALIGNMENT (align), 0, 0, 12, 0);
-        gtk_box_pack_start (GTK_BOX (vbox), align, FALSE, FALSE, 0);
-
         {
-            GtkWidget *local_vbox = gtk_vbox_new (FALSE, 6);
-            gtk_container_add (GTK_CONTAINER (align), local_vbox);
+            GtkWidget *local_vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 6);
+            gtk_widget_set_margin_left (local_vbox, 12);
+            gtk_box_pack_start (GTK_BOX (vbox), local_vbox, FALSE, FALSE, 0);
 
             component->priv->template_combo = combo = gtk_combo_box_new_with_model_and_entry (GTK_TREE_MODEL (gtk_list_store_new (1, G_TYPE_STRING)));
             component->priv->template_entry = gtk_bin_get_child (GTK_BIN (component->priv->template_combo));
@@ -966,14 +962,11 @@ static void gnome_cmd_advrename_profile_component_init (GnomeCmdAdvrenameProfile
         gtk_misc_set_alignment (GTK_MISC (label), 0.0, 0.5);
         gtk_box_pack_start (GTK_BOX (vbox), label, FALSE, FALSE, 0);
 
-        align = gtk_alignment_new (0.0, 0.0, 1.0, 1.0);
-        gtk_alignment_set_padding (GTK_ALIGNMENT (align), 0, 0, 12, 0);
-        gtk_box_pack_start (GTK_BOX (vbox), align, FALSE, FALSE, 0);
-
         grid = gtk_grid_new ();
         gtk_grid_set_row_spacing (GTK_GRID (grid), 6);
         gtk_grid_set_column_spacing (GTK_GRID (grid), 12);
-        gtk_container_add (GTK_CONTAINER (align), grid);
+        gtk_widget_set_margin_left (grid, 12);
+        gtk_box_pack_start (GTK_BOX (vbox), grid, FALSE, FALSE, 0);
 
         label = gtk_label_new_with_mnemonic (_("_Start:"));
         gtk_misc_set_alignment (GTK_MISC (label), 0.0, 0.5);
@@ -1015,14 +1008,13 @@ static void gnome_cmd_advrename_profile_component_init (GnomeCmdAdvrenameProfile
         gtk_misc_set_alignment (GTK_MISC (label), 0.0, 0.5);
         gtk_box_pack_start (GTK_BOX (component), label, FALSE, FALSE, 0);
 
-        align = gtk_alignment_new (0.0, 0.0, 1.0, 1.0);
-        gtk_alignment_set_padding (GTK_ALIGNMENT (align), 6, 12, 12, 0);
-        gtk_box_pack_start (GTK_BOX (component), align, FALSE, FALSE, 0);
-
         grid = gtk_grid_new ();
         gtk_grid_set_row_spacing (GTK_GRID (grid), 6);
         gtk_grid_set_column_spacing (GTK_GRID (grid), 12);
-        gtk_container_add (GTK_CONTAINER (align), grid);
+        gtk_widget_set_margin_top (grid, 6);
+        gtk_widget_set_margin_bottom (grid, 12);
+        gtk_widget_set_margin_left (grid, 12);
+        gtk_box_pack_start (GTK_BOX (component), grid, FALSE, FALSE, 0);
 
         GtkWidget *scrolled_window = gtk_scrolled_window_new (NULL, NULL);
         gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolled_window), GTK_POLICY_NEVER, GTK_POLICY_AUTOMATIC);
@@ -1053,11 +1045,9 @@ static void gnome_cmd_advrename_profile_component_init (GnomeCmdAdvrenameProfile
     }
 
 
-    align = gtk_alignment_new (0.0, 0.0, 1.0, 1.0);
-    gtk_alignment_set_padding (GTK_ALIGNMENT (align), 0, 18, 0, 0);
-    gtk_box_pack_start (GTK_BOX (component), align, FALSE, FALSE, 0);
-    hbox = gtk_hbox_new (FALSE, 12);
-    gtk_container_add (GTK_CONTAINER (align), hbox);
+    hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 12);
+    gtk_widget_set_margin_bottom (hbox, 18);
+    gtk_box_pack_start (GTK_BOX (component), hbox, FALSE, FALSE, 0);
 
     // Case conversion & blank trimming
     {

@@ -71,7 +71,7 @@ gboolean gnome_cmd_advrename_regex_dialog_new (const gchar *title, GtkWindow *pa
     gtk_container_set_border_width (GTK_CONTAINER (content_area), 5);
     gtk_box_set_spacing (GTK_BOX (content_area),6);
 
-    GtkWidget *grid, *align, *label, *entry, *check;
+    GtkWidget *grid, *label, *entry, *check;
 
     grid = gtk_grid_new ();
     gtk_container_set_border_width (GTK_CONTAINER (grid), 5);
@@ -101,14 +101,12 @@ gboolean gnome_cmd_advrename_regex_dialog_new (const gchar *title, GtkWindow *pa
     gtk_entry_set_activates_default (GTK_ENTRY (entry), TRUE);
     gtk_grid_attach (GTK_GRID (grid), entry, 1, 1, 1, 1);
 
-    align = gtk_alignment_new (0.0, 0.0, 1.0, 1.0);
-    gtk_alignment_set_padding (GTK_ALIGNMENT (align), 6, 0, 12, 0);
-    gtk_grid_attach (GTK_GRID (grid), align, 0, 2, 2, 1);
-
     check = gtk_check_button_new_with_mnemonic (_("_Match case"));
     g_object_set_data (G_OBJECT (dialog), "match_case", check);
     gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), rx ? rx->match_case : FALSE);
-    gtk_container_add (GTK_CONTAINER (align), check);
+    gtk_widget_set_margin_top (check, 6);
+    gtk_widget_set_margin_left (check, 12);
+    gtk_grid_attach (GTK_GRID (grid), check, 0, 2, 2, 1);
 
     gtk_widget_show_all (content_area);
 

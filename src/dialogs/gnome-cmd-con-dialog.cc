@@ -182,15 +182,6 @@ void GnomeCmdConnectDialog::Private::setup_for_type()
 
     show_entry (required_grid, server_entry, _("_Server:"), i);
 
-    GtkWidget *align;
-
-    align = gtk_alignment_new (0.0, 0.0, 1.0, 1.0);
-    gtk_alignment_set_padding (GTK_ALIGNMENT (align), 12, 0, 0, 0);
-    gtk_grid_attach (required_grid, align, 0, i, 2, 1);
-    gtk_widget_show (align);
-
-    i++;
-
     gchar *str = g_strdup_printf ("<b>%s</b>", _("Optional information"));
     GtkWidget *label = gtk_label_new (str);
     g_free (str);
@@ -198,19 +189,16 @@ void GnomeCmdConnectDialog::Private::setup_for_type()
     gtk_label_set_use_markup (GTK_LABEL (label), TRUE);
     gtk_misc_set_alignment (GTK_MISC (label), 0.0, 0.5);
     gtk_widget_show (label);
-    gtk_container_add (GTK_CONTAINER (align), label);
-
-    align = gtk_alignment_new (0.0, 0.0, 1.0, 1.0);
-    gtk_alignment_set_padding (GTK_ALIGNMENT (align), 0, 0, 12, 0);
-    gtk_grid_attach (required_grid, align, 0, i, 2, 1);
-    gtk_widget_show (align);
-
+    gtk_widget_set_margin_top (label, 12);
+    gtk_grid_attach (required_grid, label, 0, i, 2, 1);
+    i++;
 
     optional_grid = GTK_GRID (gtk_grid_new ());
     gtk_grid_set_row_spacing (optional_grid, 6);
     gtk_grid_set_column_spacing (optional_grid, 12);
     gtk_widget_show (GTK_WIDGET (optional_grid));
-    gtk_container_add (GTK_CONTAINER (align), GTK_WIDGET (optional_grid));
+    gtk_widget_set_margin_left (GTK_WIDGET (optional_grid), 12);
+    gtk_grid_attach (required_grid, GTK_WIDGET (optional_grid), 0, i, 2, 1);
 
     i = 0;
 
@@ -366,7 +354,6 @@ static void port_insert_text (GtkEditable *editable, const gchar *new_text, gint
 
 static void gnome_cmd_connect_dialog_init (GnomeCmdConnectDialog *dialog)
 {
-    GtkWidget *align;
     GtkWidget *label;
     GtkWidget *combo;
     GtkWidget *hbox;
@@ -416,26 +403,16 @@ static void gnome_cmd_connect_dialog_init (GnomeCmdConnectDialog *dialog)
     gtk_box_pack_start (GTK_BOX (hbox), combo, TRUE, TRUE, 0);
     g_signal_connect (combo, "changed", G_CALLBACK (dlg_changed_callback), dialog);
 
-    align = gtk_alignment_new (0.0, 0.0, 1.0, 1.0);
-    gtk_alignment_set_padding (GTK_ALIGNMENT (align), 0, 0, 12, 0);
-    gtk_box_pack_start (GTK_BOX (vbox), align, TRUE, TRUE, 0);
-    gtk_widget_show (align);
-
     hbox = gtk_hbox_new (FALSE, 6);
     gtk_box_pack_start (GTK_BOX (vbox), hbox, FALSE, TRUE, 0);
     gtk_widget_show (hbox);
-
-    align = gtk_alignment_new (0.0, 0.0, 1.0, 1.0);
-    gtk_alignment_set_padding (GTK_ALIGNMENT (align), 0, 0, 12, 0);
-    gtk_box_pack_start (GTK_BOX (hbox), align, TRUE, TRUE, 0);
-    gtk_widget_show (align);
-
 
     dialog->priv->required_grid = GTK_GRID (gtk_grid_new ());
     gtk_grid_set_row_spacing (dialog->priv->required_grid, 6);
     gtk_grid_set_column_spacing (dialog->priv->required_grid, 12);
     gtk_widget_show (GTK_WIDGET (dialog->priv->required_grid));
-    gtk_container_add (GTK_CONTAINER (align), GTK_WIDGET (dialog->priv->required_grid));
+    gtk_widget_set_margin_left (GTK_WIDGET (dialog->priv->required_grid), 12);
+    gtk_box_pack_start (GTK_BOX (hbox), GTK_WIDGET (dialog->priv->required_grid), TRUE, TRUE, 0);
 
     g_signal_connect (dialog->priv->port_entry, "insert-text", G_CALLBACK (port_insert_text), NULL);
 

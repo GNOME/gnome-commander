@@ -107,15 +107,13 @@ namespace GnomeCmd
         gtk_misc_set_alignment (GTK_MISC (label), 0.0, 0.5);
         gtk_box_pack_start (GTK_BOX (vbox), label, FALSE, FALSE, 0);
 
-        GtkWidget *align = gtk_alignment_new (0.0, 0.0, 1.0, 1.0);
-        gtk_alignment_set_padding (GTK_ALIGNMENT (align), 0, 6, 12, 0);
-        gtk_container_add (GTK_CONTAINER (vbox), align);
-
         GtkWidget *entry = gtk_entry_new ();
         g_object_set_data (G_OBJECT (dialog), "name", entry);
         gtk_label_set_mnemonic_widget (GTK_LABEL (label), entry);
         gtk_entry_set_text (GTK_ENTRY (entry), profile.name.c_str());
-        gtk_container_add (GTK_CONTAINER (align), entry);
+        gtk_widget_set_margin_bottom (entry, 6);
+        gtk_widget_set_margin_left (entry, 12);
+        gtk_container_add (GTK_CONTAINER (vbox), entry);
 
         component = new COMPONENT(profile);
         gtk_container_add (GTK_CONTAINER (vbox), *component);

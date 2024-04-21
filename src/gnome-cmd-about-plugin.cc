@@ -247,7 +247,7 @@ static void link_button_clicked_callback (GtkWidget *widget, gpointer data)
 
 static void gnome_cmd_about_plugin_init (GnomeCmdAboutPlugin *about)
 {
-    GtkWidget *vbox, *hbox, *image, *label, *alignment, *button;
+    GtkWidget *vbox, *hbox, *image, *label, *button;
 
     // Data
     GnomeCmdAboutPluginPrivate *priv = g_new0 (GnomeCmdAboutPluginPrivate, 1);
@@ -310,11 +310,8 @@ static void gnome_cmd_about_plugin_init (GnomeCmdAboutPlugin *about)
     gtk_box_pack_start (GTK_BOX (hbox), image, FALSE, FALSE, 0);
     gtk_box_pack_end (GTK_BOX (hbox), label, FALSE, FALSE, 0);
 
-    alignment = gtk_alignment_new (0.5, 0.5, 0.0, 0.0);
-    gtk_container_add (GTK_CONTAINER (alignment), hbox);
-
     button = gtk_button_new ();
-    gtk_container_add (GTK_CONTAINER (button), alignment);
+    gtk_container_add (GTK_CONTAINER (button), hbox);
     gtk_widget_show_all (button);
 
     gtk_dialog_add_action_widget (GTK_DIALOG (about), button, GNOME_RESPONSE_CREDITS);
