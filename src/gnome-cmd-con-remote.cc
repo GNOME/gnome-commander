@@ -125,7 +125,6 @@ static void remote_close_callback(GObject *gobj, GAsyncResult *result, gpointer 
     if (error && !g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CLOSED))
     {
         gnome_cmd_error_message(_("Disconnect error"), error);
-        g_error_free(error);
         return;
     }
     if (error)
