@@ -53,6 +53,7 @@ static gboolean on_dialog_keypressed (GtkWidget *widget, GdkEventKey *event, gpo
     switch (event->keyval)
     {
         case GDK_KEY_Escape:
+            gtk_widget_grab_focus (GTK_WIDGET (main_win->fs(ACTIVE)->file_list()));
             priv->f->unref();
             gtk_widget_destroy(widget);
             return TRUE;
@@ -65,7 +66,11 @@ static gboolean on_dialog_keypressed (GtkWidget *widget, GdkEventKey *event, gpo
                 gboolean result = priv->f->rename(new_fname, &error);
 
                 if (result)
-                    main_win->fs(ACTIVE)->file_list()->focus_file(new_fname, TRUE);
+                {
+                    GnomeCmdFileList *fl = main_win->fs(ACTIVE)->file_list();
+                    fl->focus_file(new_fname, TRUE);
+                    gtk_widget_grab_focus (GTK_WIDGET (fl));
+                }
 
                 priv->f->unref();
                 gtk_widget_destroy (widget);
