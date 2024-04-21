@@ -289,6 +289,27 @@ GnomeCmdFileList::Private::Private(GnomeCmdFileList *fl)
 }
 
 
+static void paint_cell_with_ls_colors (GtkCellRenderer *cell, GnomeCmdFile *file, bool has_foreground)
+{
+    if (!gnome_cmd_data.options.use_ls_colors)
+        return;
+
+    if (LsColor *col = ls_colors_get (file))
+    {
+        if (has_foreground && col->fg != nullptr)
+            g_object_set (G_OBJECT (cell),
+                "foreground-gdk", col->fg,
+                "foreground-set", TRUE,
+                nullptr);
+        if (col->bg != nullptr)
+            g_object_set (G_OBJECT (cell),
+                "cell-background-gdk", col->bg,
+                "cell-background-set", TRUE,
+                nullptr);
+    }
+}
+
+
 static void cell_data (GtkTreeViewColumn *column,
                        GtkCellRenderer *cell,
                        GtkTreeModel *model,
@@ -305,8 +326,6 @@ static void cell_data (GtkTreeViewColumn *column,
         DATA_COLUMN_SELECTED, &selected,
         column_index, &value,
         -1);
-
-    GnomeCmdColorTheme *colors = gnome_cmd_data.options.get_current_color_theme();
 
     bool has_foreground;
     if (column_index == GnomeCmdFileList::COLUMN_ICON)
@@ -331,70 +350,36 @@ static void cell_data (GtkTreeViewColumn *column,
         has_foreground = true;
     }
 
+    GnomeCmdColorTheme *colors = gnome_cmd_data.options.get_current_color_theme();
     if (selected)
     {
-        if (!gnome_cmd_data.options.use_ls_colors)
-        {
-            // TODO: No way to set `alt_sel_list_style` for odd rows for now. Maybe do it later with CSS?
-            if (has_foreground)
-                g_object_set (G_OBJECT (cell),
-                    "foreground-gdk", sel_list_style->fg,
-                    "foreground-set", TRUE,
-                    nullptr);
+        if (has_foreground)
             g_object_set (G_OBJECT (cell),
-                "cell-background-gdk", sel_list_style->bg,
-                "cell-background-set", TRUE,
+                "foreground-gdk", colors->sel_fg,
+                "foreground-set", TRUE,
                 nullptr);
-        }
-        else
-        {
-            if (!colors->respect_theme)
-            {
-                if (has_foreground)
-                    g_object_set (G_OBJECT (cell),
-                        "foreground-gdk", colors->sel_fg,
-                        "foreground-set", TRUE,
-                        nullptr);
-                g_object_set (G_OBJECT (cell),
-                    "cell-background-gdk", colors->sel_bg,
-                    "cell-background-set", TRUE,
-                    nullptr);
-            }
-        }
+        g_object_set (G_OBJECT (cell),
+            "cell-background-gdk", colors->sel_bg,
+            "cell-background-set", TRUE,
+            nullptr);
     }
     else
     {
-        if (LsColor *col = ls_colors_get (file))
+        if (!colors->respect_theme)
         {
-            GdkColor *fg = col->fg ? col->fg : colors->norm_fg;
-            GdkColor *bg = col->bg ? col->bg : colors->norm_bg;
-
             if (has_foreground)
                 g_object_set (G_OBJECT (cell),
-                    "foreground-gdk", fg,
+                    "foreground-gdk", colors->norm_fg,
                     "foreground-set", TRUE,
                     nullptr);
 
             g_object_set (G_OBJECT (cell),
-                "cell-background-gdk", bg,
+                "cell-background-gdk", colors->norm_bg,
                 "cell-background-set", TRUE,
                 nullptr);
         }
-        else
-        {
-            if (!colors->respect_theme)
-            {
-                if (has_foreground)
-                    g_object_set (G_OBJECT (cell),
-                        "foreground-gdk", colors->norm_fg,
-                        "foreground-set", TRUE,
-                        nullptr);
-                g_object_set (G_OBJECT (cell),
-                    "cell-background-gdk", colors->norm_bg,
-                    "cell-background-set", TRUE,
-                    nullptr);
-            }
-        }
+
+        paint_cell_with_ls_colors (cell, file, has_foreground);
     }
 }
 
@@ -483,6 +468,59 @@ void GnomeCmdFileList::Private::on_dnd_popup_menu_link(GtkMenuItem *item, GnomeC
 }
 
 
+static GtkCssProvider *create_css_provider()
+{
+    gchar *css;
+
+    GnomeCmdColorTheme *colors = gnome_cmd_data.options.get_current_color_theme();
+
+    if (!colors->respect_theme)
+    {
+        css = g_strdup_printf ("\
+            treeview.view.gnome-cmd-file-list,                      \
+            treeview.view.gnome-cmd-file-list.even {                \
+                background-color: #%02x%02x%02x;                    \
+            }                                                       \
+            treeview.view.gnome-cmd-file-list.odd {                 \
+                background-color: #%02x%02x%02x;                    \
+            }                                                       \
+            treeview.view.gnome-cmd-file-list:selected:focus {      \
+                background-color: #%02x%02x%02x;                    \
+                color: #%02x%02x%02x;                               \
+            }                                                       \
+            ",
+            // row
+            colors->norm_bg->red / 256,
+            colors->norm_bg->green / 256,
+            colors->norm_bg->blue / 256,
+
+            colors->alt_bg->red / 256,
+            colors->alt_bg->green / 256,
+            colors->alt_bg->blue / 256,
+
+            // cursor
+            colors->curs_bg->red / 256,
+            colors->curs_bg->green / 256,
+            colors->curs_bg->blue / 256,
+
+            colors->curs_fg->red / 256,
+            colors->curs_fg->green / 256,
+            colors->curs_fg->blue / 256
+        );
+    }
+    else
+    {
+        css = g_strdup("");
+    }
+
+    GtkCssProvider *css_provider = gtk_css_provider_new();
+    gtk_css_provider_load_from_data (css_provider, css, -1, NULL);
+
+    g_free (css);
+
+    return css_provider;
+}
+
 GnomeCmdFileList::GnomeCmdFileList(ColumnID sort_col, GtkSortType sort_order)
 {
 #if defined (__GNUC__)
@@ -499,15 +537,8 @@ GnomeCmdFileList::GnomeCmdFileList(ColumnID sort_col, GtkSortType sort_order)
 
     create_column_titles();
 
-    if (!gnome_cmd_data.options.use_ls_colors)
-    {
-    /*
-        g_object_set (this,
-            "even-row-color", list_style,
-            "odd-row-color", alt_list_style,
-            NULL);
-    */
-    }
+    gtk_style_context_add_class (gtk_widget_get_style_context (*this), "gnome-cmd-file-list");
+    gtk_style_context_add_provider_for_screen (gdk_screen_get_default(), GTK_STYLE_PROVIDER (create_css_provider()), GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
 
     GtkTreeSelection *selection = gtk_tree_view_get_selection (*this);
     gtk_tree_selection_set_mode (selection, GTK_SELECTION_BROWSE);

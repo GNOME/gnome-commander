@@ -3019,7 +3019,7 @@ void GnomeCmdData::load_colors()
 
 void GnomeCmdData::load_color_themes()
 {
-        options.color_themes[GNOME_CMD_COLOR_MODERN].respect_theme = FALSE;
+    options.color_themes[GNOME_CMD_COLOR_MODERN].respect_theme = FALSE;
     options.color_themes[GNOME_CMD_COLOR_MODERN].norm_fg = gdk_color_new (0,0,0);
     options.color_themes[GNOME_CMD_COLOR_MODERN].norm_bg = gdk_color_new (0xdddd,0xdddd,0xdddd);
     options.color_themes[GNOME_CMD_COLOR_MODERN].alt_fg = gdk_color_new (0,0,0);
@@ -3089,13 +3089,21 @@ void GnomeCmdData::load_color_themes()
     options.color_themes[GNOME_CMD_COLOR_WINTER].curs_fg = gdk_color_new (0,0,0);
     options.color_themes[GNOME_CMD_COLOR_WINTER].curs_bg = gdk_color_new (0,0xffff,0xffff);
 
+    GtkWidget *widget = gtk_combo_box_new ();
+    GtkStyleContext *style_context = gtk_widget_get_style_context (GTK_WIDGET (widget));
+    GdkRGBA sel_fg;
+    GdkRGBA sel_bg;
+    gtk_style_context_get_color (style_context, GTK_STATE_FLAG_SELECTED, &sel_fg);
+    gtk_style_context_get_background_color (style_context, GTK_STATE_FLAG_SELECTED, &sel_bg);
+    gtk_widget_destroy (widget);
+
     options.color_themes[GNOME_CMD_COLOR_NONE].respect_theme = TRUE;
     options.color_themes[GNOME_CMD_COLOR_NONE].norm_fg = nullptr;
     options.color_themes[GNOME_CMD_COLOR_NONE].norm_bg = nullptr;
     options.color_themes[GNOME_CMD_COLOR_NONE].alt_fg = nullptr;
     options.color_themes[GNOME_CMD_COLOR_NONE].alt_bg = nullptr;
-    options.color_themes[GNOME_CMD_COLOR_NONE].sel_fg = nullptr;
-    options.color_themes[GNOME_CMD_COLOR_NONE].sel_bg = nullptr;
+    options.color_themes[GNOME_CMD_COLOR_NONE].sel_fg = gdk_color_new (sel_fg.red * 65535, sel_fg.green * 65535, sel_fg.blue * 65535);
+    options.color_themes[GNOME_CMD_COLOR_NONE].sel_bg = gdk_color_new (sel_bg.red * 65535, sel_bg.green * 65535, sel_bg.blue * 65535);
     options.color_themes[GNOME_CMD_COLOR_NONE].curs_fg = nullptr;
     options.color_themes[GNOME_CMD_COLOR_NONE].curs_bg = nullptr;
 }
@@ -3753,7 +3761,7 @@ gboolean GnomeCmdData::set_color_if_valid_key_value(GdkColor *color, GSettings *
 }
 
 /**
- * As GSettings enum-type is of GVARIANT_CLASS String, we need a seperate function for
+ * As GSettings enum-type is of GVARIANT_CLASS String, we need a separate function for
  * finding out if a key value has changed. This is done here. For storing the other GSettings
  * types, see @link set_gsettings_when_changed @endlink .
  * @returns TRUE if new value could be stored, else FALSE
