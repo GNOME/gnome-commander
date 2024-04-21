@@ -22,8 +22,6 @@ datadir     = join_paths(prefix, get_option('datadir'))
 pkglibdir   = join_paths(libdir, meson.project_name())
 pkgdatadir  = join_paths(datadir, meson.project_name())
 desktopdir  = join_paths(datadir, 'applications')
-appdatadir  = join_paths(datadir, 'appdata')
-icondir     = join_paths(datadir, 'icons')
 metainfodir = join_paths(datadir, 'metainfo')
 schemadir   = join_paths(datadir, 'glib-2.0', 'schemas')
 
