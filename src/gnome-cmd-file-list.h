@@ -21,8 +21,10 @@
 
 #pragma once
 
+#include <memory>
+#include <vector>
+#include <functional>
 #include "gnome-cmd-dir.h"
-#include "gnome-cmd-clist.h"
 #include "gnome-cmd-collection.h"
 #include "filter.h"
 
@@ -56,7 +58,7 @@ enum TargetType
 
 struct GnomeCmdFileList
 {
-    GnomeCmdCList parent;
+    GtkTreeView parent;
 
   private:
 
@@ -82,8 +84,7 @@ struct GnomeCmdFileList
     operator GObject * () const         {  return G_OBJECT (this);         }
     operator GtkObject * () const       {  return GTK_OBJECT (this);       }
     operator GtkWidget * () const       {  return GTK_WIDGET (this);       }
-    operator GtkCList * () const        {  return GTK_CLIST (this);        }
-    operator GnomeCmdCList * () const   {  return GNOME_CMD_CLIST (this);  }
+    operator GtkTreeView * () const     {  return GTK_TREE_VIEW (this);    }
 
     enum ColumnID
     {
@@ -107,29 +108,35 @@ struct GnomeCmdFileList
     GnomeCmdFileList(ColumnID sort_col, GtkSortType sort_order);
     ~GnomeCmdFileList();
 
-    guint size()                          {  return g_list_length (get_visible_files());  }
-    bool empty()                          {  return get_visible_files() == nullptr;            }    // FIXME should be: size()==0
+    guint size();
+    bool empty()                          {  return size() == 0; }
     void clear();
 
     void reload();
 
+    enum TraverseControl {
+        TRAVERSE_BREAK,
+        TRAVERSE_CONTINUE,
+    };
+
+    TraverseControl traverse_files(std::function<TraverseControl (GnomeCmdFile *f, GtkTreeIter *, GtkListStore *)> visitor);
+
     void append_file(GnomeCmdFile *f);
     gboolean insert_file(GnomeCmdFile *f);      // Returns TRUE if file added to shown file list, FALSE otherwise
     gboolean remove_file(GnomeCmdFile *f);
-    gboolean remove_file(const gchar *uri_str);
     void remove_files(GList *files);
     void remove_all_files()             {  clear();  }
 
     gboolean has_file(const GnomeCmdFile *f);
 
-    void select_file(GnomeCmdFile *f, gint row=-1);
-    void unselect_file(GnomeCmdFile *f, gint row=-1);
+    void select_file(GnomeCmdFile *f, GtkTreeIter *row=nullptr);
+    void unselect_file(GnomeCmdFile *f, GtkTreeIter *row=nullptr);
     void select_all();
     void unselect_all();
     void select_all_files();
     void unselect_all_files();
 
-    void toggle_file(GnomeCmdFile *f);
+    void toggle_file(GtkTreeIter *iter);
     void toggle();
     void toggle_and_step();
     void toggle_with_pattern (Filter &pattern, gboolean mode);
@@ -141,13 +148,14 @@ struct GnomeCmdFileList
     void invert_selection();
     void restore_selection();
 
-    void select_row(gint row);
-    GnomeCmdFile *get_file_at_row(gint row)            {  return static_cast<GnomeCmdFile *>(gtk_clist_get_row_data (*this, row));  }
-    gint get_row_from_file(GnomeCmdFile *f)            {  return gtk_clist_find_row_from_data (*this, f);               }
+    void select_row(GtkTreeIter *row);
+    GnomeCmdFile *get_file_at_row(GtkTreeIter *row);
+    std::unique_ptr<GtkTreeIter> get_row_from_file(GnomeCmdFile *f);
     void focus_file(const gchar *focus_file, gboolean scroll_to_file=TRUE);
+    void focus_prev();
+    void focus_next();
 
     void sort();
-    GList *sort_selection(GList *list);
 
     /**
      * Returns a list with all files shown in the file list. The list is
@@ -155,6 +163,11 @@ struct GnomeCmdFileList
      * the files if needed
      */
     GList *get_visible_files();
+
+    /**
+     * Same as `get_visible_files` but returns a vector
+     */
+    std::vector<GnomeCmdFile *> get_all_files();
 
     /**
      * Returns a list with all selected files. The list returned is a
@@ -167,7 +180,9 @@ struct GnomeCmdFileList
      * Returns a collection of all selected files.
      * A marked file is a file that has been selected with ins etc. The file that is currently focused is not marked.
      */
-    GnomeCmd::Collection<GnomeCmdFile *> &get_marked_files();
+    GnomeCmd::Collection<GnomeCmdFile *> get_marked_files();
+
+    std::unique_ptr<GtkTreeIter> get_focused_file_iter();
 
     /**
      * Returns the currently focused file if any. The returned file is
@@ -195,7 +210,8 @@ struct GnomeCmdFileList
     void show_dir_tree_size(GnomeCmdFile *f);
     void show_visible_tree_sizes();
 
-    void show_column(ColumnID col, gboolean value)     {  gtk_clist_set_column_visibility (*this, col, value);  }
+    void show_column(ColumnID col, gboolean value);
+    void resize_column(ColumnID col, gint width);
 
     ColumnID get_sort_column() const;
     GtkSortType get_sort_order() const;
@@ -226,12 +242,18 @@ struct GnomeCmdFileList
 
     void init_dnd();
     void drop_files(DndMode dndMode, GFileCopyFlags gFileCopyFlags, GList *uri_list, GnomeCmdDir *dir);
+
+    std::unique_ptr<GtkTreeIter> get_dest_row_at_pos (gint drag_x, gint drag_y);
+// private:
+    void select_iter(GtkTreeIter *iter);
+    void unselect_iter(GtkTreeIter *iter);
+    bool is_selected_iter(GtkTreeIter *iter);
 };
 
 
 inline void *GnomeCmdFileList::operator new (size_t size)
 {
-    return g_object_new (GNOME_CMD_TYPE_FILE_LIST, "n-columns", GnomeCmdFileList::NUM_COLUMNS, nullptr);
+    return g_object_new (GNOME_CMD_TYPE_FILE_LIST, nullptr);
 }
 
 inline GnomeCmdFileList::~GnomeCmdFileList()
@@ -244,11 +266,6 @@ inline void GnomeCmdFileList::remove_files (GList *files)
 {
     for (; files; files = files->next)
         remove_file(static_cast<GnomeCmdFile *>(files->data));
-}
-
-inline gboolean GnomeCmdFileList::has_file(const GnomeCmdFile *f)
-{
-    return g_list_index (get_visible_files(), f) != -1;
 }
 
 inline GnomeCmdFile *GnomeCmdFileList::get_selected_file()

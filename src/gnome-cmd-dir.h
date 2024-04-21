@@ -57,7 +57,6 @@ struct GnomeCmdDir
         STATE_CANCELING
     };
 
-    gint voffset;
     GList *infolist;
     GList *gFileInfoList;
     gint list_counter;

@@ -50,11 +50,9 @@ inline void focus_file (GnomeCmdQuicksearchPopup *popup, GnomeCmdFile *f)
         return;
 
     popup->priv->last_focused_file = f;
-    gint row = popup->priv->fl->get_row_from_file(f);
-    gtk_clist_moveto (GTK_CLIST (popup->priv->fl), row, 0, 1, 0);
-    gtk_clist_freeze (GTK_CLIST (popup->priv->fl));
-    GNOME_CMD_CLIST (popup->priv->fl)->drag_motion_row = row;
-    gtk_clist_thaw (GTK_CLIST (popup->priv->fl));
+    auto row = popup->priv->fl->get_row_from_file(f);
+    GtkTreeSelection *selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (popup->priv->fl));
+    gtk_tree_selection_select_iter (selection, row.get());
 }
 
 
@@ -64,10 +62,6 @@ static void set_filter (GnomeCmdQuicksearchPopup *popup, const gchar *text)
     g_return_if_fail (text != nullptr);
 
     gboolean first = TRUE;
-
-    gtk_clist_freeze (GTK_CLIST (popup->priv->fl));
-    GNOME_CMD_CLIST (popup->priv->fl)->drag_motion_row = -1;
-    gtk_clist_thaw (GTK_CLIST (popup->priv->fl));
 
     if (popup->priv->matches)
     {
@@ -82,9 +76,10 @@ static void set_filter (GnomeCmdQuicksearchPopup *popup, const gchar *text)
     else
         pattern = gnome_cmd_data.options.quick_search_exact_match_end ? g_strconcat ("*", text, nullptr) : g_strconcat ("*", text, "*", nullptr);
 
-    for (GList *files = popup->priv->fl->get_visible_files(); files; files = files->next)
+    auto files = popup->priv->fl->get_all_files();
+    for (auto i = files.begin(); i != files.end(); ++i)
     {
-        auto f = static_cast<GnomeCmdFile*> (files->data);
+        GnomeCmdFile *f = *i;
 
         if (gnome_cmd_filter_fnmatch (pattern,
                 g_file_info_get_display_name(f->get_file_info()),
@@ -113,9 +108,6 @@ static void set_filter (GnomeCmdQuicksearchPopup *popup, const gchar *text)
 inline void hide_popup (GnomeCmdQuicksearchPopup *popup)
 {
     gtk_grab_remove (popup->entry);
-    gtk_clist_freeze (GTK_CLIST (popup->priv->fl));
-    GNOME_CMD_CLIST (popup->priv->fl)->drag_motion_row = -1;
-    gtk_clist_thaw (GTK_CLIST (popup->priv->fl));
     gtk_widget_grab_focus (GTK_WIDGET (popup->priv->fl));
     if (popup->priv->matches)
         g_list_free (popup->priv->matches);
@@ -145,7 +137,7 @@ static gboolean on_key_pressed (GtkWidget *entry, GdkEventKey *event, GnomeCmdQu
     switch (event->keyval)
     {
         case GDK_Escape:
-            popup->priv->fl->select_row(GNOME_CMD_CLIST (popup->priv->fl)->drag_motion_row);
+            // popup->priv->fl->select_row(GNOME_CMD_FILE_LIST (popup->priv->fl)->drag_motion_row);
             hide_popup (popup);
             return TRUE;
 
@@ -159,7 +151,7 @@ static gboolean on_key_pressed (GtkWidget *entry, GdkEventKey *event, GnomeCmdQu
         case GDK_F5:
         case GDK_F6:
         case GDK_F8:
-            popup->priv->fl->select_row(GNOME_CMD_CLIST (popup->priv->fl)->drag_motion_row);
+            // popup->priv->fl->select_row(GNOME_CMD_FILE_LIST (popup->priv->fl)->drag_motion_row);
             hide_popup (popup);
             main_win->key_pressed(event);
             return TRUE;

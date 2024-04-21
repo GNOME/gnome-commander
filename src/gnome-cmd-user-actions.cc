@@ -898,8 +898,6 @@ void file_advrename (GtkMenuItem *menuitem, gpointer not_used)
 
     if (files)
     {
-        files = get_fl (ACTIVE)->sort_selection(files);
-
         if (!main_win->advrename_dlg)
         {
             main_win->advrename_dlg = new GnomeCmdAdvrenameDialog(gnome_cmd_data.advrename_defaults);
@@ -1001,8 +999,6 @@ void file_diff (GtkMenuItem *menuitem, gpointer not_used)
 
         case 2:
         case 3:
-            sel_files = active_fl->sort_selection(sel_files);
-
             for (GList *i = sel_files; i; i = i->next)
                 append_real_path (files_to_differ, GNOME_CMD_FILE (i->data));
             break;
@@ -1129,7 +1125,6 @@ void edit_copy_fnames (GtkMenuItem *menuitem, gpointer fileList)
     }
     fl = (GnomeCmdFileList*) fileList;
     GList *sfl = fl->get_selected_files();
-    sfl = fl->sort_selection(sfl);
 
     string fnames;
 
@@ -1165,7 +1160,7 @@ void command_execute (GtkMenuItem *menuitem, gpointer command)
 
     GnomeCmdFileList *fl = get_fl (ACTIVE);
     GList *sfl = fl->get_selected_files();
-    GList *i = sfl = fl->sort_selection(sfl);
+    GList *i = sfl;
 
     if (i)
     {
@@ -1430,9 +1425,10 @@ void mark_compare_directories (GtkMenuItem *menuitem, gpointer not_used)
 
     map<const char *,GnomeCmdFile *,ltstr> files2;          //  map (fname -> GnomeCmdFile *) of visible files (non dirs!) in fl2
 
-    for (GList *i2=fl2->get_visible_files(); i2; i2=i2->next)
+    auto fl2_files = fl2->get_all_files();
+    for (auto i2 = fl2_files.begin(); i2 != fl2_files.end(); ++i2)
     {
-        auto f2 = static_cast<GnomeCmdFile*> (i2->data);
+        GnomeCmdFile *f2 = *i2;
 
         if (!f2->is_dotdot && f2->GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE) != G_FILE_TYPE_DIRECTORY)
             files2[f2->get_name()] = f2;
@@ -1440,9 +1436,10 @@ void mark_compare_directories (GtkMenuItem *menuitem, gpointer not_used)
 
     set<GnomeCmdFile *> new_selection1, new_selection2;
 
-    for (GList *i1=fl1->get_visible_files(); i1; i1=i1->next)
+    auto fl1_files = fl1->get_all_files();
+    for (auto i1 = fl1_files.begin(); i1 != fl1_files.end(); ++i1)
     {
-        auto f1 = static_cast<GnomeCmdFile*> (i1->data);
+        GnomeCmdFile *f1 = *i1;
 
         if (f1->is_dotdot || f1->GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE) == G_FILE_TYPE_DIRECTORY)
             continue;
@@ -1478,8 +1475,11 @@ void mark_compare_directories (GtkMenuItem *menuitem, gpointer not_used)
 
     transform (files2.begin(), files2.end(), inserter(new_selection2,new_selection2.begin()), make_select2nd(files2));    // copy left files2 --> new_selection2
 
-    selection_delta (*fl1, fl1->get_marked_files(), new_selection1);
-    selection_delta (*fl2, fl2->get_marked_files(), new_selection2);
+    auto fl1_marked = fl1->get_marked_files();
+    selection_delta (*fl1, fl1_marked, new_selection1);
+
+    auto fl2_marked = fl2->get_marked_files();
+    selection_delta (*fl2, fl2_marked, new_selection2);
 }
 
 /* ***************************** View Menu ****************************** */
@@ -1568,7 +1568,7 @@ void view_step_up (GtkMenuItem *menuitem, gpointer not_used)
     GnomeCmdFileSelector *fs = get_fs (ACTIVE);
     GnomeCmdFileList *fl = fs->file_list();
 
-    g_signal_emit_by_name (fl, "scroll-vertical", GTK_SCROLL_STEP_BACKWARD, 0.0, nullptr);
+    fl->focus_prev();
 }
 
 void view_step_down (GtkMenuItem *menuitem, gpointer not_used)
@@ -1576,7 +1576,7 @@ void view_step_down (GtkMenuItem *menuitem, gpointer not_used)
     GnomeCmdFileSelector *fs = get_fs (ACTIVE);
     GnomeCmdFileList *fl = fs->file_list();
 
-    g_signal_emit_by_name (fl, "scroll-vertical", GTK_SCROLL_STEP_FORWARD, 0.0, nullptr);
+    fl->focus_next();
 }
 
 void view_up (GtkMenuItem *menuitem, gpointer not_used)
