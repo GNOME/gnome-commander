@@ -66,8 +66,6 @@ inline GtkStyle *create_list_style (GnomeCmdColorTheme *cols, const gchar *font_
     {
         GtkWidget *widget = gtk_combo_box_new ();
         GtkStyle *default_style = gtk_rc_get_style(widget);
-        gtk_widget_destroy (widget);
-
         if(default_style)
         {
             gtk_style_lookup_color (default_style, "tooltip_fg_color", &style->fg[GTK_STATE_SELECTED]);
@@ -77,6 +75,7 @@ inline GtkStyle *create_list_style (GnomeCmdColorTheme *cols, const gchar *font_
             gtk_style_lookup_color (default_style, "bg_color", &style->base[GTK_STATE_NORMAL]);
             gtk_style_lookup_color (default_style, "bg_color", &style->base[GTK_STATE_ACTIVE]);
         }
+        gtk_widget_destroy (widget);
     }
 
     return style;
@@ -113,8 +112,6 @@ inline GtkStyle *create_alt_list_style (GnomeCmdColorTheme *cols, const gchar *f
     {
         GtkWidget *widget = gtk_combo_box_new ();
         GtkStyle *default_style = gtk_rc_get_style(widget);
-        gtk_widget_destroy (widget);
-
         if(default_style)
         {
             gtk_style_lookup_color (default_style, "tooltip_fg_color", &style->fg[GTK_STATE_SELECTED]);
@@ -124,6 +121,7 @@ inline GtkStyle *create_alt_list_style (GnomeCmdColorTheme *cols, const gchar *f
             gtk_style_lookup_color (default_style, "bg_color", &style->base[GTK_STATE_NORMAL]);
             gtk_style_lookup_color (default_style, "bg_color", &style->base[GTK_STATE_ACTIVE]);
         }
+        gtk_widget_destroy (widget);
     }
 
     return style;
@@ -161,8 +159,6 @@ inline GtkStyle *create_sel_list_style (GnomeCmdColorTheme *cols, const gchar *f
     {
         GtkWidget *widget = gtk_combo_box_new ();
         GtkStyle *default_style = gtk_rc_get_style(widget);
-        gtk_widget_destroy (widget);
-
         if(default_style)
         {
             gtk_style_lookup_color (default_style, "selected_fg_color", &style->fg[GTK_STATE_SELECTED]);
@@ -177,6 +173,7 @@ inline GtkStyle *create_sel_list_style (GnomeCmdColorTheme *cols, const gchar *f
             if(!gtk_style_lookup_color (default_style, "selected_bg_color", &style->base[GTK_STATE_ACTIVE]))
                 gdk_color_parse("#000000", &style->base[GTK_STATE_ACTIVE]);
         }
+        gtk_widget_destroy (widget);
     }
 
 
@@ -215,8 +212,6 @@ inline GtkStyle *create_alt_sel_list_style (GnomeCmdColorTheme *cols, const gcha
     {
         GtkWidget *widget = gtk_combo_box_new ();
         GtkStyle *default_style = gtk_rc_get_style(widget);
-        gtk_widget_destroy (widget);
-
         if(default_style)
         {
             gtk_style_lookup_color (default_style, "selected_fg_color", &style->fg[GTK_STATE_SELECTED]);
@@ -231,6 +226,7 @@ inline GtkStyle *create_alt_sel_list_style (GnomeCmdColorTheme *cols, const gcha
             if(!gtk_style_lookup_color (default_style, "selected_bg_color", &style->base[GTK_STATE_ACTIVE]))
                 gdk_color_parse("#000000", &style->base[GTK_STATE_ACTIVE]);
         }
+        gtk_widget_destroy (widget);
     }
 
     return style;

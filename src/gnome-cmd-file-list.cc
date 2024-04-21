@@ -289,6 +289,27 @@ GnomeCmdFileList::Private::Private(GnomeCmdFileList *fl)
 }
 
 
+static void paint_cell_with_ls_colors (GtkCellRenderer *cell, GnomeCmdFile *file, bool has_foreground)
+{
+    if (!gnome_cmd_data.options.use_ls_colors)
+        return;
+
+    if (LsColor *col = ls_colors_get (file))
+    {
+        if (has_foreground && col->fg != nullptr)
+            g_object_set (G_OBJECT (cell),
+                "foreground-gdk", col->fg,
+                "foreground-set", TRUE,
+                nullptr);
+        if (col->bg != nullptr)
+            g_object_set (G_OBJECT (cell),
+                "cell-background-gdk", col->bg,
+                "cell-background-set", TRUE,
+                nullptr);
+    }
+}
+
+
 static void cell_data (GtkTreeViewColumn *column,
                        GtkCellRenderer *cell,
                        GtkTreeModel *model,
@@ -305,8 +326,6 @@ static void cell_data (GtkTreeViewColumn *column,
         DATA_COLUMN_SELECTED, &selected,
         column_index, &value,
         -1);
-
-    GnomeCmdColorTheme *colors = gnome_cmd_data.options.get_current_color_theme();
 
     bool has_foreground;
     if (column_index == GnomeCmdFileList::COLUMN_ICON)
@@ -331,70 +350,36 @@ static void cell_data (GtkTreeViewColumn *column,
         has_foreground = true;
     }
 
+    GnomeCmdColorTheme *colors = gnome_cmd_data.options.get_current_color_theme();
     if (selected)
     {
-        if (!gnome_cmd_data.options.use_ls_colors)
-        {
-            // TODO: No way to set `alt_sel_list_style` for odd rows for now. Maybe do it later with CSS?
-            if (has_foreground)
-                g_object_set (G_OBJECT (cell),
-                    "foreground-gdk", sel_list_style->fg,
-                    "foreground-set", TRUE,
-                    nullptr);
+        if (has_foreground)
             g_object_set (G_OBJECT (cell),
-                "cell-background-gdk", sel_list_style->bg,
-                "cell-background-set", TRUE,
+                "foreground-gdk", colors->sel_fg,
+                "foreground-set", TRUE,
                 nullptr);
-        }
-        else
-        {
-            if (!colors->respect_theme)
-            {
-                if (has_foreground)
-                    g_object_set (G_OBJECT (cell),
-                        "foreground-gdk", colors->sel_fg,
-                        "foreground-set", TRUE,
-                        nullptr);
-                g_object_set (G_OBJECT (cell),
-                    "cell-background-gdk", colors->sel_bg,
-                    "cell-background-set", TRUE,
-                    nullptr);
-            }
-        }
+        g_object_set (G_OBJECT (cell),
+            "cell-background-gdk", colors->sel_bg,
+            "cell-background-set", TRUE,
+            nullptr);
     }
     else
     {
-        if (LsColor *col = ls_colors_get (file))
+        if (!colors->respect_theme)
         {
-            GdkColor *fg = col->fg ? col->fg : colors->norm_fg;
-            GdkColor *bg = col->bg ? col->bg : colors->norm_bg;
-
             if (has_foreground)
                 g_object_set (G_OBJECT (cell),
-                    "foreground-gdk", fg,
+                    "foreground-gdk", colors->norm_fg,
                     "foreground-set", TRUE,
                     nullptr);
 
             g_object_set (G_OBJECT (cell),
-                "cell-background-gdk", bg,
+                "cell-background-gdk", colors->norm_bg,
                 "cell-background-set", TRUE,
                 nullptr);
         }
-        else
-        {
-            if (!colors->respect_theme)
-            {
-                if (has_foreground)
-                    g_object_set (G_OBJECT (cell),
-                        "foreground-gdk", colors->norm_fg,
-                        "foreground-set", TRUE,
-                        nullptr);
-                g_object_set (G_OBJECT (cell),
-                    "cell-background-gdk", colors->norm_bg,
-                    "cell-background-set", TRUE,
-                    nullptr);
-            }
-        }
+
+        paint_cell_with_ls_colors (cell, file, has_foreground);
     }
 }
 
@@ -483,6 +468,59 @@ void GnomeCmdFileList::Private::on_dnd_popup_menu_link(GtkMenuItem *item, GnomeC
 }
 
 
+static GtkCssProvider *create_css_provider()
+{
+    gchar *css;
+
+    GnomeCmdColorTheme *colors = gnome_cmd_data.options.get_current_color_theme();
+
+    if (!colors->respect_theme)
+    {
+        css = g_strdup_printf ("\
+            treeview.view.gnome-cmd-file-list,                      \
+            treeview.view.gnome-cmd-file-list.even {                \
+                background-color: #%02x%02x%02x;                    \
+            }                                                       \
+            treeview.view.gnome-cmd-file-list.odd {                 \
+                background-color: #%02x%02x%02x;                    \
+            }                                                       \
+            treeview.view.gnome-cmd-file-list:selected:focus {      \
+                background-color: #%02x%02x%02x;                    \
+                color: #%02x%02x%02x;                               \
+            }                                                       \
+            ",
+            // row
+            colors->norm_bg->red / 256,
+            colors->norm_bg->green / 256,
+            colors->norm_bg->blue / 256,
+
+            colors->alt_bg->red / 256,
+            colors->alt_bg->green / 256,
+            colors->alt_bg->blue / 256,
+
+            // cursor
+            colors->curs_bg->red / 256,
+            colors->curs_bg->green / 256,
+            colors->curs_bg->blue / 256,
+
+            colors->curs_fg->red / 256,
+            colors->curs_fg->green / 256,
+            colors->curs_fg->blue / 256
+        );
+    }
+    else
+    {
+        css = g_strdup("");
+    }
+
+    GtkCssProvider *css_provider = gtk_css_provider_new();
+    gtk_css_provider_load_from_data (css_provider, css, -1, NULL);
+
+    g_free (css);
+
+    return css_provider;
+}
+
 GnomeCmdFileList::GnomeCmdFileList(ColumnID sort_col, GtkSortType sort_order)
 {
 #if defined (__GNUC__)
@@ -499,15 +537,8 @@ GnomeCmdFileList::GnomeCmdFileList(ColumnID sort_col, GtkSortType sort_order)
 
     create_column_titles();
 
-    if (!gnome_cmd_data.options.use_ls_colors)
-    {
-    /*
-        g_object_set (this,
-            "even-row-color", list_style,
-            "odd-row-color", alt_list_style,
-            NULL);
-    */
-    }
+    gtk_style_context_add_class (gtk_widget_get_style_context (*this), "gnome-cmd-file-list");
+    gtk_style_context_add_provider_for_screen (gdk_screen_get_default(), GTK_STYLE_PROVIDER (create_css_provider()), GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
 
     GtkTreeSelection *selection = gtk_tree_view_get_selection (*this);
     gtk_tree_selection_set_mode (selection, GTK_SELECTION_BROWSE);
@@ -689,14 +720,8 @@ static void get_focus_row_coordinates (GnomeCmdFileList *fl, gint &x, gint &y, g
     gtk_tree_view_get_cell_area (*fl, path, fl->priv->columns[GnomeCmdFileList::COLUMN_EXT], &rect_ext);
     gtk_tree_path_free (path);
 
-    gint wx, wy;
-    gtk_tree_view_convert_bin_window_to_widget_coords (*fl, rect_name.x, rect_name.y, &wx, &wy);
+    gtk_tree_view_convert_bin_window_to_widget_coords (*fl, rect_name.x, rect_name.y, &x, &y);
 
-    gint ox, oy;
-    gdk_window_get_origin (gtk_widget_get_window (GTK_WIDGET (fl)), &ox, &oy);
-
-    x = ox + wx;
-    y = oy + wy;
     width = rect_name.width;
     height = rect_name.height;
     if (gnome_cmd_data.options.ext_disp_mode != GNOME_CMD_EXT_DISP_BOTH)
@@ -704,12 +729,10 @@ static void get_focus_row_coordinates (GnomeCmdFileList *fl, gint &x, gint &y, g
 }
 
 
-inline void focus_file_at_row (GnomeCmdFileList *fl, GtkTreeIter *row)
+void GnomeCmdFileList::focus_file_at_row (GtkTreeIter *row)
 {
-    g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl));
-
-    GtkTreePath *path = gtk_tree_model_get_path (GTK_TREE_MODEL (fl->priv->store), row);
-    gtk_tree_view_set_cursor (*fl, path, nullptr, false);
+    GtkTreePath *path = gtk_tree_model_get_path (GTK_TREE_MODEL (priv->store), row);
+    gtk_tree_view_set_cursor (*this, path, nullptr, false);
     gtk_tree_path_free (path);
 }
 
@@ -2106,7 +2129,7 @@ inline void add_file_to_clist (GnomeCmdFileList *fl, GnomeCmdFile *f, GtkTreeIte
 
     // If we have been waiting for this file to show up, focus it
     if (fl->priv->focus_later && strcmp (f->get_name(), fl->priv->focus_later)==0)
-        focus_file_at_row (fl, &iter);
+        fl->focus_file_at_row (&iter);
 }
 
 
@@ -2291,7 +2314,7 @@ gboolean GnomeCmdFileList::remove_file(GnomeCmdFile *f)
         return FALSE;
 
     if (gtk_list_store_remove (priv->store, row.get()))
-        focus_file_at_row (this, row.get());
+        focus_file_at_row (row.get());
 
     return TRUE;
 }
@@ -2496,7 +2519,7 @@ void GnomeCmdFileList::toggle_and_step()
     if (iter)
         toggle_file(iter.get());
     if (gtk_tree_model_iter_next (GTK_TREE_MODEL (priv->store), iter.get()))
-        focus_file_at_row (this, iter.get());
+        focus_file_at_row (iter.get());
 }
 
 
@@ -2510,7 +2533,7 @@ void GnomeCmdFileList::focus_file(const gchar *fileToFocus, gboolean scrollToFil
         auto currentFilename = g_utf8_normalize(f->get_name(), -1, G_NORMALIZE_DEFAULT);
         if (g_strcmp0 (currentFilename, fileToFocusNormalized) == 0)
         {
-            focus_file_at_row (this, iter);
+            focus_file_at_row (iter);
             if (scrollToFile)
             {
                 GtkTreePath *path = gtk_tree_model_get_path (GTK_TREE_MODEL (priv->store), iter);
@@ -2545,7 +2568,7 @@ void GnomeCmdFileList::select_row(GtkTreeIter* row)
             row = &iter;
         }
     }
-    focus_file_at_row (this, row);
+    focus_file_at_row (row);
 }
 
 
@@ -2630,7 +2653,7 @@ void GnomeCmdFileList::sort()
     if (selfile && gtk_widget_has_focus (GTK_WIDGET (this)))
     {
         auto selrow = get_row_from_file(selfile);
-        focus_file_at_row(this, selrow.get());
+        focus_file_at_row(selrow.get());
     }
 }
 
@@ -2647,10 +2670,10 @@ void gnome_cmd_file_list_show_rename_dialog (GnomeCmdFileList *fl)
 
         get_focus_row_coordinates (fl, x, y, w, h);
 
-        GtkWidget *dialog = gnome_cmd_rename_dialog_new (f, x, y, w, h);
+        GtkWidget *popover = gnome_cmd_rename_dialog_new (f, *fl, x, y, w, h);
 
-        g_object_ref (dialog);
-        gtk_widget_show (dialog);
+        gtk_widget_show_all (popover);
+        gtk_popover_popup (GTK_POPOVER (popover));
     }
 }
 
@@ -2781,21 +2804,15 @@ gboolean gnome_cmd_file_list_quicksearch_shown (GnomeCmdFileList *fl)
 
 void gnome_cmd_file_list_show_quicksearch (GnomeCmdFileList *fl, gchar c)
 {
-    gchar text[2];
     if (fl->priv->quicksearch_popup)
         return;
 
     fl->priv->quicksearch_popup = gnome_cmd_quicksearch_popup_new (fl);
-    text[0] = c;
-    text[1] = '\0';
     g_object_ref (fl->priv->quicksearch_popup);
     gtk_widget_show (fl->priv->quicksearch_popup);
-    if (c != 0)
-    {
-        GnomeCmdQuicksearchPopup *popup = GNOME_CMD_QUICKSEARCH_POPUP (fl->priv->quicksearch_popup);
-        gtk_entry_set_text (GTK_ENTRY (popup->entry), text);
-        gtk_editable_set_position (GTK_EDITABLE (popup->entry), 1);
-    }
+
+    GnomeCmdQuicksearchPopup *popup = GNOME_CMD_QUICKSEARCH_POPUP (fl->priv->quicksearch_popup);
+    gnome_cmd_quicksearch_popup_set_char (popup, c);
 
     g_signal_connect (fl->priv->quicksearch_popup, "hide", G_CALLBACK (on_quicksearch_popup_hide), fl);
 }
@@ -2990,7 +3007,7 @@ gboolean GnomeCmdFileList::key_pressed(GdkEventKey *event)
                 {
                     auto iter = get_focused_file_iter();
                     if (iter && gtk_tree_model_iter_next (GTK_TREE_MODEL (priv->store), iter.get()))
-                        focus_file_at_row (this, iter.get());
+                        focus_file_at_row (iter.get());
                 }
                 return TRUE;
 
@@ -3015,7 +3032,7 @@ gboolean GnomeCmdFileList::key_pressed(GdkEventKey *event)
                 {
                     GtkTreeIter iter;
                     if (gtk_tree_model_get_iter_first (GTK_TREE_MODEL (priv->store), &iter))
-                        focus_file_at_row (this, &iter);
+                        focus_file_at_row (&iter);
                 }
                 return TRUE;
 

@@ -56,7 +56,7 @@ enum
 
 static guint text_render_signals[LAST_SIGNAL] = { 0 };
 
-typedef int (*display_line_proc)(TextRender *w, int y, int column, offset_type start_of_line, offset_type end_of_line);
+typedef int (*display_line_proc)(TextRender *w, cairo_t *cr, int y, int column, offset_type start_of_line, offset_type end_of_line);
 typedef offset_type (*pixel_to_offset_proc) (TextRender *obj, int x, int y, gboolean start_marker);
 typedef void (*copy_to_clipboard_proc)(TextRender *obj, offset_type start_offset, offset_type end_offset);
 
@@ -133,9 +133,10 @@ static void text_render_redraw(TextRender *w);
 static void text_render_position_changed(TextRender *w);
 
 static void text_render_realize (GtkWidget *widget);
-static void text_render_size_request (GtkWidget *widget, GtkRequisition *requisition);
+static void text_render_get_preferred_width (GtkWidget *widget, gint *minimal_width, gint *natural_width);
+static void text_render_get_preferred_height (GtkWidget *widget, gint *minimal_height, gint *natural_height);
 static void text_render_size_allocate (GtkWidget *widget, GtkAllocation *allocation);
-static gboolean text_render_expose(GtkWidget *widget, GdkEventExpose *event);
+static gboolean text_render_draw(GtkWidget *widget, cairo_t *cr);
 static gboolean text_render_scroll(GtkWidget *widget, GdkEventScroll *event);
 static gboolean text_render_button_press(GtkWidget *widget, GdkEventButton *event);
 static gboolean text_render_button_release(GtkWidget *widget, GdkEventButton *event);
@@ -159,12 +160,12 @@ static int text_render_utf8_printf (TextRender *w, const char *format, ...);
 static int text_render_utf8_print_char(TextRender *w, char_type value);
 
 static void text_mode_copy_to_clipboard(TextRender *obj, offset_type start_offset, offset_type end_offset);
-static int text_mode_display_line(TextRender *w, int y, int column, offset_type start_of_line, offset_type end_of_line);
+static int text_mode_display_line(TextRender *w, cairo_t *cr, int y, int column, offset_type start_of_line, offset_type end_of_line);
 static offset_type text_mode_pixel_to_offset(TextRender *obj, int x, int y, gboolean start_marker);
 
-static int binary_mode_display_line(TextRender *w, int y, int column, offset_type start_of_line, offset_type end_of_line);
+static int binary_mode_display_line(TextRender *w, cairo_t *cr, int y, int column, offset_type start_of_line, offset_type end_of_line);
 
-static int hex_mode_display_line(TextRender *w, int y, int column, offset_type start_of_line, offset_type end_of_line);
+static int hex_mode_display_line(TextRender *w, cairo_t *cr, int y, int column, offset_type start_of_line, offset_type end_of_line);
 static void hex_mode_copy_to_clipboard(TextRender *obj, offset_type start_offset, offset_type end_offset);
 static offset_type hex_mode_pixel_to_offset(TextRender *obj, int x, int y, gboolean start_marker);
 
@@ -304,9 +305,10 @@ static void text_render_class_init (TextRenderClass *klass)
     widget_class->button_release_event = text_render_button_release;
     widget_class->motion_notify_event = text_render_motion_notify;
 
-    widget_class->expose_event = text_render_expose;
+    widget_class->draw = text_render_draw;
 
-    widget_class->size_request = text_render_size_request;
+    widget_class->get_preferred_width = text_render_get_preferred_width;
+    widget_class->get_preferred_height = text_render_get_preferred_height;
     widget_class->size_allocate = text_render_size_allocate;
 
     widget_class->realize = text_render_realize;
@@ -460,9 +462,8 @@ static void text_render_realize (GtkWidget *widget)
         GDK_BUTTON_RELEASE_MASK | GDK_POINTER_MOTION_MASK |
         GDK_POINTER_MOTION_HINT_MASK | GDK_KEY_PRESS_MASK;
     attributes.visual = gtk_widget_get_visual (widget);
-    attributes.colormap = gtk_widget_get_colormap (widget);
 
-    gint attributes_mask = GDK_WA_X | GDK_WA_Y | GDK_WA_VISUAL | GDK_WA_COLORMAP;
+    gint attributes_mask = GDK_WA_X | GDK_WA_Y | GDK_WA_VISUAL;
     gtk_widget_set_window (widget, gdk_window_new (gtk_widget_get_parent_window (widget), &attributes, attributes_mask));
 
     gtk_widget_style_attach(widget);
@@ -475,12 +476,16 @@ static void text_render_realize (GtkWidget *widget)
 }
 
 
-static void text_render_size_request (GtkWidget *widget, GtkRequisition *requisition)
+static void text_render_get_preferred_width (GtkWidget *widget, gint *minimal_width, gint *natural_width)
 {
-    requisition->width = TEXT_RENDER_DEFAULT_WIDTH;
-    requisition->height = TEXT_RENDER_DEFAULT_HEIGHT;
+    *minimal_width = *natural_width = TEXT_RENDER_DEFAULT_WIDTH;
 }
 
+
+static void text_render_get_preferred_height (GtkWidget *widget, gint *minimal_height, gint *natural_height)
+{
+    *minimal_height = *natural_height = TEXT_RENDER_DEFAULT_HEIGHT;
+}
 
 static void text_render_size_allocate (GtkWidget *widget, GtkAllocation *allocation)
 {
@@ -504,16 +509,13 @@ static void text_render_size_allocate (GtkWidget *widget, GtkAllocation *allocat
 }
 
 
-static gboolean text_render_expose(GtkWidget *widget, GdkEventExpose *event)
+static gboolean text_render_draw(GtkWidget *widget, cairo_t *cr)
 {
     g_return_val_if_fail (IS_TEXT_RENDER (widget), FALSE);
-    g_return_val_if_fail (event != NULL, FALSE);
+    g_return_val_if_fail (cr != NULL, FALSE);
 
     gint y, rc;
     offset_type ofs;
-
-    if (event->count > 0)
-        return FALSE;
 
     TextRender *w = TEXT_RENDER (widget);
 
@@ -524,8 +526,6 @@ static gboolean text_render_expose(GtkWidget *widget, GdkEventExpose *event)
 
     GtkAllocation widget_allocation;
     gtk_widget_get_allocation (widget, &widget_allocation);
-
-    gdk_window_clear_area (gtk_widget_get_window (widget), 0, 0, widget_allocation.width, widget_allocation.height);
 
     ofs = w->priv->current_offset;
     y = 0;
@@ -538,7 +538,7 @@ static gboolean text_render_expose(GtkWidget *widget, GdkEventExpose *event)
         if (eol_offset == ofs)
             break;
 
-        rc = w->priv->display_line(w, y, w->priv->column, ofs, eol_offset);
+        rc = w->priv->display_line(w, cr, y, w->priv->column, ofs, eol_offset);
 
         if (rc==-1)
             break;
@@ -843,7 +843,7 @@ static void text_render_free_data(TextRender *w)
 
 /*
   This function assumes W->PRIV->FOPS has been initialized correctly
-   with wither a file name or a file descriptor
+   with whether a file name or a file descriptor
 */
 static void text_render_internal_load(TextRender *w)
 {
@@ -1607,7 +1607,7 @@ static void text_mode_copy_to_clipboard(TextRender *obj, offset_type start_offse
 }
 
 
-static int text_mode_display_line(TextRender *w, int y, int column, offset_type start_of_line, offset_type end_of_line)
+static int text_mode_display_line(TextRender *w, cairo_t *cr, int y, int column, offset_type start_of_line, offset_type end_of_line)
 {
     g_return_val_if_fail (IS_TEXT_RENDER (w), -1);
 
@@ -1678,17 +1678,17 @@ static int text_mode_display_line(TextRender *w, int y, int column, offset_type 
     if (show_marker)
         marker_closer(w, marker_shown);
 
+    cairo_save (cr);
     pango_layout_set_markup (w->priv->layout, (gchar *) w->priv->utf8buf, w->priv->utf8buf_length);
-    cairo_t *cr = gdk_cairo_create (gtk_widget_get_window (GTK_WIDGET (w)));
     cairo_translate (cr, -(w->priv->char_width*column), y);
     pango_cairo_show_layout (cr, w->priv->layout);
-    cairo_destroy (cr);
+    cairo_restore (cr);
 
     return 0;
 }
 
 
-static int binary_mode_display_line(TextRender *w, int y, int column, offset_type start_of_line, offset_type end_of_line)
+static int binary_mode_display_line(TextRender *w, cairo_t *cr, int y, int column, offset_type start_of_line, offset_type end_of_line)
 {
     g_return_val_if_fail (IS_TEXT_RENDER (w), -1);
 
@@ -1740,11 +1740,11 @@ static int binary_mode_display_line(TextRender *w, int y, int column, offset_typ
     if (show_marker)
         marker_closer(w, marker_shown);
 
+    cairo_save (cr);
     pango_layout_set_markup (w->priv->layout, (gchar *) w->priv->utf8buf, w->priv->utf8buf_length);
-    cairo_t *cr = gdk_cairo_create (gtk_widget_get_window (GTK_WIDGET (w)));
     cairo_translate (cr, -(w->priv->char_width*column), y);
     pango_cairo_show_layout (cr, w->priv->layout);
-    cairo_destroy (cr);
+    cairo_restore (cr);
 
     return 0;
 }
@@ -1851,7 +1851,7 @@ static void hex_mode_copy_to_clipboard(TextRender *obj, offset_type start_offset
 }
 
 
-static int hex_mode_display_line(TextRender *w, int y, int column, offset_type start_of_line, offset_type end_of_line)
+static int hex_mode_display_line(TextRender *w, cairo_t *cr, int y, int column, offset_type start_of_line, offset_type end_of_line)
 {
     g_return_val_if_fail (IS_TEXT_RENDER (w), -1);
 
@@ -1921,11 +1921,11 @@ static int hex_mode_display_line(TextRender *w, int y, int column, offset_type s
     if (show_marker)
         marker_closer(w, marker_shown);
 
+    cairo_save (cr);
     pango_layout_set_markup (w->priv->layout, (gchar *) w->priv->utf8buf, w->priv->utf8buf_length);
-    cairo_t *cr = gdk_cairo_create (gtk_widget_get_window (GTK_WIDGET (w)));
     cairo_translate (cr, 0, y);
     pango_cairo_show_layout (cr, w->priv->layout);
-    cairo_destroy (cr);
+    cairo_restore (cr);
 
     return 0;
 }

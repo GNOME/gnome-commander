@@ -44,13 +44,13 @@ G_DEFINE_TYPE (GnomeCmdChownComponent, gnome_cmd_chown_component, GTK_TYPE_TABLE
  * Gtk class implementation
  *******************************/
 
-static void destroy (GtkObject *object)
+static void destroy (GtkWidget *object)
 {
     GnomeCmdChownComponent *comp = GNOME_CMD_CHOWN_COMPONENT (object);
 
     g_free (comp->priv);
 
-    GTK_OBJECT_CLASS (gnome_cmd_chown_component_parent_class)->destroy (object);
+    GTK_WIDGET_CLASS (gnome_cmd_chown_component_parent_class)->destroy (object);
 }
 
 
@@ -62,10 +62,9 @@ static void map (GtkWidget *widget)
 
 static void gnome_cmd_chown_component_class_init (GnomeCmdChownComponentClass *klass)
 {
-    GtkObjectClass *object_class = GTK_OBJECT_CLASS (klass);
     GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
 
-    object_class->destroy = destroy;
+    widget_class->destroy = destroy;
     widget_class->map = ::map;
 }
 

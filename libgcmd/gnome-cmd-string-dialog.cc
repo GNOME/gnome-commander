@@ -72,11 +72,11 @@ static void on_cancel (GtkButton *button, GnomeCmdStringDialog *dialog)
  * Gtk class implementation
  *******************************/
 
-static void destroy (GtkObject *object)
+static void destroy (GtkWidget *object)
 {
     GnomeCmdStringDialog *dialog = GNOME_CMD_STRING_DIALOG (object);
 
-    GTK_OBJECT_CLASS (gnome_cmd_string_dialog_parent_class)->destroy (object);
+    GTK_WIDGET_CLASS (gnome_cmd_string_dialog_parent_class)->destroy (object);
 
     if (dialog->priv)
         g_free (dialog->priv->error_desc);
@@ -94,13 +94,9 @@ static void map (GtkWidget *widget)
 
 static void gnome_cmd_string_dialog_class_init (GnomeCmdStringDialogClass *klass)
 {
-    GtkObjectClass *object_class;
-    GtkWidgetClass *widget_class;
+    GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
 
-    object_class = GTK_OBJECT_CLASS (klass);
-    widget_class = GTK_WIDGET_CLASS (klass);
-
-    object_class->destroy = destroy;
+    widget_class->destroy = destroy;
     widget_class->map = map;
 }
 

@@ -29,7 +29,7 @@
 using namespace std;
 
 
-static void search_progress_dlg_destroy (GtkObject *object);
+static void search_progress_dlg_destroy (GtkWidget *object);
 static void search_progress_dlg_action_response(GtkDialog *dlg, gint arg1, GViewerSearchProgressDlg *sdlg);
 
 struct GViewerSearchProgressDlgPrivate
@@ -58,9 +58,7 @@ static void search_progress_dlg_action_response(GtkDialog *dlg, gint arg1, GView
 
 static void gviewer_search_progress_dlg_class_init(GViewerSearchProgressDlgClass *klass)
 {
-    GtkObjectClass *object_class = (GtkObjectClass *) klass;
-
-    object_class->destroy = search_progress_dlg_destroy;
+    GTK_WIDGET_CLASS(klass)->destroy = search_progress_dlg_destroy;
 }
 
 
@@ -102,7 +100,7 @@ static void gviewer_search_progress_dlg_init (GViewerSearchProgressDlg *sdlg)
 }
 
 
-static void search_progress_dlg_destroy (GtkObject *object)
+static void search_progress_dlg_destroy (GtkWidget *object)
 {
     g_return_if_fail (IS_GVIEWER_SEARCH_PROGRESS_DLG (object));
 
@@ -111,7 +109,7 @@ static void search_progress_dlg_destroy (GtkObject *object)
     g_free (w->priv);
     w->priv = nullptr;
 
-    GTK_OBJECT_CLASS (gviewer_search_progress_dlg_parent_class)->destroy (object);
+    GTK_WIDGET_CLASS (gviewer_search_progress_dlg_parent_class)->destroy (object);
 }
 
 

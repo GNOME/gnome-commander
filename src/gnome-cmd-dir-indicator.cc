@@ -58,7 +58,7 @@ G_DEFINE_TYPE (GnomeCmdDirIndicator, gnome_cmd_dir_indicator, GTK_TYPE_FRAME)
 /*******************************
  * Gtk class implementation
  *******************************/
-static void destroy (GtkObject *object)
+static void destroy (GtkWidget *object)
 {
     GnomeCmdDirIndicator *dir_indicator = GNOME_CMD_DIR_INDICATOR (object);
 
@@ -66,15 +66,13 @@ static void destroy (GtkObject *object)
     g_free (dir_indicator->priv->slashPixelPosition);
     g_free (dir_indicator->priv);
 
-    GTK_OBJECT_CLASS (gnome_cmd_dir_indicator_parent_class)->destroy (object);
+    GTK_WIDGET_CLASS (gnome_cmd_dir_indicator_parent_class)->destroy (object);
 }
 
 
 static void gnome_cmd_dir_indicator_class_init (GnomeCmdDirIndicatorClass *klass)
 {
-    GtkObjectClass *object_class = GTK_OBJECT_CLASS (klass);
-
-    object_class->destroy = destroy;
+    GTK_WIDGET_CLASS (klass)->destroy = destroy;
 }
 
 

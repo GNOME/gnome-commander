@@ -717,13 +717,13 @@ static gboolean on_notebook_button_pressed (GtkWidget *widget, GdkEventButton *e
  * Gtk class implementation
  *******************************/
 
-static void destroy (GtkObject *object)
+static void destroy (GtkWidget *object)
 {
     GnomeCmdFileSelector *fs = GNOME_CMD_FILE_SELECTOR (object);
 
     delete fs->priv;
 
-    GTK_OBJECT_CLASS (gnome_cmd_file_selector_parent_class)->destroy (object);
+    GTK_WIDGET_CLASS (gnome_cmd_file_selector_parent_class)->destroy (object);
 }
 
 
@@ -735,7 +735,6 @@ static void map (GtkWidget *widget)
 
 static void gnome_cmd_file_selector_class_init (GnomeCmdFileSelectorClass *klass)
 {
-    GtkObjectClass *object_class = GTK_OBJECT_CLASS (klass);
     GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
 
     signals[DIR_CHANGED] =
@@ -748,7 +747,7 @@ static void gnome_cmd_file_selector_class_init (GnomeCmdFileSelectorClass *klass
             G_TYPE_NONE,
             1, G_TYPE_POINTER);
 
-    object_class->destroy = destroy;
+    widget_class->destroy = destroy;
     widget_class->map = ::map;
 }
 
@@ -1410,7 +1409,7 @@ void GnomeCmdFileSelector::update_show_devbuttons()
     {
         if (con_btns_hbox)
         {
-            gtk_object_destroy (GTK_OBJECT (con_btns_hbox));
+            gtk_widget_destroy (GTK_WIDGET (con_btns_hbox));
             con_btns_hbox = nullptr;
         }
     }
@@ -1502,6 +1501,8 @@ GtkWidget *GnomeCmdFileSelector::new_tab(GnomeCmdDir *dir, GnomeCmdFileList::Col
     // create the scrollwindow that we'll place the list in
     GtkWidget *scrolled_window = gtk_scrolled_window_new (nullptr, nullptr);
     gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolled_window), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
+    gtk_widget_set_hexpand (scrolled_window, TRUE);
+    gtk_widget_set_vexpand (scrolled_window, TRUE);
     gtk_container_add (GTK_CONTAINER (scrolled_window), *fl);
 
     GtkWidget *hbox = gtk_hbox_new (FALSE, 0);

@@ -805,7 +805,7 @@ static gboolean on_window_state_event (GtkWidget *mw, GdkEventWindowState *event
  * Gtk class implementation
  *******************************/
 
-static void destroy (GtkObject *object)
+static void destroy (GtkWidget *object)
 {
     if (main_win && main_win->priv && main_win->priv->key_snooper_id)
     {
@@ -837,7 +837,6 @@ static void map (GtkWidget *widget)
 
 static void gnome_cmd_main_win_class_init (GnomeCmdMainWinClass *klass)
 {
-    GtkObjectClass *object_class = GTK_OBJECT_CLASS (klass);
     GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
 
     signals[SWITCH_FS] =
@@ -850,7 +849,7 @@ static void gnome_cmd_main_win_class_init (GnomeCmdMainWinClass *klass)
             G_TYPE_NONE,
             1, G_TYPE_POINTER);
 
-    object_class->destroy = destroy;
+    widget_class->destroy = destroy;
     widget_class->map = ::map;
     klass->switch_fs = gnome_cmd_main_win_real_switch_fs;
 }
@@ -1429,7 +1428,7 @@ void GnomeCmdMainWin::update_horizontal_orientation()
     gtk_container_remove (GTK_CONTAINER (priv->paned), priv->file_selector[LEFT]);
     gtk_container_remove (GTK_CONTAINER (priv->paned), priv->file_selector[RIGHT]);
 
-    gtk_object_destroy (GTK_OBJECT (priv->paned));
+    gtk_widget_destroy (GTK_WIDGET (priv->paned));
 
     priv->paned = gnome_cmd_data.horizontal_orientation ? gtk_vpaned_new () : gtk_hpaned_new ();
 

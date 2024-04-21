@@ -58,11 +58,11 @@ static void on_dialog_show (GtkWidget *w, GnomeCmdDialog *dialog)
  * Gtk class implementation
  *******************************/
 
-static void destroy (GtkObject *object)
+static void destroy (GtkWidget *object)
 {
     GnomeCmdDialog *dialog = GNOME_CMD_DIALOG (object);
 
-    GTK_OBJECT_CLASS (gnome_cmd_dialog_parent_class)->destroy (object);
+    GTK_WIDGET_CLASS (gnome_cmd_dialog_parent_class)->destroy (object);
     g_clear_pointer (&dialog->priv, g_free);
 
 }
@@ -76,10 +76,9 @@ static void map (GtkWidget *widget)
 
 static void gnome_cmd_dialog_class_init (GnomeCmdDialogClass *klass)
 {
-    GtkObjectClass *object_class = GTK_OBJECT_CLASS (klass);
     GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
 
-    object_class->destroy = destroy;
+    widget_class->destroy = destroy;
     widget_class->map = map;
 }
 

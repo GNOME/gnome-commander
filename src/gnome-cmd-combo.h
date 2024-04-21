@@ -54,7 +54,6 @@ struct GnomeCmdCombo
   public:
 
     operator GObject * () const         {  return G_OBJECT (this);         }
-    operator GtkObject * () const       {  return GTK_OBJECT (this);       }
     operator GtkWidget * () const       {  return GTK_WIDGET (this);       }
 
     GtkWidget * get_entry();

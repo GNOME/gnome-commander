@@ -21,10 +21,12 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
- #include "gtest/gtest.h"
+#include "gtest/gtest.h"
+#include <gtk/gtk.h>
 
 
 int main(int argc, char **argv) {
   ::testing::InitGoogleTest(&argc, argv);
+  gtk_init (nullptr, nullptr);
   return RUN_ALL_TESTS();
 }
