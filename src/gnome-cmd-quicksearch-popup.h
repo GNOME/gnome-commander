@@ -30,29 +30,19 @@
 #define GNOME_CMD_QUICKSEARCH_POPUP_GET_CLASS(obj)    (G_TYPE_INSTANCE_GET_CLASS((obj), GNOME_CMD_TYPE_QUICKSEARCH_POPUP, GnomeCmdQuicksearchPopupClass))
 
 
-struct GnomeCmdQuicksearchPopupPrivate;
-
-
 struct GnomeCmdQuicksearchPopup
 {
-    GtkWindow parent;
-
-    GtkWidget *frame;
-    GtkWidget *win;
-    GtkWidget *box;
-    GtkWidget *lbl;
-    GtkWidget *entry;
-
-    GnomeCmdQuicksearchPopupPrivate *priv;
+    GtkPopover parent;
 };
 
 
 struct GnomeCmdQuicksearchPopupClass
 {
-    GtkWindowClass parent_class;
+    GtkPopoverClass parent_class;
 };
 
 
 GType gnome_cmd_quicksearch_popup_get_type ();
 
 GtkWidget *gnome_cmd_quicksearch_popup_new (GnomeCmdFileList *fl);
+void gnome_cmd_quicksearch_popup_set_char (GnomeCmdQuicksearchPopup *popup, gchar ch);

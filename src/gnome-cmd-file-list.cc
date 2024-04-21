@@ -729,12 +729,10 @@ static void get_focus_row_coordinates (GnomeCmdFileList *fl, gint &x, gint &y, g
 }
 
 
-inline void focus_file_at_row (GnomeCmdFileList *fl, GtkTreeIter *row)
+void GnomeCmdFileList::focus_file_at_row (GtkTreeIter *row)
 {
-    g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl));
-
-    GtkTreePath *path = gtk_tree_model_get_path (GTK_TREE_MODEL (fl->priv->store), row);
-    gtk_tree_view_set_cursor (*fl, path, nullptr, false);
+    GtkTreePath *path = gtk_tree_model_get_path (GTK_TREE_MODEL (priv->store), row);
+    gtk_tree_view_set_cursor (*this, path, nullptr, false);
     gtk_tree_path_free (path);
 }
 
@@ -2131,7 +2129,7 @@ inline void add_file_to_clist (GnomeCmdFileList *fl, GnomeCmdFile *f, GtkTreeIte
 
     // If we have been waiting for this file to show up, focus it
     if (fl->priv->focus_later && strcmp (f->get_name(), fl->priv->focus_later)==0)
-        focus_file_at_row (fl, &iter);
+        fl->focus_file_at_row (&iter);
 }
 
 
@@ -2316,7 +2314,7 @@ gboolean GnomeCmdFileList::remove_file(GnomeCmdFile *f)
         return FALSE;
 
     if (gtk_list_store_remove (priv->store, row.get()))
-        focus_file_at_row (this, row.get());
+        focus_file_at_row (row.get());
 
     return TRUE;
 }
@@ -2521,7 +2519,7 @@ void GnomeCmdFileList::toggle_and_step()
     if (iter)
         toggle_file(iter.get());
     if (gtk_tree_model_iter_next (GTK_TREE_MODEL (priv->store), iter.get()))
-        focus_file_at_row (this, iter.get());
+        focus_file_at_row (iter.get());
 }
 
 
@@ -2535,7 +2533,7 @@ void GnomeCmdFileList::focus_file(const gchar *fileToFocus, gboolean scrollToFil
         auto currentFilename = g_utf8_normalize(f->get_name(), -1, G_NORMALIZE_DEFAULT);
         if (g_strcmp0 (currentFilename, fileToFocusNormalized) == 0)
         {
-            focus_file_at_row (this, iter);
+            focus_file_at_row (iter);
             if (scrollToFile)
             {
                 GtkTreePath *path = gtk_tree_model_get_path (GTK_TREE_MODEL (priv->store), iter);
@@ -2570,7 +2568,7 @@ void GnomeCmdFileList::select_row(GtkTreeIter* row)
             row = &iter;
         }
     }
-    focus_file_at_row (this, row);
+    focus_file_at_row (row);
 }
 
 
@@ -2655,7 +2653,7 @@ void GnomeCmdFileList::sort()
     if (selfile && gtk_widget_has_focus (GTK_WIDGET (this)))
     {
         auto selrow = get_row_from_file(selfile);
-        focus_file_at_row(this, selrow.get());
+        focus_file_at_row(selrow.get());
     }
 }
 
@@ -2806,21 +2804,15 @@ gboolean gnome_cmd_file_list_quicksearch_shown (GnomeCmdFileList *fl)
 
 void gnome_cmd_file_list_show_quicksearch (GnomeCmdFileList *fl, gchar c)
 {
-    gchar text[2];
     if (fl->priv->quicksearch_popup)
         return;
 
     fl->priv->quicksearch_popup = gnome_cmd_quicksearch_popup_new (fl);
-    text[0] = c;
-    text[1] = '\0';
     g_object_ref (fl->priv->quicksearch_popup);
     gtk_widget_show (fl->priv->quicksearch_popup);
-    if (c != 0)
-    {
-        GnomeCmdQuicksearchPopup *popup = GNOME_CMD_QUICKSEARCH_POPUP (fl->priv->quicksearch_popup);
-        gtk_entry_set_text (GTK_ENTRY (popup->entry), text);
-        gtk_editable_set_position (GTK_EDITABLE (popup->entry), 1);
-    }
+
+    GnomeCmdQuicksearchPopup *popup = GNOME_CMD_QUICKSEARCH_POPUP (fl->priv->quicksearch_popup);
+    gnome_cmd_quicksearch_popup_set_char (popup, c);
 
     g_signal_connect (fl->priv->quicksearch_popup, "hide", G_CALLBACK (on_quicksearch_popup_hide), fl);
 }
@@ -3015,7 +3007,7 @@ gboolean GnomeCmdFileList::key_pressed(GdkEventKey *event)
                 {
                     auto iter = get_focused_file_iter();
                     if (iter && gtk_tree_model_iter_next (GTK_TREE_MODEL (priv->store), iter.get()))
-                        focus_file_at_row (this, iter.get());
+                        focus_file_at_row (iter.get());
                 }
                 return TRUE;
 
@@ -3040,7 +3032,7 @@ gboolean GnomeCmdFileList::key_pressed(GdkEventKey *event)
                 {
                     GtkTreeIter iter;
                     if (gtk_tree_model_get_iter_first (GTK_TREE_MODEL (priv->store), &iter))
-                        focus_file_at_row (this, &iter);
+                        focus_file_at_row (&iter);
                 }
                 return TRUE;
 

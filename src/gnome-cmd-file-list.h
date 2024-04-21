@@ -128,6 +128,8 @@ struct GnomeCmdFileList
 
     gboolean has_file(const GnomeCmdFile *f);
 
+    void focus_file_at_row (GtkTreeIter *row);
+
     void select_file(GnomeCmdFile *f, GtkTreeIter *row=nullptr);
     void unselect_file(GnomeCmdFile *f, GtkTreeIter *row=nullptr);
     void select_all();
