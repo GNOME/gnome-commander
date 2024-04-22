@@ -607,7 +607,7 @@ static void configure (GnomeCmdPlugin *plugin)
     gtk_window_set_transient_for (GTK_WINDOW (dialog), GTK_WINDOW (main_win_widget));
     gtk_window_set_modal (GTK_WINDOW (dialog), TRUE);
 
-    gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), GTK_STOCK_OK,
+    gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), _("_OK"),
                                  G_CALLBACK (on_configure_close), plugin);
 
     vbox = create_vbox (dialog, FALSE, 12);

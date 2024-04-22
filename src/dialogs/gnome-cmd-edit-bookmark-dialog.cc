@@ -71,8 +71,8 @@ gboolean gnome_cmd_edit_bookmark_dialog (GtkWindow *parent, const gchar *title, 
 {
     GtkWidget *dialog = gtk_dialog_new_with_buttons (title, parent,
                                                      GtkDialogFlags (GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT),
-                                                     GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
-                                                     GTK_STOCK_OK, GTK_RESPONSE_OK,
+                                                     _("_Cancel"), GTK_RESPONSE_CANCEL,
+                                                     _("_OK"), GTK_RESPONSE_OK,
                                                      NULL);
 
     GtkWidget *content_area = gtk_dialog_get_content_area (GTK_DIALOG (dialog));

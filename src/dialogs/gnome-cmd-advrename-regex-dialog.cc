@@ -58,8 +58,8 @@ gboolean gnome_cmd_advrename_regex_dialog_new (const gchar *title, GtkWindow *pa
     GtkWidget *dialog = gtk_dialog_new_with_buttons (title, parent,
                                                      GtkDialogFlags (GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT),
                                                      // GTK_STOCK_HELP, GTK_RESPONSE_HELP,             //  FIXME: ???
-                                                     GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
-                                                     GTK_STOCK_OK, GTK_RESPONSE_OK,
+                                                     _("_Cancel"), GTK_RESPONSE_CANCEL,
+                                                     _("_OK"), GTK_RESPONSE_OK,
                                                      NULL);
     GtkWidget *content_area = gtk_dialog_get_content_area (GTK_DIALOG (dialog));
 

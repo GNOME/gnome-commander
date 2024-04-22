@@ -419,9 +419,9 @@ static void gnome_cmd_connect_dialog_init (GnomeCmdConnectDialog *dialog)
     dialog->priv->setup_for_type();
 
     gtk_dialog_add_buttons (*dialog,
-                            GTK_STOCK_HELP, GTK_RESPONSE_HELP,
-                            GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
-                            GTK_STOCK_OK, GTK_RESPONSE_OK,
+                            _("_Help"), GTK_RESPONSE_HELP,
+                            _("_Cancel"), GTK_RESPONSE_CANCEL,
+                            _("_OK"), GTK_RESPONSE_OK,
                             NULL);
 
     gtk_dialog_set_default_response (*dialog, GTK_RESPONSE_OK);

@@ -582,7 +582,7 @@ static void on_colors_edit (GtkButton *btn, GtkWidget *parent)
     label = create_label (dlg, _("Cursor:"));
     gtk_grid_attach (GTK_GRID (grid), label, 0, 4, 1, 1);
 
-    gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dlg), GTK_STOCK_CLOSE,
+    gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dlg), _("_Close"),
                                  G_CALLBACK (on_edit_colors_close), dlg);
 
     gtk_widget_show (dlg);
@@ -773,8 +773,8 @@ static void on_ls_colors_edit (GtkButton *btn, GtkWidget *parent)
     gtk_grid_attach (GTK_GRID (grid), label, 8, 0, 1, 1);
 
     gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dlg), _("_Reset"), G_CALLBACK (on_edit_ls_colors_reset), dlg);
-    gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dlg), GTK_STOCK_CANCEL, G_CALLBACK (on_edit_ls_colors_cancel), dlg);
-    gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dlg), GTK_STOCK_OK, G_CALLBACK (on_edit_ls_colors_ok), dlg);
+    gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dlg), _("_Cancel"), G_CALLBACK (on_edit_ls_colors_cancel), dlg);
+    gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dlg), _("_OK"), G_CALLBACK (on_edit_ls_colors_ok), dlg);
 
     gtk_widget_show (dlg);
 }
@@ -1626,9 +1626,9 @@ static GtkWidget *create_app_dialog (GnomeCmdApp *app, GCallback on_ok, GCallbac
     if (app && gnome_cmd_app_get_target (app) != APP_TARGET_SOME_FILES)
         gtk_widget_set_sensitive (entry, FALSE);
 
-    gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), GTK_STOCK_CANCEL,
+    gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), _("_Cancel"),
                                  G_CALLBACK (on_cancel), dialog);
-    gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), GTK_STOCK_OK,
+    gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), _("_OK"),
                                  G_CALLBACK (on_ok), dialog);
 
     gtk_widget_show (dialog);
@@ -1825,27 +1825,27 @@ static GtkWidget *create_programs_tab (GtkWidget *parent, GnomeCmdData::Options 
     bbox = create_vbuttonbox (parent);
     gtk_box_pack_start (GTK_BOX (hbox), bbox, FALSE, TRUE, 0);
 
-    button = create_stock_button (parent, GTK_STOCK_ADD, G_CALLBACK (on_app_add));
+    button = create_button (parent, _("_Add"), G_CALLBACK (on_app_add));
     gtk_widget_set_can_default (button, TRUE);
     gtk_container_add (GTK_CONTAINER (bbox), button);
 
-    button = create_stock_button (parent, GTK_STOCK_EDIT, G_CALLBACK (on_app_edit));
+    button = create_button (parent, _("_Edit"), G_CALLBACK (on_app_edit));
     g_object_set_data (G_OBJECT (parent), "edit_app_button", button);
     gtk_widget_set_can_default (button, TRUE);
     gtk_widget_set_sensitive (button, FALSE);
     gtk_container_add (GTK_CONTAINER (bbox), button);
 
-    button = create_stock_button (parent, GTK_STOCK_REMOVE, G_CALLBACK (on_app_remove));
+    button = create_button (parent, _("_Remove"), G_CALLBACK (on_app_remove));
     g_object_set_data (G_OBJECT (parent), "remove_app_button", button);
     gtk_widget_set_can_default (button, TRUE);
     gtk_widget_set_sensitive (button, FALSE);
     gtk_container_add (GTK_CONTAINER (bbox), button);
 
-    button = create_stock_button (parent, GTK_STOCK_GO_UP, G_CALLBACK (on_app_move_up));
+    button = create_button (parent, _("_Up"), G_CALLBACK (on_app_move_up));
     gtk_widget_set_can_default (button, TRUE);
     gtk_container_add (GTK_CONTAINER (bbox), button);
 
-    button = create_stock_button (parent, GTK_STOCK_GO_DOWN, G_CALLBACK (on_app_move_down));
+    button = create_button (parent, _("_Down"), G_CALLBACK (on_app_move_down));
     gtk_widget_set_can_default (button, TRUE);
     gtk_container_add (GTK_CONTAINER (bbox), button);
 
@@ -2097,13 +2097,13 @@ static GtkWidget *create_device_dialog (GnomeCmdConDevice *dev, GCallback on_ok,
     gtk_grid_attach (GTK_GRID (grid), entry, 1, 3, 1, 1);
 
     gnome_cmd_dialog_add_button (
-        GNOME_CMD_DIALOG (dialog), GTK_STOCK_HELP,
+        GNOME_CMD_DIALOG (dialog), _("_Help"),
         G_CALLBACK (on_dialog_help), nullptr);
     gnome_cmd_dialog_add_button (
-        GNOME_CMD_DIALOG (dialog), GTK_STOCK_CANCEL,
+        GNOME_CMD_DIALOG (dialog), _("_Cancel"),
         G_CALLBACK (on_cancel), dialog);
     gnome_cmd_dialog_add_button (
-        GNOME_CMD_DIALOG (dialog), GTK_STOCK_OK,
+        GNOME_CMD_DIALOG (dialog), _("_OK"),
         G_CALLBACK (on_ok), dialog);
 
     gtk_widget_show (dialog);
@@ -2256,27 +2256,27 @@ static GtkWidget *create_devices_tab (GtkWidget *parent, GnomeCmdData::Options &
     bbox = create_vbuttonbox (parent);
     gtk_box_pack_start (GTK_BOX (hbox), bbox, FALSE, TRUE, 0);
 
-    button = create_stock_button (parent, GTK_STOCK_ADD, G_CALLBACK (on_device_add));
+    button = create_button (parent, _("_Add"), G_CALLBACK (on_device_add));
     gtk_widget_set_can_default (button, TRUE);
     gtk_container_add (GTK_CONTAINER (bbox), button);
 
-    button = create_stock_button (parent, GTK_STOCK_EDIT, G_CALLBACK (on_device_edit));
+    button = create_button (parent, _("_Edit"), G_CALLBACK (on_device_edit));
     g_object_set_data (G_OBJECT (parent), "edit_device_button", button);
     gtk_widget_set_can_default (button, TRUE);
     gtk_widget_set_sensitive (button, FALSE);
     gtk_container_add (GTK_CONTAINER (bbox), button);
 
-    button = create_stock_button (parent, GTK_STOCK_REMOVE, G_CALLBACK (on_device_remove));
+    button = create_button (parent, _("_Remove"), G_CALLBACK (on_device_remove));
     g_object_set_data (G_OBJECT (parent), "remove_device_button", button);
     gtk_widget_set_can_default (button, TRUE);
     gtk_widget_set_sensitive (button, FALSE);
     gtk_container_add (GTK_CONTAINER (bbox), button);
 
-    button = create_stock_button (parent, GTK_STOCK_GO_UP, G_CALLBACK (on_device_move_up));
+    button = create_button (parent, _("_Up"), G_CALLBACK (on_device_move_up));
     gtk_widget_set_can_default (button, TRUE);
     gtk_container_add (GTK_CONTAINER (bbox), button);
 
-    button = create_stock_button (parent, GTK_STOCK_GO_DOWN, G_CALLBACK (on_device_move_down));
+    button = create_button (parent, _("_Down"), G_CALLBACK (on_device_move_down));
     gtk_widget_set_can_default (button, TRUE);
     gtk_container_add (GTK_CONTAINER (bbox), button);
 
@@ -2350,9 +2350,9 @@ gboolean gnome_cmd_options_dialog (GtkWindow *parent, GnomeCmdData::Options &cfg
 
     GtkWidget *dialog = gtk_dialog_new_with_buttons (_("Options"), parent,
                                                      GtkDialogFlags (GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT),
-                                                     GTK_STOCK_HELP, GTK_RESPONSE_HELP,
-                                                     GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
-                                                     GTK_STOCK_OK, GTK_RESPONSE_OK,
+                                                     _("_Help"), GTK_RESPONSE_HELP,
+                                                     _("_Cancel"), GTK_RESPONSE_CANCEL,
+                                                     _("_OK"), GTK_RESPONSE_OK,
                                                      NULL);
 
     gtk_window_set_position (GTK_WINDOW (dialog), GTK_WIN_POS_CENTER);

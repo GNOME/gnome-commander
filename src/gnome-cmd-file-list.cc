@@ -1957,7 +1957,7 @@ static void create_con_open_progress_dialog (GnomeCmdFileList *fl)
     g_object_ref (fl->priv->con_open_dialog);
 
     gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (fl->priv->con_open_dialog),
-                                 GTK_STOCK_CANCEL,
+                                 _("_Cancel"),
                                  G_CALLBACK (on_con_open_cancel), fl);
 
     GtkWidget *vbox = create_vbox (fl->priv->con_open_dialog, FALSE, 0);

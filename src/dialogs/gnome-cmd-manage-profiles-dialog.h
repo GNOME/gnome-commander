@@ -287,9 +287,9 @@ namespace GnomeCmd
 
         GtkWidget *dialog = gtk_dialog_new_with_buttons (title, parent,
                                                          GtkDialogFlags (GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT),
-                                                         GTK_STOCK_HELP, GTK_RESPONSE_HELP,
-                                                         GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
-                                                         GTK_STOCK_OK, GTK_RESPONSE_OK,
+                                                         _("_Help"), GTK_RESPONSE_HELP,
+                                                         _("_Cancel"), GTK_RESPONSE_CANCEL,
+                                                         _("_OK"), GTK_RESPONSE_OK,
                                                          NULL);
 
         GtkWidget *content_area = gtk_dialog_get_content_area (GTK_DIALOG (dialog));
@@ -327,16 +327,14 @@ namespace GnomeCmd
         gtk_box_pack_start (GTK_BOX (hbox), vbox, FALSE, FALSE, 0);
 
         button = gtk_button_new_with_mnemonic (_("_Duplicate"));
-        gtk_button_set_image (GTK_BUTTON (button),
-                              gtk_image_new_from_stock (GTK_STOCK_ADD, GTK_ICON_SIZE_BUTTON));
         g_signal_connect (button, "clicked", G_CALLBACK (duplicate_clicked_callback), view);
         gtk_box_pack_start (GTK_BOX (vbox), button, FALSE, FALSE, 0);
 
-        button = gtk_button_new_from_stock (GTK_STOCK_EDIT);
+        button = gtk_button_new_with_mnemonic (_("_Edit"));
         g_signal_connect (button, "clicked", G_CALLBACK (edit_clicked_callback), view);
         gtk_box_pack_start (GTK_BOX (vbox), button, FALSE, FALSE, 0);
 
-        button = gtk_button_new_from_stock (GTK_STOCK_REMOVE);
+        button = gtk_button_new_with_mnemonic (_("_Remove"));
         g_signal_connect (button, "clicked", G_CALLBACK (remove_clicked_callback), view);
         gtk_box_pack_start (GTK_BOX (vbox), button, FALSE, FALSE, 0);
 

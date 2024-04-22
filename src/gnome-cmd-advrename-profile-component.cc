@@ -596,8 +596,8 @@ gchar *GnomeCmdAdvrenameProfileComponent::Private::get_selected_range (GtkWindow
 
     GtkWidget *dialog = gtk_dialog_new_with_buttons (title, parent,
                                                      GtkDialogFlags (GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT),
-                                                     GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
-                                                     GTK_STOCK_OK, GTK_RESPONSE_OK,
+                                                     _("_Cancel"), GTK_RESPONSE_CANCEL,
+                                                     _("_OK"), GTK_RESPONSE_OK,
                                                      NULL);
 
     gtk_window_set_resizable (GTK_WINDOW (dialog), FALSE);
@@ -1033,13 +1033,13 @@ static void gnome_cmd_advrename_profile_component_init (GnomeCmdAdvrenameProfile
         gtk_box_set_spacing (GTK_BOX (bbox), 12);
         gtk_grid_attach (GTK_GRID (grid), bbox, 1, 0, 1, 1);
 
-        component->priv->regex_add_button = button = gtk_button_new_from_stock (GTK_STOCK_ADD);
+        component->priv->regex_add_button = button = gtk_button_new_with_mnemonic (_("_Add"));
         gtk_box_pack_start (GTK_BOX (bbox), button, FALSE, FALSE, 0);
 
-        component->priv->regex_edit_button = button = gtk_button_new_from_stock (GTK_STOCK_EDIT);
+        component->priv->regex_edit_button = button = gtk_button_new_with_mnemonic (_("_Edit"));
         gtk_box_pack_start (GTK_BOX (bbox), button, FALSE, FALSE, 0);
 
-        component->priv->regex_remove_button = button = gtk_button_new_from_stock (GTK_STOCK_REMOVE);
+        component->priv->regex_remove_button = button = gtk_button_new_with_mnemonic (_("_Remove"));
         gtk_box_pack_start (GTK_BOX (bbox), button, FALSE, FALSE, 0);
 
         component->priv->regex_remove_all_button = button = gtk_button_new_with_mnemonic (_("Remove A_ll"));

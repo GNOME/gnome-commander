@@ -219,18 +219,6 @@ GtkWidget *create_named_button_with_data (GtkWidget *parent, const gchar *label,
 }
 
 
-GtkWidget *create_named_stock_button_with_data (GtkWidget *parent, gconstpointer stock, const gchar *name, GCallback func, gpointer data)
-{
-    GtkWidget *w = gtk_button_new_from_stock ((const gchar *) stock);
-    g_object_ref (w);
-    g_object_set_data_full (G_OBJECT (parent), name, w, g_object_unref);
-    gtk_widget_show (w);
-    if (func)
-        g_signal_connect (w, "clicked", func, data);
-    return w;
-}
-
-
 GtkWidget *create_entry (GtkWidget *parent, const gchar *name, const gchar *value)
 {
     GtkWidget *w = gtk_entry_new ();
@@ -359,8 +347,8 @@ static void icon_button_clicked (GtkButton *button, const gchar* iconPath)
     dialog = gtk_file_chooser_dialog_new (_("Select an Image File"),
                                             GTK_WINDOW (gtk_widget_get_ancestor ((GtkWidget*)button, GTK_TYPE_WINDOW)),
                                             GTK_FILE_CHOOSER_ACTION_OPEN,
-                                            GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
-                                            GTK_STOCK_OPEN, GTK_RESPONSE_ACCEPT,
+                                            _("_Cancel"), GTK_RESPONSE_CANCEL,
+                                            _("_OK"), GTK_RESPONSE_ACCEPT,
                                             nullptr);
     if (iconPath)
     {

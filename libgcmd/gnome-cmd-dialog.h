@@ -49,7 +49,7 @@ GtkWidget *gnome_cmd_dialog_new (const gchar *title);
 
 GType gnome_cmd_dialog_get_type ();
 
-GtkWidget *gnome_cmd_dialog_add_button (GnomeCmdDialog *dialog, const gchar *stock_id, GCallback on_click, gpointer data);
+GtkWidget *gnome_cmd_dialog_add_button (GnomeCmdDialog *dialog, const gchar *label, GCallback on_click, gpointer data);
 
 void gnome_cmd_dialog_add_category (GnomeCmdDialog *dialog, GtkWidget *category);
 

@@ -235,20 +235,20 @@ static void gnome_cmd_key_shortcuts_dialog_init (GnomeCmdKeyShortcutsDialog *dia
     gtk_box_pack_start (GTK_BOX (hbox), vbox, FALSE, FALSE, 0);
     gtk_widget_show (vbox);
 
-    GtkWidget *button = gtk_button_new_from_stock (GTK_STOCK_ADD);
+    GtkWidget *button = gtk_button_new_with_mnemonic (_("_Add"));
     g_signal_connect (button, "clicked", G_CALLBACK (add_clicked_callback), view);
     gtk_box_pack_start (GTK_BOX (vbox), button, FALSE, FALSE, 0);
     gtk_widget_show (button);
 
-    button = gtk_button_new_from_stock (GTK_STOCK_REMOVE);
+    button = gtk_button_new_with_mnemonic (_("_Remove"));
     g_signal_connect (button, "clicked", G_CALLBACK (remove_clicked_callback), view);
     gtk_box_pack_start (GTK_BOX (vbox), button, FALSE, FALSE, 0);
     gtk_widget_show (button);
 
     gtk_dialog_add_buttons (GTK_DIALOG (dialog),
-                            GTK_STOCK_HELP, GTK_RESPONSE_HELP,
-                            GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
-                            GTK_STOCK_OK, GTK_RESPONSE_OK,
+                            _("_Help"), GTK_RESPONSE_HELP,
+                            _("_Cancel"), GTK_RESPONSE_CANCEL,
+                            _("_OK"), GTK_RESPONSE_OK,
                             NULL);
 
     gtk_dialog_set_default_response (GTK_DIALOG (dialog), GTK_RESPONSE_OK);
@@ -496,7 +496,7 @@ gboolean conflict_confirm (GtkWidget *view, const gchar *action, guint accel_key
                                              GTK_BUTTONS_NONE,
                                              _("Shortcut “%s” is already taken by “%s”."),
                                              accel_string, action);
-    gtk_dialog_add_buttons (GTK_DIALOG (dlg), GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
+    gtk_dialog_add_buttons (GTK_DIALOG (dlg), _("_Cancel"), GTK_RESPONSE_CANCEL,
                                               _("_Reassign shortcut"), GTK_RESPONSE_OK,
                                               NULL);
     gtk_dialog_set_default_response (GTK_DIALOG (dlg), GTK_RESPONSE_CANCEL);

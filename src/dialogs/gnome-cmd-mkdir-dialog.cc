@@ -167,9 +167,9 @@ gboolean gnome_cmd_mkdir_dialog_new (GnomeCmdDir *dir, GnomeCmdFile *selected_fi
 {
     GtkWidget *dialog = gtk_dialog_new_with_buttons (_("Make Directory"), *main_win,
                                                      GtkDialogFlags (GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT),
-                                                     GTK_STOCK_HELP, GTK_RESPONSE_HELP,
-                                                     GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
-                                                     GTK_STOCK_OK, GTK_RESPONSE_OK,
+                                                     _("_Help"), GTK_RESPONSE_HELP,
+                                                     _("_Cancel"), GTK_RESPONSE_CANCEL,
+                                                     _("_OK"), GTK_RESPONSE_OK,
                                                      NULL);
     GtkWidget *content_area = gtk_dialog_get_content_area (GTK_DIALOG (dialog));
 

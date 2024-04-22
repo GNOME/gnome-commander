@@ -137,7 +137,7 @@ inline void create_delete_progress_win (DeleteData *deleteData)
     bbox = create_hbuttonbox (deleteData->progwin);
     gtk_container_add (GTK_CONTAINER (vbox), bbox);
 
-    button = create_stock_button_with_data (deleteData->progwin, GTK_STOCK_CANCEL, G_CALLBACK (on_cancel), deleteData);
+    button = create_button_with_data (deleteData->progwin, _("_Cancel"), G_CALLBACK (on_cancel), deleteData);
     gtk_widget_set_can_default (button, TRUE);
     gtk_container_add (GTK_CONTAINER (bbox), button);
 

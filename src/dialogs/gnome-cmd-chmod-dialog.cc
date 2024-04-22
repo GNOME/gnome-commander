@@ -230,9 +230,9 @@ static void gnome_cmd_chmod_dialog_init (GnomeCmdChmodDialog *dialog)
     gtk_widget_set_sensitive (dialog->priv->recurse_combo, FALSE);
 
 
-    gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), GTK_STOCK_CANCEL,
+    gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), _("_Cancel"),
                                  G_CALLBACK (on_cancel), dialog);
-    gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), GTK_STOCK_OK,
+    gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), _("_OK"),
                                  G_CALLBACK (on_ok), dialog);
 
     g_signal_connect (dialog->priv->recurse_check, "toggled", G_CALLBACK (on_toggle_recurse), chmod_dialog);

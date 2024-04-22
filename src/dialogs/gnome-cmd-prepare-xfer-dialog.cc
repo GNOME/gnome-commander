@@ -367,8 +367,8 @@ static void gnome_cmd_prepare_xfer_dialog_init (GnomeCmdPrepareXferDialog *dialo
     gtk_container_add (GTK_CONTAINER (options_hbox), dialog->right_vbox_frame);
 
     // buttons
-    dialog->cancel_button = gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), GTK_STOCK_CANCEL, NULL, NULL);
-    dialog->ok_button = gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), GTK_STOCK_OK, NULL, NULL);
+    dialog->cancel_button = gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), _("_Cancel"), NULL, NULL);
+    dialog->ok_button = gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), _("_OK"), NULL, NULL);
 
     g_signal_connect_after (dialog->cancel_button, "clicked", G_CALLBACK (on_cancel), dialog);
     g_signal_connect_after (dialog->ok_button, "clicked", G_CALLBACK (on_ok), dialog);
