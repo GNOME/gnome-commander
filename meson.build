@@ -65,6 +65,7 @@ add_project_arguments(common_ccflags, language: 'cpp')
 
 plugin_dir = libdir / meson.project_name() / 'plugins'
 pixmaps_dir = datadir / 'pixmaps' / meson.project_name()
+icons_dir = datadir / meson.project_name() / 'icons'
 
 conf_data = configuration_data()
 
@@ -74,6 +75,7 @@ conf_data.set_quoted('PACKAGE_NAME',      '@0@'.format(meson.project_name()), de
 conf_data.set_quoted('PACKAGE_URL',       '@0@'.format(package_url), description : 'Define to the home page for this package.')
 conf_data.set_quoted('PACKAGE_BUGREPORT', '@0@'.format(package_bugreport), description : 'Define to the address where bug reports for this package should be sent.')
 conf_data.set_quoted('PIXMAPS_DIR',       '@0@'.format(pixmaps_dir), description : 'pixmaps location')
+conf_data.set_quoted('ICONS_DIR',         '@0@'.format(icons_dir), description : 'icons location')
 conf_data.set_quoted('PLUGIN_DIR',        '@0@'.format(plugin_dir), description : 'location of plugins')
 conf_data.set_quoted('PREFIX',            '@0@'.format(prefix), description : 'definition of PREFIX')
 conf_data.set_quoted('PACKAGE_VERSION',   '@0@'.format(meson.project_version()), description : 'Define to the version of this package.')
