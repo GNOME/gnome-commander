@@ -699,7 +699,7 @@ static gboolean on_notebook_button_pressed (GtkWidget *widget, GdkEventButton *e
 
 
             }
-            else
+            else if (tab_clicked == -2)
                 fs->new_tab(fs->get_directory());
 
             return TRUE;
