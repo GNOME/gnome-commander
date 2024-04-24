@@ -92,6 +92,16 @@ struct GnomeCmdNotebook
     void show_tabs(TabBarVisibility show);
     void show_tabs(gboolean show)                                           {  show_tabs(show ? SHOW_TABS : HIDE_TABS);                            }
 
+    /**
+     * Computes the allocation of a header area.
+     */
+    bool header_allocation (GtkAllocation *allocation) const;
+
+    /**
+     * Find index of a tab by screen coordinates (0-based).
+     * Returns -2 when coordinates point to a header area but not to any of the pages.
+     * Returns -1 when coordinates do not point to any page.
+     */
     int find_tab_num_at_pos(gint screen_x, gint screen_y) const;
 };
 

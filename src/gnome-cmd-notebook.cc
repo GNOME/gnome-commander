@@ -101,6 +101,66 @@ void GnomeCmdNotebook::show_tabs(TabBarVisibility _show_tabs)
 }
 
 
+bool GnomeCmdNotebook::header_allocation (GtkAllocation *allocation) const
+{
+    if (gtk_notebook_get_n_pages (GTK_NOTEBOOK (this)) == 0)
+        return false;
+
+    GtkPositionType tab_pos = gtk_notebook_get_tab_pos (*this);
+    GtkWidget *the_page;
+
+    allocation->x = INT_MAX;
+    allocation->y = INT_MAX;
+    allocation->width = 0;
+    allocation->height = 0;
+
+    for (int page_num=0; (the_page=GnomeCmdNotebook::page(page_num)); ++page_num)
+    {
+        GtkWidget *tab = gtk_notebook_get_tab_label (*this, the_page);
+
+        g_return_val_if_fail (tab != nullptr, false);
+
+        if (!gtk_widget_get_mapped (GTK_WIDGET (tab)))
+            continue;
+
+        GtkAllocation tab_allocation;
+        gtk_widget_get_allocation (tab, &tab_allocation);
+
+        int x1 = MIN (allocation->x, tab_allocation.x);
+        int y1 = MIN (allocation->y, tab_allocation.y);
+        int x2 = MAX (allocation->x + allocation->width, tab_allocation.x + tab_allocation.width);
+        int y2 = MAX (allocation->y + allocation->height, tab_allocation.y + tab_allocation.height);
+
+        allocation->x = x1;
+        allocation->y = y1;
+        allocation->width = x2 - x1;
+        allocation->height = y2 - y1;
+    }
+
+    GtkAllocation notebook_allocation;
+    gtk_widget_get_allocation (*this, &notebook_allocation);
+
+    switch (tab_pos)
+    {
+        case GTK_POS_TOP:
+        case GTK_POS_BOTTOM:
+            allocation->x = 0;
+            allocation->width = notebook_allocation.width;
+            break;
+
+        case GTK_POS_LEFT:
+        case GTK_POS_RIGHT:
+            allocation->y = 0;
+            allocation->height = notebook_allocation.height;
+            break;
+        default:
+            break;
+    }
+
+    return allocation;
+}
+
+
 int GnomeCmdNotebook::find_tab_num_at_pos(gint screen_x, gint screen_y) const
 {
     if (gtk_notebook_get_n_pages (GTK_NOTEBOOK (this)) == 0)
@@ -156,6 +216,20 @@ int GnomeCmdNotebook::find_tab_num_at_pos(gint screen_x, gint screen_y) const
             default:
                 break;
         }
+    }
+
+    GtkAllocation head_allocation;
+    if (header_allocation (&head_allocation))
+    {
+        gint x_root, y_root;
+
+        gdk_window_get_origin (gtk_widget_get_window (*this), &x_root, &y_root);
+
+        gint x = screen_x - x_root - head_allocation.x;
+        gint y = screen_y - y_root - head_allocation.y;
+
+        if (x > 0 && x < head_allocation.width && y > 0 && y < head_allocation.height)
+            return -2;
     }
 
     return -1;
