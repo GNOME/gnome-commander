@@ -72,7 +72,7 @@ enum
 
 struct GnomeCmdMainWinClass
 {
-    GtkWindowClass parent_class;
+    GtkApplicationWindowClass parent_class;
 
     void (* switch_fs) (GnomeCmdMainWin *mw, GnomeCmdFileSelector *fs);
 };
@@ -121,7 +121,7 @@ struct GnomeCmdMainWin::Private
 
 static guint signals[LAST_SIGNAL] = { 0 };
 
-G_DEFINE_TYPE (GnomeCmdMainWin, gnome_cmd_main_win, GTK_TYPE_WINDOW)
+G_DEFINE_TYPE (GnomeCmdMainWin, gnome_cmd_main_win, GTK_TYPE_APPLICATION_WINDOW)
 
 
 static void gnome_cmd_main_win_real_switch_fs (GnomeCmdMainWin *mw, GnomeCmdFileSelector *fs);
@@ -818,7 +818,8 @@ static void destroy (GtkWidget *object)
     if (main_win && main_win->file_search_dlg)
         gtk_widget_destroy (*main_win->file_search_dlg);
 
-    gtk_main_quit ();
+    auto app = gtk_window_get_application (GTK_WINDOW (object));
+    g_application_quit (G_APPLICATION (app));
 }
 
 

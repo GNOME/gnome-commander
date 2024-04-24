@@ -25,6 +25,7 @@ sources_headers = files(
   'gnome-cmd-advrename-lexer.h',
   'gnome-cmd-advrename-profile-component.h',
   'gnome-cmd-app.h',
+  'gnome-cmd-application.h',
   'gnome-cmd-chmod-component.h',
   'gnome-cmd-chown-component.h',
   'gnome-cmd-cmdline.h',
@@ -85,6 +86,7 @@ sources_sources = files(
   'gnome-cmd-about-plugin.cc',
   'gnome-cmd-advrename-profile-component.cc',
   'gnome-cmd-app.cc',
+  'gnome-cmd-application.cc',
   'gnome-cmd-chmod-component.cc',
   'gnome-cmd-chown-component.cc',
   'gnome-cmd-cmdline.cc',
@@ -193,10 +195,6 @@ if real_prefix.startswith(meson.project_source_root())
 endif
 
 sources_deps = [common_deps, libgcmd_dep, libgcmdtags_dep, intviewer_dep, libgmcddialogs_dep]
-
-if have_unique
-  sources_deps += unique
-endif
 
 executable('gnome-commander',
   c_args: cc_args,

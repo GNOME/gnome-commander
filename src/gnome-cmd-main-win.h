@@ -40,7 +40,7 @@ GType gnome_cmd_main_win_get_type ();
 
 struct GnomeCmdMainWin
 {
-    GtkWindow parent;
+    GtkApplicationWindow parent;
 
   public:       //  FIXME:  change to private
 
