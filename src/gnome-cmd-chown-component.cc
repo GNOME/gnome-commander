@@ -37,7 +37,7 @@ struct GnomeCmdChownComponentPrivate
 };
 
 
-G_DEFINE_TYPE (GnomeCmdChownComponent, gnome_cmd_chown_component, GTK_TYPE_TABLE)
+G_DEFINE_TYPE (GnomeCmdChownComponent, gnome_cmd_chown_component, GTK_TYPE_GRID)
 
 
 /*******************************
@@ -75,21 +75,22 @@ static void gnome_cmd_chown_component_init (GnomeCmdChownComponent *comp)
 
     comp->priv = g_new0 (GnomeCmdChownComponentPrivate, 1);
 
-    gtk_table_resize (GTK_TABLE (comp), 2, 2);
-    gtk_table_set_row_spacings (GTK_TABLE (comp), 6);
-    gtk_table_set_col_spacings (GTK_TABLE (comp), 6);
+    gtk_grid_set_row_spacing (GTK_GRID (comp), 6);
+    gtk_grid_set_column_spacing (GTK_GRID (comp), 6);
 
     label = create_label (GTK_WIDGET (comp), _("Owner:"));
-    table_add (GTK_WIDGET (comp), label, 0, 0, GTK_FILL);
+    gtk_grid_attach (GTK_GRID (comp), label, 0, 0, 1, 1);
 
     label = create_label (GTK_WIDGET (comp), _("Group:"));
-    table_add (GTK_WIDGET (comp), label, 0, 1, GTK_FILL);
+    gtk_grid_attach (GTK_GRID (comp), label, 0, 1, 1, 1);
 
     comp->priv->user_combo = create_combo_box_text_with_entry (GTK_WIDGET (comp));
-    table_add (GTK_WIDGET (comp), comp->priv->user_combo, 1, 0, (GtkAttachOptions) (GTK_FILL|GTK_EXPAND));
+    gtk_widget_set_hexpand (comp->priv->user_combo, TRUE);
+    gtk_grid_attach (GTK_GRID (comp), comp->priv->user_combo, 1, 0, 1, 1);
 
     comp->priv->group_combo = create_combo_box_text_with_entry (GTK_WIDGET (comp));
-    table_add (GTK_WIDGET (comp), comp->priv->group_combo, 1, 1, (GtkAttachOptions) (GTK_FILL|GTK_EXPAND));
+    gtk_widget_set_hexpand (comp->priv->group_combo, TRUE);
+    gtk_grid_attach (GTK_GRID (comp), comp->priv->group_combo, 1, 1, 1, 1);
 }
 
 

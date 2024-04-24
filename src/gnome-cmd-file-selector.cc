@@ -45,7 +45,7 @@ using namespace std;
 
 struct GnomeCmdFileSelectorClass
 {
-    GtkVBoxClass parent_class;
+    GtkBoxClass parent_class;
 
     void (* dir_changed) (GnomeCmdFileSelector *fs, GnomeCmdDir *dir);
 };
@@ -74,7 +74,7 @@ enum {DIR_CHANGED, LAST_SIGNAL};
 static guint signals[LAST_SIGNAL] = { 0 };
 
 
-G_DEFINE_TYPE (GnomeCmdFileSelector, gnome_cmd_file_selector, GTK_TYPE_VBOX)
+G_DEFINE_TYPE (GnomeCmdFileSelector, gnome_cmd_file_selector, GTK_TYPE_BOX)
 
 
 /*******************************
@@ -380,7 +380,7 @@ static void create_con_buttons (GnomeCmdFileSelector *fs)
         fs->priv->old_btns = g_list_append (fs->priv->old_btns, btn);
         gtk_widget_set_tooltip_text (btn, gnome_cmd_con_get_go_text (con));
 
-        GtkWidget *hbox = gtk_hbox_new (FALSE, 1);
+        GtkWidget *hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 1);
         g_object_ref (hbox);
         g_object_set_data_full (*fs, "con-hbox", hbox, g_object_unref);
         gtk_widget_show (hbox);
@@ -761,7 +761,9 @@ static void gnome_cmd_file_selector_init (GnomeCmdFileSelector *fs)
 
     fs->priv = new GnomeCmdFileSelector::Private;
 
-    GtkVBox *vbox = GTK_VBOX (fs);
+    GtkBox *vbox = GTK_BOX (fs);
+
+    g_object_set (fs, "orientation", GTK_ORIENTATION_VERTICAL, NULL);
 
     // create the box used for packing the dir_combo and buttons
     fs->update_show_devbuttons();
@@ -1505,7 +1507,7 @@ GtkWidget *GnomeCmdFileSelector::new_tab(GnomeCmdDir *dir, GnomeCmdFileList::Col
     gtk_widget_set_vexpand (scrolled_window, TRUE);
     gtk_container_add (GTK_CONTAINER (scrolled_window), *fl);
 
-    GtkWidget *hbox = gtk_hbox_new (FALSE, 0);
+    GtkWidget *hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 0);
 
     fl->tab_label_pin = gtk_image_new_from_file (PIXMAPS_DIR G_DIR_SEPARATOR_S "pin.png");
     fl->tab_label_text = gtk_label_new (dir ? GNOME_CMD_FILE (dir)->get_name() : nullptr);

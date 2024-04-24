@@ -33,14 +33,14 @@ struct GnomeCmdCmdlinePrivate;
 
 struct GnomeCmdCmdline
 {
-    GtkHBox parent;
+    GtkBox parent;
     GnomeCmdCmdlinePrivate *priv;
 };
 
 
 struct GnomeCmdCmdlineClass
 {
-    GtkHBoxClass parent_class;
+    GtkBoxClass parent_class;
 };
 
 

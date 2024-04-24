@@ -36,14 +36,14 @@ struct GnomeCmdChmodComponentPrivate;
 
 struct GnomeCmdChmodComponent
 {
-    GtkVBox parent;
+    GtkBox parent;
     GnomeCmdChmodComponentPrivate *priv;
 };
 
 
 struct GnomeCmdChmodComponentClass
 {
-    GtkVBoxClass parent_class;
+    GtkBoxClass parent_class;
 
     void (* perms_changed)      (GnomeCmdChmodComponent *component);
 };

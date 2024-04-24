@@ -202,19 +202,12 @@ inline GtkWidget *add_buttonbar_button (char *label,
 
 static GtkWidget *create_separator (gboolean vertical)
 {
+    GtkOrientation orientation = vertical ? GTK_ORIENTATION_VERTICAL : GTK_ORIENTATION_HORIZONTAL;
     GtkWidget *sep;
     GtkWidget *box;
 
-    if (vertical)
-    {
-        sep = gtk_vseparator_new ();
-        box = gtk_vbox_new (FALSE, 0);
-    }
-    else
-    {
-        sep = gtk_hseparator_new ();
-        box = gtk_hbox_new (FALSE, 0);
-    }
+    sep = gtk_separator_new (orientation);
+    box = gtk_box_new (orientation, 0);
 
     g_object_ref (sep);
     gtk_widget_show (sep);
@@ -506,7 +499,7 @@ void GnomeCmdMainWin::create_buttonbar()
 {
     priv->buttonbar_sep = create_separator (FALSE);
 
-    priv->buttonbar = gtk_hbox_new (FALSE, 0);
+    priv->buttonbar = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 0);
     g_object_ref (priv->buttonbar);
     g_object_set_data_full (*this, "buttonbar", priv->buttonbar, g_object_unref);
     gtk_widget_show (priv->buttonbar);
@@ -886,7 +879,7 @@ static void gnome_cmd_main_win_init (GnomeCmdMainWin *mw)
     restore_size_and_pos (mw);
     gtk_window_set_resizable (*mw, TRUE);
 
-    mw->priv->vbox = gtk_vbox_new (FALSE, 0);
+    mw->priv->vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 0);
     g_object_ref (mw->priv->vbox);
     g_object_set_data_full (*mw, "vbox", mw->priv->vbox, g_object_unref);
     gtk_widget_show (mw->priv->vbox);
@@ -908,7 +901,7 @@ static void gnome_cmd_main_win_init (GnomeCmdMainWin *mw)
     gtk_widget_show (mw->priv->vbox);
     gtk_container_add (GTK_CONTAINER (mw), mw->priv->vbox);
 
-    mw->priv->paned = gnome_cmd_data.horizontal_orientation ? gtk_vpaned_new () : gtk_hpaned_new ();
+    mw->priv->paned = gtk_paned_new (gnome_cmd_data.horizontal_orientation ? GTK_ORIENTATION_VERTICAL : GTK_ORIENTATION_HORIZONTAL);
 
     g_object_ref (mw->priv->paned);
     g_object_set_data_full (*mw, "paned", mw->priv->paned, g_object_unref);
@@ -1430,7 +1423,7 @@ void GnomeCmdMainWin::update_horizontal_orientation()
 
     gtk_widget_destroy (GTK_WIDGET (priv->paned));
 
-    priv->paned = gnome_cmd_data.horizontal_orientation ? gtk_vpaned_new () : gtk_hpaned_new ();
+    priv->paned = gtk_paned_new (gnome_cmd_data.horizontal_orientation ? GTK_ORIENTATION_VERTICAL : GTK_ORIENTATION_HORIZONTAL);
 
     g_object_ref (priv->paned);
     g_object_set_data_full (*this, "paned", priv->paned, g_object_unref);

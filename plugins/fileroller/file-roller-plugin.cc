@@ -382,7 +382,7 @@ static void on_add_to_archive (GtkMenuItem *item, FileRollerPlugin *plugin)
 
         gtk_window_set_title (GTK_WINDOW (dialog), _("Create Archive"));
 
-        hbox = gtk_hbox_new (FALSE, 6);
+        hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 6);
         g_object_ref (hbox);
         gtk_widget_show (hbox);
         gtk_box_pack_start (GTK_BOX (gtk_dialog_get_content_area (GTK_DIALOG (dialog))), hbox, FALSE, TRUE, 6);
@@ -600,7 +600,7 @@ static void on_date_format_update (GtkEditable *editable, GtkWidget *options_dia
 
 static void configure (GnomeCmdPlugin *plugin)
 {
-    GtkWidget *dialog, *table, *cat, *label, *vbox, *entry;
+    GtkWidget *dialog, *grid, *cat, *label, *vbox, *entry;
     GtkWidget *combo;
 
     dialog = gnome_cmd_dialog_new (_("Options"));
@@ -614,20 +614,21 @@ static void configure (GnomeCmdPlugin *plugin)
     gnome_cmd_dialog_add_expanding_category (GNOME_CMD_DIALOG (dialog), vbox);
 
 
-    table = create_table (dialog, 5, 2);
-    cat = create_category (dialog, table, _("File-roller options"));
+    grid = create_grid (dialog);
+    cat = create_category (dialog, grid, _("File-roller options"));
     gtk_box_pack_start (GTK_BOX (vbox), cat, FALSE, TRUE, 0);
 
     label = create_label (dialog, _("Default archive type"));
-    table_add (table, label, 0, 1, (GtkAttachOptions) 0);
+    gtk_grid_attach (GTK_GRID (grid), label, 0, 0, 1, 1);
 
     combo = create_combo_box_text_with_entry (dialog);
     g_signal_connect (G_OBJECT(combo), "changed", G_CALLBACK (on_date_format_update), dialog);
-    table_add (table, combo, 1, 1, GTK_FILL);
+    gtk_widget_set_hexpand (combo, TRUE);
+    gtk_grid_attach (GTK_GRID (grid), combo, 1, 0, 1, 1);
 
     // The pattern defining the file name prefix of the archive to be created
     label = create_label (dialog, _("File prefix pattern"));
-    table_add (table, label, 0, 2, (GtkAttachOptions) (GTK_EXPAND|GTK_FILL));
+    gtk_grid_attach (GTK_GRID (grid), label, 0, 1, 1, 1);
 
     gchar *utf8_date_format = g_locale_to_utf8 (FILE_ROLLER_PLUGIN (plugin)->priv->file_prefix_pattern, -1, nullptr, nullptr, nullptr);
     entry = create_entry (dialog, "file_prefix_pattern_entry", utf8_date_format);
@@ -635,20 +636,22 @@ static void configure (GnomeCmdPlugin *plugin)
     gtk_widget_grab_focus (entry);
     g_signal_connect (entry, "realize", G_CALLBACK (on_date_format_update), dialog);
     g_signal_connect (entry, "changed", G_CALLBACK (on_date_format_update), dialog);
-    table_add (table, entry, 1, 2, GTK_FILL);
+    gtk_widget_set_hexpand (entry, TRUE);
+    gtk_grid_attach (GTK_GRID (grid), entry, 1, 1, 1, 1);
 
     label = create_label (dialog, _("Test result:"));
-    table_add (table, label, 0, 3, GTK_FILL);
+    gtk_grid_attach (GTK_GRID (grid), label, 0, 2, 1, 1);
 
     label = create_label (dialog, "");
     g_object_set_data (G_OBJECT (dialog), "date_format_test_label", label);
-    table_add (table, label, 1, 3, (GtkAttachOptions) (GTK_EXPAND|GTK_FILL));
+    gtk_widget_set_hexpand (label, TRUE);
+    gtk_grid_attach (GTK_GRID (grid), label, 1, 2, 1, 1);
 
     gchar* text = g_strdup_printf("<small>%s</small>",_("Use $N as a pattern for the original file name. See the manual page for “strftime” for other patterns."));
     label = create_label (dialog, text);
     gtk_label_set_line_wrap (GTK_LABEL (label), TRUE);
     gtk_label_set_markup (GTK_LABEL (label), text);
-    table_add (table, label, 1, 4, GTK_FILL);
+    gtk_grid_attach (GTK_GRID (grid), label, 1, 3, 1, 1);
     g_free(text);
 
     for (gint i=0; handled_extensions[i] != nullptr; i++)

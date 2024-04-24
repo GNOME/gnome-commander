@@ -32,13 +32,13 @@ struct ScrollBoxPrivate;
 
 struct ScrollBox
 {
-    GtkTable table;
+    GtkGrid parent;
     ScrollBoxPrivate *priv;
 };
 
 struct ScrollBoxClass
 {
-    GtkTableClass parent_class;
+    GtkGridClass parent_class;
 };
 
 GtkWidget     *scroll_box_new ();

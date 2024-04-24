@@ -544,7 +544,7 @@ GtkWidget *create_styled_pixbuf_button (const gchar *text, GdkPixbuf *pb)
     g_return_val_if_fail (text || pb, NULL);
 
     GtkWidget *btn = create_styled_button (NULL);
-    GtkWidget *hbox = gtk_hbox_new (FALSE, 1);
+    GtkWidget *hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 1);
     GtkWidget *label = NULL;
     GtkWidget *image = NULL;
 

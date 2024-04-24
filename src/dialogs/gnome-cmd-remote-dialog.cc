@@ -401,7 +401,7 @@ static void gnome_cmd_remote_dialog_class_init (GnomeCmdRemoteDialogClass *klass
 
 static void gnome_cmd_remote_dialog_init (GnomeCmdRemoteDialog *dialog)
 {
-    GtkWidget *cat_box, *table, *cat, *sw, *button, *bbox;
+    GtkWidget *cat_box, *grid, *cat, *sw, *button, *bbox;
 
     dialog->priv = g_new0 (GnomeCmdRemoteDialog::Private, 1);
 
@@ -439,8 +439,8 @@ static void gnome_cmd_remote_dialog_init (GnomeCmdRemoteDialog *dialog)
     gtk_widget_set_sensitive (button, !empty_view);
     gtk_container_add (GTK_CONTAINER (bbox), button);
 
-    table = create_table (*dialog, 1, 2);
-    cat = create_category (*dialog, table, _("Options"));
+    grid = create_grid (*dialog);
+    cat = create_category (*dialog, grid, _("Options"));
     gnome_cmd_dialog_add_category (*dialog, cat);
 
     gnome_cmd_dialog_add_button (*dialog, GTK_STOCK_HELP, G_CALLBACK (on_help_btn_clicked), dialog);

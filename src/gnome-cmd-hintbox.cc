@@ -27,11 +27,11 @@
 using namespace std;
 
 
-typedef GtkHBoxClass  GnomeCmdHintBoxClass;
+typedef GtkBoxClass  GnomeCmdHintBoxClass;
 
 struct GnomeCmdHintBox
 {
-  GtkHBox    parent_instance;
+  GtkBox    parent_instance;
 
   gchar     *stock_id;
   gchar     *hint;
@@ -60,7 +60,7 @@ static void     gnome_cmd_hint_box_get_property (GObject               *object,
                                                  GValue                *value,
                                                  GParamSpec            *pspec);
 
-G_DEFINE_TYPE (GnomeCmdHintBox, gnome_cmd_hint_box, GTK_TYPE_HBOX)
+G_DEFINE_TYPE (GnomeCmdHintBox, gnome_cmd_hint_box, GTK_TYPE_BOX)
 
 #define parent_class gnome_cmd_hint_box_parent_class
 
@@ -109,6 +109,7 @@ gnome_cmd_hint_box_constructor (GType                  type,
 
   box = GNOME_CMD_HINT_BOX (object);
 
+  g_object_set (box, "orientation", GTK_ORIENTATION_HORIZONTAL, NULL);
   gtk_box_set_spacing (GTK_BOX (box), 12);
 
   if (box->stock_id)

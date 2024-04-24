@@ -35,9 +35,9 @@ GType gnome_cmd_selection_profile_component_get_type ();
 
 struct GnomeCmdSelectionProfileComponent
 {
-    GtkVBox parent;
+    GtkBox parent;
 
-    class Private;
+    struct Private;
 
     Private *priv;
 

@@ -40,13 +40,13 @@ struct GViewerPrivate;
 
 struct GViewer
 {
-    GtkTable table;
+    GtkGrid parent;
     GViewerPrivate *priv;
 };
 
 struct GViewerClass
 {
-    GtkTableClass parent_class;
+    GtkGridClass parent_class;
     void (*status_line_changed)  (GViewer *obj, const gchar *statusline);
 };
 

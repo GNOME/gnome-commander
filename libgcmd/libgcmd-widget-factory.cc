@@ -82,23 +82,24 @@ GtkWidget *create_space_frame (GtkWidget *parent, gint space)
 }
 
 
-GtkWidget *create_table (GtkWidget *parent, gint rows, gint cols)
+GtkWidget *create_grid (GtkWidget *parent)
 {
-    GtkWidget *table = gtk_table_new (rows, cols, FALSE);
-    g_object_ref (table);
-    g_object_set_data_full (G_OBJECT (parent), "table", table, g_object_unref);
-    gtk_widget_show (table);
-    gtk_table_set_row_spacings (GTK_TABLE (table), 6);
-    gtk_table_set_col_spacings (GTK_TABLE (table), 12);
+    GtkWidget *grid = gtk_grid_new ();
+    g_object_ref (grid);
+    g_object_set_data_full (G_OBJECT (parent), "grid", grid, g_object_unref);
+    gtk_widget_show (grid);
+    gtk_grid_set_row_spacing (GTK_GRID (grid), 6);
+    gtk_grid_set_column_spacing (GTK_GRID (grid), 12);
 
-    return table;
+    return grid;
 }
 
 
 GtkWidget *create_vbox (GtkWidget *parent, gboolean h, gint s)
 {
-    GtkWidget *vbox = gtk_vbox_new (h, s);
+    GtkWidget *vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, s);
     g_object_ref (vbox);
+    gtk_box_set_homogeneous (GTK_BOX (vbox), h);
     g_object_set_data_full (G_OBJECT (parent), "vbox", vbox, g_object_unref);
     gtk_widget_show (vbox);
 
@@ -108,8 +109,9 @@ GtkWidget *create_vbox (GtkWidget *parent, gboolean h, gint s)
 
 GtkWidget *create_hbox (GtkWidget *parent, gboolean h, gint s)
 {
-    GtkWidget *hbox = gtk_hbox_new (h, s);
+    GtkWidget *hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, s);
     g_object_ref (hbox);
+    gtk_box_set_homogeneous (GTK_BOX (hbox), h);
     g_object_set_data_full (G_OBJECT (parent), "hbox", hbox, g_object_unref);
     gtk_widget_show (hbox);
 
@@ -161,7 +163,7 @@ GtkWidget *create_bold_label (GtkWidget *parent, const gchar *text)
 
 GtkWidget *create_hsep (GtkWidget *parent)
 {
-    GtkWidget *sep = gtk_hseparator_new ();
+    GtkWidget *sep = gtk_separator_new (GTK_ORIENTATION_HORIZONTAL);
     g_object_ref (sep);
     g_object_set_data_full (G_OBJECT (parent), "sep", sep, g_object_unref);
     gtk_widget_show (sep);
@@ -422,7 +424,7 @@ GtkWidget *create_scale (GtkWidget *parent, const gchar *name, gint value, gint 
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wcast-align"
 #endif
-    GtkWidget *scale = gtk_hscale_new (GTK_ADJUSTMENT (gtk_adjustment_new (value, min, max, 0, 0, 0)));
+    GtkWidget *scale = gtk_scale_new (GTK_ORIENTATION_HORIZONTAL, GTK_ADJUSTMENT (gtk_adjustment_new (value, min, max, 0, 0, 0)));
 #if defined (__GNUC__)
 #pragma GCC diagnostic pop
 #endif
@@ -550,7 +552,7 @@ void create_treeview_column (GtkWidget *sw, gint col, gint width, const gchar *l
 
 GtkWidget *create_vbuttonbox (GtkWidget *parent)
 {
-    GtkWidget *w = gtk_vbutton_box_new ();
+    GtkWidget *w = gtk_button_box_new (GTK_ORIENTATION_VERTICAL);
     g_object_ref (w);
     g_object_set_data_full (G_OBJECT (parent), "vbuttonbox", w, g_object_unref);
     gtk_widget_show (w);
@@ -562,7 +564,7 @@ GtkWidget *create_vbuttonbox (GtkWidget *parent)
 
 GtkWidget *create_hbuttonbox (GtkWidget *parent)
 {
-    GtkWidget *w = gtk_hbutton_box_new ();
+    GtkWidget *w = gtk_button_box_new (GTK_ORIENTATION_HORIZONTAL);
     g_object_ref (w);
     g_object_set_data_full (G_OBJECT (parent), "hbuttonbox", w, g_object_unref);
     gtk_widget_show (w);

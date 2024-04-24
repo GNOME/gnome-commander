@@ -36,7 +36,7 @@ struct GnomeCmdChownComponentPrivate;
 
 struct GnomeCmdChownComponent
 {
-    GtkTable parent;
+    GtkGrid parent;
 
     GnomeCmdChownComponentPrivate *priv;
 };
@@ -44,7 +44,7 @@ struct GnomeCmdChownComponent
 
 struct GnomeCmdChownComponentClass
 {
-    GtkTableClass parent_class;
+    GtkGridClass parent_class;
 };
 
 

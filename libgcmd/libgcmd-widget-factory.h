@@ -29,7 +29,7 @@ GtkWidget *create_tabframe (GtkWidget *parent);
 
 GtkWidget *create_space_frame (GtkWidget *parent, gint space);
 
-GtkWidget *create_table (GtkWidget *parent, gint rows, gint cols);
+GtkWidget *create_grid (GtkWidget *parent);
 
 GtkWidget *create_vbox (GtkWidget *parent, gboolean h, gint s);
 
@@ -133,24 +133,6 @@ inline const gchar *get_combo_box_entry_text (GtkWidget *combo)
 inline GSList *get_radio_group (GtkWidget *radio)
 {
     return gtk_radio_button_get_group (GTK_RADIO_BUTTON (radio));
-}
-
-/**
- * Wrapper function for <a href="https://developer.gnome.org/gtk3/stable/GtkTable.html#gtk-table-attach">gtk_table_attach</a> to easily add a widget to a GtkTable table.
- * \param *table A table widget.
- * \param *w The widget which should be added to the table.
- * \param x The column number to attach the left side of a child widget to.
- * \param y The row number to attach the top of a child widget to.
- * \param x_opts Used to specify the properties of the child widget when the table is resized.
- */
-inline void table_add (GtkWidget *table, GtkWidget *w, gint x, gint y, GtkAttachOptions x_opts)
-{
-    gtk_table_attach (GTK_TABLE (table), w, x, x+1, y, y+1, x_opts, (GtkAttachOptions)0, 0, 0);
-}
-
-inline void table_add_y (GtkWidget *table, GtkWidget *w, gint x, gint y, GtkAttachOptions x_opts, GtkAttachOptions y_opts)
-{
-    gtk_table_attach (GTK_TABLE (table), w, x, x+1, y, y+1, x_opts, y_opts, 0, 0);
 }
 
 GtkWidget *create_progress_bar (GtkWidget *parent);

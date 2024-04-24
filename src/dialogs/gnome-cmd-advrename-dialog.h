@@ -39,7 +39,7 @@ struct GnomeCmdAdvrenameDialog
 {
     GtkDialog parent;
 
-    class Private;
+    struct Private;
 
     Private *priv;
 

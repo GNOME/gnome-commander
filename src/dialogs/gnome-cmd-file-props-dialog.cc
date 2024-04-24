@@ -268,13 +268,13 @@ static void on_notebook_page_change (GtkNotebook *notebook, gpointer page, guint
 }
 
 
-inline void add_sep (GtkWidget *table, gint y)
+inline void add_sep (GtkWidget *grid, gint y)
 {
-    gtk_table_attach (GTK_TABLE (table), create_hsep (table), 0, 2, y, y+1, GTK_FILL, GTK_FILL, 0, 0);
+    gtk_grid_attach (GTK_GRID (grid), create_hsep (grid), 0, y, 2, 1);
 }
 
 
-static void add_tag (GtkWidget *dialog, GtkWidget *table, gint &y, GnomeCmdFileMetadata &metadata, GnomeCmdTag tag, const gchar *appended_text=nullptr)
+static void add_tag (GtkWidget *dialog, GtkWidget *grid, gint &y, GnomeCmdFileMetadata &metadata, GnomeCmdTag tag, const gchar *appended_text=nullptr)
 {
     if (!metadata.has_tag (tag))
         return;
@@ -285,7 +285,7 @@ static void add_tag (GtkWidget *dialog, GtkWidget *table, gint &y, GnomeCmdFileM
     title += ':';
 
     label = create_bold_label (dialog, title.c_str());
-    table_add (table, label, 0, y, GTK_FILL);
+    gtk_grid_attach (GTK_GRID (grid), label, 0, y, 1, 1);
 
     string value = truncate (metadata[tag],120);
 
@@ -293,11 +293,11 @@ static void add_tag (GtkWidget *dialog, GtkWidget *table, gint &y, GnomeCmdFileM
         value += appended_text;
 
     label = create_label (dialog, value.c_str());
-    table_add (table, label, 1, y++, GTK_FILL);
+    gtk_grid_attach (GTK_GRID (grid), label, 1, y++, 1, 1);
 }
 
 
-inline void add_width_height_tag (GtkWidget *dialog, GtkWidget *table, gint &y, GnomeCmdFileMetadata &metadata)
+inline void add_width_height_tag (GtkWidget *dialog, GtkWidget *grid, gint &y, GnomeCmdFileMetadata &metadata)
 {
     if (!metadata.has_tag (TAG_IMAGE_WIDTH) || !metadata.has_tag (TAG_IMAGE_HEIGHT))
         return;
@@ -305,14 +305,14 @@ inline void add_width_height_tag (GtkWidget *dialog, GtkWidget *table, gint &y, 
     GtkWidget *label;
 
     label = create_bold_label (dialog, _("Image:"));
-    table_add (table, label, 0, y, GTK_FILL);
+    gtk_grid_attach (GTK_GRID (grid), label, 0, y, 1, 1);
 
     string value = metadata[TAG_IMAGE_WIDTH];
     value += " x ";
     value += metadata[TAG_IMAGE_HEIGHT];
 
     label = create_label (dialog, value.c_str());
-    table_add (table, label, 1, y++, GTK_FILL);
+    gtk_grid_attach (GTK_GRID (grid), label, 1, y++, 1, 1);
 }
 
 
@@ -320,31 +320,32 @@ static GtkWidget *create_properties_tab (GnomeCmdFilePropsDialogPrivate *data)
 {
     gint y = 0;
     GtkWidget *dialog = data->dialog;
-    GtkWidget *table;
+    GtkWidget *grid;
     GtkWidget *label;
 
     GtkWidget *space_frame = create_space_frame (dialog, 6);
 
-    table = create_table (dialog, 6, 3);
-    gtk_container_add (GTK_CONTAINER (space_frame), table);
+    grid = create_grid (dialog);
+    gtk_container_add (GTK_CONTAINER (space_frame), grid);
 
     label = create_bold_label (dialog, GNOME_CMD_IS_DIR (data->f) ? _("Directory name:") : _("File name:"));
-    table_add (table, label, 0, y, GTK_FILL);
+    gtk_grid_attach (GTK_GRID (grid), label, 0, y, 1, 1);
 
     data->filename_entry = create_entry (dialog, "filename_entry", g_file_info_get_edit_name (data->f->get_file_info()));
-    table_add (table, data->filename_entry, 1, y++, (GtkAttachOptions) (GTK_FILL|GTK_EXPAND));
+    gtk_widget_set_hexpand (data->filename_entry, TRUE);
+    gtk_grid_attach (GTK_GRID (grid), data->filename_entry, 1, y++, 1, 1);
     gtk_editable_set_position (GTK_EDITABLE (data->filename_entry), 0);
 
     if (g_file_info_get_is_symlink(data->f->get_file_info()))
     {
         label = create_bold_label (dialog, _("Symlink target:"));
-        table_add (table, label, 0, y, GTK_FILL);
+        gtk_grid_attach (GTK_GRID (grid), label, 0, y, 1, 1);
 
         label = create_label (dialog, g_file_info_get_symlink_target (data->f->get_file_info()));
-        table_add (table, label, 1, y++, GTK_FILL);
+        gtk_grid_attach (GTK_GRID (grid), label, 1, y++, 1, 1);
     }
 
-    add_sep (table, y++);
+    add_sep (grid, y++);
 
     if (data->f->is_local())
     {
@@ -353,15 +354,15 @@ static GtkWidget *create_properties_tab (GnomeCmdFilePropsDialogPrivate *data)
         gchar *location = data->f->get_dirname();
 
         label = create_bold_label (dialog, _("Location:"));
-        table_add (table, label, 0, y, GTK_FILL);
+        gtk_grid_attach (GTK_GRID (grid), label, 0, y, 1, 1);
 
         label = create_label (dialog, location);
-        table_add (table, label, 1, y++, GTK_FILL);
+        gtk_grid_attach (GTK_GRID (grid), label, 1, y++, 1, 1);
 
         g_free (location);
 
         label = create_bold_label (dialog, _("Volume:"));
-        table_add (table, label, 0, y, GTK_FILL);
+        gtk_grid_attach (GTK_GRID (grid), label, 0, y, 1, 1);
 
         if (GNOME_CMD_IS_CON_DEVICE (con))
         {
@@ -383,29 +384,29 @@ static GtkWidget *create_properties_tab (GnomeCmdFilePropsDialogPrivate *data)
         else
             label = create_label (dialog, gnome_cmd_con_get_alias (con));
 
-        table_add (table, label, 1, y++, GTK_FILL);
+        gtk_grid_attach (GTK_GRID (grid), label, 1, y++, 1, 1);
 
         if (dir && gnome_cmd_con_can_show_free_space (con))
             if (gchar *free_space = gnome_cmd_dir_get_free_space (dir))
             {
                 label = create_bold_label (dialog, _("Free space:"));
-                table_add (table, label, 0, y, GTK_FILL);
+                gtk_grid_attach (GTK_GRID (grid), label, 0, y, 1, 1);
 
                 label = create_label (dialog, free_space);
-                table_add (table, label, 1, y++, GTK_FILL);
+                gtk_grid_attach (GTK_GRID (grid), label, 1, y++, 1, 1);
 
                 g_free (free_space);
             }
 
-        add_sep (table, y++);
+        add_sep (grid, y++);
     }
 
     label = create_bold_label (dialog, _("Content Type:"));
-    table_add (table, label, 0, y, GTK_FILL);
+    gtk_grid_attach (GTK_GRID (grid), label, 0, y, 1, 1);
 
     auto contentTypeString = data->f->GetGfileAttributeString(G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE);
     label = create_label (dialog, contentTypeString);
-    table_add (table, label, 1, y++, GTK_FILL);
+    gtk_grid_attach (GTK_GRID (grid), label, 1, y++, 1, 1);
     g_free(contentTypeString);
 
     if (data->f->GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE) != G_FILE_TYPE_DIRECTORY)
@@ -413,7 +414,7 @@ static GtkWidget *create_properties_tab (GnomeCmdFilePropsDialogPrivate *data)
         GtkWidget *hbox;
 
         label = create_bold_label (dialog, _("Opens with:"));
-        table_add (table, label, 0, y, GTK_FILL);
+        gtk_grid_attach (GTK_GRID (grid), label, 0, y, 1, 1);
 
         auto default_application_string = data->f->GetDefaultApplicationNameString();
 
@@ -429,34 +430,34 @@ static GtkWidget *create_properties_tab (GnomeCmdFilePropsDialogPrivate *data)
         gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
         label = create_label (dialog, " ");
         gtk_box_pack_start (GTK_BOX (hbox), label, TRUE, TRUE, 0);
-        table_add (table, hbox, 1, y++, GTK_FILL);
+        gtk_grid_attach (GTK_GRID (grid), hbox, 1, y++, 1, 1);
     }
 
-    add_sep (table, y++);
+    add_sep (grid, y++);
 
     label = create_bold_label (dialog, _("Modified:"));
-    table_add (table, label, 0, y, GTK_FILL);
+    gtk_grid_attach (GTK_GRID (grid), label, 0, y, 1, 1);
 
     label = create_label (dialog, data->f->get_mdate(TRUE));
-    table_add (table, label, 1, y++, GTK_FILL);
+    gtk_grid_attach (GTK_GRID (grid), label, 1, y++, 1, 1);
 
 #ifdef GLIB_2_70
     label = create_bold_label (dialog, _("Accessed:"));
-    table_add (table, label, 0, y, GTK_FILL);
+    gtk_grid_attach (GTK_GRID (grid), label, 0, y, 1, 1);
 
     label = create_label (dialog, data->f->get_adate(TRUE));
-    table_add (table, label, 1, y++, GTK_FILL);
+    gtk_grid_attach (GTK_GRID (grid), label, 1, y++, 1, 1);
 #endif
 
-    add_sep (table, y++);
+    add_sep (grid, y++);
 
 
     label = create_bold_label (dialog, _("Size:"));
-    table_add (table, label, 0, y, GTK_FILL);
+    gtk_grid_attach (GTK_GRID (grid), label, 0, y, 1, 1);
 
     gchar *s = create_nice_size_str (g_file_info_get_size (data->f->get_file_info()));
     label = create_label (dialog, s);
-    table_add (table, label, 1, y++, GTK_FILL);
+    gtk_grid_attach (GTK_GRID (grid), label, 1, y++, 1, 1);
     g_free (s);
     if (data->f->GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE) == G_FILE_TYPE_DIRECTORY)
         do_calc_tree_size (data);
@@ -468,15 +469,15 @@ static GtkWidget *create_properties_tab (GnomeCmdFilePropsDialogPrivate *data)
 
     if (data->f->metadata)
     {
-        add_tag (dialog, table, y, *data->f->metadata, TAG_FILE_DESCRIPTION);
-        add_tag (dialog, table, y, *data->f->metadata, TAG_FILE_PUBLISHER);
-        add_tag (dialog, table, y, *data->f->metadata, TAG_DOC_TITLE);
-        add_tag (dialog, table, y, *data->f->metadata, TAG_DOC_PAGECOUNT);
-        add_width_height_tag (dialog, table, y, *data->f->metadata);
-        add_tag (dialog, table, y, *data->f->metadata, TAG_AUDIO_ALBUMARTIST);
-        add_tag (dialog, table, y, *data->f->metadata, TAG_AUDIO_TITLE);
-        add_tag (dialog, table, y, *data->f->metadata, TAG_AUDIO_BITRATE, " kbps");
-        add_tag (dialog, table, y, *data->f->metadata, TAG_AUDIO_DURATIONMMSS);
+        add_tag (dialog, grid, y, *data->f->metadata, TAG_FILE_DESCRIPTION);
+        add_tag (dialog, grid, y, *data->f->metadata, TAG_FILE_PUBLISHER);
+        add_tag (dialog, grid, y, *data->f->metadata, TAG_DOC_TITLE);
+        add_tag (dialog, grid, y, *data->f->metadata, TAG_DOC_PAGECOUNT);
+        add_width_height_tag (dialog, grid, y, *data->f->metadata);
+        add_tag (dialog, grid, y, *data->f->metadata, TAG_AUDIO_ALBUMARTIST);
+        add_tag (dialog, grid, y, *data->f->metadata, TAG_AUDIO_TITLE);
+        add_tag (dialog, grid, y, *data->f->metadata, TAG_AUDIO_BITRATE, " kbps");
+        add_tag (dialog, grid, y, *data->f->metadata, TAG_AUDIO_DURATIONMMSS);
     }
 
     return space_frame;
@@ -499,7 +500,7 @@ inline GtkWidget *create_permissions_tab (GnomeCmdFilePropsDialogPrivate *data)
         get_gfile_attribute_uint32(data->f->get_file(), G_FILE_ATTRIBUTE_UNIX_GID));
 
     GtkWidget *cat = create_category (data->dialog, data->chown_component, _("Owner and group"));
-    gtk_box_pack_start (GTK_BOX (vbox), cat, TRUE, TRUE, 0);
+    gtk_box_pack_start (GTK_BOX (vbox), cat, FALSE, TRUE, 0);
 
 
     data->chmod_component = gnome_cmd_chmod_component_new (0);
@@ -510,7 +511,7 @@ inline GtkWidget *create_permissions_tab (GnomeCmdFilePropsDialogPrivate *data)
         get_gfile_attribute_uint32(data->f->get_file(), G_FILE_ATTRIBUTE_UNIX_MODE) & 0xFFF);
 
     cat = create_category (data->dialog, data->chmod_component, _("Access permissions"));
-    gtk_box_pack_start (GTK_BOX (vbox), cat, TRUE, TRUE, 0);
+    gtk_box_pack_start (GTK_BOX (vbox), cat, FALSE, TRUE, 0);
 
     return space_frame;
 }
