@@ -1,8 +1,6 @@
 /**
- * @file main.cc
- * @copyright (C) 2001-2006 Marcus Bjurman\n
- * @copyright (C) 2007-2012 Piotr Eljasiak\n
- * @copyright (C) 2013-2023 Uwe Scholz\n
+ * @file gnome-cmd-application.h
+ * @copyright (C) 2024 Andrey Kutejko\n
  *
  * @copyright This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,26 +17,11 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-#include <config.h>
-#include <glib/gi18n.h>
-#include <locale.h>
+#pragma once
 
-#include "gnome-cmd-includes.h"
-#include "gnome-cmd-application.h"
-#include "gnome-cmd-data.h"
+#include <gtk/gtk.h>
 
-using namespace std;
+#define GNOME_CMD_TYPE_APPLICATION (gnome_cmd_application_get_type ())
+G_DECLARE_FINAL_TYPE (GnomeCmdApplication, gnome_cmd_application, GNOME_CMD_APPLICATION, WINDOW, GtkApplication)
 
-int main (int argc, char *argv[])
-{
-    setlocale (LC_ALL, "");
-    bindtextdomain (PACKAGE, DATADIR "/locale");
-    bind_textdomain_codeset (PACKAGE, "UTF-8");
-    textdomain (PACKAGE);
-
-    GnomeCmdApplication *app = gnome_cmd_application_new ();
-    gint status = g_application_run (G_APPLICATION (app), argc, argv);
-    g_object_unref (app);
-
-    return status;
-}
+GnomeCmdApplication *gnome_cmd_application_new ();

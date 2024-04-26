@@ -1798,6 +1798,9 @@ void GnomeCmdData::save_devices()
  */
 static void save_tabs(GSettings *gSettings, const char *gSettingsKey)
 {
+    if (main_win == nullptr)
+        return;
+
     GVariant* fileListTabs;
     GVariantBuilder gVariantBuilder;
     g_variant_builder_init (&gVariantBuilder, G_VARIANT_TYPE_ARRAY);
@@ -2562,8 +2565,11 @@ void GnomeCmdData::save_cmdline_history()
 {
     if (options.save_cmdline_history_on_exit)
     {
-        cmdline_history = gnome_cmd_cmdline_get_history (main_win->get_cmdline());
-        set_gsettings_string_array_from_glist(options.gcmd_settings->general, GCMD_SETTINGS_CMDLINE_HISTORY, cmdline_history);
+        if (main_win != nullptr)
+        {
+            cmdline_history = gnome_cmd_cmdline_get_history (main_win->get_cmdline());
+            set_gsettings_string_array_from_glist(options.gcmd_settings->general, GCMD_SETTINGS_CMDLINE_HISTORY, cmdline_history);
+        }
     }
     else
     {

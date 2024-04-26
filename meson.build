@@ -102,8 +102,6 @@ if glib_2_70.found()
 endif
 
 ##### Optional dependencies #####
-UNIQUE_REQ = '0.9.3'
-conf_data.set('UNIQUE_REQ', UNIQUE_REQ, description: 'Required version of poppler library')
 EXIV2_REQ = '0.14'
 conf_data.set('EXIV2_REQ', EXIV2_REQ, description: 'Required version of exiv2 library')
 TAGLIB_REQ = '1.4'
@@ -157,13 +155,6 @@ if have_samba
   conf_data.set('HAVE_SAMBA', '@0@'.format(have_samba.to_int()), description : 'Defined if you have smbclient')
 endif
 
-# Check for libunique
-unique = dependency('unique-1.0', version: '>=' + UNIQUE_REQ, required: get_option('unique'))
-have_unique = unique.found()
-if have_unique
-  conf_data.set('HAVE_UNIQUE', '@0@'.format(have_unique.to_int()), description : 'Defined if you have unique support')
-endif
-
 # Check for gettext
 intl_dep = dependency('intl', required: false)
 if intl_dep.found()
@@ -214,7 +205,6 @@ summary(
     'Use poppler': have_pdf,
     'Use samba': have_samba,
     'Use taglib': have_taglib,
-    'Use unique': have_unique,
     'Tests': gtest.found(),
   },
   section: 'User defined options'
