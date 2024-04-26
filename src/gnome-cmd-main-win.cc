@@ -724,7 +724,7 @@ inline void restore_size_and_pos (GnomeCmdMainWin *mw)
 {
     gint x, y;
 
-    gtk_widget_set_size_request (*mw,
+    gtk_window_set_default_size (*mw,
                                  gnome_cmd_data.main_win_width,
                                  gnome_cmd_data.main_win_height);
 
