@@ -2294,6 +2294,9 @@ void GnomeCmdFileList::show_column(ColumnID col, gboolean value)
 
 void GnomeCmdFileList::resize_column(ColumnID col, gint width)
 {
+    if (priv == nullptr)
+        return;
+
     gint current_width = gtk_tree_view_column_get_width (priv->columns[col]);
     if (current_width == width)
         return;
