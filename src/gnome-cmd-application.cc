@@ -197,7 +197,7 @@ GnomeCmdApplication *gnome_cmd_application_new()
         flags = G_APPLICATION_NON_UNIQUE;
 
     auto app = static_cast<GnomeCmdApplication *> (g_object_new (GNOME_CMD_TYPE_APPLICATION,
-        "application-id", "org.gnome.GnomeCommander",
+        "application-id", "org.gnome.gnome-commander",
         "flags", flags,
         NULL));
 
