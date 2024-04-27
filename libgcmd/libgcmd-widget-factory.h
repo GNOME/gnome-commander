@@ -169,3 +169,74 @@ inline gboolean gtk_tree_model_iter_previous (GtkTreeModel *tree_model, GtkTreeI
     return result;
 }
 #endif
+
+
+class MenuBuilder
+{
+public:
+    MenuBuilder(const gchar *prefix, GActionGroup *action_group)
+        : prefix(prefix),
+          action_group(action_group),
+          menu(g_menu_new()),
+          accel_group(gtk_accel_group_new()),
+          parent(nullptr),
+          label(nullptr)
+    {
+    }
+
+    MenuBuilder item(const gchar *label,
+                     const gchar *detailed_action,
+                     const gchar *accelerator = nullptr,
+                     const gchar *icon = nullptr) &&;
+
+    MenuBuilder submenu(const gchar *label) &&
+    {
+        return MenuBuilder(this, label);
+    }
+
+    MenuBuilder endsubmenu() &&
+    {
+        g_menu_append_submenu (parent->menu, label, G_MENU_MODEL (menu));
+        return *parent;
+    }
+
+    MenuBuilder section() &&
+    {
+        return MenuBuilder(this, nullptr);
+    }
+
+    MenuBuilder endsection() &&
+    {
+        g_menu_append_section (parent->menu, nullptr, G_MENU_MODEL (menu));
+        return *parent;
+    }
+
+    struct Result
+    {
+        GMenu *menu;
+        GtkAccelGroup *accel_group;
+    };
+
+    Result build() &&
+    {
+        return Result { menu, accel_group };
+    }
+private:
+    const gchar *prefix;
+    GActionGroup *action_group;
+    GMenu *menu;
+    GtkAccelGroup *accel_group;
+    MenuBuilder *parent = nullptr;
+    const gchar *label = nullptr;
+
+    MenuBuilder(MenuBuilder *parent, const gchar *label = nullptr)
+        : prefix(parent->prefix),
+          action_group(parent->action_group),
+          menu(g_menu_new()),
+          accel_group(parent->accel_group),
+          parent(parent),
+          label(label)
+    {
+    }
+};
+

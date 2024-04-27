@@ -85,6 +85,7 @@ static gboolean on_text_viewer_button_pressed (GtkWidget *treeview, GdkEventButt
 
 static VIEWERDISPLAYMODE guess_display_mode(const char *filename, int len);
 static void gviewer_auto_detect_display_mode(GViewer *obj);
+static void gviewer_copy_selection_handler(GtkMenuItem *item, GViewer *obj);
 
 G_DEFINE_TYPE (GViewer, gviewer, GTK_TYPE_GRID)
 
@@ -228,7 +229,7 @@ static gboolean on_text_viewer_button_pressed (GtkWidget *treeview, GdkEventButt
 
         menuitem = gtk_image_menu_item_new_with_mnemonic (_("_Copy selection"));
         gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (menuitem), gtk_image_new_from_stock (GTK_STOCK_COPY, GTK_ICON_SIZE_MENU));
-        g_signal_connect (menuitem, "activate", G_CALLBACK (gviewer_copy_selection), viewer);
+        g_signal_connect (menuitem, "activate", G_CALLBACK (gviewer_copy_selection_handler), viewer);
         gtk_menu_shell_append (GTK_MENU_SHELL (menu), menuitem);
 
         gtk_widget_show_all (menu);
@@ -578,11 +579,17 @@ void gviewer_image_operation(GViewer *obj, ImageRender::DISPLAYMODE op)
 }
 
 
-void gviewer_copy_selection(GtkMenuItem *item, GViewer *obj)
+void gviewer_copy_selection(GViewer *obj)
 {
     g_return_if_fail (IS_GVIEWER (obj));
     g_return_if_fail (obj->priv->textr);
 
     if (obj->priv->dispmode!=DISP_MODE_IMAGE)
         text_render_copy_selection(obj->priv->textr);
+}
+
+
+static void gviewer_copy_selection_handler(GtkMenuItem *item, GViewer *obj)
+{
+    gviewer_copy_selection(obj);
 }

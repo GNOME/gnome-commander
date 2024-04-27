@@ -648,3 +648,90 @@ void create_error_dialog (const gchar *msg, ...)
 
     gtk_widget_show (dialog);
 }
+
+
+struct ActionAcceleratorClosure
+{
+    GActionGroup *action_group;
+    const gchar *prefix;
+    const gchar *action_name;
+    GVariant *parameter;
+};
+
+
+static gboolean action_accelerator_closure_handle(GtkAccelGroup *accel_group,
+                                                  GObject *acceleratable,
+                                                  guint keyval,
+                                                  GdkModifierType modifier,
+                                                  gpointer user_data)
+{
+    ActionAcceleratorClosure *obj = static_cast<ActionAcceleratorClosure*> (user_data);
+    GVariant *parameter = obj->parameter ? g_variant_ref (obj->parameter) : nullptr;
+    g_action_group_activate_action (obj->action_group, obj->action_name, parameter);
+    return TRUE;
+}
+
+
+static void action_accelerator_closure_free(gpointer user_data, GClosure *closure)
+{
+    ActionAcceleratorClosure *obj = static_cast<ActionAcceleratorClosure*> (user_data);
+    if (obj)
+    {
+        g_clear_object (&obj->action_group);
+        g_clear_pointer (&obj->parameter, g_variant_unref);
+    }
+}
+
+
+static GClosure *action_accelerator_closure_new (GActionGroup *action_group,
+                                                 const gchar *detailed_action,
+                                                 const gchar *prefix)
+{
+    gchar *action_name;
+    GVariant *parameter;
+    GError *error;
+    if (!g_action_parse_detailed_name (detailed_action, &action_name, &parameter, &error))
+    {
+        g_message("g_action_parse_detailed_name error: %s\n", error->message);
+        g_error_free (error);
+        return nullptr;
+    }
+
+    ActionAcceleratorClosure* obj = new ActionAcceleratorClosure {
+        action_group = g_object_ref (action_group),
+        prefix,
+        action_name,
+        parameter,
+    };
+    return g_cclosure_new (G_CALLBACK(action_accelerator_closure_handle), obj, action_accelerator_closure_free);
+}
+
+
+MenuBuilder MenuBuilder::item(const gchar *label,
+                              const gchar *detailed_action,
+                              const gchar *accelerator,
+                              const gchar *icon) &&
+{
+    gchar *action = g_strdup_printf ("%s.%s", prefix, detailed_action);
+    GMenuItem *item = g_menu_item_new (label, action);
+    if (accelerator)
+    {
+        g_menu_item_set_attribute_value(item, "accel", g_variant_new_string (accelerator));
+
+        guint accelerator_key;
+        GdkModifierType accelerator_mods;
+        gtk_accelerator_parse (accelerator, &accelerator_key, &accelerator_mods);
+        gtk_accel_group_connect (accel_group,
+                                 accelerator_key,
+                                 accelerator_mods,
+                                 GTK_ACCEL_VISIBLE,
+                                 action_accelerator_closure_new (action_group, detailed_action, prefix));
+    }
+    if (icon)
+        g_menu_item_set_icon (item, g_themed_icon_new (icon));
+    g_menu_append_item (menu, item);
+    g_object_unref (item);
+    g_free (action);
+    return *this;
+}
+

@@ -82,6 +82,8 @@ static void gnome_cmd_application_startup(GApplication *application)
     // disable beeping for the application
     gtk_rc_parse_string("gtk-error-bell=0");
 
+    gtk_icon_theme_append_search_path (gtk_icon_theme_get_default (), ICONS_DIR);
+
     gchar *conf_dir = get_package_config_dir();
     if (!is_dir_existing(conf_dir))
     {

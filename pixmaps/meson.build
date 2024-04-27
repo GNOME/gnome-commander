@@ -5,8 +5,6 @@ subdir('mime-icons')
 pixmaps = [
   'copy_file_names.xpm',
   'exec_wheel.xpm',
-  'flip-horizontal-16.xpm',
-  'flip-vertical-16.xpm',
   'gnome_cmd_arrow_blank.xpm',
   'gnome_cmd_arrow_down.xpm',
   'gnome_cmd_arrow_up.xpm',
@@ -17,9 +15,6 @@ pixmaps = [
   'overlay_symlink.xpm',
   'overlay_umount.xpm',
   'pin.png',
-  'rotate-180-16.xpm',
-  'rotate-270-16.xpm',
-  'rotate-90-16.xpm',
   'terminal.svg',
   'unpin.png'
 ]
@@ -27,6 +22,17 @@ pixmaps = [
 install_data(pixmaps,
   install_dir: pixmaps_dir
 )
+
+icons_16x16 = [
+  'gnome-commander-rotate-180.xpm',
+  'gnome-commander-rotate-270.xpm',
+  'gnome-commander-rotate-90.xpm',
+  'gnome-commander-flip-horizontal.xpm',
+  'gnome-commander-flip-vertical.xpm',
+]
+
+install_data(icons_16x16,
+  install_dir: icons_dir)
 
 desktop_icons = [
   'gnome-commander.svg',
