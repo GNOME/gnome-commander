@@ -200,7 +200,7 @@ inline void GnomeCmdFileSelector::update_files()
     g_return_if_fail (GNOME_CMD_IS_DIR (dir));
 
     list->show_files(dir);
-    if (priv->realized)
+    if (gtk_widget_get_realized (*list))
         gtk_tree_view_scroll_to_point (*list, 0, 0);
 
     if (priv->realized)

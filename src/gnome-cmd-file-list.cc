@@ -282,7 +282,10 @@ GnomeCmdFileList::Private::Private(GnomeCmdFileList *fl)
 
             gtk_tree_view_column_set_cell_data_func (columns[i], renderer, cell_data, reinterpret_cast<gpointer>(i), nullptr);
         }
+    }
 
+    for (gsize i=0; i<NUM_COLUMNS; i++)
+    {
         g_signal_connect (columns[i], "clicked", G_CALLBACK (on_column_clicked), fl);
         g_signal_connect (columns[i], "notify::width", G_CALLBACK (on_column_resized), fl);
     }
