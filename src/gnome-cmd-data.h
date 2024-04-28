@@ -53,7 +53,6 @@ GcmdSettings *gcmd_settings_new (void);
  * be sure to change them also in gnome-cmd-data.c!
  */
 #define GCMD_PREF_GENERAL                             "org.gnome.gnome-commander.preferences.general"
-#define GCMD_SETTINGS_USE_DEFAULT_FONT                "use-default-font"
 #define GCMD_SETTINGS_PANEL_FONT                      "panel-font"
 #define GCMD_SETTINGS_SYSTEM_FONT                     "monospace-font-name"
 #define GCMD_SETTINGS_SIZE_DISP_MODE                  "size-display-mode"

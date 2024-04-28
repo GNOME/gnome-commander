@@ -61,14 +61,6 @@
           This string array represents the history of visited directories.
       </description>
     </key>
-    <key name="use-default-font" type="b">
-      <default>true</default>
-      <summary>Use default font</summary>
-      <description>
-          Whether to use the system’s default fixed width font for the file
-          panels instead of a font specific to gnome-commander.
-      </description>
-    </key>
     <key name="panel-font" type="s">
       <default>'DejaVu Sans Mono 8'</default>
       <summary>Panel font</summary>
