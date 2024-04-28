@@ -1089,6 +1089,24 @@ gboolean GnomeCmdMainWin::key_pressed(GdkEventKey *event)
                     gnome_cmd_cmdline_show_history (GNOME_CMD_CMDLINE (priv->cmdline));
                 return TRUE;
 
+            case GDK_KEY_s:
+            case GDK_KEY_S:
+                // Calculate the middle of the screen
+                GdkRectangle rect;
+                rect.x = gdk_screen_get_width(gdk_screen_get_default()) / 2;
+                rect.y = gdk_screen_get_height(gdk_screen_get_default()) / 2;
+                rect.width = 0;  // width of the rectangle
+                rect.height = 0; // height of the rectangle
+                gtk_menu_popup_at_rect(
+                    GTK_MENU (create_slide_popup ()),
+                    gtk_widget_get_window (*this),
+                    &rect,
+                    GDK_GRAVITY_CENTER,
+                    GDK_GRAVITY_CENTER,
+                    nullptr);
+                return TRUE;
+                break;
+
             case GDK_KEY_u:
             case GDK_KEY_U:
                 {

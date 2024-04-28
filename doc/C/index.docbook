@@ -6792,6 +6792,11 @@
             <entry><para></para></entry>
         </row>
         <row valign="top">
+            <entry><keycombo><keycap>CTRL</keycap><keycap>S</keycap></keycombo></entry>
+            <entry><para>Open slide popup for setting the panel sizes</para></entry>
+            <entry><para></para></entry>
+        </row>
+        <row valign="top">
             <entry><keycombo><keycap>CTRL</keycap><keycap>T</keycap></keycombo></entry>
             <entry><para>Open directory in a new tab</para></entry>
             <entry><para>yes</para></entry>
