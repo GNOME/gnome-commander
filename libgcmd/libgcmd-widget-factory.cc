@@ -653,8 +653,7 @@ void create_error_dialog (const gchar *msg, ...)
 struct ActionAcceleratorClosure
 {
     GActionGroup *action_group;
-    const gchar *prefix;
-    const gchar *action_name;
+    gchar *action_name;
     GVariant *parameter;
 };
 
@@ -667,7 +666,21 @@ static gboolean action_accelerator_closure_handle(GtkAccelGroup *accel_group,
 {
     ActionAcceleratorClosure *obj = static_cast<ActionAcceleratorClosure*> (user_data);
     GVariant *parameter = obj->parameter ? g_variant_ref (obj->parameter) : nullptr;
-    g_action_group_activate_action (obj->action_group, obj->action_name, parameter);
+
+    if (obj->action_group != nullptr)
+    {
+        const gchar *action_name = strchr (obj->action_name, '.');
+        if (action_name != nullptr)
+            action_name += 1;
+        else
+            action_name = obj->action_name;
+
+        g_action_group_activate_action (obj->action_group, action_name, parameter);
+    }
+    else
+    {
+        g_warning ("Cannot activate action %s.", obj->action_name);
+    }
     return TRUE;
 }
 
@@ -678,14 +691,14 @@ static void action_accelerator_closure_free(gpointer user_data, GClosure *closur
     if (obj)
     {
         g_clear_object (&obj->action_group);
+        g_clear_pointer (&obj->action_name, g_free);
         g_clear_pointer (&obj->parameter, g_variant_unref);
     }
 }
 
 
 static GClosure *action_accelerator_closure_new (GActionGroup *action_group,
-                                                 const gchar *detailed_action,
-                                                 const gchar *prefix)
+                                                 const gchar *detailed_action)
 {
     gchar *action_name;
     GVariant *parameter;
@@ -699,7 +712,6 @@ static GClosure *action_accelerator_closure_new (GActionGroup *action_group,
 
     ActionAcceleratorClosure* obj = new ActionAcceleratorClosure {
         action_group = g_object_ref (action_group),
-        prefix,
         action_name,
         parameter,
     };
@@ -712,8 +724,7 @@ MenuBuilder MenuBuilder::item(const gchar *label,
                               const gchar *accelerator,
                               const gchar *icon) &&
 {
-    gchar *action = g_strdup_printf ("%s.%s", prefix, detailed_action);
-    GMenuItem *item = g_menu_item_new (label, action);
+    GMenuItem *item = g_menu_item_new (label, detailed_action);
     if (accelerator)
     {
         g_menu_item_set_attribute_value(item, "accel", g_variant_new_string (accelerator));
@@ -725,13 +736,12 @@ MenuBuilder MenuBuilder::item(const gchar *label,
                                  accelerator_key,
                                  accelerator_mods,
                                  GTK_ACCEL_VISIBLE,
-                                 action_accelerator_closure_new (action_group, detailed_action, prefix));
+                                 action_accelerator_closure_new (action_group, detailed_action));
     }
     if (icon)
         g_menu_item_set_icon (item, g_themed_icon_new (icon));
     g_menu_append_item (menu, item);
     g_object_unref (item);
-    g_free (action);
     return *this;
 }
 
