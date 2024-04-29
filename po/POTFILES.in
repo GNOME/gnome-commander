@@ -33,6 +33,7 @@ src/dirlist.cc
 src/eggcellrendererkeys.cc
 src/gnome-cmd-about-plugin.cc
 src/gnome-cmd-advrename-profile-component.cc
+src/gnome-cmd-application.cc
 src/gnome-cmd-block.cc
 src/gnome-cmd-chmod-component.cc
 src/gnome-cmd-chown-component.cc
