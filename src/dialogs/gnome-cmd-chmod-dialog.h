@@ -44,6 +44,8 @@ struct GnomeCmdChmodDialog
 struct GnomeCmdChmodDialogClass
 {
     GnomeCmdDialogClass parent_class;
+
+    void (* mode_changed) (GnomeCmdChmodDialog *dialog);
 };
 
 

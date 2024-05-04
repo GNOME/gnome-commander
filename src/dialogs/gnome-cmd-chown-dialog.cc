@@ -44,6 +44,16 @@ struct GnomeCmdChownDialogPrivate
 G_DEFINE_TYPE (GnomeCmdChownDialog, gnome_cmd_chown_dialog, GNOME_CMD_TYPE_DIALOG)
 
 
+enum
+{
+    OWNER_CHANGED,
+    LAST_SIGNAL
+};
+
+
+static guint signals[LAST_SIGNAL] = { 0 };
+
+
 static void do_chown (GnomeCmdFile *in, uid_t uid, gid_t gid, gboolean recurse)
 {
     g_return_if_fail (in != nullptr);
@@ -115,7 +125,7 @@ static void on_ok (GtkButton *button, GnomeCmdChownDialog *dialog)
         do_chown (f, uid, gid, recurse);
     }
 
-    view_refresh (NULL, NULL);
+    g_signal_emit (dialog, signals[OWNER_CHANGED], 0);
 
     gnome_cmd_file_list_free (dialog->priv->files);
     gtk_widget_destroy (GTK_WIDGET (dialog));
@@ -144,6 +154,16 @@ static void gnome_cmd_chown_dialog_class_init (GnomeCmdChownDialogClass *klass)
     GObjectClass *object_class = G_OBJECT_CLASS (klass);
 
     object_class->finalize = gnome_cmd_chown_dialog_finalize;
+
+    signals[OWNER_CHANGED] =
+        g_signal_new ("owner-changed",
+            G_TYPE_FROM_CLASS (klass),
+            G_SIGNAL_RUN_LAST,
+            G_STRUCT_OFFSET (GnomeCmdChownDialogClass, owner_changed),
+            nullptr, nullptr,
+            g_cclosure_marshal_VOID__POINTER,
+            G_TYPE_NONE,
+            1, G_TYPE_POINTER);
 }
 
 

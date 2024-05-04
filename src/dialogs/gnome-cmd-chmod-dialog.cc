@@ -61,6 +61,16 @@ struct GnomeCmdChmodDialogPrivate
 G_DEFINE_TYPE (GnomeCmdChmodDialog, gnome_cmd_chmod_dialog, GNOME_CMD_TYPE_DIALOG)
 
 
+enum
+{
+    MODE_CHANGED,
+    LAST_SIGNAL
+};
+
+
+static guint signals[LAST_SIGNAL] = { 0 };
+
+
 static void do_chmod (GnomeCmdFile *in, guint32 permissions, gboolean recursive, ChmodRecursiveMode mode)
 {
     g_return_if_fail (in != NULL);
@@ -119,7 +129,7 @@ inline void do_chmod_files (GnomeCmdChmodDialog *dialog)
                                                                                            CHMOD_DIRS_ONLY;
 
         do_chmod (f, dialog->priv->permissions, recursive, mode);
-        view_refresh (NULL, NULL);
+        g_signal_emit (dialog, signals[MODE_CHANGED], 0);
     }
 }
 
@@ -173,6 +183,16 @@ static void gnome_cmd_chmod_dialog_class_init (GnomeCmdChmodDialogClass *klass)
     GObjectClass *object_class = G_OBJECT_CLASS (klass);
 
     object_class->finalize = gnome_cmd_chmod_dialog_finalize;
+
+    signals[MODE_CHANGED] =
+        g_signal_new ("mode-changed",
+            G_TYPE_FROM_CLASS (klass),
+            G_SIGNAL_RUN_LAST,
+            G_STRUCT_OFFSET (GnomeCmdChmodDialogClass, mode_changed),
+            nullptr, nullptr,
+            g_cclosure_marshal_VOID__POINTER,
+            G_TYPE_NONE,
+            1, G_TYPE_POINTER);
 }
 
 
