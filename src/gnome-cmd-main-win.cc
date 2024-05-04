@@ -794,6 +794,12 @@ static gboolean on_window_state_event (GtkWidget *mw, GdkEventWindowState *event
 }
 
 
+static void on_plugins_configure(GSimpleAction *action, GVariant *parameter, gpointer user_data)
+{
+    plugins_configure (nullptr, nullptr);
+}
+
+
 /*******************************
  * Gtk class implementation
  *******************************/
@@ -952,6 +958,11 @@ static void gnome_cmd_main_win_init (GnomeCmdMainWin *mw)
     mw->focus_file_lists();
 
     mw->priv->key_snooper_id = gtk_key_snooper_install ((GtkKeySnoopFunc) gnome_cmd_key_snooper, mw);
+
+    static GActionEntry entries[] = {
+        { "plugins-configure", on_plugins_configure }
+    };
+    g_action_map_add_action_entries (G_ACTION_MAP (mw), entries, G_N_ELEMENTS (entries), mw);
 }
 
 
@@ -1478,9 +1489,9 @@ void GnomeCmdMainWin::update_mainmenu_visibility()
 }
 
 
-void GnomeCmdMainWin::add_plugin_menu(PluginData *pluginData)
+void GnomeCmdMainWin::plugins_updated()
 {
-    gnome_cmd_main_menu_add_plugin_menu (GNOME_CMD_MAIN_MENU (priv->menubar), pluginData);
+    gnome_cmd_main_menu_update_plugin_menu (GNOME_CMD_MAIN_MENU (priv->menubar));
 }
 
 

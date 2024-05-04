@@ -35,13 +35,10 @@ PluginSettings *plugin_settings_new (void);
 
 typedef struct _FileRollerPlugin FileRollerPlugin;
 typedef struct _FileRollerPluginClass FileRollerPluginClass;
-typedef struct _FileRollerPluginPrivate FileRollerPluginPrivate;
 
 struct _FileRollerPlugin
 {
     GnomeCmdPlugin parent;
-
-    FileRollerPluginPrivate *priv;
 };
 
 struct _FileRollerPluginClass

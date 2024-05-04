@@ -31,13 +31,10 @@
 
 typedef struct _TestPlugin TestPlugin;
 typedef struct _TestPluginClass TestPluginClass;
-typedef struct _TestPluginPrivate TestPluginPrivate;
 
 struct _TestPlugin
 {
     GnomeCmdPlugin parent;
-
-    TestPluginPrivate *priv;
 };
 
 struct _TestPluginClass

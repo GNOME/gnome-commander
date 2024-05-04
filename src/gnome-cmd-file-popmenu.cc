@@ -465,12 +465,19 @@ inline gboolean fav_app_matches_files (GnomeCmdApp *app, GList *files)
 }
 
 
-inline void add_plugin_menu_items (GtkMenuShell *menu, GList *items, gint pos)
+inline void add_plugin_menu_items (GtkMenuShell *menu, PluginData *pluginData, GMenuModel *model, gint pos)
 {
-    for (; items; items = items->next)
+    if (model != nullptr)
     {
-        GtkWidget *item = GTK_WIDGET (items->data);
-        gtk_menu_shell_insert (GTK_MENU_SHELL (menu), item, pos);
+        GtkWidget *plugin_menu = gtk_menu_new_from_model (model);
+        gtk_menu_attach_to_widget (GTK_MENU (plugin_menu), GTK_WIDGET (main_win), nullptr);
+
+        GtkWidget *item = gtk_menu_item_new ();
+        gtk_menu_item_set_label (GTK_MENU_ITEM (item), pluginData->info->name);
+        gtk_menu_item_set_submenu (GTK_MENU_ITEM (item), plugin_menu);
+        gtk_widget_show_all (item);
+
+        gtk_menu_shell_insert (GTK_MENU_SHELL (menu), item, pos); // TODO: flatten
     }
 }
 
@@ -652,11 +659,11 @@ GtkWidget *gnome_cmd_file_popmenu_new (GnomeCmdFileList *gnomeCmdFileList)
         auto pluginData = static_cast<PluginData*> (plugins->data);
         if (pluginData->active)
         {
-            GList *items = gnome_cmd_plugin_create_popup_menu_items (pluginData->plugin, main_win->get_state());
+            GMenuModel *items = gnome_cmd_plugin_create_popup_menu_items (pluginData->plugin, main_win->get_state());
             if (items)
             {
                 GtkWidget *menu = gtk_ui_manager_get_widget (uiManager, "/FilePopup");
-                add_plugin_menu_items (GTK_MENU_SHELL(menu), items, ++position);
+                add_plugin_menu_items (GTK_MENU_SHELL(menu), pluginData, items, ++position);
             }
         }
     }

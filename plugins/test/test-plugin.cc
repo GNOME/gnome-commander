@@ -23,7 +23,6 @@
 #include <gtk/gtk.h>
 #include <libgcmd/libgcmd.h>
 #include "test-plugin.h"
-#include "test-plugin.xpm"
 
 #define NAME "Example"
 #define COPYRIGHT "Copyright \xc2\xa9 2003-2006 Marcus Bjurman\n\xc2\xa9 2013-2024 Uwe Scholz"
@@ -43,15 +42,13 @@ static PluginInfo plugin_nfo = {
     WEBPAGE
 };
 
-struct _TestPluginPrivate
+struct TestPluginPrivate
 {
-#ifdef __sun
-    gchar dummy;  // Sun's forte compiler does not like empty structs
-#endif
+    gchar *action_group_name;
 };
 
 
-G_DEFINE_TYPE(TestPlugin, test_plugin, GNOME_CMD_TYPE_PLUGIN)
+G_DEFINE_TYPE_WITH_PRIVATE(TestPlugin, test_plugin, GNOME_CMD_TYPE_PLUGIN)
 
 
 static void show_dummy_dialog()
@@ -68,76 +65,48 @@ static void show_dummy_dialog()
 }
 
 
-static void on_dummy (GtkMenuItem *item, gpointer data)
+static void on_dummy (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
     show_dummy_dialog();
 }
 
 
-static GtkWidget *create_menu_item (const gchar *name, gboolean show_pixmap, GCallback callback, gpointer data)
+static GSimpleActionGroup *create_actions (GnomeCmdPlugin *plugin, const gchar *name)
 {
-    GtkWidget *item, *label;
+    TestPluginPrivate *priv = (TestPluginPrivate *) test_plugin_get_instance_private (TEST_PLUGIN (plugin));
 
-    if (show_pixmap)
-    {
-        GdkPixbuf *pixbuf = gdk_pixbuf_new_from_xpm_data ((const char **) test_plugin_xpm);
-        GtkWidget *pixmap = gtk_image_new_from_pixbuf (pixbuf);
-        g_object_unref (G_OBJECT (pixbuf));
-        item = gtk_image_menu_item_new ();
-        if (pixmap)
-        {
-            gtk_widget_show (pixmap);
-            gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (item), pixmap);
-        }
-    }
-    else
-        item = gtk_menu_item_new ();
+    priv->action_group_name = g_strdup (name);
 
-    gtk_widget_show (item);
-
-    // Create the contents of the menu item
-    label = gtk_label_new (name);
-    gtk_misc_set_alignment (GTK_MISC (label), 0, 0.5);
-    gtk_widget_show (label);
-    gtk_container_add (GTK_CONTAINER (item), label);
-
-    // Connect to the signal and set user data
-    g_object_set_data (G_OBJECT (item), "uidata", data);
-
-    if (callback)
-        g_signal_connect (item, "activate", G_CALLBACK (callback), data);
-
-    return item;
+    GSimpleActionGroup *group = g_simple_action_group_new ();
+    static const GActionEntry entries[] = {
+        { "dummy", on_dummy }
+    };
+    g_action_map_add_action_entries (G_ACTION_MAP (group), entries, G_N_ELEMENTS (entries), plugin);
+    return group;
 }
 
 
-static GtkWidget *create_main_menu (GnomeCmdPlugin *plugin, GnomeCmdState *state)
+static GMenuModel *create_main_menu (GnomeCmdPlugin *plugin, GnomeCmdState *state)
 {
-    GtkWidget *item, *child;
-    GtkMenu *submenu;
+    TestPluginPrivate *priv = (TestPluginPrivate *) test_plugin_get_instance_private (TEST_PLUGIN (plugin));
 
-    submenu = GTK_MENU (gtk_menu_new ());
-    item = create_menu_item ("Test", FALSE, NULL, NULL);
-    gtk_menu_item_set_submenu (GTK_MENU_ITEM (item),
-                               GTK_WIDGET (submenu));
-
-    child = create_menu_item ("Test plugin dummy operation", FALSE, G_CALLBACK (on_dummy), state);
-    gtk_menu_shell_append (GTK_MENU_SHELL (submenu), child);
-
-    return item;
+    GMenu *menu = g_menu_new ();
+    gchar *action_name = g_strdup_printf ("%s.dummy", priv->action_group_name);
+    g_menu_append (menu, "Test plugin dummy operation", action_name);
+    g_free (action_name);
+    return G_MENU_MODEL (menu);
 }
 
 
-static GList *create_popup_menu_items (GnomeCmdPlugin *plugin, GnomeCmdState *state)
+static GMenuModel *create_popup_menu_items (GnomeCmdPlugin *plugin, GnomeCmdState *state)
 {
-    GtkWidget *item = create_menu_item ("Test plugin dummy operation", TRUE, G_CALLBACK (on_dummy), state);
+    TestPluginPrivate *priv = (TestPluginPrivate *) test_plugin_get_instance_private (TEST_PLUGIN (plugin));
 
-    return g_list_append (NULL, item);
-}
-
-
-static void update_main_menu_state (GnomeCmdPlugin *plugin, GnomeCmdState *state)
-{
+    GMenu *menu = g_menu_new ();
+    gchar *action_name = g_strdup_printf ("%s.dummy", priv->action_group_name);
+    g_menu_append (menu, "Test plugin dummy operation", action_name);
+    g_free (action_name);
+    return G_MENU_MODEL (menu);
 }
 
 
@@ -153,22 +122,30 @@ static void configure (GnomeCmdPlugin *plugin)
  * Gtk class implementation
  *******************************/
 
+static void dispose (GObject *object)
+{
+    TestPluginPrivate *priv = (TestPluginPrivate *) test_plugin_get_instance_private (TEST_PLUGIN (object));
+
+    g_clear_pointer (&priv->action_group_name, g_free);
+
+    G_OBJECT_CLASS (test_plugin_parent_class)->dispose (object);
+}
+
 static void test_plugin_class_init (TestPluginClass *klass)
 {
-    GnomeCmdPluginClass *plugin_class;
+    G_OBJECT_CLASS (klass)->dispose = dispose;
 
-    plugin_class = GNOME_CMD_PLUGIN_CLASS (klass);
+    GnomeCmdPluginClass *plugin_class = GNOME_CMD_PLUGIN_CLASS (klass);
 
+    plugin_class->create_actions = create_actions;
     plugin_class->create_main_menu = create_main_menu;
     plugin_class->create_popup_menu_items = create_popup_menu_items;
-    plugin_class->update_main_menu_state = update_main_menu_state;
     plugin_class->configure = configure;
 }
 
 
 static void test_plugin_init (TestPlugin *plugin)
 {
-    plugin->priv = g_new (TestPluginPrivate, 1);
 }
 
 /***********************************
@@ -206,3 +183,4 @@ extern "C"
         return &plugin_nfo;
     }
 }
+

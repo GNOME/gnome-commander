@@ -123,10 +123,11 @@ static void activate_plugin (PluginData *data)
 
     data->active = TRUE;
 
+    GSimpleActionGroup *actions = gnome_cmd_plugin_create_actions (data->plugin, data->action_group_name);
+    gtk_widget_insert_action_group (*main_win, data->action_group_name, G_ACTION_GROUP (actions));
+
     GnomeCmdState *state = main_win->get_state();
     data->menu = gnome_cmd_plugin_create_main_menu (data->plugin, state);
-    if (data->menu)
-        main_win->add_plugin_menu(data);
 }
 
 
@@ -136,13 +137,14 @@ static void inactivate_plugin (PluginData *data)
         return;
 
     data->active = FALSE;
-    if (data->menu)
-        gtk_widget_destroy (data->menu);
+    gtk_widget_insert_action_group (*main_win, data->action_group_name, nullptr);
+    g_clear_object (&data->menu);
 }
 
 
 static void scan_plugins_in_dir (const gchar *dpath)
 {
+    static int index = 0;
     auto gFileInfoList = sync_dir_list(dpath);
 
     if (g_list_length(gFileInfoList) == 0)
@@ -164,11 +166,13 @@ static void scan_plugins_in_dir (const gchar *dpath)
         data->active = FALSE;
         data->menu = nullptr;
         data->autoload = FALSE;
+        data->action_group_name = g_strdup_printf ("plugin%d", index++);
         activate_plugin (data);
         if (!data->loaded)
         {
             g_free (data->fname);
             g_free (data->fpath);
+            g_free (data->action_group_name);
             g_free (data);
         }
         else
@@ -213,13 +217,15 @@ void plugin_manager_init ()
         }
     }
 
-    // inactivate plugins that shouldn't be autoloaded
+    // deactivate plugins that shouldn't be autoloaded
     for (GList *l=plugins; l; l=l->next)
     {
         auto data = static_cast<PluginData*> (l->data);
         if (!data->autoload)
             inactivate_plugin (data);
     }
+
+    main_win->plugins_updated();
 }
 
 
@@ -332,6 +338,7 @@ inline void do_toggle (GtkWidget *dialog)
         activate_plugin (data);
 
     update_plugin_list (view, dialog);
+    main_win->plugins_updated();
 }
 
 

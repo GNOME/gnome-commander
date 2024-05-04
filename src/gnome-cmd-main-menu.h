@@ -60,4 +60,4 @@ void gnome_cmd_main_menu_update_bookmarks (GnomeCmdMainMenu *main_menu);
 
 void gnome_cmd_main_menu_update_sens (GnomeCmdMainMenu *main_menu);
 
-void gnome_cmd_main_menu_add_plugin_menu (GnomeCmdMainMenu *main_menu, PluginData *pluginData);
+void gnome_cmd_main_menu_update_plugin_menu (GnomeCmdMainMenu *main_menu);
