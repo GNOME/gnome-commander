@@ -1,4 +1,4 @@
-/** 
+/**
  * @file gnome-cmd-list-popmenu.cc
  * @copyright (C) 2001-2006 Marcus Bjurman\n
  * @copyright (C) 2007-2012 Piotr Eljasiak\n
@@ -101,7 +101,7 @@ GtkWidget *gnome_cmd_list_popmenu_new (GnomeCmdFileSelector *fs)
     {
         { "New",          nullptr,                     _("_New") },
         { "Paste",        GTK_STOCK_PASTE,             _("_Paste"),              nullptr, nullptr, (GCallback) on_paste },
-        { "Terminal",     TERMINAL_STOCKID,            _("Open _terminal here"), nullptr, nullptr, (GCallback) command_open_terminal__internal },
+        { "Terminal",     GTK_TERMINAL_STOCKID,        _("Open _terminal here"), nullptr, nullptr, (GCallback) command_open_terminal__internal },
         { "Refresh",      GTK_STOCK_REFRESH,           _("_Refresh"),            nullptr, nullptr, (GCallback) on_refresh },
         { "NewDirectory", FILETYPEDIR_STOCKID,         _("_Directory"),          nullptr, nullptr, (GCallback) on_new_directory },
         { "NewTextFile",  FILETYPEREGULARFILE_STOCKID, _("_Text File"),          nullptr, nullptr, (GCallback) on_new_textfile }

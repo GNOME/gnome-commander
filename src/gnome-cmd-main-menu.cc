@@ -386,7 +386,7 @@ static GtkUIManager *get_file_menu_ui_manager()
     static const GtkActionEntry pluginsMenuEntries[] =
     {
         { "Plugins",          nullptr,            _("_Plugins") },
-        { "ConfigurePlugins", EXEC_WHEEL_STOCKID, _("_Configure Plugins…"), nullptr, nullptr, (GCallback) plugins_configure },
+        { "ConfigurePlugins", GTK_PREFERENCES_SYSTEM_STOCKID, _("_Configure Plugins…"), nullptr, nullptr, (GCallback) plugins_configure },
     };
 
     static const GtkActionEntry helpMenuEntries[] =

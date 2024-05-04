@@ -704,10 +704,10 @@ GtkWidget *gnome_cmd_file_popmenu_new (GnomeCmdFileList *gnomeCmdFileList)
         { "Copy",          GTK_STOCK_COPY,          _("Copy"),                nullptr, nullptr, (GCallback) edit_cap_copy },
         { "Delete",        GTK_STOCK_DELETE,        _("Delete"),              nullptr, nullptr, (GCallback) file_delete },
         { "Rename",        GTK_STOCK_EDIT,          _("Rename"),              nullptr, nullptr, (GCallback) on_rename },
-        { "Send",          MAILSEND_STOCKID,        _("Send files"),          nullptr, nullptr, (GCallback) file_sendto },
+        { "Send",          GTK_MAILSEND_STOCKID,    _("Send files"),          nullptr, nullptr, (GCallback) file_sendto },
         { "Properties",    GTK_STOCK_PROPERTIES,    _("_Properties…"),        nullptr, nullptr, (GCallback) on_properties },
         { "Execute",       GTK_STOCK_EXECUTE,       _("E_xecute"),            nullptr, nullptr, (GCallback) on_execute },
-        { "Terminal",      TERMINAL_STOCKID,        _("Open _terminal here"), nullptr, nullptr, (GCallback) command_open_terminal__internal },
+        { "Terminal",      GTK_TERMINAL_STOCKID,    _("Open _terminal here"), nullptr, nullptr, (GCallback) command_open_terminal__internal },
         { "CopyFileNames", COPYFILENAMES_STOCKID,   _("Copy file names"),     nullptr, nullptr, (GCallback) edit_copy_fnames },
     };
 
