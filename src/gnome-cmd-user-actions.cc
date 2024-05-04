@@ -658,6 +658,9 @@ inline void get_file_list (string &s, GList *sfl, F f, T t)
 
 
 /***************************************/
+static void view_refresh_0 ();
+
+
 void no_action (GtkMenuItem *menuitem, gpointer not_used)
 {
 }
@@ -823,6 +826,8 @@ void file_chmod (GtkMenuItem *menuitem, gpointer not_used)
     {
         GtkWidget *dialog = gnome_cmd_chmod_dialog_new (files);
 
+        g_signal_connect (dialog, "mode-changed", G_CALLBACK (view_refresh_0), nullptr);
+
         g_object_ref (dialog);
         gtk_widget_show (dialog);
         g_list_free (files);
@@ -837,6 +842,8 @@ void file_chown (GtkMenuItem *menuitem, gpointer not_used)
     if (files)
     {
         GtkWidget *dialog = gnome_cmd_chown_dialog_new (files);
+
+        g_signal_connect (dialog, "owner-changed", G_CALLBACK (view_refresh_0), nullptr);
 
         g_object_ref (dialog);
         gtk_widget_show (dialog);
@@ -1629,6 +1636,12 @@ void view_refresh (GtkMenuItem *menuitem, gpointer file_list)
         ? GNOME_CMD_FILE_LIST (file_list)
         : get_fl (ACTIVE);
     fl->reload();
+}
+
+
+static void view_refresh_0 ()
+{
+    view_refresh (nullptr, nullptr);
 }
 
 

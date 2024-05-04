@@ -45,6 +45,8 @@ struct GnomeCmdChownDialog
 struct GnomeCmdChownDialogClass
 {
     GnomeCmdDialogClass parent_class;
+
+    void (* owner_changed) (GnomeCmdChownDialog *dialog);
 };
 
 
