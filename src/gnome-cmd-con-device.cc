@@ -582,7 +582,7 @@ void gnome_cmd_con_device_set_icon_path (GnomeCmdConDevice *dev, const gchar *ic
 
     priv->icon_path = g_strdup (icon_path);
 
-    if (icon_path)
+    if (icon_path && strlen(icon_path) > 0)
     {
         guint dev_icon_size = gnome_cmd_data.dev_icon_size;
 
