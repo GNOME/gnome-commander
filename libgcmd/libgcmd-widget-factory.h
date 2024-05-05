@@ -174,14 +174,20 @@ inline gboolean gtk_tree_model_iter_previous (GtkTreeModel *tree_model, GtkTreeI
 class MenuBuilder
 {
 public:
-    MenuBuilder(const gchar *prefix, GActionGroup *action_group)
-        : prefix(prefix),
-          action_group(action_group),
-          menu(g_menu_new()),
+    MenuBuilder()
+        : menu(g_menu_new()),
           accel_group(gtk_accel_group_new()),
           parent(nullptr),
-          label(nullptr)
+          label(nullptr),
+          action_group(nullptr),
+          action_widget(nullptr)
     {
+    }
+
+    MenuBuilder with_action_group(GActionGroup *action_group)
+    {
+        this->action_group = action_group;
+        return *this;
     }
 
     MenuBuilder item(const gchar *label,
@@ -211,6 +217,12 @@ public:
         return *parent;
     }
 
+    MenuBuilder section(GMenu *section) &&
+    {
+        g_menu_append_section (menu, nullptr, G_MENU_MODEL (section));
+        return *this;
+    }
+
     struct Result
     {
         GMenu *menu;
@@ -222,20 +234,20 @@ public:
         return Result { menu, accel_group };
     }
 private:
-    const gchar *prefix;
-    GActionGroup *action_group;
     GMenu *menu;
     GtkAccelGroup *accel_group;
     MenuBuilder *parent = nullptr;
     const gchar *label = nullptr;
+    GActionGroup *action_group;
+    GtkWidget *action_widget;
 
     MenuBuilder(MenuBuilder *parent, const gchar *label = nullptr)
-        : prefix(parent->prefix),
-          action_group(parent->action_group),
-          menu(g_menu_new()),
+        : menu(g_menu_new()),
           accel_group(parent->accel_group),
           parent(parent),
-          label(label)
+          label(label),
+          action_group(parent->action_group),
+          action_widget(parent->action_widget)
     {
     }
 };
