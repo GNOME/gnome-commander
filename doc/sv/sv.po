@@ -1,13 +1,13 @@
 # Swedish translation for gnome-commander.
-# Copyright © 2019-2023 gnome-commander's COPYRIGHT HOLDER
+# Copyright © 2019-2024 gnome-commander's COPYRIGHT HOLDER
 # This file is distributed under the same license as the gnome-commander package.
-# Anders Jonsson <anders.jonsson@norsjovallen.se>, 2019, 2020, 2021, 2022, 2023.
+# Anders Jonsson <anders.jonsson@norsjovallen.se>, 2019, 2020, 2021, 2022, 2023, 2024.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander master\n"
-"POT-Creation-Date: 2023-01-24 21:19+0000\n"
-"PO-Revision-Date: 2023-01-25 16:29+0100\n"
+"POT-Creation-Date: 2024-04-28 20:15+0000\n"
+"PO-Revision-Date: 2024-05-01 01:21+0200\n"
 "Last-Translator: Anders Jonsson <anders.jonsson@norsjovallen.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "Language: sv\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.2.2\n"
+"X-Generator: Poedit 3.4.2\n"
 
 #. Put one translator per line, in the form NAME <EMAIL>, YEAR1, YEAR2
 msgctxt "_"
@@ -616,7 +616,7 @@ msgstr "Återkoppling"
 
 #. (itstool) path: legalnotice/para
 #. (itstool) path: sect1/para
-#: C/index.docbook:610 C/index.docbook:7642
+#: C/index.docbook:610 C/index.docbook:7647
 msgid ""
 "You can report or view GNOME Commander bugs at <ulink type=\"http\" "
 "url=\"https://gitlab.gnome.org/GNOME/gnome-commander/issues\">gitlab.gnome."
@@ -646,7 +646,7 @@ msgstr "<primary>filhanterare</primary>"
 
 #. (itstool) path: sect1/title
 #. (itstool) path: sect2/title
-#: C/index.docbook:629 C/index.docbook:7379
+#: C/index.docbook:629 C/index.docbook:7384
 msgid "Introduction"
 msgstr "Introduktion"
 
@@ -1353,8 +1353,8 @@ msgid "<keycombo><keycap>NUM -</keycap></keycombo>"
 msgstr "<keycombo><keycap>NUM -</keycap></keycombo>"
 
 #. (itstool) path: entry/para
-#: C/index.docbook:1041 C/index.docbook:6546 C/index.docbook:7195
-#: C/index.docbook:7196
+#: C/index.docbook:1041 C/index.docbook:6546 C/index.docbook:7200
+#: C/index.docbook:7201
 msgid "Invert selection"
 msgstr "Invertera markering"
 
@@ -2120,7 +2120,7 @@ msgstr "Egenskap"
 #: C/index.docbook:3943 C/index.docbook:4516 C/index.docbook:4839
 #: C/index.docbook:4980 C/index.docbook:5296 C/index.docbook:5474
 #: C/index.docbook:5647 C/index.docbook:5922 C/index.docbook:6136
-#: C/index.docbook:6235 C/index.docbook:7000
+#: C/index.docbook:6235 C/index.docbook:7005
 msgid "Description"
 msgstr "Beskrivning"
 
@@ -2136,7 +2136,7 @@ msgstr "Namnet på filen eller mappen."
 
 #. (itstool) path: entry/para
 #. (itstool) path: sect2/title
-#: C/index.docbook:1369 C/index.docbook:3953 C/index.docbook:7686
+#: C/index.docbook:1369 C/index.docbook:3953 C/index.docbook:7691
 msgid "Location"
 msgstr "Plats"
 
@@ -9743,7 +9743,7 @@ msgstr "Vorbis.License"
 
 #. (itstool) path: entry/para
 #. (itstool) path: sect2/title
-#: C/index.docbook:3948 C/index.docbook:7702
+#: C/index.docbook:3948 C/index.docbook:7707
 msgid "License"
 msgstr "Licens"
 
@@ -10982,7 +10982,7 @@ msgid "Image manipulation:"
 msgstr "Bildmanipulering:"
 
 #. (itstool) path: row/entry
-#: C/index.docbook:4423 C/index.docbook:6825
+#: C/index.docbook:4423 C/index.docbook:6830
 msgid "<keycombo><keycap>CTRL</keycap><keycap>R</keycap></keycombo>"
 msgstr "<keycombo><keycap>CTRL</keycap><keycap>R</keycap></keycombo>"
 
@@ -11006,7 +11006,7 @@ msgid "Rotates the image 270° (applicable only in IMAGE display mode)"
 msgstr "Roterar bilden 270° (endast tillämplig i bildvisningsläge)"
 
 #. (itstool) path: row/entry
-#: C/index.docbook:4434
+#: C/index.docbook:4434 C/index.docbook:6795
 msgid "<keycombo><keycap>CTRL</keycap><keycap>S</keycap></keycombo>"
 msgstr "<keycombo><keycap>CTRL</keycap><keycap>S</keycap></keycombo>"
 
@@ -11239,7 +11239,7 @@ msgid "<guilabel>Middle Mouse button</guilabel>"
 msgstr "<guilabel>Mittenmusknappen</guilabel>"
 
 #. (itstool) path: entry/para
-#: C/index.docbook:4568 C/index.docbook:7353
+#: C/index.docbook:4568 C/index.docbook:7358
 msgid "Up one directory"
 msgstr "Upp en katalog"
 
@@ -13719,7 +13719,7 @@ msgstr ""
 
 #. (itstool) path: sect1/title
 #. (itstool) path: figure/title
-#: C/index.docbook:6310 C/index.docbook:6977
+#: C/index.docbook:6310 C/index.docbook:6982
 msgid "Keyboard Shortcuts"
 msgstr "Tangentbordsgenvägar"
 
@@ -13791,7 +13791,7 @@ msgid "<keycombo><keycap>F1</keycap></keycombo>"
 msgstr "<keycombo><keycap>F1</keycap></keycombo>"
 
 #. (itstool) path: entry/para
-#: C/index.docbook:6336 C/index.docbook:7184
+#: C/index.docbook:6336 C/index.docbook:7189
 msgid "Help"
 msgstr "Hjälp"
 
@@ -13811,7 +13811,7 @@ msgid "<keycombo><keycap>F3</keycap></keycombo>"
 msgstr "<keycombo><keycap>F3</keycap></keycombo>"
 
 #. (itstool) path: entry/para
-#: C/index.docbook:6346 C/index.docbook:7358
+#: C/index.docbook:6346 C/index.docbook:7363
 msgid "View files"
 msgstr "Visa filer"
 
@@ -13821,7 +13821,7 @@ msgid "<keycombo><keycap>F4</keycap></keycombo>"
 msgstr "<keycombo><keycap>F4</keycap></keycombo>"
 
 #. (itstool) path: entry/para
-#: C/index.docbook:6351 C/index.docbook:7121 C/index.docbook:7122
+#: C/index.docbook:6351 C/index.docbook:7126 C/index.docbook:7127
 msgid "Edit file"
 msgstr "Redigera fil"
 
@@ -13831,7 +13831,7 @@ msgid "<keycombo><keycap>F5</keycap></keycombo>"
 msgstr "<keycombo><keycap>F5</keycap></keycombo>"
 
 #. (itstool) path: entry/para
-#: C/index.docbook:6356 C/index.docbook:7077 C/index.docbook:7078
+#: C/index.docbook:6356 C/index.docbook:7082 C/index.docbook:7083
 msgid "Copy files"
 msgstr "Kopiera filer"
 
@@ -13851,7 +13851,7 @@ msgid "<keycombo><keycap>F7</keycap></keycombo>"
 msgstr "<keycombo><keycap>F7</keycap></keycombo>"
 
 #. (itstool) path: entry/para
-#: C/index.docbook:6366 C/index.docbook:7089 C/index.docbook:7090
+#: C/index.docbook:6366 C/index.docbook:7094 C/index.docbook:7095
 msgid "Create directory"
 msgstr "Skapa katalog"
 
@@ -13861,8 +13861,8 @@ msgid "<keycombo><keycap>F8</keycap></keycombo>"
 msgstr "<keycombo><keycap>F8</keycap></keycombo>"
 
 #. (itstool) path: entry/para
-#: C/index.docbook:6371 C/index.docbook:6686 C/index.docbook:7102
-#: C/index.docbook:7105 C/index.docbook:7106
+#: C/index.docbook:6371 C/index.docbook:6686 C/index.docbook:7107
+#: C/index.docbook:7110 C/index.docbook:7111
 msgid "Delete files"
 msgstr "Ta bort filer"
 
@@ -13872,7 +13872,7 @@ msgid "<keycombo><keycap>F9</keycap></keycombo>"
 msgstr "<keycombo><keycap>F9</keycap></keycombo>"
 
 #. (itstool) path: entry/para
-#: C/index.docbook:6376 C/index.docbook:6411 C/index.docbook:7311
+#: C/index.docbook:6376 C/index.docbook:6411 C/index.docbook:7316
 msgid "Search"
 msgstr "Sök"
 
@@ -13882,7 +13882,7 @@ msgid "<keycombo><keycap>F12</keycap></keycombo>"
 msgstr "<keycombo><keycap>F12</keycap></keycombo>"
 
 #. (itstool) path: entry/para
-#: C/index.docbook:6381 C/index.docbook:7109 C/index.docbook:7110
+#: C/index.docbook:6381 C/index.docbook:7114 C/index.docbook:7115
 msgid "Display main menu"
 msgstr "Visa huvudmeny"
 
@@ -13897,10 +13897,10 @@ msgstr "Visa huvudmeny"
 #: C/index.docbook:6608 C/index.docbook:6633 C/index.docbook:6639
 #: C/index.docbook:6737 C/index.docbook:6742 C/index.docbook:6747
 #: C/index.docbook:6752 C/index.docbook:6772 C/index.docbook:6777
-#: C/index.docbook:6782 C/index.docbook:6787 C/index.docbook:6797
-#: C/index.docbook:6802 C/index.docbook:6807 C/index.docbook:6827
-#: C/index.docbook:6832 C/index.docbook:6842 C/index.docbook:6852
-#: C/index.docbook:6857 C/index.docbook:6862 C/index.docbook:6872
+#: C/index.docbook:6782 C/index.docbook:6787 C/index.docbook:6802
+#: C/index.docbook:6807 C/index.docbook:6812 C/index.docbook:6832
+#: C/index.docbook:6837 C/index.docbook:6847 C/index.docbook:6857
+#: C/index.docbook:6862 C/index.docbook:6867 C/index.docbook:6877
 msgid "yes"
 msgstr "ja"
 
@@ -13910,8 +13910,8 @@ msgid "<keycombo><keycap>ALT</keycap><keycap>1</keycap></keycombo>"
 msgstr "<keycombo><keycap>ALT</keycap><keycap>1</keycap></keycombo>"
 
 #. (itstool) path: entry/para
-#: C/index.docbook:6391 C/index.docbook:6511 C/index.docbook:7029
-#: C/index.docbook:7030
+#: C/index.docbook:6391 C/index.docbook:6511 C/index.docbook:7034
+#: C/index.docbook:7035
 msgid "Change left connection"
 msgstr "Ändra vänster anslutning"
 
@@ -13921,8 +13921,8 @@ msgid "<keycombo><keycap>ALT</keycap><keycap>2</keycap></keycombo>"
 msgstr "<keycombo><keycap>ALT</keycap><keycap>2</keycap></keycombo>"
 
 #. (itstool) path: entry/para
-#: C/index.docbook:6396 C/index.docbook:6516 C/index.docbook:7041
-#: C/index.docbook:7042
+#: C/index.docbook:6396 C/index.docbook:6516 C/index.docbook:7046
+#: C/index.docbook:7047
 msgid "Change right connection"
 msgstr "Ändra höger anslutning"
 
@@ -13932,7 +13932,7 @@ msgid "<keycombo><keycap>ALT</keycap><keycap>F3</keycap></keycombo>"
 msgstr "<keycombo><keycap>ALT</keycap><keycap>F3</keycap></keycombo>"
 
 #. (itstool) path: entry/para
-#: C/index.docbook:6406 C/index.docbook:7361 C/index.docbook:7362
+#: C/index.docbook:6406 C/index.docbook:7366 C/index.docbook:7367
 msgid "View with external viewer"
 msgstr "Visa med externt visningsprogram"
 
@@ -13943,7 +13943,7 @@ msgstr "<keycombo><keycap>ALT</keycap><keycap>F7</keycap></keycombo>"
 
 #. (itstool) path: row/entry
 #. (itstool) path: entry/para
-#: C/index.docbook:6415 C/index.docbook:6938
+#: C/index.docbook:6415 C/index.docbook:6943
 msgid "<keycombo><keycap>ALT</keycap><keycap>F8</keycap></keycombo>"
 msgstr "<keycombo><keycap>ALT</keycap><keycap>F8</keycap></keycombo>"
 
@@ -13958,7 +13958,7 @@ msgid "<keycombo><keycap>ALT</keycap><keycap>DOWN</keycap></keycombo>"
 msgstr "<keycombo><keycap>ALT</keycap><keycap>NED</keycap></keycombo>"
 
 #. (itstool) path: entry/para
-#: C/index.docbook:6426 C/index.docbook:7324
+#: C/index.docbook:6426 C/index.docbook:7329
 msgid "Open the history list of visited directories"
 msgstr "Öppna historiklistan över besökta kataloger"
 
@@ -13968,7 +13968,7 @@ msgid "<keycombo><keycap>SHIFT</keycap><keycap>F2</keycap></keycombo>"
 msgstr "<keycombo><keycap>SKIFT</keycap><keycap>F2</keycap></keycombo>"
 
 #. (itstool) path: entry/para
-#: C/index.docbook:6436 C/index.docbook:7061 C/index.docbook:7062
+#: C/index.docbook:6436 C/index.docbook:7066 C/index.docbook:7067
 msgid "Compare directories"
 msgstr "Jämför kataloger"
 
@@ -13978,7 +13978,7 @@ msgid "<keycombo><keycap>SHIFT</keycap><keycap>F3</keycap></keycombo>"
 msgstr "<keycombo><keycap>SKIFT</keycap><keycap>F3</keycap></keycombo>"
 
 #. (itstool) path: entry/para
-#: C/index.docbook:6441 C/index.docbook:7365 C/index.docbook:7366
+#: C/index.docbook:6441 C/index.docbook:7370 C/index.docbook:7371
 msgid "View with internal viewer"
 msgstr "Visa med internt visningsprogram"
 
@@ -13988,7 +13988,7 @@ msgid "<keycombo><keycap>SHIFT</keycap><keycap>F4</keycap></keycombo>"
 msgstr "<keycombo><keycap>SKIFT</keycap><keycap>F4</keycap></keycombo>"
 
 #. (itstool) path: entry/para
-#: C/index.docbook:6446 C/index.docbook:7117 C/index.docbook:7118
+#: C/index.docbook:6446 C/index.docbook:7122 C/index.docbook:7123
 msgid "Edit a new file"
 msgstr "Redigera en ny fil"
 
@@ -14077,7 +14077,7 @@ msgstr ""
 "keycombo>"
 
 #. (itstool) path: entry/para
-#: C/index.docbook:6501 C/index.docbook:7093 C/index.docbook:7094
+#: C/index.docbook:6501 C/index.docbook:7098 C/index.docbook:7099
 msgid "Create symbolic link"
 msgstr "Skapa symbolisk länk"
 
@@ -14122,12 +14122,12 @@ msgid "<keycombo><keycap>CTRL</keycap><keycap>=</keycap></keycombo>"
 msgstr "<keycombo><keycap>CTRL</keycap><keycap>=</keycap></keycombo>"
 
 #. (itstool) path: entry/para
-#: C/index.docbook:6556 C/index.docbook:6736 C/index.docbook:7316
+#: C/index.docbook:6556 C/index.docbook:6736 C/index.docbook:7321
 msgid "Select all files"
 msgstr "Markera alla filer"
 
 #. (itstool) path: entry/para
-#: C/index.docbook:6561 C/index.docbook:6741 C/index.docbook:7350
+#: C/index.docbook:6561 C/index.docbook:6741 C/index.docbook:7355
 msgid "Unselect all files"
 msgstr "Avmarkera alla filer"
 
@@ -14175,7 +14175,7 @@ msgid "<keycombo><keycap>CTRL</keycap><keycap>PageDown</keycap></keycombo>"
 msgstr "<keycombo><keycap>CTRL</keycap><keycap>PageDown</keycap></keycombo>"
 
 #. (itstool) path: entry/para
-#: C/index.docbook:6607 C/index.docbook:7025 C/index.docbook:7026
+#: C/index.docbook:6607 C/index.docbook:7030 C/index.docbook:7031
 msgid "Change directory"
 msgstr "Ändra katalog"
 
@@ -14185,7 +14185,7 @@ msgid "<keycombo><keycap>ALT</keycap><keycap>LEFT</keycap></keycombo>"
 msgstr "<keycombo><keycap>ALT</keycap><keycap>VÄNSTER</keycap></keycombo>"
 
 #. (itstool) path: entry/para
-#: C/index.docbook:6617 C/index.docbook:7014
+#: C/index.docbook:6617 C/index.docbook:7019
 msgid "Go back to the last visited directory"
 msgstr "Gå bakåt till den senast besökta katalogen"
 
@@ -14195,7 +14195,7 @@ msgid "<keycombo><keycap>ALT</keycap><keycap>RIGHT</keycap></keycombo>"
 msgstr "<keycombo><keycap>ALT</keycap><keycap>HÖGER</keycap></keycombo>"
 
 #. (itstool) path: entry/para
-#: C/index.docbook:6622 C/index.docbook:7167
+#: C/index.docbook:6622 C/index.docbook:7172
 msgid "Go forward to the next visited directory"
 msgstr "Gå framåt till nästa besökta katalog"
 
@@ -14205,7 +14205,7 @@ msgid "<keycombo><keycap>CTRL</keycap><keycap>\\</keycap></keycombo>"
 msgstr "<keycombo><keycap>CTRL</keycap><keycap>\\</keycap></keycombo>"
 
 #. (itstool) path: entry/para
-#: C/index.docbook:6632 C/index.docbook:7308
+#: C/index.docbook:6632 C/index.docbook:7313
 msgid "Go to the root directory"
 msgstr "Gå till rotkatalogen"
 
@@ -14220,7 +14220,7 @@ msgid "<keycombo><keycap>CTRL</keycap><keycap>`</keycap></keycombo>"
 msgstr "<keycombo><keycap>CTRL</keycap><keycap>`</keycap></keycombo>"
 
 #. (itstool) path: entry/para
-#: C/index.docbook:6638 C/index.docbook:7192
+#: C/index.docbook:6638 C/index.docbook:7197
 msgid "Go to the home directory"
 msgstr "Gå till hemkatalogen"
 
@@ -14248,7 +14248,7 @@ msgid "<keycombo><keycap>ALT</keycap><keycap>ENTER</keycap></keycombo>"
 msgstr "<keycombo><keycap>ALT</keycap><keycap>RETUR</keycap></keycombo>"
 
 #. (itstool) path: entry/para
-#: C/index.docbook:6665 C/index.docbook:7284
+#: C/index.docbook:6665 C/index.docbook:7289
 msgid "Show properties for the selected file"
 msgstr "Visa egenskaper för den markerade filen"
 
@@ -14296,7 +14296,7 @@ msgid "<keycombo><keycap>CTRL</keycap><keycap>C</keycap></keycombo>"
 msgstr "<keycombo><keycap>CTRL</keycap><keycap>C</keycap></keycombo>"
 
 #. (itstool) path: entry/para
-#: C/index.docbook:6706 C/index.docbook:7074
+#: C/index.docbook:6706 C/index.docbook:7079
 msgid "Copy files to clipboard (not a global one yet)"
 msgstr "Kopiera filer till urklipp (inte ännu global)"
 
@@ -14306,7 +14306,7 @@ msgid "<keycombo><keycap>CTRL</keycap><keycap>X</keycap></keycombo>"
 msgstr "<keycombo><keycap>CTRL</keycap><keycap>X</keycap></keycombo>"
 
 #. (itstool) path: entry/para
-#: C/index.docbook:6711 C/index.docbook:7098
+#: C/index.docbook:6711 C/index.docbook:7103
 msgid "Cut files to clipboard (not a global one yet)"
 msgstr "Klipp ut filer till urklipp (inte ännu global)"
 
@@ -14375,7 +14375,7 @@ msgid "<keycombo><keycap>CTRL</keycap><keycap>LEFT</keycap></keycombo>"
 msgstr "<keycombo><keycap>CTRL</keycap><keycap>VÄNSTER</keycap></keycombo>"
 
 #. (itstool) path: entry/para
-#: C/index.docbook:6771 C/index.docbook:7256
+#: C/index.docbook:6771 C/index.docbook:7261
 msgid ""
 "Copy the current working directory from the active left file list to the "
 "right one"
@@ -14389,7 +14389,7 @@ msgid "<keycombo><keycap>CTRL</keycap><keycap>RIGHT</keycap></keycombo>"
 msgstr "<keycombo><keycap>CTRL</keycap><keycap>HÖGER</keycap></keycombo>"
 
 #. (itstool) path: entry/para
-#: C/index.docbook:6776 C/index.docbook:7244
+#: C/index.docbook:6776 C/index.docbook:7249
 msgid ""
 "Copy the current working directory from the active right file list to the "
 "left one"
@@ -14403,7 +14403,7 @@ msgid "<keycombo><keycap>CTRL</keycap><keycap>.</keycap></keycombo>"
 msgstr "<keycombo><keycap>CTRL</keycap><keycap>.</keycap></keycombo>"
 
 #. (itstool) path: entry/para
-#: C/index.docbook:6781 C/index.docbook:7236
+#: C/index.docbook:6781 C/index.docbook:7241
 msgid ""
 "Copy the current working directory from the inactive file list to the active "
 "one"
@@ -14421,7 +14421,7 @@ msgstr ""
 "keycombo>"
 
 #. (itstool) path: entry/para
-#: C/index.docbook:6786 C/index.docbook:7240
+#: C/index.docbook:6786 C/index.docbook:7245
 msgid ""
 "Copy the current working directory from the active file list to the inactive "
 "one"
@@ -14429,28 +14429,33 @@ msgstr ""
 "Kopiera den aktuella arbetskatalogen från den aktiva fillistan till den "
 "inaktiva"
 
+#. (itstool) path: entry/para
+#: C/index.docbook:6796
+msgid "Open slide popup for setting the panel sizes"
+msgstr "Öppna skjutreglagepoppupp för att ställa in panelstorlekarna"
+
 #. (itstool) path: row/entry
-#: C/index.docbook:6795 C/index.docbook:6911
+#: C/index.docbook:6800 C/index.docbook:6916
 msgid "<keycombo><keycap>CTRL</keycap><keycap>T</keycap></keycombo>"
 msgstr "<keycombo><keycap>CTRL</keycap><keycap>T</keycap></keycombo>"
 
 #. (itstool) path: entry/para
-#: C/index.docbook:6796 C/index.docbook:7231 C/index.docbook:7232
+#: C/index.docbook:6801 C/index.docbook:7236 C/index.docbook:7237
 msgid "Open directory in a new tab"
 msgstr "Öppna katalog i en ny flik"
 
 #. (itstool) path: row/entry
-#: C/index.docbook:6800 C/index.docbook:6906
+#: C/index.docbook:6805 C/index.docbook:6911
 msgid "<keycombo><keycap>CTRL</keycap><keycap>W</keycap></keycombo>"
 msgstr "<keycombo><keycap>CTRL</keycap><keycap>W</keycap></keycombo>"
 
 #. (itstool) path: entry/para
-#: C/index.docbook:6801
+#: C/index.docbook:6806
 msgid "Close current tab"
 msgstr "Stäng aktuell flik"
 
 #. (itstool) path: row/entry
-#: C/index.docbook:6805
+#: C/index.docbook:6810
 msgid ""
 "<keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap><keycap>W</keycap></"
 "keycombo>"
@@ -14459,22 +14464,22 @@ msgstr ""
 "keycombo>"
 
 #. (itstool) path: entry/para
-#: C/index.docbook:6806 C/index.docbook:7045 C/index.docbook:7046
+#: C/index.docbook:6811 C/index.docbook:7050 C/index.docbook:7051
 msgid "Close all tabs"
 msgstr "Stäng alla flikar"
 
 #. (itstool) path: row/entry
-#: C/index.docbook:6810
+#: C/index.docbook:6815
 msgid "<keycombo><keycap>CTRL</keycap><keycap>TAB</keycap></keycombo>"
 msgstr "<keycombo><keycap>CTRL</keycap><keycap>TABB</keycap></keycombo>"
 
 #. (itstool) path: entry/para
-#: C/index.docbook:6811
+#: C/index.docbook:6816
 msgid "Switch to the next tab"
 msgstr "Växla till nästa flik"
 
 #. (itstool) path: row/entry
-#: C/index.docbook:6815
+#: C/index.docbook:6820
 msgid ""
 "<keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap><keycap>TAB</keycap></"
 "keycombo>"
@@ -14483,27 +14488,27 @@ msgstr ""
 "keycombo>"
 
 #. (itstool) path: entry/para
-#: C/index.docbook:6816
+#: C/index.docbook:6821
 msgid "Switch to the previous tab"
 msgstr "Växla till föregående flik"
 
 #. (itstool) path: entry/para
-#: C/index.docbook:6826 C/index.docbook:7296
+#: C/index.docbook:6831 C/index.docbook:7301
 msgid "Refresh the active file list"
 msgstr "Uppdatera den aktiva fillistan"
 
 #. (itstool) path: row/entry
-#: C/index.docbook:6830
+#: C/index.docbook:6835
 msgid "<keycombo><keycap>CTRL</keycap><keycap>O</keycap></keycombo>"
 msgstr "<keycombo><keycap>CTRL</keycap><keycap>O</keycap></keycombo>"
 
 #. (itstool) path: entry/para
-#: C/index.docbook:6831 C/index.docbook:7272
+#: C/index.docbook:6836 C/index.docbook:7277
 msgid "Options dialog"
 msgstr "Dialogruta för alternativ"
 
 #. (itstool) path: row/entry
-#: C/index.docbook:6835
+#: C/index.docbook:6840
 msgid ""
 "<keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap><keycap>H</keycap></"
 "keycombo>"
@@ -14512,12 +14517,12 @@ msgstr ""
 "keycombo>"
 
 #. (itstool) path: entry/para
-#: C/index.docbook:6836
+#: C/index.docbook:6841
 msgid "Toggle hidden files on/off"
 msgstr "Visa/dölj dolda filer"
 
 #. (itstool) path: row/entry
-#: C/index.docbook:6840
+#: C/index.docbook:6845
 msgid ""
 "<keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap><keycap>=</keycap></"
 "keycombo>"
@@ -14526,32 +14531,32 @@ msgstr ""
 "keycombo>"
 
 #. (itstool) path: entry/para
-#: C/index.docbook:6841
+#: C/index.docbook:6846
 msgid "Set both panels equal"
 msgstr "Ställ in båda panelerna till samma storlek"
 
 #. (itstool) path: row/entry
-#: C/index.docbook:6850
+#: C/index.docbook:6855
 msgid "<keycombo><keycap>CTRL</keycap><keycap>N</keycap></keycombo>"
 msgstr "<keycombo><keycap>CTRL</keycap><keycap>N</keycap></keycombo>"
 
 #. (itstool) path: entry/para
-#: C/index.docbook:6851 C/index.docbook:7220
+#: C/index.docbook:6856 C/index.docbook:7225
 msgid "Open new remote connection"
 msgstr "Öppna en ny fjärranslutning"
 
 #. (itstool) path: row/entry
-#: C/index.docbook:6855
+#: C/index.docbook:6860
 msgid "<keycombo><keycap>CTRL</keycap><keycap>F</keycap></keycombo>"
 msgstr "<keycombo><keycap>CTRL</keycap><keycap>F</keycap></keycombo>"
 
 #. (itstool) path: entry/para
-#: C/index.docbook:6856
+#: C/index.docbook:6861
 msgid "Connect to remote server"
 msgstr "Anslut till fjärrserver"
 
 #. (itstool) path: row/entry
-#: C/index.docbook:6860
+#: C/index.docbook:6865
 msgid ""
 "<keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap><keycap>F</keycap></"
 "keycombo>"
@@ -14560,28 +14565,28 @@ msgstr ""
 "keycombo>"
 
 #. (itstool) path: entry/para
-#: C/index.docbook:6861 C/index.docbook:7050
+#: C/index.docbook:6866 C/index.docbook:7055
 msgid "Disconnect from remote server"
 msgstr "Koppla ner från fjärrserver"
 
 #. (itstool) path: row/entry
-#: C/index.docbook:6870
+#: C/index.docbook:6875
 msgid "<keycombo><keycap>CTRL</keycap><keycap>5</keycap></keycombo>"
 msgstr "<keycombo><keycap>CTRL</keycap><keycap>5</keycap></keycombo>"
 
 #. (itstool) path: entry/para
-#: C/index.docbook:6871
+#: C/index.docbook:6876
 msgid "Create MD5 (128-bit) checksum"
 msgstr "Skapa MD5-kontrollsumma (128-bit)"
 
 #. (itstool) path: entry/para
-#: C/index.docbook:6880
+#: C/index.docbook:6885
 msgid "<keycombo><keycap>ALT</keycap><keycap>Letter(s)</keycap></keycombo>"
 msgstr ""
 "<keycombo><keycap>ALT</keycap><keycap>Bokstav/Bokstäver</keycap></keycombo>"
 
 #. (itstool) path: entry/para
-#: C/index.docbook:6881
+#: C/index.docbook:6886
 msgid ""
 "<keycombo><keycap>CTRL</keycap><keycap>ALT</keycap><keycap>Letter(s)</"
 "keycap></keycombo>"
@@ -14590,7 +14595,7 @@ msgstr ""
 "Bokstäver</keycap></keycombo>"
 
 #. (itstool) path: entry/para
-#: C/index.docbook:6882
+#: C/index.docbook:6887
 msgid ""
 "Quick search for a file name (starting with specified letter) in the current "
 "directory"
@@ -14599,64 +14604,64 @@ msgstr ""
 "katalog"
 
 #. (itstool) path: entry/para
-#: C/index.docbook:6891
+#: C/index.docbook:6896
 msgid "<keycombo><keycap>Letter</keycap></keycombo>"
 msgstr "<keycombo><keycap>Bokstav</keycap></keycombo>"
 
 #. (itstool) path: entry/para
-#: C/index.docbook:6892
+#: C/index.docbook:6897
 msgid "Redirect to command line, cursor jumps to command line"
 msgstr "Omdirigera till kommandorad, markören hoppar till kommandorad"
 
 #. (itstool) path: entry/para
-#: C/index.docbook:6896
+#: C/index.docbook:6901
 msgid "<keycombo><keycap>ESC</keycap></keycombo>"
 msgstr "<keycombo><keycap>ESC</keycap></keycombo>"
 
 #. (itstool) path: entry/para
-#: C/index.docbook:6897
+#: C/index.docbook:6902
 msgid "Clear the command line"
 msgstr "Rensa kommandoraden"
 
 #. (itstool) path: row/entry
-#: C/index.docbook:6901
+#: C/index.docbook:6906
 msgid "<keycombo><keycap>CTRL</keycap><keycap>K</keycap></keycombo>"
 msgstr "<keycombo><keycap>CTRL</keycap><keycap>K</keycap></keycombo>"
 
 #. (itstool) path: entry/para
-#: C/index.docbook:6902
+#: C/index.docbook:6907
 msgid "Delete to the end of line"
 msgstr "Ta bort från och med markören till slutet på raden"
 
 #. (itstool) path: entry/para
-#: C/index.docbook:6907
+#: C/index.docbook:6912
 msgid "Delete the word to the left of the cursor"
 msgstr "Ta bort ordet till vänster om markören"
 
 #. (itstool) path: entry/para
-#: C/index.docbook:6912
+#: C/index.docbook:6917
 msgid "Delete the word to the right of the cursor"
 msgstr "Ta bort ordet till höger om markören"
 
 #. (itstool) path: row/entry
-#: C/index.docbook:6916
+#: C/index.docbook:6921
 msgid "<keycombo><keycap>CTRL</keycap><keycap>P</keycap></keycombo>"
 msgstr "<keycombo><keycap>CTRL</keycap><keycap>P</keycap></keycombo>"
 
 #. (itstool) path: entry/para
-#: C/index.docbook:6917
+#: C/index.docbook:6922
 msgid "The full path of the current directory is added to the command line"
 msgstr ""
 "Den fullständiga sökvägen till den aktuella katalogen läggs till i "
 "kommandoraden"
 
 #. (itstool) path: row/entry
-#: C/index.docbook:6921
+#: C/index.docbook:6926
 msgid "<keycombo><keycap>CTRL</keycap><keycap>ENTER</keycap></keycombo>"
 msgstr "<keycombo><keycap>CTRL</keycap><keycap>RETUR</keycap></keycombo>"
 
 #. (itstool) path: entry/para
-#: C/index.docbook:6922
+#: C/index.docbook:6927
 msgid ""
 "The file name under the cursor in the source directory is added to the end "
 "of the command line"
@@ -14664,7 +14669,7 @@ msgstr ""
 "Filnamnet under markören i källkatalogen läggs till i slutet på kommandoraden"
 
 #. (itstool) path: row/entry
-#: C/index.docbook:6926
+#: C/index.docbook:6931
 msgid ""
 "<keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap><keycap>ENTER</keycap></"
 "keycombo>"
@@ -14673,7 +14678,7 @@ msgstr ""
 "keycombo>"
 
 #. (itstool) path: entry/para
-#: C/index.docbook:6927
+#: C/index.docbook:6932
 msgid ""
 "The file name under the cursor including its path is added to the end of the "
 "command line"
@@ -14682,17 +14687,17 @@ msgstr ""
 "kommandoraden"
 
 #. (itstool) path: entry/para
-#: C/index.docbook:6936
+#: C/index.docbook:6941
 msgid "<keycombo><keycap>CTRL</keycap><keycap>DOWN</keycap></keycombo>"
 msgstr "<keycombo><keycap>CTRL</keycap><keycap>NED</keycap></keycombo>"
 
 #. (itstool) path: entry/para
-#: C/index.docbook:6937
+#: C/index.docbook:6942
 msgid "<keycombo><keycap>CTRL</keycap><keycap>E</keycap></keycombo>"
 msgstr "<keycombo><keycap>CTRL</keycap><keycap>E</keycap></keycombo>"
 
 #. (itstool) path: entry/para
-#: C/index.docbook:6939
+#: C/index.docbook:6944
 msgid ""
 "A list with the latest command lines (history list) is opened. Use the "
 "<keycombo><keycap>UP</keycap></keycombo> and <keycombo><keycap>DOWN</"
@@ -14709,12 +14714,12 @@ msgstr ""
 "Detta stänger automatiskt listan"
 
 #. (itstool) path: sect1/title
-#: C/index.docbook:6953
+#: C/index.docbook:6958
 msgid "User Actions"
 msgstr "Användaråtgärder"
 
 #. (itstool) path: sect1/para
-#: C/index.docbook:6954
+#: C/index.docbook:6959
 msgid ""
 "User actions trigger predefined functions (actions) and make GNOME Commander "
 "very flexible. They are accessed by a key or set of keys (shortcut key)."
@@ -14724,13 +14729,13 @@ msgstr ""
 "uppsättning tangenter (kortkommandon)."
 
 #. (itstool) path: sect2/title
-#: C/index.docbook:6956
+#: C/index.docbook:6961
 msgid "Managing user actions"
 msgstr "Hantera användaråtgärder"
 
 # TODO: *is* can be moved behind the xml.
 #. (itstool) path: sect2/para
-#: C/index.docbook:6957
+#: C/index.docbook:6962
 msgid ""
 "The menu for user actions and associated keyboard shortcuts can be opened by "
 "clicking on <menuchoice><guimenu>Settings</guimenu><guimenuitem>Keyboard "
@@ -14744,7 +14749,7 @@ msgstr ""
 "guimenuitem>."
 
 #. (itstool) path: listitem/para
-#: C/index.docbook:6960
+#: C/index.docbook:6965
 msgid ""
 "<guilabel>Shortcut Key</guilabel>: Key combination the user has to press to "
 "perform the action."
@@ -14753,7 +14758,7 @@ msgstr ""
 "trycka ned för att utföra åtgärden."
 
 #. (itstool) path: listitem/para
-#: C/index.docbook:6961
+#: C/index.docbook:6966
 msgid ""
 "<guilabel>Action</guilabel>: Action to perform by pressing the shortcut key."
 msgstr ""
@@ -14761,7 +14766,7 @@ msgstr ""
 "kortkommandot."
 
 #. (itstool) path: listitem/para
-#: C/index.docbook:6962
+#: C/index.docbook:6967
 msgid ""
 "<guilabel>Options</guilabel>: Some user actions require an option to perform "
 "the action, e.g. the command to be executed by the \"Execute command\" "
@@ -14772,7 +14777,7 @@ msgstr ""
 "åtgärden ”Kör kommando”."
 
 #. (itstool) path: sect2/para
-#: C/index.docbook:6958
+#: C/index.docbook:6963
 msgid ""
 "In the keyboard shortcut dialog a table with three columns is shown: <_:"
 "orderedlist-1/>"
@@ -14781,7 +14786,7 @@ msgstr ""
 "orderedlist-1/>"
 
 #. (itstool) path: sect2/para
-#: C/index.docbook:6964
+#: C/index.docbook:6969
 msgid ""
 "You can <guilabel>Add</guilabel> a new shortcut and <guilabel>Remove</"
 "guilabel> a selected one with the related buttons on the right."
@@ -14791,7 +14796,7 @@ msgstr ""
 "till höger."
 
 #. (itstool) path: sect2/para
-#: C/index.docbook:6965
+#: C/index.docbook:6970
 msgid ""
 "The default dialog window is shown in the figure <xref linkend=\"keyboard-"
 "shortcuts\"/> below."
@@ -14800,7 +14805,7 @@ msgstr ""
 "> nedan."
 
 #. (itstool) path: sect2/para
-#: C/index.docbook:6966
+#: C/index.docbook:6971
 msgid ""
 "Available user actions are shown in the table <xref linkend=\"gnome-"
 "commander-user-actions-list\"/> below."
@@ -14809,7 +14814,7 @@ msgstr ""
 "commander-user-actions-list\"/> nedan."
 
 #. (itstool) path: sect2/para
-#: C/index.docbook:6967
+#: C/index.docbook:6972
 msgid ""
 "Find the default key bindings in the previous section <xref linkend=\"gnome-"
 "commander-keyboard\"/>."
@@ -14818,7 +14823,7 @@ msgstr ""
 "linkend=\"gnome-commander-keyboard\"/>."
 
 #. (itstool) path: tip/para
-#: C/index.docbook:6969
+#: C/index.docbook:6974
 msgid ""
 "It's possible to assign more than one key combinations to an action. To do "
 "so, click on the <guilabel>Add</guilabel> button, choose a new shortcut and "
@@ -14832,7 +14837,7 @@ msgstr ""
 "som standard."
 
 #. (itstool) path: sect2/para
-#: C/index.docbook:6974
+#: C/index.docbook:6979
 msgid ""
 "Key bindings are stored in the &lt;KeyBindings&gt; section of GNOME "
 "Commander config file (<guilabel>~/.gnome-commander/gnome-commander.xml</"
@@ -14847,7 +14852,7 @@ msgstr ""
 #. the file changes, the md5 hash will change to let you know you need to
 #. update your localized copy. The msgstr is not used at all. Set it to
 #. whatever you like once you have updated your copy of the file.
-#: C/index.docbook:6981
+#: C/index.docbook:6986
 msgctxt "_"
 msgid ""
 "external ref='figures/gnome-commander_dialog_keyboard_shortcuts.png' "
@@ -14857,7 +14862,7 @@ msgstr ""
 "md5='5ad238759551ba3621c582effdb5ff17'"
 
 #. (itstool) path: screenshot/mediaobject
-#: C/index.docbook:6979
+#: C/index.docbook:6984
 msgid ""
 "<imageobject> <imagedata fileref=\"figures/gnome-"
 "commander_dialog_keyboard_shortcuts.png\" format=\"PNG\"/> </imageobject> "
@@ -14870,89 +14875,89 @@ msgstr ""
 "phrase> </textobject>"
 
 #. (itstool) path: sect2/title
-#: C/index.docbook:6992
+#: C/index.docbook:6997
 msgid "List of user actions"
 msgstr "Lista över användaråtgärder"
 
 #. (itstool) path: entry/para
-#: C/index.docbook:6999
+#: C/index.docbook:7004
 msgid "User action"
 msgstr "Användaråtgärd"
 
 #. (itstool) path: entry/para
 #. (itstool) path: sect1/title
-#: C/index.docbook:7005 C/index.docbook:7006 C/index.docbook:7668
+#: C/index.docbook:7010 C/index.docbook:7011 C/index.docbook:7673
 msgid "About GNOME Commander"
 msgstr "Om GNOME Commander"
 
 #. (itstool) path: entry/para
-#: C/index.docbook:7009 C/index.docbook:7010
+#: C/index.docbook:7014 C/index.docbook:7015
 msgid "Advanced rename tool"
 msgstr "Avancerat namnbytesverktyg"
 
 #. (itstool) path: entry/para
-#: C/index.docbook:7013
+#: C/index.docbook:7018
 msgid "Back one directory"
 msgstr "Bakåt en katalog"
 
 #. (itstool) path: entry/para
-#: C/index.docbook:7017
+#: C/index.docbook:7022
 msgid "Back to the first directory"
 msgstr "Tillbaka till första katalogen"
 
 # TODO: Forward? Not *Back*?
 #. (itstool) path: entry/para
-#: C/index.docbook:7018
+#: C/index.docbook:7023
 msgid "Go forward to the first visited directory"
 msgstr "Gå framåt till den först besökta katalogen"
 
 #. (itstool) path: entry/para
-#: C/index.docbook:7021 C/index.docbook:7022
+#: C/index.docbook:7026 C/index.docbook:7027
 msgid "Bookmark current directory"
 msgstr "Bokmärk aktuell katalog"
 
 #. (itstool) path: entry/para
-#: C/index.docbook:7033
+#: C/index.docbook:7038
 msgid "Change owner/group"
 msgstr "Ändra ägare/grupp"
 
 #. (itstool) path: entry/para
-#: C/index.docbook:7034
+#: C/index.docbook:7039
 msgid "Change file ownership"
 msgstr "Ändra filägarskap"
 
 #. (itstool) path: entry/para
-#: C/index.docbook:7037
+#: C/index.docbook:7042
 msgid "Change permissions"
 msgstr "Ändra rättigheter"
 
 #. (itstool) path: entry/para
-#: C/index.docbook:7038
+#: C/index.docbook:7043
 msgid "Change file access permissions"
 msgstr "Ändra filåtkomsträttigheter"
 
 #. (itstool) path: entry/para
-#: C/index.docbook:7049
+#: C/index.docbook:7054
 msgid "Close connection"
 msgstr "Stäng anslutning"
 
 #. (itstool) path: entry/para
-#: C/index.docbook:7053 C/index.docbook:7054
+#: C/index.docbook:7058 C/index.docbook:7059
 msgid "Close duplicate tabs"
 msgstr "Stäng duplicerade flikar"
 
 #. (itstool) path: entry/para
-#: C/index.docbook:7057 C/index.docbook:7058
+#: C/index.docbook:7062 C/index.docbook:7063
 msgid "Close the current tab"
 msgstr "Stäng aktuell flik"
 
 #. (itstool) path: entry/para
-#: C/index.docbook:7065
+#: C/index.docbook:7070
 msgid "Compare files (diff)"
 msgstr "Jämför filer (diff)"
 
 #. (itstool) path: entry/para
-#: C/index.docbook:7066
+#: C/index.docbook:7071
 msgid ""
 "Compare files using the differ in <menuchoice><guimenu>Settings</"
 "guimenu><guimenuitem>Options...</guimenuitem><guimenuitem>Programs</"
@@ -14963,72 +14968,72 @@ msgstr ""
 "guimenuitem></menuchoice>"
 
 #. (itstool) path: entry/para
-#: C/index.docbook:7069 C/index.docbook:7070
+#: C/index.docbook:7074 C/index.docbook:7075
 msgid "Configure plugins"
 msgstr "Konfigurera insticksmoduler"
 
 #. (itstool) path: entry/para
-#: C/index.docbook:7073
+#: C/index.docbook:7078
 msgid "Copy"
 msgstr "Kopiera"
 
 #. (itstool) path: entry/para
-#: C/index.docbook:7081
+#: C/index.docbook:7086
 msgid "Copy file names"
 msgstr "Kopiera filnamn"
 
 #. (itstool) path: entry/para
-#: C/index.docbook:7082
+#: C/index.docbook:7087
 msgid "Copy file names to clipboard"
 msgstr "Kopiera filnamn till urklipp"
 
 #. (itstool) path: entry/para
-#: C/index.docbook:7085
+#: C/index.docbook:7090
 msgid "Copy files with rename"
 msgstr "Kopiera filer med namnbyte"
 
 #. (itstool) path: entry/para
-#: C/index.docbook:7086
+#: C/index.docbook:7091
 msgid "Copy file with rename"
 msgstr "Kopiera fil med namnbyte"
 
 #. (itstool) path: entry/para
-#: C/index.docbook:7097
+#: C/index.docbook:7102
 msgid "Cut"
 msgstr "Klipp ut"
 
 #. (itstool) path: entry/para
-#: C/index.docbook:7101
+#: C/index.docbook:7106
 msgid "Delete"
 msgstr "Ta bort"
 
 #. (itstool) path: entry/para
-#: C/index.docbook:7113
+#: C/index.docbook:7118
 msgid "Do nothing"
 msgstr "Gör ingenting"
 
 #. (itstool) path: entry/para
-#: C/index.docbook:7114
+#: C/index.docbook:7119
 msgid "Do nothing (use to block key bindings)"
 msgstr "Gör ingenting (använd för att blockera tangentbindningar)"
 
 #. (itstool) path: entry/para
-#: C/index.docbook:7125
+#: C/index.docbook:7130
 msgid "Equal panel size"
 msgstr "Samma panelstorlek"
 
 #. (itstool) path: entry/para
-#: C/index.docbook:7126
+#: C/index.docbook:7131
 msgid "Set equal panes (50/50)"
 msgstr "Ställ in lika stora paneler (50/50)"
 
 #. (itstool) path: entry/para
-#: C/index.docbook:7129
+#: C/index.docbook:7134
 msgid "Execute command"
 msgstr "Kör kommando"
 
 #. (itstool) path: entry/para
-#: C/index.docbook:7130
+#: C/index.docbook:7135
 msgid ""
 "Execute user defined command. GNOME Commander replaces found placeholders "
 "with:"
@@ -15037,19 +15042,19 @@ msgstr ""
 "platshållare med:"
 
 #. (itstool) path: listitem/para
-#: C/index.docbook:7134
+#: C/index.docbook:7139
 msgid "<guilabel>%f</guilabel> file name (or list for multiple selections)"
 msgstr "<guilabel>%f</guilabel> filnamn (eller lista för flera markeringar)"
 
 #. (itstool) path: listitem/para
-#: C/index.docbook:7137
+#: C/index.docbook:7142
 msgid ""
 "<guilabel>%F</guilabel> quoted filename (or list for multiple selections)"
 msgstr ""
 "<guilabel>%F</guilabel> citerat filnamn (eller lista för flera markeringar)"
 
 #. (itstool) path: listitem/para
-#: C/index.docbook:7140
+#: C/index.docbook:7145
 msgid ""
 "<guilabel>%p</guilabel> full file system path (or list for multiple "
 "selections)"
@@ -15058,7 +15063,7 @@ msgstr ""
 "markeringar)"
 
 #. (itstool) path: listitem/para
-#: C/index.docbook:7143
+#: C/index.docbook:7148
 msgid ""
 "<guilabel>%P</guilabel> quoted full file system path (or list for multiple "
 "selections)"
@@ -15067,7 +15072,7 @@ msgstr ""
 "för flera markeringar)"
 
 #. (itstool) path: listitem/para
-#: C/index.docbook:7146
+#: C/index.docbook:7151
 msgid ""
 "<guilabel>%u</guilabel> fully qualified URI for the file (or list for "
 "multiple selections)"
@@ -15076,14 +15081,14 @@ msgstr ""
 "markeringar)"
 
 #. (itstool) path: listitem/para
-#: C/index.docbook:7149
+#: C/index.docbook:7154
 msgid "<guilabel>%d</guilabel> full path to the directory containing file"
 msgstr ""
 "<guilabel>%d</guilabel> fullständig sökväg till katalogen som innehåller "
 "filen"
 
 #. (itstool) path: listitem/para
-#: C/index.docbook:7152
+#: C/index.docbook:7157
 msgid ""
 "<guilabel>%D</guilabel> quoted full path to the directory containing file"
 msgstr ""
@@ -15091,7 +15096,7 @@ msgstr ""
 "innehåller filen"
 
 #. (itstool) path: listitem/para
-#: C/index.docbook:7155
+#: C/index.docbook:7160
 msgid ""
 "<guilabel>%s</guilabel> synonym for <guilabel>%P</guilabel> (for "
 "compatibility with previous versions of GNOME Commander)"
@@ -15100,301 +15105,301 @@ msgstr ""
 "kompatibilitet med tidigare versioner av GNOME Commander)"
 
 #. (itstool) path: listitem/para
-#: C/index.docbook:7158
+#: C/index.docbook:7163
 msgid "<guilabel>%%</guilabel> percent sign"
 msgstr "<guilabel>%%</guilabel> procenttecken"
 
 #. (itstool) path: note/para
-#: C/index.docbook:7162
+#: C/index.docbook:7167
 msgid "Unknown placeholders are copied verbatim without any substitution."
 msgstr "Okända platshållare kopieras som de är utan någon substitution."
 
 #. (itstool) path: entry/para
-#: C/index.docbook:7166
+#: C/index.docbook:7171
 msgid "Forward one directory"
 msgstr "Framåt en katalog"
 
 #. (itstool) path: entry/para
-#: C/index.docbook:7170
+#: C/index.docbook:7175
 msgid "Forward to the last directory"
 msgstr "Framåt till sista katalogen"
 
 #. (itstool) path: entry/para
-#: C/index.docbook:7171
+#: C/index.docbook:7176
 msgid "Go forward to the last visited directory"
 msgstr "Gå framåt till den senast besökta katalogen"
 
 #. (itstool) path: entry/para
-#: C/index.docbook:7174
+#: C/index.docbook:7179
 msgid "GNOME Commander on the web"
 msgstr "GNOME Commander på webben"
 
 #. (itstool) path: entry/para
-#: C/index.docbook:7175
+#: C/index.docbook:7180
 msgid "Visit GNOME Commander home page"
 msgstr "Besök GNOME Commanders webbplats"
 
 #. (itstool) path: entry/para
-#: C/index.docbook:7178
+#: C/index.docbook:7183
 msgid "Go to bookmarked location"
 msgstr "Gå till bokmärkt plats"
 
 #. (itstool) path: entry/para
-#: C/index.docbook:7179
+#: C/index.docbook:7184
 msgid "Go to bookmarked location."
 msgstr "Gå till bokmärkt plats."
 
 #. (itstool) path: note/para
-#: C/index.docbook:7180
+#: C/index.docbook:7185
 msgid "Nonexistent bookmark names are ignored."
 msgstr "Ej existerande bokmärkesnamn ignoreras."
 
 #. (itstool) path: entry/para
-#: C/index.docbook:7183
+#: C/index.docbook:7188
 msgid "Help contents"
 msgstr "Hjälpinnehåll"
 
 #. (itstool) path: entry/para
-#: C/index.docbook:7187 C/index.docbook:7188
+#: C/index.docbook:7192 C/index.docbook:7193
 msgid "Help on keyboard shortcuts"
 msgstr "Hjälp för tangentbordsgenvägar"
 
 #. (itstool) path: entry/para
-#: C/index.docbook:7191
+#: C/index.docbook:7196
 msgid "Home directory"
 msgstr "Hemkatalog"
 
 #. (itstool) path: entry/para
-#: C/index.docbook:7199
+#: C/index.docbook:7204
 msgid "Keyboard shortcuts"
 msgstr "Tangentbordsgenvägar"
 
 #. (itstool) path: entry/para
-#: C/index.docbook:7200
+#: C/index.docbook:7205
 msgid "Configure keyboard shortcuts"
 msgstr "Konfigurera tangentbordsgenvägar"
 
 #. (itstool) path: entry/para
-#: C/index.docbook:7203 C/index.docbook:7204
+#: C/index.docbook:7208 C/index.docbook:7209
 msgid "Lock/unlock tab"
 msgstr "Lås/Lås upp flik"
 
 #. (itstool) path: entry/para
-#: C/index.docbook:7207
+#: C/index.docbook:7212
 msgid "Manage bookmarks"
 msgstr "Hantera bokmärken"
 
 #. (itstool) path: entry/para
-#: C/index.docbook:7208
+#: C/index.docbook:7213
 msgid "Open favourite directories (bookmarks) dialog"
 msgstr "Öppna dialogrutan för favoritkataloger (bokmärken)"
 
 #. (itstool) path: entry/para
-#: C/index.docbook:7211 C/index.docbook:7212
+#: C/index.docbook:7216 C/index.docbook:7217
 msgid "Maximize panel size"
 msgstr "Maximera panelstorlek"
 
 #. (itstool) path: entry/para
-#: C/index.docbook:7215 C/index.docbook:7216
+#: C/index.docbook:7220 C/index.docbook:7221
 msgid "Move files"
 msgstr "Flytta filer"
 
 #. (itstool) path: entry/para
-#: C/index.docbook:7219
+#: C/index.docbook:7224
 msgid "New connection"
 msgstr "Ny anslutning"
 
 #. (itstool) path: entry/para
-#: C/index.docbook:7223 C/index.docbook:7224
+#: C/index.docbook:7228 C/index.docbook:7229
 msgid "Next tab"
 msgstr "Nästa flik"
 
 #. (itstool) path: entry/para
-#: C/index.docbook:7227
+#: C/index.docbook:7232
 msgid "Open connection"
 msgstr "Öppna anslutning"
 
 #. (itstool) path: entry/para
-#: C/index.docbook:7228
+#: C/index.docbook:7233
 msgid "Open remote connection"
 msgstr "Öppna fjärranslutning"
 
 #. (itstool) path: entry/para
-#: C/index.docbook:7235
+#: C/index.docbook:7240
 msgid "Open directory in the active window"
 msgstr "Öppna katalogen i aktivt fönster"
 
 #. (itstool) path: entry/para
-#: C/index.docbook:7239
+#: C/index.docbook:7244
 msgid "Open directory in the inactive window"
 msgstr "Öppna katalogen i inaktivt fönster"
 
 #. (itstool) path: entry/para
-#: C/index.docbook:7243
+#: C/index.docbook:7248
 msgid "Open directory in the left window"
 msgstr "Öppna katalog i vänstra fönstret"
 
 #. (itstool) path: entry/para
-#: C/index.docbook:7247 C/index.docbook:7248
+#: C/index.docbook:7252 C/index.docbook:7253
 msgid "Open directory in the new tab"
 msgstr "Öppna katalogen i nya fliken"
 
 #. (itstool) path: entry/para
-#: C/index.docbook:7251 C/index.docbook:7252
+#: C/index.docbook:7256 C/index.docbook:7257
 msgid "Open directory in the new tab (inactive window)"
 msgstr "Öppna katalogen i nya fliken (inaktivt fönster)"
 
 #. (itstool) path: entry/para
-#: C/index.docbook:7255
+#: C/index.docbook:7260
 msgid "Open directory in the right window"
 msgstr "Öppna katalog i högra fönstret"
 
 #. (itstool) path: entry/para
-#: C/index.docbook:7259
+#: C/index.docbook:7264
 msgid "Open folder"
 msgstr "Öppna mapp"
 
 #. (itstool) path: entry/para
 #. (itstool) path: listitem/para
-#: C/index.docbook:7260 C/releases.xml:1802
+#: C/index.docbook:7265 C/releases.xml:1802
 msgid "Open the current location in Nautilus file manager"
 msgstr "Öppna aktuell katalog i filhanteraren Nautilus"
 
 #. (itstool) path: entry/para
-#: C/index.docbook:7263
+#: C/index.docbook:7268
 msgid "Open terminal"
 msgstr "Öppna terminal"
 
 #. (itstool) path: entry/para
 #. (itstool) path: listitem/para
-#: C/index.docbook:7264 C/releases.xml:1922
+#: C/index.docbook:7269 C/releases.xml:1922
 msgid "Open terminal in the current directory"
 msgstr "Öppna terminal i aktuell katalog"
 
 #. (itstool) path: entry/para
-#: C/index.docbook:7267
+#: C/index.docbook:7272
 msgid "Open terminal as root"
 msgstr "Öppna terminal som root"
 
 #. (itstool) path: entry/para
-#: C/index.docbook:7268
+#: C/index.docbook:7273
 msgid "Opens a terminal with root privileges."
 msgstr "Öppnar en terminal med root-privilegier."
 
 #. (itstool) path: entry/para
-#: C/index.docbook:7271
+#: C/index.docbook:7276
 msgid "Options"
 msgstr "Alternativ"
 
 #. (itstool) path: entry/para
-#: C/index.docbook:7275
+#: C/index.docbook:7280
 msgid "Paste"
 msgstr "Klistra in"
 
 #. (itstool) path: entry/para
-#: C/index.docbook:7276
+#: C/index.docbook:7281
 msgid "Paste from clipboard to current directory (not a global one yet)"
 msgstr "Klistra in från urklipp till aktuell katalog (inte ännu global)"
 
 #. (itstool) path: entry/para
-#: C/index.docbook:7279 C/index.docbook:7280
+#: C/index.docbook:7284 C/index.docbook:7285
 msgid "Previous tab"
 msgstr "Föregående flik"
 
 #. (itstool) path: entry/para
-#: C/index.docbook:7283
+#: C/index.docbook:7288
 msgid "Properties"
 msgstr "Egenskaper"
 
 #. (itstool) path: entry/para
-#: C/index.docbook:7287 C/index.docbook:7288
+#: C/index.docbook:7292 C/index.docbook:7293
 msgid "Quick search"
 msgstr "Snabbsök"
 
 #. (itstool) path: entry/para
-#: C/index.docbook:7291
+#: C/index.docbook:7296
 msgid "Quit"
 msgstr "Avsluta"
 
 #. (itstool) path: entry/para
-#: C/index.docbook:7292
+#: C/index.docbook:7297
 msgid "Exit GNOME Commander"
 msgstr "Avsluta GNOME Commander"
 
 #. (itstool) path: entry/para
-#: C/index.docbook:7295
+#: C/index.docbook:7300
 msgid "Refresh"
 msgstr "Uppdatera"
 
 #. (itstool) path: entry/para
-#: C/index.docbook:7299 C/index.docbook:7300
+#: C/index.docbook:7304 C/index.docbook:7305
 msgid "Rename files"
 msgstr "Byt namn på filer"
 
 #. (itstool) path: entry/para
-#: C/index.docbook:7303
+#: C/index.docbook:7308
 msgid "Report a problem"
 msgstr "Rapportera ett problem"
 
 #. (itstool) path: entry/para
-#: C/index.docbook:7304
+#: C/index.docbook:7309
 msgid "Report problem to gitlab.gnome.org"
 msgstr "Rapportera problem till gitlab.gnome.org"
 
 #. (itstool) path: entry/para
-#: C/index.docbook:7307
+#: C/index.docbook:7312
 msgid "Root directory"
 msgstr "Rotkatalog"
 
 #. (itstool) path: entry/para
-#: C/index.docbook:7312
+#: C/index.docbook:7317
 msgid "File search"
 msgstr "Filsökning"
 
 #. (itstool) path: entry/para
-#: C/index.docbook:7315
+#: C/index.docbook:7320
 msgid "Select all"
 msgstr "Markera alla"
 
 #. (itstool) path: entry/para
-#: C/index.docbook:7319
+#: C/index.docbook:7324
 msgid "Send files"
 msgstr "Skicka filer"
 
 #. (itstool) path: entry/para
 #. (itstool) path: listitem/para
-#: C/index.docbook:7320 C/releases.xml:1931
+#: C/index.docbook:7325 C/releases.xml:1931
 msgid "Send files via email or instant messenger (using nautilus-sendto)"
 msgstr ""
 "Skicka filer via e-post eller snabbmeddelandeklient (med nautilus-sendto)"
 
 #. (itstool) path: entry/para
-#: C/index.docbook:7323
+#: C/index.docbook:7328
 msgid "Show directory history"
 msgstr "Visa kataloghistorik"
 
 #. (itstool) path: entry/para
-#: C/index.docbook:7327
+#: C/index.docbook:7332
 msgid "Show user defined files"
 msgstr "Visa användardefinierade filer"
 
 #. (itstool) path: entry/para
-#: C/index.docbook:7328
+#: C/index.docbook:7333
 msgid "Use file selection filter"
 msgstr "Använd filmarkeringsfilter"
 
 #. (itstool) path: entry/para
-#: C/index.docbook:7331
+#: C/index.docbook:7336
 msgid "Start GNOME Commander as root"
 msgstr "Starta GNOME Commander som root"
 
 #. (itstool) path: entry/para
-#: C/index.docbook:7332
+#: C/index.docbook:7337
 msgid "Start GNOME Commander in root mode at the same location"
 msgstr "Starta GNOME Commander i root-läge på samma plats"
 
 #. (itstool) path: warning/para
-#: C/index.docbook:7333
+#: C/index.docbook:7338
 msgid ""
 "Be careful while running GNOME Commander with root privileges as you may "
 "damage your system."
@@ -15403,57 +15408,57 @@ msgstr ""
 "skada ditt system."
 
 #. (itstool) path: entry/para
-#: C/index.docbook:7337
+#: C/index.docbook:7342
 msgid "Synchronize directories"
 msgstr "Synkronisera kataloger"
 
 #. (itstool) path: entry/para
-#: C/index.docbook:7338
+#: C/index.docbook:7343
 msgid "Synchronize directories (using meld)"
 msgstr "Synkronisera kataloger (med hjälp av meld)"
 
 #. (itstool) path: entry/para
-#: C/index.docbook:7341
+#: C/index.docbook:7346
 msgid "Toggle selection"
 msgstr "Växla markering"
 
 #. (itstool) path: entry/para
-#: C/index.docbook:7342
+#: C/index.docbook:7347
 msgid "Toggle selection for cursor"
 msgstr "Växla markering för markör"
 
 #. (itstool) path: entry/para
-#: C/index.docbook:7345
+#: C/index.docbook:7350
 msgid "Toggle selection and move cursor downward"
 msgstr "Växla markering och flytta markören nedåt"
 
 #. (itstool) path: entry/para
-#: C/index.docbook:7346
+#: C/index.docbook:7351
 msgid "Select file or directory and move cursor downward"
 msgstr "Markera fil eller katalog och flytta markören nedåt"
 
 #. (itstool) path: entry/para
-#: C/index.docbook:7349
+#: C/index.docbook:7354
 msgid "Unselect all"
 msgstr "Avmarkera alla"
 
 #. (itstool) path: entry/para
-#: C/index.docbook:7354
+#: C/index.docbook:7359
 msgid "Go forward to the parent directory"
 msgstr "Gå framåt till överordnad katalog"
 
 #. (itstool) path: entry/para
-#: C/index.docbook:7357
+#: C/index.docbook:7362
 msgid "View file"
 msgstr "Visa fil"
 
 #. (itstool) path: sect1/title
-#: C/index.docbook:7377
+#: C/index.docbook:7382
 msgid "Additional Pop-up Menu Actions"
 msgstr "Ytterligare åtgärder i poppuppmeny"
 
 #. (itstool) path: sect2/para
-#: C/index.docbook:7380
+#: C/index.docbook:7385
 msgid ""
 "The pop-up menu of GNOME Commander, which can be opened by right-clicking on "
 "a file or folder or by pressing <keycombo><keycap>SHIFT</keycap><keycap>F10</"
@@ -15476,7 +15481,7 @@ msgstr ""
 "på, så kommer skriptet att anropas separat för varje markerad fil."
 
 #. (itstool) path: figure/title
-#: C/index.docbook:7388
+#: C/index.docbook:7393
 msgid "Example picture of the pop-up menu with four additional entries"
 msgstr "Exempelbild på poppuppmenyn med fyra ytterligare menyobjekt"
 
@@ -15485,7 +15490,7 @@ msgstr "Exempelbild på poppuppmenyn med fyra ytterligare menyobjekt"
 #. the file changes, the md5 hash will change to let you know you need to
 #. update your localized copy. The msgstr is not used at all. Set it to
 #. whatever you like once you have updated your copy of the file.
-#: C/index.docbook:7392
+#: C/index.docbook:7397
 msgctxt "_"
 msgid ""
 "external ref='figures/gnome-commander_simple_plugins_example.png' "
@@ -15495,12 +15500,12 @@ msgstr ""
 "md5='8076eb6725fd148b0fd93f2043d95513'"
 
 #. (itstool) path: sect2/title
-#: C/index.docbook:7399
+#: C/index.docbook:7404
 msgid "File format"
 msgstr "Filformat"
 
 #. (itstool) path: sect2/para
-#: C/index.docbook:7400
+#: C/index.docbook:7405
 msgid ""
 "The files can be binary or simple text files. In the latter case it is "
 "possible to handle some config variables over to GNOME Commander by using a "
@@ -15513,47 +15518,47 @@ msgstr ""
 "guilabel>, där ”#” är det första tecknet i en textrad."
 
 #. (itstool) path: sect2/para
-#: C/index.docbook:7404
+#: C/index.docbook:7409
 msgid "Currently, the following keys are implemented:"
 msgstr "För närvarande är följande nycklar implementerade:"
 
 #. (itstool) path: entry/para
-#: C/index.docbook:7412
+#: C/index.docbook:7417
 msgid "name"
 msgstr "name"
 
 #. (itstool) path: entry/para
-#: C/index.docbook:7413
+#: C/index.docbook:7418
 msgid "The label of the menu item"
 msgstr "Etiketten för menyobjektet"
 
 #. (itstool) path: entry/para
-#: C/index.docbook:7414
+#: C/index.docbook:7419
 msgid "If undefined, the script file name will be used"
 msgstr "Om odefinierad kommer skriptets filnamn att användas"
 
 #. (itstool) path: entry/para
-#: C/index.docbook:7417
+#: C/index.docbook:7422
 msgid "term"
 msgstr "term"
 
 #. (itstool) path: entry/para
-#: C/index.docbook:7418
+#: C/index.docbook:7423
 msgid "Run the script in a terminal window"
 msgstr "Kör skriptet i ett terminalfönster"
 
 #. (itstool) path: entry/para
-#: C/index.docbook:7419
+#: C/index.docbook:7424
 msgid "To activate this, set value to 'true'"
 msgstr "För att aktivera detta sätt värdet till ”true”"
 
 #. (itstool) path: sect2/title
-#: C/index.docbook:7426
+#: C/index.docbook:7431
 msgid "Example Pop-up menu scripts"
 msgstr "Exempelskript för poppuppmeny"
 
 #. (itstool) path: sect2/para
-#: C/index.docbook:7427
+#: C/index.docbook:7432
 msgid ""
 "Some example scripts can be found <ulink url=\"https://gitlab.gnome.org/"
 "GNOME/gnome-commander/tree/master/gcmd-scripts\" type=\"https\">online</"
@@ -15564,12 +15569,12 @@ msgstr ""
 "GNOME Commanders git-arkiv."
 
 #. (itstool) path: sect1/title
-#: C/index.docbook:7435
+#: C/index.docbook:7440
 msgid "Tips and Tricks"
 msgstr "Tips och trick"
 
 #. (itstool) path: sect1/para
-#: C/index.docbook:7436
+#: C/index.docbook:7441
 msgid ""
 "Some very simple tips and tricks on using and getting the most out of GNOME "
 "Commander."
@@ -15578,12 +15583,12 @@ msgstr ""
 "Commander."
 
 #. (itstool) path: sect2/title
-#: C/index.docbook:7438
+#: C/index.docbook:7443
 msgid "Handling Archives"
 msgstr "Hantera arkiv"
 
 #. (itstool) path: sect2/para
-#: C/index.docbook:7439
+#: C/index.docbook:7444
 msgid ""
 "GNOME Commander still lacks built in browsing of compressed archives. "
 "However the program can be configured so that working with archives becomes "
@@ -15595,7 +15600,7 @@ msgstr ""
 
 # TODO: activate the build in -> activate the built in
 #. (itstool) path: sect2/para
-#: C/index.docbook:7441
+#: C/index.docbook:7446
 msgid ""
 "There are two different ways: The preferred one is to activate the build in "
 "<application>Fileroller</application> plugin in the menu "
@@ -15616,13 +15621,13 @@ msgstr ""
 "låter poppuppmenyn dig välja var arkivet ska extraheras."
 
 #. (itstool) path: sect2/para
-#: C/index.docbook:7447
+#: C/index.docbook:7452
 msgid "The second, outdated but still working way is the following:"
 msgstr ""
 "Det andra, efter sin tid, men fortfarande fungerande sättet är följande:"
 
 #. (itstool) path: listitem/para
-#: C/index.docbook:7450
+#: C/index.docbook:7455
 msgid ""
 "If you don't already have the program <application>Fileroller</application>, "
 "download it and install it."
@@ -15631,7 +15636,7 @@ msgstr ""
 "det och installera det."
 
 #. (itstool) path: listitem/para
-#: C/index.docbook:7455
+#: C/index.docbook:7460
 msgid ""
 "Open the <guimenu>Options</guimenu> dialog and go to the "
 "<guimenuitem>Programs</guimenuitem> tab."
@@ -15640,12 +15645,12 @@ msgstr ""
 "<guimenuitem>Program</guimenuitem>."
 
 #. (itstool) path: listitem/para
-#: C/index.docbook:7458
+#: C/index.docbook:7463
 msgid "Add two favorite apps using the values shown in the figures below."
 msgstr "Lägg till två favoritprogram med värdena visade i figurerna nedan."
 
 #. (itstool) path: sect2/para
-#: C/index.docbook:7461
+#: C/index.docbook:7466
 msgid ""
 "You can now right click any file or folder and choose <guimenuitem>Create "
 "archive...</guimenuitem> to compress it and right click compressed files and "
@@ -15657,7 +15662,7 @@ msgstr ""
 "extrahera dem."
 
 #. (itstool) path: figure/title
-#: C/index.docbook:7466
+#: C/index.docbook:7471
 msgid "Create Archive"
 msgstr "Skapa arkiv"
 
@@ -15666,7 +15671,7 @@ msgstr "Skapa arkiv"
 #. the file changes, the md5 hash will change to let you know you need to
 #. update your localized copy. The msgstr is not used at all. Set it to
 #. whatever you like once you have updated your copy of the file.
-#: C/index.docbook:7470
+#: C/index.docbook:7475
 msgctxt "_"
 msgid ""
 "external ref='figures/create_archive.png' "
@@ -15676,7 +15681,7 @@ msgstr ""
 "md5='de309126a7a7a1a44fc1be6562d9dded'"
 
 #. (itstool) path: screenshot/mediaobject
-#: C/index.docbook:7468
+#: C/index.docbook:7473
 msgid ""
 "<imageobject> <imagedata fileref=\"figures/create_archive.png\" "
 "format=\"PNG\"/> </imageobject> <textobject> <phrase>This entry allows "
@@ -15687,7 +15692,7 @@ msgstr ""
 "lätt skapande av arkiv.</phrase> </textobject>"
 
 #. (itstool) path: figure/title
-#: C/index.docbook:7481
+#: C/index.docbook:7486
 msgid "Extract Archive"
 msgstr "Extrahera arkiv"
 
@@ -15696,7 +15701,7 @@ msgstr "Extrahera arkiv"
 #. the file changes, the md5 hash will change to let you know you need to
 #. update your localized copy. The msgstr is not used at all. Set it to
 #. whatever you like once you have updated your copy of the file.
-#: C/index.docbook:7485
+#: C/index.docbook:7490
 msgctxt "_"
 msgid ""
 "external ref='figures/extract_archive.png' "
@@ -15706,7 +15711,7 @@ msgstr ""
 "md5='663ef84479147e02e7091bad46cb2cad'"
 
 #. (itstool) path: screenshot/mediaobject
-#: C/index.docbook:7483
+#: C/index.docbook:7488
 msgid ""
 "<imageobject> <imagedata fileref=\"figures/extract_archive.png\" "
 "format=\"PNG\"/> </imageobject> <textobject> <phrase>This entry allows "
@@ -15717,12 +15722,12 @@ msgstr ""
 "lätt extraktion av arkiv.</phrase> </textobject>"
 
 #. (itstool) path: sect2/title
-#: C/index.docbook:7496
+#: C/index.docbook:7501
 msgid "Copying File Names and Paths"
 msgstr "Kopiera filnamn och sökvägar"
 
 #. (itstool) path: listitem/para
-#: C/index.docbook:7499
+#: C/index.docbook:7504
 msgid ""
 "To copy names of selected files to the environment's clipboard, use the Copy "
 "File Names action on the <guimenu>Edit</guimenu> menu or the \"**\" icon on "
@@ -15733,7 +15738,7 @@ msgstr ""
 "”**” i verktygsfältet."
 
 #. (itstool) path: listitem/para
-#: C/index.docbook:7503
+#: C/index.docbook:7508
 msgid ""
 "To copy full paths of selected files to the environment's clipboard, hold "
 "down <keycap>SHIFT</keycap> while activating either the Copy File Names "
@@ -15745,7 +15750,7 @@ msgstr ""
 "”**” i verktygsfältet."
 
 #. (itstool) path: listitem/para
-#: C/index.docbook:7508
+#: C/index.docbook:7513
 msgid ""
 "To copy the full path of the current directory, right click on the directory "
 "indicator at the top of the directory list."
@@ -15754,7 +15759,7 @@ msgstr ""
 "på katalogindikatorn högst upp i kataloglistan."
 
 #. (itstool) path: listitem/para
-#: C/index.docbook:7512
+#: C/index.docbook:7517
 msgid ""
 "To insert the current file's path in Gnome Commander's command line, press "
 "<keycombo><keycap>CTRL</keycap><keycap>Shift</keycap><keycap>Enter</keycap></"
@@ -15765,7 +15770,7 @@ msgstr ""
 "keycap><keycap>Retur</keycap></keycombo>."
 
 #. (itstool) path: listitem/para
-#: C/index.docbook:7516
+#: C/index.docbook:7521
 msgid ""
 "To insert the current file's name in Gnome Commander's command line, press "
 "<keycombo><keycap>CTRL</keycap><keycap>Enter</keycap></keycombo>."
@@ -15774,17 +15779,17 @@ msgstr ""
 "tryck ned <keycombo><keycap>CTRL</keycap><keycap>Retur</keycap></keycombo>."
 
 #. (itstool) path: sect1/title
-#: C/index.docbook:7526
+#: C/index.docbook:7531
 msgid "GNOME Commander Installation"
 msgstr "GNOME Commander-installation"
 
 #. (itstool) path: sect2/title
-#: C/index.docbook:7528
+#: C/index.docbook:7533
 msgid "Getting GNOME Commander"
 msgstr "Hämta GNOME Commander"
 
 #. (itstool) path: sect2/para
-#: C/index.docbook:7529
+#: C/index.docbook:7534
 msgid ""
 "It's recommended to use the GNOME Commander package that is provided by your "
 "distribution. Refer to GNOME Commander for the <ulink type=\"http\" "
@@ -15797,7 +15802,7 @@ msgstr ""
 "distributioner</ulink> som stöder GNOME Commander-paket."
 
 #. (itstool) path: sect2/para
-#: C/index.docbook:7534
+#: C/index.docbook:7539
 msgid ""
 "All current and historical releases can be found on the <ulink type=\"http\" "
 "url=\"http://ftp.gnome.org/pub/GNOME/sources/gnome-commander/\">GNOME FTP "
@@ -15808,12 +15813,12 @@ msgstr ""
 "\">GNOME:s FTP-server</ulink>."
 
 #. (itstool) path: sect2/title
-#: C/index.docbook:7539
+#: C/index.docbook:7544
 msgid "Versioning"
 msgstr "Versionering"
 
 #. (itstool) path: sect2/para
-#: C/index.docbook:7540
+#: C/index.docbook:7545
 msgid ""
 "GNOME Commander is being developed in a stable and a testing branch, where "
 "the test releases fill the purpose of testing new ideas. Successful ones "
@@ -15831,12 +15836,12 @@ msgstr ""
 "grenen så småningom får de noggrant testade nya funktionerna bakåtporterade."
 
 #. (itstool) path: sect2/title
-#: C/index.docbook:7547
+#: C/index.docbook:7552
 msgid "Current stable version"
 msgstr "Aktuell stabil version"
 
 #. (itstool) path: sect2/para
-#: C/index.docbook:7548
+#: C/index.docbook:7553
 msgid ""
 "If you'd like to compile the latest stable version of GNOME Commander "
 "yourself, get it as a tar.xz file from the <ulink type=\"http\" "
@@ -15849,7 +15854,7 @@ msgstr ""
 "webbsida."
 
 #. (itstool) path: sect2/para
-#: C/index.docbook:7551
+#: C/index.docbook:7556
 msgid ""
 "After extracting the archive, first have a look at the <guimenu>README</"
 "guimenu> file, where you get an overview of the downloaded release. Also, "
@@ -15862,12 +15867,12 @@ msgstr ""
 "här."
 
 #. (itstool) path: sect2/title
-#: C/index.docbook:7556
+#: C/index.docbook:7561
 msgid "Development version"
 msgstr "Utvecklingsversion"
 
 #. (itstool) path: sect2/para
-#: C/index.docbook:7557
+#: C/index.docbook:7562
 msgid ""
 "For those of you who feel really adventurous, or maybe want to hack on the "
 "freshest code, the latest development source snapshots are available by "
@@ -15878,7 +15883,7 @@ msgstr ""
 "utvecklingskällkoden tillgängliga genom att använda GIT:"
 
 #. (itstool) path: sect2/para
-#: C/index.docbook:7559
+#: C/index.docbook:7564
 msgid ""
 "<command>git clone https://gitlab.gnome.org/GNOME/gnome-commander.git</"
 "command>"
@@ -15887,7 +15892,7 @@ msgstr ""
 "command>"
 
 #. (itstool) path: note/para
-#: C/index.docbook:7563
+#: C/index.docbook:7568
 msgid ""
 "The above works only to do a first time download and not for updating the "
 "code, if you already have a version of the code simply run <command>git "
@@ -15898,7 +15903,7 @@ msgstr ""
 "köra <command>git pull</command> för att få tag på de senaste ändringarna."
 
 #. (itstool) path: sect2/para
-#: C/index.docbook:7566
+#: C/index.docbook:7571
 msgid ""
 "Just remember to run <command>./autogen.sh</command> before building by "
 "<command>make</command>."
@@ -15907,7 +15912,7 @@ msgstr ""
 "<command>make</command>."
 
 #. (itstool) path: warning/para
-#: C/index.docbook:7567
+#: C/index.docbook:7572
 msgid ""
 "Be aware that there can be serious bugs in code from GNOME git repository. "
 "This code is intended for hacking, development and testing purposes only."
@@ -15916,12 +15921,12 @@ msgstr ""
 "arkiv. Denna kod är endast avsedd för hackande, utveckling och testsyften."
 
 #. (itstool) path: sect1/title
-#: C/index.docbook:7575
+#: C/index.docbook:7580
 msgid "Configuration Files"
 msgstr "Konfigurationsfiler"
 
 #. (itstool) path: sect1/para
-#: C/index.docbook:7576
+#: C/index.docbook:7581
 msgid ""
 "This section gives an overview of the configuration files used by GNOME "
 "Commander:"
@@ -15930,7 +15935,7 @@ msgstr ""
 "GNOME Commander:"
 
 #. (itstool) path: note/para
-#: C/index.docbook:7579
+#: C/index.docbook:7584
 msgid ""
 "Since GNOME Commander version 1.10.0 the location of configuration files "
 "changed from <guilabel>~/.gnome-commander</guilabel> to <guilabel>~/.config/"
@@ -15943,12 +15948,12 @@ msgstr ""
 "automatiskt då GNOME Commander 1.10.0 startas för första gången."
 
 #. (itstool) path: para/term
-#: C/index.docbook:7586
+#: C/index.docbook:7591
 msgid "<guilabel>~/.config/gnome-commander/scripts/*</guilabel>"
 msgstr "<guilabel>~/.config/gnome-commander/scripts/*</guilabel>"
 
 #. (itstool) path: sect1/para
-#: C/index.docbook:7585
+#: C/index.docbook:7590
 msgid ""
 "<_:term-1/> In this directory the user can place scripts for the <xref "
 "linkend=\"popup-menu-actions\"/>."
@@ -15958,7 +15963,7 @@ msgstr ""
 
 # TODO: ealier -> earlier
 #. (itstool) path: note/para
-#: C/index.docbook:7592
+#: C/index.docbook:7597
 msgid ""
 "Since GNOME Commander version 1.10.0 the following option files are "
 "obsolete. If they have been created by ealier GNOME Commander versions then "
@@ -15973,22 +15978,22 @@ msgstr ""
 "commander</guilabel>."
 
 #. (itstool) path: varlistentry/term
-#: C/index.docbook:7599
+#: C/index.docbook:7604
 msgid "<guilabel>~/.config/gnome-commander/devices</guilabel>"
 msgstr "<guilabel>~/.config/gnome-commander/devices</guilabel>"
 
 #. (itstool) path: varlistentry/term
-#: C/index.docbook:7607
+#: C/index.docbook:7612
 msgid "<guilabel>~/.config/gnome-commander/fav-apps</guilabel>"
 msgstr "<guilabel>~/.config/gnome-commander/fav-apps</guilabel>"
 
 #. (itstool) path: varlistentry/term
-#: C/index.docbook:7615
+#: C/index.docbook:7620
 msgid "<guilabel>~/.config/gnome-commander/gnome-commander.xml</guilabel>"
 msgstr "<guilabel>~/.config/gnome-commander/gnome-commander.xml</guilabel>"
 
 #. (itstool) path: note/para
-#: C/index.docbook:7625
+#: C/index.docbook:7630
 msgid ""
 "Since GNOME Commander version 1.6.0 the options file <guilabel>~/.gnome2/"
 "gnome-commander</guilabel> is obsolete. The settings of this file are now "
@@ -16000,12 +16005,12 @@ msgstr ""
 "i GSettings under sökvägen <guilabel>org.gnome.gnome-commander</guilabel>."
 
 #. (itstool) path: sect1/title
-#: C/index.docbook:7641
+#: C/index.docbook:7646
 msgid "Known Bugs and Limitations"
 msgstr "Kända fel och begränsningar"
 
 #. (itstool) path: sect1/para
-#: C/index.docbook:7643
+#: C/index.docbook:7648
 msgid ""
 "Some words about bugs: Though GNOME Commander is relatively free from bugs "
 "and is a quite mature program, no programs will ever be totally bug free. "
@@ -16035,7 +16040,7 @@ msgstr ""
 "öppen källkod."
 
 #. (itstool) path: listitem/para
-#: C/index.docbook:7653
+#: C/index.docbook:7658
 msgid ""
 "GNOME Commander is still lacking on GVFS/GIO support. Instead it uses "
 "GnomeVFS."
@@ -16044,7 +16049,7 @@ msgstr ""
 "GnomeVFS."
 
 #. (itstool) path: listitem/para
-#: C/index.docbook:7654
+#: C/index.docbook:7659
 msgid ""
 "Configuration of default application depending on the files MIME type is "
 "broken and was finally removed in v1.4. See section <xref linkend=\"gnome-"
@@ -16055,27 +16060,27 @@ msgstr ""
 "mime-types\"/> för mer information."
 
 #. (itstool) path: sect1/para
-#: C/index.docbook:7651
+#: C/index.docbook:7656
 msgid "Known limitation: <_:itemizedlist-1/>"
 msgstr "Känd begränsning: <_:itemizedlist-1/>"
 
 #. (itstool) path: sect1/para
-#: C/index.docbook:7656
+#: C/index.docbook:7661
 msgid "<emphasis>Given enough eyeballs, all bugs are shallow.</emphasis>"
 msgstr "<emphasis>Given enough eyeballs, all bugs are shallow.</emphasis>"
 
 #. (itstool) path: sect1/para
-#: C/index.docbook:7658
+#: C/index.docbook:7663
 msgid "<foreignphrase>Linus law.</foreignphrase>"
 msgstr "<foreignphrase>Linus lag.</foreignphrase>"
 
 #. (itstool) path: sect2/title
-#: C/index.docbook:7670
+#: C/index.docbook:7675
 msgid "History of GNOME Commander"
 msgstr "Historik för GNOME Commander"
 
 #. (itstool) path: sect2/para
-#: C/index.docbook:7671
+#: C/index.docbook:7676
 msgid ""
 "GNOME Commander was primarily written by Marcus Bjurman, who was the one "
 "initiating this project in 2001 and developed it up to version 1.1.6 in "
@@ -16086,7 +16091,7 @@ msgstr ""
 "2004."
 
 #. (itstool) path: sect2/para
-#: C/index.docbook:7673
+#: C/index.docbook:7678
 msgid ""
 "Later on, since 2004, GNOME Commander was maintained by the new lead "
 "developer Piotr Eljasiak, working at the project already since 2002. In this "
@@ -16097,7 +16102,7 @@ msgstr ""
 "tid bidrog Assaf Gordon genom att implementera den interna filvisaren."
 
 #. (itstool) path: sect2/para
-#: C/index.docbook:7676
+#: C/index.docbook:7681
 msgid ""
 "Piotr conducted the development until version 1.2.8.15. In this time Magnus "
 "Stålnacke was responsible for the homepage. On the mailing list, amongst "
@@ -16112,7 +16117,7 @@ msgstr ""
 "hjälpte Thomas Jost till att underhålla webbsidan på Savannah.org"
 
 #. (itstool) path: sect2/para
-#: C/index.docbook:7681
+#: C/index.docbook:7686
 msgid ""
 "Unfortunately, Piotr suddenly passed away in the beginning of 2012 and GNOME "
 "Commander had no maintainer for nearly two years. Late in 2013, Uwe Scholz, "
@@ -16125,7 +16130,7 @@ msgstr ""
 "projektansvarig."
 
 #. (itstool) path: sect2/para
-#: C/index.docbook:7687
+#: C/index.docbook:7692
 msgid ""
 "In the beginning, GNOME Commander had its home at Sourceforge. Later, the "
 "project moved to Savannah.org, where it got its own homepage and its mailing "
@@ -16138,7 +16143,7 @@ msgstr ""
 "Webbsidan och sändlistorna fanns dock fortfarande på Savannah."
 
 #. (itstool) path: sect2/para
-#: C/index.docbook:7691
+#: C/index.docbook:7696
 msgid ""
 "Since 2013, the location of the GNOME Commander home page has been moved to "
 "GitHub.org."
@@ -16147,12 +16152,12 @@ msgstr ""
 "org."
 
 #. (itstool) path: sect2/title
-#: C/index.docbook:7694
+#: C/index.docbook:7699
 msgid "Bug Reporting"
 msgstr "Felrapportering"
 
 #. (itstool) path: sect2/para
-#: C/index.docbook:7695
+#: C/index.docbook:7700
 msgid ""
 "If you found a bug, you can check if it is already reported on our <ulink "
 "type=\"http\" url=\"https://gitlab.gnome.org/GNOME/gnome-commander/"
@@ -16167,7 +16172,7 @@ msgstr ""
 "<xref linkend=\"gnome-commander-development-version\"/>."
 
 #. (itstool) path: sect2/para
-#: C/index.docbook:7703
+#: C/index.docbook:7708
 msgid ""
 "This program is distributed under the terms of the GNU General Public "
 "license as published by the Free Software Foundation; either version 2 of "
