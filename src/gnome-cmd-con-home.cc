@@ -67,6 +67,30 @@ static GnomeCmdPath *home_create_path (GnomeCmdCon *con, const gchar *path_str)
 }
 
 
+static gchar *home_get_go_text (GnomeCmdCon *con)
+{
+    return g_strdup (_("Go to: Home"));
+}
+
+
+static gchar *home_get_open_text (GnomeCmdCon *con)
+{
+    return nullptr;
+}
+
+
+static gchar *home_get_close_text (GnomeCmdCon *con)
+{
+    return nullptr;
+}
+
+
+static GdkPixbuf *home_get_pixbuf (GnomeCmdCon *con)
+{
+    guint dev_icon_size = gnome_cmd_data.dev_icon_size;
+    return pixbuf_from_icon ("user-home", dev_icon_size);
+}
+
 
 /*******************************
  * Gtk class implementation
@@ -82,13 +106,19 @@ static void gnome_cmd_con_home_class_init (GnomeCmdConHomeClass *klass)
     con_class->open_is_needed = home_open_is_needed;
     con_class->create_gfile = home_create_gfile;
     con_class->create_path = home_create_path;
+
+    con_class->get_go_text = home_get_go_text;
+    con_class->get_open_text = home_get_open_text;
+    con_class->get_close_text = home_get_close_text;
+
+    con_class->get_go_pixbuf = home_get_pixbuf;
+    con_class->get_open_pixbuf = home_get_pixbuf;
+    con_class->get_close_pixbuf = home_get_pixbuf;
 }
 
 
 static void gnome_cmd_con_home_init (GnomeCmdConHome *home_con)
 {
-    guint dev_icon_size = gnome_cmd_data.dev_icon_size;
-
     GnomeCmdCon *con = GNOME_CMD_CON (home_con);
 
     con->state = GnomeCmdCon::STATE_OPEN;
@@ -101,10 +131,6 @@ static void gnome_cmd_con_home_init (GnomeCmdConHome *home_con)
     con->can_show_free_space = TRUE;
     con->is_local = TRUE;
     con->is_closeable = FALSE;
-    con->go_text = g_strdup (_("Go to: Home"));
-    con->go_pixbuf = pixbuf_from_icon ("user-home", dev_icon_size);
-    con->open_pixbuf = pixbuf_from_icon ("user-home", dev_icon_size);
-    con->close_pixbuf = pixbuf_from_icon ("user-home", dev_icon_size);
 
     GnomeCmdDir *dir = gnome_cmd_dir_new (con, new GnomeCmdPlainPath(g_get_home_dir ()));
 

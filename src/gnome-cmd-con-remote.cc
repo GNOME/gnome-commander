@@ -215,6 +215,56 @@ static GnomeCmdPath *remote_create_path (GnomeCmdCon *con, const gchar *path_str
 }
 
 
+static gchar *remote_get_open_tooltip (GnomeCmdCon *con)
+{
+    return con->hostname
+        ? g_strdup_printf (_("Opens remote connection to %s"), con->hostname)
+        : nullptr;
+}
+
+
+static gchar *remote_get_close_tooltip (GnomeCmdCon *con)
+{
+    return con->hostname
+        ? g_strdup_printf (_("Closes remote connection to %s"), con->hostname)
+        : nullptr;
+}
+
+
+static GdkPixbuf *remote_get_pixbuf (GnomeCmdCon *con)
+{
+    guint dev_icon_size = gnome_cmd_data.dev_icon_size;
+    return pixbuf_from_icon (gnome_cmd_con_get_icon_name (con), dev_icon_size);
+}
+
+
+static GdkPixbuf *remote_get_close_pixbuf (GnomeCmdCon *con)
+{
+    gint icon_size;
+
+    g_assert (gtk_icon_size_lookup (GTK_ICON_SIZE_LARGE_TOOLBAR, &icon_size, nullptr));
+
+    GdkPixbuf *overlay = pixbuf_from_icon (gnome_cmd_con_get_icon_name (con), icon_size);
+    if (!overlay)
+        return nullptr;
+
+    GdkPixbuf *umount = IMAGE_get_pixbuf (PIXMAP_OVERLAY_UMOUNT);
+    if (!umount)
+    {
+        return nullptr;
+        g_object_unref (overlay);
+    }
+
+    gdk_pixbuf_copy_area (umount, 0, 0,
+                          MIN (gdk_pixbuf_get_width (umount), icon_size),
+                          MIN (gdk_pixbuf_get_height (umount), icon_size),
+                          overlay, 0, 0);
+    g_object_unref (umount);
+
+    return overlay;
+}
+
+
 /*******************************
  * Gtk class implementation
  *******************************/
@@ -229,16 +279,18 @@ static void gnome_cmd_con_remote_class_init (GnomeCmdConRemoteClass *klass)
     con_class->open_is_needed = remote_open_is_needed;
     con_class->create_gfile = remote_create_gfile;
     con_class->create_path = remote_create_path;
+
+    con_class->get_open_tooltip = remote_get_open_tooltip;
+    con_class->get_close_tooltip = remote_get_close_tooltip;
+
+    con_class->get_go_pixbuf = remote_get_pixbuf;
+    con_class->get_open_pixbuf = remote_get_pixbuf;
+    con_class->get_close_pixbuf = remote_get_close_pixbuf;
 }
 
 
 static void gnome_cmd_con_remote_init (GnomeCmdConRemote *remote_con)
 {
-    guint dev_icon_size = gnome_cmd_data.dev_icon_size;
-    gint icon_size;
-
-    g_assert (gtk_icon_size_lookup (GTK_ICON_SIZE_LARGE_TOOLBAR, &icon_size, nullptr));
-
     GnomeCmdCon *con = GNOME_CMD_CON (remote_con);
 
     con->method = CON_FTP;
@@ -248,34 +300,6 @@ static void gnome_cmd_con_remote_init (GnomeCmdConRemote *remote_con)
     con->can_show_free_space = FALSE;
     con->is_local = FALSE;
     con->is_closeable = TRUE;
-    con->go_pixbuf = pixbuf_from_icon (gnome_cmd_con_get_icon_name (con), dev_icon_size);
-    con->open_pixbuf = pixbuf_from_icon (gnome_cmd_con_get_icon_name (con), dev_icon_size);
-    con->close_pixbuf = pixbuf_from_icon (gnome_cmd_con_get_icon_name (con), icon_size);
-
-    if (con->close_pixbuf)
-    {
-        GdkPixbuf *overlay = gdk_pixbuf_copy (con->close_pixbuf);
-
-        if (overlay)
-        {
-            GdkPixbuf *umount = IMAGE_get_pixbuf (PIXMAP_OVERLAY_UMOUNT);
-
-            if (umount)
-            {
-                gdk_pixbuf_copy_area (umount, 0, 0,
-                                      MIN (gdk_pixbuf_get_width (umount), icon_size),
-                                      MIN (gdk_pixbuf_get_height (umount), icon_size),
-                                      overlay, 0, 0);
-
-                g_object_unref (con->close_pixbuf);
-                con->close_pixbuf = overlay;
-            }
-            else
-            {
-                g_object_unref (overlay);
-            }
-        }
-    }
 }
 
 /***********************************
@@ -330,8 +354,6 @@ GnomeCmdConRemote *gnome_cmd_con_remote_new (const gchar *alias, const string &u
     gnome_cmd_con_set_port (con, port);
     gnome_cmd_con_set_root_path (con, path);
 
-    gnome_cmd_con_remote_set_tooltips (gnomeCmdConRemote, host);
-
     con->method = gnome_cmd_con_get_scheme (uri_str.c_str());
 
     g_free (scheme);
@@ -340,17 +362,4 @@ GnomeCmdConRemote *gnome_cmd_con_remote_new (const gchar *alias, const string &u
     g_free (user);
 
     return gnomeCmdConRemote;
-}
-
-
-void gnome_cmd_con_remote_set_tooltips (GnomeCmdConRemote *con, const gchar *host_name)
-{
-    g_return_if_fail (con != nullptr);
-    if (!host_name)
-    {
-        return;
-    }
-
-    GNOME_CMD_CON (con)->open_tooltip = g_strdup_printf (_("Opens remote connection to %s"), host_name);
-    GNOME_CMD_CON (con)->close_tooltip = g_strdup_printf (_("Closes remote connection to %s"), host_name);
 }

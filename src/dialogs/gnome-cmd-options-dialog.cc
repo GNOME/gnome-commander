@@ -1917,15 +1917,17 @@ void add_device_to_list (GtkTreeView *view, GnomeCmdConDevice *dev)
     gtk_list_store_append (store, &iter);
     gtk_list_store_set (store, &iter,
                         0, pixbuf,
-                        1, (gchar *) gnome_cmd_con_device_get_alias (dev),
+                        1, gnome_cmd_con_get_alias (GNOME_CMD_CON (dev)),
                         2, dev,
                         -1);
+
+    g_clear_object (&pixbuf);
 }
 
 
 void update_device_in_list (GtkTreeView *view, GnomeCmdConDevice *dev, gchar *alias, gchar *device_fn, gchar *mountp, gchar *icon_path)
 {
-    gnome_cmd_con_device_set_alias (dev, alias);
+    gnome_cmd_con_set_alias (GNOME_CMD_CON (dev), alias);
     gnome_cmd_con_device_set_device_fn (dev, device_fn);
     gnome_cmd_con_device_set_mountp (dev, mountp);
     gnome_cmd_con_device_set_icon_path (dev, icon_path);
@@ -1952,6 +1954,8 @@ void update_device_in_list (GtkTreeView *view, GnomeCmdConDevice *dev, gchar *al
             }
         } while (gtk_tree_model_iter_next (model, &iter));
     }
+
+    g_clear_object (&pixbuf);
 }
 
 
@@ -2066,7 +2070,7 @@ static GtkWidget *create_device_dialog (GnomeCmdConDevice *dev, GCallback on_ok,
     label = create_label (dialog, _("Icon:"));
     gtk_grid_attach (GTK_GRID (grid), label, 0, 3, 1, 1);
 
-    if (dev) s = gnome_cmd_con_device_get_alias (dev);
+    if (dev) s = gnome_cmd_con_get_alias (GNOME_CMD_CON (dev));
     entry = create_entry (dialog, "alias_entry", s);
     gtk_widget_set_hexpand (entry, TRUE);
     gtk_grid_attach (GTK_GRID (grid), entry, 1, 0, 1, 1);

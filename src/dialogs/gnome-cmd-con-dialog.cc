@@ -486,9 +486,9 @@ gboolean gnome_cmd_connect_dialog_edit (GnomeCmdConRemote *server)
     else
         gtk_widget_set_sensitive (dialog->priv->alias_entry, FALSE);
 
-     auto host = g_strdup(gnome_cmd_con_get_host_name(con));
-     gint port = gnome_cmd_con_get_port (con);
-     auto path = gnome_cmd_con_get_root_path(con);
+    auto host = g_strdup(gnome_cmd_con_get_host_name(con));
+    gint port = gnome_cmd_con_get_port (con);
+    auto path = gnome_cmd_con_get_root_path(con);
 
     if (con->uri)
     {
@@ -563,7 +563,6 @@ gboolean gnome_cmd_connect_dialog_edit (GnomeCmdConRemote *server)
         auto alias = dialog->priv->alias ? dialog->priv->alias->c_str() : nullptr;
         gnome_cmd_con_set_alias (con, alias);
         con->method = (ConnectionMethodID) gtk_combo_box_get_active (GTK_COMBO_BOX (dialog->priv->type_combo));
-        gnome_cmd_con_remote_set_tooltips (server, host);
     }
 
     gtk_widget_destroy (*dialog);
