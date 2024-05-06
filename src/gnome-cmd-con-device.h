@@ -44,7 +44,7 @@ struct GnomeCmdConDeviceClass
 
 GType gnome_cmd_con_device_get_type ();
 
-GnomeCmdConDevice *gnome_cmd_con_device_new (const gchar *alias, const gchar *device_fn, const gchar *mountp, const gchar *icon_path);
+GnomeCmdConDevice *gnome_cmd_con_device_new (const gchar *alias, const gchar *device_fn, const gchar *mountp, GIcon *icon);
 
 void gnome_cmd_con_device_free (GnomeCmdConDevice *dev);
 
@@ -54,8 +54,8 @@ void gnome_cmd_con_device_set_device_fn (GnomeCmdConDevice *dev, const gchar *de
 const gchar *gnome_cmd_con_device_get_mountp_string (GnomeCmdConDevice *dev);
 void gnome_cmd_con_device_set_mountp (GnomeCmdConDevice *dev, const gchar *mountp);
 
-const gchar *gnome_cmd_con_device_get_icon_path (GnomeCmdConDevice *dev);
-void gnome_cmd_con_device_set_icon_path (GnomeCmdConDevice *dev, const gchar *icon_path);
+GIcon *gnome_cmd_con_device_get_icon (GnomeCmdConDevice *dev);
+void gnome_cmd_con_device_set_icon (GnomeCmdConDevice *dev, GIcon *icon);
 
 gboolean gnome_cmd_con_device_get_autovol (GnomeCmdConDevice *dev);
 void gnome_cmd_con_device_set_autovol (GnomeCmdConDevice *dev, const gboolean autovol);

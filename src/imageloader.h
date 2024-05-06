@@ -35,6 +35,9 @@
 #define FLIP_VERTICAL_STOCKID          "gnome-commander-flip-vertical"
 #define FLIP_HORIZONTAL_STOCKID        "gnome-commander-flip-horizontal"
 
+#define BOOKMARK_ICON                  "menu_bookmark"
+#define OVERLAY_UMOUNT_ICON            "overlay_umount"
+
 #include "gnome-cmd-pixmap.h"
 
 /**

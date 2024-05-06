@@ -181,9 +181,9 @@ static void gnome_cmd_con_class_init (GnomeCmdConClass *klass)
     klass->get_go_tooltip = nullptr;
     klass->get_open_tooltip = nullptr;
     klass->get_close_tooltip = nullptr;
-    klass->get_go_pixbuf = nullptr;
-    klass->get_open_pixbuf = nullptr;
-    klass->get_close_pixbuf = nullptr;
+    klass->get_go_icon = nullptr;
+    klass->get_open_icon = nullptr;
+    klass->get_close_icon = nullptr;
 }
 
 
@@ -616,11 +616,11 @@ gchar *gnome_cmd_con_get_go_tooltip (GnomeCmdCon *con)
 }
 
 
-GdkPixbuf *gnome_cmd_con_get_go_pixbuf (GnomeCmdCon *con)
+GIcon *gnome_cmd_con_get_go_icon (GnomeCmdCon *con)
 {
     g_return_val_if_fail (GNOME_CMD_IS_CON (con), nullptr);
     GnomeCmdConClass *klass = GNOME_CMD_CON_GET_CLASS (con);
-    return klass->get_go_pixbuf ? klass->get_go_pixbuf (con) : nullptr;
+    return klass->get_go_icon ? klass->get_go_icon (con) : nullptr;
 }
 
 
@@ -647,11 +647,11 @@ gchar *gnome_cmd_con_get_open_tooltip (GnomeCmdCon *con)
 }
 
 
-GdkPixbuf *gnome_cmd_con_get_open_pixbuf (GnomeCmdCon *con)
+GIcon *gnome_cmd_con_get_open_icon (GnomeCmdCon *con)
 {
     g_return_val_if_fail (GNOME_CMD_IS_CON (con), nullptr);
     GnomeCmdConClass *klass = GNOME_CMD_CON_GET_CLASS (con);
-    return klass->get_open_pixbuf ? klass->get_open_pixbuf (con) : nullptr;
+    return klass->get_open_icon ? klass->get_open_icon (con) : nullptr;
 }
 
 
@@ -678,11 +678,11 @@ gchar *gnome_cmd_con_get_close_tooltip (GnomeCmdCon *con)
 }
 
 
-GdkPixbuf *gnome_cmd_con_get_close_pixbuf (GnomeCmdCon *con)
+GIcon *gnome_cmd_con_get_close_icon (GnomeCmdCon *con)
 {
     g_return_val_if_fail (GNOME_CMD_IS_CON (con), nullptr);
     GnomeCmdConClass *klass = GNOME_CMD_CON_GET_CLASS (con);
-    return klass->get_close_pixbuf ? klass->get_close_pixbuf (con) : nullptr;
+    return klass->get_close_icon ? klass->get_close_icon (con) : nullptr;
 }
 
 

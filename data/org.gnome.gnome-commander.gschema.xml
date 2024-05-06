@@ -151,11 +151,6 @@
       <summary>Icon size</summary>
       <description>Size of icons in the file pane.</description>
     </key>
-    <key name="dev-icon-size" type="u">
-      <default>16</default>
-      <summary>Device icon size</summary>
-      <description>Icon size in the device list.</description>
-    </key>
     <key name="icon-scale-quality" enum='org.gnome.gnome-commander.preferences.general.icon-scale-quality-enum'>
       <default>'GDK_INTERP_HYPER'</default>
       <summary>Icon scale quality</summary>

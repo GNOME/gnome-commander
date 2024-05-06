@@ -658,7 +658,7 @@ void GnomeCmdMainWin::update_drop_con_button(GnomeCmdFileList *fl)
     if (!fl)
         return;
 
-    GdkPixbuf *pb = NULL;
+    GIcon *icon = NULL;
     static GtkWidget *prev_widget = NULL;
 
     GnomeCmdCon *con = fl->con;
@@ -678,7 +678,7 @@ void GnomeCmdMainWin::update_drop_con_button(GnomeCmdFileList *fl)
     }
 
     if (gnome_cmd_con_is_closeable (con))
-        pb = gnome_cmd_con_get_close_pixbuf (con);
+        icon = gnome_cmd_con_get_close_icon (con);
     else
     {
         gtk_widget_set_sensitive (btn, FALSE);
@@ -690,9 +690,9 @@ void GnomeCmdMainWin::update_drop_con_button(GnomeCmdFileList *fl)
     g_free (close_tooltip);
     gtk_widget_set_sensitive (btn, TRUE);
 
-    if (pb)
+    if (icon)
     {
-        GtkWidget *image = gtk_image_new_from_pixbuf (pb);
+        GtkWidget *image = gtk_image_new_from_gicon (icon, GTK_ICON_SIZE_LARGE_TOOLBAR);
         if (image)
         {
             g_object_ref (image);
@@ -700,7 +700,7 @@ void GnomeCmdMainWin::update_drop_con_button(GnomeCmdFileList *fl)
             gtk_tool_button_set_icon_widget (GTK_TOOL_BUTTON(btn), image);
             prev_widget = image;
         }
-        g_object_unref (pb);
+        g_object_unref (icon);
     }
     else
     {

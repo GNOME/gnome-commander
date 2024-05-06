@@ -121,9 +121,9 @@ struct GnomeCmdConClass
     gchar *(* get_go_tooltip) (GnomeCmdCon *con);
     gchar *(* get_open_tooltip) (GnomeCmdCon *con);
     gchar *(* get_close_tooltip) (GnomeCmdCon *con);
-    GdkPixbuf *(* get_go_pixbuf) (GnomeCmdCon *con);
-    GdkPixbuf *(* get_open_pixbuf) (GnomeCmdCon *con);
-    GdkPixbuf *(* get_close_pixbuf) (GnomeCmdCon *con);
+    GIcon *(* get_go_icon) (GnomeCmdCon *con);
+    GIcon *(* get_open_icon) (GnomeCmdCon *con);
+    GIcon *(* get_close_icon) (GnomeCmdCon *con);
 };
 
 
@@ -319,9 +319,9 @@ gchar *gnome_cmd_con_get_close_text (GnomeCmdCon *con);
 gchar *gnome_cmd_con_get_go_tooltip (GnomeCmdCon *con);
 gchar *gnome_cmd_con_get_open_tooltip (GnomeCmdCon *con);
 gchar *gnome_cmd_con_get_close_tooltip (GnomeCmdCon *con);
-GdkPixbuf *gnome_cmd_con_get_go_pixbuf (GnomeCmdCon *con);
-GdkPixbuf *gnome_cmd_con_get_open_pixbuf (GnomeCmdCon *con);
-GdkPixbuf *gnome_cmd_con_get_close_pixbuf (GnomeCmdCon *con);
+GIcon *gnome_cmd_con_get_go_icon (GnomeCmdCon *con);
+GIcon *gnome_cmd_con_get_open_icon (GnomeCmdCon *con);
+GIcon *gnome_cmd_con_get_close_icon (GnomeCmdCon *con);
 
 GnomeCmdBookmarkGroup *gnome_cmd_con_get_bookmarks (GnomeCmdCon *con);
 
