@@ -27,7 +27,6 @@
 #include "gnome-cmd-advrename-profile-component.h"
 #include "gnome-cmd-data.h"
 #include "gnome-cmd-convert.h"
-#include "gnome-cmd-menu-button.h"
 #include "gnome-cmd-treeview.h"
 #include "dialogs/gnome-cmd-advrename-regex-dialog.h"
 #include "tags/gnome-cmd-tags.h"

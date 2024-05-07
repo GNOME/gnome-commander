@@ -25,7 +25,6 @@
 
 #include "gnome-cmd-includes.h"
 #include "gnome-cmd-selection-profile-component.h"
-#include "gnome-cmd-menu-button.h"
 #include "utils.h"
 
 using namespace std;
