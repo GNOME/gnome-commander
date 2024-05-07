@@ -170,6 +170,30 @@ static GnomeCmdPath *smb_create_path (GnomeCmdCon *con, const gchar *path_str)
 }
 
 
+static gchar *smb_get_go_text (GnomeCmdCon *con)
+{
+    return g_strdup (_("Go to: Samba Network"));
+}
+
+
+static gchar *smb_get_open_text (GnomeCmdCon *con)
+{
+    return nullptr;
+}
+
+
+static gchar *smb_get_close_text (GnomeCmdCon *con)
+{
+    return nullptr;
+}
+
+
+static GdkPixbuf *smb_get_pixbuf (GnomeCmdCon *con)
+{
+    guint dev_icon_size = gnome_cmd_data.dev_icon_size;
+    return pixbuf_from_icon ("folder-remote", dev_icon_size);
+}
+
 
 /*******************************
  * Gtk class implementation
@@ -185,13 +209,19 @@ static void gnome_cmd_con_smb_class_init (GnomeCmdConSmbClass *klass)
     con_class->open_is_needed = smb_open_is_needed;
     con_class->create_gfile = smb_create_gfile;
     con_class->create_path = smb_create_path;
+
+    con_class->get_go_text = smb_get_go_text;
+    con_class->get_open_text = smb_get_open_text;
+    con_class->get_close_text = smb_get_close_text;
+
+    con_class->get_go_pixbuf = smb_get_pixbuf;
+    con_class->get_open_pixbuf = smb_get_pixbuf;
+    con_class->get_close_pixbuf = smb_get_pixbuf;
 }
 
 
 static void gnome_cmd_con_smb_init (GnomeCmdConSmb *smb_con)
 {
-    guint dev_icon_size = gnome_cmd_data.dev_icon_size;
-
     GnomeCmdCon *con = GNOME_CMD_CON (smb_con);
 
     con->alias = g_strdup (_("SMB"));
@@ -203,9 +233,5 @@ static void gnome_cmd_con_smb_init (GnomeCmdConSmb *smb_con)
     con->can_show_free_space = FALSE;
     con->is_local = FALSE;
     con->is_closeable = FALSE;
-    con->go_text = g_strdup (_("Go to: Samba Network"));
-    con->go_pixbuf = pixbuf_from_icon ("folder-remote", dev_icon_size);
-    con->open_pixbuf = pixbuf_from_icon ("folder-remote", dev_icon_size);
-    con->close_pixbuf = pixbuf_from_icon ("folder-remote", dev_icon_size);
 }
 

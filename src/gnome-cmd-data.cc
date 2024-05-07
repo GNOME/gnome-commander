@@ -1771,7 +1771,7 @@ void GnomeCmdData::save_devices()
                     icon_path = g_strdup ("");
 
                 g_variant_builder_add (gVariantBuilder, GCMD_SETTINGS_DEVICES_FORMAT_STRING,
-                                        gnome_cmd_con_device_get_alias (device),
+                                        gnome_cmd_con_get_alias (GNOME_CMD_CON (device)),
                                         gnome_cmd_con_device_get_device_fn (device),
                                         gnome_cmd_con_device_get_mountp_string (device),
                                         icon_path);

@@ -155,6 +155,7 @@ static void add_bookmark_group (GnomeCmdMainMenu *main_menu, GtkMenuShell *menu,
     GtkWidget *item = add_menu_item (main_menu, menu, gnome_cmd_con_get_alias (group->con), nullptr,
                                      pixbuf,
                                      nullptr, nullptr);
+    g_object_unref (pixbuf);
 
     // Remember this bookmarks item-widget so that we can remove it later
     main_menu->priv->group_menuitems = g_list_append (main_menu->priv->group_menuitems, item);
@@ -475,12 +476,14 @@ GtkWidget *gnome_cmd_main_menu_new ()
 }
 
 
-static void add_connection (GnomeCmdMainMenu *main_menu, GnomeCmdCon *con, const gchar *text, GdkPixbuf *pixbuf, GCallback func)
+static void add_connection (GnomeCmdMainMenu *main_menu, GnomeCmdCon *con, gchar *text, GdkPixbuf *pixbuf, GCallback func)
 {
     GtkMenuShell *connections_menu = GTK_MENU_SHELL (gtk_menu_item_get_submenu (GTK_MENU_ITEM (main_menu->priv->connections_menu)));
     GtkWidget *item;
 
     item = add_menu_item (main_menu, connections_menu, text, nullptr, pixbuf, func, con);
+    g_free (text);
+    g_object_unref (pixbuf);
 
     main_menu->priv->connections_menuitems = g_list_append (main_menu->priv->connections_menuitems, item);
 }

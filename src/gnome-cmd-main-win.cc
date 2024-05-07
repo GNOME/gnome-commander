@@ -685,7 +685,9 @@ void GnomeCmdMainWin::update_drop_con_button(GnomeCmdFileList *fl)
         return;
     }
 
-    gtk_widget_set_tooltip_text(btn, gnome_cmd_con_get_close_tooltip (con));
+    gchar *close_tooltip = gnome_cmd_con_get_close_tooltip (con);
+    gtk_widget_set_tooltip_text(btn, close_tooltip);
+    g_free (close_tooltip);
     gtk_widget_set_sensitive (btn, TRUE);
 
     if (pb)
@@ -698,10 +700,13 @@ void GnomeCmdMainWin::update_drop_con_button(GnomeCmdFileList *fl)
             gtk_tool_button_set_icon_widget (GTK_TOOL_BUTTON(btn), image);
             prev_widget = image;
         }
+        g_object_unref (pb);
     }
     else
     {
-        GtkWidget *label = gtk_label_new (gnome_cmd_con_get_close_text (con));
+        gchar *close_text = gnome_cmd_con_get_close_text (con);
+        GtkWidget *label = gtk_label_new (close_text);
+        g_free (close_text);
         if (label)
         {
             g_object_ref (label);

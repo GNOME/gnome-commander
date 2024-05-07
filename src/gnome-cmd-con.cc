@@ -105,15 +105,8 @@ static void dispose (GObject *object)
         g_string_free (con->root_path, TRUE);
         con->root_path = nullptr;
     }
-    g_clear_pointer (&con->open_text, g_free);
-    g_clear_pointer (&con->open_tooltip, g_free);
-    g_clear_object (&con->open_pixbuf);
-    g_clear_pointer (&con->close_text, g_free);
-    g_clear_pointer (&con->close_tooltip, g_free);
     g_clear_object (&con->base_gFileInfo);
     g_clear_error (&con->open_failed_error);
-    g_clear_object (&con->close_pixbuf);
-    g_clear_object (&con->go_pixbuf);
 
     g_clear_pointer (&priv->default_dir, gnome_cmd_dir_unref);
 
@@ -181,6 +174,16 @@ static void gnome_cmd_con_class_init (GnomeCmdConClass *klass)
     klass->open_is_needed = nullptr;
     klass->create_gfile = nullptr;
     klass->create_path = nullptr;
+
+    klass->get_go_text = nullptr;
+    klass->get_open_text = nullptr;
+    klass->get_close_text = nullptr;
+    klass->get_go_tooltip = nullptr;
+    klass->get_open_tooltip = nullptr;
+    klass->get_close_tooltip = nullptr;
+    klass->get_go_pixbuf = nullptr;
+    klass->get_open_pixbuf = nullptr;
+    klass->get_close_pixbuf = nullptr;
 }
 
 
@@ -202,15 +205,6 @@ static void gnome_cmd_con_init (GnomeCmdCon *con)
     con->can_show_free_space = FALSE;
     con->is_local = FALSE;
     con->is_closeable = FALSE;
-    con->go_text = nullptr;
-    con->go_tooltip = nullptr;
-    con->go_pixbuf = nullptr;
-    con->open_text = nullptr;
-    con->open_tooltip = nullptr;
-    con->open_pixbuf = nullptr;
-    con->close_text = nullptr;
-    con->close_tooltip = nullptr;
-    con->close_pixbuf = nullptr;
 
     con->state = GnomeCmdCon::STATE_CLOSED;
     con->open_result = GnomeCmdCon::OPEN_NOT_STARTED;
@@ -599,6 +593,99 @@ GnomeCmdDir *gnome_cmd_con_cache_lookup (GnomeCmdCon *con, const gchar *uri_str)
 }
 
 
+gchar *gnome_cmd_con_get_go_text (GnomeCmdCon *con)
+{
+    g_return_val_if_fail (GNOME_CMD_IS_CON (con), nullptr);
+    GnomeCmdConClass *klass = GNOME_CMD_CON_GET_CLASS (con);
+    if (klass->get_go_text)
+        return klass->get_go_text (con);
+
+    const gchar *alias = con->alias;
+    if (!alias)
+        alias = _("<New connection>");
+
+    return g_strdup_printf (_("Go to: %s"), alias);
+}
+
+
+gchar *gnome_cmd_con_get_go_tooltip (GnomeCmdCon *con)
+{
+    g_return_val_if_fail (GNOME_CMD_IS_CON (con), nullptr);
+    GnomeCmdConClass *klass = GNOME_CMD_CON_GET_CLASS (con);
+    return klass->get_go_tooltip ? klass->get_go_tooltip (con) : nullptr;
+}
+
+
+GdkPixbuf *gnome_cmd_con_get_go_pixbuf (GnomeCmdCon *con)
+{
+    g_return_val_if_fail (GNOME_CMD_IS_CON (con), nullptr);
+    GnomeCmdConClass *klass = GNOME_CMD_CON_GET_CLASS (con);
+    return klass->get_go_pixbuf ? klass->get_go_pixbuf (con) : nullptr;
+}
+
+
+gchar *gnome_cmd_con_get_open_text (GnomeCmdCon *con)
+{
+    g_return_val_if_fail (GNOME_CMD_IS_CON (con), nullptr);
+    GnomeCmdConClass *klass = GNOME_CMD_CON_GET_CLASS (con);
+    if (klass->get_open_text)
+        return klass->get_open_text (con);
+
+    const gchar *alias = con->alias;
+    if (!alias)
+        alias = _("<New connection>");
+
+    return g_strdup_printf (_("Connect to: %s"), alias);
+}
+
+
+gchar *gnome_cmd_con_get_open_tooltip (GnomeCmdCon *con)
+{
+    g_return_val_if_fail (GNOME_CMD_IS_CON (con), nullptr);
+    GnomeCmdConClass *klass = GNOME_CMD_CON_GET_CLASS (con);
+    return klass->get_open_tooltip ? klass->get_open_tooltip (con) : nullptr;
+}
+
+
+GdkPixbuf *gnome_cmd_con_get_open_pixbuf (GnomeCmdCon *con)
+{
+    g_return_val_if_fail (GNOME_CMD_IS_CON (con), nullptr);
+    GnomeCmdConClass *klass = GNOME_CMD_CON_GET_CLASS (con);
+    return klass->get_open_pixbuf ? klass->get_open_pixbuf (con) : nullptr;
+}
+
+
+gchar *gnome_cmd_con_get_close_text (GnomeCmdCon *con)
+{
+    g_return_val_if_fail (GNOME_CMD_IS_CON (con), nullptr);
+    GnomeCmdConClass *klass = GNOME_CMD_CON_GET_CLASS (con);
+    if (klass->get_close_text)
+        return klass->get_close_text (con);
+
+    const gchar *alias = con->alias;
+    if (!alias)
+        alias = _("<New connection>");
+
+    return g_strdup_printf (_("Disconnect from: %s"), alias);
+}
+
+
+gchar *gnome_cmd_con_get_close_tooltip (GnomeCmdCon *con)
+{
+    g_return_val_if_fail (GNOME_CMD_IS_CON (con), nullptr);
+    GnomeCmdConClass *klass = GNOME_CMD_CON_GET_CLASS (con);
+    return klass->get_close_tooltip ? klass->get_close_tooltip (con) : nullptr;
+}
+
+
+GdkPixbuf *gnome_cmd_con_get_close_pixbuf (GnomeCmdCon *con)
+{
+    g_return_val_if_fail (GNOME_CMD_IS_CON (con), nullptr);
+    GnomeCmdConClass *klass = GNOME_CMD_CON_GET_CLASS (con);
+    return klass->get_close_pixbuf ? klass->get_close_pixbuf (con) : nullptr;
+}
+
+
 const gchar *gnome_cmd_con_get_icon_name (ConnectionMethodID method)
 {
     return icon_name[method];
@@ -689,3 +776,4 @@ void gnome_cmd_con_close_active_or_inactive_connection (GMount *gMount)
     g_free(uriString);
     g_object_unref(gFile);
 }
+

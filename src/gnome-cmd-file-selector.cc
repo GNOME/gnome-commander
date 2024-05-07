@@ -378,7 +378,9 @@ static void create_con_buttons (GnomeCmdFileSelector *fs)
         gtk_box_pack_start (GTK_BOX (fs->con_btns_hbox), btn, FALSE, FALSE, 0);
         gtk_widget_set_can_focus (btn, FALSE);
         fs->priv->old_btns = g_list_append (fs->priv->old_btns, btn);
-        gtk_widget_set_tooltip_text (btn, gnome_cmd_con_get_go_text (con));
+        gchar *go_text = gnome_cmd_con_get_go_text (con);
+        gtk_widget_set_tooltip_text (btn, go_text);
+        g_free (go_text);
 
         GtkWidget *hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 1);
         g_object_ref (hbox);
@@ -405,6 +407,8 @@ static void create_con_buttons (GnomeCmdFileSelector *fs)
             gtk_widget_show (label);
             gtk_box_pack_start (GTK_BOX (hbox), label, TRUE, TRUE, 0);
         }
+
+        g_clear_object (&pb);
 
         gtk_container_add (GTK_CONTAINER (btn), hbox);
     }
@@ -982,7 +986,10 @@ void GnomeCmdFileSelector::update_connections()
         GdkPixbuf *pixbuf = gnome_cmd_con_get_go_pixbuf (con);
 
         if (pixbuf)
+        {
             con_combo->append((gchar *) gnome_cmd_con_get_alias (con), con, 0, pixbuf, -1);
+            g_object_unref (pixbuf);
+        }
     }
 
     // If the connection is no longer available use the home connection

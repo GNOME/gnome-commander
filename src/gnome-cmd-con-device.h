@@ -48,9 +48,6 @@ GnomeCmdConDevice *gnome_cmd_con_device_new (const gchar *alias, const gchar *de
 
 void gnome_cmd_con_device_free (GnomeCmdConDevice *dev);
 
-const gchar *gnome_cmd_con_device_get_alias (GnomeCmdConDevice *dev);
-void gnome_cmd_con_device_set_alias (GnomeCmdConDevice *dev, const gchar *alias);
-
 const gchar *gnome_cmd_con_device_get_device_fn (GnomeCmdConDevice *dev);
 void gnome_cmd_con_device_set_device_fn (GnomeCmdConDevice *dev, const gchar *device_fn);
 

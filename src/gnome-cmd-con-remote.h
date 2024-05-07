@@ -45,5 +45,3 @@ struct GnomeCmdConRemoteClass
 GType gnome_cmd_con_remote_get_type ();
 
 GnomeCmdConRemote *gnome_cmd_con_remote_new (const gchar *alias, const std::string &uri_str);
-
-void gnome_cmd_con_remote_set_tooltips (GnomeCmdConRemote *con, const gchar *host_name);
