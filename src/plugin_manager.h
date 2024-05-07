@@ -30,9 +30,10 @@ struct PluginData
     gboolean autoload;
     gchar *fname;
     gchar *fpath;
+    gchar *action_group_name;
     GnomeCmdPlugin *plugin;
     PluginInfo *info;
-    GtkWidget *menu;
+    GMenuModel *menu;
     GModule *module;
 };
 

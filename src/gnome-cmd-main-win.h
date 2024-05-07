@@ -95,7 +95,7 @@ struct GnomeCmdMainWin
     void update_horizontal_orientation();
     void update_mainmenu_visibility();
 
-    void add_plugin_menu(PluginData *data);
+    void plugins_updated();
 };
 
 extern GnomeCmdMainWin *main_win;

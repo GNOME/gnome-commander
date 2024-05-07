@@ -25,15 +25,12 @@
 #include <libgcmd/libgcmd.h>
 #include "file-roller-plugin.h"
 #include "file-roller.xpm"
-#include "file-roller-small.xpm"
 
 #define NAME "File Roller Plugin"
 #define COPYRIGHT "Copyright \n\xc2\xa9 2003-2006 Marcus Bjurman\n\xc2\xa9 2013-2024 Uwe Scholz"
 #define AUTHOR "Marcus Bjurman <marbj499@student.liu.se>"
 #define TRANSLATOR_CREDITS "Translations: https://l10n.gnome.org/module/gnome-commander/"
 #define WEBPAGE "https://gcmd.github.io"
-#define TARGET_NAME "target_name"
-#define TARGET_DIR "target_dir"
 
 #define GCMD_PLUGINS_FILE_ROLLER                     "org.gnome.gnome-commander.plugins.file-roller-plugin"
 #define GCMD_PLUGINS_FILE_ROLLER_DEFAULT_TYPE        "default-type"
@@ -167,8 +164,10 @@ static void plugin_settings_init (PluginSettings *gs)
  ***********************************/
 
 
-struct _FileRollerPluginPrivate
+struct FileRollerPluginPrivate
 {
+    gchar *action_group_name;
+
     GtkWidget *conf_dialog;
     GtkWidget *conf_combo;
     GtkWidget *conf_entry;
@@ -181,7 +180,7 @@ struct _FileRollerPluginPrivate
 };
 
 
-G_DEFINE_TYPE (FileRollerPlugin, file_roller_plugin, GNOME_CMD_TYPE_PLUGIN)
+G_DEFINE_TYPE_WITH_PRIVATE (FileRollerPlugin, file_roller_plugin, GNOME_CMD_TYPE_PLUGIN)
 
 
 gchar *GetGfileAttributeString(GFile *gFile, const char *attribute);
@@ -208,21 +207,17 @@ static void run_cmd (const gchar *work_dir, const gchar *cmd)
     g_strfreev (argv);
 }
 
-static void on_extract_cwd (GtkMenuItem *item, GFile *gFile)
+static void on_extract_cwd (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
+    gchar *local_path;
+    gchar *target_dir;
+    g_variant_get (parameter, "(sms)", &local_path, &target_dir);
+
     gchar *target_arg, *archive_arg;
-    gchar *local_path = g_file_get_path(gFile);
-    gchar *target_name = (gchar *) g_object_get_data (G_OBJECT (item), TARGET_NAME);
-    gchar *target_dir = (gchar *) g_object_get_data (G_OBJECT (item), TARGET_DIR);
     gchar *cmd, *t;
 
     if (!target_dir)
-    {
-        t = g_path_get_dirname (local_path);
-        target_dir = target_name ? g_build_filename (t, target_name, nullptr) : g_strdup (t);
-        g_free (t);
-    }
-    g_free (target_name);
+        target_dir = g_path_get_dirname (local_path);
 
     t = g_strdup_printf ("--extract-to=%s", target_dir);
     target_arg = g_shell_quote (t);
@@ -353,7 +348,7 @@ static gchar* new_string_with_replaced_keyword(const char* string, const char* k
 }
 
 
-static void on_add_to_archive (GtkMenuItem *item, FileRollerPlugin *plugin)
+static void on_add_to_archive (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
     gint ret;
     GtkWidget *dialog = nullptr;
@@ -361,7 +356,10 @@ static void on_add_to_archive (GtkMenuItem *item, FileRollerPlugin *plugin)
     gboolean name_ok = FALSE;
     GList *files;
 
-    files = plugin->priv->state->active_dir_selected_files;
+    FileRollerPlugin *plugin = FILE_ROLLER_PLUGIN (user_data);
+    FileRollerPluginPrivate *priv = (FileRollerPluginPrivate *) file_roller_plugin_get_instance_private (plugin);
+
+    files = priv->state->active_dir_selected_files;
 
     do
     {
@@ -392,7 +390,7 @@ static void on_add_to_archive (GtkMenuItem *item, FileRollerPlugin *plugin)
         gtk_widget_show (entry);
         gtk_box_pack_start (GTK_BOX (hbox), entry, TRUE, TRUE, 6);
 
-        gchar *locale_format = g_locale_from_utf8 (plugin->priv->file_prefix_pattern, -1, nullptr, nullptr, nullptr);
+        gchar *locale_format = g_locale_from_utf8 (priv->file_prefix_pattern, -1, nullptr, nullptr, nullptr);
         char s[256];
         time_t t = time (nullptr);
 
@@ -407,7 +405,7 @@ static void on_add_to_archive (GtkMenuItem *item, FileRollerPlugin *plugin)
         g_free (locale_format);
         gchar *file_prefix = g_locale_to_utf8 (s, -1, nullptr, nullptr, nullptr);
 
-        gchar *archive_name_tmp = g_strdup_printf("%s%s", file_prefix, plugin->priv->default_ext);
+        gchar *archive_name_tmp = g_strdup_printf("%s%s", file_prefix, priv->default_ext);
         auto file_name_tmp = GetGfileAttributeString(GNOME_CMD_FILE_BASE (files->data)->gFile, G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME);
         archive_name = new_string_with_replaced_keyword(archive_name_tmp, "$N", file_name_tmp);
         gtk_entry_set_text (GTK_ENTRY (entry), archive_name);
@@ -429,60 +427,38 @@ static void on_add_to_archive (GtkMenuItem *item, FileRollerPlugin *plugin)
     while (name_ok == FALSE && ret == GTK_RESPONSE_OK);
 
     if (ret == GTK_RESPONSE_OK)
-        do_add_to_archive (name, plugin->priv->state);
+        do_add_to_archive (name, priv->state);
 
     gtk_widget_destroy (dialog);
 }
 
 
-static GtkWidget *create_menu_item (const gchar *name, gboolean show_pixmap,
-                                    GCallback callback, gpointer data)
+static GSimpleActionGroup *create_actions (GnomeCmdPlugin *plugin, const gchar *name)
 {
-    GtkWidget *item, *label;
+    FileRollerPluginPrivate *priv = (FileRollerPluginPrivate *) file_roller_plugin_get_instance_private (FILE_ROLLER_PLUGIN (plugin));
 
-    if (show_pixmap)
-    {
-        GdkPixbuf *pixbuf = gdk_pixbuf_new_from_xpm_data ((const char **) file_roller_small_xpm);
-        GtkWidget *pixmap = gtk_image_new_from_pixbuf (pixbuf);
-        g_object_unref (G_OBJECT (pixbuf));
-        item = gtk_image_menu_item_new ();
-        if (pixmap)
-        {
-            gtk_widget_show (pixmap);
-            gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (item), pixmap);
-        }
-    }
-    else
-        item = gtk_menu_item_new ();
+    priv->action_group_name = g_strdup (name);
 
-    gtk_widget_show (item);
-
-    // Create the contents of the menu item
-    label = gtk_label_new (name);
-    gtk_misc_set_alignment (GTK_MISC (label), 0, 0.5);
-    gtk_widget_show (label);
-    gtk_container_add (GTK_CONTAINER (item), label);
-
-    // Connect to the signal and set user data
-    g_object_set_data (G_OBJECT (item), "uidata", data);
-
-    if (callback)
-        g_signal_connect (item, "activate", G_CALLBACK (callback), data);
-
-    return item;
+    GSimpleActionGroup *group = g_simple_action_group_new ();
+    static const GActionEntry entries[] = {
+        { "add-to-archive", on_add_to_archive },
+        { "extract", on_extract_cwd, "(sms)" }
+    };
+    g_action_map_add_action_entries (G_ACTION_MAP (group), entries, G_N_ELEMENTS (entries), plugin);
+    return group;
 }
 
 
-static GtkWidget *create_main_menu (GnomeCmdPlugin *plugin, GnomeCmdState *state)
+static GMenuModel *create_main_menu (GnomeCmdPlugin *plugin, GnomeCmdState *state)
 {
     return nullptr;
 }
 
 
-static GList *create_popup_menu_items (GnomeCmdPlugin *plugin, GnomeCmdState *state)
+static GMenuModel *create_popup_menu_items (GnomeCmdPlugin *plugin, GnomeCmdState *state)
 {
-    GList *items = nullptr;
-    GtkWidget *item;
+    GMenu *menu;
+    gchar *action;
     gint num_files;
     GList *gnomeCmdFileBaseGList;
 
@@ -492,10 +468,15 @@ static GList *create_popup_menu_items (GnomeCmdPlugin *plugin, GnomeCmdState *st
     if (num_files <= 0)
         return nullptr;
 
-    FILE_ROLLER_PLUGIN (plugin)->priv->state = state;
+    FileRollerPluginPrivate *priv = (FileRollerPluginPrivate *) file_roller_plugin_get_instance_private (FILE_ROLLER_PLUGIN (plugin));
 
-    item = create_menu_item (_("Create Archive…"), TRUE, G_CALLBACK (on_add_to_archive), plugin);
-    items = g_list_append (items, item);
+    priv->state = state;
+
+    menu = g_menu_new ();
+
+    action = g_strdup_printf ("%s.add-to-archive", priv->action_group_name);
+    g_menu_append (menu, _("Create Archive…"), action);
+    g_free (action);
 
     if (num_files == 1)
     {
@@ -503,39 +484,59 @@ static GList *create_popup_menu_items (GnomeCmdPlugin *plugin, GnomeCmdState *st
         auto fname = GetGfileAttributeString(gnomeCmdFileBase->gFile, G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME);
         gint i;
 
+        gchar *local_path = g_file_get_path(gnomeCmdFileBase->gFile);
+
         for (i=0; handled_extensions[i]; ++i)
             if (g_str_has_suffix (fname, handled_extensions[i]))
             {
-                item = create_menu_item (_("Extract in Current Directory"), TRUE, G_CALLBACK (on_extract_cwd), gnomeCmdFileBase->gFile);
-                items = g_list_append (items, item);
+                action = g_strdup_printf ("%s.extract", priv->action_group_name);
+                GMenuItem *item;
+
+                // extract to current directory
+
+                item = g_menu_item_new (_("Extract in Current Directory"), nullptr);
+                g_menu_item_set_action_and_target (item, action, "(sms)", local_path, nullptr);
+                g_menu_append_item (menu, item);
+
+                // extract to a new directory
 
                 fname[strlen(fname)-strlen(handled_extensions[i])] = '\0';
 
-                gchar *text;
-
-                text = g_strdup_printf (_("Extract to “%s”"), fname);
-                item = create_menu_item (text, TRUE, G_CALLBACK (on_extract_cwd), gnomeCmdFileBase->gFile);
-                g_object_set_data (G_OBJECT (item), TARGET_NAME, g_strdup (fname));
-                items = g_list_append (items, item);
+                gchar *text = g_strdup_printf (_("Extract to “%s”"), fname);
+                item = g_menu_item_new (text, nullptr);
                 g_free (text);
+
+                gchar *dir = g_path_get_dirname (local_path);
+                gchar *target_dir = g_build_filename (dir, fname, nullptr);
+                g_menu_item_set_action_and_target (item, action, "(sms)", local_path, target_dir);
+                g_free (target_dir);
+                g_free (dir);
+
+                g_menu_append_item (menu, item);
+
+                // extract to an opposite panel's directory
 
                 auto activeDirId = GetGfileAttributeString(state->activeDirGfile, G_FILE_ATTRIBUTE_ID_FILE);
                 auto inactiveDirId = GetGfileAttributeString(state->inactiveDirGfile, G_FILE_ATTRIBUTE_ID_FILE);
 
-                if (activeDirId && inactiveDirId && g_str_equal(activeDirId, inactiveDirId))
+                if (activeDirId && inactiveDirId && !g_str_equal(activeDirId, inactiveDirId))
                 {
-                    auto basenameString = GetGfileAttributeString(state->inactiveDirGfile, G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME);
+                    gchar *basenameString = GetGfileAttributeString(state->inactiveDirGfile, G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME);
+                    gchar *target_dir = g_file_get_path(state->inactiveDirGfile);
 
                     text = g_strdup_printf (_("Extract to “%s”"), basenameString);
-                    item = create_menu_item (text, TRUE, G_CALLBACK (on_extract_cwd), gnomeCmdFileBase->gFile);
-                    g_object_set_data (G_OBJECT (item), TARGET_DIR, basenameString);
-                    items = g_list_append (items, item);
+                    item = g_menu_item_new (text, nullptr);
                     g_free (text);
+                    g_menu_item_set_action_and_target (item, action, "(sms)", local_path, target_dir);
+                    g_menu_append_item (menu, item);
                     g_free (basenameString);
+                    g_free (target_dir);
                 }
 
                 g_free(activeDirId);
                 g_free(inactiveDirId);
+
+                g_free (action);
 
                 break;
             }
@@ -543,24 +544,21 @@ static GList *create_popup_menu_items (GnomeCmdPlugin *plugin, GnomeCmdState *st
         g_free (fname);
     }
 
-    return items;
-}
-
-
-static void update_main_menu_state (GnomeCmdPlugin *plugin, GnomeCmdState *state)
-{
+    return G_MENU_MODEL (menu);
 }
 
 
 static void on_configure_close (GtkButton *btn, FileRollerPlugin *plugin)
 {
-    plugin->priv->default_ext = g_strdup (gtk_entry_get_text (GTK_ENTRY (gtk_bin_get_child (GTK_BIN (plugin->priv->conf_combo)))));
-    plugin->priv->file_prefix_pattern = g_strdup (get_entry_text (plugin->priv->conf_entry, "file_prefix_pattern_entry"));
+    FileRollerPluginPrivate *priv = (FileRollerPluginPrivate *) file_roller_plugin_get_instance_private (plugin);
 
-    g_settings_set_string (plugin->priv->settings->file_roller_plugin, GCMD_PLUGINS_FILE_ROLLER_DEFAULT_TYPE, plugin->priv->default_ext);
-    g_settings_set_string (plugin->priv->settings->file_roller_plugin, GCMD_PLUGINS_FILE_ROLLER_PREFIX_PATTERN, plugin->priv->file_prefix_pattern);
+    priv->default_ext = g_strdup (gtk_entry_get_text (GTK_ENTRY (gtk_bin_get_child (GTK_BIN (priv->conf_combo)))));
+    priv->file_prefix_pattern = g_strdup (get_entry_text (priv->conf_entry, "file_prefix_pattern_entry"));
 
-    gtk_widget_hide (plugin->priv->conf_dialog);
+    g_settings_set_string (priv->settings->file_roller_plugin, GCMD_PLUGINS_FILE_ROLLER_DEFAULT_TYPE, priv->default_ext);
+    g_settings_set_string (priv->settings->file_roller_plugin, GCMD_PLUGINS_FILE_ROLLER_PREFIX_PATTERN, priv->file_prefix_pattern);
+
+    gtk_widget_hide (priv->conf_dialog);
 }
 
 
@@ -603,6 +601,8 @@ static void configure (GnomeCmdPlugin *plugin)
     GtkWidget *dialog, *grid, *cat, *label, *vbox, *entry;
     GtkWidget *combo;
 
+    FileRollerPluginPrivate *priv = (FileRollerPluginPrivate *) file_roller_plugin_get_instance_private (FILE_ROLLER_PLUGIN (plugin));
+
     dialog = gnome_cmd_dialog_new (_("Options"));
     gtk_window_set_transient_for (GTK_WINDOW (dialog), GTK_WINDOW (main_win_widget));
     gtk_window_set_modal (GTK_WINDOW (dialog), TRUE);
@@ -630,7 +630,7 @@ static void configure (GnomeCmdPlugin *plugin)
     label = create_label (dialog, _("File prefix pattern"));
     gtk_grid_attach (GTK_GRID (grid), label, 0, 1, 1, 1);
 
-    gchar *utf8_date_format = g_locale_to_utf8 (FILE_ROLLER_PLUGIN (plugin)->priv->file_prefix_pattern, -1, nullptr, nullptr, nullptr);
+    gchar *utf8_date_format = g_locale_to_utf8 (priv->file_prefix_pattern, -1, nullptr, nullptr, nullptr);
     entry = create_entry (dialog, "file_prefix_pattern_entry", utf8_date_format);
     g_free (utf8_date_format);
     gtk_widget_grab_focus (entry);
@@ -658,7 +658,7 @@ static void configure (GnomeCmdPlugin *plugin)
         gtk_combo_box_text_append_text ((GtkComboBoxText*) combo, handled_extensions[i]);
 
     for (gint i=0; handled_extensions[i]; ++i)
-        if (g_str_has_suffix (FILE_ROLLER_PLUGIN (plugin)->priv->default_ext, handled_extensions[i]))
+        if (g_str_has_suffix (priv->default_ext, handled_extensions[i]))
             gtk_combo_box_set_active((GtkComboBox*) combo, i);
 
     // The text entry stored in default_ext (set in init()) should be the active entry in the combo now.
@@ -666,13 +666,13 @@ static void configure (GnomeCmdPlugin *plugin)
     const gchar* test = gtk_entry_get_text (GTK_ENTRY (gtk_bin_get_child (GTK_BIN (combo))));
     if (test && strlen(test) == 0)
     {
-        gtk_combo_box_text_prepend_text ((GtkComboBoxText*) combo, FILE_ROLLER_PLUGIN (plugin)->priv->default_ext);
+        gtk_combo_box_text_prepend_text ((GtkComboBoxText*) combo, priv->default_ext);
         gtk_combo_box_set_active((GtkComboBox*) combo, 0);
     }
 
-    FILE_ROLLER_PLUGIN (plugin)->priv->conf_dialog = dialog;
-    FILE_ROLLER_PLUGIN (plugin)->priv->conf_combo = combo;
-    FILE_ROLLER_PLUGIN (plugin)->priv->conf_entry = entry;
+    priv->conf_dialog = dialog;
+    priv->conf_combo = combo;
+    priv->conf_entry = entry;
 
     gtk_widget_show (dialog);
 }
@@ -685,10 +685,11 @@ static void configure (GnomeCmdPlugin *plugin)
 static void dispose (GObject *object)
 {
     FileRollerPlugin *plugin = FILE_ROLLER_PLUGIN (object);
+    FileRollerPluginPrivate *priv = (FileRollerPluginPrivate *) file_roller_plugin_get_instance_private (plugin);
 
-    g_clear_pointer (&plugin->priv->default_ext, g_free);
-    g_clear_pointer (&plugin->priv->file_prefix_pattern, g_free);
-    g_clear_pointer (&plugin->priv, g_free);
+    g_clear_pointer (&priv->default_ext, g_free);
+    g_clear_pointer (&priv->file_prefix_pattern, g_free);
+    g_clear_pointer (&priv->action_group_name, g_free);
 
     G_OBJECT_CLASS (file_roller_plugin_parent_class)->dispose (object);
 }
@@ -701,46 +702,45 @@ static void file_roller_plugin_class_init (FileRollerPluginClass *klass)
 
     object_class->dispose = dispose;
 
+    plugin_class->create_actions = create_actions;
     plugin_class->create_main_menu = create_main_menu;
     plugin_class->create_popup_menu_items = create_popup_menu_items;
-    plugin_class->update_main_menu_state = update_main_menu_state;
     plugin_class->configure = configure;
 }
 
 
 static void file_roller_plugin_init (FileRollerPlugin *plugin)
 {
-    GSettings *gsettings;
+    FileRollerPluginPrivate *priv = (FileRollerPluginPrivate *) file_roller_plugin_get_instance_private (plugin);
 
-    plugin->priv = g_new (FileRollerPluginPrivate, 1);
-    plugin->priv->settings = plugin_settings_new();
+    priv->settings = plugin_settings_new();
 
-    gsettings = plugin->priv->settings->file_roller_plugin;
-    plugin->priv->default_ext = g_settings_get_string (gsettings, GCMD_PLUGINS_FILE_ROLLER_DEFAULT_TYPE);
-    plugin->priv->file_prefix_pattern = g_settings_get_string (gsettings, GCMD_PLUGINS_FILE_ROLLER_PREFIX_PATTERN);
+    GSettings *gsettings = priv->settings->file_roller_plugin;
+    priv->default_ext = g_settings_get_string (gsettings, GCMD_PLUGINS_FILE_ROLLER_DEFAULT_TYPE);
+    priv->file_prefix_pattern = g_settings_get_string (gsettings, GCMD_PLUGINS_FILE_ROLLER_PREFIX_PATTERN);
 
     //Set gsettings values to default values if they are empty
-    if (strlen(plugin->priv->default_ext) == 0)
+    if (strlen(priv->default_ext) == 0)
     {
-        g_free(plugin->priv->default_ext);
+        g_free(priv->default_ext);
 
         GVariant *variant;
         variant = g_settings_get_default_value (gsettings, GCMD_PLUGINS_FILE_ROLLER_DEFAULT_TYPE);
         g_settings_set_string (gsettings, GCMD_PLUGINS_FILE_ROLLER_DEFAULT_TYPE, g_variant_get_string(variant, nullptr));
         g_variant_unref (variant);
 
-        plugin->priv->default_ext = g_settings_get_string (gsettings, GCMD_PLUGINS_FILE_ROLLER_DEFAULT_TYPE);
+        priv->default_ext = g_settings_get_string (gsettings, GCMD_PLUGINS_FILE_ROLLER_DEFAULT_TYPE);
     }
-    if (strlen(plugin->priv->file_prefix_pattern) == 0)
+    if (strlen(priv->file_prefix_pattern) == 0)
     {
-        g_free(plugin->priv->file_prefix_pattern);
+        g_free(priv->file_prefix_pattern);
 
         GVariant *variant;
         variant = g_settings_get_default_value (gsettings, GCMD_PLUGINS_FILE_ROLLER_PREFIX_PATTERN);
         g_settings_set_string (gsettings, GCMD_PLUGINS_FILE_ROLLER_PREFIX_PATTERN, g_variant_get_string(variant, nullptr));
         g_variant_unref (variant);
 
-        plugin->priv->file_prefix_pattern = (gchar*) g_settings_get_default_value (gsettings, GCMD_PLUGINS_FILE_ROLLER_PREFIX_PATTERN);
+        priv->file_prefix_pattern = (gchar*) g_settings_get_default_value (gsettings, GCMD_PLUGINS_FILE_ROLLER_PREFIX_PATTERN);
     }
 }
 

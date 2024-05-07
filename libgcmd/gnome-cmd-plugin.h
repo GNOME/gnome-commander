@@ -44,19 +44,20 @@ struct _GnomeCmdPluginClass
 {
     GObjectClass parent_class;
 
-    GtkWidget *(* create_main_menu) (GnomeCmdPlugin *plugin, GnomeCmdState *state);
-    GList *(* create_popup_menu_items) (GnomeCmdPlugin *plugin, GnomeCmdState *state);
-    void (* update_main_menu_state) (GnomeCmdPlugin *plugin, GnomeCmdState *state);
+    GSimpleActionGroup *(* create_actions) (GnomeCmdPlugin *plugin, const gchar *name);
+
+    GMenuModel *(* create_main_menu) (GnomeCmdPlugin *plugin, GnomeCmdState *state);
+    GMenuModel *(* create_popup_menu_items) (GnomeCmdPlugin *plugin, GnomeCmdState *state);
     void (* configure) (GnomeCmdPlugin *plugin);
 };
 
 
 GType gnome_cmd_plugin_get_type ();
 
-GtkWidget *gnome_cmd_plugin_create_main_menu (GnomeCmdPlugin *plugin, GnomeCmdState *state);
+GSimpleActionGroup *gnome_cmd_plugin_create_actions (GnomeCmdPlugin *plugin, const gchar *name);
 
-GList *gnome_cmd_plugin_create_popup_menu_items (GnomeCmdPlugin *plugin, GnomeCmdState *state);
+GMenuModel *gnome_cmd_plugin_create_main_menu (GnomeCmdPlugin *plugin, GnomeCmdState *state);
 
-void gnome_cmd_plugin_update_main_menu_state (GnomeCmdPlugin *plugin, GnomeCmdState *state);
+GMenuModel *gnome_cmd_plugin_create_popup_menu_items (GnomeCmdPlugin *plugin, GnomeCmdState *state);
 
 void gnome_cmd_plugin_configure (GnomeCmdPlugin *plugin);

@@ -589,18 +589,20 @@ void gnome_cmd_main_menu_update_sens (GnomeCmdMainMenu *main_menu)
 }
 
 
-static void on_plugin_menu_activate (GtkMenuItem *item, PluginData *data)
+void gnome_cmd_main_menu_update_plugin_menu (GnomeCmdMainMenu *main_menu)
 {
-    g_return_if_fail (data != nullptr);
+    GMenu *menu = g_menu_new ();
 
-    GnomeCmdState *state = main_win->get_state();
-    gnome_cmd_plugin_update_main_menu_state (data->plugin, state);
-}
+    GMenu *common = g_menu_new ();
+    g_menu_append (common, _("_Configure Plugins…"), "win.plugins-configure");
+    g_menu_append_section (menu, nullptr, G_MENU_MODEL (common));
 
+    for (GList *plugins = plugin_manager_get_all (); plugins; plugins = plugins->next) {
+        auto pluginData = static_cast<PluginData *>(plugins->data);
+        if (pluginData->active && pluginData->menu)
+            g_menu_append_section (menu, nullptr, G_MENU_MODEL (pluginData->menu));
+    }
 
-void gnome_cmd_main_menu_add_plugin_menu (GnomeCmdMainMenu *main_menu, PluginData *pluginData)
-{
-    gtk_menu_shell_append (GTK_MENU_SHELL (gtk_menu_item_get_submenu (GTK_MENU_ITEM (main_menu->priv->plugins_menu))), pluginData->menu);
-
-    g_signal_connect (pluginData->menu, "activate", G_CALLBACK (on_plugin_menu_activate), pluginData);
+    gtk_menu_shell_bind_model (GTK_MENU_SHELL (gtk_menu_item_get_submenu (GTK_MENU_ITEM (main_menu->priv->plugins_menu))), G_MENU_MODEL (menu), nullptr, TRUE);
+    gtk_widget_show_all (main_menu->priv->plugins_menu);
 }

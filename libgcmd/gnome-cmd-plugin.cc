@@ -37,9 +37,9 @@ static void gnome_cmd_plugin_class_init (GnomeCmdPluginClass *klass)
 
     plugin_class = GNOME_CMD_PLUGIN_CLASS (klass);
 
+    plugin_class->create_actions = NULL;
     plugin_class->create_main_menu = NULL;
     plugin_class->create_popup_menu_items = NULL;
-    plugin_class->update_main_menu_state = NULL;
     plugin_class->configure = NULL;
 }
 
@@ -52,7 +52,19 @@ static void gnome_cmd_plugin_init (GnomeCmdPlugin *plugin)
  * Public functions
  ***********************************/
 
-GtkWidget *gnome_cmd_plugin_create_main_menu (GnomeCmdPlugin *plugin, GnomeCmdState *state)
+GSimpleActionGroup *gnome_cmd_plugin_create_actions (GnomeCmdPlugin *plugin, const gchar *name)
+{
+    GnomeCmdPluginClass *klass;
+
+    g_return_val_if_fail (GNOME_CMD_IS_PLUGIN (plugin), NULL);
+
+    klass = GNOME_CMD_PLUGIN_GET_CLASS (plugin);
+
+    return klass->create_actions (plugin, name);
+}
+
+
+GMenuModel *gnome_cmd_plugin_create_main_menu (GnomeCmdPlugin *plugin, GnomeCmdState *state)
 {
     GnomeCmdPluginClass *klass;
 
@@ -64,7 +76,7 @@ GtkWidget *gnome_cmd_plugin_create_main_menu (GnomeCmdPlugin *plugin, GnomeCmdSt
 }
 
 
-GList *gnome_cmd_plugin_create_popup_menu_items (GnomeCmdPlugin *plugin, GnomeCmdState *state)
+GMenuModel *gnome_cmd_plugin_create_popup_menu_items (GnomeCmdPlugin *plugin, GnomeCmdState *state)
 {
     GnomeCmdPluginClass *klass;
 
@@ -73,18 +85,6 @@ GList *gnome_cmd_plugin_create_popup_menu_items (GnomeCmdPlugin *plugin, GnomeCm
     klass = GNOME_CMD_PLUGIN_GET_CLASS (plugin);
 
     return klass->create_popup_menu_items (plugin, state);
-}
-
-
-void gnome_cmd_plugin_update_main_menu_state (GnomeCmdPlugin *plugin, GnomeCmdState *state)
-{
-    GnomeCmdPluginClass *klass;
-
-    g_return_if_fail (GNOME_CMD_IS_PLUGIN (plugin));
-
-    klass = GNOME_CMD_PLUGIN_GET_CLASS (plugin);
-
-    klass->update_main_menu_state (plugin, state);
 }
 
 
