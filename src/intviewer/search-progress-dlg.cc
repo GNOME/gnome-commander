@@ -29,7 +29,6 @@
 using namespace std;
 
 
-static void search_progress_dlg_destroy (GtkWidget *object);
 static void search_progress_dlg_action_response(GtkDialog *dlg, gint arg1, GViewerSearchProgressDlg *sdlg);
 
 struct GViewerSearchProgressDlgPrivate
@@ -43,31 +42,30 @@ struct GViewerSearchProgressDlgPrivate
 };
 
 
-G_DEFINE_TYPE (GViewerSearchProgressDlg, gviewer_search_progress_dlg, GTK_TYPE_DIALOG)
+G_DEFINE_TYPE_WITH_PRIVATE (GViewerSearchProgressDlg, gviewer_search_progress_dlg, GTK_TYPE_DIALOG)
 
 
 static void search_progress_dlg_action_response(GtkDialog *dlg, gint arg1, GViewerSearchProgressDlg *sdlg)
 {
     g_return_if_fail (sdlg != nullptr);
-    g_return_if_fail (sdlg->priv != nullptr);
-    g_return_if_fail (sdlg->priv->abort_indicator != nullptr);
+    auto priv = static_cast<GViewerSearchProgressDlgPrivate*>(gviewer_search_progress_dlg_get_instance_private (sdlg));
+    g_return_if_fail (priv->abort_indicator != nullptr);
 
-    g_atomic_int_add(sdlg->priv->abort_indicator, 1);
+    g_atomic_int_add(priv->abort_indicator, 1);
 }
 
 
 static void gviewer_search_progress_dlg_class_init(GViewerSearchProgressDlgClass *klass)
 {
-    GTK_WIDGET_CLASS(klass)->destroy = search_progress_dlg_destroy;
 }
 
 
 static void gviewer_search_progress_dlg_init (GViewerSearchProgressDlg *sdlg)
 {
-    sdlg->priv = g_new0 (GViewerSearchProgressDlgPrivate, 1);
+    auto priv = static_cast<GViewerSearchProgressDlgPrivate*>(gviewer_search_progress_dlg_get_instance_private (sdlg));
 
     GtkDialog *dlg = GTK_DIALOG(sdlg);
-    // sdlg->priv->progress = 0;
+    // priv->progress = 0;
 
     gtk_window_set_title (GTK_WINDOW (dlg), _("Searching…"));
     gtk_window_set_modal (GTK_WINDOW (dlg), TRUE);
@@ -76,40 +74,27 @@ static void gviewer_search_progress_dlg_init (GViewerSearchProgressDlg *sdlg)
     g_signal_connect_swapped (GTK_WIDGET (dlg), "response", G_CALLBACK (search_progress_dlg_action_response), sdlg);
 
     // Text Label
-    sdlg->priv->label = gtk_label_new("");
+    priv->label = gtk_label_new("");
 
-    gtk_box_pack_start(GTK_BOX(gtk_dialog_get_content_area (dlg)), sdlg->priv->label, FALSE, TRUE, 5);
+    gtk_box_pack_start(GTK_BOX(gtk_dialog_get_content_area (dlg)), priv->label, FALSE, TRUE, 5);
 
     // Progress Bar
-    sdlg->priv->progressbar = gtk_progress_bar_new();
+    priv->progressbar = gtk_progress_bar_new();
 #if defined (__GNUC__)
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wcast-align"
 #endif
-    gtk_progress_bar_set_text(GTK_PROGRESS_BAR (sdlg->priv->progressbar), "0.0");
-    gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR (sdlg->priv->progressbar), 0.0);
+    gtk_progress_bar_set_text(GTK_PROGRESS_BAR (priv->progressbar), "0.0");
+    gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR (priv->progressbar), 0.0);
 #if defined (__GNUC__)
 #pragma GCC diagnostic pop
 #endif
 
-    gtk_box_pack_start(GTK_BOX(gtk_dialog_get_content_area (dlg)), sdlg->priv->progressbar, TRUE, TRUE, 0);
+    gtk_box_pack_start(GTK_BOX(gtk_dialog_get_content_area (dlg)), priv->progressbar, TRUE, TRUE, 0);
 
     gtk_widget_show_all(gtk_dialog_get_content_area (dlg));
 
     gtk_widget_show (GTK_WIDGET (dlg));
-}
-
-
-static void search_progress_dlg_destroy (GtkWidget *object)
-{
-    g_return_if_fail (IS_GVIEWER_SEARCH_PROGRESS_DLG (object));
-
-    GViewerSearchProgressDlg *w = GVIEWER_SEARCH_PROGRESS_DLG (object);
-
-    g_free (w->priv);
-    w->priv = nullptr;
-
-    GTK_WIDGET_CLASS (gviewer_search_progress_dlg_parent_class)->destroy (object);
 }
 
 
@@ -129,21 +114,22 @@ static gboolean search_progress_dlg_timeout(gpointer data)
     gchar text[20];
 
     GViewerSearchProgressDlg *w = GVIEWER_SEARCH_PROGRESS_DLG (data);
+    auto priv = static_cast<GViewerSearchProgressDlgPrivate*>(gviewer_search_progress_dlg_get_instance_private (w));
 
-    progress = g_atomic_int_get (w->priv->progress_value);
+    progress = g_atomic_int_get (priv->progress_value);
 
     g_snprintf(text, sizeof(text), "%3.1f%%", progress/10.0);
 #if defined (__GNUC__)
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wcast-align"
 #endif
-    gtk_progress_bar_set_text(GTK_PROGRESS_BAR (w->priv->progressbar), text);
-    gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR (w->priv->progressbar), progress/1000.0);
+    gtk_progress_bar_set_text(GTK_PROGRESS_BAR (priv->progressbar), text);
+    gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR (priv->progressbar), progress/1000.0);
 #if defined (__GNUC__)
 #pragma GCC diagnostic pop
 #endif
 
-    if (g_atomic_int_get (w->priv->completed_indicator)!=0)
+    if (g_atomic_int_get (priv->completed_indicator)!=0)
     {
         gtk_dialog_response(GTK_DIALOG(w), GTK_RESPONSE_CANCEL);
         return FALSE;
@@ -166,24 +152,25 @@ void gviewer_show_search_progress_dlg(GtkWindow *parent, const gchar *searching_
 
     GtkWidget *w = gviewer_search_progress_dlg_new(parent);
     GViewerSearchProgressDlg *dlg = GVIEWER_SEARCH_PROGRESS_DLG (w);
+    auto priv = static_cast<GViewerSearchProgressDlgPrivate*>(gviewer_search_progress_dlg_get_instance_private (dlg));
 
     gchar *str = g_strdup_printf (_("Searching for “%s”"), searching_text);
-    gtk_label_set_text (GTK_LABEL (dlg->priv->label), str);
+    gtk_label_set_text (GTK_LABEL (priv->label), str);
 
-    dlg->priv->abort_indicator = abort;
-    dlg->priv->progress_value = progress;
-    dlg->priv->completed_indicator = complete;
+    priv->abort_indicator = abort;
+    priv->progress_value = progress;
+    priv->completed_indicator = complete;
 
     gint timeout_source_id = g_timeout_add (300, search_progress_dlg_timeout, (gpointer) dlg);
 
-    dprogress = g_atomic_int_get (dlg->priv->progress_value);
+    dprogress = g_atomic_int_get (priv->progress_value);
     g_snprintf(text, sizeof(text), "%3.1f%%", dprogress/10.0);
 #if defined (__GNUC__)
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wcast-align"
 #endif
-    gtk_progress_bar_set_text(GTK_PROGRESS_BAR (dlg->priv->progressbar), text);
-    gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR (dlg->priv->progressbar), dprogress/1000.0);
+    gtk_progress_bar_set_text(GTK_PROGRESS_BAR (priv->progressbar), text);
+    gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR (priv->progressbar), dprogress/1000.0);
 #if defined (__GNUC__)
 #pragma GCC diagnostic pop
 #endif

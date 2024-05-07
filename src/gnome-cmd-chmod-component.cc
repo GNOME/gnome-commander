@@ -48,11 +48,13 @@ enum {PERMS_CHANGED, LAST_SIGNAL};
 static guint chmod_component_signals[LAST_SIGNAL] = { 0 };
 
 
-G_DEFINE_TYPE (GnomeCmdChmodComponent, gnome_cmd_chmod_component, GTK_TYPE_VBOX)
+G_DEFINE_TYPE_WITH_PRIVATE (GnomeCmdChmodComponent, gnome_cmd_chmod_component, GTK_TYPE_VBOX)
 
 
 static void on_perms_changed (GnomeCmdChmodComponent *comp)
 {
+    auto priv = static_cast<GnomeCmdChmodComponentPrivate*>(gnome_cmd_chmod_component_get_instance_private (comp));
+
     static gchar text_view[10];
     static gchar number_view[4];
 
@@ -60,8 +62,8 @@ static void on_perms_changed (GnomeCmdChmodComponent *comp)
 
     perm2textstring (permissions, text_view, sizeof(text_view));
     perm2numstring (permissions, number_view, sizeof(number_view));
-    gtk_label_set_text (GTK_LABEL (comp->priv->textview_label), text_view);
-    gtk_label_set_text (GTK_LABEL (comp->priv->numberview_label), number_view);
+    gtk_label_set_text (GTK_LABEL (priv->textview_label), text_view);
+    gtk_label_set_text (GTK_LABEL (priv->numberview_label), number_view);
 }
 
 
@@ -75,29 +77,8 @@ static void on_check_toggled (GtkToggleButton *togglebutton, GnomeCmdChmodCompon
  * Gtk class implementation
  *******************************/
 
-static void destroy (GtkWidget *object)
-{
-    GnomeCmdChmodComponent *comp = GNOME_CMD_CHMOD_COMPONENT (object);
-
-    g_free (comp->priv);
-
-    GTK_WIDGET_CLASS (gnome_cmd_chmod_component_parent_class)->destroy (object);
-}
-
-
-static void map (GtkWidget *widget)
-{
-    GTK_WIDGET_CLASS (gnome_cmd_chmod_component_parent_class)->map (widget);
-}
-
-
 static void gnome_cmd_chmod_component_class_init (GnomeCmdChmodComponentClass *klass)
 {
-    GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
-
-    widget_class->destroy = destroy;
-    widget_class->map = ::map;
-
     klass->perms_changed = on_perms_changed;
 
     chmod_component_signals[PERMS_CHANGED] =
@@ -114,13 +95,13 @@ static void gnome_cmd_chmod_component_class_init (GnomeCmdChmodComponentClass *k
 
 static void gnome_cmd_chmod_component_init (GnomeCmdChmodComponent *comp)
 {
+    auto priv = static_cast<GnomeCmdChmodComponentPrivate*>(gnome_cmd_chmod_component_get_instance_private (comp));
+
     GtkWidget *label;
     GtkWidget *hsep;
 
     gchar *check_text[3] = {_("Read"), _("Write"), _("Execute")};
     gchar *check_categories[3] = {_("Owner:"), _("Group:"), _("Others:")};
-
-    comp->priv = g_new (GnomeCmdChmodComponentPrivate, 1);
 
     g_object_set (comp, "orientation", GTK_ORIENTATION_VERTICAL, NULL);
     gtk_box_set_spacing (GTK_BOX (comp), 5);
@@ -138,9 +119,9 @@ static void gnome_cmd_chmod_component_init (GnomeCmdChmodComponent *comp)
 
         for (gint x=0; x<3; x++)
         {
-            comp->priv->check_boxes[y][x] = create_check (GTK_WIDGET (comp), check_text[x], "check");
-            g_signal_connect (comp->priv->check_boxes[y][x], "toggled", G_CALLBACK (on_check_toggled), comp);
-            gtk_grid_attach (grid, comp->priv->check_boxes[y][x], x+1, y, 1, 1);
+            priv->check_boxes[y][x] = create_check (GTK_WIDGET (comp), check_text[x], "check");
+            g_signal_connect (priv->check_boxes[y][x], "toggled", G_CALLBACK (on_check_toggled), comp);
+            gtk_grid_attach (grid, priv->check_boxes[y][x], x+1, y, 1, 1);
         }
     }
 
@@ -159,11 +140,11 @@ static void gnome_cmd_chmod_component_init (GnomeCmdChmodComponent *comp)
     label = create_label (GTK_WIDGET (comp), _("Number view:"));
     gtk_grid_attach (grid, label, 0, 1, 1, 1);
 
-    comp->priv->textview_label = create_label (GTK_WIDGET (comp), "");
-    gtk_grid_attach (grid, comp->priv->textview_label, 1, 0, 1, 1);
+    priv->textview_label = create_label (GTK_WIDGET (comp), "");
+    gtk_grid_attach (grid, priv->textview_label, 1, 0, 1, 1);
 
-    comp->priv->numberview_label = create_label (GTK_WIDGET (comp), "");
-    gtk_grid_attach (grid, comp->priv->numberview_label, 1, 1, 1, 1);
+    priv->numberview_label = create_label (GTK_WIDGET (comp), "");
+    gtk_grid_attach (grid, priv->numberview_label, 1, 1, 1, 1);
 }
 
 /***********************************
@@ -182,11 +163,13 @@ GtkWidget *gnome_cmd_chmod_component_new (guint32 perms)
 
 guint32 gnome_cmd_chmod_component_get_perms (GnomeCmdChmodComponent *comp)
 {
+    auto priv = static_cast<GnomeCmdChmodComponentPrivate*>(gnome_cmd_chmod_component_get_instance_private (comp));
+
     guint32 perms = 0;
 
     for (gint y=0; y<3; y++)
         for (gint x=0; x<3; x++)
-            if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (comp->priv->check_boxes[y][x])))
+            if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->check_boxes[y][x])))
                 perms |= check_perm[y][x];
 
     return perms;
@@ -195,7 +178,9 @@ guint32 gnome_cmd_chmod_component_get_perms (GnomeCmdChmodComponent *comp)
 
 void gnome_cmd_chmod_component_set_perms (GnomeCmdChmodComponent *component, guint32 permissions)
 {
+    auto priv = static_cast<GnomeCmdChmodComponentPrivate*>(gnome_cmd_chmod_component_get_instance_private (component));
+
     for (gint y=0; y<3; y++)
         for (gint x=0; x<3; x++)
-            gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (component->priv->check_boxes[y][x]), permissions & check_perm[y][x]);
+            gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (priv->check_boxes[y][x]), permissions & check_perm[y][x]);
 }

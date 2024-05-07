@@ -31,13 +31,9 @@
 #define GNOME_CMD_CHMOD_COMPONENT_GET_CLASS(obj)    (G_TYPE_INSTANCE_GET_CLASS((obj), GNOME_CMD_TYPE_CHMOD_COMPONENT, GnomeCmdChmodComponentClass))
 
 
-struct GnomeCmdChmodComponentPrivate;
-
-
 struct GnomeCmdChmodComponent
 {
     GtkBox parent;
-    GnomeCmdChmodComponentPrivate *priv;
 };
 
 

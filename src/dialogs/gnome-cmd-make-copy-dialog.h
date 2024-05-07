@@ -31,13 +31,9 @@
 #define GNOME_CMD_MAKE_COPY_DIALOG_GET_CLASS(obj)    (G_TYPE_INSTANCE_GET_CLASS((obj), GNOME_CMD_TYPE_MAKE_COPY_DIALOG, GnomeCmdMakeCopyDialogClass))
 
 
-struct GnomeCmdMakeCopyDialogPrivate;
-
-
 struct GnomeCmdMakeCopyDialog
 {
     GnomeCmdStringDialog parent;
-    GnomeCmdMakeCopyDialogPrivate *priv;
 };
 
 

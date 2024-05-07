@@ -36,7 +36,7 @@ struct GnomeCmdMakeCopyDialogPrivate
 };
 
 
-G_DEFINE_TYPE (GnomeCmdMakeCopyDialog, gnome_cmd_make_copy_dialog, GNOME_CMD_TYPE_STRING_DIALOG)
+G_DEFINE_TYPE_WITH_PRIVATE (GnomeCmdMakeCopyDialog, gnome_cmd_make_copy_dialog, GNOME_CMD_TYPE_STRING_DIALOG)
 
 
 inline void copy_file (GnomeCmdFile *f, GnomeCmdDir *dir, const gchar *filename)
@@ -57,8 +57,8 @@ inline void copy_file (GnomeCmdFile *f, GnomeCmdDir *dir, const gchar *filename)
 static gboolean on_ok (GnomeCmdStringDialog *string_dialog, const gchar **values, GnomeCmdMakeCopyDialog *dialog)
 {
     g_return_val_if_fail (dialog, TRUE);
-    g_return_val_if_fail (dialog->priv, TRUE);
-    g_return_val_if_fail (dialog->priv->f, TRUE);
+    auto priv = static_cast<GnomeCmdMakeCopyDialogPrivate*>(gnome_cmd_make_copy_dialog_get_instance_private (dialog));
+    g_return_val_if_fail (priv->f, TRUE);
 
     const gchar *filename = values[0];
 
@@ -73,17 +73,17 @@ static gboolean on_ok (GnomeCmdStringDialog *string_dialog, const gchar **values
         gchar *parent_dir = g_path_get_dirname (filename);
         gchar *dest_fn = g_path_get_basename (filename);
 
-        auto con = gnome_cmd_dir_get_connection (dialog->priv->dir);
+        auto con = gnome_cmd_dir_get_connection (priv->dir);
         auto conPath = gnome_cmd_con_create_path (con, parent_dir);
         auto dir = gnome_cmd_dir_new (con, conPath);
         delete conPath;
         g_free (parent_dir);
 
-        copy_file (dialog->priv->f, dir, dest_fn);
+        copy_file (priv->f, dir, dest_fn);
         g_free (dest_fn);
     }
     else
-        copy_file (dialog->priv->f, dialog->priv->dir, filename);
+        copy_file (priv->f, priv->dir, filename);
 
     return TRUE;
 }
@@ -91,7 +91,8 @@ static gboolean on_ok (GnomeCmdStringDialog *string_dialog, const gchar **values
 
 static void on_cancel (GtkWidget *widget, GnomeCmdMakeCopyDialog *dialog)
 {
-    dialog->priv->f->unref();
+    auto priv = static_cast<GnomeCmdMakeCopyDialogPrivate*>(gnome_cmd_make_copy_dialog_get_instance_private (dialog));
+    priv->f->unref();
 }
 
 
@@ -99,34 +100,13 @@ static void on_cancel (GtkWidget *widget, GnomeCmdMakeCopyDialog *dialog)
  * Gtk class implementation
  *******************************/
 
-static void destroy (GtkWidget *object)
-{
-    GnomeCmdMakeCopyDialog *dialog = GNOME_CMD_MAKE_COPY_DIALOG (object);
-
-    g_free (dialog->priv);
-
-    GTK_WIDGET_CLASS (gnome_cmd_make_copy_dialog_parent_class)->destroy (object);
-}
-
-
-static void map (GtkWidget *widget)
-{
-    GTK_WIDGET_CLASS (gnome_cmd_make_copy_dialog_parent_class)->map (widget);
-}
-
-
 static void gnome_cmd_make_copy_dialog_class_init (GnomeCmdMakeCopyDialogClass *klass)
 {
-    GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
-
-    widget_class->destroy = destroy;
-    widget_class->map = ::map;
 }
 
 
 static void gnome_cmd_make_copy_dialog_init (GnomeCmdMakeCopyDialog *dialog)
 {
-    dialog->priv = g_new0 (GnomeCmdMakeCopyDialogPrivate, 1);
 }
 
 
@@ -141,9 +121,10 @@ GtkWidget *gnome_cmd_make_copy_dialog_new (GnomeCmdFile *f, GnomeCmdDir *dir)
     const gchar *labels[] = {""};
 
     GnomeCmdMakeCopyDialog *dialog = (GnomeCmdMakeCopyDialog *) g_object_new (GNOME_CMD_TYPE_MAKE_COPY_DIALOG, NULL);
+    auto priv = static_cast<GnomeCmdMakeCopyDialogPrivate*>(gnome_cmd_make_copy_dialog_get_instance_private (dialog));
 
-    dialog->priv->f = f->ref();
-    dialog->priv->dir = gnome_cmd_dir_ref (dir);
+    priv->f = f->ref();
+    priv->dir = gnome_cmd_dir_ref (dir);
 
     gchar *msg = g_strdup_printf (_("Copy “%s” to"), f->get_name());
     GtkWidget *msg_label = create_label (GTK_WIDGET (dialog), msg);

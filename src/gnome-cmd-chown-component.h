@@ -31,14 +31,9 @@
 #define GNOME_CMD_CHOWN_COMPONENT_GET_CLASS(obj)    (G_TYPE_INSTANCE_GET_CLASS((obj), GNOME_CMD_TYPE_CHOWN_COMPONENT, GnomeCmdChownComponentClass))
 
 
-struct GnomeCmdChownComponentPrivate;
-
-
 struct GnomeCmdChownComponent
 {
     GtkGrid parent;
-
-    GnomeCmdChownComponentPrivate *priv;
 };
 
 
