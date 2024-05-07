@@ -335,6 +335,21 @@ void gnome_cmd_con_list_set_all_dev (GnomeCmdConList *con_list, GList *dev_cons)
 }
 
 
+GnomeCmdCon *gnome_cmd_con_list_find_by_uuid (GnomeCmdConList *con_list, const gchar *uuid)
+{
+    g_return_val_if_fail (GNOME_CMD_IS_CON_LIST (con_list), nullptr);
+    g_return_val_if_fail (uuid != nullptr, nullptr);
+
+    for (GList *elem = con_list->priv->all_cons; elem; elem = elem->next)
+    {
+        auto con = static_cast<GnomeCmdCon*> (elem->data);
+        if (!strcmp (gnome_cmd_con_get_uuid (con), uuid))
+            return con;
+    }
+    return nullptr;
+}
+
+
 GnomeCmdCon *GnomeCmdConList::find_alias(const gchar *alias) const
 {
     g_return_val_if_fail (alias != nullptr, nullptr);

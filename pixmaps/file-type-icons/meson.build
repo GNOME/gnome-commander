@@ -11,3 +11,6 @@ file_type_icons = [
 install_data(file_type_icons,
   install_dir: pixmaps_dir / 'file-type-icons'
 )
+
+install_data(file_type_icons,
+  install_dir: icons_dir)

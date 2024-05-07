@@ -32,14 +32,11 @@
 #include "gnome-cmd-main-win.h"
 #include "dict.h"
 
-#define GNOME_CMD_USER_ACTION(f)       void f(GtkMenuItem *menuitem=NULL, gpointer user_data=NULL)
-#define GNOME_CMD_USER_ACTION_TGL(f)   void f(GtkToggleAction *toggleAction=nullptr, gpointer user_data=nullptr)
-
 #define USER_ACTION_SETTINGS (gcmd_user_action_settings_get_type ())
 G_DECLARE_FINAL_TYPE (GcmdUserActionSettings, gcmd_user_action_settings, GCMD, USER_ACTIONS, GObject)
 GcmdUserActionSettings *gcmd_user_action_settings_new (void);
 
-typedef void (*GnomeCmdUserActionFunc) (GtkMenuItem *menuitem, gpointer user_data);
+typedef void (*GnomeCmdUserActionFunc) (GSimpleAction *action, GVariant *parameter, gpointer user_data);
 
 
 inline gboolean ascii_isalnum (guint key_val)
@@ -221,127 +218,13 @@ extern GnomeCmdUserActions gcmd_user_actions;
 
 GtkTreeModel *gnome_cmd_user_actions_create_model ();
 
-
-GNOME_CMD_USER_ACTION(no_action);
-
-/************** File Menu **************/
-GNOME_CMD_USER_ACTION(file_copy);
-GNOME_CMD_USER_ACTION(file_copy_as);
-GNOME_CMD_USER_ACTION(file_move);
-GNOME_CMD_USER_ACTION(file_delete);
-GNOME_CMD_USER_ACTION(file_view);
-GNOME_CMD_USER_ACTION(file_internal_view);
-GNOME_CMD_USER_ACTION(file_external_view);
-GNOME_CMD_USER_ACTION(file_edit);
-GNOME_CMD_USER_ACTION(file_edit_new_doc);
-GNOME_CMD_USER_ACTION(file_search);
-GNOME_CMD_USER_ACTION(file_quick_search);
-GNOME_CMD_USER_ACTION(file_chmod);
-GNOME_CMD_USER_ACTION(file_chown);
-GNOME_CMD_USER_ACTION(file_mkdir);
-GNOME_CMD_USER_ACTION(file_properties);
-GNOME_CMD_USER_ACTION(file_diff);
-GNOME_CMD_USER_ACTION(file_sync_dirs);
-GNOME_CMD_USER_ACTION(file_rename);
-GNOME_CMD_USER_ACTION(file_create_symlink);
-GNOME_CMD_USER_ACTION(file_advrename);
-GNOME_CMD_USER_ACTION(file_run);
-GNOME_CMD_USER_ACTION(file_sendto);
-GNOME_CMD_USER_ACTION(file_umount);
-GNOME_CMD_USER_ACTION(file_exit);
-
-/************** Mark Menu **************/
-GNOME_CMD_USER_ACTION(mark_toggle);
-GNOME_CMD_USER_ACTION(mark_toggle_and_step);
-GNOME_CMD_USER_ACTION(mark_select_all);
-GNOME_CMD_USER_ACTION(mark_unselect_all);
-GNOME_CMD_USER_ACTION(mark_select_all_files);
-GNOME_CMD_USER_ACTION(mark_unselect_all_files);
-GNOME_CMD_USER_ACTION(mark_select_with_pattern);
-GNOME_CMD_USER_ACTION(mark_unselect_with_pattern);
-GNOME_CMD_USER_ACTION(mark_invert_selection);
-GNOME_CMD_USER_ACTION(mark_select_all_with_same_extension);
-GNOME_CMD_USER_ACTION(mark_unselect_all_with_same_extension);
-GNOME_CMD_USER_ACTION(mark_restore_selection);
-GNOME_CMD_USER_ACTION(mark_compare_directories);
-
-/************** Edit Menu **************/
-GNOME_CMD_USER_ACTION(edit_cap_cut);
-GNOME_CMD_USER_ACTION(edit_cap_copy);
-GNOME_CMD_USER_ACTION(edit_cap_paste);
-GNOME_CMD_USER_ACTION(edit_filter);
-GNOME_CMD_USER_ACTION(edit_copy_fnames);
-
-/************** Command Menu **************/
-GNOME_CMD_USER_ACTION(command_execute);
-GNOME_CMD_USER_ACTION(command_open_terminal__internal);             // this function is NOT exposed to user as UserAction
-GNOME_CMD_USER_ACTION(command_open_terminal);
-GNOME_CMD_USER_ACTION(command_open_terminal_as_root);
-GNOME_CMD_USER_ACTION(command_root_mode);
-
-/************** View Menu **************/
-GNOME_CMD_USER_ACTION_TGL(view_conbuttons);
-GNOME_CMD_USER_ACTION_TGL(view_devlist);
-GNOME_CMD_USER_ACTION_TGL(view_toolbar);
-GNOME_CMD_USER_ACTION_TGL(view_buttonbar);
-GNOME_CMD_USER_ACTION_TGL(view_cmdline);
-GNOME_CMD_USER_ACTION(view_dir_history);
-GNOME_CMD_USER_ACTION_TGL(view_hidden_files);
-GNOME_CMD_USER_ACTION_TGL(view_backup_files);
-GNOME_CMD_USER_ACTION(view_up);
-GNOME_CMD_USER_ACTION(view_first);
-GNOME_CMD_USER_ACTION(view_back);
-GNOME_CMD_USER_ACTION(view_forward);
-GNOME_CMD_USER_ACTION(view_last);
-GNOME_CMD_USER_ACTION(view_refresh);
-GNOME_CMD_USER_ACTION(view_equal_panes);
-GNOME_CMD_USER_ACTION(view_maximize_pane);
-GNOME_CMD_USER_ACTION(view_in_left_pane);
-GNOME_CMD_USER_ACTION(view_in_right_pane);
-GNOME_CMD_USER_ACTION(view_in_active_pane);
-GNOME_CMD_USER_ACTION(view_in_inactive_pane);
-GNOME_CMD_USER_ACTION(view_directory);
-GNOME_CMD_USER_ACTION(view_home);
-GNOME_CMD_USER_ACTION(view_root);
-GNOME_CMD_USER_ACTION(view_new_tab);
-GNOME_CMD_USER_ACTION(view_close_tab);
-GNOME_CMD_USER_ACTION(view_close_all_tabs);
-GNOME_CMD_USER_ACTION(view_close_duplicate_tabs);
-GNOME_CMD_USER_ACTION(view_prev_tab);
-GNOME_CMD_USER_ACTION(view_next_tab);
-GNOME_CMD_USER_ACTION(view_in_new_tab);
-GNOME_CMD_USER_ACTION(view_in_inactive_tab);
-GNOME_CMD_USER_ACTION(view_toggle_tab_lock);
-GNOME_CMD_USER_ACTION_TGL(view_horizontal_orientation);
-GNOME_CMD_USER_ACTION(view_main_menu);
-GNOME_CMD_USER_ACTION(view_step_up);
-GNOME_CMD_USER_ACTION(view_step_down);
-
-/************** Bookmarks Menu **************/
-GNOME_CMD_USER_ACTION(bookmarks_add_current);
-GNOME_CMD_USER_ACTION(bookmarks_edit);
-GNOME_CMD_USER_ACTION(bookmarks_goto);
-GNOME_CMD_USER_ACTION(bookmarks_view);
-
-/************** Options Menu **************/
-GNOME_CMD_USER_ACTION(options_edit);
-GNOME_CMD_USER_ACTION(options_edit_shortcuts);
-
-/************** Connections Menu **************/
-GNOME_CMD_USER_ACTION(connections_open);
-GNOME_CMD_USER_ACTION(connections_new);
-GNOME_CMD_USER_ACTION(connections_change);          // this function is NOT exposed to user as UserAction
-GNOME_CMD_USER_ACTION(connections_change_left);
-GNOME_CMD_USER_ACTION(connections_change_right);
-GNOME_CMD_USER_ACTION(connections_close);           // this function is NOT exposed to user as UserAction
-GNOME_CMD_USER_ACTION(connections_close_current);
-
-/************** Plugins Menu ***********/
-GNOME_CMD_USER_ACTION(plugins_configure);
-
-/************** Help Menu **************/
-GNOME_CMD_USER_ACTION(help_help);
-GNOME_CMD_USER_ACTION(help_keyboard);
-GNOME_CMD_USER_ACTION(help_web);
-GNOME_CMD_USER_ACTION(help_problem);
-GNOME_CMD_USER_ACTION(help_about);
+extern const GActionEntry FILE_ACTION_ENTRIES[];
+extern const GActionEntry MARK_ACTION_ENTRIES[];
+extern const GActionEntry EDIT_ACTION_ENTRIES[];
+extern const GActionEntry COMMAND_ACTION_ENTRIES[];
+extern const GActionEntry VIEW_ACTION_ENTRIES[];
+extern const GActionEntry BOOKMARK_ACTION_ENTRIES[];
+extern const GActionEntry OPTIONS_ACTION_ENTRIES[];
+extern const GActionEntry CONNECTIONS_ACTION_ENTRIES[];
+extern const GActionEntry PLUGINS_ACTION_ENTRIES[];
+extern const GActionEntry HELP_ACTION_ENTRIES[];

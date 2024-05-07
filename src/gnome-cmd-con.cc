@@ -32,6 +32,7 @@ using namespace std;
 
 struct GnomeCmdConPrivate
 {
+    gchar          *uuid;
     GnomeCmdDir    *default_dir;   // the start dir of this connection
     History        *dir_history;
     GnomeCmdBookmarkGroup *bookmarks;
@@ -91,6 +92,7 @@ static void dispose (GObject *object)
     GnomeCmdCon *con = GNOME_CMD_CON (object);
     auto priv = static_cast<GnomeCmdConPrivate *> (gnome_cmd_con_get_instance_private (con));
 
+    g_clear_pointer (&priv->uuid, g_free);
     g_clear_pointer (&con->alias, g_free);
     g_clear_pointer (&con->uri, g_free);
     g_clear_pointer (&con->scheme, g_free);
@@ -191,6 +193,8 @@ static void gnome_cmd_con_init (GnomeCmdCon *con)
 {
     auto priv = static_cast<GnomeCmdConPrivate *> (gnome_cmd_con_get_instance_private (con));
 
+    priv->uuid = g_uuid_string_random ();
+
     con->alias = nullptr;
     con->uri = nullptr;
     con->scheme = nullptr;
@@ -225,6 +229,14 @@ static void gnome_cmd_con_init (GnomeCmdCon *con)
 /***********************************
  * Public functions
  ***********************************/
+
+const gchar *gnome_cmd_con_get_uuid (GnomeCmdCon *con)
+{
+    g_return_val_if_fail (GNOME_CMD_IS_CON (con), NULL);
+    auto priv = static_cast<GnomeCmdConPrivate *> (gnome_cmd_con_get_instance_private (con));
+    return priv->uuid;
+}
+
 
 static gboolean check_con_open_progress (GnomeCmdCon *con)
 {

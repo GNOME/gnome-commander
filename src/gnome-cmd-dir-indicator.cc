@@ -379,9 +379,7 @@ static void select_path (GSimpleAction *action, GVariant *parameter, gpointer us
     g_variant_get (parameter, "s", &path);
     g_return_if_fail (path != nullptr);
 
-    GdkWindow *window = gdk_window_at_pointer (nullptr, nullptr);
-    GdkModifierType mask = (GdkModifierType) 0;
-    gdk_window_get_pointer (window, nullptr, nullptr, &mask);
+    GdkModifierType mask = get_modifiers_state();
 
     main_win->switch_fs(priv->fs);
 
@@ -463,7 +461,6 @@ static void manage_bookmarks (GSimpleAction *action, GVariant *parameter, gpoint
     auto indicator = static_cast<GnomeCmdDirIndicator*> (user_data);
     g_return_if_fail (GNOME_CMD_IS_DIR_INDICATOR (indicator));
 
-    bookmarks_edit (nullptr, nullptr);
 }
 
 

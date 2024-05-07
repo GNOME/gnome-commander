@@ -195,6 +195,8 @@ public:
                      const gchar *accelerator = nullptr,
                      const gchar *icon = nullptr) &&;
 
+    MenuBuilder item(GMenuItem *item) &&;
+
     MenuBuilder submenu(const gchar *label) &&
     {
         return MenuBuilder(this, label);
@@ -215,6 +217,12 @@ public:
     {
         g_menu_append_section (parent->menu, nullptr, G_MENU_MODEL (menu));
         return *parent;
+    }
+
+    MenuBuilder section(GMenuModel *section) &&
+    {
+        g_menu_append_section (menu, nullptr, section);
+        return *this;
     }
 
     MenuBuilder section(GMenu *section) &&

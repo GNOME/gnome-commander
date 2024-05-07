@@ -116,6 +116,129 @@ static void gcmd_user_action_settings_init (GcmdUserActionSettings *gs)
  * UserActions
  ***********************************/
 
+#define GNOME_CMD_USER_ACTION(f)       static void f(GSimpleAction *action, GVariant *parameter, gpointer user_data)
+#define GNOME_CMD_USER_ACTION_TGL(f)   static void f(GSimpleAction *action, GVariant *parameter, gpointer user_data)
+
+/************** File Menu **************/
+GNOME_CMD_USER_ACTION(file_copy);
+GNOME_CMD_USER_ACTION(file_copy_as);
+GNOME_CMD_USER_ACTION(file_move);
+GNOME_CMD_USER_ACTION(file_delete);
+GNOME_CMD_USER_ACTION(file_view);
+GNOME_CMD_USER_ACTION(file_internal_view);
+GNOME_CMD_USER_ACTION(file_external_view);
+GNOME_CMD_USER_ACTION(file_edit);
+GNOME_CMD_USER_ACTION(file_edit_new_doc);
+GNOME_CMD_USER_ACTION(file_search);
+GNOME_CMD_USER_ACTION(file_quick_search);
+GNOME_CMD_USER_ACTION(file_chmod);
+GNOME_CMD_USER_ACTION(file_chown);
+GNOME_CMD_USER_ACTION(file_mkdir);
+GNOME_CMD_USER_ACTION(file_properties);
+GNOME_CMD_USER_ACTION(file_diff);
+GNOME_CMD_USER_ACTION(file_sync_dirs);
+GNOME_CMD_USER_ACTION(file_rename);
+GNOME_CMD_USER_ACTION(file_create_symlink);
+GNOME_CMD_USER_ACTION(file_advrename);
+GNOME_CMD_USER_ACTION(file_sendto);
+GNOME_CMD_USER_ACTION(file_exit);
+
+/************** Mark Menu **************/
+GNOME_CMD_USER_ACTION(mark_toggle);
+GNOME_CMD_USER_ACTION(mark_toggle_and_step);
+GNOME_CMD_USER_ACTION(mark_select_all);
+GNOME_CMD_USER_ACTION(mark_unselect_all);
+GNOME_CMD_USER_ACTION(mark_select_all_files);
+GNOME_CMD_USER_ACTION(mark_unselect_all_files);
+GNOME_CMD_USER_ACTION(mark_select_with_pattern);
+GNOME_CMD_USER_ACTION(mark_unselect_with_pattern);
+GNOME_CMD_USER_ACTION(mark_invert_selection);
+GNOME_CMD_USER_ACTION(mark_select_all_with_same_extension);
+GNOME_CMD_USER_ACTION(mark_unselect_all_with_same_extension);
+GNOME_CMD_USER_ACTION(mark_restore_selection);
+GNOME_CMD_USER_ACTION(mark_compare_directories);
+
+/************** Edit Menu **************/
+GNOME_CMD_USER_ACTION(edit_cap_cut);
+GNOME_CMD_USER_ACTION(edit_cap_copy);
+GNOME_CMD_USER_ACTION(edit_cap_paste);
+GNOME_CMD_USER_ACTION(edit_filter);
+GNOME_CMD_USER_ACTION(edit_copy_fnames);
+
+/************** Command Menu **************/
+GNOME_CMD_USER_ACTION(command_execute);
+GNOME_CMD_USER_ACTION(command_open_terminal__internal);             // this function is NOT exposed to user as UserAction
+GNOME_CMD_USER_ACTION(command_open_terminal);
+GNOME_CMD_USER_ACTION(command_open_terminal_as_root);
+GNOME_CMD_USER_ACTION(command_root_mode);
+
+/************** View Menu **************/
+GNOME_CMD_USER_ACTION_TGL(view_conbuttons);
+GNOME_CMD_USER_ACTION_TGL(view_devlist);
+GNOME_CMD_USER_ACTION_TGL(view_toolbar);
+GNOME_CMD_USER_ACTION_TGL(view_buttonbar);
+GNOME_CMD_USER_ACTION_TGL(view_cmdline);
+GNOME_CMD_USER_ACTION(view_dir_history);
+GNOME_CMD_USER_ACTION_TGL(view_hidden_files);
+GNOME_CMD_USER_ACTION_TGL(view_backup_files);
+GNOME_CMD_USER_ACTION(view_up);
+GNOME_CMD_USER_ACTION(view_first);
+GNOME_CMD_USER_ACTION(view_back);
+GNOME_CMD_USER_ACTION(view_forward);
+GNOME_CMD_USER_ACTION(view_last);
+GNOME_CMD_USER_ACTION(view_refresh);
+GNOME_CMD_USER_ACTION(view_equal_panes);
+GNOME_CMD_USER_ACTION(view_maximize_pane);
+GNOME_CMD_USER_ACTION(view_in_left_pane);
+GNOME_CMD_USER_ACTION(view_in_right_pane);
+GNOME_CMD_USER_ACTION(view_in_active_pane);
+GNOME_CMD_USER_ACTION(view_in_inactive_pane);
+GNOME_CMD_USER_ACTION(view_directory);
+GNOME_CMD_USER_ACTION(view_home);
+GNOME_CMD_USER_ACTION(view_root);
+GNOME_CMD_USER_ACTION(view_new_tab);
+GNOME_CMD_USER_ACTION(view_close_tab);
+GNOME_CMD_USER_ACTION(view_close_all_tabs);
+GNOME_CMD_USER_ACTION(view_close_duplicate_tabs);
+GNOME_CMD_USER_ACTION(view_prev_tab);
+GNOME_CMD_USER_ACTION(view_next_tab);
+GNOME_CMD_USER_ACTION(view_in_new_tab);
+GNOME_CMD_USER_ACTION(view_in_inactive_tab);
+GNOME_CMD_USER_ACTION(view_toggle_tab_lock);
+GNOME_CMD_USER_ACTION_TGL(view_horizontal_orientation);
+GNOME_CMD_USER_ACTION(view_main_menu);
+GNOME_CMD_USER_ACTION(view_step_up);
+GNOME_CMD_USER_ACTION(view_step_down);
+
+/************** Bookmarks Menu **************/
+GNOME_CMD_USER_ACTION(bookmarks_add_current);
+GNOME_CMD_USER_ACTION(bookmarks_edit);
+GNOME_CMD_USER_ACTION(bookmarks_goto);
+GNOME_CMD_USER_ACTION(bookmarks_view);
+
+/************** Options Menu **************/
+GNOME_CMD_USER_ACTION(options_edit);
+GNOME_CMD_USER_ACTION(options_edit_shortcuts);
+
+/************** Connections Menu **************/
+GNOME_CMD_USER_ACTION(connections_open);
+GNOME_CMD_USER_ACTION(connections_new);
+GNOME_CMD_USER_ACTION(connections_set_current);
+GNOME_CMD_USER_ACTION(connections_change_left);
+GNOME_CMD_USER_ACTION(connections_change_right);
+GNOME_CMD_USER_ACTION(connections_close);
+GNOME_CMD_USER_ACTION(connections_close_current);
+
+/************** Plugins Menu ***********/
+GNOME_CMD_USER_ACTION(plugins_configure);
+
+/************** Help Menu **************/
+GNOME_CMD_USER_ACTION(help_help);
+GNOME_CMD_USER_ACTION(help_keyboard);
+GNOME_CMD_USER_ACTION(help_web);
+GNOME_CMD_USER_ACTION(help_problem);
+GNOME_CMD_USER_ACTION(help_about);
+
 GnomeCmdFileSelector *get_fs (const FileSelectorID fsID)
 {
     return main_win->fs(fsID);
@@ -250,7 +373,6 @@ static UserActionData user_actions_data[] = {
                                              {mark_toggle, "mark.toggle", N_("Toggle selection")},
                                              {mark_toggle_and_step, "mark.toggle_and_step", N_("Toggle selection and move cursor downward")},
                                              {mark_unselect_all, "mark.unselect_all", N_("Unselect all")},
-                                             {no_action, "no.action", N_("Do nothing")},
                                              {options_edit, "options.edit", N_("Options")},
                                              {options_edit_shortcuts, "options.shortcuts", N_("Keyboard shortcuts")},
                                              {plugins_configure, "plugins.configure", N_("Configure plugins")},
@@ -307,12 +429,12 @@ void GnomeCmdUserActions::init()
 }
 
 
- void GnomeCmdUserActions::set_defaults()
- {
+void GnomeCmdUserActions::set_defaults()
+{
     if (!registered("view.main_menu"))
         register_action(GDK_KEY_F12, "view.main_menu");
 
-   if (!registered("bookmarks.edit"))
+    if (!registered("bookmarks.edit"))
         register_action(GDK_CONTROL_MASK, GDK_KEY_D, "bookmarks.edit");
 
     if (!registered("connections.new"))
@@ -565,7 +687,7 @@ gboolean GnomeCmdUserActions::handle_key_event(GnomeCmdMainWin *mw, GnomeCmdFile
     DEBUG('u', "Key event:  %s (%#x)\n", key2str(*event).c_str(), event->keyval);
     DEBUG('u', "Handling key event by %s()\n", action_func[pos->second.func].c_str());
 
-    (*pos->second.func) (nullptr, (gpointer) (pos->second.user_data.empty() ? nullptr : pos->second.user_data.c_str()));
+    (*pos->second.func) (nullptr, nullptr, (gpointer) (pos->second.user_data.empty() ? nullptr : pos->second.user_data.c_str()));
 
     return TRUE;
 }
@@ -657,17 +779,11 @@ inline void get_file_list (string &s, GList *sfl, F f, T t)
 }
 
 
-/***************************************/
 static void view_refresh_0 ();
 
 
-void no_action (GtkMenuItem *menuitem, gpointer not_used)
-{
-}
-
-
 /************** File Menu **************/
-void file_copy (GtkMenuItem *menuitem, gpointer not_used)
+void file_copy (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
     GnomeCmdFileSelector *src_fs = get_fs (ACTIVE);
     GnomeCmdFileSelector *dest_fs = get_fs (INACTIVE);
@@ -677,7 +793,7 @@ void file_copy (GtkMenuItem *menuitem, gpointer not_used)
 }
 
 
-void file_copy_as (GtkMenuItem *menuitem, gpointer not_used)
+void file_copy_as (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
     GnomeCmdFileSelector *fs = get_fs (ACTIVE);
     GnomeCmdFile *f = fs->file_list()->get_selected_file();
@@ -692,7 +808,7 @@ void file_copy_as (GtkMenuItem *menuitem, gpointer not_used)
 }
 
 
-void file_move (GtkMenuItem *menuitem, gpointer not_used)
+void file_move (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
     GnomeCmdFileSelector *src_fs = get_fs (ACTIVE);
     GnomeCmdFileSelector *dest_fs = get_fs (INACTIVE);
@@ -702,34 +818,32 @@ void file_move (GtkMenuItem *menuitem, gpointer not_used)
 }
 
 
-void file_delete (GtkMenuItem *menuitem, gpointer not_used)
+void file_delete (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
     gnome_cmd_file_list_show_delete_dialog (get_fl (ACTIVE));
 }
 
 
-void file_view (GtkMenuItem *menuitem, gpointer not_used)
+void file_view (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
     gnome_cmd_file_list_view (get_fl (ACTIVE), gnome_cmd_data.options.use_internal_viewer);
 }
 
 
-void file_internal_view (GtkMenuItem *menuitem, gpointer not_used)
+void file_internal_view (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
     gnome_cmd_file_list_view (get_fl (ACTIVE), TRUE);
 }
 
 
-void file_external_view (GtkMenuItem *menuitem, gpointer not_used)
+void file_external_view (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
     gnome_cmd_file_list_view (get_fl (ACTIVE), FALSE);
 }
 
-void file_edit (GtkMenuItem *menuitem, gpointer not_used)
+void file_edit (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
-    GdkModifierType mask;
-
-    gdk_window_get_pointer (nullptr, nullptr, nullptr, &mask);
+    GdkModifierType mask = get_modifiers_state();
 
     if (mask & GDK_SHIFT_MASK)
         gnome_cmd_file_selector_show_new_textfile_dialog (get_fs (ACTIVE));
@@ -766,13 +880,13 @@ void file_edit (GtkMenuItem *menuitem, gpointer not_used)
     }
 }
 
-void file_edit_new_doc (GtkMenuItem *menuitem, gpointer not_used)
+void file_edit_new_doc (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
     gnome_cmd_file_selector_show_new_textfile_dialog (get_fs (ACTIVE));
 }
 
 
-void file_search (GtkMenuItem *menuitem, gpointer not_used)
+void file_search (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
     if (gnome_cmd_data.options.use_internal_search)
     {
@@ -812,13 +926,13 @@ void file_search (GtkMenuItem *menuitem, gpointer not_used)
 }
 
 
-void file_quick_search (GtkMenuItem *menuitem, gpointer not_used)
+void file_quick_search (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
     gnome_cmd_file_list_show_quicksearch (get_fl (ACTIVE), 0);
 }
 
 
-void file_chmod (GtkMenuItem *menuitem, gpointer not_used)
+void file_chmod (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
     GList *files = get_fl (ACTIVE)->get_selected_files();
 
@@ -835,7 +949,7 @@ void file_chmod (GtkMenuItem *menuitem, gpointer not_used)
 }
 
 
-void file_chown (GtkMenuItem *menuitem, gpointer not_used)
+void file_chown (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
     GList *files = get_fl (ACTIVE)->get_selected_files();
 
@@ -852,7 +966,7 @@ void file_chown (GtkMenuItem *menuitem, gpointer not_used)
 }
 
 
-void file_mkdir (GtkMenuItem *menuitem, gpointer not_used)
+void file_mkdir (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
     GnomeCmdFileSelector *fs = get_fs (ACTIVE);
     GnomeCmdDir *dir = fs->get_directory();
@@ -865,7 +979,7 @@ void file_mkdir (GtkMenuItem *menuitem, gpointer not_used)
 }
 
 
-void file_create_symlink (GtkMenuItem *menuitem, gpointer not_used)
+void file_create_symlink (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
     GnomeCmdFileSelector *inactive_fs = get_fs (INACTIVE);
     GList *f = get_fl (ACTIVE)->get_selected_files();
@@ -893,13 +1007,13 @@ void file_create_symlink (GtkMenuItem *menuitem, gpointer not_used)
 }
 
 
-void file_rename (GtkMenuItem *menuitem, gpointer not_used)
+void file_rename (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
     gnome_cmd_file_list_show_rename_dialog (get_fl (ACTIVE));
 }
 
 
-void file_advrename (GtkMenuItem *menuitem, gpointer not_used)
+void file_advrename (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
     GList *files = get_fl (ACTIVE)->get_selected_files();
 
@@ -924,7 +1038,7 @@ void file_advrename (GtkMenuItem *menuitem, gpointer not_used)
 }
 
 
-void file_sendto (GtkMenuItem *menuitem, gpointer not_used)
+void file_sendto (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
     string commandString;
     commandString.reserve(2000);
@@ -971,13 +1085,13 @@ void eventually_warn_if_xdg_email_is_used()
 }
 
 
-void file_properties (GtkMenuItem *menuitem, gpointer not_used)
+void file_properties (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
     gnome_cmd_file_list_show_properties_dialog (get_fl (ACTIVE));
 }
 
 
-void file_diff (GtkMenuItem *menuitem, gpointer not_used)
+void file_diff (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
     if (!get_fs (ACTIVE)->is_local())
     {
@@ -1035,7 +1149,7 @@ void file_diff (GtkMenuItem *menuitem, gpointer not_used)
 }
 
 
-void file_sync_dirs (GtkMenuItem *menuitem, gpointer not_used)
+void file_sync_dirs (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
     GnomeCmdFileSelector *active_fs = get_fs (ACTIVE);
     GnomeCmdFileSelector *inactive_fs = get_fs (INACTIVE);
@@ -1066,7 +1180,7 @@ void file_sync_dirs (GtkMenuItem *menuitem, gpointer not_used)
 }
 
 
-void file_exit (GtkMenuItem *menuitem, gpointer not_used)
+void file_exit (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
     gint x, y;
 
@@ -1095,42 +1209,37 @@ void file_exit (GtkMenuItem *menuitem, gpointer not_used)
 
 
 /************** Edit Menu **************/
-void edit_cap_cut (GtkMenuItem *menuitem, gpointer not_used)
+void edit_cap_cut (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
     gnome_cmd_file_list_cap_cut (get_fl (ACTIVE));
 }
 
 
-void edit_cap_copy (GtkMenuItem *menuitem, gpointer not_used)
+void edit_cap_copy (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
     gnome_cmd_file_list_cap_copy (get_fl (ACTIVE));
 }
 
 
-void edit_cap_paste (GtkMenuItem *menuitem, gpointer not_used)
+void edit_cap_paste (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
     gnome_cmd_file_selector_cap_paste (get_fs (ACTIVE));
 }
 
 
-void edit_filter (GtkMenuItem *menuitem, gpointer not_used)
+void edit_filter (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
     get_fs (ACTIVE)->show_filter();
 }
 
 
-void edit_copy_fnames (GtkMenuItem *menuitem, gpointer fileList)
+void edit_copy_fnames (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
-    GdkModifierType mask;
-    GnomeCmdFileList *fl;
+    // auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
 
-    gdk_window_get_pointer (nullptr, nullptr, nullptr, &mask);
+    GdkModifierType mask = get_modifiers_state(); // TODO: get this via parameter
 
-    if (!GNOME_CMD_IS_FILE_LIST(fileList) || (GnomeCmdFileList*) fileList == nullptr)
-    {
-        fileList = get_fl (ACTIVE);
-    }
-    fl = (GnomeCmdFileList*) fileList;
+    GnomeCmdFileList *fl = get_fl (ACTIVE);
     GList *sfl = fl->get_selected_files();
 
     string fnames;
@@ -1153,8 +1262,10 @@ void edit_copy_fnames (GtkMenuItem *menuitem, gpointer fileList)
 
 
 /************** Command Menu **************/
-void command_execute (GtkMenuItem *menuitem, gpointer command)
+void command_execute (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
+    const gchar *command = g_variant_get_string (parameter, nullptr);
+
     g_return_if_fail (command != nullptr);
 
     DEBUG ('g', "invoking: %s\n", command);
@@ -1211,23 +1322,21 @@ void command_execute (GtkMenuItem *menuitem, gpointer command)
 }
 
 
-void command_open_terminal__internal (GtkMenuItem *menuitem, gpointer not_used)           // this function is NOT exposed to user as UserAction
+void command_open_terminal__internal (GSimpleAction *action, GVariant *parameter, gpointer user_data)           // this function is NOT exposed to user as UserAction
 {
-    GdkModifierType mask;
-
-    gdk_window_get_pointer (nullptr, nullptr, nullptr, &mask);
+    GdkModifierType mask = get_modifiers_state();
 
     if (mask & GDK_SHIFT_MASK)
-        command_open_terminal_as_root (menuitem, nullptr);
+        command_open_terminal_as_root (nullptr, nullptr, nullptr);
     else
-        command_open_terminal (menuitem, nullptr);
+        command_open_terminal (nullptr, nullptr, nullptr);
 }
 
 /**
  * Executes the command stored in gnome_cmd_data.options.termopen in the
  * active directory.
  */
-void command_open_terminal (GtkMenuItem *menuitem, gpointer not_used)
+void command_open_terminal (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
     gint argc;
     gchar **argv;
@@ -1254,9 +1363,8 @@ void command_open_terminal (GtkMenuItem *menuitem, gpointer not_used)
  * command for a GUI for root login screen. The command is executed in
  * the active directory afterwards.
  */
-void command_open_terminal_as_root (GtkMenuItem *menuitem, gpointer not_used)
+void command_open_terminal_as_root (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
-
     int argc = 1;
     char **argv = g_new0 (char *, argc+1);  //initialize argv
     gchar *command;
@@ -1287,7 +1395,7 @@ void command_open_terminal_as_root (GtkMenuItem *menuitem, gpointer not_used)
 }
 
 
-void command_root_mode (GtkMenuItem *menuitem, gpointer not_used)
+void command_root_mode (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
     int argc = 1;
     char **argv = g_new0 (char *, argc+1);
@@ -1309,73 +1417,73 @@ void command_root_mode (GtkMenuItem *menuitem, gpointer not_used)
 
 
 /************** Mark Menu **************/
-void mark_toggle (GtkMenuItem *menuitem, gpointer not_used)
+void mark_toggle (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
     get_fl (ACTIVE)->toggle();
 }
 
 
-void mark_toggle_and_step (GtkMenuItem *menuitem, gpointer not_used)
+void mark_toggle_and_step (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
     get_fl (ACTIVE)->toggle_and_step();
 }
 
 
-void mark_select_all (GtkMenuItem *menuitem, gpointer not_used)
+void mark_select_all (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
     get_fl (ACTIVE)->select_all();
 }
 
 
-void mark_select_all_files (GtkMenuItem *menuitem, gpointer not_used)
+void mark_select_all_files (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
     get_fl (ACTIVE)->select_all_files();
 }
 
 
-void mark_unselect_all_files (GtkMenuItem *menuitem, gpointer not_used)
+void mark_unselect_all_files (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
     get_fl (ACTIVE)->unselect_all_files();
 }
 
 
-void mark_unselect_all (GtkMenuItem *menuitem, gpointer not_used)
+void mark_unselect_all (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
     get_fl (ACTIVE)->unselect_all();
 }
 
 
-void mark_select_with_pattern (GtkMenuItem *menuitem, gpointer not_used)
+void mark_select_with_pattern (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
     gnome_cmd_file_list_show_selpat_dialog (get_fl (ACTIVE), TRUE);
 }
 
 
-void mark_unselect_with_pattern (GtkMenuItem *menuitem, gpointer not_used)
+void mark_unselect_with_pattern (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
     gnome_cmd_file_list_show_selpat_dialog (get_fl (ACTIVE), FALSE);
 }
 
 
-void mark_invert_selection (GtkMenuItem *menuitem, gpointer not_used)
+void mark_invert_selection (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
     get_fl (ACTIVE)->invert_selection();
 }
 
 
-void mark_select_all_with_same_extension (GtkMenuItem *menuitem, gpointer not_used)
+void mark_select_all_with_same_extension (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
     get_fl (ACTIVE)->select_all_with_same_extension();
 }
 
 
-void mark_unselect_all_with_same_extension (GtkMenuItem *menuitem, gpointer not_used)
+void mark_unselect_all_with_same_extension (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
     get_fl (ACTIVE)->unselect_all_with_same_extension();
 }
 
 
-void mark_restore_selection (GtkMenuItem *menuitem, gpointer not_used)
+void mark_restore_selection (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
     get_fl (ACTIVE)->restore_selection();
 }
@@ -1425,7 +1533,7 @@ inline void selection_delta(GnomeCmdFileList &fl, set<GnomeCmdFile *> &prev_sele
 }
 
 
-void mark_compare_directories (GtkMenuItem *menuitem, gpointer not_used)
+void mark_compare_directories (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
     GnomeCmdFileList *fl1 = get_fl (ACTIVE);
     GnomeCmdFileList *fl2 = get_fl (INACTIVE);
@@ -1493,84 +1601,108 @@ void mark_compare_directories (GtkMenuItem *menuitem, gpointer not_used)
 /* Changing of GSettings here will trigger functions in gnome-cmd-data.cc */
 /* ********************************************************************** */
 
-void view_conbuttons (GtkToggleAction *toggleAction, gpointer not_used)
+void view_conbuttons (GSimpleAction *action, GVariant *state, gpointer user_data)
 {
-    if (!gtk_widget_get_realized ( GTK_WIDGET (main_win))) return;
+    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
 
-    auto active = gtk_toggle_action_get_active(toggleAction);
-    g_settings_set_boolean (gcmd_user_actions.settings->general, GCMD_SETTINGS_SHOW_DEVBUTTONS, active);
+    auto active = g_variant_get_boolean (state);
+    g_simple_action_set_state (action, state);
+
+    if (gtk_widget_get_realized (GTK_WIDGET (main_win)))
+        g_settings_set_boolean (gcmd_user_actions.settings->general, GCMD_SETTINGS_SHOW_DEVBUTTONS, active);
 }
 
 
-void view_devlist (GtkToggleAction *toggleAction, gpointer not_used)
+void view_devlist (GSimpleAction *action, GVariant *state, gpointer user_data)
 {
-    if (!gtk_widget_get_realized ( GTK_WIDGET (main_win))) return;
+    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
 
-    auto active = gtk_toggle_action_get_active(toggleAction);
-    g_settings_set_boolean (gcmd_user_actions.settings->general, GCMD_SETTINGS_SHOW_DEVLIST, active);
+    auto active = g_variant_get_boolean (state);
+    g_simple_action_set_state (action, state);
+
+    if (gtk_widget_get_realized (GTK_WIDGET (main_win)))
+        g_settings_set_boolean (gcmd_user_actions.settings->general, GCMD_SETTINGS_SHOW_DEVLIST, active);
 }
 
 
-void view_toolbar (GtkToggleAction *toggleAction, gpointer not_used)
+void view_toolbar (GSimpleAction *action, GVariant *state, gpointer user_data)
 {
-    if (!gtk_widget_get_realized ( GTK_WIDGET (main_win))) return;
+    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
 
-    auto active = gtk_toggle_action_get_active(toggleAction);
-    g_settings_set_boolean (gcmd_user_actions.settings->general, GCMD_SETTINGS_SHOW_TOOLBAR, active);
+    auto active = g_variant_get_boolean (state);
+    g_simple_action_set_state (action, state);
+
+    if (gtk_widget_get_realized (GTK_WIDGET (main_win)))
+        g_settings_set_boolean (gcmd_user_actions.settings->general, GCMD_SETTINGS_SHOW_TOOLBAR, active);
 }
 
 
-void view_buttonbar (GtkToggleAction *toggleAction, gpointer not_used)
+void view_buttonbar (GSimpleAction *action, GVariant *state, gpointer user_data)
 {
-    if (!gtk_widget_get_realized ( GTK_WIDGET (main_win))) return;
+    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
 
-    auto active = gtk_toggle_action_get_active(toggleAction);
-    g_settings_set_boolean (gcmd_user_actions.settings->general, GCMD_SETTINGS_SHOW_BUTTONBAR, active);
+    auto active = g_variant_get_boolean (state);
+    g_simple_action_set_state (action, state);
+
+    if (gtk_widget_get_realized (GTK_WIDGET (main_win)))
+        g_settings_set_boolean (gcmd_user_actions.settings->general, GCMD_SETTINGS_SHOW_BUTTONBAR, active);
 }
 
 
-void view_cmdline (GtkToggleAction *toggleAction, gpointer not_used)
+void view_cmdline (GSimpleAction *action, GVariant *state, gpointer user_data)
 {
-    if (!gtk_widget_get_realized ( GTK_WIDGET (main_win))) return;
+    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
 
-    auto active = gtk_toggle_action_get_active(toggleAction);
-    g_settings_set_boolean (gcmd_user_actions.settings->general, GCMD_SETTINGS_SHOW_CMDLINE, active);
+    auto active = g_variant_get_boolean (state);
+    g_simple_action_set_state (action, state);
+
+    if (gtk_widget_get_realized (GTK_WIDGET (main_win)))
+        g_settings_set_boolean (gcmd_user_actions.settings->general, GCMD_SETTINGS_SHOW_CMDLINE, active);
 }
 
 
-void view_dir_history (GtkMenuItem *menuitem, gpointer not_used)
+void view_dir_history (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
     gnome_cmd_dir_indicator_show_history (GNOME_CMD_DIR_INDICATOR (get_fs (ACTIVE)->dir_indicator));
 }
 
 
-void view_hidden_files (GtkToggleAction *toggleAction, gpointer not_used)
+void view_hidden_files (GSimpleAction *action, GVariant *state, gpointer user_data)
 {
-    if (!gtk_widget_get_realized ( GTK_WIDGET (main_win))) return;
+    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
 
-    auto active = gtk_toggle_action_get_active(toggleAction);
-    g_settings_set_boolean (gcmd_user_actions.settings->filter, GCMD_SETTINGS_FILTER_HIDE_HIDDEN, !active);
+    auto active = g_variant_get_boolean (state);
+    g_simple_action_set_state (action, state);
+
+    if (gtk_widget_get_realized (GTK_WIDGET (main_win)))
+        g_settings_set_boolean (gcmd_user_actions.settings->filter, GCMD_SETTINGS_FILTER_HIDE_HIDDEN, !active);
 }
 
 
-void view_backup_files (GtkToggleAction *toggleAction, gpointer not_used)
+void view_backup_files (GSimpleAction *action, GVariant *state, gpointer user_data)
 {
-    if (!gtk_widget_get_realized ( GTK_WIDGET (main_win))) return;
+    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
 
-    auto active = gtk_toggle_action_get_active(toggleAction);
-    g_settings_set_boolean (gcmd_user_actions.settings->filter, GCMD_SETTINGS_FILTER_HIDE_BACKUPS, !active);
+    auto active = g_variant_get_boolean (state);
+    g_simple_action_set_state (action, state);
+
+    if (gtk_widget_get_realized (GTK_WIDGET (main_win)))
+        g_settings_set_boolean (gcmd_user_actions.settings->filter, GCMD_SETTINGS_FILTER_HIDE_BACKUPS, !active);
 }
 
 
-void view_horizontal_orientation (GtkToggleAction *toggleAction, gpointer not_used)
+void view_horizontal_orientation (GSimpleAction *action, GVariant *state, gpointer user_data)
 {
-    if (!gtk_widget_get_realized ( GTK_WIDGET (main_win))) return;
+    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
 
-    auto active = gtk_toggle_action_get_active(toggleAction);
-    g_settings_set_boolean (gcmd_user_actions.settings->general, GCMD_SETTINGS_HORIZONTAL_ORIENTATION, active);
+    auto active = g_variant_get_boolean (state);
+    g_simple_action_set_state (action, state);
+
+    if (gtk_widget_get_realized (GTK_WIDGET (main_win)))
+        g_settings_set_boolean (gcmd_user_actions.settings->general, GCMD_SETTINGS_HORIZONTAL_ORIENTATION, active);
 }
 
-void view_step_up (GtkMenuItem *menuitem, gpointer not_used)
+void view_step_up (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
     GnomeCmdFileSelector *fs = get_fs (ACTIVE);
     GnomeCmdFileList *fl = fs->file_list();
@@ -1578,7 +1710,7 @@ void view_step_up (GtkMenuItem *menuitem, gpointer not_used)
     fl->focus_prev();
 }
 
-void view_step_down (GtkMenuItem *menuitem, gpointer not_used)
+void view_step_down (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
     GnomeCmdFileSelector *fs = get_fs (ACTIVE);
     GnomeCmdFileList *fl = fs->file_list();
@@ -1586,7 +1718,7 @@ void view_step_down (GtkMenuItem *menuitem, gpointer not_used)
     fl->focus_next();
 }
 
-void view_up (GtkMenuItem *menuitem, gpointer not_used)
+void view_up (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
     GnomeCmdFileSelector *fs = get_fs (ACTIVE);
     GnomeCmdFileList *fl = fs->file_list();
@@ -1597,7 +1729,7 @@ void view_up (GtkMenuItem *menuitem, gpointer not_used)
         fs->goto_directory("..");
 }
 
-void view_main_menu (GtkMenuItem *menuitem, gpointer not_used)
+void view_main_menu (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
     if (!gtk_widget_get_realized ( GTK_WIDGET (main_win))) return;
 
@@ -1606,82 +1738,80 @@ void view_main_menu (GtkMenuItem *menuitem, gpointer not_used)
     g_settings_set_boolean (gcmd_user_actions.settings->general, GCMD_SETTINGS_MAINMENU_VISIBILITY, !mainmenu_visibility);
 }
 
-void view_first (GtkMenuItem *menuitem, gpointer not_used)
+void view_first (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
     get_fs (ACTIVE)->first();
 }
 
 
-void view_back (GtkMenuItem *menuitem, gpointer not_used)
+void view_back (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
     get_fs (ACTIVE)->back();
 }
 
 
-void view_forward (GtkMenuItem *menuitem, gpointer not_used)
+void view_forward (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
     get_fs (ACTIVE)->forward();
 }
 
 
-void view_last (GtkMenuItem *menuitem, gpointer not_used)
+void view_last (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
     get_fs (ACTIVE)->last();
 }
 
 
-void view_refresh (GtkMenuItem *menuitem, gpointer file_list)
+void view_refresh (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
-    GnomeCmdFileList *fl = GNOME_CMD_IS_FILE_LIST(file_list)
-        ? GNOME_CMD_FILE_LIST (file_list)
-        : get_fl (ACTIVE);
+    GnomeCmdFileList *fl = get_fl (ACTIVE);
     fl->reload();
 }
 
 
 static void view_refresh_0 ()
 {
-    view_refresh (nullptr, nullptr);
+    view_refresh (nullptr, nullptr, nullptr);
 }
 
 
-void view_equal_panes (GtkMenuItem *menuitem, gpointer not_used)
+void view_equal_panes (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
     main_win->set_equal_panes();
 }
 
 
-void view_maximize_pane (GtkMenuItem *menuitem, gpointer not_used)
+void view_maximize_pane (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
     main_win->maximize_pane();
 }
 
 
-void view_in_left_pane (GtkMenuItem *menuitem, gpointer not_used)
+void view_in_left_pane (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
     main_win->set_fs_directory_to_opposite(LEFT);
 }
 
 
-void view_in_right_pane (GtkMenuItem *menuitem, gpointer not_used)
+void view_in_right_pane (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
     main_win->set_fs_directory_to_opposite(RIGHT);
 }
 
 
-void view_in_active_pane (GtkMenuItem *menuitem, gpointer not_used)
+void view_in_active_pane (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
     main_win->set_fs_directory_to_opposite(ACTIVE);
 }
 
 
-void view_in_inactive_pane (GtkMenuItem *menuitem, gpointer not_used)
+void view_in_inactive_pane (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
     main_win->set_fs_directory_to_opposite(INACTIVE);
 }
 
 
-void view_directory (GtkMenuItem *menuitem, gpointer not_used)
+void view_directory (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
     GnomeCmdFileSelector *fs = get_fs (ACTIVE);
     GnomeCmdFileList *fl = fs->file_list();
@@ -1692,7 +1822,7 @@ void view_directory (GtkMenuItem *menuitem, gpointer not_used)
 }
 
 
-void view_home (GtkMenuItem *menuitem, gpointer not_used)
+void view_home (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
     GnomeCmdFileSelector *fs = get_fs (ACTIVE);
     GnomeCmdFileList *fl = fs->file_list();
@@ -1707,7 +1837,7 @@ void view_home (GtkMenuItem *menuitem, gpointer not_used)
 }
 
 
-void view_root (GtkMenuItem *menuitem, gpointer not_used)
+void view_root (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
     GnomeCmdFileSelector *fs = get_fs (ACTIVE);
     GnomeCmdFileList *fl = fs->file_list();
@@ -1719,39 +1849,27 @@ void view_root (GtkMenuItem *menuitem, gpointer not_used)
 }
 
 
-void view_new_tab (GtkMenuItem *menuitem, gpointer file_list)
+void view_new_tab (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
-    GnomeCmdFileList *fl = file_list ? GNOME_CMD_FILE_LIST (file_list) : get_fl (ACTIVE);
+    GnomeCmdFileList *fl = get_fl (ACTIVE);
     GnomeCmdFileSelector *fs = GNOME_CMD_FILE_SELECTOR (gtk_widget_get_ancestor (*fl, GNOME_CMD_TYPE_FILE_SELECTOR));
     fs->new_tab(fl->cwd);
 }
 
 
-void view_close_tab (GtkMenuItem *menuitem, gpointer file_list)
+void view_close_tab (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
-    if (file_list)
-    {
-        GnomeCmdFileList *fl = GNOME_CMD_FILE_LIST (file_list);
-        GnomeCmdFileSelector *fs = GNOME_CMD_FILE_SELECTOR (gtk_widget_get_ancestor (*fl, GNOME_CMD_TYPE_FILE_SELECTOR));
+    GnomeCmdFileSelector *fs = get_fs (ACTIVE);
 
-        if (fs->notebook->size()>1)
-            if (!fl->locked || gnome_cmd_prompt_message (*main_win, GTK_MESSAGE_QUESTION, GTK_BUTTONS_OK_CANCEL, _("The tab is locked, close anyway?"))==GTK_RESPONSE_OK)
-                fs->close_tab(gtk_notebook_page_num (*fs->notebook, gtk_widget_get_parent (*fl)));
-    }
-    else
-    {
-        GnomeCmdFileSelector *fs = get_fs (ACTIVE);
-
-        if (fs->notebook->size()>1)
-            if (!fs->file_list()->locked || gnome_cmd_prompt_message (*main_win, GTK_MESSAGE_QUESTION, GTK_BUTTONS_OK_CANCEL, _("The tab is locked, close anyway?"))==GTK_RESPONSE_OK)
-                fs->close_tab();
-    }
+    if (fs->notebook->size() > 1)
+        if (!fs->file_list()->locked || gnome_cmd_prompt_message (*main_win, GTK_MESSAGE_QUESTION, GTK_BUTTONS_OK_CANCEL, _("The tab is locked, close anyway?"))==GTK_RESPONSE_OK)
+            fs->close_tab();
 }
 
 
-void view_close_all_tabs (GtkMenuItem *menuitem, gpointer file_selector)
+void view_close_all_tabs (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
-    GnomeCmdFileSelector *fs = file_selector ? GNOME_CMD_FILE_SELECTOR (file_selector) : get_fs (ACTIVE);
+    GnomeCmdFileSelector *fs = get_fs (ACTIVE);
     GnomeCmdNotebook *notebook = fs->notebook;
     gint n = notebook->get_current_page();
 
@@ -1761,9 +1879,9 @@ void view_close_all_tabs (GtkMenuItem *menuitem, gpointer file_selector)
 }
 
 
-void view_close_duplicate_tabs (GtkMenuItem *menuitem, gpointer file_selector)
+void view_close_duplicate_tabs (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
-    GnomeCmdFileSelector *fs = file_selector ? GNOME_CMD_FILE_SELECTOR (file_selector) : get_fs (ACTIVE);
+    GnomeCmdFileSelector *fs = get_fs (ACTIVE);
     GnomeCmdNotebook *notebook = fs->notebook;
 
     typedef set<gint> TABS_COLL;
@@ -1801,19 +1919,19 @@ void view_close_duplicate_tabs (GtkMenuItem *menuitem, gpointer file_selector)
 }
 
 
-void view_prev_tab (GtkMenuItem *menuitem, gpointer not_used)
+void view_prev_tab (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
     get_fs (ACTIVE)->notebook->prev_page();
 }
 
 
-void view_next_tab (GtkMenuItem *menuitem, gpointer not_used)
+void view_next_tab (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
     get_fs (ACTIVE)->notebook->next_page();
 }
 
 
-void view_in_new_tab (GtkMenuItem *menuitem, gpointer not_used)
+void view_in_new_tab (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
     GnomeCmdFileSelector *fs = get_fs (ACTIVE);
     GnomeCmdFile *file = fs->file_list()->get_selected_file();
@@ -1825,9 +1943,9 @@ void view_in_new_tab (GtkMenuItem *menuitem, gpointer not_used)
 }
 
 
-void view_in_inactive_tab (GtkMenuItem *menuitem, gpointer file_list)
+void view_in_inactive_tab (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
-    GnomeCmdFileList *fl = file_list ? GNOME_CMD_FILE_LIST (file_list) : get_fl (ACTIVE);
+    GnomeCmdFileList *fl = get_fl (ACTIVE);
     GnomeCmdFile *file = fl->get_selected_file();
 
     if (file && file->GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE) == G_FILE_TYPE_DIRECTORY)
@@ -1837,17 +1955,16 @@ void view_in_inactive_tab (GtkMenuItem *menuitem, gpointer file_list)
 }
 
 
-void view_toggle_tab_lock (GtkMenuItem *menuitem, gpointer page)
+void view_toggle_tab_lock (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
-    //  0       -> current tab
-    //  1 .. n  -> tab #n for active fs
-    // -1 .. -n -> tab #n for inactive fs
+    gboolean is_active;
+    gint tab_index;
+    g_variant_get (parameter, "(bi)", &is_active, &tab_index);
 
-    int n = GPOINTER_TO_INT (page);
-    GnomeCmdFileSelector *fs = get_fs (n>=0 ? ACTIVE : INACTIVE);
-    GnomeCmdFileList *fl = n==0 ? get_fl (ACTIVE) : fs->file_list(ABS(n)-1);
+    GnomeCmdFileSelector *fs = get_fs (is_active ? ACTIVE : INACTIVE);
+    GnomeCmdFileList *fl = fs->file_list(tab_index);
 
-    if (fs && fl)
+    if (fl)
     {
         fl->locked = !fl->locked;
         fs->update_tab_label(fl);
@@ -1856,7 +1973,7 @@ void view_toggle_tab_lock (GtkMenuItem *menuitem, gpointer page)
 
 
 /************** Options Menu **************/
-void options_edit (GtkMenuItem *menuitem, gpointer not_used)
+void options_edit (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
     if (gnome_cmd_options_dialog (*main_win, gnome_cmd_data.options))
     {
@@ -1867,13 +1984,13 @@ void options_edit (GtkMenuItem *menuitem, gpointer not_used)
 }
 
 
-void options_edit_shortcuts (GtkMenuItem *menuitem, gpointer not_used)
+void options_edit_shortcuts (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
     gnome_cmd_key_shortcuts_dialog_new (gcmd_user_actions);
 }
 
 /************** Connections Menu **************/
-void connections_open (GtkMenuItem *menuitem, gpointer not_used)
+void connections_open (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
     GtkWidget *dialog = gnome_cmd_remote_dialog_new ();
     g_object_ref (dialog);
@@ -1881,31 +1998,36 @@ void connections_open (GtkMenuItem *menuitem, gpointer not_used)
 }
 
 
-void connections_new (GtkMenuItem *menuitem, gpointer not_used)
+void connections_new (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
     show_quick_connect_dialog ();
 }
 
 
-void connections_change (GtkMenuItem *menuitem, gpointer con)           // this function is NOT exposed to user as UserAction
-{
-    get_fl (ACTIVE)->set_connection(static_cast<GnomeCmdCon*> (con));
-}
-
-
-void connections_change_left (GtkMenuItem *menuitem, gpointer con)
+void connections_change_left (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
     main_win->change_connection(LEFT);
 }
 
 
-void connections_change_right (GtkMenuItem *menuitem, gpointer con)
+void connections_change_right (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
     main_win->change_connection(RIGHT);
 }
 
 
-void connections_close (GtkMenuItem *menuitem, gpointer con)            // this function is NOT exposed to user as UserAction
+void connections_set_current (GSimpleAction *action, GVariant *parameter, gpointer user_data)
+{
+    const gchar *uuid = g_variant_get_string (parameter, nullptr);
+
+    GnomeCmdConList *con_list = gnome_cmd_con_list_get ();
+    GnomeCmdCon *con = gnome_cmd_con_list_find_by_uuid (con_list, uuid);
+
+    get_fl (ACTIVE)->set_connection(con);
+}
+
+
+static void close_connection (GnomeCmdCon *con)
 {
     GnomeCmdFileSelector *active = get_fs (ACTIVE);
     GnomeCmdFileSelector *inactive = get_fs (INACTIVE);
@@ -1917,84 +2039,75 @@ void connections_close (GtkMenuItem *menuitem, gpointer con)            // this 
     if (con == inactive->get_connection())
         inactive->set_connection(home);
 
-    gnome_cmd_con_close (static_cast<GnomeCmdCon*> (con));
+    gnome_cmd_con_close (con);
 }
 
 
-void connections_close_current (GtkMenuItem *menuitem, gpointer not_used)
+void connections_close (GSimpleAction *action, GVariant *parameter, gpointer user_data)
+{
+    const gchar *uuid = g_variant_get_string (parameter, nullptr);
+
+    GnomeCmdConList *con_list = gnome_cmd_con_list_get ();
+    GnomeCmdCon *con = gnome_cmd_con_list_find_by_uuid (con_list, uuid);
+
+    close_connection (con);
+}
+
+
+void connections_close_current (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
     GnomeCmdCon *con = get_fs (ACTIVE)->get_connection();
 
     if (!GNOME_CMD_IS_CON_HOME (con))
-        connections_close (menuitem, con);
+        close_connection (con);
 }
 
 
 /************** Bookmarks Menu **************/
 
-void bookmarks_add_current (GtkMenuItem *menuitem, gpointer not_used)
+void bookmarks_add_current (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
     gnome_cmd_bookmark_add_current (get_fs (ACTIVE)->get_directory());
 }
 
 
-void bookmarks_edit (GtkMenuItem *menuitem, gpointer not_used)
+void bookmarks_edit (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
     gnome_cmd_bookmark_dialog_new (_("Bookmarks"), *main_win);
 }
 
 
-void bookmarks_goto (GtkMenuItem *menuitem, gpointer bookmark_name)
+void bookmarks_goto (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
-    if (!bookmark_name)
-        return;
+    const gchar *con_uuid;
+    const gchar *bookmark_name;
+    g_variant_get (parameter, "ss", &con_uuid, &bookmark_name);
 
-    vector<string> a;
-    guint n = split(static_cast<gchar*>(bookmark_name), a, "|");
-    string group = n<2 || a[0].empty() ? "local" : a[0];
-    string name = a[n<2 ? 0 : 1];
+    GnomeCmdConList *con_list = gnome_cmd_con_list_get ();
+    GnomeCmdCon *con = gnome_cmd_con_list_find_by_uuid (con_list, con_uuid);
 
-    transform(group.begin(), group.end(), group.begin(), (int(*)(int))tolower);
-
-    if (group=="local")
+    if (!con)
     {
-        for (GList *bookmarks = gnome_cmd_con_get_bookmarks (get_home_con ())->bookmarks; bookmarks; bookmarks = bookmarks->next)
-        {
-            auto bookmark = static_cast<GnomeCmdBookmark*> (bookmarks->data);
-
-            if (name == bookmark->name)
-            {
-                gnome_cmd_bookmark_goto (bookmark);
-                return;
-            }
-        }
-
-        g_warning ("[%s] Unknown bookmark name: '%s' - ignored", (char *) bookmark_name, name.c_str());
+        g_warning ("[%s] Unsupported bookmark group: '%s' - ignored", (char *) bookmark_name, con_uuid);
+        return;
     }
-#ifdef HAVE_SAMBA
-    else
-        if (group=="smb" || group=="samba")
+
+    for (GList *bookmarks = gnome_cmd_con_get_bookmarks (con)->bookmarks; bookmarks; bookmarks = bookmarks->next)
+    {
+        auto bookmark = static_cast<GnomeCmdBookmark*> (bookmarks->data);
+
+        if (bookmark_name == bookmark->name)
         {
-            for (GList *bookmarks = gnome_cmd_con_get_bookmarks (get_smb_con ())->bookmarks; bookmarks; bookmarks = bookmarks->next)
-            {
-                auto bookmark = static_cast<GnomeCmdBookmark*> (bookmarks->data);
-
-                if (name == bookmark->name)
-                {
-                    gnome_cmd_bookmark_goto (bookmark);
-                    return;
-                }
-            }
-
-            g_warning ("[%s] Unknown bookmark name: '%s' - ignored", (char *) bookmark_name, name.c_str());
+            gnome_cmd_bookmark_goto (bookmark);
+            return;
         }
-#endif
-        else
-            g_warning ("[%s] Unsupported bookmark group: '%s' - ignored", (char *) bookmark_name, group.c_str());
+    }
+
+    g_warning ("[%s] Unknown bookmark name: '%s' - ignored", (char *) bookmark_name, bookmark_name);
 }
 
 
-void bookmarks_view (GtkMenuItem *menuitem, gpointer not_used)
+void bookmarks_view (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
     gnome_cmd_dir_indicator_show_bookmarks (GNOME_CMD_DIR_INDICATOR (get_fs (ACTIVE)->dir_indicator));
 }
@@ -2002,7 +2115,7 @@ void bookmarks_view (GtkMenuItem *menuitem, gpointer not_used)
 
 /************** Plugins Menu **************/
 
-void plugins_configure (GtkMenuItem *menuitem, gpointer not_used)
+void plugins_configure (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
     plugin_manager_show ();
 }
@@ -2010,19 +2123,19 @@ void plugins_configure (GtkMenuItem *menuitem, gpointer not_used)
 
 /************** Help Menu **************/
 
-void help_help (GtkMenuItem *menuitem, gpointer not_used)
+void help_help (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
     gnome_cmd_help_display ("gnome-commander.xml");
 }
 
 
-void help_keyboard (GtkMenuItem *menuitem, gpointer not_used)
+void help_keyboard (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
     gnome_cmd_help_display ("gnome-commander.xml", "gnome-commander-keyboard");
 }
 
 
-void help_web (GtkMenuItem *menuitem, gpointer not_used)
+void help_web (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
     GError *error = nullptr;
 
@@ -2031,7 +2144,7 @@ void help_web (GtkMenuItem *menuitem, gpointer not_used)
 }
 
 
-void help_problem (GtkMenuItem *menuitem, gpointer not_used)
+void help_problem (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
     GError *error = nullptr;
 
@@ -2040,7 +2153,7 @@ void help_problem (GtkMenuItem *menuitem, gpointer not_used)
 }
 
 
-void help_about (GtkMenuItem *menuitem, gpointer not_used)
+void help_about (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
     static const gchar *authors[] = {
         "Marcus Bjurman <marbj499@student.liu.se>",
@@ -2305,3 +2418,144 @@ int parse_command(string *cmd, const gchar *command)
 
     return cmd->length();
 }
+
+const GActionEntry FILE_ACTION_ENTRIES[] = {
+    { "file-copy",              file_copy,              nullptr,  nullptr,  nullptr },
+    { "file-copy-as",           file_copy_as,           nullptr,  nullptr,  nullptr },
+    { "file-move",              file_move,              nullptr,  nullptr,  nullptr },
+    { "file-delete",            file_delete,            nullptr,  nullptr,  nullptr },
+    { "file-view",              file_view,              nullptr,  nullptr,  nullptr },
+    { "file-internal-view",     file_internal_view,     nullptr,  nullptr,  nullptr },
+    { "file-external-view",     file_external_view,     nullptr,  nullptr,  nullptr },
+    { "file-edit",              file_edit,              nullptr,  nullptr,  nullptr },
+    { "file-edit-new-doc",      file_edit_new_doc,      nullptr,  nullptr,  nullptr },
+    { "file-search",            file_search,            nullptr,  nullptr,  nullptr },
+    { "file-quick-search",      file_quick_search,      nullptr,  nullptr,  nullptr },
+    { "file-chmod",             file_chmod,             nullptr,  nullptr,  nullptr },
+    { "file-chown",             file_chown,             nullptr,  nullptr,  nullptr },
+    { "file-mkdir",             file_mkdir,             nullptr,  nullptr,  nullptr },
+    { "file-properties",        file_properties,        nullptr,  nullptr,  nullptr },
+    { "file-diff",              file_diff,              nullptr,  nullptr,  nullptr },
+    { "file-sync-dirs",         file_sync_dirs,         nullptr,  nullptr,  nullptr },
+    { "file-rename",            file_rename,            nullptr,  nullptr,  nullptr },
+    { "file-create-symlink",    file_create_symlink,    nullptr,  nullptr,  nullptr },
+    { "file-advrename",         file_advrename,         nullptr,  nullptr,  nullptr },
+    { "file-sendto",            file_sendto,            nullptr,  nullptr,  nullptr },
+    { "file-exit",              file_exit,              nullptr,  nullptr,  nullptr },
+    { nullptr }
+};
+
+const GActionEntry MARK_ACTION_ENTRIES[] = {
+    { "mark-toggle",                            mark_toggle,                            nullptr, nullptr, nullptr },
+    { "mark-toggle-and-step",                   mark_toggle_and_step,                   nullptr, nullptr, nullptr },
+    { "mark-select-all",                        mark_select_all,                        nullptr, nullptr, nullptr },
+    { "mark-unselect-all",                      mark_unselect_all,                      nullptr, nullptr, nullptr },
+    { "mark-select-all-files",                  mark_select_all_files,                  nullptr, nullptr, nullptr },
+    { "mark-unselect-all-files",                mark_unselect_all_files,                nullptr, nullptr, nullptr },
+    { "mark-select-with-pattern",               mark_select_with_pattern,               nullptr, nullptr, nullptr },
+    { "mark-unselect-with-pattern",             mark_unselect_with_pattern,             nullptr, nullptr, nullptr },
+    { "mark-invert-selection",                  mark_invert_selection,                  nullptr, nullptr, nullptr },
+    { "mark-select-all-with-same-extension",    mark_select_all_with_same_extension,    nullptr, nullptr, nullptr },
+    { "mark-unselect-all-with-same-extension",  mark_unselect_all_with_same_extension,  nullptr, nullptr, nullptr },
+    { "mark-restore-selection",                 mark_restore_selection,                 nullptr, nullptr, nullptr },
+    { "mark-compare-directories",               mark_compare_directories,               nullptr, nullptr, nullptr },
+    { nullptr }
+};
+
+const GActionEntry EDIT_ACTION_ENTRIES[] = {
+    { "edit-cap-cut",       edit_cap_cut,       nullptr, nullptr, nullptr },
+    { "edit-cap-copy",      edit_cap_copy,      nullptr, nullptr, nullptr },
+    { "edit-cap-paste",     edit_cap_paste,     nullptr, nullptr, nullptr },
+    { "edit-filter",        edit_filter,        nullptr, nullptr, nullptr },
+    { "edit-copy-fnames",   edit_copy_fnames,   nullptr, nullptr, nullptr },
+    { nullptr }
+};
+
+const GActionEntry COMMAND_ACTION_ENTRIES[] = {
+    { "command-execute",                    command_execute,                    "s",     nullptr, nullptr },
+    { "command-open-terminal-internal",     command_open_terminal__internal,    nullptr, nullptr, nullptr }, // this function is NOT exposed to user as UserAction
+    { "command-open-terminal",              command_open_terminal,              nullptr, nullptr, nullptr },
+    { "command-open-terminal-as-root",      command_open_terminal_as_root,      nullptr, nullptr, nullptr },
+    { "command-root-mode",                  command_root_mode,                  nullptr, nullptr, nullptr },
+    { nullptr }
+};
+
+const GActionEntry VIEW_ACTION_ENTRIES[] = {
+    { "view-conbuttons",                nullptr,                    nullptr, "boolean true",    view_conbuttons },
+    { "view-devlist",                   nullptr,                    nullptr, "boolean true",    view_devlist },
+    { "view-toolbar",                   nullptr,                    nullptr, "boolean true",    view_toolbar },
+    { "view-buttonbar",                 nullptr,                    nullptr, "boolean true",    view_buttonbar },
+    { "view-cmdline",                   nullptr,                    nullptr, "boolean true",    view_cmdline },
+    { "view-dir-history",               view_dir_history,           nullptr, nullptr,           nullptr },
+    { "view-hidden-files",              nullptr,                    nullptr, "boolean true",    view_hidden_files },
+    { "view-backup-files",              nullptr,                    nullptr, "boolean true",    view_backup_files },
+    { "view-up",                        view_up,                    nullptr, nullptr,           nullptr },
+    { "view-first",                     view_first,                 nullptr, nullptr,           nullptr },
+    { "view-back",                      view_back,                  nullptr, nullptr,           nullptr },
+    { "view-forward",                   view_forward,               nullptr, nullptr,           nullptr },
+    { "view-last",                      view_last,                  nullptr, nullptr,           nullptr },
+    { "view-refresh",                   view_refresh,               nullptr, nullptr,           nullptr },
+    { "view-equal-panes",               view_equal_panes,           nullptr, nullptr,           nullptr },
+    { "view-maximize-pane",             view_maximize_pane,         nullptr, nullptr,           nullptr },
+    { "view-in-left-pane",              view_in_left_pane,          nullptr, nullptr,           nullptr },
+    { "view-in-right-pane",             view_in_right_pane,         nullptr, nullptr,           nullptr },
+    { "view-in-active-pane",            view_in_active_pane,        nullptr, nullptr,           nullptr },
+    { "view-in-inactive-pane",          view_in_inactive_pane,      nullptr, nullptr,           nullptr },
+    { "view-directory",                 view_directory,             nullptr, nullptr,           nullptr },
+    { "view-home",                      view_home,                  nullptr, nullptr,           nullptr },
+    { "view-root",                      view_root,                  nullptr, nullptr,           nullptr },
+    { "view-new-tab",                   view_new_tab,               nullptr, nullptr,           nullptr },
+    { "view-close-tab",                 view_close_tab,             nullptr, nullptr,           nullptr },
+    { "view-close-all-tabs",            view_close_all_tabs,        nullptr, nullptr,           nullptr },
+    { "view-close-duplicate-tabs",      view_close_duplicate_tabs,  nullptr, nullptr,           nullptr },
+    { "view-prev-tab",                  view_prev_tab,              nullptr, nullptr,           nullptr },
+    { "view-next-tab",                  view_next_tab,              nullptr, nullptr,           nullptr },
+    { "view-in-new-tab",                view_in_new_tab,            nullptr, nullptr,           nullptr },
+    { "view-in-inactive-tab",           view_in_inactive_tab,       nullptr, nullptr,           nullptr },
+    { "view-toggle-tab-lock",           view_toggle_tab_lock,       "(bi)",  nullptr,           nullptr },
+    { "view-horizontal-orientation",    nullptr,                    nullptr, "boolean true",    view_horizontal_orientation },
+    { "view-main-menu",                 view_main_menu,             nullptr, nullptr,           nullptr },
+    { "view-step-up",                   view_step_up,               nullptr, nullptr,           nullptr },
+    { "view-step-down",                 view_step_down,             nullptr, nullptr,           nullptr },
+    { nullptr }
+};
+
+const GActionEntry BOOKMARK_ACTION_ENTRIES[] = {
+    { "bookmarks-add-current",  bookmarks_add_current,  nullptr, nullptr, nullptr },
+    { "bookmarks-edit",         bookmarks_edit,         nullptr, nullptr, nullptr },
+    { "bookmarks-goto",         bookmarks_goto,         nullptr, nullptr, nullptr },
+    { "bookmarks-view",         bookmarks_view,         nullptr, nullptr, nullptr },
+    { nullptr }
+};
+
+const GActionEntry OPTIONS_ACTION_ENTRIES[] = {
+    { "options-edit",           options_edit,           nullptr, nullptr, nullptr },
+    { "options-edit-shortcuts", options_edit_shortcuts, nullptr, nullptr, nullptr },
+    { nullptr }
+};
+
+const GActionEntry CONNECTIONS_ACTION_ENTRIES[] = {
+    { "connections-open",           connections_open,           nullptr, nullptr, nullptr },
+    { "connections-new",            connections_new,            nullptr, nullptr, nullptr },
+    { "connections-set-current",    connections_set_current,    "s",     nullptr, nullptr },
+    { "connections-change-left",    connections_change_left,    nullptr, nullptr, nullptr },
+    { "connections-change-right",   connections_change_right,   nullptr, nullptr, nullptr },
+    { "connections-close",          connections_close,          "s",     nullptr, nullptr },
+    { "connections-close-current",  connections_close_current,  nullptr, nullptr, nullptr },
+    { nullptr }
+};
+
+const GActionEntry PLUGINS_ACTION_ENTRIES[] = {
+    { "plugins_configure",  plugins_configure,  nullptr, nullptr, nullptr },
+    { nullptr }
+};
+
+const GActionEntry HELP_ACTION_ENTRIES[] = {
+    { "help-help",      help_help,      nullptr, nullptr, nullptr },
+    { "help-keyboard",  help_keyboard,  nullptr, nullptr, nullptr },
+    { "help-web",       help_web,       nullptr, nullptr, nullptr },
+    { "help-problem",   help_problem,   nullptr, nullptr, nullptr },
+    { "help-about",     help_about,     nullptr, nullptr, nullptr },
+    { nullptr }
+};
+

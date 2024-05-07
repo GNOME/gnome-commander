@@ -29,6 +29,7 @@
 #include "gnome-cmd-includes.h"
 #include "gnome-cmd-file-selector.h"
 #include "gnome-cmd-file-list.h"
+#include "gnome-cmd-file-list-actions.h"
 #include "gnome-cmd-file.h"
 #include "gnome-cmd-con-list.h"
 #include "gnome-cmd-main-win.h"
@@ -1014,11 +1015,12 @@ static void get_popup_pos (GtkMenu *menu, gint *x, gint *y, gboolean push_in, Gn
 static void show_file_popup (GnomeCmdFileList *fl, GdkEventButton *event)
 {
     // create the popup menu
-    GtkWidget *menu = gnome_cmd_file_popmenu_new (fl);
-    if (!menu) return;
+    GMenu *menu_model = gnome_cmd_file_popmenu_new (fl);
+    if (!menu_model) return;
 
-    g_object_ref (menu);
-    g_object_set_data_full (*fl, "file_popup_menu", menu, g_object_unref);
+    GtkWidget *menu = gtk_menu_new_from_model (G_MENU_MODEL (menu_model));
+
+    gtk_menu_attach_to_widget (GTK_MENU (menu), GTK_WIDGET (fl), nullptr);
 
     if (event)
     {
@@ -2084,6 +2086,17 @@ static void gnome_cmd_file_list_class_init (GnomeCmdFileListClass *klass)
 static void gnome_cmd_file_list_init (GnomeCmdFileList *fl)
 {
     fl->priv = new GnomeCmdFileList::Private(fl);
+
+    auto action_group = g_simple_action_group_new ();
+    static const GActionEntry action_entries[] = {
+        { "open-with-default",  gnome_cmd_file_selector_action_open_with_default,   nullptr, nullptr, nullptr },
+        { "open-with-other",    gnome_cmd_file_selector_action_open_with_other,     nullptr, nullptr, nullptr },
+        { "open-with",          gnome_cmd_file_selector_action_open_with,           "s",     nullptr, nullptr },
+        { "execute",            gnome_cmd_file_selector_action_execute,             nullptr, nullptr, nullptr },
+        { "execute-script",     gnome_cmd_file_selector_action_execute_script,      "(sb)",  nullptr, nullptr }
+    };
+    g_action_map_add_action_entries (G_ACTION_MAP (action_group), action_entries, G_N_ELEMENTS (action_entries), fl);
+    gtk_widget_insert_action_group (GTK_WIDGET (fl), "fl", G_ACTION_GROUP (action_group));
 
     fl->init_dnd();
 

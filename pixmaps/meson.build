@@ -3,7 +3,6 @@ subdir('file-type-icons')
 subdir('mime-icons')
 
 pixmaps = [
-  'copy_file_names.xpm',
   'exec_wheel.xpm',
   'gnome_cmd_arrow_blank.xpm',
   'gnome_cmd_arrow_down.xpm',
@@ -29,6 +28,7 @@ icons_16x16 = [
   'gnome-commander-flip-vertical.xpm',
   'overlay_umount.xpm',
   'menu_bookmark.xpm',
+  'gnome-commander-copy-file-names.xpm',
 ]
 
 install_data(icons_16x16,

@@ -1,5 +1,5 @@
 /**
- * @file gnome-cmd-file-popmenu.h
+ * @file gnome-cmd-file-selector-actions.h
  * @copyright (C) 2001-2006 Marcus Bjurman\n
  * @copyright (C) 2007-2012 Piotr Eljasiak\n
  * @copyright (C) 2013-2024 Uwe Scholz\n
@@ -21,7 +21,11 @@
 
 #pragma once
 
-#include "gnome-cmd-file-list.h"
+#define SCRIPT_DIRECTORY PACKAGE "/" "scripts"
 
-GMenu *gnome_cmd_file_popmenu_new (GnomeCmdFileList *fl);
+void gnome_cmd_file_selector_action_open_with_default (GSimpleAction *action, GVariant *parameter, gpointer user_data);
+void gnome_cmd_file_selector_action_open_with_other (GSimpleAction *action, GVariant *parameter, gpointer user_data);
+void gnome_cmd_file_selector_action_open_with (GSimpleAction *action, GVariant *parameter, gpointer user_data);
 
+void gnome_cmd_file_selector_action_execute (GSimpleAction *action, GVariant *parameter, gpointer user_data);
+void gnome_cmd_file_selector_action_execute_script (GSimpleAction *action, GVariant *parameter, gpointer user_data);
