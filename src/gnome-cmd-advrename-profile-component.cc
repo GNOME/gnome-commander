@@ -701,7 +701,7 @@ void GnomeCmdAdvrenameProfileComponent::Private::insert_range(GtkMenuItem *item,
 }
 
 
-G_DEFINE_TYPE (GnomeCmdAdvrenameProfileComponent, gnome_cmd_advrename_profile_component, GTK_TYPE_VBOX)
+G_DEFINE_TYPE (GnomeCmdAdvrenameProfileComponent, gnome_cmd_advrename_profile_component, GTK_TYPE_BOX)
 
 
 void GnomeCmdAdvrenameProfileComponent::Private::on_template_entry_changed(GtkEntry *entry, GnomeCmdAdvrenameProfileComponent *component)
