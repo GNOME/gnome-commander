@@ -79,26 +79,14 @@ struct GnomeCmdAdvrenameProfileComponent::Private
 
     gchar *sample_fname;
 
-    enum {DIR_MENU, FILE_MENU, COUNTER_MENU, DATE_MENU, METATAG_MENU, NUM_MENUS};
-
-    static GnomeCmdTag metatags[];
-
-    GtkWidget *menu_button[NUM_MENUS];
-
     Private();
     ~Private();
 
     void fill_regex_model(const GnomeCmdData::AdvrenameConfig::Profile &profile);
 
-    GtkWidget *create_placeholder_menu(int menu_type);
-    GtkWidget *create_button_with_menu(gchar *label_text, int menu_type);
     void insert_tag(const gchar *text);
 
     gchar *get_selected_range (GtkWindow *parent, const gchar *title, const gchar *placeholder, const gchar *filename=NULL);
-
-    static void insert_text_tag(GtkMenuItem *item, GnomeCmdAdvrenameProfileComponent::Private *priv);
-    static void insert_num_tag(GtkMenuItem *item, GnomeCmdAdvrenameProfileComponent::Private *priv);
-    static void insert_range(GtkMenuItem *item, Private *priv);
 
     static void on_template_entry_changed(GtkEntry *entry, GnomeCmdAdvrenameProfileComponent *component);
 
@@ -118,199 +106,316 @@ struct GnomeCmdAdvrenameProfileComponent::Private
 };
 
 
-GnomeCmdTag GnomeCmdAdvrenameProfileComponent::Private::metatags[] =
-    {TAG_FILE_NAME, TAG_FILE_PATH,
-     TAG_FILE_LINK,
-     TAG_FILE_SIZE,
-     TAG_FILE_MODIFIED, TAG_FILE_ACCESSED,
-     TAG_FILE_PERMISSIONS,
-     TAG_FILE_FORMAT,
-     TAG_FILE_PUBLISHER, TAG_FILE_DESCRIPTION, TAG_FILE_KEYWORDS, TAG_FILE_RANK,
+static GMenuModel *create_directory_tag_menu ()
+{
+    GMenu *menu = g_menu_new ();
+    g_menu_append (menu, _("Grandparent"),  "advrenametag.insert-text-tag('$g')");
+    g_menu_append (menu, _("Parent"),       "advrenametag.insert-text-tag('$p')");
+    return G_MENU_MODEL (menu);
+}
 
-     TAG_AUDIO_ALBUMARTIST, TAG_AUDIO_ALBUMGAIN, TAG_AUDIO_ALBUMPEAKGAIN,
-     TAG_AUDIO_ALBUMTRACKCOUNT, TAG_AUDIO_ALBUM, TAG_AUDIO_ARTIST, TAG_AUDIO_BITRATE,
-     TAG_AUDIO_CHANNELS, TAG_AUDIO_CODECVERSION, TAG_AUDIO_CODEC, TAG_AUDIO_COMMENT,
-     TAG_AUDIO_COVERALBUMTHUMBNAILPATH, TAG_AUDIO_DISCNO,
-     TAG_AUDIO_DURATION, TAG_AUDIO_DURATIONMMSS,
-     TAG_AUDIO_GENRE, TAG_AUDIO_ISNEW, TAG_AUDIO_ISRC, TAG_AUDIO_LASTPLAY, TAG_AUDIO_LYRICS,
-     TAG_AUDIO_MBALBUMARTISTID, TAG_AUDIO_MBALBUMID, TAG_AUDIO_MBARTISTID,
-     TAG_AUDIO_MBTRACKID, TAG_AUDIO_PERFORMER, TAG_AUDIO_PLAYCOUNT,
-     TAG_AUDIO_RELEASEDATE, TAG_AUDIO_SAMPLERATE, TAG_AUDIO_TITLE, TAG_AUDIO_TRACKGAIN,
-     TAG_AUDIO_TRACKNO, TAG_AUDIO_TRACKPEAKGAIN, TAG_AUDIO_YEAR,
-     TAG_AUDIO_MPEG_CHANNELMODE, TAG_AUDIO_MPEG_LAYER, TAG_AUDIO_MPEG_VERSION,
 
-     TAG_DOC_AUTHOR, TAG_DOC_CREATOR, TAG_DOC_TITLE,
-     TAG_DOC_SUBJECT, TAG_DOC_DESCRIPTION,
-     TAG_DOC_CATEGORY, TAG_DOC_KEYWORDS, TAG_DOC_REVISIONCOUNT,
-     TAG_DOC_PAGECOUNT, TAG_DOC_PARAGRAPHCOUNT, TAG_DOC_LINECOUNT,
-     TAG_DOC_WORDCOUNT, TAG_DOC_BYTECOUNT,
-     TAG_DOC_CELLCOUNT, TAG_DOC_CHARACTERCOUNT,
-     TAG_DOC_CODEPAGE, TAG_DOC_COMMENTS, TAG_DOC_COMPANY,
-     TAG_DOC_DATECREATED, TAG_DOC_DATEMODIFIED,
-     TAG_DOC_DICTIONARY,
-     TAG_DOC_EDITINGDURATION, TAG_DOC_GENERATOR,
-     TAG_DOC_HIDDENSLIDECOUNT,
-     TAG_DOC_IMAGECOUNT, TAG_DOC_INITIALCREATOR,
-     TAG_DOC_LANGUAGE,
-     TAG_DOC_LASTPRINTED, TAG_DOC_LASTSAVEDBY,
-     TAG_DOC_LOCALESYSTEMDEFAULT, TAG_DOC_MMCLIPCOUNT,
-     TAG_DOC_MANAGER, TAG_DOC_NOTECOUNT, TAG_DOC_OBJECTCOUNT,
-     TAG_DOC_PRESENTATIONFORMAT, TAG_DOC_PRINTDATE,
-     TAG_DOC_PRINTEDBY, TAG_DOC_SCALE, TAG_DOC_SECURITY,
-     TAG_DOC_SLIDECOUNT, TAG_DOC_SPREADSHEETCOUNT,
-     TAG_DOC_TABLECOUNT, TAG_DOC_TEMPLATE,
-     TAG_DOC_CASESENSITIVE, TAG_DOC_LINKSDIRTY,
+static GMenuModel *create_file_tag_menu ()
+{
+    GMenu *menu = g_menu_new ();
+    g_menu_append (menu, _("File name"),                            "advrenametag.insert-text-tag('$N')");
+    g_menu_append (menu, _("File name (range)"),                    "advrenametag.insert-range('$N')");
+    g_menu_append (menu, _("File name without extension"),          "advrenametag.insert-text-tag('$n')");
+    g_menu_append (menu, _("File name without extension (range)"),  "advrenametag.insert-range('$n')");
+    g_menu_append (menu, _("File extension"),                       "advrenametag.insert-text-tag('$e')");
+    return G_MENU_MODEL (menu);
+}
 
-     TAG_IMAGE_ALBUM, TAG_IMAGE_MAKE, TAG_IMAGE_MODEL,
-     TAG_IMAGE_COMMENTS, TAG_IMAGE_COPYRIGHT, TAG_IMAGE_CREATOR,
-     TAG_IMAGE_DATE, TAG_IMAGE_DESCRIPTION, TAG_IMAGE_EXPOSUREPROGRAM,
-     TAG_IMAGE_EXPOSURETIME, TAG_IMAGE_FLASH, TAG_IMAGE_FNUMBER,
-     TAG_IMAGE_FOCALLENGTH, TAG_IMAGE_HEIGHT, TAG_IMAGE_ISOSPEED,
-     TAG_IMAGE_KEYWORDS, TAG_IMAGE_METERINGMODE, TAG_IMAGE_ORIENTATION,
-     TAG_IMAGE_SOFTWARE, TAG_IMAGE_TITLE, TAG_IMAGE_WHITEBALANCE,
-     TAG_IMAGE_WIDTH,
 
-     TAG_NONE,
+static GMenuModel *create_counter_tag_menu ()
+{
+    GMenu *menu = g_menu_new ();
+    g_menu_append (menu, _("Counter"),                              "advrenametag.insert-text-tag('$c')");
+    g_menu_append (menu, _("Counter (width)"),                      "advrenametag.insert-text-tag('$c(2)')");
+    g_menu_append (menu, _("Counter (auto)"),                       "advrenametag.insert-text-tag('$c(a)')");
+    g_menu_append (menu, _("Hexadecimal random number (width)"),    "advrenametag.insert-text-tag('$x(8)')");
+    return G_MENU_MODEL (menu);
+}
 
-     TAG_ID3_BAND,
-     TAG_ID3_CONTENTTYPE,
-     TAG_ID3_ALBUMSORTORDER, TAG_ID3_AUDIOCRYPTO,
-     TAG_ID3_AUDIOSEEKPOINT,
-     TAG_ID3_BPM, TAG_ID3_BUFFERSIZE, TAG_ID3_CDID,
-     TAG_ID3_COMMERCIAL, TAG_ID3_COMPOSER, TAG_ID3_CONDUCTOR,
-     TAG_ID3_CONTENTGROUP, TAG_ID3_CONTENTTYPE,
-     TAG_ID3_COPYRIGHT,
-     TAG_ID3_CRYPTOREG, TAG_ID3_DATE,
-     TAG_ID3_EMPHASIS, TAG_ID3_ENCODEDBY,
-     TAG_ID3_ENCODERSETTINGS, TAG_ID3_ENCODINGTIME, TAG_ID3_EQUALIZATION,
-     TAG_ID3_EQUALIZATION2, TAG_ID3_EVENTTIMING, TAG_ID3_FILEOWNER,
-     TAG_ID3_FILETYPE, TAG_ID3_FRAMES, TAG_ID3_GENERALOBJECT,
-     TAG_ID3_GROUPINGREG, TAG_ID3_INITIALKEY,
-     TAG_ID3_INVOLVEDPEOPLE, TAG_ID3_INVOLVEDPEOPLE2,
-     TAG_ID3_LANGUAGE, TAG_ID3_LINKEDINFO,
-     TAG_ID3_LYRICIST, TAG_ID3_MEDIATYPE, TAG_ID3_MIXARTIST,
-     TAG_ID3_MOOD,
-     TAG_ID3_MPEGLOOKUP,
-     TAG_ID3_MUSICIANCREDITLIST,
-     TAG_ID3_NETRADIOOWNER, TAG_ID3_NETRADIOSTATION,
-     TAG_ID3_ORIGALBUM, TAG_ID3_ORIGARTIST, TAG_ID3_ORIGFILENAME,
-     TAG_ID3_ORIGLYRICIST, TAG_ID3_ORIGRELEASETIME, TAG_ID3_ORIGYEAR,
-     TAG_ID3_OWNERSHIP, TAG_ID3_PARTINSET, TAG_ID3_PERFORMERSORTORDER,
-     TAG_ID3_PICTURE, TAG_ID3_PLAYCOUNTER, TAG_ID3_PLAYLISTDELAY,
-     TAG_ID3_POPULARIMETER, TAG_ID3_POSITIONSYNC, TAG_ID3_PRIVATE,
-     TAG_ID3_PRODUCEDNOTICE, TAG_ID3_PUBLISHER, TAG_ID3_RECORDINGDATES,
-     TAG_ID3_RECORDINGTIME, TAG_ID3_RELEASETIME, TAG_ID3_REVERB,
-     TAG_ID3_SETSUBTITLE, TAG_ID3_SIGNATURE,
-     TAG_ID3_SIZE, TAG_ID3_SONGLEN, TAG_ID3_SUBTITLE, TAG_ID3_SYNCEDLYRICS,
-     TAG_ID3_SYNCEDTEMPO, TAG_ID3_TAGGINGTIME, TAG_ID3_TERMSOFUSE,
-     TAG_ID3_TIME, TAG_ID3_TITLESORTORDER,
-     TAG_ID3_UNIQUEFILEID, TAG_ID3_UNSYNCEDLYRICS, TAG_ID3_USERTEXT,
-     TAG_ID3_VOLUMEADJ, TAG_ID3_VOLUMEADJ2, TAG_ID3_WWWARTIST,
-     TAG_ID3_WWWAUDIOFILE, TAG_ID3_WWWAUDIOSOURCE, TAG_ID3_WWWCOMMERCIALINFO,
-     TAG_ID3_WWWCOPYRIGHT, TAG_ID3_WWWPAYMENT, TAG_ID3_WWWPUBLISHER,
-     TAG_ID3_WWWRADIOPAGE, TAG_ID3_WWWUSER,
 
-     TAG_VORBIS_CONTACT, TAG_VORBIS_DESCRIPTION,
-     TAG_VORBIS_LICENSE, TAG_VORBIS_LOCATION,
-     TAG_VORBIS_MAXBITRATE, TAG_VORBIS_MINBITRATE,
-     TAG_VORBIS_NOMINALBITRATE, TAG_VORBIS_ORGANIZATION,
-     TAG_VORBIS_VENDOR, TAG_VORBIS_VERSION,
+static GMenuModel *create_date_tag_menu ()
+{
+    GMenu *menu = g_menu_new ();
 
-     TAG_EXIF_COPYRIGHT, TAG_EXIF_DATETIME,
-     TAG_EXIF_EXPOSUREBIASVALUE, TAG_EXIF_EXPOSUREMODE, TAG_EXIF_EXPOSUREPROGRAM,
-     TAG_EXIF_FLASH, TAG_EXIF_FLASHENERGY,
-     TAG_EXIF_FNUMBER, TAG_EXIF_FOCALLENGTH,
-     TAG_EXIF_ISOSPEEDRATINGS, TAG_EXIF_MAXAPERTUREVALUE,
-     TAG_EXIF_METERINGMODE, TAG_EXIF_SHUTTERSPEEDVALUE, TAG_EXIF_WHITEBALANCE,
-     TAG_EXIF_PIXELXDIMENSION, TAG_EXIF_PIXELYDIMENSION,
-     TAG_EXIF_XRESOLUTION, TAG_EXIF_YRESOLUTION,
-     TAG_EXIF_IMAGELENGTH, TAG_EXIF_IMAGEWIDTH,
-     TAG_EXIF_CUSTOMRENDERED, TAG_EXIF_COLORSPACE,
-     TAG_EXIF_DOCUMENTNAME, TAG_EXIF_USERCOMMENT,
+    GMenu *date_menu = g_menu_new ();
+    g_menu_append (date_menu, _("<locale>"),    "advrenametag.insert-text-tag('%x')");
+    g_menu_append (date_menu, _("yyyy-mm-dd"),  "advrenametag.insert-text-tag('%Y-%m-%d')");
+    g_menu_append (date_menu, _("yy-mm-dd"),    "advrenametag.insert-text-tag('%y-%m-%d')");
+    g_menu_append (date_menu, _("yy.mm.dd"),    "advrenametag.insert-text-tag('%y.%m.%d')");
+    g_menu_append (date_menu, _("yymmdd"),      "advrenametag.insert-text-tag('%y%m%d')");
+    g_menu_append (date_menu, _("dd.mm.yy"),    "advrenametag.insert-text-tag('%d.%m.%y')");
+    g_menu_append (date_menu, _("mm-dd-yy"),    "advrenametag.insert-text-tag('%m-%d-%y')");
+    g_menu_append (date_menu, _("yyyy"),        "advrenametag.insert-text-tag('%Y')");
+    g_menu_append (date_menu, _("yy"),          "advrenametag.insert-text-tag('%y')");
+    g_menu_append (date_menu, _("mm"),          "advrenametag.insert-text-tag('%m')");
+    g_menu_append (date_menu, _("mmm"),         "advrenametag.insert-text-tag('%b')");
+    g_menu_append (date_menu, _("dd"),          "advrenametag.insert-text-tag('%d')");
+    g_menu_append_submenu (menu, _("Date"), G_MENU_MODEL (date_menu));
 
-     TAG_EXIF_APERTUREVALUE, TAG_EXIF_ARTIST, TAG_EXIF_BATTERYLEVEL,
-     TAG_EXIF_BITSPERSAMPLE, TAG_EXIF_BRIGHTNESSVALUE,
-     TAG_EXIF_CFAPATTERN, TAG_EXIF_COMPONENTSCONFIGURATION,
-     TAG_EXIF_COMPRESSEDBITSPERPIXEL, TAG_EXIF_COMPRESSION, TAG_EXIF_CONTRAST,
-     TAG_EXIF_DATETIMEDIGITIZED, TAG_EXIF_DATETIMEORIGINAL,
-     TAG_EXIF_DEVICESETTINGDESCRIPTION, TAG_EXIF_DIGITALZOOMRATIO,
-     TAG_EXIF_EXIFVERSION,
-     TAG_EXIF_EXPOSUREINDEX,
-     TAG_EXIF_EXPOSURETIME, TAG_EXIF_FILESOURCE,
-     TAG_EXIF_FILLORDER,
-     TAG_EXIF_FLASHPIXVERSION,
-     TAG_EXIF_FOCALLENGTHIN35MMFILM, TAG_EXIF_FOCALPLANERESOLUTIONUNIT,
-     TAG_EXIF_FOCALPLANEXRESOLUTION, TAG_EXIF_FOCALPLANEYRESOLUTION,
-     TAG_EXIF_GAINCONTROL, TAG_EXIF_GAMMA, TAG_EXIF_GPSALTITUDE,
-     TAG_EXIF_GPSLATITUDE, TAG_EXIF_GPSLONGITUDE,
-     TAG_EXIF_GPSVERSIONID, TAG_EXIF_IMAGEDESCRIPTION, TAG_EXIF_IMAGEUNIQUEID,
-     TAG_EXIF_INTERCOLORPROFILE, TAG_EXIF_INTEROPERABILITYINDEX, TAG_EXIF_INTEROPERABILITYVERSION,
-     TAG_EXIF_IPTCNAA, TAG_EXIF_JPEGINTERCHANGEFORMAT,
-     TAG_EXIF_JPEGINTERCHANGEFORMATLENGTH, TAG_EXIF_LIGHTSOURCE,
-     TAG_EXIF_MAKE, TAG_EXIF_MAKERNOTE,
-     TAG_EXIF_METERINGMODE, TAG_EXIF_MODEL, TAG_EXIF_NEWCFAPATTERN,
-     TAG_EXIF_NEWSUBFILETYPE, TAG_EXIF_OECF, TAG_EXIF_ORIENTATION,
-     TAG_EXIF_PHOTOMETRICINTERPRETATION, TAG_EXIF_PLANARCONFIGURATION,
-     TAG_EXIF_PRIMARYCHROMATICITIES, TAG_EXIF_REFERENCEBLACKWHITE,
-     TAG_EXIF_RELATEDIMAGEFILEFORMAT, TAG_EXIF_RELATEDIMAGELENGTH,
-     TAG_EXIF_RELATEDIMAGEWIDTH, TAG_EXIF_RELATEDSOUNDFILE, TAG_EXIF_RESOLUTIONUNIT,
-     TAG_EXIF_ROWSPERSTRIP, TAG_EXIF_SAMPLESPERPIXEL, TAG_EXIF_SATURATION,
-     TAG_EXIF_SCENECAPTURETYPE, TAG_EXIF_SCENETYPE, TAG_EXIF_SENSINGMETHOD,
-     TAG_EXIF_SHARPNESS, TAG_EXIF_SHUTTERSPEEDVALUE, TAG_EXIF_SOFTWARE,
-     TAG_EXIF_SPATIALFREQUENCYRESPONSE, TAG_EXIF_SPECTRALSENSITIVITY,
-     TAG_EXIF_STRIPBYTECOUNTS, TAG_EXIF_STRIPOFFSETS,
-     TAG_EXIF_SUBJECTAREA, TAG_EXIF_SUBJECTDISTANCE, TAG_EXIF_SUBJECTDISTANCERANGE,
-     TAG_EXIF_SUBJECTLOCATION, TAG_EXIF_SUBSECTIME, TAG_EXIF_SUBSECTIMEDIGITIZED,
-     TAG_EXIF_SUBSECTIMEORIGINAL, TAG_EXIF_TIFFEPSTANDARDID, TAG_EXIF_TRANSFERFUNCTION,
-     TAG_EXIF_TRANSFERRANGE, TAG_EXIF_WHITEPOINT,
-     TAG_EXIF_YCBCRCOEFFICIENTS, TAG_EXIF_YCBCRPOSITIONING,
-     TAG_EXIF_YCBCRSUBSAMPLING,
+    GMenu *time_menu = g_menu_new ();
+    g_menu_append (time_menu, _("<locale>"),    "advrenametag.insert-text-tag('%X')");
+    g_menu_append (time_menu, _("HH.MM.SS"),    "advrenametag.insert-text-tag('%H.%M.%S')");
+    g_menu_append (time_menu, _("HH-MM-SS"),    "advrenametag.insert-text-tag('%H-%M-%S')");
+    g_menu_append (time_menu, _("HHMMSS"),      "advrenametag.insert-text-tag('%H%M%S')");
+    g_menu_append (time_menu, _("HH"),          "advrenametag.insert-text-tag('%H')");
+    g_menu_append (time_menu, _("MM"),          "advrenametag.insert-text-tag('%M')");
+    g_menu_append (time_menu, _("SS"),          "advrenametag.insert-text-tag('%S')");
+    g_menu_append_submenu (menu, _("Time"), G_MENU_MODEL (time_menu));
 
-     TAG_IPTC_BYLINE, TAG_IPTC_BYLINETITLE, TAG_IPTC_CAPTION, TAG_IPTC_HEADLINE,
-     TAG_IPTC_SUBLOCATION, TAG_IPTC_CITY, TAG_IPTC_PROVINCE,
-     TAG_IPTC_COUNTRYCODE, TAG_IPTC_COUNTRYNAME,
-     TAG_IPTC_CONTACT, TAG_IPTC_COPYRIGHTNOTICE, TAG_IPTC_CREDIT,
-     TAG_IPTC_KEYWORDS,
-     TAG_IPTC_DIGITALCREATIONDATE, TAG_IPTC_DIGITALCREATIONTIME,
-     TAG_IPTC_IMAGEORIENTATION,
-     TAG_IPTC_SPECIALINSTRUCTIONS, TAG_IPTC_URGENCY,
+    return G_MENU_MODEL (menu);
+}
 
-     TAG_IPTC_ACTIONADVISED, TAG_IPTC_ARMID, TAG_IPTC_ARMVERSION,
-     TAG_IPTC_AUDIODURATION, TAG_IPTC_AUDIOOUTCUE, TAG_IPTC_AUDIOSAMPLINGRATE,
-     TAG_IPTC_AUDIOSAMPLINGRES, TAG_IPTC_AUDIOTYPE,
-     TAG_IPTC_CATEGORY, TAG_IPTC_CHARACTERSET, TAG_IPTC_CONFIRMEDDATASIZE,
-     TAG_IPTC_CONTENTLOCCODE, TAG_IPTC_CONTENTLOCNAME,
-     TAG_IPTC_DATECREATED, TAG_IPTC_DATESENT,
-     TAG_IPTC_DESTINATION, TAG_IPTC_EDITORIALUPDATE, TAG_IPTC_EDITSTATUS,
-     TAG_IPTC_ENVELOPENUM, TAG_IPTC_ENVELOPEPRIORITY, TAG_IPTC_EXPIRATIONDATE,
-     TAG_IPTC_EXPIRATIONTIME, TAG_IPTC_FILEFORMAT, TAG_IPTC_FILEVERSION,
-     TAG_IPTC_FIXTUREID, TAG_IPTC_IMAGETYPE, TAG_IPTC_LANGUAGEID,
-     TAG_IPTC_MAXOBJECTSIZE, TAG_IPTC_MAXSUBFILESIZE, TAG_IPTC_MODELVERSION,
-     TAG_IPTC_OBJECTATTRIBUTE, TAG_IPTC_OBJECTCYCLE, TAG_IPTC_OBJECTNAME,
-     TAG_IPTC_OBJECTSIZEANNOUNCED, TAG_IPTC_OBJECTTYPE, TAG_IPTC_ORIGINATINGPROGRAM,
-     TAG_IPTC_ORIGTRANSREF, TAG_IPTC_PREVIEWDATA, TAG_IPTC_PREVIEWFORMAT,
-     TAG_IPTC_PREVIEWFORMATVER, TAG_IPTC_PRODUCTID, TAG_IPTC_PROGRAMVERSION,
-     TAG_IPTC_PROVINCE, TAG_IPTC_RASTERIZEDCAPTION, TAG_IPTC_RECORDVERSION,
-     TAG_IPTC_REFERENCEDATE, TAG_IPTC_REFERENCENUMBER, TAG_IPTC_REFERENCESERVICE,
-     TAG_IPTC_RELEASEDATE, TAG_IPTC_RELEASETIME, TAG_IPTC_SERVICEID,
-     TAG_IPTC_SIZEMODE, TAG_IPTC_SOURCE, TAG_IPTC_SUBFILE, TAG_IPTC_SUBJECTREFERENCE,
-     TAG_IPTC_SUPPLCATEGORY, TAG_IPTC_TIMECREATED, TAG_IPTC_TIMESENT, TAG_IPTC_UNO,
-     TAG_IPTC_URGENCY, TAG_IPTC_WRITEREDITOR,
 
-     TAG_PDF_PAGESIZE, TAG_PDF_PAGEWIDTH, TAG_PDF_PAGEHEIGHT,
-     TAG_PDF_VERSION, TAG_PDF_PRODUCER,
-     TAG_PDF_EMBEDDEDFILES,
-     TAG_PDF_OPTIMIZED,
-     TAG_PDF_PRINTING,
-     TAG_PDF_HIRESPRINTING,
-     TAG_PDF_COPYING,
-     TAG_PDF_MODIFYING,
-     TAG_PDF_DOCASSEMBLY,
-     TAG_PDF_COMMENTING,
-     TAG_PDF_FORMFILLING,
-     TAG_PDF_ACCESSIBILITYSUPPORT
-    };
+static void append_submenu_tagv(GMenu *menu, ...)
+{
+    va_list ap;
+    va_start(ap, menu);
 
+    const gchar *class_name = nullptr;
+    GMenu *submenu = g_menu_new ();
+    for (;;)
+    {
+        GnomeCmdTag tag = (GnomeCmdTag) va_arg(ap, int);
+        if (tag == TAG_NONE)
+        {
+            g_menu_append_submenu (menu, class_name, G_MENU_MODEL (submenu));
+            break;
+        }
+
+        GMenuItem *item = g_menu_item_new (gcmd_tags_get_title (tag), nullptr);
+        gchar *p = g_strdup_printf ("$T(%s)", gcmd_tags_get_name(tag));
+        g_menu_item_set_action_and_target (item, "advrenametag.insert-text-tag", "s", p);
+        g_free (p);
+        g_menu_append_item (submenu, item);
+
+        class_name = gcmd_tags_get_class_name(tag);
+    }
+    va_end(ap);
+}
+
+static GMenuModel *create_meta_tag_menu()
+{
+    GMenu *menu = g_menu_new ();
+
+    GMenu *section = g_menu_new ();
+
+    append_submenu_tagv(section,
+        TAG_FILE_NAME, TAG_FILE_PATH,
+        TAG_FILE_LINK,
+        TAG_FILE_SIZE,
+        TAG_FILE_MODIFIED, TAG_FILE_ACCESSED,
+        TAG_FILE_PERMISSIONS,
+        TAG_FILE_FORMAT,
+        TAG_FILE_PUBLISHER, TAG_FILE_DESCRIPTION, TAG_FILE_KEYWORDS, TAG_FILE_RANK,
+        TAG_NONE);
+
+    append_submenu_tagv(section,
+        TAG_AUDIO_ALBUMARTIST, TAG_AUDIO_ALBUMGAIN, TAG_AUDIO_ALBUMPEAKGAIN,
+        TAG_AUDIO_ALBUMTRACKCOUNT, TAG_AUDIO_ALBUM, TAG_AUDIO_ARTIST, TAG_AUDIO_BITRATE,
+        TAG_AUDIO_CHANNELS, TAG_AUDIO_CODECVERSION, TAG_AUDIO_CODEC, TAG_AUDIO_COMMENT,
+        TAG_AUDIO_COVERALBUMTHUMBNAILPATH, TAG_AUDIO_DISCNO,
+        TAG_AUDIO_DURATION, TAG_AUDIO_DURATIONMMSS,
+        TAG_AUDIO_GENRE, TAG_AUDIO_ISNEW, TAG_AUDIO_ISRC, TAG_AUDIO_LASTPLAY, TAG_AUDIO_LYRICS,
+        TAG_AUDIO_MBALBUMARTISTID, TAG_AUDIO_MBALBUMID, TAG_AUDIO_MBARTISTID,
+        TAG_AUDIO_MBTRACKID, TAG_AUDIO_PERFORMER, TAG_AUDIO_PLAYCOUNT,
+        TAG_AUDIO_RELEASEDATE, TAG_AUDIO_SAMPLERATE, TAG_AUDIO_TITLE, TAG_AUDIO_TRACKGAIN,
+        TAG_AUDIO_TRACKNO, TAG_AUDIO_TRACKPEAKGAIN, TAG_AUDIO_YEAR,
+        TAG_AUDIO_MPEG_CHANNELMODE, TAG_AUDIO_MPEG_LAYER, TAG_AUDIO_MPEG_VERSION,
+        TAG_NONE);
+
+    append_submenu_tagv(section,
+        TAG_DOC_AUTHOR, TAG_DOC_CREATOR, TAG_DOC_TITLE,
+        TAG_DOC_SUBJECT, TAG_DOC_DESCRIPTION,
+        TAG_DOC_CATEGORY, TAG_DOC_KEYWORDS, TAG_DOC_REVISIONCOUNT,
+        TAG_DOC_PAGECOUNT, TAG_DOC_PARAGRAPHCOUNT, TAG_DOC_LINECOUNT,
+        TAG_DOC_WORDCOUNT, TAG_DOC_BYTECOUNT,
+        TAG_DOC_CELLCOUNT, TAG_DOC_CHARACTERCOUNT,
+        TAG_DOC_CODEPAGE, TAG_DOC_COMMENTS, TAG_DOC_COMPANY,
+        TAG_DOC_DATECREATED, TAG_DOC_DATEMODIFIED,
+        TAG_DOC_DICTIONARY,
+        TAG_DOC_EDITINGDURATION, TAG_DOC_GENERATOR,
+        TAG_DOC_HIDDENSLIDECOUNT,
+        TAG_DOC_IMAGECOUNT, TAG_DOC_INITIALCREATOR,
+        TAG_DOC_LANGUAGE,
+        TAG_DOC_LASTPRINTED, TAG_DOC_LASTSAVEDBY,
+        TAG_DOC_LOCALESYSTEMDEFAULT, TAG_DOC_MMCLIPCOUNT,
+        TAG_DOC_MANAGER, TAG_DOC_NOTECOUNT, TAG_DOC_OBJECTCOUNT,
+        TAG_DOC_PRESENTATIONFORMAT, TAG_DOC_PRINTDATE,
+        TAG_DOC_PRINTEDBY, TAG_DOC_SCALE, TAG_DOC_SECURITY,
+        TAG_DOC_SLIDECOUNT, TAG_DOC_SPREADSHEETCOUNT,
+        TAG_DOC_TABLECOUNT, TAG_DOC_TEMPLATE,
+        TAG_DOC_CASESENSITIVE, TAG_DOC_LINKSDIRTY,
+        TAG_NONE);
+
+    append_submenu_tagv(section,
+        TAG_IMAGE_ALBUM, TAG_IMAGE_MAKE, TAG_IMAGE_MODEL,
+        TAG_IMAGE_COMMENTS, TAG_IMAGE_COPYRIGHT, TAG_IMAGE_CREATOR,
+        TAG_IMAGE_DATE, TAG_IMAGE_DESCRIPTION, TAG_IMAGE_EXPOSUREPROGRAM,
+        TAG_IMAGE_EXPOSURETIME, TAG_IMAGE_FLASH, TAG_IMAGE_FNUMBER,
+        TAG_IMAGE_FOCALLENGTH, TAG_IMAGE_HEIGHT, TAG_IMAGE_ISOSPEED,
+        TAG_IMAGE_KEYWORDS, TAG_IMAGE_METERINGMODE, TAG_IMAGE_ORIENTATION,
+        TAG_IMAGE_SOFTWARE, TAG_IMAGE_TITLE, TAG_IMAGE_WHITEBALANCE,
+        TAG_IMAGE_WIDTH,
+        TAG_NONE);
+
+    g_menu_append_section (menu, nullptr, G_MENU_MODEL (section));
+    section = g_menu_new ();
+
+    append_submenu_tagv(section,
+        TAG_ID3_BAND,
+        TAG_ID3_CONTENTTYPE,
+        TAG_ID3_ALBUMSORTORDER, TAG_ID3_AUDIOCRYPTO,
+        TAG_ID3_AUDIOSEEKPOINT,
+        TAG_ID3_BPM, TAG_ID3_BUFFERSIZE, TAG_ID3_CDID,
+        TAG_ID3_COMMERCIAL, TAG_ID3_COMPOSER, TAG_ID3_CONDUCTOR,
+        TAG_ID3_CONTENTGROUP, TAG_ID3_CONTENTTYPE,
+        TAG_ID3_COPYRIGHT,
+        TAG_ID3_CRYPTOREG, TAG_ID3_DATE,
+        TAG_ID3_EMPHASIS, TAG_ID3_ENCODEDBY,
+        TAG_ID3_ENCODERSETTINGS, TAG_ID3_ENCODINGTIME, TAG_ID3_EQUALIZATION,
+        TAG_ID3_EQUALIZATION2, TAG_ID3_EVENTTIMING, TAG_ID3_FILEOWNER,
+        TAG_ID3_FILETYPE, TAG_ID3_FRAMES, TAG_ID3_GENERALOBJECT,
+        TAG_ID3_GROUPINGREG, TAG_ID3_INITIALKEY,
+        TAG_ID3_INVOLVEDPEOPLE, TAG_ID3_INVOLVEDPEOPLE2,
+        TAG_ID3_LANGUAGE, TAG_ID3_LINKEDINFO,
+        TAG_ID3_LYRICIST, TAG_ID3_MEDIATYPE, TAG_ID3_MIXARTIST,
+        TAG_ID3_MOOD,
+        TAG_ID3_MPEGLOOKUP,
+        TAG_ID3_MUSICIANCREDITLIST,
+        TAG_ID3_NETRADIOOWNER, TAG_ID3_NETRADIOSTATION,
+        TAG_ID3_ORIGALBUM, TAG_ID3_ORIGARTIST, TAG_ID3_ORIGFILENAME,
+        TAG_ID3_ORIGLYRICIST, TAG_ID3_ORIGRELEASETIME, TAG_ID3_ORIGYEAR,
+        TAG_ID3_OWNERSHIP, TAG_ID3_PARTINSET, TAG_ID3_PERFORMERSORTORDER,
+        TAG_ID3_PICTURE, TAG_ID3_PLAYCOUNTER, TAG_ID3_PLAYLISTDELAY,
+        TAG_ID3_POPULARIMETER, TAG_ID3_POSITIONSYNC, TAG_ID3_PRIVATE,
+        TAG_ID3_PRODUCEDNOTICE, TAG_ID3_PUBLISHER, TAG_ID3_RECORDINGDATES,
+        TAG_ID3_RECORDINGTIME, TAG_ID3_RELEASETIME, TAG_ID3_REVERB,
+        TAG_ID3_SETSUBTITLE, TAG_ID3_SIGNATURE,
+        TAG_ID3_SIZE, TAG_ID3_SONGLEN, TAG_ID3_SUBTITLE, TAG_ID3_SYNCEDLYRICS,
+        TAG_ID3_SYNCEDTEMPO, TAG_ID3_TAGGINGTIME, TAG_ID3_TERMSOFUSE,
+        TAG_ID3_TIME, TAG_ID3_TITLESORTORDER,
+        TAG_ID3_UNIQUEFILEID, TAG_ID3_UNSYNCEDLYRICS, TAG_ID3_USERTEXT,
+        TAG_ID3_VOLUMEADJ, TAG_ID3_VOLUMEADJ2, TAG_ID3_WWWARTIST,
+        TAG_ID3_WWWAUDIOFILE, TAG_ID3_WWWAUDIOSOURCE, TAG_ID3_WWWCOMMERCIALINFO,
+        TAG_ID3_WWWCOPYRIGHT, TAG_ID3_WWWPAYMENT, TAG_ID3_WWWPUBLISHER,
+        TAG_ID3_WWWRADIOPAGE, TAG_ID3_WWWUSER,
+        TAG_NONE);
+
+    append_submenu_tagv(section,
+        TAG_VORBIS_CONTACT, TAG_VORBIS_DESCRIPTION,
+        TAG_VORBIS_LICENSE, TAG_VORBIS_LOCATION,
+        TAG_VORBIS_MAXBITRATE, TAG_VORBIS_MINBITRATE,
+        TAG_VORBIS_NOMINALBITRATE, TAG_VORBIS_ORGANIZATION,
+        TAG_VORBIS_VENDOR, TAG_VORBIS_VERSION,
+        TAG_NONE);
+
+    append_submenu_tagv(section,
+        TAG_EXIF_COPYRIGHT, TAG_EXIF_DATETIME,
+        TAG_EXIF_EXPOSUREBIASVALUE, TAG_EXIF_EXPOSUREMODE, TAG_EXIF_EXPOSUREPROGRAM,
+        TAG_EXIF_FLASH, TAG_EXIF_FLASHENERGY,
+        TAG_EXIF_FNUMBER, TAG_EXIF_FOCALLENGTH,
+        TAG_EXIF_ISOSPEEDRATINGS, TAG_EXIF_MAXAPERTUREVALUE,
+        TAG_EXIF_METERINGMODE, TAG_EXIF_SHUTTERSPEEDVALUE, TAG_EXIF_WHITEBALANCE,
+        TAG_EXIF_PIXELXDIMENSION, TAG_EXIF_PIXELYDIMENSION,
+        TAG_EXIF_XRESOLUTION, TAG_EXIF_YRESOLUTION,
+        TAG_EXIF_IMAGELENGTH, TAG_EXIF_IMAGEWIDTH,
+        TAG_EXIF_CUSTOMRENDERED, TAG_EXIF_COLORSPACE,
+        TAG_EXIF_DOCUMENTNAME, TAG_EXIF_USERCOMMENT,
+        TAG_EXIF_APERTUREVALUE, TAG_EXIF_ARTIST, TAG_EXIF_BATTERYLEVEL,
+        TAG_EXIF_BITSPERSAMPLE, TAG_EXIF_BRIGHTNESSVALUE,
+        TAG_EXIF_CFAPATTERN, TAG_EXIF_COMPONENTSCONFIGURATION,
+        TAG_EXIF_COMPRESSEDBITSPERPIXEL, TAG_EXIF_COMPRESSION, TAG_EXIF_CONTRAST,
+        TAG_EXIF_DATETIMEDIGITIZED, TAG_EXIF_DATETIMEORIGINAL,
+        TAG_EXIF_DEVICESETTINGDESCRIPTION, TAG_EXIF_DIGITALZOOMRATIO,
+        TAG_EXIF_EXIFVERSION,
+        TAG_EXIF_EXPOSUREINDEX,
+        TAG_EXIF_EXPOSURETIME, TAG_EXIF_FILESOURCE,
+        TAG_EXIF_FILLORDER,
+        TAG_EXIF_FLASHPIXVERSION,
+        TAG_EXIF_FOCALLENGTHIN35MMFILM, TAG_EXIF_FOCALPLANERESOLUTIONUNIT,
+        TAG_EXIF_FOCALPLANEXRESOLUTION, TAG_EXIF_FOCALPLANEYRESOLUTION,
+        TAG_EXIF_GAINCONTROL, TAG_EXIF_GAMMA, TAG_EXIF_GPSALTITUDE,
+        TAG_EXIF_GPSLATITUDE, TAG_EXIF_GPSLONGITUDE,
+        TAG_EXIF_GPSVERSIONID, TAG_EXIF_IMAGEDESCRIPTION, TAG_EXIF_IMAGEUNIQUEID,
+        TAG_EXIF_INTERCOLORPROFILE, TAG_EXIF_INTEROPERABILITYINDEX, TAG_EXIF_INTEROPERABILITYVERSION,
+        TAG_EXIF_IPTCNAA, TAG_EXIF_JPEGINTERCHANGEFORMAT,
+        TAG_EXIF_JPEGINTERCHANGEFORMATLENGTH, TAG_EXIF_LIGHTSOURCE,
+        TAG_EXIF_MAKE, TAG_EXIF_MAKERNOTE,
+        TAG_EXIF_METERINGMODE, TAG_EXIF_MODEL, TAG_EXIF_NEWCFAPATTERN,
+        TAG_EXIF_NEWSUBFILETYPE, TAG_EXIF_OECF, TAG_EXIF_ORIENTATION,
+        TAG_EXIF_PHOTOMETRICINTERPRETATION, TAG_EXIF_PLANARCONFIGURATION,
+        TAG_EXIF_PRIMARYCHROMATICITIES, TAG_EXIF_REFERENCEBLACKWHITE,
+        TAG_EXIF_RELATEDIMAGEFILEFORMAT, TAG_EXIF_RELATEDIMAGELENGTH,
+        TAG_EXIF_RELATEDIMAGEWIDTH, TAG_EXIF_RELATEDSOUNDFILE, TAG_EXIF_RESOLUTIONUNIT,
+        TAG_EXIF_ROWSPERSTRIP, TAG_EXIF_SAMPLESPERPIXEL, TAG_EXIF_SATURATION,
+        TAG_EXIF_SCENECAPTURETYPE, TAG_EXIF_SCENETYPE, TAG_EXIF_SENSINGMETHOD,
+        TAG_EXIF_SHARPNESS, TAG_EXIF_SHUTTERSPEEDVALUE, TAG_EXIF_SOFTWARE,
+        TAG_EXIF_SPATIALFREQUENCYRESPONSE, TAG_EXIF_SPECTRALSENSITIVITY,
+        TAG_EXIF_STRIPBYTECOUNTS, TAG_EXIF_STRIPOFFSETS,
+        TAG_EXIF_SUBJECTAREA, TAG_EXIF_SUBJECTDISTANCE, TAG_EXIF_SUBJECTDISTANCERANGE,
+        TAG_EXIF_SUBJECTLOCATION, TAG_EXIF_SUBSECTIME, TAG_EXIF_SUBSECTIMEDIGITIZED,
+        TAG_EXIF_SUBSECTIMEORIGINAL, TAG_EXIF_TIFFEPSTANDARDID, TAG_EXIF_TRANSFERFUNCTION,
+        TAG_EXIF_TRANSFERRANGE, TAG_EXIF_WHITEPOINT,
+        TAG_EXIF_YCBCRCOEFFICIENTS, TAG_EXIF_YCBCRPOSITIONING,
+        TAG_EXIF_YCBCRSUBSAMPLING,
+        TAG_NONE);
+
+    append_submenu_tagv(section,
+        TAG_IPTC_BYLINE, TAG_IPTC_BYLINETITLE, TAG_IPTC_CAPTION, TAG_IPTC_HEADLINE,
+        TAG_IPTC_SUBLOCATION, TAG_IPTC_CITY, TAG_IPTC_PROVINCE,
+        TAG_IPTC_COUNTRYCODE, TAG_IPTC_COUNTRYNAME,
+        TAG_IPTC_CONTACT, TAG_IPTC_COPYRIGHTNOTICE, TAG_IPTC_CREDIT,
+        TAG_IPTC_KEYWORDS,
+        TAG_IPTC_DIGITALCREATIONDATE, TAG_IPTC_DIGITALCREATIONTIME,
+        TAG_IPTC_IMAGEORIENTATION,
+        TAG_IPTC_SPECIALINSTRUCTIONS, TAG_IPTC_URGENCY,
+        TAG_IPTC_ACTIONADVISED, TAG_IPTC_ARMID, TAG_IPTC_ARMVERSION,
+        TAG_IPTC_AUDIODURATION, TAG_IPTC_AUDIOOUTCUE, TAG_IPTC_AUDIOSAMPLINGRATE,
+        TAG_IPTC_AUDIOSAMPLINGRES, TAG_IPTC_AUDIOTYPE,
+        TAG_IPTC_CATEGORY, TAG_IPTC_CHARACTERSET, TAG_IPTC_CONFIRMEDDATASIZE,
+        TAG_IPTC_CONTENTLOCCODE, TAG_IPTC_CONTENTLOCNAME,
+        TAG_IPTC_DATECREATED, TAG_IPTC_DATESENT,
+        TAG_IPTC_DESTINATION, TAG_IPTC_EDITORIALUPDATE, TAG_IPTC_EDITSTATUS,
+        TAG_IPTC_ENVELOPENUM, TAG_IPTC_ENVELOPEPRIORITY, TAG_IPTC_EXPIRATIONDATE,
+        TAG_IPTC_EXPIRATIONTIME, TAG_IPTC_FILEFORMAT, TAG_IPTC_FILEVERSION,
+        TAG_IPTC_FIXTUREID, TAG_IPTC_IMAGETYPE, TAG_IPTC_LANGUAGEID,
+        TAG_IPTC_MAXOBJECTSIZE, TAG_IPTC_MAXSUBFILESIZE, TAG_IPTC_MODELVERSION,
+        TAG_IPTC_OBJECTATTRIBUTE, TAG_IPTC_OBJECTCYCLE, TAG_IPTC_OBJECTNAME,
+        TAG_IPTC_OBJECTSIZEANNOUNCED, TAG_IPTC_OBJECTTYPE, TAG_IPTC_ORIGINATINGPROGRAM,
+        TAG_IPTC_ORIGTRANSREF, TAG_IPTC_PREVIEWDATA, TAG_IPTC_PREVIEWFORMAT,
+        TAG_IPTC_PREVIEWFORMATVER, TAG_IPTC_PRODUCTID, TAG_IPTC_PROGRAMVERSION,
+        TAG_IPTC_PROVINCE, TAG_IPTC_RASTERIZEDCAPTION, TAG_IPTC_RECORDVERSION,
+        TAG_IPTC_REFERENCEDATE, TAG_IPTC_REFERENCENUMBER, TAG_IPTC_REFERENCESERVICE,
+        TAG_IPTC_RELEASEDATE, TAG_IPTC_RELEASETIME, TAG_IPTC_SERVICEID,
+        TAG_IPTC_SIZEMODE, TAG_IPTC_SOURCE, TAG_IPTC_SUBFILE, TAG_IPTC_SUBJECTREFERENCE,
+        TAG_IPTC_SUPPLCATEGORY, TAG_IPTC_TIMECREATED, TAG_IPTC_TIMESENT, TAG_IPTC_UNO,
+        TAG_IPTC_URGENCY, TAG_IPTC_WRITEREDITOR,
+        TAG_NONE);
+
+    append_submenu_tagv(section,
+        TAG_PDF_PAGESIZE, TAG_PDF_PAGEWIDTH, TAG_PDF_PAGEHEIGHT,
+        TAG_PDF_VERSION, TAG_PDF_PRODUCER,
+        TAG_PDF_EMBEDDEDFILES,
+        TAG_PDF_OPTIMIZED,
+        TAG_PDF_PRINTING,
+        TAG_PDF_HIRESPRINTING,
+        TAG_PDF_COPYING,
+        TAG_PDF_MODIFYING,
+        TAG_PDF_DOCASSEMBLY,
+        TAG_PDF_COMMENTING,
+        TAG_PDF_FORMFILLING,
+        TAG_PDF_ACCESSIBILITYSUPPORT,
+        TAG_NONE);
+
+    g_menu_append_section (menu, nullptr, G_MENU_MODEL (section));
+
+    return G_MENU_MODEL (menu);
+}
 
 inline GtkTreeModel *create_regex_model ();
 
@@ -324,7 +429,6 @@ inline GtkWidget *create_regex_view ();
 
 inline GnomeCmdAdvrenameProfileComponent::Private::Private()
 {
-    memset(menu_button, 0, sizeof(menu_button));
     convert_case = gcmd_convert_unchanged;
     trim_blanks = gcmd_convert_strip;
     regex_model = NULL;
@@ -387,141 +491,13 @@ void GnomeCmdAdvrenameProfileComponent::Private::fill_regex_model(const GnomeCmd
 }
 
 
-static void menu_add_item (
-        GnomeCmdAdvrenameProfileComponent::Private *self,
-        GtkMenu *menu,
-        const gchar *label,
-        GnomeCmdCallback<GtkMenuItem *, GnomeCmdAdvrenameProfileComponent::Private *> callback,
-        gsize value)
+static GtkWidget *create_button_with_menu(gchar *label_text, GMenuModel *model)
 {
-    GtkMenuItem *item = GTK_MENU_ITEM (gtk_image_menu_item_new_with_mnemonic (label));
-    g_object_set_data (G_OBJECT (item), "value", reinterpret_cast<gpointer> (value));
-    g_signal_connect (G_OBJECT (item), "activate", G_CALLBACK (callback), self);
-    gtk_menu_shell_append (GTK_MENU_SHELL (menu), GTK_WIDGET (item));
-}
-
-
-static GtkMenu * menu_add_submenu (GtkMenu *menu, const gchar *label)
-{
-    GtkMenu *submenu = GTK_MENU (gtk_menu_new ());
-    GtkMenuItem *item = GTK_MENU_ITEM (gtk_menu_item_new_with_mnemonic (label));
-    gtk_menu_item_set_submenu (item, GTK_WIDGET (submenu));
-    gtk_menu_shell_append (GTK_MENU_SHELL (menu), GTK_WIDGET (item));
-    return submenu;
-}
-
-inline GtkWidget *GnomeCmdAdvrenameProfileComponent::Private::create_placeholder_menu(int menu_type)
-{
-    switch (menu_type)
-    {
-        case DIR_MENU:
-            {
-                GtkMenu *menu = GTK_MENU (gtk_menu_new ());
-                menu_add_item (this, menu, _("Grandparent"), GnomeCmdAdvrenameProfileComponent::Private::insert_text_tag, 0);
-                menu_add_item (this, menu, _("Parent"), GnomeCmdAdvrenameProfileComponent::Private::insert_text_tag, 1);
-                gtk_widget_show_all (GTK_WIDGET (menu));
-                return GTK_WIDGET (menu);
-            }
-        case FILE_MENU:
-            {
-                GtkMenu *menu = GTK_MENU (gtk_menu_new ());
-                menu_add_item (this, menu, _("File name"), GnomeCmdAdvrenameProfileComponent::Private::insert_text_tag, 2);
-                menu_add_item (this, menu, _("File name (range)"), GnomeCmdAdvrenameProfileComponent::Private::insert_range, 2);
-                menu_add_item (this, menu, _("File name without extension"), GnomeCmdAdvrenameProfileComponent::Private::insert_text_tag, 3);
-                menu_add_item (this, menu, _("File name without extension (range)"), GnomeCmdAdvrenameProfileComponent::Private::insert_range,3);
-                menu_add_item (this, menu, _("File extension"), GnomeCmdAdvrenameProfileComponent::Private::insert_text_tag, 4);
-                gtk_widget_show_all (GTK_WIDGET (menu));
-                return GTK_WIDGET (menu);
-            }
-        case COUNTER_MENU:
-            {
-                GtkMenu *menu = GTK_MENU (gtk_menu_new ());
-                menu_add_item (this, menu, _("Counter"), GnomeCmdAdvrenameProfileComponent::Private::insert_text_tag, 5);
-                menu_add_item (this, menu, _("Counter (width)"), GnomeCmdAdvrenameProfileComponent::Private::insert_text_tag, 6);
-                menu_add_item (this, menu, _("Counter (auto)"), GnomeCmdAdvrenameProfileComponent::Private::insert_text_tag, 27);
-                menu_add_item (this, menu, _("Hexadecimal random number (width)"), GnomeCmdAdvrenameProfileComponent::Private::insert_text_tag, 7);
-                gtk_widget_show_all (GTK_WIDGET (menu));
-                return GTK_WIDGET (menu);
-            }
-        case DATE_MENU:
-            {
-                GtkMenu *menu = GTK_MENU (gtk_menu_new ());
-
-                GtkMenu *date_menu = menu_add_submenu (menu, _("Date"));
-                menu_add_item (this, date_menu, _("<locale>"), GnomeCmdAdvrenameProfileComponent::Private::insert_text_tag, 8);
-                menu_add_item (this, date_menu, _("yyyy-mm-dd"), GnomeCmdAdvrenameProfileComponent::Private::insert_text_tag, 9);
-                menu_add_item (this, date_menu, _("yy-mm-dd"), GnomeCmdAdvrenameProfileComponent::Private::insert_text_tag, 10);
-                menu_add_item (this, date_menu, _("yy.mm.dd"), GnomeCmdAdvrenameProfileComponent::Private::insert_text_tag, 11);
-                menu_add_item (this, date_menu, _("yymmdd"), GnomeCmdAdvrenameProfileComponent::Private::insert_text_tag, 12);
-                menu_add_item (this, date_menu, _("dd.mm.yy"), GnomeCmdAdvrenameProfileComponent::Private::insert_text_tag, 13);
-                menu_add_item (this, date_menu, _("mm-dd-yy"), GnomeCmdAdvrenameProfileComponent::Private::insert_text_tag, 14);
-                menu_add_item (this, date_menu, _("yyyy"), GnomeCmdAdvrenameProfileComponent::Private::insert_text_tag, 15);
-                menu_add_item (this, date_menu, _("yy"), GnomeCmdAdvrenameProfileComponent::Private::insert_text_tag, 16);
-                menu_add_item (this, date_menu, _("mm"), GnomeCmdAdvrenameProfileComponent::Private::insert_text_tag, 17);
-                menu_add_item (this, date_menu, _("mmm"), GnomeCmdAdvrenameProfileComponent::Private::insert_text_tag, 18);
-                menu_add_item (this, date_menu, _("dd"), GnomeCmdAdvrenameProfileComponent::Private::insert_text_tag, 19);
-                GtkMenu *time_menu = menu_add_submenu (menu, _("Time"));
-                menu_add_item (this, time_menu, _("<locale>"), GnomeCmdAdvrenameProfileComponent::Private::insert_text_tag, 20);
-                menu_add_item (this, time_menu, _("HH.MM.SS"), GnomeCmdAdvrenameProfileComponent::Private::insert_text_tag, 21);
-                menu_add_item (this, time_menu, _("HH-MM-SS"), GnomeCmdAdvrenameProfileComponent::Private::insert_text_tag, 22);
-                menu_add_item (this, time_menu, _("HHMMSS"), GnomeCmdAdvrenameProfileComponent::Private::insert_text_tag, 23);
-                menu_add_item (this, time_menu, _("HH"), GnomeCmdAdvrenameProfileComponent::Private::insert_text_tag, 24);
-                menu_add_item (this, time_menu, _("MM"), GnomeCmdAdvrenameProfileComponent::Private::insert_text_tag, 25);
-                menu_add_item (this, time_menu, _("SS"), GnomeCmdAdvrenameProfileComponent::Private::insert_text_tag, 26);
-                gtk_widget_show_all (GTK_WIDGET (menu));
-                return GTK_WIDGET (menu);
-            }
-
-        case METATAG_MENU:
-            {
-                const int BUFF_SIZE = 2048;
-                gchar *s = (gchar *) g_malloc0 (BUFF_SIZE);
-
-                GtkMenu *menu = GTK_MENU (gtk_menu_new ());
-                GtkMenu *submenu = nullptr;
-                const gchar *prev_class_name = nullptr;
-                for (guint ii=0; ii<G_N_ELEMENTS(metatags); ++ii)
-                {
-                    GnomeCmdTag tag = metatags[ii];
-                    const gchar *class_name = gcmd_tags_get_class_name(tag);
-
-                    if (!class_name || *class_name==0)
-                    {
-                        gtk_menu_shell_append (GTK_MENU_SHELL (menu), gtk_separator_menu_item_new ());
-                    }
-                    else
-                    {
-                        if (prev_class_name != class_name)
-                            submenu = menu_add_submenu (menu, class_name);
-
-                        strncpy (s, gcmd_tags_get_title (tag), BUFF_SIZE-1);
-
-                        for (gchar *kk=s; *kk; ++kk)
-                            if (*kk=='/')  *kk = ' ';
-
-                        menu_add_item (this, submenu, s, insert_num_tag, tag);
-                    }
-
-                    prev_class_name = class_name;
-                }
-
-                g_free (s);
-
-                gtk_widget_show_all (GTK_WIDGET (menu));
-                return GTK_WIDGET (menu);
-            }
-
-        default:
-            return NULL;
-    }
-}
-
-
-inline GtkWidget *GnomeCmdAdvrenameProfileComponent::Private::create_button_with_menu(gchar *label_text, int menu_type)
-{
-    menu_button[menu_type] = gnome_cmd_button_menu_new (label_text, create_placeholder_menu(menu_type));
-
-    return menu_button[menu_type];
+    GtkWidget *button = gtk_menu_button_new ();
+    gtk_button_set_label (GTK_BUTTON (button), label_text);
+    g_object_set (button, "use-popover", FALSE, NULL); // Popover does not render a vertical scroll
+    gtk_menu_button_set_menu_model (GTK_MENU_BUTTON (button), model);
+    return button;
 }
 
 
@@ -537,52 +513,12 @@ inline void GnomeCmdAdvrenameProfileComponent::Private::insert_tag(const gchar *
 }
 
 
-void GnomeCmdAdvrenameProfileComponent::Private::insert_text_tag(GtkMenuItem *item, GnomeCmdAdvrenameProfileComponent::Private *priv)
+static void insert_text_tag(GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
-    static const gchar *placeholder[] = {"$g",          //  0
-                                         "$p",          //  1
-                                         "$N",          //  2
-                                         "$n",          //  3
-                                         "$e",          //  4
-                                         "$c",          //  5
-                                         "$c(2)",       //  6
-                                         "$x(8)",       //  7
-                                         "%x",          //  8
-                                         "%Y-%m-%d",    //  9
-                                         "%y-%m-%d",    // 10
-                                         "%y.%m.%d",    // 11
-                                         "%y%m%d",      // 12
-                                         "%d.%m.%y",    // 13
-                                         "%m-%d-%y",    // 14
-                                         "%Y",          // 15
-                                         "%y",          // 16
-                                         "%m",          // 17
-                                         "%b",          // 18
-                                         "%d",          // 19
-                                         "%X",          // 20
-                                         "%H.%M.%S",    // 21
-                                         "%H-%M-%S",    // 22
-                                         "%H%M%S",      // 23
-                                         "%H",          // 24
-                                         "%M",          // 25
-                                         "%S",          // 26
-                                         "$c(a)"};      // 27
+    auto component = static_cast<GnomeCmdAdvrenameProfileComponent*>(user_data);
+    const gchar *tag = g_variant_get_string (parameter, nullptr);
 
-    gsize n = reinterpret_cast<gsize> (g_object_get_data (G_OBJECT (item), "value"));
-
-    g_return_if_fail (n < G_N_ELEMENTS(placeholder));
-
-    priv->insert_tag(placeholder[n]);
-}
-
-
-void GnomeCmdAdvrenameProfileComponent::Private::insert_num_tag(GtkMenuItem *item, GnomeCmdAdvrenameProfileComponent::Private *priv)
-{
-    gsize value = reinterpret_cast<gsize> (g_object_get_data (G_OBJECT (item), "value"));
-    GnomeCmdTag tag = static_cast<GnomeCmdTag>(value);
-    gchar *s = g_strdup_printf ("$T(%s)", gcmd_tags_get_name(tag));
-    priv->insert_tag(s);
-    g_free (s);
+    component->priv->insert_tag(tag);
 }
 
 
@@ -671,32 +607,27 @@ gchar *GnomeCmdAdvrenameProfileComponent::Private::get_selected_range (GtkWindow
 }
 
 
-void GnomeCmdAdvrenameProfileComponent::Private::insert_range(GtkMenuItem *item, GnomeCmdAdvrenameProfileComponent::Private *priv)
+static void insert_range(GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
-    static const gchar *placeholder[] = {"$g",          //  0
-                                         "$p",          //  1
-                                         "$N",          //  2
-                                         "$n",          //  3
-                                         "$e"};         //  4
-
-    gsize n = reinterpret_cast<gsize> (g_object_get_data (G_OBJECT (item), "value"));
+    auto component = static_cast<GnomeCmdAdvrenameProfileComponent*>(user_data);
+    const gchar *tag = g_variant_get_string (parameter, nullptr);
 
     gchar *fname = NULL;
 
-    if (n==3 && priv->sample_fname)
+    if (!strcmp(tag, "$n") && component->priv->sample_fname)
     {
-        fname = g_strdup (priv->sample_fname);
+        fname = g_strdup (component->priv->sample_fname);
         gchar *ext = g_utf8_strrchr (fname, -1, '.');
         if (ext)
             *ext = 0;
     }
 
-    gchar *tag = priv->get_selected_range (NULL, _("Range Selection"), placeholder[n], fname ? fname : priv->sample_fname);
+    gchar *rtag = component->priv->get_selected_range (NULL, _("Range Selection"), tag, fname ? fname : component->priv->sample_fname);
 
-    if (tag)
-        priv->insert_tag(tag);
+    if (rtag)
+        component->priv->insert_tag(rtag);
 
-    g_free (tag);
+    g_free (rtag);
     g_free (fname);
 }
 
@@ -895,6 +826,16 @@ void GnomeCmdAdvrenameProfileComponent::Private::on_trim_combo_changed (GtkCombo
 
 static void gnome_cmd_advrename_profile_component_init (GnomeCmdAdvrenameProfileComponent *component)
 {
+    g_object_set (component, "orientation", GTK_ORIENTATION_VERTICAL, NULL);
+
+    static GActionEntry action_entries[] = {
+        { "insert-text-tag",    insert_text_tag,    "s" },
+        { "insert-range",       insert_range,       "s" }
+    };
+    GSimpleActionGroup* action_group = g_simple_action_group_new ();
+    g_action_map_add_action_entries (G_ACTION_MAP (action_group), action_entries, G_N_ELEMENTS(action_entries), component);
+    gtk_widget_insert_action_group (GTK_WIDGET (component), "advrenametag", G_ACTION_GROUP (action_group));
+
     component->priv = new GnomeCmdAdvrenameProfileComponent::Private;
 
     GtkWidget *label;
@@ -905,8 +846,6 @@ static void gnome_cmd_advrename_profile_component_init (GnomeCmdAdvrenameProfile
     GtkWidget *button;
 
     gchar *str;
-
-    g_object_set (component, "orientation", GTK_ORIENTATION_VERTICAL, NULL);
 
     hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 18);
     gtk_box_pack_start (GTK_BOX (component), hbox, FALSE, FALSE, 0);
@@ -942,11 +881,11 @@ static void gnome_cmd_advrename_profile_component_init (GnomeCmdAdvrenameProfile
 
             gtk_button_box_set_layout (GTK_BUTTON_BOX (local_bbox), GTK_BUTTONBOX_START);
             gtk_box_set_spacing (GTK_BOX (local_bbox), 6);
-            gtk_box_pack_start (GTK_BOX (local_bbox), component->priv->create_button_with_menu (_("Directory"), GnomeCmdAdvrenameProfileComponent::Private::DIR_MENU), FALSE, FALSE, 0);
-            gtk_box_pack_start (GTK_BOX (local_bbox), component->priv->create_button_with_menu (_("File"), GnomeCmdAdvrenameProfileComponent::Private::FILE_MENU), FALSE, FALSE, 0);
-            gtk_box_pack_start (GTK_BOX (local_bbox), component->priv->create_button_with_menu (_("Counter"), GnomeCmdAdvrenameProfileComponent::Private::COUNTER_MENU), FALSE, FALSE, 0);
-            gtk_box_pack_start (GTK_BOX (local_bbox), component->priv->create_button_with_menu (_("Date"), GnomeCmdAdvrenameProfileComponent::Private::DATE_MENU), FALSE, FALSE, 0);
-            gtk_box_pack_start (GTK_BOX (local_bbox), component->priv->create_button_with_menu (_("Metatag"), GnomeCmdAdvrenameProfileComponent::Private::METATAG_MENU), FALSE, FALSE, 0);
+            gtk_box_pack_start (GTK_BOX (local_bbox), create_button_with_menu (_("Directory"), create_directory_tag_menu ()), FALSE, FALSE, 0);
+            gtk_box_pack_start (GTK_BOX (local_bbox), create_button_with_menu (_("File"), create_file_tag_menu ()), FALSE, FALSE, 0);
+            gtk_box_pack_start (GTK_BOX (local_bbox), create_button_with_menu (_("Counter"), create_counter_tag_menu ()), FALSE, FALSE, 0);
+            gtk_box_pack_start (GTK_BOX (local_bbox), create_button_with_menu (_("Date"), create_date_tag_menu ()), FALSE, FALSE, 0);
+            gtk_box_pack_start (GTK_BOX (local_bbox), create_button_with_menu (_("Metatag"), create_meta_tag_menu ()), FALSE, FALSE, 0);
         }
     }
 
@@ -1185,7 +1124,7 @@ GnomeCmdAdvrenameProfileComponent::GnomeCmdAdvrenameProfileComponent(GnomeCmdDat
     g_signal_connect (priv->regex_remove_button, "clicked", G_CALLBACK (Private::on_regex_remove_btn_clicked), this);
     g_signal_connect (priv->regex_remove_all_button, "clicked", G_CALLBACK (Private::on_regex_remove_all_btn_clicked), this);
 
-    // Case conversion & blank triming
+    // Case conversion & blank trimming
     g_signal_connect (priv->case_combo, "changed", G_CALLBACK (Private::on_case_combo_changed), this);
     g_signal_connect (priv->trim_combo, "changed", G_CALLBACK (Private::on_trim_combo_changed), this);
 }
