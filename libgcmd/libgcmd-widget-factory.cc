@@ -521,20 +521,24 @@ void create_treeview_column (GtkWidget *sw, gint col, gint width, const gchar *l
     GtkCellRenderer *renderer;
     const gchar *attribute;
     GType type = gtk_tree_model_get_column_type (model, col);
-    switch (type)
+    if (type == G_TYPE_STRING)
     {
-        case G_TYPE_STRING:
-            renderer = gtk_cell_renderer_text_new ();
-            attribute = "text";
-            break;
-        default:
-            if (type == GDK_TYPE_PIXBUF)
-            {
-                renderer = gtk_cell_renderer_pixbuf_new ();
-                attribute = "pixbuf";
-                break;
-            }
-            return;
+        renderer = gtk_cell_renderer_text_new ();
+        attribute = "text";
+    }
+    else if (type == G_TYPE_ICON)
+    {
+        renderer = gtk_cell_renderer_pixbuf_new ();
+        attribute = "gicon";
+    }
+    else if (type == GDK_TYPE_PIXBUF)
+    {
+        renderer = gtk_cell_renderer_pixbuf_new ();
+        attribute = "pixbuf";
+    }
+    else
+    {
+        return;
     }
 
     gtk_cell_renderer_set_fixed_size (renderer, -1, rowh);

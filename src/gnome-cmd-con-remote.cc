@@ -231,37 +231,22 @@ static gchar *remote_get_close_tooltip (GnomeCmdCon *con)
 }
 
 
-static GdkPixbuf *remote_get_pixbuf (GnomeCmdCon *con)
+static GIcon *remote_get_icon (GnomeCmdCon *con)
 {
-    guint dev_icon_size = gnome_cmd_data.dev_icon_size;
-    return pixbuf_from_icon (gnome_cmd_con_get_icon_name (con), dev_icon_size);
+    return g_themed_icon_new (gnome_cmd_con_get_icon_name (con));
 }
 
 
-static GdkPixbuf *remote_get_close_pixbuf (GnomeCmdCon *con)
+static GIcon *remote_get_close_icon (GnomeCmdCon *con)
 {
-    gint icon_size;
-
-    g_assert (gtk_icon_size_lookup (GTK_ICON_SIZE_LARGE_TOOLBAR, &icon_size, nullptr));
-
-    GdkPixbuf *overlay = pixbuf_from_icon (gnome_cmd_con_get_icon_name (con), icon_size);
-    if (!overlay)
+    GIcon *icon = remote_get_icon (con);
+    if (!icon)
         return nullptr;
 
-    GdkPixbuf *umount = IMAGE_get_pixbuf (PIXMAP_OVERLAY_UMOUNT);
-    if (!umount)
-    {
-        return nullptr;
-        g_object_unref (overlay);
-    }
+    GIcon *unmount = g_themed_icon_new (OVERLAY_UMOUNT_ICON);
+    GEmblem *emblem = g_emblem_new (unmount);
 
-    gdk_pixbuf_copy_area (umount, 0, 0,
-                          MIN (gdk_pixbuf_get_width (umount), icon_size),
-                          MIN (gdk_pixbuf_get_height (umount), icon_size),
-                          overlay, 0, 0);
-    g_object_unref (umount);
-
-    return overlay;
+    return g_emblemed_icon_new (icon, emblem);
 }
 
 
@@ -283,9 +268,9 @@ static void gnome_cmd_con_remote_class_init (GnomeCmdConRemoteClass *klass)
     con_class->get_open_tooltip = remote_get_open_tooltip;
     con_class->get_close_tooltip = remote_get_close_tooltip;
 
-    con_class->get_go_pixbuf = remote_get_pixbuf;
-    con_class->get_open_pixbuf = remote_get_pixbuf;
-    con_class->get_close_pixbuf = remote_get_close_pixbuf;
+    con_class->get_go_icon = remote_get_icon;
+    con_class->get_open_icon = remote_get_icon;
+    con_class->get_close_icon = remote_get_close_icon;
 }
 
 

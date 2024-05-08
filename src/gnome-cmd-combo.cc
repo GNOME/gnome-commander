@@ -66,7 +66,6 @@ struct GnomeCmdComboPrivate
     gint data_col;
 
     guint select_in_progress:1;
-    guint has_pixbufs:1;
 };
 
 static guint combo_signals[LAST_SIGNAL] = { 0, };
@@ -204,7 +203,6 @@ static void gnome_cmd_combo_init (GnomeCmdCombo *combo)
     combo->priv = static_cast<GnomeCmdComboPrivate *> (gnome_cmd_combo_get_instance_private (combo));
 
     combo->priv->select_in_progress = 0;
-    combo->priv->has_pixbufs = 0;
 }
 
 
@@ -254,13 +252,12 @@ GtkWidget *gnome_cmd_combo_new_with_store (GtkListStore *store, gint num_cols, g
         const gchar *attribute = NULL;
         gboolean expand = FALSE;
         GType type = gtk_tree_model_get_column_type (model, col);
-        if (type == GDK_TYPE_PIXBUF)
+        if (type == G_TYPE_ICON)
         {
             renderer = gtk_cell_renderer_pixbuf_new ();
-            attribute = "pixbuf";
+            attribute = "gicon";
 
             gtk_cell_renderer_set_fixed_size (renderer, 20, 20);
-            priv->has_pixbufs = 1;
         }
         else
         {
@@ -304,19 +301,6 @@ GtkWidget *GnomeCmdCombo::get_entry()
 void GnomeCmdCombo::clear()
 {
     gtk_list_store_clear (priv->store);
-
-    if (priv->has_pixbufs)
-    {
-        GList *list = gtk_cell_layout_get_cells (GTK_CELL_LAYOUT (this));
-
-        for (GList *i = list; i; i = i->next)
-        {
-            if (GTK_IS_CELL_RENDERER_PIXBUF (i->data))
-                gtk_cell_renderer_set_fixed_size (GTK_CELL_RENDERER (i->data), 20, 20);
-        }
-
-        g_list_free (list);
-    }
 }
 
 
@@ -335,48 +319,6 @@ void GnomeCmdCombo::append(gchar *text, gpointer data, ...)
     va_start (var_args, data);
     gtk_list_store_set_valist (priv->store, &iter, var_args);
     va_end (var_args);
-
-
-    if (priv->has_pixbufs)
-    {
-        GtkTreeModel *model = GTK_TREE_MODEL (priv->store);
-        GList *list = gtk_cell_layout_get_cells (GTK_CELL_LAYOUT (this));
-
-        gint col = 0;
-        for (GList *i = list; i; i = i->next, ++col)
-        {
-            if (GTK_IS_CELL_RENDERER_PIXBUF (i->data))
-            {
-                GdkPixbuf *pixbuf;
-                gtk_tree_model_get (model, &iter, col, &pixbuf, -1);
-
-                if (pixbuf != NULL)
-                {
-                    gint pixbuf_width = gdk_pixbuf_get_width (pixbuf);
-                    gint pixbuf_height = gdk_pixbuf_get_height (pixbuf);
-
-                    g_object_unref(pixbuf);
-
-                    GtkCellRenderer *renderer = GTK_CELL_RENDERER (i->data);
-
-                    gint cell_width;
-                    gint cell_height;
-
-                    gtk_cell_renderer_get_fixed_size (renderer, &cell_width, &cell_height);
-
-                    if (cell_width < pixbuf_width)
-                        cell_width = pixbuf_width;
-
-                    if (cell_height < pixbuf_height)
-                        cell_height = pixbuf_height;
-
-                    gtk_cell_renderer_set_fixed_size (renderer, cell_width, cell_height);
-                }
-            }
-        }
-
-        g_list_free (list);
-    }
 }
 
 

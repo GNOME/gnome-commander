@@ -27,6 +27,8 @@ icons_16x16 = [
   'gnome-commander-rotate-90.xpm',
   'gnome-commander-flip-horizontal.xpm',
   'gnome-commander-flip-vertical.xpm',
+  'overlay_umount.xpm',
+  'menu_bookmark.xpm',
 ]
 
 install_data(icons_16x16,

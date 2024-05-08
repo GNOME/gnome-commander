@@ -1766,16 +1766,15 @@ void GnomeCmdData::save_devices()
                     gVariantBuilder = g_variant_builder_new (G_VARIANT_TYPE_ARRAY);
                 }
 
-                gchar *icon_path = g_strdup (gnome_cmd_con_device_get_icon_path (device));
-                if (!icon_path || icon_path[0] == '\0')
-                    icon_path = g_strdup ("");
+                GIcon *icon = gnome_cmd_con_device_get_icon (device);
+                const gchar *icon_path = G_IS_FILE_ICON (icon) ? g_file_get_path (g_file_icon_get_file (G_FILE_ICON (icon))) : "";
 
                 g_variant_builder_add (gVariantBuilder, GCMD_SETTINGS_DEVICES_FORMAT_STRING,
                                         gnome_cmd_con_get_alias (GNOME_CMD_CON (device)),
                                         gnome_cmd_con_device_get_device_fn (device),
                                         gnome_cmd_con_device_get_mountp_string (device),
                                         icon_path);
-                g_free (icon_path);
+                g_clear_object (&icon);
             }
         }
 
@@ -2187,19 +2186,6 @@ static void add_gvolume (GVolume *gVolume)
     DEBUG('m',"volume uuid = %s\n", uuid);
     DEBUG('m',"volume unix device = %s\n", unixDeviceString);
 
-    // Try to load the icon, using current theme
-    const gchar *iconpath = nullptr;
-    GtkIconTheme *icontheme = gtk_icon_theme_get_default();
-    if (icontheme)
-    {
-        GtkIconInfo *iconinfo = gtk_icon_theme_lookup_by_gicon(icontheme, gIcon, 16, GTK_ICON_LOOKUP_USE_BUILTIN);
-        // This returned string should not be free, see gtk documentation
-        if (iconinfo)
-            iconpath = gtk_icon_info_get_filename (iconinfo);
-    }
-
-    DEBUG('m',"volume icon path = %s\n", iconpath);
-
     // Only create a new device connection if it does not already exist.
     // This can happen if the user manually added the same device in "Options|Devices" menu
     // We have to compare each connection in con_list with the unixDeviceString for this.
@@ -2210,7 +2196,7 @@ static void add_gvolume (GVolume *gVolume)
     // If it does not exist already and a UUID is available, create the new device connection
     else if (uuid)
     {
-        GnomeCmdConDevice *ConDev = gnome_cmd_con_device_new (name, uuid, nullptr, iconpath);
+        GnomeCmdConDevice *ConDev = gnome_cmd_con_device_new (name, uuid, nullptr, gIcon);
         gnome_cmd_con_device_set_autovol (ConDev, TRUE);
         gnome_cmd_con_device_set_gvolume (ConDev, gVolume);
         gnome_cmd_data.priv->con_list->add(ConDev);
@@ -2826,7 +2812,8 @@ void GnomeCmdData::load_devices()
 
         g_variant_get(device, GCMD_SETTINGS_DEVICES_FORMAT_STRING, &alias, &device_fn, &mountPoint, &iconPath);
 
-        gnome_cmd_data.priv->con_list->add (gnome_cmd_con_device_new (alias, device_fn, mountPoint, iconPath));
+        GIcon *icon = iconPath && *iconPath ? g_file_icon_new (g_file_new_for_path (iconPath)) : nullptr;
+        gnome_cmd_data.priv->con_list->add (gnome_cmd_con_device_new (alias, device_fn, mountPoint, icon));
 
         g_variant_unref(device);
     }
@@ -3211,7 +3198,6 @@ void GnomeCmdData::load()
     options.right_mouse_button_mode = (RightMouseButtonMode) g_settings_get_enum (options.gcmd_settings->general, GCMD_SETTINGS_RIGHT_MOUSE_BUTTON_MODE);
     options.deleteToTrash = g_settings_get_boolean (options.gcmd_settings->general, GCMD_SETTINGS_USE_TRASH);
     options.icon_size = g_settings_get_uint (options.gcmd_settings->general, GCMD_SETTINGS_ICON_SIZE);
-    dev_icon_size = g_settings_get_uint (options.gcmd_settings->general, GCMD_SETTINGS_DEV_ICON_SIZE);
     options.icon_scale_quality = (GdkInterpType) g_settings_get_enum (options.gcmd_settings->general, GCMD_SETTINGS_ICON_SCALE_QUALITY);
     options.theme_icon_dir = g_settings_get_string(options.gcmd_settings->general, GCMD_SETTINGS_MIME_ICON_DIR);
     cmdline_history_length = g_settings_get_uint (options.gcmd_settings->general, GCMD_SETTINGS_CMDLINE_HISTORY_LENGTH);
@@ -3599,7 +3585,6 @@ void GnomeCmdData::save()
     set_gsettings_enum_when_changed (options.gcmd_settings->general, GCMD_SETTINGS_RIGHT_MOUSE_BUTTON_MODE, options.right_mouse_button_mode);
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_ICON_SIZE, &(options.icon_size));
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_USE_TRASH, &(options.deleteToTrash));
-    set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_DEV_ICON_SIZE, &(dev_icon_size));
     set_gsettings_enum_when_changed (options.gcmd_settings->general, GCMD_SETTINGS_ICON_SCALE_QUALITY, options.icon_scale_quality);
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_MIME_ICON_DIR, options.theme_icon_dir);
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_CMDLINE_HISTORY_LENGTH, &(cmdline_history_length));

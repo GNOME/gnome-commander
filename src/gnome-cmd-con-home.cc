@@ -85,10 +85,9 @@ static gchar *home_get_close_text (GnomeCmdCon *con)
 }
 
 
-static GdkPixbuf *home_get_pixbuf (GnomeCmdCon *con)
+static GIcon *home_get_icon (GnomeCmdCon *con)
 {
-    guint dev_icon_size = gnome_cmd_data.dev_icon_size;
-    return pixbuf_from_icon ("user-home", dev_icon_size);
+    return g_themed_icon_new ("user-home");
 }
 
 
@@ -111,9 +110,9 @@ static void gnome_cmd_con_home_class_init (GnomeCmdConHomeClass *klass)
     con_class->get_open_text = home_get_open_text;
     con_class->get_close_text = home_get_close_text;
 
-    con_class->get_go_pixbuf = home_get_pixbuf;
-    con_class->get_open_pixbuf = home_get_pixbuf;
-    con_class->get_close_pixbuf = home_get_pixbuf;
+    con_class->get_go_icon = home_get_icon;
+    con_class->get_open_icon = home_get_icon;
+    con_class->get_close_icon = home_get_icon;
 }
 
 

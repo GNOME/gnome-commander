@@ -46,7 +46,7 @@ void store_layout_options (GtkWidget *dialog, GnomeCmdData::Options &cfg);
 void store_programs_options (GtkWidget *dialog, GnomeCmdData::Options &cfg);
 void store_tabs_options (GtkWidget *dialog, GnomeCmdData::Options &cfg);
 void update_app_in_list (GtkTreeView *view, GnomeCmdApp *app);
-void update_device_in_list (GtkTreeView *view, GnomeCmdConDevice *dev, gchar *alias, gchar *device_fn, gchar *mountp, gchar *icon_path);
+void update_device_in_list (GtkTreeView *view, GnomeCmdConDevice *dev, gchar *alias, gchar *device_fn, gchar *mountp, GIcon *icon);
 
 GtkWidget *create_font_picker (GtkWidget *parent, const gchar *name)
 {
@@ -1912,27 +1912,25 @@ void add_device_to_list (GtkTreeView *view, GnomeCmdConDevice *dev)
     GtkListStore *store = GTK_LIST_STORE (gtk_tree_view_get_model (view));
     GtkTreeIter iter;
 
-    GdkPixbuf *pixbuf = gnome_cmd_con_get_open_pixbuf (GNOME_CMD_CON (dev));
+    GIcon *icon = gnome_cmd_con_get_open_icon (GNOME_CMD_CON (dev));
 
     gtk_list_store_append (store, &iter);
     gtk_list_store_set (store, &iter,
-                        0, pixbuf,
+                        0, icon,
                         1, gnome_cmd_con_get_alias (GNOME_CMD_CON (dev)),
                         2, dev,
                         -1);
 
-    g_clear_object (&pixbuf);
+    g_clear_object (&icon);
 }
 
 
-void update_device_in_list (GtkTreeView *view, GnomeCmdConDevice *dev, gchar *alias, gchar *device_fn, gchar *mountp, gchar *icon_path)
+void update_device_in_list (GtkTreeView *view, GnomeCmdConDevice *dev, gchar *alias, gchar *device_fn, gchar *mountp, GIcon *icon)
 {
     gnome_cmd_con_set_alias (GNOME_CMD_CON (dev), alias);
     gnome_cmd_con_device_set_device_fn (dev, device_fn);
     gnome_cmd_con_device_set_mountp (dev, mountp);
-    gnome_cmd_con_device_set_icon_path (dev, icon_path);
-
-    GdkPixbuf *pixbuf = gnome_cmd_con_get_open_pixbuf (GNOME_CMD_CON (dev));
+    gnome_cmd_con_device_set_icon (dev, icon);
 
     GtkTreeModel *model = gtk_tree_view_get_model (view);
     GtkTreeIter iter;
@@ -1947,15 +1945,13 @@ void update_device_in_list (GtkTreeView *view, GnomeCmdConDevice *dev, gchar *al
             if (row_dev == dev)
             {
                 gtk_list_store_set (GTK_LIST_STORE (model), &iter,
-                                    0, pixbuf,
+                                    0, icon,
                                     1, alias,
                                     -1);
                 break;
             }
         } while (gtk_tree_model_iter_next (model, &iter));
     }
-
-    g_clear_object (&pixbuf);
 }
 
 
@@ -2003,7 +1999,9 @@ static void on_add_device_dialog_ok (GtkButton *button, GtkWidget *dialog)
         (!device || strlen(device) < 1) ||
         (!mountp || strlen(mountp) < 1)) return;
 
-    GnomeCmdConDevice *dev = gnome_cmd_con_device_new (alias, device, mountp, icon_path);
+    GIcon *icon = icon_path ? g_file_icon_new (g_file_new_for_path (icon_path)) : nullptr;
+
+    GnomeCmdConDevice *dev = gnome_cmd_con_device_new (alias, device, mountp, icon);
     add_device_to_list (GTK_TREE_VIEW (view), GNOME_CMD_CON_DEVICE (dev));
     gtk_widget_destroy (dialog);
 
@@ -2030,7 +2028,9 @@ static void on_edit_device_dialog_ok (GtkButton *button, GtkWidget *dialog)
     GnomeCmdConDevice *dev = GNOME_CMD_CON_DEVICE (g_object_get_data (G_OBJECT (options_dialog), "selected_device"));
     if (!dev) return;
 
-    update_device_in_list (GTK_TREE_VIEW (view), dev, alias, device, mountp, icon_path);
+    GIcon *icon = icon_path ? g_file_icon_new (g_file_new_for_path (icon_path)) : nullptr;
+
+    update_device_in_list (GTK_TREE_VIEW (view), dev, alias, device, mountp, icon);
     gtk_widget_destroy (dialog);
 
     g_free (device);
@@ -2084,7 +2084,14 @@ static GtkWidget *create_device_dialog (GnomeCmdConDevice *dev, GCallback on_ok,
     entry = create_directory_chooser_button (dialog, "mountp_entry", s);
     gtk_grid_attach (GTK_GRID (grid), entry, 1, 2, 1, 1);
 
-    if (dev) s = gnome_cmd_con_device_get_icon_path (dev);
+    if (dev)
+    {
+        GIcon *icon = gnome_cmd_con_device_get_icon (dev);
+        if (G_IS_FILE_ICON (icon))
+            s = g_file_get_path (g_file_icon_get_file (G_FILE_ICON (icon)));
+        else
+            s = nullptr;
+    }
     entry = create_icon_button_widget (dialog, "device_iconentry", s);
 
     gtk_grid_attach (GTK_GRID (grid), entry, 1, 3, 1, 1);
@@ -2239,7 +2246,7 @@ static GtkWidget *create_devices_tab (GtkWidget *parent, GnomeCmdData::Options &
     gtk_box_set_spacing (GTK_BOX (hbox), 12);
     gtk_container_add (GTK_CONTAINER (cat_box), hbox);
 
-    store = gtk_list_store_new (3, GDK_TYPE_PIXBUF, G_TYPE_STRING, G_TYPE_POINTER);
+    store = gtk_list_store_new (3, G_TYPE_ICON, G_TYPE_STRING, G_TYPE_POINTER);
     view = create_treeview (parent, "device_view", GTK_TREE_MODEL (store), 24,
                             G_CALLBACK (on_device_selection_changed), G_CALLBACK (on_device_reordered));
     create_treeview_column (view, 0, 26, "");

@@ -188,10 +188,9 @@ static gchar *smb_get_close_text (GnomeCmdCon *con)
 }
 
 
-static GdkPixbuf *smb_get_pixbuf (GnomeCmdCon *con)
+static GIcon *smb_get_icon (GnomeCmdCon *con)
 {
-    guint dev_icon_size = gnome_cmd_data.dev_icon_size;
-    return pixbuf_from_icon ("folder-remote", dev_icon_size);
+    return g_themed_icon_new ("folder-remote");
 }
 
 
@@ -214,9 +213,9 @@ static void gnome_cmd_con_smb_class_init (GnomeCmdConSmbClass *klass)
     con_class->get_open_text = smb_get_open_text;
     con_class->get_close_text = smb_get_close_text;
 
-    con_class->get_go_pixbuf = smb_get_pixbuf;
-    con_class->get_open_pixbuf = smb_get_pixbuf;
-    con_class->get_close_pixbuf = smb_get_pixbuf;
+    con_class->get_go_icon = smb_get_icon;
+    con_class->get_open_icon = smb_get_icon;
+    con_class->get_close_icon = smb_get_icon;
 }
 
 

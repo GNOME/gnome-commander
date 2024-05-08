@@ -79,7 +79,7 @@ add_menu_item (GnomeCmdMainMenu *main_menu,
                GtkMenuShell *menu,
                const gchar *text,
                const gchar *tooltip,
-               GdkPixbuf *pixbuf,
+               GIcon *icon,
                GCallback callback,
                gpointer user_data)
 {
@@ -92,8 +92,8 @@ add_menu_item (GnomeCmdMainMenu *main_menu,
 
     gtk_widget_set_tooltip_text (item, tooltip);
 
-    if (pixbuf)
-        image_widget = gtk_image_new_from_pixbuf (pixbuf);
+    if (icon)
+        image_widget = gtk_image_new_from_gicon (icon, GTK_ICON_SIZE_MENU);
 
     if (image_widget)
     {
@@ -138,7 +138,7 @@ static void add_bookmark_menu_item (GnomeCmdMainMenu *main_menu, GtkMenuShell *m
     GtkWidget *item;
 
     item = add_menu_item (main_menu, menu, bookmark->name, nullptr,
-                          IMAGE_get_pixbuf (PIXMAP_BOOKMARK),
+                          g_themed_icon_new (BOOKMARK_ICON),
                           G_CALLBACK (on_bookmark_selected), bookmark);
 
     // Remember this bookmarks item-widget so that we can remove it later
@@ -151,11 +151,11 @@ static void add_bookmark_group (GnomeCmdMainMenu *main_menu, GtkMenuShell *menu,
     g_return_if_fail (GTK_IS_MENU_SHELL (menu));
     g_return_if_fail (group != nullptr);
 
-    GdkPixbuf *pixbuf = gnome_cmd_con_get_go_pixbuf (group->con);
+    GIcon *icon = gnome_cmd_con_get_go_icon (group->con);
     GtkWidget *item = add_menu_item (main_menu, menu, gnome_cmd_con_get_alias (group->con), nullptr,
-                                     pixbuf,
+                                     icon,
                                      nullptr, nullptr);
-    g_object_unref (pixbuf);
+    g_object_unref (icon);
 
     // Remember this bookmarks item-widget so that we can remove it later
     main_menu->priv->group_menuitems = g_list_append (main_menu->priv->group_menuitems, item);
@@ -476,14 +476,14 @@ GtkWidget *gnome_cmd_main_menu_new ()
 }
 
 
-static void add_connection (GnomeCmdMainMenu *main_menu, GnomeCmdCon *con, gchar *text, GdkPixbuf *pixbuf, GCallback func)
+static void add_connection (GnomeCmdMainMenu *main_menu, GnomeCmdCon *con, gchar *text, GIcon *icon, GCallback func)
 {
     GtkMenuShell *connections_menu = GTK_MENU_SHELL (gtk_menu_item_get_submenu (GTK_MENU_ITEM (main_menu->priv->connections_menu)));
     GtkWidget *item;
 
-    item = add_menu_item (main_menu, connections_menu, text, nullptr, pixbuf, func, con);
+    item = add_menu_item (main_menu, connections_menu, text, nullptr, icon, func, con);
     g_free (text);
-    g_object_unref (pixbuf);
+    g_object_unref (icon);
 
     main_menu->priv->connections_menuitems = g_list_append (main_menu->priv->connections_menuitems, item);
 }
@@ -517,7 +517,7 @@ void gnome_cmd_main_menu_update_connections (GnomeCmdMainMenu *main_menu)
         {
             add_connection (main_menu, con,
                             gnome_cmd_con_get_go_text (con),
-                            gnome_cmd_con_get_go_pixbuf (con),
+                            gnome_cmd_con_get_go_icon (con),
                             G_CALLBACK (connections_change));
             match_count++;
         }
@@ -536,7 +536,7 @@ void gnome_cmd_main_menu_update_connections (GnomeCmdMainMenu *main_menu)
         if (gnome_cmd_con_is_closeable (con) && gnome_cmd_con_is_open (con))
             add_connection (main_menu, con,
                             gnome_cmd_con_get_close_text (con),
-                            gnome_cmd_con_get_close_pixbuf (con),
+                            gnome_cmd_con_get_close_icon (con),
                             G_CALLBACK (connections_close));
     }
 }

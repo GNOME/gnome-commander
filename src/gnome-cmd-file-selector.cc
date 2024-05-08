@@ -370,7 +370,7 @@ static void create_con_buttons (GnomeCmdFileSelector *fs)
         if (!gnome_cmd_con_is_open (con) && !GNOME_CMD_IS_CON_DEVICE (con))  continue;
 #endif
 
-        GdkPixbuf *pb = gnome_cmd_con_get_go_pixbuf (con);
+        GIcon *icon = gnome_cmd_con_get_go_icon (con);
 
         GtkWidget *btn = create_styled_button (nullptr);
         g_object_set_data (G_OBJECT (btn), "con", con);
@@ -387,9 +387,9 @@ static void create_con_buttons (GnomeCmdFileSelector *fs)
         g_object_set_data_full (*fs, "con-hbox", hbox, g_object_unref);
         gtk_widget_show (hbox);
 
-        if (pb)
+        if (icon)
         {
-            GtkWidget *image = gtk_image_new_from_pixbuf (pb);
+            GtkWidget *image = gtk_image_new_from_gicon (icon, GTK_ICON_SIZE_SMALL_TOOLBAR);
             if (image)
             {
                 g_object_ref (image);
@@ -399,7 +399,7 @@ static void create_con_buttons (GnomeCmdFileSelector *fs)
             }
         }
 
-        if (!gnome_cmd_data.options.device_only_icon || !pb)
+        if (!gnome_cmd_data.options.device_only_icon || !icon)
         {
             GtkWidget *label = gtk_label_new (gnome_cmd_con_get_alias (con));
             g_object_ref (label);
@@ -408,7 +408,7 @@ static void create_con_buttons (GnomeCmdFileSelector *fs)
             gtk_box_pack_start (GTK_BOX (hbox), label, TRUE, TRUE, 0);
         }
 
-        g_clear_object (&pb);
+        g_clear_object (&icon);
 
         gtk_container_add (GTK_CONTAINER (btn), hbox);
     }
@@ -795,7 +795,7 @@ static void gnome_cmd_file_selector_init (GnomeCmdFileSelector *fs)
     }
 
     // create the connection combo
-    GtkListStore *store = gtk_list_store_new (3, GDK_TYPE_PIXBUF, G_TYPE_STRING, G_TYPE_POINTER);
+    GtkListStore *store = gtk_list_store_new (3, G_TYPE_ICON, G_TYPE_STRING, G_TYPE_POINTER);
     fs->con_combo = GNOME_CMD_COMBO (gnome_cmd_combo_new_with_store(store, 2, 1, 2));
     g_object_ref (fs->con_combo);
     g_object_set_data_full (*fs, "con_combo", fs->con_combo, g_object_unref);
@@ -983,12 +983,12 @@ void GnomeCmdFileSelector::update_connections()
         if (con == get_connection())
             found_my_con = TRUE;
 
-        GdkPixbuf *pixbuf = gnome_cmd_con_get_go_pixbuf (con);
+        GIcon *icon = gnome_cmd_con_get_go_icon (con);
 
-        if (pixbuf)
+        if (icon)
         {
-            con_combo->append((gchar *) gnome_cmd_con_get_alias (con), con, 0, pixbuf, -1);
-            g_object_unref (pixbuf);
+            con_combo->append((gchar *) gnome_cmd_con_get_alias (con), con, 0, icon, -1);
+            g_object_unref (icon);
         }
     }
 

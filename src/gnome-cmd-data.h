@@ -68,7 +68,6 @@ GcmdSettings *gcmd_settings_new (void);
 #define GCMD_SETTINGS_MIDDLE_MOUSE_BUTTON_MODE        "middle-mouse-btn-mode"
 #define GCMD_SETTINGS_USE_TRASH                       "delete-to-trash"
 #define GCMD_SETTINGS_ICON_SIZE                       "icon-size"
-#define GCMD_SETTINGS_DEV_ICON_SIZE                   "dev-icon-size"
 #define GCMD_SETTINGS_ICON_SCALE_QUALITY              "icon-scale-quality"
 #define GCMD_SETTINGS_MIME_ICON_DIR                   "mime-icon-dir"
 #define GCMD_SETTINGS_CMDLINE_HISTORY                 "cmdline-history"
@@ -712,7 +711,6 @@ struct GnomeCmdData
     gboolean                     buttonbar_visibility {TRUE};
     gboolean                     mainmenu_visibility {TRUE};
 
-    guint                        dev_icon_size {16};
     guint                        fs_col_width[GnomeCmdFileList::NUM_COLUMNS];
     guint                        gui_update_rate;
 

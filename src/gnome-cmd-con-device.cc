@@ -40,7 +40,7 @@ struct GnomeCmdConDevicePrivate
 {
     gchar *device_fn {nullptr}; // The device identifier (either a linux device string or a uuid)
     gchar *mountp {nullptr};
-    gchar *icon_path {nullptr};
+    GIcon *icon {nullptr};
     gboolean autovolume;
     GMount *gMount;
     GVolume *gVolume;
@@ -474,41 +474,23 @@ static gchar *dev_get_close_text (GnomeCmdCon *con)
 }
 
 
-static GdkPixbuf *dev_get_pixbuf (GnomeCmdCon *con)
+static GIcon *dev_get_icon (GnomeCmdCon *con)
 {
     auto priv = static_cast<GnomeCmdConDevicePrivate *> (gnome_cmd_con_device_get_instance_private (GNOME_CMD_CON_DEVICE (con)));
-
-    if (priv->icon_path && strlen(priv->icon_path) > 0)
-    {
-        guint dev_icon_size = gnome_cmd_data.dev_icon_size;
-        return pixbuf_from_file (priv->icon_path, dev_icon_size, dev_icon_size);
-    }
-    return nullptr;
+    return priv->icon ? g_object_ref (priv->icon) : nullptr;
 }
 
 
-static GdkPixbuf *dev_get_close_pixbuf (GnomeCmdCon *con)
+static GIcon *dev_get_close_icon (GnomeCmdCon *con)
 {
-    GdkPixbuf *overlay = dev_get_pixbuf (con);
-    if (!overlay)
+    GIcon *icon = dev_get_icon (con);
+    if (!icon)
         return nullptr;
 
-    GdkPixbuf *umount = IMAGE_get_pixbuf (PIXMAP_OVERLAY_UMOUNT);
-    if (!umount)
-    {
-        return nullptr;
-        g_object_unref (overlay);
-    }
+    GIcon *unmount = g_themed_icon_new (OVERLAY_UMOUNT_ICON);
+    GEmblem *emblem = g_emblem_new (unmount);
 
-    guint dev_icon_size = gnome_cmd_data.dev_icon_size;
-
-    gdk_pixbuf_copy_area (umount, 0, 0,
-                          MIN (gdk_pixbuf_get_width (umount), (gint) dev_icon_size),
-                          MIN (gdk_pixbuf_get_height (umount), (gint) dev_icon_size),
-                          overlay, 0, 0);
-    g_object_unref (umount);
-
-    return overlay;
+    return g_emblemed_icon_new (icon, emblem);
 }
 
 
@@ -546,9 +528,9 @@ static void gnome_cmd_con_device_class_init (GnomeCmdConDeviceClass *klass)
     con_class->get_open_text = dev_get_open_text;
     con_class->get_close_text = dev_get_close_text;
 
-    con_class->get_go_pixbuf = dev_get_pixbuf;
-    con_class->get_open_pixbuf = dev_get_pixbuf;
-    con_class->get_close_pixbuf = dev_get_close_pixbuf;
+    con_class->get_go_icon = dev_get_icon;
+    con_class->get_open_icon = dev_get_icon;
+    con_class->get_close_icon = dev_get_close_icon;
 }
 
 
@@ -569,14 +551,14 @@ static void gnome_cmd_con_device_init (GnomeCmdConDevice *dev_con)
  * Public functions
  ***********************************/
 
-GnomeCmdConDevice *gnome_cmd_con_device_new (const gchar *alias, const gchar *device_fn, const gchar *mountp, const gchar *icon_path)
+GnomeCmdConDevice *gnome_cmd_con_device_new (const gchar *alias, const gchar *device_fn, const gchar *mountp, GIcon *icon)
 {
     auto dev = static_cast<GnomeCmdConDevice*> (g_object_new (GNOME_CMD_TYPE_CON_DEVICE, nullptr));
     GnomeCmdCon *con = GNOME_CMD_CON (dev);
 
     gnome_cmd_con_device_set_device_fn (dev, device_fn);
     gnome_cmd_con_device_set_mountp (dev, mountp);
-    gnome_cmd_con_device_set_icon_path (dev, icon_path);
+    gnome_cmd_con_device_set_icon (dev, icon);
     gnome_cmd_con_device_set_autovol(dev, FALSE);
     gnome_cmd_con_device_set_gmount(dev, nullptr);
     gnome_cmd_con_device_set_gvolume(dev, nullptr);
@@ -615,13 +597,13 @@ void gnome_cmd_con_device_set_mountp (GnomeCmdConDevice *dev, const gchar *mount
 }
 
 
-void gnome_cmd_con_device_set_icon_path (GnomeCmdConDevice *dev, const gchar *icon_path)
+void gnome_cmd_con_device_set_icon (GnomeCmdConDevice *dev, GIcon *icon)
 {
     g_return_if_fail (GNOME_CMD_IS_CON_DEVICE (dev));
     auto priv = static_cast<GnomeCmdConDevicePrivate *> (gnome_cmd_con_device_get_instance_private (dev));
 
-    g_free (priv->icon_path);
-    priv->icon_path = g_strdup (icon_path);
+    g_clear_object (&priv->icon);
+    priv->icon = icon;
 }
 
 
@@ -686,12 +668,12 @@ const gchar *gnome_cmd_con_device_get_mountp_string (GnomeCmdConDevice *dev)
 }
 
 
-const gchar *gnome_cmd_con_device_get_icon_path (GnomeCmdConDevice *dev)
+GIcon *gnome_cmd_con_device_get_icon (GnomeCmdConDevice *dev)
 {
     g_return_val_if_fail (GNOME_CMD_IS_CON_DEVICE (dev), nullptr);
     auto priv = static_cast<GnomeCmdConDevicePrivate *> (gnome_cmd_con_device_get_instance_private (dev));
 
-    return priv->icon_path;
+    return priv->icon;
 }
 
 
