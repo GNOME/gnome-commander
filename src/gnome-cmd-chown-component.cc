@@ -37,43 +37,23 @@ struct GnomeCmdChownComponentPrivate
 };
 
 
-G_DEFINE_TYPE (GnomeCmdChownComponent, gnome_cmd_chown_component, GTK_TYPE_GRID)
+G_DEFINE_TYPE_WITH_PRIVATE (GnomeCmdChownComponent, gnome_cmd_chown_component, GTK_TYPE_GRID)
 
 
 /*******************************
  * Gtk class implementation
  *******************************/
 
-static void destroy (GtkWidget *object)
-{
-    GnomeCmdChownComponent *comp = GNOME_CMD_CHOWN_COMPONENT (object);
-
-    g_free (comp->priv);
-
-    GTK_WIDGET_CLASS (gnome_cmd_chown_component_parent_class)->destroy (object);
-}
-
-
-static void map (GtkWidget *widget)
-{
-    GTK_WIDGET_CLASS (gnome_cmd_chown_component_parent_class)->map (widget);
-}
-
-
 static void gnome_cmd_chown_component_class_init (GnomeCmdChownComponentClass *klass)
 {
-    GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
-
-    widget_class->destroy = destroy;
-    widget_class->map = ::map;
 }
 
 
 static void gnome_cmd_chown_component_init (GnomeCmdChownComponent *comp)
 {
-    GtkWidget *label;
+    auto priv = static_cast<GnomeCmdChownComponentPrivate*>(gnome_cmd_chown_component_get_instance_private (comp));
 
-    comp->priv = g_new0 (GnomeCmdChownComponentPrivate, 1);
+    GtkWidget *label;
 
     gtk_grid_set_row_spacing (GTK_GRID (comp), 6);
     gtk_grid_set_column_spacing (GTK_GRID (comp), 6);
@@ -84,13 +64,13 @@ static void gnome_cmd_chown_component_init (GnomeCmdChownComponent *comp)
     label = create_label (GTK_WIDGET (comp), _("Group:"));
     gtk_grid_attach (GTK_GRID (comp), label, 0, 1, 1, 1);
 
-    comp->priv->user_combo = create_combo_box_text_with_entry (GTK_WIDGET (comp));
-    gtk_widget_set_hexpand (comp->priv->user_combo, TRUE);
-    gtk_grid_attach (GTK_GRID (comp), comp->priv->user_combo, 1, 0, 1, 1);
+    priv->user_combo = create_combo_box_text_with_entry (GTK_WIDGET (comp));
+    gtk_widget_set_hexpand (priv->user_combo, TRUE);
+    gtk_grid_attach (GTK_GRID (comp), priv->user_combo, 1, 0, 1, 1);
 
-    comp->priv->group_combo = create_combo_box_text_with_entry (GTK_WIDGET (comp));
-    gtk_widget_set_hexpand (comp->priv->group_combo, TRUE);
-    gtk_grid_attach (GTK_GRID (comp), comp->priv->group_combo, 1, 1, 1, 1);
+    priv->group_combo = create_combo_box_text_with_entry (GTK_WIDGET (comp));
+    gtk_widget_set_hexpand (priv->group_combo, TRUE);
+    gtk_grid_attach (GTK_GRID (comp), priv->group_combo, 1, 1, 1, 1);
 }
 
 
@@ -100,18 +80,20 @@ static void gnome_cmd_chown_component_init (GnomeCmdChownComponent *comp)
 
 inline void load_users_and_groups (GnomeCmdChownComponent *comp)
 {
+    auto priv = static_cast<GnomeCmdChownComponentPrivate*>(gnome_cmd_chown_component_get_instance_private (comp));
+
     // disable user combo if user is not root, else fill the combo with all users in the system
     if (gcmd_owner.is_root())
         for (auto list = gcmd_owner.users.get_names(); list; list = list->next)
-            gtk_combo_box_text_append_text ((GtkComboBoxText*) comp->priv->user_combo, (const gchar*) list->data);
+            gtk_combo_box_text_append_text ((GtkComboBoxText*) priv->user_combo, (const gchar*) list->data);
     else
-        gtk_widget_set_sensitive (comp->priv->user_combo, FALSE);
+        gtk_widget_set_sensitive (priv->user_combo, FALSE);
 
     if (gcmd_owner.get_group_names())
         for (auto list = gcmd_owner.get_group_names(); list; list = list->next)                                     // fill the groups combo with all groups that the user is part of
-            gtk_combo_box_text_append_text ((GtkComboBoxText*) comp->priv->group_combo, (const gchar*) list->data); // if ordinary user or all groups if root
+            gtk_combo_box_text_append_text ((GtkComboBoxText*) priv->group_combo, (const gchar*) list->data);       // if ordinary user or all groups if root
     else
-        gtk_widget_set_sensitive (comp->priv->group_combo, FALSE);                                                  // disable group combo if yet not loaded
+        gtk_widget_set_sensitive (priv->group_combo, FALSE);                                                        // disable group combo if yet not loaded
 }
 
 
@@ -127,28 +109,30 @@ GtkWidget *gnome_cmd_chown_component_new ()
 
 void gnome_cmd_chown_component_set (GnomeCmdChownComponent *comp, uid_t uid, gid_t gid)
 {
+    auto priv = static_cast<GnomeCmdChownComponentPrivate*>(gnome_cmd_chown_component_get_instance_private (comp));
+
     const gchar *uid_name = gcmd_owner.users[uid];
     const gchar *gid_name = gcmd_owner.groups[gid];
 
     if (uid_name)
     {
-        gtk_entry_set_text (GTK_ENTRY (gtk_bin_get_child (GTK_BIN (comp->priv->user_combo))), uid_name);
+        gtk_entry_set_text (GTK_ENTRY (gtk_bin_get_child (GTK_BIN (priv->user_combo))), uid_name);
     }
     else
     {
         auto uidString = g_strdup_printf("%u", uid);
-        gtk_entry_set_text (GTK_ENTRY (gtk_bin_get_child (GTK_BIN (comp->priv->user_combo))), uidString);
+        gtk_entry_set_text (GTK_ENTRY (gtk_bin_get_child (GTK_BIN (priv->user_combo))), uidString);
         g_free(uidString);
     }
 
     if (gid_name)
     {
-        gtk_entry_set_text (GTK_ENTRY (gtk_bin_get_child (GTK_BIN (comp->priv->group_combo))), gid_name);
+        gtk_entry_set_text (GTK_ENTRY (gtk_bin_get_child (GTK_BIN (priv->group_combo))), gid_name);
     }
     else
     {
         auto gidString = g_strdup_printf("%u", gid);
-        gtk_entry_set_text (GTK_ENTRY (gtk_bin_get_child (GTK_BIN (comp->priv->group_combo))), gidString);
+        gtk_entry_set_text (GTK_ENTRY (gtk_bin_get_child (GTK_BIN (priv->group_combo))), gidString);
         g_free(gidString);
     }
 }
@@ -156,7 +140,9 @@ void gnome_cmd_chown_component_set (GnomeCmdChownComponent *comp, uid_t uid, gid
 
 uid_t gnome_cmd_chown_component_get_owner (GnomeCmdChownComponent *component)
 {
-    const gchar *owner = get_combo_box_entry_text (component->priv->user_combo);
+    auto priv = static_cast<GnomeCmdChownComponentPrivate*>(gnome_cmd_chown_component_get_instance_private (component));
+
+    const gchar *owner = get_combo_box_entry_text (priv->user_combo);
 
     return gcmd_owner.users[owner];
 }
@@ -164,7 +150,9 @@ uid_t gnome_cmd_chown_component_get_owner (GnomeCmdChownComponent *component)
 
 gid_t gnome_cmd_chown_component_get_group (GnomeCmdChownComponent *component)
 {
-    const gchar *group = get_combo_box_entry_text (component->priv->group_combo);
+    auto priv = static_cast<GnomeCmdChownComponentPrivate*>(gnome_cmd_chown_component_get_instance_private (component));
+
+    const gchar *group = get_combo_box_entry_text (priv->group_combo);
 
     return gcmd_owner.groups[group];
 }

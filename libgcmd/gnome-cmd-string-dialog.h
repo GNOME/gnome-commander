@@ -33,10 +33,6 @@ struct GnomeCmdStringDialog
 {
     GnomeCmdDialog parent;
 
-    struct Private;
-
-    Private *priv;
-
     gint rows;
     GtkWidget **labels;
     GtkWidget **entries;

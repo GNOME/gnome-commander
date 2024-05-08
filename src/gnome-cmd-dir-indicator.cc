@@ -48,7 +48,7 @@ struct GnomeCmdDirIndicatorPrivate
 };
 
 
-G_DEFINE_TYPE (GnomeCmdDirIndicator, gnome_cmd_dir_indicator, GTK_TYPE_FRAME)
+G_DEFINE_TYPE_WITH_PRIVATE (GnomeCmdDirIndicator, gnome_cmd_dir_indicator, GTK_TYPE_FRAME)
 
 
 static void select_path (GSimpleAction *action, GVariant *parameter, gpointer user_data);
@@ -62,10 +62,10 @@ static void manage_bookmarks (GSimpleAction *action, GVariant *parameter, gpoint
 static void destroy (GtkWidget *object)
 {
     GnomeCmdDirIndicator *dir_indicator = GNOME_CMD_DIR_INDICATOR (object);
+    auto priv = static_cast<GnomeCmdDirIndicatorPrivate*>(gnome_cmd_dir_indicator_get_instance_private (dir_indicator));
 
-    g_free (dir_indicator->priv->slashCharPosition);
-    g_free (dir_indicator->priv->slashPixelPosition);
-    g_free (dir_indicator->priv);
+    g_clear_pointer (&priv->slashCharPosition, g_free);
+    g_clear_pointer (&priv->slashPixelPosition, g_free);
 
     GTK_WIDGET_CLASS (gnome_cmd_dir_indicator_parent_class)->destroy (object);
 }
@@ -79,15 +79,17 @@ static void gnome_cmd_dir_indicator_class_init (GnomeCmdDirIndicatorClass *klass
 
 static void set_clipboard_from_indicator(GnomeCmdDirIndicator *indicator, const gchar *labelText, GdkEventButton *event)
 {
+    auto priv = static_cast<GnomeCmdDirIndicatorPrivate*>(gnome_cmd_dir_indicator_get_instance_private (indicator));
+
     gchar *chTo = g_strdup (labelText);
     gint x = (gint) event->x;
 
-    for (gint i=0; i < indicator->priv->numPositions; ++i)
+    for (gint i=0; i < priv->numPositions; ++i)
     {
-        if (x < indicator->priv->slashPixelPosition[i])
+        if (x < priv->slashPixelPosition[i])
         {
-            chTo[indicator->priv->slashCharPosition[i]] = 0;
-            gtk_clipboard_set_text (gtk_clipboard_get (GDK_SELECTION_CLIPBOARD), chTo, indicator->priv->slashCharPosition[i]);
+            chTo[priv->slashCharPosition[i]] = 0;
+            gtk_clipboard_set_text (gtk_clipboard_get (GDK_SELECTION_CLIPBOARD), chTo, priv->slashCharPosition[i]);
             break;
         }
     }
@@ -113,7 +115,9 @@ static void change_dir_from_clicked_indicator(GdkEventButton *event, const gchar
 
 static gboolean handle_remote_indicator_clicked (GnomeCmdDirIndicator *indicator, GdkEventButton *event, GnomeCmdFileSelector *fs)
 {
-    auto labelText = gtk_label_get_text (GTK_LABEL (indicator->priv->label));
+    auto priv = static_cast<GnomeCmdDirIndicatorPrivate*>(gnome_cmd_dir_indicator_get_instance_private (indicator));
+
+    auto labelText = gtk_label_get_text (GTK_LABEL (priv->label));
     auto colonPtr = strchr(labelText, ':');
     auto colonIndex = (int)(colonPtr - labelText) + 1; // + 1 as we want to ignore "host:" until the colon
 
@@ -123,11 +127,11 @@ static gboolean handle_remote_indicator_clicked (GnomeCmdDirIndicator *indicator
         auto chTo = g_strdup (colonPtr+1);
         auto x = (gint) event->x;
 
-        for (gint slashIdx=0; slashIdx < indicator->priv->numPositions; ++slashIdx)
+        for (gint slashIdx=0; slashIdx < priv->numPositions; ++slashIdx)
         {
-            if (x < indicator->priv->slashPixelPosition[slashIdx])
+            if (x < priv->slashPixelPosition[slashIdx])
             {
-                chTo[indicator->priv->slashCharPosition[slashIdx] - colonIndex] = 0;
+                chTo[priv->slashCharPosition[slashIdx] - colonIndex] = 0;
                 change_dir_from_clicked_indicator(event, chTo, fs);
                 break;
             }
@@ -147,7 +151,9 @@ static gboolean handle_remote_indicator_clicked (GnomeCmdDirIndicator *indicator
 
 static gboolean handle_local_indicator_clicked (GnomeCmdDirIndicator *indicator, GdkEventButton *event, GnomeCmdFileSelector *fs)
 {
-    auto labelText = gtk_label_get_text (GTK_LABEL (indicator->priv->label));
+    auto priv = static_cast<GnomeCmdDirIndicatorPrivate*>(gnome_cmd_dir_indicator_get_instance_private (indicator));
+
+    auto labelText = gtk_label_get_text (GTK_LABEL (priv->label));
 
     if (event->button==1 || event->button==2)
     {
@@ -155,11 +161,11 @@ static gboolean handle_local_indicator_clicked (GnomeCmdDirIndicator *indicator,
         auto chTo = g_strdup (labelText);
         auto x = (gint) event->x;
 
-        for (gint slashIdx = 0; slashIdx < indicator->priv->numPositions; ++slashIdx)
+        for (gint slashIdx = 0; slashIdx < priv->numPositions; ++slashIdx)
         {
-            if (x < indicator->priv->slashPixelPosition[slashIdx])
+            if (x < priv->slashPixelPosition[slashIdx])
             {
-                chTo[indicator->priv->slashCharPosition[slashIdx]] = 0;
+                chTo[priv->slashCharPosition[slashIdx]] = 0;
                 change_dir_from_clicked_indicator(event, chTo, fs);
                 break;
             }
@@ -183,11 +189,12 @@ static gboolean handle_local_indicator_clicked (GnomeCmdDirIndicator *indicator,
 static gboolean on_dir_indicator_clicked (GnomeCmdDirIndicator *indicator, GdkEventButton *event, GnomeCmdFileSelector *fs)
 {
     g_return_val_if_fail (GNOME_CMD_IS_DIR_INDICATOR (indicator), FALSE);
+    auto priv = static_cast<GnomeCmdDirIndicatorPrivate*>(gnome_cmd_dir_indicator_get_instance_private (indicator));
 
     if (event->type!=GDK_BUTTON_PRESS)
         return FALSE;
 
-    const gchar *labelText = gtk_label_get_text (GTK_LABEL (indicator->priv->label));
+    const gchar *labelText = gtk_label_get_text (GTK_LABEL (priv->label));
 
     if(strchr(labelText, ':'))
     {
@@ -203,7 +210,9 @@ static gboolean on_dir_indicator_clicked (GnomeCmdDirIndicator *indicator, GdkEv
 
 static gchar* update_markup_for_remote(GnomeCmdDirIndicator *indicator, gint slashIdx)
 {
-    auto tmpLabelText = g_strdup (gtk_label_get_text (GTK_LABEL (indicator->priv->label)));
+    auto priv = static_cast<GnomeCmdDirIndicatorPrivate*>(gnome_cmd_dir_indicator_get_instance_private (indicator));
+
+    auto tmpLabelText = g_strdup (gtk_label_get_text (GTK_LABEL (priv->label)));
     auto colonPtr = strchr(tmpLabelText, ':');
     if (!colonPtr)
     {
@@ -223,12 +232,12 @@ static gchar* update_markup_for_remote(GnomeCmdDirIndicator *indicator, gint sla
     auto startMonoText = get_mono_text (startText);
 
     auto middleText = slashIdx > 0
-        ? g_strndup(&tmpLabelText[colonIndex], indicator->priv->slashCharPosition[slashIdx] - colonIndex)
+        ? g_strndup(&tmpLabelText[colonIndex], priv->slashCharPosition[slashIdx] - colonIndex)
         : g_strdup("");
     gchar *middleBoldText = get_bold_mono_text (middleText);
 
     gchar *restText = slashIdx > 0
-        ? g_strdup (&tmpLabelText[indicator->priv->slashCharPosition[slashIdx]])
+        ? g_strdup (&tmpLabelText[priv->slashCharPosition[slashIdx]])
         : &tmpLabelText[colonIndex];
     gchar *restMonoText = get_mono_text (restText);
 
@@ -247,10 +256,12 @@ static gchar* update_markup_for_remote(GnomeCmdDirIndicator *indicator, gint sla
 
 static gchar* update_markup_for_local(GnomeCmdDirIndicator *indicator, gint i)
 {
-    auto tmpLabelText = g_strdup (gtk_label_get_text (GTK_LABEL (indicator->priv->label)));
-    gchar *restText = g_strdup (&tmpLabelText[indicator->priv->slashCharPosition[i]]);
+    auto priv = static_cast<GnomeCmdDirIndicatorPrivate*>(gnome_cmd_dir_indicator_get_instance_private (indicator));
 
-    tmpLabelText[indicator->priv->slashCharPosition[i]] = '\0';
+    auto tmpLabelText = g_strdup (gtk_label_get_text (GTK_LABEL (priv->label)));
+    gchar *restText = g_strdup (&tmpLabelText[priv->slashCharPosition[i]]);
+
+    tmpLabelText[priv->slashCharPosition[i]] = '\0';
     gchar *boldMonoText = get_bold_mono_text (tmpLabelText);
     gchar *monoText = get_mono_text (restText);
     auto markupText = g_strconcat (boldMonoText, monoText, nullptr);
@@ -264,12 +275,14 @@ static gchar* update_markup_for_local(GnomeCmdDirIndicator *indicator, gint i)
 
 static void update_markup (GnomeCmdDirIndicator *indicator, gint i)
 {
-    if (!indicator->priv->slashCharPosition)
+    auto priv = static_cast<GnomeCmdDirIndicatorPrivate*>(gnome_cmd_dir_indicator_get_instance_private (indicator));
+
+    if (!priv->slashCharPosition)
         return;
 
     gchar *tmpLabelText, *markupText;
 
-    tmpLabelText = g_strdup (gtk_label_get_text (GTK_LABEL (indicator->priv->label)));
+    tmpLabelText = g_strdup (gtk_label_get_text (GTK_LABEL (priv->label)));
 
     if (i >= 0)
     {
@@ -288,7 +301,7 @@ static void update_markup (GnomeCmdDirIndicator *indicator, gint i)
     else
         markupText = get_mono_text (tmpLabelText);
 
-    gtk_label_set_markup (GTK_LABEL (indicator->priv->label), markupText);
+    gtk_label_set_markup (GTK_LABEL (priv->label), markupText);
     g_free (tmpLabelText);
     g_free (markupText);
 }
@@ -297,18 +310,19 @@ static void update_markup (GnomeCmdDirIndicator *indicator, gint i)
 static gint on_dir_indicator_motion (GnomeCmdDirIndicator *indicator, GdkEventMotion *event, gpointer user_data)
 {
     g_return_val_if_fail (GNOME_CMD_IS_DIR_INDICATOR (indicator), FALSE);
+    auto priv = static_cast<GnomeCmdDirIndicatorPrivate*>(gnome_cmd_dir_indicator_get_instance_private (indicator));
 
-    if (indicator->priv->slashCharPosition == nullptr)
+    if (priv->slashCharPosition == nullptr)
         return FALSE;
-    if (indicator->priv->slashPixelPosition == nullptr)
+    if (priv->slashPixelPosition == nullptr)
         return FALSE;
 
     // find out where in the label the pointer is at
     gint iX = (gint) event->x;
 
-    for (gint i=0; i < indicator->priv->numPositions; i++)
+    for (gint i=0; i < priv->numPositions; i++)
     {
-        if (iX < indicator->priv->slashPixelPosition[i])
+        if (iX < priv->slashPixelPosition[i])
         {
             // underline the part that is selected
             GdkCursor *cursor = gdk_cursor_new (GDK_HAND2);
@@ -359,6 +373,7 @@ static void select_path (GSimpleAction *action, GVariant *parameter, gpointer us
 {
     auto indicator = static_cast<GnomeCmdDirIndicator*> (user_data);
     g_return_if_fail (GNOME_CMD_IS_DIR_INDICATOR (indicator));
+    auto priv = static_cast<GnomeCmdDirIndicatorPrivate*>(gnome_cmd_dir_indicator_get_instance_private (indicator));
 
     const gchar *path;
     g_variant_get (parameter, "s", &path);
@@ -368,24 +383,25 @@ static void select_path (GSimpleAction *action, GVariant *parameter, gpointer us
     GdkModifierType mask = (GdkModifierType) 0;
     gdk_window_get_pointer (window, nullptr, nullptr, &mask);
 
-    main_win->switch_fs(indicator->priv->fs);
+    main_win->switch_fs(priv->fs);
 
-    if (mask & GDK_CONTROL_MASK || indicator->priv->fs->file_list()->locked)
+    if (mask & GDK_CONTROL_MASK || priv->fs->file_list()->locked)
     {
-        GnomeCmdCon *con = indicator->priv->fs->get_connection();
+        GnomeCmdCon *con = priv->fs->get_connection();
         GnomeCmdDir *dir = gnome_cmd_dir_new (con, gnome_cmd_con_create_path (con, path));
-        indicator->priv->fs->new_tab(dir);
+        priv->fs->new_tab(dir);
     }
     else
-        indicator->priv->fs->goto_directory(path);
+        priv->fs->goto_directory(path);
 }
 
 
 static void get_popup_pos (GtkMenu *menu, gint *x, gint *y, gboolean push_in, GnomeCmdDirIndicator *indicator)
 {
     g_return_if_fail (GNOME_CMD_IS_DIR_INDICATOR (indicator));
+    auto priv = static_cast<GnomeCmdDirIndicatorPrivate*>(gnome_cmd_dir_indicator_get_instance_private (indicator));
 
-    GtkWidget *w = GTK_WIDGET (indicator->priv->fs->file_list());
+    GtkWidget *w = GTK_WIDGET (priv->fs->file_list());
 
     gdk_window_get_origin (gtk_widget_get_window (w), x, y);
 }
@@ -393,7 +409,9 @@ static void get_popup_pos (GtkMenu *menu, gint *x, gint *y, gboolean push_in, Gn
 
 void gnome_cmd_dir_indicator_show_history (GnomeCmdDirIndicator *indicator)
 {
-    GnomeCmdCon *con = indicator->priv->fs->get_connection();
+    auto priv = static_cast<GnomeCmdDirIndicatorPrivate*>(gnome_cmd_dir_indicator_get_instance_private (indicator));
+
+    GnomeCmdCon *con = priv->fs->get_connection();
     History *history = gnome_cmd_con_get_dir_history (con);
 
     GMenu *menu = g_menu_new ();
@@ -434,8 +452,9 @@ static void add_bookmark (GSimpleAction *action, GVariant *parameter, gpointer u
 {
     auto indicator = static_cast<GnomeCmdDirIndicator*> (user_data);
     g_return_if_fail (GNOME_CMD_IS_DIR_INDICATOR (indicator));
+    auto priv = static_cast<GnomeCmdDirIndicatorPrivate*>(gnome_cmd_dir_indicator_get_instance_private (indicator));
 
-    gnome_cmd_bookmark_add_current (indicator->priv->fs->get_directory());
+    gnome_cmd_bookmark_add_current (priv->fs->get_directory());
 }
 
 
@@ -450,7 +469,9 @@ static void manage_bookmarks (GSimpleAction *action, GVariant *parameter, gpoint
 
 void gnome_cmd_dir_indicator_show_bookmarks (GnomeCmdDirIndicator *indicator)
 {
-    GnomeCmdCon *con = indicator->priv->fs->get_connection();
+    auto priv = static_cast<GnomeCmdDirIndicatorPrivate*>(gnome_cmd_dir_indicator_get_instance_private (indicator));
+
+    GnomeCmdCon *con = priv->fs->get_connection();
     GnomeCmdBookmarkGroup *group = gnome_cmd_con_get_bookmarks (con);
 
     GMenu *bookmarks_section = g_menu_new ();
@@ -497,54 +518,54 @@ void gnome_cmd_dir_indicator_show_bookmarks (GnomeCmdDirIndicator *indicator)
 
 static void gnome_cmd_dir_indicator_init (GnomeCmdDirIndicator *indicator)
 {
+    auto priv = static_cast<GnomeCmdDirIndicatorPrivate*>(gnome_cmd_dir_indicator_get_instance_private (indicator));
+
     GtkWidget *hbox, *arrow, *bbox;
 
-    indicator->priv = g_new0 (GnomeCmdDirIndicatorPrivate, 1);
-
     // create the directory label and its event box
-    indicator->priv->event_box = gtk_event_box_new ();
-    g_object_ref (indicator->priv->event_box);
-    g_signal_connect_swapped (indicator->priv->event_box, "motion-notify-event", G_CALLBACK (on_dir_indicator_motion), indicator);
-    g_signal_connect_swapped (indicator->priv->event_box, "leave-notify-event", G_CALLBACK (on_dir_indicator_leave), indicator);
-    gtk_widget_set_events (indicator->priv->event_box, GDK_POINTER_MOTION_MASK);
+    priv->event_box = gtk_event_box_new ();
+    g_object_ref (priv->event_box);
+    g_signal_connect_swapped (priv->event_box, "motion-notify-event", G_CALLBACK (on_dir_indicator_motion), indicator);
+    g_signal_connect_swapped (priv->event_box, "leave-notify-event", G_CALLBACK (on_dir_indicator_leave), indicator);
+    gtk_widget_set_events (priv->event_box, GDK_POINTER_MOTION_MASK);
 
-    gtk_widget_show (indicator->priv->event_box);
+    gtk_widget_show (priv->event_box);
 
-    indicator->priv->label = create_label (GTK_WIDGET (indicator), "not initialized");
-    gtk_container_add (GTK_CONTAINER (indicator->priv->event_box), indicator->priv->label);
+    priv->label = create_label (GTK_WIDGET (indicator), "not initialized");
+    gtk_container_add (GTK_CONTAINER (priv->event_box), priv->label);
 
     // create the history popup button
-    indicator->priv->history_button = gtk_button_new ();
-    gtk_widget_set_can_focus (indicator->priv->history_button, FALSE);
-    g_object_ref (indicator->priv->history_button);
-    gtk_button_set_relief (GTK_BUTTON (indicator->priv->history_button), GTK_RELIEF_NONE);
-    g_object_set_data_full (G_OBJECT (indicator), "button", indicator->priv->history_button, g_object_unref);
-    gtk_widget_show (indicator->priv->history_button);
+    priv->history_button = gtk_button_new ();
+    gtk_widget_set_can_focus (priv->history_button, FALSE);
+    g_object_ref (priv->history_button);
+    gtk_button_set_relief (GTK_BUTTON (priv->history_button), GTK_RELIEF_NONE);
+    g_object_set_data_full (G_OBJECT (indicator), "button", priv->history_button, g_object_unref);
+    gtk_widget_show (priv->history_button);
 
     arrow = gtk_arrow_new (GTK_ARROW_DOWN, GTK_SHADOW_OUT);
     g_object_ref (arrow);
     g_object_set_data_full (G_OBJECT (indicator), "arrow", arrow, g_object_unref);
     gtk_widget_show (arrow);
-    gtk_container_add (GTK_CONTAINER (indicator->priv->history_button), arrow);
+    gtk_container_add (GTK_CONTAINER (priv->history_button), arrow);
 
     // create the bookmark popup button
-    indicator->priv->bookmark_button = create_styled_pixbuf_button (nullptr, IMAGE_get_pixbuf (PIXMAP_BOOKMARK));
-    gtk_widget_set_can_focus (indicator->priv->bookmark_button, FALSE);
-    gtk_button_set_relief (GTK_BUTTON (indicator->priv->bookmark_button), GTK_RELIEF_NONE);
-    g_object_set_data_full (G_OBJECT (indicator), "button", indicator->priv->bookmark_button, g_object_unref);
-    gtk_widget_show (indicator->priv->bookmark_button);
+    priv->bookmark_button = create_styled_pixbuf_button (nullptr, IMAGE_get_pixbuf (PIXMAP_BOOKMARK));
+    gtk_widget_set_can_focus (priv->bookmark_button, FALSE);
+    gtk_button_set_relief (GTK_BUTTON (priv->bookmark_button), GTK_RELIEF_NONE);
+    g_object_set_data_full (G_OBJECT (indicator), "button", priv->bookmark_button, g_object_unref);
+    gtk_widget_show (priv->bookmark_button);
 
     // pack
     hbox = create_hbox (GTK_WIDGET (indicator), FALSE, 10);
     gtk_container_add (GTK_CONTAINER (indicator), hbox);
-    gtk_box_pack_start (GTK_BOX (hbox), indicator->priv->event_box, TRUE, TRUE, 0);
+    gtk_box_pack_start (GTK_BOX (hbox), priv->event_box, TRUE, TRUE, 0);
     bbox = create_hbox (GTK_WIDGET (indicator), FALSE, 0);
     gtk_box_pack_start (GTK_BOX (hbox), bbox, FALSE, TRUE, 0);
-    gtk_box_pack_start (GTK_BOX (bbox), indicator->priv->bookmark_button, FALSE, FALSE, 0);
-    gtk_box_pack_start (GTK_BOX (bbox), indicator->priv->history_button, FALSE, FALSE, 0);
+    gtk_box_pack_start (GTK_BOX (bbox), priv->bookmark_button, FALSE, FALSE, 0);
+    gtk_box_pack_start (GTK_BOX (bbox), priv->history_button, FALSE, FALSE, 0);
 
-    g_signal_connect (indicator->priv->history_button, "clicked", G_CALLBACK (on_history_button_clicked), indicator);
-    g_signal_connect (indicator->priv->bookmark_button, "clicked", G_CALLBACK (on_bookmark_button_clicked), indicator);
+    g_signal_connect (priv->history_button, "clicked", G_CALLBACK (on_history_button_clicked), indicator);
+    g_signal_connect (priv->bookmark_button, "clicked", G_CALLBACK (on_bookmark_button_clicked), indicator);
 
     GSimpleActionGroup *action_group = g_simple_action_group_new ();
     static GActionEntry entries[] = {
@@ -564,10 +585,11 @@ static void gnome_cmd_dir_indicator_init (GnomeCmdDirIndicator *indicator)
 GtkWidget *gnome_cmd_dir_indicator_new (GnomeCmdFileSelector *fs)
 {
     auto dir_indicator = static_cast<GnomeCmdDirIndicator*> (g_object_new (GNOME_CMD_TYPE_DIR_INDICATOR, nullptr));
+    auto priv = static_cast<GnomeCmdDirIndicatorPrivate*>(gnome_cmd_dir_indicator_get_instance_private (dir_indicator));
 
     g_signal_connect (dir_indicator, "button-press-event", G_CALLBACK (on_dir_indicator_clicked), fs);
 
-    dir_indicator->priv->fs = fs;
+    priv->fs = fs;
 
     return GTK_WIDGET (dir_indicator);
 }
@@ -575,11 +597,11 @@ GtkWidget *gnome_cmd_dir_indicator_new (GnomeCmdFileSelector *fs)
 
 static void update_slash_positions(GnomeCmdDirIndicator *indicator, const gchar* path)
 {
-    g_free (indicator->priv->slashCharPosition);
-    g_free (indicator->priv->slashPixelPosition);
-    indicator->priv->numPositions = 0;
-    indicator->priv->slashCharPosition = nullptr;
-    indicator->priv->slashPixelPosition = nullptr;
+    auto priv = static_cast<GnomeCmdDirIndicatorPrivate*>(gnome_cmd_dir_indicator_get_instance_private (indicator));
+
+    g_clear_pointer (&priv->slashCharPosition, g_free);
+    g_clear_pointer (&priv->slashPixelPosition, g_free);
+    priv->numPositions = 0;
 
     if (!path)
         return;
@@ -618,33 +640,33 @@ static void update_slash_positions(GnomeCmdDirIndicator *indicator, const gchar*
     //    [1..pos->len] is '/dir/dir' etc.
     //    last entry [pos->len+1] will be the whole path
 
-    indicator->priv->numPositions = isUNC ? sepPositions->len :
+    priv->numPositions = isUNC ? sepPositions->len :
                                     path_len==1 ? sepPositions->len+1 : sepPositions->len+2;
-    indicator->priv->slashCharPosition = g_new (gint, indicator->priv->numPositions);
-    indicator->priv->slashPixelPosition = g_new (gint, indicator->priv->numPositions);
+    priv->slashCharPosition = g_new (gint, priv->numPositions);
+    priv->slashPixelPosition = g_new (gint, priv->numPositions);
 
     gint pos_idx = 0;
 
     if (!isUNC && path_len>1)
     {
-        indicator->priv->slashCharPosition[pos_idx] = 1;
+        priv->slashCharPosition[pos_idx] = 1;
         //auto colonPtr = strchr(path, ':');
         //colonPtr = colonPtr ? colonPtr : path;
         //auto startLength = (int)(colonPtr - path) + 1; // +1 as we want to ignore "host:"
         //indicator->priv->slashPixelPosition[pos_idx++] = get_string_pixel_size (path, startLength);
-        indicator->priv->slashPixelPosition[pos_idx++] = get_string_pixel_size (path, 1);
+        priv->slashPixelPosition[pos_idx++] = get_string_pixel_size (path, 1);
     }
 
     for (guint ii = isUNC ? 1 : 0; ii < sepPositions->len; ii++)
     {
-        indicator->priv->slashCharPosition[pos_idx] = g_array_index (sepPositions, gint, ii);
-        indicator->priv->slashPixelPosition[pos_idx++] = get_string_pixel_size (path, g_array_index (sepPositions, gint, ii)+1);
+        priv->slashCharPosition[pos_idx] = g_array_index (sepPositions, gint, ii);
+        priv->slashPixelPosition[pos_idx++] = get_string_pixel_size (path, g_array_index (sepPositions, gint, ii)+1);
     }
 
-    if (indicator->priv->numPositions>0)
+    if (priv->numPositions>0)
     {
-        indicator->priv->slashCharPosition[pos_idx] = path_len;
-        indicator->priv->slashPixelPosition[pos_idx] = get_string_pixel_size (path, path_len);
+        priv->slashCharPosition[pos_idx] = path_len;
+        priv->slashPixelPosition[pos_idx] = get_string_pixel_size (path, path_len);
     }
 
     g_array_free (sepPositions, TRUE);
@@ -653,6 +675,8 @@ static void update_slash_positions(GnomeCmdDirIndicator *indicator, const gchar*
 
 void gnome_cmd_dir_indicator_set_dir (GnomeCmdDirIndicator *indicator, GnomeCmdDir *dir)
 {
+    auto priv = static_cast<GnomeCmdDirIndicatorPrivate*>(gnome_cmd_dir_indicator_get_instance_private (indicator));
+
     gchar *path = gnome_cmd_dir_get_display_path (dir);
     g_return_if_fail (path != nullptr);
 
@@ -680,7 +704,7 @@ void gnome_cmd_dir_indicator_set_dir (GnomeCmdDirIndicator *indicator, GnomeCmdD
         : g_strdup_printf("%s", tmpPath);
     g_free (tmpPath);
     gchar *monoIndicatorString = get_mono_text (indicatorString);
-    gtk_label_set_markup (GTK_LABEL (indicator->priv->label), monoIndicatorString);
+    gtk_label_set_markup (GTK_LABEL (priv->label), monoIndicatorString);
     g_free (monoIndicatorString);
     update_markup (indicator, -1);
 
@@ -692,21 +716,23 @@ void gnome_cmd_dir_indicator_set_dir (GnomeCmdDirIndicator *indicator, GnomeCmdD
 
 void gnome_cmd_dir_indicator_set_active (GnomeCmdDirIndicator *indicator, gboolean active)
 {
+    auto priv = static_cast<GnomeCmdDirIndicatorPrivate*>(gnome_cmd_dir_indicator_get_instance_private (indicator));
+
     switch (active)
     {
         case true:
         {
-            auto tmpLabelText = g_strdup (gtk_label_get_text (GTK_LABEL (indicator->priv->label)));
+            auto tmpLabelText = g_strdup (gtk_label_get_text (GTK_LABEL (priv->label)));
             gchar *result = g_strdup_printf("<span font_family=\"monospace\" underline=\"low\">%s</span>", tmpLabelText);
-            gtk_label_set_markup (GTK_LABEL (indicator->priv->label), result);
+            gtk_label_set_markup (GTK_LABEL (priv->label), result);
             g_free (tmpLabelText);
             break;
         }
         case false:
         {
-            auto tmpLabelText = g_strdup (gtk_label_get_text (GTK_LABEL (indicator->priv->label)));
+            auto tmpLabelText = g_strdup (gtk_label_get_text (GTK_LABEL (priv->label)));
             gchar *result = g_strdup_printf("<span font_family=\"monospace\">%s</span>", tmpLabelText);
-            gtk_label_set_markup (GTK_LABEL (indicator->priv->label), result);
+            gtk_label_set_markup (GTK_LABEL (priv->label), result);
             g_free (tmpLabelText);
             break;
         }

@@ -30,18 +30,12 @@
 
 
 typedef struct _GnomeCmdDialog GnomeCmdDialog;
-typedef struct _GnomeCmdDialogPrivate GnomeCmdDialogPrivate;
 typedef struct _GnomeCmdDialogClass GnomeCmdDialogClass;
-
 
 
 struct _GnomeCmdDialog
 {
     GtkWindow parent;
-
-    GList *buttons;
-
-    GnomeCmdDialogPrivate *priv;
 };
 
 

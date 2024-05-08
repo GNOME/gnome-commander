@@ -79,14 +79,9 @@ struct GViewerWindowSettings
 };
 
 
-struct GViewerWindowPrivate;
-
-
 struct GViewerWindow
 {
     GtkWindow parent;
-
-    GViewerWindowPrivate *priv;
 };
 
 

@@ -323,24 +323,15 @@ static void destroy (GtkWidget *object)
 {
     GnomeCmdPrepareXferDialog *dialog = GNOME_CMD_PREPARE_XFER_DIALOG (object);
 
-    gnome_cmd_file_list_unref (dialog->src_files);
+    g_clear_pointer (&dialog->src_files, gnome_cmd_file_list_unref);
 
     GTK_WIDGET_CLASS (gnome_cmd_prepare_xfer_dialog_parent_class)->destroy (object);
 }
 
 
-static void map (GtkWidget *widget)
-{
-    GTK_WIDGET_CLASS (gnome_cmd_prepare_xfer_dialog_parent_class)->map (widget);
-}
-
-
 static void gnome_cmd_prepare_xfer_dialog_class_init (GnomeCmdPrepareXferDialogClass *klass)
 {
-    GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
-
-    widget_class->destroy = destroy;
-    widget_class->map = ::map;
+    GTK_WIDGET_CLASS (klass)->destroy = destroy;
 }
 
 

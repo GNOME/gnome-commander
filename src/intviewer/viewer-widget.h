@@ -28,9 +28,7 @@
 #define GVIEWER_CLASS(klass)  G_TYPE_CHECK_CLASS_CAST (klass, gviewer_get_type (), GViewerClass)
 #define IS_GVIEWER(obj)       G_TYPE_CHECK_INSTANCE_TYPE (obj, gviewer_get_type ())
 
-struct GViewerPrivate;
-
- enum VIEWERDISPLAYMODE
+enum VIEWERDISPLAYMODE
 {
     DISP_MODE_TEXT_FIXED,
     DISP_MODE_BINARY,
@@ -41,7 +39,6 @@ struct GViewerPrivate;
 struct GViewer
 {
     GtkGrid parent;
-    GViewerPrivate *priv;
 };
 
 struct GViewerClass
