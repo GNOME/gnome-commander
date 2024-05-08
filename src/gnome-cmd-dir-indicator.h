@@ -30,14 +30,9 @@
 #define GNOME_CMD_DIR_INDICATOR_GET_CLASS(obj)    (G_TYPE_INSTANCE_GET_CLASS((obj), GNOME_CMD_TYPE_DIR_INDICATOR, GnomeCmdDirIndicatorClass))
 
 
-struct GnomeCmdDirIndicatorPrivate;
-
-
 struct GnomeCmdDirIndicator
 {
     GtkFrame parent;
-
-    GnomeCmdDirIndicatorPrivate *priv;
 };
 
 struct GnomeCmdDirIndicatorClass

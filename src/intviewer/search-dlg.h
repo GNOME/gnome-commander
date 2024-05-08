@@ -28,8 +28,6 @@
 #define GVIEWER_SEARCH_DLG_CLASS(klass)  G_TYPE_CHECK_CLASS_CAST (klass, gviewer_search_dlg_get_type(), GViewerSearchDlgClass)
 #define IS_GVIEWER_SEARCH_DLG(obj)       G_TYPE_CHECK_INSTANCE_TYPE (obj, gviewer_search_dlg_get_type())
 
-struct GViewerSearchDlgPrivate;
-
 typedef enum
 {
     SEARCH_MODE_TEXT,
@@ -39,7 +37,6 @@ typedef enum
 struct GViewerSearchDlg
 {
     GtkDialog dialog;
-    GViewerSearchDlgPrivate *priv;
 };
 
 struct GViewerSearchDlgClass

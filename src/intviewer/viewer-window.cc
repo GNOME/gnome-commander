@@ -183,7 +183,7 @@ void fill_model (GtkTreeStore *treestore, GnomeCmdFile *f);
 GtkWidget *create_view ();
 
 
-G_DEFINE_TYPE (GViewerWindow, gviewer_window, GTK_TYPE_WINDOW)
+G_DEFINE_TYPE_WITH_PRIVATE (GViewerWindow, gviewer_window, GTK_TYPE_WINDOW)
 
 
 /*****************************************
@@ -199,12 +199,13 @@ GtkWidget *gviewer_window_file_view (GnomeCmdFile *f, GViewerWindowSettings *gVi
     }
 
     GtkWidget *w = gviewer_window_new ();
+    auto priv = static_cast<GViewerWindowPrivate*>(gviewer_window_get_instance_private (GVIEWER_WINDOW (w)));
 
     gviewer_window_load_file (GVIEWER_WINDOW (w), f);
 
     gviewer_window_load_settings(GVIEWER_WINDOW (w), gViewerWindowSettings);
 
-    GVIEWER_WINDOW(w)->priv->gViewerWindowSettings = gViewerWindowSettings;
+    priv->gViewerWindowSettings = gViewerWindowSettings;
 
     return w;
 }
@@ -212,41 +213,33 @@ GtkWidget *gviewer_window_file_view (GnomeCmdFile *f, GViewerWindowSettings *gVi
 
 void gviewer_window_load_file (GViewerWindow *gViewerWindow, GnomeCmdFile *f)
 {
-    g_return_if_fail (gViewerWindow != nullptr);
+    g_return_if_fail (IS_GVIEWER_WINDOW (gViewerWindow));
+    auto priv = static_cast<GViewerWindowPrivate*>(gviewer_window_get_instance_private (gViewerWindow));
     g_return_if_fail (f != nullptr);
 
-    g_free (gViewerWindow->priv->filename);
+    g_free (priv->filename);
 
-    gViewerWindow->priv->f = f;
-    gViewerWindow->priv->filename = f->get_real_path();
-    gviewer_load_file (gViewerWindow->priv->viewer, gViewerWindow->priv->filename);
+    priv->f = f;
+    priv->filename = f->get_real_path();
+    gviewer_load_file (priv->viewer, priv->filename);
 
-    gtk_window_set_title (GTK_WINDOW (gViewerWindow), gViewerWindow->priv->filename);
-}
-
-
-static void gviewer_window_map (GtkWidget *widget)
-{
-    GTK_WIDGET_CLASS (gviewer_window_parent_class)->map (widget);
+    gtk_window_set_title (GTK_WINDOW (gViewerWindow), priv->filename);
 }
 
 
 static void gviewer_window_class_init (GViewerWindowClass *klass)
 {
-    GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
-
-    widget_class->destroy = gviewer_window_destroy;
-    widget_class->map = gviewer_window_map;
+    GTK_WIDGET_CLASS (klass)->destroy = gviewer_window_destroy;
 }
 
 
 static void gviewer_window_init (GViewerWindow *w)
 {
-    w->priv = g_new0 (GViewerWindowPrivate, 1);
+    auto priv = static_cast<GViewerWindowPrivate*>(gviewer_window_get_instance_private (w));
 
-    // w->priv->status_bar_msg = FALSE;
-    // w->priv->filename = nullptr;
-    w->priv->current_scale_index = 5;
+    // priv->status_bar_msg = FALSE;
+    // priv->filename = nullptr;
+    priv->current_scale_index = 5;
 
     static const GActionEntry actionEntries[] =
     {
@@ -271,41 +264,41 @@ static void gviewer_window_init (GViewerWindow *w)
         { "keyboard-shortcuts",     menu_help_keyboard,             nullptr,    nullptr,            nullptr },
     };
 
-    w->priv->action_group = g_simple_action_group_new ();
-    g_action_map_add_action_entries (G_ACTION_MAP (w->priv->action_group), actionEntries, G_N_ELEMENTS (actionEntries), w);
-    gtk_widget_insert_action_group (GTK_WIDGET (w), "viewer", G_ACTION_GROUP (w->priv->action_group));
+    priv->action_group = g_simple_action_group_new ();
+    g_action_map_add_action_entries (G_ACTION_MAP (priv->action_group), actionEntries, G_N_ELEMENTS (actionEntries), w);
+    gtk_widget_insert_action_group (GTK_WIDGET (w), "viewer", G_ACTION_GROUP (priv->action_group));
 
     GtkWindow *win = GTK_WINDOW (w);
     gtk_window_set_title (win, "GViewer");
 
     g_signal_connect (w, "key-press-event", G_CALLBACK (gviewer_window_key_pressed), nullptr);
 
-    w->priv->vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 0);
-    gtk_widget_show (w->priv->vbox);
+    priv->vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 0);
+    gtk_widget_show (priv->vbox);
 
-    w->priv->menubar = gviewer_window_create_menus(w);
-    gtk_widget_show (w->priv->menubar);
-    gtk_box_pack_start (GTK_BOX (w->priv->vbox), w->priv->menubar, FALSE, FALSE, 0);
+    priv->menubar = gviewer_window_create_menus(w);
+    gtk_widget_show (priv->menubar);
+    gtk_box_pack_start (GTK_BOX (priv->vbox), priv->menubar, FALSE, FALSE, 0);
 
-    w->priv->viewer = reinterpret_cast<GViewer*> (gviewer_new());
-    g_object_ref (w->priv->viewer);
-    gtk_widget_show (GTK_WIDGET (w->priv->viewer));
-    gtk_box_pack_start (GTK_BOX (w->priv->vbox), GTK_WIDGET (w->priv->viewer), TRUE, TRUE, 0);
+    priv->viewer = GVIEWER (gviewer_new());
+    g_object_ref (priv->viewer);
+    gtk_widget_show (GTK_WIDGET (priv->viewer));
+    gtk_box_pack_start (GTK_BOX (priv->vbox), GTK_WIDGET (priv->viewer), TRUE, TRUE, 0);
 
-    g_signal_connect (w->priv->viewer, "status-line-changed", G_CALLBACK (gviewer_window_status_line_changed), w);
+    g_signal_connect (priv->viewer, "status-line-changed", G_CALLBACK (gviewer_window_status_line_changed), w);
 
-    w->priv->statusbar = gtk_statusbar_new ();
-    gtk_widget_show (w->priv->statusbar);
-    gtk_box_pack_start (GTK_BOX (w->priv->vbox), w->priv->statusbar, FALSE, FALSE, 0);
+    priv->statusbar = gtk_statusbar_new ();
+    gtk_widget_show (priv->statusbar);
+    gtk_box_pack_start (GTK_BOX (priv->vbox), priv->statusbar, FALSE, FALSE, 0);
 
-    w->priv->statusbar_ctx_id  = gtk_statusbar_get_context_id (GTK_STATUSBAR (w->priv->statusbar), "info");
+    priv->statusbar_ctx_id  = gtk_statusbar_get_context_id (GTK_STATUSBAR (priv->statusbar), "info");
 
-    gtk_widget_grab_focus (GTK_WIDGET (w->priv->viewer));
+    gtk_widget_grab_focus (GTK_WIDGET (priv->viewer));
 
-    gtk_container_add (GTK_CONTAINER (w), w->priv->vbox);
+    gtk_container_add (GTK_CONTAINER (w), priv->vbox);
 
-    // This list must be in the same order as the elements in w->priv->encodingMenuItems
-    w->priv->encodingCharsets = { UTF8, ASCII, CP437,
+    // This list must be in the same order as the elements in priv->encodingMenuItems
+    priv->encodingCharsets = { UTF8, ASCII, CP437,
                           ISO88596, ARABIC, CP864,
                           ISO88594, ISO88592, CP1250,
                           ISO88595, CP1251, ISO88597,
@@ -320,20 +313,23 @@ static void gviewer_window_status_line_changed(GViewer *gViewer, const gchar *st
     g_return_if_fail (IS_GVIEWER_WINDOW (gViewerWindow));
 
     GViewerWindow *w = GVIEWER_WINDOW (gViewerWindow);
+    auto priv = static_cast<GViewerWindowPrivate*>(gviewer_window_get_instance_private (w));
 
-    if (w->priv->status_bar_msg)
-        gtk_statusbar_pop (GTK_STATUSBAR (w->priv->statusbar), w->priv->statusbar_ctx_id);
+    if (priv->status_bar_msg)
+        gtk_statusbar_pop (GTK_STATUSBAR (priv->statusbar), priv->statusbar_ctx_id);
 
     if (status_line)
-        gtk_statusbar_push (GTK_STATUSBAR (w->priv->statusbar), w->priv->statusbar_ctx_id, status_line);
+        gtk_statusbar_push (GTK_STATUSBAR (priv->statusbar), priv->statusbar_ctx_id, status_line);
 
-    w->priv->status_bar_msg = status_line != nullptr;
+    priv->status_bar_msg = status_line != nullptr;
 }
 
 
 static GAction *gviewer_window_lookup_action (GViewerWindow *gViewerWindow, const gchar *action_name)
 {
-    return g_action_map_lookup_action (G_ACTION_MAP (gViewerWindow->priv->action_group), action_name);
+    auto priv = static_cast<GViewerWindowPrivate*>(gviewer_window_get_instance_private (gViewerWindow));
+
+    return g_action_map_lookup_action (G_ACTION_MAP (priv->action_group), action_name);
 }
 
 
@@ -349,12 +345,13 @@ void gviewer_window_load_settings(GViewerWindow *gViewerWindow, GViewerWindowSet
 {
     g_return_if_fail (IS_GVIEWER_WINDOW (gViewerWindow));
     g_return_if_fail (settings != nullptr);
-    g_return_if_fail (gViewerWindow->priv->viewer != nullptr);
+    auto priv = static_cast<GViewerWindowPrivate*>(gviewer_window_get_instance_private (gViewerWindow));
+    g_return_if_fail (priv->viewer != nullptr);
 
-    gviewer_set_font_size(gViewerWindow->priv->viewer, settings->font_size);
-    gviewer_set_tab_size(gViewerWindow->priv->viewer, settings->tab_size);
+    gviewer_set_font_size(priv->viewer, settings->font_size);
+    gviewer_set_tab_size(priv->viewer, settings->tab_size);
 
-    gviewer_set_fixed_limit(gViewerWindow->priv->viewer, settings->binary_bytes_per_line);
+    gviewer_set_fixed_limit(priv->viewer, settings->binary_bytes_per_line);
     switch (settings->binary_bytes_per_line)
     {
         case 20:
@@ -370,10 +367,10 @@ void gviewer_window_load_settings(GViewerWindow *gViewerWindow, GViewerWindowSet
             break;
     }
 
-    gviewer_set_wrap_mode(gViewerWindow->priv->viewer, settings->wrap_mode);
+    gviewer_set_wrap_mode(priv->viewer, settings->wrap_mode);
     gviewer_window_action_change_state (gViewerWindow, "wrap-lines", g_variant_new_boolean (settings->wrap_mode));
 
-    gviewer_set_hex_offset_display(gViewerWindow->priv->viewer, settings->hex_decimal_offset);
+    gviewer_set_hex_offset_display(priv->viewer, settings->hex_decimal_offset);
     gviewer_window_action_change_state (gViewerWindow, "hexadecimal-offset", g_variant_new_boolean (settings->hex_decimal_offset));
 
     if (settings->metadata_visible)
@@ -382,10 +379,10 @@ void gviewer_window_load_settings(GViewerWindow *gViewerWindow, GViewerWindowSet
     }
     gviewer_window_action_change_state (gViewerWindow, "show-metadata-tags", g_variant_new_boolean (settings->metadata_visible));
 
-    gviewer_set_encoding(gViewerWindow->priv->viewer, settings->charset);
+    gviewer_set_encoding(priv->viewer, settings->charset);
 
     // activate the radio menu item for the selected charset in the settings
-    auto availableCharsets = gViewerWindow->priv->encodingCharsets;
+    auto availableCharsets = priv->encodingCharsets;
     auto index = 0;
     for(auto ii = availableCharsets.begin(); ii != availableCharsets.end(); ii++)
     {
@@ -411,7 +408,8 @@ void gviewer_window_get_current_settings(GViewerWindow *obj, /* out */ GViewerWi
 {
     g_return_if_fail (IS_GVIEWER_WINDOW (obj));
     g_return_if_fail (settings != nullptr);
-    g_return_if_fail (obj->priv->viewer != nullptr);
+    auto priv = static_cast<GViewerWindowPrivate*>(gviewer_window_get_instance_private (obj));
+    g_return_if_fail (priv->viewer != nullptr);
 
     memset(settings, 0, sizeof(GViewerWindowSettings));
 
@@ -431,20 +429,21 @@ void gviewer_window_get_current_settings(GViewerWindow *obj, /* out */ GViewerWi
         settings->rect.width = 100;
         settings->rect.height = 100;
     }
-    settings->font_size = gviewer_get_font_size(obj->priv->viewer);
-    settings->wrap_mode = gviewer_get_wrap_mode(obj->priv->viewer);
-    settings->binary_bytes_per_line = gviewer_get_fixed_limit(obj->priv->viewer);
-    strncpy(settings->charset, gviewer_get_encoding(obj->priv->viewer), sizeof(settings->charset) - 1);
-    settings->hex_decimal_offset = gviewer_get_hex_offset_display(obj->priv->viewer);
-    settings->tab_size = gviewer_get_tab_size(obj->priv->viewer);
+    settings->font_size = gviewer_get_font_size(priv->viewer);
+    settings->wrap_mode = gviewer_get_wrap_mode(priv->viewer);
+    settings->binary_bytes_per_line = gviewer_get_fixed_limit(priv->viewer);
+    strncpy(settings->charset, gviewer_get_encoding(priv->viewer), sizeof(settings->charset) - 1);
+    settings->hex_decimal_offset = gviewer_get_hex_offset_display(priv->viewer);
+    settings->tab_size = gviewer_get_tab_size(priv->viewer);
     settings->metadata_visible = gviewerwindow_get_metadata_visble(obj);
 }
 
 gboolean gviewerwindow_get_metadata_visble(GViewerWindow *gViewerWindow)
 {
     g_return_val_if_fail (IS_GVIEWER_WINDOW (gViewerWindow), FALSE);
+    auto priv = static_cast<GViewerWindowPrivate*>(gviewer_window_get_instance_private (gViewerWindow));
 
-    return (gViewerWindow->priv->metadata_visible);
+    return priv->metadata_visible;
 }
 
 
@@ -453,18 +452,12 @@ static void gviewer_window_destroy (GtkWidget *widget)
     g_return_if_fail (IS_GVIEWER_WINDOW (widget));
 
     GViewerWindow *w = GVIEWER_WINDOW (widget);
+    auto priv = static_cast<GViewerWindowPrivate*>(gviewer_window_get_instance_private (w));
 
-    if (w->priv)
-    {
-        g_object_unref (w->priv->viewer);
-
-        g_free (w->priv->filename);
-        w->priv->filename = nullptr;
-        delete(w->priv->gViewerWindowSettings);
-
-        g_free (w->priv);
-        w->priv = nullptr;
-    }
+    g_clear_object (&priv->viewer);
+    g_clear_pointer (&priv->filename, g_free);
+    delete priv->gViewerWindowSettings;
+    priv->gViewerWindowSettings = nullptr;
 
     GTK_WIDGET_CLASS (gviewer_window_parent_class)->destroy (widget);
 }
@@ -531,8 +524,10 @@ static gboolean gviewer_window_key_pressed(GtkWidget *widget, GdkEventKey *event
 
 static GtkWidget *gviewer_window_create_menus(GViewerWindow *gViewerWindow)
 {
+    auto priv = static_cast<GViewerWindowPrivate*>(gviewer_window_get_instance_private (gViewerWindow));
+
     auto menu = MenuBuilder()
-        .with_action_group(G_ACTION_GROUP (gViewerWindow->priv->action_group))
+        .with_action_group(G_ACTION_GROUP (priv->action_group))
         .submenu(_("_File"))
             .item(_("_Close"),                              "viewer.close",                    "Escape")
         .endsubmenu()
@@ -623,8 +618,9 @@ static void menu_file_close (GSimpleAction *action, GVariant *parameter, gpointe
 static void menu_toggle_view_exif_information(GSimpleAction *action, GVariant *state, gpointer user_data)
 {
     auto gViewerWindow = static_cast<GViewerWindow *>(user_data);
-    g_return_if_fail (gViewerWindow);
-    g_return_if_fail (gViewerWindow->priv->viewer);
+    g_return_if_fail (IS_GVIEWER_WINDOW (gViewerWindow));
+    auto priv = static_cast<GViewerWindowPrivate*>(gviewer_window_get_instance_private (gViewerWindow));
+    g_return_if_fail (IS_GVIEWER (priv->viewer));
 
     if (g_variant_get_boolean (state))
         gviewer_window_show_metadata(gViewerWindow);
@@ -639,7 +635,8 @@ static void menu_view_set_display_mode(GSimpleAction *action, GVariant *state, g
 {
     auto gViewerWindow = static_cast<GViewerWindow *>(user_data);
     g_return_if_fail (IS_GVIEWER_WINDOW (gViewerWindow));
-    g_return_if_fail (IS_GVIEWER (gViewerWindow->priv->viewer));
+    auto priv = static_cast<GViewerWindowPrivate*>(gviewer_window_get_instance_private (gViewerWindow));
+    g_return_if_fail (IS_GVIEWER (priv->viewer));
 
     auto dispmode = (VIEWERDISPLAYMODE) g_variant_get_int32 (state);
 
@@ -657,10 +654,10 @@ static void menu_view_set_display_mode(GSimpleAction *action, GVariant *state, g
     else
         gviewer_window_hide_metadata(gViewerWindow);
 
-    gviewer_set_display_mode(gViewerWindow->priv->viewer, dispmode);
-    gtk_widget_grab_focus (GTK_WIDGET (gViewerWindow->priv->viewer));
+    gviewer_set_display_mode(priv->viewer, dispmode);
+    gtk_widget_grab_focus (GTK_WIDGET (priv->viewer));
 
-    gtk_widget_queue_draw (GTK_WIDGET (gViewerWindow->priv->viewer));
+    gtk_widget_queue_draw (GTK_WIDGET (priv->viewer));
 
     g_simple_action_set_state (action, state);
 }
@@ -670,14 +667,15 @@ static void menu_view_set_charset(GSimpleAction *action, GVariant *state, gpoint
 {
     auto gViewerWindow = static_cast<GViewerWindow *>(user_data);
     g_return_if_fail (IS_GVIEWER_WINDOW (gViewerWindow));
-    g_return_if_fail (IS_GVIEWER (gViewerWindow->priv->viewer));
+    auto priv = static_cast<GViewerWindowPrivate*>(gviewer_window_get_instance_private (gViewerWindow));
+    g_return_if_fail (IS_GVIEWER (priv->viewer));
 
     auto charsetIndex = g_variant_get_int32 (state);
-    auto charset = gViewerWindow->priv->encodingCharsets.at(charsetIndex);
+    auto charset = priv->encodingCharsets.at(charsetIndex);
     g_return_if_fail (charset != nullptr);
 
-    gviewer_set_encoding(gViewerWindow->priv->viewer, charset);
-    gtk_widget_queue_draw (GTK_WIDGET (gViewerWindow->priv->viewer));
+    gviewer_set_encoding(priv->viewer, charset);
+    gtk_widget_queue_draw (GTK_WIDGET (priv->viewer));
 
     g_simple_action_set_state (action, state);
 }
@@ -686,49 +684,51 @@ static void menu_view_set_charset(GSimpleAction *action, GVariant *state, gpoint
 static void menu_image_operation(GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
     auto gViewerWindow = static_cast<GViewerWindow *>(user_data);
-    g_return_if_fail (gViewerWindow);
-    g_return_if_fail (gViewerWindow->priv->viewer);
+    g_return_if_fail (IS_GVIEWER_WINDOW (gViewerWindow));
+    auto priv = static_cast<GViewerWindowPrivate*>(gviewer_window_get_instance_private (gViewerWindow));
+    g_return_if_fail (IS_GVIEWER (priv->viewer));
 
     auto imageop = (ImageRender::DISPLAYMODE) g_variant_get_int32 (parameter);
 
-    gviewer_image_operation(gViewerWindow->priv->viewer, imageop);
+    gviewer_image_operation(priv->viewer, imageop);
 
-    gtk_widget_queue_draw (GTK_WIDGET (gViewerWindow->priv->viewer));
+    gtk_widget_queue_draw (GTK_WIDGET (priv->viewer));
 }
 
 
 static void menu_view_zoom_in(GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
     auto gViewerWindow = static_cast<GViewerWindow *>(user_data);
-    g_return_if_fail (gViewerWindow);
-    g_return_if_fail (gViewerWindow->priv->viewer);
+    g_return_if_fail (IS_GVIEWER_WINDOW (gViewerWindow));
+    auto priv = static_cast<GViewerWindowPrivate*>(gviewer_window_get_instance_private (gViewerWindow));
+    g_return_if_fail (IS_GVIEWER (priv->viewer));
 
-    switch (gviewer_get_display_mode(gViewerWindow->priv->viewer))
+    switch (gviewer_get_display_mode(priv->viewer))
     {
         case DISP_MODE_TEXT_FIXED:
         case DISP_MODE_BINARY:
         case DISP_MODE_HEXDUMP:
             {
-               int size = gviewer_get_font_size(gViewerWindow->priv->viewer);
+               int size = gviewer_get_font_size(priv->viewer);
 
                if (size==0 || size>32)  return;
 
                size++;
-               gviewer_set_font_size(gViewerWindow->priv->viewer, size);
+               gviewer_set_font_size(priv->viewer, size);
             }
             break;
 
         case DISP_MODE_IMAGE:
            {
-               gviewer_set_best_fit(gViewerWindow->priv->viewer, FALSE);
+               gviewer_set_best_fit(priv->viewer, FALSE);
 
-               if (gViewerWindow->priv->current_scale_index<MAX_SCALE_FACTOR_INDEX-1)
-                  gViewerWindow->priv->current_scale_index++;
+               if (priv->current_scale_index<MAX_SCALE_FACTOR_INDEX-1)
+                  priv->current_scale_index++;
 
-               if (gviewer_get_scale_factor(gViewerWindow->priv->viewer) == image_scale_factors[gViewerWindow->priv->current_scale_index])
+               if (gviewer_get_scale_factor(priv->viewer) == image_scale_factors[priv->current_scale_index])
                   return;
 
-               gviewer_set_scale_factor(gViewerWindow->priv->viewer, image_scale_factors[gViewerWindow->priv->current_scale_index]);
+               gviewer_set_scale_factor(priv->viewer, image_scale_factors[priv->current_scale_index]);
            }
            break;
 
@@ -741,34 +741,35 @@ static void menu_view_zoom_in(GSimpleAction *action, GVariant *parameter, gpoint
 static void menu_view_zoom_out(GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
     auto gViewerWindow = static_cast<GViewerWindow *>(user_data);
-    g_return_if_fail (gViewerWindow);
-    g_return_if_fail (gViewerWindow->priv->viewer);
+    g_return_if_fail (IS_GVIEWER_WINDOW (gViewerWindow));
+    auto priv = static_cast<GViewerWindowPrivate*>(gviewer_window_get_instance_private (gViewerWindow));
+    g_return_if_fail (IS_GVIEWER (priv->viewer));
 
-    switch (gviewer_get_display_mode(gViewerWindow->priv->viewer))
+    switch (gviewer_get_display_mode(priv->viewer))
     {
         case DISP_MODE_TEXT_FIXED:
         case DISP_MODE_BINARY:
         case DISP_MODE_HEXDUMP:
             {
-               int size = gviewer_get_font_size(gViewerWindow->priv->viewer);
+               int size = gviewer_get_font_size(priv->viewer);
 
                if (size < 4)  return;
 
                size--;
-               gviewer_set_font_size(gViewerWindow->priv->viewer, size);
+               gviewer_set_font_size(priv->viewer, size);
             }
             break;
 
         case DISP_MODE_IMAGE:
-           gviewer_set_best_fit(gViewerWindow->priv->viewer, FALSE);
+           gviewer_set_best_fit(priv->viewer, FALSE);
 
-           if (gViewerWindow->priv->current_scale_index>0)
-               gViewerWindow->priv->current_scale_index--;
+           if (priv->current_scale_index>0)
+               priv->current_scale_index--;
 
-           if (gviewer_get_scale_factor(gViewerWindow->priv->viewer) == image_scale_factors[gViewerWindow->priv->current_scale_index])
+           if (gviewer_get_scale_factor(priv->viewer) == image_scale_factors[priv->current_scale_index])
               return;
 
-           gviewer_set_scale_factor(gViewerWindow->priv->viewer, image_scale_factors[gViewerWindow->priv->current_scale_index]);
+           gviewer_set_scale_factor(priv->viewer, image_scale_factors[priv->current_scale_index]);
            break;
 
         default:
@@ -780,10 +781,11 @@ static void menu_view_zoom_out(GSimpleAction *action, GVariant *parameter, gpoin
 static void menu_view_zoom_normal(GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
     auto gViewerWindow = static_cast<GViewerWindow *>(user_data);
-    g_return_if_fail (gViewerWindow);
-    g_return_if_fail (gViewerWindow->priv->viewer);
+    g_return_if_fail (IS_GVIEWER_WINDOW (gViewerWindow));
+    auto priv = static_cast<GViewerWindowPrivate*>(gviewer_window_get_instance_private (gViewerWindow));
+    g_return_if_fail (IS_GVIEWER (priv->viewer));
 
-    switch (gviewer_get_display_mode (gViewerWindow->priv->viewer))
+    switch (gviewer_get_display_mode (priv->viewer))
     {
         case DISP_MODE_TEXT_FIXED:
         case DISP_MODE_BINARY:
@@ -792,9 +794,9 @@ static void menu_view_zoom_normal(GSimpleAction *action, GVariant *parameter, gp
            break;
 
         case DISP_MODE_IMAGE:
-           gviewer_set_best_fit (gViewerWindow->priv->viewer, FALSE);
-           gviewer_set_scale_factor(gViewerWindow->priv->viewer, 1);
-           gViewerWindow->priv->current_scale_index = 5;
+           gviewer_set_best_fit (priv->viewer, FALSE);
+           gviewer_set_scale_factor(priv->viewer, 1);
+           priv->current_scale_index = 5;
            break;
 
         default:
@@ -806,11 +808,12 @@ static void menu_view_zoom_normal(GSimpleAction *action, GVariant *parameter, gp
 static void menu_view_zoom_best_fit(GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
     auto gViewerWindow = static_cast<GViewerWindow *>(user_data);
-    g_return_if_fail (gViewerWindow);
-    g_return_if_fail (gViewerWindow->priv->viewer);
+    g_return_if_fail (IS_GVIEWER_WINDOW (gViewerWindow));
+    auto priv = static_cast<GViewerWindowPrivate*>(gviewer_window_get_instance_private (gViewerWindow));
+    g_return_if_fail (IS_GVIEWER (priv->viewer));
 
-    if (gviewer_get_display_mode(gViewerWindow->priv->viewer)==DISP_MODE_IMAGE)
-        gviewer_set_best_fit(gViewerWindow->priv->viewer, TRUE);
+    if (gviewer_get_display_mode(priv->viewer)==DISP_MODE_IMAGE)
+        gviewer_set_best_fit(priv->viewer, TRUE);
 }
 
 
@@ -818,11 +821,12 @@ static void menu_settings_binary_bytes_per_line(GSimpleAction *action, GVariant 
 {
     auto gViewerWindow = static_cast<GViewerWindow *>(user_data);
     g_return_if_fail (IS_GVIEWER_WINDOW (gViewerWindow));
-    g_return_if_fail (IS_GVIEWER (gViewerWindow->priv->viewer));
+    auto priv = static_cast<GViewerWindowPrivate*>(gviewer_window_get_instance_private (gViewerWindow));
+    g_return_if_fail (IS_GVIEWER (priv->viewer));
 
     auto bytes_per_line = g_variant_get_int32 (state);
 
-    gviewer_set_fixed_limit(gViewerWindow->priv->viewer, bytes_per_line);
+    gviewer_set_fixed_limit(priv->viewer, bytes_per_line);
     gtk_widget_queue_draw (GTK_WIDGET (gViewerWindow));
 
     g_simple_action_set_state (action, state);
@@ -832,29 +836,32 @@ static void menu_settings_binary_bytes_per_line(GSimpleAction *action, GVariant 
 static void menu_edit_copy(GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
     auto gViewerWindow = static_cast<GViewerWindow *>(user_data);
-    g_return_if_fail (gViewerWindow);
-    g_return_if_fail (gViewerWindow->priv->viewer);
+    g_return_if_fail (IS_GVIEWER_WINDOW (gViewerWindow));
+    auto priv = static_cast<GViewerWindowPrivate*>(gviewer_window_get_instance_private (gViewerWindow));
+    g_return_if_fail (IS_GVIEWER (priv->viewer));
 
-    gviewer_copy_selection(gViewerWindow->priv->viewer);
+    gviewer_copy_selection(priv->viewer);
 }
 
 
 static void start_find_thread(GViewerWindow *obj, gboolean forward)
 {
-    g_viewer_searcher_start_search(obj->priv->srchr, forward);
+    auto priv = static_cast<GViewerWindowPrivate*>(gviewer_window_get_instance_private (obj));
+
+    g_viewer_searcher_start_search(priv->srchr, forward);
     gviewer_show_search_progress_dlg(GTK_WINDOW (obj),
-                                     obj->priv->search_pattern,
-                                     g_viewer_searcher_get_abort_indicator(obj->priv->srchr),
-                                     g_viewer_searcher_get_complete_indicator(obj->priv->srchr),
-                                     g_viewer_searcher_get_progress_indicator(obj->priv->srchr));
+                                     priv->search_pattern,
+                                     g_viewer_searcher_get_abort_indicator(priv->srchr),
+                                     g_viewer_searcher_get_complete_indicator(priv->srchr),
+                                     g_viewer_searcher_get_progress_indicator(priv->srchr));
 
-    g_viewer_searcher_join(obj->priv->srchr);
+    g_viewer_searcher_join(priv->srchr);
 
-    if (g_viewer_searcher_get_end_of_search(obj->priv->srchr))
+    if (g_viewer_searcher_get_end_of_search(priv->srchr))
     {
         GtkWidget *w;
 
-        w = gtk_message_dialog_new(GTK_WINDOW (obj), GTK_DIALOG_MODAL, GTK_MESSAGE_INFO, GTK_BUTTONS_OK, _("Pattern “%s” was not found"), obj->priv->search_pattern);
+        w = gtk_message_dialog_new(GTK_WINDOW (obj), GTK_DIALOG_MODAL, GTK_MESSAGE_INFO, GTK_BUTTONS_OK, _("Pattern “%s” was not found"), priv->search_pattern);
         gtk_dialog_run (GTK_DIALOG (w));
         gtk_widget_destroy (w);
     }
@@ -862,11 +869,11 @@ static void start_find_thread(GViewerWindow *obj, gboolean forward)
     {
         offset_type result;
 
-        result = g_viewer_searcher_get_search_result(obj->priv->srchr);
-        text_render_set_marker(gviewer_get_text_render(obj->priv->viewer),
+        result = g_viewer_searcher_get_search_result(priv->srchr);
+        text_render_set_marker(gviewer_get_text_render(priv->viewer),
                 result,
-                result + (forward?1:-1) * obj->priv->search_pattern_len);
-        text_render_ensure_offset_visible(gviewer_get_text_render(obj->priv->viewer), result);
+                result + (forward?1:-1) * priv->search_pattern_len);
+        text_render_ensure_offset_visible(gviewer_get_text_render(priv->viewer), result);
     }
 }
 
@@ -875,6 +882,7 @@ static void menu_edit_find(GSimpleAction *action, GVariant *parameter, gpointer 
 {
     auto gViewerWindow = static_cast<GViewerWindow *>(user_data);
     g_return_if_fail (gViewerWindow);
+    auto priv = static_cast<GViewerWindowPrivate*>(gviewer_window_get_instance_private (gViewerWindow));
 
     // Show the Search Dialog
     GtkWidget *w = gviewer_search_dlg_new (GTK_WINDOW (gViewerWindow));
@@ -885,32 +893,32 @@ static void menu_edit_find(GSimpleAction *action, GVariant *parameter, gpointer 
     }
 
     // If a previous search is active, delete it
-    if (gViewerWindow->priv->srchr != nullptr)
+    if (priv->srchr != nullptr)
     {
-        g_object_unref (gViewerWindow->priv->srchr);
-        gViewerWindow->priv->srchr = nullptr;
+        g_object_unref (priv->srchr);
+        priv->srchr = nullptr;
 
-        g_free (gViewerWindow->priv->search_pattern);
-        gViewerWindow->priv->search_pattern = nullptr;
+        g_free (priv->search_pattern);
+        priv->search_pattern = nullptr;
     }
 
     // Get the search information from the search dialog
     GViewerSearchDlg *srch_dlg = GVIEWER_SEARCH_DLG (w);
-    gViewerWindow->priv->search_pattern = gviewer_search_dlg_get_search_text_string (srch_dlg);
+    priv->search_pattern = gviewer_search_dlg_get_search_text_string (srch_dlg);
 
     // Create & prepare the search object
-    gViewerWindow->priv->srchr = g_viewer_searcher_new ();
+    priv->srchr = g_viewer_searcher_new ();
 
     if (gviewer_search_dlg_get_search_mode (srch_dlg)==SEARCH_MODE_TEXT)
     {
         // Text search
-        g_viewer_searcher_setup_new_text_search(gViewerWindow->priv->srchr,
-            text_render_get_input_mode_data(gviewer_get_text_render(gViewerWindow->priv->viewer)),
-            text_render_get_current_offset(gviewer_get_text_render(gViewerWindow->priv->viewer)),
-            gv_file_get_max_offset (text_render_get_file_ops (gviewer_get_text_render(gViewerWindow->priv->viewer))),
-            gViewerWindow->priv->search_pattern,
+        g_viewer_searcher_setup_new_text_search(priv->srchr,
+            text_render_get_input_mode_data(gviewer_get_text_render(priv->viewer)),
+            text_render_get_current_offset(gviewer_get_text_render(priv->viewer)),
+            gv_file_get_max_offset (text_render_get_file_ops (gviewer_get_text_render(priv->viewer))),
+            priv->search_pattern,
             gviewer_search_dlg_get_case_sensitive(srch_dlg));
-        gViewerWindow->priv->search_pattern_len = strlen(gViewerWindow->priv->search_pattern);
+        priv->search_pattern_len = strlen(priv->search_pattern);
     }
     else
     {
@@ -920,11 +928,11 @@ static void menu_edit_find(GSimpleAction *action, GVariant *parameter, gpointer 
 
         g_return_if_fail (buffer != nullptr);
 
-        gViewerWindow->priv->search_pattern_len = buflen;
-        g_viewer_searcher_setup_new_hex_search(gViewerWindow->priv->srchr,
-            text_render_get_input_mode_data(gviewer_get_text_render(gViewerWindow->priv->viewer)),
-            text_render_get_current_offset(gviewer_get_text_render(gViewerWindow->priv->viewer)),
-            gv_file_get_max_offset (text_render_get_file_ops(gviewer_get_text_render(gViewerWindow->priv->viewer))),
+        priv->search_pattern_len = buflen;
+        g_viewer_searcher_setup_new_hex_search(priv->srchr,
+            text_render_get_input_mode_data(gviewer_get_text_render(priv->viewer)),
+            text_render_get_current_offset(gviewer_get_text_render(priv->viewer)),
+            gv_file_get_max_offset (text_render_get_file_ops(gviewer_get_text_render(priv->viewer))),
             buffer, buflen);
 
         g_free (buffer);
@@ -942,8 +950,9 @@ static void menu_edit_find_next(GSimpleAction *action, GVariant *parameter, gpoi
 {
     auto gViewerWindow = static_cast<GViewerWindow *>(user_data);
     g_return_if_fail (gViewerWindow);
+    auto priv = static_cast<GViewerWindowPrivate*>(gviewer_window_get_instance_private (gViewerWindow));
 
-    if (!gViewerWindow->priv->srchr)
+    if (!priv->srchr)
     {
         /*
             if no search is active, call "menu_edit_find".
@@ -960,8 +969,9 @@ static void menu_edit_find_prev(GSimpleAction *action, GVariant *parameter, gpoi
 {
     auto gViewerWindow = static_cast<GViewerWindow *>(user_data);
     g_return_if_fail (gViewerWindow);
+    auto priv = static_cast<GViewerWindowPrivate*>(gviewer_window_get_instance_private (gViewerWindow));
 
-    if (!gViewerWindow->priv->srchr)
+    if (!priv->srchr)
         return;
 
     start_find_thread(gViewerWindow, FALSE);
@@ -972,12 +982,13 @@ static void menu_view_wrap(GSimpleAction *action, GVariant *state, gpointer user
 {
     auto gViewerWindow = static_cast<GViewerWindow *>(user_data);
     g_return_if_fail (gViewerWindow);
-    g_return_if_fail (gViewerWindow->priv->viewer);
+    auto priv = static_cast<GViewerWindowPrivate*>(gviewer_window_get_instance_private (gViewerWindow));
+    g_return_if_fail (priv->viewer);
 
     gboolean wrap = g_variant_get_boolean (state);
 
-    gviewer_set_wrap_mode(gViewerWindow->priv->viewer, wrap);
-    gtk_widget_queue_draw (GTK_WIDGET (gViewerWindow->priv->viewer));
+    gviewer_set_wrap_mode(priv->viewer, wrap);
+    gtk_widget_queue_draw (GTK_WIDGET (priv->viewer));
 
     g_simple_action_set_state (action, state);
 }
@@ -987,10 +998,11 @@ static void menu_settings_hex_decimal_offset(GSimpleAction *action, GVariant *st
 {
     auto gViewerWindow = static_cast<GViewerWindow *>(user_data);
     g_return_if_fail (gViewerWindow);
-    g_return_if_fail (gViewerWindow->priv->viewer);
+    auto priv = static_cast<GViewerWindowPrivate*>(gviewer_window_get_instance_private (gViewerWindow));
+    g_return_if_fail (priv->viewer);
 
     gboolean hex = g_variant_get_boolean (state);
-    gviewer_set_hex_offset_display(gViewerWindow->priv->viewer, hex);
+    gviewer_set_hex_offset_display(priv->viewer, hex);
 
     g_simple_action_set_state (action, state);
 }
@@ -1036,7 +1048,8 @@ static void menu_settings_save_settings(GSimpleAction *action, GVariant *paramet
 {
     auto gViewerWindow = static_cast<GViewerWindow *>(user_data);
     g_return_if_fail (gViewerWindow);
-    g_return_if_fail (gViewerWindow->priv->viewer);
+    auto priv = static_cast<GViewerWindowPrivate*>(gviewer_window_get_instance_private (gViewerWindow));
+    g_return_if_fail (priv->viewer);
 
     GViewerWindowSettings settings;
 
@@ -1079,53 +1092,55 @@ static void menu_help_keyboard(GSimpleAction *action, GVariant *parameter, gpoin
 void gviewer_window_show_metadata(GViewerWindow *gViewerWindow)
 {
     g_return_if_fail (gViewerWindow != nullptr);
-    g_return_if_fail (gViewerWindow->priv->f != nullptr);
+    auto priv = static_cast<GViewerWindowPrivate*>(gviewer_window_get_instance_private (gViewerWindow));
+    g_return_if_fail (priv->f != nullptr);
 
-    if (gViewerWindow->priv->metadata_visible)
+    if (priv->metadata_visible)
         return;
 
-    if (!gViewerWindow->priv->metadata_view)
+    if (!priv->metadata_view)
     {
         GtkWidget *scrolledwindow = gtk_scrolled_window_new (nullptr, nullptr);
         gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolledwindow), GTK_POLICY_NEVER, GTK_POLICY_AUTOMATIC);
         gtk_container_set_border_width (GTK_CONTAINER (scrolledwindow), 10);
         gtk_container_add (GTK_CONTAINER (scrolledwindow), create_view ());
-        gtk_box_pack_start (GTK_BOX (gViewerWindow->priv->vbox), scrolledwindow, TRUE, TRUE, 0);
-        gViewerWindow->priv->metadata_view = scrolledwindow;
+        gtk_box_pack_start (GTK_BOX (priv->vbox), scrolledwindow, TRUE, TRUE, 0);
+        priv->metadata_view = scrolledwindow;
     }
 
-    GtkWidget *view = gtk_bin_get_child (GTK_BIN (gViewerWindow->priv->metadata_view));
+    GtkWidget *view = gtk_bin_get_child (GTK_BIN (priv->metadata_view));
     GtkTreeModel *model = gtk_tree_view_get_model (GTK_TREE_VIEW (view));
 
     if (!model)
     {
         model = create_model ();
-        fill_model (GTK_TREE_STORE (model), gViewerWindow->priv->f);
+        fill_model (GTK_TREE_STORE (model), priv->f);
         gtk_tree_view_set_model (GTK_TREE_VIEW (view), model);
         g_object_unref (model);          // destroy model automatically with view
         gtk_tree_selection_set_mode (gtk_tree_view_get_selection (GTK_TREE_VIEW (view)), GTK_SELECTION_NONE);
     }
 
-    gViewerWindow->priv->metadata_visible = TRUE;
+    priv->metadata_visible = TRUE;
 
-    gtk_widget_show_all (gViewerWindow->priv->metadata_view);
+    gtk_widget_show_all (priv->metadata_view);
 }
 
 
 void gviewer_window_hide_metadata(GViewerWindow *gViewerWindow)
 {
     g_return_if_fail (gViewerWindow);
+    auto priv = static_cast<GViewerWindowPrivate*>(gviewer_window_get_instance_private (gViewerWindow));
 
-    if (!gViewerWindow->priv->metadata_view)
+    if (!priv->metadata_view)
         return;
 
-    if (!gViewerWindow->priv->metadata_visible)
+    if (!priv->metadata_visible)
         return;
 
-    gViewerWindow->priv->metadata_visible = FALSE;
+    priv->metadata_visible = FALSE;
     // gtk_container_remove (GTK_CONTAINER (obj->priv->vbox), obj->priv->metadata_view);
-    gtk_widget_hide (gViewerWindow->priv->metadata_view);
-    gtk_widget_grab_focus (GTK_WIDGET (gViewerWindow->priv->viewer));
+    gtk_widget_hide (priv->metadata_view);
+    gtk_widget_grab_focus (GTK_WIDGET (priv->viewer));
 }
 
 
@@ -1137,7 +1152,7 @@ enum
     COL_VALUE,
     COL_DESC,
     NUM_COLS
-} ;
+};
 
 
 GtkTreeModel *create_model ()

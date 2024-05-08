@@ -25,7 +25,7 @@
 #include "gnome-cmd-string-dialog.h"
 #include "libgcmd-widget-factory.h"
 
-struct GnomeCmdStringDialog::Private
+struct GnomeCmdStringDialogPrivate
 {
     GnomeCmdStringDialogCallback ok_cb;
     GnomeCmdCallback<GtkButton*> cancel_cb;
@@ -34,23 +34,25 @@ struct GnomeCmdStringDialog::Private
 };
 
 
-G_DEFINE_TYPE (GnomeCmdStringDialog, gnome_cmd_string_dialog, GNOME_CMD_TYPE_DIALOG)
+G_DEFINE_TYPE_WITH_PRIVATE (GnomeCmdStringDialog, gnome_cmd_string_dialog, GNOME_CMD_TYPE_DIALOG)
 
 
 static void on_ok (GtkButton *button, GnomeCmdStringDialog *dialog)
 {
+    auto priv = static_cast<GnomeCmdStringDialogPrivate*> (gnome_cmd_string_dialog_get_instance_private (dialog));
+
     gboolean valid = TRUE;
 
-    if (dialog->priv->ok_cb)
+    if (priv->ok_cb)
     {
         gchar **values = (gchar**) g_new (gpointer, dialog->rows);
 
         for (gint i=0; i<dialog->rows; i++)
             values[i] = (gchar*)gtk_entry_get_text (GTK_ENTRY (dialog->entries[i]));
 
-        valid = dialog->priv->ok_cb (dialog, (const gchar**)values, dialog->priv->data);
+        valid = priv->ok_cb (dialog, (const gchar**)values, priv->data);
         if (!valid)
-            create_error_dialog ("%s", dialog->priv->error_desc);
+            create_error_dialog ("%s", priv->error_desc);
         g_free (values);
     }
 
@@ -61,8 +63,10 @@ static void on_ok (GtkButton *button, GnomeCmdStringDialog *dialog)
 
 static void on_cancel (GtkButton *button, GnomeCmdStringDialog *dialog)
 {
-    if (dialog->priv->cancel_cb)
-        dialog->priv->cancel_cb (button, dialog->priv->data);
+    auto priv = static_cast<GnomeCmdStringDialogPrivate*> (gnome_cmd_string_dialog_get_instance_private (dialog));
+
+    if (priv->cancel_cb)
+        priv->cancel_cb (button, priv->data);
 
     gtk_widget_hide (GTK_WIDGET (dialog));
 }
@@ -75,41 +79,30 @@ static void on_cancel (GtkButton *button, GnomeCmdStringDialog *dialog)
 static void destroy (GtkWidget *object)
 {
     GnomeCmdStringDialog *dialog = GNOME_CMD_STRING_DIALOG (object);
+    auto priv = static_cast<GnomeCmdStringDialogPrivate*> (gnome_cmd_string_dialog_get_instance_private (dialog));
+
+    g_clear_pointer (&priv->error_desc, g_free);
 
     GTK_WIDGET_CLASS (gnome_cmd_string_dialog_parent_class)->destroy (object);
-
-    if (dialog->priv)
-        g_free (dialog->priv->error_desc);
-
-    g_free (dialog->priv);
-    dialog->priv = NULL;
-}
-
-
-static void map (GtkWidget *widget)
-{
-    GTK_WIDGET_CLASS (gnome_cmd_string_dialog_parent_class)->map (widget);
 }
 
 
 static void gnome_cmd_string_dialog_class_init (GnomeCmdStringDialogClass *klass)
 {
-    GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
-
-    widget_class->destroy = destroy;
-    widget_class->map = map;
+    GTK_WIDGET_CLASS (klass)->destroy = destroy;
 }
 
 
 static void gnome_cmd_string_dialog_init (GnomeCmdStringDialog *string_dialog)
 {
-    string_dialog->priv = g_new0 (GnomeCmdStringDialog::Private, 1);
     string_dialog->rows = -1;
 }
 
 
 inline void setup_widget (GnomeCmdStringDialog *string_dialog, gint rows)
 {
+    auto priv = static_cast<GnomeCmdStringDialogPrivate*> (gnome_cmd_string_dialog_get_instance_private (string_dialog));
+
     GtkWidget *dialog = GTK_WIDGET (string_dialog);
     GtkWidget *grid;
     GtkWidget *btn;
@@ -117,7 +110,7 @@ inline void setup_widget (GnomeCmdStringDialog *string_dialog, gint rows)
     string_dialog->rows = rows;
     string_dialog->labels = (GtkWidget**) g_new (gpointer, rows);
     string_dialog->entries = (GtkWidget**) g_new (gpointer, rows);
-    string_dialog->priv->error_desc = g_strdup (_("No error description available"));
+    priv->error_desc = g_strdup (_("No error description available"));
 
     grid = create_grid (dialog);
     gnome_cmd_dialog_add_category (GNOME_CMD_DIALOG (dialog), grid);
@@ -196,8 +189,9 @@ void gnome_cmd_string_dialog_set_label (GnomeCmdStringDialog *dialog, gint row, 
 void gnome_cmd_string_dialog_set_userdata (GnomeCmdStringDialog *dialog, gpointer user_data)
 {
     g_return_if_fail (GNOME_CMD_IS_STRING_DIALOG (dialog));
+    auto priv = static_cast<GnomeCmdStringDialogPrivate*> (gnome_cmd_string_dialog_get_instance_private (dialog));
 
-    dialog->priv->data = user_data;
+    priv->data = user_data;
 }
 
 
@@ -205,16 +199,18 @@ void gnome_cmd_string_dialog_set_ok_cb (GnomeCmdStringDialog *dialog, GnomeCmdSt
 {
     g_return_if_fail (GNOME_CMD_IS_STRING_DIALOG (dialog));
     g_return_if_fail (ok_cb != NULL);
+    auto priv = static_cast<GnomeCmdStringDialogPrivate*> (gnome_cmd_string_dialog_get_instance_private (dialog));
 
-    dialog->priv->ok_cb = ok_cb;
+    priv->ok_cb = ok_cb;
 }
 
 
 void gnome_cmd_string_dialog_set_cancel_cb (GnomeCmdStringDialog *dialog, GnomeCmdCallback<GtkButton*> cancel_cb)
 {
     g_return_if_fail (GNOME_CMD_IS_STRING_DIALOG (dialog));
+    auto priv = static_cast<GnomeCmdStringDialogPrivate*> (gnome_cmd_string_dialog_get_instance_private (dialog));
 
-    dialog->priv->cancel_cb = cancel_cb;
+    priv->cancel_cb = cancel_cb;
 }
 
 
@@ -231,8 +227,9 @@ void gnome_cmd_string_dialog_set_error_desc (GnomeCmdStringDialog *dialog, gchar
 {
     g_return_if_fail (GNOME_CMD_IS_STRING_DIALOG (dialog));
     g_return_if_fail (msg != NULL);
+    auto priv = static_cast<GnomeCmdStringDialogPrivate*> (gnome_cmd_string_dialog_get_instance_private (dialog));
 
-    g_free (dialog->priv->error_desc);
+    g_free (priv->error_desc);
 
-    dialog->priv->error_desc = g_strdup (msg);
+    priv->error_desc = g_strdup (msg);
 }
