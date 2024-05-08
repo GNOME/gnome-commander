@@ -28,7 +28,6 @@
 #include "gnome-cmd-data.h"
 #include "gnome-cmd-user-actions.h"
 #include "gnome-cmd-owner.h"
-#include "gnome-cmd-style.h"
 #include "gnome-cmd-con.h"
 #include "utils.h"
 #include "ls_colors.h"
@@ -131,8 +130,6 @@ static void gnome_cmd_application_activate(GApplication *application)
 
     gcmd_user_actions.set_defaults();
     ls_colors_init ();
-
-    gnome_cmd_style_create (gnome_cmd_data.options);
 
     main_win = new GnomeCmdMainWin;
     gtk_window_set_application (GTK_WINDOW (main_win), GTK_APPLICATION (application));

@@ -32,7 +32,6 @@
 #include "gnome-cmd-main-win.h"
 #include "gnome-cmd-main-menu.h"
 #include "gnome-cmd-data.h"
-#include "gnome-cmd-style.h"
 #include "gnome-cmd-combo.h"
 #include "gnome-cmd-dir.h"
 #include "gnome-cmd-plain-path.h"
@@ -1016,7 +1015,6 @@ GnomeCmdFileSelector *GnomeCmdMainWin::fs(FileSelectorID id) const
 
 void GnomeCmdMainWin::update_view()
 {
-    gnome_cmd_style_create (gnome_cmd_data.options);
     update_style();
 }
 

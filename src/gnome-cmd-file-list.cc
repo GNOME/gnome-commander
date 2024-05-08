@@ -38,7 +38,6 @@
 #include "gnome-cmd-xfer.h"
 #include "imageloader.h"
 #include "cap.h"
-#include "gnome-cmd-style.h"
 #include "gnome-cmd-file-popmenu.h"
 #include "gnome-cmd-quicksearch-popup.h"
 #include "gnome-cmd-file-collection.h"
@@ -3222,7 +3221,7 @@ void GnomeCmdFileList::update_style()
 {
     // TODO: Maybe??? gtk_cell_renderer_set_fixed_size (priv->columns[1], )
     // gtk_clist_set_row_height (*this, gnome_cmd_data.options.list_row_height);
-    gtk_widget_set_style (GTK_WIDGET (this), list_style);
+    // TODO: update CSS according to a selected theme
 }
 
 

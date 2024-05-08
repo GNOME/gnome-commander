@@ -33,7 +33,6 @@
 #include "gnome-cmd-main-win.h"
 #include "gnome-cmd-user-actions.h"
 #include "gnome-cmd-dir-indicator.h"
-#include "gnome-cmd-style.h"
 #include "plugin_manager.h"
 #include "cap.h"
 #include "utils.h"
