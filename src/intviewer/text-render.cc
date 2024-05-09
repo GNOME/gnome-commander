@@ -63,7 +63,7 @@ typedef void (*copy_to_clipboard_proc)(TextRender *obj, offset_type start_offset
 
 struct TextRenderClass
 {
-    GtkWidgetClass parent_class;
+    GtkDrawingAreaClass parent_class;
 
     void (* text_status_changed) (TextRender *obj, TextRender::Status *status);
 };
@@ -125,14 +125,12 @@ struct TextRender::Private
 };
 
 
-G_DEFINE_TYPE (TextRender, text_render, GTK_TYPE_WIDGET)
+G_DEFINE_TYPE (TextRender, text_render, GTK_TYPE_DRAWING_AREA)
 
 
 // Gtk class related static functions
-static void text_render_redraw(TextRender *w);
 static void text_render_position_changed(TextRender *w);
 
-static void text_render_realize (GtkWidget *widget);
 static void text_render_get_preferred_width (GtkWidget *widget, gint *minimal_width, gint *natural_width);
 static void text_render_get_preferred_height (GtkWidget *widget, gint *minimal_height, gint *natural_height);
 static void text_render_size_allocate (GtkWidget *widget, GtkAllocation *allocation);
@@ -223,6 +221,12 @@ void text_render_set_v_adjustment (TextRender *obj, GtkAdjustment *adjustment)
 
 static void text_render_init (TextRender *w)
 {
+    gtk_widget_add_events (GTK_WIDGET (w),
+        GDK_EXPOSURE_MASK |
+        GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK |
+        GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK |
+        GDK_KEY_PRESS_MASK);
+
     w->priv = g_new0 (TextRender::Private, 1);
 
     w->priv->button = 0;
@@ -261,6 +265,8 @@ static void text_render_init (TextRender *w)
     w->priv->layout = gtk_widget_create_pango_layout (GTK_WIDGET (w), NULL);
 
     gtk_widget_set_can_focus(GTK_WIDGET (w), TRUE);
+
+    text_render_setup_font(w, w->priv->fixed_font_name, w->priv->font_size);
 }
 
 
@@ -310,8 +316,6 @@ static void text_render_class_init (TextRenderClass *klass)
     widget_class->get_preferred_width = text_render_get_preferred_width;
     widget_class->get_preferred_height = text_render_get_preferred_height;
     widget_class->size_allocate = text_render_size_allocate;
-
-    widget_class->realize = text_render_realize;
 
     text_render_signals[TEXT_STATUS_CHANGED] =
         g_signal_new ("text-status-changed",
@@ -364,15 +368,6 @@ static void text_render_position_changed(TextRender *w)
         gtk_adjustment_set_value (w->priv->h_adjustment, w->priv->column);
         gtk_adjustment_changed (w->priv->h_adjustment);
     }
-}
-
-
-static void text_render_redraw(TextRender *w)
-{
-    if (!gtk_widget_get_realized (GTK_WIDGET (w)))
-        return;
-
-    gdk_window_invalidate_rect (gtk_widget_get_window (GTK_WIDGET (w)), NULL, FALSE);
 }
 
 
@@ -433,46 +428,9 @@ static gboolean text_render_key_pressed(GtkWidget *widget, GdkEventKey *event, g
     }
 
     text_render_position_changed(obj);
-    text_render_redraw(obj);
+    gtk_widget_queue_draw (widget);
 
     return TRUE;
-}
-
-
-static void text_render_realize (GtkWidget *widget)
-{
-    g_return_if_fail (IS_TEXT_RENDER (widget));
-
-    gtk_widget_set_realized (widget, TRUE);
-    TextRender *obj = TEXT_RENDER (widget);
-
-    GdkWindowAttr attributes;
-
-    GtkAllocation widget_allocation;
-    gtk_widget_get_allocation (widget, &widget_allocation);
-
-    attributes.x = widget_allocation.x;
-    attributes.y = widget_allocation.y;
-    attributes.width = widget_allocation.width;
-    attributes.height = widget_allocation.height;
-    attributes.wclass = GDK_INPUT_OUTPUT;
-    attributes.window_type = GDK_WINDOW_CHILD;
-    attributes.event_mask = gtk_widget_get_events (widget) |
-        GDK_EXPOSURE_MASK | GDK_BUTTON_PRESS_MASK |
-        GDK_BUTTON_RELEASE_MASK | GDK_POINTER_MOTION_MASK |
-        GDK_POINTER_MOTION_HINT_MASK | GDK_KEY_PRESS_MASK;
-    attributes.visual = gtk_widget_get_visual (widget);
-
-    gint attributes_mask = GDK_WA_X | GDK_WA_Y | GDK_WA_VISUAL;
-    gtk_widget_set_window (widget, gdk_window_new (gtk_widget_get_parent_window (widget), &attributes, attributes_mask));
-
-    gtk_widget_style_attach(widget);
-
-    gdk_window_set_user_data (gtk_widget_get_window (widget), widget);
-
-    gtk_style_set_background (gtk_widget_get_style (widget), gtk_widget_get_window (widget), GTK_STATE_ACTIVE);
-
-    text_render_setup_font(obj, obj->priv->fixed_font_name, obj->priv->font_size);
 }
 
 
@@ -502,7 +460,7 @@ static void text_render_size_allocate (GtkWidget *widget, GtkAllocation *allocat
     {
         w->priv->chars_per_line = allocation->width / w->priv->char_width;
         gv_set_wrap_limit(w->priv->dp, allocation->width / w->priv->char_width);
-        text_render_redraw(w);
+        gtk_widget_queue_draw (widget);
     }
 
     w->priv->lines_displayed = w->priv->char_height>0 ? allocation->height / w->priv->char_height : 10;
@@ -590,7 +548,7 @@ static gboolean text_render_scroll(GtkWidget *widget, GdkEventScroll *event)
 #endif
 
     text_render_position_changed (w);
-    text_render_redraw (w);
+    gtk_widget_queue_draw (GTK_WIDGET (w));
 
     return TRUE;
 }
@@ -654,7 +612,7 @@ static gboolean text_render_button_release(GtkWidget *widget, GdkEventButton *ev
         w->priv->button = 0;
 
         w->priv->marker_end = w->priv->pixel_to_offset(w, (int)event->x, (int)event->y, FALSE);
-        text_render_redraw(w);
+        gtk_widget_queue_draw (GTK_WIDGET (w));
     }
 
     return FALSE;
@@ -689,7 +647,7 @@ static gboolean text_render_motion_notify(GtkWidget *widget, GdkEventMotion *eve
         if (new_marker != w->priv->marker_end)
         {
             w->priv->marker_end = new_marker;
-            text_render_redraw(w);
+            gtk_widget_queue_draw (GTK_WIDGET (w));
         }
     }
 
@@ -717,7 +675,7 @@ static void text_render_h_adjustment_update (TextRender *obj)
 
     obj->priv->column = (int) new_value;
 
-    text_render_redraw(obj);
+    gtk_widget_queue_draw (GTK_WIDGET (obj));
 }
 
 
@@ -783,7 +741,7 @@ static void text_render_v_adjustment_update (TextRender *obj)
 
     obj->priv->current_offset = (offset_type)new_value;
 
-    text_render_redraw(obj);
+    gtk_widget_queue_draw (GTK_WIDGET (obj));
 }
 
 
@@ -977,7 +935,7 @@ static gboolean text_render_vscroll_change_value(GtkRange *range,
 #pragma GCC diagnostic pop
 #endif
     text_render_position_changed(obj);
-    text_render_redraw(obj);
+    gtk_widget_queue_draw (GTK_WIDGET (obj));
 
     return TRUE;
 }
@@ -1100,8 +1058,6 @@ static void text_render_setup_font(TextRender*w, const gchar *fontname, gint fon
 
     w->priv->disp_font_metrics = load_font (fontlabel);
     w->priv->font_desc = pango_font_description_from_string (fontlabel);
-
-    gtk_widget_modify_font (GTK_WIDGET (w), w->priv->font_desc);
 
     w->priv->char_width = get_max_char_width(GTK_WIDGET (w),
             w->priv->font_desc,
@@ -1243,7 +1199,7 @@ void  text_render_set_display_mode (TextRender *w, TextRender::DISPLAYMODE mode)
     w->priv->dispmode = mode;
     w->priv->current_offset = gv_align_offset_to_line_start (w->priv->dp, w->priv->current_offset);
 
-    text_render_redraw(w);
+    gtk_widget_queue_draw (GTK_WIDGET (w));
 }
 
 
@@ -1295,7 +1251,7 @@ void text_render_set_tab_size(TextRender *w, int tab_size)
     w->priv->tab_size = tab_size;
     gv_set_tab_size(w->priv->dp, tab_size);
 
-    text_render_redraw(w);
+    gtk_widget_queue_draw (GTK_WIDGET (w));
 }
 
 
@@ -1322,7 +1278,7 @@ void text_render_set_wrap_mode(TextRender *w, gboolean ACTIVE)
         gv_set_data_presentation_mode(w->priv->dp, w->priv->wrapmode ? PRSNT_WRAP : PRSNT_NO_WRAP);
         text_render_update_adjustments_limits(w);
     }
-    text_render_redraw(w);
+    gtk_widget_queue_draw (GTK_WIDGET (w));
 }
 
 
@@ -1347,7 +1303,7 @@ void text_render_set_fixed_limit(TextRender *w, int fixed_limit)
 
     if (w->priv->dp)
         gv_set_fixed_count(w->priv->dp, fixed_limit);
-    text_render_redraw(w);
+    gtk_widget_queue_draw (GTK_WIDGET (w));
 }
 
 
@@ -1385,7 +1341,7 @@ void text_render_ensure_offset_visible(TextRender *w, offset_type offset)
         offset = gv_scroll_lines (w->priv->dp, offset, -w->priv->lines_displayed/2);
 
         w->priv->current_offset = offset;
-        text_render_redraw(w);
+        gtk_widget_queue_draw (GTK_WIDGET (w));
         text_render_position_changed(w);
     }
 }
@@ -1397,7 +1353,7 @@ void text_render_set_marker(TextRender *w, offset_type start, offset_type end)
 
     w->priv->marker_start = start;
     w->priv->marker_end = end;
-    text_render_redraw(w);
+    gtk_widget_queue_draw (GTK_WIDGET (w));
 }
 
 
@@ -1420,7 +1376,7 @@ void text_render_set_encoding(TextRender *w, const char *encoding)
     w->priv->encoding = g_strdup (encoding);
     gv_set_input_mode(w->priv->im, encoding);
     text_render_filter_undisplayable_chars(w);
-    text_render_redraw(w);
+    gtk_widget_queue_draw (GTK_WIDGET (w));
 }
 
 
@@ -1437,7 +1393,7 @@ void text_render_set_hex_offset_display(TextRender *w, gboolean HEX_OFFSET)
     g_return_if_fail (IS_TEXT_RENDER (w));
 
     w->priv->hex_offset_display = HEX_OFFSET;
-    text_render_redraw(w);
+    gtk_widget_queue_draw (GTK_WIDGET (w));
 }
 
 
@@ -1458,7 +1414,7 @@ void text_render_set_font_size(TextRender *w, int font_size)
     gchar *font = w->priv->fixed_font_name;
 
     text_render_setup_font(w, font, font_size);
-    text_render_redraw(w);
+    gtk_widget_queue_draw (GTK_WIDGET (w));
 }
 
 
@@ -1679,6 +1635,7 @@ static int text_mode_display_line(TextRender *w, cairo_t *cr, int y, int column,
         marker_closer(w, marker_shown);
 
     cairo_save (cr);
+    pango_layout_set_font_description (w->priv->layout, w->priv->font_desc);
     pango_layout_set_markup (w->priv->layout, (gchar *) w->priv->utf8buf, w->priv->utf8buf_length);
     cairo_translate (cr, -(w->priv->char_width*column), y);
     pango_cairo_show_layout (cr, w->priv->layout);
@@ -1741,6 +1698,7 @@ static int binary_mode_display_line(TextRender *w, cairo_t *cr, int y, int colum
         marker_closer(w, marker_shown);
 
     cairo_save (cr);
+    pango_layout_set_font_description (w->priv->layout, w->priv->font_desc);
     pango_layout_set_markup (w->priv->layout, (gchar *) w->priv->utf8buf, w->priv->utf8buf_length);
     cairo_translate (cr, -(w->priv->char_width*column), y);
     pango_cairo_show_layout (cr, w->priv->layout);
@@ -1922,6 +1880,7 @@ static int hex_mode_display_line(TextRender *w, cairo_t *cr, int y, int column, 
         marker_closer(w, marker_shown);
 
     cairo_save (cr);
+    pango_layout_set_font_description (w->priv->layout, w->priv->font_desc);
     pango_layout_set_markup (w->priv->layout, (gchar *) w->priv->utf8buf, w->priv->utf8buf_length);
     cairo_translate (cr, 0, y);
     pango_cairo_show_layout (cr, w->priv->layout);
