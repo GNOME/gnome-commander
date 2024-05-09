@@ -59,7 +59,7 @@ static void manage_bookmarks (GSimpleAction *action, GVariant *parameter, gpoint
 /*******************************
  * Gtk class implementation
  *******************************/
-static void destroy (GtkWidget *object)
+static void dispose (GObject *object)
 {
     GnomeCmdDirIndicator *dir_indicator = GNOME_CMD_DIR_INDICATOR (object);
     auto priv = static_cast<GnomeCmdDirIndicatorPrivate*>(gnome_cmd_dir_indicator_get_instance_private (dir_indicator));
@@ -67,13 +67,13 @@ static void destroy (GtkWidget *object)
     g_clear_pointer (&priv->slashCharPosition, g_free);
     g_clear_pointer (&priv->slashPixelPosition, g_free);
 
-    GTK_WIDGET_CLASS (gnome_cmd_dir_indicator_parent_class)->destroy (object);
+    G_OBJECT_CLASS (gnome_cmd_dir_indicator_parent_class)->dispose (object);
 }
 
 
 static void gnome_cmd_dir_indicator_class_init (GnomeCmdDirIndicatorClass *klass)
 {
-    GTK_WIDGET_CLASS (klass)->destroy = destroy;
+    G_OBJECT_CLASS (klass)->dispose = dispose;
 }
 
 

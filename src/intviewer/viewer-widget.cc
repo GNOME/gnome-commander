@@ -77,7 +77,7 @@ static guint gviewer_signals[LAST_SIGNAL] = { 0 };
 /* Gtk class related static functions */
 static void gviewer_init (GViewer *w);
 static void gviewer_class_init (GViewerClass *klass);
-static void gviewer_destroy (GtkWidget *object);
+static void gviewer_dispose (GObject *object);
 
 static void gviewer_text_status_update(TextRender *obj, TextRender::Status *status, GViewer *viewer);
 static void gviewer_image_status_update(ImageRender *obj, ImageRender::Status *status, GViewer *viewer);
@@ -104,7 +104,7 @@ GtkWidget *gviewer_new ()
 
 static void gviewer_class_init (GViewerClass *klass)
 {
-    GTK_WIDGET_CLASS(klass)->destroy = gviewer_destroy;
+    G_OBJECT_CLASS(klass)->dispose = gviewer_dispose;
 
     gviewer_signals[STATUS_LINE_CHANGED] =
         g_signal_new ("status-line-changed",
@@ -158,8 +158,6 @@ static void gviewer_init (GViewer *w)
     gtk_widget_set_hexpand (GTK_WIDGET (priv->tscrollbox), TRUE);
     gtk_widget_set_vexpand (GTK_WIDGET (priv->tscrollbox), TRUE);
     gtk_grid_attach (GTK_GRID (w), GTK_WIDGET (priv->tscrollbox), 0, 0, 1, 1);
-
-    g_signal_connect (w, "destroy-event", G_CALLBACK (gviewer_destroy), w);
 
     g_signal_connect (priv->textr, "text-status-changed", G_CALLBACK (gviewer_text_status_update), w);
     g_signal_connect (priv->imgr, "image-status-changed", G_CALLBACK (gviewer_image_status_update), w);
@@ -242,17 +240,14 @@ static gboolean on_text_viewer_button_pressed (GtkWidget *treeview, GdkEventButt
 }
 
 
-static void gviewer_destroy (GtkWidget *widget)
+static void gviewer_dispose (GObject *object)
 {
-    g_return_if_fail (IS_GVIEWER (widget));
-
-    GViewer *w = GVIEWER (widget);
-    auto priv = static_cast<GViewerPrivate*>(gviewer_get_instance_private (w));
+    auto priv = static_cast<GViewerPrivate*>(gviewer_get_instance_private (GVIEWER (object)));
 
     g_clear_object (&priv->iscrollbox);
     g_clear_object (&priv->tscrollbox);
 
-    GTK_WIDGET_CLASS (gviewer_parent_class)->destroy (widget);
+    G_OBJECT_CLASS (gviewer_parent_class)->dispose (object);
 }
 
 

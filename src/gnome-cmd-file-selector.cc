@@ -721,26 +721,22 @@ static gboolean on_notebook_button_pressed (GtkWidget *widget, GdkEventButton *e
  * Gtk class implementation
  *******************************/
 
-static void destroy (GtkWidget *object)
+static void dispose (GObject *object)
 {
     GnomeCmdFileSelector *fs = GNOME_CMD_FILE_SELECTOR (object);
 
-    delete fs->priv;
+    if (fs->priv)
+    {
+        delete fs->priv;
+        fs->priv = nullptr;
+    }
 
-    GTK_WIDGET_CLASS (gnome_cmd_file_selector_parent_class)->destroy (object);
-}
-
-
-static void map (GtkWidget *widget)
-{
-    GTK_WIDGET_CLASS (gnome_cmd_file_selector_parent_class)->map (widget);
+    G_OBJECT_CLASS (gnome_cmd_file_selector_parent_class)->dispose (object);
 }
 
 
 static void gnome_cmd_file_selector_class_init (GnomeCmdFileSelectorClass *klass)
 {
-    GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
-
     signals[DIR_CHANGED] =
         g_signal_new ("dir-changed",
             G_TYPE_FROM_CLASS (klass),
@@ -751,8 +747,7 @@ static void gnome_cmd_file_selector_class_init (GnomeCmdFileSelectorClass *klass
             G_TYPE_NONE,
             1, G_TYPE_POINTER);
 
-    widget_class->destroy = destroy;
-    widget_class->map = ::map;
+    G_OBJECT_CLASS (klass)->dispose = dispose;
 }
 
 

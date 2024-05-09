@@ -319,19 +319,19 @@ static gboolean on_dest_dir_entry_keypressed (GtkEntry *entry, GdkEventKey *even
  * Gtk class implementation
  *******************************/
 
-static void destroy (GtkWidget *object)
+static void dispose (GObject *object)
 {
     GnomeCmdPrepareXferDialog *dialog = GNOME_CMD_PREPARE_XFER_DIALOG (object);
 
     g_clear_pointer (&dialog->src_files, gnome_cmd_file_list_unref);
 
-    GTK_WIDGET_CLASS (gnome_cmd_prepare_xfer_dialog_parent_class)->destroy (object);
+    G_OBJECT_CLASS (gnome_cmd_prepare_xfer_dialog_parent_class)->dispose (object);
 }
 
 
 static void gnome_cmd_prepare_xfer_dialog_class_init (GnomeCmdPrepareXferDialogClass *klass)
 {
-    GTK_WIDGET_CLASS (klass)->destroy = destroy;
+    G_OBJECT_CLASS (klass)->dispose = dispose;
 }
 
 

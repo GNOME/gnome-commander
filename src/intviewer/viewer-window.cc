@@ -138,7 +138,7 @@ struct GViewerWindowPrivate
 
 static void gviewer_window_init(GViewerWindow *w);
 static void gviewer_window_class_init (GViewerWindowClass *klass);
-static void gviewer_window_destroy(GtkWidget *widget);
+static void gviewer_window_dispose(GObject *widget);
 
 static void gviewer_window_status_line_changed(GViewer *gViewer, const gchar *status_line, GViewerWindow *gViewerWindow);
 
@@ -229,7 +229,7 @@ void gviewer_window_load_file (GViewerWindow *gViewerWindow, GnomeCmdFile *f)
 
 static void gviewer_window_class_init (GViewerWindowClass *klass)
 {
-    GTK_WIDGET_CLASS (klass)->destroy = gviewer_window_destroy;
+    G_OBJECT_CLASS (klass)->dispose = gviewer_window_dispose;
 }
 
 
@@ -447,11 +447,11 @@ gboolean gviewerwindow_get_metadata_visble(GViewerWindow *gViewerWindow)
 }
 
 
-static void gviewer_window_destroy (GtkWidget *widget)
+static void gviewer_window_dispose (GObject *object)
 {
-    g_return_if_fail (IS_GVIEWER_WINDOW (widget));
+    g_return_if_fail (IS_GVIEWER_WINDOW (object));
 
-    GViewerWindow *w = GVIEWER_WINDOW (widget);
+    GViewerWindow *w = GVIEWER_WINDOW (object);
     auto priv = static_cast<GViewerWindowPrivate*>(gviewer_window_get_instance_private (w));
 
     g_clear_object (&priv->viewer);
@@ -459,7 +459,7 @@ static void gviewer_window_destroy (GtkWidget *widget)
     delete priv->gViewerWindowSettings;
     priv->gViewerWindowSettings = nullptr;
 
-    GTK_WIDGET_CLASS (gviewer_window_parent_class)->destroy (widget);
+    G_OBJECT_CLASS (gviewer_window_parent_class)->dispose (object);
 }
 
 
