@@ -186,6 +186,7 @@ GNOME_CMD_USER_ACTION(view_back);
 GNOME_CMD_USER_ACTION(view_forward);
 GNOME_CMD_USER_ACTION(view_last);
 GNOME_CMD_USER_ACTION(view_refresh);
+GNOME_CMD_USER_ACTION(view_refresh_tab);
 GNOME_CMD_USER_ACTION(view_equal_panes);
 GNOME_CMD_USER_ACTION(view_maximize_pane);
 GNOME_CMD_USER_ACTION(view_in_left_pane);
@@ -1768,6 +1769,17 @@ void view_refresh (GSimpleAction *action, GVariant *parameter, gpointer user_dat
 }
 
 
+void view_refresh_tab (GSimpleAction *action, GVariant *parameter, gpointer user_data)
+{
+    gint fs_id, tab;
+    g_variant_get (parameter, "(ii)", &fs_id, &tab);
+
+    GnomeCmdFileSelector *fs = get_fs ((FileSelectorID) fs_id);
+    GnomeCmdFileList *fl = fs->file_list(tab);
+    fl->reload();
+}
+
+
 static void view_refresh_0 ()
 {
     view_refresh (nullptr, nullptr, nullptr);
@@ -2494,6 +2506,7 @@ const GActionEntry VIEW_ACTION_ENTRIES[] = {
     { "view-forward",                   view_forward,               nullptr, nullptr,           nullptr },
     { "view-last",                      view_last,                  nullptr, nullptr,           nullptr },
     { "view-refresh",                   view_refresh,               nullptr, nullptr,           nullptr },
+    { "view-refresh-tab",               view_refresh_tab,           "(ii)",  nullptr,           nullptr },
     { "view-equal-panes",               view_equal_panes,           nullptr, nullptr,           nullptr },
     { "view-maximize-pane",             view_maximize_pane,         nullptr, nullptr,           nullptr },
     { "view-in-left-pane",              view_in_left_pane,          nullptr, nullptr,           nullptr },

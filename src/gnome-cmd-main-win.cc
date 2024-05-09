@@ -730,13 +730,13 @@ static void gnome_cmd_main_win_init (GnomeCmdMainWin *mw)
     gtk_box_pack_start (GTK_BOX (mw->priv->vbox), mw->priv->paned, TRUE, TRUE, 0);
     mw->create_buttonbar();
 
-    mw->priv->file_selector[LEFT] = gnome_cmd_file_selector_new ();
+    mw->priv->file_selector[LEFT] = gnome_cmd_file_selector_new (LEFT);
     g_object_ref (mw->priv->file_selector[LEFT]);
     g_object_set_data_full (*mw, "left_file_selector", mw->priv->file_selector[LEFT], g_object_unref);
     gtk_widget_show (mw->priv->file_selector[LEFT]);
     gtk_paned_pack1 (GTK_PANED (mw->priv->paned), mw->priv->file_selector[LEFT], TRUE, TRUE);
 
-    mw->priv->file_selector[RIGHT] = gnome_cmd_file_selector_new ();
+    mw->priv->file_selector[RIGHT] = gnome_cmd_file_selector_new (RIGHT);
     g_object_ref (mw->priv->file_selector[RIGHT]);
     g_object_set_data_full (*mw, "right_file_selector", mw->priv->file_selector[RIGHT], g_object_unref);
     gtk_widget_show (mw->priv->file_selector[RIGHT]);
