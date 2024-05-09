@@ -300,12 +300,12 @@ static void paint_cell_with_ls_colors (GtkCellRenderer *cell, GnomeCmdFile *file
     {
         if (has_foreground && col->fg != nullptr)
             g_object_set (G_OBJECT (cell),
-                "foreground-gdk", col->fg,
+                "foreground-rgba", col->fg,
                 "foreground-set", TRUE,
                 nullptr);
         if (col->bg != nullptr)
             g_object_set (G_OBJECT (cell),
-                "cell-background-gdk", col->bg,
+                "cell-background-rgba", col->bg,
                 "cell-background-set", TRUE,
                 nullptr);
     }
@@ -357,11 +357,11 @@ static void cell_data (GtkTreeViewColumn *column,
     {
         if (has_foreground)
             g_object_set (G_OBJECT (cell),
-                "foreground-gdk", colors->sel_fg,
+                "foreground-rgba", &colors->sel_fg,
                 "foreground-set", TRUE,
                 nullptr);
         g_object_set (G_OBJECT (cell),
-            "cell-background-gdk", colors->sel_bg,
+            "cell-background-rgba", &colors->sel_bg,
             "cell-background-set", TRUE,
             nullptr);
     }
@@ -371,12 +371,12 @@ static void cell_data (GtkTreeViewColumn *column,
         {
             if (has_foreground)
                 g_object_set (G_OBJECT (cell),
-                    "foreground-gdk", colors->norm_fg,
+                    "foreground-rgba", &colors->norm_fg,
                     "foreground-set", TRUE,
                     nullptr);
 
             g_object_set (G_OBJECT (cell),
-                "cell-background-gdk", colors->norm_bg,
+                "cell-background-rgba", &colors->norm_bg,
                 "cell-background-set", TRUE,
                 nullptr);
         }
@@ -478,37 +478,37 @@ static GtkCssProvider *create_css_provider()
 
     if (!colors->respect_theme)
     {
+        gchar *norm_bg = gdk_rgba_to_string (&colors->norm_bg);
+        gchar *alt_bg = gdk_rgba_to_string (&colors->alt_bg);
+        gchar *curs_bg = gdk_rgba_to_string (&colors->curs_bg);
+        gchar *curs_fg = gdk_rgba_to_string (&colors->curs_fg);
+
         css = g_strdup_printf ("\
             treeview.view.gnome-cmd-file-list,                      \
             treeview.view.gnome-cmd-file-list.even {                \
-                background-color: #%02x%02x%02x;                    \
+                background-color: %s;                               \
             }                                                       \
             treeview.view.gnome-cmd-file-list.odd {                 \
-                background-color: #%02x%02x%02x;                    \
+                background-color: %s;                               \
             }                                                       \
             treeview.view.gnome-cmd-file-list:selected:focus {      \
-                background-color: #%02x%02x%02x;                    \
-                color: #%02x%02x%02x;                               \
+                background-color: %s;                               \
+                color: %s;                                          \
             }                                                       \
             ",
             // row
-            colors->norm_bg->red / 256,
-            colors->norm_bg->green / 256,
-            colors->norm_bg->blue / 256,
-
-            colors->alt_bg->red / 256,
-            colors->alt_bg->green / 256,
-            colors->alt_bg->blue / 256,
+            norm_bg,
+            alt_bg,
 
             // cursor
-            colors->curs_bg->red / 256,
-            colors->curs_bg->green / 256,
-            colors->curs_bg->blue / 256,
-
-            colors->curs_fg->red / 256,
-            colors->curs_fg->green / 256,
-            colors->curs_fg->blue / 256
+            curs_bg,
+            curs_fg
         );
+
+        g_free (norm_bg);
+        g_free (alt_bg);
+        g_free (curs_bg);
+        g_free (curs_fg);
     }
     else
     {

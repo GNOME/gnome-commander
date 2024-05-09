@@ -220,7 +220,7 @@ gchar *get_temp_download_filepath (const gchar *fname);
 void remove_temp_download_dir ();
 
 gchar *unix_to_unc (const gchar *path);
-GdkColor *gdk_color_new (gushort r, gushort g, gushort b);
+GdkRGBA *gdk_color_new (gushort r, gushort g, gushort b);
 GList *gnome_cmd_file_list_to_gfile_list (GList *files);
 
 gboolean is_dir_existing(const gchar *dpath);

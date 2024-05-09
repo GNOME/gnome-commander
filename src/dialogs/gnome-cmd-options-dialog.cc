@@ -501,14 +501,14 @@ static void on_edit_colors_close (GtkButton *btn, GtkWidget *dlg)
 {
     GnomeCmdColorTheme *colors = gnome_cmd_data.options.get_custom_color_theme();
 
-    gtk_color_button_get_color (GTK_COLOR_BUTTON (lookup_widget (dlg, "default_fg")), colors->norm_fg);
-    gtk_color_button_get_color (GTK_COLOR_BUTTON (lookup_widget (dlg, "default_bg")), colors->norm_bg);
-    gtk_color_button_get_color (GTK_COLOR_BUTTON (lookup_widget (dlg, "alternate_fg")), colors->alt_fg);
-    gtk_color_button_get_color (GTK_COLOR_BUTTON (lookup_widget (dlg, "alternate_bg")), colors->alt_bg);
-    gtk_color_button_get_color (GTK_COLOR_BUTTON (lookup_widget (dlg, "selected_fg")), colors->sel_fg);
-    gtk_color_button_get_color (GTK_COLOR_BUTTON (lookup_widget (dlg, "selected_bg")), colors->sel_bg);
-    gtk_color_button_get_color (GTK_COLOR_BUTTON (lookup_widget (dlg, "cursor_fg")), colors->curs_fg);
-    gtk_color_button_get_color (GTK_COLOR_BUTTON (lookup_widget (dlg, "cursor_bg")), colors->curs_bg);
+    gtk_color_chooser_get_rgba (GTK_COLOR_CHOOSER (lookup_widget (dlg, "default_fg")), &colors->norm_fg);
+    gtk_color_chooser_get_rgba (GTK_COLOR_CHOOSER (lookup_widget (dlg, "default_bg")), &colors->norm_bg);
+    gtk_color_chooser_get_rgba (GTK_COLOR_CHOOSER (lookup_widget (dlg, "alternate_fg")), &colors->alt_fg);
+    gtk_color_chooser_get_rgba (GTK_COLOR_CHOOSER (lookup_widget (dlg, "alternate_bg")), &colors->alt_bg);
+    gtk_color_chooser_get_rgba (GTK_COLOR_CHOOSER (lookup_widget (dlg, "selected_fg")), &colors->sel_fg);
+    gtk_color_chooser_get_rgba (GTK_COLOR_CHOOSER (lookup_widget (dlg, "selected_bg")), &colors->sel_bg);
+    gtk_color_chooser_get_rgba (GTK_COLOR_CHOOSER (lookup_widget (dlg, "cursor_fg")), &colors->curs_fg);
+    gtk_color_chooser_get_rgba (GTK_COLOR_CHOOSER (lookup_widget (dlg, "cursor_bg")), &colors->curs_bg);
 
     gtk_widget_destroy (dlg);
 }
@@ -537,35 +537,35 @@ static void on_colors_edit (GtkButton *btn, GtkWidget *parent)
 
     cbutton = create_color_button (dlg, "default_fg");
     gtk_grid_attach (GTK_GRID (grid), cbutton, 1, 1, 1, 1);
-    gtk_color_button_set_color (GTK_COLOR_BUTTON (cbutton), colors->norm_fg);
+    gtk_color_chooser_set_rgba (GTK_COLOR_CHOOSER (cbutton), &colors->norm_fg);
     gtk_widget_set_halign (cbutton, GTK_ALIGN_CENTER);
     cbutton = create_color_button (dlg, "default_bg");
     gtk_grid_attach (GTK_GRID (grid), cbutton, 2, 1, 1, 1);
-    gtk_color_button_set_color (GTK_COLOR_BUTTON (cbutton), colors->norm_bg);
+    gtk_color_chooser_set_rgba (GTK_COLOR_CHOOSER (cbutton), &colors->norm_bg);
     gtk_widget_set_halign (cbutton, GTK_ALIGN_CENTER);
     cbutton = create_color_button (dlg, "alternate_fg");
     gtk_grid_attach (GTK_GRID (grid), cbutton, 1, 2, 1, 1);
-    gtk_color_button_set_color (GTK_COLOR_BUTTON (cbutton), colors->alt_fg);
+    gtk_color_chooser_set_rgba (GTK_COLOR_CHOOSER (cbutton), &colors->alt_fg);
     gtk_widget_set_halign (cbutton, GTK_ALIGN_CENTER);
     cbutton = create_color_button (dlg, "alternate_bg");
     gtk_grid_attach (GTK_GRID (grid), cbutton, 2, 2, 1, 1);
-    gtk_color_button_set_color (GTK_COLOR_BUTTON (cbutton), colors->alt_bg);
+    gtk_color_chooser_set_rgba (GTK_COLOR_CHOOSER (cbutton), &colors->alt_bg);
     gtk_widget_set_halign (cbutton, GTK_ALIGN_CENTER);
     cbutton = create_color_button (dlg, "selected_fg");
     gtk_grid_attach (GTK_GRID (grid), cbutton, 1, 3, 1, 1);
-    gtk_color_button_set_color (GTK_COLOR_BUTTON (cbutton), colors->sel_fg);
+    gtk_color_chooser_set_rgba (GTK_COLOR_CHOOSER (cbutton), &colors->sel_fg);
     gtk_widget_set_halign (cbutton, GTK_ALIGN_CENTER);
     cbutton = create_color_button (dlg, "selected_bg");
     gtk_grid_attach (GTK_GRID (grid), cbutton, 2, 3, 1, 1);
-    gtk_color_button_set_color (GTK_COLOR_BUTTON (cbutton), colors->sel_bg);
+    gtk_color_chooser_set_rgba (GTK_COLOR_CHOOSER (cbutton), &colors->sel_bg);
     gtk_widget_set_halign (cbutton, GTK_ALIGN_CENTER);
     cbutton = create_color_button (dlg, "cursor_fg");
     gtk_grid_attach (GTK_GRID (grid), cbutton, 1, 4, 1, 1);
-    gtk_color_button_set_color (GTK_COLOR_BUTTON (cbutton), colors->curs_fg);
+    gtk_color_chooser_set_rgba (GTK_COLOR_CHOOSER (cbutton), &colors->curs_fg);
     gtk_widget_set_halign (cbutton, GTK_ALIGN_CENTER);
     cbutton = create_color_button (dlg, "cursor_bg");
     gtk_grid_attach (GTK_GRID (grid), cbutton, 2, 4, 1, 1);
-    gtk_color_button_set_color (GTK_COLOR_BUTTON (cbutton), colors->curs_bg);
+    gtk_color_chooser_set_rgba (GTK_COLOR_CHOOSER (cbutton), &colors->curs_bg);
     gtk_widget_set_halign (cbutton, GTK_ALIGN_CENTER);
 
     label = create_label (dlg, _("Foreground"));
@@ -606,22 +606,22 @@ static void on_edit_ls_colors_ok (GtkButton *btn, GtkWidget *dlg)
 {
     GnomeCmdLsColorsPalette &palette = gnome_cmd_data.options.ls_colors_palette;
 
-    gtk_color_button_get_color (GTK_COLOR_BUTTON (lookup_widget (dlg, "black_fg")), palette.black_fg);
-    gtk_color_button_get_color (GTK_COLOR_BUTTON (lookup_widget (dlg, "black_bg")), palette.black_bg);
-    gtk_color_button_get_color (GTK_COLOR_BUTTON (lookup_widget (dlg, "red_fg")), palette.red_fg);
-    gtk_color_button_get_color (GTK_COLOR_BUTTON (lookup_widget (dlg, "red_bg")), palette.red_bg);
-    gtk_color_button_get_color (GTK_COLOR_BUTTON (lookup_widget (dlg, "green_fg")), palette.green_fg);
-    gtk_color_button_get_color (GTK_COLOR_BUTTON (lookup_widget (dlg, "green_bg")), palette.green_bg);
-    gtk_color_button_get_color (GTK_COLOR_BUTTON (lookup_widget (dlg, "yellow_fg")), palette.yellow_fg);
-    gtk_color_button_get_color (GTK_COLOR_BUTTON (lookup_widget (dlg, "yellow_bg")), palette.yellow_bg);
-    gtk_color_button_get_color (GTK_COLOR_BUTTON (lookup_widget (dlg, "blue_fg")), palette.blue_fg);
-    gtk_color_button_get_color (GTK_COLOR_BUTTON (lookup_widget (dlg, "blue_bg")), palette.blue_bg);
-    gtk_color_button_get_color (GTK_COLOR_BUTTON (lookup_widget (dlg, "magenta_fg")), palette.magenta_fg);
-    gtk_color_button_get_color (GTK_COLOR_BUTTON (lookup_widget (dlg, "magenta_bg")), palette.magenta_bg);
-    gtk_color_button_get_color (GTK_COLOR_BUTTON (lookup_widget (dlg, "cyan_fg")), palette.cyan_fg);
-    gtk_color_button_get_color (GTK_COLOR_BUTTON (lookup_widget (dlg, "cyan_bg")), palette.cyan_bg);
-    gtk_color_button_get_color (GTK_COLOR_BUTTON (lookup_widget (dlg, "white_fg")), palette.white_fg);
-    gtk_color_button_get_color (GTK_COLOR_BUTTON (lookup_widget (dlg, "white_bg")), palette.white_bg);
+    gtk_color_chooser_get_rgba (GTK_COLOR_CHOOSER (lookup_widget (dlg, "black_fg")), &palette.black_fg);
+    gtk_color_chooser_get_rgba (GTK_COLOR_CHOOSER (lookup_widget (dlg, "black_bg")), &palette.black_bg);
+    gtk_color_chooser_get_rgba (GTK_COLOR_CHOOSER (lookup_widget (dlg, "red_fg")), &palette.red_fg);
+    gtk_color_chooser_get_rgba (GTK_COLOR_CHOOSER (lookup_widget (dlg, "red_bg")), &palette.red_bg);
+    gtk_color_chooser_get_rgba (GTK_COLOR_CHOOSER (lookup_widget (dlg, "green_fg")), &palette.green_fg);
+    gtk_color_chooser_get_rgba (GTK_COLOR_CHOOSER (lookup_widget (dlg, "green_bg")), &palette.green_bg);
+    gtk_color_chooser_get_rgba (GTK_COLOR_CHOOSER (lookup_widget (dlg, "yellow_fg")), &palette.yellow_fg);
+    gtk_color_chooser_get_rgba (GTK_COLOR_CHOOSER (lookup_widget (dlg, "yellow_bg")), &palette.yellow_bg);
+    gtk_color_chooser_get_rgba (GTK_COLOR_CHOOSER (lookup_widget (dlg, "blue_fg")), &palette.blue_fg);
+    gtk_color_chooser_get_rgba (GTK_COLOR_CHOOSER (lookup_widget (dlg, "blue_bg")), &palette.blue_bg);
+    gtk_color_chooser_get_rgba (GTK_COLOR_CHOOSER (lookup_widget (dlg, "magenta_fg")), &palette.magenta_fg);
+    gtk_color_chooser_get_rgba (GTK_COLOR_CHOOSER (lookup_widget (dlg, "magenta_bg")), &palette.magenta_bg);
+    gtk_color_chooser_get_rgba (GTK_COLOR_CHOOSER (lookup_widget (dlg, "cyan_fg")), &palette.cyan_fg);
+    gtk_color_chooser_get_rgba (GTK_COLOR_CHOOSER (lookup_widget (dlg, "cyan_bg")), &palette.cyan_bg);
+    gtk_color_chooser_get_rgba (GTK_COLOR_CHOOSER (lookup_widget (dlg, "white_fg")), &palette.white_fg);
+    gtk_color_chooser_get_rgba (GTK_COLOR_CHOOSER (lookup_widget (dlg, "white_bg")), &palette.white_bg);
 
     gtk_widget_destroy (dlg);
 }
@@ -629,31 +629,31 @@ static void on_edit_ls_colors_ok (GtkButton *btn, GtkWidget *dlg)
 
 static void on_edit_ls_colors_reset (GtkButton *btn, GtkWidget *dlg)
 {
-    static GdkColor black   = {0,0,0,0};
-    static GdkColor red     = {0,0xffff,0,0};
-    static GdkColor green   = {0,0,0xffff,0};
-    static GdkColor yellow  = {0,0xffff,0xffff,0};
-    static GdkColor blue    = {0,0,0,0xffff};
-    static GdkColor magenta = {0,0xffff,0,0xffff};
-    static GdkColor cyan    = {0,0,0xffff,0xffff};
-    static GdkColor white   = {0,0xffff,0xffff,0xffff};
+    static GdkRGBA black   = {0,0,0,1};
+    static GdkRGBA red     = {1,0,0,1};
+    static GdkRGBA green   = {0,1,0,1};
+    static GdkRGBA yellow  = {1,1,0,1};
+    static GdkRGBA blue    = {0,0,1,1};
+    static GdkRGBA magenta = {1,0,1,1};
+    static GdkRGBA cyan    = {0,1,1,1};
+    static GdkRGBA white   = {1,1,1,1};
 
-    gtk_color_button_set_color (GTK_COLOR_BUTTON (lookup_widget (dlg, "black_fg")), &black);
-    gtk_color_button_set_color (GTK_COLOR_BUTTON (lookup_widget (dlg, "black_bg")), &black);
-    gtk_color_button_set_color (GTK_COLOR_BUTTON (lookup_widget (dlg, "red_fg")), &red);
-    gtk_color_button_set_color (GTK_COLOR_BUTTON (lookup_widget (dlg, "red_bg")), &red);
-    gtk_color_button_set_color (GTK_COLOR_BUTTON (lookup_widget (dlg, "green_fg")), &green);
-    gtk_color_button_set_color (GTK_COLOR_BUTTON (lookup_widget (dlg, "green_bg")), &green);
-    gtk_color_button_set_color (GTK_COLOR_BUTTON (lookup_widget (dlg, "yellow_fg")), &yellow);
-    gtk_color_button_set_color (GTK_COLOR_BUTTON (lookup_widget (dlg, "yellow_bg")), &yellow);
-    gtk_color_button_set_color (GTK_COLOR_BUTTON (lookup_widget (dlg, "blue_fg")), &blue);
-    gtk_color_button_set_color (GTK_COLOR_BUTTON (lookup_widget (dlg, "blue_bg")), &blue);
-    gtk_color_button_set_color (GTK_COLOR_BUTTON (lookup_widget (dlg, "magenta_fg")), &magenta);
-    gtk_color_button_set_color (GTK_COLOR_BUTTON (lookup_widget (dlg, "magenta_bg")), &magenta);
-    gtk_color_button_set_color (GTK_COLOR_BUTTON (lookup_widget (dlg, "cyan_fg")), &cyan);
-    gtk_color_button_set_color (GTK_COLOR_BUTTON (lookup_widget (dlg, "cyan_bg")), &cyan);
-    gtk_color_button_set_color (GTK_COLOR_BUTTON (lookup_widget (dlg, "white_fg")), &white);
-    gtk_color_button_set_color (GTK_COLOR_BUTTON (lookup_widget (dlg, "white_bg")), &white);
+    gtk_color_chooser_set_rgba (GTK_COLOR_CHOOSER (lookup_widget (dlg, "black_fg")), &black);
+    gtk_color_chooser_set_rgba (GTK_COLOR_CHOOSER (lookup_widget (dlg, "black_bg")), &black);
+    gtk_color_chooser_set_rgba (GTK_COLOR_CHOOSER (lookup_widget (dlg, "red_fg")), &red);
+    gtk_color_chooser_set_rgba (GTK_COLOR_CHOOSER (lookup_widget (dlg, "red_bg")), &red);
+    gtk_color_chooser_set_rgba (GTK_COLOR_CHOOSER (lookup_widget (dlg, "green_fg")), &green);
+    gtk_color_chooser_set_rgba (GTK_COLOR_CHOOSER (lookup_widget (dlg, "green_bg")), &green);
+    gtk_color_chooser_set_rgba (GTK_COLOR_CHOOSER (lookup_widget (dlg, "yellow_fg")), &yellow);
+    gtk_color_chooser_set_rgba (GTK_COLOR_CHOOSER (lookup_widget (dlg, "yellow_bg")), &yellow);
+    gtk_color_chooser_set_rgba (GTK_COLOR_CHOOSER (lookup_widget (dlg, "blue_fg")), &blue);
+    gtk_color_chooser_set_rgba (GTK_COLOR_CHOOSER (lookup_widget (dlg, "blue_bg")), &blue);
+    gtk_color_chooser_set_rgba (GTK_COLOR_CHOOSER (lookup_widget (dlg, "magenta_fg")), &magenta);
+    gtk_color_chooser_set_rgba (GTK_COLOR_CHOOSER (lookup_widget (dlg, "magenta_bg")), &magenta);
+    gtk_color_chooser_set_rgba (GTK_COLOR_CHOOSER (lookup_widget (dlg, "cyan_fg")), &cyan);
+    gtk_color_chooser_set_rgba (GTK_COLOR_CHOOSER (lookup_widget (dlg, "cyan_bg")), &cyan);
+    gtk_color_chooser_set_rgba (GTK_COLOR_CHOOSER (lookup_widget (dlg, "white_fg")), &white);
+    gtk_color_chooser_set_rgba (GTK_COLOR_CHOOSER (lookup_widget (dlg, "white_bg")), &white);
 }
 
 
@@ -679,67 +679,67 @@ static void on_ls_colors_edit (GtkButton *btn, GtkWidget *parent)
 
     cbutton = create_color_button (dlg, "black_fg");
     gtk_grid_attach (GTK_GRID (grid), cbutton, 1, 1, 1, 1);
-    gtk_color_button_set_color (GTK_COLOR_BUTTON (cbutton), palette.black_fg);
+    gtk_color_chooser_set_rgba (GTK_COLOR_CHOOSER (cbutton), &palette.black_fg);
     gtk_widget_set_halign (cbutton, GTK_ALIGN_CENTER);
     cbutton = create_color_button (dlg, "black_bg");
     gtk_grid_attach (GTK_GRID (grid), cbutton, 1, 2, 1, 1);
-    gtk_color_button_set_color (GTK_COLOR_BUTTON (cbutton), palette.black_bg);
+    gtk_color_chooser_set_rgba (GTK_COLOR_CHOOSER (cbutton), &palette.black_bg);
     gtk_widget_set_halign (cbutton, GTK_ALIGN_CENTER);
     cbutton = create_color_button (dlg, "red_fg");
     gtk_grid_attach (GTK_GRID (grid), cbutton, 2, 1, 1, 1);
-    gtk_color_button_set_color (GTK_COLOR_BUTTON (cbutton), palette.red_fg);
+    gtk_color_chooser_set_rgba (GTK_COLOR_CHOOSER (cbutton), &palette.red_fg);
     gtk_widget_set_halign (cbutton, GTK_ALIGN_CENTER);
     cbutton = create_color_button (dlg, "red_bg");
     gtk_grid_attach (GTK_GRID (grid), cbutton, 2, 2, 1, 1);
-    gtk_color_button_set_color (GTK_COLOR_BUTTON (cbutton), palette.red_bg);
+    gtk_color_chooser_set_rgba (GTK_COLOR_CHOOSER (cbutton), &palette.red_bg);
     gtk_widget_set_halign (cbutton, GTK_ALIGN_CENTER);
     cbutton = create_color_button (dlg, "green_fg");
     gtk_grid_attach (GTK_GRID (grid), cbutton, 3, 1, 1, 1);
-    gtk_color_button_set_color (GTK_COLOR_BUTTON (cbutton), palette.green_fg);
+    gtk_color_chooser_set_rgba (GTK_COLOR_CHOOSER (cbutton), &palette.green_fg);
     gtk_widget_set_halign (cbutton, GTK_ALIGN_CENTER);
     cbutton = create_color_button (dlg, "green_bg");
     gtk_grid_attach (GTK_GRID (grid), cbutton, 3, 2, 1, 1);
-    gtk_color_button_set_color (GTK_COLOR_BUTTON (cbutton), palette.green_bg);
+    gtk_color_chooser_set_rgba (GTK_COLOR_CHOOSER (cbutton), &palette.green_bg);
     gtk_widget_set_halign (cbutton, GTK_ALIGN_CENTER);
     cbutton = create_color_button (dlg, "yellow_fg");
     gtk_grid_attach (GTK_GRID (grid), cbutton, 4, 1, 1, 1);
-    gtk_color_button_set_color (GTK_COLOR_BUTTON (cbutton), palette.yellow_fg);
+    gtk_color_chooser_set_rgba (GTK_COLOR_CHOOSER (cbutton), &palette.yellow_fg);
     gtk_widget_set_halign (cbutton, GTK_ALIGN_CENTER);
     cbutton = create_color_button (dlg, "yellow_bg");
     gtk_grid_attach (GTK_GRID (grid), cbutton, 4, 2, 1, 1);
-    gtk_color_button_set_color (GTK_COLOR_BUTTON (cbutton), palette.yellow_bg);
+    gtk_color_chooser_set_rgba (GTK_COLOR_CHOOSER (cbutton), &palette.yellow_bg);
     gtk_widget_set_halign (cbutton, GTK_ALIGN_CENTER);
     cbutton = create_color_button (dlg, "blue_fg");
     gtk_grid_attach (GTK_GRID (grid), cbutton, 5, 1, 1, 1);
-    gtk_color_button_set_color (GTK_COLOR_BUTTON (cbutton), palette.blue_fg);
+    gtk_color_chooser_set_rgba (GTK_COLOR_CHOOSER (cbutton), &palette.blue_fg);
     gtk_widget_set_halign (cbutton, GTK_ALIGN_CENTER);
     cbutton = create_color_button (dlg, "blue_bg");
     gtk_grid_attach (GTK_GRID (grid), cbutton, 5, 2, 1, 1);
-    gtk_color_button_set_color (GTK_COLOR_BUTTON (cbutton), palette.blue_bg);
+    gtk_color_chooser_set_rgba (GTK_COLOR_CHOOSER (cbutton), &palette.blue_bg);
     gtk_widget_set_halign (cbutton, GTK_ALIGN_CENTER);
     cbutton = create_color_button (dlg, "magenta_fg");
     gtk_grid_attach (GTK_GRID (grid), cbutton, 6, 1, 1, 1);
-    gtk_color_button_set_color (GTK_COLOR_BUTTON (cbutton), palette.magenta_fg);
+    gtk_color_chooser_set_rgba (GTK_COLOR_CHOOSER (cbutton), &palette.magenta_fg);
     gtk_widget_set_halign (cbutton, GTK_ALIGN_CENTER);
     cbutton = create_color_button (dlg, "magenta_bg");
     gtk_grid_attach (GTK_GRID (grid), cbutton, 6, 2, 1, 1);
-    gtk_color_button_set_color (GTK_COLOR_BUTTON (cbutton), palette.magenta_bg);
+    gtk_color_chooser_set_rgba (GTK_COLOR_CHOOSER (cbutton), &palette.magenta_bg);
     gtk_widget_set_halign (cbutton, GTK_ALIGN_CENTER);
     cbutton = create_color_button (dlg, "cyan_fg");
     gtk_grid_attach (GTK_GRID (grid), cbutton, 7, 1, 1, 1);
-    gtk_color_button_set_color (GTK_COLOR_BUTTON (cbutton), palette.cyan_fg);
+    gtk_color_chooser_set_rgba (GTK_COLOR_CHOOSER (cbutton), &palette.cyan_fg);
     gtk_widget_set_halign (cbutton, GTK_ALIGN_CENTER);
     cbutton = create_color_button (dlg, "cyan_bg");
     gtk_grid_attach (GTK_GRID (grid), cbutton, 7, 2, 1, 1);
-    gtk_color_button_set_color (GTK_COLOR_BUTTON (cbutton), palette.cyan_bg);
+    gtk_color_chooser_set_rgba (GTK_COLOR_CHOOSER (cbutton), &palette.cyan_bg);
     gtk_widget_set_halign (cbutton, GTK_ALIGN_CENTER);
     cbutton = create_color_button (dlg, "white_fg");
     gtk_grid_attach (GTK_GRID (grid), cbutton, 8, 1, 1, 1);
-    gtk_color_button_set_color (GTK_COLOR_BUTTON (cbutton), palette.white_fg);
+    gtk_color_chooser_set_rgba (GTK_COLOR_CHOOSER (cbutton), &palette.white_fg);
     gtk_widget_set_halign (cbutton, GTK_ALIGN_CENTER);
     cbutton = create_color_button (dlg, "white_bg");
     gtk_grid_attach (GTK_GRID (grid), cbutton, 8, 2, 1, 1);
-    gtk_color_button_set_color (GTK_COLOR_BUTTON (cbutton), palette.white_bg);
+    gtk_color_chooser_set_rgba (GTK_COLOR_CHOOSER (cbutton), &palette.white_bg);
     gtk_widget_set_halign (cbutton, GTK_ALIGN_CENTER);
 
     label = create_label (dlg, _("Foreground:"));

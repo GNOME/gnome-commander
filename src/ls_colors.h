@@ -27,7 +27,7 @@ struct LsColor
 {
     GFileType type;
     gchar *ext;
-    GdkColor *fg, *bg;
+    GdkRGBA *fg, *bg;
 };
 
 void     ls_colors_init ();

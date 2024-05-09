@@ -778,9 +778,9 @@ gchar *unix_to_unc (const gchar *path)
 }
 
 
-GdkColor *gdk_color_new (gushort r, gushort g, gushort b)
+GdkRGBA *gdk_color_new (gushort r, gushort g, gushort b)
 {
-    GdkColor *c = g_new0 (GdkColor, 1);
+    GdkRGBA *c = g_new0 (GdkRGBA, 1);
     // c->pixel = 0;
     c->red = r;
     c->green = g;
