@@ -139,7 +139,7 @@ gboolean gnome_cmd_edit_bookmark_dialog (GtkWindow *parent, const gchar *title, 
         path = g_strdup (gtk_entry_get_text (GTK_ENTRY (lookup_widget (GTK_WIDGET (dialog), "path"))));
     }
 
-    gtk_widget_destroy (dialog);
+    gtk_window_destroy (GTK_WINDOW (dialog));
 
     return result==GTK_RESPONSE_OK;
 }

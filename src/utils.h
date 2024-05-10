@@ -254,7 +254,7 @@ inline gint gnome_cmd_prompt_message (GtkWindow *parent, GtkMessageType type, Gt
 
     gint result = gtk_dialog_run (GTK_DIALOG (dlg));
 
-    gtk_widget_destroy (dlg);
+    gtk_window_destroy (GTK_WINDOW (dlg));
 
     return result;
 }

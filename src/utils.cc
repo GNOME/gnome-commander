@@ -240,7 +240,7 @@ gint run_simple_dialog (GtkWidget *parent, gboolean ignore_close_box,
     }
     while (ignore_close_box && result == GTK_RESPONSE_DELETE_EVENT);
 
-    gtk_widget_destroy (dialog);
+    gtk_window_destroy (GTK_WINDOW (dialog));
 
     return result;
 }

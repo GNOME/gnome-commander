@@ -354,7 +354,7 @@ static void create_con_buttons (GnomeCmdFileSelector *fs)
         return;
 
     for (GList *l = fs->priv->old_btns; l; l=l->next)
-        gtk_widget_destroy (GTK_WIDGET (l->data));
+        gtk_container_remove (GTK_CONTAINER (fs->con_btns_hbox), GTK_WIDGET (l->data));
 
     g_list_free (fs->priv->old_btns);
     fs->priv->old_btns = nullptr;
@@ -1413,7 +1413,7 @@ void GnomeCmdFileSelector::update_show_devbuttons()
     {
         if (con_btns_hbox)
         {
-            gtk_widget_destroy (GTK_WIDGET (con_btns_hbox));
+            gtk_container_remove (GTK_CONTAINER (this), con_btns_hbox);
             con_btns_hbox = nullptr;
         }
     }
@@ -1444,7 +1444,7 @@ static void on_filter_box_close (GtkButton *btn, GnomeCmdFileSelector *fs)
 {
     if (!fs->priv->filter_box) return;
 
-    gtk_widget_destroy (fs->priv->filter_box);
+    gtk_container_remove (GTK_CONTAINER (fs), fs->priv->filter_box);
     fs->priv->filter_box = nullptr;
 }
 

@@ -52,7 +52,7 @@ static void on_ok (GtkButton *button, GnomeCmdPrepareXferDialog *dialog)
 
     if (!user_path)
     {
-        gtk_widget_destroy (GTK_WIDGET (dialog));
+        gtk_window_destroy (GTK_WINDOW (dialog));
         return;
     }
 
@@ -153,7 +153,7 @@ static void on_ok (GtkButton *button, GnomeCmdPrepareXferDialog *dialog)
                         // the parent dir was a file, abort!
                         g_free (parent_dir);
                         g_free (dest_path);
-                        gtk_widget_destroy (GTK_WIDGET (dialog));
+                        gtk_window_destroy (GTK_WINDOW (dialog));
                         return;
                     }
                     else
@@ -173,14 +173,14 @@ static void on_ok (GtkButton *button, GnomeCmdPrepareXferDialog *dialog)
                                 gnome_cmd_show_message (*main_win, error ? error->message : _("Unknown error"));
                                 g_error_free(error);
                                 g_free (dest_path);
-                                gtk_widget_destroy (GTK_WIDGET (dialog));
+                                gtk_window_destroy (GTK_WINDOW (dialog));
                                 return;
                             }
                         }
                         else
                         {
                             g_free (dest_path);
-                            gtk_widget_destroy (GTK_WIDGET (dialog));
+                            gtk_window_destroy (GTK_WINDOW (dialog));
                             return;
                         }
 
@@ -202,7 +202,7 @@ static void on_ok (GtkButton *button, GnomeCmdPrepareXferDialog *dialog)
             {
                 // There exists something which is not a directory, abort!
                 g_free (dest_path);
-                gtk_widget_destroy (GTK_WIDGET (dialog));
+                gtk_window_destroy (GTK_WINDOW (dialog));
                 return;
             }
             else
@@ -217,7 +217,7 @@ static void on_ok (GtkButton *button, GnomeCmdPrepareXferDialog *dialog)
                                                             "%s",
                                                             msg);
                 gint choice = gtk_dialog_run (GTK_DIALOG (dir_dialog));
-                gtk_widget_destroy (dir_dialog);
+                gtk_window_destroy (GTK_WINDOW (dir_dialog));
                 g_free (msg);
 
                 if (choice == GTK_RESPONSE_OK)
@@ -228,14 +228,14 @@ static void on_ok (GtkButton *button, GnomeCmdPrepareXferDialog *dialog)
                         gnome_cmd_show_message (*main_win, error->message);
                         g_error_free(error);
                         g_free (dest_path);
-                        gtk_widget_destroy (GTK_WIDGET (dialog));
+                        gtk_window_destroy (GTK_WINDOW (dialog));
                         return;
                     }
                 }
                 else
                 {
                     g_free (dest_path);
-                    gtk_widget_destroy (GTK_WIDGET (dialog));
+                    gtk_window_destroy (GTK_WINDOW (dialog));
                     return;
                 }
                 dest_dir = gnome_cmd_dir_new (con, gnome_cmd_con_create_path (con, dest_path));
@@ -245,7 +245,7 @@ static void on_ok (GtkButton *button, GnomeCmdPrepareXferDialog *dialog)
     if (!GNOME_CMD_IS_DIR (dest_dir))
     {
         g_free (dest_path);
-        gtk_widget_destroy (GTK_WIDGET (dialog));
+        gtk_window_destroy (GTK_WINDOW (dialog));
         return;
     }
 
@@ -283,7 +283,7 @@ static void on_ok (GtkButton *button, GnomeCmdPrepareXferDialog *dialog)
     }
 
     g_free (dest_path);
-    gtk_widget_destroy (GTK_WIDGET (dialog));
+    gtk_window_destroy (GTK_WINDOW (dialog));
 }
 
 
@@ -291,7 +291,7 @@ static void on_cancel (GtkButton *button, gpointer user_data)
 {
     GnomeCmdPrepareXferDialog *dialog = GNOME_CMD_PREPARE_XFER_DIALOG (user_data);
 
-    gtk_widget_destroy (GTK_WIDGET (dialog));
+    gtk_window_destroy (GTK_WINDOW (dialog));
 }
 
 

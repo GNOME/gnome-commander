@@ -183,5 +183,5 @@ void gviewer_show_search_progress_dlg(GtkWindow *parent, const gchar *searching_
 
     g_free (str);
 
-    gtk_widget_destroy (GTK_WIDGET (dlg));
+    gtk_window_destroy (GTK_WINDOW (dlg));
 }

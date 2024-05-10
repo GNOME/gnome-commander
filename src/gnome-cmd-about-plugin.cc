@@ -186,7 +186,7 @@ static void gnome_cmd_about_plugin_display_credits_dialog (GnomeCmdAboutPlugin *
     gtk_dialog_set_default_response (GTK_DIALOG (dialog), GTK_RESPONSE_CLOSE);
     gtk_container_set_border_width (GTK_CONTAINER (dialog), 5);
     gtk_box_set_spacing (GTK_BOX (gtk_dialog_get_content_area (GTK_DIALOG (dialog))), 2);
-    g_signal_connect (dialog, "response", G_CALLBACK (gtk_widget_destroy), dialog);
+    g_signal_connect (dialog, "response", G_CALLBACK (gtk_window_destroy), dialog);
     g_signal_connect (dialog, "destroy", G_CALLBACK (gtk_widget_destroyed), &(about->priv->credits_dialog));
 
     notebook = gtk_notebook_new ();
@@ -332,7 +332,7 @@ static void gnome_cmd_about_plugin_response (GtkDialog *dialog, gint response)
             break;
 
         default:
-            gtk_widget_destroy (GTK_WIDGET (dialog));
+            gtk_window_destroy (GTK_WINDOW (dialog));
             break;
     }
 }

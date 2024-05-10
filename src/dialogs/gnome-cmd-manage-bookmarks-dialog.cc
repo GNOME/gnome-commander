@@ -144,7 +144,7 @@ void gnome_cmd_bookmark_dialog_new (const gchar *title, GtkWindow *parent)
 
     gtk_dialog_run (GTK_DIALOG (dialog));
 
-    gtk_widget_destroy (dialog);
+    gtk_window_destroy (GTK_WINDOW (dialog));
     view = NULL;
 }
 

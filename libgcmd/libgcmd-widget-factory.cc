@@ -391,7 +391,7 @@ static void icon_button_clicked (GtkButton *button, const gchar* iconPath)
         gtk_widget_set_tooltip_text(GTK_WIDGET(button), icon_path);
     }
 
-    gtk_widget_destroy (dialog);
+    gtk_window_destroy (GTK_WINDOW (dialog));
 }
 
 
@@ -633,7 +633,7 @@ const char *get_entry_text (GtkWidget *parent, const gchar *entry_name)
 
 static void on_response (GtkDialog *dialog, gint id, gpointer data)
 {
-    gtk_widget_destroy (GTK_WIDGET (dialog));
+    gtk_window_destroy (GTK_WINDOW (dialog));
 }
 
 void create_error_dialog (const gchar *msg, ...)

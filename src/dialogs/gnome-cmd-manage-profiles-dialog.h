@@ -371,7 +371,7 @@ namespace GnomeCmd
             }
         }
 
-        gtk_widget_destroy (dialog);
+        gtk_window_destroy (GTK_WINDOW (dialog));
     }
 
     template <typename CONFIG, typename PROFILE, typename COMPONENT>

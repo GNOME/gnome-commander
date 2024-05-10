@@ -23,6 +23,7 @@
 #include "libgcmd-deps.h"
 #include "gnome-cmd-dialog.h"
 #include "libgcmd-widget-factory.h"
+#include "libgcmd/libgcmd-utils.h"
 
 struct GnomeCmdDialogPrivate
 {
@@ -42,7 +43,7 @@ static gboolean on_dialog_keypressed (GtkWidget *dialog, GdkEventKey *event, gpo
 {
     if (event->keyval == GDK_KEY_Escape)
     {
-        gtk_widget_destroy (dialog);
+        gtk_window_destroy (GTK_WINDOW (dialog));
         return TRUE;
     }
 

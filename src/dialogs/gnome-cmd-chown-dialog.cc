@@ -128,14 +128,14 @@ static void on_ok (GtkButton *button, GnomeCmdChownDialog *dialog)
     g_signal_emit (dialog, signals[OWNER_CHANGED], 0);
 
     gnome_cmd_file_list_free (dialog->priv->files);
-    gtk_widget_destroy (GTK_WIDGET (dialog));
+    gtk_window_destroy (GTK_WINDOW (dialog));
 }
 
 
 static void on_cancel (GtkButton *button, GnomeCmdChownDialog *dialog)
 {
     gnome_cmd_file_list_free (dialog->priv->files);
-    gtk_widget_destroy (GTK_WIDGET (dialog));
+    gtk_window_destroy (GTK_WINDOW (dialog));
 }
 
 

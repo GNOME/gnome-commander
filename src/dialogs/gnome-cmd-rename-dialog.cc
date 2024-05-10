@@ -55,7 +55,7 @@ static gboolean on_dialog_keypressed (GtkWidget *widget, GdkEventKey *event, gpo
         case GDK_KEY_Escape:
             gtk_widget_grab_focus (GTK_WIDGET (main_win->fs(ACTIVE)->file_list()));
             priv->f->unref();
-            gtk_widget_destroy(widget);
+            gtk_window_destroy (GTK_WINDOW (dialog));
             return TRUE;
 
         case GDK_KEY_Return:
@@ -73,7 +73,7 @@ static gboolean on_dialog_keypressed (GtkWidget *widget, GdkEventKey *event, gpo
                 }
 
                 priv->f->unref();
-                gtk_widget_destroy (widget);
+                gtk_window_destroy (GTK_WINDOW (dialog));
 
                 if (!result)
                 {
@@ -103,7 +103,7 @@ static gboolean on_focus_out (GtkWidget *widget, GdkEventKey *event)
     auto priv = static_cast<GnomeCmdRenameDialogPrivate *> (gnome_cmd_rename_dialog_get_instance_private (dialog));
 
     priv->f->unref();
-    gtk_widget_destroy (widget);
+    gtk_window_destroy (GTK_WINDOW (dialog));
     return TRUE;
 }
 
