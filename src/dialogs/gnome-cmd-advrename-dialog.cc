@@ -66,10 +66,10 @@ struct GnomeCmdAdvrenameDialog::Private
     static void on_profile_counter_changed (GnomeCmdAdvrenameProfileComponent *component, GnomeCmdAdvrenameDialog *dialog);
     static void on_profile_regex_changed (GnomeCmdAdvrenameProfileComponent *component, GnomeCmdAdvrenameDialog *dialog);
     static void on_files_model_row_deleted (GtkTreeModel *files, GtkTreePath *path, GnomeCmdAdvrenameDialog *dialog);
-    static void on_files_view_popup_menu__remove (GtkWidget *menuitem, GtkTreeView *treeview);
-    static void on_files_view_popup_menu__view_file (GtkWidget *menuitem, GtkTreeView *treeview);
-    static void on_files_view_popup_menu__show_properties (GtkWidget *menuitem, GtkTreeView *treeview);
-    static void on_files_view_popup_menu__update_files (GtkWidget *menuitem, GnomeCmdAdvrenameDialog *dialog);
+    static void on_files_view_popup_menu__remove (GSimpleAction *action, GVariant *parameter, gpointer user_data);
+    static void on_files_view_popup_menu__view_file (GSimpleAction *action, GVariant *parameter, gpointer user_data);
+    static void on_files_view_popup_menu__show_properties (GSimpleAction *action, GVariant *parameter, gpointer user_data);
+    static void on_files_view_popup_menu__update_files (GSimpleAction *action, GVariant *parameter, gpointer user_data);
     static gboolean on_files_view_button_pressed (GtkWidget *treeview, GdkEventButton *event, GnomeCmdAdvrenameDialog *dialog);
     static gboolean on_files_view_popup_menu (GtkWidget *treeview, GnomeCmdAdvrenameDialog *dialog);
     static void on_files_view_row_activated (GtkTreeView *view, GtkTreePath *path, GtkTreeViewColumn *col, GnomeCmdAdvrenameDialog *dialog);
@@ -205,8 +205,11 @@ void GnomeCmdAdvrenameDialog::Private::on_files_model_row_deleted (GtkTreeModel 
 }
 
 
-void GnomeCmdAdvrenameDialog::Private::on_files_view_popup_menu__remove (GtkWidget *menuitem, GtkTreeView *treeview)
+void GnomeCmdAdvrenameDialog::Private::on_files_view_popup_menu__remove (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
+    auto dialog = static_cast<GnomeCmdAdvrenameDialog*>(user_data);
+    GtkTreeView *treeview = GTK_TREE_VIEW (dialog->priv->files_view);
+
     GtkTreeIter iter;
 
     if (gtk_tree_selection_get_selected (gtk_tree_view_get_selection (treeview), NULL, &iter))
@@ -223,8 +226,11 @@ void GnomeCmdAdvrenameDialog::Private::on_files_view_popup_menu__remove (GtkWidg
 }
 
 
-void GnomeCmdAdvrenameDialog::Private::on_files_view_popup_menu__view_file (GtkWidget *menuitem, GtkTreeView *treeview)
+void GnomeCmdAdvrenameDialog::Private::on_files_view_popup_menu__view_file (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
+    auto dialog = static_cast<GnomeCmdAdvrenameDialog*>(user_data);
+    GtkTreeView *treeview = GTK_TREE_VIEW (dialog->priv->files_view);
+
     GtkTreeIter iter;
 
     if (gtk_tree_selection_get_selected (gtk_tree_view_get_selection (treeview), NULL, &iter))
@@ -240,8 +246,11 @@ void GnomeCmdAdvrenameDialog::Private::on_files_view_popup_menu__view_file (GtkW
 }
 
 
-void GnomeCmdAdvrenameDialog::Private::on_files_view_popup_menu__show_properties (GtkWidget *menuitem, GtkTreeView *treeview)
+void GnomeCmdAdvrenameDialog::Private::on_files_view_popup_menu__show_properties (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
+    auto dialog = static_cast<GnomeCmdAdvrenameDialog*>(user_data);
+    GtkTreeView *treeview = GTK_TREE_VIEW (dialog->priv->files_view);
+
     GtkTreeIter iter;
 
     if (gtk_tree_selection_get_selected (gtk_tree_view_get_selection (treeview), NULL, &iter))
@@ -257,8 +266,10 @@ void GnomeCmdAdvrenameDialog::Private::on_files_view_popup_menu__show_properties
 }
 
 
-void GnomeCmdAdvrenameDialog::Private::on_files_view_popup_menu__update_files (GtkWidget *menuitem, GnomeCmdAdvrenameDialog *dialog)
+void GnomeCmdAdvrenameDialog::Private::on_files_view_popup_menu__update_files (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
+    auto dialog = static_cast<GnomeCmdAdvrenameDialog*>(user_data);
+
     GtkTreeIter i;
     GnomeCmdFile *f;
 
@@ -284,29 +295,19 @@ void GnomeCmdAdvrenameDialog::Private::on_files_view_popup_menu__update_files (G
 
 inline void GnomeCmdAdvrenameDialog::Private::files_view_popup_menu (GtkWidget *treeview, GnomeCmdAdvrenameDialog *dialog, GdkEventButton *event)
 {
-    GtkWidget *menu = gtk_menu_new ();
-    GtkWidget *menuitem;
+    GMenu *menu = g_menu_new ();
 
-    menuitem = gtk_menu_item_new_with_label (_("Remove from file list"));
-    g_signal_connect (menuitem, "activate", G_CALLBACK (on_files_view_popup_menu__remove), treeview);
-    gtk_menu_shell_append (GTK_MENU_SHELL (menu), menuitem);
+    GMenu *file_section = g_menu_new ();
+    g_menu_append (file_section, _("Remove from file list"), "advrename.file-list-remove");
+    g_menu_append (file_section, _("View file"), "advrename.file-list-view");
+    g_menu_append (file_section, _("File properties"), "advrename.file-list-properties");
+    g_menu_append_section (menu, nullptr, G_MENU_MODEL (file_section));
 
-    menuitem = gtk_menu_item_new_with_label (_("View file"));
-    g_signal_connect (menuitem, "activate", G_CALLBACK (on_files_view_popup_menu__view_file), treeview);
-    gtk_menu_shell_append (GTK_MENU_SHELL (menu), menuitem);
+    g_menu_append (menu, _("Update file list"), "advrename.update-file-list");
 
-    menuitem = gtk_menu_item_new_with_label (_("File properties"));
-    g_signal_connect (menuitem, "activate", G_CALLBACK (on_files_view_popup_menu__show_properties), treeview);
-    gtk_menu_shell_append (GTK_MENU_SHELL (menu), menuitem);
-
-    gtk_menu_shell_append (GTK_MENU_SHELL (menu), gtk_separator_menu_item_new ());
-
-    menuitem = gtk_menu_item_new_with_label (_("Update file list"));
-    g_signal_connect (menuitem, "activate", G_CALLBACK (on_files_view_popup_menu__update_files), dialog);
-    gtk_menu_shell_append (GTK_MENU_SHELL (menu), menuitem);
-
-    gtk_widget_show_all (menu);
-    gtk_menu_popup (GTK_MENU (menu), NULL, NULL, NULL, NULL,
+    GtkWidget *gtk_menu = gtk_menu_new_from_model (G_MENU_MODEL (menu));
+    gtk_menu_attach_to_widget (GTK_MENU (gtk_menu), GTK_WIDGET (dialog), nullptr);
+    gtk_menu_popup (GTK_MENU (gtk_menu), NULL, NULL, NULL, NULL,
                     (event != NULL) ? event->button : 0, gdk_event_get_time ((GdkEvent*) event));
 }
 
@@ -355,7 +356,7 @@ gboolean GnomeCmdAdvrenameDialog::Private::on_files_view_popup_menu (GtkWidget *
 
 void GnomeCmdAdvrenameDialog::Private::on_files_view_row_activated (GtkTreeView *view, GtkTreePath *path, GtkTreeViewColumn *col, GnomeCmdAdvrenameDialog *dialog)
 {
-    on_files_view_popup_menu__show_properties (NULL, view);
+    on_files_view_popup_menu__show_properties (nullptr, nullptr, dialog);
 }
 
 
@@ -477,9 +478,13 @@ void GnomeCmdAdvrenameDialog::Private::on_dialog_response (GnomeCmdAdvrenameDial
 static void gnome_cmd_advrename_dialog_init (GnomeCmdAdvrenameDialog *dialog)
 {
     static GActionEntry action_entries[] = {
-        { "save-profile", save_profile },
-        { "manage-profiles", manage_profiles },
-        { "load-profile", load_profile, "i" }
+        { "save-profile",           save_profile },
+        { "manage-profiles",        manage_profiles },
+        { "load-profile",           load_profile, "i" },
+        { "file-list-remove",       GnomeCmdAdvrenameDialog::Private::on_files_view_popup_menu__remove },
+        { "file-list-view",         GnomeCmdAdvrenameDialog::Private::on_files_view_popup_menu__view_file },
+        { "file-list-properties",   GnomeCmdAdvrenameDialog::Private::on_files_view_popup_menu__show_properties },
+        { "update-file-list",       GnomeCmdAdvrenameDialog::Private::on_files_view_popup_menu__update_files }
     };
     GSimpleActionGroup* action_group = g_simple_action_group_new ();
     g_action_map_add_action_entries (G_ACTION_MAP (action_group), action_entries, G_N_ELEMENTS(action_entries), dialog);
