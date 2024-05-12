@@ -516,7 +516,7 @@ static void gnome_cmd_dir_indicator_init (GnomeCmdDirIndicator *indicator)
 {
     auto priv = static_cast<GnomeCmdDirIndicatorPrivate*>(gnome_cmd_dir_indicator_get_instance_private (indicator));
 
-    GtkWidget *hbox, *arrow, *bbox;
+    GtkWidget *hbox, *bbox;
 
     // create the directory label and its event box
     priv->event_box = gtk_event_box_new ();
@@ -532,17 +532,12 @@ static void gnome_cmd_dir_indicator_init (GnomeCmdDirIndicator *indicator)
 
     // create the history popup button
     priv->history_button = gtk_button_new ();
+    gtk_button_set_image (GTK_BUTTON (priv->history_button), gtk_image_new_from_gicon (g_themed_icon_new ("gnome-commander-down"), GTK_ICON_SIZE_SMALL_TOOLBAR));
     gtk_widget_set_can_focus (priv->history_button, FALSE);
     g_object_ref (priv->history_button);
     gtk_button_set_relief (GTK_BUTTON (priv->history_button), GTK_RELIEF_NONE);
     g_object_set_data_full (G_OBJECT (indicator), "button", priv->history_button, g_object_unref);
     gtk_widget_show (priv->history_button);
-
-    arrow = gtk_arrow_new (GTK_ARROW_DOWN, GTK_SHADOW_OUT);
-    g_object_ref (arrow);
-    g_object_set_data_full (G_OBJECT (indicator), "arrow", arrow, g_object_unref);
-    gtk_widget_show (arrow);
-    gtk_container_add (GTK_CONTAINER (priv->history_button), arrow);
 
     // create the bookmark popup button
     priv->bookmark_button = create_styled_pixbuf_button (nullptr, IMAGE_get_pixbuf (PIXMAP_BOOKMARK));
