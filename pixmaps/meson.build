@@ -33,6 +33,7 @@ icons_16x16 = [
 
 icons_scalable = [
   'gnome-commander-down-symbolic.svg',
+  'gnome-commander-info-outline-symbolic.svg',
 ]
 
 install_data(icons_16x16 + icons_scalable,
