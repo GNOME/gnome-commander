@@ -31,12 +31,17 @@ icons_16x16 = [
   'gnome-commander-copy-file-names.xpm',
 ]
 
+icons_24x24 = [
+  'gnome-commander-edit.png',
+  'gnome-commander-connect.png',
+]
+
 icons_scalable = [
   'gnome-commander-down-symbolic.svg',
   'gnome-commander-info-outline-symbolic.svg',
 ]
 
-install_data(icons_16x16 + icons_scalable,
+install_data(icons_16x16 + icons_24x24 + icons_scalable,
   install_dir: icons_dir)
 
 desktop_icons = [

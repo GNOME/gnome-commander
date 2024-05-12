@@ -246,11 +246,11 @@ static void create_toolbar (GnomeCmdMainWin *mw)
     append_toolbar_button (mw->priv->toolbar, _("Copy"),                                                    "edit-copy",            "win.edit-cap-copy");
     append_toolbar_button (mw->priv->toolbar, _("Paste"),                                                   "edit-paste",           "win.edit-cap-paste");
     append_toolbar_button (mw->priv->toolbar, _("Delete"),                                                  "edit-delete",          "win.file-delete");
-    append_toolbar_button (mw->priv->toolbar, _("Edit (SHIFT for new document)"),                           GTK_STOCK_EDIT,         "win.file-edit");
+    append_toolbar_button (mw->priv->toolbar, _("Edit (SHIFT for new document)"),                           "gnome-commander-edit", "win.file-edit");
     append_toolbar_button (mw->priv->toolbar, _("Send files"),                                              GTK_MAILSEND_STOCKID,   "win.file-sendto");
     append_toolbar_button (mw->priv->toolbar, _("Open terminal (SHIFT for root privileges)"),               GTK_TERMINAL_STOCKID,   "win.command-open-terminal-internal");
     append_toolbar_separator (mw->priv->toolbar);
-    append_toolbar_button (mw->priv->toolbar, _("Remote Server"),                                           GTK_STOCK_CONNECT,      "win.connections-open");
+    append_toolbar_button (mw->priv->toolbar, _("Remote Server"),                                           "gnome-commander-connect", "win.connections-open");
     mw->priv->tb_con_drop_btn = g_object_ref (
         append_toolbar_button (mw->priv->toolbar, _("Drop connection"),                                     nullptr,                "win.connections-close-current"));
 
