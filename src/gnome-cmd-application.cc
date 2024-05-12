@@ -79,7 +79,7 @@ static void gnome_cmd_application_startup(GApplication *application)
         debug_flags = g_strdup("cdfgiklmnpstuvwyzx");
 
     // disable beeping for the application
-    gtk_rc_parse_string("gtk-error-bell=0");
+    g_object_set (gtk_settings_get_default (), "gtk-error-bell", FALSE, NULL);
 
     gtk_icon_theme_append_search_path (gtk_icon_theme_get_default (), ICONS_DIR);
 
