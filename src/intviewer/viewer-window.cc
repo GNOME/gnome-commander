@@ -845,8 +845,8 @@ static void start_find_thread(GViewerWindow *obj, gboolean forward)
         GtkWidget *w;
 
         w = gtk_message_dialog_new(GTK_WINDOW (obj), GTK_DIALOG_MODAL, GTK_MESSAGE_INFO, GTK_BUTTONS_OK, _("Pattern “%s” was not found"), priv->search_pattern);
-        gtk_dialog_run (GTK_DIALOG (w));
-        gtk_window_destroy (GTK_WINDOW (w));
+        g_signal_connect_swapped (w, "response", G_CALLBACK (gtk_window_destroy), w);
+        gtk_window_present (GTK_WINDOW (w));
     }
     else
     {
