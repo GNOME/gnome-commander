@@ -1424,8 +1424,6 @@ GnomeCmdData::Options::Options(const Options &cfg)
     save_cmdline_history_on_exit = cfg.save_cmdline_history_on_exit;
     save_search_history_on_exit = cfg.save_search_history_on_exit;
     symlink_prefix = g_strdup (cfg.symlink_prefix);
-    main_win_pos[0] = cfg.main_win_pos[0];
-    main_win_pos[1] = cfg.main_win_pos[1];
     size_disp_mode = cfg.size_disp_mode;
     perm_disp_mode = cfg.perm_disp_mode;
     date_format = g_strdup (cfg.date_format);
@@ -1492,8 +1490,6 @@ GnomeCmdData::Options &GnomeCmdData::Options::operator = (const Options &cfg)
         save_cmdline_history_on_exit = cfg.save_cmdline_history_on_exit;
         save_search_history_on_exit = cfg.save_search_history_on_exit;
         symlink_prefix = g_strdup (cfg.symlink_prefix);
-        main_win_pos[0] = cfg.main_win_pos[0];
-        main_win_pos[1] = cfg.main_win_pos[1];
         size_disp_mode = cfg.size_disp_mode;
         perm_disp_mode = cfg.perm_disp_mode;
         date_format = g_strdup (cfg.date_format);
@@ -3203,8 +3199,6 @@ void GnomeCmdData::load()
     cmdline_history_length = g_settings_get_uint (options.gcmd_settings->general, GCMD_SETTINGS_CMDLINE_HISTORY_LENGTH);
     horizontal_orientation = g_settings_get_boolean (options.gcmd_settings->general, GCMD_SETTINGS_HORIZONTAL_ORIENTATION);
     gui_update_rate = g_settings_get_uint (options.gcmd_settings->general, GCMD_SETTINGS_GUI_UPDATE_RATE);
-    options.main_win_pos[0] = g_settings_get_int (options.gcmd_settings->general, GCMD_SETTINGS_MAIN_WIN_POS_X);
-    options.main_win_pos[1] = g_settings_get_int (options.gcmd_settings->general, GCMD_SETTINGS_MAIN_WIN_POS_Y);
 
     show_toolbar = g_settings_get_boolean (options.gcmd_settings->general, GCMD_SETTINGS_SHOW_TOOLBAR);
     show_devbuttons = g_settings_get_boolean (options.gcmd_settings->general, GCMD_SETTINGS_SHOW_DEVBUTTONS);
@@ -3611,9 +3605,6 @@ void GnomeCmdData::save()
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_SHOW_BUTTONBAR, &(buttonbar_visibility));
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_MAINMENU_VISIBILITY, &(mainmenu_visibility));
 
-    set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_MAIN_WIN_POS_X, &(options.main_win_pos[0]));
-    set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_MAIN_WIN_POS_Y, &(options.main_win_pos[1]));
-
     set_gsettings_when_changed      (options.gcmd_settings->programs, GCMD_SETTINGS_VIEWER_CMD, options.viewer);
     set_gsettings_when_changed      (options.gcmd_settings->programs, GCMD_SETTINGS_EDITOR_CMD, options.editor);
     set_gsettings_when_changed      (options.gcmd_settings->programs, GCMD_SETTINGS_DIFFER_CMD, options.differ);
@@ -3885,20 +3876,6 @@ GList *gnome_cmd_data_get_auto_load_plugins ()
 void gnome_cmd_data_set_auto_load_plugins (GList *plugins)
 {
     gnome_cmd_data.priv->auto_load_plugins = plugins;
-}
-
-
-void gnome_cmd_data_set_main_win_pos (gint x, gint y)
-{
-    gnome_cmd_data.options.main_win_pos[0] = x;
-    gnome_cmd_data.options.main_win_pos[1] = y;
-}
-
-
-void gnome_cmd_data_get_main_win_pos (gint *x, gint *y)
-{
-    *x = gnome_cmd_data.options.main_win_pos[0];
-    *y = gnome_cmd_data.options.main_win_pos[1];
 }
 
 

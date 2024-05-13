@@ -505,15 +505,9 @@ static void on_fs_dir_change (GnomeCmdFileSelector *fs, const gchar dir, GnomeCm
 
 inline void restore_size_and_pos (GnomeCmdMainWin *mw)
 {
-    gint x, y;
-
     gtk_window_set_default_size (*mw,
                                  gnome_cmd_data.main_win_width,
                                  gnome_cmd_data.main_win_height);
-
-    gnome_cmd_data_get_main_win_pos (&x, &y);
-    if (x >= 0 && y >= 0)
-        gtk_window_move (GTK_WINDOW (mw), x, y);
 
 #if defined (__GNUC__)
 #pragma GCC diagnostic push
@@ -543,36 +537,7 @@ static void on_delete_event (GnomeCmdMainWin *mw, GdkEvent *event, gpointer user
 
 static gboolean on_window_state_event (GtkWidget *mw, GdkEventWindowState *event, gpointer user_data)
 {
-    gint x, y;
-
-#if defined (__GNUC__)
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wswitch-enum"
-#endif
-    switch (event->new_window_state)
-    {
-        case GDK_WINDOW_STATE_MAXIMIZED:    // not usable
-        case GDK_WINDOW_STATE_FULLSCREEN:   // not usable
-                break;
-
-        case GDK_WINDOW_STATE_ICONIFIED:
-            if (gnome_cmd_data.main_win_state == GDK_WINDOW_STATE_MAXIMIZED ||  // prev state
-                gnome_cmd_data.main_win_state == GDK_WINDOW_STATE_FULLSCREEN)
-                break;  // not usable
-
-#if defined (__GNUC__) && __GNUC__ >= 7
-        __attribute__ ((fallthrough));
-#endif
-        default:            // other are usable
-            gdk_window_get_root_origin (gtk_widget_get_window (mw), &x, &y);
-            gnome_cmd_data_set_main_win_pos (x, y);
-    }
-
-#if defined (__GNUC__)
-#pragma GCC diagnostic pop
-#endif
     gnome_cmd_data.main_win_state = event->new_window_state;
-
     return FALSE;
 }
 
