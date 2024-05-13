@@ -621,7 +621,7 @@ static void file_list_refresh(GtkMenuItem *menuitem, GnomeCmdFileList *fl)
 
 static gboolean on_notebook_button_pressed (GtkWidget *widget, GdkEventButton *event, GnomeCmdFileSelector *fs)
 {
-    GnomeCmdNotebook *notebook = GNOME_CMD_NOTEBOOK (widget);
+    GtkNotebook *notebook = GTK_NOTEBOOK (widget);
 
     int tab_clicked;
 
@@ -636,7 +636,7 @@ static gboolean on_notebook_button_pressed (GtkWidget *widget, GdkEventButton *e
             {
                 // mid-click
                 case 2:
-                    tab_clicked = notebook->find_tab_num_at_pos(event->x_root, event->y_root);
+                    tab_clicked = gtk_notebook_ext_find_tab_num_at_pos (notebook, event->x_root, event->y_root);
 
                     if (tab_clicked>=0)
                     {
@@ -650,7 +650,7 @@ static gboolean on_notebook_button_pressed (GtkWidget *widget, GdkEventButton *e
 
                 // right-click
                 case 3:
-                    tab_clicked = notebook->find_tab_num_at_pos(event->x_root, event->y_root);
+                    tab_clicked = gtk_notebook_ext_find_tab_num_at_pos (notebook, event->x_root, event->y_root);
 
                     if (tab_clicked>=0)
                     {
@@ -714,7 +714,7 @@ static gboolean on_notebook_button_pressed (GtkWidget *widget, GdkEventButton *e
             if (event->button!=1)
                 return FALSE;
 
-            tab_clicked = notebook->find_tab_num_at_pos(event->x_root, event->y_root);
+            tab_clicked = gtk_notebook_ext_find_tab_num_at_pos (notebook, event->x_root, event->y_root);
 
             if (tab_clicked>=0)
             {
@@ -828,7 +828,10 @@ static void gnome_cmd_file_selector_init (GnomeCmdFileSelector *fs)
     fs->con_hbox = create_hbox (*fs, FALSE, 2);
 
     // create the notebook and the first tab
-    fs->notebook = new GnomeCmdNotebook;
+    fs->notebook = GTK_NOTEBOOK (gtk_notebook_new ());
+    gtk_notebook_set_show_tabs (fs->notebook, FALSE);
+    gtk_notebook_set_scrollable (fs->notebook, TRUE);
+    gtk_notebook_set_show_border (fs->notebook, FALSE);
 
     for (GList *l=gnome_cmd_con_list_get_all (gnome_cmd_con_list_get ()); l; l = l->next)
     {
@@ -899,7 +902,7 @@ static void gnome_cmd_file_selector_init (GnomeCmdFileSelector *fs)
     gtk_widget_show (*fs->con_combo);
     gtk_widget_show (fs->vol_label);
     gtk_widget_show (fs->dir_indicator);
-    gtk_widget_show_all (*fs->notebook);
+    gtk_widget_show_all (GTK_WIDGET (fs->notebook));
     gtk_widget_show (fs->info_label);
 
     fs->update_style();
@@ -1078,9 +1081,9 @@ void GnomeCmdFileSelector::update_style()
     if (priv->realized)
         update_files();
 
-    notebook->show_tabs(gnome_cmd_data.options.always_show_tabs ? GnomeCmdNotebook::SHOW_TABS : GnomeCmdNotebook::HIDE_TABS_IF_ONE);
+    update_show_tabs();
 
-    gtk_container_foreach (*notebook, (GtkCallback) update_style_notebook_tab, this);
+    gtk_container_foreach (GTK_CONTAINER (notebook), (GtkCallback) update_style_notebook_tab, this);
 
     create_con_buttons (this);
     update_connections();
@@ -1279,7 +1282,7 @@ gboolean GnomeCmdFileSelector::key_pressed(GdkEventKey *event)
         {
             case GDK_KEY_Tab:
             case GDK_KEY_ISO_Left_Tab:
-                notebook->prev_page();
+                prev_tab();
                 return TRUE;
 
             case GDK_KEY_Return:
@@ -1327,7 +1330,7 @@ gboolean GnomeCmdFileSelector::key_pressed(GdkEventKey *event)
 
             case GDK_KEY_Tab:
             case GDK_KEY_ISO_Left_Tab:
-                notebook->next_page();
+                next_tab();
                 return TRUE;
 
             case GDK_KEY_Return:
@@ -1497,6 +1500,13 @@ void GnomeCmdFileSelector::update_show_devlist()
 }
 
 
+void GnomeCmdFileSelector::update_show_tabs()
+{
+    gboolean show = gnome_cmd_data.options.always_show_tabs || gtk_notebook_get_n_pages (GTK_NOTEBOOK (notebook)) > 1;
+    gtk_notebook_set_show_tabs (GTK_NOTEBOOK (notebook), show);
+}
+
+
 static void on_filter_box_close (GtkButton *btn, GnomeCmdFileSelector *fs)
 {
     if (!fs->priv->filter_box) return;
@@ -1578,8 +1588,10 @@ GtkWidget *GnomeCmdFileSelector::new_tab(GnomeCmdDir *dir, GnomeCmdFileList::Col
         gtk_widget_show (fl->tab_label_pin);
     gtk_widget_show (fl->tab_label_text);
 
-    gint n = notebook->append_page(scrolled_window, hbox);
-    gtk_notebook_set_tab_reorderable (*notebook, scrolled_window, TRUE);
+    gint n = gtk_notebook_append_page (notebook, scrolled_window, hbox);
+    update_show_tabs();
+
+    gtk_notebook_set_tab_reorderable (notebook, scrolled_window, TRUE);
 
     gtk_widget_show_all (scrolled_window);
 
@@ -1592,7 +1604,7 @@ GtkWidget *GnomeCmdFileSelector::new_tab(GnomeCmdDir *dir, GnomeCmdFileList::Col
 
     if (activate)
     {
-        notebook->set_current_page(n);
+        gtk_notebook_set_current_page (notebook, n);
         gtk_widget_grab_focus (*fl);
     }
 
@@ -1605,6 +1617,43 @@ GtkWidget *GnomeCmdFileSelector::new_tab(GnomeCmdDir *dir, GnomeCmdFileList::Col
     g_signal_connect (fl, "key-press-event", G_CALLBACK (on_list_key_pressed_private), this);
 
     return scrolled_window;
+}
+
+
+void GnomeCmdFileSelector::close_tab()
+{
+    gint n = gtk_notebook_get_current_page (notebook);
+    close_tab(n);
+}
+
+
+void GnomeCmdFileSelector::close_tab(gint n)
+{
+    if (gtk_notebook_get_n_pages (notebook) > 1)
+        gtk_notebook_remove_page (notebook, n);
+    update_show_tabs ();
+}
+
+
+void GnomeCmdFileSelector::prev_tab()
+{
+    if (gtk_notebook_get_current_page (notebook) > 0)
+        gtk_notebook_prev_page (notebook);
+    else
+        if (gtk_notebook_get_n_pages (notebook) > 1)
+            gtk_notebook_set_current_page (notebook, -1);
+}
+
+
+void GnomeCmdFileSelector::next_tab()
+{
+    gint n = gtk_notebook_get_n_pages (notebook);
+
+    if (gtk_notebook_get_current_page (notebook) + 1 < n)
+        gtk_notebook_next_page (notebook);
+    else
+        if (n > 1)
+            gtk_notebook_set_current_page (notebook, 0);
 }
 
 
@@ -1653,7 +1702,7 @@ void GnomeCmdFileSelector::update_tab_label(GnomeCmdFileList *fl)
 
 GList* GnomeCmdFileSelector::GetTabs()
 {
-    GList *tabs = gtk_container_get_children (*this->notebook);
+    GList *tabs = gtk_container_get_children (GTK_CONTAINER (this->notebook));
 
     return tabs;
 }

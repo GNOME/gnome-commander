@@ -51,7 +51,7 @@ struct GnomeCmdFileSelector
     GnomeCmdCombo *con_combo;
     GtkWidget *vol_label;
 
-    GnomeCmdNotebook *notebook;
+    GtkNotebook *notebook;
     GnomeCmdFileList *list;
 
   public:
@@ -89,8 +89,11 @@ struct GnomeCmdFileSelector
     GtkWidget *new_tab();
     GtkWidget *new_tab(GnomeCmdDir *dir, gboolean activate=TRUE);
     GtkWidget *new_tab(GnomeCmdDir *dir, GnomeCmdFileList::ColumnID sort_col, GtkSortType sort_order, gboolean locked, gboolean activate);
-    void close_tab()                        {  if (notebook->size()>1)  notebook->remove_page();   }
-    void close_tab(gint n)                  {  if (notebook->size()>1)  notebook->remove_page(n);  }
+    void close_tab();
+    void close_tab(gint n);
+
+    void prev_tab();
+    void next_tab();
 
     void update_tab_label(GnomeCmdFileList *fl);
     GnomeCmdFileList get_gnome_cmd_file_list(GnomeCmdFileSelector &fs);
@@ -104,6 +107,7 @@ struct GnomeCmdFileSelector
     void update_connections();
     void update_show_devbuttons();
     void update_show_devlist();
+    void update_show_tabs();
 
     void do_file_specific_action (GnomeCmdFileList *fl, GnomeCmdFile *f);
 
@@ -114,7 +118,7 @@ struct GnomeCmdFileSelector
 
 inline GnomeCmdFileList *GnomeCmdFileSelector::file_list(gint n) const
 {
-    return reinterpret_cast<GnomeCmdFileList *>(gtk_bin_get_child (GTK_BIN (notebook->page(n))));
+    return reinterpret_cast<GnomeCmdFileList *>(gtk_bin_get_child (GTK_BIN (gtk_notebook_get_nth_page (GTK_NOTEBOOK (notebook), n))));
 }
 
 inline void GnomeCmdFileSelector::set_connection(GnomeCmdCon *con, GnomeCmdDir *start_dir)
