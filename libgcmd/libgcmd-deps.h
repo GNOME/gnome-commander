@@ -30,5 +30,3 @@
 #include <gtk/gtk.h>
 
 template <typename T, typename D = gpointer> using GnomeCmdCallback = void (*)(T, D);
-
-extern GtkWidget *main_win_widget;

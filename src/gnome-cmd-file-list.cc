@@ -1385,7 +1385,8 @@ static void on_tmp_download_response (GtkWidget *w, gint id, TmpDlData *dldata)
         GnomeCmdPlainPath path(path_str);
         auto destGFile = gnome_cmd_con_create_gfile (get_home_con (), &path);
 
-        gnome_cmd_tmp_download (g_list_append (nullptr, sourceGFile),
+        gnome_cmd_tmp_download (*main_win,
+                                g_list_append (nullptr, sourceGFile),
                                 g_list_append (nullptr, destGFile),
                                 G_FILE_COPY_OVERWRITE,
                                 G_CALLBACK (do_mime_exec_single),
@@ -1402,7 +1403,7 @@ static void on_tmp_download_response (GtkWidget *w, gint id, TmpDlData *dldata)
 }
 
 
-static void mime_exec_single (GnomeCmdFile *f)
+static void mime_exec_single (GtkWindow *parent_window, GnomeCmdFile *f)
 {
     g_return_if_fail (f != nullptr);
     g_return_if_fail (f->get_file_info() != nullptr);
@@ -1417,7 +1418,7 @@ static void mime_exec_single (GnomeCmdFile *f)
         if (f->has_content_type("application/x-executable") || f->has_content_type("application/x-executable-binary"))
         {
             gchar *msg = g_strdup_printf (_("“%s” seems to be a binary executable file but it lacks the executable bit. Do you want to set it and then run the file?"), f->get_name());
-            gint ret = run_simple_dialog (*main_win, FALSE, GTK_MESSAGE_QUESTION, msg,
+            gint ret = run_simple_dialog (parent_window, FALSE, GTK_MESSAGE_QUESTION, msg,
                                           _("Make Executable?"),
                                           -1, _("Cancel"), _("OK"), nullptr);
             g_free (msg);
@@ -1447,7 +1448,7 @@ static void mime_exec_single (GnomeCmdFile *f)
             if (f->content_type_begins_with("text/"))
             {
                 gchar *msg = g_strdup_printf (_("“%s” is an executable text file. Do you want to run it, or display its contents?"), f->get_name());
-                gint ret = run_simple_dialog (*main_win, FALSE, GTK_MESSAGE_QUESTION, msg, _("Run or Display"),
+                gint ret = run_simple_dialog (parent_window, FALSE, GTK_MESSAGE_QUESTION, msg, _("Run or Display"),
                                               -1, _("Cancel"), _("Display"), _("Run"), nullptr);
                 g_free (msg);
 
@@ -1465,7 +1466,7 @@ static void mime_exec_single (GnomeCmdFile *f)
     {
         auto contentType = f->GetGfileAttributeString(G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE);
         gchar *msg = g_strdup_printf (_("No default application found for the file type %s."), contentType);
-        gnome_cmd_show_message (nullptr, msg, _("Open the \"Applications\" page in the Control Center to add one."));
+        gnome_cmd_show_message (parent_window, msg, _("Open the \"Applications\" page in the Control Center to add one."));
         g_free (contentType);
         g_free (msg);
         return;
@@ -1497,7 +1498,7 @@ static void mime_exec_single (GnomeCmdFile *f)
         else
         {
             gchar *msg = g_strdup_printf (_("%s does not know how to open remote file. Do you want to download the file to a temporary location and then open it?"), gnome_cmd_app_get_name (app));
-            GtkWidget *dialog = gtk_message_dialog_new (*main_win, GTK_DIALOG_MODAL, GTK_MESSAGE_QUESTION, GTK_BUTTONS_YES_NO, "%s", msg);
+            GtkWidget *dialog = gtk_message_dialog_new (parent_window, GTK_DIALOG_MODAL, GTK_MESSAGE_QUESTION, GTK_BUTTONS_YES_NO, "%s", msg);
             TmpDlData *dldata = g_new0 (TmpDlData, 1);
             args[0] = (gpointer) app;
             // args[2] is NULL here (don't set exec dir for temporarily downloaded files)
@@ -1513,13 +1514,13 @@ static void mime_exec_single (GnomeCmdFile *f)
 }
 
 
-inline gboolean mime_exec_file (GnomeCmdFile *f)
+inline gboolean mime_exec_file (GtkWindow *parent_window, GnomeCmdFile *f)
 {
     g_return_val_if_fail (f != nullptr, FALSE);
 
     if (f->GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE) == G_FILE_TYPE_REGULAR)
     {
-        mime_exec_single (f);
+        mime_exec_single (parent_window, f);
         return TRUE;
     }
     return FALSE;
@@ -1536,7 +1537,7 @@ static void on_file_clicked (GnomeCmdFileList *fl, GnomeCmdFileListButtonEvent *
 
     if (event->n_press == 2 && event->button == 1 && gnome_cmd_data.options.left_mouse_button_mode == GnomeCmdData::LEFT_BUTTON_OPENS_WITH_DOUBLE_CLICK)
     {
-        mime_exec_file (event->file);
+        mime_exec_file (get_toplevel_window (*fl), event->file);
     }
     else
         if (event->n_press == 1 && (event->button == 1 || event->button == 3))
@@ -1605,7 +1606,7 @@ static void on_file_released (GnomeCmdFileList *fl, GnomeCmdFileListButtonEvent 
     g_return_if_fail (GNOME_CMD_IS_FILE (event->file));
 
     if (event->n_press == 1 && event->button == 1 && !fl->modifier_click && gnome_cmd_data.options.left_mouse_button_mode == GnomeCmdData::LEFT_BUTTON_OPENS_WITH_SINGLE_CLICK)
-        mime_exec_file (event->file);
+        mime_exec_file (get_toplevel_window (*fl), event->file);
 }
 
 
@@ -1759,7 +1760,7 @@ static void on_dir_list_failed (GnomeCmdDir *dir, gpointer *unused, GnomeCmdFile
 
     if (dir->error)
     {
-        gnome_cmd_show_message (nullptr, _("Directory listing failed."), dir->error->message);
+        gnome_cmd_show_message (get_toplevel_window (*fl), _("Directory listing failed."), dir->error->message);
         g_clear_error(&(dir->error));
     }
 
@@ -1811,7 +1812,7 @@ static void on_con_open_failed (GnomeCmdCon *con, GnomeCmdFileList *fl)
 
     g_signal_handlers_disconnect_matched (con, G_SIGNAL_MATCH_DATA, 0, 0, nullptr, nullptr, fl);
 
-    gnome_cmd_show_message (nullptr,  _("Failed to open connection."), con->open_failed_msg);
+    gnome_cmd_show_message (get_toplevel_window (*fl), _("Failed to open connection."), con->open_failed_msg);
 
     fl->priv->con_open_dialog = nullptr;
     fl->priv->con_opening = nullptr;
@@ -1851,7 +1852,7 @@ static void create_con_open_progress_dialog (GnomeCmdFileList *fl)
 {
     g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl));
 
-    fl->priv->con_open_dialog = gnome_cmd_dialog_new (nullptr);
+    fl->priv->con_open_dialog = gnome_cmd_dialog_new (get_toplevel_window (*fl), nullptr);
     g_object_ref (fl->priv->con_open_dialog);
 
     gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (fl->priv->con_open_dialog),
@@ -1871,7 +1872,6 @@ static void create_con_open_progress_dialog (GnomeCmdFileList *fl)
 
     gnome_cmd_dialog_add_category (GNOME_CMD_DIALOG (fl->priv->con_open_dialog), vbox);
 
-    gtk_window_set_transient_for (GTK_WINDOW (fl->priv->con_open_dialog), *main_win);
     gtk_widget_show_all (fl->priv->con_open_dialog);
 }
 
@@ -2240,7 +2240,7 @@ void GnomeCmdFileList::reload()
     g_return_if_fail (GNOME_CMD_IS_DIR (cwd));
 
     unselect_all();
-    gnome_cmd_dir_relist_files (cwd, gnome_cmd_con_needs_list_visprog (con));
+    gnome_cmd_dir_relist_files (get_toplevel_window (*this), cwd, gnome_cmd_con_needs_list_visprog (con));
 }
 
 
@@ -2595,7 +2595,7 @@ void gnome_cmd_file_list_show_delete_dialog (GnomeCmdFileList *fl, gboolean forc
 
     if (files)
     {
-        gnome_cmd_delete_dialog_show (files, forceDelete);
+        gnome_cmd_delete_dialog_show (get_toplevel_window (*fl), files, forceDelete);
     }
 }
 
@@ -2666,7 +2666,7 @@ void gnome_cmd_file_list_view (GnomeCmdFileList *fl, bool useInternalViewer)
 
     if (f->GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE) == G_FILE_TYPE_DIRECTORY)
     {
-        gnome_cmd_show_message (*main_win, _("Not an ordinary file."), g_file_info_get_display_name(f->get_file_info()));
+        gnome_cmd_show_message (get_toplevel_window (*fl), _("Not an ordinary file."), g_file_info_get_display_name(f->get_file_info()));
         return;
     }
 
@@ -2695,7 +2695,7 @@ void gnome_cmd_file_list_edit (GnomeCmdFileList *fl)
     if (!f)  return;
 
     if (f->GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE) == G_FILE_TYPE_DIRECTORY)
-        gnome_cmd_show_message (*main_win, _("Not an ordinary file."), g_file_info_get_display_name(f->get_file_info()));
+        gnome_cmd_show_message (get_toplevel_window (*fl), _("Not an ordinary file."), g_file_info_get_display_name(f->get_file_info()));
     else
         gnome_cmd_file_edit (f);
 }
@@ -2904,7 +2904,7 @@ gboolean GnomeCmdFileList::key_pressed(GnomeCmdKeyPress *event)
         {
             case GDK_KEY_Return:
             case GDK_KEY_KP_Enter:
-                return mime_exec_file (get_focused_file());
+                return mime_exec_file (get_toplevel_window (*this), get_focused_file());
 
             case GDK_KEY_space:
                 set_cursor_busy ();
@@ -3123,7 +3123,7 @@ void GnomeCmdFileList::set_directory(GnomeCmdDir *dir)
         case GnomeCmdDir::STATE_EMPTY:
             g_signal_connect (dir, "list-ok", G_CALLBACK (on_dir_list_ok), this);
             g_signal_connect (dir, "list-failed", G_CALLBACK (on_dir_list_failed), this);
-            gnome_cmd_dir_list_files (dir, gnome_cmd_con_needs_list_visprog (con));
+            gnome_cmd_dir_list_files (get_toplevel_window (*this), dir, gnome_cmd_con_needs_list_visprog (con));
             break;
 
         case GnomeCmdDir::STATE_LISTING:
@@ -3138,7 +3138,7 @@ void GnomeCmdFileList::set_directory(GnomeCmdDir *dir)
 
             // check if the dir has up-to-date file list; if not and it's a local dir - relist it
             if (gnome_cmd_dir_is_local (dir) && !gnome_cmd_dir_is_monitored (dir) && gnome_cmd_dir_update_mtime (dir))
-                gnome_cmd_dir_relist_files (dir, gnome_cmd_con_needs_list_visprog (con));
+                gnome_cmd_dir_relist_files (get_toplevel_window (*this), dir, gnome_cmd_con_needs_list_visprog (con));
             else
                 on_dir_list_ok (dir, nullptr, this);
             break;

@@ -60,13 +60,15 @@ inline void free_xfer_data (XferData *xferData)
 
 
 static XferData *
-create_xfer_data (GFileCopyFlags copyFlags, GList *srcGFileList, GList *destGFileList,
+create_xfer_data (GtkWindow *parent_window,
+                  GFileCopyFlags copyFlags, GList *srcGFileList, GList *destGFileList,
                   GnomeCmdDir *to_dir, GnomeCmdFileList *src_fl, GList *src_files,
                   GnomeCmdConfirmOverwriteMode overwriteMode,
                   GFunc on_completed_func, gpointer on_completed_data)
 {
     XferData *xferData = g_new0 (XferData, 1);
 
+    xferData->parent_window = parent_window;
     xferData->copyFlags = copyFlags;
     xferData->srcGFileList = srcGFileList;
     xferData->destGFileList = destGFileList;
@@ -116,7 +118,7 @@ static void run_simple_error_dialog(const char *msg, XferData *xferData)
 {
     gdk_threads_enter ();
     gint guiResponse = run_simple_dialog (
-        *main_win, TRUE, GTK_MESSAGE_ERROR, msg, _("Transfer problem"),
+        xferData->parent_window, TRUE, GTK_MESSAGE_ERROR, msg, _("Transfer problem"),
         -1, _("Abort"), _("Retry"), _("Skip"), NULL);
     gdk_threads_leave ();
 
@@ -143,10 +145,10 @@ static void run_directory_copy_overwrite_dialog(const char *msg, XferData *xferD
     gint guiResponse = -1;
     g_list_length(xferData->srcGFileList) > 1
         ? guiResponse = run_simple_dialog (
-            *main_win, TRUE, GTK_MESSAGE_ERROR, msg, _("Copy problem"),
+            xferData->parent_window, TRUE, GTK_MESSAGE_ERROR, msg, _("Copy problem"),
             -1, _("Abort"), _("Retry"), _("Copy into"), _("Rename"), _("Rename all"), _("Skip"), _("Skip all"), NULL)
         : guiResponse = run_simple_dialog (
-            *main_win, TRUE, GTK_MESSAGE_ERROR, msg, _("Copy problem"),
+            xferData->parent_window, TRUE, GTK_MESSAGE_ERROR, msg, _("Copy problem"),
             -1, _("Abort"), _("Retry"), _("Copy into"), _("Rename"), NULL);
 
     switch (guiResponse)
@@ -201,10 +203,10 @@ static void run_file_copy_overwrite_dialog(XferData *xferData)
     gdk_threads_enter ();
     xferData->filesTotal > 1
     ? guiResponse = run_simple_dialog (
-        *main_win, TRUE, GTK_MESSAGE_ERROR, msg, _("Copy problem"),
+        xferData->parent_window, TRUE, GTK_MESSAGE_ERROR, msg, _("Copy problem"),
         -1, _("Abort"), _("Retry"), _("Replace"), _("Rename"), _("Skip"), _("Replace all"), _("Rename all"), _("Skip all"), NULL)
     : guiResponse = run_simple_dialog (
-        *main_win, TRUE, GTK_MESSAGE_ERROR, msg, _("Copy problem"),
+        xferData->parent_window, TRUE, GTK_MESSAGE_ERROR, msg, _("Copy problem"),
         -1, _("Abort"), _("Retry"), _("Replace"), _("Rename"), NULL);
     gdk_threads_leave ();
 
@@ -319,10 +321,10 @@ static void run_move_overwrite_dialog(XferData *xferData)
     g_free (targetDetails);
     xferData->filesTotal > 1
         ? guiResponse = run_simple_dialog (
-            *main_win, TRUE, GTK_MESSAGE_ERROR, msg, _("Move problem"),
+            xferData->parent_window, TRUE, GTK_MESSAGE_ERROR, msg, _("Move problem"),
             -1, _("Abort"), _("Retry"), _("Replace"), _("Rename"), _("Skip"), _("Replace all"), _("Rename all"), _("Skip all"), NULL)
         : guiResponse = run_simple_dialog (
-            *main_win, TRUE, GTK_MESSAGE_ERROR, msg, _("Move problem"),
+            xferData->parent_window, TRUE, GTK_MESSAGE_ERROR, msg, _("Move problem"),
             -1, _("Abort"), _("Retry"), _("Replace"), _("Rename"), NULL);
     switch (guiResponse)
     {
@@ -403,7 +405,7 @@ static void finish_xfer(XferData *xferData, gboolean threaded)
     //  Only update the files if needed
     if (xferData->destGnomeCmdDir)
     {
-        gnome_cmd_dir_relist_files (xferData->destGnomeCmdDir, FALSE);
+        gnome_cmd_dir_relist_files (xferData->parent_window, xferData->destGnomeCmdDir, FALSE);
         main_win->focus_file_lists();
         gnome_cmd_dir_unref (xferData->destGnomeCmdDir);
         xferData->destGnomeCmdDir = nullptr;
@@ -629,13 +631,15 @@ gnome_cmd_copy_gfiles_start (GList *srcGFileGList,
 
     GFile *srcGFile, *destGFile;
 
+    GtkWindow *parent_window = get_toplevel_window (*srcGnomeCmdFileList);
+
     // Sanity check
     for (GList *i = srcGFileGList; i; i = i->next)
     {
         srcGFile = (GFile *) i->data;
         if (gfile_is_parent_to_dir_or_equal (srcGFile, destGnomeCmdDir))
         {
-            gnome_cmd_show_message (*main_win, _("Copying a directory into itself is a bad idea."), _("The whole operation was cancelled."));
+            gnome_cmd_show_message (parent_window, _("Copying a directory into itself is a bad idea."), _("The whole operation was cancelled."));
             return;
         }
         if (file_is_already_in_dir (srcGFile, destGnomeCmdDir))
@@ -651,7 +655,7 @@ gnome_cmd_copy_gfiles_start (GList *srcGFileGList,
         }
     }
 
-    XferData *xferData = create_xfer_data (copyFlags, srcGFileGList, nullptr,
+    XferData *xferData = create_xfer_data (parent_window, copyFlags, srcGFileGList, nullptr,
                             destGnomeCmdDir, srcGnomeCmdFileList, srcFilesGList, overwriteMode,
                             (GFunc) on_completed_func, on_completed_data);
     xferData->transferType = COPY;
@@ -710,13 +714,15 @@ gnome_cmd_move_gfiles_start (GList *srcGFileGList,
 
     GFile *srcGFile, *destGFile;
 
+    GtkWindow *parent_window = get_toplevel_window (*srcGnomeCmdFileList);
+
     // Sanity check
     for (GList *i = srcGFileGList; i; i = i->next)
     {
         srcGFile = (GFile *) i->data;
         if (gfile_is_parent_to_dir_or_equal (srcGFile, destGnomeCmdDir))
         {
-            gnome_cmd_show_message (*main_win, _("Moving a directory into itself is a bad idea."), _("The whole operation was cancelled."));
+            gnome_cmd_show_message (parent_window, _("Moving a directory into itself is a bad idea."), _("The whole operation was cancelled."));
             return;
         }
         if (file_is_already_in_dir (srcGFile, destGnomeCmdDir))
@@ -732,7 +738,7 @@ gnome_cmd_move_gfiles_start (GList *srcGFileGList,
         }
     }
 
-    XferData *xferData = create_xfer_data (copyFlags, srcGFileGList, nullptr,
+    XferData *xferData = create_xfer_data (parent_window, copyFlags, srcGFileGList, nullptr,
                             destGnomeCmdDir, srcGnomeCmdFileList, srcGnomeCmdFileGList,
                             overwriteMode, (GFunc) on_completed_func, on_completed_data);
     xferData->transferType = MOVE;
@@ -792,13 +798,15 @@ gnome_cmd_link_gfiles_start (GList *srcGFileGList,
 
     GFile *srcGFile, *destGFile;
 
+    GtkWindow *parent_window = get_toplevel_window (*srcGnomeCmdFileList);
+
     // Sanity check
     for (GList *i = srcGFileGList; i; i = i->next)
     {
         srcGFile = (GFile *) i->data;
         if (gfile_is_parent_to_dir_or_equal (srcGFile, destGnomeCmdDir))
         {
-            gnome_cmd_show_message (*main_win, _("Moving a directory into itself is a bad idea."), _("The whole operation was cancelled."));
+            gnome_cmd_show_message (parent_window, _("Moving a directory into itself is a bad idea."), _("The whole operation was cancelled."));
             return;
         }
         if (file_is_already_in_dir (srcGFile, destGnomeCmdDir))
@@ -814,7 +822,7 @@ gnome_cmd_link_gfiles_start (GList *srcGFileGList,
         }
     }
 
-    XferData *xferData = create_xfer_data (copyFlags, srcGFileGList, nullptr,
+    XferData *xferData = create_xfer_data (parent_window, copyFlags, srcGFileGList, nullptr,
                             destGnomeCmdDir, srcGnomeCmdFileList, srcGnomeCmdFileGList,
                             overwriteMode, (GFunc) on_completed_func, on_completed_data);
     xferData->transferType = LINK;
@@ -850,7 +858,8 @@ gnome_cmd_link_gfiles_start (GList *srcGFileGList,
 
 
 void
-gnome_cmd_tmp_download (GList *srcGFileList,
+gnome_cmd_tmp_download (GtkWindow *parent_window,
+                        GList *srcGFileList,
                         GList *destGFileList,
                         GFileCopyFlags copyFlags,
                         GCallback on_completed_func,
@@ -859,7 +868,7 @@ gnome_cmd_tmp_download (GList *srcGFileList,
     g_return_if_fail (srcGFileList != nullptr && srcGFileList->data != nullptr);
     g_return_if_fail (destGFileList != nullptr && destGFileList->data != nullptr);
 
-    auto xferData = create_xfer_data (copyFlags, srcGFileList, destGFileList,
+    auto xferData = create_xfer_data (parent_window, copyFlags, srcGFileList, destGFileList,
                              nullptr, nullptr, nullptr, GNOME_CMD_CONFIRM_OVERWRITE_QUERY,
                              (GFunc) on_completed_func, on_completed_data);
     xferData->transferType = COPY;
@@ -925,7 +934,7 @@ gnome_cmd_transfer_gfiles (XferData *xferData)
                                                     error->message);
 
                     run_simple_dialog (
-                        *main_win, TRUE, GTK_MESSAGE_ERROR, msg, _("Symlink creation problem"),
+                        xferData->parent_window, TRUE, GTK_MESSAGE_ERROR, msg, _("Symlink creation problem"),
                         -1, _("Ignore"), NULL);
                     g_free(msg);
                     g_error_free(error);
@@ -1104,7 +1113,7 @@ gnome_cmd_move_gfile_recursive (GFile *srcGFile,
                 {
                     auto srcFileName = g_file_get_basename(srcGFile);
                     auto msg = g_strdup_printf(_("Source “%s” could not be deleted. Aborting!\n\n%s"), srcFileName, tmpError->message);
-                    run_simple_dialog ( *main_win, TRUE, GTK_MESSAGE_ERROR, msg, _("Transfer problem"), -1, _("Abort"), NULL);
+                    run_simple_dialog (xferData->parent_window, TRUE, GTK_MESSAGE_ERROR, msg, _("Transfer problem"), -1, _("Abort"), NULL);
                     g_free (srcFileName);
                     g_error_free(tmpError);
                     return false;
@@ -1115,7 +1124,7 @@ gnome_cmd_move_gfile_recursive (GFile *srcGFile,
                 {
                     auto srcFileName = g_file_get_basename(srcGFile);
                     auto msg = g_strdup_printf(_("Source “%s” could not be deleted. Aborting!\n\n%s"), srcFileName, tmpError->message);
-                    run_simple_dialog ( *main_win, TRUE, GTK_MESSAGE_ERROR, msg, _("Transfer problem"), -1, _("Abort"), NULL);
+                    run_simple_dialog (xferData->parent_window, TRUE, GTK_MESSAGE_ERROR, msg, _("Transfer problem"), -1, _("Abort"), NULL);
                     g_free (srcFileName);
                     g_error_free(tmpError);
                     g_object_unref(gFileInfo);
@@ -1148,6 +1157,7 @@ gnome_cmd_move_gfile_recursive (GFile *srcGFile,
                 auto gnomeCmdDir = gnome_cmd_dir_new_from_gfileinfo(gFileInfo, gnomeCmdDirParent);
 
                 auto deleteData = g_new0 (DeleteData, 1);
+                deleteData->parent_window = xferData->parent_window;
                 deleteData->gnomeCmdFiles = g_list_append(nullptr, gnomeCmdDir);
                 deleteData->originAction = DeleteData::OriginAction::MOVE;
                 do_delete (deleteData, false); // false -> do not show progress window
@@ -1161,7 +1171,7 @@ gnome_cmd_move_gfile_recursive (GFile *srcGFile,
                 {
                     auto srcFileName = g_file_get_basename(srcGFile);
                     auto msg = g_strdup_printf(_("Source “%s” could not be copied. Aborting!"), srcFileName);
-                    run_simple_dialog ( *main_win, TRUE, GTK_MESSAGE_ERROR, msg, _("Transfer problem"), -1, _("Abort"), NULL);
+                    run_simple_dialog (xferData->parent_window, TRUE, GTK_MESSAGE_ERROR, msg, _("Transfer problem"), -1, _("Abort"), NULL);
                     g_free (srcFileName);
                     g_error_free(tmpError);
                 }

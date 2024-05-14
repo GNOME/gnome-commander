@@ -88,7 +88,7 @@ GMenuModel *gnome_cmd_plugin_create_popup_menu_items (GnomeCmdPlugin *plugin, Gn
 }
 
 
-void gnome_cmd_plugin_configure (GnomeCmdPlugin *plugin)
+void gnome_cmd_plugin_configure (GnomeCmdPlugin *plugin, GtkWindow *parent_window)
 {
     GnomeCmdPluginClass *klass;
 
@@ -96,5 +96,5 @@ void gnome_cmd_plugin_configure (GnomeCmdPlugin *plugin)
 
     klass = GNOME_CMD_PLUGIN_GET_CLASS (plugin);
 
-    klass->configure (plugin);
+    klass->configure (plugin, parent_window);
 }

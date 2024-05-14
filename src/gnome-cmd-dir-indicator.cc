@@ -24,12 +24,7 @@
 #include "gnome-cmd-includes.h"
 #include "gnome-cmd-dir-indicator.h"
 #include "gnome-cmd-file-selector.h"
-#include "gnome-cmd-main-win.h"
-#include "gnome-cmd-data.h"
-#include "gnome-cmd-user-actions.h"
 #include "dialogs/gnome-cmd-manage-bookmarks-dialog.h"
-#include "imageloader.h"
-#include "utils.h"
 
 using namespace std;
 
@@ -44,6 +39,15 @@ struct GnomeCmdDirIndicatorPrivate
     int *slashPixelPosition;
     int numPositions;
 };
+
+
+enum {
+    NAVIGATE,
+    LAST_SIGNAL
+};
+
+
+static guint signals[LAST_SIGNAL] = { 0 };
 
 
 G_DEFINE_TYPE_WITH_PRIVATE (GnomeCmdDirIndicator, gnome_cmd_dir_indicator, GTK_TYPE_FRAME)
@@ -71,6 +75,15 @@ static void dispose (GObject *object)
 static void gnome_cmd_dir_indicator_class_init (GnomeCmdDirIndicatorClass *klass)
 {
     G_OBJECT_CLASS (klass)->dispose = dispose;
+
+    signals[NAVIGATE] =
+        g_signal_new ("navigate",
+            G_TYPE_FROM_CLASS (klass),
+            G_SIGNAL_RUN_LAST,
+            G_STRUCT_OFFSET (GnomeCmdDirIndicatorClass, navigate),
+            NULL, NULL, NULL,
+            G_TYPE_NONE,
+            2, G_TYPE_STRING, G_TYPE_BOOLEAN);
 }
 
 
@@ -106,17 +119,9 @@ static void on_dir_indicator_clicked (GtkGestureMultiPress *gesture, int n_press
         gchar *colonPtr = strchr(chTo, ':');
         gchar *chToDir = colonPtr != nullptr ? colonPtr + 1 : chTo;
 
-        main_win->switch_fs(priv->fs);
-        if (button == 2 || get_modifiers_state() & GDK_CONTROL_MASK || priv->fs->file_list()->locked)
-        {
-            GnomeCmdCon *con = priv->fs->get_connection();
-            GnomeCmdDir *dir = gnome_cmd_dir_new (con, gnome_cmd_con_create_path (con, chToDir));
-            priv->fs->new_tab(dir);
-        }
-        else
-        {
-            priv->fs->goto_directory(chToDir);
-        }
+        gboolean new_tab = button == 2 || get_modifiers_state() & GDK_CONTROL_MASK;
+
+        g_signal_emit (indicator, signals[NAVIGATE], 0, chToDir, new_tab);
     }
     else if (button == 3)
     {
@@ -288,24 +293,15 @@ static void select_path (GSimpleAction *action, GVariant *parameter, gpointer us
 {
     auto indicator = static_cast<GnomeCmdDirIndicator*> (user_data);
     g_return_if_fail (GNOME_CMD_IS_DIR_INDICATOR (indicator));
-    auto priv = static_cast<GnomeCmdDirIndicatorPrivate*>(gnome_cmd_dir_indicator_get_instance_private (indicator));
 
     const gchar *path;
     g_variant_get (parameter, "s", &path);
     g_return_if_fail (path != nullptr);
 
     GdkModifierType mask = get_modifiers_state();
+    gboolean new_tab = mask & GDK_CONTROL_MASK;
 
-    main_win->switch_fs(priv->fs);
-
-    if (mask & GDK_CONTROL_MASK || priv->fs->file_list()->locked)
-    {
-        GnomeCmdCon *con = priv->fs->get_connection();
-        GnomeCmdDir *dir = gnome_cmd_dir_new (con, gnome_cmd_con_create_path (con, path));
-        priv->fs->new_tab(dir);
-    }
-    else
-        priv->fs->goto_directory(path);
+    g_signal_emit (indicator, signals[NAVIGATE], 0, path, new_tab);
 }
 
 

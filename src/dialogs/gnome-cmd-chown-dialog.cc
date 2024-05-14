@@ -54,7 +54,7 @@ enum
 static guint signals[LAST_SIGNAL] = { 0 };
 
 
-static void do_chown (GnomeCmdFile *in, uid_t uid, gid_t gid, gboolean recurse)
+static void do_chown (GnomeCmdChownDialog *dialog, GnomeCmdFile *in, uid_t uid, gid_t gid, gboolean recurse)
 {
     g_return_if_fail (in != nullptr);
     g_return_if_fail (in->get_file_info() != nullptr);
@@ -76,7 +76,7 @@ static void do_chown (GnomeCmdFile *in, uid_t uid, gid_t gid, gboolean recurse)
     {
         GnomeCmdDir *dir = gnome_cmd_dir_ref (GNOME_CMD_DIR (in));
 
-        gnome_cmd_dir_list_files (dir, FALSE);
+        gnome_cmd_dir_list_files (GTK_WINDOW (dialog), dir, FALSE);
 
         for (GList *i = gnome_cmd_dir_get_files (dir); i; i = i->next)
         {
@@ -86,7 +86,7 @@ static void do_chown (GnomeCmdFile *in, uid_t uid, gid_t gid, gboolean recurse)
             if (!f->is_dotdot && strcmp (filename, ".") != 0
                 && !g_file_info_get_is_symlink(f->get_file_info()))
             {
-                do_chown (f, uid, gid, TRUE);
+                do_chown (dialog, f, uid, gid, TRUE);
             }
             g_free(filename);
         }
@@ -122,7 +122,7 @@ static void on_ok (GtkButton *button, GnomeCmdChownDialog *dialog)
         g_return_if_fail (f != NULL);
 
         //ToDo: Check if this works also on non-local filesystems
-        do_chown (f, uid, gid, recurse);
+        do_chown (dialog, f, uid, gid, recurse);
     }
 
     g_signal_emit (dialog, signals[OWNER_CHANGED], 0);

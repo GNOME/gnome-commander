@@ -130,7 +130,7 @@ gboolean run_command_indir (const gchar *in_command, const gchar *dpath, gboolea
     // check if command includes % and replace
     string cmd;
     cmd.reserve(2000);
-    if (parse_command(&cmd, (const gchar*) command) == 0)
+    if (parse_command(main_win, &cmd, (const gchar*) command) == 0)
     {
         DEBUG ('g', "run_command_indir: command is not valid.\n");
         gnome_cmd_show_message (*main_win, _("No valid command given."));
@@ -195,7 +195,7 @@ static gboolean on_run_dialog_keypress (GtkWidget *dialog, GdkEventKey *event, g
 }
 
 
-gint run_simple_dialog (GtkWidget *parent, gboolean ignore_close_box,
+gint run_simple_dialog (GtkWindow *parent, gboolean ignore_close_box,
                         GtkMessageType msg_type,
                         const char *text, const char *title, gint def_response, ...)
 {
@@ -210,7 +210,7 @@ gint run_simple_dialog (GtkWidget *parent, gboolean ignore_close_box,
     button_titles = convert_varargs_to_name_array (button_title_args);
     va_end (button_title_args);
 
-    dialog = gtk_message_dialog_new (*main_win, GTK_DIALOG_MODAL, msg_type, GTK_BUTTONS_NONE, NULL);
+    dialog = gtk_message_dialog_new (parent, GTK_DIALOG_MODAL, msg_type, GTK_BUTTONS_NONE, NULL);
     gtk_message_dialog_set_markup (GTK_MESSAGE_DIALOG (dialog), text);
 
     if (title)

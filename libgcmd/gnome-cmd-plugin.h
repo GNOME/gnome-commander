@@ -48,7 +48,7 @@ struct _GnomeCmdPluginClass
 
     GMenuModel *(* create_main_menu) (GnomeCmdPlugin *plugin, GnomeCmdState *state);
     GMenuModel *(* create_popup_menu_items) (GnomeCmdPlugin *plugin, GnomeCmdState *state);
-    void (* configure) (GnomeCmdPlugin *plugin);
+    void (* configure) (GnomeCmdPlugin *plugin, GtkWindow *parent_window);
 };
 
 
@@ -60,4 +60,4 @@ GMenuModel *gnome_cmd_plugin_create_main_menu (GnomeCmdPlugin *plugin, GnomeCmdS
 
 GMenuModel *gnome_cmd_plugin_create_popup_menu_items (GnomeCmdPlugin *plugin, GnomeCmdState *state);
 
-void gnome_cmd_plugin_configure (GnomeCmdPlugin *plugin);
+void gnome_cmd_plugin_configure (GnomeCmdPlugin *plugin, GtkWindow *parent_window);

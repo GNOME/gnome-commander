@@ -84,9 +84,6 @@ inline std::string key2str(const GnomeCmdKeyPress &event)
 }
 
 
-GnomeCmdFileSelector *get_fs (const FileSelectorID fsID);
-GnomeCmdFileList     *get_fl (const FileSelectorID fsID);
-
 class GnomeCmdUserActions
 {
   private:
@@ -160,9 +157,9 @@ inline gboolean GnomeCmdUserActions::register_action(guint keyval, const gchar *
     return register_action(0, keyval, action_name_argument, user_data);
 }
 
-int parse_command(string *cmd, const gchar *command);
+int parse_command(GnomeCmdMainWin *main_win, string *cmd, const gchar *command);
 
-void eventually_warn_if_xdg_email_is_used();
+void eventually_warn_if_xdg_email_is_used(GnomeCmdMainWin *main_win);
 
 extern GnomeCmdUserActions gcmd_user_actions;
 

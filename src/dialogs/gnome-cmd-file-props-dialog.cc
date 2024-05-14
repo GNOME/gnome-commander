@@ -648,7 +648,7 @@ inline GtkWidget *create_metadata_tab (GnomeCmdFilePropsDialogPrivate *data)
 }
 
 
-GtkWidget *gnome_cmd_file_props_dialog_create (GnomeCmdFile *f)
+GtkWidget *gnome_cmd_file_props_dialog_create (GtkWindow *parent_window, GnomeCmdFile *f)
 {
     g_return_val_if_fail (f != nullptr, nullptr);
     g_return_val_if_fail (f->get_file_info() != nullptr, nullptr);
@@ -658,7 +658,7 @@ GtkWidget *gnome_cmd_file_props_dialog_create (GnomeCmdFile *f)
 
     GnomeCmdFilePropsDialogPrivate *data = g_new0 (GnomeCmdFilePropsDialogPrivate, 1);
 
-    GtkWidget *dialog = gnome_cmd_dialog_new (_("File Properties"));
+    GtkWidget *dialog = gnome_cmd_dialog_new (parent_window, _("File Properties"));
     g_signal_connect (dialog, "destroy", G_CALLBACK (on_dialog_destroy), data);
     gtk_window_set_resizable(GTK_WINDOW (dialog), TRUE);
 

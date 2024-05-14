@@ -333,6 +333,25 @@ static void on_con_combo_item_selected (GnomeCmdCombo *con_combo, GnomeCmdCon *c
 }
 
 
+static void on_navigate (GnomeCmdDirIndicator *indicator, const gchar *path, gboolean new_tab, GnomeCmdFileSelector *fs)
+{
+    g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
+
+    main_win->switch_fs(fs);
+
+    if (new_tab || fs->file_list()->locked)
+    {
+        GnomeCmdCon *con = fs->get_connection();
+        GnomeCmdDir *dir = gnome_cmd_dir_new (con, gnome_cmd_con_create_path (con, path));
+        fs->new_tab(dir);
+    }
+    else
+    {
+        fs->goto_directory (path);
+    }
+}
+
+
 static void on_combo_popwin_hidden (GnomeCmdCombo *combo, gpointer)
 {
     main_win->refocus();
@@ -836,6 +855,7 @@ static void gnome_cmd_file_selector_init (GnomeCmdFileSelector *fs)
     g_signal_connect (fs, "realize", G_CALLBACK (on_realize), fs);
     g_signal_connect (fs->con_combo, "item-selected", G_CALLBACK (on_con_combo_item_selected), fs);
     g_signal_connect (fs->con_combo, "popwin-hidden", G_CALLBACK (on_combo_popwin_hidden), nullptr);
+    g_signal_connect (fs->dir_indicator, "navigate", G_CALLBACK (on_navigate), fs);
     g_signal_connect (gnome_cmd_con_list_get (), "list-changed", G_CALLBACK (on_con_list_list_changed), fs);
     g_signal_connect (fs->notebook, "switch-page", G_CALLBACK (on_notebook_switch_page), fs);
 

@@ -38,6 +38,14 @@ struct GnomeCmdStringDialogPrivate
 G_DEFINE_TYPE_WITH_PRIVATE (GnomeCmdStringDialog, gnome_cmd_string_dialog, GNOME_CMD_TYPE_DIALOG)
 
 
+static void show_error_dialog (GtkWindow *parent_window, const gchar *msg)
+{
+    GtkWidget *dialog = gtk_message_dialog_new (parent_window, GTK_DIALOG_MODAL, GTK_MESSAGE_ERROR, GTK_BUTTONS_OK, "%s", msg);
+    g_signal_connect (dialog, "response", G_CALLBACK (gtk_window_destroy), dialog);
+    gtk_window_present (GTK_WINDOW (dialog));
+}
+
+
 static void on_ok (GtkButton *button, GnomeCmdStringDialog *dialog)
 {
     auto priv = static_cast<GnomeCmdStringDialogPrivate*> (gnome_cmd_string_dialog_get_instance_private (dialog));
@@ -53,7 +61,7 @@ static void on_ok (GtkButton *button, GnomeCmdStringDialog *dialog)
 
         valid = priv->ok_cb (dialog, (const gchar**)values, priv->data);
         if (!valid)
-            create_error_dialog ("%s", priv->error_desc);
+            show_error_dialog (GTK_WINDOW (dialog), priv->error_desc);
         g_free (values);
     }
 

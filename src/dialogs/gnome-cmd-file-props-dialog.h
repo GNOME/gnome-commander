@@ -23,4 +23,4 @@
 
 #include "gnome-cmd-file.h"
 
-GtkWidget *gnome_cmd_file_props_dialog_create (GnomeCmdFile *f);
+GtkWidget *gnome_cmd_file_props_dialog_create (GtkWindow *parent_window, GnomeCmdFile *f);

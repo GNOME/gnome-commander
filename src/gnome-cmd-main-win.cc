@@ -77,7 +77,6 @@ struct GnomeCmdMainWin::Private
     FileSelectorID current_fs;
     GnomeCmdState state;
 
-    GtkWidget *main_win;
     GtkWidget *vbox;
     GtkWidget *paned;
     GtkWidget *file_selector[2];
@@ -845,7 +844,7 @@ gboolean GnomeCmdMainWin::key_pressed(GnomeCmdKeyPress *event)
         {
             case GDK_KEY_P:
             case GDK_KEY_p:
-                plugin_manager_show ();
+                plugin_manager_show (*this);
                 break;
 
             case GDK_KEY_f:

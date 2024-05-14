@@ -362,7 +362,7 @@ static void on_configure (GtkButton *button, GtkWidget *dialog)
     g_return_if_fail (data != nullptr);
     g_return_if_fail (data->active);
 
-    gnome_cmd_plugin_configure (data->plugin);
+    gnome_cmd_plugin_configure (data->plugin, GTK_WINDOW (dialog));
 }
 
 
@@ -375,7 +375,7 @@ static void on_about (GtkButton *button, GtkWidget *dialog)
 
     GtkWidget *about = gnome_cmd_about_plugin_new (data->info);
 
-    gtk_window_set_transient_for (GTK_WINDOW (about), *main_win);
+    gtk_window_set_transient_for (GTK_WINDOW (about), GTK_WINDOW (dialog));
     gtk_window_present (GTK_WINDOW (about));
 }
 
@@ -386,13 +386,13 @@ static void on_close (GtkButton *button, GtkWidget *dialog)
 }
 
 
-void plugin_manager_show ()
+void plugin_manager_show (GtkWindow *parent_window)
 {
     GtkWidget *dialog, *hbox, *bbox, *button;
     GtkListStore *avail_store;
     GtkWidget *avail_view;
 
-    dialog = gnome_cmd_dialog_new (_("Available plugins"));
+    dialog = gnome_cmd_dialog_new (parent_window, _("Available plugins"));
     g_object_ref (dialog);
 
     hbox = create_vbox (dialog, FALSE, 6);
@@ -433,7 +433,6 @@ void plugin_manager_show ()
     update_plugin_list (GTK_TREE_VIEW (avail_view), dialog);
 
     gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), _("_Close"), G_CALLBACK(on_close), dialog);
-    gtk_window_set_transient_for (GTK_WINDOW (dialog), *main_win);
 
     gtk_widget_set_size_request (GTK_WIDGET (dialog), 500, 300);
     gtk_window_set_resizable ((GtkWindow *) GTK_WIDGET (dialog), TRUE);

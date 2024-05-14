@@ -595,15 +595,14 @@ static void on_date_format_update (GtkEditable *editable, GtkWidget *options_dia
 }
 
 
-static void configure (GnomeCmdPlugin *plugin)
+static void configure (GnomeCmdPlugin *plugin, GtkWindow *parent_window)
 {
     GtkWidget *dialog, *grid, *cat, *label, *vbox, *entry;
     GtkWidget *combo;
 
     FileRollerPluginPrivate *priv = (FileRollerPluginPrivate *) file_roller_plugin_get_instance_private (FILE_ROLLER_PLUGIN (plugin));
 
-    dialog = gnome_cmd_dialog_new (_("Options"));
-    gtk_window_set_transient_for (GTK_WINDOW (dialog), GTK_WINDOW (main_win_widget));
+    dialog = gnome_cmd_dialog_new (parent_window, _("Options"));
     gtk_window_set_modal (GTK_WINDOW (dialog), TRUE);
 
     gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), _("_OK"),

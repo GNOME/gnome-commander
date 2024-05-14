@@ -65,7 +65,6 @@ static void gnome_cmd_dialog_init (GnomeCmdDialog *dialog)
     gtk_window_set_resizable (GTK_WINDOW (dialog), FALSE);
     gtk_window_set_position (GTK_WINDOW (dialog), GTK_WIN_POS_CENTER);
     gtk_window_set_title (GTK_WINDOW (dialog), " ");
-    gtk_window_set_transient_for (GTK_WINDOW (dialog), GTK_WINDOW (main_win_widget));
     gtk_window_set_type_hint (GTK_WINDOW (dialog), GDK_WINDOW_TYPE_HINT_DIALOG);
 
     GtkWidget *vbox = create_vbox (GTK_WIDGET (dialog), FALSE, 0);
@@ -92,9 +91,11 @@ static void gnome_cmd_dialog_init (GnomeCmdDialog *dialog)
  * Public functions
  ***********************************/
 
-GtkWidget *gnome_cmd_dialog_new (const gchar *title)
+GtkWidget *gnome_cmd_dialog_new (GtkWindow *parent_window, const gchar *title)
 {
-    GnomeCmdDialog *dialog = (GnomeCmdDialog *) g_object_new (GNOME_CMD_TYPE_DIALOG, NULL);
+    GnomeCmdDialog *dialog = (GnomeCmdDialog *) g_object_new (GNOME_CMD_TYPE_DIALOG,
+        "transient-for", parent_window,
+        NULL);
 
     if (title)
         gtk_window_set_title (GTK_WINDOW (dialog), title);

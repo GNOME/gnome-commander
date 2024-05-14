@@ -525,9 +525,9 @@ static void on_dir_list_cancel (GtkButton *btn, GnomeCmdDir *dir)
 }
 
 
-static void create_list_progress_dialog (GnomeCmdDir *dir)
+static void create_list_progress_dialog (GtkWindow *parent_window, GnomeCmdDir *dir)
 {
-    dir->dialog = gnome_cmd_dialog_new (nullptr);
+    dir->dialog = gnome_cmd_dialog_new (parent_window, nullptr);
     g_object_ref (dir->dialog);
 
     gnome_cmd_dialog_add_button (
@@ -547,13 +547,12 @@ static void create_list_progress_dialog (GnomeCmdDir *dir)
     gtk_box_append (GTK_BOX (vbox), dir->pbar);
 
     gnome_cmd_dialog_add_category (GNOME_CMD_DIALOG (dir->dialog), vbox);
-    gtk_window_set_transient_for (GTK_WINDOW (dir->dialog), *main_win);
 
     gtk_widget_show_all (dir->dialog);
 }
 
 
-void gnome_cmd_dir_relist_files (GnomeCmdDir *dir, gboolean visualProgress)
+void gnome_cmd_dir_relist_files (GtkWindow *parent_window, GnomeCmdDir *dir, gboolean visualProgress)
 {
     g_return_if_fail (GNOME_CMD_IS_DIR (dir));
 
@@ -563,13 +562,13 @@ void gnome_cmd_dir_relist_files (GnomeCmdDir *dir, gboolean visualProgress)
     dir->done_func = (DirListDoneFunc) on_list_done;
 
     if (visualProgress)
-        create_list_progress_dialog (dir);
+        create_list_progress_dialog (parent_window, dir);
 
     dirlist_list (dir, visualProgress);
 }
 
 
-void gnome_cmd_dir_list_files (GnomeCmdDir *dir, gboolean visualProgress)
+void gnome_cmd_dir_list_files (GtkWindow *parent_window, GnomeCmdDir *dir, gboolean visualProgress)
 {
     g_return_if_fail (GNOME_CMD_IS_DIR (dir));
 
@@ -577,7 +576,7 @@ void gnome_cmd_dir_list_files (GnomeCmdDir *dir, gboolean visualProgress)
     {
         auto gUriString = g_file_get_uri(GNOME_CMD_FILE (dir)->get_file());
         DEBUG ('l', "relisting files for 0x%x; %s\n", dir, gUriString);
-        gnome_cmd_dir_relist_files (dir, visualProgress);
+        gnome_cmd_dir_relist_files (parent_window, dir, visualProgress);
         g_free(gUriString);
     }
     else

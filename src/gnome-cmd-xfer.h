@@ -42,6 +42,8 @@ enum COPY_ERROR_ACTION
 
 struct XferData
 {
+    GtkWindow *parent_window;
+
     GFileCopyFlags copyFlags;
     GnomeCmdConfirmOverwriteMode overwriteMode;
     GnomeCmdTransferType transferType{COPY};
@@ -138,7 +140,8 @@ gnome_cmd_link_gfiles_start (GList *src_uri_list,
                            gpointer on_completed_data);
 
 void
-gnome_cmd_tmp_download (GList *srcGFileList,
+gnome_cmd_tmp_download (GtkWindow *parent_window,
+                        GList *srcGFileList,
                         GList *destGFileList,
                         GFileCopyFlags copyFlags,
                         GCallback on_completed_func,
