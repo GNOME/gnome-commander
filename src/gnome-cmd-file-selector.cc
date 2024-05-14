@@ -828,7 +828,8 @@ static void gnome_cmd_file_selector_init (GnomeCmdFileSelector *fs)
     fs->vol_label = gtk_label_new ("");
     g_object_ref (fs->vol_label);
     g_object_set_data_full (*fs, "vol_label", fs->vol_label, g_object_unref);
-    gtk_misc_set_alignment (GTK_MISC (fs->vol_label), 1, 0.5);
+    gtk_widget_set_halign (fs->vol_label, GTK_ALIGN_END);
+    gtk_widget_set_valign (fs->vol_label, GTK_ALIGN_CENTER);
 
     // create the directory indicator
     fs->dir_indicator = gnome_cmd_dir_indicator_new (fs);
@@ -839,7 +840,8 @@ static void gnome_cmd_file_selector_init (GnomeCmdFileSelector *fs)
     fs->info_label = gtk_label_new ("not initialized");
     g_object_ref (fs->info_label);
     g_object_set_data_full (*fs, "infolabel", fs->info_label, g_object_unref);
-    gtk_misc_set_alignment (GTK_MISC (fs->info_label), 0.0f, 0.5f);
+    gtk_widget_set_halign (fs->info_label, GTK_ALIGN_START);
+    gtk_widget_set_valign (fs->info_label, GTK_ALIGN_CENTER);
 
     // pack the widgets
     GtkWidget *padding = create_hbox (*fs, FALSE, 6);

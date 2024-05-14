@@ -68,8 +68,11 @@ static void gnome_cmd_xfer_progress_win_init (GnomeCmdXferProgressWin *win)
     gtk_widget_set_size_request (GTK_WIDGET (win), 300, -1);
 
     vbox = create_vbox (w, FALSE, 6);
+    gtk_widget_set_margin_top (GTK_WIDGET (vbox), 5);
+    gtk_widget_set_margin_bottom (GTK_WIDGET (vbox), 5);
+    gtk_widget_set_margin_start (GTK_WIDGET (vbox), 5);
+    gtk_widget_set_margin_end (GTK_WIDGET (vbox), 5);
     gtk_container_add (GTK_CONTAINER (win), vbox);
-    gtk_container_set_border_width (GTK_CONTAINER (vbox), 5);
 
     win->msg_label = create_label (w, "");
     gtk_container_add (GTK_CONTAINER (vbox), win->msg_label);

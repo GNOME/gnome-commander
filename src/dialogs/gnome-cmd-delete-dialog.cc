@@ -126,7 +126,10 @@ inline void create_delete_progress_win (DeleteData *deleteData)
 
     vbox = create_vbox (deleteData->progwin, FALSE, 6);
     gtk_container_add (GTK_CONTAINER (deleteData->progwin), vbox);
-    gtk_container_set_border_width (GTK_CONTAINER (vbox), 5);
+    gtk_widget_set_margin_top (vbox, 5);
+    gtk_widget_set_margin_bottom (vbox, 5);
+    gtk_widget_set_margin_start (vbox, 5);
+    gtk_widget_set_margin_end (vbox, 5);
 
     deleteData->proglabel = create_label (deleteData->progwin, "");
     gtk_container_add (GTK_CONTAINER (vbox), deleteData->proglabel);

@@ -639,7 +639,6 @@ inline GtkWidget *create_metadata_tab (GnomeCmdFilePropsDialogPrivate *data)
 
     GtkWidget *scrolledwindow = gtk_scrolled_window_new (nullptr, nullptr);
     gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolledwindow), GTK_POLICY_NEVER, GTK_POLICY_AUTOMATIC);
-    gtk_container_set_border_width (GTK_CONTAINER (scrolledwindow), 10);
 
     gtk_box_pack_start (GTK_BOX (vbox), GTK_WIDGET (scrolledwindow), TRUE, TRUE, 0);
 

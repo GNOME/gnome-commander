@@ -157,8 +157,12 @@ inline GtkWidget *_create_label ()
     GtkWidget *label = gtk_label_new ("");
 
     gtk_label_set_selectable (GTK_LABEL (label), TRUE);
-    gtk_misc_set_alignment (GTK_MISC (label), 0.0, 0.0);
-    gtk_misc_set_padding (GTK_MISC (label), 8, 8);
+    gtk_widget_set_halign (label, GTK_ALIGN_START);
+    gtk_widget_set_valign (label, GTK_ALIGN_START);
+    gtk_widget_set_margin_start (label, 8);
+    gtk_widget_set_margin_end (label, 8);
+    gtk_widget_set_margin_top (label, 8);
+    gtk_widget_set_margin_bottom (label, 8);
 
     gtk_label_set_justify (GTK_LABEL (label), GTK_JUSTIFY_LEFT);
 
@@ -184,13 +188,18 @@ static void gnome_cmd_about_plugin_display_credits_dialog (GnomeCmdAboutPlugin *
     about->priv->credits_dialog = dialog;
     gtk_window_set_default_size (GTK_WINDOW (dialog), 360, 260);
     gtk_dialog_set_default_response (GTK_DIALOG (dialog), GTK_RESPONSE_CLOSE);
-    gtk_container_set_border_width (GTK_CONTAINER (dialog), 5);
-    gtk_box_set_spacing (GTK_BOX (gtk_dialog_get_content_area (GTK_DIALOG (dialog))), 2);
+
+    GtkWidget *content_area = gtk_dialog_get_content_area (GTK_DIALOG (dialog));
+
+    gtk_widget_set_margin_top (content_area, 10);
+    gtk_widget_set_margin_bottom (content_area, 10);
+    gtk_widget_set_margin_start (content_area, 10);
+    gtk_widget_set_margin_end (content_area, 10);
+
     g_signal_connect (dialog, "response", G_CALLBACK (gtk_window_destroy), dialog);
     g_signal_connect (dialog, "destroy", G_CALLBACK (gtk_widget_destroyed), &(about->priv->credits_dialog));
 
     notebook = gtk_notebook_new ();
-    gtk_container_set_border_width (GTK_CONTAINER (notebook), 5);
     gtk_box_pack_start (GTK_BOX (gtk_dialog_get_content_area (GTK_DIALOG (dialog))), notebook, TRUE, TRUE, 0);
 
     if (about->priv->authors != nullptr)
@@ -262,14 +271,17 @@ static void gnome_cmd_about_plugin_init (GnomeCmdAboutPlugin *about)
     // priv->documenters = nullptr;
     // priv->webpage = nullptr;
 
-    gtk_container_set_border_width (GTK_CONTAINER (about), 5);
-    gtk_box_set_spacing (GTK_BOX (gtk_dialog_get_content_area (GTK_DIALOG (about))), 5);
+    GtkWidget *content_area = gtk_dialog_get_content_area (GTK_DIALOG (about));
+
+    gtk_widget_set_margin_top (content_area, 10);
+    gtk_widget_set_margin_bottom (content_area, 10);
+    gtk_widget_set_margin_start (content_area, 10);
+    gtk_widget_set_margin_end (content_area, 10);
 
     // Widgets
     vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 8);
-    gtk_container_set_border_width (GTK_CONTAINER (vbox), 5);
 
-    gtk_box_pack_start (GTK_BOX (gtk_dialog_get_content_area (GTK_DIALOG (about))), vbox, TRUE, TRUE, 0);
+    gtk_box_pack_start (GTK_BOX (content_area), vbox, TRUE, TRUE, 0);
 
     priv->name_label = gtk_label_new (nullptr);
     gtk_widget_show (priv->name_label);

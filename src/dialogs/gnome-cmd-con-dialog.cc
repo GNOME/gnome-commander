@@ -193,7 +193,8 @@ void GnomeCmdConnectDialog::Private::setup_for_type()
     g_free (str);
 
     gtk_label_set_use_markup (GTK_LABEL (label), TRUE);
-    gtk_misc_set_alignment (GTK_MISC (label), 0.0, 0.5);
+    gtk_widget_set_halign (label, GTK_ALIGN_START);
+    gtk_widget_set_valign (label, GTK_ALIGN_CENTER);
     gtk_widget_show (label);
     gtk_widget_set_margin_top (label, 12);
     gtk_grid_attach (required_grid, label, 0, i, 2, 1);
@@ -221,7 +222,8 @@ void GnomeCmdConnectDialog::Private::setup_for_type()
 inline void GnomeCmdConnectDialog::Private::show_entry(GtkGrid *grid, GtkWidget *entry, const gchar *text, gint &i)
 {
     GtkWidget *label = gtk_label_new_with_mnemonic (text);
-    gtk_misc_set_alignment (GTK_MISC (label), 0.0, 0.5);
+    gtk_widget_set_halign (label, GTK_ALIGN_START);
+    gtk_widget_set_valign (label, GTK_ALIGN_CENTER);
     gtk_widget_show (label);
     gtk_grid_attach (GTK_GRID (grid), label, 0, i, 1, 1);
 
@@ -370,12 +372,17 @@ static void gnome_cmd_connect_dialog_init (GnomeCmdConnectDialog *dialog)
     g_return_if_fail (dialog->priv != NULL);
 
     gtk_window_set_title (*dialog, _("Remote Server"));
-    gtk_container_set_border_width (GTK_CONTAINER (dialog), 5);
-    gtk_box_set_spacing (GTK_BOX (gtk_dialog_get_content_area (GTK_DIALOG (dialog))), 2);
     gtk_window_set_resizable (*dialog, FALSE);
 
+    GtkWidget *content_area = gtk_dialog_get_content_area (GTK_DIALOG (dialog));
+
+    gtk_widget_set_margin_top (content_area, 10);
+    gtk_widget_set_margin_bottom (content_area, 10);
+    gtk_widget_set_margin_start (content_area, 10);
+    gtk_widget_set_margin_end (content_area, 10);
+    gtk_box_set_spacing (GTK_BOX (content_area), 6);
+
     vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 6);
-    gtk_container_set_border_width (GTK_CONTAINER (vbox), 5);
     gtk_box_pack_start (GTK_BOX (gtk_dialog_get_content_area (GTK_DIALOG (dialog))), vbox, FALSE, TRUE, 0);
     gtk_widget_show (vbox);
 
@@ -388,7 +395,8 @@ static void gnome_cmd_connect_dialog_init (GnomeCmdConnectDialog *dialog)
     g_free (str);
 
     gtk_label_set_use_markup (GTK_LABEL (label), TRUE);
-    gtk_misc_set_alignment (GTK_MISC (label), 0.0, 0.5);
+    gtk_widget_set_halign (label, GTK_ALIGN_START);
+    gtk_widget_set_valign (label, GTK_ALIGN_CENTER);
     gtk_widget_show (label);
     gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, FALSE, 0);
 

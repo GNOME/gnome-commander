@@ -90,13 +90,13 @@ namespace GnomeCmd
         gtk_window_set_resizable (GTK_WINDOW (dialog), FALSE);
 
         // HIG defaults
-        gtk_container_set_border_width (GTK_CONTAINER (dialog), 5);
-        gtk_box_set_spacing (GTK_BOX (content_area), 2);
-        gtk_container_set_border_width (GTK_CONTAINER (content_area), 5);
-        gtk_box_set_spacing (GTK_BOX (content_area),6);
+        gtk_widget_set_margin_top (content_area, 10);
+        gtk_widget_set_margin_bottom (content_area, 10);
+        gtk_widget_set_margin_start (content_area, 10);
+        gtk_widget_set_margin_end (content_area, 10);
+        gtk_box_set_spacing (GTK_BOX (content_area), 6);
 
         GtkWidget *vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 6);
-        gtk_container_set_border_width (GTK_CONTAINER (vbox), 5);
         gtk_box_pack_start (GTK_BOX (content_area), vbox, TRUE, TRUE, 0);
 
         gchar *str = g_strdup_printf ("<b>%s</b>", _("_Name"));
@@ -104,7 +104,8 @@ namespace GnomeCmd
         g_free (str);
 
         gtk_label_set_use_markup (GTK_LABEL (label), TRUE);
-        gtk_misc_set_alignment (GTK_MISC (label), 0.0, 0.5);
+        gtk_widget_set_halign (label, GTK_ALIGN_START);
+        gtk_widget_set_valign (label, GTK_ALIGN_CENTER);
         gtk_box_pack_start (GTK_BOX (vbox), label, FALSE, FALSE, 0);
 
         GtkWidget *entry = gtk_entry_new ();

@@ -79,14 +79,16 @@ void gnome_cmd_bookmark_dialog_new (const gchar *title, GtkWindow *parent)
 
     GtkWidget *vbox, *hbox, *scrolled_window, *button;
 
-    gtk_window_set_position (GTK_WINDOW (dialog), GTK_WIN_POS_CENTER);
-    gtk_container_set_border_width (GTK_CONTAINER (dialog), 5);
-    gtk_box_set_spacing (GTK_BOX (content_area), 2);
     gtk_window_set_resizable (GTK_WINDOW (dialog), TRUE);
+
+    gtk_widget_set_margin_top (content_area, 10);
+    gtk_widget_set_margin_bottom (content_area, 10);
+    gtk_widget_set_margin_start (content_area, 10);
+    gtk_widget_set_margin_end (content_area, 10);
+    gtk_box_set_spacing (GTK_BOX (content_area), 6);
 
     vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 12);
     gtk_widget_set_vexpand (vbox, TRUE);
-    gtk_container_set_border_width (GTK_CONTAINER (vbox), 12);
     gtk_container_add (GTK_CONTAINER (content_area), vbox);
 
     hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 12);

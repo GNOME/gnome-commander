@@ -60,7 +60,10 @@ GtkWidget *create_frame (GtkWidget *parent, const gchar *text, gint spacing)
     GtkWidget *frame = gtk_frame_new (text);
     g_object_ref (frame);
     g_object_set_data_full (G_OBJECT (parent), "spaced_frame", frame, g_object_unref);
-    gtk_container_set_border_width (GTK_CONTAINER (frame), spacing);
+    gtk_widget_set_margin_top (GTK_WIDGET (frame), spacing);
+    gtk_widget_set_margin_bottom (GTK_WIDGET (frame), spacing);
+    gtk_widget_set_margin_start (GTK_WIDGET (frame), spacing);
+    gtk_widget_set_margin_end (GTK_WIDGET (frame), spacing);
     gtk_widget_show (frame);
     return frame;
 }
@@ -127,7 +130,8 @@ GtkWidget *create_label (GtkWidget *parent, const gchar *text)
     g_object_ref (label);
     g_object_set_data_full (G_OBJECT (parent), "label", label, g_object_unref);
     gtk_widget_show (label);
-    gtk_misc_set_alignment (GTK_MISC (label), 0, 0.5);
+    gtk_widget_set_halign (label, GTK_ALIGN_START);
+    gtk_widget_set_valign (label, GTK_ALIGN_CENTER);
 
     return label;
 }
@@ -143,7 +147,8 @@ GtkWidget *create_label_with_mnemonic (GtkWidget *parent, const gchar *text, Gtk
     g_object_ref (label);
     g_object_set_data_full (G_OBJECT (parent), "label", label, g_object_unref);
     gtk_widget_show (label);
-    gtk_misc_set_alignment (GTK_MISC (label), 0, 0.5);
+    gtk_widget_set_halign (label, GTK_ALIGN_START);
+    gtk_widget_set_valign (label, GTK_ALIGN_CENTER);
 
     return label;
 }
