@@ -200,7 +200,7 @@ static GMenu *create_action_script_menu(GList *files)
         scriptName = scriptName ? scriptName : g_strdup((char*) scriptFileName->data);
 
         GMenuItem *item = g_menu_item_new (scriptName, nullptr);
-        g_menu_item_set_action_and_target (item, "fl.execute-script", "sb", scriptPath.c_str(), inTerminal);
+        g_menu_item_set_action_and_target (item, "fl.execute-script", "(sb)", scriptPath.c_str(), inTerminal);
 
         g_menu_append_item (menu, item);
 
