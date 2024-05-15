@@ -33,7 +33,6 @@
 #include "gnome-cmd-main-win.h"
 #include "gnome-cmd-style.h"
 #include "gnome-cmd-dir-indicator.h"
-#include "gnome-cmd-list-popmenu.h"
 #include "gnome-cmd-user-actions.h"
 #include "history.h"
 #include "cap.h"
@@ -67,6 +66,8 @@ class GnomeCmdFileSelector::Private
     //////////////////////////////////////////////////////////////////  ->> GnomeCmdFileList
 
     gboolean sel_first_file {TRUE};
+
+    GSimpleActionGroup *action_group;
 };
 
 enum {DIR_CHANGED, LAST_SIGNAL};
@@ -84,11 +85,27 @@ G_DEFINE_TYPE (GnomeCmdFileSelector, gnome_cmd_file_selector, GTK_TYPE_BOX)
 
 inline void show_list_popup (GnomeCmdFileSelector *fs)
 {
-    // create the popup menu
-    GtkWidget *menu = gnome_cmd_list_popmenu_new (fs);
-    g_object_ref (menu);
+    auto menu = MenuBuilder()
+        .submenu(_("_New"))
+            .item(_("_Directory"),          "win.file_mkdir",                       nullptr, FILETYPEDIR_STOCKID)
+            .item(_("_Text File"),          "fs.new-text-file",                     nullptr, FILETYPEREGULARFILE_STOCKID)
+        .endsubmenu()
+        .section()
+            .item(_("_Paste"),              "fs.paste")
+        .endsection()
+        .section()
+            .item(_("Open _terminal here"), "win.command-open-terminal-internal",   nullptr, GTK_TERMINAL_STOCKID)
+        .endsection()
+        .section()
+            .item(_("_Refresh"),            "fs.refresh")
+        .endsection()
+        .build();
 
-    gtk_menu_popup (GTK_MENU (menu), nullptr, nullptr, nullptr, fs, 3, GDK_CURRENT_TIME);
+    GtkWidget *gtk_menu = gtk_menu_new_from_model (G_MENU_MODEL (menu.menu));
+
+    gtk_menu_attach_to_widget (GTK_MENU (gtk_menu), GTK_WIDGET (fs), nullptr);
+
+    gtk_menu_popup (GTK_MENU (gtk_menu), nullptr, nullptr, nullptr, fs, 3, GDK_CURRENT_TIME);
 }
 
 
@@ -308,9 +325,7 @@ static void on_con_combo_item_selected (GnomeCmdCombo *con_combo, GnomeCmdCon *c
 
     main_win->switch_fs(fs);
 
-    GdkModifierType mask;
-
-    gdk_window_get_pointer (nullptr, nullptr, nullptr, &mask);
+    GdkModifierType mask = get_modifiers_state();
 
     if (mask & GDK_CONTROL_MASK || fs->file_list()->locked)
         fs->new_tab(gnome_cmd_con_get_default_dir (con));
@@ -599,6 +614,12 @@ static gboolean on_list_key_pressed_private (GnomeCmdFileList *list, GdkEventKey
 }
 
 
+static void file_list_refresh(GtkMenuItem *menuitem, GnomeCmdFileList *fl)
+{
+    fl->reload();
+}
+
+
 static gboolean on_notebook_button_pressed (GtkWidget *widget, GdkEventButton *event, GnomeCmdFileSelector *fs)
 {
     GnomeCmdNotebook *notebook = GNOME_CMD_NOTEBOOK (widget);
@@ -643,42 +664,44 @@ static gboolean on_notebook_button_pressed (GtkWidget *widget, GdkEventButton *e
 
                         menuitem = gtk_image_menu_item_new_with_mnemonic (_("Open in New _Tab"));
                         gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (menuitem), gtk_image_new_from_stock (GTK_STOCK_OPEN, GTK_ICON_SIZE_MENU));
-                        g_signal_connect (menuitem, "activate", G_CALLBACK (view_new_tab), fl);
+                        gtk_actionable_set_action_name (GTK_ACTIONABLE (menuitem), "win.view-new-tab");
                         gtk_menu_shell_append (GTK_MENU_SHELL (menu), menuitem);
 
                         gtk_menu_shell_append (GTK_MENU_SHELL (menu), gtk_separator_menu_item_new ());
 
                         menuitem = gtk_image_menu_item_new_with_mnemonic (fl->locked ? _("_Unlock Tab") : _("_Lock Tab"));
                         gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (menuitem), gtk_image_new_from_file (fl->locked ? PIXMAPS_DIR G_DIR_SEPARATOR_S "unpin.png" : PIXMAPS_DIR G_DIR_SEPARATOR_S "pin.png"));
-                        g_signal_connect (menuitem, "activate", G_CALLBACK (view_toggle_tab_lock), GINT_TO_POINTER (fs->is_active() ? tab_clicked+1 : -tab_clicked-1));
+                        gtk_actionable_set_action_name (GTK_ACTIONABLE (menuitem), "win.view-toggle-tab-lock");
+                        gtk_actionable_set_action_target (GTK_ACTIONABLE (menuitem), "(bi)", fs->is_active(), tab_clicked);
                         gtk_menu_shell_append (GTK_MENU_SHELL (menu), menuitem);
 
                         menuitem = gtk_image_menu_item_new_with_mnemonic (_("_Refresh Tab"));
                         gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (menuitem), gtk_image_new_from_stock (GTK_STOCK_REFRESH, GTK_ICON_SIZE_MENU));
-                        g_signal_connect (menuitem, "activate", G_CALLBACK (view_refresh), fl);
+                        g_signal_connect (menuitem, "activate", G_CALLBACK (file_list_refresh), fl);
                         gtk_menu_shell_append (GTK_MENU_SHELL (menu), menuitem);
 
                         menuitem = gtk_image_menu_item_new_with_mnemonic (_("Copy Tab to Other _Pane"));
-                        g_signal_connect (menuitem, "activate", G_CALLBACK (view_in_inactive_tab), fl);
+                        gtk_actionable_set_action_name (GTK_ACTIONABLE (menuitem), "win.view-in-inactive-tab");
                         gtk_menu_shell_append (GTK_MENU_SHELL (menu), menuitem);
 
                         gtk_menu_shell_append (GTK_MENU_SHELL (menu), gtk_separator_menu_item_new ());
 
                         menuitem = gtk_image_menu_item_new_with_mnemonic (_("_Close Tab"));
                         gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (menuitem), gtk_image_new_from_stock (GTK_STOCK_CLOSE, GTK_ICON_SIZE_MENU));
-                        g_signal_connect (menuitem, "activate", G_CALLBACK (view_close_tab), fl);
+                        gtk_actionable_set_action_name (GTK_ACTIONABLE (menuitem), "win.view-close-tab");
                         gtk_menu_shell_append (GTK_MENU_SHELL (menu), menuitem);
 
                         menuitem = gtk_image_menu_item_new_with_mnemonic (_("Close _All Tabs"));
                         gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (menuitem), gtk_image_new_from_stock (GTK_STOCK_CLOSE, GTK_ICON_SIZE_MENU));
-                        g_signal_connect (menuitem, "activate", G_CALLBACK (view_close_all_tabs), fs);
+                        gtk_actionable_set_action_name (GTK_ACTIONABLE (menuitem), "win.view-close-all-tabs");
                         gtk_menu_shell_append (GTK_MENU_SHELL (menu), menuitem);
 
                         menuitem = gtk_image_menu_item_new_with_mnemonic (_("Close _Duplicate Tabs"));
                         gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (menuitem), gtk_image_new_from_stock (GTK_STOCK_CLOSE, GTK_ICON_SIZE_MENU));
-                        g_signal_connect (menuitem, "activate", G_CALLBACK (view_close_duplicate_tabs), fs);
+                        gtk_actionable_set_action_name (GTK_ACTIONABLE (menuitem), "win.view-close-duplicate-tabs");
                         gtk_menu_shell_append (GTK_MENU_SHELL (menu), menuitem);
 
+                        gtk_menu_attach_to_widget (GTK_MENU (menu), GTK_WIDGET(fs), nullptr);
                         gtk_widget_show_all (menu);
                         gtk_menu_popup (GTK_MENU (menu), nullptr, nullptr, nullptr, nullptr, event->button, event->time);
                     }
@@ -756,6 +779,27 @@ static void gnome_cmd_file_selector_class_init (GnomeCmdFileSelectorClass *klass
 }
 
 
+static void on_new_textfile (GSimpleAction *action, GVariant *parameter, gpointer user_data)
+{
+    GnomeCmdFileSelector *fs = static_cast<GnomeCmdFileSelector *>(user_data);
+    gnome_cmd_file_selector_show_new_textfile_dialog (fs);
+}
+
+
+static void on_refresh (GSimpleAction *action, GVariant *parameter, gpointer user_data)
+{
+    GnomeCmdFileSelector *fs = static_cast<GnomeCmdFileSelector *>(user_data);
+    fs->file_list()->reload();
+}
+
+
+static void on_paste (GSimpleAction *action, GVariant *parameter, gpointer user_data)
+{
+    GnomeCmdFileSelector *fs = static_cast<GnomeCmdFileSelector *>(user_data);
+    gnome_cmd_file_selector_cap_paste (fs);
+}
+
+
 static void gnome_cmd_file_selector_init (GnomeCmdFileSelector *fs)
 {
     gint string_size = 0;
@@ -764,6 +808,15 @@ static void gnome_cmd_file_selector_init (GnomeCmdFileSelector *fs)
     fs->list = nullptr;
 
     fs->priv = new GnomeCmdFileSelector::Private;
+
+    fs->priv->action_group = g_simple_action_group_new ();
+    static const GActionEntry action_entries[] = {
+        { "paste",              on_paste,           nullptr, nullptr, nullptr },
+        { "refresh",            on_refresh,         nullptr, nullptr, nullptr },
+        { "new-text-file",      on_new_textfile,    nullptr, nullptr, nullptr }
+    };
+    g_action_map_add_action_entries (G_ACTION_MAP (fs->priv->action_group), action_entries, G_N_ELEMENTS (action_entries), fs);
+    gtk_widget_insert_action_group (GTK_WIDGET (fs), "fs", G_ACTION_GROUP (fs->priv->action_group));
 
     GtkBox *vbox = GTK_BOX (fs);
 

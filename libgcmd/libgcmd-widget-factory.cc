@@ -723,6 +723,14 @@ static GClosure *action_accelerator_closure_new (GActionGroup *action_group,
 }
 
 
+MenuBuilder MenuBuilder::item(GMenuItem *item) &&
+{
+    g_menu_append_item (menu, item);
+    g_object_unref (item);
+    return *this;
+}
+
+
 MenuBuilder MenuBuilder::item(const gchar *label,
                               const gchar *detailed_action,
                               const gchar *accelerator,

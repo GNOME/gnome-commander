@@ -25,8 +25,8 @@
 
 #define COPYFILENAMES_STOCKID          "gnome-commander-copy-file-names"
 #define GTK_PREFERENCES_SYSTEM_STOCKID "preferences-system"
-#define FILETYPEDIR_STOCKID            "gnome-commander-file-type-dir"
-#define FILETYPEREGULARFILE_STOCKID    "gnome-commander-file-type-regular-file"
+#define FILETYPEDIR_STOCKID            "file_type_dir"
+#define FILETYPEREGULARFILE_STOCKID    "file_type_regular"
 #define GTK_MAILSEND_STOCKID           "mail-send"
 #define GTK_TERMINAL_STOCKID           "utilities-terminal"
 #define ROTATE_90_STOCKID              "gnome-commander-rotate-90"
@@ -80,4 +80,3 @@ void register_gnome_commander_stock_icons (void);
 
 const gchar* get_default_application_icon_path(GAppInfo* appInfo);
 
-char* register_application_stock_icon(const char* openWithDefaultLabel, const char* defaultAppIconPath);

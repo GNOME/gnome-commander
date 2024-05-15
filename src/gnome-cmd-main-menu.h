@@ -20,44 +20,6 @@
  */
 #pragma once
 
-#include "gnome-cmd-file.h"
-#include "plugin_manager.h"
+#include "gnome-cmd-includes.h"
 
-#define GNOME_CMD_TYPE_MAIN_MENU              (gnome_cmd_main_menu_get_type ())
-#define GNOME_CMD_MAIN_MENU(obj)              (G_TYPE_CHECK_INSTANCE_CAST((obj), GNOME_CMD_TYPE_MAIN_MENU, GnomeCmdMainMenu))
-#define GNOME_CMD_MAIN_MENU_CLASS(klass)      (G_TYPE_CHECK_CLASS_CAST((klass), GNOME_CMD_TYPE_MAIN_MENU, GnomeCmdMainMenuClass))
-#define GNOME_CMD_IS_MAIN_MENU(obj)           (G_TYPE_CHECK_INSTANCE_TYPE((obj), GNOME_CMD_TYPE_MAIN_MENU))
-#define GNOME_CMD_IS_MAIN_MENU_CLASS(klass)   (G_TYPE_CHECK_CLASS_TYPE ((klass), GNOME_CMD_TYPE_MAIN_MENU))
-#define GNOME_CMD_MAIN_MENU_GET_CLASS(obj)    (G_TYPE_INSTANCE_GET_CLASS((obj), GNOME_CMD_TYPE_MAIN_MENU, GnomeCmdMainMenuClass))
-
-
-struct GnomeCmdMainMenuPrivate;
-
-
-struct GnomeCmdMainMenu
-{
-    GtkMenuBar parent;
-
-    GnomeCmdMainMenuPrivate *priv;
-};
-
-
-struct GnomeCmdMainMenuClass
-{
-    GtkMenuBarClass parent_class;
-};
-
-
-GtkWidget *gnome_cmd_main_menu_new ();
-
-GType gnome_cmd_main_menu_get_type ();
-
-void gnome_cmd_main_menu_update_connections (GnomeCmdMainMenu *main_menu);
-
-GtkWidget *get_gnome_cmd_main_menu_bar (GnomeCmdMainMenu *main_menu);
-
-void gnome_cmd_main_menu_update_bookmarks (GnomeCmdMainMenu *main_menu);
-
-void gnome_cmd_main_menu_update_sens (GnomeCmdMainMenu *main_menu);
-
-void gnome_cmd_main_menu_update_plugin_menu (GnomeCmdMainMenu *main_menu);
+MenuBuilder::Result gnome_cmd_main_menu_new (GActionGroup *win_action_group);

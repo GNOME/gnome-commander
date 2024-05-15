@@ -46,7 +46,7 @@ struct XferData
     GnomeCmdConfirmOverwriteMode overwriteMode;
     GnomeCmdTransferType transferType{COPY};
 
-    // Source and target GFile's. The first srcGFile should be transfered to the first destGFile and so on...
+    // Source and target GFile's. The first srcGFile should be transferred to the first destGFile and so on...
     GList *srcGFileList;
     GList *destGFileList;
 
@@ -80,7 +80,7 @@ struct XferData
     GFile *problemDestGFile;
     GThread *thread{nullptr};                // the work thread
     GMutex mutex{nullptr};                   // used to sync the main and worker thread
-    GError *error{nullptr};                  // the cause that the file cant be deleted
+    GError *error{nullptr};                  // the cause that the file can't be deleted
     GType currentSrcFileType;                // the file type of the file which is currently copied
 };
 

@@ -73,55 +73,6 @@ GnomeCmdApp *gnome_cmd_app_new_with_values (const gchar *name,
 }
 
 
-static char* panel_find_icon (GtkIconTheme *icon_theme, const char *icon_name, gint size)
-{
-    char *retval  = nullptr;
-    GtkIconInfo *icon_info = nullptr;
-    char *icon_no_extension;
-    char *p;
-
-    if (icon_name == nullptr || strcmp (icon_name, "") == 0)
-        return nullptr;
-
-    if (g_path_is_absolute (icon_name)) {
-        if (g_file_test (icon_name, G_FILE_TEST_EXISTS)) {
-            return g_strdup (icon_name);
-        }
-        else
-        {
-            char *basename;
-
-            basename = g_path_get_basename (icon_name);
-            retval = panel_find_icon (icon_theme, basename, size);
-            g_free (basename);
-
-            return retval;
-        }
-    }
-
-    /* This is needed because some .desktop files have an icon name *and*
-     * an extension as icon */
-    icon_no_extension = g_strdup (icon_name);
-    p = strrchr (icon_no_extension, '.');
-    if (p &&
-        (strcmp (p, ".png") == 0 ||
-         strcmp (p, ".xpm") == 0 ||
-         strcmp (p, ".svg") == 0)) {
-        *p = 0;
-    }
-
-    icon_info = gtk_icon_theme_lookup_icon (icon_theme, icon_no_extension, size, (GtkIconLookupFlags) 0);
-    if (!icon_info)
-        return nullptr;
-    retval = g_strdup (gtk_icon_info_get_filename (icon_info));
-
-    g_free (icon_no_extension);
-    gtk_icon_info_free (icon_info);
-
-    return retval;
-}
-
-
 GnomeCmdApp *gnome_cmd_app_new_from_app_info (GAppInfo *gAppInfo)
 {
     g_return_val_if_fail (gAppInfo != nullptr, nullptr);

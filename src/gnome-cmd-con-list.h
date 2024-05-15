@@ -98,6 +98,8 @@ GList *gnome_cmd_con_list_get_all_quick_ftp (GnomeCmdConList *list);
 GList *gnome_cmd_con_list_get_all_dev (GnomeCmdConList *list);
 void gnome_cmd_con_list_set_all_dev (GnomeCmdConList *list, GList *dev_cons);
 
+GnomeCmdCon *gnome_cmd_con_list_find_by_uuid (GnomeCmdConList *con_list, const gchar *uuid);
+
 inline GnomeCmdCon *get_home_con ()
 {
     return gnome_cmd_con_list_get()->get_home();

@@ -142,6 +142,14 @@ const gchar *time2string (GDateTime *gDateTime, const gchar *date_format);
 
 void clear_event_key (GdkEventKey *event);
 
+inline GdkModifierType get_modifiers_state()
+{
+    GdkWindow *window = gdk_window_at_pointer (nullptr, nullptr);
+    GdkModifierType mask = (GdkModifierType) 0;
+    gdk_window_get_pointer (window, nullptr, nullptr, &mask);
+    return mask;
+}
+
 inline gboolean state_is_blank (gint state)
 {
     gboolean ret = (state & GDK_SHIFT_MASK) || (state & GDK_CONTROL_MASK) || (state & GDK_MOD1_MASK);
