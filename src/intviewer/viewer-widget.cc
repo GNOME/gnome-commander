@@ -85,7 +85,7 @@ static gboolean on_text_viewer_button_pressed (GtkWidget *treeview, GdkEventButt
 
 static VIEWERDISPLAYMODE guess_display_mode(const char *filename, int len);
 static void gviewer_auto_detect_display_mode(GViewer *obj);
-static void gviewer_copy_selection_handler(GtkMenuItem *item, GViewer *obj);
+static void gviewer_copy_selection_handler(GSimpleAction *action, GVariant *parameter, gpointer user_data);
 
 G_DEFINE_TYPE_WITH_PRIVATE (GViewer, gviewer, GTK_TYPE_GRID)
 
@@ -120,6 +120,13 @@ static void gviewer_class_init (GViewerClass *klass)
 
 static void gviewer_init (GViewer *w)
 {
+    static GActionEntry action_entries[] = {
+        { "copy-selection", gviewer_copy_selection_handler }
+    };
+    GSimpleActionGroup *action_group = g_simple_action_group_new ();
+    g_action_map_add_action_entries (G_ACTION_MAP (action_group), action_entries, G_N_ELEMENTS (action_entries), w);
+    gtk_widget_insert_action_group (GTK_WIDGET (w), "viewer", G_ACTION_GROUP (action_group));
+
     auto priv = static_cast<GViewerPrivate*>(gviewer_get_instance_private (w));
 
     priv->img_initialized = FALSE;
@@ -224,16 +231,12 @@ static gboolean on_text_viewer_button_pressed (GtkWidget *treeview, GdkEventButt
 {
     if (event->type==GDK_BUTTON_PRESS && event->button==3)
     {
-        GtkWidget *menu = gtk_menu_new ();
-        GtkWidget *menuitem;
+        GMenu *menu = g_menu_new ();
+        g_menu_append (menu, _("_Copy selection"), "viewer.copy-selection");
 
-        menuitem = gtk_image_menu_item_new_with_mnemonic (_("_Copy selection"));
-        gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (menuitem), gtk_image_new_from_stock (GTK_STOCK_COPY, GTK_ICON_SIZE_MENU));
-        g_signal_connect (menuitem, "activate", G_CALLBACK (gviewer_copy_selection_handler), viewer);
-        gtk_menu_shell_append (GTK_MENU_SHELL (menu), menuitem);
-
-        gtk_widget_show_all (menu);
-        gtk_menu_popup (GTK_MENU (menu), NULL, NULL, NULL, NULL, event->button, event->time);
+        GtkWidget *gtk_menu = gtk_menu_new_from_model (G_MENU_MODEL (menu));
+        gtk_menu_attach_to_widget (GTK_MENU (gtk_menu), GTK_WIDGET (viewer), nullptr);
+        gtk_menu_popup (GTK_MENU (gtk_menu), NULL, NULL, NULL, NULL, event->button, event->time);
 
         return TRUE;
     }
@@ -606,7 +609,8 @@ void gviewer_copy_selection(GViewer *obj)
 }
 
 
-static void gviewer_copy_selection_handler(GtkMenuItem *item, GViewer *obj)
+static void gviewer_copy_selection_handler(GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
+    GViewer *obj = static_cast<GViewer*>(user_data);
     gviewer_copy_selection(obj);
 }

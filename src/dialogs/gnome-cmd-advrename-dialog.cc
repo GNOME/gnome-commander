@@ -60,24 +60,16 @@ struct GnomeCmdAdvrenameDialog::Private
     Private();
     ~Private();
 
-    GtkWidget *create_placeholder_menu(GnomeCmdData::AdvrenameConfig *cfg);
-    GtkWidget *create_button_with_menu(gchar *label_text, GnomeCmdData::AdvrenameConfig *cfg=NULL);
-
-    static void save_profile(GtkWidget *menu_item, GnomeCmdAdvrenameDialog::Private *priv);
-    static void manage_profiles(GtkWidget *menu_item, GnomeCmdAdvrenameDialog::Private *priv);
-    static void do_manage_profiles(GnomeCmdAdvrenameDialog::Private *priv, bool new_profile, GtkWidget *menu);
-    static void load_profile(GtkWidget *menu_item, GnomeCmdAdvrenameDialog::Private *priv);
-
     void files_view_popup_menu (GtkWidget *treeview, GnomeCmdAdvrenameDialog *dialog, GdkEventButton *event=NULL);
 
     static void on_profile_template_changed (GnomeCmdAdvrenameProfileComponent *component, GnomeCmdAdvrenameDialog *dialog);
     static void on_profile_counter_changed (GnomeCmdAdvrenameProfileComponent *component, GnomeCmdAdvrenameDialog *dialog);
     static void on_profile_regex_changed (GnomeCmdAdvrenameProfileComponent *component, GnomeCmdAdvrenameDialog *dialog);
     static void on_files_model_row_deleted (GtkTreeModel *files, GtkTreePath *path, GnomeCmdAdvrenameDialog *dialog);
-    static void on_files_view_popup_menu__remove (GtkWidget *menuitem, GtkTreeView *treeview);
-    static void on_files_view_popup_menu__view_file (GtkWidget *menuitem, GtkTreeView *treeview);
-    static void on_files_view_popup_menu__show_properties (GtkWidget *menuitem, GtkTreeView *treeview);
-    static void on_files_view_popup_menu__update_files (GtkWidget *menuitem, GnomeCmdAdvrenameDialog *dialog);
+    static void on_files_view_popup_menu__remove (GSimpleAction *action, GVariant *parameter, gpointer user_data);
+    static void on_files_view_popup_menu__view_file (GSimpleAction *action, GVariant *parameter, gpointer user_data);
+    static void on_files_view_popup_menu__show_properties (GSimpleAction *action, GVariant *parameter, gpointer user_data);
+    static void on_files_view_popup_menu__update_files (GSimpleAction *action, GVariant *parameter, gpointer user_data);
     static gboolean on_files_view_button_pressed (GtkWidget *treeview, GdkEventButton *event, GnomeCmdAdvrenameDialog *dialog);
     static gboolean on_files_view_popup_menu (GtkWidget *treeview, GnomeCmdAdvrenameDialog *dialog);
     static void on_files_view_row_activated (GtkTreeView *view, GtkTreePath *path, GtkTreeViewColumn *col, GnomeCmdAdvrenameDialog *dialog);
@@ -108,103 +100,74 @@ inline gboolean model_is_empty(GtkTreeModel *tree_model)
 }
 
 
-inline GtkWidget *GnomeCmdAdvrenameDialog::Private::create_placeholder_menu(GnomeCmdData::AdvrenameConfig *cfg)
+inline GMenu *create_placeholder_menu(GnomeCmdData::AdvrenameConfig *cfg)
 {
-    GtkMenu *menu = GTK_MENU (gtk_menu_new ());
+    GMenu *menu = g_menu_new ();
 
-    {
-        GtkImageMenuItem *item = GTK_IMAGE_MENU_ITEM (gtk_image_menu_item_new_from_stock (GTK_STOCK_SAVE_AS, NULL));
-        gtk_menu_item_set_use_underline (GTK_MENU_ITEM (item), TRUE);
-        gtk_menu_item_set_label (GTK_MENU_ITEM (item), _("_Save Profile As…"));
-        g_signal_connect (G_OBJECT (item), "activate", G_CALLBACK (save_profile), this);
-        gtk_menu_shell_append (GTK_MENU_SHELL (menu), GTK_WIDGET (item));
-    }
+    g_menu_append (menu, _("_Save Profile As…"), "advrename.save-profile");
 
     if (!cfg->profiles.empty())
     {
-        {
-            GtkImageMenuItem *item = GTK_IMAGE_MENU_ITEM (gtk_image_menu_item_new_from_stock (GTK_STOCK_EDIT, NULL));
-            gtk_menu_item_set_use_underline (GTK_MENU_ITEM (item), TRUE);
-            gtk_menu_item_set_label (GTK_MENU_ITEM (item), _("_Manage Profiles…"));
-            g_signal_connect (G_OBJECT (item), "activate", G_CALLBACK (manage_profiles), this);
-            gtk_menu_shell_append (GTK_MENU_SHELL (menu), GTK_WIDGET (item));
-        }
+        g_menu_append (menu, _("_Manage Profiles…"), "advrename.manage-profiles");
 
-        gtk_menu_shell_append (GTK_MENU_SHELL (menu), gtk_separator_menu_item_new ());
-
-        gsize i = 0;
+        GMenu *profiles = g_menu_new ();
+        gint i = 0;
         for (vector<GnomeCmdData::AdvrenameConfig::Profile>::const_iterator p=cfg->profiles.begin(); p!=cfg->profiles.end(); ++p, ++i)
         {
-            GtkImageMenuItem *item = GTK_IMAGE_MENU_ITEM (gtk_image_menu_item_new_from_stock (GTK_STOCK_REVERT_TO_SAVED, NULL));
-            gtk_menu_item_set_label (GTK_MENU_ITEM (item), p->name.c_str());
-            g_object_set_data (G_OBJECT (item), "profile-index", reinterpret_cast<gpointer> (i));
-            g_signal_connect (G_OBJECT (item), "activate", G_CALLBACK (load_profile), this);
-            gtk_menu_shell_append (GTK_MENU_SHELL (menu), GTK_WIDGET (item));
+            GMenuItem *item = g_menu_item_new (p->name.c_str(), nullptr);
+            g_menu_item_set_action_and_target (item, "advrename.load-profile", "i", i);
+            g_menu_append_item (profiles, item);
         }
+        g_menu_append_section (menu, nullptr, G_MENU_MODEL (profiles));
     }
 
-    gtk_widget_show_all (GTK_WIDGET (menu));
-    return GTK_WIDGET (menu);
+    return menu;
 }
 
 
-inline GtkWidget *GnomeCmdAdvrenameDialog::Private::create_button_with_menu(gchar *label_text, GnomeCmdData::AdvrenameConfig *cfg)
+static void do_manage_profiles(GnomeCmdAdvrenameDialog *dialog, bool new_profile)
 {
-    profile_menu_button = gnome_cmd_button_menu_new (label_text, create_placeholder_menu(cfg));
-
-    return profile_menu_button;
-}
-
-
-void GnomeCmdAdvrenameDialog::Private::save_profile(GtkWidget *menu_item, GnomeCmdAdvrenameDialog::Private *priv)
-{
-    GnomeCmdAdvrenameDialog::Private::do_manage_profiles(priv, true, menu_item);
-}
-
-
-void GnomeCmdAdvrenameDialog::Private::manage_profiles(GtkWidget *menu_item, GnomeCmdAdvrenameDialog::Private *priv)
-{
-    GnomeCmdAdvrenameDialog::Private::do_manage_profiles(priv, false, menu_item);
-}
-
-
-void GnomeCmdAdvrenameDialog::Private::do_manage_profiles(GnomeCmdAdvrenameDialog::Private *priv, bool new_profile, GtkWidget *widget)
-{
-    GtkWidget *dialog = gtk_widget_get_ancestor (priv->profile_menu_button, GNOME_CMD_TYPE_ADVRENAME_DIALOG);
-
-    g_return_if_fail (dialog!=NULL);
-
-    GnomeCmdData::AdvrenameConfig &cfg = GNOME_CMD_ADVRENAME_DIALOG(dialog)->defaults;
+    GnomeCmdData::AdvrenameConfig &cfg = dialog->defaults;
 
     if (new_profile)
-        priv->profile_component->copy();
+        dialog->priv->profile_component->copy();
 
     if (GnomeCmd::ManageProfilesDialog<GnomeCmdData::AdvrenameConfig,GnomeCmdData::AdvrenameConfig::Profile,GnomeCmdAdvrenameProfileComponent> (GTK_WINDOW (dialog),cfg,new_profile,_("Profiles"),"gnome-commander-advanced-rename"))
     {
-        GtkWidget *menu = gtk_widget_get_parent(widget);
-
-        gnome_cmd_button_menu_disconnect_handler (priv->profile_menu_button, menu);
-        gnome_cmd_button_menu_connect_handler (priv->profile_menu_button, priv->create_placeholder_menu(&cfg));
+        gtk_menu_button_set_menu_model (
+            GTK_MENU_BUTTON (dialog->priv->profile_menu_button),
+            G_MENU_MODEL (create_placeholder_menu(&cfg)));
     }
 }
 
 
-void GnomeCmdAdvrenameDialog::Private::load_profile(GtkWidget *menu_item, GnomeCmdAdvrenameDialog::Private *priv)
+static void save_profile(GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
-    GtkWidget *dialog = gtk_widget_get_ancestor (priv->profile_menu_button, GNOME_CMD_TYPE_ADVRENAME_DIALOG);
+    auto dialog = static_cast<GnomeCmdAdvrenameDialog*>(user_data);
+    do_manage_profiles(dialog, true);
+}
 
-    g_return_if_fail (dialog!=NULL);
 
-    GnomeCmdData::AdvrenameConfig &cfg = GNOME_CMD_ADVRENAME_DIALOG(dialog)->defaults;
+static void manage_profiles(GSimpleAction *action, GVariant *parameter, gpointer user_data)
+{
+    auto dialog = static_cast<GnomeCmdAdvrenameDialog*>(user_data);
+    do_manage_profiles(dialog, false);
+}
 
-    gsize profile_idx = reinterpret_cast<gsize> (g_object_get_data (G_OBJECT (menu_item), "profile-index"));
 
-    g_return_if_fail (profile_idx<cfg.profiles.size());
+static void load_profile(GSimpleAction *action, GVariant *parameter, gpointer user_data)
+{
+    auto dialog = static_cast<GnomeCmdAdvrenameDialog*>(user_data);
+    gsize profile_idx = g_variant_get_int32(parameter);
+
+    GnomeCmdData::AdvrenameConfig &cfg = dialog->defaults;
+
+    g_return_if_fail (profile_idx < cfg.profiles.size());
 
     cfg.default_profile = cfg.profiles[profile_idx];
-    priv->profile_component->update();
+    dialog->priv->profile_component->update();
 
-    GNOME_CMD_ADVRENAME_DIALOG(dialog)->update_new_filenames();     //  FIXME:  ??
+    dialog->update_new_filenames();     //  FIXME:  ??
 }
 
 
@@ -242,8 +205,11 @@ void GnomeCmdAdvrenameDialog::Private::on_files_model_row_deleted (GtkTreeModel 
 }
 
 
-void GnomeCmdAdvrenameDialog::Private::on_files_view_popup_menu__remove (GtkWidget *menuitem, GtkTreeView *treeview)
+void GnomeCmdAdvrenameDialog::Private::on_files_view_popup_menu__remove (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
+    auto dialog = static_cast<GnomeCmdAdvrenameDialog*>(user_data);
+    GtkTreeView *treeview = GTK_TREE_VIEW (dialog->priv->files_view);
+
     GtkTreeIter iter;
 
     if (gtk_tree_selection_get_selected (gtk_tree_view_get_selection (treeview), NULL, &iter))
@@ -260,8 +226,11 @@ void GnomeCmdAdvrenameDialog::Private::on_files_view_popup_menu__remove (GtkWidg
 }
 
 
-void GnomeCmdAdvrenameDialog::Private::on_files_view_popup_menu__view_file (GtkWidget *menuitem, GtkTreeView *treeview)
+void GnomeCmdAdvrenameDialog::Private::on_files_view_popup_menu__view_file (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
+    auto dialog = static_cast<GnomeCmdAdvrenameDialog*>(user_data);
+    GtkTreeView *treeview = GTK_TREE_VIEW (dialog->priv->files_view);
+
     GtkTreeIter iter;
 
     if (gtk_tree_selection_get_selected (gtk_tree_view_get_selection (treeview), NULL, &iter))
@@ -277,8 +246,11 @@ void GnomeCmdAdvrenameDialog::Private::on_files_view_popup_menu__view_file (GtkW
 }
 
 
-void GnomeCmdAdvrenameDialog::Private::on_files_view_popup_menu__show_properties (GtkWidget *menuitem, GtkTreeView *treeview)
+void GnomeCmdAdvrenameDialog::Private::on_files_view_popup_menu__show_properties (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
+    auto dialog = static_cast<GnomeCmdAdvrenameDialog*>(user_data);
+    GtkTreeView *treeview = GTK_TREE_VIEW (dialog->priv->files_view);
+
     GtkTreeIter iter;
 
     if (gtk_tree_selection_get_selected (gtk_tree_view_get_selection (treeview), NULL, &iter))
@@ -294,8 +266,10 @@ void GnomeCmdAdvrenameDialog::Private::on_files_view_popup_menu__show_properties
 }
 
 
-void GnomeCmdAdvrenameDialog::Private::on_files_view_popup_menu__update_files (GtkWidget *menuitem, GnomeCmdAdvrenameDialog *dialog)
+void GnomeCmdAdvrenameDialog::Private::on_files_view_popup_menu__update_files (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
+    auto dialog = static_cast<GnomeCmdAdvrenameDialog*>(user_data);
+
     GtkTreeIter i;
     GnomeCmdFile *f;
 
@@ -321,29 +295,19 @@ void GnomeCmdAdvrenameDialog::Private::on_files_view_popup_menu__update_files (G
 
 inline void GnomeCmdAdvrenameDialog::Private::files_view_popup_menu (GtkWidget *treeview, GnomeCmdAdvrenameDialog *dialog, GdkEventButton *event)
 {
-    GtkWidget *menu = gtk_menu_new ();
-    GtkWidget *menuitem;
+    GMenu *menu = g_menu_new ();
 
-    menuitem = gtk_menu_item_new_with_label (_("Remove from file list"));
-    g_signal_connect (menuitem, "activate", G_CALLBACK (on_files_view_popup_menu__remove), treeview);
-    gtk_menu_shell_append (GTK_MENU_SHELL (menu), menuitem);
+    GMenu *file_section = g_menu_new ();
+    g_menu_append (file_section, _("Remove from file list"), "advrename.file-list-remove");
+    g_menu_append (file_section, _("View file"), "advrename.file-list-view");
+    g_menu_append (file_section, _("File properties"), "advrename.file-list-properties");
+    g_menu_append_section (menu, nullptr, G_MENU_MODEL (file_section));
 
-    menuitem = gtk_menu_item_new_with_label (_("View file"));
-    g_signal_connect (menuitem, "activate", G_CALLBACK (on_files_view_popup_menu__view_file), treeview);
-    gtk_menu_shell_append (GTK_MENU_SHELL (menu), menuitem);
+    g_menu_append (menu, _("Update file list"), "advrename.update-file-list");
 
-    menuitem = gtk_menu_item_new_with_label (_("File properties"));
-    g_signal_connect (menuitem, "activate", G_CALLBACK (on_files_view_popup_menu__show_properties), treeview);
-    gtk_menu_shell_append (GTK_MENU_SHELL (menu), menuitem);
-
-    gtk_menu_shell_append (GTK_MENU_SHELL (menu), gtk_separator_menu_item_new ());
-
-    menuitem = gtk_menu_item_new_with_label (_("Update file list"));
-    g_signal_connect (menuitem, "activate", G_CALLBACK (on_files_view_popup_menu__update_files), dialog);
-    gtk_menu_shell_append (GTK_MENU_SHELL (menu), menuitem);
-
-    gtk_widget_show_all (menu);
-    gtk_menu_popup (GTK_MENU (menu), NULL, NULL, NULL, NULL,
+    GtkWidget *gtk_menu = gtk_menu_new_from_model (G_MENU_MODEL (menu));
+    gtk_menu_attach_to_widget (GTK_MENU (gtk_menu), GTK_WIDGET (dialog), nullptr);
+    gtk_menu_popup (GTK_MENU (gtk_menu), NULL, NULL, NULL, NULL,
                     (event != NULL) ? event->button : 0, gdk_event_get_time ((GdkEvent*) event));
 }
 
@@ -392,7 +356,7 @@ gboolean GnomeCmdAdvrenameDialog::Private::on_files_view_popup_menu (GtkWidget *
 
 void GnomeCmdAdvrenameDialog::Private::on_files_view_row_activated (GtkTreeView *view, GtkTreePath *path, GtkTreeViewColumn *col, GnomeCmdAdvrenameDialog *dialog)
 {
-    on_files_view_popup_menu__show_properties (NULL, view);
+    on_files_view_popup_menu__show_properties (nullptr, nullptr, dialog);
 }
 
 
@@ -513,6 +477,19 @@ void GnomeCmdAdvrenameDialog::Private::on_dialog_response (GnomeCmdAdvrenameDial
 
 static void gnome_cmd_advrename_dialog_init (GnomeCmdAdvrenameDialog *dialog)
 {
+    static GActionEntry action_entries[] = {
+        { "save-profile",           save_profile },
+        { "manage-profiles",        manage_profiles },
+        { "load-profile",           load_profile, "i" },
+        { "file-list-remove",       GnomeCmdAdvrenameDialog::Private::on_files_view_popup_menu__remove },
+        { "file-list-view",         GnomeCmdAdvrenameDialog::Private::on_files_view_popup_menu__view_file },
+        { "file-list-properties",   GnomeCmdAdvrenameDialog::Private::on_files_view_popup_menu__show_properties },
+        { "update-file-list",       GnomeCmdAdvrenameDialog::Private::on_files_view_popup_menu__update_files }
+    };
+    GSimpleActionGroup* action_group = g_simple_action_group_new ();
+    g_action_map_add_action_entries (G_ACTION_MAP (action_group), action_entries, G_N_ELEMENTS(action_entries), dialog);
+    gtk_widget_insert_action_group (GTK_WIDGET (dialog), "advrename", G_ACTION_GROUP (action_group));
+
     dialog->priv = new GnomeCmdAdvrenameDialog::Private;
 
     gtk_window_set_title (*dialog, _("Advanced Rename Tool"));
@@ -682,9 +659,13 @@ GnomeCmdAdvrenameDialog::GnomeCmdAdvrenameDialog(GnomeCmdData::AdvrenameConfig &
     gtk_window_set_default_size (*this, cfg.width, cfg.height);
     gtk_window_set_transient_for (*this, *main_win);
 
-    gtk_dialog_add_action_widget (*this,
-                                  priv->create_button_with_menu (_("Profiles…"), &cfg),
-                                  GCMD_RESPONSE_PROFILES);
+    priv->profile_menu_button = gtk_menu_button_new ();
+    gtk_button_set_label (GTK_BUTTON (priv->profile_menu_button), _("Profiles…"));
+    gtk_menu_button_set_menu_model (
+        GTK_MENU_BUTTON (priv->profile_menu_button),
+        G_MENU_MODEL (create_placeholder_menu(&cfg)));
+
+    gtk_dialog_add_action_widget (*this, priv->profile_menu_button, GCMD_RESPONSE_PROFILES);
 
     gtk_dialog_add_buttons (*this,
                             GTK_STOCK_HELP, GTK_RESPONSE_HELP,

@@ -199,9 +199,9 @@ struct GnomeCmdFileList::Private
     explicit Private(GnomeCmdFileList *fl);
     ~Private();
 
-    static void on_dnd_popup_menu_copy(GtkMenuItem *item, GnomeCmdFileList *fl);
-    static void on_dnd_popup_menu_move(GtkMenuItem *item, GnomeCmdFileList *fl);
-    static void on_dnd_popup_menu_link(GtkMenuItem *item, GnomeCmdFileList *fl);
+    static void on_dnd_popup_menu_copy(GtkButton *item, GnomeCmdFileList *fl);
+    static void on_dnd_popup_menu_move(GtkButton *item, GnomeCmdFileList *fl);
+    static void on_dnd_popup_menu_link(GtkButton *item, GnomeCmdFileList *fl);
 };
 
 
@@ -393,42 +393,41 @@ static void unref_gfile_list (GList *list)
 }
 
 
-static GtkMenu *create_dnd_popup (GnomeCmdFileList *fl, GList *gFileGlist, GnomeCmdDir* to)
+static GtkPopover *create_dnd_popup (GnomeCmdFileList *fl, GList *gFileGlist, GnomeCmdDir* to)
 {
-    GtkMenu *dnd_popup = GTK_MENU (gtk_menu_new ());
+    GtkWidget *dnd_popup = gtk_popover_new (GTK_WIDGET (fl));
     g_object_set_data_full (G_OBJECT (dnd_popup), "file-list", gFileGlist, (GDestroyNotify) unref_gfile_list);
     g_object_set_data (G_OBJECT (dnd_popup), "to", to);
+
+    GtkWidget *vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 0);
     {
-        GtkImageMenuItem *item = GTK_IMAGE_MENU_ITEM (gtk_image_menu_item_new_from_stock (GTK_STOCK_COPY, NULL));
-        gtk_menu_item_set_use_underline (GTK_MENU_ITEM (item), TRUE);
-        gtk_menu_item_set_label (GTK_MENU_ITEM (item), _("_Copy here"));
-        g_signal_connect (G_OBJECT (item), "activate", G_CALLBACK (GnomeCmdFileList::Private::on_dnd_popup_menu_copy), fl);
-        gtk_menu_shell_append (GTK_MENU_SHELL (dnd_popup), GTK_WIDGET (item));
+        GtkWidget *item = gtk_model_button_new ();
+        g_object_set (item, "text", _("_Copy here"), NULL);
+        g_signal_connect (G_OBJECT (item), "clicked", G_CALLBACK (GnomeCmdFileList::Private::on_dnd_popup_menu_copy), fl);
+        gtk_container_add (GTK_CONTAINER (vbox), GTK_WIDGET (item));
     }
     {
-        GtkImageMenuItem *item = GTK_IMAGE_MENU_ITEM (gtk_image_menu_item_new_from_stock (GTK_STOCK_COPY, NULL));
-        gtk_menu_item_set_use_underline (GTK_MENU_ITEM (item), TRUE);
-        gtk_menu_item_set_label (GTK_MENU_ITEM (item), _("_Move here"));
-        g_signal_connect (G_OBJECT (item), "activate", G_CALLBACK (GnomeCmdFileList::Private::on_dnd_popup_menu_move), fl);
-        gtk_menu_shell_append (GTK_MENU_SHELL (dnd_popup), GTK_WIDGET (item));
+        GtkWidget *item = gtk_model_button_new ();
+        g_object_set (item, "text", _("_Move here"), NULL);
+        g_signal_connect (G_OBJECT (item), "clicked", G_CALLBACK (GnomeCmdFileList::Private::on_dnd_popup_menu_move), fl);
+        gtk_container_add (GTK_CONTAINER (vbox), GTK_WIDGET (item));
     }
     {
-        GtkImageMenuItem *item = GTK_IMAGE_MENU_ITEM (gtk_image_menu_item_new_from_stock (GTK_STOCK_CONVERT, NULL));
-        gtk_menu_item_set_use_underline (GTK_MENU_ITEM (item), TRUE);
-        gtk_menu_item_set_label (GTK_MENU_ITEM (item), _("_Link here"));
-        g_signal_connect (G_OBJECT (item), "activate", G_CALLBACK (GnomeCmdFileList::Private::on_dnd_popup_menu_link), fl);
-        gtk_menu_shell_append (GTK_MENU_SHELL (dnd_popup), GTK_WIDGET (item));
+        GtkWidget *item = gtk_model_button_new ();
+        g_object_set (item, "text", _("_Link here"), NULL);
+        g_signal_connect (G_OBJECT (item), "clicked", G_CALLBACK (GnomeCmdFileList::Private::on_dnd_popup_menu_link), fl);
+        gtk_container_add (GTK_CONTAINER (vbox), GTK_WIDGET (item));
     }
-    gtk_menu_shell_append (GTK_MENU_SHELL (dnd_popup), gtk_separator_menu_item_new ());
+    gtk_container_add (GTK_CONTAINER (vbox), gtk_separator_new (GTK_ORIENTATION_HORIZONTAL));
     {
-        GtkImageMenuItem *item = GTK_IMAGE_MENU_ITEM (gtk_image_menu_item_new_from_stock (GTK_STOCK_CANCEL, NULL));
-        gtk_menu_item_set_use_underline (GTK_MENU_ITEM (item), TRUE);
-        gtk_menu_item_set_label (GTK_MENU_ITEM (item), _("C_ancel"));
-        gtk_menu_shell_append (GTK_MENU_SHELL (dnd_popup), GTK_WIDGET (item));
+        GtkWidget *item = gtk_model_button_new ();
+        g_object_set (item, "text", _("C_ancel"), NULL);
+        gtk_container_add (GTK_CONTAINER (vbox), GTK_WIDGET (item));
     }
+    gtk_container_add (GTK_CONTAINER (dnd_popup), vbox);
 
     gtk_widget_show_all (GTK_WIDGET (dnd_popup));
-    return dnd_popup;
+    return GTK_POPOVER (dnd_popup);
 }
 
 
@@ -437,33 +436,33 @@ GnomeCmdFileList::Private::~Private()
 }
 
 
-void GnomeCmdFileList::Private::on_dnd_popup_menu_copy(GtkMenuItem *item, GnomeCmdFileList *fl)
+void GnomeCmdFileList::Private::on_dnd_popup_menu_copy(GtkButton *item, GnomeCmdFileList *fl)
 {
     g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl));
 
-    GtkWidget *dnd_popup = gtk_widget_get_ancestor (GTK_WIDGET (item), GTK_TYPE_MENU);
+    GtkWidget *dnd_popup = gtk_widget_get_ancestor (GTK_WIDGET (item), GTK_TYPE_POPOVER);
     auto gFileGlist = static_cast<GList *> (g_object_steal_data (G_OBJECT (dnd_popup), "file-list"));
     auto to = static_cast<GnomeCmdDir*> (g_object_steal_data (G_OBJECT (dnd_popup), "to"));
 
     fl->drop_files(GnomeCmdFileList::DndMode::COPY, G_FILE_COPY_NONE, gFileGlist, to);
 }
 
-void GnomeCmdFileList::Private::on_dnd_popup_menu_move(GtkMenuItem *item, GnomeCmdFileList *fl)
+void GnomeCmdFileList::Private::on_dnd_popup_menu_move(GtkButton *item, GnomeCmdFileList *fl)
 {
     g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl));
 
-    GtkWidget *dnd_popup = gtk_widget_get_ancestor (GTK_WIDGET (item), GTK_TYPE_MENU);
+    GtkWidget *dnd_popup = gtk_widget_get_ancestor (GTK_WIDGET (item), GTK_TYPE_POPOVER);
     auto gFileGlist = static_cast<GList *> (g_object_steal_data (G_OBJECT (dnd_popup), "file-list"));
     auto to = static_cast<GnomeCmdDir*> (g_object_steal_data (G_OBJECT (dnd_popup), "to"));
 
     fl->drop_files(GnomeCmdFileList::DndMode::MOVE, G_FILE_COPY_NONE, gFileGlist, to);
 }
 
-void GnomeCmdFileList::Private::on_dnd_popup_menu_link(GtkMenuItem *item, GnomeCmdFileList *fl)
+void GnomeCmdFileList::Private::on_dnd_popup_menu_link(GtkButton *item, GnomeCmdFileList *fl)
 {
     g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl));
 
-    GtkWidget *dnd_popup = gtk_widget_get_ancestor (GTK_WIDGET (item), GTK_TYPE_MENU);
+    GtkWidget *dnd_popup = gtk_widget_get_ancestor (GTK_WIDGET (item), GTK_TYPE_POPOVER);
     auto gFileGlist = static_cast<GList *> (g_object_steal_data (G_OBJECT (dnd_popup), "file-list"));
     auto to = static_cast<GnomeCmdDir*> (g_object_steal_data (G_OBJECT (dnd_popup), "to"));
 
@@ -3429,7 +3428,7 @@ static void drag_data_received (GtkWidget *widget, GdkDragContext *context,
 
     GdkModifierType mask;
 
-    gdk_display_get_pointer (gdk_display_get_default (), nullptr, &x, &y, &mask);
+    gdk_display_get_pointer (gdk_display_get_default (), nullptr, nullptr, nullptr, &mask);
 
     if (!(mask & (GDK_SHIFT_MASK | GDK_CONTROL_MASK)))
     {
@@ -3437,8 +3436,12 @@ static void drag_data_received (GtkWidget *widget, GdkDragContext *context,
         {
             case GNOME_CMD_DEFAULT_DND_QUERY:
                 {
-                    auto dnd_popup = create_dnd_popup (fl, gFileGlist, to);
-                    gtk_menu_popup (dnd_popup, NULL, NULL, NULL, NULL, 1, time);
+                    auto dnd_popover = create_dnd_popup (fl, gFileGlist, to);
+
+                    GdkRectangle rect = { x, y, 1, 1 };
+                    gtk_popover_set_pointing_to (dnd_popover, &rect);
+
+                    gtk_popover_popup (dnd_popover);
                 }
                 break;
             case GNOME_CMD_DEFAULT_DND_MOVE:

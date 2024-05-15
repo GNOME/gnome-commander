@@ -31,7 +31,6 @@
 #include "gnome-cmd-edit-bookmark-dialog.h"
 #include "gnome-cmd-treeview.h"
 #include "gnome-cmd-user-actions.h"
-#include "gnome-cmd-menu-button.h"
 #include "gnome-cmd-hintbox.h"
 #include "eggcellrendererkeys.h"
 #include "utils.h"

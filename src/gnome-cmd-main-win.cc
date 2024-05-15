@@ -260,128 +260,29 @@ static void create_toolbar (GnomeCmdMainWin *mw)
 }
 
 
-static void slide_set_100_0 (GtkMenu *menu, gpointer user_data)
+static void view_slide (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
-    GtkAllocation main_win_allocation;
-    gtk_widget_get_allocation (GTK_WIDGET (main_win), &main_win_allocation);
+    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
+    gint percentage = g_variant_get_int32 (parameter);
 
-    gtk_paned_set_position (GTK_PANED (main_win->priv->paned),
-                            gnome_cmd_data.horizontal_orientation ? main_win_allocation.height :
-                                                              main_win_allocation.width);
-}
-
-
-static void slide_set_80_20 (GtkMenu *menu, gpointer user_data)
-{
-    GtkAllocation main_win_allocation;
-    gtk_widget_get_allocation (GTK_WIDGET (main_win), &main_win_allocation);
-
-    gtk_paned_set_position (GTK_PANED (main_win->priv->paned),
-                            gnome_cmd_data.horizontal_orientation ? (int)(main_win_allocation.height*0.8f) :
-                                                              (int)(main_win_allocation.width*0.8f));
-}
-
-
-static void slide_set_60_40 (GtkMenu *menu, gpointer user_data)
-{
-    GtkAllocation main_win_allocation;
-    gtk_widget_get_allocation (GTK_WIDGET (main_win), &main_win_allocation);
-
-    gtk_paned_set_position (GTK_PANED (main_win->priv->paned),
-                            gnome_cmd_data.horizontal_orientation ? (int)(main_win_allocation.height*0.6f) :
-                                                              (int)(main_win_allocation.width*0.6f));
-}
-
-
-static void slide_set_50_50 (GtkMenu *menu, gpointer user_data)
-{
-    GtkAllocation main_win_allocation;
-    gtk_widget_get_allocation (GTK_WIDGET (main_win), &main_win_allocation);
-
-    gtk_paned_set_position (GTK_PANED (main_win->priv->paned),
-                            gnome_cmd_data.horizontal_orientation ? (int)(main_win_allocation.height*0.5f) :
-                                                              (int)(main_win_allocation.width*0.5f));
-}
-
-
-static void slide_set_40_60 (GtkMenu *menu, gpointer user_data)
-{
-    GtkAllocation main_win_allocation;
-    gtk_widget_get_allocation (GTK_WIDGET (main_win), &main_win_allocation);
-
-    gtk_paned_set_position (GTK_PANED (main_win->priv->paned),
-                            gnome_cmd_data.horizontal_orientation ? (int)(main_win_allocation.height*0.4f) :
-                                                              (int)(main_win_allocation.width*0.4f));
-}
-
-
-static void slide_set_20_80 (GtkMenu *menu, gpointer user_data)
-{
-    GtkAllocation main_win_allocation;
-    gtk_widget_get_allocation (GTK_WIDGET (main_win), &main_win_allocation);
-
-    gtk_paned_set_position (GTK_PANED (main_win->priv->paned),
-                            gnome_cmd_data.horizontal_orientation ? (int)(main_win_allocation.height*0.2f) :
-                                                              (int)(main_win_allocation.width*0.2f));
-}
-
-
-static void slide_set_0_100 (GtkMenu *menu, gpointer user_data)
-{
-    gtk_paned_set_position (GTK_PANED (main_win->priv->paned), 0);
+    main_win->set_slide(percentage);
 }
 
 
 static GtkWidget *create_slide_popup ()
 {
-    static const GtkActionEntry entries[] =
-    {
-        { "align_100_0", NULL, "100 - 0", nullptr, nullptr, (GCallback) slide_set_100_0},
-        { "align_80_20", NULL, "80 - 20", nullptr, nullptr, (GCallback) slide_set_80_20},
-        { "align_60_40", NULL, "60 - 40", nullptr, nullptr, (GCallback) slide_set_60_40},
-        { "align_50_50", NULL, "50 - 50", nullptr, nullptr, (GCallback) slide_set_50_50},
-        { "align_40_60", NULL, "40 - 60", nullptr, nullptr, (GCallback) slide_set_40_60},
-        { "align_20_80", NULL, "20 - 80", nullptr, nullptr, (GCallback) slide_set_20_80},
-        { "align_0_100", NULL, "0 - 100", nullptr, nullptr, (GCallback) slide_set_0_100},
-    };
+    GMenu *menu = g_menu_new ();
+    g_menu_append (menu, "100 - 0", "win.view-slide(100)");
+    g_menu_append (menu, "80 - 20", "win.view-slide(80)");
+    g_menu_append (menu, "60 - 40", "win.view-slide(60)");
+    g_menu_append (menu, "50 - 50", "win.view-slide(50)");
+    g_menu_append (menu, "40 - 60", "win.view-slide(40)");
+    g_menu_append (menu, "20 - 80", "win.view-slide(20)");
+    g_menu_append (menu, "0 - 100", "win.view-slide(0)");
 
-    static const char *ui_description =
-    "<ui>"
-    "  <popup name='Popup'>"
-    "    <menuitem action='align_100_0'/>"
-    "    <menuitem action='align_80_20'/>"
-    "    <menuitem action='align_60_40'/>"
-    "    <menuitem action='align_50_50'/>"
-    "    <menuitem action='align_40_60'/>"
-    "    <menuitem action='align_20_80'/>"
-    "    <menuitem action='align_0_100'/>"
-    "  </popup>"
-    "</ui>";
-
-    GtkActionGroup *action_group;
-    GtkUIManager *ui_manager;
-    GError *error;
-
-    action_group = gtk_action_group_new ("MenuActions");
-    gtk_action_group_add_actions (action_group, entries, G_N_ELEMENTS (entries), main_win);
-
-    ui_manager = gtk_ui_manager_new ();
-    gtk_ui_manager_insert_action_group (ui_manager, action_group, 0);
-
-    error = NULL;
-    if (!gtk_ui_manager_add_ui_from_string (ui_manager, ui_description, -1, &error))
-      {
-        g_message ("building menus failed: %s", error->message);
-        g_error_free (error);
-        exit (EXIT_FAILURE);
-      }
-
-    GtkWidget *menu = gtk_ui_manager_get_widget (ui_manager, "/Popup");
-
-    g_object_ref (menu);
-    g_object_set_data_full (*main_win, "slide-popup", menu, g_object_unref);
-
-    return GTK_WIDGET (menu);
+    GtkWidget *gtk_menu = gtk_menu_new_from_model (G_MENU_MODEL (menu));
+    gtk_menu_attach_to_widget (GTK_MENU (gtk_menu), GTK_WIDGET (main_win), nullptr);
+    return gtk_menu;
 }
 
 
@@ -758,6 +659,12 @@ static void gnome_cmd_main_win_init (GnomeCmdMainWin *mw)
     g_action_map_add_action_entries (G_ACTION_MAP (mw), PLUGINS_ACTION_ENTRIES, -1, mw);
     g_action_map_add_action_entries (G_ACTION_MAP (mw), HELP_ACTION_ENTRIES, -1, mw);
 
+    static const GActionEntry MW_VIEW_ACTION_ENTRIES[] = {
+        { "view-slide", view_slide, "i", nullptr, nullptr },
+        { nullptr }
+    };
+    g_action_map_add_action_entries (G_ACTION_MAP (mw), MW_VIEW_ACTION_ENTRIES, -1, mw);
+
     toggle_action_change_state (mw, "view-toolbar", gnome_cmd_data.show_toolbar);
     toggle_action_change_state (mw, "view-conbuttons", gnome_cmd_data.show_devbuttons);
     toggle_action_change_state (mw, "view-devlist", gnome_cmd_data.show_devlist);
@@ -823,13 +730,13 @@ static void gnome_cmd_main_win_init (GnomeCmdMainWin *mw)
     gtk_box_pack_start (GTK_BOX (mw->priv->vbox), mw->priv->paned, TRUE, TRUE, 0);
     mw->create_buttonbar();
 
-    mw->priv->file_selector[LEFT] = gnome_cmd_file_selector_new ();
+    mw->priv->file_selector[LEFT] = gnome_cmd_file_selector_new (LEFT);
     g_object_ref (mw->priv->file_selector[LEFT]);
     g_object_set_data_full (*mw, "left_file_selector", mw->priv->file_selector[LEFT], g_object_unref);
     gtk_widget_show (mw->priv->file_selector[LEFT]);
     gtk_paned_pack1 (GTK_PANED (mw->priv->paned), mw->priv->file_selector[LEFT], TRUE, TRUE);
 
-    mw->priv->file_selector[RIGHT] = gnome_cmd_file_selector_new ();
+    mw->priv->file_selector[RIGHT] = gnome_cmd_file_selector_new (RIGHT);
     g_object_ref (mw->priv->file_selector[RIGHT]);
     g_object_set_data_full (*mw, "right_file_selector", mw->priv->file_selector[RIGHT], g_object_unref);
     gtk_widget_show (mw->priv->file_selector[RIGHT]);
@@ -1383,7 +1290,7 @@ void GnomeCmdMainWin::update_horizontal_orientation()
     g_object_unref (priv->file_selector[RIGHT]);
 
     g_signal_connect (priv->paned, "button-press-event", G_CALLBACK (on_slide_button_press), this);
-    slide_set_50_50 (NULL, NULL);
+    set_slide(50);
 }
 
 
@@ -1433,16 +1340,28 @@ void GnomeCmdMainWin::set_cap_state(gboolean state)
 }
 
 
+void GnomeCmdMainWin::set_slide(gint percentage)
+{
+    GtkAllocation main_win_allocation;
+    gtk_widget_get_allocation (GTK_WIDGET (this), &main_win_allocation);
+
+    gint dimension = gnome_cmd_data.horizontal_orientation ? main_win_allocation.height : main_win_allocation.width;
+    gint new_dimension = dimension * percentage / 100;
+
+    gtk_paned_set_position (GTK_PANED (priv->paned), new_dimension);
+}
+
+
 void GnomeCmdMainWin::set_equal_panes()
 {
-    slide_set_50_50 (NULL, NULL);
+    set_slide(50);
 }
 
 
 void GnomeCmdMainWin::maximize_pane()
 {
     if (priv->current_fs==LEFT)
-        slide_set_100_0 (NULL, NULL);
+        set_slide(100);
     else
-        slide_set_0_100 (NULL, NULL);
+        set_slide(0);
 }

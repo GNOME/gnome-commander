@@ -43,6 +43,7 @@ struct GnomeCmdFileSelector
 {
     GtkBox vbox;
 
+    FileSelectorID fs_id;
     GtkWidget *con_btns_hbox;
     GtkWidget *con_hbox;
     GtkWidget *dir_indicator;
@@ -134,9 +135,10 @@ inline GtkWidget *GnomeCmdFileSelector::new_tab(GnomeCmdDir *dir, gboolean activ
 
 GType gnome_cmd_file_selector_get_type ();
 
-inline GtkWidget *gnome_cmd_file_selector_new ()
+inline GtkWidget *gnome_cmd_file_selector_new (FileSelectorID fs_id)
 {
     GnomeCmdFileSelector *fs = static_cast<GnomeCmdFileSelector *>(g_object_new (GNOME_CMD_TYPE_FILE_SELECTOR, NULL));
+    fs->fs_id = fs_id;
     return *fs;
 }
 

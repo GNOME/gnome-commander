@@ -39,7 +39,7 @@ struct GnomeCmdSearchDialog
 {
     GtkDialog parent;
 
-    class Private;
+    struct Private;
 
     Private *priv;
 

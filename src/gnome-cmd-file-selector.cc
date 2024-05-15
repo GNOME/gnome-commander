@@ -613,12 +613,6 @@ static gboolean on_list_key_pressed_private (GnomeCmdFileList *list, GdkEventKey
 }
 
 
-static void file_list_refresh(GtkMenuItem *menuitem, GnomeCmdFileList *fl)
-{
-    fl->reload();
-}
-
-
 static gboolean on_notebook_button_pressed (GtkWidget *widget, GdkEventButton *event, GnomeCmdFileSelector *fs)
 {
     GnomeCmdNotebook *notebook = GNOME_CMD_NOTEBOOK (widget);
@@ -656,53 +650,31 @@ static gboolean on_notebook_button_pressed (GtkWidget *widget, GdkEventButton *e
                     {
                         // notebook->set_current_page(tab_clicked);    // switch to the page the mouse is over
 
-                        GtkWidget *menu = gtk_menu_new ();
-                        GtkWidget *menuitem;
-
                         GnomeCmdFileList *fl = fs->file_list(tab_clicked);
 
-                        menuitem = gtk_image_menu_item_new_with_mnemonic (_("Open in New _Tab"));
-                        gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (menuitem), gtk_image_new_from_stock (GTK_STOCK_OPEN, GTK_ICON_SIZE_MENU));
-                        gtk_actionable_set_action_name (GTK_ACTIONABLE (menuitem), "win.view-new-tab");
-                        gtk_menu_shell_append (GTK_MENU_SHELL (menu), menuitem);
+                        GMenu *menu = g_menu_new ();
+                        g_menu_append (menu, _("Open in New _Tab"), "win.view-new-tab");
 
-                        gtk_menu_shell_append (GTK_MENU_SHELL (menu), gtk_separator_menu_item_new ());
+                        GMenu *section = g_menu_new ();
 
-                        menuitem = gtk_image_menu_item_new_with_mnemonic (fl->locked ? _("_Unlock Tab") : _("_Lock Tab"));
-                        gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (menuitem), gtk_image_new_from_file (fl->locked ? PIXMAPS_DIR G_DIR_SEPARATOR_S "unpin.png" : PIXMAPS_DIR G_DIR_SEPARATOR_S "pin.png"));
-                        gtk_actionable_set_action_name (GTK_ACTIONABLE (menuitem), "win.view-toggle-tab-lock");
-                        gtk_actionable_set_action_target (GTK_ACTIONABLE (menuitem), "(bi)", fs->is_active(), tab_clicked);
-                        gtk_menu_shell_append (GTK_MENU_SHELL (menu), menuitem);
+                        GMenuItem *menuitem = g_menu_item_new (fl->locked ? _("_Unlock Tab") : _("_Lock Tab"), nullptr);
+                        g_menu_item_set_action_and_target (menuitem, "win.view-toggle-tab-lock", "(bi)", fs->is_active(), tab_clicked);
+                        g_menu_append_item (section, menuitem);
 
-                        menuitem = gtk_image_menu_item_new_with_mnemonic (_("_Refresh Tab"));
-                        gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (menuitem), gtk_image_new_from_stock (GTK_STOCK_REFRESH, GTK_ICON_SIZE_MENU));
-                        g_signal_connect (menuitem, "activate", G_CALLBACK (file_list_refresh), fl);
-                        gtk_menu_shell_append (GTK_MENU_SHELL (menu), menuitem);
+                        menuitem = g_menu_item_new (_("_Refresh Tab"), nullptr);
+                        g_menu_item_set_action_and_target (menuitem, "win.view-refresh-tab", "(ii)", fs->fs_id, tab_clicked);
+                        g_menu_append_item (section, menuitem);
 
-                        menuitem = gtk_image_menu_item_new_with_mnemonic (_("Copy Tab to Other _Pane"));
-                        gtk_actionable_set_action_name (GTK_ACTIONABLE (menuitem), "win.view-in-inactive-tab");
-                        gtk_menu_shell_append (GTK_MENU_SHELL (menu), menuitem);
+                        g_menu_append (section, _("Copy Tab to Other _Pane"), "win.view-in-inactive-tab");
+                        g_menu_append_section (menu, nullptr, G_MENU_MODEL (section));
 
-                        gtk_menu_shell_append (GTK_MENU_SHELL (menu), gtk_separator_menu_item_new ());
+                        g_menu_append (menu, _("_Close Tab"), "win.view-close-tab");
+                        g_menu_append (menu, _("Close _All Tabs"), "win.view-close-all-tabs");
+                        g_menu_append (menu, _("Close _Duplicate Tabs"), "win.view-close-duplicate-tabs");
 
-                        menuitem = gtk_image_menu_item_new_with_mnemonic (_("_Close Tab"));
-                        gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (menuitem), gtk_image_new_from_stock (GTK_STOCK_CLOSE, GTK_ICON_SIZE_MENU));
-                        gtk_actionable_set_action_name (GTK_ACTIONABLE (menuitem), "win.view-close-tab");
-                        gtk_menu_shell_append (GTK_MENU_SHELL (menu), menuitem);
-
-                        menuitem = gtk_image_menu_item_new_with_mnemonic (_("Close _All Tabs"));
-                        gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (menuitem), gtk_image_new_from_stock (GTK_STOCK_CLOSE, GTK_ICON_SIZE_MENU));
-                        gtk_actionable_set_action_name (GTK_ACTIONABLE (menuitem), "win.view-close-all-tabs");
-                        gtk_menu_shell_append (GTK_MENU_SHELL (menu), menuitem);
-
-                        menuitem = gtk_image_menu_item_new_with_mnemonic (_("Close _Duplicate Tabs"));
-                        gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (menuitem), gtk_image_new_from_stock (GTK_STOCK_CLOSE, GTK_ICON_SIZE_MENU));
-                        gtk_actionable_set_action_name (GTK_ACTIONABLE (menuitem), "win.view-close-duplicate-tabs");
-                        gtk_menu_shell_append (GTK_MENU_SHELL (menu), menuitem);
-
-                        gtk_menu_attach_to_widget (GTK_MENU (menu), GTK_WIDGET(fs), nullptr);
-                        gtk_widget_show_all (menu);
-                        gtk_menu_popup (GTK_MENU (menu), nullptr, nullptr, nullptr, nullptr, event->button, event->time);
+                        GtkWidget *gtk_menu = gtk_menu_new_from_model (G_MENU_MODEL (menu));
+                        gtk_menu_attach_to_widget (GTK_MENU (gtk_menu), GTK_WIDGET(fs), nullptr);
+                        gtk_menu_popup (GTK_MENU (gtk_menu), nullptr, nullptr, nullptr, nullptr, event->button, event->time);
                     }
                     return TRUE;
 
