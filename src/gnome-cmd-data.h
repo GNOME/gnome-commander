@@ -688,7 +688,7 @@ struct GnomeCmdData
     inline gint get_int (const gchar *path, int def);
     inline void set_string (const gchar *path, const gchar *value);
     inline gboolean get_bool (const gchar *path, gboolean def);
-    inline void set_color (const gchar *path, GdkColor *color);
+    inline void set_color (const gchar *path, GdkRGBA *color);
 
   public:
 
@@ -751,10 +751,10 @@ struct GnomeCmdData
     void save_bookmarks();
     void load_bookmarks();
     void save();
-    gboolean gnome_cmd_data_parse_color (const gchar *spec, GdkColor *color);
-    gboolean set_color_if_valid_key_value(GdkColor *color, GSettings *settings, const char *key);
+    gboolean gnome_cmd_data_parse_color (const gchar *spec, GdkRGBA *color);
+    gboolean set_color_if_valid_key_value(GdkRGBA *color, GSettings *settings, const char *key);
     gboolean set_gsettings_when_changed (GSettings *settings, const char *key, gpointer value);
-    gboolean set_gsettings_color_when_changed (GSettings *settings, const char *key, GdkColor *color);
+    gboolean set_gsettings_color_when_changed (GSettings *settings, const char *key, GdkRGBA *color);
     gboolean set_gsettings_enum_when_changed (GSettings *settings, const char *key, gint value);
     gboolean is_valid_color_string(const char *colorstring);
     gboolean set_valid_color_string(GSettings *settings, const char* key);

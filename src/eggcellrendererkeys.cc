@@ -632,9 +632,13 @@ egg_cell_renderer_keys_start_editing (GtkCellRenderer      *cell,
     label = gtk_label_new (NULL);
     gtk_misc_set_alignment (GTK_MISC (label), 0.0, 0.5);
 
-    gtk_widget_modify_bg (eventbox, GTK_STATE_NORMAL, &gtk_widget_get_style (widget)->bg[GTK_STATE_SELECTED]);
+    auto style_context = gtk_widget_get_style_context (widget);
+    GdkRGBA fg, bg;
+    gtk_style_context_get_background_color (style_context, GTK_STATE_FLAG_SELECTED, &bg);
+    gtk_style_context_get_color (style_context, GTK_STATE_FLAG_SELECTED, &fg);
 
-    gtk_widget_modify_fg (label, GTK_STATE_NORMAL, &gtk_widget_get_style(widget)->fg[GTK_STATE_SELECTED]);
+    gtk_widget_override_background_color (eventbox, GTK_STATE_FLAG_NORMAL, &bg);
+    gtk_widget_override_color (label, GTK_STATE_FLAG_NORMAL, &fg);
 
     gtk_label_set_text (GTK_LABEL (label), _("New accelerator…"));
 

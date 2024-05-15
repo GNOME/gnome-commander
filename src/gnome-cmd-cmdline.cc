@@ -23,7 +23,6 @@
 #include "gnome-cmd-includes.h"
 #include "gnome-cmd-cmdline.h"
 #include "gnome-cmd-combo.h"
-#include "gnome-cmd-style.h"
 #include "gnome-cmd-file-selector.h"
 #include "gnome-cmd-main-win.h"
 #include "gnome-cmd-data.h"

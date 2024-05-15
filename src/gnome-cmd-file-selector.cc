@@ -31,7 +31,6 @@
 #include "gnome-cmd-data.h"
 #include "gnome-cmd-cmdline.h"
 #include "gnome-cmd-main-win.h"
-#include "gnome-cmd-style.h"
 #include "gnome-cmd-dir-indicator.h"
 #include "gnome-cmd-user-actions.h"
 #include "history.h"

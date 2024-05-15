@@ -113,26 +113,14 @@ typedef enum
 struct GnomeCmdColorTheme
 {
     gboolean respect_theme {TRUE};
-    GdkColor *sel_fg {NULL};
-    GdkColor *sel_bg {NULL};
-    GdkColor *norm_fg {NULL};
-    GdkColor *norm_bg {NULL};
-    GdkColor *curs_fg {NULL};
-    GdkColor *curs_bg {NULL};
-    GdkColor *alt_fg {NULL};
-    GdkColor *alt_bg {NULL};
-
-    ~GnomeCmdColorTheme()
-    {
-        if (sel_fg)     gdk_color_free (sel_fg);
-        if (sel_bg)     gdk_color_free (sel_bg);
-        if (norm_fg)    gdk_color_free (norm_fg);
-        if (norm_bg)    gdk_color_free (norm_bg);
-        if (curs_fg)    gdk_color_free (curs_fg);
-        if (curs_bg)    gdk_color_free (curs_bg);
-        if (alt_fg)     gdk_color_free (alt_fg);
-        if (alt_bg)     gdk_color_free (alt_bg);
-    }
+    GdkRGBA sel_fg;
+    GdkRGBA sel_bg;
+    GdkRGBA norm_fg;
+    GdkRGBA norm_bg;
+    GdkRGBA curs_fg;
+    GdkRGBA curs_bg;
+    GdkRGBA alt_fg;
+    GdkRGBA alt_bg;
 
     GnomeCmdColorTheme &operator = (const GnomeCmdColorTheme &colors);
 };
@@ -143,14 +131,14 @@ inline GnomeCmdColorTheme &GnomeCmdColorTheme::operator = (const GnomeCmdColorTh
     if (this != &colors)
     {
         respect_theme = colors.respect_theme;
-        sel_fg = gdk_color_copy (colors.sel_fg);
-        sel_bg = gdk_color_copy (colors.sel_bg);
-        norm_fg = gdk_color_copy (colors.norm_fg);
-        norm_bg = gdk_color_copy (colors.norm_bg);
-        curs_fg = gdk_color_copy (colors.curs_fg);
-        curs_bg = gdk_color_copy (colors.curs_bg);
-        alt_fg = gdk_color_copy (colors.alt_fg);
-        alt_bg = gdk_color_copy (colors.alt_bg);
+        sel_fg = colors.sel_fg;
+        sel_bg = colors.sel_bg;
+        norm_fg = colors.norm_fg;
+        norm_bg = colors.norm_bg;
+        curs_fg = colors.curs_fg;
+        curs_bg = colors.curs_bg;
+        alt_fg = colors.alt_fg;
+        alt_bg = colors.alt_bg;
     }
 
     return *this;
@@ -159,14 +147,14 @@ inline GnomeCmdColorTheme &GnomeCmdColorTheme::operator = (const GnomeCmdColorTh
 
 struct GnomeCmdLsColorsPalette
 {
-    GdkColor *black_fg, *black_bg;
-    GdkColor *red_fg, *red_bg;
-    GdkColor *green_fg, *green_bg;
-    GdkColor *yellow_fg, *yellow_bg;
-    GdkColor *blue_fg, *blue_bg;
-    GdkColor *magenta_fg, *magenta_bg;
-    GdkColor *cyan_fg, *cyan_bg;
-    GdkColor *white_fg, *white_bg;
+    GdkRGBA black_fg, black_bg;
+    GdkRGBA red_fg, red_bg;
+    GdkRGBA green_fg, green_bg;
+    GdkRGBA yellow_fg, yellow_bg;
+    GdkRGBA blue_fg, blue_bg;
+    GdkRGBA magenta_fg, magenta_bg;
+    GdkRGBA cyan_fg, cyan_bg;
+    GdkRGBA white_fg, white_bg;
 };
 
 

@@ -28,14 +28,13 @@
 
 /*
  * Modified by Marcus Bjurman <marbj499@student.liu.se> 2001-2006
- * The orginal comments are left intact above
+ * The original comments are left intact above
  */
 
 #include <config.h>
 
 #include "gnome-cmd-includes.h"
 #include "gnome-cmd-combo.h"
-#include "gnome-cmd-style.h"
 #include "gnome-cmd-data.h"
 
 using namespace std;
@@ -77,43 +76,6 @@ G_DEFINE_TYPE_WITH_PRIVATE(GnomeCmdCombo, gnome_cmd_combo, GTK_TYPE_COMBO_BOX)
  * Utility functions
  *******************************/
 
-static inline GtkWidget *gnome_cmd_combo_get_popup_widget (GnomeCmdCombo *combo)
-{
-    // try to get the popup widget from combobox using accessible object
-    AtkObject *accesible = gtk_combo_box_get_popup_accessible (&combo->parent_instance);
-    if (GTK_IS_ACCESSIBLE(accesible))
-    {
-        return gtk_accessible_get_widget (GTK_ACCESSIBLE (accesible));
-    }
-
-    // alternative way of getting the popup widget from combobox by searching for the popup window
-    GtkWidget *popup_widget = NULL;
-    GtkWidget *toplevel = gtk_widget_get_toplevel (GTK_WIDGET (combo));
-    if (GTK_IS_WINDOW (toplevel))
-    {
-        GList *list = gtk_window_group_list_windows (gtk_window_get_group (GTK_WINDOW (toplevel)));
-
-        for (GList *i = list; i; i = i->next)
-        {
-            GtkWidget *window = (GtkWidget *) i->data;
-            if (!strcmp(gtk_widget_get_name (window), "gtk-combobox-popup-window"))
-            {
-                if (gtk_widget_get_visible (window))
-                {
-                    GtkWidget *scrolled_window = gtk_bin_get_child (GTK_BIN (window));
-                    popup_widget = gtk_bin_get_child (GTK_BIN (scrolled_window));
-                    break;
-                }
-            }
-        }
-
-        g_list_free (list);
-    }
-
-    return popup_widget;
-}
-
-
 /*******************************
  * Callbacks
  *******************************/
@@ -140,30 +102,7 @@ static void gnome_cmd_combo_notify_popup_shown (GObject *gobject, GParamSpec *ps
 
     g_object_get (gobject, "popup-shown", &popup_shown, NULL);
 
-    if (popup_shown)
-    {
-        // settings for treeview are handled here, because treeview isn't created at initialization, but later
-        // and also because the popup widget may get removed and recreated
-        GtkWidget *popup_widget = gnome_cmd_combo_get_popup_widget (combo);
-
-        // disable hover selection mode in treeview
-        gtk_tree_view_set_hover_selection (GTK_TREE_VIEW (popup_widget), FALSE);
-
-        gtk_widget_set_style (popup_widget, list_style);
-
-        // set width to at least 200 pixels
-        GtkWidget *window = gtk_widget_get_parent (gtk_widget_get_parent (popup_widget));
-
-        gint width;
-        gint height;
-        gtk_window_get_size (GTK_WINDOW (window), &width, &height);
-        if (width < 200)
-        {
-            gtk_widget_set_size_request (window, 200, height);
-            gdk_window_resize (gtk_widget_get_window (window), 200, height);
-        }
-    }
-    else
+    if (!popup_shown)
         g_signal_emit (combo, combo_signals[POPWIN_HIDDEN], 0);
 }
 
@@ -213,19 +152,6 @@ static void gnome_cmd_combo_init (GnomeCmdCombo *combo)
 GtkWidget *gnome_cmd_combo_new_with_store (GtkListStore *store, gint num_cols, gint text_col, gint data_col)
 {
     g_return_val_if_fail (GTK_IS_LIST_STORE (store), NULL);
-
-    // force value of style property "appears-as-list" to TRUE, which makes GtkComboBox use GtkTreeView instead of GtkMenu
-    // based on tests/testcombochange.c in gtk sources
-    static gboolean style_loaded = FALSE;
-    if (!style_loaded)
-    {
-        gtk_rc_parse_string ("style \"GnomeCmdCombo-style\" {\n"
-                             "  GtkComboBox::appears-as-list = 1\n"
-                             "}\n"
-                             "\n"
-                             "class \"GnomeCmdCombo\" style \"GnomeCmdCombo-style\"");
-        style_loaded = TRUE;
-    }
 
     GtkTreeModel *model = GTK_TREE_MODEL (store);
 
@@ -354,6 +280,6 @@ void GnomeCmdCombo::select_data(gpointer data)
 
 void GnomeCmdCombo::update_style()
 {
-    gtk_widget_set_style (priv->entry, list_style);
+    // TODO apply theme
 }
 

@@ -24,7 +24,6 @@
 #include "gnome-cmd-includes.h"
 #include "gnome-cmd-file.h"
 #include "gnome-cmd-main-win.h"
-#include "gnome-cmd-style.h"
 #include "utils.h"
 #include "dialogs/gnome-cmd-rename-dialog.h"
 
@@ -140,7 +139,6 @@ GtkWidget *gnome_cmd_rename_dialog_new (GnomeCmdFile *f, GtkWidget *parent, gint
     priv->textbox = GTK_ENTRY (gtk_entry_new ());
     gtk_widget_set_size_request (GTK_WIDGET (priv->textbox), width, height);
     gtk_container_add (GTK_CONTAINER (dialog), GTK_WIDGET (priv->textbox));
-    gtk_widget_set_style (GTK_WIDGET (priv->textbox), list_style);
 
     gtk_entry_set_text (priv->textbox, f->get_name());
 
