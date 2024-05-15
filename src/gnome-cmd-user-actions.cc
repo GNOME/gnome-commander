@@ -2545,7 +2545,7 @@ const GActionEntry CONNECTIONS_ACTION_ENTRIES[] = {
 };
 
 const GActionEntry PLUGINS_ACTION_ENTRIES[] = {
-    { "plugins_configure",  plugins_configure,  nullptr, nullptr, nullptr },
+    { "plugins-configure",  plugins_configure,  nullptr, nullptr, nullptr },
     { nullptr }
 };
 
