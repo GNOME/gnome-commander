@@ -232,9 +232,11 @@ static gboolean on_text_viewer_button_pressed (GtkWidget *treeview, GdkEventButt
         GMenu *menu = g_menu_new ();
         g_menu_append (menu, _("_Copy selection"), "viewer.copy-selection");
 
-        GtkWidget *gtk_menu = gtk_menu_new_from_model (G_MENU_MODEL (menu));
-        gtk_menu_attach_to_widget (GTK_MENU (gtk_menu), GTK_WIDGET (viewer), nullptr);
-        gtk_menu_popup (GTK_MENU (gtk_menu), NULL, NULL, NULL, NULL, event->button, event->time);
+        GtkWidget *popover = gtk_popover_new_from_model (GTK_WIDGET (viewer), G_MENU_MODEL (menu));
+        gtk_popover_set_position (GTK_POPOVER (popover), GTK_POS_BOTTOM);
+        GdkRectangle rect = { (gint) event->x, (gint) event->y, 0, 0 };
+        gtk_popover_set_pointing_to (GTK_POPOVER (popover), &rect);
+        gtk_popover_popup (GTK_POPOVER (popover));
 
         return TRUE;
     }

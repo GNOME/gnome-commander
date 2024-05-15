@@ -421,27 +421,16 @@ void gnome_cmd_dir_indicator_show_history (GnomeCmdDirIndicator *indicator)
         g_menu_append_item (menu, item);
     }
 
-    GtkWidget *popup = gtk_menu_new_from_model (G_MENU_MODEL (menu));
-
-    gtk_menu_attach_to_widget (GTK_MENU (popup), GTK_WIDGET (indicator), nullptr);
-
-    gtk_menu_popup (GTK_MENU (popup),
-                    nullptr,
-                    nullptr,
-                    (GtkMenuPositionFunc) get_popup_pos,
-                    indicator,
-                    0,
-                    gtk_get_current_event_time());
-
-    gint w = -1;
+    GtkWidget *popover = gtk_popover_new_from_model (GTK_WIDGET (indicator), G_MENU_MODEL (menu));
+    gtk_popover_set_position (GTK_POPOVER (popover), GTK_POS_BOTTOM);
 
     GtkAllocation indicator_allocation;
     gtk_widget_get_allocation (GTK_WIDGET (indicator), &indicator_allocation);
 
     if (indicator_allocation.width > 100)
-        w = indicator_allocation.width;
+        gtk_widget_set_size_request (popover, indicator_allocation.width, -1);
 
-    gtk_widget_set_size_request (popup, w, -1);
+    gtk_popover_popup (GTK_POPOVER (popover));
 }
 
 
@@ -488,27 +477,16 @@ void gnome_cmd_dir_indicator_show_bookmarks (GnomeCmdDirIndicator *indicator)
     g_menu_append_section (menu, nullptr, G_MENU_MODEL (bookmarks_section));
     g_menu_append_section (menu, nullptr, G_MENU_MODEL (manage_section));
 
-    GtkWidget *popup = gtk_menu_new_from_model (G_MENU_MODEL (menu));
-
-    gtk_menu_attach_to_widget (GTK_MENU (popup), GTK_WIDGET (indicator), nullptr);
-
-    gtk_menu_popup (GTK_MENU (popup),
-                    nullptr,
-                    nullptr,
-                    (GtkMenuPositionFunc) get_popup_pos,
-                    indicator,
-                    0,
-                    gtk_get_current_event_time());
-
-    gint w = -1;
+    GtkWidget *popover = gtk_popover_new_from_model (GTK_WIDGET (indicator), G_MENU_MODEL (menu));
+    gtk_popover_set_position (GTK_POPOVER (popover), GTK_POS_BOTTOM);
 
     GtkAllocation indicator_allocation;
     gtk_widget_get_allocation (GTK_WIDGET (indicator), &indicator_allocation);
 
     if (indicator_allocation.width > 100)
-        w = indicator_allocation.width;
+        gtk_widget_set_size_request (popover, indicator_allocation.width, -1);
 
-    gtk_widget_set_size_request (popup, w, -1);
+    gtk_popover_popup (GTK_POPOVER (popover));
 }
 
 

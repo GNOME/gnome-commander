@@ -60,7 +60,7 @@ struct GnomeCmdAdvrenameDialog::Private
     Private();
     ~Private();
 
-    void files_view_popup_menu (GtkWidget *treeview, GnomeCmdAdvrenameDialog *dialog, GdkEventButton *event=NULL);
+    void files_view_popup_menu (GtkWidget *treeview, GnomeCmdAdvrenameDialog *dialog, GdkPoint *point);
 
     static void on_profile_template_changed (GnomeCmdAdvrenameProfileComponent *component, GnomeCmdAdvrenameDialog *dialog);
     static void on_profile_counter_changed (GnomeCmdAdvrenameProfileComponent *component, GnomeCmdAdvrenameDialog *dialog);
@@ -293,7 +293,7 @@ void GnomeCmdAdvrenameDialog::Private::on_files_view_popup_menu__update_files (G
 }
 
 
-inline void GnomeCmdAdvrenameDialog::Private::files_view_popup_menu (GtkWidget *treeview, GnomeCmdAdvrenameDialog *dialog, GdkEventButton *event)
+inline void GnomeCmdAdvrenameDialog::Private::files_view_popup_menu (GtkWidget *treeview, GnomeCmdAdvrenameDialog *dialog, GdkPoint *point)
 {
     GMenu *menu = g_menu_new ();
 
@@ -305,10 +305,13 @@ inline void GnomeCmdAdvrenameDialog::Private::files_view_popup_menu (GtkWidget *
 
     g_menu_append (menu, _("Update file list"), "advrename.update-file-list");
 
-    GtkWidget *gtk_menu = gtk_menu_new_from_model (G_MENU_MODEL (menu));
-    gtk_menu_attach_to_widget (GTK_MENU (gtk_menu), GTK_WIDGET (dialog), nullptr);
-    gtk_menu_popup (GTK_MENU (gtk_menu), NULL, NULL, NULL, NULL,
-                    (event != NULL) ? event->button : 0, gdk_event_get_time ((GdkEvent*) event));
+    GtkWidget *popover = gtk_popover_new_from_model (GTK_WIDGET (treeview), G_MENU_MODEL (menu));
+    if (point)
+    {
+        GdkRectangle rect = { point->x, point->y, 0, 0 };
+        gtk_popover_set_pointing_to (GTK_POPOVER (popover), &rect);
+    }
+    gtk_popover_popup (GTK_POPOVER (popover));
 }
 
 
@@ -337,7 +340,9 @@ gboolean GnomeCmdAdvrenameDialog::Private::on_files_view_button_pressed (GtkWidg
                 }
             }
         }
-        dialog->priv->files_view_popup_menu (treeview, dialog, event);
+        GdkPoint point;
+        gtk_tree_view_convert_bin_window_to_widget_coords (GTK_TREE_VIEW (treeview), event->x, event->y, &point.x, &point.y);
+        dialog->priv->files_view_popup_menu (treeview, dialog, &point);
 
         return TRUE;
     }
@@ -348,7 +353,7 @@ gboolean GnomeCmdAdvrenameDialog::Private::on_files_view_button_pressed (GtkWidg
 
 gboolean GnomeCmdAdvrenameDialog::Private::on_files_view_popup_menu (GtkWidget *treeview, GnomeCmdAdvrenameDialog *dialog)
 {
-    dialog->priv->files_view_popup_menu (treeview, dialog);
+    dialog->priv->files_view_popup_menu (treeview, dialog, nullptr);
 
     return TRUE;
 }
