@@ -59,7 +59,7 @@
   </suggests>
 
   <releases>
-    <release type="stable" version="1.16.2" date="2023-??-??">
+    <release type="stable" version="1.16.2" date="2024-05-16">
       <description>
         <p>This release includes the following features and changes:</p>
         <ul>
@@ -67,10 +67,12 @@
         </ul>
         <p>This release fixes the following bugs:</p>
         <ul>
-          <li>...</li>
+          <li>Fix double g_error_free call in remote_close_callback (Mamoru Tasaka)</li>
+          <li>Fix build with taglib 2.0 (Dominique Leuenberger)</li>
+          <li>Set project gnu++11 c++ language version explicitely (Andrei Shamshur)</li>
         </ul>
-        <p>New or updated translations: ...</p>
-        <p>New or updated docs: ...</p>
+        <p>New or updated translations: cs (Daniel Rusek), sl (Martin Srebotnjak), tr (Sabri Ünal)</p>
+        <p>New or updated docs: ru (Sergej A), sv (Anders Jonsson)</p>
       </description>
     </release>
     <release type="stable" version="1.16.1" date="2023-07-08">

@@ -4,7 +4,7 @@
   <!ENTITY legal SYSTEM "legal.xml">
   <!ENTITY appversion "1.16.2">
   <!ENTITY manrevision "1.16.2">
-  <!ENTITY date "??? 2023">
+  <!ENTITY date "??? 2024">
   <!ENTITY app "GNOME Commander">
 ]>
 <!-- Information about the entities
@@ -39,6 +39,7 @@
       <holder>Piotr Eljasiak</holder>
     </copyright>
     <copyright>
+      <year>2024</year>
       <year>2023</year>
       <year>2022</year>
       <year>2021</year>
@@ -605,7 +606,7 @@
       </revision>
       <revision>
         <revnumber>GNOME Commander Manual V1.16.2;</revnumber>
-        <date>2023-??-??</date>
+        <date>2024-05-16</date>
         <revdescription>
           <para role="author">Uwe Scholz
                 <email>u.scholz83@gmx.de</email></para>
