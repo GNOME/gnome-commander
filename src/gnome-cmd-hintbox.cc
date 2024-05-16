@@ -81,7 +81,7 @@ gnome_cmd_hint_box_class_init (GnomeCmdHintBoxClass *klass)
 
   g_object_class_install_property (object_class, PROP_STOCK_ID,
                                    g_param_spec_string ("stock-id", NULL, NULL,
-                                                        GTK_STOCK_DIALOG_INFO,
+                                                        "gnome-commander-info-outline",
                                                         GParamFlags (G_PARAM_CONSTRUCT_ONLY | G_PARAM_READWRITE)));
   g_object_class_install_property (object_class, PROP_HINT,
                                    g_param_spec_string ("hint", NULL, NULL,
@@ -114,7 +114,7 @@ gnome_cmd_hint_box_constructor (GType                  type,
 
   if (box->stock_id)
     {
-      GtkWidget *image = gtk_image_new_from_stock (box->stock_id,
+      GtkWidget *image = gtk_image_new_from_gicon (g_themed_icon_new (box->stock_id),
                                                    GTK_ICON_SIZE_DIALOG);
 
       gtk_box_pack_start (GTK_BOX (box), image, FALSE, FALSE, 0);
