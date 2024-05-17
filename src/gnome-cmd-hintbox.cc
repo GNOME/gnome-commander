@@ -256,7 +256,11 @@ gnome_cmd_label_set_attributes (GtkLabel *label, ...)
 
   do
     {
-      PangoAttrType   attr_type = ( PangoAttrType) va_arg (args, gint);
+      gint next = va_arg (args, gint);
+      if (next == -1)
+        break;
+
+      PangoAttrType attr_type = (PangoAttrType) next;
 
 #if defined (__GNUC__)
 #pragma GCC diagnostic push

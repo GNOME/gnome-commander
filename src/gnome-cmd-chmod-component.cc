@@ -48,7 +48,7 @@ enum {PERMS_CHANGED, LAST_SIGNAL};
 static guint chmod_component_signals[LAST_SIGNAL] = { 0 };
 
 
-G_DEFINE_TYPE_WITH_PRIVATE (GnomeCmdChmodComponent, gnome_cmd_chmod_component, GTK_TYPE_VBOX)
+G_DEFINE_TYPE_WITH_PRIVATE (GnomeCmdChmodComponent, gnome_cmd_chmod_component, GTK_TYPE_BOX)
 
 
 static void on_perms_changed (GnomeCmdChmodComponent *comp)

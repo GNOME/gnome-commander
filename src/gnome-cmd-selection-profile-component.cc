@@ -110,7 +110,7 @@ static void combo_box_insert_text (const gchar *text, GtkComboBox *widget)
 }
 
 
-G_DEFINE_TYPE (GnomeCmdSelectionProfileComponent, gnome_cmd_selection_profile_component, GTK_TYPE_VBOX)
+G_DEFINE_TYPE (GnomeCmdSelectionProfileComponent, gnome_cmd_selection_profile_component, GTK_TYPE_BOX)
 
 
 static void gnome_cmd_selection_profile_component_init (GnomeCmdSelectionProfileComponent *component)

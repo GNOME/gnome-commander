@@ -631,7 +631,7 @@ static void insert_range(GSimpleAction *action, GVariant *parameter, gpointer us
 }
 
 
-G_DEFINE_TYPE (GnomeCmdAdvrenameProfileComponent, gnome_cmd_advrename_profile_component, GTK_TYPE_VBOX)
+G_DEFINE_TYPE (GnomeCmdAdvrenameProfileComponent, gnome_cmd_advrename_profile_component, GTK_TYPE_BOX)
 
 
 void GnomeCmdAdvrenameProfileComponent::Private::on_template_entry_changed(GtkEntry *entry, GnomeCmdAdvrenameProfileComponent *component)
