@@ -1102,7 +1102,10 @@ void gviewer_window_show_metadata(GViewerWindow *gViewerWindow)
     {
         GtkWidget *scrolledwindow = gtk_scrolled_window_new (nullptr, nullptr);
         gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolledwindow), GTK_POLICY_NEVER, GTK_POLICY_AUTOMATIC);
-        gtk_container_set_border_width (GTK_CONTAINER (scrolledwindow), 10);
+        gtk_widget_set_margin_top (GTK_WIDGET (scrolledwindow), 10);
+        gtk_widget_set_margin_bottom (GTK_WIDGET (scrolledwindow), 10);
+        gtk_widget_set_margin_start (GTK_WIDGET (scrolledwindow), 10);
+        gtk_widget_set_margin_end (GTK_WIDGET (scrolledwindow), 10);
         gtk_container_add (GTK_CONTAINER (scrolledwindow), create_view ());
         gtk_box_pack_start (GTK_BOX (priv->vbox), scrolledwindow, TRUE, TRUE, 0);
         priv->metadata_view = scrolledwindow;

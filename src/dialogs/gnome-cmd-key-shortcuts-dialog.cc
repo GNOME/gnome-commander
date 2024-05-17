@@ -199,14 +199,20 @@ static void gnome_cmd_key_shortcuts_dialog_init (GnomeCmdKeyShortcutsDialog *dia
 
     gtk_window_set_position (GTK_WINDOW (dialog), GTK_WIN_POS_CENTER);
     gtk_window_set_title (GTK_WINDOW (dialog), _("Keyboard Shortcuts"));
-    gtk_container_set_border_width (GTK_CONTAINER (dialog), 5);
-    gtk_box_set_spacing (GTK_BOX (gtk_dialog_get_content_area (GTK_DIALOG (dialog))), 2);
+
+    GtkWidget *content_area = gtk_dialog_get_content_area (GTK_DIALOG (dialog));
+
+    gtk_widget_set_margin_top (content_area, 10);
+    gtk_widget_set_margin_bottom (content_area, 10);
+    gtk_widget_set_margin_start (content_area, 10);
+    gtk_widget_set_margin_end (content_area, 10);
+    gtk_box_set_spacing (GTK_BOX (content_area), 6);
+
     gtk_window_set_resizable (GTK_WINDOW (dialog), TRUE);
 
     GtkWidget *vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 12);
     gtk_widget_set_vexpand (vbox, TRUE);
-    gtk_container_set_border_width (GTK_CONTAINER (vbox), 12);
-    gtk_container_add (GTK_CONTAINER (gtk_dialog_get_content_area (GTK_DIALOG (dialog))), vbox);
+    gtk_container_add (GTK_CONTAINER (content_area), vbox);
     gtk_widget_show (vbox);
 
     GtkWidget *hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 12);

@@ -630,7 +630,8 @@ egg_cell_renderer_keys_start_editing (GtkCellRenderer      *cell,
     g_object_add_weak_pointer (G_OBJECT (keys->edit_widget), (void**) &keys->edit_widget);
 
     label = gtk_label_new (NULL);
-    gtk_misc_set_alignment (GTK_MISC (label), 0.0, 0.5);
+    gtk_widget_set_halign (label, GTK_ALIGN_START);
+    gtk_widget_set_valign (label, GTK_ALIGN_CENTER);
 
     auto style_context = gtk_widget_get_style_context (widget);
     GdkRGBA fg, bg;

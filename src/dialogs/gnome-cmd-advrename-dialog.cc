@@ -494,12 +494,17 @@ static void gnome_cmd_advrename_dialog_init (GnomeCmdAdvrenameDialog *dialog)
 
     gtk_window_set_title (*dialog, _("Advanced Rename Tool"));
     gtk_window_set_resizable (*dialog, TRUE);
-    gtk_container_set_border_width (GTK_CONTAINER (dialog), 5);
-    gtk_box_set_spacing (GTK_BOX (gtk_dialog_get_content_area(GTK_DIALOG (dialog))), 2);
+
+    GtkWidget *content_area = gtk_dialog_get_content_area(GTK_DIALOG (dialog));
+
+    gtk_widget_set_margin_top (content_area, 10);
+    gtk_widget_set_margin_bottom (content_area, 10);
+    gtk_widget_set_margin_start (content_area, 10);
+    gtk_widget_set_margin_end (content_area, 10);
+    gtk_box_set_spacing (GTK_BOX (content_area), 6);
 
     GtkWidget *vbox = dialog->priv->vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 6);
-    gtk_container_set_border_width (GTK_CONTAINER (vbox), 5);
-    gtk_box_pack_start (GTK_BOX (gtk_dialog_get_content_area(GTK_DIALOG (dialog))), vbox, TRUE, TRUE, 0);
+    gtk_box_pack_start (GTK_BOX (content_area), vbox, TRUE, TRUE, 0);
 
     // Results
     gchar *str = g_strdup_printf ("<b>%s</b>", _("Results"));
@@ -507,7 +512,8 @@ static void gnome_cmd_advrename_dialog_init (GnomeCmdAdvrenameDialog *dialog)
     g_free (str);
 
     gtk_label_set_use_markup (GTK_LABEL (label), TRUE);
-    gtk_misc_set_alignment (GTK_MISC (label), 0.0, 0.5);
+    gtk_widget_set_halign (label, GTK_ALIGN_START);
+    gtk_widget_set_valign (label, GTK_ALIGN_CENTER);
     gtk_box_pack_start (GTK_BOX (vbox), label, FALSE, FALSE, 0);
 
     GtkWidget *scrolled_window = gtk_scrolled_window_new (NULL, NULL);
@@ -515,7 +521,7 @@ static void gnome_cmd_advrename_dialog_init (GnomeCmdAdvrenameDialog *dialog)
     gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (scrolled_window), GTK_SHADOW_IN);
     gtk_widget_set_margin_bottom (scrolled_window, 6);
     gtk_widget_set_margin_left (scrolled_window, 12);
-    gtk_container_add (GTK_CONTAINER (vbox), scrolled_window);
+    gtk_box_pack_start (GTK_BOX (vbox), scrolled_window, TRUE, TRUE, 0);
 
     dialog->priv->files_view = create_files_view ();
     gtk_container_add (GTK_CONTAINER (scrolled_window), dialog->priv->files_view);
@@ -678,7 +684,7 @@ GnomeCmdAdvrenameDialog::GnomeCmdAdvrenameDialog(GnomeCmdData::AdvrenameConfig &
 
     priv->profile_component = new GnomeCmdAdvrenameProfileComponent(cfg.default_profile);
 
-    gtk_box_pack_start (GTK_BOX (priv->vbox), *priv->profile_component, FALSE, FALSE, 0);
+    gtk_box_pack_start (GTK_BOX (priv->vbox), *priv->profile_component, TRUE, TRUE, 0);
     gtk_box_reorder_child (GTK_BOX (priv->vbox), *priv->profile_component, 0);
 
     // Results

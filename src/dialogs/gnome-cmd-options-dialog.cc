@@ -93,7 +93,6 @@ static GtkWidget *create_general_tab (GtkWidget *parent, GnomeCmdData::Options &
     GtkWidget *scrolled_window;
     /* create a new scrolled window. */
     scrolled_window = gtk_scrolled_window_new (NULL, NULL);
-    gtk_container_set_border_width (GTK_CONTAINER (scrolled_window), 0);
     /* the policy is one of GTK_POLICY AUTOMATIC, or GTK_POLICY_ALWAYS.
      * GTK_POLICY_AUTOMATIC will automatically decide whether you need
      * scrollbars, whereas GTK_POLICY_ALWAYS will always leave the scrollbars
@@ -357,7 +356,6 @@ static GtkWidget *create_format_tab (GtkWidget *parent, GnomeCmdData::Options &c
     vbox = create_tabvbox (parent);
 
     scrolled_window = gtk_scrolled_window_new (NULL, NULL);
-    gtk_container_set_border_width (GTK_CONTAINER (scrolled_window), 0);
     gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolled_window),
                                     GTK_POLICY_AUTOMATIC, GTK_POLICY_ALWAYS);
     gtk_box_pack_start (GTK_BOX (hbox), scrolled_window, TRUE, TRUE, 0);
@@ -747,28 +745,28 @@ static void on_ls_colors_edit (GtkButton *btn, GtkWidget *parent)
     label = create_label (dlg, _("Background:"));
     gtk_grid_attach (GTK_GRID (grid), label, 0, 2, 1, 1);
     label = create_label (dlg, _("Black"));
-    gtk_misc_set_alignment (GTK_MISC (label), 0.5, 1.0);
+    gtk_widget_set_halign (label, GTK_ALIGN_CENTER);
     gtk_grid_attach (GTK_GRID (grid), label, 1, 0, 1, 1);
     label = create_label (dlg, _("Red"));
-    gtk_misc_set_alignment (GTK_MISC (label), 0.5, 1.0);
+    gtk_widget_set_halign (label, GTK_ALIGN_CENTER);
     gtk_grid_attach (GTK_GRID (grid), label, 2, 0, 1, 1);
     label = create_label (dlg, _("Green"));
-    gtk_misc_set_alignment (GTK_MISC (label), 0.5, 1.0);
+    gtk_widget_set_halign (label, GTK_ALIGN_CENTER);
     gtk_grid_attach (GTK_GRID (grid), label, 3, 0, 1, 1);
     label = create_label (dlg, _("Yellow"));
-    gtk_misc_set_alignment (GTK_MISC (label), 0.5, 1.0);
+    gtk_widget_set_halign (label, GTK_ALIGN_CENTER);
     gtk_grid_attach (GTK_GRID (grid), label, 4, 0, 1, 1);
     label = create_label (dlg, _("Blue"));
-    gtk_misc_set_alignment (GTK_MISC (label), 0.5, 1.0);
+    gtk_widget_set_halign (label, GTK_ALIGN_CENTER);
     gtk_grid_attach (GTK_GRID (grid), label, 5, 0, 1, 1);
     label = create_label (dlg, _("Magenta"));
-    gtk_misc_set_alignment (GTK_MISC (label), 0.5, 1.0);
+    gtk_widget_set_halign (label, GTK_ALIGN_CENTER);
     gtk_grid_attach (GTK_GRID (grid), label, 6, 0, 1, 1);
     label = create_label (dlg, _("Cyan"));
-    gtk_misc_set_alignment (GTK_MISC (label), 0.5, 1.0);
+    gtk_widget_set_halign (label, GTK_ALIGN_CENTER);
     gtk_grid_attach (GTK_GRID (grid), label, 7, 0, 1, 1);
     label = create_label (dlg, _("White"));
-    gtk_misc_set_alignment (GTK_MISC (label), 0.5, 1.0);
+    gtk_widget_set_halign (label, GTK_ALIGN_CENTER);
     gtk_grid_attach (GTK_GRID (grid), label, 8, 0, 1, 1);
 
     gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dlg), _("_Reset"), G_CALLBACK (on_edit_ls_colors_reset), dlg);
@@ -815,7 +813,6 @@ static GtkWidget *create_layout_tab (GtkWidget *parent, GnomeCmdData::Options &c
     vbox = create_tabvbox (parent);
 
     scrolled_window = gtk_scrolled_window_new (NULL, NULL);
-    gtk_container_set_border_width (GTK_CONTAINER (scrolled_window), 0);
     gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolled_window),
                                     GTK_POLICY_AUTOMATIC, GTK_POLICY_ALWAYS);
     gtk_box_pack_start (GTK_BOX (hbox), scrolled_window, TRUE, TRUE, 0);
@@ -987,7 +984,6 @@ GtkWidget *create_tabs_tab (GtkWidget *parent, GnomeCmdData::Options &cfg)
     vbox = create_tabvbox (parent);
 
     scrolled_window = gtk_scrolled_window_new (NULL, NULL);
-    gtk_container_set_border_width (GTK_CONTAINER (scrolled_window), 0);
     gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolled_window),
                                     GTK_POLICY_AUTOMATIC, GTK_POLICY_ALWAYS);
     gtk_box_pack_start (GTK_BOX (hbox), scrolled_window, TRUE, TRUE, 0);
@@ -1060,7 +1056,6 @@ static GtkWidget *create_confirmation_tab (GtkWidget *parent, GnomeCmdData::Opti
     vbox = create_tabvbox (parent);
 
     scrolled_window = gtk_scrolled_window_new (NULL, NULL);
-    gtk_container_set_border_width (GTK_CONTAINER (scrolled_window), 0);
     gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolled_window),
                                     GTK_POLICY_AUTOMATIC, GTK_POLICY_ALWAYS);
     gtk_box_pack_start (GTK_BOX (hbox), scrolled_window, TRUE, TRUE, 0);
@@ -1234,7 +1229,6 @@ GtkWidget *create_filter_tab (GtkWidget *parent, GnomeCmdData::Options &cfg)
     vbox = create_tabvbox (parent);
 
     scrolled_window = gtk_scrolled_window_new (NULL, NULL);
-    gtk_container_set_border_width (GTK_CONTAINER (scrolled_window), 0);
     gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolled_window),
                                     GTK_POLICY_AUTOMATIC, GTK_POLICY_ALWAYS);
     gtk_box_pack_start (GTK_BOX (hbox), scrolled_window, TRUE, TRUE, 0);
@@ -1752,7 +1746,6 @@ static GtkWidget *create_programs_tab (GtkWidget *parent, GnomeCmdData::Options 
     vbox = create_tabvbox (parent);
 
     scrolled_window = gtk_scrolled_window_new (NULL, NULL);
-    gtk_container_set_border_width (GTK_CONTAINER (scrolled_window), 0);
     gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolled_window),
                                     GTK_POLICY_AUTOMATIC, GTK_POLICY_ALWAYS);
     gtk_box_pack_start (GTK_BOX (hbox), scrolled_window, TRUE, TRUE, 0);
@@ -2230,7 +2223,6 @@ static GtkWidget *create_devices_tab (GtkWidget *parent, GnomeCmdData::Options &
     vbox = create_tabvbox (parent);
 
     scrolled_window = gtk_scrolled_window_new (NULL, NULL);
-    gtk_container_set_border_width (GTK_CONTAINER (scrolled_window), 0);
     gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolled_window),
                                     GTK_POLICY_AUTOMATIC, GTK_POLICY_ALWAYS);
     gtk_box_pack_start (GTK_BOX (hbox), scrolled_window, TRUE, TRUE, 0);
@@ -2361,10 +2353,11 @@ gboolean gnome_cmd_options_dialog (GtkWindow *parent, GnomeCmdData::Options &cfg
     gtk_window_set_default_size(GTK_WINDOW (dialog), gnome_cmd_data.opts_dialog_width, gnome_cmd_data.opts_dialog_height);
 
     // HIG defaults
-    gtk_container_set_border_width (GTK_CONTAINER (dialog), 5);
-    gtk_box_set_spacing (GTK_BOX (content_area), 2);
-    gtk_container_set_border_width (GTK_CONTAINER (content_area), 5);
-    gtk_box_set_spacing (GTK_BOX (content_area),6);
+    gtk_widget_set_margin_top (content_area, 10);
+    gtk_widget_set_margin_bottom (content_area, 10);
+    gtk_widget_set_margin_start (content_area, 10);
+    gtk_widget_set_margin_end (content_area, 10);
+    gtk_box_set_spacing (GTK_BOX (content_area), 6);
 
     GtkNotebook *notebook = GTK_NOTEBOOK (gtk_notebook_new ());
     gtk_widget_set_hexpand (GTK_WIDGET (notebook), TRUE);

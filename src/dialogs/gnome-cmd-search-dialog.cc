@@ -1167,13 +1167,17 @@ static void gnome_cmd_search_dialog_init (GnomeCmdSearchDialog *dialog)
 
     gtk_window_set_title (*dialog, _("Search…"));
     gtk_window_set_resizable (*dialog, TRUE);
-    gtk_container_set_border_width (GTK_CONTAINER (dialog), 5);
-    gtk_box_set_spacing (GTK_BOX (gtk_dialog_get_content_area (GTK_DIALOG (dialog))), 2);
+
+    GtkWidget *content_area = gtk_dialog_get_content_area (GTK_DIALOG (dialog));
+
+    gtk_widget_set_margin_top (content_area, 10);
+    gtk_widget_set_margin_bottom (content_area, 10);
+    gtk_widget_set_margin_start (content_area, 10);
+    gtk_widget_set_margin_end (content_area, 10);
+    gtk_box_set_spacing (GTK_BOX (content_area), 6);
 
     dialog->priv->vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 6);
-    gtk_container_set_border_width (GTK_CONTAINER (dialog->priv->vbox), 5);
-    gtk_box_pack_start (GTK_BOX (gtk_dialog_get_content_area (GTK_DIALOG (dialog))), dialog->priv->vbox, TRUE, TRUE, 0);
-
+    gtk_box_pack_start (GTK_BOX (content_area), dialog->priv->vbox, TRUE, TRUE, 0);
 
     // file list
     GtkWidget *sw = gtk_scrolled_window_new (nullptr, nullptr);
@@ -1183,8 +1187,6 @@ static void gnome_cmd_search_dialog_init (GnomeCmdSearchDialog *dialog)
     dialog->priv->result_list = new GnomeCmdFileList(GnomeCmdFileList::COLUMN_NAME,GTK_SORT_ASCENDING);
     gtk_widget_set_size_request (*dialog->priv->result_list, -1, 200);
     gtk_container_add (GTK_CONTAINER (sw), *dialog->priv->result_list);
-    gtk_container_set_border_width (GTK_CONTAINER (dialog->priv->result_list), 4);
-
 
     // status
     dialog->priv->statusbar = gtk_statusbar_new ();
