@@ -80,8 +80,6 @@ GcmdSettings *gcmd_settings_new (void);
 #define GCMD_SETTINGS_SHOW_BUTTONBAR                  "show-buttonbar"
 #define GCMD_SETTINGS_GUI_UPDATE_RATE                 "gui-update-rate"
 #define GCMD_SETTINGS_SYMLINK_PREFIX                  "symlink-string"
-#define GCMD_SETTINGS_MAIN_WIN_POS_X                  "main-win-pos-x"
-#define GCMD_SETTINGS_MAIN_WIN_POS_Y                  "main-win-pos-y"
 #define GCMD_SETTINGS_SAVE_DIRS_ON_EXIT               "save-dirs-on-exit"
 #define GCMD_SETTINGS_SAVE_TABS_ON_EXIT               "save-tabs-on-exit"
 #define GCMD_SETTINGS_SAVE_DIR_HISTORY_ON_EXIT        "save-dir-history-on-exit"
@@ -334,7 +332,6 @@ struct GnomeCmdData
         gboolean                     save_search_history_on_exit;
         gboolean                     search_window_is_transient {true};
         gchar                       *symlink_prefix;
-        gint                         main_win_pos[2];
         gboolean                     deleteToTrash;
         // Format
         GnomeCmdSizeDispMode         size_disp_mode;
@@ -399,7 +396,6 @@ struct GnomeCmdData
                    save_cmdline_history_on_exit(TRUE),
                    save_search_history_on_exit(TRUE),
                    symlink_prefix(nullptr),
-                   main_win_pos{0,25},
                    deleteToTrash(TRUE),
                    size_disp_mode(GNOME_CMD_SIZE_DISP_MODE_POWERED),
                    perm_disp_mode(GNOME_CMD_PERM_DISP_MODE_TEXT),
@@ -766,9 +762,6 @@ gpointer gnome_cmd_data_get_con_list ();
 
 GList *gnome_cmd_data_get_auto_load_plugins ();
 void gnome_cmd_data_set_auto_load_plugins (GList *plugins);
-
-void gnome_cmd_data_get_main_win_pos (gint *x, gint *y);
-void gnome_cmd_data_set_main_win_pos (gint x, gint y);
 
 const gchar *gnome_cmd_data_get_symlink_prefix ();
 

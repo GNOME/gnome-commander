@@ -1182,28 +1182,6 @@ void file_sync_dirs (GSimpleAction *action, GVariant *parameter, gpointer user_d
 
 void file_exit (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
-    gint x, y;
-
-#if defined (__GNUC__)
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wswitch-enum"
-#endif
-    switch (gnome_cmd_data.main_win_state)
-    {
-        case GDK_WINDOW_STATE_MAXIMIZED:
-        case GDK_WINDOW_STATE_FULLSCREEN:
-        case GDK_WINDOW_STATE_ICONIFIED:
-            break;
-
-        default:
-            gdk_window_get_root_origin (gtk_widget_get_window (GTK_WIDGET (main_win)), &x, &y);
-            gnome_cmd_data_set_main_win_pos (x, y);
-            break;
-    }
-#if defined (__GNUC__)
-#pragma GCC diagnostic pop
-#endif
-
     gtk_window_destroy (GTK_WINDOW (main_win));
 }
 
