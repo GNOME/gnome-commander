@@ -138,7 +138,7 @@ inline void GnomeCmdRemoteDialog::do_connect(GnomeCmdConRemote *server)
     if (!server)        // exit as there is no server selected
         return;
 
-    gtk_widget_destroy (*this);
+    gtk_window_destroy (GTK_WINDOW (this));
 
     g_timeout_add (1, G_SOURCE_FUNC (do_connect_real), server);
 }
@@ -152,7 +152,7 @@ static void on_connect_btn_clicked (GtkButton *button, GnomeCmdRemoteDialog *rem
 
 static void on_close_btn_clicked (GtkButton *button, GnomeCmdRemoteDialog *dialog)
 {
-    gtk_widget_destroy (*dialog);
+    gtk_window_destroy (GTK_WINDOW (dialog));
 }
 
 

@@ -1204,7 +1204,7 @@ void file_exit (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 #pragma GCC diagnostic pop
 #endif
 
-    gtk_widget_destroy (*main_win);
+    gtk_window_destroy (GTK_WINDOW (main_win));
 }
 
 

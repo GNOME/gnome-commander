@@ -383,7 +383,7 @@ static void on_about (GtkButton *button, GtkWidget *dialog)
 
 static void on_close (GtkButton *button, GtkWidget *dialog)
 {
-    gtk_widget_destroy (dialog);
+    gtk_window_destroy (GTK_WINDOW (dialog));
 }
 
 

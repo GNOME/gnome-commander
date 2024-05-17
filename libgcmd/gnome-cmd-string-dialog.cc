@@ -76,20 +76,20 @@ static void on_cancel (GtkButton *button, GnomeCmdStringDialog *dialog)
  * Gtk class implementation
  *******************************/
 
-static void destroy (GtkWidget *object)
+static void dispose (GObject *object)
 {
     GnomeCmdStringDialog *dialog = GNOME_CMD_STRING_DIALOG (object);
     auto priv = static_cast<GnomeCmdStringDialogPrivate*> (gnome_cmd_string_dialog_get_instance_private (dialog));
 
     g_clear_pointer (&priv->error_desc, g_free);
 
-    GTK_WIDGET_CLASS (gnome_cmd_string_dialog_parent_class)->destroy (object);
+    G_OBJECT_CLASS (gnome_cmd_string_dialog_parent_class)->dispose (object);
 }
 
 
 static void gnome_cmd_string_dialog_class_init (GnomeCmdStringDialogClass *klass)
 {
-    GTK_WIDGET_CLASS (klass)->destroy = destroy;
+    G_OBJECT_CLASS (klass)->dispose = dispose;
 }
 
 

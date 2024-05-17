@@ -138,7 +138,7 @@ struct GViewerWindowPrivate
 
 static void gviewer_window_init(GViewerWindow *w);
 static void gviewer_window_class_init (GViewerWindowClass *klass);
-static void gviewer_window_destroy(GtkWidget *widget);
+static void gviewer_window_dispose(GObject *widget);
 
 static void gviewer_window_status_line_changed(GViewer *gViewer, const gchar *status_line, GViewerWindow *gViewerWindow);
 
@@ -229,7 +229,7 @@ void gviewer_window_load_file (GViewerWindow *gViewerWindow, GnomeCmdFile *f)
 
 static void gviewer_window_class_init (GViewerWindowClass *klass)
 {
-    GTK_WIDGET_CLASS (klass)->destroy = gviewer_window_destroy;
+    G_OBJECT_CLASS (klass)->dispose = gviewer_window_dispose;
 }
 
 
@@ -447,11 +447,11 @@ gboolean gviewerwindow_get_metadata_visble(GViewerWindow *gViewerWindow)
 }
 
 
-static void gviewer_window_destroy (GtkWidget *widget)
+static void gviewer_window_dispose (GObject *object)
 {
-    g_return_if_fail (IS_GVIEWER_WINDOW (widget));
+    g_return_if_fail (IS_GVIEWER_WINDOW (object));
 
-    GViewerWindow *w = GVIEWER_WINDOW (widget);
+    GViewerWindow *w = GVIEWER_WINDOW (object);
     auto priv = static_cast<GViewerWindowPrivate*>(gviewer_window_get_instance_private (w));
 
     g_clear_object (&priv->viewer);
@@ -459,7 +459,7 @@ static void gviewer_window_destroy (GtkWidget *widget)
     delete priv->gViewerWindowSettings;
     priv->gViewerWindowSettings = nullptr;
 
-    GTK_WIDGET_CLASS (gviewer_window_parent_class)->destroy (widget);
+    G_OBJECT_CLASS (gviewer_window_parent_class)->dispose (object);
 }
 
 
@@ -491,7 +491,7 @@ static gboolean gviewer_window_key_pressed(GtkWidget *widget, GdkEventKey *event
         {
             case GDK_KEY_q:
             case GDK_KEY_Q:
-                gtk_widget_destroy (GTK_WIDGET (w));
+                gtk_window_destroy (GTK_WINDOW (w));
                 return TRUE;
 
             default:
@@ -611,7 +611,7 @@ static GtkWidget *gviewer_window_create_menus(GViewerWindow *gViewerWindow)
 static void menu_file_close (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
     auto gViewerWindow = static_cast<GViewerWindow *>(user_data);
-    gtk_widget_destroy (GTK_WIDGET (gViewerWindow));
+    gtk_window_destroy (GTK_WINDOW (gViewerWindow));
 }
 
 
@@ -863,7 +863,7 @@ static void start_find_thread(GViewerWindow *obj, gboolean forward)
 
         w = gtk_message_dialog_new(GTK_WINDOW (obj), GTK_DIALOG_MODAL, GTK_MESSAGE_INFO, GTK_BUTTONS_OK, _("Pattern “%s” was not found"), priv->search_pattern);
         gtk_dialog_run (GTK_DIALOG (w));
-        gtk_widget_destroy (w);
+        gtk_window_destroy (GTK_WINDOW (w));
     }
     else
     {
@@ -888,7 +888,7 @@ static void menu_edit_find(GSimpleAction *action, GVariant *parameter, gpointer 
     GtkWidget *w = gviewer_search_dlg_new (GTK_WINDOW (gViewerWindow));
     if (gtk_dialog_run (GTK_DIALOG (w))!=GTK_RESPONSE_OK)
     {
-        gtk_widget_destroy (w);
+        gtk_window_destroy (GTK_WINDOW (w));
         return;
     }
 
@@ -938,7 +938,7 @@ static void menu_edit_find(GSimpleAction *action, GVariant *parameter, gpointer 
         g_free (buffer);
     }
 
-    gtk_widget_destroy (w);
+    gtk_window_destroy (GTK_WINDOW (w));
 
 
     // call  "find_next" to actually do the search

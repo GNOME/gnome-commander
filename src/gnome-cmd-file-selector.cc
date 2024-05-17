@@ -368,7 +368,7 @@ static void create_con_buttons (GnomeCmdFileSelector *fs)
         return;
 
     for (GList *l = fs->priv->old_btns; l; l=l->next)
-        gtk_widget_destroy (GTK_WIDGET (l->data));
+        gtk_container_remove (GTK_CONTAINER (fs->con_btns_hbox), GTK_WIDGET (l->data));
 
     g_list_free (fs->priv->old_btns);
     fs->priv->old_btns = nullptr;
@@ -715,26 +715,22 @@ static gboolean on_notebook_button_pressed (GtkWidget *widget, GdkEventButton *e
  * Gtk class implementation
  *******************************/
 
-static void destroy (GtkWidget *object)
+static void dispose (GObject *object)
 {
     GnomeCmdFileSelector *fs = GNOME_CMD_FILE_SELECTOR (object);
 
-    delete fs->priv;
+    if (fs->priv)
+    {
+        delete fs->priv;
+        fs->priv = nullptr;
+    }
 
-    GTK_WIDGET_CLASS (gnome_cmd_file_selector_parent_class)->destroy (object);
-}
-
-
-static void map (GtkWidget *widget)
-{
-    GTK_WIDGET_CLASS (gnome_cmd_file_selector_parent_class)->map (widget);
+    G_OBJECT_CLASS (gnome_cmd_file_selector_parent_class)->dispose (object);
 }
 
 
 static void gnome_cmd_file_selector_class_init (GnomeCmdFileSelectorClass *klass)
 {
-    GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
-
     signals[DIR_CHANGED] =
         g_signal_new ("dir-changed",
             G_TYPE_FROM_CLASS (klass),
@@ -745,8 +741,7 @@ static void gnome_cmd_file_selector_class_init (GnomeCmdFileSelectorClass *klass
             G_TYPE_NONE,
             1, G_TYPE_POINTER);
 
-    widget_class->destroy = destroy;
-    widget_class->map = ::map;
+    G_OBJECT_CLASS (klass)->dispose = dispose;
 }
 
 
@@ -1442,7 +1437,7 @@ void GnomeCmdFileSelector::update_show_devbuttons()
     {
         if (con_btns_hbox)
         {
-            gtk_widget_destroy (GTK_WIDGET (con_btns_hbox));
+            gtk_container_remove (GTK_CONTAINER (this), con_btns_hbox);
             con_btns_hbox = nullptr;
         }
     }
@@ -1473,7 +1468,7 @@ static void on_filter_box_close (GtkButton *btn, GnomeCmdFileSelector *fs)
 {
     if (!fs->priv->filter_box) return;
 
-    gtk_widget_destroy (fs->priv->filter_box);
+    gtk_container_remove (GTK_CONTAINER (fs), fs->priv->filter_box);
     fs->priv->filter_box = nullptr;
 }
 

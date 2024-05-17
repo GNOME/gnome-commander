@@ -121,6 +121,12 @@ inline GnomeCmdConnectDialog::Private::~Private()
 }
 
 
+static void remove_grid_child (GtkWidget *child, gpointer user_data)
+{
+    gtk_container_remove (GTK_CONTAINER (user_data), child);
+}
+
+
 void GnomeCmdConnectDialog::Private::setup_for_type()
 {
     gint type = gtk_combo_box_get_active (GTK_COMBO_BOX (type_combo));
@@ -144,7 +150,7 @@ void GnomeCmdConnectDialog::Private::setup_for_type()
         gtk_container_remove (GTK_CONTAINER (optional_grid), domain_entry);
 
     // Destroy all labels
-    gtk_container_foreach (GTK_CONTAINER (required_grid), (GtkCallback) gtk_widget_destroy, NULL);
+    gtk_container_foreach (GTK_CONTAINER (required_grid), (GtkCallback) remove_grid_child, required_grid);
 
     gint i = 1;
 
@@ -461,7 +467,7 @@ GnomeCmdConRemote *gnome_cmd_connect_dialog_new (gboolean has_alias)
         con->method = (ConnectionMethodID) gtk_combo_box_get_active (GTK_COMBO_BOX (dialog->priv->type_combo));
     }
 
-    gtk_widget_destroy (*dialog);
+    gtk_window_destroy (GTK_WINDOW (dialog));
 
     return server;
 }
@@ -565,7 +571,7 @@ gboolean gnome_cmd_connect_dialog_edit (GnomeCmdConRemote *server)
         con->method = (ConnectionMethodID) gtk_combo_box_get_active (GTK_COMBO_BOX (dialog->priv->type_combo));
     }
 
-    gtk_widget_destroy (*dialog);
+    gtk_window_destroy (GTK_WINDOW (dialog));
 
     return response==GTK_RESPONSE_OK;
 }

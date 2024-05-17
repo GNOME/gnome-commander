@@ -610,10 +610,10 @@ static void destroy (GtkWidget *object)
     }
 
     if (main_win && main_win->advrename_dlg)
-        gtk_widget_destroy (*main_win->advrename_dlg);
+        gtk_window_destroy (*main_win->advrename_dlg);
 
     if (main_win && main_win->file_search_dlg)
-        gtk_widget_destroy (*main_win->file_search_dlg);
+        gtk_window_destroy (*main_win->file_search_dlg);
 
     auto app = gtk_window_get_application (GTK_WINDOW (object));
     g_application_quit (G_APPLICATION (app));
@@ -1200,9 +1200,9 @@ void GnomeCmdMainWin::update_show_toolbar()
     else
     {
         if (priv->toolbar)
-            gtk_widget_destroy (priv->toolbar);
+            gtk_container_remove (GTK_CONTAINER (priv->vbox), priv->toolbar);
         if (priv->toolbar_sep)
-            gtk_widget_destroy (priv->toolbar_sep);
+            gtk_container_remove (GTK_CONTAINER (priv->vbox), priv->toolbar_sep);
         priv->toolbar = NULL;
         priv->toolbar_sep = NULL;
     }
@@ -1222,9 +1222,9 @@ void GnomeCmdMainWin::update_buttonbar_visibility()
     else
     {
         if (priv->buttonbar)
-            gtk_widget_destroy (priv->buttonbar);
+            gtk_container_remove (GTK_CONTAINER (priv->vbox), priv->buttonbar);
         if (priv->buttonbar_sep)
-            gtk_widget_destroy (priv->buttonbar_sep);
+            gtk_container_remove (GTK_CONTAINER (priv->vbox), priv->buttonbar_sep);
         priv->buttonbar = NULL;
         priv->buttonbar_sep = NULL;
     }
@@ -1251,9 +1251,9 @@ void GnomeCmdMainWin::update_cmdline_visibility()
     else
     {
         if (priv->cmdline)
-            gtk_widget_destroy (priv->cmdline);
+            gtk_container_remove (GTK_CONTAINER (priv->vbox), priv->cmdline);
         if (priv->cmdline_sep)
-            gtk_widget_destroy (priv->cmdline_sep);
+            gtk_container_remove (GTK_CONTAINER (priv->vbox), priv->cmdline_sep);
         priv->cmdline = NULL;
         priv->cmdline_sep = NULL;
     }
@@ -1269,7 +1269,7 @@ void GnomeCmdMainWin::update_horizontal_orientation()
     gtk_container_remove (GTK_CONTAINER (priv->paned), priv->file_selector[LEFT]);
     gtk_container_remove (GTK_CONTAINER (priv->paned), priv->file_selector[RIGHT]);
 
-    gtk_widget_destroy (GTK_WIDGET (priv->paned));
+    gtk_container_remove (GTK_CONTAINER (priv->vbox), GTK_WIDGET (priv->paned));
 
     priv->paned = gtk_paned_new (gnome_cmd_data.horizontal_orientation ? GTK_ORIENTATION_VERTICAL : GTK_ORIENTATION_HORIZONTAL);
 

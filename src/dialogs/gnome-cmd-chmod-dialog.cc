@@ -144,14 +144,14 @@ static void on_ok (GtkButton *button, GnomeCmdChmodDialog *dialog)
 {
     do_chmod_files (dialog);
     gnome_cmd_file_list_free (dialog->priv->files);
-    gtk_widget_destroy (GTK_WIDGET (dialog));
+    gtk_window_destroy (GTK_WINDOW (dialog));
 }
 
 
 static void on_cancel (GtkButton *button, GnomeCmdChmodDialog *dialog)
 {
     gnome_cmd_file_list_free (dialog->priv->files);
-    gtk_widget_destroy (GTK_WIDGET (dialog));
+    gtk_window_destroy (GTK_WINDOW (dialog));
 }
 
 

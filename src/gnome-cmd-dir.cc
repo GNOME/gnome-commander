@@ -474,7 +474,7 @@ static void on_list_done (GnomeCmdDir *dir, GList *infolist, GError *error)
 {
     if (dir->state == GnomeCmdDir::STATE_LISTED)
     {
-        DEBUG('l', "File listing succeded\n");
+        DEBUG('l', "File listing succeeded\n");
 
         if (!dir->priv->file_collection->empty())
             dir->priv->file_collection->clear();
@@ -486,7 +486,7 @@ static void on_list_done (GnomeCmdDir *dir, GList *infolist, GError *error)
 
         if (dir->dialog)
         {
-            gtk_widget_destroy (dir->dialog);
+            gtk_window_destroy (GTK_WINDOW (dir->dialog));
             dir->dialog = nullptr;
         }
         dir->priv->lock = FALSE;
@@ -500,7 +500,7 @@ static void on_list_done (GnomeCmdDir *dir, GList *infolist, GError *error)
 
         if (dir->dialog)
         {
-            gtk_widget_destroy (dir->dialog);
+            gtk_window_destroy (GTK_WINDOW (dir->dialog));
             dir->dialog = nullptr;
         }
 
@@ -519,7 +519,7 @@ static void on_dir_list_cancel (GtkButton *btn, GnomeCmdDir *dir)
         DEBUG('l', "on_dir_list_cancel\n");
         dirlist_cancel (dir);
 
-        gtk_widget_destroy (dir->dialog);
+        gtk_window_destroy (GTK_WINDOW (dir->dialog));
         dir->dialog = nullptr;
     }
 }

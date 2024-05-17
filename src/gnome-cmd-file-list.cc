@@ -1483,7 +1483,7 @@ static void on_tmp_download_response (GtkWidget *w, gint id, TmpDlData *dldata)
         g_free (dldata->args);
     }
 
-    gtk_widget_destroy (dldata->dialog);
+    gtk_window_destroy (GTK_WINDOW (dldata->dialog));
     g_free (dldata);
 }
 
@@ -1896,7 +1896,7 @@ static void on_con_open_done (GnomeCmdCon *con, GnomeCmdFileList *fl)
 
     fl->set_connection (con);
 
-    gtk_widget_destroy (fl->priv->con_open_dialog);
+    gtk_window_destroy (GTK_WINDOW (fl->priv->con_open_dialog));
     fl->priv->con_open_dialog = nullptr;
     fl->priv->con_opening = nullptr;
 }
@@ -1930,7 +1930,7 @@ static void on_con_open_cancel (GtkButton *button, GnomeCmdFileList *fl)
 
     gnome_cmd_con_cancel_open (fl->priv->con_opening);
 
-    gtk_widget_destroy (fl->priv->con_open_dialog);
+    gtk_window_destroy (GTK_WINDOW (fl->priv->con_open_dialog));
     fl->priv->con_open_dialog = nullptr;
     fl->priv->con_opening = nullptr;
 }

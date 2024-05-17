@@ -226,7 +226,7 @@ gboolean gnome_cmd_mkdir_dialog_new (GnomeCmdDir *dir, GnomeCmdFile *selected_fi
 
     gint result = gtk_dialog_run (GTK_DIALOG (dialog));
 
-    gtk_widget_destroy (dialog);
+    gtk_window_destroy (GTK_WINDOW (dialog));
 
     return result==GTK_RESPONSE_OK;
 }

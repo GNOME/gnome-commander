@@ -211,13 +211,13 @@ static void on_dialog_ok (GtkButton *btn, GnomeCmdFilePropsDialogPrivate *data)
         return;
     }
 
-    gtk_widget_destroy (data->dialog);
+    gtk_window_destroy (GTK_WINDOW (data->dialog));
 }
 
 
 static void on_dialog_cancel (GtkButton *btn, GnomeCmdFilePropsDialogPrivate *data)
 {
-    gtk_widget_destroy (data->dialog);
+    gtk_window_destroy (GTK_WINDOW (data->dialog));
 }
 
 

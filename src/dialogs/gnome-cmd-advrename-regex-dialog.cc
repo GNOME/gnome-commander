@@ -116,7 +116,7 @@ gboolean gnome_cmd_advrename_regex_dialog_new (const gchar *title, GtkWindow *pa
 
     gint result = gtk_dialog_run (GTK_DIALOG (dialog));
 
-    gtk_widget_destroy (dialog);
+    gtk_window_destroy (GTK_WINDOW (dialog));
 
     return result==GTK_RESPONSE_OK;
 }

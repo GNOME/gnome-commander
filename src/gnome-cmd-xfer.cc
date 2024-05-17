@@ -413,7 +413,7 @@ static void finish_xfer(XferData *xferData, gboolean threaded)
 
     if (xferData->win)
     {
-        gtk_widget_destroy (GTK_WIDGET (xferData->win));
+        gtk_window_destroy (GTK_WINDOW (xferData->win));
         xferData->win = nullptr;
     }
 

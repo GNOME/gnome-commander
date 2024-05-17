@@ -328,7 +328,7 @@ static gboolean update_delete_status_widgets (DeleteData *deleteData)
 
         if (deleteData->progwin)
         {
-            gtk_widget_destroy (deleteData->progwin);
+            gtk_window_destroy (GTK_WINDOW (deleteData->progwin));
         }
 
         cleanup (deleteData);

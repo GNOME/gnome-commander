@@ -304,7 +304,7 @@ static void show_message_dialog_volume_unmounted()
                                      GTK_BUTTONS_OK,
                                      _("Volume successfully unmounted"));
     gtk_dialog_run (GTK_DIALOG (msgbox));
-    gtk_widget_destroy (msgbox);
+    gtk_window_destroy (GTK_WINDOW (msgbox));
 }
 
 
@@ -327,7 +327,7 @@ static void unmount_callback(GObject *gMnt, GAsyncResult *result, gpointer user_
                                          error->message,
                                          error->code);
         gtk_dialog_run (GTK_DIALOG (msgbox));
-        gtk_widget_destroy (msgbox);
+        gtk_window_destroy (GTK_WINDOW (msgbox));
 
         g_error_free(error);
         return;

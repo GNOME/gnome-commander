@@ -269,7 +269,7 @@ gboolean gnome_cmd_key_shortcuts_dialog_new (GnomeCmdUserActions &user_actions)
 
     gint result = gtk_dialog_run (GTK_DIALOG (dialog));
 
-    gtk_widget_destroy (dialog);
+    gtk_window_destroy (GTK_WINDOW (dialog));
 
     return result==GTK_RESPONSE_OK;
 }
@@ -506,7 +506,7 @@ gboolean conflict_confirm (GtkWidget *view, const gchar *action, guint accel_key
     gtk_widget_show_all (dlg);
     gint response = gtk_dialog_run (GTK_DIALOG (dlg));
 
-    gtk_widget_destroy (dlg);
+    gtk_window_destroy (GTK_WINDOW (dlg));
 
     g_free (accel_string);
 

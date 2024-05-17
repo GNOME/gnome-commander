@@ -510,7 +510,7 @@ static void on_edit_colors_close (GtkButton *btn, GtkWidget *dlg)
     gtk_color_chooser_get_rgba (GTK_COLOR_CHOOSER (lookup_widget (dlg, "cursor_fg")), &colors->curs_fg);
     gtk_color_chooser_get_rgba (GTK_COLOR_CHOOSER (lookup_widget (dlg, "cursor_bg")), &colors->curs_bg);
 
-    gtk_widget_destroy (dlg);
+    gtk_window_destroy (GTK_WINDOW (dlg));
 }
 
 
@@ -598,7 +598,7 @@ static void on_ls_colors_toggled (GtkToggleButton *btn, GtkWidget *dialog)
 
 static void on_edit_ls_colors_cancel (GtkButton *btn, GtkWidget *dlg)
 {
-    gtk_widget_destroy (dlg);
+    gtk_window_destroy (GTK_WINDOW (dlg));
 }
 
 
@@ -623,7 +623,7 @@ static void on_edit_ls_colors_ok (GtkButton *btn, GtkWidget *dlg)
     gtk_color_chooser_get_rgba (GTK_COLOR_CHOOSER (lookup_widget (dlg, "white_fg")), &palette.white_fg);
     gtk_color_chooser_get_rgba (GTK_COLOR_CHOOSER (lookup_widget (dlg, "white_bg")), &palette.white_bg);
 
-    gtk_widget_destroy (dlg);
+    gtk_window_destroy (GTK_WINDOW (dlg));
 }
 
 
@@ -1402,7 +1402,7 @@ void update_app_in_list (GtkTreeView *view, GnomeCmdApp *app)
 
 static void on_app_dialog_cancel (GtkButton *button, GtkWidget *dialog)
 {
-    gtk_widget_destroy (dialog);
+    gtk_window_destroy (GTK_WINDOW (dialog));
 }
 
 
@@ -1486,7 +1486,7 @@ static void on_add_app_dialog_ok (GtkButton *button, GtkWidget *dialog)
                                                       handles_uris, handles_multiple, requires_terminal, nullptr);
     gnome_cmd_data.options.add_fav_app(app);
     add_app_to_list (GTK_TREE_VIEW (view), app);
-    gtk_widget_destroy (dialog);
+    gtk_window_destroy (GTK_WINDOW (dialog));
 
     g_free (icon_path);
 }
@@ -1520,7 +1520,7 @@ static void on_edit_app_dialog_ok (GtkButton *button, GtkWidget *dialog)
     gnome_cmd_app_set_requires_terminal (app, requires_terminal);
 
     update_app_in_list (GTK_TREE_VIEW (view), app);
-    gtk_widget_destroy (dialog);
+    gtk_window_destroy (GTK_WINDOW (dialog));
 
     g_free (icon_path);
 }
@@ -1956,7 +1956,7 @@ void update_device_in_list (GtkTreeView *view, GnomeCmdConDevice *dev, gchar *al
 
 static void on_device_dialog_cancel (GtkButton *button, GtkWidget *dialog)
 {
-    gtk_widget_destroy (dialog);
+    gtk_window_destroy (GTK_WINDOW (dialog));
 }
 
 
@@ -2002,7 +2002,7 @@ static void on_add_device_dialog_ok (GtkButton *button, GtkWidget *dialog)
 
     GnomeCmdConDevice *dev = gnome_cmd_con_device_new (alias, device, mountp, icon);
     add_device_to_list (GTK_TREE_VIEW (view), GNOME_CMD_CON_DEVICE (dev));
-    gtk_widget_destroy (dialog);
+    gtk_window_destroy (GTK_WINDOW (dialog));
 
     gnome_cmd_con_list_get()->add(dev);
 
@@ -2030,7 +2030,7 @@ static void on_edit_device_dialog_ok (GtkButton *button, GtkWidget *dialog)
     GIcon *icon = icon_path ? g_file_icon_new (g_file_new_for_path (icon_path)) : nullptr;
 
     update_device_in_list (GTK_TREE_VIEW (view), dev, alias, device, mountp, icon);
-    gtk_widget_destroy (dialog);
+    gtk_window_destroy (GTK_WINDOW (dialog));
 
     g_free (device);
     g_free (mountp);
@@ -2413,7 +2413,7 @@ gboolean gnome_cmd_options_dialog (GtkWindow *parent, GnomeCmdData::Options &cfg
     // store the current active tab
     activetab = notebook->get_current_page();
 
-    gtk_widget_destroy (dialog);
+    gtk_window_destroy (GTK_WINDOW (dialog));
 
     return result==GTK_RESPONSE_OK;
 }
