@@ -56,7 +56,7 @@ static guint image_render_signals[LAST_SIGNAL] = { 0 };
 
 struct ImageRenderClass
 {
-    GtkWidgetClass parent_class;
+    GtkDrawingAreaClass parent_class;
     void (*image_status_changed)  (ImageRender *obj, ImageRender::Status *status);
 };
 
@@ -91,7 +91,7 @@ struct ImageRender::Private
 };
 
 
-G_DEFINE_TYPE (ImageRender, image_render, GTK_TYPE_WIDGET)
+G_DEFINE_TYPE (ImageRender, image_render, GTK_TYPE_DRAWING_AREA)
 
 
 // Gtk class related static functions
@@ -100,7 +100,7 @@ static void image_render_redraw (ImageRender *w);
 static gboolean image_render_key_press (GtkWidget *widget, GdkEventKey *event);
 static gboolean image_render_scroll(GtkWidget *widget, GdkEventScroll *event);
 
-static void image_render_realize (GtkWidget *widget);
+static void image_render_realize (GtkWidget *widget, gpointer user_data);
 static void image_render_get_preferred_width (GtkWidget *widget, gint *minimal_width, gint *natural_width);
 static void image_render_get_preferred_height (GtkWidget *widget, gint *minimal_height, gint *natural_height);
 static void image_render_size_allocate (GtkWidget *widget, GtkAllocation *allocation);
@@ -199,6 +199,12 @@ void image_render_set_v_adjustment (ImageRender *obj, GtkAdjustment *adjustment)
 
 static void image_render_init (ImageRender *w)
 {
+    gtk_widget_add_events (GTK_WIDGET (w),
+        GDK_EXPOSURE_MASK |
+        GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK |
+        GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK |
+        GDK_KEY_PRESS_MASK);
+
     w->priv = g_new0 (ImageRender::Private, 1);
 
     w->priv->button = 0;
@@ -222,6 +228,8 @@ static void image_render_init (ImageRender *w)
     w->priv->disp_pixbuf = NULL;
 
     gtk_widget_set_can_focus (GTK_WIDGET (w), TRUE);
+
+    g_signal_connect_after (w, "realize", G_CALLBACK (image_render_realize), w);
 }
 
 
@@ -281,8 +289,6 @@ static void image_render_class_init (ImageRenderClass *klass)
     widget_class->get_preferred_width = image_render_get_preferred_width;
     widget_class->get_preferred_height = image_render_get_preferred_height;
     widget_class->size_allocate = image_render_size_allocate;
-
-    widget_class->realize = image_render_realize;
 
     image_render_signals[IMAGE_STATUS_CHANGED] =
         g_signal_new ("image-status-changed",
@@ -486,40 +492,10 @@ static gboolean image_render_scroll(GtkWidget *widget, GdkEventScroll *event)
 }
 
 
-static void image_render_realize (GtkWidget *widget)
+static void image_render_realize (GtkWidget *widget, gpointer user_data)
 {
-    g_return_if_fail (IS_IMAGE_RENDER (widget));
-
-    gtk_widget_set_realized (widget, TRUE);
     ImageRender *obj = IMAGE_RENDER (widget);
 
-    GdkWindowAttr attributes;
-
-    GtkAllocation widget_allocation;
-    gtk_widget_get_allocation (widget, &widget_allocation);
-
-    attributes.x = widget_allocation.x;
-    attributes.y = widget_allocation.y;
-    attributes.width = widget_allocation.width;
-    attributes.height = widget_allocation.height;
-    attributes.wclass = GDK_INPUT_OUTPUT;
-    attributes.window_type = GDK_WINDOW_CHILD;
-    attributes.event_mask = gtk_widget_get_events (widget) |
-        GDK_EXPOSURE_MASK | GDK_BUTTON_PRESS_MASK |
-        GDK_BUTTON_RELEASE_MASK | GDK_POINTER_MOTION_MASK |
-        GDK_POINTER_MOTION_HINT_MASK | GDK_KEY_PRESS_MASK;
-    attributes.visual = gtk_widget_get_visual (widget);
-
-    gint attributes_mask = GDK_WA_X | GDK_WA_Y | GDK_WA_VISUAL;
-
-    GdkWindow *window = gdk_window_new (gtk_widget_get_parent_window (widget), &attributes, attributes_mask);
-    gtk_widget_set_window (widget, window);
-
-    gtk_widget_style_attach (widget);
-    gdk_window_set_user_data (window, widget);
-    gtk_style_set_background (gtk_widget_get_style (widget), window, GTK_STATE_ACTIVE);
-
-    // image_render_prepare_disp_pixbuf (obj);
     if (!obj->priv->scaled_pixbuf_loaded)
         image_render_load_scaled_pixbuf (obj);
 }
@@ -531,7 +507,7 @@ static void image_render_redraw (ImageRender *w)
         return;
 
     image_render_notify_status_changed (w);
-    gdk_window_invalidate_rect (gtk_widget_get_window (GTK_WIDGET (w)), NULL, FALSE);
+    gtk_widget_queue_draw (GTK_WIDGET (w));
 }
 
 
