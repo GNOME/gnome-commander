@@ -2310,7 +2310,7 @@ void store_devices_options (GtkWidget *dialog, GnomeCmdData::Options &cfg)
 }
 
 
-static void response_callback (GtkDialog *dialog, int response_id, GnomeCmdNotebook *notebook)
+static void response_callback (GtkDialog *dialog, int response_id, GtkNotebook *notebook)
 {
     static const char *help_id[] = {"gnome-commander-prefs-general",
                                     "gnome-commander-prefs-format",
@@ -2332,7 +2332,7 @@ static void response_callback (GtkDialog *dialog, int response_id, GnomeCmdNoteb
             break;
 
         case GTK_RESPONSE_HELP:
-            gnome_cmd_help_display ("gnome-commander.xml", help_id[notebook->get_current_page()]);
+            gnome_cmd_help_display ("gnome-commander.xml", help_id[gtk_notebook_get_current_page (notebook)]);
             g_signal_stop_emission_by_name (dialog, "response");
             break;
 
@@ -2366,23 +2366,23 @@ gboolean gnome_cmd_options_dialog (GtkWindow *parent, GnomeCmdData::Options &cfg
     gtk_container_set_border_width (GTK_CONTAINER (content_area), 5);
     gtk_box_set_spacing (GTK_BOX (content_area),6);
 
-    GnomeCmdNotebook *notebook = new GnomeCmdNotebook(GnomeCmdNotebook::SHOW_TABS);
+    GtkNotebook *notebook = GTK_NOTEBOOK (gtk_notebook_new ());
     gtk_widget_set_hexpand (GTK_WIDGET (notebook), TRUE);
     gtk_widget_set_vexpand (GTK_WIDGET (notebook), TRUE);
 
-    gtk_container_add (GTK_CONTAINER (content_area), *notebook);
+    gtk_container_add (GTK_CONTAINER (content_area), GTK_WIDGET (notebook));
 
-    notebook->append_page(create_general_tab (dialog, cfg), _("General"));
-    notebook->append_page(create_format_tab (dialog, cfg), _("Format"));
-    notebook->append_page(create_layout_tab (dialog, cfg), _("Layout"));
-    notebook->append_page(create_tabs_tab (dialog, cfg), _("Tabs"));
-    notebook->append_page(create_confirmation_tab (dialog, cfg), _("Confirmation"));
-    notebook->append_page(create_filter_tab (dialog, cfg), _("Filters"));
-    notebook->append_page(create_programs_tab (dialog, cfg), _("Programs"));
-    notebook->append_page(create_devices_tab (dialog, cfg), _("Devices"));
+    gtk_notebook_append_page (notebook, create_general_tab (dialog, cfg), gtk_label_new (_("General")));
+    gtk_notebook_append_page (notebook, create_format_tab (dialog, cfg), gtk_label_new (_("Format")));
+    gtk_notebook_append_page (notebook, create_layout_tab (dialog, cfg), gtk_label_new (_("Layout")));
+    gtk_notebook_append_page (notebook, create_tabs_tab (dialog, cfg), gtk_label_new (_("Tabs")));
+    gtk_notebook_append_page (notebook, create_confirmation_tab (dialog, cfg), gtk_label_new (_("Confirmation")));
+    gtk_notebook_append_page (notebook, create_filter_tab (dialog, cfg), gtk_label_new (_("Filters")));
+    gtk_notebook_append_page (notebook, create_programs_tab (dialog, cfg), gtk_label_new (_("Programs")));
+    gtk_notebook_append_page (notebook, create_devices_tab (dialog, cfg), gtk_label_new (_("Devices")));
 
     // open the tab which was actinve when closing the options notebook last time
-    notebook->set_current_page (activetab);
+    gtk_notebook_set_current_page (notebook, activetab);
 
     gtk_widget_show_all (content_area);
 
@@ -2411,7 +2411,7 @@ gboolean gnome_cmd_options_dialog (GtkWindow *parent, GnomeCmdData::Options &cfg
     gnome_cmd_data.opts_dialog_height = dialog_allocation.height;
 
     // store the current active tab
-    activetab = notebook->get_current_page();
+    activetab = gtk_notebook_get_current_page (notebook);
 
     gtk_window_destroy (GTK_WINDOW (dialog));
 

@@ -1872,7 +1872,7 @@ void view_close_tab (GSimpleAction *action, GVariant *parameter, gpointer user_d
 {
     GnomeCmdFileSelector *fs = get_fs (ACTIVE);
 
-    if (fs->notebook->size() > 1)
+    if (gtk_notebook_get_n_pages (GTK_NOTEBOOK (fs->notebook)) > 1)
         if (!fs->file_list()->locked || gnome_cmd_prompt_message (*main_win, GTK_MESSAGE_QUESTION, GTK_BUTTONS_OK_CANCEL, _("The tab is locked, close anyway?"))==GTK_RESPONSE_OK)
             fs->close_tab();
 }
@@ -1881,28 +1881,31 @@ void view_close_tab (GSimpleAction *action, GVariant *parameter, gpointer user_d
 void view_close_all_tabs (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
     GnomeCmdFileSelector *fs = get_fs (ACTIVE);
-    GnomeCmdNotebook *notebook = fs->notebook;
-    gint n = notebook->get_current_page();
+    GtkNotebook *notebook = GTK_NOTEBOOK (fs->notebook);
 
-    for (gint i=notebook->size(); i--;)
+    gint n = gtk_notebook_get_current_page (notebook);
+
+    for (gint i = gtk_notebook_get_n_pages (notebook); i--;)
         if (i!=n && !fs->file_list(i)->locked)
-            notebook->remove_page(i);
+            gtk_notebook_remove_page (notebook, i);
+
+    fs->update_show_tabs ();
 }
 
 
 void view_close_duplicate_tabs (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
     GnomeCmdFileSelector *fs = get_fs (ACTIVE);
-    GnomeCmdNotebook *notebook = fs->notebook;
+    GtkNotebook *notebook = GTK_NOTEBOOK (fs->notebook);
 
     typedef set<gint> TABS_COLL;
     typedef map <GnomeCmdDir *, TABS_COLL> DIRS_COLL;
 
     DIRS_COLL dirs;
 
-    for (gint i=notebook->size(); i--;)
+    for (gint i = gtk_notebook_get_n_pages (notebook); i--;)
     {
-        GnomeCmdFileList *fl = GNOME_CMD_FILE_LIST (gtk_bin_get_child (GTK_BIN (notebook->page(i))));
+        GnomeCmdFileList *fl = fs->file_list(i);
 
         if (fl && !fl->locked)
             dirs[fl->cwd].insert(i);
@@ -1915,7 +1918,7 @@ void view_close_duplicate_tabs (GSimpleAction *action, GVariant *parameter, gpoi
     if (pos!=dirs.end())
     {
         duplicates.swap(pos->second);                               //  ... and mark them as to be closed...
-        duplicates.erase(notebook->get_current_page());             //  ... but WITHOUT the current one
+        duplicates.erase(gtk_notebook_get_current_page (notebook)); //  ... but WITHOUT the current one
         dirs.erase(pos);
     }
 
@@ -1926,19 +1929,21 @@ void view_close_duplicate_tabs (GSimpleAction *action, GVariant *parameter, gpoi
     }
 
     for (TABS_COLL::const_reverse_iterator i=duplicates.rbegin(); i!=duplicates.rend(); ++i)
-        notebook->remove_page(*i);
+        gtk_notebook_remove_page (notebook, *i);
+
+    fs->update_show_tabs ();
 }
 
 
 void view_prev_tab (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
-    get_fs (ACTIVE)->notebook->prev_page();
+    get_fs (ACTIVE)->prev_tab();
 }
 
 
 void view_next_tab (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
-    get_fs (ACTIVE)->notebook->next_page();
+    get_fs (ACTIVE)->next_tab();
 }
 
 

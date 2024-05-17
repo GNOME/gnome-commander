@@ -28,85 +28,12 @@
 using namespace std;
 
 
-struct GnomeCmdNotebookClass
+gboolean gtk_notebook_ext_header_allocation (GtkNotebook *notebook, GtkAllocation *allocation)
 {
-    GtkNotebookClass parent_class;
-};
+    if (gtk_notebook_get_n_pages (notebook) == 0)
+        return FALSE;
 
-
-class GnomeCmdNotebook::Private
-{
-  public:
-
-    Private();
-    ~Private();
-};
-
-
-inline GnomeCmdNotebook::Private::Private()
-{
-}
-
-
-inline GnomeCmdNotebook::Private::~Private()
-{
-}
-
-
-G_DEFINE_TYPE (GnomeCmdNotebook, gnome_cmd_notebook, GTK_TYPE_NOTEBOOK)
-
-
-static void gnome_cmd_notebook_init (GnomeCmdNotebook *self)
-{
-    self->priv = new GnomeCmdNotebook::Private;
-}
-
-
-static void gnome_cmd_notebook_finalize (GObject *object)
-{
-    GnomeCmdNotebook *self = GNOME_CMD_NOTEBOOK (object);
-
-    delete self->priv;
-
-    G_OBJECT_CLASS (gnome_cmd_notebook_parent_class)->finalize (object);
-}
-
-
-static void gnome_cmd_notebook_class_init (GnomeCmdNotebookClass *klass)
-{
-    gnome_cmd_notebook_parent_class = (GObjectClass *) g_type_class_peek_parent (klass);
-
-    GObjectClass *object_class = (GObjectClass *) klass;
-
-    object_class->finalize = gnome_cmd_notebook_finalize;
-}
-
-
-GnomeCmdNotebook::GnomeCmdNotebook(TabBarVisibility visibility)
-{
-    tabs_visibility = visibility;
-
-    if (visibility==SHOW_TABS)
-        g_object_set (this, "show-tabs", TRUE, NULL);
-}
-
-
-void GnomeCmdNotebook::show_tabs(TabBarVisibility _show_tabs)
-{
-    if (_show_tabs!=tabs_visibility)
-    {
-        tabs_visibility = _show_tabs;
-        gtk_notebook_set_show_tabs (*this, _show_tabs==SHOW_TABS || (_show_tabs!=HIDE_TABS && size()>1));
-    }
-}
-
-
-bool GnomeCmdNotebook::header_allocation (GtkAllocation *allocation) const
-{
-    if (gtk_notebook_get_n_pages (GTK_NOTEBOOK (this)) == 0)
-        return false;
-
-    GtkPositionType tab_pos = gtk_notebook_get_tab_pos (*this);
+    GtkPositionType tab_pos = gtk_notebook_get_tab_pos (notebook);
     GtkWidget *the_page;
 
     allocation->x = INT_MAX;
@@ -114,9 +41,9 @@ bool GnomeCmdNotebook::header_allocation (GtkAllocation *allocation) const
     allocation->width = 0;
     allocation->height = 0;
 
-    for (int page_num=0; (the_page=GnomeCmdNotebook::page(page_num)); ++page_num)
+    for (int page_num=0; (the_page = gtk_notebook_get_nth_page (notebook, page_num)); ++page_num)
     {
-        GtkWidget *tab = gtk_notebook_get_tab_label (*this, the_page);
+        GtkWidget *tab = gtk_notebook_get_tab_label (notebook, the_page);
 
         g_return_val_if_fail (tab != nullptr, false);
 
@@ -138,7 +65,7 @@ bool GnomeCmdNotebook::header_allocation (GtkAllocation *allocation) const
     }
 
     GtkAllocation notebook_allocation;
-    gtk_widget_get_allocation (*this, &notebook_allocation);
+    gtk_widget_get_allocation (GTK_WIDGET (notebook), &notebook_allocation);
 
     switch (tab_pos)
     {
@@ -157,21 +84,21 @@ bool GnomeCmdNotebook::header_allocation (GtkAllocation *allocation) const
             break;
     }
 
-    return allocation;
+    return TRUE;
 }
 
 
-int GnomeCmdNotebook::find_tab_num_at_pos(gint screen_x, gint screen_y) const
+gint gtk_notebook_ext_find_tab_num_at_pos(GtkNotebook *notebook, gint screen_x, gint screen_y)
 {
-    if (gtk_notebook_get_n_pages (GTK_NOTEBOOK (this)) == 0)
+    if (gtk_notebook_get_n_pages (notebook) == 0)
         return -1;
 
-    GtkPositionType tab_pos = gtk_notebook_get_tab_pos (*this);
+    GtkPositionType tab_pos = gtk_notebook_get_tab_pos (notebook);
     GtkWidget *the_page;
 
-    for (int page_num=0; (the_page=GnomeCmdNotebook::page(page_num)); ++page_num)
+    for (int page_num=0; (the_page = gtk_notebook_get_nth_page (notebook, page_num)); ++page_num)
     {
-        GtkWidget *tab = gtk_notebook_get_tab_label (*this, the_page);
+        GtkWidget *tab = gtk_notebook_get_tab_label (notebook, the_page);
 
         g_return_val_if_fail (tab!=NULL, -1);
 
@@ -219,11 +146,11 @@ int GnomeCmdNotebook::find_tab_num_at_pos(gint screen_x, gint screen_y) const
     }
 
     GtkAllocation head_allocation;
-    if (header_allocation (&head_allocation))
+    if (gtk_notebook_ext_header_allocation (notebook, &head_allocation))
     {
         gint x_root, y_root;
 
-        gdk_window_get_origin (gtk_widget_get_window (*this), &x_root, &y_root);
+        gdk_window_get_origin (gtk_widget_get_window (GTK_WIDGET (notebook)), &x_root, &y_root);
 
         gint x = screen_x - x_root - head_allocation.x;
         gint y = screen_y - y_root - head_allocation.y;
