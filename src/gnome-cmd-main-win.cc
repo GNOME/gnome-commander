@@ -477,21 +477,15 @@ void GnomeCmdMainWin::update_drop_con_button(GnomeCmdFileList *fl)
         {
             g_object_ref (image);
             gtk_widget_show (image);
-            gtk_tool_button_set_icon_widget (GTK_TOOL_BUTTON(btn), image);
+            gtk_button_set_image (GTK_BUTTON (btn), image);
         }
         g_object_unref (icon);
     }
     else
     {
         gchar *close_text = gnome_cmd_con_get_close_text (con);
-        GtkWidget *label = gtk_label_new (close_text);
+        gtk_button_set_label (GTK_BUTTON (btn), close_text);
         g_free (close_text);
-        if (label)
-        {
-            g_object_ref (label);
-            gtk_widget_show (label);
-            gtk_tool_button_set_label_widget(GTK_TOOL_BUTTON(btn), label);
-        }
     }
 }
 
