@@ -74,23 +74,6 @@ inline GtkWidget *create_named_button (GtkWidget *parent, const gchar *label, co
     return create_named_button_with_data (parent, label, name, func, parent);
 }
 
-GtkWidget *create_named_stock_button_with_data (GtkWidget *parent, gconstpointer stock, const gchar *name, GCallback func, gpointer data);
-
-inline GtkWidget *create_stock_button_with_data (GtkWidget *parent, gconstpointer stock, GCallback func, gpointer data)
-{
-    return create_named_stock_button_with_data (parent, stock, "button", func, data);
-}
-
-inline GtkWidget *create_named_stock_button (GtkWidget *parent, gconstpointer stock, const gchar *name, GCallback func)
-{
-    return create_named_stock_button_with_data (parent, stock, name, func, parent);
-}
-
-inline GtkWidget *create_stock_button (GtkWidget *parent, gconstpointer stock, GCallback func)
-{
-    return create_stock_button_with_data (parent, stock, func, parent);
-}
-
 GtkWidget *create_entry (GtkWidget *parent, const gchar *name, const gchar *value);
 
 GtkWidget *create_check (GtkWidget *parent, const gchar *text, const gchar *name);

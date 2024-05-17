@@ -86,7 +86,7 @@ static void gnome_cmd_xfer_progress_win_init (GnomeCmdXferProgressWin *win)
     bbox = create_hbuttonbox (w);
     gtk_container_add (GTK_CONTAINER (vbox), bbox);
 
-    button = create_stock_button (w, GTK_STOCK_CANCEL, G_CALLBACK (on_cancel));
+    button = create_button (w, _("_Cancel"), G_CALLBACK (on_cancel));
     gtk_widget_set_can_default (button, TRUE);
     gtk_container_add (GTK_CONTAINER (bbox), button);
 }

@@ -430,12 +430,12 @@ static void gnome_cmd_remote_dialog_init (GnomeCmdRemoteDialog *dialog)
 
     bbox = create_vbuttonbox (*dialog);
     gtk_box_pack_start (GTK_BOX (cat_box), bbox, FALSE, FALSE, 0);
-    button = create_stock_button (*dialog, GTK_STOCK_ADD, G_CALLBACK (on_new_btn_clicked));
+    button = create_button (*dialog, _("_Add"), G_CALLBACK (on_new_btn_clicked));
     gtk_container_add (GTK_CONTAINER (bbox), button);
-    button = create_named_stock_button (*dialog, GTK_STOCK_EDIT, "edit_button", G_CALLBACK (on_edit_btn_clicked));
+    button = create_named_button (*dialog, _("_Edit"), "edit_button", G_CALLBACK (on_edit_btn_clicked));
     gtk_widget_set_sensitive (button, !empty_view);
     gtk_container_add (GTK_CONTAINER (bbox), button);
-    button = create_named_stock_button (*dialog, GTK_STOCK_REMOVE, "remove_button", G_CALLBACK (on_remove_btn_clicked));
+    button = create_named_button (*dialog, _("_Remove"), "remove_button", G_CALLBACK (on_remove_btn_clicked));
     gtk_widget_set_sensitive (button, !empty_view);
     gtk_container_add (GTK_CONTAINER (bbox), button);
 
@@ -443,9 +443,9 @@ static void gnome_cmd_remote_dialog_init (GnomeCmdRemoteDialog *dialog)
     cat = create_category (*dialog, grid, _("Options"));
     gnome_cmd_dialog_add_category (*dialog, cat);
 
-    gnome_cmd_dialog_add_button (*dialog, GTK_STOCK_HELP, G_CALLBACK (on_help_btn_clicked), dialog);
-    gnome_cmd_dialog_add_button (*dialog, GTK_STOCK_CLOSE, G_CALLBACK (on_close_btn_clicked), dialog);
-    button = gnome_cmd_dialog_add_button (*dialog, GTK_STOCK_CONNECT, G_CALLBACK (on_connect_btn_clicked), dialog);
+    gnome_cmd_dialog_add_button (*dialog, _("_Help"), G_CALLBACK (on_help_btn_clicked), dialog);
+    gnome_cmd_dialog_add_button (*dialog, _("_Close"), G_CALLBACK (on_close_btn_clicked), dialog);
+    button = gnome_cmd_dialog_add_button (*dialog, _("C_onnect"), G_CALLBACK (on_connect_btn_clicked), dialog);
 
     dialog->priv->connect_button = button;
     gtk_widget_set_sensitive (button, !empty_view);

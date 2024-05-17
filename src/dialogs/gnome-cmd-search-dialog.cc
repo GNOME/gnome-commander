@@ -1274,11 +1274,11 @@ GnomeCmdSearchDialog::GnomeCmdSearchDialog(GnomeCmdData::SearchConfig &cfg): def
     gtk_dialog_add_action_widget (*this, priv->profile_menu_button, GCMD_RESPONSE_PROFILES);
 
     gtk_dialog_add_buttons (*this,
-                            GTK_STOCK_HELP, GTK_RESPONSE_HELP,
-                            GTK_STOCK_CLOSE, GTK_RESPONSE_CLOSE,
-                            GTK_STOCK_JUMP_TO, GCMD_RESPONSE_GOTO,
-                            GTK_STOCK_STOP, GCMD_RESPONSE_STOP,
-                            GTK_STOCK_FIND, GCMD_RESPONSE_FIND,
+                            _("_Help"), GTK_RESPONSE_HELP,
+                            _("_Close"), GTK_RESPONSE_CLOSE,
+                            _("_Jump to"), GCMD_RESPONSE_GOTO,
+                            _("_Stop"), GCMD_RESPONSE_STOP,
+                            _("_Find"), GCMD_RESPONSE_FIND,
                             nullptr);
 
     gtk_dialog_set_response_sensitive (*this, GCMD_RESPONSE_GOTO, FALSE);

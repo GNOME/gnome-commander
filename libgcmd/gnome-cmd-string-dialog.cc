@@ -126,8 +126,8 @@ inline void setup_widget (GnomeCmdStringDialog *string_dialog, gint rows)
         gtk_grid_attach (GTK_GRID (grid), string_dialog->entries[i], 1, i, 1, 1);
     }
 
-    gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), GTK_STOCK_CANCEL, G_CALLBACK (on_cancel), string_dialog);
-    btn = gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), GTK_STOCK_OK, G_CALLBACK (on_ok), string_dialog);
+    gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), _("_Cancel"), G_CALLBACK (on_cancel), string_dialog);
+    btn = gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), _("_OK"), G_CALLBACK (on_ok), string_dialog);
 
     gtk_widget_grab_focus (string_dialog->entries[0]);
     gtk_widget_grab_default (btn);

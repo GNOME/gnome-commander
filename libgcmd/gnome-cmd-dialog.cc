@@ -105,12 +105,12 @@ GtkWidget *gnome_cmd_dialog_new (const gchar *title)
 }
 
 
-GtkWidget *gnome_cmd_dialog_add_button (GnomeCmdDialog *dialog, const gchar *stock_id, GCallback on_click, gpointer data)
+GtkWidget *gnome_cmd_dialog_add_button (GnomeCmdDialog *dialog, const gchar *label, GCallback on_click, gpointer data)
 {
     g_return_val_if_fail (GNOME_CMD_IS_DIALOG (dialog), NULL);
     auto priv = static_cast<GnomeCmdDialogPrivate*>(gnome_cmd_dialog_get_instance_private (dialog));
 
-    GtkWidget *btn = create_stock_button_with_data (GTK_WIDGET (dialog), (gpointer) stock_id, on_click, data);
+    GtkWidget *btn = create_button_with_data (GTK_WIDGET (dialog), label, on_click, data);
 
     gtk_box_pack_start (GTK_BOX (priv->buttonbox), btn, FALSE, TRUE, 0);
     g_object_set (G_OBJECT (btn), "can-default", TRUE, NULL);

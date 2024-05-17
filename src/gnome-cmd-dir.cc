@@ -532,7 +532,7 @@ static void create_list_progress_dialog (GnomeCmdDir *dir)
 
     gnome_cmd_dialog_add_button (
         GNOME_CMD_DIALOG (dir->dialog),
-        GTK_STOCK_CANCEL,
+        _("_Cancel"),
         G_CALLBACK (on_dir_list_cancel), dir);
 
     GtkWidget *vbox = create_vbox (dir->dialog, FALSE, 0);
@@ -717,7 +717,7 @@ GFile *gnome_cmd_dir_get_gfile_for_con_and_filename(GnomeCmdDir *dir, const gcha
     // Get the Uri for the mount which belongs to the GnomeCmdCon object
     auto mountUri = gnome_cmd_dir_get_mount_uri(dir->priv->con);
 
-    // Always let the conection URI end with '/' because the last entry should be a directory
+    // Always let the connection URI to end with '/' because the last entry should be a directory
     auto conLastCharacter = mountUri[strlen(mountUri)-1];
     auto mountUriTmp = conLastCharacter == G_DIR_SEPARATOR
         ? g_strdup(mountUri)

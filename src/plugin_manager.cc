@@ -437,7 +437,7 @@ void plugin_manager_show ()
 
     update_plugin_list (GTK_TREE_VIEW (avail_view), dialog);
 
-    gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), GTK_STOCK_CLOSE, G_CALLBACK(on_close), dialog);
+    gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), _("_Close"), G_CALLBACK(on_close), dialog);
     gtk_window_set_transient_for (GTK_WINDOW (dialog), *main_win);
 
     gtk_widget_set_size_request (GTK_WIDGET (dialog), 500, 300);

@@ -94,8 +94,8 @@ static void gnome_cmd_patternsel_dialog_init (GnomeCmdPatternselDialog *dialog)
 
     dialog->priv = g_new0 (GnomeCmdPatternselDialogPrivate, 1);
 
-    gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), GTK_STOCK_CANCEL, G_CALLBACK(on_cancel), dialog);
-    gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), GTK_STOCK_OK, G_CALLBACK(on_ok), dialog);
+    gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), _("_Cancel"), G_CALLBACK(on_cancel), dialog);
+    gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), _("_OK"), G_CALLBACK(on_ok), dialog);
 
     vbox = create_vbox (GTK_WIDGET (dialog), FALSE, 6);
     hbox = create_hbox (GTK_WIDGET (dialog), FALSE, 6);

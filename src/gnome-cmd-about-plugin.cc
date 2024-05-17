@@ -179,7 +179,7 @@ static void gnome_cmd_about_plugin_display_credits_dialog (GnomeCmdAboutPlugin *
     dialog = gtk_dialog_new_with_buttons (_("Credits"),
                           GTK_WINDOW (about),
                           GTK_DIALOG_DESTROY_WITH_PARENT,
-                          GTK_STOCK_CLOSE, GTK_RESPONSE_CLOSE,
+                          _("_Close"), GTK_RESPONSE_CLOSE,
                           nullptr);
     about->priv->credits_dialog = dialog;
     gtk_window_set_default_size (GTK_WINDOW (dialog), 360, 260);
@@ -247,7 +247,7 @@ static void link_button_clicked_callback (GtkWidget *widget, gpointer data)
 
 static void gnome_cmd_about_plugin_init (GnomeCmdAboutPlugin *about)
 {
-    GtkWidget *vbox, *hbox, *image, *label, *button;
+    GtkWidget *vbox, *button;
 
     // Data
     GnomeCmdAboutPluginPrivate *priv = g_new0 (GnomeCmdAboutPluginPrivate, 1);
@@ -298,21 +298,12 @@ static void gnome_cmd_about_plugin_init (GnomeCmdAboutPlugin *about)
     gtk_widget_show (vbox);
 
     // Add the close button
-    gtk_dialog_add_button (GTK_DIALOG (about), GTK_STOCK_CLOSE, GTK_RESPONSE_CLOSE);
+    gtk_dialog_add_button (GTK_DIALOG (about), _("_Close"), GTK_RESPONSE_CLOSE);
     gtk_dialog_set_default_response (GTK_DIALOG (about), GTK_RESPONSE_CLOSE);
 
     // Add the credits button
-    image = gtk_image_new_from_stock (GTK_STOCK_ABOUT, GTK_ICON_SIZE_BUTTON);
-
-    label = gtk_label_new_with_mnemonic (_("C_redits"));
-
-    hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 2);
-    gtk_box_pack_start (GTK_BOX (hbox), image, FALSE, FALSE, 0);
-    gtk_box_pack_end (GTK_BOX (hbox), label, FALSE, FALSE, 0);
-
-    button = gtk_button_new ();
-    gtk_container_add (GTK_CONTAINER (button), hbox);
-    gtk_widget_show_all (button);
+    button = gtk_button_new_with_mnemonic (_("C_redits"));
+    gtk_widget_show (button);
 
     gtk_dialog_add_action_widget (GTK_DIALOG (about), button, GNOME_RESPONSE_CREDITS);
     gtk_button_box_set_child_secondary (GTK_BUTTON_BOX (gtk_dialog_get_action_area (GTK_DIALOG (about))), button, TRUE);

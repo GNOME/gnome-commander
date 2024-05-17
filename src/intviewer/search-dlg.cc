@@ -250,8 +250,8 @@ static void gviewer_search_dlg_init (GViewerSearchDlg *sdlg)
 
     gtk_window_set_title (GTK_WINDOW (dlg), _("Find"));
     gtk_window_set_modal (GTK_WINDOW (dlg), TRUE);
-    gtk_dialog_add_button (dlg, GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL);
-    gtk_dialog_add_button (dlg, GTK_STOCK_FIND, GTK_RESPONSE_OK);
+    gtk_dialog_add_button (dlg, _("_Cancel"), GTK_RESPONSE_CANCEL);
+    gtk_dialog_add_button (dlg, _("_OK"), GTK_RESPONSE_OK);
     gtk_dialog_set_default_response (dlg, GTK_RESPONSE_OK);
 
     g_signal_connect_swapped (GTK_WIDGET (dlg), "response", G_CALLBACK (search_dlg_action_response), sdlg);

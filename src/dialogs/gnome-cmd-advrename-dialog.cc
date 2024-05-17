@@ -668,10 +668,10 @@ GnomeCmdAdvrenameDialog::GnomeCmdAdvrenameDialog(GnomeCmdData::AdvrenameConfig &
     gtk_dialog_add_action_widget (*this, priv->profile_menu_button, GCMD_RESPONSE_PROFILES);
 
     gtk_dialog_add_buttons (*this,
-                            GTK_STOCK_HELP, GTK_RESPONSE_HELP,
+                            _("_Help"), GTK_RESPONSE_HELP,
                             _("Reset"), GCMD_RESPONSE_RESET,
-                            GTK_STOCK_CLOSE, GTK_RESPONSE_CLOSE,
-                            GTK_STOCK_APPLY, GTK_RESPONSE_APPLY,
+                            _("_Close"), GTK_RESPONSE_CLOSE,
+                            _("_Apply"), GTK_RESPONSE_APPLY,
                             NULL);
 
     gtk_dialog_set_default_response (*this, GTK_RESPONSE_APPLY);

@@ -70,9 +70,9 @@ void gnome_cmd_bookmark_dialog_new (const gchar *title, GtkWindow *parent)
 {
     GtkWidget *dialog = gtk_dialog_new_with_buttons (title, parent,
                                                      GtkDialogFlags (GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT),
-                                                     GTK_STOCK_HELP, GTK_RESPONSE_HELP,
-                                                     GTK_STOCK_CLOSE, GTK_RESPONSE_CLOSE,
-                                                     GTK_STOCK_JUMP_TO, RESPONSE_JUMP_TO,
+                                                     _("_Help"), GTK_RESPONSE_HELP,
+                                                     _("_Close"), GTK_RESPONSE_CLOSE,
+                                                     _("_Jump to"), RESPONSE_JUMP_TO,
                                                      NULL);
 
     GtkWidget *content_area = gtk_dialog_get_content_area(GTK_DIALOG (dialog));
@@ -107,25 +107,25 @@ void gnome_cmd_bookmark_dialog_new (const gchar *title, GtkWindow *parent)
     vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 12);
     gtk_box_pack_start (GTK_BOX (hbox), vbox, FALSE, FALSE, 0);
 
-    button = gtk_button_new_from_stock (GTK_STOCK_EDIT);
+    button = gtk_button_new_with_mnemonic (_("_Edit"));
     gtk_widget_set_sensitive (button, FALSE);
     g_signal_connect (button, "clicked", G_CALLBACK (edit_clicked_callback), view);
     gtk_box_pack_start (GTK_BOX (vbox), button, FALSE, FALSE, 0);
     g_object_set_data (G_OBJECT (dialog), "edit-button", button);
 
-    button = gtk_button_new_from_stock (GTK_STOCK_REMOVE);
+    button = gtk_button_new_with_mnemonic (_("_Remove"));
     gtk_widget_set_sensitive (button, FALSE);
     g_signal_connect (button, "clicked", G_CALLBACK (remove_clicked_callback), view);
     gtk_box_pack_start (GTK_BOX (vbox), button, FALSE, FALSE, 0);
     g_object_set_data (G_OBJECT (dialog), "remove-button", button);
 
-    button = gtk_button_new_from_stock (GTK_STOCK_GO_UP);
+    button = gtk_button_new_with_mnemonic (_("_Up"));
     gtk_widget_set_sensitive (button, FALSE);
     g_signal_connect (button, "clicked", G_CALLBACK (up_clicked_callback), view);
     gtk_box_pack_start (GTK_BOX (vbox), button, FALSE, FALSE, 0);
     g_object_set_data (G_OBJECT (dialog), "up-button", button);
 
-    button = gtk_button_new_from_stock (GTK_STOCK_GO_DOWN);
+    button = gtk_button_new_with_mnemonic (_("_Down"));
     gtk_widget_set_sensitive (button, FALSE);
     g_signal_connect (button, "clicked", G_CALLBACK (down_clicked_callback), view);
     gtk_box_pack_start (GTK_BOX (vbox), button, FALSE, FALSE, 0);

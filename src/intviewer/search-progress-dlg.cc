@@ -69,7 +69,7 @@ static void gviewer_search_progress_dlg_init (GViewerSearchProgressDlg *sdlg)
 
     gtk_window_set_title (GTK_WINDOW (dlg), _("Searching…"));
     gtk_window_set_modal (GTK_WINDOW (dlg), TRUE);
-    gtk_dialog_add_button (dlg, GTK_STOCK_STOP, 12);
+    gtk_dialog_add_button (dlg, _("_Stop"), 12);
 
     g_signal_connect_swapped (GTK_WIDGET (dlg), "response", G_CALLBACK (search_progress_dlg_action_response), sdlg);
 
