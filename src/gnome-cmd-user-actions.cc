@@ -2075,7 +2075,7 @@ void bookmarks_goto (GSimpleAction *action, GVariant *parameter, gpointer user_d
 {
     const gchar *con_uuid;
     const gchar *bookmark_name;
-    g_variant_get (parameter, "ss", &con_uuid, &bookmark_name);
+    g_variant_get (parameter, "(ss)", &con_uuid, &bookmark_name);
 
     GnomeCmdConList *con_list = gnome_cmd_con_list_get ();
     GnomeCmdCon *con = gnome_cmd_con_list_find_by_uuid (con_list, con_uuid);
@@ -2518,7 +2518,7 @@ const GActionEntry VIEW_ACTION_ENTRIES[] = {
 const GActionEntry BOOKMARK_ACTION_ENTRIES[] = {
     { "bookmarks-add-current",  bookmarks_add_current,  nullptr, nullptr, nullptr },
     { "bookmarks-edit",         bookmarks_edit,         nullptr, nullptr, nullptr },
-    { "bookmarks-goto",         bookmarks_goto,         nullptr, nullptr, nullptr },
+    { "bookmarks-goto",         bookmarks_goto,         "(ss)",  nullptr, nullptr },
     { "bookmarks-view",         bookmarks_view,         nullptr, nullptr, nullptr },
     { nullptr }
 };

@@ -118,7 +118,7 @@ static GMenu *create_bookmarks_menu ()
             {
                 auto bookmark = static_cast<GnomeCmdBookmark*> (bookmarks->data);
                 GMenuItem *item = g_menu_item_new (bookmark->name, nullptr);
-                g_menu_item_set_action_and_target (item, "win.bookmarks-goto", "ss", con_uuid, bookmark->name);
+                g_menu_item_set_action_and_target (item, "win.bookmarks-goto", "(ss)", con_uuid, bookmark->name);
                 g_menu_append_item (group_items, item);
             }
 
