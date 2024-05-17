@@ -113,20 +113,21 @@ static void gnome_cmd_patternsel_dialog_init (GnomeCmdPatternselDialog *dialog)
 
     dialog->priv->case_check = create_check_with_mnemonic (GTK_WIDGET (dialog), _("Case _sensitive"), "case_sens");
 
-    gtk_box_pack_start (GTK_BOX (vbox), hbox, TRUE, FALSE, 0);
-    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, FALSE, 0);
-    gtk_box_pack_start (GTK_BOX (hbox), dialog->priv->pattern_combo, TRUE, TRUE, 0);
+    gtk_box_append (GTK_BOX (vbox), hbox);
+    gtk_box_append (GTK_BOX (hbox), label);
+    gtk_widget_set_hexpand (dialog->priv->pattern_combo, TRUE);
+    gtk_box_append (GTK_BOX (hbox), dialog->priv->pattern_combo);
 
     hbox = create_hbox (GTK_WIDGET (dialog), FALSE, 6);
-    gtk_box_pack_start (GTK_BOX (vbox), hbox, TRUE, FALSE, 0);
-    gtk_box_pack_start (GTK_BOX (hbox), dialog->priv->case_check, TRUE, FALSE, 0);
+    gtk_box_append (GTK_BOX (vbox), hbox);
+    gtk_box_append (GTK_BOX (hbox), dialog->priv->case_check);
 
     radio = create_radio_with_mnemonic (GTK_WIDGET (dialog), NULL, _("She_ll syntax"), "shell_radio");
-    gtk_box_pack_end (GTK_BOX (hbox), radio, TRUE, FALSE, 0);
+    gtk_box_append (GTK_BOX (hbox), radio);
     if (gnome_cmd_data.search_defaults.default_profile.syntax == Filter::TYPE_FNMATCH)
         gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
     radio = create_radio_with_mnemonic (GTK_WIDGET (dialog), get_radio_group (radio), _("Rege_x syntax"), "regex_radio");
-    gtk_box_pack_end (GTK_BOX (hbox), radio, TRUE, FALSE, 0);
+    gtk_box_append (GTK_BOX (hbox), radio);
     if (gnome_cmd_data.search_defaults.default_profile.syntax == Filter::TYPE_REGEX)
         gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
 

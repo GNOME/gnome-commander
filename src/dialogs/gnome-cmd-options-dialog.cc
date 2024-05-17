@@ -82,12 +82,9 @@ static void on_confirm_delete_toggled (GtkToggleButton *togglebutton, GtkWidget 
 
 static GtkWidget *create_general_tab (GtkWidget *parent, GnomeCmdData::Options &cfg)
 {
-    GtkWidget *frame, *hbox, *vbox, *cat, *cat_box;
+    GtkWidget *vbox, *cat, *cat_box;
     GtkWidget *radio, *check;
 
-    frame = create_tabframe (parent);
-    hbox = create_tabhbox (parent);
-    gtk_container_add (GTK_CONTAINER (frame), hbox);
     vbox = create_tabvbox (parent);
 
     GtkWidget *scrolled_window;
@@ -101,7 +98,12 @@ static GtkWidget *create_general_tab (GtkWidget *parent, GnomeCmdData::Options &
     gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolled_window),
                                     GTK_POLICY_AUTOMATIC, GTK_POLICY_ALWAYS);
     /* pack the scrolled_window into the hbox */
-    gtk_box_pack_start (GTK_BOX (hbox), scrolled_window, TRUE, TRUE, 0);
+    gtk_widget_set_hexpand (scrolled_window, TRUE);
+    gtk_widget_set_vexpand (scrolled_window, TRUE);
+    gtk_widget_set_margin_top (scrolled_window, 6);
+    gtk_widget_set_margin_bottom (scrolled_window, 6);
+    gtk_widget_set_margin_start (scrolled_window, 6);
+    gtk_widget_set_margin_end (scrolled_window, 6);
     /* pack the vbox into the scrolled window */
     gtk_scrolled_window_add_with_viewport (GTK_SCROLLED_WINDOW (scrolled_window), vbox);
     /* https://stackoverflow.com/questions/9498699/remove-gtkscrolledwindow-frame-border-in-c */
@@ -110,33 +112,33 @@ static GtkWidget *create_general_tab (GtkWidget *parent, GnomeCmdData::Options &
     // Left mouse button settings
     cat_box = create_vbox (parent, FALSE, 0);
     cat = create_category (parent, cat_box, _("Left mouse button"));
-    gtk_box_pack_start (GTK_BOX (vbox), cat, FALSE, TRUE, 0);
+    gtk_box_append (GTK_BOX (vbox), cat);
 
     radio = create_radio (parent, NULL, _("Single click to open items"), "lmb_singleclick_radio");
-    gtk_box_pack_start (GTK_BOX (cat_box), radio, FALSE, TRUE, 0);
+    gtk_box_append (GTK_BOX (cat_box), radio);
     if (cfg.left_mouse_button_mode == GnomeCmdData::LEFT_BUTTON_OPENS_WITH_SINGLE_CLICK)
         gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
     radio = create_radio (parent, get_radio_group (radio), _("Double click to open items"), "lmb_doubleclick_radio");
-    gtk_container_add (GTK_CONTAINER (cat_box), radio);
+    gtk_box_append (GTK_BOX (cat_box), radio);
     if (cfg.left_mouse_button_mode == GnomeCmdData::LEFT_BUTTON_OPENS_WITH_DOUBLE_CLICK)
         gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
 
     check = create_check (parent, _("Single click unselects files"), "lmb_unselects_check");
-    gtk_box_pack_start (GTK_BOX (cat_box), check, FALSE, TRUE, 0);
+    gtk_box_append (GTK_BOX (cat_box), check);
     gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), cfg.left_mouse_button_unselects);
 
 
     // Middle mouse button settings
     cat_box = create_vbox (parent, FALSE, 0);
     cat = create_category (parent, cat_box, _("Middle mouse button"));
-    gtk_box_pack_start (GTK_BOX (vbox), cat, FALSE, TRUE, 0);
+    gtk_box_append (GTK_BOX (vbox), cat);
 
     radio = create_radio (parent, NULL, _("Up one directory"), "mmb_cd_up_radio");
-    gtk_box_pack_start (GTK_BOX (cat_box), radio, FALSE, TRUE, 0);
+    gtk_box_append (GTK_BOX (cat_box), radio);
     if (cfg.middle_mouse_button_mode == GnomeCmdData::MIDDLE_BUTTON_GOES_UP_DIR)
         gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
     radio = create_radio (parent, get_radio_group (radio), _("Opens new tab"), "mmb_new_tab_radio");
-    gtk_container_add (GTK_CONTAINER (cat_box), radio);
+    gtk_box_append (GTK_BOX (cat_box), radio);
     if (cfg.middle_mouse_button_mode == GnomeCmdData::MIDDLE_BUTTON_OPENS_NEW_TAB)
         gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
 
@@ -144,14 +146,14 @@ static GtkWidget *create_general_tab (GtkWidget *parent, GnomeCmdData::Options &
     // Right mouse button settings
     cat_box = create_vbox (parent, FALSE, 0);
     cat = create_category (parent, cat_box, _("Right mouse button"));
-    gtk_box_pack_start (GTK_BOX (vbox), cat, FALSE, TRUE, 0);
+    gtk_box_append (GTK_BOX (vbox), cat);
 
     radio = create_radio (parent, NULL, _("Shows popup menu"), "rmb_popup_radio");
-    gtk_box_pack_start (GTK_BOX (cat_box), radio, FALSE, TRUE, 0);
+    gtk_box_append (GTK_BOX (cat_box), radio);
     if (cfg.right_mouse_button_mode == GnomeCmdData::RIGHT_BUTTON_POPUPS_MENU)
         gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
     radio = create_radio (parent, get_radio_group (radio), _("Selects files"), "rmb_sel_radio");
-    gtk_container_add (GTK_CONTAINER (cat_box), radio);
+    gtk_box_append (GTK_BOX (cat_box), radio);
     if (cfg.right_mouse_button_mode == GnomeCmdData::RIGHT_BUTTON_SELECTS)
         gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
 
@@ -159,105 +161,105 @@ static GtkWidget *create_general_tab (GtkWidget *parent, GnomeCmdData::Options &
     // Delete options
     cat_box = create_vbox (parent, FALSE, 0);
     cat = create_category (parent, cat_box, _("Deletion"));
-    gtk_box_pack_start (GTK_BOX (vbox), cat, FALSE, TRUE, 0);
+    gtk_box_append (GTK_BOX (vbox), cat);
 
     check = create_check (parent, _("Move to trash"), "delete_to_trash");
-    gtk_box_pack_start (GTK_BOX (cat_box), check, FALSE, TRUE, 0);
+    gtk_box_append (GTK_BOX (cat_box), check);
     gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), cfg.deleteToTrash);
 
 
     // Selection options
     cat_box = create_vbox (parent, FALSE, 0);
     cat = create_category (parent, cat_box, _("Selection"));
-    gtk_box_pack_start (GTK_BOX (vbox), cat, FALSE, TRUE, 0);
+    gtk_box_append (GTK_BOX (vbox), cat);
 
     check = create_check (parent, _("Select directories"), "select_dirs");
-    gtk_box_pack_start (GTK_BOX (cat_box), check, FALSE, TRUE, 0);
+    gtk_box_append (GTK_BOX (cat_box), check);
     gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), cfg.select_dirs);
 
 
     // Sort options
     cat_box = create_vbox (parent, FALSE, 0);
     cat = create_category (parent, cat_box, _("Sorting/Quick search"));
-    gtk_box_pack_start (GTK_BOX (vbox), cat, FALSE, TRUE, 0);
+    gtk_box_append (GTK_BOX (vbox), cat);
 
     check = create_check (parent, _("Case sensitive"), "case_sens_check");
-    gtk_box_pack_start (GTK_BOX (cat_box), check, FALSE, TRUE, 0);
+    gtk_box_append (GTK_BOX (cat_box), check);
     gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), cfg.case_sens_sort);
 
 
     // Quick search options
     cat_box = create_vbox (parent, FALSE, 0);
     cat = create_category (parent, cat_box, _("Quick search"));
-    gtk_box_pack_start (GTK_BOX (vbox), cat, FALSE, TRUE, 0);
+    gtk_box_append (GTK_BOX (vbox), cat);
 
     radio = create_radio (parent, NULL, _("CTRL+ALT+letters"), "ctrl_alt_quick_search");
-    gtk_box_pack_start (GTK_BOX (cat_box), radio, FALSE, TRUE, 0);
+    gtk_box_append (GTK_BOX (cat_box), radio);
     if (cfg.quick_search == GNOME_CMD_QUICK_SEARCH_CTRL_ALT)
         gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
     radio = create_radio (parent, get_radio_group (radio), _("ALT+letters (menu access with F12)"), "alt_quick_search");
-    gtk_container_add (GTK_CONTAINER (cat_box), radio);
+    gtk_box_append (GTK_BOX (cat_box), radio);
     if (cfg.quick_search == GNOME_CMD_QUICK_SEARCH_ALT)
         gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
     radio = create_radio (parent, get_radio_group (radio), _("Just letters (command line access with CTRL+ALT+C)"), "quick_search");
-    gtk_container_add (GTK_CONTAINER (cat_box), radio);
+    gtk_box_append (GTK_BOX (cat_box), radio);
     if (cfg.quick_search == GNOME_CMD_QUICK_SEARCH_JUST_A_CHARACTER)
         gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
 
     check = create_check (parent, _("Match beginning of the file name"), "qsearch_exact_match_begin");
-    gtk_box_pack_start (GTK_BOX (cat_box), check, FALSE, TRUE, 0);
+    gtk_box_append (GTK_BOX (cat_box), check);
     gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), cfg.quick_search_exact_match_begin);
 
     check = create_check (parent, _("Match end of the file name"), "qsearch_exact_match_end");
-    gtk_box_pack_start (GTK_BOX (cat_box), check, FALSE, TRUE, 0);
+    gtk_box_append (GTK_BOX (cat_box), check);
     gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), cfg.quick_search_exact_match_end);
 
     // Search window options
     cat_box = create_vbox (parent, FALSE, 0);
     cat = create_category (parent, cat_box, _("Search Window"));
-    gtk_box_pack_start (GTK_BOX (vbox), cat, FALSE, TRUE, 0);
+    gtk_box_append (GTK_BOX (vbox), cat);
 
     check = create_check (parent, _("Search window is minimizable\n(Needs program restart if altered)"), "search_window_transient");
-    gtk_box_pack_start (GTK_BOX (cat_box), check, FALSE, TRUE, 0);
+    gtk_box_append (GTK_BOX (cat_box), check);
     gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), !cfg.search_window_is_transient);
 
     // Multiple instances
     cat_box = create_vbox (parent, FALSE, 0);
     cat = create_category (parent, cat_box, _("Multiple instances"));
-    gtk_box_pack_start (GTK_BOX (vbox), cat, FALSE, TRUE, 0);
+    gtk_box_append (GTK_BOX (vbox), cat);
 
     check = create_check (parent, _("Don’t start a new instance"), "multiple_instance_check");
-    gtk_box_pack_start (GTK_BOX (cat_box), check, FALSE, TRUE, 0);
+    gtk_box_append (GTK_BOX (cat_box), check);
     gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), !cfg.allow_multiple_instances);
 
     // Save on exit
     cat_box = create_vbox (parent, FALSE, 0);
     cat = create_category (parent, cat_box, _("Save on exit"));
-    gtk_box_pack_start (GTK_BOX (vbox), cat, FALSE, TRUE, 0);
+    gtk_box_append (GTK_BOX (vbox), cat);
 
     check = create_check (parent, _("Directories"), "save_dirs");
-    gtk_box_pack_start (GTK_BOX (cat_box), check, FALSE, TRUE, 0);
+    gtk_box_append (GTK_BOX (cat_box), check);
     gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), cfg.save_dirs_on_exit);
 
     check = create_check (parent, _("Tabs"), "save_tabs");
-    gtk_box_pack_start (GTK_BOX (cat_box), check, FALSE, TRUE, 0);
+    gtk_box_append (GTK_BOX (cat_box), check);
     g_signal_connect (check, "toggled", G_CALLBACK (on_save_tabs_toggled), parent);
     gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), cfg.save_tabs_on_exit);
 
     check = create_check (parent, _("Directory history"), "save_dir_history");
-    gtk_box_pack_start (GTK_BOX (cat_box), check, FALSE, TRUE, 0);
+    gtk_box_append (GTK_BOX (cat_box), check);
     gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), cfg.save_dir_history_on_exit);
 
     check = create_check (parent, _("Commandline history"), "save_cmdline_history");
-    gtk_box_pack_start (GTK_BOX (cat_box), check, FALSE, TRUE, 0);
+    gtk_box_append (GTK_BOX (cat_box), check);
     gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), cfg.save_cmdline_history_on_exit);
 
     check = create_check (parent, _("Search history"), "save_search_history");
-    gtk_box_pack_start (GTK_BOX (cat_box), check, FALSE, TRUE, 0);
+    gtk_box_append (GTK_BOX (cat_box), check);
     gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), cfg.save_search_history_on_exit);
 
 
-    return frame;
+    return scrolled_window;
 }
 
 
@@ -347,45 +349,47 @@ static void on_date_format_update (GtkEditable *editable, GtkWidget *options_dia
 
 static GtkWidget *create_format_tab (GtkWidget *parent, GnomeCmdData::Options &cfg)
 {
-    GtkWidget *frame, *hbox, *scrolled_window, *vbox, *cat, *cat_box, *grid;
+    GtkWidget *scrolled_window, *vbox, *cat, *cat_box, *grid;
     GtkWidget *radio, *label, *entry;
 
-    frame = create_tabframe (parent);
-    hbox = create_tabhbox (parent);
-    gtk_container_add (GTK_CONTAINER (frame), hbox);
     vbox = create_tabvbox (parent);
 
     scrolled_window = gtk_scrolled_window_new (NULL, NULL);
     gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolled_window),
                                     GTK_POLICY_AUTOMATIC, GTK_POLICY_ALWAYS);
-    gtk_box_pack_start (GTK_BOX (hbox), scrolled_window, TRUE, TRUE, 0);
+    gtk_widget_set_hexpand (scrolled_window, TRUE);
+    gtk_widget_set_vexpand (scrolled_window, TRUE);
+    gtk_widget_set_margin_top (scrolled_window, 6);
+    gtk_widget_set_margin_bottom (scrolled_window, 6);
+    gtk_widget_set_margin_start (scrolled_window, 6);
+    gtk_widget_set_margin_end (scrolled_window, 6);
     gtk_scrolled_window_add_with_viewport (GTK_SCROLLED_WINDOW (scrolled_window), vbox);
     gtk_viewport_set_shadow_type(GTK_VIEWPORT (gtk_bin_get_child (GTK_BIN (scrolled_window))), GTK_SHADOW_NONE);
 
     // Size display mode
     cat_box = create_vbox (parent, FALSE, 0);
     cat = create_category (parent, cat_box, _("Size display mode"));
-    gtk_box_pack_start (GTK_BOX (vbox), cat, FALSE, TRUE, 0);
+    gtk_box_append (GTK_BOX (vbox), cat);
 
     // Translators: 'Powered' refers to the mode of file size display (here - display using units of data: kB, MB, GB, ...)
     radio = create_radio (parent, NULL, _("Powered"), "size_powered_radio");
-    gtk_container_add (GTK_CONTAINER (cat_box), radio);
+    gtk_box_append (GTK_BOX (cat_box), radio);
     if (cfg.size_disp_mode == GNOME_CMD_SIZE_DISP_MODE_POWERED)
         gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
 
     // Translators: '<locale>' refers to the mode of file size display (here - use current locale settings)
     radio = create_radio (parent, get_radio_group (radio), _("<locale>"), "size_locale_radio");
-    gtk_container_add (GTK_CONTAINER (cat_box), radio);
+    gtk_box_append (GTK_BOX (cat_box), radio);
     if (cfg.size_disp_mode == GNOME_CMD_SIZE_DISP_MODE_LOCALE)
         gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
 
     radio = create_radio (parent, get_radio_group (radio), _("Grouped"), "size_grouped_radio");
-    gtk_container_add (GTK_CONTAINER (cat_box), radio);
+    gtk_box_append (GTK_BOX (cat_box), radio);
     if (cfg.size_disp_mode == GNOME_CMD_SIZE_DISP_MODE_GROUPED)
         gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
 
     radio = create_radio (parent, get_radio_group (radio), _("Plain"), "size_plain_radio");
-    gtk_container_add (GTK_CONTAINER (cat_box), radio);
+    gtk_box_append (GTK_BOX (cat_box), radio);
     if (cfg.size_disp_mode == GNOME_CMD_SIZE_DISP_MODE_PLAIN)
         gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
 
@@ -393,15 +397,15 @@ static GtkWidget *create_format_tab (GtkWidget *parent, GnomeCmdData::Options &c
     // Permission display mode
     cat_box = create_vbox (parent, FALSE, 0);
     cat = create_category (parent, cat_box, _("Permission display mode"));
-    gtk_box_pack_start (GTK_BOX (vbox), cat, FALSE, TRUE, 0);
+    gtk_box_append (GTK_BOX (vbox), cat);
 
     radio = create_radio (parent, NULL, _("Text (rw-r--r--)"), "perm_text_radio");
-    gtk_container_add (GTK_CONTAINER (cat_box), radio);
+    gtk_box_append (GTK_BOX (cat_box), radio);
     if (cfg.perm_disp_mode == GNOME_CMD_PERM_DISP_MODE_TEXT)
         gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
 
     radio = create_radio (parent, get_radio_group (radio), _("Number (644)"), "perm_num_radio");
-    gtk_container_add (GTK_CONTAINER (cat_box), radio);
+    gtk_box_append (GTK_BOX (cat_box), radio);
     if (cfg.perm_disp_mode == GNOME_CMD_PERM_DISP_MODE_NUMBER)
         gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
 
@@ -409,7 +413,7 @@ static GtkWidget *create_format_tab (GtkWidget *parent, GnomeCmdData::Options &c
     // Date options
     grid = create_grid (parent);
     cat = create_category (parent, grid, _("Date format"));
-    gtk_box_pack_start (GTK_BOX (vbox), cat, FALSE, FALSE, 0);
+    gtk_box_append (GTK_BOX (vbox), cat);
 
     label = create_label (parent, _("Format:"));
     gtk_grid_attach (GTK_GRID (grid), label, 0, 0, 1, 1);
@@ -434,7 +438,7 @@ static GtkWidget *create_format_tab (GtkWidget *parent, GnomeCmdData::Options &c
     gtk_label_set_line_wrap (GTK_LABEL (label), TRUE);
     gtk_grid_attach (GTK_GRID (grid), label, 1, 2, 1, 1);
 
-    return frame;
+    return scrolled_window;
 }
 
 
@@ -531,7 +535,7 @@ static void on_colors_edit (GtkButton *btn, GtkWidget *parent)
     gnome_cmd_dialog_add_category (GNOME_CMD_DIALOG (dlg), cat);
 
     grid = create_grid (dlg);
-    gtk_container_add (GTK_CONTAINER (cat_box), grid);
+    gtk_box_append (GTK_BOX (cat_box), grid);
 
     cbutton = create_color_button (dlg, "default_fg");
     gtk_grid_attach (GTK_GRID (grid), cbutton, 1, 1, 1, 1);
@@ -673,7 +677,7 @@ static void on_ls_colors_edit (GtkButton *btn, GtkWidget *parent)
     gnome_cmd_dialog_add_category (GNOME_CMD_DIALOG (dlg), cat);
 
     grid = create_grid (dlg);
-    gtk_container_add (GTK_CONTAINER (cat_box), grid);
+    gtk_box_append (GTK_BOX (cat_box), grid);
 
     cbutton = create_color_button (dlg, "black_fg");
     gtk_grid_attach (GTK_GRID (grid), cbutton, 1, 1, 1, 1);
@@ -779,7 +783,7 @@ static void on_ls_colors_edit (GtkButton *btn, GtkWidget *parent)
 
 static GtkWidget *create_layout_tab (GtkWidget *parent, GnomeCmdData::Options &cfg)
 {
-    GtkWidget *frame, *hbox, *scrolled_window, *vbox, *cat;
+    GtkWidget *hbox, *scrolled_window, *vbox, *cat;
     GtkWidget *entry, *spin, *scale, *grid, *label, *fpicker, *btn;
     GtkWidget *lm_combo, *cm_combo, *fe_combo, *check;
     const gchar *ext_modes[] = {
@@ -807,22 +811,24 @@ static GtkWidget *create_layout_tab (GtkWidget *parent, GnomeCmdData::Options &c
         NULL
     };
 
-    frame = create_tabframe (parent);
-    hbox = create_tabhbox (parent);
-    gtk_container_add (GTK_CONTAINER (frame), hbox);
     vbox = create_tabvbox (parent);
 
     scrolled_window = gtk_scrolled_window_new (NULL, NULL);
     gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolled_window),
                                     GTK_POLICY_AUTOMATIC, GTK_POLICY_ALWAYS);
-    gtk_box_pack_start (GTK_BOX (hbox), scrolled_window, TRUE, TRUE, 0);
+    gtk_widget_set_hexpand (scrolled_window, TRUE);
+    gtk_widget_set_vexpand (scrolled_window, TRUE);
+    gtk_widget_set_margin_top (scrolled_window, 6);
+    gtk_widget_set_margin_bottom (scrolled_window, 6);
+    gtk_widget_set_margin_start (scrolled_window, 6);
+    gtk_widget_set_margin_end (scrolled_window, 6);
     gtk_scrolled_window_add_with_viewport (GTK_SCROLLED_WINDOW (scrolled_window), vbox);
     gtk_viewport_set_shadow_type(GTK_VIEWPORT (gtk_bin_get_child (GTK_BIN (scrolled_window))), GTK_SHADOW_NONE);
 
     // File panes
     grid = create_grid (parent);
     cat = create_category (parent, grid, _("File panes"));
-    gtk_box_pack_start (GTK_BOX (vbox), cat, FALSE, TRUE, 0);
+    gtk_box_append (GTK_BOX (vbox), cat);
 
     fpicker = create_font_picker (parent, "list_font_picker");
     gtk_grid_attach (GTK_GRID (grid), fpicker, 1, 0, 1, 1);
@@ -865,12 +871,13 @@ static GtkWidget *create_layout_tab (GtkWidget *parent, GnomeCmdData::Options &c
     cm_combo = create_combo_box_text (parent, color_modes);
     g_object_set_data (G_OBJECT (parent), "cm_combo", cm_combo);
     g_signal_connect (cm_combo, "changed", G_CALLBACK (on_color_mode_changed), parent);
-    gtk_box_pack_start (GTK_BOX (hbox), cm_combo, TRUE, TRUE, 0);
+    gtk_widget_set_hexpand (cm_combo, TRUE);
+    gtk_box_append (GTK_BOX (hbox), cm_combo);
 
 
     btn = create_button_with_data (parent, _("Edit…"), G_CALLBACK (on_colors_edit), parent);
     g_object_set_data (G_OBJECT (parent), "color_btn", btn);
-    gtk_box_pack_start (GTK_BOX (hbox), btn, FALSE, TRUE, 0);
+    gtk_box_append (GTK_BOX (hbox), btn);
     gtk_widget_set_sensitive (btn, cfg.color_mode == GNOME_CMD_COLOR_CUSTOM);
 
 
@@ -881,11 +888,12 @@ static GtkWidget *create_layout_tab (GtkWidget *parent, GnomeCmdData::Options &c
     gtk_grid_attach (GTK_GRID (grid), hbox, 0, 5, 2, 1);
 
     g_signal_connect (check, "toggled", G_CALLBACK (on_ls_colors_toggled), parent);
-    gtk_box_pack_start (GTK_BOX (hbox), check, TRUE, TRUE, 0);
+    gtk_widget_set_hexpand (check, TRUE);
+    gtk_box_append (GTK_BOX (hbox), check);
 
     btn = create_button_with_data (parent, _("Edit colors…"), G_CALLBACK (on_ls_colors_edit), parent);
     g_object_set_data (G_OBJECT (parent), "ls_colors_edit_btn", btn);
-    gtk_box_pack_start (GTK_BOX (hbox), btn, FALSE, TRUE, 0);
+    gtk_box_append (GTK_BOX (hbox), btn);
     gtk_widget_set_sensitive (btn, cfg.use_ls_colors);
 
 
@@ -893,7 +901,7 @@ static GtkWidget *create_layout_tab (GtkWidget *parent, GnomeCmdData::Options &c
     grid = create_grid (parent);
     cat = create_category (parent, grid, _("MIME icon settings"));
     g_object_set_data (G_OBJECT (parent), "mime_icon_settings_frame", cat);
-    gtk_box_pack_start (GTK_BOX (vbox), cat, FALSE, FALSE, 0);
+    gtk_box_append (GTK_BOX (vbox), cat);
 
     spin = create_spin (parent, "iconsize_spin", 8, 64, cfg.icon_size);
     gtk_grid_attach (GTK_GRID (grid), spin, 1, 0, 1, 1);
@@ -913,7 +921,7 @@ static GtkWidget *create_layout_tab (GtkWidget *parent, GnomeCmdData::Options &c
     gtk_combo_box_set_active (GTK_COMBO_BOX (lm_combo), (gint) cfg.layout);
     gtk_combo_box_set_active (GTK_COMBO_BOX (cm_combo), (gint) cfg.color_mode);
 
-    return frame;
+    return scrolled_window;
 }
 
 
@@ -975,50 +983,52 @@ void store_layout_options (GtkWidget *dialog, GnomeCmdData::Options &cfg)
 
 GtkWidget *create_tabs_tab (GtkWidget *parent, GnomeCmdData::Options &cfg)
 {
-    GtkWidget *frame, *hbox, *scrolled_window, *vbox, *cat, *cat_box;
+    GtkWidget *scrolled_window, *vbox, *cat, *cat_box;
     GtkWidget *radio, *check;
 
-    frame = create_tabframe (parent);
-    hbox = create_tabhbox (parent);
-    gtk_container_add (GTK_CONTAINER (frame), hbox);
     vbox = create_tabvbox (parent);
 
     scrolled_window = gtk_scrolled_window_new (NULL, NULL);
     gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolled_window),
                                     GTK_POLICY_AUTOMATIC, GTK_POLICY_ALWAYS);
-    gtk_box_pack_start (GTK_BOX (hbox), scrolled_window, TRUE, TRUE, 0);
+    gtk_widget_set_hexpand (scrolled_window, TRUE);
+    gtk_widget_set_vexpand (scrolled_window, TRUE);
+    gtk_widget_set_margin_top (scrolled_window, 6);
+    gtk_widget_set_margin_bottom (scrolled_window, 6);
+    gtk_widget_set_margin_start (scrolled_window, 6);
+    gtk_widget_set_margin_end (scrolled_window, 6);
     gtk_scrolled_window_add_with_viewport (GTK_SCROLLED_WINDOW (scrolled_window), vbox);
     gtk_viewport_set_shadow_type(GTK_VIEWPORT (gtk_bin_get_child (GTK_BIN (scrolled_window))), GTK_SHADOW_NONE);
 
     cat_box = create_vbox (parent, FALSE, 0);
     cat = create_category (parent, cat_box, _("Tab bar"));
-    gtk_box_pack_start (GTK_BOX (vbox), cat, FALSE, TRUE, 0);
+    gtk_box_append (GTK_BOX (vbox), cat);
 
     check = create_check (parent, _("Always show the tab bar"), "always_show_tabs");
-    gtk_box_pack_start (GTK_BOX (cat_box), check, FALSE, TRUE, 0);
+    gtk_box_append (GTK_BOX (cat_box), check);
     gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), cfg.always_show_tabs);
 
 
     cat_box = create_vbox (parent, FALSE, 0);
     cat = create_category (parent, cat_box, _("Tab lock indicator"));
-    gtk_box_pack_start (GTK_BOX (vbox), cat, FALSE, TRUE, 0);
+    gtk_box_append (GTK_BOX (vbox), cat);
 
     radio = create_radio (parent, NULL, _("Lock icon"), "tab_lock_icon_radio");
-    gtk_container_add (GTK_CONTAINER (cat_box), radio);
+    gtk_box_append (GTK_BOX (cat_box), radio);
     if (cfg.tab_lock_indicator == GnomeCmdData::TAB_LOCK_ICON)
         gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
 
     radio = create_radio (parent, get_radio_group (radio), _("* (asterisk)"), "tab_lock_asterisk_radio");
-    gtk_container_add (GTK_CONTAINER (cat_box), radio);
+    gtk_box_append (GTK_BOX (cat_box), radio);
     if (cfg.tab_lock_indicator == GnomeCmdData::TAB_LOCK_ASTERISK)
         gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
 
     radio = create_radio (parent, get_radio_group (radio), _("Styled text"), "tab_lock_style_radio");
-    gtk_container_add (GTK_CONTAINER (cat_box), radio);
+    gtk_box_append (GTK_BOX (cat_box), radio);
     if (cfg.tab_lock_indicator == GnomeCmdData::TAB_LOCK_STYLED_TEXT)
         gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
 
-    return frame;
+    return scrolled_window;
 }
 
 
@@ -1047,18 +1057,20 @@ void store_tabs_options (GtkWidget *dialog, GnomeCmdData::Options &cfg)
 
 static GtkWidget *create_confirmation_tab (GtkWidget *parent, GnomeCmdData::Options &cfg)
 {
-    GtkWidget *frame, *hbox, *scrolled_window, *vbox, *cat, *cat_box;
+    GtkWidget *scrolled_window, *vbox, *cat, *cat_box;
     GtkWidget *radio, *check;
 
-    frame = create_tabframe (parent);
-    hbox = create_tabhbox (parent);
-    gtk_container_add (GTK_CONTAINER (frame), hbox);
     vbox = create_tabvbox (parent);
 
     scrolled_window = gtk_scrolled_window_new (NULL, NULL);
     gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolled_window),
                                     GTK_POLICY_AUTOMATIC, GTK_POLICY_ALWAYS);
-    gtk_box_pack_start (GTK_BOX (hbox), scrolled_window, TRUE, TRUE, 0);
+    gtk_widget_set_hexpand (scrolled_window, TRUE);
+    gtk_widget_set_vexpand (scrolled_window, TRUE);
+    gtk_widget_set_margin_top (scrolled_window, 6);
+    gtk_widget_set_margin_bottom (scrolled_window, 6);
+    gtk_widget_set_margin_start (scrolled_window, 6);
+    gtk_widget_set_margin_end (scrolled_window, 6);
     gtk_scrolled_window_add_with_viewport (GTK_SCROLLED_WINDOW (scrolled_window), vbox);
     gtk_viewport_set_shadow_type(GTK_VIEWPORT (gtk_bin_get_child (GTK_BIN (scrolled_window))), GTK_SHADOW_NONE);
 
@@ -1067,15 +1079,15 @@ static GtkWidget *create_confirmation_tab (GtkWidget *parent, GnomeCmdData::Opti
      */
     cat_box = create_vbox (parent, FALSE, 0);
     cat = create_category (parent, cat_box, _("Delete"));
-    gtk_box_pack_start (GTK_BOX (vbox), cat, FALSE, TRUE, 0);
+    gtk_box_append (GTK_BOX (vbox), cat);
 
     check = create_check (parent, _("Confirm before delete"), "confirm_delete_check");
-    gtk_box_pack_start (GTK_BOX (cat_box), check, FALSE, TRUE, 0);
+    gtk_box_append (GTK_BOX (cat_box), check);
     gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), cfg.confirm_delete);
     g_signal_connect (check, "toggled", G_CALLBACK (on_confirm_delete_toggled), parent);
 
     check = create_check (parent, _("Confirm defaults to OK"), "delete_default_check");
-    gtk_box_pack_start (GTK_BOX (cat_box), check, FALSE, TRUE, 0);
+    gtk_box_append (GTK_BOX (cat_box), check);
     gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), cfg.confirm_delete_default!=GTK_BUTTONS_CANCEL);
     gtk_widget_set_sensitive (check, cfg.confirm_delete);
 
@@ -1084,22 +1096,22 @@ static GtkWidget *create_confirmation_tab (GtkWidget *parent, GnomeCmdData::Opti
      */
     cat_box = create_vbox (parent, FALSE, 0);
     cat = create_category (parent, cat_box, _("Preselected overwrite action in copy dialog"));
-    gtk_box_pack_start (GTK_BOX (vbox), cat, FALSE, TRUE, 0);
+    gtk_box_append (GTK_BOX (vbox), cat);
 
     radio = create_radio (parent, NULL, _("Query first"), "copy_overwrite_query");
-    gtk_container_add (GTK_CONTAINER (cat_box), radio);
+    gtk_box_append (GTK_BOX (cat_box), radio);
     if (cfg.confirm_copy_overwrite==GNOME_CMD_CONFIRM_OVERWRITE_QUERY)
         gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
     radio = create_radio (parent, get_radio_group (radio), _("Rename"), "copy_rename_all");
-    gtk_container_add (GTK_CONTAINER (cat_box), radio);
+    gtk_box_append (GTK_BOX (cat_box), radio);
     if (cfg.confirm_copy_overwrite==GNOME_CMD_CONFIRM_OVERWRITE_RENAME_ALL)
         gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
     radio = create_radio (parent, get_radio_group (radio), _("Skip"), "copy_overwrite_skip_all");
-    gtk_container_add (GTK_CONTAINER (cat_box), radio);
+    gtk_box_append (GTK_BOX (cat_box), radio);
     if (cfg.confirm_copy_overwrite==GNOME_CMD_CONFIRM_OVERWRITE_SKIP_ALL)
         gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
     radio = create_radio (parent, get_radio_group (radio), _("Overwrite silently"), "copy_overwrite_silently");
-    gtk_box_pack_start (GTK_BOX (cat_box), radio, FALSE, TRUE, 0);
+    gtk_box_append (GTK_BOX (cat_box), radio);
     if (cfg.confirm_copy_overwrite==GNOME_CMD_CONFIRM_OVERWRITE_SILENTLY)
         gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
 
@@ -1108,22 +1120,22 @@ static GtkWidget *create_confirmation_tab (GtkWidget *parent, GnomeCmdData::Opti
      */
     cat_box = create_vbox (parent, FALSE, 0);
     cat = create_category (parent, cat_box, _("Preselected overwrite action in move dialog"));
-    gtk_box_pack_start (GTK_BOX (vbox), cat, FALSE, TRUE, 0);
+    gtk_box_append (GTK_BOX (vbox), cat);
 
     radio = create_radio (parent, NULL, _("Query first"), "move_overwrite_query");
-    gtk_container_add (GTK_CONTAINER (cat_box), radio);
+    gtk_box_append (GTK_BOX (cat_box), radio);
     if (cfg.confirm_move_overwrite==GNOME_CMD_CONFIRM_OVERWRITE_QUERY)
         gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
     radio = create_radio (parent, get_radio_group (radio), _("Rename"), "move_rename_all");
-    gtk_container_add (GTK_CONTAINER (cat_box), radio);
+    gtk_box_append (GTK_BOX (cat_box), radio);
     if (cfg.confirm_move_overwrite==GNOME_CMD_CONFIRM_OVERWRITE_RENAME_ALL)
         gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
     radio = create_radio (parent, get_radio_group (radio), _("Skip"), "move_overwrite_skip_all");
-    gtk_container_add (GTK_CONTAINER (cat_box), radio);
+    gtk_box_append (GTK_BOX (cat_box), radio);
     if (cfg.confirm_move_overwrite==GNOME_CMD_CONFIRM_OVERWRITE_SKIP_ALL)
         gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
     radio = create_radio (parent, get_radio_group (radio), _("Overwrite silently"), "move_overwrite_silently");
-    gtk_box_pack_start (GTK_BOX (cat_box), radio, FALSE, TRUE, 0);
+    gtk_box_append (GTK_BOX (cat_box), radio);
     if (cfg.confirm_move_overwrite==GNOME_CMD_CONFIRM_OVERWRITE_SILENTLY)
         gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
 
@@ -1132,22 +1144,22 @@ static GtkWidget *create_confirmation_tab (GtkWidget *parent, GnomeCmdData::Opti
      */
     cat_box = create_vbox (parent, FALSE, 0);
     cat = create_category (parent, cat_box, _("Default Drag and Drop Action"));
-    gtk_box_pack_start (GTK_BOX (vbox), cat, FALSE, TRUE, 0);
+    gtk_box_append (GTK_BOX (vbox), cat);
 
     radio = create_radio (parent, NULL, _("Confirm mouse operation"), "mouse_dnd_default");
-    gtk_container_add (GTK_CONTAINER (cat_box), radio);
+    gtk_box_append (GTK_BOX (cat_box), radio);
     if (cfg.mouse_dnd_default==GNOME_CMD_DEFAULT_DND_QUERY)
         gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
     radio = create_radio (parent, get_radio_group (radio), _("Copy"), "mouse_dnd_copy");
-    gtk_container_add (GTK_CONTAINER (cat_box), radio);
+    gtk_box_append (GTK_BOX (cat_box), radio);
     if (cfg.mouse_dnd_default==GNOME_CMD_DEFAULT_DND_COPY)
         gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
     radio = create_radio (parent, get_radio_group (radio), _("Move"), "mouse_dnd_move");
-    gtk_container_add (GTK_CONTAINER (cat_box), radio);
+    gtk_box_append (GTK_BOX (cat_box), radio);
     if (cfg.mouse_dnd_default==GNOME_CMD_DEFAULT_DND_MOVE)
         gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
 
-    return frame;
+    return scrolled_window;
 }
 
 
@@ -1220,77 +1232,79 @@ static void on_filter_backup_files_toggled (GtkToggleButton *btn, GtkWidget *dia
 
 GtkWidget *create_filter_tab (GtkWidget *parent, GnomeCmdData::Options &cfg)
 {
-    GtkWidget *frame, *hbox, *vbox, *scrolled_window, *cat, *cat_box;
+    GtkWidget *vbox, *scrolled_window, *cat, *cat_box;
     GtkWidget *check, *backup_check, *entry;
 
-    frame = create_tabframe (parent);
-    hbox = create_tabhbox (parent);
-    gtk_container_add (GTK_CONTAINER (frame), hbox);
     vbox = create_tabvbox (parent);
 
     scrolled_window = gtk_scrolled_window_new (NULL, NULL);
     gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolled_window),
                                     GTK_POLICY_AUTOMATIC, GTK_POLICY_ALWAYS);
-    gtk_box_pack_start (GTK_BOX (hbox), scrolled_window, TRUE, TRUE, 0);
+    gtk_widget_set_hexpand (scrolled_window, TRUE);
+    gtk_widget_set_vexpand (scrolled_window, TRUE);
+    gtk_widget_set_margin_top (scrolled_window, 6);
+    gtk_widget_set_margin_bottom (scrolled_window, 6);
+    gtk_widget_set_margin_start (scrolled_window, 6);
+    gtk_widget_set_margin_end (scrolled_window, 6);
     gtk_scrolled_window_add_with_viewport (GTK_SCROLLED_WINDOW (scrolled_window), vbox);
     gtk_viewport_set_shadow_type(GTK_VIEWPORT (gtk_bin_get_child (GTK_BIN (scrolled_window))), GTK_SHADOW_NONE);
 
     cat_box = create_vbox (parent, FALSE, 0);
     cat = create_category (parent, cat_box, _("Filetypes to hide"));
-    gtk_box_pack_start (GTK_BOX (vbox), cat, FALSE, FALSE, 0);
+    gtk_box_append (GTK_BOX (vbox), cat);
 
     check = create_check (parent, _("Unknown"), "hide_unknown_check");
-    gtk_container_add (GTK_CONTAINER (cat_box), check);
+    gtk_box_append (GTK_BOX (cat_box), check);
     gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), cfg.filter.file_types[GnomeCmdData::G_FILE_IS_UNKNOWN]);
     check = create_check (parent, _("Regular files"), "hide_regular_check");
-    gtk_container_add (GTK_CONTAINER (cat_box), check);
+    gtk_box_append (GTK_BOX (cat_box), check);
     gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), cfg.filter.file_types[GnomeCmdData::G_FILE_IS_REGULAR]);
     check = create_check (parent, _("Directories"), "hide_directory_check");
-    gtk_container_add (GTK_CONTAINER (cat_box), check);
+    gtk_box_append (GTK_BOX (cat_box), check);
     gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), cfg.filter.file_types[GnomeCmdData::G_FILE_IS_DIR]);
     check = create_check (parent, _("Socket, fifo, block, or character devices"), "hide_special_check");
-    gtk_container_add (GTK_CONTAINER (cat_box), check);
+    gtk_box_append (GTK_BOX (cat_box), check);
     gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), cfg.filter.file_types[GnomeCmdData::G_FILE_IS_SPECIAL]);
     check = create_check (parent, _("Shortcuts (Windows systems)"), "hide_shortcut_check");
-    gtk_container_add (GTK_CONTAINER (cat_box), check);
+    gtk_box_append (GTK_BOX (cat_box), check);
     gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), cfg.filter.file_types[GnomeCmdData::G_FILE_IS_SHORTCUT]);
     check = create_check (parent, _("Mountable locations"), "hide_mountable_check");
-    gtk_container_add (GTK_CONTAINER (cat_box), check);
+    gtk_box_append (GTK_BOX (cat_box), check);
     gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), cfg.filter.file_types[GnomeCmdData::G_FILE_IS_MOUNTABLE]);
     check = create_check (parent, _("Virtual files"), "hide_virtual_check");
-    gtk_container_add (GTK_CONTAINER (cat_box), check);
+    gtk_box_append (GTK_BOX (cat_box), check);
     gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), cfg.filter.file_types[GnomeCmdData::G_FILE_IS_VIRTUAL]);
     check = create_check (parent, _("Volatile files"), "hide_volatile_check");
-    gtk_container_add (GTK_CONTAINER (cat_box), check);
+    gtk_box_append (GTK_BOX (cat_box), check);
     gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), cfg.filter.file_types[GnomeCmdData::G_FILE_IS_VOLATILE]);
 
     cat_box = create_vbox (parent, FALSE, 0);
     cat = create_category (parent, cat_box, _("Also hide"));
-    gtk_box_pack_start (GTK_BOX (vbox), cat, FALSE, FALSE, 0);
+    gtk_box_append (GTK_BOX (vbox), cat);
 
     check = create_check (parent, _("Hidden files"), "hide_hidden_check");
-    gtk_container_add (GTK_CONTAINER (cat_box), check);
+    gtk_box_append (GTK_BOX (cat_box), check);
     gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), cfg.filter.file_types[GnomeCmdData::G_FILE_IS_HIDDEN]);
     backup_check = create_check (parent, _("Backup files"), "hide_backup_check");
-    gtk_container_add (GTK_CONTAINER (cat_box), backup_check);
+    gtk_box_append (GTK_BOX (cat_box), backup_check);
     gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (backup_check), cfg.filter.file_types[GnomeCmdData::G_FILE_IS_BACKUP]);
     check = create_check (parent, _("Symlinks"), "hide_symlink_check");
-    gtk_container_add (GTK_CONTAINER (cat_box), check);
+    gtk_box_append (GTK_BOX (cat_box), check);
     gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), cfg.filter.file_types[GnomeCmdData::G_FILE_IS_SYMLINK]);
 
 
     cat_box = create_vbox (parent, FALSE, 0);
     cat = create_category (parent, cat_box, _("Backup files"));
-    gtk_box_pack_start (GTK_BOX (vbox), cat, FALSE, FALSE, 0);
+    gtk_box_append (GTK_BOX (vbox), cat);
 
     entry = create_entry (parent, "backup_pattern_entry", cfg.backup_pattern);
-    gtk_box_pack_start (GTK_BOX (cat_box), entry, TRUE, FALSE, 0);
+    gtk_box_append (GTK_BOX (cat_box), entry);
     gtk_widget_set_sensitive (entry, cfg.filter.file_types[GnomeCmdData::G_FILE_IS_BACKUP]);
 
 
-    g_signal_connect (backup_check, "toggled", G_CALLBACK (on_filter_backup_files_toggled), frame);
+    g_signal_connect (backup_check, "toggled", G_CALLBACK (on_filter_backup_files_toggled), scrolled_window);
 
-    return frame;
+    return scrolled_window;
 }
 
 
@@ -1535,11 +1549,11 @@ static GtkWidget *create_app_dialog (GnomeCmdApp *app, GCallback on_ok, GCallbac
     hbox = create_hbox (dialog, FALSE, 6);
     gnome_cmd_dialog_add_category (GNOME_CMD_DIALOG (dialog), hbox);
     vbox = create_vbox (dialog, FALSE, 6);
-    gtk_container_add (GTK_CONTAINER (hbox), vbox);
+    gtk_box_append (GTK_BOX (hbox), vbox);
     grid = create_grid (dialog);
 
 
-    gtk_container_add (GTK_CONTAINER (vbox), grid);
+    gtk_box_append (GTK_BOX (vbox), grid);
 
     label = create_label (dialog, _("Label:"));
     gtk_grid_attach (GTK_GRID (grid), label, 0, 0, 1, 1);
@@ -1567,7 +1581,7 @@ static GtkWidget *create_app_dialog (GnomeCmdApp *app, GCallback on_ok, GCallbac
 
     grid = create_grid (dialog);
     cat = create_category (dialog, grid, _("Options"));
-    gtk_box_pack_start (GTK_BOX (vbox), cat, FALSE, TRUE, 0);
+    gtk_box_append (GTK_BOX (vbox), cat);
 
     check = create_check (dialog, _("Can handle multiple files"), "handle_multiple");
     if (app) gtk_toggle_button_set_active (
@@ -1585,7 +1599,7 @@ static GtkWidget *create_app_dialog (GnomeCmdApp *app, GCallback on_ok, GCallbac
 
     grid = create_grid (dialog);
     cat = create_category (dialog, grid, _("Show for"));
-    gtk_box_pack_start (GTK_BOX (hbox), cat, FALSE, TRUE, 0);
+    gtk_box_append (GTK_BOX (hbox), cat);
 
     radio = create_radio (dialog, NULL, _("All files"),
                           "show_for_all_files");
@@ -1735,31 +1749,33 @@ static void on_app_move_down (GtkWidget *button, GtkWidget *frame)
 
 static GtkWidget *create_programs_tab (GtkWidget *parent, GnomeCmdData::Options &cfg)
 {
-    GtkWidget *frame, *hbox, *scrolled_window, *vbox, *cat, *grid1, *grid2;
+    GtkWidget *hbox, *scrolled_window, *vbox, *cat, *grid1, *grid2;
     GtkWidget *entry, *button, *label, *view, *bbox, *check;
     GtkWidget *separator;
     GtkListStore *store;
 
-    frame = create_tabframe (parent);
-    hbox = create_tabhbox (parent);
-    gtk_container_add (GTK_CONTAINER (frame), hbox);
     vbox = create_tabvbox (parent);
 
     scrolled_window = gtk_scrolled_window_new (NULL, NULL);
     gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolled_window),
                                     GTK_POLICY_AUTOMATIC, GTK_POLICY_ALWAYS);
-    gtk_box_pack_start (GTK_BOX (hbox), scrolled_window, TRUE, TRUE, 0);
+    gtk_widget_set_hexpand (scrolled_window, TRUE);
+    gtk_widget_set_vexpand (scrolled_window, TRUE);
+    gtk_widget_set_margin_top (scrolled_window, 6);
+    gtk_widget_set_margin_bottom (scrolled_window, 6);
+    gtk_widget_set_margin_start (scrolled_window, 6);
+    gtk_widget_set_margin_end (scrolled_window, 6);
     gtk_scrolled_window_add_with_viewport (GTK_SCROLLED_WINDOW (scrolled_window), vbox);
     gtk_viewport_set_shadow_type(GTK_VIEWPORT (gtk_bin_get_child (GTK_BIN (scrolled_window))), GTK_SHADOW_NONE);
 
     check = create_check (parent, _("Always download remote files before opening in external programs"), "honor_expect_uris");
     gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), !cfg.honor_expect_uris);
     cat = create_category (parent, check, _("MIME applications"));
-    gtk_box_pack_start (GTK_BOX (vbox), cat, FALSE, FALSE, 0);
+    gtk_box_append (GTK_BOX (vbox), cat);
 
     grid1 = create_grid (parent);
     cat = create_category (parent, grid1, _("Standard programs"));
-    gtk_box_pack_start (GTK_BOX (vbox), cat, FALSE, FALSE, 0);
+    gtk_box_append (GTK_BOX (vbox), cat);
 
     label = create_label (parent, _("Viewer:"));
     gtk_grid_attach (GTK_GRID (grid1), label, 0, 0, 1, 1);
@@ -1796,14 +1812,14 @@ static GtkWidget *create_programs_tab (GtkWidget *parent, GnomeCmdData::Options 
     gtk_grid_attach (GTK_GRID (grid1), entry, 1, 7, 1, 1);
 
     separator = gtk_separator_menu_item_new ();
-    gtk_box_pack_start (GTK_BOX (vbox), separator, FALSE, FALSE, 0);
+    gtk_box_append (GTK_BOX (vbox), separator);
 
     //Other favorite apps frame
 
     hbox = create_hbox (parent, FALSE, 0);
     gtk_box_set_spacing (GTK_BOX (hbox), 12);
     cat = create_category (parent, hbox, _("Other favourite apps"));
-    gtk_box_pack_start (GTK_BOX (vbox), cat, FALSE, TRUE, 0);
+    gtk_box_append (GTK_BOX (vbox), cat);
 
 
     store = gtk_list_store_new (4, GDK_TYPE_PIXBUF, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_POINTER);
@@ -1812,34 +1828,36 @@ static GtkWidget *create_programs_tab (GtkWidget *parent, GnomeCmdData::Options 
     create_treeview_column (view, 0, 20, "");
     create_treeview_column (view, 1, 100, _("Label"));
     create_treeview_column (view, 2, 150, _("Command"));
-    gtk_box_pack_start (GTK_BOX (hbox), view, TRUE, TRUE, 0);
+    gtk_widget_set_hexpand (view, TRUE);
+    gtk_widget_set_vexpand (view, TRUE);
+    gtk_box_append (GTK_BOX (hbox), view);
 
     bbox = create_vbuttonbox (parent);
-    gtk_box_pack_start (GTK_BOX (hbox), bbox, FALSE, TRUE, 0);
+    gtk_box_append (GTK_BOX (hbox), bbox);
 
     button = create_button (parent, _("_Add"), G_CALLBACK (on_app_add));
     gtk_widget_set_can_default (button, TRUE);
-    gtk_container_add (GTK_CONTAINER (bbox), button);
+    gtk_box_append (GTK_BOX (bbox), button);
 
     button = create_button (parent, _("_Edit"), G_CALLBACK (on_app_edit));
     g_object_set_data (G_OBJECT (parent), "edit_app_button", button);
     gtk_widget_set_can_default (button, TRUE);
     gtk_widget_set_sensitive (button, FALSE);
-    gtk_container_add (GTK_CONTAINER (bbox), button);
+    gtk_box_append (GTK_BOX (bbox), button);
 
     button = create_button (parent, _("_Remove"), G_CALLBACK (on_app_remove));
     g_object_set_data (G_OBJECT (parent), "remove_app_button", button);
     gtk_widget_set_can_default (button, TRUE);
     gtk_widget_set_sensitive (button, FALSE);
-    gtk_container_add (GTK_CONTAINER (bbox), button);
+    gtk_box_append (GTK_BOX (bbox), button);
 
     button = create_button (parent, _("_Up"), G_CALLBACK (on_app_move_up));
     gtk_widget_set_can_default (button, TRUE);
-    gtk_container_add (GTK_CONTAINER (bbox), button);
+    gtk_box_append (GTK_BOX (bbox), button);
 
     button = create_button (parent, _("_Down"), G_CALLBACK (on_app_move_down));
     gtk_widget_set_can_default (button, TRUE);
-    gtk_container_add (GTK_CONTAINER (bbox), button);
+    gtk_box_append (GTK_BOX (bbox), button);
 
     view = (GtkWidget *) g_object_get_data (G_OBJECT (parent), "app_view");
     for (GList *apps = gnome_cmd_data.options.fav_apps; apps; apps = apps->next)
@@ -1847,7 +1865,7 @@ static GtkWidget *create_programs_tab (GtkWidget *parent, GnomeCmdData::Options 
 
     grid2 = create_grid (parent);
     cat = create_category (parent, grid2, _("Global app options"));
-    gtk_box_pack_start (GTK_BOX (vbox), cat, FALSE, FALSE, 0);
+    gtk_box_append (GTK_BOX (vbox), cat);
 
     label = create_label (parent, _("Terminal command for apps in the list above:"));
     gtk_grid_attach (GTK_GRID (grid2), label, 0, 0, 1, 1);
@@ -1860,7 +1878,7 @@ static GtkWidget *create_programs_tab (GtkWidget *parent, GnomeCmdData::Options 
     gtk_grid_attach (GTK_GRID (grid2), check, 0, 2, 1, 1);
     gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), gnome_cmd_data.use_gcmd_block);
 
-    return frame;
+    return scrolled_window;
 }
 
 
@@ -2213,72 +2231,75 @@ static void on_device_move_down (GtkWidget *button, GtkWidget *frame)
 
 static GtkWidget *create_devices_tab (GtkWidget *parent, GnomeCmdData::Options &cfg)
 {
-    GtkWidget *frame, *hbox, *scrolled_window, *vbox, *cat, *cat_box;
+    GtkWidget *hbox, *scrolled_window, *vbox, *cat, *cat_box;
     GtkWidget *button, *view, *bbox, *check;
     GtkListStore *store;
 
-    frame = create_tabframe (parent);
-    hbox = create_tabhbox (parent);
-    gtk_container_add (GTK_CONTAINER (frame), hbox);
     vbox = create_tabvbox (parent);
 
     scrolled_window = gtk_scrolled_window_new (NULL, NULL);
     gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolled_window),
                                     GTK_POLICY_AUTOMATIC, GTK_POLICY_ALWAYS);
-    gtk_box_pack_start (GTK_BOX (hbox), scrolled_window, TRUE, TRUE, 0);
+    gtk_widget_set_hexpand (scrolled_window, TRUE);
+    gtk_widget_set_vexpand (scrolled_window, TRUE);
+    gtk_widget_set_margin_top (scrolled_window, 6);
+    gtk_widget_set_margin_bottom (scrolled_window, 6);
+    gtk_widget_set_margin_start (scrolled_window, 6);
+    gtk_widget_set_margin_end (scrolled_window, 6);
     gtk_scrolled_window_add_with_viewport (GTK_SCROLLED_WINDOW (scrolled_window), vbox);
     gtk_viewport_set_shadow_type(GTK_VIEWPORT (gtk_bin_get_child (GTK_BIN (scrolled_window))), GTK_SHADOW_NONE);
 
     cat_box = create_vbox (parent, FALSE, 0);
     cat = create_category (parent, cat_box, _("Devices"));
-    gtk_box_pack_start (GTK_BOX (vbox), cat, FALSE, TRUE, 0);
+    gtk_box_append (GTK_BOX (vbox), cat);
 
-    hbox = create_hbox (parent, FALSE, 0);
-    gtk_box_set_spacing (GTK_BOX (hbox), 12);
-    gtk_container_add (GTK_CONTAINER (cat_box), hbox);
+    hbox = create_hbox (parent, FALSE, 12);
+    gtk_box_append (GTK_BOX (cat_box), hbox);
 
     store = gtk_list_store_new (3, G_TYPE_ICON, G_TYPE_STRING, G_TYPE_POINTER);
     view = create_treeview (parent, "device_view", GTK_TREE_MODEL (store), 24,
                             G_CALLBACK (on_device_selection_changed), G_CALLBACK (on_device_reordered));
     create_treeview_column (view, 0, 26, "");
     create_treeview_column (view, 1, 40, _("Alias"));
-    gtk_box_pack_start (GTK_BOX (hbox), view, TRUE, TRUE, 0);
+    gtk_widget_set_hexpand (view, TRUE);
+    gtk_widget_set_vexpand (view, TRUE);
+    gtk_box_append (GTK_BOX (hbox), view);
 
     bbox = create_vbuttonbox (parent);
-    gtk_box_pack_start (GTK_BOX (hbox), bbox, FALSE, TRUE, 0);
+    gtk_box_append (GTK_BOX (hbox), bbox);
 
     button = create_button (parent, _("_Add"), G_CALLBACK (on_device_add));
     gtk_widget_set_can_default (button, TRUE);
-    gtk_container_add (GTK_CONTAINER (bbox), button);
+    gtk_box_append (GTK_BOX (bbox), button);
 
     button = create_button (parent, _("_Edit"), G_CALLBACK (on_device_edit));
     g_object_set_data (G_OBJECT (parent), "edit_device_button", button);
     gtk_widget_set_can_default (button, TRUE);
     gtk_widget_set_sensitive (button, FALSE);
-    gtk_container_add (GTK_CONTAINER (bbox), button);
+    gtk_box_append (GTK_BOX (bbox), button);
 
     button = create_button (parent, _("_Remove"), G_CALLBACK (on_device_remove));
     g_object_set_data (G_OBJECT (parent), "remove_device_button", button);
     gtk_widget_set_can_default (button, TRUE);
     gtk_widget_set_sensitive (button, FALSE);
-    gtk_container_add (GTK_CONTAINER (bbox), button);
+    gtk_box_append (GTK_BOX (bbox), button);
 
     button = create_button (parent, _("_Up"), G_CALLBACK (on_device_move_up));
     gtk_widget_set_can_default (button, TRUE);
-    gtk_container_add (GTK_CONTAINER (bbox), button);
+    gtk_box_append (GTK_BOX (bbox), button);
 
     button = create_button (parent, _("_Down"), G_CALLBACK (on_device_move_down));
     gtk_widget_set_can_default (button, TRUE);
-    gtk_container_add (GTK_CONTAINER (bbox), button);
+    gtk_box_append (GTK_BOX (bbox), button);
 
 #ifdef HAVE_SAMBA
     check = create_check (parent, _("Show Samba workgroups button\n(Needs program restart if altered)"), "samba_workgroups_button");
-    gtk_container_add (GTK_CONTAINER (cat_box), check);
+    gtk_box_append (GTK_BOX (cat_box), check);
     gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), cfg.show_samba_workgroups_button);
 #endif
 
     check = create_check (parent, _("Show only the icons"), "device_only_icon");
-    gtk_container_add (GTK_CONTAINER (cat_box), check);
+    gtk_box_append (GTK_BOX (cat_box), check);
     gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), cfg.device_only_icon);
 
     view = (GtkWidget *) g_object_get_data (G_OBJECT (parent), "device_view");
@@ -2286,7 +2307,7 @@ static GtkWidget *create_devices_tab (GtkWidget *parent, GnomeCmdData::Options &
         if (!gnome_cmd_con_device_get_autovol ((GnomeCmdConDevice *) devices->data))
             add_device_to_list (GTK_TREE_VIEW (view), GNOME_CMD_CON_DEVICE (devices->data));
 
-    return frame;
+    return scrolled_window;
 }
 
 
@@ -2363,7 +2384,7 @@ gboolean gnome_cmd_options_dialog (GtkWindow *parent, GnomeCmdData::Options &cfg
     gtk_widget_set_hexpand (GTK_WIDGET (notebook), TRUE);
     gtk_widget_set_vexpand (GTK_WIDGET (notebook), TRUE);
 
-    gtk_container_add (GTK_CONTAINER (content_area), GTK_WIDGET (notebook));
+    gtk_box_append (GTK_BOX (content_area), GTK_WIDGET (notebook));
 
     gtk_notebook_append_page (notebook, create_general_tab (dialog, cfg), gtk_label_new (_("General")));
     gtk_notebook_append_page (notebook, create_format_tab (dialog, cfg), gtk_label_new (_("Format")));

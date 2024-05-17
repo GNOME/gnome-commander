@@ -212,17 +212,19 @@ static void gnome_cmd_key_shortcuts_dialog_init (GnomeCmdKeyShortcutsDialog *dia
 
     GtkWidget *vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 12);
     gtk_widget_set_vexpand (vbox, TRUE);
-    gtk_container_add (GTK_CONTAINER (content_area), vbox);
+    gtk_box_append (GTK_BOX (content_area), vbox);
     gtk_widget_show (vbox);
 
     GtkWidget *hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 12);
-    gtk_box_pack_start (GTK_BOX (vbox), hbox, TRUE, TRUE, 0);
+    gtk_widget_set_vexpand (hbox, TRUE);
+    gtk_box_append (GTK_BOX (vbox), hbox);
     gtk_widget_show (hbox);
 
     GtkWidget *scrolled_window = gtk_scrolled_window_new (NULL, NULL);
     gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolled_window), GTK_POLICY_NEVER, GTK_POLICY_AUTOMATIC);
     gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (scrolled_window), GTK_SHADOW_IN);
-    gtk_box_pack_start (GTK_BOX (hbox), scrolled_window, TRUE, TRUE, 0);
+    gtk_widget_set_hexpand (scrolled_window, TRUE);
+    gtk_box_append (GTK_BOX (hbox), scrolled_window);
     gtk_widget_show (scrolled_window);
 
     GtkWidget *view = create_view_and_model (*dialog->user_actions);
@@ -234,21 +236,21 @@ static void gnome_cmd_key_shortcuts_dialog_init (GnomeCmdKeyShortcutsDialog *dia
                                                "corresponding row and type a new "
                                                "accelerator, or press escape to "
                                                "cancel."));
-    gtk_box_pack_start (GTK_BOX (vbox), box, FALSE, FALSE, 0);
+    gtk_box_append (GTK_BOX (vbox), box);
     gtk_widget_show (box);
 
     vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 12);
-    gtk_box_pack_start (GTK_BOX (hbox), vbox, FALSE, FALSE, 0);
+    gtk_box_append (GTK_BOX (hbox), vbox);
     gtk_widget_show (vbox);
 
     GtkWidget *button = gtk_button_new_with_mnemonic (_("_Add"));
     g_signal_connect (button, "clicked", G_CALLBACK (add_clicked_callback), view);
-    gtk_box_pack_start (GTK_BOX (vbox), button, FALSE, FALSE, 0);
+    gtk_box_append (GTK_BOX (vbox), button);
     gtk_widget_show (button);
 
     button = gtk_button_new_with_mnemonic (_("_Remove"));
     g_signal_connect (button, "clicked", G_CALLBACK (remove_clicked_callback), view);
-    gtk_box_pack_start (GTK_BOX (vbox), button, FALSE, FALSE, 0);
+    gtk_box_append (GTK_BOX (vbox), button);
     gtk_widget_show (button);
 
     gtk_dialog_add_buttons (GTK_DIALOG (dialog),

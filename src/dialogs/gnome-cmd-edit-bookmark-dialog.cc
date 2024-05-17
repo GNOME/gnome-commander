@@ -91,7 +91,7 @@ gboolean gnome_cmd_edit_bookmark_dialog (GtkWindow *parent, const gchar *title, 
     grid = gtk_grid_new ();
     gtk_grid_set_row_spacing (GTK_GRID (grid), 6);
     gtk_grid_set_column_spacing (GTK_GRID (grid), 12);
-    gtk_container_add (GTK_CONTAINER (content_area), grid);
+    gtk_box_append (GTK_BOX (content_area), grid);
 
     label = gtk_label_new_with_mnemonic (_("Bookmark _name:"));
     gtk_widget_set_halign (label, GTK_ALIGN_START);

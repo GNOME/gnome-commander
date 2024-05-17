@@ -416,7 +416,8 @@ static void gnome_cmd_remote_dialog_init (GnomeCmdRemoteDialog *dialog)
     gnome_cmd_dialog_add_expanding_category (*dialog, cat);
 
     sw = create_sw (*dialog);
-    gtk_box_pack_start (GTK_BOX (cat_box), sw, TRUE, TRUE, 0);
+    gtk_widget_set_hexpand (sw, true);
+    gtk_box_append (GTK_BOX (cat_box), sw);
 
     dialog->priv->connection_list = create_view_and_model (get_remote_cons ());
     g_object_ref (dialog->priv->connection_list);
@@ -429,15 +430,15 @@ static void gnome_cmd_remote_dialog_init (GnomeCmdRemoteDialog *dialog)
     gboolean empty_view = tree_is_empty (GTK_TREE_VIEW (dialog->priv->connection_list));
 
     bbox = create_vbuttonbox (*dialog);
-    gtk_box_pack_start (GTK_BOX (cat_box), bbox, FALSE, FALSE, 0);
+    gtk_box_append (GTK_BOX (cat_box), bbox);
     button = create_button (*dialog, _("_Add"), G_CALLBACK (on_new_btn_clicked));
-    gtk_container_add (GTK_CONTAINER (bbox), button);
+    gtk_box_append (GTK_BOX (bbox), button);
     button = create_named_button (*dialog, _("_Edit"), "edit_button", G_CALLBACK (on_edit_btn_clicked));
     gtk_widget_set_sensitive (button, !empty_view);
-    gtk_container_add (GTK_CONTAINER (bbox), button);
+    gtk_box_append (GTK_BOX (bbox), button);
     button = create_named_button (*dialog, _("_Remove"), "remove_button", G_CALLBACK (on_remove_btn_clicked));
     gtk_widget_set_sensitive (button, !empty_view);
-    gtk_container_add (GTK_CONTAINER (bbox), button);
+    gtk_box_append (GTK_BOX (bbox), button);
 
     grid = create_grid (*dialog);
     cat = create_category (*dialog, grid, _("Options"));

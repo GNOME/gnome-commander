@@ -389,7 +389,7 @@ static void create_con_buttons (GnomeCmdFileSelector *fs)
         GtkWidget *btn = create_styled_button (nullptr);
         g_object_set_data (G_OBJECT (btn), "con", con);
         g_signal_connect (btn, "button-press-event", G_CALLBACK (on_con_btn_clicked), fs);
-        gtk_box_pack_start (GTK_BOX (fs->con_btns_hbox), btn, FALSE, FALSE, 0);
+        gtk_box_append (GTK_BOX (fs->con_btns_hbox), btn);
         gtk_widget_set_can_focus (btn, FALSE);
         fs->priv->old_btns = g_list_append (fs->priv->old_btns, btn);
         gchar *go_text = gnome_cmd_con_get_go_text (con);
@@ -409,7 +409,7 @@ static void create_con_buttons (GnomeCmdFileSelector *fs)
                 g_object_ref (image);
                 g_object_set_data_full (*fs, "con-image", image, g_object_unref);
                 gtk_widget_show (image);
-                gtk_box_pack_start (GTK_BOX (hbox), image, TRUE, TRUE, 0);
+                gtk_box_append (GTK_BOX (hbox), image);
             }
         }
 
@@ -419,7 +419,7 @@ static void create_con_buttons (GnomeCmdFileSelector *fs)
             g_object_ref (label);
             g_object_set_data_full (*fs, "con-label", label, g_object_unref);
             gtk_widget_show (label);
-            gtk_box_pack_start (GTK_BOX (hbox), label, TRUE, TRUE, 0);
+            gtk_box_append (GTK_BOX (hbox), label);
         }
 
         g_clear_object (&icon);
@@ -784,8 +784,6 @@ static void gnome_cmd_file_selector_init (GnomeCmdFileSelector *fs)
     g_action_map_add_action_entries (G_ACTION_MAP (fs->priv->action_group), action_entries, G_N_ELEMENTS (action_entries), fs);
     gtk_widget_insert_action_group (GTK_WIDGET (fs), "fs", G_ACTION_GROUP (fs->priv->action_group));
 
-    GtkBox *vbox = GTK_BOX (fs);
-
     g_object_set (fs, "orientation", GTK_ORIENTATION_VERTICAL, NULL);
 
     // create the box used for packing the dir_combo and buttons
@@ -799,6 +797,7 @@ static void gnome_cmd_file_selector_init (GnomeCmdFileSelector *fs)
     gtk_notebook_set_show_tabs (fs->notebook, FALSE);
     gtk_notebook_set_scrollable (fs->notebook, TRUE);
     gtk_notebook_set_show_border (fs->notebook, FALSE);
+    gtk_widget_set_vexpand (GTK_WIDGET (fs->notebook), TRUE);
 
     for (GList *l=gnome_cmd_con_list_get_all (gnome_cmd_con_list_get ()); l; l = l->next)
     {
@@ -830,6 +829,9 @@ static void gnome_cmd_file_selector_init (GnomeCmdFileSelector *fs)
     g_object_set_data_full (*fs, "vol_label", fs->vol_label, g_object_unref);
     gtk_widget_set_halign (fs->vol_label, GTK_ALIGN_END);
     gtk_widget_set_valign (fs->vol_label, GTK_ALIGN_CENTER);
+    gtk_widget_set_margin_start (fs->vol_label, 6);
+    gtk_widget_set_margin_end (fs->vol_label, 6);
+    gtk_widget_set_hexpand (fs->vol_label, TRUE);
 
     // create the directory indicator
     fs->dir_indicator = gnome_cmd_dir_indicator_new (fs);
@@ -842,20 +844,22 @@ static void gnome_cmd_file_selector_init (GnomeCmdFileSelector *fs)
     g_object_set_data_full (*fs, "infolabel", fs->info_label, g_object_unref);
     gtk_widget_set_halign (fs->info_label, GTK_ALIGN_START);
     gtk_widget_set_valign (fs->info_label, GTK_ALIGN_CENTER);
+    gtk_widget_set_margin_start (GTK_WIDGET (fs->info_label), 6);
+    gtk_widget_set_margin_end (GTK_WIDGET (fs->info_label), 6);
 
     // pack the widgets
     GtkWidget *padding = create_hbox (*fs, FALSE, 6);
-    gtk_box_pack_start (GTK_BOX (fs), fs->con_hbox, FALSE, FALSE, 0);
-    gtk_box_pack_start (GTK_BOX (vbox), fs->dir_indicator, FALSE, FALSE, 0);
-    gtk_box_pack_start (GTK_BOX (vbox), GTK_WIDGET (fs->notebook), TRUE, TRUE, 0);
-    gtk_box_pack_start (GTK_BOX (vbox), padding, FALSE, TRUE, 0);
-    gtk_box_pack_start (GTK_BOX (padding), fs->info_label, FALSE, TRUE, 6);
-    gtk_box_pack_start (GTK_BOX (fs->con_hbox), *fs->con_combo, FALSE, FALSE, 0);
+    gtk_box_append (GTK_BOX (fs), fs->con_hbox);
+    gtk_box_append (GTK_BOX (fs), fs->dir_indicator);
+    gtk_box_append (GTK_BOX (fs), GTK_WIDGET (fs->notebook));
+    gtk_box_append (GTK_BOX (fs), padding);
+    gtk_box_append (GTK_BOX (padding), fs->info_label);
+    gtk_box_append (GTK_BOX (fs->con_hbox), *fs->con_combo);
     // changing this value has only an effect when restarting gcmd
     if (gnome_cmd_data.show_devlist)
-        gtk_box_pack_start (GTK_BOX (fs->con_hbox), fs->vol_label, TRUE, TRUE, 6);
+        gtk_box_append (GTK_BOX (fs->con_hbox), fs->vol_label);
     else
-        gtk_box_pack_start (GTK_BOX (padding), fs->vol_label, TRUE, TRUE, 6);
+        gtk_box_append (GTK_BOX (padding), fs->vol_label);
 
     // connect signals
     g_signal_connect (fs, "realize", G_CALLBACK (on_realize), fs);
@@ -866,7 +870,7 @@ static void gnome_cmd_file_selector_init (GnomeCmdFileSelector *fs)
     g_signal_connect (fs->notebook, "button-press-event", G_CALLBACK (on_notebook_button_pressed), fs);
 
     // show the widgets
-    gtk_widget_show (GTK_WIDGET (vbox));
+    gtk_widget_show (GTK_WIDGET (fs));
     fs->update_show_devlist();
     gtk_widget_show (*fs->con_combo);
     gtk_widget_show (fs->vol_label);
@@ -1451,7 +1455,7 @@ void GnomeCmdFileSelector::update_show_devbuttons()
         if (!con_btns_hbox)
         {
             con_btns_hbox = create_hbox (*this, FALSE, 2);
-            gtk_box_pack_start (GTK_BOX (this), con_btns_hbox, FALSE, FALSE, 0);
+            gtk_box_append (GTK_BOX (this), con_btns_hbox);
             gtk_box_reorder_child (GTK_BOX (this), con_btns_hbox, 0);
             gtk_widget_show (con_btns_hbox);
             create_con_buttons (this);
@@ -1502,18 +1506,23 @@ void GnomeCmdFileSelector::show_filter()
 {
     if (priv->filter_box) return;
 
-    priv->filter_box = create_hbox (*this, FALSE, 0);
+    priv->filter_box = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 6);
+    gtk_widget_set_margin_start (priv->filter_box, 6);
+    gtk_widget_set_margin_end (priv->filter_box, 6);
+
     GtkWidget *label = create_label (*this, _("Filter:"));
     GtkWidget *entry = create_entry (*this, "entry", "");
+    gtk_widget_set_hexpand (entry, TRUE);
     GtkWidget *close_btn = create_button_with_data (*main_win, "x", G_CALLBACK (on_filter_box_close), this);
 
     g_signal_connect (entry, "key-press-event", G_CALLBACK (on_filter_box_keypressed), this);
-    gtk_box_pack_start (GTK_BOX (priv->filter_box), label, FALSE, TRUE, 6);
-    gtk_box_pack_start (GTK_BOX (priv->filter_box), entry, TRUE, TRUE, 0);
-    gtk_box_pack_start (GTK_BOX (priv->filter_box), close_btn, FALSE, TRUE, 0);
+    gtk_box_append (GTK_BOX (priv->filter_box), label);
+    gtk_box_append (GTK_BOX (priv->filter_box), entry);
+    gtk_box_append (GTK_BOX (priv->filter_box), close_btn);
 
-    gtk_box_pack_start (*this, priv->filter_box, FALSE, TRUE, 0);
+    gtk_box_append (*this, priv->filter_box);
 
+    gtk_widget_show_all (priv->filter_box);
     gtk_widget_grab_focus (entry);
 }
 
@@ -1550,8 +1559,8 @@ GtkWidget *GnomeCmdFileSelector::new_tab(GnomeCmdDir *dir, GnomeCmdFileList::Col
     fl->tab_label_pin = gtk_image_new_from_file (PIXMAPS_DIR G_DIR_SEPARATOR_S "pin.png");
     fl->tab_label_text = gtk_label_new (dir ? GNOME_CMD_FILE (dir)->get_name() : nullptr);
 
-    gtk_box_pack_start (GTK_BOX (hbox), fl->tab_label_pin, FALSE, FALSE, 3);
-    gtk_box_pack_start (GTK_BOX (hbox), fl->tab_label_text, FALSE, FALSE, 0);
+    gtk_box_append (GTK_BOX (hbox), fl->tab_label_pin);
+    gtk_box_append (GTK_BOX (hbox), fl->tab_label_text);
 
     if (locked && gnome_cmd_data.options.tab_lock_indicator==GnomeCmdData::TAB_LOCK_ICON)
         gtk_widget_show (fl->tab_label_pin);

@@ -208,7 +208,12 @@ static void gnome_cmd_cmdline_init (GnomeCmdCmdline *cmdline)
 {
     g_return_if_fail (GNOME_CMD_IS_CMDLINE (cmdline));
 
-    g_object_set (cmdline, "orientation", GTK_ORIENTATION_HORIZONTAL, NULL);
+    g_object_set (cmdline,
+        "orientation", GTK_ORIENTATION_HORIZONTAL,
+        "spacing", 4,
+        "margin-start", 2,
+        "margin-end", 2,
+        NULL);
 
     GtkWidget *label;
 
@@ -219,21 +224,21 @@ static void gnome_cmd_cmdline_init (GnomeCmdCmdline *cmdline)
     g_object_ref (cmdline->priv->cwd);
     g_object_set_data_full (G_OBJECT (cmdline), "cwdlabel", cmdline->priv->cwd, g_object_unref);
     gtk_widget_show (cmdline->priv->cwd);
-    gtk_box_pack_start (GTK_BOX (cmdline), cmdline->priv->cwd,
-                        FALSE, TRUE, 2);
+    gtk_box_append (GTK_BOX (cmdline), cmdline->priv->cwd);
     gtk_label_set_selectable (GTK_LABEL (cmdline->priv->cwd), TRUE);
 
     label = gtk_label_new ("#");
     g_object_ref (label);
     g_object_set_data_full (G_OBJECT (cmdline), "label", label, g_object_unref);
     gtk_widget_show (label);
-    gtk_box_pack_start (GTK_BOX (cmdline), label, FALSE, FALSE, 0);
+    gtk_box_append (GTK_BOX (cmdline), label);
 
     GtkListStore *store = gtk_list_store_new (2, G_TYPE_STRING, G_TYPE_POINTER);
     cmdline->priv->combo = GNOME_CMD_COMBO (gnome_cmd_combo_new_with_store(store, 1, 0, 1));
     g_object_ref (cmdline->priv->combo);
     g_object_set_data_full (G_OBJECT (cmdline), "combo", cmdline->priv->combo, g_object_unref);
-    gtk_box_pack_start (GTK_BOX (cmdline), *cmdline->priv->combo, TRUE, TRUE, 2);
+    gtk_widget_set_hexpand (*cmdline->priv->combo, TRUE);
+    gtk_box_append (GTK_BOX (cmdline), *cmdline->priv->combo);
     gtk_widget_show (*cmdline->priv->combo);
     gtk_editable_set_editable (GTK_EDITABLE (cmdline->priv->combo->get_entry()), TRUE);
     gtk_widget_set_can_focus (cmdline->priv->combo->get_entry(), TRUE);

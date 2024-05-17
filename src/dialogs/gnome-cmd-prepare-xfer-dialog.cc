@@ -346,7 +346,8 @@ static void gnome_cmd_prepare_xfer_dialog_init (GnomeCmdPrepareXferDialog *dialo
     gnome_cmd_dialog_add_category (GNOME_CMD_DIALOG (dialog), dialog->dest_dir_frame);
 
     dir_entry = gtk_entry_new ();
-    gtk_box_pack_start (GTK_BOX (dest_dir_vbox), dir_entry, TRUE, TRUE, 0);
+    gtk_widget_set_vexpand (dir_entry, TRUE);
+    gtk_box_append (GTK_BOX (dest_dir_vbox), dir_entry);
     dialog->dest_dir_entry = dir_entry;
 
     gtk_widget_show_all (dialog->dest_dir_entry);
@@ -361,10 +362,10 @@ static void gnome_cmd_prepare_xfer_dialog_init (GnomeCmdPrepareXferDialog *dialo
     dialog->right_vbox = create_vbox (GTK_WIDGET (dialog), FALSE, 0);
 
     dialog->left_vbox_frame = create_category (GTK_WIDGET (dialog), dialog->left_vbox, "");
-    gtk_container_add (GTK_CONTAINER (options_hbox), dialog->left_vbox_frame);
+    gtk_box_append (GTK_BOX (options_hbox), dialog->left_vbox_frame);
 
     dialog->right_vbox_frame = create_category (GTK_WIDGET (dialog), dialog->right_vbox, "");
-    gtk_container_add (GTK_CONTAINER (options_hbox), dialog->right_vbox_frame);
+    gtk_box_append (GTK_BOX (options_hbox), dialog->right_vbox_frame);
 
     // buttons
     dialog->cancel_button = gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), _("_Cancel"), NULL, NULL);

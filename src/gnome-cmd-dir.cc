@@ -535,7 +535,7 @@ static void create_list_progress_dialog (GnomeCmdDir *dir)
         _("_Cancel"),
         G_CALLBACK (on_dir_list_cancel), dir);
 
-    GtkWidget *vbox = create_vbox (dir->dialog, FALSE, 0);
+    GtkWidget *vbox = create_vbox (dir->dialog, FALSE, 12);
 
     dir->label = create_label (dir->dialog, _("Waiting for file list"));
 
@@ -543,8 +543,8 @@ static void create_list_progress_dialog (GnomeCmdDir *dir)
     gtk_progress_bar_set_show_text (GTK_PROGRESS_BAR (dir->pbar), FALSE);
     gtk_progress_bar_set_pulse_step (GTK_PROGRESS_BAR (dir->pbar), 1.0 / (gdouble) DIR_PBAR_MAX);
 
-    gtk_box_pack_start (GTK_BOX (vbox), dir->label, TRUE, TRUE, 0);
-    gtk_box_pack_start (GTK_BOX (vbox), dir->pbar, FALSE, TRUE, 0);
+    gtk_box_append (GTK_BOX (vbox), dir->label);
+    gtk_box_append (GTK_BOX (vbox), dir->pbar);
 
     gnome_cmd_dialog_add_category (GNOME_CMD_DIALOG (dir->dialog), vbox);
     gtk_window_set_transient_for (GTK_WINDOW (dir->dialog), *main_win);

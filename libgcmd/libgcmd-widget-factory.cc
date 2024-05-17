@@ -51,40 +51,6 @@ GtkWidget *lookup_widget (GtkWidget *widget, const gchar *widget_name)
  *
  **********************************************************************/
 
-/**
- * This type of frame is the first thing packed in each tab
- *
- */
-GtkWidget *create_frame (GtkWidget *parent, const gchar *text, gint spacing)
-{
-    GtkWidget *frame = gtk_frame_new (text);
-    g_object_ref (frame);
-    g_object_set_data_full (G_OBJECT (parent), "spaced_frame", frame, g_object_unref);
-    gtk_widget_set_margin_top (GTK_WIDGET (frame), spacing);
-    gtk_widget_set_margin_bottom (GTK_WIDGET (frame), spacing);
-    gtk_widget_set_margin_start (GTK_WIDGET (frame), spacing);
-    gtk_widget_set_margin_end (GTK_WIDGET (frame), spacing);
-    gtk_widget_show (frame);
-    return frame;
-}
-
-
-GtkWidget *create_tabframe (GtkWidget *parent)
-{
-    GtkWidget *frame = create_frame (parent, "", 6);
-    gtk_frame_set_shadow_type (GTK_FRAME (frame), GTK_SHADOW_NONE);
-    return frame;
-}
-
-
-GtkWidget *create_space_frame (GtkWidget *parent, gint space)
-{
-    GtkWidget *frame = create_frame (parent, nullptr, space);
-    gtk_frame_set_shadow_type (GTK_FRAME (frame), GTK_SHADOW_NONE);
-    return frame;
-}
-
-
 GtkWidget *create_grid (GtkWidget *parent)
 {
     GtkWidget *grid = gtk_grid_new ();
@@ -176,30 +142,20 @@ GtkWidget *create_hsep (GtkWidget *parent)
 }
 
 
-GtkWidget *create_space_hbox (GtkWidget *parent, GtkWidget *content)
-{
-    GtkWidget *hbox = create_hbox (parent, FALSE, 0);
-    GtkWidget *lbl = create_label (parent, "    ");
-
-    gtk_box_pack_start (GTK_BOX (hbox), lbl, FALSE, FALSE, 0);
-    gtk_box_pack_start (GTK_BOX (hbox), content, TRUE, TRUE, 0);
-
-    return hbox;
-}
-
-
 GtkWidget *create_category (GtkWidget *parent, GtkWidget *content, const gchar *title)
 {
     GtkWidget *frame = create_vbox (parent, FALSE, 0);
     GtkWidget *label = create_bold_label (parent, title);
-    GtkWidget *hbox = create_space_hbox (parent, content);
-    GtkWidget *inner_frame = create_space_frame (parent, 3);
 
     g_object_set_data (G_OBJECT (frame), "label", label);
 
-    gtk_box_pack_start (GTK_BOX (frame), label, FALSE, TRUE, 0);
-    gtk_box_pack_start (GTK_BOX (frame), inner_frame, TRUE, TRUE, 0);
-    gtk_container_add (GTK_CONTAINER (inner_frame), hbox);
+    gtk_widget_set_margin_top (content, 3);
+    gtk_widget_set_margin_bottom (content, 3);
+    gtk_widget_set_margin_start (content, 18);
+    gtk_widget_set_margin_end (content, 18);
+
+    gtk_box_append (GTK_BOX (frame), label);
+    gtk_box_append (GTK_BOX (frame), content);
 
     return frame;
 }

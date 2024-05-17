@@ -216,17 +216,17 @@ static void gnome_cmd_chmod_dialog_init (GnomeCmdChmodDialog *dialog)
     g_object_ref (dialog->priv->chmod_component);
     g_object_set_data_full (G_OBJECT (chmod_dialog), "chmod_component", dialog->priv->chmod_component, g_object_unref);
     gtk_widget_show (dialog->priv->chmod_component);
-    gtk_box_pack_start (GTK_BOX (vbox), dialog->priv->chmod_component, TRUE, TRUE, 0);
+    gtk_box_append (GTK_BOX (vbox), dialog->priv->chmod_component);
 
 
     hsep = create_hsep (chmod_dialog);
-    gtk_box_pack_start (GTK_BOX (vbox), hsep, TRUE, TRUE, 0);
+    gtk_box_append (GTK_BOX (vbox), hsep);
 
     dialog->priv->recurse_check = create_check (chmod_dialog, _("Apply Recursively for"), "check");
-    gtk_box_pack_start (GTK_BOX (vbox), dialog->priv->recurse_check, TRUE, TRUE, 0);
+    gtk_box_append (GTK_BOX (vbox), dialog->priv->recurse_check);
 
     dialog->priv->recurse_combo = create_combo_box_text_with_entry (chmod_dialog);
-    gtk_box_pack_start (GTK_BOX (vbox), dialog->priv->recurse_combo, TRUE, TRUE, 0);
+    gtk_box_append (GTK_BOX (vbox), dialog->priv->recurse_combo);
     gtk_widget_set_sensitive (dialog->priv->recurse_combo, FALSE);
 
 

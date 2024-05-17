@@ -323,10 +323,11 @@ static GtkWidget *create_properties_tab (GnomeCmdFilePropsDialogPrivate *data)
     GtkWidget *grid;
     GtkWidget *label;
 
-    GtkWidget *space_frame = create_space_frame (dialog, 6);
-
     grid = create_grid (dialog);
-    gtk_container_add (GTK_CONTAINER (space_frame), grid);
+    gtk_widget_set_margin_top (grid, 6);
+    gtk_widget_set_margin_bottom (grid, 6);
+    gtk_widget_set_margin_start (grid, 6);
+    gtk_widget_set_margin_end (grid, 6);
 
     label = create_bold_label (dialog, GNOME_CMD_IS_DIR (data->f) ? _("Directory name:") : _("File name:"));
     gtk_grid_attach (GTK_GRID (grid), label, 0, y, 1, 1);
@@ -427,9 +428,9 @@ static GtkWidget *create_properties_tab (GnomeCmdFilePropsDialogPrivate *data)
             label = create_label (dialog, _("No default application registered"));
 
         hbox = create_hbox (dialog, FALSE, 6);
-        gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
+        gtk_box_append (GTK_BOX (hbox), label);
         label = create_label (dialog, " ");
-        gtk_box_pack_start (GTK_BOX (hbox), label, TRUE, TRUE, 0);
+        gtk_box_append (GTK_BOX (hbox), label);
         gtk_grid_attach (GTK_GRID (grid), hbox, 1, y++, 1, 1);
     }
 
@@ -480,7 +481,7 @@ static GtkWidget *create_properties_tab (GnomeCmdFilePropsDialogPrivate *data)
         add_tag (dialog, grid, y, *data->f->metadata, TAG_AUDIO_DURATIONMMSS);
     }
 
-    return space_frame;
+    return grid;
 }
 
 
@@ -488,8 +489,10 @@ inline GtkWidget *create_permissions_tab (GnomeCmdFilePropsDialogPrivate *data)
 {
     GtkWidget *vbox = create_vbox (data->dialog, FALSE, 6);
 
-    GtkWidget *space_frame = create_space_frame (data->dialog, 6);
-    gtk_container_add (GTK_CONTAINER (space_frame), vbox);
+    gtk_widget_set_margin_top (vbox, 6);
+    gtk_widget_set_margin_bottom (vbox, 6);
+    gtk_widget_set_margin_start (vbox, 6);
+    gtk_widget_set_margin_end (vbox, 6);
 
     data->chown_component = gnome_cmd_chown_component_new ();
     g_object_ref (data->chown_component);
@@ -500,7 +503,7 @@ inline GtkWidget *create_permissions_tab (GnomeCmdFilePropsDialogPrivate *data)
         get_gfile_attribute_uint32(data->f->get_file(), G_FILE_ATTRIBUTE_UNIX_GID));
 
     GtkWidget *cat = create_category (data->dialog, data->chown_component, _("Owner and group"));
-    gtk_box_pack_start (GTK_BOX (vbox), cat, FALSE, TRUE, 0);
+    gtk_box_append (GTK_BOX (vbox), cat);
 
 
     data->chmod_component = gnome_cmd_chmod_component_new (0);
@@ -511,9 +514,9 @@ inline GtkWidget *create_permissions_tab (GnomeCmdFilePropsDialogPrivate *data)
         get_gfile_attribute_uint32(data->f->get_file(), G_FILE_ATTRIBUTE_UNIX_MODE) & 0xFFF);
 
     cat = create_category (data->dialog, data->chmod_component, _("Access permissions"));
-    gtk_box_pack_start (GTK_BOX (vbox), cat, FALSE, TRUE, 0);
+    gtk_box_append (GTK_BOX (vbox), cat);
 
-    return space_frame;
+    return vbox;
 }
 
 
@@ -632,23 +635,16 @@ static GtkWidget *create_view_and_model (GnomeCmdFile *f)
 
 inline GtkWidget *create_metadata_tab (GnomeCmdFilePropsDialogPrivate *data)
 {
-    GtkWidget *vbox = create_vbox (data->dialog, FALSE, 1);
-
-    GtkWidget *space_frame = create_space_frame (data->dialog, 1);
-    gtk_container_add (GTK_CONTAINER (space_frame), vbox);
-
     GtkWidget *scrolledwindow = gtk_scrolled_window_new (nullptr, nullptr);
     gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolledwindow), GTK_POLICY_NEVER, GTK_POLICY_AUTOMATIC);
-
-    gtk_box_pack_start (GTK_BOX (vbox), GTK_WIDGET (scrolledwindow), TRUE, TRUE, 0);
 
     GtkWidget *view = create_view_and_model (data->f);
 
     gtk_container_add (GTK_CONTAINER (scrolledwindow), view);
 
-    gtk_widget_show_all (vbox);
+    gtk_widget_show_all (scrolledwindow);
 
-    return space_frame;
+    return scrolledwindow;
 }
 
 

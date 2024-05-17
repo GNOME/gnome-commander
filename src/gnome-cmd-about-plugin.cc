@@ -195,12 +195,14 @@ static void gnome_cmd_about_plugin_display_credits_dialog (GnomeCmdAboutPlugin *
     gtk_widget_set_margin_bottom (content_area, 10);
     gtk_widget_set_margin_start (content_area, 10);
     gtk_widget_set_margin_end (content_area, 10);
+    gtk_box_set_spacing (GTK_BOX (content_area), 6);
 
     g_signal_connect (dialog, "response", G_CALLBACK (gtk_window_destroy), dialog);
     g_signal_connect (dialog, "destroy", G_CALLBACK (gtk_widget_destroyed), &(about->priv->credits_dialog));
 
     notebook = gtk_notebook_new ();
-    gtk_box_pack_start (GTK_BOX (gtk_dialog_get_content_area (GTK_DIALOG (dialog))), notebook, TRUE, TRUE, 0);
+    gtk_widget_set_vexpand (notebook, TRUE);
+    gtk_box_append (GTK_BOX (content_area), notebook);
 
     if (about->priv->authors != nullptr)
     {
@@ -256,7 +258,7 @@ static void link_button_clicked_callback (GtkWidget *widget, gpointer data)
 
 static void gnome_cmd_about_plugin_init (GnomeCmdAboutPlugin *about)
 {
-    GtkWidget *vbox, *button;
+    GtkWidget *button;
 
     // Data
     GnomeCmdAboutPluginPrivate *priv = g_new0 (GnomeCmdAboutPluginPrivate, 1);
@@ -277,37 +279,34 @@ static void gnome_cmd_about_plugin_init (GnomeCmdAboutPlugin *about)
     gtk_widget_set_margin_bottom (content_area, 10);
     gtk_widget_set_margin_start (content_area, 10);
     gtk_widget_set_margin_end (content_area, 10);
+    gtk_box_set_spacing (GTK_BOX (content_area), 8);
 
     // Widgets
-    vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 8);
-
-    gtk_box_pack_start (GTK_BOX (content_area), vbox, TRUE, TRUE, 0);
-
     priv->name_label = gtk_label_new (nullptr);
     gtk_widget_show (priv->name_label);
     gtk_label_set_selectable (GTK_LABEL (priv->name_label), TRUE);
     gtk_label_set_justify (GTK_LABEL (priv->name_label), GTK_JUSTIFY_CENTER);
-    gtk_box_pack_start (GTK_BOX (vbox), priv->name_label, FALSE, FALSE, 0);
+    gtk_box_append (GTK_BOX (content_area), priv->name_label);
 
     priv->comments_label = gtk_label_new (nullptr);
     gtk_widget_show (priv->comments_label);
     gtk_label_set_selectable (GTK_LABEL (priv->comments_label), TRUE);
     gtk_label_set_justify (GTK_LABEL (priv->comments_label), GTK_JUSTIFY_CENTER);
     gtk_label_set_line_wrap (GTK_LABEL (priv->comments_label), TRUE);
-    gtk_box_pack_start (GTK_BOX (vbox), priv->comments_label, FALSE, FALSE, 0);
+    gtk_box_append (GTK_BOX (content_area), priv->comments_label);
 
     priv->copyright_label = gtk_label_new (nullptr);
     gtk_widget_show (priv->copyright_label);
     gtk_label_set_selectable (GTK_LABEL (priv->copyright_label), TRUE);
     gtk_label_set_justify (GTK_LABEL (priv->copyright_label), GTK_JUSTIFY_CENTER);
-    gtk_box_pack_start (GTK_BOX (vbox), priv->copyright_label, FALSE, FALSE, 0);
+    gtk_box_append (GTK_BOX (content_area), priv->copyright_label);
 
     priv->web_button = gtk_link_button_new_with_label ("", _("Plugin Webpage"));
     g_signal_connect (priv->web_button, "clicked", G_CALLBACK (link_button_clicked_callback), NULL);
 
-    gtk_box_pack_start (GTK_BOX (vbox), priv->web_button, FALSE, FALSE, 0);
+    gtk_box_append (GTK_BOX (content_area), priv->web_button);
 
-    gtk_widget_show (vbox);
+    gtk_widget_show (content_area);
 
     // Add the close button
     gtk_dialog_add_button (GTK_DIALOG (about), _("_Close"), GTK_RESPONSE_CLOSE);

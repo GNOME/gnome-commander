@@ -52,5 +52,10 @@ inline void gtk_window_destroy (GtkWindow* window)
 {
     gtk_widget_destroy (GTK_WIDGET (window));
 }
+
+inline void gtk_box_append (GtkBox* box, GtkWidget* child)
+{
+    gtk_container_add (GTK_CONTAINER (box), child);
+}
 #endif
 

@@ -85,19 +85,17 @@ void gnome_cmd_bookmark_dialog_new (const gchar *title, GtkWindow *parent)
     gtk_widget_set_margin_bottom (content_area, 10);
     gtk_widget_set_margin_start (content_area, 10);
     gtk_widget_set_margin_end (content_area, 10);
-    gtk_box_set_spacing (GTK_BOX (content_area), 6);
-
-    vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 12);
-    gtk_widget_set_vexpand (vbox, TRUE);
-    gtk_container_add (GTK_CONTAINER (content_area), vbox);
+    gtk_box_set_spacing (GTK_BOX (content_area), 12);
 
     hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 12);
-    gtk_box_pack_start (GTK_BOX (vbox), hbox, TRUE, TRUE, 0);
+    gtk_widget_set_vexpand (hbox, TRUE);
+    gtk_box_append (GTK_BOX (content_area), hbox);
 
     scrolled_window = gtk_scrolled_window_new (NULL, NULL);
     gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolled_window), GTK_POLICY_NEVER, GTK_POLICY_AUTOMATIC);
     gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (scrolled_window), GTK_SHADOW_IN);
-    gtk_box_pack_start (GTK_BOX (hbox), scrolled_window, TRUE, TRUE, 0);
+    gtk_widget_set_hexpand (scrolled_window, TRUE);
+    gtk_box_append (GTK_BOX (hbox), scrolled_window);
 
     view = create_view_and_model ();
     gtk_window_set_default_size (GTK_WINDOW (dialog), gnome_cmd_data.bookmarks_defaults.width, gnome_cmd_data.bookmarks_defaults.height);
@@ -107,30 +105,30 @@ void gnome_cmd_bookmark_dialog_new (const gchar *title, GtkWindow *parent)
     gtk_container_add (GTK_CONTAINER (scrolled_window), view);
 
     vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 12);
-    gtk_box_pack_start (GTK_BOX (hbox), vbox, FALSE, FALSE, 0);
+    gtk_box_append (GTK_BOX (hbox), vbox);
 
     button = gtk_button_new_with_mnemonic (_("_Edit"));
     gtk_widget_set_sensitive (button, FALSE);
     g_signal_connect (button, "clicked", G_CALLBACK (edit_clicked_callback), view);
-    gtk_box_pack_start (GTK_BOX (vbox), button, FALSE, FALSE, 0);
+    gtk_box_append (GTK_BOX (vbox), button);
     g_object_set_data (G_OBJECT (dialog), "edit-button", button);
 
     button = gtk_button_new_with_mnemonic (_("_Remove"));
     gtk_widget_set_sensitive (button, FALSE);
     g_signal_connect (button, "clicked", G_CALLBACK (remove_clicked_callback), view);
-    gtk_box_pack_start (GTK_BOX (vbox), button, FALSE, FALSE, 0);
+    gtk_box_append (GTK_BOX (vbox), button);
     g_object_set_data (G_OBJECT (dialog), "remove-button", button);
 
     button = gtk_button_new_with_mnemonic (_("_Up"));
     gtk_widget_set_sensitive (button, FALSE);
     g_signal_connect (button, "clicked", G_CALLBACK (up_clicked_callback), view);
-    gtk_box_pack_start (GTK_BOX (vbox), button, FALSE, FALSE, 0);
+    gtk_box_append (GTK_BOX (vbox), button);
     g_object_set_data (G_OBJECT (dialog), "up-button", button);
 
     button = gtk_button_new_with_mnemonic (_("_Down"));
     gtk_widget_set_sensitive (button, FALSE);
     g_signal_connect (button, "clicked", G_CALLBACK (down_clicked_callback), view);
-    gtk_box_pack_start (GTK_BOX (vbox), button, FALSE, FALSE, 0);
+    gtk_box_append (GTK_BOX (vbox), button);
     g_object_set_data (G_OBJECT (dialog), "down-button", button);
 
     gtk_widget_grab_focus (view);

@@ -21,7 +21,7 @@
 
 #pragma once
 
-#include <gtk/gtkdialog.h>
+#include <gtk/gtk.h>
 
 #include <string>
 

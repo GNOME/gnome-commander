@@ -550,21 +550,22 @@ gchar *GnomeCmdAdvrenameProfileComponent::Private::get_selected_range (GtkWindow
     GtkWidget *hbox, *label, *entry, *option;
 
     hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 12);
-    gtk_box_pack_start (GTK_BOX (content_area), hbox, FALSE, FALSE, 0);
+    gtk_box_append (GTK_BOX (content_area), hbox);
 
     label = gtk_label_new_with_mnemonic (_("_Select range:"));
-    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, FALSE, 0);
+    gtk_box_append (GTK_BOX (hbox), label);
 
     entry = gtk_entry_new ();
     gtk_entry_set_text (GTK_ENTRY (entry), filename);
     gtk_entry_set_activates_default (GTK_ENTRY (entry), TRUE);
     g_object_set_data (G_OBJECT (dialog), "filename", entry);
     gtk_label_set_mnemonic_widget (GTK_LABEL (label), entry);
-    gtk_box_pack_start (GTK_BOX (hbox), entry, TRUE, TRUE, 0);
+    gtk_widget_set_hexpand(entry, TRUE);
+    gtk_box_append (GTK_BOX (hbox), entry);
 
     option = gtk_check_button_new_with_mnemonic (_("_Inverse selection"));
     g_object_set_data (G_OBJECT (dialog), "inverse", option);
-    gtk_box_pack_start (GTK_BOX (content_area), option, FALSE, FALSE, 0);
+    gtk_box_append (GTK_BOX (content_area), option);
 
     gtk_widget_show_all (content_area);
 
@@ -849,13 +850,14 @@ static void gnome_cmd_advrename_profile_component_init (GnomeCmdAdvrenameProfile
     gchar *str;
 
     hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 18);
-    gtk_box_pack_start (GTK_BOX (component), hbox, FALSE, FALSE, 0);
+    gtk_box_append (GTK_BOX (component), hbox);
 
 
     // Template
     {
         GtkWidget *vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 6);
-        gtk_box_pack_start (GTK_BOX (hbox), vbox, TRUE, TRUE, 0);
+        gtk_widget_set_hexpand (vbox, TRUE);
+        gtk_box_append (GTK_BOX (hbox), vbox);
 
         str = g_strdup_printf ("<b>%s</b>", _("_Template"));
         label = gtk_label_new_with_mnemonic (str);
@@ -864,30 +866,30 @@ static void gnome_cmd_advrename_profile_component_init (GnomeCmdAdvrenameProfile
         gtk_label_set_use_markup (GTK_LABEL (label), TRUE);
         gtk_widget_set_halign (label, GTK_ALIGN_START);
         gtk_widget_set_valign (label, GTK_ALIGN_CENTER);
-        gtk_box_pack_start (GTK_BOX (vbox), label, FALSE, FALSE, 0);
+        gtk_box_append (GTK_BOX (vbox), label);
 
         {
             GtkWidget *local_vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 6);
-            gtk_widget_set_margin_left (local_vbox, 12);
-            gtk_box_pack_start (GTK_BOX (vbox), local_vbox, FALSE, FALSE, 0);
+            gtk_widget_set_margin_start (local_vbox, 12);
+            gtk_box_append (GTK_BOX (vbox), local_vbox);
 
             component->priv->template_combo = combo = gtk_combo_box_new_with_model_and_entry (GTK_TREE_MODEL (gtk_list_store_new (1, G_TYPE_STRING)));
             component->priv->template_entry = gtk_bin_get_child (GTK_BIN (component->priv->template_combo));
             gtk_entry_set_activates_default (GTK_ENTRY (component->priv->template_entry), TRUE);
             gtk_label_set_mnemonic_widget (GTK_LABEL (label), combo);
-            gtk_box_pack_start (GTK_BOX (local_vbox), combo, FALSE, FALSE, 0);
+            gtk_box_append (GTK_BOX (local_vbox), combo);
             g_object_ref (component->priv->template_entry);
 
             GtkWidget *local_bbox = gtk_button_box_new (GTK_ORIENTATION_HORIZONTAL);
-            gtk_box_pack_start (GTK_BOX (local_vbox), local_bbox, TRUE, FALSE, 0);
+            gtk_box_append (GTK_BOX (local_vbox), local_bbox);
 
             gtk_button_box_set_layout (GTK_BUTTON_BOX (local_bbox), GTK_BUTTONBOX_START);
             gtk_box_set_spacing (GTK_BOX (local_bbox), 6);
-            gtk_box_pack_start (GTK_BOX (local_bbox), create_button_with_menu (_("Directory"), create_directory_tag_menu ()), FALSE, FALSE, 0);
-            gtk_box_pack_start (GTK_BOX (local_bbox), create_button_with_menu (_("File"), create_file_tag_menu ()), FALSE, FALSE, 0);
-            gtk_box_pack_start (GTK_BOX (local_bbox), create_button_with_menu (_("Counter"), create_counter_tag_menu ()), FALSE, FALSE, 0);
-            gtk_box_pack_start (GTK_BOX (local_bbox), create_button_with_menu (_("Date"), create_date_tag_menu ()), FALSE, FALSE, 0);
-            gtk_box_pack_start (GTK_BOX (local_bbox), create_button_with_menu (_("Metatag"), create_meta_tag_menu ()), FALSE, FALSE, 0);
+            gtk_box_append (GTK_BOX (local_bbox), create_button_with_menu (_("Directory"), create_directory_tag_menu ()));
+            gtk_box_append (GTK_BOX (local_bbox), create_button_with_menu (_("File"), create_file_tag_menu ()));
+            gtk_box_append (GTK_BOX (local_bbox), create_button_with_menu (_("Counter"), create_counter_tag_menu ()));
+            gtk_box_append (GTK_BOX (local_bbox), create_button_with_menu (_("Date"), create_date_tag_menu ()));
+            gtk_box_append (GTK_BOX (local_bbox), create_button_with_menu (_("Metatag"), create_meta_tag_menu ()));
         }
     }
 
@@ -895,7 +897,7 @@ static void gnome_cmd_advrename_profile_component_init (GnomeCmdAdvrenameProfile
     // Counter
     {
         GtkWidget *vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 6);
-        gtk_box_pack_start (GTK_BOX (hbox), vbox, FALSE, FALSE, 0);
+        gtk_box_append (GTK_BOX (hbox), vbox);
 
         str = g_strdup_printf ("<b>%s</b>", _("Counter"));
         label = gtk_label_new_with_mnemonic (str);
@@ -904,13 +906,13 @@ static void gnome_cmd_advrename_profile_component_init (GnomeCmdAdvrenameProfile
         gtk_label_set_use_markup (GTK_LABEL (label), TRUE);
         gtk_widget_set_halign (label, GTK_ALIGN_START);
         gtk_widget_set_valign (label, GTK_ALIGN_CENTER);
-        gtk_box_pack_start (GTK_BOX (vbox), label, FALSE, FALSE, 0);
+        gtk_box_append (GTK_BOX (vbox), label);
 
         grid = gtk_grid_new ();
         gtk_grid_set_row_spacing (GTK_GRID (grid), 6);
         gtk_grid_set_column_spacing (GTK_GRID (grid), 12);
-        gtk_widget_set_margin_left (grid, 12);
-        gtk_box_pack_start (GTK_BOX (vbox), grid, FALSE, FALSE, 0);
+        gtk_widget_set_margin_start (grid, 12);
+        gtk_box_append (GTK_BOX (vbox), grid);
 
         label = gtk_label_new_with_mnemonic (_("_Start:"));
         gtk_widget_set_halign (label, GTK_ALIGN_START);
@@ -954,15 +956,15 @@ static void gnome_cmd_advrename_profile_component_init (GnomeCmdAdvrenameProfile
         gtk_label_set_use_markup (GTK_LABEL (label), TRUE);
         gtk_widget_set_halign (label, GTK_ALIGN_START);
         gtk_widget_set_valign (label, GTK_ALIGN_CENTER);
-        gtk_box_pack_start (GTK_BOX (component), label, FALSE, FALSE, 0);
+        gtk_box_append (GTK_BOX (component), label);
 
         grid = gtk_grid_new ();
         gtk_grid_set_row_spacing (GTK_GRID (grid), 6);
         gtk_grid_set_column_spacing (GTK_GRID (grid), 12);
         gtk_widget_set_margin_top (grid, 6);
         gtk_widget_set_margin_bottom (grid, 12);
-        gtk_widget_set_margin_left (grid, 12);
-        gtk_box_pack_start (GTK_BOX (component), grid, TRUE, TRUE, 0);
+        gtk_widget_set_margin_start (grid, 12);
+        gtk_box_append (GTK_BOX (component), grid);
 
         GtkWidget *scrolled_window = gtk_scrolled_window_new (NULL, NULL);
         gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolled_window), GTK_POLICY_NEVER, GTK_POLICY_AUTOMATIC);
@@ -981,22 +983,22 @@ static void gnome_cmd_advrename_profile_component_init (GnomeCmdAdvrenameProfile
         gtk_grid_attach (GTK_GRID (grid), bbox, 1, 0, 1, 1);
 
         component->priv->regex_add_button = button = gtk_button_new_with_mnemonic (_("_Add"));
-        gtk_box_pack_start (GTK_BOX (bbox), button, FALSE, FALSE, 0);
+        gtk_box_append (GTK_BOX (bbox), button);
 
         component->priv->regex_edit_button = button = gtk_button_new_with_mnemonic (_("_Edit"));
-        gtk_box_pack_start (GTK_BOX (bbox), button, FALSE, FALSE, 0);
+        gtk_box_append (GTK_BOX (bbox), button);
 
         component->priv->regex_remove_button = button = gtk_button_new_with_mnemonic (_("_Remove"));
-        gtk_box_pack_start (GTK_BOX (bbox), button, FALSE, FALSE, 0);
+        gtk_box_append (GTK_BOX (bbox), button);
 
         component->priv->regex_remove_all_button = button = gtk_button_new_with_mnemonic (_("Remove A_ll"));
-        gtk_box_pack_start (GTK_BOX (bbox), button, FALSE, FALSE, 0);
+        gtk_box_append (GTK_BOX (bbox), button);
     }
 
 
     hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 12);
     gtk_widget_set_margin_bottom (hbox, 18);
-    gtk_box_pack_start (GTK_BOX (component), hbox, FALSE, FALSE, 0);
+    gtk_box_append (GTK_BOX (component), hbox);
 
     // Case conversion & blank trimming
     {
@@ -1007,7 +1009,7 @@ static void gnome_cmd_advrename_profile_component_init (GnomeCmdAdvrenameProfile
         gtk_label_set_use_markup (GTK_LABEL (label), TRUE);
         gtk_widget_set_halign (label, GTK_ALIGN_START);
         gtk_widget_set_valign (label, GTK_ALIGN_CENTER);
-        gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, FALSE, 0);
+        gtk_box_append (GTK_BOX (hbox), label);
 
         component->priv->case_combo = combo = gtk_combo_box_text_new ();
         gtk_label_set_mnemonic_widget (GTK_LABEL (label), combo);
@@ -1026,7 +1028,7 @@ static void gnome_cmd_advrename_profile_component_init (GnomeCmdAdvrenameProfile
         for (gchar **items=case_modes; *items; ++items)
             gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (combo), _(*items));
 
-        gtk_box_pack_start (GTK_BOX (hbox), combo, FALSE, FALSE, 0);
+        gtk_box_append (GTK_BOX (hbox), combo);
 
 
         str = g_strdup_printf ("<b>%s</b>", _("Trim blanks"));
@@ -1036,7 +1038,7 @@ static void gnome_cmd_advrename_profile_component_init (GnomeCmdAdvrenameProfile
         gtk_label_set_use_markup (GTK_LABEL (label), TRUE);
         gtk_widget_set_halign (label, GTK_ALIGN_START);
         gtk_widget_set_valign (label, GTK_ALIGN_CENTER);
-        gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, FALSE, 0);
+        gtk_box_append (GTK_BOX (hbox), label);
 
         component->priv->trim_combo = combo = gtk_combo_box_text_new ();
         gtk_label_set_mnemonic_widget (GTK_LABEL (label), combo);
@@ -1052,7 +1054,7 @@ static void gnome_cmd_advrename_profile_component_init (GnomeCmdAdvrenameProfile
         for (gchar **items=trim_modes; *items; ++items)
             gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (combo), _(*items));
 
-        gtk_box_pack_start (GTK_BOX (hbox), combo, FALSE, FALSE, 0);
+        gtk_box_append (GTK_BOX (hbox), combo);
     }
 }
 

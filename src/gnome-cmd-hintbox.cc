@@ -23,6 +23,7 @@
 #include <gtk/gtk.h>
 
 #include "gnome-cmd-hintbox.h"
+#include "libgcmd/libgcmd-utils.h"
 
 using namespace std;
 
@@ -117,7 +118,7 @@ gnome_cmd_hint_box_constructor (GType                  type,
       GtkWidget *image = gtk_image_new_from_gicon (g_themed_icon_new (box->stock_id),
                                                    GTK_ICON_SIZE_DIALOG);
 
-      gtk_box_pack_start (GTK_BOX (box), image, FALSE, FALSE, 0);
+      gtk_box_append (GTK_BOX (box), image);
       gtk_widget_show (image);
     }
 
@@ -132,7 +133,7 @@ gnome_cmd_hint_box_constructor (GType                  type,
   gnome_cmd_label_set_attributes (GTK_LABEL (label),
                                   PANGO_ATTR_STYLE, PANGO_STYLE_ITALIC,
                                   -1);
-  gtk_box_pack_start (GTK_BOX (box), label, FALSE, FALSE, 0);
+  gtk_box_append (GTK_BOX (box), label);
   gtk_widget_show (label);
 
   return object;

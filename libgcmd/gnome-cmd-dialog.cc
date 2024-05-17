@@ -21,6 +21,7 @@
 
 #include <config.h>
 #include "libgcmd-deps.h"
+#include "libgcmd-utils.h"
 #include "gnome-cmd-dialog.h"
 #include "libgcmd-widget-factory.h"
 #include "libgcmd/libgcmd-utils.h"
@@ -84,11 +85,12 @@ static void gnome_cmd_dialog_init (GnomeCmdDialog *dialog)
     gtk_container_add (GTK_CONTAINER (dialog), vbox);
 
     priv->content = create_vbox (GTK_WIDGET (dialog), FALSE, 18);
-    gtk_box_pack_start (GTK_BOX (vbox), priv->content, TRUE, TRUE, 0);
+    gtk_widget_set_vexpand (priv->content, TRUE);
+    gtk_box_append (GTK_BOX (vbox), priv->content);
 
     priv->buttonbox = create_hbuttonbox (GTK_WIDGET (dialog));
     gtk_button_box_set_layout (GTK_BUTTON_BOX (priv->buttonbox), GTK_BUTTONBOX_END);
-    gtk_box_pack_start (GTK_BOX (vbox), priv->buttonbox, FALSE, TRUE, 0);
+    gtk_box_append (GTK_BOX (vbox), priv->buttonbox);
 
     g_signal_connect (dialog, "key-press-event", G_CALLBACK (on_dialog_keypressed), NULL);
     g_signal_connect (dialog, "show", G_CALLBACK (on_dialog_show), dialog);
@@ -116,7 +118,7 @@ GtkWidget *gnome_cmd_dialog_add_button (GnomeCmdDialog *dialog, const gchar *lab
 
     GtkWidget *btn = create_button_with_data (GTK_WIDGET (dialog), label, on_click, data);
 
-    gtk_box_pack_start (GTK_BOX (priv->buttonbox), btn, FALSE, TRUE, 0);
+    gtk_box_append (GTK_BOX (priv->buttonbox), btn);
     g_object_set (G_OBJECT (btn), "can-default", TRUE, NULL);
     gtk_widget_grab_default (btn);
     gtk_widget_grab_focus (btn);
@@ -133,7 +135,7 @@ void gnome_cmd_dialog_add_category (GnomeCmdDialog *dialog, GtkWidget *category)
     g_return_if_fail (GTK_IS_WIDGET (category));
     auto priv = static_cast<GnomeCmdDialogPrivate*>(gnome_cmd_dialog_get_instance_private (dialog));
 
-    gtk_box_pack_start (GTK_BOX (priv->content), category, FALSE, TRUE, 0);
+    gtk_box_append (GTK_BOX (priv->content), category);
 }
 
 
@@ -143,5 +145,7 @@ void gnome_cmd_dialog_add_expanding_category (GnomeCmdDialog *dialog, GtkWidget 
     g_return_if_fail (GTK_IS_WIDGET (category));
     auto priv = static_cast<GnomeCmdDialogPrivate*>(gnome_cmd_dialog_get_instance_private (dialog));
 
-    gtk_box_pack_start (GTK_BOX (priv->content), category, TRUE, TRUE, 0);
+    gtk_widget_set_hexpand (category, TRUE);
+    gtk_widget_set_vexpand (category, TRUE);
+    gtk_box_append (GTK_BOX (priv->content), category);
 }

@@ -278,18 +278,19 @@ static void gviewer_window_init (GViewerWindow *w)
 
     priv->menubar = gviewer_window_create_menus(w);
     gtk_widget_show (priv->menubar);
-    gtk_box_pack_start (GTK_BOX (priv->vbox), priv->menubar, FALSE, FALSE, 0);
+    gtk_box_append (GTK_BOX (priv->vbox), priv->menubar);
 
     priv->viewer = GVIEWER (gviewer_new());
     g_object_ref (priv->viewer);
+    gtk_widget_set_vexpand (GTK_WIDGET (priv->viewer), TRUE);
     gtk_widget_show (GTK_WIDGET (priv->viewer));
-    gtk_box_pack_start (GTK_BOX (priv->vbox), GTK_WIDGET (priv->viewer), TRUE, TRUE, 0);
+    gtk_box_append (GTK_BOX (priv->vbox), GTK_WIDGET (priv->viewer));
 
     g_signal_connect (priv->viewer, "status-line-changed", G_CALLBACK (gviewer_window_status_line_changed), w);
 
     priv->statusbar = gtk_statusbar_new ();
     gtk_widget_show (priv->statusbar);
-    gtk_box_pack_start (GTK_BOX (priv->vbox), priv->statusbar, FALSE, FALSE, 0);
+    gtk_box_append (GTK_BOX (priv->vbox), priv->statusbar);
 
     priv->statusbar_ctx_id  = gtk_statusbar_get_context_id (GTK_STATUSBAR (priv->statusbar), "info");
 
@@ -1106,8 +1107,9 @@ void gviewer_window_show_metadata(GViewerWindow *gViewerWindow)
         gtk_widget_set_margin_bottom (GTK_WIDGET (scrolledwindow), 10);
         gtk_widget_set_margin_start (GTK_WIDGET (scrolledwindow), 10);
         gtk_widget_set_margin_end (GTK_WIDGET (scrolledwindow), 10);
+        gtk_widget_set_vexpand (GTK_WIDGET (scrolledwindow), TRUE);
         gtk_container_add (GTK_CONTAINER (scrolledwindow), create_view ());
-        gtk_box_pack_start (GTK_BOX (priv->vbox), scrolledwindow, TRUE, TRUE, 0);
+        gtk_box_append (GTK_BOX (priv->vbox), scrolledwindow);
         priv->metadata_view = scrolledwindow;
     }
 
