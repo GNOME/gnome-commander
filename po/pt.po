@@ -1,16 +1,16 @@
 # BPortuguese translation of gnome-commander
-# Copyright (C) 2022 gnome-commander's COPYRIGHT HOLDER
+# Copyright (C) 2001-2024 gnome-commander's COPYRIGHT HOLDER
 # This file is distributed under the same license as the gnome-commander package.
 # Duarte Loreto <happyguy_pt@hotmail.com>, 2002, 2003.
 # Pedro Albuquerque <palbuquerque73@gmail.com>, 2015.
-# Hugo Carvalho <hugokarvalho@hotmail.com>, 2020, 2021, 2022, 2023.
+# Hugo Carvalho <hugokarvalho@hotmail.com>, 2020, 2021, 2022, 2023, 2024.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: 2.6\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-commander/issues\n"
-"POT-Creation-Date: 2023-01-25 07:30+0000\n"
-"PO-Revision-Date: 2023-01-25 12:38+0000\n"
+"POT-Creation-Date: 2023-01-25 18:17+0000\n"
+"PO-Revision-Date: 2024-05-18 22:34+0100\n"
 "Last-Translator: Hugo Carvalho <hugokarvalho@hotmail.com>\n"
 "Language-Team: Português <hugokarvalho@hotmail.com>\n"
 "Language: pt\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.2.2\n"
+"X-Generator: Poedit 3.4.4\n"
 "X-Language: pt_PT\n"
 "X-Source-Language: C\n"
 
@@ -956,15 +956,15 @@ msgstr ""
 
 #: data/org.gnome.gnome-commander.gschema.xml:684
 msgid "Do not download files"
-msgstr "Não baixar ficheiros"
+msgstr "Não transferir ficheiros"
 
 #: data/org.gnome.gnome-commander.gschema.xml:685
 msgid ""
 "This option defines if remote files should be downloaded before opened by "
 "external programs."
 msgstr ""
-"Esta opção define se ficheiros remotos devem ser baixados antes de abertos "
-"por programas externos."
+"Esta opção define se ficheiros remotos devem ser transferidos antes de "
+"abertos por programas externos."
 
 #: data/org.gnome.gnome-commander.gschema.xml:691
 msgid "Use internal viewer"
@@ -1878,7 +1878,7 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-"Erro ao excluir “%s”\n"
+"Erro ao eliminar “%s”\n"
 "\n"
 "%s"
 
@@ -1924,14 +1924,14 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-"Erro ao excluir: \n"
+"Erro ao eliminar: \n"
 "\n"
 "%s"
 
 #: src/dialogs/gnome-cmd-delete-dialog.cc:456
 #, c-format
 msgid "Do you really want to delete “%s”?"
-msgstr "Você realmente deseja excluir “%s”?"
+msgstr "Quer eliminar “%s”?"
 
 #: src/dialogs/gnome-cmd-delete-dialog.cc:457
 #, c-format
@@ -1966,26 +1966,26 @@ msgstr "Excluir restantes"
 #: src/dialogs/gnome-cmd-delete-dialog.cc:529
 #, c-format
 msgid "Do you want to permanently delete “%s”?"
-msgstr "Você deseja permanentemente excluir “%s”?"
+msgstr "Quer eliminar permanentemente “%s”?"
 
 #: src/dialogs/gnome-cmd-delete-dialog.cc:530
 #, c-format
 msgid "Do you want to move “%s” to the trash can?"
-msgstr "Você deseja mover “%s” para a lixeira?"
+msgstr "Quer mover “%s” para o lixo?"
 
 #: src/dialogs/gnome-cmd-delete-dialog.cc:535
 #, c-format
 msgid "Do you want to permanently delete the selected file?"
 msgid_plural "Do you want to permanently delete the %d selected files?"
-msgstr[0] "Você deseja excluir o ficheiro selecionado permanentemente?"
-msgstr[1] "Você deseja excluir os %d ficheiros selecionados permanentemente?"
+msgstr[0] "Quer eliminar o ficheiro selecionado permanentemente?"
+msgstr[1] "Quer eliminar os %d ficheiros selecionados permanentemente?"
 
 #: src/dialogs/gnome-cmd-delete-dialog.cc:539
 #, c-format
 msgid "Do you want to move the selected file to the trash can?"
 msgid_plural "Do you want to move the %d selected files to the trash can?"
-msgstr[0] "Você deseja mover o ficheiro selecionado para a lixeira?"
-msgstr[1] "Você deseja mover os %d ficheiros selecionados para a lixeira?"
+msgstr[0] "Quer mover o ficheiro selecionado para o lixo?"
+msgstr[1] "Quer mover os %d ficheiros selecionados para o lixo?"
 
 #: src/dialogs/gnome-cmd-edit-bookmark-dialog.cc:43
 msgid "Bookmark name is missing."
@@ -3138,8 +3138,6 @@ msgstr "A pesquisar em: %s"
 
 #: src/dialogs/gnome-cmd-search-dialog.cc:605
 #, c-format
-#| msgid "Found %d match - search aborted"
-#| msgid_plural "Found %d matches - search aborted"
 msgid "Found %d match — search aborted"
 msgid_plural "Found %d matches — search aborted"
 msgstr[0] "%d resultado encontrado — pesquisa abortada"
@@ -3742,7 +3740,7 @@ msgid ""
 "Do you want to set it and then run the file?"
 msgstr ""
 "“%s” parece ser um ficheiro binário executável mas falta um bit executável. "
-"Você quer adicioná-lo executá-lo?"
+"Quer adicioná-lo executá-lo?"
 
 #: src/gnome-cmd-file-list.cc:1327
 msgid "Make Executable?"
@@ -3758,8 +3756,8 @@ msgid ""
 "“%s” is an executable text file. Do you want to run it, or display its "
 "contents?"
 msgstr ""
-"“%s” é um ficheiro de texto executável. Você gostaria de executá-lo, ou "
-"visualizá-lo?"
+"“%s” é um ficheiro de texto executável. Gostaria de executá-lo, ou visualizá-"
+"lo?"
 
 #: src/gnome-cmd-file-list.cc:1356
 msgid "Run or Display"
@@ -4633,8 +4631,8 @@ msgstr "Nenhum comando de busca dado."
 #: src/gnome-cmd-user-actions.cc:789
 msgid "You can set a command for a search tool in the program options."
 msgstr ""
-"Você pode definir um comando para uma ferramenta de pesquisa nas "
-"configurações do programa."
+"Pode definir um comando para uma ferramenta de pesquisa nas opções do "
+"programa."
 
 #: src/gnome-cmd-user-actions.cc:869
 #, c-format
@@ -4657,7 +4655,7 @@ msgid ""
 "can change the command in the program options."
 msgstr ""
 "O comando padrão de “enviar para” possui suporte apenas a um ficheiro "
-"selecionado por vez. Você pode alterar o comando nas opções do programa."
+"selecionado por vez. Pode alterar o comando nas opções do programa."
 
 #: src/gnome-cmd-user-actions.cc:979 src/gnome-cmd-user-actions.cc:996
 #: src/gnome-cmd-user-actions.cc:1042
@@ -4872,14 +4870,14 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-"Não foi possível excluir a fonte “%s”. Terminando!\n"
+"Não foi possível eliminar a fonte “%s”. Abortando!\n"
 "\n"
 "%s"
 
 #: src/gnome-cmd-xfer.cc:1163
 #, c-format
 msgid "Source “%s” could not be copied. Aborting!"
-msgstr "Não foi possível copiar a fonte “%s”. Terminando!"
+msgstr "Não foi possível copiar a fonte “%s”. Abortando!"
 
 #: src/gnome-cmd-xfer-progress-win.cc:42
 msgid "stopping…"
@@ -4912,8 +4910,8 @@ msgid ""
 "Can’t find the pixmap anywhere. Make sure you have installed the program or "
 "is executing gnome-commander from the gnome-commander-%s/src directory"
 msgstr ""
-"Não foi possível localizar o pixmap. Veja se você instalou o programa ou "
-"está executando o gnome-commander a partir do diretório gnome-commander%s/src"
+"Não foi possível localizar o pixmap. Veja se instalou o programa ou está a "
+"executar o gnome-commander a partir do diretório gnome-commander%s/src"
 
 #: src/imageloader.cc:135
 #, c-format
@@ -6270,7 +6268,7 @@ msgid ""
 "Indicates the image source. If a DSC recorded the image, this tag value of "
 "this tag always be set to 3, indicating that the image was recorded on a DSC."
 msgstr ""
-"Indoca a fonte da imagem. Se a imagem foi gravada por DSC, o valor desta "
+"Indica a fonte da imagem. Se a imagem foi gravada por DSC, o valor desta "
 "etiqueta é sempre 3."
 
 #: src/tags/gnome-cmd-tags.cc:232
