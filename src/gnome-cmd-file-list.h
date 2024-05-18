@@ -245,6 +245,7 @@ struct GnomeCmdFileList
     void drop_files(DndMode dndMode, GFileCopyFlags gFileCopyFlags, GList *uri_list, GnomeCmdDir *dir);
 
     std::unique_ptr<GtkTreeIter> get_dest_row_at_pos (gint drag_x, gint drag_y);
+    std::unique_ptr<GtkTreeIter> get_dest_row_at_coords (gdouble x, gdouble y);
 // private:
     void select_iter(GtkTreeIter *iter);
     void unselect_iter(GtkTreeIter *iter);
@@ -291,3 +292,14 @@ void gnome_cmd_file_list_edit (GnomeCmdFileList *fl);
 void gnome_cmd_file_list_show_quicksearch (GnomeCmdFileList *fl, gchar c);
 
 gboolean gnome_cmd_file_list_quicksearch_shown (GnomeCmdFileList *fl);
+
+struct GnomeCmdFileListButtonEvent
+{
+    GtkTreeIter *iter;
+    GnomeCmdFile *file;
+    gint button;
+    gint n_press;
+    double x;
+    double y;
+    gint state;
+};

@@ -157,10 +157,10 @@ struct GnomeCmdFileListClass
 {
     GtkTreeViewClass parent_class;
 
-    void (* file_clicked)        (GnomeCmdFileList *fl, GnomeCmdFile *f, GdkEventButton *button);
-    void (* file_released)       (GnomeCmdFileList *fl, GnomeCmdFile *f, GdkEventButton *button);
-    void (* list_clicked)        (GnomeCmdFileList *fl, GdkEventButton *button);
-    void (* empty_space_clicked) (GnomeCmdFileList *fl, GdkEventButton *button);
+    void (* file_clicked)        (GnomeCmdFileList *fl, GnomeCmdFileListButtonEvent *event);
+    void (* file_released)       (GnomeCmdFileList *fl, GnomeCmdFileListButtonEvent *event);
+    void (* list_clicked)        (GnomeCmdFileList *fl, GnomeCmdFileListButtonEvent *event);
+    void (* empty_space_clicked) (GnomeCmdFileList *fl, GnomeCmdFileListButtonEvent *event);
     void (* files_changed)       (GnomeCmdFileList *fl);
     void (* dir_changed)         (GnomeCmdFileList *fl, GnomeCmdDir *dir);
     void (* con_changed)         (GnomeCmdFileList *fl, GnomeCmdCon *con);
@@ -626,84 +626,6 @@ static void set_model_row(GnomeCmdFileList *fl, GtkTreeIter *iter, GnomeCmdFile 
 G_DEFINE_TYPE (GnomeCmdFileList, gnome_cmd_file_list, GTK_TYPE_TREE_VIEW)
 
 
-static void
-g_cclosure_marshal_VOID__POINTER_POINTER (GClosure     *closure,
-                                          GValue       *return_value G_GNUC_UNUSED,
-                                          guint         n_param_values,
-                                          const GValue *param_values,
-                                          gpointer      invocation_hint G_GNUC_UNUSED,
-                                          gpointer      marshal_data)
-{
-    GCClosure *cc = (GCClosure *) closure;
-    gpointer data1, data2;
-
-    g_return_if_fail (n_param_values == 3);
-
-    if (G_CCLOSURE_SWAP_DATA (closure))
-    {
-        data1 = closure->data;
-        data2 = g_value_peek_pointer (param_values + 0);
-    }
-    else
-    {
-        data1 = g_value_peek_pointer (param_values + 0);
-        data2 = closure->data;
-    }
-
-    typedef void (*GMarshalFunc_VOID__POINTER_POINTER) (gpointer data1,
-                                                        gpointer arg_1,
-                                                        gpointer arg_2,
-                                                        gpointer data2);
-
-    GMarshalFunc_VOID__POINTER_POINTER callback = (GMarshalFunc_VOID__POINTER_POINTER) (marshal_data ? marshal_data : cc->callback);
-
-    callback (data1,
-              g_value_get_pointer (param_values + 1),
-              g_value_get_pointer (param_values + 2),
-              data2);
-}
-
-
-static void
-g_cclosure_marshal_VOID__POINTER_POINTER_POINTER (GClosure     *closure,
-                                                  GValue       *return_value G_GNUC_UNUSED,
-                                                  guint         n_param_values,
-                                                  const GValue *param_values,
-                                                  gpointer      invocation_hint G_GNUC_UNUSED,
-                                                  gpointer      marshal_data)
-{
-    GCClosure *cc = (GCClosure *) closure;
-    gpointer data1, data2;
-
-    g_return_if_fail (n_param_values == 4);
-
-    if (G_CCLOSURE_SWAP_DATA (closure))
-    {
-        data1 = closure->data;
-        data2 = g_value_peek_pointer (param_values + 0);
-    }
-    else
-    {
-        data1 = g_value_peek_pointer (param_values + 0);
-        data2 = closure->data;
-    }
-
-    typedef void (*GMarshalFunc_VOID__POINTER_POINTER_POINTER) (gpointer data1,
-                                                                gpointer arg_1,
-                                                                gpointer arg_2,
-                                                                gpointer arg_3,
-                                                                gpointer data2);
-
-    GMarshalFunc_VOID__POINTER_POINTER_POINTER callback = (GMarshalFunc_VOID__POINTER_POINTER_POINTER) (marshal_data ? marshal_data : cc->callback);
-
-    callback (data1,
-              g_value_get_pointer (param_values + 1),
-              g_value_get_pointer (param_values + 2),
-              g_value_get_pointer (param_values + 3),
-              data2);
-}
-
-
 static void on_selpat_hide (GtkWidget *dialog, GnomeCmdFileList *fl)
 {
     fl->priv->selpat_dialog = nullptr;
@@ -1000,46 +922,24 @@ static GString *build_selected_file_list (GnomeCmdFileList *fl)
 }
 
 
-static void get_popup_pos (GtkMenu *menu, gint *x, gint *y, gboolean push_in, GnomeCmdFileList *gnomeCmdFileList)
-{
-    g_return_if_fail (GNOME_CMD_IS_FILE_LIST (gnomeCmdFileList));
-
-    gint w, h;
-
-    get_focus_row_coordinates (gnomeCmdFileList, *x, *y, w, h);
-}
-
-
-static void show_file_popup (GnomeCmdFileList *fl, GdkEventButton *event)
+static void show_file_popup (GnomeCmdFileList *fl, GdkPoint *point)
 {
     // create the popup menu
     GMenu *menu_model = gnome_cmd_file_popmenu_new (fl);
     if (!menu_model) return;
 
-    GtkWidget *menu = gtk_menu_new_from_model (G_MENU_MODEL (menu_model));
+    GtkWidget *popover = gtk_popover_new_from_model (GTK_WIDGET (fl), G_MENU_MODEL (menu_model));
+    gtk_popover_set_position (GTK_POPOVER (popover), GTK_POS_BOTTOM);
 
-    gtk_menu_attach_to_widget (GTK_MENU (menu), GTK_WIDGET (fl), nullptr);
-
-    if (event)
-    {
-        gtk_menu_popup (GTK_MENU (menu),
-                        nullptr,
-                        nullptr,
-                        nullptr,
-                        fl,
-                        event->button,
-                        event->time);
-    }
+    GdkRectangle rect;
+    if (point)
+        rect = { point->x, point->y, 0, 0 };
     else
-    {
-        gtk_menu_popup (GTK_MENU (menu),
-                        nullptr,
-                        nullptr,
-                        (GtkMenuPositionFunc) get_popup_pos,
-                        fl,
-                        0,
-                        gtk_get_current_event_time ());
-    }
+        get_focus_row_coordinates (fl, rect.x, rect.y, rect.width, rect.height);
+
+    gtk_popover_set_pointing_to (GTK_POPOVER (popover), &rect);
+
+    gtk_popover_popup (GTK_POPOVER (popover));
 }
 
 
@@ -1056,6 +956,21 @@ static gboolean on_right_mb_timeout (GnomeCmdFileList *fl)
 
     fl->priv->right_mb_down_file = focus_file;
     return TRUE;
+}
+
+
+struct PopupClosure
+{
+    GnomeCmdFileList *fl;
+    GdkPoint point;
+};
+
+
+static gboolean on_right_mb (PopupClosure *closure)
+{
+    show_file_popup (closure->fl, &closure->point);
+    g_free (closure);
+    return G_SOURCE_REMOVE;
 }
 
 
@@ -1403,28 +1318,34 @@ void GnomeCmdFileList::focus_next()
 }
 
 
-static gboolean on_button_press (GtkWidget *self, GdkEventButton *event, GnomeCmdFileList *fl)
+static gboolean on_button_press (GtkGestureMultiPress *gesture, int n_press, double x, double y, GnomeCmdFileList *fl)
 {
-    g_return_val_if_fail (self != nullptr, FALSE);
-    g_return_val_if_fail (event != nullptr, FALSE);
     g_return_val_if_fail (GNOME_CMD_IS_FILE_LIST (fl), FALSE);
 
-    if (gtk_tree_view_get_bin_window (*fl) != event->window)
-        return FALSE;
+    gint button = gtk_gesture_single_get_current_button (GTK_GESTURE_SINGLE (gesture));
 
-    auto row = fl->get_dest_row_at_pos (event->x, event->y);
+    auto row = fl->get_dest_row_at_coords (x, y);
+
+    GnomeCmdFileListButtonEvent event = {
+        .iter = row.get(),
+        .file = nullptr,
+        .button = button,
+        .n_press = n_press,
+        .x = x,
+        .y = y,
+        .state = get_modifiers_state (),
+    };
 
     if (!row)
     {
-        g_signal_emit (fl, signals[LIST_CLICKED], 0, nullptr, nullptr, event);
-        g_signal_emit (fl, signals[EMPTY_SPACE_CLICKED], 0, event);
+        g_signal_emit (fl, signals[LIST_CLICKED], 0, &event);
+        g_signal_emit (fl, signals[EMPTY_SPACE_CLICKED], 0, &event);
         return FALSE;
     }
 
-    GnomeCmdFile *f = fl->get_file_at_row(row.get());
-
-    g_signal_emit (fl, signals[LIST_CLICKED], 0, f, row.get(), event);
-    g_signal_emit (fl, signals[FILE_CLICKED], 0, f, row.get(), event);
+    event.file = fl->get_file_at_row(row.get());
+    g_signal_emit (fl, signals[LIST_CLICKED], 0, &event);
+    g_signal_emit (fl, signals[FILE_CLICKED], 0, &event);
 
     return FALSE;
 }
@@ -1612,26 +1533,26 @@ inline gboolean mime_exec_file (GnomeCmdFile *f)
 }
 
 
-static void on_file_clicked (GnomeCmdFileList *fl, GnomeCmdFile *f, GtkTreeIter *iter, GdkEventButton *event, gpointer data)
+static void on_file_clicked (GnomeCmdFileList *fl, GnomeCmdFileListButtonEvent *event, gpointer data)
 {
     g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl));
-    g_return_if_fail (GNOME_CMD_IS_FILE (f));
     g_return_if_fail (event != nullptr);
+    g_return_if_fail (GNOME_CMD_IS_FILE (event->file));
 
     fl->modifier_click = event->state & (GDK_CONTROL_MASK | GDK_SHIFT_MASK);
 
-    if (event->type == GDK_2BUTTON_PRESS && event->button == 1 && gnome_cmd_data.options.left_mouse_button_mode == GnomeCmdData::LEFT_BUTTON_OPENS_WITH_DOUBLE_CLICK)
+    if (event->n_press == 2 && event->button == 1 && gnome_cmd_data.options.left_mouse_button_mode == GnomeCmdData::LEFT_BUTTON_OPENS_WITH_DOUBLE_CLICK)
     {
-        mime_exec_file (f);
+        mime_exec_file (event->file);
     }
     else
-        if (event->type == GDK_BUTTON_PRESS && (event->button == 1 || event->button == 3))
+        if (event->n_press == 1 && (event->button == 1 || event->button == 3))
         {
             if (event->button == 1)
             {
                 if (event->state & GDK_SHIFT_MASK)
                 {
-                    select_file_range (fl, fl->priv->shift_down_row.get(), iter);
+                    select_file_range (fl, fl->priv->shift_down_row.get(), event->iter);
                     fl->priv->shift_down = FALSE;
                     fl->priv->shift_down_key = 0;
                 }
@@ -1640,52 +1561,58 @@ static void on_file_clicked (GnomeCmdFileList *fl, GnomeCmdFile *f, GtkTreeIter 
                     {
                         bool has_selection = fl->get_first_selected_file() != nullptr;
                         if (has_selection || gnome_cmd_data.options.left_mouse_button_mode == GnomeCmdData::LEFT_BUTTON_OPENS_WITH_SINGLE_CLICK)
-                            fl->toggle_file (iter);
+                            fl->toggle_file (event->iter);
                         else
                         {
                             auto prev_row = fl->get_focused_file_iter();
-                            if (prev_row.get() != iter)
+                            if (prev_row.get() != event->iter)
                                 fl->select_file(fl->get_file_at_row(prev_row.get()), prev_row.get());
-                            fl->select_file(fl->get_file_at_row(iter), iter);
+                            fl->select_file(fl->get_file_at_row(event->iter), event->iter);
                         }
                     }
             }
             else
                 if (event->button == 3)
-                    if (!f->is_dotdot)
+                    if (!event->file->is_dotdot)
                     {
                         if (gnome_cmd_data.options.right_mouse_button_mode == GnomeCmdData::RIGHT_BUTTON_SELECTS)
                         {
-                            if (!fl->is_selected_iter(iter))
+                            if (!fl->is_selected_iter(event->iter))
                             {
-                                fl->select_iter(iter);
+                                fl->select_iter(event->iter);
                                 fl->priv->right_mb_sel_state = 1;
                             }
                             else
                             {
-                                fl->unselect_iter(iter);
+                                fl->unselect_iter(event->iter);
                                 fl->priv->right_mb_sel_state = 0;
                             }
 
-                            fl->priv->right_mb_down_file = f;
+                            fl->priv->right_mb_down_file = event->file;
                             fl->priv->right_mb_timeout_id =
                                 g_timeout_add (POPUP_TIMEOUT, (GSourceFunc) on_right_mb_timeout, fl);
                         }
                         else
-                            show_file_popup (fl, event);
+                        {
+                            PopupClosure *closure = g_new0 (PopupClosure, 1);
+                            closure->fl = fl;
+                            closure->point.x = event->x;
+                            closure->point.y = event->y;
+                            g_timeout_add (1, (GSourceFunc) on_right_mb, closure);
+                        }
                     }
         }
 }
 
 
-static void on_file_released (GnomeCmdFileList *fl, GnomeCmdFile *f, GdkEventButton *event, gpointer data)
+static void on_file_released (GnomeCmdFileList *fl, GnomeCmdFileListButtonEvent *event, gpointer data)
 {
     g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl));
-    g_return_if_fail (GNOME_CMD_IS_FILE (f));
     g_return_if_fail (event != nullptr);
+    g_return_if_fail (GNOME_CMD_IS_FILE (event->file));
 
-    if (event->type == GDK_BUTTON_RELEASE && event->button == 1 && !fl->modifier_click && gnome_cmd_data.options.left_mouse_button_mode == GnomeCmdData::LEFT_BUTTON_OPENS_WITH_SINGLE_CLICK)
-        mime_exec_file (f);
+    if (event->n_press == 1 && event->button == 1 && !fl->modifier_click && gnome_cmd_data.options.left_mouse_button_mode == GnomeCmdData::LEFT_BUTTON_OPENS_WITH_SINGLE_CLICK)
+        mime_exec_file (event->file);
 }
 
 
@@ -1712,34 +1639,38 @@ static void on_motion_notify (GtkWidget *self, GdkEventMotion *event, GnomeCmdFi
 }
 
 
-static gint on_button_release (GtkWidget *widget, GdkEventButton *event, GnomeCmdFileList *fl)
+static gint on_button_release (GtkGestureMultiPress *gesture, int n_press, double x, double y, GnomeCmdFileList *fl)
 {
-    g_return_val_if_fail (widget != nullptr, FALSE);
-    g_return_val_if_fail (event != nullptr, FALSE);
     g_return_val_if_fail (GNOME_CMD_IS_FILE_LIST (fl), FALSE);
 
-    if (gtk_tree_view_get_bin_window (*fl) != event->window)
-        return FALSE;
+    gint button = gtk_gesture_single_get_current_button (GTK_GESTURE_SINGLE (gesture));
 
-    auto row = fl->get_dest_row_at_pos (event->x, event->y);
+    auto row = fl->get_dest_row_at_coords (x, y);
     if (!row)
         return FALSE;
 
     GnomeCmdFile *f = fl->get_file_at_row(row.get());
 
-    g_signal_emit (fl, signals[FILE_RELEASED], 0, f, event);
+    GnomeCmdFileListButtonEvent event = {
+        .iter = row.get(),
+        .file = f,
+        .button = button,
+        .n_press = n_press,
+        .x = x,
+        .y = y,
+        .state = get_modifiers_state (),
+    };
+    g_signal_emit (fl, signals[FILE_RELEASED], 0, &event);
 
-    if (event->type == GDK_BUTTON_RELEASE)
+    if (button == 1 && state_is_blank (event.state))
     {
-        if (event->button == 1 && state_is_blank (event->state))
-        {
-            if (f && !fl->is_selected_iter(row.get()) && gnome_cmd_data.options.left_mouse_button_unselects)
-                fl->unselect_all();
-            return FALSE;
-        }
-        else
-            if (event->button == 3 && fl->priv->right_mb_timeout_id > 0)
-                g_source_remove (fl->priv->right_mb_timeout_id);
+        if (f && !fl->is_selected_iter(row.get()) && gnome_cmd_data.options.left_mouse_button_unselects)
+            fl->unselect_all();
+        return FALSE;
+    }
+    else if (button == 3 && fl->priv->right_mb_timeout_id > 0)
+    {
+        g_source_remove (fl->priv->right_mb_timeout_id);
     }
 
     return FALSE;
@@ -2003,38 +1934,34 @@ static void gnome_cmd_file_list_class_init (GnomeCmdFileListClass *klass)
             G_TYPE_FROM_CLASS (klass),
             G_SIGNAL_RUN_LAST,
             G_STRUCT_OFFSET (GnomeCmdFileListClass, file_clicked),
-            nullptr, nullptr,
-            g_cclosure_marshal_VOID__POINTER_POINTER_POINTER,
+            nullptr, nullptr, nullptr,
             G_TYPE_NONE,
-            3, G_TYPE_POINTER, G_TYPE_POINTER, G_TYPE_POINTER);
+            1, G_TYPE_POINTER);
 
     signals[FILE_RELEASED] =
         g_signal_new ("file-released",
             G_TYPE_FROM_CLASS (klass),
             G_SIGNAL_RUN_LAST,
             G_STRUCT_OFFSET (GnomeCmdFileListClass, file_released),
-            nullptr, nullptr,
-            g_cclosure_marshal_VOID__POINTER_POINTER,
+            nullptr, nullptr, nullptr,
             G_TYPE_NONE,
-            2, G_TYPE_POINTER, G_TYPE_POINTER);
+            1, G_TYPE_POINTER);
 
     signals[LIST_CLICKED] =
         g_signal_new ("list-clicked",
             G_TYPE_FROM_CLASS (klass),
             G_SIGNAL_RUN_LAST,
             G_STRUCT_OFFSET (GnomeCmdFileListClass, list_clicked),
-            nullptr, nullptr,
-            g_cclosure_marshal_VOID__POINTER_POINTER,
+            nullptr, nullptr, nullptr,
             G_TYPE_NONE,
-            2, G_TYPE_POINTER, G_TYPE_POINTER);
+            1, G_TYPE_POINTER);
 
     signals[EMPTY_SPACE_CLICKED] =
         g_signal_new ("empty-space-clicked",
             G_TYPE_FROM_CLASS (klass),
             G_SIGNAL_RUN_LAST,
             G_STRUCT_OFFSET (GnomeCmdFileListClass, empty_space_clicked),
-            nullptr, nullptr,
-            g_cclosure_marshal_VOID__POINTER,
+            nullptr, nullptr, nullptr,
             G_TYPE_NONE,
             1, G_TYPE_POINTER);
 
@@ -2043,8 +1970,7 @@ static void gnome_cmd_file_list_class_init (GnomeCmdFileListClass *klass)
             G_TYPE_FROM_CLASS (klass),
             G_SIGNAL_RUN_LAST,
             G_STRUCT_OFFSET (GnomeCmdFileListClass, files_changed),
-            nullptr, nullptr,
-            g_cclosure_marshal_VOID__VOID,
+            nullptr, nullptr, nullptr,
             G_TYPE_NONE,
             0);
 
@@ -2053,8 +1979,7 @@ static void gnome_cmd_file_list_class_init (GnomeCmdFileListClass *klass)
             G_TYPE_FROM_CLASS (klass),
             G_SIGNAL_RUN_LAST,
             G_STRUCT_OFFSET (GnomeCmdFileListClass, dir_changed),
-            nullptr, nullptr,
-            g_cclosure_marshal_VOID__POINTER,
+            nullptr, nullptr, nullptr,
             G_TYPE_NONE,
             1, G_TYPE_POINTER);
 
@@ -2063,8 +1988,7 @@ static void gnome_cmd_file_list_class_init (GnomeCmdFileListClass *klass)
             G_TYPE_FROM_CLASS (klass),
             G_SIGNAL_RUN_LAST,
             G_STRUCT_OFFSET (GnomeCmdFileListClass, con_changed),
-            nullptr, nullptr,
-            g_cclosure_marshal_VOID__POINTER,
+            nullptr, nullptr, nullptr,
             G_TYPE_NONE,
             1, G_TYPE_POINTER);
 
@@ -2073,8 +1997,7 @@ static void gnome_cmd_file_list_class_init (GnomeCmdFileListClass *klass)
             G_TYPE_FROM_CLASS (klass),
             G_SIGNAL_RUN_LAST,
             G_STRUCT_OFFSET (GnomeCmdFileListClass, resize_column),
-            nullptr, nullptr,
-            g_cclosure_marshal_VOID__UINT_POINTER,
+            nullptr, nullptr, nullptr,
             G_TYPE_NONE,
             2, G_TYPE_UINT, G_TYPE_POINTER);
 
@@ -2098,8 +2021,11 @@ static void gnome_cmd_file_list_init (GnomeCmdFileList *fl)
 
     fl->init_dnd();
 
-    g_signal_connect (fl, "button-press-event", G_CALLBACK (on_button_press), fl);
-    g_signal_connect (fl, "button-release-event", G_CALLBACK (on_button_release), fl);
+    GtkGesture *click_controller = gtk_gesture_multi_press_new (GTK_WIDGET (fl));
+    gtk_gesture_single_set_button (GTK_GESTURE_SINGLE (click_controller), 0);
+
+    g_signal_connect (click_controller, "pressed", G_CALLBACK (on_button_press), fl);
+    g_signal_connect (click_controller, "released", G_CALLBACK (on_button_release), fl);
     g_signal_connect (fl, "motion-notify-event", G_CALLBACK (on_motion_notify), fl);
     g_signal_connect (fl, "cursor-changed", G_CALLBACK (on_cursor_change), fl);
 
@@ -3581,9 +3507,13 @@ std::unique_ptr<GtkTreeIter> GnomeCmdFileList::get_dest_row_at_pos (gint drag_x,
 {
     gint wx, wy;
     gtk_tree_view_convert_bin_window_to_widget_coords (*this, drag_x, drag_y, &wx, &wy);
+    return get_dest_row_at_coords (wx, wy);
+}
 
+std::unique_ptr<GtkTreeIter> GnomeCmdFileList::get_dest_row_at_coords (gdouble x, gdouble y)
+{
     GtkTreePath *path;
-    if (!gtk_tree_view_get_dest_row_at_pos (*this, wx, wy, &path, nullptr))
+    if (!gtk_tree_view_get_dest_row_at_pos (*this, x, y, &path, nullptr))
         return std::unique_ptr<GtkTreeIter>();
 
     std::unique_ptr<GtkTreeIter> iter (new GtkTreeIter {});

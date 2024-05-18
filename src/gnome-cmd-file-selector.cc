@@ -82,7 +82,7 @@ G_DEFINE_TYPE (GnomeCmdFileSelector, gnome_cmd_file_selector, GTK_TYPE_BOX)
  *******************************/
 
 
-inline void show_list_popup (GnomeCmdFileSelector *fs)
+inline void show_list_popup (GnomeCmdFileSelector *fs, gint x, gint y)
 {
     auto menu = MenuBuilder()
         .submenu(_("_New"))
@@ -100,11 +100,11 @@ inline void show_list_popup (GnomeCmdFileSelector *fs)
         .endsection()
         .build();
 
-    GtkWidget *gtk_menu = gtk_menu_new_from_model (G_MENU_MODEL (menu.menu));
-
-    gtk_menu_attach_to_widget (GTK_MENU (gtk_menu), GTK_WIDGET (fs), nullptr);
-
-    gtk_menu_popup (GTK_MENU (gtk_menu), nullptr, nullptr, nullptr, fs, 3, GDK_CURRENT_TIME);
+    GtkWidget *popover = gtk_popover_new_from_model (GTK_WIDGET (fs), G_MENU_MODEL (menu.menu));
+    gtk_popover_set_position (GTK_POPOVER (popover), GTK_POS_BOTTOM);
+    GdkRectangle rect = { x, y, 0, 0 };
+    gtk_popover_set_pointing_to (GTK_POPOVER (popover), &rect);
+    gtk_popover_popup (GTK_POPOVER (popover));
 }
 
 
@@ -461,70 +461,72 @@ static void on_notebook_switch_page (GtkNotebook *notebook, gpointer page, guint
 }
 
 
-static void on_list_file_clicked (GnomeCmdFileList *fl, GnomeCmdFile *f, GtkTreeIter *iter, GdkEventButton *event, GnomeCmdFileSelector *fs)
+static void on_list_file_clicked (GnomeCmdFileList *fl, GnomeCmdFileListButtonEvent *event, GnomeCmdFileSelector *fs)
 {
-    if (event->type == GDK_2BUTTON_PRESS && event->button == 1 && gnome_cmd_data.options.left_mouse_button_mode == GnomeCmdData::LEFT_BUTTON_OPENS_WITH_DOUBLE_CLICK)
-        fs->do_file_specific_action (fl, f);
+    if (event->n_press == 2 && event->button == 1 && gnome_cmd_data.options.left_mouse_button_mode == GnomeCmdData::LEFT_BUTTON_OPENS_WITH_DOUBLE_CLICK)
+        fs->do_file_specific_action (fl, event->file);
 }
 
 
-static void on_list_file_released (GnomeCmdFileList *fl, GnomeCmdFile *f, GdkEventButton *event, GnomeCmdFileSelector *fs)
+static void on_list_file_released (GnomeCmdFileList *fl, GnomeCmdFileListButtonEvent *event, GnomeCmdFileSelector *fs)
 {
-    if (event->type == GDK_BUTTON_RELEASE && event->button == 1 && !fl->modifier_click && gnome_cmd_data.options.left_mouse_button_mode == GnomeCmdData::LEFT_BUTTON_OPENS_WITH_SINGLE_CLICK)
-        fs->do_file_specific_action (fl, f);
+    if (event->button == 1 && !fl->modifier_click && gnome_cmd_data.options.left_mouse_button_mode == GnomeCmdData::LEFT_BUTTON_OPENS_WITH_SINGLE_CLICK)
+        fs->do_file_specific_action (fl, event->file);
 }
 
 
-static void on_list_list_clicked (GnomeCmdFileList *fl, GnomeCmdFile *f, GtkTreeIter *iter, GdkEventButton *event, GnomeCmdFileSelector *fs)
+static void on_list_list_clicked (GnomeCmdFileList *fl, GnomeCmdFileListButtonEvent *event, GnomeCmdFileSelector *fs)
 {
-    if (event->type == GDK_BUTTON_PRESS)
-        switch (event->button)
-        {
-            case 1:
-            case 3:
-                main_win->switch_fs(fs);
-                break;
+    switch (event->button)
+    {
+        case 1:
+        case 3:
+            main_win->switch_fs(fs);
+            break;
 
-            case 2:
-                if (gnome_cmd_data.options.middle_mouse_button_mode==GnomeCmdData::MIDDLE_BUTTON_GOES_UP_DIR)
-                {
-                    if (fl->locked)
-                        fs->new_tab(gnome_cmd_dir_get_parent (fl->cwd));
-                    else
-                        fs->goto_directory("..");
-                }
+        case 2:
+            if (gnome_cmd_data.options.middle_mouse_button_mode==GnomeCmdData::MIDDLE_BUTTON_GOES_UP_DIR)
+            {
+                if (fl->locked)
+                    fs->new_tab(gnome_cmd_dir_get_parent (fl->cwd));
                 else
-                {
-                    if (f && f->is_dotdot)
-                        fs->new_tab(gnome_cmd_dir_get_parent (fl->cwd));
-                    else
-                        fs->new_tab(f && f->GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE) == G_FILE_TYPE_DIRECTORY
-                                         ? GNOME_CMD_DIR (f)
-                                         : fl->cwd);
-                }
-                break;
+                    fs->goto_directory("..");
+            }
+            else
+            {
+                if (event->file && event->file->is_dotdot)
+                    fs->new_tab(gnome_cmd_dir_get_parent (fl->cwd));
+                else
+                    fs->new_tab(event->file && event->file->GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE) == G_FILE_TYPE_DIRECTORY
+                                     ? GNOME_CMD_DIR (event->file)
+                                     : fl->cwd);
+            }
+            break;
 
-            case 6:
-            case 8:
-                fs->back();
-                break;
+        case 6:
+        case 8:
+            fs->back();
+            break;
 
-            case 7:
-            case 9:
-                fs->forward();
-                break;
+        case 7:
+        case 9:
+            fs->forward();
+            break;
 
-            default:
-                break;
-        }
+        default:
+            break;
+    }
 }
 
 
-static void on_list_empty_space_clicked (GnomeCmdFileList *fl, GdkEventButton *event, GnomeCmdFileSelector *fs)
+static void on_list_empty_space_clicked (GnomeCmdFileList *fl, GnomeCmdFileListButtonEvent *event, GnomeCmdFileSelector *fs)
 {
-    if (event->type == GDK_BUTTON_PRESS)
-        if (event->button == 3)
-            show_list_popup (fs);
+    if (event->n_press == 1 && event->button == 3)
+    {
+        gint x, y;
+        gtk_widget_translate_coordinates (GTK_WIDGET (fl), GTK_WIDGET (fs), event->x, event->y, &x, &y);
+        show_list_popup (fs, x, y);
+    }
 }
 
 
@@ -672,9 +674,11 @@ static gboolean on_notebook_button_pressed (GtkWidget *widget, GdkEventButton *e
                         g_menu_append (menu, _("Close _All Tabs"), "win.view-close-all-tabs");
                         g_menu_append (menu, _("Close _Duplicate Tabs"), "win.view-close-duplicate-tabs");
 
-                        GtkWidget *gtk_menu = gtk_menu_new_from_model (G_MENU_MODEL (menu));
-                        gtk_menu_attach_to_widget (GTK_MENU (gtk_menu), GTK_WIDGET(fs), nullptr);
-                        gtk_menu_popup (GTK_MENU (gtk_menu), nullptr, nullptr, nullptr, nullptr, event->button, event->time);
+                        GtkWidget *popover = gtk_popover_new_from_model (GTK_WIDGET (notebook), G_MENU_MODEL (menu));
+                        gtk_popover_set_position (GTK_POPOVER (popover), GTK_POS_BOTTOM);
+                        GdkRectangle rect = { (gint) event->x, (gint) event->y, 0, 0 };
+                        gtk_popover_set_pointing_to (GTK_POPOVER (popover), &rect);
+                        gtk_popover_popup (GTK_POPOVER (popover));
                     }
                     return TRUE;
 
