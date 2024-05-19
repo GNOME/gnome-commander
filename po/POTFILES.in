@@ -47,10 +47,10 @@ src/gnome-cmd-data.cc
 src/gnome-cmd-dir.cc
 src/gnome-cmd-dir-indicator.cc
 src/gnome-cmd-file.cc
+src/gnome-cmd-file-list-actions.cc
 src/gnome-cmd-file-list.cc
 src/gnome-cmd-file-popmenu.cc
 src/gnome-cmd-file-selector.cc
-src/gnome-cmd-list-popmenu.cc
 src/gnome-cmd-main-menu.cc
 src/gnome-cmd-main-win.cc
 src/gnome-cmd-owner.cc
