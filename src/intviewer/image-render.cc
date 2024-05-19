@@ -203,6 +203,7 @@ static void image_render_init (ImageRender *w)
         GDK_EXPOSURE_MASK |
         GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK |
         GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK |
+        GDK_SCROLL_MASK |
         GDK_KEY_PRESS_MASK);
 
     w->priv = g_new0 (ImageRender::Private, 1);
