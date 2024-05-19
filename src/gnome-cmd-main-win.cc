@@ -1223,39 +1223,20 @@ void GnomeCmdMainWin::update_cmdline_visibility()
 }
 
 
+static gboolean set_equal_panes_idle (gpointer *user_data)
+{
+    GNOME_CMD_MAIN_WIN (user_data)->set_equal_panes();
+    return G_SOURCE_REMOVE;
+}
+
+
 void GnomeCmdMainWin::update_horizontal_orientation()
 {
-    gint pos = 2;
-
-    g_object_ref (priv->file_selector[LEFT]);
-    g_object_ref (priv->file_selector[RIGHT]);
-    gtk_container_remove (GTK_CONTAINER (priv->paned), priv->file_selector[LEFT]);
-    gtk_container_remove (GTK_CONTAINER (priv->paned), priv->file_selector[RIGHT]);
-
-    gtk_container_remove (GTK_CONTAINER (priv->vbox), GTK_WIDGET (priv->paned));
-
-    priv->paned = gtk_paned_new (gnome_cmd_data.horizontal_orientation ? GTK_ORIENTATION_VERTICAL : GTK_ORIENTATION_HORIZONTAL);
-
-    g_object_ref (priv->paned);
-    g_object_set_data_full (*this, "paned", priv->paned, g_object_unref);
-    gtk_widget_show (priv->paned);
-
-    gtk_paned_pack1 (GTK_PANED (priv->paned), priv->file_selector[LEFT], TRUE, TRUE);
-    gtk_paned_pack2 (GTK_PANED (priv->paned), priv->file_selector[RIGHT], TRUE, TRUE);
-
-    if (gnome_cmd_data.show_toolbar)
-        pos += 2;
-
-    gtk_widget_set_hexpand (priv->paned, TRUE);
-    gtk_widget_set_vexpand (priv->paned, TRUE);
-    gtk_box_append (GTK_BOX (priv->vbox), priv->paned);
-    gtk_box_reorder_child (GTK_BOX (priv->vbox), priv->paned, pos);
-
-    g_object_unref (priv->file_selector[LEFT]);
-    g_object_unref (priv->file_selector[RIGHT]);
-
-    g_signal_connect (priv->paned, "button-press-event", G_CALLBACK (on_slide_button_press), this);
-    set_slide(50);
+    gtk_orientable_set_orientation (GTK_ORIENTABLE (priv->paned),
+        gnome_cmd_data.horizontal_orientation
+            ? GTK_ORIENTATION_VERTICAL
+            : GTK_ORIENTATION_HORIZONTAL);
+    g_timeout_add (300, (GSourceFunc) set_equal_panes_idle, this);
 }
 
 
@@ -1307,10 +1288,10 @@ void GnomeCmdMainWin::set_cap_state(gboolean state)
 
 void GnomeCmdMainWin::set_slide(gint percentage)
 {
-    GtkAllocation main_win_allocation;
-    gtk_widget_get_allocation (GTK_WIDGET (this), &main_win_allocation);
+    GtkAllocation allocation;
+    gtk_widget_get_allocation (GTK_WIDGET (priv->paned), &allocation);
 
-    gint dimension = gnome_cmd_data.horizontal_orientation ? main_win_allocation.height : main_win_allocation.width;
+    gint dimension = gnome_cmd_data.horizontal_orientation ? allocation.height : allocation.width;
     gint new_dimension = dimension * percentage / 100;
 
     gtk_paned_set_position (GTK_PANED (priv->paned), new_dimension);
