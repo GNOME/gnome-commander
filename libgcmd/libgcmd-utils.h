@@ -57,5 +57,11 @@ inline void gtk_box_append (GtkBox* box, GtkWidget* child)
 {
     gtk_container_add (GTK_CONTAINER (box), child);
 }
+
+inline gboolean gdk_rectangle_contains_point (const GdkRectangle *rect, int x, int y)
+{
+    g_return_val_if_fail (rect != NULL, FALSE);
+    return x >= rect->x && x < rect->x + rect->width && y >= rect->y && y < rect->y + rect->height;
+}
 #endif
 
