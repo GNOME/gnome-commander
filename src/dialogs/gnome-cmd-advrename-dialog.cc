@@ -504,7 +504,7 @@ static void gnome_cmd_advrename_dialog_init (GnomeCmdAdvrenameDialog *dialog)
     gtk_box_set_spacing (GTK_BOX (content_area), 6);
 
     GtkWidget *vbox = dialog->priv->vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 6);
-    gtk_box_pack_start (GTK_BOX (content_area), vbox, TRUE, TRUE, 0);
+    gtk_box_append (GTK_BOX (content_area), vbox);
 
     // Results
     gchar *str = g_strdup_printf ("<b>%s</b>", _("Results"));
@@ -514,14 +514,15 @@ static void gnome_cmd_advrename_dialog_init (GnomeCmdAdvrenameDialog *dialog)
     gtk_label_set_use_markup (GTK_LABEL (label), TRUE);
     gtk_widget_set_halign (label, GTK_ALIGN_START);
     gtk_widget_set_valign (label, GTK_ALIGN_CENTER);
-    gtk_box_pack_start (GTK_BOX (vbox), label, FALSE, FALSE, 0);
+    gtk_box_append (GTK_BOX (vbox), label);
 
     GtkWidget *scrolled_window = gtk_scrolled_window_new (NULL, NULL);
     gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolled_window), GTK_POLICY_NEVER, GTK_POLICY_AUTOMATIC);
     gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (scrolled_window), GTK_SHADOW_IN);
     gtk_widget_set_margin_bottom (scrolled_window, 6);
-    gtk_widget_set_margin_left (scrolled_window, 12);
-    gtk_box_pack_start (GTK_BOX (vbox), scrolled_window, TRUE, TRUE, 0);
+    gtk_widget_set_margin_start (scrolled_window, 12);
+    gtk_widget_set_vexpand (scrolled_window, TRUE);
+    gtk_box_append (GTK_BOX (vbox), scrolled_window);
 
     dialog->priv->files_view = create_files_view ();
     gtk_container_add (GTK_CONTAINER (scrolled_window), dialog->priv->files_view);
@@ -684,7 +685,8 @@ GnomeCmdAdvrenameDialog::GnomeCmdAdvrenameDialog(GnomeCmdData::AdvrenameConfig &
 
     priv->profile_component = new GnomeCmdAdvrenameProfileComponent(cfg.default_profile);
 
-    gtk_box_pack_start (GTK_BOX (priv->vbox), *priv->profile_component, TRUE, TRUE, 0);
+    gtk_widget_set_vexpand (*priv->profile_component, TRUE);
+    gtk_box_append (GTK_BOX (priv->vbox), *priv->profile_component);
     gtk_box_reorder_child (GTK_BOX (priv->vbox), *priv->profile_component, 0);
 
     // Results

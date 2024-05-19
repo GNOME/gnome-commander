@@ -75,23 +75,23 @@ static void gnome_cmd_xfer_progress_win_init (GnomeCmdXferProgressWin *win)
     gtk_container_add (GTK_CONTAINER (win), vbox);
 
     win->msg_label = create_label (w, "");
-    gtk_container_add (GTK_CONTAINER (vbox), win->msg_label);
+    gtk_box_append (GTK_BOX (vbox), win->msg_label);
 
     win->fileprog_label = create_label (w, "");
-    gtk_container_add (GTK_CONTAINER (vbox), win->fileprog_label);
+    gtk_box_append (GTK_BOX (vbox), win->fileprog_label);
 
     win->totalprog = create_progress_bar (w);
-    gtk_container_add (GTK_CONTAINER (vbox), win->totalprog);
+    gtk_box_append (GTK_BOX (vbox), win->totalprog);
 
     win->fileprog = create_progress_bar (w);
-    gtk_container_add (GTK_CONTAINER (vbox), win->fileprog);
+    gtk_box_append (GTK_BOX (vbox), win->fileprog);
 
     bbox = create_hbuttonbox (w);
-    gtk_container_add (GTK_CONTAINER (vbox), bbox);
+    gtk_box_append (GTK_BOX (vbox), bbox);
 
     button = create_button (w, _("_Cancel"), G_CALLBACK (on_cancel));
     gtk_widget_set_can_default (button, TRUE);
-    gtk_container_add (GTK_CONTAINER (bbox), button);
+    gtk_box_append (GTK_BOX (bbox), button);
 }
 
 /***********************************

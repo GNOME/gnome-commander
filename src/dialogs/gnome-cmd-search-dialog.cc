@@ -1177,11 +1177,12 @@ static void gnome_cmd_search_dialog_init (GnomeCmdSearchDialog *dialog)
     gtk_box_set_spacing (GTK_BOX (content_area), 6);
 
     dialog->priv->vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 6);
-    gtk_box_pack_start (GTK_BOX (content_area), dialog->priv->vbox, TRUE, TRUE, 0);
+    gtk_box_append (GTK_BOX (content_area), dialog->priv->vbox);
 
     // file list
     GtkWidget *sw = gtk_scrolled_window_new (nullptr, nullptr);
-    gtk_box_pack_start (GTK_BOX (dialog->priv->vbox), sw, TRUE, TRUE, 0);
+    gtk_widget_set_vexpand (sw, TRUE);
+    gtk_box_append (GTK_BOX (dialog->priv->vbox), sw);
     gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (sw), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
 
     dialog->priv->result_list = new GnomeCmdFileList(GnomeCmdFileList::COLUMN_NAME,GTK_SORT_ASCENDING);
@@ -1191,14 +1192,14 @@ static void gnome_cmd_search_dialog_init (GnomeCmdSearchDialog *dialog)
     // status
     dialog->priv->statusbar = gtk_statusbar_new ();
     gtk_window_set_has_resize_grip (GTK_WINDOW (dialog), FALSE);
-    gtk_box_pack_start (GTK_BOX (dialog->priv->vbox), dialog->priv->statusbar, FALSE, TRUE, 0);
+    gtk_box_append (GTK_BOX (dialog->priv->vbox), dialog->priv->statusbar);
 
 
     // progress
     dialog->priv->pbar = create_progress_bar (*dialog);
     gtk_progress_bar_set_show_text (GTK_PROGRESS_BAR (dialog->priv->pbar), FALSE);
     gtk_progress_bar_set_pulse_step (GTK_PROGRESS_BAR (dialog->priv->pbar), 1.0 / (gdouble) PBAR_MAX);
-    gtk_box_pack_start (GTK_BOX (dialog->priv->statusbar),dialog->priv-> pbar, FALSE, TRUE, 0);
+    gtk_box_append (GTK_BOX (dialog->priv->statusbar),dialog->priv-> pbar);
 
 
     dialog->priv->result_list->update_style();
@@ -1294,7 +1295,7 @@ GnomeCmdSearchDialog::GnomeCmdSearchDialog(GnomeCmdData::SearchConfig &cfg): def
 
     priv->profile_component = new GnomeCmdSelectionProfileComponent(cfg.default_profile, priv->dir_browser, _("_Look in folder:"));
 
-    gtk_box_pack_start (GTK_BOX (priv->vbox), *priv->profile_component, FALSE, FALSE, 0);
+    gtk_box_append (GTK_BOX (priv->vbox), *priv->profile_component);
     gtk_box_reorder_child (GTK_BOX (priv->vbox), *priv->profile_component, 0);
 
     if (!defaults.name_patterns.empty())

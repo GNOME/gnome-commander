@@ -96,28 +96,28 @@ void gnome_cmd_prepare_move_dialog_show (GnomeCmdFileSelector *from, GnomeCmdFil
     g_object_ref (data->query);
     g_object_set_data_full (G_OBJECT (data->dialog), "query", data->query, g_object_unref);
     gtk_widget_show (data->query);
-    gtk_box_pack_start (GTK_BOX (data->dialog->left_vbox), data->query, FALSE, FALSE, 0);
+    gtk_box_append (GTK_BOX (data->dialog->left_vbox), data->query);
 
     data->rename = gtk_radio_button_new_with_label (group, _("Rename"));
     group = gtk_radio_button_get_group (GTK_RADIO_BUTTON (data->rename));
     g_object_ref (data->rename);
     g_object_set_data_full (G_OBJECT (data->dialog), "rename", data->rename, g_object_unref);
     gtk_widget_show (data->rename);
-    gtk_box_pack_start (GTK_BOX (data->dialog->left_vbox), data->rename, FALSE, FALSE, 0);
+    gtk_box_append (GTK_BOX (data->dialog->left_vbox), data->rename);
 
     data->skip = gtk_radio_button_new_with_label (group, _("Skip"));
     group = gtk_radio_button_get_group (GTK_RADIO_BUTTON (data->skip));
     g_object_ref (data->skip);
     g_object_set_data_full (G_OBJECT (data->dialog), "skip", data->skip, g_object_unref);
     gtk_widget_show (data->skip);
-    gtk_box_pack_start (GTK_BOX (data->dialog->left_vbox), data->skip, FALSE, FALSE, 0);
+    gtk_box_append (GTK_BOX (data->dialog->left_vbox), data->skip);
 
     data->silent = gtk_radio_button_new_with_label (group, _("Overwrite silently"));
     group = gtk_radio_button_get_group (GTK_RADIO_BUTTON (data->silent));
     g_object_ref (data->silent);
     g_object_set_data_full (G_OBJECT (data->dialog), "silent", data->silent, g_object_unref);
     gtk_widget_show (data->silent);
-    gtk_box_pack_start (GTK_BOX (data->dialog->left_vbox), data->silent, FALSE, FALSE, 0);
+    gtk_box_append (GTK_BOX (data->dialog->left_vbox), data->silent);
 
     gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (g_slist_nth_data (group, gnome_cmd_data.options.confirm_move_overwrite)), TRUE);
 

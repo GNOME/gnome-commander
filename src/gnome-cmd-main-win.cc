@@ -184,8 +184,9 @@ inline GtkWidget *add_buttonbar_button (char *label,
     GtkWidget *button = create_styled_button (label);
     gtk_actionable_set_action_name (GTK_ACTIONABLE (button), action_name);
     gtk_widget_set_can_focus(button, FALSE);
+    gtk_widget_set_hexpand (button, TRUE);
 
-    gtk_box_pack_start (GTK_BOX (mw->priv->buttonbar), button, TRUE, TRUE, 0);
+    gtk_box_append (GTK_BOX (mw->priv->buttonbar), button);
 
     return button;
 }
@@ -193,22 +194,21 @@ inline GtkWidget *add_buttonbar_button (char *label,
 
 static GtkWidget *create_separator (gboolean vertical)
 {
-    GtkOrientation orientation = vertical ? GTK_ORIENTATION_VERTICAL : GTK_ORIENTATION_HORIZONTAL;
     GtkWidget *sep;
-    GtkWidget *box;
-
-    sep = gtk_separator_new (orientation);
-    box = gtk_box_new (orientation, 0);
-
-    g_object_ref (sep);
+    if (vertical)
+    {
+        sep = gtk_separator_new (GTK_ORIENTATION_VERTICAL);
+        gtk_widget_set_margin_top (sep, 3);
+        gtk_widget_set_margin_bottom (sep, 3);
+    }
+    else
+    {
+        sep = gtk_separator_new (GTK_ORIENTATION_HORIZONTAL);
+        gtk_widget_set_margin_start (sep, 3);
+        gtk_widget_set_margin_end (sep, 3);
+    }
     gtk_widget_show (sep);
-
-    g_object_ref (box);
-    gtk_widget_show (box);
-
-    gtk_box_pack_start (GTK_BOX (box), sep, TRUE, TRUE, 3);
-
-    return box;
+    return sep;
 }
 
 
@@ -218,7 +218,7 @@ static GtkWidget *append_toolbar_button (GtkWidget *toolbar, const gchar *label,
     gtk_widget_set_tooltip_text (button, label);
     gtk_actionable_set_action_name (GTK_ACTIONABLE (button), action);
     gtk_style_context_add_class (gtk_widget_get_style_context (button), "flat");
-    gtk_box_pack_start (GTK_BOX (toolbar), button, FALSE, FALSE, 0);
+    gtk_box_append (GTK_BOX (toolbar), button);
     g_object_set (button, "always-show-image", TRUE, NULL);
     return button;
 }
@@ -227,7 +227,7 @@ static GtkWidget *append_toolbar_button (GtkWidget *toolbar, const gchar *label,
 static void append_toolbar_separator (GtkWidget *toolbar)
 {
     GtkWidget *separator = gtk_separator_new (GTK_ORIENTATION_VERTICAL);
-    gtk_box_pack_start (GTK_BOX (toolbar), separator, FALSE, FALSE, 0);
+    gtk_box_append (GTK_BOX (toolbar), separator);
 }
 
 
@@ -296,17 +296,17 @@ void GnomeCmdMainWin::create_buttonbar()
     gtk_widget_show (priv->buttonbar);
 
     priv->view_btn = add_buttonbar_button(_("F3 View"), this, "win.file-view", priv->accel_group, 0);
-    gtk_box_pack_start (GTK_BOX (priv->buttonbar), create_separator (TRUE), FALSE, TRUE, 0);
+    gtk_box_append (GTK_BOX (priv->buttonbar), create_separator (TRUE));
     priv->edit_btn = add_buttonbar_button(_("F4 Edit"), this, "win.file-edit", priv->accel_group, 0);
-    gtk_box_pack_start (GTK_BOX (priv->buttonbar), create_separator (TRUE), FALSE, TRUE, 0);
+    gtk_box_append (GTK_BOX (priv->buttonbar), create_separator (TRUE));
     priv->copy_btn = add_buttonbar_button(_("F5 Copy"), this, "win.file-copy", priv->accel_group, 0);
-    gtk_box_pack_start (GTK_BOX (priv->buttonbar), create_separator (TRUE), FALSE, TRUE, 0);
+    gtk_box_append (GTK_BOX (priv->buttonbar), create_separator (TRUE));
     priv->move_btn = add_buttonbar_button(_("F6 Move"), this, "win.file-move", priv->accel_group, 0);
-    gtk_box_pack_start (GTK_BOX (priv->buttonbar), create_separator (TRUE), FALSE, TRUE, 0);
+    gtk_box_append (GTK_BOX (priv->buttonbar), create_separator (TRUE));
     priv->mkdir_btn = add_buttonbar_button(_("F7 Mkdir"), this, "win.file-mkdir", priv->accel_group, 0);
-    gtk_box_pack_start (GTK_BOX (priv->buttonbar), create_separator (TRUE), FALSE, TRUE, 0);
+    gtk_box_append (GTK_BOX (priv->buttonbar), create_separator (TRUE));
     priv->delete_btn = add_buttonbar_button(_("F8 Delete"), this, "win.file-delete", priv->accel_group, 0);
-    gtk_box_pack_start (GTK_BOX (priv->buttonbar), create_separator (TRUE), FALSE, TRUE, 0);
+    gtk_box_append (GTK_BOX (priv->buttonbar), create_separator (TRUE));
     priv->find_btn = add_buttonbar_button(_("F9 Search"), this, "win.file-search", priv->accel_group, 0);
 }
 
@@ -681,8 +681,8 @@ static void gnome_cmd_main_win_init (GnomeCmdMainWin *mw)
     {
         gtk_widget_show (mw->priv->menubar);
     }
-    gtk_box_pack_start (GTK_BOX (mw->priv->vbox), mw->priv->menubar, FALSE, TRUE, 0);
-    gtk_box_pack_start (GTK_BOX (mw->priv->vbox), create_separator (FALSE), FALSE, TRUE, 0);
+    gtk_box_append (GTK_BOX (mw->priv->vbox), mw->priv->menubar);
+    gtk_box_append (GTK_BOX (mw->priv->vbox), create_separator (FALSE));
 
     gtk_widget_show (mw->priv->vbox);
     gtk_container_add (GTK_CONTAINER (mw), mw->priv->vbox);
@@ -691,8 +691,10 @@ static void gnome_cmd_main_win_init (GnomeCmdMainWin *mw)
 
     g_object_ref (mw->priv->paned);
     g_object_set_data_full (*mw, "paned", mw->priv->paned, g_object_unref);
+    gtk_widget_set_hexpand (mw->priv->paned, TRUE);
+    gtk_widget_set_vexpand (mw->priv->paned, TRUE);
     gtk_widget_show (mw->priv->paned);
-    gtk_box_pack_start (GTK_BOX (mw->priv->vbox), mw->priv->paned, TRUE, TRUE, 0);
+    gtk_box_append (GTK_BOX (mw->priv->vbox), mw->priv->paned);
     mw->create_buttonbar();
 
     mw->priv->file_selector[LEFT] = gnome_cmd_file_selector_new (LEFT);
@@ -1157,9 +1159,9 @@ void GnomeCmdMainWin::update_show_toolbar()
     if (gnome_cmd_data.show_toolbar)
     {
         create_toolbar (this);
-        gtk_box_pack_start (GTK_BOX (priv->vbox), priv->toolbar, FALSE, TRUE, 0);
+        gtk_box_append (GTK_BOX (priv->vbox), priv->toolbar);
         gtk_box_reorder_child (GTK_BOX (priv->vbox), priv->toolbar, 2);
-        gtk_box_pack_start (GTK_BOX (priv->vbox), priv->toolbar_sep, FALSE, TRUE, 0);
+        gtk_box_append (GTK_BOX (priv->vbox), priv->toolbar_sep);
         gtk_box_reorder_child (GTK_BOX (priv->vbox), priv->toolbar_sep, 3);
     }
     else
@@ -1181,8 +1183,8 @@ void GnomeCmdMainWin::update_buttonbar_visibility()
     if (gnome_cmd_data.buttonbar_visibility)
     {
         create_buttonbar();
-        gtk_box_pack_start (GTK_BOX (priv->vbox), priv->buttonbar_sep, FALSE, TRUE, 0);
-        gtk_box_pack_start (GTK_BOX (priv->vbox), priv->buttonbar, FALSE, TRUE, 0);
+        gtk_box_append (GTK_BOX (priv->vbox), priv->buttonbar_sep);
+        gtk_box_append (GTK_BOX (priv->vbox), priv->buttonbar);
     }
     else
     {
@@ -1203,13 +1205,15 @@ void GnomeCmdMainWin::update_cmdline_visibility()
         gint pos = 3;
         priv->cmdline_sep = create_separator (FALSE);
         priv->cmdline = gnome_cmd_cmdline_new ();
+        gtk_widget_set_margin_top (GTK_WIDGET (priv->cmdline), 1);
+        gtk_widget_set_margin_bottom (GTK_WIDGET (priv->cmdline), 1);
         g_object_ref (priv->cmdline);
         g_object_set_data_full (*this, "cmdline", priv->cmdline, g_object_unref);
         gtk_widget_show (priv->cmdline);
         if (gnome_cmd_data.show_toolbar)
             pos += 2;
-        gtk_box_pack_start (GTK_BOX (priv->vbox), priv->cmdline_sep, FALSE, TRUE, 0);
-        gtk_box_pack_start (GTK_BOX (priv->vbox), priv->cmdline, FALSE, TRUE, 1);
+        gtk_box_append (GTK_BOX (priv->vbox), priv->cmdline_sep);
+        gtk_box_append (GTK_BOX (priv->vbox), priv->cmdline);
         gtk_box_reorder_child (GTK_BOX (priv->vbox), priv->cmdline_sep, pos);
         gtk_box_reorder_child (GTK_BOX (priv->vbox), priv->cmdline, pos+1);
     }
@@ -1248,7 +1252,9 @@ void GnomeCmdMainWin::update_horizontal_orientation()
     if (gnome_cmd_data.show_toolbar)
         pos += 2;
 
-    gtk_box_pack_start (GTK_BOX (priv->vbox), priv->paned, TRUE, TRUE, 0);
+    gtk_widget_set_hexpand (priv->paned, TRUE);
+    gtk_widget_set_vexpand (priv->paned, TRUE);
+    gtk_box_append (GTK_BOX (priv->vbox), priv->paned);
     gtk_box_reorder_child (GTK_BOX (priv->vbox), priv->paned, pos);
 
     g_object_unref (priv->file_selector[LEFT]);

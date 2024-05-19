@@ -122,7 +122,7 @@ static void gnome_cmd_selection_profile_component_init (GnomeCmdSelectionProfile
     component->priv->grid = gtk_grid_new ();
     gtk_grid_set_row_spacing (GTK_GRID (component->priv->grid), 6);
     gtk_grid_set_column_spacing (GTK_GRID (component->priv->grid), 6);
-    gtk_box_pack_start (GTK_BOX (component), component->priv->grid, FALSE, TRUE, 0);
+    gtk_box_append (GTK_BOX (component), component->priv->grid);
 
 
     // search for

@@ -549,11 +549,12 @@ static void gnome_cmd_dir_indicator_init (GnomeCmdDirIndicator *indicator)
     // pack
     hbox = create_hbox (GTK_WIDGET (indicator), FALSE, 10);
     gtk_container_add (GTK_CONTAINER (indicator), hbox);
-    gtk_box_pack_start (GTK_BOX (hbox), priv->event_box, TRUE, TRUE, 0);
+    gtk_widget_set_hexpand (priv->event_box, TRUE);
+    gtk_box_append (GTK_BOX (hbox), priv->event_box);
     bbox = create_hbox (GTK_WIDGET (indicator), FALSE, 0);
-    gtk_box_pack_start (GTK_BOX (hbox), bbox, FALSE, TRUE, 0);
-    gtk_box_pack_start (GTK_BOX (bbox), priv->bookmark_button, FALSE, FALSE, 0);
-    gtk_box_pack_start (GTK_BOX (bbox), priv->history_button, FALSE, FALSE, 0);
+    gtk_box_append (GTK_BOX (hbox), bbox);
+    gtk_box_append (GTK_BOX (bbox), priv->bookmark_button);
+    gtk_box_append (GTK_BOX (bbox), priv->history_button);
 
     g_signal_connect (priv->history_button, "clicked", G_CALLBACK (on_history_button_clicked), indicator);
     g_signal_connect (priv->bookmark_button, "clicked", G_CALLBACK (on_bookmark_button_clicked), indicator);

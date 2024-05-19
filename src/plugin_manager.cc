@@ -399,6 +399,8 @@ void plugin_manager_show ()
     hbox = create_vbox (dialog, FALSE, 6);
     avail_store = gtk_list_store_new (5, GDK_TYPE_PIXBUF, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_POINTER);
     avail_view = create_treeview (dialog, "avail_view", GTK_TREE_MODEL (avail_store), 20, G_CALLBACK (on_plugin_selection_changed), nullptr);
+    gtk_widget_set_hexpand (GTK_WIDGET (avail_view), TRUE);
+    gtk_widget_set_vexpand (GTK_WIDGET (avail_view), TRUE);
     create_treeview_column (avail_view, 0, 20, "");
     create_treeview_column (avail_view, 1, 200, _("Name"));
     create_treeview_column (avail_view, 2, 50, _("Version"));
@@ -409,20 +411,20 @@ void plugin_manager_show ()
 
     button = create_button (GTK_WIDGET (dialog), _("_Enable"), G_CALLBACK (on_toggle));
     g_object_set_data (G_OBJECT (dialog), "toggle_button", button);
-    gtk_box_pack_start (GTK_BOX (bbox), button, TRUE, FALSE, 0);
+    gtk_box_append (GTK_BOX (bbox), button);
 
     button = create_button (GTK_WIDGET (dialog), _("_Configure"), G_CALLBACK (on_configure));
     g_object_set_data (G_OBJECT (dialog), "conf_button", button);
     gtk_widget_set_sensitive (button, FALSE);
-    gtk_box_pack_start (GTK_BOX (bbox), button, TRUE, FALSE, 0);
+    gtk_box_append (GTK_BOX (bbox), button);
 
     button = create_button (GTK_WIDGET (dialog), _("_About"), G_CALLBACK (on_about));
     g_object_set_data (G_OBJECT (dialog), "about_button", button);
     gtk_widget_set_sensitive (button, FALSE);
-    gtk_box_pack_start (GTK_BOX (bbox), button, TRUE, FALSE, 0);
+    gtk_box_append (GTK_BOX (bbox), button);
 
-    gtk_box_pack_start (GTK_BOX (hbox), avail_view, TRUE, TRUE, 0);
-    gtk_box_pack_start (GTK_BOX (hbox), bbox, FALSE, TRUE, 0);
+    gtk_box_append (GTK_BOX (hbox), avail_view);
+    gtk_box_append (GTK_BOX (hbox), bbox);
 
     gnome_cmd_dialog_add_expanding_category (GNOME_CMD_DIALOG (dialog), hbox);
 

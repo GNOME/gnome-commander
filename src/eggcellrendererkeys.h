@@ -21,7 +21,7 @@
 
 #pragma once
 
-#include <gtk/gtkcellrenderertext.h>
+#include <gtk/gtk.h>
 
 #define EGG_TYPE_CELL_RENDERER_KEYS              (egg_cell_renderer_keys_get_type ())
 #define EGG_CELL_RENDERER_KEYS(obj)              (G_TYPE_CHECK_INSTANCE_CAST((obj), EGG_TYPE_CELL_RENDERER_KEYS, EggCellRendererKeys))

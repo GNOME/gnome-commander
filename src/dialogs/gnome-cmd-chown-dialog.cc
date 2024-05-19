@@ -185,10 +185,10 @@ static void gnome_cmd_chown_dialog_init (GnomeCmdChownDialog *dialog)
     g_object_ref (dialog->priv->chown_component);
     g_object_set_data_full (G_OBJECT (dialog), "chown_component", dialog->priv->chown_component, g_object_unref);
     gtk_widget_show (dialog->priv->chown_component);
-    gtk_box_pack_start (GTK_BOX (vbox), dialog->priv->chown_component, FALSE, FALSE, 0);
+    gtk_box_append (GTK_BOX (vbox), dialog->priv->chown_component);
 
     dialog->priv->recurse_check = create_check (GTK_WIDGET (dialog), _("Apply Recursively"), "check");
-    gtk_box_pack_start (GTK_BOX (vbox), dialog->priv->recurse_check, FALSE, FALSE, 0);
+    gtk_box_append (GTK_BOX (vbox), dialog->priv->recurse_check);
 
     gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), _("_Cancel"), G_CALLBACK (on_cancel), dialog);
     gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), _("_OK"), G_CALLBACK (on_ok), dialog);

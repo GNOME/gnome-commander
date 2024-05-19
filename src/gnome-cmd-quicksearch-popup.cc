@@ -266,8 +266,8 @@ static void gnome_cmd_quicksearch_popup_init (GnomeCmdQuicksearchPopup *popup)
     GtkWidget *lbl = gtk_label_new (_("Search"));
     priv->entry = gtk_entry_new ();
 
-    gtk_box_pack_start (GTK_BOX (box), lbl, FALSE, TRUE, 0);
-    gtk_box_pack_start (GTK_BOX (box), priv->entry, FALSE, TRUE, 0);
+    gtk_box_append (GTK_BOX (box), lbl);
+    gtk_box_append (GTK_BOX (box), priv->entry);
     gtk_container_add (GTK_CONTAINER (popup), box);
 
     g_signal_connect (priv->entry, "key-press-event", G_CALLBACK (on_key_pressed), popup);

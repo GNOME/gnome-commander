@@ -578,8 +578,8 @@ GtkWidget *create_styled_pixbuf_button (const gchar *text, GdkPixbuf *pb)
             gtk_container_add (GTK_CONTAINER (btn), label);
         else
         {
-            gtk_box_pack_start (GTK_BOX (hbox), image, FALSE, TRUE, 0);
-            gtk_box_pack_start (GTK_BOX (hbox), label, TRUE, TRUE, 0);
+            gtk_box_append (GTK_BOX (hbox), image);
+            gtk_box_append (GTK_BOX (hbox), label);
             gtk_container_add (GTK_CONTAINER (btn), hbox);
         }
 

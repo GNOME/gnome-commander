@@ -23,12 +23,6 @@
 
 GtkWidget *lookup_widget (GtkWidget *widget, const gchar *widget_name);
 
-GtkWidget *create_frame (GtkWidget *parent, const gchar *text, gint spacing);
-
-GtkWidget *create_tabframe (GtkWidget *parent);
-
-GtkWidget *create_space_frame (GtkWidget *parent, gint space);
-
 GtkWidget *create_grid (GtkWidget *parent);
 
 GtkWidget *create_vbox (GtkWidget *parent, gboolean h, gint s);
@@ -52,8 +46,6 @@ GtkWidget *create_label_with_mnemonic (GtkWidget *parent, const gchar *text, Gtk
 GtkWidget *create_bold_label (GtkWidget *parent, const gchar *text);
 
 GtkWidget *create_hsep (GtkWidget *parent);
-
-GtkWidget *create_space_hbox (GtkWidget *parent, GtkWidget *content);
 
 GtkWidget *create_category (GtkWidget *parent, GtkWidget *content, const gchar *title);
 

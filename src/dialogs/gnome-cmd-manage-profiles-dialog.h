@@ -301,18 +301,19 @@ namespace GnomeCmd
         gtk_widget_set_margin_bottom (content_area, 10);
         gtk_widget_set_margin_start (content_area, 10);
         gtk_widget_set_margin_end (content_area, 10);
-        gtk_box_set_spacing (GTK_BOX (content_area), 6);
-
-        vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 12);
-        gtk_container_add (GTK_CONTAINER (content_area), vbox);
+        gtk_box_set_spacing (GTK_BOX (content_area), 12);
 
         hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 12);
-        gtk_container_add (GTK_CONTAINER (vbox), hbox);
+        gtk_widget_set_hexpand (hbox, TRUE);
+        gtk_widget_set_vexpand (hbox, TRUE);
+        gtk_box_append (GTK_BOX (content_area), hbox);
 
         scrolled_window = gtk_scrolled_window_new (NULL, NULL);
         gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolled_window), GTK_POLICY_NEVER, GTK_POLICY_AUTOMATIC);
         gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (scrolled_window), GTK_SHADOW_IN);
-        gtk_box_pack_start (GTK_BOX (hbox), scrolled_window, TRUE, TRUE, 0);
+        gtk_widget_set_hexpand (scrolled_window, TRUE);
+        gtk_widget_set_vexpand (scrolled_window, TRUE);
+        gtk_box_append (GTK_BOX (hbox), scrolled_window);
 
         view = create_view_and_model();
         gtk_widget_set_size_request (view, 400, 200);
@@ -322,22 +323,22 @@ namespace GnomeCmd
         box = gnome_cmd_hint_box_new (_("To rename a profile, click on the "
                                         "corresponding row and type a new "
                                         "name, or press escape to cancel."));
-        gtk_box_pack_start (GTK_BOX (vbox), box, FALSE, FALSE, 0);
+        gtk_box_append (GTK_BOX (content_area), box);
 
         vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 12);
-        gtk_box_pack_start (GTK_BOX (hbox), vbox, FALSE, FALSE, 0);
+        gtk_box_append (GTK_BOX (hbox), vbox);
 
         button = gtk_button_new_with_mnemonic (_("_Duplicate"));
         g_signal_connect (button, "clicked", G_CALLBACK (duplicate_clicked_callback), view);
-        gtk_box_pack_start (GTK_BOX (vbox), button, FALSE, FALSE, 0);
+        gtk_box_append (GTK_BOX (vbox), button);
 
         button = gtk_button_new_with_mnemonic (_("_Edit"));
         g_signal_connect (button, "clicked", G_CALLBACK (edit_clicked_callback), view);
-        gtk_box_pack_start (GTK_BOX (vbox), button, FALSE, FALSE, 0);
+        gtk_box_append (GTK_BOX (vbox), button);
 
         button = gtk_button_new_with_mnemonic (_("_Remove"));
         g_signal_connect (button, "clicked", G_CALLBACK (remove_clicked_callback), view);
-        gtk_box_pack_start (GTK_BOX (vbox), button, FALSE, FALSE, 0);
+        gtk_box_append (GTK_BOX (vbox), button);
 
         gtk_widget_show_all (content_area);
 

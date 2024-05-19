@@ -1960,7 +1960,7 @@ static void create_con_open_progress_dialog (GnomeCmdFileList *fl)
                                  _("_Cancel"),
                                  G_CALLBACK (on_con_open_cancel), fl);
 
-    GtkWidget *vbox = create_vbox (fl->priv->con_open_dialog, FALSE, 0);
+    GtkWidget *vbox = create_vbox (fl->priv->con_open_dialog, FALSE, 12);
 
     fl->priv->con_open_dialog_label = create_label (fl->priv->con_open_dialog, "");
 
@@ -1968,8 +1968,8 @@ static void create_con_open_progress_dialog (GnomeCmdFileList *fl)
     gtk_progress_bar_set_show_text (GTK_PROGRESS_BAR (fl->priv->con_open_dialog_pbar), FALSE);
     gtk_progress_bar_set_pulse_step (GTK_PROGRESS_BAR (fl->priv->con_open_dialog_pbar), 1.0 / (gdouble) FL_PBAR_MAX);
 
-    gtk_box_pack_start (GTK_BOX (vbox), fl->priv->con_open_dialog_label, TRUE, TRUE, 0);
-    gtk_box_pack_start (GTK_BOX (vbox), fl->priv->con_open_dialog_pbar, FALSE, TRUE, 0);
+    gtk_box_append (GTK_BOX (vbox), fl->priv->con_open_dialog_label);
+    gtk_box_append (GTK_BOX (vbox), fl->priv->con_open_dialog_pbar);
 
     gnome_cmd_dialog_add_category (GNOME_CMD_DIALOG (fl->priv->con_open_dialog), vbox);
 

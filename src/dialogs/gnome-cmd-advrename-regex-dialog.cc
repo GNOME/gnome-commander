@@ -77,7 +77,7 @@ gboolean gnome_cmd_advrename_regex_dialog_new (const gchar *title, GtkWindow *pa
     grid = gtk_grid_new ();
     gtk_grid_set_row_spacing (GTK_GRID (grid), 6);
     gtk_grid_set_column_spacing (GTK_GRID (grid), 12);
-    gtk_container_add (GTK_CONTAINER (content_area), grid);
+    gtk_box_append (GTK_BOX (content_area), grid);
 
     label = gtk_label_new_with_mnemonic (_("_Search for:"));
     gtk_widget_set_halign (label, GTK_ALIGN_START);
@@ -107,7 +107,7 @@ gboolean gnome_cmd_advrename_regex_dialog_new (const gchar *title, GtkWindow *pa
     g_object_set_data (G_OBJECT (dialog), "match_case", check);
     gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), rx ? rx->match_case : FALSE);
     gtk_widget_set_margin_top (check, 6);
-    gtk_widget_set_margin_left (check, 12);
+    gtk_widget_set_margin_start (check, 12);
     gtk_grid_attach (GTK_GRID (grid), check, 0, 2, 2, 1);
 
     gtk_widget_show_all (content_area);

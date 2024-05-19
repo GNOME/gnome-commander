@@ -365,7 +365,6 @@ static void on_add_to_archive (GSimpleAction *action, GVariant *parameter, gpoin
     {
         GdkPixbuf *pixbuf;
         GtkWidget *entry;
-        GtkWidget *hbox;
         gchar *archive_name;
 
         if (dialog)
@@ -380,15 +379,14 @@ static void on_add_to_archive (GSimpleAction *action, GVariant *parameter, gpoin
 
         gtk_window_set_title (GTK_WINDOW (dialog), _("Create Archive"));
 
-        hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 6);
-        g_object_ref (hbox);
-        gtk_widget_show (hbox);
-        gtk_box_pack_start (GTK_BOX (gtk_dialog_get_content_area (GTK_DIALOG (dialog))), hbox, FALSE, TRUE, 6);
-
         entry = gtk_entry_new ();
-        g_object_ref (entry);
+        gtk_widget_set_margin_start (entry, 6);
+        gtk_widget_set_margin_end (entry, 6);
+        gtk_widget_set_margin_top (entry, 6);
+        gtk_widget_set_margin_bottom (entry, 6);
+        gtk_widget_set_hexpand (entry, TRUE);
         gtk_widget_show (entry);
-        gtk_box_pack_start (GTK_BOX (hbox), entry, TRUE, TRUE, 6);
+        gtk_box_append (GTK_BOX (gtk_dialog_get_content_area (GTK_DIALOG (dialog))), entry);
 
         gchar *locale_format = g_locale_from_utf8 (priv->file_prefix_pattern, -1, nullptr, nullptr, nullptr);
         char s[256];
@@ -616,7 +614,7 @@ static void configure (GnomeCmdPlugin *plugin)
 
     grid = create_grid (dialog);
     cat = create_category (dialog, grid, _("File-roller options"));
-    gtk_box_pack_start (GTK_BOX (vbox), cat, FALSE, TRUE, 0);
+    gtk_box_append (GTK_BOX (vbox), cat);
 
     label = create_label (dialog, _("Default archive type"));
     gtk_grid_attach (GTK_GRID (grid), label, 0, 0, 1, 1);

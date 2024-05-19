@@ -108,7 +108,7 @@ static void gnome_cmd_chmod_component_init (GnomeCmdChmodComponent *comp)
 
     GtkGrid *grid = GTK_GRID (gtk_grid_new ());
     gtk_widget_show (GTK_WIDGET (grid));
-    gtk_box_pack_start (GTK_BOX (comp), GTK_WIDGET (grid), FALSE, FALSE, 0);
+    gtk_box_append (GTK_BOX (comp), GTK_WIDGET (grid));
     gtk_grid_set_row_spacing (grid, 6);
     gtk_grid_set_column_spacing (grid, 6);
 
@@ -126,11 +126,11 @@ static void gnome_cmd_chmod_component_init (GnomeCmdChmodComponent *comp)
     }
 
     hsep = create_hsep (GTK_WIDGET (comp));
-    gtk_box_pack_start (GTK_BOX (comp), hsep, TRUE, TRUE, 0);
+    gtk_box_append (GTK_BOX (comp), hsep);
 
     grid = GTK_GRID (gtk_grid_new ());
     gtk_widget_show (GTK_WIDGET (grid));
-    gtk_box_pack_start (GTK_BOX (comp), GTK_WIDGET (grid), TRUE, TRUE, 0);
+    gtk_box_append (GTK_BOX (comp), GTK_WIDGET (grid));
     gtk_grid_set_row_spacing (grid, 6);
     gtk_grid_set_column_spacing (grid, 6);
 

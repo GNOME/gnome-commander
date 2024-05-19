@@ -96,9 +96,6 @@ namespace GnomeCmd
         gtk_widget_set_margin_end (content_area, 10);
         gtk_box_set_spacing (GTK_BOX (content_area), 6);
 
-        GtkWidget *vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 6);
-        gtk_box_pack_start (GTK_BOX (content_area), vbox, TRUE, TRUE, 0);
-
         gchar *str = g_strdup_printf ("<b>%s</b>", _("_Name"));
         GtkWidget *label = gtk_label_new_with_mnemonic (str);
         g_free (str);
@@ -106,18 +103,18 @@ namespace GnomeCmd
         gtk_label_set_use_markup (GTK_LABEL (label), TRUE);
         gtk_widget_set_halign (label, GTK_ALIGN_START);
         gtk_widget_set_valign (label, GTK_ALIGN_CENTER);
-        gtk_box_pack_start (GTK_BOX (vbox), label, FALSE, FALSE, 0);
+        gtk_box_append (GTK_BOX (content_area), label);
 
         GtkWidget *entry = gtk_entry_new ();
         g_object_set_data (G_OBJECT (dialog), "name", entry);
         gtk_label_set_mnemonic_widget (GTK_LABEL (label), entry);
         gtk_entry_set_text (GTK_ENTRY (entry), profile.name.c_str());
         gtk_widget_set_margin_bottom (entry, 6);
-        gtk_widget_set_margin_left (entry, 12);
-        gtk_container_add (GTK_CONTAINER (vbox), entry);
+        gtk_widget_set_margin_start (entry, 12);
+        gtk_box_append (GTK_BOX (content_area), entry);
 
         component = new COMPONENT(profile);
-        gtk_container_add (GTK_CONTAINER (vbox), *component);
+        gtk_box_append (GTK_BOX (content_area), *component);
 
         component->update();
 
