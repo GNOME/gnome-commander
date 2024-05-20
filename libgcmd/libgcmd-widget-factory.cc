@@ -541,8 +541,9 @@ GtkWidget *create_combo_box_text (GtkWidget *parent, const gchar **items)
     g_object_set_data_full (G_OBJECT (parent), "combo", combo, g_object_unref);
     gtk_widget_show (combo);
 
-    for (gint i = 0; items[i]; i++)
-        gtk_combo_box_text_append_text ((GtkComboBoxText*) combo, items[i]);
+    if (items)
+        for (gint i = 0; items[i]; i++)
+            gtk_combo_box_text_append_text ((GtkComboBoxText*) combo, items[i]);
 
     return combo;
 }

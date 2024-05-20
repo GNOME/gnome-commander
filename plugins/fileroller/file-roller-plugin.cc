@@ -550,7 +550,7 @@ static void on_configure_close (GtkButton *btn, FileRollerPlugin *plugin)
 {
     FileRollerPluginPrivate *priv = (FileRollerPluginPrivate *) file_roller_plugin_get_instance_private (plugin);
 
-    priv->default_ext = g_strdup (gtk_entry_get_text (GTK_ENTRY (gtk_bin_get_child (GTK_BIN (priv->conf_combo)))));
+    priv->default_ext = gtk_combo_box_text_get_active_text (GTK_COMBO_BOX_TEXT (priv->conf_combo));
     priv->file_prefix_pattern = g_strdup (get_entry_text (priv->conf_entry, "file_prefix_pattern_entry"));
 
     g_settings_set_string (priv->settings->file_roller_plugin, GCMD_PLUGINS_FILE_ROLLER_DEFAULT_TYPE, priv->default_ext);
@@ -564,8 +564,8 @@ static void on_date_format_update (GtkEditable *editable, GtkWidget *options_dia
 {
     GtkWidget *format_entry = lookup_widget (options_dialog, "file_prefix_pattern_entry");
     GtkWidget *test_label = lookup_widget (options_dialog, "date_format_test_label");
-    GtkWidget *combo_entry = lookup_widget (options_dialog, "combo");
-    const gchar *file_suffix = gtk_entry_get_text (GTK_ENTRY (gtk_bin_get_child (GTK_BIN (combo_entry))));
+    GtkWidget *combo = lookup_widget (options_dialog, "combo");
+    gchar *file_suffix = gtk_combo_box_text_get_active_text (GTK_COMBO_BOX_TEXT (combo));
 
     const char *format = gtk_entry_get_text (GTK_ENTRY (format_entry));
     gchar *locale_format = g_locale_from_utf8 (format, -1, nullptr, nullptr, nullptr);
@@ -587,6 +587,7 @@ static void on_date_format_update (GtkEditable *editable, GtkWidget *options_dia
     gchar *filename = new_string_with_replaced_keyword(filename_tmp, "$N", replacement);
     gtk_label_set_text (GTK_LABEL (test_label), filename);
     g_free (file_prefix);
+    g_free (file_suffix);
     g_free (replacement);
     g_free (filename);
     g_free (filename_tmp);
@@ -619,7 +620,7 @@ static void configure (GnomeCmdPlugin *plugin)
     label = create_label (dialog, _("Default archive type"));
     gtk_grid_attach (GTK_GRID (grid), label, 0, 0, 1, 1);
 
-    combo = create_combo_box_text_with_entry (dialog);
+    combo = create_combo_box_text (dialog, nullptr);
     g_signal_connect (G_OBJECT(combo), "changed", G_CALLBACK (on_date_format_update), dialog);
     gtk_widget_set_hexpand (combo, TRUE);
     gtk_grid_attach (GTK_GRID (grid), combo, 1, 0, 1, 1);
@@ -661,11 +662,12 @@ static void configure (GnomeCmdPlugin *plugin)
 
     // The text entry stored in default_ext (set in init()) should be the active entry in the combo now.
     // If strlen of the active comby == 0, prepend the stored value to the list.
-    const gchar* test = gtk_entry_get_text (GTK_ENTRY (gtk_bin_get_child (GTK_BIN (combo))));
+    gchar* test = gtk_combo_box_text_get_active_text (GTK_COMBO_BOX_TEXT (combo));
     if (test && strlen(test) == 0)
     {
         gtk_combo_box_text_prepend_text ((GtkComboBoxText*) combo, priv->default_ext);
         gtk_combo_box_set_active((GtkComboBox*) combo, 0);
+        g_free (test);
     }
 
     priv->conf_dialog = dialog;
