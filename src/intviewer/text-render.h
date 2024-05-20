@@ -39,10 +39,6 @@ struct TextRender
 {
     GtkDrawingArea parent;
 
-    struct Private;
-
-    Private *priv;
-
     struct Status
     {
         offset_type current_offset;

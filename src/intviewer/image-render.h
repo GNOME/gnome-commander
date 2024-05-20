@@ -39,10 +39,6 @@ struct ImageRender
 {
     GtkDrawingArea parent;
 
-    struct Private;
-
-    Private *priv;
-
     struct Status
     {
         gboolean best_fit;
