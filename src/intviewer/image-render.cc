@@ -45,6 +45,13 @@ using namespace std;
 #define IMAGE_RENDER_DEFAULT_HEIGHT     200
 #define INC_VALUE 25.0
 
+enum {
+  PROP_0,
+  PROP_HADJUSTMENT,
+  PROP_VADJUSTMENT,
+  PROP_HSCROLL_POLICY,
+  PROP_VSCROLL_POLICY
+};
 
 enum {
   IMAGE_STATUS_CHANGED,
@@ -68,16 +75,10 @@ struct ImageRenderPrivate
     gint mouseY;   // Old y position before mouse move
 
     GtkAdjustment *h_adjustment;
-    // Old values from h_adjustment stored so we know when something changes
-    gfloat old_h_adj_value;
-    gfloat old_h_adj_lower;
-    gfloat old_h_adj_upper;
+    GtkScrollablePolicy hscroll_policy;
 
     GtkAdjustment *v_adjustment;
-    // Old values from v_adjustment stored so we know when something changes
-    gfloat old_v_adj_value;
-    gfloat old_v_adj_lower;
-    gfloat old_v_adj_upper;
+    GtkScrollablePolicy vscroll_policy;
 
     gchar      *filename;
     gboolean    scaled_pixbuf_loaded;
@@ -89,10 +90,6 @@ struct ImageRenderPrivate
     GThread    *pixbuf_loading_thread;
     gint        orig_pixbuf_loaded;
 };
-
-
-G_DEFINE_TYPE_WITH_PRIVATE (ImageRender, image_render, GTK_TYPE_DRAWING_AREA)
-
 
 // Gtk class related static functions
 static void image_render_redraw (ImageRender *w);
@@ -123,19 +120,16 @@ static void image_render_free_pixbuf (ImageRender *obj);
 static void image_render_prepare_disp_pixbuf (ImageRender *obj);
 static void image_render_update_adjustments (ImageRender *obj);
 
-/*****************************************
-    public functions
-    (defined in the header file)
-*****************************************/
-GtkAdjustment *image_render_get_h_adjustment (ImageRender *obj)
-{
-    g_return_val_if_fail (IS_IMAGE_RENDER(obj), nullptr);
-    auto priv = static_cast<ImageRenderPrivate*>(image_render_get_instance_private (obj));
 
-    return priv->h_adjustment;
-}
+G_DEFINE_TYPE_EXTENDED (ImageRender,
+                        image_render,
+                        GTK_TYPE_DRAWING_AREA,
+                        0,
+                        G_ADD_PRIVATE (ImageRender)
+                        G_IMPLEMENT_INTERFACE (GTK_TYPE_SCROLLABLE, NULL))
 
-void image_render_set_h_adjustment (ImageRender *obj, GtkAdjustment *adjustment)
+
+static void image_render_set_h_adjustment (ImageRender *obj, GtkAdjustment *adjustment)
 {
     g_return_if_fail (IS_IMAGE_RENDER(obj));
     auto priv = static_cast<ImageRenderPrivate*>(image_render_get_instance_private (obj));
@@ -146,29 +140,23 @@ void image_render_set_h_adjustment (ImageRender *obj, GtkAdjustment *adjustment)
         g_object_unref (priv->h_adjustment);
     }
 
-    priv->h_adjustment = adjustment;
+    priv->h_adjustment = adjustment ? adjustment : gtk_adjustment_new (0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
     g_object_ref (priv->h_adjustment);
 
-    g_signal_connect (adjustment, "changed", G_CALLBACK (image_render_h_adjustment_changed), obj);
-    g_signal_connect (adjustment, "value-changed", G_CALLBACK (image_render_h_adjustment_value_changed), obj);
+    gtk_adjustment_set_lower (priv->h_adjustment, 0.0);
+    gtk_adjustment_set_upper (priv->h_adjustment, priv->disp_pixbuf ? gdk_pixbuf_get_width (priv->disp_pixbuf) : 0.0);
+    gtk_adjustment_set_step_increment (priv->h_adjustment, INC_VALUE);
+    gtk_adjustment_set_page_increment (priv->h_adjustment, 100.0);
+    gtk_adjustment_set_page_size (priv->h_adjustment, 100.0);
 
-    priv->old_h_adj_value = gtk_adjustment_get_value (adjustment);
-    priv->old_h_adj_lower = gtk_adjustment_get_lower (adjustment);
-    priv->old_h_adj_upper = gtk_adjustment_get_upper (adjustment);
+    g_signal_connect (priv->h_adjustment, "changed", G_CALLBACK (image_render_h_adjustment_changed), obj);
+    g_signal_connect (priv->h_adjustment, "value-changed", G_CALLBACK (image_render_h_adjustment_value_changed), obj);
 
     image_render_h_adjustment_update (obj);
 }
 
 
-GtkAdjustment *image_render_get_v_adjustment (ImageRender *obj)
-{
-    g_return_val_if_fail (IS_IMAGE_RENDER(obj), nullptr);
-    auto priv = static_cast<ImageRenderPrivate*>(image_render_get_instance_private (obj));
-
-    return priv->v_adjustment;
-}
-
-void image_render_set_v_adjustment (ImageRender *obj, GtkAdjustment *adjustment)
+static void image_render_set_v_adjustment (ImageRender *obj, GtkAdjustment *adjustment)
 {
     g_return_if_fail (IS_IMAGE_RENDER(obj));
     auto priv = static_cast<ImageRenderPrivate*>(image_render_get_instance_private (obj));
@@ -179,15 +167,17 @@ void image_render_set_v_adjustment (ImageRender *obj, GtkAdjustment *adjustment)
         g_object_unref (priv->v_adjustment);
     }
 
-    priv->v_adjustment = adjustment;
+    priv->v_adjustment = adjustment ? adjustment : gtk_adjustment_new (0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
     g_object_ref (priv->v_adjustment);
 
-    g_signal_connect (adjustment, "changed", G_CALLBACK (image_render_v_adjustment_changed), obj);
-    g_signal_connect (adjustment, "value-changed",  G_CALLBACK (image_render_v_adjustment_value_changed), obj);
+    gtk_adjustment_set_lower (priv->v_adjustment, 0.0);
+    gtk_adjustment_set_upper (priv->v_adjustment, priv->disp_pixbuf ? gdk_pixbuf_get_height (priv->disp_pixbuf) : 0.0);
+    gtk_adjustment_set_step_increment (priv->v_adjustment, INC_VALUE);
+    gtk_adjustment_set_page_increment (priv->v_adjustment, 100.0);
+    gtk_adjustment_set_page_size (priv->v_adjustment, 100.0);
 
-    priv->old_v_adj_value = gtk_adjustment_get_value (adjustment);
-    priv->old_v_adj_lower = gtk_adjustment_get_lower (adjustment);
-    priv->old_v_adj_upper = gtk_adjustment_get_upper (adjustment);
+    g_signal_connect (priv->v_adjustment, "changed", G_CALLBACK (image_render_v_adjustment_changed), obj);
+    g_signal_connect (priv->v_adjustment, "value-changed",  G_CALLBACK (image_render_v_adjustment_value_changed), obj);
 
     image_render_v_adjustment_update (obj);
 }
@@ -210,14 +200,10 @@ static void image_render_init (ImageRender *w)
     priv->filename = NULL;
 
     priv->h_adjustment = NULL;
-    priv->old_h_adj_value = 0.0;
-    priv->old_h_adj_lower = 0.0;
-    priv->old_h_adj_upper = 0.0;
+    priv->hscroll_policy = GTK_SCROLL_MINIMUM;
 
     priv->v_adjustment = NULL;
-    priv->old_v_adj_value = 0.0;
-    priv->old_v_adj_lower = 0.0;
-    priv->old_v_adj_upper = 0.0;
+    priv->vscroll_policy = GTK_SCROLL_MINIMUM;
 
     priv->best_fit = FALSE;
     priv->scale_factor = 1.3;
@@ -227,6 +213,71 @@ static void image_render_init (ImageRender *w)
     gtk_widget_set_can_focus (GTK_WIDGET (w), TRUE);
 
     g_signal_connect_after (w, "realize", G_CALLBACK (image_render_realize), w);
+}
+
+
+static void image_render_get_property (GObject *obj, guint prop_id, GValue *value, GParamSpec *pspec)
+{
+    auto priv = static_cast<ImageRenderPrivate*>(image_render_get_instance_private (IMAGE_RENDER (obj)));
+    switch (prop_id)
+    {
+        case PROP_HADJUSTMENT:
+            g_value_set_object (value, priv->h_adjustment);
+            break;
+        case PROP_VADJUSTMENT:
+            g_value_set_object (value, priv->v_adjustment);
+            break;
+        case PROP_HSCROLL_POLICY:
+            g_value_set_enum (value, priv->hscroll_policy);
+            break;
+        case PROP_VSCROLL_POLICY:
+            g_value_set_enum (value, priv->vscroll_policy);
+            break;
+        default:
+            G_OBJECT_WARN_INVALID_PROPERTY_ID (obj, prop_id, pspec);
+            break;
+    }
+}
+
+
+static void image_render_set_property (GObject *obj, guint prop_id, const GValue *value, GParamSpec *pspec)
+{
+    ImageRender *w = IMAGE_RENDER (obj);
+    auto priv = static_cast<ImageRenderPrivate*>(image_render_get_instance_private (w));
+    switch (prop_id)
+    {
+        case PROP_HADJUSTMENT:
+            image_render_set_h_adjustment (w, GTK_ADJUSTMENT (g_value_get_object (value)));
+            break;
+        case PROP_VADJUSTMENT:
+            image_render_set_v_adjustment (w, GTK_ADJUSTMENT (g_value_get_object (value)));
+            break;
+        case PROP_HSCROLL_POLICY:
+            {
+                GtkScrollablePolicy policy = static_cast<GtkScrollablePolicy> (g_value_get_enum (value));
+                if (priv->hscroll_policy != policy)
+                {
+                    priv->hscroll_policy = policy;
+                    gtk_widget_queue_resize (GTK_WIDGET (w));
+                    g_object_notify_by_pspec (obj, pspec);
+                }
+            }
+            break;
+        case PROP_VSCROLL_POLICY:
+            {
+                GtkScrollablePolicy policy = static_cast<GtkScrollablePolicy> (g_value_get_enum (value));
+                if (priv->vscroll_policy != policy)
+                {
+                    priv->vscroll_policy = policy;
+                    gtk_widget_queue_resize (GTK_WIDGET (w));
+                    g_object_notify_by_pspec (obj, pspec);
+                }
+            }
+            break;
+        default:
+            G_OBJECT_WARN_INVALID_PROPERTY_ID (obj, prop_id, pspec);
+            break;
+    }
 }
 
 
@@ -266,6 +317,8 @@ static void image_render_class_init (ImageRenderClass *klass)
     GObjectClass *object_class = G_OBJECT_CLASS (klass);
     GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
 
+    object_class->set_property = image_render_set_property;
+    object_class->get_property = image_render_get_property;
     object_class->finalize = image_render_finalize;
 
     widget_class->scroll_event = image_render_scroll;
@@ -279,6 +332,11 @@ static void image_render_class_init (ImageRenderClass *klass)
     widget_class->get_preferred_width = image_render_get_preferred_width;
     widget_class->get_preferred_height = image_render_get_preferred_height;
     widget_class->size_allocate = image_render_size_allocate;
+
+    g_object_class_override_property (object_class, PROP_HADJUSTMENT,    "hadjustment");
+    g_object_class_override_property (object_class, PROP_VADJUSTMENT,    "vadjustment");
+    g_object_class_override_property (object_class, PROP_HSCROLL_POLICY, "hscroll-policy");
+    g_object_class_override_property (object_class, PROP_VSCROLL_POLICY, "vscroll-policy");
 
     image_render_signals[IMAGE_STATUS_CHANGED] =
         g_signal_new ("image-status-changed",
@@ -320,70 +378,67 @@ static gboolean image_render_key_press (GtkWidget *widget, GdkEventKey *event)
     g_return_val_if_fail (IS_IMAGE_RENDER (widget), FALSE);
 
     auto imageRender = IMAGE_RENDER (widget);
+    auto priv = static_cast<ImageRenderPrivate*>(image_render_get_instance_private (imageRender));
 
     switch (event->keyval)
     {
         case GDK_KEY_Up:
         {
-            auto vAdjustment = image_render_get_v_adjustment(imageRender);
-            auto current = gtk_adjustment_get_value(vAdjustment);
-            auto lower = gtk_adjustment_get_lower(vAdjustment);
+            auto current = gtk_adjustment_get_value(priv->v_adjustment);
+            auto lower = gtk_adjustment_get_lower(priv->v_adjustment);
             if (current - INC_VALUE > lower)
             {
-                gtk_adjustment_set_value(vAdjustment, current - INC_VALUE);
+                gtk_adjustment_set_value(priv->v_adjustment, current - INC_VALUE);
             }
             else
             {
-                gtk_adjustment_set_value(vAdjustment, lower);
+                gtk_adjustment_set_value(priv->v_adjustment, lower);
             }
 
             return TRUE;
         }
         case GDK_KEY_Down:
         {
-            auto vAdjustment = image_render_get_v_adjustment(imageRender);
-            auto current = gtk_adjustment_get_value(vAdjustment);
-            auto upper = gtk_adjustment_get_upper(vAdjustment);
-            auto page_size = gtk_adjustment_get_page_size(vAdjustment);
+            auto current = gtk_adjustment_get_value(priv->v_adjustment);
+            auto upper = gtk_adjustment_get_upper(priv->v_adjustment);
+            auto page_size = gtk_adjustment_get_page_size(priv->v_adjustment);
             if (current + INC_VALUE < upper - page_size)
             {
-                gtk_adjustment_set_value(vAdjustment, current + INC_VALUE);
+                gtk_adjustment_set_value(priv->v_adjustment, current + INC_VALUE);
             }
             else
             {
-                gtk_adjustment_set_value(vAdjustment, upper - page_size);
+                gtk_adjustment_set_value(priv->v_adjustment, upper - page_size);
             }
             return TRUE;
         }
         case GDK_KEY_Left:
         {
-            auto hAdjustment = image_render_get_h_adjustment(imageRender);
-            auto current = gtk_adjustment_get_value(hAdjustment);
-            auto lower = gtk_adjustment_get_lower(hAdjustment);
+            auto current = gtk_adjustment_get_value(priv->h_adjustment);
+            auto lower = gtk_adjustment_get_lower(priv->h_adjustment);
             if (current - INC_VALUE > lower)
             {
-                gtk_adjustment_set_value(hAdjustment, current - INC_VALUE);
+                gtk_adjustment_set_value(priv->h_adjustment, current - INC_VALUE);
             }
             else
             {
-                gtk_adjustment_set_value(hAdjustment, lower);
+                gtk_adjustment_set_value(priv->h_adjustment, lower);
             }
 
             return TRUE;
         }
         case GDK_KEY_Right:
         {
-            auto hAdjustment = image_render_get_h_adjustment(imageRender);
-            auto current = gtk_adjustment_get_value(hAdjustment);
-            auto upper = gtk_adjustment_get_upper(hAdjustment);
-            auto page_size = gtk_adjustment_get_page_size(hAdjustment);
+            auto current = gtk_adjustment_get_value(priv->h_adjustment);
+            auto upper = gtk_adjustment_get_upper(priv->h_adjustment);
+            auto page_size = gtk_adjustment_get_page_size(priv->h_adjustment);
             if (current + INC_VALUE < upper - page_size)
             {
-                gtk_adjustment_set_value(hAdjustment, current + INC_VALUE);
+                gtk_adjustment_set_value(priv->h_adjustment, current + INC_VALUE);
             }
             else
             {
-                gtk_adjustment_set_value(hAdjustment, upper - page_size);
+                gtk_adjustment_set_value(priv->h_adjustment, upper - page_size);
             }
 
             return TRUE;
@@ -403,6 +458,7 @@ static gboolean image_render_scroll(GtkWidget *widget, GdkEventScroll *event)
     g_return_val_if_fail (event != NULL, FALSE);
 
     auto imageRender = IMAGE_RENDER (widget);
+    auto priv = static_cast<ImageRenderPrivate*>(image_render_get_instance_private (imageRender));
 
     // Mouse scroll wheel
 #if defined (__GNUC__)
@@ -415,24 +471,22 @@ static gboolean image_render_scroll(GtkWidget *widget, GdkEventScroll *event)
         {
             case GDK_SCROLL_UP:
             {
-                auto hAdjustment = image_render_get_h_adjustment(imageRender);
-                auto current = gtk_adjustment_get_value(hAdjustment);
-                auto lower = gtk_adjustment_get_lower(hAdjustment);
+                auto current = gtk_adjustment_get_value(priv->h_adjustment);
+                auto lower = gtk_adjustment_get_lower(priv->h_adjustment);
                 if (current > lower)
                 {
-                    gtk_adjustment_set_value(hAdjustment, current - INC_VALUE);
+                    gtk_adjustment_set_value(priv->h_adjustment, current - INC_VALUE);
                 }
                 return TRUE;
             }
             case GDK_SCROLL_DOWN:
             {
-                auto hAdjustment = image_render_get_h_adjustment(imageRender);
-                auto current = gtk_adjustment_get_value(hAdjustment);
-                auto upper = gtk_adjustment_get_upper(hAdjustment);
-                auto page_size = gtk_adjustment_get_page_size(hAdjustment);
+                auto current = gtk_adjustment_get_value(priv->h_adjustment);
+                auto upper = gtk_adjustment_get_upper(priv->h_adjustment);
+                auto page_size = gtk_adjustment_get_page_size(priv->h_adjustment);
                 if (current < upper - page_size)
                 {
-                    gtk_adjustment_set_value(hAdjustment, current + INC_VALUE);
+                    gtk_adjustment_set_value(priv->h_adjustment, current + INC_VALUE);
                 }
                 return TRUE;
             }
@@ -445,24 +499,22 @@ static gboolean image_render_scroll(GtkWidget *widget, GdkEventScroll *event)
     {
         case GDK_SCROLL_UP:
         {
-            auto vAdjustment = image_render_get_v_adjustment(imageRender);
-            auto current = gtk_adjustment_get_value(vAdjustment);
-            auto lower = gtk_adjustment_get_lower(vAdjustment);
+            auto current = gtk_adjustment_get_value(priv->v_adjustment);
+            auto lower = gtk_adjustment_get_lower(priv->v_adjustment);
             if (current > lower)
             {
-                gtk_adjustment_set_value(vAdjustment, current - INC_VALUE);
+                gtk_adjustment_set_value(priv->v_adjustment, current - INC_VALUE);
             }
             return TRUE;
         }
         case GDK_SCROLL_DOWN:
         {
-            auto vAdjustment = image_render_get_v_adjustment(imageRender);
-            auto current = gtk_adjustment_get_value(vAdjustment);
-            auto upper = gtk_adjustment_get_upper(vAdjustment);
-            auto page_size = gtk_adjustment_get_page_size(vAdjustment);
+            auto current = gtk_adjustment_get_value(priv->v_adjustment);
+            auto upper = gtk_adjustment_get_upper(priv->v_adjustment);
+            auto page_size = gtk_adjustment_get_page_size(priv->v_adjustment);
             if (current < upper - page_size)
             {
-                gtk_adjustment_set_value(vAdjustment, current + INC_VALUE);
+                gtk_adjustment_set_value(priv->v_adjustment, current + INC_VALUE);
             }
             return TRUE;
         }
@@ -680,27 +732,25 @@ static gboolean image_render_motion_notify (GtkWidget *widget, GdkEventMotion *e
             gdk_window_get_pointer (window, &x, &y, &mods);
 
         // Update X position
-        auto hAdjustment = image_render_get_h_adjustment(imageRender);
-        auto currentX = gtk_adjustment_get_value(hAdjustment);
-        auto lowerX = gtk_adjustment_get_lower(hAdjustment);
-        auto upperX = gtk_adjustment_get_upper(hAdjustment);
-        auto pageSizeX = gtk_adjustment_get_page_size(hAdjustment);
+        auto currentX = gtk_adjustment_get_value(priv->h_adjustment);
+        auto lowerX = gtk_adjustment_get_lower(priv->h_adjustment);
+        auto upperX = gtk_adjustment_get_upper(priv->h_adjustment);
+        auto pageSizeX = gtk_adjustment_get_page_size(priv->h_adjustment);
         if (currentX + (priv->mouseX - x)    < upperX - pageSizeX
             && currentX + (priv->mouseX - x) > lowerX - pageSizeX)
         {
-            gtk_adjustment_set_value(hAdjustment, currentX + (priv->mouseX - x));
+            gtk_adjustment_set_value(priv->h_adjustment, currentX + (priv->mouseX - x));
         }
 
         // Update Y position
-        auto vAdjustment = image_render_get_v_adjustment(imageRender);
-        auto currentY = gtk_adjustment_get_value(vAdjustment);
-        auto lowerY = gtk_adjustment_get_lower(vAdjustment);
-        auto upperY = gtk_adjustment_get_upper(vAdjustment);
-        auto pageSizeY = gtk_adjustment_get_page_size(vAdjustment);
+        auto currentY = gtk_adjustment_get_value(priv->v_adjustment);
+        auto lowerY = gtk_adjustment_get_lower(priv->v_adjustment);
+        auto upperY = gtk_adjustment_get_upper(priv->v_adjustment);
+        auto pageSizeY = gtk_adjustment_get_page_size(priv->v_adjustment);
         if (currentY + (priv->mouseY - y)    < upperY - pageSizeY
             && currentY + (priv->mouseY - y) > lowerY - pageSizeY)
         {
-            gtk_adjustment_set_value(vAdjustment, currentY + (priv->mouseY - y));
+            gtk_adjustment_set_value(priv->v_adjustment, currentY + (priv->mouseY - y));
         }
 
         priv->mouseX = x;
@@ -743,18 +793,8 @@ static void image_render_h_adjustment_changed (GtkAdjustment *adjustment, gpoint
     g_return_if_fail (data != NULL);
 
     ImageRender *obj = IMAGE_RENDER (data);
-    auto priv = static_cast<ImageRenderPrivate*>(image_render_get_instance_private (obj));
 
-    if ((priv->old_h_adj_value != gtk_adjustment_get_value (adjustment)) ||
-        (priv->old_h_adj_lower != gtk_adjustment_get_lower (adjustment)) ||
-        (priv->old_h_adj_upper != gtk_adjustment_get_upper (adjustment)))
-    {
-        image_render_h_adjustment_update (obj);
-
-        priv->old_h_adj_value = gtk_adjustment_get_value (adjustment);
-        priv->old_h_adj_lower = gtk_adjustment_get_lower (adjustment);
-        priv->old_h_adj_upper = gtk_adjustment_get_upper (adjustment);
-    }
+    image_render_h_adjustment_update (obj);
 }
 
 
@@ -764,13 +804,8 @@ static void image_render_h_adjustment_value_changed (GtkAdjustment *adjustment, 
     g_return_if_fail (data != NULL);
 
     ImageRender *obj = IMAGE_RENDER (data);
-    auto priv = static_cast<ImageRenderPrivate*>(image_render_get_instance_private (obj));
 
-    if (priv->old_h_adj_value != gtk_adjustment_get_value (adjustment))
-    {
-        image_render_h_adjustment_update (obj);
-        priv->old_h_adj_value = gtk_adjustment_get_value (adjustment);
-    }
+    image_render_h_adjustment_update (obj);
 }
 
 
@@ -806,18 +841,8 @@ static void image_render_v_adjustment_changed (GtkAdjustment *adjustment, gpoint
     g_return_if_fail (data != NULL);
 
     ImageRender *obj = IMAGE_RENDER (data);
-    auto priv = static_cast<ImageRenderPrivate*>(image_render_get_instance_private (obj));
 
-    if ((priv->old_v_adj_value != gtk_adjustment_get_value (adjustment)) ||
-        (priv->old_v_adj_lower != gtk_adjustment_get_lower (adjustment)) ||
-        (priv->old_v_adj_upper != gtk_adjustment_get_upper (adjustment)))
-    {
-        image_render_v_adjustment_update (obj);
-
-        priv->old_v_adj_value = gtk_adjustment_get_value (adjustment);
-        priv->old_v_adj_lower = gtk_adjustment_get_lower (adjustment);
-        priv->old_v_adj_upper = gtk_adjustment_get_upper (adjustment);
-    }
+    image_render_v_adjustment_update (obj);
 }
 
 
@@ -827,13 +852,8 @@ static void image_render_v_adjustment_value_changed (GtkAdjustment *adjustment, 
     g_return_if_fail (data != NULL);
 
     ImageRender *obj = IMAGE_RENDER (data);
-    auto priv = static_cast<ImageRenderPrivate*>(image_render_get_instance_private (obj));
 
-    if (priv->old_v_adj_value != gtk_adjustment_get_value (adjustment))
-    {
-        image_render_v_adjustment_update (obj);
-        priv->old_v_adj_value = gtk_adjustment_get_value (adjustment);
-    }
+    image_render_v_adjustment_update (obj);
 }
 
 

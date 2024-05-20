@@ -48,6 +48,14 @@ using namespace std;
 
 #define NEED_PANGO_ESCAPING(x) ((x)=='<' || (x)=='>' || (x)=='&')
 
+enum {
+  PROP_0,
+  PROP_HADJUSTMENT,
+  PROP_VADJUSTMENT,
+  PROP_HSCROLL_POLICY,
+  PROP_VSCROLL_POLICY
+};
+
 enum
 {
   TEXT_STATUS_CHANGED,
@@ -74,16 +82,10 @@ struct TextRenderPrivate
     guint8 button; // The button pressed in "button_press_event"
 
     GtkAdjustment *h_adjustment;
-    // Old values from h_adjustment stored so we know when something changes
-    gfloat old_h_adj_value;
-    gfloat old_h_adj_lower;
-    gfloat old_h_adj_upper;
+    GtkScrollablePolicy hscroll_policy;
 
     GtkAdjustment *v_adjustment;
-    // Old values from v_adjustment stored so we know when something changes
-    gfloat old_v_adj_value;
-    gfloat old_v_adj_lower;
-    gfloat old_v_adj_upper;
+    GtkScrollablePolicy vscroll_policy;
 
     ViewerFileOps *fops;
     GVInputModesData *im;
@@ -125,7 +127,12 @@ struct TextRenderPrivate
 };
 
 
-G_DEFINE_TYPE_WITH_PRIVATE (TextRender, text_render, GTK_TYPE_DRAWING_AREA)
+G_DEFINE_TYPE_EXTENDED (TextRender,
+                        text_render,
+                        GTK_TYPE_DRAWING_AREA,
+                        0,
+                        G_ADD_PRIVATE (TextRender)
+                        G_IMPLEMENT_INTERFACE (GTK_TYPE_SCROLLABLE, NULL))
 
 
 // Gtk class related static functions
@@ -167,11 +174,8 @@ static int hex_mode_display_line(TextRender *w, cairo_t *cr, int y, int column, 
 static void hex_mode_copy_to_clipboard(TextRender *obj, offset_type start_offset, offset_type end_offset);
 static offset_type hex_mode_pixel_to_offset(TextRender *obj, int x, int y, gboolean start_marker);
 
-/*****************************************
-    public functions
-    (defined in the header file)
-*****************************************/
-void text_render_set_h_adjustment (TextRender *obj, GtkAdjustment *adjustment)
+
+static void text_render_set_h_adjustment (TextRender *obj, GtkAdjustment *adjustment)
 {
     g_return_if_fail (IS_TEXT_RENDER (obj));
     auto priv = static_cast<TextRenderPrivate*>(text_render_get_instance_private (obj));
@@ -182,21 +186,26 @@ void text_render_set_h_adjustment (TextRender *obj, GtkAdjustment *adjustment)
         g_object_unref (priv->h_adjustment);
     }
 
-    priv->h_adjustment = adjustment;
+    priv->h_adjustment = adjustment ? adjustment : gtk_adjustment_new (0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
     g_object_ref (priv->h_adjustment);
 
-    g_signal_connect (adjustment, "changed", G_CALLBACK (text_render_h_adjustment_changed), obj);
-    g_signal_connect (adjustment, "value-changed", G_CALLBACK (text_render_h_adjustment_value_changed), obj);
+    gtk_adjustment_set_lower (priv->h_adjustment, 0.0);
+    if (priv->dp && gv_get_data_presentation_mode (priv->dp) == PRSNT_NO_WRAP)
+        gtk_adjustment_set_upper (priv->h_adjustment, priv->max_column); // TODO: find our the real horz limit
+    else
+        gtk_adjustment_set_upper (priv->h_adjustment, 0);
+    gtk_adjustment_set_step_increment (priv->h_adjustment, 1.0);
+    gtk_adjustment_set_page_increment (priv->h_adjustment, 5.0);
+    gtk_adjustment_set_page_size (priv->h_adjustment, priv->chars_per_line);
 
-    priv->old_h_adj_value = gtk_adjustment_get_value (adjustment);
-    priv->old_h_adj_lower = gtk_adjustment_get_lower (adjustment);
-    priv->old_h_adj_upper = gtk_adjustment_get_upper (adjustment);
+    g_signal_connect (priv->h_adjustment, "changed", G_CALLBACK (text_render_h_adjustment_changed), obj);
+    g_signal_connect (priv->h_adjustment, "value-changed", G_CALLBACK (text_render_h_adjustment_value_changed), obj);
 
     text_render_h_adjustment_update (obj);
 }
 
 
-void text_render_set_v_adjustment (TextRender *obj, GtkAdjustment *adjustment)
+static void text_render_set_v_adjustment (TextRender *obj, GtkAdjustment *adjustment)
 {
     g_return_if_fail (IS_TEXT_RENDER (obj));
     auto priv = static_cast<TextRenderPrivate*>(text_render_get_instance_private (obj));
@@ -207,15 +216,17 @@ void text_render_set_v_adjustment (TextRender *obj, GtkAdjustment *adjustment)
         g_object_unref (priv->v_adjustment);
     }
 
-    priv->v_adjustment = adjustment;
+    priv->v_adjustment = adjustment ? adjustment : gtk_adjustment_new (0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
     g_object_ref (priv->v_adjustment);
 
-    g_signal_connect (adjustment, "changed", G_CALLBACK (text_render_v_adjustment_changed), obj);
-    g_signal_connect (adjustment, "value-changed", G_CALLBACK (text_render_v_adjustment_value_changed), obj);
+    gtk_adjustment_set_lower (priv->v_adjustment, 0.0);
+    gtk_adjustment_set_upper (priv->v_adjustment, priv->fops ? gv_file_get_max_offset (priv->fops) - 1 : 0.0);
+    gtk_adjustment_set_step_increment (priv->v_adjustment, 1.0);
+    gtk_adjustment_set_page_increment (priv->v_adjustment, 10.0);
+    gtk_adjustment_set_page_size (priv->v_adjustment, 10.0);
 
-    priv->old_v_adj_value = gtk_adjustment_get_value (adjustment);
-    priv->old_v_adj_lower = gtk_adjustment_get_lower (adjustment);
-    priv->old_v_adj_upper = gtk_adjustment_get_upper (adjustment);
+    g_signal_connect (priv->v_adjustment, "changed", G_CALLBACK (text_render_v_adjustment_changed), obj);
+    g_signal_connect (priv->v_adjustment, "value-changed", G_CALLBACK (text_render_v_adjustment_value_changed), obj);
 
     text_render_v_adjustment_update (obj);
 }
@@ -235,9 +246,8 @@ static void text_render_init (TextRender *w)
     priv->button = 0;
     priv->dispmode = TextRender::DISPLAYMODE_TEXT;
     priv->h_adjustment = NULL;
-    priv->old_h_adj_value = 0.0;
-    priv->old_h_adj_lower = 0.0;
-    priv->old_h_adj_upper = 0.0;
+    priv->hscroll_policy = GTK_SCROLL_MINIMUM;
+
     priv->hex_offset_display = FALSE;
     priv->column = 0;
     priv->chars_per_line = 0;
@@ -249,9 +259,7 @@ static void text_render_init (TextRender *w)
     priv->marker_end = 0;
 
     priv->v_adjustment = NULL;
-    priv->old_v_adj_value = 0.0;
-    priv->old_v_adj_lower = 0.0;
-    priv->old_v_adj_upper = 0.0;
+    priv->vscroll_policy = GTK_SCROLL_MINIMUM;
 
     priv->current_offset = 0;
 
@@ -270,6 +278,71 @@ static void text_render_init (TextRender *w)
     gtk_widget_set_can_focus(GTK_WIDGET (w), TRUE);
 
     text_render_setup_font(w, priv->fixed_font_name, priv->font_size);
+}
+
+
+static void text_render_get_property (GObject *obj, guint prop_id, GValue *value, GParamSpec *pspec)
+{
+    auto priv = static_cast<TextRenderPrivate*>(text_render_get_instance_private (TEXT_RENDER (obj)));
+    switch (prop_id)
+    {
+        case PROP_HADJUSTMENT:
+            g_value_set_object (value, priv->h_adjustment);
+            break;
+        case PROP_VADJUSTMENT:
+            g_value_set_object (value, priv->v_adjustment);
+            break;
+        case PROP_HSCROLL_POLICY:
+            g_value_set_enum (value, priv->hscroll_policy);
+            break;
+        case PROP_VSCROLL_POLICY:
+            g_value_set_enum (value, priv->vscroll_policy);
+            break;
+        default:
+            G_OBJECT_WARN_INVALID_PROPERTY_ID (obj, prop_id, pspec);
+            break;
+    }
+}
+
+
+static void text_render_set_property (GObject *obj, guint prop_id, const GValue *value, GParamSpec *pspec)
+{
+    TextRender *w = TEXT_RENDER (obj);
+    auto priv = static_cast<TextRenderPrivate*>(text_render_get_instance_private (w));
+    switch (prop_id)
+    {
+        case PROP_HADJUSTMENT:
+            text_render_set_h_adjustment (w, GTK_ADJUSTMENT (g_value_get_object (value)));
+            break;
+        case PROP_VADJUSTMENT:
+            text_render_set_v_adjustment (w, GTK_ADJUSTMENT (g_value_get_object (value)));
+            break;
+        case PROP_HSCROLL_POLICY:
+            {
+                GtkScrollablePolicy policy = static_cast<GtkScrollablePolicy> (g_value_get_enum (value));
+                if (priv->hscroll_policy != policy)
+                {
+                    priv->hscroll_policy = policy;
+                    gtk_widget_queue_resize (GTK_WIDGET (w));
+                    g_object_notify_by_pspec (obj, pspec);
+                }
+            }
+            break;
+        case PROP_VSCROLL_POLICY:
+            {
+                GtkScrollablePolicy policy = static_cast<GtkScrollablePolicy> (g_value_get_enum (value));
+                if (priv->vscroll_policy != policy)
+                {
+                    priv->vscroll_policy = policy;
+                    gtk_widget_queue_resize (GTK_WIDGET (w));
+                    g_object_notify_by_pspec (obj, pspec);
+                }
+            }
+            break;
+        default:
+            G_OBJECT_WARN_INVALID_PROPERTY_ID (obj, prop_id, pspec);
+            break;
+    }
 }
 
 
@@ -295,6 +368,8 @@ static void text_render_class_init (TextRenderClass *klass)
     GObjectClass *object_class = G_OBJECT_CLASS (klass);
     GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
 
+    object_class->set_property = text_render_set_property;
+    object_class->get_property = text_render_get_property;
     object_class->finalize = text_render_finalize;
 
     widget_class->scroll_event = text_render_scroll;
@@ -307,6 +382,11 @@ static void text_render_class_init (TextRenderClass *klass)
     widget_class->get_preferred_width = text_render_get_preferred_width;
     widget_class->get_preferred_height = text_render_get_preferred_height;
     widget_class->size_allocate = text_render_size_allocate;
+
+    g_object_class_override_property (object_class, PROP_HADJUSTMENT,    "hadjustment");
+    g_object_class_override_property (object_class, PROP_VADJUSTMENT,    "vadjustment");
+    g_object_class_override_property (object_class, PROP_HSCROLL_POLICY, "hscroll-policy");
+    g_object_class_override_property (object_class, PROP_VSCROLL_POLICY, "vscroll-policy");
 
     text_render_signals[TEXT_STATUS_CHANGED] =
         g_signal_new ("text-status-changed",
@@ -605,7 +685,7 @@ static gboolean text_render_button_release(GtkWidget *widget, GdkEventButton *ev
         gtk_grab_remove (widget);
         priv->button = 0;
 
-        priv->marker_end = priv->pixel_to_offset(w, (int)event->x, (int)event->y, FALSE);
+        priv->marker_end = priv->pixel_to_offset(w, (int) event->x, (int) event->y, FALSE);
         gtk_widget_queue_draw (GTK_WIDGET (w));
     }
 
@@ -634,10 +714,10 @@ static gboolean text_render_motion_notify(GtkWidget *widget, GdkEventMotion *eve
         y = event->y;
 
         if (event->is_hint || (event->window != gtk_widget_get_window (widget)))
-            gdk_window_get_pointer (gtk_widget_get_window (widget), &x, &y, &mods);
+            gdk_window_get_pointer(gtk_widget_get_window (widget), &x, &y, &mods);
 
         // TODO: respond to motion event
-        new_marker = priv->pixel_to_offset(w, x, y, FALSE);
+        new_marker = priv->pixel_to_offset (w, x, y, FALSE);
 
         if (new_marker != priv->marker_end)
         {
@@ -681,18 +761,8 @@ static void text_render_h_adjustment_changed (GtkAdjustment *adjustment, gpointe
     g_return_if_fail (data != NULL);
 
     TextRender *obj = TEXT_RENDER (data);
-    auto priv = static_cast<TextRenderPrivate*>(text_render_get_instance_private (obj));
 
-    if ((priv->old_h_adj_value != gtk_adjustment_get_value (adjustment)) ||
-        (priv->old_h_adj_lower != gtk_adjustment_get_lower (adjustment)) ||
-        (priv->old_h_adj_upper != gtk_adjustment_get_upper (adjustment)))
-    {
-        text_render_h_adjustment_update (obj);
-
-        priv->old_h_adj_value = gtk_adjustment_get_value (adjustment);
-        priv->old_h_adj_lower = gtk_adjustment_get_lower (adjustment);
-        priv->old_h_adj_upper = gtk_adjustment_get_upper (adjustment);
-    }
+    text_render_h_adjustment_update (obj);
 }
 
 
@@ -702,13 +772,8 @@ static void text_render_h_adjustment_value_changed (GtkAdjustment *adjustment, g
     g_return_if_fail (data != NULL);
 
     TextRender *obj = TEXT_RENDER (data);
-    auto priv = static_cast<TextRenderPrivate*>(text_render_get_instance_private (obj));
 
-    if (priv->old_h_adj_value != gtk_adjustment_get_value (adjustment))
-    {
-        text_render_h_adjustment_update (obj);
-        priv->old_h_adj_value = gtk_adjustment_get_value (adjustment);
-    }
+    text_render_h_adjustment_update (obj);
 }
 
 
@@ -750,18 +815,8 @@ static void text_render_v_adjustment_changed (GtkAdjustment *adjustment, gpointe
     g_return_if_fail (data != NULL);
 
     TextRender *obj = TEXT_RENDER (data);
-    auto priv = static_cast<TextRenderPrivate*>(text_render_get_instance_private (obj));
 
-    if ((priv->old_v_adj_value != gtk_adjustment_get_value (adjustment)) ||
-        (priv->old_v_adj_lower != gtk_adjustment_get_lower (adjustment)) ||
-        (priv->old_v_adj_upper != gtk_adjustment_get_upper (adjustment)))
-    {
-        text_render_v_adjustment_update (obj);
-
-        priv->old_v_adj_value = gtk_adjustment_get_value (adjustment);
-        priv->old_v_adj_lower = gtk_adjustment_get_lower (adjustment);
-        priv->old_v_adj_upper = gtk_adjustment_get_upper (adjustment);
-    }
+    text_render_v_adjustment_update (obj);
 }
 
 
@@ -771,13 +826,8 @@ static void text_render_v_adjustment_value_changed (GtkAdjustment *adjustment, g
     g_return_if_fail (data != NULL);
 
     TextRender *obj = TEXT_RENDER (data);
-    auto priv = static_cast<TextRenderPrivate*>(text_render_get_instance_private (obj));
 
-    if (priv->old_v_adj_value != gtk_adjustment_get_value (adjustment))
-    {
-        text_render_v_adjustment_update (obj);
-        priv->old_v_adj_value = gtk_adjustment_get_value (adjustment);
-    }
+    text_render_v_adjustment_update (obj);
 }
 
 
@@ -888,60 +938,6 @@ static void text_render_update_adjustments_limits(TextRender *w)
             gtk_adjustment_set_upper (priv->h_adjustment, 0);
         gtk_adjustment_changed (priv->h_adjustment);
     }
-}
-
-static gboolean text_render_vscroll_change_value(GtkRange *range,
-                                            GtkScrollType scroll,
-                                            gdouble value,
-                                            TextRender *obj)
-{
-    auto priv = static_cast<TextRenderPrivate*>(text_render_get_instance_private (obj));
-
-    if (!priv->dp)
-        return FALSE;
-
-#if defined (__GNUC__)
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wswitch-enum"
-#endif
-    switch (scroll)
-    {
-        case GTK_SCROLL_STEP_BACKWARD:
-            priv->current_offset = gv_scroll_lines (priv->dp, priv->current_offset, -4);
-            break;
-
-        case GTK_SCROLL_STEP_FORWARD:
-            priv->current_offset = gv_scroll_lines (priv->dp, priv->current_offset, 4);
-            break;
-
-        case GTK_SCROLL_PAGE_BACKWARD:
-            priv->current_offset = gv_scroll_lines (priv->dp, priv->current_offset, -1 * (priv->lines_displayed - 1));
-            break;
-
-        case GTK_SCROLL_PAGE_FORWARD:
-            priv->current_offset = gv_scroll_lines (priv->dp, priv->current_offset, priv->lines_displayed - 1);
-            break;
-
-        case GTK_SCROLL_JUMP:
-        default:
-            return FALSE;
-    }
-#if defined (__GNUC__)
-#pragma GCC diagnostic pop
-#endif
-    text_render_position_changed(obj);
-    gtk_widget_queue_draw (GTK_WIDGET (obj));
-
-    return TRUE;
-}
-
-
-void text_render_attach_external_v_range(TextRender *obj, GtkRange *range)
-{
-    g_return_if_fail (IS_TEXT_RENDER (obj));
-    g_return_if_fail (range!=NULL);
-
-    g_signal_connect (range, "change-value", G_CALLBACK (text_render_vscroll_change_value), obj);
 }
 
 

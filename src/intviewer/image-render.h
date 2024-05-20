@@ -63,11 +63,6 @@ inline GtkWidget *image_render_new ()
     return (GtkWidget *) g_object_new (TYPE_IMAGE_RENDER, NULL);
 }
 
-GtkAdjustment *image_render_get_h_adjustment (ImageRender *obj);
-void image_render_set_h_adjustment (ImageRender *obj, GtkAdjustment *adjustment);
-GtkAdjustment *image_render_get_v_adjustment (ImageRender *obj);
-void image_render_set_v_adjustment (ImageRender *obj, GtkAdjustment *adjustment);
-
 void image_render_load_file (ImageRender *obj, const gchar *filename);
 
 void image_render_notify_status_changed (ImageRender *w);

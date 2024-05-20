@@ -139,11 +139,10 @@ static void gviewer_init (GViewer *w)
     gviewer_set_fixed_limit(w, DEFAULT_FIXED_LIMIT);
     gviewer_set_encoding(w, DEFAULT_ENCODING);
 
-    priv->tscrollbox = scroll_box_new();
-    text_render_set_v_adjustment(priv->textr, scroll_box_get_v_adjustment(SCROLL_BOX(priv->tscrollbox)));
-    text_render_set_h_adjustment(priv->textr, scroll_box_get_h_adjustment(SCROLL_BOX(priv->tscrollbox)));
-    text_render_attach_external_v_range(priv->textr, scroll_box_get_v_range(SCROLL_BOX(priv->tscrollbox)));
-    scroll_box_set_client (SCROLL_BOX(priv->tscrollbox), GTK_WIDGET (priv->textr));
+    priv->tscrollbox = gtk_scrolled_window_new (nullptr, nullptr);
+    gtk_container_add (GTK_CONTAINER (priv->tscrollbox), GTK_WIDGET (priv->textr));
+    gtk_widget_set_hexpand (GTK_WIDGET (priv->tscrollbox), TRUE);
+    gtk_widget_set_vexpand (GTK_WIDGET (priv->tscrollbox), TRUE);
     gtk_widget_show (GTK_WIDGET (priv->textr));
     gtk_widget_show (priv->tscrollbox);
     g_object_ref (priv->tscrollbox);
@@ -151,19 +150,17 @@ static void gviewer_init (GViewer *w)
     priv->imgr = reinterpret_cast<ImageRender*> (image_render_new());
     gviewer_set_best_fit(w, DEFAULT_BEST_FIT);
     gviewer_set_scale_factor(w, DEFAULT_SCALE_FACTOR);
-    priv->iscrollbox = scroll_box_new();
-    image_render_set_v_adjustment (priv->imgr, scroll_box_get_v_adjustment (SCROLL_BOX (priv->iscrollbox)));
-    image_render_set_h_adjustment (priv->imgr, scroll_box_get_h_adjustment (SCROLL_BOX (priv->iscrollbox)));
+    priv->iscrollbox = gtk_scrolled_window_new (nullptr, nullptr);
     image_render_set_best_fit (priv->imgr, TRUE);
     image_render_set_scale_factor (priv->imgr, 1);
-    scroll_box_set_client (SCROLL_BOX(priv->iscrollbox), GTK_WIDGET (priv->imgr));
+    gtk_container_add (GTK_CONTAINER (priv->iscrollbox), GTK_WIDGET (priv->imgr));
+    gtk_widget_set_hexpand (GTK_WIDGET (priv->iscrollbox), TRUE);
+    gtk_widget_set_vexpand (GTK_WIDGET (priv->iscrollbox), TRUE);
     gtk_widget_show (GTK_WIDGET (priv->imgr));
     gtk_widget_show (priv->iscrollbox);
     g_object_ref (priv->iscrollbox);
 
     priv->last_client = priv->tscrollbox;
-    gtk_widget_set_hexpand (GTK_WIDGET (priv->tscrollbox), TRUE);
-    gtk_widget_set_vexpand (GTK_WIDGET (priv->tscrollbox), TRUE);
     gtk_grid_attach (GTK_GRID (w), GTK_WIDGET (priv->tscrollbox), 0, 0, 1, 1);
 
     g_signal_connect (priv->textr, "text-status-changed", G_CALLBACK (gviewer_text_status_update), w);
