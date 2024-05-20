@@ -26,6 +26,7 @@
 #include <functional>
 #include "gnome-cmd-dir.h"
 #include "gnome-cmd-collection.h"
+#include "gnome-cmd-types.h"
 #include "filter.h"
 
 #define GNOME_CMD_TYPE_FILE_LIST              (gnome_cmd_file_list_get_type ())
@@ -232,7 +233,7 @@ struct GnomeCmdFileList
 
     void update_style();
 
-    gboolean key_pressed(GdkEventKey *event);
+    gboolean key_pressed(GnomeCmdKeyPress *event);
 
     enum DndMode
     {

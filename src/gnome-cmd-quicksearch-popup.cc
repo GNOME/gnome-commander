@@ -136,6 +136,8 @@ static void on_text_changed (GtkEntry *entry, GnomeCmdQuicksearchPopup *popup)
 
 static gboolean on_key_pressed (GtkWidget *entry, GdkEventKey *event, GnomeCmdQuicksearchPopup *popup)
 {
+    GnomeCmdKeyPress key_press_event = { .keyval = event->keyval, .state = event->state };
+
     if (event->type == GDK_KEY_PRESS && gtk_editable_get_editable (GTK_EDITABLE (entry)))
         if (gtk_entry_im_context_filter_keypress (GTK_ENTRY (entry), event))
             return TRUE;
@@ -162,7 +164,7 @@ static gboolean on_key_pressed (GtkWidget *entry, GdkEventKey *event, GnomeCmdQu
         case GDK_KEY_F8:
             // popup->priv->fl->select_row(GNOME_CMD_FILE_LIST (popup->priv->fl)->drag_motion_row);
             hide_popup (popup);
-            main_win->key_pressed(event);
+            main_win->key_pressed(&key_press_event);
             return TRUE;
 
         default:

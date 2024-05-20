@@ -574,36 +574,33 @@ static void on_list_files_changed (GnomeCmdFileList *fl, GnomeCmdFileSelector *f
 }
 
 
-// This function should only be called for input made when the file-selector was focused
-static gboolean on_list_key_pressed (GnomeCmdFileList *list, GdkEventKey *event, GnomeCmdFileSelector *fs)
+static gboolean on_list_key_pressed (GtkEventControllerKey *controller, guint keyval, guint keycode, GdkModifierType state, gpointer user_data)
 {
-    if (!fs->file_list()->key_pressed(event) &&
-        !fs->key_pressed(event) &&
-        !main_win->key_pressed(event) &&
-        !gcmd_user_actions.handle_key_event(main_win, fs->file_list(), event))
-        return FALSE;
+    auto fs = static_cast<GnomeCmdFileSelector*>(user_data);
 
-    g_signal_stop_emission_by_name (list, "key-press-event");
+    GnomeCmdKeyPress key_press_event = { .keyval = keyval, .state = state };
 
-    return TRUE;
-}
-
-
-static gboolean on_list_key_pressed_private (GnomeCmdFileList *list, GdkEventKey *event, GnomeCmdFileSelector *fs)
-{
-    if (state_is_blank (event->state) || state_is_shift (event->state))
+    if (fs->file_list()->key_pressed(&key_press_event) ||
+        fs->key_pressed(&key_press_event) ||
+        main_win->key_pressed(&key_press_event) ||
+        gcmd_user_actions.handle_key_event(main_win, fs->file_list(), &key_press_event))
     {
-        if ((event->keyval>=GDK_KEY_A && event->keyval<=GDK_KEY_Z) ||
-            (event->keyval>=GDK_KEY_a && event->keyval<=GDK_KEY_z) ||
-            event->keyval==GDK_KEY_period)
-        {
-            static gchar text[2];
+        return TRUE;
+    }
 
+    if (state_is_blank (state) || state_is_shift (state))
+    {
+        if ((keyval>=GDK_KEY_A && keyval<=GDK_KEY_Z) ||
+            (keyval>=GDK_KEY_a && keyval<=GDK_KEY_z) ||
+            keyval==GDK_KEY_period)
+        {
             if (!gnome_cmd_data.cmdline_visibility)
-                gnome_cmd_file_list_show_quicksearch (fs->file_list(), (gchar) event->keyval);
+                gnome_cmd_file_list_show_quicksearch (fs->file_list(), (gchar) keyval);
             else
             {
-                text[0] = event->keyval;
+                gchar text[2];
+                text[0] = keyval;
+                text[1] = '\0';
                 gnome_cmd_cmdline_append_text (main_win->get_cmdline(), text);
                 gnome_cmd_cmdline_focus (main_win->get_cmdline());
             }
@@ -1247,7 +1244,7 @@ void gnome_cmd_file_selector_cap_paste (GnomeCmdFileSelector *fs)
 }
 
 
-gboolean GnomeCmdFileSelector::key_pressed(GdkEventKey *event)
+gboolean GnomeCmdFileSelector::key_pressed(GnomeCmdKeyPress *event)
 {
     g_return_val_if_fail (event != nullptr, FALSE);
 
@@ -1278,13 +1275,11 @@ gboolean GnomeCmdFileSelector::key_pressed(GdkEventKey *event)
             case GDK_KEY_Left:
             case GDK_KEY_KP_Left:
                 back();
-                g_signal_stop_emission_by_name (list, "key-press-event");
                 return TRUE;
 
             case GDK_KEY_Right:
             case GDK_KEY_KP_Right:
                 forward();
-                g_signal_stop_emission_by_name (list, "key-press-event");
                 return TRUE;
 
             default:
@@ -1340,7 +1335,6 @@ gboolean GnomeCmdFileSelector::key_pressed(GdkEventKey *event)
                 f = list->get_selected_file();
                 if (f && f->GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE) == G_FILE_TYPE_DIRECTORY)
                     do_file_specific_action (list, f);
-                g_signal_stop_emission_by_name (list, "key-press-event");
                 return TRUE;
 
             case GDK_KEY_Return:
@@ -1595,8 +1589,8 @@ GtkWidget *GnomeCmdFileSelector::new_tab(GnomeCmdDir *dir, GnomeCmdFileList::Col
     g_signal_connect (fl, "list-clicked", G_CALLBACK (on_list_list_clicked), this);
     g_signal_connect (fl, "empty-space-clicked", G_CALLBACK (on_list_empty_space_clicked), this);
 
-    g_signal_connect (fl, "key-press-event", G_CALLBACK (on_list_key_pressed), this);
-    g_signal_connect (fl, "key-press-event", G_CALLBACK (on_list_key_pressed_private), this);
+    GtkEventController *key_controller = gtk_event_controller_key_new (GTK_WIDGET (fl));
+    g_signal_connect (key_controller, "key-pressed", G_CALLBACK (on_list_key_pressed), this);
 
     return scrolled_window;
 }

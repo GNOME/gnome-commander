@@ -174,3 +174,10 @@ struct GnomeCmdBookmark
     gchar *path;
     GnomeCmdBookmarkGroup *group;
 };
+
+
+struct GnomeCmdKeyPress
+{
+    guint keyval;
+    guint state;
+};
