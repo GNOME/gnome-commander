@@ -878,18 +878,15 @@ static void start_find_thread(GViewerWindow *obj, gboolean forward)
     }
 }
 
-
-static void menu_edit_find(GSimpleAction *action, GVariant *parameter, gpointer user_data)
+static void on_search_dlg_response(GtkDialog *dialog, int response_id, gpointer user_data)
 {
     auto gViewerWindow = static_cast<GViewerWindow *>(user_data);
     g_return_if_fail (gViewerWindow);
     auto priv = static_cast<GViewerWindowPrivate*>(gviewer_window_get_instance_private (gViewerWindow));
 
-    // Show the Search Dialog
-    GtkWidget *w = gviewer_search_dlg_new (GTK_WINDOW (gViewerWindow));
-    if (gtk_dialog_run (GTK_DIALOG (w))!=GTK_RESPONSE_OK)
+    if (response_id != GTK_RESPONSE_OK)
     {
-        gtk_window_destroy (GTK_WINDOW (w));
+        gtk_window_destroy (GTK_WINDOW (dialog));
         return;
     }
 
@@ -904,7 +901,7 @@ static void menu_edit_find(GSimpleAction *action, GVariant *parameter, gpointer 
     }
 
     // Get the search information from the search dialog
-    GViewerSearchDlg *srch_dlg = GVIEWER_SEARCH_DLG (w);
+    GViewerSearchDlg *srch_dlg = GVIEWER_SEARCH_DLG (dialog);
     priv->search_pattern = gviewer_search_dlg_get_search_text_string (srch_dlg);
 
     // Create & prepare the search object
@@ -939,11 +936,22 @@ static void menu_edit_find(GSimpleAction *action, GVariant *parameter, gpointer 
         g_free (buffer);
     }
 
-    gtk_window_destroy (GTK_WINDOW (w));
-
+    gtk_window_destroy (GTK_WINDOW (dialog));
 
     // call  "find_next" to actually do the search
     start_find_thread(gViewerWindow, TRUE);
+}
+
+
+static void menu_edit_find(GSimpleAction *action, GVariant *parameter, gpointer user_data)
+{
+    auto gViewerWindow = static_cast<GViewerWindow *>(user_data);
+    g_return_if_fail (gViewerWindow);
+
+    // Show the Search Dialog
+    GtkWidget *w = gviewer_search_dlg_new (GTK_WINDOW (gViewerWindow));
+    g_signal_connect (w, "response", G_CALLBACK (on_search_dlg_response), gViewerWindow);
+    gtk_window_present (GTK_WINDOW (w));
 }
 
 
