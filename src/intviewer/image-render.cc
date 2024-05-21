@@ -70,9 +70,9 @@ struct ImageRenderClass
 // Class Private Data
 struct ImageRenderPrivate
 {
-    guint8 button; // The button pressed in "button_press_event"
-    gint mouseX;   // Old x position before mouse move
-    gint mouseY;   // Old y position before mouse move
+    guint button;       // The button pressed to drag an image
+    double mouseX;      // Old x position before mouse move
+    double mouseY;      // Old y position before mouse move
 
     GtkAdjustment *h_adjustment;
     GtkScrollablePolicy hscroll_policy;
@@ -94,17 +94,17 @@ struct ImageRenderPrivate
 // Gtk class related static functions
 static void image_render_redraw (ImageRender *w);
 
-static gboolean image_render_key_press (GtkWidget *widget, GdkEventKey *event);
-static gboolean image_render_scroll(GtkWidget *widget, GdkEventScroll *event);
+static gboolean image_render_key_press (GtkEventControllerKey *controller, guint keyval, guint keycode, GdkModifierType state, gpointer user_data);
+static void image_render_scroll (GtkEventControllerScroll *controller, double dx, double dy, gpointer user_data);
 
 static void image_render_realize (GtkWidget *widget, gpointer user_data);
 static void image_render_get_preferred_width (GtkWidget *widget, gint *minimal_width, gint *natural_width);
 static void image_render_get_preferred_height (GtkWidget *widget, gint *minimal_height, gint *natural_height);
 static void image_render_size_allocate (GtkWidget *widget, GtkAllocation *allocation);
 static gboolean image_render_draw (GtkWidget *widget, cairo_t *cr);
-static gboolean image_render_button_press (GtkWidget *widget, GdkEventButton *event);
-static gboolean image_render_button_release (GtkWidget *widget, GdkEventButton *event);
-static gboolean image_render_motion_notify (GtkWidget *widget, GdkEventMotion *event);
+static void image_render_button_press (GtkGestureMultiPress *gesture, int n_press, double x, double y, gpointer user_data);
+static void image_render_button_release (GtkGestureMultiPress *gesture, int n_press, double x, double y, gpointer user_data);
+static void image_render_motion_notify (GtkEventControllerMotion *controller, double x, double y, gpointer user_data);
 static void image_render_h_adjustment_update (ImageRender *obj);
 static void image_render_h_adjustment_changed (GtkAdjustment *adjustment, gpointer data);
 static void image_render_h_adjustment_value_changed (GtkAdjustment *adjustment, gpointer data);
@@ -213,6 +213,19 @@ static void image_render_init (ImageRender *w)
     gtk_widget_set_can_focus (GTK_WIDGET (w), TRUE);
 
     g_signal_connect_after (w, "realize", G_CALLBACK (image_render_realize), w);
+
+    GtkEventController *scroll_controller = gtk_event_controller_scroll_new (GTK_WIDGET (w), GTK_EVENT_CONTROLLER_SCROLL_BOTH_AXES);
+    g_signal_connect (scroll_controller, "scroll", G_CALLBACK (image_render_scroll), w);
+
+    GtkGesture *button_gesture = gtk_gesture_multi_press_new (GTK_WIDGET (w));
+    g_signal_connect (button_gesture, "pressed", G_CALLBACK (image_render_button_press), w);
+    g_signal_connect (button_gesture, "released", G_CALLBACK (image_render_button_release), w);
+
+    GtkEventController* motion_controller = gtk_event_controller_motion_new (GTK_WIDGET (w));
+    g_signal_connect (motion_controller, "motion", G_CALLBACK (image_render_motion_notify), w);
+
+    GtkEventController *key_controller = gtk_event_controller_key_new (GTK_WIDGET (w));
+    g_signal_connect (key_controller, "key-pressed", G_CALLBACK (image_render_key_press), w);
 }
 
 
@@ -321,12 +334,6 @@ static void image_render_class_init (ImageRenderClass *klass)
     object_class->get_property = image_render_get_property;
     object_class->finalize = image_render_finalize;
 
-    widget_class->scroll_event = image_render_scroll;
-    widget_class->key_press_event = image_render_key_press;
-    widget_class->button_press_event = image_render_button_press;
-    widget_class->button_release_event = image_render_button_release;
-    widget_class->motion_notify_event = image_render_motion_notify;
-
     widget_class->draw = image_render_draw;
 
     widget_class->get_preferred_width = image_render_get_preferred_width;
@@ -373,159 +380,43 @@ void image_render_notify_status_changed (ImageRender *w)
 }
 
 
-static gboolean image_render_key_press (GtkWidget *widget, GdkEventKey *event)
+static gboolean image_render_key_press (GtkEventControllerKey *controller, guint keyval, guint keycode, GdkModifierType state, gpointer user_data)
 {
-    g_return_val_if_fail (IS_IMAGE_RENDER (widget), FALSE);
-
-    auto imageRender = IMAGE_RENDER (widget);
+    g_return_val_if_fail (IS_IMAGE_RENDER (user_data), FALSE);
+    auto imageRender = IMAGE_RENDER (user_data);
     auto priv = static_cast<ImageRenderPrivate*>(image_render_get_instance_private (imageRender));
 
-    switch (event->keyval)
+    switch (keyval)
     {
         case GDK_KEY_Up:
-        {
-            auto current = gtk_adjustment_get_value(priv->v_adjustment);
-            auto lower = gtk_adjustment_get_lower(priv->v_adjustment);
-            if (current - INC_VALUE > lower)
-            {
-                gtk_adjustment_set_value(priv->v_adjustment, current - INC_VALUE);
-            }
-            else
-            {
-                gtk_adjustment_set_value(priv->v_adjustment, lower);
-            }
-
+            gtk_adjustment_set_value (priv->v_adjustment, gtk_adjustment_get_value (priv->v_adjustment) - INC_VALUE);
             return TRUE;
-        }
         case GDK_KEY_Down:
-        {
-            auto current = gtk_adjustment_get_value(priv->v_adjustment);
-            auto upper = gtk_adjustment_get_upper(priv->v_adjustment);
-            auto page_size = gtk_adjustment_get_page_size(priv->v_adjustment);
-            if (current + INC_VALUE < upper - page_size)
-            {
-                gtk_adjustment_set_value(priv->v_adjustment, current + INC_VALUE);
-            }
-            else
-            {
-                gtk_adjustment_set_value(priv->v_adjustment, upper - page_size);
-            }
+            gtk_adjustment_set_value (priv->v_adjustment, gtk_adjustment_get_value (priv->v_adjustment) + INC_VALUE);
             return TRUE;
-        }
         case GDK_KEY_Left:
-        {
-            auto current = gtk_adjustment_get_value(priv->h_adjustment);
-            auto lower = gtk_adjustment_get_lower(priv->h_adjustment);
-            if (current - INC_VALUE > lower)
-            {
-                gtk_adjustment_set_value(priv->h_adjustment, current - INC_VALUE);
-            }
-            else
-            {
-                gtk_adjustment_set_value(priv->h_adjustment, lower);
-            }
-
+            gtk_adjustment_set_value (priv->h_adjustment, gtk_adjustment_get_value (priv->h_adjustment) - INC_VALUE);
             return TRUE;
-        }
         case GDK_KEY_Right:
-        {
-            auto current = gtk_adjustment_get_value(priv->h_adjustment);
-            auto upper = gtk_adjustment_get_upper(priv->h_adjustment);
-            auto page_size = gtk_adjustment_get_page_size(priv->h_adjustment);
-            if (current + INC_VALUE < upper - page_size)
-            {
-                gtk_adjustment_set_value(priv->h_adjustment, current + INC_VALUE);
-            }
-            else
-            {
-                gtk_adjustment_set_value(priv->h_adjustment, upper - page_size);
-            }
-
+            gtk_adjustment_set_value (priv->h_adjustment, gtk_adjustment_get_value (priv->h_adjustment) + INC_VALUE);
             return TRUE;
-        }
-
-        default:
-           break;
-    }
-
-    return FALSE;
-}
-
-
-static gboolean image_render_scroll(GtkWidget *widget, GdkEventScroll *event)
-{
-    g_return_val_if_fail (IS_IMAGE_RENDER (widget), FALSE);
-    g_return_val_if_fail (event != NULL, FALSE);
-
-    auto imageRender = IMAGE_RENDER (widget);
-    auto priv = static_cast<ImageRenderPrivate*>(image_render_get_instance_private (imageRender));
-
-    // Mouse scroll wheel
-#if defined (__GNUC__)
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wswitch-enum"
-#endif
-    if (state_is_ctrl(event->state))
-    {
-        switch (event->direction)
-        {
-            case GDK_SCROLL_UP:
-            {
-                auto current = gtk_adjustment_get_value(priv->h_adjustment);
-                auto lower = gtk_adjustment_get_lower(priv->h_adjustment);
-                if (current > lower)
-                {
-                    gtk_adjustment_set_value(priv->h_adjustment, current - INC_VALUE);
-                }
-                return TRUE;
-            }
-            case GDK_SCROLL_DOWN:
-            {
-                auto current = gtk_adjustment_get_value(priv->h_adjustment);
-                auto upper = gtk_adjustment_get_upper(priv->h_adjustment);
-                auto page_size = gtk_adjustment_get_page_size(priv->h_adjustment);
-                if (current < upper - page_size)
-                {
-                    gtk_adjustment_set_value(priv->h_adjustment, current + INC_VALUE);
-                }
-                return TRUE;
-            }
-            default:
-                return FALSE;
-        }
-    }
-
-    switch (event->direction)
-    {
-        case GDK_SCROLL_UP:
-        {
-            auto current = gtk_adjustment_get_value(priv->v_adjustment);
-            auto lower = gtk_adjustment_get_lower(priv->v_adjustment);
-            if (current > lower)
-            {
-                gtk_adjustment_set_value(priv->v_adjustment, current - INC_VALUE);
-            }
-            return TRUE;
-        }
-        case GDK_SCROLL_DOWN:
-        {
-            auto current = gtk_adjustment_get_value(priv->v_adjustment);
-            auto upper = gtk_adjustment_get_upper(priv->v_adjustment);
-            auto page_size = gtk_adjustment_get_page_size(priv->v_adjustment);
-            if (current < upper - page_size)
-            {
-                gtk_adjustment_set_value(priv->v_adjustment, current + INC_VALUE);
-            }
-            return TRUE;
-        }
         default:
             return FALSE;
     }
-#if defined (__GNUC__)
-#pragma GCC diagnostic pop
-#endif
+}
 
-    return TRUE;
+
+static void image_render_scroll(GtkEventControllerScroll *controller, double dx, double dy, gpointer user_data)
+{
+    g_return_if_fail (IS_IMAGE_RENDER (user_data));
+    auto imageRender = IMAGE_RENDER (user_data);
+    auto priv = static_cast<ImageRenderPrivate*>(image_render_get_instance_private (imageRender));
+
+    if (state_is_ctrl(get_modifiers_state()))
+        std::swap(dx, dy);
+
+    gtk_adjustment_set_value (priv->h_adjustment, gtk_adjustment_get_value (priv->h_adjustment) + INC_VALUE * dx);
+    gtk_adjustment_set_value (priv->v_adjustment, gtk_adjustment_get_value (priv->v_adjustment) + INC_VALUE * dy);
 }
 
 
@@ -666,98 +557,48 @@ static gboolean image_render_draw (GtkWidget *widget, cairo_t *cr)
 }
 
 
-static gboolean image_render_button_press (GtkWidget *widget, GdkEventButton *event)
+static void image_render_button_press (GtkGestureMultiPress *gesture, int n_press, double x, double y, gpointer user_data)
 {
-    g_return_val_if_fail (IS_IMAGE_RENDER (widget), FALSE);
-    g_return_val_if_fail (event != NULL, FALSE);
-
-    ImageRender *w = IMAGE_RENDER (widget);
+    g_return_if_fail (IS_IMAGE_RENDER (user_data));
+    ImageRender *w = IMAGE_RENDER (user_data);
     auto priv = static_cast<ImageRenderPrivate*>(image_render_get_instance_private (w));
 
-    // TODO: Replace (1) with your on conditional for grabbing the mouse
-    if (!priv->button && (1))
+    if (n_press == 1 && !priv->button)
     {
-        gtk_grab_add (widget);
-
-        priv->button = event->button;
-
-        // gtk_dial_update_mouse (dial, event->x, event->y);
-
-        // Store current mouse position
-        priv->mouseX = event->x;
-        priv->mouseY = event->y;
+        priv->button = gtk_gesture_single_get_current_button (GTK_GESTURE_SINGLE (gesture));
+        priv->mouseX = x;
+        priv->mouseY = y;
     }
-
-    return FALSE;
 }
 
 
-static gboolean image_render_button_release (GtkWidget *widget, GdkEventButton *event)
+static void image_render_button_release (GtkGestureMultiPress *gesture, int n_press, double x, double y, gpointer user_data)
 {
-    g_return_val_if_fail (IS_IMAGE_RENDER (widget), FALSE);
-    g_return_val_if_fail (event != NULL, FALSE);
-
-    ImageRender *w = IMAGE_RENDER (widget);
+    g_return_if_fail (IS_IMAGE_RENDER (user_data));
+    ImageRender *w = IMAGE_RENDER (user_data);
     auto priv = static_cast<ImageRenderPrivate*>(image_render_get_instance_private (w));
 
-    if (priv->button == event->button)
-    {
-        gtk_grab_remove (widget);
+    auto button = gtk_gesture_single_get_current_button (GTK_GESTURE_SINGLE (gesture));
 
+    if (priv->button == button)
         priv->button = 0;
-    }
-
-    return FALSE;
 }
 
 
-static gboolean image_render_motion_notify (GtkWidget *widget, GdkEventMotion *event)
+static void image_render_motion_notify (GtkEventControllerMotion *controller, double x, double y, gpointer user_data)
 {
-    g_return_val_if_fail (IS_IMAGE_RENDER (widget), FALSE);
-    g_return_val_if_fail (event != NULL, FALSE);
-
-    auto imageRender = IMAGE_RENDER (widget);
+    g_return_if_fail (IS_IMAGE_RENDER (user_data));
+    auto imageRender = IMAGE_RENDER (user_data);
     auto priv = static_cast<ImageRenderPrivate*>(image_render_get_instance_private (imageRender));
 
     if (priv->button != 0)
     {
-        GdkModifierType mods;
-
-        gint x = event->x;
-        gint y = event->y;
-
-        GdkWindow *window = gtk_widget_get_window (widget);
-
-        if (event->is_hint || (event->window != window))
-            gdk_window_get_pointer (window, &x, &y, &mods);
-
-        // Update X position
-        auto currentX = gtk_adjustment_get_value(priv->h_adjustment);
-        auto lowerX = gtk_adjustment_get_lower(priv->h_adjustment);
-        auto upperX = gtk_adjustment_get_upper(priv->h_adjustment);
-        auto pageSizeX = gtk_adjustment_get_page_size(priv->h_adjustment);
-        if (currentX + (priv->mouseX - x)    < upperX - pageSizeX
-            && currentX + (priv->mouseX - x) > lowerX - pageSizeX)
-        {
-            gtk_adjustment_set_value(priv->h_adjustment, currentX + (priv->mouseX - x));
-        }
-
-        // Update Y position
-        auto currentY = gtk_adjustment_get_value(priv->v_adjustment);
-        auto lowerY = gtk_adjustment_get_lower(priv->v_adjustment);
-        auto upperY = gtk_adjustment_get_upper(priv->v_adjustment);
-        auto pageSizeY = gtk_adjustment_get_page_size(priv->v_adjustment);
-        if (currentY + (priv->mouseY - y)    < upperY - pageSizeY
-            && currentY + (priv->mouseY - y) > lowerY - pageSizeY)
-        {
-            gtk_adjustment_set_value(priv->v_adjustment, currentY + (priv->mouseY - y));
-        }
+        gtk_adjustment_set_value (priv->h_adjustment, gtk_adjustment_get_value (priv->h_adjustment) + (priv->mouseX - x));
+        gtk_adjustment_set_value (priv->v_adjustment, gtk_adjustment_get_value (priv->v_adjustment) + (priv->mouseY - y));
 
         priv->mouseX = x;
         priv->mouseY = y;
     }
-
-    return FALSE;
 }
 
 
@@ -1060,14 +901,12 @@ static void image_render_update_adjustments (ImageRender *obj)
             gtk_adjustment_set_lower (priv->h_adjustment, 0);
             gtk_adjustment_set_upper (priv->h_adjustment, 0);
             gtk_adjustment_set_value (priv->h_adjustment, 0);
-            gtk_adjustment_changed (priv->h_adjustment);
         }
         if (priv->v_adjustment)
         {
             gtk_adjustment_set_lower (priv->v_adjustment, 0);
             gtk_adjustment_set_upper (priv->v_adjustment, 0);
             gtk_adjustment_set_value (priv->v_adjustment, 0);
-            gtk_adjustment_changed (priv->v_adjustment);
         }
     }
     else
@@ -1077,14 +916,12 @@ static void image_render_update_adjustments (ImageRender *obj)
             gtk_adjustment_set_lower (priv->h_adjustment, 0);
             gtk_adjustment_set_upper (priv->h_adjustment, gdk_pixbuf_get_width (priv->disp_pixbuf));
             gtk_adjustment_set_page_size (priv->h_adjustment, obj_allocation.width);
-            gtk_adjustment_changed (priv->h_adjustment);
         }
         if (priv->v_adjustment)
         {
             gtk_adjustment_set_lower (priv->v_adjustment, 0);
             gtk_adjustment_set_upper (priv->v_adjustment, gdk_pixbuf_get_height (priv->disp_pixbuf));
             gtk_adjustment_set_page_size (priv->v_adjustment, obj_allocation.height);
-            gtk_adjustment_changed (priv->v_adjustment);
         }
     }
 }
