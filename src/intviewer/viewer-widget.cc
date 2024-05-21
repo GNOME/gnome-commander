@@ -81,7 +81,7 @@ static void gviewer_dispose (GObject *object);
 
 static void gviewer_text_status_update(TextRender *obj, TextRender::Status *status, GViewer *viewer);
 static void gviewer_image_status_update(ImageRender *obj, ImageRender::Status *status, GViewer *viewer);
-static gboolean on_text_viewer_button_pressed (GtkWidget *treeview, GdkEventButton *event, GViewer *viewer);
+static void on_text_viewer_button_pressed (GtkGestureMultiPress *gesture, int n_press, double x, double y, gpointer user_data);
 
 static VIEWERDISPLAYMODE guess_display_mode(const char *filename, int len);
 static void gviewer_auto_detect_display_mode(GViewer *obj);
@@ -166,7 +166,10 @@ static void gviewer_init (GViewer *w)
     g_signal_connect (priv->textr, "text-status-changed", G_CALLBACK (gviewer_text_status_update), w);
     g_signal_connect (priv->imgr, "image-status-changed", G_CALLBACK (gviewer_image_status_update), w);
 
-    g_signal_connect (priv->textr, "button-press-event", G_CALLBACK (on_text_viewer_button_pressed), w);
+    GtkGesture *button_gesture = gtk_gesture_multi_press_new (GTK_WIDGET (priv->textr));
+    gtk_gesture_single_set_button (GTK_GESTURE_SINGLE (button_gesture), 3);
+    g_signal_connect (button_gesture, "pressed", G_CALLBACK (on_text_viewer_button_pressed), w);
+
 }
 
 
@@ -222,23 +225,21 @@ static void gviewer_image_status_update(ImageRender *obj, ImageRender::Status *s
 
 
 
-static gboolean on_text_viewer_button_pressed (GtkWidget *treeview, GdkEventButton *event, GViewer *viewer)
+static void on_text_viewer_button_pressed (GtkGestureMultiPress *gesture, int n_press, double x, double y, gpointer user_data)
 {
-    if (event->type==GDK_BUTTON_PRESS && event->button==3)
+    GViewer *viewer = static_cast<GViewer*>(user_data);
+
+    if (n_press == 1)
     {
         GMenu *menu = g_menu_new ();
         g_menu_append (menu, _("_Copy selection"), "viewer.copy-selection");
 
         GtkWidget *popover = gtk_popover_new_from_model (GTK_WIDGET (viewer), G_MENU_MODEL (menu));
         gtk_popover_set_position (GTK_POPOVER (popover), GTK_POS_BOTTOM);
-        GdkRectangle rect = { (gint) event->x, (gint) event->y, 0, 0 };
+        GdkRectangle rect = { (gint) x, (gint) y, 0, 0 };
         gtk_popover_set_pointing_to (GTK_POPOVER (popover), &rect);
         gtk_popover_popup (GTK_POPOVER (popover));
-
-        return TRUE;
     }
-
-    return FALSE;
 }
 
 
