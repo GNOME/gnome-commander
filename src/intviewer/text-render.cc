@@ -79,7 +79,7 @@ struct TextRenderClass
 // Class Private Data
 struct TextRenderPrivate
 {
-    guint8 button; // The button pressed in "button_press_event"
+    guint8 button; // The button pressed to start a selection
 
     GtkAdjustment *h_adjustment;
     GtkScrollablePolicy hscroll_policy;
@@ -142,17 +142,17 @@ static void text_render_get_preferred_width (GtkWidget *widget, gint *minimal_wi
 static void text_render_get_preferred_height (GtkWidget *widget, gint *minimal_height, gint *natural_height);
 static void text_render_size_allocate (GtkWidget *widget, GtkAllocation *allocation);
 static gboolean text_render_draw(GtkWidget *widget, cairo_t *cr);
-static gboolean text_render_scroll(GtkWidget *widget, GdkEventScroll *event);
-static gboolean text_render_button_press(GtkWidget *widget, GdkEventButton *event);
-static gboolean text_render_button_release(GtkWidget *widget, GdkEventButton *event);
-static gboolean text_render_motion_notify(GtkWidget *widget, GdkEventMotion *event);
+static void text_render_scroll (GtkEventControllerScroll *controller, double dx, double dy, gpointer user_data);
+static void text_render_button_press (GtkGestureMultiPress *gesture, int n_press, double x, double y, gpointer user_data);
+static void text_render_button_release (GtkGestureMultiPress *gesture, int n_press, double x, double y, gpointer user_data);
+static void text_render_motion_notify (GtkEventControllerMotion *controller, double x, double y, gpointer user_data);
 static void text_render_h_adjustment_update (TextRender *obj);
 static void text_render_h_adjustment_changed (GtkAdjustment *adjustment, gpointer data);
 static void text_render_h_adjustment_value_changed (GtkAdjustment *adjustment, gpointer data);
 static void text_render_v_adjustment_update (TextRender *obj);
 static void text_render_v_adjustment_changed (GtkAdjustment *adjustment, gpointer data);
 static void text_render_v_adjustment_value_changed (GtkAdjustment *adjustment, gpointer data);
-static gboolean text_render_key_pressed(GtkWidget *widget, GdkEventKey *event, gpointer data);
+static gboolean text_render_key_pressed (GtkEventControllerKey *controller, guint keyval, guint keycode, GdkModifierType state, gpointer user_data);
 
 static void text_render_update_adjustments_limits(TextRender *w);
 static void text_render_free_data(TextRender *w);
@@ -271,13 +271,24 @@ static void text_render_init (TextRender *w)
 
     priv->fixed_font_name = g_strdup ("Monospace");
 
-    g_signal_connect (w, "key-press-event", G_CALLBACK (text_render_key_pressed), NULL);
-
     priv->layout = gtk_widget_create_pango_layout (GTK_WIDGET (w), NULL);
 
     gtk_widget_set_can_focus(GTK_WIDGET (w), TRUE);
 
     text_render_setup_font(w, priv->fixed_font_name, priv->font_size);
+
+    GtkEventController *scroll_controller = gtk_event_controller_scroll_new (GTK_WIDGET (w), GTK_EVENT_CONTROLLER_SCROLL_VERTICAL);
+    g_signal_connect (scroll_controller, "scroll", G_CALLBACK (text_render_scroll), w);
+
+    GtkGesture *button_gesture = gtk_gesture_multi_press_new (GTK_WIDGET (w));
+    g_signal_connect (button_gesture, "pressed", G_CALLBACK (text_render_button_press), w);
+    g_signal_connect (button_gesture, "released", G_CALLBACK (text_render_button_release), w);
+
+    GtkEventController* motion_controller = gtk_event_controller_motion_new (GTK_WIDGET (w));
+    g_signal_connect (motion_controller, "motion", G_CALLBACK (text_render_motion_notify), w);
+
+    GtkEventController *key_controller = gtk_event_controller_key_new (GTK_WIDGET (w));
+    g_signal_connect (key_controller, "key-pressed", G_CALLBACK (text_render_key_pressed), w);
 }
 
 
@@ -372,11 +383,6 @@ static void text_render_class_init (TextRenderClass *klass)
     object_class->get_property = text_render_get_property;
     object_class->finalize = text_render_finalize;
 
-    widget_class->scroll_event = text_render_scroll;
-    widget_class->button_press_event = text_render_button_press;
-    widget_class->button_release_event = text_render_button_release;
-    widget_class->motion_notify_event = text_render_motion_notify;
-
     widget_class->draw = text_render_draw;
 
     widget_class->get_preferred_width = text_render_get_preferred_width;
@@ -432,30 +438,23 @@ static void text_render_position_changed(TextRender *w)
 
     // update the hotz & vert adjustments
     if (priv->v_adjustment)
-    {
         gtk_adjustment_set_value (priv->v_adjustment, priv->current_offset);
-        gtk_adjustment_changed (priv->v_adjustment);
-    }
 
     if (priv->h_adjustment)
-    {
         gtk_adjustment_set_value (priv->h_adjustment, priv->column);
-        gtk_adjustment_changed (priv->h_adjustment);
-    }
 }
 
 
-static gboolean text_render_key_pressed(GtkWidget *widget, GdkEventKey *event, gpointer data)
+static gboolean text_render_key_pressed (GtkEventControllerKey *controller, guint keyval, guint keycode, GdkModifierType state, gpointer user_data)
 {
-    g_return_val_if_fail (IS_TEXT_RENDER (widget), FALSE);
-
-    TextRender *obj = TEXT_RENDER(widget);
+    g_return_val_if_fail (IS_TEXT_RENDER (user_data), FALSE);
+    TextRender *obj = TEXT_RENDER (user_data);
     auto priv = static_cast<TextRenderPrivate*>(text_render_get_instance_private (obj));
 
     if (!priv->dp)
         return FALSE;
 
-    switch (event->keyval)
+    switch (keyval)
     {
     case GDK_KEY_Up:
         priv->current_offset = gv_scroll_lines (priv->dp, priv->current_offset, -1);
@@ -497,7 +496,7 @@ static gboolean text_render_key_pressed(GtkWidget *widget, GdkEventKey *event, g
     }
 
     text_render_position_changed(obj);
-    gtk_widget_queue_draw (widget);
+    gtk_widget_queue_draw (GTK_WIDGET (obj));
 
     return TRUE;
 }
@@ -586,43 +585,19 @@ static gboolean text_render_draw(GtkWidget *widget, cairo_t *cr)
 }
 
 
-static gboolean text_render_scroll(GtkWidget *widget, GdkEventScroll *event)
+static void text_render_scroll(GtkEventControllerScroll *controller, double dx, double dy, gpointer user_data)
 {
-    g_return_val_if_fail (IS_TEXT_RENDER (widget), FALSE);
-    g_return_val_if_fail (event != NULL, FALSE);
-
-    TextRender *w = TEXT_RENDER (widget);
+    g_return_if_fail (IS_TEXT_RENDER (user_data));
+    TextRender *w = TEXT_RENDER (user_data);
     auto priv = static_cast<TextRenderPrivate*>(text_render_get_instance_private (w));
 
     if (!priv->dp)
-        return FALSE;
+        return;
 
-    // Mouse scroll wheel
-#if defined (__GNUC__)
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wswitch-enum"
-#endif
-    switch (event->direction)
-    {
-        case GDK_SCROLL_UP:
-            priv->current_offset = gv_scroll_lines (priv->dp, priv->current_offset, -4);
-            break;
-
-        case GDK_SCROLL_DOWN:
-            priv->current_offset = gv_scroll_lines (priv->dp, priv->current_offset, 4);
-            break;
-
-        default:
-            return FALSE;
-    }
-#if defined (__GNUC__)
-#pragma GCC diagnostic pop
-#endif
+    priv->current_offset = gv_scroll_lines (priv->dp, priv->current_offset, 4 * dy);
 
     text_render_position_changed (w);
     gtk_widget_queue_draw (GTK_WIDGET (w));
-
-    return TRUE;
 }
 
 
@@ -649,84 +624,61 @@ void  text_render_copy_selection(TextRender *w)
 }
 
 
-static gboolean text_render_button_press(GtkWidget *widget, GdkEventButton *event)
+static void text_render_button_press(GtkGestureMultiPress *gesture, int n_press, double x, double y, gpointer user_data)
 {
-    g_return_val_if_fail (IS_TEXT_RENDER (widget), FALSE);
-    g_return_val_if_fail (event != NULL, FALSE);
-
-    TextRender *w = TEXT_RENDER (widget);
+    g_return_if_fail (IS_TEXT_RENDER (user_data));
+    TextRender *w = TEXT_RENDER (user_data);
     auto priv = static_cast<TextRenderPrivate*>(text_render_get_instance_private (w));
 
-    g_return_val_if_fail (priv->pixel_to_offset!=NULL, FALSE);
+    g_return_if_fail (priv->pixel_to_offset != NULL);
 
-    if (!priv->button)
+    auto button = gtk_gesture_single_get_current_button (GTK_GESTURE_SINGLE (gesture));
+
+    if (n_press == 1 && !priv->button)
     {
-        gtk_grab_add (widget);
-        priv->button = event->button;
-        priv->marker_start = priv->pixel_to_offset(w, (int) event->x, (int) event->y, TRUE);
+        priv->button = button;
+        priv->marker_start = priv->pixel_to_offset(w, (int) x, (int) y, TRUE);
     }
-
-    return FALSE;
 }
 
 
-static gboolean text_render_button_release(GtkWidget *widget, GdkEventButton *event)
+static void text_render_button_release(GtkGestureMultiPress *gesture, int n_press, double x, double y, gpointer user_data)
 {
-    g_return_val_if_fail (IS_TEXT_RENDER (widget), FALSE);
-    g_return_val_if_fail (event != NULL, FALSE);
-
-    TextRender *w = TEXT_RENDER (widget);
+    g_return_if_fail (IS_TEXT_RENDER (user_data));
+    TextRender *w = TEXT_RENDER (user_data);
     auto priv = static_cast<TextRenderPrivate*>(text_render_get_instance_private (w));
 
-    g_return_val_if_fail (priv->pixel_to_offset!=NULL, FALSE);
+    g_return_if_fail (priv->pixel_to_offset != NULL);
 
-    if (priv->button == event->button)
+    auto button = gtk_gesture_single_get_current_button (GTK_GESTURE_SINGLE (gesture));
+
+    if (priv->button == button)
     {
-        gtk_grab_remove (widget);
         priv->button = 0;
 
-        priv->marker_end = priv->pixel_to_offset(w, (int) event->x, (int) event->y, FALSE);
+        priv->marker_end = priv->pixel_to_offset(w, (int) x, (int) y, FALSE);
         gtk_widget_queue_draw (GTK_WIDGET (w));
     }
-
-    return FALSE;
 }
 
 
-static gboolean text_render_motion_notify(GtkWidget *widget, GdkEventMotion *event)
+static void text_render_motion_notify (GtkEventControllerMotion *controller, double x, double y, gpointer user_data)
 {
-    g_return_val_if_fail (IS_TEXT_RENDER (widget), FALSE);
-    g_return_val_if_fail (event != NULL, FALSE);
-
-    TextRender *w = TEXT_RENDER (widget);
+    g_return_if_fail (IS_TEXT_RENDER (user_data));
+    TextRender *w = TEXT_RENDER (user_data);
     auto priv = static_cast<TextRenderPrivate*>(text_render_get_instance_private (w));
 
-    g_return_val_if_fail (priv->pixel_to_offset!=NULL, FALSE);
-
-    GdkModifierType mods;
-    gint x, y;
+    g_return_if_fail (priv->pixel_to_offset != NULL);
 
     if (priv->button != 0)
     {
-        offset_type new_marker;
-
-        x = event->x;
-        y = event->y;
-
-        if (event->is_hint || (event->window != gtk_widget_get_window (widget)))
-            gdk_window_get_pointer(gtk_widget_get_window (widget), &x, &y, &mods);
-
-        // TODO: respond to motion event
-        new_marker = priv->pixel_to_offset (w, x, y, FALSE);
-
+        offset_type new_marker = priv->pixel_to_offset (w, x, y, FALSE);
         if (new_marker != priv->marker_end)
         {
             priv->marker_end = new_marker;
             gtk_widget_queue_draw (GTK_WIDGET (w));
         }
     }
-
-    return FALSE;
 }
 
 
@@ -923,7 +875,6 @@ static void text_render_update_adjustments_limits(TextRender *w)
     {
         gtk_adjustment_set_lower (priv->v_adjustment, 0);
         gtk_adjustment_set_upper (priv->v_adjustment, gv_file_get_max_offset(priv->fops)-1);
-        gtk_adjustment_changed (priv->v_adjustment);
     }
 
     if (priv->h_adjustment)
@@ -936,7 +887,6 @@ static void text_render_update_adjustments_limits(TextRender *w)
             gtk_adjustment_set_upper (priv->h_adjustment, priv->max_column); // TODO: find our the real horz limit
         else
             gtk_adjustment_set_upper (priv->h_adjustment, 0);
-        gtk_adjustment_changed (priv->h_adjustment);
     }
 }
 
