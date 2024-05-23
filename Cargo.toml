@@ -1,0 +1,47 @@
+[package]
+name = "gnome-commander"
+version = "0.1.0"
+edition = "2021"
+
+[features]
+use-exiv2 = []
+use-gsf-1 = []
+use-taglib = []
+use-poppler = []
+use-samba = []
+
+[dependencies]
+gtk = { version = "0.18.1", features = ["v3_24"] }
+libc = "0.2.155"
+
+[build-dependencies]
+system-deps = "6.2.2"
+
+[package.metadata.system-deps.gmodule_2_0]
+name = "gmodule-2.0"
+version = "2"
+
+[package.metadata.system-deps.exiv2]
+name = "exiv2"
+version = "0.14"
+feature = "use-exiv2"
+
+[package.metadata.system-deps.gsf_1]
+name = "libgsf-1"
+version = "1.12.0"
+feature = "use-gsf-1"
+
+[package.metadata.system-deps.taglib]
+name = "taglib"
+version = "1.11"
+feature = "use-taglib"
+
+[package.metadata.system-deps.poppler]
+name = "poppler-glib"
+version = "0.18"
+feature = "use-poppler"
+
+[package.metadata.system-deps.samba]
+name = "smbclient"
+version = "0.7"
+feature = "use-samba"

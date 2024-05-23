@@ -1,4 +1,4 @@
-libgmcddialogs_headers = files(
+dialogs_headers = files(
   'gnome-cmd-advrename-dialog.h',
   'gnome-cmd-advrename-regex-dialog.h',
   'gnome-cmd-chmod-dialog.h',
@@ -23,7 +23,7 @@ libgmcddialogs_headers = files(
   'gnome-cmd-search-dialog.h',
 )
 
-libgmcddialogs_sources = files(
+dialogs_sources = files(
   'gnome-cmd-advrename-dialog.cc',
   'gnome-cmd-advrename-regex-dialog.cc',
   'gnome-cmd-chmod-dialog.cc',
@@ -44,15 +44,4 @@ libgmcddialogs_sources = files(
   'gnome-cmd-remote-dialog.cc',
   'gnome-cmd-rename-dialog.cc',
   'gnome-cmd-search-dialog.cc',
-)
-
-libgmcddialogs = static_library('dialogs',
-  dependencies: [common_deps, sources_dep],
-  include_directories: [configuration_inc, sources_inc],
-  link_with: libgcmd,
-  sources: [libgmcddialogs_headers, libgmcddialogs_sources]
-)
-
-libgmcddialogs_dep = declare_dependency(
-  include_directories: [include_directories('.')],
 )

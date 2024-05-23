@@ -29,7 +29,7 @@
 
 using namespace std;
 
-int main (int argc, char *argv[])
+extern "C" int c_main (int argc, char *argv[])
 {
     setlocale (LC_ALL, "");
     bindtextdomain (PACKAGE, DATADIR "/locale");
