@@ -269,7 +269,7 @@ static void view_slide (GSimpleAction *action, GVariant *parameter, gpointer use
 }
 
 
-static GtkWidget *create_slide_popup ()
+static GMenuModel *create_slide_popup ()
 {
     GMenu *menu = g_menu_new ();
     g_menu_append (menu, "100 - 0", "win.view-slide(100)");
@@ -279,10 +279,7 @@ static GtkWidget *create_slide_popup ()
     g_menu_append (menu, "40 - 60", "win.view-slide(40)");
     g_menu_append (menu, "20 - 80", "win.view-slide(20)");
     g_menu_append (menu, "0 - 100", "win.view-slide(0)");
-
-    GtkWidget *gtk_menu = gtk_menu_new_from_model (G_MENU_MODEL (menu));
-    gtk_menu_attach_to_widget (GTK_MENU (gtk_menu), GTK_WIDGET (main_win), nullptr);
-    return gtk_menu;
+    return G_MENU_MODEL (menu);
 }
 
 
@@ -315,21 +312,28 @@ void GnomeCmdMainWin::create_buttonbar()
     Misc widgets callbacks
 *****************************************************************************/
 
-static gboolean on_slide_button_press (GtkWidget *widget, GdkEventButton *event, GnomeCmdMainWin *mw)
+static void on_slide_button_press (GtkGestureMultiPress *gesture, int n_press, double x, double y, gpointer user_data)
 {
-    if (event->type == GDK_BUTTON_PRESS && event->button == 3)
-    {
-        GtkPaned *paned = GTK_PANED (mw->priv->paned);
+    auto mw = static_cast<GnomeCmdMainWin *>(user_data);
 
-        // Check that the handle was clicked and not one of the children
-        if (gtk_paned_get_handle_window (paned) == event->window)
-        {
-            gtk_menu_popup (GTK_MENU (create_slide_popup ()), NULL, NULL, NULL, NULL, event->button, event->time);
-            return TRUE;
-        }
-    }
+    GtkPaned *paned = GTK_PANED (mw->priv->paned);
 
-    return FALSE;
+    GtkAllocation child_allocation;
+
+    if (n_press != 1)
+        return;
+
+    gtk_widget_get_allocation (gtk_paned_get_child1 (paned), &child_allocation);
+    if (gdk_rectangle_contains_point (&child_allocation, x, y))
+        return;
+    gtk_widget_get_allocation (gtk_paned_get_child2 (paned), &child_allocation);
+    if (gdk_rectangle_contains_point (&child_allocation, x, y))
+        return;
+
+    GtkWidget *popover = gtk_popover_new_from_model (GTK_WIDGET (paned), create_slide_popup ());
+    GdkRectangle rect = { (gint) x, (gint) y, 0, 0 };
+    gtk_popover_set_pointing_to (GTK_POPOVER (popover), &rect);
+    gtk_popover_popup (GTK_POPOVER (popover));
 }
 
 
@@ -721,8 +725,11 @@ static void gnome_cmd_main_win_init (GnomeCmdMainWin *mw)
 
     g_signal_connect (mw, "size-allocate", G_CALLBACK (on_size_allocate), mw);
     g_signal_connect (mw, "delete-event", G_CALLBACK (on_delete_event), mw);
-    g_signal_connect (mw->priv->paned, "button-press-event", G_CALLBACK (on_slide_button_press), mw);
     g_signal_connect (mw, "window-state-event", G_CALLBACK (on_window_state_event), NULL);
+
+    GtkGesture *paned_click_gesture = gtk_gesture_multi_press_new (GTK_WIDGET (mw->priv->paned));
+    gtk_gesture_single_set_button (GTK_GESTURE_SINGLE (paned_click_gesture), 3);
+    g_signal_connect (paned_click_gesture, "pressed", G_CALLBACK (on_slide_button_press), mw);
 
     g_signal_connect (mw->fs(LEFT)->file_list(), "resize-column", G_CALLBACK (on_fs_list_resize_column), mw->fs(RIGHT));
     g_signal_connect (mw->fs(RIGHT)->file_list(), "resize-column", G_CALLBACK (on_fs_list_resize_column), mw->fs(LEFT));
@@ -873,21 +880,21 @@ gboolean GnomeCmdMainWin::key_pressed(GdkEventKey *event)
 
             case GDK_KEY_s:
             case GDK_KEY_S:
-                // Calculate the middle of the screen
-                GdkRectangle rect;
-                rect.x = gdk_screen_get_width(gdk_screen_get_default()) / 2;
-                rect.y = gdk_screen_get_height(gdk_screen_get_default()) / 2;
-                rect.width = 0;  // width of the rectangle
-                rect.height = 0; // height of the rectangle
-                gtk_menu_popup_at_rect(
-                    GTK_MENU (create_slide_popup ()),
-                    gtk_widget_get_window (*this),
-                    &rect,
-                    GDK_GRAVITY_CENTER,
-                    GDK_GRAVITY_CENTER,
-                    nullptr);
+                {
+                    // Calculate the middle of the widget
+                    GtkAllocation allocation;
+                    gtk_widget_get_allocation (priv->paned, &allocation);
+
+                    GdkRectangle rect;
+                    rect.x = allocation.width / 2;
+                    rect.y = allocation.height / 2;
+                    rect.width = 0;
+                    rect.height = 0;
+                    GtkWidget *popover = gtk_popover_new_from_model (priv->paned, create_slide_popup ());
+                    gtk_popover_set_pointing_to (GTK_POPOVER (popover), &rect);
+                    gtk_popover_popup (GTK_POPOVER (popover));
+                }
                 return TRUE;
-                break;
 
             case GDK_KEY_u:
             case GDK_KEY_U:
@@ -1223,39 +1230,20 @@ void GnomeCmdMainWin::update_cmdline_visibility()
 }
 
 
+static gboolean set_equal_panes_idle (gpointer *user_data)
+{
+    GNOME_CMD_MAIN_WIN (user_data)->set_equal_panes();
+    return G_SOURCE_REMOVE;
+}
+
+
 void GnomeCmdMainWin::update_horizontal_orientation()
 {
-    gint pos = 2;
-
-    g_object_ref (priv->file_selector[LEFT]);
-    g_object_ref (priv->file_selector[RIGHT]);
-    gtk_container_remove (GTK_CONTAINER (priv->paned), priv->file_selector[LEFT]);
-    gtk_container_remove (GTK_CONTAINER (priv->paned), priv->file_selector[RIGHT]);
-
-    gtk_container_remove (GTK_CONTAINER (priv->vbox), GTK_WIDGET (priv->paned));
-
-    priv->paned = gtk_paned_new (gnome_cmd_data.horizontal_orientation ? GTK_ORIENTATION_VERTICAL : GTK_ORIENTATION_HORIZONTAL);
-
-    g_object_ref (priv->paned);
-    g_object_set_data_full (*this, "paned", priv->paned, g_object_unref);
-    gtk_widget_show (priv->paned);
-
-    gtk_paned_pack1 (GTK_PANED (priv->paned), priv->file_selector[LEFT], TRUE, TRUE);
-    gtk_paned_pack2 (GTK_PANED (priv->paned), priv->file_selector[RIGHT], TRUE, TRUE);
-
-    if (gnome_cmd_data.show_toolbar)
-        pos += 2;
-
-    gtk_widget_set_hexpand (priv->paned, TRUE);
-    gtk_widget_set_vexpand (priv->paned, TRUE);
-    gtk_box_append (GTK_BOX (priv->vbox), priv->paned);
-    gtk_box_reorder_child (GTK_BOX (priv->vbox), priv->paned, pos);
-
-    g_object_unref (priv->file_selector[LEFT]);
-    g_object_unref (priv->file_selector[RIGHT]);
-
-    g_signal_connect (priv->paned, "button-press-event", G_CALLBACK (on_slide_button_press), this);
-    set_slide(50);
+    gtk_orientable_set_orientation (GTK_ORIENTABLE (priv->paned),
+        gnome_cmd_data.horizontal_orientation
+            ? GTK_ORIENTATION_VERTICAL
+            : GTK_ORIENTATION_HORIZONTAL);
+    g_timeout_add (300, (GSourceFunc) set_equal_panes_idle, this);
 }
 
 
@@ -1307,10 +1295,10 @@ void GnomeCmdMainWin::set_cap_state(gboolean state)
 
 void GnomeCmdMainWin::set_slide(gint percentage)
 {
-    GtkAllocation main_win_allocation;
-    gtk_widget_get_allocation (GTK_WIDGET (this), &main_win_allocation);
+    GtkAllocation allocation;
+    gtk_widget_get_allocation (GTK_WIDGET (priv->paned), &allocation);
 
-    gint dimension = gnome_cmd_data.horizontal_orientation ? main_win_allocation.height : main_win_allocation.width;
+    gint dimension = gnome_cmd_data.horizontal_orientation ? allocation.height : allocation.width;
     gint new_dimension = dimension * percentage / 100;
 
     gtk_paned_set_position (GTK_PANED (priv->paned), new_dimension);
