@@ -18,4 +18,5 @@
  */
 
 pub const PACKAGE: &str = @PACKAGE@;
+pub const DATADIR: &str = @DATADIR@;
 

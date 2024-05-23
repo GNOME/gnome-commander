@@ -21,7 +21,10 @@ mod config;
 
 use gtk::{self, glib};
 use std::error::Error;
+use std::path::Path;
 use std::process::Termination;
+
+use crate::config::{DATADIR, PACKAGE};
 
 extern "C" {
     fn c_main(argc: libc::c_int, argv: *const *const libc::c_char) -> libc::c_int;
@@ -36,6 +39,11 @@ fn main() -> Result<impl Termination, Box<dyn Error>> {
         eprintln!("GTK version mismatch: {mismatch}");
         std::process::exit(1);
     }
+
+    gettextrs::setlocale(gettextrs::LocaleCategory::LcAll, "");
+    gettextrs::bindtextdomain(PACKAGE, Path::new(DATADIR).join("locale"))?;
+    gettextrs::bind_textdomain_codeset(PACKAGE, "UTF-8")?;
+    gettextrs::textdomain(PACKAGE)?;
 
     let retcode = unsafe { c_main(0, std::ptr::null()) };
     Ok(std::process::ExitCode::from(retcode as u8))
