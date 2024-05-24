@@ -42,9 +42,6 @@
 using namespace std;
 
 
-enum {SWITCH_FS, LAST_SIGNAL};
-
-
 enum
 {
   TOOLBAR_BTN_REFRESH,
@@ -72,8 +69,6 @@ enum
 struct GnomeCmdMainWinClass
 {
     GtkApplicationWindowClass parent_class;
-
-    void (* switch_fs) (GnomeCmdMainWin *mw, GnomeCmdFileSelector *fs);
 };
 
 
@@ -100,7 +95,7 @@ struct GnomeCmdMainWin::Private
     GtkWidget *menubar;
     GtkWidget *toolbar;
     GtkWidget *toolbar_sep;
-    GtkWidget *cmdline;
+    GnomeCmdCmdline *cmdline;
     GtkWidget *cmdline_sep;
     GtkWidget *buttonbar;
     GtkWidget *buttonbar_sep;
@@ -110,12 +105,8 @@ struct GnomeCmdMainWin::Private
     guint key_snooper_id;
 };
 
-static guint signals[LAST_SIGNAL] = { 0 };
 
 G_DEFINE_TYPE (GnomeCmdMainWin, gnome_cmd_main_win, GTK_TYPE_APPLICATION_WINDOW)
-
-
-static void gnome_cmd_main_win_real_switch_fs (GnomeCmdMainWin *mw, GnomeCmdFileSelector *fs);
 
 
 static gint gnome_cmd_key_snooper(GtkWidget *grab_widget, GdkEventKey *event, GnomeCmdMainWin *mw)
@@ -498,6 +489,7 @@ static void on_fs_dir_change (GnomeCmdFileSelector *fs, const gchar dir, GnomeCm
 {
     update_browse_buttons (mw, fs);
     mw->update_drop_con_button(fs->file_list());
+    mw->update_cmdline();
 }
 
 
@@ -583,29 +575,11 @@ static void destroy (GtkWidget *object)
 }
 
 
-static void map (GtkWidget *widget)
-{
-    GTK_WIDGET_CLASS (gnome_cmd_main_win_parent_class)->map (widget);
-}
-
-
 static void gnome_cmd_main_win_class_init (GnomeCmdMainWinClass *klass)
 {
     GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
 
-    signals[SWITCH_FS] =
-        g_signal_new ("switch-fs",
-            G_TYPE_FROM_CLASS (klass),
-            G_SIGNAL_RUN_LAST,
-            G_STRUCT_OFFSET (GnomeCmdMainWinClass, switch_fs),
-            NULL, NULL,
-            g_cclosure_marshal_VOID__POINTER,
-            G_TYPE_NONE,
-            1, G_TYPE_POINTER);
-
     widget_class->destroy = destroy;
-    widget_class->map = ::map;
-    klass->switch_fs = gnome_cmd_main_win_real_switch_fs;
 }
 
 
@@ -1078,7 +1052,16 @@ void GnomeCmdMainWin::switch_fs(GnomeCmdFileSelector *fselector)
 {
     g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fselector));
 
-    g_signal_emit (this, signals[SWITCH_FS], 0, fselector);
+    if (fselector == fs(ACTIVE))
+        return;
+
+    priv->current_fs = (FileSelectorID) !priv->current_fs;
+    fs(ACTIVE)->set_active(TRUE);
+    fs(INACTIVE)->set_active(FALSE);
+
+    update_browse_buttons (this, fselector);
+    update_drop_con_button(fselector->file_list());
+    update_cmdline();
 }
 
 
@@ -1115,23 +1098,6 @@ void GnomeCmdMainWin::set_fs_directory_to_opposite(FileSelectorID fsID)
 
     other->set_active(!fs_is_active);
     fselector->set_active(fs_is_active);
-}
-
-
-static void gnome_cmd_main_win_real_switch_fs (GnomeCmdMainWin *mw, GnomeCmdFileSelector *fs)
-{
-    g_return_if_fail (GNOME_CMD_IS_MAIN_WIN (mw));
-    g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
-
-    if (fs == mw->fs(ACTIVE))
-        return;
-
-    mw->priv->current_fs = (FileSelectorID) !mw->priv->current_fs;
-    mw->fs(ACTIVE)->set_active(TRUE);
-    mw->fs(INACTIVE)->set_active(FALSE);
-
-    update_browse_buttons (mw, fs);
-    mw->update_drop_con_button(fs->file_list());
 }
 
 
@@ -1199,6 +1165,17 @@ void GnomeCmdMainWin::update_buttonbar_visibility()
 }
 
 
+void GnomeCmdMainWin::update_cmdline()
+{
+    if (priv->cmdline == nullptr)
+        return;
+
+    gchar *dpath = gnome_cmd_dir_get_display_path (fs(ACTIVE)->get_directory());
+    gnome_cmd_cmdline_set_dir (priv->cmdline, dpath);
+    g_free (dpath);
+}
+
+
 void GnomeCmdMainWin::update_cmdline_visibility()
 {
     if (gnome_cmd_data.cmdline_visibility)
@@ -1210,18 +1187,18 @@ void GnomeCmdMainWin::update_cmdline_visibility()
         gtk_widget_set_margin_bottom (GTK_WIDGET (priv->cmdline), 1);
         g_object_ref (priv->cmdline);
         g_object_set_data_full (*this, "cmdline", priv->cmdline, g_object_unref);
-        gtk_widget_show (priv->cmdline);
+        gtk_widget_show (GTK_WIDGET (priv->cmdline));
         if (gnome_cmd_data.show_toolbar)
             pos += 2;
         gtk_box_append (GTK_BOX (priv->vbox), priv->cmdline_sep);
-        gtk_box_append (GTK_BOX (priv->vbox), priv->cmdline);
+        gtk_box_append (GTK_BOX (priv->vbox), GTK_WIDGET (priv->cmdline));
         gtk_box_reorder_child (GTK_BOX (priv->vbox), priv->cmdline_sep, pos);
-        gtk_box_reorder_child (GTK_BOX (priv->vbox), priv->cmdline, pos+1);
+        gtk_box_reorder_child (GTK_BOX (priv->vbox), GTK_WIDGET (priv->cmdline), pos+1);
     }
     else
     {
         if (priv->cmdline)
-            gtk_container_remove (GTK_CONTAINER (priv->vbox), priv->cmdline);
+            gtk_container_remove (GTK_CONTAINER (priv->vbox), GTK_WIDGET (priv->cmdline));
         if (priv->cmdline_sep)
             gtk_container_remove (GTK_CONTAINER (priv->vbox), priv->cmdline_sep);
         priv->cmdline = NULL;
