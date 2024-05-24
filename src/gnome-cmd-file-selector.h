@@ -153,8 +153,8 @@ void gnome_cmd_file_selector_show_new_textfile_dialog (GnomeCmdFileSelector *fs)
 
 void gnome_cmd_file_selector_cap_paste (GnomeCmdFileSelector *fs);
 
-void gnome_cmd_file_selector_create_symlink (GnomeCmdFileSelector *fs, GnomeCmdFile *f);
-void gnome_cmd_file_selector_create_symlinks (GnomeCmdFileSelector *fs, GList *files);
+extern "C" void gnome_cmd_file_selector_create_symlink (GnomeCmdFileSelector *fs, GnomeCmdFile *f);
+extern "C" void gnome_cmd_file_selector_create_symlinks (GnomeCmdFileSelector *fs, GList *files);
 
 inline FileSelectorID operator ! (FileSelectorID id)
 {
@@ -168,3 +168,7 @@ inline FileSelectorID operator ! (FileSelectorID id)
         default:        return id;
     }
 }
+
+// FFI
+extern "C" GnomeCmdFileList *gnome_cmd_file_selector_file_list (GnomeCmdFileSelector *fs);
+extern "C" GnomeCmdDir *gnome_cmd_file_selector_get_directory(GnomeCmdFileSelector *fs);

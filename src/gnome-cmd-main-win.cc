@@ -1259,3 +1259,11 @@ GnomeCmdBookmarksDialog *GnomeCmdMainWin::get_or_create_bookmarks_dialog ()
     }
     return dlg;
 }
+
+// FFI
+
+GnomeCmdFileSelector *gnome_cmd_main_win_get_fs(GnomeCmdMainWin *main_win, FileSelectorID id)
+{
+    return main_win->fs(id);
+}
+

@@ -18,6 +18,14 @@
  */
 
 mod config;
+mod dir;
+mod file;
+mod file_list;
+mod file_selector;
+mod main_win;
+mod types;
+mod user_actions;
+mod utils;
 
 use gtk::{self, glib};
 use std::error::Error;

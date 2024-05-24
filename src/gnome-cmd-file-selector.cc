@@ -1657,3 +1657,14 @@ GList* GnomeCmdFileSelector::GetTabs()
 
     return tabs;
 }
+
+// FFI
+GnomeCmdFileList *gnome_cmd_file_selector_file_list (GnomeCmdFileSelector *fs)
+{
+    return fs->file_list();
+}
+
+GnomeCmdDir *gnome_cmd_file_selector_get_directory(GnomeCmdFileSelector *fs)
+{
+    return fs->list->cwd;
+}

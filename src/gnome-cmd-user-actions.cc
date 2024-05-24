@@ -115,8 +115,8 @@ static void gcmd_user_action_settings_init (GcmdUserActionSettings *gs)
  * UserActions
  ***********************************/
 
-#define GNOME_CMD_USER_ACTION(f)       static void f(GSimpleAction *action, GVariant *parameter, gpointer user_data)
-#define GNOME_CMD_USER_ACTION_TGL(f)   static void f(GSimpleAction *action, GVariant *parameter, gpointer user_data)
+#define GNOME_CMD_USER_ACTION(f)       extern "C" void f(GSimpleAction *action, GVariant *parameter, gpointer user_data)
+#define GNOME_CMD_USER_ACTION_TGL(f)   extern "C" void f(GSimpleAction *action, GVariant *parameter, gpointer user_data)
 
 /************** File Menu **************/
 GNOME_CMD_USER_ACTION(file_copy);
@@ -1004,36 +1004,7 @@ void file_mkdir (GSimpleAction *action, GVariant *parameter, gpointer user_data)
     gnome_cmd_dir_unref (dir);
 }
 
-
-void file_create_symlink (GSimpleAction *action, GVariant *parameter, gpointer user_data)
-{
-    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
-
-    GnomeCmdFileSelector *inactive_fs = main_win->fs (INACTIVE);
-    GList *f = get_fl (main_win, ACTIVE)->get_selected_files();
-    guint selected_files = g_list_length (f);
-
-    if (selected_files > 1)
-    {
-        gchar *msg = g_strdup_printf (ngettext("Create symbolic links of %i file in %s?",
-                                               "Create symbolic links of %i files in %s?",
-                                               selected_files),
-                                      selected_files, gnome_cmd_dir_get_display_path (inactive_fs->get_directory()));
-
-        gint choice = run_simple_dialog (*main_win, TRUE, GTK_MESSAGE_QUESTION, msg, _("Create Symbolic Link"), 1, _("Cancel"), _("Create"), nullptr);
-
-        g_free (msg);
-
-        if (choice==1)
-            gnome_cmd_file_selector_create_symlinks (inactive_fs, f);
-    }
-   else
-   {
-        GnomeCmdFile *focused_f = get_fl (main_win, ACTIVE)->get_focused_file();
-        gnome_cmd_file_selector_create_symlink (inactive_fs, focused_f);
-   }
-}
-
+// void file_create_symlink (GSimpleAction *action, GVariant *parameter, gpointer user_data); // moved to user_actions.rs
 
 void file_rename (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
