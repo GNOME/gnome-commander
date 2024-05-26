@@ -324,9 +324,11 @@ static void on_slide_button_press (GtkGestureMultiPress *gesture, int n_press, d
         return;
 
     gtk_widget_get_allocation (gtk_paned_get_child1 (paned), &child_allocation);
+    gtk_widget_translate_coordinates (gtk_paned_get_child1 (paned), GTK_WIDGET (paned), 0, 0, &child_allocation.x, &child_allocation.y);
     if (gdk_rectangle_contains_point (&child_allocation, x, y))
         return;
     gtk_widget_get_allocation (gtk_paned_get_child2 (paned), &child_allocation);
+    gtk_widget_translate_coordinates (gtk_paned_get_child2 (paned), GTK_WIDGET (paned), 0, 0, &child_allocation.x, &child_allocation.y);
     if (gdk_rectangle_contains_point (&child_allocation, x, y))
         return;
 
