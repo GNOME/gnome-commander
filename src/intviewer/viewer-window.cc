@@ -142,7 +142,7 @@ static void gviewer_window_dispose(GObject *widget);
 
 static void gviewer_window_status_line_changed(GViewer *gViewer, const gchar *status_line, GViewerWindow *gViewerWindow);
 
-static gboolean gviewer_window_key_pressed(GtkWidget *widget, GdkEventKey *event, gpointer data);
+static gboolean gviewer_window_key_pressed (GtkEventControllerKey *controller, guint keyval, guint keycode, GdkModifierType state, gpointer user_data);
 
 static GtkWidget *gviewer_window_create_menus(GViewerWindow *gViewerWindow);
 
@@ -271,7 +271,8 @@ static void gviewer_window_init (GViewerWindow *w)
     GtkWindow *win = GTK_WINDOW (w);
     gtk_window_set_title (win, "GViewer");
 
-    g_signal_connect (w, "key-press-event", G_CALLBACK (gviewer_window_key_pressed), nullptr);
+    GtkEventController *key_controller = gtk_event_controller_key_new (GTK_WIDGET (w));
+    g_signal_connect (key_controller, "key-pressed", G_CALLBACK (gviewer_window_key_pressed), w);
 
     priv->vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 0);
     gtk_widget_show (priv->vbox);
@@ -464,13 +465,12 @@ static void gviewer_window_dispose (GObject *object)
 }
 
 
-static gboolean gviewer_window_key_pressed(GtkWidget *widget, GdkEventKey *event, gpointer data)
+static gboolean gviewer_window_key_pressed (GtkEventControllerKey *controller, guint keyval, guint keycode, GdkModifierType state, gpointer user_data)
 {
-    g_return_val_if_fail (IS_GVIEWER_WINDOW (widget), FALSE);
+    g_return_val_if_fail (IS_GVIEWER_WINDOW (user_data), FALSE);
+    GViewerWindow *w = GVIEWER_WINDOW (user_data);
 
-    GViewerWindow *w = GVIEWER_WINDOW (widget);
-
-    switch (event->keyval)
+    switch (keyval)
     {
         case GDK_KEY_plus:
         case GDK_KEY_KP_Add:
@@ -487,8 +487,8 @@ static gboolean gviewer_window_key_pressed(GtkWidget *widget, GdkEventKey *event
            break;
     }
 
-    if (state_is_ctrl(event->state))
-        switch (event->keyval)
+    if (state_is_ctrl(state))
+        switch (keyval)
         {
             case GDK_KEY_q:
             case GDK_KEY_Q:
@@ -498,26 +498,6 @@ static gboolean gviewer_window_key_pressed(GtkWidget *widget, GdkEventKey *event
             default:
                 break;
         }
-
-    if (state_is_shift(event->state))
-        switch (event->keyval)
-        {
-            default:
-                break;
-        }
-
-    if (state_is_alt(event->state))
-        switch (event->keyval)
-        {
-            default:
-                break;
-        }
-
-    switch (state_is_blank(event->keyval))
-    {
-        default:
-           break;
-    }
 
     return FALSE;
 }

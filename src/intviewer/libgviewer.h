@@ -31,7 +31,6 @@
 #include "fileops.h"
 #include "inputmodes.h"
 #include "datapresentation.h"
-#include "scroll-box.h"
 #include "image-render.h"
 #include "text-render.h"
 #include "viewer-widget.h"

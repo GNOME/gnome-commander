@@ -81,7 +81,7 @@ static void gviewer_dispose (GObject *object);
 
 static void gviewer_text_status_update(TextRender *obj, TextRender::Status *status, GViewer *viewer);
 static void gviewer_image_status_update(ImageRender *obj, ImageRender::Status *status, GViewer *viewer);
-static gboolean on_text_viewer_button_pressed (GtkWidget *treeview, GdkEventButton *event, GViewer *viewer);
+static void on_text_viewer_button_pressed (GtkGestureMultiPress *gesture, int n_press, double x, double y, gpointer user_data);
 
 static VIEWERDISPLAYMODE guess_display_mode(const char *filename, int len);
 static void gviewer_auto_detect_display_mode(GViewer *obj);
@@ -139,11 +139,10 @@ static void gviewer_init (GViewer *w)
     gviewer_set_fixed_limit(w, DEFAULT_FIXED_LIMIT);
     gviewer_set_encoding(w, DEFAULT_ENCODING);
 
-    priv->tscrollbox = scroll_box_new();
-    text_render_set_v_adjustment(priv->textr, scroll_box_get_v_adjustment(SCROLL_BOX(priv->tscrollbox)));
-    text_render_set_h_adjustment(priv->textr, scroll_box_get_h_adjustment(SCROLL_BOX(priv->tscrollbox)));
-    text_render_attach_external_v_range(priv->textr, scroll_box_get_v_range(SCROLL_BOX(priv->tscrollbox)));
-    scroll_box_set_client (SCROLL_BOX(priv->tscrollbox), GTK_WIDGET (priv->textr));
+    priv->tscrollbox = gtk_scrolled_window_new (nullptr, nullptr);
+    gtk_container_add (GTK_CONTAINER (priv->tscrollbox), GTK_WIDGET (priv->textr));
+    gtk_widget_set_hexpand (GTK_WIDGET (priv->tscrollbox), TRUE);
+    gtk_widget_set_vexpand (GTK_WIDGET (priv->tscrollbox), TRUE);
     gtk_widget_show (GTK_WIDGET (priv->textr));
     gtk_widget_show (priv->tscrollbox);
     g_object_ref (priv->tscrollbox);
@@ -151,25 +150,26 @@ static void gviewer_init (GViewer *w)
     priv->imgr = reinterpret_cast<ImageRender*> (image_render_new());
     gviewer_set_best_fit(w, DEFAULT_BEST_FIT);
     gviewer_set_scale_factor(w, DEFAULT_SCALE_FACTOR);
-    priv->iscrollbox = scroll_box_new();
-    image_render_set_v_adjustment (priv->imgr, scroll_box_get_v_adjustment (SCROLL_BOX (priv->iscrollbox)));
-    image_render_set_h_adjustment (priv->imgr, scroll_box_get_h_adjustment (SCROLL_BOX (priv->iscrollbox)));
+    priv->iscrollbox = gtk_scrolled_window_new (nullptr, nullptr);
     image_render_set_best_fit (priv->imgr, TRUE);
     image_render_set_scale_factor (priv->imgr, 1);
-    scroll_box_set_client (SCROLL_BOX(priv->iscrollbox), GTK_WIDGET (priv->imgr));
+    gtk_container_add (GTK_CONTAINER (priv->iscrollbox), GTK_WIDGET (priv->imgr));
+    gtk_widget_set_hexpand (GTK_WIDGET (priv->iscrollbox), TRUE);
+    gtk_widget_set_vexpand (GTK_WIDGET (priv->iscrollbox), TRUE);
     gtk_widget_show (GTK_WIDGET (priv->imgr));
     gtk_widget_show (priv->iscrollbox);
     g_object_ref (priv->iscrollbox);
 
     priv->last_client = priv->tscrollbox;
-    gtk_widget_set_hexpand (GTK_WIDGET (priv->tscrollbox), TRUE);
-    gtk_widget_set_vexpand (GTK_WIDGET (priv->tscrollbox), TRUE);
     gtk_grid_attach (GTK_GRID (w), GTK_WIDGET (priv->tscrollbox), 0, 0, 1, 1);
 
     g_signal_connect (priv->textr, "text-status-changed", G_CALLBACK (gviewer_text_status_update), w);
     g_signal_connect (priv->imgr, "image-status-changed", G_CALLBACK (gviewer_image_status_update), w);
 
-    g_signal_connect (priv->textr, "button-press-event", G_CALLBACK (on_text_viewer_button_pressed), w);
+    GtkGesture *button_gesture = gtk_gesture_multi_press_new (GTK_WIDGET (priv->textr));
+    gtk_gesture_single_set_button (GTK_GESTURE_SINGLE (button_gesture), 3);
+    g_signal_connect (button_gesture, "pressed", G_CALLBACK (on_text_viewer_button_pressed), w);
+
 }
 
 
@@ -225,23 +225,21 @@ static void gviewer_image_status_update(ImageRender *obj, ImageRender::Status *s
 
 
 
-static gboolean on_text_viewer_button_pressed (GtkWidget *treeview, GdkEventButton *event, GViewer *viewer)
+static void on_text_viewer_button_pressed (GtkGestureMultiPress *gesture, int n_press, double x, double y, gpointer user_data)
 {
-    if (event->type==GDK_BUTTON_PRESS && event->button==3)
+    GViewer *viewer = static_cast<GViewer*>(user_data);
+
+    if (n_press == 1)
     {
         GMenu *menu = g_menu_new ();
         g_menu_append (menu, _("_Copy selection"), "viewer.copy-selection");
 
         GtkWidget *popover = gtk_popover_new_from_model (GTK_WIDGET (viewer), G_MENU_MODEL (menu));
         gtk_popover_set_position (GTK_POPOVER (popover), GTK_POS_BOTTOM);
-        GdkRectangle rect = { (gint) event->x, (gint) event->y, 0, 0 };
+        GdkRectangle rect = { (gint) x, (gint) y, 0, 0 };
         gtk_popover_set_pointing_to (GTK_POPOVER (popover), &rect);
         gtk_popover_popup (GTK_POPOVER (popover));
-
-        return TRUE;
     }
-
-    return FALSE;
 }
 
 

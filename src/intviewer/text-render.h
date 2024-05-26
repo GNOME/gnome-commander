@@ -39,10 +39,6 @@ struct TextRender
 {
     GtkDrawingArea parent;
 
-    struct Private;
-
-    Private *priv;
-
     struct Status
     {
         offset_type current_offset;
@@ -64,13 +60,6 @@ inline GtkWidget *text_render_new ()
 {
     return (GtkWidget *) g_object_new (TYPE_TEXT_RENDER, NULL);
 }
-
-GtkAdjustment *text_render_get_h_adjustment (TextRender *obj);
-void text_render_set_h_adjustment (TextRender *obj, GtkAdjustment *adjustment);
-GtkAdjustment *text_render_get_v_adjustment (TextRender *obj);
-void text_render_set_v_adjustment (TextRender *obj, GtkAdjustment *adjustment);
-
-void text_render_attach_external_v_range(TextRender *obj, GtkRange *range);
 
 void text_render_load_file(TextRender *w, const gchar *filename);
 void text_render_load_filedesc(TextRender *w, int filedesc);
