@@ -827,7 +827,7 @@ void GnomeCmdMainWin::refocus()
 }
 
 
-gboolean GnomeCmdMainWin::key_pressed(GdkEventKey *event)
+gboolean GnomeCmdMainWin::key_pressed(GnomeCmdKeyPress *event)
 {
     if (state_is_ctrl_alt (event->state))
     {
@@ -923,8 +923,6 @@ gboolean GnomeCmdMainWin::key_pressed(GdkEventKey *event)
                     // update cmdline only for different directories
                     if (fs1->get_directory()!=fs2->get_directory())
                         switch_fs(fs(ACTIVE));
-
-                    clear_event_key (event);
                 }
                 return TRUE;
 
@@ -960,8 +958,6 @@ gboolean GnomeCmdMainWin::key_pressed(GdkEventKey *event)
             {
                 case GDK_KEY_Tab:
                 case GDK_KEY_ISO_Left_Tab:
-                    // hack to avoid the default handling of TAB
-                    clear_event_key (event);
                     switch_fs(fs(INACTIVE));
                     return TRUE;
 

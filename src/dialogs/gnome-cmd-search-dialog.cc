@@ -945,7 +945,9 @@ gboolean SearchData::StartLocalSearch()
 
 gboolean GnomeCmdSearchDialog::Private::on_list_keypressed(GtkWidget *result_list, GdkEventKey *event, gpointer unused)
 {
-    if (GNOME_CMD_FILE_LIST (result_list)->key_pressed(event) ||
+    GnomeCmdKeyPress key_press_event = { .keyval = event->keyval, .state = event->state };
+
+    if (GNOME_CMD_FILE_LIST (result_list)->key_pressed(&key_press_event) ||
         handle_list_keypress (GNOME_CMD_FILE_LIST (result_list), event))
     {
         g_signal_stop_emission_by_name (result_list, "key-press-event");

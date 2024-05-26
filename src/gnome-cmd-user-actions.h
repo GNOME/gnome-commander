@@ -49,12 +49,12 @@ inline gboolean ascii_isalpha (guint key_val)
     return key_val<=G_MAXUINT8 && g_ascii_isalpha (key_val);
 }
 
-inline gboolean ascii_islower (const GdkEventKey &event)
+inline gboolean ascii_islower (const GnomeCmdKeyPress &event)
 {
     return event.keyval<=G_MAXUINT8 && g_ascii_islower (event.keyval);
 }
 
-inline gboolean ascii_isupper (const GdkEventKey &event)
+inline gboolean ascii_isupper (const GnomeCmdKeyPress &event)
 {
     return event.keyval<=G_MAXUINT8 && g_ascii_isupper (event.keyval);
 }
@@ -78,7 +78,7 @@ inline std::string key2str(guint state, guint key_val)
     return key_name;
 }
 
-inline std::string key2str(const GdkEventKey &event)
+inline std::string key2str(const GnomeCmdKeyPress &event)
 {
     return key2str(event.state, event.keyval);
 }
@@ -155,7 +155,7 @@ class GnomeCmdUserActions
     static DICT<GnomeCmdUserActionFunc> action_func;
     static DICT<GnomeCmdUserActionFunc> action_name;
 
-    typedef std::map<GdkEventKey, UserAction> ACTIONS_COLL;
+    typedef std::map<GnomeCmdKeyPress, UserAction> ACTIONS_COLL;
 
     ACTIONS_COLL action;
 
@@ -178,7 +178,7 @@ class GnomeCmdUserActions
     gboolean registered(guint state, guint keyval);
     gboolean registered(guint keyval)                                       {  return registered(0, keyval);  }
 
-    gboolean handle_key_event(GnomeCmdMainWin *mw, GnomeCmdFileList *fl, GdkEventKey *event);
+    gboolean handle_key_event(GnomeCmdMainWin *mw, GnomeCmdFileList *fl, GnomeCmdKeyPress *event);
 
     struct const_iterator: ACTIONS_COLL::iterator
     {

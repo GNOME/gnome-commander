@@ -292,7 +292,7 @@ int parse_command(string *cmd, gchar * command);
 GnomeCmdUserActions gcmd_user_actions;
 
 
-inline bool operator < (const GdkEventKey &e1, const GdkEventKey &e2)
+inline bool operator < (const GnomeCmdKeyPress &e1, const GnomeCmdKeyPress &e2)
 {
     if (e1.keyval < e2.keyval)
         return true;
@@ -612,7 +612,7 @@ gboolean GnomeCmdUserActions::register_action(guint state, guint keyval, const g
     if (!func)
         return FALSE;
 
-    GdkEventKey event;
+    GnomeCmdKeyPress event;
 
     event.keyval = keyval;
     event.state = state & (GDK_SHIFT_MASK | GDK_CONTROL_MASK | GDK_MOD1_MASK | GDK_SUPER_MASK | GDK_HYPER_MASK | GDK_META_MASK);
@@ -640,11 +640,11 @@ void GnomeCmdUserActions::unregister(const gchar *the_action_name)
 
 void GnomeCmdUserActions::unregister(guint state, guint keyval)
 {
-    GdkEventKey event;
+    GnomeCmdKeyPress event;
 
     event.keyval = keyval;
     event.state = state & (GDK_SHIFT_MASK | GDK_CONTROL_MASK | GDK_MOD1_MASK | GDK_SUPER_MASK | GDK_HYPER_MASK | GDK_META_MASK);
-    map <GdkEventKey, UserAction>::iterator pos = action.find(event);
+    map <GnomeCmdKeyPress, UserAction>::iterator pos = action.find(event);
 
     if (pos!=action.end())
         action.erase(pos);
@@ -668,7 +668,7 @@ gboolean GnomeCmdUserActions::registered(const gchar *the_action_name)
 
 gboolean GnomeCmdUserActions::registered(guint state, guint keyval)
 {
-    GdkEventKey event;
+    GnomeCmdKeyPress event;
 
     event.keyval = keyval;
     event.state = state & (GDK_SHIFT_MASK | GDK_CONTROL_MASK | GDK_MOD1_MASK | GDK_SUPER_MASK | GDK_HYPER_MASK | GDK_META_MASK);
@@ -677,9 +677,9 @@ gboolean GnomeCmdUserActions::registered(guint state, guint keyval)
 }
 
 
-gboolean GnomeCmdUserActions::handle_key_event(GnomeCmdMainWin *mw, GnomeCmdFileList *fl, GdkEventKey *event)
+gboolean GnomeCmdUserActions::handle_key_event(GnomeCmdMainWin *mw, GnomeCmdFileList *fl, GnomeCmdKeyPress *event)
 {
-    map <GdkEventKey, UserAction>::const_iterator pos = action.find(*event);
+    map <GnomeCmdKeyPress, UserAction>::const_iterator pos = action.find(*event);
 
     if (pos==action.end())
         return FALSE;

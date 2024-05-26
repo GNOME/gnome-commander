@@ -2761,7 +2761,7 @@ void gnome_cmd_file_list_show_quicksearch (GnomeCmdFileList *fl, gchar c)
 }
 
 
-gboolean GnomeCmdFileList::key_pressed(GdkEventKey *event)
+gboolean GnomeCmdFileList::key_pressed(GnomeCmdKeyPress *event)
 {
     g_return_val_if_fail (event != nullptr, FALSE);
 
@@ -2810,7 +2810,6 @@ gboolean GnomeCmdFileList::key_pressed(GdkEventKey *event)
             case GDK_KEY_KP_Left:
             case GDK_KEY_Right:
             case GDK_KEY_KP_Right:
-                event->state -= GDK_SHIFT_MASK;
                 return FALSE;
 
             case GDK_KEY_Page_Up:
@@ -2920,7 +2919,6 @@ gboolean GnomeCmdFileList::key_pressed(GdkEventKey *event)
                 toggle();
                 if (GnomeCmdFile *selfile = get_selected_file())
                     show_dir_tree_size(selfile);
-                g_signal_stop_emission_by_name (this, "key-press-event");
                 g_signal_emit (this, signals[FILES_CHANGED], 0);
                 set_cursor_default ();
                 return TRUE;
