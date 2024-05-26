@@ -64,13 +64,15 @@ static void gnome_cmd_chown_component_init (GnomeCmdChownComponent *comp)
     label = create_label (GTK_WIDGET (comp), _("Group:"));
     gtk_grid_attach (GTK_GRID (comp), label, 0, 1, 1, 1);
 
-    priv->user_combo = create_combo_box_text_with_entry (GTK_WIDGET (comp));
+    priv->user_combo = gtk_combo_box_text_new ();
     gtk_widget_set_hexpand (priv->user_combo, TRUE);
     gtk_grid_attach (GTK_GRID (comp), priv->user_combo, 1, 0, 1, 1);
 
-    priv->group_combo = create_combo_box_text_with_entry (GTK_WIDGET (comp));
+    priv->group_combo = gtk_combo_box_text_new ();
     gtk_widget_set_hexpand (priv->group_combo, TRUE);
     gtk_grid_attach (GTK_GRID (comp), priv->group_combo, 1, 1, 1, 1);
+
+    gtk_widget_show_all (GTK_WIDGET (comp));
 }
 
 
@@ -82,16 +84,35 @@ inline void load_users_and_groups (GnomeCmdChownComponent *comp)
 {
     auto priv = static_cast<GnomeCmdChownComponentPrivate*>(gnome_cmd_chown_component_get_instance_private (comp));
 
+    GtkListStore *users_model = gtk_list_store_new (2, G_TYPE_STRING, G_TYPE_LONG);
+    for (auto list = gcmd_owner.users.get_names(); list; list = list->next)
+    {
+        const char *name = (const char *) list->data;
+        uid_t uid = gcmd_owner.users[name];
+
+        GtkTreeIter iter;
+        gtk_list_store_append (users_model, &iter);
+        gtk_list_store_set (users_model, &iter, 0, name, 1, (glong) uid, -1);
+    }
+    gtk_combo_box_set_model (GTK_COMBO_BOX (priv->user_combo), GTK_TREE_MODEL (users_model));
+
     // disable user combo if user is not root, else fill the combo with all users in the system
-    if (gcmd_owner.is_root())
-        for (auto list = gcmd_owner.users.get_names(); list; list = list->next)
-            gtk_combo_box_text_append_text ((GtkComboBoxText*) priv->user_combo, (const gchar*) list->data);
-    else
+    if (!gcmd_owner.is_root())
         gtk_widget_set_sensitive (priv->user_combo, FALSE);
+
+    GtkListStore *groups_model = gtk_list_store_new (2, G_TYPE_STRING, G_TYPE_LONG);
+    gtk_combo_box_set_model (GTK_COMBO_BOX (priv->group_combo), GTK_TREE_MODEL (groups_model));
 
     if (gcmd_owner.get_group_names())
         for (auto list = gcmd_owner.get_group_names(); list; list = list->next)                                     // fill the groups combo with all groups that the user is part of
-            gtk_combo_box_text_append_text ((GtkComboBoxText*) priv->group_combo, (const gchar*) list->data);       // if ordinary user or all groups if root
+        {                                                                                                           // if ordinary user or all groups if root
+            const char *name = (const char *) list->data;
+            gid_t gid = gcmd_owner.groups[name];
+
+            GtkTreeIter iter;
+            gtk_list_store_append (groups_model, &iter);
+            gtk_list_store_set (groups_model, &iter, 0, name, 1, (glong) gid, -1);
+        }
     else
         gtk_widget_set_sensitive (priv->group_combo, FALSE);                                                        // disable group combo if yet not loaded
 }
@@ -107,34 +128,49 @@ GtkWidget *gnome_cmd_chown_component_new ()
 }
 
 
+static bool find_iter (GtkTreeModel *model, glong id, GtkTreeIter *iter)
+{
+    if (gtk_tree_model_get_iter_first (model, iter))
+    {
+        do
+        {
+            glong item_id;
+            gtk_tree_model_get (model, iter, 1, &item_id, -1);
+
+            if (item_id == id)
+                return true;
+        }
+        while (gtk_tree_model_iter_next (model, iter));
+    }
+    return false;
+}
+
+
 void gnome_cmd_chown_component_set (GnomeCmdChownComponent *comp, uid_t uid, gid_t gid)
 {
     auto priv = static_cast<GnomeCmdChownComponentPrivate*>(gnome_cmd_chown_component_get_instance_private (comp));
 
-    const gchar *uid_name = gcmd_owner.users[uid];
-    const gchar *gid_name = gcmd_owner.groups[gid];
+    GtkTreeIter iter;
 
-    if (uid_name)
+    auto user_combo_model = gtk_combo_box_get_model (GTK_COMBO_BOX (priv->user_combo));
+    if (!find_iter (user_combo_model, uid, &iter))
     {
-        gtk_entry_set_text (GTK_ENTRY (gtk_bin_get_child (GTK_BIN (priv->user_combo))), uid_name);
-    }
-    else
-    {
-        auto uidString = g_strdup_printf("%u", uid);
-        gtk_entry_set_text (GTK_ENTRY (gtk_bin_get_child (GTK_BIN (priv->user_combo))), uidString);
+        gtk_list_store_append (GTK_LIST_STORE (user_combo_model), &iter);
+        gchar *uidString = g_strdup_printf("%u", uid);
+        gtk_list_store_set (GTK_LIST_STORE (user_combo_model), &iter, 0, uidString, 1, (glong) uid, -1);
         g_free(uidString);
     }
+    gtk_combo_box_set_active_iter (GTK_COMBO_BOX (priv->user_combo), &iter);
 
-    if (gid_name)
+    auto group_combo_model = gtk_combo_box_get_model (GTK_COMBO_BOX (priv->group_combo));
+    if (!find_iter (group_combo_model, gid, &iter))
     {
-        gtk_entry_set_text (GTK_ENTRY (gtk_bin_get_child (GTK_BIN (priv->group_combo))), gid_name);
-    }
-    else
-    {
-        auto gidString = g_strdup_printf("%u", gid);
-        gtk_entry_set_text (GTK_ENTRY (gtk_bin_get_child (GTK_BIN (priv->group_combo))), gidString);
+        gtk_list_store_append (GTK_LIST_STORE (group_combo_model), &iter);
+        gchar *gidString = g_strdup_printf("%u", gid);
+        gtk_list_store_set (GTK_LIST_STORE (group_combo_model), &iter, 0, gidString, 1, (glong) gid, -1);
         g_free(gidString);
     }
+    gtk_combo_box_set_active_iter (GTK_COMBO_BOX (priv->group_combo), &iter);
 }
 
 
@@ -142,9 +178,15 @@ uid_t gnome_cmd_chown_component_get_owner (GnomeCmdChownComponent *component)
 {
     auto priv = static_cast<GnomeCmdChownComponentPrivate*>(gnome_cmd_chown_component_get_instance_private (component));
 
-    const gchar *owner = get_combo_box_entry_text (priv->user_combo);
+    GtkTreeIter iter;
+    if (!gtk_combo_box_get_active_iter (GTK_COMBO_BOX (priv->user_combo), &iter))
+        return -1;
 
-    return gcmd_owner.users[owner];
+    auto model = gtk_combo_box_get_model (GTK_COMBO_BOX (priv->user_combo));
+    glong uid;
+    gtk_tree_model_get (model, &iter, 1, &uid, -1);
+
+    return uid;
 }
 
 
@@ -152,7 +194,13 @@ gid_t gnome_cmd_chown_component_get_group (GnomeCmdChownComponent *component)
 {
     auto priv = static_cast<GnomeCmdChownComponentPrivate*>(gnome_cmd_chown_component_get_instance_private (component));
 
-    const gchar *group = get_combo_box_entry_text (priv->group_combo);
+    GtkTreeIter iter;
+    if (!gtk_combo_box_get_active_iter (GTK_COMBO_BOX (priv->group_combo), &iter))
+        return -1;
 
-    return gcmd_owner.groups[group];
+    auto model = gtk_combo_box_get_model (GTK_COMBO_BOX (priv->group_combo));
+    glong gid;
+    gtk_tree_model_get (model, &iter, 1, &gid, -1);
+
+    return gid;
 }
