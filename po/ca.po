@@ -310,7 +310,7 @@ msgid ""
 "Defines if the orientation of the file panes should be horizontal or not."
 msgstr ""
 "Defineix si l'orientació de les finestres dels fitxers han de ser "
-"horitzontal o no."
+"horitzontals o no."
 
 #: data/org.gnome.gnome-commander.gschema.xml:192
 msgid "GUI update rate"
