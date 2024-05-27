@@ -36,7 +36,6 @@ using namespace std;
 
 struct GnomeCmdDirIndicatorPrivate
 {
-    GtkWidget *event_box;
     GtkWidget *label;
     GtkWidget *history_button;
     GtkWidget *bookmark_button;
@@ -52,7 +51,6 @@ G_DEFINE_TYPE_WITH_PRIVATE (GnomeCmdDirIndicator, gnome_cmd_dir_indicator, GTK_T
 
 static void select_path (GSimpleAction *action, GVariant *parameter, gpointer user_data);
 static void add_bookmark (GSimpleAction *action, GVariant *parameter, gpointer user_data);
-static void manage_bookmarks (GSimpleAction *action, GVariant *parameter, gpointer user_data);
 
 
 /*******************************
@@ -76,134 +74,56 @@ static void gnome_cmd_dir_indicator_class_init (GnomeCmdDirIndicatorClass *klass
 }
 
 
-static void set_clipboard_from_indicator(GnomeCmdDirIndicator *indicator, const gchar *labelText, GdkEventButton *event)
-{
-    auto priv = static_cast<GnomeCmdDirIndicatorPrivate*>(gnome_cmd_dir_indicator_get_instance_private (indicator));
-
-    gchar *chTo = g_strdup (labelText);
-    gint x = (gint) event->x;
-
-    for (gint i=0; i < priv->numPositions; ++i)
-    {
-        if (x < priv->slashPixelPosition[i])
-        {
-            chTo[priv->slashCharPosition[i]] = 0;
-            gtk_clipboard_set_text (gtk_clipboard_get (GDK_SELECTION_CLIPBOARD), chTo, priv->slashCharPosition[i]);
-            break;
-        }
-    }
-    g_free (chTo);
-}
-
-
-static void change_dir_from_clicked_indicator(GdkEventButton *event, const gchar* chToDir, GnomeCmdFileSelector *fs)
-{
-    main_win->switch_fs(fs);
-    if (event->button==2 || event->state & GDK_CONTROL_MASK || fs->file_list()->locked)
-    {
-        GnomeCmdCon *con = fs->get_connection();
-        GnomeCmdDir *dir = gnome_cmd_dir_new (con, gnome_cmd_con_create_path (con, chToDir));
-        fs->new_tab(dir);
-    }
-    else
-    {
-        fs->goto_directory(chToDir);
-    }
-}
-
-
-static gboolean handle_remote_indicator_clicked (GnomeCmdDirIndicator *indicator, GdkEventButton *event, GnomeCmdFileSelector *fs)
-{
-    auto priv = static_cast<GnomeCmdDirIndicatorPrivate*>(gnome_cmd_dir_indicator_get_instance_private (indicator));
-
-    auto labelText = gtk_label_get_text (GTK_LABEL (priv->label));
-    auto colonPtr = strchr(labelText, ':');
-    auto colonIndex = (int)(colonPtr - labelText) + 1; // + 1 as we want to ignore "host:" until the colon
-
-    if (event->button==1 || event->button==2)
-    {
-        // left click - work out the path
-        auto chTo = g_strdup (colonPtr+1);
-        auto x = (gint) event->x;
-
-        for (gint slashIdx=0; slashIdx < priv->numPositions; ++slashIdx)
-        {
-            if (x < priv->slashPixelPosition[slashIdx])
-            {
-                chTo[priv->slashCharPosition[slashIdx] - colonIndex] = 0;
-                change_dir_from_clicked_indicator(event, chTo, fs);
-                break;
-            }
-        }
-        // pointer is after directory name - just return
-        g_free (chTo);
-        return TRUE;
-    }
-    else if (event->button==3)
-    {
-        set_clipboard_from_indicator(indicator, labelText, event);
-        return TRUE;
-    }
-    return FALSE;
-}
-
-
-static gboolean handle_local_indicator_clicked (GnomeCmdDirIndicator *indicator, GdkEventButton *event, GnomeCmdFileSelector *fs)
-{
-    auto priv = static_cast<GnomeCmdDirIndicatorPrivate*>(gnome_cmd_dir_indicator_get_instance_private (indicator));
-
-    auto labelText = gtk_label_get_text (GTK_LABEL (priv->label));
-
-    if (event->button==1 || event->button==2)
-    {
-        // left click - work out the path
-        auto chTo = g_strdup (labelText);
-        auto x = (gint) event->x;
-
-        for (gint slashIdx = 0; slashIdx < priv->numPositions; ++slashIdx)
-        {
-            if (x < priv->slashPixelPosition[slashIdx])
-            {
-                chTo[priv->slashCharPosition[slashIdx]] = 0;
-                change_dir_from_clicked_indicator(event, chTo, fs);
-                break;
-            }
-        }
-        // pointer is after directory name - just return
-        g_free (chTo);
-        return TRUE;
-    }
-    else if (event->button==3)
-    {
-        set_clipboard_from_indicator(indicator, labelText, event);
-        return TRUE;
-    }
-
-    return FALSE;
-}
-
 /*******************************
  * Event handlers
  *******************************/
-static gboolean on_dir_indicator_clicked (GnomeCmdDirIndicator *indicator, GdkEventButton *event, GnomeCmdFileSelector *fs)
+static void on_dir_indicator_clicked (GtkGestureMultiPress *gesture, int n_press, double x, double y, gpointer user_data)
 {
-    g_return_val_if_fail (GNOME_CMD_IS_DIR_INDICATOR (indicator), FALSE);
+    g_return_if_fail (GNOME_CMD_IS_DIR_INDICATOR (user_data));
+    auto indicator = static_cast<GnomeCmdDirIndicator*>(user_data);
     auto priv = static_cast<GnomeCmdDirIndicatorPrivate*>(gnome_cmd_dir_indicator_get_instance_private (indicator));
 
-    if (event->type!=GDK_BUTTON_PRESS)
-        return FALSE;
+    if (n_press != 1)
+        return;
+
+    guint button = gtk_gesture_single_get_current_button (GTK_GESTURE_SINGLE (gesture));
 
     const gchar *labelText = gtk_label_get_text (GTK_LABEL (priv->label));
-
-    if(strchr(labelText, ':'))
+    gchar *chTo = nullptr;
+    for (gint slashIdx = 0; slashIdx < priv->numPositions; ++slashIdx)
     {
-        return handle_remote_indicator_clicked(indicator, event, fs);
+        if (x < priv->slashPixelPosition[slashIdx])
+        {
+            chTo = g_strndup (labelText, priv->slashCharPosition[slashIdx]);
+            break;
+        }
     }
-    else
+    if (chTo == nullptr)
+        return;
+
+    if (button == 1 || button == 2)
     {
-        return handle_local_indicator_clicked(indicator, event, fs);
+        gchar *colonPtr = strchr(chTo, ':');
+        gchar *chToDir = colonPtr != nullptr ? colonPtr + 1 : chTo;
+
+        main_win->switch_fs(priv->fs);
+        if (button == 2 || get_modifiers_state() & GDK_CONTROL_MASK || priv->fs->file_list()->locked)
+        {
+            GnomeCmdCon *con = priv->fs->get_connection();
+            GnomeCmdDir *dir = gnome_cmd_dir_new (con, gnome_cmd_con_create_path (con, chToDir));
+            priv->fs->new_tab(dir);
+        }
+        else
+        {
+            priv->fs->goto_directory(chToDir);
+        }
+    }
+    else if (button == 3)
+    {
+        gtk_clipboard_set_text (gtk_clipboard_get (GDK_SELECTION_CLIPBOARD), chTo, -1);
     }
 
+    g_free (chTo);
 }
 
 
@@ -306,22 +226,21 @@ static void update_markup (GnomeCmdDirIndicator *indicator, gint i)
 }
 
 
-static gint on_dir_indicator_motion (GnomeCmdDirIndicator *indicator, GdkEventMotion *event, gpointer user_data)
+static void on_dir_indicator_motion (GtkEventControllerMotion *controller, double x, double y, gpointer user_data)
 {
-    g_return_val_if_fail (GNOME_CMD_IS_DIR_INDICATOR (indicator), FALSE);
+    g_return_if_fail (GNOME_CMD_IS_DIR_INDICATOR (user_data));
+    auto indicator = static_cast<GnomeCmdDirIndicator*>(user_data);
     auto priv = static_cast<GnomeCmdDirIndicatorPrivate*>(gnome_cmd_dir_indicator_get_instance_private (indicator));
 
     if (priv->slashCharPosition == nullptr)
-        return FALSE;
+        return;
     if (priv->slashPixelPosition == nullptr)
-        return FALSE;
+        return;
 
     // find out where in the label the pointer is at
-    gint iX = (gint) event->x;
-
     for (gint i=0; i < priv->numPositions; i++)
     {
-        if (iX < priv->slashPixelPosition[i])
+        if (x < priv->slashPixelPosition[i])
         {
             // underline the part that is selected
             GdkCursor *cursor = gdk_cursor_new (GDK_HAND2);
@@ -330,27 +249,24 @@ static gint on_dir_indicator_motion (GnomeCmdDirIndicator *indicator, GdkEventMo
 
             update_markup (indicator, i);
 
-            return TRUE;
+            return;
         }
-
-        // clear underline, cursor=pointer
-        update_markup (indicator, -1);
-        gdk_window_set_cursor (gtk_widget_get_window (GTK_WIDGET (indicator)), nullptr);
     }
-
-    return TRUE;
-}
-
-
-static gint on_dir_indicator_leave (GnomeCmdDirIndicator *indicator, GdkEventMotion *event, gpointer user_data)
-{
-    g_return_val_if_fail (GNOME_CMD_IS_DIR_INDICATOR (indicator), FALSE);
 
     // clear underline, cursor=pointer
     update_markup (indicator, -1);
     gdk_window_set_cursor (gtk_widget_get_window (GTK_WIDGET (indicator)), nullptr);
+}
 
-    return TRUE;
+
+static void on_dir_indicator_leave (GtkEventControllerMotion *controller, gpointer user_data)
+{
+    g_return_if_fail (GNOME_CMD_IS_DIR_INDICATOR (user_data));
+    auto indicator = static_cast<GnomeCmdDirIndicator*>(user_data);
+
+    // clear underline, cursor=pointer
+    update_markup (indicator, -1);
+    gdk_window_set_cursor (gtk_widget_get_window (GTK_WIDGET (indicator)), nullptr);
 }
 
 
@@ -390,17 +306,6 @@ static void select_path (GSimpleAction *action, GVariant *parameter, gpointer us
     }
     else
         priv->fs->goto_directory(path);
-}
-
-
-static void get_popup_pos (GtkMenu *menu, gint *x, gint *y, gboolean push_in, GnomeCmdDirIndicator *indicator)
-{
-    g_return_if_fail (GNOME_CMD_IS_DIR_INDICATOR (indicator));
-    auto priv = static_cast<GnomeCmdDirIndicatorPrivate*>(gnome_cmd_dir_indicator_get_instance_private (indicator));
-
-    GtkWidget *w = GTK_WIDGET (priv->fs->file_list());
-
-    gdk_window_get_origin (gtk_widget_get_window (w), x, y);
 }
 
 
@@ -444,14 +349,6 @@ static void add_bookmark (GSimpleAction *action, GVariant *parameter, gpointer u
 }
 
 
-static void manage_bookmarks (GSimpleAction *action, GVariant *parameter, gpointer user_data)
-{
-    auto indicator = static_cast<GnomeCmdDirIndicator*> (user_data);
-    g_return_if_fail (GNOME_CMD_IS_DIR_INDICATOR (indicator));
-
-}
-
-
 void gnome_cmd_dir_indicator_show_bookmarks (GnomeCmdDirIndicator *indicator)
 {
     auto priv = static_cast<GnomeCmdDirIndicatorPrivate*>(gnome_cmd_dir_indicator_get_instance_private (indicator));
@@ -471,7 +368,7 @@ void gnome_cmd_dir_indicator_show_bookmarks (GnomeCmdDirIndicator *indicator)
 
     GMenu *manage_section = g_menu_new ();
     g_menu_append (manage_section, _("Add current dir"), "indicator.add-bookmark");
-    g_menu_append (manage_section, _("Manage bookmarks…"), "indicator.manage-bookmarks");
+    g_menu_append (manage_section, _("Manage bookmarks…"), "win.bookmarks-edit");
 
     GMenu *menu = g_menu_new ();
     g_menu_append_section (menu, nullptr, G_MENU_MODEL (bookmarks_section));
@@ -497,16 +394,18 @@ static void gnome_cmd_dir_indicator_init (GnomeCmdDirIndicator *indicator)
     GtkWidget *hbox, *bbox;
 
     // create the directory label and its event box
-    priv->event_box = gtk_event_box_new ();
-    g_object_ref (priv->event_box);
-    g_signal_connect_swapped (priv->event_box, "motion-notify-event", G_CALLBACK (on_dir_indicator_motion), indicator);
-    g_signal_connect_swapped (priv->event_box, "leave-notify-event", G_CALLBACK (on_dir_indicator_leave), indicator);
-    gtk_widget_set_events (priv->event_box, GDK_POINTER_MOTION_MASK);
+    GtkWidget *event_box = gtk_event_box_new ();
+    gtk_widget_set_events (event_box, GDK_ENTER_NOTIFY_MASK | GDK_POINTER_MOTION_MASK | GDK_LEAVE_NOTIFY_MASK);
+    GtkEventController* motion_controller = gtk_event_controller_motion_new (GTK_WIDGET (event_box));
+    gtk_event_controller_set_propagation_phase (GTK_EVENT_CONTROLLER (motion_controller), GTK_PHASE_CAPTURE); // TODO: test if this is still needed in Gtk4
+    g_signal_connect (motion_controller, "enter", G_CALLBACK (on_dir_indicator_motion), indicator);
+    g_signal_connect (motion_controller, "motion", G_CALLBACK (on_dir_indicator_motion), indicator);
+    g_signal_connect (motion_controller, "leave", G_CALLBACK (on_dir_indicator_leave), indicator);
 
-    gtk_widget_show (priv->event_box);
+    gtk_widget_show (event_box);
 
     priv->label = create_label (GTK_WIDGET (indicator), "not initialized");
-    gtk_container_add (GTK_CONTAINER (priv->event_box), priv->label);
+    gtk_container_add (GTK_CONTAINER (event_box), priv->label);
 
     // create the history popup button
     priv->history_button = gtk_button_new ();
@@ -527,8 +426,8 @@ static void gnome_cmd_dir_indicator_init (GnomeCmdDirIndicator *indicator)
     // pack
     hbox = create_hbox (GTK_WIDGET (indicator), FALSE, 10);
     gtk_container_add (GTK_CONTAINER (indicator), hbox);
-    gtk_widget_set_hexpand (priv->event_box, TRUE);
-    gtk_box_append (GTK_BOX (hbox), priv->event_box);
+    gtk_widget_set_hexpand (event_box, TRUE);
+    gtk_box_append (GTK_BOX (hbox), event_box);
     bbox = create_hbox (GTK_WIDGET (indicator), FALSE, 0);
     gtk_box_append (GTK_BOX (hbox), bbox);
     gtk_box_append (GTK_BOX (bbox), priv->bookmark_button);
@@ -540,12 +439,15 @@ static void gnome_cmd_dir_indicator_init (GnomeCmdDirIndicator *indicator)
     GSimpleActionGroup *action_group = g_simple_action_group_new ();
     static GActionEntry entries[] = {
         { "select-path", select_path, "s" },
-        { "add-bookmark", add_bookmark },
-        { "manage-bookmarks", manage_bookmarks }
+        { "add-bookmark", add_bookmark }
     };
     g_action_map_add_action_entries (G_ACTION_MAP (action_group), entries, G_N_ELEMENTS (entries), indicator);
 
     gtk_widget_insert_action_group (GTK_WIDGET (indicator), "indicator", G_ACTION_GROUP (action_group));
+
+    GtkGesture *button_gesture = gtk_gesture_multi_press_new (GTK_WIDGET (indicator));
+    gtk_gesture_single_set_button (GTK_GESTURE_SINGLE (button_gesture), 0);
+    g_signal_connect (button_gesture, "pressed", G_CALLBACK (on_dir_indicator_clicked), indicator);
 }
 
 /***********************************
@@ -556,8 +458,6 @@ GtkWidget *gnome_cmd_dir_indicator_new (GnomeCmdFileSelector *fs)
 {
     auto dir_indicator = static_cast<GnomeCmdDirIndicator*> (g_object_new (GNOME_CMD_TYPE_DIR_INDICATOR, nullptr));
     auto priv = static_cast<GnomeCmdDirIndicatorPrivate*>(gnome_cmd_dir_indicator_get_instance_private (dir_indicator));
-
-    g_signal_connect (dir_indicator, "button-press-event", G_CALLBACK (on_dir_indicator_clicked), fs);
 
     priv->fs = fs;
 

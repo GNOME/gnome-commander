@@ -55,3 +55,12 @@ gchar *get_utf8 (const gchar *unknown)
 
     return out;
 }
+
+
+#if !GTK_CHECK_VERSION(4, 0, 0)
+gboolean hide_on_close_handler (GtkWidget *widget, GdkEvent *event, gpointer unused)
+{
+    gtk_widget_hide (widget);
+    return TRUE;
+}
+#endif
