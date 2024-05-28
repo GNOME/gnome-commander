@@ -89,7 +89,7 @@ static GtkWidget *create_general_tab (GtkWidget *parent, GnomeCmdData::Options &
 
     GtkWidget *scrolled_window;
     /* create a new scrolled window. */
-    scrolled_window = gtk_scrolled_window_new (NULL, NULL);
+    scrolled_window = gtk_scrolled_window_new ();
     /* the policy is one of GTK_POLICY AUTOMATIC, or GTK_POLICY_ALWAYS.
      * GTK_POLICY_AUTOMATIC will automatically decide whether you need
      * scrollbars, whereas GTK_POLICY_ALWAYS will always leave the scrollbars
@@ -97,17 +97,13 @@ static GtkWidget *create_general_tab (GtkWidget *parent, GnomeCmdData::Options &
      * the vertical. */
     gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolled_window),
                                     GTK_POLICY_AUTOMATIC, GTK_POLICY_ALWAYS);
-    /* pack the scrolled_window into the hbox */
     gtk_widget_set_hexpand (scrolled_window, TRUE);
     gtk_widget_set_vexpand (scrolled_window, TRUE);
     gtk_widget_set_margin_top (scrolled_window, 6);
     gtk_widget_set_margin_bottom (scrolled_window, 6);
     gtk_widget_set_margin_start (scrolled_window, 6);
     gtk_widget_set_margin_end (scrolled_window, 6);
-    /* pack the vbox into the scrolled window */
-    gtk_scrolled_window_add_with_viewport (GTK_SCROLLED_WINDOW (scrolled_window), vbox);
-    /* https://stackoverflow.com/questions/9498699/remove-gtkscrolledwindow-frame-border-in-c */
-    gtk_viewport_set_shadow_type(GTK_VIEWPORT (gtk_bin_get_child (GTK_BIN (scrolled_window))), GTK_SHADOW_NONE);
+    gtk_scrolled_window_set_child (GTK_SCROLLED_WINDOW (scrolled_window), vbox);
 
     // Left mouse button settings
     cat_box = create_vbox (parent, FALSE, 0);
@@ -354,7 +350,7 @@ static GtkWidget *create_format_tab (GtkWidget *parent, GnomeCmdData::Options &c
 
     vbox = create_tabvbox (parent);
 
-    scrolled_window = gtk_scrolled_window_new (NULL, NULL);
+    scrolled_window = gtk_scrolled_window_new ();
     gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolled_window),
                                     GTK_POLICY_AUTOMATIC, GTK_POLICY_ALWAYS);
     gtk_widget_set_hexpand (scrolled_window, TRUE);
@@ -363,8 +359,7 @@ static GtkWidget *create_format_tab (GtkWidget *parent, GnomeCmdData::Options &c
     gtk_widget_set_margin_bottom (scrolled_window, 6);
     gtk_widget_set_margin_start (scrolled_window, 6);
     gtk_widget_set_margin_end (scrolled_window, 6);
-    gtk_scrolled_window_add_with_viewport (GTK_SCROLLED_WINDOW (scrolled_window), vbox);
-    gtk_viewport_set_shadow_type(GTK_VIEWPORT (gtk_bin_get_child (GTK_BIN (scrolled_window))), GTK_SHADOW_NONE);
+    gtk_scrolled_window_set_child (GTK_SCROLLED_WINDOW (scrolled_window), vbox);
 
     // Size display mode
     cat_box = create_vbox (parent, FALSE, 0);
@@ -813,7 +808,7 @@ static GtkWidget *create_layout_tab (GtkWidget *parent, GnomeCmdData::Options &c
 
     vbox = create_tabvbox (parent);
 
-    scrolled_window = gtk_scrolled_window_new (NULL, NULL);
+    scrolled_window = gtk_scrolled_window_new ();
     gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolled_window),
                                     GTK_POLICY_AUTOMATIC, GTK_POLICY_ALWAYS);
     gtk_widget_set_hexpand (scrolled_window, TRUE);
@@ -822,8 +817,7 @@ static GtkWidget *create_layout_tab (GtkWidget *parent, GnomeCmdData::Options &c
     gtk_widget_set_margin_bottom (scrolled_window, 6);
     gtk_widget_set_margin_start (scrolled_window, 6);
     gtk_widget_set_margin_end (scrolled_window, 6);
-    gtk_scrolled_window_add_with_viewport (GTK_SCROLLED_WINDOW (scrolled_window), vbox);
-    gtk_viewport_set_shadow_type(GTK_VIEWPORT (gtk_bin_get_child (GTK_BIN (scrolled_window))), GTK_SHADOW_NONE);
+    gtk_scrolled_window_set_child (GTK_SCROLLED_WINDOW (scrolled_window), vbox);
 
     // File panes
     grid = create_grid (parent);
@@ -996,7 +990,7 @@ GtkWidget *create_tabs_tab (GtkWidget *parent, GnomeCmdData::Options &cfg)
 
     vbox = create_tabvbox (parent);
 
-    scrolled_window = gtk_scrolled_window_new (NULL, NULL);
+    scrolled_window = gtk_scrolled_window_new ();
     gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolled_window),
                                     GTK_POLICY_AUTOMATIC, GTK_POLICY_ALWAYS);
     gtk_widget_set_hexpand (scrolled_window, TRUE);
@@ -1005,8 +999,7 @@ GtkWidget *create_tabs_tab (GtkWidget *parent, GnomeCmdData::Options &cfg)
     gtk_widget_set_margin_bottom (scrolled_window, 6);
     gtk_widget_set_margin_start (scrolled_window, 6);
     gtk_widget_set_margin_end (scrolled_window, 6);
-    gtk_scrolled_window_add_with_viewport (GTK_SCROLLED_WINDOW (scrolled_window), vbox);
-    gtk_viewport_set_shadow_type(GTK_VIEWPORT (gtk_bin_get_child (GTK_BIN (scrolled_window))), GTK_SHADOW_NONE);
+    gtk_scrolled_window_set_child (GTK_SCROLLED_WINDOW (scrolled_window), vbox);
 
     cat_box = create_vbox (parent, FALSE, 0);
     cat = create_category (parent, cat_box, _("Tab bar"));
@@ -1070,7 +1063,7 @@ static GtkWidget *create_confirmation_tab (GtkWidget *parent, GnomeCmdData::Opti
 
     vbox = create_tabvbox (parent);
 
-    scrolled_window = gtk_scrolled_window_new (NULL, NULL);
+    scrolled_window = gtk_scrolled_window_new ();
     gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolled_window),
                                     GTK_POLICY_AUTOMATIC, GTK_POLICY_ALWAYS);
     gtk_widget_set_hexpand (scrolled_window, TRUE);
@@ -1079,8 +1072,7 @@ static GtkWidget *create_confirmation_tab (GtkWidget *parent, GnomeCmdData::Opti
     gtk_widget_set_margin_bottom (scrolled_window, 6);
     gtk_widget_set_margin_start (scrolled_window, 6);
     gtk_widget_set_margin_end (scrolled_window, 6);
-    gtk_scrolled_window_add_with_viewport (GTK_SCROLLED_WINDOW (scrolled_window), vbox);
-    gtk_viewport_set_shadow_type(GTK_VIEWPORT (gtk_bin_get_child (GTK_BIN (scrolled_window))), GTK_SHADOW_NONE);
+    gtk_scrolled_window_set_child (GTK_SCROLLED_WINDOW (scrolled_window), vbox);
 
 
     /* Delete options
@@ -1245,7 +1237,7 @@ GtkWidget *create_filter_tab (GtkWidget *parent, GnomeCmdData::Options &cfg)
 
     vbox = create_tabvbox (parent);
 
-    scrolled_window = gtk_scrolled_window_new (NULL, NULL);
+    scrolled_window = gtk_scrolled_window_new ();
     gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolled_window),
                                     GTK_POLICY_AUTOMATIC, GTK_POLICY_ALWAYS);
     gtk_widget_set_hexpand (scrolled_window, TRUE);
@@ -1254,8 +1246,7 @@ GtkWidget *create_filter_tab (GtkWidget *parent, GnomeCmdData::Options &cfg)
     gtk_widget_set_margin_bottom (scrolled_window, 6);
     gtk_widget_set_margin_start (scrolled_window, 6);
     gtk_widget_set_margin_end (scrolled_window, 6);
-    gtk_scrolled_window_add_with_viewport (GTK_SCROLLED_WINDOW (scrolled_window), vbox);
-    gtk_viewport_set_shadow_type(GTK_VIEWPORT (gtk_bin_get_child (GTK_BIN (scrolled_window))), GTK_SHADOW_NONE);
+    gtk_scrolled_window_set_child (GTK_SCROLLED_WINDOW (scrolled_window), vbox);
 
     cat_box = create_vbox (parent, FALSE, 0);
     cat = create_category (parent, cat_box, _("Filetypes to hide"));
@@ -1764,7 +1755,7 @@ static GtkWidget *create_programs_tab (GtkWidget *parent, GnomeCmdData::Options 
 
     vbox = create_tabvbox (parent);
 
-    scrolled_window = gtk_scrolled_window_new (NULL, NULL);
+    scrolled_window = gtk_scrolled_window_new ();
     gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolled_window),
                                     GTK_POLICY_AUTOMATIC, GTK_POLICY_ALWAYS);
     gtk_widget_set_hexpand (scrolled_window, TRUE);
@@ -1773,8 +1764,7 @@ static GtkWidget *create_programs_tab (GtkWidget *parent, GnomeCmdData::Options 
     gtk_widget_set_margin_bottom (scrolled_window, 6);
     gtk_widget_set_margin_start (scrolled_window, 6);
     gtk_widget_set_margin_end (scrolled_window, 6);
-    gtk_scrolled_window_add_with_viewport (GTK_SCROLLED_WINDOW (scrolled_window), vbox);
-    gtk_viewport_set_shadow_type(GTK_VIEWPORT (gtk_bin_get_child (GTK_BIN (scrolled_window))), GTK_SHADOW_NONE);
+    gtk_scrolled_window_set_child (GTK_SCROLLED_WINDOW (scrolled_window), vbox);
 
     check = create_check (parent, _("Always download remote files before opening in external programs"), "honor_expect_uris");
     gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), !cfg.honor_expect_uris);
@@ -1819,7 +1809,7 @@ static GtkWidget *create_programs_tab (GtkWidget *parent, GnomeCmdData::Options 
     entry = create_entry (parent, "termopen", cfg.termopen);
     gtk_grid_attach (GTK_GRID (grid1), entry, 1, 7, 1, 1);
 
-    separator = gtk_separator_menu_item_new ();
+    separator = gtk_separator_new (GTK_ORIENTATION_HORIZONTAL);
     gtk_box_append (GTK_BOX (vbox), separator);
 
     //Other favorite apps frame
@@ -2252,7 +2242,7 @@ static GtkWidget *create_devices_tab (GtkWidget *parent, GnomeCmdData::Options &
 
     vbox = create_tabvbox (parent);
 
-    scrolled_window = gtk_scrolled_window_new (NULL, NULL);
+    scrolled_window = gtk_scrolled_window_new ();
     gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolled_window),
                                     GTK_POLICY_AUTOMATIC, GTK_POLICY_ALWAYS);
     gtk_widget_set_hexpand (scrolled_window, TRUE);
@@ -2261,8 +2251,7 @@ static GtkWidget *create_devices_tab (GtkWidget *parent, GnomeCmdData::Options &
     gtk_widget_set_margin_bottom (scrolled_window, 6);
     gtk_widget_set_margin_start (scrolled_window, 6);
     gtk_widget_set_margin_end (scrolled_window, 6);
-    gtk_scrolled_window_add_with_viewport (GTK_SCROLLED_WINDOW (scrolled_window), vbox);
-    gtk_viewport_set_shadow_type(GTK_VIEWPORT (gtk_bin_get_child (GTK_BIN (scrolled_window))), GTK_SHADOW_NONE);
+    gtk_scrolled_window_set_child (GTK_SCROLLED_WINDOW (scrolled_window), vbox);
 
     cat_box = create_vbox (parent, FALSE, 0);
     cat = create_category (parent, cat_box, _("Devices"));

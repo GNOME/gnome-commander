@@ -308,9 +308,9 @@ namespace GnomeCmd
         gtk_widget_set_vexpand (hbox, TRUE);
         gtk_box_append (GTK_BOX (content_area), hbox);
 
-        scrolled_window = gtk_scrolled_window_new (NULL, NULL);
+        scrolled_window = gtk_scrolled_window_new ();
         gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolled_window), GTK_POLICY_NEVER, GTK_POLICY_AUTOMATIC);
-        gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (scrolled_window), GTK_SHADOW_IN);
+        gtk_scrolled_window_set_has_frame (GTK_SCROLLED_WINDOW (scrolled_window), TRUE);
         gtk_widget_set_hexpand (scrolled_window, TRUE);
         gtk_widget_set_vexpand (scrolled_window, TRUE);
         gtk_box_append (GTK_BOX (hbox), scrolled_window);
@@ -318,7 +318,7 @@ namespace GnomeCmd
         view = create_view_and_model();
         gtk_widget_set_size_request (view, 400, 200);
         g_signal_connect (view, "row-activated", G_CALLBACK (row_activated_callback), NULL);
-        gtk_container_add (GTK_CONTAINER (scrolled_window), view);
+        gtk_scrolled_window_set_child (GTK_SCROLLED_WINDOW (scrolled_window), view);
 
         box = gnome_cmd_hint_box_new (_("To rename a profile, click on the "
                                         "corresponding row and type a new "

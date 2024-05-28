@@ -485,7 +485,7 @@ gboolean gnome_cmd_connect_dialog_edit (GnomeCmdConRemote *server)
 {
     g_return_val_if_fail (server != nullptr, FALSE);
 
-    auto *dialog = reinterpret_cast<GnomeCmdConnectDialog*> (gtk_widget_new (GNOME_CMD_TYPE_CONNECT_DIALOG, nullptr));
+    auto *dialog = reinterpret_cast<GnomeCmdConnectDialog*> (g_object_new (GNOME_CMD_TYPE_CONNECT_DIALOG, nullptr));
     g_return_val_if_fail (dialog != nullptr, FALSE);
 
     auto *con = GNOME_CMD_CON (server);

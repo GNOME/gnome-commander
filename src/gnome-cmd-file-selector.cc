@@ -1523,11 +1523,11 @@ GtkWidget *GnomeCmdFileSelector::new_tab(GnomeCmdDir *dir, GnomeCmdFileList::Col
     fl->show_column(GnomeCmdFileList::COLUMN_DIR, FALSE);
 
     // create the scrollwindow that we'll place the list in
-    GtkWidget *scrolled_window = gtk_scrolled_window_new (nullptr, nullptr);
+    GtkWidget *scrolled_window = gtk_scrolled_window_new ();
     gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolled_window), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
     gtk_widget_set_hexpand (scrolled_window, TRUE);
     gtk_widget_set_vexpand (scrolled_window, TRUE);
-    gtk_container_add (GTK_CONTAINER (scrolled_window), *fl);
+    gtk_scrolled_window_set_child (GTK_SCROLLED_WINDOW (scrolled_window), *fl);
 
     GtkWidget *hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 0);
 

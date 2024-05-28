@@ -513,16 +513,16 @@ static void gnome_cmd_advrename_dialog_init (GnomeCmdAdvrenameDialog *dialog)
     gtk_widget_set_valign (label, GTK_ALIGN_CENTER);
     gtk_box_append (GTK_BOX (vbox), label);
 
-    GtkWidget *scrolled_window = gtk_scrolled_window_new (NULL, NULL);
+    GtkWidget *scrolled_window = gtk_scrolled_window_new ();
     gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolled_window), GTK_POLICY_NEVER, GTK_POLICY_AUTOMATIC);
-    gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (scrolled_window), GTK_SHADOW_IN);
+    gtk_scrolled_window_set_has_frame (GTK_SCROLLED_WINDOW (scrolled_window), TRUE);
     gtk_widget_set_margin_bottom (scrolled_window, 6);
     gtk_widget_set_margin_start (scrolled_window, 12);
     gtk_widget_set_vexpand (scrolled_window, TRUE);
     gtk_box_append (GTK_BOX (vbox), scrolled_window);
 
     dialog->priv->files_view = create_files_view ();
-    gtk_container_add (GTK_CONTAINER (scrolled_window), dialog->priv->files_view);
+    gtk_scrolled_window_set_child (GTK_SCROLLED_WINDOW (scrolled_window), dialog->priv->files_view);
 
     GtkTreeSelection *selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (dialog->priv->files_view));
     gtk_tree_selection_set_mode (selection, GTK_SELECTION_BROWSE);

@@ -1089,19 +1089,19 @@ void gviewer_window_show_metadata(GViewerWindow *gViewerWindow)
 
     if (!priv->metadata_view)
     {
-        GtkWidget *scrolledwindow = gtk_scrolled_window_new (nullptr, nullptr);
+        GtkWidget *scrolledwindow = gtk_scrolled_window_new ();
         gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolledwindow), GTK_POLICY_NEVER, GTK_POLICY_AUTOMATIC);
         gtk_widget_set_margin_top (GTK_WIDGET (scrolledwindow), 10);
         gtk_widget_set_margin_bottom (GTK_WIDGET (scrolledwindow), 10);
         gtk_widget_set_margin_start (GTK_WIDGET (scrolledwindow), 10);
         gtk_widget_set_margin_end (GTK_WIDGET (scrolledwindow), 10);
         gtk_widget_set_vexpand (GTK_WIDGET (scrolledwindow), TRUE);
-        gtk_container_add (GTK_CONTAINER (scrolledwindow), create_view ());
+        gtk_scrolled_window_set_child (GTK_SCROLLED_WINDOW (scrolledwindow), create_view ());
         gtk_box_append (GTK_BOX (priv->vbox), scrolledwindow);
         priv->metadata_view = scrolledwindow;
     }
 
-    GtkWidget *view = gtk_bin_get_child (GTK_BIN (priv->metadata_view));
+    GtkWidget *view = gtk_scrolled_window_get_child (GTK_SCROLLED_WINDOW (priv->metadata_view));
     GtkTreeModel *model = gtk_tree_view_get_model (GTK_TREE_VIEW (view));
 
     if (!model)

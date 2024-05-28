@@ -208,10 +208,9 @@ static void gnome_cmd_about_plugin_display_credits_dialog (GnomeCmdAboutPlugin *
     {
         label = _create_label ();
 
-        sw = gtk_scrolled_window_new (nullptr, nullptr);
+        sw = gtk_scrolled_window_new ();
         gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (sw), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
-        gtk_scrolled_window_add_with_viewport (GTK_SCROLLED_WINDOW (sw), label);
-        gtk_viewport_set_shadow_type (GTK_VIEWPORT (gtk_bin_get_child (GTK_BIN (sw))), GTK_SHADOW_NONE);
+        gtk_scrolled_window_set_child (GTK_SCROLLED_WINDOW (sw), label);
 
         gtk_notebook_append_page (GTK_NOTEBOOK (notebook), sw, gtk_label_new (_("Written by")));
         gnome_cmd_about_plugin_update_authors_label (about, label);
@@ -221,10 +220,9 @@ static void gnome_cmd_about_plugin_display_credits_dialog (GnomeCmdAboutPlugin *
     {
         label = _create_label ();
 
-        sw = gtk_scrolled_window_new (nullptr, nullptr);
+        sw = gtk_scrolled_window_new ();
         gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (sw), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
-        gtk_scrolled_window_add_with_viewport (GTK_SCROLLED_WINDOW (sw), label);
-        gtk_viewport_set_shadow_type (GTK_VIEWPORT (gtk_bin_get_child (GTK_BIN (sw))), GTK_SHADOW_NONE);
+        gtk_scrolled_window_set_child (GTK_SCROLLED_WINDOW (sw), label);
 
         gtk_notebook_append_page (GTK_NOTEBOOK (notebook), sw, gtk_label_new (_("Documented by")));
         gnome_cmd_about_plugin_update_documenters_label (about, label);
@@ -234,10 +232,9 @@ static void gnome_cmd_about_plugin_display_credits_dialog (GnomeCmdAboutPlugin *
     {
         label = _create_label ();
 
-        sw = gtk_scrolled_window_new (nullptr, nullptr);
+        sw = gtk_scrolled_window_new ();
         gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (sw), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
-        gtk_scrolled_window_add_with_viewport (GTK_SCROLLED_WINDOW (sw), label);
-        gtk_viewport_set_shadow_type (GTK_VIEWPORT (gtk_bin_get_child (GTK_BIN (sw))), GTK_SHADOW_NONE);
+        gtk_scrolled_window_set_child (GTK_SCROLLED_WINDOW (sw), label);
 
         gtk_notebook_append_page (GTK_NOTEBOOK (notebook), sw, gtk_label_new (_("Translated by")));
         gnome_cmd_about_plugin_update_translation_information_label (about, label);

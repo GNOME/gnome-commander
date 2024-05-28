@@ -44,7 +44,7 @@
 
 #pragma once
 
-#include <gtk/gtkdialog.h>
+#include <gtk/gtk.h>
 
 #define GNOME_CMD_TYPE_ABOUT_PLUGIN            (gnome_cmd_about_plugin_get_type ())
 #define GNOME_CMD_ABOUT_PLUGIN(object)         (G_TYPE_CHECK_INSTANCE_CAST ((object), GNOME_CMD_TYPE_ABOUT_PLUGIN, GnomeCmdAboutPlugin))

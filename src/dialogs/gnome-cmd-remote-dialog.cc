@@ -412,10 +412,12 @@ static void gnome_cmd_remote_dialog_init (GnomeCmdRemoteDialog *dialog)
     gtk_window_set_resizable (GTK_WINDOW (dialog), TRUE);
 
     cat_box = create_hbox (*dialog, FALSE, 12);
+    gtk_widget_set_vexpand (cat_box, true);
     cat = create_category (*dialog, cat_box, _("Connections"));
     gnome_cmd_dialog_add_expanding_category (*dialog, cat);
 
     sw = create_sw (*dialog);
+    gtk_scrolled_window_set_has_frame (GTK_SCROLLED_WINDOW (sw), TRUE);
     gtk_widget_set_hexpand (sw, true);
     gtk_box_append (GTK_BOX (cat_box), sw);
 
@@ -423,7 +425,7 @@ static void gnome_cmd_remote_dialog_init (GnomeCmdRemoteDialog *dialog)
     g_object_ref (dialog->priv->connection_list);
     g_object_set_data_full (*dialog, "connection_list", dialog->priv->connection_list, g_object_unref);
     gtk_widget_show (dialog->priv->connection_list);
-    gtk_container_add (GTK_CONTAINER (sw), dialog->priv->connection_list);
+    gtk_scrolled_window_set_child (GTK_SCROLLED_WINDOW (sw), dialog->priv->connection_list);
     gtk_widget_set_size_request (dialog->priv->connection_list, -1, 240);
 
     // check if there are any items in the connection list

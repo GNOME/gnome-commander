@@ -635,12 +635,12 @@ static GtkWidget *create_view_and_model (GnomeCmdFile *f)
 
 inline GtkWidget *create_metadata_tab (GnomeCmdFilePropsDialogPrivate *data)
 {
-    GtkWidget *scrolledwindow = gtk_scrolled_window_new (nullptr, nullptr);
+    GtkWidget *scrolledwindow = gtk_scrolled_window_new ();
     gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolledwindow), GTK_POLICY_NEVER, GTK_POLICY_AUTOMATIC);
 
     GtkWidget *view = create_view_and_model (data->f);
 
-    gtk_container_add (GTK_CONTAINER (scrolledwindow), view);
+    gtk_scrolled_window_set_child (GTK_SCROLLED_WINDOW (scrolledwindow), view);
 
     gtk_widget_show_all (scrolledwindow);
 
@@ -675,13 +675,9 @@ GtkWidget *gnome_cmd_file_props_dialog_create (GnomeCmdFile *f)
     gtk_widget_show (notebook);
     gnome_cmd_dialog_add_expanding_category (GNOME_CMD_DIALOG (dialog), notebook);
 
-    gtk_container_add (GTK_CONTAINER (notebook), create_properties_tab (data));
-    gtk_container_add (GTK_CONTAINER (notebook), create_permissions_tab (data));
-    gtk_container_add (GTK_CONTAINER (notebook), create_metadata_tab (data));
-
-    gtk_notebook_set_tab_label (GTK_NOTEBOOK (notebook), gtk_notebook_get_nth_page (GTK_NOTEBOOK (notebook), 0), gtk_label_new (_("Properties")));
-    gtk_notebook_set_tab_label (GTK_NOTEBOOK (notebook), gtk_notebook_get_nth_page (GTK_NOTEBOOK (notebook), 1), gtk_label_new (_("Permissions")));
-    gtk_notebook_set_tab_label (GTK_NOTEBOOK (notebook), gtk_notebook_get_nth_page (GTK_NOTEBOOK (notebook), 2), gtk_label_new (_("Metadata")));
+    gtk_notebook_append_page (GTK_NOTEBOOK (notebook), create_properties_tab (data), gtk_label_new (_("Properties")));
+    gtk_notebook_append_page (GTK_NOTEBOOK (notebook), create_permissions_tab (data), gtk_label_new (_("Permissions")));
+    gtk_notebook_append_page (GTK_NOTEBOOK (notebook), create_metadata_tab (data), gtk_label_new (_("Metadata")));
 
     gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), _("_Help"), G_CALLBACK (on_dialog_help), data);
     data->copy_button = gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), _("Co_py"), G_CALLBACK (on_copy_clipboard), data);
