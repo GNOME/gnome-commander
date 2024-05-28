@@ -84,9 +84,9 @@ GtkWidget *create_icon_button_widget (GtkWidget *parent, const gchar *name, cons
 
 GtkWidget *create_scale (GtkWidget *parent, const gchar *name, gint value, gint min, gint max);
 
-GtkWidget *create_directory_chooser_button (GtkWidget *parent, const gchar *name, const gchar *value);
-
-GtkWidget *create_file_chooser_button (GtkWidget *parent, const gchar *name, const gchar *value);
+GtkWidget *create_directory_chooser_button (GtkWidget *parent, const gchar *name, bool local_only = true);
+GFile *directory_chooser_button_get_file (GtkWidget *button);
+void directory_chooser_button_set_file (GtkWidget *button, GFile *file);
 
 GtkWidget *create_treeview (GtkWidget *parent, const gchar *name, GtkTreeModel *model, gint rowh, GCallback on_selection_changed, GCallback on_rows_reordered);
 

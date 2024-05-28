@@ -387,44 +387,60 @@ GtkWidget *create_scale (GtkWidget *parent, const gchar *name, gint value, gint 
 }
 
 
-GtkWidget *create_directory_chooser_button (GtkWidget *parent, const gchar *name, const gchar *value)
+static void directory_chooser_response (GtkNativeDialog *chooser, gint response_id, GtkWidget *button)
 {
-    GtkWidget *chooser;
-    chooser = gtk_file_chooser_button_new (_("Folder selection"), GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER);
-    if (value == nullptr)
-    {
-        gtk_file_chooser_set_current_folder (GTK_FILE_CHOOSER (chooser), "");
-    }
-    else
-    {
-        gtk_file_chooser_set_current_folder (GTK_FILE_CHOOSER (chooser), value);
-    }
-    g_object_ref (chooser);
-    g_object_set_data_full (G_OBJECT (parent), name, chooser, g_object_unref);
-    gtk_widget_show (chooser);
+    if (response_id != GTK_RESPONSE_ACCEPT)
+        return;
 
-    return chooser;
+    GFile *file = gtk_file_chooser_get_file (GTK_FILE_CHOOSER (chooser));
+    if (file != nullptr)
+    {
+        directory_chooser_button_set_file (button, file);
+        g_object_unref (file);
+    }
 }
 
 
-GtkWidget *create_file_chooser_button (GtkWidget *parent, const gchar *name, const gchar *value)
+static void on_directory_chooser_click (GtkButton *button, GtkWidget *parent)
 {
-    GtkWidget *chooser;
-    chooser = gtk_file_chooser_button_new (_("File selection"), GTK_FILE_CHOOSER_ACTION_OPEN);
-    if (value == nullptr)
-    {
-        gtk_file_chooser_set_filename (GTK_FILE_CHOOSER (chooser), "");
-    }
-    else
-    {
-        gtk_file_chooser_set_filename (GTK_FILE_CHOOSER (chooser), value);
-    }
+    gboolean local_only = reinterpret_cast<size_t> (g_object_get_data (G_OBJECT (button), "local_only")) != 0;
 
-    g_object_ref (chooser);
-    g_object_set_data_full (G_OBJECT (parent), name, chooser, g_object_unref);
-    gtk_widget_show (chooser);
+    auto chooser = gtk_file_chooser_native_new (_("Select Directory"),
+        GTK_WINDOW (parent),
+        GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER,
+        nullptr,
+        nullptr);
+    gtk_native_dialog_set_modal (GTK_NATIVE_DIALOG (chooser), true);
+    gtk_file_chooser_set_local_only (GTK_FILE_CHOOSER (chooser), local_only);
+    g_signal_connect (chooser, "response", G_CALLBACK (directory_chooser_response), button);
 
-    return chooser;
+    if (GFile *file = directory_chooser_button_get_file (GTK_WIDGET (button)))
+        gtk_file_chooser_set_file (GTK_FILE_CHOOSER (chooser), file, nullptr);
+
+    gtk_native_dialog_show (GTK_NATIVE_DIALOG (chooser));
+}
+
+
+GtkWidget *create_directory_chooser_button (GtkWidget *parent, const gchar *name, bool local_only)
+{
+    GtkWidget *button = create_named_button (parent, _("(None)"), name, G_CALLBACK (on_directory_chooser_click));
+    g_object_set_data (G_OBJECT (button), "local_only", reinterpret_cast<gpointer>((size_t) local_only));
+    return button;
+}
+
+
+GFile *directory_chooser_button_get_file (GtkWidget *button)
+{
+    return (GFile *) g_object_get_data (G_OBJECT (button), "file");
+}
+
+
+void directory_chooser_button_set_file (GtkWidget *button, GFile *file)
+{
+    g_object_set_data_full (G_OBJECT (button), "file", g_object_ref (file), g_object_unref);
+    gchar *label = file ? g_file_get_basename (file) : _("(None)");
+    gtk_button_set_label (GTK_BUTTON (button), label);
+    g_free (label);
 }
 
 

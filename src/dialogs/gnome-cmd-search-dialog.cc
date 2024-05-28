@@ -964,9 +964,7 @@ void GnomeCmdSearchDialog::Private::on_dialog_show(GtkWidget *widget, GnomeCmdSe
 
     dialog->priv->data.start_dir = main_win->fs(ACTIVE)->get_directory();
 
-    gchar *uri = gnome_cmd_dir_get_uri_str (dialog->priv->data.start_dir);
-    gtk_file_chooser_set_current_folder_uri (GTK_FILE_CHOOSER (dialog->priv->dir_browser), uri);
-    g_free (uri);
+    directory_chooser_button_set_file (dialog->priv->dir_browser, GNOME_CMD_FILE(dialog->priv->data.start_dir)->get_file());
 }
 
 
@@ -1034,7 +1032,8 @@ void GnomeCmdSearchDialog::Private::on_dialog_response(GtkDialog *window, int re
                 data.content_regex = nullptr;
                 data.match_dirs = nullptr;
 
-                auto uriString = gtk_file_chooser_get_uri (GTK_FILE_CHOOSER (dialog->priv->dir_browser));
+                GFile *file = directory_chooser_button_get_file (dialog->priv->dir_browser);
+                auto uriString = file ? g_file_get_uri (file) : nullptr;
                 auto gUri = g_uri_parse (uriString, G_URI_FLAGS_NONE, nullptr);
 
                 g_free (uriString);
@@ -1292,8 +1291,7 @@ GnomeCmdSearchDialog::GnomeCmdSearchDialog(GnomeCmdData::SearchConfig &cfg): def
     gtk_dialog_set_default_response (*this, GCMD_RESPONSE_FIND);
 
     // search in
-    priv->dir_browser =  gtk_file_chooser_button_new (_("Select Directory"), GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER);
-    gtk_file_chooser_set_local_only (GTK_FILE_CHOOSER (priv->dir_browser), FALSE);
+    priv->dir_browser = create_directory_chooser_button (*this, "dir_browser", FALSE);
 
     priv->profile_component = new GnomeCmdSelectionProfileComponent(cfg.default_profile, priv->dir_browser, _("_Look in folder:"));
 

@@ -907,7 +907,13 @@ static GtkWidget *create_layout_tab (GtkWidget *parent, GnomeCmdData::Options &c
     gtk_grid_attach (GTK_GRID (grid), spin, 1, 0, 1, 1);
     scale = create_scale (parent, "iconquality_scale", cfg.icon_scale_quality, 0, 3);
     gtk_grid_attach (GTK_GRID (grid), scale, 1, 1, 1, 1);
-    entry = create_directory_chooser_button (parent, "theme_icondir_entry", cfg.theme_icon_dir);
+    entry = create_directory_chooser_button (parent, "theme_icondir_entry");
+    if (cfg.theme_icon_dir)
+    {
+        GFile *file = g_file_new_for_path (cfg.theme_icon_dir);
+        directory_chooser_button_set_file (entry, file);
+        g_object_unref (file);
+    }
     gtk_grid_attach (GTK_GRID (grid), entry, 1, 2, 1, 1);
 
     label = create_label (parent, _("Icon size:"));
@@ -948,8 +954,12 @@ void store_layout_options (GtkWidget *dialog, GnomeCmdData::Options &cfg)
     const gchar *list_font = gtk_font_button_get_font_name (GTK_FONT_BUTTON (list_font_picker));
     cfg.set_list_font (list_font);
 
-    gchar* icondir = gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (theme_icondir_chooser));
-    cfg.set_theme_icon_dir (g_filename_to_utf8(icondir, -1, nullptr, nullptr, nullptr));
+    if (GFile *icondir = directory_chooser_button_get_file (theme_icondir_chooser))
+    {
+        gchar *icondir_path = g_file_get_path (icondir);
+        cfg.set_theme_icon_dir (g_filename_to_utf8 (icondir_path, -1, nullptr, nullptr, nullptr));
+        g_free (icondir_path);
+    }
 #if defined (__GNUC__)
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wcast-align"
@@ -970,8 +980,6 @@ void store_layout_options (GtkWidget *dialog, GnomeCmdData::Options &cfg)
 #if defined (__GNUC__)
 #pragma GCC diagnostic pop
 #endif
-
-    g_free(icondir);
 }
 
 
@@ -1980,17 +1988,18 @@ void get_device_dialog_values (GtkWidget *dialog, gchar **alias, gchar **device_
     GtkWidget *iconWidget = lookup_widget (dialog, "device_iconentry");
 
     gchar* device = (gchar *) gtk_entry_get_text (GTK_ENTRY (device_entry));
-    gchar* mountp = (gchar *) gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (mountp_entry));
 
     *alias = (gchar *) gtk_entry_get_text (GTK_ENTRY (alias_entry));
     if (device && strlen(device) > 0)
         *device_utf8 = g_filename_to_utf8(device, -1, nullptr, nullptr, nullptr);
-    if (mountp && strlen(mountp) > 0)
-        *mountp_utf8 = g_filename_to_utf8(mountp, -1, nullptr, nullptr, nullptr);
+    if (GFile *mountp = directory_chooser_button_get_file (mountp_entry))
+    {
+        gchar *mountp_path = g_file_get_path (mountp);
+        *mountp_utf8 = g_filename_to_utf8 (mountp_path, -1, nullptr, nullptr, nullptr);
+        g_free (mountp_path);
+    }
     // Get device_iconentry path
     g_object_get (G_OBJECT (gtk_button_get_image (GTK_BUTTON (iconWidget))), "file", icon_path, NULL);
-
-    g_free(mountp);
 }
 
 
@@ -2091,7 +2100,13 @@ static GtkWidget *create_device_dialog (GnomeCmdConDevice *dev, GCallback on_ok,
     gtk_grid_attach (GTK_GRID (grid), entry, 1, 1, 1, 1);
 
     if (dev) s = gnome_cmd_con_device_get_mountp_string (dev);
-    entry = create_directory_chooser_button (dialog, "mountp_entry", s);
+    entry = create_directory_chooser_button (dialog, "mountp_entry");
+    if (s)
+    {
+        GFile *file = g_file_new_for_path (s);
+        directory_chooser_button_set_file (entry, file);
+        g_object_unref (file);
+    }
     gtk_grid_attach (GTK_GRID (grid), entry, 1, 2, 1, 1);
 
     if (dev)
