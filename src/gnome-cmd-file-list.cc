@@ -1318,9 +1318,9 @@ void GnomeCmdFileList::focus_next()
 }
 
 
-static gboolean on_button_press (GtkGestureMultiPress *gesture, int n_press, double x, double y, GnomeCmdFileList *fl)
+static void on_button_press (GtkGestureMultiPress *gesture, int n_press, double x, double y, GnomeCmdFileList *fl)
 {
-    g_return_val_if_fail (GNOME_CMD_IS_FILE_LIST (fl), FALSE);
+    g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl));
 
     gint button = gtk_gesture_single_get_current_button (GTK_GESTURE_SINGLE (gesture));
 
@@ -1336,18 +1336,17 @@ static gboolean on_button_press (GtkGestureMultiPress *gesture, int n_press, dou
         .state = get_modifiers_state (),
     };
 
-    if (!row)
+    if (row)
+    {
+        event.file = fl->get_file_at_row(row.get());
+        g_signal_emit (fl, signals[LIST_CLICKED], 0, &event);
+        g_signal_emit (fl, signals[FILE_CLICKED], 0, &event);
+    }
+    else
     {
         g_signal_emit (fl, signals[LIST_CLICKED], 0, &event);
         g_signal_emit (fl, signals[EMPTY_SPACE_CLICKED], 0, &event);
-        return FALSE;
     }
-
-    event.file = fl->get_file_at_row(row.get());
-    g_signal_emit (fl, signals[LIST_CLICKED], 0, &event);
-    g_signal_emit (fl, signals[FILE_CLICKED], 0, &event);
-
-    return FALSE;
 }
 
 
@@ -1616,38 +1615,15 @@ static void on_file_released (GnomeCmdFileList *fl, GnomeCmdFileListButtonEvent 
 }
 
 
-static void on_motion_notify (GtkWidget *self, GdkEventMotion *event, GnomeCmdFileList *fl)
+static void on_button_release (GtkGestureMultiPress *gesture, int n_press, double x, double y, GnomeCmdFileList *fl)
 {
-    g_return_if_fail (event != nullptr);
-
-    if (event->state & GDK_BUTTON3_MASK)
-    {
-        auto row = fl->get_dest_row_at_pos (event->x, event->y);
-        if (row)
-        {
-            GnomeCmdFile *f = fl->get_file_at_row(row.get());
-            if (f)
-            {
-                fl->select_row(row.get());
-                if (fl->priv->right_mb_sel_state)
-                    fl->select_file(f, row.get());
-                else
-                    fl->unselect_file(f, row.get());
-            }
-        }
-    }
-}
-
-
-static gint on_button_release (GtkGestureMultiPress *gesture, int n_press, double x, double y, GnomeCmdFileList *fl)
-{
-    g_return_val_if_fail (GNOME_CMD_IS_FILE_LIST (fl), FALSE);
+    g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl));
 
     gint button = gtk_gesture_single_get_current_button (GTK_GESTURE_SINGLE (gesture));
 
     auto row = fl->get_dest_row_at_coords (x, y);
     if (!row)
-        return FALSE;
+        return;
 
     GnomeCmdFile *f = fl->get_file_at_row(row.get());
 
@@ -1666,14 +1642,11 @@ static gint on_button_release (GtkGestureMultiPress *gesture, int n_press, doubl
     {
         if (f && !fl->is_selected_iter(row.get()) && gnome_cmd_data.options.left_mouse_button_unselects)
             fl->unselect_all();
-        return FALSE;
     }
     else if (button == 3 && fl->priv->right_mb_timeout_id > 0)
     {
         g_source_remove (fl->priv->right_mb_timeout_id);
     }
-
-    return FALSE;
 }
 
 
@@ -2026,7 +1999,6 @@ static void gnome_cmd_file_list_init (GnomeCmdFileList *fl)
 
     g_signal_connect (click_controller, "pressed", G_CALLBACK (on_button_press), fl);
     g_signal_connect (click_controller, "released", G_CALLBACK (on_button_release), fl);
-    g_signal_connect (fl, "motion-notify-event", G_CALLBACK (on_motion_notify), fl);
     g_signal_connect (fl, "cursor-changed", G_CALLBACK (on_cursor_change), fl);
 
     g_signal_connect_after (fl, "realize", G_CALLBACK (on_realize), fl);

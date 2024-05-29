@@ -53,6 +53,13 @@ inline void gtk_window_destroy (GtkWindow* window)
     gtk_widget_destroy (GTK_WIDGET (window));
 }
 
+gboolean hide_on_close_handler (GtkWidget *widget, GdkEvent *event, gpointer unused);
+
+inline void gtk_window_set_hide_on_close (GtkWindow* window, gboolean unused_assume_always_true)
+{
+    g_signal_connect (window, "delete-event", G_CALLBACK (hide_on_close_handler), nullptr);
+}
+
 inline void gtk_box_append (GtkBox* box, GtkWidget* child)
 {
     gtk_container_add (GTK_CONTAINER (box), child);

@@ -37,23 +37,15 @@ struct GnomeCmdDialogPrivate
 G_DEFINE_TYPE_WITH_PRIVATE (GnomeCmdDialog, gnome_cmd_dialog, GTK_TYPE_WINDOW)
 
 
-extern GtkWidget *main_win;
-
-
-static gboolean on_dialog_keypressed (GtkWidget *dialog, GdkEventKey *event, gpointer user_data)
+static gboolean on_dialog_keypressed (GtkEventControllerKey *controller, guint keyval, guint keycode, GdkModifierType state, gpointer user_data)
 {
-    if (event->keyval == GDK_KEY_Escape)
+    if (keyval == GDK_KEY_Escape)
     {
-        gtk_window_destroy (GTK_WINDOW (dialog));
+        gtk_window_destroy (GTK_WINDOW (user_data));
         return TRUE;
     }
 
     return FALSE;
-}
-
-
-static void on_dialog_show (GtkWidget *w, GnomeCmdDialog *dialog)
-{
 }
 
 
@@ -92,8 +84,8 @@ static void gnome_cmd_dialog_init (GnomeCmdDialog *dialog)
     gtk_button_box_set_layout (GTK_BUTTON_BOX (priv->buttonbox), GTK_BUTTONBOX_END);
     gtk_box_append (GTK_BOX (vbox), priv->buttonbox);
 
-    g_signal_connect (dialog, "key-press-event", G_CALLBACK (on_dialog_keypressed), NULL);
-    g_signal_connect (dialog, "show", G_CALLBACK (on_dialog_show), dialog);
+    GtkEventController *key_controller = gtk_event_controller_key_new (GTK_WIDGET (dialog));
+    g_signal_connect (key_controller, "key-pressed", G_CALLBACK (on_dialog_keypressed), dialog);
 }
 
 /***********************************

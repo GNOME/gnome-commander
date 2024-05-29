@@ -148,11 +148,8 @@ struct GnomeCmdSearchDialog::Private
 
     static gboolean join_thread_func(GnomeCmdSearchDialog::Private *priv);
 
-    static gboolean on_list_keypressed (GtkWidget *result_list, GdkEventKey *event, gpointer unused);
-
     static void on_dialog_show (GtkWidget *widget, GnomeCmdSearchDialog *dialog);
     static void on_dialog_hide (GtkWidget *widget, GnomeCmdSearchDialog *dialog);
-    static gboolean on_dialog_delete (GtkWidget *widget, GdkEvent *event, GnomeCmdSearchDialog *dialog);
     static void on_dialog_size_allocate (GtkWidget *widget, GtkAllocation *allocation, GnomeCmdSearchDialog *dialog);
     static void on_dialog_response (GtkDialog *window, int response_id, GnomeCmdSearchDialog *dialog);
 };
@@ -356,23 +353,6 @@ inline gboolean SearchData::ContentMatches(GFile *f, GFileInfo *info)
 
     free_search_file_data (searchFileData);
     return retValue;
-}
-
-
-inline gboolean handle_list_keypress (GnomeCmdFileList *fl, GdkEventKey *event)
-{
-    switch (event->keyval)
-    {
-        case GDK_KEY_F3:
-            gnome_cmd_file_list_view (fl, gnome_cmd_data.options.use_internal_viewer);
-            return TRUE;
-
-        case GDK_KEY_F4:
-            gnome_cmd_file_list_edit (fl);
-            return TRUE;
-        default:
-            return FALSE;
-    }
 }
 
 
@@ -943,18 +923,26 @@ gboolean SearchData::StartLocalSearch()
 }
 
 
-gboolean GnomeCmdSearchDialog::Private::on_list_keypressed(GtkWidget *result_list, GdkEventKey *event, gpointer unused)
+static gboolean on_list_keypressed (GtkEventControllerKey *controller, guint keyval, guint keycode, GdkModifierType state, gpointer user_data)
 {
-    GnomeCmdKeyPress key_press_event = { .keyval = event->keyval, .state = event->state };
+    auto dialog = GNOME_CMD_SEARCH_DIALOG (user_data);
 
-    if (GNOME_CMD_FILE_LIST (result_list)->key_pressed(&key_press_event) ||
-        handle_list_keypress (GNOME_CMD_FILE_LIST (result_list), event))
-    {
-        g_signal_stop_emission_by_name (result_list, "key-press-event");
+    GnomeCmdKeyPress key_press_event = { .keyval = keyval, .state = state };
+    if (dialog->priv->result_list->key_pressed(&key_press_event))
         return TRUE;
-    }
 
-    return FALSE;
+    switch (keyval)
+    {
+        case GDK_KEY_F3:
+            gnome_cmd_file_list_view (dialog->priv->result_list, gnome_cmd_data.options.use_internal_viewer);
+            return TRUE;
+
+        case GDK_KEY_F4:
+            gnome_cmd_file_list_edit (dialog->priv->result_list);
+            return TRUE;
+        default:
+            return FALSE;
+    }
 }
 
 
@@ -975,12 +963,6 @@ void GnomeCmdSearchDialog::Private::on_dialog_hide(GtkWidget *widget, GnomeCmdSe
     dialog->priv->profile_component->copy();
 
     dialog->priv->result_list->clear();
-}
-
-
-gboolean GnomeCmdSearchDialog::Private::on_dialog_delete(GtkWidget *widget, GdkEvent *event, GnomeCmdSearchDialog *dialog)
-{
-    return event->type==GDK_DELETE;
 }
 
 
@@ -1212,6 +1194,9 @@ static void gnome_cmd_search_dialog_init (GnomeCmdSearchDialog *dialog)
     gtk_widget_hide (dialog->priv->pbar);
 
     g_mutex_init(&dialog->priv->data.pdata.mutex);
+
+    GtkEventController *key_controller = gtk_event_controller_key_new (GTK_WIDGET (dialog->priv->result_list));
+    g_signal_connect (key_controller, "key-pressed", G_CALLBACK (on_list_keypressed), dialog);
 }
 
 
@@ -1291,6 +1276,8 @@ GnomeCmdSearchDialog::GnomeCmdSearchDialog(GnomeCmdData::SearchConfig &cfg): def
 
     gtk_dialog_set_default_response (*this, GCMD_RESPONSE_FIND);
 
+    gtk_window_set_hide_on_close (*this, TRUE);
+
     // search in
     priv->dir_browser =  gtk_file_chooser_button_new (_("Select Directory"), GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER);
     gtk_file_chooser_set_local_only (GTK_FILE_CHOOSER (priv->dir_browser), FALSE);
@@ -1310,11 +1297,8 @@ GnomeCmdSearchDialog::GnomeCmdSearchDialog(GnomeCmdData::SearchConfig &cfg): def
     gtk_widget_show_all (priv->profile_menu_button);
     gtk_widget_show (*priv->profile_component);
 
-    g_signal_connect (priv->result_list, "key-press-event", G_CALLBACK (Private::on_list_keypressed), this);
-
     g_signal_connect (this, "show", G_CALLBACK (Private::on_dialog_show), this);
     g_signal_connect (this, "hide", G_CALLBACK (Private::on_dialog_hide), this);
-    g_signal_connect (this, "delete-event", G_CALLBACK (Private::on_dialog_delete), this);
     g_signal_connect (this, "size-allocate", G_CALLBACK (Private::on_dialog_size_allocate), this);
     g_signal_connect (this, "response", G_CALLBACK (Private::on_dialog_response), this);
 }

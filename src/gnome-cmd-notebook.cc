@@ -24,6 +24,7 @@
 #include "gnome-cmd-includes.h"
 #include "gnome-cmd-notebook.h"
 #include "utils.h"
+#include "libgcmd/libgcmd-utils.h"
 
 using namespace std;
 
@@ -36,11 +37,10 @@ gboolean gtk_notebook_ext_header_allocation (GtkNotebook *notebook, GtkAllocatio
     GtkPositionType tab_pos = gtk_notebook_get_tab_pos (notebook);
     GtkWidget *the_page;
 
-    allocation->x = INT_MAX;
-    allocation->y = INT_MAX;
-    allocation->width = 0;
-    allocation->height = 0;
-
+    int x1 = INT_MAX;
+    int y1 = INT_MAX;
+    int x2 = 0;
+    int y2 = 0;
     for (int page_num=0; (the_page = gtk_notebook_get_nth_page (notebook, page_num)); ++page_num)
     {
         GtkWidget *tab = gtk_notebook_get_tab_label (notebook, the_page);
@@ -52,17 +52,17 @@ gboolean gtk_notebook_ext_header_allocation (GtkNotebook *notebook, GtkAllocatio
 
         GtkAllocation tab_allocation;
         gtk_widget_get_allocation (tab, &tab_allocation);
+        gtk_widget_translate_coordinates (tab, GTK_WIDGET (notebook), 0, 0, &tab_allocation.x, &tab_allocation.y);
 
-        int x1 = MIN (allocation->x, tab_allocation.x);
-        int y1 = MIN (allocation->y, tab_allocation.y);
-        int x2 = MAX (allocation->x + allocation->width, tab_allocation.x + tab_allocation.width);
-        int y2 = MAX (allocation->y + allocation->height, tab_allocation.y + tab_allocation.height);
-
-        allocation->x = x1;
-        allocation->y = y1;
-        allocation->width = x2 - x1;
-        allocation->height = y2 - y1;
+        x1 = MIN (x1, tab_allocation.x);
+        y1 = MIN (y1, tab_allocation.y);
+        x2 = MAX (x2, tab_allocation.x + tab_allocation.width);
+        y2 = MAX (y2, tab_allocation.y + tab_allocation.height);
     }
+    allocation->x = x1;
+    allocation->y = y1;
+    allocation->width = x2 - x1;
+    allocation->height = y2 - y1;
 
     GtkAllocation notebook_allocation;
     gtk_widget_get_allocation (GTK_WIDGET (notebook), &notebook_allocation);
@@ -88,76 +88,29 @@ gboolean gtk_notebook_ext_header_allocation (GtkNotebook *notebook, GtkAllocatio
 }
 
 
-gint gtk_notebook_ext_find_tab_num_at_pos(GtkNotebook *notebook, gint screen_x, gint screen_y)
+gint gtk_notebook_ext_find_tab_num_at_pos(GtkNotebook *notebook, gint x, gint y)
 {
     if (gtk_notebook_get_n_pages (notebook) == 0)
         return -1;
 
-    GtkPositionType tab_pos = gtk_notebook_get_tab_pos (notebook);
     GtkWidget *the_page;
 
     for (int page_num=0; (the_page = gtk_notebook_get_nth_page (notebook, page_num)); ++page_num)
     {
         GtkWidget *tab = gtk_notebook_get_tab_label (notebook, the_page);
 
-        g_return_val_if_fail (tab!=NULL, -1);
-
-        if (!gtk_widget_get_mapped (GTK_WIDGET (tab)))
-            continue;
-
-        gint x_root, y_root;
-
-        gdk_window_get_origin (gtk_widget_get_window (tab), &x_root, &y_root);
-
         GtkAllocation tab_allocation;
         gtk_widget_get_allocation (tab, &tab_allocation);
+        gtk_widget_translate_coordinates (tab, GTK_WIDGET (notebook), 0, 0, &tab_allocation.x, &tab_allocation.y);
 
-        switch (tab_pos)
-        {
-            case GTK_POS_TOP:
-            case GTK_POS_BOTTOM:
-                {
-                    gint y = screen_y - y_root - tab_allocation.y;
-
-                    if (y < 0 || y > tab_allocation.height)
-                        return -1;
-
-                    if (screen_x <= x_root + tab_allocation.x + tab_allocation.width)
-                        return page_num;
-                }
-                break;
-
-            case GTK_POS_LEFT:
-            case GTK_POS_RIGHT:
-                {
-                    gint x = screen_x - x_root - tab_allocation.x;
-
-                    if (x < 0 || x > tab_allocation.width)
-                        return -1;
-
-                    if (screen_y <= y_root + tab_allocation.y + tab_allocation.height)
-                        return page_num;
-                }
-
-                break;
-            default:
-                break;
-        }
+        if (gdk_rectangle_contains_point (&tab_allocation, x, y))
+            return page_num;
     }
 
     GtkAllocation head_allocation;
     if (gtk_notebook_ext_header_allocation (notebook, &head_allocation))
-    {
-        gint x_root, y_root;
-
-        gdk_window_get_origin (gtk_widget_get_window (GTK_WIDGET (notebook)), &x_root, &y_root);
-
-        gint x = screen_x - x_root - head_allocation.x;
-        gint y = screen_y - y_root - head_allocation.y;
-
-        if (x > 0 && x < head_allocation.width && y > 0 && y < head_allocation.height)
+        if (gdk_rectangle_contains_point (&head_allocation, x, y))
             return -2;
-    }
 
     return -1;
 }

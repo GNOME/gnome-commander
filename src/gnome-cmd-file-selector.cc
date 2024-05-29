@@ -339,23 +339,26 @@ static void on_combo_popwin_hidden (GnomeCmdCombo *combo, gpointer)
 }
 
 
-static void on_con_btn_clicked (GtkWidget *widget, GdkEventButton *event, GnomeCmdFileSelector *fs)
+static void on_con_btn_clicked (GtkGestureMultiPress *gesture, int n_press, double x, double y, gpointer user_data)
 {
-    g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
+    g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (user_data));
+    auto fs = static_cast<GnomeCmdFileSelector*>(user_data);
 
-    if (event->type!=GDK_BUTTON_PRESS)
+    if (n_press != 1)
         return;
 
-    if (event->button!=1 && event->button!=2)
+    gint button = gtk_gesture_single_get_current_button (GTK_GESTURE_SINGLE (gesture));
+    if (button !=1 && button != 2)
         return;
 
+    auto widget = gtk_event_controller_get_widget (GTK_EVENT_CONTROLLER (gesture));
     auto con = static_cast<GnomeCmdCon*> (g_object_get_data (G_OBJECT (widget), "con"));
 
     g_return_if_fail (GNOME_CMD_IS_CON (con));
 
     main_win->switch_fs(fs);
 
-    if (event->button==2 || event->state&GDK_CONTROL_MASK || fs->file_list()->locked)
+    if (button == 2 || get_modifiers_state() & GDK_CONTROL_MASK || fs->file_list()->locked)
         fs->new_tab(gnome_cmd_con_get_default_dir (con));
 
     fs->set_connection(con, gnome_cmd_con_get_default_dir (con));
@@ -388,7 +391,9 @@ static void create_con_buttons (GnomeCmdFileSelector *fs)
 
         GtkWidget *btn = create_styled_button (nullptr);
         g_object_set_data (G_OBJECT (btn), "con", con);
-        g_signal_connect (btn, "button-press-event", G_CALLBACK (on_con_btn_clicked), fs);
+        GtkGesture *con_btn_click = gtk_gesture_multi_press_new (GTK_WIDGET (btn));
+        gtk_gesture_single_set_button (GTK_GESTURE_SINGLE (con_btn_click), 0);
+        g_signal_connect (con_btn_click, "pressed", G_CALLBACK (on_con_btn_clicked), fs);
         gtk_box_append (GTK_BOX (fs->con_btns_hbox), btn);
         gtk_widget_set_can_focus (btn, FALSE);
         fs->priv->old_btns = g_list_append (fs->priv->old_btns, btn);
@@ -612,103 +617,68 @@ static gboolean on_list_key_pressed (GtkEventControllerKey *controller, guint ke
 }
 
 
-static gboolean on_notebook_button_pressed (GtkWidget *widget, GdkEventButton *event, GnomeCmdFileSelector *fs)
+static void on_notebook_button_pressed (GtkGestureMultiPress *gesture, int n_press, double x, double y, gpointer user_data)
 {
-    GtkNotebook *notebook = GTK_NOTEBOOK (widget);
+    auto fs = static_cast<GnomeCmdFileSelector*>(user_data);
+    GtkNotebook *notebook = GTK_NOTEBOOK (fs->notebook);
 
-    int tab_clicked;
+    gint button = gtk_gesture_single_get_current_button (GTK_GESTURE_SINGLE (gesture));
 
-#if defined (__GNUC__)
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wswitch-enum"
-#endif
-    switch (event->type)
+    int tab_clicked = gtk_notebook_ext_find_tab_num_at_pos (notebook, x, y);
+
+    if (n_press == 1 && button == 2 && tab_clicked >= 0)
     {
-        case GDK_BUTTON_PRESS:
-            switch (event->button)
-            {
-                // mid-click
-                case 2:
-                    tab_clicked = gtk_notebook_ext_find_tab_num_at_pos (notebook, event->x_root, event->y_root);
+        // mid-click
+        GnomeCmdFileList *fl = fs->file_list(tab_clicked);
 
-                    if (tab_clicked>=0)
-                    {
-                        GnomeCmdFileList *fl = fs->file_list(tab_clicked);
-
-                        if (!fl->locked || gnome_cmd_prompt_message (*main_win, GTK_MESSAGE_QUESTION, GTK_BUTTONS_OK_CANCEL, _("The tab is locked, close anyway?"))==GTK_RESPONSE_OK)
-                            fs->close_tab(tab_clicked);
-                    }
-
-                    return tab_clicked>=0;
-
-                // right-click
-                case 3:
-                    tab_clicked = gtk_notebook_ext_find_tab_num_at_pos (notebook, event->x_root, event->y_root);
-
-                    if (tab_clicked>=0)
-                    {
-                        // notebook->set_current_page(tab_clicked);    // switch to the page the mouse is over
-
-                        GnomeCmdFileList *fl = fs->file_list(tab_clicked);
-
-                        GMenu *menu = g_menu_new ();
-                        g_menu_append (menu, _("Open in New _Tab"), "win.view-new-tab");
-
-                        GMenu *section = g_menu_new ();
-
-                        GMenuItem *menuitem = g_menu_item_new (fl->locked ? _("_Unlock Tab") : _("_Lock Tab"), nullptr);
-                        g_menu_item_set_action_and_target (menuitem, "win.view-toggle-tab-lock", "(bi)", fs->is_active(), tab_clicked);
-                        g_menu_append_item (section, menuitem);
-
-                        menuitem = g_menu_item_new (_("_Refresh Tab"), nullptr);
-                        g_menu_item_set_action_and_target (menuitem, "win.view-refresh-tab", "(ii)", fs->fs_id, tab_clicked);
-                        g_menu_append_item (section, menuitem);
-
-                        g_menu_append (section, _("Copy Tab to Other _Pane"), "win.view-in-inactive-tab");
-                        g_menu_append_section (menu, nullptr, G_MENU_MODEL (section));
-
-                        g_menu_append (menu, _("_Close Tab"), "win.view-close-tab");
-                        g_menu_append (menu, _("Close _All Tabs"), "win.view-close-all-tabs");
-                        g_menu_append (menu, _("Close _Duplicate Tabs"), "win.view-close-duplicate-tabs");
-
-                        GtkWidget *popover = gtk_popover_new_from_model (GTK_WIDGET (notebook), G_MENU_MODEL (menu));
-                        gtk_popover_set_position (GTK_POPOVER (popover), GTK_POS_BOTTOM);
-                        GdkRectangle rect = { (gint) event->x, (gint) event->y, 0, 0 };
-                        gtk_popover_set_pointing_to (GTK_POPOVER (popover), &rect);
-                        gtk_popover_popup (GTK_POPOVER (popover));
-                    }
-                    return TRUE;
-
-                default:
-                    return FALSE;
-            }
-
-        case GDK_2BUTTON_PRESS:
-            if (event->button!=1)
-                return FALSE;
-
-            tab_clicked = gtk_notebook_ext_find_tab_num_at_pos (notebook, event->x_root, event->y_root);
-
-            if (tab_clicked>=0)
-            {
-                GnomeCmdFileList *fl = fs->file_list(tab_clicked);
-
-                if (!fl->locked || gnome_cmd_prompt_message (*main_win, GTK_MESSAGE_QUESTION, GTK_BUTTONS_OK_CANCEL, _("The tab is locked, close anyway?"))==GTK_RESPONSE_OK)
-                    fs->close_tab(tab_clicked);
-
-
-            }
-            else if (tab_clicked == -2)
-                fs->new_tab(fs->get_directory());
-
-            return TRUE;
-
-        default:
-            return FALSE;
+        if (!fl->locked || gnome_cmd_prompt_message (*main_win, GTK_MESSAGE_QUESTION, GTK_BUTTONS_OK_CANCEL, _("The tab is locked, close anyway?"))==GTK_RESPONSE_OK)
+            fs->close_tab(tab_clicked);
     }
-#if defined (__GNUC__)
-#pragma GCC diagnostic pop
-#endif
+    else if (n_press == 1 && button == 3 && tab_clicked >= 0)
+    {
+        // right-click
+        // notebook->set_current_page(tab_clicked);    // switch to the page the mouse is over
+        GnomeCmdFileList *fl = fs->file_list(tab_clicked);
+
+        GMenu *menu = g_menu_new ();
+        g_menu_append (menu, _("Open in New _Tab"), "win.view-new-tab");
+
+        GMenu *section = g_menu_new ();
+
+        GMenuItem *menuitem = g_menu_item_new (fl->locked ? _("_Unlock Tab") : _("_Lock Tab"), nullptr);
+        g_menu_item_set_action_and_target (menuitem, "win.view-toggle-tab-lock", "(bi)", fs->is_active(), tab_clicked);
+        g_menu_append_item (section, menuitem);
+
+        menuitem = g_menu_item_new (_("_Refresh Tab"), nullptr);
+        g_menu_item_set_action_and_target (menuitem, "win.view-refresh-tab", "(ii)", fs->fs_id, tab_clicked);
+        g_menu_append_item (section, menuitem);
+
+        g_menu_append (section, _("Copy Tab to Other _Pane"), "win.view-in-inactive-tab");
+        g_menu_append_section (menu, nullptr, G_MENU_MODEL (section));
+
+        g_menu_append (menu, _("_Close Tab"), "win.view-close-tab");
+        g_menu_append (menu, _("Close _All Tabs"), "win.view-close-all-tabs");
+        g_menu_append (menu, _("Close _Duplicate Tabs"), "win.view-close-duplicate-tabs");
+
+        GtkWidget *popover = gtk_popover_new_from_model (GTK_WIDGET (notebook), G_MENU_MODEL (menu));
+        gtk_popover_set_position (GTK_POPOVER (popover), GTK_POS_BOTTOM);
+        GdkRectangle rect = { (gint) x, (gint) y, 0, 0 };
+        gtk_popover_set_pointing_to (GTK_POPOVER (popover), &rect);
+        gtk_popover_popup (GTK_POPOVER (popover));
+    }
+    else if (n_press == 2 && button == 1 && tab_clicked >= 0)
+    {
+        // double-click on a label
+        GnomeCmdFileList *fl = fs->file_list(tab_clicked);
+
+        if (!fl->locked || gnome_cmd_prompt_message (*main_win, GTK_MESSAGE_QUESTION, GTK_BUTTONS_OK_CANCEL, _("The tab is locked, close anyway?"))==GTK_RESPONSE_OK)
+            fs->close_tab(tab_clicked);
+    }
+    else if (n_press == 2 && button == 1 && tab_clicked == -2)
+    {
+        // double-click on a tabs area
+        fs->new_tab(fs->get_directory());
+    }
 }
 
 
@@ -868,7 +838,11 @@ static void gnome_cmd_file_selector_init (GnomeCmdFileSelector *fs)
     g_signal_connect (fs->con_combo, "popwin-hidden", G_CALLBACK (on_combo_popwin_hidden), nullptr);
     g_signal_connect (gnome_cmd_con_list_get (), "list-changed", G_CALLBACK (on_con_list_list_changed), fs);
     g_signal_connect (fs->notebook, "switch-page", G_CALLBACK (on_notebook_switch_page), fs);
-    g_signal_connect (fs->notebook, "button-press-event", G_CALLBACK (on_notebook_button_pressed), fs);
+
+    GtkGesture *notebook_click = gtk_gesture_multi_press_new (GTK_WIDGET (fs->notebook));
+    gtk_event_controller_set_propagation_phase (GTK_EVENT_CONTROLLER (notebook_click), GTK_PHASE_CAPTURE);
+    gtk_gesture_single_set_button (GTK_GESTURE_SINGLE (notebook_click), 0);
+    g_signal_connect (notebook_click, "pressed", G_CALLBACK (on_notebook_button_pressed), fs);
 
     // show the widgets
     gtk_widget_show (GTK_WIDGET (fs));
@@ -1487,14 +1461,15 @@ static void on_filter_box_close (GtkButton *btn, GnomeCmdFileSelector *fs)
 }
 
 
-static gboolean on_filter_box_keypressed (GtkEntry *entry, GdkEventKey *event, GnomeCmdFileSelector *fs)
+static gboolean on_filter_box_keypressed (GtkEventControllerKey *controller, guint keyval, guint keycode, GdkModifierType state, gpointer user_data)
 {
-    if (state_is_blank (event->state))
-        if (event->keyval == GDK_KEY_Escape)
-        {
-            on_filter_box_close (nullptr, fs);
-            return TRUE;
-        }
+    auto fs = static_cast<GnomeCmdFileSelector*>(user_data);
+
+    if (state_is_blank (state) && keyval == GDK_KEY_Escape)
+    {
+        on_filter_box_close (nullptr, fs);
+        return TRUE;
+    }
 
     return FALSE;
 }
@@ -1513,7 +1488,9 @@ void GnomeCmdFileSelector::show_filter()
     gtk_widget_set_hexpand (entry, TRUE);
     GtkWidget *close_btn = create_button_with_data (*main_win, "x", G_CALLBACK (on_filter_box_close), this);
 
-    g_signal_connect (entry, "key-press-event", G_CALLBACK (on_filter_box_keypressed), this);
+    GtkEventController *key_controller = gtk_event_controller_key_new (entry);
+    g_signal_connect (key_controller, "key-pressed", G_CALLBACK (on_filter_box_keypressed), this);
+
     gtk_box_append (GTK_BOX (priv->filter_box), label);
     gtk_box_append (GTK_BOX (priv->filter_box), entry);
     gtk_box_append (GTK_BOX (priv->filter_box), close_btn);

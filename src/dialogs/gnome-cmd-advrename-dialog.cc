@@ -70,13 +70,12 @@ struct GnomeCmdAdvrenameDialog::Private
     static void on_files_view_popup_menu__view_file (GSimpleAction *action, GVariant *parameter, gpointer user_data);
     static void on_files_view_popup_menu__show_properties (GSimpleAction *action, GVariant *parameter, gpointer user_data);
     static void on_files_view_popup_menu__update_files (GSimpleAction *action, GVariant *parameter, gpointer user_data);
-    static gboolean on_files_view_button_pressed (GtkWidget *treeview, GdkEventButton *event, GnomeCmdAdvrenameDialog *dialog);
+    static void on_files_view_button_pressed (GtkGestureMultiPress *gesture, int n_press, double x, double y, gpointer user_data);
     static gboolean on_files_view_popup_menu (GtkWidget *treeview, GnomeCmdAdvrenameDialog *dialog);
     static void on_files_view_row_activated (GtkTreeView *view, GtkTreePath *path, GtkTreeViewColumn *col, GnomeCmdAdvrenameDialog *dialog);
     static void on_files_view_cursor_changed (GtkTreeView *view, GnomeCmdAdvrenameDialog *dialog);
 
     static void on_dialog_show (GtkWidget *widget, GnomeCmdAdvrenameDialog *dialog);
-    static gboolean on_dialog_delete (GtkWidget *widget, GdkEvent *event, GnomeCmdAdvrenameDialog *dialog);
     static void on_dialog_size_allocate (GtkWidget *widget, GtkAllocation *allocation, GnomeCmdAdvrenameDialog *dialog);
     static void on_dialog_response (GnomeCmdAdvrenameDialog *dialog, int response_id, gpointer data);
 };
@@ -315,22 +314,26 @@ inline void GnomeCmdAdvrenameDialog::Private::files_view_popup_menu (GtkWidget *
 }
 
 
-gboolean GnomeCmdAdvrenameDialog::Private::on_files_view_button_pressed (GtkWidget *treeview, GdkEventButton *event, GnomeCmdAdvrenameDialog *dialog)
+void GnomeCmdAdvrenameDialog::Private::on_files_view_button_pressed (GtkGestureMultiPress *gesture, int n_press, double x, double y, gpointer user_data)
 {
-    if (event->type==GDK_BUTTON_PRESS && event->button==3)
+    auto dialog = static_cast<GnomeCmdAdvrenameDialog*>(user_data);
+
+    if (n_press == 1)
     {
+        auto treeview = GTK_TREE_VIEW (dialog->priv->files_view);
+
         // optional: select row if no row is selected or only one other row is selected
         // (will only do something if you set a tree selection mode
         // as described later in the tutorial)
         if (1)
         {
-            GtkTreeSelection *selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (treeview));
+            GtkTreeSelection *selection = gtk_tree_view_get_selection (treeview);
             if (gtk_tree_selection_count_selected_rows (selection) <= 1)
             {
                 GtkTreePath *path;
 
-                if (gtk_tree_view_get_path_at_pos (GTK_TREE_VIEW (treeview),
-                                                   (gint) event->x, (gint) event->y,
+                if (gtk_tree_view_get_path_at_pos (treeview,
+                                                   (gint) x, (gint) y,
                                                    &path,
                                                    NULL, NULL, NULL))
                 {
@@ -340,14 +343,9 @@ gboolean GnomeCmdAdvrenameDialog::Private::on_files_view_button_pressed (GtkWidg
                 }
             }
         }
-        GdkPoint point;
-        gtk_tree_view_convert_bin_window_to_widget_coords (GTK_TREE_VIEW (treeview), event->x, event->y, &point.x, &point.y);
-        dialog->priv->files_view_popup_menu (treeview, dialog, &point);
-
-        return TRUE;
+        GdkPoint point = { (gint) x, (gint) y };
+        dialog->priv->files_view_popup_menu (GTK_WIDGET (treeview), dialog, &point);
     }
-
-    return FALSE;
 }
 
 
@@ -385,12 +383,6 @@ void GnomeCmdAdvrenameDialog::Private::on_files_view_cursor_changed (GtkTreeView
 void GnomeCmdAdvrenameDialog::Private::on_dialog_show(GtkWidget *widget, GnomeCmdAdvrenameDialog *dialog)
 {
     dialog->priv->profile_component->update();
-}
-
-
-gboolean GnomeCmdAdvrenameDialog::Private::on_dialog_delete (GtkWidget *widget, GdkEvent *event, GnomeCmdAdvrenameDialog *dialog)
-{
-    return event->type==GDK_DELETE;
 }
 
 
@@ -688,6 +680,8 @@ GnomeCmdAdvrenameDialog::GnomeCmdAdvrenameDialog(GnomeCmdData::AdvrenameConfig &
 
     gtk_dialog_set_default_response (*this, GTK_RESPONSE_APPLY);
 
+    gtk_window_set_hide_on_close (*this, TRUE);
+
     priv->profile_component = new GnomeCmdAdvrenameProfileComponent(cfg.default_profile);
 
     gtk_widget_set_vexpand (*priv->profile_component, TRUE);
@@ -701,13 +695,16 @@ GnomeCmdAdvrenameDialog::GnomeCmdAdvrenameDialog(GnomeCmdData::AdvrenameConfig &
     g_signal_connect (priv->profile_component, "counter-changed", G_CALLBACK (Private::on_profile_counter_changed), this);
     g_signal_connect (priv->profile_component, "regex-changed", G_CALLBACK (Private::on_profile_regex_changed), this);
     g_signal_connect (files, "row-deleted", G_CALLBACK (Private::on_files_model_row_deleted), this);
-    g_signal_connect (priv->files_view, "button-press-event", G_CALLBACK (Private::on_files_view_button_pressed), this);
+
+    GtkGesture *button_gesture = gtk_gesture_multi_press_new (GTK_WIDGET (priv->files_view));
+    gtk_gesture_single_set_button (GTK_GESTURE_SINGLE (button_gesture), 3);
+    g_signal_connect (button_gesture, "pressed", G_CALLBACK (Private::on_files_view_button_pressed), this);
+
     g_signal_connect (priv->files_view, "popup-menu", G_CALLBACK (Private::on_files_view_popup_menu), this);
     g_signal_connect (priv->files_view, "row-activated", G_CALLBACK (Private::on_files_view_row_activated), this);
     g_signal_connect (priv->files_view, "cursor-changed", G_CALLBACK (Private::on_files_view_cursor_changed), this);
 
     g_signal_connect (this, "show", G_CALLBACK (Private::on_dialog_show), this);
-    g_signal_connect (this, "delete-event", G_CALLBACK (Private::on_dialog_delete), this);
     g_signal_connect (this, "size-allocate", G_CALLBACK (Private::on_dialog_size_allocate), this);
     g_signal_connect (this, "response", G_CALLBACK (Private::on_dialog_response), this);
 

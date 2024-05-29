@@ -102,6 +102,9 @@ void GnomeCmdSelectionProfileComponent::Private::on_find_text_toggled(GtkToggleB
 
 static void combo_box_insert_text (const gchar *text, GtkComboBox *widget)
 {
+    if (text == nullptr || *text == '\0')
+        return;
+
     GtkTreeModel *store = gtk_combo_box_get_model (GTK_COMBO_BOX (widget));
 
     GtkTreeIter iter;
@@ -130,6 +133,7 @@ static void gnome_cmd_selection_profile_component_init (GnomeCmdSelectionProfile
     gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (component->priv->filter_type_combo), _("Path matches regex:"));
     gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (component->priv->filter_type_combo), _("Name contains:"));
     component->priv->pattern_combo = gtk_combo_box_new_with_model_and_entry (GTK_TREE_MODEL (gtk_list_store_new (1, G_TYPE_STRING)));
+    g_object_set (component->priv->pattern_combo, "entry-text-column", 0, nullptr);
     gtk_grid_attach (GTK_GRID (component->priv->grid), component->priv->filter_type_combo, 0, 0, 1, 1);
     gtk_widget_set_hexpand (component->priv->pattern_combo, TRUE);
     gtk_grid_attach (GTK_GRID (component->priv->grid), component->priv->pattern_combo, 1, 0, 1, 1);
@@ -157,6 +161,7 @@ static void gnome_cmd_selection_profile_component_init (GnomeCmdSelectionProfile
     gtk_grid_attach (GTK_GRID (component->priv->grid), component->priv->find_text_check, 0, 3, 1, 1);
 
     component->priv->find_text_combo = gtk_combo_box_new_with_model_and_entry (GTK_TREE_MODEL (gtk_list_store_new (1, G_TYPE_STRING)));
+    g_object_set (component->priv->find_text_combo, "entry-text-column", 0, nullptr);
     gtk_widget_set_hexpand (component->priv->find_text_combo, TRUE);
     gtk_grid_attach (GTK_GRID (component->priv->grid), component->priv->find_text_combo, 1, 3, 1, 1);
     gtk_widget_set_sensitive (component->priv->find_text_combo, FALSE);
