@@ -44,6 +44,9 @@ struct GnomeCmdCmdlinePrivate
 G_DEFINE_TYPE (GnomeCmdCmdline, gnome_cmd_cmdline, GTK_TYPE_BOX)
 
 
+static gboolean gnome_cmd_cmdline_keypressed (GnomeCmdCmdline *cmdline, GnomeCmdKeyPress *event);
+
+
 inline void update_history_combo (GnomeCmdCmdline *cmdline)
 {
     cmdline->priv->combo->clear();
@@ -108,9 +111,16 @@ static void on_exec (GnomeCmdCmdline *cmdline, gboolean term)
 }
 
 
-static gboolean on_key_pressed (GtkWidget *entry, GdkEventKey *event, GnomeCmdCmdline *cmdline)
+static gboolean on_key_pressed (GtkEventControllerKey *controller, guint keyval, guint keycode, GdkModifierType state, gpointer user_data)
 {
-    switch (event->keyval)
+    auto cmdline = static_cast<GnomeCmdCmdline*>(user_data);
+
+    GnomeCmdKeyPress event = { .keyval = keyval, .state = state };
+
+    if (gnome_cmd_cmdline_keypressed (cmdline, &event))
+        return TRUE;
+
+    switch (keyval)
     {
         case GDK_KEY_BackSpace:
         case GDK_KEY_space:
@@ -119,15 +129,11 @@ static gboolean on_key_pressed (GtkWidget *entry, GdkEventKey *event, GnomeCmdCm
         case GDK_KEY_Delete:
         case GDK_KEY_Left:
         case GDK_KEY_Right:
-            return gnome_cmd_cmdline_keypressed (cmdline, event);
+            return FALSE;
 
         default:
-            break;
+            return main_win->key_pressed(&event);
     }
-
-    GnomeCmdKeyPress key_press_event = { .keyval = event->keyval, .state = event->state };
-
-    return gnome_cmd_cmdline_keypressed (cmdline, event) || main_win->key_pressed(&key_press_event);
 }
 
 
@@ -198,7 +204,9 @@ static void gnome_cmd_cmdline_init (GnomeCmdCmdline *cmdline)
     gtk_editable_set_editable (GTK_EDITABLE (cmdline->priv->combo->get_entry()), TRUE);
     gtk_widget_set_can_focus (cmdline->priv->combo->get_entry(), TRUE);
 
-    g_signal_connect (cmdline->priv->combo->get_entry(), "key-press-event", G_CALLBACK (on_key_pressed), cmdline);
+    GtkEventController *key_controller = gtk_event_controller_key_new (cmdline->priv->combo->get_entry());
+    g_signal_connect (key_controller, "key-pressed", G_CALLBACK (on_key_pressed), cmdline);
+
     g_signal_connect (cmdline->priv->combo, "item-selected", G_CALLBACK (on_combo_item_selected), cmdline);
     g_signal_connect (cmdline->priv->combo, "popwin-hidden", G_CALLBACK (on_combo_popwin_hidden), cmdline);
 
@@ -342,10 +350,9 @@ void gnome_cmd_cmdline_set_history (GnomeCmdCmdline *cmdline, GList *history)
 }
 
 
-gboolean gnome_cmd_cmdline_keypressed (GnomeCmdCmdline *cmdline, GdkEventKey *event)
+static gboolean gnome_cmd_cmdline_keypressed (GnomeCmdCmdline *cmdline, GnomeCmdKeyPress *event)
 {
     g_return_val_if_fail (GNOME_CMD_IS_CMDLINE (cmdline), FALSE);
-    g_return_val_if_fail (event != nullptr, FALSE);
 
     if (state_is_ctrl (event->state))
     {
@@ -354,78 +361,50 @@ gboolean gnome_cmd_cmdline_keypressed (GnomeCmdCmdline *cmdline, GdkEventKey *ev
             case GDK_KEY_Down:
                 gnome_cmd_cmdline_show_history (cmdline);
                 return TRUE;
-
-            case GDK_KEY_Return:
-                event->string[0] = '\0';
-                return FALSE;
             default:
                 return FALSE;
         }
     }
-    else
+    else if (state_is_shift (event->state))
     {
-        if (state_is_shift (event->state))
+        switch (event->keyval)
         {
-            switch (event->keyval)
-            {
-                case GDK_KEY_Return:
-                    on_exec (cmdline, TRUE);
-                    event->keyval = GDK_KEY_Escape;
-                    return TRUE;
-                default:
-                    return FALSE;
-            }
-        }
-        else
-        {
-            if (state_is_ctrl_shift (event->state))
-            {
-                switch (event->keyval)
-                {
-                    case GDK_KEY_Return:
-                        event->string[0] = '\0';
-                        return FALSE;
-                    default:
-                        return FALSE;
-                }
-            }
-            else
-            {
-                if (state_is_blank (event->state))
-                {
-                    switch (event->keyval)
-                    {
-                        case GDK_KEY_Return:
-                            on_exec (cmdline, FALSE);
-                            event->keyval = GDK_KEY_Escape;
-                            return TRUE;
-
-                        case GDK_KEY_Escape:
-                            gnome_cmd_cmdline_set_text (cmdline, "");
-                            main_win->focus_file_lists();
-                            return TRUE;
-
-                        case GDK_KEY_Up:
-                        case GDK_KEY_Down:
-                            {
-                                gboolean ret;
-                                GdkEventKey event2 = *event;
-                                GnomeCmdFileSelector *fs = main_win->fs(ACTIVE);
-                                GtkWidget *file_list = *fs->file_list();
-
-                                gtk_widget_grab_focus (file_list);
-                                fs->set_active(TRUE);
-
-                                g_signal_emit_by_name (file_list, "key-press-event", &event2, &ret);
-                                event->keyval = 0;
-                            }
-                            return FALSE;
-                        default:
-                            return FALSE;
-                    }
-                }
-            }
+            case GDK_KEY_Return:
+                on_exec (cmdline, TRUE);
+                return TRUE;
+            default:
+                return FALSE;
         }
     }
+    else if (state_is_blank (event->state))
+    {
+        switch (event->keyval)
+        {
+            case GDK_KEY_Return:
+                on_exec (cmdline, FALSE);
+                return TRUE;
+
+            case GDK_KEY_Escape:
+                gnome_cmd_cmdline_set_text (cmdline, "");
+                main_win->focus_file_lists();
+                return TRUE;
+
+            case GDK_KEY_Up:
+            case GDK_KEY_Down:
+                {
+                    GnomeCmdFileSelector *fs = main_win->fs(ACTIVE);
+                    GnomeCmdFileList *file_list = fs->file_list();
+
+                    gtk_widget_grab_focus (GTK_WIDGET (file_list));
+                    fs->set_active(TRUE);
+
+                    file_list->key_pressed(event);
+                }
+                return TRUE;
+            default:
+                return FALSE;
+        }
+    }
+
     return FALSE;
 }
