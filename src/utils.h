@@ -140,8 +140,6 @@ const gchar *perm2numstring (guint32 permissions, gchar *buf, guint max);
 const gchar *size2string (guint64 size, GnomeCmdSizeDispMode size_disp_mode);
 const gchar *time2string (GDateTime *gDateTime, const gchar *date_format);
 
-void clear_event_key (GdkEventKey *event);
-
 inline GdkModifierType get_modifiers_state()
 {
     GdkWindow *window = gdk_window_at_pointer (nullptr, nullptr);

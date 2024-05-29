@@ -22,5 +22,4 @@
 #pragma once
 
 GdkPixbuf *pixbuf_from_file (const gchar *filepath, int width=-1, int height=-1);
-GdkPixbuf *pixbuf_from_icon (const gchar *icon_name, gint size, GtkIconLookupFlags flags=(GtkIconLookupFlags) 0);
 

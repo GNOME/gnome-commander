@@ -421,16 +421,6 @@ const gchar *time2string (GDateTime *gDateTime, const gchar *dateFormat)
 }
 
 
-void clear_event_key (GdkEventKey *event)
-{
-    g_return_if_fail (event != NULL);
-    g_return_if_fail (event->string != NULL);
-
-    event->keyval = GDK_KEY_VoidSymbol;
-    event->string[0] = '\0';
-}
-
-
 /**
  * Transform a "\r\n" separated string into a GList with GFiles's
  */
