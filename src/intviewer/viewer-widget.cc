@@ -59,7 +59,7 @@ struct GViewerPrivate
     ImageRender       *imgr;
     gboolean          img_initialized;
 
-    GtkWidget         *last_client;
+    GtkWidget         *stack;
 
     gchar             *filename;
     VIEWERDISPLAYMODE dispmode;
@@ -160,8 +160,12 @@ static void gviewer_init (GViewer *w)
     gtk_widget_show (priv->iscrollbox);
     g_object_ref (priv->iscrollbox);
 
-    priv->last_client = priv->tscrollbox;
-    gtk_grid_attach (GTK_GRID (w), GTK_WIDGET (priv->tscrollbox), 0, 0, 1, 1);
+    priv->stack = gtk_stack_new ();
+    gtk_stack_add_named (GTK_STACK (priv->stack), priv->tscrollbox, "text");
+    gtk_stack_add_named (GTK_STACK (priv->stack), priv->iscrollbox, "image");
+    gtk_stack_set_visible_child_name (GTK_STACK (priv->stack), "text");
+    gtk_widget_show (priv->stack);
+    gtk_grid_attach (GTK_GRID (w), GTK_WIDGET (priv->stack), 0, 0, 1, 1);
 
     g_signal_connect (priv->textr, "text-status-changed", G_CALLBACK (gviewer_text_status_update), w);
     g_signal_connect (priv->imgr, "image-status-changed", G_CALLBACK (gviewer_image_status_update), w);
@@ -326,62 +330,34 @@ void gviewer_set_display_mode(GViewer *obj, VIEWERDISPLAYMODE mode)
         image_render_load_file(priv->imgr, priv->filename);
     }
 
-    GtkWidget *client = NULL;
-
     priv->dispmode = mode;
     switch (mode)
     {
         case DISP_MODE_TEXT_FIXED:
-            client = priv->tscrollbox;
             text_render_set_display_mode (priv->textr, TextRender::DISPLAYMODE_TEXT);
+            gtk_stack_set_visible_child_name (GTK_STACK (priv->stack), "text");
+            text_render_notify_status_changed(priv->textr);
             break;
 
         case DISP_MODE_BINARY:
-            client = priv->tscrollbox;
             text_render_set_display_mode (priv->textr, TextRender::DISPLAYMODE_BINARY);
+            gtk_stack_set_visible_child_name (GTK_STACK (priv->stack), "text");
+            text_render_notify_status_changed(priv->textr);
             break;
 
         case DISP_MODE_HEXDUMP:
-            client = priv->tscrollbox;
             text_render_set_display_mode (priv->textr, TextRender::DISPLAYMODE_HEXDUMP);
+            gtk_stack_set_visible_child_name (GTK_STACK (priv->stack), "text");
+            text_render_notify_status_changed(priv->textr);
             break;
 
         case DISP_MODE_IMAGE:
-            client = priv->iscrollbox;
+            gtk_stack_set_visible_child_name (GTK_STACK (priv->stack), "image");
+            image_render_notify_status_changed(priv->imgr);
             break;
 
         default:
             break;
-    }
-
-    if (client != priv->last_client)
-    {
-        if (priv->last_client)
-            gtk_container_remove (GTK_CONTAINER(obj), priv->last_client);
-
-        gtk_widget_grab_focus (GTK_WIDGET (client));
-        gtk_widget_set_hexpand (client, TRUE);
-        gtk_widget_set_vexpand (client, TRUE);
-        gtk_grid_attach (GTK_GRID (obj), client, 0, 0, 1, 1);
-
-        switch (mode)
-        {
-            case DISP_MODE_TEXT_FIXED:
-            case DISP_MODE_BINARY:
-            case DISP_MODE_HEXDUMP:
-                text_render_notify_status_changed(priv->textr);
-                break;
-
-            case DISP_MODE_IMAGE:
-                image_render_notify_status_changed(priv->imgr);
-                break;
-
-            default:
-                break;
-        }
-
-        gtk_widget_show (client);
-        priv->last_client = client;
     }
 }
 
