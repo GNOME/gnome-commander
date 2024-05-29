@@ -348,7 +348,7 @@ static void on_main_win_realize (GtkWidget *widget, GnomeCmdMainWin *mw)
 }
 
 
-static gboolean on_left_fs_select (GnomeCmdFileList *list, GdkEventButton *event, GnomeCmdMainWin *mw)
+static gboolean on_left_fs_select (GnomeCmdFileList *list, GnomeCmdFileListButtonEvent *event, GnomeCmdMainWin *mw)
 {
     mw->priv->current_fs = LEFT;
 
@@ -359,7 +359,7 @@ static gboolean on_left_fs_select (GnomeCmdFileList *list, GdkEventButton *event
 }
 
 
-static gboolean on_right_fs_select (GnomeCmdFileList *list, GdkEventButton *event, GnomeCmdMainWin *mw)
+static gboolean on_right_fs_select (GnomeCmdFileList *list, GnomeCmdFileListButtonEvent *event, GnomeCmdMainWin *mw)
 {
     mw->priv->current_fs = RIGHT;
 
@@ -709,8 +709,8 @@ static void gnome_cmd_main_win_init (GnomeCmdMainWin *mw)
 
     g_signal_connect (mw->fs(LEFT)->file_list(), "resize-column", G_CALLBACK (on_fs_list_resize_column), mw->fs(RIGHT));
     g_signal_connect (mw->fs(RIGHT)->file_list(), "resize-column", G_CALLBACK (on_fs_list_resize_column), mw->fs(LEFT));
-    g_signal_connect (mw->fs(LEFT)->file_list(), "button-press-event", G_CALLBACK (on_left_fs_select), mw);
-    g_signal_connect (mw->fs(RIGHT)->file_list(), "button-press-event", G_CALLBACK (on_right_fs_select), mw);
+    g_signal_connect (mw->fs(LEFT)->file_list(), "list-clicked", G_CALLBACK (on_left_fs_select), mw);
+    g_signal_connect (mw->fs(RIGHT)->file_list(), "list-clicked", G_CALLBACK (on_right_fs_select), mw);
 
     g_signal_connect (gnome_cmd_con_list_get (), "list-changed", G_CALLBACK (on_con_list_list_changed), mw);
 
