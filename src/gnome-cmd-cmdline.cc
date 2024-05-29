@@ -150,59 +150,12 @@ static void on_combo_popwin_hidden (GnomeCmdCombo *combo, GnomeCmdCmdline *cmdli
 }
 
 
-static void on_switch_fs (GnomeCmdMainWin *mw, GnomeCmdFileSelector *fs, GnomeCmdCmdline *cmdline)
-{
-    g_return_if_fail (GNOME_CMD_IS_MAIN_WIN (mw));
-    g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
-    g_return_if_fail (GNOME_CMD_IS_CMDLINE (cmdline));
-
-    gchar *dpath = gnome_cmd_dir_get_display_path (fs->get_directory());
-    gnome_cmd_cmdline_set_dir (cmdline, dpath);
-    g_free (dpath);
-}
-
-
-static void on_fs_changed_dir (GnomeCmdFileSelector *fs, GnomeCmdDir *dir, GnomeCmdCmdline *cmdline)
-{
-    g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
-    g_return_if_fail (dir != nullptr);
-    g_return_if_fail (GNOME_CMD_IS_CMDLINE (cmdline));
-
-    if (fs != main_win->fs(ACTIVE))
-        return;
-
-    gchar *dpath = gnome_cmd_dir_get_display_path (dir);
-    gnome_cmd_cmdline_set_dir (cmdline, dpath);
-    g_free (dpath);
-}
-
-
 /*******************************
  * Gtk class implementation
  *******************************/
 
-static void destroy (GtkWidget *object)
-{
-    g_signal_handlers_disconnect_by_func (main_win, (gpointer) on_switch_fs, object);
-    g_signal_handlers_disconnect_by_func (main_win->fs(LEFT), (gpointer) on_fs_changed_dir, object);
-    g_signal_handlers_disconnect_by_func (main_win->fs(RIGHT), (gpointer) on_fs_changed_dir, object);
-
-    GTK_WIDGET_CLASS (gnome_cmd_cmdline_parent_class)->destroy (object);
-}
-
-
-static void map (GtkWidget *widget)
-{
-    GTK_WIDGET_CLASS (gnome_cmd_cmdline_parent_class)->map (widget);
-}
-
-
 static void gnome_cmd_cmdline_class_init (GnomeCmdCmdlineClass *klass)
 {
-    GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
-
-    widget_class->destroy = destroy;
-    widget_class->map = ::map;
 }
 
 
@@ -248,9 +201,6 @@ static void gnome_cmd_cmdline_init (GnomeCmdCmdline *cmdline)
     g_signal_connect (cmdline->priv->combo->get_entry(), "key-press-event", G_CALLBACK (on_key_pressed), cmdline);
     g_signal_connect (cmdline->priv->combo, "item-selected", G_CALLBACK (on_combo_item_selected), cmdline);
     g_signal_connect (cmdline->priv->combo, "popwin-hidden", G_CALLBACK (on_combo_popwin_hidden), cmdline);
-    g_signal_connect_after (main_win, "switch-fs", G_CALLBACK (on_switch_fs), cmdline);
-    g_signal_connect (main_win->fs(LEFT), "dir-changed", G_CALLBACK (on_fs_changed_dir), cmdline);
-    g_signal_connect (main_win->fs(RIGHT), "dir-changed", G_CALLBACK (on_fs_changed_dir), cmdline);
 
     gnome_cmd_cmdline_update_style (cmdline);
 }
@@ -259,14 +209,14 @@ static void gnome_cmd_cmdline_init (GnomeCmdCmdline *cmdline)
  * Public functions
  ***********************************/
 
-GtkWidget *gnome_cmd_cmdline_new ()
+GnomeCmdCmdline *gnome_cmd_cmdline_new ()
 {
     auto *cmdline = static_cast<GnomeCmdCmdline *> (g_object_new (GNOME_CMD_TYPE_CMDLINE, nullptr));
 
     gnome_cmd_cmdline_set_history (cmdline, gnome_cmd_data.cmdline_history);
     update_history_combo (cmdline);
 
-    return GTK_WIDGET (cmdline);
+    return cmdline;
 }
 
 
