@@ -188,7 +188,7 @@ struct GnomeCmdFileList::Private
     gboolean right_mb_sel_state;
     guint right_mb_timeout_id;
     GtkWidget *selpat_dialog;
-    GtkWidget *quicksearch_popup;
+    GWeakRef quicksearch_popup;
     gchar *focus_later;
 
     GnomeCmdCon *con_opening;
@@ -211,7 +211,7 @@ GnomeCmdFileList::Private::Private(GnomeCmdFileList *fl)
 
     column_resizing = 0;
 
-    quicksearch_popup = nullptr;
+    quicksearch_popup = { { nullptr } };
     selpat_dialog = nullptr;
 
     focus_later = nullptr;
@@ -658,12 +658,6 @@ void GnomeCmdFileList::focus_file_at_row (GtkTreeIter *row)
     GtkTreePath *path = gtk_tree_model_get_path (GTK_TREE_MODEL (priv->store), row);
     gtk_tree_view_set_cursor (*this, path, nullptr, false);
     gtk_tree_path_free (path);
-}
-
-
-static void on_quicksearch_popup_hide (GtkWidget *quicksearch_popup, GnomeCmdFileList *fl)
-{
-    fl->priv->quicksearch_popup = nullptr;
 }
 
 
@@ -2713,23 +2707,26 @@ gboolean gnome_cmd_file_list_quicksearch_shown (GnomeCmdFileList *fl)
     g_return_val_if_fail (GNOME_CMD_IS_FILE_LIST (fl), FALSE);
     g_return_val_if_fail (fl->priv!=nullptr, FALSE);
 
-    return fl->priv->quicksearch_popup!=nullptr;
+    auto quicksearch_popup = g_weak_ref_get (&fl->priv->quicksearch_popup);
+    if (quicksearch_popup == nullptr)
+        return FALSE;
+
+    gboolean shown = gtk_widget_get_visible (GTK_WIDGET (quicksearch_popup));
+    g_object_unref (quicksearch_popup);
+    return shown;
 }
 
 
 void gnome_cmd_file_list_show_quicksearch (GnomeCmdFileList *fl, gchar c)
 {
-    if (fl->priv->quicksearch_popup)
+    if (gnome_cmd_file_list_quicksearch_shown (fl))
         return;
 
-    fl->priv->quicksearch_popup = gnome_cmd_quicksearch_popup_new (fl);
-    g_object_ref (fl->priv->quicksearch_popup);
-    gtk_widget_show (fl->priv->quicksearch_popup);
+    auto popup = gnome_cmd_quicksearch_popup_new (fl);
+    g_weak_ref_set (&fl->priv->quicksearch_popup, g_object_ref (popup));
+    gtk_popover_popup (GTK_POPOVER (popup));
 
-    GnomeCmdQuicksearchPopup *popup = GNOME_CMD_QUICKSEARCH_POPUP (fl->priv->quicksearch_popup);
-    gnome_cmd_quicksearch_popup_set_char (popup, c);
-
-    g_signal_connect (fl->priv->quicksearch_popup, "hide", G_CALLBACK (on_quicksearch_popup_hide), fl);
+    gnome_cmd_quicksearch_popup_set_char (GNOME_CMD_QUICKSEARCH_POPUP (popup), c);
 }
 
 

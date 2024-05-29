@@ -119,7 +119,7 @@ inline void hide_popup (GnomeCmdQuicksearchPopup *popup)
     if (priv->matches)
         g_list_free (priv->matches);
     priv->last_focused_file = nullptr;
-    gtk_widget_hide (GTK_WIDGET (popup));
+    gtk_popover_popdown (GTK_POPOVER (popup));
 }
 
 
@@ -134,22 +134,43 @@ static void on_text_changed (GtkEntry *entry, GnomeCmdQuicksearchPopup *popup)
 }
 
 
-static gboolean on_key_pressed (GtkWidget *entry, GdkEventKey *event, GnomeCmdQuicksearchPopup *popup)
+static gboolean on_key_pressed (GtkEventControllerKey *controller, guint keyval, guint keycode, GdkModifierType state, gpointer user_data)
 {
-    GnomeCmdKeyPress key_press_event = { .keyval = event->keyval, .state = event->state };
-
-    if (event->type == GDK_KEY_PRESS && gtk_editable_get_editable (GTK_EDITABLE (entry)))
-        if (gtk_entry_im_context_filter_keypress (GTK_ENTRY (entry), event))
-            return TRUE;
+    auto popup = static_cast<GnomeCmdQuicksearchPopup*> (user_data);
+    auto priv = static_cast<GnomeCmdQuicksearchPopupPrivate *> (gnome_cmd_quicksearch_popup_get_instance_private (popup));
 
     // While in quicksearch, treat "ALT/CTRL + key" as a simple "key"
-    event->state &= ~(GDK_CONTROL_MASK | GDK_MOD1_MASK);
+    GnomeCmdKeyPress event = { .keyval = keyval, .state = state };
 
-    switch (event->keyval)
+    switch (event.keyval)
     {
         case GDK_KEY_Escape:
             // popup->priv->fl->select_row(GNOME_CMD_FILE_LIST (popup->priv->fl)->drag_motion_row);
             hide_popup (popup);
+            return TRUE;
+
+        case GDK_KEY_Up:
+            if (priv->pos)
+            {
+                if (priv->pos->prev)
+                    priv->pos = priv->pos->prev;
+                else
+                    priv->pos = g_list_last (priv->matches);
+            }
+            if (priv->pos)
+                focus_file (popup, GNOME_CMD_FILE (priv->pos->data));
+            return TRUE;
+
+        case GDK_KEY_Down:
+            if (priv->pos)
+            {
+                if (priv->pos->next)
+                    priv->pos = priv->pos->next;
+                else
+                    priv->pos = priv->matches;
+            }
+            if (priv->pos)
+                focus_file (popup, GNOME_CMD_FILE (priv->pos->data));
             return TRUE;
 
         // for more convenience do ENTER action directly on the current quicksearch item
@@ -164,7 +185,7 @@ static gboolean on_key_pressed (GtkWidget *entry, GdkEventKey *event, GnomeCmdQu
         case GDK_KEY_F8:
             // popup->priv->fl->select_row(GNOME_CMD_FILE_LIST (popup->priv->fl)->drag_motion_row);
             hide_popup (popup);
-            main_win->key_pressed(&key_press_event);
+            main_win->key_pressed(&event);
             return TRUE;
 
         default:
@@ -175,88 +196,8 @@ static gboolean on_key_pressed (GtkWidget *entry, GdkEventKey *event, GnomeCmdQu
 }
 
 
-static gboolean on_key_pressed_after (GtkWidget *entry, GdkEventKey *event, GnomeCmdQuicksearchPopup *popup)
-{
-    auto priv = static_cast<GnomeCmdQuicksearchPopupPrivate *> (gnome_cmd_quicksearch_popup_get_instance_private (popup));
-
-    switch (event->keyval)
-    {
-        case GDK_KEY_Up:
-            {
-                if (priv->pos)
-                {
-                    if (priv->pos->prev)
-                        priv->pos = priv->pos->prev;
-                    else
-                        priv->pos = g_list_last (priv->matches);
-                }
-            }
-            break;
-
-        case GDK_KEY_Down:
-            {
-                if (priv->pos)
-                {
-                    if (priv->pos->next)
-                        priv->pos = priv->pos->next;
-                    else
-                        priv->pos = priv->matches;
-                }
-            }
-            break;
-
-        default:
-            break;
-    }
-
-    if (priv->pos)
-        focus_file (popup, GNOME_CMD_FILE (priv->pos->data));
-
-    return TRUE;
-}
-
-
-static void on_button_press (GtkWidget *entry, GdkEventButton *event, GnomeCmdQuicksearchPopup *popup)
-{
-    auto priv = static_cast<GnomeCmdQuicksearchPopupPrivate *> (gnome_cmd_quicksearch_popup_get_instance_private (popup));
-
-    gboolean ret;
-
-    hide_popup (popup);
-
-    g_signal_emit_by_name (priv->fl, "button-press-event", event, &ret);
-}
-
-
-static GObject *constructor (GType gtype, guint n_properties, GObjectConstructParam *properties)
-{
-    // change construct only properties
-    for (guint i = 0; i < n_properties; ++i)
-    {
-        gchar const *name = g_param_spec_get_name (properties[i].pspec);
-        if (!strcmp (name, "type"))
-        {
-            g_value_set_enum (properties[i].value, GTK_WINDOW_POPUP);
-            break;
-        }
-    }
-
-    return G_OBJECT_CLASS (gnome_cmd_quicksearch_popup_parent_class)->constructor (gtype, n_properties, properties);
-}
-
-static void map (GtkWidget *widget)
-{
-    GTK_WIDGET_CLASS (gnome_cmd_quicksearch_popup_parent_class)->map (widget);
-}
-
-
 static void gnome_cmd_quicksearch_popup_class_init (GnomeCmdQuicksearchPopupClass *klass)
 {
-    GObjectClass *gobject_class = G_OBJECT_CLASS (klass);
-    GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
-
-    gobject_class->constructor = constructor;
-    widget_class->map = ::map;
 }
 
 
@@ -264,7 +205,7 @@ static void gnome_cmd_quicksearch_popup_init (GnomeCmdQuicksearchPopup *popup)
 {
     auto priv = static_cast<GnomeCmdQuicksearchPopupPrivate *> (gnome_cmd_quicksearch_popup_get_instance_private (popup));
 
-    GtkWidget *box = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 2);
+    GtkWidget *box = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 6);
     GtkWidget *lbl = gtk_label_new (_("Search"));
     priv->entry = gtk_entry_new ();
 
@@ -272,12 +213,12 @@ static void gnome_cmd_quicksearch_popup_init (GnomeCmdQuicksearchPopup *popup)
     gtk_box_append (GTK_BOX (box), priv->entry);
     gtk_container_add (GTK_CONTAINER (popup), box);
 
-    g_signal_connect (priv->entry, "key-press-event", G_CALLBACK (on_key_pressed), popup);
-    g_signal_connect_after (priv->entry, "key-press-event", G_CALLBACK (on_key_pressed_after), popup);
-    g_signal_connect_after (priv->entry, "changed", G_CALLBACK (on_text_changed), popup);
-    g_signal_connect (priv->entry, "button-press-event", G_CALLBACK (on_button_press), popup);
+    GtkEventController *key_controller = gtk_event_controller_key_new (priv->entry);
+    g_signal_connect (key_controller, "key-pressed", G_CALLBACK (on_key_pressed), popup);
 
-    gtk_widget_show_all (GTK_WIDGET (popup));
+    g_signal_connect_after (priv->entry, "changed", G_CALLBACK (on_text_changed), popup);
+
+    gtk_widget_show_all (box);
 }
 
 /***********************************
