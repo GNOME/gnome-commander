@@ -27,11 +27,6 @@
 using namespace std;
 
 
-#define CALL_PARENT(parent_class_cast, parent, name, args)               \
-        ((parent_class_cast(parent##_parent_class)->name != nullptr) ?      \
-                 parent_class_cast(parent##_parent_class)->name args : (void)0)
-
-
 struct GnomeCmdAboutPluginPrivate
 {
     gchar *name;
@@ -48,7 +43,7 @@ struct GnomeCmdAboutPluginPrivate
     GtkWidget *comments_label;
     GtkWidget *copyright_label;
 
-    GtkWidget *credits_dialog;
+    GWeakRef credits_dialog;
     GtkWidget *web_button;
 };
 
@@ -71,7 +66,6 @@ static void gnome_cmd_about_plugin_finalize (GObject *object);
 static void gnome_cmd_about_plugin_get_property (GObject *object, guint prop_id, GValue *value, GParamSpec *pspec);
 static void gnome_cmd_about_plugin_set_property (GObject *object, guint prop_id, const GValue *value, GParamSpec *pspec);
 
-//GNOME_CLASS_BOILERPLATE (GnomeCmdAboutPlugin, gnome_cmd_about_plugin, GtkDialog, (GTypeFlags) GTK_TYPE_DIALOG)
 G_DEFINE_TYPE (GnomeCmdAboutPlugin, gnome_cmd_about_plugin, GTK_TYPE_DIALOG)
 
 static void gnome_cmd_about_plugin_update_authors_label (GnomeCmdAboutPlugin *about, GtkWidget *label)
@@ -174,9 +168,10 @@ static void gnome_cmd_about_plugin_display_credits_dialog (GnomeCmdAboutPlugin *
 {
     GtkWidget *dialog, *label, *notebook, *sw;
 
-    if (about->priv->credits_dialog != nullptr)
+    dialog = GTK_WIDGET (g_weak_ref_get (&about->priv->credits_dialog));
+    if (dialog != nullptr)
     {
-        gtk_window_present (GTK_WINDOW (about->priv->credits_dialog));
+        gtk_window_present (GTK_WINDOW (dialog));
         return;
     }
 
@@ -185,7 +180,7 @@ static void gnome_cmd_about_plugin_display_credits_dialog (GnomeCmdAboutPlugin *
                           GTK_DIALOG_DESTROY_WITH_PARENT,
                           _("_Close"), GTK_RESPONSE_CLOSE,
                           nullptr);
-    about->priv->credits_dialog = dialog;
+    g_weak_ref_set (&about->priv->credits_dialog, dialog);
     gtk_window_set_default_size (GTK_WINDOW (dialog), 360, 260);
     gtk_dialog_set_default_response (GTK_DIALOG (dialog), GTK_RESPONSE_CLOSE);
 
@@ -198,7 +193,6 @@ static void gnome_cmd_about_plugin_display_credits_dialog (GnomeCmdAboutPlugin *
     gtk_box_set_spacing (GTK_BOX (content_area), 6);
 
     g_signal_connect (dialog, "response", G_CALLBACK (gtk_window_destroy), dialog);
-    g_signal_connect (dialog, "destroy", G_CALLBACK (gtk_widget_destroyed), &(about->priv->credits_dialog));
 
     notebook = gtk_notebook_new ();
     gtk_widget_set_vexpand (notebook, TRUE);
@@ -276,7 +270,7 @@ static void gnome_cmd_about_plugin_init (GnomeCmdAboutPlugin *about)
     GtkWidget *content_area = gtk_dialog_get_content_area (GTK_DIALOG (about));
 
     gtk_widget_set_margin_top (content_area, 10);
-    gtk_widget_set_margin_bottom (content_area, 10);
+    // gtk_widget_set_margin_bottom (content_area, 10);
     gtk_widget_set_margin_start (content_area, 10);
     gtk_widget_set_margin_end (content_area, 10);
     gtk_box_set_spacing (GTK_BOX (content_area), 8);
@@ -306,51 +300,41 @@ static void gnome_cmd_about_plugin_init (GnomeCmdAboutPlugin *about)
 
     gtk_box_append (GTK_BOX (content_area), priv->web_button);
 
-    gtk_widget_show (content_area);
-
-    // Add the close button
-    gtk_dialog_add_button (GTK_DIALOG (about), _("_Close"), GTK_RESPONSE_CLOSE);
-    gtk_dialog_set_default_response (GTK_DIALOG (about), GTK_RESPONSE_CLOSE);
+    GtkWidget *bbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 6);
+    GtkSizeGroup *size_group = gtk_size_group_new (GTK_SIZE_GROUP_BOTH);
 
     // Add the credits button
     button = gtk_button_new_with_mnemonic (_("C_redits"));
-    gtk_widget_show (button);
+    g_signal_connect_swapped (button, "clicked", G_CALLBACK (gnome_cmd_about_plugin_display_credits_dialog), about);
+    gtk_size_group_add_widget (size_group, button);
+    gtk_widget_set_hexpand (button, TRUE);
+    gtk_widget_set_halign (button, GTK_ALIGN_START);
+    gtk_box_append (GTK_BOX (bbox), button);
 
-    gtk_dialog_add_action_widget (GTK_DIALOG (about), button, GNOME_RESPONSE_CREDITS);
-    gtk_button_box_set_child_secondary (GTK_BUTTON_BOX (gtk_dialog_get_action_area (GTK_DIALOG (about))), button, TRUE);
+    // Add the close button
+    button = gtk_button_new_with_mnemonic (_("_Close"));
+    g_signal_connect_swapped (button, "clicked", G_CALLBACK (gtk_window_destroy), about);
+    gtk_size_group_add_widget (size_group, button);
+    gtk_box_append (GTK_BOX (bbox), button);
+
+    gtk_box_append (GTK_BOX (content_area), bbox);
 
     gtk_window_set_resizable (GTK_WINDOW (about), FALSE);
 
-    priv->credits_dialog = nullptr;
-}
+    gtk_widget_show_all (content_area);
 
-
-static void gnome_cmd_about_plugin_response (GtkDialog *dialog, gint response)
-{
-    switch (response)
-    {
-        case GNOME_RESPONSE_CREDITS:
-            gnome_cmd_about_plugin_display_credits_dialog (GNOME_CMD_ABOUT_PLUGIN (dialog));
-            break;
-
-        default:
-            gtk_window_destroy (GTK_WINDOW (dialog));
-            break;
-    }
+    priv->credits_dialog = { { nullptr } };
 }
 
 
 static void gnome_cmd_about_plugin_class_init (GnomeCmdAboutPluginClass *klass)
 {
     GObjectClass *object_class = (GObjectClass *) klass;
-    GtkDialogClass *dialog_class = (GtkDialogClass *) klass;
 
     object_class->set_property = gnome_cmd_about_plugin_set_property;
     object_class->get_property = gnome_cmd_about_plugin_get_property;
 
     object_class->finalize = gnome_cmd_about_plugin_finalize;
-
-    dialog_class->response = gnome_cmd_about_plugin_response;
 
     g_object_class_install_property (object_class,
                      PROP_NAME,
@@ -526,16 +510,6 @@ static void gnome_cmd_about_plugin_set_name (GnomeCmdAboutPlugin *about, const g
 }
 
 
-inline void gnome_cmd_about_plugin_free_person_list (GSList *list)
-{
-    if (list == nullptr)
-        return;
-
-    g_slist_foreach (list, (GFunc) g_free, nullptr);
-    g_slist_free (list);
-}
-
-
 static void gnome_cmd_about_plugin_finalize (GObject *object)
 {
     GnomeCmdAboutPlugin *about = GNOME_CMD_ABOUT_PLUGIN (object);
@@ -545,8 +519,8 @@ static void gnome_cmd_about_plugin_finalize (GObject *object)
     g_free (about->priv->copyright);
     g_free (about->priv->comments);
 
-    gnome_cmd_about_plugin_free_person_list (about->priv->authors);
-    gnome_cmd_about_plugin_free_person_list (about->priv->documenters);
+    g_clear_slist (&about->priv->authors, g_free);
+    g_clear_slist (&about->priv->documenters, g_free);
 
     g_free (about->priv->translator_credits);
     g_free (about->priv->webpage);
@@ -554,35 +528,31 @@ static void gnome_cmd_about_plugin_finalize (GObject *object)
     g_free (about->priv);
     about->priv = nullptr;
 
-    CALL_PARENT (G_OBJECT_CLASS, gnome_cmd_about_plugin, finalize, (object));
+    G_OBJECT_CLASS (gnome_cmd_about_plugin_parent_class)->finalize (object);
 }
 
 
 static void gnome_cmd_about_plugin_set_persons (GnomeCmdAboutPlugin *about, guint prop_id, const GValue *persons)
 {
-    GSList *list = nullptr;
-
     // Free the old list
     switch (prop_id)
     {
         case PROP_AUTHORS:
-            list = about->priv->authors;
+            g_clear_slist (&about->priv->authors, g_free);
             break;
         case PROP_DOCUMENTERS:
-            list = about->priv->documenters;
+            g_clear_slist (&about->priv->documenters, g_free);
             break;
         default:
             g_assert_not_reached ();
     }
-
-    gnome_cmd_about_plugin_free_person_list (list);
-    list = nullptr;
 
     GValueArray *value_array = (GValueArray *) g_value_get_boxed (persons);
 
     if (!value_array)
         return;
 
+    GSList *list = nullptr;
     for (guint i = 0; i < value_array->n_values; i++)
         list = g_slist_prepend (list, g_value_dup_string (&value_array->values[i]));
 

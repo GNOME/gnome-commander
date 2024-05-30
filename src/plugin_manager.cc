@@ -376,8 +376,7 @@ static void on_about (GtkButton *button, GtkWidget *dialog)
     GtkWidget *about = gnome_cmd_about_plugin_new (data->info);
 
     gtk_window_set_transient_for (GTK_WINDOW (about), *main_win);
-    g_object_ref (about);
-    gtk_widget_show (about);
+    gtk_window_present (GTK_WINDOW (about));
 }
 
 
