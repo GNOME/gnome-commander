@@ -951,7 +951,7 @@ void store_layout_options (GtkWidget *dialog, GnomeCmdData::Options &cfg)
 
     cfg.use_ls_colors = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (use_ls));
 
-    const gchar *list_font = gtk_font_button_get_font_name (GTK_FONT_BUTTON (list_font_picker));
+    const gchar *list_font = gtk_font_chooser_get_font (GTK_FONT_CHOOSER (list_font_picker));
     cfg.set_list_font (list_font);
 
     if (GFile *icondir = directory_chooser_button_get_file (theme_icondir_chooser))

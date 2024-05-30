@@ -901,15 +901,14 @@ static void text_render_free_font(TextRender*w)
 }
 
 
-static PangoFontMetrics *load_font (const char *font_name)
+static PangoFontMetrics *load_font (TextRender* w, const char *font_name)
 {
     PangoFontDescription *new_desc = pango_font_description_from_string (font_name);
-    PangoContext *context = gdk_pango_context_get ();
+    PangoContext *context = gtk_widget_get_pango_context (GTK_WIDGET (w));
     PangoFont *new_font = pango_context_load_font (context, new_desc);
     PangoFontMetrics *new_metrics = pango_font_get_metrics (new_font, pango_context_get_language (context));
 
     pango_font_description_free (new_desc);
-    g_object_unref (context);
     g_object_unref (new_font);
 
     return new_metrics;
@@ -996,7 +995,7 @@ static void text_render_setup_font(TextRender*w, const gchar *fontname, gint fon
 
     gchar *fontlabel = g_strdup_printf ("%s %d", fontname, fontsize);
 
-    priv->disp_font_metrics = load_font (fontlabel);
+    priv->disp_font_metrics = load_font (w, fontlabel);
     priv->font_desc = pango_font_description_from_string (fontlabel);
 
     priv->char_width = get_max_char_width(GTK_WIDGET (w),
