@@ -36,34 +36,14 @@
 #define FLIP_HORIZONTAL_STOCKID        "gnome-commander-flip-horizontal"
 
 #define OVERLAY_UMOUNT_ICON            "overlay_umount"
+#define OVERLAY_SYMLINK_ICON           "overlay_symlink"
 
 #include "gnome-cmd-pixmap.h"
-
-/**
- * If you add a pixmap id here be sure to add its filename in
- * the array in imageloader.c
- */
-enum Pixmap
-{
-    PIXMAP_NONE,
-
-    PIXMAP_FLIST_ARROW_UP,
-    PIXMAP_FLIST_ARROW_DOWN,
-    PIXMAP_OVERLAY_SYMLINK,
-    PIXMAP_OVERLAY_UMOUNT,
-
-    NUM_PIXBUFS
-};
-
 
 void IMAGE_init ();
 void IMAGE_free ();
 
-GdkPixbuf *IMAGE_get_pixbuf (Pixmap pixmap_id);
-
-GdkPixbuf *IMAGE_get_pixmap_and_mask (guint32 type,
-                                      const gchar *mime_type,
-                                      gboolean symlink);
+GIcon *IMAGE_get_file_icon (guint32 type, const gchar *mime_type, gboolean symlink);
 
 void IMAGE_clear_mime_cache ();
 

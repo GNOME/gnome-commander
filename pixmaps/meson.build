@@ -3,10 +3,6 @@ subdir('file-type-icons')
 subdir('mime-icons')
 
 pixmaps = [
-  'exec_wheel.xpm',
-  'gnome_cmd_arrow_down.xpm',
-  'gnome_cmd_arrow_up.xpm',
-  'gnome-commander.svg',
   'overlay_symlink.xpm',
   'overlay_umount.xpm',
   'pin.png',
@@ -23,6 +19,7 @@ icons_16x16 = [
   'gnome-commander-rotate-90.xpm',
   'gnome-commander-flip-horizontal.xpm',
   'gnome-commander-flip-vertical.xpm',
+  'overlay_symlink.xpm',
   'overlay_umount.xpm',
   'gnome-commander-copy-file-names.xpm',
 ]

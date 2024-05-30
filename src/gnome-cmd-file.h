@@ -87,7 +87,7 @@ struct GnomeCmdFile
     GnomeCmdDir *get_parent_dir();
 
     const gchar *get_type_string();
-    GdkPixbuf *get_type_pixbuf();
+    GIcon *get_type_icon();
 
     gboolean chmod(guint32 permissions, GError **error);
     gboolean chown(uid_t uid, gid_t gid, GError **error);
