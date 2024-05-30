@@ -59,7 +59,6 @@ static const gchar *pixmap_files[NUM_PIXBUFS] = {"",
 
                                                  "gnome-commander.svg",
                                                  "exec_wheel.xpm",
-                                                 "menu_bookmark.xpm",
 
                                                  "overlay_symlink.xpm",
                                                  "overlay_umount.xpm",

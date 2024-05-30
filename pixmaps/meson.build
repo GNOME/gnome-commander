@@ -9,7 +9,6 @@ pixmaps = [
   'gnome_cmd_arrow_up.xpm',
   'gnome-commander.svg',
   'internal-viewer.svg',
-  'menu_bookmark.xpm',
   'overlay_symlink.xpm',
   'overlay_umount.xpm',
   'pin.png',
@@ -27,7 +26,6 @@ icons_16x16 = [
   'gnome-commander-flip-horizontal.xpm',
   'gnome-commander-flip-vertical.xpm',
   'overlay_umount.xpm',
-  'menu_bookmark.xpm',
   'gnome-commander-copy-file-names.xpm',
 ]
 
@@ -38,6 +36,7 @@ icons_24x24 = [
 
 icons_scalable = [
   'gnome-commander-down-symbolic.svg',
+  'gnome-commander-bookmark-outline-symbolic.svg',
   'gnome-commander-info-outline-symbolic.svg',
 ]
 
