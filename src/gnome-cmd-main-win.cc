@@ -344,7 +344,7 @@ static void on_main_win_realize (GtkWidget *widget, GnomeCmdMainWin *mw)
         // g_free (dpath);
     // }
 
-    gtk_window_set_icon (GTK_WINDOW (mw), IMAGE_get_pixbuf (PIXMAP_LOGO));
+    gtk_window_set_icon_name (GTK_WINDOW (mw), "gnome-commander");
 }
 
 

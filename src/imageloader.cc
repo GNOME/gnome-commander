@@ -55,15 +55,8 @@ static const gchar *file_type_pixmap_files[] = {
 static const gchar *pixmap_files[NUM_PIXBUFS] = {"",
                                                  "gnome_cmd_arrow_up.xpm",
                                                  "gnome_cmd_arrow_down.xpm",
-                                                 "gnome_cmd_arrow_blank.xpm",
-
-                                                 "gnome-commander.svg",
-                                                 "exec_wheel.xpm",
-
                                                  "overlay_symlink.xpm",
-                                                 "overlay_umount.xpm",
-
-                                                 "internal-viewer.svg"};
+                                                 "overlay_umount.xpm"};
 
 
 static const gchar *categories[][2] = {{"text", "gnome-text-plain.png"},
