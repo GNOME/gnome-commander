@@ -39,6 +39,9 @@ using namespace std;
 #define GNOME_CMD_IS_KEY_SHORTCUTS_DIALOG(obj)       (G_TYPE_CHECK_INSTANCE_TYPE ((obj), GNOME_CMD_TYPE_KEY_SHORTCUTS_DIALOG)
 
 
+GType gnome_cmd_key_shortcuts_dialog_get_type ();
+
+
 GtkTreeViewColumn *create_new_accel_column (GtkTreeView *view, GtkCellRenderer *&renderer, gint COL_KEYS_ID, gint COL_MODS_ID, const gchar *title);
 GtkTreeViewColumn *create_new_combo_column (GtkTreeView *view, GtkTreeModel *model, GtkCellRenderer *&renderer, gint COL_ID, const gchar *title);
 gboolean conflict_confirm (GtkWidget *view, const gchar *action, guint accel_key, GdkModifierType accel_mask);
@@ -76,14 +79,8 @@ GnomeCmdKeyShortcutsDialogPrivate::GnomeCmdKeyShortcutsDialogPrivate()
 GnomeCmdUserActions *GnomeCmdKeyShortcutsDialog::user_actions = NULL;
 
 
-#if defined (__GNUC__)
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wmissing-declarations"
-#endif
 G_DEFINE_TYPE (GnomeCmdKeyShortcutsDialog, gnome_cmd_key_shortcuts_dialog, GTK_TYPE_DIALOG)
-#if defined (__GNUC__)
-#pragma GCC diagnostic pop
-#endif
+
 
 static void gnome_cmd_key_shortcuts_dialog_finalize (GObject *object)
 {
