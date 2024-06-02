@@ -66,7 +66,6 @@ src/intviewer/datapresentation.cc
 src/intviewer/fileops.cc
 src/intviewer/image-render.cc
 src/intviewer/inputmodes.cc
-src/intviewer/scroll-box.cc
 src/intviewer/search-dlg.cc
 src/intviewer/search-progress-dlg.cc
 src/intviewer/text-render.cc
