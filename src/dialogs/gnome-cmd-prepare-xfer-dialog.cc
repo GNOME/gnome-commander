@@ -295,9 +295,11 @@ static void on_cancel (GtkButton *button, gpointer user_data)
 }
 
 
-static gboolean on_dest_dir_entry_keypressed (GtkEntry *entry, GdkEventKey *event, GnomeCmdPrepareXferDialog *dialog)
+static gboolean on_dest_dir_entry_keypressed (GtkEventControllerKey *controller, guint keyval, guint keycode, GdkModifierType state, gpointer user_data)
 {
-    switch (event->keyval)
+    auto dialog = static_cast<GnomeCmdPrepareXferDialog*>(user_data);
+
+    switch (keyval)
     {
         case GDK_KEY_Return:
         case GDK_KEY_KP_Enter:
@@ -352,7 +354,8 @@ static void gnome_cmd_prepare_xfer_dialog_init (GnomeCmdPrepareXferDialog *dialo
 
     gtk_widget_show_all (dialog->dest_dir_entry);
 
-    g_signal_connect (dialog->dest_dir_entry, "key-press-event", G_CALLBACK (on_dest_dir_entry_keypressed), dialog);
+    GtkEventController *key_controller = gtk_event_controller_key_new (dialog->dest_dir_entry);
+    g_signal_connect (key_controller, "key-pressed", G_CALLBACK (on_dest_dir_entry_keypressed), dialog);
 
     // options
     GtkWidget *options_hbox = create_hbox (GTK_WIDGET (dialog), TRUE, 6);

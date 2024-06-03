@@ -101,69 +101,10 @@ struct GnomeCmdMainWin::Private
     GtkWidget *buttonbar_sep;
 
     GtkWidget *tb_con_drop_btn;
-
-    guint key_snooper_id;
 };
 
 
 G_DEFINE_TYPE (GnomeCmdMainWin, gnome_cmd_main_win, GTK_TYPE_APPLICATION_WINDOW)
-
-
-static gint gnome_cmd_key_snooper(GtkWidget *grab_widget, GdkEventKey *event, GnomeCmdMainWin *mw)
-{
-    g_return_val_if_fail (mw!=NULL, FALSE);
-
-    if (event->type!=GDK_KEY_PRESS)
-    {
-        return FALSE;
-    }
-
-    if (!((event->keyval >= GDK_KEY_A && event->keyval <= GDK_KEY_Z) || (event->keyval >= GDK_KEY_a && event->keyval <= GDK_KEY_z) ||
-          (event->keyval >= GDK_KEY_0 && event->keyval <= GDK_KEY_9) ||
-          event->keyval == GDK_KEY_period || event->keyval == GDK_KEY_question || event->keyval == GDK_KEY_asterisk || event->keyval == GDK_KEY_bracketleft))
-    {
-        return FALSE;
-    }
-
-    if (gnome_cmd_data.options.quick_search == GNOME_CMD_QUICK_SEARCH_CTRL_ALT)
-    {
-        return FALSE;
-    }
-
-    if ((gnome_cmd_data.options.quick_search == GNOME_CMD_QUICK_SEARCH_ALT)
-        && (!state_is_alt (event->state) && !state_is_alt_shift (event->state)))
-    {
-        return FALSE;
-    }
-
-    if ((gnome_cmd_data.options.quick_search == GNOME_CMD_QUICK_SEARCH_JUST_A_CHARACTER) &&
-        (state_is_ctrl (event->state) || state_is_ctrl_shift (event->state) || state_is_ctrl_alt_shift (event->state)
-        || (state_is_alt (event->state) || state_is_alt_shift (event->state))
-        || (state_is_ctrl_alt(event->state))))
-    {
-        return FALSE;
-    }
-
-    GnomeCmdFileSelector *fs = mw->fs(ACTIVE);
-    if (!fs || !fs->file_list())
-    {
-        return FALSE;
-    }
-
-    if (!gtk_widget_has_focus (GTK_WIDGET (fs->file_list())))
-    {
-        return FALSE;
-    }
-
-    if (gnome_cmd_file_list_quicksearch_shown (fs->file_list()))
-    {
-        return FALSE;
-    }
-
-    gnome_cmd_file_list_show_quicksearch (fs->file_list(), event->keyval);
-
-    return TRUE;
-}
 
 
 inline GtkWidget *add_buttonbar_button (char *label,
@@ -348,7 +289,7 @@ static void on_main_win_realize (GtkWidget *widget, GnomeCmdMainWin *mw)
 }
 
 
-static gboolean on_left_fs_select (GnomeCmdFileList *list, GdkEventButton *event, GnomeCmdMainWin *mw)
+static gboolean on_left_fs_select (GnomeCmdFileList *list, GnomeCmdFileListButtonEvent *event, GnomeCmdMainWin *mw)
 {
     mw->priv->current_fs = LEFT;
 
@@ -359,7 +300,7 @@ static gboolean on_left_fs_select (GnomeCmdFileList *list, GdkEventButton *event
 }
 
 
-static gboolean on_right_fs_select (GnomeCmdFileList *list, GdkEventButton *event, GnomeCmdMainWin *mw)
+static gboolean on_right_fs_select (GnomeCmdFileList *list, GnomeCmdFileListButtonEvent *event, GnomeCmdMainWin *mw)
 {
     mw->priv->current_fs = RIGHT;
 
@@ -554,12 +495,6 @@ static void toggle_action_change_state (GnomeCmdMainWin *mw, const gchar *action
 
 static void destroy (GtkWidget *object)
 {
-    if (main_win && main_win->priv && main_win->priv->key_snooper_id)
-    {
-        gtk_key_snooper_remove (main_win->priv->key_snooper_id);
-        main_win->priv->key_snooper_id = 0;
-    }
-
     if (main_win && main_win->priv)
     {
         g_clear_pointer (&main_win->priv->state.active_dir_files, g_list_free);
@@ -709,15 +644,13 @@ static void gnome_cmd_main_win_init (GnomeCmdMainWin *mw)
 
     g_signal_connect (mw->fs(LEFT)->file_list(), "resize-column", G_CALLBACK (on_fs_list_resize_column), mw->fs(RIGHT));
     g_signal_connect (mw->fs(RIGHT)->file_list(), "resize-column", G_CALLBACK (on_fs_list_resize_column), mw->fs(LEFT));
-    g_signal_connect (mw->fs(LEFT)->file_list(), "button-press-event", G_CALLBACK (on_left_fs_select), mw);
-    g_signal_connect (mw->fs(RIGHT)->file_list(), "button-press-event", G_CALLBACK (on_right_fs_select), mw);
+    g_signal_connect (mw->fs(LEFT)->file_list(), "list-clicked", G_CALLBACK (on_left_fs_select), mw);
+    g_signal_connect (mw->fs(RIGHT)->file_list(), "list-clicked", G_CALLBACK (on_right_fs_select), mw);
 
     g_signal_connect (gnome_cmd_con_list_get (), "list-changed", G_CALLBACK (on_con_list_list_changed), mw);
 
     gtk_window_add_accel_group (*mw, mw->priv->accel_group);
     mw->focus_file_lists();
-
-    mw->priv->key_snooper_id = gtk_key_snooper_install ((GtkKeySnoopFunc) gnome_cmd_key_snooper, mw);
 }
 
 

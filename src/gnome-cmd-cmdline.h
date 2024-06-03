@@ -65,5 +65,3 @@ void gnome_cmd_cmdline_update_style (GnomeCmdCmdline *cmdline);
 GList *gnome_cmd_cmdline_get_history (GnomeCmdCmdline *cmdline);
 void gnome_cmd_cmdline_set_history  (GnomeCmdCmdline *cmdline, GList *history);
 void gnome_cmd_cmdline_show_history (GnomeCmdCmdline *cmdline);
-
-gboolean gnome_cmd_cmdline_keypressed (GnomeCmdCmdline *cmdline, GdkEventKey *event);

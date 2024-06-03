@@ -42,19 +42,3 @@ GdkPixbuf *pixbuf_from_file (const gchar *filepath, int width, int height)
     return NULL;
 }
 
-
-GdkPixbuf *pixbuf_from_icon (const gchar *icon_name, gint size, GtkIconLookupFlags flags)
-{
-    GError *error = NULL;
-
-    GdkPixbuf *pixbuf = gtk_icon_theme_load_icon (gtk_icon_theme_get_default (), icon_name, size, flags, &error);
-
-    if (pixbuf)
-        return pixbuf;
-
-    g_warning ("Couldn't load icon '%s': %s", icon_name, error->message);
-    g_error_free (error);
-
-    return NULL;
-}
-
