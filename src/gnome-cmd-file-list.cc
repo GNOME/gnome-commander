@@ -3130,6 +3130,10 @@ void GnomeCmdFileList::update_style()
     // TODO: Maybe??? gtk_cell_renderer_set_fixed_size (priv->columns[1], )
     // gtk_clist_set_row_height (*this, gnome_cmd_data.options.list_row_height);
     // TODO: update CSS according to a selected theme
+
+    PangoFontDescription *font_desc = pango_font_description_from_string (gnome_cmd_data.options.list_font);
+    gtk_widget_override_font (*this, font_desc);
+    pango_font_description_free (font_desc);
 }
 
 
