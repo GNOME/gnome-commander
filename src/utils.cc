@@ -529,54 +529,6 @@ GtkWidget *create_styled_button (const gchar *text)
 }
 
 
-GtkWidget *create_styled_pixbuf_button (const gchar *text, GdkPixbuf *pb)
-{
-    g_return_val_if_fail (text || pb, NULL);
-
-    GtkWidget *btn = create_styled_button (NULL);
-    GtkWidget *hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 1);
-    GtkWidget *label = NULL;
-    GtkWidget *image = NULL;
-
-    g_object_set_data_full (G_OBJECT (btn), "hbox", hbox, g_object_unref);
-    g_object_ref (hbox);
-    gtk_widget_show (hbox);
-
-    if (pb)
-    {
-        image = gtk_image_new_from_pixbuf (pb);
-        if (image)
-        {
-            g_object_ref (image);
-            g_object_set_data_full (G_OBJECT (btn), "image", image, g_object_unref);
-            gtk_widget_show (image);
-        }
-    }
-
-    if (text)
-    {
-        label = gtk_label_new (text);
-        g_object_ref (label);
-        g_object_set_data_full (G_OBJECT (btn), "label", label, g_object_unref);
-        gtk_widget_show (label);
-    }
-
-    if (pb && !text)
-        gtk_container_add (GTK_CONTAINER (btn), image);
-    else
-        if (!pb && text)
-            gtk_container_add (GTK_CONTAINER (btn), label);
-        else
-        {
-            gtk_box_append (GTK_BOX (hbox), image);
-            gtk_box_append (GTK_BOX (hbox), label);
-            gtk_container_add (GTK_CONTAINER (btn), hbox);
-        }
-
-    return btn;
-}
-
-
 void set_cursor_busy_for_widget (GtkWidget *widget)
 {
     if (!cursor_busy)

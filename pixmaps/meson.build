@@ -3,13 +3,6 @@ subdir('file-type-icons')
 subdir('mime-icons')
 
 pixmaps = [
-  'exec_wheel.xpm',
-  'gnome_cmd_arrow_blank.xpm',
-  'gnome_cmd_arrow_down.xpm',
-  'gnome_cmd_arrow_up.xpm',
-  'gnome-commander.svg',
-  'internal-viewer.svg',
-  'menu_bookmark.xpm',
   'overlay_symlink.xpm',
   'overlay_umount.xpm',
   'pin.png',
@@ -26,8 +19,8 @@ icons_16x16 = [
   'gnome-commander-rotate-90.xpm',
   'gnome-commander-flip-horizontal.xpm',
   'gnome-commander-flip-vertical.xpm',
+  'overlay_symlink.xpm',
   'overlay_umount.xpm',
-  'menu_bookmark.xpm',
   'gnome-commander-copy-file-names.xpm',
 ]
 
@@ -37,7 +30,10 @@ icons_24x24 = [
 ]
 
 icons_scalable = [
+  'gnome-commander.svg',
+  'gnome-commander-internal-viewer.svg',
   'gnome-commander-down-symbolic.svg',
+  'gnome-commander-bookmark-outline-symbolic.svg',
   'gnome-commander-info-outline-symbolic.svg',
 ]
 
@@ -46,7 +42,8 @@ install_data(icons_16x16 + icons_24x24 + icons_scalable,
 
 desktop_icons = [
   'gnome-commander.svg',
-  'gnome-commander-symbolic.svg'
+  'gnome-commander-symbolic.svg',
+  'gnome-commander-internal-viewer.svg',
 ]
 
 install_data(desktop_icons,

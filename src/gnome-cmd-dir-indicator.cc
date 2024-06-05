@@ -408,8 +408,7 @@ static void gnome_cmd_dir_indicator_init (GnomeCmdDirIndicator *indicator)
     gtk_container_add (GTK_CONTAINER (event_box), priv->label);
 
     // create the history popup button
-    priv->history_button = gtk_button_new ();
-    gtk_button_set_image (GTK_BUTTON (priv->history_button), gtk_image_new_from_gicon (g_themed_icon_new ("gnome-commander-down"), GTK_ICON_SIZE_SMALL_TOOLBAR));
+    priv->history_button = gtk_button_new_from_icon_name ("gnome-commander-down", GTK_ICON_SIZE_SMALL_TOOLBAR);
     gtk_widget_set_can_focus (priv->history_button, FALSE);
     g_object_ref (priv->history_button);
     gtk_button_set_relief (GTK_BUTTON (priv->history_button), GTK_RELIEF_NONE);
@@ -417,7 +416,7 @@ static void gnome_cmd_dir_indicator_init (GnomeCmdDirIndicator *indicator)
     gtk_widget_show (priv->history_button);
 
     // create the bookmark popup button
-    priv->bookmark_button = create_styled_pixbuf_button (nullptr, IMAGE_get_pixbuf (PIXMAP_BOOKMARK));
+    priv->bookmark_button = gtk_button_new_from_icon_name ("gnome-commander-bookmark-outline", GTK_ICON_SIZE_SMALL_TOOLBAR);
     gtk_widget_set_can_focus (priv->bookmark_button, FALSE);
     gtk_button_set_relief (GTK_BUTTON (priv->bookmark_button), GTK_RELIEF_NONE);
     g_object_set_data_full (G_OBJECT (indicator), "button", priv->bookmark_button, g_object_unref);

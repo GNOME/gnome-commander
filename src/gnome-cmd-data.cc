@@ -1808,59 +1808,22 @@ static void save_tabs(GSettings *gSettings, const char *gSettingsKey)
 
         for (GList *i=tabs; i; i=i->next)
         {
-            if (gnome_cmd_data.options.save_tabs_on_exit)
+            auto fl = reinterpret_cast<GnomeCmdFileList*> (gtk_bin_get_child (GTK_BIN (i->data)));
+            if (!GNOME_CMD_FILE_LIST (fl))
+                continue;
+
+            if (gnome_cmd_data.options.save_tabs_on_exit || (gnome_cmd_data.options.save_dirs_on_exit && fl == gnomeCmdFileSelector.file_list()) || fl->locked)
             {
-                auto fl = reinterpret_cast <GnomeCmdFileList*> (gtk_bin_get_child (GTK_BIN (i->data)));
-                if (GNOME_CMD_FILE_LIST (fl))
-                {
-                    gchar* uriString = GNOME_CMD_FILE (fl->cwd)->get_uri_str();
-                    if (!uriString)
-                        continue;
-                    g_variant_builder_add (&gVariantBuilder, GCMD_SETTINGS_FILE_LIST_TAB_FORMAT_STRING,
-                                            uriString,
-                                            (guchar) fileSelectorId,
-                                            fl->get_sort_column(),
-                                            fl->get_sort_order(),
-                                            fl->locked);
-                    g_free(uriString);
-                }
-            }
-            else
-            {
-                if (gnome_cmd_data.options.save_dirs_on_exit)
-                {
-                    auto fl = reinterpret_cast <GnomeCmdFileList*> (gtk_bin_get_child (GTK_BIN (i->data)));
-                    if (GNOME_CMD_FILE_LIST (fl) && (fl==gnomeCmdFileSelector.file_list() || fl->locked))
-                    {
-                        gchar* uriString = GNOME_CMD_FILE (fl->cwd)->get_uri_str();
-                        if (!uriString)
-                            continue;
-                        g_variant_builder_add (&gVariantBuilder, GCMD_SETTINGS_FILE_LIST_TAB_FORMAT_STRING,
-                                                uriString,
-                                                (guchar) fileSelectorId,
-                                                fl->get_sort_column(),
-                                                fl->get_sort_order(),
-                                                fl->locked);
-                        g_free(uriString);
-                    }
-                }
-                else
-                {
-                    auto fl = reinterpret_cast<GnomeCmdFileList*> (gtk_bin_get_child (GTK_BIN (i->data)));
-                    if (GNOME_CMD_FILE_LIST (fl) && fl->locked)
-                    {
-                        gchar* uriString = GNOME_CMD_FILE (fl->cwd)->get_uri_str();
-                        if (!uriString)
-                            continue;
-                        g_variant_builder_add (&gVariantBuilder, GCMD_SETTINGS_FILE_LIST_TAB_FORMAT_STRING,
-                                                uriString,
-                                                (guchar) fileSelectorId,
-                                                fl->get_sort_column(),
-                                                fl->get_sort_order(),
-                                                fl->locked);
-                        g_free(uriString);
-                    }
-                }
+                gchar* uriString = GNOME_CMD_FILE (fl->cwd)->get_uri_str();
+                if (!uriString)
+                    continue;
+                g_variant_builder_add (&gVariantBuilder, GCMD_SETTINGS_FILE_LIST_TAB_FORMAT_STRING,
+                                        uriString,
+                                        (guchar) fileSelectorId,
+                                        fl->get_sort_column(),
+                                        fl->get_sort_order(),
+                                        fl->locked);
+                g_free(uriString);
             }
         }
         g_list_free (tabs);

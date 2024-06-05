@@ -204,7 +204,6 @@ gchar *unquote_if_needed (const gchar *in);
 GList *string_history_add (GList *in, const gchar *value, guint maxsize);
 
 GtkWidget *create_styled_button (const gchar *text);
-GtkWidget *create_styled_pixbuf_button (const gchar *text, GdkPixbuf *pixbuf);
 
 void set_cursor_busy_for_widget (GtkWidget *widget);
 

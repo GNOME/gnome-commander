@@ -230,7 +230,7 @@ GnomeCmdFileList::Private::Private(GnomeCmdFileList *fl)
     memset(sort_raising, GTK_SORT_ASCENDING, sizeof(sort_raising));
 
     store = gtk_list_store_new (NUM_DATA_COLUMNS,
-        GDK_TYPE_PIXBUF,               // COLUMN_ICON
+        G_TYPE_ICON,                   // COLUMN_ICON
         G_TYPE_STRING,                 // COLUMN_NAME
         G_TYPE_STRING,                 // COLUMN_EXT
         G_TYPE_STRING,                 // COLUMN_DIR
@@ -334,9 +334,9 @@ static void cell_data (GtkTreeViewColumn *column,
     if (column_index == GnomeCmdFileList::COLUMN_ICON)
     {
         if (gnome_cmd_data.options.layout == GNOME_CMD_LAYOUT_TEXT)
-            g_object_set (G_OBJECT (cell), "pixbuf", NULL, nullptr);
+            g_object_set (G_OBJECT (cell), "gicon", NULL, nullptr);
         else
-            g_object_set (G_OBJECT (cell), "pixbuf", value, nullptr);
+            g_object_set (G_OBJECT (cell), "gicon", value, nullptr);
         has_foreground = false;
     }
     else if (column_index == DATA_COLUMN_ICON_NAME)
@@ -2029,8 +2029,8 @@ inline void add_file_to_clist (GnomeCmdFileList *fl, GnomeCmdFile *f, GtkTreeIte
     // If the use wants icons to show file types set it now
     if (gnome_cmd_data.options.layout != GNOME_CMD_LAYOUT_TEXT)
     {
-        GdkPixbuf *pixbuf = f->get_type_pixbuf();
-        gtk_list_store_set (fl->priv->store, &iter, GnomeCmdFileList::COLUMN_ICON, pixbuf, -1);
+        GIcon *icon = f->get_type_icon();
+        gtk_list_store_set (fl->priv->store, &iter, GnomeCmdFileList::COLUMN_ICON, icon, -1);
     }
 
     // If we have been waiting for this file to show up, focus it
@@ -2161,8 +2161,8 @@ void GnomeCmdFileList::update_file(GnomeCmdFile *f)
 
     if (gnome_cmd_data.options.layout != GNOME_CMD_LAYOUT_TEXT)
     {
-        GdkPixbuf *pixbuf = f->get_type_pixbuf();
-        gtk_list_store_set (priv->store, row.get(), GnomeCmdFileList::COLUMN_ICON, pixbuf, -1);
+        GIcon *icon = f->get_type_icon();
+        gtk_list_store_set (priv->store, row.get(), GnomeCmdFileList::COLUMN_ICON, icon, -1);
     }
 }
 

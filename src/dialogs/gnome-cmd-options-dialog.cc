@@ -951,7 +951,7 @@ void store_layout_options (GtkWidget *dialog, GnomeCmdData::Options &cfg)
 
     cfg.use_ls_colors = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (use_ls));
 
-    const gchar *list_font = gtk_font_button_get_font_name (GTK_FONT_BUTTON (list_font_picker));
+    const gchar *list_font = gtk_font_chooser_get_font (GTK_FONT_CHOOSER (list_font_picker));
     cfg.set_list_font (list_font);
 
     if (GFile *icondir = directory_chooser_button_get_file (theme_icondir_chooser))
@@ -960,26 +960,13 @@ void store_layout_options (GtkWidget *dialog, GnomeCmdData::Options &cfg)
         cfg.set_theme_icon_dir (g_filename_to_utf8 (icondir_path, -1, nullptr, nullptr, nullptr));
         g_free (icondir_path);
     }
-#if defined (__GNUC__)
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wcast-align"
-#endif
+
     cfg.icon_size = gtk_spin_button_get_value_as_int (GTK_SPIN_BUTTON (iconsize_spin));
-#if defined (__GNUC__)
-#pragma GCC diagnostic pop
-#endif
 
     GtkAdjustment *adj = gtk_range_get_adjustment (GTK_RANGE (iconquality_scale));
     cfg.icon_scale_quality = (GdkInterpType) gtk_adjustment_get_value (adj);
 
-#if defined (__GNUC__)
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wcast-align"
-#endif
     cfg.list_row_height = gtk_spin_button_get_value_as_int (GTK_SPIN_BUTTON (row_height_spin));
-#if defined (__GNUC__)
-#pragma GCC diagnostic pop
-#endif
 }
 
 

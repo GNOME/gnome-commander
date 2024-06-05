@@ -237,6 +237,8 @@ static void gviewer_window_init (GViewerWindow *w)
 {
     auto priv = static_cast<GViewerWindowPrivate*>(gviewer_window_get_instance_private (w));
 
+    gtk_window_set_icon_name (GTK_WINDOW (w), "gnome-commander-internal-viewer");
+
     // priv->status_bar_msg = FALSE;
     // priv->filename = nullptr;
     priv->current_scale_index = 5;
