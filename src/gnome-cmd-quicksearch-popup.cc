@@ -127,7 +127,7 @@ static void on_text_changed (GtkEntry *entry, GnomeCmdQuicksearchPopup *popup)
 {
     auto priv = static_cast<GnomeCmdQuicksearchPopupPrivate *> (gnome_cmd_quicksearch_popup_get_instance_private (popup));
 
-    set_filter (popup, gtk_entry_get_text (GTK_ENTRY (entry)));
+    set_filter (popup, gtk_editable_get_text (GTK_EDITABLE (entry)));
 
     if (priv->pos)
         focus_file (popup, GNOME_CMD_FILE (priv->pos->data));
@@ -310,7 +310,7 @@ void gnome_cmd_quicksearch_popup_set_char (GnomeCmdQuicksearchPopup *popup, gcha
 
     if (ch != 0)
     {
-        gtk_entry_set_text (GTK_ENTRY (priv->entry), text);
+        gtk_editable_set_text (GTK_EDITABLE (priv->entry), text);
         gtk_editable_set_position (GTK_EDITABLE (priv->entry), 1);
     }
 

@@ -37,8 +37,8 @@ static void response_callback (GtkDialog *dialog, int response_id, GnomeCmd::Reg
     switch (response_id)
     {
         case GTK_RESPONSE_OK:
-            rx->assign(gtk_entry_get_text (GTK_ENTRY (lookup_widget (GTK_WIDGET (dialog), "pattern"))),
-                       gtk_entry_get_text (GTK_ENTRY (lookup_widget (GTK_WIDGET (dialog), "replace"))),
+            rx->assign(gtk_editable_get_text (GTK_EDITABLE (lookup_widget (GTK_WIDGET (dialog), "pattern"))),
+                       gtk_editable_get_text (GTK_EDITABLE (lookup_widget (GTK_WIDGET (dialog), "replace"))),
                        gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (lookup_widget (GTK_WIDGET (dialog), "match_case"))));
             break;
 
@@ -86,7 +86,7 @@ gboolean gnome_cmd_advrename_regex_dialog_new (const gchar *title, GtkWindow *pa
 
     entry = gtk_entry_new ();
     gtk_label_set_mnemonic_widget (GTK_LABEL (label), entry);
-    gtk_entry_set_text (GTK_ENTRY (entry), rx ? rx->pattern.c_str() : nullptr);
+    gtk_editable_set_text (GTK_EDITABLE (entry), rx ? rx->pattern.c_str() : nullptr);
     g_object_set_data (G_OBJECT (dialog), "pattern", entry);
     gtk_entry_set_activates_default (GTK_ENTRY (entry), TRUE);
     gtk_grid_attach (GTK_GRID (grid), entry, 1, 0, 1, 1);
@@ -98,7 +98,7 @@ gboolean gnome_cmd_advrename_regex_dialog_new (const gchar *title, GtkWindow *pa
 
     entry = gtk_entry_new ();
     gtk_label_set_mnemonic_widget (GTK_LABEL (label), entry);
-    gtk_entry_set_text (GTK_ENTRY (entry), rx ? rx->replacement.c_str() : nullptr);
+    gtk_editable_set_text (GTK_EDITABLE (entry), rx ? rx->replacement.c_str() : nullptr);
     g_object_set_data (G_OBJECT (dialog), "replace", entry);
     gtk_entry_set_activates_default (GTK_ENTRY (entry), TRUE);
     gtk_grid_attach (GTK_GRID (grid), entry, 1, 1, 1, 1);

@@ -556,7 +556,7 @@ gchar *GnomeCmdAdvrenameProfileComponent::Private::get_selected_range (GtkWindow
     gtk_box_append (GTK_BOX (hbox), label);
 
     entry = gtk_entry_new ();
-    gtk_entry_set_text (GTK_ENTRY (entry), filename);
+    gtk_editable_set_text (GTK_EDITABLE (entry), filename);
     gtk_entry_set_activates_default (GTK_ENTRY (entry), TRUE);
     g_object_set_data (G_OBJECT (dialog), "filename", entry);
     gtk_label_set_mnemonic_widget (GTK_LABEL (label), entry);
@@ -1234,7 +1234,7 @@ void GnomeCmdAdvrenameProfileComponent::update()
 {
     set_template_history(gnome_cmd_data.advrename_defaults.templates.ents);
 
-    gtk_entry_set_text (GTK_ENTRY (priv->template_entry), profile.template_string.empty() ? "$N" : profile.template_string.c_str());
+    gtk_editable_set_text (GTK_EDITABLE (priv->template_entry), profile.template_string.empty() ? "$N" : profile.template_string.c_str());
     gtk_editable_set_position (GTK_EDITABLE (priv->template_entry), -1);
     gtk_editable_select_region (GTK_EDITABLE (priv->template_entry), -1, -1);
 
@@ -1269,7 +1269,7 @@ void GnomeCmdAdvrenameProfileComponent::update()
 
 const gchar *GnomeCmdAdvrenameProfileComponent::get_template_entry() const
 {
-    return gtk_entry_get_text (GTK_ENTRY (priv->template_entry));
+    return gtk_editable_get_text (GTK_EDITABLE (priv->template_entry));
 }
 
 

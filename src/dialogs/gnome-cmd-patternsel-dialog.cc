@@ -52,7 +52,7 @@ static void on_ok (GtkButton *button, GnomeCmdPatternselDialog *dialog)
     gboolean case_sens = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (dialog->priv->case_check));
     gnome_cmd_data.search_defaults.default_profile.syntax = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (lookup_widget (GTK_WIDGET (dialog), "regex_radio"))) ? Filter::TYPE_REGEX : Filter::TYPE_FNMATCH;
 
-    const gchar *s = gtk_entry_get_text (GTK_ENTRY (dialog->priv->pattern_entry));
+    const gchar *s = gtk_editable_get_text (GTK_EDITABLE (dialog->priv->pattern_entry));
 
     Filter pattern(s, case_sens, gnome_cmd_data.search_defaults.default_profile.syntax);
 

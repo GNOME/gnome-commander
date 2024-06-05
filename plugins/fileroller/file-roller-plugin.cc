@@ -406,7 +406,7 @@ static void on_add_to_archive (GSimpleAction *action, GVariant *parameter, gpoin
         gchar *archive_name_tmp = g_strdup_printf("%s%s", file_prefix, priv->default_ext);
         auto file_name_tmp = GetGfileAttributeString(GNOME_CMD_FILE_BASE (files->data)->gFile, G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME);
         archive_name = new_string_with_replaced_keyword(archive_name_tmp, "$N", file_name_tmp);
-        gtk_entry_set_text (GTK_ENTRY (entry), archive_name);
+        gtk_editable_set_text (GTK_EDITABLE (entry), archive_name);
         g_free(file_name_tmp);
         g_free(archive_name);
         g_free(archive_name_tmp);
@@ -418,7 +418,7 @@ static void on_add_to_archive (GSimpleAction *action, GVariant *parameter, gpoin
 
         ret = gtk_dialog_run (GTK_DIALOG (dialog));
 
-        name = gtk_entry_get_text (GTK_ENTRY (entry));
+        name = gtk_editable_get_text (GTK_EDITABLE (entry));
         if (name != nullptr && strlen (name) > 0)
             name_ok = TRUE;
     }
@@ -567,7 +567,7 @@ static void on_date_format_update (GtkEditable *editable, GtkWidget *options_dia
     GtkWidget *combo = lookup_widget (options_dialog, "combo");
     gchar *file_suffix = gtk_combo_box_text_get_active_text (GTK_COMBO_BOX_TEXT (combo));
 
-    const char *format = gtk_entry_get_text (GTK_ENTRY (format_entry));
+    const char *format = gtk_editable_get_text (GTK_EDITABLE (format_entry));
     gchar *locale_format = g_locale_from_utf8 (format, -1, nullptr, nullptr, nullptr);
 
     char s[256];

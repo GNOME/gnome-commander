@@ -97,7 +97,7 @@ static void response_callback (GtkDialog *dialog, int response_id, GnomeCmdDir *
 
         case GTK_RESPONSE_OK:
             {
-                const gchar *filename = gtk_entry_get_text (GTK_ENTRY (lookup_widget (GTK_WIDGET (dialog), "name")));
+                const gchar *filename = gtk_editable_get_text (GTK_EDITABLE (lookup_widget (GTK_WIDGET (dialog), "name")));
 
                 // don't create any directory if no name was passed or cancel was selected
                 if (!filename || *filename==0)
@@ -199,7 +199,7 @@ gboolean gnome_cmd_mkdir_dialog_new (GnomeCmdDir *dir, GnomeCmdFile *selected_fi
     if (selected_file)
     {
         if (GNOME_CMD_IS_DIR (selected_file))
-            gtk_entry_set_text (GTK_ENTRY (entry), selected_file->get_name());
+            gtk_editable_set_text (GTK_EDITABLE (entry), selected_file->get_name());
         else
         {
             gchar *fname = g_strdup (selected_file->get_name());
@@ -209,7 +209,7 @@ gboolean gnome_cmd_mkdir_dialog_new (GnomeCmdDir *dir, GnomeCmdFile *selected_fi
             if (ext)
                 *ext = 0;
 
-            gtk_entry_set_text (GTK_ENTRY (entry), fname);
+            gtk_editable_set_text (GTK_EDITABLE (entry), fname);
 
             g_free (fname);
         }

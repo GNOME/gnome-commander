@@ -495,7 +495,7 @@ gboolean gnome_cmd_connect_dialog_edit (GnomeCmdConRemote *server)
     if (con->alias)
     {
         dialog->priv->alias = new string(con->alias);
-        gtk_entry_set_text (GTK_ENTRY (dialog->priv->alias_entry), con->alias);
+        gtk_editable_set_text (GTK_EDITABLE (dialog->priv->alias_entry), con->alias);
     }
     else
         gtk_widget_set_sensitive (dialog->priv->alias_entry, FALSE);
@@ -508,15 +508,15 @@ gboolean gnome_cmd_connect_dialog_edit (GnomeCmdConRemote *server)
     {
         dialog->priv->uri_str = con->uri;
 
-        gtk_entry_set_text (GTK_ENTRY (dialog->priv->uri_entry), con->uri);
+        gtk_editable_set_text (GTK_EDITABLE (dialog->priv->uri_entry), con->uri);
 
-        gtk_entry_set_text (GTK_ENTRY (dialog->priv->server_entry), host);
+        gtk_editable_set_text (GTK_EDITABLE (dialog->priv->server_entry), host);
 
         if (path)
-            gtk_entry_set_text (GTK_ENTRY (dialog->priv->folder_entry), path);
+            gtk_editable_set_text (GTK_EDITABLE (dialog->priv->folder_entry), path);
 
         if (port != -1)
-            gtk_entry_set_text (GTK_ENTRY (dialog->priv->port_entry), stringify(port).c_str());
+            gtk_editable_set_text (GTK_EDITABLE (dialog->priv->port_entry), stringify(port).c_str());
     }
 
     gint response = gtk_dialog_run (*dialog);
@@ -557,9 +557,9 @@ gboolean gnome_cmd_connect_dialog_edit (GnomeCmdConRemote *server)
         }
         else
         {
-            host = g_strdup(gtk_entry_get_text (GTK_ENTRY (dialog->priv->server_entry)));
-            path = g_strdup(gtk_entry_get_text (GTK_ENTRY (dialog->priv->folder_entry)));
-            auto portChar = gtk_entry_get_text (GTK_ENTRY (dialog->priv->port_entry));
+            host = g_strdup(gtk_editable_get_text (GTK_EDITABLE (dialog->priv->server_entry)));
+            path = g_strdup(gtk_editable_get_text (GTK_EDITABLE (dialog->priv->folder_entry)));
+            auto portChar = gtk_editable_get_text (GTK_EDITABLE (dialog->priv->port_entry));
             port = portChar ? atoi(portChar) : -1;
 
             gnome_cmd_con_set_base_path(con, path && strlen(path) > 0

@@ -60,7 +60,7 @@ namespace GnomeCmd
                 break;
 
             case GTK_RESPONSE_OK:
-                dlg->component->profile.name = gtk_entry_get_text (GTK_ENTRY (lookup_widget (GTK_WIDGET (dialog), "name")));
+                dlg->component->profile.name = gtk_editable_get_text (GTK_EDITABLE (lookup_widget (GTK_WIDGET (dialog), "name")));
                 dlg->component->copy();
                 break;
 
@@ -108,7 +108,7 @@ namespace GnomeCmd
         GtkWidget *entry = gtk_entry_new ();
         g_object_set_data (G_OBJECT (dialog), "name", entry);
         gtk_label_set_mnemonic_widget (GTK_LABEL (label), entry);
-        gtk_entry_set_text (GTK_ENTRY (entry), profile.name.c_str());
+        gtk_editable_set_text (GTK_EDITABLE (entry), profile.name.c_str());
         gtk_widget_set_margin_bottom (entry, 6);
         gtk_widget_set_margin_start (entry, 12);
         gtk_box_append (GTK_BOX (content_area), entry);

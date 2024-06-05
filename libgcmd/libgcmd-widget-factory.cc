@@ -186,7 +186,7 @@ GtkWidget *create_entry (GtkWidget *parent, const gchar *name, const gchar *valu
     g_object_ref (w);
     g_object_set_data_full (G_OBJECT (parent), name, w, g_object_unref);
     if (value)
-        gtk_entry_set_text (GTK_ENTRY (w), value);
+        gtk_editable_set_text (GTK_EDITABLE (w), value);
     gtk_widget_show (w);
     return w;
 }
@@ -593,7 +593,7 @@ const char *get_entry_text (GtkWidget *parent, const gchar *entry_name)
     if (!entry) return nullptr;
     if (!GTK_IS_ENTRY (entry)) return nullptr;
 
-    return gtk_entry_get_text (GTK_ENTRY (entry));
+    return gtk_editable_get_text (GTK_EDITABLE (entry));
 }
 
 

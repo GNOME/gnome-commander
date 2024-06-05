@@ -69,7 +69,7 @@ static void on_exec (GnomeCmdCmdline *cmdline, gboolean term)
 {
     const gchar *cmdline_text;
 
-    cmdline_text = gtk_entry_get_text (GTK_ENTRY (cmdline->priv->combo->get_entry()));
+    cmdline_text = gtk_editable_get_text (GTK_EDITABLE (cmdline->priv->combo->get_entry()));
     cmdline_text = g_strstrip (g_strdup (cmdline_text));
 
     GnomeCmdFileSelector *fs = main_win->fs(ACTIVE);
@@ -239,7 +239,7 @@ void gnome_cmd_cmdline_append_text (GnomeCmdCmdline *cmdline, const gchar *text)
     g_return_if_fail (cmdline->priv->combo != nullptr);
 
     GtkEntry *entry = GTK_ENTRY (cmdline->priv->combo->get_entry());
-    const gchar *curtext = gtk_entry_get_text (entry);
+    const gchar *curtext = gtk_editable_get_text (GTK_EDITABLE (entry));
 
     if (curtext[strlen(curtext)-1] != ' ' && strlen(curtext) > 0)
     {
@@ -274,13 +274,13 @@ void gnome_cmd_cmdline_set_text (GnomeCmdCmdline *cmdline, const gchar *text)
     g_return_if_fail (cmdline->priv != nullptr);
     g_return_if_fail (cmdline->priv->combo != nullptr);
 
-    gtk_entry_set_text (GTK_ENTRY (cmdline->priv->combo->get_entry()), text);
+    gtk_editable_set_text (GTK_EDITABLE (cmdline->priv->combo->get_entry()), text);
 }
 
 
 gboolean gnome_cmd_cmdline_is_empty (GnomeCmdCmdline *cmdline)
 {
-    const gchar *text = gtk_entry_get_text (GTK_ENTRY (cmdline->priv->combo->get_entry()));
+    const gchar *text = gtk_editable_get_text (GTK_EDITABLE (cmdline->priv->combo->get_entry()));
 
     if (text == nullptr || strcmp (text, ""))
         return TRUE;

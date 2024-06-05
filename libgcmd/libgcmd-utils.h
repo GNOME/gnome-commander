@@ -90,6 +90,16 @@ inline GtkWidget* gtk_combo_box_get_child (GtkComboBox* combo_box)
     return gtk_bin_get_child (GTK_BIN (combo_box));
 }
 
+inline const char* gtk_editable_get_text (GtkEditable* editable)
+{
+    return gtk_entry_get_text (GTK_ENTRY (editable));
+}
+
+inline void gtk_editable_set_text (GtkEditable* editable, const char* text)
+{
+    gtk_entry_set_text (GTK_ENTRY (editable), text);
+}
+
 inline gboolean gdk_rectangle_contains_point (const GdkRectangle *rect, int x, int y)
 {
     g_return_val_if_fail (rect != NULL, FALSE);

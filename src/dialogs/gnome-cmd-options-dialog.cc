@@ -322,7 +322,7 @@ static void on_date_format_update (GtkEditable *editable, GtkWidget *options_dia
     GtkWidget *format_entry = lookup_widget (options_dialog, "date_format_entry");
     GtkWidget *test_label = lookup_widget (options_dialog, "date_format_test_label");
 
-    const char *format = gtk_entry_get_text (GTK_ENTRY (format_entry));
+    const char *format = gtk_editable_get_text (GTK_EDITABLE (format_entry));
     gchar *locale_format = g_locale_from_utf8 (format, -1, NULL, NULL, NULL);
 
     char s[256];
@@ -444,7 +444,7 @@ void store_format_options (GtkWidget *dialog, GnomeCmdData::Options &cfg)
     GtkWidget *size_grouped_radio = lookup_widget (dialog, "size_grouped_radio");
     GtkWidget *perm_text_radio = lookup_widget (dialog, "perm_text_radio");
     GtkWidget *entry = lookup_widget (dialog, "date_format_entry");
-    const gchar *format = gtk_entry_get_text (GTK_ENTRY (entry));
+    const gchar *format = gtk_editable_get_text (GTK_EDITABLE (entry));
 
     if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (size_powered_radio)))
         cfg.size_disp_mode = GNOME_CMD_SIZE_DISP_MODE_POWERED;
@@ -1355,7 +1355,7 @@ void store_filter_options (GtkWidget *dialog, GnomeCmdData::Options &cfg)
     cfg.filter.file_types[GnomeCmdData::G_FILE_IS_BACKUP] =
         gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (hide_backup_check));
 
-    cfg.set_backup_pattern(gtk_entry_get_text (GTK_ENTRY (backup_pattern_entry)));
+    cfg.set_backup_pattern(gtk_editable_get_text (GTK_EDITABLE (backup_pattern_entry)));
 }
 
 
@@ -1443,8 +1443,8 @@ static void get_app_dialog_values (GtkWidget *dialog, gchar **name, gchar **cmd,
     GtkWidget *multiple_check = lookup_widget (dialog, "handle_multiple");
     GtkWidget *terminal_check = lookup_widget (dialog, "requires_terminal");
 
-    *name = (gchar *) gtk_entry_get_text (GTK_ENTRY (name_entry));
-    *cmd = (gchar *) gtk_entry_get_text (GTK_ENTRY (cmd_entry));
+    *name = (gchar *) gtk_editable_get_text (GTK_EDITABLE (name_entry));
+    *cmd = (gchar *) gtk_editable_get_text (GTK_EDITABLE (cmd_entry));
     // Get icon_path string
     g_object_get (G_OBJECT (gtk_button_get_image (GTK_BUTTON (iconWidget))), "file", icon_path, NULL);
     *pattern_string = NULL;
@@ -1457,7 +1457,7 @@ static void get_app_dialog_values (GtkWidget *dialog, gchar **name, gchar **cmd,
     else
     {
         *target = APP_TARGET_SOME_FILES;
-        *pattern_string = (gchar *) gtk_entry_get_text (GTK_ENTRY (pattern_entry));
+        *pattern_string = (gchar *) gtk_editable_get_text (GTK_EDITABLE (pattern_entry));
     }
 
     *handles_uris = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (uris_check));
@@ -1894,13 +1894,13 @@ void store_programs_options (GtkWidget *dialog, GnomeCmdData::Options &cfg)
     GtkWidget *check_iv = lookup_widget (dialog, "use_internal_viewer");
     GtkWidget *check_is = lookup_widget (dialog, "use_internal_search");
 
-    cfg.set_viewer(gtk_entry_get_text (GTK_ENTRY (entry1)));
-    cfg.set_editor(gtk_entry_get_text (GTK_ENTRY (entry2)));
-    cfg.set_differ(gtk_entry_get_text (GTK_ENTRY (entry3)));
-    cfg.set_search(gtk_entry_get_text (GTK_ENTRY (entry4)));
-    cfg.set_sendto(gtk_entry_get_text (GTK_ENTRY (entry5)));
-    cfg.set_termopen(gtk_entry_get_text (GTK_ENTRY (entry6)));
-    cfg.set_termexec(gtk_entry_get_text (GTK_ENTRY (entry7)));
+    cfg.set_viewer(gtk_editable_get_text (GTK_EDITABLE (entry1)));
+    cfg.set_editor(gtk_editable_get_text (GTK_EDITABLE (entry2)));
+    cfg.set_differ(gtk_editable_get_text (GTK_EDITABLE (entry3)));
+    cfg.set_search(gtk_editable_get_text (GTK_EDITABLE (entry4)));
+    cfg.set_sendto(gtk_editable_get_text (GTK_EDITABLE (entry5)));
+    cfg.set_termopen(gtk_editable_get_text (GTK_EDITABLE (entry6)));
+    cfg.set_termexec(gtk_editable_get_text (GTK_EDITABLE (entry7)));
     gnome_cmd_data.use_gcmd_block = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (check_use_gcmd_block));
 
     cfg.honor_expect_uris = !gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (check_uris));
@@ -1977,9 +1977,9 @@ void get_device_dialog_values (GtkWidget *dialog, gchar **alias, gchar **device_
     GtkWidget *mountp_entry = lookup_widget (dialog, "mountp_entry");
     GtkWidget *iconWidget = lookup_widget (dialog, "device_iconentry");
 
-    gchar* device = (gchar *) gtk_entry_get_text (GTK_ENTRY (device_entry));
+    const gchar* device = gtk_editable_get_text (GTK_EDITABLE (device_entry));
 
-    *alias = (gchar *) gtk_entry_get_text (GTK_ENTRY (alias_entry));
+    *alias = (gchar *) gtk_editable_get_text (GTK_EDITABLE (alias_entry));
     if (device && strlen(device) > 0)
         *device_utf8 = g_filename_to_utf8(device, -1, nullptr, nullptr, nullptr);
     if (GFile *mountp = directory_chooser_button_get_file (mountp_entry))

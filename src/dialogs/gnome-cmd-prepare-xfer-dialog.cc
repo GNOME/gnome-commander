@@ -48,7 +48,7 @@ inline gboolean con_device_has_path (FileSelectorID fsID, GnomeCmdCon *&dev, con
 static void on_ok (GtkButton *button, GnomeCmdPrepareXferDialog *dialog)
 {
     GnomeCmdCon *con = gnome_cmd_dir_get_connection (dialog->default_dest_dir);
-    gchar *user_path = g_strstrip (g_strdup (gtk_entry_get_text (GTK_ENTRY (dialog->dest_dir_entry))));
+    gchar *user_path = g_strstrip (g_strdup (gtk_editable_get_text (GTK_EDITABLE (dialog->dest_dir_entry))));
 
     if (!user_path)
     {
@@ -443,7 +443,7 @@ GtkWidget *gnome_cmd_prepare_xfer_dialog_new (GnomeCmdFileSelector *from, GnomeC
     }
     if (destString)
     {
-        gtk_entry_set_text (GTK_ENTRY (dialog->dest_dir_entry), destString);
+        gtk_editable_set_text (GTK_EDITABLE (dialog->dest_dir_entry), destString);
         g_free (destString);
     }
 

@@ -35,7 +35,7 @@ static void response_callback (GtkDialog *dialog, int response_id, gpointer unus
     {
         case GTK_RESPONSE_OK:
             {
-                const gchar *name = gtk_entry_get_text (GTK_ENTRY (lookup_widget (GTK_WIDGET (dialog), "name")));
+                const gchar *name = gtk_editable_get_text (GTK_EDITABLE (lookup_widget (GTK_WIDGET (dialog), "name")));
 
                 if (!name || !*name)
                 {
@@ -44,7 +44,7 @@ static void response_callback (GtkDialog *dialog, int response_id, gpointer unus
                     break;
                 }
 
-                const gchar *path = gtk_entry_get_text (GTK_ENTRY (lookup_widget (GTK_WIDGET (dialog), "path")));
+                const gchar *path = gtk_editable_get_text (GTK_EDITABLE (lookup_widget (GTK_WIDGET (dialog), "path")));
 
                 if (!path || !*path)
                 {
@@ -102,7 +102,7 @@ gboolean gnome_cmd_edit_bookmark_dialog (GtkWindow *parent, const gchar *title, 
 
     entry = gtk_entry_new ();
     gtk_label_set_mnemonic_widget (GTK_LABEL (label), entry);
-    gtk_entry_set_text (GTK_ENTRY (entry), name);
+    gtk_editable_set_text (GTK_EDITABLE (entry), name);
     g_object_set_data (G_OBJECT (dialog), "name", entry);
     gtk_entry_set_activates_default (GTK_ENTRY (entry), TRUE);
     gtk_widget_set_hexpand (entry, TRUE);
@@ -118,7 +118,7 @@ gboolean gnome_cmd_edit_bookmark_dialog (GtkWindow *parent, const gchar *title, 
 
     entry = gtk_entry_new ();
     gtk_label_set_mnemonic_widget (GTK_LABEL (label), entry);
-    gtk_entry_set_text (GTK_ENTRY (entry), path);
+    gtk_editable_set_text (GTK_EDITABLE (entry), path);
     g_object_set_data (G_OBJECT (dialog), "path", entry);
     gtk_entry_set_activates_default (GTK_ENTRY (entry), TRUE);
     gtk_widget_set_hexpand (entry, TRUE);
@@ -136,9 +136,9 @@ gboolean gnome_cmd_edit_bookmark_dialog (GtkWindow *parent, const gchar *title, 
     if (result==GTK_RESPONSE_OK)
     {
         g_free (name);
-        name = g_strdup (gtk_entry_get_text (GTK_ENTRY (lookup_widget (GTK_WIDGET (dialog), "name"))));
+        name = g_strdup (gtk_editable_get_text (GTK_EDITABLE (lookup_widget (GTK_WIDGET (dialog), "name"))));
         g_free (path);
-        path = g_strdup (gtk_entry_get_text (GTK_ENTRY (lookup_widget (GTK_WIDGET (dialog), "path"))));
+        path = g_strdup (gtk_editable_get_text (GTK_EDITABLE (lookup_widget (GTK_WIDGET (dialog), "path"))));
     }
 
     gtk_window_destroy (GTK_WINDOW (dialog));

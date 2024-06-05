@@ -174,7 +174,7 @@ static void on_dialog_ok (GtkButton *btn, GnomeCmdFilePropsDialogPrivate *data)
 
     gboolean retValue = true;
 
-    const gchar *filename = gtk_entry_get_text (GTK_ENTRY (data->filename_entry));
+    const gchar *filename = gtk_editable_get_text (GTK_EDITABLE (data->filename_entry));
 
     if (strcmp (filename, data->f->get_name()) != 0)
     {
