@@ -139,8 +139,8 @@ static void gviewer_init (GViewer *w)
     gviewer_set_fixed_limit(w, DEFAULT_FIXED_LIMIT);
     gviewer_set_encoding(w, DEFAULT_ENCODING);
 
-    priv->tscrollbox = gtk_scrolled_window_new (nullptr, nullptr);
-    gtk_container_add (GTK_CONTAINER (priv->tscrollbox), GTK_WIDGET (priv->textr));
+    priv->tscrollbox = gtk_scrolled_window_new ();
+    gtk_scrolled_window_set_child (GTK_SCROLLED_WINDOW (priv->tscrollbox), GTK_WIDGET (priv->textr));
     gtk_widget_set_hexpand (GTK_WIDGET (priv->tscrollbox), TRUE);
     gtk_widget_set_vexpand (GTK_WIDGET (priv->tscrollbox), TRUE);
     gtk_widget_show (GTK_WIDGET (priv->textr));
@@ -150,10 +150,10 @@ static void gviewer_init (GViewer *w)
     priv->imgr = reinterpret_cast<ImageRender*> (image_render_new());
     gviewer_set_best_fit(w, DEFAULT_BEST_FIT);
     gviewer_set_scale_factor(w, DEFAULT_SCALE_FACTOR);
-    priv->iscrollbox = gtk_scrolled_window_new (nullptr, nullptr);
+    priv->iscrollbox = gtk_scrolled_window_new ();
     image_render_set_best_fit (priv->imgr, TRUE);
     image_render_set_scale_factor (priv->imgr, 1);
-    gtk_container_add (GTK_CONTAINER (priv->iscrollbox), GTK_WIDGET (priv->imgr));
+    gtk_scrolled_window_set_child (GTK_SCROLLED_WINDOW (priv->iscrollbox), GTK_WIDGET (priv->imgr));
     gtk_widget_set_hexpand (GTK_WIDGET (priv->iscrollbox), TRUE);
     gtk_widget_set_vexpand (GTK_WIDGET (priv->iscrollbox), TRUE);
     gtk_widget_show (GTK_WIDGET (priv->imgr));

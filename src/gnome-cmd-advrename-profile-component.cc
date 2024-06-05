@@ -556,7 +556,7 @@ gchar *GnomeCmdAdvrenameProfileComponent::Private::get_selected_range (GtkWindow
     gtk_box_append (GTK_BOX (hbox), label);
 
     entry = gtk_entry_new ();
-    gtk_entry_set_text (GTK_ENTRY (entry), filename);
+    gtk_editable_set_text (GTK_EDITABLE (entry), filename);
     gtk_entry_set_activates_default (GTK_ENTRY (entry), TRUE);
     g_object_set_data (G_OBJECT (dialog), "filename", entry);
     gtk_label_set_mnemonic_widget (GTK_LABEL (label), entry);
@@ -860,7 +860,7 @@ static void gnome_cmd_advrename_profile_component_init (GnomeCmdAdvrenameProfile
             gtk_box_append (GTK_BOX (vbox), local_vbox);
 
             component->priv->template_combo = combo = gtk_combo_box_new_with_model_and_entry (GTK_TREE_MODEL (gtk_list_store_new (1, G_TYPE_STRING)));
-            component->priv->template_entry = gtk_bin_get_child (GTK_BIN (component->priv->template_combo));
+            component->priv->template_entry = gtk_combo_box_get_child (GTK_COMBO_BOX (component->priv->template_combo));
             gtk_entry_set_activates_default (GTK_ENTRY (component->priv->template_entry), TRUE);
             gtk_label_set_mnemonic_widget (GTK_LABEL (label), combo);
             gtk_box_append (GTK_BOX (local_vbox), combo);
@@ -952,15 +952,15 @@ static void gnome_cmd_advrename_profile_component_init (GnomeCmdAdvrenameProfile
         gtk_widget_set_margin_start (grid, 12);
         gtk_box_append (GTK_BOX (component), grid);
 
-        GtkWidget *scrolled_window = gtk_scrolled_window_new (NULL, NULL);
+        GtkWidget *scrolled_window = gtk_scrolled_window_new ();
         gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolled_window), GTK_POLICY_NEVER, GTK_POLICY_AUTOMATIC);
-        gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (scrolled_window), GTK_SHADOW_IN);
+        gtk_scrolled_window_set_has_frame (GTK_SCROLLED_WINDOW (scrolled_window), TRUE);
         gtk_widget_set_hexpand (scrolled_window, TRUE);
         gtk_widget_set_vexpand (scrolled_window, TRUE);
         gtk_grid_attach (GTK_GRID (grid), scrolled_window, 0, 0, 1, 1);
 
         component->priv->regex_view = create_regex_view ();
-        gtk_container_add (GTK_CONTAINER (scrolled_window), component->priv->regex_view);
+        gtk_scrolled_window_set_child (GTK_SCROLLED_WINDOW (scrolled_window), component->priv->regex_view);
 
         bbox = gtk_button_box_new (GTK_ORIENTATION_VERTICAL);
         gtk_button_box_set_layout (GTK_BUTTON_BOX (bbox), GTK_BUTTONBOX_END);
@@ -1220,7 +1220,7 @@ void GnomeCmdAdvrenameProfileComponent::update()
 {
     set_template_history(gnome_cmd_data.advrename_defaults.templates.ents);
 
-    gtk_entry_set_text (GTK_ENTRY (priv->template_entry), profile.template_string.empty() ? "$N" : profile.template_string.c_str());
+    gtk_editable_set_text (GTK_EDITABLE (priv->template_entry), profile.template_string.empty() ? "$N" : profile.template_string.c_str());
     gtk_editable_set_position (GTK_EDITABLE (priv->template_entry), -1);
     gtk_editable_select_region (GTK_EDITABLE (priv->template_entry), -1, -1);
 
@@ -1249,7 +1249,7 @@ void GnomeCmdAdvrenameProfileComponent::update()
 
 const gchar *GnomeCmdAdvrenameProfileComponent::get_template_entry() const
 {
-    return gtk_entry_get_text (GTK_ENTRY (priv->template_entry));
+    return gtk_editable_get_text (GTK_EDITABLE (priv->template_entry));
 }
 
 

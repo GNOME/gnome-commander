@@ -65,6 +65,41 @@ inline void gtk_box_append (GtkBox* box, GtkWidget* child)
     gtk_container_add (GTK_CONTAINER (box), child);
 }
 
+inline GtkWidget* gtk_scrolled_window_new ()
+{
+    return gtk_scrolled_window_new (nullptr, nullptr);
+}
+
+inline void gtk_scrolled_window_set_child (GtkScrolledWindow* scrolled_window, GtkWidget* child)
+{
+    gtk_container_add (GTK_CONTAINER (scrolled_window), child);
+}
+
+inline GtkWidget* gtk_scrolled_window_get_child (GtkScrolledWindow* scrolled_window)
+{
+    return gtk_bin_get_child (GTK_BIN (scrolled_window));
+}
+
+inline void gtk_scrolled_window_set_has_frame (GtkScrolledWindow* scrolled_window, gboolean has_frame)
+{
+    gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (scrolled_window), has_frame ? GTK_SHADOW_IN : GTK_SHADOW_NONE);
+}
+
+inline GtkWidget* gtk_combo_box_get_child (GtkComboBox* combo_box)
+{
+    return gtk_bin_get_child (GTK_BIN (combo_box));
+}
+
+inline const char* gtk_editable_get_text (GtkEditable* editable)
+{
+    return gtk_entry_get_text (GTK_ENTRY (editable));
+}
+
+inline void gtk_editable_set_text (GtkEditable* editable, const char* text)
+{
+    gtk_entry_set_text (GTK_ENTRY (editable), text);
+}
+
 inline gboolean gdk_rectangle_contains_point (const GdkRectangle *rect, int x, int y)
 {
     g_return_val_if_fail (rect != NULL, FALSE);

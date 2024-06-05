@@ -202,7 +202,7 @@ GtkWidget *gnome_cmd_combo_new_with_store (GtkListStore *store, gint num_cols, g
             gtk_cell_layout_reorder (layout, renderer, col);
     }
 
-    priv->entry = gtk_bin_get_child (GTK_BIN (combo));
+    priv->entry = gtk_combo_box_get_child (GTK_COMBO_BOX (combo));
 
     gtk_widget_set_size_request (priv->entry, 60, -1);
     gtk_editable_set_editable (GTK_EDITABLE (priv->entry), FALSE);

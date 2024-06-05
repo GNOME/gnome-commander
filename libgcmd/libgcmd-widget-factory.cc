@@ -186,7 +186,7 @@ GtkWidget *create_entry (GtkWidget *parent, const gchar *name, const gchar *valu
     g_object_ref (w);
     g_object_set_data_full (G_OBJECT (parent), name, w, g_object_unref);
     if (value)
-        gtk_entry_set_text (GTK_ENTRY (w), value);
+        gtk_editable_set_text (GTK_EDITABLE (w), value);
     gtk_widget_show (w);
     return w;
 }
@@ -425,7 +425,7 @@ GtkWidget *create_treeview (GtkWidget *parent, const gchar *name, GtkTreeModel *
 {
     GtkWidget *sw, *view;
 
-    sw = gtk_scrolled_window_new (nullptr, nullptr);
+    sw = gtk_scrolled_window_new ();
     g_object_ref (sw);
     g_object_set_data_full (G_OBJECT (parent), "sw", sw, g_object_unref);
     gtk_widget_show (sw);
@@ -439,7 +439,7 @@ GtkWidget *create_treeview (GtkWidget *parent, const gchar *name, GtkTreeModel *
     gtk_tree_view_set_fixed_height_mode (GTK_TREE_VIEW (view), TRUE);
     gtk_tree_view_set_headers_clickable (GTK_TREE_VIEW (view), FALSE);
     gtk_widget_show (view);
-    gtk_container_add (GTK_CONTAINER (sw), view);
+    gtk_scrolled_window_set_child (GTK_SCROLLED_WINDOW (sw), view);
 
     g_object_unref (model);
 
@@ -555,7 +555,7 @@ GtkWidget *create_progress_bar (GtkWidget *parent)
 
 GtkWidget *create_sw (GtkWidget *parent)
 {
-    GtkWidget *scrolledwindow = gtk_scrolled_window_new (nullptr, nullptr);
+    GtkWidget *scrolledwindow = gtk_scrolled_window_new ();
     g_object_ref (scrolledwindow);
     g_object_set_data_full (G_OBJECT (parent), "scrolledwindow", scrolledwindow, g_object_unref);
     gtk_widget_show (scrolledwindow);
@@ -570,7 +570,7 @@ const char *get_entry_text (GtkWidget *parent, const gchar *entry_name)
     if (!entry) return nullptr;
     if (!GTK_IS_ENTRY (entry)) return nullptr;
 
-    return gtk_entry_get_text (GTK_ENTRY (entry));
+    return gtk_editable_get_text (GTK_EDITABLE (entry));
 }
 
 

@@ -24,6 +24,7 @@
 #include "gnome-cmd-dialog.h"
 #include "gnome-cmd-string-dialog.h"
 #include "libgcmd-widget-factory.h"
+#include "libgcmd-utils.h"
 
 struct GnomeCmdStringDialogPrivate
 {
@@ -45,10 +46,10 @@ static void on_ok (GtkButton *button, GnomeCmdStringDialog *dialog)
 
     if (priv->ok_cb)
     {
-        gchar **values = (gchar**) g_new (gpointer, dialog->rows);
+        const gchar **values = (const gchar**) g_new (gpointer, dialog->rows);
 
         for (gint i=0; i<dialog->rows; i++)
-            values[i] = (gchar*)gtk_entry_get_text (GTK_ENTRY (dialog->entries[i]));
+            values[i] = gtk_editable_get_text (GTK_EDITABLE (dialog->entries[i]));
 
         valid = priv->ok_cb (dialog, (const gchar**)values, priv->data);
         if (!valid)
@@ -219,7 +220,7 @@ void gnome_cmd_string_dialog_set_value (GnomeCmdStringDialog *dialog, gint row, 
     g_return_if_fail (GNOME_CMD_IS_STRING_DIALOG (dialog));
     g_return_if_fail (row >= 0 && row < dialog->rows);
 
-    gtk_entry_set_text (GTK_ENTRY (dialog->entries[row]), value?value:"");
+    gtk_editable_set_text (GTK_EDITABLE (dialog->entries[row]), value ? value : "");
 }
 
 

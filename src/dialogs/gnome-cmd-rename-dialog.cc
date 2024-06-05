@@ -57,7 +57,7 @@ static gboolean on_dialog_keypressed (GtkEventControllerKey *controller, guint k
         case GDK_KEY_KP_Enter:
             {
                 GError *error = nullptr;
-                gchar *new_fname = g_strdup (gtk_entry_get_text (priv->textbox));
+                gchar *new_fname = g_strdup (gtk_editable_get_text (GTK_EDITABLE (priv->textbox)));
                 gboolean result = priv->f->rename(new_fname, &error);
 
                 if (result)
@@ -127,7 +127,7 @@ GtkWidget *gnome_cmd_rename_dialog_new (GnomeCmdFile *f, GtkWidget *parent, gint
     gtk_popover_set_pointing_to (GTK_POPOVER (dialog), &rect);
 
     gtk_widget_set_size_request (GTK_WIDGET (priv->textbox), width, height);
-    gtk_entry_set_text (priv->textbox, f->get_name());
+    gtk_editable_set_text (GTK_EDITABLE (priv->textbox), f->get_name());
 
     gtk_widget_grab_focus (GTK_WIDGET (priv->textbox));
     gtk_editable_select_region (GTK_EDITABLE (priv->textbox), 0, -1);

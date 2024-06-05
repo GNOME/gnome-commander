@@ -234,7 +234,7 @@ static void gviewer_search_dlg_init (GViewerSearchDlg *sdlg)
 
     // Entry Box
     priv->entry = gtk_combo_box_text_new_with_entry ();
-    g_object_set (gtk_bin_get_child (GTK_BIN (priv->entry)), "activates-default", TRUE, nullptr);
+    g_object_set (gtk_combo_box_get_child (GTK_COMBO_BOX (priv->entry)), "activates-default", TRUE, nullptr);
     g_signal_connect (priv->entry, "changed", G_CALLBACK (entry_changed), sdlg);
     gtk_grid_attach(grid, priv->entry, 1, 0, 2, 1);
 

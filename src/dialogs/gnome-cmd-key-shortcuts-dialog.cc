@@ -217,16 +217,16 @@ static void gnome_cmd_key_shortcuts_dialog_init (GnomeCmdKeyShortcutsDialog *dia
     gtk_box_append (GTK_BOX (vbox), hbox);
     gtk_widget_show (hbox);
 
-    GtkWidget *scrolled_window = gtk_scrolled_window_new (NULL, NULL);
+    GtkWidget *scrolled_window = gtk_scrolled_window_new ();
     gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolled_window), GTK_POLICY_NEVER, GTK_POLICY_AUTOMATIC);
-    gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (scrolled_window), GTK_SHADOW_IN);
+    gtk_scrolled_window_set_has_frame (GTK_SCROLLED_WINDOW (scrolled_window), TRUE);
     gtk_widget_set_hexpand (scrolled_window, TRUE);
     gtk_box_append (GTK_BOX (hbox), scrolled_window);
     gtk_widget_show (scrolled_window);
 
     GtkWidget *view = create_view_and_model (*dialog->user_actions);
     gtk_widget_set_size_request (view, 600, 400);
-    gtk_container_add (GTK_CONTAINER (scrolled_window), view);
+    gtk_scrolled_window_set_child (GTK_SCROLLED_WINDOW (scrolled_window), view);
     gtk_widget_show (view);
 
     GtkWidget *box = gnome_cmd_hint_box_new (_("To edit a shortcut key, click on the "
@@ -268,7 +268,7 @@ gboolean gnome_cmd_key_shortcuts_dialog_new (GnomeCmdUserActions &user_actions)
 {
     GnomeCmdKeyShortcutsDialog::user_actions = &user_actions;        // ugly hack, but can't come to any better method of passing data to gnome_cmd_key_shortcuts_dialog_init ()
 
-    GtkWidget *dialog = gtk_widget_new (GNOME_CMD_TYPE_KEY_SHORTCUTS_DIALOG, NULL);
+    GtkWidget *dialog = GTK_WIDGET (g_object_new (GNOME_CMD_TYPE_KEY_SHORTCUTS_DIALOG, NULL));
 
     g_return_val_if_fail (dialog != NULL, FALSE);
 

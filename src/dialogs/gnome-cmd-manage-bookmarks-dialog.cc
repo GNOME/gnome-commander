@@ -91,9 +91,9 @@ void gnome_cmd_bookmark_dialog_new (const gchar *title, GtkWindow *parent)
     gtk_widget_set_vexpand (hbox, TRUE);
     gtk_box_append (GTK_BOX (content_area), hbox);
 
-    scrolled_window = gtk_scrolled_window_new (NULL, NULL);
+    scrolled_window = gtk_scrolled_window_new ();
     gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolled_window), GTK_POLICY_NEVER, GTK_POLICY_AUTOMATIC);
-    gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (scrolled_window), GTK_SHADOW_IN);
+    gtk_scrolled_window_set_has_frame (GTK_SCROLLED_WINDOW (scrolled_window), TRUE);
     gtk_widget_set_hexpand (scrolled_window, TRUE);
     gtk_box_append (GTK_BOX (hbox), scrolled_window);
 
@@ -102,7 +102,7 @@ void gnome_cmd_bookmark_dialog_new (const gchar *title, GtkWindow *parent)
     gtk_widget_set_size_request (view, 400, 250);
     g_signal_connect (view, "cursor-changed", G_CALLBACK (cursor_changed_callback), dialog);
     g_signal_connect (view, "row-activated", G_CALLBACK (row_activated_callback), dialog);
-    gtk_container_add (GTK_CONTAINER (scrolled_window), view);
+    gtk_scrolled_window_set_child (GTK_SCROLLED_WINDOW (scrolled_window), view);
 
     vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 12);
     gtk_box_append (GTK_BOX (hbox), vbox);

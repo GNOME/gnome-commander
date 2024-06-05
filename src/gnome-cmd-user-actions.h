@@ -83,55 +83,6 @@ inline std::string key2str(const GnomeCmdKeyPress &event)
     return key2str(event.state, event.keyval);
 }
 
-inline GdkEventKey str2key(gchar *s, guint &state, guint &key_val)
-{
-    s = g_ascii_strdown (s, -1);
-
-    gchar *key = strrchr(s, '>');       // find last '>'
-    key = key ? key+1 : s;
-
-    key_val = gdk_key_names[key];
-    state = 0;
-
-     if (key_val==GDK_KEY_VoidSymbol)
-        if (strlen(key)==1 && ascii_isalnum (*key))
-            key_val = *key;
-
-    for (const gchar *beg=s; (beg=strchr(beg, '<')); ++beg)
-    {
-        if (const gchar *end = strchr(beg, '>'))
-            if (guint modifier = gdk_modifiers_names[std::string(beg,end-beg+1)])
-            {
-                state |= modifier;
-                beg = end;
-                continue;
-            }
-
-        key_val = GDK_KEY_VoidSymbol;
-        break;
-    }
-
-    g_free (s);
-
-    GdkEventKey event;
-
-    event.keyval = key_val;
-    event.state = state;
-
-    return event;
-}
-
-inline GdkEventKey str2key(gchar *s, GdkEventKey &event)
-{
-    return str2key(s, event.state, event.keyval);
-}
-
-inline GdkEventKey str2key(gchar *s)
-{
-    GdkEventKey event;
-
-    return str2key(s, event);
-}
 
 GnomeCmdFileSelector *get_fs (const FileSelectorID fsID);
 GnomeCmdFileList     *get_fl (const FileSelectorID fsID);

@@ -229,21 +229,21 @@ void GnomeCmdSelectionProfileComponent::update()
     set_name_patterns_history(gnome_cmd_data.search_defaults.name_patterns.ents);
     set_content_patterns_history(gnome_cmd_data.search_defaults.content_patterns.ents);
 
-    gtk_entry_set_text (GTK_ENTRY (gtk_bin_get_child (GTK_BIN (priv->pattern_combo))), profile.filename_pattern.c_str());
+    gtk_editable_set_text (GTK_EDITABLE (gtk_combo_box_get_child (GTK_COMBO_BOX (priv->pattern_combo))), profile.filename_pattern.c_str());
     gtk_combo_box_set_active (GTK_COMBO_BOX (priv->filter_type_combo), (int) profile.syntax);
     gtk_combo_box_set_active (GTK_COMBO_BOX (priv->recurse_combo), profile.max_depth+1);
-    gtk_entry_set_text (GTK_ENTRY (gtk_bin_get_child (GTK_BIN (priv->find_text_combo))), profile.text_pattern.c_str());
+    gtk_editable_set_text (GTK_EDITABLE (gtk_combo_box_get_child (GTK_COMBO_BOX (priv->find_text_combo))), profile.text_pattern.c_str());
     gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (priv->find_text_check), profile.content_search);
 }
 
 
 void GnomeCmdSelectionProfileComponent::copy()
 {
-    const char *pattern_text = gtk_entry_get_text (GTK_ENTRY (gtk_bin_get_child (GTK_BIN (priv->pattern_combo))));
+    const char *pattern_text = gtk_editable_get_text (GTK_EDITABLE (gtk_combo_box_get_child (GTK_COMBO_BOX (priv->pattern_combo))));
     stringify(profile.filename_pattern, pattern_text);
     profile.syntax = (Filter::Type) gtk_combo_box_get_active (GTK_COMBO_BOX (priv->filter_type_combo));
     profile.max_depth = gtk_combo_box_get_active (GTK_COMBO_BOX (priv->recurse_combo)) - 1;
-    const char *find_text = gtk_entry_get_text (GTK_ENTRY (gtk_bin_get_child (GTK_BIN (priv->find_text_combo))));
+    const char *find_text = gtk_editable_get_text (GTK_EDITABLE (gtk_combo_box_get_child (GTK_COMBO_BOX (priv->find_text_combo))));
     stringify(profile.text_pattern, find_text);
     profile.content_search = !profile.text_pattern.empty() && gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->find_text_check));
     profile.match_case = profile.content_search && gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->case_check));
@@ -252,11 +252,11 @@ void GnomeCmdSelectionProfileComponent::copy()
 
 void GnomeCmdSelectionProfileComponent::copy(GnomeCmdData::SearchProfile &profile_in)
 {
-    const char *pattern_text = gtk_entry_get_text (GTK_ENTRY (gtk_bin_get_child (GTK_BIN (priv->pattern_combo))));
+    const char *pattern_text = gtk_editable_get_text (GTK_EDITABLE (gtk_combo_box_get_child (GTK_COMBO_BOX (priv->pattern_combo))));
     stringify(profile_in.filename_pattern, pattern_text);
     profile_in.syntax = (Filter::Type) gtk_combo_box_get_active (GTK_COMBO_BOX (priv->filter_type_combo));
     profile_in.max_depth = gtk_combo_box_get_active (GTK_COMBO_BOX (priv->recurse_combo)) - 1;
-    const char *find_text = gtk_entry_get_text (GTK_ENTRY (gtk_bin_get_child (GTK_BIN (priv->find_text_combo))));
+    const char *find_text = gtk_editable_get_text (GTK_EDITABLE (gtk_combo_box_get_child (GTK_COMBO_BOX (priv->find_text_combo))));
     stringify(profile_in.text_pattern, find_text);
     profile_in.content_search = !profile_in.text_pattern.empty() && gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->find_text_check));
     profile_in.match_case = profile_in.content_search && gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->case_check));
@@ -289,6 +289,6 @@ void GnomeCmdSelectionProfileComponent::set_content_patterns_history(GList *hist
 
 void GnomeCmdSelectionProfileComponent::set_default_activation(GtkWindow *w)
 {
-    g_signal_connect_swapped (gtk_bin_get_child (GTK_BIN (priv->pattern_combo)), "activate", G_CALLBACK (gtk_window_activate_default), w);
-    g_signal_connect_swapped (gtk_bin_get_child (GTK_BIN (priv->find_text_combo)), "activate", G_CALLBACK (gtk_window_activate_default), w);
+    gtk_entry_set_activates_default (GTK_ENTRY (gtk_combo_box_get_child (GTK_COMBO_BOX (priv->pattern_combo))), TRUE);
+    gtk_entry_set_activates_default (GTK_ENTRY (gtk_combo_box_get_child (GTK_COMBO_BOX (priv->find_text_combo))), TRUE);
 }

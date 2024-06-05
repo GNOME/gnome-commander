@@ -89,7 +89,7 @@ static GtkWidget *create_general_tab (GtkWidget *parent, GnomeCmdData::Options &
 
     GtkWidget *scrolled_window;
     /* create a new scrolled window. */
-    scrolled_window = gtk_scrolled_window_new (NULL, NULL);
+    scrolled_window = gtk_scrolled_window_new ();
     /* the policy is one of GTK_POLICY AUTOMATIC, or GTK_POLICY_ALWAYS.
      * GTK_POLICY_AUTOMATIC will automatically decide whether you need
      * scrollbars, whereas GTK_POLICY_ALWAYS will always leave the scrollbars
@@ -97,17 +97,13 @@ static GtkWidget *create_general_tab (GtkWidget *parent, GnomeCmdData::Options &
      * the vertical. */
     gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolled_window),
                                     GTK_POLICY_AUTOMATIC, GTK_POLICY_ALWAYS);
-    /* pack the scrolled_window into the hbox */
     gtk_widget_set_hexpand (scrolled_window, TRUE);
     gtk_widget_set_vexpand (scrolled_window, TRUE);
     gtk_widget_set_margin_top (scrolled_window, 6);
     gtk_widget_set_margin_bottom (scrolled_window, 6);
     gtk_widget_set_margin_start (scrolled_window, 6);
     gtk_widget_set_margin_end (scrolled_window, 6);
-    /* pack the vbox into the scrolled window */
-    gtk_scrolled_window_add_with_viewport (GTK_SCROLLED_WINDOW (scrolled_window), vbox);
-    /* https://stackoverflow.com/questions/9498699/remove-gtkscrolledwindow-frame-border-in-c */
-    gtk_viewport_set_shadow_type(GTK_VIEWPORT (gtk_bin_get_child (GTK_BIN (scrolled_window))), GTK_SHADOW_NONE);
+    gtk_scrolled_window_set_child (GTK_SCROLLED_WINDOW (scrolled_window), vbox);
 
     // Left mouse button settings
     cat_box = create_vbox (parent, FALSE, 0);
@@ -326,7 +322,7 @@ static void on_date_format_update (GtkEditable *editable, GtkWidget *options_dia
     GtkWidget *format_entry = lookup_widget (options_dialog, "date_format_entry");
     GtkWidget *test_label = lookup_widget (options_dialog, "date_format_test_label");
 
-    const char *format = gtk_entry_get_text (GTK_ENTRY (format_entry));
+    const char *format = gtk_editable_get_text (GTK_EDITABLE (format_entry));
     gchar *locale_format = g_locale_from_utf8 (format, -1, NULL, NULL, NULL);
 
     char s[256];
@@ -354,7 +350,7 @@ static GtkWidget *create_format_tab (GtkWidget *parent, GnomeCmdData::Options &c
 
     vbox = create_tabvbox (parent);
 
-    scrolled_window = gtk_scrolled_window_new (NULL, NULL);
+    scrolled_window = gtk_scrolled_window_new ();
     gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolled_window),
                                     GTK_POLICY_AUTOMATIC, GTK_POLICY_ALWAYS);
     gtk_widget_set_hexpand (scrolled_window, TRUE);
@@ -363,8 +359,7 @@ static GtkWidget *create_format_tab (GtkWidget *parent, GnomeCmdData::Options &c
     gtk_widget_set_margin_bottom (scrolled_window, 6);
     gtk_widget_set_margin_start (scrolled_window, 6);
     gtk_widget_set_margin_end (scrolled_window, 6);
-    gtk_scrolled_window_add_with_viewport (GTK_SCROLLED_WINDOW (scrolled_window), vbox);
-    gtk_viewport_set_shadow_type(GTK_VIEWPORT (gtk_bin_get_child (GTK_BIN (scrolled_window))), GTK_SHADOW_NONE);
+    gtk_scrolled_window_set_child (GTK_SCROLLED_WINDOW (scrolled_window), vbox);
 
     // Size display mode
     cat_box = create_vbox (parent, FALSE, 0);
@@ -449,7 +444,7 @@ void store_format_options (GtkWidget *dialog, GnomeCmdData::Options &cfg)
     GtkWidget *size_grouped_radio = lookup_widget (dialog, "size_grouped_radio");
     GtkWidget *perm_text_radio = lookup_widget (dialog, "perm_text_radio");
     GtkWidget *entry = lookup_widget (dialog, "date_format_entry");
-    const gchar *format = gtk_entry_get_text (GTK_ENTRY (entry));
+    const gchar *format = gtk_editable_get_text (GTK_EDITABLE (entry));
 
     if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (size_powered_radio)))
         cfg.size_disp_mode = GNOME_CMD_SIZE_DISP_MODE_POWERED;
@@ -813,7 +808,7 @@ static GtkWidget *create_layout_tab (GtkWidget *parent, GnomeCmdData::Options &c
 
     vbox = create_tabvbox (parent);
 
-    scrolled_window = gtk_scrolled_window_new (NULL, NULL);
+    scrolled_window = gtk_scrolled_window_new ();
     gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolled_window),
                                     GTK_POLICY_AUTOMATIC, GTK_POLICY_ALWAYS);
     gtk_widget_set_hexpand (scrolled_window, TRUE);
@@ -822,8 +817,7 @@ static GtkWidget *create_layout_tab (GtkWidget *parent, GnomeCmdData::Options &c
     gtk_widget_set_margin_bottom (scrolled_window, 6);
     gtk_widget_set_margin_start (scrolled_window, 6);
     gtk_widget_set_margin_end (scrolled_window, 6);
-    gtk_scrolled_window_add_with_viewport (GTK_SCROLLED_WINDOW (scrolled_window), vbox);
-    gtk_viewport_set_shadow_type(GTK_VIEWPORT (gtk_bin_get_child (GTK_BIN (scrolled_window))), GTK_SHADOW_NONE);
+    gtk_scrolled_window_set_child (GTK_SCROLLED_WINDOW (scrolled_window), vbox);
 
     // File panes
     grid = create_grid (parent);
@@ -983,7 +977,7 @@ GtkWidget *create_tabs_tab (GtkWidget *parent, GnomeCmdData::Options &cfg)
 
     vbox = create_tabvbox (parent);
 
-    scrolled_window = gtk_scrolled_window_new (NULL, NULL);
+    scrolled_window = gtk_scrolled_window_new ();
     gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolled_window),
                                     GTK_POLICY_AUTOMATIC, GTK_POLICY_ALWAYS);
     gtk_widget_set_hexpand (scrolled_window, TRUE);
@@ -992,8 +986,7 @@ GtkWidget *create_tabs_tab (GtkWidget *parent, GnomeCmdData::Options &cfg)
     gtk_widget_set_margin_bottom (scrolled_window, 6);
     gtk_widget_set_margin_start (scrolled_window, 6);
     gtk_widget_set_margin_end (scrolled_window, 6);
-    gtk_scrolled_window_add_with_viewport (GTK_SCROLLED_WINDOW (scrolled_window), vbox);
-    gtk_viewport_set_shadow_type(GTK_VIEWPORT (gtk_bin_get_child (GTK_BIN (scrolled_window))), GTK_SHADOW_NONE);
+    gtk_scrolled_window_set_child (GTK_SCROLLED_WINDOW (scrolled_window), vbox);
 
     cat_box = create_vbox (parent, FALSE, 0);
     cat = create_category (parent, cat_box, _("Tab bar"));
@@ -1057,7 +1050,7 @@ static GtkWidget *create_confirmation_tab (GtkWidget *parent, GnomeCmdData::Opti
 
     vbox = create_tabvbox (parent);
 
-    scrolled_window = gtk_scrolled_window_new (NULL, NULL);
+    scrolled_window = gtk_scrolled_window_new ();
     gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolled_window),
                                     GTK_POLICY_AUTOMATIC, GTK_POLICY_ALWAYS);
     gtk_widget_set_hexpand (scrolled_window, TRUE);
@@ -1066,8 +1059,7 @@ static GtkWidget *create_confirmation_tab (GtkWidget *parent, GnomeCmdData::Opti
     gtk_widget_set_margin_bottom (scrolled_window, 6);
     gtk_widget_set_margin_start (scrolled_window, 6);
     gtk_widget_set_margin_end (scrolled_window, 6);
-    gtk_scrolled_window_add_with_viewport (GTK_SCROLLED_WINDOW (scrolled_window), vbox);
-    gtk_viewport_set_shadow_type(GTK_VIEWPORT (gtk_bin_get_child (GTK_BIN (scrolled_window))), GTK_SHADOW_NONE);
+    gtk_scrolled_window_set_child (GTK_SCROLLED_WINDOW (scrolled_window), vbox);
 
 
     /* Delete options
@@ -1232,7 +1224,7 @@ GtkWidget *create_filter_tab (GtkWidget *parent, GnomeCmdData::Options &cfg)
 
     vbox = create_tabvbox (parent);
 
-    scrolled_window = gtk_scrolled_window_new (NULL, NULL);
+    scrolled_window = gtk_scrolled_window_new ();
     gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolled_window),
                                     GTK_POLICY_AUTOMATIC, GTK_POLICY_ALWAYS);
     gtk_widget_set_hexpand (scrolled_window, TRUE);
@@ -1241,8 +1233,7 @@ GtkWidget *create_filter_tab (GtkWidget *parent, GnomeCmdData::Options &cfg)
     gtk_widget_set_margin_bottom (scrolled_window, 6);
     gtk_widget_set_margin_start (scrolled_window, 6);
     gtk_widget_set_margin_end (scrolled_window, 6);
-    gtk_scrolled_window_add_with_viewport (GTK_SCROLLED_WINDOW (scrolled_window), vbox);
-    gtk_viewport_set_shadow_type(GTK_VIEWPORT (gtk_bin_get_child (GTK_BIN (scrolled_window))), GTK_SHADOW_NONE);
+    gtk_scrolled_window_set_child (GTK_SCROLLED_WINDOW (scrolled_window), vbox);
 
     cat_box = create_vbox (parent, FALSE, 0);
     cat = create_category (parent, cat_box, _("Filetypes to hide"));
@@ -1351,7 +1342,7 @@ void store_filter_options (GtkWidget *dialog, GnomeCmdData::Options &cfg)
     cfg.filter.file_types[GnomeCmdData::G_FILE_IS_BACKUP] =
         gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (hide_backup_check));
 
-    cfg.set_backup_pattern(gtk_entry_get_text (GTK_ENTRY (backup_pattern_entry)));
+    cfg.set_backup_pattern(gtk_editable_get_text (GTK_EDITABLE (backup_pattern_entry)));
 }
 
 
@@ -1439,8 +1430,8 @@ static void get_app_dialog_values (GtkWidget *dialog, gchar **name, gchar **cmd,
     GtkWidget *multiple_check = lookup_widget (dialog, "handle_multiple");
     GtkWidget *terminal_check = lookup_widget (dialog, "requires_terminal");
 
-    *name = (gchar *) gtk_entry_get_text (GTK_ENTRY (name_entry));
-    *cmd = (gchar *) gtk_entry_get_text (GTK_ENTRY (cmd_entry));
+    *name = (gchar *) gtk_editable_get_text (GTK_EDITABLE (name_entry));
+    *cmd = (gchar *) gtk_editable_get_text (GTK_EDITABLE (cmd_entry));
     // Get icon_path string
     g_object_get (G_OBJECT (gtk_button_get_image (GTK_BUTTON (iconWidget))), "file", icon_path, NULL);
     *pattern_string = NULL;
@@ -1453,7 +1444,7 @@ static void get_app_dialog_values (GtkWidget *dialog, gchar **name, gchar **cmd,
     else
     {
         *target = APP_TARGET_SOME_FILES;
-        *pattern_string = (gchar *) gtk_entry_get_text (GTK_ENTRY (pattern_entry));
+        *pattern_string = (gchar *) gtk_editable_get_text (GTK_EDITABLE (pattern_entry));
     }
 
     *handles_uris = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (uris_check));
@@ -1751,7 +1742,7 @@ static GtkWidget *create_programs_tab (GtkWidget *parent, GnomeCmdData::Options 
 
     vbox = create_tabvbox (parent);
 
-    scrolled_window = gtk_scrolled_window_new (NULL, NULL);
+    scrolled_window = gtk_scrolled_window_new ();
     gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolled_window),
                                     GTK_POLICY_AUTOMATIC, GTK_POLICY_ALWAYS);
     gtk_widget_set_hexpand (scrolled_window, TRUE);
@@ -1760,8 +1751,7 @@ static GtkWidget *create_programs_tab (GtkWidget *parent, GnomeCmdData::Options 
     gtk_widget_set_margin_bottom (scrolled_window, 6);
     gtk_widget_set_margin_start (scrolled_window, 6);
     gtk_widget_set_margin_end (scrolled_window, 6);
-    gtk_scrolled_window_add_with_viewport (GTK_SCROLLED_WINDOW (scrolled_window), vbox);
-    gtk_viewport_set_shadow_type(GTK_VIEWPORT (gtk_bin_get_child (GTK_BIN (scrolled_window))), GTK_SHADOW_NONE);
+    gtk_scrolled_window_set_child (GTK_SCROLLED_WINDOW (scrolled_window), vbox);
 
     check = create_check (parent, _("Always download remote files before opening in external programs"), "honor_expect_uris");
     gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), !cfg.honor_expect_uris);
@@ -1806,7 +1796,7 @@ static GtkWidget *create_programs_tab (GtkWidget *parent, GnomeCmdData::Options 
     entry = create_entry (parent, "termopen", cfg.termopen);
     gtk_grid_attach (GTK_GRID (grid1), entry, 1, 7, 1, 1);
 
-    separator = gtk_separator_menu_item_new ();
+    separator = gtk_separator_new (GTK_ORIENTATION_HORIZONTAL);
     gtk_box_append (GTK_BOX (vbox), separator);
 
     //Other favorite apps frame
@@ -1891,13 +1881,13 @@ void store_programs_options (GtkWidget *dialog, GnomeCmdData::Options &cfg)
     GtkWidget *check_iv = lookup_widget (dialog, "use_internal_viewer");
     GtkWidget *check_is = lookup_widget (dialog, "use_internal_search");
 
-    cfg.set_viewer(gtk_entry_get_text (GTK_ENTRY (entry1)));
-    cfg.set_editor(gtk_entry_get_text (GTK_ENTRY (entry2)));
-    cfg.set_differ(gtk_entry_get_text (GTK_ENTRY (entry3)));
-    cfg.set_search(gtk_entry_get_text (GTK_ENTRY (entry4)));
-    cfg.set_sendto(gtk_entry_get_text (GTK_ENTRY (entry5)));
-    cfg.set_termopen(gtk_entry_get_text (GTK_ENTRY (entry6)));
-    cfg.set_termexec(gtk_entry_get_text (GTK_ENTRY (entry7)));
+    cfg.set_viewer(gtk_editable_get_text (GTK_EDITABLE (entry1)));
+    cfg.set_editor(gtk_editable_get_text (GTK_EDITABLE (entry2)));
+    cfg.set_differ(gtk_editable_get_text (GTK_EDITABLE (entry3)));
+    cfg.set_search(gtk_editable_get_text (GTK_EDITABLE (entry4)));
+    cfg.set_sendto(gtk_editable_get_text (GTK_EDITABLE (entry5)));
+    cfg.set_termopen(gtk_editable_get_text (GTK_EDITABLE (entry6)));
+    cfg.set_termexec(gtk_editable_get_text (GTK_EDITABLE (entry7)));
     gnome_cmd_data.use_gcmd_block = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (check_use_gcmd_block));
 
     cfg.honor_expect_uris = !gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (check_uris));
@@ -1974,9 +1964,9 @@ void get_device_dialog_values (GtkWidget *dialog, gchar **alias, gchar **device_
     GtkWidget *mountp_entry = lookup_widget (dialog, "mountp_entry");
     GtkWidget *iconWidget = lookup_widget (dialog, "device_iconentry");
 
-    gchar* device = (gchar *) gtk_entry_get_text (GTK_ENTRY (device_entry));
+    const gchar* device = gtk_editable_get_text (GTK_EDITABLE (device_entry));
 
-    *alias = (gchar *) gtk_entry_get_text (GTK_ENTRY (alias_entry));
+    *alias = (gchar *) gtk_editable_get_text (GTK_EDITABLE (alias_entry));
     if (device && strlen(device) > 0)
         *device_utf8 = g_filename_to_utf8(device, -1, nullptr, nullptr, nullptr);
     if (GFile *mountp = directory_chooser_button_get_file (mountp_entry))
@@ -2239,7 +2229,7 @@ static GtkWidget *create_devices_tab (GtkWidget *parent, GnomeCmdData::Options &
 
     vbox = create_tabvbox (parent);
 
-    scrolled_window = gtk_scrolled_window_new (NULL, NULL);
+    scrolled_window = gtk_scrolled_window_new ();
     gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolled_window),
                                     GTK_POLICY_AUTOMATIC, GTK_POLICY_ALWAYS);
     gtk_widget_set_hexpand (scrolled_window, TRUE);
@@ -2248,8 +2238,7 @@ static GtkWidget *create_devices_tab (GtkWidget *parent, GnomeCmdData::Options &
     gtk_widget_set_margin_bottom (scrolled_window, 6);
     gtk_widget_set_margin_start (scrolled_window, 6);
     gtk_widget_set_margin_end (scrolled_window, 6);
-    gtk_scrolled_window_add_with_viewport (GTK_SCROLLED_WINDOW (scrolled_window), vbox);
-    gtk_viewport_set_shadow_type(GTK_VIEWPORT (gtk_bin_get_child (GTK_BIN (scrolled_window))), GTK_SHADOW_NONE);
+    gtk_scrolled_window_set_child (GTK_SCROLLED_WINDOW (scrolled_window), vbox);
 
     cat_box = create_vbox (parent, FALSE, 0);
     cat = create_category (parent, cat_box, _("Devices"));
