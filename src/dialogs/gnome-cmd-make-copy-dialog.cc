@@ -39,18 +39,13 @@ struct GnomeCmdMakeCopyDialogPrivate
 G_DEFINE_TYPE_WITH_PRIVATE (GnomeCmdMakeCopyDialog, gnome_cmd_make_copy_dialog, GNOME_CMD_TYPE_STRING_DIALOG)
 
 
-inline void copy_file (GnomeCmdFile *f, GnomeCmdDir *dir, const gchar *filename)
+static void on_copy_done (gboolean success, gpointer user_data)
 {
-    GList *src_files = g_list_append (NULL, f);
+    GnomeCmdMakeCopyDialog *dialog = GNOME_CMD_MAKE_COPY_DIALOG (user_data);
+    auto priv = static_cast<GnomeCmdMakeCopyDialogPrivate*>(gnome_cmd_make_copy_dialog_get_instance_private (dialog));
 
-    gnome_cmd_copy_start (src_files,
-                          dir,
-                          NULL,
-                          g_strdup (filename),
-                          G_FILE_COPY_NONE,
-                          GNOME_CMD_CONFIRM_OVERWRITE_QUERY,
-                          NULL,
-                          NULL);
+    gnome_cmd_dir_relist_files (GTK_WINDOW (main_win), priv->dir, FALSE);
+    main_win->focus_file_lists();
 }
 
 
@@ -68,22 +63,34 @@ static gboolean on_ok (GnomeCmdStringDialog *string_dialog, const gchar **values
         return FALSE;
     }
 
+    GnomeCmdDir *dest_dir;
+    gchar *dest_fn;
+
     if (filename[0] == '/')
     {
         gchar *parent_dir = g_path_get_dirname (filename);
-        gchar *dest_fn = g_path_get_basename (filename);
+        dest_fn = g_path_get_basename (filename);
 
         auto con = gnome_cmd_dir_get_connection (priv->dir);
         auto conPath = gnome_cmd_con_create_path (con, parent_dir);
-        auto dir = gnome_cmd_dir_new (con, conPath);
+        dest_dir = gnome_cmd_dir_new (con, conPath);
         delete conPath;
         g_free (parent_dir);
-
-        copy_file (priv->f, dir, dest_fn);
-        g_free (dest_fn);
     }
     else
-        copy_file (priv->f, priv->dir, filename);
+    {
+        dest_dir = priv->dir;
+        dest_fn = g_strdup (filename);
+    }
+
+    gnome_cmd_copy_gfiles_start (GTK_WINDOW (main_win),
+                                 g_list_append (NULL, priv->f->get_gfile()),
+                                 dest_dir,
+                                 dest_fn,
+                                 G_FILE_COPY_NONE,
+                                 GNOME_CMD_CONFIRM_OVERWRITE_QUERY,
+                                 on_copy_done,
+                                 dialog);
 
     return TRUE;
 }

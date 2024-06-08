@@ -38,10 +38,26 @@ static GList *_files = NULL;
 static GnomeCmdFileList *_fl = NULL;
 
 
-static void on_xfer_done (GList *files, gpointer data)
+struct PasteClosure
 {
-    if (files != NULL)
-        gnome_cmd_file_list_free (files);
+    GList *files;
+    GnomeCmdDir *dir;
+};
+
+
+static void on_xfer_done (gboolean success, gpointer user_data)
+{
+    PasteClosure *paste = (PasteClosure *) user_data;
+
+    if (paste->dir)
+        gnome_cmd_dir_relist_files (GTK_WINDOW (main_win), paste->dir, FALSE);
+
+    main_win->focus_file_lists ();
+
+    if (paste->files != NULL)
+        gnome_cmd_file_list_free (paste->files);
+
+    g_free (paste);
 }
 
 
@@ -56,13 +72,17 @@ inline void update_refs (GnomeCmdFileList *fl, GList *files)
 
 inline void cut_and_paste (GnomeCmdDir *to)
 {
-    gnome_cmd_move_start (_files,
-                          gnome_cmd_dir_ref (to),
-                          _fl,
-                          NULL,
-                          G_FILE_COPY_NONE,
-                          GNOME_CMD_CONFIRM_OVERWRITE_QUERY,
-                          G_CALLBACK (on_xfer_done), _files);
+    auto paste = g_new0 (PasteClosure, 1);
+    paste->files = _files;
+    paste->dir = to;
+
+    gnome_cmd_move_gfiles_start (GTK_WINDOW (main_win),
+                                 gnome_cmd_file_list_to_gfile_list (_files),
+                                 gnome_cmd_dir_ref (to),
+                                 NULL,
+                                 G_FILE_COPY_NONE,
+                                 GNOME_CMD_CONFIRM_OVERWRITE_QUERY,
+                                 on_xfer_done, paste);
     _files = NULL;
     _fl = NULL;
     main_win->set_cap_state(FALSE);
@@ -71,13 +91,17 @@ inline void cut_and_paste (GnomeCmdDir *to)
 
 inline void copy_and_paste (GnomeCmdDir *to)
 {
-    gnome_cmd_copy_start (_files,
-                          gnome_cmd_dir_ref (to),
-                          _fl,
-                          NULL,
-                          G_FILE_COPY_NONE,
-                          GNOME_CMD_CONFIRM_OVERWRITE_QUERY,
-                          G_CALLBACK (on_xfer_done), _files);
+    auto paste = g_new0 (PasteClosure, 1);
+    paste->files = _files;
+    paste->dir = to;
+
+    gnome_cmd_copy_gfiles_start (GTK_WINDOW (main_win),
+                                 gnome_cmd_file_list_to_gfile_list (_files),
+                                 gnome_cmd_dir_ref (to),
+                                 NULL,
+                                 G_FILE_COPY_NONE,
+                                 GNOME_CMD_CONFIRM_OVERWRITE_QUERY,
+                                 on_xfer_done, paste);
     _files = NULL;
     _fl = NULL;
     main_win->set_cap_state(FALSE);
