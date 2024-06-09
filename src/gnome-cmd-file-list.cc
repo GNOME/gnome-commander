@@ -182,7 +182,7 @@ struct GnomeCmdFileList::Private
     gint column_resizing;
 
     gboolean shift_down;
-    std::unique_ptr<GtkTreeIter> shift_down_row;
+    GtkTreeIterPtr shift_down_row;
     gint shift_down_key;
     GnomeCmdFile *right_mb_down_file;
     gboolean right_mb_sel_state;
@@ -206,6 +206,7 @@ struct GnomeCmdFileList::Private
 
 
 GnomeCmdFileList::Private::Private(GnomeCmdFileList *fl)
+    : shift_down_row (nullptr, &gtk_tree_iter_free)
 {
     base_dir = nullptr;
 
@@ -674,7 +675,7 @@ void GnomeCmdFileList::select_file(GnomeCmdFile *f, GtkTreeIter *row)
     if (f->is_dotdot)
         return;
 
-    std::unique_ptr<GtkTreeIter> iter;
+    GtkTreeIterPtr iter(nullptr, &gtk_tree_iter_free);
     if (row == nullptr)
     {
         iter = get_row_from_file (f);
@@ -692,7 +693,7 @@ void GnomeCmdFileList::unselect_file(GnomeCmdFile *f, GtkTreeIter *row)
 {
     g_return_if_fail (f != nullptr);
 
-    std::unique_ptr<GtkTreeIter> iter;
+    GtkTreeIterPtr iter(nullptr, &gtk_tree_iter_free);
     if (row == nullptr)
     {
         iter = get_row_from_file (f);
@@ -2311,11 +2312,11 @@ GnomeCmdFile *GnomeCmdFileList::get_first_selected_file()
 }
 
 
-std::unique_ptr<GtkTreeIter> GnomeCmdFileList::get_focused_file_iter()
+GtkTreeIterPtr GnomeCmdFileList::get_focused_file_iter()
 {
     GtkTreePath *path = nullptr;
     gtk_tree_view_get_cursor (*this, &path, NULL);
-    std::unique_ptr<GtkTreeIter> iter (new GtkTreeIter {});
+    GtkTreeIterPtr iter(new GtkTreeIter {}, &gtk_tree_iter_free);
     bool found = false;
     if (path != nullptr)
         found = gtk_tree_model_get_iter (GTK_TREE_MODEL (priv->store), iter.get(), path);
@@ -2490,9 +2491,9 @@ GnomeCmdFile *GnomeCmdFileList::get_file_at_row (GtkTreeIter *iter)
 }
 
 
-std::unique_ptr<GtkTreeIter> GnomeCmdFileList::get_row_from_file(GnomeCmdFile *f)
+GtkTreeIterPtr GnomeCmdFileList::get_row_from_file(GnomeCmdFile *f)
 {
-    std::unique_ptr<GtkTreeIter> result;
+    GtkTreeIterPtr result(nullptr, &gtk_tree_iter_free);
     traverse_files ([f, &result](GnomeCmdFile *file, GtkTreeIter *iter, GtkListStore *store) {
         if (file == f)
         {
@@ -3503,20 +3504,20 @@ void GnomeCmdFileList::drop_files(DndMode dndMode, GFileCopyFlags gFileCopyFlags
     }
 }
 
-std::unique_ptr<GtkTreeIter> GnomeCmdFileList::get_dest_row_at_pos (gint drag_x, gint drag_y)
+GtkTreeIterPtr GnomeCmdFileList::get_dest_row_at_pos (gint drag_x, gint drag_y)
 {
     gint wx, wy;
     gtk_tree_view_convert_bin_window_to_widget_coords (*this, drag_x, drag_y, &wx, &wy);
     return get_dest_row_at_coords (wx, wy);
 }
 
-std::unique_ptr<GtkTreeIter> GnomeCmdFileList::get_dest_row_at_coords (gdouble x, gdouble y)
+GtkTreeIterPtr GnomeCmdFileList::get_dest_row_at_coords (gdouble x, gdouble y)
 {
     GtkTreePath *path;
     if (!gtk_tree_view_get_dest_row_at_pos (*this, x, y, &path, nullptr))
-        return std::unique_ptr<GtkTreeIter>();
+        return GtkTreeIterPtr(nullptr, &gtk_tree_iter_free);
 
-    std::unique_ptr<GtkTreeIter> iter (new GtkTreeIter {});
+    GtkTreeIterPtr iter(new GtkTreeIter {}, &gtk_tree_iter_free);
     if (!gtk_tree_model_get_iter (GTK_TREE_MODEL (priv->store), iter.get(), path))
         iter.reset();
     gtk_tree_path_free (path);
