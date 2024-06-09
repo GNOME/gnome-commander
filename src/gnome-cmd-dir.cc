@@ -36,8 +36,6 @@
 using namespace std;
 
 
-#define DIR_PBAR_MAX 50
-
 int created_dirs_cnt = 0;
 int deleted_dirs_cnt = 0;
 
@@ -56,7 +54,6 @@ enum
 
 struct GnomeCmdDirPrivate
 {
-    gint ref_cnt;
     GList *files;
     GnomeCmdFileCollection *file_collection;
     GnomeCmdCon *con;
@@ -75,6 +72,9 @@ G_DEFINE_TYPE (GnomeCmdDir, gnome_cmd_dir, GNOME_CMD_TYPE_FILE)
 
 
 static guint signals[LAST_SIGNAL] = { 0 };
+
+
+static void gnome_cmd_dir_set_path (GnomeCmdDir *dir, GnomeCmdPath *path);
 
 
 static void monitor_callback (GFileMonitor *gFileMonitor, GFile *gFile, GFile *otherGFile,
@@ -470,10 +470,14 @@ static GList *create_gnome_cmd_file_list_from_gfileinfo_list (GnomeCmdDir *dir, 
 }
 
 
-static void on_list_done (GnomeCmdDir *dir, GList *infolist, GError *error)
+static void on_list_done (GnomeCmdDir *dir, gboolean success, GList *infolist, GError *error)
 {
-    if (dir->state == GnomeCmdDir::STATE_LISTED)
+    dir->priv->lock = FALSE;
+
+    if (success)
     {
+        dir->state = GnomeCmdDir::STATE_LISTED;
+
         DEBUG('l', "File listing succeeded\n");
 
         if (!dir->priv->file_collection->empty())
@@ -482,73 +486,18 @@ static void on_list_done (GnomeCmdDir *dir, GList *infolist, GError *error)
         dir->priv->files = create_gnome_cmd_file_list_from_gfileinfo_list (dir, infolist);
         dir->priv->file_collection->add(dir->priv->files);
         g_list_free (infolist);
-        infolist = nullptr;
-
-        if (dir->dialog)
-        {
-            gtk_window_destroy (GTK_WINDOW (dir->dialog));
-            dir->dialog = nullptr;
-        }
-        dir->priv->lock = FALSE;
 
         DEBUG('l', "Emitting 'list-ok' signal\n");
         g_signal_emit (dir, signals[LIST_OK], 0, dir->priv->files);
     }
-    else if (dir->state == GnomeCmdDir::STATE_EMPTY)
+    else
     {
+        dir->state = GnomeCmdDir::STATE_EMPTY;
+
         DEBUG('l', "File listing failed: %s\n", error->message);
-
-        if (dir->dialog)
-        {
-            gtk_window_destroy (GTK_WINDOW (dir->dialog));
-            dir->dialog = nullptr;
-        }
-
-        dir->priv->lock = FALSE;
-
         DEBUG('l', "Emitting 'list-failed' signal\n");
-        g_signal_emit (dir, signals[LIST_FAILED], 0, dir->error);
+        g_signal_emit (dir, signals[LIST_FAILED], 0, error);
     }
-}
-
-
-static void on_dir_list_cancel (GtkButton *btn, GnomeCmdDir *dir)
-{
-    if (dir->state == GnomeCmdDir::STATE_LISTING)
-    {
-        DEBUG('l', "on_dir_list_cancel\n");
-        dirlist_cancel (dir);
-
-        gtk_window_destroy (GTK_WINDOW (dir->dialog));
-        dir->dialog = nullptr;
-    }
-}
-
-
-static void create_list_progress_dialog (GtkWindow *parent_window, GnomeCmdDir *dir)
-{
-    dir->dialog = gnome_cmd_dialog_new (parent_window, nullptr);
-    g_object_ref (dir->dialog);
-
-    gnome_cmd_dialog_add_button (
-        GNOME_CMD_DIALOG (dir->dialog),
-        _("_Cancel"),
-        G_CALLBACK (on_dir_list_cancel), dir);
-
-    GtkWidget *vbox = create_vbox (dir->dialog, FALSE, 12);
-
-    dir->label = create_label (dir->dialog, _("Waiting for file list"));
-
-    dir->pbar = create_progress_bar (dir->dialog);
-    gtk_progress_bar_set_show_text (GTK_PROGRESS_BAR (dir->pbar), FALSE);
-    gtk_progress_bar_set_pulse_step (GTK_PROGRESS_BAR (dir->pbar), 1.0 / (gdouble) DIR_PBAR_MAX);
-
-    gtk_box_append (GTK_BOX (vbox), dir->label);
-    gtk_box_append (GTK_BOX (vbox), dir->pbar);
-
-    gnome_cmd_dialog_add_category (GNOME_CMD_DIALOG (dir->dialog), vbox);
-
-    gtk_widget_show_all (dir->dialog);
 }
 
 
@@ -559,12 +508,7 @@ void gnome_cmd_dir_relist_files (GtkWindow *parent_window, GnomeCmdDir *dir, gbo
     if (dir->priv->lock) return;
     dir->priv->lock = TRUE;
 
-    dir->done_func = (DirListDoneFunc) on_list_done;
-
-    if (visualProgress)
-        create_list_progress_dialog (parent_window, dir);
-
-    dirlist_list (dir, visualProgress);
+    dirlist_list (parent_window, dir, visualProgress, on_list_done);
 }
 
 
@@ -592,7 +536,7 @@ GnomeCmdPath *gnome_cmd_dir_get_path (GnomeCmdDir *dir)
 }
 
 
-void gnome_cmd_dir_set_path (GnomeCmdDir *dir, GnomeCmdPath *path)
+static void gnome_cmd_dir_set_path (GnomeCmdDir *dir, GnomeCmdPath *path)
 {
     g_return_if_fail (GNOME_CMD_IS_DIR (dir));
 

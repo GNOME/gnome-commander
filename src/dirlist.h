@@ -23,7 +23,8 @@
 
 #include "gnome-cmd-dir.h"
 
-void dirlist_list (GnomeCmdDir *dir, gboolean visprog);
-void dirlist_cancel (GnomeCmdDir *dir);
+typedef void (* GnomeCmdDirListDone) (GnomeCmdDir *dir, gboolean success, GList *infolist, GError *error);
+
+void dirlist_list (GtkWindow *parent_window, GnomeCmdDir *dir, gboolean visprog, GnomeCmdDirListDone list_done);
 GList* sync_dir_list (const gchar *absDirPath);
 GList* sync_dir_list (GFile *gFile, GCancellable* cancellable = nullptr);

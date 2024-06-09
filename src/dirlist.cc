@@ -33,50 +33,90 @@ using namespace std;
 #define FILES_PER_NOTIFICATION 50
 #define LIST_PRIORITY 0
 #define FILES_PER_UPDATE 50
+#define DIR_PBAR_MAX 50
 
 
-void async_list (GnomeCmdDir *dir);
-void sync_list  (GnomeCmdDir *dir);
+struct GnomeCmdDirList
+{
+    GnomeCmdDir *dir;
+
+    GList *gFileInfoList;
+    gint list_counter;
+
+    GtkWidget *dialog;
+    GtkWidget *label;
+    GtkWidget *pbar;
+
+    GnomeCmdDirListDone list_done;
+};
+
+
+static void async_list (GnomeCmdDirList *dirlist);
+static void sync_list  (GnomeCmdDirList *dirlist);
 static void enumerate_children_callback(GObject *direnum, GAsyncResult *result, gpointer user_data);
+static void dirlist_cancel (GnomeCmdDirList *dirlist);
 
-static gboolean update_list_progress (GnomeCmdDir *dir)
+
+static void on_dir_list_cancel (GtkButton *btn, GnomeCmdDirList *dirlist)
+{
+    DEBUG('l', "on_dir_list_cancel\n");
+    dirlist_cancel (dirlist);
+
+    gtk_window_destroy (GTK_WINDOW (dirlist->dialog));
+    dirlist->dialog = nullptr;
+}
+
+
+static void create_list_progress_dialog (GtkWindow *parent_window, GnomeCmdDirList *dir)
+{
+    dir->dialog = gnome_cmd_dialog_new (parent_window, nullptr);
+    g_object_ref (dir->dialog);
+
+    gnome_cmd_dialog_add_button (
+        GNOME_CMD_DIALOG (dir->dialog),
+        _("_Cancel"),
+        G_CALLBACK (on_dir_list_cancel), dir);
+
+    GtkWidget *vbox = create_vbox (dir->dialog, FALSE, 12);
+
+    dir->label = create_label (dir->dialog, _("Waiting for file list"));
+
+    dir->pbar = create_progress_bar (dir->dialog);
+    gtk_progress_bar_set_show_text (GTK_PROGRESS_BAR (dir->pbar), FALSE);
+    gtk_progress_bar_set_pulse_step (GTK_PROGRESS_BAR (dir->pbar), 1.0 / (gdouble) DIR_PBAR_MAX);
+
+    gtk_box_append (GTK_BOX (vbox), dir->label);
+    gtk_box_append (GTK_BOX (vbox), dir->pbar);
+
+    gnome_cmd_dialog_add_category (GNOME_CMD_DIALOG (dir->dialog), vbox);
+
+    gtk_widget_show_all (dir->dialog);
+}
+
+
+static gboolean update_list_progress (GnomeCmdDirList *dirlist)
 {
     DEBUG ('l', "Checking list progress...\n");
 
-    if (dir->state == GnomeCmdDir::STATE_LISTING)
+    if (dirlist->dialog != nullptr)
     {
-        gchar *msg = g_strdup_printf (ngettext ("%d file listed", "%d files listed", dir->list_counter), dir->list_counter);
-        gtk_label_set_text (GTK_LABEL (dir->label), msg);
-        gtk_progress_bar_pulse (GTK_PROGRESS_BAR (dir->pbar));
+        gchar *msg = g_strdup_printf (ngettext ("%d file listed", "%d files listed", dirlist->list_counter), dirlist->list_counter);
+        gtk_label_set_text (GTK_LABEL (dirlist->label), msg);
+        gtk_progress_bar_pulse (GTK_PROGRESS_BAR (dirlist->pbar));
         DEBUG('l', "%s\n", msg);
         g_free (msg);
         return TRUE;
     }
 
+    g_free (dirlist);
+
     return FALSE;
 }
 
-static GFileEnumerator *get_gfileenumerator_sync(GFile *gFile, GError *error)
-{
-    GError *tmpError;
-    auto gFileEnumerator = g_file_enumerate_children (gFile,
-                            "*",
-                            G_FILE_QUERY_INFO_NONE,
-                            nullptr,
-                            &tmpError);
-    if(tmpError)
-    {
-        g_critical("Unable to enumerate children, error: %s", tmpError->message);
-        g_propagate_error(&error, tmpError);
-        return nullptr;
-    }
-    return gFileEnumerator;
-}
 
-
-static void get_gfileenumerator_async_callback(GObject *gFileObject, GAsyncResult *result, gpointer gnomeCmdDirPointer)
+static void get_gfileenumerator_async_callback (GObject *gFileObject, GAsyncResult *result, gpointer user_data)
 {
-    auto dir = GNOME_CMD_DIR(gnomeCmdDirPointer);
+    auto dirlist = static_cast<GnomeCmdDirList*>(user_data);
     auto gFile = (GFile*) gFileObject;
     GError *error = nullptr;
 
@@ -93,86 +133,80 @@ static void get_gfileenumerator_async_callback(GObject *gFileObject, GAsyncResul
                     G_PRIORITY_LOW,
                     nullptr,
                     enumerate_children_callback,
-                    dir);
+                    dirlist);
 
-    g_timeout_add (gnome_cmd_data.gui_update_rate, (GSourceFunc) update_list_progress, dir);
-}
-
-static void get_gfileenumerator_async(GFile *gFile, GnomeCmdDir *dir, GError *error)
-{
-    g_file_enumerate_children_async (gFile,
-                                     "*",
-                                     G_FILE_QUERY_INFO_NONE,
-                                     G_PRIORITY_DEFAULT,
-                                     nullptr,
-                                     get_gfileenumerator_async_callback,
-                                     dir);
+    g_timeout_add (gnome_cmd_data.gui_update_rate, (GSourceFunc) update_list_progress, dirlist);
 }
 
 
-void async_list (GnomeCmdDir *dir)
+static void async_list (GnomeCmdDirList *dirlist)
 {
-    g_return_if_fail(dir != nullptr);
-    GError *error = nullptr;
+    dirlist->gFileInfoList = nullptr;
 
-    dir->gFileInfoList = nullptr;
-
-    auto gFile = GNOME_CMD_FILE (dir)->get_file();
+    auto gFile = GNOME_CMD_FILE (dirlist->dir)->get_file();
     gchar *uri_str = g_file_get_uri(gFile);
     DEBUG('l', "async_list: %s\n", uri_str);
     g_free (uri_str);
 
-    dir->state = GnomeCmdDir::STATE_LISTING;
-
-    GFileEnumerator *gFileEnumerator;
-    if (gnome_cmd_dir_get_connection(dir)->is_local)
+    if (gnome_cmd_dir_get_connection(dirlist->dir)->is_local)
     {
-        gFileEnumerator = get_gfileenumerator_sync(gFile, error);
+        GError *error = nullptr;
+        GFileEnumerator *enumerator = g_file_enumerate_children (gFile,
+                                                                 "*",
+                                                                 G_FILE_QUERY_INFO_NONE,
+                                                                 nullptr,
+                                                                 &error);
         if (error)
         {
+            g_critical("Unable to enumerate children, error: %s", error->message);
             return;
         }
-        g_file_enumerator_next_files_async(gFileEnumerator,
-                        FILES_PER_UPDATE,
-                        G_PRIORITY_LOW,
-                        nullptr,
-                        enumerate_children_callback,
-                        dir);
 
-        g_timeout_add (gnome_cmd_data.gui_update_rate, (GSourceFunc) update_list_progress, dir);
+        g_file_enumerator_next_files_async (enumerator,
+                                            FILES_PER_UPDATE,
+                                            G_PRIORITY_LOW,
+                                            nullptr,
+                                            enumerate_children_callback,
+                                            dirlist);
+
+        g_timeout_add (gnome_cmd_data.gui_update_rate, (GSourceFunc) update_list_progress, dirlist);
     }
     else
     {
-        get_gfileenumerator_async(gFile, dir, error);
+        g_file_enumerate_children_async (gFile,
+                                         "*",
+                                         G_FILE_QUERY_INFO_NONE,
+                                         G_PRIORITY_DEFAULT,
+                                         nullptr,
+                                         get_gfileenumerator_async_callback,
+                                         dirlist);
     }
 }
 
-void sync_list (GnomeCmdDir *dir)
+static void sync_list (GnomeCmdDirList *dirlist)
 {
-    g_return_if_fail(dir != nullptr);
+    g_return_if_fail(dirlist != nullptr);
 
     GError *error = nullptr;
 
-    gchar *uri_str = GNOME_CMD_FILE (dir)->get_uri_str();
+    gchar *uri_str = GNOME_CMD_FILE (dirlist->dir)->get_uri_str();
     DEBUG('l', "sync_list: %s\n", uri_str);
     g_free (uri_str);
 
-    dir->gFileInfoList = nullptr;
+    dirlist->gFileInfoList = nullptr;
 
-    auto gFile = GNOME_CMD_FILE (dir)->get_file();
+    auto gFile = GNOME_CMD_FILE (dirlist->dir)->get_file();
 
     auto gFileEnumerator = g_file_enumerate_children (gFile,
                             "*",
                             G_FILE_QUERY_INFO_NONE,
                             nullptr,
                             &error);
-    if(error)
+    if (error)
     {
-        dir->error = nullptr;
         g_critical("sync_list: Unable to enumerate children, error: %s", error->message);
-        g_propagate_error(&(dir->error), error);
-        dir->state = GnomeCmdDir::STATE_EMPTY;
-        dir->done_func (dir, dir->gFileInfoList, dir->error);
+        dirlist->list_done (dirlist->dir, false, nullptr, error);
+        g_error_free (error);
         return;
     }
 
@@ -187,7 +221,7 @@ void sync_list (GnomeCmdDir *dir)
         }
         if (gFileInfoTmp)
         {
-            dir->gFileInfoList = g_list_append(dir->gFileInfoList, gFileInfoTmp);
+            dirlist->gFileInfoList = g_list_append(dirlist->gFileInfoList, gFileInfoTmp);
         }
     }
     while (gFileInfoTmp && !error);
@@ -195,78 +229,88 @@ void sync_list (GnomeCmdDir *dir)
     g_file_enumerator_close (gFileEnumerator, nullptr, nullptr);
     g_object_unref(gFileEnumerator);
 
-    dir->state = error ? GnomeCmdDir::STATE_EMPTY : GnomeCmdDir::STATE_LISTED;
-    dir->done_func (dir, dir->gFileInfoList, error);
+    dirlist->list_done (dirlist->dir, error == nullptr, dirlist->gFileInfoList, error);
     if (error)
         g_error_free(error);
+    g_free (dirlist);
 }
 
 static void enumerate_children_callback(GObject *direnum, GAsyncResult *result, gpointer user_data)
 {
     auto gFileEnumerator = G_FILE_ENUMERATOR(direnum);
-    auto dir = GNOME_CMD_DIR(user_data);
+    auto dirlist = static_cast<GnomeCmdDirList*>(user_data);
     GError *error = nullptr;
 
     GList *gFileInfosList = g_file_enumerator_next_files_finish(gFileEnumerator, result, &error);
 
-    if(error)
+    if (error)
     {
         g_critical("Unable to iterate the g_file_enumerator, error: %s", error->message);
-        dir->state = GnomeCmdDir::STATE_EMPTY;
-        dir->done_func (dir, dir->gFileInfoList, error);
+        dirlist->list_done (dirlist->dir, false, dirlist->gFileInfoList, error);
         g_file_enumerator_close(gFileEnumerator, nullptr, nullptr);
         g_object_unref(direnum);
         g_error_free(error);
+        if (dirlist->dialog)
+        {
+            gtk_window_destroy (GTK_WINDOW (dirlist->dialog));
+            dirlist->dialog = nullptr;
+        }
         return;
     }
     else if(gFileInfosList == nullptr)
     {
         /* DONE */
-        dir->state = GnomeCmdDir::STATE_LISTED;
         DEBUG('l', "All files listed, calling list_done func\n");
-        dir->done_func (dir, dir->gFileInfoList, nullptr);
+        dirlist->list_done (dirlist->dir, true, dirlist->gFileInfoList, nullptr);
         g_file_enumerator_close(gFileEnumerator, nullptr, nullptr);
         g_object_unref(direnum);
+        if (dirlist->dialog)
+        {
+            gtk_window_destroy (GTK_WINDOW (dirlist->dialog));
+            dirlist->dialog = nullptr;
+        }
         return;
     }
     else
     {
-        dir->gFileInfoList = g_list_concat (dir->gFileInfoList, g_list_copy (gFileInfosList));
-        dir->list_counter += FILES_PER_UPDATE;
-        g_file_enumerator_next_files_async(G_FILE_ENUMERATOR(direnum),
+        dirlist->gFileInfoList = g_list_concat (dirlist->gFileInfoList, g_list_copy (gFileInfosList));
+        dirlist->list_counter += FILES_PER_UPDATE;
+        g_file_enumerator_next_files_async(gFileEnumerator,
                         FILES_PER_UPDATE,
                         G_PRIORITY_LOW,
                         nullptr,
                         enumerate_children_callback,
-                        dir);
+                        dirlist);
     }
     g_list_free(gFileInfosList);
 }
 
 
-void dirlist_list (GnomeCmdDir *dir, gboolean visualProgress)
+void dirlist_list (GtkWindow *parent_window, GnomeCmdDir *dir, gboolean visualProgress, GnomeCmdDirListDone list_done)
 {
     g_return_if_fail (GNOME_CMD_IS_DIR (dir));
 
-    dir->infolist = NULL;
-    dir->gFileInfoList = nullptr;
-    dir->list_counter = 0;
-    dir->state = GnomeCmdDir::STATE_LISTING;
+    GnomeCmdDirList *dirlist = g_new0 (GnomeCmdDirList, 1);
 
-    if (!visualProgress)
+    dirlist->dir = dir;
+    dirlist->gFileInfoList = nullptr;
+    dirlist->list_counter = 0;
+    dirlist->list_done = list_done;
+
+    if (visualProgress)
     {
-        sync_list (dir);
-        return;
+        create_list_progress_dialog (parent_window, dirlist);
+        async_list (dirlist);
     }
-
-    async_list (dir);
+    else
+    {
+        sync_list (dirlist);
+    }
 }
 
 
-void dirlist_cancel (GnomeCmdDir *dir)
+static void dirlist_cancel (GnomeCmdDirList *dirlist)
 {
-    dir->state = GnomeCmdDir::STATE_EMPTY;
-
     // ToDo: Add a cancel-trigger for the async dir listing
     DEBUG('l', "Cancel dir-listing not implemented yet...\n");
 }
