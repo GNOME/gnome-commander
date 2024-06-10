@@ -120,8 +120,12 @@ GcmdSettings *gcmd_settings_new (void);
 #define GCMD_SETTINGS_ADVRENAME_PROFILES_FORMAT_STRING "a(ssuiuuuasasab)"
 #define GCMD_SETTINGS_FILE_LIST_TABS                  "file-list-tabs"
 #define GCMD_SETTINGS_FILE_LIST_TAB_FORMAT_STRING     "(syybb)"
+// deprecated after v1.18.0
 #define GCMD_SETTINGS_DEVICES                         "devices"
+// deprecated after v1.18.0
 #define GCMD_SETTINGS_DEVICES_FORMAT_STRING           "(ssss)"
+#define GCMD_SETTINGS_DEVICE_LIST                     "device-list"
+#define GCMD_SETTINGS_DEVICE_LIST_FORMAT_STRING       "(sssv)"
 #define GCMD_SETTINGS_FAV_APPS                        "favorite-apps"
 #define GCMD_SETTINGS_FAV_APPS_FORMAT_STRING          "(ssssubbb)"
 #define GCMD_SETTINGS_DIRECTORY_HISTORY               "directory-history"

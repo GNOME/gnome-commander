@@ -480,7 +480,15 @@
           The entries in this list are used for restoring the tabs from the last session.
       </description>
     </key>
+    <!-- Deprecated after v1.18.0 -->
     <key name="devices" type="a(ssss)">
+      <default>[]</default>
+      <summary>List of devices - deprecated</summary>
+      <description>
+          The entries in this list represent the devices configured by the user.
+      </description>
+    </key>
+    <key name="device-list" type="a(sssv)">
       <default>[]</default>
       <summary>List of devices</summary>
       <description>

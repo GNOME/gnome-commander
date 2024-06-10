@@ -1763,13 +1763,14 @@ void GnomeCmdData::save_devices()
                 }
 
                 GIcon *icon = gnome_cmd_con_device_get_icon (device);
-                const gchar *icon_path = G_IS_FILE_ICON (icon) ? g_file_get_path (g_file_icon_get_file (G_FILE_ICON (icon))) : "";
+                GVariant *icon_variant = icon ? g_icon_serialize (icon) : nullptr;
 
-                g_variant_builder_add (gVariantBuilder, GCMD_SETTINGS_DEVICES_FORMAT_STRING,
+                g_variant_builder_add (gVariantBuilder, GCMD_SETTINGS_DEVICE_LIST_FORMAT_STRING,
                                         gnome_cmd_con_get_alias (GNOME_CMD_CON (device)),
                                         gnome_cmd_con_device_get_device_fn (device),
                                         gnome_cmd_con_device_get_mountp_string (device),
-                                        icon_path);
+                                        icon_variant ? icon_variant : g_variant_new_string(""));
+                g_clear_pointer (&icon_variant, g_variant_unref);
                 g_clear_object (&icon);
             }
         }
@@ -1777,14 +1778,14 @@ void GnomeCmdData::save_devices()
         if (gVariantBuilder)
         {
             devicesToStore = g_variant_builder_end (gVariantBuilder);
-            g_settings_set_value(options.gcmd_settings->general, GCMD_SETTINGS_DEVICES, devicesToStore);
+            g_settings_set_value(options.gcmd_settings->general, GCMD_SETTINGS_DEVICE_LIST, devicesToStore);
             g_variant_builder_unref(gVariantBuilder);
             return;
         }
     }
 
-    devicesToStore = g_settings_get_default_value(options.gcmd_settings->general, GCMD_SETTINGS_DEVICES);
-    g_settings_set_value(options.gcmd_settings->general, GCMD_SETTINGS_DEVICES, devicesToStore);
+    devicesToStore = g_settings_get_default_value(options.gcmd_settings->general, GCMD_SETTINGS_DEVICE_LIST);
+    g_settings_set_value(options.gcmd_settings->general, GCMD_SETTINGS_DEVICE_LIST, devicesToStore);
 }
 
 
@@ -2760,22 +2761,46 @@ void GnomeCmdData::load_devices()
 {
     GVariant *gvDevices, *device;
     GVariantIter iter;
+    bool isNewDeviceFormat = false;
 
-    gvDevices = g_settings_get_value(options.gcmd_settings->general, GCMD_SETTINGS_DEVICES);
-
+    gvDevices = g_settings_get_value(options.gcmd_settings->general, GCMD_SETTINGS_DEVICE_LIST);
     g_variant_iter_init (&iter, gvDevices);
 
     while ((device = g_variant_iter_next_value (&iter)) != nullptr)
     {
-        g_autofree gchar *alias, *device_fn, *mountPoint, *iconPath;
+        g_autofree gchar *alias, *device_fn, *mountPoint;
+        GVariant *iconVariant;
+        isNewDeviceFormat = true;
 
-        g_variant_get(device, GCMD_SETTINGS_DEVICES_FORMAT_STRING, &alias, &device_fn, &mountPoint, &iconPath);
+        g_variant_get(device, GCMD_SETTINGS_DEVICE_LIST_FORMAT_STRING, &alias, &device_fn, &mountPoint, &iconVariant);
 
-        GIcon *icon = iconPath && *iconPath ? g_file_icon_new (g_file_new_for_path (iconPath)) : nullptr;
+        GIcon *icon = iconVariant ? g_icon_deserialize (iconVariant) : nullptr;
+        g_variant_unref (iconVariant);
+
         gnome_cmd_data.priv->con_list->add (gnome_cmd_con_device_new (alias, device_fn, mountPoint, icon));
 
         g_variant_unref(device);
     }
+
+    // deprecated after v1.18.0 and can be removed
+    if (!isNewDeviceFormat)
+    {
+        gvDevices = g_settings_get_value(options.gcmd_settings->general, GCMD_SETTINGS_DEVICES);
+        g_variant_iter_init (&iter, gvDevices);
+
+        while ((device = g_variant_iter_next_value (&iter)) != nullptr)
+        {
+            g_autofree gchar *alias, *device_fn, *mountPoint, *iconPath;
+
+            g_variant_get(device, GCMD_SETTINGS_DEVICES_FORMAT_STRING, &alias, &device_fn, &mountPoint, &iconPath);
+
+            GIcon *icon = iconPath && *iconPath ? g_file_icon_new (g_file_new_for_path (iconPath)) : nullptr;
+            gnome_cmd_data.priv->con_list->add (gnome_cmd_con_device_new (alias, device_fn, mountPoint, icon));
+
+            g_variant_unref(device);
+        }
+    }
+
     g_variant_unref(gvDevices);
     load_available_gvolumes ();
 }
