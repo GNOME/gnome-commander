@@ -252,8 +252,6 @@ void gnome_cmd_quicksearch_popup_set_char (GnomeCmdQuicksearchPopup *popup, gcha
     if (ch != 0)
     {
         gtk_editable_set_text (GTK_EDITABLE (priv->entry), text);
-        gtk_editable_set_position (GTK_EDITABLE (priv->entry), 1);
+        gtk_editable_set_position (GTK_EDITABLE (priv->entry), -1);
     }
-
-    gtk_widget_grab_focus (priv->entry);
 }
