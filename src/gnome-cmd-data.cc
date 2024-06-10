@@ -1763,13 +1763,13 @@ void GnomeCmdData::save_devices()
                 }
 
                 GIcon *icon = gnome_cmd_con_device_get_icon (device);
-                GVariant *icon_variant = icon ? g_icon_serialize (icon) : nullptr;
+                GVariant *icon_variant = icon ? g_icon_serialize (icon) : g_variant_new_string("");
 
                 g_variant_builder_add (gVariantBuilder, GCMD_SETTINGS_DEVICE_LIST_FORMAT_STRING,
                                         gnome_cmd_con_get_alias (GNOME_CMD_CON (device)),
                                         gnome_cmd_con_device_get_device_fn (device),
                                         gnome_cmd_con_device_get_mountp_string (device),
-                                        icon_variant ? icon_variant : g_variant_new_string(""));
+                                        icon_variant);
                 g_clear_pointer (&icon_variant, g_variant_unref);
                 g_clear_object (&icon);
             }
