@@ -57,6 +57,9 @@ enum TargetType
 };
 
 
+using GtkTreeIterPtr = std::unique_ptr<GtkTreeIter, decltype(&gtk_tree_iter_free)>;
+
+
 struct GnomeCmdFileList
 {
     GtkTreeView parent;
@@ -152,7 +155,7 @@ struct GnomeCmdFileList
 
     void select_row(GtkTreeIter *row);
     GnomeCmdFile *get_file_at_row(GtkTreeIter *row);
-    std::unique_ptr<GtkTreeIter> get_row_from_file(GnomeCmdFile *f);
+    GtkTreeIterPtr get_row_from_file(GnomeCmdFile *f);
     void focus_file(const gchar *focus_file, gboolean scroll_to_file=TRUE);
     void focus_prev();
     void focus_next();
@@ -184,7 +187,7 @@ struct GnomeCmdFileList
      */
     GnomeCmd::Collection<GnomeCmdFile *> get_marked_files();
 
-    std::unique_ptr<GtkTreeIter> get_focused_file_iter();
+    GtkTreeIterPtr get_focused_file_iter();
 
     /**
      * Returns the currently focused file if any. The returned file is
@@ -245,8 +248,8 @@ struct GnomeCmdFileList
     void init_dnd();
     void drop_files(DndMode dndMode, GFileCopyFlags gFileCopyFlags, GList *uri_list, GnomeCmdDir *dir);
 
-    std::unique_ptr<GtkTreeIter> get_dest_row_at_pos (gint drag_x, gint drag_y);
-    std::unique_ptr<GtkTreeIter> get_dest_row_at_coords (gdouble x, gdouble y);
+    GtkTreeIterPtr get_dest_row_at_pos (gint drag_x, gint drag_y);
+    GtkTreeIterPtr get_dest_row_at_coords (gdouble x, gdouble y);
 // private:
     void select_iter(GtkTreeIter *iter);
     void unselect_iter(GtkTreeIter *iter);
