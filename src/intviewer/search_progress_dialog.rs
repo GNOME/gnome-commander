@@ -17,7 +17,6 @@
  * For more details see the file COPYING.
  */
 
-use crate::utils::Gtk3to4BoxCompat;
 use gettextrs::gettext;
 use gtk::{glib, prelude::*, subclass::prelude::*};
 
@@ -58,7 +57,7 @@ mod imp {
             self.parent_constructed();
 
             let dlg = self.obj();
-            dlg.set_title(&gettext("Searching…"));
+            dlg.set_title(Some(&gettext("Searching…")));
             dlg.set_modal(true);
             dlg.set_resizable(false);
 
@@ -82,14 +81,10 @@ mod imp {
             self.stop_button.connect_clicked(
                 glib::clone!(@weak dlg => move |_| dlg.response(gtk::ResponseType::Cancel)),
             );
-
-            content_area.show_all();
         }
     }
 
     impl WidgetImpl for SearchProgressDialog {}
-    impl ContainerImpl for SearchProgressDialog {}
-    impl BinImpl for SearchProgressDialog {}
     impl WindowImpl for SearchProgressDialog {}
     impl DialogImpl for SearchProgressDialog {}
 }

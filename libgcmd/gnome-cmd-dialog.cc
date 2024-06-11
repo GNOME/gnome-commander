@@ -64,9 +64,7 @@ static void gnome_cmd_dialog_init (GnomeCmdDialog *dialog)
     auto priv = static_cast<GnomeCmdDialogPrivate*>(gnome_cmd_dialog_get_instance_private (dialog));
 
     gtk_window_set_resizable (GTK_WINDOW (dialog), FALSE);
-    gtk_window_set_position (GTK_WINDOW (dialog), GTK_WIN_POS_CENTER);
     gtk_window_set_title (GTK_WINDOW (dialog), " ");
-    gtk_window_set_type_hint (GTK_WINDOW (dialog), GDK_WINDOW_TYPE_HINT_DIALOG);
 
     GtkWidget *vbox = create_vbox (GTK_WIDGET (dialog), FALSE, 0);
     gtk_widget_set_margin_top (GTK_WIDGET (vbox), 12);
@@ -74,7 +72,7 @@ static void gnome_cmd_dialog_init (GnomeCmdDialog *dialog)
     gtk_widget_set_margin_start (GTK_WIDGET (vbox), 12);
     gtk_widget_set_margin_end (GTK_WIDGET (vbox), 12);
     gtk_box_set_spacing (GTK_BOX (vbox), 12);
-    gtk_container_add (GTK_CONTAINER (dialog), vbox);
+    gtk_window_set_child (GTK_WINDOW (dialog), vbox);
 
     priv->content = create_vbox (GTK_WIDGET (dialog), FALSE, 18);
     gtk_widget_set_vexpand (priv->content, TRUE);
@@ -89,9 +87,8 @@ static void gnome_cmd_dialog_init (GnomeCmdDialog *dialog)
     gtk_box_append (GTK_BOX (button_bar), priv->buttonbox);
     gtk_box_append (GTK_BOX (vbox), button_bar);
 
-    gtk_widget_show_all (button_bar);
-
-    GtkEventController *key_controller = gtk_event_controller_key_new (GTK_WIDGET (dialog));
+    GtkEventController *key_controller = gtk_event_controller_key_new ();
+    gtk_widget_add_controller (GTK_WIDGET (dialog), GTK_EVENT_CONTROLLER (key_controller));
     g_signal_connect (key_controller, "key-pressed", G_CALLBACK (on_dialog_keypressed), dialog);
 }
 
@@ -121,8 +118,7 @@ GtkWidget *gnome_cmd_dialog_add_button (GnomeCmdDialog *dialog, const gchar *lab
 
     gtk_size_group_add_widget (priv->buttonbox_size_group, GTK_WIDGET (btn));
     gtk_box_append (GTK_BOX (priv->buttonbox), btn);
-    g_object_set (G_OBJECT (btn), "can-default", TRUE, NULL);
-    gtk_widget_grab_default (btn);
+    gtk_window_set_default_widget (GTK_WINDOW (dialog), btn);
     gtk_widget_grab_focus (btn);
 
     priv->buttons = g_list_append (priv->buttons, btn);

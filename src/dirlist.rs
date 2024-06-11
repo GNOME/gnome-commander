@@ -20,7 +20,6 @@
 use crate::{
     dir::Directory,
     libgcmd::file_base::{FileBase, FileBaseExt},
-    utils::Gtk3to4BoxCompat,
 };
 use gettextrs::{gettext, ngettext};
 use gtk::{gio, glib, prelude::*};

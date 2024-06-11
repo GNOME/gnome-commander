@@ -67,14 +67,14 @@ static void egg_cell_renderer_keys_set_property (GObject         *object,
                                                  guint            param_id,
                                                  const GValue    *value,
                                                  GParamSpec      *pspec);
-static void egg_cell_renderer_keys_get_size     (GtkCellRenderer    *cell,
-                                                 GtkWidget          *widget,
-                                                 const GdkRectangle *cell_area,
-                                                 gint               *x_offset,
-                                                 gint               *y_offset,
-                                                 gint               *width,
-                                                 gint               *height);
-
+static void egg_cell_renderer_get_preferred_width (GtkCellRenderer* cell,
+                                                   GtkWidget* widget,
+                                                   int* minimum_size,
+                                                   int* natural_size);
+static void egg_cell_renderer_get_preferred_height (GtkCellRenderer* cell,
+                                                    GtkWidget* widget,
+                                                    int* minimum_size,
+                                                    int* natural_size);
 
 enum
 {
@@ -93,47 +93,6 @@ static void egg_cell_renderer_keys_init (EggCellRendererKeys *cell_keys)
     cell_keys->accel_mode = GTK_CELL_RENDERER_ACCEL_MODE_GTK;
 }
 
-static void
-marshal_VOID__STRING_UINT_FLAGS_UINT (GClosure     *closure,
-                                      GValue       *return_value,
-                                      guint         n_param_values,
-                                      const GValue *param_values,
-                                      gpointer      invocation_hint,
-                                      gpointer      marshal_data)
-{
-    g_return_if_fail (n_param_values == 5);
-
-    typedef void (*GMarshalFunc_VOID__STRING_UINT_FLAGS_UINT) (gpointer     data1,
-                                                               const char  *arg_1,
-                                                               guint        arg_2,
-                                                               int          arg_3,
-                                                               guint        arg_4,
-                                                               gpointer     data2);
-    GMarshalFunc_VOID__STRING_UINT_FLAGS_UINT callback;
-    GCClosure *cc = (GCClosure*) closure;
-    gpointer data1, data2;
-
-    if (G_CCLOSURE_SWAP_DATA (closure))
-    {
-        data1 = closure->data;
-        data2 = g_value_peek_pointer (param_values + 0);
-    }
-    else
-    {
-        data1 = g_value_peek_pointer (param_values + 0);
-        data2 = closure->data;
-    }
-
-    callback = (GMarshalFunc_VOID__STRING_UINT_FLAGS_UINT) (marshal_data ? marshal_data : cc->callback);
-
-    callback (data1,
-              g_value_get_string (param_values + 1),
-              g_value_get_uint (param_values + 2),
-              g_value_get_flags (param_values + 3),
-              g_value_get_uint (param_values + 4),
-              data2);
-}
-
 
 static void egg_cell_renderer_keys_class_init (EggCellRendererKeysClass *cell_keys_class)
 {
@@ -141,7 +100,8 @@ static void egg_cell_renderer_keys_class_init (EggCellRendererKeysClass *cell_ke
     GtkCellRendererClass *cell_renderer_class = GTK_CELL_RENDERER_CLASS (cell_keys_class);
 
     cell_renderer_class->start_editing = egg_cell_renderer_keys_start_editing;
-    cell_renderer_class->get_size = egg_cell_renderer_keys_get_size;
+    cell_renderer_class->get_preferred_width = egg_cell_renderer_get_preferred_width;
+    cell_renderer_class->get_preferred_height = egg_cell_renderer_get_preferred_height;
     object_class->get_property = egg_cell_renderer_keys_get_property;
     object_class->set_property = egg_cell_renderer_keys_set_property;
     object_class->finalize = egg_cell_renderer_keys_finalize;
@@ -180,12 +140,11 @@ static void egg_cell_renderer_keys_class_init (EggCellRendererKeysClass *cell_ke
                   G_SIGNAL_RUN_LAST,
                   G_STRUCT_OFFSET (EggCellRendererKeysClass, keys_edited),
                   NULL, NULL,
-                  marshal_VOID__STRING_UINT_FLAGS_UINT,
-                  G_TYPE_NONE, 4,
+                  nullptr,
+                  G_TYPE_NONE, 3,
                   G_TYPE_STRING,
                   G_TYPE_UINT,
-                  GDK_TYPE_MODIFIER_TYPE,
-                  G_TYPE_UINT);
+                  GDK_TYPE_MODIFIER_TYPE);
 }
 
 
@@ -208,11 +167,7 @@ gchar *egg_accelerator_get_label (guint accel_key, GdkModifierType accel_mods)
 
     static const gchar text_shift[] = "Shift+";
     static const gchar text_control[] = "Ctrl+";
-    static const gchar text_mod1[] = "Alt+";
-    static const gchar text_mod2[] = "Mod2+";
-    static const gchar text_mod3[] = "Mod3+";
-    static const gchar text_mod4[] = "Mod4+";
-    static const gchar text_mod5[] = "Mod5+";
+    static const gchar text_alt[] = "Alt+";
     static const gchar text_meta[] = "Meta+";
     static const gchar text_super[] = "Super+";
     static const gchar text_hyper[] = "Hyper+";
@@ -227,16 +182,8 @@ gchar *egg_accelerator_get_label (guint accel_key, GdkModifierType accel_mods)
         l += sizeof(text_shift)-1;
     if (accel_mods & GDK_CONTROL_MASK)
         l += sizeof(text_control)-1;
-    if (accel_mods & GDK_MOD1_MASK)
-        l += sizeof(text_mod1)-1;
-    if (accel_mods & GDK_MOD2_MASK)
-        l += sizeof(text_mod2)-1;
-    if (accel_mods & GDK_MOD3_MASK)
-        l += sizeof(text_mod3)-1;
-    if (accel_mods & GDK_MOD4_MASK)
-        l += sizeof(text_mod4)-1;
-    if (accel_mods & GDK_MOD5_MASK)
-        l += sizeof(text_mod5)-1;
+    if (accel_mods & GDK_ALT_MASK)
+        l += sizeof(text_alt)-1;
     if (accel_mods & GDK_META_MASK)
         l += sizeof(text_meta)-1;
     if (accel_mods & GDK_HYPER_MASK)
@@ -257,30 +204,10 @@ gchar *egg_accelerator_get_label (guint accel_key, GdkModifierType accel_mods)
       strcpy (s, text_control);
       s +=  sizeof(text_control)-1;
     }
-    if (accel_mods & GDK_MOD1_MASK)
+    if (accel_mods & GDK_ALT_MASK)
     {
-      strcpy (s, text_mod1);
-      s +=  sizeof(text_mod1)-1;
-    }
-    if (accel_mods & GDK_MOD2_MASK)
-    {
-      strcpy (s, text_mod2);
-      s +=  sizeof(text_mod2)-1;
-    }
-    if (accel_mods & GDK_MOD3_MASK)
-    {
-      strcpy (s, text_mod3);
-      s +=  sizeof(text_mod3)-1;
-    }
-    if (accel_mods & GDK_MOD4_MASK)
-    {
-      strcpy (s, text_mod4);
-      s +=  sizeof(text_mod4)-1;
-    }
-    if (accel_mods & GDK_MOD5_MASK)
-    {
-      strcpy (s, text_mod5);
-      s +=  sizeof(text_mod5)-1;
+      strcpy (s, text_alt);
+      s +=  sizeof(text_alt)-1;
     }
     if (accel_mods & GDK_META_MASK)
     {
@@ -372,44 +299,57 @@ static void egg_cell_renderer_keys_set_property (GObject *object, guint param_id
 }
 
 
-void egg_cell_renderer_keys_get_size (GtkCellRenderer       *cell,
-                                      GtkWidget             *widget,
-                                      const GdkRectangle    *cell_area,
-                                      gint                  *x_offset,
-                                      gint                  *y_offset,
-                                      gint                  *width,
-                                      gint                  *height)
+static void measure_text_size (EggCellRendererKeys *keys, GtkRequisition *minimum, GtkRequisition *natural)
 {
-#if defined (__GNUC__)
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wcast-align"
-#endif
-    auto keys = reinterpret_cast <EggCellRendererKeys*> (cell);
-#if defined (__GNUC__)
-#pragma GCC diagnostic pop
-#endif
-    GtkRequisition requisition;
-
     if (keys->sizing_label == nullptr)
         keys->sizing_label = gtk_label_new (_("New accelerator…"));
-
-    gtk_widget_size_request (keys->sizing_label, &requisition);
-    GTK_CELL_RENDERER_CLASS (egg_cell_renderer_keys_parent_class)->get_size (cell, widget, cell_area, x_offset, y_offset, width, height);
-
-    // FIXME: need to take the cell_area et al. into account
-    if (width)
-        *width = MAX (*width, requisition.width);
-    if (height)
-        *height = MAX (*height, requisition.height);
+    gtk_widget_get_preferred_size (keys->sizing_label, minimum, natural);
 }
 
 
-static gboolean grab_key_callback (GtkWidget *widget, GdkEventKey *event, EggCellRendererKeys *keys)
+static void egg_cell_renderer_get_preferred_width (GtkCellRenderer* cell,
+                                                   GtkWidget* widget,
+                                                   int* minimum_size,
+                                                   int* natural_size)
 {
-    if (event->is_modifier)
+    GTK_CELL_RENDERER_CLASS (egg_cell_renderer_keys_parent_class)->get_preferred_width (cell, widget, minimum_size, natural_size);
+
+    auto keys = EGG_CELL_RENDERER_KEYS (cell);
+
+    GtkRequisition label_minimum_size;
+    GtkRequisition label_natural_size;
+    measure_text_size (keys, &label_minimum_size, &label_natural_size);
+
+    // FIXME: need to take the cell_area et al. into account
+    *minimum_size = MAX (*minimum_size, label_minimum_size.width);
+    *natural_size = MAX (*natural_size, label_natural_size.width);
+}
+
+
+static void egg_cell_renderer_get_preferred_height (GtkCellRenderer* cell,
+                                                    GtkWidget* widget,
+                                                    int* minimum_size,
+                                                    int* natural_size)
+{
+    GTK_CELL_RENDERER_CLASS (egg_cell_renderer_keys_parent_class)->get_preferred_height (cell, widget, minimum_size, natural_size);
+
+    auto keys = EGG_CELL_RENDERER_KEYS (cell);
+
+    GtkRequisition label_minimum_size;
+    GtkRequisition label_natural_size;
+    measure_text_size (keys, &label_minimum_size, &label_natural_size);
+
+    // FIXME: need to take the cell_area et al. into account
+    *minimum_size = MAX (*minimum_size, label_minimum_size.height);
+    *natural_size = MAX (*natural_size, label_natural_size.height);
+}
+
+static gboolean grab_key_callback (GtkWidget *widget, GdkKeyEvent *event, EggCellRendererKeys *keys)
+{
+    if (gdk_key_event_is_modifier (GDK_EVENT (event)))
         return TRUE;
 
-    switch (event->keyval)
+    switch (gdk_key_event_get_keyval (GDK_EVENT (event)))
     {
         case GDK_KEY_Super_L:
         case GDK_KEY_Super_R:
@@ -422,40 +362,18 @@ static gboolean grab_key_callback (GtkWidget *widget, GdkEventKey *event, EggCel
             break;
     }
 
-    GdkDisplay *display = gtk_widget_get_display (widget);
-
     gboolean edited = FALSE;
-    guint consumed_modifiers = 0;
 
-    if (keys->accel_mode == GTK_CELL_RENDERER_ACCEL_MODE_GTK)
-        gdk_keymap_translate_keyboard_state (gdk_keymap_get_for_display (display),
-                                             event->hardware_keycode,
-                                             (GdkModifierType) event->state,
-                                             event->group,
-                                             NULL, NULL, NULL, (GdkModifierType *) &consumed_modifiers);
-
-    guint accel_key = gdk_keyval_to_lower (event->keyval);
+    guint accel_key = gdk_keyval_to_lower (gdk_key_event_get_keyval (GDK_EVENT (event)));
     guint accel_mods = 0;
 
     if (accel_key == GDK_KEY_ISO_Left_Tab)
         accel_key = GDK_KEY_Tab;
 
-    accel_mods = event->state & gtk_accelerator_get_default_mod_mask ();
-
-    // filter consumed modifiers
-    if (keys->accel_mode == GTK_CELL_RENDERER_ACCEL_MODE_GTK)
-    {
-        accel_mods &= ~consumed_modifiers;
-
-        // put shift back if it changed the case of the key, not otherwise.
-        if (accel_key != event->keyval)
-        {
-            accel_mods |= GDK_SHIFT_MASK;
-        }
-    }
+    accel_mods = gdk_event_get_modifier_state (GDK_EVENT (event)) & gtk_accelerator_get_default_mod_mask ();
 
     if (accel_mods == 0)
-        switch (event->keyval)
+        switch (gdk_key_event_get_keyval (GDK_EVENT (event)))
         {
             case GDK_KEY_Escape:
                 accel_key = 0;
@@ -478,9 +396,6 @@ static gboolean grab_key_callback (GtkWidget *widget, GdkEventKey *event, EggCel
 
 
   out:
-    gdk_display_keyboard_ungrab (display, event->time);
-    gdk_display_pointer_ungrab (display, event->time);
-
     char *path = g_strdup ((gchar *) g_object_get_data (G_OBJECT (keys->edit_widget), EGG_CELL_RENDERER_TEXT_PATH));
 
     gtk_cell_editable_editing_done (GTK_CELL_EDITABLE (keys->edit_widget));
@@ -489,7 +404,7 @@ static gboolean grab_key_callback (GtkWidget *widget, GdkEventKey *event, EggCel
     keys->grab_widget = NULL;
 
     if (edited)
-        g_signal_emit_by_name (keys, "accel-edited", path, accel_key, accel_mods, event->hardware_keycode);
+        g_signal_emit_by_name (keys, "accel-edited", path, accel_key, accel_mods);
 
     g_free (path);
 
@@ -499,11 +414,6 @@ static gboolean grab_key_callback (GtkWidget *widget, GdkEventKey *event, EggCel
 
 static void ungrab_stuff (GtkWidget *widget, EggCellRendererKeys *keys)
 {
-    GdkDisplay *display = gtk_widget_get_display (widget);
-
-    gdk_display_keyboard_ungrab (display, GDK_CURRENT_TIME);
-    gdk_display_pointer_ungrab (display, GDK_CURRENT_TIME);
-
     g_signal_handlers_disconnect_by_func (keys->grab_widget, (gpointer) grab_key_callback, keys);
 }
 
@@ -528,20 +438,20 @@ static GType pointless_eventbox_subclass_get_type ()
     {
       static const GTypeInfo eventbox_info =
       {
-        sizeof(GtkEventBoxClass),
+        sizeof(GtkWidgetClass),
         NULL,               /* base_init */
         NULL,               /* base_finalize */
         NULL,
         NULL,               /* class_finalize */
         NULL,               /* class_data */
-        sizeof(GtkEventBox),
+        sizeof(GtkWidget),
         0,                  /* n_preallocs */
         (GInstanceInitFunc) NULL,
       };
 
       static const GInterfaceInfo cell_editable_info = { (GInterfaceInitFunc) pointless_eventbox_cell_editable_init, NULL, NULL };
 
-      eventbox_type = g_type_register_static (GTK_TYPE_EVENT_BOX, "EggCellEditableEventBox", &eventbox_info, GTypeFlags(0));
+      eventbox_type = g_type_register_static (GTK_TYPE_WIDGET, "EggCellEditableEventBox", &eventbox_info, GTypeFlags(0));
 
       g_type_add_interface_static (eventbox_type,
                                    GTK_TYPE_CELL_EDITABLE,
@@ -561,20 +471,13 @@ egg_cell_renderer_keys_start_editing (GtkCellRenderer      *cell,
                                       const GdkRectangle   *cell_area,
                                       GtkCellRendererState  flags)
 {
-    g_return_val_if_fail (gtk_widget_get_window (widget) != NULL, NULL);
+    g_return_val_if_fail (widget != NULL, NULL);
 
     GtkWidget *label;
     GtkWidget *eventbox;
 
-#if defined (__GNUC__)
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wcast-align"
-#endif
     GtkCellRendererText *celltext = GTK_CELL_RENDERER_TEXT (cell);
     EggCellRendererKeys *keys = EGG_CELL_RENDERER_KEYS (cell);
-#if defined (__GNUC__)
-#pragma GCC diagnostic pop
-#endif
 
     gboolean celltext_editable;
     g_object_get (celltext, "editable", &celltext_editable, NULL);
@@ -582,18 +485,6 @@ egg_cell_renderer_keys_start_editing (GtkCellRenderer      *cell,
     // If the cell isn't editable we return NULL
     if (celltext_editable == FALSE)
         return NULL;
-
-    if (gdk_keyboard_grab (gtk_widget_get_window (widget), FALSE, gdk_event_get_time (event)) != GDK_GRAB_SUCCESS)
-        return NULL;
-
-    if (gdk_pointer_grab (gtk_widget_get_window (widget), FALSE,
-                          GDK_BUTTON_PRESS_MASK,
-                          NULL, NULL,
-                          gdk_event_get_time (event)) != GDK_GRAB_SUCCESS)
-    {
-        gdk_keyboard_ungrab (gdk_event_get_time (event));
-        return NULL;
-    }
 
     keys->grab_widget = widget;
 
@@ -607,6 +498,7 @@ egg_cell_renderer_keys_start_editing (GtkCellRenderer      *cell,
     gtk_widget_set_halign (label, GTK_ALIGN_START);
     gtk_widget_set_valign (label, GTK_ALIGN_CENTER);
 
+/*
     auto style_context = gtk_widget_get_style_context (widget);
     GdkRGBA fg, bg;
     gtk_style_context_get_background_color (style_context, GTK_STATE_FLAG_SELECTED, &bg);
@@ -614,14 +506,12 @@ egg_cell_renderer_keys_start_editing (GtkCellRenderer      *cell,
 
     gtk_widget_override_background_color (eventbox, GTK_STATE_FLAG_NORMAL, &bg);
     gtk_widget_override_color (label, GTK_STATE_FLAG_NORMAL, &fg);
-
+*/
     gtk_label_set_text (GTK_LABEL (label), _("New accelerator…"));
 
-    gtk_container_add (GTK_CONTAINER (eventbox), label);
+    gtk_widget_set_parent (label, eventbox);
 
     g_object_set_data_full (G_OBJECT (keys->edit_widget), EGG_CELL_RENDERER_TEXT_PATH, g_strdup (path), g_free);
-
-    gtk_widget_show_all (keys->edit_widget);
 
     g_signal_connect (keys->edit_widget, "unrealize", G_CALLBACK (ungrab_stuff), keys);
 

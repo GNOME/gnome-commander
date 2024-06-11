@@ -237,7 +237,8 @@ static void on_copy_clipboard (GtkButton *button, GnomeCmdFilePropsDialogPrivate
             s += '\n';
         }
 
-    gtk_clipboard_set_text (gtk_clipboard_get (GDK_SELECTION_CLIPBOARD), s.data(), s.size());
+    auto clipboard = gtk_widget_get_clipboard (GTK_WIDGET (button));
+    gdk_clipboard_set_text (clipboard, s.c_str());
 }
 
 
@@ -583,7 +584,6 @@ static GtkWidget *create_view_and_model (GnomeCmdFile *f)
     GtkWidget *view = gtk_tree_view_new ();
 
     g_object_set (view,
-                  "rules-hint", TRUE,
                   "enable-search", TRUE,
                   "search-column", COL_VALUE,
                   nullptr);
@@ -635,8 +635,6 @@ inline GtkWidget *create_metadata_tab (GnomeCmdFilePropsDialogPrivate *data)
     GtkWidget *view = create_view_and_model (data->f);
 
     gtk_scrolled_window_set_child (GTK_SCROLLED_WINDOW (scrolledwindow), view);
-
-    gtk_widget_show_all (scrolledwindow);
 
     return scrolledwindow;
 }

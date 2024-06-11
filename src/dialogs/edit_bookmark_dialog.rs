@@ -20,7 +20,7 @@
  * For more details see the file COPYING.
  */
 
-use crate::utils::{show_message, Gtk3to4BoxCompat};
+use crate::utils::show_message;
 use gettextrs::gettext;
 use gtk::{glib, prelude::*};
 
@@ -98,8 +98,6 @@ pub async fn edit_bookmark_dialog(
 
     grid.attach(&path_label, 0, 1, 1, 1);
     grid.attach(&path_entry, 1, 1, 1, 1);
-
-    content_area.show_all();
 
     dialog.set_default_response(gtk::ResponseType::Ok);
 

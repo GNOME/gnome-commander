@@ -81,7 +81,6 @@ struct GnomeCmdMainWin::Private
     GtkWidget *paned;
     GtkWidget *file_selector[2];
     GtkWidget *focused_widget;
-    GtkAccelGroup *accel_group;
 
     GtkWidget *view_btn;
     GtkWidget *edit_btn;
@@ -110,6 +109,9 @@ struct GnomeCmdMainWin::Private
 
 
 G_DEFINE_TYPE (GnomeCmdMainWin, gnome_cmd_main_win, GTK_TYPE_APPLICATION_WINDOW)
+
+
+static gboolean set_equal_panes_idle (gpointer *user_data);
 
 
 inline GtkWidget *add_buttonbar_button (char *label,
@@ -149,12 +151,11 @@ static GtkWidget *create_separator (gboolean vertical)
 
 static GtkWidget *append_toolbar_button (GtkWidget *toolbar, const gchar *label, const gchar *icon, const gchar *action)
 {
-    GtkWidget *button = gtk_button_new_from_icon_name (icon, GTK_ICON_SIZE_SMALL_TOOLBAR);
+    GtkWidget *button = gtk_button_new_from_icon_name (icon);
     gtk_widget_set_tooltip_text (button, label);
     gtk_actionable_set_action_name (GTK_ACTIONABLE (button), action);
     gtk_style_context_add_class (gtk_widget_get_style_context (button), "flat");
     gtk_box_append (GTK_BOX (toolbar), button);
-    g_object_set (button, "always-show-image", TRUE, NULL);
     return button;
 }
 
@@ -187,9 +188,7 @@ static void create_toolbar (GnomeCmdMainWin *mw)
     append_toolbar_separator (mw->priv->toolbar);
     append_toolbar_button (mw->priv->toolbar, _("Remote Server"),                                           "gnome-commander-connect", "win.connections-open");
     mw->priv->tb_con_drop_btn = g_object_ref (
-        append_toolbar_button (mw->priv->toolbar, _("Drop connection"),                                     nullptr,                "win.connections-close-current"));
-
-    gtk_widget_show_all (mw->priv->toolbar);
+        append_toolbar_button (mw->priv->toolbar, _("Drop connection"),                                     "gnome-commander-disconnect", "win.connections-close-current"));
 
     mw->priv->toolbar_sep = create_separator (FALSE);
 }
@@ -245,27 +244,29 @@ void GnomeCmdMainWin::create_buttonbar()
     Misc widgets callbacks
 *****************************************************************************/
 
-static void on_slide_button_press (GtkGestureMultiPress *gesture, int n_press, double x, double y, gpointer user_data)
+static void on_slide_button_press (GtkGestureClick *gesture, int n_press, double x, double y, gpointer user_data)
 {
     auto mw = static_cast<GnomeCmdMainWin *>(user_data);
 
     GtkPaned *paned = GTK_PANED (mw->priv->paned);
 
-    GtkAllocation child_allocation;
-
     if (n_press != 1)
         return;
 
-    gtk_widget_get_allocation (gtk_paned_get_child1 (paned), &child_allocation);
-    gtk_widget_translate_coordinates (gtk_paned_get_child1 (paned), GTK_WIDGET (paned), 0, 0, &child_allocation.x, &child_allocation.y);
-    if (gdk_rectangle_contains_point (&child_allocation, x, y))
-        return;
-    gtk_widget_get_allocation (gtk_paned_get_child2 (paned), &child_allocation);
-    gtk_widget_translate_coordinates (gtk_paned_get_child2 (paned), GTK_WIDGET (paned), 0, 0, &child_allocation.x, &child_allocation.y);
-    if (gdk_rectangle_contains_point (&child_allocation, x, y))
+    graphene_point_t pt = { x, y };
+    graphene_point_t child_pt;
+    GtkWidget *child;
+
+    child = gtk_paned_get_start_child (paned);
+    if (gtk_widget_compute_point (GTK_WIDGET (paned), child, &pt, &child_pt) && gtk_widget_contains (child, child_pt.x, child_pt.y))
         return;
 
-    GtkWidget *popover = gtk_popover_new_from_model (GTK_WIDGET (paned), create_slide_popup ());
+    child = gtk_paned_get_end_child (paned);
+    if (gtk_widget_compute_point (GTK_WIDGET (paned), child, &pt, &child_pt) && gtk_widget_contains (child, child_pt.x, child_pt.y))
+        return;
+
+    GtkWidget *popover = gtk_popover_menu_new_from_model (create_slide_popup ());
+    gtk_widget_set_parent (popover, GTK_WIDGET (paned));
     GdkRectangle rect = { (gint) x, (gint) y, 0, 0 };
     gtk_popover_set_pointing_to (GTK_POPOVER (popover), &rect);
     gtk_popover_popup (GTK_POPOVER (popover));
@@ -274,7 +275,7 @@ static void on_slide_button_press (GtkGestureMultiPress *gesture, int n_press, d
 
 static void on_main_win_realize (GtkWidget *widget, GnomeCmdMainWin *mw)
 {
-    mw->set_equal_panes();
+    g_timeout_add (300, (GSourceFunc) set_equal_panes_idle, mw);
 
     mw->fs(LEFT)->set_active(TRUE);
     mw->fs(RIGHT)->set_active(FALSE);
@@ -331,27 +332,31 @@ static void on_fs_list_resize_column (GnomeCmdFileList *list, guint column_index
     }
 }
 
-
-static void on_size_allocate (GtkWidget *widget, GtkAllocation *allocation, gpointer user_data)
+static void on_change_width (GObject *mw, GParamSpec *pspec, gpointer user_data)
 {
-#if defined (__GNUC__)
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wswitch-enum"
-#endif
-    switch (gnome_cmd_data.main_win_state)
+    if (!gnome_cmd_data.main_win_maximized)
     {
-        case GDK_WINDOW_STATE_FULLSCREEN:
-        case GDK_WINDOW_STATE_ICONIFIED:
-        case GDK_WINDOW_STATE_MAXIMIZED:
-            break;
-
-        default:
-            gnome_cmd_data.main_win_width = allocation->width;
-            gnome_cmd_data.main_win_height = allocation->height;
+        int width;
+        gtk_window_get_default_size (GTK_WINDOW (mw), &width, nullptr);
+        gnome_cmd_data.main_win_width = width;
     }
-#if defined (__GNUC__)
-#pragma GCC diagnostic pop
-#endif
+}
+
+
+static void on_change_height (GObject *mw, GParamSpec *pspec, gpointer user_data)
+{
+    if (!gnome_cmd_data.main_win_maximized)
+    {
+        int height;
+        gtk_window_get_default_size (GTK_WINDOW (mw), nullptr, &height);
+        gnome_cmd_data.main_win_height = height;
+    }
+}
+
+
+static void on_change_maximized (GObject *mw, GParamSpec *pspec, gpointer user_data)
+{
+    gnome_cmd_data.main_win_maximized = gtk_window_is_maximized (GTK_WINDOW (mw));
 }
 
 
@@ -411,13 +416,8 @@ void GnomeCmdMainWin::update_drop_con_button(GnomeCmdFileList *fl)
     icon = gnome_cmd_con_get_close_icon (con);
     if (icon)
     {
-        GtkWidget *image = gtk_image_new_from_gicon (icon, GTK_ICON_SIZE_LARGE_TOOLBAR);
-        if (image)
-        {
-            g_object_ref (image);
-            gtk_widget_show (image);
-            gtk_button_set_image (GTK_BUTTON (btn), image);
-        }
+        GtkWidget *image = gtk_image_new_from_gicon (icon);
+        gtk_button_set_child (GTK_BUTTON (btn), image);
         g_object_unref (icon);
     }
     else
@@ -437,36 +437,14 @@ static void on_fs_dir_change (GnomeCmdFileSelector *fs, const gchar dir, GnomeCm
 }
 
 
-inline void restore_size_and_pos (GnomeCmdMainWin *mw)
+void GnomeCmdMainWin::restore_size_and_pos ()
 {
-    gtk_window_set_default_size (*mw,
+    gtk_window_set_default_size (GTK_WINDOW (this),
                                  gnome_cmd_data.main_win_width,
                                  gnome_cmd_data.main_win_height);
 
-#if defined (__GNUC__)
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wswitch-enum"
-#endif
-    switch (gnome_cmd_data.main_win_state)
-    {
-        case GDK_WINDOW_STATE_MAXIMIZED:
-        case GDK_WINDOW_STATE_FULLSCREEN:
-            gtk_window_maximize (GTK_WINDOW (mw));
-            break;
-
-        default:
-            break;
-    }
-#if defined (__GNUC__)
-#pragma GCC diagnostic pop
-#endif
-}
-
-
-static gboolean on_window_state_event (GtkWidget *mw, GdkEventWindowState *event, gpointer user_data)
-{
-    gnome_cmd_data.main_win_state = event->new_window_state;
-    return FALSE;
+    if (gnome_cmd_data.main_win_maximized)
+        gtk_window_maximize (GTK_WINDOW (this));
 }
 
 
@@ -551,7 +529,6 @@ static void gnome_cmd_main_win_init (GnomeCmdMainWin *mw)
 
     mw->priv = g_new0 (GnomeCmdMainWin::Private, 1);
     mw->priv->current_fs = LEFT;
-    mw->priv->accel_group = gtk_accel_group_new ();
     mw->priv->toolbar = NULL;
     mw->priv->toolbar_sep = NULL;
     mw->priv->focused_widget = NULL;
@@ -572,40 +549,35 @@ static void gnome_cmd_main_win_init (GnomeCmdMainWin *mw)
                             : _("GNOME Commander"));
 
     g_object_set_data (*mw, "main_win", mw);
-    restore_size_and_pos (mw);
     gtk_window_set_resizable (*mw, TRUE);
 
     mw->priv->vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 0);
-    gtk_widget_show (mw->priv->vbox);
 
-    auto menu = gnome_cmd_main_menu_new (G_ACTION_GROUP (mw));
-    mw->priv->menubar = gtk_menu_bar_new_from_model (G_MENU_MODEL (menu.menu));
-    gtk_window_add_accel_group (GTK_WINDOW (mw), menu.accel_group);
+    auto menu = gnome_cmd_main_menu_new ();
+    mw->priv->menubar = gtk_popover_menu_bar_new_from_model (G_MENU_MODEL (menu.menu));
+
+    GtkEventController *shortcuts_controller = gtk_shortcut_controller_new_for_model (menu.shortcuts);
+    gtk_widget_add_controller (GTK_WIDGET (mw), shortcuts_controller);
 
     if (gnome_cmd_data.mainmenu_visibility)
     {
         gtk_widget_show (mw->priv->menubar);
     }
     gtk_box_append (GTK_BOX (mw->priv->vbox), mw->priv->menubar);
-    gtk_box_append (GTK_BOX (mw->priv->vbox), create_separator (FALSE));
 
-    gtk_widget_show (mw->priv->vbox);
-    gtk_container_add (GTK_CONTAINER (mw), mw->priv->vbox);
+    gtk_window_set_child (GTK_WINDOW (mw), mw->priv->vbox);
 
     mw->priv->paned = gtk_paned_new (gnome_cmd_data.horizontal_orientation ? GTK_ORIENTATION_VERTICAL : GTK_ORIENTATION_HORIZONTAL);
     gtk_widget_set_hexpand (mw->priv->paned, TRUE);
     gtk_widget_set_vexpand (mw->priv->paned, TRUE);
-    gtk_widget_show (mw->priv->paned);
     gtk_box_append (GTK_BOX (mw->priv->vbox), mw->priv->paned);
     mw->create_buttonbar();
 
     mw->priv->file_selector[LEFT] = gnome_cmd_file_selector_new (LEFT);
-    gtk_widget_show (mw->priv->file_selector[LEFT]);
-    gtk_paned_pack1 (GTK_PANED (mw->priv->paned), mw->priv->file_selector[LEFT], TRUE, TRUE);
+    gtk_paned_set_start_child (GTK_PANED (mw->priv->paned), mw->priv->file_selector[LEFT]);
 
     mw->priv->file_selector[RIGHT] = gnome_cmd_file_selector_new (RIGHT);
-    gtk_widget_show (mw->priv->file_selector[RIGHT]);
-    gtk_paned_pack2 (GTK_PANED (mw->priv->paned), mw->priv->file_selector[RIGHT], TRUE, TRUE);
+    gtk_paned_set_end_child (GTK_PANED (mw->priv->paned), mw->priv->file_selector[RIGHT]);
 
     mw->update_show_toolbar();
     mw->update_cmdline_visibility();
@@ -623,10 +595,12 @@ static void gnome_cmd_main_win_init (GnomeCmdMainWin *mw)
 
     gnome_cmd_data.tabs.clear();        //  free unused memory
 
-    g_signal_connect (mw, "size-allocate", G_CALLBACK (on_size_allocate), mw);
-    g_signal_connect (mw, "window-state-event", G_CALLBACK (on_window_state_event), NULL);
+    g_signal_connect (mw, "notify::default-width", G_CALLBACK (on_change_width), mw);
+    g_signal_connect (mw, "notify::default-height", G_CALLBACK (on_change_height), mw);
+    g_signal_connect (mw, "notify::maximized", G_CALLBACK (on_change_maximized), mw);
 
-    GtkGesture *paned_click_gesture = gtk_gesture_multi_press_new (GTK_WIDGET (mw->priv->paned));
+    GtkGesture *paned_click_gesture = gtk_gesture_click_new ();
+    gtk_widget_add_controller (GTK_WIDGET (mw->priv->paned), GTK_EVENT_CONTROLLER (paned_click_gesture));
     gtk_gesture_single_set_button (GTK_GESTURE_SINGLE (paned_click_gesture), 3);
     g_signal_connect (paned_click_gesture, "pressed", G_CALLBACK (on_slide_button_press), mw);
 
@@ -637,7 +611,6 @@ static void gnome_cmd_main_win_init (GnomeCmdMainWin *mw)
 
     g_signal_connect (gnome_cmd_con_list_get (), "list-changed", G_CALLBACK (on_con_list_list_changed), mw);
 
-    gtk_window_add_accel_group (*mw, mw->priv->accel_group);
     mw->focus_file_lists();
 }
 
@@ -790,7 +763,8 @@ gboolean GnomeCmdMainWin::key_pressed(GnomeCmdKeyPress *event)
                     rect.y = allocation.height / 2;
                     rect.width = 0;
                     rect.height = 0;
-                    GtkWidget *popover = gtk_popover_new_from_model (priv->paned, create_slide_popup ());
+                    GtkWidget *popover = gtk_popover_menu_new_from_model (create_slide_popup ());
+                    gtk_widget_set_parent (popover, priv->paned);
                     gtk_popover_set_pointing_to (GTK_POPOVER (popover), &rect);
                     gtk_popover_popup (GTK_POPOVER (popover));
                 }
@@ -805,10 +779,8 @@ gboolean GnomeCmdMainWin::key_pressed(GnomeCmdKeyPress *event)
                     // swap widgets
                     g_object_ref (fs1);
                     g_object_ref (fs2);
-                    gtk_container_remove (GTK_CONTAINER (priv->paned), *fs1);
-                    gtk_container_remove (GTK_CONTAINER (priv->paned), *fs2);
-                    gtk_paned_pack1 (GTK_PANED (priv->paned), *fs2, TRUE, TRUE);
-                    gtk_paned_pack2 (GTK_PANED (priv->paned), *fs1, TRUE, TRUE);
+                    gtk_paned_set_start_child (GTK_PANED (priv->paned), *fs2);
+                    gtk_paned_set_end_child (GTK_PANED (priv->paned), *fs1);
                     g_object_unref (fs1);
                     g_object_unref (fs2);
 
@@ -1039,9 +1011,9 @@ GnomeCmdCmdline *GnomeCmdMainWin::get_cmdline() const
 
 void GnomeCmdMainWin::update_mainmenu()
 {
-    auto menu = gnome_cmd_main_menu_new (G_ACTION_GROUP (this));
-    gtk_menu_shell_bind_model (GTK_MENU_SHELL (priv->menubar), G_MENU_MODEL (menu.menu), NULL, FALSE);
-    g_object_unref (menu.accel_group);
+    auto menu = gnome_cmd_main_menu_new ();
+    gtk_popover_menu_bar_set_menu_model (GTK_POPOVER_MENU_BAR (priv->menubar), G_MENU_MODEL (menu.menu));
+    g_object_unref (menu.shortcuts);
 }
 
 
@@ -1063,16 +1035,16 @@ void GnomeCmdMainWin::update_show_toolbar()
     {
         create_toolbar (this);
         gtk_box_append (GTK_BOX (priv->vbox), priv->toolbar);
-        gtk_box_reorder_child (GTK_BOX (priv->vbox), priv->toolbar, 2);
+        gtk_box_reorder_child_after (GTK_BOX (priv->vbox), priv->toolbar, priv->menubar);
         gtk_box_append (GTK_BOX (priv->vbox), priv->toolbar_sep);
-        gtk_box_reorder_child (GTK_BOX (priv->vbox), priv->toolbar_sep, 3);
+        gtk_box_reorder_child_after (GTK_BOX (priv->vbox), priv->toolbar_sep, priv->toolbar);
     }
     else
     {
         if (priv->toolbar)
-            gtk_container_remove (GTK_CONTAINER (priv->vbox), priv->toolbar);
+            gtk_box_remove (GTK_BOX (priv->vbox), priv->toolbar);
         if (priv->toolbar_sep)
-            gtk_container_remove (GTK_CONTAINER (priv->vbox), priv->toolbar_sep);
+            gtk_box_remove (GTK_BOX (priv->vbox), priv->toolbar_sep);
         priv->toolbar = NULL;
         priv->toolbar_sep = NULL;
     }
@@ -1092,9 +1064,9 @@ void GnomeCmdMainWin::update_buttonbar_visibility()
     else
     {
         if (priv->buttonbar)
-            gtk_container_remove (GTK_CONTAINER (priv->vbox), priv->buttonbar);
+            gtk_box_remove (GTK_BOX (priv->vbox), priv->buttonbar);
         if (priv->buttonbar_sep)
-            gtk_container_remove (GTK_CONTAINER (priv->vbox), priv->buttonbar_sep);
+            gtk_box_remove (GTK_BOX (priv->vbox), priv->buttonbar_sep);
         priv->buttonbar = NULL;
         priv->buttonbar_sep = NULL;
     }
@@ -1116,25 +1088,21 @@ void GnomeCmdMainWin::update_cmdline_visibility()
 {
     if (gnome_cmd_data.cmdline_visibility)
     {
-        gint pos = 3;
         priv->cmdline_sep = create_separator (FALSE);
         priv->cmdline = gnome_cmd_cmdline_new ();
         gtk_widget_set_margin_top (GTK_WIDGET (priv->cmdline), 1);
         gtk_widget_set_margin_bottom (GTK_WIDGET (priv->cmdline), 1);
-        gtk_widget_show (GTK_WIDGET (priv->cmdline));
-        if (gnome_cmd_data.show_toolbar)
-            pos += 2;
         gtk_box_append (GTK_BOX (priv->vbox), priv->cmdline_sep);
         gtk_box_append (GTK_BOX (priv->vbox), GTK_WIDGET (priv->cmdline));
-        gtk_box_reorder_child (GTK_BOX (priv->vbox), priv->cmdline_sep, pos);
-        gtk_box_reorder_child (GTK_BOX (priv->vbox), GTK_WIDGET (priv->cmdline), pos+1);
+        gtk_box_reorder_child_after (GTK_BOX (priv->vbox), priv->cmdline_sep, priv->paned);
+        gtk_box_reorder_child_after (GTK_BOX (priv->vbox), GTK_WIDGET (priv->cmdline), priv->cmdline_sep);
     }
     else
     {
         if (priv->cmdline)
-            gtk_container_remove (GTK_CONTAINER (priv->vbox), GTK_WIDGET (priv->cmdline));
+            gtk_box_remove (GTK_BOX (priv->vbox), GTK_WIDGET (priv->cmdline));
         if (priv->cmdline_sep)
-            gtk_container_remove (GTK_CONTAINER (priv->vbox), priv->cmdline_sep);
+            gtk_box_remove (GTK_BOX (priv->vbox), priv->cmdline_sep);
         priv->cmdline = NULL;
         priv->cmdline_sep = NULL;
     }
@@ -1206,10 +1174,9 @@ void GnomeCmdMainWin::set_cap_state(gboolean state)
 
 void GnomeCmdMainWin::set_slide(gint percentage)
 {
-    GtkAllocation allocation;
-    gtk_widget_get_allocation (GTK_WIDGET (priv->paned), &allocation);
-
-    gint dimension = gnome_cmd_data.horizontal_orientation ? allocation.height : allocation.width;
+    gint dimension = gnome_cmd_data.horizontal_orientation
+        ? gtk_widget_get_height (GTK_WIDGET (priv->paned))
+        : gtk_widget_get_width (GTK_WIDGET (priv->paned));
     gint new_dimension = dimension * percentage / 100;
 
     gtk_paned_set_position (GTK_PANED (priv->paned), new_dimension);

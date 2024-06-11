@@ -33,7 +33,8 @@ use crate::{
 };
 use gtk::{
     gio::{self, prelude::*},
-    glib::{self, translate::*, Cast},
+    glib::{self, translate::*},
+    prelude::*,
 };
 use libc::{gid_t, uid_t};
 use std::{
@@ -41,7 +42,6 @@ use std::{
     path::{Path, PathBuf},
     ptr,
 };
-
 pub mod ffi {
     use super::*;
     use crate::{

@@ -376,8 +376,7 @@ gchar *unquote_if_needed (const gchar *in)
 GtkWidget *create_styled_button (const gchar *text)
 {
     GtkWidget *w = text ? gtk_button_new_with_label (text) : gtk_button_new ();
-
-    gtk_button_set_relief (GTK_BUTTON (w), GTK_RELIEF_NONE);
+    gtk_button_set_has_frame (GTK_BUTTON (w), FALSE);
     g_object_ref (w);
     gtk_widget_show (w);
 
@@ -390,9 +389,9 @@ void set_cursor_busy_for_widget (GtkWidget *widget)
     static GdkCursor *cursor_busy = NULL;
 
     if (!cursor_busy)
-        cursor_busy = gdk_cursor_new (GDK_WATCH);
+        cursor_busy = gdk_cursor_new_from_name ("wait", nullptr);
 
-    gdk_window_set_cursor (gtk_widget_get_window (widget), cursor_busy);
+    gtk_widget_set_cursor (widget, cursor_busy);
 }
 
 
@@ -412,32 +411,6 @@ void remove_temp_download_dir ()
     }
 }
 
-
-inline GtkWidget *scale_pixbuf (GdkPixbuf *pixbuf, GtkIconSize icon_size)
-{
-    int width, height;
-
-    gtk_icon_size_lookup (icon_size, &width, &height);
-
-    double pix_x = gdk_pixbuf_get_width (pixbuf);
-    double pix_y = gdk_pixbuf_get_height (pixbuf);
-
-    // Only scale if the image doesn't match the required icon size
-    if (pix_x > width || pix_y > height)
-    {
-        double greatest = pix_x > pix_y ? pix_x : pix_y;
-        GdkPixbuf *scaled = gdk_pixbuf_scale_simple (pixbuf,
-                                                     (width/ greatest) * pix_x,
-                                                     (height/ greatest) * pix_y,
-                                                      GDK_INTERP_BILINEAR);
-        GtkWidget *image = gtk_image_new_from_pixbuf (scaled);
-        g_object_unref (scaled);
-
-        return image;
-    }
-
-    return gtk_image_new_from_pixbuf (pixbuf);
-}
 
 inline void transform (gchar *s, gchar from, gchar to)
 {
@@ -626,7 +599,7 @@ void gnome_cmd_help_display (const gchar *file_name, const gchar *link_id)
         strcat(help_uri, link_id);
     }
 
-    gtk_show_uri (NULL, help_uri,  gtk_get_current_event_time (), &error);
+    gtk_show_uri (NULL, help_uri, GDK_CURRENT_TIME);
 
     if (error != NULL)
         gnome_cmd_error_message (nullptr, _("There was an error displaying help."), error);

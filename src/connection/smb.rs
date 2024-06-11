@@ -25,10 +25,7 @@ use super::{
     remote::ConnectionRemote,
 };
 use crate::{dir::Directory, path::GnomeCmdPath};
-use gtk::{
-    gio,
-    glib::{self, Cast},
-};
+use gtk::{gio, glib, prelude::*};
 use std::path::Path;
 
 pub mod ffi {

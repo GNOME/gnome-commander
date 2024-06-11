@@ -21,10 +21,7 @@
  */
 
 use glib::translate::from_glib_none;
-use gtk::glib::{
-    self,
-    translate::{from_glib_full, ToGlibPtr},
-};
+use gtk::glib::{self, translate::ToGlibPtr};
 
 pub mod ffi {
     use super::*;
@@ -51,7 +48,7 @@ pub mod ffi {
 
 glib::wrapper! {
     pub struct HintBox(Object<ffi::GnomeCmdHintBox, ffi::GnomeCmdHintBoxClass>)
-        @extends gtk::Box, gtk::Container, gtk::Widget;
+        @extends gtk::Box, gtk::Widget;
 
     match fn {
         type_ => || ffi::gnome_cmd_hint_box_get_type(),

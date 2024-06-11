@@ -102,6 +102,8 @@ struct GnomeCmdMainWin
     GnomeCmdSearchDialog *get_or_create_search_dialog ();
     GnomeCmdAdvrenameDialog *get_or_create_advrename_dialog ();
     GnomeCmdBookmarksDialog *get_or_create_bookmarks_dialog ();
+
+    void restore_size_and_pos ();
 };
 
 extern GnomeCmdMainWin *main_win;

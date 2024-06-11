@@ -115,11 +115,8 @@ gnome_cmd_hint_box_constructor (GType                  type,
 
   if (box->stock_id)
     {
-      GtkWidget *image = gtk_image_new_from_gicon (g_themed_icon_new (box->stock_id),
-                                                   GTK_ICON_SIZE_DIALOG);
-
+      GtkWidget *image = gtk_image_new_from_gicon (g_themed_icon_new (box->stock_id));
       gtk_box_append (GTK_BOX (box), image);
-      gtk_widget_show (image);
     }
 
   label = (GtkWidget *) g_object_new (GTK_TYPE_LABEL,

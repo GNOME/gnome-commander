@@ -36,8 +36,7 @@ use std::path::Path;
 
 mod imp {
     use super::*;
-    use crate::utils::{show_error_message, ErrorMessage, Gtk3to4BoxCompat};
-    use gtk::prelude::{DialogExt, GtkWindowExt};
+    use crate::utils::{show_error_message, ErrorMessage};
 
     fn create_methods_model() -> gtk::ListStore {
         let store = gtk::ListStore::new(&[String::static_type(), i32::static_type()]);
@@ -155,7 +154,7 @@ mod imp {
 
             let obj = self.obj();
 
-            obj.set_title(&gettext("Remote Server"));
+            obj.set_title(Some(&gettext("Remote Server")));
             obj.set_resizable(false);
 
             let content_area = obj.content_area();
@@ -250,7 +249,6 @@ mod imp {
             let ok_btn = gtk::Button::builder()
                 .label(gettext("_OK"))
                 .use_underline(true)
-                .can_default(true)
                 .build();
             ok_btn.connect_clicked(glib::clone!(@weak obj => move |_| {
                 match obj.imp().get_connection_uri() {
@@ -261,6 +259,7 @@ mod imp {
             buttonbox.append(&ok_btn);
             buttonbox_size_group.add_widget(&ok_btn);
 
+            obj.set_default_widget(Some(&ok_btn));
             obj.set_default_response(gtk::ResponseType::Ok);
 
             //  g_signal_connect (dialog, "response", G_CALLBACK (response_callback), dialog);
@@ -268,8 +267,6 @@ mod imp {
     }
 
     impl WidgetImpl for ConnectDialog {}
-    impl ContainerImpl for ConnectDialog {}
-    impl BinImpl for ConnectDialog {}
     impl WindowImpl for ConnectDialog {}
     impl DialogImpl for ConnectDialog {}
 
@@ -315,7 +312,7 @@ mod imp {
 
         pub fn get_method(&self) -> Option<ConnectionMethodID> {
             let iter = self.type_combo.active_iter()?;
-            let method: i32 = self.type_combo.model()?.value(&iter, 1).get().ok()?;
+            let method: i32 = self.type_combo.model()?.get_value(&iter, 1).get().ok()?;
             ConnectionMethodID::from_repr(method)
         }
 
@@ -486,7 +483,6 @@ impl ConnectDialog {
     ) -> Option<ConnectionRemote> {
         let dialog = ConnectDialog::default();
         dialog.set_transient_for(Some(parent_window));
-        dialog.show_all();
         dialog.imp().alias_entry.set_sensitive(with_alias);
 
         dialog.imp().set_method(Some(ConnectionMethodID::CON_SFTP));
@@ -531,7 +527,6 @@ impl ConnectDialog {
     pub async fn edit_connection(parent_window: &gtk::Window, con: &ConnectionRemote) -> bool {
         let dialog: ConnectDialog = glib::Object::builder().build();
         dialog.set_transient_for(Some(parent_window));
-        dialog.show_all();
 
         dialog.imp().set_method(con.method());
         dialog.imp().type_combo.set_sensitive(false);

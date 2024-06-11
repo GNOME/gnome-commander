@@ -719,7 +719,7 @@ struct GnomeCmdData
     guint                        main_win_height;
     guint                        opts_dialog_width;
     guint                        opts_dialog_height;
-    GdkWindowState               main_win_state;
+    gboolean                     main_win_maximized;
 
     std::map<guint,std::vector<Tab> > tabs;
 

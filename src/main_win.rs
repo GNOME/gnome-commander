@@ -60,7 +60,7 @@ pub mod ffi {
 
 glib::wrapper! {
     pub struct MainWindow(Object<ffi::GnomeCmdMainWin, ffi::GnomeCmdMainWinClass>)
-        @extends gtk::ApplicationWindow, gtk::Window, gtk::Bin, gtk::Container, gtk::Widget;
+        @extends gtk::ApplicationWindow, gtk::Window, gtk::Widget;
 
     match fn {
         type_ => || ffi::gnome_cmd_main_win_get_type(),

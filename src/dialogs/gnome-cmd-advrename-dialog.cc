@@ -70,13 +70,13 @@ struct GnomeCmdAdvrenameDialog::Private
     static void on_files_view_popup_menu__view_file (GSimpleAction *action, GVariant *parameter, gpointer user_data);
     static void on_files_view_popup_menu__show_properties (GSimpleAction *action, GVariant *parameter, gpointer user_data);
     static void on_files_view_popup_menu__update_files (GSimpleAction *action, GVariant *parameter, gpointer user_data);
-    static void on_files_view_button_pressed (GtkGestureMultiPress *gesture, int n_press, double x, double y, gpointer user_data);
+    static void on_files_view_button_pressed (GtkGestureClick *gesture, int n_press, double x, double y, gpointer user_data);
     static gboolean on_files_view_popup_menu (GtkWidget *treeview, GnomeCmdAdvrenameDialog *dialog);
     static void on_files_view_row_activated (GtkTreeView *view, GtkTreePath *path, GtkTreeViewColumn *col, GnomeCmdAdvrenameDialog *dialog);
     static void on_files_view_cursor_changed (GtkTreeView *view, GnomeCmdAdvrenameDialog *dialog);
 
     static void on_dialog_show (GtkWidget *widget, GnomeCmdAdvrenameDialog *dialog);
-    static void on_dialog_size_allocate (GtkWidget *widget, GtkAllocation *allocation, GnomeCmdAdvrenameDialog *dialog);
+    static void on_dialog_size_allocate (GObject *dialog, GParamSpec *pspec, gpointer user_data);
     static void on_dialog_response (GnomeCmdAdvrenameDialog *dialog, int response_id, gpointer data);
 };
 
@@ -310,7 +310,8 @@ inline void GnomeCmdAdvrenameDialog::Private::files_view_popup_menu (GtkWidget *
 
     g_menu_append (menu, _("Update file list"), "advrename.update-file-list");
 
-    GtkWidget *popover = gtk_popover_new_from_model (GTK_WIDGET (treeview), G_MENU_MODEL (menu));
+    GtkWidget *popover = gtk_popover_menu_new_from_model (G_MENU_MODEL (menu));
+    gtk_widget_set_parent (popover, GTK_WIDGET (treeview));
     if (point)
     {
         GdkRectangle rect = { point->x, point->y, 0, 0 };
@@ -320,7 +321,7 @@ inline void GnomeCmdAdvrenameDialog::Private::files_view_popup_menu (GtkWidget *
 }
 
 
-void GnomeCmdAdvrenameDialog::Private::on_files_view_button_pressed (GtkGestureMultiPress *gesture, int n_press, double x, double y, gpointer user_data)
+void GnomeCmdAdvrenameDialog::Private::on_files_view_button_pressed (GtkGestureClick *gesture, int n_press, double x, double y, gpointer user_data)
 {
     auto dialog = static_cast<GnomeCmdAdvrenameDialog*>(user_data);
 
@@ -392,10 +393,13 @@ void GnomeCmdAdvrenameDialog::Private::on_dialog_show(GtkWidget *widget, GnomeCm
 }
 
 
-void GnomeCmdAdvrenameDialog::Private::on_dialog_size_allocate (GtkWidget *widget, GtkAllocation *allocation, GnomeCmdAdvrenameDialog *dialog)
+void GnomeCmdAdvrenameDialog::Private::on_dialog_size_allocate (GObject *dialog, GParamSpec *pspec, gpointer user_data)
 {
-    dialog->defaults.width  = allocation->width;
-    dialog->defaults.height = allocation->height;
+    int width, height;
+    gtk_window_get_default_size (GTK_WINDOW (dialog), &width, &height);
+
+    GNOME_CMD_ADVRENAME_DIALOG (dialog)->defaults.width  = width;
+    GNOME_CMD_ADVRENAME_DIALOG (dialog)->defaults.height = height;
 }
 
 
@@ -572,7 +576,6 @@ inline GtkWidget *create_files_view ()
     GtkWidget *view = gtk_tree_view_new ();
 
     g_object_set (view,
-                  "rules-hint", TRUE,
                   "reorderable", TRUE,
                   "enable-search", TRUE,
                   "search-column", GnomeCmdAdvrenameDialog::COL_NAME,
@@ -655,7 +658,7 @@ GnomeCmdAdvrenameDialog::GnomeCmdAdvrenameDialog(GnomeCmdData::AdvrenameConfig &
     gtk_window_set_transient_for (*this, parent_window);
 
     priv->profile_menu_button = gtk_menu_button_new ();
-    gtk_button_set_label (GTK_BUTTON (priv->profile_menu_button), _("Profiles…"));
+    gtk_menu_button_set_label (GTK_MENU_BUTTON (priv->profile_menu_button), _("Profiles…"));
     gtk_menu_button_set_menu_model (
         GTK_MENU_BUTTON (priv->profile_menu_button),
         G_MENU_MODEL (create_placeholder_menu(&cfg)));
@@ -677,7 +680,7 @@ GnomeCmdAdvrenameDialog::GnomeCmdAdvrenameDialog(GnomeCmdData::AdvrenameConfig &
 
     gtk_widget_set_vexpand (*priv->profile_component, TRUE);
     gtk_box_append (GTK_BOX (priv->vbox), *priv->profile_component);
-    gtk_box_reorder_child (GTK_BOX (priv->vbox), *priv->profile_component, 0);
+    gtk_box_reorder_child_after (GTK_BOX (priv->vbox), *priv->profile_component, nullptr);
 
     // Results
     files = create_files_model ();
@@ -687,7 +690,8 @@ GnomeCmdAdvrenameDialog::GnomeCmdAdvrenameDialog(GnomeCmdData::AdvrenameConfig &
     g_signal_connect (priv->profile_component, "regex-changed", G_CALLBACK (Private::on_profile_regex_changed), this);
     g_signal_connect (files, "row-deleted", G_CALLBACK (Private::on_files_model_row_deleted), this);
 
-    GtkGesture *button_gesture = gtk_gesture_multi_press_new (GTK_WIDGET (priv->files_view));
+    GtkGesture *button_gesture = gtk_gesture_click_new ();
+    gtk_widget_add_controller (GTK_WIDGET (priv->files_view), GTK_EVENT_CONTROLLER (button_gesture));
     gtk_gesture_single_set_button (GTK_GESTURE_SINGLE (button_gesture), 3);
     g_signal_connect (button_gesture, "pressed", G_CALLBACK (Private::on_files_view_button_pressed), this);
 
@@ -696,7 +700,8 @@ GnomeCmdAdvrenameDialog::GnomeCmdAdvrenameDialog(GnomeCmdData::AdvrenameConfig &
     g_signal_connect (priv->files_view, "cursor-changed", G_CALLBACK (Private::on_files_view_cursor_changed), this);
 
     g_signal_connect (this, "show", G_CALLBACK (Private::on_dialog_show), this);
-    g_signal_connect (this, "size-allocate", G_CALLBACK (Private::on_dialog_size_allocate), this);
+    g_signal_connect (this, "notify::default-width", G_CALLBACK (Private::on_dialog_size_allocate), this);
+    g_signal_connect (this, "notify::default-height", G_CALLBACK (Private::on_dialog_size_allocate), this);
     g_signal_connect (this, "response", G_CALLBACK (Private::on_dialog_response), this);
 
     gnome_cmd_advrename_parse_template (priv->profile_component->get_template_entry(), priv->template_has_counters);

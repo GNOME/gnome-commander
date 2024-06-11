@@ -424,8 +424,6 @@ void plugin_manager_show (GtkWindow *parent_window)
     gtk_size_group_add_widget (bbox_size_group, button);
     gtk_box_append (GTK_BOX (bbox), button);
 
-    gtk_widget_show_all (bbox);
-
     gtk_box_append (GTK_BOX (hbox), avail_view);
     gtk_box_append (GTK_BOX (hbox), bbox);
 
@@ -439,8 +437,8 @@ void plugin_manager_show (GtkWindow *parent_window)
     gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), _("_Close"), G_CALLBACK(on_close), dialog);
 
     gtk_widget_set_size_request (GTK_WIDGET (dialog), 500, 300);
-    gtk_window_set_resizable ((GtkWindow *) GTK_WIDGET (dialog), TRUE);
-    gtk_widget_show_all (GTK_WIDGET (dialog));
+    gtk_window_set_resizable (GTK_WINDOW (dialog), TRUE);
+    gtk_window_present (GTK_WINDOW (dialog));
 }
 
 gchar* get_plugin_config_location()

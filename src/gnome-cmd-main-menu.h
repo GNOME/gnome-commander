@@ -22,4 +22,4 @@
 
 #include "gnome-cmd-includes.h"
 
-MenuBuilder::Result gnome_cmd_main_menu_new (GActionGroup *win_action_group);
+MenuBuilder::Result gnome_cmd_main_menu_new ();

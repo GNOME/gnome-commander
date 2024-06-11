@@ -136,52 +136,53 @@ const gchar *time2string (GDateTime *gDateTime, const gchar *date_format);
 
 inline GdkModifierType get_modifiers_state()
 {
-    GdkWindow *window = gdk_window_at_pointer (nullptr, nullptr);
-    GdkModifierType mask = (GdkModifierType) 0;
-    gdk_window_get_pointer (window, nullptr, nullptr, &mask);
-    return mask;
+    GdkDisplay *display = gdk_display_get_default ();
+    GdkSeat *seat = gdk_display_get_default_seat (display);
+    GdkDevice *keyboard = gdk_seat_get_keyboard (seat);
+
+    return gdk_device_get_modifier_state (keyboard);
 }
 
 inline gboolean state_is_blank (gint state)
 {
-    gboolean ret = (state & GDK_SHIFT_MASK) || (state & GDK_CONTROL_MASK) || (state & GDK_MOD1_MASK);
+    gboolean ret = (state & GDK_SHIFT_MASK) || (state & GDK_CONTROL_MASK) || (state & GDK_ALT_MASK);
 
     return !ret;
 }
 
 inline gboolean state_is_shift (gint state)
 {
-    return (state & GDK_SHIFT_MASK) && !(state & GDK_CONTROL_MASK) && !(state & GDK_MOD1_MASK);
+    return (state & GDK_SHIFT_MASK) && !(state & GDK_CONTROL_MASK) && !(state & GDK_ALT_MASK);
 }
 
 inline gboolean state_is_ctrl (gint state)
 {
-    return !(state & GDK_SHIFT_MASK) && (state & GDK_CONTROL_MASK) && !(state & GDK_MOD1_MASK);
+    return !(state & GDK_SHIFT_MASK) && (state & GDK_CONTROL_MASK) && !(state & GDK_ALT_MASK);
 }
 
 inline gboolean state_is_alt (gint state)
 {
-    return !(state & GDK_SHIFT_MASK) && !(state & GDK_CONTROL_MASK) && (state & GDK_MOD1_MASK);
+    return !(state & GDK_SHIFT_MASK) && !(state & GDK_CONTROL_MASK) && (state & GDK_ALT_MASK);
 }
 
 inline gboolean state_is_alt_shift (gint state)
 {
-    return (state & GDK_SHIFT_MASK) && !(state & GDK_CONTROL_MASK) && (state & GDK_MOD1_MASK);
+    return (state & GDK_SHIFT_MASK) && !(state & GDK_CONTROL_MASK) && (state & GDK_ALT_MASK);
 }
 
 inline gboolean state_is_ctrl_alt (gint state)
 {
-    return !(state & GDK_SHIFT_MASK) && (state & GDK_CONTROL_MASK) && (state & GDK_MOD1_MASK);
+    return !(state & GDK_SHIFT_MASK) && (state & GDK_CONTROL_MASK) && (state & GDK_ALT_MASK);
 }
 
 inline gboolean state_is_ctrl_shift (gint state)
 {
-    return (state & GDK_SHIFT_MASK) && (state & GDK_CONTROL_MASK) && !(state & GDK_MOD1_MASK);
+    return (state & GDK_SHIFT_MASK) && (state & GDK_CONTROL_MASK) && !(state & GDK_ALT_MASK);
 }
 
 inline gboolean state_is_ctrl_alt_shift (gint state)
 {
-    return (state & GDK_SHIFT_MASK) && (state & GDK_CONTROL_MASK) && (state & GDK_MOD1_MASK);
+    return (state & GDK_SHIFT_MASK) && (state & GDK_CONTROL_MASK) && (state & GDK_ALT_MASK);
 }
 
 GList *uri_strings_to_gfiles (gchar *data);
@@ -200,14 +201,6 @@ GList *string_history_add (GList *in, const gchar *value, guint maxsize);
 GtkWidget *create_styled_button (const gchar *text);
 
 void set_cursor_busy_for_widget (GtkWidget *widget);
-
-inline void set_cursor_default_for_widget (GtkWidget *widget)
-{
-    GdkWindow *window = gtk_widget_get_window (widget);
-
-    if (window)
-        gdk_window_set_cursor (window, NULL);
-}
 
 void remove_temp_download_dir ();
 

@@ -220,8 +220,6 @@ void gnome_cmd_mkdir_dialog_new (GnomeCmdDir *dir, GnomeCmdFile *selected_file)
     gtk_widget_set_hexpand (entry, TRUE);
     gtk_grid_attach (GTK_GRID (grid), entry, 1, 0, 1, 1);
 
-    gtk_widget_show_all (content_area);
-
     gtk_dialog_set_default_response (GTK_DIALOG (dialog), GTK_RESPONSE_OK);
 
     g_signal_connect (dialog, "response", G_CALLBACK (response_callback), dir);

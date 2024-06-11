@@ -91,7 +91,7 @@ static void gnome_cmd_dir_indicator_class_init (GnomeCmdDirIndicatorClass *klass
 /*******************************
  * Event handlers
  *******************************/
-static void on_dir_indicator_clicked (GtkGestureMultiPress *gesture, int n_press, double x, double y, gpointer user_data)
+static void on_dir_indicator_clicked (GtkGestureClick *gesture, int n_press, double x, double y, gpointer user_data)
 {
     g_return_if_fail (GNOME_CMD_IS_DIR_INDICATOR (user_data));
     auto indicator = static_cast<GnomeCmdDirIndicator*>(user_data);
@@ -126,7 +126,8 @@ static void on_dir_indicator_clicked (GtkGestureMultiPress *gesture, int n_press
     }
     else if (button == 3)
     {
-        gtk_clipboard_set_text (gtk_clipboard_get (GDK_SELECTION_CLIPBOARD), chTo, -1);
+        auto clipboard = gtk_widget_get_clipboard (GTK_WIDGET (indicator));
+        gdk_clipboard_set_text (clipboard, chTo);
     }
 
     g_free (chTo);
@@ -249,9 +250,9 @@ static void on_dir_indicator_motion (GtkEventControllerMotion *controller, doubl
         if (x < priv->slashPixelPosition[i])
         {
             // underline the part that is selected
-            GdkCursor *cursor = gdk_cursor_new (GDK_HAND2);
-            gdk_window_set_cursor (gtk_widget_get_window (GTK_WIDGET (indicator)), cursor);
-            gdk_cursor_unref (cursor);
+            GdkCursor *cursor = gdk_cursor_new_from_name ("pointer", nullptr);
+            gtk_widget_set_cursor (GTK_WIDGET (indicator), cursor);
+            g_object_unref (cursor);
 
             update_markup (indicator, i);
 
@@ -261,7 +262,7 @@ static void on_dir_indicator_motion (GtkEventControllerMotion *controller, doubl
 
     // clear underline, cursor=pointer
     update_markup (indicator, -1);
-    gdk_window_set_cursor (gtk_widget_get_window (GTK_WIDGET (indicator)), nullptr);
+    gtk_widget_set_cursor (GTK_WIDGET (indicator), nullptr);
 }
 
 
@@ -272,7 +273,7 @@ static void on_dir_indicator_leave (GtkEventControllerMotion *controller, gpoint
 
     // clear underline, cursor=pointer
     update_markup (indicator, -1);
-    gdk_window_set_cursor (gtk_widget_get_window (GTK_WIDGET (indicator)), nullptr);
+    gtk_widget_set_cursor (GTK_WIDGET (indicator), nullptr);
 }
 
 
@@ -323,7 +324,8 @@ void gnome_cmd_dir_indicator_show_history (GnomeCmdDirIndicator *indicator)
         g_menu_append_item (menu, item);
     }
 
-    GtkWidget *popover = gtk_popover_new_from_model (GTK_WIDGET (indicator), G_MENU_MODEL (menu));
+    GtkWidget *popover = gtk_popover_menu_new_from_model (G_MENU_MODEL (menu));
+    gtk_widget_set_parent (popover, GTK_WIDGET (indicator));
     gtk_popover_set_position (GTK_POPOVER (popover), GTK_POS_BOTTOM);
 
     GtkAllocation indicator_allocation;
@@ -371,7 +373,8 @@ void gnome_cmd_dir_indicator_show_bookmarks (GnomeCmdDirIndicator *indicator)
     g_menu_append_section (menu, nullptr, G_MENU_MODEL (bookmarks_section));
     g_menu_append_section (menu, nullptr, G_MENU_MODEL (manage_section));
 
-    GtkWidget *popover = gtk_popover_new_from_model (GTK_WIDGET (indicator), G_MENU_MODEL (menu));
+    GtkWidget *popover = gtk_popover_menu_new_from_model (G_MENU_MODEL (menu));
+    gtk_widget_set_parent (popover, GTK_WIDGET (indicator));
     gtk_popover_set_position (GTK_POPOVER (popover), GTK_POS_BOTTOM);
 
     GtkAllocation indicator_allocation;
@@ -390,40 +393,33 @@ static void gnome_cmd_dir_indicator_init (GnomeCmdDirIndicator *indicator)
 
     GtkWidget *hbox, *bbox;
 
-    // create the directory label and its event box
-    GtkWidget *event_box = gtk_event_box_new ();
-    gtk_widget_set_events (event_box, GDK_ENTER_NOTIFY_MASK | GDK_POINTER_MOTION_MASK | GDK_LEAVE_NOTIFY_MASK);
-    GtkEventController* motion_controller = gtk_event_controller_motion_new (GTK_WIDGET (event_box));
+    // create the directory label
+    priv->label = create_label (GTK_WIDGET (indicator), "not initialized");
+    GtkEventController* motion_controller = gtk_event_controller_motion_new ();
+    gtk_widget_add_controller (GTK_WIDGET (priv->label), GTK_EVENT_CONTROLLER (motion_controller));
     gtk_event_controller_set_propagation_phase (GTK_EVENT_CONTROLLER (motion_controller), GTK_PHASE_CAPTURE); // TODO: test if this is still needed in Gtk4
     g_signal_connect (motion_controller, "enter", G_CALLBACK (on_dir_indicator_motion), indicator);
     g_signal_connect (motion_controller, "motion", G_CALLBACK (on_dir_indicator_motion), indicator);
     g_signal_connect (motion_controller, "leave", G_CALLBACK (on_dir_indicator_leave), indicator);
 
-    gtk_widget_show (event_box);
-
-    priv->label = create_label (GTK_WIDGET (indicator), "not initialized");
-    gtk_container_add (GTK_CONTAINER (event_box), priv->label);
-
     GtkWidget *sw = gtk_scrolled_window_new ();
     gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (sw), GTK_POLICY_AUTOMATIC, GTK_POLICY_NEVER);
-    gtk_scrolled_window_set_child (GTK_SCROLLED_WINDOW (sw), event_box);
+    gtk_scrolled_window_set_child (GTK_SCROLLED_WINDOW (sw), priv->label);
     gtk_widget_show (sw);
 
     // create the history popup button
-    priv->history_button = gtk_button_new_from_icon_name ("gnome-commander-down", GTK_ICON_SIZE_SMALL_TOOLBAR);
+    priv->history_button = gtk_button_new_from_icon_name ("gnome-commander-down");
     gtk_widget_set_can_focus (priv->history_button, FALSE);
-    gtk_button_set_relief (GTK_BUTTON (priv->history_button), GTK_RELIEF_NONE);
-    gtk_widget_show (priv->history_button);
+    gtk_button_set_has_frame (GTK_BUTTON (priv->history_button), FALSE);
 
     // create the bookmark popup button
-    priv->bookmark_button = gtk_button_new_from_icon_name ("gnome-commander-bookmark-outline", GTK_ICON_SIZE_SMALL_TOOLBAR);
+    priv->bookmark_button = gtk_button_new_from_icon_name ("gnome-commander-bookmark-outline");
     gtk_widget_set_can_focus (priv->bookmark_button, FALSE);
-    gtk_button_set_relief (GTK_BUTTON (priv->bookmark_button), GTK_RELIEF_NONE);
-    gtk_widget_show (priv->bookmark_button);
+    gtk_button_set_has_frame (GTK_BUTTON (priv->bookmark_button), FALSE);
 
     // pack
     hbox = create_hbox (GTK_WIDGET (indicator), FALSE, 10);
-    gtk_container_add (GTK_CONTAINER (indicator), hbox);
+    gtk_frame_set_child (GTK_FRAME (indicator), hbox);
     gtk_widget_set_hexpand (sw, TRUE);
     gtk_box_append (GTK_BOX (hbox), sw);
     bbox = create_hbox (GTK_WIDGET (indicator), FALSE, 0);
@@ -443,7 +439,8 @@ static void gnome_cmd_dir_indicator_init (GnomeCmdDirIndicator *indicator)
 
     gtk_widget_insert_action_group (GTK_WIDGET (indicator), "indicator", G_ACTION_GROUP (action_group));
 
-    GtkGesture *button_gesture = gtk_gesture_multi_press_new (GTK_WIDGET (indicator));
+    GtkGesture *button_gesture = gtk_gesture_click_new ();
+    gtk_widget_add_controller (GTK_WIDGET (indicator), GTK_EVENT_CONTROLLER (button_gesture));
     gtk_gesture_single_set_button (GTK_GESTURE_SINGLE (button_gesture), 0);
     g_signal_connect (button_gesture, "pressed", G_CALLBACK (on_dir_indicator_clicked), indicator);
 }

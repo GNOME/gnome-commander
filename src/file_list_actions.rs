@@ -35,7 +35,7 @@ use gettextrs::{gettext, ngettext};
 use gtk::{
     gdk,
     gio::{self, ffi::GSimpleAction},
-    glib::{self, ffi::GVariant, translate::FromGlibPtrNone, FromVariant, Variant},
+    glib::{self, ffi::GVariant, translate::FromGlibPtrNone, Variant},
     prelude::*,
 };
 use std::{ffi::OsString, rc::Rc};
@@ -143,7 +143,7 @@ pub extern "C" fn gnome_cmd_file_selector_action_open_with(
             return;
         };
 
-        let Some(parent_window) = file_list.toplevel().and_downcast::<gtk::Window>() else {
+        let Some(parent_window) = file_list.root().and_downcast::<gtk::Window>() else {
             eprintln!("File list has no parent window");
             return;
         };
@@ -164,7 +164,7 @@ pub extern "C" fn gnome_cmd_file_selector_action_open_with_default(
     let file_list = unsafe { FileList::from_glib_none(file_list_ptr) };
     let options = ProgramsOptions::new();
     glib::MainContext::default().spawn_local(async move {
-        let Some(parent_window) = file_list.toplevel().and_downcast::<gtk::Window>() else {
+        let Some(parent_window) = file_list.root().and_downcast::<gtk::Window>() else {
             eprintln!("File list has no parent window");
             return;
         };
@@ -206,7 +206,7 @@ pub extern "C" fn gnome_cmd_file_selector_action_open_with_other(
     file_list_ptr: *mut GnomeCmdFileList,
 ) {
     let file_list = unsafe { FileList::from_glib_none(file_list_ptr) };
-    let Some(parent_window) = file_list.toplevel().and_downcast() else {
+    let Some(parent_window) = file_list.root().and_downcast() else {
         eprintln!("No window");
         return;
     };
@@ -229,7 +229,7 @@ pub extern "C" fn gnome_cmd_file_selector_action_execute(
     file_list_ptr: *mut GnomeCmdFileList,
 ) {
     let file_list = unsafe { FileList::from_glib_none(file_list_ptr) };
-    let Some(parent_window) = file_list.toplevel().and_downcast() else {
+    let Some(parent_window) = file_list.root().and_downcast() else {
         eprintln!("No window");
         return;
     };
@@ -261,7 +261,7 @@ pub extern "C" fn gnome_cmd_file_selector_action_execute_script(
     let script_path: String = parameter.child_get(0);
     let run_in_terminal: bool = parameter.child_get(1);
 
-    let Some(parent_window) = file_list.toplevel().and_downcast() else {
+    let Some(parent_window) = file_list.root().and_downcast() else {
         eprintln!("No window");
         return;
     };
@@ -272,7 +272,7 @@ pub extern "C" fn gnome_cmd_file_selector_action_execute_script(
     let is_shift_pressed = mask.map_or(false, |m| {
         m.contains(gdk::ModifierType::SHIFT_MASK)
             && !m.contains(gdk::ModifierType::CONTROL_MASK)
-            && !m.contains(gdk::ModifierType::MOD1_MASK)
+            && !m.contains(gdk::ModifierType::ALT_MASK)
     });
 
     glib::spawn_future_local(async move {

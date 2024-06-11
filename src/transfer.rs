@@ -815,7 +815,7 @@ pub extern "C" fn start_transfer_gui(
 
     let win = TransferProgressWindow::new(no_of_files, size_display_mode);
     win.set_transient_for(Some(&parent_window));
-    win.set_title(&title);
+    win.set_title(Some(&title));
 
     let tc = Box::new(TransferControl::new(win.cancellable()));
     let tc1 = tc.clone();

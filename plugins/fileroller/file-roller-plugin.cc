@@ -427,7 +427,6 @@ static void on_add_to_archive (GSimpleAction *action, GVariant *parameter, gpoin
 
     GtkWidget *bbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 6);
     GtkSizeGroup* bbox_size_group = gtk_size_group_new (GTK_SIZE_GROUP_HORIZONTAL);
-
     GtkWidget *cancel_button = gtk_button_new_with_label (_("_Cancel"));
     gtk_button_set_use_underline (GTK_BUTTON (cancel_button), TRUE);
     gtk_widget_set_hexpand (cancel_button, TRUE);
@@ -450,7 +449,6 @@ static void on_add_to_archive (GSimpleAction *action, GVariant *parameter, gpoin
     closure->state = priv->state;
     g_signal_connect (ok_button, "clicked", G_CALLBACK (on_create_archive), closure);
 
-    gtk_widget_show_all (content_area);
     gtk_window_present (GTK_WINDOW (dialog));
 }
 
@@ -671,7 +669,7 @@ static void configure (GnomeCmdPlugin *plugin, GtkWindow *parent_window)
 
     gchar* text = g_strdup_printf("<small>%s</small>",_("Use $N as a pattern for the original file name. See the manual page for “strftime” for other patterns."));
     label = create_label (dialog, text);
-    gtk_label_set_line_wrap (GTK_LABEL (label), TRUE);
+    gtk_label_set_wrap (GTK_LABEL (label), TRUE);
     gtk_label_set_markup (GTK_LABEL (label), text);
     gtk_grid_attach (GTK_GRID (grid), label, 1, 3, 1, 1);
     g_free(text);

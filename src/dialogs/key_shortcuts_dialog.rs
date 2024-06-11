@@ -59,11 +59,11 @@ impl Accel {
 
 fn get_accel(model: &gtk::ListStore, iter: &gtk::TreeIter) -> Accel {
     let key: u32 = model
-        .value(iter, Columns::COL_ACCEL_KEY as i32)
+        .get_value(iter, Columns::COL_ACCEL_KEY as i32)
         .get()
         .unwrap();
     let mask: gdk::ModifierType = model
-        .value(iter, Columns::COL_ACCEL_MASK as i32)
+        .get_value(iter, Columns::COL_ACCEL_MASK as i32)
         .get()
         .unwrap();
     Accel { key, mask }
@@ -116,7 +116,6 @@ async fn conflict_confirm(parent: &gtk::Window, action: &str, accel: Accel) -> b
     dlg.add_button(&gettext("_Reassign shortcut"), gtk::ResponseType::Ok);
     dlg.set_default_response(gtk::ResponseType::Cancel);
 
-    dlg.show_all();
     dlg.present();
     let response = dlg.run_future().await;
     dlg.close();
@@ -125,7 +124,7 @@ async fn conflict_confirm(parent: &gtk::Window, action: &str, accel: Accel) -> b
 }
 
 async fn accel_edited_callback(path_string: &str, accel: Accel, view: &gtk::TreeView) {
-    let Some(window) = view.toplevel().and_downcast::<gtk::Window>() else {
+    let Some(window) = view.root().and_downcast::<gtk::Window>() else {
         eprintln!("No window.");
         return;
     };
@@ -139,7 +138,10 @@ async fn accel_edited_callback(path_string: &str, accel: Accel, view: &gtk::Tree
         eprintln!("Bad model. GtkListStore is expected.");
         return;
     };
-    let path = gtk::TreePath::from_string(&path_string);
+    let Some(path) = gtk::TreePath::from_string(&path_string) else {
+        show_message(&window, &gettext("Invalid path."), None);
+        return;
+    };
 
     let iter = model.iter(&path);
 
@@ -153,7 +155,7 @@ async fn accel_edited_callback(path_string: &str, accel: Accel, view: &gtk::Tree
 
     if let Some(duplicate_iter) = find_accel(&model, accel) {
         let action: String = model
-            .value(&duplicate_iter, Columns::COL_ACTION as i32)
+            .get_value(&duplicate_iter, Columns::COL_ACTION as i32)
             .get()
             .unwrap();
 

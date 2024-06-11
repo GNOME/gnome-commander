@@ -23,7 +23,6 @@ use gtk::{gio, glib, prelude::*, subclass::prelude::*};
 
 mod imp {
     use super::*;
-    use crate::utils::Gtk3to4BoxCompat;
     use std::cell::Cell;
 
     pub struct TransferProgressWindow {
@@ -59,7 +58,7 @@ mod imp {
 
             let win = self.obj();
 
-            win.set_title(&gettext("Progress"));
+            win.set_title(Some(&gettext("Progress")));
             win.set_resizable(false);
             win.set_size_request(300, -1);
 
@@ -71,7 +70,7 @@ mod imp {
                 .margin_start(12)
                 .margin_end(12)
                 .build();
-            win.add(&vbox);
+            win.set_child(Some(&vbox));
 
             vbox.append(&self.message_label);
             vbox.append(&self.file_progress_label);
@@ -89,29 +88,26 @@ mod imp {
                 .use_underline(true)
                 .hexpand(true)
                 .halign(gtk::Align::Center)
-                .can_default(true)
                 .build();
             bbox.append(&button);
+
+            win.set_default_widget(Some(&button));
 
             button.connect_clicked(glib::clone!(@weak win => move |_| {
                 win.set_action(&gettext("stopping…"));
                 win.set_sensitive(false);
                 win.imp().cancellable.cancel();
             }));
-
-            vbox.show_all();
         }
     }
 
     impl WidgetImpl for TransferProgressWindow {}
-    impl ContainerImpl for TransferProgressWindow {}
-    impl BinImpl for TransferProgressWindow {}
     impl WindowImpl for TransferProgressWindow {}
 }
 
 glib::wrapper! {
     pub struct TransferProgressWindow(ObjectSubclass<imp::TransferProgressWindow>)
-        @extends gtk::Window, gtk::Bin, gtk::Container, gtk::Widget;
+        @extends gtk::Window, gtk::Widget;
 }
 
 impl TransferProgressWindow {
@@ -152,11 +148,11 @@ impl TransferProgressWindow {
             bytes_copied_str,
             bytes_total_str
         ));
-        self.set_title(&pgettext!(
+        self.set_title(Some(&pgettext!(
             "percentage copied",
             "{}% copied",
             format!("{:.0}", total_prog * 100.0)
-        ));
+        )));
     }
 
     pub fn set_msg(&self, msg: &str) {
@@ -164,7 +160,7 @@ impl TransferProgressWindow {
     }
 
     pub fn set_action(&self, title: &str) {
-        self.set_title(title);
+        self.set_title(Some(title));
     }
 
     pub fn cancellable(&self) -> &gio::Cancellable {

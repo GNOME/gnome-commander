@@ -57,7 +57,7 @@ pub mod ffi {
 
 glib::wrapper! {
     pub struct ChownComponent(Object<ffi::GnomeCmdChownComponent, ffi::GnomeCmdChownComponentClass>)
-        @extends gtk::Grid, gtk::Container, gtk::Widget;
+        @extends gtk::Grid, gtk::Widget;
 
     match fn {
         type_ => || ffi::gnome_cmd_chown_component_get_type(),

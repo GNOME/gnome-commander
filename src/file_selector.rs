@@ -29,7 +29,7 @@ use crate::{
 };
 use gettextrs::gettext;
 use gtk::{
-    ffi::{GtkGestureMultiPress, GtkNotebook},
+    ffi::{GtkGestureClick, GtkNotebook},
     gdk, gio,
     glib::{
         self,
@@ -107,7 +107,7 @@ pub mod ffi {
 
 glib::wrapper! {
     pub struct FileSelector(Object<ffi::GnomeCmdFileSelector, ffi::GnomeCmdFileSelectorClass>)
-        @extends gtk::Box, gtk::Container, gtk::Widget;
+        @extends gtk::Box, gtk::Widget;
 
     match fn {
         type_ => || ffi::gnome_cmd_file_selector_get_type(),
@@ -217,12 +217,12 @@ async fn on_notebook_button_pressed(
     x: f64,
     y: f64,
 ) {
-    let Some(window) = file_selector.toplevel().and_downcast::<gtk::Window>() else {
+    let Some(window) = file_selector.root().and_downcast::<gtk::Window>() else {
         eprintln!("No root window.");
         return;
     };
 
-    let Some(tab_clicked) = notebook.find_tab_num_at_pos(x as i32, y as i32) else {
+    let Some(tab_clicked) = notebook.find_tab_num_at_pos(x as f32, y as f32) else {
         return;
     };
     match (n_press, button, tab_clicked) {
@@ -290,9 +290,10 @@ async fn on_notebook_button_pressed(
                 Some("win.view-close-duplicate-tabs"),
             );
 
-            let popover = gtk::Popover::from_model(Some(notebook), &menu);
+            let popover = gtk::PopoverMenu::from_model(Some(&menu));
+            popover.set_parent(notebook);
             popover.set_position(gtk::PositionType::Bottom);
-            popover.set_pointing_to(&gdk::Rectangle::new(x as i32, y as i32, 0, 0));
+            popover.set_pointing_to(Some(&gdk::Rectangle::new(x as i32, y as i32, 0, 0)));
             popover.popup();
         }
         (2, 1, TabClick::Area) => {
@@ -307,14 +308,14 @@ async fn on_notebook_button_pressed(
 
 #[no_mangle]
 pub extern "C" fn on_notebook_button_pressed_r(
-    gesture: *mut GtkGestureMultiPress,
+    gesture: *mut GtkGestureClick,
     file_selector: *mut ffi::GnomeCmdFileSelector,
     notebook: *mut GtkNotebook,
     n_press: i32,
     x: f64,
     y: f64,
 ) {
-    let gesture: gtk::GestureMultiPress = unsafe { from_glib_none(gesture) };
+    let gesture: gtk::GestureClick = unsafe { from_glib_none(gesture) };
     let file_selector: FileSelector = unsafe { from_glib_none(file_selector) };
     let notebook: gtk::Notebook = unsafe { from_glib_none(notebook) };
 

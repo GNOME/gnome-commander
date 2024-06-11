@@ -37,7 +37,7 @@ extern "C" GType text_render_get_type ();
 
 struct TextRender
 {
-    GtkDrawingArea parent;
+    GtkWidget parent;
 
     struct Status
     {

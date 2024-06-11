@@ -485,8 +485,7 @@ void GnomeCmdAdvrenameProfileComponent::Private::fill_regex_model(const GnomeCmd
 static GtkWidget *create_button_with_menu(gchar *label_text, GMenuModel *model)
 {
     GtkWidget *button = gtk_menu_button_new ();
-    gtk_button_set_label (GTK_BUTTON (button), label_text);
-    g_object_set (button, "use-popover", FALSE, NULL); // Popover does not render a vertical scroll
+    gtk_menu_button_set_label (GTK_MENU_BUTTON (button), label_text);
     gtk_menu_button_set_menu_model (GTK_MENU_BUTTON (button), model);
     return button;
 }
@@ -538,7 +537,7 @@ static void insert_range(GSimpleAction *action, GVariant *parameter, gpointer us
             *ext = 0;
     }
 
-    GtkWindow *parent_window = GTK_WINDOW (gtk_widget_get_toplevel (*component));
+    GtkWindow *parent_window = GTK_WINDOW (gtk_widget_get_root (*component));
     get_selected_range_r(parent_window, tag, fname ? fname : g_strdup(component->priv->sample_fname), user_data);
 }
 
@@ -1047,7 +1046,6 @@ inline GtkWidget *create_regex_view ()
     GtkWidget *view = gtk_tree_view_new ();
 
     g_object_set (view,
-                  "rules-hint", TRUE,
                   "reorderable", TRUE,
                   "enable-search", FALSE,
                   NULL);

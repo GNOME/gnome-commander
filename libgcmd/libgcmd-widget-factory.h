@@ -67,9 +67,9 @@ GtkWidget *create_check (GtkWidget *parent, const gchar *text, const gchar *name
 
 GtkWidget *create_check_with_mnemonic (GtkWidget *parent, const gchar *text, const gchar *name);
 
-GtkWidget *create_radio (GtkWidget *parent, GSList *group, const gchar *text, const gchar *name);
+GtkWidget *create_radio (GtkWidget *parent, GtkWidget *group, const gchar *text, const gchar *name);
 
-GtkWidget *create_radio_with_mnemonic (GtkWidget *parent, GSList *group, gchar *text, const gchar *name);
+GtkWidget *create_radio_with_mnemonic (GtkWidget *parent, GtkWidget *group, gchar *text, const gchar *name);
 
 GtkWidget *create_spin (GtkWidget *parent, const gchar *name, gint min, gint max, gint value);
 
@@ -79,7 +79,7 @@ GtkWidget *create_icon_button_widget (GtkWidget *parent, const gchar *name, cons
 
 GtkWidget *create_scale (GtkWidget *parent, const gchar *name, gint value, gint min, gint max);
 
-GtkWidget *create_directory_chooser_button (GtkWidget *parent, const gchar *name, bool local_only = true);
+GtkWidget *create_directory_chooser_button (GtkWidget *parent, const gchar *name);
 GFile *directory_chooser_button_get_file (GtkWidget *button);
 void directory_chooser_button_set_file (GtkWidget *button, GFile *file);
 
@@ -90,11 +90,6 @@ void create_treeview_column (GtkWidget *sw, gint col, gint width, const gchar *l
 GtkWidget *create_combo_box_text_with_entry (GtkWidget *parent);
 
 GtkWidget *create_combo_box_text (GtkWidget *parent, const gchar **items);
-
-inline GSList *get_radio_group (GtkWidget *radio)
-{
-    return gtk_radio_button_get_group (GTK_RADIO_BUTTON (radio));
-}
 
 GtkWidget *create_progress_bar (GtkWidget *parent);
 
@@ -131,18 +126,10 @@ class MenuBuilder
 public:
     MenuBuilder()
         : menu(g_menu_new()),
-          accel_group(gtk_accel_group_new()),
+          shortcuts(nullptr),
           parent(nullptr),
-          label(nullptr),
-          action_group(nullptr),
-          action_widget(nullptr)
+          label(nullptr)
     {
-    }
-
-    MenuBuilder with_action_group(GActionGroup *action_group)
-    {
-        this->action_group = action_group;
-        return *this;
     }
 
     MenuBuilder item(const gchar *label,
@@ -160,6 +147,7 @@ public:
     MenuBuilder endsubmenu() &&
     {
         g_menu_append_submenu (parent->menu, label, G_MENU_MODEL (menu));
+        parent->shortcuts = shortcuts;
         return *parent;
     }
 
@@ -171,6 +159,7 @@ public:
     MenuBuilder endsection() &&
     {
         g_menu_append_section (parent->menu, nullptr, G_MENU_MODEL (menu));
+        parent->shortcuts = shortcuts;
         return *parent;
     }
 
@@ -189,28 +178,24 @@ public:
     struct Result
     {
         GMenu *menu;
-        GtkAccelGroup *accel_group;
+        GListModel *shortcuts;
     };
 
     Result build() &&
     {
-        return Result { menu, accel_group };
+        return Result { .menu = menu, .shortcuts = G_LIST_MODEL (shortcuts) };
     }
 private:
     GMenu *menu;
-    GtkAccelGroup *accel_group;
+    GListStore *shortcuts;
     MenuBuilder *parent = nullptr;
     const gchar *label = nullptr;
-    GActionGroup *action_group;
-    GtkWidget *action_widget;
 
     MenuBuilder(MenuBuilder *parent, const gchar *label = nullptr)
         : menu(g_menu_new()),
-          accel_group(parent->accel_group),
+          shortcuts(parent->shortcuts),
           parent(parent),
-          label(label),
-          action_group(parent->action_group),
-          action_widget(parent->action_widget)
+          label(label)
     {
     }
 };

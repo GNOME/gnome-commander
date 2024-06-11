@@ -66,7 +66,7 @@ static void edit_clicked_callback (GtkButton *button, GnomeCmdBookmarksDialog *d
 static void remove_clicked_callback (GtkButton *button, GnomeCmdBookmarksDialog *dialog);
 static void up_clicked_callback (GtkButton *button, GnomeCmdBookmarksDialog *dialog);
 static void down_clicked_callback (GtkButton *button, GnomeCmdBookmarksDialog *dialog);
-static void size_allocate_callback (GtkWidget *widget, GtkAllocation *allocation, gpointer unused);
+static void size_allocate_callback (GObject *dialog, GParamSpec *pspec, gpointer user_data);
 static void response_callback (GtkDialog *dialog, int response_id);
 
 
@@ -154,9 +154,8 @@ static void gnome_cmd_bookmarks_dialog_init (GnomeCmdBookmarksDialog *dialog)
     gtk_dialog_set_default_response (GTK_DIALOG (dialog), RESPONSE_JUMP_TO);
     gtk_dialog_set_response_sensitive (GTK_DIALOG (dialog), RESPONSE_JUMP_TO, FALSE);
 
-    gtk_widget_show_all (content_area);
-
-    g_signal_connect (dialog, "size-allocate", G_CALLBACK (size_allocate_callback), NULL);
+    g_signal_connect (dialog, "notify::default-width", G_CALLBACK (size_allocate_callback), NULL);
+    g_signal_connect (dialog, "notify::default-height", G_CALLBACK (size_allocate_callback), NULL);
     g_signal_connect (dialog, "response", G_CALLBACK (response_callback), NULL);
 
     gtk_widget_grab_focus (GTK_WIDGET (priv->view));
@@ -251,7 +250,6 @@ static GtkTreeView *create_view_and_model ()
     GtkTreeView *bm_view = GTK_TREE_VIEW (gtk_tree_view_new ());
 
     g_object_set (bm_view,
-                  "rules-hint", TRUE,
                   "enable-search", TRUE,
                   "search-column", COL_NAME,
                   NULL);
@@ -480,10 +478,13 @@ static void down_clicked_callback (GtkButton *button, GnomeCmdBookmarksDialog *d
 }
 
 
-static void size_allocate_callback (GtkWidget *widget, GtkAllocation *allocation, gpointer unused)
+static void size_allocate_callback (GObject *dialog, GParamSpec *pspec, gpointer user_data)
 {
-    gnome_cmd_data.bookmarks_defaults.width = allocation->width;
-    gnome_cmd_data.bookmarks_defaults.height = allocation->height;
+    int width, height;
+    gtk_window_get_default_size (GTK_WINDOW (dialog), &width, &height);
+
+    gnome_cmd_data.bookmarks_defaults.width = width;
+    gnome_cmd_data.bookmarks_defaults.height = height;
 }
 
 

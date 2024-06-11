@@ -27,8 +27,8 @@ use crate::{
 use gettextrs::gettext;
 use gtk::{
     gio,
-    glib::{self, translate::*, Cast, FromVariant, ToVariant},
-    prelude::AppInfoExt,
+    glib::{self, translate::*},
+    prelude::*,
 };
 use std::{
     borrow::Cow,
@@ -83,13 +83,13 @@ impl RegularApp {
     }
 }
 
-impl glib::StaticVariantType for RegularApp {
+impl glib::variant::StaticVariantType for RegularApp {
     fn static_variant_type() -> Cow<'static, glib::VariantTy> {
         Cow::Borrowed(glib::VariantTy::STRING)
     }
 }
 
-impl glib::ToVariant for RegularApp {
+impl glib::variant::ToVariant for RegularApp {
     fn to_variant(&self) -> glib::Variant {
         self.app_info
             .id()
@@ -100,11 +100,11 @@ impl glib::ToVariant for RegularApp {
 
 impl From<RegularApp> for glib::Variant {
     fn from(value: RegularApp) -> glib::Variant {
-        glib::ToVariant::to_variant(&value)
+        glib::variant::ToVariant::to_variant(&value)
     }
 }
 
-impl glib::FromVariant for RegularApp {
+impl glib::variant::FromVariant for RegularApp {
     fn from_variant(variant: &glib::Variant) -> Option<Self> {
         let app_id = variant.str()?;
         let app_info = gio::AppInfo::all()

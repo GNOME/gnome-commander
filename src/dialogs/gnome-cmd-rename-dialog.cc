@@ -102,9 +102,10 @@ static void gnome_cmd_rename_dialog_init (GnomeCmdRenameDialog *dialog)
     auto priv = static_cast<GnomeCmdRenameDialogPrivate *> (gnome_cmd_rename_dialog_get_instance_private (dialog));
 
     priv->textbox = GTK_ENTRY (gtk_entry_new ());
-    gtk_container_add (GTK_CONTAINER (dialog), GTK_WIDGET (priv->textbox));
+    gtk_popover_set_child (GTK_POPOVER (dialog), GTK_WIDGET (priv->textbox));
 
-    GtkEventController *key_controller = gtk_event_controller_key_new (GTK_WIDGET (priv->textbox));
+    GtkEventController *key_controller = gtk_event_controller_key_new ();
+    gtk_widget_add_controller (GTK_WIDGET (priv->textbox), GTK_EVENT_CONTROLLER (key_controller));
     g_signal_connect (key_controller, "key-pressed", G_CALLBACK (on_dialog_keypressed), dialog);
 }
 
@@ -122,9 +123,7 @@ GtkWidget *gnome_cmd_rename_dialog_new (GnomeCmdFile *f, GtkWidget *parent, gint
 
     priv->f = f->ref();
 
-    gtk_popover_set_modal(GTK_POPOVER (dialog), FALSE);
-
-    gtk_popover_set_relative_to (GTK_POPOVER (dialog), parent);
+    gtk_widget_set_parent (GTK_WIDGET (dialog), parent);
     GdkRectangle rect = { x, y, width, height };
     gtk_popover_set_pointing_to (GTK_POPOVER (dialog), &rect);
 

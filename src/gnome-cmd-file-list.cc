@@ -416,9 +416,9 @@ static GtkPopover *create_dnd_popup (GnomeCmdFileList *fl, GList *gFileGlist, Gn
     g_menu_append_section (menu, nullptr, G_MENU_MODEL (section));
     g_menu_append (menu,  _("C_ancel"), "fl.drop-files-cancel");
 
-    GtkWidget *dnd_popup = gtk_popover_new_from_model (GTK_WIDGET (fl), G_MENU_MODEL (menu));
+    GtkWidget *dnd_popup = gtk_popover_menu_new_from_model (G_MENU_MODEL (menu));
+    gtk_widget_set_parent (dnd_popup, GTK_WIDGET (fl));
 
-    gtk_widget_show_all (GTK_WIDGET (dnd_popup));
     return GTK_POPOVER (dnd_popup);
 }
 
@@ -501,7 +501,7 @@ static GtkCssProvider *create_css_provider()
     }
 
     GtkCssProvider *css_provider = gtk_css_provider_new();
-    gtk_css_provider_load_from_data (css_provider, css, -1, NULL);
+    gtk_css_provider_load_from_data (css_provider, css, -1);
 
     g_free (css);
 
@@ -525,7 +525,7 @@ GnomeCmdFileList::GnomeCmdFileList(ColumnID sort_col, GtkSortType sort_order)
     create_column_titles();
 
     gtk_style_context_add_class (gtk_widget_get_style_context (*this), "gnome-cmd-file-list");
-    gtk_style_context_add_provider_for_screen (gdk_screen_get_default(), GTK_STYLE_PROVIDER (create_css_provider()), GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
+    gtk_style_context_add_provider_for_display (gdk_display_get_default (), GTK_STYLE_PROVIDER (create_css_provider()), GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
 
     GtkTreeSelection *selection = gtk_tree_view_get_selection (*this);
     gtk_tree_selection_set_mode (selection, GTK_SELECTION_BROWSE);
@@ -907,7 +907,8 @@ static void show_file_popup (GnomeCmdFileList *fl, GdkPoint *point)
     GMenu *menu_model = gnome_cmd_file_popmenu_new (main_win, fl);
     if (!menu_model) return;
 
-    GtkWidget *popover = gtk_popover_new_from_model (GTK_WIDGET (fl), G_MENU_MODEL (menu_model));
+    GtkWidget *popover = gtk_popover_menu_new_from_model (G_MENU_MODEL (menu_model));
+    gtk_widget_set_parent (popover, GTK_WIDGET (fl));
     gtk_popover_set_position (GTK_POPOVER (popover), GTK_POS_BOTTOM);
 
     GdkRectangle rect;
@@ -1297,7 +1298,7 @@ void GnomeCmdFileList::focus_next()
 }
 
 
-static void on_button_press (GtkGestureMultiPress *gesture, int n_press, double x, double y, GnomeCmdFileList *fl)
+static void on_button_press (GtkGestureClick *gesture, int n_press, double x, double y, GnomeCmdFileList *fl)
 {
     g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl));
 
@@ -1342,7 +1343,7 @@ static void on_file_clicked (GnomeCmdFileList *fl, GnomeCmdFileListButtonEvent *
 
     if (event->n_press == 2 && event->button == 1 && gnome_cmd_data.options.left_mouse_button_mode == GnomeCmdData::LEFT_BUTTON_OPENS_WITH_DOUBLE_CLICK)
     {
-        mime_exec_file (get_toplevel_window (*fl), event->file);
+        mime_exec_file (GTK_WINDOW (gtk_widget_get_root (*fl)), event->file);
     }
     else
         if (event->n_press == 1 && (event->button == 1 || event->button == 3))
@@ -1411,11 +1412,11 @@ static void on_file_released (GnomeCmdFileList *fl, GnomeCmdFileListButtonEvent 
     g_return_if_fail (GNOME_CMD_IS_FILE (event->file));
 
     if (event->n_press == 1 && event->button == 1 && !fl->modifier_click && gnome_cmd_data.options.left_mouse_button_mode == GnomeCmdData::LEFT_BUTTON_OPENS_WITH_SINGLE_CLICK)
-        mime_exec_file (get_toplevel_window (*fl), event->file);
+        mime_exec_file (GTK_WINDOW (gtk_widget_get_root (*fl)), event->file);
 }
 
 
-static void on_button_release (GtkGestureMultiPress *gesture, int n_press, double x, double y, GnomeCmdFileList *fl)
+static void on_button_release (GtkGestureClick *gesture, int n_press, double x, double y, GnomeCmdFileList *fl)
 {
     g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl));
 
@@ -1517,7 +1518,7 @@ static void on_dir_list_ok (GnomeCmdDir *dir, GnomeCmdFileList *fl)
     if (fl->realized)
     {
         gtk_widget_set_sensitive (*fl, TRUE);
-        set_cursor_default_for_widget (*fl);
+        gtk_widget_set_cursor (*fl, nullptr);
         gtk_widget_grab_focus (*fl);
     }
 
@@ -1564,12 +1565,12 @@ static void on_dir_list_failed (GnomeCmdDir *dir, GError *error, GnomeCmdFileLis
     DEBUG('l', "on_dir_list_failed\n");
 
     if (error)
-        gnome_cmd_show_message (get_toplevel_window (*fl), _("Directory listing failed."), error->message);
+        gnome_cmd_show_message (GTK_WINDOW (gtk_widget_get_root (*fl)), _("Directory listing failed."), error->message);
 
     g_signal_handlers_disconnect_matched (fl->cwd, G_SIGNAL_MATCH_DATA, 0, 0, nullptr, nullptr, fl);
     fl->connected_dir = nullptr;
     gnome_cmd_dir_unref (fl->cwd);
-    set_cursor_default_for_widget (*fl);
+    gtk_widget_set_cursor (*fl, nullptr);
     gtk_widget_set_sensitive (*fl, TRUE);
 
     if (fl->lwd && fl->con == gnome_cmd_file_get_connection (GNOME_CMD_FILE (fl->lwd)))
@@ -1614,7 +1615,7 @@ static void on_con_open_failed (GnomeCmdCon *con, GnomeCmdFileList *fl)
 
     g_signal_handlers_disconnect_matched (con, G_SIGNAL_MATCH_DATA, 0, 0, nullptr, nullptr, fl);
 
-    gnome_cmd_show_message (get_toplevel_window (*fl), _("Failed to open connection."), con->open_failed_msg);
+    gnome_cmd_show_message (GTK_WINDOW (gtk_widget_get_root (*fl)), _("Failed to open connection."), con->open_failed_msg);
 
     fl->priv->con_open_dialog = nullptr;
     fl->priv->con_opening = nullptr;
@@ -1654,7 +1655,7 @@ static void create_con_open_progress_dialog (GnomeCmdFileList *fl)
 {
     g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl));
 
-    fl->priv->con_open_dialog = gnome_cmd_dialog_new (get_toplevel_window (*fl), nullptr);
+    fl->priv->con_open_dialog = gnome_cmd_dialog_new (GTK_WINDOW (gtk_widget_get_root (*fl)), nullptr);
     g_object_ref (fl->priv->con_open_dialog);
 
     gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (fl->priv->con_open_dialog),
@@ -1673,8 +1674,6 @@ static void create_con_open_progress_dialog (GnomeCmdFileList *fl)
     gtk_box_append (GTK_BOX (vbox), fl->priv->con_open_dialog_pbar);
 
     gnome_cmd_dialog_add_category (GNOME_CMD_DIALOG (fl->priv->con_open_dialog), vbox);
-
-    gtk_widget_show_all (fl->priv->con_open_dialog);
 }
 
 
@@ -1793,7 +1792,8 @@ static void gnome_cmd_file_list_init (GnomeCmdFileList *fl)
 
     fl->init_dnd();
 
-    GtkGesture *click_controller = gtk_gesture_multi_press_new (GTK_WIDGET (fl));
+    GtkGesture *click_controller = gtk_gesture_click_new ();
+    gtk_widget_add_controller (GTK_WIDGET (fl), GTK_EVENT_CONTROLLER (click_controller));
     gtk_gesture_single_set_button (GTK_GESTURE_SINGLE (click_controller), 0);
 
     g_signal_connect (click_controller, "pressed", G_CALLBACK (on_button_press), fl);
@@ -2045,7 +2045,7 @@ void GnomeCmdFileList::reload()
     g_return_if_fail (GNOME_CMD_IS_DIR (cwd));
 
     unselect_all();
-    gnome_cmd_dir_relist_files (get_toplevel_window (*this), cwd, gnome_cmd_con_needs_list_visprog (con));
+    gnome_cmd_dir_relist_files (GTK_WINDOW (gtk_widget_get_root (*this)), cwd, gnome_cmd_con_needs_list_visprog (con));
 }
 
 
@@ -2386,8 +2386,6 @@ void gnome_cmd_file_list_show_rename_dialog (GnomeCmdFileList *fl)
         get_focus_row_coordinates (fl, x, y, w, h);
 
         GtkWidget *popover = gnome_cmd_rename_dialog_new (f, *fl, x, y, w, h);
-
-        gtk_widget_show_all (popover);
         gtk_popover_popup (GTK_POPOVER (popover));
     }
 }
@@ -2401,7 +2399,7 @@ void gnome_cmd_file_list_show_delete_dialog (GnomeCmdFileList *fl, gboolean forc
 
     if (files)
     {
-        gnome_cmd_delete_dialog_show (get_toplevel_window (*fl), files, forceDelete);
+        gnome_cmd_delete_dialog_show (GTK_WINDOW (gtk_widget_get_root (*fl)), files, forceDelete);
     }
 }
 
@@ -2414,7 +2412,7 @@ void gnome_cmd_file_list_show_properties_dialog (GnomeCmdFileList *fl)
 
     if (f)
     {
-        GtkWindow *parent_window = GTK_WINDOW (gtk_widget_get_toplevel (GTK_WIDGET (fl)));
+        GtkWindow *parent_window = GTK_WINDOW (gtk_widget_get_root (GTK_WIDGET (fl)));
         gnome_cmd_file_props_dialog_show (parent_window, f);
     }
 }
@@ -2475,11 +2473,11 @@ void gnome_cmd_file_list_view (GnomeCmdFileList *fl, bool useInternalViewer)
 
     if (f->GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE) == G_FILE_TYPE_DIRECTORY)
     {
-        gnome_cmd_show_message (get_toplevel_window (*fl), _("Not an ordinary file."), g_file_info_get_display_name(f->get_file_info()));
+        gnome_cmd_show_message (GTK_WINDOW (gtk_widget_get_root (*fl)), _("Not an ordinary file."), g_file_info_get_display_name(f->get_file_info()));
         return;
     }
 
-    GtkWindow *parent_window = GTK_WINDOW (gtk_widget_get_toplevel (GTK_WIDGET (fl)));
+    GtkWindow *parent_window = GTK_WINDOW (gtk_widget_get_root (GTK_WIDGET (fl)));
     switch (useInternalViewer)
     {
         case TRUE:
@@ -2504,7 +2502,7 @@ void gnome_cmd_file_list_edit (GnomeCmdFileList *fl)
 
     if (!f)  return;
 
-    GtkWindow *parent_window = GTK_WINDOW (gtk_widget_get_toplevel (GTK_WIDGET (fl)));
+    GtkWindow *parent_window = GTK_WINDOW (gtk_widget_get_root (GTK_WIDGET (fl)));
     if (f->GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE) == G_FILE_TYPE_DIRECTORY)
         gnome_cmd_show_message (parent_window, _("Not an ordinary file."), g_file_info_get_display_name(f->get_file_info()));
     else
@@ -2558,13 +2556,13 @@ static bool is_quicksearch_starting_modifier (guint state)
     switch (gnome_cmd_data.options.quick_search)
     {
         case GNOME_CMD_QUICK_SEARCH_CTRL_ALT:
-            return (state & GDK_CONTROL_MASK) && (state & GDK_MOD1_MASK);
+            return (state & GDK_CONTROL_MASK) && (state & GDK_ALT_MASK);
 
         case GNOME_CMD_QUICK_SEARCH_ALT:
-            return !(state & GDK_CONTROL_MASK) && (state & GDK_MOD1_MASK);
+            return !(state & GDK_CONTROL_MASK) && (state & GDK_ALT_MASK);
 
         case GNOME_CMD_QUICK_SEARCH_JUST_A_CHARACTER:
-            return !(state & GDK_CONTROL_MASK) && !(state & GDK_MOD1_MASK);
+            return !(state & GDK_CONTROL_MASK) && !(state & GDK_ALT_MASK);
 
         default:
             return false;
@@ -2715,7 +2713,7 @@ gboolean GnomeCmdFileList::key_pressed(GnomeCmdKeyPress *event)
         {
             case GDK_KEY_Return:
             case GDK_KEY_KP_Enter:
-                return mime_exec_file (get_toplevel_window (*this), get_focused_file());
+                return mime_exec_file (GTK_WINDOW (gtk_widget_get_root (*this)), get_focused_file());
 
             case GDK_KEY_space:
                 set_cursor_busy_for_widget (*this);
@@ -2723,7 +2721,7 @@ gboolean GnomeCmdFileList::key_pressed(GnomeCmdKeyPress *event)
                 if (GnomeCmdFile *selfile = get_selected_file())
                     show_dir_tree_size(selfile);
                 g_signal_emit (this, signals[FILES_CHANGED], 0);
-                set_cursor_default_for_widget (*this);
+                gtk_widget_set_cursor (*this, nullptr);
                 return TRUE;
 
             case GDK_KEY_KP_Add:
@@ -2871,7 +2869,7 @@ void GnomeCmdFileList::set_connection (GnomeCmdCon *new_con, GnomeCmdDir *start_
         create_con_open_progress_dialog (this);
         g_timeout_add (gnome_cmd_data.gui_update_rate, (GSourceFunc) update_con_open_progress, this);
 
-        GtkWindow *parent_window = GTK_WINDOW (gtk_widget_get_toplevel (GTK_WIDGET (this)));
+        GtkWindow *parent_window = GTK_WINDOW (gtk_widget_get_root (GTK_WIDGET (this)));
         gnome_cmd_con_open (new_con, parent_window);
 
         return;
@@ -2935,7 +2933,7 @@ void GnomeCmdFileList::set_directory(GnomeCmdDir *dir)
         case GnomeCmdDir::STATE_EMPTY:
             g_signal_connect (dir, "list-ok", G_CALLBACK (on_dir_list_ok), this);
             g_signal_connect (dir, "list-failed", G_CALLBACK (on_dir_list_failed), this);
-            gnome_cmd_dir_list_files (get_toplevel_window (*this), dir, gnome_cmd_con_needs_list_visprog (con));
+            gnome_cmd_dir_list_files (GTK_WINDOW (gtk_widget_get_root (*this)), dir, gnome_cmd_con_needs_list_visprog (con));
             break;
 
         case GnomeCmdDir::STATE_LISTING:
@@ -2950,7 +2948,7 @@ void GnomeCmdFileList::set_directory(GnomeCmdDir *dir)
 
             // check if the dir has up-to-date file list; if not and it's a local dir - relist it
             if (gnome_cmd_file_is_local (GNOME_CMD_FILE (dir)) && !gnome_cmd_dir_is_monitored (dir) && gnome_cmd_dir_update_mtime (dir))
-                gnome_cmd_dir_relist_files (get_toplevel_window (*this), dir, gnome_cmd_con_needs_list_visprog (con));
+                gnome_cmd_dir_relist_files (GTK_WINDOW (gtk_widget_get_root (*this)), dir, gnome_cmd_con_needs_list_visprog (con));
             else
                 on_dir_list_ok (dir, this);
             break;
@@ -3162,9 +3160,7 @@ static void drag_data_received (GtkWidget *widget, GdkDragContext *context,
     // transform the drag data to a list with GFiles
     GList *gFileGlist = uri_strings_to_gfiles ((gchar *) gtk_selection_data_get_data (selection_data));
 
-    GdkModifierType mask;
-
-    gdk_display_get_pointer (gdk_display_get_default (), nullptr, nullptr, nullptr, &mask);
+    GdkModifierType mask = get_modifiers_state ();
 
     if (!(mask & (GDK_SHIFT_MASK | GDK_CONTROL_MASK)))
     {

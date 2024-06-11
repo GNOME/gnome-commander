@@ -27,7 +27,7 @@ use ffi::GViewerWindow;
 use gettextrs::gettext;
 use glib::ffi::gboolean;
 use gtk::{
-    glib::{self, translate::*, Cast},
+    glib::{self, translate::*},
     prelude::*,
 };
 use std::{ffi::c_char, ptr};

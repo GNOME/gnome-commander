@@ -147,10 +147,9 @@ static GMenu *create_plugins_menu ()
 }
 
 
-MenuBuilder::Result gnome_cmd_main_menu_new (GActionGroup *win_action_group)
+MenuBuilder::Result gnome_cmd_main_menu_new ()
 {
     return MenuBuilder()
-        .with_action_group(win_action_group)
         .submenu(_("_File"))
             .section()
                 .item(_("Change _Owner/Group"),             "win.file-chown")

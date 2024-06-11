@@ -17,7 +17,6 @@
  * For more details see the file COPYING.
  */
 
-use crate::utils::Gtk3to4BoxCompat;
 use gettextrs::gettext;
 use glib::{
     ffi::{GRegex, GRegexCompileFlags, G_REGEX_CASELESS, G_REGEX_MATCH_NOTEMPTY, G_REGEX_OPTIMIZE},
@@ -147,7 +146,6 @@ pub async fn show_advrename_regex_dialog(
     let ok_btn = gtk::Button::builder()
         .label(gettext("_OK"))
         .use_underline(true)
-        .can_default(true)
         .build();
     ok_btn.connect_clicked(
         glib::clone!(@weak dialog => move |_| dialog.response(gtk::ResponseType::Ok)),
@@ -156,8 +154,7 @@ pub async fn show_advrename_regex_dialog(
     buttonbox_size_group.add_widget(&ok_btn);
 
     pattern.grab_focus();
-    dialog.show_all();
-    ok_btn.set_has_default(true);
+    ok_btn.set_receives_default(true);
     dialog.set_default_response(gtk::ResponseType::Ok);
 
     let response = dialog.run_future().await;

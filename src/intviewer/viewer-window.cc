@@ -117,7 +117,6 @@ struct GViewerWindowPrivate
     GtkWidget *statusbar;
 
     GSimpleActionGroup *action_group;
-    GtkAccelGroup *accel_group;
     std::vector<const char*> encodingCharsets;
     GViewerWindowSettings *gViewerWindowSettings;
 
@@ -273,7 +272,8 @@ static void gviewer_window_init (GViewerWindow *w)
     GtkWindow *win = GTK_WINDOW (w);
     gtk_window_set_title (win, "GViewer");
 
-    GtkEventController *key_controller = gtk_event_controller_key_new (GTK_WIDGET (w));
+    GtkEventController *key_controller = gtk_event_controller_key_new ();
+    gtk_widget_add_controller (GTK_WIDGET (w), GTK_EVENT_CONTROLLER (key_controller));
     g_signal_connect (key_controller, "key-pressed", G_CALLBACK (gviewer_window_key_pressed), w);
 
     priv->vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 0);
@@ -299,7 +299,7 @@ static void gviewer_window_init (GViewerWindow *w)
 
     gtk_widget_grab_focus (GTK_WIDGET (priv->viewer));
 
-    gtk_container_add (GTK_CONTAINER (w), priv->vbox);
+    gtk_window_set_child (GTK_WINDOW (w), priv->vbox);
 
     // This list must be in the same order as the elements in priv->encodingMenuItems
     priv->encodingCharsets = { UTF8, ASCII, CP437,
@@ -396,15 +396,8 @@ void gviewer_window_load_settings(GViewerWindow *gViewerWindow, GViewerWindowSet
     }
     gviewer_window_action_change_state (gViewerWindow, "encoding", g_variant_new_int32 (index));
 
-    gtk_window_resize(GTK_WINDOW (gViewerWindow),
+    gtk_window_set_default_size (GTK_WINDOW (gViewerWindow),
         settings->rect.width, settings->rect.height);
-
-#if 0
-    // This doesn't work because the window is not shown yet
-    if (gtk_widget_get_window (GTK_WIDGET (obj)))
-        gdk_window_move (gtk_widget_get_window (GTK_WIDGET (obj)), settings->rect.x, settings->rect.y);
-#endif
-    gtk_window_set_position (GTK_WINDOW (gViewerWindow), GTK_WIN_POS_CENTER);
 }
 
 
@@ -417,22 +410,10 @@ void gviewer_window_get_current_settings(GViewerWindow *obj, /* out */ GViewerWi
 
     memset(settings, 0, sizeof(GViewerWindowSettings));
 
-    if (gtk_widget_get_window (GTK_WIDGET (obj)))
-    {
-        GtkAllocation obj_allocation;
-        gtk_widget_get_allocation (GTK_WIDGET (obj), &obj_allocation);
-
-        settings->rect.width = obj_allocation.width;
-        settings->rect.height = obj_allocation.height;
-        gdk_window_get_position(gtk_widget_get_window (GTK_WIDGET (obj)), &settings->rect.x, &settings->rect.y);
-    }
-    else
-    {
-        settings->rect.x = 0;
-        settings->rect.y = 0;
-        settings->rect.width = 100;
-        settings->rect.height = 100;
-    }
+    settings->rect.x = 0;
+    settings->rect.y = 0;
+    settings->rect.width = gtk_widget_get_width (GTK_WIDGET (obj));
+    settings->rect.height = gtk_widget_get_height (GTK_WIDGET (obj));
     settings->font_size = gviewer_get_font_size(priv->viewer);
     settings->wrap_mode = gviewer_get_wrap_mode(priv->viewer);
     settings->binary_bytes_per_line = gviewer_get_fixed_limit(priv->viewer);
@@ -508,10 +489,7 @@ static gboolean gviewer_window_key_pressed (GtkEventControllerKey *controller, g
 
 static GtkWidget *gviewer_window_create_menus(GViewerWindow *gViewerWindow)
 {
-    auto priv = static_cast<GViewerWindowPrivate*>(gviewer_window_get_instance_private (gViewerWindow));
-
     auto menu = MenuBuilder()
-        .with_action_group(G_ACTION_GROUP (priv->action_group))
         .submenu(_("_File"))
             .item(_("_Close"),                              "viewer.close",                    "Escape")
         .endsubmenu()
@@ -585,9 +563,10 @@ static GtkWidget *gviewer_window_create_menus(GViewerWindow *gViewerWindow)
         .endsubmenu()
         .build();
 
-    gtk_window_add_accel_group (GTK_WINDOW (gViewerWindow), menu.accel_group);
+    GtkEventController *shortcuts_controller = gtk_shortcut_controller_new_for_model (menu.shortcuts);
+    gtk_widget_add_controller (GTK_WIDGET (gViewerWindow), shortcuts_controller);
 
-    return gtk_menu_bar_new_from_model (G_MENU_MODEL (menu.menu));
+    return gtk_popover_menu_bar_new_from_model (G_MENU_MODEL (menu.menu));
 }
 
 
@@ -1092,8 +1071,6 @@ void gviewer_window_show_metadata(GViewerWindow *gViewerWindow)
     }
 
     priv->metadata_visible = TRUE;
-
-    gtk_widget_show_all (priv->metadata_view);
 }
 
 
@@ -1188,7 +1165,6 @@ GtkWidget *create_view ()
     GtkWidget *view = gtk_tree_view_new ();
 
     g_object_set (view,
-                  "rules-hint", TRUE,
                   "enable-search", TRUE,
                   "search-column", COL_VALUE,
                   nullptr);

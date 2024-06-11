@@ -22,7 +22,7 @@ use crate::{
     dir::Directory,
     file::{File, GnomeCmdFileExt},
     libgcmd::file_base::FileBaseExt,
-    utils::{show_message, Gtk3to4BoxCompat},
+    utils::show_message,
 };
 use gettextrs::gettext;
 use gtk::{gdk, gio, glib, prelude::*};
@@ -125,19 +125,19 @@ pub async fn show_create_symlink_dialog(
         dialog.response(gtk::ResponseType::Cancel);
     }));
 
-    let key_controller = gtk::EventControllerKey::new(&dialog);
+    let key_controller = gtk::EventControllerKey::new();
     key_controller.connect_key_pressed(
-        glib::clone!(@weak dialog => @default-return false, move |_, key, _, _| {
-            if key == *gdk::keys::constants::Escape {
+        glib::clone!(@weak dialog => @default-return glib::Propagation::Proceed, move |_, key, _, _| {
+            if key == gdk::Key::Escape {
                 dialog.response(gtk::ResponseType::Cancel);
-                true
+                glib::Propagation::Stop
             } else {
-                false
+                glib::Propagation::Proceed
             }
         }),
     );
+    dialog.add_controller(key_controller);
 
-    dialog.show_all();
     dialog.present();
     dialog.run_future().await;
     dialog.close();

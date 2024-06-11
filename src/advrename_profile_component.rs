@@ -20,10 +20,7 @@
  * For more details see the file COPYING.
  */
 
-use crate::{
-    dialogs::advrename_regex_dialog::{show_advrename_regex_dialog, RegexReplace},
-    utils::Gtk3to4BoxCompat,
-};
+use crate::dialogs::advrename_regex_dialog::{show_advrename_regex_dialog, RegexReplace};
 use gettextrs::gettext;
 use gtk::{
     ffi::{GtkTreeView, GtkWidget, GtkWindow},
@@ -128,7 +125,6 @@ async fn get_selected_range(
     bbox.append(&ok_button);
     bbox_size_group.add_widget(&ok_button);
 
-    content_area.show_all();
     dialog.set_default_response(gtk::ResponseType::Ok);
 
     dialog.present();
@@ -219,9 +215,9 @@ fn get_regex_row(
 ) -> Result<RegexReplace, Box<dyn Error>> {
     use RegexViewColumns::*;
     Ok(RegexReplace {
-        pattern: store.value(iter, COL_PATTERN as i32).get()?,
-        replacement: store.value(iter, COL_REPLACE as i32).get()?,
-        match_case: store.value(iter, COL_MATCH_CASE as i32).get()?,
+        pattern: store.get_value(iter, COL_PATTERN as i32).get()?,
+        replacement: store.get_value(iter, COL_REPLACE as i32).get()?,
+        match_case: store.get_value(iter, COL_MATCH_CASE as i32).get()?,
     })
 }
 
@@ -255,7 +251,7 @@ async fn regex_add(
         .and_downcast::<gtk::ListStore>()
         .ok_or_else(|| "Unexpected type of a tree model.")?;
     let window = component
-        .toplevel()
+        .root()
         .and_downcast::<gtk::Window>()
         .ok_or_else(|| "No parent window")?;
 
@@ -279,7 +275,7 @@ async fn regex_edit(
         .downcast::<gtk::ListStore>()
         .map_err(|_| "Unexpected type of a tree model.")?;
     let window = component
-        .toplevel()
+        .root()
         .and_downcast::<gtk::Window>()
         .ok_or_else(|| "No parent window")?;
 

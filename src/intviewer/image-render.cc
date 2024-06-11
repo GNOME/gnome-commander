@@ -63,7 +63,7 @@ static guint image_render_signals[LAST_SIGNAL] = { 0 };
 
 struct ImageRenderClass
 {
-    GtkDrawingAreaClass parent_class;
+    GtkWidgetClass parent_class;
     void (*image_status_changed)  (ImageRender *obj, ImageRender::Status *status);
 };
 
@@ -98,12 +98,11 @@ static gboolean image_render_key_press (GtkEventControllerKey *controller, guint
 static void image_render_scroll (GtkEventControllerScroll *controller, double dx, double dy, gpointer user_data);
 
 static void image_render_realize (GtkWidget *widget, gpointer user_data);
-static void image_render_get_preferred_width (GtkWidget *widget, gint *minimal_width, gint *natural_width);
-static void image_render_get_preferred_height (GtkWidget *widget, gint *minimal_height, gint *natural_height);
-static void image_render_size_allocate (GtkWidget *widget, GtkAllocation *allocation);
-static gboolean image_render_draw (GtkWidget *widget, cairo_t *cr);
-static void image_render_button_press (GtkGestureMultiPress *gesture, int n_press, double x, double y, gpointer user_data);
-static void image_render_button_release (GtkGestureMultiPress *gesture, int n_press, double x, double y, gpointer user_data);
+static void image_render_measure (GtkWidget* widget, GtkOrientation orientation, int for_size, int* minimum, int* natural, int* minimum_baseline, int* natural_baseline);
+static void image_render_size_allocate (GtkWidget *widget, int width, int height, int baseline);
+static void image_render_draw (GtkWidget* widget, GtkSnapshot* snapshot);
+static void image_render_button_press (GtkGestureClick *gesture, int n_press, double x, double y, gpointer user_data);
+static void image_render_button_release (GtkGestureClick *gesture, int n_press, double x, double y, gpointer user_data);
 static void image_render_motion_notify (GtkEventControllerMotion *controller, double x, double y, gpointer user_data);
 static void image_render_h_adjustment_update (ImageRender *obj);
 static void image_render_h_adjustment_changed (GtkAdjustment *adjustment, gpointer data);
@@ -123,7 +122,7 @@ static void image_render_update_adjustments (ImageRender *obj);
 
 G_DEFINE_TYPE_EXTENDED (ImageRender,
                         image_render,
-                        GTK_TYPE_DRAWING_AREA,
+                        GTK_TYPE_WIDGET,
                         0,
                         G_ADD_PRIVATE (ImageRender)
                         G_IMPLEMENT_INTERFACE (GTK_TYPE_SCROLLABLE, NULL))
@@ -185,13 +184,6 @@ static void image_render_set_v_adjustment (ImageRender *obj, GtkAdjustment *adju
 
 static void image_render_init (ImageRender *w)
 {
-    gtk_widget_add_events (GTK_WIDGET (w),
-        GDK_EXPOSURE_MASK |
-        GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK |
-        GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK |
-        GDK_SCROLL_MASK |
-        GDK_KEY_PRESS_MASK);
-
     auto priv = static_cast<ImageRenderPrivate*>(image_render_get_instance_private (w));
 
     priv->button = 0;
@@ -214,17 +206,21 @@ static void image_render_init (ImageRender *w)
 
     g_signal_connect_after (w, "realize", G_CALLBACK (image_render_realize), w);
 
-    GtkEventController *scroll_controller = gtk_event_controller_scroll_new (GTK_WIDGET (w), GTK_EVENT_CONTROLLER_SCROLL_BOTH_AXES);
+    GtkEventController *scroll_controller = gtk_event_controller_scroll_new (GTK_EVENT_CONTROLLER_SCROLL_BOTH_AXES);
+    gtk_widget_add_controller (GTK_WIDGET (w), GTK_EVENT_CONTROLLER (scroll_controller));
     g_signal_connect (scroll_controller, "scroll", G_CALLBACK (image_render_scroll), w);
 
-    GtkGesture *button_gesture = gtk_gesture_multi_press_new (GTK_WIDGET (w));
+    GtkGesture *button_gesture = gtk_gesture_click_new ();
+    gtk_widget_add_controller (GTK_WIDGET (w), GTK_EVENT_CONTROLLER (button_gesture));
     g_signal_connect (button_gesture, "pressed", G_CALLBACK (image_render_button_press), w);
     g_signal_connect (button_gesture, "released", G_CALLBACK (image_render_button_release), w);
 
-    GtkEventController* motion_controller = gtk_event_controller_motion_new (GTK_WIDGET (w));
+    GtkEventController* motion_controller = gtk_event_controller_motion_new ();
+    gtk_widget_add_controller (GTK_WIDGET (w), GTK_EVENT_CONTROLLER (motion_controller));
     g_signal_connect (motion_controller, "motion", G_CALLBACK (image_render_motion_notify), w);
 
-    GtkEventController *key_controller = gtk_event_controller_key_new (GTK_WIDGET (w));
+    GtkEventController *key_controller = gtk_event_controller_key_new ();
+    gtk_widget_add_controller (GTK_WIDGET (w), GTK_EVENT_CONTROLLER (key_controller));
     g_signal_connect (key_controller, "key-pressed", G_CALLBACK (image_render_key_press), w);
 }
 
@@ -334,10 +330,8 @@ static void image_render_class_init (ImageRenderClass *klass)
     object_class->get_property = image_render_get_property;
     object_class->finalize = image_render_finalize;
 
-    widget_class->draw = image_render_draw;
-
-    widget_class->get_preferred_width = image_render_get_preferred_width;
-    widget_class->get_preferred_height = image_render_get_preferred_height;
+    widget_class->snapshot = image_render_draw;
+    widget_class->measure = image_render_measure;
     widget_class->size_allocate = image_render_size_allocate;
 
     g_object_class_override_property (object_class, PROP_HADJUSTMENT,    "hadjustment");
@@ -440,38 +434,24 @@ static void image_render_redraw (ImageRender *w)
 }
 
 
-static void image_render_get_preferred_width (GtkWidget *widget, gint *minimal_width, gint *natural_width)
+static void image_render_measure (GtkWidget* widget, GtkOrientation orientation, int for_size, int* minimum, int* natural, int* minimum_baseline, int* natural_baseline)
 {
-    *minimal_width = *natural_width = IMAGE_RENDER_DEFAULT_WIDTH;
+    if (orientation == GTK_ORIENTATION_HORIZONTAL)
+        *minimum = *natural = IMAGE_RENDER_DEFAULT_WIDTH;
+    else
+        *minimum = *natural = IMAGE_RENDER_DEFAULT_HEIGHT;
 }
 
 
-static void image_render_get_preferred_height (GtkWidget *widget, gint *minimal_height, gint *natural_height)
-{
-    *minimal_height = *natural_height = IMAGE_RENDER_DEFAULT_HEIGHT;
-}
-
-
-static void image_render_size_allocate (GtkWidget *widget, GtkAllocation *allocation)
+static void image_render_size_allocate (GtkWidget *widget, int width, int height, int baseline)
 {
     g_return_if_fail (IS_IMAGE_RENDER (widget));
-    g_return_if_fail (allocation != NULL);
-
-    gtk_widget_set_allocation (widget, allocation);
-
-    if (gtk_widget_get_realized (widget))
-    {
-        gdk_window_move_resize (gtk_widget_get_window (widget), allocation->x, allocation->y, allocation->width, allocation->height);
-        image_render_prepare_disp_pixbuf (IMAGE_RENDER (widget));
-    }
+    image_render_prepare_disp_pixbuf (IMAGE_RENDER (widget));
 }
 
 
-static gboolean image_render_draw (GtkWidget *widget, cairo_t *cr)
+static void image_render_draw (GtkWidget* widget, GtkSnapshot* snapshot)
 {
-    g_return_val_if_fail (IS_IMAGE_RENDER (widget), FALSE);
-    g_return_val_if_fail (cr != NULL, FALSE);
-
     ImageRender *w = IMAGE_RENDER (widget);
     auto priv = static_cast<ImageRenderPrivate*>(image_render_get_instance_private (w));
 
@@ -479,7 +459,10 @@ static gboolean image_render_draw (GtkWidget *widget, cairo_t *cr)
     gtk_widget_get_allocation (widget, &widget_allocation);
 
     if (!priv->disp_pixbuf)
-        return FALSE;
+        return;
+
+    graphene_rect_t rect = { { 0, 0 }, { (float) widget_allocation.width, (float) widget_allocation.height } };
+    cairo_t *cr = gtk_snapshot_append_cairo (snapshot, &rect);
 
     gint xc, yc;
 
@@ -490,11 +473,9 @@ static gboolean image_render_draw (GtkWidget *widget, cairo_t *cr)
         xc = widget_allocation.width / 2 - gdk_pixbuf_get_width (priv->disp_pixbuf)/2;
         yc = widget_allocation.height / 2 - gdk_pixbuf_get_height (priv->disp_pixbuf)/2;
 
-        cairo_t *cr = gdk_cairo_create (gtk_widget_get_window (GTK_WIDGET (widget)));
         cairo_translate (cr, xc, yc);
         gdk_cairo_set_source_pixbuf (cr, priv->disp_pixbuf, 0.0, 0.0);
         cairo_paint (cr);
-        cairo_destroy (cr);
     }
     else
     {
@@ -551,13 +532,11 @@ static gboolean image_render_draw (GtkWidget *widget, cairo_t *cr)
         cairo_paint (cr);
     }
 
-    if (g_atomic_int_get (&priv->orig_pixbuf_loaded)==0)
-        image_render_start_background_pixbuf_loading (w);
-    return FALSE;
+    cairo_destroy (cr);
 }
 
 
-static void image_render_button_press (GtkGestureMultiPress *gesture, int n_press, double x, double y, gpointer user_data)
+static void image_render_button_press (GtkGestureClick *gesture, int n_press, double x, double y, gpointer user_data)
 {
     g_return_if_fail (IS_IMAGE_RENDER (user_data));
     ImageRender *w = IMAGE_RENDER (user_data);
@@ -572,7 +551,7 @@ static void image_render_button_press (GtkGestureMultiPress *gesture, int n_pres
 }
 
 
-static void image_render_button_release (GtkGestureMultiPress *gesture, int n_press, double x, double y, gpointer user_data)
+static void image_render_button_release (GtkGestureClick *gesture, int n_press, double x, double y, gpointer user_data)
 {
     g_return_if_fail (IS_IMAGE_RENDER (user_data));
     ImageRender *w = IMAGE_RENDER (user_data);
@@ -811,6 +790,7 @@ void image_render_load_file (ImageRender *obj, const gchar *filename)
     priv->filename = g_strdup (filename);
     priv->scaled_pixbuf_loaded = FALSE;
     priv->orig_pixbuf_loaded = 0;
+    image_render_start_background_pixbuf_loading (obj);
 }
 
 

@@ -28,8 +28,8 @@ use gtk::{
     glib::{
         self,
         translate::{from_glib_none, ToGlibPtr},
-        Cast,
     },
+    prelude::*,
 };
 use std::{ffi::c_char, path::Path};
 

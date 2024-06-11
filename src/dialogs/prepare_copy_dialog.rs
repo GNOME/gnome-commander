@@ -45,7 +45,7 @@ pub async fn prepare_copy_dialog_show(
 
     let dialog = PrepareTransferDialog::new(from, to);
     dialog.set_transient_for(Some(main_win));
-    dialog.set_title(&gettext("Copy"));
+    dialog.set_title(Some(&gettext("Copy")));
 
     let label = if let Some(file) = single_source_file {
         gettext!("Copy “{}” to", file.get_name())
@@ -67,18 +67,27 @@ pub async fn prepare_copy_dialog_show(
             .build(),
     );
 
-    let query = gtk::RadioButton::builder()
+    let query = gtk::CheckButton::builder()
         .label(gettext("Query First"))
         .build();
     dialog.append_to_left(&query);
 
-    let rename = gtk::RadioButton::with_label_from_widget(&query, &gettext("Rename"));
+    let rename = gtk::CheckButton::builder()
+        .label(gettext("Rename"))
+        .group(&query)
+        .build();
     dialog.append_to_left(&rename);
 
-    let skip = gtk::RadioButton::with_label_from_widget(&query, &gettext("Skip"));
+    let skip = gtk::CheckButton::builder()
+        .label(gettext("Skip"))
+        .group(&query)
+        .build();
     dialog.append_to_left(&skip);
 
-    let silent = gtk::RadioButton::with_label_from_widget(&query, &gettext("Overwrite silently"));
+    let silent = gtk::CheckButton::builder()
+        .label(gettext("Overwrite silently"))
+        .group(&query)
+        .build();
     dialog.append_to_left(&silent);
 
     // if let Some(toggle) =
@@ -100,7 +109,6 @@ pub async fn prepare_copy_dialog_show(
         .build();
     dialog.append_to_right(&follow_links);
 
-    dialog.show_all();
     let Some((dest_dir, dest_fn)) = dialog.run().await else {
         return;
     };

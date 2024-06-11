@@ -1884,12 +1884,14 @@ static void save_tabs (GSettings *gSettings, const char *gSettingsKey, GnomeCmdM
     {
         FileSelectorID fileSelectorId = static_cast<FileSelectorID>(fileSelectorIdInt);
         GnomeCmdFileSelector gnomeCmdFileSelector = *main_win->fs(fileSelectorId);
-        GList *tabs = gnomeCmdFileSelector.GetTabs();
+        GListModel *tabs = gnomeCmdFileSelector.GetTabs();
 
-        for (GList *i=tabs; i; i=i->next)
+        guint tabs_count = g_list_model_get_n_items (tabs);
+        for (guint i = 0; i < tabs_count; ++i)
         {
-            auto fl = reinterpret_cast<GnomeCmdFileList*> (gtk_bin_get_child (GTK_BIN (i->data)));
-            if (!GNOME_CMD_FILE_LIST (fl))
+            auto page = GTK_NOTEBOOK_PAGE (g_list_model_get_item (tabs, i));
+            auto fl = GNOME_CMD_FILE_LIST (gtk_scrolled_window_get_child (GTK_SCROLLED_WINDOW (gtk_notebook_page_get_child (page))));
+            if (!fl)
                 continue;
 
             if (gnome_cmd_data.options.save_tabs_on_exit || (gnome_cmd_data.options.save_dirs_on_exit && fl == gnomeCmdFileSelector.file_list()) || fl->locked)
@@ -1908,7 +1910,7 @@ static void save_tabs (GSettings *gSettings, const char *gSettingsKey, GnomeCmdM
                 g_free(uriString);
             }
         }
-        g_list_free (tabs);
+        g_object_unref (tabs);
     }
     fileListTabs = g_variant_builder_end (&gVariantBuilder);
 
@@ -2036,7 +2038,7 @@ void GnomeCmdData::save_keybindings()
                                     option.c_str(),
                                     state & GDK_SHIFT_MASK,
                                     state & GDK_CONTROL_MASK,
-                                    state & GDK_MOD1_MASK,
+                                    state & GDK_ALT_MASK,
                                     state & GDK_SUPER_MASK,
                                     state & GDK_HYPER_MASK,
                                     state & GDK_META_MASK
@@ -2092,7 +2094,7 @@ void GnomeCmdData::load_keybindings()
                 guint accel_mask = 0;
                 if (shift)  accel_mask |= GDK_SHIFT_MASK;
                 if (control)  accel_mask |= GDK_CONTROL_MASK;
-                if (alt)  accel_mask |= GDK_MOD1_MASK;
+                if (alt)  accel_mask |= GDK_ALT_MASK;
                 if (super)  accel_mask |= GDK_SUPER_MASK;
                 if (hyper)  accel_mask |= GDK_HYPER_MASK;
                 if (meta)  accel_mask |= GDK_META_MASK;
@@ -2704,7 +2706,7 @@ GnomeCmdData::GnomeCmdData(): search_defaults(profiles)
     main_win_width = 600;
     main_win_height = 400;
 
-    main_win_state = GDK_WINDOW_STATE_MAXIMIZED;
+    main_win_maximized = TRUE;
 
     umask = ::umask(0);
     ::umask(umask);
@@ -3121,7 +3123,7 @@ void GnomeCmdData::load_color_themes()
     GdkRGBA sel_bg;
     gtk_style_context_get_color (style_context, GTK_STATE_FLAG_SELECTED, &sel_fg);
     gtk_style_context_get_background_color (style_context, GTK_STATE_FLAG_SELECTED, &sel_bg);
-    gtk_widget_destroy (widget);
+    g_object_unref (widget);
 
     options.color_themes[GNOME_CMD_COLOR_NONE].respect_theme = TRUE;
     options.color_themes[GNOME_CMD_COLOR_NONE].norm_fg = {0,0,0,0};
@@ -3289,7 +3291,7 @@ void GnomeCmdData::load()
     options.backup_pattern = g_settings_get_string (options.gcmd_settings->filter, GCMD_SETTINGS_FILTER_BACKUP_PATTERN);
     options.backup_pattern_list = patlist_new (options.backup_pattern);
 
-    main_win_state = (GdkWindowState) g_settings_get_uint (options.gcmd_settings->general, GCMD_SETTINGS_MAIN_WIN_STATE);
+    main_win_maximized = g_settings_get_uint (options.gcmd_settings->general, GCMD_SETTINGS_MAIN_WIN_STATE) == 4;
 
     advrename_defaults.width = g_settings_get_uint (options.gcmd_settings->general, GCMD_SETTINGS_ADVRENAME_TOOL_WIDTH);
     advrename_defaults.height = g_settings_get_uint (options.gcmd_settings->general, GCMD_SETTINGS_ADVRENAME_TOOL_HEIGHT);
@@ -3481,16 +3483,13 @@ void GnomeCmdData::load()
     gdk_mod_names_data[] = {
                             {GDK_SHIFT_MASK, "<shift>"},
                             {GDK_CONTROL_MASK, "<control>"},
-                            {GDK_MOD1_MASK, "<alt>"},
+                            {GDK_ALT_MASK, "<alt>"},
                             {GDK_SUPER_MASK, "<super>"},
                             {GDK_SUPER_MASK, "<win>"},
                             {GDK_SUPER_MASK, "<mod4>"},
                             {GDK_HYPER_MASK, "<hyper>"},
                             {GDK_META_MASK, "<meta>"},
-                            {GDK_MOD1_MASK, "<mod1>"},
-                            {GDK_MOD4_MASK, "<super>"},
-                            {GDK_MOD4_MASK, "<win>"},
-                            {GDK_MOD4_MASK, "<mod4>"}
+                            {GDK_ALT_MASK, "<mod1>"}
                            };
 
     load_data (gdk_modifiers_names, gdk_mod_names_data, G_N_ELEMENTS(gdk_mod_names_data));
@@ -3681,7 +3680,8 @@ void GnomeCmdData::save(GnomeCmdMainWin *main_win)
 
     set_gsettings_when_changed      (options.gcmd_settings->filter, GCMD_SETTINGS_FILTER_BACKUP_PATTERN, options.backup_pattern);
 
-    set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_MAIN_WIN_STATE, &(main_win_state));
+    int main_win_state = main_win_maximized ? 4 : 0;
+    set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_MAIN_WIN_STATE, &main_win_state);
 
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_ADVRENAME_TOOL_WIDTH, &(advrename_defaults.width));
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_ADVRENAME_TOOL_HEIGHT, &(advrename_defaults.height));

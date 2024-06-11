@@ -71,8 +71,6 @@ static void gnome_cmd_chown_component_init (GnomeCmdChownComponent *comp)
     priv->group_combo = gtk_combo_box_text_new ();
     gtk_widget_set_hexpand (priv->group_combo, TRUE);
     gtk_grid_attach (GTK_GRID (comp), priv->group_combo, 1, 1, 1, 1);
-
-    gtk_widget_show_all (GTK_WIDGET (comp));
 }
 
 

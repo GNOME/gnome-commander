@@ -37,7 +37,7 @@ GType image_render_get_type ();
 
 struct ImageRender
 {
-    GtkDrawingArea parent;
+    GtkWidget parent;
 
     struct Status
     {

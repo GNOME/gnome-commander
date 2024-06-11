@@ -75,7 +75,7 @@ static void gnome_cmd_application_startup(GApplication *application)
     // disable beeping for the application
     g_object_set (gtk_settings_get_default (), "gtk-error-bell", FALSE, NULL);
 
-    gtk_icon_theme_append_search_path (gtk_icon_theme_get_default (), ICONS_DIR);
+    gtk_icon_theme_add_search_path (gtk_icon_theme_get_for_display (gdk_display_get_default ()), ICONS_DIR);
 
     gchar *conf_dir = get_package_config_dir();
     if (!is_dir_existing(conf_dir))
@@ -131,6 +131,8 @@ static void gnome_cmd_application_activate(GApplication *application)
     gnome_cmd_data.connect_signals(main_win);
 
     gtk_widget_show (*main_win);
+    main_win->restore_size_and_pos ();
+
     gcmd_owner.load_async();
 
     gcmd_tags_init();

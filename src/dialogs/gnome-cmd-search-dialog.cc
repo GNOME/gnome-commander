@@ -149,7 +149,7 @@ struct GnomeCmdSearchDialog::Private
 
     static void on_dialog_show (GtkWidget *widget, GnomeCmdSearchDialog *dialog);
     static void on_dialog_hide (GtkWidget *widget, GnomeCmdSearchDialog *dialog);
-    static void on_dialog_size_allocate (GtkWidget *widget, GtkAllocation *allocation, GnomeCmdSearchDialog *dialog);
+    static void on_dialog_size_allocate (GObject *dialog, GParamSpec *pspec, gpointer user_data);
     static void on_dialog_response (GtkDialog *window, int response_id, GnomeCmdSearchDialog *dialog);
 };
 
@@ -790,18 +790,12 @@ static gboolean handle_search_command_stdout_io (GIOChannel *ioc, GIOCondition c
 
                 if (status == G_IO_STATUS_EOF)
                     broken_pipe = TRUE;
-                else
-                    if (status == G_IO_STATUS_AGAIN)
-                        while (gtk_events_pending ())
-                        {
-                            if (data->stopped)
-                            {
-                                broken_pipe = TRUE;
-                                break;
-                            }
-
-                            gtk_main_iteration ();
-                        }
+                else if (status == G_IO_STATUS_AGAIN)
+                {
+                    while (!data->stopped)
+                        g_main_context_iteration (NULL, TRUE);
+                    broken_pipe = TRUE;
+                }
             }
             while (status == G_IO_STATUS_AGAIN && !broken_pipe);
 
@@ -838,19 +832,10 @@ static gboolean handle_search_command_stdout_io (GIOChannel *ioc, GIOCondition c
 
             if (duration > GNOME_SEARCH_TOOL_REFRESH_DURATION)
             {
-                while (gtk_events_pending ())
-                {
-                    if (data->stopped)
-                    {
-                        broken_pipe = TRUE;
-                        break;
-                    }
-
-                    gtk_main_iteration ();
-                }
-
-                if (broken_pipe)
-                    break;
+                while (!data->stopped)
+                    g_main_context_iteration (NULL, TRUE);
+                broken_pipe = TRUE;
+                break;
 
                 g_timer_reset (timer);
             }
@@ -968,10 +953,13 @@ void GnomeCmdSearchDialog::Private::on_dialog_hide(GtkWidget *widget, GnomeCmdSe
 }
 
 
-void GnomeCmdSearchDialog::Private::on_dialog_size_allocate(GtkWidget *widget, GtkAllocation *allocation, GnomeCmdSearchDialog *dialog)
+void GnomeCmdSearchDialog::Private::on_dialog_size_allocate(GObject *dialog, GParamSpec *pspec, gpointer user_data)
 {
-    dialog->defaults.width  = allocation->width;
-    dialog->defaults.height = allocation->height;
+    int width, height;
+    gtk_window_get_default_size (GTK_WINDOW (dialog), &width, &height);
+
+    GNOME_CMD_SEARCH_DIALOG (dialog)->defaults.width  = width;
+    GNOME_CMD_SEARCH_DIALOG (dialog)->defaults.height = height;
 }
 
 
@@ -1185,7 +1173,6 @@ static void gnome_cmd_search_dialog_init (GnomeCmdSearchDialog *dialog)
 
     // status
     dialog->priv->statusbar = gtk_statusbar_new ();
-    gtk_window_set_has_resize_grip (GTK_WINDOW (dialog), FALSE);
     gtk_box_append (GTK_BOX (dialog->priv->vbox), dialog->priv->statusbar);
 
 
@@ -1198,14 +1185,12 @@ static void gnome_cmd_search_dialog_init (GnomeCmdSearchDialog *dialog)
 
     dialog->priv->result_list->update_style();
 
-    gtk_widget_show (dialog->priv->vbox);
-    gtk_widget_show_all (sw);
-    gtk_widget_show (dialog->priv->statusbar);
     gtk_widget_hide (dialog->priv->pbar);
 
     g_mutex_init(&dialog->priv->data.pdata.mutex);
 
-    GtkEventController *key_controller = gtk_event_controller_key_new (GTK_WIDGET (dialog->priv->result_list));
+    GtkEventController *key_controller = gtk_event_controller_key_new ();
+    gtk_widget_add_controller (GTK_WIDGET (dialog->priv->result_list), GTK_EVENT_CONTROLLER (key_controller));
     g_signal_connect (key_controller, "key-pressed", G_CALLBACK (on_list_keypressed), dialog);
 }
 
@@ -1260,13 +1245,9 @@ GnomeCmdSearchDialog::GnomeCmdSearchDialog(GnomeCmdData::SearchConfig &cfg): def
     {
         gtk_window_set_transient_for (*this, *main_win);
     }
-    else
-    {
-        gtk_window_set_type_hint (*this, GDK_WINDOW_TYPE_HINT_NORMAL);
-    }
 
     priv->profile_menu_button = gtk_menu_button_new ();
-    gtk_button_set_label (GTK_BUTTON (priv->profile_menu_button), _("Profiles…"));
+    gtk_menu_button_set_label (GTK_MENU_BUTTON (priv->profile_menu_button), _("Profiles…"));
     gtk_menu_button_set_menu_model (
         GTK_MENU_BUTTON (priv->profile_menu_button),
         G_MENU_MODEL (create_placeholder_menu(cfg)));
@@ -1289,12 +1270,12 @@ GnomeCmdSearchDialog::GnomeCmdSearchDialog(GnomeCmdData::SearchConfig &cfg): def
     gtk_window_set_hide_on_close (*this, TRUE);
 
     // search in
-    priv->dir_browser = create_directory_chooser_button (*this, "dir_browser", FALSE);
+    priv->dir_browser = create_directory_chooser_button (*this, "dir_browser");
 
     priv->profile_component = new GnomeCmdSelectionProfileComponent(cfg.default_profile, priv->dir_browser, _("_Look in folder:"));
 
     gtk_box_append (GTK_BOX (priv->vbox), *priv->profile_component);
-    gtk_box_reorder_child (GTK_BOX (priv->vbox), *priv->profile_component, 0);
+    gtk_box_reorder_child_after (GTK_BOX (priv->vbox), *priv->profile_component, nullptr);
 
     if (!defaults.name_patterns.empty())
         priv->profile_component->set_name_patterns_history(defaults.name_patterns.ents);
@@ -1303,12 +1284,10 @@ GnomeCmdSearchDialog::GnomeCmdSearchDialog(GnomeCmdData::SearchConfig &cfg): def
 
     priv->profile_component->set_default_activation(*this);
 
-    gtk_widget_show_all (priv->profile_menu_button);
-    gtk_widget_show (*priv->profile_component);
-
     g_signal_connect (this, "show", G_CALLBACK (Private::on_dialog_show), this);
     g_signal_connect (this, "hide", G_CALLBACK (Private::on_dialog_hide), this);
-    g_signal_connect (this, "size-allocate", G_CALLBACK (Private::on_dialog_size_allocate), this);
+    g_signal_connect (this, "notify::default-width", G_CALLBACK (Private::on_dialog_size_allocate), this);
+    g_signal_connect (this, "notify::default-height", G_CALLBACK (Private::on_dialog_size_allocate), this);
     g_signal_connect (this, "response", G_CALLBACK (Private::on_dialog_response), this);
 }
 
