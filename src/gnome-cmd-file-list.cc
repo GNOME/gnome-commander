@@ -79,17 +79,17 @@ enum
 };
 
 
-static GtkTargetEntry drag_types [] =
+static const char *drag_types [] =
 {
-    { TARGET_URI_LIST_TYPE, 0, TARGET_URI_LIST },
-    { TARGET_TEXT_PLAIN_TYPE, 0, TARGET_TEXT_PLAIN },
-    { TARGET_URL_TYPE, 0, TARGET_URL }
+    TARGET_URI_LIST_TYPE,
+    TARGET_TEXT_PLAIN_TYPE,
+    TARGET_URL_TYPE
 };
 
-static GtkTargetEntry drop_types [] =
+static const char *drop_types [] =
 {
-    { TARGET_URI_LIST_TYPE, 0, TARGET_URI_LIST },
-    { TARGET_URL_TYPE, 0, TARGET_URL }
+    TARGET_URI_LIST_TYPE,
+    TARGET_URL_TYPE
 };
 
 
@@ -2968,7 +2968,7 @@ void GnomeCmdFileList::update_style()
     // TODO: update CSS according to a selected theme
 
     PangoFontDescription *font_desc = pango_font_description_from_string (gnome_cmd_data.options.list_font);
-    gtk_widget_override_font (*this, font_desc);
+    // gtk_widget_override_font (*this, font_desc);
     pango_font_description_free (font_desc);
 }
 
@@ -3099,7 +3099,7 @@ void GnomeCmdFileList::invalidate_tree_size()
 /******************************************************
  * DnD functions
  **/
-
+/*
 static void drag_data_get (GtkWidget *widget, GdkDragContext *context, GtkSelectionData *selection_data, guint info, guint32 time, GnomeCmdFileList *fl)
 {
     GList *files = nullptr;
@@ -3243,26 +3243,28 @@ static void drag_data_delete (GtkWidget *widget, GdkDragContext *drag_context, G
     fl->remove_files(files);
     g_list_free (files);
 }
-
+*/
 
 void GnomeCmdFileList::init_dnd()
 {
     // set up drag source
+    GdkContentFormats* drag_formats = gdk_content_formats_new (drag_types, G_N_ELEMENTS (drag_types));
     gtk_tree_view_enable_model_drag_source (*this,
                                             GDK_BUTTON1_MASK,
-                                            drag_types, G_N_ELEMENTS (drag_types),
+                                            drag_formats,
                                             (GdkDragAction) (GDK_ACTION_LINK | GDK_ACTION_MOVE | GDK_ACTION_COPY | GDK_ACTION_ASK));
 
-    g_signal_connect (this, "drag-data-get", G_CALLBACK (drag_data_get), this);
-    g_signal_connect (this, "drag-data-delete", G_CALLBACK (drag_data_delete), this);
+    // g_signal_connect (this, "drag-data-get", G_CALLBACK (drag_data_get), this);
+    // g_signal_connect (this, "drag-data-delete", G_CALLBACK (drag_data_delete), this);
 
     // set up drag destination
+    GdkContentFormats* drop_formats = gdk_content_formats_new (drop_types, G_N_ELEMENTS (drop_types));
     gtk_tree_view_enable_model_drag_dest (*this,
-                                          drop_types, G_N_ELEMENTS (drop_types),
+                                          drop_formats,
                                           (GdkDragAction) (GDK_ACTION_LINK | GDK_ACTION_MOVE | GDK_ACTION_COPY | GDK_ACTION_ASK));
 
-    g_signal_connect (this, "drag-motion", G_CALLBACK (drag_motion), this);
-    g_signal_connect (this, "drag-data-received", G_CALLBACK (drag_data_received), this);
+    // g_signal_connect (this, "drag-motion", G_CALLBACK (drag_motion), this);
+    // g_signal_connect (this, "drag-data-received", G_CALLBACK (drag_data_received), this);
 }
 
 

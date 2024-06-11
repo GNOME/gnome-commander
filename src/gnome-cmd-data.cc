@@ -3117,13 +3117,13 @@ void GnomeCmdData::load_color_themes()
     gdk_rgba_parse (&options.color_themes[GNOME_CMD_COLOR_WINTER].curs_fg,      "#000000000000");
     gdk_rgba_parse (&options.color_themes[GNOME_CMD_COLOR_WINTER].curs_bg,      "#0000ffffffff");
 
-    GtkWidget *widget = gtk_combo_box_new ();
-    GtkStyleContext *style_context = gtk_widget_get_style_context (GTK_WIDGET (widget));
+    // GtkWidget *widget = gtk_combo_box_new ();
+    // GtkStyleContext *style_context = gtk_widget_get_style_context (GTK_WIDGET (widget));
     GdkRGBA sel_fg;
     GdkRGBA sel_bg;
-    gtk_style_context_get_color (style_context, GTK_STATE_FLAG_SELECTED, &sel_fg);
-    gtk_style_context_get_background_color (style_context, GTK_STATE_FLAG_SELECTED, &sel_bg);
-    g_object_unref (widget);
+    // gtk_style_context_get_color (style_context, GTK_STATE_FLAG_SELECTED, &sel_fg);
+    // gtk_style_context_get_background_color (style_context, GTK_STATE_FLAG_SELECTED, &sel_bg);
+    // g_object_unref (widget);
 
     options.color_themes[GNOME_CMD_COLOR_NONE].respect_theme = TRUE;
     options.color_themes[GNOME_CMD_COLOR_NONE].norm_fg = {0,0,0,0};
