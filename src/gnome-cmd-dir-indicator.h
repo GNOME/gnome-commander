@@ -38,6 +38,8 @@ struct GnomeCmdDirIndicator
 struct GnomeCmdDirIndicatorClass
 {
     GtkFrameClass parent_class;
+
+    void (*navigate) (const gchar *path, gboolean new_tab);
 };
 
 
