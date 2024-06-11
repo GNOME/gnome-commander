@@ -894,7 +894,7 @@ gboolean GnomeCmdFile::content_type_begins_with(const gchar *contentTypeStart)
 
 void gnome_cmd_file_show_properties (GnomeCmdFile *f)
 {
-    GtkWidget *dialog = gnome_cmd_file_props_dialog_create (f);
+    GtkWidget *dialog = gnome_cmd_file_props_dialog_create (*main_win, f);
     if (!dialog) return;
 
     g_object_ref (dialog);
@@ -938,7 +938,8 @@ void gnome_cmd_file_view_internal(GnomeCmdFile *f)
         g_printerr ("Copying to: %s\n", path_str);
         g_free (path_str);
 
-        gnome_cmd_tmp_download (g_list_append (nullptr, srcGFile),
+        gnome_cmd_tmp_download (*main_win,
+                                g_list_append (nullptr, srcGFile),
                                 g_list_append (nullptr, destGFile),
                                 G_FILE_COPY_OVERWRITE,
                                 G_CALLBACK (view_file_with_internal_viewer),
@@ -949,7 +950,7 @@ void gnome_cmd_file_view_internal(GnomeCmdFile *f)
 void gnome_cmd_file_view_external(GnomeCmdFile *f)
 {
     string command;
-    if (parse_command(&command, gnome_cmd_data.options.viewer) == 0)
+    if (parse_command(main_win, &command, gnome_cmd_data.options.viewer) == 0)
     {
         DEBUG ('g', "Edit file command is not valid.\n");
         gnome_cmd_show_message (*main_win, _("No valid command given."));

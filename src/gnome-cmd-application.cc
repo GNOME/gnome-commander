@@ -40,7 +40,6 @@ using namespace std;
 
 
 GnomeCmdMainWin *main_win = nullptr;
-GtkWidget *main_win_widget = nullptr;
 gchar *start_dir_left = nullptr;
 gchar *start_dir_right = nullptr;
 gchar *config_dir = nullptr;
@@ -133,7 +132,6 @@ static void gnome_cmd_application_activate(GApplication *application)
 
     main_win = new GnomeCmdMainWin;
     gtk_window_set_application (GTK_WINDOW (main_win), GTK_APPLICATION (application));
-    main_win_widget = *main_win;
 
     gtk_widget_show (*main_win);
     gcmd_owner.load_async();

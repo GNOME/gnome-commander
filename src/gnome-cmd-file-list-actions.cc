@@ -77,7 +77,7 @@ static void do_mime_exec_multiple (gpointer *args)
 }
 
 
-static void mime_exec_multiple (GList *files, GnomeCmdApp *app)
+static void mime_exec_multiple (GList *files, GnomeCmdApp *app, GtkWindow *parent_window)
 {
     g_return_if_fail (files != nullptr);
     g_return_if_fail (app != nullptr);
@@ -112,7 +112,7 @@ static void mime_exec_multiple (GList *files, GnomeCmdApp *app)
                     gchar *msg = g_strdup_printf (ngettext("%s does not know how to open remote file. Do you want to download the file to a temporary location and then open it?",
                                                            "%s does not know how to open remote files. Do you want to download the files to a temporary location and then open them?", no_of_remote_files),
                                                   gnome_cmd_app_get_name (app));
-                    retid = run_simple_dialog (*main_win, TRUE, GTK_MESSAGE_QUESTION, msg, "", -1, _("No"), _("Yes"), nullptr);
+                    retid = run_simple_dialog (parent_window, TRUE, GTK_MESSAGE_QUESTION, msg, "", -1, _("No"), _("Yes"), nullptr);
                     asked = TRUE;
                 }
 
@@ -142,7 +142,8 @@ static void mime_exec_multiple (GList *files, GnomeCmdApp *app)
     args[1] = localGFileList;
 
     if (srcGFileList)
-        gnome_cmd_tmp_download(srcGFileList,
+        gnome_cmd_tmp_download(parent_window,
+                               srcGFileList,
                                destGFileList,
                                G_FILE_COPY_OVERWRITE,
                                G_CALLBACK (do_mime_exec_multiple),
@@ -157,8 +158,10 @@ static void mime_exec_multiple (GList *files, GnomeCmdApp *app)
  */
 static void htcb_exec_with_app (GAppInfo *appInfo, GList *files, gpointer user_data)
 {
+    GtkWindow *parent_window = GTK_WINDOW (user_data);
+
     GnomeCmdApp *app = gnome_cmd_app_new_from_app_info (appInfo);
-    mime_exec_multiple (files, app);
+    mime_exec_multiple (files, app, parent_window);
 }
 
 
@@ -183,7 +186,8 @@ void gnome_cmd_file_selector_action_open_with (GSimpleAction *action, GVariant *
     g_return_if_fail (appInfo != nullptr);
     GnomeCmdApp *app = gnome_cmd_app_new_from_app_info (appInfo);
 
-    mime_exec_multiple (files, app);
+    GtkWindow *parent_window = GTK_WINDOW (gtk_widget_get_toplevel (GTK_WIDGET (file_list)));
+    mime_exec_multiple (files, app, parent_window);
 }
 
 
@@ -233,7 +237,8 @@ void gnome_cmd_file_selector_action_open_with_default (GSimpleAction *action, GV
                 _("Couldn’t retrieve MIME type of the file."));
     }
 
-    g_hash_table_foreach (gHashTable, (GHFunc) htcb_exec_with_app, nullptr);
+    GtkWindow *parent_window = GTK_WINDOW (gtk_widget_get_toplevel (GTK_WIDGET (file_list)));
+    g_hash_table_foreach (gHashTable, (GHFunc) htcb_exec_with_app, parent_window);
 
     g_hash_table_destroy (gHashTable);
 }

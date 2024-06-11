@@ -111,12 +111,6 @@ GtkWidget *create_sw (GtkWidget *parent);
 
 const char *get_entry_text (GtkWidget *parent, const gchar *entry_name);
 
-#ifdef __GNUC__
-    void create_error_dialog (const gchar *msg, ...) __attribute__ ((format (gnu_printf, 1, 2)));
-#else
-    void create_error_dialog (const gchar *msg, ...);
-#endif
-
 #if !GTK_CHECK_VERSION(3,0,0)
 inline void gtk_progress_bar_set_show_text (GtkProgressBar *pbar, gboolean show_text)
 {

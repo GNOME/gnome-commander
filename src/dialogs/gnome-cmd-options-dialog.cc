@@ -513,11 +513,10 @@ static void on_edit_colors_close (GtkButton *btn, GtkWidget *dlg)
 
 static void on_colors_edit (GtkButton *btn, GtkWidget *parent)
 {
-    GtkWidget *dlg = gnome_cmd_dialog_new (_("Edit Colors…"));
+    GtkWidget *dlg = gnome_cmd_dialog_new (GTK_WINDOW (parent), _("Edit Colors…"));
     g_object_ref (dlg);
 
     gtk_window_set_modal (GTK_WINDOW (dlg), TRUE);
-    gtk_window_set_transient_for (GTK_WINDOW (dlg), GTK_WINDOW (parent));
 
     GtkWidget *cat, *cat_box;
     GtkWidget *grid, *label;
@@ -656,11 +655,10 @@ static void on_edit_ls_colors_reset (GtkButton *btn, GtkWidget *dlg)
 
 static void on_ls_colors_edit (GtkButton *btn, GtkWidget *parent)
 {
-    GtkWidget *dlg = gnome_cmd_dialog_new (_("Edit LS_COLORS Palette"));
+    GtkWidget *dlg = gnome_cmd_dialog_new (GTK_WINDOW (parent), _("Edit LS_COLORS Palette"));
     g_object_ref (dlg);
 
     gtk_window_set_modal (GTK_WINDOW (dlg), TRUE);
-    gtk_window_set_transient_for (GTK_WINDOW (dlg), GTK_WINDOW (parent));
 
     GtkWidget *cat, *cat_box;
     GtkWidget *grid, *label;
@@ -1525,12 +1523,11 @@ static GtkWidget *create_app_dialog (GnomeCmdApp *app, GCallback on_ok, GCallbac
     GtkWidget *vbox, *hbox, *grid, *entry, *label, *cat, *radio, *check;
     const gchar *s = NULL;
 
-    GtkWidget *dialog = gnome_cmd_dialog_new (NULL);
+    GtkWidget *dialog = gnome_cmd_dialog_new (GTK_WINDOW (options_dialog), NULL);
     g_object_ref (dialog);
     g_object_set_data (G_OBJECT (dialog), "options_dialog", options_dialog);
 
     gtk_window_set_modal (GTK_WINDOW (dialog), TRUE);
-    gtk_window_set_transient_for (GTK_WINDOW (dialog), GTK_WINDOW (options_dialog));
 
     hbox = create_hbox (dialog, FALSE, 6);
     gnome_cmd_dialog_add_category (GNOME_CMD_DIALOG (dialog), hbox);
@@ -2046,13 +2043,12 @@ static GtkWidget *create_device_dialog (GnomeCmdConDevice *dev, GCallback on_ok,
     GtkWidget *dialog;
     const gchar *s = NULL;
 
-    dialog = gnome_cmd_dialog_new ("");
+    dialog = gnome_cmd_dialog_new (GTK_WINDOW (options_dialog), "");
     g_object_ref (dialog);
     gtk_window_set_title (GTK_WINDOW (dialog), "");
     g_object_set_data (G_OBJECT (dialog), "options_dialog", options_dialog);
 
     gtk_window_set_modal (GTK_WINDOW (dialog), TRUE);
-    gtk_window_set_transient_for (GTK_WINDOW (dialog), GTK_WINDOW (options_dialog));
 
     grid = create_grid (dialog);
     gnome_cmd_dialog_add_category (GNOME_CMD_DIALOG (dialog), grid);

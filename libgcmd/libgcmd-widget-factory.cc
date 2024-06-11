@@ -574,29 +574,6 @@ const char *get_entry_text (GtkWidget *parent, const gchar *entry_name)
 }
 
 
-static void on_response (GtkDialog *dialog, gint id, gpointer data)
-{
-    gtk_window_destroy (GTK_WINDOW (dialog));
-}
-
-void create_error_dialog (const gchar *msg, ...)
-{
-    va_list      argptr;
-    gchar        string[1024];
-    GtkWidget    *dialog;
-
-    va_start (argptr, msg);
-    vsprintf (string, msg, argptr);
-    va_end (argptr);
-
-    dialog = gtk_message_dialog_new (GTK_WINDOW (main_win_widget), GTK_DIALOG_MODAL, GTK_MESSAGE_ERROR, GTK_BUTTONS_OK, "%s", string);
-
-    g_signal_connect (dialog, "response", G_CALLBACK (on_response), dialog);
-
-    gtk_widget_show (dialog);
-}
-
-
 struct ActionAcceleratorClosure
 {
     GActionGroup *action_group;

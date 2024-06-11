@@ -71,7 +71,7 @@ enum
 static guint signals[LAST_SIGNAL] = { 0 };
 
 
-static void do_chmod (GnomeCmdFile *in, guint32 permissions, gboolean recursive, ChmodRecursiveMode mode)
+static void do_chmod (GnomeCmdChmodDialog *dialog, GnomeCmdFile *in, guint32 permissions, gboolean recursive, ChmodRecursiveMode mode)
 {
     g_return_if_fail (in != NULL);
     GError *error = nullptr;
@@ -99,7 +99,7 @@ static void do_chmod (GnomeCmdFile *in, guint32 permissions, gboolean recursive,
     {
         GnomeCmdDir *dir = gnome_cmd_dir_ref (GNOME_CMD_DIR (in));
 
-        gnome_cmd_dir_list_files (dir, FALSE);
+        gnome_cmd_dir_list_files (GTK_WINDOW (dialog), dir, FALSE);
 
         for (GList *i = gnome_cmd_dir_get_files (dir); i; i = i->next)
         {
@@ -108,7 +108,7 @@ static void do_chmod (GnomeCmdFile *in, guint32 permissions, gboolean recursive,
             if (!f->is_dotdot && strcmp (filename, ".") != 0
                 && !g_file_info_get_is_symlink(f->get_file_info()))
             {
-                do_chmod (f, permissions, TRUE, mode);
+                do_chmod (dialog, f, permissions, TRUE, mode);
             }
             g_free(filename);
         }
@@ -125,7 +125,7 @@ inline void do_chmod_files (GnomeCmdChmodDialog *dialog)
         gboolean recursive = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (dialog->priv->recurse_check));
         ChmodRecursiveMode mode = (ChmodRecursiveMode) gtk_combo_box_get_active (GTK_COMBO_BOX (dialog->priv->recurse_combo));
 
-        do_chmod (f, dialog->priv->permissions, recursive, mode);
+        do_chmod (dialog, f, dialog->priv->permissions, recursive, mode);
         g_signal_emit (dialog, signals[MODE_CHANGED], 0);
     }
 }

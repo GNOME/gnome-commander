@@ -25,7 +25,6 @@
 #include "gnome-cmd-data.h"
 #include "gnome-cmd-dir.h"
 #include "gnome-cmd-file-list.h"
-#include "gnome-cmd-main-win.h"
 #include "utils.h"
 #include "dialogs/gnome-cmd-delete-dialog.h"
 
@@ -236,7 +235,7 @@ static gboolean perform_delete_operation_r(DeleteData *deleteData, GList *gnomeC
             g_error_free(tmpError);
             tmpError = nullptr;
             auto gnomeCmdDir = GNOME_CMD_DIR (gnomeCmdFile);
-            gnome_cmd_dir_list_files (gnomeCmdDir, FALSE);
+            gnome_cmd_dir_list_files (deleteData->parent_window, gnomeCmdDir, FALSE);
 
             if (perform_delete_subdirs(gnomeCmdDir, deleteData))
             {
@@ -300,7 +299,7 @@ static gboolean update_delete_status_widgets (DeleteData *deleteData)
                                         deleteData->error->message);
 
         deleteData->problem_action = run_simple_dialog (
-            *main_win, TRUE, GTK_MESSAGE_ERROR, msg, _("Delete problem"),
+            deleteData->parent_window, TRUE, GTK_MESSAGE_ERROR, msg, _("Delete problem"),
             -1, _("Abort"), _("Retry"), _("Skip"), NULL);
 
         g_free (msg);
@@ -315,7 +314,7 @@ static gboolean update_delete_status_widgets (DeleteData *deleteData)
         g_thread_join (deleteData->thread);
 
         if (deleteData->error)
-            gnome_cmd_show_message (*main_win, deleteData->error->message);
+            gnome_cmd_show_message (deleteData->parent_window, deleteData->error->message);
 
         if (deleteData->deletedGnomeCmdFiles)
         {
@@ -403,7 +402,7 @@ void do_delete (DeleteData *deleteData, gboolean showProgress = true)
  * This happens as of user interaction.
  * The returned list has to be free'ed by g_list_free.
  */
-static GList *remove_items_from_list_to_be_deleted(GList *files)
+static GList *remove_items_from_list_to_be_deleted(GtkWindow *parent_window, GList *files)
 {
     if (!gnome_cmd_data.options.confirm_delete)
     {
@@ -445,7 +444,7 @@ static GList *remove_items_from_list_to_be_deleted(GList *files)
 
                 gchar *msg = g_strdup_printf (_("Error while deleting: \n\n%s"), error->message);
 
-                run_simple_dialog (*main_win, FALSE, GTK_MESSAGE_ERROR, msg, _("Delete problem"), -1, _("Abort"), NULL);
+                run_simple_dialog (parent_window, FALSE, GTK_MESSAGE_ERROR, msg, _("Delete problem"), -1, _("Abort"), NULL);
                 g_free (msg);
 
                 g_error_free (error);
@@ -459,7 +458,7 @@ static GList *remove_items_from_list_to_be_deleted(GList *files)
                     ? g_strdup_printf (_("Do you really want to delete “%s”?"), gnomeCmdFile->get_name())
                     : g_strdup_printf (_("The directory “%s” is not empty. Do you really want to delete it?"), gnomeCmdFile->get_name());
 
-                guiResponse = run_simple_dialog (*main_win, FALSE, GTK_MESSAGE_WARNING, msg, _("Delete"),
+                guiResponse = run_simple_dialog (parent_window, FALSE, GTK_MESSAGE_WARNING, msg, _("Delete"),
                                   gnome_cmd_data.options.confirm_delete_default==GTK_BUTTONS_CANCEL ? 0 : 3,
                                   _("Cancel"), _("Skip"),
                                   dirCount++ == 0 ? _("Delete All") : _("Delete Remaining"),
@@ -508,7 +507,7 @@ static GList *remove_items_from_list_to_be_deleted(GList *files)
 /**
  * Creates a delete dialog for the given list of GnomeCmdFiles
  */
-void gnome_cmd_delete_dialog_show (GList *files, gboolean forceDelete)
+void gnome_cmd_delete_dialog_show (GtkWindow *parent_window, GList *files, gboolean forceDelete)
 {
     g_return_if_fail (files != nullptr);
 
@@ -545,7 +544,7 @@ void gnome_cmd_delete_dialog_show (GList *files, gboolean forceDelete)
                                    n_files);
         }
 
-        response = run_simple_dialog (*main_win, FALSE,
+        response = run_simple_dialog (parent_window, FALSE,
                                       forceDelete || !gnome_cmd_data.options.deleteToTrash
                                         ? GTK_MESSAGE_WARNING
                                         : GTK_MESSAGE_QUESTION,
@@ -562,13 +561,14 @@ void gnome_cmd_delete_dialog_show (GList *files, gboolean forceDelete)
     }
 
     // eventually remove non-empty dirs from list
-    files = remove_items_from_list_to_be_deleted(files);
+    files = remove_items_from_list_to_be_deleted(parent_window, files);
 
     if (files == nullptr)
         return;
 
     DeleteData *deleteData = g_new0 (DeleteData, 1);
 
+    deleteData->parent_window = parent_window;
     deleteData->gnomeCmdFiles = files;
     deleteData->originAction = forceDelete
         ? DeleteData::OriginAction::FORCE_DELETE

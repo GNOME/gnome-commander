@@ -117,8 +117,8 @@ inline GnomeCmdDir *gnome_cmd_dir_ref (GnomeCmdDir *dir)
 void gnome_cmd_dir_unref (GnomeCmdDir *dir);
 
 GList *gnome_cmd_dir_get_files (GnomeCmdDir *dir);
-void gnome_cmd_dir_relist_files (GnomeCmdDir *dir, gboolean visprog);
-void gnome_cmd_dir_list_files (GnomeCmdDir *dir, gboolean visprog);
+void gnome_cmd_dir_relist_files (GtkWindow *parent_window, GnomeCmdDir *dir, gboolean visprog);
+void gnome_cmd_dir_list_files (GtkWindow *parent_window, GnomeCmdDir *dir, gboolean visprog);
 
 GnomeCmdPath *gnome_cmd_dir_get_path (GnomeCmdDir *dir);
 void gnome_cmd_dir_set_path (GnomeCmdDir *dir, GnomeCmdPath *path);

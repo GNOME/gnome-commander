@@ -51,11 +51,11 @@ struct TestPluginPrivate
 G_DEFINE_TYPE_WITH_PRIVATE(TestPlugin, test_plugin, GNOME_CMD_TYPE_PLUGIN)
 
 
-static void show_dummy_dialog()
+static void show_dummy_dialog(GtkWindow *parent_window)
 {
     GtkWidget *dialog;
     GtkDialogFlags flags = GTK_DIALOG_MODAL;
-    dialog = gtk_message_dialog_new (nullptr,
+    dialog = gtk_message_dialog_new (parent_window,
                                      flags,
                                      GTK_MESSAGE_OTHER,
                                      GTK_BUTTONS_OK,
@@ -67,7 +67,7 @@ static void show_dummy_dialog()
 
 static void on_dummy (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
-    show_dummy_dialog();
+    show_dummy_dialog(nullptr);
 }
 
 
@@ -110,9 +110,9 @@ static GMenuModel *create_popup_menu_items (GnomeCmdPlugin *plugin, GnomeCmdStat
 }
 
 
-static void configure (GnomeCmdPlugin *plugin)
+static void configure (GnomeCmdPlugin *plugin, GtkWindow *parent_window)
 {
-    show_dummy_dialog();
+    show_dummy_dialog(parent_window);
 }
 
 

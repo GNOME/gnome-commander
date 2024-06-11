@@ -41,4 +41,4 @@ struct PluginData
 void plugin_manager_init ();
 void plugin_manager_shutdown ();
 GList *plugin_manager_get_all ();
-void plugin_manager_show ();
+void plugin_manager_show (GtkWindow *parent_window);

@@ -47,6 +47,11 @@ inline gchar *get_bold_mono_text (const gchar *in)
     return result;
 }
 
+inline GtkWindow *get_toplevel_window (GtkWidget *widget)
+{
+    return GTK_WINDOW (gtk_widget_get_toplevel (widget));
+}
+
 #if !GTK_CHECK_VERSION(4, 0, 0)
 inline void gtk_window_destroy (GtkWindow* window)
 {

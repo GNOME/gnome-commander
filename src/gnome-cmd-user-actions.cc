@@ -239,22 +239,17 @@ GNOME_CMD_USER_ACTION(help_web);
 GNOME_CMD_USER_ACTION(help_problem);
 GNOME_CMD_USER_ACTION(help_about);
 
-GnomeCmdFileSelector *get_fs (const FileSelectorID fsID)
+static GnomeCmdFileList *get_fl (GnomeCmdMainWin *main_win, const FileSelectorID fsID)
 {
-    return main_win->fs(fsID);
-}
-
-GnomeCmdFileList *get_fl (const FileSelectorID fsID)
-{
-    GnomeCmdFileSelector *fs = get_fs (fsID);
+    GnomeCmdFileSelector *fs = main_win->fs(fsID);
 
     return fs ? fs->file_list() : nullptr;
 }
 
 // The file returned from this function is not to be unrefed
-static GnomeCmdFile *get_selected_file (const FileSelectorID fsID)
+static GnomeCmdFile *get_selected_file (GnomeCmdMainWin *main_win, const FileSelectorID fsID)
 {
-    GnomeCmdFile *f = get_fl (fsID)->get_first_selected_file();
+    GnomeCmdFile *f = get_fl (main_win, fsID)->get_first_selected_file();
 
     if (!f)
         gnome_cmd_show_message (*main_win, _("No file selected"));
@@ -286,8 +281,6 @@ static gboolean append_real_path (string &s, GnomeCmdFile *f)
     return TRUE;
 }
 
-
-int parse_command(string *cmd, gchar * command);
 
 GnomeCmdUserActions gcmd_user_actions;
 
@@ -687,7 +680,14 @@ gboolean GnomeCmdUserActions::handle_key_event(GnomeCmdMainWin *mw, GnomeCmdFile
     DEBUG('u', "Key event:  %s (%#x)\n", key2str(*event).c_str(), event->keyval);
     DEBUG('u', "Handling key event by %s()\n", action_func[pos->second.func].c_str());
 
-    (*pos->second.func) (nullptr, nullptr, (gpointer) (pos->second.user_data.empty() ? nullptr : pos->second.user_data.c_str()));
+    // This is a bit controversial. Majority of actions to not accept arguments
+    // and those which accept expect a specific variant and not an arbitrary
+    // string.
+    GVariant *parameter = nullptr;
+    if (!pos->second.user_data.empty())
+        parameter = g_variant_new_string (pos->second.user_data.c_str());
+
+    (*pos->second.func) (nullptr, parameter, (gpointer) mw);
 
     return TRUE;
 }
@@ -785,8 +785,10 @@ static void view_refresh_0 ();
 /************** File Menu **************/
 void file_copy (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
-    GnomeCmdFileSelector *src_fs = get_fs (ACTIVE);
-    GnomeCmdFileSelector *dest_fs = get_fs (INACTIVE);
+    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
+
+    GnomeCmdFileSelector *src_fs = main_win->fs (ACTIVE);
+    GnomeCmdFileSelector *dest_fs = main_win->fs (INACTIVE);
 
     if (src_fs && dest_fs)
         gnome_cmd_prepare_copy_dialog_show (src_fs, dest_fs);
@@ -795,7 +797,9 @@ void file_copy (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 
 void file_copy_as (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
-    GnomeCmdFileSelector *fs = get_fs (ACTIVE);
+    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
+
+    GnomeCmdFileSelector *fs = main_win->fs (ACTIVE);
     GnomeCmdFile *f = fs->file_list()->get_selected_file();
 
     if (GNOME_CMD_IS_FILE (f))
@@ -810,8 +814,10 @@ void file_copy_as (GSimpleAction *action, GVariant *parameter, gpointer user_dat
 
 void file_move (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
-    GnomeCmdFileSelector *src_fs = get_fs (ACTIVE);
-    GnomeCmdFileSelector *dest_fs = get_fs (INACTIVE);
+    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
+
+    GnomeCmdFileSelector *src_fs = main_win->fs (ACTIVE);
+    GnomeCmdFileSelector *dest_fs = main_win->fs (INACTIVE);
 
     if (src_fs && dest_fs)
         gnome_cmd_prepare_move_dialog_show (src_fs, dest_fs);
@@ -820,33 +826,43 @@ void file_move (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 
 void file_delete (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
-    gnome_cmd_file_list_show_delete_dialog (get_fl (ACTIVE));
+    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
+
+    gnome_cmd_file_list_show_delete_dialog (get_fl (main_win, ACTIVE));
 }
 
 
 void file_view (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
-    gnome_cmd_file_list_view (get_fl (ACTIVE), gnome_cmd_data.options.use_internal_viewer);
+    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
+
+    gnome_cmd_file_list_view (get_fl (main_win, ACTIVE), gnome_cmd_data.options.use_internal_viewer);
 }
 
 
 void file_internal_view (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
-    gnome_cmd_file_list_view (get_fl (ACTIVE), TRUE);
+    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
+
+    gnome_cmd_file_list_view (get_fl (main_win, ACTIVE), TRUE);
 }
 
 
 void file_external_view (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
-    gnome_cmd_file_list_view (get_fl (ACTIVE), FALSE);
+    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
+
+    gnome_cmd_file_list_view (get_fl (main_win, ACTIVE), FALSE);
 }
 
 void file_edit (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
+    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
+
     GdkModifierType mask = get_modifiers_state();
 
     if (mask & GDK_SHIFT_MASK)
-        gnome_cmd_file_selector_show_new_textfile_dialog (get_fs (ACTIVE));
+        gnome_cmd_file_selector_show_new_textfile_dialog (main_win->fs (ACTIVE));
     else
     {
         gchar       *command;
@@ -857,7 +873,7 @@ void file_edit (GSimpleAction *action, GVariant *parameter, gpointer user_data)
         string cmd;
 
         cmd.reserve(2000);
-        if (parse_command(&cmd, (const gchar*) command) == 0)
+        if (parse_command(main_win, &cmd, (const gchar*) command) == 0)
         {
             DEBUG ('g', "Edit file command is not valid.\n");
             gnome_cmd_show_message (*main_win, _("No valid command given."));
@@ -882,12 +898,16 @@ void file_edit (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 
 void file_edit_new_doc (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
-    gnome_cmd_file_selector_show_new_textfile_dialog (get_fs (ACTIVE));
+    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
+
+    gnome_cmd_file_selector_show_new_textfile_dialog (main_win->fs (ACTIVE));
 }
 
 
 void file_search (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
+    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
+
     if (gnome_cmd_data.options.use_internal_search)
     {
         if (!main_win->file_search_dlg)
@@ -900,7 +920,7 @@ void file_search (GSimpleAction *action, GVariant *parameter, gpointer user_data
         string commandString;
         commandString.reserve(2000);
 
-        if (parse_command(&commandString, (const gchar*) gnome_cmd_data.options.search) == 0)
+        if (parse_command(main_win, &commandString, (const gchar*) gnome_cmd_data.options.search) == 0)
         {
             DEBUG ('g', "Search command is empty.\n");
             gnome_cmd_show_message (*main_win, _("No search command given."), _("You can set a command for a search tool in the program options."));
@@ -928,13 +948,17 @@ void file_search (GSimpleAction *action, GVariant *parameter, gpointer user_data
 
 void file_quick_search (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
-    gnome_cmd_file_list_show_quicksearch (get_fl (ACTIVE), 0);
+    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
+
+    gnome_cmd_file_list_show_quicksearch (get_fl (main_win, ACTIVE), 0);
 }
 
 
 void file_chmod (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
-    GList *files = get_fl (ACTIVE)->get_selected_files();
+    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
+
+    GList *files = get_fl (main_win, ACTIVE)->get_selected_files();
 
     if (files)
     {
@@ -951,7 +975,9 @@ void file_chmod (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 
 void file_chown (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
-    GList *files = get_fl (ACTIVE)->get_selected_files();
+    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
+
+    GList *files = get_fl (main_win, ACTIVE)->get_selected_files();
 
     if (files)
     {
@@ -968,7 +994,9 @@ void file_chown (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 
 void file_mkdir (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
-    GnomeCmdFileSelector *fs = get_fs (ACTIVE);
+    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
+
+    GnomeCmdFileSelector *fs = main_win->fs (ACTIVE);
     GnomeCmdDir *dir = fs->get_directory();
 
     g_return_if_fail (GNOME_CMD_IS_DIR (dir));
@@ -981,8 +1009,10 @@ void file_mkdir (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 
 void file_create_symlink (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
-    GnomeCmdFileSelector *inactive_fs = get_fs (INACTIVE);
-    GList *f = get_fl (ACTIVE)->get_selected_files();
+    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
+
+    GnomeCmdFileSelector *inactive_fs = main_win->fs (INACTIVE);
+    GList *f = get_fl (main_win, ACTIVE)->get_selected_files();
     guint selected_files = g_list_length (f);
 
     if (selected_files > 1)
@@ -1001,7 +1031,7 @@ void file_create_symlink (GSimpleAction *action, GVariant *parameter, gpointer u
     }
    else
    {
-        GnomeCmdFile *focused_f = get_fl (ACTIVE)->get_focused_file();
+        GnomeCmdFile *focused_f = get_fl (main_win, ACTIVE)->get_focused_file();
         gnome_cmd_file_selector_create_symlink (inactive_fs, focused_f);
    }
 }
@@ -1009,13 +1039,17 @@ void file_create_symlink (GSimpleAction *action, GVariant *parameter, gpointer u
 
 void file_rename (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
-    gnome_cmd_file_list_show_rename_dialog (get_fl (ACTIVE));
+    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
+
+    gnome_cmd_file_list_show_rename_dialog (get_fl (main_win, ACTIVE));
 }
 
 
 void file_advrename (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
-    GList *files = get_fl (ACTIVE)->get_selected_files();
+    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
+
+    GList *files = get_fl (main_win, ACTIVE)->get_selected_files();
 
     if (files)
     {
@@ -1040,10 +1074,12 @@ void file_advrename (GSimpleAction *action, GVariant *parameter, gpointer user_d
 
 void file_sendto (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
+    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
+
     string commandString;
     commandString.reserve(2000);
 
-    if (parse_command(&commandString, (const gchar*) gnome_cmd_data.options.sendto) == 0)
+    if (parse_command(main_win, &commandString, (const gchar*) gnome_cmd_data.options.sendto) == 0)
     {
         DEBUG ('g', "Sendto command is not valid.\n");
         gnome_cmd_show_message (*main_win, _("No valid command given."));
@@ -1055,7 +1091,7 @@ void file_sendto (GSimpleAction *action, GVariant *parameter, gpointer user_data
         gchar  **argv  = nullptr;
         GError  *error = nullptr;
 
-        eventually_warn_if_xdg_email_is_used();
+        eventually_warn_if_xdg_email_is_used(main_win);
 
         DEBUG ('g', "Invoking 'Send files': %s\n", commandString.c_str());
         g_shell_parse_argv (commandString.c_str(), &argc, &argv, nullptr);
@@ -1069,9 +1105,9 @@ void file_sendto (GSimpleAction *action, GVariant *parameter, gpointer user_data
 }
 
 
-void eventually_warn_if_xdg_email_is_used()
+void eventually_warn_if_xdg_email_is_used(GnomeCmdMainWin *main_win)
 {
-    auto fileList = get_fl (ACTIVE);
+    auto fileList = get_fl (main_win, ACTIVE);
     GList *selectedFileList = fileList->get_selected_files();
     auto currentSendToString = g_settings_get_string (gcmd_user_actions.settings->programs, GCMD_SETTINGS_SENDTO_CMD);
 
@@ -1087,19 +1123,23 @@ void eventually_warn_if_xdg_email_is_used()
 
 void file_properties (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
-    gnome_cmd_file_list_show_properties_dialog (get_fl (ACTIVE));
+    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
+
+    gnome_cmd_file_list_show_properties_dialog (get_fl (main_win, ACTIVE));
 }
 
 
 void file_diff (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
-    if (!get_fs (ACTIVE)->is_local())
+    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
+
+    if (!main_win->fs (ACTIVE)->is_local())
     {
         gnome_cmd_show_message (*main_win, _("Operation not supported on remote file systems"));
         return;
     }
 
-    GnomeCmdFileList *active_fl = get_fl (ACTIVE);
+    GnomeCmdFileList *active_fl = get_fl (main_win, ACTIVE);
 
     GList *sel_files = active_fl->get_selected_files();
 
@@ -1111,10 +1151,10 @@ void file_diff (GSimpleAction *action, GVariant *parameter, gpointer user_data)
             return;
 
         case 1:
-            if (!get_fs (INACTIVE)->is_local())
+            if (!main_win->fs (INACTIVE)->is_local())
                 gnome_cmd_show_message (*main_win, _("Operation not supported on remote file systems"));
             else
-                if (!append_real_path (files_to_differ, get_selected_file (ACTIVE)) || !append_real_path (files_to_differ, get_selected_file (INACTIVE)))
+                if (!append_real_path (files_to_differ, get_selected_file (main_win, ACTIVE)) || !append_real_path (files_to_differ, get_selected_file (main_win, INACTIVE)))
                     files_to_differ.clear();
             break;
 
@@ -1151,8 +1191,10 @@ void file_diff (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 
 void file_sync_dirs (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
-    GnomeCmdFileSelector *active_fs = get_fs (ACTIVE);
-    GnomeCmdFileSelector *inactive_fs = get_fs (INACTIVE);
+    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
+
+    GnomeCmdFileSelector *active_fs = main_win->fs (ACTIVE);
+    GnomeCmdFileSelector *inactive_fs = main_win->fs (INACTIVE);
 
     if (!active_fs->is_local() || !inactive_fs->is_local())
     {
@@ -1182,6 +1224,8 @@ void file_sync_dirs (GSimpleAction *action, GVariant *parameter, gpointer user_d
 
 void file_exit (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
+    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
+
     gtk_window_destroy (GTK_WINDOW (main_win));
 }
 
@@ -1189,35 +1233,43 @@ void file_exit (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 /************** Edit Menu **************/
 void edit_cap_cut (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
-    gnome_cmd_file_list_cap_cut (get_fl (ACTIVE));
+    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
+
+    gnome_cmd_file_list_cap_cut (get_fl (main_win, ACTIVE));
 }
 
 
 void edit_cap_copy (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
-    gnome_cmd_file_list_cap_copy (get_fl (ACTIVE));
+    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
+
+    gnome_cmd_file_list_cap_copy (get_fl (main_win, ACTIVE));
 }
 
 
 void edit_cap_paste (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
-    gnome_cmd_file_selector_cap_paste (get_fs (ACTIVE));
+    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
+
+    gnome_cmd_file_selector_cap_paste (main_win->fs (ACTIVE));
 }
 
 
 void edit_filter (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
-    get_fs (ACTIVE)->show_filter();
+    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
+
+    main_win->fs (ACTIVE)->show_filter();
 }
 
 
 void edit_copy_fnames (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
-    // auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
+    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
 
     GdkModifierType mask = get_modifiers_state(); // TODO: get this via parameter
 
-    GnomeCmdFileList *fl = get_fl (ACTIVE);
+    GnomeCmdFileList *fl = get_fl (main_win, ACTIVE);
     GList *sfl = fl->get_selected_files();
 
     string fnames;
@@ -1242,6 +1294,8 @@ void edit_copy_fnames (GSimpleAction *action, GVariant *parameter, gpointer user
 /************** Command Menu **************/
 void command_execute (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
+    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
+
     const gchar *command = g_variant_get_string (parameter, nullptr);
 
     g_return_if_fail (command != nullptr);
@@ -1254,7 +1308,7 @@ void command_execute (GSimpleAction *action, GVariant *parameter, gpointer user_
 
     GnomeCmdDir *dir = nullptr;
 
-    GnomeCmdFileList *fl = get_fl (ACTIVE);
+    GnomeCmdFileList *fl = get_fl (main_win, ACTIVE);
     GList *sfl = fl->get_selected_files();
     GList *i = sfl;
 
@@ -1276,7 +1330,7 @@ void command_execute (GSimpleAction *action, GVariant *parameter, gpointer user_
     }
 
     cmd.reserve(2000);
-    if (parse_command(&cmd, (const gchar*) command) == 0)
+    if (parse_command(main_win, &cmd, (const gchar*) command) == 0)
     {
         DEBUG ('g', "Command is not valid.\n");
         gnome_cmd_show_message (*main_win, _("No valid command given."));
@@ -1302,12 +1356,14 @@ void command_execute (GSimpleAction *action, GVariant *parameter, gpointer user_
 
 void command_open_terminal__internal (GSimpleAction *action, GVariant *parameter, gpointer user_data)           // this function is NOT exposed to user as UserAction
 {
+    // auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
+
     GdkModifierType mask = get_modifiers_state();
 
     if (mask & GDK_SHIFT_MASK)
-        command_open_terminal_as_root (nullptr, nullptr, nullptr);
+        command_open_terminal_as_root (nullptr, nullptr, user_data);
     else
-        command_open_terminal (nullptr, nullptr, nullptr);
+        command_open_terminal (nullptr, nullptr, user_data);
 }
 
 /**
@@ -1316,10 +1372,12 @@ void command_open_terminal__internal (GSimpleAction *action, GVariant *parameter
  */
 void command_open_terminal (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
+    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
+
     gint argc;
     gchar **argv;
     gchar *command;
-    gchar *dpath = GNOME_CMD_FILE (get_fs (ACTIVE)->get_directory())->get_real_path();
+    gchar *dpath = GNOME_CMD_FILE (main_win->fs (ACTIVE)->get_directory())->get_real_path();
     GError *error = nullptr;
 
     command = g_strdup (gnome_cmd_data.options.termopen);
@@ -1343,6 +1401,8 @@ void command_open_terminal (GSimpleAction *action, GVariant *parameter, gpointer
  */
 void command_open_terminal_as_root (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
+    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
+
     int argc = 1;
     char **argv = g_new0 (char *, argc+1);  //initialize argv
     gchar *command;
@@ -1357,7 +1417,7 @@ void command_open_terminal_as_root (GSimpleAction *action, GVariant *parameter, 
 
     if (gnome_cmd_prepend_su_to_vector (argc, argv))
     {
-        gchar *dpath = GNOME_CMD_FILE (get_fs (ACTIVE)->get_directory())->get_real_path();
+        gchar *dpath = GNOME_CMD_FILE (main_win->fs (ACTIVE)->get_directory())->get_real_path();
         GError *error = nullptr;
 
         if (!g_spawn_async (dpath, argv, nullptr, G_SPAWN_STDOUT_TO_DEV_NULL, nullptr, nullptr, nullptr, &error))
@@ -1375,6 +1435,8 @@ void command_open_terminal_as_root (GSimpleAction *action, GVariant *parameter, 
 
 void command_root_mode (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
+    // auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
+
     int argc = 1;
     char **argv = g_new0 (char *, argc+1);
 
@@ -1397,73 +1459,97 @@ void command_root_mode (GSimpleAction *action, GVariant *parameter, gpointer use
 /************** Mark Menu **************/
 void mark_toggle (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
-    get_fl (ACTIVE)->toggle();
+    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
+
+    get_fl (main_win, ACTIVE)->toggle();
 }
 
 
 void mark_toggle_and_step (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
-    get_fl (ACTIVE)->toggle_and_step();
+    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
+
+    get_fl (main_win, ACTIVE)->toggle_and_step();
 }
 
 
 void mark_select_all (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
-    get_fl (ACTIVE)->select_all();
+    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
+
+    get_fl (main_win, ACTIVE)->select_all();
 }
 
 
 void mark_select_all_files (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
-    get_fl (ACTIVE)->select_all_files();
+    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
+
+    get_fl (main_win, ACTIVE)->select_all_files();
 }
 
 
 void mark_unselect_all_files (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
-    get_fl (ACTIVE)->unselect_all_files();
+    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
+
+    get_fl (main_win, ACTIVE)->unselect_all_files();
 }
 
 
 void mark_unselect_all (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
-    get_fl (ACTIVE)->unselect_all();
+    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
+
+    get_fl (main_win, ACTIVE)->unselect_all();
 }
 
 
 void mark_select_with_pattern (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
-    gnome_cmd_file_list_show_selpat_dialog (get_fl (ACTIVE), TRUE);
+    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
+
+    gnome_cmd_file_list_show_selpat_dialog (get_fl (main_win, ACTIVE), TRUE);
 }
 
 
 void mark_unselect_with_pattern (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
-    gnome_cmd_file_list_show_selpat_dialog (get_fl (ACTIVE), FALSE);
+    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
+
+    gnome_cmd_file_list_show_selpat_dialog (get_fl (main_win, ACTIVE), FALSE);
 }
 
 
 void mark_invert_selection (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
-    get_fl (ACTIVE)->invert_selection();
+    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
+
+    get_fl (main_win, ACTIVE)->invert_selection();
 }
 
 
 void mark_select_all_with_same_extension (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
-    get_fl (ACTIVE)->select_all_with_same_extension();
+    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
+
+    get_fl (main_win, ACTIVE)->select_all_with_same_extension();
 }
 
 
 void mark_unselect_all_with_same_extension (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
-    get_fl (ACTIVE)->unselect_all_with_same_extension();
+    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
+
+    get_fl (main_win, ACTIVE)->unselect_all_with_same_extension();
 }
 
 
 void mark_restore_selection (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
-    get_fl (ACTIVE)->restore_selection();
+    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
+
+    get_fl (main_win, ACTIVE)->restore_selection();
 }
 
 
@@ -1513,8 +1599,10 @@ inline void selection_delta(GnomeCmdFileList &fl, set<GnomeCmdFile *> &prev_sele
 
 void mark_compare_directories (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
-    GnomeCmdFileList *fl1 = get_fl (ACTIVE);
-    GnomeCmdFileList *fl2 = get_fl (INACTIVE);
+    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
+
+    GnomeCmdFileList *fl1 = get_fl (main_win, ACTIVE);
+    GnomeCmdFileList *fl2 = get_fl (main_win, INACTIVE);
 
     map<const char *,GnomeCmdFile *,ltstr> files2;          //  map (fname -> GnomeCmdFile *) of visible files (non dirs!) in fl2
 
@@ -1641,7 +1729,9 @@ void view_cmdline (GSimpleAction *action, GVariant *state, gpointer user_data)
 
 void view_dir_history (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
-    gnome_cmd_dir_indicator_show_history (GNOME_CMD_DIR_INDICATOR (get_fs (ACTIVE)->dir_indicator));
+    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
+
+    gnome_cmd_dir_indicator_show_history (GNOME_CMD_DIR_INDICATOR (main_win->fs (ACTIVE)->dir_indicator));
 }
 
 
@@ -1682,7 +1772,9 @@ void view_horizontal_orientation (GSimpleAction *action, GVariant *state, gpoint
 
 void view_step_up (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
-    GnomeCmdFileSelector *fs = get_fs (ACTIVE);
+    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
+
+    GnomeCmdFileSelector *fs = main_win->fs (ACTIVE);
     GnomeCmdFileList *fl = fs->file_list();
 
     fl->focus_prev();
@@ -1690,7 +1782,9 @@ void view_step_up (GSimpleAction *action, GVariant *parameter, gpointer user_dat
 
 void view_step_down (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
-    GnomeCmdFileSelector *fs = get_fs (ACTIVE);
+    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
+
+    GnomeCmdFileSelector *fs = main_win->fs (ACTIVE);
     GnomeCmdFileList *fl = fs->file_list();
 
     fl->focus_next();
@@ -1698,7 +1792,9 @@ void view_step_down (GSimpleAction *action, GVariant *parameter, gpointer user_d
 
 void view_up (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
-    GnomeCmdFileSelector *fs = get_fs (ACTIVE);
+    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
+
+    GnomeCmdFileSelector *fs = main_win->fs (ACTIVE);
     GnomeCmdFileList *fl = fs->file_list();
 
     if (fl->locked)
@@ -1709,6 +1805,8 @@ void view_up (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 
 void view_main_menu (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
+    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
+
     if (!gtk_widget_get_realized ( GTK_WIDGET (main_win))) return;
 
     gboolean mainmenu_visibility;
@@ -1718,31 +1816,41 @@ void view_main_menu (GSimpleAction *action, GVariant *parameter, gpointer user_d
 
 void view_first (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
-    get_fs (ACTIVE)->first();
+    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
+
+    main_win->fs (ACTIVE)->first();
 }
 
 
 void view_back (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
-    get_fs (ACTIVE)->back();
+    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
+
+    main_win->fs (ACTIVE)->back();
 }
 
 
 void view_forward (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
-    get_fs (ACTIVE)->forward();
+    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
+
+    main_win->fs (ACTIVE)->forward();
 }
 
 
 void view_last (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
-    get_fs (ACTIVE)->last();
+    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
+
+    main_win->fs (ACTIVE)->last();
 }
 
 
 void view_refresh (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
-    GnomeCmdFileList *fl = get_fl (ACTIVE);
+    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
+
+    GnomeCmdFileList *fl = get_fl (main_win, ACTIVE);
     fl->reload();
 }
 
@@ -1752,7 +1860,7 @@ void view_refresh_tab (GSimpleAction *action, GVariant *parameter, gpointer user
     gint fs_id, tab;
     g_variant_get (parameter, "(ii)", &fs_id, &tab);
 
-    GnomeCmdFileSelector *fs = get_fs ((FileSelectorID) fs_id);
+    GnomeCmdFileSelector *fs = main_win->fs ((FileSelectorID) fs_id);
     GnomeCmdFileList *fl = fs->file_list(tab);
     fl->reload();
 }
@@ -1760,49 +1868,63 @@ void view_refresh_tab (GSimpleAction *action, GVariant *parameter, gpointer user
 
 static void view_refresh_0 ()
 {
-    view_refresh (nullptr, nullptr, nullptr);
+    view_refresh (nullptr, nullptr, main_win);
 }
 
 
 void view_equal_panes (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
+    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
+
     main_win->set_equal_panes();
 }
 
 
 void view_maximize_pane (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
+    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
+
     main_win->maximize_pane();
 }
 
 
 void view_in_left_pane (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
+    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
+
     main_win->set_fs_directory_to_opposite(LEFT);
 }
 
 
 void view_in_right_pane (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
+    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
+
     main_win->set_fs_directory_to_opposite(RIGHT);
 }
 
 
 void view_in_active_pane (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
+    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
+
     main_win->set_fs_directory_to_opposite(ACTIVE);
 }
 
 
 void view_in_inactive_pane (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
+    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
+
     main_win->set_fs_directory_to_opposite(INACTIVE);
 }
 
 
 void view_directory (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
-    GnomeCmdFileSelector *fs = get_fs (ACTIVE);
+    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
+
+    GnomeCmdFileSelector *fs = main_win->fs (ACTIVE);
     GnomeCmdFileList *fl = fs->file_list();
 
     GnomeCmdFile *f = fl->get_selected_file();
@@ -1813,7 +1935,9 @@ void view_directory (GSimpleAction *action, GVariant *parameter, gpointer user_d
 
 void view_home (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
-    GnomeCmdFileSelector *fs = get_fs (ACTIVE);
+    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
+
+    GnomeCmdFileSelector *fs = main_win->fs (ACTIVE);
     GnomeCmdFileList *fl = fs->file_list();
 
     if (!fl->locked)
@@ -1828,7 +1952,9 @@ void view_home (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 
 void view_root (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
-    GnomeCmdFileSelector *fs = get_fs (ACTIVE);
+    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
+
+    GnomeCmdFileSelector *fs = main_win->fs (ACTIVE);
     GnomeCmdFileList *fl = fs->file_list();
 
     if (fl->locked)
@@ -1840,7 +1966,9 @@ void view_root (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 
 void view_new_tab (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
-    GnomeCmdFileList *fl = get_fl (ACTIVE);
+    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
+
+    GnomeCmdFileList *fl = get_fl (main_win, ACTIVE);
     GnomeCmdFileSelector *fs = GNOME_CMD_FILE_SELECTOR (gtk_widget_get_ancestor (*fl, GNOME_CMD_TYPE_FILE_SELECTOR));
     fs->new_tab(fl->cwd);
 }
@@ -1848,7 +1976,9 @@ void view_new_tab (GSimpleAction *action, GVariant *parameter, gpointer user_dat
 
 void view_close_tab (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
-    GnomeCmdFileSelector *fs = get_fs (ACTIVE);
+    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
+
+    GnomeCmdFileSelector *fs = main_win->fs (ACTIVE);
 
     if (gtk_notebook_get_n_pages (GTK_NOTEBOOK (fs->notebook)) > 1)
         if (!fs->file_list()->locked || gnome_cmd_prompt_message (*main_win, GTK_MESSAGE_QUESTION, GTK_BUTTONS_OK_CANCEL, _("The tab is locked, close anyway?"))==GTK_RESPONSE_OK)
@@ -1858,7 +1988,8 @@ void view_close_tab (GSimpleAction *action, GVariant *parameter, gpointer user_d
 
 void view_close_all_tabs (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
-    GnomeCmdFileSelector *fs = get_fs (ACTIVE);
+    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
+    GnomeCmdFileSelector *fs = main_win->fs (ACTIVE);
     GtkNotebook *notebook = GTK_NOTEBOOK (fs->notebook);
 
     gint n = gtk_notebook_get_current_page (notebook);
@@ -1873,7 +2004,8 @@ void view_close_all_tabs (GSimpleAction *action, GVariant *parameter, gpointer u
 
 void view_close_duplicate_tabs (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
-    GnomeCmdFileSelector *fs = get_fs (ACTIVE);
+    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
+    GnomeCmdFileSelector *fs = main_win->fs (ACTIVE);
     GtkNotebook *notebook = GTK_NOTEBOOK (fs->notebook);
 
     typedef set<gint> TABS_COLL;
@@ -1915,19 +2047,25 @@ void view_close_duplicate_tabs (GSimpleAction *action, GVariant *parameter, gpoi
 
 void view_prev_tab (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
-    get_fs (ACTIVE)->prev_tab();
+    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
+
+    main_win->fs (ACTIVE)->prev_tab();
 }
 
 
 void view_next_tab (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
-    get_fs (ACTIVE)->next_tab();
+    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
+
+    main_win->fs (ACTIVE)->next_tab();
 }
 
 
 void view_in_new_tab (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
-    GnomeCmdFileSelector *fs = get_fs (ACTIVE);
+    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
+
+    GnomeCmdFileSelector *fs = main_win->fs (ACTIVE);
     GnomeCmdFile *file = fs->file_list()->get_selected_file();
 
     if (file && file->GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE) == G_FILE_TYPE_DIRECTORY)
@@ -1939,23 +2077,27 @@ void view_in_new_tab (GSimpleAction *action, GVariant *parameter, gpointer user_
 
 void view_in_inactive_tab (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
-    GnomeCmdFileList *fl = get_fl (ACTIVE);
+    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
+
+    GnomeCmdFileList *fl = get_fl (main_win, ACTIVE);
     GnomeCmdFile *file = fl->get_selected_file();
 
     if (file && file->GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE) == G_FILE_TYPE_DIRECTORY)
-        get_fs (INACTIVE)->new_tab(GNOME_CMD_DIR (file), FALSE);
+        main_win->fs (INACTIVE)->new_tab(GNOME_CMD_DIR (file), FALSE);
     else
-        get_fs (INACTIVE)->new_tab(fl->cwd, FALSE);
+        main_win->fs (INACTIVE)->new_tab(fl->cwd, FALSE);
 }
 
 
 void view_toggle_tab_lock (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
+    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
+
     gboolean is_active;
     gint tab_index;
     g_variant_get (parameter, "(bi)", &is_active, &tab_index);
 
-    GnomeCmdFileSelector *fs = get_fs (is_active ? ACTIVE : INACTIVE);
+    GnomeCmdFileSelector *fs = main_win->fs (is_active ? ACTIVE : INACTIVE);
     GnomeCmdFileList *fl = fs->file_list(tab_index);
 
     if (fl)
@@ -1969,6 +2111,8 @@ void view_toggle_tab_lock (GSimpleAction *action, GVariant *parameter, gpointer 
 /************** Options Menu **************/
 void options_edit (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
+    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
+
     if (gnome_cmd_options_dialog (*main_win, gnome_cmd_data.options))
     {
         main_win->update_view();
@@ -1980,12 +2124,16 @@ void options_edit (GSimpleAction *action, GVariant *parameter, gpointer user_dat
 
 void options_edit_shortcuts (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
+    // auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
+
     gnome_cmd_key_shortcuts_dialog_new (gcmd_user_actions);
 }
 
 /************** Connections Menu **************/
 void connections_open (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
+    // auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
+
     GtkWidget *dialog = gnome_cmd_remote_dialog_new ();
     g_object_ref (dialog);
     gtk_widget_show (dialog);
@@ -1994,37 +2142,45 @@ void connections_open (GSimpleAction *action, GVariant *parameter, gpointer user
 
 void connections_new (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
+    // auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
+
     show_quick_connect_dialog ();
 }
 
 
 void connections_change_left (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
+    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
+
     main_win->change_connection(LEFT);
 }
 
 
 void connections_change_right (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
+    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
+
     main_win->change_connection(RIGHT);
 }
 
 
 void connections_set_current (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
+    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
+
     const gchar *uuid = g_variant_get_string (parameter, nullptr);
 
     GnomeCmdConList *con_list = gnome_cmd_con_list_get ();
     GnomeCmdCon *con = gnome_cmd_con_list_find_by_uuid (con_list, uuid);
 
-    get_fl (ACTIVE)->set_connection(con);
+    get_fl (main_win, ACTIVE)->set_connection(con);
 }
 
 
-static void close_connection (GnomeCmdCon *con)
+static void close_connection (GnomeCmdMainWin *main_win, GnomeCmdCon *con)
 {
-    GnomeCmdFileSelector *active = get_fs (ACTIVE);
-    GnomeCmdFileSelector *inactive = get_fs (INACTIVE);
+    GnomeCmdFileSelector *active = main_win->fs (ACTIVE);
+    GnomeCmdFileSelector *inactive = main_win->fs (INACTIVE);
 
     GnomeCmdCon *home = get_home_con ();
 
@@ -2039,21 +2195,25 @@ static void close_connection (GnomeCmdCon *con)
 
 void connections_close (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
+    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
+
     const gchar *uuid = g_variant_get_string (parameter, nullptr);
 
     GnomeCmdConList *con_list = gnome_cmd_con_list_get ();
     GnomeCmdCon *con = gnome_cmd_con_list_find_by_uuid (con_list, uuid);
 
-    close_connection (con);
+    close_connection (main_win, con);
 }
 
 
 void connections_close_current (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
-    GnomeCmdCon *con = get_fs (ACTIVE)->get_connection();
+    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
+
+    GnomeCmdCon *con = main_win->fs (ACTIVE)->get_connection();
 
     if (!GNOME_CMD_IS_CON_HOME (con))
-        close_connection (con);
+        close_connection (main_win, con);
 }
 
 
@@ -2061,18 +2221,24 @@ void connections_close_current (GSimpleAction *action, GVariant *parameter, gpoi
 
 void bookmarks_add_current (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
-    gnome_cmd_bookmark_add_current (get_fs (ACTIVE)->get_directory());
+    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
+
+    gnome_cmd_bookmark_add_current (main_win->fs (ACTIVE)->get_directory());
 }
 
 
 void bookmarks_edit (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
+    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
+
     gnome_cmd_bookmark_dialog_new (_("Bookmarks"), *main_win);
 }
 
 
 void bookmarks_goto (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
+    // auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
+
     const gchar *con_uuid;
     const gchar *bookmark_name;
     g_variant_get (parameter, "(ss)", &con_uuid, &bookmark_name);
@@ -2103,7 +2269,9 @@ void bookmarks_goto (GSimpleAction *action, GVariant *parameter, gpointer user_d
 
 void bookmarks_view (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
-    gnome_cmd_dir_indicator_show_bookmarks (GNOME_CMD_DIR_INDICATOR (get_fs (ACTIVE)->dir_indicator));
+    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
+
+    gnome_cmd_dir_indicator_show_bookmarks (GNOME_CMD_DIR_INDICATOR (main_win->fs (ACTIVE)->dir_indicator));
 }
 
 
@@ -2111,7 +2279,9 @@ void bookmarks_view (GSimpleAction *action, GVariant *parameter, gpointer user_d
 
 void plugins_configure (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
-    plugin_manager_show ();
+    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
+
+    plugin_manager_show (GTK_WINDOW (main_win));
 }
 
 
@@ -2149,6 +2319,8 @@ void help_problem (GSimpleAction *action, GVariant *parameter, gpointer user_dat
 
 void help_about (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
+    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
+
     static const gchar *authors[] = {
         "Marcus Bjurman <marbj499@student.liu.se>",
         "Piotr Eljasiak <epiotr@use.pl>",
@@ -2225,7 +2397,7 @@ void help_about (GSimpleAction *action, GVariant *parameter, gpointer user_data)
  * \param[out] cmd A string with parsed symbols listed above
  * \returns Length of the cmd string
  */
-int parse_command(string *cmd, const gchar *command)
+int parse_command(GnomeCmdMainWin *main_win, string *cmd, const gchar *command)
 {
     gboolean percent = FALSE;
     gboolean blcheck = FALSE;
@@ -2239,7 +2411,7 @@ int parse_command(string *cmd, const gchar *command)
     unsigned cmdcap;
     unsigned cmdlen;
 
-    GnomeCmdFileList *fl = get_fl (ACTIVE);
+    GnomeCmdFileList *fl = get_fl (main_win, ACTIVE);
     GList *sfl = fl->get_selected_files();
 
     if (sfl)

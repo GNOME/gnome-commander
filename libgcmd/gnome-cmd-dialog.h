@@ -45,7 +45,7 @@ struct _GnomeCmdDialogClass
 };
 
 
-GtkWidget *gnome_cmd_dialog_new (const gchar *title);
+GtkWidget *gnome_cmd_dialog_new (GtkWindow *parent_window, const gchar *title);
 
 GType gnome_cmd_dialog_get_type ();
 

@@ -29,6 +29,7 @@ struct DeleteData
         FORCE_DELETE
     };
 
+    GtkWindow *parent_window;
     GtkWidget *progbar;
     GtkWidget *proglabel;
     GtkWidget *progwin;
@@ -53,4 +54,4 @@ struct DeleteData
 
 void do_delete (DeleteData *deleteData, gboolean showProgress);
 
-void gnome_cmd_delete_dialog_show (GList *files, gboolean forceDelete = false);
+void gnome_cmd_delete_dialog_show (GtkWindow *parent_window, GList *files, gboolean forceDelete = false);
