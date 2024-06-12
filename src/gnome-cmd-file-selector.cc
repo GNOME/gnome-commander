@@ -421,8 +421,6 @@ static void create_con_buttons (GnomeCmdFileSelector *fs)
         g_free (go_text);
 
         GtkWidget *hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 1);
-        g_object_ref (hbox);
-        g_object_set_data_full (*fs, "con-hbox", hbox, g_object_unref);
         gtk_widget_show (hbox);
 
         if (icon)
@@ -430,8 +428,6 @@ static void create_con_buttons (GnomeCmdFileSelector *fs)
             GtkWidget *image = gtk_image_new_from_gicon (icon, GTK_ICON_SIZE_SMALL_TOOLBAR);
             if (image)
             {
-                g_object_ref (image);
-                g_object_set_data_full (*fs, "con-image", image, g_object_unref);
                 gtk_widget_show (image);
                 gtk_box_append (GTK_BOX (hbox), image);
             }
@@ -440,8 +436,6 @@ static void create_con_buttons (GnomeCmdFileSelector *fs)
         if (!gnome_cmd_data.options.device_only_icon || !icon)
         {
             GtkWidget *label = gtk_label_new (gnome_cmd_con_get_alias (con));
-            g_object_ref (label);
-            g_object_set_data_full (*fs, "con-label", label, g_object_unref);
             gtk_widget_show (label);
             gtk_box_append (GTK_BOX (hbox), label);
         }
@@ -808,15 +802,11 @@ static void gnome_cmd_file_selector_init (GnomeCmdFileSelector *fs)
     // create the connection combo
     GtkListStore *store = gtk_list_store_new (3, G_TYPE_ICON, G_TYPE_STRING, G_TYPE_POINTER);
     fs->con_combo = GNOME_CMD_COMBO (gnome_cmd_combo_new_with_store(store, 2, 1, 2));
-    g_object_ref (fs->con_combo);
-    g_object_set_data_full (*fs, "con_combo", fs->con_combo, g_object_unref);
     gtk_widget_set_size_request (*fs->con_combo, max_string_size, -1);
     gtk_editable_set_editable (GTK_EDITABLE (fs->con_combo->get_entry()), FALSE);
 
     // create the free space on volume label
     fs->vol_label = gtk_label_new ("");
-    g_object_ref (fs->vol_label);
-    g_object_set_data_full (*fs, "vol_label", fs->vol_label, g_object_unref);
     gtk_widget_set_halign (fs->vol_label, GTK_ALIGN_END);
     gtk_widget_set_valign (fs->vol_label, GTK_ALIGN_CENTER);
     gtk_widget_set_margin_start (fs->vol_label, 6);
@@ -825,13 +815,9 @@ static void gnome_cmd_file_selector_init (GnomeCmdFileSelector *fs)
 
     // create the directory indicator
     fs->dir_indicator = gnome_cmd_dir_indicator_new (fs);
-    g_object_ref (fs->dir_indicator);
-    g_object_set_data_full (*fs, "dir_indicator", fs->dir_indicator, g_object_unref);
 
     // create the info label
     fs->info_label = gtk_label_new ("not initialized");
-    g_object_ref (fs->info_label);
-    g_object_set_data_full (*fs, "infolabel", fs->info_label, g_object_unref);
     gtk_widget_set_halign (fs->info_label, GTK_ALIGN_START);
     gtk_widget_set_valign (fs->info_label, GTK_ALIGN_CENTER);
     gtk_widget_set_margin_start (GTK_WIDGET (fs->info_label), 6);

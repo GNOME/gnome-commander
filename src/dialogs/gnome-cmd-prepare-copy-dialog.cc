@@ -99,29 +99,21 @@ void gnome_cmd_prepare_copy_dialog_show (GnomeCmdFileSelector *from, GnomeCmdFil
 
     data->query = gtk_radio_button_new_with_label (group, _("Query First"));
     group = gtk_radio_button_get_group (GTK_RADIO_BUTTON (data->query));
-    g_object_ref (data->query);
-    g_object_set_data_full (G_OBJECT (data->dialog), "query", data->query, g_object_unref);
     gtk_widget_show (data->query);
     gtk_box_append (GTK_BOX (data->dialog->left_vbox), data->query);
 
     data->rename = gtk_radio_button_new_with_label (group, _("Rename"));
     group = gtk_radio_button_get_group (GTK_RADIO_BUTTON (data->rename));
-    g_object_ref (data->rename);
-    g_object_set_data_full (G_OBJECT (data->dialog), "rename", data->rename, g_object_unref);
     gtk_widget_show (data->rename);
     gtk_box_append (GTK_BOX (data->dialog->left_vbox), data->rename);
 
     data->skip = gtk_radio_button_new_with_label (group, _("Skip"));
     group = gtk_radio_button_get_group (GTK_RADIO_BUTTON (data->skip));
-    g_object_ref (data->skip);
-    g_object_set_data_full (G_OBJECT (data->dialog), "skip", data->skip, g_object_unref);
     gtk_widget_show (data->skip);
     gtk_box_append (GTK_BOX (data->dialog->left_vbox), data->skip);
 
     data->silent = gtk_radio_button_new_with_label (group, _("Overwrite silently"));
     group = gtk_radio_button_get_group (GTK_RADIO_BUTTON (data->silent));
-    g_object_ref (data->silent);
-    g_object_set_data_full (G_OBJECT (data->dialog), "silent", data->silent, g_object_unref);
     gtk_widget_show (data->silent);
     gtk_box_append (GTK_BOX (data->dialog->left_vbox), data->silent);
 
@@ -129,8 +121,6 @@ void gnome_cmd_prepare_copy_dialog_show (GnomeCmdFileSelector *from, GnomeCmdFil
 
 
     data->follow_links = gtk_check_button_new_with_label (_("Follow Links"));
-    g_object_ref (data->follow_links);
-    g_object_set_data_full (G_OBJECT (data->dialog), "follow_links", data->follow_links, g_object_unref);
     gtk_widget_show (data->follow_links);
     gtk_box_append (GTK_BOX (data->dialog->right_vbox), data->follow_links);
 

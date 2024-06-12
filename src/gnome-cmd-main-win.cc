@@ -219,8 +219,6 @@ void GnomeCmdMainWin::create_buttonbar()
     priv->buttonbar_sep = create_separator (FALSE);
 
     priv->buttonbar = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 0);
-    g_object_ref (priv->buttonbar);
-    g_object_set_data_full (*this, "buttonbar", priv->buttonbar, g_object_unref);
     gtk_widget_show (priv->buttonbar);
 
     priv->view_btn = add_buttonbar_button(_("F3 View"), this, "win.file-view", priv->accel_group, 0);
@@ -461,12 +459,6 @@ inline void restore_size_and_pos (GnomeCmdMainWin *mw)
 }
 
 
-static void on_delete_event (GnomeCmdMainWin *mw, GdkEvent *event, gpointer user_data)
-{
-    g_action_group_activate_action (*mw, "win.file-exit", nullptr);
-}
-
-
 static gboolean on_window_state_event (GtkWidget *mw, GdkEventWindowState *event, gpointer user_data)
 {
     gnome_cmd_data.main_win_state = event->new_window_state;
@@ -577,8 +569,6 @@ static void gnome_cmd_main_win_init (GnomeCmdMainWin *mw)
     gtk_window_set_resizable (*mw, TRUE);
 
     mw->priv->vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 0);
-    g_object_ref (mw->priv->vbox);
-    g_object_set_data_full (*mw, "vbox", mw->priv->vbox, g_object_unref);
     gtk_widget_show (mw->priv->vbox);
 
     auto menu = gnome_cmd_main_menu_new (G_ACTION_GROUP (mw));
@@ -596,9 +586,6 @@ static void gnome_cmd_main_win_init (GnomeCmdMainWin *mw)
     gtk_container_add (GTK_CONTAINER (mw), mw->priv->vbox);
 
     mw->priv->paned = gtk_paned_new (gnome_cmd_data.horizontal_orientation ? GTK_ORIENTATION_VERTICAL : GTK_ORIENTATION_HORIZONTAL);
-
-    g_object_ref (mw->priv->paned);
-    g_object_set_data_full (*mw, "paned", mw->priv->paned, g_object_unref);
     gtk_widget_set_hexpand (mw->priv->paned, TRUE);
     gtk_widget_set_vexpand (mw->priv->paned, TRUE);
     gtk_widget_show (mw->priv->paned);
@@ -606,14 +593,10 @@ static void gnome_cmd_main_win_init (GnomeCmdMainWin *mw)
     mw->create_buttonbar();
 
     mw->priv->file_selector[LEFT] = gnome_cmd_file_selector_new (LEFT);
-    g_object_ref (mw->priv->file_selector[LEFT]);
-    g_object_set_data_full (*mw, "left_file_selector", mw->priv->file_selector[LEFT], g_object_unref);
     gtk_widget_show (mw->priv->file_selector[LEFT]);
     gtk_paned_pack1 (GTK_PANED (mw->priv->paned), mw->priv->file_selector[LEFT], TRUE, TRUE);
 
     mw->priv->file_selector[RIGHT] = gnome_cmd_file_selector_new (RIGHT);
-    g_object_ref (mw->priv->file_selector[RIGHT]);
-    g_object_set_data_full (*mw, "right_file_selector", mw->priv->file_selector[RIGHT], g_object_unref);
     gtk_widget_show (mw->priv->file_selector[RIGHT]);
     gtk_paned_pack2 (GTK_PANED (mw->priv->paned), mw->priv->file_selector[RIGHT], TRUE, TRUE);
 
@@ -634,7 +617,6 @@ static void gnome_cmd_main_win_init (GnomeCmdMainWin *mw)
     gnome_cmd_data.tabs.clear();        //  free unused memory
 
     g_signal_connect (mw, "size-allocate", G_CALLBACK (on_size_allocate), mw);
-    g_signal_connect (mw, "delete-event", G_CALLBACK (on_delete_event), mw);
     g_signal_connect (mw, "window-state-event", G_CALLBACK (on_window_state_event), NULL);
 
     GtkGesture *paned_click_gesture = gtk_gesture_multi_press_new (GTK_WIDGET (mw->priv->paned));
@@ -1115,8 +1097,6 @@ void GnomeCmdMainWin::update_cmdline_visibility()
         priv->cmdline = gnome_cmd_cmdline_new ();
         gtk_widget_set_margin_top (GTK_WIDGET (priv->cmdline), 1);
         gtk_widget_set_margin_bottom (GTK_WIDGET (priv->cmdline), 1);
-        g_object_ref (priv->cmdline);
-        g_object_set_data_full (*this, "cmdline", priv->cmdline, g_object_unref);
         gtk_widget_show (GTK_WIDGET (priv->cmdline));
         if (gnome_cmd_data.show_toolbar)
             pos += 2;

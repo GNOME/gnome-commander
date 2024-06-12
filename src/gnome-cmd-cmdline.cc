@@ -182,22 +182,16 @@ static void gnome_cmd_cmdline_init (GnomeCmdCmdline *cmdline)
     // cmdline->priv->history = nullptr;
 
     cmdline->priv->cwd = gtk_label_new ("cwd");
-    g_object_ref (cmdline->priv->cwd);
-    g_object_set_data_full (G_OBJECT (cmdline), "cwdlabel", cmdline->priv->cwd, g_object_unref);
     gtk_widget_show (cmdline->priv->cwd);
     gtk_box_append (GTK_BOX (cmdline), cmdline->priv->cwd);
     gtk_label_set_selectable (GTK_LABEL (cmdline->priv->cwd), TRUE);
 
     label = gtk_label_new ("#");
-    g_object_ref (label);
-    g_object_set_data_full (G_OBJECT (cmdline), "label", label, g_object_unref);
     gtk_widget_show (label);
     gtk_box_append (GTK_BOX (cmdline), label);
 
     GtkListStore *store = gtk_list_store_new (2, G_TYPE_STRING, G_TYPE_POINTER);
     cmdline->priv->combo = GNOME_CMD_COMBO (gnome_cmd_combo_new_with_store(store, 1, 0, 1));
-    g_object_ref (cmdline->priv->combo);
-    g_object_set_data_full (G_OBJECT (cmdline), "combo", cmdline->priv->combo, g_object_unref);
     gtk_widget_set_hexpand (*cmdline->priv->combo, TRUE);
     gtk_box_append (GTK_BOX (cmdline), *cmdline->priv->combo);
     gtk_widget_show (*cmdline->priv->combo);

@@ -210,8 +210,6 @@ static void gnome_cmd_chmod_dialog_init (GnomeCmdChmodDialog *dialog)
 
 
     dialog->priv->chmod_component = gnome_cmd_chmod_component_new (0);
-    g_object_ref (dialog->priv->chmod_component);
-    g_object_set_data_full (G_OBJECT (chmod_dialog), "chmod_component", dialog->priv->chmod_component, g_object_unref);
     gtk_widget_show (dialog->priv->chmod_component);
     gtk_box_append (GTK_BOX (vbox), dialog->priv->chmod_component);
 
