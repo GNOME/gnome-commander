@@ -1755,15 +1755,12 @@ static gboolean set_home_connection (GnomeCmdFileList *fl)
  * We expect that the error which should be reported is stored in the GnomeCmdDir object.
  * The error location is freed afterwards.
  */
-static void on_dir_list_failed (GnomeCmdDir *dir, gpointer *unused, GnomeCmdFileList *fl)
+static void on_dir_list_failed (GnomeCmdDir *dir, GError *error, GnomeCmdFileList *fl)
 {
     DEBUG('l', "on_dir_list_failed\n");
 
-    if (dir->error)
-    {
-        gnome_cmd_show_message (get_toplevel_window (*fl), _("Directory listing failed."), dir->error->message);
-        g_clear_error(&(dir->error));
-    }
+    if (error)
+        gnome_cmd_show_message (get_toplevel_window (*fl), _("Directory listing failed."), error->message);
 
     g_signal_handlers_disconnect_matched (fl->cwd, G_SIGNAL_MATCH_DATA, 0, 0, nullptr, nullptr, fl);
     fl->connected_dir = nullptr;

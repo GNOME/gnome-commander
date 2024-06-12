@@ -48,9 +48,5 @@ static void gnome_cmd_file_base_finalize (GObject *object)
 
 static void gnome_cmd_file_base_class_init (GnomeCmdFileBaseClass *klass)
 {
-    gnome_cmd_file_base_parent_class = (GObjectClass *) g_type_class_peek_parent (klass);
-
-    GObjectClass *object_class = (GObjectClass *) klass;
-
-    object_class->finalize = gnome_cmd_file_base_finalize;
+    G_OBJECT_CLASS (klass)->finalize = gnome_cmd_file_base_finalize;
 }

@@ -63,6 +63,9 @@ struct GnomeCmdFile::Private
 G_DEFINE_TYPE (GnomeCmdFile, gnome_cmd_file, GNOME_CMD_TYPE_FILE_BASE)
 
 
+static void gnome_cmd_file_setup (GObject *gObject, GFileInfo *gFileInfo, GnomeCmdDir *dir);
+
+
 inline gboolean has_parent_dir (GnomeCmdFile *f)
 {
     g_return_val_if_fail (f != nullptr, false);

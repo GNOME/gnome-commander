@@ -35,8 +35,6 @@ GType gnome_cmd_dir_get_type ();
 struct GnomeCmdDir;
 struct GnomeCmdDirPrivate;
 
-typedef void (* DirListDoneFunc) (GnomeCmdDir *dir, GList *files, GError *error);
-
 #include <string>
 
 #include "gnome-cmd-file.h"
@@ -57,17 +55,7 @@ struct GnomeCmdDir
         STATE_CANCELING
     };
 
-    GList *infolist;
-    GList *gFileInfoList;
-    gint list_counter;
     State state;
-    GError *error;
-
-    DirListDoneFunc done_func;
-
-    GtkWidget *dialog;
-    GtkWidget *label;
-    GtkWidget *pbar;
 };
 
 struct GnomeCmdDirClass
@@ -121,7 +109,6 @@ void gnome_cmd_dir_relist_files (GtkWindow *parent_window, GnomeCmdDir *dir, gbo
 void gnome_cmd_dir_list_files (GtkWindow *parent_window, GnomeCmdDir *dir, gboolean visprog);
 
 GnomeCmdPath *gnome_cmd_dir_get_path (GnomeCmdDir *dir);
-void gnome_cmd_dir_set_path (GnomeCmdDir *dir, GnomeCmdPath *path);
 void gnome_cmd_dir_update_path (GnomeCmdDir *dir);
 gchar *gnome_cmd_dir_get_display_path (GnomeCmdDir *dir);
 
