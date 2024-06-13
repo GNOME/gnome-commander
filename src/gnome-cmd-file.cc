@@ -895,16 +895,6 @@ gboolean GnomeCmdFile::content_type_begins_with(const gchar *contentTypeStart)
 }
 
 
-void gnome_cmd_file_show_properties (GnomeCmdFile *f)
-{
-    GtkWidget *dialog = gnome_cmd_file_props_dialog_create (*main_win, f);
-    if (!dialog) return;
-
-    g_object_ref (dialog);
-    gtk_widget_show (dialog);
-}
-
-
 static void view_file_with_internal_viewer (GFile *gFile)
 {
     auto gnomeCmdFile = gnome_cmd_file_new_from_gfile (gFile);
@@ -919,7 +909,7 @@ static void view_file_with_internal_viewer (GFile *gFile)
 }
 
 
-void gnome_cmd_file_view_internal(GnomeCmdFile *f)
+void gnome_cmd_file_view_internal(GtkWindow *parent_window, GnomeCmdFile *f)
 {
     // If the file is local there is no need to download it
     if (f->is_local())
@@ -941,7 +931,7 @@ void gnome_cmd_file_view_internal(GnomeCmdFile *f)
         g_printerr ("Copying to: %s\n", path_str);
         g_free (path_str);
 
-        gnome_cmd_tmp_download (*main_win,
+        gnome_cmd_tmp_download (parent_window,
                                 g_list_append (nullptr, srcGFile),
                                 g_list_append (nullptr, destGFile),
                                 G_FILE_COPY_OVERWRITE,
@@ -950,13 +940,13 @@ void gnome_cmd_file_view_internal(GnomeCmdFile *f)
     }
 }
 
-void gnome_cmd_file_view_external(GnomeCmdFile *f)
+void gnome_cmd_file_view_external(GtkWindow *parent_window, GnomeCmdFile *f)
 {
     string command;
     if (parse_command(main_win, &command, gnome_cmd_data.options.viewer) == 0)
     {
         DEBUG ('g', "Edit file command is not valid.\n");
-        gnome_cmd_show_message (*main_win, _("No valid command given."));
+        gnome_cmd_show_message (parent_window, _("No valid command given."));
         return;
     }
     else
@@ -972,7 +962,7 @@ void gnome_cmd_file_view_external(GnomeCmdFile *f)
     }
 }
 
-void gnome_cmd_file_view (GnomeCmdFile *f)
+void gnome_cmd_file_view (GtkWindow *parent_window, GnomeCmdFile *f)
 {
     g_return_if_fail (f != nullptr);
     g_return_if_fail (has_parent_dir (f));
@@ -981,12 +971,12 @@ void gnome_cmd_file_view (GnomeCmdFile *f)
     {
         case TRUE:
         {
-            gnome_cmd_file_view_internal(f);
+            gnome_cmd_file_view_internal (parent_window, f);
             break;
         }
         case FALSE:
         {
-            gnome_cmd_file_view_external(f);
+            gnome_cmd_file_view_external (parent_window, f);
             break;
         }
         default:

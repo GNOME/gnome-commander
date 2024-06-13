@@ -108,9 +108,9 @@ struct GnomeCmdConClass
     void (* open_failed) (GnomeCmdCon *con);
 
     /* virtual functions */
-    void (* open) (GnomeCmdCon *con);
+    void (* open) (GnomeCmdCon *con, GtkWindow *parent_window);
     void (* cancel_open) (GnomeCmdCon *con);
-    gboolean (* close) (GnomeCmdCon *con);
+    gboolean (* close) (GnomeCmdCon *con, GtkWindow *parent_window);
     gboolean (* open_is_needed) (GnomeCmdCon *con);
     GFile *(* create_gfile) (GnomeCmdCon *con, GnomeCmdPath *path);
     GnomeCmdPath *(* create_path) (GnomeCmdCon *con, const gchar *path_str);
@@ -135,7 +135,7 @@ void gnome_cmd_con_set_base_path(GnomeCmdCon *con, GnomeCmdPath *path);
 void set_con_base_path_for_gmount(GnomeCmdCon *con, GMount *gMount);
 gboolean set_con_base_gfileinfo(GnomeCmdCon *con);
 
-void gnome_cmd_con_open (GnomeCmdCon *con);
+void gnome_cmd_con_open (GnomeCmdCon *con, GtkWindow *parent_window);
 
 inline gboolean gnome_cmd_con_is_open (GnomeCmdCon *con)
 {

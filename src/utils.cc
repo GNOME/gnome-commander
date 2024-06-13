@@ -40,7 +40,6 @@ using namespace std;
 #define FIX_PW_HACK
 #define STRINGS_TO_URIS_CHUNK 1024
 
-static GdkCursor *cursor_busy = NULL;
 static gchar *tmp_file_dir = NULL;
 
 
@@ -531,25 +530,12 @@ GtkWidget *create_styled_button (const gchar *text)
 
 void set_cursor_busy_for_widget (GtkWidget *widget)
 {
+    static GdkCursor *cursor_busy = NULL;
+
     if (!cursor_busy)
         cursor_busy = gdk_cursor_new (GDK_WATCH);
 
     gdk_window_set_cursor (gtk_widget_get_window (widget), cursor_busy);
-
-    while (gtk_events_pending ())
-        gtk_main_iteration();
-}
-
-
-void set_cursor_busy ()
-{
-    set_cursor_busy_for_widget (*main_win);
-}
-
-
-void set_cursor_default ()
-{
-    set_cursor_default_for_widget (*main_win);
 }
 
 

@@ -31,7 +31,6 @@
 
 using namespace std;
 
-
 G_DEFINE_TYPE (GnomeCmdConRemote, gnome_cmd_con_remote, GNOME_CMD_TYPE_CON)
 
 
@@ -71,34 +70,7 @@ static void mount_remote_finish_callback(GObject *gobj, GAsyncResult *result, gp
 }
 
 
-static void mount_func (GnomeCmdCon *con)
-{
-    g_return_if_fail(GNOME_CMD_IS_CON(con));
-
-    auto gFile = gnome_cmd_con_create_gfile(con);
-
-    auto uri = g_file_get_uri(gFile);
-    DEBUG('m', "Connecting to %s\n", uri);
-
-    auto gMountOperation = gtk_mount_operation_new ((GtkWindow*) main_win);
-
-    g_file_mount_enclosing_volume (gFile,
-                                   G_MOUNT_MOUNT_NONE,
-                                   gMountOperation,
-                                   nullptr,
-                                   mount_remote_finish_callback,
-                                   con);
-}
-
-static gboolean start_mount_func (GnomeCmdCon *con)
-{
-    g_thread_new (nullptr, (GThreadFunc) mount_func, con);
-
-    return FALSE;
-}
-
-
-static void remote_open (GnomeCmdCon *con)
+static void remote_open (GnomeCmdCon *con, GtkWindow *parent_window)
 {
     DEBUG('m', "Opening remote connection\n");
 
@@ -110,7 +82,19 @@ static void remote_open (GnomeCmdCon *con)
     if (!con->base_path)
         con->base_path = new GnomeCmdPlainPath(G_DIR_SEPARATOR_S);
 
-    g_timeout_add (1, (GSourceFunc) start_mount_func, con);
+    auto gFile = gnome_cmd_con_create_gfile(con);
+
+    auto uri = g_file_get_uri(gFile);
+    DEBUG('m', "Connecting to %s\n", uri);
+
+    auto gMountOperation = gtk_mount_operation_new (parent_window);
+
+    g_file_mount_enclosing_volume (gFile,
+                                   G_MOUNT_MOUNT_NONE,
+                                   gMountOperation,
+                                   nullptr,
+                                   mount_remote_finish_callback,
+                                   con);
 }
 
 
@@ -134,7 +118,7 @@ static void remote_close_callback(GObject *gobj, GAsyncResult *result, gpointer 
     con->open_result = GnomeCmdCon::OPEN_NOT_STARTED;
 }
 
-static gboolean remote_close (GnomeCmdCon *con)
+static gboolean remote_close (GnomeCmdCon *con, GtkWindow *parent_window)
 {
     GError *error = nullptr;
 

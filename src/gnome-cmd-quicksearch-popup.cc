@@ -145,7 +145,6 @@ static gboolean on_key_pressed (GtkEventControllerKey *controller, guint keyval,
     switch (event.keyval)
     {
         case GDK_KEY_Escape:
-            // popup->priv->fl->select_row(GNOME_CMD_FILE_LIST (popup->priv->fl)->drag_motion_row);
             hide_popup (popup);
             return TRUE;
 
@@ -183,10 +182,9 @@ static gboolean on_key_pressed (GtkEventControllerKey *controller, guint keyval,
         case GDK_KEY_F5:
         case GDK_KEY_F6:
         case GDK_KEY_F8:
-            // popup->priv->fl->select_row(GNOME_CMD_FILE_LIST (popup->priv->fl)->drag_motion_row);
+            // hide popup and let an event to bubble up and be processed by a parent widget
             hide_popup (popup);
-            main_win->key_pressed(&event);
-            return TRUE;
+            return FALSE;
 
         default:
             break;

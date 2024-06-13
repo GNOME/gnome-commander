@@ -728,7 +728,7 @@ gboolean GnomeCmdMainWin::key_pressed(GnomeCmdKeyPress *event)
             case GDK_KEY_c:
             case GDK_KEY_C:
                 if (gnome_cmd_data.cmdline_visibility && (gnome_cmd_data.options.quick_search == GNOME_CMD_QUICK_SEARCH_JUST_A_CHARACTER))
-                    gnome_cmd_cmdline_focus(main_win->get_cmdline());
+                    gnome_cmd_cmdline_focus(get_cmdline());
                 return TRUE;
                 break;
         }
@@ -753,7 +753,7 @@ gboolean GnomeCmdMainWin::key_pressed(GnomeCmdKeyPress *event)
             case GDK_KEY_h:
                 gnome_cmd_data.options.filter.file_types[GnomeCmdData::G_FILE_IS_HIDDEN] =
                     !gnome_cmd_data.options.filter.file_types[GnomeCmdData::G_FILE_IS_HIDDEN];
-                gnome_cmd_data.save();
+                gnome_cmd_data.save(this);
                 return TRUE;
             default:
                 break;
@@ -1228,7 +1228,7 @@ GnomeCmdAdvrenameDialog *GnomeCmdMainWin::get_or_create_advrename_dialog ()
     auto dlg = static_cast<GnomeCmdAdvrenameDialog*>(g_weak_ref_get (&priv->advrename_dlg));
     if (!dlg)
     {
-        dlg = new GnomeCmdAdvrenameDialog(gnome_cmd_data.advrename_defaults);
+        dlg = new GnomeCmdAdvrenameDialog(gnome_cmd_data.advrename_defaults, *this);
         g_weak_ref_set (&priv->advrename_dlg, dlg);
     }
     return dlg;

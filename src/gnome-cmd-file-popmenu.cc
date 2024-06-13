@@ -303,7 +303,7 @@ static MenuBuilder add_open_with_entries(MenuBuilder menubuilder, GnomeCmdFileLi
  * Public functions
  ***********************************/
 
-GMenu *gnome_cmd_file_popmenu_new (GnomeCmdFileList *gnomeCmdFileList)
+GMenu *gnome_cmd_file_popmenu_new (GnomeCmdMainWin *main_win, GnomeCmdFileList *gnomeCmdFileList)
 {
     g_return_val_if_fail (GNOME_CMD_IS_FILE_LIST (gnomeCmdFileList), nullptr);
 

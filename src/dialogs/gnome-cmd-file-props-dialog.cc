@@ -684,3 +684,13 @@ GtkWidget *gnome_cmd_file_props_dialog_create (GtkWindow *parent_window, GnomeCm
 
     return dialog;
 }
+
+
+void gnome_cmd_file_props_dialog_show (GtkWindow *parent_window, GnomeCmdFile *f)
+{
+    GtkWidget *dialog = gnome_cmd_file_props_dialog_create (parent_window, f);
+    if (!dialog) return;
+
+    g_object_ref (dialog);
+    gtk_widget_show (dialog);
+}

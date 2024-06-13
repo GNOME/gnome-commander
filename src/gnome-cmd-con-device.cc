@@ -242,7 +242,7 @@ static void do_legacy_mount_thread_func(GnomeCmdCon *con)
 }
 
 
-static void do_mount (GnomeCmdCon *con)
+static void do_mount (GnomeCmdCon *con, GtkWindow *parent_window)
 {
     g_return_if_fail (GNOME_CMD_IS_CON_DEVICE (con));
 
@@ -269,7 +269,7 @@ static void do_mount (GnomeCmdCon *con)
             return;
         }
 
-        auto gMountOperation = gtk_mount_operation_new ((GtkWindow*) main_win);
+        auto gMountOperation = gtk_mount_operation_new (parent_window);
 
         g_volume_mount (priv->gVolume,
             G_MOUNT_MOUNT_NONE,
@@ -281,7 +281,7 @@ static void do_mount (GnomeCmdCon *con)
 }
 
 
-static void dev_open (GnomeCmdCon *con)
+static void dev_open (GnomeCmdCon *con, GtkWindow *parent_window)
 {
     g_return_if_fail (GNOME_CMD_IS_CON_DEVICE (con));
 
@@ -290,15 +290,15 @@ static void dev_open (GnomeCmdCon *con)
     con->state = GnomeCmdCon::STATE_OPENING;
     con->open_result = GnomeCmdCon::OPEN_IN_PROGRESS;
 
-    do_mount(con);
+    do_mount(con, parent_window);
 }
 
 
-static void show_message_dialog_volume_unmounted()
+static void show_message_dialog_volume_unmounted (GtkWindow *parent_window)
 {
     DEBUG('m', "unmount_callback: succeeded\n");
     GtkWidget *msgbox;
-    msgbox = gtk_message_dialog_new (*main_win,
+    msgbox = gtk_message_dialog_new (parent_window,
                                      GTK_DIALOG_MODAL,
                                      GTK_MESSAGE_INFO,
                                      GTK_BUTTONS_OK,
@@ -308,9 +308,20 @@ static void show_message_dialog_volume_unmounted()
 }
 
 
+struct UnmountClosure
+{
+    GnomeCmdCon *con;
+    GtkWindow *parent_window;
+};
+
+
 static void unmount_callback(GObject *gMnt, GAsyncResult *result, gpointer user_data)
 {
-    GnomeCmdCon *con = GNOME_CMD_CON (user_data);
+    UnmountClosure *cls = (UnmountClosure *) user_data;
+    GnomeCmdCon *con = GNOME_CMD_CON (cls->con);
+    GtkWindow *parent_window = cls->parent_window;
+    g_free (cls);
+
     auto gMount = G_MOUNT(gMnt);
     GError *error = nullptr;
     GtkWidget *msgbox;
@@ -319,7 +330,7 @@ static void unmount_callback(GObject *gMnt, GAsyncResult *result, gpointer user_
     {
         DEBUG('m', "unmount_callback: failed %s\n", error->message);
 
-        msgbox = gtk_message_dialog_new (*main_win,
+        msgbox = gtk_message_dialog_new (parent_window,
                                          GTK_DIALOG_MODAL,
                                          GTK_MESSAGE_ERROR,
                                          GTK_BUTTONS_OK,
@@ -335,11 +346,11 @@ static void unmount_callback(GObject *gMnt, GAsyncResult *result, gpointer user_
 
     con->state = GnomeCmdCon::STATE_CLOSED;
 
-    show_message_dialog_volume_unmounted();
+    show_message_dialog_volume_unmounted (parent_window);
 }
 
 
-static gboolean dev_close (GnomeCmdCon *con)
+static gboolean dev_close (GnomeCmdCon *con, GtkWindow *parent_window)
 {
     g_return_val_if_fail (GNOME_CMD_IS_CON_DEVICE (con), FALSE);
 
@@ -363,12 +374,17 @@ static gboolean dev_close (GnomeCmdCon *con)
         auto gMountName = g_mount_get_name(priv->gMount);
         DEBUG ('m', "umounting GIO mount \"%s\"\n", gMountName);
         g_free(gMountName);
+
+        UnmountClosure *cls = g_new0 (UnmountClosure, 1);
+        cls->con = con;
+        cls->parent_window = parent_window;
+
         g_mount_unmount_with_operation (priv->gMount,
                             G_MOUNT_UNMOUNT_NONE,
                             nullptr,
                             nullptr,
                             unmount_callback,
-                            con);
+                            cls);
     }
     else
     {
@@ -385,7 +401,7 @@ static gboolean dev_close (GnomeCmdCon *con)
             {
                 con->state = GnomeCmdCon::STATE_CLOSED;
 
-                show_message_dialog_volume_unmounted();
+                show_message_dialog_volume_unmounted (parent_window);
             }
         }
     }

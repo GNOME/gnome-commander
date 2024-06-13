@@ -337,7 +337,7 @@ gboolean set_con_base_gfileinfo(GnomeCmdCon *con)
     return TRUE;
 }
 
-void gnome_cmd_con_open (GnomeCmdCon *con)
+void gnome_cmd_con_open (GnomeCmdCon *con, GtkWindow *parent_window)
 {
     g_return_if_fail (GNOME_CMD_IS_CON (con));
     DEBUG ('m', "Opening connection\n");
@@ -345,7 +345,7 @@ void gnome_cmd_con_open (GnomeCmdCon *con)
     GnomeCmdConClass *klass = GNOME_CMD_CON_GET_CLASS (con);
 
     if (con->state != GnomeCmdCon::STATE_OPEN)
-        klass->open (con);
+        klass->open (con, parent_window);
 
     g_timeout_add (gnome_cmd_data.gui_update_rate, (GSourceFunc) check_con_open_progress, con);
 }
