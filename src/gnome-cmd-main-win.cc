@@ -907,6 +907,8 @@ void GnomeCmdMainWin::open_tabs(FileSelectorID id)
         auto uriString = tab->first;
         auto uriScheme = g_uri_peek_scheme (uriString.c_str());
         auto uriIsRelative = false;
+        gchar *path = nullptr;
+        GnomeCmdCon *con;
 
         if (!uriScheme)
         {
@@ -917,8 +919,7 @@ void GnomeCmdMainWin::open_tabs(FileSelectorID id)
 
         if (strcmp(uriScheme, "file") == 0 || uriIsRelative)
         {
-            GnomeCmdCon *home = get_home_con ();
-            gchar *path = nullptr;
+            con = get_home_con ();
             if (uriIsRelative)
             {
                 path = g_strdup(tab->first.c_str());
@@ -928,16 +929,10 @@ void GnomeCmdMainWin::open_tabs(FileSelectorID id)
                 auto gUri = g_uri_parse(tab->first.c_str(), G_URI_FLAGS_NONE, nullptr);
                 path = g_strdup(g_uri_get_path(gUri));
             }
-            auto *gnomeCmdDir = gnome_cmd_dir_new (home, gnome_cmd_con_create_path (home, path), true);
-            const auto& tabTuple = tab->second;
-
-            fs(id)->new_tab(gnomeCmdDir, std::get<0>(tabTuple), std::get<1>(tabTuple), std::get<2>(tabTuple), TRUE);
-            g_free(path);
         }
         else
         {
             GError *error = nullptr;
-            gchar *path = nullptr;
             auto gUri = g_uri_parse(tab->first.c_str(), G_URI_FLAGS_NONE, &error);
             if (error)
             {
@@ -948,14 +943,21 @@ void GnomeCmdMainWin::open_tabs(FileSelectorID id)
             }
             path = path ? path : g_strdup(g_uri_get_path(gUri));
 
-            GnomeCmdConRemote *con = gnome_cmd_con_remote_new(nullptr, uriString);
-            auto gnomeCmdPath = gnome_cmd_con_create_path((GnomeCmdCon*) con, path);
-            auto gnomeCmdDir = gnome_cmd_dir_new((GnomeCmdCon*) con, gnomeCmdPath, true);
-            const auto& tabTuple = tab->second;
-
-            fs(id)->new_tab(gnomeCmdDir, std::get<0>(tabTuple), std::get<1>(tabTuple), std::get<2>(tabTuple), TRUE);
-            g_free(path);
+            con = (GnomeCmdCon*) gnome_cmd_con_remote_new(nullptr, uriString);
         }
+
+        GnomeCmdDir *gnomeCmdDir = gnome_cmd_dir_new (con, gnome_cmd_con_create_path (con, path), true);
+        if (gnomeCmdDir != nullptr)
+        {
+            const auto& tabTuple = tab->second;
+            fs(id)->new_tab(gnomeCmdDir, std::get<0>(tabTuple), std::get<1>(tabTuple), std::get<2>(tabTuple), TRUE);
+        }
+        else
+        {
+            g_warning("Stored path %s is invalid. Skipping", path);
+        }
+
+        g_free(path);
     }
 }
 
