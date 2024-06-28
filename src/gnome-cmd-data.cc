@@ -1815,6 +1815,8 @@ static void save_tabs(GSettings *gSettings, const char *gSettingsKey)
 
             if (gnome_cmd_data.options.save_tabs_on_exit || (gnome_cmd_data.options.save_dirs_on_exit && fl == gnomeCmdFileSelector.file_list()) || fl->locked)
             {
+                if (!fl->cwd)
+                    continue;
                 gchar* uriString = GNOME_CMD_FILE (fl->cwd)->get_uri_str();
                 if (!uriString)
                     continue;
