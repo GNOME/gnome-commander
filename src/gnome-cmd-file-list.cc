@@ -2313,14 +2313,15 @@ GtkTreeIterPtr GnomeCmdFileList::get_focused_file_iter()
 {
     GtkTreePath *path = nullptr;
     gtk_tree_view_get_cursor (*this, &path, NULL);
-    GtkTreeIterPtr iter(new GtkTreeIter {}, &gtk_tree_iter_free);
+    GtkTreeIter iter;
     bool found = false;
     if (path != nullptr)
-        found = gtk_tree_model_get_iter (GTK_TREE_MODEL (priv->store), iter.get(), path);
+        found = gtk_tree_model_get_iter (GTK_TREE_MODEL (priv->store), &iter, path);
     gtk_tree_path_free (path);
-    if (!found)
-        iter.reset();
-    return iter;
+    if (found)
+        return GtkTreeIterPtr(gtk_tree_iter_copy(&iter), &gtk_tree_iter_free);
+    else
+        return GtkTreeIterPtr(nullptr, &gtk_tree_iter_free);
 }
 
 
@@ -3514,11 +3515,12 @@ GtkTreeIterPtr GnomeCmdFileList::get_dest_row_at_coords (gdouble x, gdouble y)
     if (!gtk_tree_view_get_dest_row_at_pos (*this, x, y, &path, nullptr))
         return GtkTreeIterPtr(nullptr, &gtk_tree_iter_free);
 
-    GtkTreeIterPtr iter(new GtkTreeIter {}, &gtk_tree_iter_free);
-    if (!gtk_tree_model_get_iter (GTK_TREE_MODEL (priv->store), iter.get(), path))
-        iter.reset();
+    GtkTreeIter iter;
+    bool found = gtk_tree_model_get_iter (GTK_TREE_MODEL (priv->store), &iter, path);
     gtk_tree_path_free (path);
-
-    return iter;
+    if (found)
+        return GtkTreeIterPtr(gtk_tree_iter_copy(&iter), &gtk_tree_iter_free);
+    else
+        return GtkTreeIterPtr(nullptr, &gtk_tree_iter_free);
 }
 
