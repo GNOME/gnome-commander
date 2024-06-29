@@ -146,11 +146,8 @@ inline void gnome_cmd_file_unref (GnomeCmdFile *f)
     f->unref();
 }
 
-inline const gchar *gnome_cmd_file_get_name (GnomeCmdFile *f)
-{
-    g_return_val_if_fail (f != NULL, NULL);
-    return f->get_name();
-}
+extern "C" GFile *gnome_cmd_file_get_file (GnomeCmdFile *f);
+extern "C" const gchar *gnome_cmd_file_get_name (GnomeCmdFile *f);
 
 inline gchar *gnome_cmd_file_get_quoted_name (GnomeCmdFile *f)
 {
@@ -158,11 +155,7 @@ inline gchar *gnome_cmd_file_get_quoted_name (GnomeCmdFile *f)
     return f->get_quoted_name();
 }
 
-inline gchar *gnome_cmd_file_get_real_path (GnomeCmdFile *f)
-{
-    g_return_val_if_fail (f != NULL, NULL);
-    return f->get_real_path();
-}
+extern "C" gchar *gnome_cmd_file_get_real_path (GnomeCmdFile *f);
 
 inline gchar *gnome_cmd_file_get_quoted_real_path (GnomeCmdFile *f)
 {
@@ -170,11 +163,8 @@ inline gchar *gnome_cmd_file_get_quoted_real_path (GnomeCmdFile *f)
     return f->get_quoted_real_path();
 }
 
-inline gchar *gnome_cmd_file_get_uri_str (GnomeCmdFile *f)
-{
-    g_return_val_if_fail (f != NULL, NULL);
-    return f->get_uri_str();
-}
+extern "C" gchar *gnome_cmd_file_get_uri_str (GnomeCmdFile *f);
+extern "C" gboolean gnome_cmd_file_is_local (GnomeCmdFile *f);
 
 void gnome_cmd_file_show_chown_dialog (GList *files);
 void gnome_cmd_file_show_chmod_dialog (GList *files);

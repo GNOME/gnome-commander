@@ -1140,3 +1140,32 @@ gboolean GnomeCmdFile::has_tree_size()
 {
     return priv->tree_size != (guint64)-1;
 }
+
+GFile *gnome_cmd_file_get_file (GnomeCmdFile *f)
+{
+    g_return_val_if_fail (f != NULL, NULL);
+    return f->get_file();
+}
+
+const gchar *gnome_cmd_file_get_name (GnomeCmdFile *f)
+{
+    g_return_val_if_fail (f != NULL, NULL);
+    return f->get_name();
+}
+
+gchar *gnome_cmd_file_get_real_path (GnomeCmdFile *f)
+{
+    g_return_val_if_fail (f != NULL, NULL);
+    return f->get_real_path();
+}
+
+gchar *gnome_cmd_file_get_uri_str (GnomeCmdFile *f)
+{
+    g_return_val_if_fail (f != NULL, NULL);
+    return f->get_uri_str();
+}
+
+gboolean gnome_cmd_file_is_local (GnomeCmdFile *f)
+{
+    return f->is_local();
+}

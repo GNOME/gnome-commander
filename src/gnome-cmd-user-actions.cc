@@ -2343,6 +2343,8 @@ void help_about (GSimpleAction *action, GVariant *parameter, gpointer user_data)
     g_free (license_trans);
 }
 
+extern "C" char *parse_command_template_r(GList *files, const char *command_template);
+
 /**
  * Parses a command, stored in a char array, and substitutes a certain
  * symbol with path or URI names. The result is stored in a string
@@ -2364,190 +2366,19 @@ void help_about (GSimpleAction *action, GVariant *parameter, gpointer user_data)
  */
 int parse_command(GnomeCmdMainWin *main_win, string *cmd, const gchar *command)
 {
-    gboolean percent = FALSE;
-    gboolean blcheck = FALSE;
-    string filename;
-    string quoted_filename;
-    string file_path;
-    string quoted_file_path;
-    string dir_path;
-    string quoted_dir_path;
-    string uri;
-    unsigned cmdcap;
-    unsigned cmdlen;
-
     GnomeCmdFileList *fl = get_fl (main_win, ACTIVE);
     GList *sfl = fl->get_selected_files();
 
-    if (sfl)
+    char *c = parse_command_template_r (sfl, command);
+    if (c != nullptr)
     {
-        auto gnomeCmdFile = (GnomeCmdFile*) sfl->data;
-        auto gFileParent = g_file_get_parent(gnomeCmdFile->get_file());
-        if (gnomeCmdFile->is_local())
-        {
-            dir_path = g_file_get_path(gFileParent);
-        }
-        else
-        {
-            dir_path = g_file_get_uri(gFileParent);
-        }
-        g_object_unref(gFileParent);
+        *cmd = c;
+        return cmd->length();
     }
     else
     {
-        // ToDo: Fix this misleading usage of the home directory
-        dir_path = g_get_home_dir();
+        return 0;
     }
-
-
-    cmdcap = cmd->capacity();
-    cmdlen = cmd->length();
-
-    for (auto s = command; *s; ++s) // loop over chars of command-string set by user
-    {
-        if (!percent) // check if % not found
-        {
-            percent = (*s == '%'); // true: if s=%, false: if s!=%
-            if (!percent) // check if % not found
-            {
-                if (cmdcap < cmdlen + 1)
-                {
-                    cmd->reserve(cmdlen +1);
-                    cmdcap = cmd->capacity();
-                }
-                if (blcheck) // copy letter by letter, but remove trailing blanks
-                    *cmd += *s;
-                else
-                {
-                    if (*s == ' ' || *s == '\t')
-                    {
-                    continue;
-                    }
-                    else
-                    {
-                    blcheck = TRUE;
-                    *cmd += *s;
-                    }
-                }
-                cmdlen = cmd->length();
-            }
-
-            continue;
-        }
-
-        switch (*s)
-        {
-            case 'f':           // %f  file name (or list for multiple selections)
-                if (filename.empty())
-                    get_file_list (filename, sfl, gnome_cmd_file_get_name);
-                if (cmdcap < cmdlen + filename.length())
-                {
-                    cmd->reserve(cmdlen + filename.length());
-                    cmdcap = cmd->capacity();
-                }
-                *cmd += filename;
-                cmdlen = cmd->length();
-                break;
-
-            case 'F':           // %F  quoted filename (or list for multiple selections)
-                if (quoted_filename.empty())
-                    get_file_list (quoted_filename, sfl, gnome_cmd_file_get_quoted_name);
-                if (cmdcap < cmdlen + quoted_filename.length())
-                {
-                    cmd->reserve(cmdlen + quoted_filename.length());
-                    cmdcap = cmd->capacity();
-                }
-                *cmd += quoted_filename;
-                cmdlen = cmd->length();
-                break;
-
-            case 'p':           // %p  full file system path (or list for multiple selections)
-                if (file_path.empty())
-                    get_file_list (file_path, sfl, gnome_cmd_file_get_real_path);
-                if (cmdcap < cmdlen + file_path.length())
-                {
-                    cmd->reserve(cmdlen + file_path.length());
-                    cmdcap = cmd->capacity();
-                }
-                *cmd += file_path;
-        cmdlen = cmd->length();
-                break;
-
-            case 'P':           // %P  quoted full file system path (or list for multiple selections)
-            case 's':           // %s  synonym for %P (for compatibility with previous versions of gcmd)
-                if (quoted_file_path.empty())
-                    get_file_list (quoted_file_path, sfl, gnome_cmd_file_get_quoted_real_path);
-                if (cmdcap < cmdlen + quoted_file_path.length())
-                {
-                    cmd->reserve(cmdlen + quoted_file_path.length());
-                    cmdcap = cmd->capacity();
-                }
-                *cmd += quoted_file_path;
-                cmdlen = cmd->length();
-                break;
-
-            case 'u':           // %u  fully qualified URI for the file (or list for multiple selections)
-                if (uri.empty())
-                    get_file_list (uri, sfl, gnome_cmd_file_get_uri_str);
-                if (cmdcap < cmdlen + uri.length())
-                {
-                    cmd->reserve(cmdlen + uri.length());
-                    cmdcap = cmd->capacity();
-                }
-                *cmd += uri;
-                cmdlen = cmd->length();
-                break;
-
-            case 'd':           // %d  full path to the directory containing file
-                if (cmdcap < cmdlen + dir_path.length())
-                {
-                    cmd->reserve(cmdlen + dir_path.length());
-                    cmdcap = cmd->capacity();
-                }
-                *cmd += dir_path;
-                cmdlen = cmd->length();
-                break;
-
-            case 'D':           // %D  quoted full path to the directory containg file
-                if (cmdcap < cmdlen + quoted_dir_path.length())
-                {
-                    cmd->reserve(cmdlen + quoted_dir_path.length());
-                    cmdcap = cmd->capacity();
-                }
-                *cmd += quoted_dir_path;
-        cmdlen = cmd->length();
-                break;
-
-            default:
-                if (cmdcap < cmdlen + 1)
-                {
-                    cmd->reserve(cmdlen +1);
-                    cmdcap = cmd->capacity();
-                }
-                *cmd += '%';
-                 cmdlen = cmd->length();
-#if defined (__GNUC__) && __GNUC__ >= 7
-        __attribute__ ((fallthrough));
-#endif
-
-            case '%':           // %%  percent sign
-                if (cmdcap < cmdlen + 1)
-                {
-                    cmd->reserve(cmdlen +1);
-                    cmdcap = cmd->capacity();
-                }
-                *cmd += *s;
-                cmdlen = cmd->length();
-                break;
-        }
-
-        percent = FALSE;
-    }
-
-    if (percent)
-        *cmd += '%';
-
-    return cmd->length();
 }
 
 const GActionEntry FILE_ACTION_ENTRIES[] = {
