@@ -100,6 +100,9 @@ struct GnomeCmdMainWin::Private
     GtkWidget *buttonbar_sep;
 
     GtkWidget *tb_con_drop_btn;
+
+    GWeakRef advrename_dlg;
+    GWeakRef file_search_dlg;
 };
 
 
@@ -486,17 +489,13 @@ static void toggle_action_change_state (GnomeCmdMainWin *mw, const gchar *action
 
 static void destroy (GtkWidget *object)
 {
-    if (main_win && main_win->priv)
-    {
-        g_clear_pointer (&main_win->priv->state.active_dir_files, g_list_free);
-        g_clear_pointer (&main_win->priv->state.inactive_dir_files, g_list_free);
-    }
+    auto main_win = GNOME_CMD_MAIN_WIN (object);
 
-    if (main_win && main_win->advrename_dlg)
-        gtk_window_destroy (*main_win->advrename_dlg);
+    g_clear_pointer (&main_win->priv->state.active_dir_files, g_list_free);
+    g_clear_pointer (&main_win->priv->state.inactive_dir_files, g_list_free);
 
-    if (main_win && main_win->file_search_dlg)
-        gtk_window_destroy (*main_win->file_search_dlg);
+    g_weak_ref_set (&main_win->priv->advrename_dlg, nullptr);
+    g_weak_ref_set (&main_win->priv->file_search_dlg, nullptr);
 
     auto app = gtk_window_get_application (GTK_WINDOW (object));
     g_application_quit (G_APPLICATION (app));
@@ -544,8 +543,6 @@ static void gnome_cmd_main_win_init (GnomeCmdMainWin *mw)
      */
     main_win = GNOME_CMD_MAIN_WIN (mw);
 
-    mw->advrename_dlg = NULL;
-    mw->file_search_dlg = NULL;
     mw->priv = g_new0 (GnomeCmdMainWin::Private, 1);
     mw->priv->current_fs = LEFT;
     mw->priv->accel_group = gtk_accel_group_new ();
@@ -558,6 +555,8 @@ static void gnome_cmd_main_win_init (GnomeCmdMainWin *mw)
     mw->priv->buttonbar_sep = NULL;
     mw->priv->file_selector[LEFT] = NULL;
     mw->priv->file_selector[RIGHT] = NULL;
+    mw->priv->advrename_dlg = { { nullptr } };
+    mw->priv->file_search_dlg = { { nullptr } };
 
     gtk_window_set_title (GTK_WINDOW (mw),
                           gcmd_owner.is_root()
@@ -696,8 +695,11 @@ void GnomeCmdMainWin::update_style()
     if (gnome_cmd_data.cmdline_visibility)
         gnome_cmd_cmdline_update_style (GNOME_CMD_CMDLINE (priv->cmdline));
 
-    if (file_search_dlg)
+    if (auto file_search_dlg = static_cast<GnomeCmdSearchDialog*>(g_weak_ref_get (&priv->file_search_dlg)))
+    {
         file_search_dlg->update_style();
+        g_object_unref (file_search_dlg);
+    }
 }
 
 
@@ -1206,4 +1208,28 @@ void GnomeCmdMainWin::maximize_pane()
         set_slide(100);
     else
         set_slide(0);
+}
+
+
+GnomeCmdSearchDialog *GnomeCmdMainWin::get_or_create_search_dialog ()
+{
+    auto dlg = static_cast<GnomeCmdSearchDialog*>(g_weak_ref_get (&priv->file_search_dlg));
+    if (!dlg)
+    {
+        dlg = new GnomeCmdSearchDialog(gnome_cmd_data.search_defaults);
+        g_weak_ref_set (&priv->file_search_dlg, dlg);
+    }
+    return dlg;
+}
+
+
+GnomeCmdAdvrenameDialog *GnomeCmdMainWin::get_or_create_advrename_dialog ()
+{
+    auto dlg = static_cast<GnomeCmdAdvrenameDialog*>(g_weak_ref_get (&priv->advrename_dlg));
+    if (!dlg)
+    {
+        dlg = new GnomeCmdAdvrenameDialog(gnome_cmd_data.advrename_defaults);
+        g_weak_ref_set (&priv->advrename_dlg, dlg);
+    }
+    return dlg;
 }
