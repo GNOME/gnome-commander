@@ -92,10 +92,6 @@ GtkWidget *create_treeview (GtkWidget *parent, const gchar *name, GtkTreeModel *
 
 void create_treeview_column (GtkWidget *sw, gint col, gint width, const gchar *label);
 
-GtkWidget *create_vbuttonbox (GtkWidget *parent);
-
-GtkWidget *create_hbuttonbox (GtkWidget *parent);
-
 GtkWidget *create_combo_box_text_with_entry (GtkWidget *parent);
 
 GtkWidget *create_combo_box_text (GtkWidget *parent, const gchar **items);

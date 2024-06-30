@@ -86,12 +86,16 @@ static void gnome_cmd_xfer_progress_win_init (GnomeCmdXferProgressWin *win)
     win->fileprog = create_progress_bar (w);
     gtk_box_append (GTK_BOX (vbox), win->fileprog);
 
-    bbox = create_hbuttonbox (w);
+    bbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 6);
     gtk_box_append (GTK_BOX (vbox), bbox);
 
     button = create_button (w, _("_Cancel"), G_CALLBACK (on_cancel));
+    gtk_widget_set_hexpand (button, TRUE);
+    gtk_widget_set_halign (button, GTK_ALIGN_CENTER);
     gtk_widget_set_can_default (button, TRUE);
     gtk_box_append (GTK_BOX (bbox), button);
+
+    gtk_widget_show_all (bbox);
 }
 
 /***********************************

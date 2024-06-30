@@ -136,12 +136,16 @@ inline void create_delete_progress_win (DeleteData *deleteData)
     deleteData->progbar = create_progress_bar (deleteData->progwin);
     gtk_box_append (GTK_BOX (vbox), deleteData->progbar);
 
-    bbox = create_hbuttonbox (deleteData->progwin);
+    bbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 6);
     gtk_box_append (GTK_BOX (vbox), bbox);
 
     button = create_button_with_data (deleteData->progwin, _("_Cancel"), G_CALLBACK (on_cancel), deleteData);
+    gtk_widget_set_hexpand (button, TRUE);
+    gtk_widget_set_halign (button, GTK_ALIGN_CENTER);
     gtk_widget_set_can_default (button, TRUE);
     gtk_box_append (GTK_BOX (bbox), button);
+
+    gtk_widget_show_all (bbox);
 
     g_object_ref (deleteData->progwin);
     gtk_widget_show (deleteData->progwin);

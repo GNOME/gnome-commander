@@ -496,28 +496,6 @@ void create_treeview_column (GtkWidget *sw, gint col, gint width, const gchar *l
 }
 
 
-GtkWidget *create_vbuttonbox (GtkWidget *parent)
-{
-    GtkWidget *w = gtk_button_box_new (GTK_ORIENTATION_VERTICAL);
-    g_object_ref (w);
-    g_object_set_data_full (G_OBJECT (parent), "vbuttonbox", w, g_object_unref);
-    gtk_widget_show (w);
-    gtk_button_box_set_layout (GTK_BUTTON_BOX (w), GTK_BUTTONBOX_START);
-    gtk_box_set_spacing (GTK_BOX (w), 12);
-    return w;
-}
-
-
-GtkWidget *create_hbuttonbox (GtkWidget *parent)
-{
-    GtkWidget *w = gtk_button_box_new (GTK_ORIENTATION_HORIZONTAL);
-    g_object_ref (w);
-    g_object_set_data_full (G_OBJECT (parent), "hbuttonbox", w, g_object_unref);
-    gtk_widget_show (w);
-    gtk_box_set_spacing (GTK_BOX (w), 12);
-    return w;
-}
-
 GtkWidget *create_combo_box_text_with_entry (GtkWidget *parent)
 {
     GtkWidget *combo = gtk_combo_box_text_new_with_entry ();

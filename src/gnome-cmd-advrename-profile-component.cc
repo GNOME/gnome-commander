@@ -866,16 +866,29 @@ static void gnome_cmd_advrename_profile_component_init (GnomeCmdAdvrenameProfile
             gtk_box_append (GTK_BOX (local_vbox), combo);
             g_object_ref (component->priv->template_entry);
 
-            GtkWidget *local_bbox = gtk_button_box_new (GTK_ORIENTATION_HORIZONTAL);
+            GtkWidget *local_bbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 6);
+            GtkSizeGroup* local_bbox_size_group = gtk_size_group_new (GTK_SIZE_GROUP_HORIZONTAL);
             gtk_box_append (GTK_BOX (local_vbox), local_bbox);
 
-            gtk_button_box_set_layout (GTK_BUTTON_BOX (local_bbox), GTK_BUTTONBOX_START);
-            gtk_box_set_spacing (GTK_BOX (local_bbox), 6);
-            gtk_box_append (GTK_BOX (local_bbox), create_button_with_menu (_("Directory"), create_directory_tag_menu ()));
-            gtk_box_append (GTK_BOX (local_bbox), create_button_with_menu (_("File"), create_file_tag_menu ()));
-            gtk_box_append (GTK_BOX (local_bbox), create_button_with_menu (_("Counter"), create_counter_tag_menu ()));
-            gtk_box_append (GTK_BOX (local_bbox), create_button_with_menu (_("Date"), create_date_tag_menu ()));
-            gtk_box_append (GTK_BOX (local_bbox), create_button_with_menu (_("Metatag"), create_meta_tag_menu ()));
+            button = create_button_with_menu (_("Directory"), create_directory_tag_menu ());
+            gtk_size_group_add_widget (local_bbox_size_group, button);
+            gtk_box_append (GTK_BOX (local_bbox), button);
+
+            button = create_button_with_menu (_("File"), create_file_tag_menu ());
+            gtk_size_group_add_widget (local_bbox_size_group, button);
+            gtk_box_append (GTK_BOX (local_bbox), button);
+
+            button = create_button_with_menu (_("Counter"), create_counter_tag_menu ());
+            gtk_size_group_add_widget (local_bbox_size_group, button);
+            gtk_box_append (GTK_BOX (local_bbox), button);
+
+            button = create_button_with_menu (_("Date"), create_date_tag_menu ());
+            gtk_size_group_add_widget (local_bbox_size_group, button);
+            gtk_box_append (GTK_BOX (local_bbox), button);
+
+            button = create_button_with_menu (_("Metatag"), create_meta_tag_menu ());
+            gtk_size_group_add_widget (local_bbox_size_group, button);
+            gtk_box_append (GTK_BOX (local_bbox), button);
         }
     }
 
@@ -962,10 +975,7 @@ static void gnome_cmd_advrename_profile_component_init (GnomeCmdAdvrenameProfile
         component->priv->regex_view = create_regex_view ();
         gtk_scrolled_window_set_child (GTK_SCROLLED_WINDOW (scrolled_window), component->priv->regex_view);
 
-        bbox = gtk_button_box_new (GTK_ORIENTATION_VERTICAL);
-        gtk_button_box_set_layout (GTK_BUTTON_BOX (bbox), GTK_BUTTONBOX_END);
-        gtk_box_set_spacing (GTK_BOX (bbox), 12);
-        gtk_widget_set_valign (bbox, GTK_ALIGN_START);
+        bbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 12);
         gtk_grid_attach (GTK_GRID (grid), bbox, 1, 0, 1, 1);
 
         component->priv->regex_add_button = button = gtk_button_new_with_mnemonic (_("_Add"));
