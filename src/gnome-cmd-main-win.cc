@@ -103,6 +103,7 @@ struct GnomeCmdMainWin::Private
 
     GWeakRef advrename_dlg;
     GWeakRef file_search_dlg;
+    GWeakRef bookmarks_dlg;
 };
 
 
@@ -557,6 +558,7 @@ static void gnome_cmd_main_win_init (GnomeCmdMainWin *mw)
     mw->priv->file_selector[RIGHT] = NULL;
     mw->priv->advrename_dlg = { { nullptr } };
     mw->priv->file_search_dlg = { { nullptr } };
+    mw->priv->bookmarks_dlg = { { nullptr } };
 
     gtk_window_set_title (GTK_WINDOW (mw),
                           gcmd_owner.is_root()
@@ -1034,6 +1036,12 @@ void GnomeCmdMainWin::update_mainmenu()
 void GnomeCmdMainWin::update_bookmarks()
 {
     update_mainmenu();
+
+    if (auto bookmarks_dlg = static_cast<GnomeCmdBookmarksDialog*>(g_weak_ref_get (&priv->bookmarks_dlg)))
+    {
+        gnome_cmd_bookmarks_dialog_update (bookmarks_dlg);
+        g_object_unref (bookmarks_dlg);
+    }
 }
 
 
@@ -1230,6 +1238,18 @@ GnomeCmdAdvrenameDialog *GnomeCmdMainWin::get_or_create_advrename_dialog ()
     {
         dlg = new GnomeCmdAdvrenameDialog(gnome_cmd_data.advrename_defaults, *this);
         g_weak_ref_set (&priv->advrename_dlg, dlg);
+    }
+    return dlg;
+}
+
+
+GnomeCmdBookmarksDialog *GnomeCmdMainWin::get_or_create_bookmarks_dialog ()
+{
+    auto dlg = static_cast<GnomeCmdBookmarksDialog*>(g_weak_ref_get (&priv->bookmarks_dlg));
+    if (!dlg)
+    {
+        dlg = gnome_cmd_bookmarks_dialog_new (GTK_WINDOW (this));
+        g_weak_ref_set (&priv->bookmarks_dlg, dlg);
     }
     return dlg;
 }

@@ -23,9 +23,12 @@
 
 #include "gnome-cmd-data.h"
 
-void gnome_cmd_bookmark_dialog_new (const gchar *title, GtkWindow *parent);
+#define GNOME_CMD_TYPE_BOOKMARKS_DIALOG (gnome_cmd_bookmarks_dialog_get_type ())
+G_DECLARE_FINAL_TYPE (GnomeCmdBookmarksDialog, gnome_cmd_bookmarks_dialog, GNOME_CMD, BOOKMARKS_DIALOG, GtkDialog)
+
+GnomeCmdBookmarksDialog *gnome_cmd_bookmarks_dialog_new (GtkWindow *parent);
+void gnome_cmd_bookmarks_dialog_update (GnomeCmdBookmarksDialog *dialog);
 
 void gnome_cmd_bookmark_goto (GnomeCmdBookmark *bookmark);
 void gnome_cmd_bookmark_add_current (GnomeCmdDir *dir);
 
-void gnome_cmd_update_bookmark_dialog ();
