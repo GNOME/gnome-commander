@@ -111,9 +111,7 @@ G_DEFINE_TYPE (GnomeCmdMainWin, gnome_cmd_main_win, GTK_TYPE_APPLICATION_WINDOW)
 
 inline GtkWidget *add_buttonbar_button (char *label,
                                         GnomeCmdMainWin *mw,
-                                        const char *action_name,
-                                        GtkAccelGroup *accel_group,
-                                        gint accel_signal_id)
+                                        const char *action_name)
 {
     GtkWidget *button = create_styled_button (label);
     gtk_actionable_set_action_name (GTK_ACTIONABLE (button), action_name);
@@ -224,19 +222,19 @@ void GnomeCmdMainWin::create_buttonbar()
     priv->buttonbar = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 0);
     gtk_widget_show (priv->buttonbar);
 
-    priv->view_btn = add_buttonbar_button(_("F3 View"), this, "win.file-view", priv->accel_group, 0);
+    priv->view_btn = add_buttonbar_button(_("F3 View"), this, "win.file-view");
     gtk_box_append (GTK_BOX (priv->buttonbar), create_separator (TRUE));
-    priv->edit_btn = add_buttonbar_button(_("F4 Edit"), this, "win.file-edit", priv->accel_group, 0);
+    priv->edit_btn = add_buttonbar_button(_("F4 Edit"), this, "win.file-edit");
     gtk_box_append (GTK_BOX (priv->buttonbar), create_separator (TRUE));
-    priv->copy_btn = add_buttonbar_button(_("F5 Copy"), this, "win.file-copy", priv->accel_group, 0);
+    priv->copy_btn = add_buttonbar_button(_("F5 Copy"), this, "win.file-copy");
     gtk_box_append (GTK_BOX (priv->buttonbar), create_separator (TRUE));
-    priv->move_btn = add_buttonbar_button(_("F6 Move"), this, "win.file-move", priv->accel_group, 0);
+    priv->move_btn = add_buttonbar_button(_("F6 Move"), this, "win.file-move");
     gtk_box_append (GTK_BOX (priv->buttonbar), create_separator (TRUE));
-    priv->mkdir_btn = add_buttonbar_button(_("F7 Mkdir"), this, "win.file-mkdir", priv->accel_group, 0);
+    priv->mkdir_btn = add_buttonbar_button(_("F7 Mkdir"), this, "win.file-mkdir");
     gtk_box_append (GTK_BOX (priv->buttonbar), create_separator (TRUE));
-    priv->delete_btn = add_buttonbar_button(_("F8 Delete"), this, "win.file-delete", priv->accel_group, 0);
+    priv->delete_btn = add_buttonbar_button(_("F8 Delete"), this, "win.file-delete");
     gtk_box_append (GTK_BOX (priv->buttonbar), create_separator (TRUE));
-    priv->find_btn = add_buttonbar_button(_("F9 Search"), this, "win.file-search", priv->accel_group, 0);
+    priv->find_btn = add_buttonbar_button(_("F9 Search"), this, "win.file-search");
 }
 
 

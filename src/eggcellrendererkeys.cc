@@ -39,7 +39,6 @@
 #include <config.h>
 #include <libintl.h>
 #include <gtk/gtk.h>
-#include <gdk/gdkx.h>
 #include <gdk/gdkkeysyms.h>
 
 #include "gnome-cmd-includes.h"
@@ -370,31 +369,6 @@ static void egg_cell_renderer_keys_set_property (GObject *object, guint param_id
             G_OBJECT_WARN_INVALID_PROPERTY_ID (object, param_id, pspec);
             break;
     }
-}
-
-
-inline gboolean is_modifier (guint keycode)
-{
-    gboolean retval = FALSE;
-
-    GdkScreen *screen = gdk_screen_get_default ();
-    GdkDisplay *gdk_display = gdk_screen_get_display (screen);
-    Display *display = gdk_x11_display_get_xdisplay (gdk_display);
-
-    XModifierKeymap *mod_keymap = XGetModifierMapping (display);
-
-    gint map_size = 8 * mod_keymap->max_keypermod;
-
-    for (gint i=0; i<map_size;  ++i)
-        if (keycode == mod_keymap->modifiermap[i])
-        {
-            retval = TRUE;
-            break;
-        }
-
-    XFreeModifiermap (mod_keymap);
-
-    return retval;
 }
 
 
