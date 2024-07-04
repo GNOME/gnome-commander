@@ -447,7 +447,7 @@ static GSimpleActionGroup *create_actions (GnomeCmdPlugin *plugin, const gchar *
 }
 
 
-static GMenuModel *create_main_menu (GnomeCmdPlugin *plugin, GnomeCmdState *state)
+static GMenuModel *create_main_menu (GnomeCmdPlugin *plugin)
 {
     return nullptr;
 }

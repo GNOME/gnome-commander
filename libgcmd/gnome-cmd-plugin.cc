@@ -64,7 +64,7 @@ GSimpleActionGroup *gnome_cmd_plugin_create_actions (GnomeCmdPlugin *plugin, con
 }
 
 
-GMenuModel *gnome_cmd_plugin_create_main_menu (GnomeCmdPlugin *plugin, GnomeCmdState *state)
+GMenuModel *gnome_cmd_plugin_create_main_menu (GnomeCmdPlugin *plugin)
 {
     GnomeCmdPluginClass *klass;
 
@@ -72,7 +72,7 @@ GMenuModel *gnome_cmd_plugin_create_main_menu (GnomeCmdPlugin *plugin, GnomeCmdS
 
     klass = GNOME_CMD_PLUGIN_GET_CLASS (plugin);
 
-    return klass->create_main_menu (plugin, state);
+    return klass->create_main_menu (plugin);
 }
 
 
