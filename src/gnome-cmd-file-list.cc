@@ -196,6 +196,10 @@ struct GnomeCmdFileList::Private
     GtkWidget *con_open_dialog_label;
     GtkWidget *con_open_dialog_pbar;
 
+    // dropping files
+    GList *dropping_files;
+    GnomeCmdDir *dropping_to;
+
     explicit Private(GnomeCmdFileList *fl);
     ~Private();
 
@@ -227,6 +231,9 @@ GnomeCmdFileList::Private::Private(GnomeCmdFileList *fl)
     con_open_dialog = nullptr;
     con_open_dialog_label = nullptr;
     con_open_dialog_pbar = nullptr;
+
+    dropping_files = nullptr;
+    dropping_to = nullptr;
 
     memset(sort_raising, GTK_SORT_ASCENDING, sizeof(sort_raising));
 
@@ -388,44 +395,35 @@ static void cell_data (GtkTreeViewColumn *column,
 }
 
 
-static void unref_gfile_list (GList *list)
-{
-    g_list_foreach (list, (GFunc) g_object_unref, nullptr);
-}
-
-
 static GtkPopover *create_dnd_popup (GnomeCmdFileList *fl, GList *gFileGlist, GnomeCmdDir* to)
 {
-    GtkWidget *dnd_popup = gtk_popover_new (GTK_WIDGET (fl));
-    g_object_set_data_full (G_OBJECT (dnd_popup), "file-list", gFileGlist, (GDestroyNotify) unref_gfile_list);
-    g_object_set_data (G_OBJECT (dnd_popup), "to", to);
+    g_clear_list (&fl->priv->dropping_files, g_object_unref);
+    fl->priv->dropping_files = gFileGlist;
 
-    GtkWidget *vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 0);
+    fl->priv->dropping_to = to;
+
+    GMenu *menu = g_menu_new ();
+
+    GMenu *section = g_menu_new ();
     {
-        GtkWidget *item = gtk_model_button_new ();
-        g_object_set (item, "text", _("_Copy here"), NULL);
-        g_signal_connect (G_OBJECT (item), "clicked", G_CALLBACK (GnomeCmdFileList::Private::on_dnd_popup_menu_copy), fl);
-        gtk_container_add (GTK_CONTAINER (vbox), GTK_WIDGET (item));
+        GMenuItem *item = g_menu_item_new (_("_Copy here"), NULL);
+        g_menu_item_set_action_and_target (item, "fl.drop-files", "i", GnomeCmdFileList::DndMode::COPY);
+        g_menu_append_item (section, item);
     }
     {
-        GtkWidget *item = gtk_model_button_new ();
-        g_object_set (item, "text", _("_Move here"), NULL);
-        g_signal_connect (G_OBJECT (item), "clicked", G_CALLBACK (GnomeCmdFileList::Private::on_dnd_popup_menu_move), fl);
-        gtk_container_add (GTK_CONTAINER (vbox), GTK_WIDGET (item));
+        GMenuItem *item = g_menu_item_new (_("_Move here"), NULL);
+        g_menu_item_set_action_and_target (item, "fl.drop-files", "i", GnomeCmdFileList::DndMode::MOVE);
+        g_menu_append_item (section, item);
     }
     {
-        GtkWidget *item = gtk_model_button_new ();
-        g_object_set (item, "text", _("_Link here"), NULL);
-        g_signal_connect (G_OBJECT (item), "clicked", G_CALLBACK (GnomeCmdFileList::Private::on_dnd_popup_menu_link), fl);
-        gtk_container_add (GTK_CONTAINER (vbox), GTK_WIDGET (item));
+        GMenuItem *item = g_menu_item_new (_("_Link here"), NULL);
+        g_menu_item_set_action_and_target (item, "fl.drop-files", "i", GnomeCmdFileList::DndMode::LINK);
+        g_menu_append_item (section, item);
     }
-    gtk_container_add (GTK_CONTAINER (vbox), gtk_separator_new (GTK_ORIENTATION_HORIZONTAL));
-    {
-        GtkWidget *item = gtk_model_button_new ();
-        g_object_set (item, "text", _("C_ancel"), NULL);
-        gtk_container_add (GTK_CONTAINER (vbox), GTK_WIDGET (item));
-    }
-    gtk_container_add (GTK_CONTAINER (dnd_popup), vbox);
+    g_menu_append_section (menu, nullptr, G_MENU_MODEL (section));
+    g_menu_append (menu,  _("C_ancel"), "fl.drop-files-cancel");
+
+    GtkWidget *dnd_popup = gtk_popover_new_from_model (GTK_WIDGET (fl), G_MENU_MODEL (menu));
 
     gtk_widget_show_all (GTK_WIDGET (dnd_popup));
     return GTK_POPOVER (dnd_popup);
@@ -434,40 +432,33 @@ static GtkPopover *create_dnd_popup (GnomeCmdFileList *fl, GList *gFileGlist, Gn
 
 GnomeCmdFileList::Private::~Private()
 {
+    g_clear_list (&dropping_files, g_object_unref);
+    dropping_to = nullptr;
 }
 
 
-void GnomeCmdFileList::Private::on_dnd_popup_menu_copy(GtkButton *item, GnomeCmdFileList *fl)
+static void gnome_cmd_file_list_drop_files (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
-    g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl));
+    auto fl = GNOME_CMD_FILE_LIST (user_data);
 
-    GtkWidget *dnd_popup = gtk_widget_get_ancestor (GTK_WIDGET (item), GTK_TYPE_POPOVER);
-    auto gFileGlist = static_cast<GList *> (g_object_steal_data (G_OBJECT (dnd_popup), "file-list"));
-    auto to = static_cast<GnomeCmdDir*> (g_object_steal_data (G_OBJECT (dnd_popup), "to"));
+    auto mode = static_cast<GnomeCmdFileList::DndMode>(g_variant_get_int32 (parameter));
 
-    fl->drop_files(GnomeCmdFileList::DndMode::COPY, G_FILE_COPY_NONE, gFileGlist, to);
+    auto gFileGlist = fl->priv->dropping_files;
+    fl->priv->dropping_files = nullptr;
+
+    auto to = fl->priv->dropping_to;
+    fl->priv->dropping_to = nullptr;
+
+    fl->drop_files(mode, G_FILE_COPY_NONE, gFileGlist, to);
 }
 
-void GnomeCmdFileList::Private::on_dnd_popup_menu_move(GtkButton *item, GnomeCmdFileList *fl)
+
+static void gnome_cmd_file_list_drop_files_cancel (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
-    g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl));
+    auto fl = GNOME_CMD_FILE_LIST (user_data);
 
-    GtkWidget *dnd_popup = gtk_widget_get_ancestor (GTK_WIDGET (item), GTK_TYPE_POPOVER);
-    auto gFileGlist = static_cast<GList *> (g_object_steal_data (G_OBJECT (dnd_popup), "file-list"));
-    auto to = static_cast<GnomeCmdDir*> (g_object_steal_data (G_OBJECT (dnd_popup), "to"));
-
-    fl->drop_files(GnomeCmdFileList::DndMode::MOVE, G_FILE_COPY_NONE, gFileGlist, to);
-}
-
-void GnomeCmdFileList::Private::on_dnd_popup_menu_link(GtkButton *item, GnomeCmdFileList *fl)
-{
-    g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl));
-
-    GtkWidget *dnd_popup = gtk_widget_get_ancestor (GTK_WIDGET (item), GTK_TYPE_POPOVER);
-    auto gFileGlist = static_cast<GList *> (g_object_steal_data (G_OBJECT (dnd_popup), "file-list"));
-    auto to = static_cast<GnomeCmdDir*> (g_object_steal_data (G_OBJECT (dnd_popup), "to"));
-
-    fl->drop_files(GnomeCmdFileList::DndMode::LINK, G_FILE_COPY_NONE, gFileGlist, to);
+    g_clear_list (&fl->priv->dropping_files, g_object_unref);
+    fl->priv->dropping_to = nullptr;
 }
 
 
@@ -1979,7 +1970,10 @@ static void gnome_cmd_file_list_init (GnomeCmdFileList *fl)
         { "open-with-other",    gnome_cmd_file_selector_action_open_with_other,     nullptr, nullptr, nullptr },
         { "open-with",          gnome_cmd_file_selector_action_open_with,           "s",     nullptr, nullptr },
         { "execute",            gnome_cmd_file_selector_action_execute,             nullptr, nullptr, nullptr },
-        { "execute-script",     gnome_cmd_file_selector_action_execute_script,      "(sb)",  nullptr, nullptr }
+        { "execute-script",     gnome_cmd_file_selector_action_execute_script,      "(sb)",  nullptr, nullptr },
+
+        { "drop-files",         gnome_cmd_file_list_drop_files,                     "i",     nullptr, nullptr },
+        { "drop-files-cancel",  gnome_cmd_file_list_drop_files_cancel,              nullptr, nullptr, nullptr },
     };
     g_action_map_add_action_entries (G_ACTION_MAP (action_group), action_entries, G_N_ELEMENTS (action_entries), fl);
     gtk_widget_insert_action_group (GTK_WIDGET (fl), "fl", G_ACTION_GROUP (action_group));
