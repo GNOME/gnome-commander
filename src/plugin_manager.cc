@@ -405,22 +405,27 @@ void plugin_manager_show (GtkWindow *parent_window)
     create_treeview_column (avail_view, 2, 50, _("Version"));
     create_treeview_column (avail_view, 3, 50, _("File"));
 
-    bbox = create_hbuttonbox (dialog);
-    gtk_button_box_set_layout (GTK_BUTTON_BOX (bbox), GTK_BUTTONBOX_START);
+    bbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 6);
+    GtkSizeGroup* bbox_size_group = gtk_size_group_new (GTK_SIZE_GROUP_HORIZONTAL);
 
     button = create_button (GTK_WIDGET (dialog), _("_Enable"), G_CALLBACK (on_toggle));
     g_object_set_data (G_OBJECT (dialog), "toggle_button", button);
+    gtk_size_group_add_widget (bbox_size_group, button);
     gtk_box_append (GTK_BOX (bbox), button);
 
     button = create_button (GTK_WIDGET (dialog), _("_Configure"), G_CALLBACK (on_configure));
     g_object_set_data (G_OBJECT (dialog), "conf_button", button);
     gtk_widget_set_sensitive (button, FALSE);
+    gtk_size_group_add_widget (bbox_size_group, button);
     gtk_box_append (GTK_BOX (bbox), button);
 
     button = create_button (GTK_WIDGET (dialog), _("_About"), G_CALLBACK (on_about));
     g_object_set_data (G_OBJECT (dialog), "about_button", button);
     gtk_widget_set_sensitive (button, FALSE);
+    gtk_size_group_add_widget (bbox_size_group, button);
     gtk_box_append (GTK_BOX (bbox), button);
+
+    gtk_widget_show_all (bbox);
 
     gtk_box_append (GTK_BOX (hbox), avail_view);
     gtk_box_append (GTK_BOX (hbox), bbox);

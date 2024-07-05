@@ -1814,7 +1814,7 @@ static GtkWidget *create_programs_tab (GtkWidget *parent, GnomeCmdData::Options 
     gtk_widget_set_vexpand (view, TRUE);
     gtk_box_append (GTK_BOX (hbox), view);
 
-    bbox = create_vbuttonbox (parent);
+    bbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 12);
     gtk_box_append (GTK_BOX (hbox), bbox);
 
     button = create_button (parent, _("_Add"), G_CALLBACK (on_app_add));
@@ -1840,6 +1840,8 @@ static GtkWidget *create_programs_tab (GtkWidget *parent, GnomeCmdData::Options 
     button = create_button (parent, _("_Down"), G_CALLBACK (on_app_move_down));
     gtk_widget_set_can_default (button, TRUE);
     gtk_box_append (GTK_BOX (bbox), button);
+
+    gtk_widget_show_all (bbox);
 
     view = (GtkWidget *) g_object_get_data (G_OBJECT (parent), "app_view");
     for (GList *apps = gnome_cmd_data.options.fav_apps; apps; apps = apps->next)
@@ -2252,7 +2254,7 @@ static GtkWidget *create_devices_tab (GtkWidget *parent, GnomeCmdData::Options &
     gtk_widget_set_vexpand (view, TRUE);
     gtk_box_append (GTK_BOX (hbox), view);
 
-    bbox = create_vbuttonbox (parent);
+    bbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 12);
     gtk_box_append (GTK_BOX (hbox), bbox);
 
     button = create_button (parent, _("_Add"), G_CALLBACK (on_device_add));
@@ -2278,6 +2280,8 @@ static GtkWidget *create_devices_tab (GtkWidget *parent, GnomeCmdData::Options &
     button = create_button (parent, _("_Down"), G_CALLBACK (on_device_move_down));
     gtk_widget_set_can_default (button, TRUE);
     gtk_box_append (GTK_BOX (bbox), button);
+
+    gtk_widget_show_all (bbox);
 
 #ifdef HAVE_SAMBA
     check = create_check (parent, _("Show Samba workgroups button\n(Needs program restart if altered)"), "samba_workgroups_button");

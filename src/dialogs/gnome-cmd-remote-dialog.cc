@@ -431,7 +431,7 @@ static void gnome_cmd_remote_dialog_init (GnomeCmdRemoteDialog *dialog)
     // check if there are any items in the connection list
     gboolean empty_view = tree_is_empty (GTK_TREE_VIEW (dialog->priv->connection_list));
 
-    bbox = create_vbuttonbox (*dialog);
+    bbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 12);
     gtk_box_append (GTK_BOX (cat_box), bbox);
     button = create_button (*dialog, _("_Add"), G_CALLBACK (on_new_btn_clicked));
     gtk_box_append (GTK_BOX (bbox), button);
@@ -441,6 +441,7 @@ static void gnome_cmd_remote_dialog_init (GnomeCmdRemoteDialog *dialog)
     button = create_named_button (*dialog, _("_Remove"), "remove_button", G_CALLBACK (on_remove_btn_clicked));
     gtk_widget_set_sensitive (button, !empty_view);
     gtk_box_append (GTK_BOX (bbox), button);
+    gtk_widget_show_all (bbox);
 
     grid = create_grid (*dialog);
     cat = create_category (*dialog, grid, _("Options"));

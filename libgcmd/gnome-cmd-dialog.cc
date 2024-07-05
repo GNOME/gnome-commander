@@ -31,6 +31,7 @@ struct GnomeCmdDialogPrivate
     GList *buttons;
     GtkWidget *content;
     GtkWidget *buttonbox;
+    GtkSizeGroup *buttonbox_size_group;
 };
 
 
@@ -79,9 +80,16 @@ static void gnome_cmd_dialog_init (GnomeCmdDialog *dialog)
     gtk_widget_set_vexpand (priv->content, TRUE);
     gtk_box_append (GTK_BOX (vbox), priv->content);
 
-    priv->buttonbox = create_hbuttonbox (GTK_WIDGET (dialog));
-    gtk_button_box_set_layout (GTK_BUTTON_BOX (priv->buttonbox), GTK_BUTTONBOX_END);
-    gtk_box_append (GTK_BOX (vbox), priv->buttonbox);
+    GtkWidget *button_bar = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 0);
+
+    priv->buttonbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 6);
+    priv->buttonbox_size_group = gtk_size_group_new (GTK_SIZE_GROUP_HORIZONTAL);
+    gtk_widget_set_hexpand (priv->buttonbox, TRUE);
+    gtk_widget_set_halign (priv->buttonbox, GTK_ALIGN_END);
+    gtk_box_append (GTK_BOX (button_bar), priv->buttonbox);
+    gtk_box_append (GTK_BOX (vbox), button_bar);
+
+    gtk_widget_show_all (button_bar);
 
     GtkEventController *key_controller = gtk_event_controller_key_new (GTK_WIDGET (dialog));
     g_signal_connect (key_controller, "key-pressed", G_CALLBACK (on_dialog_keypressed), dialog);
@@ -111,6 +119,7 @@ GtkWidget *gnome_cmd_dialog_add_button (GnomeCmdDialog *dialog, const gchar *lab
 
     GtkWidget *btn = create_button_with_data (GTK_WIDGET (dialog), label, on_click, data);
 
+    gtk_size_group_add_widget (priv->buttonbox_size_group, GTK_WIDGET (btn));
     gtk_box_append (GTK_BOX (priv->buttonbox), btn);
     g_object_set (G_OBJECT (btn), "can-default", TRUE, NULL);
     gtk_widget_grab_default (btn);
