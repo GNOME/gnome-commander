@@ -403,6 +403,11 @@ static void gnome_cmd_dir_indicator_init (GnomeCmdDirIndicator *indicator)
     priv->label = create_label (GTK_WIDGET (indicator), "not initialized");
     gtk_container_add (GTK_CONTAINER (event_box), priv->label);
 
+    GtkWidget *sw = gtk_scrolled_window_new ();
+    gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (sw), GTK_POLICY_AUTOMATIC, GTK_POLICY_NEVER);
+    gtk_scrolled_window_set_child (GTK_SCROLLED_WINDOW (sw), event_box);
+    gtk_widget_show (sw);
+
     // create the history popup button
     priv->history_button = gtk_button_new_from_icon_name ("gnome-commander-down", GTK_ICON_SIZE_SMALL_TOOLBAR);
     gtk_widget_set_can_focus (priv->history_button, FALSE);
@@ -418,8 +423,8 @@ static void gnome_cmd_dir_indicator_init (GnomeCmdDirIndicator *indicator)
     // pack
     hbox = create_hbox (GTK_WIDGET (indicator), FALSE, 10);
     gtk_container_add (GTK_CONTAINER (indicator), hbox);
-    gtk_widget_set_hexpand (event_box, TRUE);
-    gtk_box_append (GTK_BOX (hbox), event_box);
+    gtk_widget_set_hexpand (sw, TRUE);
+    gtk_box_append (GTK_BOX (hbox), sw);
     bbox = create_hbox (GTK_WIDGET (indicator), FALSE, 0);
     gtk_box_append (GTK_BOX (hbox), bbox);
     gtk_box_append (GTK_BOX (bbox), priv->bookmark_button);
