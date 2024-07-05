@@ -60,8 +60,8 @@ static void show_dummy_dialog(GtkWindow *parent_window)
                                      GTK_MESSAGE_OTHER,
                                      GTK_BUTTONS_OK,
                                      "Test plugin dummy operation");
-    gtk_dialog_run (GTK_DIALOG (dialog));
-    gtk_window_destroy (GTK_WINDOW (dialog));
+    g_signal_connect_swapped (dialog, "response", G_CALLBACK (gtk_window_destroy), dialog);
+    gtk_window_present (GTK_WINDOW (dialog));
 }
 
 

@@ -31,7 +31,7 @@
 using namespace std;
 
 
-GSList *make_gfile_list (GnomeCmdDir *dir, string filename)
+static GSList *make_gfile_list (GnomeCmdDir *dir, string filename)
 {
     g_return_val_if_fail (GNOME_CMD_IS_DIR (dir), NULL);
 
@@ -150,11 +150,13 @@ static void response_callback (GtkDialog *dialog, int response_id, GnomeCmdDir *
                     g_slist_free (gFileList);
                 }
             }
+            gtk_window_destroy (GTK_WINDOW (dialog));
             break;
 
         case GTK_RESPONSE_NONE:
         case GTK_RESPONSE_DELETE_EVENT:
         case GTK_RESPONSE_CANCEL:
+            gtk_window_destroy (GTK_WINDOW (dialog));
             break;
 
         default :
@@ -163,7 +165,7 @@ static void response_callback (GtkDialog *dialog, int response_id, GnomeCmdDir *
 }
 
 
-gboolean gnome_cmd_mkdir_dialog_new (GnomeCmdDir *dir, GnomeCmdFile *selected_file)
+void gnome_cmd_mkdir_dialog_new (GnomeCmdDir *dir, GnomeCmdFile *selected_file)
 {
     GtkWidget *dialog = gtk_dialog_new_with_buttons (_("Make Directory"), *main_win,
                                                      GtkDialogFlags (GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT),
@@ -225,9 +227,5 @@ gboolean gnome_cmd_mkdir_dialog_new (GnomeCmdDir *dir, GnomeCmdFile *selected_fi
 
     g_signal_connect (dialog, "response", G_CALLBACK (response_callback), dir);
 
-    gint result = gtk_dialog_run (GTK_DIALOG (dialog));
-
-    gtk_window_destroy (GTK_WINDOW (dialog));
-
-    return result==GTK_RESPONSE_OK;
+    gtk_window_present (GTK_WINDOW (dialog));
 }

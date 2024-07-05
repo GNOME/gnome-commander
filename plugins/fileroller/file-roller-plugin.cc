@@ -199,8 +199,8 @@ static void run_cmd (const gchar *work_dir, const gchar *cmd)
             GTK_MESSAGE_ERROR,
             GTK_BUTTONS_CLOSE,
             _("Error running \"%s\"\n\n%s"), cmd, err->message);
-        gtk_dialog_run (GTK_DIALOG (dialog));
-        gtk_window_destroy (GTK_WINDOW (dialog));
+        g_signal_connect_swapped (dialog, "response", G_CALLBACK (gtk_window_destroy), dialog);
+        gtk_window_present (GTK_WINDOW (dialog));
         g_error_free (err);
     }
 

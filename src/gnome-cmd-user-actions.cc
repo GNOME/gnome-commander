@@ -2222,7 +2222,10 @@ void bookmarks_edit (GSimpleAction *action, GVariant *parameter, gpointer user_d
 {
     auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
 
-    gnome_cmd_bookmark_dialog_new (_("Bookmarks"), *main_win);
+    auto dlg = main_win->get_or_create_bookmarks_dialog ();
+    gtk_window_present (GTK_WINDOW (dlg));
+
+    gnome_cmd_bookmarks_dialog_new (*main_win);
 }
 
 

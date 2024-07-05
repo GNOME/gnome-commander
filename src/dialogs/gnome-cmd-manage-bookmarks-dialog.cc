@@ -38,17 +38,37 @@
 using namespace std;
 
 
-static GtkTreeModel *create_and_fill_model (GtkTreePath *&current_group);
-static GtkWidget *create_view_and_model ();
+struct _GnomeCmdBookmarksDialog
+{
+    GtkDialog parent;
+};
 
-static void cursor_changed_callback (GtkTreeView *view, GtkWidget *dialog);
+
+struct GnomeCmdBookmarksDialogPrivate
+{
+    GtkTreeView *view;
+
+    GtkWidget *edit_button;
+    GtkWidget *remove_button;
+    GtkWidget *up_button;
+    GtkWidget *down_button;
+};
+
+
+G_DEFINE_TYPE_WITH_PRIVATE (GnomeCmdBookmarksDialog, gnome_cmd_bookmarks_dialog, GTK_TYPE_DIALOG)
+
+
+static GtkTreeModel *create_and_fill_model (GtkTreePath *&current_group);
+static GtkTreeView *create_view_and_model ();
+
+static void cursor_changed_callback (GtkTreeView *view, GnomeCmdBookmarksDialog *dialog);
 static void row_activated_callback (GtkTreeView *view, GtkTreePath *path, GtkTreeViewColumn *col, gpointer);
-static void edit_clicked_callback (GtkButton *button, GtkWidget *view);
-static void remove_clicked_callback (GtkButton *button, GtkWidget *view);
-static void up_clicked_callback (GtkButton *button, GtkWidget *view);
-static void down_clicked_callback (GtkButton *button, GtkWidget *view);
+static void edit_clicked_callback (GtkButton *button, GnomeCmdBookmarksDialog *dialog);
+static void remove_clicked_callback (GtkButton *button, GnomeCmdBookmarksDialog *dialog);
+static void up_clicked_callback (GtkButton *button, GnomeCmdBookmarksDialog *dialog);
+static void down_clicked_callback (GtkButton *button, GnomeCmdBookmarksDialog *dialog);
 static void size_allocate_callback (GtkWidget *widget, GtkAllocation *allocation, gpointer unused);
-static void response_callback (GtkDialog *dialog, int response_id, GtkTreeView *view);
+static void response_callback (GtkDialog *dialog, int response_id);
 
 
 enum
@@ -59,25 +79,30 @@ enum
     COL_SHORTCUT,
     COL_BOOKMARK,
     NUM_COLUMNS
-} ;
+};
 
 
 const int RESPONSE_JUMP_TO = 123;
 
-GtkWidget *view = NULL;
 
-void gnome_cmd_bookmark_dialog_new (const gchar *title, GtkWindow *parent)
+static void gnome_cmd_bookmarks_dialog_class_init (GnomeCmdBookmarksDialogClass *klass)
 {
-    GtkWidget *dialog = gtk_dialog_new_with_buttons (title, parent,
-                                                     GtkDialogFlags (GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT),
-                                                     _("_Help"), GTK_RESPONSE_HELP,
-                                                     _("_Close"), GTK_RESPONSE_CLOSE,
-                                                     _("_Jump to"), RESPONSE_JUMP_TO,
-                                                     NULL);
+}
+
+
+static void gnome_cmd_bookmarks_dialog_init (GnomeCmdBookmarksDialog *dialog)
+{
+    auto priv = static_cast<GnomeCmdBookmarksDialogPrivate*>(gnome_cmd_bookmarks_dialog_get_instance_private (dialog));
+
+    gtk_dialog_add_buttons (GTK_DIALOG (dialog),
+        _("_Help"), GTK_RESPONSE_HELP,
+        _("_Close"), GTK_RESPONSE_CLOSE,
+        _("_Jump to"), RESPONSE_JUMP_TO,
+        NULL);
 
     GtkWidget *content_area = gtk_dialog_get_content_area(GTK_DIALOG (dialog));
 
-    GtkWidget *vbox, *hbox, *scrolled_window, *button;
+    GtkWidget *vbox, *hbox, *scrolled_window;
 
     gtk_window_set_resizable (GTK_WINDOW (dialog), TRUE);
 
@@ -97,41 +122,35 @@ void gnome_cmd_bookmark_dialog_new (const gchar *title, GtkWindow *parent)
     gtk_widget_set_hexpand (scrolled_window, TRUE);
     gtk_box_append (GTK_BOX (hbox), scrolled_window);
 
-    view = create_view_and_model ();
+    priv->view = create_view_and_model ();
     gtk_window_set_default_size (GTK_WINDOW (dialog), gnome_cmd_data.bookmarks_defaults.width, gnome_cmd_data.bookmarks_defaults.height);
-    gtk_widget_set_size_request (view, 400, 250);
-    g_signal_connect (view, "cursor-changed", G_CALLBACK (cursor_changed_callback), dialog);
-    g_signal_connect (view, "row-activated", G_CALLBACK (row_activated_callback), dialog);
-    gtk_scrolled_window_set_child (GTK_SCROLLED_WINDOW (scrolled_window), view);
+    gtk_widget_set_size_request (GTK_WIDGET (priv->view), 400, 250);
+    g_signal_connect (priv->view, "cursor-changed", G_CALLBACK (cursor_changed_callback), dialog);
+    g_signal_connect (priv->view, "row-activated", G_CALLBACK (row_activated_callback), dialog);
+    gtk_scrolled_window_set_child (GTK_SCROLLED_WINDOW (scrolled_window), GTK_WIDGET (priv->view));
 
     vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 12);
     gtk_box_append (GTK_BOX (hbox), vbox);
 
-    button = gtk_button_new_with_mnemonic (_("_Edit"));
-    gtk_widget_set_sensitive (button, FALSE);
-    g_signal_connect (button, "clicked", G_CALLBACK (edit_clicked_callback), view);
-    gtk_box_append (GTK_BOX (vbox), button);
-    g_object_set_data (G_OBJECT (dialog), "edit-button", button);
+    priv->edit_button = gtk_button_new_with_mnemonic (_("_Edit"));
+    gtk_widget_set_sensitive (priv->edit_button, FALSE);
+    g_signal_connect (priv->edit_button, "clicked", G_CALLBACK (edit_clicked_callback), dialog);
+    gtk_box_append (GTK_BOX (vbox), priv->edit_button);
 
-    button = gtk_button_new_with_mnemonic (_("_Remove"));
-    gtk_widget_set_sensitive (button, FALSE);
-    g_signal_connect (button, "clicked", G_CALLBACK (remove_clicked_callback), view);
-    gtk_box_append (GTK_BOX (vbox), button);
-    g_object_set_data (G_OBJECT (dialog), "remove-button", button);
+    priv->remove_button = gtk_button_new_with_mnemonic (_("_Remove"));
+    gtk_widget_set_sensitive (priv->remove_button, FALSE);
+    g_signal_connect (priv->remove_button, "clicked", G_CALLBACK (remove_clicked_callback), dialog);
+    gtk_box_append (GTK_BOX (vbox), priv->remove_button);
 
-    button = gtk_button_new_with_mnemonic (_("_Up"));
-    gtk_widget_set_sensitive (button, FALSE);
-    g_signal_connect (button, "clicked", G_CALLBACK (up_clicked_callback), view);
-    gtk_box_append (GTK_BOX (vbox), button);
-    g_object_set_data (G_OBJECT (dialog), "up-button", button);
+    priv->up_button = gtk_button_new_with_mnemonic (_("_Up"));
+    gtk_widget_set_sensitive (priv->up_button, FALSE);
+    g_signal_connect (priv->up_button, "clicked", G_CALLBACK (up_clicked_callback), dialog);
+    gtk_box_append (GTK_BOX (vbox), priv->up_button);
 
-    button = gtk_button_new_with_mnemonic (_("_Down"));
-    gtk_widget_set_sensitive (button, FALSE);
-    g_signal_connect (button, "clicked", G_CALLBACK (down_clicked_callback), view);
-    gtk_box_append (GTK_BOX (vbox), button);
-    g_object_set_data (G_OBJECT (dialog), "down-button", button);
-
-    gtk_widget_grab_focus (view);
+    priv->down_button = gtk_button_new_with_mnemonic (_("_Down"));
+    gtk_widget_set_sensitive (priv->down_button, FALSE);
+    g_signal_connect (priv->down_button, "clicked", G_CALLBACK (down_clicked_callback), dialog);
+    gtk_box_append (GTK_BOX (vbox), priv->down_button);
 
     gtk_dialog_set_default_response (GTK_DIALOG (dialog), RESPONSE_JUMP_TO);
     gtk_dialog_set_response_sensitive (GTK_DIALOG (dialog), RESPONSE_JUMP_TO, FALSE);
@@ -139,12 +158,21 @@ void gnome_cmd_bookmark_dialog_new (const gchar *title, GtkWindow *parent)
     gtk_widget_show_all (content_area);
 
     g_signal_connect (dialog, "size-allocate", G_CALLBACK (size_allocate_callback), NULL);
-    g_signal_connect (dialog, "response", G_CALLBACK (response_callback), view);
+    g_signal_connect (dialog, "response", G_CALLBACK (response_callback), NULL);
 
-    gtk_dialog_run (GTK_DIALOG (dialog));
+    gtk_widget_grab_focus (GTK_WIDGET (priv->view));
+}
 
-    gtk_window_destroy (GTK_WINDOW (dialog));
-    view = NULL;
+
+GnomeCmdBookmarksDialog *gnome_cmd_bookmarks_dialog_new (GtkWindow *parent)
+{
+    GnomeCmdBookmarksDialog *dialog = (GnomeCmdBookmarksDialog *) g_object_new (GNOME_CMD_TYPE_BOOKMARKS_DIALOG,
+        "title", _("Bookmarks"),
+        "transient-for", parent,
+        // "modal", TRUE,
+        "destroy-with-parent", TRUE,
+        NULL);
+    return dialog;
 }
 
 
@@ -219,9 +247,9 @@ static GtkTreeModel *create_and_fill_model (GtkTreePath *&current_group)
 }
 
 
-static GtkWidget *create_view_and_model ()
+static GtkTreeView *create_view_and_model ()
 {
-    GtkWidget *bm_view = gtk_tree_view_new ();
+    GtkTreeView *bm_view = GTK_TREE_VIEW (gtk_tree_view_new ());
 
     g_object_set (bm_view,
                   "rules-hint", TRUE,
@@ -283,20 +311,21 @@ static GtkWidget *create_view_and_model ()
 }
 
 
-void gnome_cmd_update_bookmark_dialog ()
+void gnome_cmd_bookmarks_dialog_update (GnomeCmdBookmarksDialog *dialog)
 {
-    if (view)
-    {
-        GtkTreePath *group = NULL;
-        fill_tree (GTK_TREE_STORE (gtk_tree_view_get_model (GTK_TREE_VIEW (view))), group);
-        if (group)
-            gtk_tree_view_expand_row (GTK_TREE_VIEW (view), group, TRUE);
-    }
+    auto priv = static_cast<GnomeCmdBookmarksDialogPrivate*>(gnome_cmd_bookmarks_dialog_get_instance_private (dialog));
+
+    GtkTreePath *group = NULL;
+    fill_tree (GTK_TREE_STORE (gtk_tree_view_get_model (priv->view)), group);
+    if (group)
+        gtk_tree_view_expand_row (priv->view, group, TRUE);
 }
 
 
-static void cursor_changed_callback (GtkTreeView *bm_view, GtkWidget *dialog)
+static void cursor_changed_callback (GtkTreeView *bm_view, GnomeCmdBookmarksDialog *dialog)
 {
+    auto priv = static_cast<GnomeCmdBookmarksDialogPrivate*>(gnome_cmd_bookmarks_dialog_get_instance_private (dialog));
+
     GtkTreeModel *bm_model = gtk_tree_view_get_model (bm_view);
     GtkTreeIter iter;
 
@@ -307,10 +336,10 @@ static void cursor_changed_callback (GtkTreeView *bm_view, GtkWidget *dialog)
         gtk_tree_model_get (bm_model, &iter, COL_BOOKMARK, &bookmark, -1);
 
         gtk_dialog_set_response_sensitive (GTK_DIALOG (dialog), RESPONSE_JUMP_TO, bookmark!=NULL);
-        gtk_widget_set_sensitive ((GtkWidget *) g_object_get_data (G_OBJECT (dialog), "edit-button"), bookmark!=NULL);
-        gtk_widget_set_sensitive ((GtkWidget *) g_object_get_data (G_OBJECT (dialog), "remove-button"), bookmark!=NULL);
-        gtk_widget_set_sensitive ((GtkWidget *) g_object_get_data (G_OBJECT (dialog), "up-button"), bookmark!=NULL && bookmark->group->bookmarks->data!=bookmark);
-        gtk_widget_set_sensitive ((GtkWidget *) g_object_get_data (G_OBJECT (dialog), "down-button"), bookmark!=NULL && gtk_tree_model_iter_next (bm_model, &iter));
+        gtk_widget_set_sensitive (priv->edit_button, bookmark!=NULL);
+        gtk_widget_set_sensitive (priv->remove_button, bookmark!=NULL);
+        gtk_widget_set_sensitive (priv->up_button, bookmark!=NULL && bookmark->group->bookmarks->data!=bookmark);
+        gtk_widget_set_sensitive (priv->down_button, bookmark!=NULL && gtk_tree_model_iter_next (bm_model, &iter));
     }
 }
 
@@ -321,19 +350,19 @@ static void row_activated_callback (GtkTreeView *bm_view, GtkTreePath *path, Gtk
 }
 
 
-static void edit_clicked_callback (GtkButton *button, GtkWidget *bm_view)
+static void edit_clicked_callback (GtkButton *button, GnomeCmdBookmarksDialog *dialog)
 {
-    GtkWidget *dialog = gtk_widget_get_ancestor (bm_view, GTK_TYPE_DIALOG);
+    auto priv = static_cast<GnomeCmdBookmarksDialogPrivate*>(gnome_cmd_bookmarks_dialog_get_instance_private (dialog));
 
     g_return_if_fail (dialog!=NULL);
 
-    GtkTreeSelection *selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (bm_view));
+    GtkTreeSelection *selection = gtk_tree_view_get_selection (priv->view);
     GtkTreeIter iter;
 
     if (gtk_tree_selection_get_selected (selection, NULL, &iter))
     {
         GnomeCmdBookmark *bookmark = NULL;
-        GtkTreeModel *model = gtk_tree_view_get_model (GTK_TREE_VIEW (bm_view));
+        GtkTreeModel *model = gtk_tree_view_get_model (priv->view);
         gtk_tree_model_get (model, &iter, COL_BOOKMARK, &bookmark, -1);
 
         if (gnome_cmd_edit_bookmark_dialog (GTK_WINDOW (dialog), _("Edit Bookmark"), bookmark->name, bookmark->path))
@@ -345,15 +374,17 @@ static void edit_clicked_callback (GtkButton *button, GtkWidget *bm_view)
 }
 
 
-static void remove_clicked_callback (GtkButton *button, GtkWidget *bm_view)
+static void remove_clicked_callback (GtkButton *button, GnomeCmdBookmarksDialog *dialog)
 {
-    GtkTreeSelection *selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (bm_view));
+    auto priv = static_cast<GnomeCmdBookmarksDialogPrivate*>(gnome_cmd_bookmarks_dialog_get_instance_private (dialog));
+
+    GtkTreeSelection *selection = gtk_tree_view_get_selection (priv->view);
     GtkTreeIter iter;
 
     if (gtk_tree_selection_get_selected (selection, NULL, &iter))
     {
         GnomeCmdBookmark *bookmark = NULL;
-        GtkTreeModel *model = gtk_tree_view_get_model (GTK_TREE_VIEW (bm_view));
+        GtkTreeModel *model = gtk_tree_view_get_model (priv->view);
         gtk_tree_model_get (model, &iter, COL_BOOKMARK, &bookmark, -1);
         gtk_tree_store_remove (GTK_TREE_STORE (model), &iter);
 
@@ -372,17 +403,18 @@ static void remove_clicked_callback (GtkButton *button, GtkWidget *bm_view)
 }
 
 
-static void up_clicked_callback (GtkButton *button, GtkWidget *bm_view)
+static void up_clicked_callback (GtkButton *button, GnomeCmdBookmarksDialog *dialog)
 {
-    GtkWidget *dialog = gtk_widget_get_ancestor (bm_view, GTK_TYPE_DIALOG);
-    GtkTreeSelection *selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (bm_view));
+    auto priv = static_cast<GnomeCmdBookmarksDialogPrivate*>(gnome_cmd_bookmarks_dialog_get_instance_private (dialog));
+
+    GtkTreeSelection *selection = gtk_tree_view_get_selection (priv->view);
     GtkTreeIter iter;
 
     if (!gtk_tree_selection_get_selected (selection, NULL, &iter))
         return;
 
     GnomeCmdBookmark *bookmark = NULL;
-    GtkTreeModel *model = gtk_tree_view_get_model (GTK_TREE_VIEW (bm_view));
+    GtkTreeModel *model = gtk_tree_view_get_model (priv->view);
     gtk_tree_model_get (model, &iter, COL_BOOKMARK, &bookmark, -1);
 
     if (!bookmark)
@@ -404,22 +436,23 @@ static void up_clicked_callback (GtkButton *button, GtkWidget *bm_view)
 
     gtk_tree_store_swap (GTK_TREE_STORE (model), &prev, &iter);
 
-    gtk_widget_set_sensitive ((GtkWidget *) g_object_get_data (G_OBJECT (dialog), "up-button"), bookmark->group->bookmarks->data!=bookmark);
-    gtk_widget_set_sensitive ((GtkWidget *) g_object_get_data (G_OBJECT (dialog), "down-button"), gtk_tree_model_iter_next (model, &iter));
+    gtk_widget_set_sensitive (priv->up_button, bookmark->group->bookmarks->data!=bookmark);
+    gtk_widget_set_sensitive (priv->down_button, gtk_tree_model_iter_next (model, &iter));
 }
 
 
-static void down_clicked_callback (GtkButton *button, GtkWidget *bm_view)
+static void down_clicked_callback (GtkButton *button, GnomeCmdBookmarksDialog *dialog)
 {
-    GtkWidget *dialog = gtk_widget_get_ancestor (bm_view, GTK_TYPE_DIALOG);
-    GtkTreeSelection *selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (bm_view));
+    auto priv = static_cast<GnomeCmdBookmarksDialogPrivate*>(gnome_cmd_bookmarks_dialog_get_instance_private (dialog));
+
+    GtkTreeSelection *selection = gtk_tree_view_get_selection (priv->view);
     GtkTreeIter iter;
 
     if (!gtk_tree_selection_get_selected (selection, NULL, &iter))
         return;
 
     GnomeCmdBookmark *bookmark = NULL;
-    GtkTreeModel *model = gtk_tree_view_get_model (GTK_TREE_VIEW (bm_view));
+    GtkTreeModel *model = gtk_tree_view_get_model (priv->view);
     gtk_tree_model_get (model, &iter, COL_BOOKMARK, &bookmark, -1);
 
     if (!bookmark)
@@ -437,8 +470,8 @@ static void down_clicked_callback (GtkButton *button, GtkWidget *bm_view)
 
     gtk_tree_model_iter_next (model, &next);
     gtk_tree_store_swap (GTK_TREE_STORE (model), &iter, &next);
-    gtk_widget_set_sensitive ((GtkWidget *) g_object_get_data (G_OBJECT (dialog), "up-button"), bookmark!=NULL && bookmark->group->bookmarks->data!=bookmark);
-    gtk_widget_set_sensitive ((GtkWidget *) g_object_get_data (G_OBJECT (dialog), "down-button"), bookmark!=NULL && gtk_tree_model_iter_next (model, &iter));
+    gtk_widget_set_sensitive (priv->up_button, bookmark!=NULL && bookmark->group->bookmarks->data!=bookmark);
+    gtk_widget_set_sensitive (priv->down_button, bookmark!=NULL && gtk_tree_model_iter_next (model, &iter));
 }
 
 
@@ -449,41 +482,41 @@ static void size_allocate_callback (GtkWidget *widget, GtkAllocation *allocation
 }
 
 
-static void response_callback (GtkDialog *dialog, int response_id, GtkTreeView *bm_view)
+static void response_callback (GtkDialog *dlg, int response_id)
 {
+    auto dialog = GNOME_CMD_BOOKMARKS_DIALOG (dlg);
+    auto priv = static_cast<GnomeCmdBookmarksDialogPrivate*>(gnome_cmd_bookmarks_dialog_get_instance_private (dialog));
+
     switch (response_id)
     {
         case GTK_RESPONSE_HELP:
             gnome_cmd_help_display ("gnome-commander.xml", "gnome-commander-bookmarks");
-            g_signal_stop_emission_by_name (dialog, "response");
             break;
 
         case RESPONSE_JUMP_TO:
             {
-                GtkTreeModel *model = gtk_tree_view_get_model (GTK_TREE_VIEW (bm_view));
+                GtkTreeModel *model = gtk_tree_view_get_model (priv->view);
                 GtkTreeIter iter;
 
-                if (gtk_tree_selection_get_selected (gtk_tree_view_get_selection (GTK_TREE_VIEW (bm_view)), NULL, &iter))
+                if (gtk_tree_selection_get_selected (gtk_tree_view_get_selection (priv->view), NULL, &iter))
                 {
                     GnomeCmdBookmark *bookmark = NULL;
 
                     gtk_tree_model_get (model, &iter, COL_BOOKMARK, &bookmark, -1);
 
                     if (bookmark)
+                    {
                         gnome_cmd_bookmark_goto (bookmark);
-                    else
-                        g_signal_stop_emission_by_name (dialog, "response");
+                        gtk_window_destroy (GTK_WINDOW (dialog));
+                    }
                 }
-                else
-                    g_signal_stop_emission_by_name (dialog, "response");
             }
 
         case GTK_RESPONSE_CLOSE:
-            break;
-
         case GTK_RESPONSE_NONE:
         case GTK_RESPONSE_DELETE_EVENT:
         case GTK_RESPONSE_CANCEL:
+            gtk_window_destroy (GTK_WINDOW (dialog));
             break;
 
         default :

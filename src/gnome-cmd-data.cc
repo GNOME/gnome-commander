@@ -35,7 +35,6 @@
 #include "utils.h"
 #include "gnome-cmd-owner.h"
 #include "dialogs/gnome-cmd-advrename-dialog.h"
-#include "dialogs/gnome-cmd-manage-bookmarks-dialog.h"
 
 using namespace std;
 
@@ -130,7 +129,6 @@ static void on_bookmarks_changed (GnomeCmdMainWin *main_win)
     gnome_cmd_data.load_bookmarks();
 
     main_win->update_bookmarks ();
-    gnome_cmd_update_bookmark_dialog ();
 }
 
 static void on_size_display_mode_changed (GnomeCmdMainWin *main_win)
