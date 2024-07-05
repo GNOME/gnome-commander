@@ -40,11 +40,13 @@
 
 #include <tuple>
 
+struct GnomeCmdMainWin;
+
 #define GCMD_TYPE_SETTINGS (gcmd_settings_get_type ())
 
 G_DECLARE_FINAL_TYPE (GcmdSettings, gcmd_settings, GCMD, SETTINGS, GObject)
 
-GcmdSettings *gcmd_settings_new (void);
+GcmdSettings *gcmd_settings_new (GnomeCmdMainWin *main_win);
 
 /* *************
  * KEY CONSTANTS
@@ -676,7 +678,7 @@ struct GnomeCmdData
     void save_keybindings();
     void load_connections();
     void save_connections();
-    void save_cmdline_history();
+    void save_cmdline_history(GnomeCmdMainWin *main_win);
     void save_directory_history();
     void save_search_history();
     void save_intviewer_defaults();
@@ -741,7 +743,7 @@ struct GnomeCmdData
     void load_tabs();
     void load_devices();
     void load_fav_apps();
-    void gsettings_init();
+    void gsettings_init(GnomeCmdMainWin *main_win);
     void migrate_all_data_to_gsettings();
     void load_more();
     void load_advrename_profiles ();
@@ -750,7 +752,7 @@ struct GnomeCmdData
     void save_search_profiles ();
     void save_bookmarks();
     void load_bookmarks();
-    void save();
+    void save(GnomeCmdMainWin *main_win);
     gboolean gnome_cmd_data_parse_color (const gchar *spec, GdkRGBA *color);
     gboolean set_color_if_valid_key_value(GdkRGBA *color, GSettings *settings, const char *key);
     gboolean set_gsettings_when_changed (GSettings *settings, const char *key, gpointer value);

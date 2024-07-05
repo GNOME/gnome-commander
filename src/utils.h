@@ -215,9 +215,6 @@ inline void set_cursor_default_for_widget (GtkWidget *widget)
         gdk_window_set_cursor (window, NULL);
 }
 
-void set_cursor_busy ();
-void set_cursor_default ();
-
 GList *app_get_linked_libs (GnomeCmdFile *f);
 gboolean app_needs_terminal (GnomeCmdFile *f);
 

@@ -779,7 +779,7 @@ inline void get_file_list (string &s, GList *sfl, F f, T t)
 }
 
 
-static void view_refresh_0 ();
+static void view_refresh_0 (GnomeCmdMainWin *main_win);
 
 
 /************** File Menu **************/
@@ -962,7 +962,7 @@ void file_chmod (GSimpleAction *action, GVariant *parameter, gpointer user_data)
     {
         GtkWidget *dialog = gnome_cmd_chmod_dialog_new (files);
 
-        g_signal_connect (dialog, "mode-changed", G_CALLBACK (view_refresh_0), nullptr);
+        g_signal_connect_swapped (dialog, "mode-changed", G_CALLBACK (view_refresh_0), main_win);
 
         g_object_ref (dialog);
         gtk_widget_show (dialog);
@@ -981,7 +981,7 @@ void file_chown (GSimpleAction *action, GVariant *parameter, gpointer user_data)
     {
         GtkWidget *dialog = gnome_cmd_chown_dialog_new (files);
 
-        g_signal_connect (dialog, "owner-changed", G_CALLBACK (view_refresh_0), nullptr);
+        g_signal_connect_swapped (dialog, "owner-changed", G_CALLBACK (view_refresh_0), main_win);
 
         g_object_ref (dialog);
         gtk_widget_show (dialog);
@@ -1846,6 +1846,8 @@ void view_refresh (GSimpleAction *action, GVariant *parameter, gpointer user_dat
 
 void view_refresh_tab (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
+    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
+
     gint fs_id, tab;
     g_variant_get (parameter, "(ii)", &fs_id, &tab);
 
@@ -1855,7 +1857,7 @@ void view_refresh_tab (GSimpleAction *action, GVariant *parameter, gpointer user
 }
 
 
-static void view_refresh_0 ()
+static void view_refresh_0 (GnomeCmdMainWin *main_win)
 {
     view_refresh (nullptr, nullptr, main_win);
 }
@@ -2106,7 +2108,7 @@ void options_edit (GSimpleAction *action, GVariant *parameter, gpointer user_dat
     {
         main_win->update_view();
 
-        gnome_cmd_data.save();
+        gnome_cmd_data.save(main_win);
     }
 }
 

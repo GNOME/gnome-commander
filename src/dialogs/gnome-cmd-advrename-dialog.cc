@@ -33,6 +33,7 @@
 #include "gnome-cmd-convert.h"
 #include "gnome-cmd-data.h"
 #include "gnome-cmd-file.h"
+#include "gnome-cmd-file-props-dialog.h"
 #include "gnome-cmd-advrename-profile-component.h"
 #include "gnome-cmd-manage-profiles-dialog.h"
 #include "gnome-cmd-main-win.h"
@@ -240,7 +241,7 @@ void GnomeCmdAdvrenameDialog::Private::on_files_view_popup_menu__view_file (GSim
         gtk_tree_model_get (model, &iter, COL_FILE, &f, -1);
 
         if (f)
-            gnome_cmd_file_view (f);
+            gnome_cmd_file_view (*dialog, f);
     }
 }
 
@@ -260,7 +261,7 @@ void GnomeCmdAdvrenameDialog::Private::on_files_view_popup_menu__show_properties
         gtk_tree_model_get (model, &iter, COL_FILE, &f, -1);
 
         if (f)
-            gnome_cmd_file_show_properties (f);
+            gnome_cmd_file_props_dialog_show (*dialog, f);
     }
 }
 
@@ -658,10 +659,10 @@ void GnomeCmdAdvrenameDialog::update_new_filenames()
 }
 
 
-GnomeCmdAdvrenameDialog::GnomeCmdAdvrenameDialog(GnomeCmdData::AdvrenameConfig &cfg): defaults(cfg)
+GnomeCmdAdvrenameDialog::GnomeCmdAdvrenameDialog(GnomeCmdData::AdvrenameConfig &cfg, GtkWindow *parent_window): defaults(cfg)
 {
     gtk_window_set_default_size (*this, cfg.width, cfg.height);
-    gtk_window_set_transient_for (*this, *main_win);
+    gtk_window_set_transient_for (*this, parent_window);
 
     priv->profile_menu_button = gtk_menu_button_new ();
     gtk_button_set_label (GTK_BUTTON (priv->profile_menu_button), _("Profiles…"));

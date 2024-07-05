@@ -33,12 +33,12 @@ using namespace std;
 G_DEFINE_TYPE (GnomeCmdConHome, gnome_cmd_con_home, GNOME_CMD_TYPE_CON)
 
 
-static void home_open (GnomeCmdCon *con)
+static void home_open (GnomeCmdCon *con, GtkWindow *parent_window)
 {
 }
 
 
-static gboolean home_close (GnomeCmdCon *con)
+static gboolean home_close (GnomeCmdCon *con, GtkWindow *parent_window)
 {
     return FALSE;
 }

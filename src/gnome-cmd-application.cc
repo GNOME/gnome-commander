@@ -92,7 +92,7 @@ static void gnome_cmd_application_startup(GApplication *application)
     /* Load Settings */
     IMAGE_init ();
     gcmd_user_actions.init();
-    gnome_cmd_data.gsettings_init();
+    gnome_cmd_data.gsettings_init(main_win);
     gnome_cmd_data.load();
 }
 
@@ -146,7 +146,7 @@ static void gnome_cmd_application_shutdown(GApplication *application)
     plugin_manager_shutdown ();
     gcmd_tags_shutdown ();
     gcmd_user_actions.shutdown();
-    gnome_cmd_data.save();
+    gnome_cmd_data.save(main_win);
     IMAGE_free ();
 
     remove_temp_download_dir ();

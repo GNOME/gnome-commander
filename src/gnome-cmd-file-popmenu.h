@@ -22,6 +22,7 @@
 #pragma once
 
 #include "gnome-cmd-file-list.h"
+#include "gnome-cmd-main-win.h"
 
-GMenu *gnome_cmd_file_popmenu_new (GnomeCmdFileList *fl);
+GMenu *gnome_cmd_file_popmenu_new (GnomeCmdMainWin *main_win, GnomeCmdFileList *fl);
 

@@ -174,12 +174,11 @@ inline gchar *gnome_cmd_file_get_uri_str (GnomeCmdFile *f)
     return f->get_uri_str();
 }
 
-void gnome_cmd_file_show_properties (GnomeCmdFile *f);
 void gnome_cmd_file_show_chown_dialog (GList *files);
 void gnome_cmd_file_show_chmod_dialog (GList *files);
-void gnome_cmd_file_view (GnomeCmdFile *f);
-void gnome_cmd_file_view_internal(GnomeCmdFile *f);
-void gnome_cmd_file_view_external(GnomeCmdFile *f);
+void gnome_cmd_file_view (GtkWindow *parent_window, GnomeCmdFile *f);
+void gnome_cmd_file_view_internal(GtkWindow *parent_window, GnomeCmdFile *f);
+void gnome_cmd_file_view_external(GtkWindow *parent_window, GnomeCmdFile *f);
 void gnome_cmd_file_edit (GnomeCmdFile *f);
 
 GList *gnome_cmd_file_list_copy (GList *files);

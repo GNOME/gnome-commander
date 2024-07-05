@@ -41,7 +41,6 @@
 
 using namespace std;
 
-
 static void do_mime_exec_multiple (gpointer *args)
 {
     auto gnomeCmdApp = static_cast<GnomeCmdApp*> (args[0]);
@@ -244,9 +243,10 @@ void gnome_cmd_file_selector_action_open_with_default (GSimpleAction *action, GV
 }
 
 
-static gboolean on_open_with_other_ok (GnomeCmdStringDialog *string_dialog, const gchar **values, GList *files)
+static gboolean on_open_with_other_ok (GnomeCmdStringDialog *string_dialog, const gchar **values, GnomeCmdFileList *file_list)
 {
     GtkWidget *term_check = lookup_widget (GTK_WIDGET (string_dialog), "term_check");
+    bool in_terminal = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (term_check));
 
     if (!values[0] || strlen(values[0]) < 1)
     {
@@ -256,21 +256,17 @@ static gboolean on_open_with_other_ok (GnomeCmdStringDialog *string_dialog, cons
 
     string cmdString = values[0];
 
-    GList *filesTmp = files;
-
-    for (; filesTmp; filesTmp = filesTmp->next)
+    for (GList *filesTmp = file_list->get_selected_files(); filesTmp; filesTmp = filesTmp->next)
     {
         cmdString += ' ';
-        cmdString += stringify (GNOME_CMD_FILE (files->data)->get_quoted_real_path());
+        cmdString += stringify (GNOME_CMD_FILE (filesTmp->data)->get_quoted_real_path());
     }
 
-    GnomeCmdFileSelector *fs = main_win->fs(ACTIVE);
-    GnomeCmdDir *dir = fs->get_directory();
-    gchar *dpath = GNOME_CMD_FILE (dir)->get_real_path();
-    auto returnValue = run_command_indir (cmdString.c_str(), dpath, gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (term_check)));
+    gchar *dpath = GNOME_CMD_FILE (file_list->cwd)->get_real_path();
+    auto returnValue = run_command_indir (cmdString.c_str(), dpath, in_terminal);
     if (!returnValue)
     {
-        gnome_cmd_file_selector_action_open_with_other (nullptr, nullptr, files);
+        gnome_cmd_file_selector_action_open_with_other (nullptr, nullptr, file_list);
     }
 
     g_free (dpath);
@@ -283,13 +279,11 @@ void gnome_cmd_file_selector_action_open_with_other (GSimpleAction *action, GVar
 {
     GnomeCmdFileList *file_list = static_cast<GnomeCmdFileList *>(user_data);
 
-    auto files = file_list->get_selected_files();
-
     const gchar *labels[] = {_("Application:")};
     GtkWidget *dialog;
 
     dialog = gnome_cmd_string_dialog_new (_("Open with other…"), labels, 1,
-                                          (GnomeCmdStringDialogCallback) on_open_with_other_ok, files);
+                                          (GnomeCmdStringDialogCallback) on_open_with_other_ok, file_list);
 
     g_return_if_fail (GNOME_CMD_IS_STRING_DIALOG (dialog));
 

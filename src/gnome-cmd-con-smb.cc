@@ -110,7 +110,7 @@ start_mount_func (GnomeCmdCon *con)
 }
 
 
-static void smb_open (GnomeCmdCon *con)
+static void smb_open (GnomeCmdCon *con, GtkWindow *parent_window)
 {
     if (!con->base_path)
         con->base_path = new GnomeCmdSmbPath(nullptr, nullptr, nullptr);
@@ -123,7 +123,7 @@ static void smb_open (GnomeCmdCon *con)
 }
 
 
-static gboolean smb_close (GnomeCmdCon *con)
+static gboolean smb_close (GnomeCmdCon *con, GtkWindow *parent_window)
 {
     // Copied from gnome-cmd-con-remote.cc:
     gnome_cmd_con_set_default_dir (con, nullptr);

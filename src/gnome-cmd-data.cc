@@ -31,7 +31,6 @@
 #include "gnome-cmd-file-selector.h"
 #include "gnome-cmd-con-list.h"
 #include "gnome-cmd-cmdline.h"
-#include "gnome-cmd-main-win.h"
 #include "gnome-cmd-user-actions.h"
 #include "utils.h"
 #include "gnome-cmd-owner.h"
@@ -121,7 +120,7 @@ static void gcmd_settings_dispose (GObject *object)
     G_OBJECT_CLASS (gcmd_settings_parent_class)->dispose (object);
 }
 
-static void on_bookmarks_changed ()
+static void on_bookmarks_changed (GnomeCmdMainWin *main_win)
 {
     gnome_cmd_con_erase_bookmark (gnome_cmd_data.priv->con_list->get_home());
 #ifdef HAVE_SAMBA
@@ -134,7 +133,7 @@ static void on_bookmarks_changed ()
     gnome_cmd_update_bookmark_dialog ();
 }
 
-static void on_size_display_mode_changed ()
+static void on_size_display_mode_changed (GnomeCmdMainWin *main_win)
 {
     gint size_disp_mode;
 
@@ -144,7 +143,7 @@ static void on_size_display_mode_changed ()
     main_win->update_view();
 }
 
-static void on_perm_display_mode_changed ()
+static void on_perm_display_mode_changed (GnomeCmdMainWin *main_win)
 {
     gint perm_disp_mode;
 
@@ -154,7 +153,7 @@ static void on_perm_display_mode_changed ()
     main_win->update_view();
 }
 
-static void on_graphical_layout_mode_changed ()
+static void on_graphical_layout_mode_changed (GnomeCmdMainWin *main_win)
 {
     gint graphical_layout_mode;
 
@@ -164,7 +163,7 @@ static void on_graphical_layout_mode_changed ()
     main_win->update_view();
 }
 
-static void on_list_row_height_changed ()
+static void on_list_row_height_changed (GnomeCmdMainWin *main_win)
 {
     guint list_row_height;
 
@@ -174,7 +173,7 @@ static void on_list_row_height_changed ()
     main_win->update_view();
 }
 
-static void on_date_disp_format_changed ()
+static void on_date_disp_format_changed (GnomeCmdMainWin *main_win)
 {
     GnomeCmdDateFormat date_format;
 
@@ -185,7 +184,7 @@ static void on_date_disp_format_changed ()
     main_win->update_view();
 }
 
-static void on_filter_hide_unknown_changed()
+static void on_filter_hide_unknown_changed (GnomeCmdMainWin *main_win)
 {
     gboolean filter;
 
@@ -195,7 +194,7 @@ static void on_filter_hide_unknown_changed()
     main_win->update_view();
 }
 
-static void on_filter_hide_regular_changed ()
+static void on_filter_hide_regular_changed (GnomeCmdMainWin *main_win)
 {
     gboolean filter;
 
@@ -205,7 +204,7 @@ static void on_filter_hide_regular_changed ()
     main_win->update_view();
 }
 
-static void on_filter_hide_directory_changed ()
+static void on_filter_hide_directory_changed (GnomeCmdMainWin *main_win)
 {
     gboolean filter;
 
@@ -215,7 +214,7 @@ static void on_filter_hide_directory_changed ()
     main_win->update_view();
 }
 
-static void on_filter_hide_symlink_changed ()
+static void on_filter_hide_symlink_changed (GnomeCmdMainWin *main_win)
 {
     gboolean filter;
 
@@ -225,7 +224,7 @@ static void on_filter_hide_symlink_changed ()
     main_win->update_view();
 }
 
-static void on_filter_hide_special_changed ()
+static void on_filter_hide_special_changed (GnomeCmdMainWin *main_win)
 {
     gboolean filter;
 
@@ -235,7 +234,7 @@ static void on_filter_hide_special_changed ()
     main_win->update_view();
 }
 
-static void on_filter_hide_shortcut_changed ()
+static void on_filter_hide_shortcut_changed (GnomeCmdMainWin *main_win)
 {
     gboolean filter;
 
@@ -245,7 +244,7 @@ static void on_filter_hide_shortcut_changed ()
     main_win->update_view();
 }
 
-static void on_filter_hide_mountable_changed ()
+static void on_filter_hide_mountable_changed (GnomeCmdMainWin *main_win)
 {
     gboolean filter;
 
@@ -255,7 +254,7 @@ static void on_filter_hide_mountable_changed ()
     main_win->update_view();
 }
 
-static void on_filter_hide_hidden_changed()
+static void on_filter_hide_hidden_changed (GnomeCmdMainWin *main_win)
 {
     gboolean filter;
 
@@ -265,7 +264,7 @@ static void on_filter_hide_hidden_changed()
     main_win->update_view();
 }
 
-static void on_filter_hide_backupfiles_changed ()
+static void on_filter_hide_backupfiles_changed (GnomeCmdMainWin *main_win)
 {
     gboolean filter;
 
@@ -275,7 +274,7 @@ static void on_filter_hide_backupfiles_changed ()
     main_win->update_view();
 }
 
-static void on_filter_hide_virtual_changed ()
+static void on_filter_hide_virtual_changed (GnomeCmdMainWin *main_win)
 {
     gboolean filter;
 
@@ -285,7 +284,7 @@ static void on_filter_hide_virtual_changed ()
     main_win->update_view();
 }
 
-static void on_filter_hide_volatile_changed ()
+static void on_filter_hide_volatile_changed (GnomeCmdMainWin *main_win)
 {
     gboolean filter;
 
@@ -295,7 +294,7 @@ static void on_filter_hide_volatile_changed ()
     main_win->update_view();
 }
 
-static void on_backup_pattern_changed ()
+static void on_backup_pattern_changed (GnomeCmdMainWin *main_win)
 {
     char *backup_pattern;
 
@@ -305,7 +304,7 @@ static void on_backup_pattern_changed ()
     g_free(backup_pattern);
 }
 
-static void on_list_font_changed ()
+static void on_list_font_changed (GnomeCmdMainWin *main_win)
 {
     g_free(gnome_cmd_data.options.list_font);
     gnome_cmd_data.options.list_font = g_settings_get_string (gnome_cmd_data.options.gcmd_settings->general, GCMD_SETTINGS_LIST_FONT);
@@ -313,7 +312,7 @@ static void on_list_font_changed ()
     main_win->update_view();
 }
 
-static void on_ext_disp_mode_changed ()
+static void on_ext_disp_mode_changed (GnomeCmdMainWin *main_win)
 {
     gint ext_disp_mode;
 
@@ -323,7 +322,7 @@ static void on_ext_disp_mode_changed ()
     main_win->update_view();
 }
 
-static void on_icon_size_changed ()
+static void on_icon_size_changed (GnomeCmdMainWin *main_win)
 {
     guint icon_size;
 
@@ -333,7 +332,7 @@ static void on_icon_size_changed ()
     main_win->update_view();
 }
 
-static void on_show_devbuttons_changed ()
+static void on_show_devbuttons_changed (GnomeCmdMainWin *main_win)
 {
     gboolean show_devbuttons;
 
@@ -343,7 +342,7 @@ static void on_show_devbuttons_changed ()
     main_win->fs(INACTIVE)->update_show_devbuttons();
 }
 
-static void on_show_devlist_changed ()
+static void on_show_devlist_changed (GnomeCmdMainWin *main_win)
 {
     gboolean show_devlist;
 
@@ -354,7 +353,7 @@ static void on_show_devlist_changed ()
     main_win->fs(INACTIVE)->update_show_devlist();
 }
 
-static void on_show_cmdline_changed ()
+static void on_show_cmdline_changed (GnomeCmdMainWin *main_win)
 {
     gboolean show_cmdline;
 
@@ -363,7 +362,7 @@ static void on_show_cmdline_changed ()
     main_win->update_cmdline_visibility();
 }
 
-static void on_show_toolbar_changed ()
+static void on_show_toolbar_changed (GnomeCmdMainWin *main_win)
 {
     if (gnome_cmd_data.show_toolbar != g_settings_get_boolean (gnome_cmd_data.options.gcmd_settings->general, GCMD_SETTINGS_SHOW_TOOLBAR))
     {
@@ -372,7 +371,7 @@ static void on_show_toolbar_changed ()
     }
 }
 
-static void on_show_buttonbar_changed ()
+static void on_show_buttonbar_changed (GnomeCmdMainWin *main_win)
 {
     if (gnome_cmd_data.buttonbar_visibility != g_settings_get_boolean (gnome_cmd_data.options.gcmd_settings->general, GCMD_SETTINGS_SHOW_BUTTONBAR))
     {
@@ -381,7 +380,7 @@ static void on_show_buttonbar_changed ()
     }
 }
 
-static void on_horizontal_orientation_changed ()
+static void on_horizontal_orientation_changed (GnomeCmdMainWin *main_win)
 {
     gboolean horizontal_orientation;
 
@@ -392,7 +391,7 @@ static void on_horizontal_orientation_changed ()
     main_win->focus_file_lists();
 }
 
-static void on_always_show_tabs_changed ()
+static void on_always_show_tabs_changed (GnomeCmdMainWin *main_win)
 {
     gboolean always_show_tabs;
 
@@ -402,7 +401,7 @@ static void on_always_show_tabs_changed ()
     main_win->update_style();
 }
 
-static void on_tab_lock_indicator_changed ()
+static void on_tab_lock_indicator_changed (GnomeCmdMainWin *main_win)
 {
     gint tab_lock_indicator;
 
@@ -412,7 +411,7 @@ static void on_tab_lock_indicator_changed ()
     main_win->update_style();
 }
 
-static void on_use_trash_changed()
+static void on_use_trash_changed (GnomeCmdMainWin *main_win)
 {
     gboolean use_trash;
 
@@ -420,7 +419,7 @@ static void on_use_trash_changed()
     gnome_cmd_data.options.deleteToTrash = use_trash;
 }
 
-static void on_confirm_delete_changed ()
+static void on_confirm_delete_changed (GnomeCmdMainWin *main_win)
 {
     gboolean confirm_delete;
 
@@ -428,7 +427,7 @@ static void on_confirm_delete_changed ()
     gnome_cmd_data.options.confirm_delete = confirm_delete;
 }
 
-static void on_confirm_delete_default_changed ()
+static void on_confirm_delete_default_changed (GnomeCmdMainWin *main_win)
 {
     gint confirm_delete_default;
 
@@ -436,7 +435,7 @@ static void on_confirm_delete_default_changed ()
     gnome_cmd_data.options.confirm_delete_default = (GtkButtonsType) confirm_delete_default;
 }
 
-static void on_confirm_copy_overwrite_changed ()
+static void on_confirm_copy_overwrite_changed (GnomeCmdMainWin *main_win)
 {
     gint confirm_copy_overwrite;
 
@@ -444,7 +443,7 @@ static void on_confirm_copy_overwrite_changed ()
     gnome_cmd_data.options.confirm_copy_overwrite = (GnomeCmdConfirmOverwriteMode) confirm_copy_overwrite;
 }
 
-static void on_confirm_move_overwrite_changed ()
+static void on_confirm_move_overwrite_changed (GnomeCmdMainWin *main_win)
 {
     gint confirm_move_overwrite;
 
@@ -452,7 +451,7 @@ static void on_confirm_move_overwrite_changed ()
     gnome_cmd_data.options.confirm_move_overwrite = (GnomeCmdConfirmOverwriteMode) confirm_move_overwrite;
 }
 
-static void on_mouse_drag_and_drop_changed ()
+static void on_mouse_drag_and_drop_changed (GnomeCmdMainWin *main_win)
 {
     gint mouse_dnd_default;
 
@@ -460,7 +459,7 @@ static void on_mouse_drag_and_drop_changed ()
     gnome_cmd_data.options.mouse_dnd_default = (GnomeCmdDefaultDndMode) mouse_dnd_default;
 }
 
-static void on_select_dirs_changed ()
+static void on_select_dirs_changed (GnomeCmdMainWin *main_win)
 {
     gboolean select_dirs;
 
@@ -468,7 +467,7 @@ static void on_select_dirs_changed ()
     gnome_cmd_data.options.select_dirs = select_dirs;
 }
 
-static void on_case_sensitive_changed ()
+static void on_case_sensitive_changed (GnomeCmdMainWin *main_win)
 {
     gboolean case_sensitive;
 
@@ -476,13 +475,13 @@ static void on_case_sensitive_changed ()
     gnome_cmd_data.options.case_sens_sort = case_sensitive;
 }
 
-static void on_symlink_string_changed ()
+static void on_symlink_string_changed (GnomeCmdMainWin *main_win)
 {
     g_free(gnome_cmd_data.options.symlink_prefix);
     gnome_cmd_data.options.symlink_prefix = g_settings_get_string (gnome_cmd_data.options.gcmd_settings->general, GCMD_SETTINGS_SYMLINK_PREFIX);
 }
 
-static void on_theme_changed()
+static void on_theme_changed (GnomeCmdMainWin *main_win)
 {
     gint theme;
 
@@ -492,7 +491,7 @@ static void on_theme_changed()
     main_win->update_view();
 }
 
-static void on_custom_color_norm_fg_changed()
+static void on_custom_color_norm_fg_changed (GnomeCmdMainWin *main_win)
 {
     gint theme;
 
@@ -506,7 +505,7 @@ static void on_custom_color_norm_fg_changed()
         main_win->update_view();
 }
 
-static void on_custom_color_norm_bg_changed()
+static void on_custom_color_norm_bg_changed (GnomeCmdMainWin *main_win)
 {
     gint theme;
 
@@ -520,7 +519,7 @@ static void on_custom_color_norm_bg_changed()
         main_win->update_view();
 }
 
-static void on_custom_color_alt_fg_changed()
+static void on_custom_color_alt_fg_changed (GnomeCmdMainWin *main_win)
 {
     gint theme;
 
@@ -534,7 +533,7 @@ static void on_custom_color_alt_fg_changed()
         main_win->update_view();
 }
 
-static void on_custom_color_alt_bg_changed()
+static void on_custom_color_alt_bg_changed (GnomeCmdMainWin *main_win)
 {
     gint theme;
 
@@ -548,7 +547,7 @@ static void on_custom_color_alt_bg_changed()
         main_win->update_view();
 }
 
-static void on_custom_color_sel_fg_changed()
+static void on_custom_color_sel_fg_changed (GnomeCmdMainWin *main_win)
 {
     gint theme;
 
@@ -562,7 +561,7 @@ static void on_custom_color_sel_fg_changed()
         main_win->update_view();
 }
 
-static void on_custom_color_sel_bg_changed()
+static void on_custom_color_sel_bg_changed (GnomeCmdMainWin *main_win)
 {
     gint theme;
 
@@ -576,7 +575,7 @@ static void on_custom_color_sel_bg_changed()
         main_win->update_view();
 }
 
-static void on_custom_color_curs_fg_changed()
+static void on_custom_color_curs_fg_changed (GnomeCmdMainWin *main_win)
 {
     gint theme;
 
@@ -590,7 +589,7 @@ static void on_custom_color_curs_fg_changed()
         main_win->update_view();
 }
 
-static void on_custom_color_curs_bg_changed()
+static void on_custom_color_curs_bg_changed (GnomeCmdMainWin *main_win)
 {
     gint theme;
 
@@ -604,7 +603,7 @@ static void on_custom_color_curs_bg_changed()
         main_win->update_view();
 }
 
-static void on_use_ls_colors_changed()
+static void on_use_ls_colors_changed (GnomeCmdMainWin *main_win)
 {
     gboolean use_ls_colors;
 
@@ -614,7 +613,7 @@ static void on_use_ls_colors_changed()
     main_win->update_view();
 }
 
-static void on_ls_color_black_fg_changed()
+static void on_ls_color_black_fg_changed (GnomeCmdMainWin *main_win)
 {
     gnome_cmd_data.set_color_if_valid_key_value(&gnome_cmd_data.options.ls_colors_palette.black_fg,
                                                 gnome_cmd_data.options.gcmd_settings->colors,
@@ -624,7 +623,7 @@ static void on_ls_color_black_fg_changed()
         main_win->update_view();
 }
 
-static void on_ls_color_black_bg_changed()
+static void on_ls_color_black_bg_changed (GnomeCmdMainWin *main_win)
 {
     gnome_cmd_data.set_color_if_valid_key_value(&gnome_cmd_data.options.ls_colors_palette.black_bg,
                                                 gnome_cmd_data.options.gcmd_settings->colors,
@@ -634,7 +633,7 @@ static void on_ls_color_black_bg_changed()
         main_win->update_view();
 }
 
-static void on_ls_color_red_fg_changed()
+static void on_ls_color_red_fg_changed (GnomeCmdMainWin *main_win)
 {
     gnome_cmd_data.set_color_if_valid_key_value(&gnome_cmd_data.options.ls_colors_palette.red_fg,
                                                 gnome_cmd_data.options.gcmd_settings->colors,
@@ -644,7 +643,7 @@ static void on_ls_color_red_fg_changed()
         main_win->update_view();
 }
 
-static void on_ls_color_red_bg_changed()
+static void on_ls_color_red_bg_changed (GnomeCmdMainWin *main_win)
 {
     gnome_cmd_data.set_color_if_valid_key_value(&gnome_cmd_data.options.ls_colors_palette.red_bg,
                                                 gnome_cmd_data.options.gcmd_settings->colors,
@@ -654,7 +653,7 @@ static void on_ls_color_red_bg_changed()
         main_win->update_view();
 }
 
-static void on_ls_color_green_fg_changed()
+static void on_ls_color_green_fg_changed (GnomeCmdMainWin *main_win)
 {
     gnome_cmd_data.set_color_if_valid_key_value(&gnome_cmd_data.options.ls_colors_palette.green_fg,
                                                 gnome_cmd_data.options.gcmd_settings->colors,
@@ -664,7 +663,7 @@ static void on_ls_color_green_fg_changed()
         main_win->update_view();
 }
 
-static void on_ls_color_green_bg_changed()
+static void on_ls_color_green_bg_changed (GnomeCmdMainWin *main_win)
 {
     gnome_cmd_data.set_color_if_valid_key_value(&gnome_cmd_data.options.ls_colors_palette.green_bg,
                                                 gnome_cmd_data.options.gcmd_settings->colors,
@@ -674,7 +673,7 @@ static void on_ls_color_green_bg_changed()
         main_win->update_view();
 }
 
-static void on_ls_color_yellow_fg_changed()
+static void on_ls_color_yellow_fg_changed (GnomeCmdMainWin *main_win)
 {
     gnome_cmd_data.set_color_if_valid_key_value(&gnome_cmd_data.options.ls_colors_palette.yellow_fg,
                                                 gnome_cmd_data.options.gcmd_settings->colors,
@@ -684,7 +683,7 @@ static void on_ls_color_yellow_fg_changed()
         main_win->update_view();
 }
 
-static void on_ls_color_yellow_bg_changed()
+static void on_ls_color_yellow_bg_changed (GnomeCmdMainWin *main_win)
 {
     gnome_cmd_data.set_color_if_valid_key_value(&gnome_cmd_data.options.ls_colors_palette.yellow_bg,
                                                 gnome_cmd_data.options.gcmd_settings->colors,
@@ -694,7 +693,7 @@ static void on_ls_color_yellow_bg_changed()
         main_win->update_view();
 }
 
-static void on_ls_color_blue_fg_changed()
+static void on_ls_color_blue_fg_changed (GnomeCmdMainWin *main_win)
 {
     gnome_cmd_data.set_color_if_valid_key_value(&gnome_cmd_data.options.ls_colors_palette.blue_fg,
                                                 gnome_cmd_data.options.gcmd_settings->colors,
@@ -704,7 +703,7 @@ static void on_ls_color_blue_fg_changed()
         main_win->update_view();
 }
 
-static void on_ls_color_blue_bg_changed()
+static void on_ls_color_blue_bg_changed (GnomeCmdMainWin *main_win)
 {
     gnome_cmd_data.set_color_if_valid_key_value(&gnome_cmd_data.options.ls_colors_palette.blue_bg,
                                                 gnome_cmd_data.options.gcmd_settings->colors,
@@ -714,7 +713,7 @@ static void on_ls_color_blue_bg_changed()
         main_win->update_view();
 }
 
-static void on_ls_color_magenta_fg_changed()
+static void on_ls_color_magenta_fg_changed (GnomeCmdMainWin *main_win)
 {
     gnome_cmd_data.set_color_if_valid_key_value(&gnome_cmd_data.options.ls_colors_palette.magenta_fg,
                                                 gnome_cmd_data.options.gcmd_settings->colors,
@@ -724,7 +723,7 @@ static void on_ls_color_magenta_fg_changed()
         main_win->update_view();
 }
 
-static void on_ls_color_magenta_bg_changed()
+static void on_ls_color_magenta_bg_changed (GnomeCmdMainWin *main_win)
 {
     gnome_cmd_data.set_color_if_valid_key_value(&gnome_cmd_data.options.ls_colors_palette.magenta_bg,
                                                 gnome_cmd_data.options.gcmd_settings->colors,
@@ -734,7 +733,7 @@ static void on_ls_color_magenta_bg_changed()
         main_win->update_view();
 }
 
-static void on_ls_color_cyan_fg_changed()
+static void on_ls_color_cyan_fg_changed (GnomeCmdMainWin *main_win)
 {
     gnome_cmd_data.set_color_if_valid_key_value(&gnome_cmd_data.options.ls_colors_palette.cyan_fg,
                                                 gnome_cmd_data.options.gcmd_settings->colors,
@@ -744,7 +743,7 @@ static void on_ls_color_cyan_fg_changed()
         main_win->update_view();
 }
 
-static void on_ls_color_cyan_bg_changed()
+static void on_ls_color_cyan_bg_changed (GnomeCmdMainWin *main_win)
 {
     gnome_cmd_data.set_color_if_valid_key_value(&gnome_cmd_data.options.ls_colors_palette.cyan_bg,
                                                 gnome_cmd_data.options.gcmd_settings->colors,
@@ -754,7 +753,7 @@ static void on_ls_color_cyan_bg_changed()
         main_win->update_view();
 }
 
-static void on_ls_color_white_fg_changed()
+static void on_ls_color_white_fg_changed (GnomeCmdMainWin *main_win)
 {
     gnome_cmd_data.set_color_if_valid_key_value(&gnome_cmd_data.options.ls_colors_palette.white_fg,
                                                 gnome_cmd_data.options.gcmd_settings->colors,
@@ -764,7 +763,7 @@ static void on_ls_color_white_fg_changed()
         main_win->update_view();
 }
 
-static void on_ls_color_white_bg_changed()
+static void on_ls_color_white_bg_changed (GnomeCmdMainWin *main_win)
 {
     gnome_cmd_data.set_color_if_valid_key_value(&gnome_cmd_data.options.ls_colors_palette.white_bg,
                                                 gnome_cmd_data.options.gcmd_settings->colors,
@@ -774,7 +773,7 @@ static void on_ls_color_white_bg_changed()
         main_win->update_view();
 }
 
-static void on_always_download_changed()
+static void on_always_download_changed (GnomeCmdMainWin *main_win)
 {
     gboolean always_download;
 
@@ -782,7 +781,7 @@ static void on_always_download_changed()
     gnome_cmd_data.options.honor_expect_uris = always_download;
 }
 
-static void on_multiple_instances_changed()
+static void on_multiple_instances_changed (GnomeCmdMainWin *main_win)
 {
     gboolean allow_multiple_instances;
 
@@ -790,28 +789,28 @@ static void on_multiple_instances_changed()
     gnome_cmd_data.options.allow_multiple_instances = allow_multiple_instances;
 }
 
-static void on_use_internal_viewer_changed()
+static void on_use_internal_viewer_changed (GnomeCmdMainWin *main_win)
 {
     gboolean use_internal_viewer;
     use_internal_viewer = g_settings_get_boolean (gnome_cmd_data.options.gcmd_settings->programs, GCMD_SETTINGS_USE_INTERNAL_VIEWER);
     gnome_cmd_data.options.use_internal_viewer = use_internal_viewer;
 }
 
-static void on_use_internal_search_changed()
+static void on_use_internal_search_changed (GnomeCmdMainWin *main_win)
 {
     gboolean use_internal_search;
     use_internal_search = g_settings_get_boolean (gnome_cmd_data.options.gcmd_settings->programs, GCMD_SETTINGS_USE_INTERNAL_SEARCH);
     gnome_cmd_data.options.use_internal_search = use_internal_search;
 }
 
-static void on_quick_search_shortcut_changed()
+static void on_quick_search_shortcut_changed (GnomeCmdMainWin *main_win)
 {
     GnomeCmdQuickSearchShortcut quick_search;
     quick_search = (GnomeCmdQuickSearchShortcut) g_settings_get_enum (gnome_cmd_data.options.gcmd_settings->general, GCMD_SETTINGS_QUICK_SEARCH_SHORTCUT);
     gnome_cmd_data.options.quick_search = quick_search;
 }
 
-static void on_quick_search_exact_match_begin_changed()
+static void on_quick_search_exact_match_begin_changed (GnomeCmdMainWin *main_win)
 {
     gboolean quick_search_exact_match;
 
@@ -819,7 +818,7 @@ static void on_quick_search_exact_match_begin_changed()
     gnome_cmd_data.options.quick_search_exact_match_begin = quick_search_exact_match;
 }
 
-static void on_quick_search_exact_match_end_changed()
+static void on_quick_search_exact_match_end_changed (GnomeCmdMainWin *main_win)
 {
     gboolean quick_search_exact_match;
 
@@ -827,7 +826,7 @@ static void on_quick_search_exact_match_end_changed()
     gnome_cmd_data.options.quick_search_exact_match_end = quick_search_exact_match;
 }
 
-static void on_dev_only_icon_changed()
+static void on_dev_only_icon_changed (GnomeCmdMainWin *main_win)
 {
     gboolean dev_only_icon;
 
@@ -836,7 +835,7 @@ static void on_dev_only_icon_changed()
 }
 
 #ifdef HAVE_SAMBA
-static void on_samba_device_icon_changed()
+static void on_samba_device_icon_changed (GnomeCmdMainWin *main_win)
 {
     gboolean show_samba_workgroups_button;
 
@@ -845,7 +844,7 @@ static void on_samba_device_icon_changed()
 }
 #endif
 
-static void on_mainmenu_visibility_changed()
+static void on_mainmenu_visibility_changed (GnomeCmdMainWin *main_win)
 {
     gboolean mainmenu_visibility;
 
@@ -933,385 +932,380 @@ static void gcmd_settings_class_init (GcmdSettingsClass *klass)
     object_class->dispose = gcmd_settings_dispose;
 }
 
-GcmdSettings *gcmd_settings_new ()
-{
-    return (GcmdSettings *) g_object_new (GCMD_TYPE_SETTINGS, nullptr);
-}
 
-
-static void gcmd_connect_gsettings_signals(GcmdSettings *gs)
+static void gcmd_connect_gsettings_signals(GcmdSettings *gs, GnomeCmdMainWin *main_win)
 {
-    g_signal_connect (gs->general,
+    g_signal_connect_swapped (gs->general,
                       "changed::bookmarks",
                       G_CALLBACK (on_bookmarks_changed),
-                      nullptr);
+                      main_win);
 
-    g_signal_connect (gs->general,
+    g_signal_connect_swapped (gs->general,
                       "changed::size-display-mode",
                       G_CALLBACK (on_size_display_mode_changed),
-                      nullptr);
+                      main_win);
 
-    g_signal_connect (gs->general,
+    g_signal_connect_swapped (gs->general,
                       "changed::perm-display-mode",
                       G_CALLBACK (on_perm_display_mode_changed),
-                      nullptr);
+                      main_win);
 
-    g_signal_connect (gs->general,
+    g_signal_connect_swapped (gs->general,
                       "changed::graphical-layout-mode",
                       G_CALLBACK (on_graphical_layout_mode_changed),
-                      nullptr);
+                      main_win);
 
-    g_signal_connect (gs->general,
+    g_signal_connect_swapped (gs->general,
                       "changed::list-row-height",
                       G_CALLBACK (on_list_row_height_changed),
-                      nullptr);
+                      main_win);
 
-    g_signal_connect (gs->general,
+    g_signal_connect_swapped (gs->general,
                       "changed::date-disp-format",
                       G_CALLBACK (on_date_disp_format_changed),
-                      nullptr);
+                      main_win);
 
-    g_signal_connect (gs->general,
+    g_signal_connect_swapped (gs->general,
                       "changed::list-font",
                       G_CALLBACK (on_list_font_changed),
-                      nullptr);
+                      main_win);
 
-    g_signal_connect (gs->filter,
+    g_signal_connect_swapped (gs->filter,
                       "changed::hide-unknown",
                       G_CALLBACK (on_filter_hide_unknown_changed),
-                      nullptr);
+                      main_win);
 
-    g_signal_connect (gs->filter,
+     g_signal_connect_swapped (gs->filter,
                       "changed::hide-regular",
                       G_CALLBACK (on_filter_hide_regular_changed),
-                      nullptr);
+                      main_win);
 
-    g_signal_connect (gs->filter,
+    g_signal_connect_swapped (gs->filter,
                       "changed::hide-directory",
                       G_CALLBACK (on_filter_hide_directory_changed),
-                      nullptr);
+                      main_win);
 
-    g_signal_connect (gs->filter,
+    g_signal_connect_swapped (gs->filter,
                       "changed::hide-symlink",
                       G_CALLBACK (on_filter_hide_symlink_changed),
-                      nullptr);
+                      main_win);
 
-    g_signal_connect (gs->filter,
+    g_signal_connect_swapped (gs->filter,
                       "changed::hide-special",
                       G_CALLBACK (on_filter_hide_special_changed),
-                      nullptr);
+                      main_win);
 
-    g_signal_connect (gs->filter,
+    g_signal_connect_swapped (gs->filter,
                       "changed::hide-shortcut",
                       G_CALLBACK (on_filter_hide_shortcut_changed),
-                      nullptr);
+                      main_win);
 
-    g_signal_connect (gs->filter,
+    g_signal_connect_swapped (gs->filter,
                       "changed::hide-mountable",
                       G_CALLBACK (on_filter_hide_mountable_changed),
-                      nullptr);
+                      main_win);
 
-    g_signal_connect (gs->filter,
+    g_signal_connect_swapped (gs->filter,
                       "changed::hide-virtual",
                       G_CALLBACK (on_filter_hide_virtual_changed),
-                      nullptr);
+                      main_win);
 
-    g_signal_connect (gs->filter,
+    g_signal_connect_swapped (gs->filter,
                       "changed::hide-volatile",
                       G_CALLBACK (on_filter_hide_volatile_changed),
-                      nullptr);
+                      main_win);
 
-    g_signal_connect (gs->filter,
+    g_signal_connect_swapped (gs->filter,
                       "changed::hide-dotfile",
                       G_CALLBACK (on_filter_hide_hidden_changed),
-                      nullptr);
+                      main_win);
 
-    g_signal_connect (gs->filter,
+    g_signal_connect_swapped (gs->filter,
                       "changed::hide-backupfiles",
                       G_CALLBACK (on_filter_hide_backupfiles_changed),
-                      nullptr);
+                      main_win);
 
-    g_signal_connect (gs->filter,
+    g_signal_connect_swapped (gs->filter,
                       "changed::backup-pattern",
                       G_CALLBACK (on_backup_pattern_changed),
-                      nullptr);
+                      main_win);
 
-    g_signal_connect (gs->general,
+    g_signal_connect_swapped (gs->general,
                       "changed::extension-display-mode",
                       G_CALLBACK (on_ext_disp_mode_changed),
-                      nullptr);
+                      main_win);
 
-    g_signal_connect (gs->general,
+    g_signal_connect_swapped (gs->general,
                       "changed::icon-size",
                       G_CALLBACK (on_icon_size_changed),
-                      nullptr);
+                      main_win);
 
-    g_signal_connect (gs->general,
+    g_signal_connect_swapped (gs->general,
                       "changed::show-devbuttons",
                       G_CALLBACK (on_show_devbuttons_changed),
-                      nullptr);
+                      main_win);
 
-    g_signal_connect (gs->general,
+    g_signal_connect_swapped (gs->general,
                       "changed::show-devlist",
                       G_CALLBACK (on_show_devlist_changed),
-                      nullptr);
+                      main_win);
 
-    g_signal_connect (gs->general,
+    g_signal_connect_swapped (gs->general,
                       "changed::show-cmdline",
                       G_CALLBACK (on_show_cmdline_changed),
-                      nullptr);
+                      main_win);
 
-    g_signal_connect (gs->general,
+    g_signal_connect_swapped (gs->general,
                       "changed::show-toolbar",
                       G_CALLBACK (on_show_toolbar_changed),
-                      nullptr);
+                      main_win);
 
-    g_signal_connect (gs->general,
+    g_signal_connect_swapped (gs->general,
                       "changed::show-buttonbar",
                       G_CALLBACK (on_show_buttonbar_changed),
-                      nullptr);
+                      main_win);
 
-    g_signal_connect (gs->general,
+    g_signal_connect_swapped (gs->general,
                       "changed::horizontal-orientation",
                       G_CALLBACK (on_horizontal_orientation_changed),
-                      nullptr);
+                      main_win);
 
-    g_signal_connect (gs->general,
+    g_signal_connect_swapped (gs->general,
                       "changed::symlink-string",
                       G_CALLBACK (on_symlink_string_changed),
-                      nullptr);
+                      main_win);
 
-    g_signal_connect (gs->general,
+    g_signal_connect_swapped (gs->general,
                       "changed::always-show-tabs",
                       G_CALLBACK (on_always_show_tabs_changed),
-                      nullptr);
+                      main_win);
 
-    g_signal_connect (gs->general,
+    g_signal_connect_swapped (gs->general,
                       "changed::tab-lock-indicator",
                       G_CALLBACK (on_tab_lock_indicator_changed),
-                      nullptr);
+                      main_win);
 
-    g_signal_connect (gs->general,
+    g_signal_connect_swapped (gs->general,
                       "changed::delete-to-trash",
                       G_CALLBACK (on_use_trash_changed),
-                      nullptr);
+                      main_win);
 
-    g_signal_connect (gs->confirm,
+    g_signal_connect_swapped (gs->confirm,
                       "changed::delete",
                       G_CALLBACK (on_confirm_delete_changed),
-                      nullptr);
+                      main_win);
 
-    g_signal_connect (gs->confirm,
+    g_signal_connect_swapped (gs->confirm,
                       "changed::delete-default",
                       G_CALLBACK (on_confirm_delete_default_changed),
-                      nullptr);
+                      main_win);
 
-    g_signal_connect (gs->confirm,
+    g_signal_connect_swapped (gs->confirm,
                       "changed::copy-overwrite",
                       G_CALLBACK (on_confirm_copy_overwrite_changed),
-                      nullptr);
+                      main_win);
 
-    g_signal_connect (gs->confirm,
+    g_signal_connect_swapped (gs->confirm,
                       "changed::move-overwrite",
                       G_CALLBACK (on_confirm_move_overwrite_changed),
-                      nullptr);
+                      main_win);
 
-    g_signal_connect (gs->confirm,
+    g_signal_connect_swapped (gs->confirm,
                       "changed::mouse-drag-and-drop",
                       G_CALLBACK (on_mouse_drag_and_drop_changed),
-                      nullptr);
+                      main_win);
 
-    g_signal_connect (gs->general,
+    g_signal_connect_swapped (gs->general,
                       "changed::select-dirs",
                       G_CALLBACK (on_select_dirs_changed),
-                      nullptr);
+                      main_win);
 
-    g_signal_connect (gs->general,
+    g_signal_connect_swapped (gs->general,
                       "changed::case-sensitive",
                       G_CALLBACK (on_case_sensitive_changed),
-                      nullptr);
+                      main_win);
 
-    g_signal_connect (gs->colors,
+    g_signal_connect_swapped (gs->colors,
                       "changed::theme",
                       G_CALLBACK (on_theme_changed),
-                      nullptr);
+                      main_win);
 
-    g_signal_connect (gs->colors,
+    g_signal_connect_swapped (gs->colors,
                       "changed::custom-norm-fg",
                       G_CALLBACK (on_custom_color_norm_fg_changed),
-                      nullptr);
+                      main_win);
 
-    g_signal_connect (gs->colors,
+    g_signal_connect_swapped (gs->colors,
                       "changed::custom-norm-bg",
                       G_CALLBACK (on_custom_color_norm_bg_changed),
-                      nullptr);
+                      main_win);
 
-    g_signal_connect (gs->colors,
+    g_signal_connect_swapped (gs->colors,
                       "changed::custom-alt-fg",
                       G_CALLBACK (on_custom_color_alt_fg_changed),
-                      nullptr);
+                      main_win);
 
-    g_signal_connect (gs->colors,
+    g_signal_connect_swapped (gs->colors,
                       "changed::custom-alt-bg",
                       G_CALLBACK (on_custom_color_alt_bg_changed),
-                      nullptr);
+                      main_win);
 
-    g_signal_connect (gs->colors,
+    g_signal_connect_swapped (gs->colors,
                       "changed::custom-sel-fg",
                       G_CALLBACK (on_custom_color_sel_fg_changed),
-                      nullptr);
+                      main_win);
 
-    g_signal_connect (gs->colors,
+    g_signal_connect_swapped (gs->colors,
                       "changed::custom-sel-bg",
                       G_CALLBACK (on_custom_color_sel_bg_changed),
-                      nullptr);
+                      main_win);
 
-    g_signal_connect (gs->colors,
+    g_signal_connect_swapped (gs->colors,
                       "changed::custom-curs-fg",
                       G_CALLBACK (on_custom_color_curs_fg_changed),
-                      nullptr);
+                      main_win);
 
-    g_signal_connect (gs->colors,
+    g_signal_connect_swapped (gs->colors,
                       "changed::custom-curs-bg",
                       G_CALLBACK (on_custom_color_curs_bg_changed),
-                      nullptr);
+                      main_win);
 
-    g_signal_connect (gs->colors,
+    g_signal_connect_swapped (gs->colors,
                       "changed::use-ls-colors",
                       G_CALLBACK (on_use_ls_colors_changed),
-                      nullptr);
+                      main_win);
 
-    g_signal_connect (gs->colors,
+    g_signal_connect_swapped (gs->colors,
                       "changed::lscm-black-fg",
                       G_CALLBACK (on_ls_color_black_fg_changed),
-                      nullptr);
+                      main_win);
 
-    g_signal_connect (gs->colors,
+    g_signal_connect_swapped (gs->colors,
                       "changed::lscm-black-bg",
                       G_CALLBACK (on_ls_color_black_bg_changed),
-                      nullptr);
+                      main_win);
 
-    g_signal_connect (gs->colors,
+    g_signal_connect_swapped (gs->colors,
                       "changed::lscm-red-fg",
                       G_CALLBACK (on_ls_color_red_fg_changed),
-                      nullptr);
+                      main_win);
 
-    g_signal_connect (gs->colors,
+    g_signal_connect_swapped (gs->colors,
                       "changed::lscm-red-bg",
                       G_CALLBACK (on_ls_color_red_bg_changed),
-                      nullptr);
+                      main_win);
 
-    g_signal_connect (gs->colors,
+    g_signal_connect_swapped (gs->colors,
                       "changed::lscm-green-fg",
                       G_CALLBACK (on_ls_color_green_fg_changed),
-                      nullptr);
+                      main_win);
 
-    g_signal_connect (gs->colors,
+    g_signal_connect_swapped (gs->colors,
                       "changed::lscm-green-bg",
                       G_CALLBACK (on_ls_color_green_bg_changed),
-                      nullptr);
+                      main_win);
 
-    g_signal_connect (gs->colors,
+    g_signal_connect_swapped (gs->colors,
                       "changed::lscm-yellow-fg",
                       G_CALLBACK (on_ls_color_yellow_fg_changed),
-                      nullptr);
+                      main_win);
 
-    g_signal_connect (gs->colors,
+    g_signal_connect_swapped (gs->colors,
                       "changed::lscm-yellow-bg",
                       G_CALLBACK (on_ls_color_yellow_bg_changed),
-                      nullptr);
+                      main_win);
 
-    g_signal_connect (gs->colors,
+    g_signal_connect_swapped (gs->colors,
                       "changed::lscm-blue-fg",
                       G_CALLBACK (on_ls_color_blue_fg_changed),
-                      nullptr);
+                      main_win);
 
-    g_signal_connect (gs->colors,
+    g_signal_connect_swapped (gs->colors,
                       "changed::lscm-blue-bg",
                       G_CALLBACK (on_ls_color_blue_bg_changed),
-                      nullptr);
+                      main_win);
 
-    g_signal_connect (gs->colors,
+    g_signal_connect_swapped (gs->colors,
                       "changed::lscm-magenta-fg",
                       G_CALLBACK (on_ls_color_magenta_fg_changed),
-                      nullptr);
+                      main_win);
 
-    g_signal_connect (gs->colors,
+    g_signal_connect_swapped (gs->colors,
                       "changed::lscm-magenta-bg",
                       G_CALLBACK (on_ls_color_magenta_bg_changed),
-                      nullptr);
+                      main_win);
 
-    g_signal_connect (gs->colors,
+    g_signal_connect_swapped (gs->colors,
                       "changed::lscm-cyan-fg",
                       G_CALLBACK (on_ls_color_cyan_fg_changed),
-                      nullptr);
+                      main_win);
 
-    g_signal_connect (gs->colors,
+    g_signal_connect_swapped (gs->colors,
                       "changed::lscm-cyan-bg",
                       G_CALLBACK (on_ls_color_cyan_bg_changed),
-                      nullptr);
+                      main_win);
 
-    g_signal_connect (gs->colors,
+    g_signal_connect_swapped (gs->colors,
                       "changed::lscm-white-fg",
                       G_CALLBACK (on_ls_color_white_fg_changed),
-                      nullptr);
+                      main_win);
 
-    g_signal_connect (gs->colors,
+    g_signal_connect_swapped (gs->colors,
                       "changed::lscm-white-bg",
                       G_CALLBACK (on_ls_color_white_bg_changed),
-                      nullptr);
+                      main_win);
 
-    g_signal_connect (gs->programs,
+    g_signal_connect_swapped (gs->programs,
                       "changed::dont-download",
                       G_CALLBACK (on_always_download_changed),
-                      nullptr);
+                      main_win);
 
-    g_signal_connect (gs->general,
+    g_signal_connect_swapped (gs->general,
                       "changed::allow-multiple-instances",
                       G_CALLBACK (on_multiple_instances_changed),
-                      nullptr);
+                      main_win);
 
-    g_signal_connect (gs->programs,
+    g_signal_connect_swapped (gs->programs,
                       "changed::use-internal-viewer",
                       G_CALLBACK (on_use_internal_viewer_changed),
-                      nullptr);
+                      main_win);
 
-    g_signal_connect (gs->programs,
+    g_signal_connect_swapped (gs->programs,
                       "changed::use-internal-search",
                       G_CALLBACK (on_use_internal_search_changed),
-                      nullptr);
+                      main_win);
 
-    g_signal_connect (gs->general,
+    g_signal_connect_swapped (gs->general,
                       "changed::quick-search",
                       G_CALLBACK (on_quick_search_shortcut_changed),
-                      nullptr);
+                      main_win);
 
-    g_signal_connect (gs->general,
+    g_signal_connect_swapped (gs->general,
                       "changed::quick-search-exact-match-begin",
                       G_CALLBACK (on_quick_search_exact_match_begin_changed),
-                      nullptr);
+                      main_win);
 
-    g_signal_connect (gs->general,
+    g_signal_connect_swapped (gs->general,
                       "changed::quick-search-exact-match-end",
                       G_CALLBACK (on_quick_search_exact_match_end_changed),
-                      nullptr);
+                      main_win);
 
-    g_signal_connect (gs->general,
+    g_signal_connect_swapped (gs->general,
                       "changed::dev-only-icon",
                       G_CALLBACK (on_dev_only_icon_changed),
-                      nullptr);
+                      main_win);
 
 #ifdef HAVE_SAMBA
-    g_signal_connect (gs->general,
+    g_signal_connect_swapped (gs->general,
                       "changed::show-samba-workgroup-button",
                       G_CALLBACK (on_samba_device_icon_changed),
-                      nullptr);
+                      main_win);
 #endif
 
-    g_signal_connect (gs->general,
+    g_signal_connect_swapped (gs->general,
                       "changed::mainmenu-visibility",
                       G_CALLBACK (on_mainmenu_visibility_changed),
-                      nullptr);
+                      main_win);
 
     g_signal_connect (gs->general,
                       "changed::opts-dialog-width",
@@ -1362,7 +1356,6 @@ static void gcmd_connect_gsettings_signals(GcmdSettings *gs)
                       "changed::use-gcmd-block",
                       G_CALLBACK (on_use_gcmd_block_changed),
                       nullptr);
-
 }
 
 
@@ -1396,8 +1389,14 @@ static void gcmd_settings_init (GcmdSettings *gs)
 
     global_schema = g_settings_schema_source_lookup (global_schema_source, GCMD_PREF_PLUGINS, FALSE);
     gs->plugins = g_settings_new_full (global_schema, nullptr, nullptr);
+}
 
-    gcmd_connect_gsettings_signals(gs);
+
+GcmdSettings *gcmd_settings_new (GnomeCmdMainWin *main_win)
+{
+    auto gs = (GcmdSettings *) g_object_new (GCMD_TYPE_SETTINGS, nullptr);
+    gcmd_connect_gsettings_signals(gs, main_win);
+    return gs;
 }
 
 
@@ -1792,7 +1791,7 @@ void GnomeCmdData::save_devices()
 /**
  * Save tabs in given gSettings and in given key
  */
-static void save_tabs(GSettings *gSettings, const char *gSettingsKey)
+static void save_tabs (GSettings *gSettings, const char *gSettingsKey, GnomeCmdMainWin *main_win)
 {
     if (main_win == nullptr)
         return;
@@ -2509,7 +2508,7 @@ gboolean GnomeCmdData::set_gsettings_string_array_from_glist (GSettings *setting
 }
 
 
-void GnomeCmdData::save_cmdline_history()
+void GnomeCmdData::save_cmdline_history(GnomeCmdMainWin *main_win)
 {
     if (options.save_cmdline_history_on_exit)
     {
@@ -2690,9 +2689,9 @@ GnomeCmdData::~GnomeCmdData()
     }
 }
 
-void GnomeCmdData::gsettings_init()
+void GnomeCmdData::gsettings_init(GnomeCmdMainWin *main_win)
 {
-    options.gcmd_settings = gcmd_settings_new();
+    options.gcmd_settings = gcmd_settings_new(main_win);
 }
 
 /**
@@ -3498,7 +3497,7 @@ void GnomeCmdData::load()
 }
 
 
-void GnomeCmdData::save()
+void GnomeCmdData::save(GnomeCmdMainWin *main_win)
 {
     set_gsettings_enum_when_changed (options.gcmd_settings->general, GCMD_SETTINGS_SIZE_DISP_MODE, options.size_disp_mode);
     set_gsettings_enum_when_changed (options.gcmd_settings->general, GCMD_SETTINGS_PERM_DISP_MODE, options.perm_disp_mode);
@@ -3646,10 +3645,10 @@ void GnomeCmdData::save()
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_ADVRENAME_TOOL_HEIGHT, &(advrename_defaults.height));
     set_gsettings_string_array_from_glist(options.gcmd_settings->general, GCMD_SETTINGS_ADVRENAME_TOOL_TEMPLATE_HISTORY, advrename_defaults.templates.ents);
 
-    save_tabs                       (options.gcmd_settings->general, GCMD_SETTINGS_FILE_LIST_TABS);
+    save_tabs                       (options.gcmd_settings->general, GCMD_SETTINGS_FILE_LIST_TABS, main_win);
     save_devices                    ();
     save_fav_apps                   ();
-    save_cmdline_history            ();
+    save_cmdline_history            (main_win);
     save_directory_history          ();
     save_search_history             ();
     save_search_profiles            ();

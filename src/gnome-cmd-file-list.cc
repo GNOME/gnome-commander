@@ -46,6 +46,7 @@
 #include "dialogs/gnome-cmd-delete-dialog.h"
 #include "dialogs/gnome-cmd-patternsel-dialog.h"
 #include "dialogs/gnome-cmd-rename-dialog.h"
+#include "dialogs/gnome-cmd-file-props-dialog.h"
 
 using namespace std;
 
@@ -99,6 +100,7 @@ struct TmpDlData
 {
     GnomeCmdFile *f;
     GtkWidget *dialog;
+    GtkWindow *parent_window;
     gpointer *args;
 };
 
@@ -911,7 +913,7 @@ static GString *build_selected_file_list (GnomeCmdFileList *fl)
 static void show_file_popup (GnomeCmdFileList *fl, GdkPoint *point)
 {
     // create the popup menu
-    GMenu *menu_model = gnome_cmd_file_popmenu_new (fl);
+    GMenu *menu_model = gnome_cmd_file_popmenu_new (main_win, fl);
     if (!menu_model) return;
 
     GtkWidget *popover = gtk_popover_new_from_model (GTK_WIDGET (fl), G_MENU_MODEL (menu_model));
@@ -1377,7 +1379,7 @@ static void on_tmp_download_response (GtkWidget *w, gint id, TmpDlData *dldata)
         GnomeCmdPlainPath path(path_str);
         auto destGFile = gnome_cmd_con_create_gfile (get_home_con (), &path);
 
-        gnome_cmd_tmp_download (*main_win,
+        gnome_cmd_tmp_download (dldata->parent_window,
                                 g_list_append (nullptr, sourceGFile),
                                 g_list_append (nullptr, destGFile),
                                 G_FILE_COPY_OVERWRITE,
@@ -1496,6 +1498,7 @@ static void mime_exec_single (GtkWindow *parent_window, GnomeCmdFile *f)
             // args[2] is NULL here (don't set exec dir for temporarily downloaded files)
             dldata->f = f;
             dldata->dialog = dialog;
+            dldata->parent_window = parent_window;
             dldata->args = args;
 
             g_signal_connect (dialog, "response", G_CALLBACK (on_tmp_download_response), dldata);
@@ -2600,7 +2603,10 @@ void gnome_cmd_file_list_show_properties_dialog (GnomeCmdFileList *fl)
     GnomeCmdFile *f = fl->get_selected_file();
 
     if (f)
-        gnome_cmd_file_show_properties (f);
+    {
+        GtkWindow *parent_window = GTK_WINDOW (gtk_widget_get_toplevel (GTK_WIDGET (fl)));
+        gnome_cmd_file_props_dialog_show (parent_window, f);
+    }
 }
 
 
@@ -2663,16 +2669,17 @@ void gnome_cmd_file_list_view (GnomeCmdFileList *fl, bool useInternalViewer)
         return;
     }
 
+    GtkWindow *parent_window = GTK_WINDOW (gtk_widget_get_toplevel (GTK_WIDGET (fl)));
     switch (useInternalViewer)
     {
         case TRUE:
         {
-            gnome_cmd_file_view_internal(f);
+            gnome_cmd_file_view_internal (parent_window, f);
             break;
         }
         case FALSE:
         {
-            gnome_cmd_file_view_external(f);
+            gnome_cmd_file_view_external (parent_window, f);
             break;
         }
     }
@@ -2900,12 +2907,12 @@ gboolean GnomeCmdFileList::key_pressed(GnomeCmdKeyPress *event)
                 return mime_exec_file (get_toplevel_window (*this), get_focused_file());
 
             case GDK_KEY_space:
-                set_cursor_busy ();
+                set_cursor_busy_for_widget (*this);
                 toggle();
                 if (GnomeCmdFile *selfile = get_selected_file())
                     show_dir_tree_size(selfile);
                 g_signal_emit (this, signals[FILES_CHANGED], 0);
-                set_cursor_default ();
+                set_cursor_default_for_widget (*this);
                 return TRUE;
 
             case GDK_KEY_KP_Add:
@@ -3053,7 +3060,8 @@ void GnomeCmdFileList::set_connection (GnomeCmdCon *new_con, GnomeCmdDir *start_
         create_con_open_progress_dialog (this);
         g_timeout_add (gnome_cmd_data.gui_update_rate, (GSourceFunc) update_con_open_progress, this);
 
-        gnome_cmd_con_open (new_con);
+        GtkWindow *parent_window = GTK_WINDOW (gtk_widget_get_toplevel (GTK_WIDGET (this)));
+        gnome_cmd_con_open (new_con, parent_window);
 
         return;
     }

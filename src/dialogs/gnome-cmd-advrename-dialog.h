@@ -58,7 +58,7 @@ struct GnomeCmdAdvrenameDialog
 
     GtkTreeModel *files;
 
-    explicit GnomeCmdAdvrenameDialog(GnomeCmdData::AdvrenameConfig &defaults);
+    explicit GnomeCmdAdvrenameDialog(GnomeCmdData::AdvrenameConfig &defaults, GtkWindow *parent_window);
     ~GnomeCmdAdvrenameDialog();
 
     void set(GList *files);
