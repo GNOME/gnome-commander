@@ -124,8 +124,7 @@ static void activate_plugin (PluginData *data)
     GSimpleActionGroup *actions = gnome_cmd_plugin_create_actions (data->plugin, data->action_group_name);
     gtk_widget_insert_action_group (*main_win, data->action_group_name, G_ACTION_GROUP (actions));
 
-    GnomeCmdState *state = main_win->get_state();
-    data->menu = gnome_cmd_plugin_create_main_menu (data->plugin, state);
+    data->menu = gnome_cmd_plugin_create_main_menu (data->plugin);
 }
 
 

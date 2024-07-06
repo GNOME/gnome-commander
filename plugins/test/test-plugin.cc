@@ -86,7 +86,7 @@ static GSimpleActionGroup *create_actions (GnomeCmdPlugin *plugin, const gchar *
 }
 
 
-static GMenuModel *create_main_menu (GnomeCmdPlugin *plugin, GnomeCmdState *state)
+static GMenuModel *create_main_menu (GnomeCmdPlugin *plugin)
 {
     TestPluginPrivate *priv = (TestPluginPrivate *) test_plugin_get_instance_private (TEST_PLUGIN (plugin));
 
