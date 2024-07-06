@@ -818,6 +818,7 @@ static void gnome_cmd_file_selector_init (GnomeCmdFileSelector *fs)
 
     // create the info label
     fs->info_label = gtk_label_new ("not initialized");
+    gtk_label_set_ellipsize (GTK_LABEL (fs->info_label), PANGO_ELLIPSIZE_END);
     gtk_widget_set_halign (fs->info_label, GTK_ALIGN_START);
     gtk_widget_set_valign (fs->info_label, GTK_ALIGN_CENTER);
     gtk_widget_set_margin_start (GTK_WIDGET (fs->info_label), 6);
@@ -1424,7 +1425,8 @@ void GnomeCmdFileSelector::update_show_devbuttons()
     {
         if (con_btns_hbox)
         {
-            gtk_container_remove (GTK_CONTAINER (this), con_btns_hbox);
+            gtk_container_remove (GTK_CONTAINER (this), con_btns_sw);
+            con_btns_sw = nullptr;
             con_btns_hbox = nullptr;
         }
     }
@@ -1432,10 +1434,14 @@ void GnomeCmdFileSelector::update_show_devbuttons()
     {
         if (!con_btns_hbox)
         {
+            con_btns_sw = gtk_scrolled_window_new ();
+            gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (con_btns_sw), GTK_POLICY_AUTOMATIC, GTK_POLICY_NEVER);
             con_btns_hbox = create_hbox (*this, FALSE, 2);
-            gtk_box_append (GTK_BOX (this), con_btns_hbox);
-            gtk_box_reorder_child (GTK_BOX (this), con_btns_hbox, 0);
-            gtk_widget_show (con_btns_hbox);
+            gtk_scrolled_window_set_child (GTK_SCROLLED_WINDOW (con_btns_sw), con_btns_hbox);
+
+            gtk_box_append (GTK_BOX (this), con_btns_sw);
+            gtk_box_reorder_child (GTK_BOX (this), con_btns_sw, 0);
+            gtk_widget_show_all (con_btns_sw);
             create_con_buttons (this);
         }
     }

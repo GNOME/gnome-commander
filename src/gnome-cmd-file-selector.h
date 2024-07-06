@@ -44,6 +44,7 @@ struct GnomeCmdFileSelector
     GtkBox vbox;
 
     FileSelectorID fs_id;
+    GtkWidget *con_btns_sw;
     GtkWidget *con_btns_hbox;
     GtkWidget *con_hbox;
     GtkWidget *dir_indicator;
