@@ -1876,7 +1876,7 @@ void gnome_cmd_file_list_show_rename_dialog (GnomeCmdFileList *fl)
 
         get_focus_row_coordinates (fl, x, y, w, h);
 
-        GtkWidget *popover = gnome_cmd_rename_dialog_new (f, *fl, x, y, w, h);
+        GtkWidget *popover = gnome_cmd_rename_dialog_new (f, fl, x, y, w, h);
         gtk_popover_popup (GTK_POPOVER (popover));
     }
 }
