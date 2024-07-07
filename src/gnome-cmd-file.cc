@@ -900,23 +900,24 @@ void gnome_cmd_file_view_internal(GtkWindow *parent_window, GnomeCmdFile *f)
 
 void gnome_cmd_file_view_external(GtkWindow *parent_window, GnomeCmdFile *f)
 {
-    string command;
-    if (parse_command(main_win, &command, gnome_cmd_data.options.viewer) == 0)
+    GList *files_list = g_list_append(nullptr, f);
+
+    GError *error = nullptr;
+    int result = spawn_async_r(nullptr, files_list, gnome_cmd_data.options.viewer, &error);
+    switch (result)
     {
-        DEBUG ('g', "Edit file command is not valid.\n");
-        gnome_cmd_show_message (parent_window, _("No valid command given."));
-        return;
-    }
-    else
-    {
-        gint     argc;
-        gchar  **argv  = nullptr;
-        GError  *error = nullptr;
-        DEBUG ('g', "Edit file: %s\n", command.c_str());
-        g_shell_parse_argv (command.c_str(), &argc, &argv, nullptr);
-        if (!g_spawn_async (nullptr, argv, nullptr, G_SPAWN_SEARCH_PATH, nullptr, nullptr, nullptr, &error))
-        gnome_cmd_error_message (_("Unable to execute command."), error);
-        g_strfreev (argv);
+        case 0:
+            break;
+        case 1:
+        case 2:
+            DEBUG ('g', "Edit file command is not valid.\n");
+            gnome_cmd_show_message (parent_window, _("No valid command given."));
+            g_clear_error (&error);
+            break;
+        case 3:
+        default:
+            gnome_cmd_error_message (_("Unable to execute command."), error);
+            break;
     }
 }
 
@@ -943,31 +944,31 @@ void gnome_cmd_file_view (GtkWindow *parent_window, GnomeCmdFile *f)
 }
 
 
-void gnome_cmd_file_edit (GnomeCmdFile *f)
+void gnome_cmd_file_edit (GtkWindow *parent_window, GnomeCmdFile *f)
 {
     g_return_if_fail (f != nullptr);
 
     if (!f->is_local())
         return;
 
-    gchar *fpath = f->get_quoted_real_path();
-    auto parentDir = g_file_get_parent(f->get_file());
-    gchar *dpath = g_file_get_parse_name (parentDir);
-    g_object_unref(parentDir);
-#if defined (__GNUC__)
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wformat-nonliteral"
-#endif
-    gchar *command = g_strdup_printf (gnome_cmd_data.options.editor, fpath);
-#if defined (__GNUC__)
-#pragma GCC diagnostic pop
-#endif
-
-    run_command_indir (command, dpath, FALSE);
-
-    g_free (command);
-    g_free (dpath);
-    g_free (fpath);
+    GList *sfl = g_list_append (nullptr, f);
+    GError *error = NULL;
+    int result = spawn_async_r(nullptr, sfl, gnome_cmd_data.options.editor, &error);
+    switch (result)
+    {
+        case 0:
+            break;
+        case 1:
+        case 2:
+            DEBUG ('g', "file_edit: command is not valid.\n");
+            gnome_cmd_show_message (parent_window, _("No valid command given."));
+            g_clear_error (&error);
+            break;
+        case 3:
+        default:
+            gnome_cmd_error_message (_("Unable to execute command."), error);
+            break;
+    }
 }
 
 

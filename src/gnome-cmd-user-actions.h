@@ -157,7 +157,7 @@ inline gboolean GnomeCmdUserActions::register_action(guint keyval, const gchar *
     return register_action(0, keyval, action_name_argument, user_data);
 }
 
-int parse_command(GnomeCmdMainWin *main_win, string *cmd, const gchar *command);
+extern "C" int spawn_async_r(const char *cwd, GList *files_list, const char *command_template, GError **error);
 
 void eventually_warn_if_xdg_email_is_used(GnomeCmdMainWin *main_win);
 

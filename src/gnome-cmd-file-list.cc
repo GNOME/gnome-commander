@@ -2699,10 +2699,11 @@ void gnome_cmd_file_list_edit (GnomeCmdFileList *fl)
 
     if (!f)  return;
 
+    GtkWindow *parent_window = GTK_WINDOW (gtk_widget_get_toplevel (GTK_WIDGET (fl)));
     if (f->GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE) == G_FILE_TYPE_DIRECTORY)
-        gnome_cmd_show_message (get_toplevel_window (*fl), _("Not an ordinary file."), g_file_info_get_display_name(f->get_file_info()));
+        gnome_cmd_show_message (parent_window, _("Not an ordinary file."), g_file_info_get_display_name(f->get_file_info()));
     else
-        gnome_cmd_file_edit (f);
+        gnome_cmd_file_edit (parent_window, f);
 }
 
 

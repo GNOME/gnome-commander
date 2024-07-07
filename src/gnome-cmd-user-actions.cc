@@ -865,33 +865,25 @@ void file_edit (GSimpleAction *action, GVariant *parameter, gpointer user_data)
         gnome_cmd_file_selector_show_new_textfile_dialog (main_win->fs (ACTIVE));
     else
     {
-        gchar       *command;
+        GnomeCmdFileList *fl = get_fl (main_win, ACTIVE);
+        GList *sfl = fl->get_selected_files();
 
-        command = g_strdup (gnome_cmd_data.options.editor);
-        g_return_if_fail (command != nullptr);
-
-        string cmd;
-
-        cmd.reserve(2000);
-        if (parse_command(main_win, &cmd, (const gchar*) command) == 0)
+        GError *error = nullptr;
+        int result = spawn_async_r(nullptr, sfl, gnome_cmd_data.options.editor, &error);
+        switch (result)
         {
-            DEBUG ('g', "Edit file command is not valid.\n");
-            gnome_cmd_show_message (*main_win, _("No valid command given."));
-            return;
-        }
-        else
-        {
-            gint     argc;
-            gchar  **argv  = nullptr;
-            GError  *error = nullptr;
-            DEBUG ('g', "Edit file: %s\n", cmd.c_str());
-
-            g_shell_parse_argv (cmd.c_str(), &argc, &argv, nullptr);
-            if (!g_spawn_async (nullptr, argv, nullptr, G_SPAWN_SEARCH_PATH, nullptr, nullptr, nullptr, &error))
-            gnome_cmd_error_message (_("Unable to execute command."), error);
-
-            g_strfreev (argv);
-            g_free (command);
+            case 0:
+                break;
+            case 1:
+            case 2:
+                DEBUG ('g', "Edit file command is not valid.\n");
+                gnome_cmd_show_message (*main_win, _("No valid command given."));
+                g_clear_error (&error);
+                break;
+            case 3:
+            default:
+                gnome_cmd_error_message (_("Unable to execute command."), error);
+                break;
         }
     }
 }
@@ -915,30 +907,25 @@ void file_search (GSimpleAction *action, GVariant *parameter, gpointer user_data
     }
     else
     {
-        string commandString;
-        commandString.reserve(2000);
+        GnomeCmdFileList *fl = get_fl (main_win, ACTIVE);
+        GList *sfl = fl->get_selected_files();
 
-        if (parse_command(main_win, &commandString, (const gchar*) gnome_cmd_data.options.search) == 0)
+        GError *error = nullptr;
+        int result = spawn_async_r(nullptr, sfl, gnome_cmd_data.options.search, &error);
+        switch (result)
         {
-            DEBUG ('g', "Search command is empty.\n");
-            gnome_cmd_show_message (*main_win, _("No search command given."), _("You can set a command for a search tool in the program options."));
-            return;
-        }
-        else
-        {
-            gint     argc;
-            gchar  **argv  = nullptr;
-            GError  *error = nullptr;
-
-            DEBUG ('g', "Invoking search: %s\n", commandString.c_str());
-            // put command into argv
-            g_shell_parse_argv (commandString.c_str(), &argc, &argv, nullptr);
-            // execute command
-            if (!g_spawn_async (nullptr, argv, nullptr, G_SPAWN_SEARCH_PATH, nullptr, nullptr, nullptr, &error))
-            {
+            case 0:
+                break;
+            case 1:
+            case 2:
+                DEBUG ('g', "Search command is empty.\n");
+                gnome_cmd_show_message (*main_win, _("No search command given."), _("You can set a command for a search tool in the program options."));
+                g_clear_error (&error);
+                break;
+            case 3:
+            default:
                 gnome_cmd_error_message (_("Unable to execute command."), error);
-            }
-            g_strfreev (argv);
+                break;
         }
     }
 }
@@ -1036,31 +1023,27 @@ void file_sendto (GSimpleAction *action, GVariant *parameter, gpointer user_data
 {
     auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
 
-    string commandString;
-    commandString.reserve(2000);
+    eventually_warn_if_xdg_email_is_used(main_win);
 
-    if (parse_command(main_win, &commandString, (const gchar*) gnome_cmd_data.options.sendto) == 0)
+    GnomeCmdFileList *fl = get_fl (main_win, ACTIVE);
+    GList *sfl = fl->get_selected_files();
+
+    GError *error = nullptr;
+    int result = spawn_async_r(nullptr, sfl, gnome_cmd_data.options.sendto, &error);
+    switch (result)
     {
-        DEBUG ('g', "Sendto command is not valid.\n");
-        gnome_cmd_show_message (*main_win, _("No valid command given."));
-        return;
-    }
-    else
-    {
-        gint     argc;
-        gchar  **argv  = nullptr;
-        GError  *error = nullptr;
-
-        eventually_warn_if_xdg_email_is_used(main_win);
-
-        DEBUG ('g', "Invoking 'Send files': %s\n", commandString.c_str());
-        g_shell_parse_argv (commandString.c_str(), &argc, &argv, nullptr);
-
-        if (!g_spawn_async (nullptr, argv, nullptr, G_SPAWN_SEARCH_PATH, nullptr, nullptr, nullptr, &error))
-        {
+        case 0:
+            break;
+        case 1:
+        case 2:
+            DEBUG ('g', "Sendto command is not valid.\n");
+            gnome_cmd_show_message (*main_win, _("No valid command given."));
+            g_clear_error (&error);
+            break;
+        case 3:
+        default:
             gnome_cmd_error_message (_("Unable to execute command."), error);
-        }
-        g_strfreev (argv);
+            break;
     }
 }
 
@@ -1263,7 +1246,6 @@ void command_execute (GSimpleAction *action, GVariant *parameter, gpointer user_
     DEBUG ('g', "invoking: %s\n", command);
 
     string dir_path;
-    string quoted_dir_path;
     string cmd;
 
     GnomeCmdDir *dir = nullptr;
@@ -1286,30 +1268,24 @@ void command_execute (GSimpleAction *action, GVariant *parameter, gpointer user_
     if (dir)
     {
         stringify (dir_path, GNOME_CMD_FILE (dir)->get_real_path());
-        stringify (quoted_dir_path, gnome_cmd_file_get_quoted_real_path (GNOME_CMD_FILE (dir)));
     }
 
-    cmd.reserve(2000);
-    if (parse_command(main_win, &cmd, (const gchar*) command) == 0)
+    GError *error = nullptr;
+    int result = spawn_async_r(gnome_cmd_dir_is_local (dir) ? dir_path.c_str() : nullptr, sfl, command, &error);
+    switch (result)
     {
-        DEBUG ('g', "Command is not valid.\n");
-        gnome_cmd_show_message (*main_win, _("No valid command given."));
-        return;
-    }
-    else
-    {
-        gint argc;
-        gchar **argv;
-        GError *error = nullptr;
-
-        DEBUG ('g', "Running: %s\n", cmd.c_str());
-
-        g_shell_parse_argv (cmd.c_str(), &argc, &argv, nullptr);
-        if (!g_spawn_async (gnome_cmd_dir_is_local (dir) ? dir_path.c_str() : nullptr, argv, nullptr, G_SPAWN_SEARCH_PATH, nullptr, nullptr, nullptr, &error))
+        case 0:
+            break;
+        case 1:
+        case 2:
+            DEBUG ('g', "Command is not valid.\n");
+            gnome_cmd_show_message (*main_win, _("No valid command given."));
+            g_clear_error (&error);
+            break;
+        case 3:
+        default:
             gnome_cmd_error_message (_("Unable to execute command."), error);
-
-        g_strfreev (argv);
-        g_list_free (sfl);
+            break;
     }
 }
 
@@ -2341,44 +2317,6 @@ void help_about (GSimpleAction *action, GVariant *parameter, gpointer user_data)
                            nullptr);
 
     g_free (license_trans);
-}
-
-extern "C" char *parse_command_template_r(GList *files, const char *command_template);
-
-/**
- * Parses a command, stored in a char array, and substitutes a certain
- * symbol with path or URI names. The result is stored in a string
- * variable, which is expanded if needed. Possible symbols are:
- * \li \%f: file name (or list for multiple selections)
- * \li \%F: quoted filename (or list for multiple selections)
- * \li \%p: full file system path (or list for multiple selections)
- * \li \%P: quoted full file system path (or list for multiple selections)
- * \li \%s: synonym for %P (for compatibility with previous versions of gcmd)
- * \li \%u: fully qualified URI for the file (or list for multiple selections)
- * \li \%d: full path to the directory containing file
- * \li \%D: quoted full path to the directory containg file
- * \li \%%: percent sign
- * Trailing blanks are removed.
- *
- * \param[in] command A char array to be parsed
- * \param[out] cmd A string with parsed symbols listed above
- * \returns Length of the cmd string
- */
-int parse_command(GnomeCmdMainWin *main_win, string *cmd, const gchar *command)
-{
-    GnomeCmdFileList *fl = get_fl (main_win, ACTIVE);
-    GList *sfl = fl->get_selected_files();
-
-    char *c = parse_command_template_r (sfl, command);
-    if (c != nullptr)
-    {
-        *cmd = c;
-        return cmd->length();
-    }
-    else
-    {
-        return 0;
-    }
 }
 
 const GActionEntry FILE_ACTION_ENTRIES[] = {

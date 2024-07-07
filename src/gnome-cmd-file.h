@@ -171,7 +171,7 @@ void gnome_cmd_file_show_chmod_dialog (GList *files);
 void gnome_cmd_file_view (GtkWindow *parent_window, GnomeCmdFile *f);
 void gnome_cmd_file_view_internal(GtkWindow *parent_window, GnomeCmdFile *f);
 void gnome_cmd_file_view_external(GtkWindow *parent_window, GnomeCmdFile *f);
-void gnome_cmd_file_edit (GnomeCmdFile *f);
+void gnome_cmd_file_edit (GtkWindow *parent_window, GnomeCmdFile *f);
 
 GList *gnome_cmd_file_list_copy (GList *files);
 void gnome_cmd_file_list_free (GList *files);

@@ -22,13 +22,13 @@
 
 use crate::file::GnomeCmdFile;
 use gtk::{
-    glib::{self, ffi::GList},
+    glib::{self, ffi::GList, translate::IntoGlibPtr},
     prelude::FileExt,
 };
 use std::{
     cell::OnceCell,
     ffi::{self, CStr, CString, OsString},
-    path::PathBuf,
+    path::{Path, PathBuf},
 };
 
 /// Parses a command template and substitutes a certain
@@ -159,4 +159,65 @@ pub unsafe extern "C" fn parse_command_template_r(
         None => std::ptr::null(),
         Some(s) => CString::from_vec_unchecked(s.as_encoded_bytes().to_vec()).into_raw(),
     } as *mut ffi::c_char)
+}
+
+pub enum SpawnError {
+    InvalidTemplate,
+    InvalidCommand(glib::Error),
+    Failure(std::io::Error),
+}
+
+pub fn spawn_async(
+    working_directory: Option<&Path>,
+    files: Vec<&GnomeCmdFile>,
+    command_template: &str,
+) -> Result<(), SpawnError> {
+    let Some(cmd) = parse_command_template(files, command_template) else {
+        return Err(SpawnError::InvalidTemplate);
+    };
+    let argv = glib::shell_parse_argv(cmd).map_err(SpawnError::InvalidCommand)?;
+
+    let mut cmd = std::process::Command::new(&argv[0]);
+    cmd.args(&argv[1..]);
+    if let Some(d) = working_directory {
+        cmd.current_dir(d);
+    }
+
+    cmd.spawn().map_err(SpawnError::Failure)?;
+
+    Ok(())
+}
+
+#[no_mangle]
+pub unsafe extern "C" fn spawn_async_r(
+    cwd: *const ffi::c_char,
+    files_list: *mut GList,
+    command_template: *const ffi::c_char,
+    error: *mut *mut glib::ffi::GError,
+) -> ffi::c_int {
+    let working_directory = Some(cwd)
+        .filter(|p| !p.is_null())
+        .and_then(|p| CStr::from_ptr(p).to_str().ok())
+        .map(Path::new);
+    let files = files_from_raw_list(files_list);
+    let Ok(command_template) = CStr::from_ptr(command_template).to_str() else {
+        return 1;
+    };
+
+    let result = spawn_async(working_directory, files, command_template);
+    match result {
+        Ok(_) => 0,
+        Err(SpawnError::InvalidTemplate) => {
+            *error = std::ptr::null_mut();
+            1
+        }
+        Err(SpawnError::InvalidCommand(e)) => {
+            *error = e.into_glib_ptr();
+            2
+        }
+        Err(SpawnError::Failure(e)) => {
+            *error = glib::Error::new(glib::FileError::Failed, &e.to_string()).into_glib_ptr();
+            3
+        }
+    }
 }
