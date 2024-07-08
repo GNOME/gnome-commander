@@ -148,7 +148,6 @@ static void gnome_cmd_application_shutdown(GApplication *application)
     plugin_manager_shutdown ();
     gcmd_tags_shutdown ();
     gcmd_user_actions.shutdown();
-    gnome_cmd_data.save(main_win);
     IMAGE_free ();
 
     remove_temp_download_dir ();
