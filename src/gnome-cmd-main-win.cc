@@ -1273,3 +1273,8 @@ GnomeCmdFileSelector *gnome_cmd_main_win_get_fs(GnomeCmdMainWin *main_win, FileS
     return main_win->fs(id);
 }
 
+void gnome_cmd_main_win_focus_file_lists(GnomeCmdMainWin *main_win)
+{
+    return main_win->focus_file_lists();
+}
+

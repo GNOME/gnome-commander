@@ -28,6 +28,7 @@
 typedef void (*GnomeCmdXferCallback) (gboolean success, gpointer user_data);
 
 
+extern "C"
 void
 gnome_cmd_copy_gfiles_start (GtkWindow *parent_window,
                            GList *src_uri_list,
@@ -38,6 +39,7 @@ gnome_cmd_copy_gfiles_start (GtkWindow *parent_window,
                            GnomeCmdXferCallback on_completed_func,
                            gpointer on_completed_data);
 
+extern "C"
 void
 gnome_cmd_move_gfiles_start (GtkWindow *parent_window,
                            GList *src_uri_list,
@@ -48,6 +50,7 @@ gnome_cmd_move_gfiles_start (GtkWindow *parent_window,
                            GnomeCmdXferCallback on_completed_func,
                            gpointer on_completed_data);
 
+extern "C"
 void
 gnome_cmd_link_gfiles_start (GtkWindow *parent_window,
                            GList *src_uri_list,
@@ -58,6 +61,7 @@ gnome_cmd_link_gfiles_start (GtkWindow *parent_window,
                            GnomeCmdXferCallback on_completed_func,
                            gpointer on_completed_data);
 
+extern "C"
 void
 gnome_cmd_tmp_download (GtkWindow *parent_window,
                         GList *srcGFileList,

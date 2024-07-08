@@ -42,7 +42,6 @@
 #include "dialogs/gnome-cmd-con-dialog.h"
 #include "dialogs/gnome-cmd-remote-dialog.h"
 #include "dialogs/gnome-cmd-key-shortcuts-dialog.h"
-#include "dialogs/gnome-cmd-make-copy-dialog.h"
 #include "dialogs/gnome-cmd-manage-bookmarks-dialog.h"
 #include "dialogs/gnome-cmd-mkdir-dialog.h"
 #include "dialogs/gnome-cmd-search-dialog.h"
@@ -795,6 +794,9 @@ void file_copy (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 }
 
 
+extern "C" void gnome_cmd_make_copy_dialog_run_r (GnomeCmdFile *f, GnomeCmdDir *dir, GnomeCmdMainWin *main_win);
+
+
 void file_copy_as (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
     auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
@@ -803,12 +805,7 @@ void file_copy_as (GSimpleAction *action, GVariant *parameter, gpointer user_dat
     GnomeCmdFile *f = fs->file_list()->get_selected_file();
 
     if (GNOME_CMD_IS_FILE (f))
-    {
-        GtkWidget *dialog = gnome_cmd_make_copy_dialog_new (f, fs->get_directory());
-
-        g_object_ref (dialog);
-        gtk_widget_show (dialog);
-    }
+        gnome_cmd_make_copy_dialog_run_r(f, fs->get_directory(), main_win);
 }
 
 

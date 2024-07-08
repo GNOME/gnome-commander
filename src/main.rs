@@ -20,6 +20,7 @@
 mod application;
 mod config;
 mod connection;
+mod dialogs;
 mod dir;
 mod file;
 mod file_list;
@@ -27,6 +28,7 @@ mod file_selector;
 mod libgcmd;
 mod main_win;
 mod spawn;
+mod transfer;
 mod types;
 mod user_actions;
 mod utils;
@@ -53,6 +55,8 @@ fn main() -> Result<impl Termination, Box<dyn Error>> {
     gettextrs::bindtextdomain(PACKAGE, Path::new(DATADIR).join("locale"))?;
     gettextrs::bind_textdomain_codeset(PACKAGE, "UTF-8")?;
     gettextrs::textdomain(PACKAGE)?;
+
+    gtk::init()?;
 
     let app = GnomeCmdApplication::new();
     let exis_code = app.run();

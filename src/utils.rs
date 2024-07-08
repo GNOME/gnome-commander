@@ -67,6 +67,20 @@ pub async fn run_simple_dialog(
     result
 }
 
+pub fn close_dialog_with_escape_key(dialog: &gtk::Dialog) {
+    let key_controller = gtk::EventControllerKey::new(dialog);
+    key_controller.connect_key_pressed(
+        glib::clone!(@weak dialog => @default-return false, move |_, key, _, _| {
+            if key == *gdk::keys::constants::Escape {
+                dialog.response(gtk::ResponseType::Cancel);
+                true
+            } else {
+                false
+            }
+        }),
+    );
+}
+
 pub trait Gtk3to4BoxCompat {
     fn append(&self, child: &impl IsA<gtk::Widget>);
 }

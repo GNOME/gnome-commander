@@ -45,6 +45,8 @@ pub mod ffi {
             main_win: *mut GnomeCmdMainWin,
             id: FileSelectorID,
         ) -> *mut GnomeCmdFileSelector;
+
+        pub fn gnome_cmd_main_win_focus_file_lists(main_win: *mut GnomeCmdMainWin);
     }
 
     #[derive(Copy, Clone)]
@@ -68,5 +70,9 @@ impl MainWindow {
         unsafe {
             FileSelector::from_glib_none(ffi::gnome_cmd_main_win_get_fs(self.to_glib_none().0, id))
         }
+    }
+
+    pub fn focus_file_lists(&self) {
+        unsafe { ffi::gnome_cmd_main_win_focus_file_lists(self.to_glib_none().0) }
     }
 }

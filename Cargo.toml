@@ -11,6 +11,7 @@ use-poppler = []
 use-samba = []
 
 [dependencies]
+async-channel = "2.3.1"
 gettext-rs = { version = "0.7.0", features = ["gettext-system"] }
 gtk = { version = "0.18.1", features = ["v3_24"] }
 libc = "0.2.155"
