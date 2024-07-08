@@ -47,9 +47,6 @@ static gchar *tmp_file_dir = NULL;
  * The already reserved debug flags:
  * --------------------------------
  * a: set all debug flags\n
- * c: file and directory counting\n
- * d: directory ref-counting\n
- * f: file ref-counting\n
  * g: run_command debugging\n
  * i: imageloader\n
  * k: directory pool\n

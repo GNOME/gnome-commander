@@ -39,7 +39,6 @@ struct GnomeCmdDirPrivate;
 
 #include "gnome-cmd-file.h"
 #include "gnome-cmd-path.h"
-#include "handle.h"
 
 struct GnomeCmdDir
 {
@@ -78,7 +77,6 @@ GnomeCmdDir *gnome_cmd_dir_new (GnomeCmdCon *con, GnomeCmdPath *path, gboolean i
 GnomeCmdDir *gnome_cmd_dir_get_parent (GnomeCmdDir *dir);
 GnomeCmdDir *gnome_cmd_dir_get_child (GnomeCmdDir *dir, const gchar *child);
 GnomeCmdCon *gnome_cmd_dir_get_connection (GnomeCmdDir *dir);
-Handle *gnome_cmd_dir_get_handle (GnomeCmdDir *dir);
 
 inline GnomeCmdFile *gnome_cmd_dir_new_parent_dir_file (GnomeCmdDir *dir)
 {

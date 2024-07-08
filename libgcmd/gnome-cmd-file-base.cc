@@ -39,8 +39,8 @@ static void gnome_cmd_file_base_finalize (GObject *object)
 {
     GnomeCmdFileBase *self = GNOME_CMD_FILE_BASE (object);
 
-    if (self->gFile)
-        g_object_unref(self->gFile);
+    g_clear_object (&self->gFile);
+    g_clear_object (&self->gFileInfo);
 
     G_OBJECT_CLASS (gnome_cmd_file_base_parent_class)->finalize (object);
 }

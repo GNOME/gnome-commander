@@ -63,7 +63,6 @@ sources_headers = files(
   'gnome-cmd-user-actions.h',
   'gnome-cmd-xfer.h',
   'gnome-cmd-xfer-progress-win.h',
-  'handle.h',
   'history.h',
   'imageloader.h',
   'ls_colors.h',

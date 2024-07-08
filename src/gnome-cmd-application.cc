@@ -45,11 +45,6 @@ gchar *start_dir_right = nullptr;
 gchar *config_dir = nullptr;
 gchar *debug_flags = nullptr;
 
-extern gint created_files_cnt;
-extern gint deleted_files_cnt;
-extern int created_dirs_cnt;
-extern int deleted_dirs_cnt;
-
 
 static GOptionEntry options [] =
 {
@@ -75,7 +70,7 @@ static void gnome_cmd_application_startup(GApplication *application)
     G_APPLICATION_CLASS (gnome_cmd_application_parent_class)->startup (application);
 
     if (debug_flags && strchr(debug_flags,'a'))
-        debug_flags = g_strdup("cdfgiklmnpstuvwyzx");
+        debug_flags = g_strdup("giklmnpstuvwyzx");
 
     // disable beeping for the application
     g_object_set (gtk_settings_get_default (), "gtk-error-bell", FALSE, NULL);
