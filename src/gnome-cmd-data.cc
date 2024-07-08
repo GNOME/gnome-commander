@@ -1390,10 +1390,9 @@ static void gcmd_settings_init (GcmdSettings *gs)
 }
 
 
-GcmdSettings *gcmd_settings_new (GnomeCmdMainWin *main_win)
+GcmdSettings *gcmd_settings_new ()
 {
     auto gs = (GcmdSettings *) g_object_new (GCMD_TYPE_SETTINGS, nullptr);
-    gcmd_connect_gsettings_signals(gs, main_win);
     return gs;
 }
 
@@ -2687,10 +2686,17 @@ GnomeCmdData::~GnomeCmdData()
     }
 }
 
-void GnomeCmdData::gsettings_init(GnomeCmdMainWin *main_win)
+void GnomeCmdData::gsettings_init()
 {
-    options.gcmd_settings = gcmd_settings_new(main_win);
+    options.gcmd_settings = gcmd_settings_new();
 }
+
+
+void GnomeCmdData::connect_signals(GnomeCmdMainWin *main_win)
+{
+    gcmd_connect_gsettings_signals (options.gcmd_settings, main_win);
+}
+
 
 /**
  * This function checks if the given GSettings keys enholds a valid color string. If not,

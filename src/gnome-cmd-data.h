@@ -46,7 +46,7 @@ struct GnomeCmdMainWin;
 
 G_DECLARE_FINAL_TYPE (GcmdSettings, gcmd_settings, GCMD, SETTINGS, GObject)
 
-GcmdSettings *gcmd_settings_new (GnomeCmdMainWin *main_win);
+GcmdSettings *gcmd_settings_new ();
 
 /* *************
  * KEY CONSTANTS
@@ -743,7 +743,8 @@ struct GnomeCmdData
     void load_tabs();
     void load_devices();
     void load_fav_apps();
-    void gsettings_init(GnomeCmdMainWin *main_win);
+    void gsettings_init();
+    void connect_signals(GnomeCmdMainWin *main_win);
     void migrate_all_data_to_gsettings();
     void load_more();
     void load_advrename_profiles ();
