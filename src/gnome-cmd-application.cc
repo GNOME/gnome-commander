@@ -92,7 +92,7 @@ static void gnome_cmd_application_startup(GApplication *application)
     /* Load Settings */
     IMAGE_init ();
     gcmd_user_actions.init();
-    gnome_cmd_data.gsettings_init(main_win);
+    gnome_cmd_data.gsettings_init();
     gnome_cmd_data.load();
 }
 
@@ -132,6 +132,8 @@ static void gnome_cmd_application_activate(GApplication *application)
 
     main_win = new GnomeCmdMainWin;
     gtk_window_set_application (GTK_WINDOW (main_win), GTK_APPLICATION (application));
+
+    gnome_cmd_data.connect_signals(main_win);
 
     gtk_widget_show (*main_win);
     gcmd_owner.load_async();
