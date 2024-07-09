@@ -29,7 +29,7 @@
 #define GNOME_CMD_FILE_BASE_GET_CLASS(obj)    (G_TYPE_INSTANCE_GET_CLASS((obj), GNOME_CMD_TYPE_FILE_BASE, GnomeCmdFileBaseClass))
 
 
-GType gnome_cmd_file_base_get_type ();
+extern "C" GType gnome_cmd_file_base_get_type ();
 
 
 struct GnomeCmdFileBase
@@ -52,3 +52,7 @@ inline void GnomeCmdFileBase::setup(GFile *gFile_setup, GFileInfo *gFileInfo_set
     this->gFile = gFile_setup;
     this->gFileInfo = gFileInfo_setup;
 }
+
+extern "C" GFile *gnome_cmd_file_base_get_file(GnomeCmdFileBase *file_base);
+extern "C" GFileInfo *gnome_cmd_file_base_get_file_info(GnomeCmdFileBase *file_base);
+

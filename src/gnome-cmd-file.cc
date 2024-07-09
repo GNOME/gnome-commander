@@ -1170,3 +1170,8 @@ gboolean gnome_cmd_file_is_local (GnomeCmdFile *f)
 {
     return f->is_local();
 }
+
+GFile *gnome_cmd_file_get_gfile(GnomeCmdFile *f, const gchar *name)
+{
+    return f->get_gfile(name);
+}

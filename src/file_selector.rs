@@ -20,30 +20,92 @@
  * For more details see the file COPYING.
  */
 
-use crate::{dir::GnomeCmdDir, file::GnomeCmdFile, file_list::GnomeCmdFileList};
-use gtk::glib::ffi::GList;
+use crate::{dir::Directory, file::File, file_list::FileList};
+use gtk::glib::{
+    self,
+    translate::{from_glib_none, ToGlibPtr},
+};
 
-#[repr(C)]
-pub struct GnomeCmdFileSelector(
-    [u8; 0],
-    std::marker::PhantomData<std::marker::PhantomPinned>,
-);
+pub mod ffi {
+    use crate::{dir::ffi::GnomeCmdDir, file::ffi::GnomeCmdFile, file_list::ffi::GnomeCmdFileList};
+    use gtk::glib::ffi::{GList, GType};
 
-extern "C" {
-    pub fn gnome_cmd_file_selector_file_list(
-        fs: *mut GnomeCmdFileSelector,
-    ) -> *mut GnomeCmdFileList;
+    #[repr(C)]
+    pub struct GnomeCmdFileSelector {
+        _data: [u8; 0],
+        _marker: std::marker::PhantomData<(*mut u8, std::marker::PhantomPinned)>,
+    }
 
-    pub fn gnome_cmd_file_selector_get_directory(fs: *mut GnomeCmdFileSelector)
-        -> *mut GnomeCmdDir;
+    extern "C" {
+        pub fn gnome_cmd_file_selector_get_type() -> GType;
 
-    pub fn gnome_cmd_file_selector_create_symlink(
-        fs: *mut GnomeCmdFileSelector,
-        f: *mut GnomeCmdFile,
-    );
+        pub fn gnome_cmd_file_selector_file_list(
+            fs: *mut GnomeCmdFileSelector,
+        ) -> *mut GnomeCmdFileList;
 
-    pub fn gnome_cmd_file_selector_create_symlinks(
-        fs: *mut GnomeCmdFileSelector,
-        files: *mut GList,
-    );
+        pub fn gnome_cmd_file_selector_get_directory(
+            fs: *mut GnomeCmdFileSelector,
+        ) -> *mut GnomeCmdDir;
+
+        pub fn gnome_cmd_file_selector_create_symlink(
+            fs: *mut GnomeCmdFileSelector,
+            f: *mut GnomeCmdFile,
+        );
+
+        pub fn gnome_cmd_file_selector_create_symlinks(
+            fs: *mut GnomeCmdFileSelector,
+            files: *mut GList,
+        );
+    }
+
+    #[derive(Copy, Clone)]
+    #[repr(C)]
+    pub struct GnomeCmdFileSelectorClass {
+        pub parent_class: gtk::ffi::GtkBoxClass,
+    }
+}
+
+glib::wrapper! {
+    pub struct FileSelector(Object<ffi::GnomeCmdFileSelector, ffi::GnomeCmdFileSelectorClass>)
+        @extends gtk::Box, gtk::Container, gtk::Widget;
+
+    match fn {
+        type_ => || ffi::gnome_cmd_file_selector_get_type(),
+    }
+}
+
+impl FileSelector {
+    pub fn file_list(&self) -> FileList {
+        unsafe {
+            from_glib_none(ffi::gnome_cmd_file_selector_file_list(
+                self.to_glib_none().0,
+            ))
+        }
+    }
+
+    pub fn directory(&self) -> Option<Directory> {
+        unsafe {
+            from_glib_none(ffi::gnome_cmd_file_selector_get_directory(
+                self.to_glib_none().0,
+            ))
+        }
+    }
+
+    pub fn create_symlink(&self, file: &File) {
+        unsafe {
+            ffi::gnome_cmd_file_selector_create_symlink(
+                self.to_glib_none().0,
+                file.to_glib_none().0,
+            )
+        }
+    }
+
+    pub fn create_symlinks(&self, files: &glib::List<File>) {
+        unsafe {
+            ffi::gnome_cmd_file_selector_create_symlinks(
+                self.to_glib_none().0,
+                files.to_glib_none().0,
+            )
+        }
+    }
 }

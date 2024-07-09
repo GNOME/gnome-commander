@@ -36,7 +36,7 @@
 #define GNOME_CMD_MAIN_WIN_GET_CLASS(obj)    (G_TYPE_INSTANCE_GET_CLASS((obj), GNOME_CMD_TYPE_MAIN_WIN, GnomeCmdMainWinClass))
 
 
-GType gnome_cmd_main_win_get_type ();
+extern "C" GType gnome_cmd_main_win_get_type ();
 
 
 struct GnomeCmdMainWin

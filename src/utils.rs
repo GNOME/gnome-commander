@@ -66,3 +66,13 @@ pub async fn run_simple_dialog(
 
     result
 }
+
+pub trait Gtk3to4BoxCompat {
+    fn append(&self, child: &impl IsA<gtk::Widget>);
+}
+
+impl Gtk3to4BoxCompat for gtk::Box {
+    fn append(&self, child: &impl IsA<gtk::Widget>) {
+        self.add(child);
+    }
+}

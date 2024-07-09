@@ -1,7 +1,4 @@
 /*
- * Copyright 2001-2006 Marcus Bjurman
- * Copyright 2007-2012 Piotr Eljasiak
- * Copyright 2013-2024 Uwe Scholz
  * Copyright 2024 Andrey Kutejko <andy128k@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
@@ -20,11 +17,4 @@
  * For more details see the file COPYING.
  */
 
-#[repr(C)]
-#[allow(non_camel_case_types)]
-pub enum FileSelectorID {
-    LEFT = 0,
-    RIGHT,
-    ACTIVE,
-    INACTIVE,
-}
+pub mod file_base;

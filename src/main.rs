@@ -17,27 +17,26 @@
  * For more details see the file COPYING.
  */
 
+mod application;
 mod config;
 mod dir;
 mod file;
 mod file_list;
 mod file_selector;
+mod libgcmd;
 mod main_win;
 mod spawn;
 mod types;
 mod user_actions;
 mod utils;
 
-use gtk::{self, glib};
+use application::GnomeCmdApplication;
+use gtk::{glib, prelude::*};
 use std::error::Error;
 use std::path::Path;
 use std::process::Termination;
 
 use crate::config::{DATADIR, PACKAGE};
-
-extern "C" {
-    fn c_main(argc: libc::c_int, argv: *const *const libc::c_char) -> libc::c_int;
-}
 
 fn main() -> Result<impl Termination, Box<dyn Error>> {
     if let Some(mismatch) = glib::check_version(2, 66, 0) {
@@ -54,6 +53,7 @@ fn main() -> Result<impl Termination, Box<dyn Error>> {
     gettextrs::bind_textdomain_codeset(PACKAGE, "UTF-8")?;
     gettextrs::textdomain(PACKAGE)?;
 
-    let retcode = unsafe { c_main(0, std::ptr::null()) };
-    Ok(std::process::ExitCode::from(retcode as u8))
+    let app = GnomeCmdApplication::new();
+    let exis_code = app.run();
+    Ok(exis_code)
 }

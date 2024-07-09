@@ -50,3 +50,13 @@ static void gnome_cmd_file_base_class_init (GnomeCmdFileBaseClass *klass)
 {
     G_OBJECT_CLASS (klass)->finalize = gnome_cmd_file_base_finalize;
 }
+
+GFile *gnome_cmd_file_base_get_file(GnomeCmdFileBase *file_base)
+{
+    return file_base->gFile;
+}
+
+GFileInfo *gnome_cmd_file_base_get_file_info(GnomeCmdFileBase *file_base)
+{
+    return file_base->gFileInfo;
+}

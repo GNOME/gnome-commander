@@ -29,7 +29,7 @@
 #define GNOME_CMD_FILE_GET_CLASS(obj)    (G_TYPE_INSTANCE_GET_CLASS((obj), GNOME_CMD_TYPE_FILE, GnomeCmdFileClass))
 
 
-GType gnome_cmd_file_get_type ();
+extern "C" GType gnome_cmd_file_get_type ();
 
 
 class GnomeCmdFileMetadata;
@@ -185,3 +185,5 @@ inline void gnome_cmd_file_list_unref (GList *files)
 {
     g_list_foreach (files, (GFunc) gnome_cmd_file_unref, NULL);
 }
+
+extern "C" GFile *gnome_cmd_file_get_gfile(GnomeCmdFile *f, const gchar *name);

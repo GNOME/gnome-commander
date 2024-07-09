@@ -123,7 +123,6 @@ sources_sources = files(
   'history.cc',
   'imageloader.cc',
   'ls_colors.cc',
-  'main.cc',
   'plugin_manager.cc',
   'utils.cc',
   'utils-no-dependencies.cc',
