@@ -104,6 +104,8 @@ struct GnomeCmdMainWin::Private
     GWeakRef advrename_dlg;
     GWeakRef file_search_dlg;
     GWeakRef bookmarks_dlg;
+
+    bool state_saved;
 };
 
 
@@ -486,9 +488,15 @@ static void toggle_action_change_state (GnomeCmdMainWin *mw, const gchar *action
  * Gtk class implementation
  *******************************/
 
-static void destroy (GtkWidget *object)
+static void dispose (GObject *object)
 {
     auto main_win = GNOME_CMD_MAIN_WIN (object);
+
+    if (!main_win->priv->state_saved)
+    {
+        gnome_cmd_data.save(main_win);
+        main_win->priv->state_saved = true;
+    }
 
     g_clear_pointer (&main_win->priv->state.active_dir_files, g_list_free);
     g_clear_pointer (&main_win->priv->state.inactive_dir_files, g_list_free);
@@ -496,16 +504,15 @@ static void destroy (GtkWidget *object)
     g_weak_ref_set (&main_win->priv->advrename_dlg, nullptr);
     g_weak_ref_set (&main_win->priv->file_search_dlg, nullptr);
 
-    auto app = gtk_window_get_application (GTK_WINDOW (object));
-    g_application_quit (G_APPLICATION (app));
+    G_OBJECT_CLASS (gnome_cmd_main_win_parent_class)->dispose (object);
 }
 
 
 static void gnome_cmd_main_win_class_init (GnomeCmdMainWinClass *klass)
 {
-    GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
+    GObjectClass *object_class = G_OBJECT_CLASS (klass);
 
-    widget_class->destroy = destroy;
+    object_class->dispose = dispose;
 }
 
 
@@ -557,6 +564,7 @@ static void gnome_cmd_main_win_init (GnomeCmdMainWin *mw)
     mw->priv->advrename_dlg = { { nullptr } };
     mw->priv->file_search_dlg = { { nullptr } };
     mw->priv->bookmarks_dlg = { { nullptr } };
+    mw->priv->state_saved = false;
 
     gtk_window_set_title (GTK_WINDOW (mw),
                           gcmd_owner.is_root()
