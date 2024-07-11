@@ -958,7 +958,7 @@ void GnomeCmdMainWin::open_tabs(FileSelectorID id)
             }
             path = path ? path : g_strdup(g_uri_get_path(gUri));
 
-            con = (GnomeCmdCon*) gnome_cmd_con_remote_new(nullptr, uriString);
+            con = (GnomeCmdCon*) gnome_cmd_con_remote_new(nullptr, uriString.c_str());
         }
 
         GnomeCmdDir *gnomeCmdDir = gnome_cmd_dir_new (con, gnome_cmd_con_create_path (con, path), true);

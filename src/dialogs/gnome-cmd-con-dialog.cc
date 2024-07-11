@@ -461,7 +461,7 @@ GnomeCmdConRemote *gnome_cmd_connect_dialog_new (gboolean has_alias)
     {
         const gchar *alias = dialog->priv->alias && !dialog->priv->alias->empty() ? dialog->priv->alias->c_str() : nullptr;
 
-        server = gnome_cmd_con_remote_new (alias, dialog->priv->uri_str);
+        server = gnome_cmd_con_remote_new (alias, dialog->priv->uri_str.c_str());
 
         GnomeCmdCon *con = GNOME_CMD_CON (server);
 

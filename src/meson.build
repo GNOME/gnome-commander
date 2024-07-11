@@ -270,3 +270,9 @@ custom_target(
     'cp', 'src' / rust_target / meson.project_name(), '@OUTPUT@',
   ]
 )
+
+test(
+  'cargo-test', cargo,
+  env: cargo_env,
+  args: ['test', '--no-fail-fast'] + cargo_options,
+)

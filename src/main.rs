@@ -19,6 +19,7 @@
 
 mod application;
 mod config;
+mod connection;
 mod dir;
 mod file;
 mod file_list;

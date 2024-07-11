@@ -811,3 +811,18 @@ void gnome_cmd_con_close_active_or_inactive_connection (GMount *gMount)
     g_free(inactiveConUri);
 }
 
+
+// FFI
+
+const gchar *gnome_cmd_con_get_alias (GnomeCmdCon *con)
+{
+    g_return_val_if_fail (GNOME_CMD_IS_CON (con), NULL);
+    return con->alias;
+}
+
+void gnome_cmd_con_set_alias (GnomeCmdCon *con, const gchar *alias)
+{
+    g_return_if_fail (GNOME_CMD_IS_CON (con));
+    g_free (con->alias);
+    con->alias = g_strdup (alias);
+}
