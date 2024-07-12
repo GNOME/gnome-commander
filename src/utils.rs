@@ -20,6 +20,7 @@
  * For more details see the file COPYING.
  */
 
+use gettextrs::gettext;
 use gtk::{gdk, glib, prelude::*};
 
 pub async fn run_simple_dialog(
@@ -79,6 +80,75 @@ pub fn close_dialog_with_escape_key(dialog: &gtk::Dialog) {
             }
         }),
     );
+}
+
+pub async fn prompt_message(
+    parent: &gtk::Window,
+    message_type: gtk::MessageType,
+    buttons: gtk::ButtonsType,
+    message: &str,
+    secondary_text: Option<&str>,
+) -> gtk::ResponseType {
+    let dlg = gtk::MessageDialog::builder()
+        .parent(parent)
+        .destroy_with_parent(true)
+        .message_type(message_type)
+        .buttons(buttons)
+        .text(message)
+        .build();
+    dlg.set_secondary_text(secondary_text);
+    let result = dlg.run_future().await;
+    dlg.close();
+    result
+}
+
+fn create_error_dialog(parent: &gtk::Window, message: &str) -> gtk::MessageDialog {
+    gtk::MessageDialog::builder()
+        .parent(parent)
+        .destroy_with_parent(true)
+        .message_type(gtk::MessageType::Error)
+        .buttons(gtk::ButtonsType::Ok)
+        .text(message)
+        .build()
+}
+
+pub struct ErrorMessage {
+    pub message: String,
+    pub secondary_text: Option<String>,
+}
+
+pub fn show_error_message(parent: &gtk::Window, message: &ErrorMessage) {
+    let dlg = create_error_dialog(parent, &message.message);
+    dlg.set_secondary_text(message.secondary_text.as_deref());
+    dlg.present();
+}
+
+pub fn show_message(parent: &gtk::Window, message: &str, secondary_text: Option<&str>) {
+    let dlg = create_error_dialog(parent, message);
+    dlg.set_secondary_text(secondary_text);
+    dlg.present();
+}
+
+pub fn show_error(parent: &gtk::Window, message: &str, error: &glib::Error) {
+    show_message(parent, message, Some(error.message()));
+}
+
+pub fn display_help(parent_window: &gtk::Window, link_id: Option<&str>) {
+    let mut help_uri = format!("help:{}", crate::config::PACKAGE);
+    if let Some(link_id) = link_id {
+        help_uri.push('/');
+        help_uri.push_str(link_id);
+    }
+
+    if let Err(error) =
+        gtk::show_uri_on_window(Some(parent_window), &help_uri, gtk::current_event_time())
+    {
+        show_error(
+            parent_window,
+            &gettext("There was an error displaying help."),
+            &error,
+        );
+    }
 }
 
 pub trait Gtk3to4BoxCompat {
