@@ -48,11 +48,12 @@ static gboolean on_dialog_keypressed (GtkEventControllerKey *controller, guint k
     switch (keyval)
     {
         case GDK_KEY_Escape:
-            gtk_widget_grab_focus (GTK_WIDGET (main_win->fs(ACTIVE)->file_list()));
-            priv->f->unref();
-            gtk_popover_popdown (GTK_POPOVER (dialog));
-            return TRUE;
-
+            {
+                gtk_popover_popdown (GTK_POPOVER (dialog));
+                gtk_widget_grab_focus (GTK_WIDGET (main_win->fs(ACTIVE)->file_list()));
+                priv->f->unref();
+                return TRUE;
+            }
         case GDK_KEY_Return:
         case GDK_KEY_KP_Enter:
             {
@@ -121,6 +122,8 @@ GtkWidget *gnome_cmd_rename_dialog_new (GnomeCmdFile *f, GtkWidget *parent, gint
     auto priv = static_cast<GnomeCmdRenameDialogPrivate *> (gnome_cmd_rename_dialog_get_instance_private (dialog));
 
     priv->f = f->ref();
+
+    gtk_popover_set_modal(GTK_POPOVER (dialog), FALSE);
 
     gtk_popover_set_relative_to (GTK_POPOVER (dialog), parent);
     GdkRectangle rect = { x, y, width, height };
