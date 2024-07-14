@@ -47,15 +47,10 @@ using namespace std;
 #define MAX_DATE_LENGTH 64
 #define MAX_SIZE_LENGTH 32
 
-gint created_files_cnt = 0;
-gint deleted_files_cnt = 0;
-GList *all_files = nullptr;
-
 struct GnomeCmdFile::Private
 {
-    Handle *dir_handle;
+    GnomeCmdDir *parent_dir;
     GTimeVal last_update;
-    gint ref_cnt;
     guint64 tree_size;
 };
 
@@ -71,36 +66,30 @@ inline gboolean has_parent_dir (GnomeCmdFile *f)
     g_return_val_if_fail (f != nullptr, false);
     g_return_val_if_fail (f->priv != nullptr, false);
 
-    return f->priv->dir_handle && f->priv->dir_handle->ref;
+    return f->priv->parent_dir != nullptr;
 }
 
 
 inline GnomeCmdDir *get_parent_dir (GnomeCmdFile *f)
 {
-    g_return_val_if_fail (f->priv->dir_handle != nullptr, nullptr);
-
-    return GNOME_CMD_DIR (f->priv->dir_handle->ref);
+    return f->priv->parent_dir;
 }
 
 
 static void gnome_cmd_file_init (GnomeCmdFile *f)
 {
-    // f->info = nullptr;
-    // f->collate_key = nullptr;
-
     f->priv = g_new0 (GnomeCmdFile::Private, 1);
-
-    // f->priv->dir_handle = nullptr;
-
-    // f->priv->last_update.tv_sec = 0;
-    // f->priv->last_update.tv_usec = 0;
     f->priv->tree_size = -1;
+}
 
-    if (DEBUG_ENABLED ('c'))
-    {
-        all_files = g_list_append (all_files, f);
-        created_files_cnt++;
-    }
+
+static void gnome_cmd_file_dispose (GObject *object)
+{
+    GnomeCmdFile *f = GNOME_CMD_FILE (object);
+
+    g_clear_object (&f->priv->parent_dir);
+
+    G_OBJECT_CLASS (gnome_cmd_file_parent_class)->dispose (object);
 }
 
 
@@ -114,15 +103,6 @@ static void gnome_cmd_file_finalize (GObject *object)
         DEBUG ('f', "file destroying %p %s\n", f, g_file_info_get_display_name(f->get_file_info()));
 
     g_free (f->collate_key);
-    g_object_unref(f->get_file_info());
-    if (f->priv->dir_handle)
-        handle_unref (f->priv->dir_handle);
-
-    if (DEBUG_ENABLED ('c'))
-    {
-        all_files = g_list_remove (all_files, f);
-        deleted_files_cnt++;
-    }
 
     g_free (f->priv);
 
@@ -134,6 +114,7 @@ static void gnome_cmd_file_class_init (GnomeCmdFileClass *klass)
 {
     GObjectClass *object_class = G_OBJECT_CLASS (klass);
 
+    object_class->dispose = gnome_cmd_file_dispose;
     object_class->finalize = gnome_cmd_file_finalize;
 }
 
@@ -264,10 +245,7 @@ void gnome_cmd_file_setup (GObject *gObject, GFileInfo *gFileInfo, GnomeCmdDir *
     g_free (utf8Name);
 
     if (parentDir)
-    {
-        gnomeCmdFile->priv->dir_handle = gnome_cmd_dir_get_handle (parentDir);
-        handle_ref (gnomeCmdFile->priv->dir_handle);
-    }
+        gnomeCmdFile->priv->parent_dir = g_object_ref (parentDir);
 
     auto pathString = gnomeCmdFile->GetPathStringThroughParent();
     if (pathString)
@@ -299,28 +277,14 @@ void gnome_cmd_file_setup (GObject *gObject, GFileInfo *gFileInfo, GnomeCmdDir *
 
 GnomeCmdFile *GnomeCmdFile::ref()
 {
-    priv->ref_cnt++;
-
-    if (priv->ref_cnt == 1)
-        g_object_ref (this);
-
-    char c = GNOME_CMD_IS_DIR (this) ? 'd' : 'f';
-
-    DEBUG (c, "refing: %p %s to %d\n", this, g_file_info_get_name(get_file_info()), priv->ref_cnt);
-
+    g_object_ref (this);
     return this;
 }
 
 
 void GnomeCmdFile::unref()
 {
-    priv->ref_cnt--;
-
-    char c = GNOME_CMD_IS_DIR (this) ? 'd' : 'f';
-
-    DEBUG (c, "un-refing: %p %s to %d\n", this, g_file_info_get_display_name(get_file_info()), priv->ref_cnt);
-    if (priv->ref_cnt < 1)
-        g_object_unref (this);
+    g_object_unref (this);
 }
 
 

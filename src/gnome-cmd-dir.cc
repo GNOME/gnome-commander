@@ -36,11 +36,6 @@
 using namespace std;
 
 
-int created_dirs_cnt = 0;
-int deleted_dirs_cnt = 0;
-
-GList *all_dirs = nullptr;
-
 enum
 {
     FILE_CREATED,
@@ -62,7 +57,6 @@ struct GnomeCmdDirPrivate
     gboolean lock;
     gboolean needs_mtime_update;
 
-    Handle *handle;
     GFileMonitor *gFileMonitor;
     gint monitor_users;
 };
@@ -115,23 +109,20 @@ static void monitor_callback (GFileMonitor *gFileMonitor, GFile *gFile, GFile *o
 
 static void gnome_cmd_dir_init (GnomeCmdDir *dir)
 {
-    // dir->voffset = 0;
-    // dir->dialog = nullptr;
     dir->state = GnomeCmdDir::STATE_EMPTY;
 
     dir->priv = g_new0 (GnomeCmdDirPrivate, 1);
-
-    dir->priv->handle = handle_new (dir);
-    // dir->priv->gFileMonitor = nullptr;
-    // dir->priv->monitor_users = 0;
-    // dir->priv->files = nullptr;
     dir->priv->file_collection = new GnomeCmdFileCollection;
+}
 
-    if (DEBUG_ENABLED ('c'))
-    {
-        created_dirs_cnt++;
-        all_dirs = g_list_append (all_dirs, dir);
-    }
+
+static void gnome_cmd_dir_dispose (GObject *object)
+{
+    GnomeCmdDir *dir = GNOME_CMD_DIR (object);
+
+    dir->priv->file_collection->clear();
+
+    G_OBJECT_CLASS (gnome_cmd_dir_parent_class)->dispose (object);
 }
 
 
@@ -139,23 +130,12 @@ static void gnome_cmd_dir_finalize (GObject *object)
 {
     GnomeCmdDir *dir = GNOME_CMD_DIR (object);
 
-    DEBUG ('d', "dir destroying %p %s\n", dir, dir->priv->path->get_path());
-
     gnome_cmd_con_remove_from_cache (dir->priv->con, dir);
 
     delete dir->priv->file_collection;
     delete dir->priv->path;
 
-    dir->priv->handle->ref = nullptr;
-    handle_unref (dir->priv->handle);
-
     g_free (dir->priv);
-
-    if (DEBUG_ENABLED ('c'))
-    {
-        all_dirs = g_list_remove (all_dirs, dir);
-        deleted_dirs_cnt++;
-    }
 
     G_OBJECT_CLASS (gnome_cmd_dir_parent_class)->finalize (object);
 }
@@ -225,6 +205,7 @@ static void gnome_cmd_dir_class_init (GnomeCmdDirClass *klass)
             G_TYPE_NONE,
             1, G_TYPE_POINTER);
 
+    object_class->dispose = gnome_cmd_dir_dispose;
     object_class->finalize = gnome_cmd_dir_finalize;
     klass->file_created = nullptr;
     klass->file_deleted = nullptr;
@@ -411,14 +392,6 @@ GnomeCmdCon *gnome_cmd_dir_get_connection (GnomeCmdDir *dir)
     }
 
     return dir->priv->con;
-}
-
-
-Handle *gnome_cmd_dir_get_handle (GnomeCmdDir *dir)
-{
-    g_return_val_if_fail (GNOME_CMD_IS_DIR (dir), nullptr);
-
-    return dir->priv->handle;
 }
 
 
