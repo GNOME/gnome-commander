@@ -122,9 +122,7 @@ static void gcmd_settings_dispose (GObject *object)
 static void on_bookmarks_changed (GnomeCmdMainWin *main_win)
 {
     gnome_cmd_con_erase_bookmark (gnome_cmd_data.priv->con_list->get_home());
-#ifdef HAVE_SAMBA
     gnome_cmd_con_erase_bookmark (gnome_cmd_data.priv->con_list->get_smb());
-#endif
 
     gnome_cmd_data.load_bookmarks();
 
@@ -832,7 +830,6 @@ static void on_dev_only_icon_changed (GnomeCmdMainWin *main_win)
     gnome_cmd_data.options.device_only_icon = dev_only_icon;
 }
 
-#ifdef HAVE_SAMBA
 static void on_samba_device_icon_changed (GnomeCmdMainWin *main_win)
 {
     gboolean show_samba_workgroups_button;
@@ -840,7 +837,6 @@ static void on_samba_device_icon_changed (GnomeCmdMainWin *main_win)
     show_samba_workgroups_button = g_settings_get_boolean (gnome_cmd_data.options.gcmd_settings->general, GCMD_SETTINGS_SHOW_SAMBA_WORKGROUP_BUTTON);
     gnome_cmd_data.options.show_samba_workgroups_button = show_samba_workgroups_button;
 }
-#endif
 
 static void on_mainmenu_visibility_changed (GnomeCmdMainWin *main_win)
 {
@@ -1293,12 +1289,10 @@ static void gcmd_connect_gsettings_signals(GcmdSettings *gs, GnomeCmdMainWin *ma
                       G_CALLBACK (on_dev_only_icon_changed),
                       main_win);
 
-#ifdef HAVE_SAMBA
     g_signal_connect_swapped (gs->general,
                       "changed::show-samba-workgroup-button",
                       G_CALLBACK (on_samba_device_icon_changed),
                       main_win);
-#endif
 
     g_signal_connect_swapped (gs->general,
                       "changed::mainmenu-visibility",
@@ -1456,9 +1450,7 @@ GnomeCmdData::Options::Options(const Options &cfg)
     fav_apps = cfg.fav_apps;
     device_only_icon = cfg.device_only_icon;
     deleteToTrash = cfg.deleteToTrash;
-#ifdef HAVE_SAMBA
     show_samba_workgroups_button = cfg.show_samba_workgroups_button;
-#endif
     gcmd_settings = nullptr;
 }
 
@@ -1520,9 +1512,7 @@ GnomeCmdData::Options &GnomeCmdData::Options::operator = (const Options &cfg)
         termexec = g_strdup (cfg.termexec);
         fav_apps = cfg.fav_apps;
         device_only_icon = cfg.device_only_icon;
-#ifdef HAVE_SAMBA
         show_samba_workgroups_button = cfg.show_samba_workgroups_button;
-#endif
         gcmd_settings = nullptr;
     }
 
@@ -1589,10 +1579,8 @@ void GnomeCmdData::save_bookmarks()
     hasBookmarks |= add_bookmark_to_gvariant_builder(gVariantBuilder, "Home", con);
 
     // Samba
-#ifdef HAVE_SAMBA
     con = priv->con_list->get_smb();
     hasBookmarks |= add_bookmark_to_gvariant_builder(gVariantBuilder, "SMB", con);
-#endif
 
     // Others
     for (GList *i = gnome_cmd_con_list_get_all_remote (gnome_cmd_data.priv->con_list); i; i=i->next)
@@ -2248,13 +2236,11 @@ void GnomeCmdData::load_bookmarks()
             }
             else
             {
-#ifdef HAVE_SAMBA
                 if (strcmp(bookmarkGroupName, "SMB") == 0)
                 {
                     gnomeCmdCon = gnome_cmd_con_list_get()->get_smb();
                 }
                 else
-#endif
                     gnomeCmdCon = nullptr;
             }
         }
@@ -2699,9 +2685,9 @@ void GnomeCmdData::connect_signals(GnomeCmdMainWin *main_win)
 
 
 /**
- * This function checks if the given GSettings keys enholds a valid color string. If not,
- * the keys value is resetted to the default value.
- * @returns TRUE if the current value is resetted by the default value, else FALSE
+ * This function checks if the given GSettings key enholds a valid color string. If not,
+ * the key's value is reset to the default value.
+ * @returns TRUE if the current value is reset by the default value, otherwise FALSE
  */
 gboolean GnomeCmdData::set_valid_color_string(GSettings *settings_given, const char* key)
 {
@@ -3209,9 +3195,7 @@ void GnomeCmdData::load()
     options.quick_search_exact_match_end = g_settings_get_boolean (options.gcmd_settings->general, GCMD_SETTINGS_QUICK_SEARCH_EXACT_MATCH_END);
 
     options.device_only_icon = g_settings_get_boolean(options.gcmd_settings->general, GCMD_SETTINGS_DEV_ONLY_ICON);
-#ifdef HAVE_SAMBA
     options.show_samba_workgroups_button = g_settings_get_boolean(options.gcmd_settings->general, GCMD_SETTINGS_SHOW_SAMBA_WORKGROUP_BUTTON);
-#endif
     options.symlink_prefix = g_settings_get_string(options.gcmd_settings->general, GCMD_SETTINGS_SYMLINK_PREFIX);
     if (!*options.symlink_prefix || strcmp(options.symlink_prefix, _("link to %s"))==0)
     {
@@ -3460,9 +3444,7 @@ void GnomeCmdData::load()
     else
     {
         gnome_cmd_con_erase_bookmark (priv->con_list->get_home());
-#ifdef HAVE_SAMBA
         gnome_cmd_con_erase_bookmark (priv->con_list->get_smb());
-#endif
         advrename_defaults.profiles.clear();
     }
 
@@ -3587,9 +3569,7 @@ void GnomeCmdData::save(GnomeCmdMainWin *main_win)
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_QUICK_SEARCH_EXACT_MATCH_END, &(options.quick_search_exact_match_end));
 
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_DEV_ONLY_ICON, &(options.device_only_icon));
-#ifdef HAVE_SAMBA
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_SHOW_SAMBA_WORKGROUP_BUTTON, &(options.show_samba_workgroups_button));
-#endif
 
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_SHOW_TOOLBAR, &(show_toolbar));
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_SHOW_DEVBUTTONS, &(show_devbuttons));

@@ -150,13 +150,6 @@ if have_pdf
   conf_data.set('HAVE_PDF', '@0@'.format(have_pdf.to_int()), description : 'Defined if you have PDF support')
 endif
 
-# Check for samba
-samba = dependency('smbclient', required: get_option('samba'))
-have_samba = samba.found()
-if have_samba
-  conf_data.set('HAVE_SAMBA', '@0@'.format(have_samba.to_int()), description : 'Defined if you have smbclient')
-endif
-
 # Check for gettext
 intl_dep = dependency('intl', required: false)
 if intl_dep.found()
@@ -205,7 +198,6 @@ summary(
     'Use exiv2': have_exif2,
     'Use libgsf': have_gsf,
     'Use poppler': have_pdf,
-    'Use samba': have_samba,
     'Use taglib': have_taglib,
     'Tests': gtest.found(),
   },

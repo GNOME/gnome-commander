@@ -36,6 +36,9 @@ sources_headers = files(
   'gnome-cmd-con-home.h',
   'gnome-cmd-con-list.h',
   'gnome-cmd-con-remote.h',
+  'gnome-cmd-con-smb.h',
+  'gnome-cmd-smb-net.h',
+  'gnome-cmd-smb-path.h',
   'gnome-cmd-convert.h',
   'gnome-cmd-data.h',
   'gnome-cmd-dir.h',
@@ -93,6 +96,9 @@ sources_sources = files(
   'gnome-cmd-con-home.cc',
   'gnome-cmd-con-list.cc',
   'gnome-cmd-con-remote.cc',
+  'gnome-cmd-con-smb.cc',
+  'gnome-cmd-smb-net.cc',
+  'gnome-cmd-smb-path.cc',
   'gnome-cmd-convert.cc',
   'gnome-cmd-data.cc',
   'gnome-cmd-dir.cc',
@@ -134,19 +140,6 @@ flex_gen = generator(
 gcmd_advren_lex_cc = flex_gen.process('gnome-cmd-advrename-lexer.ll')
 
 sources_sources += gcmd_advren_lex_cc
-
-if have_samba
-  sources_headers += [
-    'gnome-cmd-con-smb.h',
-    'gnome-cmd-smb-net.h',
-    'gnome-cmd-smb-path.h'
-  ]
-  sources_sources += [
-    'gnome-cmd-con-smb.cc',
-    'gnome-cmd-smb-net.cc',
-    'gnome-cmd-smb-path.cc'
-  ]
-endif
 
 cc_args = [
   '-DGNOMELOCALEDIR="' + datadir + '/locale"',

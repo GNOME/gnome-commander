@@ -24,9 +24,7 @@
 #include "gnome-cmd-includes.h"
 #include "gnome-cmd-file-selector.h"
 #include "gnome-cmd-con-list.h"
-#ifdef HAVE_SAMBA
 #include "gnome-cmd-con-smb.h"
-#endif
 #include "gnome-cmd-combo.h"
 #include "gnome-cmd-data.h"
 #include "gnome-cmd-cmdline.h"
@@ -399,12 +397,8 @@ static void create_con_buttons (GnomeCmdFileSelector *fs)
     {
         GnomeCmdCon *con = GNOME_CMD_CON (l->data);
 
-#ifdef HAVE_SAMBA
         if (!gnome_cmd_con_is_open (con) && !GNOME_CMD_IS_CON_DEVICE (con) &&
             !GNOME_CMD_IS_CON_SMB (con))  continue;
-#else
-        if (!gnome_cmd_con_is_open (con) && !GNOME_CMD_IS_CON_DEVICE (con))  continue;
-#endif
 
         GIcon *icon = gnome_cmd_con_get_go_icon (con);
 
@@ -787,12 +781,8 @@ static void gnome_cmd_file_selector_init (GnomeCmdFileSelector *fs)
     {
         auto con = static_cast<GnomeCmdCon*> (l->data);
 
-#ifdef HAVE_SAMBA
         if (!gnome_cmd_con_is_open (con) && !GNOME_CMD_IS_CON_DEVICE (con)
             && !GNOME_CMD_IS_CON_SMB (con))  continue;
-#else
-        if (!gnome_cmd_con_is_open (con) && !GNOME_CMD_IS_CON_DEVICE (con))  continue;
-#endif
 
         string textstring {gnome_cmd_con_get_alias (con)};
         string_size = get_string_pixel_size (textstring.c_str(), textstring.length());
@@ -983,12 +973,8 @@ void GnomeCmdFileSelector::update_connections()
     {
         auto con = static_cast<GnomeCmdCon*> (l->data);
 
-#ifdef HAVE_SAMBA
         if (!gnome_cmd_con_is_open (con) && !GNOME_CMD_IS_CON_DEVICE (con)
             && !GNOME_CMD_IS_CON_SMB (con))  continue;
-#else
-        if (!gnome_cmd_con_is_open (con) && !GNOME_CMD_IS_CON_DEVICE (con))  continue;
-#endif
 
         if (con == get_connection())
             found_my_con = TRUE;
