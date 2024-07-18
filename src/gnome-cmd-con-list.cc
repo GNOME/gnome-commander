@@ -377,13 +377,16 @@ GnomeCmdCon *get_remote_con_for_gfile(GFile *gFile)
         auto remoteCon = static_cast<GnomeCmdConRemote*>(remoteConEntry->data);
         auto gnomeCmdConParent = &remoteCon->parent;
         auto gFileSrcUri = g_file_get_uri(gFile);
-        if (strstr(gFileSrcUri, gnomeCmdConParent->uri))
+        gchar *uri = gnome_cmd_con_get_uri_string (gnomeCmdConParent);
+        if (strstr(gFileSrcUri, uri))
         {
             gnomeCmdCon = gnomeCmdConParent;
             g_free(gFileSrcUri);
+            g_free(uri);
             break;
         }
         g_free(gFileSrcUri);
+        g_free(uri);
     }
     return gnomeCmdCon;
 }

@@ -74,7 +74,8 @@ static void remote_open (GnomeCmdCon *con, GtkWindow *parent_window)
 {
     DEBUG('m', "Opening remote connection\n");
 
-    g_return_if_fail (con->uri != nullptr);
+    GUri *uri = gnome_cmd_con_get_uri (con);
+    g_return_if_fail (uri != nullptr);
 
     con->state = GnomeCmdCon::STATE_OPENING;
     con->open_result = GnomeCmdCon::OPEN_IN_PROGRESS;
@@ -84,8 +85,9 @@ static void remote_open (GnomeCmdCon *con, GtkWindow *parent_window)
 
     auto gFile = gnome_cmd_con_create_gfile(con);
 
-    auto uri = g_file_get_uri(gFile);
-    DEBUG('m', "Connecting to %s\n", uri);
+    auto uri_string = g_file_get_uri (gFile);
+    DEBUG('m', "Connecting to %s\n", uri_string);
+    g_free (uri_string);
 
     auto gMountOperation = gtk_mount_operation_new (parent_window);
 
@@ -126,7 +128,7 @@ static gboolean remote_close (GnomeCmdCon *con, GtkWindow *parent_window)
     delete con->base_path;
     con->base_path = nullptr;
 
-    auto uri = gnome_cmd_con_get_uri(con);
+    auto uri = gnome_cmd_con_get_uri_string (con);
     auto gFileTmp = g_file_new_for_uri(uri);
     DEBUG ('m', "Closing connection to %s\n", uri);
 
@@ -136,8 +138,10 @@ static gboolean remote_close (GnomeCmdCon *con, GtkWindow *parent_window)
         g_warning("remote_close - g_file_find_enclosing_mount error: %s - %s", uri, error->message);
         g_error_free(error);
         g_object_unref(gFileTmp);
+        g_free(uri);
         return false;
     }
+    g_free(uri);
 
     g_mount_unmount_with_operation (
         gMount,
@@ -179,15 +183,18 @@ static GFile *create_remote_gfile_with_path(GnomeCmdCon *con, GnomeCmdPath *path
 
 static GFile *remote_create_gfile (GnomeCmdCon *con, GnomeCmdPath *path)
 {
-    g_return_val_if_fail (con->uri != nullptr, nullptr);
+    gchar *uri = gnome_cmd_con_get_uri_string (con);
+    g_return_val_if_fail (uri != nullptr, nullptr);
 
     if (path)
     {
+        g_free (uri);
         return create_remote_gfile_with_path(con, path);
     }
     else
     {
-        auto gFile = g_file_new_for_uri (con->uri);
+        auto gFile = g_file_new_for_uri (uri);
+        g_free (uri);
         return gFile;
     }
 }
@@ -316,7 +323,7 @@ GnomeCmdConRemote *gnome_cmd_con_remote_new (const gchar *alias, const string &u
     GnomeCmdCon *con = GNOME_CMD_CON (gnomeCmdConRemote);
 
     gnome_cmd_con_set_alias (con, alias);
-    gnome_cmd_con_set_uri (con, uri_str.c_str());
+    gnome_cmd_con_set_uri_string (con, uri_str.c_str());
     gnome_cmd_con_set_scheme(con, scheme);
     gnome_cmd_con_set_user_name (con, user);
     gnome_cmd_con_set_host_name (con, host);

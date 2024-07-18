@@ -497,11 +497,12 @@ gboolean gnome_cmd_connect_dialog_edit (GnomeCmdConRemote *server)
     gint port = gnome_cmd_con_get_port (con);
     auto path = gnome_cmd_con_get_root_path(con);
 
-    if (con->uri)
+    gchar *uri = gnome_cmd_con_get_uri_string (con);
+    if (uri)
     {
-        dialog->priv->uri_str = con->uri;
+        dialog->priv->uri_str = uri;
 
-        gtk_editable_set_text (GTK_EDITABLE (dialog->priv->uri_entry), con->uri);
+        gtk_editable_set_text (GTK_EDITABLE (dialog->priv->uri_entry), uri);
 
         gtk_editable_set_text (GTK_EDITABLE (dialog->priv->server_entry), host);
 
@@ -510,6 +511,8 @@ gboolean gnome_cmd_connect_dialog_edit (GnomeCmdConRemote *server)
 
         if (port != -1)
             gtk_editable_set_text (GTK_EDITABLE (dialog->priv->port_entry), stringify(port).c_str());
+
+        g_free (uri);
     }
 
     gint response = gtk_dialog_run (*dialog);
@@ -533,7 +536,7 @@ gboolean gnome_cmd_connect_dialog_edit (GnomeCmdConRemote *server)
             auto uriPath = g_uri_get_path(uri);
             auto uriPort = g_uri_get_port(uri);
             auto uriString = g_uri_to_string(uri);
-            gnome_cmd_con_set_uri (con, uriString);
+            gnome_cmd_con_set_uri_string (con, uriString);
             g_free(uriString);
 
             gnome_cmd_con_set_scheme(con, uriScheme);

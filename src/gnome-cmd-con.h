@@ -72,7 +72,6 @@ struct GnomeCmdCon
     };
 
     gchar               *alias;                 // coded as UTF-8
-    gchar               *uri;
     gchar               *scheme;
     ConnectionMethodID  method;
 
@@ -152,25 +151,11 @@ inline gboolean gnome_cmd_con_open_is_needed (GnomeCmdCon *con)
     return klass->open_is_needed (con);
 }
 
-inline const gchar *gnome_cmd_con_get_uri (GnomeCmdCon *con)
-{
-    g_return_val_if_fail (GNOME_CMD_IS_CON (con), NULL);
-    return con->uri;
-}
+GUri *gnome_cmd_con_get_uri (GnomeCmdCon *con);
+gchar *gnome_cmd_con_get_uri_string (GnomeCmdCon *con);
 
-inline void gnome_cmd_con_set_uri (GnomeCmdCon *con, const gchar *uri = nullptr)
-{
-    g_return_if_fail (GNOME_CMD_IS_CON (con));
-    g_free (con->uri);
-    con->uri = g_strdup(uri);
-}
-
-inline void gnome_cmd_con_set_uri (GnomeCmdCon *con, const std::string &uri)
-{
-    g_return_if_fail (GNOME_CMD_IS_CON (con));
-    g_free (con->uri);
-    con->uri = uri.empty() ? NULL : g_strdup (uri.c_str());
-}
+void gnome_cmd_con_set_uri (GnomeCmdCon *con, GUri *uri);
+void gnome_cmd_con_set_uri_string (GnomeCmdCon *con, const gchar *uri_string);
 
 inline const gchar *gnome_cmd_con_get_scheme (GnomeCmdCon *con)
 {

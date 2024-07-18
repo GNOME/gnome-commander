@@ -57,15 +57,21 @@ static void mount_func (GnomeCmdCon *con)
         return;
     }
 
+    GError *error = nullptr;
+
     auto uriString = g_file_get_uri (gFile);
-    if (!con->uri)
+    if (!gnome_cmd_con_get_uri (con))
     {
-        con->uri = g_strdup(uriString);
+        auto uri = g_uri_parse (uriString, G_URI_FLAGS_NON_DNS, &error);
+        if (error)
+            DEBUG('s', "g_uri_parse error: %s\n", error->message);
+        else
+            gnome_cmd_con_set_uri (con, uri);
     }
     DEBUG('s', "Connecting to %s\n", uriString);
     g_free(uriString);
 
-    GError *error = nullptr;
+    error = nullptr;
     auto base_gFileInfo = g_file_query_info(gFile, "*", G_FILE_QUERY_INFO_NONE, nullptr, &error);
     if (error)
     {
