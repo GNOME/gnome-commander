@@ -72,16 +72,11 @@ struct GnomeCmdCon
     };
 
     gchar               *alias;                 // coded as UTF-8
-    gchar               *scheme;
     ConnectionMethodID  method;
 
-    gchar               *username;
-    gchar               *hostname;
-    gint16              port{-1};
     gchar               *open_msg;
     GnomeCmdPath        *base_path;
     GFileInfo           *base_gFileInfo;
-    GString             *root_path;             // Root path of the connection, used for calculation of relative paths
     gboolean            should_remember_dir;
     gboolean            needs_open_visprog;
     gboolean            needs_list_visprog;     // Defines if a graphical progress bar should be drawn when opening a folder
@@ -157,26 +152,6 @@ gchar *gnome_cmd_con_get_uri_string (GnomeCmdCon *con);
 void gnome_cmd_con_set_uri (GnomeCmdCon *con, GUri *uri);
 void gnome_cmd_con_set_uri_string (GnomeCmdCon *con, const gchar *uri_string);
 
-inline const gchar *gnome_cmd_con_get_scheme (GnomeCmdCon *con)
-{
-    g_return_val_if_fail (GNOME_CMD_IS_CON (con), NULL);
-    return con->scheme;
-}
-
-inline void gnome_cmd_con_set_scheme (GnomeCmdCon *con, const gchar *scheme = nullptr)
-{
-    g_return_if_fail (GNOME_CMD_IS_CON (con));
-    g_free (con->scheme);
-    con->scheme = g_strdup(scheme);
-}
-
-inline void gnome_cmd_con_set_scheme (GnomeCmdCon *con, const std::string &scheme)
-{
-    g_return_if_fail (GNOME_CMD_IS_CON (con));
-    g_free (con->scheme);
-    con->scheme = scheme.empty() ? NULL : g_strdup (scheme.c_str());
-}
-
 GFile *gnome_cmd_con_create_gfile (GnomeCmdCon *con, GnomeCmdPath *path = nullptr);
 
 GnomeCmdPath *gnome_cmd_con_create_path (GnomeCmdCon *con, const gchar *path_str);
@@ -200,65 +175,8 @@ inline void gnome_cmd_con_set_alias (GnomeCmdCon *con, const gchar *alias=NULL)
     con->alias = g_strdup (alias);
 }
 
-inline const char *gnome_cmd_con_get_user_name (GnomeCmdCon *con)
-{
-    g_return_val_if_fail (GNOME_CMD_IS_CON (con), nullptr);
-    return con->username;
-}
-
-inline void gnome_cmd_con_set_user_name (GnomeCmdCon *con, const gchar *username)
-{
-    g_return_if_fail (GNOME_CMD_IS_CON (con));
-    g_free (con->username);
-    con->username = g_strdup(username);
-}
-
-inline const char *gnome_cmd_con_get_host_name (GnomeCmdCon *con)
-{
-    g_return_val_if_fail (GNOME_CMD_IS_CON (con), nullptr);
-    return con->hostname;
-}
-
-inline void gnome_cmd_con_set_host_name (GnomeCmdCon *con, const gchar *host)
-{
-    g_return_if_fail (GNOME_CMD_IS_CON (con));
-    g_free (con->open_msg);
-    g_free (con->hostname);
-    con->hostname = g_strdup(host);
-    con->open_msg = g_strdup_printf (_("Connecting to %s\n"), host ? host : "<?>");
-}
-
-inline void gnome_cmd_con_set_port (GnomeCmdCon *con, gint16 port)
-{
-    g_return_if_fail (GNOME_CMD_IS_CON (con));
-    con->port = port;
-}
-
-inline gint16 gnome_cmd_con_get_port (GnomeCmdCon *con)
-{
-    g_return_val_if_fail (GNOME_CMD_IS_CON (con), 0);
-    return con->port;
-}
-
-inline void gnome_cmd_con_set_host_name (GnomeCmdCon *con, const std::string &host)
-{
-    gnome_cmd_con_set_host_name (con, host.empty() ? NULL : host.c_str());
-}
-
 GnomeCmdDir *gnome_cmd_con_get_default_dir (GnomeCmdCon *con);
 void gnome_cmd_con_set_default_dir (GnomeCmdCon *con, GnomeCmdDir *dir);
-
-inline gchar *gnome_cmd_con_get_root_path (GnomeCmdCon *con)
-{
-    g_return_val_if_fail (GNOME_CMD_IS_CON (con), NULL);
-    return con->root_path->str;
-}
-
-inline void gnome_cmd_con_set_root_path (GnomeCmdCon *con, const gchar *path=NULL)
-{
-    g_return_if_fail (GNOME_CMD_IS_CON (con));
-    g_string_assign (con->root_path, path);
-}
 
 inline gboolean gnome_cmd_con_should_remember_dir (GnomeCmdCon *con)
 {
@@ -356,49 +274,6 @@ inline gchar *gnome_cmd_con_get_free_space (GnomeCmdCon *con, GnomeCmdDir *dir, 
     g_free (free_space);
 
     return retval;
-}
-
-inline ConnectionMethodID gnome_cmd_con_get_scheme (const gchar *uriString)
-{
-    gchar *scheme = nullptr;
-    gchar *user = nullptr;
-    GError *error = nullptr;
-
-    g_uri_split_with_user (
-        uriString,
-        G_URI_FLAGS_HAS_PASSWORD,
-        &scheme, //scheme
-        &user, //user
-        nullptr, //password
-        nullptr, //auth_params
-        nullptr, //host
-        nullptr, //port
-        nullptr, //path
-        nullptr, //query
-        nullptr, //fragment
-        &error
-    );
-
-    if(error)
-    {
-        g_warning("gnome_cmd_con_get_scheme - g_uri_split_with_user error: %s", error->message);
-        g_error_free(error);
-        return CON_SSH;
-    }
-
-    ConnectionMethodID retValue = scheme == nullptr ? CON_FILE :
-           g_str_equal (scheme, "file") ? CON_FILE :
-           g_str_equal (scheme, "ftp")  ? (user && g_str_equal (user, "anonymous") ? CON_ANON_FTP : CON_FTP) :
-           g_str_equal (scheme, "ftp")  ? CON_FTP :
-           g_str_equal (scheme, "sftp") ? CON_SSH :
-           g_str_equal (scheme, "dav")  ? CON_DAV :
-           g_str_equal (scheme, "davs") ? CON_DAVS :
-           g_str_equal (scheme, "smb")  ? CON_SMB :
-                                          CON_URI;
-
-    g_free(user);
-    g_free(scheme);
-    return retValue;
 }
 
 std::string &__gnome_cmd_con_make_uri (std::string &s, const gchar *method, std::string &server, std::string &port, std::string &folder);

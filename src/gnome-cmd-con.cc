@@ -94,17 +94,11 @@ static void dispose (GObject *object)
     g_clear_pointer (&priv->uuid, g_free);
     g_clear_pointer (&con->alias, g_free);
     g_clear_pointer (&priv->uri, g_uri_unref);
-    g_clear_pointer (&con->scheme, g_free);
 
     if (con->base_path != nullptr)
     {
         delete con->base_path;
         con->base_path = nullptr;
-    }
-    if (con->root_path != nullptr)
-    {
-        g_string_free (con->root_path, TRUE);
-        con->root_path = nullptr;
     }
     g_clear_object (&con->base_gFileInfo);
     g_clear_error (&con->open_failed_error);
@@ -196,11 +190,9 @@ static void gnome_cmd_con_init (GnomeCmdCon *con)
     priv->uri = nullptr;
 
     con->alias = nullptr;
-    con->scheme = nullptr;
     con->method = CON_URI;
 
     con->base_path = nullptr;
-    con->root_path = g_string_sized_new (128);
     con->open_msg = nullptr;
     con->should_remember_dir = FALSE;
     con->needs_open_visprog = FALSE;
