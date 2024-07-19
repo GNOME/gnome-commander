@@ -2283,11 +2283,9 @@ static GtkWidget *create_devices_tab (GtkWidget *parent, GnomeCmdData::Options &
 
     gtk_widget_show_all (bbox);
 
-#ifdef HAVE_SAMBA
     check = create_check (parent, _("Show Samba workgroups button\n(Needs program restart if altered)"), "samba_workgroups_button");
     gtk_box_append (GTK_BOX (cat_box), check);
     gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), cfg.show_samba_workgroups_button);
-#endif
 
     check = create_check (parent, _("Show only the icons"), "device_only_icon");
     gtk_box_append (GTK_BOX (cat_box), check);
@@ -2307,10 +2305,8 @@ void store_devices_options (GtkWidget *dialog, GnomeCmdData::Options &cfg)
     GtkWidget *device_only_icon = lookup_widget (dialog, "device_only_icon");
     cfg.device_only_icon = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (device_only_icon));
 
-#ifdef HAVE_SAMBA
     GtkWidget *samba_workgroups_button = lookup_widget (dialog, "samba_workgroups_button");
     cfg.show_samba_workgroups_button = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (samba_workgroups_button));
-#endif
 }
 
 

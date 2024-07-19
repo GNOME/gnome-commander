@@ -41,7 +41,7 @@ struct GnomeCmdConList
 {
     GObject parent;
 
-    class Private;
+    struct Private;
 
     Private *priv;
 
@@ -105,12 +105,10 @@ inline GnomeCmdCon *get_home_con ()
     return gnome_cmd_con_list_get()->get_home();
 }
 
-#ifdef HAVE_SAMBA
 inline GnomeCmdCon *get_smb_con ()
 {
     return gnome_cmd_con_list_get()->get_smb();
 }
-#endif
 
 inline GList *get_remote_cons ()
 {

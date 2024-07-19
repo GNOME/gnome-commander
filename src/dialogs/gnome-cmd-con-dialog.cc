@@ -181,12 +181,10 @@ void GnomeCmdConnectDialog::Private::setup_for_type()
             show_domain = FALSE;
             break;
 
-#ifdef HAVE_SAMBA
         case CON_SMB:
             show_port = FALSE;
             show_domain = TRUE;
             break;
-#endif
     }
 
     show_entry (required_grid, server_entry, _("_Server:"), i);
@@ -403,9 +401,7 @@ static void gnome_cmd_connect_dialog_init (GnomeCmdConnectDialog *dialog)
     gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (combo), _("SSH"));
     gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (combo), _("FTP (with login)"));
     gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (combo), _("Public FTP"));
-#ifdef HAVE_SAMBA
     gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (combo), _("Windows share"));
-#endif
     gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (combo), _("WebDAV (HTTP)"));
     gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (combo), _("Secure WebDAV (HTTPS)"));
     gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (combo), _("Custom location"));

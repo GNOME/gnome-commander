@@ -59,9 +59,7 @@ G_DEFINE_TYPE_WITH_PRIVATE (GnomeCmdCon, gnome_cmd_con, G_TYPE_OBJECT)
 const gchar *icon_name[] = {"folder-remote",           // CON_SSH
                             "folder-remote",           // CON_FTP
                             "folder-remote",           // CON_ANON_FTP
-#ifdef HAVE_SAMBA
                             "folder-remote",           // CON_SMB
-#endif
                             "folder-remote",           // CON_DAV
                             "folder-remote",           // CON_DAVS
                             "network-workgroup",       // CON_URI
@@ -730,7 +728,7 @@ string &__gnome_cmd_con_make_uri (string &s, const gchar *method, string &server
     return s;
 }
 
-#ifdef HAVE_SAMBA
+
 std::string &gnome_cmd_con_make_smb_uri (std::string &uriString, std::string &server, std::string &folder, std::string &domain)
 {
     if (!folder.empty())
@@ -754,7 +752,6 @@ std::string &gnome_cmd_con_make_smb_uri (std::string &uriString, std::string &se
 
     return uriString;
 }
-#endif
 
 
 /**

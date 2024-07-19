@@ -13,7 +13,6 @@ Gnome Commander can also make use of the following packages:
 - taglib
 - libgsf
 - poppler
-- samba-client
 - yelp for documentation
 
 The minimum version requirements can be found in the top-level meson.config.
