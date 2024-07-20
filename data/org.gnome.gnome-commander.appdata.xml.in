@@ -65,6 +65,48 @@
   </suggests>
 
   <releases>
+    <release type="stable" version="1.18.0" date="2024-07-21">
+      <description>
+        <p>This release includes the following features and changes regarding the migration from Gtk2 to Gtk3 (huge thanks go to Andrey Kutejko!):</p>
+        <ul>
+          <li>Replace GtkCList with GtkTreeView</li>
+          <li>Get rid of libunique</li>
+          <li>Replace GtkTable with GtkGrid</li>
+          <li>Remove GtkAlignment</li>
+          <li>Rework plugin API</li>
+          <li>Use GIcon instead of GdkPixbuf</li>
+          <li>Reworked the Gtk menus and popup menus</li>
+          <li>No usage of stock icons anymore</li>
+          <li>Update of the internal viewer codebase</li>
+          <li>Aleady started preparation to Gtk4 migration</li>
+          <li>Stability improvements; Remove unused code</li>
+          <li>And much more...</li>
+        </ul>
+        <p>Other changes in this release:</p>
+        <ul>
+          <li>Shortcut for opening the file pane splitter: Ctrl+s</li>
+          <li>File-Roller plugin: Forbid free-form editing of an archive extension</li>
+        </ul>
+        <p>This release fixes the following bugs:</p>
+        <ul>
+          <li>Fix for double g_error_free call (Mamoru Tasaka)</li>
+        </ul>
+        <p>New or updated translations: ca (Jordi Mas), cs (Daniel Rusek), da (Alan Mortensen), de (Jürgen Benvenuti), es (Daniel Mustieles), eu (Asier Sarasua Garmendia), hu (Balázs Úr), id (Andika Triwidada), ka (Ekaterine Papava), kk (Baurzhan Muftakhidinov), pl (Piotr Drąg), pt (Hugo Carvalho), pt_BR (Enrico Nicoletto), ro (Florentina Mușat), ru (Sergej A.), sl (Martin), sr (Мирослав Николић), sv (Anders Jonsson), tr (Sabri Ünal), uk (Yuri Chornoivan)</p>
+        <p>New or updated docs: sv (Anders Jonsson), ru (Sergej A.)</p>
+      </description>
+    </release>
+    <release type="stable" version="1.16.2" date="2024-05-16">
+      <description>
+        <p>This release fixes the following bugs:</p>
+        <ul>
+          <li>Fix double g_error_free call in remote_close_callback (Mamoru Tasaka)</li>
+          <li>Fix build with taglib 2.0 (Dominique Leuenberger)</li>
+          <li>Set project gnu++11 c++ language version explicitely (Andrei Shamshur)</li>
+        </ul>
+        <p>New or updated translations: cs (Daniel Rusek), sl (Martin Srebotnjak), tr (Sabri Ünal)</p>
+        <p>New or updated docs: ru (Sergej A), sv (Anders Jonsson)</p>
+      </description>
+    </release>
     <release type="stable" version="1.16.1" date="2024-01-14">
       <description>
         <p>This release includes the following features and changes:</p>
