@@ -3,12 +3,11 @@ Prerequisites
 
 Gnome Commander requires the following packages:
 
-- A working GNOME platform including glib 2.66, gtk+ 2.24, and gio 2.0
+- A working GNOME platform including glib 2.66, gtk+ 3, and gio 2.0
 - meson
 
 Gnome Commander can also make use of the following packages:
 
-- libunique 0.9.3 or newer
 - libexiv2
 - taglib
 - libgsf
