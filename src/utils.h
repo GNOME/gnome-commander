@@ -31,7 +31,6 @@
 
 #include "gnome-cmd-file.h"
 #include "gnome-cmd-types.h"
-#include "gnome-cmd-pixmap.h"
 #include "gnome-cmd-app.h"
 #include "utils-no-dependencies.h"
 

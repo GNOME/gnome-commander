@@ -38,8 +38,6 @@
 #define OVERLAY_UMOUNT_ICON            "overlay_umount"
 #define OVERLAY_SYMLINK_ICON           "overlay_symlink"
 
-#include "gnome-cmd-pixmap.h"
-
 void IMAGE_init ();
 void IMAGE_free ();
 

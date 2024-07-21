@@ -32,7 +32,6 @@
 
 #include "gnome-cmd-path.h"
 #include "gnome-cmd-dir.h"
-#include "gnome-cmd-pixmap.h"
 #include "gnome-cmd-data.h"
 #include "history.h"
 #include "utils.h"

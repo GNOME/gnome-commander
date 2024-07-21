@@ -22,7 +22,6 @@
 #pragma once
 
 #include "gnome-cmd-file.h"
-#include "gnome-cmd-pixmap.h"
 
 enum AppTarget
 {

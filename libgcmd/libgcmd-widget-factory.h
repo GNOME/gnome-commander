@@ -34,11 +34,6 @@ inline GtkWidget *create_tabvbox (GtkWidget *parent)
     return create_vbox (parent, FALSE, 6);
 }
 
-inline GtkWidget *create_tabhbox (GtkWidget *parent)
-{
-    return create_hbox (parent, FALSE, 6);
-}
-
 GtkWidget *create_label (GtkWidget *parent, const gchar *text);
 
 GtkWidget *create_label_with_mnemonic (GtkWidget *parent, const gchar *text, GtkWidget *for_widget);
