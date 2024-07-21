@@ -65,6 +65,16 @@
   </suggests>
 
   <releases>
+    <release type="stable" version="1.18.1" date="2024-12-31">
+      <description>
+        <p>This release fixes the following bugs:</p>
+        <ul>
+          <li>...</li>
+        </ul>
+        <p>New or updated translations: ...</p>
+        <p>New or updated docs: ...</p>
+      </description>
+    </release>
     <release type="stable" version="1.18.0" date="2024-07-21">
       <description>
         <p>This release includes the following features and changes regarding the migration from Gtk2 to Gtk3 (huge thanks go to Andrey Kutejko!):</p>
