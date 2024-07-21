@@ -1,5 +1,5 @@
 project('gnome-commander', 'cpp',
-  version: '1.17.0',
+  version: '1.19.0',
   license: 'GPLv2',
   meson_version: '>= 0.59',
   default_options: ['cpp_std=gnu++11', 'build.cpp_std=gnu++11']
