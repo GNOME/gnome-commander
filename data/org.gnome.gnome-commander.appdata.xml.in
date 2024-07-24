@@ -69,7 +69,7 @@
       <description>
         <p>This release fixes the following bugs:</p>
         <ul>
-          <li>...</li>
+          <li>Issue #151: Segfault at startup when none of the stored tabs points to a valid directory</li>
         </ul>
         <p>New or updated translations: ...</p>
         <p>New or updated docs: ...</p>
