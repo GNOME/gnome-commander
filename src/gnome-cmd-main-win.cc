@@ -897,22 +897,27 @@ gboolean GnomeCmdMainWin::key_pressed(GnomeCmdKeyPress *event)
 
 void GnomeCmdMainWin::open_tabs(FileSelectorID id)
 {
-    if (gnome_cmd_data.tabs[id].empty())
-        gnome_cmd_data.tabs[id].push_back(make_pair(string(g_get_home_dir ()), make_tuple(GnomeCmdFileList::COLUMN_NAME, GTK_SORT_ASCENDING, FALSE)));
+    // Always add a temporary tab pointing to the home directory in the list of stored tabs.
+    // This one will be used as a backup in case none of the stored tab URI's is valid.
+    gnome_cmd_data.tabs[id].push_back(make_pair(string(g_get_home_dir ()), make_tuple(GnomeCmdFileList::COLUMN_NAME, GTK_SORT_ASCENDING, FALSE)));
 
     auto last_tab = unique(gnome_cmd_data.tabs[id].begin(), gnome_cmd_data.tabs[id].end());
+    auto backup_tab = gnome_cmd_data.tabs[id].end() - 1;
+    auto one_valid_tab_found = false;
 
-    for (auto tab=gnome_cmd_data.tabs[id].begin(); tab!=last_tab; ++tab)
+    for (auto stored_tab = gnome_cmd_data.tabs[id].begin(); stored_tab != last_tab; ++stored_tab)
     {
-        auto uriString = tab->first;
+        auto uriString = stored_tab->first;
         auto uriScheme = g_uri_peek_scheme (uriString.c_str());
         auto uriIsRelative = false;
         gchar *path = nullptr;
         GnomeCmdCon *con;
 
+        if (stored_tab == backup_tab && one_valid_tab_found)
+            continue;
+
         if (!uriScheme)
         {
-            g_warning("Stored URI is either not absolute or invalid: %s", uriString.c_str());
             uriScheme = g_strdup("file");
             uriIsRelative = true;
         }
@@ -922,18 +927,18 @@ void GnomeCmdMainWin::open_tabs(FileSelectorID id)
             con = get_home_con ();
             if (uriIsRelative)
             {
-                path = g_strdup(tab->first.c_str());
+                path = g_strdup(stored_tab->first.c_str());
             }
             else
             {
-                auto gUri = g_uri_parse(tab->first.c_str(), G_URI_FLAGS_NONE, nullptr);
+                auto gUri = g_uri_parse(stored_tab->first.c_str(), G_URI_FLAGS_NONE, nullptr);
                 path = g_strdup(g_uri_get_path(gUri));
             }
         }
         else
         {
             GError *error = nullptr;
-            auto gUri = g_uri_parse(tab->first.c_str(), G_URI_FLAGS_NONE, &error);
+            auto gUri = g_uri_parse(stored_tab->first.c_str(), G_URI_FLAGS_NONE, &error);
             if (error)
             {
                 g_warning("Stored URI is invalid: %s", error->message);
@@ -949,8 +954,9 @@ void GnomeCmdMainWin::open_tabs(FileSelectorID id)
         GnomeCmdDir *gnomeCmdDir = gnome_cmd_dir_new (con, gnome_cmd_con_create_path (con, path), true);
         if (gnomeCmdDir != nullptr)
         {
-            const auto& tabTuple = tab->second;
+            const auto& tabTuple = stored_tab->second;
             fs(id)->new_tab(gnomeCmdDir, std::get<0>(tabTuple), std::get<1>(tabTuple), std::get<2>(tabTuple), TRUE);
+            one_valid_tab_found = true;
         }
         else
         {
