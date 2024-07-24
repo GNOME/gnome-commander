@@ -600,8 +600,9 @@ gchar *gnome_cmd_dir_get_relative_path_string(const char* childPath, const char*
 
 static gchar *gnome_cmd_dir_get_mount_uri(GnomeCmdCon *con)
 {
-    auto conUri = gnome_cmd_con_get_uri(con);
+    auto conUri = gnome_cmd_con_get_uri_string (con);
     auto gFileConTmp = g_file_new_for_uri(conUri);
+    g_free (conUri);
     do
     {
         auto gFileConParent = g_file_get_parent(gFileConTmp);

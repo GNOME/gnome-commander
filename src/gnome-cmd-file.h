@@ -35,6 +35,7 @@ GType gnome_cmd_file_get_type ();
 class GnomeCmdFileMetadata;
 
 struct GnomeCmdDir;
+struct GnomeCmdPath;
 
 
 struct GnomeCmdFile
@@ -58,6 +59,7 @@ struct GnomeCmdFile
 
     const gchar *get_name();
     gchar *get_quoted_name();
+    GnomeCmdPath *GetPathThroughParent();
     gchar *GetPathStringThroughParent();
     gchar *get_real_path();
     gchar *get_quoted_real_path();

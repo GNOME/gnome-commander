@@ -74,7 +74,8 @@ static void remote_open (GnomeCmdCon *con, GtkWindow *parent_window)
 {
     DEBUG('m', "Opening remote connection\n");
 
-    g_return_if_fail (con->uri != nullptr);
+    GUri *uri = gnome_cmd_con_get_uri (con);
+    g_return_if_fail (uri != nullptr);
 
     con->state = GnomeCmdCon::STATE_OPENING;
     con->open_result = GnomeCmdCon::OPEN_IN_PROGRESS;
@@ -84,8 +85,9 @@ static void remote_open (GnomeCmdCon *con, GtkWindow *parent_window)
 
     auto gFile = gnome_cmd_con_create_gfile(con);
 
-    auto uri = g_file_get_uri(gFile);
-    DEBUG('m', "Connecting to %s\n", uri);
+    auto uri_string = g_file_get_uri (gFile);
+    DEBUG('m', "Connecting to %s\n", uri_string);
+    g_free (uri_string);
 
     auto gMountOperation = gtk_mount_operation_new (parent_window);
 
@@ -126,7 +128,7 @@ static gboolean remote_close (GnomeCmdCon *con, GtkWindow *parent_window)
     delete con->base_path;
     con->base_path = nullptr;
 
-    auto uri = gnome_cmd_con_get_uri(con);
+    auto uri = gnome_cmd_con_get_uri_string (con);
     auto gFileTmp = g_file_new_for_uri(uri);
     DEBUG ('m', "Closing connection to %s\n", uri);
 
@@ -136,8 +138,10 @@ static gboolean remote_close (GnomeCmdCon *con, GtkWindow *parent_window)
         g_warning("remote_close - g_file_find_enclosing_mount error: %s - %s", uri, error->message);
         g_error_free(error);
         g_object_unref(gFileTmp);
+        g_free(uri);
         return false;
     }
+    g_free(uri);
 
     g_mount_unmount_with_operation (
         gMount,
@@ -169,7 +173,15 @@ static gboolean remote_open_is_needed (GnomeCmdCon *con)
 
 static GFile *create_remote_gfile_with_path(GnomeCmdCon *con, GnomeCmdPath *path)
 {
-    auto gUri = g_uri_build(G_URI_FLAGS_NONE, con->scheme, nullptr, con->hostname, con->port, path->get_path(), nullptr, nullptr);
+    auto uri = gnome_cmd_con_get_uri (con);
+    auto gUri = g_uri_build(G_URI_FLAGS_NONE,
+        g_uri_get_scheme (uri),
+        g_uri_get_userinfo (uri),
+        g_uri_get_host (uri),
+        g_uri_get_port (uri),
+        path->get_path(),
+        nullptr,
+        nullptr);
     auto gFilePathUriString = g_uri_to_string(gUri);
     auto gFile = g_file_new_for_uri(gFilePathUriString);
     g_free(gFilePathUriString);
@@ -179,15 +191,18 @@ static GFile *create_remote_gfile_with_path(GnomeCmdCon *con, GnomeCmdPath *path
 
 static GFile *remote_create_gfile (GnomeCmdCon *con, GnomeCmdPath *path)
 {
-    g_return_val_if_fail (con->uri != nullptr, nullptr);
+    gchar *uri = gnome_cmd_con_get_uri_string (con);
+    g_return_val_if_fail (uri != nullptr, nullptr);
 
     if (path)
     {
+        g_free (uri);
         return create_remote_gfile_with_path(con, path);
     }
     else
     {
-        auto gFile = g_file_new_for_uri (con->uri);
+        auto gFile = g_file_new_for_uri (uri);
+        g_free (uri);
         return gFile;
     }
 }
@@ -201,16 +216,20 @@ static GnomeCmdPath *remote_create_path (GnomeCmdCon *con, const gchar *path_str
 
 static gchar *remote_get_open_tooltip (GnomeCmdCon *con)
 {
-    return con->hostname
-        ? g_strdup_printf (_("Opens remote connection to %s"), con->hostname)
+    GUri *uri = gnome_cmd_con_get_uri (con);
+    const gchar *hostname = uri ? g_uri_get_host (uri) : nullptr;
+    return hostname
+        ? g_strdup_printf (_("Opens remote connection to %s"), hostname)
         : nullptr;
 }
 
 
 static gchar *remote_get_close_tooltip (GnomeCmdCon *con)
 {
-    return con->hostname
-        ? g_strdup_printf (_("Closes remote connection to %s"), con->hostname)
+    GUri *uri = gnome_cmd_con_get_uri (con);
+    const gchar *hostname = uri ? g_uri_get_host (uri) : nullptr;
+    return hostname
+        ? g_strdup_printf (_("Closes remote connection to %s"), hostname)
         : nullptr;
 }
 
@@ -285,27 +304,7 @@ GnomeCmdConRemote *gnome_cmd_con_remote_new (const gchar *alias, const string &u
     g_return_val_if_fail (gnomeCmdConRemote != nullptr, nullptr);
 
     GError *error = nullptr;
-
-    gchar *scheme = nullptr;
-    gchar *user = nullptr;
-    gchar *host = nullptr;
-    gint port = -1;
-    gchar *path = nullptr;
-
-    g_uri_split_with_user (
-        uri_str.c_str(),
-        G_URI_FLAGS_HAS_PASSWORD,
-        &scheme,
-        &user,
-        nullptr, //password
-        nullptr, //auth_params
-        &host, //host
-        &port, //port
-        &path, //path
-        nullptr, //query
-        nullptr, //fragment
-        &error
-    );
+    GUri *uri = g_uri_parse (uri_str.c_str(), (GUriFlags) (G_URI_FLAGS_HAS_PASSWORD | G_URI_FLAGS_HAS_AUTH_PARAMS), &error);
     if (error)
     {
         g_warning("gnome_cmd_con_remote_new - g_uri_split error: %s", error->message);
@@ -316,19 +315,24 @@ GnomeCmdConRemote *gnome_cmd_con_remote_new (const gchar *alias, const string &u
     GnomeCmdCon *con = GNOME_CMD_CON (gnomeCmdConRemote);
 
     gnome_cmd_con_set_alias (con, alias);
-    gnome_cmd_con_set_uri (con, uri_str.c_str());
-    gnome_cmd_con_set_scheme(con, scheme);
-    gnome_cmd_con_set_user_name (con, user);
-    gnome_cmd_con_set_host_name (con, host);
-    gnome_cmd_con_set_port (con, port);
-    gnome_cmd_con_set_root_path (con, path);
+    gnome_cmd_con_set_uri (con, uri);
 
-    con->method = gnome_cmd_con_get_scheme (uri_str.c_str());
+    const gchar *hostname = uri ? g_uri_get_host (uri) : nullptr;
+    con->open_msg = g_strdup_printf (_("Connecting to %s\n"), hostname ? hostname : "<?>");
 
-    g_free (scheme);
-    g_free(host);
-    g_free (path);
-    g_free (user);
+    const gchar *scheme = g_uri_get_scheme (uri);
+    const gchar *user = g_uri_get_user (uri);
+    con->method = scheme == nullptr ? CON_FILE :
+        g_str_equal (scheme, "file") ? CON_FILE :
+        g_str_equal (scheme, "ftp")  ? (user && g_str_equal (user, "anonymous") ? CON_ANON_FTP : CON_FTP) :
+        g_str_equal (scheme, "ftp")  ? CON_FTP :
+        g_str_equal (scheme, "sftp") ? CON_SSH :
+        g_str_equal (scheme, "dav")  ? CON_DAV :
+        g_str_equal (scheme, "davs") ? CON_DAVS :
+#ifdef HAVE_SAMBA
+        g_str_equal (scheme, "smb")  ? CON_SMB :
+#endif
+                                       CON_URI;
 
     return gnomeCmdConRemote;
 }

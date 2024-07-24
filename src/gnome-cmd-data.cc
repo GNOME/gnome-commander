@@ -1878,13 +1878,18 @@ void GnomeCmdData::save_connections()
 
         if (con)
         {
-            if (!con->alias || !*con->alias || !con->uri || !*con->uri)
+            if (!con->alias || !*con->alias)
                 continue;
 
-            hasConnections = true;
-            g_variant_builder_add (&gVariantBuilder, GCMD_SETTINGS_CONNECTION_FORMAT_STRING,
-                                    con->alias,
-                                    con->uri);
+            gchar *uri = gnome_cmd_con_get_uri_string (con);
+            if (uri && *uri)
+            {
+                hasConnections = true;
+                g_variant_builder_add (&gVariantBuilder, GCMD_SETTINGS_CONNECTION_FORMAT_STRING,
+                                        con->alias,
+                                        uri);
+            }
+            g_free (uri);
         }
     }
     if (hasConnections)
@@ -2062,9 +2067,10 @@ inline gboolean remote_con_stored_already (GnomeCmdConList *list, GFile *gFile)
     for (GList *tmp = gnome_cmd_con_list_get_all_remote(list); tmp; tmp = tmp->next)
     {
         auto con = static_cast <GnomeCmdCon*> (tmp->data);
-        auto uriString = static_cast<const char*>(gnome_cmd_con_get_uri(con));
+        auto uriString = gnome_cmd_con_get_uri_string (con);
 
         conGFile = g_file_new_for_uri(uriString);
+        g_free (uriString);
         if(g_file_equal(conGFile, gFile))
         {
             rc = TRUE;
@@ -3587,7 +3593,7 @@ void GnomeCmdData::save(GnomeCmdMainWin *main_win)
     set_gsettings_when_changed      (options.gcmd_settings->programs, GCMD_SETTINGS_TERMINAL_EXEC_CMD, options.termexec);
     set_gsettings_when_changed      (options.gcmd_settings->programs, GCMD_SETTINGS_USE_GCMD_BLOCK, &(use_gcmd_block));
 
-    const gchar *quick_connect_uri = gnome_cmd_con_get_uri (GNOME_CMD_CON (quick_connect));
+    gchar *quick_connect_uri = gnome_cmd_con_get_uri_string (GNOME_CMD_CON (quick_connect));
 
     if (quick_connect_uri)
         set_gsettings_when_changed (options.gcmd_settings->network, GCMD_SETTINGS_QUICK_CONNECT_URI, (gpointer) quick_connect_uri);

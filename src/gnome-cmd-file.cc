@@ -247,24 +247,13 @@ void gnome_cmd_file_setup (GObject *gObject, GFileInfo *gFileInfo, GnomeCmdDir *
     if (parentDir)
         gnomeCmdFile->priv->parent_dir = g_object_ref (parentDir);
 
-    auto pathString = gnomeCmdFile->GetPathStringThroughParent();
-    if (pathString)
+    auto path = gnomeCmdFile->GetPathThroughParent();
+    if (path)
     {
         auto con = gnome_cmd_dir_get_connection(parentDir ? parentDir : GNOME_CMD_DIR(gObject));
-        auto gUri = g_uri_build(G_URI_FLAGS_NONE,
-                                con && con->scheme ? con->scheme : "file",
-                                nullptr,
-                                con ? con->hostname : nullptr,
-                                con ? con->port : -1,
-                                pathString,
-                                nullptr,
-                                nullptr);
+        GNOME_CMD_FILE_BASE (gnomeCmdFile)->gFile = gnome_cmd_con_create_gfile (con, path);
 
-        auto uriString = g_uri_to_string(gUri);
-        auto gFileFinal = g_file_new_for_uri (uriString);
-        GNOME_CMD_FILE_BASE (gnomeCmdFile)->gFile = gFileFinal;
-        g_free(uriString);
-        g_free(pathString);
+        delete path;
     }
     // EVERY GnomeCmdFile instance must have a gFile reference
     if (!gnomeCmdFile->get_file())
@@ -443,7 +432,7 @@ gchar *GnomeCmdFile::get_quoted_name()
 }
 
 
-gchar *GnomeCmdFile::GetPathStringThroughParent()
+GnomeCmdPath *GnomeCmdFile::GetPathThroughParent()
 {
     g_return_val_if_fail (get_file_info() != nullptr, nullptr);
 
@@ -452,26 +441,27 @@ gchar *GnomeCmdFile::GetPathStringThroughParent()
     if (!filename)
         return nullptr;
 
-    GnomeCmdPath *path;
-    gchar *path_str;
-
     if (!has_parent_dir (this))
     {
         if (GNOME_CMD_IS_DIR (this))
         {
-            path = gnome_cmd_dir_get_path (GNOME_CMD_DIR (this));
-            return g_strdup (path->get_path());
+            return gnome_cmd_dir_get_path (GNOME_CMD_DIR (this))->clone();
         }
         g_assert ("Non directory file without owning directory");
     }
 
-    path = gnome_cmd_dir_get_path (::get_parent_dir (this))->get_child(filename);
-    if (!path)
-    {
-        return nullptr;
-    }
+    return gnome_cmd_dir_get_path (::get_parent_dir (this))->get_child(filename);
+}
 
-    path_str = g_strdup (path->get_path());
+
+gchar *GnomeCmdFile::GetPathStringThroughParent()
+{
+    GnomeCmdPath *path = GetPathThroughParent();
+
+    if (!path)
+        return nullptr;
+
+    gchar *path_str = g_strdup (path->get_path());
     delete path;
 
     return path_str;

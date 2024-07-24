@@ -493,21 +493,18 @@ gboolean gnome_cmd_connect_dialog_edit (GnomeCmdConRemote *server)
     else
         gtk_widget_set_sensitive (dialog->priv->alias_entry, FALSE);
 
-    auto host = g_strdup(gnome_cmd_con_get_host_name(con));
-    gint port = gnome_cmd_con_get_port (con);
-    auto path = gnome_cmd_con_get_root_path(con);
-
-    if (con->uri)
+    GUri *uri = gnome_cmd_con_get_uri (con);
+    if (uri)
     {
-        dialog->priv->uri_str = con->uri;
+        gchar *uri_str = g_uri_to_string (uri);
+        dialog->priv->uri_str = uri_str;
+        g_free (uri_str);
 
-        gtk_editable_set_text (GTK_EDITABLE (dialog->priv->uri_entry), con->uri);
+        gtk_editable_set_text (GTK_EDITABLE (dialog->priv->uri_entry), dialog->priv->uri_str.c_str());
+        gtk_editable_set_text (GTK_EDITABLE (dialog->priv->server_entry), g_uri_get_host (uri));
+        gtk_editable_set_text (GTK_EDITABLE (dialog->priv->folder_entry), g_uri_get_path (uri));
 
-        gtk_editable_set_text (GTK_EDITABLE (dialog->priv->server_entry), host);
-
-        if (path)
-            gtk_editable_set_text (GTK_EDITABLE (dialog->priv->folder_entry), path);
-
+        auto port = g_uri_get_port (uri);
         if (port != -1)
             gtk_editable_set_text (GTK_EDITABLE (dialog->priv->port_entry), stringify(port).c_str());
     }
@@ -516,7 +513,6 @@ gboolean gnome_cmd_connect_dialog_edit (GnomeCmdConRemote *server)
 
     if (response == GTK_RESPONSE_OK)
     {
-        g_free(host);
         GError *error = nullptr;
 
         if (dialog->priv->uri_str.c_str())
@@ -528,43 +524,22 @@ gboolean gnome_cmd_connect_dialog_edit (GnomeCmdConRemote *server)
                 g_error_free(error);
                 return FALSE;
             }
-            auto uriScheme = g_uri_get_scheme(uri);
-            auto uriHost = g_uri_get_host(uri);
             auto uriPath = g_uri_get_path(uri);
-            auto uriPort = g_uri_get_port(uri);
             auto uriString = g_uri_to_string(uri);
-            gnome_cmd_con_set_uri (con, uriString);
+            gnome_cmd_con_set_uri_string (con, uriString);
             g_free(uriString);
 
-            gnome_cmd_con_set_scheme(con, uriScheme);
             gnome_cmd_con_set_base_path(con, uriPath && strlen(uriPath) > 0
                 ? new GnomeCmdPlainPath(uriPath)
                 : new GnomeCmdPlainPath(G_DIR_SEPARATOR_S));
-            gnome_cmd_con_set_root_path(con, uriPath);
-            gnome_cmd_con_set_host_name (con, uriHost);
-            if (uriPort != -1)
-                gnome_cmd_con_set_port(con, uriPort);
-            // let GIO handle the port of the SMB connection
-            if (!strcmp(uriScheme, "smb") && uriPort != -1)
-                gnome_cmd_con_set_port(con, -1);
         }
         else
         {
-            host = g_strdup(gtk_editable_get_text (GTK_EDITABLE (dialog->priv->server_entry)));
-            path = g_strdup(gtk_editable_get_text (GTK_EDITABLE (dialog->priv->folder_entry)));
-            auto portChar = gtk_editable_get_text (GTK_EDITABLE (dialog->priv->port_entry));
-            port = portChar ? atoi(portChar) : -1;
+            const gchar *path = gtk_editable_get_text (GTK_EDITABLE (dialog->priv->folder_entry));
 
             gnome_cmd_con_set_base_path(con, path && strlen(path) > 0
                 ? new GnomeCmdPlainPath(path)
                 : new GnomeCmdPlainPath(G_DIR_SEPARATOR_S));
-            gnome_cmd_con_set_root_path(con, path);
-            gnome_cmd_con_set_host_name (con, host);
-            if (port != -1)
-                gnome_cmd_con_set_port(con, port);
-
-            g_free(host);
-            g_free(path);
         }
 
         auto alias = dialog->priv->alias ? dialog->priv->alias->c_str() : nullptr;

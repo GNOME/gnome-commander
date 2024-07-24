@@ -1024,20 +1024,20 @@ void GnomeCmdSearchDialog::Private::on_dialog_response(GtkDialog *window, int re
 
                 GnomeCmdCon *con = gnome_cmd_dir_get_connection (data.start_dir);
 
-                if (strncmp(dirPathString, gnome_cmd_con_get_root_path (con), con->root_path->len) != 0)
+                const gchar *root_path = g_uri_get_path (gnome_cmd_con_get_uri (con));
+                if (strncmp(dirPathString, root_path, strlen(root_path)) != 0)
                 {
                     if (!g_strcmp0(g_uri_get_scheme (gUri), "file") != 0)
                     {
                         g_uri_unref (gUri);
-                        gnome_cmd_show_message (*dialog, stringify(g_strdup_printf (_("Failed to change directory outside of %s"),
-                                                                                              gnome_cmd_con_get_root_path (con))));
+                        gnome_cmd_show_message (*dialog, stringify(g_strdup_printf (_("Failed to change directory outside of %s"), root_path)));
                         break;
                     }
                     else
                         data.start_dir = gnome_cmd_dir_new (get_home_con (), gnome_cmd_con_create_path (get_home_con (), dirPathString));
                 }
                 else
-                    data.start_dir = gnome_cmd_dir_new (con, gnome_cmd_con_create_path (con, dirPathString + con->root_path->len));
+                    data.start_dir = gnome_cmd_dir_new (con, gnome_cmd_con_create_path (con, dirPathString + strlen(root_path)));
 
                 g_uri_unref (gUri);
 
@@ -1092,8 +1092,11 @@ void GnomeCmdSearchDialog::Private::on_dialog_response(GtkDialog *window, int re
                 GnomeCmdFileSelector *fs = main_win->fs(ACTIVE);
                 GnomeCmdCon *con = fs->get_connection();
 
+                const gchar *root_path = g_uri_get_path (gnome_cmd_con_get_uri (con));
+                size_t root_path_len = strlen (root_path);
+
                 gchar *fpath = f->GetPathStringThroughParent();
-                gsize offset = strncmp(fpath, gnome_cmd_con_get_root_path (con), con->root_path->len)==0 ? con->root_path->len : 0;
+                gsize offset = strncmp(fpath, root_path, root_path_len)==0 ? root_path_len : 0;
                 gchar *dpath = g_path_get_dirname (fpath + offset);
 
                 if (fs->file_list()->locked)

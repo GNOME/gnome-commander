@@ -193,7 +193,9 @@ static void mount_finish_callback(GObject *gVol, GAsyncResult *result, gpointer 
     }
     if (con->base_path)
     {
-        gnome_cmd_con_set_root_path(con, con->base_path->get_path());
+        gchar *uri_string = g_filename_to_uri (con->base_path->get_path(), nullptr, nullptr);
+        gnome_cmd_con_set_uri_string (con, uri_string);
+        g_free (uri_string);
     }
     set_con_base_gfileinfo(con);
     set_con_mount_succeed(con);
@@ -581,7 +583,11 @@ GnomeCmdConDevice *gnome_cmd_con_device_new (const gchar *alias, const gchar *de
     gnome_cmd_con_set_alias (con, alias);
 
     if (mountp)
-        gnome_cmd_con_set_root_path (con, mountp);
+    {
+        gchar *uri_string = g_filename_to_uri (mountp, nullptr, nullptr);
+        gnome_cmd_con_set_uri_string (con, uri_string);
+        g_free (uri_string);
+    }
 
     con->open_msg = g_strdup_printf (_("Mounting %s"), alias);
 

@@ -33,6 +33,7 @@ using namespace std;
 struct GnomeCmdConPrivate
 {
     gchar          *uuid;
+    GUri           *uri;
     GnomeCmdDir    *default_dir;   // the start dir of this connection
     History        *dir_history;
     GnomeCmdBookmarkGroup *bookmarks;
@@ -92,18 +93,12 @@ static void dispose (GObject *object)
 
     g_clear_pointer (&priv->uuid, g_free);
     g_clear_pointer (&con->alias, g_free);
-    g_clear_pointer (&con->uri, g_free);
-    g_clear_pointer (&con->scheme, g_free);
+    g_clear_pointer (&priv->uri, g_uri_unref);
 
     if (con->base_path != nullptr)
     {
         delete con->base_path;
         con->base_path = nullptr;
-    }
-    if (con->root_path != nullptr)
-    {
-        g_string_free (con->root_path, TRUE);
-        con->root_path = nullptr;
     }
     g_clear_object (&con->base_gFileInfo);
     g_clear_error (&con->open_failed_error);
@@ -192,14 +187,12 @@ static void gnome_cmd_con_init (GnomeCmdCon *con)
     auto priv = static_cast<GnomeCmdConPrivate *> (gnome_cmd_con_get_instance_private (con));
 
     priv->uuid = g_uuid_string_random ();
+    priv->uri = nullptr;
 
     con->alias = nullptr;
-    con->uri = nullptr;
-    con->scheme = nullptr;
     con->method = CON_URI;
 
     con->base_path = nullptr;
-    con->root_path = g_string_sized_new (128);
     con->open_msg = nullptr;
     con->should_remember_dir = FALSE;
     con->needs_open_visprog = FALSE;
@@ -374,6 +367,36 @@ gboolean gnome_cmd_con_close (GnomeCmdCon *con)
     return TRUE;
 }
 
+
+GUri *gnome_cmd_con_get_uri (GnomeCmdCon *con)
+{
+    g_return_val_if_fail (GNOME_CMD_IS_CON (con), nullptr);
+    auto priv = static_cast<GnomeCmdConPrivate *> (gnome_cmd_con_get_instance_private (con));
+    return priv->uri;
+}
+
+gchar *gnome_cmd_con_get_uri_string (GnomeCmdCon *con)
+{
+    g_return_val_if_fail (GNOME_CMD_IS_CON (con), nullptr);
+    auto priv = static_cast<GnomeCmdConPrivate *> (gnome_cmd_con_get_instance_private (con));
+    return priv->uri ? g_uri_to_string (priv->uri) : nullptr;
+}
+
+void gnome_cmd_con_set_uri (GnomeCmdCon *con, GUri *uri)
+{
+    g_return_if_fail (GNOME_CMD_IS_CON (con));
+    auto priv = static_cast<GnomeCmdConPrivate *> (gnome_cmd_con_get_instance_private (con));
+    if (uri)
+        g_uri_ref (uri);
+    g_clear_pointer (&priv->uri, g_uri_unref);
+    priv->uri = uri;
+}
+
+void gnome_cmd_con_set_uri_string (GnomeCmdCon *con, const gchar *uri_string)
+{
+    auto uri = g_uri_parse (uri_string, G_URI_FLAGS_NONE, nullptr);
+    gnome_cmd_con_set_uri (con, uri);
+}
 
 GFile *gnome_cmd_con_create_gfile (GnomeCmdCon *con, GnomeCmdPath *path)
 {
@@ -766,9 +789,9 @@ void gnome_cmd_con_close_active_or_inactive_connection (GMount *gMount)
     auto gFile = g_mount_get_root(gMount);
     auto uriString = g_file_get_uri(gFile);
 
-    auto activeConUri = gnome_cmd_con_get_uri(main_win->fs(ACTIVE)->get_connection());
+    auto activeConUri = gnome_cmd_con_get_uri_string (main_win->fs(ACTIVE)->get_connection());
     auto activeConGFile = activeConUri ? g_file_new_for_uri(activeConUri) : nullptr;
-    auto inactiveConUri = gnome_cmd_con_get_uri(main_win->fs(INACTIVE)->get_connection());
+    auto inactiveConUri = gnome_cmd_con_get_uri_string (main_win->fs(INACTIVE)->get_connection());
     auto inactiveConGFile = inactiveConUri ? g_file_new_for_uri(inactiveConUri) : nullptr;
 
     if (activeConUri && g_file_equal(gFile, activeConGFile))
@@ -784,5 +807,7 @@ void gnome_cmd_con_close_active_or_inactive_connection (GMount *gMount)
 
     g_free(uriString);
     g_object_unref(gFile);
+    g_free(activeConUri);
+    g_free(inactiveConUri);
 }
 
