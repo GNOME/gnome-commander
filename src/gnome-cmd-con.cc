@@ -288,7 +288,6 @@ GnomeCmdPath *gnome_cmd_con_get_base_path(GnomeCmdCon *con)
 void gnome_cmd_con_set_base_path(GnomeCmdCon *con, GnomeCmdPath *path)
 {
     g_return_if_fail (GNOME_CMD_IS_CON (con));
-    g_return_if_fail (path != nullptr);
     auto priv = static_cast<GnomeCmdConPrivate *> (gnome_cmd_con_get_instance_private (con));
 
     if (priv->base_path)
@@ -813,4 +812,10 @@ void gnome_cmd_con_set_alias (GnomeCmdCon *con, const gchar *alias)
     g_return_if_fail (GNOME_CMD_IS_CON (con));
     g_free (con->alias);
     con->alias = g_strdup (alias);
+}
+
+int gnome_cmd_con_get_method (GnomeCmdCon *con)
+{
+    g_return_val_if_fail (GNOME_CMD_IS_CON (con), 0);
+    return con->method;
 }

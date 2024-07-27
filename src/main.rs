@@ -29,6 +29,7 @@ mod file_list;
 mod file_list_actions;
 mod file_selector;
 mod file_view;
+mod i18n;
 mod intviewer;
 mod libgcmd;
 mod main_win;

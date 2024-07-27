@@ -21,6 +21,7 @@
 #pragma once
 
 #include "gnome-cmd-con.h"
+#include "gnome-cmd-con-remote.h"
 
 #define GNOME_CMD_TYPE_CON_SMB              (gnome_cmd_con_smb_get_type ())
 #define GNOME_CMD_CON_SMB(obj)              (G_TYPE_CHECK_INSTANCE_CAST((obj), GNOME_CMD_TYPE_CON_SMB, GnomeCmdConSmb))

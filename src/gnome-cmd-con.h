@@ -120,11 +120,11 @@ extern "C" GType gnome_cmd_con_get_type ();
 
 const gchar *gnome_cmd_con_get_uuid (GnomeCmdCon *con);
 
-GnomeCmdPath *gnome_cmd_con_get_base_path(GnomeCmdCon *con);
-void gnome_cmd_con_set_base_path(GnomeCmdCon *con, GnomeCmdPath *path);
+extern "C" GnomeCmdPath *gnome_cmd_con_get_base_path(GnomeCmdCon *con);
+extern "C" void gnome_cmd_con_set_base_path(GnomeCmdCon *con, GnomeCmdPath *path);
 
-GFileInfo *gnome_cmd_con_get_base_file_info(GnomeCmdCon *con);
-void gnome_cmd_con_set_base_file_info(GnomeCmdCon *con, GFileInfo *file_info);
+extern "C" GFileInfo *gnome_cmd_con_get_base_file_info(GnomeCmdCon *con);
+extern "C" void gnome_cmd_con_set_base_file_info(GnomeCmdCon *con, GFileInfo *file_info);
 
 void gnome_cmd_con_open (GnomeCmdCon *con, GtkWindow *parent_window);
 
@@ -145,11 +145,11 @@ inline gboolean gnome_cmd_con_open_is_needed (GnomeCmdCon *con)
     return klass->open_is_needed (con);
 }
 
-GUri *gnome_cmd_con_get_uri (GnomeCmdCon *con);
-gchar *gnome_cmd_con_get_uri_string (GnomeCmdCon *con);
+extern "C" GUri *gnome_cmd_con_get_uri (GnomeCmdCon *con);
+extern "C" gchar *gnome_cmd_con_get_uri_string (GnomeCmdCon *con);
 
-void gnome_cmd_con_set_uri (GnomeCmdCon *con, GUri *uri);
-void gnome_cmd_con_set_uri_string (GnomeCmdCon *con, const gchar *uri_string);
+extern "C" void gnome_cmd_con_set_uri (GnomeCmdCon *con, GUri *uri);
+extern "C" void gnome_cmd_con_set_uri_string (GnomeCmdCon *con, const gchar *uri_string);
 
 GFile *gnome_cmd_con_create_gfile (GnomeCmdCon *con, const gchar *path = nullptr);
 
@@ -307,3 +307,5 @@ inline std::string &gnome_cmd_con_make_uri (std::string &s, ConnectionMethodID m
 }
 
 void gnome_cmd_con_close_active_or_inactive_connection (GMount *gMount);
+
+extern "C" int gnome_cmd_con_get_method (GnomeCmdCon *con);

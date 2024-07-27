@@ -59,6 +59,12 @@ glib::wrapper! {
     }
 }
 
+impl Default for ConnectionRemote {
+    fn default() -> Self {
+        glib::Object::builder().build()
+    }
+}
+
 impl ConnectionRemote {
     pub fn new(alias: &str, uri: &str) -> Self {
         unsafe {

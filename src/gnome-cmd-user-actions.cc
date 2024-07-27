@@ -39,8 +39,6 @@
 #include "dialogs/gnome-cmd-advrename-dialog.h"
 #include "dialogs/gnome-cmd-chmod-dialog.h"
 #include "dialogs/gnome-cmd-chown-dialog.h"
-#include "dialogs/gnome-cmd-con-dialog.h"
-#include "dialogs/gnome-cmd-remote-dialog.h"
 #include "dialogs/gnome-cmd-key-shortcuts-dialog.h"
 #include "dialogs/gnome-cmd-manage-bookmarks-dialog.h"
 #include "dialogs/gnome-cmd-mkdir-dialog.h"
@@ -1915,21 +1913,23 @@ void options_edit_shortcuts (GSimpleAction *action, GVariant *parameter, gpointe
 }
 
 /************** Connections Menu **************/
+extern "C" void gnome_cmd_remote_dialog_run (GnomeCmdMainWin *main_win);
+
 void connections_open (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
-    // auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
+    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
 
-    GtkWidget *dialog = gnome_cmd_remote_dialog_new ();
-    g_object_ref (dialog);
-    gtk_widget_show (dialog);
+    gnome_cmd_remote_dialog_run (main_win);
 }
 
 
+extern "C" void gnome_cmd_quick_connect_dialog (GnomeCmdMainWin *main_win);
+
 void connections_new (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
-    // auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
+    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
 
-    show_quick_connect_dialog ();
+    gnome_cmd_quick_connect_dialog (main_win);
 }
 
 

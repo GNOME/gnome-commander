@@ -20,12 +20,11 @@
  * For more details see the file COPYING.
  */
 
-use super::connection::Connection;
-use glib::translate::from_glib_none;
+use super::{connection::Connection, remote::ConnectionRemote};
 use gtk::glib;
 
 pub mod ffi {
-    use crate::connection::connection::ffi::GnomeCmdConClass;
+    use crate::connection::remote::ffi::GnomeCmdConRemoteClass;
     use gtk::glib::ffi::GType;
 
     #[repr(C)]
@@ -36,27 +35,26 @@ pub mod ffi {
 
     extern "C" {
         pub fn gnome_cmd_con_smb_get_type() -> GType;
-        pub fn gnome_cmd_con_smb_new() -> *mut GnomeCmdConSmb;
     }
 
     #[derive(Copy, Clone)]
     #[repr(C)]
     pub struct GnomeCmdConSmbClass {
-        pub parent_class: GnomeCmdConClass,
+        pub parent_class: GnomeCmdConRemoteClass,
     }
 }
 
 glib::wrapper! {
     pub struct ConnectionSmb(Object<ffi::GnomeCmdConSmb, ffi::GnomeCmdConSmbClass>)
-        @extends Connection;
+        @extends Connection, ConnectionRemote;
 
     match fn {
         type_ => || ffi::gnome_cmd_con_smb_get_type(),
     }
 }
 
-impl ConnectionSmb {
-    pub fn new() -> Self {
-        unsafe { from_glib_none(ffi::gnome_cmd_con_smb_new()) }
+impl Default for ConnectionSmb {
+    fn default() -> Self {
+        glib::Object::builder().build()
     }
 }
