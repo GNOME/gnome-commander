@@ -41,11 +41,12 @@
 
 using namespace std;
 
-static void do_mime_exec_multiple (gpointer *args)
+static void do_mime_exec_multiple (gboolean success, gpointer user_data)
 {
+    gpointer *args = (gpointer *) user_data;
     auto gnomeCmdApp = static_cast<GnomeCmdApp*> (args[0]);
     auto files = static_cast<GList*> (args[1]);
-    if (files)
+    if (success && files)
     {
         if(gnomeCmdApp->gAppInfo != nullptr)
         {
@@ -145,10 +146,10 @@ static void mime_exec_multiple (GList *files, GnomeCmdApp *app, GtkWindow *paren
                                srcGFileList,
                                destGFileList,
                                G_FILE_COPY_OVERWRITE,
-                               G_CALLBACK (do_mime_exec_multiple),
+                               do_mime_exec_multiple,
                                args);
     else
-      do_mime_exec_multiple (args);
+      do_mime_exec_multiple (TRUE, args);
 }
 
 

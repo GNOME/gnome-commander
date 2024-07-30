@@ -26,15 +26,73 @@
 #include "gnome-cmd-con-list.h"
 #include "gnome-cmd-plain-path.h"
 #include "gnome-cmd-xfer.h"
-#include "gnome-cmd-file-selector.h"
-#include "gnome-cmd-file-list.h"
 #include "gnome-cmd-dir.h"
 #include "gnome-cmd-main-win.h"
-#include "gnome-cmd-data.h"
 #include "utils.h"
 #include "src/dialogs/gnome-cmd-delete-dialog.h"
 
 using namespace std;
+
+
+enum COPY_ERROR_ACTION
+{
+    COPY_ERROR_ACTION_NO_ACTION_YET = -1, // No error yet, so no action to take
+    COPY_ERROR_ACTION_ABORT,
+    COPY_ERROR_ACTION_RETRY,
+    COPY_ERROR_ACTION_COPY_INTO,
+    COPY_ERROR_ACTION_SKIP,
+    COPY_ERROR_ACTION_RENAME,
+    COPY_ERROR_ACTION_SKIP_ALL,
+    COPY_ERROR_ACTION_RENAME_ALL,
+    COPY_ERROR_ACTION_REPLACE,
+    COPY_ERROR_ACTION_REPLACE_ALL
+};
+
+
+struct XferData
+{
+    GtkWindow *parent_window;
+
+    GFileCopyFlags copyFlags;
+    GnomeCmdConfirmOverwriteMode overwriteMode;
+    GnomeCmdTransferType transferType{COPY};
+
+    // Source and target GFile's. The first srcGFile should be transferred to the first destGFile and so on...
+    GList *srcGFileList;
+    GList *destGFileList;
+
+    GnomeCmdDir *destGnomeCmdDir;
+
+    // Used for showing the progress
+    GnomeCmdXferProgressWin *win;
+    gulong curFileNumber;
+    gchar *curSrcFileName;
+    gulong filesTotal;
+    gboolean first_time;
+    gchar *cur_file_name;
+
+    guint64 fileSize;
+    guint64 bytesCopiedFile;
+    guint64 bytesTotal;
+    guint64 bytesTotalTransferred{0};
+
+    GnomeCmdXferCallback on_completed_func;
+    gpointer on_completed_data;
+
+    gboolean done;
+    gboolean aborted;
+    GCancellable* cancellable;
+
+    gboolean problem{FALSE};                 // signals to the main thread that the work thread is waiting for an answer on what to do
+    COPY_ERROR_ACTION problem_action;        // action to take when an error occurs
+    GFile *problemSrcGFile;
+    GFile *problemDestGFile;
+    GThread *thread{nullptr};                // the work thread
+    GMutex mutex{nullptr};                   // used to sync the main and worker thread
+    GError *error{nullptr};                  // the cause that the file can't be deleted
+    GType currentSrcFileType;                // the file type of the file which is currently copied
+};
+
 
 inline void free_xfer_data (XferData *xferData)
 {
@@ -62,9 +120,9 @@ inline void free_xfer_data (XferData *xferData)
 static XferData *
 create_xfer_data (GtkWindow *parent_window,
                   GFileCopyFlags copyFlags, GList *srcGFileList, GList *destGFileList,
-                  GnomeCmdDir *to_dir, GnomeCmdFileList *src_fl, GList *src_files,
+                  GnomeCmdDir *to_dir,
                   GnomeCmdConfirmOverwriteMode overwriteMode,
-                  GFunc on_completed_func, gpointer on_completed_data)
+                  GnomeCmdXferCallback on_completed_func, gpointer on_completed_data)
 {
     XferData *xferData = g_new0 (XferData, 1);
 
@@ -73,8 +131,6 @@ create_xfer_data (GtkWindow *parent_window,
     xferData->srcGFileList = srcGFileList;
     xferData->destGFileList = destGFileList;
     xferData->destGnomeCmdDir = to_dir;
-    xferData->src_fl = src_fl;
-    xferData->src_files = src_files;
     xferData->win = nullptr;
     xferData->cur_file_name = nullptr;
     xferData->curFileNumber = 0;
@@ -93,6 +149,21 @@ create_xfer_data (GtkWindow *parent_window,
     return xferData;
 }
 
+
+static void
+gnome_cmd_transfer_gfiles (XferData *xferData);
+
+static gboolean
+gnome_cmd_copy_gfile_recursive (GFile *srcGFile,
+                                GFile *destGFile,
+                                GFileCopyFlags copyFlags,
+                                gpointer on_completed_data);
+
+static gboolean
+gnome_cmd_move_gfile_recursive (GFile *srcGFile,
+                                GFile *destGFile,
+                                GFileCopyFlags copyFlags,
+                                gpointer on_completed_data);
 
 inline gchar *get_file_details_string(GFile *gFile)
 {
@@ -402,27 +473,22 @@ static void finish_xfer(XferData *xferData, gboolean threaded)
     if (threaded)
         g_thread_join (xferData->thread);
 
-    //  Only update the files if needed
-    if (xferData->destGnomeCmdDir)
-    {
-        gnome_cmd_dir_relist_files (xferData->parent_window, xferData->destGnomeCmdDir, FALSE);
-        main_win->focus_file_lists();
-        gnome_cmd_dir_unref (xferData->destGnomeCmdDir);
-        xferData->destGnomeCmdDir = nullptr;
-    }
-    else
-        main_win->focus_file_lists();
-
     if (xferData->win)
     {
         gtk_window_destroy (GTK_WINDOW (xferData->win));
         xferData->win = nullptr;
     }
 
-    if ((!threaded || xferData->aborted || xferData->problem_action == COPY_ERROR_ACTION_NO_ACTION_YET)
-        && xferData->on_completed_func)
+    if (xferData->on_completed_func)
     {
-        xferData->on_completed_func (xferData->on_completed_data, nullptr);
+        gboolean success = xferData->problem_action == COPY_ERROR_ACTION_NO_ACTION_YET && !xferData->aborted;
+        xferData->on_completed_func (success, xferData->on_completed_data);
+    }
+
+    if (xferData->destGnomeCmdDir)
+    {
+        gnome_cmd_dir_unref (xferData->destGnomeCmdDir);
+        xferData->destGnomeCmdDir = nullptr;
     }
 
     if (threaded)
@@ -616,22 +682,19 @@ set_files_total(XferData *xferData)
 
 
 void
-gnome_cmd_copy_gfiles_start (GList *srcGFileGList,
+gnome_cmd_copy_gfiles_start (GtkWindow *parent_window,
+                             GList *srcGFileGList,
                              GnomeCmdDir *destGnomeCmdDir,
-                             GnomeCmdFileList *srcGnomeCmdFileList,
-                             GList *srcFilesGList,
                              gchar *destFileName,
                              GFileCopyFlags copyFlags,
                              GnomeCmdConfirmOverwriteMode overwriteMode,
-                             GCallback on_completed_func,
+                             GnomeCmdXferCallback on_completed_func,
                              gpointer on_completed_data)
 {
     g_return_if_fail (srcGFileGList != nullptr);
     g_return_if_fail (GNOME_CMD_IS_DIR (destGnomeCmdDir));
 
     GFile *srcGFile, *destGFile;
-
-    GtkWindow *parent_window = get_toplevel_window (*srcGnomeCmdFileList);
 
     // Sanity check
     for (GList *i = srcGFileGList; i; i = i->next)
@@ -656,8 +719,8 @@ gnome_cmd_copy_gfiles_start (GList *srcGFileGList,
     }
 
     XferData *xferData = create_xfer_data (parent_window, copyFlags, srcGFileGList, nullptr,
-                            destGnomeCmdDir, srcGnomeCmdFileList, srcFilesGList, overwriteMode,
-                            (GFunc) on_completed_func, on_completed_data);
+                            destGnomeCmdDir, overwriteMode,
+                            on_completed_func, on_completed_data);
     xferData->transferType = COPY;
 
     if (g_list_length (srcGFileGList) == 1 && destFileName != nullptr)
@@ -699,22 +762,19 @@ gnome_cmd_copy_gfiles_start (GList *srcGFileGList,
 }
 
 void
-gnome_cmd_move_gfiles_start (GList *srcGFileGList,
+gnome_cmd_move_gfiles_start (GtkWindow *parent_window,
+                             GList *srcGFileGList,
                              GnomeCmdDir *destGnomeCmdDir,
-                             GnomeCmdFileList *srcGnomeCmdFileList,
-                             GList *srcGnomeCmdFileGList,
                              gchar *destFileName,
                              GFileCopyFlags copyFlags,
                              GnomeCmdConfirmOverwriteMode overwriteMode,
-                             GCallback on_completed_func,
+                             GnomeCmdXferCallback on_completed_func,
                              gpointer on_completed_data)
 {
     g_return_if_fail (srcGFileGList != nullptr);
     g_return_if_fail (GNOME_CMD_IS_DIR (destGnomeCmdDir));
 
     GFile *srcGFile, *destGFile;
-
-    GtkWindow *parent_window = get_toplevel_window (*srcGnomeCmdFileList);
 
     // Sanity check
     for (GList *i = srcGFileGList; i; i = i->next)
@@ -739,8 +799,8 @@ gnome_cmd_move_gfiles_start (GList *srcGFileGList,
     }
 
     XferData *xferData = create_xfer_data (parent_window, copyFlags, srcGFileGList, nullptr,
-                            destGnomeCmdDir, srcGnomeCmdFileList, srcGnomeCmdFileGList,
-                            overwriteMode, (GFunc) on_completed_func, on_completed_data);
+                            destGnomeCmdDir,
+                            overwriteMode, on_completed_func, on_completed_data);
     xferData->transferType = MOVE;
 
     if (g_list_length (srcGFileGList) == 1 && destFileName != nullptr)
@@ -783,22 +843,19 @@ gnome_cmd_move_gfiles_start (GList *srcGFileGList,
 
 
 void
-gnome_cmd_link_gfiles_start (GList *srcGFileGList,
+gnome_cmd_link_gfiles_start (GtkWindow *parent_window,
+                             GList *srcGFileGList,
                              GnomeCmdDir *destGnomeCmdDir,
-                             GnomeCmdFileList *srcGnomeCmdFileList,
-                             GList *srcGnomeCmdFileGList,
                              gchar *destFileName,
                              GFileCopyFlags copyFlags,
                              GnomeCmdConfirmOverwriteMode overwriteMode,
-                             GCallback on_completed_func,
+                             GnomeCmdXferCallback on_completed_func,
                              gpointer on_completed_data)
 {
     g_return_if_fail (srcGFileGList != nullptr);
     g_return_if_fail (GNOME_CMD_IS_DIR (destGnomeCmdDir));
 
     GFile *srcGFile, *destGFile;
-
-    GtkWindow *parent_window = get_toplevel_window (*srcGnomeCmdFileList);
 
     // Sanity check
     for (GList *i = srcGFileGList; i; i = i->next)
@@ -823,8 +880,8 @@ gnome_cmd_link_gfiles_start (GList *srcGFileGList,
     }
 
     XferData *xferData = create_xfer_data (parent_window, copyFlags, srcGFileGList, nullptr,
-                            destGnomeCmdDir, srcGnomeCmdFileList, srcGnomeCmdFileGList,
-                            overwriteMode, (GFunc) on_completed_func, on_completed_data);
+                            destGnomeCmdDir,
+                            overwriteMode, on_completed_func, on_completed_data);
     xferData->transferType = LINK;
 
     if (g_list_length (srcGFileGList) == 1 && destFileName != nullptr)
@@ -862,15 +919,15 @@ gnome_cmd_tmp_download (GtkWindow *parent_window,
                         GList *srcGFileList,
                         GList *destGFileList,
                         GFileCopyFlags copyFlags,
-                        GCallback on_completed_func,
+                        GnomeCmdXferCallback on_completed_func,
                         gpointer on_completed_data)
 {
     g_return_if_fail (srcGFileList != nullptr && srcGFileList->data != nullptr);
     g_return_if_fail (destGFileList != nullptr && destGFileList->data != nullptr);
 
     auto xferData = create_xfer_data (parent_window, copyFlags, srcGFileList, destGFileList,
-                             nullptr, nullptr, nullptr, GNOME_CMD_CONFIRM_OVERWRITE_QUERY,
-                             (GFunc) on_completed_func, on_completed_data);
+                             nullptr, GNOME_CMD_CONFIRM_OVERWRITE_QUERY,
+                             on_completed_func, on_completed_data);
     xferData->transferType = COPY;
 
     xferData->cancellable = g_cancellable_new();
@@ -887,7 +944,7 @@ gnome_cmd_tmp_download (GtkWindow *parent_window,
 }
 
 
-void
+static void
 gnome_cmd_transfer_gfiles (XferData *xferData)
 {
     g_return_if_fail (xferData->srcGFileList != nullptr);
@@ -1073,7 +1130,7 @@ set_new_nonexisting_dest_gfile(GFile *srcGFile, GFile **destGFile, XferData *xfe
  * This function moves directories and files from srcGFile to destGFile.
  * ...
  */
-gboolean
+static gboolean
 gnome_cmd_move_gfile_recursive (GFile *srcGFile,
                                 GFile *destGFile,
                                 GFileCopyFlags copyFlags,
@@ -1255,7 +1312,7 @@ gnome_cmd_move_gfile_recursive (GFile *srcGFile,
                     case COPY_ERROR_ACTION_SKIP_ALL:
                         return true;
                     // Copy into can only be selected in case of copying a directory into an
-                    // already exising directory, so we are ignoring this here because we deal with
+                    // already existing directory, so we are ignoring this here because we deal with
                     // moving files in this if branch.
                     case COPY_ERROR_ACTION_COPY_INTO:
                     case COPY_ERROR_ACTION_ABORT:
@@ -1301,7 +1358,7 @@ gnome_cmd_move_gfile_recursive (GFile *srcGFile,
  * unexpectedly. It calls itself if a directory should be copied or if a rename should happen
  * as the original destination exists already.
  */
-gboolean
+static gboolean
 gnome_cmd_copy_gfile_recursive (GFile *srcGFile,
                                 GFile *destGFile,
                                 GFileCopyFlags copyFlags,
@@ -1541,56 +1598,4 @@ gnome_cmd_copy_gfile_recursive (GFile *srcGFile,
     }
 
     return true;
-}
-
-void
-gnome_cmd_copy_start (GList *srcGnomeCmdFileGList,
-                      GnomeCmdDir *toGnomeCmdDir,
-                      GnomeCmdFileList *srcGnomeCmdFileList,
-                      gchar *destFileName,
-                      GFileCopyFlags copyFlags,
-                      GnomeCmdConfirmOverwriteMode overwriteMode,
-                      GCallback on_completed_func,
-                      gpointer on_completed_data)
-{
-    g_return_if_fail (srcGnomeCmdFileGList != nullptr);
-    g_return_if_fail (GNOME_CMD_IS_DIR (toGnomeCmdDir));
-
-    GList *srcGFileList = gnome_cmd_file_list_to_gfile_list (srcGnomeCmdFileGList);
-
-    gnome_cmd_copy_gfiles_start (srcGFileList,
-                               toGnomeCmdDir,
-                               srcGnomeCmdFileList,
-                               srcGnomeCmdFileGList,
-                               destFileName,
-                               copyFlags,
-                               overwriteMode,
-                               on_completed_func,
-                               on_completed_data);
-}
-
-void
-gnome_cmd_move_start (GList *srcGnomeCmdFileGList,
-                      GnomeCmdDir *toGnomeCmdDir,
-                      GnomeCmdFileList *srcGnomeCmdFileList,
-                      gchar *destFileName,
-                      GFileCopyFlags copyFlags,
-                      GnomeCmdConfirmOverwriteMode overwriteMode,
-                      GCallback on_completed_func,
-                      gpointer on_completed_data)
-{
-    g_return_if_fail (srcGnomeCmdFileGList != nullptr);
-    g_return_if_fail (GNOME_CMD_IS_DIR (toGnomeCmdDir));
-
-    GList *srcGFileList = gnome_cmd_file_list_to_gfile_list (srcGnomeCmdFileGList);
-
-    gnome_cmd_move_gfiles_start (srcGFileList,
-                                 toGnomeCmdDir,
-                                 srcGnomeCmdFileList,
-                                 srcGnomeCmdFileGList,
-                                 destFileName,
-                                 copyFlags,
-                                 overwriteMode,
-                                 on_completed_func,
-                                 on_completed_data);
 }

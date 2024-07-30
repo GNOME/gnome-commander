@@ -1338,26 +1338,31 @@ static void on_button_press (GtkGestureMultiPress *gesture, int n_press, double 
 }
 
 
-static void do_mime_exec_single (gpointer *args)
+static void do_mime_exec_single (gboolean success, gpointer user_data)
 {
+    gpointer *args = (gpointer *) user_data;
     g_return_if_fail (args != nullptr);
 
     auto gnomeCmdApp = static_cast<GnomeCmdApp*> (args[0]);
     auto path = (gchar *) args[1];
     auto dpath = (gchar *) args[2];
 
-    auto gnomeCmdFile = gnome_cmd_file_new(path);
+    if (success)
+    {
+        auto gnomeCmdFile = gnome_cmd_file_new(path);
 
-    if (gnomeCmdFile == nullptr)
-        return;
+        if (gnomeCmdFile != nullptr)
+        {
+            gnome_cmd_file_ref(gnomeCmdFile);
+            GList *gFileList = nullptr;
+            gFileList = g_list_append(gFileList, gnomeCmdFile->get_file());
+            g_app_info_launch (gnomeCmdFile->GetAppInfoForContentType(), gFileList, nullptr, nullptr);
 
-    gnome_cmd_file_ref(gnomeCmdFile);
-    GList *gFileList = nullptr;
-    gFileList = g_list_append(gFileList, gnomeCmdFile->get_file());
-    g_app_info_launch (gnomeCmdFile->GetAppInfoForContentType(), gFileList, nullptr, nullptr);
+            g_list_free(gFileList);
+            gnome_cmd_file_unref(gnomeCmdFile);
+        }
+    }
 
-    g_list_free(gFileList);
-    gnome_cmd_file_unref(gnomeCmdFile);
     g_free (path);
     g_free (dpath);
     gnome_cmd_app_free (gnomeCmdApp);
@@ -1383,7 +1388,7 @@ static void on_tmp_download_response (GtkWidget *w, gint id, TmpDlData *dldata)
                                 g_list_append (nullptr, sourceGFile),
                                 g_list_append (nullptr, destGFile),
                                 G_FILE_COPY_OVERWRITE,
-                                G_CALLBACK (do_mime_exec_single),
+                                do_mime_exec_single,
                                 dldata->args);
     }
     else
@@ -3458,44 +3463,67 @@ void GnomeCmdFileList::init_dnd()
     g_signal_connect (this, "drag-data-received", G_CALLBACK (drag_data_received), this);
 }
 
+
+struct DropDoneClosure
+{
+    GnomeCmdDir *dir;
+};
+
+
+static void on_drop_done (gboolean success, gpointer user_data)
+{
+    DropDoneClosure *drop_done = (DropDoneClosure *) user_data;
+
+    gnome_cmd_dir_relist_files (GTK_WINDOW (main_win), drop_done->dir, FALSE);
+    main_win->focus_file_lists ();
+
+    g_free (drop_done);
+}
+
+
 void GnomeCmdFileList::drop_files(DndMode dndMode, GFileCopyFlags gFileCopyFlags, GList *gFileGlist, GnomeCmdDir *dir)
 {
     g_return_if_fail (GNOME_CMD_IS_DIR (dir));
 
+    DropDoneClosure *drop_done;
+
     switch (dndMode)
     {
         case COPY:
-            gnome_cmd_copy_gfiles_start (gFileGlist,
+            drop_done = g_new0 (DropDoneClosure, 1);
+            drop_done->dir = dir;
+            gnome_cmd_copy_gfiles_start (GTK_WINDOW (main_win),
+                                         gFileGlist,
                                          gnome_cmd_dir_ref (dir),
                                          nullptr,
-                                         nullptr,
-                                         g_list_length (gFileGlist) == 1 ? g_file_get_basename ((GFile *) gFileGlist->data) : nullptr,
                                          gFileCopyFlags,
                                          GNOME_CMD_CONFIRM_OVERWRITE_QUERY,
-                                         nullptr,
-                                         nullptr);
+                                         on_drop_done,
+                                         drop_done);
             break;
         case MOVE:
-            gnome_cmd_move_gfiles_start (gFileGlist,
+            drop_done = g_new0 (DropDoneClosure, 1);
+            drop_done->dir = dir;
+            gnome_cmd_move_gfiles_start (GTK_WINDOW (main_win),
+                                         gFileGlist,
                                          gnome_cmd_dir_ref (dir),
                                          nullptr,
-                                         nullptr,
-                                         g_list_length (gFileGlist) == 1 ? g_file_get_basename ((GFile *) gFileGlist->data) : nullptr,
                                          gFileCopyFlags,
                                          GNOME_CMD_CONFIRM_OVERWRITE_QUERY,
-                                         nullptr,
-                                         nullptr);
+                                         on_drop_done,
+                                         drop_done);
             break;
         case LINK:
-            gnome_cmd_link_gfiles_start (gFileGlist,
+            drop_done = g_new0 (DropDoneClosure, 1);
+            drop_done->dir = dir;
+            gnome_cmd_link_gfiles_start (GTK_WINDOW (main_win),
+                                         gFileGlist,
                                          gnome_cmd_dir_ref (dir),
                                          nullptr,
-                                         nullptr,
-                                         g_list_length (gFileGlist) == 1 ? g_file_get_basename ((GFile *) gFileGlist->data) : nullptr,
                                          gFileCopyFlags,
                                          GNOME_CMD_CONFIRM_OVERWRITE_QUERY,
-                                         nullptr,
-                                         nullptr);
+                                         on_drop_done,
+                                         drop_done);
             break;
         default:
             return;

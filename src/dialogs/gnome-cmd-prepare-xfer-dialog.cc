@@ -45,6 +45,26 @@ inline gboolean con_device_has_path (FileSelectorID fsID, GnomeCmdCon *&dev, con
 }
 
 
+struct XferDoneClosure
+{
+    GnomeCmdPrepareXferDialog *dialog;
+    GnomeCmdDir *dir;
+};
+
+
+static void on_xfer_done (gboolean success, gpointer user_data)
+{
+    XferDoneClosure *done = (XferDoneClosure *) user_data;
+
+    if (done->dir)
+        gnome_cmd_dir_relist_files (GTK_WINDOW (main_win), done->dir, FALSE);
+
+    main_win->focus_file_lists ();
+
+    g_free (done);
+}
+
+
 static void on_ok (GtkButton *button, GnomeCmdPrepareXferDialog *dialog)
 {
     GnomeCmdCon *con = gnome_cmd_dir_get_connection (dialog->default_dest_dir);
@@ -257,25 +277,33 @@ static void on_ok (GtkButton *button, GnomeCmdPrepareXferDialog *dialog)
 
     gnome_cmd_dir_ref (dest_dir);
 
+    XferDoneClosure *xfer_done_closure;
+
     switch (dialog->gnomeCmdTransferType)
     {
         case COPY:
-            gnome_cmd_copy_start (dialog->src_files,
-                                  dest_dir,
-                                  dialog->src_fs->file_list(),
-                                  dest_fn,
-                                  dialog->gFileCopyFlags,
-                                  dialog->overwriteMode,
-                                  NULL, NULL);
+            xfer_done_closure = g_new0 (XferDoneClosure, 1);
+            xfer_done_closure->dialog = dialog;
+            xfer_done_closure->dir = dest_dir;
+            gnome_cmd_copy_gfiles_start (GTK_WINDOW (main_win),
+                                         gnome_cmd_file_list_to_gfile_list (dialog->src_files),
+                                         dest_dir,
+                                         dest_fn,
+                                         dialog->gFileCopyFlags,
+                                         dialog->overwriteMode,
+                                         on_xfer_done, xfer_done_closure);
             break;
         case MOVE:
-            gnome_cmd_move_start (dialog->src_files,
-                      dest_dir,
-                      dialog->src_fs->file_list(),
-                      dest_fn,
-                      dialog->gFileCopyFlags,
-                      dialog->overwriteMode,
-                      NULL, NULL);
+            xfer_done_closure = g_new0 (XferDoneClosure, 1);
+            xfer_done_closure->dialog = dialog;
+            xfer_done_closure->dir = dest_dir;
+            gnome_cmd_move_gfiles_start (GTK_WINDOW (main_win),
+                                         gnome_cmd_file_list_to_gfile_list (dialog->src_files),
+                                         dest_dir,
+                                         dest_fn,
+                                         dialog->gFileCopyFlags,
+                                         dialog->overwriteMode,
+                                         on_xfer_done, xfer_done_closure);
             break;
         case LINK:
         default:
