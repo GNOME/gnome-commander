@@ -65,14 +65,14 @@
   </suggests>
 
   <releases>
-    <release type="stable" version="1.18.1" date="2024-12-31">
+    <release type="stable" version="1.18.1" date="2024-07-30">
       <description>
         <p>This release fixes the following bugs:</p>
         <ul>
           <li>Issue #151: Segfault at startup when none of the stored tabs points to a valid directory</li>
         </ul>
-        <p>New or updated translations: ...</p>
-        <p>New or updated docs: ...</p>
+        <p>New or updated translations: ru (Sergej A.)</p>
+        <p>New or updated docs: sv (Anders Jonsson)</p>
       </description>
     </release>
     <release type="stable" version="1.18.0" date="2024-07-21">
