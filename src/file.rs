@@ -20,8 +20,50 @@
  * For more details see the file COPYING.
  */
 
+use gtk::{
+    gio::{self, ffi::GFile},
+    glib::translate::{from_glib_full, from_glib_none},
+};
+use std::{
+    ffi::{self, CStr, CString},
+    path::PathBuf,
+};
+
 #[repr(C)]
 pub struct GnomeCmdFile(
     [u8; 0],
     std::marker::PhantomData<std::marker::PhantomPinned>,
 );
+
+extern "C" {
+    pub fn gnome_cmd_file_get_file(f: *const GnomeCmdFile) -> *mut GFile;
+    pub fn gnome_cmd_file_get_name(f: *const GnomeCmdFile) -> *const ffi::c_char;
+    pub fn gnome_cmd_file_get_real_path(f: *const GnomeCmdFile) -> *mut ffi::c_char;
+    pub fn gnome_cmd_file_get_uri_str(f: *const GnomeCmdFile) -> *mut ffi::c_char;
+    pub fn gnome_cmd_file_is_local(f: *const GnomeCmdFile) -> ffi::c_int;
+}
+
+impl GnomeCmdFile {
+    pub fn get_file(&self) -> gio::File {
+        unsafe { from_glib_none(gnome_cmd_file_get_file(self as *const GnomeCmdFile)) }
+    }
+
+    pub fn get_name(&self) -> Option<String> {
+        let ptr = unsafe { CStr::from_ptr(gnome_cmd_file_get_name(self as *const GnomeCmdFile)) };
+        Some(ptr.to_str().ok()?.to_string())
+    }
+
+    pub fn get_real_path(&self) -> PathBuf {
+        unsafe { from_glib_full(gnome_cmd_file_get_real_path(self as *const GnomeCmdFile)) }
+    }
+
+    pub fn get_uri_str(&self) -> Option<String> {
+        let ptr =
+            unsafe { CString::from_raw(gnome_cmd_file_get_uri_str(self as *const GnomeCmdFile)) };
+        Some(ptr.to_str().ok()?.to_string())
+    }
+
+    pub fn is_local(&self) -> bool {
+        unsafe { gnome_cmd_file_is_local(self as *const GnomeCmdFile) != 0 }
+    }
+}

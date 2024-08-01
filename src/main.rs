@@ -23,6 +23,7 @@ mod file;
 mod file_list;
 mod file_selector;
 mod main_win;
+mod spawn;
 mod types;
 mod user_actions;
 mod utils;
