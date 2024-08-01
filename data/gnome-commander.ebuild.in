@@ -17,7 +17,7 @@ RESTRICT="!test? ( test )"
 RDEPEND="
 	doc? ( gnome-extra/yelp )
 	>=dev-libs/glib-2.70.0:2
-	>=x11-libs/gtk+-@GTK_REQ@:2
+	>=x11-libs/gtk+-@GTK_REQ@:3
 	exif? ( >=media-gfx/exiv2-@EXIV2_REQ@ )
 	gsf? ( >=gnome-extra/libgsf-1.12:= )
 	pdf? ( >=app-text/poppler-@POPPLER_REQ@ )
