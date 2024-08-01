@@ -307,3 +307,7 @@ struct GnomeCmdFileListButtonEvent
     double y;
     gint state;
 };
+
+// FFI
+extern "C" GList *gnome_cmd_file_list_get_selected_files (GnomeCmdFileList *fl);
+extern "C" GnomeCmdFile *gnome_cmd_file_list_get_focused_file(GnomeCmdFileList *fl);

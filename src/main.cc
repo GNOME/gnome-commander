@@ -29,13 +29,8 @@
 
 using namespace std;
 
-int main (int argc, char *argv[])
+extern "C" int c_main (int argc, char *argv[])
 {
-    setlocale (LC_ALL, "");
-    bindtextdomain (PACKAGE, DATADIR "/locale");
-    bind_textdomain_codeset (PACKAGE, "UTF-8");
-    textdomain (PACKAGE);
-
     GnomeCmdApplication *app = gnome_cmd_application_new ();
     gint status = g_application_run (G_APPLICATION (app), argc, argv);
     g_object_unref (app);

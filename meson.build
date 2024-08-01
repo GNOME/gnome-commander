@@ -1,4 +1,4 @@
-project('gnome-commander', 'cpp',
+project('gnome-commander', ['cpp', 'rust'],
   version: '1.19.0',
   license: 'GPLv2',
   meson_version: '>= 0.59',
@@ -173,6 +173,18 @@ meson.add_dist_script(
   '@0@'.format(meson.project_version()),
   'data/org.gnome.gnome-commander.appdata.xml.in'
 )
+
+cargo = find_program('cargo', required: true)
+cargo_version = run_command(cargo, '--version', check: true).stdout().strip()
+message(cargo_version)
+rustc_version = run_command('rustc', '--version', check: true).stdout().strip()
+message(rustc_version)
+
+if get_option('profile') == 'debug'
+    profile = 'debug'
+else
+    profile = 'release'
+endif
 
 summary = [
   '',

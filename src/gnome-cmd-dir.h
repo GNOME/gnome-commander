@@ -108,7 +108,7 @@ void gnome_cmd_dir_list_files (GtkWindow *parent_window, GnomeCmdDir *dir, gbool
 
 GnomeCmdPath *gnome_cmd_dir_get_path (GnomeCmdDir *dir);
 void gnome_cmd_dir_update_path (GnomeCmdDir *dir);
-gchar *gnome_cmd_dir_get_display_path (GnomeCmdDir *dir);
+extern "C" gchar *gnome_cmd_dir_get_display_path (GnomeCmdDir *dir);
 
 GFile       *gnome_cmd_dir_get_gfile (GnomeCmdDir *dir);
 gchar       *gnome_cmd_dir_get_uri_str (GnomeCmdDir *dir, gboolean withTrailingSlash = false);

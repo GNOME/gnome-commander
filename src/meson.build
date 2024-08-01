@@ -158,6 +158,9 @@ subdir('dialogs')
 subdir('intviewer')
 subdir('tags')
 
+sources_headers += dialogs_headers
+sources_sources += dialogs_sources
+
 # set rpath on the gcmd binary if we're installing inside
 # the source dir, ensuring it loads libgcmd from this
 # build rather than a package installed on the system.
@@ -180,20 +183,91 @@ if real_prefix.startswith(meson.project_source_root())
   rpath = real_prefix / get_option('libdir')
 endif
 
-sources_deps = [common_deps, libgcmd_dep, libgcmdtags_dep, intviewer_dep, libgmcddialogs_dep]
+sources_deps = [common_deps, libgcmd_dep, libgcmdtags_dep, intviewer_dep]
 
-executable('gnome-commander',
+libgcmdmain = static_library('gcmd-main',
   c_args: cc_args,
   sources: [sources_headers, sources_sources],
   dependencies: sources_deps,
   include_directories: [configuration_inc, sources_inc, libgcmd_inc],
-  install: true,
-  link_with : [intviewer_lib, libgcmdtags, libgcmd, libgmcddialogs],
-  install_rpath: rpath
 )
 
 executable('gcmd-block', 'gnome-cmd-block.cc',
   include_directories: [configuration_inc],
   install: true,
   install_rpath: rpath
+)
+
+config_rs = configure_file(
+  input: 'config.rs.in',
+  output: 'config.rs',
+  configuration: conf_data
+)
+run_command(
+  'cp',
+  meson.project_build_root() / 'src' / 'config.rs',
+  meson.project_source_root() / 'src' / 'config.rs',
+  check: true
+)
+
+cargo_options = [
+  '--manifest-path', meson.project_source_root() / 'Cargo.toml',
+  '--target-dir', meson.project_build_root() / 'src',
+]
+
+cargo_features = []
+if have_exif2
+  cargo_features += ['use-exiv2']
+endif
+if have_gsf
+  cargo_features += ['use-gsf-1']
+endif
+if have_taglib
+  cargo_features += ['use-taglib']
+endif
+if have_pdf
+  cargo_features += ['use-poppler']
+endif
+
+if cargo_features.length() > 0
+  cargo_options += ['--features', ','.join(cargo_features)]
+endif
+
+if profile == 'debug'
+  rust_target = 'debug'
+  message('Building in debug mode')
+else
+  cargo_options += [ '--release' ]
+  rust_target = 'release'
+  message('Building in release mode')
+endif
+
+cargo_env = [
+  'CARGO_HOME=' + meson.project_build_root() / 'cargo-home',
+  'RUSTFLAGS=-L ' + (meson.project_build_root() / 'src')
+        + ' -L ' + (meson.project_build_root() / 'src' / 'intviewer')
+        + ' -L ' + (meson.project_build_root() / 'src' / 'tags')
+        + ' -L ' + (meson.project_build_root() / 'libgcmd'),
+]
+
+libgmcddialogs_dep = declare_dependency(
+  include_directories: [include_directories('.')],
+)
+
+custom_target(
+  'gnome-commander',
+  build_by_default: true,
+  build_always_stale: true,
+  input: [config_rs, intviewer_lib, libgcmdtags, libgcmd, libgcmdmain],
+  output: meson.project_name(),
+  console: true,
+  install: true,
+  install_dir: bindir,
+  command: [
+    'env',
+    cargo_env,
+    cargo, 'build', cargo_options,
+    '&&',
+    'cp', 'src' / rust_target / meson.project_name(), '@OUTPUT@',
+  ]
 )

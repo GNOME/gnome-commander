@@ -105,3 +105,6 @@ struct GnomeCmdMainWin
 };
 
 extern GnomeCmdMainWin *main_win;
+
+extern "C" GnomeCmdFileSelector *gnome_cmd_main_win_get_fs(GnomeCmdMainWin *main_win, FileSelectorID id);
+

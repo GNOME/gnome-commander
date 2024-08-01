@@ -3552,3 +3552,15 @@ GtkTreeIterPtr GnomeCmdFileList::get_dest_row_at_coords (gdouble x, gdouble y)
         return GtkTreeIterPtr(nullptr, &gtk_tree_iter_free);
 }
 
+
+// FFI
+extern "C" GList *gnome_cmd_file_list_get_selected_files (GnomeCmdFileList *fl)
+{
+    return fl->get_selected_files();
+}
+
+extern "C" GnomeCmdFile *gnome_cmd_file_list_get_focused_file(GnomeCmdFileList *fl)
+{
+    return fl->get_focused_file();
+}
+
