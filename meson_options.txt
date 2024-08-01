@@ -4,4 +4,3 @@ option('libgsf',  type: 'feature', value: 'auto', description: 'Enable OLE and O
 option('poppler', type: 'feature', value: 'auto', description: 'Enable PDF support or not.')
 option('taglib',  type: 'feature', value: 'auto', description: 'Enable taglib (ID3, Vorbis, APE and FLAC) support or not.')
 option('tests',   type: 'feature', value: 'auto', description: 'Build tests')
-option('profile', type: 'combo', choices: ['debug', 'release'], value: 'debug', description: 'The build profile: "debug" or "release".')

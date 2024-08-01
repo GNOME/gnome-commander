@@ -180,7 +180,7 @@ message(cargo_version)
 rustc_version = run_command('rustc', '--version', check: true).stdout().strip()
 message(rustc_version)
 
-if get_option('profile') == 'debug'
+if get_option('debug')
     profile = 'debug'
 else
     profile = 'release'

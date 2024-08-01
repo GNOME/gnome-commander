@@ -8,7 +8,6 @@ use-exiv2 = []
 use-gsf-1 = []
 use-taglib = []
 use-poppler = []
-use-samba = []
 
 [dependencies]
 gettext-rs = { version = "0.7.0", features = ["gettext-system"] }
@@ -41,8 +40,3 @@ feature = "use-taglib"
 name = "poppler-glib"
 version = "0.18"
 feature = "use-poppler"
-
-[package.metadata.system-deps.samba]
-name = "smbclient"
-version = "0.7"
-feature = "use-samba"
