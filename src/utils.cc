@@ -396,8 +396,13 @@ const gchar *time2string (GDateTime *gDateTime, const gchar *dateFormat)
     auto localGDateTime = g_date_time_to_local (gDateTime);
 
     auto dateString = g_date_time_format (localGDateTime, dateFormat);
+    if (!dateString)
+        dateString = g_date_time_format (localGDateTime, "%c");
 
-    strncpy (buf, dateString, sizeof(buf)-1);
+    if (dateString)
+        strncpy (buf, dateString, sizeof(buf)-1);
+    else
+        buf[0] = '\0';
 
     g_date_time_unref(localGDateTime);
     g_free (dateString);
