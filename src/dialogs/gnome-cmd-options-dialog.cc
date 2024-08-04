@@ -429,7 +429,7 @@ static GtkWidget *create_format_tab (GtkWidget *parent, GnomeCmdData::Options &c
     g_object_set_data (G_OBJECT (parent), "date_format_test_label", label);
     gtk_grid_attach (GTK_GRID (grid), label, 1, 1, 1, 1);
 
-    label = create_label (parent, _("See the manual page for “strftime” for help on how to set the format string."));
+    label = create_label (parent, _("See the help page in the documentation on how to set the format string."));
     gtk_label_set_line_wrap (GTK_LABEL (label), TRUE);
     gtk_grid_attach (GTK_GRID (grid), label, 1, 2, 1, 1);
 
