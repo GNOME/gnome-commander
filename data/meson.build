@@ -73,14 +73,6 @@ configure_file(
   configuration: conf_data
 )
 
-# Create spec file
-configure_file(
-  input: meson.project_name() + '.spec.in',
-  output: meson.project_name() + '.spec',
-  install: false,
-  configuration: conf_data
-)
-
 # Validate desktop file
 desktop_file_validate = find_program('desktop-file-validate', required: false)
 if (desktop_file_validate.found())
