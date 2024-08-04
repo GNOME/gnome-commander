@@ -98,8 +98,10 @@
     </key>
     <key name="date-disp-format" type="s">
       <!-- Translators: Feel free to replace the default date format to a common value
-           used in your country. See "man strftime" for details. Attention: Do not change
-           the single quotes which sourround the string.-->
+           used in your country. See https://docs.gtk.org/glib/method.DateTime.format.html for details.
+           Attention: Do not change the single quotes which sourround the string.
+           If nothing is set, the application uses the hard-coded value '%c', which is
+           "the preferred date and time representation for the current locale".-->
       <default l10n="messages">'%F %R'</default>
       <summary>Date format</summary>
       <description>
