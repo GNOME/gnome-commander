@@ -4028,6 +4028,12 @@
 
         <sect3 id="gnome-commander-advanced-rename-g-date-time-format">
         <title>g_date_time_format() format controls</title>
+        <para>
+          The date format is defined by GIO's g_date_time_format() function. Below you will find a
+          number of format qualifiers of this function. For more information please read the
+          <ulink url="https://docs.gtk.org/glib/method.DateTime.format.html">online documentation</ulink>,
+          which might provide even more qualifiers.
+        </para>
         <informaltable frame="topbot">
             <tgroup cols="2">
                 <colspec colname="col1"/>
@@ -4915,8 +4921,8 @@
               </entry>
               <entry>
                 <para>The date format is defined by GIO's g_date_time_format() function.
-                For more information about g_date_time_format please read the
-                <ulink url="https://developer.gnome.org/glib/stable/glib-GDateTime.html#g-date-time-format">documentation</ulink>.
+                For more information about possible date format qualifiers read more at
+                <xref linkend="gnome-commander-advanced-rename-g-date-time-format"/>.
                 </para>
               </entry>
             </row>
