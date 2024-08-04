@@ -12,8 +12,8 @@ msgstr ""
 "Project-Id-Version: gnome-commander\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-commander/"
 "issues/\n"
-"POT-Creation-Date: 2024-07-06 19:25+0000\n"
-"PO-Revision-Date: 2024-07-06 22:14+0200\n"
+"POT-Creation-Date: 2024-08-04 19:09+0000\n"
+"PO-Revision-Date: 2024-08-04 22:02+0200\n"
 "Last-Translator: Anders Jonsson <anders.jonsson@norsjovallen.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "Language: sv\n"
@@ -173,70 +173,72 @@ msgid "Defines the height of a row in the file pane."
 msgstr "Definierar höjden för en rad i filpanelen."
 
 #. Translators: Feel free to replace the default date format to a common value
-#. used in your country. See "man strftime" for details. Attention: Do not change
-#. the single quotes which sourround the string.
-#: data/org.gnome.gnome-commander.gschema.xml:103
+#. used in your country. See https://docs.gtk.org/glib/method.DateTime.format.html for details.
+#. Attention: Do not change the single quotes which sourround the string.
+#. If nothing is set, the application uses the hard-coded value '%c', which is
+#. "the preferred date and time representation for the current locale".
+#: data/org.gnome.gnome-commander.gschema.xml:105
 msgid "'%F %R'"
 msgstr "'%F %R'"
 
-#: data/org.gnome.gnome-commander.gschema.xml:104
+#: data/org.gnome.gnome-commander.gschema.xml:106
 #: src/dialogs/gnome-cmd-options-dialog.cc:410
 msgid "Date format"
 msgstr "Datumformat"
 
-#: data/org.gnome.gnome-commander.gschema.xml:105
+#: data/org.gnome.gnome-commander.gschema.xml:107
 msgid "Format of the date in the file pane."
 msgstr "Datumformatet i filpanelen."
 
-#: data/org.gnome.gnome-commander.gschema.xml:111
+#: data/org.gnome.gnome-commander.gschema.xml:113
 msgid "List font"
 msgstr "Listtypsnitt"
 
-#: data/org.gnome.gnome-commander.gschema.xml:112
+#: data/org.gnome.gnome-commander.gschema.xml:114
 msgid "The font in the file panes."
 msgstr "Typsnittet i filpanelerna."
 
-#: data/org.gnome.gnome-commander.gschema.xml:116
+#: data/org.gnome.gnome-commander.gschema.xml:118
 msgid "Extension display mode"
 msgstr "Visningsläge för filändelse"
 
-#: data/org.gnome.gnome-commander.gschema.xml:117
+#: data/org.gnome.gnome-commander.gschema.xml:119
 msgid "Defines where the file name extension is displayed."
 msgstr "Definierar om filändelsen visas."
 
-#: data/org.gnome.gnome-commander.gschema.xml:123
+#: data/org.gnome.gnome-commander.gschema.xml:125
 msgid "Left mouse button mode"
 msgstr "Vänstermusknappsläge"
 
-#: data/org.gnome.gnome-commander.gschema.xml:124
+#: data/org.gnome.gnome-commander.gschema.xml:126
 msgid "Number of left mouse button clicks for opening a file or folder."
 msgstr "Antal musklick på vänstra knappen för att öppna en fil eller en mapp."
 
-#: data/org.gnome.gnome-commander.gschema.xml:130
+#: data/org.gnome.gnome-commander.gschema.xml:132
 msgid "Left mouse button unselects"
 msgstr "Vänster musknapp avmarkerar"
 
-#: data/org.gnome.gnome-commander.gschema.xml:131
+#: data/org.gnome.gnome-commander.gschema.xml:133
 msgid ""
 "Defines if a click on an unselected item unselects already selected items."
 msgstr ""
 "Definierar om ett klick på ett ej valt objekt avmarkerar redan markerade "
 "objekt."
 
-#: data/org.gnome.gnome-commander.gschema.xml:137
+#: data/org.gnome.gnome-commander.gschema.xml:139
 msgid "Right mouse button mode"
 msgstr "Högermusknappsläge"
 
-#: data/org.gnome.gnome-commander.gschema.xml:138
+#: data/org.gnome.gnome-commander.gschema.xml:140
 msgid "Defines what happens when the right mouse button is clicked on an item."
 msgstr ""
 "Definierar vad som händer när den högra musknappen klickas på ett objekt."
 
-#: data/org.gnome.gnome-commander.gschema.xml:144
+#: data/org.gnome.gnome-commander.gschema.xml:146
 msgid "Use trash"
 msgstr "Använd papperskorg"
 
-#: data/org.gnome.gnome-commander.gschema.xml:145
+#: data/org.gnome.gnome-commander.gschema.xml:147
 msgid ""
 "Defines if items should be moved to trash by default instead of really "
 "deleting them."
@@ -244,19 +246,19 @@ msgstr ""
 "Definierar om objekt ska flyttas till papperskorgen som standard istället "
 "för att ta bort dem på riktigt."
 
-#: data/org.gnome.gnome-commander.gschema.xml:151
+#: data/org.gnome.gnome-commander.gschema.xml:153
 msgid "Icon size"
 msgstr "Ikonstorlek"
 
-#: data/org.gnome.gnome-commander.gschema.xml:152
+#: data/org.gnome.gnome-commander.gschema.xml:154
 msgid "Size of icons in the file pane."
 msgstr "Ikonstorlekar i filpanelen."
 
-#: data/org.gnome.gnome-commander.gschema.xml:156
+#: data/org.gnome.gnome-commander.gschema.xml:158
 msgid "Icon scale quality"
 msgstr "Skalningskvaliteten för ikoner"
 
-#: data/org.gnome.gnome-commander.gschema.xml:157
+#: data/org.gnome.gnome-commander.gschema.xml:159
 msgid ""
 "Describes the different interpolation modes that can be used with the "
 "scaling functions."
@@ -264,19 +266,19 @@ msgstr ""
 "Definierar de olika interpoleringslägen som kan användas med "
 "skalningsfunktionerna."
 
-#: data/org.gnome.gnome-commander.gschema.xml:161
+#: data/org.gnome.gnome-commander.gschema.xml:163
 msgid "MIME icon directory"
 msgstr "MIME-ikonkatalog"
 
-#: data/org.gnome.gnome-commander.gschema.xml:162
+#: data/org.gnome.gnome-commander.gschema.xml:164
 msgid "Directory in which MIME icons are located."
 msgstr "Katalogen för MIME-ikoner."
 
-#: data/org.gnome.gnome-commander.gschema.xml:166
+#: data/org.gnome.gnome-commander.gschema.xml:168
 msgid "Command line history"
 msgstr "Kommandoradshistorik"
 
-#: data/org.gnome.gnome-commander.gschema.xml:167
+#: data/org.gnome.gnome-commander.gschema.xml:169
 msgid ""
 "This string array represents the history of commands executed in the command "
 "line."
@@ -284,75 +286,75 @@ msgstr ""
 "Denna strängvektor representerar historiken för kommandon exekverade på "
 "kommandoraden."
 
-#: data/org.gnome.gnome-commander.gschema.xml:174
+#: data/org.gnome.gnome-commander.gschema.xml:176
 msgid "Command line history length"
 msgstr "Längd på kommandoradshistoriken"
 
-#: data/org.gnome.gnome-commander.gschema.xml:178
+#: data/org.gnome.gnome-commander.gschema.xml:180
 msgid "Horizontal orientation"
 msgstr "Horisontell orientering"
 
-#: data/org.gnome.gnome-commander.gschema.xml:179
+#: data/org.gnome.gnome-commander.gschema.xml:181
 msgid ""
 "Defines if the orientation of the file panes should be horizontal or not."
 msgstr ""
 "Definierar om orienteringen för filpanelerna ska vara horisontell eller ej."
 
-#: data/org.gnome.gnome-commander.gschema.xml:186
+#: data/org.gnome.gnome-commander.gschema.xml:188
 msgid "GUI update rate"
 msgstr "GUI-uppdateringshastighet"
 
-#: data/org.gnome.gnome-commander.gschema.xml:187
+#: data/org.gnome.gnome-commander.gschema.xml:189
 msgid "Update rate of the graphical user interphase in 1/1000ths of a second."
 msgstr ""
 "Uppdateringshastigheten för det grafiska gränssnittets interfas i tusendels "
 "sekunder."
 
-#: data/org.gnome.gnome-commander.gschema.xml:191
+#: data/org.gnome.gnome-commander.gschema.xml:193
 msgid "Show device buttons"
 msgstr "Visa enhetsknappar"
 
-#: data/org.gnome.gnome-commander.gschema.xml:192
+#: data/org.gnome.gnome-commander.gschema.xml:194
 msgid "Defines if device buttons are shown."
 msgstr "Definierar om enhetsknapparna visas."
 
-#: data/org.gnome.gnome-commander.gschema.xml:196
+#: data/org.gnome.gnome-commander.gschema.xml:198
 msgid "Show device list"
 msgstr "Visa enhetslista"
 
-#: data/org.gnome.gnome-commander.gschema.xml:197
+#: data/org.gnome.gnome-commander.gschema.xml:199
 msgid "Defines if the list of devices is shown."
 msgstr "Definierar om enhetslistan visas."
 
-#: data/org.gnome.gnome-commander.gschema.xml:201
+#: data/org.gnome.gnome-commander.gschema.xml:203
 msgid "Show command line"
 msgstr "Visa kommandorad"
 
-#: data/org.gnome.gnome-commander.gschema.xml:202
+#: data/org.gnome.gnome-commander.gschema.xml:204
 msgid "Defines if command line is shown."
 msgstr "Definierar om kommandoraden visas."
 
-#: data/org.gnome.gnome-commander.gschema.xml:206
+#: data/org.gnome.gnome-commander.gschema.xml:208
 msgid "Show toolbar"
 msgstr "Visa verktygsfält"
 
-#: data/org.gnome.gnome-commander.gschema.xml:207
+#: data/org.gnome.gnome-commander.gschema.xml:209
 msgid "Defines if the toolbar is shown."
 msgstr "Definierar om verktygsfältet visas."
 
-#: data/org.gnome.gnome-commander.gschema.xml:211
+#: data/org.gnome.gnome-commander.gschema.xml:213
 msgid "Show buttonbar"
 msgstr "Visa knapprad"
 
-#: data/org.gnome.gnome-commander.gschema.xml:212
+#: data/org.gnome.gnome-commander.gschema.xml:214
 msgid "Defines if the buttonbar is shown."
 msgstr "Definierar om knappraden visas."
 
-#: data/org.gnome.gnome-commander.gschema.xml:216
+#: data/org.gnome.gnome-commander.gschema.xml:218
 msgid "Symlink string"
 msgstr "Sträng för symboliska länkar"
 
-#: data/org.gnome.gnome-commander.gschema.xml:217
+#: data/org.gnome.gnome-commander.gschema.xml:219
 msgid ""
 "This string defines the default name of a newly created symlink. Leave the "
 "string empty to use the default value which is hard coded into the program "
@@ -364,155 +366,155 @@ msgstr ""
 "Ett ”%s” kommer att expanderas till objektnamnet för vilket en länk ska "
 "skapas."
 
-#: data/org.gnome.gnome-commander.gschema.xml:225
+#: data/org.gnome.gnome-commander.gschema.xml:227
 msgid "Main window width"
 msgstr "Huvudfönstrets bredd"
 
-#: data/org.gnome.gnome-commander.gschema.xml:226
+#: data/org.gnome.gnome-commander.gschema.xml:228
 msgid "This option defines the width of the main window."
 msgstr "Detta alternativ definierar bredden på huvudfönstret."
 
-#: data/org.gnome.gnome-commander.gschema.xml:232
+#: data/org.gnome.gnome-commander.gschema.xml:234
 msgid "List of bookmarks"
 msgstr "Lista över bokmärken"
 
-#: data/org.gnome.gnome-commander.gschema.xml:233
+#: data/org.gnome.gnome-commander.gschema.xml:235
 msgid "Each entry in this list represents a bookmark."
 msgstr "Varje post i denna lista representerar ett bokmärke."
 
-#: data/org.gnome.gnome-commander.gschema.xml:239
+#: data/org.gnome.gnome-commander.gschema.xml:241
 msgid "Bookmarks window width"
 msgstr "Bokmärkesfönstrets bredd"
 
-#: data/org.gnome.gnome-commander.gschema.xml:240
+#: data/org.gnome.gnome-commander.gschema.xml:242
 msgid "This option defines the width of the bookmarks window."
 msgstr "Detta alternativ definierar bredden på bokmärkesfönstret."
 
-#: data/org.gnome.gnome-commander.gschema.xml:246
+#: data/org.gnome.gnome-commander.gschema.xml:248
 msgid "Bookmarks window height"
 msgstr "Bokmärkesfönstrets höjd"
 
-#: data/org.gnome.gnome-commander.gschema.xml:247
+#: data/org.gnome.gnome-commander.gschema.xml:249
 msgid "This option defines the height of the bookmarks window."
 msgstr "Detta alternativ definierar höjden på bokmärkesfönstret."
 
-#: data/org.gnome.gnome-commander.gschema.xml:253
+#: data/org.gnome.gnome-commander.gschema.xml:255
 msgid "List of connections"
 msgstr "Lista över anslutningar"
 
-#: data/org.gnome.gnome-commander.gschema.xml:254
+#: data/org.gnome.gnome-commander.gschema.xml:256
 msgid "Each entry in this list represents a connection."
 msgstr "Varje post i denna lista representerar en anslutning."
 
-#: data/org.gnome.gnome-commander.gschema.xml:260
+#: data/org.gnome.gnome-commander.gschema.xml:262
 msgid "Main window height"
 msgstr "Huvudfönstrets höjd"
 
-#: data/org.gnome.gnome-commander.gschema.xml:261
+#: data/org.gnome.gnome-commander.gschema.xml:263
 msgid "This option defines the height of the main window."
 msgstr "Detta alternativ definierar höjden på huvudfönstret."
 
-#: data/org.gnome.gnome-commander.gschema.xml:267
+#: data/org.gnome.gnome-commander.gschema.xml:269
 msgid "Options dialog width"
 msgstr "Bredd på dialogen för alternativ"
 
-#: data/org.gnome.gnome-commander.gschema.xml:268
+#: data/org.gnome.gnome-commander.gschema.xml:270
 msgid "This setting defines the width of the options dialog window."
 msgstr "Denna inställning definierar bredden på dialogfönstret för alternativ."
 
-#: data/org.gnome.gnome-commander.gschema.xml:274
+#: data/org.gnome.gnome-commander.gschema.xml:276
 msgid "Options dialog height"
 msgstr "Höjd på dialogen för alternativ"
 
-#: data/org.gnome.gnome-commander.gschema.xml:275
+#: data/org.gnome.gnome-commander.gschema.xml:277
 msgid "This setting defines the height of the options dialog window."
 msgstr "Denna inställning definierar höjden på dialogfönstret för alternativ."
 
-#: data/org.gnome.gnome-commander.gschema.xml:281
+#: data/org.gnome.gnome-commander.gschema.xml:283
 msgid "Width of icon column"
 msgstr "Bredd på ikonkolumnen"
 
-#: data/org.gnome.gnome-commander.gschema.xml:282
+#: data/org.gnome.gnome-commander.gschema.xml:284
 msgid "This option defines the width of the icon column."
 msgstr "Detta alternativ definierar bredden på ikonkolumnen."
 
-#: data/org.gnome.gnome-commander.gschema.xml:288
+#: data/org.gnome.gnome-commander.gschema.xml:290
 msgid "Width of name column"
 msgstr "Bredd på namnkolumnen"
 
-#: data/org.gnome.gnome-commander.gschema.xml:289
+#: data/org.gnome.gnome-commander.gschema.xml:291
 msgid "This option defines the width of the name column."
 msgstr "Detta alternativ definierar bredden på namnkolumnen."
 
-#: data/org.gnome.gnome-commander.gschema.xml:295
+#: data/org.gnome.gnome-commander.gschema.xml:297
 msgid "Width of extension column"
 msgstr "Bredd på filändelsekolumnen"
 
-#: data/org.gnome.gnome-commander.gschema.xml:296
+#: data/org.gnome.gnome-commander.gschema.xml:298
 msgid "This option defines the width of the extension column."
 msgstr "Detta alternativ definierar bredden på filändelsekolumnen."
 
-#: data/org.gnome.gnome-commander.gschema.xml:302
+#: data/org.gnome.gnome-commander.gschema.xml:304
 msgid "Width of directory column"
 msgstr "Bredd på katalogkolumnen"
 
-#: data/org.gnome.gnome-commander.gschema.xml:303
+#: data/org.gnome.gnome-commander.gschema.xml:305
 msgid "This option defines the width of the directory column."
 msgstr "Detta alternativ definierar bredden på katalogkolumnen."
 
-#: data/org.gnome.gnome-commander.gschema.xml:309
+#: data/org.gnome.gnome-commander.gschema.xml:311
 msgid "Width of size column"
 msgstr "Bredd på storlekskolumnen"
 
-#: data/org.gnome.gnome-commander.gschema.xml:310
+#: data/org.gnome.gnome-commander.gschema.xml:312
 msgid "This option defines the width of the size column."
 msgstr "Detta alternativ definierar bredden på storlekskolumnen."
 
-#: data/org.gnome.gnome-commander.gschema.xml:316
+#: data/org.gnome.gnome-commander.gschema.xml:318
 msgid "Width of date column"
 msgstr "Datumkolumnens bredd"
 
-#: data/org.gnome.gnome-commander.gschema.xml:317
+#: data/org.gnome.gnome-commander.gschema.xml:319
 msgid "This option defines the width of the date column."
 msgstr "Detta alternativ definierar bredden på datumkolumnen."
 
-#: data/org.gnome.gnome-commander.gschema.xml:323
+#: data/org.gnome.gnome-commander.gschema.xml:325
 msgid "Width of permissions column"
 msgstr "Bredd på rättighetskolumnen"
 
-#: data/org.gnome.gnome-commander.gschema.xml:324
+#: data/org.gnome.gnome-commander.gschema.xml:326
 msgid "This option defines the width of the permissions column."
 msgstr "Detta alternativ definierar bredden på rättighetskolumnen."
 
-#: data/org.gnome.gnome-commander.gschema.xml:330
+#: data/org.gnome.gnome-commander.gschema.xml:332
 msgid "Width of owner column"
 msgstr "Bredd på ägarkolumnen"
 
-#: data/org.gnome.gnome-commander.gschema.xml:331
+#: data/org.gnome.gnome-commander.gschema.xml:333
 msgid "This option defines the width of the owner column."
 msgstr "Detta alternativ definierar bredden på ägarkolumnen."
 
-#: data/org.gnome.gnome-commander.gschema.xml:337
+#: data/org.gnome.gnome-commander.gschema.xml:339
 msgid "Width of group column"
 msgstr "Bredd på gruppkolumnen"
 
-#: data/org.gnome.gnome-commander.gschema.xml:338
+#: data/org.gnome.gnome-commander.gschema.xml:340
 msgid "This option defines the width of the group column."
 msgstr "Detta alternativ definierar bredden på gruppkolumnen."
 
-#: data/org.gnome.gnome-commander.gschema.xml:344
+#: data/org.gnome.gnome-commander.gschema.xml:346
 msgid "List of keybindings"
 msgstr "Lista över tangentbindningar"
 
-#: data/org.gnome.gnome-commander.gschema.xml:345
+#: data/org.gnome.gnome-commander.gschema.xml:347
 msgid "Each entry in this list represents a keybinding."
 msgstr "Varje post i denna lista representerar en tangentbindning."
 
-#: data/org.gnome.gnome-commander.gschema.xml:352
+#: data/org.gnome.gnome-commander.gschema.xml:354
 msgid "Main window state"
 msgstr "Huvudfönstrets tillstånd"
 
-#: data/org.gnome.gnome-commander.gschema.xml:353
+#: data/org.gnome.gnome-commander.gschema.xml:355
 msgid ""
 "The number represents the main window state, e.g. “maximized”, “fullscreen”, "
 "etc. and is calculated internally."
@@ -520,19 +522,19 @@ msgstr ""
 "Siffran representerar tillståndet för huvudfönstret, exempelvis ”maximerat”, "
 "”helskärm” och så vidare, och beräknas internt."
 
-#: data/org.gnome.gnome-commander.gschema.xml:359
+#: data/org.gnome.gnome-commander.gschema.xml:361
 msgid "Middle mouse button mode"
 msgstr "Mittenmusknappläge"
 
-#: data/org.gnome.gnome-commander.gschema.xml:360
+#: data/org.gnome.gnome-commander.gschema.xml:362
 msgid "Defines what happens when the middle mouse button is clicked."
 msgstr "Definierar vad som händer när mittenmusknappen klickas."
 
-#: data/org.gnome.gnome-commander.gschema.xml:366
+#: data/org.gnome.gnome-commander.gschema.xml:368
 msgid "Save directories on exit"
 msgstr "Spara kataloger vid avslut"
 
-#: data/org.gnome.gnome-commander.gschema.xml:367
+#: data/org.gnome.gnome-commander.gschema.xml:369
 msgid ""
 "Defines if the current directories are opened again when GNOME Commander is "
 "restarted."
@@ -540,11 +542,11 @@ msgstr ""
 "Definierar om de nuvarande katalogerna öppnas igen när GNOME Commander "
 "startas om."
 
-#: data/org.gnome.gnome-commander.gschema.xml:373
+#: data/org.gnome.gnome-commander.gschema.xml:375
 msgid "Save tabs on exit"
 msgstr "Spara flikar vid avslut"
 
-#: data/org.gnome.gnome-commander.gschema.xml:374
+#: data/org.gnome.gnome-commander.gschema.xml:376
 msgid ""
 "Defines if the current open tabs are opened again when GNOME Commander is "
 "restarted."
@@ -552,61 +554,61 @@ msgstr ""
 "Definierar om de nuvarande öppna flikarna öppnas igen när GNOME Commander "
 "startas om."
 
-#: data/org.gnome.gnome-commander.gschema.xml:380
+#: data/org.gnome.gnome-commander.gschema.xml:382
 msgid "Save directory history on exit"
 msgstr "Spara kataloghistorik vid avslut"
 
-#: data/org.gnome.gnome-commander.gschema.xml:381
+#: data/org.gnome.gnome-commander.gschema.xml:383
 msgid "Defines if the history of visited directories is saved on exit."
 msgstr "Definierar om historiken över besökta kataloger sparas vid avslut."
 
-#: data/org.gnome.gnome-commander.gschema.xml:387
+#: data/org.gnome.gnome-commander.gschema.xml:389
 msgid "Save commandline history on exit"
 msgstr "Spara kommandoradshistorik vid avslut"
 
-#: data/org.gnome.gnome-commander.gschema.xml:388
+#: data/org.gnome.gnome-commander.gschema.xml:390
 msgid "Defines if the history of commands in the commandline is saved on exit."
 msgstr ""
 "Definierar om historiken över kommandon i kommandoraden sparas vid avslut."
 
-#: data/org.gnome.gnome-commander.gschema.xml:394
+#: data/org.gnome.gnome-commander.gschema.xml:396
 msgid "Save search history on exit"
 msgstr "Spara sökhistorik vid avslut"
 
-#: data/org.gnome.gnome-commander.gschema.xml:395
+#: data/org.gnome.gnome-commander.gschema.xml:397
 msgid "Defines if the history of search patterns is saved on exit."
 msgstr "Definierar om historiken över sökmönster sparas vid avslut."
 
-#: data/org.gnome.gnome-commander.gschema.xml:401
+#: data/org.gnome.gnome-commander.gschema.xml:403
 msgid "Always show tab bar"
 msgstr "Visa alltid flikraden"
 
-#: data/org.gnome.gnome-commander.gschema.xml:402
+#: data/org.gnome.gnome-commander.gschema.xml:404
 msgid "Defines if the tab bar is always shown."
 msgstr "Definierar om flikraden alltid visas."
 
-#: data/org.gnome.gnome-commander.gschema.xml:408
+#: data/org.gnome.gnome-commander.gschema.xml:410
 #: src/dialogs/gnome-cmd-options-dialog.cc:999
 msgid "Tab lock indicator"
 msgstr "Fliklåsindikator"
 
-#: data/org.gnome.gnome-commander.gschema.xml:409
+#: data/org.gnome.gnome-commander.gschema.xml:411
 msgid "Defines the style of the tab lock indicator."
 msgstr "Definierar stilen på fliklåsindikatorn."
 
-#: data/org.gnome.gnome-commander.gschema.xml:415
+#: data/org.gnome.gnome-commander.gschema.xml:417
 msgid "Case sensitive sorting"
 msgstr "Skiftlägeskänslig sortering"
 
-#: data/org.gnome.gnome-commander.gschema.xml:416
+#: data/org.gnome.gnome-commander.gschema.xml:418
 msgid "This option defines if sorting should be case sensitive."
 msgstr "Detta alternativ definierar om sortering ska vara skiftlägeskänslig."
 
-#: data/org.gnome.gnome-commander.gschema.xml:422
+#: data/org.gnome.gnome-commander.gschema.xml:424
 msgid "Select directories when all is marked"
 msgstr "Välj kataloger när allt är markerat"
 
-#: data/org.gnome.gnome-commander.gschema.xml:423
+#: data/org.gnome.gnome-commander.gschema.xml:425
 msgid ""
 "This option defines if directories will be marked when all items in a file "
 "pane should be marked."
@@ -614,19 +616,19 @@ msgstr ""
 "Detta alternativ definierar huruvida kataloger kommer att markeras när alla "
 "objekt i en filpanel markeras."
 
-#: data/org.gnome.gnome-commander.gschema.xml:429
+#: data/org.gnome.gnome-commander.gschema.xml:431
 msgid "Allow multiple instances"
 msgstr "Tillåt flera instanser"
 
-#: data/org.gnome.gnome-commander.gschema.xml:430
+#: data/org.gnome.gnome-commander.gschema.xml:432
 msgid "This option defines if multiple instances are allowed."
 msgstr "Detta alternativ definierar om flera instanser tillåts."
 
-#: data/org.gnome.gnome-commander.gschema.xml:436
+#: data/org.gnome.gnome-commander.gschema.xml:438
 msgid "Quick search exact match begin"
 msgstr "Snabbsök exakt träff i början"
 
-#: data/org.gnome.gnome-commander.gschema.xml:437
+#: data/org.gnome.gnome-commander.gschema.xml:439
 msgid ""
 "This option defines if quick search should match explicitly at the beginning "
 "of an item name."
@@ -634,11 +636,11 @@ msgstr ""
 "Detta alternativ definierar huruvida en snabbsökning ska få träff explicit i "
 "början av ett objektsnamn."
 
-#: data/org.gnome.gnome-commander.gschema.xml:443
+#: data/org.gnome.gnome-commander.gschema.xml:445
 msgid "Quick search exact match end"
 msgstr "Snabbsök exakt träff i slutet"
 
-#: data/org.gnome.gnome-commander.gschema.xml:444
+#: data/org.gnome.gnome-commander.gschema.xml:446
 msgid ""
 "This option defines if quick search should match explicitly at the end of an "
 "item name."
@@ -646,11 +648,11 @@ msgstr ""
 "Detta alternativ definierar om en snabbsökning får en träff explicit i "
 "slutet av ett objektsnamn."
 
-#: data/org.gnome.gnome-commander.gschema.xml:450
+#: data/org.gnome.gnome-commander.gschema.xml:452
 msgid "Only device icons"
 msgstr "Endast enhetsikoner"
 
-#: data/org.gnome.gnome-commander.gschema.xml:451
+#: data/org.gnome.gnome-commander.gschema.xml:453
 msgid ""
 "This option defines if only device icons should be shown instead of icons "
 "and text label."
@@ -658,11 +660,11 @@ msgstr ""
 "Detta alternativ definierar om endast enhetsikoner ska visas istället för "
 "ikoner och textetiketter."
 
-#: data/org.gnome.gnome-commander.gschema.xml:457
+#: data/org.gnome.gnome-commander.gschema.xml:459
 msgid "Show the samba workgroups icon"
 msgstr "Visa ikonen för samba-arbetsgrupper"
 
-#: data/org.gnome.gnome-commander.gschema.xml:458
+#: data/org.gnome.gnome-commander.gschema.xml:460
 msgid ""
 "This option defines if the Samba workgroups icon should be shown in the "
 "devices list."
@@ -670,27 +672,27 @@ msgstr ""
 "Det här alternativet definierar om Samba-arbetsgruppsikonen ska visas i "
 "enhetslistan."
 
-#: data/org.gnome.gnome-commander.gschema.xml:464
+#: data/org.gnome.gnome-commander.gschema.xml:466
 msgid "Main menu visibility"
 msgstr "Synlighet på huvudmeny"
 
-#: data/org.gnome.gnome-commander.gschema.xml:465
+#: data/org.gnome.gnome-commander.gschema.xml:467
 msgid "This option defines if the main menu is visible or not."
 msgstr "Detta alternativ definierar om huvudmenyn är synlig eller ej."
 
-#: data/org.gnome.gnome-commander.gschema.xml:471
+#: data/org.gnome.gnome-commander.gschema.xml:473
 msgid "Quick search shortcut"
 msgstr "Kortkommando för snabbsökning"
 
-#: data/org.gnome.gnome-commander.gschema.xml:472
+#: data/org.gnome.gnome-commander.gschema.xml:474
 msgid "This option defines the shortcut for quick search."
 msgstr "Detta alternativ definierar kortkommandot för snabbsökningen."
 
-#: data/org.gnome.gnome-commander.gschema.xml:478
+#: data/org.gnome.gnome-commander.gschema.xml:480
 msgid "List of file tabs"
 msgstr "Lista över filflikar"
 
-#: data/org.gnome.gnome-commander.gschema.xml:479
+#: data/org.gnome.gnome-commander.gschema.xml:481
 msgid ""
 "The entries in this list are used for restoring the tabs from the last "
 "session."
@@ -698,53 +700,53 @@ msgstr ""
 "Posterna i denna lista används för att återställa flikarna från föregående "
 "session."
 
-#: data/org.gnome.gnome-commander.gschema.xml:486
+#: data/org.gnome.gnome-commander.gschema.xml:488
 msgid "List of devices - deprecated"
 msgstr "Lista över enheter - föråldrad"
 
-#: data/org.gnome.gnome-commander.gschema.xml:487
-#: data/org.gnome.gnome-commander.gschema.xml:494
+#: data/org.gnome.gnome-commander.gschema.xml:489
+#: data/org.gnome.gnome-commander.gschema.xml:496
 msgid "The entries in this list represent the devices configured by the user."
 msgstr ""
 "Posterna i denna lista representerar enheterna som konfigurerats av "
 "användaren."
 
-#: data/org.gnome.gnome-commander.gschema.xml:493
+#: data/org.gnome.gnome-commander.gschema.xml:495
 msgid "List of devices"
 msgstr "Lista över enheter"
 
-#: data/org.gnome.gnome-commander.gschema.xml:500
+#: data/org.gnome.gnome-commander.gschema.xml:502
 msgid "List of favorite apps"
 msgstr "Lista över favoritprogram"
 
-#: data/org.gnome.gnome-commander.gschema.xml:501
+#: data/org.gnome.gnome-commander.gschema.xml:503
 msgid ""
 "The entries in this list represent the favorite apps configured by the user."
 msgstr ""
 "Posterna i denna lista representerar favoritprogrammen som konfigurerats av "
 "användaren."
 
-#: data/org.gnome.gnome-commander.gschema.xml:507
+#: data/org.gnome.gnome-commander.gschema.xml:509
 msgid "Search window width"
 msgstr "Sökfönstrets bredd"
 
-#: data/org.gnome.gnome-commander.gschema.xml:508
+#: data/org.gnome.gnome-commander.gschema.xml:510
 msgid "This option defines the width of the search window."
 msgstr "Detta alternativ definierar bredden på sökfönstret."
 
-#: data/org.gnome.gnome-commander.gschema.xml:514
+#: data/org.gnome.gnome-commander.gschema.xml:516
 msgid "Search window height"
 msgstr "Sökfönstrets höjd"
 
-#: data/org.gnome.gnome-commander.gschema.xml:515
+#: data/org.gnome.gnome-commander.gschema.xml:517
 msgid "This option defines the height of the search window."
 msgstr "Detta alternativ definierar höjden på sökfönstret."
 
-#: data/org.gnome.gnome-commander.gschema.xml:521
+#: data/org.gnome.gnome-commander.gschema.xml:523
 msgid "Search window is transient"
 msgstr "Sökfönstret är tillfälligt"
 
-#: data/org.gnome.gnome-commander.gschema.xml:522
+#: data/org.gnome.gnome-commander.gschema.xml:524
 msgid ""
 "Defines if the search window is transient or if it can be minimized and "
 "moved behind the main window."
@@ -752,21 +754,21 @@ msgstr ""
 "Definierar om sökfönstret är tillfälligt eller om det kan minimeras och "
 "flyttas bakom huvudfönstret."
 
-#: data/org.gnome.gnome-commander.gschema.xml:528
+#: data/org.gnome.gnome-commander.gschema.xml:530
 msgid "Search text history"
 msgstr "Söktexthistorik"
 
-#: data/org.gnome.gnome-commander.gschema.xml:529
+#: data/org.gnome.gnome-commander.gschema.xml:531
 msgid ""
 "This string array represents the history of text searches in the search tool."
 msgstr ""
 "Denna strängvektor representerar historiken för textsökningar i sökverktyget."
 
-#: data/org.gnome.gnome-commander.gschema.xml:535
+#: data/org.gnome.gnome-commander.gschema.xml:537
 msgid "Search pattern history"
 msgstr "Sökmönsterhistorik"
 
-#: data/org.gnome.gnome-commander.gschema.xml:536
+#: data/org.gnome.gnome-commander.gschema.xml:538
 msgid ""
 "This string array represents the history of regular expression searches in "
 "the search tool."
@@ -774,11 +776,11 @@ msgstr ""
 "Denna strängvektor representerar historiken för sökningar med reguljära "
 "uttryck i sökverktyget."
 
-#: data/org.gnome.gnome-commander.gschema.xml:542
+#: data/org.gnome.gnome-commander.gschema.xml:544
 msgid "List of search tool profiles"
 msgstr "Lista över sökverktygsprofiler"
 
-#: data/org.gnome.gnome-commander.gschema.xml:543
+#: data/org.gnome.gnome-commander.gschema.xml:545
 msgid ""
 "The entries in this array represent the profiles in the search tool with "
 "specific settings for each profile."
@@ -786,35 +788,35 @@ msgstr ""
 "Posterna i denna vektor representerar profilerna i sökverktyget med "
 "specifika inställningar för varje profil."
 
-#: data/org.gnome.gnome-commander.gschema.xml:551
+#: data/org.gnome.gnome-commander.gschema.xml:553
 msgid "Quick connect URI"
 msgstr "Snabbanslutnings-URI"
 
-#: data/org.gnome.gnome-commander.gschema.xml:552
+#: data/org.gnome.gnome-commander.gschema.xml:554
 msgid "Unified resource identifier for quick connections."
 msgstr "Enad resursidentifierare för snabba anslutningar."
 
-#: data/org.gnome.gnome-commander.gschema.xml:563
+#: data/org.gnome.gnome-commander.gschema.xml:565
 msgid "Password for anonymous FTP connections"
 msgstr "Lösenord för anonyma FTP-anslutningar"
 
-#: data/org.gnome.gnome-commander.gschema.xml:564
+#: data/org.gnome.gnome-commander.gschema.xml:566
 msgid "This string defines the password for anonymous FTP connections."
 msgstr "Denna sträng definierar lösenordet för anonyma FTP-anslutningar."
 
-#: data/org.gnome.gnome-commander.gschema.xml:572
+#: data/org.gnome.gnome-commander.gschema.xml:574
 msgid "Confirm delete"
 msgstr "Bekräfta borttagning"
 
-#: data/org.gnome.gnome-commander.gschema.xml:573
+#: data/org.gnome.gnome-commander.gschema.xml:575
 msgid "Defines if deletion of an item should be confirmed."
 msgstr "Definierar om borttagning av ett objekt ska bekräftas."
 
-#: data/org.gnome.gnome-commander.gschema.xml:579
+#: data/org.gnome.gnome-commander.gschema.xml:581
 msgid "Delete default"
 msgstr "Standard för borttagning"
 
-#: data/org.gnome.gnome-commander.gschema.xml:580
+#: data/org.gnome.gnome-commander.gschema.xml:582
 msgid ""
 "This setting defines the default active option in the delete confirmation "
 "dialog."
@@ -822,11 +824,11 @@ msgstr ""
 "Denna inställning definierar standardalternativet i dialogen "
 "borttagningsbekräftelse."
 
-#: data/org.gnome.gnome-commander.gschema.xml:586
+#: data/org.gnome.gnome-commander.gschema.xml:588
 msgid "Confirm copy overwrite"
 msgstr "Bekräfta skriv över vid kopiering"
 
-#: data/org.gnome.gnome-commander.gschema.xml:587
+#: data/org.gnome.gnome-commander.gschema.xml:589
 msgid ""
 "This option defines the default behavior when items will be overwritten by a "
 "copy command."
@@ -834,11 +836,11 @@ msgstr ""
 "Detta alternativ definierar standardbeteendet för när objekt kommer att "
 "skrivas över av ett kopieringskommando."
 
-#: data/org.gnome.gnome-commander.gschema.xml:593
+#: data/org.gnome.gnome-commander.gschema.xml:595
 msgid "Confirm move overwrite"
 msgstr "Bekräfta skriv över vid flytt"
 
-#: data/org.gnome.gnome-commander.gschema.xml:594
+#: data/org.gnome.gnome-commander.gschema.xml:596
 msgid ""
 "This option defines the default behavior when items will be overwritten by a "
 "move command."
@@ -846,35 +848,35 @@ msgstr ""
 "Detta alternativ definierar standardbeteendet för när objekt kommer att "
 "skrivas över av ett flyttkommando."
 
-#: data/org.gnome.gnome-commander.gschema.xml:600
+#: data/org.gnome.gnome-commander.gschema.xml:602
 msgid "Confirm mouse drag and drop"
 msgstr "Bekräfta musåtgärderna dra-och-släpp"
 
-#: data/org.gnome.gnome-commander.gschema.xml:601
+#: data/org.gnome.gnome-commander.gschema.xml:603
 msgid "This option defines the behavior of mouse drag and drop operations."
 msgstr "Detta alternativ definierar beteendet för musåtgärderna dra-och-släpp."
 
-#: data/org.gnome.gnome-commander.gschema.xml:609
+#: data/org.gnome.gnome-commander.gschema.xml:611
 msgid "Hide unknown filetypes"
 msgstr "Dölj okända filtyper"
 
-#: data/org.gnome.gnome-commander.gschema.xml:610
+#: data/org.gnome.gnome-commander.gschema.xml:612
 msgid "Hide files which type does not match to one of the other types."
 msgstr "Dölj filer vars typ inte matcher mot en av de andra typerna."
 
-#: data/org.gnome.gnome-commander.gschema.xml:614
+#: data/org.gnome.gnome-commander.gschema.xml:616
 msgid "Hide regular files"
 msgstr "Dölj vanliga filer"
 
-#: data/org.gnome.gnome-commander.gschema.xml:618
+#: data/org.gnome.gnome-commander.gschema.xml:620
 msgid "Hide directories"
 msgstr "Dölj kataloger"
 
-#: data/org.gnome.gnome-commander.gschema.xml:622
+#: data/org.gnome.gnome-commander.gschema.xml:624
 msgid "Hide symbolic links"
 msgstr "Dölj symboliska länkar"
 
-#: data/org.gnome.gnome-commander.gschema.xml:626
+#: data/org.gnome.gnome-commander.gschema.xml:628
 msgid ""
 "Hide special files, such as a socket, fifo, block devices, or character "
 "devices."
@@ -882,40 +884,40 @@ msgstr ""
 "Dölj specialfiler, till exempel uttag, fifo, blockenheter eller "
 "teckenenheter."
 
-#: data/org.gnome.gnome-commander.gschema.xml:630
+#: data/org.gnome.gnome-commander.gschema.xml:632
 msgid "Hide shortcut files (Windows systems)"
 msgstr "Dölj genvägsfiler (Windows-system)"
 
-#: data/org.gnome.gnome-commander.gschema.xml:634
+#: data/org.gnome.gnome-commander.gschema.xml:636
 msgid "Hide mountable locations"
 msgstr "Dölj monterbara platser"
 
-#: data/org.gnome.gnome-commander.gschema.xml:638
+#: data/org.gnome.gnome-commander.gschema.xml:640
 msgid "Hide virtual files"
 msgstr "Dölj virtuella filer"
 
-#: data/org.gnome.gnome-commander.gschema.xml:642
+#: data/org.gnome.gnome-commander.gschema.xml:644
 msgid "Hide volatile files"
 msgstr "Dölj flyktiga filer"
 
-#: data/org.gnome.gnome-commander.gschema.xml:646
+#: data/org.gnome.gnome-commander.gschema.xml:648
 msgid "Hide files and folders starting with a dot"
 msgstr "Dölj filer och mappar som börjar med en punkt"
 
-#: data/org.gnome.gnome-commander.gschema.xml:650
+#: data/org.gnome.gnome-commander.gschema.xml:652
 msgid "Hide backup files"
 msgstr "Dölj säkerhetskopior"
 
-#: data/org.gnome.gnome-commander.gschema.xml:651
+#: data/org.gnome.gnome-commander.gschema.xml:653
 msgid "Hide all files with a suffix defined as the backup pattern."
 msgstr ""
 "Dölj alla filer med ett suffix definierat som mönstret för säkerhetskopior."
 
-#: data/org.gnome.gnome-commander.gschema.xml:655
+#: data/org.gnome.gnome-commander.gschema.xml:657
 msgid "Backup file pattern"
 msgstr "Mönster för säkerhetskopior"
 
-#: data/org.gnome.gnome-commander.gschema.xml:656
+#: data/org.gnome.gnome-commander.gschema.xml:658
 msgid ""
 "The given string defines suffixes (separated by semicolon) for files which "
 "should be filtered out if backup files should be hidden."
@@ -923,11 +925,11 @@ msgstr ""
 "Den givna strängen definierar suffix (separerat av semikolon) för filer som "
 "ska filtreras bort om säkerhetskopior döljs."
 
-#: data/org.gnome.gnome-commander.gschema.xml:665
+#: data/org.gnome.gnome-commander.gschema.xml:667
 msgid "Do not download files"
 msgstr "Hämta inte filer"
 
-#: data/org.gnome.gnome-commander.gschema.xml:666
+#: data/org.gnome.gnome-commander.gschema.xml:668
 msgid ""
 "This option defines if remote files should be downloaded before opened by "
 "external programs."
@@ -935,67 +937,67 @@ msgstr ""
 "Detta alternativ definierar om fjärrfiler ska hämtas innan de öppnas av "
 "externa program."
 
-#: data/org.gnome.gnome-commander.gschema.xml:672
+#: data/org.gnome.gnome-commander.gschema.xml:674
 msgid "Use internal viewer"
 msgstr "Använd intern visare"
 
-#: data/org.gnome.gnome-commander.gschema.xml:673
+#: data/org.gnome.gnome-commander.gschema.xml:675
 msgid "This option defines if the internal viewer should be used by default."
 msgstr ""
 "Detta alternativ definierar huruvida den interna visaren ska användas som "
 "standard."
 
-#: data/org.gnome.gnome-commander.gschema.xml:679
+#: data/org.gnome.gnome-commander.gschema.xml:681
 msgid "Viewer command"
 msgstr "Visarkommando"
 
-#: data/org.gnome.gnome-commander.gschema.xml:680
+#: data/org.gnome.gnome-commander.gschema.xml:682
 msgid "This string defines the command for starting the (external) viewer."
 msgstr ""
 "Denna sträng definierar kommandot för att starta (den externa) visaren."
 
-#: data/org.gnome.gnome-commander.gschema.xml:686
+#: data/org.gnome.gnome-commander.gschema.xml:688
 msgid "Editor command"
 msgstr "Redigerarkommando"
 
-#: data/org.gnome.gnome-commander.gschema.xml:687
+#: data/org.gnome.gnome-commander.gschema.xml:689
 msgid "This string defines the command for starting the editor."
 msgstr "Denna sträng definierar kommandot för att starta redigeraren."
 
-#: data/org.gnome.gnome-commander.gschema.xml:693
+#: data/org.gnome.gnome-commander.gschema.xml:695
 msgid "Differ command"
 msgstr "Skillnadskommando"
 
-#: data/org.gnome.gnome-commander.gschema.xml:694
+#: data/org.gnome.gnome-commander.gschema.xml:696
 msgid "This string defines the command for starting the diff tool."
 msgstr "Denna sträng definierar kommandot för att starta diff-verktyget."
 
-#: data/org.gnome.gnome-commander.gschema.xml:700
+#: data/org.gnome.gnome-commander.gschema.xml:702
 msgid "Use internal search"
 msgstr "Använd intern sökning"
 
-#: data/org.gnome.gnome-commander.gschema.xml:701
+#: data/org.gnome.gnome-commander.gschema.xml:703
 msgid "This option defines if the internal search should be used by default."
 msgstr ""
 "Detta alternativ definierar huruvida den interna sökningen ska användas som "
 "standard."
 
-#: data/org.gnome.gnome-commander.gschema.xml:707
+#: data/org.gnome.gnome-commander.gschema.xml:709
 msgid "Search command"
 msgstr "Sökkommando"
 
-#: data/org.gnome.gnome-commander.gschema.xml:708
+#: data/org.gnome.gnome-commander.gschema.xml:710
 msgid ""
 "This string defines the command for starting an external file search tool."
 msgstr ""
 "Denna sträng definierar kommandot för att starta ett externt "
 "filsökningsverktyg."
 
-#: data/org.gnome.gnome-commander.gschema.xml:714
+#: data/org.gnome.gnome-commander.gschema.xml:716
 msgid "Leave terminal open"
 msgstr "Lämna terminal öppen"
 
-#: data/org.gnome.gnome-commander.gschema.xml:715
+#: data/org.gnome.gnome-commander.gschema.xml:717
 msgid ""
 "This option defines if a terminal window should stay open after a command "
 "finishes inside of it."
@@ -1003,111 +1005,111 @@ msgstr ""
 "Detta alternativ definierar huruvida ett terminalfönster ska fortsätta vara "
 "öppet efter att ett kommando avslutats i det."
 
-#: data/org.gnome.gnome-commander.gschema.xml:721
+#: data/org.gnome.gnome-commander.gschema.xml:723
 msgid "Command for opening a terminal"
 msgstr "Kommando för att öppna en terminal"
 
-#: data/org.gnome.gnome-commander.gschema.xml:722
+#: data/org.gnome.gnome-commander.gschema.xml:724
 msgid "This string defines the command for opening a terminal."
 msgstr "Denna sträng definierar kommandot för att öppna en terminal."
 
-#: data/org.gnome.gnome-commander.gschema.xml:728
+#: data/org.gnome.gnome-commander.gschema.xml:730
 msgid "Command for execution in terminal"
 msgstr "Kommando för exekvering i terminal"
 
-#: data/org.gnome.gnome-commander.gschema.xml:729
+#: data/org.gnome.gnome-commander.gschema.xml:731
 msgid ""
 "This string defines the command for executing another command in a terminal."
 msgstr ""
 "Denna sträng definierar kommandot för att exekvera ett annat kommando i en "
 "terminal."
 
-#: data/org.gnome.gnome-commander.gschema.xml:735
+#: data/org.gnome.gnome-commander.gschema.xml:737
 msgid "Send to command"
 msgstr "”Skicka till”-kommando"
 
-#: data/org.gnome.gnome-commander.gschema.xml:736
+#: data/org.gnome.gnome-commander.gschema.xml:738
 msgid "This string defines the command for sending files to a receiver."
 msgstr ""
 "Denna sträng definierar kommandot för att sända filer till en mottagare."
 
-#: data/org.gnome.gnome-commander.gschema.xml:744
+#: data/org.gnome.gnome-commander.gschema.xml:746
 msgid "Color theme"
 msgstr "Färgschema"
 
-#: data/org.gnome.gnome-commander.gschema.xml:745
+#: data/org.gnome.gnome-commander.gschema.xml:747
 msgid "This option defines the current color theme."
 msgstr "Detta alternativ definierar det aktuella färgtemat."
 
-#: data/org.gnome.gnome-commander.gschema.xml:751
+#: data/org.gnome.gnome-commander.gschema.xml:753
 msgid "Normal foreground color"
 msgstr "Normal förgrundsfärg"
 
-#: data/org.gnome.gnome-commander.gschema.xml:752
+#: data/org.gnome.gnome-commander.gschema.xml:754
 msgid "Normal foreground color in custom mode."
 msgstr "Normal förgrundsfärg i anpassat läge."
 
-#: data/org.gnome.gnome-commander.gschema.xml:758
+#: data/org.gnome.gnome-commander.gschema.xml:760
 msgid "Normal background color"
 msgstr "Normal bakgrundsfärg"
 
-#: data/org.gnome.gnome-commander.gschema.xml:759
+#: data/org.gnome.gnome-commander.gschema.xml:761
 msgid "Normal background color in custom mode."
 msgstr "Normal bakgrundsfärg i anpassat läge."
 
-#: data/org.gnome.gnome-commander.gschema.xml:765
+#: data/org.gnome.gnome-commander.gschema.xml:767
 msgid "Alternate foreground color"
 msgstr "Alternativ förgrundsfärg"
 
-#: data/org.gnome.gnome-commander.gschema.xml:766
+#: data/org.gnome.gnome-commander.gschema.xml:768
 msgid "Alternate foreground color in custom mode."
 msgstr "Alternativ förgrundsfärg i anpassat läge."
 
-#: data/org.gnome.gnome-commander.gschema.xml:772
+#: data/org.gnome.gnome-commander.gschema.xml:774
 msgid "Alternate background color"
 msgstr "Alternativ bakgrundsfärg"
 
-#: data/org.gnome.gnome-commander.gschema.xml:773
+#: data/org.gnome.gnome-commander.gschema.xml:775
 msgid "Alternate background color in custom mode."
 msgstr "Alternativ bakgrundsfärg i anpassat läge."
 
-#: data/org.gnome.gnome-commander.gschema.xml:779
+#: data/org.gnome.gnome-commander.gschema.xml:781
 msgid "Selection foreground color"
 msgstr "Förgrundsfärg för markeringar"
 
-#: data/org.gnome.gnome-commander.gschema.xml:780
+#: data/org.gnome.gnome-commander.gschema.xml:782
 msgid "Foreground color for selections in custom mode."
 msgstr "Förgrundsfärg för markeringar i anpassat läge."
 
-#: data/org.gnome.gnome-commander.gschema.xml:786
+#: data/org.gnome.gnome-commander.gschema.xml:788
 msgid "Selection background color"
 msgstr "Bakgrundsfärg för markeringar"
 
-#: data/org.gnome.gnome-commander.gschema.xml:787
+#: data/org.gnome.gnome-commander.gschema.xml:789
 msgid "Background color for selections in custom mode."
 msgstr "Bakgrundsfärg för markeringar i anpassat läge."
 
-#: data/org.gnome.gnome-commander.gschema.xml:793
+#: data/org.gnome.gnome-commander.gschema.xml:795
 msgid "Cursor foreground color"
 msgstr "Markörförgrundsfärg"
 
-#: data/org.gnome.gnome-commander.gschema.xml:794
+#: data/org.gnome.gnome-commander.gschema.xml:796
 msgid "Cursor foreground color in custom mode."
 msgstr "Markörförgrundsfärg i anpassat läge."
 
-#: data/org.gnome.gnome-commander.gschema.xml:800
+#: data/org.gnome.gnome-commander.gschema.xml:802
 msgid "Cursor background color"
 msgstr "Markörbakgrundsfärg"
 
-#: data/org.gnome.gnome-commander.gschema.xml:801
+#: data/org.gnome.gnome-commander.gschema.xml:803
 msgid "Cursor background color in custom mode."
 msgstr "Markörbakgrundsfärg i anpassat läge."
 
-#: data/org.gnome.gnome-commander.gschema.xml:807
+#: data/org.gnome.gnome-commander.gschema.xml:809
 msgid "Use LS colors"
 msgstr "Använd LS-färger"
 
-#: data/org.gnome.gnome-commander.gschema.xml:808
+#: data/org.gnome.gnome-commander.gschema.xml:810
 msgid ""
 "This option triggers if the value of the environment variable LS_COLORS "
 "should be used to dye files and folders."
@@ -1115,173 +1117,173 @@ msgstr ""
 "Detta alternativ styr om värdet för miljövariabeln LS_COLORS ska användas "
 "för att färga filer och mappar."
 
-#: data/org.gnome.gnome-commander.gschema.xml:815
+#: data/org.gnome.gnome-commander.gschema.xml:817
 msgid "LS_COLORS black foreground mapping"
 msgstr "LS_COLORS svart förgrundsmappning"
 
-#: data/org.gnome.gnome-commander.gschema.xml:816
+#: data/org.gnome.gnome-commander.gschema.xml:818
 msgid ""
 "This option adjusts the foreground color mapping for LS_COLORS black value."
 msgstr ""
 "Detta alternativ justerar förgrundsfärgmappningen för LS_COLORS svarta värde."
 
-#: data/org.gnome.gnome-commander.gschema.xml:822
+#: data/org.gnome.gnome-commander.gschema.xml:824
 msgid "LS_COLORS black background mapping"
 msgstr "LS_COLORS svart bakgrundsmappning"
 
-#: data/org.gnome.gnome-commander.gschema.xml:823
+#: data/org.gnome.gnome-commander.gschema.xml:825
 msgid ""
 "This option adjusts the background color mapping for LS_COLORS black value."
 msgstr ""
 "Detta alternativ justerar bakgrundsfärgmappningen för LS_COLORS svarta värde."
 
-#: data/org.gnome.gnome-commander.gschema.xml:829
+#: data/org.gnome.gnome-commander.gschema.xml:831
 msgid "LS_COLORS red foreground mapping"
 msgstr "LS_COLORS röd förgrundsmappning"
 
-#: data/org.gnome.gnome-commander.gschema.xml:830
+#: data/org.gnome.gnome-commander.gschema.xml:832
 msgid ""
 "This option adjusts the foreground color mapping for LS_COLORS red value."
 msgstr ""
 "Detta alternativ justerar förgrundsfärgmappningen för LS_COLORS röda värde."
 
-#: data/org.gnome.gnome-commander.gschema.xml:836
+#: data/org.gnome.gnome-commander.gschema.xml:838
 msgid "LS_COLORS red background mapping"
 msgstr "LS_COLORS röd bakgrundsmappning"
 
-#: data/org.gnome.gnome-commander.gschema.xml:837
+#: data/org.gnome.gnome-commander.gschema.xml:839
 msgid ""
 "This option adjusts the background color mapping for LS_COLORS red value."
 msgstr ""
 "Detta alternativ justerar bakgrundsfärgmappningen för LS_COLORS röda värde."
 
-#: data/org.gnome.gnome-commander.gschema.xml:843
+#: data/org.gnome.gnome-commander.gschema.xml:845
 msgid "LS_COLORS green foreground mapping"
 msgstr "LS_COLORS grön förgrundsmappning"
 
-#: data/org.gnome.gnome-commander.gschema.xml:844
+#: data/org.gnome.gnome-commander.gschema.xml:846
 msgid ""
 "This option adjusts the foreground color mapping for LS_COLORS green value."
 msgstr ""
 "Detta alternativ justerar förgrundsfärgmappningen för LS_COLORS gröna värde."
 
-#: data/org.gnome.gnome-commander.gschema.xml:850
+#: data/org.gnome.gnome-commander.gschema.xml:852
 msgid "LS_COLORS green background mapping"
 msgstr "LS_COLORS grön bakgrundsmappning"
 
-#: data/org.gnome.gnome-commander.gschema.xml:851
+#: data/org.gnome.gnome-commander.gschema.xml:853
 msgid ""
 "This option adjusts the background color mapping for LS_COLORS green value."
 msgstr ""
 "Detta alternativ justerar bakgrundsfärgmappningen för LS_COLORS gröna värde."
 
-#: data/org.gnome.gnome-commander.gschema.xml:857
+#: data/org.gnome.gnome-commander.gschema.xml:859
 msgid "LS_COLORS yellow foreground mapping"
 msgstr "LS_COLORS gul förgrundsmappning"
 
-#: data/org.gnome.gnome-commander.gschema.xml:858
+#: data/org.gnome.gnome-commander.gschema.xml:860
 msgid ""
 "This option adjusts the foreground color mapping for LS_COLORS yellow value."
 msgstr ""
 "Detta alternativ justerar förgrundsfärgmappningen för LS_COLORS gula värde."
 
-#: data/org.gnome.gnome-commander.gschema.xml:864
+#: data/org.gnome.gnome-commander.gschema.xml:866
 msgid "LS_COLORS yellow background mapping"
 msgstr "LS_COLORS gul bakgrundsmappning"
 
-#: data/org.gnome.gnome-commander.gschema.xml:865
+#: data/org.gnome.gnome-commander.gschema.xml:867
 msgid ""
 "This option adjusts the background color mapping for LS_COLORS yellow value."
 msgstr ""
 "Detta alternativ justerar bakgrundsfärgmappningen för LS_COLORS gula värde."
 
-#: data/org.gnome.gnome-commander.gschema.xml:871
+#: data/org.gnome.gnome-commander.gschema.xml:873
 msgid "LS_COLORS blue foreground mapping"
 msgstr "LS_COLORS blå förgrundsmappning"
 
-#: data/org.gnome.gnome-commander.gschema.xml:872
+#: data/org.gnome.gnome-commander.gschema.xml:874
 msgid ""
 "This option adjusts the foreground color mapping for LS_COLORS blue value."
 msgstr ""
 "Detta alternativ justerar förgrundsfärgmappningen för LS_COLORS blåa värde."
 
-#: data/org.gnome.gnome-commander.gschema.xml:878
+#: data/org.gnome.gnome-commander.gschema.xml:880
 msgid "LS_COLORS blue background mapping"
 msgstr "LS_COLORS blå bakgrundsmappning"
 
-#: data/org.gnome.gnome-commander.gschema.xml:879
+#: data/org.gnome.gnome-commander.gschema.xml:881
 msgid ""
 "This option adjusts the background color mapping for LS_COLORS blue value."
 msgstr ""
 "Detta alternativ justerar bakgrundsfärgmappningen för LS_COLORS blåa värde."
 
-#: data/org.gnome.gnome-commander.gschema.xml:885
+#: data/org.gnome.gnome-commander.gschema.xml:887
 msgid "LS_COLORS magenta foreground mapping"
 msgstr "LS_COLORS magenta förgrundsmappning"
 
-#: data/org.gnome.gnome-commander.gschema.xml:886
+#: data/org.gnome.gnome-commander.gschema.xml:888
 msgid ""
 "This option adjusts the foreground color mapping for LS_COLORS magenta value."
 msgstr ""
 "Detta alternativ justerar förgrundsfärgmappningen för LS_COLORS magenta-"
 "värde."
 
-#: data/org.gnome.gnome-commander.gschema.xml:892
+#: data/org.gnome.gnome-commander.gschema.xml:894
 msgid "LS_COLORS magenta background mapping"
 msgstr "LS_COLORS magenta bakgrundsmappning"
 
-#: data/org.gnome.gnome-commander.gschema.xml:893
+#: data/org.gnome.gnome-commander.gschema.xml:895
 msgid ""
 "This option adjusts the background color mapping for LS_COLORS magenta value."
 msgstr ""
 "Detta alternativ justerar bakgrundsfärgmappningen för LS_COLORS magenta-"
 "värde."
 
-#: data/org.gnome.gnome-commander.gschema.xml:899
+#: data/org.gnome.gnome-commander.gschema.xml:901
 msgid "LS_COLORS cyan foreground mapping"
 msgstr "LS_COLORS cyan förgrundsmappning"
 
-#: data/org.gnome.gnome-commander.gschema.xml:900
+#: data/org.gnome.gnome-commander.gschema.xml:902
 msgid ""
 "This option adjusts the foreground color mapping for LS_COLORS cyan value."
 msgstr ""
 "Detta alternativ justerar förgrundsfärgmappningen för LS_COLORS cyan-värde."
 
-#: data/org.gnome.gnome-commander.gschema.xml:906
+#: data/org.gnome.gnome-commander.gschema.xml:908
 msgid "LS_COLORS cyan background mapping"
 msgstr "LS_COLORS cyan bakgrundsmappning"
 
-#: data/org.gnome.gnome-commander.gschema.xml:907
+#: data/org.gnome.gnome-commander.gschema.xml:909
 msgid ""
 "This option adjusts the background color mapping for LS_COLORS cyan value."
 msgstr ""
 "Detta alternativ justerar bakgrundsfärgmappningen för LS_COLORS cyan-värde."
 
-#: data/org.gnome.gnome-commander.gschema.xml:913
+#: data/org.gnome.gnome-commander.gschema.xml:915
 msgid "LS_COLORS white foreground mapping"
 msgstr "LS_COLORS vit förgrundsmappning"
 
-#: data/org.gnome.gnome-commander.gschema.xml:914
+#: data/org.gnome.gnome-commander.gschema.xml:916
 msgid ""
 "This option adjusts the foreground color mapping for LS_COLORS white value."
 msgstr ""
 "Detta alternativ justerar förgrundsfärgmappningen för LS_COLORS vita värde."
 
-#: data/org.gnome.gnome-commander.gschema.xml:920
+#: data/org.gnome.gnome-commander.gschema.xml:922
 msgid "LS_COLORS white background mapping"
 msgstr "LS_COLORS vit bakgrundsmappning"
 
-#: data/org.gnome.gnome-commander.gschema.xml:921
+#: data/org.gnome.gnome-commander.gschema.xml:923
 msgid ""
 "This option adjusts the background color mapping for LS_COLORS white value."
 msgstr ""
 "Detta alternativ justerar bakgrundsfärgmappningen för LS_COLORS vita värde."
 
-#: data/org.gnome.gnome-commander.gschema.xml:929
+#: data/org.gnome.gnome-commander.gschema.xml:931
 msgid "Case sensitive search"
 msgstr "Skiftlägeskänslig sökning"
 
-#: data/org.gnome.gnome-commander.gschema.xml:930
+#: data/org.gnome.gnome-commander.gschema.xml:932
 msgid ""
 "This option defines if searching within the internal viewer is case "
 "sensitive."
@@ -1289,11 +1291,11 @@ msgstr ""
 "Detta alternativ definierar om sökning inom den interna visaren är "
 "skiftlägeskänslig."
 
-#: data/org.gnome.gnome-commander.gschema.xml:936
+#: data/org.gnome.gnome-commander.gschema.xml:938
 msgid "Search mode"
 msgstr "Sökläge"
 
-#: data/org.gnome.gnome-commander.gschema.xml:937
+#: data/org.gnome.gnome-commander.gschema.xml:939
 msgid "This option defines the search mode of the internal viewer."
 msgstr "Detta alternativ definierar sökläget för den interna visaren."
 
@@ -1302,39 +1304,39 @@ msgstr "Detta alternativ definierar sökläget för den interna visaren."
 #. an encoding that is common in your country.
 #. See https://gitlab.gnome.org/GNOME/gnome-commander/blob/master/src/intviewer/viewer-window.cc#L360 for
 #. a list of supported encodings.
-#: data/org.gnome.gnome-commander.gschema.xml:947
+#: data/org.gnome.gnome-commander.gschema.xml:949
 msgid "'UTF8'"
 msgstr "'UTF8'"
 
-#: data/org.gnome.gnome-commander.gschema.xml:948
+#: data/org.gnome.gnome-commander.gschema.xml:950
 msgid "Character set"
 msgstr "Teckenuppsättning"
 
-#: data/org.gnome.gnome-commander.gschema.xml:949
+#: data/org.gnome.gnome-commander.gschema.xml:951
 msgid "This option defines the default character encoding."
 msgstr "Detta alternativ definierar standardteckenkodningen."
 
-#: data/org.gnome.gnome-commander.gschema.xml:955
+#: data/org.gnome.gnome-commander.gschema.xml:957
 msgid "Fixed font name"
 msgstr "Fast typsnittsnamn"
 
-#: data/org.gnome.gnome-commander.gschema.xml:956
+#: data/org.gnome.gnome-commander.gschema.xml:958
 msgid "Name of the default font with fixed character width."
 msgstr "Namnet på standardtypsnittet med fast teckenbredd."
 
-#: data/org.gnome.gnome-commander.gschema.xml:962
+#: data/org.gnome.gnome-commander.gschema.xml:964
 msgid "Variable font name"
 msgstr "Variabelt typsnittsnamn"
 
-#: data/org.gnome.gnome-commander.gschema.xml:963
+#: data/org.gnome.gnome-commander.gschema.xml:965
 msgid "Name of the default font with variable character width."
 msgstr "Namnet på standardtypsnittet med variabel teckenbredd."
 
-#: data/org.gnome.gnome-commander.gschema.xml:969
+#: data/org.gnome.gnome-commander.gschema.xml:971
 msgid "Display hex offset"
 msgstr "Visa hexförskjutning"
 
-#: data/org.gnome.gnome-commander.gschema.xml:970
+#: data/org.gnome.gnome-commander.gschema.xml:972
 msgid ""
 "This option defines if the hexadecimal offset should be displayed in hex "
 "mode."
@@ -1342,27 +1344,27 @@ msgstr ""
 "Detta alternativ definierar om den hexadecimala förskjutningen ska visas i "
 "hexläge."
 
-#: data/org.gnome.gnome-commander.gschema.xml:976
+#: data/org.gnome.gnome-commander.gschema.xml:978
 msgid "Wrap mode"
 msgstr "Radbrytsläge"
 
-#: data/org.gnome.gnome-commander.gschema.xml:977
+#: data/org.gnome.gnome-commander.gschema.xml:979
 msgid "This option defines if too long text lines should be wrapped."
 msgstr "Detta alternativ definierar om för långa textrader ska radbrytas."
 
-#: data/org.gnome.gnome-commander.gschema.xml:983
+#: data/org.gnome.gnome-commander.gschema.xml:985
 msgid "Font size"
 msgstr "Teckenstorlek"
 
-#: data/org.gnome.gnome-commander.gschema.xml:984
+#: data/org.gnome.gnome-commander.gschema.xml:986
 msgid "This option defines the default font size."
 msgstr "Detta alternativ definierar storleken på standardtypsnittet."
 
-#: data/org.gnome.gnome-commander.gschema.xml:990
+#: data/org.gnome.gnome-commander.gschema.xml:992
 msgid "Tab size"
 msgstr "Tabbstorlek"
 
-#: data/org.gnome.gnome-commander.gschema.xml:991
+#: data/org.gnome.gnome-commander.gschema.xml:993
 msgid ""
 "This option defines the indentation width in terms of characters for a "
 "tabulator character."
@@ -1370,11 +1372,11 @@ msgstr ""
 "Detta alternativ definierar indenteringsbredden i formen av antal tecken för "
 "ett tabulatortecken."
 
-#: data/org.gnome.gnome-commander.gschema.xml:997
+#: data/org.gnome.gnome-commander.gschema.xml:999
 msgid "Bytes per line in binary mode"
 msgstr "Byte per rad i binärt läge"
 
-#: data/org.gnome.gnome-commander.gschema.xml:998
+#: data/org.gnome.gnome-commander.gschema.xml:1000
 msgid ""
 "This option defines how many bytes should be displayed in one line in binary "
 "mode."
@@ -1382,19 +1384,19 @@ msgstr ""
 "Detta alternativ definierar hur många byte som ska visas på en rad i binärt "
 "läge."
 
-#: data/org.gnome.gnome-commander.gschema.xml:1004
+#: data/org.gnome.gnome-commander.gschema.xml:1006
 msgid "Metadata view"
 msgstr "Metadatavy"
 
-#: data/org.gnome.gnome-commander.gschema.xml:1005
+#: data/org.gnome.gnome-commander.gschema.xml:1007
 msgid "This option defines if metadata should be visible."
 msgstr "Detta alternativ definierar om metadata ska vara synliga."
 
-#: data/org.gnome.gnome-commander.gschema.xml:1011
+#: data/org.gnome.gnome-commander.gschema.xml:1013
 msgid "Horizontal offset"
 msgstr "Horisontell förskjutning"
 
-#: data/org.gnome.gnome-commander.gschema.xml:1012
+#: data/org.gnome.gnome-commander.gschema.xml:1014
 msgid ""
 "This option defines the visual offset of the internal file viewer in "
 "horizontal direction."
@@ -1402,11 +1404,11 @@ msgstr ""
 "Detta alternativ definierar den visuella förskjutningen för den interna "
 "filvisaren i horisontell riktning."
 
-#: data/org.gnome.gnome-commander.gschema.xml:1018
+#: data/org.gnome.gnome-commander.gschema.xml:1020
 msgid "Vertical offset"
 msgstr "Vertikal förskjutning"
 
-#: data/org.gnome.gnome-commander.gschema.xml:1019
+#: data/org.gnome.gnome-commander.gschema.xml:1021
 msgid ""
 "This option defines the visual offset of the internal file viewer in "
 "vertical direction."
@@ -1414,27 +1416,27 @@ msgstr ""
 "Detta alternativ definierar den visuella förskjutningen för den interna "
 "filvisaren i vertikal riktning."
 
-#: data/org.gnome.gnome-commander.gschema.xml:1025
+#: data/org.gnome.gnome-commander.gschema.xml:1027
 msgid "Window width"
 msgstr "Fönsterbredd"
 
-#: data/org.gnome.gnome-commander.gschema.xml:1026
+#: data/org.gnome.gnome-commander.gschema.xml:1028
 msgid "The width of the internal file viewer window."
 msgstr "Bredden på det interna filvisarfönstret."
 
-#: data/org.gnome.gnome-commander.gschema.xml:1032
+#: data/org.gnome.gnome-commander.gschema.xml:1034
 msgid "Window height"
 msgstr "Fönsterhöjd"
 
-#: data/org.gnome.gnome-commander.gschema.xml:1033
+#: data/org.gnome.gnome-commander.gschema.xml:1035
 msgid "The height of the internal file viewer window."
 msgstr "Höjden på det interna filvisarfönstret."
 
-#: data/org.gnome.gnome-commander.gschema.xml:1039
+#: data/org.gnome.gnome-commander.gschema.xml:1041
 msgid "Search pattern for text"
 msgstr "Sökmönster för text"
 
-#: data/org.gnome.gnome-commander.gschema.xml:1040
+#: data/org.gnome.gnome-commander.gschema.xml:1042
 msgid ""
 "This string array stores the history of text searches within the internal "
 "file viewer."
@@ -1442,11 +1444,11 @@ msgstr ""
 "Denna strängvektor lagrar historiken för textsökningar inuti den interna "
 "filvisaren."
 
-#: data/org.gnome.gnome-commander.gschema.xml:1046
+#: data/org.gnome.gnome-commander.gschema.xml:1048
 msgid "Search pattern for hex values"
 msgstr "Sökmönster för hexvärden"
 
-#: data/org.gnome.gnome-commander.gschema.xml:1047
+#: data/org.gnome.gnome-commander.gschema.xml:1049
 msgid ""
 "This string array stores the history of searches for hex values within the "
 "internal file viewer."
@@ -1454,19 +1456,19 @@ msgstr ""
 "Denna strängvektor lagrar historiken för sökningar av hexvärden inuti den "
 "interna filvisaren."
 
-#: data/org.gnome.gnome-commander.gschema.xml:1055
+#: data/org.gnome.gnome-commander.gschema.xml:1057
 msgid "File suffix"
 msgstr "Filsuffix"
 
-#: data/org.gnome.gnome-commander.gschema.xml:1056
+#: data/org.gnome.gnome-commander.gschema.xml:1058
 msgid "Default file suffix of archives created with the File Roller plugin."
 msgstr "Standardfilsuffix för arkiv skapade med insticksmodulen File Roller."
 
-#: data/org.gnome.gnome-commander.gschema.xml:1062
+#: data/org.gnome.gnome-commander.gschema.xml:1064
 msgid "Prefix pattern"
 msgstr "Prefixmönster"
 
-#: data/org.gnome.gnome-commander.gschema.xml:1063
+#: data/org.gnome.gnome-commander.gschema.xml:1065
 msgid ""
 "The prefix pattern is used to build up the name for an archive created with "
 "the File Roller plugin."
@@ -1474,11 +1476,11 @@ msgstr ""
 "Prefixmönstret används för att bygga upp namnet för ett arkiv skapat med "
 "insticksmodulen File Roller."
 
-#: data/org.gnome.gnome-commander.gschema.xml:1071
+#: data/org.gnome.gnome-commander.gschema.xml:1073
 msgid "Automatically loaded plugins"
 msgstr "Automatiskt inlästa insticksmoduler"
 
-#: data/org.gnome.gnome-commander.gschema.xml:1072
+#: data/org.gnome.gnome-commander.gschema.xml:1074
 msgid ""
 "This is the list of automatically loaded plugins, whereas each entry "
 "represents the file name of the plugin."
@@ -2569,11 +2571,8 @@ msgid "Format:"
 msgstr "Format:"
 
 #: src/dialogs/gnome-cmd-options-dialog.cc:432
-msgid ""
-"See the manual page for “strftime” for help on how to set the format string."
-msgstr ""
-"Läs manualsidan för funktionen ”strftime” om du vill veta hur du gör en egen "
-"formatsträng."
+msgid "See the help page in the documentation on how to set the format string."
+msgstr "Läs hjälpsidan i dokumentationen om hur du ställer in formatsträngen."
 
 #: src/dialogs/gnome-cmd-options-dialog.cc:516
 msgid "Edit Colors…"
@@ -9239,39 +9238,39 @@ msgstr "Ingen"
 msgid "10-15ms"
 msgstr "10-15ms"
 
-#: src/utils.cc:492
+#: src/utils.cc:497
 #, c-format
 msgid "(%sbyte)"
 msgid_plural "(%sbytes)"
 msgstr[0] "(%sbyte)"
 msgstr[1] "(%sbyte)"
 
-#: src/utils.cc:495
+#: src/utils.cc:500
 #, c-format
 msgid "%sbyte"
 msgid_plural "%sbytes"
 msgstr[0] "%sbyte"
 msgstr[1] "%sbyte"
 
-#: src/utils.cc:636
+#: src/utils.cc:641
 msgid "Failed to change working directory to a temporary directory."
 msgstr "Kunde inte byta arbetskatalog till en temporär katalog."
 
-#: src/utils.cc:646
+#: src/utils.cc:651
 msgid "Failed to create a directory in which to store temporary files."
 msgstr "Kunde inte skapa en katalog för att spara temporära filer."
 
-#: src/utils.cc:774
+#: src/utils.cc:779
 #, c-format
 msgid "Creating directory %s… "
 msgstr "Skapar katalogen %s… "
 
-#: src/utils.cc:785
+#: src/utils.cc:790
 #, c-format
 msgid "Failed to create the directory %s: %s"
 msgstr "Kunde inte skapa katalogen %s: %s"
 
-#: src/utils.cc:889
+#: src/utils.cc:894
 msgid "There was an error displaying help."
 msgstr "Ett fel uppstod vid visande av hjälp."
 
