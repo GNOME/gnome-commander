@@ -55,9 +55,9 @@ static gboolean home_open_is_needed (GnomeCmdCon *con)
 }
 
 
-static GFile *home_create_gfile (GnomeCmdCon *con, GnomeCmdPath *path)
+static GFile *home_create_gfile (GnomeCmdCon *con, const gchar *path)
 {
-    return g_file_new_for_path(path->get_path());
+    return g_file_new_for_path(path);
 }
 
 

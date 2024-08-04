@@ -1060,7 +1060,7 @@ static gboolean on_new_textfile_ok (GnomeCmdStringDialog *string_dialog, const g
     {
         auto con = gnome_cmd_dir_get_connection (dir);
         auto conPath = gnome_cmd_con_create_path (con, fname);
-        gFile = gnome_cmd_con_create_gfile (con, conPath);
+        gFile = gnome_cmd_con_create_gfile (con, conPath->get_path());
         delete conPath;
     }
     else
@@ -1141,7 +1141,7 @@ static gboolean on_create_symlink_ok (GnomeCmdStringDialog *string_dialog, const
     {
         auto con = gnome_cmd_dir_get_connection (dir);
         auto conPath = gnome_cmd_con_create_path (con, fname);
-        gFile = gnome_cmd_con_create_gfile (con, conPath);
+        gFile = gnome_cmd_con_create_gfile (con, conPath->get_path());
         delete conPath;
     }
     else

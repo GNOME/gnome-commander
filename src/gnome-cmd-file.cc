@@ -251,7 +251,7 @@ void gnome_cmd_file_setup (GObject *gObject, GFileInfo *gFileInfo, GnomeCmdDir *
     if (path)
     {
         auto con = gnome_cmd_dir_get_connection(parentDir ? parentDir : GNOME_CMD_DIR(gObject));
-        GNOME_CMD_FILE_BASE (gnomeCmdFile)->gFile = gnome_cmd_con_create_gfile (con, path);
+        GNOME_CMD_FILE_BASE (gnomeCmdFile)->gFile = gnome_cmd_con_create_gfile (con, path->get_path());
 
         delete path;
     }
@@ -611,7 +611,7 @@ GFile *GnomeCmdFile::get_gfile(const gchar *name)
         {
             GnomeCmdPath *path = gnome_cmd_dir_get_path (GNOME_CMD_DIR (this));
             GnomeCmdCon *con = gnome_cmd_dir_get_connection (GNOME_CMD_DIR (this));
-            return gnome_cmd_con_create_gfile (con, path);
+            return gnome_cmd_con_create_gfile (con, path->get_path());
         }
         else
             g_assert ("Non directory file without owning directory");
@@ -881,10 +881,9 @@ void gnome_cmd_file_view_internal(GtkWindow *parent_window, GnomeCmdFile *f)
         gchar *path_str = get_temp_download_filepath (f->get_name());
         if (!path_str)  return;
 
-        GnomeCmdPlainPath path(path_str);
         auto srcGFile = f->get_gfile();
-        auto destGFile = gnome_cmd_con_create_gfile (get_home_con (), &path);
-        auto gFile = gnome_cmd_con_create_gfile (get_home_con (), &path);
+        auto destGFile = gnome_cmd_con_create_gfile (get_home_con (), path_str);
+        auto gFile = gnome_cmd_con_create_gfile (get_home_con (), path_str);
 
         g_printerr ("Copying to: %s\n", path_str);
         g_free (path_str);

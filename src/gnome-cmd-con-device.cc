@@ -222,7 +222,7 @@ static void do_legacy_mount_thread_func(GnomeCmdCon *con)
         return;
     }
 
-    auto gFile = gnome_cmd_con_create_gfile(con, con->base_path);
+    auto gFile = gnome_cmd_con_create_gfile(con, con->base_path->get_path());
 
     con->base_gFileInfo = g_file_query_info(gFile,
                               "*",
@@ -426,7 +426,7 @@ static gboolean dev_open_is_needed (GnomeCmdCon *con)
 }
 
 
-static GFile *dev_create_gfile (GnomeCmdCon *con, GnomeCmdPath *gnomeCmdPath)
+static GFile *dev_create_gfile (GnomeCmdCon *con, const gchar *path)
 {
     g_return_val_if_fail (GNOME_CMD_IS_CON_DEVICE (con), nullptr);
 
@@ -436,10 +436,10 @@ static GFile *dev_create_gfile (GnomeCmdCon *con, GnomeCmdPath *gnomeCmdPath)
 
     if (priv->gMount != nullptr)
     {
-        if (gnomeCmdPath)
+        if (path != nullptr)
         {
             auto gMountGFile = g_mount_get_default_location (priv->gMount);
-            newGFile = g_file_resolve_relative_path(gMountGFile, gnomeCmdPath->get_path());
+            newGFile = g_file_resolve_relative_path(gMountGFile, path);
             g_object_unref(gMountGFile);
         }
         else
@@ -449,9 +449,9 @@ static GFile *dev_create_gfile (GnomeCmdCon *con, GnomeCmdPath *gnomeCmdPath)
     }
     else
     {
-        if (gnomeCmdPath != nullptr)
+        if (path != nullptr)
         {
-            newGFile = g_file_new_for_path(gnomeCmdPath->get_path());
+            newGFile = g_file_new_for_path(path);
         }
     }
     return newGFile;

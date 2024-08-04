@@ -1381,8 +1381,7 @@ static void on_tmp_download_response (GtkWidget *w, gint id, TmpDlData *dldata)
         dldata->args[1] = (gpointer) path_str;
 
         auto sourceGFile = g_file_dup (dldata->f->get_gfile());
-        GnomeCmdPlainPath path(path_str);
-        auto destGFile = gnome_cmd_con_create_gfile (get_home_con (), &path);
+        auto destGFile = gnome_cmd_con_create_gfile (get_home_con (), path_str);
 
         gnome_cmd_tmp_download (dldata->parent_window,
                                 g_list_append (nullptr, sourceGFile),

@@ -315,7 +315,7 @@ gboolean set_con_base_gfileinfo(GnomeCmdCon *con)
     }
 
     auto gFile = con->is_local
-        ? gnome_cmd_con_create_gfile (con, con->base_path)
+        ? gnome_cmd_con_create_gfile (con, con->base_path->get_path())
         : gnome_cmd_con_create_gfile (con, nullptr);
     con->base_gFileInfo = g_file_query_info(gFile, "*", G_FILE_QUERY_INFO_NONE, nullptr, &error);
     g_object_unref(gFile);
@@ -398,7 +398,7 @@ void gnome_cmd_con_set_uri_string (GnomeCmdCon *con, const gchar *uri_string)
     gnome_cmd_con_set_uri (con, uri);
 }
 
-GFile *gnome_cmd_con_create_gfile (GnomeCmdCon *con, GnomeCmdPath *path)
+GFile *gnome_cmd_con_create_gfile (GnomeCmdCon *con, const gchar *path)
 {
     g_return_val_if_fail (GNOME_CMD_IS_CON (con), nullptr);
 
@@ -512,7 +512,7 @@ gboolean gnome_cmd_con_get_path_target_type (GnomeCmdCon *con, const gchar *path
     g_return_val_if_fail (path_str != nullptr, false);
 
     GnomeCmdPath *path = gnome_cmd_con_create_path (con, path_str);
-    auto gFile = gnome_cmd_con_create_gfile(con, path);
+    auto gFile = gnome_cmd_con_create_gfile(con, path->get_path());
 
     if (!gFile || !g_file_query_exists(gFile, nullptr))
     {
@@ -539,7 +539,7 @@ gboolean gnome_cmd_con_mkdir (GnomeCmdCon *con, const gchar *path_str, GError *e
     g_return_val_if_fail (path_str != nullptr, false);
 
     auto path = gnome_cmd_con_create_path (con, path_str);
-    auto gFile = gnome_cmd_con_create_gfile (con, path);
+    auto gFile = gnome_cmd_con_create_gfile (con, path->get_path());
 
     if (!g_file_make_directory (gFile, nullptr, &tmpError))
     {
