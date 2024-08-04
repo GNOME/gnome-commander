@@ -112,8 +112,6 @@ TAGLIB_1_14_24 = '1.14.24'
 TAGLIB_1_14_26 = '1.14.26'
 LIBGSF_REQ = '1.12.0'
 conf_data.set('LIBGSF_REQ', LIBGSF_REQ, description: 'Required version of gsf library')
-POPPLER_REQ = '0.18'
-conf_data.set('POPPLER_REQ', POPPLER_REQ, description: 'Required version of poppler library')
 
 # Check for exiv2 support
 exiv2 = dependency('exiv2', version: '>=' + EXIV2_REQ, required: get_option('exiv2'))
@@ -144,7 +142,7 @@ if have_taglib
 endif
 
 # Check for poppler
-pdf = dependency('poppler-glib', version: '>=' + POPPLER_REQ, required: get_option('poppler'))
+pdf = dependency('poppler-glib', required: get_option('poppler'))
 have_pdf = pdf.found()
 if have_pdf
   conf_data.set('HAVE_PDF', '@0@'.format(have_pdf.to_int()), description : 'Defined if you have PDF support')
