@@ -21,49 +21,90 @@
  */
 
 use gtk::{
-    gio::{self, ffi::GFile},
-    glib::translate::{from_glib_full, from_glib_none},
+    gio,
+    glib::{self, translate::*, Cast},
 };
 use std::{
-    ffi::{self, CStr, CString},
+    ffi::{CStr, CString},
     path::PathBuf,
 };
 
-#[repr(C)]
-pub struct GnomeCmdFile(
-    [u8; 0],
-    std::marker::PhantomData<std::marker::PhantomPinned>,
-);
+use crate::libgcmd::file_base::{FileBase, FileBaseExt};
 
-extern "C" {
-    pub fn gnome_cmd_file_get_file(f: *const GnomeCmdFile) -> *mut GFile;
-    pub fn gnome_cmd_file_get_name(f: *const GnomeCmdFile) -> *const ffi::c_char;
-    pub fn gnome_cmd_file_get_real_path(f: *const GnomeCmdFile) -> *mut ffi::c_char;
-    pub fn gnome_cmd_file_get_uri_str(f: *const GnomeCmdFile) -> *mut ffi::c_char;
-    pub fn gnome_cmd_file_is_local(f: *const GnomeCmdFile) -> ffi::c_int;
+pub mod ffi {
+    use gtk::{gio::ffi::GFile, glib::ffi::GType};
+    use std::ffi::{c_char, c_int};
+
+    use crate::libgcmd::file_base::ffi::GnomeCmdFileBaseClass;
+
+    #[repr(C)]
+    pub struct GnomeCmdFile {
+        _data: [u8; 0],
+        _marker: std::marker::PhantomData<(*mut u8, std::marker::PhantomPinned)>,
+    }
+
+    extern "C" {
+        pub fn gnome_cmd_file_get_type() -> GType;
+
+        pub fn gnome_cmd_file_get_gfile(f: *const GnomeCmdFile, name: *const c_char) -> *mut GFile;
+        pub fn gnome_cmd_file_get_name(f: *const GnomeCmdFile) -> *const c_char;
+        pub fn gnome_cmd_file_get_real_path(f: *const GnomeCmdFile) -> *mut c_char;
+        pub fn gnome_cmd_file_get_uri_str(f: *const GnomeCmdFile) -> *mut c_char;
+        pub fn gnome_cmd_file_is_local(f: *const GnomeCmdFile) -> c_int;
+    }
+
+    #[derive(Copy, Clone)]
+    #[repr(C)]
+    pub struct GnomeCmdFileClass {
+        pub parent_class: GnomeCmdFileBaseClass,
+    }
 }
 
-impl GnomeCmdFile {
-    pub fn get_file(&self) -> gio::File {
-        unsafe { from_glib_none(gnome_cmd_file_get_file(self as *const GnomeCmdFile)) }
+glib::wrapper! {
+    pub struct File(Object<ffi::GnomeCmdFile, ffi::GnomeCmdFileClass>)
+        @extends FileBase;
+
+    match fn {
+        type_ => || ffi::gnome_cmd_file_get_type(),
+    }
+}
+
+impl FileBaseExt for File {
+    fn file(&self) -> gio::File {
+        self.upcast_ref::<FileBase>().file()
+    }
+
+    fn file_info(&self) -> gio::FileInfo {
+        self.upcast_ref::<FileBase>().file_info()
+    }
+}
+
+impl File {
+    pub fn gfile(&self, name: Option<&str>) -> gio::File {
+        unsafe {
+            from_glib_none(ffi::gnome_cmd_file_get_gfile(
+                self.to_glib_none().0,
+                name.to_glib_none().0,
+            ))
+        }
     }
 
     pub fn get_name(&self) -> Option<String> {
-        let ptr = unsafe { CStr::from_ptr(gnome_cmd_file_get_name(self as *const GnomeCmdFile)) };
+        let ptr = unsafe { CStr::from_ptr(ffi::gnome_cmd_file_get_name(self.to_glib_none().0)) };
         Some(ptr.to_str().ok()?.to_string())
     }
 
     pub fn get_real_path(&self) -> PathBuf {
-        unsafe { from_glib_full(gnome_cmd_file_get_real_path(self as *const GnomeCmdFile)) }
+        unsafe { from_glib_full(ffi::gnome_cmd_file_get_real_path(self.to_glib_none().0)) }
     }
 
     pub fn get_uri_str(&self) -> Option<String> {
         let ptr =
-            unsafe { CString::from_raw(gnome_cmd_file_get_uri_str(self as *const GnomeCmdFile)) };
+            unsafe { CString::from_raw(ffi::gnome_cmd_file_get_uri_str(self.to_glib_none().0)) };
         Some(ptr.to_str().ok()?.to_string())
     }
 
     pub fn is_local(&self) -> bool {
-        unsafe { gnome_cmd_file_is_local(self as *const GnomeCmdFile) != 0 }
+        unsafe { ffi::gnome_cmd_file_is_local(self.to_glib_none().0) != 0 }
     }
 }

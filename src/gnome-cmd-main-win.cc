@@ -958,7 +958,7 @@ void GnomeCmdMainWin::open_tabs(FileSelectorID id)
             }
             path = path ? path : g_strdup(g_uri_get_path(gUri));
 
-            con = (GnomeCmdCon*) gnome_cmd_con_remote_new(nullptr, uriString);
+            con = (GnomeCmdCon*) gnome_cmd_con_remote_new(nullptr, uriString.c_str());
         }
 
         GnomeCmdDir *gnomeCmdDir = gnome_cmd_dir_new (con, gnome_cmd_con_create_path (con, path), true);
@@ -1271,5 +1271,10 @@ GnomeCmdBookmarksDialog *GnomeCmdMainWin::get_or_create_bookmarks_dialog ()
 GnomeCmdFileSelector *gnome_cmd_main_win_get_fs(GnomeCmdMainWin *main_win, FileSelectorID id)
 {
     return main_win->fs(id);
+}
+
+void gnome_cmd_main_win_focus_file_lists(GnomeCmdMainWin *main_win)
+{
+    return main_win->focus_file_lists();
 }
 

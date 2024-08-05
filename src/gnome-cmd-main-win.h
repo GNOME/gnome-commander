@@ -36,7 +36,7 @@
 #define GNOME_CMD_MAIN_WIN_GET_CLASS(obj)    (G_TYPE_INSTANCE_GET_CLASS((obj), GNOME_CMD_TYPE_MAIN_WIN, GnomeCmdMainWinClass))
 
 
-GType gnome_cmd_main_win_get_type ();
+extern "C" GType gnome_cmd_main_win_get_type ();
 
 
 struct GnomeCmdMainWin
@@ -107,4 +107,5 @@ struct GnomeCmdMainWin
 extern GnomeCmdMainWin *main_win;
 
 extern "C" GnomeCmdFileSelector *gnome_cmd_main_win_get_fs(GnomeCmdMainWin *main_win, FileSelectorID id);
+extern "C" void gnome_cmd_main_win_focus_file_lists(GnomeCmdMainWin *main_win);
 

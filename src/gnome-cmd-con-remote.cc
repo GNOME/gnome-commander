@@ -297,14 +297,14 @@ static void gnome_cmd_con_remote_init (GnomeCmdConRemote *remote_con)
 /**
  * Logic for setting up a new remote connection accordingly to the given uri_str.
  */
-GnomeCmdConRemote *gnome_cmd_con_remote_new (const gchar *alias, const string &uri_str)
+GnomeCmdConRemote *gnome_cmd_con_remote_new (const gchar *alias, const gchar *uri_str)
 {
     auto gnomeCmdConRemote = static_cast<GnomeCmdConRemote*> (g_object_new (GNOME_CMD_TYPE_CON_REMOTE, nullptr));
 
     g_return_val_if_fail (gnomeCmdConRemote != nullptr, nullptr);
 
     GError *error = nullptr;
-    GUri *uri = g_uri_parse (uri_str.c_str(), (GUriFlags) (G_URI_FLAGS_HAS_PASSWORD | G_URI_FLAGS_HAS_AUTH_PARAMS), &error);
+    GUri *uri = g_uri_parse (uri_str, (GUriFlags) (G_URI_FLAGS_HAS_PASSWORD | G_URI_FLAGS_HAS_AUTH_PARAMS), &error);
     if (error)
     {
         g_warning("gnome_cmd_con_remote_new - g_uri_split error: %s", error->message);

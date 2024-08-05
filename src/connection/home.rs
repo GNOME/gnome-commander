@@ -20,21 +20,35 @@
  * For more details see the file COPYING.
  */
 
-#[repr(C)]
-#[allow(non_camel_case_types)]
-pub enum FileSelectorID {
-    LEFT = 0,
-    RIGHT,
-    ACTIVE,
-    INACTIVE,
+use super::connection::Connection;
+use gtk::glib;
+
+pub mod ffi {
+    use crate::connection::connection::ffi::GnomeCmdConClass;
+    use gtk::glib::ffi::GType;
+
+    #[repr(C)]
+    pub struct GnomeCmdConHome {
+        _data: [u8; 0],
+        _marker: std::marker::PhantomData<(*mut u8, std::marker::PhantomPinned)>,
+    }
+
+    extern "C" {
+        pub fn gnome_cmd_con_home_get_type() -> GType;
+    }
+
+    #[derive(Copy, Clone)]
+    #[repr(C)]
+    pub struct GnomeCmdConHomeClass {
+        pub parent_class: GnomeCmdConClass,
+    }
 }
 
-/// The (reversed) order of following enums compared to the occurrence in the GUI is significant
-#[repr(C)]
-#[allow(non_camel_case_types)]
-pub enum GnomeCmdConfirmOverwriteMode {
-    GNOME_CMD_CONFIRM_OVERWRITE_SILENTLY,
-    GNOME_CMD_CONFIRM_OVERWRITE_SKIP_ALL,
-    GNOME_CMD_CONFIRM_OVERWRITE_RENAME_ALL,
-    GNOME_CMD_CONFIRM_OVERWRITE_QUERY,
+glib::wrapper! {
+    pub struct ConnectionHome(Object<ffi::GnomeCmdConHome, ffi::GnomeCmdConHomeClass>)
+        @extends Connection;
+
+    match fn {
+        type_ => || ffi::gnome_cmd_con_home_get_type(),
+    }
 }

@@ -123,7 +123,6 @@ sources_sources = files(
   'history.cc',
   'imageloader.cc',
   'ls_colors.cc',
-  'main.cc',
   'plugin_manager.cc',
   'utils.cc',
   'utils-no-dependencies.cc',
@@ -270,4 +269,10 @@ custom_target(
     '&&',
     'cp', 'src' / rust_target / meson.project_name(), '@OUTPUT@',
   ]
+)
+
+test(
+  'cargo-test', cargo,
+  env: cargo_env,
+  args: ['test', '--no-fail-fast'] + cargo_options,
 )

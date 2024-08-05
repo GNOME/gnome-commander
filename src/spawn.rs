@@ -20,10 +20,10 @@
  * For more details see the file COPYING.
  */
 
-use crate::file::GnomeCmdFile;
+use crate::{file::File, libgcmd::file_base::FileBaseExt};
 use gtk::{
+    gio::prelude::*,
     glib::{self, ffi::GList, translate::IntoGlibPtr},
-    prelude::FileExt,
 };
 use std::{
     cell::OnceCell,
@@ -46,7 +46,7 @@ use std::{
 /// - `%D` - quoted full path to the directory containg file
 /// - `%%` - percent sign
 pub fn parse_command_template(
-    files: Vec<&GnomeCmdFile>,
+    files: &glib::List<File>,
     command_template: &str,
 ) -> Option<OsString> {
     let filename: OnceCell<Vec<String>> = OnceCell::new();
@@ -54,8 +54,8 @@ pub fn parse_command_template(
     let uri: OnceCell<Vec<String>> = OnceCell::new();
     let mut cmd = OsString::new();
 
-    let first_file = files.first()?;
-    let directory = first_file.get_file().parent()?;
+    let first_file = files.front()?;
+    let directory = first_file.file().parent()?;
     let dir_path: OsString = if first_file.is_local() {
         directory.path()?.into_os_string()
     } else {
@@ -131,30 +131,17 @@ pub fn parse_command_template(
     Some(cmd).filter(|c| !c.is_empty())
 }
 
-unsafe fn files_from_raw_list<'p>(mut files_list: *mut GList) -> Vec<&'p GnomeCmdFile> {
-    let mut files: Vec<&GnomeCmdFile> = Vec::new();
-    while !files_list.is_null() {
-        files.push(
-            ((*files_list).data as *const GnomeCmdFile)
-                .as_ref()
-                .unwrap(),
-        );
-        files_list = (*files_list).next;
-    }
-    files
-}
-
 #[no_mangle]
 pub unsafe extern "C" fn parse_command_template_r(
     files_list: *mut GList,
     command_template: *const ffi::c_char,
 ) -> *const ffi::c_char {
-    let files = files_from_raw_list(files_list);
+    let files = glib::List::from_glib_none(files_list);
     let Ok(command_template) = CStr::from_ptr(command_template).to_str() else {
         return std::ptr::null::<ffi::c_char>();
     };
 
-    let result = parse_command_template(files, command_template);
+    let result = parse_command_template(&files, command_template);
     (match result {
         None => std::ptr::null(),
         Some(s) => CString::from_vec_unchecked(s.as_encoded_bytes().to_vec()).into_raw(),
@@ -169,7 +156,7 @@ pub enum SpawnError {
 
 pub fn spawn_async(
     working_directory: Option<&Path>,
-    files: Vec<&GnomeCmdFile>,
+    files: &glib::List<File>,
     command_template: &str,
 ) -> Result<(), SpawnError> {
     let Some(cmd) = parse_command_template(files, command_template) else {
@@ -199,12 +186,12 @@ pub unsafe extern "C" fn spawn_async_r(
         .filter(|p| !p.is_null())
         .and_then(|p| CStr::from_ptr(p).to_str().ok())
         .map(Path::new);
-    let files = files_from_raw_list(files_list);
+    let files = glib::List::from_glib_none(files_list);
     let Ok(command_template) = CStr::from_ptr(command_template).to_str() else {
         return 1;
     };
 
-    let result = spawn_async(working_directory, files, command_template);
+    let result = spawn_async(working_directory, &files, command_template);
     match result {
         Ok(_) => 0,
         Err(SpawnError::InvalidTemplate) => {

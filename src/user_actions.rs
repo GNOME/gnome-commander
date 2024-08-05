@@ -21,19 +21,15 @@
  */
 
 use crate::{
-    dir::*, file_list::*, file_selector::*, main_win::*, types::FileSelectorID,
+    main_win::{ffi::*, MainWindow},
+    types::FileSelectorID,
     utils::run_simple_dialog,
 };
 use gettextrs::{gettext, ngettext};
 use gtk::{
     gio::ffi::GSimpleAction,
-    glib::{
-        self,
-        ffi::{g_list_length, GVariant},
-        translate::FromGlibPtrNone,
-    },
+    glib::{self, ffi::GVariant, translate::FromGlibPtrNone, Cast},
 };
-use std::ffi::CStr;
 
 #[no_mangle]
 pub extern "C" fn file_create_symlink(
@@ -41,49 +37,40 @@ pub extern "C" fn file_create_symlink(
     _parameter: *const GVariant,
     main_win_ptr: *mut GnomeCmdMainWin,
 ) {
-    let main_win = unsafe { gtk::Window::from_glib_none(main_win_ptr as *mut gtk::ffi::GtkWindow) };
+    let main_win = unsafe { MainWindow::from_glib_none(main_win_ptr) };
 
     glib::MainContext::default().spawn_local(async move {
-        let active_fs = unsafe { gnome_cmd_main_win_get_fs(main_win_ptr, FileSelectorID::ACTIVE) };
-        let inactive_fs =
-            unsafe { gnome_cmd_main_win_get_fs(main_win_ptr, FileSelectorID::INACTIVE) };
+        let active_fs = main_win.file_selector(FileSelectorID::ACTIVE);
+        let inactive_fs = main_win.file_selector(FileSelectorID::INACTIVE);
 
-        let active_fl = unsafe { gnome_cmd_file_selector_file_list(active_fs) };
-        let f = unsafe { gnome_cmd_file_list_get_selected_files(active_fl) };
-        let selected_files = unsafe { g_list_length(f) };
+        let active_fl = active_fs.file_list();
+        let selected_files = active_fl.selected_files();
+        let selected_files_len = selected_files.len();
 
-        if selected_files > 1 {
-            let message_template = ngettext(
-                "Create symbolic links of %i file in %s?",
-                "Create symbolic links of %i files in %s?",
-                selected_files,
+        if selected_files_len > 1 {
+            let directory = inactive_fs.directory().unwrap().display_path();
+            let message = ngettext!(
+                "Create symbolic links of {} file in {}?",
+                "Create symbolic links of {} files in {}?",
+                selected_files_len as u32,
+                selected_files_len,
+                directory
             );
-            let directory_cstr = unsafe {
-                gnome_cmd_dir_get_display_path(gnome_cmd_file_selector_get_directory(inactive_fs))
-            };
-            let directory = unsafe { CStr::from_ptr(directory_cstr).to_string_lossy() };
-            let msg = message_template
-                .replace("%i", &selected_files.to_string())
-                .replace("%s", &directory);
-
             let choice = run_simple_dialog(
-                &main_win,
+                main_win.upcast_ref(),
                 true,
                 gtk::MessageType::Question,
-                &msg,
+                &message,
                 &gettext("Create Symbolic Link"),
                 Some(1),
                 &[&gettext("Cancel"), &gettext("Create")],
             )
             .await;
             if choice == gtk::ResponseType::Other(1) {
-                unsafe {
-                    gnome_cmd_file_selector_create_symlinks(inactive_fs, f);
-                }
+                inactive_fs.create_symlinks(&selected_files);
             }
-        } else {
-            let focused_f = unsafe { gnome_cmd_file_list_get_focused_file(active_fl) };
-            unsafe { gnome_cmd_file_selector_create_symlink(inactive_fs, focused_f) };
+        } else if let Some(focused_file) = active_fl.focused_file() {
+            inactive_fs.create_symlink(&focused_file);
         }
     });
 }

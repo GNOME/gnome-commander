@@ -37,7 +37,7 @@
 #define GNOME_CMD_FILE_LIST_GET_CLASS(obj)    (G_TYPE_INSTANCE_GET_CLASS((obj), GNOME_CMD_TYPE_FILE_LIST, GnomeCmdFileListClass))
 
 
-GType gnome_cmd_file_list_get_type ();
+extern "C" GType gnome_cmd_file_list_get_type ();
 
 
 /* DnD target names */

@@ -29,7 +29,7 @@
 #define GNOME_CMD_DIR_GET_CLASS(obj)    (G_TYPE_INSTANCE_GET_CLASS((obj), GNOME_CMD_TYPE_DIR, GnomeCmdDirClass))
 
 
-GType gnome_cmd_dir_get_type ();
+extern "C" GType gnome_cmd_dir_get_type ();
 
 
 struct GnomeCmdDir;
@@ -73,10 +73,10 @@ struct GnomeCmdCon;
 
 GnomeCmdDir *gnome_cmd_dir_new_from_gfileinfo (GFileInfo *gFileInfo, GnomeCmdDir *parent);
 GnomeCmdDir *gnome_cmd_dir_new_with_con (GnomeCmdCon *con);
-GnomeCmdDir *gnome_cmd_dir_new (GnomeCmdCon *con, GnomeCmdPath *path, gboolean isStartup = false);
+extern "C" GnomeCmdDir *gnome_cmd_dir_new (GnomeCmdCon *con, GnomeCmdPath *path, gboolean isStartup = false);
 GnomeCmdDir *gnome_cmd_dir_get_parent (GnomeCmdDir *dir);
 GnomeCmdDir *gnome_cmd_dir_get_child (GnomeCmdDir *dir, const gchar *child);
-GnomeCmdCon *gnome_cmd_dir_get_connection (GnomeCmdDir *dir);
+extern "C" GnomeCmdCon *gnome_cmd_dir_get_connection (GnomeCmdDir *dir);
 
 inline GnomeCmdFile *gnome_cmd_dir_new_parent_dir_file (GnomeCmdDir *dir)
 {
@@ -103,7 +103,7 @@ inline GnomeCmdDir *gnome_cmd_dir_ref (GnomeCmdDir *dir)
 void gnome_cmd_dir_unref (GnomeCmdDir *dir);
 
 GList *gnome_cmd_dir_get_files (GnomeCmdDir *dir);
-void gnome_cmd_dir_relist_files (GtkWindow *parent_window, GnomeCmdDir *dir, gboolean visprog);
+extern "C" void gnome_cmd_dir_relist_files (GtkWindow *parent_window, GnomeCmdDir *dir, gboolean visprog);
 void gnome_cmd_dir_list_files (GtkWindow *parent_window, GnomeCmdDir *dir, gboolean visprog);
 
 GnomeCmdPath *gnome_cmd_dir_get_path (GnomeCmdDir *dir);

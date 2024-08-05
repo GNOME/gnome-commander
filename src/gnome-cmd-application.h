@@ -21,7 +21,9 @@
 
 #include <gtk/gtk.h>
 
+extern "C" GType gnome_cmd_application_get_type ();
+
 #define GNOME_CMD_TYPE_APPLICATION (gnome_cmd_application_get_type ())
 G_DECLARE_FINAL_TYPE (GnomeCmdApplication, gnome_cmd_application, GNOME_CMD_APPLICATION, WINDOW, GtkApplication)
 
-GnomeCmdApplication *gnome_cmd_application_new ();
+extern "C" GnomeCmdApplication *gnome_cmd_application_new ();

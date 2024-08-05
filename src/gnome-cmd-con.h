@@ -118,7 +118,7 @@ struct GnomeCmdConClass
 };
 
 
-GType gnome_cmd_con_get_type ();
+extern "C" GType gnome_cmd_con_get_type ();
 
 const gchar *gnome_cmd_con_get_uuid (GnomeCmdCon *con);
 
@@ -153,7 +153,7 @@ void gnome_cmd_con_set_uri_string (GnomeCmdCon *con, const gchar *uri_string);
 
 GFile *gnome_cmd_con_create_gfile (GnomeCmdCon *con, GnomeCmdPath *path = nullptr);
 
-GnomeCmdPath *gnome_cmd_con_create_path (GnomeCmdCon *con, const gchar *path_str);
+extern "C" GnomeCmdPath *gnome_cmd_con_create_path (GnomeCmdCon *con, const gchar *path_str);
 
 inline const gchar *gnome_cmd_con_get_open_msg (GnomeCmdCon *con)
 {
@@ -161,18 +161,8 @@ inline const gchar *gnome_cmd_con_get_open_msg (GnomeCmdCon *con)
     return con->open_msg;
 }
 
-inline const gchar *gnome_cmd_con_get_alias (GnomeCmdCon *con)
-{
-    g_return_val_if_fail (GNOME_CMD_IS_CON (con), NULL);
-    return con->alias;
-}
-
-inline void gnome_cmd_con_set_alias (GnomeCmdCon *con, const gchar *alias=NULL)
-{
-    g_return_if_fail (GNOME_CMD_IS_CON (con));
-    g_free (con->alias);
-    con->alias = g_strdup (alias);
-}
+extern "C" const gchar *gnome_cmd_con_get_alias (GnomeCmdCon *con);
+extern "C" void gnome_cmd_con_set_alias (GnomeCmdCon *con, const gchar *alias=NULL);
 
 GnomeCmdDir *gnome_cmd_con_get_default_dir (GnomeCmdCon *con);
 void gnome_cmd_con_set_default_dir (GnomeCmdCon *con, GnomeCmdDir *dir);
