@@ -32,22 +32,8 @@ enum AppTarget
 };
 
 
-struct GnomeCmdApp
-{
-    gchar *name;
-    gchar *cmd;
-    gchar *icon_path;
-    GAppInfo *gAppInfo;
+struct GnomeCmdApp;
 
-    AppTarget target;
-    gchar *pattern_string;
-    GList *pattern_list;
-    gboolean handles_uris;
-    gboolean handles_multiple;
-    gboolean requires_terminal;
-
-    GdkPixbuf *pixbuf;
-};
 
 GnomeCmdApp *gnome_cmd_app_new ();
 
@@ -73,6 +59,8 @@ void gnome_cmd_app_set_name (GnomeCmdApp *app, const gchar *name);
 const gchar *gnome_cmd_app_get_command (GnomeCmdApp *app);
 void gnome_cmd_app_set_command (GnomeCmdApp *app, const gchar *cmd);
 
+GIcon *gnome_cmd_app_get_icon (GnomeCmdApp *app);
+
 const gchar *gnome_cmd_app_get_icon_path (GnomeCmdApp *app);
 void gnome_cmd_app_set_icon_path (GnomeCmdApp *app, const gchar *icon_path);
 
@@ -93,4 +81,7 @@ void gnome_cmd_app_set_handles_multiple (GnomeCmdApp *app, gboolean handles_mult
 gboolean gnome_cmd_app_get_requires_terminal (GnomeCmdApp *app);
 void gnome_cmd_app_set_requires_terminal (GnomeCmdApp *app, gboolean requires_terminal);
 
-GdkPixbuf *gnome_cmd_app_get_pixbuf (GnomeCmdApp *app);
+GAppInfo *gnome_cmd_app_get_app_info (GnomeCmdApp *app);
+
+GVariant *gnome_cmd_app_save_to_variant (GnomeCmdApp *app);
+GnomeCmdApp *gnome_cmd_app_load_from_variant (GVariant *variant);

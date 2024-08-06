@@ -48,11 +48,12 @@ static void do_mime_exec_multiple (gboolean success, gpointer user_data)
     auto files = static_cast<GList*> (args[1]);
     if (success && files)
     {
-        if(gnomeCmdApp->gAppInfo != nullptr)
+        auto gAppInfo = gnome_cmd_app_get_app_info (gnomeCmdApp);
+        if (gAppInfo != nullptr)
         {
             // gio app default by system
-            DEBUG('g', "Launching \"%s\"\n", g_app_info_get_commandline(gnomeCmdApp->gAppInfo));
-            g_app_info_launch(gnomeCmdApp->gAppInfo, files, nullptr, nullptr);
+            DEBUG('g', "Launching \"%s\"\n", g_app_info_get_commandline(gAppInfo));
+            g_app_info_launch(gAppInfo, files, nullptr, nullptr);
         }
         else
         {
@@ -170,21 +171,11 @@ static void htcb_exec_with_app (GAppInfo *appInfo, GList *files, gpointer user_d
  */
 void gnome_cmd_file_selector_action_open_with (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
-    const gchar *app_id = g_variant_get_string (parameter, nullptr);
+    GnomeCmdApp *app = gnome_cmd_app_load_from_variant (parameter);
+    g_return_if_fail (app != nullptr);
     GnomeCmdFileList *file_list = static_cast<GnomeCmdFileList *>(user_data);
 
     auto files = file_list->get_selected_files();
-
-    GAppInfo *appInfo = nullptr;
-    for (GList *apps = g_app_info_get_all(); apps; apps = apps->next)
-        if (!strcmp(g_app_info_get_id (G_APP_INFO (apps->data)), app_id))
-        {
-            appInfo = G_APP_INFO (apps->data);
-            break;
-        }
-
-    g_return_if_fail (appInfo != nullptr);
-    GnomeCmdApp *app = gnome_cmd_app_new_from_app_info (appInfo);
 
     GtkWindow *parent_window = GTK_WINDOW (gtk_widget_get_toplevel (GTK_WIDGET (file_list)));
     mime_exec_multiple (files, app, parent_window);

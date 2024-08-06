@@ -28,6 +28,22 @@
 using namespace std;
 
 
+struct GnomeCmdApp
+{
+    gchar *name;
+    gchar *cmd;
+    gchar *icon_path;
+    GAppInfo *gAppInfo;
+
+    AppTarget target;
+    gchar *pattern_string;
+    GList *pattern_list;
+    gboolean handles_uris;
+    gboolean handles_multiple;
+    gboolean requires_terminal;
+};
+
+
 GnomeCmdApp *gnome_cmd_app_new ()
 {
     GnomeCmdApp *app = g_new0 (GnomeCmdApp, 1);
@@ -110,7 +126,6 @@ void gnome_cmd_app_free (GnomeCmdApp *app)
     g_free (app->name);
     g_free (app->cmd);
     g_free (app->icon_path);
-    g_clear_object (&app->pixbuf);
 
     g_free (app);
 }
@@ -147,18 +162,7 @@ void gnome_cmd_app_set_icon_path (GnomeCmdApp *app, const gchar *icon_path)
 
     g_free (app->icon_path);
 
-    g_clear_object (&app->pixbuf);
-
     app->icon_path = g_strdup (icon_path);
-
-    //FIXME: Check GError here
-    GdkPixbuf *tmp = gdk_pixbuf_new_from_file (icon_path, nullptr);
-
-    if (tmp)
-    {
-        app->pixbuf = gdk_pixbuf_scale_simple (tmp, 16, 16, GDK_INTERP_HYPER);
-        g_object_unref (tmp);
-    }
 }
 
 
@@ -228,17 +232,30 @@ const gchar *gnome_cmd_app_get_command (GnomeCmdApp *app)
 }
 
 
+GIcon *gnome_cmd_app_get_icon (GnomeCmdApp *app)
+{
+    g_return_val_if_fail (app != nullptr, nullptr);
+
+    if (app->gAppInfo)
+    {
+        return g_app_info_get_icon (app->gAppInfo);
+    }
+    else if (app->icon_path)
+    {
+        return g_file_icon_new (g_file_new_for_path (app->icon_path));
+    }
+    else
+    {
+        return nullptr;
+    }
+}
+
+
 const gchar *gnome_cmd_app_get_icon_path (GnomeCmdApp *app)
 {
     g_return_val_if_fail (app != nullptr, nullptr);
 
     return app->icon_path;
-}
-
-
-GdkPixbuf *gnome_cmd_app_get_pixbuf (GnomeCmdApp *app)
-{
-    return app->pixbuf;
 }
 
 
@@ -275,4 +292,33 @@ gboolean gnome_cmd_app_get_handles_multiple (GnomeCmdApp *app)
 gboolean gnome_cmd_app_get_requires_terminal (GnomeCmdApp *app)
 {
     return app->requires_terminal;
+}
+
+
+GAppInfo *gnome_cmd_app_get_app_info (GnomeCmdApp *app)
+{
+    return app->gAppInfo;
+}
+
+
+GVariant *gnome_cmd_app_save_to_variant (GnomeCmdApp *app)
+{
+    return g_variant_new_string (g_app_info_get_id (app->gAppInfo));
+}
+
+
+GnomeCmdApp *gnome_cmd_app_load_from_variant (GVariant *variant)
+{
+    const gchar *app_id = g_variant_get_string (variant, nullptr);
+
+    GAppInfo *appInfo = nullptr;
+    for (GList *apps = g_app_info_get_all(); apps; apps = apps->next)
+        if (!strcmp(g_app_info_get_id (G_APP_INFO (apps->data)), app_id))
+        {
+            appInfo = G_APP_INFO (apps->data);
+            break;
+        }
+
+    g_return_val_if_fail (appInfo != nullptr, nullptr);
+    return gnome_cmd_app_new_from_app_info (appInfo);
 }

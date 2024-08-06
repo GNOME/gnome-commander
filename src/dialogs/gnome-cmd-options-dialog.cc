@@ -1357,7 +1357,7 @@ void add_app_to_list (GtkTreeView *view, GnomeCmdApp *app)
 
     gtk_list_store_append (store, &iter);
     gtk_list_store_set (store, &iter,
-                        0, gnome_cmd_app_get_pixbuf (app),
+                        0, gnome_cmd_app_get_icon (app),
                         1, (gchar *) gnome_cmd_app_get_name (app),
                         2, (gchar *) gnome_cmd_app_get_command (app),
                         3, app,
@@ -1367,7 +1367,7 @@ void add_app_to_list (GtkTreeView *view, GnomeCmdApp *app)
 
 void update_app_in_list (GtkTreeView *view, GnomeCmdApp *app)
 {
-    GdkPixbuf *pixbuf = gnome_cmd_app_get_pixbuf (app);
+    GIcon *icon = gnome_cmd_app_get_icon (app);
 
     GtkTreeModel *model = gtk_tree_view_get_model (view);
     GtkTreeIter iter;
@@ -1382,7 +1382,7 @@ void update_app_in_list (GtkTreeView *view, GnomeCmdApp *app)
             if (row_app == app)
             {
                 gtk_list_store_set (GTK_LIST_STORE (model), &iter,
-                                    0, pixbuf,
+                                    0, icon,
                                     1, (gchar *) gnome_cmd_app_get_name (app),
                                     -1);
                 break;
@@ -1804,7 +1804,7 @@ static GtkWidget *create_programs_tab (GtkWidget *parent, GnomeCmdData::Options 
     gtk_box_append (GTK_BOX (vbox), cat);
 
 
-    store = gtk_list_store_new (4, GDK_TYPE_PIXBUF, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_POINTER);
+    store = gtk_list_store_new (4, G_TYPE_ICON, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_POINTER);
     view = create_treeview (parent, "app_view", GTK_TREE_MODEL (store), 16,
                             G_CALLBACK (on_app_selection_changed), G_CALLBACK (on_app_reordered));
     create_treeview_column (view, 0, 20, "");

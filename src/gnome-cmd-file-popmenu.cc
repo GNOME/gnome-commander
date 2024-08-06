@@ -53,8 +53,8 @@ static GMenuItem *fav_app_menu_item (GnomeCmdApp *app)
     auto appName = gnome_cmd_app_get_name(app);
 
     GMenuItem *item = g_menu_item_new (appName, nullptr);
-    g_menu_item_set_action_and_target (item, "fl.open-with", "s", g_app_info_get_id (app->gAppInfo));
-    g_menu_item_set_icon (item, g_app_info_get_icon (app->gAppInfo));
+    g_menu_item_set_action_and_target_value (item, "fl.open-with", gnome_cmd_app_save_to_variant (app));
+    g_menu_item_set_icon (item, gnome_cmd_app_get_icon (app));
 
     return item;
 }
@@ -273,8 +273,8 @@ static MenuBuilder add_open_with_entries(MenuBuilder menubuilder, GnomeCmdFileLi
             }
 
             GMenuItem *item = g_menu_item_new (openWithAppName, nullptr);
-            g_menu_item_set_action_and_target (item, "fl.open-with", "s", g_app_info_get_id (app->gAppInfo));
-            g_menu_item_set_icon (item, g_app_info_get_icon (app->gAppInfo));
+            g_menu_item_set_action_and_target_value (item, "fl.open-with", gnome_cmd_app_save_to_variant (app));
+            g_menu_item_set_icon (item, g_app_info_get_icon (gAppInfoItem));
 
             submenubuilder = std::move(submenubuilder).item(item);
 
