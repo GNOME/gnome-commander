@@ -1976,7 +1976,7 @@ static void gnome_cmd_file_list_init (GnomeCmdFileList *fl)
     static const GActionEntry action_entries[] = {
         { "open-with-default",  gnome_cmd_file_selector_action_open_with_default,   nullptr, nullptr, nullptr },
         { "open-with-other",    gnome_cmd_file_selector_action_open_with_other,     nullptr, nullptr, nullptr },
-        { "open-with",          gnome_cmd_file_selector_action_open_with,           "s",     nullptr, nullptr },
+        { "open-with",          gnome_cmd_file_selector_action_open_with,           "(sv)",  nullptr, nullptr },
         { "execute",            gnome_cmd_file_selector_action_execute,             nullptr, nullptr, nullptr },
         { "execute-script",     gnome_cmd_file_selector_action_execute_script,      "(sb)",  nullptr, nullptr },
 

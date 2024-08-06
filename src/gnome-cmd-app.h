@@ -21,8 +21,6 @@
 
 #pragma once
 
-#include "gnome-cmd-file.h"
-
 enum AppTarget
 {
     APP_TARGET_ALL_FILES,
@@ -35,11 +33,9 @@ enum AppTarget
 struct GnomeCmdApp;
 
 
-GnomeCmdApp *gnome_cmd_app_new ();
+extern "C" GnomeCmdApp *gnome_cmd_app_new_from_app_info (GAppInfo *gAppInfo);
 
-GnomeCmdApp *gnome_cmd_app_new_from_app_info (GAppInfo *gAppInfo);
-
-GnomeCmdApp *gnome_cmd_app_new_with_values (const gchar *name,
+extern "C" GnomeCmdApp *gnome_cmd_app_new_with_values (const gchar *name,
                                             const gchar *cmd,
                                             const gchar *icon_path,
                                             AppTarget target,
@@ -49,39 +45,37 @@ GnomeCmdApp *gnome_cmd_app_new_with_values (const gchar *name,
                                             gboolean requires_terminal,
                                             GAppInfo *gAppInfo);
 
-GnomeCmdApp *gnome_cmd_app_dup (GnomeCmdApp *app);
+extern "C" void gnome_cmd_app_free (GnomeCmdApp *app);
 
-void gnome_cmd_app_free (GnomeCmdApp *app);
+extern "C" gchar *gnome_cmd_app_get_name (GnomeCmdApp *app);
+extern "C" void gnome_cmd_app_set_name (GnomeCmdApp *app, const gchar *name);
 
-const gchar *gnome_cmd_app_get_name (GnomeCmdApp *app);
-void gnome_cmd_app_set_name (GnomeCmdApp *app, const gchar *name);
+extern "C" gchar *gnome_cmd_app_get_command (GnomeCmdApp *app);
+extern "C" void gnome_cmd_app_set_command (GnomeCmdApp *app, const gchar *cmd);
 
-const gchar *gnome_cmd_app_get_command (GnomeCmdApp *app);
-void gnome_cmd_app_set_command (GnomeCmdApp *app, const gchar *cmd);
+extern "C" GIcon *gnome_cmd_app_get_icon (GnomeCmdApp *app);
 
-GIcon *gnome_cmd_app_get_icon (GnomeCmdApp *app);
+extern "C" gchar *gnome_cmd_app_get_icon_path (GnomeCmdApp *app);
+extern "C" void gnome_cmd_app_set_icon_path (GnomeCmdApp *app, const gchar *icon_path);
 
-const gchar *gnome_cmd_app_get_icon_path (GnomeCmdApp *app);
-void gnome_cmd_app_set_icon_path (GnomeCmdApp *app, const gchar *icon_path);
+extern "C" AppTarget gnome_cmd_app_get_target (GnomeCmdApp *app);
+extern "C" void gnome_cmd_app_set_target (GnomeCmdApp *app, AppTarget target);
 
-AppTarget gnome_cmd_app_get_target (GnomeCmdApp *app);
-void gnome_cmd_app_set_target (GnomeCmdApp *app, AppTarget target);
+extern "C" gchar *gnome_cmd_app_get_pattern_string (GnomeCmdApp *app);
+extern "C" void gnome_cmd_app_set_pattern_string (GnomeCmdApp *app, const gchar *extensions);
 
-const gchar *gnome_cmd_app_get_pattern_string (GnomeCmdApp *app);
-void gnome_cmd_app_set_pattern_string (GnomeCmdApp *app, const gchar *extensions);
+extern "C" GList *gnome_cmd_app_get_pattern_list (GnomeCmdApp *app);
 
-GList *gnome_cmd_app_get_pattern_list (GnomeCmdApp *app);
+extern "C" gboolean gnome_cmd_app_get_handles_uris (GnomeCmdApp *app);
+extern "C" void gnome_cmd_app_set_handles_uris (GnomeCmdApp *app, gboolean handles_uris);
 
-gboolean gnome_cmd_app_get_handles_uris (GnomeCmdApp *app);
-void gnome_cmd_app_set_handles_uris (GnomeCmdApp *app, gboolean handles_uris);
+extern "C" gboolean gnome_cmd_app_get_handles_multiple (GnomeCmdApp *app);
+extern "C" void gnome_cmd_app_set_handles_multiple (GnomeCmdApp *app, gboolean handles_multiple);
 
-gboolean gnome_cmd_app_get_handles_multiple (GnomeCmdApp *app);
-void gnome_cmd_app_set_handles_multiple (GnomeCmdApp *app, gboolean handles_multiple);
+extern "C" gboolean gnome_cmd_app_get_requires_terminal (GnomeCmdApp *app);
+extern "C" void gnome_cmd_app_set_requires_terminal (GnomeCmdApp *app, gboolean requires_terminal);
 
-gboolean gnome_cmd_app_get_requires_terminal (GnomeCmdApp *app);
-void gnome_cmd_app_set_requires_terminal (GnomeCmdApp *app, gboolean requires_terminal);
+extern "C" GAppInfo *gnome_cmd_app_get_app_info (GnomeCmdApp *app);
 
-GAppInfo *gnome_cmd_app_get_app_info (GnomeCmdApp *app);
-
-GVariant *gnome_cmd_app_save_to_variant (GnomeCmdApp *app);
-GnomeCmdApp *gnome_cmd_app_load_from_variant (GVariant *variant);
+extern "C" GVariant *gnome_cmd_app_save_to_variant (GnomeCmdApp *app);
+extern "C" GnomeCmdApp *gnome_cmd_app_load_from_variant (GVariant *variant);

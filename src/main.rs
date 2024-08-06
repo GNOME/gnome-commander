@@ -17,6 +17,7 @@
  * For more details see the file COPYING.
  */
 
+mod app;
 mod application;
 mod config;
 mod connection;
