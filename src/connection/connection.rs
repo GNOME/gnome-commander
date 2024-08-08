@@ -20,16 +20,18 @@
  * For more details see the file COPYING.
  */
 
-use gtk::glib::{self, translate::*};
-use std::ffi::c_void;
-
-use crate::{dir::Directory, user_actions};
+use crate::dir::Directory;
+use gtk::{
+    gio,
+    glib::{self, translate::*},
+};
+use std::{ffi::c_void, path::Path};
 
 pub mod ffi {
-    use gtk::glib::{self, ffi::GType};
-    use std::ffi::{c_char, c_short, c_void};
-
+    use super::*;
     use crate::dir::ffi::GnomeCmdDir;
+    use gtk::{gio::ffi::GFile, glib::ffi::GType};
+    use std::ffi::{c_char, c_void};
 
     #[repr(C)]
     pub struct GnomeCmdCon {
@@ -51,6 +53,11 @@ pub mod ffi {
             con: *const GnomeCmdCon,
             path_str: *const c_char,
         ) -> *mut c_void;
+
+        pub fn gnome_cmd_con_create_gfile(
+            con: *const GnomeCmdCon,
+            uri: *const c_char,
+        ) -> *mut GFile;
 
         pub fn gnome_cmd_con_get_default_dir(con: *const GnomeCmdCon) -> *const GnomeCmdDir;
         pub fn gnome_cmd_con_set_default_dir(con: *const GnomeCmdCon, dir: *mut GnomeCmdDir);
@@ -86,7 +93,9 @@ pub trait ConnectionExt {
     fn uri(&self) -> Option<String>;
     fn set_uri(&self, uri: Option<&str>);
 
-    fn create_path(&self, path: &str) -> GnomeCmdPath;
+    fn create_path(&self, path: &Path) -> GnomeCmdPath;
+
+    fn create_gfile(&self, path: Option<&str>) -> gio::File;
 
     fn default_dir(&self) -> Option<Directory>;
     fn set_default_dir(&self, dir: Option<&Directory>);
@@ -109,9 +118,18 @@ impl ConnectionExt for Connection {
         unsafe { ffi::gnome_cmd_con_set_uri(self.to_glib_none().0, uri.to_glib_none().0) }
     }
 
-    fn create_path(&self, path: &str) -> GnomeCmdPath {
+    fn create_path(&self, path: &Path) -> GnomeCmdPath {
         unsafe {
             GnomeCmdPath(ffi::gnome_cmd_con_create_path(
+                self.to_glib_none().0,
+                path.to_glib_none().0,
+            ))
+        }
+    }
+
+    fn create_gfile(&self, path: Option<&str>) -> gio::File {
+        unsafe {
+            from_glib_full(ffi::gnome_cmd_con_create_gfile(
                 self.to_glib_none().0,
                 path.to_glib_none().0,
             ))

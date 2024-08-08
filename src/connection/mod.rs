@@ -20,5 +20,6 @@
 pub mod connection;
 pub mod device;
 pub mod home;
+pub mod list;
 pub mod remote;
 pub mod smb;

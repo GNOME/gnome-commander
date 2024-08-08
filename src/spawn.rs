@@ -20,14 +20,15 @@
  * For more details see the file COPYING.
  */
 
-use crate::{file::File, libgcmd::file_base::FileBaseExt};
+use crate::{file::File, libgcmd::file_base::FileBaseExt, utils::ErrorMessage};
+use gettextrs::gettext;
 use gtk::{
     gio::prelude::*,
     glib::{self, ffi::GList, translate::IntoGlibPtr},
 };
 use std::{
     cell::OnceCell,
-    ffi::{self, CStr, CString, OsString},
+    ffi::{self, CStr, CString, OsStr, OsString},
     path::{Path, PathBuf},
 };
 
@@ -154,15 +155,28 @@ pub enum SpawnError {
     Failure(std::io::Error),
 }
 
-pub fn spawn_async(
+impl SpawnError {
+    pub fn into_message(self) -> ErrorMessage {
+        match self {
+            Self::InvalidTemplate => ErrorMessage {
+                message: gettext("No valid command given."),
+                secondary_text: Some(gettext("Bad command template.")),
+            },
+            Self::InvalidCommand(error) => {
+                ErrorMessage::with_error(gettext("No valid command given."), &error)
+            }
+            Self::Failure(error) => {
+                ErrorMessage::with_error(gettext("Unable to execute command."), &error)
+            }
+        }
+    }
+}
+
+pub fn spawn_async_command(
     working_directory: Option<&Path>,
-    files: &glib::List<File>,
-    command_template: &str,
+    command: &OsStr,
 ) -> Result<(), SpawnError> {
-    let Some(cmd) = parse_command_template(files, command_template) else {
-        return Err(SpawnError::InvalidTemplate);
-    };
-    let argv = glib::shell_parse_argv(cmd).map_err(SpawnError::InvalidCommand)?;
+    let argv = glib::shell_parse_argv(command).map_err(SpawnError::InvalidCommand)?;
 
     let mut cmd = std::process::Command::new(&argv[0]);
     cmd.args(&argv[1..]);
@@ -173,6 +187,17 @@ pub fn spawn_async(
     cmd.spawn().map_err(SpawnError::Failure)?;
 
     Ok(())
+}
+
+pub fn spawn_async(
+    working_directory: Option<&Path>,
+    files: &glib::List<File>,
+    command_template: &str,
+) -> Result<(), SpawnError> {
+    let Some(cmd) = parse_command_template(files, command_template) else {
+        return Err(SpawnError::InvalidTemplate);
+    };
+    spawn_async_command(working_directory, &cmd)
 }
 
 #[no_mangle]

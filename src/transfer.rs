@@ -70,6 +70,15 @@ mod ffi {
             on_completed_func: *const c_void,
             on_completed_data: *mut c_void,
         );
+
+        pub fn gnome_cmd_tmp_download(
+            parent_window: *const gtk::ffi::GtkWindow,
+            src_gfile_list: *const glib::ffi::GList,
+            dest_gfile_list: *const glib::ffi::GList,
+            copy_flags: gio::ffi::GFileCopyFlags,
+            on_completed_func: *const c_void,
+            on_completed_data: *mut c_void,
+        );
     }
 }
 
@@ -162,4 +171,29 @@ pub fn gnome_cmd_link_gfiles_start<F: Fn(bool) + 'static>(
             Box::into_raw(f) as *mut _,
         )
     }
+}
+
+pub async fn gnome_cmd_tmp_download(
+    parent_window: gtk::Window,
+    src_gfile_list: glib::List<gio::File>,
+    dest_gfile_list: glib::List<gio::File>,
+    copy_flags: gio::FileCopyFlags,
+) -> bool {
+    let (sender, receiver) = async_channel::bounded::<bool>(1);
+    unsafe extern "C" fn send(succeess: glib::ffi::gboolean, user_data: glib::ffi::gpointer) {
+        let sender = Box::<Sender<bool>>::from_raw(user_data as *mut Sender<bool>);
+        let _ = sender.send_blocking(succeess != 0);
+    }
+    unsafe {
+        ffi::gnome_cmd_tmp_download(
+            parent_window.to_glib_none().0,
+            src_gfile_list.into_raw(),
+            dest_gfile_list.into_raw(),
+            copy_flags.into_glib(),
+            transmute(send as *const ()),
+            Box::into_raw(Box::new(sender)) as *mut _,
+        )
+    }
+    let result = receiver.recv().await.unwrap_or_default();
+    result
 }

@@ -18,5 +18,6 @@
  */
 
 pub const PACKAGE: &str = @PACKAGE@;
+pub const PREFIX: &str = @PREFIX@;
 pub const DATADIR: &str = @DATADIR@;
 

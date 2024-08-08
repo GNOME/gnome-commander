@@ -17,6 +17,14 @@
  * For more details see the file COPYING.
  */
 
+use crate::{
+    data::ProgramsOptionsRead,
+    file::File,
+    libgcmd::file_base::FileBaseExt,
+    spawn::{parse_command_template, spawn_async_command},
+    utils::{make_run_in_terminal_command, ErrorMessage},
+};
+use gettextrs::gettext;
 use gtk::{
     gio,
     glib::{self, translate::*, Cast, FromVariant, ToVariant},
@@ -25,6 +33,7 @@ use gtk::{
 use std::{
     borrow::Cow,
     ffi::{c_char, c_void, CString, OsString},
+    path::PathBuf,
     ptr,
 };
 
@@ -57,6 +66,20 @@ impl AppExt for RegularApp {
     #[inline]
     fn icon(&self) -> Option<gio::Icon> {
         self.app_info.icon()
+    }
+}
+
+impl RegularApp {
+    pub fn launch(&self, files: &glib::List<File>) -> Result<(), ErrorMessage> {
+        let files: Vec<_> = files.into_iter().map(|f| f.file()).collect();
+        self.app_info
+            .launch(&files, gio::AppLaunchContext::NONE)
+            .map_err(|error| {
+                ErrorMessage::with_error(
+                    gettext!("Launch of {} failed.", self.app_info.name()),
+                    &error,
+                )
+            })
     }
 }
 
@@ -94,7 +117,7 @@ impl glib::FromVariant for RegularApp {
 #[derive(Clone, Debug, glib::Variant)]
 pub struct UserDefinedApp {
     pub name: String,
-    pub cmd: OsString,
+    pub command_template: String,
     pub icon_path: Option<String>,
     pub target: AppTarget,
     pub pattern_string: String,
@@ -117,6 +140,45 @@ impl UserDefinedApp {
     pub fn pattern_list(&self) -> Vec<&str> {
         self.pattern_string.split(';').collect()
     }
+
+    pub fn build_command_line(
+        &self,
+        files: &glib::List<File>,
+        options: &dyn ProgramsOptionsRead,
+    ) -> Option<OsString> {
+        let mut commandline = parse_command_template(files, &self.command_template)?;
+        if self.requires_terminal {
+            commandline = make_run_in_terminal_command(&commandline, options);
+        }
+        Some(commandline)
+    }
+
+    pub fn launch(
+        &self,
+        files: &glib::List<File>,
+        options: &dyn ProgramsOptionsRead,
+    ) -> Result<(), ErrorMessage> {
+        let working_directory: Option<PathBuf> = files
+            .front()
+            .ok_or_else(|| ErrorMessage {
+                message: gettext!("Cannot launch an app {}. No files were given.", self.name),
+                secondary_text: None,
+            })?
+            .get_real_path()
+            .parent()
+            .map(|d| d.to_path_buf());
+
+        let command = self
+            .build_command_line(files, options)
+            .ok_or_else(|| ErrorMessage {
+                message: gettext("Cannot build a command line."),
+                secondary_text: None,
+            })?;
+
+        spawn_async_command(working_directory.as_deref(), &command)
+            .map_err(|e| e.into_message())?;
+        Ok(())
+    }
 }
 
 #[derive(Clone, Debug, glib::Variant)]
@@ -135,17 +197,6 @@ impl App {
         match self {
             App::Regular(app) => app.name(),
             App::UserDefined(app) => app.name(),
-        }
-    }
-
-    pub fn commandline(&self) -> OsString {
-        match self {
-            App::Regular(app) => app
-                .app_info
-                .commandline()
-                .map(|p| p.into_os_string())
-                .unwrap_or_default(),
-            App::UserDefined(app) => app.cmd.clone(),
         }
     }
 
@@ -197,6 +248,17 @@ impl App {
             App::UserDefined(app) => app.requires_terminal,
         }
     }
+
+    pub fn launch(
+        &self,
+        files: &glib::List<File>,
+        options: &dyn ProgramsOptionsRead,
+    ) -> Result<(), ErrorMessage> {
+        match self {
+            App::Regular(app) => app.launch(files),
+            App::UserDefined(app) => app.launch(files, options),
+        }
+    }
 }
 
 #[no_mangle]
@@ -218,7 +280,7 @@ pub extern "C" fn gnome_cmd_app_new_with_values(
         } else {
             App::UserDefined(UserDefinedApp {
                 name: from_glib_none(name),
-                cmd: from_glib_none(cmd),
+                command_template: from_glib_none(cmd),
                 icon_path: from_glib_none(icon_path),
                 target,
                 pattern_string: from_glib_none(pattern_string),
@@ -270,7 +332,7 @@ pub unsafe extern "C" fn gnome_cmd_app_set_command(app: *mut App, cmd: *const c_
     }
     match &mut *app {
         App::Regular(_) => {}
-        App::UserDefined(user_app) => user_app.cmd = from_glib_none(cmd),
+        App::UserDefined(user_app) => user_app.command_template = from_glib_none(cmd),
     }
 }
 
@@ -356,7 +418,10 @@ pub unsafe extern "C" fn gnome_cmd_app_get_command(app: *mut App) -> *mut c_char
     if app.is_null() {
         return ptr::null_mut();
     }
-    (&*app).commandline().to_glib_full()
+    match &*app {
+        App::Regular(app) => app.app_info.commandline().to_glib_full(),
+        App::UserDefined(app) => app.command_template.to_glib_full(),
+    }
 }
 
 #[no_mangle]

@@ -131,7 +131,7 @@ inline const gchar *GnomeCmdFile::get_name()
 
 GnomeCmdFile *gnome_cmd_file_new_from_gfile (GFile *gFile);
 GnomeCmdFile *gnome_cmd_file_new (const gchar *local_full_path);
-GnomeCmdFile *gnome_cmd_file_new (GFileInfo *gFileInfo, GnomeCmdDir *dir);
+extern "C" GnomeCmdFile *gnome_cmd_file_new (GFileInfo *gFileInfo, GnomeCmdDir *dir);
 gboolean gnome_cmd_file_setup (GObject *gObject, GFile *gFile, GError **error);
 
 inline GnomeCmdFile *gnome_cmd_file_ref (GnomeCmdFile *f)

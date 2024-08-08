@@ -34,7 +34,7 @@
 #define GNOME_CMD_CON_LIST_GET_CLASS(obj)    (G_TYPE_INSTANCE_GET_CLASS((obj), GNOME_CMD_TYPE_CON_LIST, GnomeCmdConListClass))
 
 
-GType gnome_cmd_con_list_get_type ();
+extern "C" GType gnome_cmd_con_list_get_type ();
 
 
 struct GnomeCmdConList
@@ -84,12 +84,7 @@ inline GnomeCmdConList *gnome_cmd_con_list_new ()
     return static_cast<GnomeCmdConList *>(g_object_new (GNOME_CMD_TYPE_CON_LIST, nullptr));
 }
 
-inline GnomeCmdConList *gnome_cmd_con_list_get ()
-{
-    return static_cast<GnomeCmdConList *>(gnome_cmd_data_get_con_list ());
-}
-
-void gnome_cmd_con_list_add_quick_ftp (GnomeCmdConList *list, GnomeCmdConRemote *ftp_con);
+extern "C" GnomeCmdConList *gnome_cmd_con_list_get ();
 
 GList *gnome_cmd_con_list_get_all (GnomeCmdConList *list);
 GList *gnome_cmd_con_list_get_all_remote (GnomeCmdConList *list);
@@ -98,7 +93,9 @@ GList *gnome_cmd_con_list_get_all_quick_ftp (GnomeCmdConList *list);
 GList *gnome_cmd_con_list_get_all_dev (GnomeCmdConList *list);
 void gnome_cmd_con_list_set_all_dev (GnomeCmdConList *list, GList *dev_cons);
 
-GnomeCmdCon *gnome_cmd_con_list_find_by_uuid (GnomeCmdConList *con_list, const gchar *uuid);
+extern "C" GnomeCmdCon *gnome_cmd_con_list_find_by_uuid (GnomeCmdConList *con_list, const gchar *uuid);
+extern "C" GnomeCmdCon *gnome_cmd_con_list_get_home (GnomeCmdConList *con_list);
+extern "C" GnomeCmdCon *gnome_cmd_con_list_get_smb (GnomeCmdConList *con_list);
 
 inline GnomeCmdCon *get_home_con ()
 {
