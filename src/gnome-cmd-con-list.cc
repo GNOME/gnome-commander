@@ -74,9 +74,9 @@ static void on_con_updated (GnomeCmdCon *con, GnomeCmdConList *con_list)
 }
 
 
-static gint compare_alias (const GnomeCmdCon *c1, const GnomeCmdCon *c2)
+static gint compare_alias (GnomeCmdCon *con, const gchar *alias)
 {
-    return g_utf8_collate (c1->alias, c2->alias);
+    return g_utf8_collate (gnome_cmd_con_get_alias (con), alias);
 }
 
 
@@ -320,10 +320,7 @@ GnomeCmdCon *GnomeCmdConList::find_alias(const gchar *alias) const
 {
     g_return_val_if_fail (alias != nullptr, nullptr);
 
-    GnomeCmdCon con;                // used as reference element to be looked for, no allocation necessary
-    con.alias = (gchar *) alias;
-
-    auto elem = g_list_find_custom (priv->all_cons, &con, (GCompareFunc) compare_alias);
+    auto elem = g_list_find_custom (priv->all_cons, alias, (GCompareFunc) compare_alias);
 
     return elem ? static_cast<GnomeCmdCon*> (elem->data) : nullptr;
 }

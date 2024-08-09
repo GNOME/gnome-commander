@@ -114,22 +114,13 @@ extern "C" void gnome_cmd_con_set_base_file_info(GnomeCmdCon *con, GFileInfo *fi
 
 void gnome_cmd_con_open (GnomeCmdCon *con, GtkWindow *parent_window);
 
-inline gboolean gnome_cmd_con_is_open (GnomeCmdCon *con)
-{
-    g_return_val_if_fail (GNOME_CMD_IS_CON (con), FALSE);
-    return con->state == GnomeCmdCon::STATE_OPEN;
-}
+gboolean gnome_cmd_con_is_open (GnomeCmdCon *con);
 
 void gnome_cmd_con_cancel_open (GnomeCmdCon *con);
 
 extern "C" gboolean gnome_cmd_con_close (GnomeCmdCon *con);
 
-inline gboolean gnome_cmd_con_open_is_needed (GnomeCmdCon *con)
-{
-    g_return_val_if_fail (GNOME_CMD_IS_CON (con), FALSE);
-    GnomeCmdConClass *klass = GNOME_CMD_CON_GET_CLASS (con);
-    return klass->open_is_needed (con);
-}
+gboolean gnome_cmd_con_open_is_needed (GnomeCmdCon *con);
 
 extern "C" GUri *gnome_cmd_con_get_uri (GnomeCmdCon *con);
 extern "C" gchar *gnome_cmd_con_get_uri_string (GnomeCmdCon *con);
@@ -141,11 +132,7 @@ extern "C" GFile *gnome_cmd_con_create_gfile (GnomeCmdCon *con, const gchar *pat
 
 extern "C" GnomeCmdPath *gnome_cmd_con_create_path (GnomeCmdCon *con, const gchar *path_str);
 
-inline const gchar *gnome_cmd_con_get_open_msg (GnomeCmdCon *con)
-{
-    g_return_val_if_fail (GNOME_CMD_IS_CON (con), NULL);
-    return con->open_msg;
-}
+const gchar *gnome_cmd_con_get_open_msg (GnomeCmdCon *con);
 
 extern "C" const gchar *gnome_cmd_con_get_alias (GnomeCmdCon *con);
 extern "C" void gnome_cmd_con_set_alias (GnomeCmdCon *con, const gchar *alias=NULL);
@@ -153,37 +140,14 @@ extern "C" void gnome_cmd_con_set_alias (GnomeCmdCon *con, const gchar *alias=NU
 GnomeCmdDir *gnome_cmd_con_get_default_dir (GnomeCmdCon *con);
 void gnome_cmd_con_set_default_dir (GnomeCmdCon *con, GnomeCmdDir *dir);
 
-inline gboolean gnome_cmd_con_should_remember_dir (GnomeCmdCon *con)
-{
-    g_return_val_if_fail (GNOME_CMD_IS_CON (con), FALSE);
-    return con->should_remember_dir;
-}
-
-inline gboolean gnome_cmd_con_needs_open_visprog (GnomeCmdCon *con)
-{
-    g_return_val_if_fail (GNOME_CMD_IS_CON (con), FALSE);
-    return con->needs_open_visprog;
-}
-
-inline gboolean gnome_cmd_con_needs_list_visprog (GnomeCmdCon *con)
-{
-    g_return_val_if_fail (GNOME_CMD_IS_CON (con), FALSE);
-    return con->needs_list_visprog;
-}
-
-inline gboolean gnome_cmd_con_can_show_free_space (GnomeCmdCon *con)
-{
-    g_return_val_if_fail (GNOME_CMD_IS_CON (con), FALSE);
-    return con->can_show_free_space;
-}
+gboolean gnome_cmd_con_should_remember_dir (GnomeCmdCon *con);
+gboolean gnome_cmd_con_needs_open_visprog (GnomeCmdCon *con);
+gboolean gnome_cmd_con_needs_list_visprog (GnomeCmdCon *con);
+gboolean gnome_cmd_con_can_show_free_space (GnomeCmdCon *con);
 
 extern "C" gboolean gnome_cmd_con_is_local (GnomeCmdCon *con);
 
-inline gboolean gnome_cmd_con_is_closeable (GnomeCmdCon *con)
-{
-    g_return_val_if_fail (GNOME_CMD_IS_CON (con), FALSE);
-    return con->is_closeable;
-}
+gboolean gnome_cmd_con_is_closeable (GnomeCmdCon *con);
 
 History *gnome_cmd_con_get_dir_history (GnomeCmdCon *con);
 

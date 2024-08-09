@@ -1971,7 +1971,9 @@ void GnomeCmdData::save_connections()
 
         if (con)
         {
-            if (!con->alias || !*con->alias)
+            const gchar *alias = gnome_cmd_con_get_alias (con);
+
+            if (!alias || !*alias)
                 continue;
 
             gchar *uri = gnome_cmd_con_get_uri_string (con);
@@ -1979,7 +1981,7 @@ void GnomeCmdData::save_connections()
             {
                 hasConnections = true;
                 g_variant_builder_add (&gVariantBuilder, GCMD_SETTINGS_CONNECTION_FORMAT_STRING,
-                                        con->alias,
+                                        alias,
                                         uri);
             }
             g_free (uri);
