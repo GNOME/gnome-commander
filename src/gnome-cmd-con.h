@@ -147,19 +147,19 @@ gboolean gnome_cmd_con_can_show_free_space (GnomeCmdCon *con);
 
 extern "C" gboolean gnome_cmd_con_is_local (GnomeCmdCon *con);
 
-gboolean gnome_cmd_con_is_closeable (GnomeCmdCon *con);
+extern "C" gboolean gnome_cmd_con_is_closeable (GnomeCmdCon *con);
 
 History *gnome_cmd_con_get_dir_history (GnomeCmdCon *con);
 
-gchar *gnome_cmd_con_get_go_text (GnomeCmdCon *con);
-gchar *gnome_cmd_con_get_open_text (GnomeCmdCon *con);
-gchar *gnome_cmd_con_get_close_text (GnomeCmdCon *con);
-gchar *gnome_cmd_con_get_go_tooltip (GnomeCmdCon *con);
-gchar *gnome_cmd_con_get_open_tooltip (GnomeCmdCon *con);
-gchar *gnome_cmd_con_get_close_tooltip (GnomeCmdCon *con);
-GIcon *gnome_cmd_con_get_go_icon (GnomeCmdCon *con);
-GIcon *gnome_cmd_con_get_open_icon (GnomeCmdCon *con);
-GIcon *gnome_cmd_con_get_close_icon (GnomeCmdCon *con);
+extern "C" gchar *gnome_cmd_con_get_go_text (GnomeCmdCon *con);
+extern "C" gchar *gnome_cmd_con_get_open_text (GnomeCmdCon *con);
+extern "C" gchar *gnome_cmd_con_get_close_text (GnomeCmdCon *con);
+extern "C" gchar *gnome_cmd_con_get_go_tooltip (GnomeCmdCon *con);
+extern "C" gchar *gnome_cmd_con_get_open_tooltip (GnomeCmdCon *con);
+extern "C" gchar *gnome_cmd_con_get_close_tooltip (GnomeCmdCon *con);
+extern "C" GIcon *gnome_cmd_con_get_go_icon (GnomeCmdCon *con);
+extern "C" GIcon *gnome_cmd_con_get_open_icon (GnomeCmdCon *con);
+extern "C" GIcon *gnome_cmd_con_get_close_icon (GnomeCmdCon *con);
 
 extern "C" GListModel *gnome_cmd_con_get_bookmarks (GnomeCmdCon *con);
 

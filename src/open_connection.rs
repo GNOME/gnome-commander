@@ -18,7 +18,7 @@
  */
 
 use crate::{
-    connection::connection::{ffi::GnomeCmdCon, Connection},
+    connection::connection::{ffi::GnomeCmdCon, Connection, ConnectionExt},
     file_list::{ffi::GnomeCmdFileList, FileList},
     utils::{ErrorMessage, SenderExt},
 };
