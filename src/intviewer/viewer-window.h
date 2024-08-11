@@ -91,13 +91,13 @@ struct GViewerWindowClass
 };
 
 
-GType gviewer_window_get_type ();
+extern "C" GType gviewer_window_get_type ();
 
 GtkWidget *gviewer_window_new ();
 
 void gviewer_window_load_file (GViewerWindow *gViewerWindow, GnomeCmdFile *f);
 
-GtkWidget *gviewer_window_file_view (GnomeCmdFile *f, GViewerWindowSettings *initial_settings=NULL);
+extern "C" GtkWidget *gviewer_window_file_view (GnomeCmdFile *f, GViewerWindowSettings *initial_settings=NULL);
 
 void gviewer_window_get_current_settings(GViewerWindow *obj, /* out */ GViewerWindowSettings *settings);
 

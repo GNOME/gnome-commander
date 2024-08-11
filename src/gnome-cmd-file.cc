@@ -849,54 +849,6 @@ gboolean GnomeCmdFile::content_type_begins_with(const gchar *contentTypeStart)
 }
 
 
-static void view_file_with_internal_viewer (gboolean success, gpointer user_data)
-{
-    GFile *gFile = (GFile *) user_data;
-    if (success)
-    {
-        auto gnomeCmdFile = gnome_cmd_file_new_from_gfile (gFile);
-
-        if (!gnomeCmdFile)
-            return;
-
-        GtkWidget *viewer = gviewer_window_file_view (gnomeCmdFile);
-        gtk_window_present (GTK_WINDOW (viewer));
-
-        gnomeCmdFile->unref();
-    }
-}
-
-
-void gnome_cmd_file_view_internal(GtkWindow *parent_window, GnomeCmdFile *f)
-{
-    // If the file is local there is no need to download it
-    if (f->is_local())
-    {
-        view_file_with_internal_viewer (TRUE, f->get_file());
-        return;
-    }
-    else
-    {
-        // The file is remote, let's download it to a temporary file first
-        gchar *path_str = get_temp_download_filepath (f->get_name());
-        if (!path_str)  return;
-
-        auto srcGFile = f->get_gfile();
-        auto destGFile = gnome_cmd_con_create_gfile (get_home_con (), path_str);
-        auto gFile = gnome_cmd_con_create_gfile (get_home_con (), path_str);
-
-        g_printerr ("Copying to: %s\n", path_str);
-        g_free (path_str);
-
-        gnome_cmd_tmp_download (parent_window,
-                                g_list_append (nullptr, srcGFile),
-                                g_list_append (nullptr, destGFile),
-                                G_FILE_COPY_OVERWRITE,
-                                view_file_with_internal_viewer,
-                                gFile);
-    }
-}
-
 void gnome_cmd_file_view_external(GtkWindow *parent_window, GnomeCmdFile *f)
 {
     GList *files_list = g_list_append(nullptr, f);
