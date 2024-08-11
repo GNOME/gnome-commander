@@ -66,7 +66,6 @@ struct GnomeCmdFile
     gchar *get_dirname();
     gchar *get_unescaped_dirname();
 
-    GFile *get_gfile(const gchar *name=NULL);
     gchar *get_uri_str();
 
     char *get_collation_fname() const    {  return collate_key ? collate_key : g_file_get_basename (get_file());  }
@@ -185,8 +184,6 @@ inline void gnome_cmd_file_list_unref (GList *files)
 {
     g_list_foreach (files, (GFunc) gnome_cmd_file_unref, NULL);
 }
-
-extern "C" GFile *gnome_cmd_file_get_gfile(GnomeCmdFile *f, const gchar *name);
 extern "C" gboolean gnome_cmd_file_is_executable(GnomeCmdFile *f);
 extern "C" void gnome_cmd_file_execute(GnomeCmdFile *f);
 extern "C" gboolean gnome_cmd_file_chmod(GnomeCmdFile *f, guint32 permissions, GError **error);

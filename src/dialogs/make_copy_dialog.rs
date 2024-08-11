@@ -136,7 +136,7 @@ pub async fn make_copy_dialog(f: &File, dir: &Directory, main_win: &MainWindow) 
 
     let success = gnome_cmd_copy_gfiles(
         main_win.clone().upcast(),
-        [f.gfile(None).clone()].into_iter().collect(),
+        [f.file().clone()].into_iter().collect(),
         dest_dir,
         dest_fn.to_string(),
         gio::FileCopyFlags::NONE,

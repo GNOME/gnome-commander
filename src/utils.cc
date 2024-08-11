@@ -716,7 +716,7 @@ GList *gnome_cmd_file_list_to_gfile_list (GList *files)
     for (; files; files = files->next)
     {
         GnomeCmdFile *f = GNOME_CMD_FILE (files->data);
-        auto gFile = f->get_gfile();
+        auto gFile = g_file_dup (f->get_file());
 
         if (!gFile)
             g_warning ("gnome_cmd_file_list_to_gfile_list: no gFile!!!");

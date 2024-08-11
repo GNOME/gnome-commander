@@ -57,7 +57,6 @@ pub mod ffi {
             dir: *mut GnomeCmdDir,
         ) -> *mut GnomeCmdFile;
 
-        pub fn gnome_cmd_file_get_gfile(f: *const GnomeCmdFile, name: *const c_char) -> *mut GFile;
         pub fn gnome_cmd_file_get_real_path(f: *const GnomeCmdFile) -> *mut c_char;
         pub fn gnome_cmd_file_get_uri_str(f: *const GnomeCmdFile) -> *mut c_char;
         pub fn gnome_cmd_file_is_local(f: *const GnomeCmdFile) -> gboolean;
@@ -131,15 +130,6 @@ impl File {
 
     pub fn new_from_path(path: &Path) -> Option<Self> {
         Self::new_from_gfile(&gio::File::for_path(path))
-    }
-
-    pub fn gfile(&self, name: Option<&str>) -> gio::File {
-        unsafe {
-            from_glib_none(ffi::gnome_cmd_file_get_gfile(
-                self.to_glib_none().0,
-                name.to_glib_none().0,
-            ))
-        }
     }
 
     pub fn get_name(&self) -> String {

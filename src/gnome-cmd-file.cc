@@ -175,10 +175,7 @@ GnomeCmdFile *gnome_cmd_file_new_from_gfile (GFile *gFile)
         return gnome_cmd_file_new (gFileInfo, dir);
     }
 
-    auto gFileParentPath = g_file_get_path(gFileParent);
     GnomeCmdDir *dir = gnome_cmd_dir_new (get_home_con(), new GnomeCmdPlainPath(G_DIR_SEPARATOR_S));
-    g_free(gFileParentPath);
-    g_object_unref(gFileParent);
     return gnome_cmd_file_new (gFileInfo, dir);
 }
 
@@ -471,13 +468,12 @@ gchar *GnomeCmdFile::GetPathStringThroughParent()
 //ToDo: Try to remove usage of this method.
 gchar *GnomeCmdFile::get_real_path()
 {
-    auto gFileTmp = get_gfile();
+    auto gFileTmp = get_file();
 
     if (!gFileTmp)
         return nullptr;
 
     gchar *path = g_file_get_path (gFileTmp);
-    g_object_unref (gFileTmp);
 
     return path;
 }
@@ -500,15 +496,12 @@ gchar *GnomeCmdFile::get_quoted_real_path()
 
 gchar *GnomeCmdFile::get_dirname()
 {
-    auto gFileTmp = get_gfile();
+    auto gFileTmp = get_file();
     auto gFileParent = g_file_get_parent(gFileTmp);
     if (!gFileParent)
-    {
-        g_object_unref(gFileTmp);
         return nullptr;
-    }
+
     gchar *path = g_file_get_path (gFileParent);
-    g_object_unref (gFileTmp);
     g_object_unref (gFileParent);
 
     return path;
@@ -600,29 +593,6 @@ gchar *GnomeCmdFile::get_default_application_name(GAppInfo *gAppInfo)
     gchar *escaped_app_name = string_double_underscores (g_app_info_get_name (gAppInfo));
 
     return escaped_app_name;
-}
-
-
-GFile *GnomeCmdFile::get_gfile(const gchar *name)
-{
-    if (!has_parent_dir (this))
-    {
-        if (GNOME_CMD_IS_DIR (this))
-        {
-            GnomeCmdPath *path = gnome_cmd_dir_get_path (GNOME_CMD_DIR (this));
-            GnomeCmdCon *con = gnome_cmd_dir_get_connection (GNOME_CMD_DIR (this));
-            return gnome_cmd_con_create_gfile (con, path->get_path());
-        }
-        else
-            g_assert ("Non directory file without owning directory");
-    }
-    if (!get_file())
-        return nullptr;
-
-    auto filename = g_file_get_basename(get_file());
-    auto childGFile = gnome_cmd_dir_get_child_gfile (::get_parent_dir (this), name ? name : filename);
-    g_free(filename);
-    return childGFile;
 }
 
 
@@ -1120,11 +1090,6 @@ gchar *gnome_cmd_file_get_uri_str (GnomeCmdFile *f)
 gboolean gnome_cmd_file_is_local (GnomeCmdFile *f)
 {
     return f->is_local();
-}
-
-GFile *gnome_cmd_file_get_gfile(GnomeCmdFile *f, const gchar *name)
-{
-    return f->get_gfile(name);
 }
 
 gboolean gnome_cmd_file_is_executable(GnomeCmdFile *f)

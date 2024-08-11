@@ -219,7 +219,7 @@ void gviewer_window_load_file (GViewerWindow *gViewerWindow, GnomeCmdFile *f)
 
     g_free (priv->filename);
 
-    priv->f = f;
+    priv->f = g_object_ref (f);
     priv->filename = f->get_real_path();
     gviewer_load_file (priv->viewer, priv->filename);
 
@@ -458,6 +458,7 @@ static void gviewer_window_dispose (GObject *object)
     GViewerWindow *w = GVIEWER_WINDOW (object);
     auto priv = static_cast<GViewerWindowPrivate*>(gviewer_window_get_instance_private (w));
 
+    g_clear_object (&priv->f);
     g_clear_object (&priv->viewer);
     g_clear_pointer (&priv->filename, g_free);
     delete priv->gViewerWindowSettings;

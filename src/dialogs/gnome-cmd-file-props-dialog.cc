@@ -662,7 +662,7 @@ GtkWidget *gnome_cmd_file_props_dialog_create (GtkWindow *parent_window, GnomeCm
 
     data->dialog = GTK_WIDGET (dialog);
     data->f = f;
-    data->gFile = f->get_gfile();
+    data->gFile = f->get_file();
     data->notebook = notebook;
     f->ref();
 

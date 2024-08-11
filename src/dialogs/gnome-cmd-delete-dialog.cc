@@ -325,7 +325,7 @@ static gboolean update_delete_status_widgets (DeleteData *deleteData)
             for (GList *i = deleteData->deletedGnomeCmdFiles; i; i = i->next)
             {
                 auto gnomeCmdFile = GNOME_CMD_FILE (i->data);
-                auto gFile = gnomeCmdFile->get_gfile();
+                auto gFile = gnomeCmdFile->get_file();
 
                 if (!g_file_query_exists (gFile, nullptr))
                     gnomeCmdFile->is_deleted();
