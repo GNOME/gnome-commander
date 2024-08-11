@@ -75,8 +75,8 @@ pub fn parse_command_template(
             match s {
                 'f' | 'F' => {
                     let raw = s == 'f';
-                    let names = filename
-                        .get_or_init(|| files.iter().filter_map(|f| f.get_name()).collect());
+                    let names =
+                        filename.get_or_init(|| files.iter().map(|f| f.get_name()).collect());
                     for (i, name) in names.iter().enumerate() {
                         if i > 0 {
                             cmd.push(" ");

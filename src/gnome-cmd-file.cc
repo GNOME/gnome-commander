@@ -1126,3 +1126,18 @@ GFile *gnome_cmd_file_get_gfile(GnomeCmdFile *f, const gchar *name)
 {
     return f->get_gfile(name);
 }
+
+gboolean gnome_cmd_file_is_executable(GnomeCmdFile *f)
+{
+    return f->is_executable();
+}
+
+void gnome_cmd_file_execute(GnomeCmdFile *f)
+{
+    f->execute();
+}
+
+gboolean gnome_cmd_file_chmod(GnomeCmdFile *f, guint32 permissions, GError **error)
+{
+    return f->chmod(permissions, error);
+}

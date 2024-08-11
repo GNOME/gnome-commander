@@ -23,11 +23,12 @@
 use crate::file::File;
 use gtk::{
     glib::{self, translate::ToGlibPtr},
-    prelude::{TreeModelExt, TreeViewExt},
+    prelude::*,
 };
 
 pub mod ffi {
-    use gtk::glib::ffi::{GList, GType};
+    use super::*;
+    use glib::ffi::{GList, GType};
 
     #[repr(C)]
     pub struct GnomeCmdFileList {

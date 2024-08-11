@@ -32,6 +32,7 @@ mod file_view;
 mod intviewer;
 mod libgcmd;
 mod main_win;
+mod open_file;
 mod spawn;
 mod transfer;
 mod types;

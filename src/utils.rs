@@ -28,6 +28,19 @@ use std::{
     sync::OnceLock,
 };
 
+pub const GNOME_CMD_PERM_USER_READ: u32 = 256; //r--------
+pub const GNOME_CMD_PERM_USER_WRITE: u32 = 128; //-w-------
+pub const GNOME_CMD_PERM_USER_EXEC: u32 = 64; //--x------
+pub const GNOME_CMD_PERM_GROUP_READ: u32 = 32; //---r-----
+pub const GNOME_CMD_PERM_GROUP_WRITE: u32 = 16; //----w----
+pub const GNOME_CMD_PERM_GROUP_EXEC: u32 = 8; //-----x---
+pub const GNOME_CMD_PERM_OTHER_READ: u32 = 4; //------r--
+pub const GNOME_CMD_PERM_OTHER_WRITE: u32 = 2; //-------w-
+pub const GNOME_CMD_PERM_OTHER_EXEC: u32 = 1; //--------x
+pub const GNOME_CMD_PERM_USER_ALL: u32 = 448; //rwx------
+pub const GNOME_CMD_PERM_GROUP_ALL: u32 = 56; //---rwx---
+pub const GNOME_CMD_PERM_OTHER_ALL: u32 = 7; //------rwx
+
 pub fn temp_directory() -> &'static tempfile::TempDir {
     static TEMP_DIRECTORY: OnceLock<tempfile::TempDir> = OnceLock::new();
     TEMP_DIRECTORY
@@ -36,7 +49,7 @@ pub fn temp_directory() -> &'static tempfile::TempDir {
 
 pub fn temp_file(f: &File) -> Result<File, ErrorMessage> {
     let name = f.get_name();
-    let name_parts = name.as_deref().and_then(|n| n.rsplit_once('.'));
+    let name_parts = name.rsplit_once('.');
 
     let temp_file = tempfile::Builder::new()
         .prefix(name_parts.map(|p| p.0).unwrap_or("tmp"))

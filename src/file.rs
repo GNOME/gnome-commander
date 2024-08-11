@@ -30,17 +30,18 @@ use gtk::{
     glib::{self, translate::*, Cast},
 };
 use std::{
-    ffi::{CStr, CString},
+    ffi::CString,
     path::{Path, PathBuf},
+    ptr,
 };
 
 pub mod ffi {
     use crate::{dir::ffi::GnomeCmdDir, libgcmd::file_base::ffi::GnomeCmdFileBaseClass};
     use gtk::{
         gio::ffi::{GFile, GFileInfo},
-        glib::ffi::GType,
+        glib::ffi::{gboolean, GError, GType},
     };
-    use std::ffi::{c_char, c_int};
+    use std::ffi::c_char;
 
     #[repr(C)]
     pub struct GnomeCmdFile {
@@ -57,10 +58,18 @@ pub mod ffi {
         ) -> *mut GnomeCmdFile;
 
         pub fn gnome_cmd_file_get_gfile(f: *const GnomeCmdFile, name: *const c_char) -> *mut GFile;
-        pub fn gnome_cmd_file_get_name(f: *const GnomeCmdFile) -> *const c_char;
         pub fn gnome_cmd_file_get_real_path(f: *const GnomeCmdFile) -> *mut c_char;
         pub fn gnome_cmd_file_get_uri_str(f: *const GnomeCmdFile) -> *mut c_char;
-        pub fn gnome_cmd_file_is_local(f: *const GnomeCmdFile) -> c_int;
+        pub fn gnome_cmd_file_is_local(f: *const GnomeCmdFile) -> gboolean;
+
+        pub fn gnome_cmd_file_is_executable(f: *const GnomeCmdFile) -> gboolean;
+        pub fn gnome_cmd_file_execute(f: *const GnomeCmdFile);
+
+        pub fn gnome_cmd_file_chmod(
+            f: *mut GnomeCmdFile,
+            permissions: u32,
+            error: *mut *mut GError,
+        ) -> gboolean;
     }
 
     #[derive(Copy, Clone)]
@@ -133,9 +142,8 @@ impl File {
         }
     }
 
-    pub fn get_name(&self) -> Option<String> {
-        let ptr = unsafe { CStr::from_ptr(ffi::gnome_cmd_file_get_name(self.to_glib_none().0)) };
-        Some(ptr.to_str().ok()?.to_string())
+    pub fn get_name(&self) -> String {
+        self.file_info().display_name().into()
     }
 
     pub fn get_real_path(&self) -> PathBuf {
@@ -163,5 +171,25 @@ impl File {
         let content_type = self.content_type()?;
         let must_support_uris = !self.file().has_uri_scheme("file");
         gio::AppInfo::default_for_type(&content_type, must_support_uris)
+    }
+
+    pub fn is_executable(&self) -> bool {
+        unsafe { ffi::gnome_cmd_file_is_executable(self.to_glib_none().0) != 0 }
+    }
+
+    pub fn execute(&self) {
+        unsafe { ffi::gnome_cmd_file_execute(self.to_glib_none().0) }
+    }
+
+    pub fn chmod(&self, permissions: u32) -> Result<(), glib::Error> {
+        unsafe {
+            let mut error = ptr::null_mut();
+            let _is_ok = ffi::gnome_cmd_file_chmod(self.to_glib_none().0, permissions, &mut error);
+            if error.is_null() {
+                Ok(())
+            } else {
+                Err(from_glib_full(error))
+            }
+        }
     }
 }

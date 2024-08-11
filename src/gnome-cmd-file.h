@@ -187,3 +187,6 @@ inline void gnome_cmd_file_list_unref (GList *files)
 }
 
 extern "C" GFile *gnome_cmd_file_get_gfile(GnomeCmdFile *f, const gchar *name);
+extern "C" gboolean gnome_cmd_file_is_executable(GnomeCmdFile *f);
+extern "C" void gnome_cmd_file_execute(GnomeCmdFile *f);
+extern "C" gboolean gnome_cmd_file_chmod(GnomeCmdFile *f, guint32 permissions, GError **error);
