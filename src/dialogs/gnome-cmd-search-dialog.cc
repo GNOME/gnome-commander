@@ -1025,19 +1025,22 @@ void GnomeCmdSearchDialog::Private::on_dialog_response(GtkDialog *window, int re
                 GnomeCmdCon *con = gnome_cmd_dir_get_connection (data.start_dir);
 
                 const gchar *root_path = g_uri_get_path (gnome_cmd_con_get_uri (con));
-                if (strncmp(dirPathString, root_path, strlen(root_path)) != 0)
+                if (strncmp(dirPathString, root_path, strlen(root_path)) == 0)
                 {
-                    if (!g_strcmp0(g_uri_get_scheme (gUri), "file") != 0)
-                    {
-                        g_uri_unref (gUri);
-                        gnome_cmd_show_message (*dialog, stringify(g_strdup_printf (_("Failed to change directory outside of %s"), root_path)));
-                        break;
-                    }
-                    else
-                        data.start_dir = gnome_cmd_dir_new (get_home_con (), gnome_cmd_con_create_path (get_home_con (), dirPathString));
+                    // starts with `root_path` of a `con` => it belongs to `con`
+                    data.start_dir = gnome_cmd_dir_new (con, gnome_cmd_con_create_path (con, dirPathString + strlen(root_path)));
+                }
+                else if (g_strcmp0(g_uri_get_scheme (gUri), "file") == 0)
+                {
+                    // has "file" scheme => it belongs to home connection
+                    data.start_dir = gnome_cmd_dir_new (get_home_con (), gnome_cmd_con_create_path (get_home_con (), dirPathString));
                 }
                 else
-                    data.start_dir = gnome_cmd_dir_new (con, gnome_cmd_con_create_path (con, dirPathString + strlen(root_path)));
+                {
+                    g_uri_unref (gUri);
+                    gnome_cmd_show_message (*dialog, stringify(g_strdup_printf (_("Failed to change directory outside of %s"), root_path)));
+                    break;
+                }
 
                 g_uri_unref (gUri);
 
