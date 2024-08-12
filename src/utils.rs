@@ -61,9 +61,11 @@ pub fn temp_file(f: &File) -> Result<File, ErrorMessage> {
         })?;
 
     let path = temp_file.into_temp_path();
-    File::new_from_path(&path).ok_or_else(|| ErrorMessage {
-        message: gettext!("Cannot create a file for a path {}.", path.display()),
-        secondary_text: None,
+    File::new_from_path(&path).map_err(|error| {
+        ErrorMessage::with_error(
+            gettext!("Cannot create a file for a path {}.", path.display()),
+            &error,
+        )
     })
 }
 

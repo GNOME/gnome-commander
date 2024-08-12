@@ -57,6 +57,12 @@ pub mod ffi {
             dir: *mut GnomeCmdDir,
         ) -> *mut GnomeCmdFile;
 
+        pub fn gnome_cmd_file_new_full(
+            file_info: *mut GFileInfo,
+            file: *mut GFile,
+            dir: *mut GnomeCmdDir,
+        ) -> *mut GnomeCmdFile;
+
         pub fn gnome_cmd_file_get_real_path(f: *const GnomeCmdFile) -> *mut c_char;
         pub fn gnome_cmd_file_get_uri_str(f: *const GnomeCmdFile) -> *mut c_char;
         pub fn gnome_cmd_file_is_local(f: *const GnomeCmdFile) -> gboolean;
@@ -107,15 +113,21 @@ impl File {
         }
     }
 
-    pub fn new_from_gfile(file: &gio::File) -> Option<Self> {
+    pub fn new_full(file_info: &gio::FileInfo, file: &gio::File, dir: &Directory) -> Option<Self> {
+        unsafe {
+            from_glib_full(ffi::gnome_cmd_file_new_full(
+                file_info.to_glib_none().0,
+                file.to_glib_none().0,
+                dir.to_glib_none().0,
+            ))
+        }
+    }
+
+    pub fn new_from_path(path: &Path) -> Result<Self, glib::Error> {
+        let file = gio::File::for_path(path);
+
         let file_info =
-            match file.query_info("*", gio::FileQueryInfoFlags::NONE, gio::Cancellable::NONE) {
-                Ok(info) => info,
-                Err(error) => {
-                    eprintln!("File::new_from_gfile error: {}", error.message());
-                    return None;
-                }
-            };
+            file.query_info("*", gio::FileQueryInfoFlags::NONE, gio::Cancellable::NONE)?;
 
         let parent_path = file
             .parent()
@@ -125,11 +137,10 @@ impl File {
         let home = ConnectionList::get().home();
         let dir_path = home.create_path(&parent_path);
         let dir = Directory::new(&home, dir_path);
-        Self::new(&file_info, &dir)
-    }
 
-    pub fn new_from_path(path: &Path) -> Option<Self> {
-        Self::new_from_gfile(&gio::File::for_path(path))
+        Self::new_full(&file_info, &file, &dir).ok_or_else(|| {
+            glib::Error::new(glib::FileError::Failed, "Failed to create File object")
+        })
     }
 
     pub fn get_name(&self) -> String {

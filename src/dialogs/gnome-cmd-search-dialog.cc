@@ -821,7 +821,7 @@ static gboolean handle_search_command_stdout_io (GIOChannel *ioc, GIOCondition c
 
             gchar *utf8 = g_filename_display_name (string->str);
 
-            GnomeCmdFile *f = gnome_cmd_file_new (utf8);
+            GnomeCmdFile *f = gnome_cmd_file_new_from_path (utf8);
 
             if (f)
                 data->dialog->priv->result_list->append_file(f);
