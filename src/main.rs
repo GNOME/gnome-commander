@@ -41,6 +41,7 @@ mod intviewer;
 mod libgcmd;
 mod main_win;
 mod notebook_ext;
+mod open_connection;
 mod open_file;
 mod path;
 mod shortcuts;

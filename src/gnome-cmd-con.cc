@@ -145,9 +145,9 @@ static void gnome_cmd_con_class_init (GnomeCmdConClass *klass)
             G_SIGNAL_RUN_LAST,
             G_STRUCT_OFFSET (GnomeCmdConClass, open_failed),
             nullptr, nullptr,
-            g_cclosure_marshal_VOID__VOID,
+            nullptr,
             G_TYPE_NONE,
-            0);
+            1, G_TYPE_STRING);
 
     G_OBJECT_CLASS (klass)->dispose = dispose;
 
@@ -248,7 +248,7 @@ static gboolean check_con_open_progress (GnomeCmdCon *con)
             {
                 DEBUG ('m', "GnomeCmdCon::OPEN_FAILED detected\n");
                 DEBUG ('m', "Emitting 'open-failed' signal\n");
-                g_signal_emit (con, signals[OPEN_FAILED], 0);
+                g_signal_emit (con, signals[OPEN_FAILED], 0, con->open_failed_msg);
             }
             return FALSE;
 
