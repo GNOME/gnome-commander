@@ -17,9 +17,4 @@
  * For more details see the file COPYING.
  */
 
-pub mod connection;
-pub mod device;
-pub mod home;
-pub mod list;
-pub mod remote;
-pub mod smb;
+pub mod window;

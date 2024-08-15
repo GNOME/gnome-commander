@@ -131,7 +131,7 @@ inline const gchar *GnomeCmdFile::get_name()
 
 GnomeCmdFile *gnome_cmd_file_new_from_gfile (GFile *gFile);
 GnomeCmdFile *gnome_cmd_file_new (const gchar *local_full_path);
-GnomeCmdFile *gnome_cmd_file_new (GFileInfo *gFileInfo, GnomeCmdDir *dir);
+extern "C" GnomeCmdFile *gnome_cmd_file_new (GFileInfo *gFileInfo, GnomeCmdDir *dir);
 gboolean gnome_cmd_file_setup (GObject *gObject, GFile *gFile, GError **error);
 
 inline GnomeCmdFile *gnome_cmd_file_ref (GnomeCmdFile *f)
@@ -169,7 +169,7 @@ extern "C" gboolean gnome_cmd_file_is_local (GnomeCmdFile *f);
 void gnome_cmd_file_show_chown_dialog (GList *files);
 void gnome_cmd_file_show_chmod_dialog (GList *files);
 void gnome_cmd_file_view (GtkWindow *parent_window, GnomeCmdFile *f);
-void gnome_cmd_file_view_internal(GtkWindow *parent_window, GnomeCmdFile *f);
+extern "C" void gnome_cmd_file_view_internal(GtkWindow *parent_window, GnomeCmdFile *f);
 void gnome_cmd_file_view_external(GtkWindow *parent_window, GnomeCmdFile *f);
 void gnome_cmd_file_edit (GtkWindow *parent_window, GnomeCmdFile *f);
 
@@ -187,3 +187,6 @@ inline void gnome_cmd_file_list_unref (GList *files)
 }
 
 extern "C" GFile *gnome_cmd_file_get_gfile(GnomeCmdFile *f, const gchar *name);
+extern "C" gboolean gnome_cmd_file_is_executable(GnomeCmdFile *f);
+extern "C" void gnome_cmd_file_execute(GnomeCmdFile *f);
+extern "C" gboolean gnome_cmd_file_chmod(GnomeCmdFile *f, guint32 permissions, GError **error);

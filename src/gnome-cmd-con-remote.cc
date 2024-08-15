@@ -171,7 +171,7 @@ static gboolean remote_open_is_needed (GnomeCmdCon *con)
 }
 
 
-static GFile *create_remote_gfile_with_path(GnomeCmdCon *con, GnomeCmdPath *path)
+static GFile *create_remote_gfile_with_path(GnomeCmdCon *con, const gchar *path)
 {
     auto uri = gnome_cmd_con_get_uri (con);
     auto gUri = g_uri_build(G_URI_FLAGS_NONE,
@@ -179,7 +179,7 @@ static GFile *create_remote_gfile_with_path(GnomeCmdCon *con, GnomeCmdPath *path
         g_uri_get_userinfo (uri),
         g_uri_get_host (uri),
         g_uri_get_port (uri),
-        path->get_path(),
+        path,
         nullptr,
         nullptr);
     auto gFilePathUriString = g_uri_to_string(gUri);
@@ -189,7 +189,7 @@ static GFile *create_remote_gfile_with_path(GnomeCmdCon *con, GnomeCmdPath *path
 }
 
 
-static GFile *remote_create_gfile (GnomeCmdCon *con, GnomeCmdPath *path)
+static GFile *remote_create_gfile (GnomeCmdCon *con, const gchar *path)
 {
     gchar *uri = gnome_cmd_con_get_uri_string (con);
     g_return_val_if_fail (uri != nullptr, nullptr);

@@ -46,7 +46,7 @@ static void mount_func (GnomeCmdCon *con)
 
     // ToDo: Check if the error block below is executed if samba is not available on the system.
     // ToDo: Check if password is visible in the logs below!
-    auto gFile = gnome_cmd_con_create_gfile (con, con->base_path);
+    auto gFile = gnome_cmd_con_create_gfile (con, con->base_path->get_path());
     if (!gFile)
     {
         DEBUG('s', "gnome_cmd_con_create_gfile returned NULL\n");
@@ -155,10 +155,10 @@ static gboolean smb_open_is_needed (GnomeCmdCon *con)
 }
 
 
-static GFile *smb_create_gfile (GnomeCmdCon *con, GnomeCmdPath *path)
+static GFile *smb_create_gfile (GnomeCmdCon *con, const gchar *path)
 {
     auto *gFileTmp = g_file_new_for_uri ("smb:");
-    auto gFile = g_file_resolve_relative_path (gFileTmp, path->get_path());
+    auto gFile = g_file_resolve_relative_path (gFileTmp, path);
     g_object_unref(gFileTmp);
 
     if (!gFile)

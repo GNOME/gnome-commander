@@ -36,6 +36,7 @@ use gtk::{
     glib::{self, translate::from_glib_none},
     prelude::*,
 };
+use std::path::Path;
 
 pub async fn make_copy_dialog(f: &File, dir: &Directory, main_win: &MainWindow) {
     let dialog = gtk::Dialog::builder()
@@ -126,7 +127,7 @@ pub async fn make_copy_dialog(f: &File, dir: &Directory, main_win: &MainWindow) 
         dest_fn = base;
 
         let con = dir.connection();
-        let con_path = con.create_path(parent);
+        let con_path = con.create_path(&Path::new(parent));
         dest_dir = Directory::new(&con, con_path);
     } else {
         dest_dir = dir.clone();

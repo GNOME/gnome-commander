@@ -46,6 +46,3 @@ GIcon *IMAGE_get_file_icon (guint32 type, const gchar *mime_type, gboolean symli
 void IMAGE_clear_mime_cache ();
 
 void register_gnome_commander_stock_icons (void);
-
-const gchar* get_default_application_icon_path(GAppInfo* appInfo);
-

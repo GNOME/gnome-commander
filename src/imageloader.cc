@@ -397,24 +397,3 @@ void register_gnome_commander_stock_icons (void)
 
     g_object_unref (icon_factory);
 }
-
-/**
- * This method returns the path of the default application icon for a given GAppInfo object.
- * The returned char must not be free'ed.
- */
-const gchar* get_default_application_icon_path(GAppInfo* appInfo)
-{
-    g_return_val_if_fail (appInfo, nullptr);
-
-    auto appIconName = g_icon_to_string (g_app_info_get_icon(appInfo));
-    auto gtkIconInfo = gtk_icon_theme_lookup_icon (gtk_icon_theme_get_default(), appIconName, ICON_SIZE, GTK_ICON_LOOKUP_FORCE_SIZE);
-
-    g_free(appIconName);
-
-    if (gtkIconInfo == nullptr)
-    {
-        return nullptr;
-    }
-
-    return gtk_icon_info_get_filename(gtkIconInfo);
-}

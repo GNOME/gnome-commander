@@ -251,7 +251,7 @@ void gnome_cmd_file_setup (GObject *gObject, GFileInfo *gFileInfo, GnomeCmdDir *
     if (path)
     {
         auto con = gnome_cmd_dir_get_connection(parentDir ? parentDir : GNOME_CMD_DIR(gObject));
-        GNOME_CMD_FILE_BASE (gnomeCmdFile)->gFile = gnome_cmd_con_create_gfile (con, path);
+        GNOME_CMD_FILE_BASE (gnomeCmdFile)->gFile = gnome_cmd_con_create_gfile (con, path->get_path());
 
         delete path;
     }
@@ -611,7 +611,7 @@ GFile *GnomeCmdFile::get_gfile(const gchar *name)
         {
             GnomeCmdPath *path = gnome_cmd_dir_get_path (GNOME_CMD_DIR (this));
             GnomeCmdCon *con = gnome_cmd_dir_get_connection (GNOME_CMD_DIR (this));
-            return gnome_cmd_con_create_gfile (con, path);
+            return gnome_cmd_con_create_gfile (con, path->get_path());
         }
         else
             g_assert ("Non directory file without owning directory");
@@ -848,55 +848,6 @@ gboolean GnomeCmdFile::content_type_begins_with(const gchar *contentTypeStart)
     return compareValue == 0;
 }
 
-
-static void view_file_with_internal_viewer (gboolean success, gpointer user_data)
-{
-    GFile *gFile = (GFile *) user_data;
-    if (success)
-    {
-        auto gnomeCmdFile = gnome_cmd_file_new_from_gfile (gFile);
-
-        if (!gnomeCmdFile)
-            return;
-
-        GtkWidget *viewer = gviewer_window_file_view (gnomeCmdFile);
-        gtk_window_present (GTK_WINDOW (viewer));
-
-        gnomeCmdFile->unref();
-    }
-}
-
-
-void gnome_cmd_file_view_internal(GtkWindow *parent_window, GnomeCmdFile *f)
-{
-    // If the file is local there is no need to download it
-    if (f->is_local())
-    {
-        view_file_with_internal_viewer (TRUE, f->get_file());
-        return;
-    }
-    else
-    {
-        // The file is remote, let's download it to a temporary file first
-        gchar *path_str = get_temp_download_filepath (f->get_name());
-        if (!path_str)  return;
-
-        GnomeCmdPlainPath path(path_str);
-        auto srcGFile = f->get_gfile();
-        auto destGFile = gnome_cmd_con_create_gfile (get_home_con (), &path);
-        auto gFile = gnome_cmd_con_create_gfile (get_home_con (), &path);
-
-        g_printerr ("Copying to: %s\n", path_str);
-        g_free (path_str);
-
-        gnome_cmd_tmp_download (parent_window,
-                                g_list_append (nullptr, srcGFile),
-                                g_list_append (nullptr, destGFile),
-                                G_FILE_COPY_OVERWRITE,
-                                view_file_with_internal_viewer,
-                                gFile);
-    }
-}
 
 void gnome_cmd_file_view_external(GtkWindow *parent_window, GnomeCmdFile *f)
 {
@@ -1174,4 +1125,19 @@ gboolean gnome_cmd_file_is_local (GnomeCmdFile *f)
 GFile *gnome_cmd_file_get_gfile(GnomeCmdFile *f, const gchar *name)
 {
     return f->get_gfile(name);
+}
+
+gboolean gnome_cmd_file_is_executable(GnomeCmdFile *f)
+{
+    return f->is_executable();
+}
+
+void gnome_cmd_file_execute(GnomeCmdFile *f)
+{
+    f->execute();
+}
+
+gboolean gnome_cmd_file_chmod(GnomeCmdFile *f, guint32 permissions, GError **error)
+{
+    return f->chmod(permissions, error);
 }

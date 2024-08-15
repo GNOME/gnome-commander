@@ -17,16 +17,22 @@
  * For more details see the file COPYING.
  */
 
+mod app;
 mod application;
 mod config;
 mod connection;
+mod data;
 mod dialogs;
 mod dir;
 mod file;
 mod file_list;
+mod file_list_actions;
 mod file_selector;
+mod file_view;
+mod intviewer;
 mod libgcmd;
 mod main_win;
+mod open_file;
 mod spawn;
 mod transfer;
 mod types;

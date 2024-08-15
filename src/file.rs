@@ -20,22 +20,28 @@
  * For more details see the file COPYING.
  */
 
+use crate::{
+    connection::{connection::ConnectionExt, list::ConnectionList},
+    dir::Directory,
+    libgcmd::file_base::{FileBase, FileBaseExt},
+};
 use gtk::{
-    gio,
+    gio::{self, prelude::*},
     glib::{self, translate::*, Cast},
 };
 use std::{
-    ffi::{CStr, CString},
-    path::PathBuf,
+    ffi::CString,
+    path::{Path, PathBuf},
+    ptr,
 };
 
-use crate::libgcmd::file_base::{FileBase, FileBaseExt};
-
 pub mod ffi {
-    use gtk::{gio::ffi::GFile, glib::ffi::GType};
-    use std::ffi::{c_char, c_int};
-
-    use crate::libgcmd::file_base::ffi::GnomeCmdFileBaseClass;
+    use crate::{dir::ffi::GnomeCmdDir, libgcmd::file_base::ffi::GnomeCmdFileBaseClass};
+    use gtk::{
+        gio::ffi::{GFile, GFileInfo},
+        glib::ffi::{gboolean, GError, GType},
+    };
+    use std::ffi::c_char;
 
     #[repr(C)]
     pub struct GnomeCmdFile {
@@ -46,11 +52,24 @@ pub mod ffi {
     extern "C" {
         pub fn gnome_cmd_file_get_type() -> GType;
 
+        pub fn gnome_cmd_file_new(
+            file_info: *mut GFileInfo,
+            dir: *mut GnomeCmdDir,
+        ) -> *mut GnomeCmdFile;
+
         pub fn gnome_cmd_file_get_gfile(f: *const GnomeCmdFile, name: *const c_char) -> *mut GFile;
-        pub fn gnome_cmd_file_get_name(f: *const GnomeCmdFile) -> *const c_char;
         pub fn gnome_cmd_file_get_real_path(f: *const GnomeCmdFile) -> *mut c_char;
         pub fn gnome_cmd_file_get_uri_str(f: *const GnomeCmdFile) -> *mut c_char;
-        pub fn gnome_cmd_file_is_local(f: *const GnomeCmdFile) -> c_int;
+        pub fn gnome_cmd_file_is_local(f: *const GnomeCmdFile) -> gboolean;
+
+        pub fn gnome_cmd_file_is_executable(f: *const GnomeCmdFile) -> gboolean;
+        pub fn gnome_cmd_file_execute(f: *const GnomeCmdFile);
+
+        pub fn gnome_cmd_file_chmod(
+            f: *mut GnomeCmdFile,
+            permissions: u32,
+            error: *mut *mut GError,
+        ) -> gboolean;
     }
 
     #[derive(Copy, Clone)]
@@ -80,6 +99,40 @@ impl FileBaseExt for File {
 }
 
 impl File {
+    pub fn new(file_info: &gio::FileInfo, dir: &Directory) -> Option<Self> {
+        unsafe {
+            from_glib_full(ffi::gnome_cmd_file_new(
+                file_info.to_glib_none().0,
+                dir.to_glib_none().0,
+            ))
+        }
+    }
+
+    pub fn new_from_gfile(file: &gio::File) -> Option<Self> {
+        let file_info =
+            match file.query_info("*", gio::FileQueryInfoFlags::NONE, gio::Cancellable::NONE) {
+                Ok(info) => info,
+                Err(error) => {
+                    eprintln!("File::new_from_gfile error: {}", error.message());
+                    return None;
+                }
+            };
+
+        let parent_path = file
+            .parent()
+            .and_then(|p| p.path())
+            .unwrap_or_else(|| PathBuf::from("/"));
+
+        let home = ConnectionList::get().home();
+        let dir_path = home.create_path(&parent_path);
+        let dir = Directory::new(&home, dir_path);
+        Self::new(&file_info, &dir)
+    }
+
+    pub fn new_from_path(path: &Path) -> Option<Self> {
+        Self::new_from_gfile(&gio::File::for_path(path))
+    }
+
     pub fn gfile(&self, name: Option<&str>) -> gio::File {
         unsafe {
             from_glib_none(ffi::gnome_cmd_file_get_gfile(
@@ -89,9 +142,8 @@ impl File {
         }
     }
 
-    pub fn get_name(&self) -> Option<String> {
-        let ptr = unsafe { CStr::from_ptr(ffi::gnome_cmd_file_get_name(self.to_glib_none().0)) };
-        Some(ptr.to_str().ok()?.to_string())
+    pub fn get_name(&self) -> String {
+        self.file_info().display_name().into()
     }
 
     pub fn get_real_path(&self) -> PathBuf {
@@ -106,5 +158,38 @@ impl File {
 
     pub fn is_local(&self) -> bool {
         unsafe { ffi::gnome_cmd_file_is_local(self.to_glib_none().0) != 0 }
+    }
+
+    pub fn content_type(&self) -> Option<glib::GString> {
+        let file_info = self.file_info();
+        file_info
+            .attribute_string(gio::FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE)
+            .or_else(|| file_info.attribute_string(gio::FILE_ATTRIBUTE_STANDARD_FAST_CONTENT_TYPE))
+    }
+
+    pub fn app_info_for_content_type(&self) -> Option<gio::AppInfo> {
+        let content_type = self.content_type()?;
+        let must_support_uris = !self.file().has_uri_scheme("file");
+        gio::AppInfo::default_for_type(&content_type, must_support_uris)
+    }
+
+    pub fn is_executable(&self) -> bool {
+        unsafe { ffi::gnome_cmd_file_is_executable(self.to_glib_none().0) != 0 }
+    }
+
+    pub fn execute(&self) {
+        unsafe { ffi::gnome_cmd_file_execute(self.to_glib_none().0) }
+    }
+
+    pub fn chmod(&self, permissions: u32) -> Result<(), glib::Error> {
+        unsafe {
+            let mut error = ptr::null_mut();
+            let _is_ok = ffi::gnome_cmd_file_chmod(self.to_glib_none().0, permissions, &mut error);
+            if error.is_null() {
+                Ok(())
+            } else {
+                Err(from_glib_full(error))
+            }
+        }
     }
 }

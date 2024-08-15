@@ -84,7 +84,6 @@ sources_sources = files(
   'filter.cc',
   'gnome-cmd-about-plugin.cc',
   'gnome-cmd-advrename-profile-component.cc',
-  'gnome-cmd-app.cc',
   'gnome-cmd-application.cc',
   'gnome-cmd-chmod-component.cc',
   'gnome-cmd-chown-component.cc',

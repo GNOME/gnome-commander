@@ -35,11 +35,9 @@ struct GnomeCmdConList::Private
     gboolean changed;
     gboolean remote_cons_changed;
     gboolean device_cons_changed;
-    gboolean quick_ftp_cons_changed;
 
     GList *remote_cons    {nullptr};
     GList *device_cons    {nullptr};
-    GList *quick_ftp_cons {nullptr};
 
     GnomeCmdCon *home_con {nullptr};
     GnomeCmdCon *smb_con  {nullptr};
@@ -227,30 +225,6 @@ void GnomeCmdConList::remove(GnomeCmdConRemote *con)
 }
 
 
-void gnome_cmd_con_list_add_quick_ftp (GnomeCmdConList *con_list, GnomeCmdConRemote *remote_con)
-{
-    g_return_if_fail (GNOME_CMD_IS_CON_LIST (con_list));
-    g_return_if_fail (g_list_index (con_list->priv->all_cons, remote_con) == -1);
-    g_return_if_fail (g_list_index (con_list->priv->quick_ftp_cons, remote_con) == -1);
-
-    con_list->priv->all_cons = g_list_append (con_list->priv->all_cons, remote_con);
-    con_list->priv->quick_ftp_cons = g_list_append (con_list->priv->quick_ftp_cons, remote_con);
-
-    g_signal_connect (remote_con, "updated", G_CALLBACK (on_con_updated), con_list);
-
-    if (con_list->priv->update_lock)
-    {
-        con_list->priv->changed = TRUE;
-        con_list->priv->quick_ftp_cons_changed = TRUE;
-    }
-    else
-    {
-        g_signal_emit (con_list, signals[LIST_CHANGED], 0);
-        g_signal_emit (con_list, signals[QUICK_FTP_LIST_CHANGED], 0);
-    }
-}
-
-
 void GnomeCmdConList::add(GnomeCmdConDevice *con)
 {
     g_return_if_fail (g_list_index (priv->all_cons, con) == -1);
@@ -389,4 +363,19 @@ GnomeCmdCon *get_remote_con_for_gfile(GFile *gFile)
         g_free(uri);
     }
     return gnomeCmdCon;
+}
+
+GnomeCmdCon *gnome_cmd_con_list_get_home (GnomeCmdConList *list)
+{
+    return list->get_home();
+}
+
+GnomeCmdCon *gnome_cmd_con_list_get_smb (GnomeCmdConList *list)
+{
+    return list->get_smb();
+}
+
+GnomeCmdConList *gnome_cmd_con_list_get ()
+{
+    return static_cast<GnomeCmdConList *>(gnome_cmd_data_get_con_list ());
 }

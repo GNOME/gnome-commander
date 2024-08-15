@@ -96,15 +96,6 @@ static GtkTargetEntry drop_types [] =
 static guint signals[LAST_SIGNAL] = { 0 };
 
 
-struct TmpDlData
-{
-    GnomeCmdFile *f;
-    GtkWidget *dialog;
-    GtkWindow *parent_window;
-    gpointer *args;
-};
-
-
 struct GnomeCmdFileListColumn
 {
     guint id;
@@ -1338,193 +1329,7 @@ static void on_button_press (GtkGestureMultiPress *gesture, int n_press, double 
 }
 
 
-static void do_mime_exec_single (gboolean success, gpointer user_data)
-{
-    gpointer *args = (gpointer *) user_data;
-    g_return_if_fail (args != nullptr);
-
-    auto gnomeCmdApp = static_cast<GnomeCmdApp*> (args[0]);
-    auto path = (gchar *) args[1];
-    auto dpath = (gchar *) args[2];
-
-    if (success)
-    {
-        auto gnomeCmdFile = gnome_cmd_file_new(path);
-
-        if (gnomeCmdFile != nullptr)
-        {
-            gnome_cmd_file_ref(gnomeCmdFile);
-            GList *gFileList = nullptr;
-            gFileList = g_list_append(gFileList, gnomeCmdFile->get_file());
-            g_app_info_launch (gnomeCmdFile->GetAppInfoForContentType(), gFileList, nullptr, nullptr);
-
-            g_list_free(gFileList);
-            gnome_cmd_file_unref(gnomeCmdFile);
-        }
-    }
-
-    g_free (path);
-    g_free (dpath);
-    gnome_cmd_app_free (gnomeCmdApp);
-    g_free (args);
-}
-
-
-static void on_tmp_download_response (GtkWidget *w, gint id, TmpDlData *dldata)
-{
-    if (id == GTK_RESPONSE_YES)
-    {
-        gchar *path_str = get_temp_download_filepath (dldata->f->get_name());
-
-        if (!path_str) return;
-
-        dldata->args[1] = (gpointer) path_str;
-
-        auto sourceGFile = g_file_dup (dldata->f->get_gfile());
-        GnomeCmdPlainPath path(path_str);
-        auto destGFile = gnome_cmd_con_create_gfile (get_home_con (), &path);
-
-        gnome_cmd_tmp_download (dldata->parent_window,
-                                g_list_append (nullptr, sourceGFile),
-                                g_list_append (nullptr, destGFile),
-                                G_FILE_COPY_OVERWRITE,
-                                do_mime_exec_single,
-                                dldata->args);
-    }
-    else
-    {
-        gnome_cmd_app_free (static_cast<GnomeCmdApp*> (dldata->args[0]));
-        g_free (dldata->args);
-    }
-
-    gtk_window_destroy (GTK_WINDOW (dldata->dialog));
-    g_free (dldata);
-}
-
-
-static void mime_exec_single (GtkWindow *parent_window, GnomeCmdFile *f)
-{
-    g_return_if_fail (f != nullptr);
-    g_return_if_fail (f->get_file_info() != nullptr);
-
-    gpointer *args;
-    GnomeCmdApp *app;
-
-    // Check if the file is a binary executable that lacks the executable bit
-
-    if (!f->is_executable())
-    {
-        if (f->has_content_type("application/x-executable") || f->has_content_type("application/x-executable-binary"))
-        {
-            gchar *msg = g_strdup_printf (_("“%s” seems to be a binary executable file but it lacks the executable bit. Do you want to set it and then run the file?"), f->get_name());
-            gint ret = run_simple_dialog (parent_window, FALSE, GTK_MESSAGE_QUESTION, msg,
-                                          _("Make Executable?"),
-                                          -1, _("Cancel"), _("OK"), nullptr);
-            g_free (msg);
-
-            if (ret != 1)
-            {
-                return;
-            }
-
-           if(!f->chmod(get_gfile_attribute_uint32(f->get_file(), G_FILE_ATTRIBUTE_UNIX_MODE) | GNOME_CMD_PERM_USER_EXEC, nullptr))
-           {
-               return;
-           }
-        }
-    }
-
-    // If the file is executable but not a binary file, check if the user wants to exec it or open it
-
-    if (f->is_executable())
-    {
-        if (f->has_content_type("application/x-executable") || f->has_content_type("application/x-executable-binary"))
-        {
-            f->execute();
-            return;
-        }
-        else
-            if (f->content_type_begins_with("text/"))
-            {
-                gchar *msg = g_strdup_printf (_("“%s” is an executable text file. Do you want to run it, or display its contents?"), f->get_name());
-                gint ret = run_simple_dialog (parent_window, FALSE, GTK_MESSAGE_QUESTION, msg, _("Run or Display"),
-                                              -1, _("Cancel"), _("Display"), _("Run"), nullptr);
-                g_free (msg);
-
-                if (ret != 1)
-                {
-                    if (ret == 2)
-                        f->execute();
-                    return;
-                }
-            }
-    }
-
-    auto gAppInfo = f->GetAppInfoForContentType();
-    if (gAppInfo == nullptr)
-    {
-        auto contentType = f->GetGfileAttributeString(G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE);
-        gchar *msg = g_strdup_printf (_("No default application found for the file type %s."), contentType);
-        gnome_cmd_show_message (parent_window, msg, _("Open the \"Applications\" page in the Control Center to add one."));
-        g_free (contentType);
-        g_free (msg);
-        return;
-    }
-
-    app = gnome_cmd_app_new_from_app_info (gAppInfo);
-
-    args = g_new0 (gpointer, 3);
-
-    if (f->is_local())
-    {
-        GList *gFileList = nullptr;
-        gFileList = g_list_append(gFileList, f->get_file());
-        g_app_info_launch (gAppInfo, gFileList, nullptr, nullptr);
-        g_list_free(gFileList);
-    }
-    else
-    {
-        if (gnome_cmd_app_get_handles_uris (app) && gnome_cmd_data.options.honor_expect_uris)
-        {
-            auto gFileFromUri = g_file_new_for_uri(f->get_uri_str());
-            GList *gFileList = nullptr;
-            gFileList = g_list_append(gFileList, gFileFromUri);
-            g_app_info_launch (gAppInfo, gFileList, nullptr, nullptr);
-            g_object_unref(gFileFromUri);
-            g_list_free(gFileList);
-            gnome_cmd_app_free(app);
-        }
-        else
-        {
-            gchar *msg = g_strdup_printf (_("%s does not know how to open remote file. Do you want to download the file to a temporary location and then open it?"), gnome_cmd_app_get_name (app));
-            GtkWidget *dialog = gtk_message_dialog_new (parent_window, GTK_DIALOG_MODAL, GTK_MESSAGE_QUESTION, GTK_BUTTONS_YES_NO, "%s", msg);
-            TmpDlData *dldata = g_new0 (TmpDlData, 1);
-            args[0] = (gpointer) app;
-            // args[2] is NULL here (don't set exec dir for temporarily downloaded files)
-            dldata->f = f;
-            dldata->dialog = dialog;
-            dldata->parent_window = parent_window;
-            dldata->args = args;
-
-            g_signal_connect (dialog, "response", G_CALLBACK (on_tmp_download_response), dldata);
-            gtk_widget_show (dialog);
-            g_free (msg);
-        }
-    }
-}
-
-
-inline gboolean mime_exec_file (GtkWindow *parent_window, GnomeCmdFile *f)
-{
-    g_return_val_if_fail (f != nullptr, FALSE);
-
-    if (f->GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE) == G_FILE_TYPE_REGULAR)
-    {
-        mime_exec_single (parent_window, f);
-        return TRUE;
-    }
-    return FALSE;
-}
+extern "C" gboolean mime_exec_file (GtkWindow *parent_window, GnomeCmdFile *f);
 
 
 static void on_file_clicked (GnomeCmdFileList *fl, GnomeCmdFileListButtonEvent *event, gpointer data)
@@ -1976,7 +1781,7 @@ static void gnome_cmd_file_list_init (GnomeCmdFileList *fl)
     static const GActionEntry action_entries[] = {
         { "open-with-default",  gnome_cmd_file_selector_action_open_with_default,   nullptr, nullptr, nullptr },
         { "open-with-other",    gnome_cmd_file_selector_action_open_with_other,     nullptr, nullptr, nullptr },
-        { "open-with",          gnome_cmd_file_selector_action_open_with,           "s",     nullptr, nullptr },
+        { "open-with",          gnome_cmd_file_selector_action_open_with,           "(sv)",  nullptr, nullptr },
         { "execute",            gnome_cmd_file_selector_action_execute,             nullptr, nullptr, nullptr },
         { "execute-script",     gnome_cmd_file_selector_action_execute_script,      "(sb)",  nullptr, nullptr },
 

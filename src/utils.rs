@@ -20,8 +20,84 @@
  * For more details see the file COPYING.
  */
 
+use crate::{config::PREFIX, data::ProgramsOptionsRead, file::File};
 use gettextrs::gettext;
 use gtk::{gdk, glib, prelude::*};
+use std::{
+    ffi::{OsStr, OsString},
+    sync::OnceLock,
+};
+
+pub const GNOME_CMD_PERM_USER_READ: u32 = 256; //r--------
+pub const GNOME_CMD_PERM_USER_WRITE: u32 = 128; //-w-------
+pub const GNOME_CMD_PERM_USER_EXEC: u32 = 64; //--x------
+pub const GNOME_CMD_PERM_GROUP_READ: u32 = 32; //---r-----
+pub const GNOME_CMD_PERM_GROUP_WRITE: u32 = 16; //----w----
+pub const GNOME_CMD_PERM_GROUP_EXEC: u32 = 8; //-----x---
+pub const GNOME_CMD_PERM_OTHER_READ: u32 = 4; //------r--
+pub const GNOME_CMD_PERM_OTHER_WRITE: u32 = 2; //-------w-
+pub const GNOME_CMD_PERM_OTHER_EXEC: u32 = 1; //--------x
+pub const GNOME_CMD_PERM_USER_ALL: u32 = 448; //rwx------
+pub const GNOME_CMD_PERM_GROUP_ALL: u32 = 56; //---rwx---
+pub const GNOME_CMD_PERM_OTHER_ALL: u32 = 7; //------rwx
+
+pub fn temp_directory() -> &'static tempfile::TempDir {
+    static TEMP_DIRECTORY: OnceLock<tempfile::TempDir> = OnceLock::new();
+    TEMP_DIRECTORY
+        .get_or_init(|| tempfile::tempdir().expect("Cannot create a temporary directory."))
+}
+
+pub fn temp_file(f: &File) -> Result<File, ErrorMessage> {
+    let name = f.get_name();
+    let name_parts = name.rsplit_once('.');
+
+    let temp_file = tempfile::Builder::new()
+        .prefix(name_parts.map(|p| p.0).unwrap_or("tmp"))
+        .suffix(name_parts.map(|p| p.0).unwrap_or(".tmp"))
+        .tempfile_in(temp_directory().path())
+        .map_err(|error| ErrorMessage {
+            message: gettext("Cannot create a temporary file."),
+            secondary_text: Some(error.to_string()),
+        })?;
+
+    let path = temp_file.into_temp_path();
+    File::new_from_path(&path).ok_or_else(|| ErrorMessage {
+        message: gettext!("Cannot create a file for a path {}.", path.display()),
+        secondary_text: None,
+    })
+}
+
+fn substitute_command_argument(command_template: &str, arg: &OsStr) -> OsString {
+    let mut cmd = OsString::new();
+    match command_template.split_once("%s") {
+        Some((before, after)) => {
+            cmd.push(before);
+            cmd.push(arg);
+            cmd.push(after);
+        }
+        None => {
+            cmd.push(command_template);
+            cmd.push(" ");
+            cmd.push(arg);
+        }
+    }
+    cmd
+}
+
+pub fn make_run_in_terminal_command(
+    command: &OsStr,
+    options: &dyn ProgramsOptionsRead,
+) -> OsString {
+    let arg = if options.use_gcmd_block() {
+        glib::shell_quote(substitute_command_argument(
+            &format!("bash -c \"%s; {PREFIX}/bin/gcmd-block\""),
+            command,
+        ))
+    } else {
+        glib::shell_quote(command)
+    };
+    substitute_command_argument(&options.terminal_exec_cmd(), &arg)
+}
 
 pub async fn run_simple_dialog(
     parent: &gtk::Window,
@@ -117,6 +193,15 @@ pub struct ErrorMessage {
     pub secondary_text: Option<String>,
 }
 
+impl ErrorMessage {
+    pub fn with_error(message: impl Into<String>, error: &dyn std::error::Error) -> Self {
+        Self {
+            message: message.into(),
+            secondary_text: Some(error.to_string()),
+        }
+    }
+}
+
 pub fn show_error_message(parent: &gtk::Window, message: &ErrorMessage) {
     let dlg = create_error_dialog(parent, &message.message);
     dlg.set_secondary_text(message.secondary_text.as_deref());
@@ -129,8 +214,8 @@ pub fn show_message(parent: &gtk::Window, message: &str, secondary_text: Option<
     dlg.present();
 }
 
-pub fn show_error(parent: &gtk::Window, message: &str, error: &glib::Error) {
-    show_message(parent, message, Some(error.message()));
+pub fn show_error(parent: &gtk::Window, message: &str, error: &dyn std::error::Error) {
+    show_message(parent, message, Some(&error.to_string()));
 }
 
 pub fn display_help(parent_window: &gtk::Window, link_id: Option<&str>) {
