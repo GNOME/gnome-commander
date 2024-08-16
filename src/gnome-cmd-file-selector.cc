@@ -238,15 +238,26 @@ inline void GnomeCmdFileSelector::update_direntry()
 inline void GnomeCmdFileSelector::update_vol_label()
 {
     GnomeCmdCon *con = get_connection();
-
-    if (!con)
+    if (!con || !gnome_cmd_con_can_show_free_space (con))
         return;
 
-    g_return_if_fail (GNOME_CMD_IS_CON (con));
+    GnomeCmdDir *dir = get_directory();
+    if (!dir)
+        return;
 
-    gchar *s = gnome_cmd_con_get_free_space (con, get_directory(), _("%s free"));
-    gtk_label_set_text (GTK_LABEL (vol_label), s ? s : "");
-    g_free (s);
+    gchar *s = gnome_cmd_file_get_free_space (GNOME_CMD_FILE (dir));
+    gchar *text;
+    if (s)
+    {
+        text = g_strdup_printf(_("%s free"), s);
+        g_free (s);
+    }
+    else
+    {
+        text = g_strdup(_("Unknown disk usage"));
+    }
+    gtk_label_set_text (GTK_LABEL (vol_label), text);
+    g_free (text);
 }
 
 

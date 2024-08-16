@@ -350,8 +350,7 @@ static GtkWidget *create_properties_tab (GnomeCmdFilePropsDialogPrivate *data)
 
     if (data->f->is_local())
     {
-        GnomeCmdDir *dir = GNOME_CMD_IS_DIR (data->f) ? gnome_cmd_dir_get_parent (GNOME_CMD_DIR (data->f)) : data->f->get_parent_dir();
-        GnomeCmdCon *con = dir ? gnome_cmd_dir_get_connection (dir) : nullptr;
+        GnomeCmdCon *con = gnome_cmd_file_get_connection (data->f);
         gchar *location = data->f->get_dirname();
 
         label = create_bold_label (dialog, _("Location:"));
@@ -387,8 +386,8 @@ static GtkWidget *create_properties_tab (GnomeCmdFilePropsDialogPrivate *data)
 
         gtk_grid_attach (GTK_GRID (grid), label, 1, y++, 1, 1);
 
-        if (dir && gnome_cmd_con_can_show_free_space (con))
-            if (gchar *free_space = gnome_cmd_dir_get_free_space (dir))
+        if (gnome_cmd_con_can_show_free_space (con))
+            if (gchar *free_space = gnome_cmd_file_get_free_space (data->f))
             {
                 label = create_bold_label (dialog, _("Free space:"));
                 gtk_grid_attach (GTK_GRID (grid), label, 0, y, 1, 1);

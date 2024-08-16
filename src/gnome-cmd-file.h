@@ -35,6 +35,7 @@ extern "C" GType gnome_cmd_file_get_type ();
 class GnomeCmdFileMetadata;
 
 struct GnomeCmdDir;
+struct GnomeCmdCon;
 struct GnomeCmdPath;
 
 
@@ -164,6 +165,9 @@ inline gchar *gnome_cmd_file_get_quoted_real_path (GnomeCmdFile *f)
 
 extern "C" gchar *gnome_cmd_file_get_uri_str (GnomeCmdFile *f);
 extern "C" gboolean gnome_cmd_file_is_local (GnomeCmdFile *f);
+extern "C" GnomeCmdCon *gnome_cmd_file_get_connection (GnomeCmdFile *f);
+
+extern "C" gchar *gnome_cmd_file_get_free_space (GnomeCmdFile *f);
 
 void gnome_cmd_file_show_chown_dialog (GList *files);
 void gnome_cmd_file_show_chmod_dialog (GList *files);

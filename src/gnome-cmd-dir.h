@@ -135,29 +135,3 @@ void gnome_cmd_dir_set_content_changed (GnomeCmdDir *dir);
 
 gboolean gnome_cmd_dir_update_mtime (GnomeCmdDir *dir);
 gboolean gnome_cmd_dir_needs_mtime_update (GnomeCmdDir *dir);
-
-inline gchar *gnome_cmd_dir_get_free_space (GnomeCmdDir *dir)
-{
-    g_return_val_if_fail (GNOME_CMD_IS_DIR (dir), NULL);
-
-    GError *error = nullptr;
-
-    auto gFileInfo = g_file_query_filesystem_info (GNOME_CMD_FILE (dir)->get_file(),
-                              G_FILE_ATTRIBUTE_FILESYSTEM_FREE,
-                              nullptr,
-                              &error);
-
-    if (error)
-    {
-        g_warning("Could not g_file_query_filesystem_info %s: %s\n",
-            g_file_peek_path(GNOME_CMD_FILE (dir)->get_file()), error->message);
-        g_error_free(error);
-        return nullptr;
-    }
-
-    auto freeSpace = g_file_info_get_attribute_uint64(gFileInfo, G_FILE_ATTRIBUTE_FILESYSTEM_FREE);
-
-    g_object_unref(gFileInfo);
-
-    return g_format_size (freeSpace);
-}

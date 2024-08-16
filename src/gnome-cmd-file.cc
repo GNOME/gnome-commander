@@ -1068,6 +1068,12 @@ gchar *gnome_cmd_file_get_uri_str (GnomeCmdFile *f)
     return f->get_uri_str();
 }
 
+GnomeCmdCon *gnome_cmd_file_get_connection (GnomeCmdFile *f)
+{
+    GnomeCmdDir *dir = GNOME_CMD_IS_DIR (f) ? gnome_cmd_dir_get_parent (GNOME_CMD_DIR (f)) : f->get_parent_dir();
+    return dir ? gnome_cmd_dir_get_connection (dir) : nullptr;
+}
+
 gboolean gnome_cmd_file_is_local (GnomeCmdFile *f)
 {
     return f->is_local();
@@ -1086,4 +1092,28 @@ void gnome_cmd_file_execute(GnomeCmdFile *f)
 gboolean gnome_cmd_file_chmod(GnomeCmdFile *f, guint32 permissions, GError **error)
 {
     return f->chmod(permissions, error);
+}
+
+gchar *gnome_cmd_file_get_free_space (GnomeCmdFile *f)
+{
+    g_return_val_if_fail (GNOME_CMD_IS_FILE (f), NULL);
+
+    GError *error = nullptr;
+    auto gFileInfo = g_file_query_filesystem_info (f->get_file(),
+                              G_FILE_ATTRIBUTE_FILESYSTEM_FREE,
+                              nullptr,
+                              &error);
+    if (error)
+    {
+        g_warning("Could not g_file_query_filesystem_info %s: %s\n",
+            g_file_peek_path(f->get_file()), error->message);
+        g_error_free(error);
+        return nullptr;
+    }
+
+    auto freeSpace = g_file_info_get_attribute_uint64(gFileInfo, G_FILE_ATTRIBUTE_FILESYSTEM_FREE);
+
+    g_object_unref(gFileInfo);
+
+    return g_format_size (freeSpace);
 }
