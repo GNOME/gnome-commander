@@ -243,8 +243,6 @@ gboolean patlist_matches (GList *pattern_list, const gchar *s);
 
 void gnome_cmd_toggle_file_name_selection (GtkWidget *entry);
 
-gboolean gnome_cmd_prepend_su_to_vector (int &argc, char **&argv);
-
 
 inline gint gnome_cmd_prompt_message (GtkWindow *parent, GtkMessageType type, GtkButtonsType buttons, const gchar *message, const gchar *secondary_text=NULL)
 {

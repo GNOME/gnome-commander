@@ -25,6 +25,7 @@ use gettextrs::gettext;
 use gtk::{gdk, glib, prelude::*};
 use std::{
     ffi::{OsStr, OsString},
+    process::Command,
     sync::OnceLock,
 };
 
@@ -101,6 +102,29 @@ pub fn make_run_in_terminal_command(
     substitute_command_argument(&options.terminal_exec_cmd(), &arg)
 }
 
+pub fn sudo_command() -> Result<Command, ErrorMessage> {
+    fn find_sudo_program(cmd: &str, args: &[&str]) -> Option<std::process::Command> {
+        let path = glib::find_program_in_path(cmd)?;
+        let mut command = Command::new(path);
+        for arg in args {
+            command.arg(arg);
+        }
+        Some(command)
+    }
+
+    find_sudo_program("gksudo", &[])
+        .or_else(|| find_sudo_program("xdg-su", &[]))
+        .or_else(|| find_sudo_program("gksu", &[]))
+        .or_else(|| find_sudo_program("gnomesu", &["-c"]))
+        .or_else(|| find_sudo_program("kdesu", &[]))
+        .or_else(|| find_sudo_program("beesu", &[]))
+        .or_else(|| find_sudo_program("pkexec", &[]))
+        .ok_or_else(|| ErrorMessage {
+            message: gettext("gksudo, xdg-su, gksu, gnomesu, kdesu, beesu or pkexec is not found."),
+            secondary_text: None,
+        })
+}
+
 pub async fn run_simple_dialog(
     parent: &gtk::Window,
     ignore_close_box: bool,
@@ -168,7 +192,7 @@ pub async fn prompt_message(
     secondary_text: Option<&str>,
 ) -> gtk::ResponseType {
     let dlg = gtk::MessageDialog::builder()
-        .parent(parent)
+        .transient_for(parent)
         .destroy_with_parent(true)
         .message_type(message_type)
         .buttons(buttons)
@@ -182,7 +206,7 @@ pub async fn prompt_message(
 
 fn create_error_dialog(parent: &gtk::Window, message: &str) -> gtk::MessageDialog {
     gtk::MessageDialog::builder()
-        .parent(parent)
+        .transient_for(parent)
         .destroy_with_parent(true)
         .message_type(gtk::MessageType::Error)
         .buttons(gtk::ButtonsType::Ok)
@@ -205,14 +229,13 @@ impl ErrorMessage {
 }
 
 pub fn show_error_message(parent: &gtk::Window, message: &ErrorMessage) {
-    let dlg = create_error_dialog(parent, &message.message);
-    dlg.set_secondary_text(message.secondary_text.as_deref());
-    dlg.present();
+    show_message(parent, &message.message, message.secondary_text.as_deref());
 }
 
 pub fn show_message(parent: &gtk::Window, message: &str, secondary_text: Option<&str>) {
     let dlg = create_error_dialog(parent, message);
     dlg.set_secondary_text(secondary_text);
+    dlg.connect_response(|dlg, _response| dlg.close());
     dlg.present();
 }
 
@@ -236,6 +259,14 @@ pub fn display_help(parent_window: &gtk::Window, link_id: Option<&str>) {
             &error,
         );
     }
+}
+
+pub fn get_modifiers_state(window: &gtk::Window) -> Option<gdk::ModifierType> {
+    let gdk_window = window.window()?;
+    let display = gdk_window.display();
+    let pointer = display.default_seat()?.pointer()?;
+    let (_w, _x, _y, modifiers) = gdk_window.device_position(&pointer);
+    Some(modifiers)
 }
 
 pub trait Gtk3to4BoxCompat {

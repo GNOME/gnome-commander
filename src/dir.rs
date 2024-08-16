@@ -23,6 +23,7 @@
 use crate::{
     connection::connection::{Connection, GnomeCmdPath},
     file::File,
+    libgcmd::file_base::FileBase,
 };
 use gtk::glib::{
     self,
@@ -69,7 +70,7 @@ pub mod ffi {
 
 glib::wrapper! {
     pub struct Directory(Object<ffi::GnomeCmdDir, ffi::GnomeCmdDirClass>)
-        @extends File;
+        @extends FileBase, File;
 
     match fn {
         type_ => || ffi::gnome_cmd_dir_get_type(),
