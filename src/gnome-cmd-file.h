@@ -96,7 +96,6 @@ struct GnomeCmdFile
     gboolean rename(const gchar *new_name, GError **error);
 
     void update_gFileInfo(GFileInfo *gFileInfo);
-    gboolean is_local();
     gboolean is_executable();
     void is_deleted();
     void execute();
@@ -120,6 +119,9 @@ struct GnomeCmdFile
 struct GnomeCmdFileClass
 {
     GnomeCmdFileBaseClass parent_class;
+
+    /* virtual functions */
+    GnomeCmdCon *(* get_connection) (GnomeCmdFile *f);
 };
 
 

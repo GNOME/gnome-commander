@@ -67,7 +67,7 @@ static void on_xfer_done (gboolean success, gpointer user_data)
 
 static void on_ok (GtkButton *button, GnomeCmdPrepareXferDialog *dialog)
 {
-    GnomeCmdCon *con = gnome_cmd_dir_get_connection (dialog->default_dest_dir);
+    GnomeCmdCon *con = gnome_cmd_file_get_connection (GNOME_CMD_FILE (dialog->default_dest_dir));
     gchar *user_path = g_strstrip (g_strdup (gtk_editable_get_text (GTK_EDITABLE (dialog->dest_dir_entry))));
 
     if (!user_path)
@@ -106,7 +106,7 @@ static void on_ok (GtkButton *button, GnomeCmdPrepareXferDialog *dialog)
     }
     else
     {
-        if (!gnome_cmd_dir_is_local (dialog->default_dest_dir))
+        if (!gnome_cmd_file_is_local (GNOME_CMD_FILE (dialog->default_dest_dir)))
         {
             const gchar *t = gnome_cmd_dir_get_path (dialog->default_dest_dir)->get_path();
             auto destPathTmp = g_build_filename (t, user_path, nullptr);

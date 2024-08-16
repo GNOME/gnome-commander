@@ -148,7 +148,7 @@ static void async_list (GnomeCmdDirList *dirlist)
     DEBUG('l', "async_list: %s\n", uri_str);
     g_free (uri_str);
 
-    if (gnome_cmd_dir_get_connection(dirlist->dir)->is_local)
+    if (gnome_cmd_file_is_local (GNOME_CMD_FILE (dirlist->dir)))
     {
         GError *error = nullptr;
         GFileEnumerator *enumerator = g_file_enumerate_children (gFile,

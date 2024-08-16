@@ -76,7 +76,6 @@ GnomeCmdDir *gnome_cmd_dir_new_with_con (GnomeCmdCon *con);
 extern "C" GnomeCmdDir *gnome_cmd_dir_new (GnomeCmdCon *con, GnomeCmdPath *path, gboolean isStartup = false);
 GnomeCmdDir *gnome_cmd_dir_get_parent (GnomeCmdDir *dir);
 GnomeCmdDir *gnome_cmd_dir_get_child (GnomeCmdDir *dir, const gchar *child);
-extern "C" GnomeCmdCon *gnome_cmd_dir_get_connection (GnomeCmdDir *dir);
 
 inline GnomeCmdFile *gnome_cmd_dir_new_parent_dir_file (GnomeCmdDir *dir)
 {
@@ -130,7 +129,6 @@ void gnome_cmd_dir_file_renamed (GnomeCmdDir *dir, GnomeCmdFile *f, const gchar 
 void gnome_cmd_dir_start_monitoring (GnomeCmdDir *dir);
 void gnome_cmd_dir_cancel_monitoring (GnomeCmdDir *dir);
 gboolean gnome_cmd_dir_is_monitored (GnomeCmdDir *dir);
-gboolean gnome_cmd_dir_is_local (GnomeCmdDir *dir);
 void gnome_cmd_dir_set_content_changed (GnomeCmdDir *dir);
 
 gboolean gnome_cmd_dir_update_mtime (GnomeCmdDir *dir);

@@ -568,7 +568,7 @@ void gnome_cmd_bookmark_goto (GnomeCmdBookmark *bookmark)
 
 void gnome_cmd_bookmark_add_current (GnomeCmdDir *dir)
 {
-    gchar *path = gnome_cmd_dir_is_local (dir) ? GNOME_CMD_FILE (dir)->get_real_path () : GNOME_CMD_FILE (dir)->GetPathStringThroughParent();
+    gchar *path = gnome_cmd_file_is_local (GNOME_CMD_FILE (dir)) ? GNOME_CMD_FILE (dir)->get_real_path () : GNOME_CMD_FILE (dir)->GetPathStringThroughParent();
 
     if (!g_utf8_validate (path, -1, NULL))
     {
@@ -581,7 +581,7 @@ void gnome_cmd_bookmark_add_current (GnomeCmdDir *dir)
 
     if (gnome_cmd_edit_bookmark_dialog (NULL, _("New Bookmark"), name, path))
     {
-        GnomeCmdCon *con = gnome_cmd_dir_is_local (dir) ? get_home_con () : gnome_cmd_dir_get_connection (dir);
+        GnomeCmdCon *con = gnome_cmd_file_is_local (GNOME_CMD_FILE (dir)) ? get_home_con () : gnome_cmd_file_get_connection (GNOME_CMD_FILE (dir));
         GnomeCmdBookmarkGroup *group = gnome_cmd_con_get_bookmarks (con);
         GnomeCmdBookmark *bookmark = g_new0 (GnomeCmdBookmark, 1);
 

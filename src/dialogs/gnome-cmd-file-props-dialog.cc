@@ -348,7 +348,7 @@ static GtkWidget *create_properties_tab (GnomeCmdFilePropsDialogPrivate *data)
 
     add_sep (grid, y++);
 
-    if (data->f->is_local())
+    if (gnome_cmd_file_is_local(data->f))
     {
         GnomeCmdCon *con = gnome_cmd_file_get_connection (data->f);
         gchar *location = data->f->get_dirname();

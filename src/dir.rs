@@ -22,12 +22,13 @@
 
 use crate::{
     connection::connection::{Connection, GnomeCmdPath},
-    file::File,
+    file::{File, GnomeCmdFileExt},
     libgcmd::file_base::FileBase,
 };
 use gtk::glib::{
     self,
-    translate::{from_glib_full, from_glib_none, ToGlibPtr},
+    translate::{from_glib_full, ToGlibPtr},
+    Cast,
 };
 use std::ffi::{c_int, CStr};
 
@@ -57,8 +58,6 @@ pub mod ffi {
             dir: *const GnomeCmdDir,
             visual_progress: c_int,
         );
-
-        pub fn gnome_cmd_dir_get_connection(dir: *mut GnomeCmdDir) -> *mut GnomeCmdCon;
     }
 
     #[derive(Copy, Clone)]
@@ -97,8 +96,10 @@ impl Directory {
             );
         }
     }
+}
 
-    pub fn connection(&self) -> Connection {
-        unsafe { from_glib_none(ffi::gnome_cmd_dir_get_connection(self.to_glib_none().0)) }
+impl GnomeCmdFileExt for Directory {
+    fn connection(&self) -> Connection {
+        self.upcast_ref::<File>().connection()
     }
 }

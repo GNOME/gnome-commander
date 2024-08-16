@@ -1069,7 +1069,7 @@ static gboolean on_new_textfile_ok (GnomeCmdStringDialog *string_dialog, const g
 
     if (fname[0] == '/')
     {
-        auto con = gnome_cmd_dir_get_connection (dir);
+        auto con = gnome_cmd_file_get_connection (GNOME_CMD_FILE (dir));
         auto conPath = gnome_cmd_con_create_path (con, fname);
         gFile = gnome_cmd_con_create_gfile (con, conPath->get_path());
         delete conPath;
@@ -1150,7 +1150,7 @@ static gboolean on_create_symlink_ok (GnomeCmdStringDialog *string_dialog, const
     GFile *gFile;
     if (fname[0] == '/')
     {
-        auto con = gnome_cmd_dir_get_connection (dir);
+        auto con = gnome_cmd_file_get_connection (GNOME_CMD_FILE (dir));
         auto conPath = gnome_cmd_con_create_path (con, fname);
         gFile = gnome_cmd_con_create_gfile (con, conPath->get_path());
         delete conPath;
@@ -1562,7 +1562,7 @@ GtkWidget *GnomeCmdFileSelector::new_tab(GnomeCmdDir *dir, GnomeCmdFileList::Col
     g_signal_connect (fl, "files-changed", G_CALLBACK (on_list_files_changed), this);
 
     if (dir)
-        fl->set_connection(gnome_cmd_dir_get_connection (dir), dir);
+        fl->set_connection(gnome_cmd_file_get_connection (GNOME_CMD_FILE (dir)), dir);
 
     if (activate)
     {

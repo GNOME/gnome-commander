@@ -58,6 +58,9 @@ struct GnomeCmdFile::Private
 G_DEFINE_TYPE (GnomeCmdFile, gnome_cmd_file, GNOME_CMD_TYPE_FILE_BASE)
 
 
+static GnomeCmdCon *file_get_connection (GnomeCmdFile *f);
+
+
 inline gboolean has_parent_dir (GnomeCmdFile *f)
 {
     g_return_val_if_fail (f != nullptr, false);
@@ -113,6 +116,8 @@ static void gnome_cmd_file_class_init (GnomeCmdFileClass *klass)
 
     object_class->dispose = gnome_cmd_file_dispose;
     object_class->finalize = gnome_cmd_file_finalize;
+
+    klass->get_connection = file_get_connection;
 }
 
 
@@ -850,7 +855,7 @@ void gnome_cmd_file_edit (GtkWindow *parent_window, GnomeCmdFile *f)
 {
     g_return_if_fail (f != nullptr);
 
-    if (!f->is_local())
+    if (!gnome_cmd_file_is_local(f))
         return;
 
     GList *sfl = g_list_append (nullptr, f);
@@ -899,22 +904,9 @@ void GnomeCmdFile::update_gFileInfo(GFileInfo *gFileInfo_new)
 }
 
 
-gboolean GnomeCmdFile::is_local()
-{
-    if (!has_parent_dir (this))
-    {
-        if (GNOME_CMD_IS_DIR (this))
-            return gnome_cmd_dir_is_local (GNOME_CMD_DIR (this));
-        g_assert ("Non directory file without owning directory");
-    }
-
-    return gnome_cmd_dir_is_local (::get_parent_dir (this));
-}
-
-
 gboolean GnomeCmdFile::is_executable()
 {
-    if (!is_local())
+    if (!gnome_cmd_file_is_local(this))
         return FALSE;
 
     if (GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE) != G_FILE_TYPE_REGULAR)
@@ -1068,15 +1060,21 @@ gchar *gnome_cmd_file_get_uri_str (GnomeCmdFile *f)
     return f->get_uri_str();
 }
 
+GnomeCmdCon *file_get_connection (GnomeCmdFile *f)
+{
+    return gnome_cmd_file_get_connection (GNOME_CMD_FILE (f->get_parent_dir()));
+}
+
 GnomeCmdCon *gnome_cmd_file_get_connection (GnomeCmdFile *f)
 {
-    GnomeCmdDir *dir = GNOME_CMD_IS_DIR (f) ? gnome_cmd_dir_get_parent (GNOME_CMD_DIR (f)) : f->get_parent_dir();
-    return dir ? gnome_cmd_dir_get_connection (dir) : nullptr;
+    GnomeCmdFileClass *klass = GNOME_CMD_FILE_GET_CLASS (f);
+    return klass->get_connection (f);
 }
 
 gboolean gnome_cmd_file_is_local (GnomeCmdFile *f)
 {
-    return f->is_local();
+    GnomeCmdCon *con = gnome_cmd_file_get_connection (f);
+    return gnome_cmd_con_is_local (con);
 }
 
 gboolean gnome_cmd_file_is_executable(GnomeCmdFile *f)

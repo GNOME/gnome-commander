@@ -385,7 +385,7 @@ void SearchData::SearchDirRecursive(GnomeCmdDir *dir, long level)
 
     auto files = gnome_cmd_dir_get_files (dir);
     gboolean isGnomeCmdFile = TRUE;
-    if (!files || gnome_cmd_dir_is_local (dir))
+    if (!files || gnome_cmd_file_is_local (GNOME_CMD_FILE (dir)))
     {
         // if list is not available or it's a local directory then create a new list, otherwise use already available list
         // gnome_cmd_dir_list_files is not used for creating a list, because it's tied to the GUI and that's not usable from other threads
@@ -1022,7 +1022,7 @@ void GnomeCmdSearchDialog::Private::on_dialog_response(GtkDialog *window, int re
 
                 auto dirPathString = g_uri_get_path (gUri);
 
-                GnomeCmdCon *con = gnome_cmd_dir_get_connection (data.start_dir);
+                GnomeCmdCon *con = gnome_cmd_file_get_connection (GNOME_CMD_FILE (data.start_dir));
 
                 const gchar *root_path = g_uri_get_path (gnome_cmd_con_get_uri (con));
                 if (strncmp(dirPathString, root_path, strlen(root_path)) == 0)

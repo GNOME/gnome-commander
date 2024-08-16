@@ -358,7 +358,7 @@ void gcmd_tags_libgsf_load_metadata(GnomeCmdFile *f)
 
     f->metadata->mark_as_accessed(TAG_DOC);
 
-    if (!f->is_local())  return;
+    if (!gnome_cmd_file_is_local(f))  return;
 
     GError *err = nullptr;
     gchar *fname = f->get_real_path();

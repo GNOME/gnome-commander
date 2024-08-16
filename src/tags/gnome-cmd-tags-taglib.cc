@@ -457,7 +457,7 @@ void gcmd_tags_taglib_load_metadata(GnomeCmdFile *gnomeCmdFile)
     gnomeCmdFile->metadata->mark_as_accessed(TAG_ID3);
     gnomeCmdFile->metadata->mark_as_accessed(TAG_VORBIS);
 
-    if (!gnomeCmdFile->is_local())  return;
+    if (!gnome_cmd_file_is_local(gnomeCmdFile))  return;
 
     const gchar *fname = gnomeCmdFile->get_real_path();
 

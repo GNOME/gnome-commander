@@ -23,7 +23,7 @@
 use crate::{
     connection::connection::ConnectionExt,
     dir::{ffi::GnomeCmdDir, Directory},
-    file::{ffi::GnomeCmdFile, File},
+    file::{ffi::GnomeCmdFile, File, GnomeCmdFileExt},
     libgcmd::file_base::FileBaseExt,
     main_win::{ffi::GnomeCmdMainWin, MainWindow},
     transfer::gnome_cmd_copy_gfiles,

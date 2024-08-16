@@ -21,7 +21,10 @@
  */
 
 use crate::{
-    connection::{connection::ConnectionExt, list::ConnectionList},
+    connection::{
+        connection::{Connection, ConnectionExt},
+        list::ConnectionList,
+    },
     dir::Directory,
     libgcmd::file_base::{FileBase, FileBaseExt},
 };
@@ -36,7 +39,10 @@ use std::{
 };
 
 pub mod ffi {
-    use crate::{dir::ffi::GnomeCmdDir, libgcmd::file_base::ffi::GnomeCmdFileBaseClass};
+    use crate::{
+        connection::connection::ffi::GnomeCmdCon, dir::ffi::GnomeCmdDir,
+        libgcmd::file_base::ffi::GnomeCmdFileBaseClass,
+    };
     use gtk::{
         gio::ffi::{GFile, GFileInfo},
         glib::ffi::{gboolean, GError, GType},
@@ -75,6 +81,8 @@ pub mod ffi {
             permissions: u32,
             error: *mut *mut GError,
         ) -> gboolean;
+
+        pub fn gnome_cmd_file_get_connection(f: *mut GnomeCmdFile) -> *mut GnomeCmdCon;
     }
 
     #[derive(Copy, Clone)]
@@ -192,5 +200,15 @@ impl File {
                 Err(from_glib_full(error))
             }
         }
+    }
+}
+
+pub trait GnomeCmdFileExt {
+    fn connection(&self) -> Connection;
+}
+
+impl GnomeCmdFileExt for File {
+    fn connection(&self) -> Connection {
+        unsafe { from_glib_none(ffi::gnome_cmd_file_get_connection(self.to_glib_none().0)) }
     }
 }

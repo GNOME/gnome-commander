@@ -1572,7 +1572,7 @@ static void on_dir_list_failed (GnomeCmdDir *dir, GError *error, GnomeCmdFileLis
     set_cursor_default_for_widget (*fl);
     gtk_widget_set_sensitive (*fl, TRUE);
 
-    if (fl->lwd && fl->con == gnome_cmd_dir_get_connection (fl->lwd))
+    if (fl->lwd && fl->con == gnome_cmd_file_get_connection (GNOME_CMD_FILE (fl->lwd)))
     {
         fl->cwd = fl->lwd;
         g_signal_connect (fl->cwd, "list-ok", G_CALLBACK (on_dir_list_ok), fl);
@@ -2924,7 +2924,7 @@ void GnomeCmdFileList::set_directory(GnomeCmdDir *dir)
         lwd = cwd;
         gnome_cmd_dir_cancel_monitoring (lwd);
         g_signal_handlers_disconnect_matched (lwd, G_SIGNAL_MATCH_DATA, 0, 0, nullptr, nullptr, this);
-        if (gnome_cmd_dir_is_local (lwd) && !gnome_cmd_dir_is_monitored (lwd) && gnome_cmd_dir_needs_mtime_update (lwd))
+        if (gnome_cmd_file_is_local (GNOME_CMD_FILE (lwd)) && !gnome_cmd_dir_is_monitored (lwd) && gnome_cmd_dir_needs_mtime_update (lwd))
             gnome_cmd_dir_update_mtime (lwd);
     }
 
@@ -2949,7 +2949,7 @@ void GnomeCmdFileList::set_directory(GnomeCmdDir *dir)
             g_signal_connect (dir, "list-failed", G_CALLBACK (on_dir_list_failed), this);
 
             // check if the dir has up-to-date file list; if not and it's a local dir - relist it
-            if (gnome_cmd_dir_is_local (dir) && !gnome_cmd_dir_is_monitored (dir) && gnome_cmd_dir_update_mtime (dir))
+            if (gnome_cmd_file_is_local (GNOME_CMD_FILE (dir)) && !gnome_cmd_dir_is_monitored (dir) && gnome_cmd_dir_update_mtime (dir))
                 gnome_cmd_dir_relist_files (get_toplevel_window (*this), dir, gnome_cmd_con_needs_list_visprog (con));
             else
                 on_dir_list_ok (dir, nullptr, this);
