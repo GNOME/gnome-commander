@@ -290,7 +290,7 @@ GnomeCmdDir *gnome_cmd_dir_new_with_con (GnomeCmdCon *con)
     g_return_val_if_fail (con->base_gFileInfo != nullptr, nullptr);
 
     auto gFile = con->is_local
-        ? gnome_cmd_con_create_gfile (con, con->base_path->get_path())
+        ? gnome_cmd_con_create_gfile (con, gnome_cmd_con_get_base_path(con)->get_path())
         : gnome_cmd_con_create_gfile (con, nullptr);
 
     auto uriString = g_file_get_uri(gFile);
@@ -305,7 +305,7 @@ GnomeCmdDir *gnome_cmd_dir_new_with_con (GnomeCmdCon *con)
     }
 
     dir = static_cast<GnomeCmdDir*> (g_object_new (GNOME_CMD_TYPE_DIR, nullptr));
-    gnome_cmd_dir_set_path (dir, con->base_path->clone());
+    gnome_cmd_dir_set_path (dir, gnome_cmd_con_get_base_path (con)->clone());
     dir->priv->con = con;
     GError *error = nullptr;
     if (!gnome_cmd_file_setup (G_OBJECT(dir), gFile, &error))

@@ -80,8 +80,8 @@ static void remote_open (GnomeCmdCon *con, GtkWindow *parent_window)
     con->state = GnomeCmdCon::STATE_OPENING;
     con->open_result = GnomeCmdCon::OPEN_IN_PROGRESS;
 
-    if (!con->base_path)
-        con->base_path = new GnomeCmdPlainPath(G_DIR_SEPARATOR_S);
+    if (gnome_cmd_con_get_base_path (con) == nullptr)
+        gnome_cmd_con_set_base_path (con, new GnomeCmdPlainPath(G_DIR_SEPARATOR_S));
 
     auto gFile = gnome_cmd_con_create_gfile(con);
 
@@ -125,8 +125,7 @@ static gboolean remote_close (GnomeCmdCon *con, GtkWindow *parent_window)
     GError *error = nullptr;
 
     gnome_cmd_con_set_default_dir (con, nullptr);
-    delete con->base_path;
-    con->base_path = nullptr;
+    gnome_cmd_con_set_base_path (con, nullptr);
 
     auto uri = gnome_cmd_con_get_uri_string (con);
     auto gFileTmp = g_file_new_for_uri(uri);

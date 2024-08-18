@@ -554,9 +554,8 @@ void gnome_cmd_bookmark_goto (GnomeCmdBookmark *bookmark)
         }
         else
         {
-            delete con->base_path;
+            gnome_cmd_con_set_base_path (con, gnome_cmd_con_create_path (con, bookmark->path));
 
-            con->base_path = gnome_cmd_con_create_path (con, bookmark->path);
             if (fs->file_list()->locked)
                 fs->new_tab(gnome_cmd_con_get_default_dir (con));
             else

@@ -32,6 +32,8 @@ using namespace std;
 
 struct GnomeCmdConPrivate
 {
+    GnomeCmdPath   *base_path;
+
     gchar          *uuid;
     GUri           *uri;
     GnomeCmdDir    *default_dir;   // the start dir of this connection
@@ -95,10 +97,10 @@ static void dispose (GObject *object)
     g_clear_pointer (&con->alias, g_free);
     g_clear_pointer (&priv->uri, g_uri_unref);
 
-    if (con->base_path != nullptr)
+    if (priv->base_path != nullptr)
     {
-        delete con->base_path;
-        con->base_path = nullptr;
+        delete priv->base_path;
+        priv->base_path = nullptr;
     }
     g_clear_object (&con->base_gFileInfo);
     g_clear_error (&con->open_failed_error);
@@ -192,7 +194,6 @@ static void gnome_cmd_con_init (GnomeCmdCon *con)
     con->alias = nullptr;
     con->method = CON_URI;
 
-    con->base_path = nullptr;
     con->open_msg = nullptr;
     con->should_remember_dir = FALSE;
     con->needs_open_visprog = FALSE;
@@ -206,6 +207,7 @@ static void gnome_cmd_con_init (GnomeCmdCon *con)
     con->open_failed_msg = nullptr;
     con->open_failed_error = nullptr;
 
+    priv->base_path = nullptr;
     priv->default_dir = nullptr;
     priv->dir_history = new History(20);
     priv->bookmarks = g_new0 (GnomeCmdBookmarkGroup, 1);
@@ -273,39 +275,35 @@ static gboolean check_con_open_progress (GnomeCmdCon *con)
 }
 
 
+GnomeCmdPath *gnome_cmd_con_get_base_path(GnomeCmdCon *con)
+{
+    g_return_val_if_fail (GNOME_CMD_IS_CON (con), nullptr);
+    auto priv = static_cast<GnomeCmdConPrivate *> (gnome_cmd_con_get_instance_private (con));
+
+    return priv->base_path;
+}
+
+
 void gnome_cmd_con_set_base_path(GnomeCmdCon *con, GnomeCmdPath *path)
 {
     g_return_if_fail (con != nullptr);
     g_return_if_fail (GNOME_CMD_IS_CON (con));
     g_return_if_fail (path != nullptr);
+    auto priv = static_cast<GnomeCmdConPrivate *> (gnome_cmd_con_get_instance_private (con));
 
-    if (con->base_path)
-        delete con->base_path;
+    if (priv->base_path)
+        delete priv->base_path;
 
-    con->base_path = path;
+    priv->base_path = path;
 }
 
-
-void set_con_base_path_for_gmount(GnomeCmdCon *con, GMount *gMount)
-{
-    g_return_if_fail (con != nullptr);
-    g_return_if_fail (GNOME_CMD_IS_CON (con));
-    g_return_if_fail (gMount != nullptr);
-    g_return_if_fail (G_IS_MOUNT(gMount));
-
-    auto gFile = g_mount_get_default_location(gMount);
-    auto pathString = g_file_get_path(gFile);
-    g_object_unref(gFile);
-
-    gnome_cmd_con_set_base_path(con, new GnomeCmdPlainPath(pathString));
-
-    g_free(pathString);
-}
 
 gboolean set_con_base_gfileinfo(GnomeCmdCon *con)
 {
     g_return_val_if_fail (con != nullptr, FALSE);
     g_return_val_if_fail (GNOME_CMD_IS_CON (con), FALSE);
+    auto priv = static_cast<GnomeCmdConPrivate *> (gnome_cmd_con_get_instance_private (con));
+
     GError *error = nullptr;
 
     if (con->base_gFileInfo)
@@ -315,7 +313,7 @@ gboolean set_con_base_gfileinfo(GnomeCmdCon *con)
     }
 
     auto gFile = con->is_local
-        ? gnome_cmd_con_create_gfile (con, con->base_path->get_path())
+        ? gnome_cmd_con_create_gfile (con, priv->base_path->get_path())
         : gnome_cmd_con_create_gfile (con, nullptr);
     con->base_gFileInfo = g_file_query_info(gFile, "*", G_FILE_QUERY_INFO_NONE, nullptr, &error);
     g_object_unref(gFile);
