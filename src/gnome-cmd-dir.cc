@@ -259,7 +259,7 @@ GnomeCmdDir *gnome_cmd_dir_new_from_gfileinfo (GFileInfo *gFileInfo, GnomeCmdDir
     if (gnomeCmdDir)
     {
         delete dirPath;
-        reinterpret_cast<GnomeCmdFile*>((gnomeCmdDir))->update_gFileInfo(gFileInfo);
+        GNOME_CMD_FILE (gnomeCmdDir)->update_gFileInfo(gFileInfo);
         g_free (uriString);
         return gnomeCmdDir;
     }
@@ -287,7 +287,8 @@ GnomeCmdDir *gnome_cmd_dir_new_from_gfileinfo (GFileInfo *gFileInfo, GnomeCmdDir
 GnomeCmdDir *gnome_cmd_dir_new_with_con (GnomeCmdCon *con)
 {
     g_return_val_if_fail (GNOME_CMD_IS_CON (con), nullptr);
-    g_return_val_if_fail (con->base_gFileInfo != nullptr, nullptr);
+    GFileInfo *con_base_file_info = gnome_cmd_con_get_base_file_info (con);
+    g_return_val_if_fail (con_base_file_info != nullptr, nullptr);
 
     auto gFile = con->is_local
         ? gnome_cmd_con_create_gfile (con, gnome_cmd_con_get_base_path(con)->get_path())
@@ -298,7 +299,7 @@ GnomeCmdDir *gnome_cmd_dir_new_with_con (GnomeCmdCon *con)
 
     if (dir)
     {
-        GNOME_CMD_FILE (dir)->update_gFileInfo(con->base_gFileInfo);
+        GNOME_CMD_FILE (dir)->update_gFileInfo(con_base_file_info);
         g_object_unref (gFile);
         g_free (uriString);
         return dir;

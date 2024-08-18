@@ -74,7 +74,6 @@ struct GnomeCmdCon
     ConnectionMethodID  method;
 
     gchar               *open_msg;
-    GFileInfo           *base_gFileInfo;
     gboolean            should_remember_dir;
     gboolean            needs_open_visprog;
     gboolean            needs_list_visprog;     // Defines if a graphical progress bar should be drawn when opening a folder
@@ -123,7 +122,9 @@ const gchar *gnome_cmd_con_get_uuid (GnomeCmdCon *con);
 
 GnomeCmdPath *gnome_cmd_con_get_base_path(GnomeCmdCon *con);
 void gnome_cmd_con_set_base_path(GnomeCmdCon *con, GnomeCmdPath *path);
-gboolean set_con_base_gfileinfo(GnomeCmdCon *con);
+
+GFileInfo *gnome_cmd_con_get_base_file_info(GnomeCmdCon *con);
+void gnome_cmd_con_set_base_file_info(GnomeCmdCon *con, GFileInfo *file_info);
 
 void gnome_cmd_con_open (GnomeCmdCon *con, GtkWindow *parent_window);
 

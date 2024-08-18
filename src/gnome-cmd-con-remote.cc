@@ -37,7 +37,7 @@ G_DEFINE_TYPE (GnomeCmdConRemote, gnome_cmd_con_remote, GNOME_CMD_TYPE_CON)
 static void set_con_mount_failed(GnomeCmdCon *con)
 {
     g_return_if_fail(GNOME_CMD_IS_CON(con));
-    con->base_gFileInfo = nullptr;
+    gnome_cmd_con_set_base_file_info(con, nullptr);
     con->open_result = GnomeCmdCon::OPEN_FAILED;
     con->state = GnomeCmdCon::STATE_CLOSED;
     con->open_failed_msg = con->open_failed_error->message;
@@ -63,7 +63,18 @@ static void mount_remote_finish_callback(GObject *gobj, GAsyncResult *result, gp
         g_object_unref(gFile);
         return;
     }
-    set_con_base_gfileinfo(con);
+
+    auto base_gFile = gnome_cmd_con_create_gfile (con, nullptr);
+    g_clear_error (&error);
+    auto base_gFileInfo = g_file_query_info(base_gFile, "*", G_FILE_QUERY_INFO_NONE, nullptr, &error);
+    g_object_unref(base_gFile);
+    gnome_cmd_con_set_base_file_info (con, base_gFileInfo);
+    if (error)
+    {
+        g_critical("mount_remote: error: %s", error->message);
+        g_error_free(error);
+    }
+
     con->state = GnomeCmdCon::STATE_OPEN;
     con->open_result = GnomeCmdCon::OPEN_OK;
     g_object_unref(gFile);

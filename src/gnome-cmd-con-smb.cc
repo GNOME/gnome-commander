@@ -86,7 +86,7 @@ static void mount_func (GnomeCmdCon *con)
         if (!error)
         {
             con->state = GnomeCmdCon::STATE_OPEN;
-            con->base_gFileInfo = base_gFileInfo;
+            gnome_cmd_con_set_base_file_info(con, base_gFileInfo);
             con->open_result = GnomeCmdCon::OPEN_OK;
         }
         else

@@ -33,6 +33,7 @@ using namespace std;
 struct GnomeCmdConPrivate
 {
     GnomeCmdPath   *base_path;
+    GFileInfo      *base_gFileInfo;
 
     gchar          *uuid;
     GUri           *uri;
@@ -102,7 +103,7 @@ static void dispose (GObject *object)
         delete priv->base_path;
         priv->base_path = nullptr;
     }
-    g_clear_object (&con->base_gFileInfo);
+    g_clear_object (&priv->base_gFileInfo);
     g_clear_error (&con->open_failed_error);
 
     g_clear_pointer (&priv->default_dir, gnome_cmd_dir_unref);
@@ -286,7 +287,6 @@ GnomeCmdPath *gnome_cmd_con_get_base_path(GnomeCmdCon *con)
 
 void gnome_cmd_con_set_base_path(GnomeCmdCon *con, GnomeCmdPath *path)
 {
-    g_return_if_fail (con != nullptr);
     g_return_if_fail (GNOME_CMD_IS_CON (con));
     g_return_if_fail (path != nullptr);
     auto priv = static_cast<GnomeCmdConPrivate *> (gnome_cmd_con_get_instance_private (con));
@@ -298,33 +298,23 @@ void gnome_cmd_con_set_base_path(GnomeCmdCon *con, GnomeCmdPath *path)
 }
 
 
-gboolean set_con_base_gfileinfo(GnomeCmdCon *con)
+GFileInfo *gnome_cmd_con_get_base_file_info(GnomeCmdCon *con)
 {
-    g_return_val_if_fail (con != nullptr, FALSE);
-    g_return_val_if_fail (GNOME_CMD_IS_CON (con), FALSE);
+    g_return_val_if_fail (GNOME_CMD_IS_CON (con), nullptr);
     auto priv = static_cast<GnomeCmdConPrivate *> (gnome_cmd_con_get_instance_private (con));
 
-    GError *error = nullptr;
-
-    if (con->base_gFileInfo)
-    {
-        g_object_unref(con->base_gFileInfo);
-        con->base_gFileInfo = nullptr;
-    }
-
-    auto gFile = con->is_local
-        ? gnome_cmd_con_create_gfile (con, priv->base_path->get_path())
-        : gnome_cmd_con_create_gfile (con, nullptr);
-    con->base_gFileInfo = g_file_query_info(gFile, "*", G_FILE_QUERY_INFO_NONE, nullptr, &error);
-    g_object_unref(gFile);
-    if (error)
-    {
-        g_critical("set_con_base_gfileinfo: error: %s", error->message);
-        g_error_free(error);
-        return FALSE;
-    }
-    return TRUE;
+    return priv->base_gFileInfo;
 }
+
+
+void gnome_cmd_con_set_base_file_info(GnomeCmdCon *con, GFileInfo *file_info)
+{
+    g_return_if_fail (GNOME_CMD_IS_CON (con));
+    auto priv = static_cast<GnomeCmdConPrivate *> (gnome_cmd_con_get_instance_private (con));
+
+    g_set_object (&priv->base_gFileInfo, file_info);
+}
+
 
 void gnome_cmd_con_open (GnomeCmdCon *con, GtkWindow *parent_window)
 {
