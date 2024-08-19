@@ -238,15 +238,26 @@ inline void GnomeCmdFileSelector::update_direntry()
 inline void GnomeCmdFileSelector::update_vol_label()
 {
     GnomeCmdCon *con = get_connection();
-
-    if (!con)
+    if (!con || !gnome_cmd_con_can_show_free_space (con))
         return;
 
-    g_return_if_fail (GNOME_CMD_IS_CON (con));
+    GnomeCmdDir *dir = get_directory();
+    if (!dir)
+        return;
 
-    gchar *s = gnome_cmd_con_get_free_space (con, get_directory(), _("%s free"));
-    gtk_label_set_text (GTK_LABEL (vol_label), s ? s : "");
-    g_free (s);
+    gchar *s = gnome_cmd_file_get_free_space (GNOME_CMD_FILE (dir));
+    gchar *text;
+    if (s)
+    {
+        text = g_strdup_printf(_("%s free"), s);
+        g_free (s);
+    }
+    else
+    {
+        text = g_strdup(_("Unknown disk usage"));
+    }
+    gtk_label_set_text (GTK_LABEL (vol_label), text);
+    g_free (text);
 }
 
 
@@ -1058,7 +1069,7 @@ static gboolean on_new_textfile_ok (GnomeCmdStringDialog *string_dialog, const g
 
     if (fname[0] == '/')
     {
-        auto con = gnome_cmd_dir_get_connection (dir);
+        auto con = gnome_cmd_file_get_connection (GNOME_CMD_FILE (dir));
         auto conPath = gnome_cmd_con_create_path (con, fname);
         gFile = gnome_cmd_con_create_gfile (con, conPath->get_path());
         delete conPath;
@@ -1139,7 +1150,7 @@ static gboolean on_create_symlink_ok (GnomeCmdStringDialog *string_dialog, const
     GFile *gFile;
     if (fname[0] == '/')
     {
-        auto con = gnome_cmd_dir_get_connection (dir);
+        auto con = gnome_cmd_file_get_connection (GNOME_CMD_FILE (dir));
         auto conPath = gnome_cmd_con_create_path (con, fname);
         gFile = gnome_cmd_con_create_gfile (con, conPath->get_path());
         delete conPath;
@@ -1551,7 +1562,7 @@ GtkWidget *GnomeCmdFileSelector::new_tab(GnomeCmdDir *dir, GnomeCmdFileList::Col
     g_signal_connect (fl, "files-changed", G_CALLBACK (on_list_files_changed), this);
 
     if (dir)
-        fl->set_connection(gnome_cmd_dir_get_connection (dir), dir);
+        fl->set_connection(gnome_cmd_file_get_connection (GNOME_CMD_FILE (dir)), dir);
 
     if (activate)
     {

@@ -46,13 +46,13 @@ static void mount_func (GnomeCmdCon *con)
 
     // ToDo: Check if the error block below is executed if samba is not available on the system.
     // ToDo: Check if password is visible in the logs below!
-    auto gFile = gnome_cmd_con_create_gfile (con, con->base_path->get_path());
+    auto gFile = gnome_cmd_con_create_gfile (con, gnome_cmd_con_get_base_path (con)->get_path());
     if (!gFile)
     {
         DEBUG('s', "gnome_cmd_con_create_gfile returned NULL\n");
         con->state = GnomeCmdCon::STATE_CLOSED;
         con->open_result = GnomeCmdCon::OPEN_FAILED;
-        con->open_failed_error = g_error_new(G_IO_ERROR, G_IO_ERROR_INVALID_DATA, "Could not create a GFile object for \"smb:%s\"", con->base_path->get_path());
+        con->open_failed_error = g_error_new(G_IO_ERROR, G_IO_ERROR_INVALID_DATA, "Could not create a GFile object for \"smb:%s\"", gnome_cmd_con_get_base_path (con)->get_path());
         con->open_failed_msg = g_strdup (_("Failed to browse the network. Is Samba supported on the system?"));
         return;
     }
@@ -86,7 +86,7 @@ static void mount_func (GnomeCmdCon *con)
         if (!error)
         {
             con->state = GnomeCmdCon::STATE_OPEN;
-            con->base_gFileInfo = base_gFileInfo;
+            gnome_cmd_con_set_base_file_info(con, base_gFileInfo);
             con->open_result = GnomeCmdCon::OPEN_OK;
         }
         else
@@ -118,8 +118,8 @@ start_mount_func (GnomeCmdCon *con)
 
 static void smb_open (GnomeCmdCon *con, GtkWindow *parent_window)
 {
-    if (!con->base_path)
-        con->base_path = new GnomeCmdSmbPath(nullptr, nullptr, nullptr);
+    if (gnome_cmd_con_get_base_path (con) == nullptr)
+        gnome_cmd_con_set_base_path (con, new GnomeCmdSmbPath(nullptr, nullptr, nullptr));
 
     con->state = GnomeCmdCon::STATE_OPENING;
     con->open_result = GnomeCmdCon::OPEN_IN_PROGRESS;
@@ -133,8 +133,7 @@ static gboolean smb_close (GnomeCmdCon *con, GtkWindow *parent_window)
 {
     // Copied from gnome-cmd-con-remote.cc:
     gnome_cmd_con_set_default_dir (con, nullptr);
-    delete con->base_path;
-    con->base_path = nullptr;
+    gnome_cmd_con_set_base_path (con, nullptr);
     con->state = GnomeCmdCon::STATE_CLOSED;
     con->open_result = GnomeCmdCon::OPEN_NOT_STARTED;
 

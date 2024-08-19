@@ -74,8 +74,6 @@ struct GnomeCmdCon
     ConnectionMethodID  method;
 
     gchar               *open_msg;
-    GnomeCmdPath        *base_path;
-    GFileInfo           *base_gFileInfo;
     gboolean            should_remember_dir;
     gboolean            needs_open_visprog;
     gboolean            needs_list_visprog;     // Defines if a graphical progress bar should be drawn when opening a folder
@@ -122,9 +120,11 @@ extern "C" GType gnome_cmd_con_get_type ();
 
 const gchar *gnome_cmd_con_get_uuid (GnomeCmdCon *con);
 
+GnomeCmdPath *gnome_cmd_con_get_base_path(GnomeCmdCon *con);
 void gnome_cmd_con_set_base_path(GnomeCmdCon *con, GnomeCmdPath *path);
-void set_con_base_path_for_gmount(GnomeCmdCon *con, GMount *gMount);
-gboolean set_con_base_gfileinfo(GnomeCmdCon *con);
+
+GFileInfo *gnome_cmd_con_get_base_file_info(GnomeCmdCon *con);
+void gnome_cmd_con_set_base_file_info(GnomeCmdCon *con, GFileInfo *file_info);
 
 void gnome_cmd_con_open (GnomeCmdCon *con, GtkWindow *parent_window);
 
@@ -241,28 +241,6 @@ inline const gchar *gnome_cmd_con_get_icon_name (GnomeCmdCon *con)
 {
     g_return_val_if_fail (GNOME_CMD_IS_CON (con), NULL);
     return gnome_cmd_con_get_icon_name (con->method);
-}
-
-inline gchar *gnome_cmd_con_get_free_space (GnomeCmdCon *con, GnomeCmdDir *dir, const gchar *fmt)
-{
-    g_return_val_if_fail (GNOME_CMD_IS_CON (con), NULL);
-    g_return_val_if_fail (GNOME_CMD_IS_DIR (dir), NULL);
-
-    if (!gnome_cmd_con_can_show_free_space (con))
-        return NULL;
-
-    gchar *free_space = gnome_cmd_dir_get_free_space (dir);
-
-    if (!free_space)
-        return _("Unknown disk usage");
-
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wformat-nonliteral"
-    gchar *retval = g_strdup_printf (fmt, free_space);
-#pragma GCC diagnostic pop
-    g_free (free_space);
-
-    return retval;
 }
 
 std::string &__gnome_cmd_con_make_uri (std::string &s, const gchar *method, std::string &server, std::string &port, std::string &folder);

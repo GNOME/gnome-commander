@@ -35,6 +35,7 @@ extern "C" GType gnome_cmd_file_get_type ();
 class GnomeCmdFileMetadata;
 
 struct GnomeCmdDir;
+struct GnomeCmdCon;
 struct GnomeCmdPath;
 
 
@@ -66,7 +67,6 @@ struct GnomeCmdFile
     gchar *get_dirname();
     gchar *get_unescaped_dirname();
 
-    GFile *get_gfile(const gchar *name=NULL);
     gchar *get_uri_str();
 
     char *get_collation_fname() const    {  return collate_key ? collate_key : g_file_get_basename (get_file());  }
@@ -96,7 +96,6 @@ struct GnomeCmdFile
     gboolean rename(const gchar *new_name, GError **error);
 
     void update_gFileInfo(GFileInfo *gFileInfo);
-    gboolean is_local();
     gboolean is_executable();
     void is_deleted();
     void execute();
@@ -120,6 +119,9 @@ struct GnomeCmdFile
 struct GnomeCmdFileClass
 {
     GnomeCmdFileBaseClass parent_class;
+
+    /* virtual functions */
+    GnomeCmdCon *(* get_connection) (GnomeCmdFile *f);
 };
 
 
@@ -129,9 +131,9 @@ inline const gchar *GnomeCmdFile::get_name()
     return g_file_info_get_display_name (get_file_info ());
 }
 
-GnomeCmdFile *gnome_cmd_file_new_from_gfile (GFile *gFile);
-GnomeCmdFile *gnome_cmd_file_new (const gchar *local_full_path);
+extern "C" GnomeCmdFile *gnome_cmd_file_new_from_path (const gchar *local_full_path);
 extern "C" GnomeCmdFile *gnome_cmd_file_new (GFileInfo *gFileInfo, GnomeCmdDir *dir);
+extern "C" GnomeCmdFile *gnome_cmd_file_new_full (GFileInfo *gFileInfo, GFile *gFile, GnomeCmdDir *dir);
 gboolean gnome_cmd_file_setup (GObject *gObject, GFile *gFile, GError **error);
 
 inline GnomeCmdFile *gnome_cmd_file_ref (GnomeCmdFile *f)
@@ -165,6 +167,9 @@ inline gchar *gnome_cmd_file_get_quoted_real_path (GnomeCmdFile *f)
 
 extern "C" gchar *gnome_cmd_file_get_uri_str (GnomeCmdFile *f);
 extern "C" gboolean gnome_cmd_file_is_local (GnomeCmdFile *f);
+extern "C" GnomeCmdCon *gnome_cmd_file_get_connection (GnomeCmdFile *f);
+
+extern "C" gchar *gnome_cmd_file_get_free_space (GnomeCmdFile *f);
 
 void gnome_cmd_file_show_chown_dialog (GList *files);
 void gnome_cmd_file_show_chmod_dialog (GList *files);
@@ -185,8 +190,6 @@ inline void gnome_cmd_file_list_unref (GList *files)
 {
     g_list_foreach (files, (GFunc) gnome_cmd_file_unref, NULL);
 }
-
-extern "C" GFile *gnome_cmd_file_get_gfile(GnomeCmdFile *f, const gchar *name);
 extern "C" gboolean gnome_cmd_file_is_executable(GnomeCmdFile *f);
 extern "C" void gnome_cmd_file_execute(GnomeCmdFile *f);
 extern "C" gboolean gnome_cmd_file_chmod(GnomeCmdFile *f, guint32 permissions, GError **error);

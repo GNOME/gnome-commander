@@ -548,7 +548,7 @@ void gnome_cmd_dir_indicator_set_dir (GnomeCmdDirIndicator *indicator, GnomeCmdD
     g_return_if_fail (path != nullptr);
 
     gchar* host = nullptr; // show host in dir indicator if we are not on a local connection
-    if (!gnome_cmd_dir_is_local(dir))
+    if (!gnome_cmd_file_is_local (GNOME_CMD_FILE (dir)))
     {
         GError *error = nullptr;
         auto dirUri = g_file_get_uri(GNOME_CMD_FILE(dir)->get_file());

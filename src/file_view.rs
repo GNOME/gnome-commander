@@ -20,6 +20,7 @@
 use crate::{
     file::{ffi::GnomeCmdFile, File},
     intviewer::window::ViewerWindow,
+    libgcmd::file_base::FileBaseExt,
     transfer::gnome_cmd_tmp_download,
     utils::{show_error_message, temp_file, ErrorMessage},
 };
@@ -46,8 +47,8 @@ pub async fn file_view_internal(parent_window: &gtk::Window, f: &File) -> Result
         let tmp_file = temp_file(f)?;
         if !gnome_cmd_tmp_download(
             parent_window.clone(),
-            single_file_list(f.gfile(None)),
-            single_file_list(tmp_file.gfile(None)),
+            single_file_list(f.file()),
+            single_file_list(tmp_file.file()),
             gio::FileCopyFlags::OVERWRITE,
         )
         .await

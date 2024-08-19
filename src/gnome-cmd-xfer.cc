@@ -614,13 +614,11 @@ static gboolean update_tmp_download_gui (XferData *xferData)
 
 inline gboolean gfile_is_parent_to_dir_or_equal (GFile *gFile, GnomeCmdDir *dir)
 {
-    auto dir_gFile = GNOME_CMD_FILE (dir)->get_gfile ();
+    auto dir_gFile = GNOME_CMD_FILE (dir)->get_file ();
 
     gboolean is_parent = g_file_has_parent (dir_gFile, gFile);
 
     gboolean are_equal = g_file_equal (gFile, dir_gFile);
-
-    g_object_unref (dir_gFile);
 
     return is_parent || are_equal;
 }

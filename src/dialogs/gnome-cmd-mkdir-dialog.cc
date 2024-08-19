@@ -38,7 +38,7 @@ static GSList *make_gfile_list (GnomeCmdDir *dir, string filename)
     // make an absolute filename from one that is starting with a tilde
     if (filename.compare(0, 2, "~/")==0)
     {
-        if (gnome_cmd_dir_is_local (dir))
+        if (gnome_cmd_file_is_local (GNOME_CMD_FILE (dir)))
         {
             auto absolutePath = g_strdup_printf("%s" G_DIR_SEPARATOR_S "%s", g_get_home_dir(), filename.substr(2).c_str());
             stringify (filename, absolutePath);

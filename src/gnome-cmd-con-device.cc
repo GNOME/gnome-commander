@@ -50,6 +50,23 @@ struct GnomeCmdConDevicePrivate
 G_DEFINE_TYPE_WITH_PRIVATE (GnomeCmdConDevice, gnome_cmd_con_device, GNOME_CMD_TYPE_CON)
 
 
+static void set_con_base_path_for_gmount (GnomeCmdConDevice *con)
+{
+    g_return_if_fail (GNOME_CMD_IS_CON_DEVICE (con));
+    auto priv = static_cast<GnomeCmdConDevicePrivate *> (gnome_cmd_con_device_get_instance_private (con));
+
+    g_return_if_fail (G_IS_MOUNT (priv->gMount));
+
+    auto gFile = g_mount_get_default_location (priv->gMount);
+    auto pathString = g_file_get_path(gFile);
+    g_object_unref(gFile);
+
+    gnome_cmd_con_set_base_path (GNOME_CMD_CON (con), new GnomeCmdPlainPath(pathString));
+
+    g_free(pathString);
+}
+
+
 static gboolean is_mounted (GnomeCmdConDevice *dev_con)
 {
     auto priv = static_cast<GnomeCmdConDevicePrivate *> (gnome_cmd_con_device_get_instance_private (dev_con));
@@ -161,12 +178,30 @@ static void set_con_mount_succeed(GnomeCmdCon *con)
 
 static void set_con_mount_failed(GnomeCmdCon *con)
 {
-    if (con->base_gFileInfo)
-        g_object_unref (con->base_gFileInfo);
-    con->base_gFileInfo = nullptr;
+    gnome_cmd_con_set_base_file_info(con, nullptr);
     con->open_result = GnomeCmdCon::OPEN_FAILED;
     con->state = GnomeCmdCon::STATE_CLOSED;
     con->open_failed_msg = con->open_failed_error->message;
+}
+
+
+static gboolean set_con_base_gfileinfo(GnomeCmdCon *con)
+{
+    GError *error = nullptr;
+    auto gFile = gnome_cmd_con_create_gfile (con, gnome_cmd_con_get_base_path (con)->get_path());
+    auto gFileInfo = g_file_query_info(gFile, "*", G_FILE_QUERY_INFO_NONE, nullptr, &error);
+    gnome_cmd_con_set_base_file_info (con, gFileInfo);
+    g_object_unref(gFile);
+    if (error)
+    {
+        con->open_failed_error = g_error_copy(error);
+        set_con_mount_failed(con);
+        g_critical("Unable to mount the volume: error: %s", error->message);
+        g_error_free(error);
+        return FALSE;
+    }
+    set_con_mount_succeed(con);
+    return TRUE;
 }
 
 
@@ -187,18 +222,17 @@ static void mount_finish_callback(GObject *gVol, GAsyncResult *result, gpointer 
         return;
     }
     priv->gMount = g_volume_get_mount (gVolume);
-    if (!con->base_path)
+    if (gnome_cmd_con_get_base_path (con) == nullptr)
     {
-        set_con_base_path_for_gmount(con, priv->gMount);
+        set_con_base_path_for_gmount (dev_con);
     }
-    if (con->base_path)
+    if (GnomeCmdPath *base_path = gnome_cmd_con_get_base_path (con))
     {
-        gchar *uri_string = g_filename_to_uri (con->base_path->get_path(), nullptr, nullptr);
+        gchar *uri_string = g_filename_to_uri (base_path->get_path(), nullptr, nullptr);
         gnome_cmd_con_set_uri_string (con, uri_string);
         g_free (uri_string);
     }
     set_con_base_gfileinfo(con);
-    set_con_mount_succeed(con);
 }
 
 static void do_legacy_mount_thread_func(GnomeCmdCon *con)
@@ -206,11 +240,9 @@ static void do_legacy_mount_thread_func(GnomeCmdCon *con)
     g_return_if_fail (GNOME_CMD_IS_CON_DEVICE (con));
     auto priv = static_cast<GnomeCmdConDevicePrivate *> (gnome_cmd_con_device_get_instance_private (GNOME_CMD_CON_DEVICE (con)));
 
-    GError *error = nullptr;
-
-    if (!con->base_path)
+    if (gnome_cmd_con_get_base_path (con) == nullptr)
     {
-        con->base_path = new GnomeCmdPlainPath(priv->mountp);
+        gnome_cmd_con_set_base_path (con, new GnomeCmdPlainPath(priv->mountp));
     }
 
     do_legacy_mount(con);
@@ -222,25 +254,7 @@ static void do_legacy_mount_thread_func(GnomeCmdCon *con)
         return;
     }
 
-    auto gFile = gnome_cmd_con_create_gfile(con, con->base_path->get_path());
-
-    con->base_gFileInfo = g_file_query_info(gFile,
-                              "*",
-                              G_FILE_QUERY_INFO_NONE,
-                              nullptr,
-                              &error);
-    g_object_unref(gFile);
-    if (error)
-    {
-        con->open_failed_error = g_error_copy(error);
-        set_con_mount_failed(con);
-        g_warning("Unable to mount the volume via legacy mount, error: %s", error->message);
-        g_error_free(error);
-        return;
-    }
-
-    set_con_mount_succeed(con);
-    return;
+    set_con_base_gfileinfo(con);
 }
 
 
@@ -265,9 +279,8 @@ static void do_mount (GnomeCmdCon *con, GtkWindow *parent_window)
         if (gMount)
         {
             priv->gMount = gMount;
-            set_con_base_path_for_gmount(con, priv->gMount);
+            set_con_base_path_for_gmount(dev_con);
             set_con_base_gfileinfo(con);
-            set_con_mount_succeed(con);
             return;
         }
 

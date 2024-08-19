@@ -67,6 +67,7 @@ static guint signals[LAST_SIGNAL] = { 0 };
 
 
 static void gnome_cmd_dir_set_path (GnomeCmdDir *dir, GnomeCmdPath *path);
+static GnomeCmdCon *dir_get_connection (GnomeCmdFile *dir);
 
 
 static void monitor_callback (GFileMonitor *gFileMonitor, GFile *gFile, GFile *otherGFile,
@@ -205,6 +206,9 @@ static void gnome_cmd_dir_class_init (GnomeCmdDirClass *klass)
 
     object_class->dispose = gnome_cmd_dir_dispose;
     object_class->finalize = gnome_cmd_dir_finalize;
+
+    GNOME_CMD_FILE_CLASS (klass)->get_connection = dir_get_connection;
+
     klass->file_created = nullptr;
     klass->file_deleted = nullptr;
     klass->file_changed = nullptr;
@@ -223,7 +227,7 @@ GnomeCmdDir *gnome_cmd_dir_new_from_gfileinfo (GFileInfo *gFileInfo, GnomeCmdDir
     g_return_val_if_fail (gFileInfo != nullptr, nullptr);
     g_return_val_if_fail (GNOME_CMD_IS_DIR (gnomeCmdDirParent), nullptr);
 
-    GnomeCmdCon *con = gnome_cmd_dir_get_connection (gnomeCmdDirParent);
+    GnomeCmdCon *con = gnome_cmd_file_get_connection (GNOME_CMD_FILE (gnomeCmdDirParent));
     auto dirName = g_file_info_get_name(gFileInfo);
 
     GFile *gFile = nullptr;
@@ -250,12 +254,12 @@ GnomeCmdDir *gnome_cmd_dir_new_from_gfileinfo (GFileInfo *gFileInfo, GnomeCmdDir
     }
     auto uriString = g_file_get_uri (gFile);
 
-    auto *gnomeCmdDir = gnome_cmd_con_cache_lookup (gnome_cmd_dir_get_connection (gnomeCmdDirParent), uriString);
+    auto gnomeCmdDir = gnome_cmd_con_cache_lookup (con, uriString);
 
     if (gnomeCmdDir)
     {
         delete dirPath;
-        reinterpret_cast<GnomeCmdFile*>((gnomeCmdDir))->update_gFileInfo(gFileInfo);
+        GNOME_CMD_FILE (gnomeCmdDir)->update_gFileInfo(gFileInfo);
         g_free (uriString);
         return gnomeCmdDir;
     }
@@ -274,7 +278,7 @@ GnomeCmdDir *gnome_cmd_dir_new_from_gfileinfo (GFileInfo *gFileInfo, GnomeCmdDir
     gnome_cmd_dir_set_path (gnomeCmdDir, dirPath);
     gnomeCmdDir->priv->needs_mtime_update = FALSE;
 
-    gnome_cmd_con_add_to_cache (gnome_cmd_dir_get_connection (gnomeCmdDirParent), gnomeCmdDir, uriString);
+    gnome_cmd_con_add_to_cache (con, gnomeCmdDir, uriString);
 
     return gnomeCmdDir;
 }
@@ -283,10 +287,11 @@ GnomeCmdDir *gnome_cmd_dir_new_from_gfileinfo (GFileInfo *gFileInfo, GnomeCmdDir
 GnomeCmdDir *gnome_cmd_dir_new_with_con (GnomeCmdCon *con)
 {
     g_return_val_if_fail (GNOME_CMD_IS_CON (con), nullptr);
-    g_return_val_if_fail (con->base_gFileInfo != nullptr, nullptr);
+    GFileInfo *con_base_file_info = gnome_cmd_con_get_base_file_info (con);
+    g_return_val_if_fail (con_base_file_info != nullptr, nullptr);
 
     auto gFile = con->is_local
-        ? gnome_cmd_con_create_gfile (con, con->base_path->get_path())
+        ? gnome_cmd_con_create_gfile (con, gnome_cmd_con_get_base_path(con)->get_path())
         : gnome_cmd_con_create_gfile (con, nullptr);
 
     auto uriString = g_file_get_uri(gFile);
@@ -294,14 +299,14 @@ GnomeCmdDir *gnome_cmd_dir_new_with_con (GnomeCmdCon *con)
 
     if (dir)
     {
-        GNOME_CMD_FILE (dir)->update_gFileInfo(con->base_gFileInfo);
+        GNOME_CMD_FILE (dir)->update_gFileInfo(con_base_file_info);
         g_object_unref (gFile);
         g_free (uriString);
         return dir;
     }
 
     dir = static_cast<GnomeCmdDir*> (g_object_new (GNOME_CMD_TYPE_DIR, nullptr));
-    gnome_cmd_dir_set_path (dir, con->base_path->clone());
+    gnome_cmd_dir_set_path (dir, gnome_cmd_con_get_base_path (con)->clone());
     dir->priv->con = con;
     GError *error = nullptr;
     if (!gnome_cmd_file_setup (G_OBJECT(dir), gFile, &error))
@@ -382,14 +387,9 @@ GnomeCmdDir *gnome_cmd_dir_get_child (GnomeCmdDir *dir, const gchar *child)
 }
 
 
-GnomeCmdCon *gnome_cmd_dir_get_connection (GnomeCmdDir *dir)
+static GnomeCmdCon *dir_get_connection (GnomeCmdFile *dir)
 {
-    if (!GNOME_CMD_IS_DIR (dir))
-    {
-        return nullptr;
-    }
-
-    return dir->priv->con;
+    return GNOME_CMD_DIR (dir)->priv->con;
 }
 
 
@@ -487,7 +487,7 @@ void gnome_cmd_dir_list_files (GtkWindow *parent_window, GnomeCmdDir *dir, gbool
 {
     g_return_if_fail (GNOME_CMD_IS_DIR (dir));
 
-    if (!dir->priv->files || gnome_cmd_dir_is_local (dir))
+    if (!dir->priv->files || gnome_cmd_file_is_local (GNOME_CMD_FILE (dir)))
     {
         auto gUriString = g_file_get_uri(GNOME_CMD_FILE (dir)->get_file());
         DEBUG ('l', "relisting files for 0x%x; %s\n", dir, gUriString);
@@ -982,14 +982,6 @@ gboolean gnome_cmd_dir_is_monitored (GnomeCmdDir *dir)
     g_return_val_if_fail (GNOME_CMD_IS_DIR (dir), FALSE);
 
     return dir->priv->monitor_users > 0;
-}
-
-
-gboolean gnome_cmd_dir_is_local (GnomeCmdDir *dir)
-{
-    g_return_val_if_fail (GNOME_CMD_IS_DIR (dir), FALSE);
-
-    return gnome_cmd_con_is_local (dir->priv->con);
 }
 
 

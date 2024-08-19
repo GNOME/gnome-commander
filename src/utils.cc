@@ -716,7 +716,7 @@ GList *gnome_cmd_file_list_to_gfile_list (GList *files)
     for (; files; files = files->next)
     {
         GnomeCmdFile *f = GNOME_CMD_FILE (files->data);
-        auto gFile = f->get_gfile();
+        auto gFile = g_file_dup (f->get_file());
 
         if (!gFile)
             g_warning ("gnome_cmd_file_list_to_gfile_list: no gFile!!!");
@@ -873,61 +873,6 @@ void gnome_cmd_error_message (const gchar *title, GError *error)
     g_error_free (error);
 }
 
-
-gboolean gnome_cmd_prepend_su_to_vector (int &argc, char **&argv)
-{
-    // sanity
-    if(!argv)
-        argc = 0;
-
-    char *su = NULL;
-    gboolean need_c = FALSE;
-
-    if ((su = g_find_program_in_path ("gksudo")))
-       goto without_c_param;
-    if ((su = g_find_program_in_path ("xdg-su")))
-       goto without_c_param;
-    if ((su = g_find_program_in_path ("gksu")))
-       goto without_c_param;
-    if ((su = g_find_program_in_path ("gnomesu")))
-       goto with_c_param;
-    if ((su = g_find_program_in_path ("beesu")))
-       goto without_c_param;
-    if ((su = g_find_program_in_path ("kdesu")))
-       goto without_c_param;
-
-    return FALSE;
-
- with_c_param:
-
-   need_c = TRUE;
-
- without_c_param:
-
-    char **su_argv = g_new0 (char *, 3);
-    int su_argc = 0;
-
-    su_argv[su_argc++] = su;
-    if (need_c)
-        su_argv[su_argc++] = g_strdup("-c");
-
-    // compute size if not given
-    if (argc < 0)
-        for (argc=0; argv[argc]; ++argc);
-
-    int real_argc = su_argc + argc;
-    char **real_argv = g_new0 (char *, real_argc+1);
-
-    memmove (real_argv, su_argv, su_argc*sizeof(char *));
-    memmove (real_argv+su_argc, argv, argc*sizeof(char *));
-
-    g_free (argv);
-
-    argv = real_argv;
-    argc = real_argc;
-
-    return TRUE;
-}
 
 int split(const string &s, vector<string> &coll, const char *sep)
 {

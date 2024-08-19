@@ -58,7 +58,7 @@ struct GnomeCmdFile::Private
 G_DEFINE_TYPE (GnomeCmdFile, gnome_cmd_file, GNOME_CMD_TYPE_FILE_BASE)
 
 
-static void gnome_cmd_file_setup (GObject *gObject, GFileInfo *gFileInfo, GnomeCmdDir *dir);
+static GnomeCmdCon *file_get_connection (GnomeCmdFile *f);
 
 
 inline gboolean has_parent_dir (GnomeCmdFile *f)
@@ -116,6 +116,8 @@ static void gnome_cmd_file_class_init (GnomeCmdFileClass *klass)
 
     object_class->dispose = gnome_cmd_file_dispose;
     object_class->finalize = gnome_cmd_file_finalize;
+
+    klass->get_connection = file_get_connection;
 }
 
 
@@ -123,35 +125,55 @@ static void gnome_cmd_file_class_init (GnomeCmdFileClass *klass)
  * Public functions
  ***********************************/
 
-GnomeCmdFile *gnome_cmd_file_new (const gchar *local_full_path)
+GnomeCmdFile *gnome_cmd_file_new_full (GFileInfo *gFileInfo, GFile *gFile, GnomeCmdDir *dir)
 {
-    g_return_val_if_fail (local_full_path != nullptr, nullptr);
+    g_return_val_if_fail (gFileInfo != nullptr, nullptr);
+    g_return_val_if_fail (gFile != nullptr, nullptr);
+    g_return_val_if_fail (dir != nullptr, nullptr);
 
-    auto gFile = g_file_new_for_path(local_full_path);
-    GnomeCmdFile *f = gnome_cmd_file_new_from_gfile (gFile);
-
-    return f;
-}
-
-
-GnomeCmdFile *gnome_cmd_file_new (GFileInfo *gFileInfo, GnomeCmdDir *dir)
-{
     auto gnomeCmdFile = static_cast<GnomeCmdFile*> (g_object_new (GNOME_CMD_TYPE_FILE, nullptr));
 
-    gnome_cmd_file_setup (G_OBJECT(gnomeCmdFile), gFileInfo, dir);
+    GNOME_CMD_FILE_BASE (gnomeCmdFile)->gFileInfo = gFileInfo;
+    GNOME_CMD_FILE_BASE (gnomeCmdFile)->gFile = gFile;
+    gnomeCmdFile->priv->parent_dir = g_object_ref (dir);
 
-    if(!gnomeCmdFile->get_file())
-    {
-        g_object_unref(gnomeCmdFile);
-        return nullptr;
-    }
+    auto filename = g_file_info_get_attribute_string (gFileInfo, G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME);
+
+    // check if file is '..'
+    gnomeCmdFile->is_dotdot = g_file_info_get_attribute_uint32 (gFileInfo, G_FILE_ATTRIBUTE_STANDARD_TYPE) == G_FILE_TYPE_DIRECTORY
+                              && g_strcmp0(filename, "..") == 0;
+
+    auto utf8Name = gnome_cmd_data.options.case_sens_sort
+        ? g_strdup(filename)
+        : g_utf8_casefold (filename, -1);
+    gnomeCmdFile->collate_key = g_utf8_collate_key_for_filename (utf8Name, -1);
+    g_free (utf8Name);
 
     return gnomeCmdFile;
 }
 
 
-GnomeCmdFile *gnome_cmd_file_new_from_gfile (GFile *gFile)
+GnomeCmdFile *gnome_cmd_file_new (GFileInfo *gFileInfo, GnomeCmdDir *dir)
 {
+    g_return_val_if_fail (gFileInfo != nullptr, nullptr);
+    g_return_val_if_fail (dir != nullptr, nullptr);
+
+    GFile *gFile = g_file_get_child (
+        gnome_cmd_file_base_get_file (GNOME_CMD_FILE_BASE (dir)),
+        g_file_info_get_name (gFileInfo));
+
+    g_return_val_if_fail (gFile != nullptr, nullptr);
+
+    return gnome_cmd_file_new_full (gFileInfo, gFile, dir);
+}
+
+
+GnomeCmdFile *gnome_cmd_file_new_from_path (const gchar *local_full_path)
+{
+    g_return_val_if_fail (local_full_path != nullptr, nullptr);
+
+    auto gFile = g_file_new_for_path(local_full_path);
+
     g_return_val_if_fail (gFile != nullptr, nullptr);
     g_return_val_if_fail (G_IS_FILE(gFile), nullptr);
     GError *error = nullptr;
@@ -165,21 +187,23 @@ GnomeCmdFile *gnome_cmd_file_new_from_gfile (GFile *gFile)
         return nullptr;
     }
 
+    GnomeCmdCon *con = get_home_con ();
+    GnomeCmdDir *dir;
+
     auto gFileParent = g_file_get_parent(gFile);
     if (gFileParent)
     {
         auto gFileParentPath = g_file_get_path(gFileParent);
-        GnomeCmdDir *dir = gnome_cmd_dir_new (get_home_con(), new GnomeCmdPlainPath(gFileParentPath));
+        dir = gnome_cmd_dir_new (con, new GnomeCmdPlainPath(gFileParentPath));
         g_free(gFileParentPath);
         g_object_unref(gFileParent);
-        return gnome_cmd_file_new (gFileInfo, dir);
+    }
+    else
+    {
+        dir = gnome_cmd_dir_new (con, new GnomeCmdPlainPath(G_DIR_SEPARATOR_S));
     }
 
-    auto gFileParentPath = g_file_get_path(gFileParent);
-    GnomeCmdDir *dir = gnome_cmd_dir_new (get_home_con(), new GnomeCmdPlainPath(G_DIR_SEPARATOR_S));
-    g_free(gFileParentPath);
-    g_object_unref(gFileParent);
-    return gnome_cmd_file_new (gFileInfo, dir);
+    return gnome_cmd_file_new_full (gFileInfo, gFile, dir);
 }
 
 
@@ -220,47 +244,6 @@ gboolean gnome_cmd_file_setup (GObject *gObject, GFile *gFile, GError **error)
 
     GNOME_CMD_FILE_BASE (gnomeCmdFile)->gFile = gFile;
     return TRUE;
-}
-
-
-void gnome_cmd_file_setup (GObject *gObject, GFileInfo *gFileInfo, GnomeCmdDir *parentDir)
-{
-    g_return_if_fail (gObject != nullptr);
-    g_return_if_fail (GNOME_CMD_IS_FILE(gObject));
-    g_return_if_fail (gFileInfo != nullptr);
-
-    auto gnomeCmdFile = (GnomeCmdFile*) gObject;
-    GNOME_CMD_FILE_BASE (gnomeCmdFile)->gFileInfo = gFileInfo;
-
-    auto filename = g_file_info_get_attribute_string (gFileInfo, G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME);
-
-    // check if file is '..'
-    gnomeCmdFile->is_dotdot = g_file_info_get_attribute_uint32 (gFileInfo, G_FILE_ATTRIBUTE_STANDARD_TYPE) == G_FILE_TYPE_DIRECTORY
-                              && g_strcmp0(filename, "..") == 0;
-
-    auto utf8Name = gnome_cmd_data.options.case_sens_sort
-        ? g_strdup(filename)
-        : g_utf8_casefold (filename, -1);
-    gnomeCmdFile->collate_key = g_utf8_collate_key_for_filename (utf8Name, -1);
-    g_free (utf8Name);
-
-    if (parentDir)
-        gnomeCmdFile->priv->parent_dir = g_object_ref (parentDir);
-
-    auto path = gnomeCmdFile->GetPathThroughParent();
-    if (path)
-    {
-        auto con = gnome_cmd_dir_get_connection(parentDir ? parentDir : GNOME_CMD_DIR(gObject));
-        GNOME_CMD_FILE_BASE (gnomeCmdFile)->gFile = gnome_cmd_con_create_gfile (con, path->get_path());
-
-        delete path;
-    }
-    // EVERY GnomeCmdFile instance must have a gFile reference
-    if (!gnomeCmdFile->get_file())
-    {
-        g_object_unref(gnomeCmdFile->get_file_info());
-        return;
-    }
 }
 
 
@@ -471,13 +454,12 @@ gchar *GnomeCmdFile::GetPathStringThroughParent()
 //ToDo: Try to remove usage of this method.
 gchar *GnomeCmdFile::get_real_path()
 {
-    auto gFileTmp = get_gfile();
+    auto gFileTmp = get_file();
 
     if (!gFileTmp)
         return nullptr;
 
     gchar *path = g_file_get_path (gFileTmp);
-    g_object_unref (gFileTmp);
 
     return path;
 }
@@ -500,15 +482,12 @@ gchar *GnomeCmdFile::get_quoted_real_path()
 
 gchar *GnomeCmdFile::get_dirname()
 {
-    auto gFileTmp = get_gfile();
+    auto gFileTmp = get_file();
     auto gFileParent = g_file_get_parent(gFileTmp);
     if (!gFileParent)
-    {
-        g_object_unref(gFileTmp);
         return nullptr;
-    }
+
     gchar *path = g_file_get_path (gFileParent);
-    g_object_unref (gFileTmp);
     g_object_unref (gFileParent);
 
     return path;
@@ -600,29 +579,6 @@ gchar *GnomeCmdFile::get_default_application_name(GAppInfo *gAppInfo)
     gchar *escaped_app_name = string_double_underscores (g_app_info_get_name (gAppInfo));
 
     return escaped_app_name;
-}
-
-
-GFile *GnomeCmdFile::get_gfile(const gchar *name)
-{
-    if (!has_parent_dir (this))
-    {
-        if (GNOME_CMD_IS_DIR (this))
-        {
-            GnomeCmdPath *path = gnome_cmd_dir_get_path (GNOME_CMD_DIR (this));
-            GnomeCmdCon *con = gnome_cmd_dir_get_connection (GNOME_CMD_DIR (this));
-            return gnome_cmd_con_create_gfile (con, path->get_path());
-        }
-        else
-            g_assert ("Non directory file without owning directory");
-    }
-    if (!get_file())
-        return nullptr;
-
-    auto filename = g_file_get_basename(get_file());
-    auto childGFile = gnome_cmd_dir_get_child_gfile (::get_parent_dir (this), name ? name : filename);
-    g_free(filename);
-    return childGFile;
 }
 
 
@@ -899,7 +855,7 @@ void gnome_cmd_file_edit (GtkWindow *parent_window, GnomeCmdFile *f)
 {
     g_return_if_fail (f != nullptr);
 
-    if (!f->is_local())
+    if (!gnome_cmd_file_is_local(f))
         return;
 
     GList *sfl = g_list_append (nullptr, f);
@@ -929,9 +885,7 @@ void GnomeCmdFile::update_gFileInfo(GFileInfo *gFileInfo_new)
     g_return_if_fail (G_IS_FILE_INFO(gFileInfo_new));
 
     g_free (collate_key);
-    g_object_unref (this->parent.gFileInfo);
-    g_object_ref (gFileInfo_new);
-    this->parent.gFileInfo = gFileInfo_new;
+    g_set_object (&this->parent.gFileInfo, gFileInfo_new);
 
     gchar *filename;
 
@@ -948,22 +902,9 @@ void GnomeCmdFile::update_gFileInfo(GFileInfo *gFileInfo_new)
 }
 
 
-gboolean GnomeCmdFile::is_local()
-{
-    if (!has_parent_dir (this))
-    {
-        if (GNOME_CMD_IS_DIR (this))
-            return gnome_cmd_dir_is_local (GNOME_CMD_DIR (this));
-        g_assert ("Non directory file without owning directory");
-    }
-
-    return gnome_cmd_dir_is_local (::get_parent_dir (this));
-}
-
-
 gboolean GnomeCmdFile::is_executable()
 {
-    if (!is_local())
+    if (!gnome_cmd_file_is_local(this))
         return FALSE;
 
     if (GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE) != G_FILE_TYPE_REGULAR)
@@ -1117,14 +1058,21 @@ gchar *gnome_cmd_file_get_uri_str (GnomeCmdFile *f)
     return f->get_uri_str();
 }
 
-gboolean gnome_cmd_file_is_local (GnomeCmdFile *f)
+GnomeCmdCon *file_get_connection (GnomeCmdFile *f)
 {
-    return f->is_local();
+    return gnome_cmd_file_get_connection (GNOME_CMD_FILE (f->get_parent_dir()));
 }
 
-GFile *gnome_cmd_file_get_gfile(GnomeCmdFile *f, const gchar *name)
+GnomeCmdCon *gnome_cmd_file_get_connection (GnomeCmdFile *f)
 {
-    return f->get_gfile(name);
+    GnomeCmdFileClass *klass = GNOME_CMD_FILE_GET_CLASS (f);
+    return klass->get_connection (f);
+}
+
+gboolean gnome_cmd_file_is_local (GnomeCmdFile *f)
+{
+    GnomeCmdCon *con = gnome_cmd_file_get_connection (f);
+    return gnome_cmd_con_is_local (con);
 }
 
 gboolean gnome_cmd_file_is_executable(GnomeCmdFile *f)
@@ -1140,4 +1088,28 @@ void gnome_cmd_file_execute(GnomeCmdFile *f)
 gboolean gnome_cmd_file_chmod(GnomeCmdFile *f, guint32 permissions, GError **error)
 {
     return f->chmod(permissions, error);
+}
+
+gchar *gnome_cmd_file_get_free_space (GnomeCmdFile *f)
+{
+    g_return_val_if_fail (GNOME_CMD_IS_FILE (f), NULL);
+
+    GError *error = nullptr;
+    auto gFileInfo = g_file_query_filesystem_info (f->get_file(),
+                              G_FILE_ATTRIBUTE_FILESYSTEM_FREE,
+                              nullptr,
+                              &error);
+    if (error)
+    {
+        g_warning("Could not g_file_query_filesystem_info %s: %s\n",
+            g_file_peek_path(f->get_file()), error->message);
+        g_error_free(error);
+        return nullptr;
+    }
+
+    auto freeSpace = g_file_info_get_attribute_uint64(gFileInfo, G_FILE_ATTRIBUTE_FILESYSTEM_FREE);
+
+    g_object_unref(gFileInfo);
+
+    return g_format_size (freeSpace);
 }

@@ -180,7 +180,7 @@ async fn mime_exec_single(
         let tmp_file = temp_file(file)?;
         if !gnome_cmd_tmp_download(
             parent_window.clone(),
-            single_file_list(file.gfile(None)),
+            single_file_list(file.file()),
             single_file_list(tmp_file.file()),
             gio::FileCopyFlags::OVERWRITE,
         )
