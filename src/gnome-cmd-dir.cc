@@ -139,7 +139,9 @@ static void gnome_cmd_dir_finalize (GObject *object)
 {
     GnomeCmdDir *dir = GNOME_CMD_DIR (object);
 
-    DEBUG ('d', "dir destroying %p %s\n", dir, dir->priv->path->get_path());
+    DEBUG ('d', "dir destroying %p %s\n", dir, dir->priv->path
+        ? dir->priv->path->get_path()
+        : "(null)");
 
     gnome_cmd_con_remove_from_cache (dir->priv->con, dir);
 
