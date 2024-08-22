@@ -85,8 +85,6 @@ struct GnomeCmdAdvrenameProfileComponent::Private
 
     void insert_tag(const gchar *text);
 
-    gchar *get_selected_range (GtkWindow *parent, const gchar *title, const gchar *placeholder, const gchar *filename=NULL);
-
     static void on_template_entry_changed(GtkEntry *entry, GnomeCmdAdvrenameProfileComponent *component);
 
     static void on_counter_start_spin_value_changed (GtkWidget *spin, GnomeCmdAdvrenameProfileComponent *component);
@@ -521,91 +519,13 @@ static void insert_text_tag(GSimpleAction *action, GVariant *parameter, gpointer
 }
 
 
-gchar *GnomeCmdAdvrenameProfileComponent::Private::get_selected_range (GtkWindow *parent, const gchar *title, const gchar *placeholder, const gchar *filename)
+extern "C" void get_selected_range_r(GtkWindow *parent_window, const gchar *placeholder, const gchar *filename, gpointer user_data);
+extern "C" void get_selected_range_done(const gchar *rtag, gpointer user_data);
+
+void get_selected_range_done(const gchar *rtag, gpointer user_data)
 {
-    if (!filename)
-        filename = "Lorem ipsum dolor sit amet, consectetur adipisici elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. " \
-                   "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. " \
-                   "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. " \
-                   "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
-
-    GtkWidget *dialog = gtk_dialog_new_with_buttons (title, parent,
-                                                     GtkDialogFlags (GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT),
-                                                     _("_Cancel"), GTK_RESPONSE_CANCEL,
-                                                     _("_OK"), GTK_RESPONSE_OK,
-                                                     NULL);
-
-    gtk_window_set_resizable (GTK_WINDOW (dialog), FALSE);
-    gtk_widget_set_size_request (dialog, 480, -1);
-
-    GtkWidget *content_area = gtk_dialog_get_content_area (GTK_DIALOG (dialog));
-
-    // HIG defaults
-    gtk_widget_set_margin_top (content_area, 10);
-    gtk_widget_set_margin_bottom (content_area, 10);
-    gtk_widget_set_margin_start (content_area, 10);
-    gtk_widget_set_margin_end (content_area, 10);
-    gtk_box_set_spacing (GTK_BOX (content_area), 6);
-
-    GtkWidget *hbox, *label, *entry, *option;
-
-    hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 12);
-    gtk_box_append (GTK_BOX (content_area), hbox);
-
-    label = gtk_label_new_with_mnemonic (_("_Select range:"));
-    gtk_box_append (GTK_BOX (hbox), label);
-
-    entry = gtk_entry_new ();
-    gtk_editable_set_text (GTK_EDITABLE (entry), filename);
-    gtk_entry_set_activates_default (GTK_ENTRY (entry), TRUE);
-    g_object_set_data (G_OBJECT (dialog), "filename", entry);
-    gtk_label_set_mnemonic_widget (GTK_LABEL (label), entry);
-    gtk_widget_set_hexpand(entry, TRUE);
-    gtk_box_append (GTK_BOX (hbox), entry);
-
-    option = gtk_check_button_new_with_mnemonic (_("_Inverse selection"));
-    g_object_set_data (G_OBJECT (dialog), "inverse", option);
-    gtk_box_append (GTK_BOX (content_area), option);
-
-    gtk_widget_show_all (content_area);
-
-    gtk_dialog_set_default_response (GTK_DIALOG (dialog), GTK_RESPONSE_OK);
-
-    gint result = gtk_dialog_run (GTK_DIALOG (dialog));
-
-    gchar *range = NULL;
-
-    if (result==GTK_RESPONSE_OK)
-    {
-        gint beg, end;
-        GtkWidget *local_entry = lookup_widget (GTK_WIDGET (dialog), "filename");
-
-        gboolean inversed = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (lookup_widget (GTK_WIDGET (dialog), "inverse")));
-
-        if (gtk_editable_get_selection_bounds (GTK_EDITABLE (local_entry), &beg, &end))
-        {
-            guint16 len = gtk_entry_get_text_length (GTK_ENTRY (local_entry));
-            if (!inversed)
-                range = end==len ? g_strdup_printf ("%s(%i:)", placeholder, beg) :
-                                   g_strdup_printf ("%s(%i:%i)", placeholder, beg, end);
-            else
-            {
-                if (end!=len)
-                    range = beg ? g_strdup_printf ("%s(:%i)%s(%i:)", placeholder, beg, placeholder, end) :
-                                  g_strdup_printf ("%s(%i:)", placeholder, end);
-                else
-                    if (beg)
-                        range = g_strdup_printf ("%s(:%i)", placeholder, beg);
-            }
-        }
-        else
-            if (inversed)
-                range = g_strdup (placeholder);
-    }
-
-    gtk_window_destroy (GTK_WINDOW (dialog));
-
-    return range;
+    auto component = static_cast<GnomeCmdAdvrenameProfileComponent*>(user_data);
+    component->priv->insert_tag(rtag);
 }
 
 
@@ -624,13 +544,8 @@ static void insert_range(GSimpleAction *action, GVariant *parameter, gpointer us
             *ext = 0;
     }
 
-    gchar *rtag = component->priv->get_selected_range (NULL, _("Range Selection"), tag, fname ? fname : component->priv->sample_fname);
-
-    if (rtag)
-        component->priv->insert_tag(rtag);
-
-    g_free (rtag);
-    g_free (fname);
+    GtkWindow *parent_window = GTK_WINDOW (gtk_widget_get_toplevel (*component));
+    get_selected_range_r(parent_window, tag, fname ? fname : g_strdup(component->priv->sample_fname), user_data);
 }
 
 

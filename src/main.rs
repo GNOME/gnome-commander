@@ -17,6 +17,7 @@
  * For more details see the file COPYING.
  */
 
+mod advrename_profile_component;
 mod app;
 mod application;
 mod config;
