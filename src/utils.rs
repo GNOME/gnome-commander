@@ -278,3 +278,16 @@ impl Gtk3to4BoxCompat for gtk::Box {
         self.add(child);
     }
 }
+
+pub trait Gdk3to4RectangleCompat {
+    fn contains_point(&self, x: i32, y: i32) -> bool;
+}
+
+impl Gdk3to4RectangleCompat for gdk::Rectangle {
+    fn contains_point(&self, x: i32, y: i32) -> bool {
+        x >= self.x()
+            && x < self.x() + self.width()
+            && y >= self.y()
+            && y < self.y() + self.height()
+    }
+}

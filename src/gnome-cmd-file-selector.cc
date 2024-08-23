@@ -635,68 +635,19 @@ static gboolean on_list_key_pressed (GtkEventControllerKey *controller, guint ke
 }
 
 
+extern "C" void on_notebook_button_pressed_r (GtkGestureMultiPress *gesture,
+                                              GnomeCmdFileSelector *fs,
+                                              GtkNotebook *notebook,
+                                              int n_press,
+                                              double x,
+                                              double y);
+
+
 static void on_notebook_button_pressed (GtkGestureMultiPress *gesture, int n_press, double x, double y, gpointer user_data)
 {
     auto fs = static_cast<GnomeCmdFileSelector*>(user_data);
     GtkNotebook *notebook = GTK_NOTEBOOK (fs->notebook);
-
-    gint button = gtk_gesture_single_get_current_button (GTK_GESTURE_SINGLE (gesture));
-
-    int tab_clicked = gtk_notebook_ext_find_tab_num_at_pos (notebook, x, y);
-
-    if (n_press == 1 && button == 2 && tab_clicked >= 0)
-    {
-        // mid-click
-        GnomeCmdFileList *fl = fs->file_list(tab_clicked);
-
-        if (!fl->locked || gnome_cmd_prompt_message (*main_win, GTK_MESSAGE_QUESTION, GTK_BUTTONS_OK_CANCEL, _("The tab is locked, close anyway?"))==GTK_RESPONSE_OK)
-            fs->close_tab(tab_clicked);
-    }
-    else if (n_press == 1 && button == 3 && tab_clicked >= 0)
-    {
-        // right-click
-        // notebook->set_current_page(tab_clicked);    // switch to the page the mouse is over
-        GnomeCmdFileList *fl = fs->file_list(tab_clicked);
-
-        GMenu *menu = g_menu_new ();
-        g_menu_append (menu, _("Open in New _Tab"), "win.view-new-tab");
-
-        GMenu *section = g_menu_new ();
-
-        GMenuItem *menuitem = g_menu_item_new (fl->locked ? _("_Unlock Tab") : _("_Lock Tab"), nullptr);
-        g_menu_item_set_action_and_target (menuitem, "win.view-toggle-tab-lock", "(bi)", fs->is_active(), tab_clicked);
-        g_menu_append_item (section, menuitem);
-
-        menuitem = g_menu_item_new (_("_Refresh Tab"), nullptr);
-        g_menu_item_set_action_and_target (menuitem, "win.view-refresh-tab", "(ii)", fs->fs_id, tab_clicked);
-        g_menu_append_item (section, menuitem);
-
-        g_menu_append (section, _("Copy Tab to Other _Pane"), "win.view-in-inactive-tab");
-        g_menu_append_section (menu, nullptr, G_MENU_MODEL (section));
-
-        g_menu_append (menu, _("_Close Tab"), "win.view-close-tab");
-        g_menu_append (menu, _("Close _All Tabs"), "win.view-close-all-tabs");
-        g_menu_append (menu, _("Close _Duplicate Tabs"), "win.view-close-duplicate-tabs");
-
-        GtkWidget *popover = gtk_popover_new_from_model (GTK_WIDGET (notebook), G_MENU_MODEL (menu));
-        gtk_popover_set_position (GTK_POPOVER (popover), GTK_POS_BOTTOM);
-        GdkRectangle rect = { (gint) x, (gint) y, 0, 0 };
-        gtk_popover_set_pointing_to (GTK_POPOVER (popover), &rect);
-        gtk_popover_popup (GTK_POPOVER (popover));
-    }
-    else if (n_press == 2 && button == 1 && tab_clicked >= 0)
-    {
-        // double-click on a label
-        GnomeCmdFileList *fl = fs->file_list(tab_clicked);
-
-        if (!fl->locked || gnome_cmd_prompt_message (*main_win, GTK_MESSAGE_QUESTION, GTK_BUTTONS_OK_CANCEL, _("The tab is locked, close anyway?"))==GTK_RESPONSE_OK)
-            fs->close_tab(tab_clicked);
-    }
-    else if (n_press == 2 && button == 1 && tab_clicked == -2)
-    {
-        // double-click on a tabs area
-        fs->new_tab(fs->get_directory());
-    }
+    on_notebook_button_pressed_r(gesture, fs, notebook, n_press, x, y);
 }
 
 
@@ -1675,17 +1626,48 @@ GnomeCmdFileList *gnome_cmd_file_selector_file_list (GnomeCmdFileSelector *fs)
     return fs->file_list();
 }
 
+GnomeCmdFileList *gnome_cmd_file_selector_file_list_nth (GnomeCmdFileSelector *fs, gint n)
+{
+    return fs->file_list(n);
+}
+
 GnomeCmdDir *gnome_cmd_file_selector_get_directory(GnomeCmdFileSelector *fs)
 {
     return fs->list->cwd;
-}
-
-GtkWidget *gnome_cmd_file_selector_new_tab(GnomeCmdFileSelector *fs)
-{
-    return fs->new_tab();
 }
 
 void gnome_cmd_file_selector_set_connection(GnomeCmdFileSelector *fs, GnomeCmdCon *con, GnomeCmdDir *start_dir)
 {
     fs->set_connection(con, start_dir);
 }
+
+GtkWidget *gnome_cmd_file_selector_new_tab (GnomeCmdFileSelector *fs)
+{
+    return fs->new_tab();
+}
+
+GtkWidget *gnome_cmd_file_selector_new_tab_with_dir (GnomeCmdFileSelector *fs, GnomeCmdDir *dir, gboolean activate)
+{
+    return fs->new_tab(dir, activate);
+}
+
+void gnome_cmd_file_selector_close_tab (GnomeCmdFileSelector *fs)
+{
+    fs->close_tab();
+}
+
+void gnome_cmd_file_selector_close_tab_nth (GnomeCmdFileSelector *fs, guint n)
+{
+    fs->close_tab(n);
+}
+
+gint gnome_cmd_file_selector_get_fs_id (GnomeCmdFileSelector *fs)
+{
+    return (gint) fs->fs_id;
+}
+
+gboolean gnome_cmd_file_selector_is_active (GnomeCmdFileSelector *fs)
+{
+    return fs->is_active();
+}
+

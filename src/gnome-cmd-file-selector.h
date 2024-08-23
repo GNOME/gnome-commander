@@ -33,7 +33,6 @@ struct GnomeCmdMainWin;
 #include "gnome-cmd-file-list.h"
 #include "gnome-cmd-con.h"
 #include "gnome-cmd-dir.h"
-#include "gnome-cmd-notebook.h"
 
 
 struct GnomeCmdCombo;
@@ -171,7 +170,15 @@ inline FileSelectorID operator ! (FileSelectorID id)
 
 // FFI
 extern "C" GnomeCmdFileList *gnome_cmd_file_selector_file_list (GnomeCmdFileSelector *fs);
+extern "C" GnomeCmdFileList *gnome_cmd_file_selector_file_list_nth (GnomeCmdFileSelector *fs, gint n);
 extern "C" GnomeCmdDir *gnome_cmd_file_selector_get_directory(GnomeCmdFileSelector *fs);
 
-extern "C" GtkWidget *gnome_cmd_file_selector_new_tab(GnomeCmdFileSelector *fs);
 extern "C" void gnome_cmd_file_selector_set_connection(GnomeCmdFileSelector *fs, GnomeCmdCon *con, GnomeCmdDir *start_dir);
+
+extern "C" GtkWidget *gnome_cmd_file_selector_new_tab (GnomeCmdFileSelector *fs);
+extern "C" GtkWidget *gnome_cmd_file_selector_new_tab_with_dir (GnomeCmdFileSelector *fs, GnomeCmdDir *dir, gboolean activate);
+extern "C" void gnome_cmd_file_selector_close_tab (GnomeCmdFileSelector *fs);
+extern "C" void gnome_cmd_file_selector_close_tab_nth (GnomeCmdFileSelector *fs, guint n);
+
+extern "C" gint /* FileSelectorID */ gnome_cmd_file_selector_get_fs_id (GnomeCmdFileSelector *fs);
+extern "C" gboolean gnome_cmd_file_selector_is_active (GnomeCmdFileSelector *fs);
