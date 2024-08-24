@@ -30,8 +30,9 @@ use std::{ffi::c_void, path::Path};
 pub mod ffi {
     use super::*;
     use crate::dir::ffi::GnomeCmdDir;
+    use glib::ffi::GUri;
     use gtk::{gio::ffi::GFile, glib::ffi::GType};
-    use std::ffi::{c_char, c_void};
+    use std::ffi::{c_char, c_int, c_void};
 
     #[repr(C)]
     pub struct GnomeCmdCon {
@@ -46,8 +47,11 @@ pub mod ffi {
         pub fn gnome_cmd_con_get_alias(con: *const GnomeCmdCon) -> *const c_char;
         pub fn gnome_cmd_con_set_alias(con: *const GnomeCmdCon, alias: *const c_char);
 
-        pub fn gnome_cmd_con_get_uri(con: *const GnomeCmdCon) -> *const c_char;
-        pub fn gnome_cmd_con_set_uri(con: *const GnomeCmdCon, uri: *const c_char);
+        pub fn gnome_cmd_con_get_uri(con: *const GnomeCmdCon) -> *const GUri;
+        pub fn gnome_cmd_con_set_uri(con: *const GnomeCmdCon, uri: *const GUri);
+
+        pub fn gnome_cmd_con_get_uri_string(con: *const GnomeCmdCon) -> *const c_char;
+        pub fn gnome_cmd_con_set_uri_string(con: *const GnomeCmdCon, uri: *const c_char);
 
         pub fn gnome_cmd_con_create_path(
             con: *const GnomeCmdCon,
@@ -61,6 +65,10 @@ pub mod ffi {
 
         pub fn gnome_cmd_con_get_default_dir(con: *const GnomeCmdCon) -> *const GnomeCmdDir;
         pub fn gnome_cmd_con_set_default_dir(con: *const GnomeCmdCon, dir: *mut GnomeCmdDir);
+
+        pub fn gnome_cmd_con_set_base_path(con: *const GnomeCmdCon, path: *mut c_void);
+
+        pub fn gnome_cmd_con_get_method(con: *const GnomeCmdCon) -> c_int;
     }
 
     #[derive(Copy, Clone)]
@@ -86,12 +94,28 @@ impl Connection {
 
 pub struct GnomeCmdPath(pub *mut c_void);
 
+#[derive(Clone, Copy, strum::FromRepr, PartialEq, PartialOrd, Eq, Ord)]
+#[repr(i32)]
+pub enum ConnectionMethodID {
+    CON_SFTP = 0,
+    CON_FTP,
+    CON_ANON_FTP,
+    CON_SMB,
+    CON_DAV,
+    CON_DAVS,
+    CON_URI,
+    CON_FILE,
+}
+
 pub trait ConnectionExt {
     fn alias(&self) -> Option<String>;
     fn set_alias(&self, alias: Option<&str>);
 
-    fn uri(&self) -> Option<String>;
-    fn set_uri(&self, uri: Option<&str>);
+    fn uri(&self) -> Option<glib::Uri>;
+    fn set_uri(&self, uri: Option<&glib::Uri>);
+
+    fn uri_string(&self) -> Option<String>;
+    fn set_uri_string(&self, uri: Option<&str>);
 
     fn create_path(&self, path: &Path) -> GnomeCmdPath;
 
@@ -99,6 +123,10 @@ pub trait ConnectionExt {
 
     fn default_dir(&self) -> Option<Directory>;
     fn set_default_dir(&self, dir: Option<&Directory>);
+
+    fn set_base_path(&self, path: GnomeCmdPath);
+
+    fn method(&self) -> ConnectionMethodID;
 }
 
 impl ConnectionExt for Connection {
@@ -110,12 +138,20 @@ impl ConnectionExt for Connection {
         unsafe { ffi::gnome_cmd_con_set_alias(self.to_glib_none().0, alias.to_glib_none().0) }
     }
 
-    fn uri(&self) -> Option<String> {
+    fn uri(&self) -> Option<glib::Uri> {
         unsafe { from_glib_none(ffi::gnome_cmd_con_get_uri(self.to_glib_none().0)) }
     }
 
-    fn set_uri(&self, uri: Option<&str>) {
+    fn set_uri(&self, uri: Option<&glib::Uri>) {
         unsafe { ffi::gnome_cmd_con_set_uri(self.to_glib_none().0, uri.to_glib_none().0) }
+    }
+
+    fn uri_string(&self) -> Option<String> {
+        unsafe { from_glib_none(ffi::gnome_cmd_con_get_uri_string(self.to_glib_none().0)) }
+    }
+
+    fn set_uri_string(&self, uri: Option<&str>) {
+        unsafe { ffi::gnome_cmd_con_set_uri_string(self.to_glib_none().0, uri.to_glib_none().0) }
     }
 
     fn create_path(&self, path: &Path) -> GnomeCmdPath {
@@ -141,5 +177,14 @@ impl ConnectionExt for Connection {
     }
     fn set_default_dir(&self, dir: Option<&Directory>) {
         unsafe { ffi::gnome_cmd_con_set_default_dir(self.to_glib_none().0, dir.to_glib_none().0) }
+    }
+
+    fn set_base_path(&self, path: GnomeCmdPath) {
+        unsafe { ffi::gnome_cmd_con_set_base_path(self.to_glib_none().0, path.0) }
+    }
+
+    fn method(&self) -> ConnectionMethodID {
+        let method = unsafe { ffi::gnome_cmd_con_get_method(self.to_glib_none().0) };
+        ConnectionMethodID::from_repr(method).unwrap_or(ConnectionMethodID::CON_SFTP)
     }
 }

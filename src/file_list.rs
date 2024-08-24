@@ -28,7 +28,7 @@ use gtk::{
 
 pub mod ffi {
     use super::*;
-    use glib::ffi::{GList, GType};
+    use glib::ffi::{gboolean, GList, GType};
 
     #[repr(C)]
     pub struct GnomeCmdFileList {
@@ -40,6 +40,8 @@ pub mod ffi {
         pub fn gnome_cmd_file_list_get_type() -> GType;
 
         pub fn gnome_cmd_file_list_get_selected_files(fl: *mut GnomeCmdFileList) -> *mut GList;
+
+        pub fn gnome_cmd_file_list_is_locked(fl: *mut GnomeCmdFileList) -> gboolean;
     }
 
     #[derive(Copy, Clone)]
@@ -85,6 +87,10 @@ impl FileList {
                 self.to_glib_none().0,
             ))
         }
+    }
+
+    pub fn is_locked(&self) -> bool {
+        unsafe { ffi::gnome_cmd_file_list_is_locked(self.to_glib_none().0) != 0 }
     }
 
     pub fn file_at_row(&self, iter: &gtk::TreeIter) -> Option<File> {

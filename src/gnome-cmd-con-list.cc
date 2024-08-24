@@ -379,3 +379,25 @@ GnomeCmdConList *gnome_cmd_con_list_get ()
 {
     return static_cast<GnomeCmdConList *>(gnome_cmd_data_get_con_list ());
 }
+
+// FFI
+
+void gnome_cmd_con_list_add_remote (GnomeCmdConList *list, GnomeCmdConRemote *con)
+{
+    list->add(con);
+}
+
+void gnome_cmd_con_list_add_dev (GnomeCmdConList *list, GnomeCmdConDevice *con)
+{
+    list->add(con);
+}
+
+void gnome_cmd_con_list_remove_remote (GnomeCmdConList *list, GnomeCmdConRemote *con)
+{
+    list->remove(con);
+}
+
+void gnome_cmd_con_list_remove_dev (GnomeCmdConList *list, GnomeCmdConDevice *con)
+{
+    list->remove(con);
+}

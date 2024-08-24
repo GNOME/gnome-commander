@@ -172,3 +172,6 @@ inline FileSelectorID operator ! (FileSelectorID id)
 // FFI
 extern "C" GnomeCmdFileList *gnome_cmd_file_selector_file_list (GnomeCmdFileSelector *fs);
 extern "C" GnomeCmdDir *gnome_cmd_file_selector_get_directory(GnomeCmdFileSelector *fs);
+
+extern "C" GtkWidget *gnome_cmd_file_selector_new_tab(GnomeCmdFileSelector *fs);
+extern "C" void gnome_cmd_file_selector_set_connection(GnomeCmdFileSelector *fs, GnomeCmdCon *con, GnomeCmdDir *start_dir);

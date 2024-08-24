@@ -1679,3 +1679,13 @@ GnomeCmdDir *gnome_cmd_file_selector_get_directory(GnomeCmdFileSelector *fs)
 {
     return fs->list->cwd;
 }
+
+GtkWidget *gnome_cmd_file_selector_new_tab(GnomeCmdFileSelector *fs)
+{
+    return fs->new_tab();
+}
+
+void gnome_cmd_file_selector_set_connection(GnomeCmdFileSelector *fs, GnomeCmdCon *con, GnomeCmdDir *start_dir)
+{
+    fs->set_connection(con, start_dir);
+}

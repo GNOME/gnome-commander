@@ -20,14 +20,17 @@
  * For more details see the file COPYING.
  */
 
-use crate::{dir::Directory, file::File, file_list::FileList};
+use crate::{connection::connection::Connection, dir::Directory, file::File, file_list::FileList};
 use gtk::glib::{
     self,
     translate::{from_glib_none, ToGlibPtr},
 };
 
 pub mod ffi {
-    use crate::{dir::ffi::GnomeCmdDir, file::ffi::GnomeCmdFile, file_list::ffi::GnomeCmdFileList};
+    use crate::{
+        connection::connection::ffi::GnomeCmdCon, dir::ffi::GnomeCmdDir, file::ffi::GnomeCmdFile,
+        file_list::ffi::GnomeCmdFileList,
+    };
     use gtk::glib::ffi::{GList, GType};
 
     #[repr(C)]
@@ -55,6 +58,14 @@ pub mod ffi {
         pub fn gnome_cmd_file_selector_create_symlinks(
             fs: *mut GnomeCmdFileSelector,
             files: *mut GList,
+        );
+
+        pub fn gnome_cmd_file_selector_new_tab(fs: *mut GnomeCmdFileSelector);
+
+        pub fn gnome_cmd_file_selector_set_connection(
+            fs: *mut GnomeCmdFileSelector,
+            con: *mut GnomeCmdCon,
+            start_dir: *mut GnomeCmdDir,
         );
     }
 
@@ -105,6 +116,20 @@ impl FileSelector {
             ffi::gnome_cmd_file_selector_create_symlinks(
                 self.to_glib_none().0,
                 files.to_glib_none().0,
+            )
+        }
+    }
+
+    pub fn new_tab(&self) {
+        unsafe { ffi::gnome_cmd_file_selector_new_tab(self.to_glib_none().0) }
+    }
+
+    pub fn set_connection(&self, connection: &Connection, start_dir: Option<&Directory>) {
+        unsafe {
+            ffi::gnome_cmd_file_selector_set_connection(
+                self.to_glib_none().0,
+                connection.to_glib_none().0,
+                start_dir.to_glib_none().0,
             )
         }
     }

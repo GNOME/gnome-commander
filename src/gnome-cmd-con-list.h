@@ -86,11 +86,10 @@ inline GnomeCmdConList *gnome_cmd_con_list_new ()
 
 extern "C" GnomeCmdConList *gnome_cmd_con_list_get ();
 
-GList *gnome_cmd_con_list_get_all (GnomeCmdConList *list);
-GList *gnome_cmd_con_list_get_all_remote (GnomeCmdConList *list);
-GList *gnome_cmd_con_list_get_all_quick_ftp (GnomeCmdConList *list);
+extern "C" GList *gnome_cmd_con_list_get_all (GnomeCmdConList *list);
+extern "C" GList *gnome_cmd_con_list_get_all_remote (GnomeCmdConList *list);
 
-GList *gnome_cmd_con_list_get_all_dev (GnomeCmdConList *list);
+extern "C" GList *gnome_cmd_con_list_get_all_dev (GnomeCmdConList *list);
 void gnome_cmd_con_list_set_all_dev (GnomeCmdConList *list, GList *dev_cons);
 
 extern "C" GnomeCmdCon *gnome_cmd_con_list_find_by_uuid (GnomeCmdConList *con_list, const gchar *uuid);
@@ -113,3 +112,9 @@ inline GList *get_remote_cons ()
 }
 
 GnomeCmdCon *get_remote_con_for_gfile(GFile *gFile);
+
+// FFI
+extern "C" void gnome_cmd_con_list_add_remote (GnomeCmdConList *list, GnomeCmdConRemote *con);
+extern "C" void gnome_cmd_con_list_add_dev (GnomeCmdConList *list, GnomeCmdConDevice *con);
+extern "C" void gnome_cmd_con_list_remove_remote (GnomeCmdConList *list, GnomeCmdConRemote *con);
+extern "C" void gnome_cmd_con_list_remove_dev (GnomeCmdConList *list, GnomeCmdConDevice *con);

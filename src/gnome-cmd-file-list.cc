@@ -3370,3 +3370,7 @@ extern "C" GnomeCmdFile *gnome_cmd_file_list_get_focused_file(GnomeCmdFileList *
     return fl->get_focused_file();
 }
 
+gboolean gnome_cmd_file_list_is_locked (GnomeCmdFileList *fl)
+{
+    return fl->locked;
+}
