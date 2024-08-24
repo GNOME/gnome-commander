@@ -7,6 +7,7 @@ libgcmd/gnome-cmd-string-dialog.cc
 libgcmd/libgcmd-widget-factory.cc
 plugins/fileroller/file-roller-plugin.cc
 plugins/test/test-plugin.cc
+src/app.rs
 src/dialogs/gnome-cmd-advrename-dialog.cc
 src/dialogs/gnome-cmd-advrename-regex-dialog.cc
 src/dialogs/gnome-cmd-chmod-dialog.cc
@@ -17,7 +18,6 @@ src/dialogs/gnome-cmd-edit-bookmark-dialog.cc
 src/dialogs/gnome-cmd-edit-profile-dialog.h
 src/dialogs/gnome-cmd-file-props-dialog.cc
 src/dialogs/gnome-cmd-key-shortcuts-dialog.cc
-src/dialogs/gnome-cmd-make-copy-dialog.cc
 src/dialogs/gnome-cmd-manage-bookmarks-dialog.cc
 src/dialogs/gnome-cmd-manage-profiles-dialog.h
 src/dialogs/gnome-cmd-mkdir-dialog.cc
@@ -29,8 +29,11 @@ src/dialogs/gnome-cmd-prepare-xfer-dialog.cc
 src/dialogs/gnome-cmd-remote-dialog.cc
 src/dialogs/gnome-cmd-rename-dialog.cc
 src/dialogs/gnome-cmd-search-dialog.cc
+src/dialogs/make_copy_dialog.rs
 src/dirlist.cc
 src/eggcellrendererkeys.cc
+src/file_list_actions.rs
+src/file_view.rs
 src/gnome-cmd-about-plugin.cc
 src/gnome-cmd-advrename-profile-component.cc
 src/gnome-cmd-application.cc
@@ -71,12 +74,15 @@ src/intviewer/search-progress-dlg.cc
 src/intviewer/text-render.cc
 src/intviewer/viewer-widget.cc
 src/intviewer/viewer-window.cc
-src/main.cc
+src/open_file.rs
 src/plugin_manager.cc
+src/spawn.rs
 src/tags/gnome-cmd-tags.cc
 src/tags/gnome-cmd-tags-doc.cc
 src/tags/gnome-cmd-tags-exiv2.cc
 src/tags/gnome-cmd-tags-poppler.cc
 src/tags/gnome-cmd-tags-taglib.cc
+src/user_actions.rs
 src/utils.cc
 src/utils.h
+src/utils.rs
