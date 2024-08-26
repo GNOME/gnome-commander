@@ -70,6 +70,7 @@
         <p>This release fixes the following bugs:</p>
         <ul>
           <li>Issue #152: Segfault when using %D as a format qualifier in the date string</li>
+          <li>Issue #153: Segfault when unmounting a file system externally while visiting it at the same time</li>
         </ul>
         <p>New or updated translations: ...</p>
         <p>New or updated docs: ...</p>
