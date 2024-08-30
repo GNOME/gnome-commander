@@ -62,6 +62,7 @@ namespace GnomeCmd
         Regex();
         Regex(const gchar *from, gboolean case_sensitive): FindPattern(from,case_sensitive)         {  compile_pattern();  }
         Regex(const std::string &from, gboolean case_sensitive): FindPattern(from,case_sensitive)   {  compile_pattern();  }
+        Regex(const Regex& other): FindPattern(other), re(g_regex_ref(other.re)), malformed_pattern(other.malformed_pattern) {}
         ~Regex();
 
         void assign(const gchar *from, gboolean case_sensitive);

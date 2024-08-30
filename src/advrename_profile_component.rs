@@ -20,10 +20,13 @@
  * For more details see the file COPYING.
  */
 
-use crate::utils::Gtk3to4BoxCompat;
+use crate::{
+    dialogs::advrename_regex_dialog::{show_advrename_regex_dialog, RegexReplace},
+    utils::Gtk3to4BoxCompat,
+};
 use gettextrs::gettext;
 use gtk::{
-    ffi::GtkWindow,
+    ffi::{GtkTreeView, GtkWidget, GtkWindow},
     glib::{
         self,
         ffi::gpointer,
@@ -32,6 +35,7 @@ use gtk::{
     prelude::*,
 };
 use std::{
+    error::Error,
     ffi::{c_char, CStr},
     os::raw::c_void,
 };
@@ -196,6 +200,123 @@ pub extern "C" fn get_selected_range_r(
             unsafe {
                 get_selected_range_done(rtag.to_glib_none().0, user_data);
             }
+        }
+    });
+}
+
+#[allow(non_camel_case_types)]
+enum RegexViewColumns {
+    COL_MALFORMED_REGEX = 0,
+    COL_PATTERN,
+    COL_REPLACE,
+    COL_MATCH_CASE,
+    COL_MATCH_CASE_LABEL,
+}
+
+fn get_regex_row(
+    store: &gtk::ListStore,
+    iter: &gtk::TreeIter,
+) -> Result<RegexReplace, Box<dyn Error>> {
+    use RegexViewColumns::*;
+    Ok(RegexReplace {
+        pattern: store.value(iter, COL_PATTERN as i32).get()?,
+        replacement: store.value(iter, COL_REPLACE as i32).get()?,
+        match_case: store.value(iter, COL_MATCH_CASE as i32).get()?,
+    })
+}
+
+fn set_regex_row(store: &gtk::ListStore, iter: &gtk::TreeIter, regex: &RegexReplace) {
+    use RegexViewColumns::*;
+    store.set(
+        iter,
+        &[
+            (COL_MALFORMED_REGEX as u32, &!regex.is_valid()),
+            (COL_PATTERN as u32, &regex.pattern),
+            (COL_REPLACE as u32, &regex.replacement),
+            (COL_MATCH_CASE as u32, &regex.match_case),
+            (
+                COL_MATCH_CASE_LABEL as u32,
+                &if regex.match_case {
+                    gettext("Yes")
+                } else {
+                    gettext("No")
+                },
+            ),
+        ],
+    );
+}
+
+async fn regex_add(
+    component: &gtk::Widget,
+    tree_view: &gtk::TreeView,
+) -> Result<(), Box<dyn Error>> {
+    let store = tree_view
+        .model()
+        .and_downcast::<gtk::ListStore>()
+        .ok_or_else(|| "Unexpected type of a tree model.")?;
+    let window = component
+        .toplevel()
+        .and_downcast::<gtk::Window>()
+        .ok_or_else(|| "No parent window")?;
+
+    if let Some(rx) = show_advrename_regex_dialog(&window, &gettext("Add Rule"), None).await {
+        let iter = store.append();
+        set_regex_row(&store, &iter, &rx);
+
+        component.emit_by_name::<()>("regex-changed", &[]);
+    }
+    Ok(())
+}
+
+async fn regex_edit(
+    component: &gtk::Widget,
+    tree_view: &gtk::TreeView,
+) -> Result<(), Box<dyn Error>> {
+    let Some((model, iter)) = tree_view.selection().selected() else {
+        return Ok(());
+    };
+    let store = model
+        .downcast::<gtk::ListStore>()
+        .map_err(|_| "Unexpected type of a tree model.")?;
+    let window = component
+        .toplevel()
+        .and_downcast::<gtk::Window>()
+        .ok_or_else(|| "No parent window")?;
+
+    let rx = get_regex_row(&store, &iter)?;
+    if let Some(rr) = show_advrename_regex_dialog(&window, &gettext("Edit Rule"), Some(&rx)).await {
+        set_regex_row(&store, &iter, &rr);
+        component.emit_by_name::<()>("regex-changed", &[]);
+    }
+    Ok(())
+}
+
+#[no_mangle]
+pub extern "C" fn gnome_cmd_advrename_profile_component_regex_add(
+    component_ptr: *mut GtkWidget,
+    tree_view_ptr: *mut GtkTreeView,
+) {
+    let component: gtk::Widget = unsafe { from_glib_none(component_ptr) };
+    let tree_view: gtk::TreeView = unsafe { from_glib_none(tree_view_ptr) };
+
+    glib::MainContext::default().spawn_local(async move {
+        if let Err(error) = regex_add(&component, &tree_view).await {
+            eprintln!("{}", error);
+        }
+    });
+}
+
+#[no_mangle]
+pub extern "C" fn gnome_cmd_advrename_profile_component_regex_edit(
+    component_ptr: *mut GtkWidget,
+    tree_view_ptr: *mut GtkTreeView,
+) {
+    let component: gtk::Widget = unsafe { from_glib_none(component_ptr) };
+    let tree_view: gtk::TreeView = unsafe { from_glib_none(tree_view_ptr) };
+
+    glib::MainContext::default().spawn_local(async move {
+        if let Err(error) = regex_edit(&component, &tree_view).await {
+            eprintln!("{}", error);
         }
     });
 }

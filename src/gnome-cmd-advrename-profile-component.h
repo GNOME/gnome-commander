@@ -46,7 +46,7 @@ struct GnomeCmdAdvrenameProfileComponent
     void *operator new (size_t size)    {  return g_object_new (GNOME_CMD_TYPE_ADVRENAME_PROFILE_COMPONENT, NULL);  }
     void operator delete (void *p)      {  g_object_unref (p);  }
 
-    enum {COL_REGEX, COL_MALFORMED_REGEX, COL_PATTERN, COL_REPLACE, COL_MATCH_CASE, NUM_REGEX_COLS};
+    enum {COL_MALFORMED_REGEX, COL_PATTERN, COL_REPLACE, COL_MATCH_CASE, COL_MATCH_CASE_LABEL, NUM_REGEX_COLS};
 
     GnomeCmdData::AdvrenameConfig::Profile &profile;
 
@@ -63,5 +63,5 @@ struct GnomeCmdAdvrenameProfileComponent
     const gchar *get_template_entry() const;
     void set_template_history(GList *history);
     void set_sample_fname(const gchar *fname);
-    GtkTreeModel *get_regex_model() const;
+    std::vector<GnomeCmd::RegexReplace> get_valid_regexes();
 };

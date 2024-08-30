@@ -1,6 +1,5 @@
 dialogs_headers = files(
   'gnome-cmd-advrename-dialog.h',
-  'gnome-cmd-advrename-regex-dialog.h',
   'gnome-cmd-chmod-dialog.h',
   'gnome-cmd-chown-dialog.h',
   'gnome-cmd-delete-dialog.h',
@@ -22,7 +21,6 @@ dialogs_headers = files(
 
 dialogs_sources = files(
   'gnome-cmd-advrename-dialog.cc',
-  'gnome-cmd-advrename-regex-dialog.cc',
   'gnome-cmd-chmod-dialog.cc',
   'gnome-cmd-chown-dialog.cc',
   'gnome-cmd-delete-dialog.cc',

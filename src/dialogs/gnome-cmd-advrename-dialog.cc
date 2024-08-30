@@ -29,7 +29,6 @@
 #include "gnome-cmd-includes.h"
 #include "gnome-cmd-advrename-dialog.h"
 #include "gnome-cmd-advrename-lexer.h"
-#include "gnome-cmd-advrename-regex-dialog.h"
 #include "gnome-cmd-convert.h"
 #include "gnome-cmd-data.h"
 #include "gnome-cmd-file.h"
@@ -612,20 +611,7 @@ void GnomeCmdAdvrenameDialog::update_new_filenames()
                                        defaults.default_profile.counter_step);
     GtkTreeIter i;
 
-    vector<GnomeCmd::RegexReplace *> rx;
-
-    GtkTreeModel *regexes = priv->profile_component->get_regex_model();
-
-    for (gboolean valid_iter=gtk_tree_model_get_iter_first (regexes, &i); valid_iter; valid_iter=gtk_tree_model_iter_next (regexes, &i))
-    {
-        GnomeCmd::RegexReplace *r;
-
-        gtk_tree_model_get (regexes, &i,
-                            GnomeCmdAdvrenameProfileComponent::COL_REGEX, &r,
-                            -1);
-        if (r && *r)                            //  ignore regex pattern if it can't be retrieved or if it is malformed
-            rx.push_back(r);
-    }
+    vector<GnomeCmd::RegexReplace> rx = priv->profile_component->get_valid_regexes();
 
     for (gboolean valid_iter=gtk_tree_model_get_iter_first (files, &i); valid_iter; valid_iter=gtk_tree_model_iter_next (files, &i))
     {
@@ -639,10 +625,8 @@ void GnomeCmdAdvrenameDialog::update_new_filenames()
 
         gchar *fname = gnome_cmd_advrename_gen_fname (f);
 
-        for (vector<GnomeCmd::RegexReplace *>::iterator j=rx.begin(); j!=rx.end(); ++j)
+        for (vector<GnomeCmd::RegexReplace>::iterator r = rx.begin(); r != rx.end(); ++r)
         {
-            GnomeCmd::RegexReplace *&r = *j;
-
             gchar *prev_fname = fname;
 
             fname = r->replace(prev_fname);
@@ -757,3 +741,4 @@ void GnomeCmdAdvrenameDialog::unset()
     gtk_list_store_clear (GTK_LIST_STORE (files));
     g_signal_handlers_unblock_by_func (files, gpointer (Private::on_files_model_row_deleted), this);
 }
+
