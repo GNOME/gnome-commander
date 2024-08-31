@@ -34,6 +34,7 @@ mod i18n;
 mod intviewer;
 mod libgcmd;
 mod main_win;
+mod notebook_ext;
 mod open_file;
 mod spawn;
 mod transfer;
