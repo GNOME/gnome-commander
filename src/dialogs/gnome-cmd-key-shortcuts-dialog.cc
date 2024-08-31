@@ -52,17 +52,22 @@ void set_accel (GtkTreeModel *model, GtkTreePath *path, guint accel_key, GdkModi
 
 struct GnomeCmdKeyShortcutsDialogPrivate
 {
-    GnomeCmdKeyShortcutsDialogPrivate();
+    static GnomeCmdUserActions *user_actions;
+
+    GtkTreeView *view;
+
+    // These fields are used to store and pass information between "change" and "edited" handlers.
+    gchar *last_action_path;
+    gchar *last_action_name;
 };
+
+
+GnomeCmdUserActions *GnomeCmdKeyShortcutsDialogPrivate::user_actions = NULL;
 
 
 struct GnomeCmdKeyShortcutsDialog
 {
     GtkDialog parent;
-
-    GnomeCmdKeyShortcutsDialogPrivate *priv;
-
-    static GnomeCmdUserActions *user_actions;
 };
 
 
@@ -72,21 +77,16 @@ struct GnomeCmdKeyShortcutsDialogClass
 };
 
 
-GnomeCmdKeyShortcutsDialogPrivate::GnomeCmdKeyShortcutsDialogPrivate()
-{
-}
-
-GnomeCmdUserActions *GnomeCmdKeyShortcutsDialog::user_actions = NULL;
-
-
-G_DEFINE_TYPE (GnomeCmdKeyShortcutsDialog, gnome_cmd_key_shortcuts_dialog, GTK_TYPE_DIALOG)
+G_DEFINE_TYPE_WITH_PRIVATE (GnomeCmdKeyShortcutsDialog, gnome_cmd_key_shortcuts_dialog, GTK_TYPE_DIALOG)
 
 
 static void gnome_cmd_key_shortcuts_dialog_finalize (GObject *object)
 {
-    GnomeCmdKeyShortcutsDialog *dialog = GNOME_CMD_KEY_SHORTCUTS_DIALOG (object);
+     GnomeCmdKeyShortcutsDialog *dialog = GNOME_CMD_KEY_SHORTCUTS_DIALOG (object);
+     auto priv = static_cast<GnomeCmdKeyShortcutsDialogPrivate *> (gnome_cmd_key_shortcuts_dialog_get_instance_private (dialog));
 
-    delete dialog->priv;
+    g_clear_pointer (&priv->last_action_path, g_free);
+    g_clear_pointer (&priv->last_action_name, g_free);
 
     G_OBJECT_CLASS (gnome_cmd_key_shortcuts_dialog_parent_class)->finalize (object);
 }
@@ -105,12 +105,14 @@ enum
 
 static void response_callback (GnomeCmdKeyShortcutsDialog *dialog, int response_id, GtkWidget *view)
 {
+    auto priv = static_cast<GnomeCmdKeyShortcutsDialogPrivate *> (gnome_cmd_key_shortcuts_dialog_get_instance_private (dialog));
+
     switch (response_id)
     {
         case GTK_RESPONSE_OK:
-            if (dialog->user_actions)
+            if (priv->user_actions)
             {
-                dialog->user_actions->clear();
+                priv->user_actions->clear();
 
                 GtkTreeModel *model = gtk_tree_view_get_model (GTK_TREE_VIEW (view));
                 GtkTreeIter i;
@@ -132,27 +134,27 @@ static void response_callback (GnomeCmdKeyShortcutsDialog *dialog, int response_
                                         -1);
 
                     if (accel_key)
-                        dialog->user_actions->register_action(accel_mask, accel_key, name, g_strstrip (options));
+                        priv->user_actions->register_action(accel_mask, accel_key, name, g_strstrip (options));
 
                     g_free (name);
                     g_free (options);
                 }
 
-                dialog->user_actions->unregister(GDK_KEY_F3);
-                dialog->user_actions->unregister(GDK_KEY_F4);
-                dialog->user_actions->unregister(GDK_KEY_F5);
-                dialog->user_actions->unregister(GDK_KEY_F6);
-                dialog->user_actions->unregister(GDK_KEY_F7);
-                dialog->user_actions->unregister(GDK_KEY_F8);
-                dialog->user_actions->unregister(GDK_KEY_F9);
+                priv->user_actions->unregister(GDK_KEY_F3);
+                priv->user_actions->unregister(GDK_KEY_F4);
+                priv->user_actions->unregister(GDK_KEY_F5);
+                priv->user_actions->unregister(GDK_KEY_F6);
+                priv->user_actions->unregister(GDK_KEY_F7);
+                priv->user_actions->unregister(GDK_KEY_F8);
+                priv->user_actions->unregister(GDK_KEY_F9);
 
-                dialog->user_actions->register_action(GDK_KEY_F3, "file.view");
-                dialog->user_actions->register_action(GDK_KEY_F4, "file.edit");
-                dialog->user_actions->register_action(GDK_KEY_F5, "file.copy");
-                dialog->user_actions->register_action(GDK_KEY_F6, "file.rename");
-                dialog->user_actions->register_action(GDK_KEY_F7, "file.mkdir");
-                dialog->user_actions->register_action(GDK_KEY_F8, "file.delete");
-                dialog->user_actions->register_action(GDK_KEY_F9, "edit.search");
+                priv->user_actions->register_action(GDK_KEY_F3, "file.view");
+                priv->user_actions->register_action(GDK_KEY_F4, "file.edit");
+                priv->user_actions->register_action(GDK_KEY_F5, "file.copy");
+                priv->user_actions->register_action(GDK_KEY_F6, "file.rename");
+                priv->user_actions->register_action(GDK_KEY_F7, "file.mkdir");
+                priv->user_actions->register_action(GDK_KEY_F8, "file.delete");
+                priv->user_actions->register_action(GDK_KEY_F9, "edit.search");
             }
 
             break;
@@ -181,18 +183,20 @@ static void gnome_cmd_key_shortcuts_dialog_class_init (GnomeCmdKeyShortcutsDialo
 }
 
 
-GtkWidget *create_view_and_model (GnomeCmdUserActions &user_actions);
+GtkWidget *create_view_and_model (GnomeCmdKeyShortcutsDialog *dialog);
 GtkTreeModel *create_and_fill_model (GnomeCmdUserActions &user_actions);
 
 static void accel_edited_callback (GtkCellRendererAccel *accel, const char *path_string, guint accel_key, GdkModifierType accel_mask, guint hardware_keycode, GtkWidget *view);
-static void cell_edited_callback (GtkCellRendererText *cell, gchar *path_string, gchar *new_text, GtkWidget *view);
+static void cell_changed_action_callback (GtkCellRendererCombo *cell, gchar *path_string, GtkTreeIter *new_iter, GnomeCmdKeyShortcutsDialog *dialog);
+static void cell_edited_action_callback (GtkCellRendererText *cell, gchar *path_string, gchar *new_text, GnomeCmdKeyShortcutsDialog *dialog);
+static void cell_edited_option_callback (GtkCellRendererText *cell, gchar *path_string, gchar *new_text, GtkWidget *view);
 static void add_clicked_callback (GtkButton *button, GtkWidget *view);
 static void remove_clicked_callback (GtkButton *button, GtkWidget *view);
 
 
 static void gnome_cmd_key_shortcuts_dialog_init (GnomeCmdKeyShortcutsDialog *dialog)
 {
-    dialog->priv = new GnomeCmdKeyShortcutsDialogPrivate;
+    auto priv = static_cast<GnomeCmdKeyShortcutsDialogPrivate *> (gnome_cmd_key_shortcuts_dialog_get_instance_private (dialog));
 
     gtk_window_set_position (GTK_WINDOW (dialog), GTK_WIN_POS_CENTER);
     gtk_window_set_title (GTK_WINDOW (dialog), _("Keyboard Shortcuts"));
@@ -224,7 +228,8 @@ static void gnome_cmd_key_shortcuts_dialog_init (GnomeCmdKeyShortcutsDialog *dia
     gtk_box_append (GTK_BOX (hbox), scrolled_window);
     gtk_widget_show (scrolled_window);
 
-    GtkWidget *view = create_view_and_model (*dialog->user_actions);
+    GtkWidget *view = create_view_and_model (dialog);
+    priv->view = GTK_TREE_VIEW (view);
     gtk_widget_set_size_request (view, 600, 400);
     gtk_scrolled_window_set_child (GTK_SCROLLED_WINDOW (scrolled_window), view);
     gtk_widget_show (view);
@@ -266,7 +271,7 @@ static void gnome_cmd_key_shortcuts_dialog_init (GnomeCmdKeyShortcutsDialog *dia
 
 gboolean gnome_cmd_key_shortcuts_dialog_new (GnomeCmdUserActions &user_actions)
 {
-    GnomeCmdKeyShortcutsDialog::user_actions = &user_actions;        // ugly hack, but can't come to any better method of passing data to gnome_cmd_key_shortcuts_dialog_init ()
+    GnomeCmdKeyShortcutsDialogPrivate::user_actions = &user_actions;        // ugly hack, but can't come to any better method of passing data to gnome_cmd_key_shortcuts_dialog_init ()
 
     GtkWidget *dialog = GTK_WIDGET (g_object_new (GNOME_CMD_TYPE_KEY_SHORTCUTS_DIALOG, NULL));
 
@@ -343,8 +348,10 @@ enum
 };
 
 
-GtkWidget *create_view_and_model (GnomeCmdUserActions &user_actions)
+GtkWidget *create_view_and_model (GnomeCmdKeyShortcutsDialog *dialog)
 {
+    auto priv = static_cast<GnomeCmdKeyShortcutsDialogPrivate *> (gnome_cmd_key_shortcuts_dialog_get_instance_private (dialog));
+
     GtkWidget *view = gtk_tree_view_new ();
 
     g_object_set (view,
@@ -367,14 +374,15 @@ GtkWidget *create_view_and_model (GnomeCmdUserActions &user_actions)
     col = create_new_combo_column (GTK_TREE_VIEW (view), combo_model, renderer, COL_ACTION, _("Action"));
     gtk_widget_set_tooltip_text (gtk_tree_view_column_get_button (col), _("User action"));
     gtk_tree_view_column_set_sort_column_id (col, SORTID_ACTION);
-    g_signal_connect (renderer, "edited", (GCallback) cell_edited_callback, view);
+    g_signal_connect (renderer, "changed", (GCallback) cell_changed_action_callback, dialog);
+    g_signal_connect (renderer, "edited", (GCallback) cell_edited_action_callback, dialog);
 
     g_object_unref (combo_model);          // destroy model automatically with view
 
     col = gnome_cmd_treeview_create_new_text_column (GTK_TREE_VIEW (view), renderer, COL_OPTION, _("Options"));
     gtk_widget_set_tooltip_text (gtk_tree_view_column_get_button (col), _("Optional data"));
     gtk_tree_view_column_set_sort_column_id (col, SORTID_OPTION);
-    g_signal_connect (renderer, "edited", (GCallback) cell_edited_callback, view);
+    g_signal_connect (renderer, "edited", (GCallback) cell_edited_option_callback, view);
 
     g_object_set (renderer,
                   "editable", TRUE,
@@ -382,7 +390,7 @@ GtkWidget *create_view_and_model (GnomeCmdUserActions &user_actions)
                   "ellipsize", PANGO_ELLIPSIZE_END,
                   NULL);
 
-    GtkTreeModel *model = create_and_fill_model (user_actions);
+    GtkTreeModel *model = create_and_fill_model (*priv->user_actions);
 
     gtk_tree_view_set_model (GTK_TREE_VIEW (view), model);
 
@@ -595,26 +603,59 @@ static void accel_edited_callback (GtkCellRendererAccel *accel, const char *path
 }
 
 
-static void cell_edited_callback (GtkCellRendererText *cell, gchar *path_string, gchar *new_text, GtkWidget *view)
+static void cell_changed_action_callback (GtkCellRendererCombo *cell, gchar *path_string, GtkTreeIter *new_iter, GnomeCmdKeyShortcutsDialog *dialog)
+{
+    auto priv = static_cast<GnomeCmdKeyShortcutsDialogPrivate *> (gnome_cmd_key_shortcuts_dialog_get_instance_private (dialog));
+
+    GtkTreeModel *combo_model;
+    g_object_get (cell, "model", &combo_model, NULL);
+    g_return_if_fail (combo_model != NULL);
+
+    gchar *action_name = NULL;
+    gtk_tree_model_get (combo_model, new_iter, 1, &action_name, -1);
+
+    g_clear_pointer (&priv->last_action_path, g_free);
+    priv->last_action_path = g_strdup (path_string);
+
+    g_clear_pointer (&priv->last_action_name, g_free);
+    priv->last_action_name = action_name;
+
+    g_object_unref (combo_model);
+}
+
+
+static void cell_edited_action_callback (GtkCellRendererText *cell, gchar *path_string, gchar *new_text, GnomeCmdKeyShortcutsDialog *dialog)
+{
+    auto priv = static_cast<GnomeCmdKeyShortcutsDialogPrivate *> (gnome_cmd_key_shortcuts_dialog_get_instance_private (dialog));
+
+    GtkTreeModel *model = gtk_tree_view_get_model (priv->view);
+    GtkTreePath *path = gtk_tree_path_new_from_string (path_string);
+    GtkTreeIter iter;
+
+    const gchar *name = g_strcmp0 (priv->last_action_path, path_string) == 0
+        ? priv->last_action_name
+        : nullptr;
+
+    if (name != nullptr && gtk_tree_model_get_iter (model, &iter, path))
+        gtk_list_store_set (GTK_LIST_STORE (model), &iter,
+                            COL_ACTION, new_text,
+                            COL_NAME, name,
+                            -1);
+
+    gtk_tree_path_free (path);
+}
+
+
+static void cell_edited_option_callback (GtkCellRendererText *cell, gchar *path_string, gchar *new_text, GtkWidget *view)
 {
     GtkTreeModel *model = gtk_tree_view_get_model (GTK_TREE_VIEW (view));
     GtkTreePath *path = gtk_tree_path_new_from_string (path_string);
     GtkTreeIter iter;
 
-    gint col = GPOINTER_TO_INT (g_object_get_data (G_OBJECT (cell), "column"));
-
     if (gtk_tree_model_get_iter (model, &iter, path))
-    {
-        if (col==COL_ACTION && GnomeCmdKeyShortcutsDialog::user_actions)
-            gtk_list_store_set (GTK_LIST_STORE (model), &iter,
-                                col, new_text,
-                                COL_NAME, GnomeCmdKeyShortcutsDialog::user_actions->name(new_text),
-                                -1);
-        else
-            gtk_list_store_set (GTK_LIST_STORE (model), &iter,
-                                col, new_text,
-                                -1);
-    }
+        gtk_list_store_set (GTK_LIST_STORE (model), &iter,
+                            COL_OPTION, new_text,
+                            -1);
 
     gtk_tree_path_free (path);
 }

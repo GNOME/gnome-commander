@@ -140,7 +140,6 @@ class GnomeCmdUserActions
     unsigned size()                                                         {  return action.size();                                       }
 
     const gchar *name(const_iterator &i)                                    {  return action_func[i->second.func].c_str();                 }
-    const gchar *name(const std::string &name_description)                  {  return action_func[action_name[name_description]].c_str();  }
     const gchar *description(const_iterator &i)                             {  return action_name[i->second.func].c_str();                 }
     const gchar *options(const_iterator &i)                                 {  return i->second.user_data.c_str();                         }
 };
