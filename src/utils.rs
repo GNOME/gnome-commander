@@ -27,6 +27,7 @@ use std::{
     ffi::{OsStr, OsString},
     process::Command,
     sync::OnceLock,
+    time::Duration,
 };
 
 pub const GNOME_CMD_PERM_USER_READ: u32 = 256; //r--------
@@ -267,6 +268,10 @@ pub fn get_modifiers_state(window: &gtk::Window) -> Option<gdk::ModifierType> {
     let pointer = display.default_seat()?.pointer()?;
     let (_w, _x, _y, modifiers) = gdk_window.device_position(&pointer);
     Some(modifiers)
+}
+
+pub async fn pending() {
+    glib::timeout_future(Duration::from_millis(1)).await;
 }
 
 pub trait Gtk3to4BoxCompat {

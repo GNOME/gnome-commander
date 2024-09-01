@@ -45,10 +45,6 @@ struct GViewerSearcherPrivate
 {
     // gint-s for the indicator's atomic operations
     gint abort_indicator;
-    gint completed_indicator;
-    gint progress_value;
-
-    GThread *search_thread;
 
     GVInputModesData *imd;
     offset_type start_offset;
@@ -56,7 +52,6 @@ struct GViewerSearcherPrivate
     guint update_interval;
 
     offset_type search_result;
-    gboolean search_reached_end;
     gboolean search_forward;
     GViewerBMChartypeData *ct_data;
     GViewerBMChartypeData *ct_reverse_data;
@@ -65,6 +60,9 @@ struct GViewerSearcherPrivate
     GViewerBMByteData *b_reverse_data;
 
     enum SearchMode searchmode;
+
+    GnomeCmdCallback<guint> progress;
+    gpointer progress_user_data;
 };
 
 enum GViewerSearcherSignalType
@@ -98,10 +96,6 @@ static void g_viewer_searcher_init(GViewerSearcher *obj)
     // Initialize private members, etc.
 
     // obj->priv->abort_indicator = 0;
-    // obj->priv->completed_indicator = 0;
-    // obj->priv->progress_value = 0;
-
-    // obj->priv->search_thread = nullptr;
 }
 
 
@@ -148,39 +142,12 @@ GViewerSearcher *g_viewer_searcher_new()
 }
 
 
-gint * g_viewer_searcher_get_complete_indicator(GViewerSearcher *src)
+void g_viewer_searcher_abort(GViewerSearcher *src)
 {
-    g_return_val_if_fail (src != nullptr, nullptr);
-    g_return_val_if_fail (src->priv != nullptr, nullptr);
+    g_return_if_fail (src != nullptr);
+    g_return_if_fail (src->priv != nullptr);
 
-    return &src->priv->completed_indicator;
-}
-
-
-gint *g_viewer_searcher_get_abort_indicator(GViewerSearcher *src)
-{
-    g_return_val_if_fail (src != nullptr, nullptr);
-    g_return_val_if_fail (src->priv != nullptr, nullptr);
-
-    return &src->priv->abort_indicator;
-}
-
-
-gint *g_viewer_searcher_get_progress_indicator(GViewerSearcher *src)
-{
-    g_return_val_if_fail (src != nullptr, nullptr);
-    g_return_val_if_fail (src->priv != nullptr, nullptr);
-
-    return &src->priv->progress_value;
-}
-
-
-gboolean g_viewer_searcher_get_end_of_search(GViewerSearcher *src)
-{
-    g_return_val_if_fail (src != nullptr, TRUE);
-    g_return_val_if_fail (src->priv != nullptr, TRUE);
-
-    return src->priv->search_reached_end;
+    g_atomic_int_set (&src->priv->abort_indicator, 1);
 }
 
 
@@ -203,15 +170,12 @@ void g_viewer_searcher_setup_new_text_search(GViewerSearcher *srchr,
     g_return_if_fail (srchr != nullptr);
     g_return_if_fail (srchr->priv != nullptr);
 
-    g_return_if_fail (srchr->priv->search_thread == nullptr);
-
     g_return_if_fail (imd != nullptr);
     g_return_if_fail (start_offset<=max_offset);
 
     g_return_if_fail (text != nullptr);
     g_return_if_fail (strlen(text)>0);
 
-    srchr->priv->progress_value = 0;
     srchr->priv->imd = imd;
     srchr->priv->start_offset = start_offset;
     srchr->priv->max_offset = max_offset;
@@ -239,15 +203,12 @@ void g_viewer_searcher_setup_new_hex_search(GViewerSearcher *srchr,
     g_return_if_fail (srchr != nullptr);
     g_return_if_fail (srchr->priv != nullptr);
 
-    g_return_if_fail (srchr->priv->search_thread == nullptr);
-
     g_return_if_fail (imd != nullptr);
     g_return_if_fail (start_offset<=max_offset);
 
     g_return_if_fail (buffer != nullptr);
     g_return_if_fail (buflen>0);
 
-    srchr->priv->progress_value = 0;
     srchr->priv->imd = imd;
     srchr->priv->start_offset = start_offset;
     srchr->priv->max_offset = max_offset;
@@ -273,10 +234,7 @@ static void update_progress_indicator (GViewerSearcher *src, offset_type pos)
 {
     gdouble d = (pos*1000.0) / src->priv->max_offset;
 
-    /*This is very bad... (besides being not atomic at all)
-       TODO: replace with a gmutex */
-    gint oldval = g_atomic_int_get (&src->priv->progress_value);
-    g_atomic_int_compare_and_exchange (&src->priv->progress_value, oldval, (gint)d);
+    src->priv->progress ((gint) d, src->priv->progress_user_data);
 }
 
 
@@ -518,56 +476,23 @@ static gboolean search_text_backward (GViewerSearcher *src)
 }
 
 
-static gpointer search_func (gpointer user_data)
+gboolean g_viewer_searcher_search (GViewerSearcher *src, gboolean forward, GnomeCmdCallback<guint> progress, gpointer user_data)
 {
-    g_return_val_if_fail (G_IS_VIEWERSEARCHER(user_data), nullptr);
+    g_return_val_if_fail (src->priv->imd != nullptr, FALSE);
 
-    GViewerSearcher *src = G_VIEWERSEARCHER(user_data);
-    
-    g_return_val_if_fail (src->priv->imd != nullptr, nullptr);
+    src->priv->search_forward = forward;
+    src->priv->progress = progress;
+    src->priv->progress_user_data = user_data;
 
+    g_atomic_int_set (&src->priv->abort_indicator, 0);
     update_progress_indicator(src, src->priv->start_offset);
 
     gboolean found;
-    
+
     if (src->priv->searchmode==TEXT)
         found = (src->priv->search_forward) ? search_text_forward(src) : search_text_backward(src);
     else
         found = (src->priv->search_forward) ? search_hex_forward(src) : search_hex_backward(src);
 
-    src->priv->search_reached_end = !found;
-
-    g_atomic_int_add(& src->priv->completed_indicator, 1);
-
-    return nullptr;
-}
-
-
-void g_viewer_searcher_join(GViewerSearcher *src)
-{
-    g_return_if_fail (src != nullptr);
-    g_return_if_fail (src->priv != nullptr);
-    g_return_if_fail (src->priv->search_thread != nullptr);
-
-    g_thread_join(src->priv->search_thread);
-    src->priv->search_thread = nullptr;
-}
-
-
-void g_viewer_searcher_start_search(GViewerSearcher *src, gboolean forward)
-{
-    g_return_if_fail (src != nullptr);
-    g_return_if_fail (src->priv != nullptr);
-    g_return_if_fail (src->priv->search_thread == nullptr);
-
-    // Reset indicators
-    src->priv->abort_indicator = 0;
-    src->priv->completed_indicator = 0;
-    // src->priv->progress_value is NOT reset here, only in "setup_new_search"
-    src->priv->search_reached_end = FALSE;
-
-    src->priv->search_forward = forward;
-
-    src->priv->search_thread = g_thread_new (nullptr, search_func, (gpointer) src);
-    g_return_if_fail (src->priv->search_thread != nullptr);
+    return found;
 }

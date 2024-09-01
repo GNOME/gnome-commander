@@ -37,4 +37,3 @@
 #include "viewer-window.h"
 #include "search-dlg.h"
 #include "searcher.h"
-#include "search-progress-dlg.h"
