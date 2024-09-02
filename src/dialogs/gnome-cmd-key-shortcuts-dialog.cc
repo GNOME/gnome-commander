@@ -44,7 +44,6 @@ GType gnome_cmd_key_shortcuts_dialog_get_type ();
 
 GtkTreeViewColumn *create_new_accel_column (GtkTreeView *view, GtkCellRenderer *&renderer, gint COL_KEYS_ID, gint COL_MODS_ID, const gchar *title);
 GtkTreeViewColumn *create_new_combo_column (GtkTreeView *view, GtkTreeModel *model, GtkCellRenderer *&renderer, gint COL_ID, const gchar *title);
-gboolean conflict_confirm (GtkWidget *view, const gchar *action, guint accel_key, GdkModifierType accel_mask);
 gboolean equal_accel (GtkTreeModel *model, GtkTreeIter *i, guint key, GdkModifierType mask);
 gboolean find_accel (GtkTreeModel *model, GtkTreeIter *i, guint key, GdkModifierType mask);
 void set_accel (GtkTreeModel *model, GtkTreePath *path, guint accel_key, GdkModifierType accel_mask);
@@ -157,11 +156,13 @@ static void response_callback (GnomeCmdKeyShortcutsDialog *dialog, int response_
                 priv->user_actions->register_action(GDK_KEY_F9, "edit.search");
             }
 
+            gtk_window_close (GTK_WINDOW (dialog));
             break;
 
         case GTK_RESPONSE_NONE:
         case GTK_RESPONSE_DELETE_EVENT:
         case GTK_RESPONSE_CANCEL:
+            gtk_window_close (GTK_WINDOW (dialog));
             break;
 
         case GTK_RESPONSE_HELP:
@@ -186,7 +187,7 @@ static void gnome_cmd_key_shortcuts_dialog_class_init (GnomeCmdKeyShortcutsDialo
 GtkWidget *create_view_and_model (GnomeCmdKeyShortcutsDialog *dialog);
 GtkTreeModel *create_and_fill_model (GnomeCmdUserActions &user_actions);
 
-static void accel_edited_callback (GtkCellRendererAccel *accel, const char *path_string, guint accel_key, GdkModifierType accel_mask, guint hardware_keycode, GtkWidget *view);
+extern "C" void accel_edited_callback_r (GtkCellRendererAccel *accel, const char *path_string, guint accel_key, GdkModifierType accel_mask, guint hardware_keycode, GtkTreeView *view);
 static void cell_changed_action_callback (GtkCellRendererCombo *cell, gchar *path_string, GtkTreeIter *new_iter, GnomeCmdKeyShortcutsDialog *dialog);
 static void cell_edited_action_callback (GtkCellRendererText *cell, gchar *path_string, gchar *new_text, GnomeCmdKeyShortcutsDialog *dialog);
 static void cell_edited_option_callback (GtkCellRendererText *cell, gchar *path_string, gchar *new_text, GtkWidget *view);
@@ -200,6 +201,8 @@ static void gnome_cmd_key_shortcuts_dialog_init (GnomeCmdKeyShortcutsDialog *dia
 
     gtk_window_set_position (GTK_WINDOW (dialog), GTK_WIN_POS_CENTER);
     gtk_window_set_title (GTK_WINDOW (dialog), _("Keyboard Shortcuts"));
+    gtk_window_set_destroy_with_parent (GTK_WINDOW (dialog), TRUE);
+    gtk_widget_set_size_request (GTK_WIDGET (dialog), 800, 600);
 
     GtkWidget *content_area = gtk_dialog_get_content_area (GTK_DIALOG (dialog));
 
@@ -269,19 +272,17 @@ static void gnome_cmd_key_shortcuts_dialog_init (GnomeCmdKeyShortcutsDialog *dia
 }
 
 
-gboolean gnome_cmd_key_shortcuts_dialog_new (GnomeCmdUserActions &user_actions)
+void gnome_cmd_key_shortcuts_dialog_new (GtkWindow *parent_window, GnomeCmdUserActions &user_actions)
 {
     GnomeCmdKeyShortcutsDialogPrivate::user_actions = &user_actions;        // ugly hack, but can't come to any better method of passing data to gnome_cmd_key_shortcuts_dialog_init ()
 
     GtkWidget *dialog = GTK_WIDGET (g_object_new (GNOME_CMD_TYPE_KEY_SHORTCUTS_DIALOG, NULL));
 
-    g_return_val_if_fail (dialog != NULL, FALSE);
+    g_return_if_fail (dialog != NULL);
 
-    gint result = gtk_dialog_run (GTK_DIALOG (dialog));
+    gtk_window_set_transient_for (GTK_WINDOW (dialog), parent_window);
 
-    gtk_window_destroy (GTK_WINDOW (dialog));
-
-    return result==GTK_RESPONSE_OK;
+    gtk_window_present (GTK_WINDOW (dialog));
 }
 
 
@@ -367,7 +368,7 @@ GtkWidget *create_view_and_model (GnomeCmdKeyShortcutsDialog *dialog)
     gtk_widget_set_tooltip_text (gtk_tree_view_column_get_button (col), _("Keyboard shortcut for selected action"));
     gtk_tree_view_column_set_sort_column_id (col, SORTID_ACCEL);
 
-    g_signal_connect (renderer, "accel-edited", G_CALLBACK (accel_edited_callback), view);
+    g_signal_connect (renderer, "accel-edited", G_CALLBACK (accel_edited_callback_r), view);
 
     GtkTreeModel *combo_model = gnome_cmd_user_actions_create_model ();
 
@@ -499,34 +500,6 @@ GtkTreeModel *create_and_fill_model (GnomeCmdUserActions &user_actions)
 }
 
 
-gboolean conflict_confirm (GtkWidget *view, const gchar *action, guint accel_key, GdkModifierType accel_mask)
-{
-    gchar *accel_string = egg_accelerator_get_label (accel_key, accel_mask);
-
-    GtkWidget *dlg = gtk_message_dialog_new (GTK_WINDOW (gtk_widget_get_toplevel (GTK_WIDGET (view))),
-                                             (GtkDialogFlags) (GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT),
-                                             GTK_MESSAGE_WARNING,
-                                             GTK_BUTTONS_NONE,
-                                             _("Shortcut “%s” is already taken by “%s”."),
-                                             accel_string, action);
-    gtk_dialog_add_buttons (GTK_DIALOG (dlg), _("_Cancel"), GTK_RESPONSE_CANCEL,
-                                              _("_Reassign shortcut"), GTK_RESPONSE_OK,
-                                              NULL);
-    gtk_dialog_set_default_response (GTK_DIALOG (dlg), GTK_RESPONSE_CANCEL);
-    gtk_window_set_title (GTK_WINDOW (dlg), _("Conflicting Shortcuts"));
-    gtk_message_dialog_format_secondary_text (GTK_MESSAGE_DIALOG (dlg), _("Reassigning the shortcut will cause it "
-                                                                          "to be removed from “%s”."), action);
-    gtk_widget_show_all (dlg);
-    gint response = gtk_dialog_run (GTK_DIALOG (dlg));
-
-    gtk_window_destroy (GTK_WINDOW (dlg));
-
-    g_free (accel_string);
-
-    return response==GTK_RESPONSE_OK;
-}
-
-
 gboolean equal_accel (GtkTreeModel *model, GtkTreeIter *i, guint key, GdkModifierType mask)
 {
     guint accel_key  = 0;
@@ -562,44 +535,6 @@ void set_accel (GtkTreeModel *model, GtkTreePath *path, guint accel_key, GdkModi
                             COL_ACCEL_KEY, accel_key,
                             COL_ACCEL_MASK, accel_mask,
                             -1);
-}
-
-
-static void accel_edited_callback (GtkCellRendererAccel *accel, const char *path_string, guint accel_key, GdkModifierType accel_mask, guint hardware_keycode, GtkWidget *view)
-{
-    DEBUG('u', "Key event:  %s (%#x)\n", key2str(accel_mask,accel_key).c_str(), accel_key);
-
-    if (!accel_key)
-        gnome_cmd_show_message (NULL, _("Invalid shortcut."));
-    else
-    {
-        GtkTreeModel *model = gtk_tree_view_get_model (GTK_TREE_VIEW (view));
-        GtkTreePath *path = gtk_tree_path_new_from_string (path_string);
-        GtkTreeIter iter;
-
-        // do nothing if accelerators haven't changed...
-        if (gtk_tree_model_get_iter (model, &iter, path) && equal_accel (model, &iter, accel_key, accel_mask))
-            return;
-
-        if (!find_accel (model, &iter, accel_key, accel_mask))                  //  store new values if there isn't any duplicate...
-            set_accel (model, path, accel_key, accel_mask);
-        else
-        {
-            gchar *action;
-
-            gtk_tree_model_get (model, &iter, COL_ACTION, &action, -1);         // ...otherwise retrieve conflicting action...
-
-            if (conflict_confirm (view, action, accel_key, accel_mask))         // ...and ask user for confirmation
-            {
-                set_accel (model, path, accel_key, accel_mask);
-                gtk_list_store_remove (GTK_LIST_STORE (model), &iter);
-            }
-
-            g_free (action);
-        }
-
-        gtk_tree_path_free (path);
-    }
 }
 
 

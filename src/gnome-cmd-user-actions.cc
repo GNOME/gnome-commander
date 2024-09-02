@@ -1907,9 +1907,9 @@ void options_edit (GSimpleAction *action, GVariant *parameter, gpointer user_dat
 
 void options_edit_shortcuts (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
-    // auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
+    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
 
-    gnome_cmd_key_shortcuts_dialog_new (gcmd_user_actions);
+    gnome_cmd_key_shortcuts_dialog_new (*main_win, gcmd_user_actions);
 }
 
 /************** Connections Menu **************/
