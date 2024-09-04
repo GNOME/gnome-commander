@@ -47,6 +47,8 @@ pub mod ffi {
         ) -> *mut GnomeCmdFileSelector;
 
         pub fn gnome_cmd_main_win_focus_file_lists(main_win: *mut GnomeCmdMainWin);
+
+        pub fn gnome_cmd_main_win_update_bookmarks(main_win: *mut GnomeCmdMainWin);
     }
 
     #[derive(Copy, Clone)]
@@ -74,5 +76,9 @@ impl MainWindow {
 
     pub fn focus_file_lists(&self) {
         unsafe { ffi::gnome_cmd_main_win_focus_file_lists(self.to_glib_none().0) }
+    }
+
+    pub fn update_bookmarks(&self) {
+        unsafe { ffi::gnome_cmd_main_win_update_bookmarks(self.to_glib_none().0) }
     }
 }

@@ -480,6 +480,12 @@ gchar *GnomeCmdFile::get_quoted_real_path()
 }
 
 
+gchar *gnome_cmd_file_get_path_through_parent (GnomeCmdFile *f)
+{
+    return f->GetPathStringThroughParent();
+}
+
+
 gchar *GnomeCmdFile::get_dirname()
 {
     auto gFileTmp = get_file();

@@ -217,7 +217,7 @@ GIcon *gnome_cmd_con_get_close_icon (GnomeCmdCon *con);
 
 GnomeCmdBookmarkGroup *gnome_cmd_con_get_bookmarks (GnomeCmdCon *con);
 
-void gnome_cmd_con_add_bookmark (GnomeCmdCon *con, const gchar *name, const gchar *path);
+extern "C" void gnome_cmd_con_add_bookmark (GnomeCmdCon *con, const gchar *name, const gchar *path);
 
 void gnome_cmd_con_erase_bookmark (GnomeCmdCon *con);
 

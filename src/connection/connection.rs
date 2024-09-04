@@ -69,6 +69,12 @@ pub mod ffi {
         pub fn gnome_cmd_con_set_base_path(con: *const GnomeCmdCon, path: *mut c_void);
 
         pub fn gnome_cmd_con_get_method(con: *const GnomeCmdCon) -> c_int;
+
+        pub fn gnome_cmd_con_add_bookmark(
+            con: *const GnomeCmdCon,
+            name: *const c_char,
+            path: *const c_char,
+        );
     }
 
     #[derive(Copy, Clone)]
@@ -96,6 +102,7 @@ pub struct GnomeCmdPath(pub *mut c_void);
 
 #[derive(Clone, Copy, strum::FromRepr, PartialEq, PartialOrd, Eq, Ord)]
 #[repr(i32)]
+#[allow(non_camel_case_types)]
 pub enum ConnectionMethodID {
     CON_SFTP = 0,
     CON_FTP,
@@ -127,6 +134,8 @@ pub trait ConnectionExt {
     fn set_base_path(&self, path: GnomeCmdPath);
 
     fn method(&self) -> ConnectionMethodID;
+
+    fn add_bookmark(&self, name: &str, path: &str);
 }
 
 impl ConnectionExt for Connection {
@@ -186,5 +195,15 @@ impl ConnectionExt for Connection {
     fn method(&self) -> ConnectionMethodID {
         let method = unsafe { ffi::gnome_cmd_con_get_method(self.to_glib_none().0) };
         ConnectionMethodID::from_repr(method).unwrap_or(ConnectionMethodID::CON_SFTP)
+    }
+
+    fn add_bookmark(&self, name: &str, path: &str) {
+        unsafe {
+            ffi::gnome_cmd_con_add_bookmark(
+                self.to_glib_none().0,
+                name.to_glib_none().0,
+                path.to_glib_none().0,
+            )
+        }
     }
 }

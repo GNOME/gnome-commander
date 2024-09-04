@@ -32,7 +32,7 @@ pub mod ffi {
         connection::ffi::GnomeCmdCon, device::ffi::GnomeCmdConDevice,
         remote::ffi::GnomeCmdConRemote,
     };
-    use glib::ffi::{GList, GType};
+    use glib::ffi::{GList, GType, GVariant};
     use std::ffi::c_char;
 
     #[repr(C)]
@@ -70,6 +70,12 @@ pub mod ffi {
         pub fn gnome_cmd_con_list_get_smb(list: *mut GnomeCmdConList) -> *mut GnomeCmdCon;
 
         pub fn gnome_cmd_con_list_get() -> *mut GnomeCmdConList;
+
+        pub fn gnome_cmd_con_list_load_bookmarks(
+            list: *mut GnomeCmdConList,
+            variant: *mut GVariant,
+        );
+        pub fn gnome_cmd_con_list_save_bookmarks(list: *mut GnomeCmdConList) -> *mut GVariant;
     }
 
     #[derive(Copy, Clone)]
@@ -145,5 +151,19 @@ impl ConnectionList {
 
     pub fn get() -> ConnectionList {
         unsafe { from_glib_none(ffi::gnome_cmd_con_list_get()) }
+    }
+
+    pub fn load_bookmarks(&self, variant: glib::Variant) {
+        unsafe {
+            ffi::gnome_cmd_con_list_load_bookmarks(self.to_glib_none().0, variant.to_glib_none().0)
+        }
+    }
+
+    pub fn save_bookmarks(&self) -> Option<glib::Variant> {
+        unsafe {
+            from_glib_none(ffi::gnome_cmd_con_list_save_bookmarks(
+                self.to_glib_none().0,
+            ))
+        }
     }
 }

@@ -19,6 +19,41 @@
 
 use gtk::{gio, prelude::*};
 
+pub struct GeneralOptions(pub gio::Settings);
+
+pub trait GeneralOptionsRead {
+    fn bookmarks(&self) -> glib::Variant;
+}
+
+pub trait GeneralOptionsWrite {
+    fn set_bookmarks(&self, bookmarks: &glib::Variant);
+    fn reset_bookmarks(&self);
+}
+
+impl GeneralOptions {
+    pub fn new() -> Self {
+        Self(gio::Settings::new(
+            "org.gnome.gnome-commander.preferences.general",
+        ))
+    }
+}
+
+impl GeneralOptionsRead for GeneralOptions {
+    fn bookmarks(&self) -> glib::Variant {
+        self.0.value("bookmarks")
+    }
+}
+
+impl GeneralOptionsWrite for GeneralOptions {
+    fn set_bookmarks(&self, bookmarks: &glib::Variant) {
+        self.0.set_value("bookmarks", bookmarks);
+    }
+
+    fn reset_bookmarks(&self) {
+        self.0.reset("bookmarks");
+    }
+}
+
 pub struct ProgramsOptions(pub gio::Settings);
 
 pub trait ProgramsOptionsRead {
