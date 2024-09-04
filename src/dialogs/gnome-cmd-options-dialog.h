@@ -22,4 +22,6 @@
 
 #include "gnome-cmd-data.h"
 
-gboolean gnome_cmd_options_dialog (GtkWindow *parent, GnomeCmdData::Options &cfg);
+typedef void (* GnomeCmdOptionsOkCallback) (gpointer user_data);
+
+GtkDialog *gnome_cmd_options_dialog (GtkWindow *parent, GnomeCmdData::Options &cfg, GnomeCmdOptionsOkCallback on_ok, gpointer on_ok_user_data);
