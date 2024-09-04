@@ -380,6 +380,109 @@ GnomeCmdConList *gnome_cmd_con_list_get ()
     return static_cast<GnomeCmdConList *>(gnome_cmd_data_get_con_list ());
 }
 
+
+void gnome_cmd_con_list_load_bookmarks (GnomeCmdConList *list, GVariant *gVariantBookmarks)
+{
+    GnomeCmdCon *gnomeCmdCon {nullptr};
+
+    g_autoptr(GVariantIter) iter1 {nullptr};
+
+    g_variant_get (gVariantBookmarks, GCMD_SETTINGS_BOOKMARKS_FORMAT_STRING, &iter1);
+
+    gboolean isRemote {false};
+    gchar *bookmarkGroupName {nullptr};
+    gchar *bookmarkName {nullptr};
+    gchar *bookmarkPath {nullptr};
+
+    while (g_variant_iter_loop (iter1,
+            GCMD_SETTINGS_BOOKMARK_FORMAT_STRING,
+            &isRemote,
+            &bookmarkGroupName,
+            &bookmarkName,
+            &bookmarkPath))
+    {
+        if (isRemote)
+            gnomeCmdCon = list->find_alias(bookmarkGroupName);
+        else if (strcmp(bookmarkGroupName, "Home") == 0)
+            gnomeCmdCon = list->get_home();
+        else if (strcmp(bookmarkGroupName, "SMB") == 0)
+            gnomeCmdCon = list->get_smb();
+        else
+            gnomeCmdCon = nullptr;
+
+        if (!gnomeCmdCon)
+            g_warning ("<Bookmarks> unknown connection: '%s' - ignored", bookmarkGroupName);
+        else
+            gnome_cmd_con_add_bookmark (gnomeCmdCon, bookmarkName, bookmarkPath);
+    }
+
+    g_variant_unref(gVariantBookmarks);
+}
+
+
+static gboolean add_bookmark_to_gvariant_builder(GVariantBuilder *gVariantBuilder, std::string bookmarkGroupName, GnomeCmdCon *con)
+{
+    if (!con)
+        return FALSE;
+
+    GList *bookmarks = gnome_cmd_con_get_bookmarks (con)->bookmarks;
+
+    if (!bookmarks)
+        return FALSE;
+
+    gboolean isRemote = GNOME_CMD_IS_CON_REMOTE (con) ? TRUE : FALSE;
+
+    for (GList *i = bookmarks; i; i = i->next)
+    {
+        auto bookmark = static_cast<GnomeCmdBookmark*> (i->data);
+
+        g_variant_builder_add (gVariantBuilder, GCMD_SETTINGS_BOOKMARK_FORMAT_STRING,
+                               isRemote,
+                               bookmarkGroupName.c_str(),
+                               bookmark->name,
+                               bookmark->path
+                              );
+    }
+    return TRUE;
+}
+
+
+GVariant *gnome_cmd_con_list_save_bookmarks (GnomeCmdConList *list)
+{
+    gboolean hasBookmarks = false;
+    GVariantBuilder* gVariantBuilder = g_variant_builder_new(G_VARIANT_TYPE_ARRAY);
+    g_variant_builder_init (gVariantBuilder, G_VARIANT_TYPE_ARRAY);
+
+    // Home
+    auto *con = list->get_home();
+    hasBookmarks |= add_bookmark_to_gvariant_builder(gVariantBuilder, "Home", con);
+
+    // Samba
+    con = list->get_smb();
+    hasBookmarks |= add_bookmark_to_gvariant_builder(gVariantBuilder, "SMB", con);
+
+    // Others
+    for (GList *i = gnome_cmd_con_list_get_all_remote (list); i; i=i->next)
+    {
+        con = GNOME_CMD_CON (i->data);
+        string bookmarkGroupName = gnome_cmd_con_get_alias (con);
+        hasBookmarks |= add_bookmark_to_gvariant_builder(gVariantBuilder, bookmarkGroupName, con);
+    }
+
+    if (!hasBookmarks)
+    {
+        g_variant_builder_unref(gVariantBuilder);
+        return nullptr;
+    }
+    else
+    {
+        GVariant* bookmarksToStore = g_variant_builder_end (gVariantBuilder);
+        g_variant_builder_unref(gVariantBuilder);
+        return bookmarksToStore;
+    }
+}
+
+
 // FFI
 
 void gnome_cmd_con_list_add_remote (GnomeCmdConList *list, GnomeCmdConRemote *con)
