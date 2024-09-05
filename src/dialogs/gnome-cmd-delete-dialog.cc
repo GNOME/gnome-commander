@@ -24,7 +24,6 @@
 #include "gnome-cmd-includes.h"
 #include "gnome-cmd-data.h"
 #include "gnome-cmd-dir.h"
-#include "gnome-cmd-file-list.h"
 #include "utils.h"
 #include "dialogs/gnome-cmd-delete-dialog.h"
 
@@ -38,6 +37,40 @@ using namespace std;
 #define DELETE_ERROR_ACTION_ABORT 0
 #define DELETE_ERROR_ACTION_RETRY 1
 #define DELETE_ERROR_ACTION_SKIP  2
+
+
+struct DeleteData
+{
+    enum OriginAction
+    {
+        MOVE,
+        DELETE,
+        FORCE_DELETE
+    };
+
+    GtkWindow *parent_window;
+    GtkWidget *progbar;
+    GtkWidget *proglabel;
+    GtkWidget *progwin;
+
+    gboolean problem{FALSE};              // signals to the main thread that the work thread is waiting for an answer on what to do
+    gint problem_action;                  // where the answer is delivered
+    const gchar *problemFileName;         // the filename of the file that can't be deleted
+    GError *error{nullptr};               // the cause that the file can't be deleted
+    GThread *thread{nullptr};             // the work thread
+    GList *gnomeCmdFiles{nullptr};        // the GnomeCmdFiles that should be deleted (can be folders, too)
+    GList *deletedGnomeCmdFiles{nullptr}; // this is the real list of deleted files (can be different from the list above)
+    gboolean stop{FALSE};                 // tells the work thread to stop working
+    gboolean deleteDone{FALSE};           // tells the main thread that the work thread is done
+    gchar *msg{nullptr};                  // a message describing the current status of the delete operation
+    gfloat progress{0};                   // a float values between 0 and 1 representing the progress of the whole operation
+    GMutex mutex{nullptr};                // used to sync the main and worker thread
+    guint64 itemsDeleted{0};              // items deleted in the current run
+    guint64 itemsTotal{0};                // total number of items which should be deleted
+    OriginAction originAction;            // As delete can also used when moving files, we have to distinguish here
+    GCancellable* cancellable{nullptr};
+};
+
 
 static gboolean perform_delete_operation_r(DeleteData *deleteData, GList *gnomeCmdFileGList);
 
@@ -346,7 +379,7 @@ static gboolean update_delete_status_widgets (DeleteData *deleteData)
 }
 
 
-void do_delete (DeleteData *deleteData, gboolean showProgress = true)
+static void do_delete (DeleteData *deleteData, gboolean showProgress)
 {
     g_return_if_fail(GNOME_CMD_IS_FILE(deleteData->gnomeCmdFiles->data));
 
@@ -508,6 +541,17 @@ static GList *remove_items_from_list_to_be_deleted(GtkWindow *parent_window, GLi
     return itemsToDelete;
 }
 
+
+void do_delete_files_for_move (GtkWindow *parent_window, GList *files, gboolean showProgress)
+{
+    auto deleteData = g_new0 (DeleteData, 1);
+    deleteData->parent_window = parent_window;
+    deleteData->gnomeCmdFiles = files;
+    deleteData->originAction = DeleteData::OriginAction::MOVE;
+    do_delete (deleteData, showProgress);
+}
+
+
 /**
  * Creates a delete dialog for the given list of GnomeCmdFiles
  */
@@ -581,5 +625,5 @@ void gnome_cmd_delete_dialog_show (GtkWindow *parent_window, GList *files, gbool
     // Refing files for the delete procedure
     gnome_cmd_file_list_ref (deleteData->gnomeCmdFiles);
 
-    do_delete (deleteData);
+    do_delete (deleteData, true);
 }

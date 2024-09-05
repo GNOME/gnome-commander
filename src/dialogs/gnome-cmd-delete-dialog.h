@@ -20,38 +20,6 @@
  */
 #pragma once
 
-struct DeleteData
-{
-    enum OriginAction
-    {
-        MOVE,
-        DELETE,
-        FORCE_DELETE
-    };
-
-    GtkWindow *parent_window;
-    GtkWidget *progbar;
-    GtkWidget *proglabel;
-    GtkWidget *progwin;
-
-    gboolean problem{FALSE};              // signals to the main thread that the work thread is waiting for an answer on what to do
-    gint problem_action;                  // where the answer is delivered
-    const gchar *problemFileName;         // the filename of the file that can't be deleted
-    GError *error{nullptr};               // the cause that the file can't be deleted
-    GThread *thread{nullptr};             // the work thread
-    GList *gnomeCmdFiles{nullptr};        // the GnomeCmdFiles that should be deleted (can be folders, too)
-    GList *deletedGnomeCmdFiles{nullptr}; // this is the real list of deleted files (can be different from the list above)
-    gboolean stop{FALSE};                 // tells the work thread to stop working
-    gboolean deleteDone{FALSE};           // tells the main thread that the work thread is done
-    gchar *msg{nullptr};                  // a message describing the current status of the delete operation
-    gfloat progress{0};                   // a float values between 0 and 1 representing the progress of the whole operation
-    GMutex mutex{nullptr};                // used to sync the main and worker thread
-    guint64 itemsDeleted{0};              // items deleted in the current run
-    guint64 itemsTotal{0};                // total number of items which should be deleted
-    OriginAction originAction;            // As delete can also used when moving files, we have to distinguish here
-    GCancellable* cancellable{nullptr};
-};
-
-void do_delete (DeleteData *deleteData, gboolean showProgress);
+void do_delete_files_for_move (GtkWindow *parent_window, GList *files, gboolean showProgress);
 
 void gnome_cmd_delete_dialog_show (GtkWindow *parent_window, GList *files, gboolean forceDelete = false);
