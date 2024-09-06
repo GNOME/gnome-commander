@@ -12,8 +12,8 @@ msgstr ""
 "Project-Id-Version: gnome-commander\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-commander/"
 "issues/\n"
-"POT-Creation-Date: 2024-08-04 19:20+0000\n"
-"PO-Revision-Date: 2024-08-04 22:04+0200\n"
+"POT-Creation-Date: 2024-08-31 12:11+0000\n"
+"PO-Revision-Date: 2024-08-31 14:20+0200\n"
 "Last-Translator: Anders Jonsson <anders.jonsson@norsjovallen.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "Language: sv\n"
@@ -1495,14 +1495,14 @@ msgstr "Ingen felbeskrivning finnes"
 #. GTK_STOCK_HELP, GTK_RESPONSE_HELP,             //  FIXME: ???
 #. buttons
 #: libgcmd/gnome-cmd-string-dialog.cc:138 libgcmd/libgcmd-widget-factory.cc:296
+#: src/advrename_profile_component.rs:102 src/dialogs/connect_dialog.rs:241
 #: src/dialogs/gnome-cmd-advrename-regex-dialog.cc:61
 #: src/dialogs/gnome-cmd-chmod-dialog.cc:229
 #: src/dialogs/gnome-cmd-chown-dialog.cc:191
-#: src/dialogs/gnome-cmd-con-dialog.cc:430
 #: src/dialogs/gnome-cmd-delete-dialog.cc:142
 #: src/dialogs/gnome-cmd-edit-bookmark-dialog.cc:74
 #: src/dialogs/gnome-cmd-edit-profile-dialog.h:84
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:678
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:677
 #: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:255
 #: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:504
 #: src/dialogs/gnome-cmd-manage-profiles-dialog.h:290
@@ -1512,22 +1512,22 @@ msgstr "Ingen felbeskrivning finnes"
 #: src/dialogs/gnome-cmd-options-dialog.cc:2103
 #: src/dialogs/gnome-cmd-options-dialog.cc:2353
 #: src/dialogs/gnome-cmd-patternsel-dialog.cc:97
-#: src/dialogs/gnome-cmd-prepare-xfer-dialog.cc:402 src/dirlist.cc:77
-#: src/gnome-cmd-advrename-profile-component.cc:534
-#: src/gnome-cmd-file-list.cc:1856 src/gnome-cmd-xfer-progress-win.cc:92
+#: src/dialogs/gnome-cmd-prepare-xfer-dialog.cc:402
+#: src/dialogs/make_copy_dialog.rs:86 src/dirlist.cc:77
+#: src/gnome-cmd-file-list.cc:1661 src/gnome-cmd-xfer-progress-win.cc:92
 #: src/intviewer/search-dlg.cc:217
 msgid "_Cancel"
 msgstr "A_vbryt"
 
 #: libgcmd/gnome-cmd-string-dialog.cc:139 libgcmd/libgcmd-widget-factory.cc:297
 #: plugins/fileroller/file-roller-plugin.cc:608
+#: src/advrename_profile_component.rs:116 src/dialogs/connect_dialog.rs:251
 #: src/dialogs/gnome-cmd-advrename-regex-dialog.cc:62
 #: src/dialogs/gnome-cmd-chmod-dialog.cc:231
 #: src/dialogs/gnome-cmd-chown-dialog.cc:192
-#: src/dialogs/gnome-cmd-con-dialog.cc:431
 #: src/dialogs/gnome-cmd-edit-bookmark-dialog.cc:75
 #: src/dialogs/gnome-cmd-edit-profile-dialog.h:85
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:679
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:678
 #: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:256
 #: src/dialogs/gnome-cmd-manage-profiles-dialog.h:291
 #: src/dialogs/gnome-cmd-mkdir-dialog.cc:172
@@ -1537,8 +1537,7 @@ msgstr "A_vbryt"
 #: src/dialogs/gnome-cmd-options-dialog.cc:2354
 #: src/dialogs/gnome-cmd-patternsel-dialog.cc:98
 #: src/dialogs/gnome-cmd-prepare-xfer-dialog.cc:403
-#: src/gnome-cmd-advrename-profile-component.cc:535
-#: src/intviewer/search-dlg.cc:218
+#: src/dialogs/make_copy_dialog.rs:96 src/intviewer/search-dlg.cc:218
 msgid "_OK"
 msgstr "_OK"
 
@@ -1598,7 +1597,7 @@ msgid "Extract to “%s”"
 msgstr "Packa upp i katalogen ”%s”"
 
 #: plugins/fileroller/file-roller-plugin.cc:586
-#: src/gnome-cmd-advrename-profile-component.cc:877 src/plugin_manager.cc:405
+#: src/gnome-cmd-advrename-profile-component.cc:792 src/plugin_manager.cc:405
 #: src/tags/gnome-cmd-tags.cc:692
 msgid "File"
 msgstr "Fil"
@@ -1610,7 +1609,7 @@ msgstr "Fil"
 #: src/dialogs/gnome-cmd-options-dialog.cc:2350
 #: src/dialogs/gnome-cmd-prepare-copy-dialog.cc:135
 #: src/dialogs/gnome-cmd-prepare-move-dialog.cc:124
-#: src/dialogs/gnome-cmd-remote-dialog.cc:447 src/gnome-cmd-user-actions.cc:369
+#: src/gnome-cmd-user-actions.cc:366
 msgid "Options"
 msgstr "Alternativ"
 
@@ -1656,6 +1655,122 @@ msgstr ""
 "Ett exempel på insticksmodul som kan vara lämplig att titta på när man vill "
 "utveckla en ny insticksmodul"
 
+#: src/advrename_profile_component.rs:50
+msgid "Range Selection"
+msgstr "Intervallmarkering"
+
+#: src/advrename_profile_component.rs:78
+msgid "_Select range:"
+msgstr "_Välj intervall:"
+
+#: src/advrename_profile_component.rs:87
+msgid "_Inverse selection"
+msgstr "_Invertera markering"
+
+#: src/app.rs:174
+msgid "Cannot build a command line."
+msgstr "Kan inte bygga en kommandorad."
+
+#: src/dialogs/connect_dialog.rs:47
+msgid "SSH"
+msgstr "SSH"
+
+#: src/dialogs/connect_dialog.rs:54
+msgid "FTP (with login)"
+msgstr "FTP (med inloggning)"
+
+#: src/dialogs/connect_dialog.rs:61
+msgid "Public FTP"
+msgstr "Offentlig FTP"
+
+#: src/dialogs/connect_dialog.rs:68
+msgid "Windows share"
+msgstr "Windows-utdelning"
+
+#: src/dialogs/connect_dialog.rs:75
+msgid "WebDAV (HTTP)"
+msgstr "WebDAV (HTTP)"
+
+#: src/dialogs/connect_dialog.rs:82
+msgid "Secure WebDAV (HTTPS)"
+msgstr "Säker WebDAV (HTTPS)"
+
+#: src/dialogs/connect_dialog.rs:89
+msgid "Custom location"
+msgstr "Anpassad plats"
+
+#: src/dialogs/connect_dialog.rs:158 src/gnome-cmd-main-win.cc:188
+msgid "Remote Server"
+msgstr "Fjärrserver"
+
+#: src/dialogs/connect_dialog.rs:170
+msgid "Service _type:"
+msgstr "Tjänste_typ:"
+
+#: src/dialogs/connect_dialog.rs:193
+msgid "_Alias:"
+msgstr "_Alias:"
+
+#: src/dialogs/connect_dialog.rs:194
+msgid "_Location (URI):"
+msgstr "_Plats (URI):"
+
+#: src/dialogs/connect_dialog.rs:195
+msgid "_Server:"
+msgstr "_Server:"
+
+#: src/dialogs/connect_dialog.rs:198
+msgid "Optional information"
+msgstr "Ytterligare information"
+
+#: src/dialogs/connect_dialog.rs:206
+msgid "_Port:"
+msgstr "_Port:"
+
+#. g_signal_connect (dialog.imp().port_entry, "insert-text", G_CALLBACK (port_insert_text), NULL);
+#: src/dialogs/connect_dialog.rs:208
+msgid "_Folder:"
+msgstr "_Mapp:"
+
+#: src/dialogs/connect_dialog.rs:210
+msgid "_Domain name:"
+msgstr "_Domännamn:"
+
+#: src/dialogs/connect_dialog.rs:226
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:676
+#: src/dialogs/gnome-cmd-edit-profile-dialog.h:82
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:675
+#: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:254
+#: src/dialogs/gnome-cmd-manage-bookmarks-dialog.cc:98
+#: src/dialogs/gnome-cmd-manage-profiles-dialog.h:289
+#: src/dialogs/gnome-cmd-mkdir-dialog.cc:170
+#: src/dialogs/gnome-cmd-options-dialog.cc:2100
+#: src/dialogs/gnome-cmd-options-dialog.cc:2352
+#: src/dialogs/gnome-cmd-search-dialog.cc:1272 src/dialogs/remote_dialog.rs:250
+#: src/gnome-cmd-main-menu.cc:249 src/intviewer/viewer-window.cc:582
+msgid "_Help"
+msgstr "_Hjälp"
+
+#: src/dialogs/connect_dialog.rs:332
+msgid "You must enter a name for the server"
+msgstr "Du måste ange ett namn för servern"
+
+#: src/dialogs/connect_dialog.rs:333
+msgid "Please enter a name and try again."
+msgstr "Ange ett namn och försök igen."
+
+#: src/dialogs/connect_dialog.rs:347
+msgid "You must enter a number for the port"
+msgstr "Du måste ange ett nummer för porten"
+
+#: src/dialogs/connect_dialog.rs:365
+msgid "Connection method is not selected"
+msgstr "Anslutningsmetod har inte valts"
+
+#: src/dialogs/connect_dialog.rs:433
+msgid "Please check spelling and try again."
+msgstr "Kontrollera stavning och försök igen."
+
 #: src/dialogs/gnome-cmd-advrename-dialog.cc:107
 #: src/dialogs/gnome-cmd-search-dialog.cc:179
 msgid "_Save Profile As…"
@@ -1677,7 +1792,7 @@ msgstr "Ta bort från fillista"
 
 #. {file_umount, "file.umount"},
 #: src/dialogs/gnome-cmd-advrename-dialog.cc:302
-#: src/gnome-cmd-user-actions.cc:355
+#: src/gnome-cmd-user-actions.cc:352
 msgid "View file"
 msgstr "Visa fil"
 
@@ -1724,8 +1839,8 @@ msgid "File size"
 msgstr "Filstorlek"
 
 #: src/dialogs/gnome-cmd-advrename-dialog.cc:597
-#: src/gnome-cmd-advrename-profile-component.cc:157
-#: src/gnome-cmd-advrename-profile-component.cc:885
+#: src/gnome-cmd-advrename-profile-component.cc:155
+#: src/gnome-cmd-advrename-profile-component.cc:800
 #: src/tags/gnome-cmd-tags.cc:347 src/tags/gnome-cmd-tags.cc:423
 msgid "Date"
 msgstr "Datum"
@@ -1735,25 +1850,9 @@ msgid "File modification date"
 msgstr "Filändringsdatum"
 
 #: src/dialogs/gnome-cmd-advrename-dialog.cc:668
-#: src/dialogs/gnome-cmd-search-dialog.cc:1261
+#: src/dialogs/gnome-cmd-search-dialog.cc:1264
 msgid "Profiles…"
 msgstr "Profiler…"
-
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:676
-#: src/dialogs/gnome-cmd-con-dialog.cc:429
-#: src/dialogs/gnome-cmd-edit-profile-dialog.h:82
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:676
-#: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:254
-#: src/dialogs/gnome-cmd-manage-bookmarks-dialog.cc:98
-#: src/dialogs/gnome-cmd-manage-profiles-dialog.h:289
-#: src/dialogs/gnome-cmd-mkdir-dialog.cc:170
-#: src/dialogs/gnome-cmd-options-dialog.cc:2100
-#: src/dialogs/gnome-cmd-options-dialog.cc:2352
-#: src/dialogs/gnome-cmd-remote-dialog.cc:450
-#: src/dialogs/gnome-cmd-search-dialog.cc:1269 src/gnome-cmd-main-menu.cc:249
-#: src/intviewer/viewer-window.cc:581
-msgid "_Help"
-msgstr "_Hjälp"
 
 #: src/dialogs/gnome-cmd-advrename-dialog.cc:677
 #: src/dialogs/gnome-cmd-edit-profile-dialog.h:83
@@ -1764,10 +1863,9 @@ msgstr "Återställ"
 #: src/dialogs/gnome-cmd-advrename-dialog.cc:678
 #: src/dialogs/gnome-cmd-manage-bookmarks-dialog.cc:99
 #: src/dialogs/gnome-cmd-options-dialog.cc:580
-#: src/dialogs/gnome-cmd-remote-dialog.cc:451
-#: src/dialogs/gnome-cmd-search-dialog.cc:1270
+#: src/dialogs/gnome-cmd-search-dialog.cc:1273 src/dialogs/remote_dialog.rs:262
 #: src/gnome-cmd-about-plugin.cc:181 src/gnome-cmd-about-plugin.cc:312
-#: src/intviewer/viewer-window.cc:515 src/plugin_manager.cc:439
+#: src/intviewer/viewer-window.cc:516 src/plugin_manager.cc:439
 msgid "_Close"
 msgstr "_Stäng"
 
@@ -1824,88 +1922,6 @@ msgstr "Chown"
 msgid "Apply Recursively"
 msgstr "Tillämpa rekursivt"
 
-#: src/dialogs/gnome-cmd-con-dialog.cc:162
-msgid "_Alias:"
-msgstr "_Alias:"
-
-#: src/dialogs/gnome-cmd-con-dialog.cc:167
-msgid "_Location (URI):"
-msgstr "_Plats (URI):"
-
-#: src/dialogs/gnome-cmd-con-dialog.cc:190
-msgid "_Server:"
-msgstr "_Server:"
-
-#: src/dialogs/gnome-cmd-con-dialog.cc:192
-msgid "Optional information"
-msgstr "Ytterligare information"
-
-#: src/dialogs/gnome-cmd-con-dialog.cc:214
-msgid "_Port:"
-msgstr "_Port:"
-
-#: src/dialogs/gnome-cmd-con-dialog.cc:216
-msgid "_Folder:"
-msgstr "_Mapp:"
-
-#: src/dialogs/gnome-cmd-con-dialog.cc:219
-msgid "_Domain name:"
-msgstr "_Domännamn:"
-
-#: src/dialogs/gnome-cmd-con-dialog.cc:269
-msgid "You must enter a name for the server"
-msgstr "Du måste ange ett namn för servern"
-
-#: src/dialogs/gnome-cmd-con-dialog.cc:269
-msgid "Please enter a name and try again."
-msgstr "Ange ett namn och försök igen."
-
-#: src/dialogs/gnome-cmd-con-dialog.cc:279
-#, c-format
-msgid "“%s” is not a valid location"
-msgstr "”%s” är inte en giltig plats"
-
-#: src/dialogs/gnome-cmd-con-dialog.cc:280
-msgid "Please check spelling and try again."
-msgstr "Kontrollera stavning och försök igen."
-
-#: src/dialogs/gnome-cmd-con-dialog.cc:369 src/gnome-cmd-main-win.cc:188
-msgid "Remote Server"
-msgstr "Fjärrserver"
-
-#: src/dialogs/gnome-cmd-con-dialog.cc:388
-msgid "Service _type:"
-msgstr "Tjänste_typ:"
-
-#. Keep this in sync with enum ConnectionMethodID in gnome-cmd-con.h
-#: src/dialogs/gnome-cmd-con-dialog.cc:401
-msgid "SSH"
-msgstr "SSH"
-
-#: src/dialogs/gnome-cmd-con-dialog.cc:402
-msgid "FTP (with login)"
-msgstr "FTP (med inloggning)"
-
-#: src/dialogs/gnome-cmd-con-dialog.cc:403
-msgid "Public FTP"
-msgstr "Offentlig FTP"
-
-#: src/dialogs/gnome-cmd-con-dialog.cc:404
-msgid "Windows share"
-msgstr "Windows-utdelning"
-
-#: src/dialogs/gnome-cmd-con-dialog.cc:405
-msgid "WebDAV (HTTP)"
-msgstr "WebDAV (HTTP)"
-
-#: src/dialogs/gnome-cmd-con-dialog.cc:406
-msgid "Secure WebDAV (HTTPS)"
-msgstr "Säker WebDAV (HTTPS)"
-
-#: src/dialogs/gnome-cmd-con-dialog.cc:407
-msgid "Custom location"
-msgstr "Anpassad plats"
-
 #: src/dialogs/gnome-cmd-delete-dialog.cc:81
 #, c-format
 msgid "Deleted %lu of %lu file"
@@ -1938,13 +1954,13 @@ msgstr "Problem vid borttagning"
 #: src/gnome-cmd-xfer.cc:220 src/gnome-cmd-xfer.cc:223
 #: src/gnome-cmd-xfer.cc:278 src/gnome-cmd-xfer.cc:281
 #: src/gnome-cmd-xfer.cc:396 src/gnome-cmd-xfer.cc:399
-#: src/gnome-cmd-xfer.cc:1173 src/gnome-cmd-xfer.cc:1184
-#: src/gnome-cmd-xfer.cc:1231
+#: src/gnome-cmd-xfer.cc:1171 src/gnome-cmd-xfer.cc:1182
+#: src/gnome-cmd-xfer.cc:1229
 msgid "Abort"
 msgstr "Avbryt"
 
 #: src/dialogs/gnome-cmd-delete-dialog.cc:307
-#: src/gnome-cmd-file-selector.cc:1396 src/gnome-cmd-xfer.cc:193
+#: src/gnome-cmd-file-selector.cc:1407 src/gnome-cmd-xfer.cc:193
 #: src/gnome-cmd-xfer.cc:220 src/gnome-cmd-xfer.cc:223
 #: src/gnome-cmd-xfer.cc:278 src/gnome-cmd-xfer.cc:281
 #: src/gnome-cmd-xfer.cc:396 src/gnome-cmd-xfer.cc:399
@@ -1957,7 +1973,7 @@ msgstr "Försök igen"
 #: src/dialogs/gnome-cmd-options-dialog.cc:1118
 #: src/dialogs/gnome-cmd-prepare-copy-dialog.cc:110
 #: src/dialogs/gnome-cmd-prepare-move-dialog.cc:104
-#: src/gnome-cmd-file-selector.cc:1396 src/gnome-cmd-xfer.cc:193
+#: src/gnome-cmd-file-selector.cc:1407 src/gnome-cmd-xfer.cc:193
 #: src/gnome-cmd-xfer.cc:220 src/gnome-cmd-xfer.cc:278
 #: src/gnome-cmd-xfer.cc:396
 msgid "Skip"
@@ -1990,13 +2006,14 @@ msgstr "Katalogen ”%s” är inte tom. Vill du verkligen ta bort den?"
 #: src/dialogs/gnome-cmd-delete-dialog.cc:556
 #: src/dialogs/gnome-cmd-options-dialog.cc:1066
 #: src/gnome-cmd-file-popmenu.cc:357 src/gnome-cmd-main-win.cc:183
-#: src/gnome-cmd-user-actions.cc:329
+#: src/gnome-cmd-user-actions.cc:326
 msgid "Delete"
 msgstr "Ta bort"
 
 #: src/dialogs/gnome-cmd-delete-dialog.cc:467
-#: src/dialogs/gnome-cmd-delete-dialog.cc:556 src/gnome-cmd-file-list.cc:1422
-#: src/gnome-cmd-file-list.cc:1451 src/gnome-cmd-file-selector.cc:1396
+#: src/dialogs/gnome-cmd-delete-dialog.cc:556
+#: src/gnome-cmd-file-selector.cc:1407 src/open_file.rs:50 src/open_file.rs:74
+#: src/user_actions.rs:75
 msgid "Cancel"
 msgstr "Avbryt"
 
@@ -2066,7 +2083,7 @@ msgid "Directory name:"
 msgstr "Katalognamn:"
 
 #: src/dialogs/gnome-cmd-file-props-dialog.cc:332
-#: src/gnome-cmd-file-selector.cc:1183
+#: src/gnome-cmd-file-selector.cc:1194
 msgid "File name:"
 msgstr "Filnamn:"
 
@@ -2074,120 +2091,113 @@ msgstr "Filnamn:"
 msgid "Symlink target:"
 msgstr "Mål för symboliska länkar:"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:357
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:356
 msgid "Location:"
 msgstr "Plats:"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:365
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:364
 msgid "Volume:"
 msgstr "Volym:"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:393
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:392
 msgid "Free space:"
 msgstr "Ledigt utrymme:"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:405
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:404
 msgid "Content Type:"
 msgstr "Innehållstyp:"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:417
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:416
 msgid "Opens with:"
 msgstr "Öppnas med:"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:428
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:427
 msgid "No default application registered"
 msgstr "Inget standardprogram registrerat"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:439
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:438
 msgid "Modified:"
 msgstr "Ändrad:"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:446
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:445
 msgid "Accessed:"
 msgstr "Använd:"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:456
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:455
 msgid "Size:"
 msgstr "Storlek:"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:503
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:502
 msgid "Owner and group"
 msgstr "Ägare och grupp"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:512
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:511
 msgid "Access permissions"
 msgstr "Rättigheter"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:596
-#: src/intviewer/viewer-window.cc:1223
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:595
+#: src/intviewer/viewer-window.cc:1224
 msgid "Type"
 msgstr "Typ"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:597
-#: src/intviewer/viewer-window.cc:1224
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:596
+#: src/intviewer/viewer-window.cc:1225
 msgid "Metadata namespace"
 msgstr "Namnrymd för metadata"
 
-#. col = gnome_cmd_treeview_create_new_text_column (GTK_TREE_VIEW (view), renderer, COL_METHOD);
-#. gtk_tree_view_column_set_sort_column_id (col, SORTID_METHOD);
-#. g_object_set (renderer,
-#. "foreground-set", TRUE,
-#. "foreground", "DarkGray",
-#. NULL);
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:604
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:603
 #: src/dialogs/gnome-cmd-manage-bookmarks-dialog.cc:271
-#: src/dialogs/gnome-cmd-remote-dialog.cc:354
-#: src/intviewer/viewer-window.cc:1231 src/plugin_manager.cc:403
-#: src/tags/gnome-cmd-tags.cc:327
+#: src/dialogs/remote_dialog.rs:187 src/intviewer/viewer-window.cc:1232
+#: src/plugin_manager.cc:403 src/tags/gnome-cmd-tags.cc:327
 msgid "Name"
 msgstr "Namn"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:605
-#: src/intviewer/viewer-window.cc:1232
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:604
+#: src/intviewer/viewer-window.cc:1233
 msgid "Tag name"
 msgstr "Taggnamn"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:607
-#: src/intviewer/viewer-window.cc:1234
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:606
+#: src/intviewer/viewer-window.cc:1235
 msgid "Value"
 msgstr "Värde"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:608
-#: src/intviewer/viewer-window.cc:1235
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:607
+#: src/intviewer/viewer-window.cc:1236
 msgid "Tag value"
 msgstr "Taggvärde"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:610
-#: src/intviewer/viewer-window.cc:1237 src/tags/gnome-cmd-tags.cc:171
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:609
+#: src/intviewer/viewer-window.cc:1238 src/tags/gnome-cmd-tags.cc:171
 #: src/tags/gnome-cmd-tags.cc:322 src/tags/gnome-cmd-tags.cc:424
 #: src/tags/gnome-cmd-tags.cc:535
 msgid "Description"
 msgstr "Beskrivning"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:611
-#: src/intviewer/viewer-window.cc:1238
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:610
+#: src/intviewer/viewer-window.cc:1239
 msgid "Metadata tag description"
 msgstr "Beskrivning av metadatatagg"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:657
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:656
 msgid "File Properties"
 msgstr "Filegenskaper"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:672
-#: src/gnome-cmd-user-actions.cc:349
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:671
+#: src/gnome-cmd-user-actions.cc:346
 msgid "Properties"
 msgstr "Egenskaper"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:673
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:672
 #: src/tags/gnome-cmd-tags.cc:329
 msgid "Permissions"
 msgstr "Rättigheter"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:674
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:673
 msgid "Metadata"
 msgstr "Metadata"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:677
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:676
 msgid "Co_py"
 msgstr "Ko_piera"
 
@@ -2206,8 +2216,8 @@ msgstr ""
 #: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:243
 #: src/dialogs/gnome-cmd-options-dialog.cc:1820
 #: src/dialogs/gnome-cmd-options-dialog.cc:2260
-#: src/dialogs/gnome-cmd-remote-dialog.cc:436
-#: src/gnome-cmd-advrename-profile-component.cc:981
+#: src/dialogs/remote_dialog.rs:219
+#: src/gnome-cmd-advrename-profile-component.cc:896
 msgid "_Add"
 msgstr "_Lägg till"
 
@@ -2216,8 +2226,8 @@ msgstr "_Lägg till"
 #: src/dialogs/gnome-cmd-manage-profiles-dialog.h:339
 #: src/dialogs/gnome-cmd-options-dialog.cc:1830
 #: src/dialogs/gnome-cmd-options-dialog.cc:2270
-#: src/dialogs/gnome-cmd-remote-dialog.cc:441
-#: src/gnome-cmd-advrename-profile-component.cc:987
+#: src/dialogs/remote_dialog.rs:132
+#: src/gnome-cmd-advrename-profile-component.cc:902
 msgid "_Remove"
 msgstr "Ta _bort"
 
@@ -2267,23 +2277,8 @@ msgstr "Ogiltigt kortkommando."
 msgid "Do nothing"
 msgstr "Gör ingenting"
 
-#: src/dialogs/gnome-cmd-make-copy-dialog.cc:62
-#: src/gnome-cmd-file-selector.cc:1049
-msgid "No file name entered"
-msgstr "Inget filnamn angivet"
-
-#: src/dialogs/gnome-cmd-make-copy-dialog.cc:136
-#: src/dialogs/gnome-cmd-prepare-copy-dialog.cc:145
-#, c-format
-msgid "Copy “%s” to"
-msgstr "Kopiera ”%s” till"
-
-#: src/dialogs/gnome-cmd-make-copy-dialog.cc:143
-msgid "Copy File"
-msgstr "Kopiera fil"
-
 #: src/dialogs/gnome-cmd-manage-bookmarks-dialog.cc:100
-#: src/dialogs/gnome-cmd-search-dialog.cc:1271
+#: src/dialogs/gnome-cmd-search-dialog.cc:1274
 msgid "_Jump to"
 msgstr "_Hoppa till"
 
@@ -2291,8 +2286,8 @@ msgstr "_Hoppa till"
 #: src/dialogs/gnome-cmd-manage-profiles-dialog.h:335
 #: src/dialogs/gnome-cmd-options-dialog.cc:1824
 #: src/dialogs/gnome-cmd-options-dialog.cc:2264
-#: src/dialogs/gnome-cmd-remote-dialog.cc:438
-#: src/gnome-cmd-advrename-profile-component.cc:984
+#: src/dialogs/remote_dialog.rs:128
+#: src/gnome-cmd-advrename-profile-component.cc:899
 #: src/gnome-cmd-main-menu.cc:176
 msgid "_Edit"
 msgstr "R_edigera"
@@ -2346,7 +2341,7 @@ msgstr "Bokmärkt sökväg"
 msgid "Edit Bookmark"
 msgstr "Redigera bokmärke"
 
-#: src/dialogs/gnome-cmd-manage-bookmarks-dialog.cc:575
+#: src/dialogs/gnome-cmd-manage-bookmarks-dialog.cc:574
 msgid ""
 "To bookmark a directory the whole search path to the directory must be in "
 "valid UTF-8 encoding"
@@ -2354,7 +2349,7 @@ msgstr ""
 "För att bokmärka en katalog måste hela dess sökväg vara i giltig UTF-8-"
 "kodning"
 
-#: src/dialogs/gnome-cmd-manage-bookmarks-dialog.cc:582
+#: src/dialogs/gnome-cmd-manage-bookmarks-dialog.cc:581
 msgid "New Bookmark"
 msgstr "Nytt bokmärke"
 
@@ -2422,7 +2417,7 @@ msgid "Middle mouse button"
 msgstr "Mittenmusknappen"
 
 #: src/dialogs/gnome-cmd-options-dialog.cc:132 src/gnome-cmd-main-win.cc:173
-#: src/gnome-cmd-user-actions.cc:399
+#: src/gnome-cmd-user-actions.cc:396
 msgid "Up one directory"
 msgstr "Upp en katalog"
 
@@ -2467,7 +2462,7 @@ msgid "Case sensitive"
 msgstr "Skilj på stora och små bokstäver"
 
 #: src/dialogs/gnome-cmd-options-dialog.cc:189
-#: src/gnome-cmd-user-actions.cc:332
+#: src/gnome-cmd-user-actions.cc:329
 msgid "Quick search"
 msgstr "Snabbsök"
 
@@ -2548,8 +2543,8 @@ msgstr "Med GB, MB o.s.v."
 
 #. Translators: '<locale>' refers to the mode of file size display (here - use current locale settings)
 #: src/dialogs/gnome-cmd-options-dialog.cc:376
-#: src/gnome-cmd-advrename-profile-component.cc:145
-#: src/gnome-cmd-advrename-profile-component.cc:160
+#: src/gnome-cmd-advrename-profile-component.cc:143
+#: src/gnome-cmd-advrename-profile-component.cc:158
 msgid "<locale>"
 msgstr "<locale>"
 
@@ -2847,7 +2842,7 @@ msgstr "Bekräfta musåtgärd"
 #: src/dialogs/gnome-cmd-options-dialog.cc:1138
 #: src/dialogs/gnome-cmd-prepare-copy-dialog.cc:94
 #: src/gnome-cmd-file-popmenu.cc:355 src/gnome-cmd-main-win.cc:181
-#: src/gnome-cmd-user-actions.cc:326
+#: src/gnome-cmd-user-actions.cc:323
 msgid "Copy"
 msgstr "Kopiera"
 
@@ -3140,6 +3135,11 @@ msgstr "Följ länkar"
 msgid "Overwrite Files"
 msgstr "Skriv över befintliga filer"
 
+#: src/dialogs/gnome-cmd-prepare-copy-dialog.cc:145
+#, c-format
+msgid "Copy “%s” to"
+msgstr "Kopiera ”%s” till"
+
 #: src/dialogs/gnome-cmd-prepare-copy-dialog.cc:148
 #, c-format
 msgid "copy %d file to"
@@ -3166,49 +3166,23 @@ msgstr[1] "flytta %d filer till"
 msgid "The directory “%s” doesn’t exist, do you want to create it?"
 msgstr "Katalogen ”%s” finns inte. Vill du skapa den?"
 
-#: src/dialogs/gnome-cmd-prepare-xfer-dialog.cc:185
-#: src/gnome-cmd-advrename-profile-component.cc:487
-#: src/gnome-cmd-advrename-profile-component.cc:687
-#: src/gnome-cmd-advrename-profile-component.cc:719
-#: src/gnome-cmd-file-list-actions.cc:115
+#: src/dialogs/gnome-cmd-prepare-xfer-dialog.cc:185 src/file_list_actions.rs:53
+#: src/gnome-cmd-advrename-profile-component.cc:485
+#: src/gnome-cmd-advrename-profile-component.cc:602
+#: src/gnome-cmd-advrename-profile-component.cc:634
 msgid "No"
 msgstr "Nej"
 
-#: src/dialogs/gnome-cmd-prepare-xfer-dialog.cc:185
-#: src/gnome-cmd-advrename-profile-component.cc:487
-#: src/gnome-cmd-advrename-profile-component.cc:687
-#: src/gnome-cmd-advrename-profile-component.cc:719
-#: src/gnome-cmd-file-list-actions.cc:115
+#: src/dialogs/gnome-cmd-prepare-xfer-dialog.cc:185 src/file_list_actions.rs:53
+#: src/gnome-cmd-advrename-profile-component.cc:485
+#: src/gnome-cmd-advrename-profile-component.cc:602
+#: src/gnome-cmd-advrename-profile-component.cc:634
 msgid "Yes"
 msgstr "Ja"
 
 #: src/dialogs/gnome-cmd-prepare-xfer-dialog.cc:193
 msgid "Unknown error"
 msgstr "Okänt fel"
-
-#: src/dialogs/gnome-cmd-remote-dialog.cc:212
-msgid "No server selected"
-msgstr "Ingen server är vald"
-
-#: src/dialogs/gnome-cmd-remote-dialog.cc:344
-msgid "Network protocol"
-msgstr "Nätverksprotokoll"
-
-#: src/dialogs/gnome-cmd-remote-dialog.cc:355
-msgid "Connection name"
-msgstr "Anslutningsnamn"
-
-#: src/dialogs/gnome-cmd-remote-dialog.cc:409
-msgid "Remote Connections"
-msgstr "Fjärranslutningar"
-
-#: src/dialogs/gnome-cmd-remote-dialog.cc:416
-msgid "Connections"
-msgstr "Anslutningar"
-
-#: src/dialogs/gnome-cmd-remote-dialog.cc:452
-msgid "C_onnect"
-msgstr "_Anslut"
 
 #: src/dialogs/gnome-cmd-search-dialog.cc:44
 msgid "Search local directories only"
@@ -3262,27 +3236,47 @@ msgstr "Fel vid tolkning av sökkommandot."
 msgid "Error running the search command."
 msgstr "Fel vid körning av sökkommandot."
 
-#: src/dialogs/gnome-cmd-search-dialog.cc:1033
+#: src/dialogs/gnome-cmd-search-dialog.cc:1041
 #, c-format
 msgid "Failed to change directory outside of %s"
 msgstr "Kunde inte ändra katalog utanför %s"
 
-#: src/dialogs/gnome-cmd-search-dialog.cc:1154
+#: src/dialogs/gnome-cmd-search-dialog.cc:1157
 msgid "Search…"
 msgstr "Sök…"
 
-#: src/dialogs/gnome-cmd-search-dialog.cc:1272
+#: src/dialogs/gnome-cmd-search-dialog.cc:1275
 #: src/intviewer/search-progress-dlg.cc:72
 msgid "_Stop"
 msgstr "S_toppa"
 
-#: src/dialogs/gnome-cmd-search-dialog.cc:1273
+#: src/dialogs/gnome-cmd-search-dialog.cc:1276
 msgid "_Find"
 msgstr "_Sök"
 
-#: src/dialogs/gnome-cmd-search-dialog.cc:1286
+#: src/dialogs/gnome-cmd-search-dialog.cc:1289
 msgid "_Look in folder:"
 msgstr "Sök i _mapp:"
+
+#: src/dialogs/make_copy_dialog.rs:44
+msgid "Copy File"
+msgstr "Kopiera fil"
+
+#: src/dialogs/remote_dialog.rs:151
+msgid "Remote Connections"
+msgstr "Fjärranslutningar"
+
+#: src/dialogs/remote_dialog.rs:177
+msgid "Network protocol"
+msgstr "Nätverksprotokoll"
+
+#: src/dialogs/remote_dialog.rs:195
+msgid "Connection name"
+msgstr "Anslutningsnamn"
+
+#: src/dialogs/remote_dialog.rs:353 src/dialogs/remote_dialog.rs:396
+msgid "No server selected"
+msgstr "Ingen server är vald"
 
 #: src/dirlist.cc:82
 msgid "Waiting for file list"
@@ -3319,6 +3313,22 @@ msgstr "Inaktiverad"
 msgid "New accelerator…"
 msgstr "Ny snabbtangent…"
 
+#: src/file_list_actions.rs:79
+msgid "No files were given to open."
+msgstr "Inga filer att öppna angavs."
+
+#: src/file_list_actions.rs:110
+msgid "Download failed."
+msgstr "Hämtning misslyckades."
+
+#: src/file_list_actions.rs:183
+msgid "Couldn’t retrieve MIME type of the file."
+msgstr "Kunde inte hämta MIME-typen för filen."
+
+#: src/file_view.rs:57
+msgid "Failed to download a file"
+msgstr "Misslyckades med att hämta en fil"
+
 #: src/gnome-cmd-about-plugin.cc:178
 msgid "Credits"
 msgstr "Tack till"
@@ -3349,252 +3359,240 @@ msgstr "_Tack till"
 msgid "About %s"
 msgstr "Om %s"
 
-#: src/gnome-cmd-advrename-profile-component.cc:111
+#: src/gnome-cmd-advrename-profile-component.cc:109
 msgid "Grandparent"
 msgstr "Farförälder"
 
-#: src/gnome-cmd-advrename-profile-component.cc:112
+#: src/gnome-cmd-advrename-profile-component.cc:110
 msgid "Parent"
 msgstr "Förälder"
 
-#: src/gnome-cmd-advrename-profile-component.cc:120
+#: src/gnome-cmd-advrename-profile-component.cc:118
 msgid "File name"
 msgstr "Filnamn"
 
-#: src/gnome-cmd-advrename-profile-component.cc:121
+#: src/gnome-cmd-advrename-profile-component.cc:119
 msgid "File name (range)"
 msgstr "Filnamn (intervall)"
 
-#: src/gnome-cmd-advrename-profile-component.cc:122
+#: src/gnome-cmd-advrename-profile-component.cc:120
 msgid "File name without extension"
 msgstr "Filnamn utan filändelse"
 
-#: src/gnome-cmd-advrename-profile-component.cc:123
+#: src/gnome-cmd-advrename-profile-component.cc:121
 msgid "File name without extension (range)"
 msgstr "Filnamn utan filändelse (intervall)"
 
-#: src/gnome-cmd-advrename-profile-component.cc:124
+#: src/gnome-cmd-advrename-profile-component.cc:122
 msgid "File extension"
 msgstr "Filändelse"
 
-#: src/gnome-cmd-advrename-profile-component.cc:132
-#: src/gnome-cmd-advrename-profile-component.cc:881
-#: src/gnome-cmd-advrename-profile-component.cc:901
+#: src/gnome-cmd-advrename-profile-component.cc:130
+#: src/gnome-cmd-advrename-profile-component.cc:796
+#: src/gnome-cmd-advrename-profile-component.cc:816
 msgid "Counter"
 msgstr "Räknare"
 
-#: src/gnome-cmd-advrename-profile-component.cc:133
+#: src/gnome-cmd-advrename-profile-component.cc:131
 msgid "Counter (width)"
 msgstr "Räknare (bredd)"
 
-#: src/gnome-cmd-advrename-profile-component.cc:134
+#: src/gnome-cmd-advrename-profile-component.cc:132
 msgid "Counter (auto)"
 msgstr "Räknare (auto)"
 
-#: src/gnome-cmd-advrename-profile-component.cc:135
+#: src/gnome-cmd-advrename-profile-component.cc:133
 msgid "Hexadecimal random number (width)"
 msgstr "Hexadecimalt slumptal (bredd)"
 
-#: src/gnome-cmd-advrename-profile-component.cc:146
+#: src/gnome-cmd-advrename-profile-component.cc:144
 msgid "yyyy-mm-dd"
 msgstr "åååå-mm-dd"
 
-#: src/gnome-cmd-advrename-profile-component.cc:147
+#: src/gnome-cmd-advrename-profile-component.cc:145
 msgid "yy-mm-dd"
 msgstr "åå-mm-dd"
 
-#: src/gnome-cmd-advrename-profile-component.cc:148
+#: src/gnome-cmd-advrename-profile-component.cc:146
 msgid "yy.mm.dd"
 msgstr "åå.mm.dd"
 
-#: src/gnome-cmd-advrename-profile-component.cc:149
+#: src/gnome-cmd-advrename-profile-component.cc:147
 msgid "yymmdd"
 msgstr "ååmmdd"
 
-#: src/gnome-cmd-advrename-profile-component.cc:150
+#: src/gnome-cmd-advrename-profile-component.cc:148
 msgid "dd.mm.yy"
 msgstr "dd.mm.åå"
 
-#: src/gnome-cmd-advrename-profile-component.cc:151
+#: src/gnome-cmd-advrename-profile-component.cc:149
 msgid "mm-dd-yy"
 msgstr "mm-dd-åå"
 
-#: src/gnome-cmd-advrename-profile-component.cc:152
+#: src/gnome-cmd-advrename-profile-component.cc:150
 msgid "yyyy"
 msgstr "åååå"
 
-#: src/gnome-cmd-advrename-profile-component.cc:153
+#: src/gnome-cmd-advrename-profile-component.cc:151
 msgid "yy"
 msgstr "åå"
 
-#: src/gnome-cmd-advrename-profile-component.cc:154
+#: src/gnome-cmd-advrename-profile-component.cc:152
 msgid "mm"
 msgstr "mm"
 
-#: src/gnome-cmd-advrename-profile-component.cc:155
+#: src/gnome-cmd-advrename-profile-component.cc:153
 msgid "mmm"
 msgstr "mmm"
 
-#: src/gnome-cmd-advrename-profile-component.cc:156
+#: src/gnome-cmd-advrename-profile-component.cc:154
 msgid "dd"
 msgstr "dd"
 
-#: src/gnome-cmd-advrename-profile-component.cc:161
+#: src/gnome-cmd-advrename-profile-component.cc:159
 msgid "HH.MM.SS"
 msgstr "TT.MM.SS"
 
-#: src/gnome-cmd-advrename-profile-component.cc:162
+#: src/gnome-cmd-advrename-profile-component.cc:160
 msgid "HH-MM-SS"
 msgstr "TT-MM-SS"
 
-#: src/gnome-cmd-advrename-profile-component.cc:163
+#: src/gnome-cmd-advrename-profile-component.cc:161
 msgid "HHMMSS"
 msgstr "TTMMSS"
 
-#: src/gnome-cmd-advrename-profile-component.cc:164
+#: src/gnome-cmd-advrename-profile-component.cc:162
 msgid "HH"
 msgstr "TT"
 
-#: src/gnome-cmd-advrename-profile-component.cc:165
+#: src/gnome-cmd-advrename-profile-component.cc:163
 msgid "MM"
 msgstr "MM"
 
-#: src/gnome-cmd-advrename-profile-component.cc:166
+#: src/gnome-cmd-advrename-profile-component.cc:164
 msgid "SS"
 msgstr "SS"
 
-#: src/gnome-cmd-advrename-profile-component.cc:167
+#: src/gnome-cmd-advrename-profile-component.cc:165
 #: src/tags/gnome-cmd-tags.cc:403
 msgid "Time"
 msgstr "Tid"
 
-#: src/gnome-cmd-advrename-profile-component.cc:555
-msgid "_Select range:"
-msgstr "_Välj intervall:"
-
-#: src/gnome-cmd-advrename-profile-component.cc:566
-msgid "_Inverse selection"
-msgstr "_Invertera markering"
-
-#: src/gnome-cmd-advrename-profile-component.cc:627
-msgid "Range Selection"
-msgstr "Intervallmarkering"
-
-#: src/gnome-cmd-advrename-profile-component.cc:677
+#: src/gnome-cmd-advrename-profile-component.cc:592
 msgid "Add Rule"
 msgstr "Lägg till regel"
 
-#: src/gnome-cmd-advrename-profile-component.cc:712
+#: src/gnome-cmd-advrename-profile-component.cc:627
 msgid "Edit Rule"
 msgstr "Redigera regel"
 
-#: src/gnome-cmd-advrename-profile-component.cc:848
+#: src/gnome-cmd-advrename-profile-component.cc:763
 msgid "_Template"
 msgstr "_Mall"
 
-#: src/gnome-cmd-advrename-profile-component.cc:873
+#: src/gnome-cmd-advrename-profile-component.cc:788
 msgid "Directory"
 msgstr "Katalog"
 
-#: src/gnome-cmd-advrename-profile-component.cc:889
+#: src/gnome-cmd-advrename-profile-component.cc:804
 msgid "Metatag"
 msgstr "Metatagg"
 
-#: src/gnome-cmd-advrename-profile-component.cc:916
+#: src/gnome-cmd-advrename-profile-component.cc:831
 msgid "_Start:"
 msgstr "_Start:"
 
-#: src/gnome-cmd-advrename-profile-component.cc:924
+#: src/gnome-cmd-advrename-profile-component.cc:839
 msgid "Ste_p:"
 msgstr "Ste_g:"
 
-#: src/gnome-cmd-advrename-profile-component.cc:932
+#: src/gnome-cmd-advrename-profile-component.cc:847
 msgid "Di_gits:"
 msgstr "Sif_fror:"
 
-#: src/gnome-cmd-advrename-profile-component.cc:937
+#: src/gnome-cmd-advrename-profile-component.cc:852
 msgid "auto"
 msgstr "auto"
 
-#: src/gnome-cmd-advrename-profile-component.cc:951
+#: src/gnome-cmd-advrename-profile-component.cc:866
 msgid "Regex replacing"
 msgstr "Regex-ersättning"
 
-#: src/gnome-cmd-advrename-profile-component.cc:990
+#: src/gnome-cmd-advrename-profile-component.cc:905
 msgid "Remove A_ll"
 msgstr "Ta bort a_lla"
 
-#: src/gnome-cmd-advrename-profile-component.cc:1001
+#: src/gnome-cmd-advrename-profile-component.cc:916
 msgid "Case"
 msgstr "Skiftläge"
 
-#: src/gnome-cmd-advrename-profile-component.cc:1014
+#: src/gnome-cmd-advrename-profile-component.cc:929
 msgid "<unchanged>"
 msgstr "<oförändrad>"
 
-#: src/gnome-cmd-advrename-profile-component.cc:1015
+#: src/gnome-cmd-advrename-profile-component.cc:930
 msgid "lowercase"
 msgstr "gemener"
 
-#: src/gnome-cmd-advrename-profile-component.cc:1016
+#: src/gnome-cmd-advrename-profile-component.cc:931
 msgid "UPPERCASE"
 msgstr "VERSAL"
 
-#: src/gnome-cmd-advrename-profile-component.cc:1018
+#: src/gnome-cmd-advrename-profile-component.cc:933
 msgid "Sentence case"
 msgstr "Skiftläge"
 
 #. FIXME
-#: src/gnome-cmd-advrename-profile-component.cc:1019
+#: src/gnome-cmd-advrename-profile-component.cc:934
 msgid "Initial Caps"
 msgstr "Inledande versal"
 
 #. FIXME
-#: src/gnome-cmd-advrename-profile-component.cc:1020
+#: src/gnome-cmd-advrename-profile-component.cc:935
 msgid "tOGGLE cASE"
 msgstr "vÄXLA sKIFTLÄGE"
 
-#: src/gnome-cmd-advrename-profile-component.cc:1030
+#: src/gnome-cmd-advrename-profile-component.cc:945
 msgid "Trim blanks"
 msgstr "Trimma tomt utrymme"
 
-#: src/gnome-cmd-advrename-profile-component.cc:1043
+#: src/gnome-cmd-advrename-profile-component.cc:958
 msgid "<none>"
 msgstr "<ingen>"
 
-#: src/gnome-cmd-advrename-profile-component.cc:1044
+#: src/gnome-cmd-advrename-profile-component.cc:959
 msgid "leading"
 msgstr "inledande"
 
-#: src/gnome-cmd-advrename-profile-component.cc:1045
+#: src/gnome-cmd-advrename-profile-component.cc:960
 msgid "trailing"
 msgstr "efterföljande"
 
-#: src/gnome-cmd-advrename-profile-component.cc:1046
+#: src/gnome-cmd-advrename-profile-component.cc:961
 msgid "leading and trailing"
 msgstr "inledande och efterföljande"
 
-#: src/gnome-cmd-advrename-profile-component.cc:1206
+#: src/gnome-cmd-advrename-profile-component.cc:1121
 msgid "Search for"
 msgstr "Sök efter"
 
-#: src/gnome-cmd-advrename-profile-component.cc:1209
+#: src/gnome-cmd-advrename-profile-component.cc:1124
 msgid "Regex pattern"
 msgstr "Reguljärt uttrycksmönster"
 
-#: src/gnome-cmd-advrename-profile-component.cc:1211
+#: src/gnome-cmd-advrename-profile-component.cc:1126
 msgid "Replace with"
 msgstr "Ersätt med"
 
-#: src/gnome-cmd-advrename-profile-component.cc:1214
+#: src/gnome-cmd-advrename-profile-component.cc:1129
 msgid "Replacement"
 msgstr "Ersättning"
 
-#: src/gnome-cmd-advrename-profile-component.cc:1216
+#: src/gnome-cmd-advrename-profile-component.cc:1131
 msgid "Match case"
 msgstr "Matcha skiftläge"
 
-#: src/gnome-cmd-advrename-profile-component.cc:1219
+#: src/gnome-cmd-advrename-profile-component.cc:1134
 msgid "Case sensitive matching"
 msgstr "Skilj på stora och små bokstäver"
 
@@ -3651,47 +3649,47 @@ msgstr "Textvy:"
 msgid "Number view:"
 msgstr "Nummervy:"
 
-#: src/gnome-cmd-con.cc:638 src/gnome-cmd-con.cc:669 src/gnome-cmd-con.cc:700
+#: src/gnome-cmd-con.cc:625 src/gnome-cmd-con.cc:656 src/gnome-cmd-con.cc:687
 msgid "<New connection>"
 msgstr "<Ny anslutning>"
 
-#: src/gnome-cmd-con.cc:640 src/gnome-cmd-con-device.cc:477
+#: src/gnome-cmd-con.cc:627 src/gnome-cmd-con-device.cc:490
 #, c-format
 msgid "Go to: %s"
 msgstr "Gå till: %s"
 
-#: src/gnome-cmd-con.cc:671
+#: src/gnome-cmd-con.cc:658
 #, c-format
 msgid "Connect to: %s"
 msgstr "Anslut till: %s"
 
-#: src/gnome-cmd-con.cc:702
+#: src/gnome-cmd-con.cc:689
 #, c-format
 msgid "Disconnect from: %s"
 msgstr "Koppla ner anslutningen till: %s"
 
-#: src/gnome-cmd-con-device.cc:124
+#: src/gnome-cmd-con-device.cc:141
 msgid "Failed to execute the mount command"
 msgstr "Kunde inte exekvera monteringskommandot"
 
-#: src/gnome-cmd-con-device.cc:132
+#: src/gnome-cmd-con-device.cc:149
 msgid "Mount failed: permission denied"
 msgstr "Monteringen misslyckades: Åtkomst nekad"
 
-#: src/gnome-cmd-con-device.cc:135
+#: src/gnome-cmd-con-device.cc:152
 msgid "Mount failed: no medium found"
 msgstr "Monteringen misslyckades: Inget medium funnet"
 
-#: src/gnome-cmd-con-device.cc:138
+#: src/gnome-cmd-con-device.cc:155
 #, c-format
 msgid "Mount failed: mount exited with exitstatus %d"
 msgstr "Monteringen misslyckades: mount avslutades med returstatusen %d"
 
-#: src/gnome-cmd-con-device.cc:307
+#: src/gnome-cmd-con-device.cc:320
 msgid "Volume successfully unmounted"
 msgstr "Volymen avmonterades"
 
-#: src/gnome-cmd-con-device.cc:339
+#: src/gnome-cmd-con-device.cc:352
 #, c-format
 msgid ""
 "Cannot unmount the volume:\n"
@@ -3702,29 +3700,25 @@ msgstr ""
 "%s\n"
 "Felkod: %d"
 
-#: src/gnome-cmd-con-device.cc:475
+#: src/gnome-cmd-con-device.cc:488
 #, c-format
 msgid "Go to: %s (%s)"
 msgstr "Gå till: %s (%s)"
 
-#: src/gnome-cmd-con-device.cc:484
+#: src/gnome-cmd-con-device.cc:497
 #, c-format
 msgid "Mount: %s"
 msgstr "Montera: %s"
 
-#: src/gnome-cmd-con-device.cc:491
+#: src/gnome-cmd-con-device.cc:504
 #, c-format
 msgid "Unmount: %s"
 msgstr "Avmontera: %s"
 
-#: src/gnome-cmd-con-device.cc:592
+#: src/gnome-cmd-con-device.cc:605
 #, c-format
 msgid "Mounting %s"
 msgstr "Monterar %s"
-
-#: src/gnome-cmd-con.h:267
-msgid "Unknown disk usage"
-msgstr "Okänd diskanvändning"
 
 #: src/gnome-cmd-con-home.cc:72
 msgid "Go to: Home"
@@ -3734,21 +3728,21 @@ msgstr "Gå till: Hem"
 msgid "Home"
 msgstr "Hem"
 
-#: src/gnome-cmd-con-remote.cc:113
+#: src/gnome-cmd-con-remote.cc:124
 msgid "Disconnect error"
 msgstr "Fel vid frånkoppling"
 
-#: src/gnome-cmd-con-remote.cc:222
+#: src/gnome-cmd-con-remote.cc:232
 #, c-format
 msgid "Opens remote connection to %s"
 msgstr "Öppnar fjärranslutning till %s"
 
-#: src/gnome-cmd-con-remote.cc:232
+#: src/gnome-cmd-con-remote.cc:242
 #, c-format
 msgid "Closes remote connection to %s"
 msgstr "Stänger fjärranslutning mot %s"
 
-#: src/gnome-cmd-con-remote.cc:321
+#: src/gnome-cmd-con-remote.cc:331
 #, c-format
 msgid "Connecting to %s\n"
 msgstr "Kopplar upp mot %s\n"
@@ -3757,15 +3751,15 @@ msgstr "Kopplar upp mot %s\n"
 msgid "Failed to browse the network. Is Samba supported on the system?"
 msgstr "Kunde inte komma åt nätverket. Stöds Samba på systemet?"
 
-#: src/gnome-cmd-con-smb.cc:181
+#: src/gnome-cmd-con-smb.cc:180
 msgid "Go to: Samba Network"
 msgstr "Gå till: Samba-nätverket"
 
-#: src/gnome-cmd-con-smb.cc:232
+#: src/gnome-cmd-con-smb.cc:231
 msgid "SMB"
 msgstr "SMB"
 
-#: src/gnome-cmd-con-smb.cc:234
+#: src/gnome-cmd-con-smb.cc:233
 msgid "Searching for workgroups and hosts"
 msgstr "Söker efter arbetsgrupper och datorer"
 
@@ -3782,165 +3776,100 @@ msgstr "Lägg till aktuell katalog"
 msgid "Manage bookmarks…"
 msgstr "Hantera bokmärken…"
 
-#: src/gnome-cmd-file.cc:588
+#: src/gnome-cmd-file.cc:567
 msgid "_Open"
 msgstr "_Öppna"
 
-#: src/gnome-cmd-file.cc:591
+#: src/gnome-cmd-file.cc:570
 #, c-format
 msgid "_Open with “%s”"
 msgstr "_Öppna med ”%s”"
 
-#: src/gnome-cmd-file.cc:914 src/gnome-cmd-file.cc:964
-#: src/gnome-cmd-user-actions.cc:880 src/gnome-cmd-user-actions.cc:1040
-#: src/gnome-cmd-user-actions.cc:1282
+#: src/gnome-cmd-file.cc:821 src/gnome-cmd-file.cc:871
+#: src/gnome-cmd-user-actions.cc:875 src/gnome-cmd-user-actions.cc:1035
+#: src/spawn.rs:162 src/spawn.rs:166
 msgid "No valid command given."
 msgstr "Inget giltigt kommando angivet."
 
-#: src/gnome-cmd-file.cc:919 src/gnome-cmd-file.cc:969
-#: src/gnome-cmd-user-actions.cc:885 src/gnome-cmd-user-actions.cc:927
-#: src/gnome-cmd-user-actions.cc:1045 src/gnome-cmd-user-actions.cc:1287
-#: src/gnome-cmd-user-actions.cc:1326 src/utils.cc:129
+#: src/gnome-cmd-file.cc:826 src/gnome-cmd-file.cc:876
+#: src/gnome-cmd-user-actions.cc:880 src/gnome-cmd-user-actions.cc:922
+#: src/gnome-cmd-user-actions.cc:1040 src/spawn.rs:169 src/utils.cc:129
 msgid "Unable to execute command."
 msgstr "Kunde inte köra kommando."
 
-#: src/gnome-cmd-file-list-actions.cc:112 src/gnome-cmd-file-list.cc:1499
-#, c-format
-msgid ""
-"%s does not know how to open remote file. Do you want to download the file "
-"to a temporary location and then open it?"
-msgid_plural ""
-"%s does not know how to open remote files. Do you want to download the files "
-"to a temporary location and then open them?"
-msgstr[0] ""
-"%s kan inte öppna fjärrfilen. Vill du hämta den till en temporär katalog och "
-"sedan öppna den?"
-msgstr[1] ""
-"%s kan inte öppna fjärrfiler. Vill du hämta filerna till en temporär katalog "
-"och sedan öppna dem?"
-
-#: src/gnome-cmd-file-list-actions.cc:237
-msgid "Couldn’t retrieve MIME type of the file."
-msgstr "Kunde inte hämta MIME-typen för filen."
-
-#: src/gnome-cmd-file-list-actions.cc:254
+#: src/gnome-cmd-file-list-actions.cc:51
 msgid "Invalid command"
 msgstr "Ogiltigt kommando"
 
-#: src/gnome-cmd-file-list-actions.cc:283
+#: src/gnome-cmd-file-list-actions.cc:80
 msgid "Application:"
 msgstr "Program:"
 
-#: src/gnome-cmd-file-list-actions.cc:286
+#: src/gnome-cmd-file-list-actions.cc:83
 msgid "Open with other…"
 msgstr "Öppna med annat…"
 
-#: src/gnome-cmd-file-list-actions.cc:291
+#: src/gnome-cmd-file-list-actions.cc:88
 msgid "Needs terminal"
 msgstr "Behöver ett terminalfönster"
 
-#: src/gnome-cmd-file-list.cc:138
+#: src/gnome-cmd-file-list.cc:129
 msgid "name"
 msgstr "namn"
 
-#: src/gnome-cmd-file-list.cc:139
+#: src/gnome-cmd-file-list.cc:130
 msgid "ext"
 msgstr "ext"
 
-#: src/gnome-cmd-file-list.cc:140
+#: src/gnome-cmd-file-list.cc:131
 msgid "dir"
 msgstr "katalog"
 
-#: src/gnome-cmd-file-list.cc:141
+#: src/gnome-cmd-file-list.cc:132
 msgid "size"
 msgstr "storlek"
 
-#: src/gnome-cmd-file-list.cc:142
+#: src/gnome-cmd-file-list.cc:133
 msgid "date"
 msgstr "datum"
 
-#: src/gnome-cmd-file-list.cc:143
+#: src/gnome-cmd-file-list.cc:134
 msgid "perm"
 msgstr "rättigheter"
 
-#: src/gnome-cmd-file-list.cc:144
+#: src/gnome-cmd-file-list.cc:135
 msgid "uid"
 msgstr "uid"
 
-#: src/gnome-cmd-file-list.cc:145
+#: src/gnome-cmd-file-list.cc:136
 msgid "gid"
 msgstr "gid"
 
-#: src/gnome-cmd-file-list.cc:411
+#: src/gnome-cmd-file-list.cc:402
 msgid "_Copy here"
 msgstr "_Kopiera hit"
 
-#: src/gnome-cmd-file-list.cc:416
+#: src/gnome-cmd-file-list.cc:407
 msgid "_Move here"
 msgstr "_Flytta hit"
 
-#: src/gnome-cmd-file-list.cc:421
+#: src/gnome-cmd-file-list.cc:412
 msgid "_Link here"
 msgstr "_Länka hit"
 
-#: src/gnome-cmd-file-list.cc:426
+#: src/gnome-cmd-file-list.cc:417
 msgid "C_ancel"
 msgstr "A_vbryt"
 
-#: src/gnome-cmd-file-list.cc:1419
-#, c-format
-msgid ""
-"“%s” seems to be a binary executable file but it lacks the executable bit. "
-"Do you want to set it and then run the file?"
-msgstr ""
-"”%s” verkar vara en binär körbar fil men exekveringsbiten är inte satt. Vill "
-"du sätta den och sedan köra filen?"
-
-#: src/gnome-cmd-file-list.cc:1421
-msgid "Make Executable?"
-msgstr "Gör körbar?"
-
-#: src/gnome-cmd-file-list.cc:1422
-msgid "OK"
-msgstr "OK"
-
-#: src/gnome-cmd-file-list.cc:1449
-#, c-format
-msgid ""
-"“%s” is an executable text file. Do you want to run it, or display its "
-"contents?"
-msgstr "”%s” är en körbar textfil. Vill du köra den, eller visa dess innehåll?"
-
-#: src/gnome-cmd-file-list.cc:1450
-msgid "Run or Display"
-msgstr "Kör eller visa"
-
-#: src/gnome-cmd-file-list.cc:1451
-msgid "Display"
-msgstr "Visa"
-
-#: src/gnome-cmd-file-list.cc:1451
-msgid "Run"
-msgstr "Kör"
-
-#: src/gnome-cmd-file-list.cc:1467
-#, c-format
-msgid "No default application found for the file type %s."
-msgstr "Inget standardprogram hittades för filtypen %s."
-
-#: src/gnome-cmd-file-list.cc:1468
-msgid "Open the \"Applications\" page in the Control Center to add one."
-msgstr "Öppna sidan ”Program” i Kontrollpanelen för att lägga till ett."
-
-#: src/gnome-cmd-file-list.cc:1762
+#: src/gnome-cmd-file-list.cc:1567
 msgid "Directory listing failed."
 msgstr "Kataloglistningen misslyckades."
 
-#: src/gnome-cmd-file-list.cc:1812
+#: src/gnome-cmd-file-list.cc:1617
 msgid "Failed to open connection."
 msgstr "Kunde inte öppna anslutning."
 
-#: src/gnome-cmd-file-list.cc:2673 src/gnome-cmd-file-list.cc:2704
+#: src/gnome-cmd-file-list.cc:2478 src/gnome-cmd-file-list.cc:2509
 msgid "Not an ordinary file."
 msgstr "Inte en vanlig fil."
 
@@ -3958,17 +3887,17 @@ msgid "E_xecute"
 msgstr "_Kör"
 
 #: src/gnome-cmd-file-popmenu.cc:354 src/gnome-cmd-main-win.cc:180
-#: src/gnome-cmd-user-actions.cc:328
+#: src/gnome-cmd-user-actions.cc:325
 msgid "Cut"
 msgstr "Klipp ut"
 
-#: src/gnome-cmd-file-popmenu.cc:356 src/gnome-cmd-user-actions.cc:327
+#: src/gnome-cmd-file-popmenu.cc:356 src/gnome-cmd-user-actions.cc:324
 msgid "Copy file names"
 msgstr "Kopiera filnamn"
 
 #. {file_run, "file.run"},
 #: src/gnome-cmd-file-popmenu.cc:359 src/gnome-cmd-main-win.cc:185
-#: src/gnome-cmd-user-actions.cc:352
+#: src/gnome-cmd-user-actions.cc:349
 msgid "Send files"
 msgstr "Skicka filer"
 
@@ -4014,74 +3943,83 @@ msgid_plural "%s, %d of %d dirs selected"
 msgstr[0] "%s, %d av %d katalog markerad"
 msgstr[1] "%s, %d av %d kataloger markerade"
 
-#: src/gnome-cmd-file-selector.cc:247
+#: src/gnome-cmd-file-selector.cc:252
 #, c-format
 msgid "%s free"
 msgstr "%s ledigt"
 
-#: src/gnome-cmd-file-selector.cc:641 src/gnome-cmd-file-selector.cc:681
-#: src/gnome-cmd-user-actions.cc:1922
+#: src/gnome-cmd-file-selector.cc:257
+msgid "Unknown disk usage"
+msgstr "Okänd diskanvändning"
+
+#: src/gnome-cmd-file-selector.cc:652 src/gnome-cmd-file-selector.cc:692
+#: src/gnome-cmd-user-actions.cc:1767
 msgid "The tab is locked, close anyway?"
 msgstr "Fliken är låst, stäng ändå?"
 
-#: src/gnome-cmd-file-selector.cc:651 src/gnome-cmd-main-menu.cc:207
+#: src/gnome-cmd-file-selector.cc:662 src/gnome-cmd-main-menu.cc:207
 msgid "Open in New _Tab"
 msgstr "Öppna i ny fli_k"
 
-#: src/gnome-cmd-file-selector.cc:655
+#: src/gnome-cmd-file-selector.cc:666
 msgid "_Unlock Tab"
 msgstr "Lås _upp flik"
 
-#: src/gnome-cmd-file-selector.cc:655
+#: src/gnome-cmd-file-selector.cc:666
 msgid "_Lock Tab"
 msgstr "_Lås flik"
 
-#: src/gnome-cmd-file-selector.cc:659
+#: src/gnome-cmd-file-selector.cc:670
 msgid "_Refresh Tab"
 msgstr "U_ppdatera flik"
 
-#: src/gnome-cmd-file-selector.cc:663
+#: src/gnome-cmd-file-selector.cc:674
 msgid "Copy Tab to Other _Pane"
 msgstr "Kopiera flik till andra _panelen"
 
-#: src/gnome-cmd-file-selector.cc:666 src/gnome-cmd-main-menu.cc:208
+#: src/gnome-cmd-file-selector.cc:677 src/gnome-cmd-main-menu.cc:208
 msgid "_Close Tab"
 msgstr "_Stäng flik"
 
-#: src/gnome-cmd-file-selector.cc:667 src/gnome-cmd-main-menu.cc:209
+#: src/gnome-cmd-file-selector.cc:678 src/gnome-cmd-main-menu.cc:209
 msgid "Close _All Tabs"
 msgstr "Stäng _alla flikar"
 
-#: src/gnome-cmd-file-selector.cc:668
+#: src/gnome-cmd-file-selector.cc:679
 msgid "Close _Duplicate Tabs"
 msgstr "Stäng _duplicerade flikar"
 
-#: src/gnome-cmd-file-selector.cc:1132
+#: src/gnome-cmd-file-selector.cc:1060
+msgid "No file name entered"
+msgstr "Inget filnamn angivet"
+
+#: src/gnome-cmd-file-selector.cc:1143
 msgid "No file name given"
 msgstr "Inget filnamn angivet"
 
-#: src/gnome-cmd-file-selector.cc:1186
+#: src/gnome-cmd-file-selector.cc:1197
 msgid "New Text File"
 msgstr "Ny textfil"
 
-#: src/gnome-cmd-file-selector.cc:1332
+#: src/gnome-cmd-file-selector.cc:1343
 msgid "Symbolic link name:"
 msgstr "Symboliskt länknamn:"
 
-#: src/gnome-cmd-file-selector.cc:1343 src/gnome-cmd-file-selector.cc:1396
+#: src/gnome-cmd-file-selector.cc:1354 src/gnome-cmd-file-selector.cc:1407
+#: src/user_actions.rs:73
 msgid "Create Symbolic Link"
 msgstr "Skapa symbolisk länk"
 
-#: src/gnome-cmd-file-selector.cc:1396 src/gnome-cmd-xfer.cc:220
+#: src/gnome-cmd-file-selector.cc:1407 src/gnome-cmd-xfer.cc:220
 #: src/gnome-cmd-xfer.cc:278 src/gnome-cmd-xfer.cc:396
 msgid "Skip all"
 msgstr "Hoppa över alla"
 
-#: src/gnome-cmd-file-selector.cc:1484
+#: src/gnome-cmd-file-selector.cc:1495
 msgid "Filter:"
 msgstr "Filter:"
 
-#: src/gnome-cmd-main-menu.cc:154 src/intviewer/viewer-window.cc:514
+#: src/gnome-cmd-main-menu.cc:154 src/intviewer/viewer-window.cc:515
 msgid "_File"
 msgstr "_Arkiv"
 
@@ -4193,7 +4131,7 @@ msgstr "_Återställ markering"
 msgid "_Compare Directories"
 msgstr "_Jämför kataloger"
 
-#: src/gnome-cmd-main-menu.cc:200 src/intviewer/viewer-window.cc:517
+#: src/gnome-cmd-main-menu.cc:200 src/intviewer/viewer-window.cc:518
 msgid "_View"
 msgstr "_Visa"
 
@@ -4245,7 +4183,7 @@ msgstr "Maximera panelstorlek"
 msgid "Horizontal Orientation"
 msgstr "Horisontell orientering"
 
-#: src/gnome-cmd-main-menu.cc:230 src/intviewer/viewer-window.cc:569
+#: src/gnome-cmd-main-menu.cc:230 src/intviewer/viewer-window.cc:570
 msgid "_Settings"
 msgstr "In_ställningar"
 
@@ -4293,7 +4231,7 @@ msgstr "Konfigurera _insticksmoduler…"
 msgid "_Documentation"
 msgstr "_Dokumentation"
 
-#: src/gnome-cmd-main-menu.cc:252 src/intviewer/viewer-window.cc:583
+#: src/gnome-cmd-main-menu.cc:252 src/intviewer/viewer-window.cc:584
 msgid "_Keyboard Shortcuts"
 msgstr "_Tangentbordsgenvägar"
 
@@ -4309,7 +4247,7 @@ msgstr "Rapportera ett _problem"
 msgid "_About"
 msgstr "_Om"
 
-#: src/gnome-cmd-main-win.cc:172 src/gnome-cmd-user-actions.cc:393
+#: src/gnome-cmd-main-win.cc:172 src/gnome-cmd-user-actions.cc:390
 msgid "Refresh"
 msgstr "Uppdatera"
 
@@ -4333,7 +4271,7 @@ msgstr "Gå till senaste"
 msgid "Copy file names (SHIFT for full paths, ALT for URIs)"
 msgstr "Kopiera filnamn (SKIFT för fullständiga sökvägar, ALT för URI:er)"
 
-#: src/gnome-cmd-main-win.cc:182 src/gnome-cmd-user-actions.cc:331
+#: src/gnome-cmd-main-win.cc:182 src/gnome-cmd-user-actions.cc:328
 msgid "Paste"
 msgstr "Klistra in"
 
@@ -4381,7 +4319,7 @@ msgstr "F9 Sök"
 msgid "GNOME Commander — ROOT PRIVILEGES"
 msgstr "GNOME Commander — ROOT-PRIVILEGIER"
 
-#: src/gnome-cmd-quicksearch-popup.cc:207 src/gnome-cmd-user-actions.cc:333
+#: src/gnome-cmd-quicksearch-popup.cc:207 src/gnome-cmd-user-actions.cc:330
 msgid "Search"
 msgstr "Sök"
 
@@ -4422,316 +4360,316 @@ msgstr "Innehåller _text:"
 msgid "Case sensiti_ve"
 msgstr "Skilj på stora och sm_å bokstäver"
 
-#: src/gnome-cmd-user-actions.cc:255
+#: src/gnome-cmd-user-actions.cc:252
 msgid "No file selected"
 msgstr "Ingen fil är vald"
 
-#: src/gnome-cmd-user-actions.cc:313
+#: src/gnome-cmd-user-actions.cc:310
 msgid "Bookmark current directory"
 msgstr "Bokmärk aktuell katalog"
 
-#: src/gnome-cmd-user-actions.cc:314
+#: src/gnome-cmd-user-actions.cc:311
 msgid "Manage bookmarks"
 msgstr "Hantera bokmärken"
 
-#: src/gnome-cmd-user-actions.cc:315
+#: src/gnome-cmd-user-actions.cc:312
 msgid "Go to bookmarked location"
 msgstr "Gå till bokmärkt plats"
 
-#: src/gnome-cmd-user-actions.cc:316
+#: src/gnome-cmd-user-actions.cc:313
 msgid "Show bookmarks of current device"
 msgstr "Visa bokmärken för aktuell enhet"
 
-#: src/gnome-cmd-user-actions.cc:317
+#: src/gnome-cmd-user-actions.cc:314
 msgid "Execute command"
 msgstr "Kör kommando"
 
-#: src/gnome-cmd-user-actions.cc:318
+#: src/gnome-cmd-user-actions.cc:315
 msgid "Open terminal"
 msgstr "Öppna terminalfönster"
 
-#: src/gnome-cmd-user-actions.cc:319
+#: src/gnome-cmd-user-actions.cc:316
 msgid "Open terminal as root"
 msgstr "Öppna terminal som root"
 
-#: src/gnome-cmd-user-actions.cc:320
+#: src/gnome-cmd-user-actions.cc:317
 msgid "Start GNOME Commander as root"
 msgstr "Starta GNOME Commander som root"
 
-#: src/gnome-cmd-user-actions.cc:321
+#: src/gnome-cmd-user-actions.cc:318
 msgid "Close connection"
 msgstr "Stäng anslutning"
 
-#: src/gnome-cmd-user-actions.cc:322
+#: src/gnome-cmd-user-actions.cc:319
 msgid "New connection"
 msgstr "Ny anslutning"
 
-#: src/gnome-cmd-user-actions.cc:323
+#: src/gnome-cmd-user-actions.cc:320
 msgid "Open connection"
 msgstr "Öppna anslutning"
 
-#: src/gnome-cmd-user-actions.cc:324
+#: src/gnome-cmd-user-actions.cc:321
 msgid "Change left connection"
 msgstr "Ändra vänster anslutning"
 
-#: src/gnome-cmd-user-actions.cc:325
+#: src/gnome-cmd-user-actions.cc:322
 msgid "Change right connection"
 msgstr "Ändra höger anslutning"
 
-#: src/gnome-cmd-user-actions.cc:330
+#: src/gnome-cmd-user-actions.cc:327
 msgid "Show user defined files"
 msgstr "Visa användardefinierade filer"
 
-#: src/gnome-cmd-user-actions.cc:334
+#: src/gnome-cmd-user-actions.cc:331
 msgid "Advanced rename tool"
 msgstr "Avancerat namnbytesverktyg"
 
-#: src/gnome-cmd-user-actions.cc:335
+#: src/gnome-cmd-user-actions.cc:332
 msgid "Change permissions"
 msgstr "Ändra rättigheter"
 
-#: src/gnome-cmd-user-actions.cc:336
+#: src/gnome-cmd-user-actions.cc:333
 msgid "Change owner/group"
 msgstr "Ändra ägare/grupp"
 
-#: src/gnome-cmd-user-actions.cc:337
+#: src/gnome-cmd-user-actions.cc:334
 msgid "Copy files"
 msgstr "Kopiera filer"
 
-#: src/gnome-cmd-user-actions.cc:338
+#: src/gnome-cmd-user-actions.cc:335
 msgid "Copy files with rename"
 msgstr "Kopiera filer med namnbyte"
 
-#: src/gnome-cmd-user-actions.cc:339
+#: src/gnome-cmd-user-actions.cc:336
 msgid "Create symbolic link"
 msgstr "Skapa symbolisk länk"
 
-#: src/gnome-cmd-user-actions.cc:340
+#: src/gnome-cmd-user-actions.cc:337
 msgid "Delete files"
 msgstr "Ta bort filer"
 
-#: src/gnome-cmd-user-actions.cc:341
+#: src/gnome-cmd-user-actions.cc:338
 msgid "Compare files (diff)"
 msgstr "Jämför filer (diff)"
 
-#: src/gnome-cmd-user-actions.cc:342
+#: src/gnome-cmd-user-actions.cc:339
 msgid "Edit file"
 msgstr "Redigera fil"
 
-#: src/gnome-cmd-user-actions.cc:343
+#: src/gnome-cmd-user-actions.cc:340
 msgid "Edit a new file"
 msgstr "Redigera en ny fil"
 
-#: src/gnome-cmd-user-actions.cc:344
+#: src/gnome-cmd-user-actions.cc:341
 msgid "Quit"
 msgstr "Avsluta"
 
-#: src/gnome-cmd-user-actions.cc:345
+#: src/gnome-cmd-user-actions.cc:342
 msgid "View with external viewer"
 msgstr "Visa med externt visningsprogram"
 
-#: src/gnome-cmd-user-actions.cc:346
+#: src/gnome-cmd-user-actions.cc:343
 msgid "View with internal viewer"
 msgstr "Visa med internt visningsprogram"
 
-#: src/gnome-cmd-user-actions.cc:347
+#: src/gnome-cmd-user-actions.cc:344
 msgid "Create directory"
 msgstr "Skapa katalog"
 
-#: src/gnome-cmd-user-actions.cc:348
+#: src/gnome-cmd-user-actions.cc:345
 msgid "Move files"
 msgstr "Flytta filer"
 
-#: src/gnome-cmd-user-actions.cc:350
+#: src/gnome-cmd-user-actions.cc:347
 msgid "Rename files"
 msgstr "Byt namn på filer"
 
-#: src/gnome-cmd-user-actions.cc:353
+#: src/gnome-cmd-user-actions.cc:350
 msgid "Synchronize directories"
 msgstr "Synkronisera kataloger"
 
-#: src/gnome-cmd-user-actions.cc:356
+#: src/gnome-cmd-user-actions.cc:353
 msgid "About GNOME Commander"
 msgstr "Om GNOME Commander"
 
-#: src/gnome-cmd-user-actions.cc:357
+#: src/gnome-cmd-user-actions.cc:354
 msgid "Help contents"
 msgstr "Innehåll"
 
-#: src/gnome-cmd-user-actions.cc:358
+#: src/gnome-cmd-user-actions.cc:355
 msgid "Help on keyboard shortcuts"
 msgstr "Hjälp för tangentbordsgenvägar"
 
-#: src/gnome-cmd-user-actions.cc:359
+#: src/gnome-cmd-user-actions.cc:356
 msgid "Report a problem"
 msgstr "Rapportera ett problem"
 
-#: src/gnome-cmd-user-actions.cc:360
+#: src/gnome-cmd-user-actions.cc:357
 msgid "GNOME Commander on the web"
 msgstr "GNOME Commander på webben"
 
-#: src/gnome-cmd-user-actions.cc:361
+#: src/gnome-cmd-user-actions.cc:358
 msgid "Compare directories"
 msgstr "Jämför kataloger"
 
-#: src/gnome-cmd-user-actions.cc:362
+#: src/gnome-cmd-user-actions.cc:359
 msgid "Invert selection"
 msgstr "Invertera markering"
 
-#: src/gnome-cmd-user-actions.cc:363
+#: src/gnome-cmd-user-actions.cc:360
 msgid "Select all"
 msgstr "Markera allt"
 
-#: src/gnome-cmd-user-actions.cc:364
+#: src/gnome-cmd-user-actions.cc:361
 msgid "Select all files"
 msgstr "Markera alla filer"
 
-#: src/gnome-cmd-user-actions.cc:365
+#: src/gnome-cmd-user-actions.cc:362
 msgid "Unselect all files"
 msgstr "Avmarkera alla filer"
 
-#: src/gnome-cmd-user-actions.cc:366
+#: src/gnome-cmd-user-actions.cc:363
 msgid "Toggle selection"
 msgstr "Växla markering"
 
-#: src/gnome-cmd-user-actions.cc:367
+#: src/gnome-cmd-user-actions.cc:364
 msgid "Toggle selection and move cursor downward"
 msgstr "Växla markering och flytta markören nedåt"
 
-#: src/gnome-cmd-user-actions.cc:368
+#: src/gnome-cmd-user-actions.cc:365
 msgid "Unselect all"
 msgstr "Avmarkera allt"
 
-#: src/gnome-cmd-user-actions.cc:370
+#: src/gnome-cmd-user-actions.cc:367
 msgid "Keyboard shortcuts"
 msgstr "Tangentbordsgenvägar"
 
-#: src/gnome-cmd-user-actions.cc:371
+#: src/gnome-cmd-user-actions.cc:368
 msgid "Configure plugins"
 msgstr "Konfigurera insticksmoduler"
 
-#: src/gnome-cmd-user-actions.cc:372
+#: src/gnome-cmd-user-actions.cc:369
 msgid "Back one directory"
 msgstr "Bakåt en katalog"
 
-#: src/gnome-cmd-user-actions.cc:373
+#: src/gnome-cmd-user-actions.cc:370
 msgid "Close the current tab"
 msgstr "Stäng aktuell flik"
 
-#: src/gnome-cmd-user-actions.cc:374
+#: src/gnome-cmd-user-actions.cc:371
 msgid "Close all tabs"
 msgstr "Stäng alla flikar"
 
-#: src/gnome-cmd-user-actions.cc:375
+#: src/gnome-cmd-user-actions.cc:372
 msgid "Close duplicate tabs"
 msgstr "Stäng dubblerade flikar"
 
-#: src/gnome-cmd-user-actions.cc:376
+#: src/gnome-cmd-user-actions.cc:373
 msgid "Change directory"
 msgstr "Ändra katalog"
 
-#: src/gnome-cmd-user-actions.cc:377
+#: src/gnome-cmd-user-actions.cc:374
 msgid "Show directory history"
 msgstr "Visa kataloghistorik"
 
-#: src/gnome-cmd-user-actions.cc:378
+#: src/gnome-cmd-user-actions.cc:375
 msgid "Equal panel size"
 msgstr "Samma panelstorlek"
 
-#: src/gnome-cmd-user-actions.cc:379
+#: src/gnome-cmd-user-actions.cc:376
 msgid "Maximize panel size"
 msgstr "Maximera panelstorlek"
 
-#: src/gnome-cmd-user-actions.cc:380
+#: src/gnome-cmd-user-actions.cc:377
 msgid "Back to the first directory"
 msgstr "Tillbaka till första katalogen"
 
-#: src/gnome-cmd-user-actions.cc:381
+#: src/gnome-cmd-user-actions.cc:378
 msgid "Forward one directory"
 msgstr "Framåt en katalog"
 
-#: src/gnome-cmd-user-actions.cc:382
+#: src/gnome-cmd-user-actions.cc:379
 msgid "Home directory"
 msgstr "Hemkatalog"
 
-#: src/gnome-cmd-user-actions.cc:383
+#: src/gnome-cmd-user-actions.cc:380
 msgid "Open directory in the active window"
 msgstr "Öppna katalogen i aktivt fönster"
 
-#: src/gnome-cmd-user-actions.cc:384
+#: src/gnome-cmd-user-actions.cc:381
 msgid "Open directory in the inactive window"
 msgstr "Öppna katalogen i inaktivt fönster"
 
-#: src/gnome-cmd-user-actions.cc:385
+#: src/gnome-cmd-user-actions.cc:382
 msgid "Open directory in the left window"
 msgstr "Öppna katalog i vänstra fönstret"
 
-#: src/gnome-cmd-user-actions.cc:386
+#: src/gnome-cmd-user-actions.cc:383
 msgid "Open directory in the right window"
 msgstr "Öppna katalog i högra fönstret"
 
-#: src/gnome-cmd-user-actions.cc:387
+#: src/gnome-cmd-user-actions.cc:384
 msgid "Open directory in the new tab"
 msgstr "Öppna katalogen i nya fliken"
 
-#: src/gnome-cmd-user-actions.cc:388
+#: src/gnome-cmd-user-actions.cc:385
 msgid "Open directory in the new tab (inactive window)"
 msgstr "Öppna katalogen i nya fliken (inaktivt fönster)"
 
-#: src/gnome-cmd-user-actions.cc:389
+#: src/gnome-cmd-user-actions.cc:386
 msgid "Forward to the last directory"
 msgstr "Framåt till sista katalogen"
 
-#: src/gnome-cmd-user-actions.cc:390
+#: src/gnome-cmd-user-actions.cc:387
 msgid "Next tab"
 msgstr "Nästa flik"
 
-#: src/gnome-cmd-user-actions.cc:391
+#: src/gnome-cmd-user-actions.cc:388
 msgid "Open directory in a new tab"
 msgstr "Öppna katalogen i en ny flik"
 
-#: src/gnome-cmd-user-actions.cc:392
+#: src/gnome-cmd-user-actions.cc:389
 msgid "Previous tab"
 msgstr "Föregående flik"
 
-#: src/gnome-cmd-user-actions.cc:394
+#: src/gnome-cmd-user-actions.cc:391
 msgid "Root directory"
 msgstr "Rotkatalog"
 
-#: src/gnome-cmd-user-actions.cc:395
+#: src/gnome-cmd-user-actions.cc:392
 msgid "Lock/unlock tab"
 msgstr "Lås/Lås upp flik"
 
-#: src/gnome-cmd-user-actions.cc:397
+#: src/gnome-cmd-user-actions.cc:394
 msgid "Show terminal"
 msgstr "Visa terminal"
 
-#: src/gnome-cmd-user-actions.cc:400
+#: src/gnome-cmd-user-actions.cc:397
 msgid "Display main menu"
 msgstr "Visa huvudmeny"
 
-#: src/gnome-cmd-user-actions.cc:401
+#: src/gnome-cmd-user-actions.cc:398
 msgid "Move cursor one step up"
 msgstr "Flytta markören ett steg upp"
 
-#: src/gnome-cmd-user-actions.cc:402
+#: src/gnome-cmd-user-actions.cc:399
 msgid "Move cursor one step down"
 msgstr "Flytta markören ett steg ned"
 
-#: src/gnome-cmd-user-actions.cc:922
+#: src/gnome-cmd-user-actions.cc:917
 msgid "No search command given."
 msgstr "Inget sökkommando angivet."
 
-#: src/gnome-cmd-user-actions.cc:922
+#: src/gnome-cmd-user-actions.cc:917
 msgid "You can set a command for a search tool in the program options."
 msgstr ""
 "Du kan ställa in ett kommando för ett sökverktyg i programalternativen."
 
-#: src/gnome-cmd-user-actions.cc:1060
+#: src/gnome-cmd-user-actions.cc:1055
 msgid "Warning"
 msgstr "Varning"
 
-#: src/gnome-cmd-user-actions.cc:1060
+#: src/gnome-cmd-user-actions.cc:1055
 msgid ""
 "The default send-to command only supports one selected file at a time. You "
 "can change the command in the program options."
@@ -4739,44 +4677,28 @@ msgstr ""
 "Standardkommandot för skicka-till stöder endast en vald fil åt gången. Du "
 "kan ändra kommandot i programalternativen."
 
-#: src/gnome-cmd-user-actions.cc:1081 src/gnome-cmd-user-actions.cc:1098
-#: src/gnome-cmd-user-actions.cc:1144
+#: src/gnome-cmd-user-actions.cc:1076 src/gnome-cmd-user-actions.cc:1093
+#: src/gnome-cmd-user-actions.cc:1139
 msgid "Operation not supported on remote file systems"
 msgstr "Operationen stöds ej i fjärranslutna filsystem"
 
-#: src/gnome-cmd-user-actions.cc:1111
+#: src/gnome-cmd-user-actions.cc:1106
 msgid "Too many selected files"
 msgstr "För många markerade filer"
 
-#: src/gnome-cmd-user-actions.cc:1360
-msgid "Unable to open terminal in root mode."
-msgstr "Kunde inte öppna terminal i root-läge."
-
-#: src/gnome-cmd-user-actions.cc:1365
-msgid "gksudo, xdg-su, gksu, gnomesu, kdesu or beesu is not found."
-msgstr "gksudo, xdg-su, gksu, gnomesu, kdesu eller beesu hittades inte."
-
-#: src/gnome-cmd-user-actions.cc:1386
-msgid "Unable to start GNOME Commander in root mode."
-msgstr "Kunde inte starta GNOME Commander i root-läge."
-
-#: src/gnome-cmd-user-actions.cc:1389
-msgid "gksudo, xdg-su, gksu, gnomesu, kdesu or beesu is not found"
-msgstr "gksudo, xdg-su, gksu, gnomesu, kdesu eller beesu hittades inte"
-
-#: src/gnome-cmd-user-actions.cc:2248
+#: src/gnome-cmd-user-actions.cc:2095
 msgid "There was an error opening home page."
 msgstr "Ett fel uppstod vid öppnandet av hemsidan."
 
-#: src/gnome-cmd-user-actions.cc:2257
+#: src/gnome-cmd-user-actions.cc:2104
 msgid "There was an error reporting problem."
 msgstr "Ett fel uppstod vid rapportering av ett problem."
 
-#: src/gnome-cmd-user-actions.cc:2285
+#: src/gnome-cmd-user-actions.cc:2132
 msgid "A fast and powerful file manager for the GNOME desktop"
 msgstr "En snabb och kraftfull filhanterare för GNOME-skrivbordet"
 
-#: src/gnome-cmd-user-actions.cc:2289
+#: src/gnome-cmd-user-actions.cc:2136
 msgid ""
 "GNOME Commander is free software; you can redistribute it and/or modify it "
 "under the terms of the GNU General Public License as published by the Free "
@@ -4788,7 +4710,7 @@ msgstr ""
 "av Free Software Foundation; antingen version 2 av licensen, eller (om Ni så "
 "vill) någon senare version."
 
-#: src/gnome-cmd-user-actions.cc:2293
+#: src/gnome-cmd-user-actions.cc:2140
 msgid ""
 "GNOME Commander is distributed in the hope that it will be useful, but "
 "WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY "
@@ -4800,7 +4722,7 @@ msgstr ""
 "LÄMPLIGHET FÖR NÅGOT SPECIELLT ÄNDAMÅL.  Se GNU General Public License för "
 "ytterligare information."
 
-#: src/gnome-cmd-user-actions.cc:2297
+#: src/gnome-cmd-user-actions.cc:2144
 msgid ""
 "You should have received a copy of the GNU General Public License along with "
 "GNOME Commander; if not, write to the Free Software Foundation, Inc., 51 "
@@ -4810,7 +4732,7 @@ msgstr ""
 "webbläsaren. Om inte, skriv till Free Software Foundation, Inc., 51 Franklin "
 "Street, Fifth Floor, Boston, MA 02110-1301 USA."
 
-#: src/gnome-cmd-user-actions.cc:2314
+#: src/gnome-cmd-user-actions.cc:2161
 msgid "translator-credits"
 msgstr ""
 "Josef Andersson <josef.andersson@fripost.org>\n"
@@ -4823,8 +4745,8 @@ msgstr ""
 "Skicka synpunkter på översättningen till:\n"
 "<tp-sv@listor.tp-sv.se>."
 
-#: src/gnome-cmd-xfer.cc:192 src/gnome-cmd-xfer.cc:1173
-#: src/gnome-cmd-xfer.cc:1184 src/gnome-cmd-xfer.cc:1231
+#: src/gnome-cmd-xfer.cc:192 src/gnome-cmd-xfer.cc:1171
+#: src/gnome-cmd-xfer.cc:1182 src/gnome-cmd-xfer.cc:1229
 msgid "Transfer problem"
 msgstr "Problem vid överföring"
 
@@ -4901,28 +4823,28 @@ msgstr "kopierar…"
 msgid "[file %ld of %ld] “%s”"
 msgstr "[fil %ld av %ld] ”%s”"
 
-#: src/gnome-cmd-xfer.cc:705
+#: src/gnome-cmd-xfer.cc:703
 msgid "Copying a directory into itself is a bad idea."
 msgstr "Kopiera en katalog in i sig själv är ingen bra idé."
 
-#: src/gnome-cmd-xfer.cc:705 src/gnome-cmd-xfer.cc:785
-#: src/gnome-cmd-xfer.cc:866
+#: src/gnome-cmd-xfer.cc:703 src/gnome-cmd-xfer.cc:783
+#: src/gnome-cmd-xfer.cc:864
 msgid "The whole operation was cancelled."
 msgstr "Hela åtgärden avbröts."
 
-#: src/gnome-cmd-xfer.cc:754 src/gnome-cmd-xfer.cc:834
+#: src/gnome-cmd-xfer.cc:752 src/gnome-cmd-xfer.cc:832
 msgid "preparing…"
 msgstr "förbereder…"
 
-#: src/gnome-cmd-xfer.cc:785 src/gnome-cmd-xfer.cc:866
+#: src/gnome-cmd-xfer.cc:783 src/gnome-cmd-xfer.cc:864
 msgid "Moving a directory into itself is a bad idea."
 msgstr "Att flytta en katalog in i sig själv är ingen bra idé."
 
-#: src/gnome-cmd-xfer.cc:938
+#: src/gnome-cmd-xfer.cc:936
 msgid "downloading to /tmp"
 msgstr "hämtar till /tmp"
 
-#: src/gnome-cmd-xfer.cc:989
+#: src/gnome-cmd-xfer.cc:987
 #, c-format
 msgid ""
 "Error while creating symlink “%s”\n"
@@ -4933,21 +4855,21 @@ msgstr ""
 "\n"
 "%s"
 
-#: src/gnome-cmd-xfer.cc:994
+#: src/gnome-cmd-xfer.cc:992
 msgid "Symlink creation problem"
 msgstr "Problem vid skapande av symbolisk länk"
 
-#: src/gnome-cmd-xfer.cc:995
+#: src/gnome-cmd-xfer.cc:993
 msgid "Ignore"
 msgstr "Ignorera"
 
 #. Translators: Translate 'Copy' as a noun here
-#: src/gnome-cmd-xfer.cc:1104
+#: src/gnome-cmd-xfer.cc:1102
 msgctxt "Filename suffix"
 msgid "Copy"
 msgstr "Kopia"
 
-#: src/gnome-cmd-xfer.cc:1172 src/gnome-cmd-xfer.cc:1183
+#: src/gnome-cmd-xfer.cc:1170 src/gnome-cmd-xfer.cc:1181
 #, c-format
 msgid ""
 "Source “%s” could not be deleted. Aborting!\n"
@@ -4958,7 +4880,7 @@ msgstr ""
 "\n"
 "%s"
 
-#: src/gnome-cmd-xfer.cc:1230
+#: src/gnome-cmd-xfer.cc:1228
 #, c-format
 msgid "Source “%s” could not be copied. Aborting!"
 msgstr "Källan ”%s” kunde inte kopieras. Avbryter!"
@@ -4998,12 +4920,12 @@ msgstr ""
 "%s/src"
 
 #. Search mode radio buttons
-#: src/intviewer/search-dlg.cc:242 src/intviewer/viewer-window.cc:518
-#: src/intviewer/viewer-window.cc:529
+#: src/intviewer/search-dlg.cc:242 src/intviewer/viewer-window.cc:519
+#: src/intviewer/viewer-window.cc:530
 msgid "_Text"
 msgstr "_Text"
 
-#: src/intviewer/search-dlg.cc:243 src/intviewer/viewer-window.cc:520
+#: src/intviewer/search-dlg.cc:243 src/intviewer/viewer-window.cc:521
 msgid "_Hexadecimal"
 msgstr "_Hexadecimal"
 
@@ -5050,198 +4972,226 @@ msgstr "(anpassa till fönster)"
 msgid "_Copy selection"
 msgstr "_Kopiera markering"
 
-#: src/intviewer/viewer-window.cc:519
+#: src/intviewer/viewer-window.cc:520
 msgid "_Binary"
 msgstr "_Binärt"
 
-#: src/intviewer/viewer-window.cc:521 src/intviewer/viewer-window.cc:562
+#: src/intviewer/viewer-window.cc:522 src/intviewer/viewer-window.cc:563
 msgid "_Image"
 msgstr "_Bild"
 
-#: src/intviewer/viewer-window.cc:523
+#: src/intviewer/viewer-window.cc:524
 msgid "_Zoom In"
 msgstr "_Zooma in"
 
-#: src/intviewer/viewer-window.cc:524
+#: src/intviewer/viewer-window.cc:525
 msgid "_Zoom Out"
 msgstr "_Zooma ut"
 
-#: src/intviewer/viewer-window.cc:525
+#: src/intviewer/viewer-window.cc:526
 msgid "_Normal Size"
 msgstr "_Normal storlek"
 
-#: src/intviewer/viewer-window.cc:526
+#: src/intviewer/viewer-window.cc:527
 msgid "_Best Fit"
 msgstr "_Bästa anpassning"
 
-#: src/intviewer/viewer-window.cc:530
+#: src/intviewer/viewer-window.cc:531
 msgid "_Copy Text Selection"
 msgstr "_Kopiera textmarkering"
 
-#: src/intviewer/viewer-window.cc:531
+#: src/intviewer/viewer-window.cc:532
 msgid "Find…"
 msgstr "Sök…"
 
-#: src/intviewer/viewer-window.cc:532
+#: src/intviewer/viewer-window.cc:533
 msgid "Find Next"
 msgstr "Sök nästa"
 
-#: src/intviewer/viewer-window.cc:533
+#: src/intviewer/viewer-window.cc:534
 msgid "Find Previous"
 msgstr "Sök föregående"
 
-#: src/intviewer/viewer-window.cc:535
+#: src/intviewer/viewer-window.cc:536
 msgid "_Wrap lines"
 msgstr "_Radbryt"
 
-#: src/intviewer/viewer-window.cc:537
+#: src/intviewer/viewer-window.cc:538
 msgid "_Encoding"
 msgstr "_Teckenkodning"
 
-#: src/intviewer/viewer-window.cc:538
+#: src/intviewer/viewer-window.cc:539
 msgid "_UTF-8"
 msgstr "_UTF-8"
 
-#: src/intviewer/viewer-window.cc:539
+#: src/intviewer/viewer-window.cc:540
 msgid "English (US-_ASCII)"
 msgstr "Engelsk (US-_ASCII)"
 
-#: src/intviewer/viewer-window.cc:540
+#: src/intviewer/viewer-window.cc:541
 msgid "Terminal (CP437)"
 msgstr "Terminal (CP437)"
 
-#: src/intviewer/viewer-window.cc:541
+#: src/intviewer/viewer-window.cc:542
 msgid "Arabic (ISO-8859-6)"
 msgstr "Arabisk (ISO-8859-6)"
 
-#: src/intviewer/viewer-window.cc:542
+#: src/intviewer/viewer-window.cc:543
 msgid "Arabic (Windows, CP1256)"
 msgstr "Arabisk (Windows, CP1256)"
 
-#: src/intviewer/viewer-window.cc:543
+#: src/intviewer/viewer-window.cc:544
 msgid "Arabic (Dos, CP864)"
 msgstr "Arabisk (Dos, CP864)"
 
-#: src/intviewer/viewer-window.cc:544
+#: src/intviewer/viewer-window.cc:545
 msgid "Baltic (ISO-8859-4)"
 msgstr "Baltisk (ISO-8859-4)"
 
-#: src/intviewer/viewer-window.cc:545
+#: src/intviewer/viewer-window.cc:546
 msgid "Central European (ISO-8859-2)"
 msgstr "Centraleuropeisk (ISO-8859-2)"
 
-#: src/intviewer/viewer-window.cc:546
+#: src/intviewer/viewer-window.cc:547
 msgid "Central European (CP1250)"
 msgstr "Centraleuropeisk (CP1250)"
 
-#: src/intviewer/viewer-window.cc:547
+#: src/intviewer/viewer-window.cc:548
 msgid "Cyrillic (ISO-8859-5)"
 msgstr "Kyrillisk (ISO-8859-5)"
 
-#: src/intviewer/viewer-window.cc:548
+#: src/intviewer/viewer-window.cc:549
 msgid "Cyrillic (CP1251)"
 msgstr "Kyrillisk (CP1251)"
 
-#: src/intviewer/viewer-window.cc:549
+#: src/intviewer/viewer-window.cc:550
 msgid "Greek (ISO-8859-7)"
 msgstr "Grekisk (ISO-8859-7)"
 
-#: src/intviewer/viewer-window.cc:550
+#: src/intviewer/viewer-window.cc:551
 msgid "Greek (CP1253)"
 msgstr "Grekisk (CP1253)"
 
-#: src/intviewer/viewer-window.cc:551
+#: src/intviewer/viewer-window.cc:552
 msgid "Hebrew (Windows, CP1255)"
 msgstr "Hebreisk (Windows, CP1255)"
 
-#: src/intviewer/viewer-window.cc:552
+#: src/intviewer/viewer-window.cc:553
 msgid "Hebrew (Dos, CP862)"
 msgstr "Hebreisk (Dos, CP862)"
 
-#: src/intviewer/viewer-window.cc:553
+#: src/intviewer/viewer-window.cc:554
 msgid "Hebrew (ISO-8859-8)"
 msgstr "Hebreisk (ISO-8859-8)"
 
-#: src/intviewer/viewer-window.cc:554
+#: src/intviewer/viewer-window.cc:555
 msgid "Latin 9 (ISO-8859-15)"
 msgstr "Latin 9 (ISO-8859-15)"
 
-#: src/intviewer/viewer-window.cc:555
+#: src/intviewer/viewer-window.cc:556
 msgid "Maltese (ISO-8859-3)"
 msgstr "Maltesisk (ISO-8859-3)"
 
-#: src/intviewer/viewer-window.cc:556
+#: src/intviewer/viewer-window.cc:557
 msgid "Turkish (ISO-8859-9)"
 msgstr "Turkisk (ISO-8859-9)"
 
-#: src/intviewer/viewer-window.cc:557
+#: src/intviewer/viewer-window.cc:558
 msgid "Turkish (CP1254)"
 msgstr "Turkisk (CP1254)"
 
-#: src/intviewer/viewer-window.cc:558
+#: src/intviewer/viewer-window.cc:559
 msgid "Western (CP1252)"
 msgstr "Västerländsk (CP1252)"
 
-#: src/intviewer/viewer-window.cc:559
+#: src/intviewer/viewer-window.cc:560
 msgid "Western (ISO-8859-1)"
 msgstr "Västerländsk (ISO-8859-1)"
 
-#: src/intviewer/viewer-window.cc:563
+#: src/intviewer/viewer-window.cc:564
 msgid "Rotate Clockwise"
 msgstr "Rotera medurs"
 
-#: src/intviewer/viewer-window.cc:564
+#: src/intviewer/viewer-window.cc:565
 msgid "Rotate Counter Clockwis_e"
 msgstr "Rotera _moturs"
 
-#: src/intviewer/viewer-window.cc:565
+#: src/intviewer/viewer-window.cc:566
 msgid "Rotate 180°"
 msgstr "Rotera 180°"
 
-#: src/intviewer/viewer-window.cc:566
+#: src/intviewer/viewer-window.cc:567
 msgid "Flip _Vertical"
 msgstr "Vänd _vertikalt"
 
-#: src/intviewer/viewer-window.cc:567
+#: src/intviewer/viewer-window.cc:568
 msgid "Flip _Horizontal"
 msgstr "Vänd _horisontellt"
 
-#: src/intviewer/viewer-window.cc:570
+#: src/intviewer/viewer-window.cc:571
 msgid "_Binary Mode"
 msgstr "_Binärt format"
 
-#: src/intviewer/viewer-window.cc:571
+#: src/intviewer/viewer-window.cc:572
 msgid "_20 chars/line"
 msgstr "_20 tecken/rad"
 
-#: src/intviewer/viewer-window.cc:572
+#: src/intviewer/viewer-window.cc:573
 msgid "_40 chars/line"
 msgstr "_40 tecken/rad"
 
-#: src/intviewer/viewer-window.cc:573
+#: src/intviewer/viewer-window.cc:574
 msgid "_80 chars/line"
 msgstr "_80 tecken/rad"
 
-#: src/intviewer/viewer-window.cc:576
+#: src/intviewer/viewer-window.cc:577
 msgid "Show Metadata _Tags"
 msgstr "Visa metadata_taggar"
 
-#: src/intviewer/viewer-window.cc:577
+#: src/intviewer/viewer-window.cc:578
 msgid "_Hexadecimal Offset"
 msgstr "_Hexadecimal förskjutning"
 
-#: src/intviewer/viewer-window.cc:579
+#: src/intviewer/viewer-window.cc:580
 msgid "_Save Current Settings"
 msgstr "_Spara inställningar"
 
-#: src/intviewer/viewer-window.cc:582
+#: src/intviewer/viewer-window.cc:583
 msgid "Quick _Help"
 msgstr "Snabb_hjälp"
 
-#: src/intviewer/viewer-window.cc:847
+#: src/intviewer/viewer-window.cc:848
 #, c-format
 msgid "Pattern “%s” was not found"
 msgstr "Sökmönstret ”%s” hittades inte"
+
+#: src/open_file.rs:48
+msgid "Make Executable?"
+msgstr "Gör körbar?"
+
+#: src/open_file.rs:50
+msgid "OK"
+msgstr "OK"
+
+#: src/open_file.rs:72
+msgid "Run or Display"
+msgstr "Kör eller visa"
+
+#: src/open_file.rs:74
+msgid "Display"
+msgstr "Visa"
+
+#: src/open_file.rs:74
+msgid "Run"
+msgstr "Kör"
+
+#: src/open_file.rs:125
+msgid "Change of a file mode failed"
+msgstr "Ändring av ett filläge misslyckades"
+
+#: src/open_file.rs:158
+msgid "Open the \"Applications\" page in the Control Center to add one."
+msgstr "Öppna sidan ”Program” i Kontrollpanelen för att lägga till ett."
 
 #: src/plugin_manager.cc:275
 msgid "Disable"
@@ -5266,6 +5216,10 @@ msgstr "_Aktivera"
 #: src/plugin_manager.cc:415
 msgid "_Configure"
 msgstr "_Konfigurera"
+
+#: src/spawn.rs:163
+msgid "Bad command template."
+msgstr "Felaktig kommandomall."
 
 #: src/tags/gnome-cmd-tags.cc:64
 msgid "<Exif and IPTC tags not supported>"
@@ -9225,6 +9179,30 @@ msgstr "Ingen"
 msgid "10-15ms"
 msgstr "10-15ms"
 
+#: src/user_actions.rs:75
+msgid "Create"
+msgstr "Skapa"
+
+#: src/user_actions.rs:101
+msgid "No command was given."
+msgstr "Inget kommando angivet."
+
+#: src/user_actions.rs:142 src/user_actions.rs:214
+msgid "Terminal command is not configured properly."
+msgstr "Terminalkommandot har inte konfigurerats korrekt."
+
+#: src/user_actions.rs:206
+msgid "Unable to open terminal in root mode."
+msgstr "Kunde inte öppna terminal i root-läge."
+
+#: src/user_actions.rs:236
+msgid "Cannot determine executable of Gnome Commander"
+msgstr "Kan inte identifiera körbar fil för Gnome Commander"
+
+#: src/user_actions.rs:241
+msgid "Unable to start GNOME Commander in root mode."
+msgstr "Kunde inte starta GNOME Commander i root-läge."
+
 #: src/utils.cc:482
 #, c-format
 msgid "(%sbyte)"
@@ -9257,18 +9235,70 @@ msgstr "Skapar katalogen %s… "
 msgid "Failed to create the directory %s: %s"
 msgstr "Kunde inte skapa katalogen %s: %s"
 
-#: src/utils.cc:866
+#: src/utils.cc:866 src/utils.rs:258
 msgid "There was an error displaying help."
 msgstr "Ett fel uppstod vid visande av hjälp."
+
+#: src/utils.rs:60
+msgid "Cannot create a temporary file."
+msgstr "Kan inte skapa en temporär fil."
+
+#: src/utils.rs:123
+msgid "gksudo, xdg-su, gksu, gnomesu, kdesu, beesu or pkexec is not found."
+msgstr ""
+"gksudo, xdg-su, gksu, gnomesu, kdesu, beesu eller pkexec hittades inte."
+
+#, c-format
+#~ msgid "“%s” is not a valid location"
+#~ msgstr "”%s” är inte en giltig plats"
+
+#~ msgid "Connections"
+#~ msgstr "Anslutningar"
+
+#~ msgid "C_onnect"
+#~ msgstr "_Anslut"
+
+#, c-format
+#~ msgid ""
+#~ "%s does not know how to open remote file. Do you want to download the "
+#~ "file to a temporary location and then open it?"
+#~ msgid_plural ""
+#~ "%s does not know how to open remote files. Do you want to download the "
+#~ "files to a temporary location and then open them?"
+#~ msgstr[0] ""
+#~ "%s kan inte öppna fjärrfilen. Vill du hämta den till en temporär katalog "
+#~ "och sedan öppna den?"
+#~ msgstr[1] ""
+#~ "%s kan inte öppna fjärrfiler. Vill du hämta filerna till en temporär "
+#~ "katalog och sedan öppna dem?"
+
+#, c-format
+#~ msgid ""
+#~ "“%s” seems to be a binary executable file but it lacks the executable "
+#~ "bit. Do you want to set it and then run the file?"
+#~ msgstr ""
+#~ "”%s” verkar vara en binär körbar fil men exekveringsbiten är inte satt. "
+#~ "Vill du sätta den och sedan köra filen?"
+
+#, c-format
+#~ msgid ""
+#~ "“%s” is an executable text file. Do you want to run it, or display its "
+#~ "contents?"
+#~ msgstr ""
+#~ "”%s” är en körbar textfil. Vill du köra den, eller visa dess innehåll?"
+
+#, c-format
+#~ msgid "No default application found for the file type %s."
+#~ msgstr "Inget standardprogram hittades för filtypen %s."
+
+#~ msgid "gksudo, xdg-su, gksu, gnomesu, kdesu or beesu is not found"
+#~ msgstr "gksudo, xdg-su, gksu, gnomesu, kdesu eller beesu hittades inte"
 
 #, c-format
 #~ msgid "Create symbolic links of %i file in %s?"
 #~ msgid_plural "Create symbolic links of %i files in %s?"
 #~ msgstr[0] "Skapa symbolisk länk för %i fil i %s?"
 #~ msgstr[1] "Skapa symboliska länkar för %i filer i %s?"
-
-#~ msgid "Create"
-#~ msgstr "Skapa"
 
 #, c-format
 #~ msgid "Couldn’t load installed file type pixmap, trying to load %s instead"
