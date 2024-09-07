@@ -28,7 +28,6 @@
 #include "gnome-cmd-data.h"
 #include "gnome-cmd-convert.h"
 #include "gnome-cmd-treeview.h"
-#include "dialogs/gnome-cmd-advrename-regex-dialog.h"
 #include "tags/gnome-cmd-tags.h"
 #include "utils.h"
 
@@ -97,6 +96,8 @@ struct GnomeCmdAdvrenameProfileComponent::Private
     static void on_regex_remove_btn_clicked (GtkButton *button, GnomeCmdAdvrenameProfileComponent *component);
     static void on_regex_remove_all_btn_clicked (GtkButton *button, GnomeCmdAdvrenameProfileComponent *component);
     static void on_regex_view_row_activated (GtkTreeView *view, GtkTreePath *path, GtkTreeViewColumn *col, GnomeCmdAdvrenameProfileComponent *component);
+
+    static void on_regex_changed (GnomeCmdAdvrenameProfileComponent *component);
 
     static void on_case_combo_changed (GtkComboBox *combo, GnomeCmdAdvrenameProfileComponent *component);
     static void on_trim_combo_changed (GtkComboBox *combo, GnomeCmdAdvrenameProfileComponent *component);
@@ -416,11 +417,6 @@ static GMenuModel *create_meta_tag_menu()
 
 inline GtkTreeModel *create_regex_model ();
 
-template <typename T>
-inline GtkTreeModel *copy_regex_model(GtkTreeModel *model, guint col_id, vector<T> &v);
-
-inline GtkTreeModel *clear_regex_model(GtkTreeModel *model);
-
 inline GtkWidget *create_regex_view ();
 
 
@@ -447,13 +443,9 @@ inline GnomeCmdAdvrenameProfileComponent::Private::Private()
 
 inline GnomeCmdAdvrenameProfileComponent::Private::~Private()
 {
-    g_object_unref (template_entry);
-
-    clear_regex_model(regex_model);
-
-    if (regex_model)  g_object_unref (regex_model);
-
-    g_free (sample_fname);
+    g_clear_object (&template_entry);
+    g_clear_object (&regex_model);
+    g_clear_pointer (&sample_fname, g_free);
 }
 
 
@@ -478,12 +470,14 @@ void GnomeCmdAdvrenameProfileComponent::Private::fill_regex_model(const GnomeCmd
 
         gtk_list_store_append (GTK_LIST_STORE (regex_model), &iter);
         gtk_list_store_set (GTK_LIST_STORE (regex_model), &iter,
-                            COL_REGEX, rx,
                             COL_MALFORMED_REGEX, !*rx,
                             COL_PATTERN, rx->pattern.c_str(),
                             COL_REPLACE, rx->replacement.c_str(),
-                            COL_MATCH_CASE, rx->match_case ? _("Yes") : _("No"),
+                            COL_MATCH_CASE, rx->match_case,
+                            COL_MATCH_CASE_LABEL, rx->match_case ? _("Yes") : _("No"),
                             -1);
+
+        delete rx;
     }
 }
 
@@ -585,58 +579,29 @@ void GnomeCmdAdvrenameProfileComponent::Private::on_regex_model_row_deleted (Gtk
 }
 
 
+extern "C" void gnome_cmd_advrename_profile_component_regex_add (GtkWidget *component, GtkTreeView *tree_view);
+
 void GnomeCmdAdvrenameProfileComponent::Private::on_regex_add_btn_clicked (GtkButton *button, GnomeCmdAdvrenameProfileComponent *component)
 {
-    GnomeCmd::RegexReplace *rx = new GnomeCmd::RegexReplace;
-
-    if (gnome_cmd_advrename_regex_dialog_new (_("Add Rule"), GTK_WINDOW (gtk_widget_get_toplevel (*component)), rx))
-    {
-        GtkTreeIter i;
-
-        gtk_list_store_append (GTK_LIST_STORE (component->priv->regex_model), &i);
-        gtk_list_store_set (GTK_LIST_STORE (component->priv->regex_model), &i,
-                            COL_REGEX, rx,
-                            COL_MALFORMED_REGEX, !*rx,
-                            COL_PATTERN, rx->pattern.c_str(),
-                            COL_REPLACE, rx->replacement.c_str(),
-                            COL_MATCH_CASE, rx->match_case ? _("Yes") : _("No"),
-                            -1);
-
-        g_signal_emit (component, signals[REGEX_CHANGED], 0);
-
-        gtk_widget_set_sensitive (component->priv->regex_edit_button, TRUE);
-        gtk_widget_set_sensitive (component->priv->regex_remove_button, TRUE);
-        gtk_widget_set_sensitive (component->priv->regex_remove_all_button, TRUE);
-    }
-    else
-        delete rx;
+    gnome_cmd_advrename_profile_component_regex_add (GTK_WIDGET (component), GTK_TREE_VIEW (component->priv->regex_view));
 }
 
 
+extern "C" void gnome_cmd_advrename_profile_component_regex_edit (GtkWidget *component, GtkTreeView *tree_view);
+
 void GnomeCmdAdvrenameProfileComponent::Private::on_regex_edit_btn_clicked (GtkButton *button, GnomeCmdAdvrenameProfileComponent *component)
 {
-    GtkTreeView *tree_view = GTK_TREE_VIEW (component->priv->regex_view);
-    GtkTreeIter i;
+    gnome_cmd_advrename_profile_component_regex_edit (GTK_WIDGET (component), GTK_TREE_VIEW (component->priv->regex_view));
+}
 
-    if (gtk_tree_selection_get_selected (gtk_tree_view_get_selection (tree_view), NULL, &i))
-    {
-        GnomeCmd::RegexReplace *rx = NULL;
 
-        gtk_tree_model_get (component->priv->regex_model, &i, COL_REGEX, &rx, -1);
+void GnomeCmdAdvrenameProfileComponent::Private::on_regex_changed (GnomeCmdAdvrenameProfileComponent *component)
+{
+    bool empty = model_is_empty (component->priv->regex_model);
 
-        if (gnome_cmd_advrename_regex_dialog_new (_("Edit Rule"), GTK_WINDOW (gtk_widget_get_toplevel (*component)), rx))
-        {
-            gtk_list_store_set (GTK_LIST_STORE (component->priv->regex_model), &i,
-                                COL_REGEX, rx,
-                                COL_MALFORMED_REGEX, !*rx,
-                                COL_PATTERN, rx->pattern.c_str(),
-                                COL_REPLACE, rx->replacement.c_str(),
-                                COL_MATCH_CASE, rx->match_case ? _("Yes") : _("No"),
-                                -1);
-
-            g_signal_emit (component, signals[REGEX_CHANGED], 0);
-        }
-    }
+    gtk_widget_set_sensitive (component->priv->regex_edit_button, !empty);
+    gtk_widget_set_sensitive (component->priv->regex_remove_button, !empty);
+    gtk_widget_set_sensitive (component->priv->regex_remove_all_button, !empty);
 }
 
 
@@ -647,35 +612,19 @@ void GnomeCmdAdvrenameProfileComponent::Private::on_regex_remove_btn_clicked (Gt
 
     if (gtk_tree_selection_get_selected (gtk_tree_view_get_selection (tree_view), NULL, &i))
     {
-        GnomeCmd::RegexReplace *rx = NULL;
-
-        gtk_tree_model_get (component->priv->regex_model, &i, COL_REGEX, &rx, -1);
         gtk_list_store_remove (GTK_LIST_STORE (component->priv->regex_model), &i);
-        delete rx;
-
-        if (model_is_empty (component->priv->regex_model))
-        {
-            gtk_widget_set_sensitive (component->priv->regex_edit_button, FALSE);
-            gtk_widget_set_sensitive (component->priv->regex_remove_button, FALSE);
-            gtk_widget_set_sensitive (component->priv->regex_remove_all_button, FALSE);
-        }
+        on_regex_changed (component);
     }
 }
 
 
 void GnomeCmdAdvrenameProfileComponent::Private::on_regex_remove_all_btn_clicked (GtkButton *button, GnomeCmdAdvrenameProfileComponent *component)
 {
-    clear_regex_model(component->priv->regex_model);
-
     g_signal_handlers_block_by_func (component->priv->regex_model, gpointer (on_regex_model_row_deleted), component);
     gtk_list_store_clear (GTK_LIST_STORE (component->priv->regex_model));
     g_signal_handlers_unblock_by_func (component->priv->regex_model, gpointer (on_regex_model_row_deleted), component);
 
     g_signal_emit (component, signals[REGEX_CHANGED], 0);
-
-    gtk_widget_set_sensitive (component->priv->regex_edit_button, FALSE);
-    gtk_widget_set_sensitive (component->priv->regex_remove_button, FALSE);
-    gtk_widget_set_sensitive (component->priv->regex_remove_all_button, FALSE);
 }
 
 
@@ -967,6 +916,8 @@ static void gnome_cmd_advrename_profile_component_init (GnomeCmdAdvrenameProfile
 
         gtk_box_append (GTK_BOX (hbox), combo);
     }
+
+    g_signal_connect (component, "regex-changed", G_CALLBACK (GnomeCmdAdvrenameProfileComponent::Private::on_regex_changed), nullptr);
 }
 
 
@@ -1056,17 +1007,16 @@ GnomeCmdAdvrenameProfileComponent::GnomeCmdAdvrenameProfileComponent(GnomeCmdDat
 inline GtkTreeModel *create_regex_model ()
 {
     GtkTreeModel *model = GTK_TREE_MODEL (gtk_list_store_new (GnomeCmdAdvrenameProfileComponent::NUM_REGEX_COLS,
-                                                              G_TYPE_POINTER,
                                                               G_TYPE_BOOLEAN,
                                                               G_TYPE_STRING,
                                                               G_TYPE_STRING,
+                                                              G_TYPE_BOOLEAN,
                                                               G_TYPE_STRING));
     return model;
 }
 
 
-template <typename T>
-inline GtkTreeModel *copy_regex_model(GtkTreeModel *model, guint col_id, vector<T> &v)
+static void copy_regex_model(GtkTreeModel *model, vector<GnomeCmd::ReplacePattern> &v)
 {
     v.clear();
 
@@ -1074,34 +1024,21 @@ inline GtkTreeModel *copy_regex_model(GtkTreeModel *model, guint col_id, vector<
 
     for (gboolean valid_iter=gtk_tree_model_get_iter_first (model, &i); valid_iter; valid_iter=gtk_tree_model_iter_next (model, &i))
     {
-        T *rx;
+        gchar *pattern = nullptr;
+        gchar *replacement = nullptr;
+        gboolean match_case;
 
         gtk_tree_model_get (model, &i,
-                            col_id, &rx,
-                            -1);
-        if (rx)                            //  ignore null regex patterns
-            v.push_back(*rx);
+            GnomeCmdAdvrenameProfileComponent::COL_PATTERN, &pattern,
+            GnomeCmdAdvrenameProfileComponent::COL_REPLACE, &replacement,
+            GnomeCmdAdvrenameProfileComponent::COL_MATCH_CASE, &match_case,
+            -1);
+
+        v.push_back(GnomeCmd::ReplacePattern(pattern, replacement, match_case));
+
+        g_free (pattern);
+        g_free (replacement);
     }
-
-    return model;
-}
-
-
-inline GtkTreeModel *clear_regex_model(GtkTreeModel *model)
-{
-    GtkTreeIter i;
-
-    for (gboolean valid_iter=gtk_tree_model_get_iter_first (model, &i); valid_iter; valid_iter=gtk_tree_model_iter_next (model, &i))
-    {
-        GnomeCmd::RegexReplace *rx;
-
-        gtk_tree_model_get (model, &i,
-                            GnomeCmdAdvrenameProfileComponent::COL_REGEX, &rx,
-                            -1);
-        delete rx;
-    }
-
-    return model;
 }
 
 
@@ -1128,7 +1065,7 @@ inline GtkWidget *create_regex_view ()
     gtk_tree_view_column_add_attribute (col, renderer, "foreground-set", GnomeCmdAdvrenameProfileComponent::COL_MALFORMED_REGEX);
     gtk_widget_set_tooltip_text (gtk_tree_view_column_get_button (col), _("Replacement"));
 
-    col = gnome_cmd_treeview_create_new_text_column (GTK_TREE_VIEW (view), renderer, GnomeCmdAdvrenameProfileComponent::COL_MATCH_CASE, _("Match case"));
+    col = gnome_cmd_treeview_create_new_text_column (GTK_TREE_VIEW (view), renderer, GnomeCmdAdvrenameProfileComponent::COL_MATCH_CASE_LABEL, _("Match case"));
     g_object_set (renderer, "foreground", "red", NULL);
     gtk_tree_view_column_add_attribute (col, renderer, "foreground-set", GnomeCmdAdvrenameProfileComponent::COL_MALFORMED_REGEX);
     gtk_widget_set_tooltip_text (gtk_tree_view_column_get_button (col), _("Case sensitive matching"));
@@ -1156,8 +1093,6 @@ void GnomeCmdAdvrenameProfileComponent::update()
 
     if (!model_is_empty(priv->regex_model))
     {
-        clear_regex_model(priv->regex_model);
-
         g_signal_handlers_block_by_func (priv->regex_model, gpointer (Private::on_regex_model_row_deleted), this);
         gtk_list_store_clear (GTK_LIST_STORE (priv->regex_model));
         g_signal_handlers_unblock_by_func (priv->regex_model, gpointer (Private::on_regex_model_row_deleted), this);
@@ -1199,18 +1134,12 @@ void GnomeCmdAdvrenameProfileComponent::set_sample_fname(const gchar *fname)
 }
 
 
-GtkTreeModel *GnomeCmdAdvrenameProfileComponent::get_regex_model() const
-{
-    return priv ? priv->regex_model : NULL;
-}
-
-
 void GnomeCmdAdvrenameProfileComponent::copy()
 {
     const char *template_entry = get_template_entry();
 
     profile.template_string =  template_entry && *template_entry ? template_entry : "$N";
-    copy_regex_model(priv->regex_model, COL_REGEX, profile.regexes);
+    copy_regex_model(priv->regex_model, profile.regexes);
 }
 
 
@@ -1219,7 +1148,7 @@ void GnomeCmdAdvrenameProfileComponent::copy(GnomeCmdData::AdvrenameConfig::Prof
     const char *template_entry = get_template_entry();
 
     profile.template_string =  template_entry && *template_entry ? template_entry : "$N";
-    copy_regex_model(priv->regex_model, COL_REGEX, p.regexes);
+    copy_regex_model(priv->regex_model, p.regexes);
 
     if (&p==&profile)
         return;
@@ -1243,4 +1172,34 @@ gchar *GnomeCmdAdvrenameProfileComponent::convert_case(gchar *string)
 gchar *GnomeCmdAdvrenameProfileComponent::trim_blanks(gchar *string)
 {
     return priv->trim_blanks(string);
+}
+
+std::vector<GnomeCmd::RegexReplace> GnomeCmdAdvrenameProfileComponent::get_valid_regexes()
+{
+    GtkTreeModel *model = priv->regex_model;
+    GtkTreeIter i;
+    vector<GnomeCmd::RegexReplace> v;
+
+    for (gboolean valid_iter=gtk_tree_model_get_iter_first (model, &i); valid_iter; valid_iter=gtk_tree_model_iter_next (model, &i))
+    {
+        gboolean malformed = false;
+        gchar *pattern = nullptr;
+        gchar *replacement = nullptr;
+        gboolean match_case = false;
+
+        gtk_tree_model_get (model, &i,
+            GnomeCmdAdvrenameProfileComponent::COL_MALFORMED_REGEX, &malformed,
+            GnomeCmdAdvrenameProfileComponent::COL_PATTERN, &pattern,
+            GnomeCmdAdvrenameProfileComponent::COL_REPLACE, &replacement,
+            GnomeCmdAdvrenameProfileComponent::COL_MATCH_CASE, &match_case,
+            -1);
+
+        if (!malformed)
+            v.push_back(GnomeCmd::RegexReplace(pattern, replacement, match_case));
+
+        g_free (pattern);
+        g_free (replacement);
+    }
+
+    return v;
 }
