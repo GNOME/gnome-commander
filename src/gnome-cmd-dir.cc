@@ -28,7 +28,6 @@
 #include "gnome-cmd-data.h"
 #include "gnome-cmd-con.h"
 #include "gnome-cmd-file-collection.h"
-#include "dirlist.h"
 #include "utils.h"
 
 using namespace std;
@@ -52,7 +51,6 @@ struct GnomeCmdDirPrivate
     GnomeCmdCon *con;
     GnomeCmdPath *path;
 
-    gboolean lock;
     gboolean needs_mtime_update;
 
     GFileMonitor *gFileMonitor;
@@ -190,9 +188,9 @@ static void gnome_cmd_dir_class_init (GnomeCmdDirClass *klass)
             G_SIGNAL_RUN_LAST,
             G_STRUCT_OFFSET (GnomeCmdDirClass, list_ok),
             nullptr, nullptr,
-            g_cclosure_marshal_VOID__POINTER,
+            nullptr,
             G_TYPE_NONE,
-            1, G_TYPE_POINTER);
+            0);
 
     signals[LIST_FAILED] =
         g_signal_new ("list-failed",
@@ -200,7 +198,7 @@ static void gnome_cmd_dir_class_init (GnomeCmdDirClass *klass)
             G_SIGNAL_RUN_LAST,
             G_STRUCT_OFFSET (GnomeCmdDirClass, list_failed),
             nullptr, nullptr,
-            g_cclosure_marshal_VOID__INT,
+            g_cclosure_marshal_VOID__POINTER,
             G_TYPE_NONE,
             1, G_TYPE_POINTER);
 
@@ -407,95 +405,19 @@ GList *gnome_cmd_dir_get_files (GnomeCmdDir *dir)
 }
 
 
-static GList *create_gnome_cmd_file_list_from_gfileinfo_list (GnomeCmdDir *dir, GList *info_list)
+extern "C" void gnome_cmd_dir_set_state (GnomeCmdDir *dir, gint state)
 {
-    GList *file_list = nullptr;
-
-    // create a new list with GnomeCmdFile objects
-    for (GList *i = info_list; i; i = i->next)
-    {
-        auto gFileInfo = (GFileInfo *) i->data;
-
-        if (gFileInfo == nullptr || !G_IS_FILE_INFO (gFileInfo))
-        {
-            continue;
-        }
-
-        auto basename = g_file_info_get_attribute_string (gFileInfo, G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME);
-        if (strcmp (basename, ".") == 0 || strcmp (basename, "..") == 0)
-        {
-            continue;
-        }
-
-        GnomeCmdFile *f = g_file_info_get_attribute_uint32 (gFileInfo, G_FILE_ATTRIBUTE_STANDARD_TYPE) == G_FILE_TYPE_DIRECTORY
-            ? GNOME_CMD_FILE (gnome_cmd_dir_new_from_gfileinfo (gFileInfo, dir))
-            : gnome_cmd_file_new (gFileInfo, dir);
-
-        if (f)
-        {
-            gnome_cmd_file_ref (f);
-            file_list = g_list_append (file_list, f);
-        }
-    }
-    return file_list;
+    dir->state = (GnomeCmdDir::State) state;
 }
 
 
-static void on_list_done (GnomeCmdDir *dir, gboolean success, GList *infolist, GError *error)
+extern "C" void gnome_cmd_dir_set_files (GnomeCmdDir *dir, GList *files)
 {
-    dir->priv->lock = FALSE;
+    if (!dir->priv->file_collection->empty())
+        dir->priv->file_collection->clear();
 
-    if (success)
-    {
-        dir->state = GnomeCmdDir::STATE_LISTED;
-
-        DEBUG('l', "File listing succeeded\n");
-
-        if (!dir->priv->file_collection->empty())
-            dir->priv->file_collection->clear();
-
-        dir->priv->files = create_gnome_cmd_file_list_from_gfileinfo_list (dir, infolist);
-        dir->priv->file_collection->add(dir->priv->files);
-        g_list_free (infolist);
-
-        DEBUG('l', "Emitting 'list-ok' signal\n");
-        g_signal_emit (dir, signals[LIST_OK], 0, dir->priv->files);
-    }
-    else
-    {
-        dir->state = GnomeCmdDir::STATE_EMPTY;
-
-        DEBUG('l', "File listing failed: %s\n", error->message);
-        DEBUG('l', "Emitting 'list-failed' signal\n");
-        g_signal_emit (dir, signals[LIST_FAILED], 0, error);
-    }
-}
-
-
-void gnome_cmd_dir_relist_files (GtkWindow *parent_window, GnomeCmdDir *dir, gboolean visualProgress)
-{
-    g_return_if_fail (GNOME_CMD_IS_DIR (dir));
-
-    if (dir->priv->lock) return;
-    dir->priv->lock = TRUE;
-
-    dirlist_list (parent_window, dir, visualProgress, on_list_done);
-}
-
-
-void gnome_cmd_dir_list_files (GtkWindow *parent_window, GnomeCmdDir *dir, gboolean visualProgress)
-{
-    g_return_if_fail (GNOME_CMD_IS_DIR (dir));
-
-    if (!dir->priv->files || gnome_cmd_file_is_local (GNOME_CMD_FILE (dir)))
-    {
-        auto gUriString = g_file_get_uri(GNOME_CMD_FILE (dir)->get_file());
-        DEBUG ('l', "relisting files for 0x%x; %s\n", dir, gUriString);
-        gnome_cmd_dir_relist_files (parent_window, dir, visualProgress);
-        g_free(gUriString);
-    }
-    else
-        g_signal_emit (dir, signals[LIST_OK], 0, dir->priv->files);
+    dir->priv->files = files;
+    dir->priv->file_collection->add(dir->priv->files);
 }
 
 

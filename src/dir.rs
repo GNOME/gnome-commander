@@ -22,23 +22,29 @@
 
 use crate::{
     connection::connection::{Connection, GnomeCmdPath},
+    dirlist::list_directory,
     file::{File, GnomeCmdFileExt},
     libgcmd::file_base::FileBase,
 };
-use gtk::glib::{
-    self,
-    translate::{from_glib_full, ToGlibPtr},
-    Cast,
+use gtk::{
+    gio,
+    glib::{
+        self,
+        ffi::gboolean,
+        translate::{from_glib_full, from_glib_none, ToGlibPtr},
+        Cast,
+    },
+    prelude::*,
 };
-use std::ffi::{c_int, CStr};
+use std::ffi::CStr;
 
 pub mod ffi {
     use crate::connection::connection::ffi::GnomeCmdCon;
-    use gtk::glib::ffi::GType;
-    use std::{
-        ffi::{c_char, c_int},
-        os::raw::c_void,
+    use gtk::{
+        gio::ffi::GFileInfo,
+        glib::ffi::{GList, GType},
     };
+    use std::ffi::{c_char, c_void};
 
     #[repr(C)]
     pub struct GnomeCmdDir {
@@ -49,15 +55,18 @@ pub mod ffi {
     extern "C" {
         pub fn gnome_cmd_dir_get_type() -> GType;
 
+        pub fn gnome_cmd_dir_new_from_gfileinfo(
+            file_info: *mut GFileInfo,
+            parent: *mut GnomeCmdDir,
+        ) -> *mut GnomeCmdDir;
         pub fn gnome_cmd_dir_new(dir: *mut GnomeCmdCon, path: *const c_void) -> *mut GnomeCmdDir;
 
         pub fn gnome_cmd_dir_get_display_path(dir: *mut GnomeCmdDir) -> *const c_char;
 
-        pub fn gnome_cmd_dir_relist_files(
-            parent_window: *const gtk::ffi::GtkWindow,
-            dir: *const GnomeCmdDir,
-            visual_progress: c_int,
-        );
+        pub fn gnome_cmd_dir_get_files(dir: *mut GnomeCmdDir) -> *const GList;
+
+        pub fn gnome_cmd_dir_set_state(dir: *mut GnomeCmdDir, state: i32);
+        pub fn gnome_cmd_dir_set_files(dir: *mut GnomeCmdDir, files: *mut GList);
     }
 
     #[derive(Copy, Clone)]
@@ -76,7 +85,25 @@ glib::wrapper! {
     }
 }
 
+#[repr(C)]
+#[derive(Clone, Copy)]
+enum DirectoryState {
+    Empty = 0,
+    Listed,
+    Listing,
+    Canceling,
+}
+
 impl Directory {
+    pub fn new_from_file_info(file_info: &gio::FileInfo, parent: &Directory) -> Option<Self> {
+        unsafe {
+            from_glib_full(ffi::gnome_cmd_dir_new_from_gfileinfo(
+                file_info.to_glib_full(),
+                parent.to_glib_none().0,
+            ))
+        }
+    }
+
     pub fn new(connection: &Connection, path: GnomeCmdPath) -> Self {
         unsafe { from_glib_full(ffi::gnome_cmd_dir_new(connection.to_glib_none().0, path.0)) }
     }
@@ -87,15 +114,118 @@ impl Directory {
         str.to_string()
     }
 
-    pub fn relist_files(&self, parent_window: &gtk::Window, visual_progress: bool) {
-        unsafe {
-            ffi::gnome_cmd_dir_relist_files(
-                parent_window.to_glib_none().0,
-                self.to_glib_none().0,
-                visual_progress as c_int,
-            );
+    pub fn files(&self) -> glib::List<File> {
+        unsafe { glib::List::from_glib_none(ffi::gnome_cmd_dir_get_files(self.to_glib_none().0)) }
+    }
+
+    fn set_state(&self, state: DirectoryState) {
+        unsafe { ffi::gnome_cmd_dir_set_state(self.to_glib_none().0, state as i32) }
+    }
+
+    fn set_files(&self, files: glib::List<File>) {
+        unsafe { ffi::gnome_cmd_dir_set_files(self.to_glib_none().0, files.into_raw()) }
+    }
+
+    pub async fn relist_files(&self, parent_window: &gtk::Window, visual: bool) {
+        let Some(lock) = DirectoryLock::try_acquire(self) else {
+            return;
+        };
+
+        let window = if visual { Some(parent_window) } else { None };
+        match list_directory(self, window).await {
+            Ok(file_infos) => {
+                self.set_state(DirectoryState::Listed);
+                self.set_files(
+                    file_infos
+                        .into_iter()
+                        .filter_map(|file_info| create_file_from_file_info(&file_info, self))
+                        .collect(),
+                );
+                self.emit_by_name::<()>("list-ok", &[]);
+            }
+            Err(error) => {
+                self.set_state(DirectoryState::Empty);
+                self.emit_by_name::<()>("list-failed", &[&error]);
+            }
+        }
+
+        lock.release();
+    }
+
+    pub async fn list_files(&self, parent_window: &gtk::Window, visual: bool) {
+        let files = self.files();
+        if files.is_empty() || self.upcast_ref::<File>().is_local() {
+            self.relist_files(parent_window, visual).await;
+        } else {
+            self.emit_by_name::<()>("list-ok", &[]);
         }
     }
+}
+
+struct DirectoryLock<'d>(&'d Directory);
+
+impl<'d> DirectoryLock<'d> {
+    fn try_acquire(dir: &'d Directory) -> Option<Self> {
+        if unsafe { dir.data::<bool>("lock") }.is_some() {
+            None
+        } else {
+            unsafe { dir.set_data::<bool>("lock", true) }
+            Some(Self(dir))
+        }
+    }
+
+    fn release(self) {
+        drop(self)
+    }
+}
+
+impl<'d> Drop for DirectoryLock<'d> {
+    fn drop(&mut self) {
+        unsafe {
+            self.0.steal_data::<bool>("lock");
+        }
+    }
+}
+
+fn create_file_from_file_info(file_info: &gio::FileInfo, parent: &Directory) -> Option<File> {
+    let name = file_info.display_name();
+    if name == "." || name == ".." {
+        return None;
+    }
+
+    if file_info.file_type() == gio::FileType::Directory {
+        Directory::new_from_file_info(&file_info, parent).and_upcast::<File>()
+    } else {
+        File::new(&file_info, parent)
+    }
+}
+
+#[no_mangle]
+pub extern "C" fn gnome_cmd_dir_relist_files(
+    parent_window_ptr: *const gtk::ffi::GtkWindow,
+    dir_ptr: *const ffi::GnomeCmdDir,
+    visual: gboolean,
+) {
+    let dir: Directory = unsafe { from_glib_none(dir_ptr) };
+    let parent_window: gtk::Window = unsafe { from_glib_none(parent_window_ptr) };
+
+    glib::MainContext::default().spawn_local(async move {
+        dir.relist_files(&parent_window, visual != 0).await;
+    });
+}
+
+#[no_mangle]
+pub extern "C" fn gnome_cmd_dir_list_files(
+    parent_window_ptr: *const gtk::ffi::GtkWindow,
+    dir_ptr: *const ffi::GnomeCmdDir,
+    visual: gboolean,
+) {
+    let dir: Directory = unsafe { from_glib_none(dir_ptr) };
+    let parent_window: gtk::Window = unsafe { from_glib_none(parent_window_ptr) };
+
+    glib::MainContext::default().spawn_local(async move {
+        dir.list_files(&parent_window, visual != 0).await;
+    });
 }
 
 impl GnomeCmdFileExt for Directory {

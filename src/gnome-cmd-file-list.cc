@@ -1507,7 +1507,7 @@ static void on_dir_file_renamed (GnomeCmdDir *dir, GnomeCmdFile *f, GnomeCmdFile
 }
 
 
-static void on_dir_list_ok (GnomeCmdDir *dir, GList *files, GnomeCmdFileList *fl)
+static void on_dir_list_ok (GnomeCmdDir *dir, GnomeCmdFileList *fl)
 {
     DEBUG('l', "on_dir_list_ok\n");
 
@@ -2952,7 +2952,7 @@ void GnomeCmdFileList::set_directory(GnomeCmdDir *dir)
             if (gnome_cmd_file_is_local (GNOME_CMD_FILE (dir)) && !gnome_cmd_dir_is_monitored (dir) && gnome_cmd_dir_update_mtime (dir))
                 gnome_cmd_dir_relist_files (get_toplevel_window (*this), dir, gnome_cmd_con_needs_list_visprog (con));
             else
-                on_dir_list_ok (dir, nullptr, this);
+                on_dir_list_ok (dir, this);
             break;
 
         default:
