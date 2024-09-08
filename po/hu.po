@@ -14,8 +14,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-commander/issues/\n"
-"POT-Creation-Date: 2024-08-31 20:58+0000\n"
-"PO-Revision-Date: 2024-09-06 23:19+0200\n"
+"POT-Creation-Date: 2024-09-08 14:26+0000\n"
+"PO-Revision-Date: 2024-09-09 01:06+0200\n"
 "Last-Translator: Balázs Úr <ur.balazs at fsf dot hu>\n"
 "Language-Team: Hungarian <openscope at fsf dot hu>\n"
 "Language: hu\n"
@@ -1494,19 +1494,18 @@ msgstr ""
 msgid "No error description available"
 msgstr "Nem érhető el a hibaleírás"
 
-#. GTK_STOCK_HELP, GTK_RESPONSE_HELP,             //  FIXME: ???
 #. buttons
 #: libgcmd/gnome-cmd-string-dialog.cc:138 libgcmd/libgcmd-widget-factory.cc:296
-#: src/advrename_profile_component.rs:102 src/dialogs/connect_dialog.rs:241
-#: src/dialogs/gnome-cmd-advrename-regex-dialog.cc:61
+#: src/advrename_profile_component.rs:106
+#: src/dialogs/advrename_regex_dialog.rs:136 src/dialogs/connect_dialog.rs:241
 #: src/dialogs/gnome-cmd-chmod-dialog.cc:229
 #: src/dialogs/gnome-cmd-chown-dialog.cc:191
 #: src/dialogs/gnome-cmd-delete-dialog.cc:142
 #: src/dialogs/gnome-cmd-edit-bookmark-dialog.cc:74
 #: src/dialogs/gnome-cmd-edit-profile-dialog.h:84
 #: src/dialogs/gnome-cmd-file-props-dialog.cc:677
-#: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:255
-#: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:504
+#: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:260
+#: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:512
 #: src/dialogs/gnome-cmd-manage-profiles-dialog.h:290
 #: src/dialogs/gnome-cmd-mkdir-dialog.cc:171
 #: src/dialogs/gnome-cmd-options-dialog.cc:770
@@ -1523,14 +1522,14 @@ msgstr "_Mégse"
 
 #: libgcmd/gnome-cmd-string-dialog.cc:139 libgcmd/libgcmd-widget-factory.cc:297
 #: plugins/fileroller/file-roller-plugin.cc:608
-#: src/advrename_profile_component.rs:116 src/dialogs/connect_dialog.rs:251
-#: src/dialogs/gnome-cmd-advrename-regex-dialog.cc:62
+#: src/advrename_profile_component.rs:120
+#: src/dialogs/advrename_regex_dialog.rs:148 src/dialogs/connect_dialog.rs:251
 #: src/dialogs/gnome-cmd-chmod-dialog.cc:231
 #: src/dialogs/gnome-cmd-chown-dialog.cc:192
 #: src/dialogs/gnome-cmd-edit-bookmark-dialog.cc:75
 #: src/dialogs/gnome-cmd-edit-profile-dialog.h:85
 #: src/dialogs/gnome-cmd-file-props-dialog.cc:678
-#: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:256
+#: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:261
 #: src/dialogs/gnome-cmd-manage-profiles-dialog.h:291
 #: src/dialogs/gnome-cmd-mkdir-dialog.cc:172
 #: src/dialogs/gnome-cmd-options-dialog.cc:771
@@ -1599,14 +1598,14 @@ msgid "Extract to “%s”"
 msgstr "Kibontás ide: „%s”"
 
 #: plugins/fileroller/file-roller-plugin.cc:586
-#: src/gnome-cmd-advrename-profile-component.cc:792 src/plugin_manager.cc:405
+#: src/gnome-cmd-advrename-profile-component.cc:741 src/plugin_manager.cc:405
 #: src/tags/gnome-cmd-tags.cc:692
 msgid "File"
 msgstr "Fájl"
 
 #. destroy model automatically with view
 #: plugins/fileroller/file-roller-plugin.cc:605
-#: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:374
+#: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:382
 #: src/dialogs/gnome-cmd-options-dialog.cc:1566
 #: src/dialogs/gnome-cmd-options-dialog.cc:2350
 #: src/dialogs/gnome-cmd-prepare-copy-dialog.cc:135
@@ -1657,22 +1656,55 @@ msgstr ""
 "Ez egy példa bővítmény, amely leginkább egyszerű példaként használható "
 "törekvő bővítmény-hackereknek."
 
-#: src/advrename_profile_component.rs:50
+#: src/advrename_profile_component.rs:54
 msgid "Range Selection"
 msgstr "Tartomány kijelölés"
 
-#: src/advrename_profile_component.rs:78
+#: src/advrename_profile_component.rs:82
 msgid "_Select range:"
 msgstr "_Tartomány kijelölése:"
 
-#: src/advrename_profile_component.rs:87
+#: src/advrename_profile_component.rs:91
 msgid "_Inverse selection"
 msgstr "Kijelölés _megfordítása"
 
+#: src/advrename_profile_component.rs:240
+#: src/dialogs/gnome-cmd-prepare-xfer-dialog.cc:185 src/file_list_actions.rs:53
+#: src/gnome-cmd-advrename-profile-component.cc:477
+msgid "Yes"
+msgstr "Igen"
+
+#: src/advrename_profile_component.rs:242
+#: src/dialogs/gnome-cmd-prepare-xfer-dialog.cc:185 src/file_list_actions.rs:53
+#: src/gnome-cmd-advrename-profile-component.cc:477
+msgid "No"
+msgstr "Nem"
+
+#: src/advrename_profile_component.rs:262
+msgid "Add Rule"
+msgstr "Szabály hozzáadása"
+
+#: src/advrename_profile_component.rs:287
+msgid "Edit Rule"
+msgstr "Szabály szerkesztése"
+
 #: src/app.rs:174
-#| msgid "No valid command given."
 msgid "Cannot build a command line."
 msgstr "Nem lehet összeállítani egy parancssort."
+
+#: src/dialogs/advrename_regex_dialog.rs:92
+msgid "_Search for:"
+msgstr "_Keresés erre:"
+
+#: src/dialogs/advrename_regex_dialog.rs:103
+#| msgid "_Replace with:"
+msgid "_Replace for:"
+msgstr "_Csere erre:"
+
+#. Case-Sensitive Checkbox
+#: src/dialogs/advrename_regex_dialog.rs:113 src/intviewer/search-dlg.cc:252
+msgid "_Match case"
+msgstr "Kis- és nagybetűk mege_gyeznek"
 
 #: src/dialogs/connect_dialog.rs:47
 msgid "SSH"
@@ -1740,10 +1772,10 @@ msgid "_Domain name:"
 msgstr "_Tartománynév:"
 
 #: src/dialogs/connect_dialog.rs:226
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:676
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:660
 #: src/dialogs/gnome-cmd-edit-profile-dialog.h:82
 #: src/dialogs/gnome-cmd-file-props-dialog.cc:675
-#: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:254
+#: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:259
 #: src/dialogs/gnome-cmd-manage-bookmarks-dialog.cc:98
 #: src/dialogs/gnome-cmd-manage-profiles-dialog.h:289
 #: src/dialogs/gnome-cmd-mkdir-dialog.cc:170
@@ -1763,7 +1795,6 @@ msgid "Please enter a name and try again."
 msgstr "Adjon meg egy nevet, és próbálja újra."
 
 #: src/dialogs/connect_dialog.rs:347
-#| msgid "You must enter a name for the server"
 msgid "You must enter a number for the port"
 msgstr "Meg kell adnia egy számot a porthoz"
 
@@ -1775,96 +1806,96 @@ msgstr "A kapcsolódási módszer nincs kiválasztva"
 msgid "Please check spelling and try again."
 msgstr "Ellenőrizze a helyesírást és próbálja újra."
 
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:107
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:106
 #: src/dialogs/gnome-cmd-search-dialog.cc:179
 msgid "_Save Profile As…"
 msgstr "Profil mentése _másként…"
 
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:111
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:110
 #: src/dialogs/gnome-cmd-search-dialog.cc:183
 msgid "_Manage Profiles…"
 msgstr "Profilok _kezelése…"
 
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:135
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:134
 #: src/dialogs/gnome-cmd-search-dialog.cc:206
 msgid "Profiles"
 msgstr "Profilok"
 
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:301
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:300
 msgid "Remove from file list"
 msgstr "Eltávolítás a fájllistából"
 
 #. {file_umount, "file.umount"},
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:302
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:301
 #: src/gnome-cmd-user-actions.cc:352
 msgid "View file"
 msgstr "Fájl megtekintése"
 
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:303
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:302
 msgid "File properties"
 msgstr "Fájl tulajdonságai"
 
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:306
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:305
 msgid "Update file list"
 msgstr "Fájllista frissítése"
 
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:493
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:492
 msgid "Advanced Rename Tool"
 msgstr "Speciális átnevezőeszköz"
 
 #. Results
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:508
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:507
 msgid "Results"
 msgstr "Eredmények"
 
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:579
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:578
 msgid "Old name"
 msgstr "Régi név"
 
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:583
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:582
 msgid "Current file name"
 msgstr "Aktuális fájlnév"
 
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:585
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:584
 msgid "New name"
 msgstr "Új név"
 
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:589
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:588
 msgid "New file name"
 msgstr "Új fájlnév"
 
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:591 src/tags/gnome-cmd-tags.cc:332
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:590 src/tags/gnome-cmd-tags.cc:332
 #: src/tags/gnome-cmd-tags.cc:396
 msgid "Size"
 msgstr "Méret"
 
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:595
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:594
 msgid "File size"
 msgstr "Fájlméret"
 
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:597
-#: src/gnome-cmd-advrename-profile-component.cc:155
-#: src/gnome-cmd-advrename-profile-component.cc:800
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:596
+#: src/gnome-cmd-advrename-profile-component.cc:156
+#: src/gnome-cmd-advrename-profile-component.cc:749
 #: src/tags/gnome-cmd-tags.cc:347 src/tags/gnome-cmd-tags.cc:423
 msgid "Date"
 msgstr "Dátum"
 
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:601
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:600
 msgid "File modification date"
 msgstr "Fájl módosítási dátuma"
 
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:668
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:652
 #: src/dialogs/gnome-cmd-search-dialog.cc:1264
 msgid "Profiles…"
 msgstr "Profilok…"
 
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:677
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:661
 #: src/dialogs/gnome-cmd-edit-profile-dialog.h:83
 msgid "Reset"
 msgstr "Visszaállítás"
 
 #. Add the close button
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:678
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:662
 #: src/dialogs/gnome-cmd-manage-bookmarks-dialog.cc:99
 #: src/dialogs/gnome-cmd-options-dialog.cc:580
 #: src/dialogs/gnome-cmd-search-dialog.cc:1273 src/dialogs/remote_dialog.rs:262
@@ -1873,23 +1904,9 @@ msgstr "Visszaállítás"
 msgid "_Close"
 msgstr "_Bezárás"
 
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:679
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:663
 msgid "_Apply"
 msgstr "_Alkalmaz"
-
-#: src/dialogs/gnome-cmd-advrename-regex-dialog.cc:82
-msgid "_Search for:"
-msgstr "_Keresés erre:"
-
-#: src/dialogs/gnome-cmd-advrename-regex-dialog.cc:94
-msgid "_Replace with:"
-msgstr "Cs_erélje erre:"
-
-#. Case-Sensitive Checkbox
-#: src/dialogs/gnome-cmd-advrename-regex-dialog.cc:106
-#: src/intviewer/search-dlg.cc:252
-msgid "_Match case"
-msgstr "Kis- és nagybetűk mege_gyeznek"
 
 #: src/dialogs/gnome-cmd-chmod-dialog.cc:45
 #: src/dialogs/gnome-cmd-options-dialog.cc:1587
@@ -2205,11 +2222,11 @@ msgstr "Metaadat"
 msgid "Co_py"
 msgstr "_Másolás"
 
-#: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:198
+#: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:202
 msgid "Keyboard Shortcuts"
 msgstr "Gyorsbillentyűk"
 
-#: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:232
+#: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:237
 msgid ""
 "To edit a shortcut key, click on the corresponding row and type a new "
 "accelerator, or press escape to cancel."
@@ -2217,69 +2234,69 @@ msgstr ""
 "A gyorsbillentyű módosításához kattintson a megfelelő sorra, és nyomja meg "
 "azúj gyorsbillentyűt, vagy a megszakításhoz nyomja meg az Esc billentyűt."
 
-#: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:243
+#: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:248
 #: src/dialogs/gnome-cmd-options-dialog.cc:1820
 #: src/dialogs/gnome-cmd-options-dialog.cc:2260
 #: src/dialogs/remote_dialog.rs:219
-#: src/gnome-cmd-advrename-profile-component.cc:896
+#: src/gnome-cmd-advrename-profile-component.cc:845
 msgid "_Add"
 msgstr "_Hozzáadás"
 
-#: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:248
+#: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:253
 #: src/dialogs/gnome-cmd-manage-bookmarks-dialog.cc:140
 #: src/dialogs/gnome-cmd-manage-profiles-dialog.h:339
 #: src/dialogs/gnome-cmd-options-dialog.cc:1830
 #: src/dialogs/gnome-cmd-options-dialog.cc:2270
 #: src/dialogs/remote_dialog.rs:132
-#: src/gnome-cmd-advrename-profile-component.cc:902
+#: src/gnome-cmd-advrename-profile-component.cc:851
 msgid "_Remove"
 msgstr "_Eltávolítás"
 
-#: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:359
+#: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:366
 msgid "Shortcut Key"
 msgstr "Gyorsbillentyű gomb"
 
-#: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:360
+#: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:367
 msgid "Keyboard shortcut for selected action"
 msgstr "Gyorsbillentyű a kijelölt művelethez"
 
-#: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:367
+#: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:374
 msgid "Action"
 msgstr "Művelet"
 
-#: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:368
+#: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:375
 msgid "User action"
 msgstr "Felhasználói művelet"
 
-#: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:375
+#: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:383
 msgid "Optional data"
 msgstr "Opcionális adat"
 
-#: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:502
+#: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:510
 #, c-format
 msgid "Shortcut “%s” is already taken by “%s”."
 msgstr "A(z) „%s” gyorsbillentyű már hozzá van rendelve ehhez: „%s”."
 
-#: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:505
+#: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:513
 msgid "_Reassign shortcut"
 msgstr "Gyorsbillentyű-társítás mó_dosítása"
 
-#: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:508
+#: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:516
 msgid "Conflicting Shortcuts"
 msgstr "Gyorsbillentyű ütközések"
 
-#: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:509
+#: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:517
 #, c-format
 msgid "Reassigning the shortcut will cause it to be removed from “%s”."
 msgstr ""
 "A gyorsbillentyű hozzárendelésének módosítása esetén el lesz távolítva "
 "innen: „%s”."
 
-#: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:565
+#: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:573
 msgid "Invalid shortcut."
 msgstr "Hibás gyorsbillentyű."
 
-#: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:644
+#: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:685
 msgid "Do nothing"
 msgstr "Ne tegyen semmit"
 
@@ -2293,7 +2310,7 @@ msgstr "_Ugrás ide"
 #: src/dialogs/gnome-cmd-options-dialog.cc:1824
 #: src/dialogs/gnome-cmd-options-dialog.cc:2264
 #: src/dialogs/remote_dialog.rs:128
-#: src/gnome-cmd-advrename-profile-component.cc:899
+#: src/gnome-cmd-advrename-profile-component.cc:848
 #: src/gnome-cmd-main-menu.cc:176
 msgid "_Edit"
 msgstr "S_zerkesztés"
@@ -2549,8 +2566,8 @@ msgstr "Szuper (mérettől függő módon)"
 
 #. Translators: '<locale>' refers to the mode of file size display (here - use current locale settings)
 #: src/dialogs/gnome-cmd-options-dialog.cc:376
-#: src/gnome-cmd-advrename-profile-component.cc:143
-#: src/gnome-cmd-advrename-profile-component.cc:158
+#: src/gnome-cmd-advrename-profile-component.cc:144
+#: src/gnome-cmd-advrename-profile-component.cc:159
 msgid "<locale>"
 msgstr "<területi beállítás>"
 
@@ -3175,20 +3192,6 @@ msgstr[1] "%d fájl áthelyezése"
 msgid "The directory “%s” doesn’t exist, do you want to create it?"
 msgstr "A(z) „%s” könyvtár nem létezik, szeretné létrehozni?"
 
-#: src/dialogs/gnome-cmd-prepare-xfer-dialog.cc:185 src/file_list_actions.rs:53
-#: src/gnome-cmd-advrename-profile-component.cc:485
-#: src/gnome-cmd-advrename-profile-component.cc:602
-#: src/gnome-cmd-advrename-profile-component.cc:634
-msgid "No"
-msgstr "Nem"
-
-#: src/dialogs/gnome-cmd-prepare-xfer-dialog.cc:185 src/file_list_actions.rs:53
-#: src/gnome-cmd-advrename-profile-component.cc:485
-#: src/gnome-cmd-advrename-profile-component.cc:602
-#: src/gnome-cmd-advrename-profile-component.cc:634
-msgid "Yes"
-msgstr "Igen"
-
 #: src/dialogs/gnome-cmd-prepare-xfer-dialog.cc:193
 msgid "Unknown error"
 msgstr "Ismeretlen hiba"
@@ -3324,12 +3327,10 @@ msgid "New accelerator…"
 msgstr "Új gyorsbillentyű…"
 
 #: src/file_list_actions.rs:79
-#| msgid "No file name given"
 msgid "No files were given to open."
 msgstr "Nem lettek megadva fájlok a megnyitáshoz."
 
 #: src/file_list_actions.rs:110
-#| msgid "Do not download files"
 msgid "Download failed."
 msgstr "A letöltés sikertelen."
 
@@ -3338,7 +3339,6 @@ msgid "Couldn’t retrieve MIME type of the file."
 msgstr "A fájl MIME-típusa nem kérhető le."
 
 #: src/file_view.rs:57
-#| msgid "Do not download files"
 msgid "Failed to download a file"
 msgstr "Nem sikerült letölteni egy fájlt"
 
@@ -3372,240 +3372,232 @@ msgstr "_Köszönet"
 msgid "About %s"
 msgstr "%s névjegye"
 
-#: src/gnome-cmd-advrename-profile-component.cc:109
+#: src/gnome-cmd-advrename-profile-component.cc:110
 msgid "Grandparent"
 msgstr "Nagyszülő"
 
-#: src/gnome-cmd-advrename-profile-component.cc:110
+#: src/gnome-cmd-advrename-profile-component.cc:111
 msgid "Parent"
 msgstr "Szülő"
 
-#: src/gnome-cmd-advrename-profile-component.cc:118
+#: src/gnome-cmd-advrename-profile-component.cc:119
 msgid "File name"
 msgstr "Fájlnév"
 
-#: src/gnome-cmd-advrename-profile-component.cc:119
+#: src/gnome-cmd-advrename-profile-component.cc:120
 msgid "File name (range)"
 msgstr "Fájlnév (tartomány)"
 
-#: src/gnome-cmd-advrename-profile-component.cc:120
+#: src/gnome-cmd-advrename-profile-component.cc:121
 msgid "File name without extension"
 msgstr "Fájlnév kiterjesztés nélkül"
 
-#: src/gnome-cmd-advrename-profile-component.cc:121
+#: src/gnome-cmd-advrename-profile-component.cc:122
 msgid "File name without extension (range)"
 msgstr "Fájlnév kiterjesztés nélkül (tartomány)"
 
-#: src/gnome-cmd-advrename-profile-component.cc:122
+#: src/gnome-cmd-advrename-profile-component.cc:123
 msgid "File extension"
 msgstr "Fájlkiterjesztés"
 
-#: src/gnome-cmd-advrename-profile-component.cc:130
-#: src/gnome-cmd-advrename-profile-component.cc:796
-#: src/gnome-cmd-advrename-profile-component.cc:816
+#: src/gnome-cmd-advrename-profile-component.cc:131
+#: src/gnome-cmd-advrename-profile-component.cc:745
+#: src/gnome-cmd-advrename-profile-component.cc:765
 msgid "Counter"
 msgstr "Számláló"
 
-#: src/gnome-cmd-advrename-profile-component.cc:131
+#: src/gnome-cmd-advrename-profile-component.cc:132
 msgid "Counter (width)"
 msgstr "Számláló (szélesség)"
 
-#: src/gnome-cmd-advrename-profile-component.cc:132
+#: src/gnome-cmd-advrename-profile-component.cc:133
 msgid "Counter (auto)"
 msgstr "Számláló (automatikus)"
 
-#: src/gnome-cmd-advrename-profile-component.cc:133
+#: src/gnome-cmd-advrename-profile-component.cc:134
 msgid "Hexadecimal random number (width)"
 msgstr "Hexadecimális véletlen szám (szélesség)"
 
-#: src/gnome-cmd-advrename-profile-component.cc:144
+#: src/gnome-cmd-advrename-profile-component.cc:145
 msgid "yyyy-mm-dd"
 msgstr "éééé-hh-nn"
 
-#: src/gnome-cmd-advrename-profile-component.cc:145
+#: src/gnome-cmd-advrename-profile-component.cc:146
 msgid "yy-mm-dd"
 msgstr "éé-hh-nn"
 
-#: src/gnome-cmd-advrename-profile-component.cc:146
+#: src/gnome-cmd-advrename-profile-component.cc:147
 msgid "yy.mm.dd"
 msgstr "éé.hh.nn"
 
-#: src/gnome-cmd-advrename-profile-component.cc:147
+#: src/gnome-cmd-advrename-profile-component.cc:148
 msgid "yymmdd"
 msgstr "ééhhnn"
 
-#: src/gnome-cmd-advrename-profile-component.cc:148
+#: src/gnome-cmd-advrename-profile-component.cc:149
 msgid "dd.mm.yy"
 msgstr "nn.hh.éé"
 
-#: src/gnome-cmd-advrename-profile-component.cc:149
+#: src/gnome-cmd-advrename-profile-component.cc:150
 msgid "mm-dd-yy"
 msgstr "hh-nn-éé"
 
-#: src/gnome-cmd-advrename-profile-component.cc:150
+#: src/gnome-cmd-advrename-profile-component.cc:151
 msgid "yyyy"
 msgstr "éééé"
 
-#: src/gnome-cmd-advrename-profile-component.cc:151
+#: src/gnome-cmd-advrename-profile-component.cc:152
 msgid "yy"
 msgstr "éé"
 
-#: src/gnome-cmd-advrename-profile-component.cc:152
+#: src/gnome-cmd-advrename-profile-component.cc:153
 msgid "mm"
 msgstr "hh"
 
-#: src/gnome-cmd-advrename-profile-component.cc:153
+#: src/gnome-cmd-advrename-profile-component.cc:154
 msgid "mmm"
 msgstr "hhh"
 
-#: src/gnome-cmd-advrename-profile-component.cc:154
+#: src/gnome-cmd-advrename-profile-component.cc:155
 msgid "dd"
 msgstr "nn"
 
-#: src/gnome-cmd-advrename-profile-component.cc:159
+#: src/gnome-cmd-advrename-profile-component.cc:160
 msgid "HH.MM.SS"
 msgstr "ÓÓ.PP.MM"
 
-#: src/gnome-cmd-advrename-profile-component.cc:160
+#: src/gnome-cmd-advrename-profile-component.cc:161
 msgid "HH-MM-SS"
 msgstr "ÓÓ-PP-MM"
 
-#: src/gnome-cmd-advrename-profile-component.cc:161
+#: src/gnome-cmd-advrename-profile-component.cc:162
 msgid "HHMMSS"
 msgstr "ÓÓPPMM"
 
-#: src/gnome-cmd-advrename-profile-component.cc:162
+#: src/gnome-cmd-advrename-profile-component.cc:163
 msgid "HH"
 msgstr "ÓÓ"
 
-#: src/gnome-cmd-advrename-profile-component.cc:163
+#: src/gnome-cmd-advrename-profile-component.cc:164
 msgid "MM"
 msgstr "PP"
 
-#: src/gnome-cmd-advrename-profile-component.cc:164
+#: src/gnome-cmd-advrename-profile-component.cc:165
 msgid "SS"
 msgstr "MM"
 
-#: src/gnome-cmd-advrename-profile-component.cc:165
+#: src/gnome-cmd-advrename-profile-component.cc:166
 #: src/tags/gnome-cmd-tags.cc:403
 msgid "Time"
 msgstr "Idő"
 
-#: src/gnome-cmd-advrename-profile-component.cc:592
-msgid "Add Rule"
-msgstr "Szabály hozzáadása"
-
-#: src/gnome-cmd-advrename-profile-component.cc:627
-msgid "Edit Rule"
-msgstr "Szabály szerkesztése"
-
-#: src/gnome-cmd-advrename-profile-component.cc:763
+#: src/gnome-cmd-advrename-profile-component.cc:712
 msgid "_Template"
 msgstr "_Sablon"
 
-#: src/gnome-cmd-advrename-profile-component.cc:788
+#: src/gnome-cmd-advrename-profile-component.cc:737
 msgid "Directory"
 msgstr "Könyvtár"
 
-#: src/gnome-cmd-advrename-profile-component.cc:804
+#: src/gnome-cmd-advrename-profile-component.cc:753
 msgid "Metatag"
 msgstr "Metacímke"
 
-#: src/gnome-cmd-advrename-profile-component.cc:831
+#: src/gnome-cmd-advrename-profile-component.cc:780
 msgid "_Start:"
 msgstr "_Kezdő:"
 
-#: src/gnome-cmd-advrename-profile-component.cc:839
+#: src/gnome-cmd-advrename-profile-component.cc:788
 msgid "Ste_p:"
 msgstr "_Lépés:"
 
-#: src/gnome-cmd-advrename-profile-component.cc:847
+#: src/gnome-cmd-advrename-profile-component.cc:796
 msgid "Di_gits:"
 msgstr "_Számjegy:"
 
-#: src/gnome-cmd-advrename-profile-component.cc:852
+#: src/gnome-cmd-advrename-profile-component.cc:801
 msgid "auto"
 msgstr "automatikus"
 
-#: src/gnome-cmd-advrename-profile-component.cc:866
+#: src/gnome-cmd-advrename-profile-component.cc:815
 msgid "Regex replacing"
 msgstr "Regex csere"
 
-#: src/gnome-cmd-advrename-profile-component.cc:905
+#: src/gnome-cmd-advrename-profile-component.cc:854
 msgid "Remove A_ll"
 msgstr "Ö_sszes eltávolítása"
 
-#: src/gnome-cmd-advrename-profile-component.cc:916
+#: src/gnome-cmd-advrename-profile-component.cc:865
 msgid "Case"
 msgstr "Betű"
 
-#: src/gnome-cmd-advrename-profile-component.cc:929
+#: src/gnome-cmd-advrename-profile-component.cc:878
 msgid "<unchanged>"
 msgstr "<változatlan>"
 
-#: src/gnome-cmd-advrename-profile-component.cc:930
+#: src/gnome-cmd-advrename-profile-component.cc:879
 msgid "lowercase"
 msgstr "kisbetű"
 
-#: src/gnome-cmd-advrename-profile-component.cc:931
+#: src/gnome-cmd-advrename-profile-component.cc:880
 msgid "UPPERCASE"
 msgstr "NAGYBETŰ"
 
-#: src/gnome-cmd-advrename-profile-component.cc:933
+#: src/gnome-cmd-advrename-profile-component.cc:882
 msgid "Sentence case"
 msgstr "Mondatkezdő nagybetű"
 
 #. FIXME
-#: src/gnome-cmd-advrename-profile-component.cc:934
+#: src/gnome-cmd-advrename-profile-component.cc:883
 msgid "Initial Caps"
 msgstr "Kezdeti Nagybetűk"
 
 #. FIXME
-#: src/gnome-cmd-advrename-profile-component.cc:935
+#: src/gnome-cmd-advrename-profile-component.cc:884
 msgid "tOGGLE cASE"
 msgstr "bETŰK áTVÁLTÁSA"
 
-#: src/gnome-cmd-advrename-profile-component.cc:945
+#: src/gnome-cmd-advrename-profile-component.cc:894
 msgid "Trim blanks"
 msgstr "Üresek levágása"
 
-#: src/gnome-cmd-advrename-profile-component.cc:958
+#: src/gnome-cmd-advrename-profile-component.cc:907
 msgid "<none>"
 msgstr "<nincs>"
 
-#: src/gnome-cmd-advrename-profile-component.cc:959
+#: src/gnome-cmd-advrename-profile-component.cc:908
 msgid "leading"
 msgstr "nyitó"
 
-#: src/gnome-cmd-advrename-profile-component.cc:960
+#: src/gnome-cmd-advrename-profile-component.cc:909
 msgid "trailing"
 msgstr "záró"
 
-#: src/gnome-cmd-advrename-profile-component.cc:961
+#: src/gnome-cmd-advrename-profile-component.cc:910
 msgid "leading and trailing"
 msgstr "nyitó és záró"
 
-#: src/gnome-cmd-advrename-profile-component.cc:1121
+#: src/gnome-cmd-advrename-profile-component.cc:1058
 msgid "Search for"
 msgstr "Keresés erre:"
 
-#: src/gnome-cmd-advrename-profile-component.cc:1124
+#: src/gnome-cmd-advrename-profile-component.cc:1061
 msgid "Regex pattern"
 msgstr "Regex minta"
 
-#: src/gnome-cmd-advrename-profile-component.cc:1126
+#: src/gnome-cmd-advrename-profile-component.cc:1063
 msgid "Replace with"
 msgstr "Csere ezzel:"
 
-#: src/gnome-cmd-advrename-profile-component.cc:1129
+#: src/gnome-cmd-advrename-profile-component.cc:1066
 msgid "Replacement"
 msgstr "Csere"
 
-#: src/gnome-cmd-advrename-profile-component.cc:1131
+#: src/gnome-cmd-advrename-profile-component.cc:1068
 msgid "Match case"
 msgstr "Kis- és nagybetűk megkülönböztetése"
 
-#: src/gnome-cmd-advrename-profile-component.cc:1134
+#: src/gnome-cmd-advrename-profile-component.cc:1071
 msgid "Case sensitive matching"
 msgstr "Kis- és nagybetű különbözik"
 
@@ -9235,7 +9227,6 @@ msgid "Create"
 msgstr "Létrehozás"
 
 #: src/user_actions.rs:101
-#| msgid "No valid command given."
 msgid "No command was given."
 msgstr "Nem lett parancs megadva."
 
@@ -9292,11 +9283,10 @@ msgid "There was an error displaying help."
 msgstr "Hiba történt a súgó megjelenítése közben."
 
 #: src/utils.rs:60
-#| msgid "Not an ordinary file."
 msgid "Cannot create a temporary file."
 msgstr "Nem lehet létrehozni átmeneti fájlt."
 
 #: src/utils.rs:123
-#| msgid "gksudo, xdg-su, gksu, gnomesu, kdesu or beesu is not found."
 msgid "gksudo, xdg-su, gksu, gnomesu, kdesu, beesu or pkexec is not found."
 msgstr "gksudo, xdg-su, gksu, gnomesu, kdesu, beesu vagy pkexec nem található."
+
