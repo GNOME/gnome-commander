@@ -11,8 +11,8 @@ msgstr ""
 "Project-Id-Version: gnome-commander master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-commander/"
 "issues/\n"
-"POT-Creation-Date: 2024-08-31 20:58+0000\n"
-"PO-Revision-Date: 2024-09-01 14:23+0200\n"
+"POT-Creation-Date: 2024-09-08 11:45+0000\n"
+"PO-Revision-Date: 2024-09-08 16:26+0200\n"
 "Last-Translator: Martin Srebotnjak <miles@filmsi.net>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
 "Language: sl_SI\n"
@@ -1456,19 +1456,18 @@ msgstr ""
 msgid "No error description available"
 msgstr "Opis napake ni na voljo"
 
-#. GTK_STOCK_HELP, GTK_RESPONSE_HELP,             //  FIXME: ???
 #. buttons
 #: libgcmd/gnome-cmd-string-dialog.cc:138 libgcmd/libgcmd-widget-factory.cc:296
-#: src/advrename_profile_component.rs:102 src/dialogs/connect_dialog.rs:241
-#: src/dialogs/gnome-cmd-advrename-regex-dialog.cc:61
+#: src/advrename_profile_component.rs:106
+#: src/dialogs/advrename_regex_dialog.rs:136 src/dialogs/connect_dialog.rs:241
 #: src/dialogs/gnome-cmd-chmod-dialog.cc:229
 #: src/dialogs/gnome-cmd-chown-dialog.cc:191
 #: src/dialogs/gnome-cmd-delete-dialog.cc:142
 #: src/dialogs/gnome-cmd-edit-bookmark-dialog.cc:74
 #: src/dialogs/gnome-cmd-edit-profile-dialog.h:84
 #: src/dialogs/gnome-cmd-file-props-dialog.cc:677
-#: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:255
-#: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:504
+#: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:260
+#: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:512
 #: src/dialogs/gnome-cmd-manage-profiles-dialog.h:290
 #: src/dialogs/gnome-cmd-mkdir-dialog.cc:171
 #: src/dialogs/gnome-cmd-options-dialog.cc:770
@@ -1485,14 +1484,14 @@ msgstr "Pre_kliči"
 
 #: libgcmd/gnome-cmd-string-dialog.cc:139 libgcmd/libgcmd-widget-factory.cc:297
 #: plugins/fileroller/file-roller-plugin.cc:608
-#: src/advrename_profile_component.rs:116 src/dialogs/connect_dialog.rs:251
-#: src/dialogs/gnome-cmd-advrename-regex-dialog.cc:62
+#: src/advrename_profile_component.rs:120
+#: src/dialogs/advrename_regex_dialog.rs:148 src/dialogs/connect_dialog.rs:251
 #: src/dialogs/gnome-cmd-chmod-dialog.cc:231
 #: src/dialogs/gnome-cmd-chown-dialog.cc:192
 #: src/dialogs/gnome-cmd-edit-bookmark-dialog.cc:75
 #: src/dialogs/gnome-cmd-edit-profile-dialog.h:85
 #: src/dialogs/gnome-cmd-file-props-dialog.cc:678
-#: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:256
+#: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:261
 #: src/dialogs/gnome-cmd-manage-profiles-dialog.h:291
 #: src/dialogs/gnome-cmd-mkdir-dialog.cc:172
 #: src/dialogs/gnome-cmd-options-dialog.cc:771
@@ -1561,14 +1560,14 @@ msgid "Extract to “%s”"
 msgstr "Razširi v mapo »%s«"
 
 #: plugins/fileroller/file-roller-plugin.cc:586
-#: src/gnome-cmd-advrename-profile-component.cc:792 src/plugin_manager.cc:405
+#: src/gnome-cmd-advrename-profile-component.cc:741 src/plugin_manager.cc:405
 #: src/tags/gnome-cmd-tags.cc:692
 msgid "File"
 msgstr "Datoteka"
 
 #. destroy model automatically with view
 #: plugins/fileroller/file-roller-plugin.cc:605
-#: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:374
+#: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:382
 #: src/dialogs/gnome-cmd-options-dialog.cc:1566
 #: src/dialogs/gnome-cmd-options-dialog.cc:2350
 #: src/dialogs/gnome-cmd-prepare-copy-dialog.cc:135
@@ -1617,21 +1616,54 @@ msgid ""
 "aspiring plugin hackers"
 msgstr "To je preizkusni vstavek za prikaz delovanja"
 
-#: src/advrename_profile_component.rs:50
+#: src/advrename_profile_component.rs:54
 msgid "Range Selection"
 msgstr "Izbira območja"
 
-#: src/advrename_profile_component.rs:78
+#: src/advrename_profile_component.rs:82
 msgid "_Select range:"
 msgstr "Izbor _območja:"
 
-#: src/advrename_profile_component.rs:87
+#: src/advrename_profile_component.rs:91
 msgid "_Inverse selection"
 msgstr "_Obrni izbor"
+
+#: src/advrename_profile_component.rs:240
+#: src/dialogs/gnome-cmd-prepare-xfer-dialog.cc:185 src/file_list_actions.rs:53
+#: src/gnome-cmd-advrename-profile-component.cc:477
+msgid "Yes"
+msgstr "Da"
+
+#: src/advrename_profile_component.rs:242
+#: src/dialogs/gnome-cmd-prepare-xfer-dialog.cc:185 src/file_list_actions.rs:53
+#: src/gnome-cmd-advrename-profile-component.cc:477
+msgid "No"
+msgstr "Ne"
+
+#: src/advrename_profile_component.rs:262
+msgid "Add Rule"
+msgstr "Dodaj pravilo"
+
+#: src/advrename_profile_component.rs:287
+msgid "Edit Rule"
+msgstr "Uredi pravilo"
 
 #: src/app.rs:174
 msgid "Cannot build a command line."
 msgstr "Ukazne vrstice ni mogoče zgraditi."
+
+#: src/dialogs/advrename_regex_dialog.rs:92
+msgid "_Search for:"
+msgstr "_Poišči:"
+
+#: src/dialogs/advrename_regex_dialog.rs:103
+msgid "_Replace for:"
+msgstr "_Zamenjaj za:"
+
+#. Case-Sensitive Checkbox
+#: src/dialogs/advrename_regex_dialog.rs:113 src/intviewer/search-dlg.cc:252
+msgid "_Match case"
+msgstr "_Upoštevaj velikost črk"
 
 #: src/dialogs/connect_dialog.rs:47
 msgid "SSH"
@@ -1699,10 +1731,10 @@ msgid "_Domain name:"
 msgstr "Ime _domene:"
 
 #: src/dialogs/connect_dialog.rs:226
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:676
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:660
 #: src/dialogs/gnome-cmd-edit-profile-dialog.h:82
 #: src/dialogs/gnome-cmd-file-props-dialog.cc:675
-#: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:254
+#: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:259
 #: src/dialogs/gnome-cmd-manage-bookmarks-dialog.cc:98
 #: src/dialogs/gnome-cmd-manage-profiles-dialog.h:289
 #: src/dialogs/gnome-cmd-mkdir-dialog.cc:170
@@ -1733,96 +1765,96 @@ msgstr "Način povezave ni izbran"
 msgid "Please check spelling and try again."
 msgstr "Preverite črkovanje in poskusite znova."
 
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:107
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:106
 #: src/dialogs/gnome-cmd-search-dialog.cc:179
 msgid "_Save Profile As…"
 msgstr "_Shrani profil kot …"
 
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:111
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:110
 #: src/dialogs/gnome-cmd-search-dialog.cc:183
 msgid "_Manage Profiles…"
 msgstr "_Upravljaj profile …"
 
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:135
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:134
 #: src/dialogs/gnome-cmd-search-dialog.cc:206
 msgid "Profiles"
 msgstr "Profili"
 
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:301
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:300
 msgid "Remove from file list"
 msgstr "Odstrani iz seznama datotek"
 
 #. {file_umount, "file.umount"},
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:302
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:301
 #: src/gnome-cmd-user-actions.cc:352
 msgid "View file"
 msgstr "Pogled datoteke"
 
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:303
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:302
 msgid "File properties"
 msgstr "Lastnosti datoteke"
 
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:306
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:305
 msgid "Update file list"
 msgstr "Posodobi seznam datotek"
 
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:493
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:492
 msgid "Advanced Rename Tool"
 msgstr "Napredno preimenovanje"
 
 #. Results
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:508
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:507
 msgid "Results"
 msgstr "Rezultati"
 
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:579
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:578
 msgid "Old name"
 msgstr "Staro ime"
 
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:583
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:582
 msgid "Current file name"
 msgstr "Trenutno ime datoteke"
 
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:585
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:584
 msgid "New name"
 msgstr "Novo ime"
 
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:589
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:588
 msgid "New file name"
 msgstr "Novo ime datoteke"
 
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:591 src/tags/gnome-cmd-tags.cc:332
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:590 src/tags/gnome-cmd-tags.cc:332
 #: src/tags/gnome-cmd-tags.cc:396
 msgid "Size"
 msgstr "Velikost"
 
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:595
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:594
 msgid "File size"
 msgstr "Velikost datoteke"
 
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:597
-#: src/gnome-cmd-advrename-profile-component.cc:155
-#: src/gnome-cmd-advrename-profile-component.cc:800
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:596
+#: src/gnome-cmd-advrename-profile-component.cc:156
+#: src/gnome-cmd-advrename-profile-component.cc:749
 #: src/tags/gnome-cmd-tags.cc:347 src/tags/gnome-cmd-tags.cc:423
 msgid "Date"
 msgstr "Datum"
 
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:601
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:600
 msgid "File modification date"
 msgstr "Datum spremembe datoteke"
 
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:668
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:652
 #: src/dialogs/gnome-cmd-search-dialog.cc:1264
 msgid "Profiles…"
 msgstr "Profili …"
 
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:677
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:661
 #: src/dialogs/gnome-cmd-edit-profile-dialog.h:83
 msgid "Reset"
 msgstr "Ponastavi"
 
 #. Add the close button
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:678
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:662
 #: src/dialogs/gnome-cmd-manage-bookmarks-dialog.cc:99
 #: src/dialogs/gnome-cmd-options-dialog.cc:580
 #: src/dialogs/gnome-cmd-search-dialog.cc:1273 src/dialogs/remote_dialog.rs:262
@@ -1831,23 +1863,9 @@ msgstr "Ponastavi"
 msgid "_Close"
 msgstr "_Zapri"
 
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:679
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:663
 msgid "_Apply"
 msgstr "_Uveljavi"
-
-#: src/dialogs/gnome-cmd-advrename-regex-dialog.cc:82
-msgid "_Search for:"
-msgstr "_Poišči:"
-
-#: src/dialogs/gnome-cmd-advrename-regex-dialog.cc:94
-msgid "_Replace with:"
-msgstr "_Zamenjaj z:"
-
-#. Case-Sensitive Checkbox
-#: src/dialogs/gnome-cmd-advrename-regex-dialog.cc:106
-#: src/intviewer/search-dlg.cc:252
-msgid "_Match case"
-msgstr "_Upoštevaj velikost črk"
 
 #: src/dialogs/gnome-cmd-chmod-dialog.cc:45
 #: src/dialogs/gnome-cmd-options-dialog.cc:1587
@@ -2169,11 +2187,11 @@ msgstr "Metapodatki"
 msgid "Co_py"
 msgstr "Ko_piraj …"
 
-#: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:198
+#: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:202
 msgid "Keyboard Shortcuts"
 msgstr "Tipkovne bližnjice"
 
-#: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:232
+#: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:237
 msgid ""
 "To edit a shortcut key, click on the corresponding row and type a new "
 "accelerator, or press escape to cancel."
@@ -2181,69 +2199,69 @@ msgstr ""
 "Za urejanje tipkovnih bližnjic, kliknite na ustrezno vrstico in vnesite novo "
 "bližnjico, vnos počistite s preslednico."
 
-#: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:243
+#: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:248
 #: src/dialogs/gnome-cmd-options-dialog.cc:1820
 #: src/dialogs/gnome-cmd-options-dialog.cc:2260
 #: src/dialogs/remote_dialog.rs:219
-#: src/gnome-cmd-advrename-profile-component.cc:896
+#: src/gnome-cmd-advrename-profile-component.cc:845
 msgid "_Add"
 msgstr "_Dodaj"
 
-#: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:248
+#: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:253
 #: src/dialogs/gnome-cmd-manage-bookmarks-dialog.cc:140
 #: src/dialogs/gnome-cmd-manage-profiles-dialog.h:339
 #: src/dialogs/gnome-cmd-options-dialog.cc:1830
 #: src/dialogs/gnome-cmd-options-dialog.cc:2270
 #: src/dialogs/remote_dialog.rs:132
-#: src/gnome-cmd-advrename-profile-component.cc:902
+#: src/gnome-cmd-advrename-profile-component.cc:851
 msgid "_Remove"
 msgstr "_Odstrani"
 
-#: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:359
+#: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:366
 msgid "Shortcut Key"
 msgstr "Tipkovna bližnjica"
 
-#: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:360
+#: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:367
 msgid "Keyboard shortcut for selected action"
 msgstr "Tipkovne bližnjice za izbrano dejanje"
 
-#: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:367
+#: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:374
 msgid "Action"
 msgstr "Dejanje"
 
-#: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:368
+#: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:375
 msgid "User action"
 msgstr "Skript"
 
-#: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:375
+#: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:383
 msgid "Optional data"
 msgstr "Dodatne podrobnosti"
 
-#: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:502
+#: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:510
 #, c-format
 msgid "Shortcut “%s” is already taken by “%s”."
 msgstr "Bližnjico »%s« uporablja program »%s«."
 
-#: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:505
+#: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:513
 msgid "_Reassign shortcut"
 msgstr "_Ponovno določi bližnjico"
 
-#: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:508
+#: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:516
 msgid "Conflicting Shortcuts"
 msgstr "Bližnjice v sporu"
 
-#: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:509
+#: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:517
 #, c-format
 msgid "Reassigning the shortcut will cause it to be removed from “%s”."
 msgstr ""
 "Ponovno dodeljevanje bližnjice bo obstoječo odstranilo s trenutne izbire "
 "»%s«."
 
-#: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:565
+#: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:573
 msgid "Invalid shortcut."
 msgstr "Neveljavna bližnjica."
 
-#: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:644
+#: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:685
 msgid "Do nothing"
 msgstr "Ne naredi ničesar"
 
@@ -2257,7 +2275,7 @@ msgstr "_Skoči na"
 #: src/dialogs/gnome-cmd-options-dialog.cc:1824
 #: src/dialogs/gnome-cmd-options-dialog.cc:2264
 #: src/dialogs/remote_dialog.rs:128
-#: src/gnome-cmd-advrename-profile-component.cc:899
+#: src/gnome-cmd-advrename-profile-component.cc:848
 #: src/gnome-cmd-main-menu.cc:176
 msgid "_Edit"
 msgstr "_Uredi"
@@ -2513,8 +2531,8 @@ msgstr "Napredno"
 
 #. Translators: '<locale>' refers to the mode of file size display (here - use current locale settings)
 #: src/dialogs/gnome-cmd-options-dialog.cc:376
-#: src/gnome-cmd-advrename-profile-component.cc:143
-#: src/gnome-cmd-advrename-profile-component.cc:158
+#: src/gnome-cmd-advrename-profile-component.cc:144
+#: src/gnome-cmd-advrename-profile-component.cc:159
 msgid "<locale>"
 msgstr "Sistemsko"
 
@@ -3142,20 +3160,6 @@ msgstr[3] "premakni %d datoteke v"
 msgid "The directory “%s” doesn’t exist, do you want to create it?"
 msgstr "Mapa »%s« ne obstaja. Ali jo želite ustvariti?"
 
-#: src/dialogs/gnome-cmd-prepare-xfer-dialog.cc:185 src/file_list_actions.rs:53
-#: src/gnome-cmd-advrename-profile-component.cc:485
-#: src/gnome-cmd-advrename-profile-component.cc:602
-#: src/gnome-cmd-advrename-profile-component.cc:634
-msgid "No"
-msgstr "Ne"
-
-#: src/dialogs/gnome-cmd-prepare-xfer-dialog.cc:185 src/file_list_actions.rs:53
-#: src/gnome-cmd-advrename-profile-component.cc:485
-#: src/gnome-cmd-advrename-profile-component.cc:602
-#: src/gnome-cmd-advrename-profile-component.cc:634
-msgid "Yes"
-msgstr "Da"
-
 #: src/dialogs/gnome-cmd-prepare-xfer-dialog.cc:193
 msgid "Unknown error"
 msgstr "Neznana napaka"
@@ -3342,240 +3346,232 @@ msgstr "_Zasluge"
 msgid "About %s"
 msgstr "O %s"
 
-#: src/gnome-cmd-advrename-profile-component.cc:109
+#: src/gnome-cmd-advrename-profile-component.cc:110
 msgid "Grandparent"
 msgstr "Nadnadrejeno"
 
-#: src/gnome-cmd-advrename-profile-component.cc:110
+#: src/gnome-cmd-advrename-profile-component.cc:111
 msgid "Parent"
 msgstr "Nadrejeno"
 
-#: src/gnome-cmd-advrename-profile-component.cc:118
+#: src/gnome-cmd-advrename-profile-component.cc:119
 msgid "File name"
 msgstr "Ime datoteke"
 
-#: src/gnome-cmd-advrename-profile-component.cc:119
+#: src/gnome-cmd-advrename-profile-component.cc:120
 msgid "File name (range)"
 msgstr "Ime datoteke (območje)"
 
-#: src/gnome-cmd-advrename-profile-component.cc:120
+#: src/gnome-cmd-advrename-profile-component.cc:121
 msgid "File name without extension"
 msgstr "Ime datoteke brez pripone"
 
-#: src/gnome-cmd-advrename-profile-component.cc:121
+#: src/gnome-cmd-advrename-profile-component.cc:122
 msgid "File name without extension (range)"
 msgstr "Ime datoteke brez pripone (območje)"
 
-#: src/gnome-cmd-advrename-profile-component.cc:122
+#: src/gnome-cmd-advrename-profile-component.cc:123
 msgid "File extension"
 msgstr "Pripona datoteke"
 
-#: src/gnome-cmd-advrename-profile-component.cc:130
-#: src/gnome-cmd-advrename-profile-component.cc:796
-#: src/gnome-cmd-advrename-profile-component.cc:816
+#: src/gnome-cmd-advrename-profile-component.cc:131
+#: src/gnome-cmd-advrename-profile-component.cc:745
+#: src/gnome-cmd-advrename-profile-component.cc:765
 msgid "Counter"
 msgstr "Števec"
 
-#: src/gnome-cmd-advrename-profile-component.cc:131
+#: src/gnome-cmd-advrename-profile-component.cc:132
 msgid "Counter (width)"
 msgstr "Števec (širina)"
 
-#: src/gnome-cmd-advrename-profile-component.cc:132
+#: src/gnome-cmd-advrename-profile-component.cc:133
 msgid "Counter (auto)"
 msgstr "Števec (samodejno)"
 
-#: src/gnome-cmd-advrename-profile-component.cc:133
+#: src/gnome-cmd-advrename-profile-component.cc:134
 msgid "Hexadecimal random number (width)"
 msgstr "Šestnajstiško naključno število (širina)"
 
-#: src/gnome-cmd-advrename-profile-component.cc:144
+#: src/gnome-cmd-advrename-profile-component.cc:145
 msgid "yyyy-mm-dd"
 msgstr "llll-mm-dd"
 
-#: src/gnome-cmd-advrename-profile-component.cc:145
+#: src/gnome-cmd-advrename-profile-component.cc:146
 msgid "yy-mm-dd"
 msgstr "ll-mm-dd"
 
-#: src/gnome-cmd-advrename-profile-component.cc:146
+#: src/gnome-cmd-advrename-profile-component.cc:147
 msgid "yy.mm.dd"
 msgstr "ll.mm.dd"
 
-#: src/gnome-cmd-advrename-profile-component.cc:147
+#: src/gnome-cmd-advrename-profile-component.cc:148
 msgid "yymmdd"
 msgstr "llmmdd"
 
-#: src/gnome-cmd-advrename-profile-component.cc:148
+#: src/gnome-cmd-advrename-profile-component.cc:149
 msgid "dd.mm.yy"
 msgstr "dd.mm.ll"
 
-#: src/gnome-cmd-advrename-profile-component.cc:149
+#: src/gnome-cmd-advrename-profile-component.cc:150
 msgid "mm-dd-yy"
 msgstr "mm-dd-ll"
 
-#: src/gnome-cmd-advrename-profile-component.cc:150
+#: src/gnome-cmd-advrename-profile-component.cc:151
 msgid "yyyy"
 msgstr "llll"
 
-#: src/gnome-cmd-advrename-profile-component.cc:151
+#: src/gnome-cmd-advrename-profile-component.cc:152
 msgid "yy"
 msgstr "ll"
 
-#: src/gnome-cmd-advrename-profile-component.cc:152
+#: src/gnome-cmd-advrename-profile-component.cc:153
 msgid "mm"
 msgstr "mm"
 
-#: src/gnome-cmd-advrename-profile-component.cc:153
+#: src/gnome-cmd-advrename-profile-component.cc:154
 msgid "mmm"
 msgstr "mmm"
 
-#: src/gnome-cmd-advrename-profile-component.cc:154
+#: src/gnome-cmd-advrename-profile-component.cc:155
 msgid "dd"
 msgstr "dd"
 
-#: src/gnome-cmd-advrename-profile-component.cc:159
+#: src/gnome-cmd-advrename-profile-component.cc:160
 msgid "HH.MM.SS"
 msgstr "UU.MM.SS"
 
-#: src/gnome-cmd-advrename-profile-component.cc:160
+#: src/gnome-cmd-advrename-profile-component.cc:161
 msgid "HH-MM-SS"
 msgstr "UU-MM-SS"
 
-#: src/gnome-cmd-advrename-profile-component.cc:161
+#: src/gnome-cmd-advrename-profile-component.cc:162
 msgid "HHMMSS"
 msgstr "UUMMSS"
 
-#: src/gnome-cmd-advrename-profile-component.cc:162
+#: src/gnome-cmd-advrename-profile-component.cc:163
 msgid "HH"
 msgstr "UU"
 
-#: src/gnome-cmd-advrename-profile-component.cc:163
+#: src/gnome-cmd-advrename-profile-component.cc:164
 msgid "MM"
 msgstr "MM"
 
-#: src/gnome-cmd-advrename-profile-component.cc:164
+#: src/gnome-cmd-advrename-profile-component.cc:165
 msgid "SS"
 msgstr "SS"
 
-#: src/gnome-cmd-advrename-profile-component.cc:165
+#: src/gnome-cmd-advrename-profile-component.cc:166
 #: src/tags/gnome-cmd-tags.cc:403
 msgid "Time"
 msgstr "Čas"
 
-#: src/gnome-cmd-advrename-profile-component.cc:592
-msgid "Add Rule"
-msgstr "Dodaj pravilo"
-
-#: src/gnome-cmd-advrename-profile-component.cc:627
-msgid "Edit Rule"
-msgstr "Uredi pravilo"
-
-#: src/gnome-cmd-advrename-profile-component.cc:763
+#: src/gnome-cmd-advrename-profile-component.cc:712
 msgid "_Template"
 msgstr "_Predloga"
 
-#: src/gnome-cmd-advrename-profile-component.cc:788
+#: src/gnome-cmd-advrename-profile-component.cc:737
 msgid "Directory"
 msgstr "Mapa"
 
-#: src/gnome-cmd-advrename-profile-component.cc:804
+#: src/gnome-cmd-advrename-profile-component.cc:753
 msgid "Metatag"
 msgstr "Metaoznaka"
 
-#: src/gnome-cmd-advrename-profile-component.cc:831
+#: src/gnome-cmd-advrename-profile-component.cc:780
 msgid "_Start:"
 msgstr "_Začetek:"
 
-#: src/gnome-cmd-advrename-profile-component.cc:839
+#: src/gnome-cmd-advrename-profile-component.cc:788
 msgid "Ste_p:"
 msgstr "_Korak:"
 
-#: src/gnome-cmd-advrename-profile-component.cc:847
+#: src/gnome-cmd-advrename-profile-component.cc:796
 msgid "Di_gits:"
 msgstr "_Številke:"
 
-#: src/gnome-cmd-advrename-profile-component.cc:852
+#: src/gnome-cmd-advrename-profile-component.cc:801
 msgid "auto"
 msgstr "samodejno"
 
-#: src/gnome-cmd-advrename-profile-component.cc:866
+#: src/gnome-cmd-advrename-profile-component.cc:815
 msgid "Regex replacing"
 msgstr "Zamenjava z logičnimi izrazi"
 
-#: src/gnome-cmd-advrename-profile-component.cc:905
+#: src/gnome-cmd-advrename-profile-component.cc:854
 msgid "Remove A_ll"
 msgstr "Od_strani vse"
 
-#: src/gnome-cmd-advrename-profile-component.cc:916
+#: src/gnome-cmd-advrename-profile-component.cc:865
 msgid "Case"
 msgstr "Velikost črk"
 
-#: src/gnome-cmd-advrename-profile-component.cc:929
+#: src/gnome-cmd-advrename-profile-component.cc:878
 msgid "<unchanged>"
 msgstr "<nespremenjeno>"
 
-#: src/gnome-cmd-advrename-profile-component.cc:930
+#: src/gnome-cmd-advrename-profile-component.cc:879
 msgid "lowercase"
 msgstr "male črke"
 
-#: src/gnome-cmd-advrename-profile-component.cc:931
+#: src/gnome-cmd-advrename-profile-component.cc:880
 msgid "UPPERCASE"
 msgstr "Velike črke"
 
-#: src/gnome-cmd-advrename-profile-component.cc:933
+#: src/gnome-cmd-advrename-profile-component.cc:882
 msgid "Sentence case"
 msgstr "Stavčni zapis"
 
 #. FIXME
-#: src/gnome-cmd-advrename-profile-component.cc:934
+#: src/gnome-cmd-advrename-profile-component.cc:883
 msgid "Initial Caps"
 msgstr "Velike Začetnice Besed"
 
 #. FIXME
-#: src/gnome-cmd-advrename-profile-component.cc:935
+#: src/gnome-cmd-advrename-profile-component.cc:884
 msgid "tOGGLE cASE"
 msgstr "pREKLOPI vELIKOST"
 
-#: src/gnome-cmd-advrename-profile-component.cc:945
+#: src/gnome-cmd-advrename-profile-component.cc:894
 msgid "Trim blanks"
 msgstr "Obreži presledne znake"
 
-#: src/gnome-cmd-advrename-profile-component.cc:958
+#: src/gnome-cmd-advrename-profile-component.cc:907
 msgid "<none>"
 msgstr "<brez>"
 
-#: src/gnome-cmd-advrename-profile-component.cc:959
+#: src/gnome-cmd-advrename-profile-component.cc:908
 msgid "leading"
 msgstr "začetne"
 
-#: src/gnome-cmd-advrename-profile-component.cc:960
+#: src/gnome-cmd-advrename-profile-component.cc:909
 msgid "trailing"
 msgstr "končne"
 
-#: src/gnome-cmd-advrename-profile-component.cc:961
+#: src/gnome-cmd-advrename-profile-component.cc:910
 msgid "leading and trailing"
 msgstr "začetne in končne"
 
-#: src/gnome-cmd-advrename-profile-component.cc:1121
+#: src/gnome-cmd-advrename-profile-component.cc:1058
 msgid "Search for"
 msgstr "Poišči"
 
-#: src/gnome-cmd-advrename-profile-component.cc:1124
+#: src/gnome-cmd-advrename-profile-component.cc:1061
 msgid "Regex pattern"
 msgstr "Logični niz"
 
-#: src/gnome-cmd-advrename-profile-component.cc:1126
+#: src/gnome-cmd-advrename-profile-component.cc:1063
 msgid "Replace with"
 msgstr "Zamenjaj z"
 
-#: src/gnome-cmd-advrename-profile-component.cc:1129
+#: src/gnome-cmd-advrename-profile-component.cc:1066
 msgid "Replacement"
 msgstr "Zamenjava"
 
-#: src/gnome-cmd-advrename-profile-component.cc:1131
+#: src/gnome-cmd-advrename-profile-component.cc:1068
 msgid "Match case"
 msgstr "Upoštevaj velikost črk"
 
-#: src/gnome-cmd-advrename-profile-component.cc:1134
+#: src/gnome-cmd-advrename-profile-component.cc:1071
 msgid "Case sensitive matching"
 msgstr "Upoštevanje velikost črk"
 
