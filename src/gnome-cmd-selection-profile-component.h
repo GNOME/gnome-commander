@@ -61,3 +61,8 @@ struct GnomeCmdSelectionProfileComponent
 
     void set_default_activation(GtkWindow *w);
 };
+
+
+extern "C" GnomeCmdSelectionProfileComponent *gnome_cmd_search_profile_component_new (GnomeCmdData::SearchProfile *profile);
+extern "C" void gnome_cmd_search_profile_component_update (GnomeCmdSelectionProfileComponent *component);
+extern "C" void gnome_cmd_search_profile_component_copy (GnomeCmdSelectionProfileComponent *component);

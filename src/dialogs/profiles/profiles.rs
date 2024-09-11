@@ -1,4 +1,4 @@
-﻿/*
+/*
  * Copyright 2024 Andrey Kutejko <andy128k@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
@@ -17,19 +17,19 @@
  * For more details see the file COPYING.
  */
 
-pub mod advrename_dialog;
-pub mod advrename_regex_dialog;
+pub trait ProfileManager {
+    fn len(&self) -> usize;
 
-pub mod edit_bookmark_dialog;
-pub mod manage_bookmarks_dialog;
+    fn profile_name(&self, profile_index: usize) -> String;
+    fn set_profile_name(&self, profile_index: usize, name: &str);
 
-pub mod search_dialog;
+    fn profile_description(&self, profile_index: usize) -> String;
 
-pub mod make_copy_dialog;
+    fn reset_profile(&self, profile_index: usize);
+    fn duplicate_profile(&self, profile_index: usize) -> usize;
+    fn pick(&self, profile_indexes: &[usize]);
 
-pub mod connect_dialog;
-pub mod remote_dialog;
-
-pub mod key_shortcuts_dialog;
-
-pub mod profiles;
+    fn create_component(&self, profile_index: usize) -> gtk::Widget; // implies component.update();
+    fn update_component(&self, profile_index: usize, component: &gtk::Widget);
+    fn copy_component(&self, profile_index: usize, component: &gtk::Widget);
+}

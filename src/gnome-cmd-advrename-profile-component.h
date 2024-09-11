@@ -65,3 +65,7 @@ struct GnomeCmdAdvrenameProfileComponent
     void set_sample_fname(const gchar *fname);
     std::vector<GnomeCmd::RegexReplace> get_valid_regexes();
 };
+
+extern "C" GnomeCmdAdvrenameProfileComponent *gnome_cmd_advrename_profile_component_new (GnomeCmdData::AdvrenameConfig::Profile *profile);
+extern "C" void gnome_cmd_advrename_profile_component_update (GnomeCmdAdvrenameProfileComponent *component);
+extern "C" void gnome_cmd_advrename_profile_component_copy (GnomeCmdAdvrenameProfileComponent *component);

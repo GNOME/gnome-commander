@@ -23,5 +23,5 @@
 
 #define GNOME_CMD_TYPE_HINT_BOX  (gnome_cmd_hint_box_get_type ())
 
-GType      gnome_cmd_hint_box_get_type () G_GNUC_CONST;
-GtkWidget *gnome_cmd_hint_box_new (const gchar *hint);
+extern "C" GType      gnome_cmd_hint_box_get_type () G_GNUC_CONST;
+extern "C" GtkWidget *gnome_cmd_hint_box_new (const gchar *hint);

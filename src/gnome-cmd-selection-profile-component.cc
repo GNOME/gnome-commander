@@ -292,3 +292,24 @@ void GnomeCmdSelectionProfileComponent::set_default_activation(GtkWindow *w)
     gtk_entry_set_activates_default (GTK_ENTRY (gtk_combo_box_get_child (GTK_COMBO_BOX (priv->pattern_combo))), TRUE);
     gtk_entry_set_activates_default (GTK_ENTRY (gtk_combo_box_get_child (GTK_COMBO_BOX (priv->find_text_combo))), TRUE);
 }
+
+
+GnomeCmdSelectionProfileComponent *gnome_cmd_search_profile_component_new (GnomeCmdData::SearchProfile *profile)
+{
+    g_return_val_if_fail (profile != nullptr, nullptr);
+    auto component = new GnomeCmdSelectionProfileComponent(*profile);
+    component->update();
+    return component;
+}
+
+
+void gnome_cmd_search_profile_component_update (GnomeCmdSelectionProfileComponent *component)
+{
+    component->update();
+}
+
+
+void gnome_cmd_search_profile_component_copy (GnomeCmdSelectionProfileComponent *component)
+{
+    component->copy();
+}
