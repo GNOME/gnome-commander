@@ -24,10 +24,16 @@ icons_16x16 = [
   'gnome-commander-copy-file-names.xpm',
 ]
 
+install_data(icons_16x16,
+  install_dir: icons_dir / 'hicolor' / '16x16' / 'actions')
+
 icons_24x24 = [
   'gnome-commander-edit.png',
   'gnome-commander-connect.png',
 ]
+
+install_data(icons_24x24,
+  install_dir: icons_dir / 'hicolor' / '24x24' / 'actions')
 
 icons_scalable = [
   'gnome-commander.svg',
@@ -37,8 +43,8 @@ icons_scalable = [
   'gnome-commander-info-outline-symbolic.svg',
 ]
 
-install_data(icons_16x16 + icons_24x24 + icons_scalable,
-  install_dir: icons_dir)
+install_data(icons_scalable,
+  install_dir: icons_dir / 'hicolor' / 'scalable' / 'actions')
 
 desktop_icons = [
   'gnome-commander.svg',

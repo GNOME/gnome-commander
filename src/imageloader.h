@@ -44,5 +44,3 @@ void IMAGE_free ();
 GIcon *IMAGE_get_file_icon (guint32 type, const gchar *mime_type, gboolean symlink);
 
 void IMAGE_clear_mime_cache ();
-
-void register_gnome_commander_stock_icons (void);
