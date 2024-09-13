@@ -179,6 +179,7 @@ extern "C" GtkWidget *gnome_cmd_file_selector_new_tab (GnomeCmdFileSelector *fs)
 extern "C" GtkWidget *gnome_cmd_file_selector_new_tab_with_dir (GnomeCmdFileSelector *fs, GnomeCmdDir *dir, gboolean activate);
 extern "C" void gnome_cmd_file_selector_close_tab (GnomeCmdFileSelector *fs);
 extern "C" void gnome_cmd_file_selector_close_tab_nth (GnomeCmdFileSelector *fs, guint n);
+extern "C" guint gnome_cmd_file_selector_tab_count (GnomeCmdFileSelector *fs);
 
 extern "C" gint /* FileSelectorID */ gnome_cmd_file_selector_get_fs_id (GnomeCmdFileSelector *fs);
 extern "C" gboolean gnome_cmd_file_selector_is_active (GnomeCmdFileSelector *fs);

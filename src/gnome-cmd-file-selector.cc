@@ -1661,6 +1661,11 @@ void gnome_cmd_file_selector_close_tab_nth (GnomeCmdFileSelector *fs, guint n)
     fs->close_tab(n);
 }
 
+guint gnome_cmd_file_selector_tab_count (GnomeCmdFileSelector *fs)
+{
+    return gtk_notebook_get_n_pages (GTK_NOTEBOOK (fs->notebook));
+}
+
 gint gnome_cmd_file_selector_get_fs_id (GnomeCmdFileSelector *fs)
 {
     return (gint) fs->fs_id;

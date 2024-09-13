@@ -867,9 +867,28 @@ void gnome_cmd_help_display (const gchar *file_name, const gchar *link_id)
 }
 
 
+inline void blocking_error_message (GtkWindow *parent, const gchar *message, const gchar *secondary_text)
+{
+    GtkWidget *dlg = gtk_message_dialog_new (parent, GTK_DIALOG_DESTROY_WITH_PARENT, GTK_MESSAGE_ERROR, GTK_BUTTONS_OK, "%s", message);
+
+    if (secondary_text)
+        gtk_message_dialog_format_secondary_text (GTK_MESSAGE_DIALOG (dlg), "%s", secondary_text);
+
+    gtk_dialog_run (GTK_DIALOG (dlg));
+
+    gtk_window_destroy (GTK_WINDOW (dlg));
+}
+
+
+void gnome_cmd_show_message (GtkWindow *parent, std::string message, const gchar *secondary_text)
+{
+    blocking_error_message (parent, message.c_str(), secondary_text);
+}
+
+
 void gnome_cmd_error_message (const gchar *title, GError *error)
 {
-    gnome_cmd_prompt_message (NULL, GTK_MESSAGE_ERROR, GTK_BUTTONS_OK, title, error->message);
+    blocking_error_message (NULL, title, error->message);
     g_error_free (error);
 }
 

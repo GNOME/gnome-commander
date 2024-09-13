@@ -244,25 +244,7 @@ gboolean patlist_matches (GList *pattern_list, const gchar *s);
 void gnome_cmd_toggle_file_name_selection (GtkWidget *entry);
 
 
-inline gint gnome_cmd_prompt_message (GtkWindow *parent, GtkMessageType type, GtkButtonsType buttons, const gchar *message, const gchar *secondary_text=NULL)
-{
-    GtkWidget *dlg = gtk_message_dialog_new (parent, GTK_DIALOG_DESTROY_WITH_PARENT, type, buttons, "%s", message);
-
-    if (secondary_text)
-        gtk_message_dialog_format_secondary_text (GTK_MESSAGE_DIALOG (dlg), "%s", secondary_text);
-
-    gint result = gtk_dialog_run (GTK_DIALOG (dlg));
-
-    gtk_window_destroy (GTK_WINDOW (dlg));
-
-    return result;
-}
-
-
-inline void gnome_cmd_show_message (GtkWindow *parent, std::string message, const gchar *secondary_text=NULL)
-{
-    gnome_cmd_prompt_message (parent, GTK_MESSAGE_ERROR, GTK_BUTTONS_OK, message.c_str(), secondary_text);
-}
+void gnome_cmd_show_message (GtkWindow *parent, std::string message, const gchar *secondary_text=NULL);
 
 
 void gnome_cmd_help_display (const gchar *file_name, const gchar *link_id=NULL);
