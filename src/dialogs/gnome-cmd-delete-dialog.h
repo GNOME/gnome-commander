@@ -20,6 +20,6 @@
  */
 #pragma once
 
-void do_delete_files_for_move (GtkWindow *parent_window, GList *files, gboolean showProgress);
+extern "C" void do_delete_files_for_move (GtkWindow *parent_window, GList *files, gboolean showProgress);
 
-void gnome_cmd_delete_dialog_show (GtkWindow *parent_window, GList *files, gboolean forceDelete = false);
+extern "C" void gnome_cmd_delete_dialog_show (GtkWindow *parent_window, GList *files, gboolean forceDelete = false);

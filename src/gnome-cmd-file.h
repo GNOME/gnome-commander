@@ -97,7 +97,7 @@ struct GnomeCmdFile
 
     void update_gFileInfo(GFileInfo *gFileInfo);
     gboolean is_executable();
-    void is_deleted();
+    void set_deleted();
     void execute();
 
     gboolean needs_update();
@@ -195,3 +195,7 @@ inline void gnome_cmd_file_list_unref (GList *files)
 extern "C" gboolean gnome_cmd_file_is_executable(GnomeCmdFile *f);
 extern "C" void gnome_cmd_file_execute(GnomeCmdFile *f);
 extern "C" gboolean gnome_cmd_file_chmod(GnomeCmdFile *f, guint32 permissions, GError **error);
+
+extern "C" gboolean gnome_cmd_file_is_dotdot(GnomeCmdFile *f);
+
+extern "C" void gnome_cmd_file_set_deleted(GnomeCmdFile *f);
