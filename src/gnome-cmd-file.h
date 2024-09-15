@@ -165,6 +165,8 @@ inline gchar *gnome_cmd_file_get_quoted_real_path (GnomeCmdFile *f)
     return f->get_quoted_real_path();
 }
 
+extern "C" gchar *gnome_cmd_file_get_path_through_parent (GnomeCmdFile *f);
+
 extern "C" gchar *gnome_cmd_file_get_uri_str (GnomeCmdFile *f);
 extern "C" gboolean gnome_cmd_file_is_local (GnomeCmdFile *f);
 extern "C" GnomeCmdCon *gnome_cmd_file_get_connection (GnomeCmdFile *f);

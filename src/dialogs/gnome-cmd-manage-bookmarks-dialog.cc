@@ -28,7 +28,6 @@
 #include "gnome-cmd-con-list.h"
 #include "gnome-cmd-main-win.h"
 #include "gnome-cmd-manage-bookmarks-dialog.h"
-#include "gnome-cmd-edit-bookmark-dialog.h"
 #include "gnome-cmd-treeview.h"
 #include "gnome-cmd-user-actions.h"
 #include "gnome-cmd-hintbox.h"
@@ -322,6 +321,27 @@ void gnome_cmd_bookmarks_dialog_update (GnomeCmdBookmarksDialog *dialog)
 }
 
 
+void gnome_cmd_bookmarks_dialog_update_bookmark (GnomeCmdBookmarksDialog *dialog, GtkTreeIter *iter, const gchar *name, const gchar *path)
+{
+    auto priv = static_cast<GnomeCmdBookmarksDialogPrivate*>(gnome_cmd_bookmarks_dialog_get_instance_private (dialog));
+
+    GnomeCmdBookmark *bookmark = NULL;
+    GtkTreeModel *model = gtk_tree_view_get_model (priv->view);
+
+    gtk_tree_model_get (model, iter, COL_BOOKMARK, &bookmark, -1);
+
+    g_free (bookmark->name);
+    bookmark->name = g_strdup (name);
+    g_free (bookmark->path);
+    bookmark->path = g_strdup (path);
+
+    gtk_tree_store_set (GTK_TREE_STORE (model), iter,
+                        COL_NAME, name,
+                        COL_PATH, path,
+                        -1);
+}
+
+
 static void cursor_changed_callback (GtkTreeView *bm_view, GnomeCmdBookmarksDialog *dialog)
 {
     auto priv = static_cast<GnomeCmdBookmarksDialogPrivate*>(gnome_cmd_bookmarks_dialog_get_instance_private (dialog));
@@ -350,27 +370,12 @@ static void row_activated_callback (GtkTreeView *bm_view, GtkTreePath *path, Gtk
 }
 
 
+extern "C" void gnome_cmd_bookmarks_dialog_edit_clicked_r (GnomeCmdBookmarksDialog *dialog);
+
 static void edit_clicked_callback (GtkButton *button, GnomeCmdBookmarksDialog *dialog)
 {
-    auto priv = static_cast<GnomeCmdBookmarksDialogPrivate*>(gnome_cmd_bookmarks_dialog_get_instance_private (dialog));
-
     g_return_if_fail (dialog!=NULL);
-
-    GtkTreeSelection *selection = gtk_tree_view_get_selection (priv->view);
-    GtkTreeIter iter;
-
-    if (gtk_tree_selection_get_selected (selection, NULL, &iter))
-    {
-        GnomeCmdBookmark *bookmark = NULL;
-        GtkTreeModel *model = gtk_tree_view_get_model (priv->view);
-        gtk_tree_model_get (model, &iter, COL_BOOKMARK, &bookmark, -1);
-
-        if (gnome_cmd_edit_bookmark_dialog (GTK_WINDOW (dialog), _("Edit Bookmark"), bookmark->name, bookmark->path))
-            gtk_tree_store_set (GTK_TREE_STORE (model), &iter,
-                                COL_NAME, bookmark->name,
-                                COL_PATH, bookmark->path,
-                                -1);
-    }
+    gnome_cmd_bookmarks_dialog_edit_clicked_r (dialog);
 }
 
 
@@ -525,6 +530,13 @@ static void response_callback (GtkDialog *dlg, int response_id)
 }
 
 
+extern "C" GtkTreeView *gnome_cmd_bookmarks_dialog_get_view (GnomeCmdBookmarksDialog *dialog)
+{
+   auto priv = static_cast<GnomeCmdBookmarksDialogPrivate*>(gnome_cmd_bookmarks_dialog_get_instance_private (dialog));
+   return priv->view;
+}
+
+
 void gnome_cmd_bookmark_goto (GnomeCmdBookmark *bookmark)
 {
     g_return_if_fail (bookmark->group->con != NULL);
@@ -561,42 +573,5 @@ void gnome_cmd_bookmark_goto (GnomeCmdBookmark *bookmark)
             else
                 fs->set_connection(con);
         }
-    }
-}
-
-
-void gnome_cmd_bookmark_add_current (GnomeCmdDir *dir)
-{
-    gchar *path = gnome_cmd_file_is_local (GNOME_CMD_FILE (dir)) ? GNOME_CMD_FILE (dir)->get_real_path () : GNOME_CMD_FILE (dir)->GetPathStringThroughParent();
-
-    if (!g_utf8_validate (path, -1, NULL))
-    {
-        gnome_cmd_show_message (NULL, _("To bookmark a directory the whole search path to the directory must be in valid UTF-8 encoding"));
-        g_free (path);
-        return;
-    }
-
-    gchar *name = g_path_get_basename (path);
-
-    if (gnome_cmd_edit_bookmark_dialog (NULL, _("New Bookmark"), name, path))
-    {
-        GnomeCmdCon *con = gnome_cmd_file_is_local (GNOME_CMD_FILE (dir)) ? get_home_con () : gnome_cmd_file_get_connection (GNOME_CMD_FILE (dir));
-        GnomeCmdBookmarkGroup *group = gnome_cmd_con_get_bookmarks (con);
-        GnomeCmdBookmark *bookmark = g_new0 (GnomeCmdBookmark, 1);
-
-        bookmark->name = name;
-        bookmark->path = path;
-        bookmark->group = group;
-
-        group->bookmarks = g_list_append (group->bookmarks, bookmark);
-
-        main_win->update_bookmarks();
-
-        gnome_cmd_data.save_bookmarks ();
-    }
-    else
-    {
-        g_free (name);
-        g_free (path);
     }
 }

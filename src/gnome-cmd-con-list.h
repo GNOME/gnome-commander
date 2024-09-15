@@ -113,6 +113,9 @@ inline GList *get_remote_cons ()
 
 GnomeCmdCon *get_remote_con_for_gfile(GFile *gFile);
 
+extern "C" void gnome_cmd_con_list_load_bookmarks (GnomeCmdConList *list, GVariant *gVariantBookmarks);
+extern "C" GVariant *gnome_cmd_con_list_save_bookmarks (GnomeCmdConList *list);
+
 // FFI
 extern "C" void gnome_cmd_con_list_add_remote (GnomeCmdConList *list, GnomeCmdConRemote *con);
 extern "C" void gnome_cmd_con_list_add_dev (GnomeCmdConList *list, GnomeCmdConDevice *con);

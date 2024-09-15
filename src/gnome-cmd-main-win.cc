@@ -1278,3 +1278,7 @@ void gnome_cmd_main_win_focus_file_lists(GnomeCmdMainWin *main_win)
     return main_win->focus_file_lists();
 }
 
+void gnome_cmd_main_win_update_bookmarks(GnomeCmdMainWin *main_win)
+{
+    main_win->update_bookmarks();
+}

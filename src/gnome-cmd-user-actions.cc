@@ -2008,7 +2008,7 @@ void bookmarks_add_current (GSimpleAction *action, GVariant *parameter, gpointer
 {
     auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
 
-    gnome_cmd_bookmark_add_current (main_win->fs (ACTIVE)->get_directory());
+    gnome_cmd_bookmark_add_current (main_win, main_win->fs (ACTIVE)->get_directory());
 }
 
 

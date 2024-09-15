@@ -18,6 +18,10 @@
  */
 
 pub mod advrename_regex_dialog;
+
+pub mod edit_bookmark_dialog;
+pub mod manage_bookmarks_dialog;
+
 pub mod make_copy_dialog;
 
 pub mod connect_dialog;

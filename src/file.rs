@@ -70,6 +70,8 @@ pub mod ffi {
         ) -> *mut GnomeCmdFile;
 
         pub fn gnome_cmd_file_get_real_path(f: *const GnomeCmdFile) -> *mut c_char;
+        pub fn gnome_cmd_file_get_path_through_parent(f: *const GnomeCmdFile) -> *mut c_char;
+
         pub fn gnome_cmd_file_get_uri_str(f: *const GnomeCmdFile) -> *mut c_char;
         pub fn gnome_cmd_file_is_local(f: *const GnomeCmdFile) -> gboolean;
 
@@ -157,6 +159,14 @@ impl File {
 
     pub fn get_real_path(&self) -> PathBuf {
         unsafe { from_glib_full(ffi::gnome_cmd_file_get_real_path(self.to_glib_none().0)) }
+    }
+
+    pub fn get_path_through_parent(&self) -> PathBuf {
+        unsafe {
+            from_glib_full(ffi::gnome_cmd_file_get_path_through_parent(
+                self.to_glib_none().0,
+            ))
+        }
     }
 
     pub fn get_uri_str(&self) -> Option<String> {

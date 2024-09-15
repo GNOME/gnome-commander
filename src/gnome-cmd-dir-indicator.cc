@@ -24,6 +24,7 @@
 #include "gnome-cmd-includes.h"
 #include "gnome-cmd-dir-indicator.h"
 #include "gnome-cmd-file-selector.h"
+#include "gnome-cmd-main-win.h"
 #include "dialogs/gnome-cmd-manage-bookmarks-dialog.h"
 
 using namespace std;
@@ -341,7 +342,7 @@ static void add_bookmark (GSimpleAction *action, GVariant *parameter, gpointer u
     g_return_if_fail (GNOME_CMD_IS_DIR_INDICATOR (indicator));
     auto priv = static_cast<GnomeCmdDirIndicatorPrivate*>(gnome_cmd_dir_indicator_get_instance_private (indicator));
 
-    gnome_cmd_bookmark_add_current (priv->fs->get_directory());
+    gnome_cmd_bookmark_add_current (main_win, priv->fs->get_directory());
 }
 
 
