@@ -1892,16 +1892,21 @@ void view_toggle_tab_lock (GSimpleAction *action, GVariant *parameter, gpointer 
 
 
 /************** Options Menu **************/
+static void options_edit_done (gpointer user_data)
+{
+    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
+
+    main_win->update_view();
+    gnome_cmd_data.save(main_win);
+}
+
+
 void options_edit (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
     auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
 
-    if (gnome_cmd_options_dialog (*main_win, gnome_cmd_data.options))
-    {
-        main_win->update_view();
-
-        gnome_cmd_data.save(main_win);
-    }
+    GtkDialog *options_dialog = gnome_cmd_options_dialog (*main_win, gnome_cmd_data.options, options_edit_done, main_win);
+    gtk_window_present (GTK_WINDOW (options_dialog));
 }
 
 
