@@ -60,4 +60,4 @@ GtkCellRenderer *egg_cell_renderer_keys_new ();
 void  egg_cell_renderer_keys_set_accelerator (EggCellRendererKeys *keys, guint keyval, GdkModifierType mask);
 void  egg_cell_renderer_keys_get_accelerator (EggCellRendererKeys *keys, guint *keyval, GdkModifierType *mask);
 void  egg_cell_renderer_keys_set_accel_mode (EggCellRendererKeys *keys, GtkCellRendererAccelMode accel_mode);
-gchar *egg_accelerator_get_label (guint accel_key, GdkModifierType accel_mods);
+extern "C" gchar *egg_accelerator_get_label (guint accel_key, GdkModifierType accel_mods);

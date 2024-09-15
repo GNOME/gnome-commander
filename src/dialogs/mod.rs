@@ -26,3 +26,5 @@ pub mod make_copy_dialog;
 
 pub mod connect_dialog;
 pub mod remote_dialog;
+
+pub mod key_shortcuts_dialog;
