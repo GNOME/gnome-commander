@@ -25,6 +25,7 @@ mod connection;
 mod data;
 mod dialogs;
 mod dir;
+mod dirlist;
 mod file;
 mod file_list;
 mod file_list_actions;

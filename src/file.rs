@@ -117,7 +117,7 @@ impl File {
     pub fn new(file_info: &gio::FileInfo, dir: &Directory) -> Option<Self> {
         unsafe {
             from_glib_full(ffi::gnome_cmd_file_new(
-                file_info.to_glib_none().0,
+                file_info.to_glib_full(),
                 dir.to_glib_none().0,
             ))
         }
@@ -126,8 +126,8 @@ impl File {
     pub fn new_full(file_info: &gio::FileInfo, file: &gio::File, dir: &Directory) -> Option<Self> {
         unsafe {
             from_glib_full(ffi::gnome_cmd_file_new_full(
-                file_info.to_glib_none().0,
-                file.to_glib_none().0,
+                file_info.to_glib_full(),
+                file.to_glib_full(),
                 dir.to_glib_none().0,
             ))
         }
