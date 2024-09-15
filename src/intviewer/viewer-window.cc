@@ -828,37 +828,12 @@ static void menu_edit_copy(GSimpleAction *action, GVariant *parameter, gpointer 
 }
 
 
+extern "C" void start_search_r(GViewerWindow *obj, const gchar *search_pattern_ptr, gboolean forward);
+
 static void start_find_thread(GViewerWindow *obj, gboolean forward)
 {
     auto priv = static_cast<GViewerWindowPrivate*>(gviewer_window_get_instance_private (obj));
-
-    g_viewer_searcher_start_search(priv->srchr, forward);
-    gviewer_show_search_progress_dlg(GTK_WINDOW (obj),
-                                     priv->search_pattern,
-                                     g_viewer_searcher_get_abort_indicator(priv->srchr),
-                                     g_viewer_searcher_get_complete_indicator(priv->srchr),
-                                     g_viewer_searcher_get_progress_indicator(priv->srchr));
-
-    g_viewer_searcher_join(priv->srchr);
-
-    if (g_viewer_searcher_get_end_of_search(priv->srchr))
-    {
-        GtkWidget *w;
-
-        w = gtk_message_dialog_new(GTK_WINDOW (obj), GTK_DIALOG_MODAL, GTK_MESSAGE_INFO, GTK_BUTTONS_OK, _("Pattern “%s” was not found"), priv->search_pattern);
-        g_signal_connect_swapped (w, "response", G_CALLBACK (gtk_window_destroy), w);
-        gtk_window_present (GTK_WINDOW (w));
-    }
-    else
-    {
-        offset_type result;
-
-        result = g_viewer_searcher_get_search_result(priv->srchr);
-        text_render_set_marker(gviewer_get_text_render(priv->viewer),
-                result,
-                result + (forward?1:-1) * priv->search_pattern_len);
-        text_render_ensure_offset_visible(gviewer_get_text_render(priv->viewer), result);
-    }
+    start_search_r(obj, priv->search_pattern, forward);
 }
 
 static void on_search_dlg_response(GtkDialog *dialog, int response_id, gpointer user_data)
@@ -1246,4 +1221,17 @@ GtkWidget *create_view ()
                   nullptr);
 
     return view;
+}
+
+// FFI
+extern "C" GViewerSearcher *gviewer_window_get_searcher (GViewerWindow *obj)
+{
+    auto priv = static_cast<GViewerWindowPrivate*>(gviewer_window_get_instance_private (obj));
+    return priv->srchr;
+}
+
+extern "C" TextRender *gviewer_window_get_text_render (GViewerWindow *obj)
+{
+    auto priv = static_cast<GViewerWindowPrivate*>(gviewer_window_get_instance_private (obj));
+    return gviewer_get_text_render(priv->viewer);
 }

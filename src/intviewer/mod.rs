@@ -17,4 +17,7 @@
  * For more details see the file COPYING.
  */
 
+pub mod search_progress_dialog;
+pub mod searcher;
+pub mod text_render;
 pub mod window;

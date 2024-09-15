@@ -17,12 +17,26 @@
  * For more details see the file COPYING.
  */
 
-use crate::file::File;
-use gtk::glib::{self, translate::*};
-use std::ptr;
+use super::{
+    search_progress_dialog::SearchProgressDialog,
+    searcher::{SearchProgress, Searcher},
+    text_render::TextRender,
+};
+use crate::{file::File, utils::pending};
+use ffi::GViewerWindow;
+use gettextrs::gettext;
+use glib::ffi::gboolean;
+use gtk::{
+    glib::{self, translate::*, Cast},
+    prelude::*,
+};
+use std::{ffi::c_char, ptr};
 
 pub mod ffi {
-    use crate::file::ffi::GnomeCmdFile;
+    use crate::{
+        file::ffi::GnomeCmdFile,
+        intviewer::{searcher::ffi::GViewerSearcher, text_render::ffi::TextRender},
+    };
     use gtk::{ffi::GtkWindowClass, glib::ffi::GType};
     use std::ffi::c_void;
 
@@ -39,6 +53,9 @@ pub mod ffi {
             f: *mut GnomeCmdFile,
             initial_settings: /* GViewerWindowSettings */ *mut c_void,
         ) -> *mut GViewerWindow;
+
+        pub fn gviewer_window_get_searcher(w: *mut GViewerWindow) -> *mut GViewerSearcher;
+        pub fn gviewer_window_get_text_render(w: *mut GViewerWindow) -> *mut TextRender;
     }
 
     #[derive(Copy, Clone)]
@@ -66,4 +83,91 @@ impl ViewerWindow {
             ))
         }
     }
+
+    fn searcher(&self) -> Searcher {
+        unsafe { from_glib_none(ffi::gviewer_window_get_searcher(self.to_glib_none().0)) }
+    }
+
+    fn text_render(&self) -> Option<TextRender> {
+        unsafe { from_glib_none(ffi::gviewer_window_get_text_render(self.to_glib_none().0)) }
+    }
+}
+
+async fn say_not_found(parent: &gtk::Window, search_pattern: &str) {
+    let dlg = gtk::MessageDialog::builder()
+        .transient_for(parent)
+        .modal(true)
+        .message_type(gtk::MessageType::Info)
+        .buttons(gtk::ButtonsType::Ok)
+        .text(gettext!("Pattern “{}” was not found", search_pattern))
+        .build();
+    dlg.run_future().await;
+    dlg.close();
+}
+
+async fn start_search(
+    window: &ViewerWindow,
+    search_pattern: &str,
+    search_pattern_len: i32,
+    forward: bool,
+) {
+    let searcher = window.searcher();
+
+    let (sender, receiver) = async_channel::bounded::<SearchProgress>(1);
+
+    let thread = std::thread::spawn(glib::clone!(@strong searcher => move || {
+        let sender1 = sender.clone();
+        let found = searcher.search(forward, move |p| sender1.send_blocking(SearchProgress::Progress(p)).unwrap());
+        sender.send_blocking(SearchProgress::Done(found)).unwrap();
+    }));
+
+    let progress_dlg = SearchProgressDialog::new(window.upcast_ref(), search_pattern);
+    progress_dlg.connect_stop(glib::clone!(@weak searcher => move || searcher.abort()));
+
+    progress_dlg.present();
+    let found = loop {
+        let message = receiver.recv().await.unwrap();
+        match message {
+            SearchProgress::Progress(progress) => progress_dlg.set_progress(progress),
+            SearchProgress::Done(found) => break found,
+        }
+    };
+    thread.join().unwrap();
+    progress_dlg.close();
+
+    pending().await;
+
+    match found {
+        Some(result) => {
+            let text_render = window.text_render().unwrap();
+            text_render.set_marker(
+                result,
+                if forward {
+                    result + search_pattern_len as u64
+                } else {
+                    result - search_pattern_len as u64
+                },
+            );
+            text_render.ensure_offset_visible(result);
+        }
+        None => {
+            say_not_found(window.upcast_ref(), search_pattern).await;
+        }
+    }
+}
+
+#[no_mangle]
+pub extern "C" fn start_search_r(
+    window_ptr: *mut GViewerWindow,
+    search_pattern_ptr: *const c_char,
+    search_pattern_len: i32,
+    forward: gboolean,
+) {
+    let window: ViewerWindow = unsafe { from_glib_none(window_ptr) };
+    let search_pattern: String = unsafe { from_glib_none(search_pattern_ptr) };
+    let forward: bool = forward != 0;
+
+    glib::MainContext::default().spawn_local(async move {
+        start_search(&window, &search_pattern, search_pattern_len, forward).await
+    });
 }

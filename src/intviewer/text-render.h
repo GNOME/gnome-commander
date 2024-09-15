@@ -32,7 +32,7 @@
 #define TEXT_RENDER_GET_CLASS(obj)     (G_TYPE_INSTANCE_GET_CLASS((obj), TYPE_TEXT_RENDER, TextRenderClass))
 
 
-GType text_render_get_type ();
+extern "C" GType text_render_get_type ();
 
 
 struct TextRender
@@ -97,6 +97,6 @@ offset_type text_render_get_current_offset(TextRender *w);
 
 offset_type text_render_get_last_displayed_offset(TextRender *w);
 
-void text_render_ensure_offset_visible(TextRender *w, offset_type offset);
+extern "C" void text_render_ensure_offset_visible(TextRender *w, offset_type offset);
 
-void text_render_set_marker(TextRender *w, offset_type start, offset_type end);
+extern "C" void text_render_set_marker(TextRender *w, offset_type start, offset_type end);
