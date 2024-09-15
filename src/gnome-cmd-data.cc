@@ -1544,6 +1544,81 @@ gboolean GnomeCmdData::Options::is_name_double(const gchar *name_to_test)
     return foundstate;
 }
 
+
+struct SearchProfiles
+{
+    std::vector<GnomeCmdData::SearchProfile> profiles;
+};
+
+
+extern "C" SearchProfiles *gnome_cmd_search_config_new_profiles (GnomeCmdData::SearchConfig *cfg, gboolean with_default)
+{
+    auto profiles = new SearchProfiles();
+    profiles->profiles = cfg->profiles;
+    if (with_default)
+        profiles->profiles.push_back(cfg->default_profile);
+    return profiles;
+}
+
+extern "C" void gnome_cmd_search_config_take_profiles (GnomeCmdData::SearchConfig *cfg, SearchProfiles *profiles)
+{
+    cfg->profiles = profiles->profiles;
+    delete profiles;
+}
+
+
+extern "C" SearchProfiles *gnome_cmd_search_profiles_dup (SearchProfiles *profiles)
+{
+    auto profiles_copy = new SearchProfiles();
+    profiles_copy->profiles = profiles->profiles;
+    return profiles_copy;
+}
+
+extern "C" uint gnome_cmd_search_profiles_len (SearchProfiles *profiles)
+{
+    return profiles->profiles.size();
+}
+
+extern "C" GnomeCmdData::SearchProfile *gnome_cmd_search_profiles_get (SearchProfiles *profiles, guint profile_index)
+{
+    return &profiles->profiles[profile_index];
+}
+
+extern "C" const gchar *gnome_cmd_search_profiles_get_name (SearchProfiles *profiles, guint profile_index)
+{
+    return profiles->profiles[profile_index].name.c_str();
+}
+
+extern "C" void gnome_cmd_search_profiles_set_name (SearchProfiles *profiles, guint profile_index, const gchar *name)
+{
+    profiles->profiles[profile_index].name = name;
+}
+
+extern "C" gchar *gnome_cmd_search_profiles_get_description (SearchProfiles *profiles, guint profile_index)
+{
+    return g_strdup (profiles->profiles[profile_index].description().c_str());
+}
+
+extern "C" void gnome_cmd_search_profiles_reset (SearchProfiles *profiles, guint profile_index)
+{
+    profiles->profiles[profile_index].reset();
+}
+
+extern "C" guint gnome_cmd_search_profiles_duplicate (SearchProfiles *profiles, guint profile_index)
+{
+    profiles->profiles.push_back(profiles->profiles[profile_index]);
+    return profiles->profiles.size() - 1;
+}
+
+extern "C" void gnome_cmd_search_profiles_pick (SearchProfiles *profiles, guint *indexes, guint size)
+{
+    std::vector<GnomeCmdData::SearchProfile> picked_profiles;
+    for (guint i = 0; i < size; ++i)
+        picked_profiles.push_back(profiles->profiles[indexes[i]]);
+    profiles->profiles = picked_profiles;
+}
+
+
 void GnomeCmdData::SearchProfile::reset()
 {
     name.clear();
@@ -1555,6 +1630,79 @@ void GnomeCmdData::SearchProfile::reset()
     match_case = FALSE;
 }
 
+
+struct AdvrenameProfiles
+{
+    std::vector<GnomeCmdData::AdvrenameConfig::Profile> profiles;
+};
+
+
+extern "C" AdvrenameProfiles *gnome_cmd_advrename_config_new_profiles (GnomeCmdData::AdvrenameConfig *cfg, gboolean with_default)
+{
+    auto profiles = new AdvrenameProfiles();
+    profiles->profiles = cfg->profiles;
+    if (with_default)
+        profiles->profiles.push_back(cfg->default_profile);
+    return profiles;
+}
+
+extern "C" void gnome_cmd_advrename_config_take_profiles (GnomeCmdData::AdvrenameConfig *cfg, AdvrenameProfiles *profiles)
+{
+    cfg->profiles = profiles->profiles;
+    delete profiles;
+}
+
+
+extern "C" AdvrenameProfiles *gnome_cmd_advrename_profiles_dup (AdvrenameProfiles *profiles)
+{
+    auto profiles_copy = new AdvrenameProfiles();
+    profiles_copy->profiles = profiles->profiles;
+    return profiles_copy;
+}
+
+extern "C" uint gnome_cmd_advrename_profiles_len (AdvrenameProfiles *profiles)
+{
+    return profiles->profiles.size();
+}
+
+extern "C" GnomeCmdData::AdvrenameConfig::Profile *gnome_cmd_advrename_profiles_get (AdvrenameProfiles *profiles, guint profile_index)
+{
+    return &profiles->profiles[profile_index];
+}
+
+extern "C" const gchar *gnome_cmd_advrename_profiles_get_name (AdvrenameProfiles *profiles, guint profile_index)
+{
+    return profiles->profiles[profile_index].name.c_str();
+}
+
+extern "C" void gnome_cmd_advrename_profiles_set_name (AdvrenameProfiles *profiles, guint profile_index, const gchar *name)
+{
+    profiles->profiles[profile_index].name = name;
+}
+
+extern "C" gchar *gnome_cmd_advrename_profiles_get_description (AdvrenameProfiles *profiles, guint profile_index)
+{
+    return g_strdup (profiles->profiles[profile_index].description().c_str());
+}
+
+extern "C" void gnome_cmd_advrename_profiles_reset (AdvrenameProfiles *profiles, guint profile_index)
+{
+    profiles->profiles[profile_index].reset();
+}
+
+extern "C" guint gnome_cmd_advrename_profiles_duplicate (AdvrenameProfiles *profiles, guint profile_index)
+{
+    profiles->profiles.push_back(profiles->profiles[profile_index]);
+    return profiles->profiles.size() - 1;
+}
+
+extern "C" void gnome_cmd_advrename_profiles_pick (AdvrenameProfiles *profiles, guint *indexes, guint size)
+{
+    std::vector<GnomeCmdData::AdvrenameConfig::Profile> picked_profiles;
+    for (guint i = 0; i < size; ++i)
+        picked_profiles.push_back(profiles->profiles[indexes[i]]);
+    profiles->profiles = picked_profiles;
+}
 
 void GnomeCmdData::AdvrenameConfig::Profile::reset()
 {

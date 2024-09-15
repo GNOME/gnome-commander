@@ -1203,3 +1203,24 @@ std::vector<GnomeCmd::RegexReplace> GnomeCmdAdvrenameProfileComponent::get_valid
 
     return v;
 }
+
+
+GnomeCmdAdvrenameProfileComponent *gnome_cmd_advrename_profile_component_new (GnomeCmdData::AdvrenameConfig::Profile *profile)
+{
+    g_return_val_if_fail (profile != nullptr, nullptr);
+    auto component = new GnomeCmdAdvrenameProfileComponent(*profile);
+    component->update();
+    return component;
+}
+
+
+void gnome_cmd_advrename_profile_component_update (GnomeCmdAdvrenameProfileComponent *component)
+{
+    component->update();
+}
+
+
+void gnome_cmd_advrename_profile_component_copy (GnomeCmdAdvrenameProfileComponent *component)
+{
+    component->copy();
+}

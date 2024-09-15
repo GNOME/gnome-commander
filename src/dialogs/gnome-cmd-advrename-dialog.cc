@@ -34,7 +34,7 @@
 #include "gnome-cmd-file.h"
 #include "gnome-cmd-file-props-dialog.h"
 #include "gnome-cmd-advrename-profile-component.h"
-#include "gnome-cmd-manage-profiles-dialog.h"
+#include "gnome-cmd-treeview.h"
 #include "gnome-cmd-main-win.h"
 #include "utils.h"
 #include "tags/gnome-cmd-tags.h"
@@ -124,19 +124,25 @@ inline GMenu *create_placeholder_menu(GnomeCmdData::AdvrenameConfig *cfg)
 }
 
 
+extern "C" void gnome_cmd_advrename_dialog_update_profile_menu (GnomeCmdAdvrenameDialog *dialog)
+{
+    GnomeCmdData::AdvrenameConfig *cfg = &dialog->defaults;
+
+    gtk_menu_button_set_menu_model (
+        GTK_MENU_BUTTON (dialog->priv->profile_menu_button),
+        G_MENU_MODEL (create_placeholder_menu(cfg)));
+}
+
+
+extern "C" void gnome_cmd_advrename_dialog_do_manage_profiles(GnomeCmdAdvrenameDialog *dialog, GnomeCmdData::AdvrenameConfig *cfg, gboolean new_profile);
+
 static void do_manage_profiles(GnomeCmdAdvrenameDialog *dialog, bool new_profile)
 {
-    GnomeCmdData::AdvrenameConfig &cfg = dialog->defaults;
-
     if (new_profile)
         dialog->priv->profile_component->copy();
 
-    if (GnomeCmd::ManageProfilesDialog<GnomeCmdData::AdvrenameConfig,GnomeCmdData::AdvrenameConfig::Profile,GnomeCmdAdvrenameProfileComponent> (GTK_WINDOW (dialog),cfg,new_profile,_("Profiles"),"gnome-commander-advanced-rename"))
-    {
-        gtk_menu_button_set_menu_model (
-            GTK_MENU_BUTTON (dialog->priv->profile_menu_button),
-            G_MENU_MODEL (create_placeholder_menu(&cfg)));
-    }
+    GnomeCmdData::AdvrenameConfig *cfg = &dialog->defaults;
+    gnome_cmd_advrename_dialog_do_manage_profiles (dialog, cfg, new_profile);
 }
 
 

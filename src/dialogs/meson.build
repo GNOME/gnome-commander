@@ -7,8 +7,6 @@ dialogs_headers = files(
   'gnome-cmd-manage-bookmarks-dialog.h',
   'gnome-cmd-mkdir-dialog.h',
   'gnome-cmd-key-shortcuts-dialog.h',
-  'gnome-cmd-edit-profile-dialog.h',
-  'gnome-cmd-manage-profiles-dialog.h',
   'gnome-cmd-options-dialog.h',
   'gnome-cmd-patternsel-dialog.h',
   'gnome-cmd-prepare-copy-dialog.h',

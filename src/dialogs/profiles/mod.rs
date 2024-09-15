@@ -1,4 +1,4 @@
-﻿/*
+/*
  * Copyright 2024 Andrey Kutejko <andy128k@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
@@ -17,19 +17,6 @@
  * For more details see the file COPYING.
  */
 
-pub mod advrename_dialog;
-pub mod advrename_regex_dialog;
-
-pub mod edit_bookmark_dialog;
-pub mod manage_bookmarks_dialog;
-
-pub mod search_dialog;
-
-pub mod make_copy_dialog;
-
-pub mod connect_dialog;
-pub mod remote_dialog;
-
-pub mod key_shortcuts_dialog;
-
+pub mod edit_profile_dialog;
+pub mod manage_profiles_dialog;
 pub mod profiles;

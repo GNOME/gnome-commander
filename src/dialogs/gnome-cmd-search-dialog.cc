@@ -32,7 +32,6 @@
 #include "gnome-cmd-main-win.h"
 #include "gnome-cmd-con-list.h"
 #include "gnome-cmd-selection-profile-component.h"
-#include "gnome-cmd-manage-profiles-dialog.h"
 #include "dirlist.h"
 #include "filter.h"
 #include "utils.h"
@@ -198,17 +197,22 @@ static GMenu *create_placeholder_menu(GnomeCmdData::SearchConfig &cfg)
 }
 
 
+extern "C" void gnome_cmd_search_dialog_update_profile_menu (GnomeCmdSearchDialog *dialog)
+{
+    gtk_menu_button_set_menu_model (
+        GTK_MENU_BUTTON (dialog->priv->profile_menu_button),
+        G_MENU_MODEL (create_placeholder_menu(dialog->defaults)));
+}
+
+
+extern "C" void gnome_cmd_search_dialog_do_manage_profiles(GnomeCmdSearchDialog *dialog, GnomeCmdData::SearchConfig *cfg, gboolean new_profile);
+
 static void do_manage_profiles(GnomeCmdSearchDialog *dialog, bool new_profile)
 {
     if (new_profile)
         dialog->priv->profile_component->copy();
 
-    if (GnomeCmd::ManageProfilesDialog<GnomeCmdData::SearchConfig,GnomeCmdData::SearchProfile,GnomeCmdSelectionProfileComponent> (*dialog,dialog->defaults,new_profile,_("Profiles"),"gnome-commander-search"))
-    {
-        gtk_menu_button_set_menu_model (
-            GTK_MENU_BUTTON (dialog->priv->profile_menu_button),
-            G_MENU_MODEL (create_placeholder_menu(dialog->defaults)));
-    }
+    gnome_cmd_search_dialog_do_manage_profiles (dialog, &dialog->defaults, new_profile);
 }
 
 static void save_profile(GSimpleAction *action, GVariant *parameter, gpointer user_data)
