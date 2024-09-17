@@ -152,9 +152,6 @@ void gnome_cmd_file_selector_show_new_textfile_dialog (GnomeCmdFileSelector *fs)
 
 void gnome_cmd_file_selector_cap_paste (GnomeCmdFileSelector *fs);
 
-extern "C" void gnome_cmd_file_selector_create_symlink (GnomeCmdFileSelector *fs, GnomeCmdFile *f);
-extern "C" void gnome_cmd_file_selector_create_symlinks (GnomeCmdFileSelector *fs, GList *files);
-
 inline FileSelectorID operator ! (FileSelectorID id)
 {
     switch (id)

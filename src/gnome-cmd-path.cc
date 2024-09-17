@@ -1,8 +1,6 @@
-/** 
- * @file gnome-cmd-path.h
- * @copyright (C) 2001-2006 Marcus Bjurman\n
- * @copyright (C) 2007-2012 Piotr Eljasiak\n
- * @copyright (C) 2013-2024 Uwe Scholz\n
+/**
+ * @file gnome-cmd-path.cc
+ * @copyright (C) 2024 Andrey Kutejko
  *
  * @copyright This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,23 +16,11 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
  */
-#pragma once
 
-struct GnomeCmdPath
+#include <glib.h>
+#include "gnome-cmd-path.h"
+
+const gchar *gnome_cmd_path_get_path(GnomeCmdPath *p)
 {
-  protected:
-
-    virtual GnomeCmdPath *do_clone() const = 0;
-
-  public:
-
-    GnomeCmdPath *clone() const                                 {  return do_clone();  }
-    virtual ~GnomeCmdPath() { }
-
-    virtual const gchar *get_path() = 0;
-    virtual const gchar *get_display_path() = 0;
-    virtual GnomeCmdPath *get_parent() = 0;
-    virtual GnomeCmdPath *get_child(const gchar *child) = 0;
-};
-
-extern "C" const gchar *gnome_cmd_path_get_path(GnomeCmdPath *p);
+    return p->get_path();
+}

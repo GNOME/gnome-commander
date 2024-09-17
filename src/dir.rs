@@ -39,9 +39,9 @@ use gtk::{
 use std::ffi::CStr;
 
 pub mod ffi {
-    use crate::connection::connection::ffi::GnomeCmdCon;
+    use crate::{connection::connection::ffi::GnomeCmdCon, file::ffi::GnomeCmdFile};
     use gtk::{
-        gio::ffi::GFileInfo,
+        gio::ffi::{GFile, GFileInfo},
         glib::ffi::{GList, GType},
     };
     use std::ffi::{c_char, c_void};
@@ -67,6 +67,20 @@ pub mod ffi {
 
         pub fn gnome_cmd_dir_set_state(dir: *mut GnomeCmdDir, state: i32);
         pub fn gnome_cmd_dir_set_files(dir: *mut GnomeCmdDir, files: *mut GList);
+
+        pub fn gnome_cmd_dir_get_child_gfile(
+            dir: *mut GnomeCmdDir,
+            filename: *const c_char,
+        ) -> *mut GFile;
+
+        pub fn gnome_cmd_dir_file_created(dir: *mut GnomeCmdDir, uri_str: *const c_char);
+        pub fn gnome_cmd_dir_file_deleted(dir: *mut GnomeCmdDir, uri_str: *const c_char);
+        pub fn gnome_cmd_dir_file_changed(dir: *mut GnomeCmdDir, uri_str: *const c_char);
+        pub fn gnome_cmd_dir_file_renamed(
+            dir: *mut GnomeCmdDir,
+            f: *mut GnomeCmdFile,
+            old_uri_str: *const c_char,
+        );
     }
 
     #[derive(Copy, Clone)]
@@ -158,6 +172,37 @@ impl Directory {
             self.relist_files(parent_window, visual).await;
         } else {
             self.emit_by_name::<()>("list-ok", &[]);
+        }
+    }
+
+    pub fn get_child_gfile(&self, filename: &str) -> gio::File {
+        unsafe {
+            from_glib_full(ffi::gnome_cmd_dir_get_child_gfile(
+                self.to_glib_none().0,
+                filename.to_glib_none().0,
+            ))
+        }
+    }
+
+    pub fn file_created(&self, uri_str: &str) {
+        unsafe { ffi::gnome_cmd_dir_file_created(self.to_glib_none().0, uri_str.to_glib_none().0) }
+    }
+
+    pub fn file_deleted(&self, uri_str: &str) {
+        unsafe { ffi::gnome_cmd_dir_file_deleted(self.to_glib_none().0, uri_str.to_glib_none().0) }
+    }
+
+    pub fn file_changed(&self, uri_str: &str) {
+        unsafe { ffi::gnome_cmd_dir_file_changed(self.to_glib_none().0, uri_str.to_glib_none().0) }
+    }
+
+    pub fn file_renamed(&self, f: &File, old_uri_str: &str) {
+        unsafe {
+            ffi::gnome_cmd_dir_file_renamed(
+                self.to_glib_none().0,
+                f.to_glib_none().0,
+                old_uri_str.to_glib_none().0,
+            )
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿/*
+/*
  * Copyright 2024 Andrey Kutejko <andy128k@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
@@ -25,6 +25,7 @@ pub mod manage_bookmarks_dialog;
 
 pub mod search_dialog;
 
+pub mod create_symlink_dialog;
 pub mod make_copy_dialog;
 
 pub mod connect_dialog;

@@ -110,6 +110,7 @@ sources_sources = files(
   'gnome-cmd-main-menu.cc',
   'gnome-cmd-main-win.cc',
   'gnome-cmd-owner.cc',
+  'gnome-cmd-path.cc',
   'gnome-cmd-plain-path.cc',
   'gnome-cmd-quicksearch-popup.cc',
   'gnome-cmd-selection-profile-component.cc',

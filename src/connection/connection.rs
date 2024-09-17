@@ -75,6 +75,8 @@ pub mod ffi {
             name: *const c_char,
             path: *const c_char,
         );
+
+        pub fn gnome_cmd_path_get_path(con: *mut c_void) -> *const c_char;
     }
 
     #[derive(Copy, Clone)]
@@ -205,5 +207,11 @@ impl ConnectionExt for Connection {
                 path.to_glib_none().0,
             )
         }
+    }
+}
+
+impl GnomeCmdPath {
+    pub fn path(&self) -> String {
+        unsafe { from_glib_none(ffi::gnome_cmd_path_get_path(self.0)) }
     }
 }

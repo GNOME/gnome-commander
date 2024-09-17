@@ -23,11 +23,14 @@ pub struct GeneralOptions(pub gio::Settings);
 
 pub trait GeneralOptionsRead {
     fn bookmarks(&self) -> glib::Variant;
+    fn symlink_format(&self) -> String;
 }
 
 pub trait GeneralOptionsWrite {
     fn set_bookmarks(&self, bookmarks: &glib::Variant);
     fn reset_bookmarks(&self);
+
+    fn set_symlink_format(&self, symlink_format: &str);
 }
 
 impl GeneralOptions {
@@ -42,6 +45,10 @@ impl GeneralOptionsRead for GeneralOptions {
     fn bookmarks(&self) -> glib::Variant {
         self.0.value("bookmarks")
     }
+
+    fn symlink_format(&self) -> String {
+        self.0.string("symlink-string").to_string()
+    }
 }
 
 impl GeneralOptionsWrite for GeneralOptions {
@@ -51,6 +58,10 @@ impl GeneralOptionsWrite for GeneralOptions {
 
     fn reset_bookmarks(&self) {
         self.0.reset("bookmarks");
+    }
+
+    fn set_symlink_format(&self, symlink_format: &str) {
+        self.0.set_string("symlink-string", symlink_format);
     }
 }
 
