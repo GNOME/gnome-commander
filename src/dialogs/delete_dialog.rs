@@ -266,6 +266,7 @@ enum DeleteBreak {
 
 type DeleteResult = std::ops::ControlFlow<DeleteBreak, ()>;
 
+#[async_recursion::async_recursion(?Send)]
 async fn perform_delete_operation_one(delete_data: &mut DeleteData, file: &File) -> DeleteResult {
     if delete_data.cancellable.is_cancelled() {
         return DeleteResult::Break(DeleteBreak::Abort);
