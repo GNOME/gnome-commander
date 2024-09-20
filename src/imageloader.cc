@@ -62,8 +62,6 @@ static CacheEntry file_type_pixmaps[NUM_FILE_TYPE_PIXMAPS];
 
 static GHashTable *mime_cache = nullptr;
 
-static const gint ICON_SIZE = 16;
-
 
 static GIcon *load_icon (const gchar *path)
 {
@@ -113,8 +111,6 @@ void IMAGE_init ()
 
         g_free (path);
     }
-
-    register_gnome_commander_stock_icons ();
 }
 
 
@@ -353,47 +349,4 @@ void IMAGE_clear_mime_cache ()
 
 void IMAGE_free ()
 {
-}
-
-static struct
-{
-    const gchar *filename;
-    const gchar *stock_id;
-} stock_icons[] =
-{
-    { PIXMAPS_DIR G_DIR_SEPARATOR_S "copy_file_names.xpm",    COPYFILENAMES_STOCKID },
-    { PIXMAPS_DIR G_DIR_SEPARATOR_S "rotate-90-16.xpm",       ROTATE_90_STOCKID },
-    { PIXMAPS_DIR G_DIR_SEPARATOR_S "rotate-270-16.xpm",      ROTATE_270_STOCKID },
-    { PIXMAPS_DIR G_DIR_SEPARATOR_S "rotate-180-16.xpm",      ROTATE_180_STOCKID },
-    { PIXMAPS_DIR G_DIR_SEPARATOR_S "flip-vertical-16.xpm",   FLIP_VERTICAL_STOCKID },
-    { PIXMAPS_DIR G_DIR_SEPARATOR_S "flip-horizontal-16.xpm", FLIP_HORIZONTAL_STOCKID },
-    { PIXMAPS_DIR G_DIR_SEPARATOR_S FILETYPEICONS_FOLDER G_DIR_SEPARATOR_S "file_type_dir.xpm",     FILETYPEDIR_STOCKID},
-    { PIXMAPS_DIR G_DIR_SEPARATOR_S FILETYPEICONS_FOLDER G_DIR_SEPARATOR_S "file_type_regular.xpm", FILETYPEREGULARFILE_STOCKID},
-};
-
-static gint n_stock_icons = G_N_ELEMENTS (stock_icons);
-
-void register_gnome_commander_stock_icons (void)
-{
-    GtkIconFactory *icon_factory;
-    GtkIconSet *icon_set;
-    GtkIconSource *icon_source;
-    gint i;
-
-    icon_factory = gtk_icon_factory_new ();
-
-    for (i = 0; i < n_stock_icons; i++)
-       {
-           icon_set = gtk_icon_set_new ();
-           icon_source = gtk_icon_source_new ();
-           gtk_icon_source_set_filename (icon_source, stock_icons[i].filename);
-           gtk_icon_set_add_source (icon_set, icon_source);
-           gtk_icon_source_free (icon_source);
-           gtk_icon_factory_add (icon_factory, stock_icons[i].stock_id, icon_set);
-           gtk_icon_set_unref (icon_set);
-       }
-
-    gtk_icon_factory_add_default (icon_factory);
-
-    g_object_unref (icon_factory);
 }
