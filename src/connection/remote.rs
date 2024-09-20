@@ -20,14 +20,23 @@
  * For more details see the file COPYING.
  */
 
-use super::connection::Connection;
-use glib::translate::{from_glib_none, ToGlibPtr};
-use gtk::glib;
+use super::connection::{Connection, ConnectionExt, GnomeCmdPath};
+use crate::{dir::Directory, user_actions};
+use ffi::GnomeCmdConRemote;
+use gtk::{
+    gio,
+    glib::{
+        self,
+        translate::{from_glib_none, ToGlibPtr},
+        Cast,
+    },
+};
+use std::{ffi::c_char, path::Path};
 
 pub mod ffi {
     use crate::connection::connection::ffi::GnomeCmdConClass;
-    use gtk::glib::ffi::GType;
-    use std::ffi::c_char;
+    use glib::ffi::GType;
+    use std::ffi::{c_char, c_int};
 
     #[repr(C)]
     pub struct GnomeCmdConRemote {
@@ -74,4 +83,91 @@ impl ConnectionRemote {
             ))
         }
     }
+
+    pub fn method(&self) -> Option<ConnectionMethodID> {
+        let uri = self.uri()?;
+        match uri.scheme().as_str() {
+            "file" => Some(ConnectionMethodID::CON_FILE),
+            "ftp" if uri.user().as_deref() == Some("anonymous") => {
+                Some(ConnectionMethodID::CON_ANON_FTP)
+            }
+            "ftp" => Some(ConnectionMethodID::CON_FTP),
+            "sftp" => Some(ConnectionMethodID::CON_SFTP),
+            "dav" => Some(ConnectionMethodID::CON_DAV),
+            "davs" => Some(ConnectionMethodID::CON_DAVS),
+            "smb" => Some(ConnectionMethodID::CON_SMB),
+            _ => None,
+        }
+    }
+
+    pub fn icon_name(&self) -> &'static str {
+        match self.method() {
+            Some(ConnectionMethodID::CON_FILE) => "folder",
+            Some(ConnectionMethodID::CON_URI) => "network-workgroup",
+            Some(_) => "folder-remote",
+            _ => "network-workgroup",
+        }
+    }
+}
+
+#[derive(Clone, Copy, strum::FromRepr, PartialEq, PartialOrd, Eq, Ord)]
+#[repr(i32)]
+#[allow(non_camel_case_types)]
+pub enum ConnectionMethodID {
+    CON_SFTP = 0,
+    CON_FTP,
+    CON_ANON_FTP,
+    CON_SMB,
+    CON_DAV,
+    CON_DAVS,
+    CON_URI,
+    CON_FILE,
+}
+
+impl ConnectionExt for ConnectionRemote {
+    fn alias(&self) -> Option<String> {
+        self.upcast_ref::<Connection>().alias()
+    }
+    fn set_alias(&self, alias: Option<&str>) {
+        self.upcast_ref::<Connection>().set_alias(alias)
+    }
+    fn uri(&self) -> Option<glib::Uri> {
+        self.upcast_ref::<Connection>().uri()
+    }
+    fn set_uri(&self, uri: Option<&glib::Uri>) {
+        self.upcast_ref::<Connection>().set_uri(uri)
+    }
+    fn uri_string(&self) -> Option<String> {
+        self.upcast_ref::<Connection>().uri_string()
+    }
+    fn set_uri_string(&self, uri: Option<&str>) {
+        self.upcast_ref::<Connection>().set_uri_string(uri)
+    }
+    fn create_path(&self, path: &Path) -> GnomeCmdPath {
+        self.upcast_ref::<Connection>().create_path(path)
+    }
+    fn create_gfile(&self, path: Option<&str>) -> gio::File {
+        self.upcast_ref::<Connection>().create_gfile(path)
+    }
+    fn default_dir(&self) -> Option<Directory> {
+        self.upcast_ref::<Connection>().default_dir()
+    }
+    fn set_default_dir(&self, dir: Option<&Directory>) {
+        self.upcast_ref::<Connection>().set_default_dir(dir)
+    }
+    fn set_base_path(&self, path: GnomeCmdPath) {
+        self.upcast_ref::<Connection>().set_base_path(path)
+    }
+    fn add_bookmark(&self, name: &str, path: &str) {
+        self.upcast_ref::<Connection>().add_bookmark(name, path)
+    }
+}
+
+#[no_mangle]
+pub extern "C" fn gnome_cmd_con_remote_get_icon_name(
+    con_ptr: *mut GnomeCmdConRemote,
+) -> *mut c_char {
+    let con: ConnectionRemote = unsafe { from_glib_none(con_ptr) };
+    let icon_name = con.icon_name();
+    icon_name.to_glib_full()
 }

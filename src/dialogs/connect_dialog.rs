@@ -22,8 +22,8 @@
 
 use crate::{
     connection::{
-        connection::{Connection, ConnectionExt, ConnectionMethodID},
-        remote::ConnectionRemote,
+        connection::ConnectionExt,
+        remote::{ConnectionMethodID, ConnectionRemote},
         smb::ConnectionSmb,
     },
     main_win::{ffi::GnomeCmdMainWin, MainWindow},
@@ -319,9 +319,9 @@ mod imp {
             ConnectionMethodID::from_repr(method)
         }
 
-        pub fn set_method(&self, method: ConnectionMethodID) {
-            self.type_combo.set_active(Some(method as u32));
-            self.setup_for_type(Some(method));
+        pub fn set_method(&self, method: Option<ConnectionMethodID>) {
+            self.type_combo.set_active(method.map(|m| m as u32));
+            self.setup_for_type(method);
         }
 
         pub fn get_server(&self) -> Result<String, ErrorMessage> {
@@ -489,7 +489,7 @@ impl ConnectDialog {
         dialog.show_all();
         dialog.imp().alias_entry.set_sensitive(with_alias);
 
-        dialog.imp().set_method(ConnectionMethodID::CON_SFTP);
+        dialog.imp().set_method(Some(ConnectionMethodID::CON_SFTP));
 
         dialog.present();
         let mut connection: Option<ConnectionRemote> = None;
@@ -504,15 +504,15 @@ impl ConnectDialog {
                         (ConnectionMethodID::CON_SMB, Ok(uri)) => {
                             let alias = dialog.imp().alias_entry.text();
                             let con = ConnectionSmb::default();
-                            con.upcast_ref::<Connection>().set_alias(Some(&alias));
-                            con.upcast_ref::<Connection>().set_uri(Some(&uri));
+                            con.set_alias(Some(&alias));
+                            con.set_uri(Some(&uri));
                             connection = Some(con.upcast::<ConnectionRemote>());
                         }
                         (_, Ok(uri)) => {
                             let alias = dialog.imp().alias_entry.text();
                             let con = ConnectionRemote::default();
-                            con.upcast_ref::<Connection>().set_alias(Some(&alias));
-                            con.upcast_ref::<Connection>().set_uri(Some(&uri));
+                            con.set_alias(Some(&alias));
+                            con.set_uri(Some(&uri));
                             connection = Some(con);
                         }
                         (_, Err(error)) => show_error_message(dialog.upcast_ref(), &error),
@@ -533,18 +533,16 @@ impl ConnectDialog {
         dialog.set_transient_for(Some(parent_window));
         dialog.show_all();
 
-        let connection = con.upcast_ref::<Connection>();
-
-        dialog.imp().set_method(connection.method());
+        dialog.imp().set_method(con.method());
         dialog.imp().type_combo.set_sensitive(false);
 
-        if let Some(alias) = connection.alias() {
+        if let Some(alias) = con.alias() {
             dialog.imp().alias_entry.set_text(&alias);
         } else {
             dialog.imp().alias_entry.set_sensitive(false);
         }
 
-        if let Some(uri) = connection.uri() {
+        if let Some(uri) = con.uri() {
             dialog.imp().uri_entry.set_text(&uri.to_str());
 
             let full_host = uri.host().unwrap_or_default();
@@ -571,11 +569,11 @@ impl ConnectDialog {
                 gtk::ResponseType::Ok => match dialog.imp().get_connection_uri() {
                     Ok(uri) => {
                         let alias = dialog.imp().alias_entry.text();
-                        connection.set_alias(Some(&alias));
-                        connection.set_uri(Some(&uri));
+                        con.set_alias(Some(&alias));
+                        con.set_uri(Some(&uri));
 
                         let path = uri.path();
-                        connection.set_base_path(connection.create_path(if path.is_empty() {
+                        con.set_base_path(con.create_path(if path.is_empty() {
                             Path::new("/")
                         } else {
                             Path::new(&path)

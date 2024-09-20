@@ -32,7 +32,7 @@ pub mod ffi {
     use crate::dir::ffi::GnomeCmdDir;
     use glib::ffi::GUri;
     use gtk::{gio::ffi::GFile, glib::ffi::GType};
-    use std::ffi::{c_char, c_int, c_void};
+    use std::ffi::{c_char, c_void};
 
     #[repr(C)]
     pub struct GnomeCmdCon {
@@ -68,8 +68,6 @@ pub mod ffi {
 
         pub fn gnome_cmd_con_set_base_path(con: *const GnomeCmdCon, path: *mut c_void);
 
-        pub fn gnome_cmd_con_get_method(con: *const GnomeCmdCon) -> c_int;
-
         pub fn gnome_cmd_con_add_bookmark(
             con: *const GnomeCmdCon,
             name: *const c_char,
@@ -102,20 +100,6 @@ impl Connection {
 
 pub struct GnomeCmdPath(pub *mut c_void);
 
-#[derive(Clone, Copy, strum::FromRepr, PartialEq, PartialOrd, Eq, Ord)]
-#[repr(i32)]
-#[allow(non_camel_case_types)]
-pub enum ConnectionMethodID {
-    CON_SFTP = 0,
-    CON_FTP,
-    CON_ANON_FTP,
-    CON_SMB,
-    CON_DAV,
-    CON_DAVS,
-    CON_URI,
-    CON_FILE,
-}
-
 pub trait ConnectionExt {
     fn alias(&self) -> Option<String>;
     fn set_alias(&self, alias: Option<&str>);
@@ -134,8 +118,6 @@ pub trait ConnectionExt {
     fn set_default_dir(&self, dir: Option<&Directory>);
 
     fn set_base_path(&self, path: GnomeCmdPath);
-
-    fn method(&self) -> ConnectionMethodID;
 
     fn add_bookmark(&self, name: &str, path: &str);
 }
@@ -192,11 +174,6 @@ impl ConnectionExt for Connection {
 
     fn set_base_path(&self, path: GnomeCmdPath) {
         unsafe { ffi::gnome_cmd_con_set_base_path(self.to_glib_none().0, path.0) }
-    }
-
-    fn method(&self) -> ConnectionMethodID {
-        let method = unsafe { ffi::gnome_cmd_con_get_method(self.to_glib_none().0) };
-        ConnectionMethodID::from_repr(method).unwrap_or(ConnectionMethodID::CON_SFTP)
     }
 
     fn add_bookmark(&self, name: &str, path: &str) {

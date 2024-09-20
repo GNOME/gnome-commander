@@ -569,7 +569,6 @@ static void gnome_cmd_con_device_init (GnomeCmdConDevice *dev_con)
 {
     GnomeCmdCon *con = GNOME_CMD_CON (dev_con);
 
-    con->method = CON_FILE;
     con->should_remember_dir = TRUE;
     con->needs_open_visprog = FALSE;
     con->needs_list_visprog = FALSE;
