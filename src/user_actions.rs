@@ -27,8 +27,8 @@ use crate::{
     spawn::{spawn_async, spawn_async_command, SpawnError},
     types::FileSelectorID,
     utils::{
-        get_modifiers_state, run_simple_dialog, show_error_message, show_message, sudo_command,
-        ErrorMessage,
+        get_modifiers_state, prompt_message, run_simple_dialog, show_error_message, show_message,
+        sudo_command, ErrorMessage,
     },
 };
 use gettextrs::{gettext, ngettext};
@@ -255,4 +255,35 @@ pub extern "C" fn command_root_mode(
     if let Err(error_message) = root_mode() {
         show_error_message(main_win.upcast_ref(), &error_message);
     }
+}
+
+/* ***************************** View Menu ****************************** */
+
+async fn ask_close_locked_tab(parent_window: &gtk::Window) -> bool {
+    prompt_message(
+        parent_window,
+        gtk::MessageType::Question,
+        gtk::ButtonsType::OkCancel,
+        &gettext("The tab is locked, close anyway?"),
+        None,
+    )
+    .await
+        == gtk::ResponseType::Ok
+}
+
+#[no_mangle]
+pub extern "C" fn view_close_tab(
+    _action: *const GSimpleAction,
+    _parameter: *const GVariant,
+    main_win_ptr: *mut GnomeCmdMainWin,
+) {
+    let main_win = unsafe { MainWindow::from_glib_none(main_win_ptr) };
+    glib::MainContext::default().spawn_local(async move {
+        let fs = main_win.file_selector(FileSelectorID::ACTIVE);
+        if fs.tab_count() > 1 {
+            if !fs.file_list().is_locked() || ask_close_locked_tab(main_win.upcast_ref()).await {
+                fs.close_tab();
+            }
+        }
+    });
 }

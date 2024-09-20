@@ -35,7 +35,7 @@ use gtk::{
     gdk, gio,
     glib::{
         self,
-        translate::{from_glib_borrow, from_glib_none, Borrowed, ToGlibPtr},
+        translate::{from_glib_none, ToGlibPtr},
     },
     prelude::*,
 };
@@ -99,6 +99,8 @@ pub mod ffi {
         pub fn gnome_cmd_file_selector_close_tab(fs: *mut GnomeCmdFileSelector);
 
         pub fn gnome_cmd_file_selector_close_tab_nth(fs: *mut GnomeCmdFileSelector, n: u32);
+
+        pub fn gnome_cmd_file_selector_tab_count(fs: *mut GnomeCmdFileSelector) -> u32;
 
         pub fn gnome_cmd_file_selector_get_fs_id(fs: *mut GnomeCmdFileSelector) -> i32;
         pub fn gnome_cmd_file_selector_is_active(fs: *mut GnomeCmdFileSelector) -> gboolean;
@@ -194,6 +196,10 @@ impl FileSelector {
 
     pub fn close_tab_nth(&self, n: u32) {
         unsafe { ffi::gnome_cmd_file_selector_close_tab_nth(self.to_glib_none().0, n) }
+    }
+
+    pub fn tab_count(&self) -> u32 {
+        unsafe { ffi::gnome_cmd_file_selector_tab_count(self.to_glib_none().0) }
     }
 
     pub fn id(&self) -> FileSelectorID {

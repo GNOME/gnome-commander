@@ -1757,16 +1757,7 @@ void view_new_tab (GSimpleAction *action, GVariant *parameter, gpointer user_dat
 }
 
 
-void view_close_tab (GSimpleAction *action, GVariant *parameter, gpointer user_data)
-{
-    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
-
-    GnomeCmdFileSelector *fs = main_win->fs (ACTIVE);
-
-    if (gtk_notebook_get_n_pages (GTK_NOTEBOOK (fs->notebook)) > 1)
-        if (!fs->file_list()->locked || gnome_cmd_prompt_message (*main_win, GTK_MESSAGE_QUESTION, GTK_BUTTONS_OK_CANCEL, _("The tab is locked, close anyway?"))==GTK_RESPONSE_OK)
-            fs->close_tab();
-}
+extern "C" void view_close_tab (GSimpleAction *action, GVariant *parameter, gpointer user_data);
 
 
 void view_close_all_tabs (GSimpleAction *action, GVariant *parameter, gpointer user_data)
