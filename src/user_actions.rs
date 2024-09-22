@@ -21,7 +21,10 @@
  */
 
 use crate::{
-    data::{ProgramsOptions, ProgramsOptionsRead},
+    data::{GeneralOptions, GeneralOptionsRead, ProgramsOptions, ProgramsOptionsRead},
+    dialogs::create_symlink_dialog::show_create_symlink_dialog,
+    dir::Directory,
+    file::File,
     libgcmd::file_base::{FileBase, FileBaseExt},
     main_win::{ffi::*, MainWindow},
     spawn::{spawn_async, spawn_async_command, SpawnError},
@@ -34,11 +37,73 @@ use crate::{
 use gettextrs::{gettext, ngettext};
 use gtk::{
     gdk,
-    gio::ffi::GSimpleAction,
+    gio::{self, ffi::GSimpleAction},
     glib::{self, ffi::GVariant, translate::FromGlibPtrNone, Cast},
     prelude::*,
 };
 use std::{collections::HashSet, ffi::OsString, path::PathBuf};
+
+fn symlink_name(file_name: &str, options: &dyn GeneralOptionsRead) -> String {
+    let mut format = options.symlink_format();
+    if format.is_empty() {
+        format = gettext("link to %s");
+    }
+    if !format.contains("%s") {
+        format.push_str(" %s");
+    }
+    format.replace("%s", file_name)
+}
+
+async fn create_symlinks(
+    parent_window: &gtk::Window,
+    files: &glib::List<File>,
+    directory: &Directory,
+    options: &dyn GeneralOptionsRead,
+) {
+    let mut skip_all = false;
+
+    for file in files {
+        let target_absolute_name = file.file().parse_name();
+
+        let symlink_file = directory.get_child_gfile(&symlink_name(&file.get_name(), options));
+
+        loop {
+            match symlink_file.make_symbolic_link(&target_absolute_name, gio::Cancellable::NONE) {
+                Ok(_) => {
+                    directory.file_created(&symlink_file.uri());
+                    break;
+                }
+                Err(_) if skip_all => {
+                    // do nothing
+                }
+                Err(error) => {
+                    let choice = run_simple_dialog(
+                        parent_window,
+                        true,
+                        gtk::MessageType::Question,
+                        &error.message(),
+                        &gettext("Create Symbolic Link"),
+                        Some(3),
+                        &[
+                            &gettext("Skip"),
+                            &gettext("Skip all"),
+                            &gettext("Cancel"),
+                            &gettext("Retry"),
+                        ],
+                    )
+                    .await;
+
+                    match choice {
+                        gtk::ResponseType::Other(0) /* Skip */ => { break; },
+                        gtk::ResponseType::Other(1) /* Skip all */ => { skip_all = true; break; },
+                        gtk::ResponseType::Other(3) /* Retry */ => { continue; },
+                        _ /* Cancel */ => { return },
+                    }
+                }
+            }
+        }
+    }
+}
 
 #[no_mangle]
 pub extern "C" fn file_create_symlink(
@@ -47,23 +112,28 @@ pub extern "C" fn file_create_symlink(
     main_win_ptr: *mut GnomeCmdMainWin,
 ) {
     let main_win = unsafe { MainWindow::from_glib_none(main_win_ptr) };
+    let options = GeneralOptions::new();
 
     glib::MainContext::default().spawn_local(async move {
         let active_fs = main_win.file_selector(FileSelectorID::ACTIVE);
         let inactive_fs = main_win.file_selector(FileSelectorID::INACTIVE);
+
+        let Some(dest_directory) = inactive_fs.directory() else {
+            eprintln!("Cannot create symlinks: No destination directory.");
+            return;
+        };
 
         let active_fl = active_fs.file_list();
         let selected_files = active_fl.selected_files();
         let selected_files_len = selected_files.len();
 
         if selected_files_len > 1 {
-            let directory = inactive_fs.directory().unwrap().display_path();
             let message = ngettext!(
                 "Create symbolic links of {} file in {}?",
                 "Create symbolic links of {} files in {}?",
                 selected_files_len as u32,
                 selected_files_len,
-                directory
+                dest_directory.display_path()
             );
             let choice = run_simple_dialog(
                 main_win.upcast_ref(),
@@ -76,10 +146,22 @@ pub extern "C" fn file_create_symlink(
             )
             .await;
             if choice == gtk::ResponseType::Other(1) {
-                inactive_fs.create_symlinks(&selected_files);
+                create_symlinks(
+                    main_win.upcast_ref(),
+                    &selected_files,
+                    &dest_directory,
+                    &options,
+                )
+                .await;
             }
         } else if let Some(focused_file) = active_fl.focused_file() {
-            inactive_fs.create_symlink(&focused_file);
+            show_create_symlink_dialog(
+                main_win.upcast_ref(),
+                &focused_file,
+                &dest_directory,
+                &symlink_name(&focused_file.get_name(), &options),
+            )
+            .await;
         }
     });
 }

@@ -58,8 +58,6 @@ class GnomeCmdFileSelector::Private
     gboolean active {FALSE};
     gboolean realized {FALSE};
 
-    GnomeCmdFile *sym_file {nullptr};
-
     //////////////////////////////////////////////////////////////////  ->> GnomeCmdFileList
 
     gboolean sel_first_file {TRUE};
@@ -1080,64 +1078,6 @@ static gboolean on_new_textfile_ok (GnomeCmdStringDialog *string_dialog, const g
 }
 
 
-static gboolean on_create_symlink_ok (GnomeCmdStringDialog *string_dialog, const gchar **values, GnomeCmdFileSelector *fs)
-{
-    g_return_val_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs), TRUE);
-    g_return_val_if_fail (fs->priv->sym_file != nullptr, TRUE);
-    GError *error = nullptr;
-
-    const gchar *fname = values[0];
-
-    // dont create any symlink if no name was passed or cancel was selected
-    if (!fname || !*fname)
-    {
-        gnome_cmd_string_dialog_set_error_desc (string_dialog, g_strdup (_("No file name given")));
-        return FALSE;
-    }
-
-    GnomeCmdDir *dir = fs->get_directory();
-    g_return_val_if_fail (GNOME_CMD_IS_DIR (dir), TRUE);
-
-    GFile *gFile;
-    if (fname[0] == '/')
-    {
-        auto con = gnome_cmd_file_get_connection (GNOME_CMD_FILE (dir));
-        auto conPath = gnome_cmd_con_create_path (con, fname);
-        gFile = gnome_cmd_con_create_gfile (con, conPath->get_path());
-        delete conPath;
-    }
-    else
-        gFile = gnome_cmd_dir_get_child_gfile (dir, fname);
-    auto absolutePath = g_file_get_parse_name(fs->priv->sym_file->get_file());
-
-    //if (g_file_make_symbolic_link (gFile, fs->priv->sym_file->get_uri_str(), nullptr, &error))
-    if (g_file_make_symbolic_link (gFile, absolutePath, nullptr, &error))
-    {
-        auto parentGFile = g_file_get_parent (gFile);
-        if (g_file_equal (parentGFile, gnome_cmd_dir_get_gfile (dir)))
-        {
-            gchar *uri_str = g_file_get_uri (gFile);
-            gnome_cmd_dir_file_created (dir, uri_str);
-            g_free (uri_str);
-        }
-        g_object_unref(parentGFile);
-
-        g_free(absolutePath);
-        g_object_unref (gFile);
-        return TRUE;
-    }
-
-    g_object_unref (gFile);
-    auto msg = g_strdup(error->message);
-    gnome_cmd_string_dialog_set_error_desc (string_dialog, msg);
-    g_free(msg);
-    g_free(absolutePath);
-    g_error_free(error);
-
-    return FALSE;
-}
-
-
 void gnome_cmd_file_selector_show_new_textfile_dialog (GnomeCmdFileSelector *fs)
 {
     g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
@@ -1286,84 +1226,6 @@ gboolean GnomeCmdFileSelector::key_pressed(GnomeCmdKeyPress *event)
     }
 
     return FALSE;
-}
-
-
-void gnome_cmd_file_selector_create_symlink (GnomeCmdFileSelector *fs, GnomeCmdFile *f)
-{
-    const gchar *labels[] = {_("Symbolic link name:")};
-
-#if defined (__GNUC__)
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wformat-nonliteral"
-#endif
-    gchar *text = g_strdup_printf (gnome_cmd_data_get_symlink_prefix (), f->get_name());
-#if defined (__GNUC__)
-#pragma GCC diagnostic pop
-#endif
-
-    GtkWidget *dialog = gnome_cmd_string_dialog_new (_("Create Symbolic Link"),
-                                                     labels,
-                                                     1,
-                                                     (GnomeCmdStringDialogCallback) on_create_symlink_ok,
-                                                     fs);
-
-    gnome_cmd_string_dialog_set_value (GNOME_CMD_STRING_DIALOG (dialog), 0, text);
-    g_free (text);
-    fs->priv->sym_file = f;
-    gtk_widget_show (dialog);
-}
-
-
-void gnome_cmd_file_selector_create_symlinks (GnomeCmdFileSelector *fs, GList *files)
-{
-    g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
-
-    gint choice = -1;
-
-    for (; files; files=files->next)
-    {
-        GError *error = nullptr;
-        auto f = static_cast<GnomeCmdFile*> (files->data);
-#if defined (__GNUC__)
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wformat-nonliteral"
-#endif
-        gchar *symlink_name = g_strdup_printf (gnome_cmd_data_get_symlink_prefix (), f->get_name());
-#if defined (__GNUC__)
-#pragma GCC diagnostic pop
-#endif
-
-        auto gFile = gnome_cmd_dir_get_child_gfile (fs->get_directory(), symlink_name);
-
-        g_free (symlink_name);
-
-        gboolean result;
-
-        do
-        {
-            auto absolutePathName = g_file_get_parse_name(f->get_file());
-            result = g_file_make_symbolic_link (gFile, absolutePathName, nullptr, &error);
-            g_free(absolutePathName);
-            if (!result) // 0 means it worked
-            {
-                gchar *uri_str = g_file_get_uri (gFile);
-                gnome_cmd_dir_file_created (fs->get_directory(), uri_str);
-                g_free (uri_str);
-            }
-            else
-                if (choice != 1 && error)  // choice != SKIP_ALL
-                {
-                    gchar *msg = g_strdup (error->message);
-                    choice = run_simple_dialog (*main_win, TRUE, GTK_MESSAGE_QUESTION, msg, _("Create Symbolic Link"), 3, _("Skip"), _("Skip all"), _("Cancel"), _("Retry"), nullptr);
-                    g_free (msg);
-                    g_error_free(error);
-                }
-        }
-        while (result != true && choice == 3);  // choice != RETRY
-
-        g_object_unref (gFile);
-    }
 }
 
 

@@ -151,7 +151,7 @@ extern "C" gchar *gnome_cmd_con_get_uri_string (GnomeCmdCon *con);
 extern "C" void gnome_cmd_con_set_uri (GnomeCmdCon *con, GUri *uri);
 extern "C" void gnome_cmd_con_set_uri_string (GnomeCmdCon *con, const gchar *uri_string);
 
-GFile *gnome_cmd_con_create_gfile (GnomeCmdCon *con, const gchar *path = nullptr);
+extern "C" GFile *gnome_cmd_con_create_gfile (GnomeCmdCon *con, const gchar *path = nullptr);
 
 extern "C" GnomeCmdPath *gnome_cmd_con_create_path (GnomeCmdCon *con, const gchar *path_str);
 
@@ -309,3 +309,4 @@ inline std::string &gnome_cmd_con_make_uri (std::string &s, ConnectionMethodID m
 void gnome_cmd_con_close_active_or_inactive_connection (GMount *gMount);
 
 extern "C" int gnome_cmd_con_get_method (GnomeCmdCon *con);
+

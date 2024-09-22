@@ -23,12 +23,10 @@
 use crate::{
     connection::connection::Connection,
     dir::Directory,
-    file::File,
     file_list::FileList,
     notebook_ext::{GnomeCmdNotebookExt, TabClick},
     types::FileSelectorID,
 };
-use ffi::GnomeCmdFileSelector;
 use gettextrs::gettext;
 use gtk::{
     ffi::{GtkGestureMultiPress, GtkNotebook},
@@ -42,12 +40,12 @@ use gtk::{
 
 pub mod ffi {
     use crate::{
-        connection::connection::ffi::GnomeCmdCon, dir::ffi::GnomeCmdDir, file::ffi::GnomeCmdFile,
+        connection::connection::ffi::GnomeCmdCon, dir::ffi::GnomeCmdDir,
         file_list::ffi::GnomeCmdFileList,
     };
     use gtk::{
         ffi::GtkWidget,
-        glib::ffi::{gboolean, GList, GType},
+        glib::ffi::{gboolean, GType},
     };
 
     #[repr(C)]
@@ -71,16 +69,6 @@ pub mod ffi {
         pub fn gnome_cmd_file_selector_get_directory(
             fs: *mut GnomeCmdFileSelector,
         ) -> *mut GnomeCmdDir;
-
-        pub fn gnome_cmd_file_selector_create_symlink(
-            fs: *mut GnomeCmdFileSelector,
-            f: *mut GnomeCmdFile,
-        );
-
-        pub fn gnome_cmd_file_selector_create_symlinks(
-            fs: *mut GnomeCmdFileSelector,
-            files: *mut GList,
-        );
 
         pub fn gnome_cmd_file_selector_set_connection(
             fs: *mut GnomeCmdFileSelector,
@@ -145,24 +133,6 @@ impl FileSelector {
             from_glib_none(ffi::gnome_cmd_file_selector_get_directory(
                 self.to_glib_none().0,
             ))
-        }
-    }
-
-    pub fn create_symlink(&self, file: &File) {
-        unsafe {
-            ffi::gnome_cmd_file_selector_create_symlink(
-                self.to_glib_none().0,
-                file.to_glib_none().0,
-            )
-        }
-    }
-
-    pub fn create_symlinks(&self, files: &glib::List<File>) {
-        unsafe {
-            ffi::gnome_cmd_file_selector_create_symlinks(
-                self.to_glib_none().0,
-                files.to_glib_none().0,
-            )
         }
     }
 
@@ -326,7 +296,7 @@ async fn on_notebook_button_pressed(
 #[no_mangle]
 pub extern "C" fn on_notebook_button_pressed_r(
     gesture: *mut GtkGestureMultiPress,
-    file_selector: *mut GnomeCmdFileSelector,
+    file_selector: *mut ffi::GnomeCmdFileSelector,
     notebook: *mut GtkNotebook,
     n_press: i32,
     x: f64,
