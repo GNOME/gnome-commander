@@ -121,6 +121,10 @@ pub async fn show_create_symlink_dialog(
         }),
     );
 
+    cancel_button.connect_clicked(glib::clone!(@weak dialog => move |_| {
+        dialog.response(gtk::ResponseType::Cancel);
+    }));
+
     let key_controller = gtk::EventControllerKey::new(&dialog);
     key_controller.connect_key_pressed(
         glib::clone!(@weak dialog => @default-return false, move |_, key, _, _| {
