@@ -30,6 +30,8 @@ pub mod make_copy_dialog;
 
 pub mod delete_dialog;
 
+pub mod transfer_progress_dialog;
+
 pub mod connect_dialog;
 pub mod remote_dialog;
 
