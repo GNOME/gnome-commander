@@ -28,6 +28,8 @@ pub mod search_dialog;
 pub mod create_symlink_dialog;
 pub mod make_copy_dialog;
 
+pub mod delete_dialog;
+
 pub mod connect_dialog;
 pub mod remote_dialog;
 

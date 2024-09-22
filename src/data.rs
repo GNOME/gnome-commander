@@ -24,6 +24,7 @@ pub struct GeneralOptions(pub gio::Settings);
 pub trait GeneralOptionsRead {
     fn bookmarks(&self) -> glib::Variant;
     fn symlink_format(&self) -> String;
+    fn use_trash(&self) -> bool;
 }
 
 pub trait GeneralOptionsWrite {
@@ -31,6 +32,8 @@ pub trait GeneralOptionsWrite {
     fn reset_bookmarks(&self);
 
     fn set_symlink_format(&self, symlink_format: &str);
+
+    fn set_use_trash(&self, use_trash: bool);
 }
 
 impl GeneralOptions {
@@ -49,6 +52,10 @@ impl GeneralOptionsRead for GeneralOptions {
     fn symlink_format(&self) -> String {
         self.0.string("symlink-string").to_string()
     }
+
+    fn use_trash(&self) -> bool {
+        self.0.boolean("delete-to-trash")
+    }
 }
 
 impl GeneralOptionsWrite for GeneralOptions {
@@ -62,6 +69,59 @@ impl GeneralOptionsWrite for GeneralOptions {
 
     fn set_symlink_format(&self, symlink_format: &str) {
         self.0.set_string("symlink-string", symlink_format);
+    }
+
+    fn set_use_trash(&self, use_trash: bool) {
+        self.0.set_boolean("delete-to-trash", use_trash);
+    }
+}
+
+pub struct ConfirmOptions(pub gio::Settings);
+
+#[derive(Clone, Copy)]
+pub enum DeleteDefault {
+    Cancel = 3,
+    Delete = 1,
+}
+
+pub trait ConfirmOptionsRead {
+    fn confirm_delete(&self) -> bool;
+    fn confirm_delete_default(&self) -> DeleteDefault;
+}
+
+pub trait ConfirmOptionsWrite {
+    fn set_confirm_delete(&self, confirm_delete: bool);
+    fn confirm_delete_default(&self, delete_default: DeleteDefault);
+}
+
+impl ConfirmOptions {
+    pub fn new() -> Self {
+        Self(gio::Settings::new(
+            "org.gnome.gnome-commander.preferences.confirmations",
+        ))
+    }
+}
+
+impl ConfirmOptionsRead for ConfirmOptions {
+    fn confirm_delete(&self) -> bool {
+        self.0.boolean("delete")
+    }
+
+    fn confirm_delete_default(&self) -> DeleteDefault {
+        match self.0.enum_("delete-default") {
+            1 => DeleteDefault::Delete,
+            _ => DeleteDefault::Cancel,
+        }
+    }
+}
+
+impl ConfirmOptionsWrite for ConfirmOptions {
+    fn set_confirm_delete(&self, confirm_delete: bool) {
+        self.0.set_boolean("delete", confirm_delete);
+    }
+
+    fn confirm_delete_default(&self, delete_default: DeleteDefault) {
+        self.0.set_enum("delete-default", delete_default as i32);
     }
 }
 

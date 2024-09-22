@@ -1211,11 +1211,7 @@ gnome_cmd_move_gfile_recursive (GFile *srcGFile,
 
                 auto gnomeCmdDir = gnome_cmd_dir_new_from_gfileinfo(gFileInfo, gnomeCmdDirParent);
 
-                auto deleteData = g_new0 (DeleteData, 1);
-                deleteData->parent_window = xferData->parent_window;
-                deleteData->gnomeCmdFiles = g_list_append(nullptr, gnomeCmdDir);
-                deleteData->originAction = DeleteData::OriginAction::MOVE;
-                do_delete (deleteData, false); // false -> do not show progress window
+                do_delete_files_for_move (xferData->parent_window, g_list_append(nullptr, gnomeCmdDir), false); // false -> do not show progress window
 
                 g_object_unref(srcGFileParent);
                 g_free(srcUriSchema);

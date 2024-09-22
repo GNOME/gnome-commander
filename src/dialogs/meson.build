@@ -20,7 +20,6 @@ dialogs_sources = files(
   'gnome-cmd-advrename-dialog.cc',
   'gnome-cmd-chmod-dialog.cc',
   'gnome-cmd-chown-dialog.cc',
-  'gnome-cmd-delete-dialog.cc',
   'gnome-cmd-file-props-dialog.cc',
   'gnome-cmd-manage-bookmarks-dialog.cc',
   'gnome-cmd-mkdir-dialog.cc',

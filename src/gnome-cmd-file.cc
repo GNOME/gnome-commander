@@ -930,7 +930,7 @@ gboolean GnomeCmdFile::is_executable()
 }
 
 
-void GnomeCmdFile::is_deleted()
+void GnomeCmdFile::set_deleted()
 {
     if (has_parent_dir (this))
     {
@@ -1118,4 +1118,14 @@ gchar *gnome_cmd_file_get_free_space (GnomeCmdFile *f)
     g_object_unref(gFileInfo);
 
     return g_format_size (freeSpace);
+}
+
+gboolean gnome_cmd_file_is_dotdot(GnomeCmdFile *f)
+{
+    return f->is_dotdot;
+}
+
+void gnome_cmd_file_set_deleted(GnomeCmdFile *f)
+{
+    f->set_deleted();
 }

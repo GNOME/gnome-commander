@@ -85,6 +85,10 @@ pub mod ffi {
         ) -> gboolean;
 
         pub fn gnome_cmd_file_get_connection(f: *mut GnomeCmdFile) -> *mut GnomeCmdCon;
+
+        pub fn gnome_cmd_file_is_dotdot(f: *mut GnomeCmdFile) -> gboolean;
+
+        pub fn gnome_cmd_file_set_deleted(f: *mut GnomeCmdFile);
     }
 
     #[derive(Copy, Clone)]
@@ -210,6 +214,14 @@ impl File {
                 Err(from_glib_full(error))
             }
         }
+    }
+
+    pub fn is_dotdot(&self) -> bool {
+        unsafe { ffi::gnome_cmd_file_is_dotdot(self.to_glib_none().0) != 0 }
+    }
+
+    pub fn set_deleted(&self) {
+        unsafe { ffi::gnome_cmd_file_set_deleted(self.to_glib_none().0) }
     }
 }
 
