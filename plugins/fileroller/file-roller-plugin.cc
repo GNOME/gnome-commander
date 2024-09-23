@@ -348,86 +348,110 @@ static gchar* new_string_with_replaced_keyword(const char* string, const char* k
 }
 
 
+struct CreateArchiveClosure
+{
+    GtkWidget *dialog;
+    GtkWidget *entry;
+    GnomeCmdState *state;
+};
+
+
+static void on_create_archive (GtkButton *button, gpointer userdata)
+{
+    CreateArchiveClosure *closure = static_cast<CreateArchiveClosure*>(userdata);
+
+    const gchar *name = gtk_editable_get_text (GTK_EDITABLE (closure->entry));
+    if (name != nullptr && strlen (name) > 0) {
+        do_add_to_archive (name, closure->state);
+        gtk_window_destroy (GTK_WINDOW (closure->dialog));
+        g_free (userdata);
+    }
+}
+
+
 static void on_add_to_archive (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
-    gint ret;
-    GtkWidget *dialog = nullptr;
-    const gchar *name;
-    gboolean name_ok = FALSE;
-    GList *files;
-
     FileRollerPlugin *plugin = FILE_ROLLER_PLUGIN (user_data);
     FileRollerPluginPrivate *priv = (FileRollerPluginPrivate *) file_roller_plugin_get_instance_private (plugin);
 
-    files = priv->state->active_dir_selected_files;
+    GList *files = priv->state->active_dir_selected_files;
 
-    do
-    {
-        GdkPixbuf *pixbuf;
-        GtkWidget *entry;
-        gchar *archive_name;
+    GtkWidget *dialog = gtk_dialog_new ();
+    gtk_window_set_modal (GTK_WINDOW (dialog), TRUE);
+    gtk_window_set_title (GTK_WINDOW (dialog), _("Create Archive"));
+    gtk_window_set_resizable (GTK_WINDOW (dialog), FALSE);
+    gtk_widget_set_size_request (GTK_WIDGET (dialog), 300, -1);
 
-        if (dialog)
-            gtk_window_destroy (GTK_WINDOW (dialog));
+    GtkWidget *content_area = gtk_dialog_get_content_area (GTK_DIALOG (dialog));
 
-        dialog = gtk_message_dialog_new (
-            nullptr,
-            (GtkDialogFlags) 0,
-            GTK_MESSAGE_INFO,
-            GTK_BUTTONS_OK_CANCEL,
-            _("What file name should the new archive have?"));
+    gtk_widget_set_margin_start (content_area, 12);
+    gtk_widget_set_margin_end (content_area, 12);
+    gtk_widget_set_margin_top (content_area, 12);
+    gtk_widget_set_margin_bottom (content_area, 12);
+    gtk_box_set_spacing (GTK_BOX (content_area), 6);
 
-        gtk_window_set_title (GTK_WINDOW (dialog), _("Create Archive"));
+    GdkPixbuf *pixbuf = gdk_pixbuf_new_from_xpm_data ((const char**)file_roller_xpm);
+    GtkWidget *image = gtk_image_new_from_pixbuf (pixbuf);
+    gtk_box_append (GTK_BOX (content_area), image);
+    g_object_unref (pixbuf);
 
-        entry = gtk_entry_new ();
-        gtk_widget_set_margin_start (entry, 6);
-        gtk_widget_set_margin_end (entry, 6);
-        gtk_widget_set_margin_top (entry, 6);
-        gtk_widget_set_margin_bottom (entry, 6);
-        gtk_widget_set_hexpand (entry, TRUE);
-        gtk_widget_show (entry);
-        gtk_box_append (GTK_BOX (gtk_dialog_get_content_area (GTK_DIALOG (dialog))), entry);
+    GtkWidget *label = gtk_label_new (_("What file name should the new archive have?"));
+    gtk_widget_set_halign (label, GTK_ALIGN_START);
+    gtk_box_append (GTK_BOX (content_area), label);
 
-        gchar *locale_format = g_locale_from_utf8 (priv->file_prefix_pattern, -1, nullptr, nullptr, nullptr);
-        char s[256];
-        time_t t = time (nullptr);
+    GtkWidget *entry = gtk_entry_new ();
+    gtk_box_append (GTK_BOX (content_area), entry);
+
+    gchar *locale_format = g_locale_from_utf8 (priv->file_prefix_pattern, -1, nullptr, nullptr, nullptr);
+    char s[256];
+    time_t t = time (nullptr);
 
 #if defined (__GNUC__)
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wformat-nonliteral"
 #endif
-        strftime (s, sizeof(s), locale_format, localtime (&t));
+    strftime (s, sizeof(s), locale_format, localtime (&t));
 #if defined (__GNUC__)
 #pragma GCC diagnostic pop
 #endif
-        g_free (locale_format);
-        gchar *file_prefix = g_locale_to_utf8 (s, -1, nullptr, nullptr, nullptr);
+    g_free (locale_format);
+    gchar *file_prefix = g_locale_to_utf8 (s, -1, nullptr, nullptr, nullptr);
 
-        gchar *archive_name_tmp = g_strdup_printf("%s%s", file_prefix, priv->default_ext);
-        auto file_name_tmp = GetGfileAttributeString(GNOME_CMD_FILE_BASE (files->data)->gFile, G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME);
-        archive_name = new_string_with_replaced_keyword(archive_name_tmp, "$N", file_name_tmp);
-        gtk_editable_set_text (GTK_EDITABLE (entry), archive_name);
-        g_free(file_name_tmp);
-        g_free(archive_name);
-        g_free(archive_name_tmp);
+    gchar *archive_name_tmp = g_strdup_printf("%s%s", file_prefix, priv->default_ext);
+    auto file_name_tmp = GetGfileAttributeString(GNOME_CMD_FILE_BASE (files->data)->gFile, G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME);
+    gchar *archive_name = new_string_with_replaced_keyword(archive_name_tmp, "$N", file_name_tmp);
+    gtk_editable_set_text (GTK_EDITABLE (entry), archive_name);
+    g_free(file_name_tmp);
+    g_free(archive_name);
+    g_free(archive_name_tmp);
 
+    GtkWidget *bbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 6);
+    GtkSizeGroup* bbox_size_group = gtk_size_group_new (GTK_SIZE_GROUP_HORIZONTAL);
 
-        pixbuf = gdk_pixbuf_new_from_xpm_data ((const char**)file_roller_xpm);
-        gtk_image_set_from_pixbuf (GTK_IMAGE (gtk_message_dialog_get_image (GTK_MESSAGE_DIALOG (dialog))), pixbuf);
-        g_object_unref (pixbuf);
+    GtkWidget *cancel_button = gtk_button_new_with_label (_("_Cancel"));
+    gtk_button_set_use_underline (GTK_BUTTON (cancel_button), TRUE);
+    gtk_widget_set_hexpand (cancel_button, TRUE);
+    gtk_widget_set_halign (cancel_button, GTK_ALIGN_END);
+    gtk_size_group_add_widget (bbox_size_group, cancel_button);
+    gtk_box_append (GTK_BOX (bbox), cancel_button);
 
-        ret = gtk_dialog_run (GTK_DIALOG (dialog));
+    GtkWidget *ok_button = gtk_button_new_with_label (_("_OK"));
+    gtk_button_set_use_underline (GTK_BUTTON (ok_button), TRUE);
+    gtk_size_group_add_widget (bbox_size_group, ok_button);
+    gtk_box_append (GTK_BOX (bbox), ok_button);
 
-        name = gtk_editable_get_text (GTK_EDITABLE (entry));
-        if (name != nullptr && strlen (name) > 0)
-            name_ok = TRUE;
-    }
-    while (name_ok == FALSE && ret == GTK_RESPONSE_OK);
+    gtk_box_append (GTK_BOX (content_area), bbox);
 
-    if (ret == GTK_RESPONSE_OK)
-        do_add_to_archive (name, priv->state);
+    g_signal_connect_swapped (cancel_button, "clicked", G_CALLBACK (gtk_window_destroy), dialog);
 
-    gtk_window_destroy (GTK_WINDOW (dialog));
+    CreateArchiveClosure *closure = g_new0 (CreateArchiveClosure, 1);
+    closure->dialog = dialog;
+    closure->entry = entry;
+    closure->state = priv->state;
+    g_signal_connect (ok_button, "clicked", G_CALLBACK (on_create_archive), closure);
+
+    gtk_widget_show_all (content_area);
+    gtk_window_present (GTK_WINDOW (dialog));
 }
 
 
