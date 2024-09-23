@@ -21,10 +21,11 @@
  */
 
 use crate::{
-    connection::connection::{Connection, GnomeCmdPath},
+    connection::connection::Connection,
     dirlist::list_directory,
     file::{File, GnomeCmdFileExt},
     libgcmd::file_base::FileBase,
+    path::GnomeCmdPath,
 };
 use gtk::{
     gio,
@@ -73,6 +74,8 @@ pub mod ffi {
             filename: *const c_char,
         ) -> *mut GFile;
 
+        pub fn gnome_cmd_dir_get_path(dir: *mut GnomeCmdDir) -> *mut c_void;
+
         pub fn gnome_cmd_dir_file_created(dir: *mut GnomeCmdDir, uri_str: *const c_char);
         pub fn gnome_cmd_dir_file_deleted(dir: *mut GnomeCmdDir, uri_str: *const c_char);
         pub fn gnome_cmd_dir_file_changed(dir: *mut GnomeCmdDir, uri_str: *const c_char);
@@ -119,7 +122,12 @@ impl Directory {
     }
 
     pub fn new(connection: &Connection, path: GnomeCmdPath) -> Self {
-        unsafe { from_glib_full(ffi::gnome_cmd_dir_new(connection.to_glib_none().0, path.0)) }
+        unsafe {
+            from_glib_full(ffi::gnome_cmd_dir_new(
+                connection.to_glib_none().0,
+                path.into_raw(),
+            ))
+        }
     }
 
     pub fn display_path(&self) -> String {
@@ -182,6 +190,10 @@ impl Directory {
                 filename.to_glib_none().0,
             ))
         }
+    }
+
+    pub fn path(&self) -> GnomeCmdPath {
+        unsafe { GnomeCmdPath::from_raw_borrow(ffi::gnome_cmd_dir_get_path(self.to_glib_none().0)) }
     }
 
     pub fn file_created(&self, uri_str: &str) {

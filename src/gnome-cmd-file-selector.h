@@ -169,6 +169,7 @@ inline FileSelectorID operator ! (FileSelectorID id)
 extern "C" GnomeCmdFileList *gnome_cmd_file_selector_file_list (GnomeCmdFileSelector *fs);
 extern "C" GnomeCmdFileList *gnome_cmd_file_selector_file_list_nth (GnomeCmdFileSelector *fs, gint n);
 extern "C" GnomeCmdDir *gnome_cmd_file_selector_get_directory(GnomeCmdFileSelector *fs);
+extern "C" GnomeCmdCon *gnome_cmd_file_selector_get_connection (GnomeCmdFileSelector *fs);
 
 extern "C" void gnome_cmd_file_selector_set_connection(GnomeCmdFileSelector *fs, GnomeCmdCon *con, GnomeCmdDir *start_dir);
 

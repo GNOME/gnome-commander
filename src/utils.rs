@@ -244,6 +244,18 @@ pub fn show_error(parent: &gtk::Window, message: &str, error: &dyn std::error::E
     show_message(parent, message, Some(&error.to_string()));
 }
 
+pub async fn show_error_message_future(
+    parent: &gtk::Window,
+    message: &str,
+    secondary_text: Option<&str>,
+) {
+    let dlg = create_error_dialog(parent, message);
+    dlg.set_secondary_text(secondary_text);
+    dlg.present();
+    dlg.run_future().await;
+    dlg.close();
+}
+
 pub fn display_help(parent_window: &gtk::Window, link_id: Option<&str>) {
     let mut help_uri = format!("help:{}", crate::config::PACKAGE);
     if let Some(link_id) = link_id {
@@ -259,6 +271,46 @@ pub fn display_help(parent_window: &gtk::Window, link_id: Option<&str>) {
             &gettext("There was an error displaying help."),
             &error,
         );
+    }
+}
+
+pub fn toggle_file_name_selection(entry: &gtk::Entry) {
+    let text: Vec<char> = entry.text().chars().collect();
+
+    let base = text
+        .iter()
+        .enumerate()
+        .rev()
+        .find_map(|(index, ch)| (*ch == '/').then_some(index + 1))
+        .unwrap_or_default();
+
+    if let Some((mut beg, end)) = entry.selection_bounds() {
+        let text_len = text.len() as i32;
+
+        let ext = text
+            .iter()
+            .enumerate()
+            .skip(base)
+            .rev()
+            .find_map(|(index, ch)| (*ch == '.').then_some(index as i32))
+            .unwrap_or(-1);
+        let base = base as i32;
+
+        if beg == 0 && end == text_len {
+            entry.select_region(base, ext);
+        } else {
+            if beg != base {
+                beg = if beg > base { base } else { 0 };
+            } else {
+                if end != ext || end == text_len {
+                    beg = 0;
+                }
+            }
+
+            entry.select_region(beg, -1);
+        }
+    } else {
+        entry.select_region(base as i32, -1);
     }
 }
 
@@ -369,6 +421,13 @@ pub fn time_to_string(
         .to_local()?;
     let string = local.format(format).or_else(|_| local.format("%c"))?;
     Ok(string.to_string())
+}
+
+pub fn bold(text: &str) -> String {
+    format!(
+        "<span weight=\"bold\">{}</span>",
+        glib::markup_escape_text(text)
+    )
 }
 
 pub trait Gtk3to4BoxCompat {

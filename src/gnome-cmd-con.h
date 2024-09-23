@@ -177,11 +177,7 @@ inline gboolean gnome_cmd_con_can_show_free_space (GnomeCmdCon *con)
     return con->can_show_free_space;
 }
 
-inline gboolean gnome_cmd_con_is_local (GnomeCmdCon *con)
-{
-    g_return_val_if_fail (GNOME_CMD_IS_CON (con), FALSE);
-    return con->is_local;
-}
+extern "C" gboolean gnome_cmd_con_is_local (GnomeCmdCon *con);
 
 inline gboolean gnome_cmd_con_is_closeable (GnomeCmdCon *con)
 {
@@ -209,9 +205,9 @@ void gnome_cmd_con_erase_bookmark (GnomeCmdCon *con);
 
 void gnome_cmd_con_updated (GnomeCmdCon *con);
 
-gboolean gnome_cmd_con_get_path_target_type (GnomeCmdCon *con, const gchar *path, GFileType *type);
+extern "C" gboolean gnome_cmd_con_get_path_target_type (GnomeCmdCon *con, const gchar *path, GFileType *type);
 
-gboolean gnome_cmd_con_mkdir (GnomeCmdCon *con, const gchar *path_str, GError *error);
+extern "C" gboolean gnome_cmd_con_mkdir (GnomeCmdCon *con, const gchar *path_str, GError *error);
 
 void gnome_cmd_con_add_to_cache (GnomeCmdCon *con, GnomeCmdDir *dir, gchar *uri_str = nullptr);
 

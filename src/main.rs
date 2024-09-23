@@ -38,6 +38,7 @@ mod libgcmd;
 mod main_win;
 mod notebook_ext;
 mod open_file;
+mod path;
 mod spawn;
 mod transfer;
 mod types;

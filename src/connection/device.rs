@@ -21,11 +21,16 @@
  */
 
 use super::connection::Connection;
-use gtk::glib;
+use gtk::glib::{
+    self,
+    translate::{from_glib_none, ToGlibPtr},
+};
+use std::path::PathBuf;
 
 pub mod ffi {
     use crate::connection::connection::ffi::GnomeCmdConClass;
     use gtk::glib::ffi::GType;
+    use std::ffi::c_char;
 
     #[repr(C)]
     pub struct GnomeCmdConDevice {
@@ -34,7 +39,10 @@ pub mod ffi {
     }
 
     extern "C" {
-        pub fn gnome_cmd_con_dev_get_type() -> GType;
+        pub fn gnome_cmd_con_device_get_type() -> GType;
+
+        pub fn gnome_cmd_con_device_get_mountp_string(dev: *mut GnomeCmdConDevice)
+            -> *const c_char;
     }
 
     #[derive(Copy, Clone)]
@@ -49,6 +57,16 @@ glib::wrapper! {
         @extends Connection;
 
     match fn {
-        type_ => || ffi::gnome_cmd_con_dev_get_type(),
+        type_ => || ffi::gnome_cmd_con_device_get_type(),
+    }
+}
+
+impl ConnectionDevice {
+    pub fn mountp_string(&self) -> Option<PathBuf> {
+        unsafe {
+            from_glib_none(ffi::gnome_cmd_con_device_get_mountp_string(
+                self.to_glib_none().0,
+            ))
+        }
     }
 }

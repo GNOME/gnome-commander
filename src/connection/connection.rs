@@ -20,18 +20,23 @@
  * For more details see the file COPYING.
  */
 
-use crate::dir::Directory;
+use crate::{dir::Directory, path::GnomeCmdPath};
 use gtk::{
-    gio,
+    gio::{
+        self,
+        ffi::{GFileType, G_FILE_TYPE_UNKNOWN},
+    },
     glib::{self, translate::*},
 };
-use std::{ffi::c_void, path::Path};
+use std::{path::Path, ptr};
 
 pub mod ffi {
     use super::*;
     use crate::dir::ffi::GnomeCmdDir;
-    use glib::ffi::GUri;
-    use gtk::{gio::ffi::GFile, glib::ffi::GType};
+    use gtk::{
+        gio::ffi::{GFile, GFileType},
+        glib::ffi::{gboolean, GError, GType, GUri},
+    };
     use std::ffi::{c_char, c_void};
 
     #[repr(C)]
@@ -68,13 +73,25 @@ pub mod ffi {
 
         pub fn gnome_cmd_con_set_base_path(con: *const GnomeCmdCon, path: *mut c_void);
 
+        pub fn gnome_cmd_con_is_local(con: *const GnomeCmdCon) -> gboolean;
+
         pub fn gnome_cmd_con_add_bookmark(
             con: *const GnomeCmdCon,
             name: *const c_char,
             path: *const c_char,
         );
 
-        pub fn gnome_cmd_path_get_path(con: *mut c_void) -> *const c_char;
+        pub fn gnome_cmd_con_get_path_target_type(
+            con: *const GnomeCmdCon,
+            path: *const c_char,
+            ftype: *mut GFileType,
+        ) -> gboolean;
+
+        pub fn gnome_cmd_con_mkdir(
+            con: *const GnomeCmdCon,
+            path_str: *const c_char,
+            error: *mut *mut GError,
+        ) -> gboolean;
     }
 
     #[derive(Copy, Clone)]
@@ -98,8 +115,6 @@ impl Connection {
     }
 }
 
-pub struct GnomeCmdPath(pub *mut c_void);
-
 pub trait ConnectionExt {
     fn alias(&self) -> Option<String>;
     fn set_alias(&self, alias: Option<&str>);
@@ -119,7 +134,13 @@ pub trait ConnectionExt {
 
     fn set_base_path(&self, path: GnomeCmdPath);
 
+    fn is_local(&self) -> bool;
+
     fn add_bookmark(&self, name: &str, path: &str);
+
+    fn path_target_type(&self, path: &Path) -> Option<gio::FileType>;
+
+    fn mkdir(&self, path: &Path) -> Result<(), glib::Error>;
 }
 
 impl ConnectionExt for Connection {
@@ -149,7 +170,7 @@ impl ConnectionExt for Connection {
 
     fn create_path(&self, path: &Path) -> GnomeCmdPath {
         unsafe {
-            GnomeCmdPath(ffi::gnome_cmd_con_create_path(
+            GnomeCmdPath::from_raw(ffi::gnome_cmd_con_create_path(
                 self.to_glib_none().0,
                 path.to_glib_none().0,
             ))
@@ -173,7 +194,11 @@ impl ConnectionExt for Connection {
     }
 
     fn set_base_path(&self, path: GnomeCmdPath) {
-        unsafe { ffi::gnome_cmd_con_set_base_path(self.to_glib_none().0, path.0) }
+        unsafe { ffi::gnome_cmd_con_set_base_path(self.to_glib_none().0, path.into_raw()) }
+    }
+
+    fn is_local(&self) -> bool {
+        unsafe { ffi::gnome_cmd_con_is_local(self.to_glib_none().0) != 0 }
     }
 
     fn add_bookmark(&self, name: &str, path: &str) {
@@ -185,10 +210,33 @@ impl ConnectionExt for Connection {
             )
         }
     }
-}
 
-impl GnomeCmdPath {
-    pub fn path(&self) -> String {
-        unsafe { from_glib_none(ffi::gnome_cmd_path_get_path(self.0)) }
+    fn path_target_type(&self, path: &Path) -> Option<gio::FileType> {
+        let mut file_type: GFileType = G_FILE_TYPE_UNKNOWN;
+        let result = unsafe {
+            ffi::gnome_cmd_con_get_path_target_type(
+                self.to_glib_none().0,
+                path.to_glib_none().0,
+                &mut file_type as *mut _,
+            )
+        };
+        if result != 0 {
+            Some(unsafe { gio::FileType::from_glib(file_type) })
+        } else {
+            None
+        }
+    }
+
+    fn mkdir(&self, path: &Path) -> Result<(), glib::Error> {
+        unsafe {
+            let mut error = ptr::null_mut();
+            let _is_ok =
+                ffi::gnome_cmd_con_mkdir(self.to_glib_none().0, path.to_glib_none().0, &mut error);
+            if error.is_null() {
+                Ok(())
+            } else {
+                Err(from_glib_full(error))
+            }
+        }
     }
 }

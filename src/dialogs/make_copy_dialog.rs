@@ -138,7 +138,7 @@ pub async fn make_copy_dialog(f: &File, dir: &Directory, main_win: &MainWindow) 
         main_win.clone().upcast(),
         [f.file().clone()].into_iter().collect(),
         dest_dir,
-        dest_fn.to_string(),
+        Some(dest_fn.to_owned()),
         gio::FileCopyFlags::NONE,
         GnomeCmdConfirmOverwriteMode::GNOME_CMD_CONFIRM_OVERWRITE_QUERY,
     )

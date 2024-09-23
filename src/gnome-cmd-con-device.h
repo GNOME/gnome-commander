@@ -51,7 +51,7 @@ void gnome_cmd_con_device_free (GnomeCmdConDevice *dev);
 const gchar *gnome_cmd_con_device_get_device_fn (GnomeCmdConDevice *dev);
 void gnome_cmd_con_device_set_device_fn (GnomeCmdConDevice *dev, const gchar *device_fn);
 
-const gchar *gnome_cmd_con_device_get_mountp_string (GnomeCmdConDevice *dev);
+extern "C" const gchar *gnome_cmd_con_device_get_mountp_string (GnomeCmdConDevice *dev);
 void gnome_cmd_con_device_set_mountp (GnomeCmdConDevice *dev, const gchar *mountp);
 
 GIcon *gnome_cmd_con_device_get_icon (GnomeCmdConDevice *dev);

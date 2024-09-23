@@ -151,7 +151,7 @@ pub async fn bookmark_directory(
     let path = if is_local {
         file.get_real_path()
     } else {
-        file.get_path_through_parent()
+        file.get_path_string_through_parent()
     };
 
     let Some(path_str) = path.to_str() else {

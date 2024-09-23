@@ -21,10 +21,10 @@
  */
 
 use super::{
-    connection::{Connection, ConnectionExt, GnomeCmdPath},
+    connection::{Connection, ConnectionExt},
     remote::ConnectionRemote,
 };
-use crate::dir::Directory;
+use crate::{dir::Directory, path::GnomeCmdPath};
 use gtk::{
     gio,
     glib::{self, Cast},
@@ -101,7 +101,16 @@ impl ConnectionExt for ConnectionSmb {
     fn set_base_path(&self, path: GnomeCmdPath) {
         self.upcast_ref::<Connection>().set_base_path(path)
     }
+    fn is_local(&self) -> bool {
+        self.upcast_ref::<Connection>().is_local()
+    }
     fn add_bookmark(&self, name: &str, path: &str) {
         self.upcast_ref::<Connection>().add_bookmark(name, path)
+    }
+    fn path_target_type(&self, path: &Path) -> Option<gio::FileType> {
+        self.upcast_ref::<Connection>().path_target_type(path)
+    }
+    fn mkdir(&self, path: &Path) -> Result<(), glib::Error> {
+        self.upcast_ref::<Connection>().mkdir(path)
     }
 }

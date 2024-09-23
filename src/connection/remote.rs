@@ -20,8 +20,8 @@
  * For more details see the file COPYING.
  */
 
-use super::connection::{Connection, ConnectionExt, GnomeCmdPath};
-use crate::{dir::Directory, user_actions};
+use super::connection::{Connection, ConnectionExt};
+use crate::{dir::Directory, path::GnomeCmdPath};
 use ffi::GnomeCmdConRemote;
 use gtk::{
     gio,
@@ -36,7 +36,7 @@ use std::{ffi::c_char, path::Path};
 pub mod ffi {
     use crate::connection::connection::ffi::GnomeCmdConClass;
     use glib::ffi::GType;
-    use std::ffi::{c_char, c_int};
+    use std::ffi::c_char;
 
     #[repr(C)]
     pub struct GnomeCmdConRemote {
@@ -158,8 +158,17 @@ impl ConnectionExt for ConnectionRemote {
     fn set_base_path(&self, path: GnomeCmdPath) {
         self.upcast_ref::<Connection>().set_base_path(path)
     }
+    fn is_local(&self) -> bool {
+        self.upcast_ref::<Connection>().is_local()
+    }
     fn add_bookmark(&self, name: &str, path: &str) {
         self.upcast_ref::<Connection>().add_bookmark(name, path)
+    }
+    fn path_target_type(&self, path: &Path) -> Option<gio::FileType> {
+        self.upcast_ref::<Connection>().path_target_type(path)
+    }
+    fn mkdir(&self, path: &Path) -> Result<(), glib::Error> {
+        self.upcast_ref::<Connection>().mkdir(path)
     }
 }
 
