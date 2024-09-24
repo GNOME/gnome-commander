@@ -96,78 +96,6 @@ const char **convert_varargs_to_name_array (va_list args)
 }
 
 
-static gboolean delete_event_callback (gpointer data, gpointer user_data)
-{
-    g_return_val_if_fail (GTK_IS_DIALOG (data), FALSE);
-
-    g_signal_stop_emission_by_name (data, "delete-event");
-
-    return TRUE;
-}
-
-
-static gboolean on_run_dialog_keypress (GtkWidget *dialog, GdkEventKey *event, gpointer data)
-{
-    if (event->keyval == GDK_KEY_Escape)
-    {
-        gtk_dialog_response (GTK_DIALOG (dialog), GTK_RESPONSE_NONE);
-        return TRUE;
-    }
-
-    return FALSE;
-}
-
-
-gint run_simple_dialog (GtkWindow *parent, gboolean ignore_close_box,
-                        GtkMessageType msg_type,
-                        const char *text, const char *title, gint def_response, ...)
-{
-    va_list button_title_args;
-    const char **button_titles;
-    GtkWidget *dialog;
-    // GtkWidget *top_widget;
-    int result;
-
-    // Create the dialog.
-    va_start (button_title_args, def_response);
-    button_titles = convert_varargs_to_name_array (button_title_args);
-    va_end (button_title_args);
-
-    dialog = gtk_message_dialog_new (parent, GTK_DIALOG_MODAL, msg_type, GTK_BUTTONS_NONE, NULL);
-    gtk_message_dialog_set_markup (GTK_MESSAGE_DIALOG (dialog), text);
-
-    if (title)
-        gtk_window_set_title (GTK_WINDOW (dialog), title);
-
-    for (int i=0; button_titles[i]; i++)
-        gtk_dialog_add_button (GTK_DIALOG (dialog), button_titles[i], i);
-
-    g_free (button_titles);
-
-    if (def_response>=0)
-        gtk_dialog_set_default_response (GTK_DIALOG (dialog), def_response);
-
-    // Allow close.
-    if (ignore_close_box)
-        g_signal_connect (dialog, "delete-event", G_CALLBACK (delete_event_callback), NULL);
-    else
-        g_signal_connect (dialog, "key-press-event", G_CALLBACK (on_run_dialog_keypress), dialog);
-
-    gtk_window_set_wmclass (GTK_WINDOW (dialog), "dialog", "Eel");
-
-    // Run it.
-    do
-    {
-        gtk_widget_show (dialog);
-        result = gtk_dialog_run (GTK_DIALOG (dialog));
-    }
-    while (ignore_close_box && result == GTK_RESPONSE_DELETE_EVENT);
-
-    gtk_window_destroy (GTK_WINDOW (dialog));
-
-    return result;
-}
-
 const gchar *type2string (guint32 type, gchar *buf, guint max)
 {
     const char *s;
@@ -701,33 +629,31 @@ void gnome_cmd_help_display (const gchar *file_name, const gchar *link_id)
     gtk_show_uri (NULL, help_uri,  gtk_get_current_event_time (), &error);
 
     if (error != NULL)
-        gnome_cmd_error_message (_("There was an error displaying help."), error);
+        gnome_cmd_error_message (nullptr, _("There was an error displaying help."), error);
 }
 
 
-inline void blocking_error_message (GtkWindow *parent, const gchar *message, const gchar *secondary_text)
+static GtkWidget *create_error_message_dialog (GtkWindow *parent, const gchar *message, const gchar *secondary_text)
 {
     GtkWidget *dlg = gtk_message_dialog_new (parent, GTK_DIALOG_DESTROY_WITH_PARENT, GTK_MESSAGE_ERROR, GTK_BUTTONS_OK, "%s", message);
-
     if (secondary_text)
         gtk_message_dialog_format_secondary_text (GTK_MESSAGE_DIALOG (dlg), "%s", secondary_text);
-
-    gtk_dialog_run (GTK_DIALOG (dlg));
-
-    gtk_window_destroy (GTK_WINDOW (dlg));
+    g_signal_connect (dlg, "response", G_CALLBACK (gtk_window_destroy), dlg);
+    return dlg;
 }
 
 
-void gnome_cmd_show_message (GtkWindow *parent, std::string message, const gchar *secondary_text)
+void gnome_cmd_show_message (GtkWindow *parent, const gchar *message, const gchar *secondary_text)
 {
-    blocking_error_message (parent, message.c_str(), secondary_text);
+    GtkWidget *dlg = create_error_message_dialog (parent, message, secondary_text);
+    gtk_window_present (GTK_WINDOW (dlg));
 }
 
-
-void gnome_cmd_error_message (const gchar *title, GError *error)
+void gnome_cmd_error_message (GtkWindow *parent, const gchar *message, GError *error)
 {
-    blocking_error_message (NULL, title, error->message);
+    GtkWidget *dlg = create_error_message_dialog (parent, message, error->message);
     g_error_free (error);
+    gtk_window_present (GTK_WINDOW (dlg));
 }
 
 

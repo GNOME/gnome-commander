@@ -673,7 +673,7 @@ gchar *SearchData::BuildSearchCommand()
 
     if (!file_pattern_locale)
     {
-        gnome_cmd_error_message (file_pattern_utf8, error);
+        gnome_cmd_error_message (nullptr, file_pattern_utf8, error);
         g_free (file_pattern_utf8);
         return nullptr;
     }
@@ -686,7 +686,7 @@ gchar *SearchData::BuildSearchCommand()
 
         if (!text_pattern_locale)
         {
-            gnome_cmd_error_message (text_pattern_utf8, error);
+            gnome_cmd_error_message (nullptr, text_pattern_utf8, error);
             g_free (file_pattern_utf8);
             g_free (file_pattern_locale);
             return nullptr;
@@ -891,7 +891,7 @@ gboolean SearchData::StartLocalSearch()
 
     if (!g_shell_parse_argv (command, nullptr, &argv, &error))
     {
-        gnome_cmd_error_message (_("Error parsing the search command."), error);
+        gnome_cmd_error_message (nullptr, _("Error parsing the search command."), error);
 
         g_free (command);
         g_strfreev (argv);
@@ -903,7 +903,7 @@ gboolean SearchData::StartLocalSearch()
 
     if (!g_spawn_async_with_pipes (nullptr, argv, nullptr, GSpawnFlags (G_SPAWN_SEARCH_PATH | G_SPAWN_STDERR_TO_DEV_NULL), child_command_set_pgid_cb, nullptr, &pid, nullptr, &child_stdout, nullptr, &error))
     {
-        gnome_cmd_error_message (_("Error running the search command."), error);
+        gnome_cmd_error_message (nullptr, _("Error running the search command."), error);
 
         g_strfreev (argv);
 
@@ -1042,7 +1042,8 @@ void GnomeCmdSearchDialog::Private::on_dialog_response(GtkDialog *window, int re
                 else
                 {
                     g_uri_unref (gUri);
-                    gnome_cmd_show_message (*dialog, stringify(g_strdup_printf (_("Failed to change directory outside of %s"), root_path)));
+                    string message = stringify(g_strdup_printf (_("Failed to change directory outside of %s"), root_path));
+                    gnome_cmd_show_message (*dialog, message.c_str());
                     break;
                 }
 

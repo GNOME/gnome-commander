@@ -73,8 +73,7 @@ static gboolean on_dialog_keypressed (GtkEventControllerKey *controller, guint k
 
                 if (!result)
                 {
-                    gnome_cmd_show_message (NULL, new_fname, error->message);
-                    g_error_free(error);
+                    gnome_cmd_error_message (*main_win, new_fname, error);
                 }
 
                 g_free (new_fname);

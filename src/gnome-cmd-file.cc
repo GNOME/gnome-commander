@@ -835,7 +835,7 @@ void gnome_cmd_file_view_external(GtkWindow *parent_window, GnomeCmdFile *f)
             break;
         case 3:
         default:
-            gnome_cmd_error_message (_("Unable to execute command."), error);
+            gnome_cmd_error_message (parent_window, _("Unable to execute command."), error);
             break;
     }
 }
@@ -885,7 +885,7 @@ void gnome_cmd_file_edit (GtkWindow *parent_window, GnomeCmdFile *f)
             break;
         case 3:
         default:
-            gnome_cmd_error_message (_("Unable to execute command."), error);
+            gnome_cmd_error_message (parent_window, _("Unable to execute command."), error);
             break;
     }
 }
