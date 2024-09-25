@@ -25,6 +25,9 @@ pub mod manage_bookmarks_dialog;
 
 pub mod search_dialog;
 
+pub mod chmod_dialog;
+pub mod chown_dialog;
+
 pub mod create_symlink_dialog;
 pub mod make_copy_dialog;
 

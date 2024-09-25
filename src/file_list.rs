@@ -42,6 +42,8 @@ pub mod ffi {
         pub fn gnome_cmd_file_list_get_selected_files(fl: *mut GnomeCmdFileList) -> *mut GList;
 
         pub fn gnome_cmd_file_list_is_locked(fl: *mut GnomeCmdFileList) -> gboolean;
+
+        pub fn gnome_cmd_file_list_reload(fl: *mut GnomeCmdFileList);
     }
 
     #[derive(Copy, Clone)]
@@ -111,5 +113,9 @@ impl FileList {
         let iter = self.focused_file_iter()?;
         let file = self.file_at_row(&iter)?;
         Some(file)
+    }
+
+    pub fn reload(&self) {
+        unsafe { ffi::gnome_cmd_file_list_reload(self.to_glib_none().0) }
     }
 }

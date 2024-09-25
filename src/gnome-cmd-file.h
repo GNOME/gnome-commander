@@ -194,6 +194,7 @@ inline void gnome_cmd_file_list_unref (GList *files)
 }
 extern "C" gboolean gnome_cmd_file_is_executable(GnomeCmdFile *f);
 extern "C" void gnome_cmd_file_execute(GnomeCmdFile *f);
+extern "C" gboolean gnome_cmd_file_chown(GnomeCmdFile *f, uid_t uid, gid_t gid, GError **error);
 extern "C" gboolean gnome_cmd_file_chmod(GnomeCmdFile *f, guint32 permissions, GError **error);
 
 extern "C" gboolean gnome_cmd_file_is_dotdot(GnomeCmdFile *f);

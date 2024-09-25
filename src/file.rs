@@ -32,6 +32,7 @@ use gtk::{
     gio::{self, prelude::*},
     glib::{self, translate::*, Cast},
 };
+use libc::{gid_t, uid_t};
 use std::{
     ffi::CString,
     path::{Path, PathBuf},
@@ -39,6 +40,7 @@ use std::{
 };
 
 pub mod ffi {
+    use super::*;
     use crate::{
         connection::connection::ffi::GnomeCmdCon, dir::ffi::GnomeCmdDir,
         libgcmd::file_base::ffi::GnomeCmdFileBaseClass,
@@ -77,6 +79,13 @@ pub mod ffi {
 
         pub fn gnome_cmd_file_is_executable(f: *const GnomeCmdFile) -> gboolean;
         pub fn gnome_cmd_file_execute(f: *const GnomeCmdFile);
+
+        pub fn gnome_cmd_file_chown(
+            f: *mut GnomeCmdFile,
+            uid: uid_t,
+            gid: gid_t,
+            error: *mut *mut GError,
+        ) -> gboolean;
 
         pub fn gnome_cmd_file_chmod(
             f: *mut GnomeCmdFile,
@@ -202,6 +211,18 @@ impl File {
 
     pub fn execute(&self) {
         unsafe { ffi::gnome_cmd_file_execute(self.to_glib_none().0) }
+    }
+
+    pub fn chown(&self, uid: uid_t, gid: gid_t) -> Result<(), glib::Error> {
+        unsafe {
+            let mut error = ptr::null_mut();
+            let _is_ok = ffi::gnome_cmd_file_chown(self.to_glib_none().0, uid, gid, &mut error);
+            if error.is_null() {
+                Ok(())
+            } else {
+                Err(from_glib_full(error))
+            }
+        }
     }
 
     pub fn chmod(&self, permissions: u32) -> Result<(), glib::Error> {

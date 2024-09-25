@@ -20,6 +20,8 @@
 mod advrename_profile_component;
 mod app;
 mod application;
+mod chmod_component;
+mod chown_component;
 mod config;
 mod connection;
 mod data;

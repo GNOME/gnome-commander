@@ -1,7 +1,5 @@
 dialogs_headers = files(
   'gnome-cmd-advrename-dialog.h',
-  'gnome-cmd-chmod-dialog.h',
-  'gnome-cmd-chown-dialog.h',
   'gnome-cmd-delete-dialog.h',
   'gnome-cmd-file-props-dialog.h',
   'gnome-cmd-manage-bookmarks-dialog.h',
@@ -18,8 +16,6 @@ dialogs_headers = files(
 
 dialogs_sources = files(
   'gnome-cmd-advrename-dialog.cc',
-  'gnome-cmd-chmod-dialog.cc',
-  'gnome-cmd-chown-dialog.cc',
   'gnome-cmd-file-props-dialog.cc',
   'gnome-cmd-manage-bookmarks-dialog.cc',
   'gnome-cmd-mkdir-dialog.cc',
