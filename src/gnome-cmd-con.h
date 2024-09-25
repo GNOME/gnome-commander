@@ -36,19 +36,6 @@
 #include "history.h"
 #include "utils.h"
 
-enum ConnectionMethodID        // Keep this order in sync with strings in gnome-cmd-con-dialog.cc and gnome-cmd-con.cc
-{
-    CON_SSH,
-    CON_SFTP = CON_SSH,
-    CON_FTP,
-    CON_ANON_FTP,
-    CON_SMB,
-    CON_DAV,
-    CON_DAVS,
-    CON_URI,
-    CON_FILE
-};
-
 struct GnomeCmdCon
 {
     GObject parent;
@@ -71,7 +58,6 @@ struct GnomeCmdCon
     };
 
     gchar               *alias;                 // coded as UTF-8
-    ConnectionMethodID  method;
 
     gchar               *open_msg;
     gboolean            should_remember_dir;
@@ -235,78 +221,5 @@ void gnome_cmd_con_remove_from_cache (GnomeCmdCon *con, const gchar *uri);
 
 GnomeCmdDir *gnome_cmd_con_cache_lookup (GnomeCmdCon *con, const gchar *uri);
 
-const gchar *gnome_cmd_con_get_icon_name (ConnectionMethodID method);
-
-inline const gchar *gnome_cmd_con_get_icon_name (GnomeCmdCon *con)
-{
-    g_return_val_if_fail (GNOME_CMD_IS_CON (con), NULL);
-    return gnome_cmd_con_get_icon_name (con->method);
-}
-
-std::string &__gnome_cmd_con_make_uri (std::string &s, const gchar *method, std::string &server, std::string &port, std::string &folder);
-
-inline std::string &gnome_cmd_con_make_custom_uri (std::string &s, const std::string &uri)
-{
-    GError *error = nullptr;
-    auto gUri = g_uri_parse (uri.c_str(), G_URI_FLAGS_NONE, &error);
-    if (error != nullptr)
-    {
-        g_warning ("g_uri_parse error of \"%s\": %s", uri.c_str(), error->message);
-        g_error_free(error);
-        return s;
-    }
-    stringify (s, g_uri_to_string(gUri));
-
-    if (!uri_is_valid (s))
-        s.erase();
-    return s;
-}
-
-inline std::string &gnome_cmd_con_make_ssh_uri (std::string &s, std::string &server, std::string &port, std::string &folder)
-{
-    return __gnome_cmd_con_make_uri (s, "sftp://", server, port, folder);
-}
-
-inline std::string &gnome_cmd_con_make_ftp_uri (std::string &s, std::string &server, std::string &port, std::string &folder)
-{
-    return __gnome_cmd_con_make_uri (s, "ftp://", server, port, folder);
-}
-
-std::string &gnome_cmd_con_make_smb_uri (std::string &s, std::string &server, std::string &folder, std::string &domain);
-
-inline std::string &gnome_cmd_con_make_dav_uri (std::string &s, std::string &server, std::string &port, std::string &folder)
-{
-    return __gnome_cmd_con_make_uri (s, "dav://", server, port, folder);
-}
-
-inline std::string &gnome_cmd_con_make_davs_uri (std::string &s, std::string &server, std::string &port, std::string &folder)
-{
-    return __gnome_cmd_con_make_uri (s, "davs://", server, port, folder);
-}
-
-inline std::string &gnome_cmd_con_make_uri (std::string &s, ConnectionMethodID method, std::string &uri, std::string &server, std::string &port, std::string &folder, std::string &domain)
-{
-    switch (method)
-    {
-        case CON_FTP:
-        case CON_ANON_FTP:  return gnome_cmd_con_make_ftp_uri (s, server, port, folder);
-
-        case CON_SSH:       return gnome_cmd_con_make_ssh_uri (s, server, port, folder);
-
-        case CON_SMB:       return gnome_cmd_con_make_smb_uri (s, server, folder, domain);
-
-        case CON_DAV:       return gnome_cmd_con_make_dav_uri (s, server, port, folder);
-
-        case CON_DAVS:      return gnome_cmd_con_make_davs_uri (s, server, port, folder);
-
-        case CON_URI:       return gnome_cmd_con_make_custom_uri (s, uri);
-
-        case CON_FILE:
-        default:            return s;
-    }
-}
-
 void gnome_cmd_con_close_active_or_inactive_connection (GMount *gMount);
-
-extern "C" int gnome_cmd_con_get_method (GnomeCmdCon *con);
 

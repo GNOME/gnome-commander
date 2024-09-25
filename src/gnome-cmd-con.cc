@@ -59,17 +59,6 @@ static guint signals[LAST_SIGNAL] = { 0 };
 G_DEFINE_TYPE_WITH_PRIVATE (GnomeCmdCon, gnome_cmd_con, G_TYPE_OBJECT)
 
 
-// Keep this in sync with enum ConnectionMethodID in gnome-cmd-con.h
-const gchar *icon_name[] = {"folder-remote",           // CON_SSH
-                            "folder-remote",           // CON_FTP
-                            "folder-remote",           // CON_ANON_FTP
-                            "folder-remote",           // CON_SMB
-                            "folder-remote",           // CON_DAV
-                            "folder-remote",           // CON_DAVS
-                            "network-workgroup",       // CON_URI
-                            "folder"};                 // CON_FILE
-
-
 static void on_open_done (GnomeCmdCon *con)
 {
     gnome_cmd_con_updated (con);
@@ -193,7 +182,6 @@ static void gnome_cmd_con_init (GnomeCmdCon *con)
     priv->uri = nullptr;
 
     con->alias = nullptr;
-    con->method = CON_URI;
 
     con->open_msg = nullptr;
     con->should_remember_dir = FALSE;
@@ -706,64 +694,6 @@ GIcon *gnome_cmd_con_get_close_icon (GnomeCmdCon *con)
 }
 
 
-const gchar *gnome_cmd_con_get_icon_name (ConnectionMethodID method)
-{
-    return icon_name[method];
-}
-
-
-string &__gnome_cmd_con_make_uri (string &s, const gchar *method, string &server, string &port, string &folder)
-{
-    if (!folder.empty())
-    {
-        // remove initial '/' characters
-        size_t len = 0;
-        while (folder[len] == '/')
-            ++len;
-        folder.erase(0, len);
-    }
-
-    folder = stringify (g_uri_escape_string (folder.c_str(), nullptr, true));
-
-    s = method;
-
-    s += server;
-
-    if (!port.empty())
-        s += ':' + port;
-
-    if (!folder.empty())
-        s += '/' + folder;
-
-    return s;
-}
-
-
-std::string &gnome_cmd_con_make_smb_uri (std::string &uriString, std::string &server, std::string &folder, std::string &domain)
-{
-    if (!folder.empty())
-    {
-        // remove initial '/' characters
-        size_t len = 0;
-        while (folder[len] == '/')
-            ++len;
-        folder.erase(0, len);
-    }
-
-    uriString = "smb://";
-
-    if (!domain.empty())
-        uriString += domain + ';';
-
-    uriString += server;
-
-    if (!folder.empty())
-        uriString += '/' + folder;
-
-    return uriString;
-}
-
-
 /**
  * This function checks if the active or inactive file pane is showing
  * files from the given GMount. If yes, close the connection to this GMount
@@ -812,10 +742,4 @@ void gnome_cmd_con_set_alias (GnomeCmdCon *con, const gchar *alias)
     g_return_if_fail (GNOME_CMD_IS_CON (con));
     g_free (con->alias);
     con->alias = g_strdup (alias);
-}
-
-int gnome_cmd_con_get_method (GnomeCmdCon *con)
-{
-    g_return_val_if_fail (GNOME_CMD_IS_CON (con), 0);
-    return con->method;
 }

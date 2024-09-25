@@ -20,8 +20,16 @@
  * For more details see the file COPYING.
  */
 
-use super::{connection::Connection, remote::ConnectionRemote};
-use gtk::glib;
+use super::{
+    connection::{Connection, ConnectionExt, GnomeCmdPath},
+    remote::ConnectionRemote,
+};
+use crate::dir::Directory;
+use gtk::{
+    gio,
+    glib::{self, Cast},
+};
+use std::path::Path;
 
 pub mod ffi {
     use crate::connection::remote::ffi::GnomeCmdConRemoteClass;
@@ -56,5 +64,44 @@ glib::wrapper! {
 impl Default for ConnectionSmb {
     fn default() -> Self {
         glib::Object::builder().build()
+    }
+}
+
+impl ConnectionExt for ConnectionSmb {
+    fn alias(&self) -> Option<String> {
+        self.upcast_ref::<Connection>().alias()
+    }
+    fn set_alias(&self, alias: Option<&str>) {
+        self.upcast_ref::<Connection>().set_alias(alias)
+    }
+    fn uri(&self) -> Option<glib::Uri> {
+        self.upcast_ref::<Connection>().uri()
+    }
+    fn set_uri(&self, uri: Option<&glib::Uri>) {
+        self.upcast_ref::<Connection>().set_uri(uri)
+    }
+    fn uri_string(&self) -> Option<String> {
+        self.upcast_ref::<Connection>().uri_string()
+    }
+    fn set_uri_string(&self, uri: Option<&str>) {
+        self.upcast_ref::<Connection>().set_uri_string(uri)
+    }
+    fn create_path(&self, path: &Path) -> GnomeCmdPath {
+        self.upcast_ref::<Connection>().create_path(path)
+    }
+    fn create_gfile(&self, path: Option<&str>) -> gio::File {
+        self.upcast_ref::<Connection>().create_gfile(path)
+    }
+    fn default_dir(&self) -> Option<Directory> {
+        self.upcast_ref::<Connection>().default_dir()
+    }
+    fn set_default_dir(&self, dir: Option<&Directory>) {
+        self.upcast_ref::<Connection>().set_default_dir(dir)
+    }
+    fn set_base_path(&self, path: GnomeCmdPath) {
+        self.upcast_ref::<Connection>().set_base_path(path)
+    }
+    fn add_bookmark(&self, name: &str, path: &str) {
+        self.upcast_ref::<Connection>().add_bookmark(name, path)
     }
 }

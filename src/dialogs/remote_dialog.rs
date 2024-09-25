@@ -33,10 +33,7 @@ use gtk::{glib, pango, prelude::*, subclass::prelude::*};
 mod imp {
     use super::*;
     use crate::{
-        connection::{
-            connection::{Connection, ConnectionExt, ConnectionMethodID},
-            remote::ConnectionRemote,
-        },
+        connection::{connection::ConnectionExt, remote::ConnectionRemote},
         dialogs::connect_dialog::ConnectDialog,
         utils::{display_help, Gtk3to4BoxCompat},
     };
@@ -58,12 +55,12 @@ mod imp {
         store.set_sort_func(SORTID_METHOD, |model, iter1, iter2| {
             let c1 = model
                 .value(iter1, COL_CON)
-                .get::<'_, Connection>()
+                .get::<'_, ConnectionRemote>()
                 .ok()
                 .map(|c| (c.method(), c.alias().map(|a| a.to_uppercase())));
             let c2 = model
                 .value(iter2, COL_CON)
-                .get::<'_, Connection>()
+                .get::<'_, ConnectionRemote>()
                 .ok()
                 .map(|c| (c.method(), c.alias().map(|a| a.to_uppercase())));
             c1.cmp(&c2)
@@ -71,12 +68,12 @@ mod imp {
         store.set_sort_func(SORTID_NAME, |model, iter1, iter2| {
             let c1 = model
                 .value(iter1, COL_CON)
-                .get::<'_, Connection>()
+                .get::<'_, ConnectionRemote>()
                 .ok()
                 .map(|c| (c.alias().map(|a| a.to_uppercase()), c.method()));
             let c2 = model
                 .value(iter2, COL_CON)
-                .get::<'_, Connection>()
+                .get::<'_, ConnectionRemote>()
                 .ok()
                 .map(|c| (c.alias().map(|a| a.to_uppercase()), c.method()));
             c1.cmp(&c2)
@@ -90,13 +87,8 @@ mod imp {
         iter: &gtk::TreeIter,
         connection: &ConnectionRemote,
     ) {
-        let con = connection.upcast_ref::<Connection>();
-        let icon = match con.method() {
-            ConnectionMethodID::CON_URI => "network-workgroup",
-            _ => "folder-remote",
-        };
-        store.set_value(iter, COL_METHOD as u32, &icon.to_value());
-        store.set_value(iter, COL_NAME as u32, &con.alias().to_value());
+        store.set_value(iter, COL_METHOD as u32, &connection.icon_name().to_value());
+        store.set_value(iter, COL_NAME as u32, &connection.alias().to_value());
         store.set_value(iter, COL_CON as u32, &connection.to_value());
     }
 

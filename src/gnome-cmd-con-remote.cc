@@ -244,9 +244,14 @@ static gchar *remote_get_close_tooltip (GnomeCmdCon *con)
 }
 
 
+extern "C" gchar *gnome_cmd_con_remote_get_icon_name(GnomeCmdConRemote *con);
+
 static GIcon *remote_get_icon (GnomeCmdCon *con)
 {
-    return g_themed_icon_new (gnome_cmd_con_get_icon_name (con));
+    gchar *icon_name = gnome_cmd_con_remote_get_icon_name (GNOME_CMD_CON_REMOTE (con));
+    GIcon *icon = g_themed_icon_new (icon_name);
+    g_free (icon_name);
+    return icon;
 }
 
 
@@ -291,7 +296,6 @@ static void gnome_cmd_con_remote_init (GnomeCmdConRemote *remote_con)
 {
     GnomeCmdCon *con = GNOME_CMD_CON (remote_con);
 
-    con->method = CON_FTP;
     con->should_remember_dir = TRUE;
     con->needs_open_visprog = TRUE;
     con->needs_list_visprog = TRUE;
@@ -329,20 +333,6 @@ GnomeCmdConRemote *gnome_cmd_con_remote_new (const gchar *alias, const gchar *ur
 
     const gchar *hostname = uri ? g_uri_get_host (uri) : nullptr;
     con->open_msg = g_strdup_printf (_("Connecting to %s\n"), hostname ? hostname : "<?>");
-
-    const gchar *scheme = g_uri_get_scheme (uri);
-    const gchar *user = g_uri_get_user (uri);
-    con->method = scheme == nullptr ? CON_FILE :
-        g_str_equal (scheme, "file") ? CON_FILE :
-        g_str_equal (scheme, "ftp")  ? (user && g_str_equal (user, "anonymous") ? CON_ANON_FTP : CON_FTP) :
-        g_str_equal (scheme, "ftp")  ? CON_FTP :
-        g_str_equal (scheme, "sftp") ? CON_SSH :
-        g_str_equal (scheme, "dav")  ? CON_DAV :
-        g_str_equal (scheme, "davs") ? CON_DAVS :
-#ifdef HAVE_SAMBA
-        g_str_equal (scheme, "smb")  ? CON_SMB :
-#endif
-                                       CON_URI;
 
     return gnomeCmdConRemote;
 }

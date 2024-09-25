@@ -229,7 +229,6 @@ static void gnome_cmd_con_smb_init (GnomeCmdConSmb *smb_con)
     GnomeCmdCon *con = GNOME_CMD_CON (smb_con);
 
     con->alias = g_strdup (_("SMB"));
-    con->method = CON_SMB;
     con->open_msg = g_strdup (_("Searching for workgroups and hosts"));
     con->should_remember_dir = TRUE;
     con->needs_open_visprog = TRUE;
