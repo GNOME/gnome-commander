@@ -211,6 +211,32 @@ pub extern "C" fn file_create_symlink(
     });
 }
 
+#[no_mangle]
+pub extern "C" fn file_sendto(
+    _action: *const GSimpleAction,
+    _parameter: *const GVariant,
+    main_win_ptr: *mut GnomeCmdMainWin,
+) {
+    let main_win = unsafe { MainWindow::from_glib_none(main_win_ptr) };
+    let options = ProgramsOptions::new();
+
+    glib::spawn_future_local(async move {
+        let file_selector = main_win.file_selector(FileSelectorID::ACTIVE);
+        let file_list = file_selector.file_list();
+        let files = file_list.selected_files();
+
+        let command_template = options.sendto_cmd();
+
+        if command_template == "xdg-email --attach %s" && files.len() > 1 {
+            ErrorMessage::new(gettext("Warning"), Some(gettext("The default send-to command only supports one selected file at a time. You can change the command in the program options."))).show(main_win.upcast_ref()).await;
+        }
+
+        if let Err(error) = spawn_async(None, &files, &command_template) {
+            error.into_message().show(main_win.upcast_ref()).await;
+        }
+    });
+}
+
 /************** Command Menu **************/
 
 #[no_mangle]

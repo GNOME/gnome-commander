@@ -978,49 +978,7 @@ void file_advrename (GSimpleAction *action, GVariant *parameter, gpointer user_d
 }
 
 
-void file_sendto (GSimpleAction *action, GVariant *parameter, gpointer user_data)
-{
-    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
-
-    eventually_warn_if_xdg_email_is_used(main_win);
-
-    GnomeCmdFileList *fl = get_fl (main_win, ACTIVE);
-    GList *sfl = fl->get_selected_files();
-
-    GError *error = nullptr;
-    int result = spawn_async_r(nullptr, sfl, gnome_cmd_data.options.sendto, &error);
-    switch (result)
-    {
-        case 0:
-            break;
-        case 1:
-        case 2:
-            DEBUG ('g', "Sendto command is not valid.\n");
-            gnome_cmd_show_message (*main_win, _("No valid command given."));
-            g_clear_error (&error);
-            break;
-        case 3:
-        default:
-            gnome_cmd_error_message (_("Unable to execute command."), error);
-            break;
-    }
-}
-
-
-void eventually_warn_if_xdg_email_is_used(GnomeCmdMainWin *main_win)
-{
-    auto fileList = get_fl (main_win, ACTIVE);
-    GList *selectedFileList = fileList->get_selected_files();
-    auto currentSendToString = g_settings_get_string (gcmd_user_actions.settings->programs, GCMD_SETTINGS_SENDTO_CMD);
-
-    if ((g_strcmp0(currentSendToString, "xdg-email --attach %s") == 0)
-        && g_list_length(selectedFileList) > 1)
-    {
-        gnome_cmd_show_message (*main_win, _("Warning"), _("The default send-to command only supports one selected file at a time. You can change the command in the program options."));
-    }
-    g_list_free(selectedFileList);
-    g_free(currentSendToString);
-}
+// void file_sendto (GSimpleAction *action, GVariant *parameter, gpointer user_data);
 
 
 void file_properties (GSimpleAction *action, GVariant *parameter, gpointer user_data)

@@ -221,6 +221,13 @@ pub struct ErrorMessage {
 }
 
 impl ErrorMessage {
+    pub fn new<M: Into<String>, S: Into<String>>(message: M, secondary_text: Option<S>) -> Self {
+        Self {
+            message: message.into(),
+            secondary_text: secondary_text.map(|s| s.into()),
+        }
+    }
+
     pub fn with_error(message: impl Into<String>, error: &dyn std::error::Error) -> Self {
         Self {
             message: message.into(),
