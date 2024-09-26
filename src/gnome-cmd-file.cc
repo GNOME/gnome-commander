@@ -947,20 +947,6 @@ void GnomeCmdFile::set_deleted()
 }
 
 
-void GnomeCmdFile::execute()
-{
-    gchar *fpath = get_real_path();
-    gchar *dpath = g_path_get_dirname (fpath);
-    gchar *cmd = g_strdup_printf ("./%s", this->get_quoted_name());
-
-    run_command_indir (cmd, dpath, app_needs_terminal (this));
-
-    g_free (fpath);
-    g_free (dpath);
-    g_free (cmd);
-}
-
-
 /******************************************************************************
 *
 *   Function: gnome_cmd_file_list_copy
@@ -1090,11 +1076,6 @@ gboolean gnome_cmd_file_is_local (GnomeCmdFile *f)
 gboolean gnome_cmd_file_is_executable(GnomeCmdFile *f)
 {
     return f->is_executable();
-}
-
-void gnome_cmd_file_execute(GnomeCmdFile *f)
-{
-    f->execute();
 }
 
 gboolean gnome_cmd_file_chown(GnomeCmdFile *f, uid_t uid, gid_t gid, GError **error)

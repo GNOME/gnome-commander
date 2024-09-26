@@ -62,8 +62,6 @@ void DEBUG (gchar flag, const gchar *fmt, ...);
 
 void gnome_cmd_error_message (const gchar *title, GError *error);
 
-gboolean run_command_indir (const gchar *command, const gchar *dir, gboolean term);
-
 inline void run_command (const gchar *command)
 {
     GError *error = NULL;
@@ -214,10 +212,6 @@ inline void set_cursor_default_for_widget (GtkWidget *widget)
         gdk_window_set_cursor (window, NULL);
 }
 
-GList *app_get_linked_libs (GnomeCmdFile *f);
-gboolean app_needs_terminal (GnomeCmdFile *f);
-
-gchar *get_temp_download_filepath (const gchar *fname);
 void remove_temp_download_dir ();
 
 gchar *unix_to_unc (const gchar *path);

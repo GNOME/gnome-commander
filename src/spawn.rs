@@ -20,8 +20,14 @@
  * For more details see the file COPYING.
  */
 
-use crate::{file::File, libgcmd::file_base::FileBaseExt, utils::ErrorMessage};
+use crate::{
+    data::{ProgramsOptions, ProgramsOptionsRead},
+    file::File,
+    libgcmd::file_base::FileBaseExt,
+    utils::{make_run_in_terminal_command, ErrorMessage},
+};
 use gettextrs::gettext;
+use glib::{ffi::{gboolean, GBookmarkFile}, translate::from_glib_none};
 use gtk::{
     gio::prelude::*,
     glib::{self, ffi::GList, translate::IntoGlibPtr},
@@ -29,6 +35,7 @@ use gtk::{
 use std::{
     cell::OnceCell,
     ffi::{self, CStr, CString, OsStr, OsString},
+    io::BufRead,
     path::{Path, PathBuf},
 };
 
@@ -231,5 +238,87 @@ pub unsafe extern "C" fn spawn_async_r(
             *error = glib::Error::new(glib::FileError::Failed, &e.to_string()).into_glib_ptr();
             3
         }
+    }
+}
+
+pub fn run_command_indir(
+    working_directory: Option<&Path>,
+    command: &OsStr,
+    in_terminal: bool,
+    options: &dyn ProgramsOptionsRead,
+) -> Result<(), SpawnError> {
+    let actual_command = if in_terminal {
+        make_run_in_terminal_command(command, options)
+    } else {
+        command.to_owned()
+    };
+    spawn_async_command(working_directory, &actual_command)
+}
+
+#[no_mangle]
+pub unsafe extern "C" fn run_command_indir_r(
+    working_directory_ptr: *const ffi::c_char,
+    command_ptr: *const ffi::c_char,
+    in_terminal: gboolean,
+    error: *mut *mut glib::ffi::GError,
+) -> ffi::c_int {
+    let working_directory: Option<PathBuf>  = unsafe { from_glib_none(working_directory_ptr) };
+    let command: Option<OsString>  = unsafe { from_glib_none(command_ptr) };
+    let Some(command) = command else {
+        return 1;
+    };
+    let options = ProgramsOptions::new();
+
+    let result = run_command_indir(working_directory.as_deref(), &command, in_terminal != 0, &options);
+    match result {
+        Ok(_) => 0,
+        Err(SpawnError::InvalidTemplate) => {
+            *error = std::ptr::null_mut();
+            1
+        }
+        Err(SpawnError::InvalidCommand(e)) => {
+            *error = e.into_glib_ptr();
+            2
+        }
+        Err(SpawnError::Failure(e)) => {
+            *error = glib::Error::new(glib::FileError::Failed, &e.to_string()).into_glib_ptr();
+            3
+        }
+    }
+}
+
+fn app_get_linked_libs(app_path: &Path) -> std::io::Result<Vec<String>> {
+    Ok(std::process::Command::new("ldd")
+        .arg(app_path)
+        .output()?
+        .stdout
+        .lines()
+        .collect::<Result<Vec<String>, _>>()?
+        .into_iter()
+        .filter_map(|line| line.split_once(' ').map(|p| p.0.trim().to_owned()))
+        .collect())
+}
+
+pub fn app_needs_terminal(file: &File) -> bool {
+    let is_executable = file
+        .content_type()
+        .map(|c| c == "application/x-executable" || c == "application/x-executable-binary")
+        .unwrap_or_default();
+
+    if is_executable {
+        let app_path = file.get_real_path();
+        match app_get_linked_libs(&app_path) {
+            Ok(libs) => !libs.into_iter().any(|lib| lib.starts_with("libX11")),
+            Err(error) => {
+                eprintln!(
+                    "Failed to detect libraries used by an application {}: {}",
+                    app_path.display(),
+                    error
+                );
+                true
+            }
+        }
+    } else {
+        return true;
     }
 }

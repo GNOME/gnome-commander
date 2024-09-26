@@ -102,7 +102,6 @@ sources_sources = files(
   'gnome-cmd-file.cc',
   'gnome-cmd-file-collection.cc',
   'gnome-cmd-file-list.cc',
-  'gnome-cmd-file-list-actions.cc',
   'gnome-cmd-file-popmenu.cc',
   'gnome-cmd-file-selector.cc',
   'gnome-cmd-hintbox.cc',
