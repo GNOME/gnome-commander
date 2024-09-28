@@ -12,11 +12,12 @@ src/app.rs
 src/dialogs/advrename_dialog.rs
 src/dialogs/advrename_regex_dialog.rs
 src/dialogs/connect_dialog.rs
+src/dialogs/create_symlink_dialog.rs
+src/dialogs/delete_dialog.rs
 src/dialogs/edit_bookmark_dialog.rs
 src/dialogs/gnome-cmd-advrename-dialog.cc
 src/dialogs/gnome-cmd-chmod-dialog.cc
 src/dialogs/gnome-cmd-chown-dialog.cc
-src/dialogs/gnome-cmd-delete-dialog.cc
 src/dialogs/gnome-cmd-file-props-dialog.cc
 src/dialogs/gnome-cmd-key-shortcuts-dialog.cc
 src/dialogs/gnome-cmd-manage-bookmarks-dialog.cc
