@@ -21,13 +21,13 @@
  */
 
 use crate::{config::PREFIX, data::ProgramsOptionsRead, file::File};
-use gettextrs::gettext;
+use gettextrs::{gettext, ngettext};
 use gtk::{gdk, glib, prelude::*};
 use std::{
     ffi::{OsStr, OsString},
     process::Command,
     sync::OnceLock,
-    time::Duration,
+    time::{Duration, SystemTime, UNIX_EPOCH},
 };
 
 pub const GNOME_CMD_PERM_USER_READ: u32 = 256; //r--------
@@ -272,6 +272,103 @@ pub fn get_modifiers_state(window: &gtk::Window) -> Option<gdk::ModifierType> {
 
 pub async fn pending() {
     glib::timeout_future(Duration::from_millis(1)).await;
+}
+
+#[repr(C)]
+#[derive(Clone, Copy)]
+pub enum SizeDisplayMode {
+    Plain = 0,
+    Locale,
+    Grouped,
+    Powered,
+}
+
+pub fn size_to_string(size: u64, mode: SizeDisplayMode) -> String {
+    let size_u32 = u32::try_from(size).unwrap_or(u32::MAX);
+    match mode {
+        SizeDisplayMode::Powered => {
+            const PIBI: u64 = 1024 * 1024 * 1024 * 1024 * 1024;
+            const TIBI: u64 = 1024 * 1024 * 1024 * 1024;
+            const GIBI: u64 = 1024 * 1024 * 1024;
+            const MIBI: u64 = 1024 * 1024;
+            const KIBI: u64 = 1024;
+
+            if size >= PIBI {
+                ngettext!(
+                    "{} PiB",
+                    "{} PiB",
+                    size_u32,
+                    format!("{:.1}", size as f64 / PIBI as f64)
+                )
+            } else if size >= TIBI {
+                ngettext!(
+                    "{} TiB",
+                    "{} TiB",
+                    size_u32,
+                    format!("{:.1}", size as f64 / TIBI as f64)
+                )
+            } else if size >= GIBI {
+                ngettext!(
+                    "{} GiB",
+                    "{} GiB",
+                    size_u32,
+                    format!("{:.1}", size as f64 / GIBI as f64)
+                )
+            } else if size >= MIBI {
+                ngettext!(
+                    "{} MiB",
+                    "{} MiB",
+                    size_u32,
+                    format!("{:.1}", size as f64 / MIBI as f64)
+                )
+            } else if size >= KIBI {
+                ngettext!(
+                    "{} kiB",
+                    "{} kiB",
+                    size_u32,
+                    format!("{:.1}", size as f64 / KIBI as f64)
+                )
+            } else {
+                ngettext!("{} byte", "{} bytes", size_u32, size)
+            }
+        }
+        SizeDisplayMode::Grouped => {
+            let mut digits: Vec<char> = size.to_string().chars().collect();
+            let mut i = digits.len() as isize - 3;
+            while i > 0 {
+                digits.insert(i as usize, ' ');
+                i -= 3;
+            }
+            let value: String = digits.into_iter().collect();
+            ngettext!("{} byte", "{} bytes", size_u32, value)
+        }
+        SizeDisplayMode::Locale => size.to_string(), // TODO
+        SizeDisplayMode::Plain => ngettext!("{} byte", "{} bytes", size_u32, size),
+    }
+}
+
+pub fn nice_size(size: u64, mode: SizeDisplayMode) -> String {
+    match mode {
+        SizeDisplayMode::Powered if size >= 1024 => {
+            format!(
+                "{} ({})",
+                size_to_string(size, mode),
+                nice_size(size, SizeDisplayMode::Grouped)
+            )
+        }
+        _ => size_to_string(size, mode),
+    }
+}
+
+pub fn time_to_string(
+    time: SystemTime,
+    format: &str,
+) -> Result<String, Box<dyn std::error::Error>> {
+    // TODO: fix for dates before EPOCH
+    let local = glib::DateTime::from_unix_utc(time.duration_since(UNIX_EPOCH)?.as_secs() as i64)?
+        .to_local()?;
+    let string = local.format(format).or_else(|_| local.format("%c"))?;
+    Ok(string.to_string())
 }
 
 pub trait Gtk3to4BoxCompat {

@@ -32,9 +32,19 @@ pub enum FileSelectorID {
 /// The (reversed) order of following enums compared to the occurrence in the GUI is significant
 #[repr(C)]
 #[allow(non_camel_case_types)]
+#[derive(Clone, Copy)]
 pub enum GnomeCmdConfirmOverwriteMode {
     GNOME_CMD_CONFIRM_OVERWRITE_SILENTLY,
     GNOME_CMD_CONFIRM_OVERWRITE_SKIP_ALL,
     GNOME_CMD_CONFIRM_OVERWRITE_RENAME_ALL,
     GNOME_CMD_CONFIRM_OVERWRITE_QUERY,
+}
+
+#[repr(C)]
+#[allow(non_camel_case_types)]
+#[derive(Clone, Copy)]
+pub enum GnomeCmdTransferType {
+    COPY = 0,
+    MOVE,
+    LINK,
 }

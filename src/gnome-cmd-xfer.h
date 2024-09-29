@@ -23,7 +23,6 @@
 
 #include "gnome-cmd-types.h"
 #include "gnome-cmd-dir.h"
-#include "gnome-cmd-xfer-progress-win.h"
 
 typedef void (*GnomeCmdXferCallback) (gboolean success, gpointer user_data);
 
