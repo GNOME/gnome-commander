@@ -21,10 +21,10 @@ msgstr ""
 "Project-Id-Version: gnome-commander\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-commander/"
 "issues/\n"
-"POT-Creation-Date: 2024-09-22 20:21+0000\n"
+"POT-Creation-Date: 2024-09-28 10:13+0000\n"
 "PO-Revision-Date: 2024-09-25 11:47-0300\n"
 "Last-Translator: Juliano de Souza Camargo <julianosc@pm.me>\n"
-"Language-Team: Brazilian Portuguese <https://br.gnome.org/traducao>>\n"
+"Language-Team: Brazilian Portuguese <https://br.gnome.org/traducao>\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1515,10 +1515,10 @@ msgstr "Erro sem descrição disponível"
 #: libgcmd/gnome-cmd-string-dialog.cc:138 libgcmd/libgcmd-widget-factory.cc:296
 #: src/advrename_profile_component.rs:106
 #: src/dialogs/advrename_regex_dialog.rs:136 src/dialogs/connect_dialog.rs:241
+#: src/dialogs/create_symlink_dialog.rs:75 src/dialogs/delete_dialog.rs:92
 #: src/dialogs/edit_bookmark_dialog.rs:44
 #: src/dialogs/gnome-cmd-chmod-dialog.cc:229
 #: src/dialogs/gnome-cmd-chown-dialog.cc:191
-#: src/dialogs/gnome-cmd-delete-dialog.cc:142
 #: src/dialogs/gnome-cmd-file-props-dialog.cc:677
 #: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:263
 #: src/dialogs/gnome-cmd-mkdir-dialog.cc:171
@@ -1540,6 +1540,7 @@ msgstr "_Cancelar"
 #: plugins/fileroller/file-roller-plugin.cc:608
 #: src/advrename_profile_component.rs:120
 #: src/dialogs/advrename_regex_dialog.rs:148 src/dialogs/connect_dialog.rs:251
+#: src/dialogs/create_symlink_dialog.rs:84
 #: src/dialogs/edit_bookmark_dialog.rs:45
 #: src/dialogs/gnome-cmd-chmod-dialog.cc:231
 #: src/dialogs/gnome-cmd-chown-dialog.cc:192
@@ -1806,7 +1807,7 @@ msgstr "_Domínio:"
 #: src/dialogs/gnome-cmd-search-dialog.cc:1276
 #: src/dialogs/profiles/edit_profile_dialog.rs:79
 #: src/dialogs/profiles/manage_profiles_dialog.rs:280
-#: src/dialogs/remote_dialog.rs:250 src/gnome-cmd-main-menu.cc:249
+#: src/dialogs/remote_dialog.rs:242 src/gnome-cmd-main-menu.cc:249
 #: src/intviewer/viewer-window.cc:582
 msgid "_Help"
 msgstr "A_juda"
@@ -1830,6 +1831,97 @@ msgstr "Método de conexão não está selecionado"
 #: src/dialogs/connect_dialog.rs:433
 msgid "Please check spelling and try again."
 msgstr "Por favor, verifique a digitação e tente novamente."
+
+#: src/dialogs/create_symlink_dialog.rs:39 src/user_actions.rs:85
+#: src/user_actions.rs:143
+msgid "Create Symbolic Link"
+msgstr "Criar ligação simbólica"
+
+#: src/dialogs/create_symlink_dialog.rs:61
+msgid "Symbolic link name:"
+msgstr "Nome da ligação simbólica:"
+
+#: src/dialogs/create_symlink_dialog.rs:97
+#, fuzzy
+#| msgid "No file name entered"
+msgid "No file name given"
+msgstr "Nenhum nome de arquivo digitado"
+
+#: src/dialogs/delete_dialog.rs:107
+msgid "Deleting…"
+msgstr "Excluindo…"
+
+#: src/dialogs/delete_dialog.rs:211 src/dialogs/delete_dialog.rs:224
+#: src/dialogs/delete_dialog.rs:541 src/dialogs/delete_dialog.rs:546
+#: src/dialogs/gnome-cmd-options-dialog.cc:1069
+#: src/gnome-cmd-file-popmenu.cc:357 src/gnome-cmd-main-win.cc:183
+#: src/gnome-cmd-user-actions.cc:326
+msgid "Delete"
+msgstr "Excluir"
+
+#: src/dialogs/delete_dialog.rs:217 src/dialogs/delete_dialog.rs:546
+#: src/open_file.rs:50 src/open_file.rs:74 src/user_actions.rs:90
+#: src/user_actions.rs:145
+msgid "Cancel"
+msgstr "Cancelar"
+
+#: src/dialogs/delete_dialog.rs:218 src/dialogs/delete_dialog.rs:251
+#: src/dialogs/gnome-cmd-options-dialog.cc:1097
+#: src/dialogs/gnome-cmd-options-dialog.cc:1121
+#: src/dialogs/gnome-cmd-prepare-copy-dialog.cc:110
+#: src/dialogs/gnome-cmd-prepare-move-dialog.cc:104 src/gnome-cmd-xfer.cc:193
+#: src/gnome-cmd-xfer.cc:220 src/gnome-cmd-xfer.cc:278
+#: src/gnome-cmd-xfer.cc:396 src/user_actions.rs:88
+msgid "Skip"
+msgstr "Pular"
+
+#: src/dialogs/delete_dialog.rs:220
+msgid "Delete All"
+msgstr "Excluir tudo"
+
+#: src/dialogs/delete_dialog.rs:222
+msgid "Delete Remaining"
+msgstr "Excluir restantes"
+
+#: src/dialogs/delete_dialog.rs:249 src/dialogs/delete_dialog.rs:584
+msgid "Delete problem"
+msgstr "Problema ao excluir"
+
+#: src/dialogs/delete_dialog.rs:251 src/dialogs/delete_dialog.rs:586
+#: src/gnome-cmd-xfer.cc:193 src/gnome-cmd-xfer.cc:220
+#: src/gnome-cmd-xfer.cc:223 src/gnome-cmd-xfer.cc:278
+#: src/gnome-cmd-xfer.cc:281 src/gnome-cmd-xfer.cc:396
+#: src/gnome-cmd-xfer.cc:399 src/gnome-cmd-xfer.cc:1171
+#: src/gnome-cmd-xfer.cc:1182 src/gnome-cmd-xfer.cc:1225
+msgid "Abort"
+msgstr "Cancelar"
+
+#: src/dialogs/delete_dialog.rs:251 src/gnome-cmd-xfer.cc:193
+#: src/gnome-cmd-xfer.cc:220 src/gnome-cmd-xfer.cc:223
+#: src/gnome-cmd-xfer.cc:278 src/gnome-cmd-xfer.cc:281
+#: src/gnome-cmd-xfer.cc:396 src/gnome-cmd-xfer.cc:399 src/user_actions.rs:91
+msgid "Retry"
+msgstr "Repetir"
+
+#: src/dialogs/delete_dialog.rs:398
+#, fuzzy
+#| msgid "Delete files"
+msgid "Deletion failed"
+msgstr "Apagar arquivos"
+
+#: src/dialogs/delete_dialog.rs:519
+#, c-format
+msgid "Do you want to permanently delete the selected file?"
+msgid_plural "Do you want to permanently delete the %d selected files?"
+msgstr[0] "Você deseja excluir o arquivo selecionado permanentemente?"
+msgstr[1] "Você deseja excluir os %d arquivos selecionados permanentemente?"
+
+#: src/dialogs/delete_dialog.rs:525
+#, c-format
+msgid "Do you want to move the selected file to the trash can?"
+msgid_plural "Do you want to move the %d selected files to the trash can?"
+msgstr[0] "Você deseja mover o arquivo selecionado para a lixeira?"
+msgstr[1] "Você deseja mover os %d arquivos selecionados para a lixeira?"
 
 #: src/dialogs/edit_bookmark_dialog.rs:70
 msgid "Bookmark _name:"
@@ -1934,7 +2026,7 @@ msgstr "Restaurar"
 #: src/dialogs/gnome-cmd-advrename-dialog.cc:668
 #: src/dialogs/gnome-cmd-manage-bookmarks-dialog.cc:98
 #: src/dialogs/gnome-cmd-options-dialog.cc:581
-#: src/dialogs/gnome-cmd-search-dialog.cc:1277 src/dialogs/remote_dialog.rs:262
+#: src/dialogs/gnome-cmd-search-dialog.cc:1277 src/dialogs/remote_dialog.rs:254
 #: src/gnome-cmd-about-plugin.cc:181 src/gnome-cmd-about-plugin.cc:312
 #: src/intviewer/viewer-window.cc:516 src/plugin_manager.cc:439
 msgid "_Close"
@@ -1978,130 +2070,6 @@ msgstr "Mudar dono/grupo"
 #: src/dialogs/gnome-cmd-chown-dialog.cc:188
 msgid "Apply Recursively"
 msgstr "Aplicar recursivamente"
-
-#: src/dialogs/gnome-cmd-delete-dialog.cc:81
-#, c-format
-msgid "Deleted %lu of %lu file"
-msgid_plural "Deleted %lu of %lu files"
-msgstr[0] "Excluídos %lu de %lu arquivo"
-msgstr[1] "Excluídos %lu de %lu arquivos"
-
-#: src/dialogs/gnome-cmd-delete-dialog.cc:120
-msgid "Deleting…"
-msgstr "Excluindo…"
-
-#: src/dialogs/gnome-cmd-delete-dialog.cc:301
-#, c-format
-msgid ""
-"Error while deleting “%s”\n"
-"\n"
-"%s"
-msgstr ""
-"Erro ao excluir “%s”\n"
-"\n"
-"%s"
-
-#: src/dialogs/gnome-cmd-delete-dialog.cc:306
-#: src/dialogs/gnome-cmd-delete-dialog.cc:451
-msgid "Delete problem"
-msgstr "Problema ao excluir"
-
-#: src/dialogs/gnome-cmd-delete-dialog.cc:307
-#: src/dialogs/gnome-cmd-delete-dialog.cc:451 src/gnome-cmd-xfer.cc:193
-#: src/gnome-cmd-xfer.cc:220 src/gnome-cmd-xfer.cc:223
-#: src/gnome-cmd-xfer.cc:278 src/gnome-cmd-xfer.cc:281
-#: src/gnome-cmd-xfer.cc:396 src/gnome-cmd-xfer.cc:399
-#: src/gnome-cmd-xfer.cc:1171 src/gnome-cmd-xfer.cc:1182
-#: src/gnome-cmd-xfer.cc:1229
-msgid "Abort"
-msgstr "Cancelar"
-
-#: src/dialogs/gnome-cmd-delete-dialog.cc:307 src/gnome-cmd-xfer.cc:193
-#: src/gnome-cmd-xfer.cc:220 src/gnome-cmd-xfer.cc:223
-#: src/gnome-cmd-xfer.cc:278 src/gnome-cmd-xfer.cc:281
-#: src/gnome-cmd-xfer.cc:396 src/gnome-cmd-xfer.cc:399 src/user_actions.rs:91
-msgid "Retry"
-msgstr "Repetir"
-
-#: src/dialogs/gnome-cmd-delete-dialog.cc:307
-#: src/dialogs/gnome-cmd-delete-dialog.cc:467
-#: src/dialogs/gnome-cmd-options-dialog.cc:1097
-#: src/dialogs/gnome-cmd-options-dialog.cc:1121
-#: src/dialogs/gnome-cmd-prepare-copy-dialog.cc:110
-#: src/dialogs/gnome-cmd-prepare-move-dialog.cc:104 src/gnome-cmd-xfer.cc:193
-#: src/gnome-cmd-xfer.cc:220 src/gnome-cmd-xfer.cc:278
-#: src/gnome-cmd-xfer.cc:396 src/user_actions.rs:88
-msgid "Skip"
-msgstr "Pular"
-
-#: src/dialogs/gnome-cmd-delete-dialog.cc:449
-#, c-format
-msgid ""
-"Error while deleting: \n"
-"\n"
-"%s"
-msgstr ""
-"Erro ao excluir: \n"
-"\n"
-"%s"
-
-#: src/dialogs/gnome-cmd-delete-dialog.cc:462
-#, c-format
-msgid "Do you really want to delete “%s”?"
-msgstr "Você realmente deseja excluir “%s”?"
-
-#: src/dialogs/gnome-cmd-delete-dialog.cc:463
-#, c-format
-msgid "The directory “%s” is not empty. Do you really want to delete it?"
-msgstr "O diretório “%s” não está vazio. Deseja realmente excluí-lo?"
-
-#: src/dialogs/gnome-cmd-delete-dialog.cc:465
-#: src/dialogs/gnome-cmd-delete-dialog.cc:469
-#: src/dialogs/gnome-cmd-delete-dialog.cc:555
-#: src/dialogs/gnome-cmd-delete-dialog.cc:556
-#: src/dialogs/gnome-cmd-options-dialog.cc:1069
-#: src/gnome-cmd-file-popmenu.cc:357 src/gnome-cmd-main-win.cc:183
-#: src/gnome-cmd-user-actions.cc:326
-msgid "Delete"
-msgstr "Excluir"
-
-#: src/dialogs/gnome-cmd-delete-dialog.cc:467
-#: src/dialogs/gnome-cmd-delete-dialog.cc:556 src/open_file.rs:50
-#: src/open_file.rs:74 src/user_actions.rs:90 src/user_actions.rs:145
-msgid "Cancel"
-msgstr "Cancelar"
-
-#: src/dialogs/gnome-cmd-delete-dialog.cc:468
-msgid "Delete All"
-msgstr "Excluir tudo"
-
-#: src/dialogs/gnome-cmd-delete-dialog.cc:468
-msgid "Delete Remaining"
-msgstr "Excluir restantes"
-
-#: src/dialogs/gnome-cmd-delete-dialog.cc:535
-#, c-format
-msgid "Do you want to permanently delete “%s”?"
-msgstr "Você deseja permanentemente excluir “%s”?"
-
-#: src/dialogs/gnome-cmd-delete-dialog.cc:536
-#, c-format
-msgid "Do you want to move “%s” to the trash can?"
-msgstr "Você deseja mover “%s” para a lixeira?"
-
-#: src/dialogs/gnome-cmd-delete-dialog.cc:541
-#, c-format
-msgid "Do you want to permanently delete the selected file?"
-msgid_plural "Do you want to permanently delete the %d selected files?"
-msgstr[0] "Você deseja excluir o arquivo selecionado permanentemente?"
-msgstr[1] "Você deseja excluir os %d arquivos selecionados permanentemente?"
-
-#: src/dialogs/gnome-cmd-delete-dialog.cc:545
-#, c-format
-msgid "Do you want to move the selected file to the trash can?"
-msgid_plural "Do you want to move the %d selected files to the trash can?"
-msgstr[0] "Você deseja mover o arquivo selecionado para a lixeira?"
-msgstr[1] "Você deseja mover os %d arquivos selecionados para a lixeira?"
 
 #: src/dialogs/gnome-cmd-file-props-dialog.cc:307
 msgid "Image:"
@@ -2178,7 +2146,7 @@ msgstr "Espaço de nomes de metadados"
 
 #: src/dialogs/gnome-cmd-file-props-dialog.cc:603
 #: src/dialogs/gnome-cmd-manage-bookmarks-dialog.cc:270
-#: src/dialogs/remote_dialog.rs:187 src/intviewer/viewer-window.cc:1207
+#: src/dialogs/remote_dialog.rs:179 src/intviewer/viewer-window.cc:1207
 #: src/plugin_manager.cc:403 src/tags/gnome-cmd-tags.cc:327
 msgid "Name"
 msgstr "Nome"
@@ -2247,7 +2215,7 @@ msgstr ""
 #: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:251
 #: src/dialogs/gnome-cmd-options-dialog.cc:1825
 #: src/dialogs/gnome-cmd-options-dialog.cc:2264
-#: src/dialogs/remote_dialog.rs:219
+#: src/dialogs/remote_dialog.rs:211
 #: src/gnome-cmd-advrename-profile-component.cc:845
 msgid "_Add"
 msgstr "_Adicionar"
@@ -2257,7 +2225,7 @@ msgstr "_Adicionar"
 #: src/dialogs/gnome-cmd-options-dialog.cc:1835
 #: src/dialogs/gnome-cmd-options-dialog.cc:2274
 #: src/dialogs/profiles/manage_profiles_dialog.rs:265
-#: src/dialogs/remote_dialog.rs:132
+#: src/dialogs/remote_dialog.rs:124
 #: src/gnome-cmd-advrename-profile-component.cc:851
 msgid "_Remove"
 msgstr "_Remover"
@@ -2295,7 +2263,7 @@ msgstr "_Ir para"
 #: src/dialogs/gnome-cmd-options-dialog.cc:1829
 #: src/dialogs/gnome-cmd-options-dialog.cc:2268
 #: src/dialogs/profiles/manage_profiles_dialog.rs:248
-#: src/dialogs/remote_dialog.rs:128
+#: src/dialogs/remote_dialog.rs:120
 #: src/gnome-cmd-advrename-profile-component.cc:848
 #: src/gnome-cmd-main-menu.cc:176
 msgid "_Edit"
@@ -3275,19 +3243,19 @@ msgstr ""
 msgid "_Duplicate"
 msgstr "_Duplicar"
 
-#: src/dialogs/remote_dialog.rs:151
+#: src/dialogs/remote_dialog.rs:143
 msgid "Remote Connections"
 msgstr "Conexões remotas"
 
-#: src/dialogs/remote_dialog.rs:177
+#: src/dialogs/remote_dialog.rs:169
 msgid "Network protocol"
 msgstr "Protocolo de rede"
 
-#: src/dialogs/remote_dialog.rs:195
+#: src/dialogs/remote_dialog.rs:187
 msgid "Connection name"
 msgstr "Nome da conexão"
 
-#: src/dialogs/remote_dialog.rs:353 src/dialogs/remote_dialog.rs:396
+#: src/dialogs/remote_dialog.rs:345 src/dialogs/remote_dialog.rs:388
 msgid "No server selected"
 msgstr "Nenhum servidor selecionado"
 
@@ -3648,21 +3616,21 @@ msgstr "Visualizar texto:"
 msgid "Number view:"
 msgstr "Visualizar números:"
 
-#: src/gnome-cmd-con.cc:625 src/gnome-cmd-con.cc:656 src/gnome-cmd-con.cc:687
+#: src/gnome-cmd-con.cc:613 src/gnome-cmd-con.cc:644 src/gnome-cmd-con.cc:675
 msgid "<New connection>"
 msgstr "<Nova conexão>"
 
-#: src/gnome-cmd-con.cc:627 src/gnome-cmd-con-device.cc:490
+#: src/gnome-cmd-con.cc:615 src/gnome-cmd-con-device.cc:490
 #, c-format
 msgid "Go to: %s"
 msgstr "Ir para: %s"
 
-#: src/gnome-cmd-con.cc:658
+#: src/gnome-cmd-con.cc:646
 #, c-format
 msgid "Connect to: %s"
 msgstr "Conectar em: %s"
 
-#: src/gnome-cmd-con.cc:689
+#: src/gnome-cmd-con.cc:677
 #, c-format
 msgid "Disconnect from: %s"
 msgstr "Desconectando de %s"
@@ -3714,7 +3682,7 @@ msgstr "Montar %s"
 msgid "Unmount: %s"
 msgstr "Desmontar: %s"
 
-#: src/gnome-cmd-con-device.cc:605
+#: src/gnome-cmd-con-device.cc:604
 #, c-format
 msgid "Mounting %s"
 msgstr "Montando %s"
@@ -3741,7 +3709,7 @@ msgstr "Abre uma conexão remota com %s"
 msgid "Closes remote connection to %s"
 msgstr "Fecha uma conexão remota com %s"
 
-#: src/gnome-cmd-con-remote.cc:331
+#: src/gnome-cmd-con-remote.cc:335
 #, c-format
 msgid "Connecting to %s\n"
 msgstr "Conectando em %s\n"
@@ -3758,7 +3726,7 @@ msgstr "Ir para: Rede Samba"
 msgid "SMB"
 msgstr "SMB"
 
-#: src/gnome-cmd-con-smb.cc:233
+#: src/gnome-cmd-con-smb.cc:232
 msgid "Searching for workgroups and hosts"
 msgstr "Pesquisando por máquinas e grupos de trabalhos"
 
@@ -4738,7 +4706,7 @@ msgstr ""
 "Juliano de Souza Camargo <julianosc@pm.me>"
 
 #: src/gnome-cmd-xfer.cc:192 src/gnome-cmd-xfer.cc:1171
-#: src/gnome-cmd-xfer.cc:1182 src/gnome-cmd-xfer.cc:1229
+#: src/gnome-cmd-xfer.cc:1182 src/gnome-cmd-xfer.cc:1225
 msgid "Transfer problem"
 msgstr "Problema na transferência"
 
@@ -4877,7 +4845,7 @@ msgstr ""
 "\n"
 "%s"
 
-#: src/gnome-cmd-xfer.cc:1228
+#: src/gnome-cmd-xfer.cc:1224
 #, c-format
 msgid "Source “%s” could not be copied. Aborting!"
 msgstr "Não foi possível copiar a fonte “%s”. Terminando!"
@@ -9232,10 +9200,6 @@ msgstr "Nenhum"
 msgid "10-15ms"
 msgstr "10-15ms"
 
-#: src/user_actions.rs:85 src/user_actions.rs:143
-msgid "Create Symbolic Link"
-msgstr "Criar ligação simbólica"
-
 #: src/user_actions.rs:145
 msgid "Create"
 msgstr "Criar"
@@ -9308,6 +9272,48 @@ msgstr "Não pode construir um arquivo temporário."
 msgid "gksudo, xdg-su, gksu, gnomesu, kdesu, beesu or pkexec is not found."
 msgstr ""
 "gksudo, xdg-su, gksu, gnomesu, kdesu, beesu ou pkexec não foram localizados."
+
+#, c-format
+#~ msgid "Deleted %lu of %lu file"
+#~ msgid_plural "Deleted %lu of %lu files"
+#~ msgstr[0] "Excluídos %lu de %lu arquivo"
+#~ msgstr[1] "Excluídos %lu de %lu arquivos"
+
+#, c-format
+#~ msgid ""
+#~ "Error while deleting “%s”\n"
+#~ "\n"
+#~ "%s"
+#~ msgstr ""
+#~ "Erro ao excluir “%s”\n"
+#~ "\n"
+#~ "%s"
+
+#, c-format
+#~ msgid ""
+#~ "Error while deleting: \n"
+#~ "\n"
+#~ "%s"
+#~ msgstr ""
+#~ "Erro ao excluir: \n"
+#~ "\n"
+#~ "%s"
+
+#, c-format
+#~ msgid "Do you really want to delete “%s”?"
+#~ msgstr "Você realmente deseja excluir “%s”?"
+
+#, c-format
+#~ msgid "The directory “%s” is not empty. Do you really want to delete it?"
+#~ msgstr "O diretório “%s” não está vazio. Deseja realmente excluí-lo?"
+
+#, c-format
+#~ msgid "Do you want to permanently delete “%s”?"
+#~ msgstr "Você deseja permanentemente excluir “%s”?"
+
+#, c-format
+#~ msgid "Do you want to move “%s” to the trash can?"
+#~ msgstr "Você deseja mover “%s” para a lixeira?"
 
 #~ msgid "Use default font"
 #~ msgstr "Usar fonte padrão"
@@ -9457,9 +9463,6 @@ msgstr ""
 
 #~ msgid "Close _Duplicate Tabs"
 #~ msgstr "Fechar abas _duplicadas"
-
-#~ msgid "Symbolic link name:"
-#~ msgstr "Nome da ligação simbólica:"
 
 #, c-format
 #~ msgid "Create symbolic links of %i file in %s?"
