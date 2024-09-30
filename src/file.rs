@@ -27,6 +27,7 @@ use crate::{
     },
     dir::Directory,
     libgcmd::file_base::{FileBase, FileBaseExt},
+    path::GnomeCmdPath,
 };
 use gtk::{
     gio::{self, prelude::*},
@@ -47,7 +48,7 @@ pub mod ffi {
         gio::ffi::{GFile, GFileInfo},
         glib::ffi::{gboolean, GError, GType},
     };
-    use std::ffi::c_char;
+    use std::ffi::{c_char, c_void};
 
     #[repr(C)]
     pub struct GnomeCmdFile {
@@ -70,7 +71,9 @@ pub mod ffi {
         ) -> *mut GnomeCmdFile;
 
         pub fn gnome_cmd_file_get_real_path(f: *const GnomeCmdFile) -> *mut c_char;
-        pub fn gnome_cmd_file_get_path_through_parent(f: *const GnomeCmdFile) -> *mut c_char;
+        pub fn gnome_cmd_file_get_path_through_parent(f: *const GnomeCmdFile) -> *mut c_void;
+        pub fn gnome_cmd_file_get_path_string_through_parent(f: *const GnomeCmdFile)
+            -> *mut c_char;
 
         pub fn gnome_cmd_file_get_uri_str(f: *const GnomeCmdFile) -> *mut c_char;
         pub fn gnome_cmd_file_is_local(f: *const GnomeCmdFile) -> gboolean;
@@ -165,9 +168,17 @@ impl File {
         unsafe { from_glib_full(ffi::gnome_cmd_file_get_real_path(self.to_glib_none().0)) }
     }
 
-    pub fn get_path_through_parent(&self) -> PathBuf {
+    pub fn get_path_through_parent(&self) -> GnomeCmdPath {
         unsafe {
-            from_glib_full(ffi::gnome_cmd_file_get_path_through_parent(
+            GnomeCmdPath::from_raw(ffi::gnome_cmd_file_get_path_through_parent(
+                self.to_glib_none().0,
+            ))
+        }
+    }
+
+    pub fn get_path_string_through_parent(&self) -> PathBuf {
+        unsafe {
+            from_glib_full(ffi::gnome_cmd_file_get_path_string_through_parent(
                 self.to_glib_none().0,
             ))
         }

@@ -38,3 +38,7 @@ struct GnomeCmdPath
 };
 
 extern "C" const gchar *gnome_cmd_path_get_path(GnomeCmdPath *p);
+extern "C" GnomeCmdPath *gnome_cmd_path_get_child(GnomeCmdPath *p, const gchar *child);
+extern "C" GnomeCmdPath *gnome_cmd_path_clone(GnomeCmdPath *p);
+
+extern "C" void gnome_cmd_path_free(GnomeCmdPath *p);

@@ -70,6 +70,10 @@ pub mod ffi {
             fs: *mut GnomeCmdFileSelector,
         ) -> *mut GnomeCmdDir;
 
+        pub fn gnome_cmd_file_selector_get_connection(
+            fs: *mut GnomeCmdFileSelector,
+        ) -> *mut GnomeCmdCon;
+
         pub fn gnome_cmd_file_selector_set_connection(
             fs: *mut GnomeCmdFileSelector,
             con: *mut GnomeCmdCon,
@@ -131,6 +135,14 @@ impl FileSelector {
     pub fn directory(&self) -> Option<Directory> {
         unsafe {
             from_glib_none(ffi::gnome_cmd_file_selector_get_directory(
+                self.to_glib_none().0,
+            ))
+        }
+    }
+
+    pub fn connection(&self) -> Option<Connection> {
+        unsafe {
+            from_glib_none(ffi::gnome_cmd_file_selector_get_connection(
                 self.to_glib_none().0,
             ))
         }

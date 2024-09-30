@@ -1498,6 +1498,11 @@ GnomeCmdDir *gnome_cmd_file_selector_get_directory(GnomeCmdFileSelector *fs)
     return fs->list->cwd;
 }
 
+GnomeCmdCon *gnome_cmd_file_selector_get_connection (GnomeCmdFileSelector *fs)
+{
+    return fs->get_connection();
+}
+
 void gnome_cmd_file_selector_set_connection(GnomeCmdFileSelector *fs, GnomeCmdCon *con, GnomeCmdDir *start_dir)
 {
     fs->set_connection(con, start_dir);

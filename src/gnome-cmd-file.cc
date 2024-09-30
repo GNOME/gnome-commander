@@ -480,7 +480,13 @@ gchar *GnomeCmdFile::get_quoted_real_path()
 }
 
 
-gchar *gnome_cmd_file_get_path_through_parent (GnomeCmdFile *f)
+GnomeCmdPath *gnome_cmd_file_get_path_through_parent (GnomeCmdFile *f)
+{
+    return f->GetPathThroughParent();
+}
+
+
+gchar *gnome_cmd_file_get_path_string_through_parent (GnomeCmdFile *f)
 {
     return f->GetPathStringThroughParent();
 }

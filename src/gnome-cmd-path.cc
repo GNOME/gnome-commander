@@ -24,3 +24,18 @@ const gchar *gnome_cmd_path_get_path(GnomeCmdPath *p)
 {
     return p->get_path();
 }
+
+GnomeCmdPath *gnome_cmd_path_get_child(GnomeCmdPath *p, const gchar *child)
+{
+    return p->get_child(child);
+}
+
+GnomeCmdPath *gnome_cmd_path_clone(GnomeCmdPath *p)
+{
+    return p->clone();
+}
+
+void gnome_cmd_path_free(GnomeCmdPath *p)
+{
+    delete p;
+}

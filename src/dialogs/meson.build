@@ -9,9 +9,6 @@ dialogs_headers = files(
   'gnome-cmd-key-shortcuts-dialog.h',
   'gnome-cmd-options-dialog.h',
   'gnome-cmd-patternsel-dialog.h',
-  'gnome-cmd-prepare-copy-dialog.h',
-  'gnome-cmd-prepare-move-dialog.h',
-  'gnome-cmd-prepare-xfer-dialog.h',
   'gnome-cmd-rename-dialog.h',
   'gnome-cmd-search-dialog.h',
 )
@@ -26,9 +23,6 @@ dialogs_sources = files(
   'gnome-cmd-key-shortcuts-dialog.cc',
   'gnome-cmd-options-dialog.cc',
   'gnome-cmd-patternsel-dialog.cc',
-  'gnome-cmd-prepare-copy-dialog.cc',
-  'gnome-cmd-prepare-move-dialog.cc',
-  'gnome-cmd-prepare-xfer-dialog.cc',
   'gnome-cmd-rename-dialog.cc',
   'gnome-cmd-search-dialog.cc',
 )

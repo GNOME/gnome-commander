@@ -743,3 +743,9 @@ void gnome_cmd_con_set_alias (GnomeCmdCon *con, const gchar *alias)
     g_free (con->alias);
     con->alias = g_strdup (alias);
 }
+
+gboolean gnome_cmd_con_is_local (GnomeCmdCon *con)
+{
+    g_return_val_if_fail (GNOME_CMD_IS_CON (con), FALSE);
+    return con->is_local;
+}

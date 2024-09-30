@@ -104,7 +104,7 @@ pub async fn gnome_cmd_copy_gfiles(
     parent_window: gtk::Window,
     src_uri_list: glib::List<gio::File>,
     to: Directory,
-    dest_fn: String,
+    dest_fn: Option<String>,
     copy_flags: gio::FileCopyFlags,
     overwrite_mode: GnomeCmdConfirmOverwriteMode,
 ) -> bool {
@@ -118,7 +118,7 @@ pub async fn gnome_cmd_copy_gfiles(
             parent_window.to_glib_none().0,
             src_uri_list.into_raw(),
             to.to_glib_none().0,
-            dest_fn.to_glib_none().0,
+            dest_fn.to_glib_full(),
             copy_flags.into_glib(),
             overwrite_mode,
             transmute(send as *const ()),
@@ -129,66 +129,62 @@ pub async fn gnome_cmd_copy_gfiles(
     result
 }
 
-pub fn gnome_cmd_move_gfiles_start<F: Fn(bool) + 'static>(
-    parent_window: &gtk::Window,
-    src_uri_list: &glib::List<gio::File>,
-    to: &Directory,
-    dest_fn: &str,
+pub async fn gnome_cmd_move_gfiles(
+    parent_window: gtk::Window,
+    src_uri_list: glib::List<gio::File>,
+    to: Directory,
+    dest_fn: Option<String>,
     copy_flags: gio::FileCopyFlags,
     overwrite_mode: GnomeCmdConfirmOverwriteMode,
-    on_completed_func: F,
-) {
-    unsafe extern "C" fn trampoline<F: Fn(bool) + 'static>(
-        succeess: glib::ffi::gboolean,
-        user_data: glib::ffi::gpointer,
-    ) {
-        let f = Box::<F>::from_raw(user_data as *mut F);
-        f(succeess != 0)
+) -> bool {
+    let (sender, receiver) = async_channel::bounded::<bool>(1);
+    unsafe extern "C" fn send(succeess: glib::ffi::gboolean, user_data: glib::ffi::gpointer) {
+        let sender = Box::<Sender<bool>>::from_raw(user_data as *mut Sender<bool>);
+        let _ = sender.send_blocking(succeess != 0);
     }
     unsafe {
-        let f: Box<F> = Box::new(on_completed_func);
         ffi::gnome_cmd_move_gfiles_start(
             parent_window.to_glib_none().0,
-            src_uri_list.to_glib_none().0,
+            src_uri_list.into_raw(),
             to.to_glib_none().0,
-            dest_fn.to_glib_none().0,
+            dest_fn.to_glib_full(),
             copy_flags.into_glib(),
             overwrite_mode,
-            transmute(trampoline::<F> as *const ()),
-            Box::into_raw(f) as *mut _,
+            transmute(send as *const ()),
+            Box::into_raw(Box::new(sender)) as *mut _,
         )
     }
+    let result = receiver.recv().await.unwrap_or_default();
+    result
 }
 
-pub fn gnome_cmd_link_gfiles_start<F: Fn(bool) + 'static>(
-    parent_window: &gtk::Window,
-    src_uri_list: &glib::List<gio::File>,
-    to: &Directory,
-    dest_fn: &str,
+pub async fn gnome_cmd_link_gfiles(
+    parent_window: gtk::Window,
+    src_uri_list: glib::List<gio::File>,
+    to: Directory,
+    dest_fn: Option<String>,
     copy_flags: gio::FileCopyFlags,
     overwrite_mode: GnomeCmdConfirmOverwriteMode,
-    on_completed_func: F,
-) {
-    unsafe extern "C" fn trampoline<F: Fn(bool) + 'static>(
-        succeess: glib::ffi::gboolean,
-        user_data: glib::ffi::gpointer,
-    ) {
-        let f = Box::<F>::from_raw(user_data as *mut F);
-        f(succeess != 0)
+) -> bool {
+    let (sender, receiver) = async_channel::bounded::<bool>(1);
+    unsafe extern "C" fn send(succeess: glib::ffi::gboolean, user_data: glib::ffi::gpointer) {
+        let sender = Box::<Sender<bool>>::from_raw(user_data as *mut Sender<bool>);
+        let _ = sender.send_blocking(succeess != 0);
     }
     unsafe {
-        let f: Box<F> = Box::new(on_completed_func);
         ffi::gnome_cmd_link_gfiles_start(
             parent_window.to_glib_none().0,
-            src_uri_list.to_glib_none().0,
+            src_uri_list.into_raw(),
             to.to_glib_none().0,
-            dest_fn.to_glib_none().0,
+            dest_fn.to_glib_full(),
             copy_flags.into_glib(),
             overwrite_mode,
-            transmute(trampoline::<F> as *const ()),
-            Box::into_raw(f) as *mut _,
+            transmute(send as *const ()),
+            Box::into_raw(Box::new(sender)) as *mut _,
         )
     }
+    let result = receiver.recv().await.unwrap_or_default();
+    result
 }
 
 pub async fn gnome_cmd_tmp_download(

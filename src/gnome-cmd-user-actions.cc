@@ -44,8 +44,6 @@
 #include "dialogs/gnome-cmd-mkdir-dialog.h"
 #include "dialogs/gnome-cmd-search-dialog.h"
 #include "dialogs/gnome-cmd-options-dialog.h"
-#include "dialogs/gnome-cmd-prepare-copy-dialog.h"
-#include "dialogs/gnome-cmd-prepare-move-dialog.h"
 
 using namespace std;
 
@@ -780,6 +778,8 @@ static void view_refresh_0 (GnomeCmdMainWin *main_win);
 
 
 /************** File Menu **************/
+extern "C" void gnome_cmd_prepare_copy_dialog_show (GnomeCmdMainWin *main_win, GnomeCmdFileSelector *from, GnomeCmdFileSelector *to);
+
 void file_copy (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
     auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
@@ -788,12 +788,11 @@ void file_copy (GSimpleAction *action, GVariant *parameter, gpointer user_data)
     GnomeCmdFileSelector *dest_fs = main_win->fs (INACTIVE);
 
     if (src_fs && dest_fs)
-        gnome_cmd_prepare_copy_dialog_show (src_fs, dest_fs);
+        gnome_cmd_prepare_copy_dialog_show (main_win, src_fs, dest_fs);
 }
 
 
 extern "C" void gnome_cmd_make_copy_dialog_run_r (GnomeCmdFile *f, GnomeCmdDir *dir, GnomeCmdMainWin *main_win);
-
 
 void file_copy_as (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
@@ -807,6 +806,8 @@ void file_copy_as (GSimpleAction *action, GVariant *parameter, gpointer user_dat
 }
 
 
+extern "C" void gnome_cmd_prepare_move_dialog_show (GnomeCmdMainWin *main_win, GnomeCmdFileSelector *from, GnomeCmdFileSelector *to);
+
 void file_move (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
     auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
@@ -815,7 +816,7 @@ void file_move (GSimpleAction *action, GVariant *parameter, gpointer user_data)
     GnomeCmdFileSelector *dest_fs = main_win->fs (INACTIVE);
 
     if (src_fs && dest_fs)
-        gnome_cmd_prepare_move_dialog_show (src_fs, dest_fs);
+        gnome_cmd_prepare_move_dialog_show (main_win, src_fs, dest_fs);
 }
 
 

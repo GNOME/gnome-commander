@@ -105,7 +105,7 @@ extern "C" GList *gnome_cmd_dir_get_files (GnomeCmdDir *dir);
 extern "C" void gnome_cmd_dir_relist_files (GtkWindow *parent_window, GnomeCmdDir *dir, gboolean visprog);
 extern "C" void gnome_cmd_dir_list_files (GtkWindow *parent_window, GnomeCmdDir *dir, gboolean visprog);
 
-GnomeCmdPath *gnome_cmd_dir_get_path (GnomeCmdDir *dir);
+extern "C" GnomeCmdPath *gnome_cmd_dir_get_path (GnomeCmdDir *dir);
 void gnome_cmd_dir_update_path (GnomeCmdDir *dir);
 extern "C" gchar *gnome_cmd_dir_get_display_path (GnomeCmdDir *dir);
 
