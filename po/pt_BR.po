@@ -21,8 +21,8 @@ msgstr ""
 "Project-Id-Version: gnome-commander\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-commander/"
 "issues/\n"
-"POT-Creation-Date: 2024-09-28 10:13+0000\n"
-"PO-Revision-Date: 2024-09-25 11:47-0300\n"
+"POT-Creation-Date: 2024-09-28 18:10+0000\n"
+"PO-Revision-Date: 2024-09-30 12:52-0300\n"
 "Last-Translator: Juliano de Souza Camargo <julianosc@pm.me>\n"
 "Language-Team: Brazilian Portuguese <https://br.gnome.org/traducao>\n"
 "Language: pt_BR\n"
@@ -1842,10 +1842,8 @@ msgid "Symbolic link name:"
 msgstr "Nome da ligação simbólica:"
 
 #: src/dialogs/create_symlink_dialog.rs:97
-#, fuzzy
-#| msgid "No file name entered"
 msgid "No file name given"
-msgstr "Nenhum nome de arquivo digitado"
+msgstr "Nenhum nome de arquivo dado"
 
 #: src/dialogs/delete_dialog.rs:107
 msgid "Deleting…"
@@ -1904,10 +1902,8 @@ msgid "Retry"
 msgstr "Repetir"
 
 #: src/dialogs/delete_dialog.rs:398
-#, fuzzy
-#| msgid "Delete files"
 msgid "Deletion failed"
-msgstr "Apagar arquivos"
+msgstr "Excluir falhou"
 
 #: src/dialogs/delete_dialog.rs:519
 #, c-format
