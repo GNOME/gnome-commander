@@ -3374,3 +3374,8 @@ gboolean gnome_cmd_file_list_is_locked (GnomeCmdFileList *fl)
 {
     return fl->locked;
 }
+
+void gnome_cmd_file_list_reload (GnomeCmdFileList *fl)
+{
+    fl->reload();
+}

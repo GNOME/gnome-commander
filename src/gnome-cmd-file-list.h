@@ -313,3 +313,5 @@ extern "C" GList *gnome_cmd_file_list_get_selected_files (GnomeCmdFileList *fl);
 extern "C" GnomeCmdFile *gnome_cmd_file_list_get_focused_file(GnomeCmdFileList *fl);
 
 extern "C" gboolean gnome_cmd_file_list_is_locked (GnomeCmdFileList *fl);
+
+extern "C" void gnome_cmd_file_list_reload (GnomeCmdFileList *fl);

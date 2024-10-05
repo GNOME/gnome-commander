@@ -37,8 +37,6 @@
 #include "cap.h"
 #include "utils.h"
 #include "dialogs/gnome-cmd-advrename-dialog.h"
-#include "dialogs/gnome-cmd-chmod-dialog.h"
-#include "dialogs/gnome-cmd-chown-dialog.h"
 #include "dialogs/gnome-cmd-key-shortcuts-dialog.h"
 #include "dialogs/gnome-cmd-manage-bookmarks-dialog.h"
 #include "dialogs/gnome-cmd-mkdir-dialog.h"
@@ -935,43 +933,8 @@ void file_quick_search (GSimpleAction *action, GVariant *parameter, gpointer use
 }
 
 
-void file_chmod (GSimpleAction *action, GVariant *parameter, gpointer user_data)
-{
-    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
-
-    GList *files = get_fl (main_win, ACTIVE)->get_selected_files();
-
-    if (files)
-    {
-        GtkWidget *dialog = gnome_cmd_chmod_dialog_new (files);
-
-        g_signal_connect_swapped (dialog, "mode-changed", G_CALLBACK (view_refresh_0), main_win);
-
-        g_object_ref (dialog);
-        gtk_widget_show (dialog);
-        g_list_free (files);
-    }
-}
-
-
-void file_chown (GSimpleAction *action, GVariant *parameter, gpointer user_data)
-{
-    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
-
-    GList *files = get_fl (main_win, ACTIVE)->get_selected_files();
-
-    if (files)
-    {
-        GtkWidget *dialog = gnome_cmd_chown_dialog_new (files);
-
-        g_signal_connect_swapped (dialog, "owner-changed", G_CALLBACK (view_refresh_0), main_win);
-
-        g_object_ref (dialog);
-        gtk_widget_show (dialog);
-        g_list_free (files);
-    }
-}
-
+extern "C" void file_chmod (GSimpleAction *action, GVariant *parameter, gpointer user_data);
+extern "C" void file_chown (GSimpleAction *action, GVariant *parameter, gpointer user_data);
 
 void file_mkdir (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {

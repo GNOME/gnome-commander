@@ -227,6 +227,14 @@ impl ErrorMessage {
             secondary_text: Some(error.to_string()),
         }
     }
+
+    pub async fn show(&self, parent: &gtk::Window) {
+        let dlg = create_error_dialog(parent, &self.message);
+        dlg.set_secondary_text(self.secondary_text.as_deref());
+        dlg.present();
+        dlg.run_future().await;
+        dlg.close();
+    }
 }
 
 pub fn show_error_message(parent: &gtk::Window, message: &ErrorMessage) {

@@ -22,7 +22,10 @@
 
 use crate::{
     data::{GeneralOptions, GeneralOptionsRead, ProgramsOptions, ProgramsOptionsRead},
-    dialogs::create_symlink_dialog::show_create_symlink_dialog,
+    dialogs::{
+        chmod_dialog::show_chmod_dialog, chown_dialog::show_chown_dialog,
+        create_symlink_dialog::show_create_symlink_dialog,
+    },
     dir::Directory,
     file::File,
     libgcmd::file_base::{FileBase, FileBaseExt},
@@ -42,6 +45,48 @@ use gtk::{
     prelude::*,
 };
 use std::{collections::HashSet, ffi::OsString, path::PathBuf};
+
+#[no_mangle]
+pub extern "C" fn file_chmod(
+    _action: *const GSimpleAction,
+    _parameter: *const GVariant,
+    main_win_ptr: *mut GnomeCmdMainWin,
+) {
+    let main_win = unsafe { MainWindow::from_glib_none(main_win_ptr) };
+
+    let file_selector = main_win.file_selector(FileSelectorID::ACTIVE);
+    let file_list = file_selector.file_list();
+
+    let files = file_list.selected_files();
+    if !files.is_empty() {
+        glib::spawn_future_local(async move {
+            if show_chmod_dialog(main_win.upcast_ref(), &files).await {
+                file_list.reload();
+            }
+        });
+    }
+}
+
+#[no_mangle]
+pub extern "C" fn file_chown(
+    _action: *const GSimpleAction,
+    _parameter: *const GVariant,
+    main_win_ptr: *mut GnomeCmdMainWin,
+) {
+    let main_win = unsafe { MainWindow::from_glib_none(main_win_ptr) };
+
+    let file_selector = main_win.file_selector(FileSelectorID::ACTIVE);
+    let file_list = file_selector.file_list();
+
+    let files = file_list.selected_files();
+    if !files.is_empty() {
+        glib::spawn_future_local(async move {
+            if show_chown_dialog(main_win.upcast_ref(), &files).await {
+                file_list.reload();
+            }
+        });
+    }
+}
 
 fn symlink_name(file_name: &str, options: &dyn GeneralOptionsRead) -> String {
     let mut format = options.symlink_format();

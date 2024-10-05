@@ -1097,6 +1097,11 @@ void gnome_cmd_file_execute(GnomeCmdFile *f)
     f->execute();
 }
 
+gboolean gnome_cmd_file_chown(GnomeCmdFile *f, uid_t uid, gid_t gid, GError **error)
+{
+    return f->chown(uid, gid, error);
+}
+
 gboolean gnome_cmd_file_chmod(GnomeCmdFile *f, guint32 permissions, GError **error)
 {
     return f->chmod(permissions, error);

@@ -43,9 +43,9 @@ struct GnomeCmdChownComponentClass
 };
 
 
-GtkWidget *gnome_cmd_chown_component_new ();
-GType gnome_cmd_chown_component_get_type ();
+extern "C" GtkWidget *gnome_cmd_chown_component_new ();
+extern "C" GType gnome_cmd_chown_component_get_type ();
 
-void gnome_cmd_chown_component_set (GnomeCmdChownComponent *comp, uid_t owner, gid_t group);
-uid_t gnome_cmd_chown_component_get_owner (GnomeCmdChownComponent *component);
-gid_t gnome_cmd_chown_component_get_group (GnomeCmdChownComponent *component);
+extern "C" void gnome_cmd_chown_component_set (GnomeCmdChownComponent *comp, uid_t owner, gid_t group);
+extern "C" uid_t gnome_cmd_chown_component_get_owner (GnomeCmdChownComponent *component);
+extern "C" gid_t gnome_cmd_chown_component_get_group (GnomeCmdChownComponent *component);
