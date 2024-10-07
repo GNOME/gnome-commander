@@ -173,13 +173,14 @@ pub extern "C" fn file_create_symlink(
         let selected_files_len = selected_files.len();
 
         if selected_files_len > 1 {
-            let message = ngettext!(
-                "Create symbolic links of {} file in {}?",
-                "Create symbolic links of {} files in {}?",
+            let message = ngettext(
+                "Create symbolic links of {count} file in {dir}?",
+                "Create symbolic links of {count} files in {dir}?",
                 selected_files_len as u32,
-                selected_files_len,
-                dest_directory.display_path()
-            );
+            )
+            .replace("{count}", &selected_files_len.to_string())
+            .replace("{dir}", &dest_directory.display_path());
+
             let choice = run_simple_dialog(
                 main_win.upcast_ref(),
                 true,

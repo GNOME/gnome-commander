@@ -60,7 +60,7 @@ pub async fn make_copy_dialog(f: &File, dir: &Directory, main_win: &MainWindow) 
     let initial_value = f.file_info().display_name();
 
     let label = gtk::Label::builder()
-        .label(gettext!("Copy “{}” to", initial_value))
+        .label(gettext("Copy “{}” to").replace("{}", &initial_value))
         .halign(gtk::Align::Start)
         .valign(gtk::Align::Center)
         .build();

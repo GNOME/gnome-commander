@@ -46,10 +46,10 @@ async fn ask_download_remote_files(
     no_of_remote_files: u32,
 ) -> bool {
     if no_of_remote_files > 0 {
-        let msg = ngettext!(
+        let msg = ngettext(
             "{} does not know how to open remote file. Do you want to download the file to a temporary location and then open it?",
-            "{} does not know how to open remote files. Do you want to download the files to a temporary location and then open them?", no_of_remote_files,
-            app_name);
+            "{} does not know how to open remote files. Do you want to download the files to a temporary location and then open them?", no_of_remote_files)
+            .replace("{}", app_name);
         run_simple_dialog(
             parent_window,
             true,

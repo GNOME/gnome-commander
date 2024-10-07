@@ -99,7 +99,7 @@ async fn say_not_found(parent: &gtk::Window, search_pattern: &str) {
         .modal(true)
         .message_type(gtk::MessageType::Info)
         .buttons(gtk::ButtonsType::Ok)
-        .text(gettext!("Pattern “{}” was not found", search_pattern))
+        .text(gettext("Pattern “{}” was not found").replace("{}", search_pattern))
         .build();
     dlg.run_future().await;
     dlg.close();

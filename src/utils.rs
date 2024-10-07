@@ -65,7 +65,8 @@ pub fn temp_file(f: &File) -> Result<File, ErrorMessage> {
     let path = temp_file.into_temp_path();
     File::new_from_path(&path).map_err(|error| {
         ErrorMessage::with_error(
-            gettext!("Cannot create a file for a path {}.", path.display()),
+            gettext("Cannot create a file for a path {}.")
+                .replace("{}", &path.display().to_string()),
             &error,
         )
     })
@@ -365,42 +366,22 @@ pub fn size_to_string(size: u64, mode: SizeDisplayMode) -> String {
             const KIBI: u64 = 1024;
 
             if size >= PIBI {
-                ngettext!(
-                    "{} PiB",
-                    "{} PiB",
-                    size_u32,
-                    format!("{:.1}", size as f64 / PIBI as f64)
-                )
+                ngettext("{} PiB", "{} PiB", size_u32)
+                    .replace("{}", &format!("{:.1}", size as f64 / PIBI as f64))
             } else if size >= TIBI {
-                ngettext!(
-                    "{} TiB",
-                    "{} TiB",
-                    size_u32,
-                    format!("{:.1}", size as f64 / TIBI as f64)
-                )
+                ngettext("{} TiB", "{} TiB", size_u32)
+                    .replace("{}", &format!("{:.1}", size as f64 / TIBI as f64))
             } else if size >= GIBI {
-                ngettext!(
-                    "{} GiB",
-                    "{} GiB",
-                    size_u32,
-                    format!("{:.1}", size as f64 / GIBI as f64)
-                )
+                ngettext("{} GiB", "{} GiB", size_u32)
+                    .replace("{}", &format!("{:.1}", size as f64 / GIBI as f64))
             } else if size >= MIBI {
-                ngettext!(
-                    "{} MiB",
-                    "{} MiB",
-                    size_u32,
-                    format!("{:.1}", size as f64 / MIBI as f64)
-                )
+                ngettext("{} MiB", "{} MiB", size_u32)
+                    .replace("{}", &format!("{:.1}", size as f64 / MIBI as f64))
             } else if size >= KIBI {
-                ngettext!(
-                    "{} kiB",
-                    "{} kiB",
-                    size_u32,
-                    format!("{:.1}", size as f64 / KIBI as f64)
-                )
+                ngettext("{} kiB", "{} kiB", size_u32)
+                    .replace("{}", &format!("{:.1}", size as f64 / KIBI as f64))
             } else {
-                ngettext!("{} byte", "{} bytes", size_u32, size)
+                ngettext("{} byte", "{} bytes", size_u32).replace("{}", &size.to_string())
             }
         }
         SizeDisplayMode::Grouped => {
@@ -411,10 +392,12 @@ pub fn size_to_string(size: u64, mode: SizeDisplayMode) -> String {
                 i -= 3;
             }
             let value: String = digits.into_iter().collect();
-            ngettext!("{} byte", "{} bytes", size_u32, value)
+            ngettext("{} byte", "{} bytes", size_u32).replace("{}", &value.to_string())
         }
         SizeDisplayMode::Locale => size.to_string(), // TODO
-        SizeDisplayMode::Plain => ngettext!("{} byte", "{} bytes", size_u32, size),
+        SizeDisplayMode::Plain => {
+            ngettext("{} byte", "{} bytes", size_u32).replace("{}", &size.to_string())
+        }
     }
 }
 

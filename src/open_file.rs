@@ -40,7 +40,8 @@ use gtk::{
 };
 
 async fn ask_make_executable(parent_window: &gtk::Window, file: &File) -> bool {
-    let msg = gettext!("“{}” seems to be a binary executable file but it lacks the executable bit. Do you want to set it and then run the file?", &file.get_name());
+    let msg = gettext("“{}” seems to be a binary executable file but it lacks the executable bit. Do you want to set it and then run the file?")
+        .replace("{}", &file.get_name());
     let ret = run_simple_dialog(
         parent_window,
         false,
@@ -61,10 +62,9 @@ enum OpenText {
 }
 
 async fn ask_open_text(parent_window: &gtk::Window, file: &File) -> OpenText {
-    let msg = gettext!(
-        "“{}” is an executable text file. Do you want to run it, or display its contents?",
-        file.get_name()
-    );
+    let msg =
+        gettext("“{}” is an executable text file. Do you want to run it, or display its contents?")
+            .replace("{}", &file.get_name());
     let ret = run_simple_dialog(
         parent_window,
         false,
@@ -86,7 +86,8 @@ async fn ask_open_text(parent_window: &gtk::Window, file: &File) -> OpenText {
 }
 
 async fn ask_download_tmp(parent_window: &gtk::Window, app: &App) -> bool {
-    let msg = gettext!("{} does not know how to open remote file. Do you want to download the file to a temporary location and then open it?", app.name());
+    let msg = gettext("{} does not know how to open remote file. Do you want to download the file to a temporary location and then open it?")
+        .replace("{}", &app.name());
     let dialog = gtk::MessageDialog::builder()
         .transient_for(parent_window)
         .modal(true)
@@ -151,10 +152,8 @@ async fn mime_exec_single(
 
     let Some(app_info) = file.app_info_for_content_type() else {
         return Err(ErrorMessage {
-            message: gettext!(
-                "No default application found for the file type {}.",
-                content_type.as_deref().unwrap_or("Unknown")
-            ),
+            message: gettext("No default application found for the file type {}.")
+                .replace("{}", content_type.as_deref().unwrap_or("Unknown")),
             secondary_text: Some(gettext(
                 "Open the \"Applications\" page in the Control Center to add one.",
             )),
@@ -169,7 +168,7 @@ async fn mime_exec_single(
         app_info.launch(&[file.file()], gio::AppLaunchContext::NONE)
     } else if app.handles_uris() && options.dont_download() {
         let uri = file.get_uri_str().ok_or_else(|| ErrorMessage {
-            message: gettext!("A file {} has no URI", file.get_name()),
+            message: gettext("A file {} has no URI").replace("{}", &file.get_name()),
             secondary_text: None,
         })?;
         app_info.launch_uris(&[&uri], gio::AppLaunchContext::NONE)
@@ -194,7 +193,10 @@ async fn mime_exec_single(
         app_info.launch(&[tmp_file.file()], gio::AppLaunchContext::NONE)
     }
     .map_err(|error| {
-        ErrorMessage::with_error(gettext!("Launch of {} failed.", app.name()), &error)
+        ErrorMessage::with_error(
+            gettext("Launch of {} failed.").replace("{}", &app.name()),
+            &error,
+        )
     })?;
 
     Ok(())

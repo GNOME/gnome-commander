@@ -212,11 +212,12 @@ fn path_points_at_directory(to: &FileSelector, dest_path: &Path) -> bool {
 }
 
 async fn ask_create_directory(parent_window: &gtk::Window, path: &Path) -> bool {
-    let msg = gettext!(
-        "The directory “{}” doesn’t exist, do you want to create it?",
-        path.file_name()
+    let msg = gettext("The directory “{}” doesn’t exist, do you want to create it?").replace(
+        "{}",
+        &path
+            .file_name()
             .unwrap_or(path.as_os_str())
-            .to_string_lossy()
+            .to_string_lossy(),
     );
     let answer = run_simple_dialog(
         parent_window,
@@ -447,7 +448,8 @@ pub async fn handle_user_input(
                     if let Err(error) = con.mkdir(parent_dir) {
                         show_error_message_future(
                             parent_window,
-                            &gettext!("Directory {} cannot be created.", parent_dir.display()),
+                            &gettext("Directory {} cannot be created.")
+                                .replace("{}", &parent_dir.display().to_string()),
                             Some(&error.message()),
                         )
                         .await;

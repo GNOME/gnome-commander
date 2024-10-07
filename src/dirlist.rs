@@ -120,12 +120,10 @@ pub async fn list_directory(
         }
 
         if let Some(ref dlg) = dialog {
-            dlg.label.set_text(&ngettext!(
-                "{} file listed",
-                "{} files listed",
-                files.len() as u32,
-                files.len()
-            ));
+            dlg.label.set_text(
+                &ngettext("{} file listed", "{} files listed", files.len() as u32)
+                    .replace("{}", &files.len().to_string()),
+            );
             dlg.progress_bar.pulse();
             if !dlg.dialog.is_visible() {
                 // cancelled

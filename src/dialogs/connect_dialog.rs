@@ -439,7 +439,7 @@ mod imp {
                 ConnectionMethodID::CON_URI => {
                     let uri = self.uri_entry.text();
                     glib::Uri::parse(&uri, glib::UriFlags::NONE).map_err(|_| ErrorMessage {
-                        message: gettext!("“{}” is not a valid location", uri),
+                        message: gettext("“{}” is not a valid location").replace("{}", &uri),
                         secondary_text: Some(gettext("Please check spelling and try again.")),
                     })
                 }

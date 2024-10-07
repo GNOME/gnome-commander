@@ -39,9 +39,12 @@ async fn chmod_recursively(
     recursive: Option<ChmodRecursiveMode>,
 ) {
     if let Err(error) = file.chmod(permissions) {
-        ErrorMessage::with_error(gettext!("Could not chmod {}", file.get_name()), &error)
-            .show(&parent_window)
-            .await;
+        ErrorMessage::with_error(
+            gettext("Could not chmod {}").replace("{}", &file.get_name()),
+            &error,
+        )
+        .show(&parent_window)
+        .await;
         return;
     }
 

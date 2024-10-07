@@ -34,9 +34,12 @@ async fn chown_recursively(
     recurse: bool,
 ) {
     if let Err(error) = file.chown(uid, gid) {
-        ErrorMessage::with_error(gettext!("Could not chown {}", file.get_name()), &error)
-            .show(&parent_window)
-            .await;
+        ErrorMessage::with_error(
+            gettext("Could not chown {}").replace("{}", &file.get_name()),
+            &error,
+        )
+        .show(&parent_window)
+        .await;
     }
 
     if !recurse {
