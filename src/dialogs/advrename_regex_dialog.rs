@@ -137,9 +137,11 @@ pub async fn show_advrename_regex_dialog(
         .hexpand(true)
         .halign(gtk::Align::End)
         .build();
-    cancel_btn.connect_clicked(
-        glib::clone!(@weak dialog => move |_| dialog.response(gtk::ResponseType::Cancel)),
-    );
+    cancel_btn.connect_clicked(glib::clone!(
+        #[weak]
+        dialog,
+        move |_| dialog.response(gtk::ResponseType::Cancel)
+    ));
     buttonbox.append(&cancel_btn);
     buttonbox_size_group.add_widget(&cancel_btn);
 
@@ -147,9 +149,11 @@ pub async fn show_advrename_regex_dialog(
         .label(gettext("_OK"))
         .use_underline(true)
         .build();
-    ok_btn.connect_clicked(
-        glib::clone!(@weak dialog => move |_| dialog.response(gtk::ResponseType::Ok)),
-    );
+    ok_btn.connect_clicked(glib::clone!(
+        #[weak]
+        dialog,
+        move |_| dialog.response(gtk::ResponseType::Ok)
+    ));
     buttonbox.append(&ok_btn);
     buttonbox_size_group.add_widget(&ok_btn);
 

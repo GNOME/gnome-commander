@@ -115,14 +115,24 @@ async fn start_search(
 
     let (sender, receiver) = async_channel::bounded::<SearchProgress>(1);
 
-    let thread = std::thread::spawn(glib::clone!(@strong searcher => move || {
-        let sender1 = sender.clone();
-        let found = searcher.search(forward, move |p| sender1.send_blocking(SearchProgress::Progress(p)).unwrap());
-        sender.send_blocking(SearchProgress::Done(found)).unwrap();
-    }));
+    let thread = std::thread::spawn(glib::clone!(
+        #[strong]
+        searcher,
+        move || {
+            let sender1 = sender.clone();
+            let found = searcher.search(forward, move |p| {
+                sender1.send_blocking(SearchProgress::Progress(p)).unwrap()
+            });
+            sender.send_blocking(SearchProgress::Done(found)).unwrap();
+        }
+    ));
 
     let progress_dlg = SearchProgressDialog::new(window.upcast_ref(), search_pattern);
-    progress_dlg.connect_stop(glib::clone!(@weak searcher => move || searcher.abort()));
+    progress_dlg.connect_stop(glib::clone!(
+        #[weak]
+        searcher,
+        move || searcher.abort()
+    ));
 
     progress_dlg.present();
     let found = loop {
@@ -167,7 +177,7 @@ pub extern "C" fn start_search_r(
     let search_pattern: String = unsafe { from_glib_none(search_pattern_ptr) };
     let forward: bool = forward != 0;
 
-    glib::MainContext::default().spawn_local(async move {
+    glib::spawn_future_local(async move {
         start_search(&window, &search_pattern, search_pattern_len, forward).await
     });
 }

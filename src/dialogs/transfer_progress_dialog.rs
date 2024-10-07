@@ -93,11 +93,15 @@ mod imp {
 
             win.set_default_widget(Some(&button));
 
-            button.connect_clicked(glib::clone!(@weak win => move |_| {
-                win.set_action(&gettext("stopping…"));
-                win.set_sensitive(false);
-                win.imp().cancellable.cancel();
-            }));
+            button.connect_clicked(glib::clone!(
+                #[weak]
+                win,
+                move |_| {
+                    win.set_action(&gettext("stopping…"));
+                    win.set_sensitive(false);
+                    win.imp().cancellable.cancel();
+                }
+            ));
         }
     }
 

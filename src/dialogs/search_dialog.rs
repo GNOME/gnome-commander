@@ -207,7 +207,7 @@ pub extern "C" fn gnome_cmd_search_dialog_do_manage_profiles(
 ) {
     let dialog: gtk::Dialog = unsafe { from_glib_none(dialog_ptr) };
 
-    glib::MainContext::default().spawn_local(async move {
+    glib::spawn_future_local(async move {
         let profiles =
             SearchProfiles(unsafe { gnome_cmd_search_config_new_profiles(cfg, new_profile) });
 

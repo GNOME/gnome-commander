@@ -34,7 +34,6 @@ use crate::{
 use gtk::{
     gio::{self, prelude::*},
     glib::{self, translate::*},
-    prelude::*,
 };
 use libc::{gid_t, uid_t};
 use std::{

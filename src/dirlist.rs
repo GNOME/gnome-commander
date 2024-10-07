@@ -70,9 +70,11 @@ fn create_list_progress_dialog(parent_window: &gtk::Window) -> ProgressDialog {
         .build();
     bbox.append(&button);
 
-    button.connect_clicked(glib::clone!(@weak dialog => move |_| {
-      dialog.close();
-    }));
+    button.connect_clicked(glib::clone!(
+        #[weak]
+        dialog,
+        move |_| dialog.close()
+    ));
 
     ProgressDialog {
         dialog,

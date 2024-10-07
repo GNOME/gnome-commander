@@ -184,7 +184,7 @@ pub extern "C" fn accel_edited_callback_r(
         mask: unsafe { gdk::ModifierType::from_glib(accel_mask) },
     };
 
-    glib::MainContext::default().spawn_local(async move {
+    glib::spawn_future_local(async move {
         accel_edited_callback(&path_string, accel, &view).await;
     });
 }

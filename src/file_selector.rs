@@ -320,7 +320,7 @@ pub extern "C" fn on_notebook_button_pressed_r(
     let notebook: gtk::Notebook = unsafe { from_glib_none(notebook) };
 
     let button = gesture.current_button();
-    glib::MainContext::default().spawn_local(async move {
+    glib::spawn_future_local(async move {
         on_notebook_button_pressed(&file_selector, &notebook, n_press, button, x, y).await;
     });
 }

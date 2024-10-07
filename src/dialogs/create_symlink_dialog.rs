@@ -89,8 +89,16 @@ pub async fn show_create_symlink_dialog(
 
     content_area.append(&button_box);
 
-    ok_button.connect_clicked(
-        glib::clone!(@weak dialog, @weak entry, @strong directory, @strong file => move |_| {
+    ok_button.connect_clicked(glib::clone!(
+        #[weak]
+        dialog,
+        #[weak]
+        entry,
+        #[strong]
+        directory,
+        #[strong]
+        file,
+        move |_| {
             let link_name = entry.text();
 
             if link_name.is_empty() {
@@ -109,33 +117,43 @@ pub async fn show_create_symlink_dialog(
 
             match symlink_ile.make_symbolic_link(absolute_path, gio::Cancellable::NONE) {
                 Ok(_) => {
-                    if symlink_ile.parent().map_or(false, |parent| parent.equal(&directory.upcast_ref::<File>().file())) {
+                    if symlink_ile.parent().map_or(false, |parent| {
+                        parent.equal(&directory.upcast_ref::<File>().file())
+                    }) {
                         directory.file_created(&symlink_ile.uri());
                     }
                     dialog.response(gtk::ResponseType::Ok);
-                },
+                }
                 Err(error) => {
                     show_message(dialog.upcast_ref(), error.message(), None);
                 }
             }
-        }),
-    );
+        }
+    ));
 
-    cancel_button.connect_clicked(glib::clone!(@weak dialog => move |_| {
-        dialog.response(gtk::ResponseType::Cancel);
-    }));
+    cancel_button.connect_clicked(glib::clone!(
+        #[weak]
+        dialog,
+        move |_| {
+            dialog.response(gtk::ResponseType::Cancel);
+        }
+    ));
 
     let key_controller = gtk::EventControllerKey::new();
-    key_controller.connect_key_pressed(
-        glib::clone!(@weak dialog => @default-return glib::Propagation::Proceed, move |_, key, _, _| {
+    key_controller.connect_key_pressed(glib::clone!(
+        #[weak]
+        dialog,
+        #[upgrade_or]
+        glib::Propagation::Proceed,
+        move |_, key, _, _| {
             if key == gdk::Key::Escape {
                 dialog.response(gtk::ResponseType::Cancel);
                 glib::Propagation::Stop
             } else {
                 glib::Propagation::Proceed
             }
-        }),
-    );
+        }
+    ));
     dialog.add_controller(key_controller);
 
     dialog.present();

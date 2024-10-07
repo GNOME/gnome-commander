@@ -88,38 +88,57 @@ pub async fn show_open_with_other_dialog(
 
     content_area.append(&button_box);
 
-    cancel_button.connect_clicked(glib::clone!(@weak dialog => move |_| {
-        dialog.response(gtk::ResponseType::Cancel);
-    }));
-    ok_button.connect_clicked(glib::clone!(@weak dialog, @weak command_entry, @strong files, @strong working_directory => move |_| {
-        let command = command_entry.text();
-        let needs_terminal = needs_terminal.is_active();
-        let files = files.clone();
-        let working_directory = working_directory.clone();
-        let options = options.clone();
-        glib::spawn_future_local(async move {
-            if command.trim().is_empty() {
-                ErrorMessage::new(gettext("Invalid command"), None::<String>)
-                    .show(dialog.upcast_ref())
-                    .await;
-                return;
-            }
-
-            let mut full_command = OsString::from(&command);
-            for file in &files {
-                full_command.push(" ");
-                full_command.push(&glib::shell_quote(file.get_real_path()));
-            }
-
-            let working_directory = working_directory.as_ref().map(|w| w.upcast_ref::<File>().get_real_path());
-            match run_command_indir(working_directory.as_deref(), &full_command, needs_terminal, &*options) {
-                Ok(_) => {dialog.response(gtk::ResponseType::Ok)}
-                Err(error) => {
-                    error.into_message().show(dialog.upcast_ref()).await;
+    cancel_button.connect_clicked(glib::clone!(
+        #[weak]
+        dialog,
+        move |_| dialog.response(gtk::ResponseType::Cancel)
+    ));
+    ok_button.connect_clicked(glib::clone!(
+        #[weak]
+        dialog,
+        #[weak]
+        command_entry,
+        #[strong]
+        files,
+        #[strong]
+        working_directory,
+        move |_| {
+            let command = command_entry.text();
+            let needs_terminal = needs_terminal.is_active();
+            let files = files.clone();
+            let working_directory = working_directory.clone();
+            let options = options.clone();
+            glib::spawn_future_local(async move {
+                if command.trim().is_empty() {
+                    ErrorMessage::new(gettext("Invalid command"), None::<String>)
+                        .show(dialog.upcast_ref())
+                        .await;
+                    return;
                 }
-            }
-        });
-    }));
+
+                let mut full_command = OsString::from(&command);
+                for file in &files {
+                    full_command.push(" ");
+                    full_command.push(&glib::shell_quote(file.get_real_path()));
+                }
+
+                let working_directory = working_directory
+                    .as_ref()
+                    .map(|w| w.upcast_ref::<File>().get_real_path());
+                match run_command_indir(
+                    working_directory.as_deref(),
+                    &full_command,
+                    needs_terminal,
+                    &*options,
+                ) {
+                    Ok(_) => dialog.response(gtk::ResponseType::Ok),
+                    Err(error) => {
+                        error.into_message().show(dialog.upcast_ref()).await;
+                    }
+                }
+            });
+        }
+    ));
     close_dialog_with_escape_key(&dialog);
 
     dialog.present();

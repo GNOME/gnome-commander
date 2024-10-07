@@ -228,12 +228,18 @@ fn file_details(
         gio::FileQueryInfoFlags::NONE,
         gio::Cancellable::NONE,
     )?;
-    Ok(gettext!(
-        "<b>{}</b>\n<span color='dimgray' size='smaller'>{}, {}</span>",
-        info.display_name(),
-        nice_size(info.size() as u64, size_display_mode),
-        time_to_string(info.modification_time(), date_format).unwrap_or_default()
-    ))
+    Ok(
+        gettext("<b>{name}</b>\n<span color='dimgray' size='smaller'>{size}, {time}</span>")
+            .replace("{name}", &info.display_name())
+            .replace("{size}", &nice_size(info.size() as u64, size_display_mode))
+            .replace(
+                "{time}",
+                &info
+                    .modification_date_time()
+                    .and_then(|dt| time_to_string(dt, date_format).ok())
+                    .unwrap_or_default(),
+            ),
+    )
 }
 
 #[repr(C)]
@@ -819,7 +825,7 @@ pub extern "C" fn start_transfer_gui(
 
     let tc = Box::new(TransferControl::new(win.cancellable()));
     let tc1 = tc.clone();
-    glib::MainContext::default().spawn_local(async move {
+    glib::spawn_future_local(async move {
         win.present();
         let success = transfer_gui_loop(
             &win,

@@ -118,9 +118,13 @@ pub async fn show_chmod_dialog(parent_window: &gtk::Window, files: &glib::List<F
     recurse_combo.set_active(Some(0));
     content_area.append(&recurse_combo);
 
-    recurse_check.connect_toggled(glib::clone!(@weak recurse_combo => move |toggle| {
-        recurse_combo.set_sensitive(toggle.is_active());
-    }));
+    recurse_check.connect_toggled(glib::clone!(
+        #[weak]
+        recurse_combo,
+        move |toggle| {
+            recurse_combo.set_sensitive(toggle.is_active());
+        }
+    ));
 
     let buttonbox = gtk::Box::builder()
         .orientation(gtk::Orientation::Horizontal)
@@ -135,9 +139,11 @@ pub async fn show_chmod_dialog(parent_window: &gtk::Window, files: &glib::List<F
         .hexpand(true)
         .halign(gtk::Align::End)
         .build();
-    cancel_btn.connect_clicked(
-        glib::clone!(@weak dialog => move |_| dialog.response(gtk::ResponseType::Cancel)),
-    );
+    cancel_btn.connect_clicked(glib::clone!(
+        #[weak]
+        dialog,
+        move |_| dialog.response(gtk::ResponseType::Cancel)
+    ));
     buttonbox.append(&cancel_btn);
     buttonbox_size_group.add_widget(&cancel_btn);
 
@@ -145,9 +151,11 @@ pub async fn show_chmod_dialog(parent_window: &gtk::Window, files: &glib::List<F
         .label(gettext("_OK"))
         .use_underline(true)
         .build();
-    ok_btn.connect_clicked(
-        glib::clone!(@weak dialog => move |_| dialog.response(gtk::ResponseType::Ok)),
-    );
+    ok_btn.connect_clicked(glib::clone!(
+        #[weak]
+        dialog,
+        move |_| dialog.response(gtk::ResponseType::Ok)
+    ));
     buttonbox.append(&ok_btn);
     buttonbox_size_group.add_widget(&ok_btn);
 

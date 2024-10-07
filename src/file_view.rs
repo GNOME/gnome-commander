@@ -74,7 +74,7 @@ pub extern "C" fn gnome_cmd_file_view_internal(
     let parent_window = unsafe { gtk::Window::from_glib_none(parent_window_ptr) };
     let file = unsafe { File::from_glib_none(file_ptr) };
 
-    glib::MainContext::default().spawn_local(async move {
+    glib::spawn_future_local(async move {
         if let Err(error) = file_view_internal(&parent_window, &file).await {
             show_error_message(&parent_window, &error);
         }

@@ -125,16 +125,23 @@ mod imp {
             content_area.append(&bbox);
 
             bbox.append(&self.stop_button);
-            self.stop_button
-                .connect_clicked(glib::clone!(@weak dlg => move |_| {
+            self.stop_button.connect_clicked(glib::clone!(
+                #[weak]
+                dlg,
+                move |_| {
                     dlg.imp().cancellable.cancel();
                     dlg.response(gtk::ResponseType::Cancel);
-                }));
+                }
+            ));
 
-            dlg.connect_close(glib::clone!(@weak dlg => move |_| {
-                dlg.imp().cancellable.cancel();
-                dlg.response(gtk::ResponseType::Cancel);
-            }));
+            dlg.connect_close(glib::clone!(
+                #[weak]
+                dlg,
+                move |_| {
+                    dlg.imp().cancellable.cancel();
+                    dlg.response(gtk::ResponseType::Cancel);
+                }
+            ));
         }
     }
 
@@ -604,7 +611,7 @@ pub extern "C" fn gnome_cmd_delete_dialog_show(
     let general_options = GeneralOptions::new();
     let confirm_options = ConfirmOptions::new();
 
-    glib::MainContext::default().spawn_local(async move {
+    glib::spawn_future_local(async move {
         show_delete_dialog(
             &parent_window,
             &files,
@@ -625,7 +632,7 @@ pub extern "C" fn do_delete_files_for_move(
     let parent_window: gtk::Window = unsafe { from_glib_none(parent_window) };
     let files: glib::List<File> = unsafe { glib::List::from_glib_none(files) };
 
-    glib::MainContext::default().spawn_local(async move {
+    glib::spawn_future_local(async move {
         do_delete(
             &parent_window,
             DeleteAction::DeletePermanently,

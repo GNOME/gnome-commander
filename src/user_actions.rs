@@ -159,7 +159,7 @@ pub extern "C" fn file_create_symlink(
     let main_win = unsafe { MainWindow::from_glib_none(main_win_ptr) };
     let options = GeneralOptions::new();
 
-    glib::MainContext::default().spawn_local(async move {
+    glib::spawn_future_local(async move {
         let active_fs = main_win.file_selector(FileSelectorID::ACTIVE);
         let inactive_fs = main_win.file_selector(FileSelectorID::INACTIVE);
 
@@ -431,7 +431,7 @@ pub extern "C" fn view_close_tab(
     main_win_ptr: *mut GnomeCmdMainWin,
 ) {
     let main_win = unsafe { MainWindow::from_glib_none(main_win_ptr) };
-    glib::MainContext::default().spawn_local(async move {
+    glib::spawn_future_local(async move {
         let fs = main_win.file_selector(FileSelectorID::ACTIVE);
         if fs.tab_count() > 1 {
             if !fs.file_list().is_locked() || ask_close_locked_tab(main_win.upcast_ref()).await {

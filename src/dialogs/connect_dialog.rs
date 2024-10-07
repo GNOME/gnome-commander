@@ -183,11 +183,14 @@ mod imp {
             self.grid
                 .attach(&self.type_combo, 1, GridRow::TypeSelector as i32, 1, 1);
 
-            self.type_combo
-                .connect_changed(glib::clone!(@weak self as imp => move |_| {
+            self.type_combo.connect_changed(glib::clone!(
+                #[weak(rename_to = imp)]
+                self,
+                move |_| {
                     let method = imp.get_method();
                     imp.setup_for_type(method);
-                }));
+                }
+            ));
 
             self.attach_entry(&gettext("_Alias:"), &self.alias_entry, GridRow::Alias);
             self.attach_entry(&gettext("_Location (URI):"), &self.uri_entry, GridRow::Uri);
@@ -227,12 +230,16 @@ mod imp {
                 .hexpand(true)
                 .halign(gtk::Align::Start)
                 .build();
-            help_btn.connect_clicked(glib::clone!(@weak obj => move |_| {
-                display_help(
-                    obj.upcast_ref(),
-                    Some("gnome-commander-config-remote-connections")
-                );
-            }));
+            help_btn.connect_clicked(glib::clone!(
+                #[weak]
+                obj,
+                move |_| {
+                    display_help(
+                        obj.upcast_ref(),
+                        Some("gnome-commander-config-remote-connections"),
+                    );
+                }
+            ));
             buttonbox.append(&help_btn);
             buttonbox_size_group.add_widget(&help_btn);
 
@@ -240,9 +247,11 @@ mod imp {
                 .label(gettext("_Cancel"))
                 .use_underline(true)
                 .build();
-            cancel_btn.connect_clicked(
-                glib::clone!(@weak obj => move |_| obj.response(gtk::ResponseType::Cancel)),
-            );
+            cancel_btn.connect_clicked(glib::clone!(
+                #[weak]
+                obj,
+                move |_| obj.response(gtk::ResponseType::Cancel)
+            ));
             buttonbox.append(&cancel_btn);
             buttonbox_size_group.add_widget(&cancel_btn);
 
@@ -250,12 +259,16 @@ mod imp {
                 .label(gettext("_OK"))
                 .use_underline(true)
                 .build();
-            ok_btn.connect_clicked(glib::clone!(@weak obj => move |_| {
-                match obj.imp().get_connection_uri() {
-                    Ok(_) => obj.response(gtk::ResponseType::Ok),
-                    Err(error) => show_error_message(obj.upcast_ref(), &error),
+            ok_btn.connect_clicked(glib::clone!(
+                #[weak]
+                obj,
+                move |_| {
+                    match obj.imp().get_connection_uri() {
+                        Ok(_) => obj.response(gtk::ResponseType::Ok),
+                        Err(error) => show_error_message(obj.upcast_ref(), &error),
+                    }
                 }
-            }));
+            ));
             buttonbox.append(&ok_btn);
             buttonbox_size_group.add_widget(&ok_btn);
 
@@ -593,7 +606,7 @@ impl ConnectDialog {
 #[no_mangle]
 pub extern "C" fn gnome_cmd_quick_connect_dialog(main_win: *mut GnomeCmdMainWin) {
     let main_win: MainWindow = unsafe { from_glib_none(main_win) };
-    glib::MainContext::default().spawn_local(async move {
+    glib::spawn_future_local(async move {
         // let con: GnomeCmdConRemote = gnome_cmd_data.get_quick_connect();
         if let Some(connection) = ConnectDialog::new_connection(main_win.upcast_ref(), false).await
         {

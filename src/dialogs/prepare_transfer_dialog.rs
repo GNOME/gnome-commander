@@ -117,7 +117,13 @@ mod imp {
             self.dst_label.set_mnemonic_widget(Some(&self.dst_entry));
 
             let key_controller = gtk::EventControllerKey::new();
-            key_controller.connect_key_pressed(glib::clone!(@weak self as imp => @default-return glib::Propagation::Proceed, move |_, keyval, _, _| imp.dst_entry_key_pressed(keyval)));
+            key_controller.connect_key_pressed(glib::clone!(
+                #[weak(rename_to = imp)]
+                self,
+                #[upgrade_or]
+                glib::Propagation::Proceed,
+                move |_, keyval, _, _| imp.dst_entry_key_pressed(keyval)
+            ));
             self.dst_entry.add_controller(key_controller);
 
             let options_hbox = gtk::Box::builder()
@@ -142,13 +148,17 @@ mod imp {
             bbox.append(&self.ok_button);
             bbox_size_group.add_widget(&self.ok_button);
 
-            self.cancel_button.connect_clicked(
-                glib::clone!(@weak dlg => move |_| dlg.response(gtk::ResponseType::Cancel)),
-            );
+            self.cancel_button.connect_clicked(glib::clone!(
+                #[weak]
+                dlg,
+                move |_| dlg.response(gtk::ResponseType::Cancel)
+            ));
 
-            self.ok_button.connect_clicked(
-                glib::clone!(@weak dlg => move |_| dlg.response(gtk::ResponseType::Ok)),
-            );
+            self.ok_button.connect_clicked(glib::clone!(
+                #[weak]
+                dlg,
+                move |_| dlg.response(gtk::ResponseType::Ok)
+            ));
 
             dlg.set_default_response(gtk::ResponseType::Ok);
         }

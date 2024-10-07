@@ -92,16 +92,23 @@ fn create_view<M: ProfileManager + 'static>(
     );
     view.append_column(&name_column);
 
-    name_renderer.connect_edited(glib::clone!(@weak store, @strong manager => move |_, path, value| {
-        if let Some(iter) = store.iter(&path) {
-            let profile_index: u32 = store.get_value(&iter, Columns::ProfileIndex as i32).get().unwrap();
-            manager.set_profile_name(profile_index as usize, value);
+    name_renderer.connect_edited(glib::clone!(
+        #[weak]
+        store,
+        #[strong]
+        manager,
+        move |_, path, value| {
+            if let Some(iter) = store.iter(&path) {
+                let profile_index: u32 = store
+                    .get_value(&iter, Columns::ProfileIndex as i32)
+                    .get()
+                    .unwrap();
+                manager.set_profile_name(profile_index as usize, value);
 
-            store.set(&iter, &[
-                (Columns::Name as u32, &value),
-            ]);
+                store.set(&iter, &[(Columns::Name as u32, &value)]);
+            }
         }
-    }));
+    ));
 
     let description_renderer = gtk::CellRendererText::builder()
         .foreground("DarkGray")
@@ -213,14 +220,20 @@ pub async fn manage_profiles<M: ProfileManager + 'static>(
 
     view.connect_row_activated({
         let help_id: Option<String> = help_id.map(ToOwned::to_owned);
-        glib::clone!(@weak dialog, @strong manager => move |view, _path, _col| {
-            let view = view.clone();
-            let manager = manager.clone();
-            let help_id1 = help_id.clone();
-            glib::MainContext::default().spawn_local(async move {
-                edit_clicked_callback(&dialog, &view, &manager, help_id1.as_deref()).await;
-            });
-        })
+        glib::clone!(
+            #[weak]
+            dialog,
+            #[strong]
+            manager,
+            move |view, _path, _col| {
+                let view = view.clone();
+                let manager = manager.clone();
+                let help_id1 = help_id.clone();
+                glib::spawn_future_local(async move {
+                    edit_clicked_callback(&dialog, &view, &manager, help_id1.as_deref()).await;
+                });
+            }
+        )
     });
 
     content_area.append(&HintBox::new(&gettext("To rename a profile, click on the corresponding row and type a new name, or press escape to cancel.")));
@@ -235,7 +248,13 @@ pub async fn manage_profiles<M: ProfileManager + 'static>(
         .label(gettext("_Duplicate"))
         .use_underline(true)
         .build();
-    button.connect_clicked(glib::clone!(@weak view, @strong manager => move |_| duplicate_clicked_callback(&view, &manager)));
+    button.connect_clicked(glib::clone!(
+        #[weak]
+        view,
+        #[strong]
+        manager,
+        move |_| duplicate_clicked_callback(&view, &manager)
+    ));
     vbox.append(&button);
 
     let button = gtk::Button::builder()
@@ -245,13 +264,21 @@ pub async fn manage_profiles<M: ProfileManager + 'static>(
 
     button.connect_clicked({
         let help_id: Option<String> = help_id.map(ToOwned::to_owned);
-        glib::clone!(@weak dialog, @weak view, @strong manager => move |_| {
-            let manager = manager.clone();
-            let help_id = help_id.clone();
-            glib::MainContext::default().spawn_local(async move {
-                edit_clicked_callback(&dialog, &view, &manager, help_id.as_deref()).await;
-            });
-        })
+        glib::clone!(
+            #[weak]
+            dialog,
+            #[weak]
+            view,
+            #[strong]
+            manager,
+            move |_| {
+                let manager = manager.clone();
+                let help_id = help_id.clone();
+                glib::spawn_future_local(async move {
+                    edit_clicked_callback(&dialog, &view, &manager, help_id.as_deref()).await;
+                });
+            }
+        )
     });
     vbox.append(&button);
 
@@ -259,7 +286,11 @@ pub async fn manage_profiles<M: ProfileManager + 'static>(
         .label(gettext("_Remove"))
         .use_underline(true)
         .build();
-    button.connect_clicked(glib::clone!(@weak view => move |_| remove_clicked_callback(&view)));
+    button.connect_clicked(glib::clone!(
+        #[weak]
+        view,
+        move |_| remove_clicked_callback(&view)
+    ));
     vbox.append(&button);
 
     let bbox = gtk::Box::builder()
@@ -277,9 +308,11 @@ pub async fn manage_profiles<M: ProfileManager + 'static>(
         bbox.append(&help_button);
         bbox_size_group.add_widget(&help_button);
         let help_id = help_id.to_owned();
-        help_button.connect_clicked(
-            glib::clone!(@strong parent => move |_| display_help(&parent, Some(&help_id))),
-        );
+        help_button.connect_clicked(glib::clone!(
+            #[strong]
+            parent,
+            move |_| display_help(&parent, Some(&help_id))
+        ));
     }
 
     let cancel_button = gtk::Button::builder()
@@ -290,9 +323,11 @@ pub async fn manage_profiles<M: ProfileManager + 'static>(
         .build();
     bbox.append(&cancel_button);
     bbox_size_group.add_widget(&cancel_button);
-    cancel_button.connect_clicked(glib::clone!(@weak dialog => move |_| {
-        dialog.response(gtk::ResponseType::Cancel)
-    }));
+    cancel_button.connect_clicked(glib::clone!(
+        #[weak]
+        dialog,
+        move |_| dialog.response(gtk::ResponseType::Cancel)
+    ));
 
     let ok_button = gtk::Button::builder()
         .label(gettext("_OK"))
@@ -300,9 +335,11 @@ pub async fn manage_profiles<M: ProfileManager + 'static>(
         .build();
     bbox.append(&ok_button);
     bbox_size_group.add_widget(&ok_button);
-    ok_button.connect_clicked(glib::clone!(@weak dialog => move |_| {
-        dialog.response(gtk::ResponseType::Ok)
-    }));
+    ok_button.connect_clicked(glib::clone!(
+        #[weak]
+        dialog,
+        move |_| dialog.response(gtk::ResponseType::Ok)
+    ));
 
     dialog.set_default_response(gtk::ResponseType::Ok);
 

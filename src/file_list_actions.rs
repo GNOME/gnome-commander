@@ -137,7 +137,7 @@ pub extern "C" fn gnome_cmd_file_selector_action_open_with(
     let file_list = unsafe { FileList::from_glib_none(file_list_ptr) };
     let parameter = unsafe { Variant::from_glib_none(parameter_ptr) };
     let options = ProgramsOptions::new();
-    glib::MainContext::default().spawn_local(async move {
+    glib::spawn_future_local(async move {
         let Some(app) = App::from_variant(&parameter) else {
             eprintln!("Cannot load app from a variant");
             return;
@@ -163,7 +163,7 @@ pub extern "C" fn gnome_cmd_file_selector_action_open_with_default(
 ) {
     let file_list = unsafe { FileList::from_glib_none(file_list_ptr) };
     let options = ProgramsOptions::new();
-    glib::MainContext::default().spawn_local(async move {
+    glib::spawn_future_local(async move {
         let Some(parent_window) = file_list.root().and_downcast::<gtk::Window>() else {
             eprintln!("File list has no parent window");
             return;

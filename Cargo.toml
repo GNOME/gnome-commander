@@ -11,16 +11,16 @@ use-poppler = []
 
 [dependencies]
 async-channel = "2.3.1"
-gettext-rs = { version = "0.7.0", features = ["gettext-system"] }
-gtk = { package = "gtk4", version = "0.8", features = ["v4_4"] }
-glib = { version = "0.19", features = ["v2_66"] }
+gettext-rs = { version = "=0.7.0", features = ["gettext-system"] }
+gtk = { package = "gtk4", version = "0.9", features = ["v4_4"] }
+glib = { version = "0.20", features = ["v2_72"] }
 libc = "0.2.155"
 tempfile = "3.11.0"
 strum = { version = "0.26.3", features = ["derive"] }
 async-recursion = "1.1.1"
 
 [build-dependencies]
-system-deps = "6.2.2"
+system-deps = "7"
 
 [package.metadata.system-deps.gmodule_2_0]
 name = "gmodule-2.0"

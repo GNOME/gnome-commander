@@ -86,9 +86,11 @@ pub async fn make_copy_dialog(f: &File, dir: &Directory, main_win: &MainWindow) 
         .label(gettext("_Cancel"))
         .use_underline(true)
         .build();
-    cancel_btn.connect_clicked(
-        glib::clone!(@weak dialog => move |_| dialog.response(gtk::ResponseType::Cancel)),
-    );
+    cancel_btn.connect_clicked(glib::clone!(
+        #[weak]
+        dialog,
+        move |_| dialog.response(gtk::ResponseType::Cancel)
+    ));
     buttonbox.append(&cancel_btn);
     buttonbox_size_group.add_widget(&cancel_btn);
 
@@ -97,15 +99,19 @@ pub async fn make_copy_dialog(f: &File, dir: &Directory, main_win: &MainWindow) 
         .use_underline(true)
         .receives_default(true)
         .build();
-    ok_btn.connect_clicked(
-        glib::clone!(@weak dialog => move |_| dialog.response(gtk::ResponseType::Ok)),
-    );
+    ok_btn.connect_clicked(glib::clone!(
+        #[weak]
+        dialog,
+        move |_| dialog.response(gtk::ResponseType::Ok)
+    ));
     buttonbox.append(&ok_btn);
     buttonbox_size_group.add_widget(&ok_btn);
 
-    entry.connect_changed(glib::clone!(@weak ok_btn => move|entry| {
-        ok_btn.set_sensitive(!entry.text().is_empty());
-    }));
+    entry.connect_changed(glib::clone!(
+        #[weak]
+        ok_btn,
+        move |entry| ok_btn.set_sensitive(!entry.text().is_empty())
+    ));
 
     entry.grab_focus();
     dialog.present();
@@ -158,7 +164,7 @@ pub extern "C" fn gnome_cmd_make_copy_dialog_run_r(
     let file: File = unsafe { from_glib_none(file) };
     let dir: Directory = unsafe { from_glib_none(dir) };
     let main_win: MainWindow = unsafe { from_glib_none(main_win) };
-    glib::MainContext::default().spawn_local(async move {
+    glib::spawn_future_local(async move {
         make_copy_dialog(&file, &dir, &main_win).await;
     });
 }

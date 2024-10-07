@@ -219,7 +219,7 @@ pub extern "C" fn mime_exec_file(
     let file = unsafe { File::from_glib_none(file_ptr) };
 
     if file.file_info().file_type() == gio::FileType::Regular {
-        glib::MainContext::default().spawn_local(async move {
+        glib::spawn_future_local(async move {
             let options = ProgramsOptions::new();
             if let Err(error) = mime_exec_single(&parent_window, &file, &options).await {
                 show_error_message(&parent_window, &error);
