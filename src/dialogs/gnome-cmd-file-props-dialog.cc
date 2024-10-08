@@ -206,8 +206,7 @@ static void on_dialog_ok (GtkButton *btn, GnomeCmdFilePropsDialogPrivate *data)
 
     if (!retValue && error != nullptr)
     {
-        gnome_cmd_show_message (nullptr, filename, error->message);
-        g_error_free(error);
+        gnome_cmd_error_message (GTK_WINDOW (data->dialog), filename, error);
         return;
     }
 

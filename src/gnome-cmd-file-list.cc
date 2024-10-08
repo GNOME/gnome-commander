@@ -3370,6 +3370,11 @@ GnomeCmdFile *gnome_cmd_file_list_get_focused_file(GnomeCmdFileList *fl)
     return fl->get_focused_file();
 }
 
+GnomeCmdDir *gnome_cmd_file_list_get_cwd(GnomeCmdFileList *fl)
+{
+    return fl->cwd;
+}
+
 gboolean gnome_cmd_file_list_is_locked (GnomeCmdFileList *fl)
 {
     return fl->locked;

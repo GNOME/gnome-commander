@@ -111,17 +111,28 @@ static void remote_open (GnomeCmdCon *con, GtkWindow *parent_window)
 }
 
 
+struct UnmountClosure
+{
+    GnomeCmdCon *con;
+    GtkWindow *parent_window;
+};
+
+
 static void remote_close_callback(GObject *gobj, GAsyncResult *result, gpointer user_data)
 {
     auto gMount = (GMount*) gobj;
-    auto con = (GnomeCmdCon*) user_data;
+    auto closure = (UnmountClosure *) user_data;
+    auto con = closure->con;
+    auto parent_window = closure->parent_window;
     GError *error = nullptr;
+
+    g_free (user_data);
 
     g_mount_unmount_with_operation_finish(gMount, result, &error);
 
     if (error && !g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CLOSED))
     {
-        gnome_cmd_error_message(_("Disconnect error"), error);
+        gnome_cmd_error_message (parent_window, _("Disconnect error"), error);
         return;
     }
     if (error)
@@ -153,13 +164,17 @@ static gboolean remote_close (GnomeCmdCon *con, GtkWindow *parent_window)
     }
     g_free(uri);
 
+    UnmountClosure *closure = g_new0 (UnmountClosure, 1);
+    closure->con = con;
+    closure->parent_window = parent_window;
+
     g_mount_unmount_with_operation (
         gMount,
         G_MOUNT_UNMOUNT_NONE,
         nullptr,
         nullptr,
         remote_close_callback,
-        con
+        closure
     );
 
     g_object_unref(gFileTmp);

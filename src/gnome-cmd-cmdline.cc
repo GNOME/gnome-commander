@@ -68,6 +68,8 @@ inline void add_to_history (GnomeCmdCmdline *cmdline, const gchar *command)
 }
 
 
+extern "C" int run_command_indir_r(const gchar *working_directory, const gchar *command, gboolean in_terminal, GError **error);
+
 static void on_exec (GnomeCmdCmdline *cmdline, gboolean term)
 {
     const gchar *cmdline_text;
@@ -102,7 +104,24 @@ static void on_exec (GnomeCmdCmdline *cmdline, gboolean term)
             {
                 gchar *fpath = GNOME_CMD_FILE (fs->get_directory())->get_real_path ();
 
-                run_command_indir (cmdline_text, fpath, term);
+                GError *error = nullptr;
+                int result = run_command_indir_r(fpath, cmdline_text, term, &error);
+                switch (result)
+                {
+                    case 0:
+                        break;
+                    case 1:
+                    case 2:
+                        gnome_cmd_show_message (*main_win, _("No valid command given."));
+                        g_clear_error (&error);
+                        break;
+                    case 3:
+                    default:
+                        gnome_cmd_show_message (*main_win, _("Unable to execute command."), error->message);
+                        g_clear_error (&error);
+                        break;
+                }
+
                 g_free (fpath);
             }
 

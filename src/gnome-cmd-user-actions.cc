@@ -239,17 +239,6 @@ static GnomeCmdFileList *get_fl (GnomeCmdMainWin *main_win, const FileSelectorID
     return fs ? fs->file_list() : nullptr;
 }
 
-// The file returned from this function is not to be unrefed
-static GnomeCmdFile *get_selected_file (GnomeCmdMainWin *main_win, const FileSelectorID fsID)
-{
-    GnomeCmdFile *f = get_fl (main_win, fsID)->get_first_selected_file();
-
-    if (!f)
-        gnome_cmd_show_message (*main_win, _("No file selected"));
-
-    return f;
-}
-
 
 inline gboolean append_real_path (string &s, const gchar *name)
 {
@@ -876,7 +865,7 @@ void file_edit (GSimpleAction *action, GVariant *parameter, gpointer user_data)
                 break;
             case 3:
             default:
-                gnome_cmd_error_message (_("Unable to execute command."), error);
+                gnome_cmd_error_message (*main_win, _("Unable to execute command."), error);
                 break;
         }
     }
@@ -918,7 +907,7 @@ void file_search (GSimpleAction *action, GVariant *parameter, gpointer user_data
                 break;
             case 3:
             default:
-                gnome_cmd_error_message (_("Unable to execute command."), error);
+                gnome_cmd_error_message (*main_win, _("Unable to execute command."), error);
                 break;
         }
     }
@@ -978,49 +967,7 @@ void file_advrename (GSimpleAction *action, GVariant *parameter, gpointer user_d
 }
 
 
-void file_sendto (GSimpleAction *action, GVariant *parameter, gpointer user_data)
-{
-    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
-
-    eventually_warn_if_xdg_email_is_used(main_win);
-
-    GnomeCmdFileList *fl = get_fl (main_win, ACTIVE);
-    GList *sfl = fl->get_selected_files();
-
-    GError *error = nullptr;
-    int result = spawn_async_r(nullptr, sfl, gnome_cmd_data.options.sendto, &error);
-    switch (result)
-    {
-        case 0:
-            break;
-        case 1:
-        case 2:
-            DEBUG ('g', "Sendto command is not valid.\n");
-            gnome_cmd_show_message (*main_win, _("No valid command given."));
-            g_clear_error (&error);
-            break;
-        case 3:
-        default:
-            gnome_cmd_error_message (_("Unable to execute command."), error);
-            break;
-    }
-}
-
-
-void eventually_warn_if_xdg_email_is_used(GnomeCmdMainWin *main_win)
-{
-    auto fileList = get_fl (main_win, ACTIVE);
-    GList *selectedFileList = fileList->get_selected_files();
-    auto currentSendToString = g_settings_get_string (gcmd_user_actions.settings->programs, GCMD_SETTINGS_SENDTO_CMD);
-
-    if ((g_strcmp0(currentSendToString, "xdg-email --attach %s") == 0)
-        && g_list_length(selectedFileList) > 1)
-    {
-        gnome_cmd_show_message (*main_win, _("Warning"), _("The default send-to command only supports one selected file at a time. You can change the command in the program options."));
-    }
-    g_list_free(selectedFileList);
-    g_free(currentSendToString);
-}
+// void file_sendto (GSimpleAction *action, GVariant *parameter, gpointer user_data);
 
 
 void file_properties (GSimpleAction *action, GVariant *parameter, gpointer user_data)
@@ -1056,8 +1003,20 @@ void file_diff (GSimpleAction *action, GVariant *parameter, gpointer user_data)
             if (!main_win->fs (INACTIVE)->is_local())
                 gnome_cmd_show_message (*main_win, _("Operation not supported on remote file systems"));
             else
-                if (!append_real_path (files_to_differ, get_selected_file (main_win, ACTIVE)) || !append_real_path (files_to_differ, get_selected_file (main_win, INACTIVE)))
-                    files_to_differ.clear();
+            {
+                GnomeCmdFile *active_file = (GnomeCmdFile *) sel_files->data;
+                GnomeCmdFile *inactive_file = get_fl (main_win, INACTIVE)->get_first_selected_file();
+
+                if (inactive_file)
+                {
+                    append_real_path (files_to_differ, active_file);
+                    append_real_path (files_to_differ, inactive_file);
+                }
+                else
+                {
+                    gnome_cmd_show_message (*main_win, _("No file selected"));
+                }
+            }
             break;
 
         case 2:
@@ -1084,7 +1043,7 @@ void file_diff (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 #pragma GCC diagnostic pop
 #endif
 
-        run_command (cmd);
+        run_command (*main_win, cmd);
 
         g_free (cmd);
     }
@@ -1118,7 +1077,7 @@ void file_sync_dirs (GSimpleAction *action, GVariant *parameter, gpointer user_d
 #pragma GCC diagnostic pop
 #endif
 
-    run_command (cmd);
+    run_command (*main_win, cmd);
 
     g_free (cmd);
 }
@@ -2049,19 +2008,23 @@ void help_keyboard (GSimpleAction *action, GVariant *parameter, gpointer user_da
 
 void help_web (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
+    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
+
     GError *error = nullptr;
 
-    if (!gtk_show_uri (nullptr, PACKAGE_URL, GDK_CURRENT_TIME, &error))
-        gnome_cmd_error_message (_("There was an error opening home page."), error);
+    if (!gtk_show_uri_on_window (*main_win, PACKAGE_URL, GDK_CURRENT_TIME, &error))
+        gnome_cmd_error_message (*main_win, _("There was an error opening home page."), error);
 }
 
 
 void help_problem (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
+    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
+
     GError *error = nullptr;
 
-    if (!gtk_show_uri (nullptr, PACKAGE_BUGREPORT, GDK_CURRENT_TIME, &error))
-        gnome_cmd_error_message (_("There was an error reporting problem."), error);
+    if (!gtk_show_uri_on_window (*main_win, PACKAGE_BUGREPORT, GDK_CURRENT_TIME, &error))
+        gnome_cmd_error_message (*main_win, _("There was an error reporting problem."), error);
 }
 
 

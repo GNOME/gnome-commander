@@ -20,18 +20,25 @@
 use crate::{
     app::{App, RegularApp},
     data::{ProgramsOptions, ProgramsOptionsRead},
+    dialogs::open_with_other_dialog::show_open_with_other_dialog,
     file::File,
     file_list::{ffi::GnomeCmdFileList, FileList},
     libgcmd::file_base::FileBaseExt,
+    spawn::run_command_indir,
     transfer::gnome_cmd_tmp_download,
-    utils::{run_simple_dialog, show_error_message, show_message, temp_file, ErrorMessage},
+    utils::{
+        get_modifiers_state, run_simple_dialog, show_error_message, show_message, temp_file,
+        ErrorMessage,
+    },
 };
 use gettextrs::{gettext, ngettext};
 use gtk::{
+    gdk,
     gio::{self, ffi::GSimpleAction},
     glib::{self, ffi::GVariant, translate::FromGlibPtrNone, FromVariant, Variant},
     prelude::*,
 };
+use std::{ffi::OsString, rc::Rc};
 
 async fn ask_download_remote_files(
     parent_window: &gtk::Window,
@@ -188,6 +195,124 @@ pub extern "C" fn gnome_cmd_file_selector_action_open_with_default(
         for (app_info, files) in grouped {
             let app = App::Regular(RegularApp { app_info });
             mime_exec_multiple(files, app, &parent_window, &options).await;
+        }
+    });
+}
+
+#[no_mangle]
+pub extern "C" fn gnome_cmd_file_selector_action_open_with_other(
+    _action: *const GSimpleAction,
+    _parameter: *const GVariant,
+    file_list_ptr: *mut GnomeCmdFileList,
+) {
+    let file_list = unsafe { FileList::from_glib_none(file_list_ptr) };
+    let Some(parent_window) = file_list.toplevel().and_downcast() else {
+        eprintln!("No window");
+        return;
+    };
+    let options = Rc::new(ProgramsOptions::new());
+    glib::spawn_future_local(async move {
+        show_open_with_other_dialog(
+            &parent_window,
+            &file_list.selected_files(),
+            file_list.cwd(),
+            options,
+        )
+        .await;
+    });
+}
+
+#[no_mangle]
+pub extern "C" fn gnome_cmd_file_selector_action_execute(
+    _action: *const GSimpleAction,
+    _parameter: *const GVariant,
+    file_list_ptr: *mut GnomeCmdFileList,
+) {
+    let file_list = unsafe { FileList::from_glib_none(file_list_ptr) };
+    let Some(parent_window) = file_list.toplevel().and_downcast() else {
+        eprintln!("No window");
+        return;
+    };
+    let options = ProgramsOptions::new();
+    let Some(file) = file_list.selected_files().front().cloned() else {
+        eprintln!("No file selected");
+        return;
+    };
+
+    glib::spawn_future_local(async move {
+        match file.execute(&options) {
+            Ok(_) => {}
+            Err(error) => {
+                error.into_message().show(&parent_window).await;
+            }
+        }
+    });
+}
+
+#[no_mangle]
+pub extern "C" fn gnome_cmd_file_selector_action_execute_script(
+    _action: *const GSimpleAction,
+    parameter_ptr: *const GVariant,
+    file_list_ptr: *mut GnomeCmdFileList,
+) {
+    let file_list = unsafe { FileList::from_glib_none(file_list_ptr) };
+    let parameter = unsafe { glib::Variant::from_glib_none(parameter_ptr) };
+
+    let script_path: String = parameter.child_get(0);
+    let run_in_terminal: bool = parameter.child_get(1);
+
+    let Some(parent_window) = file_list.toplevel().and_downcast() else {
+        eprintln!("No window");
+        return;
+    };
+    let options = ProgramsOptions::new();
+    let files = file_list.selected_files();
+
+    let mask = get_modifiers_state(&parent_window);
+    let is_shift_pressed = mask.map_or(false, |m| {
+        m.contains(gdk::ModifierType::SHIFT_MASK)
+            && !m.contains(gdk::ModifierType::CONTROL_MASK)
+            && !m.contains(gdk::ModifierType::MOD1_MASK)
+    });
+
+    glib::spawn_future_local(async move {
+        if is_shift_pressed {
+            // Run script per file
+            for file in files {
+                let mut command = OsString::from(&script_path);
+                command.push(" ");
+                command.push(&glib::shell_quote(file.file_info().display_name()));
+
+                let working_directory = file.file().parent().and_then(|p| p.path());
+                if let Err(error) = run_command_indir(
+                    working_directory.as_deref(),
+                    &command,
+                    run_in_terminal,
+                    &options,
+                ) {
+                    error.into_message().show(&parent_window).await;
+                }
+            }
+        } else {
+            // Run script with list of files
+            let mut command = OsString::from(script_path);
+            for file in &files {
+                command.push(" ");
+                command.push(&glib::shell_quote(file.file_info().display_name()));
+            }
+
+            let working_directory = files
+                .front()
+                .and_then(|f| f.file().parent())
+                .and_then(|p| p.path());
+            if let Err(error) = run_command_indir(
+                working_directory.as_deref(),
+                &command,
+                run_in_terminal,
+                &options,
+            ) {
+                error.into_message().show(&parent_window).await;
+            }
         }
     });
 }

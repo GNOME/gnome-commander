@@ -24,8 +24,8 @@
 #define SCRIPT_DIRECTORY PACKAGE "/" "scripts"
 
 extern "C" void gnome_cmd_file_selector_action_open_with_default (GSimpleAction *action, GVariant *parameter, gpointer user_data);
-void gnome_cmd_file_selector_action_open_with_other (GSimpleAction *action, GVariant *parameter, gpointer user_data);
+extern "C" void gnome_cmd_file_selector_action_open_with_other (GSimpleAction *action, GVariant *parameter, gpointer user_data);
 extern "C" void gnome_cmd_file_selector_action_open_with (GSimpleAction *action, GVariant *parameter, gpointer user_data);
 
-void gnome_cmd_file_selector_action_execute (GSimpleAction *action, GVariant *parameter, gpointer user_data);
-void gnome_cmd_file_selector_action_execute_script (GSimpleAction *action, GVariant *parameter, gpointer user_data);
+extern "C" void gnome_cmd_file_selector_action_execute (GSimpleAction *action, GVariant *parameter, gpointer user_data);
+extern "C" void gnome_cmd_file_selector_action_execute_script (GSimpleAction *action, GVariant *parameter, gpointer user_data);

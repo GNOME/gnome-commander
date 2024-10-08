@@ -835,7 +835,7 @@ void gnome_cmd_file_view_external(GtkWindow *parent_window, GnomeCmdFile *f)
             break;
         case 3:
         default:
-            gnome_cmd_error_message (_("Unable to execute command."), error);
+            gnome_cmd_error_message (parent_window, _("Unable to execute command."), error);
             break;
     }
 }
@@ -885,7 +885,7 @@ void gnome_cmd_file_edit (GtkWindow *parent_window, GnomeCmdFile *f)
             break;
         case 3:
         default:
-            gnome_cmd_error_message (_("Unable to execute command."), error);
+            gnome_cmd_error_message (parent_window, _("Unable to execute command."), error);
             break;
     }
 }
@@ -944,20 +944,6 @@ void GnomeCmdFile::set_deleted()
         gnome_cmd_dir_file_deleted (::get_parent_dir (this), uri_str);
         g_free (uri_str);
     }
-}
-
-
-void GnomeCmdFile::execute()
-{
-    gchar *fpath = get_real_path();
-    gchar *dpath = g_path_get_dirname (fpath);
-    gchar *cmd = g_strdup_printf ("./%s", this->get_quoted_name());
-
-    run_command_indir (cmd, dpath, app_needs_terminal (this));
-
-    g_free (fpath);
-    g_free (dpath);
-    g_free (cmd);
 }
 
 
@@ -1090,11 +1076,6 @@ gboolean gnome_cmd_file_is_local (GnomeCmdFile *f)
 gboolean gnome_cmd_file_is_executable(GnomeCmdFile *f)
 {
     return f->is_executable();
-}
-
-void gnome_cmd_file_execute(GnomeCmdFile *f)
-{
-    f->execute();
 }
 
 gboolean gnome_cmd_file_chown(GnomeCmdFile *f, uid_t uid, gid_t gid, GError **error)

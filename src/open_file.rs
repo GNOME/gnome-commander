@@ -25,6 +25,7 @@ use crate::{
     data::{ProgramsOptions, ProgramsOptionsRead},
     file::{ffi::GnomeCmdFile, File},
     libgcmd::file_base::FileBaseExt,
+    spawn::SpawnError,
     transfer::gnome_cmd_tmp_download,
     utils::{
         run_simple_dialog, show_error_message, temp_file, ErrorMessage, GNOME_CMD_PERM_USER_EXEC,
@@ -131,7 +132,7 @@ async fn mime_exec_single(
 
     if file.is_executable() {
         if is_executable_content_type {
-            file.execute();
+            file.execute(options).map_err(SpawnError::into_message)?;
             return Ok(());
         } else if content_type
             .as_ref()
@@ -141,7 +142,7 @@ async fn mime_exec_single(
                 OpenText::Cancel => return Ok(()),
                 OpenText::Display => {}
                 OpenText::Run => {
-                    file.execute();
+                    file.execute(options).map_err(SpawnError::into_message)?;
                     return Ok(());
                 }
             }

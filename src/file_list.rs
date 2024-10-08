@@ -20,14 +20,18 @@
  * For more details see the file COPYING.
  */
 
-use crate::file::File;
+use crate::{dir::Directory, file::File};
 use gtk::{
-    glib::{self, translate::ToGlibPtr},
+    glib::{
+        self,
+        translate::{from_glib_none, ToGlibPtr},
+    },
     prelude::*,
 };
 
 pub mod ffi {
     use super::*;
+    use crate::dir::ffi::GnomeCmdDir;
     use glib::ffi::{gboolean, GList, GType};
 
     #[repr(C)]
@@ -40,6 +44,8 @@ pub mod ffi {
         pub fn gnome_cmd_file_list_get_type() -> GType;
 
         pub fn gnome_cmd_file_list_get_selected_files(fl: *mut GnomeCmdFileList) -> *mut GList;
+
+        pub fn gnome_cmd_file_list_get_cwd(fl: *mut GnomeCmdFileList) -> *mut GnomeCmdDir;
 
         pub fn gnome_cmd_file_list_is_locked(fl: *mut GnomeCmdFileList) -> gboolean;
 
@@ -89,6 +95,10 @@ impl FileList {
                 self.to_glib_none().0,
             ))
         }
+    }
+
+    pub fn cwd(&self) -> Option<Directory> {
+        unsafe { from_glib_none(ffi::gnome_cmd_file_list_get_cwd(self.to_glib_none().0)) }
     }
 
     pub fn is_locked(&self) -> bool {

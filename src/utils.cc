@@ -75,68 +75,6 @@ void DEBUG (gchar flag, const gchar *format, ...)
 }
 
 
-/**
- * This function executes a command in the active directory in a
- * terminal window, if desired.
- * \param in_command Command to be executed.
- * \param dpath Directory in which the command should be executed.
- * \param term If TRUE, the command is executed in a terminal window.
- * \sa GnomeCmdData::Options::termexec
- */
-gboolean run_command_indir (const gchar *in_command, const gchar *dpath, gboolean term)
-{
-    g_return_val_if_fail (in_command != NULL, FALSE);
-    g_return_val_if_fail (strlen(in_command) != 0, FALSE);
-
-    gchar *command;
-
-    if (term)
-    {
-        gchar *arg;
-
-        if (gnome_cmd_data.use_gcmd_block)
-        {
-            gchar *s = g_strdup_printf ("bash -c \"%s; %s/bin/gcmd-block\"", in_command, PREFIX);
-            arg = g_shell_quote (s);
-            g_free (s);
-        }
-        else
-            arg = g_shell_quote (in_command);
-
-#if defined (__GNUC__)
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wformat-nonliteral"
-#endif
-        command = g_strdup_printf (gnome_cmd_data.options.termexec, arg);
-#if defined (__GNUC__)
-#pragma GCC diagnostic pop
-#endif
-
-        g_free (arg);
-    }
-    else
-        command = g_strdup (in_command);
-
-    DEBUG ('g', "running%s: %s\n", (term?" in terminal":""), command);
-
-    gint argc;
-    gchar **argv;
-    GError *error = NULL;
-
-    g_shell_parse_argv (command, &argc, &argv, NULL);
-    if (!g_spawn_async (dpath, argv, NULL, G_SPAWN_SEARCH_PATH, NULL, NULL, NULL, &error))
-    {
-        gnome_cmd_error_message (_("Unable to execute command."), error);
-        g_strfreev (argv);
-        g_free (command);
-        return FALSE;
-    }
-    g_strfreev (argv);
-    g_free (command);
-    return TRUE;
-}
-
-
 const char **convert_varargs_to_name_array (va_list args)
 {
     const char *name;
@@ -157,78 +95,6 @@ const char **convert_varargs_to_name_array (va_list args)
     return plain_ole_array;
 }
 
-
-static gboolean delete_event_callback (gpointer data, gpointer user_data)
-{
-    g_return_val_if_fail (GTK_IS_DIALOG (data), FALSE);
-
-    g_signal_stop_emission_by_name (data, "delete-event");
-
-    return TRUE;
-}
-
-
-static gboolean on_run_dialog_keypress (GtkWidget *dialog, GdkEventKey *event, gpointer data)
-{
-    if (event->keyval == GDK_KEY_Escape)
-    {
-        gtk_dialog_response (GTK_DIALOG (dialog), GTK_RESPONSE_NONE);
-        return TRUE;
-    }
-
-    return FALSE;
-}
-
-
-gint run_simple_dialog (GtkWindow *parent, gboolean ignore_close_box,
-                        GtkMessageType msg_type,
-                        const char *text, const char *title, gint def_response, ...)
-{
-    va_list button_title_args;
-    const char **button_titles;
-    GtkWidget *dialog;
-    // GtkWidget *top_widget;
-    int result;
-
-    // Create the dialog.
-    va_start (button_title_args, def_response);
-    button_titles = convert_varargs_to_name_array (button_title_args);
-    va_end (button_title_args);
-
-    dialog = gtk_message_dialog_new (parent, GTK_DIALOG_MODAL, msg_type, GTK_BUTTONS_NONE, NULL);
-    gtk_message_dialog_set_markup (GTK_MESSAGE_DIALOG (dialog), text);
-
-    if (title)
-        gtk_window_set_title (GTK_WINDOW (dialog), title);
-
-    for (int i=0; button_titles[i]; i++)
-        gtk_dialog_add_button (GTK_DIALOG (dialog), button_titles[i], i);
-
-    g_free (button_titles);
-
-    if (def_response>=0)
-        gtk_dialog_set_default_response (GTK_DIALOG (dialog), def_response);
-
-    // Allow close.
-    if (ignore_close_box)
-        g_signal_connect (dialog, "delete-event", G_CALLBACK (delete_event_callback), NULL);
-    else
-        g_signal_connect (dialog, "key-press-event", G_CALLBACK (on_run_dialog_keypress), dialog);
-
-    gtk_window_set_wmclass (GTK_WINDOW (dialog), "dialog", "Eel");
-
-    // Run it.
-    do
-    {
-        gtk_widget_show (dialog);
-        result = gtk_dialog_run (GTK_DIALOG (dialog));
-    }
-    while (ignore_close_box && result == GTK_RESPONSE_DELETE_EVENT);
-
-    gtk_window_destroy (GTK_WINDOW (dialog));
-
-    return result;
-}
 
 const gchar *type2string (guint32 type, gchar *buf, guint max)
 {
@@ -530,106 +396,6 @@ void set_cursor_busy_for_widget (GtkWidget *widget)
 }
 
 
-GList *app_get_linked_libs (GnomeCmdFile *f)
-{
-    g_return_val_if_fail (GNOME_CMD_IS_FILE (f), NULL);
-
-    gchar *s;
-    gchar tmp[256];
-
-    gchar *arg = g_shell_quote (f->get_real_path());
-    gchar *cmd = g_strdup_printf ("ldd %s", arg);
-    g_free (arg);
-    FILE *fd = popen (cmd, "r");
-    g_free (cmd);
-
-    if (!fd) return NULL;
-
-    GList *libs = NULL;
-
-    while ((s = fgets (tmp, sizeof(tmp), fd)))
-    {
-        char **v = g_strsplit (s, " ", 1);
-        if (v)
-        {
-            libs = g_list_append (libs, g_strdup (v[0]));
-            g_strfreev (v);
-        }
-    }
-
-    pclose (fd);
-
-    return libs;
-}
-
-
-gboolean app_needs_terminal (GnomeCmdFile *f)
-{
-    gboolean needTerminal;
-
-    auto contentType = f->GetGfileAttributeString(G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE);
-    if (strcmp (contentType, "application/x-executable") && strcmp (contentType, "application/x-executable-binary"))
-    {
-        needTerminal = TRUE;
-    }
-    else
-    {
-        GList *libs = app_get_linked_libs (f);
-        if  (!libs)
-        {
-            needTerminal = FALSE;
-        }
-        else
-        {
-            for (GList *i = libs; i; i = i->next)
-            {
-                gchar *lib = (gchar *) i->data;
-                lib = g_strstrip (lib);
-                if (g_str_has_prefix (lib, "libX11"))
-                {
-                    needTerminal = FALSE;
-                    break;
-                }
-            }
-        }
-        g_list_foreach (libs, (GFunc) g_free, NULL);
-        g_list_free (libs);
-    }
-
-    g_free(contentType);
-
-    return needTerminal;
-}
-
-// ToDo: This function should be reworked using GIO / GFile
-gchar *get_temp_download_filepath (const gchar *fname)
-{
-    const gchar *tmp_dir = g_get_tmp_dir ();
-
-    if (!tmp_file_dir)
-    {
-        if (chdir (tmp_dir))
-        {
-            gnome_cmd_show_message (NULL, _("Failed to change working directory to a temporary directory."), strerror (errno));
-
-            return NULL;
-        }
-        gchar *tmp_file_dir_template = g_strdup_printf ("gcmd-%s-XXXXXX", g_get_user_name());
-        tmp_file_dir = mkdtemp (tmp_file_dir_template);
-        if (!tmp_file_dir)
-        {
-            g_free (tmp_file_dir_template);
-
-            gnome_cmd_show_message (NULL, _("Failed to create a directory in which to store temporary files."), strerror (errno));
-
-            return NULL;
-        }
-    }
-
-    return g_build_filename (tmp_dir, tmp_file_dir, fname, NULL);
-}
-
-
 void remove_temp_download_dir ()
 {
     if (tmp_file_dir)
@@ -863,33 +629,31 @@ void gnome_cmd_help_display (const gchar *file_name, const gchar *link_id)
     gtk_show_uri (NULL, help_uri,  gtk_get_current_event_time (), &error);
 
     if (error != NULL)
-        gnome_cmd_error_message (_("There was an error displaying help."), error);
+        gnome_cmd_error_message (nullptr, _("There was an error displaying help."), error);
 }
 
 
-inline void blocking_error_message (GtkWindow *parent, const gchar *message, const gchar *secondary_text)
+static GtkWidget *create_error_message_dialog (GtkWindow *parent, const gchar *message, const gchar *secondary_text)
 {
     GtkWidget *dlg = gtk_message_dialog_new (parent, GTK_DIALOG_DESTROY_WITH_PARENT, GTK_MESSAGE_ERROR, GTK_BUTTONS_OK, "%s", message);
-
     if (secondary_text)
         gtk_message_dialog_format_secondary_text (GTK_MESSAGE_DIALOG (dlg), "%s", secondary_text);
-
-    gtk_dialog_run (GTK_DIALOG (dlg));
-
-    gtk_window_destroy (GTK_WINDOW (dlg));
+    g_signal_connect (dlg, "response", G_CALLBACK (gtk_window_destroy), dlg);
+    return dlg;
 }
 
 
-void gnome_cmd_show_message (GtkWindow *parent, std::string message, const gchar *secondary_text)
+void gnome_cmd_show_message (GtkWindow *parent, const gchar *message, const gchar *secondary_text)
 {
-    blocking_error_message (parent, message.c_str(), secondary_text);
+    GtkWidget *dlg = create_error_message_dialog (parent, message, secondary_text);
+    gtk_window_present (GTK_WINDOW (dlg));
 }
 
-
-void gnome_cmd_error_message (const gchar *title, GError *error)
+void gnome_cmd_error_message (GtkWindow *parent, const gchar *message, GError *error)
 {
-    blocking_error_message (NULL, title, error->message);
+    GtkWidget *dlg = create_error_message_dialog (parent, message, error->message);
     g_error_free (error);
+    gtk_window_present (GTK_WINDOW (dlg));
 }
 
 

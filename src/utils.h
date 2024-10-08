@@ -60,25 +60,20 @@ inline gboolean DEBUG_ENABLED (gchar flag)
 
 void DEBUG (gchar flag, const gchar *fmt, ...);
 
-void gnome_cmd_error_message (const gchar *title, GError *error);
+void gnome_cmd_show_message (GtkWindow *parent, const gchar *message, const gchar *secondary_text=NULL);
+void gnome_cmd_error_message (GtkWindow *parent, const gchar *message, GError *error);
 
-gboolean run_command_indir (const gchar *command, const gchar *dir, gboolean term);
-
-inline void run_command (const gchar *command)
+inline void run_command (GtkWindow *parent, const gchar *command)
 {
     GError *error = NULL;
 
     DEBUG ('g', "running: %s\n", command);
 
     if (!g_spawn_command_line_async (command, &error))
-        gnome_cmd_error_message (command, error);
+        gnome_cmd_error_message (parent, command, error);
 }
 
 const char **convert_varargs_to_name_array (va_list args);
-
-gint run_simple_dialog (GtkWindow *parent, gboolean ignore_close_box,
-                        GtkMessageType msg_type,
-                        const char *text, const char *title, gint def_response, ...);
 
 inline gboolean string2int (const gchar *s, gint &i)
 {
@@ -214,10 +209,6 @@ inline void set_cursor_default_for_widget (GtkWidget *widget)
         gdk_window_set_cursor (window, NULL);
 }
 
-GList *app_get_linked_libs (GnomeCmdFile *f);
-gboolean app_needs_terminal (GnomeCmdFile *f);
-
-gchar *get_temp_download_filepath (const gchar *fname);
 void remove_temp_download_dir ();
 
 gchar *unix_to_unc (const gchar *path);
@@ -242,10 +233,6 @@ void patlist_free (GList *pattern_list);
 gboolean patlist_matches (GList *pattern_list, const gchar *s);
 
 void gnome_cmd_toggle_file_name_selection (GtkWidget *entry);
-
-
-void gnome_cmd_show_message (GtkWindow *parent, std::string message, const gchar *secondary_text=NULL);
-
 
 void gnome_cmd_help_display (const gchar *file_name, const gchar *link_id=NULL);
 

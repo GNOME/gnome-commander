@@ -102,6 +102,7 @@ static void response_callback (GtkDialog *dialog, int response_id, GnomeCmdDir *
                 {
                     gnome_cmd_show_message (GTK_WINDOW (dialog), _("A directory name must be entered"));
                     g_signal_stop_emission_by_name (dialog, "response");
+                    return;
                 }
                 else
                 {
@@ -121,7 +122,7 @@ static void response_callback (GtkDialog *dialog, int response_id, GnomeCmdDir *
                             auto mkdirBasename = g_file_get_basename (mkdir_gFile);
                             string dirname = stringify (mkdirBasename);
                             auto msg = g_strdup_printf(_("Make directory failed: %s\n"), error->message);
-                            gnome_cmd_show_message (GTK_WINDOW (dialog), dirname, msg);
+                            gnome_cmd_show_message (*main_win, dirname.c_str(), msg);
                             g_free(msg);
                             g_error_free(error);
                             g_signal_stop_emission_by_name (dialog, "response");

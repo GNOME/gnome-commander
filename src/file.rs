@@ -25,9 +25,11 @@ use crate::{
         connection::{Connection, ConnectionExt},
         list::ConnectionList,
     },
+    data::{ProgramsOptions, ProgramsOptionsRead},
     dir::Directory,
     libgcmd::file_base::{FileBase, FileBaseExt},
     path::GnomeCmdPath,
+    spawn::{app_needs_terminal, run_command_indir, SpawnError},
 };
 use gtk::{
     gio::{self, prelude::*},
@@ -35,7 +37,7 @@ use gtk::{
 };
 use libc::{gid_t, uid_t};
 use std::{
-    ffi::CString,
+    ffi::{c_int, CString, OsString},
     path::{Path, PathBuf},
     ptr,
 };
@@ -81,7 +83,6 @@ pub mod ffi {
         pub fn gnome_cmd_file_is_local(f: *const GnomeCmdFile) -> gboolean;
 
         pub fn gnome_cmd_file_is_executable(f: *const GnomeCmdFile) -> gboolean;
-        pub fn gnome_cmd_file_execute(f: *const GnomeCmdFile);
 
         pub fn gnome_cmd_file_chown(
             f: *mut GnomeCmdFile,
@@ -220,8 +221,19 @@ impl File {
         unsafe { ffi::gnome_cmd_file_is_executable(self.to_glib_none().0) != 0 }
     }
 
-    pub fn execute(&self) {
-        unsafe { ffi::gnome_cmd_file_execute(self.to_glib_none().0) }
+    pub fn execute(&self, options: &dyn ProgramsOptionsRead) -> Result<(), SpawnError> {
+        let path = self.get_real_path();
+        let working_directory = path.parent();
+
+        let mut command = OsString::from("./");
+        command.push(glib::shell_quote(self.file_info().display_name()));
+
+        run_command_indir(
+            working_directory,
+            &command,
+            app_needs_terminal(self),
+            options,
+        )
     }
 
     pub fn chown(&self, uid: uid_t, gid: gid_t) -> Result<(), glib::Error> {
@@ -264,5 +276,37 @@ pub trait GnomeCmdFileExt {
 impl GnomeCmdFileExt for File {
     fn connection(&self) -> Connection {
         unsafe { from_glib_none(ffi::gnome_cmd_file_get_connection(self.to_glib_none().0)) }
+    }
+}
+
+#[no_mangle]
+pub extern "C" fn gnome_cmd_file_execute(
+    file_ptr: *const ffi::GnomeCmdFile,
+    error: *mut *mut glib::ffi::GError,
+) -> c_int {
+    let file: File = unsafe { from_glib_none(file_ptr) };
+    let options = ProgramsOptions::new();
+
+    let result = file.execute(&options);
+    match result {
+        Ok(_) => 0,
+        Err(SpawnError::InvalidTemplate) => {
+            unsafe {
+                *error = std::ptr::null_mut();
+            }
+            1
+        }
+        Err(SpawnError::InvalidCommand(e)) => {
+            unsafe {
+                *error = e.into_glib_ptr();
+            }
+            2
+        }
+        Err(SpawnError::Failure(e)) => {
+            unsafe {
+                *error = glib::Error::new(glib::FileError::Failed, &e.to_string()).into_glib_ptr();
+            }
+            3
+        }
     }
 }
