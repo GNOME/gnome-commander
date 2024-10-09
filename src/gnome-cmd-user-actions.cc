@@ -1962,14 +1962,14 @@ void bookmarks_goto (GSimpleAction *action, GVariant *parameter, gpointer user_d
     {
         auto bookmark = static_cast<GnomeCmdBookmark*> (bookmarks->data);
 
-        if (bookmark_name == bookmark->name)
+        if (g_strcmp0(bookmark_name, bookmark->name) == 0)
         {
             gnome_cmd_bookmark_goto (bookmark);
             return;
         }
     }
 
-    g_warning ("[%s] Unknown bookmark name: '%s' - ignored", (char *) bookmark_name, bookmark_name);
+    g_warning ("[%s] Unknown bookmark name: '%s' - ignored", con->alias, bookmark_name);
 }
 
 

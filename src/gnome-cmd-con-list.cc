@@ -383,6 +383,9 @@ GnomeCmdConList *gnome_cmd_con_list_get ()
 
 void gnome_cmd_con_list_load_bookmarks (GnomeCmdConList *list, GVariant *gVariantBookmarks)
 {
+    for (GList *cons = gnome_cmd_con_list_get_all (list); cons; cons = cons->next)
+        gnome_cmd_con_erase_bookmark (GNOME_CMD_CON (cons->data));
+
     GnomeCmdCon *gnomeCmdCon {nullptr};
 
     g_autoptr(GVariantIter) iter1 {nullptr};
