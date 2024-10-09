@@ -26,12 +26,10 @@ use crate::{
         remote::{ConnectionMethodID, ConnectionRemote},
         smb::ConnectionSmb,
     },
-    main_win::{ffi::GnomeCmdMainWin, MainWindow},
-    types::FileSelectorID,
     utils::{display_help, show_error_message},
 };
 use gettextrs::gettext;
-use gtk::{glib, glib::translate::from_glib_none, prelude::*, subclass::prelude::*};
+use gtk::{glib, prelude::*, subclass::prelude::*};
 use std::path::Path;
 
 mod imp {
@@ -601,20 +599,4 @@ impl ConnectDialog {
         dialog.close();
         result
     }
-}
-
-#[no_mangle]
-pub extern "C" fn gnome_cmd_quick_connect_dialog(main_win: *mut GnomeCmdMainWin) {
-    let main_win: MainWindow = unsafe { from_glib_none(main_win) };
-    glib::spawn_future_local(async move {
-        // let con: GnomeCmdConRemote = gnome_cmd_data.get_quick_connect();
-        if let Some(connection) = ConnectDialog::new_connection(main_win.upcast_ref(), false).await
-        {
-            let fs = main_win.file_selector(FileSelectorID::ACTIVE);
-            if fs.file_list().is_locked() {
-                fs.new_tab();
-            }
-            fs.set_connection(connection.upcast_ref(), None);
-        }
-    });
 }

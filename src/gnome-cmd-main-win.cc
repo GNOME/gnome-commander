@@ -1240,6 +1240,11 @@ GnomeCmdFileSelector *gnome_cmd_main_win_get_fs(GnomeCmdMainWin *main_win, FileS
     return main_win->fs(id);
 }
 
+void gnome_cmd_main_win_change_connection(GnomeCmdMainWin *main_win, FileSelectorID id)
+{
+    main_win->change_connection(id);
+}
+
 void gnome_cmd_main_win_focus_file_lists(GnomeCmdMainWin *main_win)
 {
     return main_win->focus_file_lists();

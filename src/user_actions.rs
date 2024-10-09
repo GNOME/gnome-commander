@@ -21,10 +21,20 @@
  */
 
 use crate::{
-    data::{GeneralOptions, GeneralOptionsRead, ProgramsOptions, ProgramsOptionsRead},
+    config::{PACKAGE_BUGREPORT, PACKAGE_NAME, PACKAGE_URL, PACKAGE_VERSION},
+    connection::{
+        connection::{Connection, ConnectionExt},
+        home::ConnectionHome,
+        list::ConnectionList,
+    },
+    data::{
+        ConfirmOptions, GeneralOptions, GeneralOptionsRead, ProgramsOptions, ProgramsOptionsRead,
+    },
     dialogs::{
         chmod_dialog::show_chmod_dialog, chown_dialog::show_chown_dialog,
-        create_symlink_dialog::show_create_symlink_dialog,
+        connect_dialog::ConnectDialog, create_symlink_dialog::show_create_symlink_dialog,
+        make_copy_dialog::make_copy_dialog, prepare_copy_dialog::prepare_copy_dialog_show,
+        prepare_move_dialog::prepare_move_dialog_show, remote_dialog::RemoteDialog,
     },
     dir::Directory,
     file::File,
@@ -33,8 +43,8 @@ use crate::{
     spawn::{spawn_async, spawn_async_command, SpawnError},
     types::FileSelectorID,
     utils::{
-        get_modifiers_state, prompt_message, run_simple_dialog, show_error_message, show_message,
-        sudo_command, ErrorMessage,
+        display_help, get_modifiers_state, prompt_message, run_simple_dialog, show_error_message,
+        show_message, sudo_command, ErrorMessage,
     },
 };
 use gettextrs::{gettext, ngettext};
@@ -45,6 +55,59 @@ use gtk::{
     prelude::*,
 };
 use std::{collections::HashSet, ffi::OsString, path::PathBuf};
+
+#[no_mangle]
+pub extern "C" fn file_copy(
+    _action: *const GSimpleAction,
+    _parameter: *const GVariant,
+    main_win_ptr: *mut GnomeCmdMainWin,
+) {
+    let main_win = unsafe { MainWindow::from_glib_none(main_win_ptr) };
+
+    let src_fs = main_win.file_selector(FileSelectorID::ACTIVE);
+    let dst_fs = main_win.file_selector(FileSelectorID::INACTIVE);
+    let options = ConfirmOptions::new();
+    glib::spawn_future_local(async move {
+        prepare_copy_dialog_show(&main_win, &src_fs, &dst_fs, &options).await;
+    });
+}
+
+#[no_mangle]
+pub extern "C" fn file_copy_as(
+    _action: *const GSimpleAction,
+    _parameter: *const GVariant,
+    main_win_ptr: *mut GnomeCmdMainWin,
+) {
+    let main_win = unsafe { MainWindow::from_glib_none(main_win_ptr) };
+    let file_list = main_win.file_selector(FileSelectorID::ACTIVE).file_list();
+
+    let Some(file) = file_list.selected_file() else {
+        return;
+    };
+    let Some(dir) = file_list.directory() else {
+        return;
+    };
+
+    glib::spawn_future_local(async move {
+        make_copy_dialog(&file, &dir, &main_win).await;
+    });
+}
+
+#[no_mangle]
+pub extern "C" fn file_move(
+    _action: *const GSimpleAction,
+    _parameter: *const GVariant,
+    main_win_ptr: *mut GnomeCmdMainWin,
+) {
+    let main_win = unsafe { MainWindow::from_glib_none(main_win_ptr) };
+
+    let src_fs = main_win.file_selector(FileSelectorID::ACTIVE);
+    let dst_fs = main_win.file_selector(FileSelectorID::INACTIVE);
+    let options = ConfirmOptions::new();
+    glib::spawn_future_local(async move {
+        prepare_move_dialog_show(&main_win, &src_fs, &dst_fs, &options).await;
+    });
+}
 
 #[no_mangle]
 pub extern "C" fn file_chmod(
@@ -440,4 +503,258 @@ pub extern "C" fn view_close_tab(
             }
         }
     });
+}
+
+/************** Connections Menu **************/
+
+#[no_mangle]
+pub extern "C" fn connections_open(
+    _action: *const GSimpleAction,
+    _parameter: *const GVariant,
+    main_win_ptr: *mut GnomeCmdMainWin,
+) {
+    let main_win = unsafe { MainWindow::from_glib_none(main_win_ptr) };
+
+    let dialog = RemoteDialog::new(&main_win);
+    dialog.present();
+}
+
+#[no_mangle]
+pub extern "C" fn connections_new(
+    _action: *const GSimpleAction,
+    _parameter: *const GVariant,
+    main_win_ptr: *mut GnomeCmdMainWin,
+) {
+    let main_win = unsafe { MainWindow::from_glib_none(main_win_ptr) };
+
+    glib::spawn_future_local(async move {
+        // let con: GnomeCmdConRemote = gnome_cmd_data.get_quick_connect();
+        if let Some(connection) = ConnectDialog::new_connection(main_win.upcast_ref(), false).await
+        {
+            let fs = main_win.file_selector(FileSelectorID::ACTIVE);
+            if fs.file_list().is_locked() {
+                fs.new_tab();
+            }
+            fs.set_connection(connection.upcast_ref(), None);
+        }
+    });
+}
+
+#[no_mangle]
+pub extern "C" fn connections_change_left(
+    _action: *const GSimpleAction,
+    _parameter: *const GVariant,
+    main_win_ptr: *mut GnomeCmdMainWin,
+) {
+    let main_win = unsafe { MainWindow::from_glib_none(main_win_ptr) };
+
+    main_win.change_connection(FileSelectorID::LEFT);
+}
+
+#[no_mangle]
+pub extern "C" fn connections_change_right(
+    _action: *const GSimpleAction,
+    _parameter: *const GVariant,
+    main_win_ptr: *mut GnomeCmdMainWin,
+) {
+    let main_win = unsafe { MainWindow::from_glib_none(main_win_ptr) };
+
+    main_win.change_connection(FileSelectorID::RIGHT);
+}
+
+#[no_mangle]
+pub extern "C" fn connections_set_current(
+    _action: *const GSimpleAction,
+    parameter_ptr: *const GVariant,
+    main_win_ptr: *mut GnomeCmdMainWin,
+) {
+    let main_win = unsafe { MainWindow::from_glib_none(main_win_ptr) };
+    let parameter = unsafe { glib::Variant::from_glib_none(parameter_ptr) };
+
+    let Some(uuid) = parameter.str() else {
+        eprintln!("No connection uuid was given.");
+        return;
+    };
+
+    let con_list = ConnectionList::get();
+    let Some(con) = con_list.find_by_uuid(uuid) else {
+        eprintln!("No connection corresponds to {uuid}");
+        return;
+    };
+
+    main_win
+        .file_selector(FileSelectorID::ACTIVE)
+        .file_list()
+        .set_connection(&con, None);
+}
+
+fn close_connection(main_win: &MainWindow, con: &Connection) {
+    let active = main_win.file_selector(FileSelectorID::ACTIVE).file_list();
+    let inactive = main_win.file_selector(FileSelectorID::INACTIVE).file_list();
+
+    let home = ConnectionList::get().home();
+
+    if active.connection().as_ref() == Some(con) {
+        active.set_connection(&home, None);
+    }
+
+    if inactive.connection().as_ref() == Some(con) {
+        inactive.set_connection(&home, None);
+    }
+
+    con.close();
+}
+
+#[no_mangle]
+pub extern "C" fn connections_close(
+    _action: *const GSimpleAction,
+    parameter_ptr: *const GVariant,
+    main_win_ptr: *mut GnomeCmdMainWin,
+) {
+    let main_win = unsafe { MainWindow::from_glib_none(main_win_ptr) };
+    let parameter = unsafe { glib::Variant::from_glib_none(parameter_ptr) };
+
+    let Some(uuid) = parameter.str() else {
+        eprintln!("No connection uuid was given.");
+        return;
+    };
+
+    let con_list = ConnectionList::get();
+    let Some(con) = con_list.find_by_uuid(uuid) else {
+        eprintln!("No connection corresponds to {uuid}");
+        return;
+    };
+
+    close_connection(&main_win, &con);
+}
+
+#[no_mangle]
+pub extern "C" fn connections_close_current(
+    _action: *const GSimpleAction,
+    _parameter: *const GVariant,
+    main_win_ptr: *mut GnomeCmdMainWin,
+) {
+    let main_win = unsafe { MainWindow::from_glib_none(main_win_ptr) };
+
+    if let Some(con) = main_win
+        .file_selector(FileSelectorID::ACTIVE)
+        .connection()
+        .filter(|c| c.downcast_ref::<ConnectionHome>().is_none())
+    {
+        close_connection(&main_win, &con);
+    }
+}
+
+/************** Help Menu **************/
+
+#[no_mangle]
+pub extern "C" fn help_help(
+    _action: *const GSimpleAction,
+    _parameter: *const GVariant,
+    main_win_ptr: *mut GnomeCmdMainWin,
+) {
+    let main_win = unsafe { MainWindow::from_glib_none(main_win_ptr) };
+    display_help(main_win.upcast_ref(), None);
+}
+
+#[no_mangle]
+pub extern "C" fn help_keyboard(
+    _action: *const GSimpleAction,
+    _parameter: *const GVariant,
+    main_win_ptr: *mut GnomeCmdMainWin,
+) {
+    let main_win = unsafe { MainWindow::from_glib_none(main_win_ptr) };
+    display_help(main_win.upcast_ref(), Some("gnome-commander-keyboard"));
+}
+
+#[no_mangle]
+pub extern "C" fn help_web(
+    _action: *const GSimpleAction,
+    _parameter: *const GVariant,
+    main_win_ptr: *mut GnomeCmdMainWin,
+) {
+    let main_win = unsafe { MainWindow::from_glib_none(main_win_ptr) };
+
+    gtk::show_uri(Some(&main_win), PACKAGE_URL, gdk::CURRENT_TIME);
+    // show_error(
+    //     main_win.upcast_ref(),
+    //     &gettext("There was an error opening home page."),
+    //     &error,
+    // );
+}
+
+#[no_mangle]
+pub extern "C" fn help_problem(
+    _action: *const GSimpleAction,
+    _parameter: *const GVariant,
+    main_win_ptr: *mut GnomeCmdMainWin,
+) {
+    let main_win = unsafe { MainWindow::from_glib_none(main_win_ptr) };
+    gtk::show_uri(Some(&main_win), PACKAGE_BUGREPORT, gdk::CURRENT_TIME);
+    // show_error(
+    //     main_win.upcast_ref(),
+    //     &gettext("There was an error reporting problem."),
+    //     &error,
+    // );
+}
+
+#[no_mangle]
+pub extern "C" fn help_about(
+    _action: *const GSimpleAction,
+    _parameter: *const GVariant,
+    main_win_ptr: *mut GnomeCmdMainWin,
+) {
+    let main_win = unsafe { MainWindow::from_glib_none(main_win_ptr) };
+
+    let authors = [
+        "Marcus Bjurman <marbj499@student.liu.se>",
+        "Piotr Eljasiak <epiotr@use.pl>",
+        "Assaf Gordon <agordon88@gmail.com>",
+        "Uwe Scholz <u.scholz83@gmx.de>",
+        "Andrey Kuteiko <andy128k@gmail.com>",
+    ];
+
+    let documenters = [
+        "Marcus Bjurman <marbj499@student.liu.se>",
+        "Piotr Eljasiak <epiotr@use.pl>",
+        "Laurent Coudeur <laurentc@eircom.net>",
+        "Uwe Scholz <u.scholz83@gmx.de>",
+    ];
+
+    let copyright = "Copyright \u{00A9} 2001-2006 Marcus Bjurman
+Copyright \u{00A9} 2007-2012 Piotr Eljasiak
+Copyright \u{00A9} 2013-2024 Uwe Scholz
+Copyright \u{00A9} 2024 Andrey Kuteiko";
+
+    let license = format!(
+        "{}\n\n{}\n\n{}",
+        gettext(
+            "GNOME Commander is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version."
+        ),
+        gettext(
+            "GNOME Commander is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details."
+        ),
+        gettext(
+            "You should have received a copy of the GNU General Public License along with GNOME Commander; if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA."
+        )
+    );
+
+    gtk::AboutDialog::builder()
+        .transient_for(&main_win)
+        .name("GNOME Commander")
+        .version(PACKAGE_VERSION)
+        .comments(gettext(
+            "A fast and powerful file manager for the GNOME desktop",
+        ))
+        .copyright(copyright)
+        .license(license)
+        .wrap_license(true)
+        .authors(authors)
+        .documenters(documenters)
+        .logo_icon_name(PACKAGE_NAME)
+        .translator_credits(gettext("translator-credits"))
+        .website("https://gcmd.github.io")
+        .website_label("GNOME Commander Website")
+        .build()
+        .present();
 }

@@ -46,6 +46,11 @@ pub mod ffi {
             id: FileSelectorID,
         ) -> *mut GnomeCmdFileSelector;
 
+        pub fn gnome_cmd_main_win_change_connection(
+            main_win: *mut GnomeCmdMainWin,
+            id: FileSelectorID,
+        );
+
         pub fn gnome_cmd_main_win_focus_file_lists(main_win: *mut GnomeCmdMainWin);
 
         pub fn gnome_cmd_main_win_update_bookmarks(main_win: *mut GnomeCmdMainWin);
@@ -72,6 +77,10 @@ impl MainWindow {
         unsafe {
             FileSelector::from_glib_none(ffi::gnome_cmd_main_win_get_fs(self.to_glib_none().0, id))
         }
+    }
+
+    pub fn change_connection(&self, id: FileSelectorID) {
+        unsafe { ffi::gnome_cmd_main_win_change_connection(self.to_glib_none().0, id) }
     }
 
     pub fn focus_file_lists(&self) {

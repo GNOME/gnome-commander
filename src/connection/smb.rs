@@ -110,4 +110,7 @@ impl ConnectionExt for ConnectionSmb {
     fn mkdir(&self, path: &Path) -> Result<(), glib::Error> {
         self.upcast_ref::<Connection>().mkdir(path)
     }
+    fn close(&self) -> bool {
+        self.upcast_ref::<Connection>().close()
+    }
 }

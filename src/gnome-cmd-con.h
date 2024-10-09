@@ -122,7 +122,7 @@ inline gboolean gnome_cmd_con_is_open (GnomeCmdCon *con)
 
 void gnome_cmd_con_cancel_open (GnomeCmdCon *con);
 
-gboolean gnome_cmd_con_close (GnomeCmdCon *con);
+extern "C" gboolean gnome_cmd_con_close (GnomeCmdCon *con);
 
 inline gboolean gnome_cmd_con_open_is_needed (GnomeCmdCon *con)
 {

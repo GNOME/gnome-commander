@@ -158,8 +158,6 @@ inline gboolean GnomeCmdUserActions::register_action(guint keyval, const gchar *
 
 extern "C" int spawn_async_r(const char *cwd, GList *files_list, const char *command_template, GError **error);
 
-void eventually_warn_if_xdg_email_is_used(GnomeCmdMainWin *main_win);
-
 extern GnomeCmdUserActions gcmd_user_actions;
 
 

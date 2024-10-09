@@ -92,6 +92,8 @@ pub mod ffi {
             path_str: *const c_char,
             error: *mut *mut GError,
         ) -> gboolean;
+
+        pub fn gnome_cmd_con_close(con: *mut GnomeCmdCon) -> gboolean;
     }
 
     #[derive(Copy, Clone)]
@@ -141,6 +143,8 @@ pub trait ConnectionExt {
     fn path_target_type(&self, path: &Path) -> Option<gio::FileType>;
 
     fn mkdir(&self, path: &Path) -> Result<(), glib::Error>;
+
+    fn close(&self) -> bool;
 }
 
 impl ConnectionExt for Connection {
@@ -238,5 +242,9 @@ impl ConnectionExt for Connection {
                 Err(from_glib_full(error))
             }
         }
+    }
+
+    fn close(&self) -> bool {
+        unsafe { ffi::gnome_cmd_con_close(self.to_glib_none().0) != 0 }
     }
 }

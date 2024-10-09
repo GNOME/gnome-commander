@@ -27,10 +27,13 @@ use crate::{
     utils::{make_run_in_terminal_command, ErrorMessage},
 };
 use gettextrs::gettext;
-use glib::{ffi::gboolean, translate::from_glib_none};
 use gtk::{
     gio::prelude::*,
-    glib::{self, ffi::GList, translate::IntoGlibPtr},
+    glib::{
+        self,
+        ffi::{gboolean, GList},
+        translate::{from_glib_none, IntoGlibPtr},
+    },
 };
 use std::{
     cell::OnceCell,

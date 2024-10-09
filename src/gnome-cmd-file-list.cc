@@ -3373,6 +3373,16 @@ GnomeCmdDir *gnome_cmd_file_list_get_cwd(GnomeCmdFileList *fl)
     return fl->cwd;
 }
 
+GnomeCmdCon *gnome_cmd_file_list_get_connection(GnomeCmdFileList *fl)
+{
+    return fl->con;
+}
+
+GnomeCmdDir *gnome_cmd_file_list_get_directory(GnomeCmdFileList *fl)
+{
+    return fl->cwd;
+}
+
 gboolean gnome_cmd_file_list_is_locked (GnomeCmdFileList *fl)
 {
     return fl->locked;
@@ -3381,4 +3391,9 @@ gboolean gnome_cmd_file_list_is_locked (GnomeCmdFileList *fl)
 void gnome_cmd_file_list_reload (GnomeCmdFileList *fl)
 {
     fl->reload();
+}
+
+void gnome_cmd_file_list_set_connection(GnomeCmdFileList *fl, GnomeCmdCon *con, GnomeCmdDir *start_dir)
+{
+    fl->set_connection(con, start_dir);
 }

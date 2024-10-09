@@ -761,51 +761,10 @@ inline void get_file_list (string &s, GList *sfl, F f, T t)
 }
 
 
-static void view_refresh_0 (GnomeCmdMainWin *main_win);
-
-
 /************** File Menu **************/
-extern "C" void gnome_cmd_prepare_copy_dialog_show (GnomeCmdMainWin *main_win, GnomeCmdFileSelector *from, GnomeCmdFileSelector *to);
-
-void file_copy (GSimpleAction *action, GVariant *parameter, gpointer user_data)
-{
-    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
-
-    GnomeCmdFileSelector *src_fs = main_win->fs (ACTIVE);
-    GnomeCmdFileSelector *dest_fs = main_win->fs (INACTIVE);
-
-    if (src_fs && dest_fs)
-        gnome_cmd_prepare_copy_dialog_show (main_win, src_fs, dest_fs);
-}
-
-
-extern "C" void gnome_cmd_make_copy_dialog_run_r (GnomeCmdFile *f, GnomeCmdDir *dir, GnomeCmdMainWin *main_win);
-
-void file_copy_as (GSimpleAction *action, GVariant *parameter, gpointer user_data)
-{
-    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
-
-    GnomeCmdFileSelector *fs = main_win->fs (ACTIVE);
-    GnomeCmdFile *f = fs->file_list()->get_selected_file();
-
-    if (GNOME_CMD_IS_FILE (f))
-        gnome_cmd_make_copy_dialog_run_r(f, fs->get_directory(), main_win);
-}
-
-
-extern "C" void gnome_cmd_prepare_move_dialog_show (GnomeCmdMainWin *main_win, GnomeCmdFileSelector *from, GnomeCmdFileSelector *to);
-
-void file_move (GSimpleAction *action, GVariant *parameter, gpointer user_data)
-{
-    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
-
-    GnomeCmdFileSelector *src_fs = main_win->fs (ACTIVE);
-    GnomeCmdFileSelector *dest_fs = main_win->fs (INACTIVE);
-
-    if (src_fs && dest_fs)
-        gnome_cmd_prepare_move_dialog_show (main_win, src_fs, dest_fs);
-}
-
+extern "C" void file_copy (GSimpleAction *action, GVariant *parameter, gpointer user_data);
+extern "C" void file_copy_as (GSimpleAction *action, GVariant *parameter, gpointer user_data);
+extern "C" void file_move (GSimpleAction *action, GVariant *parameter, gpointer user_data);
 
 void file_delete (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
@@ -1571,12 +1530,6 @@ void view_refresh_tab (GSimpleAction *action, GVariant *parameter, gpointer user
 }
 
 
-static void view_refresh_0 (GnomeCmdMainWin *main_win)
-{
-    view_refresh (nullptr, nullptr, main_win);
-}
-
-
 void view_equal_panes (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
     auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
@@ -1831,93 +1784,13 @@ void options_edit_shortcuts (GSimpleAction *action, GVariant *parameter, gpointe
 }
 
 /************** Connections Menu **************/
-extern "C" void gnome_cmd_remote_dialog_run (GnomeCmdMainWin *main_win);
-
-void connections_open (GSimpleAction *action, GVariant *parameter, gpointer user_data)
-{
-    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
-
-    gnome_cmd_remote_dialog_run (main_win);
-}
-
-
-extern "C" void gnome_cmd_quick_connect_dialog (GnomeCmdMainWin *main_win);
-
-void connections_new (GSimpleAction *action, GVariant *parameter, gpointer user_data)
-{
-    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
-
-    gnome_cmd_quick_connect_dialog (main_win);
-}
-
-
-void connections_change_left (GSimpleAction *action, GVariant *parameter, gpointer user_data)
-{
-    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
-
-    main_win->change_connection(LEFT);
-}
-
-
-void connections_change_right (GSimpleAction *action, GVariant *parameter, gpointer user_data)
-{
-    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
-
-    main_win->change_connection(RIGHT);
-}
-
-
-void connections_set_current (GSimpleAction *action, GVariant *parameter, gpointer user_data)
-{
-    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
-
-    const gchar *uuid = g_variant_get_string (parameter, nullptr);
-
-    GnomeCmdConList *con_list = gnome_cmd_con_list_get ();
-    GnomeCmdCon *con = gnome_cmd_con_list_find_by_uuid (con_list, uuid);
-
-    get_fl (main_win, ACTIVE)->set_connection(con);
-}
-
-
-static void close_connection (GnomeCmdMainWin *main_win, GnomeCmdCon *con)
-{
-    GnomeCmdFileSelector *active = main_win->fs (ACTIVE);
-    GnomeCmdFileSelector *inactive = main_win->fs (INACTIVE);
-
-    GnomeCmdCon *home = get_home_con ();
-
-    if (con == active->get_connection())
-        active->set_connection(home);
-    if (con == inactive->get_connection())
-        inactive->set_connection(home);
-
-    gnome_cmd_con_close (con);
-}
-
-
-void connections_close (GSimpleAction *action, GVariant *parameter, gpointer user_data)
-{
-    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
-
-    const gchar *uuid = g_variant_get_string (parameter, nullptr);
-
-    GnomeCmdConList *con_list = gnome_cmd_con_list_get ();
-    GnomeCmdCon *con = gnome_cmd_con_list_find_by_uuid (con_list, uuid);
-
-    close_connection (main_win, con);
-}
-
-
-void connections_close_current (GSimpleAction *action, GVariant *parameter, gpointer user_data)
-{
-    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
-
-    GnomeCmdCon *con = main_win->fs (ACTIVE)->get_connection();
-
-    if (!GNOME_CMD_IS_CON_HOME (con))
-        close_connection (main_win, con);
-}
+extern "C" void connections_open (GSimpleAction *action, GVariant *parameter, gpointer user_data);
+extern "C" void connections_new (GSimpleAction *action, GVariant *parameter, gpointer user_data);
+extern "C" void connections_change_left (GSimpleAction *action, GVariant *parameter, gpointer user_data);
+extern "C" void connections_change_right (GSimpleAction *action, GVariant *parameter, gpointer user_data);
+extern "C" void connections_set_current (GSimpleAction *action, GVariant *parameter, gpointer user_data);
+extern "C" void connections_close (GSimpleAction *action, GVariant *parameter, gpointer user_data);
+extern "C" void connections_close_current (GSimpleAction *action, GVariant *parameter, gpointer user_data);
 
 
 /************** Bookmarks Menu **************/
@@ -1990,101 +1863,6 @@ void plugins_configure (GSimpleAction *action, GVariant *parameter, gpointer use
     plugin_manager_show (GTK_WINDOW (main_win));
 }
 
-
-/************** Help Menu **************/
-
-void help_help (GSimpleAction *action, GVariant *parameter, gpointer user_data)
-{
-    gnome_cmd_help_display ("gnome-commander.xml");
-}
-
-
-void help_keyboard (GSimpleAction *action, GVariant *parameter, gpointer user_data)
-{
-    gnome_cmd_help_display ("gnome-commander.xml", "gnome-commander-keyboard");
-}
-
-
-void help_web (GSimpleAction *action, GVariant *parameter, gpointer user_data)
-{
-    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
-
-    gtk_show_uri (*main_win, PACKAGE_URL, GDK_CURRENT_TIME);
-    // gnome_cmd_error_message (*main_win, _("There was an error opening home page."), error);
-}
-
-
-void help_problem (GSimpleAction *action, GVariant *parameter, gpointer user_data)
-{
-    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
-
-    gtk_show_uri (*main_win, PACKAGE_BUGREPORT, GDK_CURRENT_TIME);
-    // gnome_cmd_error_message (*main_win, _("There was an error reporting problem."), error);
-}
-
-
-void help_about (GSimpleAction *action, GVariant *parameter, gpointer user_data)
-{
-    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
-
-    static const gchar *authors[] = {
-        "Marcus Bjurman <marbj499@student.liu.se>",
-        "Piotr Eljasiak <epiotr@use.pl>",
-        "Assaf Gordon <agordon88@gmail.com>",
-        "Uwe Scholz <u.scholz83@gmx.de>",
-        "Andrey Kutejko <andy128k@gmail.com>",
-        nullptr
-    };
-
-    static const gchar *documenters[] = {
-        "Marcus Bjurman <marbj499@student.liu.se>",
-        "Piotr Eljasiak <epiotr@use.pl>",
-        "Laurent Coudeur <laurentc@eircom.net>",
-        "Uwe Scholz <u.scholz83@gmx.de>",
-        nullptr
-    };
-
-    static const gchar copyright[] = "Copyright \xc2\xa9 2001-2006 Marcus Bjurman\n"
-                                     "Copyright \xc2\xa9 2007-2012 Piotr Eljasiak\n"
-                                     "Copyright \xc2\xa9 2013-2024 Uwe Scholz\n"
-                                     "Copyright \xc2\xa9 2024 Andrey Kutejko";
-
-    static const gchar comments[] = N_("A fast and powerful file manager for the GNOME desktop");
-
-
-    static const gchar *license[] = {
-        N_("GNOME Commander is free software; you can redistribute it and/or modify "
-           "it under the terms of the GNU General Public License as published by "
-           "the Free Software Foundation; either version 2 of the License, or "
-           "(at your option) any later version."),
-        N_("GNOME Commander is distributed in the hope that it will be useful, "
-           "but WITHOUT ANY WARRANTY; without even the implied warranty of "
-           "MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the "
-           "GNU General Public License for more details."),
-        N_("You should have received a copy of the GNU General Public License "
-           "along with GNOME Commander; if not, write to the Free Software Foundation, Inc., "
-           "51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.")
-    };
-
-    gchar *license_trans = g_strjoin ("\n\n", _(license[0]), _(license[1]), _(license[2]), nullptr);
-
-    gtk_show_about_dialog (*main_win,
-                           "name", "GNOME Commander",
-                           "version", PACKAGE_VERSION,
-                           "comments", _(comments),
-                           "copyright", copyright,
-                           "license", license_trans,
-                           "wrap-license", TRUE,
-                           "authors", authors,
-                           "documenters", documenters,
-                           "logo-icon-name", PACKAGE_NAME,
-                           "translator-credits", _("translator-credits"),
-                           "website", "https://gcmd.github.io",
-                           "website-label", "GNOME Commander Website",
-                           nullptr);
-
-    g_free (license_trans);
-}
 
 const GActionEntry FILE_ACTION_ENTRIES[] = {
     { "file-copy",              file_copy,              nullptr,  nullptr,  nullptr },

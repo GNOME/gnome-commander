@@ -21,13 +21,10 @@
  */
 
 use crate::{
-    connection::list::ConnectionList,
-    i18n::I18N_CONTEXT_ACTION,
-    main_win::{ffi::GnomeCmdMainWin, MainWindow},
+    connection::list::ConnectionList, i18n::I18N_CONTEXT_ACTION, main_win::MainWindow,
     types::FileSelectorID,
 };
 use gettextrs::{gettext, pgettext};
-use glib::translate::from_glib_none;
 use gtk::{glib, pango, prelude::*, subclass::prelude::*};
 
 mod imp {
@@ -438,12 +435,4 @@ impl RemoteDialog {
 
         dialog
     }
-}
-
-#[no_mangle]
-pub extern "C" fn gnome_cmd_remote_dialog_run(main_win: *mut GnomeCmdMainWin) {
-    let main_win: MainWindow = unsafe { from_glib_none(main_win) };
-
-    let dialog = RemoteDialog::new(&main_win);
-    dialog.present();
 }
