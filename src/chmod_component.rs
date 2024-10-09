@@ -54,7 +54,7 @@ pub mod ffi {
 
 glib::wrapper! {
     pub struct ChmodComponent(Object<ffi::GnomeCmdChmodComponent, ffi::GnomeCmdChmodComponentClass>)
-        @extends gtk::Box, gtk::Container, gtk::Widget;
+        @extends gtk::Box, gtk::Widget;
 
     match fn {
         type_ => || ffi::gnome_cmd_chmod_component_get_type(),

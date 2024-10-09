@@ -18,7 +18,7 @@
  */
 
 use super::profiles::ProfileManager;
-use crate::utils::{display_help, Gtk3to4BoxCompat};
+use crate::utils::display_help;
 use gettextrs::gettext;
 use gtk::{glib, prelude::*};
 use std::rc::Rc;
@@ -125,8 +125,6 @@ pub async fn edit_profile(
     }));
 
     dialog.set_default_response(gtk::ResponseType::Ok);
-
-    content_area.show_all();
 
     dialog.present();
     let result = dialog.run_future().await;

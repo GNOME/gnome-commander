@@ -114,11 +114,11 @@ impl BookmarksDialog {
         if let Some((model, iter)) = selection.selected() {
             let bookmark = Bookmark {
                 name: model
-                    .value(&iter, Columns::COL_NAME as i32)
+                    .get_value(&iter, Columns::COL_NAME as i32)
                     .get()
                     .unwrap_or_default(),
                 path: model
-                    .value(&iter, Columns::COL_PATH as i32)
+                    .get_value(&iter, Columns::COL_PATH as i32)
                     .get()
                     .unwrap_or_default(),
             };

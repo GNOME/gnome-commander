@@ -37,6 +37,7 @@ struct GnomeCmdPatternselDialogPrivate
     GtkWidget *case_check;
     GtkWidget *pattern_combo;
     GtkWidget *pattern_entry;
+    GtkWidget *regex_check;
 
     gboolean mode;
 };
@@ -49,8 +50,8 @@ static void on_ok (GtkButton *button, GnomeCmdPatternselDialog *dialog)
 {
     g_return_if_fail (GNOME_CMD_IS_PATTERNSEL_DIALOG (dialog));
 
-    gboolean case_sens = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (dialog->priv->case_check));
-    gnome_cmd_data.search_defaults.default_profile.syntax = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (lookup_widget (GTK_WIDGET (dialog), "regex_radio"))) ? Filter::TYPE_REGEX : Filter::TYPE_FNMATCH;
+    gboolean case_sens = gtk_check_button_get_active (GTK_CHECK_BUTTON (dialog->priv->case_check));
+    gnome_cmd_data.search_defaults.default_profile.syntax = gtk_check_button_get_active (GTK_CHECK_BUTTON (dialog->priv->regex_check)) ? Filter::TYPE_REGEX : Filter::TYPE_FNMATCH;
 
     const gchar *s = gtk_editable_get_text (GTK_EDITABLE (dialog->priv->pattern_entry));
 
@@ -90,7 +91,7 @@ static void gnome_cmd_patternsel_dialog_finalize (GObject *object)
 static void gnome_cmd_patternsel_dialog_init (GnomeCmdPatternselDialog *dialog)
 {
     GnomeCmdData::SearchConfig &defaults = gnome_cmd_data.search_defaults;
-    GtkWidget *hbox, *vbox, *label, *radio;
+    GtkWidget *hbox, *vbox, *label;
 
     dialog->priv = g_new0 (GnomeCmdPatternselDialogPrivate, 1);
 
@@ -122,14 +123,15 @@ static void gnome_cmd_patternsel_dialog_init (GnomeCmdPatternselDialog *dialog)
     gtk_box_append (GTK_BOX (vbox), hbox);
     gtk_box_append (GTK_BOX (hbox), dialog->priv->case_check);
 
-    radio = create_radio_with_mnemonic (GTK_WIDGET (dialog), NULL, _("She_ll syntax"), "shell_radio");
-    gtk_box_append (GTK_BOX (hbox), radio);
+    GtkWidget *shell_check = gtk_check_button_new_with_mnemonic (_("She_ll syntax"));
+    gtk_box_append (GTK_BOX (hbox), shell_check);
     if (gnome_cmd_data.search_defaults.default_profile.syntax == Filter::TYPE_FNMATCH)
-        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
-    radio = create_radio_with_mnemonic (GTK_WIDGET (dialog), get_radio_group (radio), _("Rege_x syntax"), "regex_radio");
-    gtk_box_append (GTK_BOX (hbox), radio);
+        gtk_check_button_set_active (GTK_CHECK_BUTTON (shell_check), TRUE);
+    dialog->priv->regex_check = gtk_check_button_new_with_mnemonic (_("Rege_x syntax"));
+    gtk_check_button_set_group (GTK_CHECK_BUTTON (dialog->priv->regex_check), GTK_CHECK_BUTTON (shell_check));
+    gtk_box_append (GTK_BOX (hbox), dialog->priv->regex_check);
     if (gnome_cmd_data.search_defaults.default_profile.syntax == Filter::TYPE_REGEX)
-        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
+        gtk_check_button_set_active (GTK_CHECK_BUTTON (dialog->priv->regex_check), TRUE);
 
     gnome_cmd_dialog_add_category (GNOME_CMD_DIALOG (dialog), vbox);
 

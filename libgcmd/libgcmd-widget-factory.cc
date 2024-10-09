@@ -32,7 +32,7 @@ GtkWidget *lookup_widget (GtkWidget *widget, const gchar *widget_name)
 
     for (;;)
     {
-        parent = GTK_IS_MENU (widget) ? gtk_menu_get_attach_widget (GTK_MENU (widget)) : gtk_widget_get_parent(widget);
+        parent = gtk_widget_get_parent(widget);
         if (!parent)
             break;
         widget = parent;
@@ -163,13 +163,8 @@ GtkWidget *create_category (GtkWidget *parent, GtkWidget *content, const gchar *
 
 GtkWidget *create_named_button_with_data (GtkWidget *parent, const gchar *label, const gchar *name, GCallback func, gpointer data)
 {
-    guint key;
-    GtkAccelGroup *accel_group = gtk_accel_group_new ();
     GtkWidget *w = gtk_button_new_with_mnemonic (label);
 
-    key = gtk_label_get_mnemonic_keyval (GTK_LABEL (gtk_bin_get_child( GTK_BIN (w))));
-    gtk_widget_add_accelerator (w, "clicked", accel_group, key, GDK_MOD1_MASK, (GtkAccelFlags) 0);
-    gtk_window_add_accel_group (GTK_WINDOW (parent), accel_group);
     g_object_ref (w);
     g_object_set_data_full (G_OBJECT (parent), name, w, g_object_unref);
     gtk_widget_show (w);
@@ -215,9 +210,10 @@ GtkWidget *create_check_with_mnemonic (GtkWidget *parent, const gchar *text, con
 }
 
 
-GtkWidget *create_radio (GtkWidget *parent, GSList *group, const gchar *text, const gchar *name)
+GtkWidget *create_radio (GtkWidget *parent, GtkWidget *group, const gchar *text, const gchar *name)
 {
-    GtkWidget *btn = gtk_radio_button_new_with_label (group, text);
+    GtkWidget *btn = gtk_check_button_new_with_label (text);
+    gtk_check_button_set_group (GTK_CHECK_BUTTON (btn), GTK_CHECK_BUTTON (group));
     g_object_ref (btn);
     g_object_set_data_full (G_OBJECT (parent), name, btn, g_object_unref);
     gtk_widget_show (btn);
@@ -226,9 +222,10 @@ GtkWidget *create_radio (GtkWidget *parent, GSList *group, const gchar *text, co
 }
 
 
-GtkWidget *create_radio_with_mnemonic (GtkWidget *parent, GSList *group, gchar *text, const gchar *name)
+GtkWidget *create_radio_with_mnemonic (GtkWidget *parent, GtkWidget *group, gchar *text, const gchar *name)
 {
-    GtkWidget *radio = gtk_radio_button_new_with_mnemonic (group, text);
+    GtkWidget *radio = gtk_check_button_new_with_label (text);
+    gtk_check_button_set_group (GTK_CHECK_BUTTON (radio), GTK_CHECK_BUTTON (group));
 
     g_object_ref (radio);
     g_object_set_data_full (G_OBJECT (parent), name, radio, g_object_unref);
@@ -260,26 +257,38 @@ GtkWidget *create_color_button (GtkWidget *parent, const gchar *name)
 }
 
 
-static void preview_update (GtkFileChooser *fileChooser, GtkImage *preview)
+static void icon_button_set_path (GtkButton *button, const gchar* icon_path)
 {
-    char *filename;
-    GdkPixbuf *pixbuf;
+    g_object_set_data_full (G_OBJECT (button), "file", g_strdup (icon_path), g_free);
 
-    filename = gtk_file_chooser_get_preview_filename (fileChooser);
-    if (filename)
+    if (icon_path && *icon_path != '\0')
     {
-        pixbuf = gdk_pixbuf_new_from_file (filename, nullptr);
-
-        gtk_file_chooser_set_preview_widget_active (fileChooser, pixbuf != nullptr);
-
-        if (pixbuf)
-        {
-            gtk_image_set_from_pixbuf (preview, pixbuf);
-            g_object_unref (pixbuf);
-        }
-
-        g_free (filename);
+        auto image = gtk_image_new ();
+        gtk_image_set_from_file (GTK_IMAGE (image), icon_path);
+        gtk_widget_set_tooltip_text (GTK_WIDGET (button), icon_path);
+        gtk_button_set_child (GTK_BUTTON (button), GTK_WIDGET (image));
     }
+    else
+    {
+        gtk_button_set_child (GTK_BUTTON (button), gtk_label_new (_("Choose Icon")));
+    }
+}
+
+
+static void icon_button_chooser_response (GtkDialog *dialog, int response_id, gpointer user_data)
+{
+    GtkButton *button = GTK_BUTTON (user_data);
+
+    if (response_id == GTK_RESPONSE_ACCEPT)
+    {
+        auto icon_file = gtk_file_chooser_get_file (GTK_FILE_CHOOSER (dialog));
+        auto icon_path = g_file_get_path (icon_file);
+        icon_button_set_path (button, icon_path);
+        g_free (icon_path);
+        g_object_unref (icon_file);
+    }
+
+    gtk_window_destroy (GTK_WINDOW (dialog));
 }
 
 
@@ -287,8 +296,6 @@ static void icon_button_clicked (GtkButton *button, const gchar* iconPath)
 {
     GtkWidget *dialog;
     GtkFileFilter *filter;
-    GtkWidget *preview;
-    int responseValue;
 
     dialog = gtk_file_chooser_dialog_new (_("Select an Image File"),
                                             GTK_WINDOW (gtk_widget_get_ancestor ((GtkWidget*)button, GTK_TYPE_WINDOW)),
@@ -299,50 +306,31 @@ static void icon_button_clicked (GtkButton *button, const gchar* iconPath)
     if (iconPath)
     {
         auto folderPath = g_path_get_dirname(iconPath);
-        gtk_file_chooser_set_current_folder (GTK_FILE_CHOOSER (dialog), folderPath);
+        GFile *folder = g_file_new_for_path (folderPath);
+        gtk_file_chooser_set_current_folder (GTK_FILE_CHOOSER (dialog), folder, nullptr);
+        g_object_unref (folder);
         g_free(folderPath);
     }
     else
     {
-        gtk_file_chooser_set_current_folder (GTK_FILE_CHOOSER (dialog), PIXMAPS_DIR);
+        GFile *folder = g_file_new_for_path (PIXMAPS_DIR);
+        gtk_file_chooser_set_current_folder (GTK_FILE_CHOOSER (dialog), folder, nullptr);
+        g_object_unref (folder);
     }
 
     filter = gtk_file_filter_new ();
     gtk_file_filter_add_pixbuf_formats (filter);
     gtk_file_chooser_set_filter (GTK_FILE_CHOOSER (dialog), filter);
 
-    preview = gtk_image_new ();
-    gtk_file_chooser_set_preview_widget (GTK_FILE_CHOOSER (dialog), preview);
-    g_signal_connect (dialog, "update-preview", G_CALLBACK (preview_update), preview);
-
-    responseValue = gtk_dialog_run (GTK_DIALOG (dialog));
-
-    if (responseValue == GTK_RESPONSE_ACCEPT)
-    {
-        auto icon_path = gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (dialog));
-        gtk_image_set_from_file (GTK_IMAGE (gtk_button_get_image (button)), icon_path);
-        gtk_button_set_label (button, icon_path == nullptr ? _("Choose Icon") : nullptr);
-        gtk_widget_set_tooltip_text(GTK_WIDGET(button), icon_path);
-    }
-
-    gtk_window_destroy (GTK_WINDOW (dialog));
+    g_signal_connect (dialog, "response", G_CALLBACK (icon_button_chooser_response), button);
+    gtk_window_present (GTK_WINDOW (dialog));
 }
 
 
 GtkWidget *create_icon_button_widget (GtkWidget *parent, const gchar *name, const gchar *iconPath)
 {
-    auto image = gtk_image_new ();
     auto gtkButton = gtk_button_new ();
-    if (iconPath && *iconPath != '\0')
-    {
-        gtk_image_set_from_file (GTK_IMAGE (image), iconPath);
-        gtk_widget_set_tooltip_text(gtkButton, iconPath);
-    }
-    else
-    {
-        gtk_button_set_label (GTK_BUTTON(gtkButton), _("Choose Icon"));
-    }
-    gtk_button_set_image (GTK_BUTTON (gtkButton), image);
+    icon_button_set_path (GTK_BUTTON (gtkButton), iconPath);
     g_signal_connect (gtkButton, "clicked", G_CALLBACK (icon_button_clicked), (gpointer) iconPath);
     g_object_ref (gtkButton);
     g_object_set_data_full (G_OBJECT (parent), name, gtkButton, g_object_unref);
@@ -380,15 +368,12 @@ static void directory_chooser_response (GtkNativeDialog *chooser, gint response_
 
 static void on_directory_chooser_click (GtkButton *button, GtkWidget *parent)
 {
-    gboolean local_only = reinterpret_cast<size_t> (g_object_get_data (G_OBJECT (button), "local_only")) != 0;
-
     auto chooser = gtk_file_chooser_native_new (_("Select Directory"),
         GTK_WINDOW (parent),
         GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER,
         nullptr,
         nullptr);
     gtk_native_dialog_set_modal (GTK_NATIVE_DIALOG (chooser), true);
-    gtk_file_chooser_set_local_only (GTK_FILE_CHOOSER (chooser), local_only);
     g_signal_connect (chooser, "response", G_CALLBACK (directory_chooser_response), button);
 
     if (GFile *file = directory_chooser_button_get_file (GTK_WIDGET (button)))
@@ -398,10 +383,9 @@ static void on_directory_chooser_click (GtkButton *button, GtkWidget *parent)
 }
 
 
-GtkWidget *create_directory_chooser_button (GtkWidget *parent, const gchar *name, bool local_only)
+GtkWidget *create_directory_chooser_button (GtkWidget *parent, const gchar *name)
 {
     GtkWidget *button = create_named_button (parent, _("(None)"), name, G_CALLBACK (on_directory_chooser_click));
-    g_object_set_data (G_OBJECT (button), "local_only", reinterpret_cast<gpointer>((size_t) local_only));
     return button;
 }
 
@@ -552,75 +536,6 @@ const char *get_entry_text (GtkWidget *parent, const gchar *entry_name)
 }
 
 
-struct ActionAcceleratorClosure
-{
-    GActionGroup *action_group;
-    gchar *action_name;
-    GVariant *parameter;
-};
-
-
-static gboolean action_accelerator_closure_handle(GtkAccelGroup *accel_group,
-                                                  GObject *acceleratable,
-                                                  guint keyval,
-                                                  GdkModifierType modifier,
-                                                  gpointer user_data)
-{
-    ActionAcceleratorClosure *obj = static_cast<ActionAcceleratorClosure*> (user_data);
-    GVariant *parameter = obj->parameter ? g_variant_ref (obj->parameter) : nullptr;
-
-    if (obj->action_group != nullptr)
-    {
-        const gchar *action_name = strchr (obj->action_name, '.');
-        if (action_name != nullptr)
-            action_name += 1;
-        else
-            action_name = obj->action_name;
-
-        g_action_group_activate_action (obj->action_group, action_name, parameter);
-    }
-    else
-    {
-        g_warning ("Cannot activate action %s.", obj->action_name);
-    }
-    return TRUE;
-}
-
-
-static void action_accelerator_closure_free(gpointer user_data, GClosure *closure)
-{
-    ActionAcceleratorClosure *obj = static_cast<ActionAcceleratorClosure*> (user_data);
-    if (obj)
-    {
-        g_clear_object (&obj->action_group);
-        g_clear_pointer (&obj->action_name, g_free);
-        g_clear_pointer (&obj->parameter, g_variant_unref);
-    }
-}
-
-
-static GClosure *action_accelerator_closure_new (GActionGroup *action_group,
-                                                 const gchar *detailed_action)
-{
-    gchar *action_name;
-    GVariant *parameter;
-    GError *error;
-    if (!g_action_parse_detailed_name (detailed_action, &action_name, &parameter, &error))
-    {
-        g_message("g_action_parse_detailed_name error: %s\n", error->message);
-        g_error_free (error);
-        return nullptr;
-    }
-
-    ActionAcceleratorClosure* obj = new ActionAcceleratorClosure {
-        action_group = g_object_ref (action_group),
-        action_name,
-        parameter,
-    };
-    return g_cclosure_new (G_CALLBACK(action_accelerator_closure_handle), obj, action_accelerator_closure_free);
-}
-
-
 MenuBuilder MenuBuilder::item(GMenuItem *item) &&
 {
     g_menu_append_item (menu, item);
@@ -639,14 +554,19 @@ MenuBuilder MenuBuilder::item(const gchar *label,
     {
         g_menu_item_set_attribute_value(item, "accel", g_variant_new_string (accelerator));
 
-        guint accelerator_key;
-        GdkModifierType accelerator_mods;
-        gtk_accelerator_parse (accelerator, &accelerator_key, &accelerator_mods);
-        gtk_accel_group_connect (accel_group,
-                                 accelerator_key,
-                                 accelerator_mods,
-                                 GTK_ACCEL_VISIBLE,
-                                 action_accelerator_closure_new (action_group, detailed_action));
+        auto trigger = gtk_shortcut_trigger_parse_string (accelerator);
+        if (trigger)
+        {
+            if (shortcuts == nullptr)
+                shortcuts = g_list_store_new (GTK_TYPE_SHORTCUT);
+
+            g_list_store_append (shortcuts,
+                gtk_shortcut_new (trigger, gtk_named_action_new (detailed_action)));
+        }
+        else
+        {
+            g_warning ("Failed to parse '%s' as an accelerator.", accelerator);
+        }
     }
     if (icon)
         g_menu_item_set_icon (item, g_themed_icon_new (icon));

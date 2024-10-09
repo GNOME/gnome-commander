@@ -233,8 +233,6 @@ static void gnome_cmd_about_plugin_display_credits_dialog (GnomeCmdAboutPlugin *
         gtk_notebook_append_page (GTK_NOTEBOOK (notebook), sw, gtk_label_new (_("Translated by")));
         gnome_cmd_about_plugin_update_translation_information_label (about, label);
     }
-
-    gtk_widget_show_all (dialog);
 }
 
 
@@ -243,7 +241,7 @@ static void link_button_clicked_callback (GtkWidget *widget, gpointer data)
     const gchar *link;
 
     link = gtk_link_button_get_uri (GTK_LINK_BUTTON (widget));
-    gtk_show_uri (nullptr, link, gtk_get_current_event_time(), nullptr);
+    gtk_show_uri (nullptr, link, GDK_CURRENT_TIME);
 }
 
 
@@ -283,7 +281,7 @@ static void gnome_cmd_about_plugin_init (GnomeCmdAboutPlugin *about)
     gtk_widget_show (priv->comments_label);
     gtk_label_set_selectable (GTK_LABEL (priv->comments_label), TRUE);
     gtk_label_set_justify (GTK_LABEL (priv->comments_label), GTK_JUSTIFY_CENTER);
-    gtk_label_set_line_wrap (GTK_LABEL (priv->comments_label), TRUE);
+    gtk_label_set_wrap (GTK_LABEL (priv->comments_label), TRUE);
     gtk_box_append (GTK_BOX (content_area), priv->comments_label);
 
     priv->copyright_label = gtk_label_new (nullptr);
@@ -317,8 +315,6 @@ static void gnome_cmd_about_plugin_init (GnomeCmdAboutPlugin *about)
     gtk_box_append (GTK_BOX (content_area), bbox);
 
     gtk_window_set_resizable (GTK_WINDOW (about), FALSE);
-
-    gtk_widget_show_all (content_area);
 
     priv->credits_dialog = { { nullptr } };
 }

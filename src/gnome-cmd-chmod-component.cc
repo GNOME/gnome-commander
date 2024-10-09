@@ -67,7 +67,7 @@ static void on_perms_changed (GnomeCmdChmodComponent *comp)
 }
 
 
-static void on_check_toggled (GtkToggleButton *togglebutton, GnomeCmdChmodComponent *component)
+static void on_check_toggled (GtkCheckButton *checkbutton, GnomeCmdChmodComponent *component)
 {
     g_signal_emit (component, chmod_component_signals[PERMS_CHANGED], 0);
 }
@@ -169,7 +169,7 @@ guint32 gnome_cmd_chmod_component_get_perms (GnomeCmdChmodComponent *comp)
 
     for (gint y=0; y<3; y++)
         for (gint x=0; x<3; x++)
-            if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->check_boxes[y][x])))
+            if (gtk_check_button_get_active (GTK_CHECK_BUTTON (priv->check_boxes[y][x])))
                 perms |= check_perm[y][x];
 
     return perms;
@@ -182,5 +182,5 @@ void gnome_cmd_chmod_component_set_perms (GnomeCmdChmodComponent *component, gui
 
     for (gint y=0; y<3; y++)
         for (gint x=0; x<3; x++)
-            gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (priv->check_boxes[y][x]), permissions & check_perm[y][x]);
+            gtk_check_button_set_active (GTK_CHECK_BUTTON (priv->check_boxes[y][x]), permissions & check_perm[y][x]);
 }

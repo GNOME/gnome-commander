@@ -114,7 +114,6 @@ inline void hide_popup (GnomeCmdQuicksearchPopup *popup)
 {
     auto priv = static_cast<GnomeCmdQuicksearchPopupPrivate *> (gnome_cmd_quicksearch_popup_get_instance_private (popup));
 
-    gtk_grab_remove (priv->entry);
     gtk_widget_grab_focus (GTK_WIDGET (priv->fl));
     if (priv->matches)
         g_list_free (priv->matches);
@@ -209,14 +208,14 @@ static void gnome_cmd_quicksearch_popup_init (GnomeCmdQuicksearchPopup *popup)
 
     gtk_box_append (GTK_BOX (box), lbl);
     gtk_box_append (GTK_BOX (box), priv->entry);
-    gtk_container_add (GTK_CONTAINER (popup), box);
+    gtk_popover_set_child (GTK_POPOVER (popup), box);
 
-    GtkEventController *key_controller = gtk_event_controller_key_new (priv->entry);
+    GtkEventController *key_controller = gtk_event_controller_key_new ();
+    gtk_event_controller_set_propagation_phase (key_controller, GTK_PHASE_CAPTURE);
+    gtk_widget_add_controller (priv->entry, GTK_EVENT_CONTROLLER (key_controller));
     g_signal_connect (key_controller, "key-pressed", G_CALLBACK (on_key_pressed), popup);
 
     g_signal_connect_after (priv->entry, "changed", G_CALLBACK (on_text_changed), popup);
-
-    gtk_widget_show_all (box);
 }
 
 /***********************************
@@ -232,7 +231,7 @@ GtkWidget *gnome_cmd_quicksearch_popup_new (GnomeCmdFileList *fl)
     priv->fl = fl;
     priv->last_focused_file = nullptr;
 
-    gtk_popover_set_relative_to (GTK_POPOVER (popup), *fl);
+    gtk_widget_set_parent (GTK_WIDGET (popup), *fl);
     gtk_popover_set_position (GTK_POPOVER (popup), GTK_POS_BOTTOM);
 
     return GTK_WIDGET (popup);

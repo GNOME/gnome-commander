@@ -114,7 +114,7 @@ struct GnomeCmdFileSelector
 
     gboolean key_pressed(GnomeCmdKeyPress *event);
 
-    GList* GetTabs();
+    GListModel* GetTabs();
 };
 
 inline GnomeCmdFileList *GnomeCmdFileSelector::file_list(gint n) const

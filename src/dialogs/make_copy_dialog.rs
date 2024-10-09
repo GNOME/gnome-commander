@@ -28,7 +28,7 @@ use crate::{
     main_win::{ffi::GnomeCmdMainWin, MainWindow},
     transfer::gnome_cmd_copy_gfiles,
     types::GnomeCmdConfirmOverwriteMode,
-    utils::{close_dialog_with_escape_key, Gtk3to4BoxCompat},
+    utils::close_dialog_with_escape_key,
 };
 use gettextrs::gettext;
 use gtk::{
@@ -95,7 +95,7 @@ pub async fn make_copy_dialog(f: &File, dir: &Directory, main_win: &MainWindow) 
     let ok_btn = gtk::Button::builder()
         .label(gettext("_OK"))
         .use_underline(true)
-        .can_default(true)
+        .receives_default(true)
         .build();
     ok_btn.connect_clicked(
         glib::clone!(@weak dialog => move |_| dialog.response(gtk::ResponseType::Ok)),
@@ -108,8 +108,7 @@ pub async fn make_copy_dialog(f: &File, dir: &Directory, main_win: &MainWindow) 
     }));
 
     entry.grab_focus();
-    dialog.show_all();
-    ok_btn.set_has_default(true);
+    dialog.present();
 
     let response = dialog.run_future().await;
     let filename = entry.text();

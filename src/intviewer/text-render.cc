@@ -71,7 +71,7 @@ typedef void (*copy_to_clipboard_proc)(TextRender *obj, offset_type start_offset
 
 struct TextRenderClass
 {
-    GtkDrawingAreaClass parent_class;
+    GtkWidgetClass parent_class;
 
     void (* text_status_changed) (TextRender *obj, TextRender::Status *status);
 };
@@ -129,7 +129,7 @@ struct TextRenderPrivate
 
 G_DEFINE_TYPE_EXTENDED (TextRender,
                         text_render,
-                        GTK_TYPE_DRAWING_AREA,
+                        GTK_TYPE_WIDGET,
                         0,
                         G_ADD_PRIVATE (TextRender)
                         G_IMPLEMENT_INTERFACE (GTK_TYPE_SCROLLABLE, NULL))
@@ -138,13 +138,12 @@ G_DEFINE_TYPE_EXTENDED (TextRender,
 // Gtk class related static functions
 static void text_render_position_changed(TextRender *w);
 
-static void text_render_get_preferred_width (GtkWidget *widget, gint *minimal_width, gint *natural_width);
-static void text_render_get_preferred_height (GtkWidget *widget, gint *minimal_height, gint *natural_height);
-static void text_render_size_allocate (GtkWidget *widget, GtkAllocation *allocation);
-static gboolean text_render_draw(GtkWidget *widget, cairo_t *cr);
+static void text_render_measure (GtkWidget* widget, GtkOrientation orientation, int for_size, int* minimum, int* natural, int* minimum_baseline, int* natural_baseline);
+static void text_render_size_allocate (GtkWidget *widget, int width, int height, int baseline);
+static void text_render_draw (GtkWidget *widget, GtkSnapshot *snapshot);
 static void text_render_scroll (GtkEventControllerScroll *controller, double dx, double dy, gpointer user_data);
-static void text_render_button_press (GtkGestureMultiPress *gesture, int n_press, double x, double y, gpointer user_data);
-static void text_render_button_release (GtkGestureMultiPress *gesture, int n_press, double x, double y, gpointer user_data);
+static void text_render_button_press (GtkGestureClick *gesture, int n_press, double x, double y, gpointer user_data);
+static void text_render_button_release (GtkGestureClick *gesture, int n_press, double x, double y, gpointer user_data);
 static void text_render_motion_notify (GtkEventControllerMotion *controller, double x, double y, gpointer user_data);
 static void text_render_h_adjustment_update (TextRender *obj);
 static void text_render_h_adjustment_changed (GtkAdjustment *adjustment, gpointer data);
@@ -234,13 +233,6 @@ static void text_render_set_v_adjustment (TextRender *obj, GtkAdjustment *adjust
 
 static void text_render_init (TextRender *w)
 {
-    gtk_widget_add_events (GTK_WIDGET (w),
-        GDK_EXPOSURE_MASK |
-        GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK |
-        GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK |
-        GDK_SCROLL_MASK |
-        GDK_KEY_PRESS_MASK);
-
     auto priv = static_cast<TextRenderPrivate*>(text_render_get_instance_private (w));
 
     priv->button = 0;
@@ -277,17 +269,21 @@ static void text_render_init (TextRender *w)
 
     text_render_setup_font(w, priv->fixed_font_name, priv->font_size);
 
-    GtkEventController *scroll_controller = gtk_event_controller_scroll_new (GTK_WIDGET (w), GTK_EVENT_CONTROLLER_SCROLL_VERTICAL);
+    GtkEventController *scroll_controller = gtk_event_controller_scroll_new (GTK_EVENT_CONTROLLER_SCROLL_VERTICAL);
+    gtk_widget_add_controller (GTK_WIDGET (w), GTK_EVENT_CONTROLLER (scroll_controller));
     g_signal_connect (scroll_controller, "scroll", G_CALLBACK (text_render_scroll), w);
 
-    GtkGesture *button_gesture = gtk_gesture_multi_press_new (GTK_WIDGET (w));
+    GtkGesture *button_gesture = gtk_gesture_click_new ();
+    gtk_widget_add_controller (GTK_WIDGET (w), GTK_EVENT_CONTROLLER (button_gesture));
     g_signal_connect (button_gesture, "pressed", G_CALLBACK (text_render_button_press), w);
     g_signal_connect (button_gesture, "released", G_CALLBACK (text_render_button_release), w);
 
-    GtkEventController* motion_controller = gtk_event_controller_motion_new (GTK_WIDGET (w));
+    GtkEventController* motion_controller = gtk_event_controller_motion_new ();
+    gtk_widget_add_controller (GTK_WIDGET (w), GTK_EVENT_CONTROLLER (motion_controller));
     g_signal_connect (motion_controller, "motion", G_CALLBACK (text_render_motion_notify), w);
 
-    GtkEventController *key_controller = gtk_event_controller_key_new (GTK_WIDGET (w));
+    GtkEventController *key_controller = gtk_event_controller_key_new ();
+    gtk_widget_add_controller (GTK_WIDGET (w), GTK_EVENT_CONTROLLER (key_controller));
     g_signal_connect (key_controller, "key-pressed", G_CALLBACK (text_render_key_pressed), w);
 }
 
@@ -383,10 +379,8 @@ static void text_render_class_init (TextRenderClass *klass)
     object_class->get_property = text_render_get_property;
     object_class->finalize = text_render_finalize;
 
-    widget_class->draw = text_render_draw;
-
-    widget_class->get_preferred_width = text_render_get_preferred_width;
-    widget_class->get_preferred_height = text_render_get_preferred_height;
+    widget_class->snapshot = text_render_draw;
+    widget_class->measure = text_render_measure;
     widget_class->size_allocate = text_render_size_allocate;
 
     g_object_class_override_property (object_class, PROP_HADJUSTMENT,    "hadjustment");
@@ -502,58 +496,51 @@ static gboolean text_render_key_pressed (GtkEventControllerKey *controller, guin
 }
 
 
-static void text_render_get_preferred_width (GtkWidget *widget, gint *minimal_width, gint *natural_width)
+static void text_render_measure (GtkWidget* widget, GtkOrientation orientation, int for_size, int* minimum, int* natural, int* minimum_baseline, int* natural_baseline)
 {
-    *minimal_width = *natural_width = TEXT_RENDER_DEFAULT_WIDTH;
+    if (orientation == GTK_ORIENTATION_HORIZONTAL)
+        *minimum = *natural = TEXT_RENDER_DEFAULT_WIDTH;
+    else
+        *minimum = *natural = TEXT_RENDER_DEFAULT_HEIGHT;
 }
 
-
-static void text_render_get_preferred_height (GtkWidget *widget, gint *minimal_height, gint *natural_height)
-{
-    *minimal_height = *natural_height = TEXT_RENDER_DEFAULT_HEIGHT;
-}
-
-static void text_render_size_allocate (GtkWidget *widget, GtkAllocation *allocation)
+static void text_render_size_allocate (GtkWidget *widget, int width, int height, int baseline)
 {
     g_return_if_fail (IS_TEXT_RENDER (widget));
-    g_return_if_fail (allocation != NULL);
 
-    gtk_widget_set_allocation (widget, allocation);
+    gtk_widget_allocate (widget, width, height, baseline, nullptr);
     TextRender *w = TEXT_RENDER (widget);
     auto priv = static_cast<TextRenderPrivate*>(text_render_get_instance_private (w));
 
-    if (gtk_widget_get_realized (widget))
-        gdk_window_move_resize (gtk_widget_get_window (widget), allocation->x, allocation->y, allocation->width, allocation->height);
-
     if (priv->dp && (priv->char_width>0))
     {
-        priv->chars_per_line = allocation->width / priv->char_width;
-        gv_set_wrap_limit(priv->dp, allocation->width / priv->char_width);
+        priv->chars_per_line = width / priv->char_width;
+        gv_set_wrap_limit(priv->dp, width / priv->char_width);
         gtk_widget_queue_draw (widget);
     }
 
-    priv->lines_displayed = priv->char_height>0 ? allocation->height / priv->char_height : 10;
+    priv->lines_displayed = priv->char_height>0 ? height / priv->char_height : 10;
 }
 
 
-static gboolean text_render_draw(GtkWidget *widget, cairo_t *cr)
+static void text_render_draw (GtkWidget *widget, GtkSnapshot *snapshot)
 {
-    g_return_val_if_fail (IS_TEXT_RENDER (widget), FALSE);
-    g_return_val_if_fail (cr != NULL, FALSE);
-
     gint y, rc;
     offset_type ofs;
 
     TextRender *w = TEXT_RENDER (widget);
     auto priv = static_cast<TextRenderPrivate*>(text_render_get_instance_private (w));
 
-    g_return_val_if_fail (priv->display_line!=NULL, FALSE);
+    g_return_if_fail (priv->display_line != NULL);
 
     if (priv->dp==NULL)
-        return FALSE;
+        return;
 
     GtkAllocation widget_allocation;
     gtk_widget_get_allocation (widget, &widget_allocation);
+
+    graphene_rect_t rect = { { 0, 0 }, { (float) widget_allocation.width, (float) widget_allocation.height } };
+    cairo_t *cr = gtk_snapshot_append_cairo (snapshot, &rect);
 
     ofs = priv->current_offset;
     y = 0;
@@ -581,7 +568,7 @@ static gboolean text_render_draw(GtkWidget *widget, cairo_t *cr)
 
     priv->last_displayed_offset = ofs;
 
-    return FALSE;
+    cairo_destroy (cr);
 }
 
 
@@ -624,7 +611,7 @@ void  text_render_copy_selection(TextRender *w)
 }
 
 
-static void text_render_button_press(GtkGestureMultiPress *gesture, int n_press, double x, double y, gpointer user_data)
+static void text_render_button_press(GtkGestureClick *gesture, int n_press, double x, double y, gpointer user_data)
 {
     g_return_if_fail (IS_TEXT_RENDER (user_data));
     TextRender *w = TEXT_RENDER (user_data);
@@ -642,7 +629,7 @@ static void text_render_button_press(GtkGestureMultiPress *gesture, int n_press,
 }
 
 
-static void text_render_button_release(GtkGestureMultiPress *gesture, int n_press, double x, double y, gpointer user_data)
+static void text_render_button_release(GtkGestureClick *gesture, int n_press, double x, double y, gpointer user_data)
 {
     g_return_if_fail (IS_TEXT_RENDER (user_data));
     TextRender *w = TEXT_RENDER (user_data);
@@ -1514,7 +1501,7 @@ static void text_mode_copy_to_clipboard(TextRender *obj, offset_type start_offse
     g_return_if_fail (priv->dp!=NULL);
     g_return_if_fail (priv->im!=NULL);
 
-    GtkClipboard *clip = gtk_clipboard_get_for_display (gdk_display_get_default (), GDK_SELECTION_CLIPBOARD);
+    GdkClipboard *clip = gtk_widget_get_clipboard (GTK_WIDGET (obj));
     g_return_if_fail (clip!=NULL);
 
     text_render_utf8_clear_buf(obj);
@@ -1529,7 +1516,7 @@ static void text_mode_copy_to_clipboard(TextRender *obj, offset_type start_offse
         text_render_utf8_print_char(obj, value);
     }
 
-    gtk_clipboard_set_text (clip, (const gchar *) priv->utf8buf, priv->utf8buf_length);
+    gdk_clipboard_set_text (clip, (const gchar *) priv->utf8buf);
 }
 
 
@@ -1766,7 +1753,7 @@ static void hex_mode_copy_to_clipboard(TextRender *obj, offset_type start_offset
         return;
     }
 
-    GtkClipboard *clip = gtk_clipboard_get_for_display (gdk_display_get_default (), GDK_SELECTION_CLIPBOARD);
+    GdkClipboard *clip = gtk_widget_get_clipboard (GTK_WIDGET (obj));
     g_return_if_fail (clip!=NULL);
 
     text_render_utf8_clear_buf(obj);
@@ -1779,7 +1766,7 @@ static void hex_mode_copy_to_clipboard(TextRender *obj, offset_type start_offset
         text_render_utf8_printf (obj, "%02x ", (unsigned char) value);
     }
 
-    gtk_clipboard_set_text (clip, (const gchar *) priv->utf8buf, priv->utf8buf_length);
+    gdk_clipboard_set_text (clip, (const gchar *) priv->utf8buf);
 }
 
 

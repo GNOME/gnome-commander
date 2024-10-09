@@ -139,7 +139,7 @@ inline void setup_widget (GnomeCmdStringDialog *string_dialog, gint rows)
     btn = gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), _("_OK"), G_CALLBACK (on_ok), string_dialog);
 
     gtk_widget_grab_focus (string_dialog->entries[0]);
-    gtk_widget_grab_default (btn);
+    gtk_window_set_default_widget (GTK_WINDOW (dialog), btn);
 }
 
 

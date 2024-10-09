@@ -61,7 +61,7 @@ pub mod ffi {
 
 glib::wrapper! {
     pub struct FileList(Object<ffi::GnomeCmdFileList, ffi::GnomeCmdFileListClass>)
-        @extends gtk::TreeView, gtk::Container, gtk::Widget;
+        @extends gtk::TreeView, gtk::Widget;
 
     match fn {
         type_ => || ffi::gnome_cmd_file_list_get_type(),
@@ -107,14 +107,14 @@ impl FileList {
 
     pub fn file_at_row(&self, iter: &gtk::TreeIter) -> Option<File> {
         self.model()?
-            .value(iter, DataColumns::DATA_COLUMN_FILE as i32)
+            .get_value(iter, DataColumns::DATA_COLUMN_FILE as i32)
             .get()
             .ok()
     }
 
     pub fn focused_file_iter(&self) -> Option<gtk::TreeIter> {
         let model = self.model()?;
-        let path = self.cursor().0?;
+        let path = TreeViewExt::cursor(self).0?;
         let iter = model.iter(&path)?;
         Some(iter)
     }

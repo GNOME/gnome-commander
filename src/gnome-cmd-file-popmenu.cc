@@ -362,7 +362,5 @@ GMenu *gnome_cmd_file_popmenu_new (GnomeCmdMainWin *main_win, GnomeCmdFileList *
         .item(_("_Properties…"),            "win.file-properties")
         .build();
 
-    g_object_unref (menu.accel_group);
-
     return menu.menu;
 }

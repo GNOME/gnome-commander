@@ -199,7 +199,6 @@ static void gnome_cmd_key_shortcuts_dialog_init (GnomeCmdKeyShortcutsDialog *dia
 {
     auto priv = static_cast<GnomeCmdKeyShortcutsDialogPrivate *> (gnome_cmd_key_shortcuts_dialog_get_instance_private (dialog));
 
-    gtk_window_set_position (GTK_WINDOW (dialog), GTK_WIN_POS_CENTER);
     gtk_window_set_title (GTK_WINDOW (dialog), _("Keyboard Shortcuts"));
     gtk_window_set_destroy_with_parent (GTK_WINDOW (dialog), TRUE);
     gtk_widget_set_size_request (GTK_WIDGET (dialog), 800, 600);
@@ -356,7 +355,6 @@ GtkWidget *create_view_and_model (GnomeCmdKeyShortcutsDialog *dialog)
     GtkWidget *view = gtk_tree_view_new ();
 
     g_object_set (view,
-                  "rules-hint", TRUE,
                   "enable-search", TRUE,
                   "search-column", COL_ACTION,
                   NULL);

@@ -18,11 +18,8 @@
  */
 
 use crate::{
-    chown_component::ChownComponent,
-    dir::Directory,
-    file::File,
-    libgcmd::file_base::FileBaseExt,
-    utils::{ErrorMessage, Gtk3to4BoxCompat},
+    chown_component::ChownComponent, dir::Directory, file::File, libgcmd::file_base::FileBaseExt,
+    utils::ErrorMessage,
 };
 use gettextrs::gettext;
 use gtk::{gio, glib, prelude::*};
@@ -123,7 +120,6 @@ pub async fn show_chown_dialog(parent_window: &gtk::Window, files: &glib::List<F
     let ok_btn = gtk::Button::builder()
         .label(gettext("_OK"))
         .use_underline(true)
-        .can_default(true)
         .build();
     ok_btn.connect_clicked(
         glib::clone!(@weak dialog => move |_| dialog.response(gtk::ResponseType::Ok)),
@@ -131,7 +127,7 @@ pub async fn show_chown_dialog(parent_window: &gtk::Window, files: &glib::List<F
     buttonbox.append(&ok_btn);
     buttonbox_size_group.add_widget(&ok_btn);
 
-    dialog.show_all();
+    dialog.set_default_widget(Some(&ok_btn));
     dialog.present();
 
     let result = dialog.run_future().await == gtk::ResponseType::Ok;

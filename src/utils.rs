@@ -153,16 +153,18 @@ pub async fn run_simple_dialog(
     }
 
     if ignore_close_box {
-        dialog.connect_delete_event(|_, _| glib::Propagation::Stop);
+        dialog.connect_close_request(|_| glib::Propagation::Stop);
     } else {
-        dialog.connect_key_press_event(|dialog, event| {
-            if event.keyval() == gdk::keys::constants::Escape {
+        let key_controller = gtk::EventControllerKey::new();
+        key_controller.connect_key_pressed(glib::clone!(@weak dialog => @default-return glib::Propagation::Stop, move |_, key, _, _| {
+            if key == gdk::Key::Escape {
                 dialog.response(gtk::ResponseType::None);
                 glib::Propagation::Stop
             } else {
                 glib::Propagation::Proceed
             }
-        });
+        }));
+        dialog.add_controller(key_controller);
     }
 
     let result = dialog.run_future().await;
@@ -172,14 +174,14 @@ pub async fn run_simple_dialog(
 }
 
 pub fn close_dialog_with_escape_key(dialog: &gtk::Dialog) {
-    let key_controller = gtk::EventControllerKey::new(dialog);
+    let key_controller = gtk::EventControllerKey::new();
     key_controller.connect_key_pressed(
-        glib::clone!(@weak dialog => @default-return false, move |_, key, _, _| {
-            if key == *gdk::keys::constants::Escape {
+        glib::clone!(@weak dialog => @default-return glib::Propagation::Proceed, move |_, key, _, _| {
+            if key == gdk::Key::Escape {
                 dialog.response(gtk::ResponseType::Cancel);
-                true
+                glib::Propagation::Stop
             } else {
-                false
+                glib::Propagation::Proceed
             }
         }),
     );
@@ -278,15 +280,7 @@ pub fn display_help(parent_window: &gtk::Window, link_id: Option<&str>) {
         help_uri.push_str(link_id);
     }
 
-    if let Err(error) =
-        gtk::show_uri_on_window(Some(parent_window), &help_uri, gtk::current_event_time())
-    {
-        show_error(
-            parent_window,
-            &gettext("There was an error displaying help."),
-            &error,
-        );
-    }
+    gtk::show_uri(Some(parent_window), &help_uri, gdk::CURRENT_TIME);
 }
 
 pub fn toggle_file_name_selection(entry: &gtk::Entry) {
@@ -330,10 +324,10 @@ pub fn toggle_file_name_selection(entry: &gtk::Entry) {
 }
 
 pub fn get_modifiers_state(window: &gtk::Window) -> Option<gdk::ModifierType> {
-    let gdk_window = window.window()?;
+    let gdk_window = window.surface()?;
     let display = gdk_window.display();
     let pointer = display.default_seat()?.pointer()?;
-    let (_w, _x, _y, modifiers) = gdk_window.device_position(&pointer);
+    let (_x, _y, modifiers) = gdk_window.device_position(&pointer)?;
     Some(modifiers)
 }
 
@@ -443,27 +437,4 @@ pub fn bold(text: &str) -> String {
         "<span weight=\"bold\">{}</span>",
         glib::markup_escape_text(text)
     )
-}
-
-pub trait Gtk3to4BoxCompat {
-    fn append(&self, child: &impl IsA<gtk::Widget>);
-}
-
-impl Gtk3to4BoxCompat for gtk::Box {
-    fn append(&self, child: &impl IsA<gtk::Widget>) {
-        self.add(child);
-    }
-}
-
-pub trait Gdk3to4RectangleCompat {
-    fn contains_point(&self, x: i32, y: i32) -> bool;
-}
-
-impl Gdk3to4RectangleCompat for gdk::Rectangle {
-    fn contains_point(&self, x: i32, y: i32) -> bool {
-        x >= self.x()
-            && x < self.x() + self.width()
-            && y >= self.y()
-            && y < self.y() + self.height()
-    }
 }

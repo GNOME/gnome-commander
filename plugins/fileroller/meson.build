@@ -26,3 +26,7 @@ install_data(
     pixmaps,
     install_dir: fileroller_plugin_dir
 )
+
+install_data(['file-roller.xpm'],
+     rename: ['gnome-commander-file-roller.xpm'],
+     install_dir: datadir / 'icons' / 'hicolor' / 'scalable' / 'apps')

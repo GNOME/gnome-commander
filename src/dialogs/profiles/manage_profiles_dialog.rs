@@ -18,10 +18,7 @@
  */
 
 use super::{edit_profile_dialog::edit_profile, profiles::ProfileManager};
-use crate::{
-    hintbox::HintBox,
-    utils::{display_help, Gtk3to4BoxCompat},
-};
+use crate::{hintbox::HintBox, utils::display_help};
 use gettextrs::gettext;
 use gtk::{glib, pango, prelude::*};
 use std::rc::Rc;
@@ -69,9 +66,7 @@ fn create_text_column(
     let column = gtk::TreeViewColumn::with_attributes(title, cell_renderer, &[("text", col_id)]);
     column.set_clickable(true);
     column.set_resizable(true);
-    if let Some(button) = column.button() {
-        button.set_tooltip_text(Some(tooltip));
-    }
+    column.button().set_tooltip_text(Some(tooltip));
     column
 }
 
@@ -99,7 +94,7 @@ fn create_view<M: ProfileManager + 'static>(
 
     name_renderer.connect_edited(glib::clone!(@weak store, @strong manager => move |_, path, value| {
         if let Some(iter) = store.iter(&path) {
-            let profile_index: u32 = store.value(&iter, Columns::ProfileIndex as i32).get().unwrap();
+            let profile_index: u32 = store.get_value(&iter, Columns::ProfileIndex as i32).get().unwrap();
             manager.set_profile_name(profile_index as usize, value);
 
             store.set(&iter, &[
@@ -131,7 +126,7 @@ fn selected(view: &gtk::TreeView) -> Option<(gtk::ListStore, gtk::TreeIter, usiz
     let (model, iter) = view.selection().selected()?;
     let store = model.downcast::<gtk::ListStore>().ok()?;
     let profile_index: u32 = store
-        .value(&iter, Columns::ProfileIndex as i32)
+        .get_value(&iter, Columns::ProfileIndex as i32)
         .get()
         .ok()?;
     Some((store, iter, profile_index as usize))
@@ -144,9 +139,8 @@ fn duplicate_clicked_callback<M: ProfileManager + 'static>(view: &gtk::TreeView,
         set_profile(&model, &iter, &**manager, dup_index);
 
         view.grab_focus();
-        if let Some(path) = model.path(&iter) {
-            view.set_cursor(&path, view.column(0).as_ref(), true);
-        }
+        let path = model.path(&iter);
+        gtk::prelude::TreeViewExt::set_cursor(view, &path, view.column(0).as_ref(), true);
     }
 }
 
@@ -207,7 +201,7 @@ pub async fn manage_profiles<M: ProfileManager + 'static>(
     let scrolled_window = gtk::ScrolledWindow::builder()
         .hscrollbar_policy(gtk::PolicyType::Never)
         .vscrollbar_policy(gtk::PolicyType::Automatic)
-        .shadow_type(gtk::ShadowType::In)
+        .has_frame(true)
         .hexpand(true)
         .vexpand(true)
         .build();
@@ -311,7 +305,6 @@ pub async fn manage_profiles<M: ProfileManager + 'static>(
     }));
 
     dialog.set_default_response(gtk::ResponseType::Ok);
-    content_area.show_all();
 
     for profile_index in 0..manager.len() {
         set_profile(&store, &store.append(), &**manager, profile_index);
@@ -334,7 +327,7 @@ pub async fn manage_profiles<M: ProfileManager + 'static>(
         if let Some(iter) = store.iter_first() {
             loop {
                 let profile_index: u32 = store
-                    .value(&iter, Columns::ProfileIndex as i32)
+                    .get_value(&iter, Columns::ProfileIndex as i32)
                     .get()
                     .unwrap();
 

@@ -27,7 +27,7 @@ use crate::{
     utils::{make_run_in_terminal_command, ErrorMessage},
 };
 use gettextrs::gettext;
-use glib::{ffi::{gboolean, GBookmarkFile}, translate::from_glib_none};
+use glib::{ffi::gboolean, translate::from_glib_none};
 use gtk::{
     gio::prelude::*,
     glib::{self, ffi::GList, translate::IntoGlibPtr},
@@ -262,14 +262,19 @@ pub unsafe extern "C" fn run_command_indir_r(
     in_terminal: gboolean,
     error: *mut *mut glib::ffi::GError,
 ) -> ffi::c_int {
-    let working_directory: Option<PathBuf>  = unsafe { from_glib_none(working_directory_ptr) };
-    let command: Option<OsString>  = unsafe { from_glib_none(command_ptr) };
+    let working_directory: Option<PathBuf> = unsafe { from_glib_none(working_directory_ptr) };
+    let command: Option<OsString> = unsafe { from_glib_none(command_ptr) };
     let Some(command) = command else {
         return 1;
     };
     let options = ProgramsOptions::new();
 
-    let result = run_command_indir(working_directory.as_deref(), &command, in_terminal != 0, &options);
+    let result = run_command_indir(
+        working_directory.as_deref(),
+        &command,
+        in_terminal != 0,
+        &options,
+    );
     match result {
         Ok(_) => 0,
         Err(SpawnError::InvalidTemplate) => {

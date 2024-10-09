@@ -275,7 +275,7 @@ inline bool operator < (const GnomeCmdKeyPress &e1, const GnomeCmdKeyPress &e2)
     if (e1.keyval > e2.keyval)
         return false;
 
-    return (e1.state & (GDK_SHIFT_MASK | GDK_CONTROL_MASK | GDK_MOD1_MASK | GDK_SUPER_MASK | GDK_HYPER_MASK | GDK_META_MASK)) < (e2.state & (GDK_SHIFT_MASK | GDK_CONTROL_MASK | GDK_MOD1_MASK | GDK_SUPER_MASK | GDK_HYPER_MASK | GDK_META_MASK));
+    return (e1.state & (GDK_SHIFT_MASK | GDK_CONTROL_MASK | GDK_ALT_MASK | GDK_SUPER_MASK | GDK_HYPER_MASK | GDK_META_MASK)) < (e2.state & (GDK_SHIFT_MASK | GDK_CONTROL_MASK | GDK_ALT_MASK | GDK_SUPER_MASK | GDK_HYPER_MASK | GDK_META_MASK));
 }
 
 
@@ -423,13 +423,13 @@ void GnomeCmdUserActions::set_defaults()
 
     if (!registered("connections.change_left"))
     {
-        register_action(GDK_MOD1_MASK, GDK_KEY_1, "connections.change_left");
+        register_action(GDK_ALT_MASK, GDK_KEY_1, "connections.change_left");
         register_action(GDK_SUPER_MASK, GDK_KEY_1, "connections.change_left");
     }
 
     if (!registered("connections.change_right"))
     {
-        register_action(GDK_MOD1_MASK, GDK_KEY_2, "connections.change_right");
+        register_action(GDK_ALT_MASK, GDK_KEY_2, "connections.change_right");
         register_action(GDK_SUPER_MASK, GDK_KEY_2, "connections.change_right");
     }
 
@@ -441,7 +441,7 @@ void GnomeCmdUserActions::set_defaults()
 
     if (!registered("edit.search"))
     {
-        register_action(GDK_MOD1_MASK, GDK_KEY_F7, "edit.search");
+        register_action(GDK_ALT_MASK, GDK_KEY_F7, "edit.search");
         register_action(GDK_SUPER_MASK, GDK_KEY_F, "edit.search");
     }
 
@@ -461,7 +461,7 @@ void GnomeCmdUserActions::set_defaults()
         register_action(GDK_CONTROL_MASK, GDK_KEY_Q, "file.exit");
 
     if (!registered("file.external_view"))
-        register_action(GDK_MOD1_MASK, GDK_KEY_F3, "file.external_view");
+        register_action(GDK_ALT_MASK, GDK_KEY_F3, "file.external_view");
 
     if (!registered("file.internal_view"))
         register_action(GDK_SHIFT_MASK, GDK_KEY_F3, "file.internal_view");
@@ -488,8 +488,8 @@ void GnomeCmdUserActions::set_defaults()
 
     if (!registered("dir_history"))
     {
-        register_action(GDK_MOD1_MASK, GDK_KEY_Down, "view.dir_history");
-        register_action(GDK_MOD1_MASK, GDK_KEY_KP_Down, "view.dir_history");
+        register_action(GDK_ALT_MASK, GDK_KEY_Down, "view.dir_history");
+        register_action(GDK_ALT_MASK, GDK_KEY_KP_Down, "view.dir_history");
     }
 
     if (!registered("view.up"))
@@ -590,7 +590,7 @@ gboolean GnomeCmdUserActions::register_action(guint state, guint keyval, const g
     GnomeCmdKeyPress event;
 
     event.keyval = keyval;
-    event.state = state & (GDK_SHIFT_MASK | GDK_CONTROL_MASK | GDK_MOD1_MASK | GDK_SUPER_MASK | GDK_HYPER_MASK | GDK_META_MASK);
+    event.state = state & (GDK_SHIFT_MASK | GDK_CONTROL_MASK | GDK_ALT_MASK | GDK_SUPER_MASK | GDK_HYPER_MASK | GDK_META_MASK);
     if (action.find(event)!=action.end())
         return FALSE;
 
@@ -618,7 +618,7 @@ void GnomeCmdUserActions::unregister(guint state, guint keyval)
     GnomeCmdKeyPress event;
 
     event.keyval = keyval;
-    event.state = state & (GDK_SHIFT_MASK | GDK_CONTROL_MASK | GDK_MOD1_MASK | GDK_SUPER_MASK | GDK_HYPER_MASK | GDK_META_MASK);
+    event.state = state & (GDK_SHIFT_MASK | GDK_CONTROL_MASK | GDK_ALT_MASK | GDK_SUPER_MASK | GDK_HYPER_MASK | GDK_META_MASK);
     map <GnomeCmdKeyPress, UserAction>::iterator pos = action.find(event);
 
     if (pos!=action.end())
@@ -646,7 +646,7 @@ gboolean GnomeCmdUserActions::registered(guint state, guint keyval)
     GnomeCmdKeyPress event;
 
     event.keyval = keyval;
-    event.state = state & (GDK_SHIFT_MASK | GDK_CONTROL_MASK | GDK_MOD1_MASK | GDK_SUPER_MASK | GDK_HYPER_MASK | GDK_META_MASK);
+    event.state = state & (GDK_SHIFT_MASK | GDK_CONTROL_MASK | GDK_ALT_MASK | GDK_SUPER_MASK | GDK_HYPER_MASK | GDK_META_MASK);
 
     return action.find(event)!=action.end();
 }
@@ -958,7 +958,6 @@ void file_advrename (GSimpleAction *action, GVariant *parameter, gpointer user_d
     if (files)
     {
         auto dlg = main_win->get_or_create_advrename_dialog ();
-        gtk_widget_show_all (GTK_WIDGET (dlg));
         dlg->set(files);
         gtk_window_present (GTK_WINDOW (dlg));
 
@@ -1146,7 +1145,7 @@ void edit_copy_fnames (GSimpleAction *action, GVariant *parameter, gpointer user
             if (state_is_alt (mask))
                 get_file_list (fnames, sfl, gnome_cmd_file_get_uri_str);
 
-    gtk_clipboard_set_text (gtk_clipboard_get (GDK_SELECTION_CLIPBOARD), fnames.c_str(), -1);
+    gdk_clipboard_set_text (gtk_widget_get_clipboard (GTK_WIDGET (main_win)), fnames.c_str());
 
     g_list_free (sfl);
 }
@@ -2010,10 +2009,8 @@ void help_web (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
     auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
 
-    GError *error = nullptr;
-
-    if (!gtk_show_uri_on_window (*main_win, PACKAGE_URL, GDK_CURRENT_TIME, &error))
-        gnome_cmd_error_message (*main_win, _("There was an error opening home page."), error);
+    gtk_show_uri (*main_win, PACKAGE_URL, GDK_CURRENT_TIME);
+    // gnome_cmd_error_message (*main_win, _("There was an error opening home page."), error);
 }
 
 
@@ -2021,10 +2018,8 @@ void help_problem (GSimpleAction *action, GVariant *parameter, gpointer user_dat
 {
     auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
 
-    GError *error = nullptr;
-
-    if (!gtk_show_uri_on_window (*main_win, PACKAGE_BUGREPORT, GDK_CURRENT_TIME, &error))
-        gnome_cmd_error_message (*main_win, _("There was an error reporting problem."), error);
+    gtk_show_uri (*main_win, PACKAGE_BUGREPORT, GDK_CURRENT_TIME);
+    // gnome_cmd_error_message (*main_win, _("There was an error reporting problem."), error);
 }
 
 
@@ -2037,6 +2032,7 @@ void help_about (GSimpleAction *action, GVariant *parameter, gpointer user_data)
         "Piotr Eljasiak <epiotr@use.pl>",
         "Assaf Gordon <agordon88@gmail.com>",
         "Uwe Scholz <u.scholz83@gmx.de>",
+        "Andrey Kutejko <andy128k@gmail.com>",
         nullptr
     };
 
@@ -2050,7 +2046,8 @@ void help_about (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 
     static const gchar copyright[] = "Copyright \xc2\xa9 2001-2006 Marcus Bjurman\n"
                                      "Copyright \xc2\xa9 2007-2012 Piotr Eljasiak\n"
-                                     "Copyright \xc2\xa9 2013-2024 Uwe Scholz";
+                                     "Copyright \xc2\xa9 2013-2024 Uwe Scholz\n"
+                                     "Copyright \xc2\xa9 2024 Andrey Kutejko";
 
     static const gchar comments[] = N_("A fast and powerful file manager for the GNOME desktop");
 

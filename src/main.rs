@@ -60,7 +60,7 @@ fn main() -> Result<impl Termination, Box<dyn Error>> {
         eprintln!("GLib version mismatch: {mismatch}");
         std::process::exit(1);
     }
-    if let Some(mismatch) = gtk::check_version(3, 24, 0) {
+    if let Some(mismatch) = gtk::check_version(4, 12, 0) {
         eprintln!("GTK version mismatch: {mismatch}");
         std::process::exit(1);
     }

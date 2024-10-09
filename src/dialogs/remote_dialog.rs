@@ -35,7 +35,7 @@ mod imp {
     use crate::{
         connection::{connection::ConnectionExt, remote::ConnectionRemote},
         dialogs::connect_dialog::ConnectDialog,
-        utils::{display_help, Gtk3to4BoxCompat},
+        utils::display_help,
     };
     use std::{cell::OnceCell, time::Duration};
 
@@ -54,29 +54,29 @@ mod imp {
         ]);
         store.set_sort_func(SORTID_METHOD, |model, iter1, iter2| {
             let c1 = model
-                .value(iter1, COL_CON)
+                .get_value(iter1, COL_CON)
                 .get::<'_, ConnectionRemote>()
                 .ok()
                 .map(|c| (c.method(), c.alias().map(|a| a.to_uppercase())));
             let c2 = model
-                .value(iter2, COL_CON)
+                .get_value(iter2, COL_CON)
                 .get::<'_, ConnectionRemote>()
                 .ok()
                 .map(|c| (c.method(), c.alias().map(|a| a.to_uppercase())));
-            c1.cmp(&c2)
+            c1.cmp(&c2).into()
         });
         store.set_sort_func(SORTID_NAME, |model, iter1, iter2| {
             let c1 = model
-                .value(iter1, COL_CON)
+                .get_value(iter1, COL_CON)
                 .get::<'_, ConnectionRemote>()
                 .ok()
                 .map(|c| (c.alias().map(|a| a.to_uppercase()), c.method()));
             let c2 = model
-                .value(iter2, COL_CON)
+                .get_value(iter2, COL_CON)
                 .get::<'_, ConnectionRemote>()
                 .ok()
                 .map(|c| (c.alias().map(|a| a.to_uppercase()), c.method()));
-            c1.cmp(&c2)
+            c1.cmp(&c2).into()
         });
         store.set_sort_column_id(SORTID_METHOD, gtk::SortType::Ascending);
         store
@@ -139,8 +139,7 @@ mod imp {
             self.parent_constructed();
 
             let obj = self.obj();
-            obj.set_position(gtk::WindowPosition::Center);
-            obj.set_title(&gettext("Remote Connections"));
+            obj.set_title(Some(&gettext("Remote Connections")));
             obj.set_resizable(true);
 
             obj.content_area().set_margin_top(12);
@@ -165,9 +164,8 @@ mod imp {
                 );
                 col.set_clickable(true);
                 col.set_sort_column_id(COL_METHOD);
-                if let Some(button) = col.button() {
-                    button.set_tooltip_text(Some(&gettext("Network protocol")));
-                }
+                col.button()
+                    .set_tooltip_text(Some(&gettext("Network protocol")));
                 self.view.append_column(&col);
             }
             {
@@ -183,9 +181,8 @@ mod imp {
                 col.set_clickable(true);
                 col.set_resizable(true);
                 col.set_sort_column_id(COL_NAME);
-                if let Some(button) = col.button() {
-                    button.set_tooltip_text(Some(&gettext("Connection name")));
-                }
+                col.button()
+                    .set_tooltip_text(Some(&gettext("Connection name")));
                 self.view.append_column(&col);
             }
 
@@ -195,7 +192,7 @@ mod imp {
             let sw = gtk::ScrolledWindow::builder()
                 .hscrollbar_policy(gtk::PolicyType::Automatic)
                 .vscrollbar_policy(gtk::PolicyType::Automatic)
-                .shadow_type(gtk::ShadowType::In)
+                .has_frame(true)
                 .hexpand(true)
                 .child(&self.view)
                 .build();
@@ -281,8 +278,6 @@ mod imp {
     }
 
     impl WidgetImpl for RemoteDialog {}
-    impl ContainerImpl for RemoteDialog {}
-    impl BinImpl for RemoteDialog {}
     impl WindowImpl for RemoteDialog {}
     impl DialogImpl for RemoteDialog {}
 
@@ -312,7 +307,7 @@ mod imp {
         pub fn get_selected_connection(&self) -> Option<(gtk::TreeIter, ConnectionRemote)> {
             let (model, iter) = self.view.selection().selected()?;
             let connection = model
-                .value(&iter, COL_CON)
+                .get_value(&iter, COL_CON)
                 .get::<'_, ConnectionRemote>()
                 .ok()?;
             Some((iter, connection))
@@ -425,7 +420,6 @@ impl RemoteDialog {
             .ok()
             .unwrap();
         dialog.imp().fill_model();
-        dialog.show_all();
 
         // select first
         if let Some(iter) = dialog.imp().model.iter_first() {

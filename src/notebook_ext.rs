@@ -17,9 +17,7 @@
  * For more details see the file COPYING.
  */
 
-use crate::utils::Gdk3to4RectangleCompat;
-use gtk::prelude::*;
-use std::i32;
+use gtk::{graphene, prelude::*};
 
 pub enum TabClick {
     Tab(u32),
@@ -28,14 +26,14 @@ pub enum TabClick {
 
 pub trait GnomeCmdNotebookExt {
     /// Computes the allocation of a header area.
-    fn header_allocation(&self) -> Option<gtk::Allocation>;
+    fn header_allocation(&self) -> Option<graphene::Rect>;
 
     /// Find index of a tab by screen coordinates
-    fn find_tab_num_at_pos(&self, screen_x: i32, screen_y: i32) -> Option<TabClick>;
+    fn find_tab_num_at_pos(&self, screen_x: f32, screen_y: f32) -> Option<TabClick>;
 }
 
 impl GnomeCmdNotebookExt for gtk::Notebook {
-    fn header_allocation(&self) -> Option<gtk::Allocation> {
+    fn header_allocation(&self) -> Option<graphene::Rect> {
         let n = self.n_pages();
         if n == 0 {
             return None;
@@ -44,10 +42,10 @@ impl GnomeCmdNotebookExt for gtk::Notebook {
         let tab_pos = self.tab_pos();
         // GtkWidget *the_page;
 
-        let mut x1 = i32::MAX;
-        let mut y1 = i32::MAX;
-        let mut x2 = 0;
-        let mut y2 = 0;
+        let mut x1 = f32::MAX;
+        let mut y1 = f32::MAX;
+        let mut x2 = 0.0;
+        let mut y2 = 0.0;
         for page_num in 0..n {
             let the_page = self.nth_page(Some(page_num))?;
             let tab = self.tab_label(&the_page)?;
@@ -56,14 +54,14 @@ impl GnomeCmdNotebookExt for gtk::Notebook {
             }
 
             let tab_allocation = tab.allocation();
-            let Some((x, y)) = tab.translate_coordinates(self, 0, 0) else {
+            let Some((x, y)) = tab.translate_coordinates(self, 0.0, 0.0) else {
                 continue;
             };
 
-            x1 = i32::min(x1, x);
-            y1 = i32::min(y1, y);
-            x2 = i32::max(x2, x + tab_allocation.width());
-            y2 = i32::max(y2, y + tab_allocation.height());
+            x1 = f32::min(x1, x as f32);
+            y1 = f32::min(y1, y as f32);
+            x2 = f32::max(x2, x as f32 + tab_allocation.width() as f32);
+            y2 = f32::max(y2, y as f32 + tab_allocation.height() as f32);
         }
 
         let mut x = x1;
@@ -75,20 +73,20 @@ impl GnomeCmdNotebookExt for gtk::Notebook {
 
         match tab_pos {
             gtk::PositionType::Top | gtk::PositionType::Bottom => {
-                x = 0;
-                w = notebook_allocation.width();
+                x = 0.0;
+                w = notebook_allocation.width() as f32;
             }
             gtk::PositionType::Left | gtk::PositionType::Right => {
-                y = 0;
-                h = notebook_allocation.height();
+                y = 0.0;
+                h = notebook_allocation.height() as f32;
             }
             _ => {}
         }
 
-        Some(gtk::Allocation::new(x, y, w, h))
+        Some(graphene::Rect::new(x, y, w, h))
     }
 
-    fn find_tab_num_at_pos(&self, screen_x: i32, screen_y: i32) -> Option<TabClick> {
+    fn find_tab_num_at_pos(&self, screen_x: f32, screen_y: f32) -> Option<TabClick> {
         let n = self.n_pages();
         if n == 0 {
             return None;
@@ -99,19 +97,23 @@ impl GnomeCmdNotebookExt for gtk::Notebook {
             let tab = self.tab_label(&the_page)?;
 
             let tab_allocation = tab.allocation();
-            let Some((x, y)) = tab.translate_coordinates(self, 0, 0) else {
+            let Some((x, y)) = tab.translate_coordinates(self, 0.0, 0.0) else {
                 continue;
             };
-            let tab_allocation =
-                gtk::Allocation::new(x, y, tab_allocation.width(), tab_allocation.height());
+            let tab_allocation = graphene::Rect::new(
+                x as f32,
+                y as f32,
+                tab_allocation.width() as f32,
+                tab_allocation.height() as f32,
+            );
 
-            if tab_allocation.contains_point(screen_x, screen_y) {
+            if tab_allocation.contains_point(&graphene::Point::new(screen_x, screen_y)) {
                 return Some(TabClick::Tab(page_num));
             }
         }
 
         if let Some(head_allocation) = self.header_allocation() {
-            if head_allocation.contains_point(screen_x, screen_y) {
+            if head_allocation.contains_point(&graphene::Point::new(screen_x, screen_y)) {
                 return Some(TabClick::Area);
             }
         }

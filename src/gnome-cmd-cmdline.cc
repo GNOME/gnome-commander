@@ -104,6 +104,7 @@ static void on_exec (GnomeCmdCmdline *cmdline, gboolean term)
             {
                 gchar *fpath = GNOME_CMD_FILE (fs->get_directory())->get_real_path ();
 
+                GtkWindow *parent_window = GTK_WINDOW (gtk_widget_get_root (GTK_WIDGET (cmdline)));
                 GError *error = nullptr;
                 int result = run_command_indir_r(fpath, cmdline_text, term, &error);
                 switch (result)
@@ -112,12 +113,12 @@ static void on_exec (GnomeCmdCmdline *cmdline, gboolean term)
                         break;
                     case 1:
                     case 2:
-                        gnome_cmd_show_message (*main_win, _("No valid command given."));
+                        gnome_cmd_show_message (parent_window, _("No valid command given."));
                         g_clear_error (&error);
                         break;
                     case 3:
                     default:
-                        gnome_cmd_show_message (*main_win, _("Unable to execute command."), error->message);
+                        gnome_cmd_show_message (parent_window, _("Unable to execute command."), error->message);
                         g_clear_error (&error);
                         break;
                 }
@@ -201,23 +202,21 @@ static void gnome_cmd_cmdline_init (GnomeCmdCmdline *cmdline)
     // cmdline->priv->history = nullptr;
 
     cmdline->priv->cwd = gtk_label_new ("cwd");
-    gtk_widget_show (cmdline->priv->cwd);
     gtk_box_append (GTK_BOX (cmdline), cmdline->priv->cwd);
     gtk_label_set_selectable (GTK_LABEL (cmdline->priv->cwd), TRUE);
 
     label = gtk_label_new ("#");
-    gtk_widget_show (label);
     gtk_box_append (GTK_BOX (cmdline), label);
 
     GtkListStore *store = gtk_list_store_new (2, G_TYPE_STRING, G_TYPE_POINTER);
     cmdline->priv->combo = GNOME_CMD_COMBO (gnome_cmd_combo_new_with_store(store, 1, 0, 1));
     gtk_widget_set_hexpand (*cmdline->priv->combo, TRUE);
     gtk_box_append (GTK_BOX (cmdline), *cmdline->priv->combo);
-    gtk_widget_show (*cmdline->priv->combo);
     gtk_editable_set_editable (GTK_EDITABLE (cmdline->priv->combo->get_entry()), TRUE);
     gtk_widget_set_can_focus (cmdline->priv->combo->get_entry(), TRUE);
 
-    GtkEventController *key_controller = gtk_event_controller_key_new (cmdline->priv->combo->get_entry());
+    GtkEventController *key_controller = gtk_event_controller_key_new ();
+    gtk_widget_add_controller (cmdline->priv->combo->get_entry(), GTK_EVENT_CONTROLLER (key_controller));
     g_signal_connect (key_controller, "key-pressed", G_CALLBACK (on_key_pressed), cmdline);
 
     g_signal_connect (cmdline->priv->combo, "item-selected", G_CALLBACK (on_combo_item_selected), cmdline);

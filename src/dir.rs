@@ -33,7 +33,6 @@ use gtk::{
         self,
         ffi::gboolean,
         translate::{from_glib_full, from_glib_none, ToGlibPtr},
-        Cast,
     },
     prelude::*,
 };

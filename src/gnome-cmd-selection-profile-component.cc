@@ -47,7 +47,7 @@ struct GnomeCmdSelectionProfileComponent::Private
     GtkWidget *case_check;
 
     static void on_filter_type_changed (GtkComboBox *combo, GnomeCmdSelectionProfileComponent *component);
-    static void on_find_text_toggled (GtkToggleButton *togglebutton, GnomeCmdSelectionProfileComponent *component);
+    static void on_find_text_toggled (GtkCheckButton *togglebutton, GnomeCmdSelectionProfileComponent *component);
 
     Private();
     ~Private();
@@ -84,9 +84,9 @@ void GnomeCmdSelectionProfileComponent::Private::on_filter_type_changed(GtkCombo
 }
 
 
-void GnomeCmdSelectionProfileComponent::Private::on_find_text_toggled(GtkToggleButton *togglebutton, GnomeCmdSelectionProfileComponent *component)
+void GnomeCmdSelectionProfileComponent::Private::on_find_text_toggled(GtkCheckButton *checkbutton, GnomeCmdSelectionProfileComponent *component)
 {
-    if (gtk_toggle_button_get_active (togglebutton))
+    if (gtk_check_button_get_active (checkbutton))
     {
         gtk_widget_set_sensitive (component->priv->find_text_combo, TRUE);
         gtk_widget_set_sensitive (component->priv->case_check, TRUE);
@@ -213,11 +213,9 @@ GnomeCmdSelectionProfileComponent::GnomeCmdSelectionProfileComponent(GnomeCmdDat
     // if (!profile.content_patterns.empty())
         // g_list_foreach (profile.content_patterns.ents, (GFunc) combo_box_insert_text, priv->find_text_combo);
 
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (priv->case_check), profile.match_case);
+    gtk_check_button_set_active (GTK_CHECK_BUTTON (priv->case_check), profile.match_case);
 
     gtk_widget_grab_focus (priv->pattern_combo);
-
-    gtk_widget_show_all (priv->grid);
 
     g_signal_connect (priv->filter_type_combo, "changed", G_CALLBACK (Private::on_filter_type_changed), this);
     g_signal_connect (priv->find_text_check, "toggled", G_CALLBACK (Private::on_find_text_toggled), this);
@@ -233,7 +231,7 @@ void GnomeCmdSelectionProfileComponent::update()
     gtk_combo_box_set_active (GTK_COMBO_BOX (priv->filter_type_combo), (int) profile.syntax);
     gtk_combo_box_set_active (GTK_COMBO_BOX (priv->recurse_combo), profile.max_depth+1);
     gtk_editable_set_text (GTK_EDITABLE (gtk_combo_box_get_child (GTK_COMBO_BOX (priv->find_text_combo))), profile.text_pattern.c_str());
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (priv->find_text_check), profile.content_search);
+    gtk_check_button_set_active (GTK_CHECK_BUTTON (priv->find_text_check), profile.content_search);
 }
 
 
@@ -245,8 +243,8 @@ void GnomeCmdSelectionProfileComponent::copy()
     profile.max_depth = gtk_combo_box_get_active (GTK_COMBO_BOX (priv->recurse_combo)) - 1;
     const char *find_text = gtk_editable_get_text (GTK_EDITABLE (gtk_combo_box_get_child (GTK_COMBO_BOX (priv->find_text_combo))));
     stringify(profile.text_pattern, find_text);
-    profile.content_search = !profile.text_pattern.empty() && gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->find_text_check));
-    profile.match_case = profile.content_search && gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->case_check));
+    profile.content_search = !profile.text_pattern.empty() && gtk_check_button_get_active (GTK_CHECK_BUTTON (priv->find_text_check));
+    profile.match_case = profile.content_search && gtk_check_button_get_active (GTK_CHECK_BUTTON (priv->case_check));
 }
 
 
@@ -258,8 +256,8 @@ void GnomeCmdSelectionProfileComponent::copy(GnomeCmdData::SearchProfile &profil
     profile_in.max_depth = gtk_combo_box_get_active (GTK_COMBO_BOX (priv->recurse_combo)) - 1;
     const char *find_text = gtk_editable_get_text (GTK_EDITABLE (gtk_combo_box_get_child (GTK_COMBO_BOX (priv->find_text_combo))));
     stringify(profile_in.text_pattern, find_text);
-    profile_in.content_search = !profile_in.text_pattern.empty() && gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->find_text_check));
-    profile_in.match_case = profile_in.content_search && gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->case_check));
+    profile_in.content_search = !profile_in.text_pattern.empty() && gtk_check_button_get_active (GTK_CHECK_BUTTON (priv->find_text_check));
+    profile_in.match_case = profile_in.content_search && gtk_check_button_get_active (GTK_CHECK_BUTTON (priv->case_check));
 }
 
 void GnomeCmdSelectionProfileComponent::set_focus()

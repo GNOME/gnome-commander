@@ -58,19 +58,19 @@ GtkWidget *create_font_picker (GtkWidget *parent, const gchar *name)
 }
 
 
-static void on_save_tabs_toggled (GtkToggleButton *togglebutton, GtkWidget *dialog)
+static void on_save_tabs_toggled (GtkCheckButton *check_button, GtkWidget *dialog)
 {
     GtkWidget *check = lookup_widget (dialog, "save_dirs");
 
-    gtk_widget_set_sensitive (check, !gtk_toggle_button_get_active (togglebutton));
+    gtk_widget_set_sensitive (check, !gtk_check_button_get_active (check_button));
 }
 
 
-static void on_confirm_delete_toggled (GtkToggleButton *togglebutton, GtkWidget *dialog)
+static void on_confirm_delete_toggled (GtkCheckButton *check_button, GtkWidget *dialog)
 {
     GtkWidget *check = lookup_widget (dialog, "delete_default_check");
 
-    gtk_widget_set_sensitive (check, gtk_toggle_button_get_active (togglebutton));
+    gtk_widget_set_sensitive (check, gtk_check_button_get_active (check_button));
 }
 
 
@@ -113,15 +113,15 @@ static GtkWidget *create_general_tab (GtkWidget *parent, GnomeCmdData::Options &
     radio = create_radio (parent, NULL, _("Single click to open items"), "lmb_singleclick_radio");
     gtk_box_append (GTK_BOX (cat_box), radio);
     if (cfg.left_mouse_button_mode == GnomeCmdData::LEFT_BUTTON_OPENS_WITH_SINGLE_CLICK)
-        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
-    radio = create_radio (parent, get_radio_group (radio), _("Double click to open items"), "lmb_doubleclick_radio");
+        gtk_check_button_set_active (GTK_CHECK_BUTTON (radio), TRUE);
+    radio = create_radio (parent, radio, _("Double click to open items"), "lmb_doubleclick_radio");
     gtk_box_append (GTK_BOX (cat_box), radio);
     if (cfg.left_mouse_button_mode == GnomeCmdData::LEFT_BUTTON_OPENS_WITH_DOUBLE_CLICK)
-        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
+        gtk_check_button_set_active (GTK_CHECK_BUTTON (radio), TRUE);
 
     check = create_check (parent, _("Single click unselects files"), "lmb_unselects_check");
     gtk_box_append (GTK_BOX (cat_box), check);
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), cfg.left_mouse_button_unselects);
+    gtk_check_button_set_active (GTK_CHECK_BUTTON (check), cfg.left_mouse_button_unselects);
 
 
     // Middle mouse button settings
@@ -132,11 +132,11 @@ static GtkWidget *create_general_tab (GtkWidget *parent, GnomeCmdData::Options &
     radio = create_radio (parent, NULL, _("Up one directory"), "mmb_cd_up_radio");
     gtk_box_append (GTK_BOX (cat_box), radio);
     if (cfg.middle_mouse_button_mode == GnomeCmdData::MIDDLE_BUTTON_GOES_UP_DIR)
-        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
-    radio = create_radio (parent, get_radio_group (radio), _("Opens new tab"), "mmb_new_tab_radio");
+        gtk_check_button_set_active (GTK_CHECK_BUTTON (radio), TRUE);
+    radio = create_radio (parent, radio, _("Opens new tab"), "mmb_new_tab_radio");
     gtk_box_append (GTK_BOX (cat_box), radio);
     if (cfg.middle_mouse_button_mode == GnomeCmdData::MIDDLE_BUTTON_OPENS_NEW_TAB)
-        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
+        gtk_check_button_set_active (GTK_CHECK_BUTTON (radio), TRUE);
 
 
     // Right mouse button settings
@@ -147,11 +147,11 @@ static GtkWidget *create_general_tab (GtkWidget *parent, GnomeCmdData::Options &
     radio = create_radio (parent, NULL, _("Shows popup menu"), "rmb_popup_radio");
     gtk_box_append (GTK_BOX (cat_box), radio);
     if (cfg.right_mouse_button_mode == GnomeCmdData::RIGHT_BUTTON_POPUPS_MENU)
-        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
-    radio = create_radio (parent, get_radio_group (radio), _("Selects files"), "rmb_sel_radio");
+        gtk_check_button_set_active (GTK_CHECK_BUTTON (radio), TRUE);
+    radio = create_radio (parent, radio, _("Selects files"), "rmb_sel_radio");
     gtk_box_append (GTK_BOX (cat_box), radio);
     if (cfg.right_mouse_button_mode == GnomeCmdData::RIGHT_BUTTON_SELECTS)
-        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
+        gtk_check_button_set_active (GTK_CHECK_BUTTON (radio), TRUE);
 
 
     // Delete options
@@ -161,7 +161,7 @@ static GtkWidget *create_general_tab (GtkWidget *parent, GnomeCmdData::Options &
 
     check = create_check (parent, _("Move to trash"), "delete_to_trash");
     gtk_box_append (GTK_BOX (cat_box), check);
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), cfg.deleteToTrash);
+    gtk_check_button_set_active (GTK_CHECK_BUTTON (check), cfg.deleteToTrash);
 
 
     // Selection options
@@ -171,7 +171,7 @@ static GtkWidget *create_general_tab (GtkWidget *parent, GnomeCmdData::Options &
 
     check = create_check (parent, _("Select directories"), "select_dirs");
     gtk_box_append (GTK_BOX (cat_box), check);
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), cfg.select_dirs);
+    gtk_check_button_set_active (GTK_CHECK_BUTTON (check), cfg.select_dirs);
 
 
     // Sort options
@@ -181,7 +181,7 @@ static GtkWidget *create_general_tab (GtkWidget *parent, GnomeCmdData::Options &
 
     check = create_check (parent, _("Case sensitive"), "case_sens_check");
     gtk_box_append (GTK_BOX (cat_box), check);
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), cfg.case_sens_sort);
+    gtk_check_button_set_active (GTK_CHECK_BUTTON (check), cfg.case_sens_sort);
 
 
     // Quick search options
@@ -192,23 +192,23 @@ static GtkWidget *create_general_tab (GtkWidget *parent, GnomeCmdData::Options &
     radio = create_radio (parent, NULL, _("CTRL+ALT+letters"), "ctrl_alt_quick_search");
     gtk_box_append (GTK_BOX (cat_box), radio);
     if (cfg.quick_search == GNOME_CMD_QUICK_SEARCH_CTRL_ALT)
-        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
-    radio = create_radio (parent, get_radio_group (radio), _("ALT+letters (menu access with F12)"), "alt_quick_search");
+        gtk_check_button_set_active (GTK_CHECK_BUTTON (radio), TRUE);
+    radio = create_radio (parent, radio, _("ALT+letters (menu access with F12)"), "alt_quick_search");
     gtk_box_append (GTK_BOX (cat_box), radio);
     if (cfg.quick_search == GNOME_CMD_QUICK_SEARCH_ALT)
-        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
-    radio = create_radio (parent, get_radio_group (radio), _("Just letters (command line access with CTRL+ALT+C)"), "quick_search");
+        gtk_check_button_set_active (GTK_CHECK_BUTTON (radio), TRUE);
+    radio = create_radio (parent, radio, _("Just letters (command line access with CTRL+ALT+C)"), "quick_search");
     gtk_box_append (GTK_BOX (cat_box), radio);
     if (cfg.quick_search == GNOME_CMD_QUICK_SEARCH_JUST_A_CHARACTER)
-        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
+        gtk_check_button_set_active (GTK_CHECK_BUTTON (radio), TRUE);
 
     check = create_check (parent, _("Match beginning of the file name"), "qsearch_exact_match_begin");
     gtk_box_append (GTK_BOX (cat_box), check);
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), cfg.quick_search_exact_match_begin);
+    gtk_check_button_set_active (GTK_CHECK_BUTTON (check), cfg.quick_search_exact_match_begin);
 
     check = create_check (parent, _("Match end of the file name"), "qsearch_exact_match_end");
     gtk_box_append (GTK_BOX (cat_box), check);
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), cfg.quick_search_exact_match_end);
+    gtk_check_button_set_active (GTK_CHECK_BUTTON (check), cfg.quick_search_exact_match_end);
 
     // Search window options
     cat_box = create_vbox (parent, FALSE, 0);
@@ -217,7 +217,7 @@ static GtkWidget *create_general_tab (GtkWidget *parent, GnomeCmdData::Options &
 
     check = create_check (parent, _("Search window is minimizable\n(Needs program restart if altered)"), "search_window_transient");
     gtk_box_append (GTK_BOX (cat_box), check);
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), !cfg.search_window_is_transient);
+    gtk_check_button_set_active (GTK_CHECK_BUTTON (check), !cfg.search_window_is_transient);
 
     // Multiple instances
     cat_box = create_vbox (parent, FALSE, 0);
@@ -226,7 +226,7 @@ static GtkWidget *create_general_tab (GtkWidget *parent, GnomeCmdData::Options &
 
     check = create_check (parent, _("Don’t start a new instance"), "multiple_instance_check");
     gtk_box_append (GTK_BOX (cat_box), check);
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), !cfg.allow_multiple_instances);
+    gtk_check_button_set_active (GTK_CHECK_BUTTON (check), !cfg.allow_multiple_instances);
 
     // Save on exit
     cat_box = create_vbox (parent, FALSE, 0);
@@ -235,26 +235,25 @@ static GtkWidget *create_general_tab (GtkWidget *parent, GnomeCmdData::Options &
 
     check = create_check (parent, _("Directories"), "save_dirs");
     gtk_box_append (GTK_BOX (cat_box), check);
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), cfg.save_dirs_on_exit);
+    gtk_check_button_set_active (GTK_CHECK_BUTTON (check), cfg.save_dirs_on_exit);
 
     check = create_check (parent, _("Tabs"), "save_tabs");
     gtk_box_append (GTK_BOX (cat_box), check);
     g_signal_connect (check, "toggled", G_CALLBACK (on_save_tabs_toggled), parent);
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), cfg.save_tabs_on_exit);
+    gtk_check_button_set_active (GTK_CHECK_BUTTON (check), cfg.save_tabs_on_exit);
 
     check = create_check (parent, _("Directory history"), "save_dir_history");
     gtk_box_append (GTK_BOX (cat_box), check);
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), cfg.save_dir_history_on_exit);
+    gtk_check_button_set_active (GTK_CHECK_BUTTON (check), cfg.save_dir_history_on_exit);
 
     check = create_check (parent, _("Commandline history"), "save_cmdline_history");
     gtk_box_append (GTK_BOX (cat_box), check);
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), cfg.save_cmdline_history_on_exit);
+    gtk_check_button_set_active (GTK_CHECK_BUTTON (check), cfg.save_cmdline_history_on_exit);
 
     check = create_check (parent, _("Search history"), "save_search_history");
     gtk_box_append (GTK_BOX (cat_box), check);
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), cfg.save_search_history_on_exit);
+    gtk_check_button_set_active (GTK_CHECK_BUTTON (check), cfg.save_search_history_on_exit);
 
-    gtk_widget_show_all (GTK_WIDGET (scrolled_window));
     return scrolled_window;
 }
 
@@ -280,34 +279,34 @@ void store_general_options (GtkWidget *dialog, GnomeCmdData::Options &cfg)
     GtkWidget *save_cmdline_history = lookup_widget (dialog, "save_cmdline_history");
     GtkWidget *save_search_history = lookup_widget (dialog, "save_search_history");
 
-    cfg.left_mouse_button_mode = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (lmb_singleclick_radio)) ? GnomeCmdData::LEFT_BUTTON_OPENS_WITH_SINGLE_CLICK : GnomeCmdData::LEFT_BUTTON_OPENS_WITH_DOUBLE_CLICK;
+    cfg.left_mouse_button_mode = gtk_check_button_get_active (GTK_CHECK_BUTTON (lmb_singleclick_radio)) ? GnomeCmdData::LEFT_BUTTON_OPENS_WITH_SINGLE_CLICK : GnomeCmdData::LEFT_BUTTON_OPENS_WITH_DOUBLE_CLICK;
 
-    cfg.left_mouse_button_unselects = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (lmb_unselects_check));
+    cfg.left_mouse_button_unselects = gtk_check_button_get_active (GTK_CHECK_BUTTON (lmb_unselects_check));
 
-    cfg.middle_mouse_button_mode = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (mmb_cd_up_radio)) ? GnomeCmdData::MIDDLE_BUTTON_GOES_UP_DIR
+    cfg.middle_mouse_button_mode = gtk_check_button_get_active (GTK_CHECK_BUTTON (mmb_cd_up_radio)) ? GnomeCmdData::MIDDLE_BUTTON_GOES_UP_DIR
                                                                                                       : GnomeCmdData::MIDDLE_BUTTON_OPENS_NEW_TAB;
 
-    cfg.right_mouse_button_mode = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (rmb_popup_radio)) ? GnomeCmdData::RIGHT_BUTTON_POPUPS_MENU
+    cfg.right_mouse_button_mode = gtk_check_button_get_active (GTK_CHECK_BUTTON (rmb_popup_radio)) ? GnomeCmdData::RIGHT_BUTTON_POPUPS_MENU
                                                                                                      : GnomeCmdData::RIGHT_BUTTON_SELECTS;
 
-    cfg.select_dirs = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (select_dirs));
-    cfg.deleteToTrash = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (delete_to_trash));
-    cfg.case_sens_sort = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (case_sens_check));
-    if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (ctrl_alt_quick_search)))
+    cfg.select_dirs = gtk_check_button_get_active (GTK_CHECK_BUTTON (select_dirs));
+    cfg.deleteToTrash = gtk_check_button_get_active (GTK_CHECK_BUTTON (delete_to_trash));
+    cfg.case_sens_sort = gtk_check_button_get_active (GTK_CHECK_BUTTON (case_sens_check));
+    if (gtk_check_button_get_active (GTK_CHECK_BUTTON (ctrl_alt_quick_search)))
         cfg.quick_search = GNOME_CMD_QUICK_SEARCH_CTRL_ALT;
-    else if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (alt_quick_search)))
+    else if (gtk_check_button_get_active (GTK_CHECK_BUTTON (alt_quick_search)))
         cfg.quick_search = GNOME_CMD_QUICK_SEARCH_ALT;
     else
         cfg.quick_search = GNOME_CMD_QUICK_SEARCH_JUST_A_CHARACTER;
-    cfg.allow_multiple_instances = !gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (multiple_instance_check));
-    cfg.quick_search_exact_match_begin = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (qsearch_exact_match_begin));
-    cfg.quick_search_exact_match_end = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (qsearch_exact_match_end));
-    cfg.search_window_is_transient = !gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (search_window_transient));
-    cfg.save_dirs_on_exit = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (save_dirs));
-    cfg.save_tabs_on_exit = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (save_tabs));
-    cfg.save_dir_history_on_exit = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (save_dir_history));
-    cfg.save_cmdline_history_on_exit = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (save_cmdline_history));
-    cfg.save_search_history_on_exit = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (save_search_history));
+    cfg.allow_multiple_instances = !gtk_check_button_get_active (GTK_CHECK_BUTTON (multiple_instance_check));
+    cfg.quick_search_exact_match_begin = gtk_check_button_get_active (GTK_CHECK_BUTTON (qsearch_exact_match_begin));
+    cfg.quick_search_exact_match_end = gtk_check_button_get_active (GTK_CHECK_BUTTON (qsearch_exact_match_end));
+    cfg.search_window_is_transient = !gtk_check_button_get_active (GTK_CHECK_BUTTON (search_window_transient));
+    cfg.save_dirs_on_exit = gtk_check_button_get_active (GTK_CHECK_BUTTON (save_dirs));
+    cfg.save_tabs_on_exit = gtk_check_button_get_active (GTK_CHECK_BUTTON (save_tabs));
+    cfg.save_dir_history_on_exit = gtk_check_button_get_active (GTK_CHECK_BUTTON (save_dir_history));
+    cfg.save_cmdline_history_on_exit = gtk_check_button_get_active (GTK_CHECK_BUTTON (save_cmdline_history));
+    cfg.save_search_history_on_exit = gtk_check_button_get_active (GTK_CHECK_BUTTON (save_search_history));
 }
 
 
@@ -370,23 +369,23 @@ static GtkWidget *create_format_tab (GtkWidget *parent, GnomeCmdData::Options &c
     radio = create_radio (parent, NULL, _("Powered"), "size_powered_radio");
     gtk_box_append (GTK_BOX (cat_box), radio);
     if (cfg.size_disp_mode == GNOME_CMD_SIZE_DISP_MODE_POWERED)
-        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
+        gtk_check_button_set_active (GTK_CHECK_BUTTON (radio), TRUE);
 
     // Translators: '<locale>' refers to the mode of file size display (here - use current locale settings)
-    radio = create_radio (parent, get_radio_group (radio), _("<locale>"), "size_locale_radio");
+    radio = create_radio (parent, radio, _("<locale>"), "size_locale_radio");
     gtk_box_append (GTK_BOX (cat_box), radio);
     if (cfg.size_disp_mode == GNOME_CMD_SIZE_DISP_MODE_LOCALE)
-        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
+        gtk_check_button_set_active (GTK_CHECK_BUTTON (radio), TRUE);
 
-    radio = create_radio (parent, get_radio_group (radio), _("Grouped"), "size_grouped_radio");
+    radio = create_radio (parent, radio, _("Grouped"), "size_grouped_radio");
     gtk_box_append (GTK_BOX (cat_box), radio);
     if (cfg.size_disp_mode == GNOME_CMD_SIZE_DISP_MODE_GROUPED)
-        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
+        gtk_check_button_set_active (GTK_CHECK_BUTTON (radio), TRUE);
 
-    radio = create_radio (parent, get_radio_group (radio), _("Plain"), "size_plain_radio");
+    radio = create_radio (parent, radio, _("Plain"), "size_plain_radio");
     gtk_box_append (GTK_BOX (cat_box), radio);
     if (cfg.size_disp_mode == GNOME_CMD_SIZE_DISP_MODE_PLAIN)
-        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
+        gtk_check_button_set_active (GTK_CHECK_BUTTON (radio), TRUE);
 
 
     // Permission display mode
@@ -397,12 +396,12 @@ static GtkWidget *create_format_tab (GtkWidget *parent, GnomeCmdData::Options &c
     radio = create_radio (parent, NULL, _("Text (rw-r--r--)"), "perm_text_radio");
     gtk_box_append (GTK_BOX (cat_box), radio);
     if (cfg.perm_disp_mode == GNOME_CMD_PERM_DISP_MODE_TEXT)
-        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
+        gtk_check_button_set_active (GTK_CHECK_BUTTON (radio), TRUE);
 
-    radio = create_radio (parent, get_radio_group (radio), _("Number (644)"), "perm_num_radio");
+    radio = create_radio (parent, radio, _("Number (644)"), "perm_num_radio");
     gtk_box_append (GTK_BOX (cat_box), radio);
     if (cfg.perm_disp_mode == GNOME_CMD_PERM_DISP_MODE_NUMBER)
-        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
+        gtk_check_button_set_active (GTK_CHECK_BUTTON (radio), TRUE);
 
 
     // Date options
@@ -430,10 +429,9 @@ static GtkWidget *create_format_tab (GtkWidget *parent, GnomeCmdData::Options &c
     gtk_grid_attach (GTK_GRID (grid), label, 1, 1, 1, 1);
 
     label = create_label (parent, _("See the help page in the documentation on how to set the format string."));
-    gtk_label_set_line_wrap (GTK_LABEL (label), TRUE);
+    gtk_label_set_wrap (GTK_LABEL (label), TRUE);
     gtk_grid_attach (GTK_GRID (grid), label, 1, 2, 1, 1);
 
-    gtk_widget_show_all (GTK_WIDGET (scrolled_window));
     return scrolled_window;
 }
 
@@ -447,16 +445,16 @@ void store_format_options (GtkWidget *dialog, GnomeCmdData::Options &cfg)
     GtkWidget *entry = lookup_widget (dialog, "date_format_entry");
     const gchar *format = gtk_editable_get_text (GTK_EDITABLE (entry));
 
-    if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (size_powered_radio)))
+    if (gtk_check_button_get_active (GTK_CHECK_BUTTON (size_powered_radio)))
         cfg.size_disp_mode = GNOME_CMD_SIZE_DISP_MODE_POWERED;
-    else if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (size_locale_radio)))
+    else if (gtk_check_button_get_active (GTK_CHECK_BUTTON (size_locale_radio)))
         cfg.size_disp_mode = GNOME_CMD_SIZE_DISP_MODE_LOCALE;
-    else if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (size_grouped_radio)))
+    else if (gtk_check_button_get_active (GTK_CHECK_BUTTON (size_grouped_radio)))
         cfg.size_disp_mode = GNOME_CMD_SIZE_DISP_MODE_GROUPED;
     else
         cfg.size_disp_mode = GNOME_CMD_SIZE_DISP_MODE_PLAIN;
 
-    if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (perm_text_radio)))
+    if (gtk_check_button_get_active (GTK_CHECK_BUTTON (perm_text_radio)))
         cfg.perm_disp_mode = GNOME_CMD_PERM_DISP_MODE_TEXT;
     else
         cfg.perm_disp_mode = GNOME_CMD_PERM_DISP_MODE_NUMBER;
@@ -589,7 +587,7 @@ static void on_ls_colors_toggled (GtkToggleButton *btn, GtkWidget *dialog)
 {
     GtkWidget *edit_btn = lookup_widget (GTK_WIDGET (dialog), "ls_colors_edit_btn");
     if (edit_btn)
-        gtk_widget_set_sensitive (edit_btn, gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (btn)));
+        gtk_widget_set_sensitive (edit_btn, gtk_check_button_get_active (GTK_CHECK_BUTTON (btn)));
 }
 
 
@@ -825,7 +823,7 @@ static GtkWidget *create_layout_tab (GtkWidget *parent, GnomeCmdData::Options &c
 
     fpicker = create_font_picker (parent, "list_font_picker");
     gtk_grid_attach (GTK_GRID (grid), fpicker, 1, 0, 1, 1);
-    gtk_font_button_set_font_name (GTK_FONT_BUTTON (fpicker), cfg.list_font);
+    gtk_font_chooser_set_font (GTK_FONT_CHOOSER (fpicker), cfg.list_font);
 
     spin = create_spin (parent, "row_height_spin", 8, 64, cfg.list_row_height);
     gtk_grid_attach (GTK_GRID (grid), spin, 1, 1, 1, 1);
@@ -876,7 +874,7 @@ static GtkWidget *create_layout_tab (GtkWidget *parent, GnomeCmdData::Options &c
 
     // LS_COLORS
     check = create_check (parent, _("Colorize files according to the LS_COLORS environment variable"), "use_ls_colors");
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), cfg.use_ls_colors);
+    gtk_check_button_set_active (GTK_CHECK_BUTTON (check), cfg.use_ls_colors);
     hbox = create_hbox (parent, FALSE, 6);
     gtk_grid_attach (GTK_GRID (grid), hbox, 0, 5, 2, 1);
 
@@ -920,7 +918,6 @@ static GtkWidget *create_layout_tab (GtkWidget *parent, GnomeCmdData::Options &c
     gtk_combo_box_set_active (GTK_COMBO_BOX (lm_combo), (gint) cfg.layout);
     gtk_combo_box_set_active (GTK_COMBO_BOX (cm_combo), (gint) cfg.color_mode);
 
-    gtk_widget_show_all (GTK_WIDGET (scrolled_window));
     return scrolled_window;
 }
 
@@ -943,7 +940,7 @@ void store_layout_options (GtkWidget *dialog, GnomeCmdData::Options &cfg)
     cfg.layout = (GnomeCmdLayout) gtk_combo_box_get_active (GTK_COMBO_BOX (lm_combo));
     cfg.color_mode = (GnomeCmdColorMode) gtk_combo_box_get_active (GTK_COMBO_BOX (cm_combo));
 
-    cfg.use_ls_colors = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (use_ls));
+    cfg.use_ls_colors = gtk_check_button_get_active (GTK_CHECK_BUTTON (use_ls));
 
     const gchar *list_font = gtk_font_chooser_get_font (GTK_FONT_CHOOSER (list_font_picker));
     cfg.set_list_font (list_font);
@@ -994,7 +991,7 @@ GtkWidget *create_tabs_tab (GtkWidget *parent, GnomeCmdData::Options &cfg)
 
     check = create_check (parent, _("Always show the tab bar"), "always_show_tabs");
     gtk_box_append (GTK_BOX (cat_box), check);
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), cfg.always_show_tabs);
+    gtk_check_button_set_active (GTK_CHECK_BUTTON (check), cfg.always_show_tabs);
 
 
     cat_box = create_vbox (parent, FALSE, 0);
@@ -1004,19 +1001,18 @@ GtkWidget *create_tabs_tab (GtkWidget *parent, GnomeCmdData::Options &cfg)
     radio = create_radio (parent, NULL, _("Lock icon"), "tab_lock_icon_radio");
     gtk_box_append (GTK_BOX (cat_box), radio);
     if (cfg.tab_lock_indicator == GnomeCmdData::TAB_LOCK_ICON)
-        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
+        gtk_check_button_set_active (GTK_CHECK_BUTTON (radio), TRUE);
 
-    radio = create_radio (parent, get_radio_group (radio), _("* (asterisk)"), "tab_lock_asterisk_radio");
+    radio = create_radio (parent, radio, _("* (asterisk)"), "tab_lock_asterisk_radio");
     gtk_box_append (GTK_BOX (cat_box), radio);
     if (cfg.tab_lock_indicator == GnomeCmdData::TAB_LOCK_ASTERISK)
-        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
+        gtk_check_button_set_active (GTK_CHECK_BUTTON (radio), TRUE);
 
-    radio = create_radio (parent, get_radio_group (radio), _("Styled text"), "tab_lock_style_radio");
+    radio = create_radio (parent, radio, _("Styled text"), "tab_lock_style_radio");
     gtk_box_append (GTK_BOX (cat_box), radio);
     if (cfg.tab_lock_indicator == GnomeCmdData::TAB_LOCK_STYLED_TEXT)
-        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
+        gtk_check_button_set_active (GTK_CHECK_BUTTON (radio), TRUE);
 
-    gtk_widget_show_all (GTK_WIDGET (scrolled_window));
     return scrolled_window;
 }
 
@@ -1027,11 +1023,11 @@ void store_tabs_options (GtkWidget *dialog, GnomeCmdData::Options &cfg)
     GtkWidget *tab_lock_icon_radio = lookup_widget (dialog, "tab_lock_icon_radio");
     GtkWidget *tab_lock_asterisk_radio = lookup_widget (dialog, "tab_lock_asterisk_radio");
 
-    cfg.always_show_tabs = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (always_show_tabs));
+    cfg.always_show_tabs = gtk_check_button_get_active (GTK_CHECK_BUTTON (always_show_tabs));
 
-    if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (tab_lock_icon_radio)))
+    if (gtk_check_button_get_active (GTK_CHECK_BUTTON (tab_lock_icon_radio)))
         cfg.tab_lock_indicator = GnomeCmdData::TAB_LOCK_ICON;
-    else if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (tab_lock_asterisk_radio)))
+    else if (gtk_check_button_get_active (GTK_CHECK_BUTTON (tab_lock_asterisk_radio)))
         cfg.tab_lock_indicator = GnomeCmdData::TAB_LOCK_ASTERISK;
     else
         cfg.tab_lock_indicator = GnomeCmdData::TAB_LOCK_STYLED_TEXT;
@@ -1062,7 +1058,6 @@ static GtkWidget *create_confirmation_tab (GtkWidget *parent, GnomeCmdData::Opti
     gtk_widget_set_margin_end (scrolled_window, 6);
     gtk_scrolled_window_set_child (GTK_SCROLLED_WINDOW (scrolled_window), vbox);
 
-
     /* Delete options
      */
     cat_box = create_vbox (parent, FALSE, 0);
@@ -1071,12 +1066,12 @@ static GtkWidget *create_confirmation_tab (GtkWidget *parent, GnomeCmdData::Opti
 
     check = create_check (parent, _("Confirm before delete"), "confirm_delete_check");
     gtk_box_append (GTK_BOX (cat_box), check);
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), cfg.confirm_delete);
+    gtk_check_button_set_active (GTK_CHECK_BUTTON (check), cfg.confirm_delete);
     g_signal_connect (check, "toggled", G_CALLBACK (on_confirm_delete_toggled), parent);
 
     check = create_check (parent, _("Confirm defaults to OK"), "delete_default_check");
     gtk_box_append (GTK_BOX (cat_box), check);
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), cfg.confirm_delete_default!=GTK_BUTTONS_CANCEL);
+    gtk_check_button_set_active (GTK_CHECK_BUTTON (check), cfg.confirm_delete_default!=GTK_BUTTONS_CANCEL);
     gtk_widget_set_sensitive (check, cfg.confirm_delete);
 
 
@@ -1089,19 +1084,19 @@ static GtkWidget *create_confirmation_tab (GtkWidget *parent, GnomeCmdData::Opti
     radio = create_radio (parent, NULL, _("Query first"), "copy_overwrite_query");
     gtk_box_append (GTK_BOX (cat_box), radio);
     if (cfg.confirm_copy_overwrite==GNOME_CMD_CONFIRM_OVERWRITE_QUERY)
-        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
-    radio = create_radio (parent, get_radio_group (radio), _("Rename"), "copy_rename_all");
+        gtk_check_button_set_active (GTK_CHECK_BUTTON (radio), TRUE);
+    radio = create_radio (parent, radio, _("Rename"), "copy_rename_all");
     gtk_box_append (GTK_BOX (cat_box), radio);
     if (cfg.confirm_copy_overwrite==GNOME_CMD_CONFIRM_OVERWRITE_RENAME_ALL)
-        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
-    radio = create_radio (parent, get_radio_group (radio), _("Skip"), "copy_overwrite_skip_all");
+        gtk_check_button_set_active (GTK_CHECK_BUTTON (radio), TRUE);
+    radio = create_radio (parent, radio, _("Skip"), "copy_overwrite_skip_all");
     gtk_box_append (GTK_BOX (cat_box), radio);
     if (cfg.confirm_copy_overwrite==GNOME_CMD_CONFIRM_OVERWRITE_SKIP_ALL)
-        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
-    radio = create_radio (parent, get_radio_group (radio), _("Overwrite silently"), "copy_overwrite_silently");
+        gtk_check_button_set_active (GTK_CHECK_BUTTON (radio), TRUE);
+    radio = create_radio (parent, radio, _("Overwrite silently"), "copy_overwrite_silently");
     gtk_box_append (GTK_BOX (cat_box), radio);
     if (cfg.confirm_copy_overwrite==GNOME_CMD_CONFIRM_OVERWRITE_SILENTLY)
-        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
+        gtk_check_button_set_active (GTK_CHECK_BUTTON (radio), TRUE);
 
 
     /* Move overwrite options
@@ -1113,19 +1108,19 @@ static GtkWidget *create_confirmation_tab (GtkWidget *parent, GnomeCmdData::Opti
     radio = create_radio (parent, NULL, _("Query first"), "move_overwrite_query");
     gtk_box_append (GTK_BOX (cat_box), radio);
     if (cfg.confirm_move_overwrite==GNOME_CMD_CONFIRM_OVERWRITE_QUERY)
-        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
-    radio = create_radio (parent, get_radio_group (radio), _("Rename"), "move_rename_all");
+        gtk_check_button_set_active (GTK_CHECK_BUTTON (radio), TRUE);
+    radio = create_radio (parent, radio, _("Rename"), "move_rename_all");
     gtk_box_append (GTK_BOX (cat_box), radio);
     if (cfg.confirm_move_overwrite==GNOME_CMD_CONFIRM_OVERWRITE_RENAME_ALL)
-        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
-    radio = create_radio (parent, get_radio_group (radio), _("Skip"), "move_overwrite_skip_all");
+        gtk_check_button_set_active (GTK_CHECK_BUTTON (radio), TRUE);
+    radio = create_radio (parent, radio, _("Skip"), "move_overwrite_skip_all");
     gtk_box_append (GTK_BOX (cat_box), radio);
     if (cfg.confirm_move_overwrite==GNOME_CMD_CONFIRM_OVERWRITE_SKIP_ALL)
-        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
-    radio = create_radio (parent, get_radio_group (radio), _("Overwrite silently"), "move_overwrite_silently");
+        gtk_check_button_set_active (GTK_CHECK_BUTTON (radio), TRUE);
+    radio = create_radio (parent, radio, _("Overwrite silently"), "move_overwrite_silently");
     gtk_box_append (GTK_BOX (cat_box), radio);
     if (cfg.confirm_move_overwrite==GNOME_CMD_CONFIRM_OVERWRITE_SILENTLY)
-        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
+        gtk_check_button_set_active (GTK_CHECK_BUTTON (radio), TRUE);
 
 
     /* Drag and Drop options
@@ -1137,17 +1132,16 @@ static GtkWidget *create_confirmation_tab (GtkWidget *parent, GnomeCmdData::Opti
     radio = create_radio (parent, NULL, _("Confirm mouse operation"), "mouse_dnd_default");
     gtk_box_append (GTK_BOX (cat_box), radio);
     if (cfg.mouse_dnd_default==GNOME_CMD_DEFAULT_DND_QUERY)
-        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
-    radio = create_radio (parent, get_radio_group (radio), _("Copy"), "mouse_dnd_copy");
+        gtk_check_button_set_active (GTK_CHECK_BUTTON (radio), TRUE);
+    radio = create_radio (parent, radio, _("Copy"), "mouse_dnd_copy");
     gtk_box_append (GTK_BOX (cat_box), radio);
     if (cfg.mouse_dnd_default==GNOME_CMD_DEFAULT_DND_COPY)
-        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
-    radio = create_radio (parent, get_radio_group (radio), _("Move"), "mouse_dnd_move");
+        gtk_check_button_set_active (GTK_CHECK_BUTTON (radio), TRUE);
+    radio = create_radio (parent, radio, _("Move"), "mouse_dnd_move");
     gtk_box_append (GTK_BOX (cat_box), radio);
     if (cfg.mouse_dnd_default==GNOME_CMD_DEFAULT_DND_MOVE)
-        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
+        gtk_check_button_set_active (GTK_CHECK_BUTTON (radio), TRUE);
 
-    gtk_widget_show_all (GTK_WIDGET (scrolled_window));
     return scrolled_window;
 }
 
@@ -1168,33 +1162,33 @@ void store_confirmation_options (GtkWidget *dialog, GnomeCmdData::Options &cfg)
     GtkWidget *mouse_dnd_copy = lookup_widget (dialog, "mouse_dnd_copy");
     GtkWidget *mouse_dnd_move = lookup_widget (dialog, "mouse_dnd_move");
 
-    cfg.confirm_delete = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (confirm_delete_check));
+    cfg.confirm_delete = gtk_check_button_get_active (GTK_CHECK_BUTTON (confirm_delete_check));
 
-    cfg.confirm_delete_default = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (delete_default_check)) ? GTK_BUTTONS_OK : GTK_BUTTONS_CANCEL;
+    cfg.confirm_delete_default = gtk_check_button_get_active (GTK_CHECK_BUTTON (delete_default_check)) ? GTK_BUTTONS_OK : GTK_BUTTONS_CANCEL;
 
-    if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (confirm_copy_silent)))
+    if (gtk_check_button_get_active (GTK_CHECK_BUTTON (confirm_copy_silent)))
         cfg.confirm_copy_overwrite = GNOME_CMD_CONFIRM_OVERWRITE_SILENTLY;
-    else if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (confirm_copy_query)))
+    else if (gtk_check_button_get_active (GTK_CHECK_BUTTON (confirm_copy_query)))
         cfg.confirm_copy_overwrite = GNOME_CMD_CONFIRM_OVERWRITE_QUERY;
-    else if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (confirm_copy_rename_all)))
+    else if (gtk_check_button_get_active (GTK_CHECK_BUTTON (confirm_copy_rename_all)))
         cfg.confirm_copy_overwrite = GNOME_CMD_CONFIRM_OVERWRITE_RENAME_ALL;
-    else if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (confirm_copy_skip_all)))
+    else if (gtk_check_button_get_active (GTK_CHECK_BUTTON (confirm_copy_skip_all)))
         cfg.confirm_copy_overwrite = GNOME_CMD_CONFIRM_OVERWRITE_SKIP_ALL;
 
-    if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (confirm_move_silent)))
+    if (gtk_check_button_get_active (GTK_CHECK_BUTTON (confirm_move_silent)))
         cfg.confirm_move_overwrite = GNOME_CMD_CONFIRM_OVERWRITE_SILENTLY;
-    else if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (confirm_move_query)))
+    else if (gtk_check_button_get_active (GTK_CHECK_BUTTON (confirm_move_query)))
         cfg.confirm_move_overwrite = GNOME_CMD_CONFIRM_OVERWRITE_QUERY;
-    else if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (confirm_move_rename_all)))
+    else if (gtk_check_button_get_active (GTK_CHECK_BUTTON (confirm_move_rename_all)))
         cfg.confirm_move_overwrite = GNOME_CMD_CONFIRM_OVERWRITE_RENAME_ALL;
-    else if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (confirm_move_skip_all)))
+    else if (gtk_check_button_get_active (GTK_CHECK_BUTTON (confirm_move_skip_all)))
         cfg.confirm_move_overwrite = GNOME_CMD_CONFIRM_OVERWRITE_SKIP_ALL;
 
-    if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (mouse_dnd_query)))
+    if (gtk_check_button_get_active (GTK_CHECK_BUTTON (mouse_dnd_query)))
         cfg.mouse_dnd_default = GNOME_CMD_DEFAULT_DND_QUERY;
-    else if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (mouse_dnd_copy)))
+    else if (gtk_check_button_get_active (GTK_CHECK_BUTTON (mouse_dnd_copy)))
         cfg.mouse_dnd_default = GNOME_CMD_DEFAULT_DND_COPY;
-    else if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (mouse_dnd_move)))
+    else if (gtk_check_button_get_active (GTK_CHECK_BUTTON (mouse_dnd_move)))
         cfg.mouse_dnd_default = GNOME_CMD_DEFAULT_DND_MOVE;
 }
 
@@ -1205,11 +1199,11 @@ void store_confirmation_options (GtkWidget *dialog, GnomeCmdData::Options &cfg)
  *
  **********************************************************************/
 
-static void on_filter_backup_files_toggled (GtkToggleButton *btn, GtkWidget *dialog)
+static void on_filter_backup_files_toggled (GtkCheckButton *btn, GtkWidget *dialog)
 {
     GtkWidget *backup_pattern_entry = lookup_widget (dialog, "backup_pattern_entry");
 
-    if (gtk_toggle_button_get_active (btn))
+    if (gtk_check_button_get_active (btn))
     {
         gtk_widget_set_sensitive (backup_pattern_entry, TRUE);
         gtk_widget_grab_focus (backup_pattern_entry);
@@ -1243,28 +1237,28 @@ GtkWidget *create_filter_tab (GtkWidget *parent, GnomeCmdData::Options &cfg)
 
     check = create_check (parent, _("Unknown"), "hide_unknown_check");
     gtk_box_append (GTK_BOX (cat_box), check);
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), cfg.filter.file_types[GnomeCmdData::G_FILE_IS_UNKNOWN]);
+    gtk_check_button_set_active (GTK_CHECK_BUTTON (check), cfg.filter.file_types[GnomeCmdData::G_FILE_IS_UNKNOWN]);
     check = create_check (parent, _("Regular files"), "hide_regular_check");
     gtk_box_append (GTK_BOX (cat_box), check);
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), cfg.filter.file_types[GnomeCmdData::G_FILE_IS_REGULAR]);
+    gtk_check_button_set_active (GTK_CHECK_BUTTON (check), cfg.filter.file_types[GnomeCmdData::G_FILE_IS_REGULAR]);
     check = create_check (parent, _("Directories"), "hide_directory_check");
     gtk_box_append (GTK_BOX (cat_box), check);
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), cfg.filter.file_types[GnomeCmdData::G_FILE_IS_DIR]);
+    gtk_check_button_set_active (GTK_CHECK_BUTTON (check), cfg.filter.file_types[GnomeCmdData::G_FILE_IS_DIR]);
     check = create_check (parent, _("Socket, fifo, block, or character devices"), "hide_special_check");
     gtk_box_append (GTK_BOX (cat_box), check);
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), cfg.filter.file_types[GnomeCmdData::G_FILE_IS_SPECIAL]);
+    gtk_check_button_set_active (GTK_CHECK_BUTTON (check), cfg.filter.file_types[GnomeCmdData::G_FILE_IS_SPECIAL]);
     check = create_check (parent, _("Shortcuts (Windows systems)"), "hide_shortcut_check");
     gtk_box_append (GTK_BOX (cat_box), check);
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), cfg.filter.file_types[GnomeCmdData::G_FILE_IS_SHORTCUT]);
+    gtk_check_button_set_active (GTK_CHECK_BUTTON (check), cfg.filter.file_types[GnomeCmdData::G_FILE_IS_SHORTCUT]);
     check = create_check (parent, _("Mountable locations"), "hide_mountable_check");
     gtk_box_append (GTK_BOX (cat_box), check);
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), cfg.filter.file_types[GnomeCmdData::G_FILE_IS_MOUNTABLE]);
+    gtk_check_button_set_active (GTK_CHECK_BUTTON (check), cfg.filter.file_types[GnomeCmdData::G_FILE_IS_MOUNTABLE]);
     check = create_check (parent, _("Virtual files"), "hide_virtual_check");
     gtk_box_append (GTK_BOX (cat_box), check);
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), cfg.filter.file_types[GnomeCmdData::G_FILE_IS_VIRTUAL]);
+    gtk_check_button_set_active (GTK_CHECK_BUTTON (check), cfg.filter.file_types[GnomeCmdData::G_FILE_IS_VIRTUAL]);
     check = create_check (parent, _("Volatile files"), "hide_volatile_check");
     gtk_box_append (GTK_BOX (cat_box), check);
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), cfg.filter.file_types[GnomeCmdData::G_FILE_IS_VOLATILE]);
+    gtk_check_button_set_active (GTK_CHECK_BUTTON (check), cfg.filter.file_types[GnomeCmdData::G_FILE_IS_VOLATILE]);
 
     cat_box = create_vbox (parent, FALSE, 0);
     cat = create_category (parent, cat_box, _("Also hide"));
@@ -1272,13 +1266,13 @@ GtkWidget *create_filter_tab (GtkWidget *parent, GnomeCmdData::Options &cfg)
 
     check = create_check (parent, _("Hidden files"), "hide_hidden_check");
     gtk_box_append (GTK_BOX (cat_box), check);
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), cfg.filter.file_types[GnomeCmdData::G_FILE_IS_HIDDEN]);
+    gtk_check_button_set_active (GTK_CHECK_BUTTON (check), cfg.filter.file_types[GnomeCmdData::G_FILE_IS_HIDDEN]);
     backup_check = create_check (parent, _("Backup files"), "hide_backup_check");
     gtk_box_append (GTK_BOX (cat_box), backup_check);
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (backup_check), cfg.filter.file_types[GnomeCmdData::G_FILE_IS_BACKUP]);
+    gtk_check_button_set_active (GTK_CHECK_BUTTON (backup_check), cfg.filter.file_types[GnomeCmdData::G_FILE_IS_BACKUP]);
     check = create_check (parent, _("Symlinks"), "hide_symlink_check");
     gtk_box_append (GTK_BOX (cat_box), check);
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), cfg.filter.file_types[GnomeCmdData::G_FILE_IS_SYMLINK]);
+    gtk_check_button_set_active (GTK_CHECK_BUTTON (check), cfg.filter.file_types[GnomeCmdData::G_FILE_IS_SYMLINK]);
 
 
     cat_box = create_vbox (parent, FALSE, 0);
@@ -1292,7 +1286,6 @@ GtkWidget *create_filter_tab (GtkWidget *parent, GnomeCmdData::Options &cfg)
 
     g_signal_connect (backup_check, "toggled", G_CALLBACK (on_filter_backup_files_toggled), scrolled_window);
 
-    gtk_widget_show_all (GTK_WIDGET (scrolled_window));
     return scrolled_window;
 }
 
@@ -1313,37 +1306,37 @@ void store_filter_options (GtkWidget *dialog, GnomeCmdData::Options &cfg)
     GtkWidget *backup_pattern_entry = lookup_widget (dialog, "backup_pattern_entry");
 
     cfg.filter.file_types[GnomeCmdData::G_FILE_IS_UNKNOWN] =
-        gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (hide_unknown_check));
+        gtk_check_button_get_active (GTK_CHECK_BUTTON (hide_unknown_check));
 
     cfg.filter.file_types[GnomeCmdData::G_FILE_IS_REGULAR] =
-        gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (hide_regular_check));
+        gtk_check_button_get_active (GTK_CHECK_BUTTON (hide_regular_check));
 
     cfg.filter.file_types[GnomeCmdData::G_FILE_IS_DIR] =
-        gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (hide_directory_check));
+        gtk_check_button_get_active (GTK_CHECK_BUTTON (hide_directory_check));
 
     cfg.filter.file_types[GnomeCmdData::G_FILE_IS_SPECIAL] =
-        gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (hide_special_check));
+        gtk_check_button_get_active (GTK_CHECK_BUTTON (hide_special_check));
 
     cfg.filter.file_types[GnomeCmdData::G_FILE_IS_SHORTCUT] =
-        gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (hide_shortcut_check));
+        gtk_check_button_get_active (GTK_CHECK_BUTTON (hide_shortcut_check));
 
     cfg.filter.file_types[GnomeCmdData::G_FILE_IS_MOUNTABLE] =
-        gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (hide_mountable_check));
+        gtk_check_button_get_active (GTK_CHECK_BUTTON (hide_mountable_check));
 
     cfg.filter.file_types[GnomeCmdData::G_FILE_IS_VIRTUAL] =
-        gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (hide_virtual_check));
+        gtk_check_button_get_active (GTK_CHECK_BUTTON (hide_virtual_check));
 
     cfg.filter.file_types[GnomeCmdData::G_FILE_IS_VOLATILE] =
-        gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (hide_volatile_check));
+        gtk_check_button_get_active (GTK_CHECK_BUTTON (hide_volatile_check));
 
     cfg.filter.file_types[GnomeCmdData::G_FILE_IS_SYMLINK] =
-        gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (hide_symlink_check));
+        gtk_check_button_get_active (GTK_CHECK_BUTTON (hide_symlink_check));
 
     cfg.filter.file_types[GnomeCmdData::G_FILE_IS_HIDDEN] =
-        gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (hide_hidden_check));
+        gtk_check_button_get_active (GTK_CHECK_BUTTON (hide_hidden_check));
 
     cfg.filter.file_types[GnomeCmdData::G_FILE_IS_BACKUP] =
-        gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (hide_backup_check));
+        gtk_check_button_get_active (GTK_CHECK_BUTTON (hide_backup_check));
 
     cfg.set_backup_pattern(gtk_editable_get_text (GTK_EDITABLE (backup_pattern_entry)));
 }
@@ -1403,11 +1396,11 @@ static void on_app_dialog_cancel (GtkButton *button, GtkWidget *dialog)
 }
 
 
-static void on_some_files_toggled (GtkToggleButton *btn, GtkWidget *dialog)
+static void on_some_files_toggled (GtkCheckButton *btn, GtkWidget *dialog)
 {
     GtkWidget *pattern_entry = lookup_widget (dialog, "pattern_entry");
 
-    if (gtk_toggle_button_get_active (btn))
+    if (gtk_check_button_get_active (btn))
     {
         gtk_widget_set_sensitive (pattern_entry, TRUE);
         gtk_widget_grab_focus (pattern_entry);
@@ -1436,13 +1429,13 @@ static void get_app_dialog_values (GtkWidget *dialog, gchar **name, gchar **cmd,
     *name = (gchar *) gtk_editable_get_text (GTK_EDITABLE (name_entry));
     *cmd = (gchar *) gtk_editable_get_text (GTK_EDITABLE (cmd_entry));
     // Get icon_path string
-    g_object_get (G_OBJECT (gtk_button_get_image (GTK_BUTTON (iconWidget))), "file", icon_path, NULL);
+    *icon_path = g_strdup ((const gchar *) g_object_get_data (G_OBJECT (iconWidget), "file"));
     *pattern_string = NULL;
-    if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (target_files)))
+    if (gtk_check_button_get_active (GTK_CHECK_BUTTON (target_files)))
         *target = APP_TARGET_ALL_FILES;
-    else if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (target_dirs)))
+    else if (gtk_check_button_get_active (GTK_CHECK_BUTTON (target_dirs)))
         *target = APP_TARGET_ALL_DIRS;
-    else if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (target_dirs_and_files)))
+    else if (gtk_check_button_get_active (GTK_CHECK_BUTTON (target_dirs_and_files)))
         *target = APP_TARGET_ALL_DIRS_AND_FILES;
     else
     {
@@ -1450,9 +1443,9 @@ static void get_app_dialog_values (GtkWidget *dialog, gchar **name, gchar **cmd,
         *pattern_string = (gchar *) gtk_editable_get_text (GTK_EDITABLE (pattern_entry));
     }
 
-    *handles_uris = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (uris_check));
-    *handles_multiple = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (multiple_check));
-    *requires_terminal = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (terminal_check));
+    *handles_uris = gtk_check_button_get_active (GTK_CHECK_BUTTON (uris_check));
+    *handles_multiple = gtk_check_button_get_active (GTK_CHECK_BUTTON (multiple_check));
+    *requires_terminal = gtk_check_button_get_active (GTK_CHECK_BUTTON (terminal_check));
 }
 
 
@@ -1572,16 +1565,16 @@ static GtkWidget *create_app_dialog (GnomeCmdApp *app, GCallback on_ok, GCallbac
     gtk_box_append (GTK_BOX (vbox), cat);
 
     check = create_check (dialog, _("Can handle multiple files"), "handle_multiple");
-    if (app) gtk_toggle_button_set_active (
-        GTK_TOGGLE_BUTTON (check), gnome_cmd_app_get_handles_multiple (app));
+    if (app)
+        gtk_check_button_set_active (GTK_CHECK_BUTTON (check), gnome_cmd_app_get_handles_multiple (app));
     gtk_grid_attach (GTK_GRID (grid), check, 0, 0, 1, 1);
     check = create_check (dialog, _("Can handle URIs"), "handle_uris");
-    if (app) gtk_toggle_button_set_active (
-        GTK_TOGGLE_BUTTON (check), gnome_cmd_app_get_handles_uris (app));
+    if (app)
+        gtk_check_button_set_active (GTK_CHECK_BUTTON (check), gnome_cmd_app_get_handles_uris (app));
     gtk_grid_attach (GTK_GRID (grid), check, 0, 1, 1, 1);
     check = create_check (dialog, _("Requires terminal"), "requires_terminal");
-    if (app) gtk_toggle_button_set_active (
-        GTK_TOGGLE_BUTTON (check), gnome_cmd_app_get_requires_terminal (app));
+    if (app)
+        gtk_check_button_set_active (GTK_CHECK_BUTTON (check), gnome_cmd_app_get_requires_terminal (app));
     gtk_grid_attach (GTK_GRID (grid), check, 0, 2, 1, 1);
 
 
@@ -1591,27 +1584,25 @@ static GtkWidget *create_app_dialog (GnomeCmdApp *app, GCallback on_ok, GCallbac
 
     radio = create_radio (dialog, NULL, _("All files"),
                           "show_for_all_files");
-    if (app) gtk_toggle_button_set_active (
-        GTK_TOGGLE_BUTTON (radio),
-        gnome_cmd_app_get_target (app) == APP_TARGET_ALL_FILES);
+    if (app)
+        gtk_check_button_set_active (GTK_CHECK_BUTTON (radio), gnome_cmd_app_get_target (app) == APP_TARGET_ALL_FILES);
     gtk_grid_attach (GTK_GRID (grid), radio, 0, 0, 2, 1);
-    radio = create_radio (dialog, get_radio_group (radio), _("All directories"), "show_for_all_dirs");
-    if (app) gtk_toggle_button_set_active (
-        GTK_TOGGLE_BUTTON (radio),
-        gnome_cmd_app_get_target (app) == APP_TARGET_ALL_DIRS);
+    radio = create_radio (dialog, radio, _("All directories"), "show_for_all_dirs");
+    if (app)
+        gtk_check_button_set_active (GTK_CHECK_BUTTON (radio), gnome_cmd_app_get_target (app) == APP_TARGET_ALL_DIRS);
     gtk_grid_attach (GTK_GRID (grid), radio, 0, 1, 2, 1);
-    radio = create_radio (dialog, get_radio_group (radio), _("All directories and files"),
+    radio = create_radio (dialog, radio, _("All directories and files"),
                           "show_for_all_dirs_and_files");
-    if (app) gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio),
-                                           gnome_cmd_app_get_target (app) == APP_TARGET_ALL_DIRS_AND_FILES);
+    if (app)
+        gtk_check_button_set_active (GTK_CHECK_BUTTON (radio), gnome_cmd_app_get_target (app) == APP_TARGET_ALL_DIRS_AND_FILES);
     gtk_grid_attach (GTK_GRID (grid), radio, 0, 2, 2, 1);
-    radio = create_radio (dialog, get_radio_group (radio), _("Some files"),
+    radio = create_radio (dialog, radio, _("Some files"),
                           "show_for_some_files");
-    if (app) gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio),
-                                           gnome_cmd_app_get_target (app) == APP_TARGET_SOME_FILES);
+    if (app)
+        gtk_check_button_set_active (GTK_CHECK_BUTTON (radio), gnome_cmd_app_get_target (app) == APP_TARGET_SOME_FILES);
     gtk_grid_attach (GTK_GRID (grid), radio, 0, 3, 2, 1);
     if (!app)
-        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
+        gtk_check_button_set_active (GTK_CHECK_BUTTON (radio), TRUE);
     g_signal_connect (radio, "toggled", G_CALLBACK (on_some_files_toggled), dialog);
 
     label = create_label (dialog, _("File patterns"));
@@ -1756,7 +1747,7 @@ static GtkWidget *create_programs_tab (GtkWidget *parent, GnomeCmdData::Options 
     gtk_scrolled_window_set_child (GTK_SCROLLED_WINDOW (scrolled_window), vbox);
 
     check = create_check (parent, _("Always download remote files before opening in external programs"), "honor_expect_uris");
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), !cfg.honor_expect_uris);
+    gtk_check_button_set_active (GTK_CHECK_BUTTON (check), !cfg.honor_expect_uris);
     cat = create_category (parent, check, _("MIME applications"));
     gtk_box_append (GTK_BOX (vbox), cat);
 
@@ -1782,7 +1773,7 @@ static GtkWidget *create_programs_tab (GtkWidget *parent, GnomeCmdData::Options 
     gtk_grid_attach (GTK_GRID (grid1), entry, 1, 0, 1, 1);
 
     check = create_check (parent, _("Use Internal Viewer"), "use_internal_viewer");
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), cfg.use_internal_viewer);
+    gtk_check_button_set_active (GTK_CHECK_BUTTON (check), cfg.use_internal_viewer);
     gtk_grid_attach (GTK_GRID (grid1), check, 1, 1, 1, 1);
     entry = create_entry (parent, "editor", cfg.editor);
     gtk_grid_attach (GTK_GRID (grid1), entry, 1, 2, 1, 1);
@@ -1791,7 +1782,7 @@ static GtkWidget *create_programs_tab (GtkWidget *parent, GnomeCmdData::Options 
     entry = create_entry (parent, "search", cfg.search);
     gtk_grid_attach (GTK_GRID (grid1), entry, 1, 4, 1, 1);
     check = create_check (parent, _("Use Internal Search"), "use_internal_search");
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), cfg.use_internal_search);
+    gtk_check_button_set_active (GTK_CHECK_BUTTON (check), cfg.use_internal_search);
     gtk_grid_attach (GTK_GRID (grid1), check, 1, 5, 1, 1);
     entry = create_entry (parent, "sendto", cfg.sendto);
     gtk_grid_attach (GTK_GRID (grid1), entry, 1, 6, 1, 1);
@@ -1823,27 +1814,22 @@ static GtkWidget *create_programs_tab (GtkWidget *parent, GnomeCmdData::Options 
     gtk_box_append (GTK_BOX (hbox), bbox);
 
     button = create_button (parent, _("_Add"), G_CALLBACK (on_app_add));
-    gtk_widget_set_can_default (button, TRUE);
     gtk_box_append (GTK_BOX (bbox), button);
 
     button = create_button (parent, _("_Edit"), G_CALLBACK (on_app_edit));
     g_object_set_data (G_OBJECT (parent), "edit_app_button", button);
-    gtk_widget_set_can_default (button, TRUE);
     gtk_widget_set_sensitive (button, FALSE);
     gtk_box_append (GTK_BOX (bbox), button);
 
     button = create_button (parent, _("_Remove"), G_CALLBACK (on_app_remove));
     g_object_set_data (G_OBJECT (parent), "remove_app_button", button);
-    gtk_widget_set_can_default (button, TRUE);
     gtk_widget_set_sensitive (button, FALSE);
     gtk_box_append (GTK_BOX (bbox), button);
 
     button = create_button (parent, _("_Up"), G_CALLBACK (on_app_move_up));
-    gtk_widget_set_can_default (button, TRUE);
     gtk_box_append (GTK_BOX (bbox), button);
 
     button = create_button (parent, _("_Down"), G_CALLBACK (on_app_move_down));
-    gtk_widget_set_can_default (button, TRUE);
     gtk_box_append (GTK_BOX (bbox), button);
 
     view = (GtkWidget *) g_object_get_data (G_OBJECT (parent), "app_view");
@@ -1863,9 +1849,8 @@ static GtkWidget *create_programs_tab (GtkWidget *parent, GnomeCmdData::Options 
 
     check = create_check (parent, _("Leave terminal window open"), "is_use_gcmd_block");
     gtk_grid_attach (GTK_GRID (grid2), check, 0, 2, 1, 1);
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), gnome_cmd_data.use_gcmd_block);
+    gtk_check_button_set_active (GTK_CHECK_BUTTON (check), gnome_cmd_data.use_gcmd_block);
 
-    gtk_widget_show_all (GTK_WIDGET (scrolled_window));
     return scrolled_window;
 }
 
@@ -1891,11 +1876,11 @@ void store_programs_options (GtkWidget *dialog, GnomeCmdData::Options &cfg)
     cfg.set_sendto(gtk_editable_get_text (GTK_EDITABLE (entry5)));
     cfg.set_termopen(gtk_editable_get_text (GTK_EDITABLE (entry6)));
     cfg.set_termexec(gtk_editable_get_text (GTK_EDITABLE (entry7)));
-    gnome_cmd_data.use_gcmd_block = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (check_use_gcmd_block));
+    gnome_cmd_data.use_gcmd_block = gtk_check_button_get_active (GTK_CHECK_BUTTON (check_use_gcmd_block));
 
-    cfg.honor_expect_uris = !gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (check_uris));
-    cfg.use_internal_viewer = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (check_iv));
-    cfg.use_internal_search = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (check_is));
+    cfg.honor_expect_uris = !gtk_check_button_get_active (GTK_CHECK_BUTTON (check_uris));
+    cfg.use_internal_viewer = gtk_check_button_get_active (GTK_CHECK_BUTTON (check_iv));
+    cfg.use_internal_search = gtk_check_button_get_active (GTK_CHECK_BUTTON (check_is));
 }
 
 
@@ -1979,7 +1964,7 @@ void get_device_dialog_values (GtkWidget *dialog, gchar **alias, gchar **device_
         g_free (mountp_path);
     }
     // Get device_iconentry path
-    g_object_get (G_OBJECT (gtk_button_get_image (GTK_BUTTON (iconWidget))), "file", icon_path, NULL);
+    *icon_path = g_strdup ((const gchar *) g_object_get_data (G_OBJECT (iconWidget), "file"));
 }
 
 
@@ -2262,43 +2247,37 @@ static GtkWidget *create_devices_tab (GtkWidget *parent, GnomeCmdData::Options &
     gtk_box_append (GTK_BOX (hbox), bbox);
 
     button = create_button (parent, _("_Add"), G_CALLBACK (on_device_add));
-    gtk_widget_set_can_default (button, TRUE);
     gtk_box_append (GTK_BOX (bbox), button);
 
     button = create_button (parent, _("_Edit"), G_CALLBACK (on_device_edit));
     g_object_set_data (G_OBJECT (parent), "edit_device_button", button);
-    gtk_widget_set_can_default (button, TRUE);
     gtk_widget_set_sensitive (button, FALSE);
     gtk_box_append (GTK_BOX (bbox), button);
 
     button = create_button (parent, _("_Remove"), G_CALLBACK (on_device_remove));
     g_object_set_data (G_OBJECT (parent), "remove_device_button", button);
-    gtk_widget_set_can_default (button, TRUE);
     gtk_widget_set_sensitive (button, FALSE);
     gtk_box_append (GTK_BOX (bbox), button);
 
     button = create_button (parent, _("_Up"), G_CALLBACK (on_device_move_up));
-    gtk_widget_set_can_default (button, TRUE);
     gtk_box_append (GTK_BOX (bbox), button);
 
     button = create_button (parent, _("_Down"), G_CALLBACK (on_device_move_down));
-    gtk_widget_set_can_default (button, TRUE);
     gtk_box_append (GTK_BOX (bbox), button);
 
     check = create_check (parent, _("Show Samba workgroups button\n(Needs program restart if altered)"), "samba_workgroups_button");
     gtk_box_append (GTK_BOX (cat_box), check);
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), cfg.show_samba_workgroups_button);
+    gtk_check_button_set_active (GTK_CHECK_BUTTON (check), cfg.show_samba_workgroups_button);
 
     check = create_check (parent, _("Show only the icons"), "device_only_icon");
     gtk_box_append (GTK_BOX (cat_box), check);
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), cfg.device_only_icon);
+    gtk_check_button_set_active (GTK_CHECK_BUTTON (check), cfg.device_only_icon);
 
     view = (GtkWidget *) g_object_get_data (G_OBJECT (parent), "device_view");
     for (GList *devices = gnome_cmd_con_list_get_all_dev (gnome_cmd_con_list_get ()); devices; devices = devices->next)
         if (!gnome_cmd_con_device_get_autovol ((GnomeCmdConDevice *) devices->data))
             add_device_to_list (GTK_TREE_VIEW (view), GNOME_CMD_CON_DEVICE (devices->data));
 
-    gtk_widget_show_all (GTK_WIDGET (scrolled_window));
     return scrolled_window;
 }
 
@@ -2306,10 +2285,10 @@ static GtkWidget *create_devices_tab (GtkWidget *parent, GnomeCmdData::Options &
 void store_devices_options (GtkWidget *dialog, GnomeCmdData::Options &cfg)
 {
     GtkWidget *device_only_icon = lookup_widget (dialog, "device_only_icon");
-    cfg.device_only_icon = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (device_only_icon));
+    cfg.device_only_icon = gtk_check_button_get_active (GTK_CHECK_BUTTON (device_only_icon));
 
     GtkWidget *samba_workgroups_button = lookup_widget (dialog, "samba_workgroups_button");
-    cfg.show_samba_workgroups_button = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (samba_workgroups_button));
+    cfg.show_samba_workgroups_button = gtk_check_button_get_active (GTK_CHECK_BUTTON (samba_workgroups_button));
 }
 
 
@@ -2401,8 +2380,6 @@ GtkDialog *gnome_cmd_options_dialog (GtkWindow *parent, GnomeCmdData::Options &c
                                                      _("_OK"), GTK_RESPONSE_OK,
                                                      NULL);
 
-    gtk_window_set_position (GTK_WINDOW (dialog), GTK_WIN_POS_CENTER);
-
     GtkWidget *content_area = gtk_dialog_get_content_area (GTK_DIALOG (dialog));
 
     gtk_window_set_default_size(GTK_WINDOW (dialog), gnome_cmd_data.opts_dialog_width, gnome_cmd_data.opts_dialog_height);
@@ -2429,7 +2406,6 @@ GtkDialog *gnome_cmd_options_dialog (GtkWindow *parent, GnomeCmdData::Options &c
     gtk_notebook_append_page (notebook, create_programs_tab (dialog, cfg), gtk_label_new (_("Programs")));
     gtk_notebook_append_page (notebook, create_devices_tab (dialog, cfg), gtk_label_new (_("Devices")));
 
-    gtk_widget_show_all (content_area);
 
     gtk_dialog_set_default_response (GTK_DIALOG (dialog), GTK_RESPONSE_OK);
 

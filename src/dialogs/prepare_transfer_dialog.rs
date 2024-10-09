@@ -26,7 +26,7 @@ use crate::{
     dir::Directory,
     file::{File, GnomeCmdFileExt},
     file_selector::FileSelector,
-    utils::{bold, pending, run_simple_dialog, show_error_message_future, Gtk3to4BoxCompat},
+    utils::{bold, pending, run_simple_dialog, show_error_message_future},
 };
 use gettextrs::gettext;
 use gtk::{gdk, gio, glib, prelude::*, subclass::prelude::*};
@@ -34,11 +34,7 @@ use std::path::{Path, PathBuf};
 
 mod imp {
     use super::*;
-    use crate::{
-        dir::Directory,
-        file_selector::FileSelector,
-        utils::{toggle_file_name_selection, Gtk3to4BoxCompat},
-    };
+    use crate::{dir::Directory, file_selector::FileSelector, utils::toggle_file_name_selection};
     use std::cell::OnceCell;
 
     pub struct PrepareTransferDialog {
@@ -48,7 +44,6 @@ mod imp {
         pub right_vbox: gtk::Box,
         pub ok_button: gtk::Button,
         pub cancel_button: gtk::Button,
-        key_controller: OnceCell<gtk::EventControllerKey>,
         pub src_files: OnceCell<glib::List<File>>,
         pub src_fs: OnceCell<FileSelector>,
         pub dst_fs: OnceCell<FileSelector>,
@@ -83,7 +78,7 @@ mod imp {
                     .use_underline(true)
                     .hexpand(true)
                     .halign(gtk::Align::Start)
-                    .can_default(true)
+                    .receives_default(true)
                     .build(),
                 cancel_button: gtk::Button::builder()
                     .label(gettext("_Cancel"))
@@ -91,7 +86,6 @@ mod imp {
                     .hexpand(true)
                     .halign(gtk::Align::End)
                     .build(),
-                key_controller: OnceCell::new(),
                 src_files: OnceCell::new(),
                 src_fs: OnceCell::new(),
                 dst_fs: OnceCell::new(),
@@ -122,9 +116,9 @@ mod imp {
 
             self.dst_label.set_mnemonic_widget(Some(&self.dst_entry));
 
-            let key_controller = gtk::EventControllerKey::new(&self.dst_entry);
-            key_controller.connect_key_pressed(glib::clone!(@weak self as imp => @default-return false, move |_, keyval, _, _| imp.dst_entry_key_pressed(keyval)));
-            self.key_controller.set(key_controller).unwrap();
+            let key_controller = gtk::EventControllerKey::new();
+            key_controller.connect_key_pressed(glib::clone!(@weak self as imp => @default-return glib::Propagation::Proceed, move |_, keyval, _, _| imp.dst_entry_key_pressed(keyval)));
+            self.dst_entry.add_controller(key_controller);
 
             let options_hbox = gtk::Box::builder()
                 .orientation(gtk::Orientation::Horizontal)
@@ -161,22 +155,19 @@ mod imp {
     }
 
     impl WidgetImpl for PrepareTransferDialog {}
-    impl ContainerImpl for PrepareTransferDialog {}
-    impl BinImpl for PrepareTransferDialog {}
     impl WindowImpl for PrepareTransferDialog {}
     impl DialogImpl for PrepareTransferDialog {}
 
     impl PrepareTransferDialog {
-        fn dst_entry_key_pressed(&self, keyval: u32) -> bool {
-            let keyval = gdk::keys::Key::from(keyval);
-            if keyval == gdk::keys::constants::Return || keyval == gdk::keys::constants::KP_Enter {
+        fn dst_entry_key_pressed(&self, keyval: gdk::Key) -> glib::Propagation {
+            if keyval == gdk::Key::Return || keyval == gdk::Key::KP_Enter {
                 self.obj().response(gtk::ResponseType::Ok);
-                true
-            } else if keyval == gdk::keys::constants::F5 || keyval == gdk::keys::constants::F6 {
+                glib::Propagation::Stop
+            } else if keyval == gdk::Key::F5 || keyval == gdk::Key::F6 {
                 toggle_file_name_selection(&self.dst_entry);
-                true
+                glib::Propagation::Stop
             } else {
-                false
+                glib::Propagation::Proceed
             }
         }
     }
@@ -184,7 +175,7 @@ mod imp {
 
 glib::wrapper! {
     pub struct PrepareTransferDialog(ObjectSubclass<imp::PrepareTransferDialog>)
-        @extends gtk::Dialog, gtk::Window, gtk::Bin, gtk::Container, gtk::Widget;
+        @extends gtk::Dialog, gtk::Window, gtk::Widget;
 }
 
 fn prepend_slash(str: String) -> String {
@@ -296,7 +287,7 @@ impl PrepareTransferDialog {
         });
 
         self.present();
-        self.imp().ok_button.grab_default();
+        self.set_default_widget(Some(&self.imp().ok_button));
 
         let result = loop {
             match receiver.recv().await {

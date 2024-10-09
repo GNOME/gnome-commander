@@ -73,7 +73,7 @@ SEARCHMODE gviewer_search_dlg_get_search_mode (GViewerSearchDlg *sdlg)
     g_return_val_if_fail (IS_GVIEWER_SEARCH_DLG (sdlg), SEARCH_MODE_TEXT);
     auto priv = static_cast<GViewerSearchDlgPrivate*>(gviewer_search_dlg_get_instance_private (sdlg));
 
-    return gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->text_mode)) ? SEARCH_MODE_TEXT : SEARCH_MODE_HEX;
+    return gtk_check_button_get_active (GTK_CHECK_BUTTON (priv->text_mode)) ? SEARCH_MODE_TEXT : SEARCH_MODE_HEX;
 }
 
 
@@ -82,7 +82,7 @@ gboolean gviewer_search_dlg_get_case_sensitive (GViewerSearchDlg *sdlg)
     g_return_val_if_fail (IS_GVIEWER_SEARCH_DLG (sdlg), TRUE);
     auto priv = static_cast<GViewerSearchDlgPrivate*>(gviewer_search_dlg_get_instance_private (sdlg));
 
-    return gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->case_sensitive_checkbox));
+    return gtk_check_button_get_active (GTK_CHECK_BUTTON (priv->case_sensitive_checkbox));
 }
 
 
@@ -124,22 +124,22 @@ static void set_hex_mode (GViewerSearchDlg *sdlg)
 }
 
 
-static void search_mode_text (GtkToggleButton *btn, GViewerSearchDlg *sdlg)
+static void search_mode_text (GtkCheckButton *btn, GViewerSearchDlg *sdlg)
 {
     g_return_if_fail (btn != nullptr);
     g_return_if_fail (sdlg != nullptr);
 
-    if (gtk_toggle_button_get_active (btn))
+    if (gtk_check_button_get_active (btn))
         set_text_mode (sdlg);
 }
 
 
-static void search_mode_hex (GtkToggleButton *btn, GViewerSearchDlg *sdlg)
+static void search_mode_hex (GtkCheckButton *btn, GViewerSearchDlg *sdlg)
 {
     g_return_if_fail (btn != nullptr);
     g_return_if_fail (sdlg != nullptr);
 
-    if (gtk_toggle_button_get_active (btn))
+    if (gtk_check_button_get_active (btn))
         set_hex_mode(sdlg);
 }
 
@@ -239,8 +239,9 @@ static void gviewer_search_dlg_init (GViewerSearchDlg *sdlg)
     gtk_grid_attach(grid, priv->entry, 1, 0, 2, 1);
 
     // Search mode radio buttons
-    priv->text_mode = gtk_radio_button_new_with_mnemonic(nullptr, _("_Text"));
-    priv->hex_mode = gtk_radio_button_new_with_mnemonic_from_widget(GTK_RADIO_BUTTON (priv->text_mode), _("_Hexadecimal"));
+    priv->text_mode = gtk_check_button_new_with_mnemonic (_("_Text"));
+    priv->hex_mode = gtk_check_button_new_with_mnemonic (_("_Hexadecimal"));
+    gtk_check_button_set_group (GTK_CHECK_BUTTON (priv->hex_mode), GTK_CHECK_BUTTON (priv->text_mode));
 
     g_signal_connect (priv->text_mode, "toggled", G_CALLBACK (search_mode_text), sdlg);
     g_signal_connect (priv->hex_mode, "toggled", G_CALLBACK (search_mode_hex), sdlg);
@@ -252,21 +253,18 @@ static void gviewer_search_dlg_init (GViewerSearchDlg *sdlg)
     priv->case_sensitive_checkbox = gtk_check_button_new_with_mnemonic(_("_Match case"));
     gtk_grid_attach(grid, priv->case_sensitive_checkbox, 2, 1, 1, 1);
 
-    gtk_widget_show_all(priv->grid);
-    gtk_widget_show (GTK_WIDGET (dlg));
-
     // Restore the previously saved state (loaded with "load_search_dlg_state")
     SEARCHMODE searchmode = (SEARCHMODE) gnome_cmd_data.intviewer_defaults.search_mode;
     if (searchmode == SEARCH_MODE_HEX)
     {
-        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (priv->hex_mode), TRUE);
+        gtk_check_button_set_active (GTK_CHECK_BUTTON (priv->hex_mode), TRUE);
         set_hex_mode (sdlg);
     }
     else
     {
-        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (priv->text_mode), TRUE);
+        gtk_check_button_set_active (GTK_CHECK_BUTTON (priv->text_mode), TRUE);
         set_text_mode (sdlg);
-        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (priv->case_sensitive_checkbox), gnome_cmd_data.intviewer_defaults.case_sensitive);
+        gtk_check_button_set_active (GTK_CHECK_BUTTON (priv->case_sensitive_checkbox), gnome_cmd_data.intviewer_defaults.case_sensitive);
     }
     gtk_combo_box_set_active (GTK_COMBO_BOX (priv->entry), 0);
 

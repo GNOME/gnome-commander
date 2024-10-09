@@ -41,7 +41,7 @@ use gettextrs::{gettext, ngettext};
 use gtk::{
     gdk,
     gio::{self, ffi::GSimpleAction},
-    glib::{self, ffi::GVariant, translate::FromGlibPtrNone, Cast},
+    glib::{self, ffi::GVariant, translate::FromGlibPtrNone},
     prelude::*,
 };
 use std::{collections::HashSet, ffi::OsString, path::PathBuf};

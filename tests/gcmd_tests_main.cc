@@ -27,6 +27,6 @@
 
 int main(int argc, char **argv) {
   ::testing::InitGoogleTest(&argc, argv);
-  gtk_init (nullptr, nullptr);
+  gtk_init ();
   return RUN_ALL_TESTS();
 }

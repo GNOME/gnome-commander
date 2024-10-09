@@ -96,7 +96,8 @@ inline void show_list_popup (GnomeCmdFileSelector *fs, gint x, gint y)
         .endsection()
         .build();
 
-    GtkWidget *popover = gtk_popover_new_from_model (GTK_WIDGET (fs), G_MENU_MODEL (menu.menu));
+    GtkWidget *popover = gtk_popover_menu_new_from_model (G_MENU_MODEL (menu.menu));
+    gtk_widget_set_parent (popover, GTK_WIDGET (fs));
     gtk_popover_set_position (GTK_POPOVER (popover), GTK_POS_BOTTOM);
     GdkRectangle rect = { x, y, 0, 0 };
     gtk_popover_set_pointing_to (GTK_POPOVER (popover), &rect);
@@ -365,7 +366,7 @@ static void on_combo_popwin_hidden (GnomeCmdCombo *combo, gpointer)
 }
 
 
-static void on_con_btn_clicked (GtkGestureMultiPress *gesture, int n_press, double x, double y, gpointer user_data)
+static void on_con_btn_clicked (GtkGestureClick *gesture, int n_press, double x, double y, gpointer user_data)
 {
     g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (user_data));
     auto fs = static_cast<GnomeCmdFileSelector*>(user_data);
@@ -397,7 +398,7 @@ static void create_con_buttons (GnomeCmdFileSelector *fs)
         return;
 
     for (GList *l = fs->priv->old_btns; l; l=l->next)
-        gtk_container_remove (GTK_CONTAINER (fs->con_btns_hbox), GTK_WIDGET (l->data));
+        gtk_box_remove (GTK_BOX (fs->con_btns_hbox), GTK_WIDGET (l->data));
 
     g_list_free (fs->priv->old_btns);
     fs->priv->old_btns = nullptr;
@@ -413,7 +414,8 @@ static void create_con_buttons (GnomeCmdFileSelector *fs)
 
         GtkWidget *btn = create_styled_button (nullptr);
         g_object_set_data (G_OBJECT (btn), "con", con);
-        GtkGesture *con_btn_click = gtk_gesture_multi_press_new (GTK_WIDGET (btn));
+        GtkGesture *con_btn_click = gtk_gesture_click_new ();
+        gtk_widget_add_controller (GTK_WIDGET (btn), GTK_EVENT_CONTROLLER (con_btn_click));
         gtk_gesture_single_set_button (GTK_GESTURE_SINGLE (con_btn_click), 0);
         g_signal_connect (con_btn_click, "pressed", G_CALLBACK (on_con_btn_clicked), fs);
         gtk_box_append (GTK_BOX (fs->con_btns_hbox), btn);
@@ -424,14 +426,12 @@ static void create_con_buttons (GnomeCmdFileSelector *fs)
         g_free (go_text);
 
         GtkWidget *hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 1);
-        gtk_widget_show (hbox);
 
         if (icon)
         {
-            GtkWidget *image = gtk_image_new_from_gicon (icon, GTK_ICON_SIZE_SMALL_TOOLBAR);
+            GtkWidget *image = gtk_image_new_from_gicon (icon);
             if (image)
             {
-                gtk_widget_show (image);
                 gtk_box_append (GTK_BOX (hbox), image);
             }
         }
@@ -439,13 +439,12 @@ static void create_con_buttons (GnomeCmdFileSelector *fs)
         if (!gnome_cmd_data.options.device_only_icon || !icon)
         {
             GtkWidget *label = gtk_label_new (gnome_cmd_con_get_alias (con));
-            gtk_widget_show (label);
             gtk_box_append (GTK_BOX (hbox), label);
         }
 
         g_clear_object (&icon);
 
-        gtk_container_add (GTK_CONTAINER (btn), hbox);
+        gtk_button_set_child (GTK_BUTTON (btn), hbox);
     }
 }
 
@@ -544,7 +543,7 @@ static void on_list_empty_space_clicked (GnomeCmdFileList *fl, GnomeCmdFileListB
 {
     if (event->n_press == 1 && event->button == 3)
     {
-        gint x, y;
+        double x, y;
         gtk_widget_translate_coordinates (GTK_WIDGET (fl), GTK_WIDGET (fs), event->x, event->y, &x, &y);
         show_list_popup (fs, x, y);
     }
@@ -633,7 +632,7 @@ static gboolean on_list_key_pressed (GtkEventControllerKey *controller, guint ke
 }
 
 
-extern "C" void on_notebook_button_pressed_r (GtkGestureMultiPress *gesture,
+extern "C" void on_notebook_button_pressed_r (GtkGestureClick *gesture,
                                               GnomeCmdFileSelector *fs,
                                               GtkNotebook *notebook,
                                               int n_press,
@@ -641,7 +640,7 @@ extern "C" void on_notebook_button_pressed_r (GtkGestureMultiPress *gesture,
                                               double y);
 
 
-static void on_notebook_button_pressed (GtkGestureMultiPress *gesture, int n_press, double x, double y, gpointer user_data)
+static void on_notebook_button_pressed (GtkGestureClick *gesture, int n_press, double x, double y, gpointer user_data)
 {
     auto fs = static_cast<GnomeCmdFileSelector*>(user_data);
     GtkNotebook *notebook = GTK_NOTEBOOK (fs->notebook);
@@ -796,20 +795,13 @@ static void gnome_cmd_file_selector_init (GnomeCmdFileSelector *fs)
     g_signal_connect (gnome_cmd_con_list_get (), "list-changed", G_CALLBACK (on_con_list_list_changed), fs);
     g_signal_connect (fs->notebook, "switch-page", G_CALLBACK (on_notebook_switch_page), fs);
 
-    GtkGesture *notebook_click = gtk_gesture_multi_press_new (GTK_WIDGET (fs->notebook));
+    GtkGesture *notebook_click = gtk_gesture_click_new ();
+    gtk_widget_add_controller (GTK_WIDGET (fs->notebook), GTK_EVENT_CONTROLLER (notebook_click));
     gtk_event_controller_set_propagation_phase (GTK_EVENT_CONTROLLER (notebook_click), GTK_PHASE_CAPTURE);
     gtk_gesture_single_set_button (GTK_GESTURE_SINGLE (notebook_click), 0);
     g_signal_connect (notebook_click, "pressed", G_CALLBACK (on_notebook_button_pressed), fs);
 
-    // show the widgets
-    gtk_widget_show (GTK_WIDGET (fs));
     fs->update_show_devlist();
-    gtk_widget_show (*fs->con_combo);
-    gtk_widget_show (fs->vol_label);
-    gtk_widget_show (fs->dir_indicator);
-    gtk_widget_show_all (GTK_WIDGET (fs->notebook));
-    gtk_widget_show (fs->info_label);
-
     fs->update_style();
 }
 
@@ -958,20 +950,6 @@ void GnomeCmdFileSelector::update_connections()
 }
 
 
-static void update_style_notebook_tab (GtkWidget *widget, GnomeCmdFileSelector *fs)
-{
-    auto fl = reinterpret_cast<GnomeCmdFileList*> (gtk_bin_get_child (GTK_BIN (widget)));
-
-    g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl));
-
-    if (gnome_cmd_data.options.tab_lock_indicator!=GnomeCmdData::TAB_LOCK_ICON)
-        gtk_widget_hide (fl->tab_label_pin);
-
-    if (fl->locked)
-        fs->update_tab_label(fl);
-}
-
-
 void GnomeCmdFileSelector::update_style()
 {
     con_combo->update_style();
@@ -984,7 +962,17 @@ void GnomeCmdFileSelector::update_style()
 
     update_show_tabs();
 
-    gtk_container_foreach (GTK_CONTAINER (notebook), (GtkCallback) update_style_notebook_tab, this);
+    int tabs = gtk_notebook_get_n_pages (notebook);
+    for (int i = 0; i < tabs; ++i)
+    {
+        auto fl = file_list(i);
+
+        if (gnome_cmd_data.options.tab_lock_indicator != GnomeCmdData::TAB_LOCK_ICON)
+            gtk_widget_hide (fl->tab_label_pin);
+
+        if (fl->locked)
+            update_tab_label(fl);
+    }
 
     create_con_buttons (this);
     update_connections();
@@ -1235,7 +1223,7 @@ void GnomeCmdFileSelector::update_show_devbuttons()
     {
         if (con_btns_hbox)
         {
-            gtk_container_remove (GTK_CONTAINER (this), con_btns_sw);
+            gtk_box_remove (GTK_BOX (this), con_btns_sw);
             con_btns_sw = nullptr;
             con_btns_hbox = nullptr;
         }
@@ -1248,10 +1236,8 @@ void GnomeCmdFileSelector::update_show_devbuttons()
             gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (con_btns_sw), GTK_POLICY_AUTOMATIC, GTK_POLICY_NEVER);
             con_btns_hbox = create_hbox (*this, FALSE, 2);
             gtk_scrolled_window_set_child (GTK_SCROLLED_WINDOW (con_btns_sw), con_btns_hbox);
-
             gtk_box_append (GTK_BOX (this), con_btns_sw);
-            gtk_box_reorder_child (GTK_BOX (this), con_btns_sw, 0);
-            gtk_widget_show_all (con_btns_sw);
+            gtk_box_reorder_child_after (GTK_BOX (this), con_btns_sw, nullptr);
             create_con_buttons (this);
         }
     }
@@ -1278,7 +1264,7 @@ static void on_filter_box_close (GtkButton *btn, GnomeCmdFileSelector *fs)
 {
     if (!fs->priv->filter_box) return;
 
-    gtk_container_remove (GTK_CONTAINER (fs), fs->priv->filter_box);
+    gtk_box_remove (GTK_BOX (fs), fs->priv->filter_box);
     fs->priv->filter_box = nullptr;
 }
 
@@ -1310,7 +1296,8 @@ void GnomeCmdFileSelector::show_filter()
     gtk_widget_set_hexpand (entry, TRUE);
     GtkWidget *close_btn = create_button_with_data (*main_win, "x", G_CALLBACK (on_filter_box_close), this);
 
-    GtkEventController *key_controller = gtk_event_controller_key_new (entry);
+    GtkEventController *key_controller = gtk_event_controller_key_new ();
+    gtk_widget_add_controller (entry, GTK_EVENT_CONTROLLER (key_controller));
     g_signal_connect (key_controller, "key-pressed", G_CALLBACK (on_filter_box_keypressed), this);
 
     gtk_box_append (GTK_BOX (priv->filter_box), label);
@@ -1319,7 +1306,6 @@ void GnomeCmdFileSelector::show_filter()
 
     gtk_box_append (*this, priv->filter_box);
 
-    gtk_widget_show_all (priv->filter_box);
     gtk_widget_grab_focus (entry);
 }
 
@@ -1361,14 +1347,13 @@ GtkWidget *GnomeCmdFileSelector::new_tab(GnomeCmdDir *dir, GnomeCmdFileList::Col
 
     if (locked && gnome_cmd_data.options.tab_lock_indicator==GnomeCmdData::TAB_LOCK_ICON)
         gtk_widget_show (fl->tab_label_pin);
-    gtk_widget_show (fl->tab_label_text);
+    else
+        gtk_widget_hide (fl->tab_label_pin);
 
     gint n = gtk_notebook_append_page (notebook, scrolled_window, hbox);
     update_show_tabs();
 
     gtk_notebook_set_tab_reorderable (notebook, scrolled_window, TRUE);
-
-    gtk_widget_show_all (scrolled_window);
 
     g_signal_connect (fl, "con-changed", G_CALLBACK (on_list_con_changed), this);
     g_signal_connect (fl, "dir-changed", G_CALLBACK (on_list_dir_changed), this);
@@ -1388,7 +1373,8 @@ GtkWidget *GnomeCmdFileSelector::new_tab(GnomeCmdDir *dir, GnomeCmdFileList::Col
     g_signal_connect (fl, "list-clicked", G_CALLBACK (on_list_list_clicked), this);
     g_signal_connect (fl, "empty-space-clicked", G_CALLBACK (on_list_empty_space_clicked), this);
 
-    GtkEventController *key_controller = gtk_event_controller_key_new (GTK_WIDGET (fl));
+    GtkEventController *key_controller = gtk_event_controller_key_new ();
+    gtk_widget_add_controller (GTK_WIDGET (fl), GTK_EVENT_CONTROLLER (key_controller));
     g_signal_connect (key_controller, "key-pressed", G_CALLBACK (on_list_key_pressed), this);
 
     return scrolled_window;
@@ -1475,11 +1461,9 @@ void GnomeCmdFileSelector::update_tab_label(GnomeCmdFileList *fl)
 }
 
 
-GList* GnomeCmdFileSelector::GetTabs()
+GListModel* GnomeCmdFileSelector::GetTabs()
 {
-    GList *tabs = gtk_container_get_children (GTK_CONTAINER (this->notebook));
-
-    return tabs;
+    return gtk_notebook_get_pages (GTK_NOTEBOOK (this->notebook));
 }
 
 // FFI

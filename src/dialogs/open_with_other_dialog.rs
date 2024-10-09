@@ -22,7 +22,7 @@ use crate::{
     dir::Directory,
     file::File,
     spawn::run_command_indir,
-    utils::{close_dialog_with_escape_key, ErrorMessage, Gtk3to4BoxCompat},
+    utils::{close_dialog_with_escape_key, ErrorMessage},
 };
 use gettextrs::gettext;
 use gtk::{glib, prelude::*};
@@ -122,7 +122,6 @@ pub async fn show_open_with_other_dialog(
     }));
     close_dialog_with_escape_key(&dialog);
 
-    dialog.show_all();
     dialog.present();
     dialog.run_future().await;
     dialog.close();

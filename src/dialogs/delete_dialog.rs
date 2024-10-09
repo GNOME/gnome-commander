@@ -25,7 +25,7 @@ use crate::{
     dir::Directory,
     file::File,
     libgcmd::file_base::FileBaseExt,
-    utils::{run_simple_dialog, show_error, Gtk3to4BoxCompat},
+    utils::{run_simple_dialog, show_error},
 };
 use gettextrs::{gettext, ngettext};
 use glib::{
@@ -104,7 +104,7 @@ mod imp {
             self.parent_constructed();
 
             let dlg = self.obj();
-            dlg.set_title(&gettext("Deleting…"));
+            dlg.set_title(Some(&gettext("Deleting…")));
             dlg.set_modal(true);
             dlg.set_resizable(false);
 
@@ -135,14 +135,10 @@ mod imp {
                 dlg.imp().cancellable.cancel();
                 dlg.response(gtk::ResponseType::Cancel);
             }));
-
-            content_area.show_all();
         }
     }
 
     impl WidgetImpl for DeleteProgressDialog {}
-    impl ContainerImpl for DeleteProgressDialog {}
-    impl BinImpl for DeleteProgressDialog {}
     impl WindowImpl for DeleteProgressDialog {}
     impl DialogImpl for DeleteProgressDialog {}
 }
