@@ -211,6 +211,7 @@ static void gnome_cmd_quicksearch_popup_init (GnomeCmdQuicksearchPopup *popup)
     gtk_popover_set_child (GTK_POPOVER (popup), box);
 
     GtkEventController *key_controller = gtk_event_controller_key_new ();
+    gtk_event_controller_set_propagation_phase (key_controller, GTK_PHASE_CAPTURE);
     gtk_widget_add_controller (priv->entry, GTK_EVENT_CONTROLLER (key_controller));
     g_signal_connect (key_controller, "key-pressed", G_CALLBACK (on_key_pressed), popup);
 
