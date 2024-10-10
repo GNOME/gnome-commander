@@ -102,15 +102,15 @@ async fn conflict_confirm(parent: &gtk::Window, action: &str, accel: Accel) -> b
         .destroy_with_parent(true)
         .title(gettext("Conflicting Shortcuts"))
         .message_type(gtk::MessageType::Warning)
-        .text(gettext!(
-            "Shortcut “{}” is already taken by “{}”.",
-            accel.label(),
-            action
-        ))
-        .secondary_text(gettext!(
-            "Reassigning the shortcut will cause it to be removed from “{}”.",
-            action
-        ))
+        .text(
+            gettext("Shortcut “{shortcut}” is already taken by “{action}”.")
+                .replace("{shortcut}", &accel.label())
+                .replace("{action}", action),
+        )
+        .secondary_text(
+            gettext("Reassigning the shortcut will cause it to be removed from “{action}”.")
+                .replace("{action}", action),
+        )
         .build();
     dlg.add_button(&gettext("_Cancel"), gtk::ResponseType::Cancel);
     dlg.add_button(&gettext("_Reassign shortcut"), gtk::ResponseType::Ok);
@@ -184,7 +184,7 @@ pub extern "C" fn accel_edited_callback_r(
         mask: unsafe { gdk::ModifierType::from_glib(accel_mask) },
     };
 
-    glib::MainContext::default().spawn_local(async move {
+    glib::spawn_future_local(async move {
         accel_edited_callback(&path_string, accel, &view).await;
     });
 }

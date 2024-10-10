@@ -265,7 +265,7 @@ pub extern "C" fn gnome_cmd_dir_relist_files(
     let dir: Directory = unsafe { from_glib_none(dir_ptr) };
     let parent_window: gtk::Window = unsafe { from_glib_none(parent_window_ptr) };
 
-    glib::MainContext::default().spawn_local(async move {
+    glib::spawn_future_local(async move {
         dir.relist_files(&parent_window, visual != 0).await;
     });
 }
@@ -279,7 +279,7 @@ pub extern "C" fn gnome_cmd_dir_list_files(
     let dir: Directory = unsafe { from_glib_none(dir_ptr) };
     let parent_window: gtk::Window = unsafe { from_glib_none(parent_window_ptr) };
 
-    glib::MainContext::default().spawn_local(async move {
+    glib::spawn_future_local(async move {
         dir.list_files(&parent_window, visual != 0).await;
     });
 }

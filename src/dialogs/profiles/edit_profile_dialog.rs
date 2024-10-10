@@ -82,9 +82,11 @@ pub async fn edit_profile(
         bbox.append(&help_button);
         bbox_size_group.add_widget(&help_button);
         let help_id = help_id.to_owned();
-        help_button.connect_clicked(
-            glib::clone!(@strong parent => move |_| display_help(&parent, Some(&help_id))),
-        );
+        help_button.connect_clicked(glib::clone!(
+            #[strong]
+            parent,
+            move |_| display_help(&parent, Some(&help_id))
+        ));
     }
 
     let reset_button = gtk::Button::builder()
@@ -94,12 +96,16 @@ pub async fn edit_profile(
         .build();
     bbox.append(&reset_button);
     bbox_size_group.add_widget(&reset_button);
-    reset_button.connect_clicked(
-        glib::clone!(@strong parent, @strong manager, @weak component => move |_| {
+    reset_button.connect_clicked(glib::clone!(
+        #[strong]
+        manager,
+        #[weak]
+        component,
+        move |_| {
             manager.reset_profile(profile_index);
             manager.update_component(profile_index, &component);
-        }),
-    );
+        }
+    ));
 
     let cancel_button = gtk::Button::builder()
         .label(gettext("_Cancel"))
@@ -107,9 +113,11 @@ pub async fn edit_profile(
         .build();
     bbox.append(&cancel_button);
     bbox_size_group.add_widget(&cancel_button);
-    cancel_button.connect_clicked(glib::clone!(@weak dialog => move |_| {
-        dialog.response(gtk::ResponseType::Cancel)
-    }));
+    cancel_button.connect_clicked(glib::clone!(
+        #[weak]
+        dialog,
+        move |_| dialog.response(gtk::ResponseType::Cancel)
+    ));
 
     let ok_button = gtk::Button::builder()
         .label(gettext("_OK"))
@@ -117,12 +125,18 @@ pub async fn edit_profile(
         .build();
     bbox.append(&ok_button);
     bbox_size_group.add_widget(&ok_button);
-    ok_button.connect_clicked(glib::clone!(@weak dialog, @weak entry => move |_| {
-        manager.set_profile_name(profile_index, &entry.text());
-        manager.copy_component(profile_index, &component);
+    ok_button.connect_clicked(glib::clone!(
+        #[weak]
+        dialog,
+        #[weak]
+        entry,
+        move |_| {
+            manager.set_profile_name(profile_index, &entry.text());
+            manager.copy_component(profile_index, &component);
 
-        dialog.response(gtk::ResponseType::Ok)
-    }));
+            dialog.response(gtk::ResponseType::Ok)
+        }
+    ));
 
     dialog.set_default_response(gtk::ResponseType::Ok);
 

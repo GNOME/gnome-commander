@@ -78,9 +78,11 @@ mod imp {
             content_area.append(&bbox);
 
             bbox.append(&self.stop_button);
-            self.stop_button.connect_clicked(
-                glib::clone!(@weak dlg => move |_| dlg.response(gtk::ResponseType::Cancel)),
-            );
+            self.stop_button.connect_clicked(glib::clone!(
+                #[weak]
+                dlg,
+                move |_| dlg.response(gtk::ResponseType::Cancel)
+            ));
         }
     }
 
@@ -100,7 +102,7 @@ impl SearchProgressDialog {
         this.set_transient_for(Some(parent));
         this.imp()
             .label
-            .set_label(&gettext!("Searching for “{}”", searching_text));
+            .set_label(&gettext("Searching for “{}”").replace("{}", searching_text));
         this
     }
 

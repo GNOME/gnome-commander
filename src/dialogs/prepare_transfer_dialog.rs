@@ -117,7 +117,13 @@ mod imp {
             self.dst_label.set_mnemonic_widget(Some(&self.dst_entry));
 
             let key_controller = gtk::EventControllerKey::new();
-            key_controller.connect_key_pressed(glib::clone!(@weak self as imp => @default-return glib::Propagation::Proceed, move |_, keyval, _, _| imp.dst_entry_key_pressed(keyval)));
+            key_controller.connect_key_pressed(glib::clone!(
+                #[weak(rename_to = imp)]
+                self,
+                #[upgrade_or]
+                glib::Propagation::Proceed,
+                move |_, keyval, _, _| imp.dst_entry_key_pressed(keyval)
+            ));
             self.dst_entry.add_controller(key_controller);
 
             let options_hbox = gtk::Box::builder()
@@ -142,13 +148,17 @@ mod imp {
             bbox.append(&self.ok_button);
             bbox_size_group.add_widget(&self.ok_button);
 
-            self.cancel_button.connect_clicked(
-                glib::clone!(@weak dlg => move |_| dlg.response(gtk::ResponseType::Cancel)),
-            );
+            self.cancel_button.connect_clicked(glib::clone!(
+                #[weak]
+                dlg,
+                move |_| dlg.response(gtk::ResponseType::Cancel)
+            ));
 
-            self.ok_button.connect_clicked(
-                glib::clone!(@weak dlg => move |_| dlg.response(gtk::ResponseType::Ok)),
-            );
+            self.ok_button.connect_clicked(glib::clone!(
+                #[weak]
+                dlg,
+                move |_| dlg.response(gtk::ResponseType::Ok)
+            ));
 
             dlg.set_default_response(gtk::ResponseType::Ok);
         }
@@ -202,11 +212,12 @@ fn path_points_at_directory(to: &FileSelector, dest_path: &Path) -> bool {
 }
 
 async fn ask_create_directory(parent_window: &gtk::Window, path: &Path) -> bool {
-    let msg = gettext!(
-        "The directory “{}” doesn’t exist, do you want to create it?",
-        path.file_name()
+    let msg = gettext("The directory “{}” doesn’t exist, do you want to create it?").replace(
+        "{}",
+        &path
+            .file_name()
             .unwrap_or(path.as_os_str())
-            .to_string_lossy()
+            .to_string_lossy(),
     );
     let answer = run_simple_dialog(
         parent_window,
@@ -437,7 +448,8 @@ pub async fn handle_user_input(
                     if let Err(error) = con.mkdir(parent_dir) {
                         show_error_message_future(
                             parent_window,
-                            &gettext!("Directory {} cannot be created.", parent_dir.display()),
+                            &gettext("Directory {} cannot be created.")
+                                .replace("{}", &parent_dir.display().to_string()),
                             Some(&error.message()),
                         )
                         .await;

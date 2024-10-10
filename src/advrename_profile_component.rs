@@ -105,8 +105,10 @@ async fn get_selected_range(
         .hexpand(true)
         .halign(gtk::Align::End)
         .build();
-    cancel_button.connect_clicked(glib::clone!(@strong sender => move |_|
-        if let Err(error) = sender.send_blocking(false) {
+    cancel_button.connect_clicked(glib::clone!(
+        #[strong]
+        sender,
+        move |_| if let Err(error) = sender.send_blocking(false) {
             eprintln!("Failed to send a 'cancel' message: {error}.")
         }
     ));
@@ -117,8 +119,10 @@ async fn get_selected_range(
         .label(gettext("_OK"))
         .use_underline(true)
         .build();
-    ok_button.connect_clicked(glib::clone!(@strong sender => move |_|
-        if let Err(error) = sender.send_blocking(true) {
+    ok_button.connect_clicked(glib::clone!(
+        #[strong]
+        sender,
+        move |_| if let Err(error) = sender.send_blocking(true) {
             eprintln!("Failed to send an 'ok' message: {error}.")
         }
     ));
@@ -189,7 +193,7 @@ pub extern "C" fn get_selected_range_r(
         glib::ffi::g_free(filename_ptr as *mut c_void);
     }
 
-    glib::MainContext::default().spawn_local(async move {
+    glib::spawn_future_local(async move {
         if let Some(rtag) =
             get_selected_range(&parent_window, placeholder.as_ref(), filename.as_deref()).await
         {
@@ -295,7 +299,7 @@ pub extern "C" fn gnome_cmd_advrename_profile_component_regex_add(
     let component: gtk::Widget = unsafe { from_glib_none(component_ptr) };
     let tree_view: gtk::TreeView = unsafe { from_glib_none(tree_view_ptr) };
 
-    glib::MainContext::default().spawn_local(async move {
+    glib::spawn_future_local(async move {
         if let Err(error) = regex_add(&component, &tree_view).await {
             eprintln!("{}", error);
         }
@@ -310,7 +314,7 @@ pub extern "C" fn gnome_cmd_advrename_profile_component_regex_edit(
     let component: gtk::Widget = unsafe { from_glib_none(component_ptr) };
     let tree_view: gtk::TreeView = unsafe { from_glib_none(tree_view_ptr) };
 
-    glib::MainContext::default().spawn_local(async move {
+    glib::spawn_future_local(async move {
         if let Err(error) = regex_edit(&component, &tree_view).await {
             eprintln!("{}", error);
         }

@@ -208,24 +208,33 @@ mod imp {
                 .label(&gettext("_Add"))
                 .use_underline(true)
                 .build();
-            add_button.connect_clicked(glib::clone!(@weak self as imp => move |_| {
-                glib::MainContext::default().spawn_local(async move {
-                    imp.on_new_btn_clicked().await;
-                });
-            }));
+            add_button.connect_clicked(glib::clone!(
+                #[weak(rename_to = imp)]
+                self,
+                move |_| {
+                    glib::spawn_future_local(async move {
+                        imp.on_new_btn_clicked().await;
+                    });
+                }
+            ));
             bbox.append(&add_button);
 
-            self.edit_button
-                .connect_clicked(glib::clone!(@weak self as imp => move |_| {
-                    glib::MainContext::default().spawn_local(async move {
+            self.edit_button.connect_clicked(glib::clone!(
+                #[weak(rename_to = imp)]
+                self,
+                move |_| {
+                    glib::spawn_future_local(async move {
                         imp.on_edit_btn_clicked().await;
                     });
-                }));
+                }
+            ));
             bbox.append(&self.edit_button);
 
-            self.remove_button.connect_clicked(
-                glib::clone!(@weak self as imp => move |_| imp.on_remove_btn_clicked()),
-            );
+            self.remove_button.connect_clicked(glib::clone!(
+                #[weak(rename_to = imp)]
+                self,
+                move |_| imp.on_remove_btn_clicked()
+            ));
             bbox.append(&self.remove_button);
 
             let buttons = gtk::Box::builder()
@@ -241,9 +250,11 @@ mod imp {
                 .hexpand(true)
                 .halign(gtk::Align::Start)
                 .build();
-            help_button.connect_clicked(
-                glib::clone!(@weak self as imp => move |_| imp.on_help_btn_clicked()),
-            );
+            help_button.connect_clicked(glib::clone!(
+                #[weak(rename_to = imp)]
+                self,
+                move |_| imp.on_help_btn_clicked()
+            ));
             buttons.append(&help_button);
             buttons_size_group.add_widget(&help_button);
 
@@ -251,29 +262,39 @@ mod imp {
                 .label(&gettext("_Close"))
                 .use_underline(true)
                 .build();
-            close_button.connect_clicked(
-                glib::clone!(@weak self as imp => move |_| imp.on_close_btn_clicked()),
-            );
+            close_button.connect_clicked(glib::clone!(
+                #[weak(rename_to = imp)]
+                self,
+                move |_| imp.on_close_btn_clicked()
+            ));
             buttons.append(&close_button);
             buttons_size_group.add_widget(&close_button);
 
-            self.connect_button.connect_clicked(
-                glib::clone!(@weak self as imp => move |_| imp.on_connect_btn_clicked()),
-            );
+            self.connect_button.connect_clicked(glib::clone!(
+                #[weak(rename_to = imp)]
+                self,
+                move |_| imp.on_connect_btn_clicked()
+            ));
             buttons.append(&self.connect_button);
             buttons_size_group.add_widget(&self.connect_button);
 
             obj.content_area().append(&buttons);
 
-            self.view.connect_row_activated(
-                glib::clone!(@weak self as imp => move |_, _, _| imp.on_list_row_activated()),
-            );
-            self.model.connect_row_inserted(
-                glib::clone!(@weak self as imp => move |_, _, _| imp.on_list_row_inserted()),
-            );
-            self.model.connect_row_deleted(
-                glib::clone!(@weak self as imp => move |_, _| imp.on_list_row_deleted()),
-            );
+            self.view.connect_row_activated(glib::clone!(
+                #[weak(rename_to = imp)]
+                self,
+                move |_, _, _| imp.on_list_row_activated()
+            ));
+            self.model.connect_row_inserted(glib::clone!(
+                #[weak(rename_to = imp)]
+                self,
+                move |_, _, _| imp.on_list_row_inserted()
+            ));
+            self.model.connect_row_deleted(glib::clone!(
+                #[weak(rename_to = imp)]
+                self,
+                move |_, _| imp.on_list_row_deleted()
+            ));
         }
     }
 

@@ -136,7 +136,7 @@ impl BookmarksDialog {
 fn gnome_cmd_bookmarks_dialog_edit_clicked_r(dialog_ptr: *mut ffi::GnomeCmdBookmarksDialog) {
     let dialog: BookmarksDialog = unsafe { from_glib_none(dialog_ptr) };
 
-    glib::MainContext::default().spawn_local(async move {
+    glib::spawn_future_local(async move {
         dialog.edit_clicked().await;
     });
 }
@@ -197,7 +197,7 @@ pub extern "C" fn gnome_cmd_bookmark_add_current(
     let dir: Directory = unsafe { from_glib_none(dir_ptr) };
     let options = GeneralOptions::new();
 
-    glib::MainContext::default().spawn_local(async move {
+    glib::spawn_future_local(async move {
         bookmark_directory(&main_win, &dir, &options).await;
     });
 }

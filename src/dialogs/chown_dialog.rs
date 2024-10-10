@@ -34,9 +34,12 @@ async fn chown_recursively(
     recurse: bool,
 ) {
     if let Err(error) = file.chown(uid, gid) {
-        ErrorMessage::with_error(gettext!("Could not chown {}", file.get_name()), &error)
-            .show(&parent_window)
-            .await;
+        ErrorMessage::with_error(
+            gettext("Could not chown {}").replace("{}", &file.get_name()),
+            &error,
+        )
+        .show(&parent_window)
+        .await;
     }
 
     if !recurse {
@@ -111,9 +114,11 @@ pub async fn show_chown_dialog(parent_window: &gtk::Window, files: &glib::List<F
         .hexpand(true)
         .halign(gtk::Align::End)
         .build();
-    cancel_btn.connect_clicked(
-        glib::clone!(@weak dialog => move |_| dialog.response(gtk::ResponseType::Cancel)),
-    );
+    cancel_btn.connect_clicked(glib::clone!(
+        #[weak]
+        dialog,
+        move |_| dialog.response(gtk::ResponseType::Cancel)
+    ));
     buttonbox.append(&cancel_btn);
     buttonbox_size_group.add_widget(&cancel_btn);
 
@@ -121,9 +126,11 @@ pub async fn show_chown_dialog(parent_window: &gtk::Window, files: &glib::List<F
         .label(gettext("_OK"))
         .use_underline(true)
         .build();
-    ok_btn.connect_clicked(
-        glib::clone!(@weak dialog => move |_| dialog.response(gtk::ResponseType::Ok)),
-    );
+    ok_btn.connect_clicked(glib::clone!(
+        #[weak]
+        dialog,
+        move |_| dialog.response(gtk::ResponseType::Ok)
+    ));
     buttonbox.append(&ok_btn);
     buttonbox_size_group.add_widget(&ok_btn);
 

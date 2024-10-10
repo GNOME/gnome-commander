@@ -76,7 +76,7 @@ impl RegularApp {
             .launch(&files, gio::AppLaunchContext::NONE)
             .map_err(|error| {
                 ErrorMessage::with_error(
-                    gettext!("Launch of {} failed.", self.app_info.name()),
+                    gettext("Launch of {} failed.").replace("{}", &self.app_info.name()),
                     &error,
                 )
             })
@@ -161,7 +161,8 @@ impl UserDefinedApp {
         let working_directory: Option<PathBuf> = files
             .front()
             .ok_or_else(|| ErrorMessage {
-                message: gettext!("Cannot launch an app {}. No files were given.", self.name),
+                message: gettext("Cannot launch an app {}. No files were given.")
+                    .replace("{}", &self.name),
                 secondary_text: None,
             })?
             .get_real_path()

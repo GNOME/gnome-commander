@@ -159,7 +159,7 @@ pub extern "C" fn file_create_symlink(
     let main_win = unsafe { MainWindow::from_glib_none(main_win_ptr) };
     let options = GeneralOptions::new();
 
-    glib::MainContext::default().spawn_local(async move {
+    glib::spawn_future_local(async move {
         let active_fs = main_win.file_selector(FileSelectorID::ACTIVE);
         let inactive_fs = main_win.file_selector(FileSelectorID::INACTIVE);
 
@@ -173,13 +173,14 @@ pub extern "C" fn file_create_symlink(
         let selected_files_len = selected_files.len();
 
         if selected_files_len > 1 {
-            let message = ngettext!(
-                "Create symbolic links of {} file in {}?",
-                "Create symbolic links of {} files in {}?",
+            let message = ngettext(
+                "Create symbolic links of {count} file in {dir}?",
+                "Create symbolic links of {count} files in {dir}?",
                 selected_files_len as u32,
-                selected_files_len,
-                dest_directory.display_path()
-            );
+            )
+            .replace("{count}", &selected_files_len.to_string())
+            .replace("{dir}", &dest_directory.display_path());
+
             let choice = run_simple_dialog(
                 main_win.upcast_ref(),
                 true,
@@ -431,7 +432,7 @@ pub extern "C" fn view_close_tab(
     main_win_ptr: *mut GnomeCmdMainWin,
 ) {
     let main_win = unsafe { MainWindow::from_glib_none(main_win_ptr) };
-    glib::MainContext::default().spawn_local(async move {
+    glib::spawn_future_local(async move {
         let fs = main_win.file_selector(FileSelectorID::ACTIVE);
         if fs.tab_count() > 1 {
             if !fs.file_list().is_locked() || ask_close_locked_tab(main_win.upcast_ref()).await {

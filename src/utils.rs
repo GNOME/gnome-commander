@@ -27,7 +27,7 @@ use std::{
     ffi::{OsStr, OsString},
     process::Command,
     sync::OnceLock,
-    time::{Duration, SystemTime, UNIX_EPOCH},
+    time::Duration,
 };
 
 pub const GNOME_CMD_PERM_USER_READ: u32 = 256; //r--------
@@ -65,7 +65,8 @@ pub fn temp_file(f: &File) -> Result<File, ErrorMessage> {
     let path = temp_file.into_temp_path();
     File::new_from_path(&path).map_err(|error| {
         ErrorMessage::with_error(
-            gettext!("Cannot create a file for a path {}.", path.display()),
+            gettext("Cannot create a file for a path {}.")
+                .replace("{}", &path.display().to_string()),
             &error,
         )
     })
@@ -156,14 +157,20 @@ pub async fn run_simple_dialog(
         dialog.connect_close_request(|_| glib::Propagation::Stop);
     } else {
         let key_controller = gtk::EventControllerKey::new();
-        key_controller.connect_key_pressed(glib::clone!(@weak dialog => @default-return glib::Propagation::Stop, move |_, key, _, _| {
-            if key == gdk::Key::Escape {
-                dialog.response(gtk::ResponseType::None);
-                glib::Propagation::Stop
-            } else {
-                glib::Propagation::Proceed
+        key_controller.connect_key_pressed(glib::clone!(
+            #[weak]
+            dialog,
+            #[upgrade_or]
+            glib::Propagation::Stop,
+            move |_, key, _, _| {
+                if key == gdk::Key::Escape {
+                    dialog.response(gtk::ResponseType::None);
+                    glib::Propagation::Stop
+                } else {
+                    glib::Propagation::Proceed
+                }
             }
-        }));
+        ));
         dialog.add_controller(key_controller);
     }
 
@@ -175,16 +182,20 @@ pub async fn run_simple_dialog(
 
 pub fn close_dialog_with_escape_key(dialog: &gtk::Dialog) {
     let key_controller = gtk::EventControllerKey::new();
-    key_controller.connect_key_pressed(
-        glib::clone!(@weak dialog => @default-return glib::Propagation::Proceed, move |_, key, _, _| {
+    key_controller.connect_key_pressed(glib::clone!(
+        #[weak]
+        dialog,
+        #[upgrade_or]
+        glib::Propagation::Proceed,
+        move |_, key, _, _| {
             if key == gdk::Key::Escape {
                 dialog.response(gtk::ResponseType::Cancel);
                 glib::Propagation::Stop
             } else {
                 glib::Propagation::Proceed
             }
-        }),
-    );
+        }
+    ));
 }
 
 pub async fn prompt_message(
@@ -355,42 +366,22 @@ pub fn size_to_string(size: u64, mode: SizeDisplayMode) -> String {
             const KIBI: u64 = 1024;
 
             if size >= PIBI {
-                ngettext!(
-                    "{} PiB",
-                    "{} PiB",
-                    size_u32,
-                    format!("{:.1}", size as f64 / PIBI as f64)
-                )
+                ngettext("{} PiB", "{} PiB", size_u32)
+                    .replace("{}", &format!("{:.1}", size as f64 / PIBI as f64))
             } else if size >= TIBI {
-                ngettext!(
-                    "{} TiB",
-                    "{} TiB",
-                    size_u32,
-                    format!("{:.1}", size as f64 / TIBI as f64)
-                )
+                ngettext("{} TiB", "{} TiB", size_u32)
+                    .replace("{}", &format!("{:.1}", size as f64 / TIBI as f64))
             } else if size >= GIBI {
-                ngettext!(
-                    "{} GiB",
-                    "{} GiB",
-                    size_u32,
-                    format!("{:.1}", size as f64 / GIBI as f64)
-                )
+                ngettext("{} GiB", "{} GiB", size_u32)
+                    .replace("{}", &format!("{:.1}", size as f64 / GIBI as f64))
             } else if size >= MIBI {
-                ngettext!(
-                    "{} MiB",
-                    "{} MiB",
-                    size_u32,
-                    format!("{:.1}", size as f64 / MIBI as f64)
-                )
+                ngettext("{} MiB", "{} MiB", size_u32)
+                    .replace("{}", &format!("{:.1}", size as f64 / MIBI as f64))
             } else if size >= KIBI {
-                ngettext!(
-                    "{} kiB",
-                    "{} kiB",
-                    size_u32,
-                    format!("{:.1}", size as f64 / KIBI as f64)
-                )
+                ngettext("{} kiB", "{} kiB", size_u32)
+                    .replace("{}", &format!("{:.1}", size as f64 / KIBI as f64))
             } else {
-                ngettext!("{} byte", "{} bytes", size_u32, size)
+                ngettext("{} byte", "{} bytes", size_u32).replace("{}", &size.to_string())
             }
         }
         SizeDisplayMode::Grouped => {
@@ -401,10 +392,12 @@ pub fn size_to_string(size: u64, mode: SizeDisplayMode) -> String {
                 i -= 3;
             }
             let value: String = digits.into_iter().collect();
-            ngettext!("{} byte", "{} bytes", size_u32, value)
+            ngettext("{} byte", "{} bytes", size_u32).replace("{}", &value.to_string())
         }
         SizeDisplayMode::Locale => size.to_string(), // TODO
-        SizeDisplayMode::Plain => ngettext!("{} byte", "{} bytes", size_u32, size),
+        SizeDisplayMode::Plain => {
+            ngettext("{} byte", "{} bytes", size_u32).replace("{}", &size.to_string())
+        }
     }
 }
 
@@ -422,12 +415,10 @@ pub fn nice_size(size: u64, mode: SizeDisplayMode) -> String {
 }
 
 pub fn time_to_string(
-    time: SystemTime,
+    date_time: glib::DateTime,
     format: &str,
 ) -> Result<String, Box<dyn std::error::Error>> {
-    // TODO: fix for dates before EPOCH
-    let local = glib::DateTime::from_unix_utc(time.duration_since(UNIX_EPOCH)?.as_secs() as i64)?
-        .to_local()?;
+    let local = date_time.to_local()?;
     let string = local.format(format).or_else(|_| local.format("%c"))?;
     Ok(string.to_string())
 }

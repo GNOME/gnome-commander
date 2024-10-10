@@ -101,19 +101,31 @@ pub async fn edit_bookmark_dialog(
 
     dialog.set_default_response(gtk::ResponseType::Ok);
 
-    dialog.connect_response(
-        glib::clone!(@strong name_entry, @strong path_entry => move |dlg, response| {
+    dialog.connect_response(glib::clone!(
+        #[strong]
+        name_entry,
+        #[strong]
+        path_entry,
+        move |dlg, response| {
             if response == gtk::ResponseType::Ok {
                 if name_entry.text().is_empty() {
                     glib::signal::signal_stop_emission_by_name(dlg, "response");
-                    show_message(dlg.upcast_ref(), &gettext("Bookmark name is missing."), None);
+                    show_message(
+                        dlg.upcast_ref(),
+                        &gettext("Bookmark name is missing."),
+                        None,
+                    );
                 } else if path_entry.text().is_empty() {
                     glib::signal::signal_stop_emission_by_name(dlg, "response");
-                    show_message(dlg.upcast_ref(), &gettext("Bookmark target is missing."), None);
+                    show_message(
+                        dlg.upcast_ref(),
+                        &gettext("Bookmark target is missing."),
+                        None,
+                    );
                 }
             }
-        }),
-    );
+        }
+    ));
 
     let response = dialog.run_future().await;
 

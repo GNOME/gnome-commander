@@ -125,16 +125,23 @@ mod imp {
             content_area.append(&bbox);
 
             bbox.append(&self.stop_button);
-            self.stop_button
-                .connect_clicked(glib::clone!(@weak dlg => move |_| {
+            self.stop_button.connect_clicked(glib::clone!(
+                #[weak]
+                dlg,
+                move |_| {
                     dlg.imp().cancellable.cancel();
                     dlg.response(gtk::ResponseType::Cancel);
-                }));
+                }
+            ));
 
-            dlg.connect_close(glib::clone!(@weak dlg => move |_| {
-                dlg.imp().cancellable.cancel();
-                dlg.response(gtk::ResponseType::Cancel);
-            }));
+            dlg.connect_close(glib::clone!(
+                #[weak]
+                dlg,
+                move |_| {
+                    dlg.imp().cancellable.cancel();
+                    dlg.response(gtk::ResponseType::Cancel);
+                }
+            ));
         }
     }
 
@@ -167,13 +174,15 @@ impl DeleteProgressDialog {
         let total = self.imp().total.get();
         if deleted > 0 && total > 0 {
             let f = (deleted as f64) / (total as f64);
-            self.imp().label.set_text(&ngettext!(
-                "Deleted {} of {} file",
-                "Deleted {} of {} files",
-                total as u32,
-                deleted,
-                total
-            ));
+            self.imp().label.set_text(
+                &ngettext(
+                    "Deleted {count} of {total} file",
+                    "Deleted {count} of {total} files",
+                    total as u32,
+                )
+                .replace("{count}", &deleted.to_string())
+                .replace("{total}", &total.to_string()),
+            );
             self.imp().progress_bar.set_fraction(f);
         }
     }
@@ -191,12 +200,10 @@ async fn confirm_delete_directory(
     options: &dyn ConfirmOptionsRead,
 ) -> DeleteNonEmpty {
     let msg = if can_measure {
-        gettext!(
-            "The directory “{}” is not empty. Do you really want to delete it?",
-            file.get_name()
-        )
+        gettext("The directory “{}” is not empty. Do you really want to delete it?")
+            .replace("{}", &file.get_name())
     } else {
-        gettext!("Do you really want to delete “{}”?", file.get_name())
+        gettext("Do you really want to delete “{}”?").replace("{}", &file.get_name())
     };
 
     let answer = run_simple_dialog(
@@ -235,7 +242,9 @@ async fn ask_delete_problem_action(
     filename: &str,
     error: &glib::Error,
 ) -> DeleteErrorAction {
-    let msg = gettext!("Error while deleting “{}”\n\n{}", filename, error.message());
+    let msg = gettext("Error while deleting “{file}”\n\n{error}")
+        .replace("{file}", filename)
+        .replace("{error}", error.message());
 
     let action = run_simple_dialog(
         parent_window,
@@ -502,12 +511,10 @@ async fn confirm_delete(
         let file = files.front().unwrap();
         match delete_action {
             DeleteAction::DeletePermanently => {
-                gettext!("Do you want to permanently delete “{}”?", file.get_name())
+                gettext("Do you want to permanently delete “{}”?").replace("{}", &file.get_name())
             }
-            DeleteAction::DeleteToTrash => gettext!(
-                "Do you want to move “{}” to the trash can?",
-                file.get_name()
-            ),
+            DeleteAction::DeleteToTrash => gettext("Do you want to move “{}” to the trash can?")
+                .replace("{}", &file.get_name()),
         }
     } else {
         match delete_action {
@@ -576,7 +583,7 @@ pub async fn show_delete_dialog(
                     parent_window,
                     false,
                     gtk::MessageType::Error,
-                    &gettext!("Error while deleting: \n\n{}", error.message()),
+                    &gettext("Error while deleting: \n\n{}").replace("{}", error.message()),
                     &gettext("Delete problem"),
                     Some(0),
                     &[&gettext("Abort")],
@@ -604,7 +611,7 @@ pub extern "C" fn gnome_cmd_delete_dialog_show(
     let general_options = GeneralOptions::new();
     let confirm_options = ConfirmOptions::new();
 
-    glib::MainContext::default().spawn_local(async move {
+    glib::spawn_future_local(async move {
         show_delete_dialog(
             &parent_window,
             &files,
@@ -625,7 +632,7 @@ pub extern "C" fn do_delete_files_for_move(
     let parent_window: gtk::Window = unsafe { from_glib_none(parent_window) };
     let files: glib::List<File> = unsafe { glib::List::from_glib_none(files) };
 
-    glib::MainContext::default().spawn_local(async move {
+    glib::spawn_future_local(async move {
         do_delete(
             &parent_window,
             DeleteAction::DeletePermanently,

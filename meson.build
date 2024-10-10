@@ -33,8 +33,6 @@ summary('datadir', get_option('datadir'))
 summary('buildtype', get_option('buildtype'), section: 'Build Configuration')
 summary('debug', get_option('debug'), section: 'Build Configuration')
 
-glib_ver = 'GLIB_VERSION_2_66'
-
 cpp = meson.get_compiler('cpp')
 
 common_ccflags = [
