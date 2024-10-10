@@ -44,27 +44,6 @@ struct GnomeCmdConList
     struct Private;
 
     Private *priv;
-
-    operator GObject * () const         {  return G_OBJECT (this);    }
-
-    void lock();
-    void unlock();
-
-    void add(GnomeCmdConRemote *con);
-    void add(GnomeCmdConDevice *con);
-
-    void remove(GnomeCmdConRemote *con);
-    void remove(GnomeCmdConDevice *con);
-
-    GnomeCmdCon *find_alias(const gchar *alias) const;
-
-    gboolean has_alias(const gchar *alias) const
-    {
-        return find_alias(alias) != nullptr;
-    }
-
-    GnomeCmdCon *get_home();
-    GnomeCmdCon *get_smb();
 };
 
 struct GnomeCmdConListClass
@@ -93,17 +72,18 @@ extern "C" GList *gnome_cmd_con_list_get_all_dev (GnomeCmdConList *list);
 void gnome_cmd_con_list_set_all_dev (GnomeCmdConList *list, GList *dev_cons);
 
 extern "C" GnomeCmdCon *gnome_cmd_con_list_find_by_uuid (GnomeCmdConList *con_list, const gchar *uuid);
+extern "C" GnomeCmdCon *gnome_cmd_con_list_find_by_alias (GnomeCmdConList *con_list, const gchar *alias);
 extern "C" GnomeCmdCon *gnome_cmd_con_list_get_home (GnomeCmdConList *con_list);
 extern "C" GnomeCmdCon *gnome_cmd_con_list_get_smb (GnomeCmdConList *con_list);
 
 inline GnomeCmdCon *get_home_con ()
 {
-    return gnome_cmd_con_list_get()->get_home();
+    return gnome_cmd_con_list_get_home (gnome_cmd_con_list_get());
 }
 
 inline GnomeCmdCon *get_smb_con ()
 {
-    return gnome_cmd_con_list_get()->get_smb();
+    return gnome_cmd_con_list_get_smb (gnome_cmd_con_list_get());
 }
 
 inline GList *get_remote_cons ()
@@ -121,3 +101,6 @@ extern "C" void gnome_cmd_con_list_add_remote (GnomeCmdConList *list, GnomeCmdCo
 extern "C" void gnome_cmd_con_list_add_dev (GnomeCmdConList *list, GnomeCmdConDevice *con);
 extern "C" void gnome_cmd_con_list_remove_remote (GnomeCmdConList *list, GnomeCmdConRemote *con);
 extern "C" void gnome_cmd_con_list_remove_dev (GnomeCmdConList *list, GnomeCmdConDevice *con);
+
+extern "C" void gnome_cmd_con_list_lock (GnomeCmdConList *list);
+extern "C" void gnome_cmd_con_list_unlock (GnomeCmdConList *list);

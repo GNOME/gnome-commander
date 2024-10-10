@@ -1989,7 +1989,7 @@ static void on_add_device_dialog_ok (GtkButton *button, GtkWidget *dialog)
     add_device_to_list (GTK_TREE_VIEW (view), GNOME_CMD_CON_DEVICE (dev));
     gtk_window_destroy (GTK_WINDOW (dialog));
 
-    gnome_cmd_con_list_get()->add(dev);
+    gnome_cmd_con_list_add_dev (gnome_cmd_con_list_get(), dev);
 
     g_free (device);
     g_free (mountp);
@@ -2134,7 +2134,7 @@ static void on_device_remove (GtkWidget *button, GtkWidget *frame)
     if (gtk_tree_selection_get_selected (gtk_tree_view_get_selection (view), &model, &iter))
     {
         gtk_tree_model_get (model, &iter, 2, &dev, -1);
-        gnome_cmd_con_list_get()->remove(dev);
+        gnome_cmd_con_list_remove_dev (gnome_cmd_con_list_get(), dev);
         gtk_list_store_remove (GTK_LIST_STORE (model), &iter);
     }
 }

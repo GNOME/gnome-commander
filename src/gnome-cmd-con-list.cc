@@ -157,114 +157,114 @@ static void gnome_cmd_con_list_init (GnomeCmdConList *con_list)
  * Public functions
  ***********************************/
 
-void GnomeCmdConList::lock()
+void gnome_cmd_con_list_lock (GnomeCmdConList *list)
 {
-    priv->update_lock = TRUE;
-    priv->changed = FALSE;
-    priv->remote_cons_changed = FALSE;
-    priv->device_cons_changed = FALSE;
+    list->priv->update_lock = TRUE;
+    list->priv->changed = FALSE;
+    list->priv->remote_cons_changed = FALSE;
+    list->priv->device_cons_changed = FALSE;
 }
 
 
-void GnomeCmdConList::unlock()
+void gnome_cmd_con_list_unlock (GnomeCmdConList *list)
 {
-    if (priv->changed)
-        g_signal_emit (this, signals[LIST_CHANGED], 0);
-    if (priv->remote_cons_changed)
-        g_signal_emit (this, signals[REMOTE_LIST_CHANGED], 0);
-    if (priv->device_cons_changed)
-        g_signal_emit (this, signals[DEVICE_LIST_CHANGED], 0);
+    if (list->priv->changed)
+        g_signal_emit (list, signals[LIST_CHANGED], 0);
+    if (list->priv->remote_cons_changed)
+        g_signal_emit (list, signals[REMOTE_LIST_CHANGED], 0);
+    if (list->priv->device_cons_changed)
+        g_signal_emit (list, signals[DEVICE_LIST_CHANGED], 0);
 
-    priv->update_lock = FALSE;
+    list->priv->update_lock = FALSE;
 }
 
 
-void GnomeCmdConList::add(GnomeCmdConRemote *con)
+void gnome_cmd_con_list_add_remote (GnomeCmdConList *list, GnomeCmdConRemote *con)
 {
-    g_return_if_fail (g_list_index (priv->all_cons, con) == -1);
-    g_return_if_fail (g_list_index (priv->remote_cons, con) == -1);
+    g_return_if_fail (g_list_index (list->priv->all_cons, con) == -1);
+    g_return_if_fail (g_list_index (list->priv->remote_cons, con) == -1);
 
-    priv->all_cons = g_list_append (priv->all_cons, con);
-    priv->remote_cons = g_list_append (priv->remote_cons, con);
+    list->priv->all_cons = g_list_append (list->priv->all_cons, con);
+    list->priv->remote_cons = g_list_append (list->priv->remote_cons, con);
 
-    g_signal_connect (con, "updated", G_CALLBACK (on_con_updated), this);
+    g_signal_connect (con, "updated", G_CALLBACK (on_con_updated), list);
 
-    if (priv->update_lock)
+    if (list->priv->update_lock)
     {
-        priv->changed = TRUE;
-        priv->remote_cons_changed = TRUE;
+        list->priv->changed = TRUE;
+        list->priv->remote_cons_changed = TRUE;
     }
     else
     {
-        g_signal_emit (this, signals[LIST_CHANGED], 0);
-        g_signal_emit (this, signals[REMOTE_LIST_CHANGED], 0);
+        g_signal_emit (list, signals[LIST_CHANGED], 0);
+        g_signal_emit (list, signals[REMOTE_LIST_CHANGED], 0);
     }
 }
 
 
-void GnomeCmdConList::remove(GnomeCmdConRemote *con)
+void gnome_cmd_con_list_remove_remote (GnomeCmdConList *list, GnomeCmdConRemote *con)
 {
-    g_return_if_fail (g_list_index (priv->all_cons, con) != -1);
-    g_return_if_fail (g_list_index (priv->remote_cons, con) != -1);
+    g_return_if_fail (g_list_index (list->priv->all_cons, con) != -1);
+    g_return_if_fail (g_list_index (list->priv->remote_cons, con) != -1);
 
-    priv->all_cons = g_list_remove (priv->all_cons, con);
-    priv->remote_cons = g_list_remove (priv->remote_cons, con);
+    list->priv->all_cons = g_list_remove (list->priv->all_cons, con);
+    list->priv->remote_cons = g_list_remove (list->priv->remote_cons, con);
 
-    g_signal_handlers_disconnect_by_func (con, (gpointer) on_con_updated, this);
+    g_signal_handlers_disconnect_by_func (con, (gpointer) on_con_updated, list);
 
-    if (priv->update_lock)
+    if (list->priv->update_lock)
     {
-        priv->changed = TRUE;
-        priv->remote_cons_changed = TRUE;
+        list->priv->changed = TRUE;
+        list->priv->remote_cons_changed = TRUE;
     }
     else
     {
-        g_signal_emit (this, signals[LIST_CHANGED], 0);
-        g_signal_emit (this, signals[REMOTE_LIST_CHANGED], 0);
+        g_signal_emit (list, signals[LIST_CHANGED], 0);
+        g_signal_emit (list, signals[REMOTE_LIST_CHANGED], 0);
     }
 }
 
 
-void GnomeCmdConList::add(GnomeCmdConDevice *con)
+void gnome_cmd_con_list_add_dev (GnomeCmdConList *list, GnomeCmdConDevice *con)
 {
-    g_return_if_fail (g_list_index (priv->all_cons, con) == -1);
-    g_return_if_fail (g_list_index (priv->device_cons, con) == -1);
+    g_return_if_fail (g_list_index (list->priv->all_cons, con) == -1);
+    g_return_if_fail (g_list_index (list->priv->device_cons, con) == -1);
 
-    priv->all_cons = g_list_append (priv->all_cons, con);
-    priv->device_cons = g_list_append (priv->device_cons, con);
-    g_signal_connect (con, "updated", G_CALLBACK (on_con_updated), this);
+    list->priv->all_cons = g_list_append (list->priv->all_cons, con);
+    list->priv->device_cons = g_list_append (list->priv->device_cons, con);
+    g_signal_connect (con, "updated", G_CALLBACK (on_con_updated), list);
 
-    if (priv->update_lock)
+    if (list->priv->update_lock)
     {
-        priv->changed = TRUE;
-        priv->device_cons_changed = TRUE;
+        list->priv->changed = TRUE;
+        list->priv->device_cons_changed = TRUE;
     }
     else
     {
-        g_signal_emit (this, signals[LIST_CHANGED], 0);
-        g_signal_emit (this, signals[DEVICE_LIST_CHANGED], 0);
+        g_signal_emit (list, signals[LIST_CHANGED], 0);
+        g_signal_emit (list, signals[DEVICE_LIST_CHANGED], 0);
     }
 }
 
 
-void GnomeCmdConList::remove(GnomeCmdConDevice *con)
+void gnome_cmd_con_list_remove_dev (GnomeCmdConList *list, GnomeCmdConDevice *con)
 {
-    g_return_if_fail (g_list_index (priv->all_cons, con) != -1);
-    g_return_if_fail (g_list_index (priv->device_cons, con) != -1);
+    g_return_if_fail (g_list_index (list->priv->all_cons, con) != -1);
+    g_return_if_fail (g_list_index (list->priv->device_cons, con) != -1);
 
-    priv->all_cons = g_list_remove (priv->all_cons, con);
-    priv->device_cons = g_list_remove (priv->device_cons, con);
-    g_signal_handlers_disconnect_by_func (con, (gpointer) on_con_updated, this);
+    list->priv->all_cons = g_list_remove (list->priv->all_cons, con);
+    list->priv->device_cons = g_list_remove (list->priv->device_cons, con);
+    g_signal_handlers_disconnect_by_func (con, (gpointer) on_con_updated, list);
 
-    if (priv->update_lock)
+    if (list->priv->update_lock)
     {
-        priv->changed = TRUE;
-        priv->device_cons_changed = TRUE;
+        list->priv->changed = TRUE;
+        list->priv->device_cons_changed = TRUE;
     }
     else
     {
-        g_signal_emit (this, signals[LIST_CHANGED], 0);
-        g_signal_emit (this, signals[DEVICE_LIST_CHANGED], 0);
+        g_signal_emit (list, signals[LIST_CHANGED], 0);
+        g_signal_emit (list, signals[DEVICE_LIST_CHANGED], 0);
     }
 }
 
@@ -316,25 +316,25 @@ GnomeCmdCon *gnome_cmd_con_list_find_by_uuid (GnomeCmdConList *con_list, const g
 }
 
 
-GnomeCmdCon *GnomeCmdConList::find_alias(const gchar *alias) const
+GnomeCmdCon *gnome_cmd_con_list_find_by_alias (GnomeCmdConList *list, const gchar *alias)
 {
     g_return_val_if_fail (alias != nullptr, nullptr);
 
-    auto elem = g_list_find_custom (priv->all_cons, alias, (GCompareFunc) compare_alias);
+    auto elem = g_list_find_custom (list->priv->all_cons, alias, (GCompareFunc) compare_alias);
 
     return elem ? static_cast<GnomeCmdCon*> (elem->data) : nullptr;
 }
 
 
-GnomeCmdCon *GnomeCmdConList::get_home()
+GnomeCmdCon *gnome_cmd_con_list_get_home (GnomeCmdConList *list)
 {
-    return priv->home_con;
+    return list->priv->home_con;
 }
 
 
-GnomeCmdCon *GnomeCmdConList::get_smb()
+GnomeCmdCon *gnome_cmd_con_list_get_smb (GnomeCmdConList *list)
 {
-    return priv->smb_con;
+    return list->priv->smb_con;
 }
 
 
@@ -360,16 +360,6 @@ GnomeCmdCon *get_remote_con_for_gfile(GFile *gFile)
         g_free(uri);
     }
     return gnomeCmdCon;
-}
-
-GnomeCmdCon *gnome_cmd_con_list_get_home (GnomeCmdConList *list)
-{
-    return list->get_home();
-}
-
-GnomeCmdCon *gnome_cmd_con_list_get_smb (GnomeCmdConList *list)
-{
-    return list->get_smb();
 }
 
 GnomeCmdConList *gnome_cmd_con_list_get ()
@@ -402,11 +392,11 @@ void gnome_cmd_con_list_load_bookmarks (GnomeCmdConList *list, GVariant *gVarian
             &bookmarkPath))
     {
         if (isRemote)
-            gnomeCmdCon = list->find_alias(bookmarkGroupName);
+            gnomeCmdCon = gnome_cmd_con_list_find_by_alias (list, bookmarkGroupName);
         else if (strcmp(bookmarkGroupName, "Home") == 0)
-            gnomeCmdCon = list->get_home();
+            gnomeCmdCon = list->priv->home_con;
         else if (strcmp(bookmarkGroupName, "SMB") == 0)
-            gnomeCmdCon = list->get_smb();
+            gnomeCmdCon = list->priv->smb_con;
         else
             gnomeCmdCon = nullptr;
 
@@ -454,11 +444,11 @@ GVariant *gnome_cmd_con_list_save_bookmarks (GnomeCmdConList *list)
     g_variant_builder_init (gVariantBuilder, G_VARIANT_TYPE_ARRAY);
 
     // Home
-    auto *con = list->get_home();
+    auto *con = list->priv->home_con;
     hasBookmarks |= add_bookmark_to_gvariant_builder(gVariantBuilder, "Home", con);
 
     // Samba
-    con = list->get_smb();
+    con = list->priv->smb_con;
     hasBookmarks |= add_bookmark_to_gvariant_builder(gVariantBuilder, "SMB", con);
 
     // Others
@@ -480,27 +470,4 @@ GVariant *gnome_cmd_con_list_save_bookmarks (GnomeCmdConList *list)
         g_variant_builder_unref(gVariantBuilder);
         return bookmarksToStore;
     }
-}
-
-
-// FFI
-
-void gnome_cmd_con_list_add_remote (GnomeCmdConList *list, GnomeCmdConRemote *con)
-{
-    list->add(con);
-}
-
-void gnome_cmd_con_list_add_dev (GnomeCmdConList *list, GnomeCmdConDevice *con)
-{
-    list->add(con);
-}
-
-void gnome_cmd_con_list_remove_remote (GnomeCmdConList *list, GnomeCmdConRemote *con)
-{
-    list->remove(con);
-}
-
-void gnome_cmd_con_list_remove_dev (GnomeCmdConList *list, GnomeCmdConDevice *con)
-{
-    list->remove(con);
 }
