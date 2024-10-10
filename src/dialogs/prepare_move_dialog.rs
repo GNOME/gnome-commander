@@ -19,6 +19,7 @@
 
 use super::prepare_transfer_dialog::PrepareTransferDialog;
 use crate::{
+    data::{ConfirmOptions, ConfirmOptionsRead},
     file_selector::{ffi::GnomeCmdFileSelector, FileSelector},
     libgcmd::file_base::FileBaseExt,
     main_win::{ffi::GnomeCmdMainWin, MainWindow},
@@ -34,6 +35,7 @@ pub async fn prepare_move_dialog_show(
     main_win: &MainWindow,
     from: &FileSelector,
     to: &FileSelector,
+    options: &dyn ConfirmOptionsRead,
 ) {
     let src_files = from.file_list().selected_files();
     let num_files = src_files.len();
@@ -90,11 +92,13 @@ pub async fn prepare_move_dialog_show(
         .build();
     dialog.append_to_left(&silent);
 
-    // if let Some(toggle) =
-    //     [query, rename, skip, silent].get(gnome_cmd_data.options.confirm_move_overwrite)
-    // {
-    //     toggle.set_active(true);
-    // }
+    match options.confirm_move_overwrite() {
+        GnomeCmdConfirmOverwriteMode::GNOME_CMD_CONFIRM_OVERWRITE_SILENTLY => &silent,
+        GnomeCmdConfirmOverwriteMode::GNOME_CMD_CONFIRM_OVERWRITE_SKIP_ALL => &skip,
+        GnomeCmdConfirmOverwriteMode::GNOME_CMD_CONFIRM_OVERWRITE_RENAME_ALL => &rename,
+        GnomeCmdConfirmOverwriteMode::GNOME_CMD_CONFIRM_OVERWRITE_QUERY => &query,
+    }
+    .set_active(true);
 
     let Some((dest_dir, dest_fn)) = dialog.run().await else {
         return;
@@ -136,7 +140,8 @@ pub extern "C" fn gnome_cmd_prepare_move_dialog_show(
     let main_win = unsafe { from_glib_none(main_win_ptr) };
     let from = unsafe { from_glib_none(from_ptr) };
     let to = unsafe { from_glib_none(to_ptr) };
+    let options = ConfirmOptions::new();
     glib::spawn_future_local(async move {
-        prepare_move_dialog_show(&main_win, &from, &to).await;
+        prepare_move_dialog_show(&main_win, &from, &to, &options).await;
     });
 }
