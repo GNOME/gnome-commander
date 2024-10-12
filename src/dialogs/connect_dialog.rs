@@ -370,32 +370,40 @@ mod imp {
             }
         }
 
+        pub fn get_folder(&self) -> String {
+            let folder = self.folder_entry.text();
+            let folder = folder.trim_start_matches('/');
+            if folder.is_empty() {
+                folder.to_owned()
+            } else {
+                format!("/{folder}")
+            }
+        }
+
         pub fn get_connection_uri(&self) -> Result<glib::Uri, ErrorMessage> {
             let method = self.get_method().ok_or_else(|| ErrorMessage {
                 message: gettext("Connection method is not selected"),
                 secondary_text: None,
             })?;
-            let folder = self.folder_entry.text();
-            let folder = folder.trim_start_matches('/');
             match method {
                 ConnectionMethodID::CON_SFTP => Ok(glib::Uri::build(
                     glib::UriFlags::NONE,
-                    "sftp://",
+                    "sftp",
                     None,
                     Some(&self.get_server()?),
                     self.get_port()?,
-                    folder,
+                    &self.get_folder(),
                     None,
                     None,
                 )),
                 ConnectionMethodID::CON_FTP | ConnectionMethodID::CON_ANON_FTP => {
                     Ok(glib::Uri::build(
                         glib::UriFlags::NONE,
-                        "ftp://",
+                        "ftp",
                         None,
                         Some(&self.get_server()?),
                         self.get_port()?,
-                        folder,
+                        &self.get_folder(),
                         None,
                         None,
                     ))
@@ -407,32 +415,32 @@ mod imp {
                     }
                     Ok(glib::Uri::build(
                         glib::UriFlags::NON_DNS,
-                        "smb://",
+                        "smb",
                         None,
                         Some(&host),
                         -1,
-                        folder,
+                        &self.get_folder(),
                         None,
                         None,
                     ))
                 }
                 ConnectionMethodID::CON_DAV => Ok(glib::Uri::build(
                     glib::UriFlags::NONE,
-                    "dav://",
+                    "dav",
                     None,
                     Some(&self.get_server()?),
                     self.get_port()?,
-                    folder,
+                    &self.get_folder(),
                     None,
                     None,
                 )),
                 ConnectionMethodID::CON_DAVS => Ok(glib::Uri::build(
                     glib::UriFlags::NONE,
-                    "davs://",
+                    "davs",
                     None,
                     Some(&self.get_server()?),
                     self.get_port()?,
-                    folder,
+                    &self.get_folder(),
                     None,
                     None,
                 )),
@@ -516,6 +524,7 @@ impl ConnectDialog {
                             con.set_alias(Some(&alias));
                             con.set_uri(Some(&uri));
                             connection = Some(con.upcast::<ConnectionRemote>());
+                            break;
                         }
                         (_, Ok(uri)) => {
                             let alias = dialog.imp().alias_entry.text();
@@ -523,6 +532,7 @@ impl ConnectDialog {
                             con.set_alias(Some(&alias));
                             con.set_uri(Some(&uri));
                             connection = Some(con);
+                            break;
                         }
                         (_, Err(error)) => show_error_message(dialog.upcast_ref(), &error),
                     }

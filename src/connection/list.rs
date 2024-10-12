@@ -115,11 +115,11 @@ impl ConnectionList {
     }
 
     pub fn add_remote(&self, con: &ConnectionRemote) {
-        unsafe { ffi::gnome_cmd_con_list_add_remote(self.to_glib_none().0, con.to_glib_none().0) }
+        unsafe { ffi::gnome_cmd_con_list_add_remote(self.to_glib_none().0, con.to_glib_full()) }
     }
 
     pub fn add_dev(&self, con: &ConnectionDevice) {
-        unsafe { ffi::gnome_cmd_con_list_add_dev(self.to_glib_none().0, con.to_glib_none().0) }
+        unsafe { ffi::gnome_cmd_con_list_add_dev(self.to_glib_none().0, con.to_glib_full()) }
     }
 
     pub fn remove_remote(&self, con: &ConnectionRemote) {
