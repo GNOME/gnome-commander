@@ -17,6 +17,7 @@
  * For more details see the file COPYING.
  */
 
+use crate::types::GnomeCmdConfirmOverwriteMode;
 use gtk::{gio, prelude::*};
 
 pub struct GeneralOptions(pub gio::Settings);
@@ -87,6 +88,8 @@ pub enum DeleteDefault {
 pub trait ConfirmOptionsRead {
     fn confirm_delete(&self) -> bool;
     fn confirm_delete_default(&self) -> DeleteDefault;
+    fn confirm_copy_overwrite(&self) -> GnomeCmdConfirmOverwriteMode;
+    fn confirm_move_overwrite(&self) -> GnomeCmdConfirmOverwriteMode;
 }
 
 pub trait ConfirmOptionsWrite {
@@ -112,6 +115,24 @@ impl ConfirmOptionsRead for ConfirmOptions {
             1 => DeleteDefault::Delete,
             _ => DeleteDefault::Cancel,
         }
+    }
+
+    fn confirm_copy_overwrite(&self) -> GnomeCmdConfirmOverwriteMode {
+        self.0
+            .enum_("copy-overwrite")
+            .try_into()
+            .ok()
+            .and_then(GnomeCmdConfirmOverwriteMode::from_repr)
+            .unwrap_or(GnomeCmdConfirmOverwriteMode::GNOME_CMD_CONFIRM_OVERWRITE_QUERY)
+    }
+
+    fn confirm_move_overwrite(&self) -> GnomeCmdConfirmOverwriteMode {
+        self.0
+            .enum_("move-overwrite")
+            .try_into()
+            .ok()
+            .and_then(GnomeCmdConfirmOverwriteMode::from_repr)
+            .unwrap_or(GnomeCmdConfirmOverwriteMode::GNOME_CMD_CONFIRM_OVERWRITE_QUERY)
     }
 }
 
