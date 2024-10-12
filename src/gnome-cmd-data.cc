@@ -121,11 +121,7 @@ static void gcmd_settings_dispose (GObject *object)
 
 static void on_bookmarks_changed (GnomeCmdMainWin *main_win)
 {
-    gnome_cmd_con_erase_bookmark (gnome_cmd_data.priv->con_list->get_home());
-    gnome_cmd_con_erase_bookmark (gnome_cmd_data.priv->con_list->get_smb());
-
     gnome_cmd_data.load_bookmarks();
-
     main_win->update_bookmarks ();
 }
 
@@ -2875,11 +2871,7 @@ void GnomeCmdData::load_connections()
         g_assert (g_variant_is_of_type (connection, G_VARIANT_TYPE (GCMD_SETTINGS_CONNECTION_FORMAT_STRING)));
         g_variant_get(connection, GCMD_SETTINGS_CONNECTION_FORMAT_STRING, &name, &uri);
 
-        if (gnome_cmd_con_list_get()->has_alias(name))
-        {
-            gnome_cmd_con_erase_bookmark (gnome_cmd_con_list_get()->find_alias(name));
-        }
-        else
+        if (gnome_cmd_con_list_get()->find_alias(name) == nullptr)
         {
             GnomeCmdConRemote *server = gnome_cmd_con_remote_new (name, uri);
             if (server)
@@ -3499,11 +3491,7 @@ void GnomeCmdData::load()
     if (!priv->con_list)
         priv->con_list = gnome_cmd_con_list_new ();
     else
-    {
-        gnome_cmd_con_erase_bookmark (priv->con_list->get_home());
-        gnome_cmd_con_erase_bookmark (priv->con_list->get_smb());
         advrename_defaults.profiles.clear();
-    }
 
     priv->con_list->lock();
     load_devices();
