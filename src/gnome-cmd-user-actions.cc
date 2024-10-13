@@ -34,6 +34,7 @@
 #include "gnome-cmd-user-actions.h"
 #include "gnome-cmd-dir-indicator.h"
 #include "plugin_manager.h"
+#include "eggcellrendererkeys.h"
 #include "cap.h"
 #include "utils.h"
 #include "dialogs/gnome-cmd-advrename-dialog.h"
@@ -241,7 +242,10 @@ static gboolean append_real_path (string &s, GnomeCmdFile *f)
 }
 
 
-GnomeCmdUserActions gcmd_user_actions;
+GnomeCmdUserActions *gcmd_user_actions;
+
+
+GcmdUserActionSettings *settings;
 
 
 inline bool operator < (const GnomeCmdKeyPress &e1, const GnomeCmdKeyPress &e2)
@@ -282,7 +286,6 @@ void GnomeCmdUserActions::init()
     register_action(GDK_KEY_F7, "file.mkdir");
     register_action(GDK_KEY_F8, "file.delete");
     // register_action(GDK_KEY_F9, "edit.search");     //  do not register F9 here, as edit.search action wouldn't be checked for registration later
-    settings = gcmd_user_action_settings_new();
 }
 
 
@@ -554,6 +557,137 @@ gboolean GnomeCmdUserActions::handle_key_event(GnomeCmdMainWin *mw, GnomeCmdFile
     (*pos->second.func) (nullptr, parameter, (gpointer) mw);
 
     return TRUE;
+}
+
+
+void GnomeCmdUserActions::load_keybindings(GVariant *gvKeybindings)
+{
+    GVariant *keybinding;
+    GVariantIter iter;
+
+    g_variant_iter_init (&iter, gvKeybindings);
+
+    while ((keybinding = g_variant_iter_next_value (&iter)) != nullptr)
+    {
+        gchar *name, *action, *option;
+        gboolean shift, control, alt, super, hyper, meta;
+
+        g_assert (g_variant_is_of_type (keybinding, G_VARIANT_TYPE (GCMD_SETTINGS_KEYBINDING_FORMAT_STRING)));
+        g_variant_get(keybinding, GCMD_SETTINGS_KEYBINDING_FORMAT_STRING,
+                      &name, &action, &option, &shift, &control, &alt, &super, &hyper, &meta);
+
+        if (has_action(action))
+        {
+            auto keyval = gdk_key_names[name];
+
+            if (keyval == GDK_KEY_VoidSymbol)
+            {
+                if (strlen(name) == 1 && ascii_isalnum(*name))
+                {
+                    keyval = *name;
+                }
+            }
+
+            if (keyval != GDK_KEY_VoidSymbol)
+            {
+                guint accel_mask = 0;
+                if (shift)  accel_mask |= GDK_SHIFT_MASK;
+                if (control)  accel_mask |= GDK_CONTROL_MASK;
+                if (alt)  accel_mask |= GDK_ALT_MASK;
+                if (super)  accel_mask |= GDK_SUPER_MASK;
+                if (hyper)  accel_mask |= GDK_HYPER_MASK;
+                if (meta)  accel_mask |= GDK_META_MASK;
+
+                register_action(accel_mask, keyval, action, option);
+            }
+            else
+                g_warning ("<KeyBindings> invalid key name: '%s' - ignored", name);
+        }
+        else
+            g_warning ("<KeyBindings> unknown user action: '%s' - ignored", action);
+
+        g_variant_unref(keybinding);
+    }
+    g_variant_unref(gvKeybindings);
+}
+
+
+GVariant *GnomeCmdUserActions::save_keybindings()
+{
+    GVariantBuilder gVariantBuilder;
+    g_variant_builder_init (&gVariantBuilder, G_VARIANT_TYPE_ARRAY);
+    gboolean hasKeybindings {false};
+
+    for (auto thisAction : action)
+    {
+        if (!ascii_isupper (thisAction.first)) // ignore lowercase keys as they duplicate uppercase ones
+        {
+            hasKeybindings = true;
+
+            guint state = thisAction.first.state;
+            guint key_val = thisAction.first.keyval;
+
+            string name;
+            string action;
+            string option;
+
+            if (ascii_isalnum (key_val))
+                name = (gchar) key_val;
+            else
+                name = gdk_key_names[key_val];
+
+            action = action_func[thisAction.second.func];
+
+            if (!thisAction.second.user_data.empty())
+                option = thisAction.second.user_data;
+
+            g_variant_builder_add (&gVariantBuilder, GCMD_SETTINGS_KEYBINDING_FORMAT_STRING,
+                                    name.c_str(),
+                                    action.c_str(),
+                                    option.c_str(),
+                                    state & GDK_SHIFT_MASK,
+                                    state & GDK_CONTROL_MASK,
+                                    state & GDK_ALT_MASK,
+                                    state & GDK_SUPER_MASK,
+                                    state & GDK_HYPER_MASK,
+                                    state & GDK_META_MASK
+                                  );
+        }
+    }
+
+    if (hasKeybindings)
+    {
+        return g_variant_builder_end (&gVariantBuilder);
+    }
+    else
+    {
+        g_variant_builder_clear (&gVariantBuilder);
+        return nullptr;
+    }
+}
+
+
+gchar *GnomeCmdUserActions::bookmark_shortcuts(const gchar *bookmark_name)
+{
+    set<string> keys;
+
+    for (GnomeCmdUserActions::const_iterator i=begin(); i!=end(); ++i)
+        if (!ascii_isupper (*i))                                       // ignore lowercase keys as they duplicate uppercase ones
+        {
+            const gchar *options = this->options(i);
+
+            if (strcmp(this->name(i),"bookmarks.goto")==0 && g_strcmp0(options, bookmark_name) == 0)
+            {
+                gchar *accelerator = egg_accelerator_get_label(i->first.keyval, (GdkModifierType) i->first.state);
+                keys.insert(accelerator);
+                g_free (accelerator);
+            }
+        }
+
+    if (keys.size() > 0)
+        return g_strdup (join(keys, ", ").c_str());
+    else
+        return nullptr;
 }
 
 
@@ -1148,7 +1282,7 @@ void view_conbuttons (GSimpleAction *action, GVariant *state, gpointer user_data
     g_simple_action_set_state (action, state);
 
     if (gtk_widget_get_realized (GTK_WIDGET (main_win)))
-        g_settings_set_boolean (gcmd_user_actions.settings->general, GCMD_SETTINGS_SHOW_DEVBUTTONS, active);
+        g_settings_set_boolean (settings->general, GCMD_SETTINGS_SHOW_DEVBUTTONS, active);
 }
 
 
@@ -1160,7 +1294,7 @@ void view_devlist (GSimpleAction *action, GVariant *state, gpointer user_data)
     g_simple_action_set_state (action, state);
 
     if (gtk_widget_get_realized (GTK_WIDGET (main_win)))
-        g_settings_set_boolean (gcmd_user_actions.settings->general, GCMD_SETTINGS_SHOW_DEVLIST, active);
+        g_settings_set_boolean (settings->general, GCMD_SETTINGS_SHOW_DEVLIST, active);
 }
 
 
@@ -1172,7 +1306,7 @@ void view_toolbar (GSimpleAction *action, GVariant *state, gpointer user_data)
     g_simple_action_set_state (action, state);
 
     if (gtk_widget_get_realized (GTK_WIDGET (main_win)))
-        g_settings_set_boolean (gcmd_user_actions.settings->general, GCMD_SETTINGS_SHOW_TOOLBAR, active);
+        g_settings_set_boolean (settings->general, GCMD_SETTINGS_SHOW_TOOLBAR, active);
 }
 
 
@@ -1184,7 +1318,7 @@ void view_buttonbar (GSimpleAction *action, GVariant *state, gpointer user_data)
     g_simple_action_set_state (action, state);
 
     if (gtk_widget_get_realized (GTK_WIDGET (main_win)))
-        g_settings_set_boolean (gcmd_user_actions.settings->general, GCMD_SETTINGS_SHOW_BUTTONBAR, active);
+        g_settings_set_boolean (settings->general, GCMD_SETTINGS_SHOW_BUTTONBAR, active);
 }
 
 
@@ -1196,7 +1330,7 @@ void view_cmdline (GSimpleAction *action, GVariant *state, gpointer user_data)
     g_simple_action_set_state (action, state);
 
     if (gtk_widget_get_realized (GTK_WIDGET (main_win)))
-        g_settings_set_boolean (gcmd_user_actions.settings->general, GCMD_SETTINGS_SHOW_CMDLINE, active);
+        g_settings_set_boolean (settings->general, GCMD_SETTINGS_SHOW_CMDLINE, active);
 }
 
 
@@ -1216,7 +1350,7 @@ void view_hidden_files (GSimpleAction *action, GVariant *state, gpointer user_da
     g_simple_action_set_state (action, state);
 
     if (gtk_widget_get_realized (GTK_WIDGET (main_win)))
-        g_settings_set_boolean (gcmd_user_actions.settings->filter, GCMD_SETTINGS_FILTER_HIDE_HIDDEN, !active);
+        g_settings_set_boolean (settings->filter, GCMD_SETTINGS_FILTER_HIDE_HIDDEN, !active);
 }
 
 
@@ -1228,7 +1362,7 @@ void view_backup_files (GSimpleAction *action, GVariant *state, gpointer user_da
     g_simple_action_set_state (action, state);
 
     if (gtk_widget_get_realized (GTK_WIDGET (main_win)))
-        g_settings_set_boolean (gcmd_user_actions.settings->filter, GCMD_SETTINGS_FILTER_HIDE_BACKUPS, !active);
+        g_settings_set_boolean (settings->filter, GCMD_SETTINGS_FILTER_HIDE_BACKUPS, !active);
 }
 
 
@@ -1240,7 +1374,7 @@ void view_horizontal_orientation (GSimpleAction *action, GVariant *state, gpoint
     g_simple_action_set_state (action, state);
 
     if (gtk_widget_get_realized (GTK_WIDGET (main_win)))
-        g_settings_set_boolean (gcmd_user_actions.settings->general, GCMD_SETTINGS_HORIZONTAL_ORIENTATION, active);
+        g_settings_set_boolean (settings->general, GCMD_SETTINGS_HORIZONTAL_ORIENTATION, active);
 }
 
 void view_step_up (GSimpleAction *action, GVariant *parameter, gpointer user_data)
@@ -1283,8 +1417,8 @@ void view_main_menu (GSimpleAction *action, GVariant *parameter, gpointer user_d
     if (!gtk_widget_get_realized ( GTK_WIDGET (main_win))) return;
 
     gboolean mainmenu_visibility;
-    mainmenu_visibility = g_settings_get_boolean (gcmd_user_actions.settings->general, GCMD_SETTINGS_MAINMENU_VISIBILITY);
-    g_settings_set_boolean (gcmd_user_actions.settings->general, GCMD_SETTINGS_MAINMENU_VISIBILITY, !mainmenu_visibility);
+    mainmenu_visibility = g_settings_get_boolean (settings->general, GCMD_SETTINGS_MAINMENU_VISIBILITY);
+    g_settings_set_boolean (settings->general, GCMD_SETTINGS_MAINMENU_VISIBILITY, !mainmenu_visibility);
 }
 
 void view_first (GSimpleAction *action, GVariant *parameter, gpointer user_data)
@@ -1591,7 +1725,7 @@ void options_edit_shortcuts (GSimpleAction *action, GVariant *parameter, gpointe
 {
     auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
 
-    gnome_cmd_key_shortcuts_dialog_new (*main_win, gcmd_user_actions);
+    gnome_cmd_key_shortcuts_dialog_new (*main_win, *gcmd_user_actions);
 }
 
 /************** Bookmarks Menu **************/

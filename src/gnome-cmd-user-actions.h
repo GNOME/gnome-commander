@@ -111,7 +111,6 @@ class GnomeCmdUserActions
     void init();
     void set_defaults();
     void shutdown();
-    GcmdUserActionSettings *settings;
 
     void clear()                                                            {   action.clear();               }
 
@@ -142,6 +141,11 @@ class GnomeCmdUserActions
     const gchar *name(const_iterator &i)                                    {  return action_func[i->second.func].c_str();                 }
     const gchar *description(const_iterator &i)                             {  return action_name[i->second.func].c_str();                 }
     const gchar *options(const_iterator &i)                                 {  return i->second.user_data.c_str();                         }
+
+    void load_keybindings(GVariant *variant);
+    GVariant *save_keybindings();
+
+    gchar *bookmark_shortcuts(const gchar *bookmark_name);
 };
 
 
@@ -158,7 +162,8 @@ inline gboolean GnomeCmdUserActions::register_action(guint keyval, const gchar *
 
 extern "C" int spawn_async_r(const char *cwd, GList *files_list, const char *command_template, GError **error);
 
-extern GnomeCmdUserActions gcmd_user_actions;
+extern GnomeCmdUserActions *gcmd_user_actions;
 
+extern GcmdUserActionSettings *settings;
 
 extern "C" GtkTreeModel *gnome_cmd_user_actions_create_model ();

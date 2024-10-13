@@ -2000,112 +2000,17 @@ void GnomeCmdData::save_connections()
 
 void GnomeCmdData::save_keybindings()
 {
-    GVariant* keybindingsToStore {nullptr};
-    GVariantBuilder gVariantBuilder;
-    g_variant_builder_init (&gVariantBuilder, G_VARIANT_TYPE_ARRAY);
-    gboolean hasKeybindings {false};
-
-    for (auto thisAction : gcmd_user_actions.action)
-    {
-        if (!ascii_isupper (thisAction.first)) // ignore lowercase keys as they duplicate uppercase ones
-        {
-            hasKeybindings = true;
-
-            guint state = thisAction.first.state;
-            guint key_val = thisAction.first.keyval;
-
-            string name;
-            string action;
-            string option;
-
-            if (ascii_isalnum (key_val))
-                name = (gchar) key_val;
-            else
-                name = gdk_key_names[key_val];
-
-            action = gcmd_user_actions.action_func[thisAction.second.func];
-
-            if (!thisAction.second.user_data.empty())
-                option = thisAction.second.user_data;
-
-            g_variant_builder_add (&gVariantBuilder, GCMD_SETTINGS_KEYBINDING_FORMAT_STRING,
-                                    name.c_str(),
-                                    action.c_str(),
-                                    option.c_str(),
-                                    state & GDK_SHIFT_MASK,
-                                    state & GDK_CONTROL_MASK,
-                                    state & GDK_ALT_MASK,
-                                    state & GDK_SUPER_MASK,
-                                    state & GDK_HYPER_MASK,
-                                    state & GDK_META_MASK
-                                  );
-        }
-    }
-
-    if (hasKeybindings)
-    {
-        keybindingsToStore = g_variant_builder_end (&gVariantBuilder);
-    }
-    else
-    {
-        g_variant_builder_clear (&gVariantBuilder);
-        keybindingsToStore = g_settings_get_default_value (options.gcmd_settings->general, GCMD_SETTINGS_KEYBINDINGS);
-    }
+    GVariant* keybindingsToStore = gcmd_user_actions->save_keybindings();
     g_settings_set_value(options.gcmd_settings->general, GCMD_SETTINGS_KEYBINDINGS, keybindingsToStore);
 }
 
 
 void GnomeCmdData::load_keybindings()
 {
-    GVariant *gvKeybindings, *keybinding;
-    GVariantIter iter;
-
-    gvKeybindings = g_settings_get_value(options.gcmd_settings->general, GCMD_SETTINGS_KEYBINDINGS);
-
-    g_variant_iter_init (&iter, gvKeybindings);
-
-    while ((keybinding = g_variant_iter_next_value (&iter)) != nullptr)
-    {
-        gchar *name, *action, *option;
-        gboolean shift, control, alt, super, hyper, meta;
-
-        g_assert (g_variant_is_of_type (keybinding, G_VARIANT_TYPE (GCMD_SETTINGS_KEYBINDING_FORMAT_STRING)));
-        g_variant_get(keybinding, GCMD_SETTINGS_KEYBINDING_FORMAT_STRING,
-                      &name, &action, &option, &shift, &control, &alt, &super, &hyper, &meta);
-
-        if (gcmd_user_actions.has_action(action))
-        {
-            auto keyval = gdk_key_names[name];
-
-            if (keyval == GDK_KEY_VoidSymbol)
-            {
-                if (strlen(name) == 1 && ascii_isalnum(*name))
-                {
-                    keyval = *name;
-                }
-            }
-
-            if (keyval != GDK_KEY_VoidSymbol)
-            {
-                guint accel_mask = 0;
-                if (shift)  accel_mask |= GDK_SHIFT_MASK;
-                if (control)  accel_mask |= GDK_CONTROL_MASK;
-                if (alt)  accel_mask |= GDK_ALT_MASK;
-                if (super)  accel_mask |= GDK_SUPER_MASK;
-                if (hyper)  accel_mask |= GDK_HYPER_MASK;
-                if (meta)  accel_mask |= GDK_META_MASK;
-
-                gcmd_user_actions.register_action(accel_mask, keyval, action, option);
-            }
-            else
-                g_warning ("<KeyBindings> invalid key name: '%s' - ignored", name);
-        }
-        else
-            g_warning ("<KeyBindings> unknown user action: '%s' - ignored", action);
-
-        g_variant_unref(keybinding);
-    }
-    g_variant_unref(gvKeybindings);
+    GVariant *gvKeybindings = g_settings_get_value(options.gcmd_settings->general, GCMD_SETTINGS_KEYBINDINGS);
+    if (gvKeybindings == nullptr)
+        gvKeybindings = g_settings_get_default_value (options.gcmd_settings->general, GCMD_SETTINGS_KEYBINDINGS);
+    gcmd_user_actions->load_keybindings(gvKeybindings);
 }
 
 

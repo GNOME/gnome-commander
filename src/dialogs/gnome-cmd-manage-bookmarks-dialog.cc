@@ -181,21 +181,6 @@ static void fill_tree (GtkTreeStore *store, GtkTreePath *&current_group)
     GnomeCmdCon *current_con = main_win->fs(ACTIVE)->get_connection();
     GtkTreeIter toplevel;
 
-    map<string,set<string> > keys;
-
-    for (GnomeCmdUserActions::const_iterator i=gcmd_user_actions.begin(); i!=gcmd_user_actions.end(); ++i)
-        if (!ascii_isupper (*i))                                       // ignore lowercase keys as they duplicate uppercase ones
-        {
-            const gchar *options = gcmd_user_actions.options(i);
-
-            if (options && strcmp(gcmd_user_actions.name(i),"bookmarks.goto")==0)
-            {
-                gchar *accelerator = egg_accelerator_get_label(i->first.keyval, (GdkModifierType) i->first.state);
-                keys[options].insert(accelerator);
-                g_free (accelerator);
-            }
-        }
-
     for (GList *all_cons = gnome_cmd_con_list_get_all (gnome_cmd_con_list_get ()); all_cons; all_cons = all_cons->next)
     {
         GnomeCmdCon *con = (GnomeCmdCon *) all_cons->data;
@@ -218,13 +203,16 @@ static void fill_tree (GtkTreeStore *store, GtkTreePath *&current_group)
         {
             gtk_tree_store_append (store, &child, &toplevel);
             GnomeCmdBookmark *bookmark = (GnomeCmdBookmark *) bookmarks->data;
+            gchar *shortcut = gcmd_user_actions->bookmark_shortcuts(bookmark->name);
 
             gtk_tree_store_set (store, &child,
                                 COL_NAME, bookmark->name,
                                 COL_PATH, bookmark->path,
-                                COL_SHORTCUT, join(keys[bookmark->name], ", ").c_str(),
+                                COL_SHORTCUT, shortcut,
                                 COL_BOOKMARK, bookmark,
                                 -1);
+
+            g_free (shortcut);
         }
     }
 }
