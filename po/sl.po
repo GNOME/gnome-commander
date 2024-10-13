@@ -11,8 +11,8 @@ msgstr ""
 "Project-Id-Version: gnome-commander master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-commander/"
 "issues/\n"
-"POT-Creation-Date: 2024-10-05 13:07+0000\n"
-"PO-Revision-Date: 2024-10-05 20:34+0200\n"
+"POT-Creation-Date: 2024-10-13 10:19+0000\n"
+"PO-Revision-Date: 2024-10-13 18:20+0200\n"
 "Last-Translator: Martin Srebotnjak <miles@filmsi.net>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
 "Language: sl_SI\n"
@@ -25,7 +25,7 @@ msgstr ""
 "X-Generator: Poedit 2.2.1\n"
 
 #: data/org.gnome.gnome-commander.appdata.xml.in:7
-#: data/org.gnome.gnome-commander.desktop.in:3 src/gnome-cmd-main-win.cc:572
+#: data/org.gnome.gnome-commander.desktop.in:3 src/gnome-cmd-main-win.cc:549
 msgid "GNOME Commander"
 msgstr "GNOME Commander"
 
@@ -142,7 +142,7 @@ msgstr ""
 "Določa, kako naj bo izpisana velikost datoteke v ustreznem stolpcu okna."
 
 #: data/org.gnome.gnome-commander.gschema.xml:80
-#: src/dialogs/gnome-cmd-options-dialog.cc:394
+#: src/dialogs/gnome-cmd-options-dialog.cc:393
 msgid "Permission display mode"
 msgstr "Način prikazovanja dovoljenj"
 
@@ -180,7 +180,7 @@ msgid "'%F %R'"
 msgstr "'%e.%m.%y %R'"
 
 #: data/org.gnome.gnome-commander.gschema.xml:106
-#: src/dialogs/gnome-cmd-options-dialog.cc:410
+#: src/dialogs/gnome-cmd-options-dialog.cc:409
 msgid "Date format"
 msgstr "Zapis datuma"
 
@@ -580,7 +580,7 @@ msgid "Defines if the tab bar is always shown."
 msgstr "Določa, ali je vrstica z zavihki vedno vidna."
 
 #: data/org.gnome.gnome-commander.gschema.xml:410
-#: src/dialogs/gnome-cmd-options-dialog.cc:1001
+#: src/dialogs/gnome-cmd-options-dialog.cc:998
 msgid "Tab lock indicator"
 msgstr "Določilnik zaklepa zavihka"
 
@@ -1456,68 +1456,68 @@ msgstr ""
 msgid "No error description available"
 msgstr "Opis napake ni na voljo"
 
-#: libgcmd/gnome-cmd-string-dialog.cc:138 libgcmd/libgcmd-widget-factory.cc:296
-#: plugins/fileroller/file-roller-plugin.cc:431
-#: src/advrename_profile_component.rs:106
-#: src/dialogs/advrename_regex_dialog.rs:136 src/dialogs/connect_dialog.rs:241
+#: libgcmd/gnome-cmd-string-dialog.cc:138 libgcmd/libgcmd-widget-factory.cc:303
+#: plugins/fileroller/file-roller-plugin.cc:430
+#: src/advrename_profile_component.rs:103
+#: src/dialogs/advrename_regex_dialog.rs:135 src/dialogs/chmod_dialog.rs:140
+#: src/dialogs/chown_dialog.rs:112 src/dialogs/connect_dialog.rs:247
 #: src/dialogs/create_symlink_dialog.rs:75 src/dialogs/delete_dialog.rs:92
 #: src/dialogs/edit_bookmark_dialog.rs:44
-#: src/dialogs/gnome-cmd-chmod-dialog.cc:229
-#: src/dialogs/gnome-cmd-chown-dialog.cc:191
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:677
-#: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:263
-#: src/dialogs/gnome-cmd-mkdir-dialog.cc:171
-#: src/dialogs/gnome-cmd-options-dialog.cc:771
-#: src/dialogs/gnome-cmd-options-dialog.cc:1624
-#: src/dialogs/gnome-cmd-options-dialog.cc:2107
-#: src/dialogs/gnome-cmd-options-dialog.cc:2400
-#: src/dialogs/gnome-cmd-patternsel-dialog.cc:97
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:674
+#: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:262
+#: src/dialogs/gnome-cmd-mkdir-dialog.cc:172
+#: src/dialogs/gnome-cmd-options-dialog.cc:769
+#: src/dialogs/gnome-cmd-options-dialog.cc:1615
+#: src/dialogs/gnome-cmd-options-dialog.cc:2092
+#: src/dialogs/gnome-cmd-options-dialog.cc:2379
+#: src/dialogs/gnome-cmd-patternsel-dialog.cc:98
 #: src/dialogs/key_shortcuts_dialog.rs:115 src/dialogs/make_copy_dialog.rs:86
-#: src/dialogs/prepare_transfer_dialog.rs:89
-#: src/dialogs/profiles/edit_profile_dialog.rs:105
-#: src/dialogs/profiles/manage_profiles_dialog.rs:292
-#: src/dialogs/transfer_progress_dialog.rs:88 src/dirlist.rs:67
-#: src/gnome-cmd-file-list.cc:1661 src/intviewer/search-dlg.cc:217
+#: src/dialogs/open_with_other_dialog.rs:74
+#: src/dialogs/prepare_transfer_dialog.rs:84
+#: src/dialogs/profiles/edit_profile_dialog.rs:111
+#: src/dialogs/profiles/manage_profiles_dialog.rs:319
+#: src/dialogs/transfer_progress_dialog.rs:87 src/dirlist.rs:66
+#: src/gnome-cmd-file-list.cc:1662 src/intviewer/search-dlg.cc:217
 msgid "_Cancel"
 msgstr "Pre_kliči"
 
-#: libgcmd/gnome-cmd-string-dialog.cc:139 libgcmd/libgcmd-widget-factory.cc:297
-#: plugins/fileroller/file-roller-plugin.cc:438
-#: plugins/fileroller/file-roller-plugin.cc:632
-#: src/advrename_profile_component.rs:120
-#: src/dialogs/advrename_regex_dialog.rs:148 src/dialogs/connect_dialog.rs:251
+#: libgcmd/gnome-cmd-string-dialog.cc:139 libgcmd/libgcmd-widget-factory.cc:304
+#: plugins/fileroller/file-roller-plugin.cc:437
+#: plugins/fileroller/file-roller-plugin.cc:630
+#: src/advrename_profile_component.rs:119
+#: src/dialogs/advrename_regex_dialog.rs:149 src/dialogs/chmod_dialog.rs:154
+#: src/dialogs/chown_dialog.rs:126 src/dialogs/connect_dialog.rs:259
 #: src/dialogs/create_symlink_dialog.rs:84
 #: src/dialogs/edit_bookmark_dialog.rs:45
-#: src/dialogs/gnome-cmd-chmod-dialog.cc:231
-#: src/dialogs/gnome-cmd-chown-dialog.cc:192
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:678
-#: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:264
-#: src/dialogs/gnome-cmd-mkdir-dialog.cc:172
-#: src/dialogs/gnome-cmd-options-dialog.cc:772
-#: src/dialogs/gnome-cmd-options-dialog.cc:1626
-#: src/dialogs/gnome-cmd-options-dialog.cc:2110
-#: src/dialogs/gnome-cmd-options-dialog.cc:2401
-#: src/dialogs/gnome-cmd-patternsel-dialog.cc:98
-#: src/dialogs/make_copy_dialog.rs:96 src/dialogs/prepare_transfer_dialog.rs:82
-#: src/dialogs/profiles/edit_profile_dialog.rs:115
-#: src/dialogs/profiles/manage_profiles_dialog.rs:304
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:675
+#: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:263
+#: src/dialogs/gnome-cmd-mkdir-dialog.cc:173
+#: src/dialogs/gnome-cmd-options-dialog.cc:770
+#: src/dialogs/gnome-cmd-options-dialog.cc:1617
+#: src/dialogs/gnome-cmd-options-dialog.cc:2095
+#: src/dialogs/gnome-cmd-options-dialog.cc:2380
+#: src/dialogs/gnome-cmd-patternsel-dialog.cc:99
+#: src/dialogs/make_copy_dialog.rs:98 src/dialogs/open_with_other_dialog.rs:83
+#: src/dialogs/prepare_transfer_dialog.rs:77
+#: src/dialogs/profiles/edit_profile_dialog.rs:123
+#: src/dialogs/profiles/manage_profiles_dialog.rs:333
 #: src/intviewer/search-dlg.cc:218
 msgid "_OK"
 msgstr "V _redu"
 
-#: libgcmd/libgcmd-widget-factory.cc:293
-msgid "Select an Image File"
-msgstr "Izbor slikovne datoteke"
-
-#: libgcmd/libgcmd-widget-factory.cc:324 libgcmd/libgcmd-widget-factory.cc:343
+#: libgcmd/libgcmd-widget-factory.cc:273
 msgid "Choose Icon"
 msgstr "Izbor ikone"
 
-#: libgcmd/libgcmd-widget-factory.cc:385
+#: libgcmd/libgcmd-widget-factory.cc:300
+msgid "Select an Image File"
+msgstr "Izbor slikovne datoteke"
+
+#: libgcmd/libgcmd-widget-factory.cc:371
 msgid "Select Directory"
 msgstr "Izbor mape"
 
-#: libgcmd/libgcmd-widget-factory.cc:403 libgcmd/libgcmd-widget-factory.cc:418
+#: libgcmd/libgcmd-widget-factory.cc:388 libgcmd/libgcmd-widget-factory.cc:402
 msgid "(None)"
 msgstr "(brez)"
 
@@ -1545,55 +1545,55 @@ msgstr "Ustvari arhiv"
 msgid "What file name should the new archive have?"
 msgstr "Kakšno ime naj ima nov arhiv?"
 
-#: plugins/fileroller/file-roller-plugin.cc:500
+#: plugins/fileroller/file-roller-plugin.cc:498
 msgid "Create Archive…"
 msgstr "Ustvari arhiv …"
 
 #. extract to current directory
-#: plugins/fileroller/file-roller-plugin.cc:519
+#: plugins/fileroller/file-roller-plugin.cc:517
 msgid "Extract in Current Directory"
 msgstr "Razširi v trenutno mapo"
 
-#: plugins/fileroller/file-roller-plugin.cc:527
-#: plugins/fileroller/file-roller-plugin.cc:549
+#: plugins/fileroller/file-roller-plugin.cc:525
+#: plugins/fileroller/file-roller-plugin.cc:547
 #, c-format
 msgid "Extract to “%s”"
 msgstr "Razširi v mapo »%s«"
 
-#: plugins/fileroller/file-roller-plugin.cc:610
-#: src/gnome-cmd-advrename-profile-component.cc:741 src/plugin_manager.cc:405
+#: plugins/fileroller/file-roller-plugin.cc:608
+#: src/gnome-cmd-advrename-profile-component.cc:740 src/plugin_manager.cc:405
 #: src/tags/gnome-cmd-tags.cc:692
 msgid "File"
 msgstr "Datoteka"
 
 #. destroy model automatically with view
-#: plugins/fileroller/file-roller-plugin.cc:629
-#: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:383
-#: src/dialogs/gnome-cmd-options-dialog.cc:1571
-#: src/dialogs/gnome-cmd-options-dialog.cc:2397
-#: src/dialogs/prepare_copy_dialog.rs:92 src/gnome-cmd-user-actions.cc:364
+#: plugins/fileroller/file-roller-plugin.cc:627
+#: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:381
+#: src/dialogs/gnome-cmd-options-dialog.cc:1564
+#: src/dialogs/gnome-cmd-options-dialog.cc:2376
+#: src/dialogs/prepare_copy_dialog.rs:101 src/gnome-cmd-user-actions.cc:351
 msgid "Options"
 msgstr "Možnosti"
 
-#: plugins/fileroller/file-roller-plugin.cc:640
+#: plugins/fileroller/file-roller-plugin.cc:638
 msgid "File-roller options"
 msgstr "Možnosti File-roller"
 
-#: plugins/fileroller/file-roller-plugin.cc:643
+#: plugins/fileroller/file-roller-plugin.cc:641
 msgid "Default archive type"
 msgstr "Privzeta vrsta arhiva"
 
 #. The pattern defining the file name prefix of the archive to be created
-#: plugins/fileroller/file-roller-plugin.cc:652
+#: plugins/fileroller/file-roller-plugin.cc:650
 msgid "File prefix pattern"
 msgstr "Vzorec predpone datoteke"
 
-#: plugins/fileroller/file-roller-plugin.cc:664
-#: src/dialogs/gnome-cmd-options-dialog.cc:425
+#: plugins/fileroller/file-roller-plugin.cc:662
+#: src/dialogs/gnome-cmd-options-dialog.cc:424
 msgid "Test result:"
 msgstr "Rezultat preizkusa:"
 
-#: plugins/fileroller/file-roller-plugin.cc:672
+#: plugins/fileroller/file-roller-plugin.cc:670
 msgid ""
 "Use $N as a pattern for the original file name. See the manual page for "
 "“strftime” for other patterns."
@@ -1601,7 +1601,7 @@ msgstr ""
 "Uporabi $N za vzorec imena izvorne datoteke. Drugi vzorci so predstavljeni "
 "na straneh priročnika pri zapisih »strftime«."
 
-#: plugins/fileroller/file-roller-plugin.cc:827
+#: plugins/fileroller/file-roller-plugin.cc:825
 msgid ""
 "A plugin that adds File Roller shortcuts for creating and extracting "
 "compressed archives."
@@ -1615,26 +1615,26 @@ msgid ""
 "aspiring plugin hackers"
 msgstr "To je preizkusni vstavek za prikaz delovanja"
 
-#: src/advrename_profile_component.rs:54
+#: src/advrename_profile_component.rs:51
 msgid "Range Selection"
 msgstr "Izbira območja"
 
-#: src/advrename_profile_component.rs:82
+#: src/advrename_profile_component.rs:79
 msgid "_Select range:"
 msgstr "Izbor _območja:"
 
-#: src/advrename_profile_component.rs:91
+#: src/advrename_profile_component.rs:88
 msgid "_Inverse selection"
 msgstr "_Obrni izbor"
 
 #: src/advrename_profile_component.rs:240
-#: src/dialogs/prepare_transfer_dialog.rs:227 src/file_list_actions.rs:53
+#: src/dialogs/prepare_transfer_dialog.rs:229 src/file_list_actions.rs:60
 #: src/gnome-cmd-advrename-profile-component.cc:477
 msgid "Yes"
 msgstr "Da"
 
 #: src/advrename_profile_component.rs:242
-#: src/dialogs/prepare_transfer_dialog.rs:227 src/file_list_actions.rs:53
+#: src/dialogs/prepare_transfer_dialog.rs:229 src/file_list_actions.rs:60
 #: src/gnome-cmd-advrename-profile-component.cc:477
 msgid "No"
 msgstr "Ne"
@@ -1647,7 +1647,15 @@ msgstr "Dodaj pravilo"
 msgid "Edit Rule"
 msgstr "Uredi pravilo"
 
-#: src/app.rs:174
+#: src/app.rs:79 src/open_file.rs:197
+msgid "Launch of {} failed."
+msgstr "Zagon {} ni uspel."
+
+#: src/app.rs:164
+msgid "Cannot launch an app {}. No files were given."
+msgstr "Programa {} ni mogoče zagnati. Datoteke niso bile podane."
+
+#: src/app.rs:175
 msgid "Cannot build a command line."
 msgstr "Ukazne vrstice ni mogoče zgraditi."
 
@@ -1659,122 +1667,154 @@ msgstr "Nov profil"
 msgid "Profiles"
 msgstr "Profili"
 
-#: src/dialogs/advrename_regex_dialog.rs:92
+#: src/dialogs/advrename_regex_dialog.rs:91
 msgid "_Search for:"
 msgstr "_Poišči:"
 
-#: src/dialogs/advrename_regex_dialog.rs:103
+#: src/dialogs/advrename_regex_dialog.rs:102
 msgid "_Replace for:"
 msgstr "_Zamenjaj za:"
 
 #. Case-Sensitive Checkbox
-#: src/dialogs/advrename_regex_dialog.rs:113 src/intviewer/search-dlg.cc:252
+#: src/dialogs/advrename_regex_dialog.rs:112 src/intviewer/search-dlg.cc:253
 msgid "_Match case"
 msgstr "_Upoštevaj velikost črk"
 
-#: src/dialogs/connect_dialog.rs:47
+#: src/dialogs/chmod_dialog.rs:43
+msgid "Could not chmod {}"
+msgstr "Ni možno spremeniti lastnosti {} s chmod"
+
+#: src/dialogs/chmod_dialog.rs:98 src/dialogs/chown_dialog.rs:83
+msgid "Access Permissions"
+msgstr "Dovoljenja"
+
+#: src/dialogs/chmod_dialog.rs:115
+msgid "Apply Recursively for"
+msgstr "Uporabi po strukturi map"
+
+#: src/dialogs/chmod_dialog.rs:119 src/dialogs/gnome-cmd-options-dialog.cc:1585
+msgid "All files"
+msgstr "Vse datoteke"
+
+#: src/dialogs/chmod_dialog.rs:120
+msgid "Directories only"
+msgstr "Samo mape"
+
+#: src/dialogs/chown_dialog.rs:38
+msgid "Could not chown {}"
+msgstr "Ni možno spremeniti lastništva {} s chown"
+
+#: src/dialogs/chown_dialog.rs:101
+msgid "Apply Recursively"
+msgstr "Uporabi po strukturi map"
+
+#: src/dialogs/connect_dialog.rs:46
 msgid "SSH"
 msgstr "SSH"
 
-#: src/dialogs/connect_dialog.rs:54
+#: src/dialogs/connect_dialog.rs:53
 msgid "FTP (with login)"
 msgstr "FTP (s prijavo)"
 
-#: src/dialogs/connect_dialog.rs:61
+#: src/dialogs/connect_dialog.rs:60
 msgid "Public FTP"
 msgstr "Javni FTP"
 
-#: src/dialogs/connect_dialog.rs:68
+#: src/dialogs/connect_dialog.rs:67
 msgid "Windows share"
 msgstr "Souporaba z Windows sistemom"
 
-#: src/dialogs/connect_dialog.rs:75
+#: src/dialogs/connect_dialog.rs:74
 msgid "WebDAV (HTTP)"
 msgstr "WebDAV (HTTP)"
 
-#: src/dialogs/connect_dialog.rs:82
+#: src/dialogs/connect_dialog.rs:81
 msgid "Secure WebDAV (HTTPS)"
 msgstr "Varen WebDAV (HTTPS)"
 
-#: src/dialogs/connect_dialog.rs:89
+#: src/dialogs/connect_dialog.rs:88
 msgid "Custom location"
 msgstr "Mesto po meri"
 
-#: src/dialogs/connect_dialog.rs:158 src/gnome-cmd-main-win.cc:188
+#: src/dialogs/connect_dialog.rs:157 src/gnome-cmd-main-win.cc:189
 msgid "Remote Server"
 msgstr "Oddaljeni strežnik"
 
-#: src/dialogs/connect_dialog.rs:170
+#: src/dialogs/connect_dialog.rs:169
 msgid "Service _type:"
 msgstr "_Vrsta storitve:"
 
-#: src/dialogs/connect_dialog.rs:193
+#: src/dialogs/connect_dialog.rs:195
 msgid "_Alias:"
 msgstr "_Vzdevek:"
 
-#: src/dialogs/connect_dialog.rs:194
+#: src/dialogs/connect_dialog.rs:196
 msgid "_Location (URI):"
 msgstr "_Mesto (naslov URI):"
 
-#: src/dialogs/connect_dialog.rs:195
+#: src/dialogs/connect_dialog.rs:197
 msgid "_Server:"
 msgstr "_Strežnik:"
 
-#: src/dialogs/connect_dialog.rs:198
+#: src/dialogs/connect_dialog.rs:200
 msgid "Optional information"
 msgstr "Dodatne podrobnosti"
 
-#: src/dialogs/connect_dialog.rs:206
+#: src/dialogs/connect_dialog.rs:208
 msgid "_Port:"
 msgstr "_Vrata:"
 
 #. g_signal_connect (dialog.imp().port_entry, "insert-text", G_CALLBACK (port_insert_text), NULL);
-#: src/dialogs/connect_dialog.rs:208
+#: src/dialogs/connect_dialog.rs:210
 msgid "_Folder:"
 msgstr "_Mapa:"
 
-#: src/dialogs/connect_dialog.rs:210
+#: src/dialogs/connect_dialog.rs:212
 msgid "_Domain name:"
 msgstr "Ime _domene:"
 
-#: src/dialogs/connect_dialog.rs:226
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:666
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:675
-#: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:262
+#: src/dialogs/connect_dialog.rs:228
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:669
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:672
+#: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:261
 #: src/dialogs/gnome-cmd-manage-bookmarks-dialog.cc:97
-#: src/dialogs/gnome-cmd-mkdir-dialog.cc:170
-#: src/dialogs/gnome-cmd-options-dialog.cc:2104
-#: src/dialogs/gnome-cmd-options-dialog.cc:2399
-#: src/dialogs/gnome-cmd-search-dialog.cc:1276
+#: src/dialogs/gnome-cmd-mkdir-dialog.cc:171
+#: src/dialogs/gnome-cmd-options-dialog.cc:2089
+#: src/dialogs/gnome-cmd-options-dialog.cc:2378
+#: src/dialogs/gnome-cmd-search-dialog.cc:1258
 #: src/dialogs/profiles/edit_profile_dialog.rs:79
-#: src/dialogs/profiles/manage_profiles_dialog.rs:280
-#: src/dialogs/remote_dialog.rs:242 src/gnome-cmd-main-menu.cc:249
-#: src/intviewer/viewer-window.cc:582
+#: src/dialogs/profiles/manage_profiles_dialog.rs:305
+#: src/dialogs/remote_dialog.rs:248 src/gnome-cmd-main-menu.cc:248
+#: src/intviewer/viewer-window.cc:560
 msgid "_Help"
 msgstr "Pomo_č"
 
-#: src/dialogs/connect_dialog.rs:332
+#: src/dialogs/connect_dialog.rs:342
 msgid "You must enter a name for the server"
 msgstr "Vpisati je treba ime strežnika."
 
-#: src/dialogs/connect_dialog.rs:333
+#: src/dialogs/connect_dialog.rs:343
 msgid "Please enter a name and try again."
 msgstr "Vpišite ime in poskusite znova."
 
-#: src/dialogs/connect_dialog.rs:347
+#: src/dialogs/connect_dialog.rs:357
 msgid "You must enter a number for the port"
 msgstr "Vnesti morate številko vrat"
 
-#: src/dialogs/connect_dialog.rs:365
+#: src/dialogs/connect_dialog.rs:385
 msgid "Connection method is not selected"
 msgstr "Način povezave ni izbran"
 
-#: src/dialogs/connect_dialog.rs:433
+#: src/dialogs/connect_dialog.rs:450
+msgid "“{}” is not a valid location"
+msgstr "»{}« ni veljavno mesto"
+
+#: src/dialogs/connect_dialog.rs:451
 msgid "Please check spelling and try again."
 msgstr "Preverite črkovanje in poskusite znova."
 
-#: src/dialogs/create_symlink_dialog.rs:39 src/user_actions.rs:85
-#: src/user_actions.rs:143
+#: src/dialogs/create_symlink_dialog.rs:39 src/user_actions.rs:130
+#: src/user_actions.rs:189
 msgid "Create Symbolic Link"
 msgstr "Ustvari simbolno povezavo"
 
@@ -1782,7 +1822,7 @@ msgstr "Ustvari simbolno povezavo"
 msgid "Symbolic link name:"
 msgstr "Ime simbolne povezave:"
 
-#: src/dialogs/create_symlink_dialog.rs:97
+#: src/dialogs/create_symlink_dialog.rs:105
 msgid "No file name given"
 msgstr "Ni določenega imena datoteke"
 
@@ -1790,53 +1830,87 @@ msgstr "Ni določenega imena datoteke"
 msgid "Deleting…"
 msgstr "Poteka brisanje …"
 
-#: src/dialogs/delete_dialog.rs:211 src/dialogs/delete_dialog.rs:224
-#: src/dialogs/delete_dialog.rs:541 src/dialogs/delete_dialog.rs:546
-#: src/dialogs/gnome-cmd-options-dialog.cc:1069
-#: src/gnome-cmd-file-popmenu.cc:357 src/gnome-cmd-main-win.cc:183
-#: src/gnome-cmd-user-actions.cc:324
+#: src/dialogs/delete_dialog.rs:179
+msgid "Deleted {count} of {total} file"
+msgid_plural "Deleted {count} of {total} files"
+msgstr[0] "Izbrisanih {count} od {total} datotek"
+msgstr[1] "Izbrisana {count} od {total} datotek"
+msgstr[2] "Izbrisani {count} od {total} datotek"
+msgstr[3] "Izbrisane {count} od {total} datotek"
+
+#: src/dialogs/delete_dialog.rs:203
+msgid "The directory “{}” is not empty. Do you really want to delete it?"
+msgstr "Mapa »{}« ni prazna. Ali jo res želite izbrisati?"
+
+#: src/dialogs/delete_dialog.rs:206
+msgid "Do you really want to delete “{}”?"
+msgstr "Ali res želite izbrisati »{}«?"
+
+#: src/dialogs/delete_dialog.rs:214 src/dialogs/delete_dialog.rs:227
+#: src/dialogs/delete_dialog.rs:544 src/dialogs/delete_dialog.rs:549
+#: src/dialogs/gnome-cmd-options-dialog.cc:1064
+#: src/gnome-cmd-file-popmenu.cc:357 src/gnome-cmd-main-win.cc:184
+#: src/gnome-cmd-user-actions.cc:311
 msgid "Delete"
 msgstr "Izbriši"
 
-#: src/dialogs/delete_dialog.rs:217 src/dialogs/delete_dialog.rs:546
-#: src/open_file.rs:50 src/open_file.rs:74 src/user_actions.rs:90
-#: src/user_actions.rs:145
+#: src/dialogs/delete_dialog.rs:220 src/dialogs/delete_dialog.rs:549
+#: src/open_file.rs:52 src/open_file.rs:75 src/user_actions.rs:135
+#: src/user_actions.rs:191
 msgid "Cancel"
 msgstr "Prekliči"
 
-#: src/dialogs/delete_dialog.rs:218 src/dialogs/delete_dialog.rs:251
-#: src/dialogs/gnome-cmd-options-dialog.cc:1097
-#: src/dialogs/gnome-cmd-options-dialog.cc:1121
-#: src/dialogs/prepare_copy_dialog.rs:78 src/dialogs/prepare_move_dialog.rs:78
-#: src/user_actions.rs:88
+#: src/dialogs/delete_dialog.rs:221 src/dialogs/delete_dialog.rs:256
+#: src/dialogs/gnome-cmd-options-dialog.cc:1092
+#: src/dialogs/gnome-cmd-options-dialog.cc:1116
+#: src/dialogs/prepare_copy_dialog.rs:80 src/dialogs/prepare_move_dialog.rs:80
+#: src/user_actions.rs:133
 msgid "Skip"
 msgstr "Preskoči"
 
-#: src/dialogs/delete_dialog.rs:220
+#: src/dialogs/delete_dialog.rs:223
 msgid "Delete All"
 msgstr "Izbriši vse"
 
-#: src/dialogs/delete_dialog.rs:222
+#: src/dialogs/delete_dialog.rs:225
 msgid "Delete Remaining"
 msgstr "Izbriši preostale"
 
-#: src/dialogs/delete_dialog.rs:249 src/dialogs/delete_dialog.rs:584
+#: src/dialogs/delete_dialog.rs:245
+msgid ""
+"Error while deleting “{file}”\n"
+"\n"
+"{error}"
+msgstr ""
+"Napaka pri brisanju »{file}«\n"
+"\n"
+"{error}"
+
+#: src/dialogs/delete_dialog.rs:254 src/dialogs/delete_dialog.rs:587
 msgid "Delete problem"
 msgstr "Napaka med brisanjem"
 
-#: src/dialogs/delete_dialog.rs:251 src/dialogs/delete_dialog.rs:586
+#: src/dialogs/delete_dialog.rs:256 src/dialogs/delete_dialog.rs:589
 msgid "Abort"
 msgstr "Prekliči"
 
-#: src/dialogs/delete_dialog.rs:251 src/user_actions.rs:91
+#: src/dialogs/delete_dialog.rs:256 src/user_actions.rs:136
 msgid "Retry"
 msgstr "Poskusi znova"
 
-#: src/dialogs/delete_dialog.rs:398
+#: src/dialogs/delete_dialog.rs:403
 msgid "Deletion failed"
 msgstr "Brisanje ni uspelo"
 
-#: src/dialogs/delete_dialog.rs:519
+#: src/dialogs/delete_dialog.rs:514
+msgid "Do you want to permanently delete “{}”?"
+msgstr "Ali želite trajno izbrisati »{}«?"
+
+#: src/dialogs/delete_dialog.rs:516
+msgid "Do you want to move “{}” to the trash can?"
+msgstr "Ali želite premakniti »{}« v koš?"
+
+#: src/dialogs/delete_dialog.rs:522
 #, c-format
 msgid "Do you want to permanently delete the selected file?"
 msgid_plural "Do you want to permanently delete the %d selected files?"
@@ -1845,7 +1919,7 @@ msgstr[1] "Ali želite trajno izbrisati %d izbrano datoteko?"
 msgstr[2] "Ali želite trajno izbrisati %d izbrani datoteki?"
 msgstr[3] "Ali želite trajno izbrisati %d izbrane datoteke?"
 
-#: src/dialogs/delete_dialog.rs:525
+#: src/dialogs/delete_dialog.rs:528
 #, c-format
 msgid "Do you want to move the selected file to the trash can?"
 msgid_plural "Do you want to move the %d selected files to the trash can?"
@@ -1853,6 +1927,16 @@ msgstr[0] "Ali želite premakniti %d izbranih datotek v smeti?"
 msgstr[1] "Ali želite premakniti %d izbrano datoteko v smeti?"
 msgstr[2] "Ali želite premakniti %d izbrani datoteki v smeti?"
 msgstr[3] "Ali želite premakniti %d izbrane datoteke v smeti?"
+
+#: src/dialogs/delete_dialog.rs:586
+msgid ""
+"Error while deleting: \n"
+"\n"
+"{}"
+msgstr ""
+"Napaka pri brisanju: \n"
+"\n"
+"{}"
 
 #: src/dialogs/edit_bookmark_dialog.rs:70
 msgid "Bookmark _name:"
@@ -1862,11 +1946,11 @@ msgstr "_Ime zaznamka:"
 msgid "Bookmark _target:"
 msgstr "_Cilj zaznamka:"
 
-#: src/dialogs/edit_bookmark_dialog.rs:111
+#: src/dialogs/edit_bookmark_dialog.rs:115
 msgid "Bookmark name is missing."
 msgstr "Manjka ime zaznamka."
 
-#: src/dialogs/edit_bookmark_dialog.rs:114
+#: src/dialogs/edit_bookmark_dialog.rs:122
 msgid "Bookmark target is missing."
 msgstr "Manjka cilj zaznamka."
 
@@ -1886,7 +1970,7 @@ msgstr "Odstrani iz seznama datotek"
 
 #. {file_umount, "file.umount"},
 #: src/dialogs/gnome-cmd-advrename-dialog.cc:307
-#: src/gnome-cmd-user-actions.cc:350
+#: src/gnome-cmd-user-actions.cc:337
 msgid "View file"
 msgstr "Pogled datoteke"
 
@@ -1898,121 +1982,86 @@ msgstr "Lastnosti datoteke"
 msgid "Update file list"
 msgstr "Posodobi seznam datotek"
 
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:498
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:502
 msgid "Advanced Rename Tool"
 msgstr "Napredno preimenovanje"
 
 #. Results
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:513
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:517
 msgid "Results"
 msgstr "Rezultati"
 
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:584
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:587
 msgid "Old name"
 msgstr "Staro ime"
 
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:588
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:591
 msgid "Current file name"
 msgstr "Trenutno ime datoteke"
 
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:590
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:593
 msgid "New name"
 msgstr "Novo ime"
 
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:594
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:597
 msgid "New file name"
 msgstr "Novo ime datoteke"
 
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:596 src/tags/gnome-cmd-tags.cc:332
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:599 src/tags/gnome-cmd-tags.cc:332
 #: src/tags/gnome-cmd-tags.cc:396
 msgid "Size"
 msgstr "Velikost"
 
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:600
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:603
 msgid "File size"
 msgstr "Velikost datoteke"
 
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:602
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:605
 #: src/gnome-cmd-advrename-profile-component.cc:156
-#: src/gnome-cmd-advrename-profile-component.cc:749
+#: src/gnome-cmd-advrename-profile-component.cc:748
 #: src/tags/gnome-cmd-tags.cc:347 src/tags/gnome-cmd-tags.cc:423
 msgid "Date"
 msgstr "Datum"
 
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:606
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:609
 msgid "File modification date"
 msgstr "Datum spremembe datoteke"
 
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:658
-#: src/dialogs/gnome-cmd-search-dialog.cc:1268
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:661
+#: src/dialogs/gnome-cmd-search-dialog.cc:1250
 msgid "Profiles…"
 msgstr "Profili …"
 
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:667
-#: src/dialogs/profiles/edit_profile_dialog.rs:91
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:670
+#: src/dialogs/profiles/edit_profile_dialog.rs:93
 msgid "Reset"
 msgstr "Ponastavi"
 
 #. Add the close button
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:668
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:671
 #: src/dialogs/gnome-cmd-manage-bookmarks-dialog.cc:98
-#: src/dialogs/gnome-cmd-options-dialog.cc:581
-#: src/dialogs/gnome-cmd-search-dialog.cc:1277 src/dialogs/remote_dialog.rs:254
-#: src/gnome-cmd-about-plugin.cc:181 src/gnome-cmd-about-plugin.cc:312
-#: src/intviewer/viewer-window.cc:516 src/plugin_manager.cc:439
+#: src/dialogs/gnome-cmd-options-dialog.cc:579
+#: src/dialogs/gnome-cmd-search-dialog.cc:1259 src/dialogs/remote_dialog.rs:262
+#: src/gnome-cmd-about-plugin.cc:181 src/gnome-cmd-about-plugin.cc:310
+#: src/intviewer/viewer-window.cc:494 src/plugin_manager.cc:437
 msgid "_Close"
 msgstr "_Zapri"
 
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:669
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:672
 msgid "_Apply"
 msgstr "_Uveljavi"
-
-#: src/dialogs/gnome-cmd-chmod-dialog.cc:45
-#: src/dialogs/gnome-cmd-options-dialog.cc:1592
-msgid "All files"
-msgstr "Vse datoteke"
-
-#: src/dialogs/gnome-cmd-chmod-dialog.cc:46
-msgid "Directories only"
-msgstr "Samo mape"
-
-#: src/dialogs/gnome-cmd-chmod-dialog.cc:85
-#, c-format
-msgid "Could not chmod %s"
-msgstr "Ni mogoče spremeniti lastnosti %s"
-
-#: src/dialogs/gnome-cmd-chmod-dialog.cc:206
-msgid "Access Permissions"
-msgstr "Dovoljenja"
-
-#: src/dialogs/gnome-cmd-chmod-dialog.cc:220
-msgid "Apply Recursively for"
-msgstr "Uporabi po strukturi map"
-
-#: src/dialogs/gnome-cmd-chown-dialog.cc:65
-#, c-format
-msgid "Could not chown %s"
-msgstr "Ni mogoče spremeniti lastništva %s"
-
-#: src/dialogs/gnome-cmd-chown-dialog.cc:179
-msgid "Chown"
-msgstr "Zamenjava lastništva"
-
-#: src/dialogs/gnome-cmd-chown-dialog.cc:188
-msgid "Apply Recursively"
-msgstr "Uporabi po strukturi map"
 
 #: src/dialogs/gnome-cmd-file-props-dialog.cc:307
 msgid "Image:"
 msgstr "Slika:"
 
 #: src/dialogs/gnome-cmd-file-props-dialog.cc:332
-#: src/dialogs/gnome-cmd-mkdir-dialog.cc:192
+#: src/dialogs/gnome-cmd-mkdir-dialog.cc:193
 msgid "Directory name:"
 msgstr "Ime mape:"
 
 #: src/dialogs/gnome-cmd-file-props-dialog.cc:332
-#: src/gnome-cmd-file-selector.cc:1085
+#: src/gnome-cmd-file-selector.cc:1073
 msgid "File name:"
 msgstr "Ime datoteke:"
 
@@ -2064,77 +2113,77 @@ msgstr "Lastnik in skupina"
 msgid "Access permissions"
 msgstr "Dovoljenja dostopa"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:595
-#: src/intviewer/viewer-window.cc:1199
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:594
+#: src/intviewer/viewer-window.cc:1175
 msgid "Type"
 msgstr "Vrsta"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:596
-#: src/intviewer/viewer-window.cc:1200
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:595
+#: src/intviewer/viewer-window.cc:1176
 msgid "Metadata namespace"
 msgstr "Imenski prostor metapodatkov"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:603
-#: src/dialogs/gnome-cmd-manage-bookmarks-dialog.cc:270
-#: src/dialogs/remote_dialog.rs:179 src/intviewer/viewer-window.cc:1207
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:602
+#: src/dialogs/gnome-cmd-manage-bookmarks-dialog.cc:268
+#: src/dialogs/remote_dialog.rs:177 src/intviewer/viewer-window.cc:1183
 #: src/plugin_manager.cc:403 src/tags/gnome-cmd-tags.cc:327
 msgid "Name"
 msgstr "Ime"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:604
-#: src/intviewer/viewer-window.cc:1208
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:603
+#: src/intviewer/viewer-window.cc:1184
 msgid "Tag name"
 msgstr "Ime oznake"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:606
-#: src/intviewer/viewer-window.cc:1210
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:605
+#: src/intviewer/viewer-window.cc:1186
 msgid "Value"
 msgstr "Vrednost"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:607
-#: src/intviewer/viewer-window.cc:1211
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:606
+#: src/intviewer/viewer-window.cc:1187
 msgid "Tag value"
 msgstr "Vrednost oznake"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:609
-#: src/intviewer/viewer-window.cc:1213 src/tags/gnome-cmd-tags.cc:171
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:608
+#: src/intviewer/viewer-window.cc:1189 src/tags/gnome-cmd-tags.cc:171
 #: src/tags/gnome-cmd-tags.cc:322 src/tags/gnome-cmd-tags.cc:424
 #: src/tags/gnome-cmd-tags.cc:535
 msgid "Description"
 msgstr "Opis"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:610
-#: src/intviewer/viewer-window.cc:1214
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:609
+#: src/intviewer/viewer-window.cc:1190
 msgid "Metadata tag description"
 msgstr "Opis oznake metapodatka"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:656
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:653
 msgid "File Properties"
 msgstr "Lastnosti datoteke"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:671
-#: src/gnome-cmd-user-actions.cc:344
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:668
+#: src/gnome-cmd-user-actions.cc:331
 msgid "Properties"
 msgstr "Lastnosti"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:672
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:669
 #: src/tags/gnome-cmd-tags.cc:329
 msgid "Permissions"
 msgstr "Dovoljenja"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:673
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:670
 msgid "Metadata"
 msgstr "Metapodatki"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:676
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:673
 msgid "Co_py"
 msgstr "Ko_piraj …"
 
-#: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:203
+#: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:202
 msgid "Keyboard Shortcuts"
 msgstr "Tipkovne bližnjice"
 
-#: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:240
+#: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:239
 msgid ""
 "To edit a shortcut key, click on the corresponding row and type a new "
 "accelerator, or press escape to cancel."
@@ -2142,105 +2191,105 @@ msgstr ""
 "Za urejanje tipkovnih bližnjic, kliknite na ustrezno vrstico in vnesite novo "
 "bližnjico, vnos počistite s preslednico."
 
-#: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:251
-#: src/dialogs/gnome-cmd-options-dialog.cc:1825
-#: src/dialogs/gnome-cmd-options-dialog.cc:2264
-#: src/dialogs/remote_dialog.rs:211
-#: src/gnome-cmd-advrename-profile-component.cc:845
+#: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:250
+#: src/dialogs/gnome-cmd-options-dialog.cc:1816
+#: src/dialogs/gnome-cmd-options-dialog.cc:2249
+#: src/dialogs/remote_dialog.rs:208
+#: src/gnome-cmd-advrename-profile-component.cc:844
 msgid "_Add"
 msgstr "_Dodaj"
 
-#: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:256
+#: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:255
 #: src/dialogs/gnome-cmd-manage-bookmarks-dialog.cc:139
-#: src/dialogs/gnome-cmd-options-dialog.cc:1835
-#: src/dialogs/gnome-cmd-options-dialog.cc:2274
-#: src/dialogs/profiles/manage_profiles_dialog.rs:265
+#: src/dialogs/gnome-cmd-options-dialog.cc:1824
+#: src/dialogs/gnome-cmd-options-dialog.cc:2257
+#: src/dialogs/profiles/manage_profiles_dialog.rs:286
 #: src/dialogs/remote_dialog.rs:124
-#: src/gnome-cmd-advrename-profile-component.cc:851
+#: src/gnome-cmd-advrename-profile-component.cc:850
 msgid "_Remove"
 msgstr "_Odstrani"
 
-#: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:367
+#: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:365
 msgid "Shortcut Key"
 msgstr "Tipkovna bližnjica"
 
-#: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:368
+#: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:366
 msgid "Keyboard shortcut for selected action"
 msgstr "Tipkovne bližnjice za izbrano dejanje"
 
-#: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:375
+#: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:373
 msgid "Action"
 msgstr "Dejanje"
 
-#: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:376
+#: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:374
 msgid "User action"
 msgstr "Skript"
 
-#: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:384
+#: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:382
 msgid "Optional data"
 msgstr "Dodatne podrobnosti"
 
-#: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:620
+#: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:618
 msgid "Do nothing"
 msgstr "Ne naredi ničesar"
 
 #: src/dialogs/gnome-cmd-manage-bookmarks-dialog.cc:99
-#: src/dialogs/gnome-cmd-search-dialog.cc:1278
+#: src/dialogs/gnome-cmd-search-dialog.cc:1260
 msgid "_Jump to"
 msgstr "_Skoči na"
 
 #: src/dialogs/gnome-cmd-manage-bookmarks-dialog.cc:134
-#: src/dialogs/gnome-cmd-options-dialog.cc:1829
-#: src/dialogs/gnome-cmd-options-dialog.cc:2268
-#: src/dialogs/profiles/manage_profiles_dialog.rs:248
+#: src/dialogs/gnome-cmd-options-dialog.cc:1819
+#: src/dialogs/gnome-cmd-options-dialog.cc:2252
+#: src/dialogs/profiles/manage_profiles_dialog.rs:261
 #: src/dialogs/remote_dialog.rs:120
-#: src/gnome-cmd-advrename-profile-component.cc:848
-#: src/gnome-cmd-main-menu.cc:176
+#: src/gnome-cmd-advrename-profile-component.cc:847
+#: src/gnome-cmd-main-menu.cc:175
 msgid "_Edit"
 msgstr "_Uredi"
 
 #: src/dialogs/gnome-cmd-manage-bookmarks-dialog.cc:144
-#: src/dialogs/gnome-cmd-options-dialog.cc:1841
-#: src/dialogs/gnome-cmd-options-dialog.cc:2280
+#: src/dialogs/gnome-cmd-options-dialog.cc:1829
+#: src/dialogs/gnome-cmd-options-dialog.cc:2262
 msgid "_Up"
 msgstr "Navz_gor"
 
 #: src/dialogs/gnome-cmd-manage-bookmarks-dialog.cc:149
-#: src/dialogs/gnome-cmd-options-dialog.cc:1845
-#: src/dialogs/gnome-cmd-options-dialog.cc:2284
+#: src/dialogs/gnome-cmd-options-dialog.cc:1832
+#: src/dialogs/gnome-cmd-options-dialog.cc:2265
 msgid "_Down"
 msgstr "Navz_dol"
 
-#: src/dialogs/gnome-cmd-manage-bookmarks-dialog.cc:169
+#: src/dialogs/gnome-cmd-manage-bookmarks-dialog.cc:168
 msgid "Bookmarks"
 msgstr "Zaznamki"
 
-#: src/dialogs/gnome-cmd-manage-bookmarks-dialog.cc:262
+#: src/dialogs/gnome-cmd-manage-bookmarks-dialog.cc:260
 msgid "Group"
 msgstr "Skupina"
 
-#: src/dialogs/gnome-cmd-manage-bookmarks-dialog.cc:263
+#: src/dialogs/gnome-cmd-manage-bookmarks-dialog.cc:261
 msgid "Bookmark group"
 msgstr "Skupina zaznamkov"
 
-#: src/dialogs/gnome-cmd-manage-bookmarks-dialog.cc:271
+#: src/dialogs/gnome-cmd-manage-bookmarks-dialog.cc:269
 msgid "Bookmark name"
 msgstr "Ime zaznamka"
 
-#: src/dialogs/gnome-cmd-manage-bookmarks-dialog.cc:273
+#: src/dialogs/gnome-cmd-manage-bookmarks-dialog.cc:271
 msgid "Shortcut"
 msgstr "Bližnjica"
 
-#: src/dialogs/gnome-cmd-manage-bookmarks-dialog.cc:274
+#: src/dialogs/gnome-cmd-manage-bookmarks-dialog.cc:272
 msgid "Keyboard shortcut for selected bookmark"
 msgstr "Tipkovne bližnjice za izbrani zaznamek"
 
-#: src/dialogs/gnome-cmd-manage-bookmarks-dialog.cc:281
+#: src/dialogs/gnome-cmd-manage-bookmarks-dialog.cc:279
 #: src/tags/gnome-cmd-tags.cc:328
 msgid "Path"
 msgstr "Pot"
 
-#: src/dialogs/gnome-cmd-manage-bookmarks-dialog.cc:282
+#: src/dialogs/gnome-cmd-manage-bookmarks-dialog.cc:280
 msgid "Bookmarked path"
 msgstr "Zaznamek poti"
 
@@ -2248,12 +2297,12 @@ msgstr "Zaznamek poti"
 msgid "A directory name must be entered"
 msgstr "Ime mape mora biti vpisano"
 
-#: src/dialogs/gnome-cmd-mkdir-dialog.cc:123
+#: src/dialogs/gnome-cmd-mkdir-dialog.cc:124
 #, c-format
 msgid "Make directory failed: %s\n"
 msgstr "Ustvarjanje mape je spodletelo: %s\n"
 
-#: src/dialogs/gnome-cmd-mkdir-dialog.cc:168
+#: src/dialogs/gnome-cmd-mkdir-dialog.cc:169
 msgid "Make Directory"
 msgstr "Ustvari mapo"
 
@@ -2277,8 +2326,8 @@ msgstr "Enojni klik odstrani izbor"
 msgid "Middle mouse button"
 msgstr "Srednji gumb miške"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:132 src/gnome-cmd-main-win.cc:173
-#: src/gnome-cmd-user-actions.cc:394
+#: src/dialogs/gnome-cmd-options-dialog.cc:132 src/gnome-cmd-main-win.cc:174
+#: src/gnome-cmd-user-actions.cc:381
 msgid "Up one directory"
 msgstr "Odpre mapo višje"
 
@@ -2323,7 +2372,7 @@ msgid "Case sensitive"
 msgstr "Upoštevaj velikost črk"
 
 #: src/dialogs/gnome-cmd-options-dialog.cc:189
-#: src/gnome-cmd-user-actions.cc:327
+#: src/gnome-cmd-user-actions.cc:314
 msgid "Quick search"
 msgstr "Hitro iskanje"
 
@@ -2372,12 +2421,12 @@ msgid "Save on exit"
 msgstr "Ob izhodu shrani"
 
 #: src/dialogs/gnome-cmd-options-dialog.cc:236
-#: src/dialogs/gnome-cmd-options-dialog.cc:1250
+#: src/dialogs/gnome-cmd-options-dialog.cc:1244
 msgid "Directories"
 msgstr "Odprte mape"
 
 #: src/dialogs/gnome-cmd-options-dialog.cc:240
-#: src/dialogs/gnome-cmd-options-dialog.cc:2426
+#: src/dialogs/gnome-cmd-options-dialog.cc:2403
 msgid "Tabs"
 msgstr "Zavihke"
 
@@ -2393,371 +2442,371 @@ msgstr "Zgodovino ukazne vrstice"
 msgid "Search history"
 msgstr "Zgodovina iskanja"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:366
+#: src/dialogs/gnome-cmd-options-dialog.cc:365
 msgid "Size display mode"
 msgstr "Prikaz stolpca velikosti datotek"
 
 #. Translators: 'Powered' refers to the mode of file size display (here - display using units of data: kB, MB, GB, ...)
-#: src/dialogs/gnome-cmd-options-dialog.cc:370
+#: src/dialogs/gnome-cmd-options-dialog.cc:369
 msgid "Powered"
 msgstr "Napredno"
 
 #. Translators: '<locale>' refers to the mode of file size display (here - use current locale settings)
-#: src/dialogs/gnome-cmd-options-dialog.cc:376
+#: src/dialogs/gnome-cmd-options-dialog.cc:375
 #: src/gnome-cmd-advrename-profile-component.cc:144
 #: src/gnome-cmd-advrename-profile-component.cc:159
 msgid "<locale>"
 msgstr "Sistemsko"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:381
+#: src/dialogs/gnome-cmd-options-dialog.cc:380
 msgid "Grouped"
 msgstr "Skupinjeno"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:386
+#: src/dialogs/gnome-cmd-options-dialog.cc:385
 msgid "Plain"
 msgstr "Običajno"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:397
+#: src/dialogs/gnome-cmd-options-dialog.cc:396
 msgid "Text (rw-r--r--)"
 msgstr "Črkovno (rw-r--r--)"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:402
+#: src/dialogs/gnome-cmd-options-dialog.cc:401
 msgid "Number (644)"
 msgstr "Številčno (644)"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:413
+#: src/dialogs/gnome-cmd-options-dialog.cc:412
 msgid "Format:"
 msgstr "Zapis:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:432
+#: src/dialogs/gnome-cmd-options-dialog.cc:431
 msgid "See the help page in the documentation on how to set the format string."
 msgstr ""
 "Več podrobnosti o nastavitvi oblike zapisa si preberite na strani pomoči v "
 "dokumentaciji."
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:517
+#: src/dialogs/gnome-cmd-options-dialog.cc:515
 msgid "Edit Colors…"
 msgstr "Uredi barve …"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:529
+#: src/dialogs/gnome-cmd-options-dialog.cc:527
 msgid "Colors"
 msgstr "Barve"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:568
+#: src/dialogs/gnome-cmd-options-dialog.cc:566
 msgid "Foreground"
 msgstr "Pisava"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:570
+#: src/dialogs/gnome-cmd-options-dialog.cc:568
 msgid "Background"
 msgstr "Ozadje"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:572
+#: src/dialogs/gnome-cmd-options-dialog.cc:570
 msgid "Default:"
 msgstr "Privzeto:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:574
+#: src/dialogs/gnome-cmd-options-dialog.cc:572
 msgid "Alternate:"
 msgstr "Izmenično:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:576
+#: src/dialogs/gnome-cmd-options-dialog.cc:574
 msgid "Selected file:"
 msgstr "Izbrana datoteka:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:578
+#: src/dialogs/gnome-cmd-options-dialog.cc:576
 msgid "Cursor:"
 msgstr "Tipalo miške:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:659
+#: src/dialogs/gnome-cmd-options-dialog.cc:657
 msgid "Edit LS_COLORS Palette"
 msgstr "Uredi LS_COLORS paleto"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:670
+#: src/dialogs/gnome-cmd-options-dialog.cc:668
 msgid "Palette"
 msgstr "Paleta"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:741
+#: src/dialogs/gnome-cmd-options-dialog.cc:739
 msgid "Foreground:"
 msgstr "Barva besedila:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:743
+#: src/dialogs/gnome-cmd-options-dialog.cc:741
 msgid "Background:"
 msgstr "Ozadje:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:745
+#: src/dialogs/gnome-cmd-options-dialog.cc:743
 msgid "Black"
 msgstr "Črna"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:748
+#: src/dialogs/gnome-cmd-options-dialog.cc:746
 msgid "Red"
 msgstr "Rdeča"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:751
+#: src/dialogs/gnome-cmd-options-dialog.cc:749
 msgid "Green"
 msgstr "Zelena"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:754
+#: src/dialogs/gnome-cmd-options-dialog.cc:752
 msgid "Yellow"
 msgstr "Rumena"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:757
+#: src/dialogs/gnome-cmd-options-dialog.cc:755
 msgid "Blue"
 msgstr "Modra"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:760
+#: src/dialogs/gnome-cmd-options-dialog.cc:758
 msgid "Magenta"
 msgstr "Škrlatna"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:763
+#: src/dialogs/gnome-cmd-options-dialog.cc:761
 msgid "Cyan"
 msgstr "Sinja"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:766
+#: src/dialogs/gnome-cmd-options-dialog.cc:764
 msgid "White"
 msgstr "Bela"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:770
+#: src/dialogs/gnome-cmd-options-dialog.cc:768
 msgid "_Reset"
 msgstr "Po_nastavi"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:784
+#: src/dialogs/gnome-cmd-options-dialog.cc:782
 msgid "With file name"
 msgstr "Z imenom datoteke"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:785
+#: src/dialogs/gnome-cmd-options-dialog.cc:783
 msgid "In separate column"
 msgstr "V ločenih stolpcih"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:786
+#: src/dialogs/gnome-cmd-options-dialog.cc:784
 msgid "In both columns"
 msgstr "V obeh stolpcih"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:790
+#: src/dialogs/gnome-cmd-options-dialog.cc:788
 msgid "No icons"
 msgstr "Brez ikon"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:791
+#: src/dialogs/gnome-cmd-options-dialog.cc:789
 msgid "File type icons"
 msgstr "Vrstne ikone datotek"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:792
+#: src/dialogs/gnome-cmd-options-dialog.cc:790
 msgid "MIME icons"
 msgstr "Ikone MIME"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:796
+#: src/dialogs/gnome-cmd-options-dialog.cc:794
 msgid "Respect theme colors"
 msgstr "Upoštevaj barve teme"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:797
+#: src/dialogs/gnome-cmd-options-dialog.cc:795
 msgid "Modern"
 msgstr "moderna"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:798
+#: src/dialogs/gnome-cmd-options-dialog.cc:796
 msgid "Fusion"
 msgstr "fuzija"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:799
+#: src/dialogs/gnome-cmd-options-dialog.cc:797
 msgid "Classic"
 msgstr "klasična"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:800
+#: src/dialogs/gnome-cmd-options-dialog.cc:798
 msgid "Deep blue"
 msgstr "modrina"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:801
+#: src/dialogs/gnome-cmd-options-dialog.cc:799
 msgid "Cafezinho"
 msgstr "cafezinho"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:802
+#: src/dialogs/gnome-cmd-options-dialog.cc:800
 msgid "Green tiger"
 msgstr "zeleno"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:803
+#: src/dialogs/gnome-cmd-options-dialog.cc:801
 msgid "Winter"
 msgstr "zima"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:804
+#: src/dialogs/gnome-cmd-options-dialog.cc:802
 msgid "Custom"
 msgstr "po meri"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:823
+#: src/dialogs/gnome-cmd-options-dialog.cc:821
 msgid "File panes"
 msgstr "Datotečna okna"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:833
+#: src/dialogs/gnome-cmd-options-dialog.cc:831
 msgid "Font:"
 msgstr "Pisava:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:835
+#: src/dialogs/gnome-cmd-options-dialog.cc:833
 msgid "Row height:"
 msgstr "Višina vrstice:"
 
 #. File extensions
-#: src/dialogs/gnome-cmd-options-dialog.cc:839
+#: src/dialogs/gnome-cmd-options-dialog.cc:837
 msgid "Display file extensions:"
 msgstr "Pokaži pripone datotek:"
 
 #. Graphical mode
-#: src/dialogs/gnome-cmd-options-dialog.cc:848
+#: src/dialogs/gnome-cmd-options-dialog.cc:846
 msgid "Graphical mode:"
 msgstr "Grafični način:"
 
 #. Color scheme
-#: src/dialogs/gnome-cmd-options-dialog.cc:858
+#: src/dialogs/gnome-cmd-options-dialog.cc:856
 msgid "Color scheme:"
 msgstr "Barvna shema:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:871
+#: src/dialogs/gnome-cmd-options-dialog.cc:869
 msgid "Edit…"
 msgstr "Uredi …"
 
 #. LS_COLORS
-#: src/dialogs/gnome-cmd-options-dialog.cc:878
+#: src/dialogs/gnome-cmd-options-dialog.cc:876
 msgid "Colorize files according to the LS_COLORS environment variable"
 msgstr "Pobarvaj datoteke glede na spremenljivke LS_COLORS okolja"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:887
+#: src/dialogs/gnome-cmd-options-dialog.cc:885
 msgid "Edit colors…"
 msgstr "Uredi barve …"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:895
+#: src/dialogs/gnome-cmd-options-dialog.cc:893
 msgid "MIME icon settings"
 msgstr "Nastavitve ikon MIME"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:912
+#: src/dialogs/gnome-cmd-options-dialog.cc:910
 msgid "Icon size:"
 msgstr "Velikost Ikone:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:914
+#: src/dialogs/gnome-cmd-options-dialog.cc:912
 msgid "Scaling quality:"
 msgstr "Kakovost povečevanja:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:916
+#: src/dialogs/gnome-cmd-options-dialog.cc:914
 msgid "Theme icon directory:"
 msgstr "Mapa s tematskimi ikonami:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:992
+#: src/dialogs/gnome-cmd-options-dialog.cc:989
 msgid "Tab bar"
 msgstr "Vrstica zavihkov"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:995
+#: src/dialogs/gnome-cmd-options-dialog.cc:992
 msgid "Always show the tab bar"
 msgstr "Vrstica z zavihki naj bo vedno vidna"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1004
+#: src/dialogs/gnome-cmd-options-dialog.cc:1001
 msgid "Lock icon"
 msgstr "Ikona zaklepa"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1009
+#: src/dialogs/gnome-cmd-options-dialog.cc:1006
 msgid "* (asterisk)"
 msgstr "* (zvezdica)"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1014
+#: src/dialogs/gnome-cmd-options-dialog.cc:1011
 msgid "Styled text"
 msgstr "Oblikovano besedilo"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1072
+#: src/dialogs/gnome-cmd-options-dialog.cc:1067
 msgid "Confirm before delete"
 msgstr "Potrdi pred brisanjem"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1077
+#: src/dialogs/gnome-cmd-options-dialog.cc:1072
 msgid "Confirm defaults to OK"
 msgstr "Potrdi privzeto"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1086
+#: src/dialogs/gnome-cmd-options-dialog.cc:1081
 msgid "Preselected overwrite action in copy dialog"
 msgstr "Način prepisovanja pri kopiranju"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1089
-#: src/dialogs/gnome-cmd-options-dialog.cc:1113
+#: src/dialogs/gnome-cmd-options-dialog.cc:1084
+#: src/dialogs/gnome-cmd-options-dialog.cc:1108
 msgid "Query first"
 msgstr "Izvedi poizvedbo"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1093
-#: src/dialogs/gnome-cmd-options-dialog.cc:1117
-#: src/dialogs/prepare_copy_dialog.rs:75 src/dialogs/prepare_move_dialog.rs:75
+#: src/dialogs/gnome-cmd-options-dialog.cc:1088
+#: src/dialogs/gnome-cmd-options-dialog.cc:1112
+#: src/dialogs/prepare_copy_dialog.rs:74 src/dialogs/prepare_move_dialog.rs:74
 #: src/gnome-cmd-file-popmenu.cc:358
 msgid "Rename"
 msgstr "Preimenuj"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1101
-#: src/dialogs/gnome-cmd-options-dialog.cc:1125
-#: src/dialogs/prepare_copy_dialog.rs:81 src/dialogs/prepare_move_dialog.rs:81
+#: src/dialogs/gnome-cmd-options-dialog.cc:1096
+#: src/dialogs/gnome-cmd-options-dialog.cc:1120
+#: src/dialogs/prepare_copy_dialog.rs:86 src/dialogs/prepare_move_dialog.rs:86
 msgid "Overwrite silently"
 msgstr "Samodejno prepiši"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1110
+#: src/dialogs/gnome-cmd-options-dialog.cc:1105
 msgid "Preselected overwrite action in move dialog"
 msgstr "Način prepisovanja pri premikanju"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1134
+#: src/dialogs/gnome-cmd-options-dialog.cc:1129
 msgid "Default Drag and Drop Action"
 msgstr "Privzeto dejanje za Povleci in Spusti"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1137
+#: src/dialogs/gnome-cmd-options-dialog.cc:1132
 msgid "Confirm mouse operation"
 msgstr "Zahtevaj potrditev pri pri uporabi miške"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1141
-#: src/dialogs/prepare_copy_dialog.rs:48 src/gnome-cmd-file-popmenu.cc:355
-#: src/gnome-cmd-main-win.cc:181 src/gnome-cmd-user-actions.cc:321
+#: src/dialogs/gnome-cmd-options-dialog.cc:1136
+#: src/dialogs/prepare_copy_dialog.rs:50 src/gnome-cmd-file-popmenu.cc:355
+#: src/gnome-cmd-main-win.cc:182 src/gnome-cmd-user-actions.cc:308
 msgid "Copy"
 msgstr "Kopiraj povlečeno"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1145
-#: src/dialogs/prepare_move_dialog.rs:48
+#: src/dialogs/gnome-cmd-options-dialog.cc:1140
+#: src/dialogs/prepare_move_dialog.rs:50
 msgid "Move"
 msgstr "Premakni povlečeno"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1241
+#: src/dialogs/gnome-cmd-options-dialog.cc:1235
 msgid "Filetypes to hide"
 msgstr "V oknu datotek skrij"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1244
+#: src/dialogs/gnome-cmd-options-dialog.cc:1238
 msgid "Unknown"
 msgstr "Neznane vrste"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1247
+#: src/dialogs/gnome-cmd-options-dialog.cc:1241
 msgid "Regular files"
 msgstr "Običajne datoteke"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1253
+#: src/dialogs/gnome-cmd-options-dialog.cc:1247
 msgid "Socket, fifo, block, or character devices"
 msgstr "Vtiče, bločne in znakovne naprave, datoteke fifo"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1256
+#: src/dialogs/gnome-cmd-options-dialog.cc:1250
 msgid "Shortcuts (Windows systems)"
 msgstr "Tipkovne bližnjice (Sistem Windows)"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1259
+#: src/dialogs/gnome-cmd-options-dialog.cc:1253
 msgid "Mountable locations"
 msgstr "Priklopna mesta"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1262
+#: src/dialogs/gnome-cmd-options-dialog.cc:1256
 msgid "Virtual files"
 msgstr "Navidezne datoteke"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1265
+#: src/dialogs/gnome-cmd-options-dialog.cc:1259
 msgid "Volatile files"
 msgstr "Spremenljive datoteke"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1270
+#: src/dialogs/gnome-cmd-options-dialog.cc:1264
 msgid "Also hide"
 msgstr "Ne pokaži"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1273
+#: src/dialogs/gnome-cmd-options-dialog.cc:1267
 msgid "Hidden files"
 msgstr "Skritih datotek"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1276
-#: src/dialogs/gnome-cmd-options-dialog.cc:1285
+#: src/dialogs/gnome-cmd-options-dialog.cc:1270
+#: src/dialogs/gnome-cmd-options-dialog.cc:1279
 msgid "Backup files"
 msgstr "Varnostnih kopij"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1279
+#: src/dialogs/gnome-cmd-options-dialog.cc:1273
 msgid "Symlinks"
 msgstr "Simbolnih povezav"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1476
+#: src/dialogs/gnome-cmd-options-dialog.cc:1469
 msgid ""
 "An app with this label exists already.\n"
 "Please choose another label."
@@ -2765,157 +2814,157 @@ msgstr ""
 "Program s to oznako že obstaja.\n"
 "Izberite drugo oznako."
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1546
+#: src/dialogs/gnome-cmd-options-dialog.cc:1539
 msgid "Label:"
 msgstr "Naziv:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1548
+#: src/dialogs/gnome-cmd-options-dialog.cc:1541
 msgid "Command:"
 msgstr "Ukaz:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1550
-#: src/dialogs/gnome-cmd-options-dialog.cc:2068
+#: src/dialogs/gnome-cmd-options-dialog.cc:1543
+#: src/dialogs/gnome-cmd-options-dialog.cc:2053
 msgid "Icon:"
 msgstr "Ikona:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1574
+#: src/dialogs/gnome-cmd-options-dialog.cc:1567
 msgid "Can handle multiple files"
 msgstr "Lahko upravlja z več datotekami hkrati"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1578
+#: src/dialogs/gnome-cmd-options-dialog.cc:1571
 msgid "Can handle URIs"
 msgstr "Lahko upravlja z URI naslovi"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1582
+#: src/dialogs/gnome-cmd-options-dialog.cc:1575
 msgid "Requires terminal"
 msgstr "Zahteva terminal"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1589
+#: src/dialogs/gnome-cmd-options-dialog.cc:1582
 msgid "Show for"
 msgstr "Pokaži za"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1598
+#: src/dialogs/gnome-cmd-options-dialog.cc:1590
 msgid "All directories"
 msgstr "Vse mape"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1603
+#: src/dialogs/gnome-cmd-options-dialog.cc:1594
 msgid "All directories and files"
 msgstr "Vse mape in datoteke"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1608
+#: src/dialogs/gnome-cmd-options-dialog.cc:1599
 msgid "Some files"
 msgstr "Nekatere datoteke"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1617
+#: src/dialogs/gnome-cmd-options-dialog.cc:1608
 msgid "File patterns"
 msgstr "Vzorci datotek"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1639
+#: src/dialogs/gnome-cmd-options-dialog.cc:1630
 msgid "New Application"
 msgstr "Nov program"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1649
+#: src/dialogs/gnome-cmd-options-dialog.cc:1640
 msgid "Edit Application"
 msgstr "Uredi program"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1758
+#: src/dialogs/gnome-cmd-options-dialog.cc:1749
 msgid "Always download remote files before opening in external programs"
 msgstr "Vedno prejmi oddaljene datoteke pred odpiranjem v zunanjem programu"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1760
+#: src/dialogs/gnome-cmd-options-dialog.cc:1751
 msgid "MIME applications"
 msgstr "Programi MIME"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1764
+#: src/dialogs/gnome-cmd-options-dialog.cc:1755
 msgid "Standard programs"
 msgstr "Razširitveni programi"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1767
+#: src/dialogs/gnome-cmd-options-dialog.cc:1758
 msgid "Viewer:"
 msgstr "Pregledovalnik:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1769
+#: src/dialogs/gnome-cmd-options-dialog.cc:1760
 msgid "Editor:"
 msgstr "Urejevalnik:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1771
+#: src/dialogs/gnome-cmd-options-dialog.cc:1762
 msgid "Differ:"
 msgstr "Primerjalnik:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1773
+#: src/dialogs/gnome-cmd-options-dialog.cc:1764
 msgid "Search:"
 msgstr "Iskalnik:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1775
+#: src/dialogs/gnome-cmd-options-dialog.cc:1766
 msgid "Send files:"
 msgstr "Pošiljanje datotek:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1777
+#: src/dialogs/gnome-cmd-options-dialog.cc:1768
 msgid "Terminal:"
 msgstr "Terminal:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1784
+#: src/dialogs/gnome-cmd-options-dialog.cc:1775
 msgid "Use Internal Viewer"
 msgstr "Uporabi privzeti pregledovalnik"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1793
+#: src/dialogs/gnome-cmd-options-dialog.cc:1784
 msgid "Use Internal Search"
 msgstr "Uporabi notranje iskanje"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1808
+#: src/dialogs/gnome-cmd-options-dialog.cc:1799
 msgid "Other favourite apps"
 msgstr "Drugi priljubljeni programi"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1816
+#: src/dialogs/gnome-cmd-options-dialog.cc:1807
 msgid "Label"
 msgstr "Oznaka"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1817
+#: src/dialogs/gnome-cmd-options-dialog.cc:1808
 msgid "Command"
 msgstr "Ukaz"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1854
+#: src/dialogs/gnome-cmd-options-dialog.cc:1840
 msgid "Global app options"
 msgstr "Splošne možnosti programa"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1857
+#: src/dialogs/gnome-cmd-options-dialog.cc:1843
 msgid "Terminal command for apps in the list above:"
 msgstr "Terminalski ukaz za navedene programe:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1864
+#: src/dialogs/gnome-cmd-options-dialog.cc:1850
 msgid "Leave terminal window open"
 msgstr "Pusti okno terminala odprto"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:2062
+#: src/dialogs/gnome-cmd-options-dialog.cc:2047
 msgid "Alias:"
 msgstr "Vzdevek:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:2064
+#: src/dialogs/gnome-cmd-options-dialog.cc:2049
 msgid "Device/Label:"
 msgstr "Naprava/Oznaka:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:2066
+#: src/dialogs/gnome-cmd-options-dialog.cc:2051
 msgid "Mount point:"
 msgstr "Priklopna točka:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:2124
+#: src/dialogs/gnome-cmd-options-dialog.cc:2109
 msgid "New Device"
 msgstr "Nova naprava"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:2137
+#: src/dialogs/gnome-cmd-options-dialog.cc:2122
 msgid "Edit Device"
 msgstr "Uredi napravo"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:2246
-#: src/dialogs/gnome-cmd-options-dialog.cc:2430
+#: src/dialogs/gnome-cmd-options-dialog.cc:2231
+#: src/dialogs/gnome-cmd-options-dialog.cc:2407
 msgid "Devices"
 msgstr "Naprave"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:2256
+#: src/dialogs/gnome-cmd-options-dialog.cc:2241
 msgid "Alias"
 msgstr "Privzeto ime"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:2288
+#: src/dialogs/gnome-cmd-options-dialog.cc:2268
 msgid ""
 "Show Samba workgroups button\n"
 "(Needs program restart if altered)"
@@ -2923,55 +2972,55 @@ msgstr ""
 "Pokaži gumb omrežnih povezav Samba\n"
 "(sprememba zahteva ponovni zagon)"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:2292
+#: src/dialogs/gnome-cmd-options-dialog.cc:2272
 msgid "Show only the icons"
 msgstr "Pokaži le ikone"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:2423
+#: src/dialogs/gnome-cmd-options-dialog.cc:2400
 msgid "General"
 msgstr "Splošno"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:2424 src/tags/gnome-cmd-tags.cc:323
+#: src/dialogs/gnome-cmd-options-dialog.cc:2401 src/tags/gnome-cmd-tags.cc:323
 msgid "Format"
 msgstr "Zapis"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:2425
+#: src/dialogs/gnome-cmd-options-dialog.cc:2402
 msgid "Layout"
 msgstr "Razporeditev"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:2427
+#: src/dialogs/gnome-cmd-options-dialog.cc:2404
 msgid "Confirmation"
 msgstr "Potrditev"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:2428
+#: src/dialogs/gnome-cmd-options-dialog.cc:2405
 msgid "Filters"
 msgstr "Filtri"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:2429
+#: src/dialogs/gnome-cmd-options-dialog.cc:2406
 msgid "Programs"
 msgstr "Programi"
 
-#: src/dialogs/gnome-cmd-patternsel-dialog.cc:112
+#: src/dialogs/gnome-cmd-patternsel-dialog.cc:113
 msgid "_Pattern:"
 msgstr "_Vzorec:"
 
-#: src/dialogs/gnome-cmd-patternsel-dialog.cc:114
+#: src/dialogs/gnome-cmd-patternsel-dialog.cc:115
 msgid "Case _sensitive"
 msgstr "Razlikovanje _velikosti črk"
 
-#: src/dialogs/gnome-cmd-patternsel-dialog.cc:125
+#: src/dialogs/gnome-cmd-patternsel-dialog.cc:126
 msgid "She_ll syntax"
 msgstr "L_upinska skladnja"
 
-#: src/dialogs/gnome-cmd-patternsel-dialog.cc:129
+#: src/dialogs/gnome-cmd-patternsel-dialog.cc:130
 msgid "Rege_x syntax"
 msgstr "_Logična skladnja"
 
-#: src/dialogs/gnome-cmd-patternsel-dialog.cc:159
+#: src/dialogs/gnome-cmd-patternsel-dialog.cc:161
 msgid "Select Using Pattern"
 msgstr "Izberi skupino"
 
-#: src/dialogs/gnome-cmd-patternsel-dialog.cc:159
+#: src/dialogs/gnome-cmd-patternsel-dialog.cc:161
 msgid "Unselect Using Pattern"
 msgstr "Počisti skupino"
 
@@ -3024,33 +3073,33 @@ msgstr[3] "Najdeni %d zadetki"
 msgid "Failed to set process group id of child %d: %s.\n"
 msgstr "Ni mogoče določiti skupine podrejenega opravila %d: %s.\n"
 
-#: src/dialogs/gnome-cmd-search-dialog.cc:894
+#: src/dialogs/gnome-cmd-search-dialog.cc:879
 msgid "Error parsing the search command."
 msgstr "Napaka razčlenjevanja ukaza iskanja."
 
-#: src/dialogs/gnome-cmd-search-dialog.cc:906
+#: src/dialogs/gnome-cmd-search-dialog.cc:891
 msgid "Error running the search command."
 msgstr "Napaka izvajanja ukaza iskanja."
 
-#: src/dialogs/gnome-cmd-search-dialog.cc:1045
+#: src/dialogs/gnome-cmd-search-dialog.cc:1033
 #, c-format
 msgid "Failed to change directory outside of %s"
 msgstr "Spreminjanje mape izven %s je spodletelo"
 
-#: src/dialogs/gnome-cmd-search-dialog.cc:1161
+#: src/dialogs/gnome-cmd-search-dialog.cc:1150
 msgid "Search…"
 msgstr "Poišči …"
 
-#: src/dialogs/gnome-cmd-search-dialog.cc:1279
-#: src/intviewer/search_progress_dialog.rs:47
+#: src/dialogs/gnome-cmd-search-dialog.cc:1261
+#: src/intviewer/search_progress_dialog.rs:46
 msgid "_Stop"
 msgstr "_Ustavi"
 
-#: src/dialogs/gnome-cmd-search-dialog.cc:1280
+#: src/dialogs/gnome-cmd-search-dialog.cc:1262
 msgid "_Find"
 msgstr "_Najdi"
 
-#: src/dialogs/gnome-cmd-search-dialog.cc:1293
+#: src/dialogs/gnome-cmd-search-dialog.cc:1275
 msgid "_Look in folder:"
 msgstr "_Preišči v mapi:"
 
@@ -3058,17 +3107,33 @@ msgstr "_Preišči v mapi:"
 msgid "Conflicting Shortcuts"
 msgstr "Bližnjice v sporu"
 
+#: src/dialogs/key_shortcuts_dialog.rs:106
+msgid "Shortcut “{shortcut}” is already taken by “{action}”."
+msgstr "Tipkovna bližnjica »{shortcut}« se že uporablja za »{action}«."
+
+#: src/dialogs/key_shortcuts_dialog.rs:111
+msgid "Reassigning the shortcut will cause it to be removed from “{action}”."
+msgstr "Če bližnjico znova dodelite, bo odvzeta »{action}«."
+
 #: src/dialogs/key_shortcuts_dialog.rs:116
 msgid "_Reassign shortcut"
 msgstr "_Ponovno določi bližnjico"
 
-#: src/dialogs/key_shortcuts_dialog.rs:134
+#: src/dialogs/key_shortcuts_dialog.rs:133
 msgid "Invalid shortcut."
 msgstr "Neveljavna bližnjica."
+
+#: src/dialogs/key_shortcuts_dialog.rs:142
+msgid "Invalid path."
+msgstr "Neveljavna pot."
 
 #: src/dialogs/make_copy_dialog.rs:44
 msgid "Copy File"
 msgstr "Kopiraj datoteko"
+
+#: src/dialogs/make_copy_dialog.rs:63 src/dialogs/prepare_copy_dialog.rs:53
+msgid "Copy “{}” to"
+msgstr "Kopirajte »{}« v"
 
 #: src/dialogs/manage_bookmarks_dialog.rs:127
 msgid "Edit Bookmark"
@@ -3086,17 +3151,57 @@ msgstr ""
 msgid "New Bookmark"
 msgstr "Nov zaznamek"
 
-#: src/dialogs/prepare_copy_dialog.rs:64 src/dialogs/prepare_move_dialog.rs:64
+#: src/dialogs/open_with_other_dialog.rs:39
+msgid "Open with other…"
+msgstr "Odpri s programom …"
+
+#: src/dialogs/open_with_other_dialog.rs:57
+msgid "Application:"
+msgstr "Program:"
+
+#: src/dialogs/open_with_other_dialog.rs:113
+msgid "Invalid command"
+msgstr "Neveljaven ukaz"
+
+#: src/dialogs/prepare_copy_dialog.rs:55
+msgid "copy {} file to"
+msgid_plural "copy {} files to"
+msgstr[0] "kopiraj {} datotek v"
+msgstr[1] "kopiraj {} datoteko v"
+msgstr[2] "kopiraj {} datoteki v"
+msgstr[3] "kopiraj {} datoteke v"
+
+#: src/dialogs/prepare_copy_dialog.rs:62 src/dialogs/prepare_move_dialog.rs:62
 msgid "Overwrite Files"
 msgstr "Prepiši datoteke"
 
-#: src/dialogs/prepare_copy_dialog.rs:71 src/dialogs/prepare_move_dialog.rs:71
+#: src/dialogs/prepare_copy_dialog.rs:69 src/dialogs/prepare_move_dialog.rs:69
 msgid "Query First"
 msgstr "Predhodno izvedi poizvedbo"
 
-#: src/dialogs/prepare_copy_dialog.rs:99
+#: src/dialogs/prepare_copy_dialog.rs:108
 msgid "Follow Links"
 msgstr "Sledi povezavam"
+
+#: src/dialogs/prepare_move_dialog.rs:53
+msgid "Move “{}” to"
+msgstr "Premakni »{}« v"
+
+#: src/dialogs/prepare_move_dialog.rs:55
+msgid "move {} file to"
+msgid_plural "move {} files to"
+msgstr[0] "premakni {} datotek v"
+msgstr[1] "premakni {} datoteko v"
+msgstr[2] "premakni {} datoteki v"
+msgstr[3] "premakni {} datoteke v"
+
+#: src/dialogs/prepare_transfer_dialog.rs:215
+msgid "The directory “{}” doesn’t exist, do you want to create it?"
+msgstr "Mapa »{}« ne obstaja, jo želite ustvariti?"
+
+#: src/dialogs/prepare_transfer_dialog.rs:451
+msgid "Directory {} cannot be created."
+msgstr "Mape {} ni mogoče ustvariti."
 
 #: src/dialogs/profiles/edit_profile_dialog.rs:34
 msgid "Edit Profile"
@@ -3106,21 +3211,21 @@ msgstr "Uredi profil"
 msgid "_Name"
 msgstr "_Ime"
 
-#: src/dialogs/profiles/manage_profiles_dialog.rs:95
+#: src/dialogs/profiles/manage_profiles_dialog.rs:90
 msgid "Profile"
 msgstr "Profil"
 
-#: src/dialogs/profiles/manage_profiles_dialog.rs:96
+#: src/dialogs/profiles/manage_profiles_dialog.rs:91
 msgid "Profile name"
 msgstr "Ime profila"
 
-#: src/dialogs/profiles/manage_profiles_dialog.rs:120
-#: src/dialogs/profiles/manage_profiles_dialog.rs:121
+#: src/dialogs/profiles/manage_profiles_dialog.rs:122
+#: src/dialogs/profiles/manage_profiles_dialog.rs:123
 #: src/tags/gnome-cmd-tags.cc:201
 msgid "Template"
 msgstr "Predloga"
 
-#: src/dialogs/profiles/manage_profiles_dialog.rs:232
+#: src/dialogs/profiles/manage_profiles_dialog.rs:239
 msgid ""
 "To rename a profile, click on the corresponding row and type a new name, or "
 "press escape to cancel."
@@ -3128,71 +3233,119 @@ msgstr ""
 "Za preimenovanje profila kliknite ustrezno vrstico in vnesite novo ime ali "
 "počistite s preslednico."
 
-#: src/dialogs/profiles/manage_profiles_dialog.rs:241
+#: src/dialogs/profiles/manage_profiles_dialog.rs:248
 msgid "_Duplicate"
 msgstr "Po_dvoji"
 
-#: src/dialogs/remote_dialog.rs:143
+#: src/dialogs/remote_dialog.rs:142
 msgid "Remote Connections"
 msgstr "Oddaljene povezave"
 
-#: src/dialogs/remote_dialog.rs:169
+#: src/dialogs/remote_dialog.rs:168
 msgid "Network protocol"
 msgstr "Omrežni protokol"
 
-#: src/dialogs/remote_dialog.rs:187
+#: src/dialogs/remote_dialog.rs:185
 msgid "Connection name"
 msgstr "Ime povezave"
 
-#: src/dialogs/remote_dialog.rs:345 src/dialogs/remote_dialog.rs:388
+#: src/dialogs/remote_dialog.rs:361 src/dialogs/remote_dialog.rs:404
 msgid "No server selected"
 msgstr "Ni izbranega strežnika"
 
-#: src/dialogs/transfer_progress_dialog.rs:62
+#: src/dialogs/transfer_progress_dialog.rs:61
 msgid "Progress"
 msgstr "Napredek"
 
-#: src/dialogs/transfer_progress_dialog.rs:97
+#: src/dialogs/transfer_progress_dialog.rs:100
 msgid "stopping…"
 msgstr "poteka ustavljanje …"
 
-#: src/dirlist.rs:51
+#: src/dialogs/transfer_progress_dialog.rs:150
+msgctxt "size copied"
+msgid "{copied} of {total} copied"
+msgstr "kopirano {copied} od {total}"
+
+#: src/dialogs/transfer_progress_dialog.rs:155
+#, c-format
+msgctxt "percentage copied"
+msgid "{}% copied"
+msgstr "Kopirano {}% c"
+
+#: src/dirlist.rs:50
 msgid "Waiting for file list"
 msgstr "Čakanje na izpis datotek"
 
-#: src/eggcellrendererkeys.cc:152 src/eggcellrendererkeys.cc:153
+#: src/dirlist.rs:124
+msgid "{} file listed"
+msgid_plural "{} files listed"
+msgstr[0] "{} izpisanih datotek"
+msgstr[1] "{} izpisana datoteka"
+msgstr[2] "{} izpisani datoteki"
+msgstr[3] "{} izpisane datoteke"
+
+#: src/eggcellrendererkeys.cc:112 src/eggcellrendererkeys.cc:113
 msgid "Accelerator key"
 msgstr "Črka pospeševalnika"
 
-#: src/eggcellrendererkeys.cc:162 src/eggcellrendererkeys.cc:163
+#: src/eggcellrendererkeys.cc:122 src/eggcellrendererkeys.cc:123
 msgid "Accelerator modifiers"
 msgstr "Spremenilniki pospeševalnikov"
 
-#: src/eggcellrendererkeys.cc:171
+#: src/eggcellrendererkeys.cc:131
 msgid "Accelerator Mode"
 msgstr "Način bližnjice"
 
-#: src/eggcellrendererkeys.cc:172
+#: src/eggcellrendererkeys.cc:132
 msgid "The type of accelerator."
 msgstr "Vrsta bližnjice."
 
-#: src/eggcellrendererkeys.cc:207
+#: src/eggcellrendererkeys.cc:166
 msgid "Disabled"
 msgstr "Onemogočeno"
 
-#: src/eggcellrendererkeys.cc:394 src/eggcellrendererkeys.cc:618
+#.
+#. auto style_context = gtk_widget_get_style_context (widget);
+#. GdkRGBA fg, bg;
+#. gtk_style_context_get_background_color (style_context, GTK_STATE_FLAG_SELECTED, &bg);
+#. gtk_style_context_get_color (style_context, GTK_STATE_FLAG_SELECTED, &fg);
+#.
+#. gtk_widget_override_background_color (eventbox, GTK_STATE_FLAG_NORMAL, &bg);
+#. gtk_widget_override_color (label, GTK_STATE_FLAG_NORMAL, &fg);
+#.
+#: src/eggcellrendererkeys.cc:305 src/eggcellrendererkeys.cc:510
 msgid "New accelerator…"
 msgstr "Nov pospeševalnik …"
 
-#: src/file_list_actions.rs:79
+#: src/file_list_actions.rs:50 src/open_file.rs:89
+msgid ""
+"{} does not know how to open remote file. Do you want to download the file "
+"to a temporary location and then open it?"
+msgid_plural ""
+"{} does not know how to open remote files. Do you want to download the files "
+"to a temporary location and then open them?"
+msgstr[0] ""
+"S programom {} ni možno odpreti oddaljenih datotek. Ali želite prejeti "
+"datoteke v začasno mapo in jih potem odpreti?"
+msgstr[1] ""
+"S programom {} ni možno odpreti oddaljene datoteke. Ali želite prejeti "
+"datoteko v začasno mapo in jih potem odpreti?"
+msgstr[2] ""
+"S programom {} ni možno odpreti oddaljenih datotek. Ali želite prejeti "
+"datoteki v začasno mapo in jih potem odpreti?"
+msgstr[3] ""
+"S programom {} ni možno odpreti oddaljenih datotek. Ali želite prejeti "
+"datoteke v začasno mapo in jih potem odpreti?"
+
+#: src/file_list_actions.rs:86
 msgid "No files were given to open."
 msgstr "Nobena datoteka ni bila dana za odpiranje."
 
-#: src/file_list_actions.rs:110
+#: src/file_list_actions.rs:117
 msgid "Download failed."
 msgstr "Prenos ni uspel."
 
-#: src/file_list_actions.rs:183
+#: src/file_list_actions.rs:190
 msgid "Couldn’t retrieve MIME type of the file."
 msgstr "Ni mogoče pridobiti vrste MIME za datoteko."
 
@@ -3216,16 +3369,16 @@ msgstr "Dokumentacija"
 msgid "Translated by"
 msgstr "Prevod"
 
-#: src/gnome-cmd-about-plugin.cc:295
+#: src/gnome-cmd-about-plugin.cc:293
 msgid "Plugin Webpage"
 msgstr "Spletna stran z vstavki"
 
 #. Add the credits button
-#: src/gnome-cmd-about-plugin.cc:304
+#: src/gnome-cmd-about-plugin.cc:302
 msgid "C_redits"
 msgstr "_Zasluge"
 
-#: src/gnome-cmd-about-plugin.cc:488
+#: src/gnome-cmd-about-plugin.cc:484
 #, c-format
 msgid "About %s"
 msgstr "O %s"
@@ -3259,8 +3412,8 @@ msgid "File extension"
 msgstr "Pripona datoteke"
 
 #: src/gnome-cmd-advrename-profile-component.cc:131
-#: src/gnome-cmd-advrename-profile-component.cc:745
-#: src/gnome-cmd-advrename-profile-component.cc:765
+#: src/gnome-cmd-advrename-profile-component.cc:744
+#: src/gnome-cmd-advrename-profile-component.cc:764
 msgid "Counter"
 msgstr "Števec"
 
@@ -3349,113 +3502,113 @@ msgstr "SS"
 msgid "Time"
 msgstr "Čas"
 
-#: src/gnome-cmd-advrename-profile-component.cc:712
+#: src/gnome-cmd-advrename-profile-component.cc:711
 msgid "_Template"
 msgstr "_Predloga"
 
-#: src/gnome-cmd-advrename-profile-component.cc:737
+#: src/gnome-cmd-advrename-profile-component.cc:736
 msgid "Directory"
 msgstr "Mapa"
 
-#: src/gnome-cmd-advrename-profile-component.cc:753
+#: src/gnome-cmd-advrename-profile-component.cc:752
 msgid "Metatag"
 msgstr "Metaoznaka"
 
-#: src/gnome-cmd-advrename-profile-component.cc:780
+#: src/gnome-cmd-advrename-profile-component.cc:779
 msgid "_Start:"
 msgstr "_Začetek:"
 
-#: src/gnome-cmd-advrename-profile-component.cc:788
+#: src/gnome-cmd-advrename-profile-component.cc:787
 msgid "Ste_p:"
 msgstr "_Korak:"
 
-#: src/gnome-cmd-advrename-profile-component.cc:796
+#: src/gnome-cmd-advrename-profile-component.cc:795
 msgid "Di_gits:"
 msgstr "_Številke:"
 
-#: src/gnome-cmd-advrename-profile-component.cc:801
+#: src/gnome-cmd-advrename-profile-component.cc:800
 msgid "auto"
 msgstr "samodejno"
 
-#: src/gnome-cmd-advrename-profile-component.cc:815
+#: src/gnome-cmd-advrename-profile-component.cc:814
 msgid "Regex replacing"
 msgstr "Zamenjava z logičnimi izrazi"
 
-#: src/gnome-cmd-advrename-profile-component.cc:854
+#: src/gnome-cmd-advrename-profile-component.cc:853
 msgid "Remove A_ll"
 msgstr "Od_strani vse"
 
-#: src/gnome-cmd-advrename-profile-component.cc:865
+#: src/gnome-cmd-advrename-profile-component.cc:864
 msgid "Case"
 msgstr "Velikost črk"
 
-#: src/gnome-cmd-advrename-profile-component.cc:878
+#: src/gnome-cmd-advrename-profile-component.cc:877
 msgid "<unchanged>"
 msgstr "<nespremenjeno>"
 
-#: src/gnome-cmd-advrename-profile-component.cc:879
+#: src/gnome-cmd-advrename-profile-component.cc:878
 msgid "lowercase"
 msgstr "male črke"
 
-#: src/gnome-cmd-advrename-profile-component.cc:880
+#: src/gnome-cmd-advrename-profile-component.cc:879
 msgid "UPPERCASE"
 msgstr "Velike črke"
 
-#: src/gnome-cmd-advrename-profile-component.cc:882
+#: src/gnome-cmd-advrename-profile-component.cc:881
 msgid "Sentence case"
 msgstr "Stavčni zapis"
 
 #. FIXME
-#: src/gnome-cmd-advrename-profile-component.cc:883
+#: src/gnome-cmd-advrename-profile-component.cc:882
 msgid "Initial Caps"
 msgstr "Velike Začetnice Besed"
 
 #. FIXME
-#: src/gnome-cmd-advrename-profile-component.cc:884
+#: src/gnome-cmd-advrename-profile-component.cc:883
 msgid "tOGGLE cASE"
 msgstr "pREKLOPI vELIKOST"
 
-#: src/gnome-cmd-advrename-profile-component.cc:894
+#: src/gnome-cmd-advrename-profile-component.cc:893
 msgid "Trim blanks"
 msgstr "Obreži presledne znake"
 
-#: src/gnome-cmd-advrename-profile-component.cc:907
+#: src/gnome-cmd-advrename-profile-component.cc:906
 msgid "<none>"
 msgstr "<brez>"
 
-#: src/gnome-cmd-advrename-profile-component.cc:908
+#: src/gnome-cmd-advrename-profile-component.cc:907
 msgid "leading"
 msgstr "začetne"
 
-#: src/gnome-cmd-advrename-profile-component.cc:909
+#: src/gnome-cmd-advrename-profile-component.cc:908
 msgid "trailing"
 msgstr "končne"
 
-#: src/gnome-cmd-advrename-profile-component.cc:910
+#: src/gnome-cmd-advrename-profile-component.cc:909
 msgid "leading and trailing"
 msgstr "začetne in končne"
 
-#: src/gnome-cmd-advrename-profile-component.cc:1058
+#: src/gnome-cmd-advrename-profile-component.cc:1056
 msgid "Search for"
 msgstr "Poišči"
 
-#: src/gnome-cmd-advrename-profile-component.cc:1061
+#: src/gnome-cmd-advrename-profile-component.cc:1059
 msgid "Regex pattern"
 msgstr "Logični niz"
 
-#: src/gnome-cmd-advrename-profile-component.cc:1063
+#: src/gnome-cmd-advrename-profile-component.cc:1061
 msgid "Replace with"
 msgstr "Zamenjaj z"
 
-#: src/gnome-cmd-advrename-profile-component.cc:1066
+#: src/gnome-cmd-advrename-profile-component.cc:1064
 msgid "Replacement"
 msgstr "Zamenjava"
 
-#: src/gnome-cmd-advrename-profile-component.cc:1068
+#: src/gnome-cmd-advrename-profile-component.cc:1066
 msgid "Match case"
 msgstr "Upoštevaj velikost črk"
 
-#: src/gnome-cmd-advrename-profile-component.cc:1071
+#: src/gnome-cmd-advrename-profile-component.cc:1069
 msgid "Case sensitive matching"
 msgstr "Upoštevanje velikost črk"
 
@@ -3511,6 +3664,18 @@ msgstr "Črkovni zapis:"
 #: src/gnome-cmd-chmod-component.cc:140
 msgid "Number view:"
 msgstr "Številčni zapis:"
+
+#: src/gnome-cmd-cmdline.cc:116 src/gnome-cmd-file.cc:833
+#: src/gnome-cmd-file.cc:883 src/gnome-cmd-user-actions.cc:863 src/spawn.rs:169
+#: src/spawn.rs:173
+msgid "No valid command given."
+msgstr "Ni navedenega veljavnega ukaza."
+
+#: src/gnome-cmd-cmdline.cc:121 src/gnome-cmd-file.cc:838
+#: src/gnome-cmd-file.cc:888 src/gnome-cmd-user-actions.cc:868
+#: src/gnome-cmd-user-actions.cc:910 src/spawn.rs:176
+msgid "Unable to execute command."
+msgstr "Ni mogoče izvesti ukaza."
 
 #: src/gnome-cmd-con.cc:613 src/gnome-cmd-con.cc:644 src/gnome-cmd-con.cc:675
 msgid "<New connection>"
@@ -3591,21 +3756,21 @@ msgstr "Skoči na: domov"
 msgid "Home"
 msgstr "Domov"
 
-#: src/gnome-cmd-con-remote.cc:124
+#: src/gnome-cmd-con-remote.cc:135
 msgid "Disconnect error"
 msgstr "Napaka prekinjanja povezave"
 
-#: src/gnome-cmd-con-remote.cc:232
+#: src/gnome-cmd-con-remote.cc:247
 #, c-format
 msgid "Opens remote connection to %s"
 msgstr "Odpre oddaljeno povezavo z %s"
 
-#: src/gnome-cmd-con-remote.cc:242
+#: src/gnome-cmd-con-remote.cc:257
 #, c-format
 msgid "Closes remote connection to %s"
 msgstr "Zapre oddaljeno povezavo z %s"
 
-#: src/gnome-cmd-con-remote.cc:335
+#: src/gnome-cmd-con-remote.cc:350
 #, c-format
 msgid "Connecting to %s\n"
 msgstr "Povezovanje z %s\n"
@@ -3626,16 +3791,16 @@ msgstr "SMB"
 msgid "Searching for workgroups and hosts"
 msgstr "Iskanje delovnih skupin in gostiteljev"
 
-#: src/gnome-cmd-data.cc:3258 src/gnome-cmd-data.cc:3917 src/user_actions.rs:49
+#: src/gnome-cmd-data.cc:3252 src/gnome-cmd-data.cc:3905 src/user_actions.rs:94
 #, c-format
 msgid "link to %s"
 msgstr "povezava do %s"
 
-#: src/gnome-cmd-dir-indicator.cc:367
+#: src/gnome-cmd-dir-indicator.cc:369
 msgid "Add current dir"
 msgstr "Dodaj trenutno mapo"
 
-#: src/gnome-cmd-dir-indicator.cc:368
+#: src/gnome-cmd-dir-indicator.cc:370
 msgid "Manage bookmarks…"
 msgstr "Upravljanje zaznamkov …"
 
@@ -3647,34 +3812,6 @@ msgstr "_Odpri"
 #, c-format
 msgid "_Open with “%s”"
 msgstr "_Odpri s programom »%s«"
-
-#: src/gnome-cmd-file.cc:833 src/gnome-cmd-file.cc:883
-#: src/gnome-cmd-user-actions.cc:876 src/gnome-cmd-user-actions.cc:1036
-#: src/spawn.rs:162 src/spawn.rs:166
-msgid "No valid command given."
-msgstr "Ni navedenega veljavnega ukaza."
-
-#: src/gnome-cmd-file.cc:838 src/gnome-cmd-file.cc:888
-#: src/gnome-cmd-user-actions.cc:881 src/gnome-cmd-user-actions.cc:923
-#: src/gnome-cmd-user-actions.cc:1041 src/spawn.rs:169 src/utils.cc:129
-msgid "Unable to execute command."
-msgstr "Ni mogoče izvesti ukaza."
-
-#: src/gnome-cmd-file-list-actions.cc:51
-msgid "Invalid command"
-msgstr "Neveljaven ukaz"
-
-#: src/gnome-cmd-file-list-actions.cc:80
-msgid "Application:"
-msgstr "Program:"
-
-#: src/gnome-cmd-file-list-actions.cc:83
-msgid "Open with other…"
-msgstr "Odpri s programom …"
-
-#: src/gnome-cmd-file-list-actions.cc:88
-msgid "Needs terminal"
-msgstr "Potrebuje terminal"
 
 #: src/gnome-cmd-file-list.cc:129
 msgid "name"
@@ -3724,15 +3861,15 @@ msgstr "_Poveži sem"
 msgid "C_ancel"
 msgstr "Pre_kliči"
 
-#: src/gnome-cmd-file-list.cc:1567
+#: src/gnome-cmd-file-list.cc:1568
 msgid "Directory listing failed."
 msgstr "Izpis map ni uspel."
 
-#: src/gnome-cmd-file-list.cc:1617
+#: src/gnome-cmd-file-list.cc:1618
 msgid "Failed to open connection."
 msgstr "Odpiranje povezave je spodletelo."
 
-#: src/gnome-cmd-file-list.cc:2478 src/gnome-cmd-file-list.cc:2509
+#: src/gnome-cmd-file-list.cc:2476 src/gnome-cmd-file-list.cc:2507
 msgid "Not an ordinary file."
 msgstr "Ni običajna datoteka."
 
@@ -3749,18 +3886,18 @@ msgstr "Odpri _z"
 msgid "E_xecute"
 msgstr "_Izvedi"
 
-#: src/gnome-cmd-file-popmenu.cc:354 src/gnome-cmd-main-win.cc:180
-#: src/gnome-cmd-user-actions.cc:323
+#: src/gnome-cmd-file-popmenu.cc:354 src/gnome-cmd-main-win.cc:181
+#: src/gnome-cmd-user-actions.cc:310
 msgid "Cut"
 msgstr "Izreži"
 
-#: src/gnome-cmd-file-popmenu.cc:356 src/gnome-cmd-user-actions.cc:322
+#: src/gnome-cmd-file-popmenu.cc:356 src/gnome-cmd-user-actions.cc:309
 msgid "Copy file names"
 msgstr "Kopiraj imena datotek"
 
 #. {file_run, "file.run"},
-#: src/gnome-cmd-file-popmenu.cc:359 src/gnome-cmd-main-win.cc:185
-#: src/gnome-cmd-user-actions.cc:347
+#: src/gnome-cmd-file-popmenu.cc:359 src/gnome-cmd-main-win.cc:186
+#: src/gnome-cmd-user-actions.cc:334
 msgid "Send files"
 msgstr "Pošlji datoteke"
 
@@ -3768,7 +3905,7 @@ msgstr "Pošlji datoteke"
 msgid "Open _terminal here"
 msgstr "Odpri _terminal tukaj"
 
-#: src/gnome-cmd-file-popmenu.cc:362 src/gnome-cmd-main-menu.cc:160
+#: src/gnome-cmd-file-popmenu.cc:362 src/gnome-cmd-main-menu.cc:159
 msgid "_Properties…"
 msgstr "_Lastnosti …"
 
@@ -3784,15 +3921,15 @@ msgstr "_Mapa"
 msgid "_Text File"
 msgstr "_Besedilna datoteka"
 
-#: src/gnome-cmd-file-selector.cc:89 src/gnome-cmd-main-menu.cc:180
+#: src/gnome-cmd-file-selector.cc:89 src/gnome-cmd-main-menu.cc:179
 msgid "_Paste"
 msgstr "_Prilepi"
 
-#: src/gnome-cmd-file-selector.cc:95 src/gnome-cmd-main-menu.cc:204
+#: src/gnome-cmd-file-selector.cc:95 src/gnome-cmd-main-menu.cc:203
 msgid "_Refresh"
 msgstr "_Osveži"
 
-#: src/gnome-cmd-file-selector.cc:191
+#: src/gnome-cmd-file-selector.cc:192
 #, c-format
 msgid "%s of %s kB in %d of %d file"
 msgid_plural "%s of %s kB in %d of %d files"
@@ -3801,7 +3938,7 @@ msgstr[1] "%s od %s KB v %d od %d izbrane datoteke"
 msgstr[2] "%s od %s KB v %d od %d izbranih datotek"
 msgstr[3] "%s od %s KB v %d od %d izbranih datotek"
 
-#: src/gnome-cmd-file-selector.cc:195
+#: src/gnome-cmd-file-selector.cc:196
 #, c-format
 msgid "%s, %d of %d dir selected"
 msgid_plural "%s, %d of %d dirs selected"
@@ -3810,342 +3947,342 @@ msgstr[1] "%s, %d od %d izbrane mape"
 msgstr[2] "%s, %d od %d izbranih map"
 msgstr[3] "%s, %d od %d izbranih map"
 
-#: src/gnome-cmd-file-selector.cc:250
+#: src/gnome-cmd-file-selector.cc:251
 #, c-format
 msgid "%s free"
 msgstr "Prosto %s"
 
-#: src/gnome-cmd-file-selector.cc:255
+#: src/gnome-cmd-file-selector.cc:256
 msgid "Unknown disk usage"
 msgstr "Nedoločena zasedenost diska"
 
-#: src/gnome-cmd-file-selector.cc:1009
+#: src/gnome-cmd-file-selector.cc:997
 msgid "No file name entered"
 msgstr "Ni vnesenega imena datoteke"
 
-#: src/gnome-cmd-file-selector.cc:1088
+#: src/gnome-cmd-file-selector.cc:1076
 msgid "New Text File"
 msgstr "Naslednja tekstovna datoteka"
 
-#: src/gnome-cmd-file-selector.cc:1308
+#: src/gnome-cmd-file-selector.cc:1294
 msgid "Filter:"
 msgstr "Filter:"
 
-#: src/gnome-cmd-main-menu.cc:154 src/intviewer/viewer-window.cc:515
+#: src/gnome-cmd-main-menu.cc:153 src/intviewer/viewer-window.cc:493
 msgid "_File"
 msgstr "_Datoteka"
 
-#: src/gnome-cmd-main-menu.cc:156
+#: src/gnome-cmd-main-menu.cc:155
 msgid "Change _Owner/Group"
 msgstr "Spremeni _lastništvo"
 
-#: src/gnome-cmd-main-menu.cc:157
+#: src/gnome-cmd-main-menu.cc:156
 msgid "Change Per_missions"
 msgstr "Spremeni _dovoljenja"
 
-#: src/gnome-cmd-main-menu.cc:158
+#: src/gnome-cmd-main-menu.cc:157
 msgid "Advanced _Rename Tool"
 msgstr "Napredno _preimenovanje"
 
-#: src/gnome-cmd-main-menu.cc:159
+#: src/gnome-cmd-main-menu.cc:158
 msgid "Create _Symbolic Link"
 msgstr "_Ustvari simbolno povezavo"
 
-#: src/gnome-cmd-main-menu.cc:163
+#: src/gnome-cmd-main-menu.cc:162
 msgid "_Search…"
 msgstr "_Poišči …"
 
-#: src/gnome-cmd-main-menu.cc:164
+#: src/gnome-cmd-main-menu.cc:163
 msgid "_Quick Search…"
 msgstr "_Hitro iskanje …"
 
-#: src/gnome-cmd-main-menu.cc:165
+#: src/gnome-cmd-main-menu.cc:164
 msgid "_Enable Filter…"
 msgstr "_Omogoči filter …"
 
-#: src/gnome-cmd-main-menu.cc:168
+#: src/gnome-cmd-main-menu.cc:167
 msgid "_Diff"
 msgstr "_Primerjava"
 
-#: src/gnome-cmd-main-menu.cc:169
+#: src/gnome-cmd-main-menu.cc:168
 msgid "S_ynchronize Directories"
 msgstr "_Usklajevanje map"
 
-#: src/gnome-cmd-main-menu.cc:172
+#: src/gnome-cmd-main-menu.cc:171
 msgid "Start _GNOME Commander as root"
 msgstr "Zaženi program kot skrbnik"
 
-#: src/gnome-cmd-main-menu.cc:174
+#: src/gnome-cmd-main-menu.cc:173
 msgid "_Quit"
 msgstr "_Končaj"
 
-#: src/gnome-cmd-main-menu.cc:178
+#: src/gnome-cmd-main-menu.cc:177
 msgid "Cu_t"
 msgstr "I_zreži"
 
-#: src/gnome-cmd-main-menu.cc:179
+#: src/gnome-cmd-main-menu.cc:178
 msgid "_Copy"
 msgstr "_Kopiraj"
 
-#: src/gnome-cmd-main-menu.cc:181
+#: src/gnome-cmd-main-menu.cc:180
 msgid "_Delete"
 msgstr "_Izbriši"
 
-#: src/gnome-cmd-main-menu.cc:183
+#: src/gnome-cmd-main-menu.cc:182
 msgid "Copy _File Names"
 msgstr "Kopiraj imena _datotek"
 
-#: src/gnome-cmd-main-menu.cc:185
+#: src/gnome-cmd-main-menu.cc:184
 msgid "_Mark"
 msgstr "_Označi"
 
-#: src/gnome-cmd-main-menu.cc:187
+#: src/gnome-cmd-main-menu.cc:186
 msgid "_Select All"
 msgstr "Izberi _vse"
 
-#: src/gnome-cmd-main-menu.cc:188
+#: src/gnome-cmd-main-menu.cc:187
 msgid "_Unselect All"
 msgstr "P_očisti vse"
 
-#: src/gnome-cmd-main-menu.cc:189
+#: src/gnome-cmd-main-menu.cc:188
 msgid "Select all _Files"
 msgstr "Izberi _vse datoteke"
 
-#: src/gnome-cmd-main-menu.cc:190
+#: src/gnome-cmd-main-menu.cc:189
 msgid "Unselect all Fi_les"
 msgstr "Počisti izbor vse_h datotek"
 
-#: src/gnome-cmd-main-menu.cc:191
+#: src/gnome-cmd-main-menu.cc:190
 msgid "Select with _Pattern"
 msgstr "Izberi s_kupino"
 
-#: src/gnome-cmd-main-menu.cc:192
+#: src/gnome-cmd-main-menu.cc:191
 msgid "Unselect with P_attern"
 msgstr "Počisti _skupino"
 
-#: src/gnome-cmd-main-menu.cc:193
+#: src/gnome-cmd-main-menu.cc:192
 msgid "Select with same _Extension"
 msgstr "Izberi vse z iso _pripono"
 
-#: src/gnome-cmd-main-menu.cc:194
+#: src/gnome-cmd-main-menu.cc:193
 msgid "Unselect with same E_xtension"
 msgstr "Počisti izbor datotek z isto _pripono"
 
-#: src/gnome-cmd-main-menu.cc:195
+#: src/gnome-cmd-main-menu.cc:194
 msgid "_Invert Selection"
 msgstr "Obrni _izbor"
 
-#: src/gnome-cmd-main-menu.cc:196
+#: src/gnome-cmd-main-menu.cc:195
 msgid "_Restore Selection"
 msgstr "_Povrni izbor"
 
-#: src/gnome-cmd-main-menu.cc:198
+#: src/gnome-cmd-main-menu.cc:197
 msgid "_Compare Directories"
 msgstr "_Primerjava map"
 
-#: src/gnome-cmd-main-menu.cc:200 src/intviewer/viewer-window.cc:518
+#: src/gnome-cmd-main-menu.cc:199 src/intviewer/viewer-window.cc:496
 msgid "_View"
 msgstr "_Pogled"
 
-#: src/gnome-cmd-main-menu.cc:202
+#: src/gnome-cmd-main-menu.cc:201
 msgid "_Back"
 msgstr "_Nazaj"
 
-#: src/gnome-cmd-main-menu.cc:203
+#: src/gnome-cmd-main-menu.cc:202
 msgid "_Forward"
 msgstr "_Naprej"
 
-#: src/gnome-cmd-main-menu.cc:207
+#: src/gnome-cmd-main-menu.cc:206
 msgid "Open in New _Tab"
 msgstr "Odpri v novem _zavihku"
 
-#: src/gnome-cmd-main-menu.cc:208
+#: src/gnome-cmd-main-menu.cc:207
 msgid "_Close Tab"
 msgstr "_Zapri zavihek"
 
-#: src/gnome-cmd-main-menu.cc:209
+#: src/gnome-cmd-main-menu.cc:208
 msgid "Close _All Tabs"
 msgstr "Zapri _vse zavihke"
 
-#: src/gnome-cmd-main-menu.cc:212
+#: src/gnome-cmd-main-menu.cc:211
 msgid "Show Toolbar"
 msgstr "Pokaži orodno vrstico"
 
-#: src/gnome-cmd-main-menu.cc:213
+#: src/gnome-cmd-main-menu.cc:212
 msgid "Show Device Buttons"
 msgstr "Pokaži gumbe naprav"
 
-#: src/gnome-cmd-main-menu.cc:214
+#: src/gnome-cmd-main-menu.cc:213
 msgid "Show Device List"
 msgstr "Pokaži seznam naprav"
 
-#: src/gnome-cmd-main-menu.cc:215
+#: src/gnome-cmd-main-menu.cc:214
 msgid "Show Command Line"
 msgstr "Pokaži ukazno vrstico"
 
-#: src/gnome-cmd-main-menu.cc:216
+#: src/gnome-cmd-main-menu.cc:215
 msgid "Show Buttonbar"
 msgstr "Pokaži funkcijske tipke"
 
-#: src/gnome-cmd-main-menu.cc:219
+#: src/gnome-cmd-main-menu.cc:218
 msgid "Show Hidden Files"
 msgstr "Pokaži skrite datoteke"
 
-#: src/gnome-cmd-main-menu.cc:220
+#: src/gnome-cmd-main-menu.cc:219
 msgid "Show Backup Files"
 msgstr "Pokaži varnostne kopije"
 
-#: src/gnome-cmd-main-menu.cc:223
+#: src/gnome-cmd-main-menu.cc:222
 msgid "_Equal Panel Size"
 msgstr "_Enako veliki okni"
 
-#: src/gnome-cmd-main-menu.cc:224
+#: src/gnome-cmd-main-menu.cc:223
 msgid "Maximize Panel Size"
 msgstr "Razpni velikost okna"
 
-#: src/gnome-cmd-main-menu.cc:227
+#: src/gnome-cmd-main-menu.cc:226
 msgid "Horizontal Orientation"
 msgstr "Vodoravna postavitev"
 
-#: src/gnome-cmd-main-menu.cc:230 src/intviewer/viewer-window.cc:570
+#: src/gnome-cmd-main-menu.cc:229 src/intviewer/viewer-window.cc:548
 msgid "_Settings"
 msgstr "_Nastavitve"
 
-#: src/gnome-cmd-main-menu.cc:231
+#: src/gnome-cmd-main-menu.cc:230
 msgid "_Options…"
 msgstr "_Možnosti …"
 
-#: src/gnome-cmd-main-menu.cc:232
+#: src/gnome-cmd-main-menu.cc:231
 msgid "_Keyboard Shortcuts…"
 msgstr "_Tipkovne bližnjice …"
 
-#: src/gnome-cmd-main-menu.cc:234
+#: src/gnome-cmd-main-menu.cc:233
 msgid "_Connections"
 msgstr "_Povezave"
 
-#: src/gnome-cmd-main-menu.cc:235
+#: src/gnome-cmd-main-menu.cc:234
 msgid "_Remote Server…"
 msgstr "_Oddaljeni strežnik …"
 
-#: src/gnome-cmd-main-menu.cc:236
+#: src/gnome-cmd-main-menu.cc:235
 msgid "New Connection…"
 msgstr "Nova povezava …"
 
-#: src/gnome-cmd-main-menu.cc:240
+#: src/gnome-cmd-main-menu.cc:239
 msgid "_Bookmarks"
 msgstr "_Zaznamki"
 
-#: src/gnome-cmd-main-menu.cc:241
+#: src/gnome-cmd-main-menu.cc:240
 msgid "_Bookmark this Directory…"
 msgstr "_Ustvari zaznamek mape …"
 
-#: src/gnome-cmd-main-menu.cc:242
+#: src/gnome-cmd-main-menu.cc:241
 msgid "_Manage Bookmarks…"
 msgstr "_Uredi zaznamke …"
 
-#: src/gnome-cmd-main-menu.cc:245
+#: src/gnome-cmd-main-menu.cc:244
 msgid "_Plugins"
 msgstr "_Vstavki"
 
-#: src/gnome-cmd-main-menu.cc:246
+#: src/gnome-cmd-main-menu.cc:245
 msgid "_Configure Plugins…"
 msgstr "_Nastavitve vstavkov …"
 
-#: src/gnome-cmd-main-menu.cc:251
+#: src/gnome-cmd-main-menu.cc:250
 msgid "_Documentation"
 msgstr "_Dokumentacija"
 
-#: src/gnome-cmd-main-menu.cc:252 src/intviewer/viewer-window.cc:584
+#: src/gnome-cmd-main-menu.cc:251 src/intviewer/viewer-window.cc:562
 msgid "_Keyboard Shortcuts"
 msgstr "_Tipkovne bližnjice"
 
-#: src/gnome-cmd-main-menu.cc:253
+#: src/gnome-cmd-main-menu.cc:252
 msgid "GNOME Commander on the _Web"
 msgstr "GNOME Commander na _spletu"
 
-#: src/gnome-cmd-main-menu.cc:254
+#: src/gnome-cmd-main-menu.cc:253
 msgid "Report a _Problem"
 msgstr "_Poročilo o napaki"
 
-#: src/gnome-cmd-main-menu.cc:256 src/plugin_manager.cc:421
+#: src/gnome-cmd-main-menu.cc:255 src/plugin_manager.cc:421
 msgid "_About"
 msgstr "_O Programu"
 
-#: src/gnome-cmd-main-win.cc:172 src/gnome-cmd-user-actions.cc:388
+#: src/gnome-cmd-main-win.cc:173 src/gnome-cmd-user-actions.cc:375
 msgid "Refresh"
 msgstr "Osveži"
 
-#: src/gnome-cmd-main-win.cc:174
+#: src/gnome-cmd-main-win.cc:175
 msgid "Go to the oldest"
 msgstr "Skoči na najstarejše"
 
-#: src/gnome-cmd-main-win.cc:175
+#: src/gnome-cmd-main-win.cc:176
 msgid "Go back"
 msgstr "Pojdi nazaj"
 
-#: src/gnome-cmd-main-win.cc:176
+#: src/gnome-cmd-main-win.cc:177
 msgid "Go forward"
 msgstr "Pojdi naprej"
 
-#: src/gnome-cmd-main-win.cc:177
+#: src/gnome-cmd-main-win.cc:178
 msgid "Go to the latest"
 msgstr "Skoči na najnovejše"
 
-#: src/gnome-cmd-main-win.cc:179
+#: src/gnome-cmd-main-win.cc:180
 msgid "Copy file names (SHIFT for full paths, ALT for URIs)"
 msgstr ""
 "Kopiraj imena datotek (s tipko SHIFT se kopira celotna pot, z ALT pa naslovi "
 "URI)"
 
-#: src/gnome-cmd-main-win.cc:182 src/gnome-cmd-user-actions.cc:326
+#: src/gnome-cmd-main-win.cc:183 src/gnome-cmd-user-actions.cc:313
 msgid "Paste"
 msgstr "Prilepi"
 
-#: src/gnome-cmd-main-win.cc:184
+#: src/gnome-cmd-main-win.cc:185
 msgid "Edit (SHIFT for new document)"
 msgstr "Uredi (s tipko SHIFT se odpre nov dokument)"
 
-#: src/gnome-cmd-main-win.cc:186
+#: src/gnome-cmd-main-win.cc:187
 msgid "Open terminal (SHIFT for root privileges)"
 msgstr "Odpri terminal (s tipko shift s skrbniškimi dovoljenji)"
 
-#: src/gnome-cmd-main-win.cc:190
+#: src/gnome-cmd-main-win.cc:191
 msgid "Drop connection"
 msgstr "Prekini povezavo"
 
-#: src/gnome-cmd-main-win.cc:228
+#: src/gnome-cmd-main-win.cc:227
 msgid "F3 View"
 msgstr "F3 Poglej"
 
-#: src/gnome-cmd-main-win.cc:230
+#: src/gnome-cmd-main-win.cc:229
 msgid "F4 Edit"
 msgstr "F4 Uredi"
 
-#: src/gnome-cmd-main-win.cc:232
+#: src/gnome-cmd-main-win.cc:231
 msgid "F5 Copy"
 msgstr "F5 Kopiraj"
 
-#: src/gnome-cmd-main-win.cc:234
+#: src/gnome-cmd-main-win.cc:233
 msgid "F6 Move"
 msgstr "F6 Premakni"
 
-#: src/gnome-cmd-main-win.cc:236
+#: src/gnome-cmd-main-win.cc:235
 msgid "F7 Mkdir"
 msgstr "F7 Nova mapa"
 
-#: src/gnome-cmd-main-win.cc:238
+#: src/gnome-cmd-main-win.cc:237
 msgid "F8 Delete"
 msgstr "F8 Izbriši"
 
-#: src/gnome-cmd-main-win.cc:240
+#: src/gnome-cmd-main-win.cc:239
 msgid "F9 Search"
 msgstr "F9 Poišči"
 
-#: src/gnome-cmd-main-win.cc:571
+#: src/gnome-cmd-main-win.cc:548
 msgid "GNOME Commander — ROOT PRIVILEGES"
 msgstr "GNOME Commander - SKRBNIŠKI NAČIN"
 
-#: src/gnome-cmd-quicksearch-popup.cc:207 src/gnome-cmd-user-actions.cc:328
+#: src/gnome-cmd-quicksearch-popup.cc:206 src/gnome-cmd-user-actions.cc:315
 msgid "Search"
 msgstr "Poišči"
 
@@ -4188,344 +4325,324 @@ msgstr "Vsebuje _besedilo:"
 msgid "Case sensiti_ve"
 msgstr "_Razlikovanje velikosti črk"
 
-#: src/gnome-cmd-user-actions.cc:250
-msgid "No file selected"
-msgstr "Ni izbrane datoteke"
-
-#: src/gnome-cmd-user-actions.cc:308
+#: src/gnome-cmd-user-actions.cc:295
 msgid "Bookmark current directory"
 msgstr "Ustvari zaznamek trenutne mape"
 
-#: src/gnome-cmd-user-actions.cc:309
+#: src/gnome-cmd-user-actions.cc:296
 msgid "Manage bookmarks"
 msgstr "Uredi zaznamke"
 
-#: src/gnome-cmd-user-actions.cc:310
+#: src/gnome-cmd-user-actions.cc:297
 msgid "Go to bookmarked location"
 msgstr "Skoči na mesto zaznamka"
 
-#: src/gnome-cmd-user-actions.cc:311
+#: src/gnome-cmd-user-actions.cc:298
 msgid "Show bookmarks of current device"
 msgstr "Pokaži zaznamke trenutne naprave"
 
-#: src/gnome-cmd-user-actions.cc:312
+#: src/gnome-cmd-user-actions.cc:299
 msgid "Execute command"
 msgstr "Izvedi ukaz"
 
-#: src/gnome-cmd-user-actions.cc:313
+#: src/gnome-cmd-user-actions.cc:300
 msgid "Open terminal"
 msgstr "Odpri terminal"
 
-#: src/gnome-cmd-user-actions.cc:314
+#: src/gnome-cmd-user-actions.cc:301
 msgid "Open terminal as root"
 msgstr "Odpri terminal s skrbniškimi dovoljenji"
 
-#: src/gnome-cmd-user-actions.cc:315
+#: src/gnome-cmd-user-actions.cc:302
 msgid "Start GNOME Commander as root"
 msgstr "Skrbniški zagon programa GNOME Commander"
 
-#: src/gnome-cmd-user-actions.cc:316
+#: src/gnome-cmd-user-actions.cc:303
 msgid "Close connection"
 msgstr "Zapri povezavo"
 
-#: src/gnome-cmd-user-actions.cc:317
+#: src/gnome-cmd-user-actions.cc:304
 msgid "New connection"
 msgstr "Nova povezava"
 
-#: src/gnome-cmd-user-actions.cc:318
+#: src/gnome-cmd-user-actions.cc:305
 msgid "Open connection"
 msgstr "Odpri povezavo"
 
-#: src/gnome-cmd-user-actions.cc:319
+#: src/gnome-cmd-user-actions.cc:306
 msgid "Change left connection"
 msgstr "Spremeni povezavo na levi"
 
-#: src/gnome-cmd-user-actions.cc:320
+#: src/gnome-cmd-user-actions.cc:307
 msgid "Change right connection"
 msgstr "Spremeni povezavo na desni"
 
-#: src/gnome-cmd-user-actions.cc:325
+#: src/gnome-cmd-user-actions.cc:312
 msgid "Show user defined files"
 msgstr "Pokaži po meri določene datoteke"
 
-#: src/gnome-cmd-user-actions.cc:329
+#: src/gnome-cmd-user-actions.cc:316
 msgid "Advanced rename tool"
 msgstr "Napredno preimenovanje"
 
-#: src/gnome-cmd-user-actions.cc:330
+#: src/gnome-cmd-user-actions.cc:317
 msgid "Change permissions"
 msgstr "Spremeni dovoljenja"
 
-#: src/gnome-cmd-user-actions.cc:331
+#: src/gnome-cmd-user-actions.cc:318
 msgid "Change owner/group"
 msgstr "Spremeni lastništvo"
 
-#: src/gnome-cmd-user-actions.cc:332
+#: src/gnome-cmd-user-actions.cc:319
 msgid "Copy files"
 msgstr "Kopiranje datotek"
 
-#: src/gnome-cmd-user-actions.cc:333
+#: src/gnome-cmd-user-actions.cc:320
 msgid "Copy files with rename"
 msgstr "Kopiraj in preimenuj datoteke"
 
-#: src/gnome-cmd-user-actions.cc:334
+#: src/gnome-cmd-user-actions.cc:321
 msgid "Create symbolic link"
 msgstr "Ustvari simbolično povezavo"
 
-#: src/gnome-cmd-user-actions.cc:335
+#: src/gnome-cmd-user-actions.cc:322
 msgid "Delete files"
 msgstr "Izbriši datoteke"
 
-#: src/gnome-cmd-user-actions.cc:336
+#: src/gnome-cmd-user-actions.cc:323
 msgid "Compare files (diff)"
 msgstr "Primerjava datotek (diff)"
 
-#: src/gnome-cmd-user-actions.cc:337
+#: src/gnome-cmd-user-actions.cc:324
 msgid "Edit file"
 msgstr "Uredi datoteko"
 
-#: src/gnome-cmd-user-actions.cc:338
+#: src/gnome-cmd-user-actions.cc:325
 msgid "Edit a new file"
 msgstr "Uredi novo datoteko"
 
-#: src/gnome-cmd-user-actions.cc:339
+#: src/gnome-cmd-user-actions.cc:326
 msgid "Quit"
 msgstr "Končaj"
 
-#: src/gnome-cmd-user-actions.cc:340
+#: src/gnome-cmd-user-actions.cc:327
 msgid "View with external viewer"
 msgstr "Poglej datoteko z zunanjim pregledovalnikom"
 
-#: src/gnome-cmd-user-actions.cc:341
+#: src/gnome-cmd-user-actions.cc:328
 msgid "View with internal viewer"
 msgstr "Poglej datoteko z vgrajenim pregledovalnikom"
 
-#: src/gnome-cmd-user-actions.cc:342
+#: src/gnome-cmd-user-actions.cc:329
 msgid "Create directory"
 msgstr "Ustvari mapo"
 
-#: src/gnome-cmd-user-actions.cc:343
+#: src/gnome-cmd-user-actions.cc:330
 msgid "Move files"
 msgstr "Premakni datoteke"
 
-#: src/gnome-cmd-user-actions.cc:345
+#: src/gnome-cmd-user-actions.cc:332
 msgid "Rename files"
 msgstr "Preimenuj datoteke"
 
-#: src/gnome-cmd-user-actions.cc:348
+#: src/gnome-cmd-user-actions.cc:335
 msgid "Synchronize directories"
 msgstr "Usklajevanje map"
 
-#: src/gnome-cmd-user-actions.cc:351
+#: src/gnome-cmd-user-actions.cc:338
 msgid "About GNOME Commander"
 msgstr "O programu GNOME Commander"
 
-#: src/gnome-cmd-user-actions.cc:352
+#: src/gnome-cmd-user-actions.cc:339
 msgid "Help contents"
 msgstr "Vsebina pomoči"
 
-#: src/gnome-cmd-user-actions.cc:353
+#: src/gnome-cmd-user-actions.cc:340
 msgid "Help on keyboard shortcuts"
 msgstr "Pomoč o tipkovnih bližnjicah"
 
-#: src/gnome-cmd-user-actions.cc:354
+#: src/gnome-cmd-user-actions.cc:341
 msgid "Report a problem"
 msgstr "Poročilo o napaki"
 
-#: src/gnome-cmd-user-actions.cc:355
+#: src/gnome-cmd-user-actions.cc:342
 msgid "GNOME Commander on the web"
 msgstr "Program GNOME Commander na spletu"
 
-#: src/gnome-cmd-user-actions.cc:356
+#: src/gnome-cmd-user-actions.cc:343
 msgid "Compare directories"
 msgstr "Primerjava map"
 
-#: src/gnome-cmd-user-actions.cc:357
+#: src/gnome-cmd-user-actions.cc:344
 msgid "Invert selection"
 msgstr "Obrni izbor"
 
-#: src/gnome-cmd-user-actions.cc:358
+#: src/gnome-cmd-user-actions.cc:345
 msgid "Select all"
 msgstr "Izberi vse"
 
-#: src/gnome-cmd-user-actions.cc:359
+#: src/gnome-cmd-user-actions.cc:346
 msgid "Select all files"
 msgstr "Izberi vse datoteke"
 
-#: src/gnome-cmd-user-actions.cc:360
+#: src/gnome-cmd-user-actions.cc:347
 msgid "Unselect all files"
 msgstr "Počisti izbor vseh datotek"
 
-#: src/gnome-cmd-user-actions.cc:361
+#: src/gnome-cmd-user-actions.cc:348
 msgid "Toggle selection"
 msgstr "Preklopi izbor"
 
-#: src/gnome-cmd-user-actions.cc:362
+#: src/gnome-cmd-user-actions.cc:349
 msgid "Toggle selection and move cursor downward"
 msgstr "Preklopi izbor in premakni kazalnik nižje"
 
-#: src/gnome-cmd-user-actions.cc:363
+#: src/gnome-cmd-user-actions.cc:350
 msgid "Unselect all"
 msgstr "Počisti vse"
 
-#: src/gnome-cmd-user-actions.cc:365
+#: src/gnome-cmd-user-actions.cc:352
 msgid "Keyboard shortcuts"
 msgstr "Tipkovne bližnjice"
 
-#: src/gnome-cmd-user-actions.cc:366
+#: src/gnome-cmd-user-actions.cc:353
 msgid "Configure plugins"
 msgstr "Nastavitve vstavkov"
 
-#: src/gnome-cmd-user-actions.cc:367
+#: src/gnome-cmd-user-actions.cc:354
 msgid "Back one directory"
 msgstr "Vrni se na predhodno mapo zgodovine"
 
-#: src/gnome-cmd-user-actions.cc:368
+#: src/gnome-cmd-user-actions.cc:355
 msgid "Close the current tab"
 msgstr "Zapri trenutni zavihek"
 
-#: src/gnome-cmd-user-actions.cc:369
+#: src/gnome-cmd-user-actions.cc:356
 msgid "Close all tabs"
 msgstr "Zapri vse zavihke"
 
-#: src/gnome-cmd-user-actions.cc:370
+#: src/gnome-cmd-user-actions.cc:357
 msgid "Close duplicate tabs"
 msgstr "Zapri podvojene zavihke"
 
-#: src/gnome-cmd-user-actions.cc:371
+#: src/gnome-cmd-user-actions.cc:358
 msgid "Change directory"
 msgstr "Spremeni mapo"
 
-#: src/gnome-cmd-user-actions.cc:372
+#: src/gnome-cmd-user-actions.cc:359
 msgid "Show directory history"
 msgstr "Pokaži zgodovino mape"
 
-#: src/gnome-cmd-user-actions.cc:373
+#: src/gnome-cmd-user-actions.cc:360
 msgid "Equal panel size"
 msgstr "Enako veliki okni"
 
-#: src/gnome-cmd-user-actions.cc:374
+#: src/gnome-cmd-user-actions.cc:361
 msgid "Maximize panel size"
 msgstr "Razpni velikost okna"
 
-#: src/gnome-cmd-user-actions.cc:375
+#: src/gnome-cmd-user-actions.cc:362
 msgid "Back to the first directory"
 msgstr "Nazaj na prvo mapo v zgodovini"
 
-#: src/gnome-cmd-user-actions.cc:376
+#: src/gnome-cmd-user-actions.cc:363
 msgid "Forward one directory"
 msgstr "Naprej na naslednjo mapo zgodovine"
 
-#: src/gnome-cmd-user-actions.cc:377
+#: src/gnome-cmd-user-actions.cc:364
 msgid "Home directory"
 msgstr "Domači imenik"
 
-#: src/gnome-cmd-user-actions.cc:378
+#: src/gnome-cmd-user-actions.cc:365
 msgid "Open directory in the active window"
 msgstr "Odpre mapo v dejavnem oknu"
 
-#: src/gnome-cmd-user-actions.cc:379
+#: src/gnome-cmd-user-actions.cc:366
 msgid "Open directory in the inactive window"
 msgstr "Odpre mapo v nedejavnem oknu"
 
-#: src/gnome-cmd-user-actions.cc:380
+#: src/gnome-cmd-user-actions.cc:367
 msgid "Open directory in the left window"
 msgstr "Odpre mapo v levem oknu"
 
-#: src/gnome-cmd-user-actions.cc:381
+#: src/gnome-cmd-user-actions.cc:368
 msgid "Open directory in the right window"
 msgstr "Odpre mapo v desnem oknu"
 
-#: src/gnome-cmd-user-actions.cc:382
+#: src/gnome-cmd-user-actions.cc:369
 msgid "Open directory in the new tab"
 msgstr "Odpri mapo v novem zavihku"
 
-#: src/gnome-cmd-user-actions.cc:383
+#: src/gnome-cmd-user-actions.cc:370
 msgid "Open directory in the new tab (inactive window)"
 msgstr "Odpri mapo v novem zavihku (nedejavno okno)"
 
-#: src/gnome-cmd-user-actions.cc:384
+#: src/gnome-cmd-user-actions.cc:371
 msgid "Forward to the last directory"
 msgstr "Naprej na zadnjo mapo v zgodovini"
 
-#: src/gnome-cmd-user-actions.cc:385
+#: src/gnome-cmd-user-actions.cc:372
 msgid "Next tab"
 msgstr "Naslednji zavihek"
 
-#: src/gnome-cmd-user-actions.cc:386
+#: src/gnome-cmd-user-actions.cc:373
 msgid "Open directory in a new tab"
 msgstr "Odpre mapo v novem zavihku"
 
-#: src/gnome-cmd-user-actions.cc:387
+#: src/gnome-cmd-user-actions.cc:374
 msgid "Previous tab"
 msgstr "Predhodni zavihek"
 
-#: src/gnome-cmd-user-actions.cc:389
+#: src/gnome-cmd-user-actions.cc:376
 msgid "Root directory"
 msgstr "Korenska mapa"
 
-#: src/gnome-cmd-user-actions.cc:390
+#: src/gnome-cmd-user-actions.cc:377
 msgid "Lock/unlock tab"
 msgstr "Zakleni/Odkleni zavihek"
 
-#: src/gnome-cmd-user-actions.cc:392
+#: src/gnome-cmd-user-actions.cc:379
 msgid "Show terminal"
 msgstr "Odpri terminal"
 
-#: src/gnome-cmd-user-actions.cc:395
+#: src/gnome-cmd-user-actions.cc:382
 msgid "Display main menu"
 msgstr "Pokaži glavni meni"
 
-#: src/gnome-cmd-user-actions.cc:396
+#: src/gnome-cmd-user-actions.cc:383
 msgid "Move cursor one step up"
 msgstr "Premakni kazalko en korak višje"
 
-#: src/gnome-cmd-user-actions.cc:397
+#: src/gnome-cmd-user-actions.cc:384
 msgid "Move cursor one step down"
 msgstr "Premakni kazalko en korak nižje"
 
-#: src/gnome-cmd-user-actions.cc:918
+#: src/gnome-cmd-user-actions.cc:905
 msgid "No search command given."
 msgstr "Ni podanega veljavnega ukaza za iskanje."
 
-#: src/gnome-cmd-user-actions.cc:918
+#: src/gnome-cmd-user-actions.cc:905
 msgid "You can set a command for a search tool in the program options."
 msgstr "Ukaz za iskalnik je mogoče nastaviti med možnostmi programa."
 
-#: src/gnome-cmd-user-actions.cc:1056
-msgid "Warning"
-msgstr "Opozorilo"
-
-#: src/gnome-cmd-user-actions.cc:1056
-msgid ""
-"The default send-to command only supports one selected file at a time. You "
-"can change the command in the program options."
-msgstr ""
-"Privzeti ukaz pošiljanja podpira samo eno izbrano datoteko hkrati. Ukaz "
-"lahko spremenite v programskih možnostih."
-
-#: src/gnome-cmd-user-actions.cc:1077 src/gnome-cmd-user-actions.cc:1094
-#: src/gnome-cmd-user-actions.cc:1140
+#: src/gnome-cmd-user-actions.cc:986 src/gnome-cmd-user-actions.cc:1003
+#: src/gnome-cmd-user-actions.cc:1061
 msgid "Operation not supported on remote file systems"
 msgstr "Dejanje pri delu z oddaljenimi sistemi ni podprto"
 
-#: src/gnome-cmd-user-actions.cc:1107
+#: src/gnome-cmd-user-actions.cc:1016
+msgid "No file selected"
+msgstr "Ni izbrane datoteke"
+
+#: src/gnome-cmd-user-actions.cc:1028
 msgid "Too many selected files"
 msgstr "Preveč izbranih datotek"
 
-#: src/gnome-cmd-user-actions.cc:2092
-msgid "There was an error opening home page."
-msgstr "Prišlo je do napake med odpiranjem domače strani."
-
-#: src/gnome-cmd-user-actions.cc:2101
-msgid "There was an error reporting problem."
-msgstr "Prišlo je do napake med prikazovanjem pomoči."
-
-#: src/gnome-cmd-user-actions.cc:2129
+#: src/gnome-cmd-user-actions.cc:2052
 msgid "A fast and powerful file manager for the GNOME desktop"
 msgstr "Hiter in zmogljiv urejevalnik datotek za GNOME namizje"
 
-#: src/gnome-cmd-user-actions.cc:2133
+#: src/gnome-cmd-user-actions.cc:2056
 msgid ""
 "GNOME Commander is free software; you can redistribute it and/or modify it "
 "under the terms of the GNU General Public License as published by the Free "
@@ -4536,7 +4653,7 @@ msgstr ""
 "spreminjate pod pogoji GNU Splošnega javnega dovoljenja, kot jo izdaja Free "
 "Software Foundation; različica 2 ali kasnejše različice."
 
-#: src/gnome-cmd-user-actions.cc:2137
+#: src/gnome-cmd-user-actions.cc:2060
 msgid ""
 "GNOME Commander is distributed in the hope that it will be useful, but "
 "WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY "
@@ -4546,7 +4663,7 @@ msgstr ""
 "GNOME Terminal se širi v upanju, da bo uporaben, vendar brez kakršnekoli "
 "garancije. Za več podrobnosti si oglejte GNU Splošno javno dovoljenje."
 
-#: src/gnome-cmd-user-actions.cc:2141
+#: src/gnome-cmd-user-actions.cc:2064
 msgid ""
 "You should have received a copy of the GNU General Public License along with "
 "GNOME Commander; if not, write to the Free Software Foundation, Inc., 51 "
@@ -4556,7 +4673,7 @@ msgstr ""
 "dovoljenja GNU (GNU GPL). Če je niste dobili, pišite na Free Software "
 "Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA"
 
-#: src/gnome-cmd-user-actions.cc:2158
+#: src/gnome-cmd-user-actions.cc:2081
 msgid "translator-credits"
 msgstr "Matej Urbančič"
 
@@ -4613,33 +4730,37 @@ msgstr ""
 "da je zagnan iz mape gnome-commander-%s/src"
 
 #. Search mode radio buttons
-#: src/intviewer/search-dlg.cc:242 src/intviewer/viewer-window.cc:519
-#: src/intviewer/viewer-window.cc:530
+#: src/intviewer/search-dlg.cc:242 src/intviewer/viewer-window.cc:497
+#: src/intviewer/viewer-window.cc:508
 msgid "_Text"
 msgstr "_Besedilo"
 
-#: src/intviewer/search-dlg.cc:243 src/intviewer/viewer-window.cc:521
+#: src/intviewer/search-dlg.cc:243 src/intviewer/viewer-window.cc:499
 msgid "_Hexadecimal"
 msgstr "_Šestnajstiško"
 
-#: src/intviewer/search-dlg.cc:280
+#: src/intviewer/search-dlg.cc:278
 msgid "Find"
 msgstr "Najdi"
 
-#: src/intviewer/search_progress_dialog.rs:61
+#: src/intviewer/search_progress_dialog.rs:60
 msgid "Searching…"
 msgstr "Poteka iskanje …"
 
-#: src/intviewer/viewer-widget.cc:189
+#: src/intviewer/search_progress_dialog.rs:105
+msgid "Searching for “{}”"
+msgstr "Iskanje »{}«"
+
+#: src/intviewer/viewer-widget.cc:190
 #, c-format
 msgid "Position: %lu of %lu\tColumn: %d\t%s"
 msgstr "Položaj: %lu od %lu\tStolpec: %d\t%s"
 
-#: src/intviewer/viewer-widget.cc:193
+#: src/intviewer/viewer-widget.cc:194
 msgid "Wrap"
 msgstr "Prelomi"
 
-#: src/intviewer/viewer-widget.cc:219
+#: src/intviewer/viewer-widget.cc:220
 msgid "pixel"
 msgid_plural "pixels"
 msgstr[0] "točk"
@@ -4647,7 +4768,7 @@ msgstr[1] "točka"
 msgstr[2] "točki"
 msgstr[3] "točke"
 
-#: src/intviewer/viewer-widget.cc:221
+#: src/intviewer/viewer-widget.cc:222
 msgid "bit/sample"
 msgid_plural "bits/sample"
 msgstr[0] "bitov/vzorec"
@@ -4655,229 +4776,253 @@ msgstr[1] "bit/vzorec"
 msgstr[2] "bita/vzorec"
 msgstr[3] "biti/vzorec"
 
-#: src/intviewer/viewer-widget.cc:223
+#: src/intviewer/viewer-widget.cc:224
 msgid "(fit to window)"
 msgstr "(prilagodi oknu)"
 
-#: src/intviewer/viewer-widget.cc:239
+#: src/intviewer/viewer-widget.cc:240
 msgid "_Copy selection"
 msgstr "_Kopiraj izbor"
 
-#: src/intviewer/viewer-window.cc:520
+#: src/intviewer/viewer-window.cc:498
 msgid "_Binary"
 msgstr "_Dvojiško"
 
-#: src/intviewer/viewer-window.cc:522 src/intviewer/viewer-window.cc:563
+#: src/intviewer/viewer-window.cc:500 src/intviewer/viewer-window.cc:541
 msgid "_Image"
 msgstr "_Slika"
 
-#: src/intviewer/viewer-window.cc:524
+#: src/intviewer/viewer-window.cc:502
 msgid "_Zoom In"
 msgstr "_Približaj"
 
-#: src/intviewer/viewer-window.cc:525
+#: src/intviewer/viewer-window.cc:503
 msgid "_Zoom Out"
 msgstr "_Oddalji"
 
-#: src/intviewer/viewer-window.cc:526
+#: src/intviewer/viewer-window.cc:504
 msgid "_Normal Size"
 msgstr "_Običajna velikost"
 
-#: src/intviewer/viewer-window.cc:527
+#: src/intviewer/viewer-window.cc:505
 msgid "_Best Fit"
 msgstr "_Najboljša prilagoditev"
 
-#: src/intviewer/viewer-window.cc:531
+#: src/intviewer/viewer-window.cc:509
 msgid "_Copy Text Selection"
 msgstr "_Kopiraj izbor besedila"
 
-#: src/intviewer/viewer-window.cc:532
+#: src/intviewer/viewer-window.cc:510
 msgid "Find…"
 msgstr "Najdi …"
 
-#: src/intviewer/viewer-window.cc:533
+#: src/intviewer/viewer-window.cc:511
 msgid "Find Next"
 msgstr "Najdi naslednje"
 
-#: src/intviewer/viewer-window.cc:534
+#: src/intviewer/viewer-window.cc:512
 msgid "Find Previous"
 msgstr "Najdi _predhodne"
 
-#: src/intviewer/viewer-window.cc:536
+#: src/intviewer/viewer-window.cc:514
 msgid "_Wrap lines"
 msgstr "_Prelomi vrstice"
 
-#: src/intviewer/viewer-window.cc:538
+#: src/intviewer/viewer-window.cc:516
 msgid "_Encoding"
 msgstr "_Znakovni nabor"
 
-#: src/intviewer/viewer-window.cc:539
+#: src/intviewer/viewer-window.cc:517
 msgid "_UTF-8"
 msgstr "_UTF-8"
 
-#: src/intviewer/viewer-window.cc:540
+#: src/intviewer/viewer-window.cc:518
 msgid "English (US-_ASCII)"
 msgstr "Angleška (US-_ASCII)"
 
-#: src/intviewer/viewer-window.cc:541
+#: src/intviewer/viewer-window.cc:519
 msgid "Terminal (CP437)"
 msgstr "Terminal (CP437)"
 
-#: src/intviewer/viewer-window.cc:542
+#: src/intviewer/viewer-window.cc:520
 msgid "Arabic (ISO-8859-6)"
 msgstr "Arabska (ISO-8859-6)"
 
-#: src/intviewer/viewer-window.cc:543
+#: src/intviewer/viewer-window.cc:521
 msgid "Arabic (Windows, CP1256)"
 msgstr "Arabska (Windows, CP1256)"
 
-#: src/intviewer/viewer-window.cc:544
+#: src/intviewer/viewer-window.cc:522
 msgid "Arabic (Dos, CP864)"
 msgstr "Arabska (Dos, CP864)"
 
-#: src/intviewer/viewer-window.cc:545
+#: src/intviewer/viewer-window.cc:523
 msgid "Baltic (ISO-8859-4)"
 msgstr "Baltska (ISO-8859-4)"
 
-#: src/intviewer/viewer-window.cc:546
+#: src/intviewer/viewer-window.cc:524
 msgid "Central European (ISO-8859-2)"
 msgstr "Srednjeevropska (ISO-8859-2)"
 
-#: src/intviewer/viewer-window.cc:547
+#: src/intviewer/viewer-window.cc:525
 msgid "Central European (CP1250)"
 msgstr "Srednjeevropska (CP1250)"
 
-#: src/intviewer/viewer-window.cc:548
+#: src/intviewer/viewer-window.cc:526
 msgid "Cyrillic (ISO-8859-5)"
 msgstr "Cirilica (ISO-8859-5)"
 
-#: src/intviewer/viewer-window.cc:549
+#: src/intviewer/viewer-window.cc:527
 msgid "Cyrillic (CP1251)"
 msgstr "Cirilica (CP1251)"
 
-#: src/intviewer/viewer-window.cc:550
+#: src/intviewer/viewer-window.cc:528
 msgid "Greek (ISO-8859-7)"
 msgstr "Grška (ISO-8859-7)"
 
-#: src/intviewer/viewer-window.cc:551
+#: src/intviewer/viewer-window.cc:529
 msgid "Greek (CP1253)"
 msgstr "Grška (CP1253)"
 
-#: src/intviewer/viewer-window.cc:552
+#: src/intviewer/viewer-window.cc:530
 msgid "Hebrew (Windows, CP1255)"
 msgstr "Hebrejska (Windows, CP1255)"
 
-#: src/intviewer/viewer-window.cc:553
+#: src/intviewer/viewer-window.cc:531
 msgid "Hebrew (Dos, CP862)"
 msgstr "Hebrejska (Dos, CP862)"
 
-#: src/intviewer/viewer-window.cc:554
+#: src/intviewer/viewer-window.cc:532
 msgid "Hebrew (ISO-8859-8)"
 msgstr "Hebrejska (ISO-8859-8)"
 
-#: src/intviewer/viewer-window.cc:555
+#: src/intviewer/viewer-window.cc:533
 msgid "Latin 9 (ISO-8859-15)"
 msgstr "Latinska 9 (ISO-8859-15)"
 
-#: src/intviewer/viewer-window.cc:556
+#: src/intviewer/viewer-window.cc:534
 msgid "Maltese (ISO-8859-3)"
 msgstr "Malteška (ISO-8859-3)"
 
-#: src/intviewer/viewer-window.cc:557
+#: src/intviewer/viewer-window.cc:535
 msgid "Turkish (ISO-8859-9)"
 msgstr "Turkška (ISO-8859-9)"
 
-#: src/intviewer/viewer-window.cc:558
+#: src/intviewer/viewer-window.cc:536
 msgid "Turkish (CP1254)"
 msgstr "Turška (CP1254)"
 
-#: src/intviewer/viewer-window.cc:559
+#: src/intviewer/viewer-window.cc:537
 msgid "Western (CP1252)"
 msgstr "Zahodna (CP1252)"
 
-#: src/intviewer/viewer-window.cc:560
+#: src/intviewer/viewer-window.cc:538
 msgid "Western (ISO-8859-1)"
 msgstr "Zahodna (ISO-8859-1)"
 
-#: src/intviewer/viewer-window.cc:564
+#: src/intviewer/viewer-window.cc:542
 msgid "Rotate Clockwise"
 msgstr "Obrni v desno"
 
-#: src/intviewer/viewer-window.cc:565
+#: src/intviewer/viewer-window.cc:543
 msgid "Rotate Counter Clockwis_e"
 msgstr "Obrni v l_evo"
 
-#: src/intviewer/viewer-window.cc:566
+#: src/intviewer/viewer-window.cc:544
 msgid "Rotate 180°"
 msgstr "Obrni za 180°"
 
-#: src/intviewer/viewer-window.cc:567
+#: src/intviewer/viewer-window.cc:545
 msgid "Flip _Vertical"
 msgstr "Zrcali _navpično"
 
-#: src/intviewer/viewer-window.cc:568
+#: src/intviewer/viewer-window.cc:546
 msgid "Flip _Horizontal"
 msgstr "Zrcali _vodoravno"
 
-#: src/intviewer/viewer-window.cc:571
+#: src/intviewer/viewer-window.cc:549
 msgid "_Binary Mode"
 msgstr "_Dvojiški način"
 
-#: src/intviewer/viewer-window.cc:572
+#: src/intviewer/viewer-window.cc:550
 msgid "_20 chars/line"
 msgstr "_20 znakov na vrstico"
 
-#: src/intviewer/viewer-window.cc:573
+#: src/intviewer/viewer-window.cc:551
 msgid "_40 chars/line"
 msgstr "_40 znakov na vrstico"
 
-#: src/intviewer/viewer-window.cc:574
+#: src/intviewer/viewer-window.cc:552
 msgid "_80 chars/line"
 msgstr "_80 znakov na vrstico"
 
-#: src/intviewer/viewer-window.cc:577
+#: src/intviewer/viewer-window.cc:555
 msgid "Show Metadata _Tags"
 msgstr "Pokaži _meta oznake"
 
-#: src/intviewer/viewer-window.cc:578
+#: src/intviewer/viewer-window.cc:556
 msgid "_Hexadecimal Offset"
 msgstr "_Šestnajstiški odmik"
 
-#: src/intviewer/viewer-window.cc:580
+#: src/intviewer/viewer-window.cc:558
 msgid "_Save Current Settings"
 msgstr "Shrani trenutne nastavitve"
 
-#: src/intviewer/viewer-window.cc:583
+#: src/intviewer/viewer-window.cc:561
 msgid "Quick _Help"
 msgstr "_Hitra pomoč"
 
-#: src/open_file.rs:48
+#: src/open_file.rs:43
+msgid ""
+"“{}” seems to be a binary executable file but it lacks the executable bit. "
+"Do you want to set it and then run the file?"
+msgstr ""
+"Datoteka »{}« je videti kot izvršljiva datoteka, vendar nima določenega bita "
+"izvršljivosti. Ali ga želite nastaviti in nato zagnati program?"
+
+#: src/open_file.rs:50
 msgid "Make Executable?"
 msgstr "Ustvari izvedljivo?"
 
-#: src/open_file.rs:50
+#: src/open_file.rs:52
 msgid "OK"
 msgstr "_V redu"
 
-#: src/open_file.rs:72
+#: src/open_file.rs:66
+msgid ""
+"“{}” is an executable text file. Do you want to run it, or display its "
+"contents?"
+msgstr ""
+"Datoteka »{}« je izršljiva besedilna datoteka. Ali jo želite zagnati ali "
+"pregledati njeno vsebino?"
+
+#: src/open_file.rs:73
 msgid "Run or Display"
 msgstr "Poženi ali prikaži"
 
-#: src/open_file.rs:74
+#: src/open_file.rs:75
 msgid "Display"
 msgstr "Pokaži"
 
-#: src/open_file.rs:74
+#: src/open_file.rs:75
 msgid "Run"
 msgstr "Zaženi"
 
-#: src/open_file.rs:125
+#: src/open_file.rs:127
 msgid "Change of a file mode failed"
 msgstr "Spreminjanje datotečnega načina ni uspelo"
+
+#: src/open_file.rs:155
+msgid "No default application found for the file type {}."
+msgstr "Za vrsto datoteke {} ni določen privzeti program."
 
 #: src/open_file.rs:158
 msgid "Open the \"Applications\" page in the Control Center to add one."
 msgstr "Odprite stran »Programov« v Nadzornem središču in program dodajte."
+
+#: src/open_file.rs:171
+msgid "A file {} has no URI"
+msgstr "Datoteka {} nima URI-ja"
 
 #: src/plugin_manager.cc:275
 msgid "Disable"
@@ -4903,7 +5048,7 @@ msgstr "_Omogoči"
 msgid "_Configure"
 msgstr "_Nastavitve"
 
-#: src/spawn.rs:163
+#: src/spawn.rs:170
 msgid "Bad command template."
 msgstr "Slaba predloga ukaza."
 
@@ -8832,39 +8977,59 @@ msgstr "Brez"
 msgid "10-15ms"
 msgstr "10–15ms"
 
-#: src/user_actions.rs:89
+#: src/user_actions.rs:134
 msgid "Skip all"
 msgstr "Preskoči vse"
 
-#: src/user_actions.rs:145
+#: src/user_actions.rs:177
+msgid "Create symbolic links of {count} file in {dir}?"
+msgid_plural "Create symbolic links of {count} files in {dir}?"
+msgstr[0] "Želite ustvariti simbolne povezave {count} datotek v {dir}?"
+msgstr[1] "Želite ustvariti simbolno povezavo {count} datoteke v {dir}?"
+msgstr[2] "Želite ustvariti simbolne povezave {count} datotek v {dir}?"
+msgstr[3] "Želite ustvariti simbolne povezave {count} datotek v {dir}?"
+
+#: src/user_actions.rs:191
 msgid "Create"
 msgstr "Ustvari"
 
-#: src/user_actions.rs:183
+#: src/user_actions.rs:232
+msgid "Warning"
+msgstr "Opozorilo"
+
+#: src/user_actions.rs:232
+msgid ""
+"The default send-to command only supports one selected file at a time. You "
+"can change the command in the program options."
+msgstr ""
+"Privzeti ukaz pošiljanja podpira samo eno izbrano datoteko hkrati. Ukaz "
+"lahko spremenite v programskih možnostih."
+
+#: src/user_actions.rs:255
 msgid "No command was given."
 msgstr "Ukaz ni bil dan."
 
-#: src/user_actions.rs:224 src/user_actions.rs:296
+#: src/user_actions.rs:296 src/user_actions.rs:368
 msgid "Terminal command is not configured properly."
 msgstr "Ukaz terminala ni pravilno nastavljen."
 
-#: src/user_actions.rs:288
+#: src/user_actions.rs:360
 msgid "Unable to open terminal in root mode."
 msgstr "Ni mogoče odpreti terminala v skrbniškem načinu."
 
-#: src/user_actions.rs:318
+#: src/user_actions.rs:390
 msgid "Cannot determine executable of Gnome Commander"
 msgstr "Ni mogoče določiti izvedljive datoteke Gnome Commander"
 
-#: src/user_actions.rs:323
+#: src/user_actions.rs:395
 msgid "Unable to start GNOME Commander in root mode."
 msgstr "Ni mogoče zagnati programa GNOME Commander v skrbniškem načinu."
 
-#: src/user_actions.rs:349
+#: src/user_actions.rs:421
 msgid "The tab is locked, close anyway?"
 msgstr "Zavihek je zaklenjen; naj se vseeno zapre?"
 
-#: src/utils.cc:482
+#: src/utils.cc:348
 #, c-format
 msgid "(%sbyte)"
 msgid_plural "(%sbytes)"
@@ -8873,7 +9038,7 @@ msgstr[1] "(%s bajt)"
 msgstr[2] "(%s bajta)"
 msgstr[3] "(%s bajti)"
 
-#: src/utils.cc:485
+#: src/utils.cc:351
 #, c-format
 msgid "%sbyte"
 msgid_plural "%sbytes"
@@ -8882,25 +9047,17 @@ msgstr[1] "%s bajt"
 msgstr[2] "%s bajta"
 msgstr[3] "%s bajti"
 
-#: src/utils.cc:613
-msgid "Failed to change working directory to a temporary directory."
-msgstr "Spreminjanje delovne mape v začasno je spodletelo."
-
-#: src/utils.cc:623
-msgid "Failed to create a directory in which to store temporary files."
-msgstr "Ustvarjanje mape za shranjevanje začasnih datotek je spodletelo."
-
-#: src/utils.cc:751
+#: src/utils.cc:490
 #, c-format
 msgid "Creating directory %s… "
 msgstr "Ustvarjanje mape %s ... "
 
-#: src/utils.cc:762
+#: src/utils.cc:501
 #, c-format
 msgid "Failed to create the directory %s: %s"
 msgstr "Ustvarjanje mape %s je spodletelo: %s"
 
-#: src/utils.cc:866 src/utils.rs:271
+#: src/utils.cc:605
 msgid "There was an error displaying help."
 msgstr "Prišlo je do napake med prikazovanjem pomoči."
 
@@ -8908,6 +9065,58 @@ msgstr "Prišlo je do napake med prikazovanjem pomoči."
 msgid "Cannot create a temporary file."
 msgstr "Začasne datoteke ni mogoče ustvariti."
 
-#: src/utils.rs:124
+#: src/utils.rs:68
+msgid "Cannot create a file for a path {}."
+msgstr "Ni mogoče ustvariti datoteke za pot {}."
+
+#: src/utils.rs:125
 msgid "gksudo, xdg-su, gksu, gnomesu, kdesu, beesu or pkexec is not found."
 msgstr "Ukazov xdg-su, gksu, gnomesu, kdesu oziroma beesu ni mogoče najti."
+
+#: src/utils.rs:369
+msgid "{} PiB"
+msgid_plural "{} PiB"
+msgstr[0] "{} PiB"
+msgstr[1] "{} PiB"
+msgstr[2] "{} PiB"
+msgstr[3] "{} PiB"
+
+#: src/utils.rs:372
+msgid "{} TiB"
+msgid_plural "{} TiB"
+msgstr[0] "{} PiB"
+msgstr[1] "{} PiB"
+msgstr[2] "{} PiB"
+msgstr[3] "{} PiB"
+
+#: src/utils.rs:375
+msgid "{} GiB"
+msgid_plural "{} GiB"
+msgstr[0] "{} PiB"
+msgstr[1] "{} PiB"
+msgstr[2] "{} PiB"
+msgstr[3] "{} PiB"
+
+#: src/utils.rs:378
+msgid "{} MiB"
+msgid_plural "{} MiB"
+msgstr[0] "{} MiB"
+msgstr[1] "{} MiB"
+msgstr[2] "{} MiB"
+msgstr[3] "{} MiB"
+
+#: src/utils.rs:381
+msgid "{} kiB"
+msgid_plural "{} kiB"
+msgstr[0] "{} kiB"
+msgstr[1] "{} kiB"
+msgstr[2] "{} kiB"
+msgstr[3] "{} kiB"
+
+#: src/utils.rs:384 src/utils.rs:395 src/utils.rs:399
+msgid "{} byte"
+msgid_plural "{} bytes"
+msgstr[0] "{} bajtov"
+msgstr[1] "{} bajt"
+msgstr[2] "{} bajta"
+msgstr[3] "{} bajti"
