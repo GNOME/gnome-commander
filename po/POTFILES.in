@@ -11,13 +11,13 @@ src/advrename_profile_component.rs
 src/app.rs
 src/dialogs/advrename_dialog.rs
 src/dialogs/advrename_regex_dialog.rs
+src/dialogs/chmod_dialog.rs
+src/dialogs/chown_dialog.rs
 src/dialogs/connect_dialog.rs
 src/dialogs/create_symlink_dialog.rs
 src/dialogs/delete_dialog.rs
 src/dialogs/edit_bookmark_dialog.rs
 src/dialogs/gnome-cmd-advrename-dialog.cc
-src/dialogs/gnome-cmd-chmod-dialog.cc
-src/dialogs/gnome-cmd-chown-dialog.cc
 src/dialogs/gnome-cmd-file-props-dialog.cc
 src/dialogs/gnome-cmd-key-shortcuts-dialog.cc
 src/dialogs/gnome-cmd-manage-bookmarks-dialog.cc
@@ -29,6 +29,7 @@ src/dialogs/gnome-cmd-search-dialog.cc
 src/dialogs/key_shortcuts_dialog.rs
 src/dialogs/make_copy_dialog.rs
 src/dialogs/manage_bookmarks_dialog.rs
+src/dialogs/open_with_other_dialog.rs
 src/dialogs/prepare_copy_dialog.rs
 src/dialogs/prepare_move_dialog.rs
 src/dialogs/prepare_transfer_dialog.rs
@@ -48,6 +49,7 @@ src/gnome-cmd-application.cc
 src/gnome-cmd-block.cc
 src/gnome-cmd-chmod-component.cc
 src/gnome-cmd-chown-component.cc
+src/gnome-cmd-cmdline.cc
 src/gnome-cmd-con.cc
 src/gnome-cmd-con-device.cc
 src/gnome-cmd-con.h
@@ -58,7 +60,6 @@ src/gnome-cmd-data.cc
 src/gnome-cmd-dir.cc
 src/gnome-cmd-dir-indicator.cc
 src/gnome-cmd-file.cc
-src/gnome-cmd-file-list-actions.cc
 src/gnome-cmd-file-list.cc
 src/gnome-cmd-file-popmenu.cc
 src/gnome-cmd-file-selector.cc
