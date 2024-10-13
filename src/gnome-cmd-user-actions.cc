@@ -157,13 +157,6 @@ GNOME_CMD_USER_ACTION(edit_cap_paste);
 GNOME_CMD_USER_ACTION(edit_filter);
 GNOME_CMD_USER_ACTION(edit_copy_fnames);
 
-/************** Command Menu **************/
-GNOME_CMD_USER_ACTION(command_execute);
-GNOME_CMD_USER_ACTION(command_open_terminal__internal);             // this function is NOT exposed to user as UserAction
-GNOME_CMD_USER_ACTION(command_open_terminal);
-GNOME_CMD_USER_ACTION(command_open_terminal_as_root);
-GNOME_CMD_USER_ACTION(command_root_mode);
-
 /************** View Menu **************/
 GNOME_CMD_USER_ACTION_TGL(view_conbuttons);
 GNOME_CMD_USER_ACTION_TGL(view_devlist);
@@ -213,24 +206,8 @@ GNOME_CMD_USER_ACTION(bookmarks_view);
 GNOME_CMD_USER_ACTION(options_edit);
 GNOME_CMD_USER_ACTION(options_edit_shortcuts);
 
-/************** Connections Menu **************/
-GNOME_CMD_USER_ACTION(connections_open);
-GNOME_CMD_USER_ACTION(connections_new);
-GNOME_CMD_USER_ACTION(connections_set_current);
-GNOME_CMD_USER_ACTION(connections_change_left);
-GNOME_CMD_USER_ACTION(connections_change_right);
-GNOME_CMD_USER_ACTION(connections_close);
-GNOME_CMD_USER_ACTION(connections_close_current);
-
 /************** Plugins Menu ***********/
 GNOME_CMD_USER_ACTION(plugins_configure);
-
-/************** Help Menu **************/
-GNOME_CMD_USER_ACTION(help_help);
-GNOME_CMD_USER_ACTION(help_keyboard);
-GNOME_CMD_USER_ACTION(help_web);
-GNOME_CMD_USER_ACTION(help_problem);
-GNOME_CMD_USER_ACTION(help_about);
 
 static GnomeCmdFileList *get_fl (GnomeCmdMainWin *main_win, const FileSelectorID fsID)
 {
@@ -283,115 +260,20 @@ DICT<GnomeCmdUserActionFunc> GnomeCmdUserActions::action_func;
 DICT<GnomeCmdUserActionFunc> GnomeCmdUserActions::action_name;
 
 
-struct UserActionData
+extern "C" void register_user_action(GnomeCmdUserActions *actions,
+    void (* func)(GSimpleAction *action, GVariant *parameter, gpointer user_data),
+    const gchar *name,
+    const gchar *description)
 {
-    GnomeCmdUserActionFunc func;
-    const gchar *name;
-    const gchar *description;
-};
+    actions->action_func.add(func, name);
+    actions->action_name.add(func, description);
+}
 
-
-static UserActionData user_actions_data[] = {
-                                             {bookmarks_add_current, "bookmarks.add_current", N_("Bookmark current directory")},
-                                             {bookmarks_edit, "bookmarks.edit", N_("Manage bookmarks")},
-                                             {bookmarks_goto, "bookmarks.goto", N_("Go to bookmarked location")},
-                                             {bookmarks_view, "bookmarks.view", N_("Show bookmarks of current device")},
-                                             {command_execute, "command.execute", N_("Execute command")},
-                                             {command_open_terminal, "command.open_terminal", N_("Open terminal")},
-                                             {command_open_terminal_as_root, "command.open_terminal_as_root", N_("Open terminal as root")},
-                                             {command_root_mode, "command.root_mode", N_("Start GNOME Commander as root")},
-                                             {connections_close_current, "connections.close", N_("Close connection")},
-                                             {connections_new, "connections.new", N_("New connection")},
-                                             {connections_open, "connections.open", N_("Open connection")},
-                                             {connections_change_left, "connections.change_left", N_("Change left connection")},
-                                             {connections_change_right, "connections.change_right", N_("Change right connection")},
-                                             {edit_cap_copy, "edit.copy", N_("Copy")},
-                                             {edit_copy_fnames, "edit.copy_filenames", N_("Copy file names")},
-                                             {edit_cap_cut, "edit.cut", N_("Cut")},
-                                             {file_delete, "edit.delete", N_("Delete")},
-                                             {edit_filter, "edit.filter", N_("Show user defined files")},
-                                             {edit_cap_paste, "edit.paste", N_("Paste")},
-                                             {file_quick_search, "file.quick_search", N_("Quick search")},
-                                             {file_search, "file.search", N_("Search")},
-                                             {file_advrename, "file.advrename", N_("Advanced rename tool")},
-                                             {file_chmod, "file.chmod", N_("Change permissions")},
-                                             {file_chown, "file.chown", N_("Change owner/group")},
-                                             {file_copy, "file.copy", N_("Copy files")},
-                                             {file_copy_as, "file.copy_as", N_("Copy files with rename")},
-                                             {file_create_symlink, "file.create_symlink", N_("Create symbolic link")},
-                                             {file_delete, "file.delete", N_("Delete files")},
-                                             {file_diff, "file.diff", N_("Compare files (diff)")},
-                                             {file_edit, "file.edit", N_("Edit file")},
-                                             {file_edit_new_doc, "file.edit_new_doc", N_("Edit a new file")},
-                                             {file_exit, "file.exit", N_("Quit")},
-                                             {file_external_view, "file.external_view", N_("View with external viewer")},
-                                             {file_internal_view, "file.internal_view", N_("View with internal viewer")},
-                                             {file_mkdir, "file.mkdir", N_("Create directory")},
-                                             {file_move, "file.move", N_("Move files")},
-                                             {file_properties, "file.properties", N_("Properties")},
-                                             {file_rename, "file.rename", N_("Rename files")},
-                                             // {file_run, "file.run"},
-                                             {file_sendto, "file.sendto", N_("Send files")},
-                                             {file_sync_dirs, "file.synchronize_directories", N_("Synchronize directories")},
-                                             // {file_umount, "file.umount"},
-                                             {file_view, "file.view", N_("View file")},
-                                             {help_about, "help.about", N_("About GNOME Commander")},
-                                             {help_help, "help.help", N_("Help contents")},
-                                             {help_keyboard, "help.keyboard", N_("Help on keyboard shortcuts")},
-                                             {help_problem, "help.problem", N_("Report a problem")},
-                                             {help_web, "help.web", N_("GNOME Commander on the web")},
-                                             {mark_compare_directories, "mark.compare_directories", N_("Compare directories")},
-                                             {mark_invert_selection, "mark.invert", N_("Invert selection")},
-                                             {mark_select_all, "mark.select_all", N_("Select all")},
-                                             {mark_select_all_files, "mark.select_all_files", N_("Select all files")},
-                                             {mark_unselect_all_files, "mark.unselect_all_files", N_("Unselect all files")},
-                                             {mark_toggle, "mark.toggle", N_("Toggle selection")},
-                                             {mark_toggle_and_step, "mark.toggle_and_step", N_("Toggle selection and move cursor downward")},
-                                             {mark_unselect_all, "mark.unselect_all", N_("Unselect all")},
-                                             {options_edit, "options.edit", N_("Options")},
-                                             {options_edit_shortcuts, "options.shortcuts", N_("Keyboard shortcuts")},
-                                             {plugins_configure, "plugins.configure", N_("Configure plugins")},
-                                             {view_back, "view.back", N_("Back one directory")},
-                                             {view_close_tab, "view.close_tab", N_("Close the current tab")},
-                                             {view_close_all_tabs, "view.close_all_tabs", N_("Close all tabs")},
-                                             {view_close_duplicate_tabs, "view.close_duplicate_tabs", N_("Close duplicate tabs")},
-                                             {view_directory, "view.directory", N_("Change directory")},
-                                             {view_dir_history, "view.dir_history", N_("Show directory history")},
-                                             {view_equal_panes, "view.equal_panes", N_("Equal panel size")},
-                                             {view_maximize_pane, "view.maximize_pane", N_("Maximize panel size")},
-                                             {view_first, "view.first", N_("Back to the first directory")},
-                                             {view_forward, "view.forward", N_("Forward one directory")},
-                                             {view_home, "view.home", N_("Home directory")},
-                                             {view_in_active_pane, "view.in_active_pane", N_("Open directory in the active window")},
-                                             {view_in_inactive_pane, "view.in_inactive_pane", N_("Open directory in the inactive window")},
-                                             {view_in_left_pane, "view.in_left_pane", N_("Open directory in the left window")},
-                                             {view_in_right_pane, "view.in_right_pane", N_("Open directory in the right window")},
-                                             {view_in_new_tab, "view.in_new_tab", N_("Open directory in the new tab")},
-                                             {view_in_inactive_tab, "view.in_inactive_tab", N_("Open directory in the new tab (inactive window)")},
-                                             {view_last, "view.last", N_("Forward to the last directory")},
-                                             {view_next_tab, "view.next_tab", N_("Next tab")},
-                                             {view_new_tab, "view.new_tab", N_("Open directory in a new tab")},
-                                             {view_prev_tab, "view.prev_tab", N_("Previous tab")},
-                                             {view_refresh, "view.refresh", N_("Refresh")},
-                                             {view_root, "view.root", N_("Root directory")},
-                                             {view_toggle_tab_lock, "view.toggle_lock_tab", N_("Lock/unlock tab")},
-#if 0
-                                             {view_terminal, "view.terminal", N_("Show terminal")},
-#endif
-                                             {view_up, "view.up", N_("Up one directory")},
-                                             {view_main_menu, "view.main_menu", N_("Display main menu")},
-                                             {view_step_up, "view.step_up", N_("Move cursor one step up")},
-                                             {view_step_down, "view.step_down", N_("Move cursor one step down")},
-                                            };
-
+extern "C" void register_user_actions(GnomeCmdUserActions *actions);
 
 void GnomeCmdUserActions::init()
 {
-    for (guint i=0; i<G_N_ELEMENTS(user_actions_data); ++i)
-    {
-        action_func.add(user_actions_data[i].func, user_actions_data[i].name);
-        action_name.add(user_actions_data[i].func, _(user_actions_data[i].description));
-    }
+    register_user_actions(this);
 
     register_action(GDK_KEY_F3, "file.view");
     register_action(GDK_KEY_F4, "file.edit");
@@ -675,59 +557,6 @@ gboolean GnomeCmdUserActions::handle_key_event(GnomeCmdMainWin *mw, GnomeCmdFile
 }
 
 
-static int sort_by_description (const void *data1, const void *data2)
-{
-    const gchar *s1 = (static_cast<const UserActionData*> (data1))->description;
-    const gchar *s2 = (static_cast<const UserActionData*> (data2))->description;
-
-    if (!s1 && !s2)
-        return 0;
-
-    if (!s1)
-        return 1;
-
-    if (!s2)
-        return -1;
-
-    // compare s1 and s2 in UTF8 aware way, case insensitive
-    gchar *is1 = g_utf8_casefold (_(s1), -1);
-    gchar *is2 = g_utf8_casefold (_(s2), -1);
-
-    gint retval = g_utf8_collate (is1, is2);
-
-    g_free (is1);
-    g_free (is2);
-
-    return retval;
-}
-
-
-GtkTreeModel *gnome_cmd_user_actions_create_model ()
-{
-    auto data = static_cast<UserActionData*> (g_memdup (user_actions_data, sizeof(user_actions_data)));
-
-    qsort (data, G_N_ELEMENTS(user_actions_data), sizeof(UserActionData), sort_by_description);
-
-    GtkListStore *model = gtk_list_store_new (3, G_TYPE_POINTER, G_TYPE_STRING, G_TYPE_STRING);
-    GtkTreeIter iter;
-
-    for (guint i=0; i<G_N_ELEMENTS(user_actions_data); ++i)
-    {
-        gtk_list_store_append (model, &iter);
-
-        gtk_list_store_set (model, &iter,
-                                   0, data[i].func,
-                                   1, data[i].name,
-                                   2, _(data[i].description),
-                                   -1);
-    }
-
-    g_free (data);
-
-    return GTK_TREE_MODEL (model);
-}
-
-
 template <typename F>
 static void get_file_list (string &s, GList *sfl, F f)
 {
@@ -762,9 +591,6 @@ inline void get_file_list (string &s, GList *sfl, F f, T t)
 
 
 /************** File Menu **************/
-extern "C" void file_copy (GSimpleAction *action, GVariant *parameter, gpointer user_data);
-extern "C" void file_copy_as (GSimpleAction *action, GVariant *parameter, gpointer user_data);
-extern "C" void file_move (GSimpleAction *action, GVariant *parameter, gpointer user_data);
 
 void file_delete (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
@@ -881,9 +707,6 @@ void file_quick_search (GSimpleAction *action, GVariant *parameter, gpointer use
 }
 
 
-extern "C" void file_chmod (GSimpleAction *action, GVariant *parameter, gpointer user_data);
-extern "C" void file_chown (GSimpleAction *action, GVariant *parameter, gpointer user_data);
-
 void file_mkdir (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
     auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
@@ -898,7 +721,6 @@ void file_mkdir (GSimpleAction *action, GVariant *parameter, gpointer user_data)
     gnome_cmd_dir_unref (dir);
 }
 
-// void file_create_symlink (GSimpleAction *action, GVariant *parameter, gpointer user_data); // moved to user_actions.rs
 
 void file_rename (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
@@ -923,9 +745,6 @@ void file_advrename (GSimpleAction *action, GVariant *parameter, gpointer user_d
         g_list_free (files);
     }
 }
-
-
-// void file_sendto (GSimpleAction *action, GVariant *parameter, gpointer user_data);
 
 
 void file_properties (GSimpleAction *action, GVariant *parameter, gpointer user_data)
@@ -1108,14 +927,6 @@ void edit_copy_fnames (GSimpleAction *action, GVariant *parameter, gpointer user
 
     g_list_free (sfl);
 }
-
-
-/************** Command Menu **************/
-extern "C" void command_execute (GSimpleAction *action, GVariant *parameter, gpointer user_data);
-extern "C" void command_open_terminal__internal (GSimpleAction *action, GVariant *parameter, gpointer user_data);
-extern "C" void command_open_terminal (GSimpleAction *action, GVariant *parameter, gpointer user_data);
-extern "C" void command_open_terminal_as_root (GSimpleAction *action, GVariant *parameter, gpointer user_data);
-extern "C" void command_root_mode (GSimpleAction *action, GVariant *parameter, gpointer user_data);
 
 
 /************** Mark Menu **************/
@@ -1783,16 +1594,6 @@ void options_edit_shortcuts (GSimpleAction *action, GVariant *parameter, gpointe
     gnome_cmd_key_shortcuts_dialog_new (*main_win, gcmd_user_actions);
 }
 
-/************** Connections Menu **************/
-extern "C" void connections_open (GSimpleAction *action, GVariant *parameter, gpointer user_data);
-extern "C" void connections_new (GSimpleAction *action, GVariant *parameter, gpointer user_data);
-extern "C" void connections_change_left (GSimpleAction *action, GVariant *parameter, gpointer user_data);
-extern "C" void connections_change_right (GSimpleAction *action, GVariant *parameter, gpointer user_data);
-extern "C" void connections_set_current (GSimpleAction *action, GVariant *parameter, gpointer user_data);
-extern "C" void connections_close (GSimpleAction *action, GVariant *parameter, gpointer user_data);
-extern "C" void connections_close_current (GSimpleAction *action, GVariant *parameter, gpointer user_data);
-
-
 /************** Bookmarks Menu **************/
 
 void bookmarks_add_current (GSimpleAction *action, GVariant *parameter, gpointer user_data)
@@ -1862,146 +1663,3 @@ void plugins_configure (GSimpleAction *action, GVariant *parameter, gpointer use
 
     plugin_manager_show (GTK_WINDOW (main_win));
 }
-
-
-const GActionEntry FILE_ACTION_ENTRIES[] = {
-    { "file-copy",              file_copy,              nullptr,  nullptr,  nullptr },
-    { "file-copy-as",           file_copy_as,           nullptr,  nullptr,  nullptr },
-    { "file-move",              file_move,              nullptr,  nullptr,  nullptr },
-    { "file-delete",            file_delete,            nullptr,  nullptr,  nullptr },
-    { "file-view",              file_view,              nullptr,  nullptr,  nullptr },
-    { "file-internal-view",     file_internal_view,     nullptr,  nullptr,  nullptr },
-    { "file-external-view",     file_external_view,     nullptr,  nullptr,  nullptr },
-    { "file-edit",              file_edit,              nullptr,  nullptr,  nullptr },
-    { "file-edit-new-doc",      file_edit_new_doc,      nullptr,  nullptr,  nullptr },
-    { "file-search",            file_search,            nullptr,  nullptr,  nullptr },
-    { "file-quick-search",      file_quick_search,      nullptr,  nullptr,  nullptr },
-    { "file-chmod",             file_chmod,             nullptr,  nullptr,  nullptr },
-    { "file-chown",             file_chown,             nullptr,  nullptr,  nullptr },
-    { "file-mkdir",             file_mkdir,             nullptr,  nullptr,  nullptr },
-    { "file-properties",        file_properties,        nullptr,  nullptr,  nullptr },
-    { "file-diff",              file_diff,              nullptr,  nullptr,  nullptr },
-    { "file-sync-dirs",         file_sync_dirs,         nullptr,  nullptr,  nullptr },
-    { "file-rename",            file_rename,            nullptr,  nullptr,  nullptr },
-    { "file-create-symlink",    file_create_symlink,    nullptr,  nullptr,  nullptr },
-    { "file-advrename",         file_advrename,         nullptr,  nullptr,  nullptr },
-    { "file-sendto",            file_sendto,            nullptr,  nullptr,  nullptr },
-    { "file-exit",              file_exit,              nullptr,  nullptr,  nullptr },
-    { nullptr }
-};
-
-const GActionEntry MARK_ACTION_ENTRIES[] = {
-    { "mark-toggle",                            mark_toggle,                            nullptr, nullptr, nullptr },
-    { "mark-toggle-and-step",                   mark_toggle_and_step,                   nullptr, nullptr, nullptr },
-    { "mark-select-all",                        mark_select_all,                        nullptr, nullptr, nullptr },
-    { "mark-unselect-all",                      mark_unselect_all,                      nullptr, nullptr, nullptr },
-    { "mark-select-all-files",                  mark_select_all_files,                  nullptr, nullptr, nullptr },
-    { "mark-unselect-all-files",                mark_unselect_all_files,                nullptr, nullptr, nullptr },
-    { "mark-select-with-pattern",               mark_select_with_pattern,               nullptr, nullptr, nullptr },
-    { "mark-unselect-with-pattern",             mark_unselect_with_pattern,             nullptr, nullptr, nullptr },
-    { "mark-invert-selection",                  mark_invert_selection,                  nullptr, nullptr, nullptr },
-    { "mark-select-all-with-same-extension",    mark_select_all_with_same_extension,    nullptr, nullptr, nullptr },
-    { "mark-unselect-all-with-same-extension",  mark_unselect_all_with_same_extension,  nullptr, nullptr, nullptr },
-    { "mark-restore-selection",                 mark_restore_selection,                 nullptr, nullptr, nullptr },
-    { "mark-compare-directories",               mark_compare_directories,               nullptr, nullptr, nullptr },
-    { nullptr }
-};
-
-const GActionEntry EDIT_ACTION_ENTRIES[] = {
-    { "edit-cap-cut",       edit_cap_cut,       nullptr, nullptr, nullptr },
-    { "edit-cap-copy",      edit_cap_copy,      nullptr, nullptr, nullptr },
-    { "edit-cap-paste",     edit_cap_paste,     nullptr, nullptr, nullptr },
-    { "edit-filter",        edit_filter,        nullptr, nullptr, nullptr },
-    { "edit-copy-fnames",   edit_copy_fnames,   nullptr, nullptr, nullptr },
-    { nullptr }
-};
-
-const GActionEntry COMMAND_ACTION_ENTRIES[] = {
-    { "command-execute",                    command_execute,                    "s",     nullptr, nullptr },
-    { "command-open-terminal-internal",     command_open_terminal__internal,    nullptr, nullptr, nullptr }, // this function is NOT exposed to user as UserAction
-    { "command-open-terminal",              command_open_terminal,              nullptr, nullptr, nullptr },
-    { "command-open-terminal-as-root",      command_open_terminal_as_root,      nullptr, nullptr, nullptr },
-    { "command-root-mode",                  command_root_mode,                  nullptr, nullptr, nullptr },
-    { nullptr }
-};
-
-const GActionEntry VIEW_ACTION_ENTRIES[] = {
-    { "view-conbuttons",                nullptr,                    nullptr, "boolean true",    view_conbuttons },
-    { "view-devlist",                   nullptr,                    nullptr, "boolean true",    view_devlist },
-    { "view-toolbar",                   nullptr,                    nullptr, "boolean true",    view_toolbar },
-    { "view-buttonbar",                 nullptr,                    nullptr, "boolean true",    view_buttonbar },
-    { "view-cmdline",                   nullptr,                    nullptr, "boolean true",    view_cmdline },
-    { "view-dir-history",               view_dir_history,           nullptr, nullptr,           nullptr },
-    { "view-hidden-files",              nullptr,                    nullptr, "boolean true",    view_hidden_files },
-    { "view-backup-files",              nullptr,                    nullptr, "boolean true",    view_backup_files },
-    { "view-up",                        view_up,                    nullptr, nullptr,           nullptr },
-    { "view-first",                     view_first,                 nullptr, nullptr,           nullptr },
-    { "view-back",                      view_back,                  nullptr, nullptr,           nullptr },
-    { "view-forward",                   view_forward,               nullptr, nullptr,           nullptr },
-    { "view-last",                      view_last,                  nullptr, nullptr,           nullptr },
-    { "view-refresh",                   view_refresh,               nullptr, nullptr,           nullptr },
-    { "view-refresh-tab",               view_refresh_tab,           "(ii)",  nullptr,           nullptr },
-    { "view-equal-panes",               view_equal_panes,           nullptr, nullptr,           nullptr },
-    { "view-maximize-pane",             view_maximize_pane,         nullptr, nullptr,           nullptr },
-    { "view-in-left-pane",              view_in_left_pane,          nullptr, nullptr,           nullptr },
-    { "view-in-right-pane",             view_in_right_pane,         nullptr, nullptr,           nullptr },
-    { "view-in-active-pane",            view_in_active_pane,        nullptr, nullptr,           nullptr },
-    { "view-in-inactive-pane",          view_in_inactive_pane,      nullptr, nullptr,           nullptr },
-    { "view-directory",                 view_directory,             nullptr, nullptr,           nullptr },
-    { "view-home",                      view_home,                  nullptr, nullptr,           nullptr },
-    { "view-root",                      view_root,                  nullptr, nullptr,           nullptr },
-    { "view-new-tab",                   view_new_tab,               nullptr, nullptr,           nullptr },
-    { "view-close-tab",                 view_close_tab,             nullptr, nullptr,           nullptr },
-    { "view-close-all-tabs",            view_close_all_tabs,        nullptr, nullptr,           nullptr },
-    { "view-close-duplicate-tabs",      view_close_duplicate_tabs,  nullptr, nullptr,           nullptr },
-    { "view-prev-tab",                  view_prev_tab,              nullptr, nullptr,           nullptr },
-    { "view-next-tab",                  view_next_tab,              nullptr, nullptr,           nullptr },
-    { "view-in-new-tab",                view_in_new_tab,            nullptr, nullptr,           nullptr },
-    { "view-in-inactive-tab",           view_in_inactive_tab,       nullptr, nullptr,           nullptr },
-    { "view-toggle-tab-lock",           view_toggle_tab_lock,       "(bi)",  nullptr,           nullptr },
-    { "view-horizontal-orientation",    nullptr,                    nullptr, "boolean true",    view_horizontal_orientation },
-    { "view-main-menu",                 view_main_menu,             nullptr, nullptr,           nullptr },
-    { "view-step-up",                   view_step_up,               nullptr, nullptr,           nullptr },
-    { "view-step-down",                 view_step_down,             nullptr, nullptr,           nullptr },
-    { nullptr }
-};
-
-const GActionEntry BOOKMARK_ACTION_ENTRIES[] = {
-    { "bookmarks-add-current",  bookmarks_add_current,  nullptr, nullptr, nullptr },
-    { "bookmarks-edit",         bookmarks_edit,         nullptr, nullptr, nullptr },
-    { "bookmarks-goto",         bookmarks_goto,         "(ss)",  nullptr, nullptr },
-    { "bookmarks-view",         bookmarks_view,         nullptr, nullptr, nullptr },
-    { nullptr }
-};
-
-const GActionEntry OPTIONS_ACTION_ENTRIES[] = {
-    { "options-edit",           options_edit,           nullptr, nullptr, nullptr },
-    { "options-edit-shortcuts", options_edit_shortcuts, nullptr, nullptr, nullptr },
-    { nullptr }
-};
-
-const GActionEntry CONNECTIONS_ACTION_ENTRIES[] = {
-    { "connections-open",           connections_open,           nullptr, nullptr, nullptr },
-    { "connections-new",            connections_new,            nullptr, nullptr, nullptr },
-    { "connections-set-current",    connections_set_current,    "s",     nullptr, nullptr },
-    { "connections-change-left",    connections_change_left,    nullptr, nullptr, nullptr },
-    { "connections-change-right",   connections_change_right,   nullptr, nullptr, nullptr },
-    { "connections-close",          connections_close,          "s",     nullptr, nullptr },
-    { "connections-close-current",  connections_close_current,  nullptr, nullptr, nullptr },
-    { nullptr }
-};
-
-const GActionEntry PLUGINS_ACTION_ENTRIES[] = {
-    { "plugins-configure",  plugins_configure,  nullptr, nullptr, nullptr },
-    { nullptr }
-};
-
-const GActionEntry HELP_ACTION_ENTRIES[] = {
-    { "help-help",      help_help,      nullptr, nullptr, nullptr },
-    { "help-keyboard",  help_keyboard,  nullptr, nullptr, nullptr },
-    { "help-web",       help_web,       nullptr, nullptr, nullptr },
-    { "help-problem",   help_problem,   nullptr, nullptr, nullptr },
-    { "help-about",     help_about,     nullptr, nullptr, nullptr },
-    { nullptr }
-};
-

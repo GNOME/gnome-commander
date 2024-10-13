@@ -392,6 +392,7 @@ dependencies = [
  "glib",
  "gtk4",
  "libc",
+ "once_cell",
  "strum",
  "system-deps",
  "tempfile",

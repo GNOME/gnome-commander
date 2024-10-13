@@ -20,17 +20,20 @@
  * For more details see the file COPYING.
  */
 
-use crate::{file_selector::FileSelector, types::FileSelectorID};
-use gtk::glib::{
-    self,
-    translate::{FromGlibPtrNone, ToGlibPtr},
+use crate::{file_selector::FileSelector, types::FileSelectorID, user_actions};
+use gtk::{
+    gio,
+    glib::{
+        self,
+        translate::{from_glib_none, FromGlibPtrNone, ToGlibPtr},
+    },
+    prelude::*,
 };
 
 pub mod ffi {
-    use gtk::glib::ffi::GType;
-
     use crate::file_selector::ffi::GnomeCmdFileSelector;
     use crate::types::FileSelectorID;
+    use gtk::glib::ffi::GType;
 
     #[repr(C)]
     pub struct GnomeCmdMainWin {
@@ -65,7 +68,8 @@ pub mod ffi {
 
 glib::wrapper! {
     pub struct MainWindow(Object<ffi::GnomeCmdMainWin, ffi::GnomeCmdMainWinClass>)
-        @extends gtk::ApplicationWindow, gtk::Window, gtk::Widget;
+        @extends gtk::ApplicationWindow, gtk::Window, gtk::Widget,
+        @implements gio::ActionMap;
 
     match fn {
         type_ => || ffi::gnome_cmd_main_win_get_type(),
@@ -90,4 +94,10 @@ impl MainWindow {
     pub fn update_bookmarks(&self) {
         unsafe { ffi::gnome_cmd_main_win_update_bookmarks(self.to_glib_none().0) }
     }
+}
+
+#[no_mangle]
+pub extern "C" fn gnome_cmd_main_win_install_actions(mw_ptr: *mut ffi::GnomeCmdMainWin) {
+    let mw: MainWindow = unsafe { from_glib_none(mw_ptr) };
+    mw.add_action_entries(user_actions::USER_ACTIONS.iter().map(|a| a.action_entry()));
 }

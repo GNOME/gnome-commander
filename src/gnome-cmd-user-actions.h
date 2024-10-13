@@ -161,15 +161,4 @@ extern "C" int spawn_async_r(const char *cwd, GList *files_list, const char *com
 extern GnomeCmdUserActions gcmd_user_actions;
 
 
-GtkTreeModel *gnome_cmd_user_actions_create_model ();
-
-extern const GActionEntry FILE_ACTION_ENTRIES[];
-extern const GActionEntry MARK_ACTION_ENTRIES[];
-extern const GActionEntry EDIT_ACTION_ENTRIES[];
-extern const GActionEntry COMMAND_ACTION_ENTRIES[];
-extern const GActionEntry VIEW_ACTION_ENTRIES[];
-extern const GActionEntry BOOKMARK_ACTION_ENTRIES[];
-extern const GActionEntry OPTIONS_ACTION_ENTRIES[];
-extern const GActionEntry CONNECTIONS_ACTION_ENTRIES[];
-extern const GActionEntry PLUGINS_ACTION_ENTRIES[];
-extern const GActionEntry HELP_ACTION_ENTRIES[];
+extern "C" GtkTreeModel *gnome_cmd_user_actions_create_model ();

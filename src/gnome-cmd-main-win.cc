@@ -181,10 +181,10 @@ static void create_toolbar (GnomeCmdMainWin *mw)
     append_toolbar_button (mw->priv->toolbar, _("Cut"),                                                     "edit-cut",             "win.edit-cap-cut");
     append_toolbar_button (mw->priv->toolbar, _("Copy"),                                                    "edit-copy",            "win.edit-cap-copy");
     append_toolbar_button (mw->priv->toolbar, _("Paste"),                                                   "edit-paste",           "win.edit-cap-paste");
-    append_toolbar_button (mw->priv->toolbar, _("Delete"),                                                  "edit-delete",          "win.file-delete");
+    append_toolbar_button (mw->priv->toolbar, _("Delete"),                                                  "file-delete",          "win.file-delete");
     append_toolbar_button (mw->priv->toolbar, _("Edit (SHIFT for new document)"),                           "gnome-commander-edit", "win.file-edit");
     append_toolbar_button (mw->priv->toolbar, _("Send files"),                                              GTK_MAILSEND_STOCKID,   "win.file-sendto");
-    append_toolbar_button (mw->priv->toolbar, _("Open terminal (SHIFT for root privileges)"),               GTK_TERMINAL_STOCKID,   "win.command-open-terminal-internal");
+    append_toolbar_button (mw->priv->toolbar, _("Open terminal"),                                           GTK_TERMINAL_STOCKID,   "win.command-open-terminal");
     append_toolbar_separator (mw->priv->toolbar);
     append_toolbar_button (mw->priv->toolbar, _("Remote Server"),                                           "gnome-commander-connect", "win.connections-open");
     mw->priv->tb_con_drop_btn = g_object_ref (
@@ -494,18 +494,11 @@ static void gnome_cmd_main_win_class_init (GnomeCmdMainWinClass *klass)
 }
 
 
+extern "C" void gnome_cmd_main_win_install_actions (GnomeCmdMainWin *mw);
+
 static void gnome_cmd_main_win_init (GnomeCmdMainWin *mw)
 {
-    g_action_map_add_action_entries (G_ACTION_MAP (mw), FILE_ACTION_ENTRIES, -1, mw);
-    g_action_map_add_action_entries (G_ACTION_MAP (mw), MARK_ACTION_ENTRIES, -1, mw);
-    g_action_map_add_action_entries (G_ACTION_MAP (mw), EDIT_ACTION_ENTRIES, -1, mw);
-    g_action_map_add_action_entries (G_ACTION_MAP (mw), COMMAND_ACTION_ENTRIES, -1, mw);
-    g_action_map_add_action_entries (G_ACTION_MAP (mw), VIEW_ACTION_ENTRIES, -1, mw);
-    g_action_map_add_action_entries (G_ACTION_MAP (mw), BOOKMARK_ACTION_ENTRIES, -1, mw);
-    g_action_map_add_action_entries (G_ACTION_MAP (mw), OPTIONS_ACTION_ENTRIES, -1, mw);
-    g_action_map_add_action_entries (G_ACTION_MAP (mw), CONNECTIONS_ACTION_ENTRIES, -1, mw);
-    g_action_map_add_action_entries (G_ACTION_MAP (mw), PLUGINS_ACTION_ENTRIES, -1, mw);
-    g_action_map_add_action_entries (G_ACTION_MAP (mw), HELP_ACTION_ENTRIES, -1, mw);
+    gnome_cmd_main_win_install_actions (mw);
 
     static const GActionEntry MW_VIEW_ACTION_ENTRIES[] = {
         { "view-slide", view_slide, "i", nullptr, nullptr },
