@@ -56,11 +56,7 @@ use gtk::{
     prelude::*,
 };
 use once_cell::sync::Lazy;
-use std::{
-    collections::HashSet,
-    ffi::{c_char, c_void, OsString},
-    path::PathBuf,
-};
+use std::{collections::HashSet, ffi::OsString, path::PathBuf};
 
 pub fn file_copy(
     main_win: &MainWindow,
@@ -1399,27 +1395,6 @@ pub const USER_ACTIONS: Lazy<Vec<UserAction>> = Lazy::new(|| {
         ),
     ]
 });
-
-extern "C" {
-    fn register_user_action(
-        actions: *mut c_void,
-        f: *const c_void,
-        name: *const c_char,
-        description: *const c_char,
-    );
-}
-
-#[no_mangle]
-pub unsafe extern "C" fn register_user_actions(actions: *mut c_void) {
-    for action in &*USER_ACTIONS {
-        register_user_action(
-            actions,
-            std::mem::transmute(&action.activate),
-            action.name.to_glib_none().0,
-            action.description.to_glib_none().0,
-        );
-    }
-}
 
 #[no_mangle]
 pub unsafe extern "C" fn gnome_cmd_user_actions_create_model() -> *mut GtkListStore {

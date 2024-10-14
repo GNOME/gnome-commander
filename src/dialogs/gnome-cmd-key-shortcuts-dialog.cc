@@ -42,26 +42,21 @@ using namespace std;
 GType gnome_cmd_key_shortcuts_dialog_get_type ();
 
 
-GtkTreeViewColumn *create_new_accel_column (GtkTreeView *view, GtkCellRenderer *&renderer, gint COL_KEYS_ID, gint COL_MODS_ID, const gchar *title);
-GtkTreeViewColumn *create_new_combo_column (GtkTreeView *view, GtkTreeModel *model, GtkCellRenderer *&renderer, gint COL_ID, const gchar *title);
-gboolean equal_accel (GtkTreeModel *model, GtkTreeIter *i, guint key, GdkModifierType mask);
-gboolean find_accel (GtkTreeModel *model, GtkTreeIter *i, guint key, GdkModifierType mask);
-void set_accel (GtkTreeModel *model, GtkTreePath *path, guint accel_key, GdkModifierType accel_mask);
+static GtkTreeViewColumn *create_new_accel_column (GtkTreeView *view, GtkCellRenderer *&renderer, gint COL_KEYS_ID, gint COL_MODS_ID, const gchar *title);
+static GtkTreeViewColumn *create_new_combo_column (GtkTreeView *view, GtkTreeModel *model, GtkCellRenderer *&renderer, gint COL_ID, const gchar *title);
 
 
 struct GnomeCmdKeyShortcutsDialogPrivate
 {
-    static GnomeCmdUserActions *user_actions;
+    GnomeCmdShortcuts *shortcuts;
 
     GtkTreeView *view;
+    GtkListStore *store;
 
     // These fields are used to store and pass information between "change" and "edited" handlers.
     gchar *last_action_path;
     gchar *last_action_name;
 };
-
-
-GnomeCmdUserActions *GnomeCmdKeyShortcutsDialogPrivate::user_actions = NULL;
 
 
 struct GnomeCmdKeyShortcutsDialog
@@ -102,6 +97,10 @@ enum
 } ;
 
 
+extern "C" void gnome_cmd_key_shortcuts_dialog_fill_model (GtkListStore *model, GnomeCmdShortcuts *shortcuts);
+extern "C" void gnome_cmd_key_shortcuts_dialog_from_model (GtkListStore *model, GnomeCmdShortcuts *shortcuts);
+
+
 static void response_callback (GnomeCmdKeyShortcutsDialog *dialog, int response_id, GtkWidget *view)
 {
     auto priv = static_cast<GnomeCmdKeyShortcutsDialogPrivate *> (gnome_cmd_key_shortcuts_dialog_get_instance_private (dialog));
@@ -109,52 +108,8 @@ static void response_callback (GnomeCmdKeyShortcutsDialog *dialog, int response_
     switch (response_id)
     {
         case GTK_RESPONSE_OK:
-            if (priv->user_actions)
-            {
-                priv->user_actions->clear();
-
-                GtkTreeModel *model = gtk_tree_view_get_model (GTK_TREE_VIEW (view));
-                GtkTreeIter i;
-
-                // copy model -> dialog->user_actions
-
-                for (gboolean valid_iter=gtk_tree_model_get_iter_first (model, &i); valid_iter; valid_iter=gtk_tree_model_iter_next (model, &i))
-                {
-                    guint accel_key  = 0;
-                    guint accel_mask = 0;
-                    gchar *name = NULL;
-                    gchar *options = NULL;
-
-                    gtk_tree_model_get (model, &i,
-                                        COL_ACCEL_KEY, &accel_key,
-                                        COL_ACCEL_MASK, &accel_mask,
-                                        COL_NAME, &name,
-                                        COL_OPTION, &options,
-                                        -1);
-
-                    if (accel_key)
-                        priv->user_actions->register_action(accel_mask, accel_key, name, g_strstrip (options));
-
-                    g_free (name);
-                    g_free (options);
-                }
-
-                priv->user_actions->unregister(GDK_KEY_F3);
-                priv->user_actions->unregister(GDK_KEY_F4);
-                priv->user_actions->unregister(GDK_KEY_F5);
-                priv->user_actions->unregister(GDK_KEY_F6);
-                priv->user_actions->unregister(GDK_KEY_F7);
-                priv->user_actions->unregister(GDK_KEY_F8);
-                priv->user_actions->unregister(GDK_KEY_F9);
-
-                priv->user_actions->register_action(GDK_KEY_F3, "file.view");
-                priv->user_actions->register_action(GDK_KEY_F4, "file.edit");
-                priv->user_actions->register_action(GDK_KEY_F5, "file.copy");
-                priv->user_actions->register_action(GDK_KEY_F6, "file.rename");
-                priv->user_actions->register_action(GDK_KEY_F7, "file.mkdir");
-                priv->user_actions->register_action(GDK_KEY_F8, "file.delete");
-                priv->user_actions->register_action(GDK_KEY_F9, "edit.search");
-            }
+            if (priv->shortcuts)
+                gnome_cmd_key_shortcuts_dialog_from_model (priv->store, priv->shortcuts);
 
             gtk_window_close (GTK_WINDOW (dialog));
             break;
@@ -184,8 +139,8 @@ static void gnome_cmd_key_shortcuts_dialog_class_init (GnomeCmdKeyShortcutsDialo
 }
 
 
-GtkWidget *create_view_and_model (GnomeCmdKeyShortcutsDialog *dialog);
-GtkTreeModel *create_and_fill_model (GnomeCmdUserActions &user_actions);
+static GtkWidget *create_view (GnomeCmdKeyShortcutsDialog *dialog, GtkTreeModel *model);
+static GtkListStore *create_model ();
 
 extern "C" void accel_edited_callback_r (GtkCellRendererAccel *accel, const char *path_string, guint accel_key, GdkModifierType accel_mask, guint hardware_keycode, GtkTreeView *view);
 static void cell_changed_action_callback (GtkCellRendererCombo *cell, gchar *path_string, GtkTreeIter *new_iter, GnomeCmdKeyShortcutsDialog *dialog);
@@ -230,7 +185,8 @@ static void gnome_cmd_key_shortcuts_dialog_init (GnomeCmdKeyShortcutsDialog *dia
     gtk_box_append (GTK_BOX (hbox), scrolled_window);
     gtk_widget_show (scrolled_window);
 
-    GtkWidget *view = create_view_and_model (dialog);
+    priv->store = create_model ();
+    GtkWidget *view = create_view (dialog, GTK_TREE_MODEL (priv->store));
     priv->view = GTK_TREE_VIEW (view);
     gtk_widget_set_size_request (view, 600, 400);
     gtk_scrolled_window_set_child (GTK_SCROLLED_WINDOW (scrolled_window), view);
@@ -271,15 +227,14 @@ static void gnome_cmd_key_shortcuts_dialog_init (GnomeCmdKeyShortcutsDialog *dia
 }
 
 
-void gnome_cmd_key_shortcuts_dialog_new (GtkWindow *parent_window, GnomeCmdUserActions &user_actions)
+void gnome_cmd_key_shortcuts_dialog_new (GtkWindow *parent_window, GnomeCmdShortcuts *shortcuts)
 {
-    GnomeCmdKeyShortcutsDialogPrivate::user_actions = &user_actions;        // ugly hack, but can't come to any better method of passing data to gnome_cmd_key_shortcuts_dialog_init ()
-
-    GtkWidget *dialog = GTK_WIDGET (g_object_new (GNOME_CMD_TYPE_KEY_SHORTCUTS_DIALOG, NULL));
-
-    g_return_if_fail (dialog != NULL);
+    auto dialog = GNOME_CMD_KEY_SHORTCUTS_DIALOG (g_object_new (GNOME_CMD_TYPE_KEY_SHORTCUTS_DIALOG, NULL));
+    auto priv = static_cast<GnomeCmdKeyShortcutsDialogPrivate *> (gnome_cmd_key_shortcuts_dialog_get_instance_private (dialog));
 
     gtk_window_set_transient_for (GTK_WINDOW (dialog), parent_window);
+    priv->shortcuts = shortcuts;
+    gnome_cmd_key_shortcuts_dialog_fill_model (priv->store, shortcuts);
 
     gtk_window_present (GTK_WINDOW (dialog));
 }
@@ -348,10 +303,8 @@ enum
 };
 
 
-GtkWidget *create_view_and_model (GnomeCmdKeyShortcutsDialog *dialog)
+GtkWidget *create_view (GnomeCmdKeyShortcutsDialog *dialog, GtkTreeModel *model)
 {
-    auto priv = static_cast<GnomeCmdKeyShortcutsDialogPrivate *> (gnome_cmd_key_shortcuts_dialog_get_instance_private (dialog));
-
     GtkWidget *view = gtk_tree_view_new ();
 
     g_object_set (view,
@@ -389,8 +342,6 @@ GtkWidget *create_view_and_model (GnomeCmdKeyShortcutsDialog *dialog)
                   "ellipsize", PANGO_ELLIPSIZE_END,
                   NULL);
 
-    GtkTreeModel *model = create_and_fill_model (*priv->user_actions);
-
     gtk_tree_view_set_model (GTK_TREE_VIEW (view), model);
 
     g_object_unref (model);          // destroy model automatically with view
@@ -407,62 +358,7 @@ GtkWidget *create_view_and_model (GnomeCmdKeyShortcutsDialog *dialog)
 }
 
 
-static gint sort_by_col (GtkTreeModel *model, GtkTreeIter *i1, GtkTreeIter *i2, gpointer COL)
-{
-    gchar *s1;
-    gchar *s2;
-
-    gtk_tree_model_get (model, i1, GPOINTER_TO_UINT (COL), &s1, -1);
-    gtk_tree_model_get (model, i2, GPOINTER_TO_UINT (COL), &s2, -1);
-
-    gint retval = 0;
-
-    if (!s1 && !s2)
-        return retval;
-
-    if (!s1)
-        retval = 1;
-    else
-        if (!s2)
-            retval = -1;
-        else
-        {
-            // compare s1 and s2 in UTF8 aware way, case insensitive
-            gchar *is1 = g_utf8_casefold (s1, -1);
-            gchar *is2 = g_utf8_casefold (s2, -1);
-
-            retval = g_utf8_collate (is1, is2);
-
-            g_free (is1);
-            g_free (is2);
-        }
-
-    g_free (s1);
-    g_free (s2);
-
-    return retval;
-}
-
-
-static gint sort_by_accel (GtkTreeModel *model, GtkTreeIter *i1, GtkTreeIter *i2, gpointer user_data)
-{
-    guint key1, key2;
-    GdkModifierType mask1, mask2;
-
-    gtk_tree_model_get (model, i1, COL_ACCEL_KEY, &key1, COL_ACCEL_MASK, &mask1, -1);
-    gtk_tree_model_get (model, i2, COL_ACCEL_KEY, &key2, COL_ACCEL_MASK, &mask2, -1);
-
-    if (mask1<mask2)
-        return -1;
-
-    if (mask1>mask2)
-        return 1;
-
-    return key1 - key2;
-}
-
-
-GtkTreeModel *create_and_fill_model (GnomeCmdUserActions &user_actions)
+GtkListStore *create_model ()
 {
     GtkListStore *store = gtk_list_store_new (NUM_COLUMNS,
                                               G_TYPE_UINT,              //  COL_ACCEL_KEY
@@ -470,69 +366,7 @@ GtkTreeModel *create_and_fill_model (GnomeCmdUserActions &user_actions)
                                               G_TYPE_STRING,            //  COL_ACTION
                                               G_TYPE_STRING,            //  COL_NAME
                                               G_TYPE_STRING);           //  COL_OPTION
-
-    GtkTreeIter iter;
-
-    for (GnomeCmdUserActions::const_iterator i=user_actions.begin(); i!=user_actions.end(); ++i)
-         if (!ascii_isupper (*i))                                       // ignore lowercase keys as they duplicate uppercase ones
-         {
-             gtk_list_store_append (store, &iter);
-             gtk_list_store_set (store, &iter,
-                                 COL_ACCEL_KEY, i->first.keyval,
-                                 COL_ACCEL_MASK, i->first.state,
-                                 COL_ACTION, user_actions.description(i),
-                                 COL_NAME, user_actions.name(i),
-                                 COL_OPTION, user_actions.options(i),
-                                 -1);
-         }
-
-    GtkTreeSortable *sortable = GTK_TREE_SORTABLE (store);
-
-    gtk_tree_sortable_set_sort_func (sortable, SORTID_ACCEL, sort_by_accel, NULL, NULL);
-    gtk_tree_sortable_set_sort_func (sortable, SORTID_ACTION, sort_by_col, GUINT_TO_POINTER (COL_ACTION), NULL);
-    gtk_tree_sortable_set_sort_func (sortable, SORTID_OPTION, sort_by_col, GUINT_TO_POINTER (COL_OPTION), NULL);
-
-    gtk_tree_sortable_set_sort_column_id (sortable, SORTID_ACTION, GTK_SORT_ASCENDING);   // set initial sort order
-
-    return GTK_TREE_MODEL (store);
-}
-
-
-gboolean equal_accel (GtkTreeModel *model, GtkTreeIter *i, guint key, GdkModifierType mask)
-{
-    guint accel_key  = 0;
-    GdkModifierType accel_mask = (GdkModifierType) 0;
-
-    gtk_tree_model_get (model, i,
-                        COL_ACCEL_KEY, &accel_key,
-                        COL_ACCEL_MASK, &accel_mask,
-                        -1);
-
-    return accel_key==key && accel_mask==mask;
-}
-
-
-gboolean find_accel (GtkTreeModel *model, GtkTreeIter *i, guint key, GdkModifierType mask)
-{
-    gboolean valid_iter;
-
-    for (valid_iter=gtk_tree_model_get_iter_first (model, i); valid_iter; valid_iter=gtk_tree_model_iter_next (model, i))
-        if (equal_accel (model, i, key, mask))
-            return TRUE;
-
-    return FALSE;
-}
-
-
-void set_accel (GtkTreeModel *model, GtkTreePath *path, guint accel_key, GdkModifierType accel_mask)
-{
-    GtkTreeIter iter;
-
-    if (gtk_tree_model_get_iter (model, &iter, path))
-        gtk_list_store_set (GTK_LIST_STORE (model), &iter,
-                            COL_ACCEL_KEY, accel_key,
-                            COL_ACCEL_MASK, accel_mask,
-                            -1);
+    return store;
 }
 
 
@@ -616,7 +450,7 @@ static void add_clicked_callback (GtkButton *button, GtkWidget *view)
     gtk_list_store_append (GTK_LIST_STORE (model), &iter);
     gtk_list_store_set (GTK_LIST_STORE (model), &iter,
                         COL_ACTION, _("Do nothing"),
-                        COL_NAME, "no.action",
+                        COL_NAME, "no-action",
                         -1);
 
     GtkTreePath *path = gtk_tree_model_get_path (model, &iter);

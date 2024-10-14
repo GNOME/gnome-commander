@@ -472,6 +472,10 @@ static void dispose (GObject *object)
 
     if (!main_win->priv->state_saved)
     {
+        gnome_cmd_shortcuts_save_to_settings (gcmd_shortcuts);
+        gnome_cmd_shortcuts_free (gcmd_shortcuts);
+        gcmd_shortcuts = nullptr;
+
         gnome_cmd_data.save(main_win);
         main_win->priv->state_saved = true;
     }

@@ -17,13 +17,16 @@
  * For more details see the file COPYING.
  */
 
-use crate::utils::show_message;
+use crate::{
+    shortcuts::{Shortcut, Shortcuts},
+    user_actions::USER_ACTIONS,
+    utils::show_message,
+};
 use gettextrs::gettext;
 use glib::translate::{from_glib_full, FromGlib, IntoGlib};
 use gtk::{
-    ffi::{GtkCellRendererAccel, GtkTreeView},
-    gdk,
-    gdk::ffi::GdkModifierType,
+    ffi::{GtkCellRendererAccel, GtkListStore, GtkTreeView},
+    gdk::{self, ffi::GdkModifierType},
     glib::{self, translate::from_glib_none},
     prelude::*,
 };
@@ -38,6 +41,10 @@ enum Columns {
     COL_NAME,
     COL_OPTION,
 }
+
+const SORTID_ACCEL: gtk::SortColumn = gtk::SortColumn::Index(0);
+const SORTID_ACTION: gtk::SortColumn = gtk::SortColumn::Index(1);
+const SORTID_OPTION: gtk::SortColumn = gtk::SortColumn::Index(2);
 
 #[derive(Clone, Copy, PartialEq, Eq)]
 pub struct Accel {
@@ -187,4 +194,110 @@ pub extern "C" fn accel_edited_callback_r(
     glib::spawn_future_local(async move {
         accel_edited_callback(&path_string, accel, &view).await;
     });
+}
+
+#[no_mangle]
+pub extern "C" fn gnome_cmd_key_shortcuts_dialog_fill_model(
+    model_ptr: *mut GtkListStore,
+    shortcuts_ptr: *mut Shortcuts,
+) {
+    let model: gtk::ListStore = unsafe { from_glib_none(model_ptr) };
+    let shotcuts: &mut Shortcuts = unsafe { &mut *shortcuts_ptr };
+
+    for (shortcut, call) in &shotcuts.action {
+        // ignore lowercase keys as they duplicate uppercase ones
+        if shortcut.key.is_upper() {
+            let iter = model.append();
+
+            let description: Option<String> = USER_ACTIONS
+                .iter()
+                .find(|a| a.action_name == call.action_name)
+                .map(|a| a.description.clone());
+
+            model.set(
+                &iter,
+                &[
+                    (Columns::COL_ACCEL_KEY as u32, &shortcut.key.to_value()),
+                    (Columns::COL_ACCEL_MASK as u32, &shortcut.state.to_value()),
+                    (Columns::COL_ACTION as u32, &description.to_value()),
+                    (Columns::COL_NAME as u32, &call.action_name.to_value()),
+                    (Columns::COL_OPTION as u32, &call.action_data.to_value()),
+                ],
+            );
+        }
+    }
+
+    model.set_sort_func(SORTID_ACCEL, |model, iter1, iter2| {
+        accel_sort_key(model, iter1)
+            .cmp(&accel_sort_key(model, iter2))
+            .into()
+    });
+    model.set_sort_func(SORTID_ACTION, |model, iter1, iter2| {
+        let action1: Option<String> = model
+            .get_value(iter1, Columns::COL_ACTION as i32)
+            .get()
+            .ok();
+        let action2: Option<String> = model
+            .get_value(iter2, Columns::COL_ACTION as i32)
+            .get()
+            .ok();
+        action1.cmp(&action2).into()
+    });
+    model.set_sort_func(SORTID_OPTION, |model, iter1, iter2| {
+        let option1: Option<String> = model
+            .get_value(iter1, Columns::COL_OPTION as i32)
+            .get()
+            .ok();
+        let option2: Option<String> = model
+            .get_value(iter2, Columns::COL_OPTION as i32)
+            .get()
+            .ok();
+        option1.cmp(&option2).into()
+    });
+
+    model.set_sort_column_id(SORTID_ACTION, gtk::SortType::Ascending);
+}
+
+fn accel_sort_key(model: &gtk::ListStore, iter: &gtk::TreeIter) -> (u32, u32) {
+    let Accel { key, mask } = get_accel(model, iter);
+    (mask.bits(), key)
+}
+
+#[no_mangle]
+pub extern "C" fn gnome_cmd_key_shortcuts_dialog_from_model(
+    model_ptr: *mut GtkListStore,
+    shortcuts_ptr: *mut Shortcuts,
+) {
+    let model: gtk::ListStore = unsafe { from_glib_none(model_ptr) };
+    let shortcuts: &mut Shortcuts = unsafe { &mut *shortcuts_ptr };
+
+    shortcuts.clear();
+
+    if let Some(iter) = model.iter_first() {
+        loop {
+            let Accel { key, mask } = get_accel(&model, &iter);
+            let name: Option<String> = model.get_value(&iter, Columns::COL_NAME as i32).get().ok();
+            let option: Option<String> = model
+                .get_value(&iter, Columns::COL_OPTION as i32)
+                .get()
+                .ok();
+
+            if key != 0 && name.is_some() {
+                shortcuts.register_full(
+                    Shortcut {
+                        state: mask,
+                        key: unsafe { gdk::Key::from_glib(key) },
+                    },
+                    &name.unwrap(),
+                    option.as_deref(),
+                );
+            }
+
+            if !model.iter_next(&iter) {
+                break;
+            }
+        }
+    }
+
+    shortcuts.set_mandatory();
 }

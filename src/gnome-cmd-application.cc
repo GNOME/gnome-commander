@@ -86,8 +86,6 @@ static void gnome_cmd_application_startup(GApplication *application)
 
     /* Load Settings */
     IMAGE_init ();
-    gcmd_user_actions = new GnomeCmdUserActions();
-    gcmd_user_actions->init();
     settings = gcmd_user_action_settings_new();
     gnome_cmd_data.gsettings_init();
     gnome_cmd_data.load();
@@ -124,7 +122,7 @@ static void gnome_cmd_application_activate(GApplication *application)
         gnome_cmd_data.tabs[RIGHT].push_back(make_pair(string(start_dir_right), make_tuple(GnomeCmdFileList::COLUMN_NAME,GTK_SORT_ASCENDING,FALSE)));
     }
 
-    gcmd_user_actions->set_defaults();
+    gcmd_shortcuts = gnome_cmd_shortcuts_load_from_settings ();
     ls_colors_init ();
 
     main_win = new GnomeCmdMainWin;
@@ -146,8 +144,6 @@ static void gnome_cmd_application_shutdown(GApplication *application)
 {
     plugin_manager_shutdown ();
     gcmd_tags_shutdown ();
-    gcmd_user_actions->shutdown();
-    delete gcmd_user_actions;
     IMAGE_free ();
 
     remove_temp_download_dir ();

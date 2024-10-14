@@ -203,7 +203,7 @@ static void fill_tree (GtkTreeStore *store, GtkTreePath *&current_group)
         {
             gtk_tree_store_append (store, &child, &toplevel);
             GnomeCmdBookmark *bookmark = (GnomeCmdBookmark *) bookmarks->data;
-            gchar *shortcut = gcmd_user_actions->bookmark_shortcuts(bookmark->name);
+            gchar *shortcut = gnome_cmd_shortcuts_bookmark_shortcuts (gcmd_shortcuts, bookmark->name);
 
             gtk_tree_store_set (store, &child,
                                 COL_NAME, bookmark->name,
