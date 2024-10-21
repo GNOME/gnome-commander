@@ -198,6 +198,43 @@ pub fn close_dialog_with_escape_key(dialog: &gtk::Dialog) {
     ));
 }
 
+pub const NO_BUTTONS: &'static [&'static gtk::Button] = &[];
+
+pub fn dialog_button_box(
+    buttons_start: &[impl AsRef<gtk::Button>],
+    buttons_end: &[impl AsRef<gtk::Button>],
+) -> gtk::Widget {
+    let bx = gtk::Box::builder()
+        .orientation(gtk::Orientation::Horizontal)
+        .spacing(6)
+        .margin_top(6)
+        .hexpand(true)
+        .build();
+    let size_group = gtk::SizeGroup::new(gtk::SizeGroupMode::Both);
+
+    for button in buttons_start {
+        let button = button.as_ref();
+        bx.append(button);
+        size_group.add_widget(button);
+    }
+
+    if let Some((first, rest)) = buttons_end.split_first() {
+        let first = first.as_ref();
+        first.set_hexpand(true);
+        first.set_halign(gtk::Align::End);
+        bx.append(first);
+        size_group.add_widget(first);
+
+        for button in rest {
+            let button = button.as_ref();
+            bx.append(button);
+            size_group.add_widget(button);
+        }
+    }
+
+    bx.upcast()
+}
+
 pub async fn prompt_message(
     parent: &gtk::Window,
     message_type: gtk::MessageType,

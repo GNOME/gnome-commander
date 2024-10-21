@@ -28,7 +28,7 @@ use crate::{
     main_win::{ffi::GnomeCmdMainWin, MainWindow},
     transfer::gnome_cmd_copy_gfiles,
     types::GnomeCmdConfirmOverwriteMode,
-    utils::close_dialog_with_escape_key,
+    utils::{close_dialog_with_escape_key, dialog_button_box, NO_BUTTONS},
 };
 use gettextrs::gettext;
 use gtk::{
@@ -73,15 +73,6 @@ pub async fn make_copy_dialog(f: &File, dir: &Directory, main_win: &MainWindow) 
         .build();
     grid.attach(&entry, 0, 1, 1, 1);
 
-    let buttonbox = gtk::Box::builder()
-        .orientation(gtk::Orientation::Horizontal)
-        .spacing(6)
-        .hexpand(false)
-        .halign(gtk::Align::End)
-        .build();
-    let buttonbox_size_group = gtk::SizeGroup::new(gtk::SizeGroupMode::Horizontal);
-    grid.attach(&buttonbox, 0, 2, 1, 1);
-
     let cancel_btn = gtk::Button::builder()
         .label(gettext("_Cancel"))
         .use_underline(true)
@@ -91,8 +82,6 @@ pub async fn make_copy_dialog(f: &File, dir: &Directory, main_win: &MainWindow) 
         dialog,
         move |_| dialog.response(gtk::ResponseType::Cancel)
     ));
-    buttonbox.append(&cancel_btn);
-    buttonbox_size_group.add_widget(&cancel_btn);
 
     let ok_btn = gtk::Button::builder()
         .label(gettext("_OK"))
@@ -104,8 +93,14 @@ pub async fn make_copy_dialog(f: &File, dir: &Directory, main_win: &MainWindow) 
         dialog,
         move |_| dialog.response(gtk::ResponseType::Ok)
     ));
-    buttonbox.append(&ok_btn);
-    buttonbox_size_group.add_widget(&ok_btn);
+
+    grid.attach(
+        &dialog_button_box(NO_BUTTONS, &[&cancel_btn, &ok_btn]),
+        0,
+        2,
+        1,
+        1,
+    );
 
     entry.connect_changed(glib::clone!(
         #[weak]

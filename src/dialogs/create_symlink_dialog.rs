@@ -22,7 +22,7 @@ use crate::{
     dir::Directory,
     file::{File, GnomeCmdFileExt},
     libgcmd::file_base::FileBaseExt,
-    utils::show_message,
+    utils::{dialog_button_box, show_message, NO_BUTTONS},
 };
 use gettextrs::gettext;
 use gtk::{gdk, gio, glib, prelude::*};
@@ -65,29 +65,20 @@ pub async fn show_create_symlink_dialog(
     hbox.append(&entry);
     content_area.append(&hbox);
 
-    let button_box = gtk::Box::builder()
-        .orientation(gtk::Orientation::Horizontal)
-        .spacing(6)
-        .build();
-    let button_size_group = gtk::SizeGroup::new(gtk::SizeGroupMode::Both);
-
     let cancel_button = gtk::Button::builder()
         .label(gettext("_Cancel"))
         .use_underline(true)
-        .hexpand(true)
-        .halign(gtk::Align::End)
         .build();
-    button_box.append(&cancel_button);
-    button_size_group.add_widget(&cancel_button);
 
     let ok_button = gtk::Button::builder()
         .label(gettext("_OK"))
         .use_underline(true)
         .build();
-    button_box.append(&ok_button);
-    button_size_group.add_widget(&ok_button);
 
-    content_area.append(&button_box);
+    content_area.append(&dialog_button_box(
+        NO_BUTTONS,
+        &[&cancel_button, &ok_button],
+    ));
 
     ok_button.connect_clicked(glib::clone!(
         #[weak]

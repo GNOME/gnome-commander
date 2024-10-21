@@ -36,7 +36,7 @@ use std::path::Path;
 
 mod imp {
     use super::*;
-    use crate::utils::{show_error_message, ErrorMessage};
+    use crate::utils::{dialog_button_box, show_error_message, ErrorMessage};
 
     fn create_methods_model() -> gtk::ListStore {
         let store = gtk::ListStore::new(&[String::static_type(), i32::static_type()]);
@@ -214,21 +214,9 @@ mod imp {
                 GridRow::Domain,
             );
 
-            let buttonbox = gtk::Box::builder()
-                .orientation(gtk::Orientation::Horizontal)
-                .spacing(6)
-                .margin_top(6)
-                .hexpand(true)
-                .build();
-            let buttonbox_size_group = gtk::SizeGroup::new(gtk::SizeGroupMode::Horizontal);
-            self.grid
-                .attach(&buttonbox, 0, GridRow::Buttons as i32, 2, 1);
-
             let help_btn = gtk::Button::builder()
                 .label(gettext("_Help"))
                 .use_underline(true)
-                .hexpand(true)
-                .halign(gtk::Align::Start)
                 .build();
             help_btn.connect_clicked(glib::clone!(
                 #[weak]
@@ -240,8 +228,6 @@ mod imp {
                     );
                 }
             ));
-            buttonbox.append(&help_btn);
-            buttonbox_size_group.add_widget(&help_btn);
 
             let cancel_btn = gtk::Button::builder()
                 .label(gettext("_Cancel"))
@@ -252,8 +238,6 @@ mod imp {
                 obj,
                 move |_| obj.response(gtk::ResponseType::Cancel)
             ));
-            buttonbox.append(&cancel_btn);
-            buttonbox_size_group.add_widget(&cancel_btn);
 
             let ok_btn = gtk::Button::builder()
                 .label(gettext("_OK"))
@@ -269,8 +253,14 @@ mod imp {
                     }
                 }
             ));
-            buttonbox.append(&ok_btn);
-            buttonbox_size_group.add_widget(&ok_btn);
+
+            self.grid.attach(
+                &dialog_button_box(&[&help_btn], &[&cancel_btn, &ok_btn]),
+                0,
+                GridRow::Buttons as i32,
+                2,
+                1,
+            );
 
             obj.set_default_widget(Some(&ok_btn));
             obj.set_default_response(gtk::ResponseType::Ok);
