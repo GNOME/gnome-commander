@@ -152,6 +152,7 @@ impl TransferProgressWindow {
                 .replace("{total}", &bytes_total_str),
         );
         self.set_title(Some(
+            // xgettext:no-c-format
             &pgettext("percentage copied", "{}% copied")
                 .replace("{}", &format!("{:.0}", total_prog * 100.0)),
         ));
