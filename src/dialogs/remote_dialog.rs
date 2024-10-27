@@ -35,7 +35,7 @@ mod imp {
     use crate::{
         connection::{connection::ConnectionExt, remote::ConnectionRemote},
         dialogs::connect_dialog::ConnectDialog,
-        utils::display_help,
+        utils::{dialog_button_box, display_help},
     };
     use std::{cell::OnceCell, time::Duration};
 
@@ -237,26 +237,15 @@ mod imp {
             ));
             bbox.append(&self.remove_button);
 
-            let buttons = gtk::Box::builder()
-                .orientation(gtk::Orientation::Horizontal)
-                .margin_top(6)
-                .spacing(6)
-                .build();
-            let buttons_size_group = gtk::SizeGroup::new(gtk::SizeGroupMode::Both);
-
             let help_button = gtk::Button::builder()
                 .label(&gettext("_Help"))
                 .use_underline(true)
-                .hexpand(true)
-                .halign(gtk::Align::Start)
                 .build();
             help_button.connect_clicked(glib::clone!(
                 #[weak(rename_to = imp)]
                 self,
                 move |_| imp.on_help_btn_clicked()
             ));
-            buttons.append(&help_button);
-            buttons_size_group.add_widget(&help_button);
 
             let close_button = gtk::Button::builder()
                 .label(&gettext("_Close"))
@@ -267,18 +256,17 @@ mod imp {
                 self,
                 move |_| imp.on_close_btn_clicked()
             ));
-            buttons.append(&close_button);
-            buttons_size_group.add_widget(&close_button);
 
             self.connect_button.connect_clicked(glib::clone!(
                 #[weak(rename_to = imp)]
                 self,
                 move |_| imp.on_connect_btn_clicked()
             ));
-            buttons.append(&self.connect_button);
-            buttons_size_group.add_widget(&self.connect_button);
 
-            obj.content_area().append(&buttons);
+            obj.content_area().append(&dialog_button_box(
+                &[&help_button],
+                &[&close_button, &self.connect_button],
+            ));
 
             self.view.connect_row_activated(glib::clone!(
                 #[weak(rename_to = imp)]

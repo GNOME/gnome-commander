@@ -24,6 +24,8 @@ use glib::{
 };
 use gtk::{glib, prelude::*};
 
+use crate::utils::{dialog_button_box, NO_BUTTONS};
+
 pub struct RegexReplace {
     pub pattern: String,
     pub replacement: String,
@@ -122,28 +124,15 @@ pub async fn show_advrename_regex_dialog(
         match_case.set_active(r.match_case);
     }
 
-    let buttonbox = gtk::Box::builder()
-        .orientation(gtk::Orientation::Horizontal)
-        .spacing(6)
-        .hexpand(false)
-        .halign(gtk::Align::End)
-        .build();
-    let buttonbox_size_group = gtk::SizeGroup::new(gtk::SizeGroupMode::Horizontal);
-    grid.attach(&buttonbox, 0, 3, 2, 1);
-
     let cancel_btn = gtk::Button::builder()
         .label(gettext("_Cancel"))
         .use_underline(true)
-        .hexpand(true)
-        .halign(gtk::Align::End)
         .build();
     cancel_btn.connect_clicked(glib::clone!(
         #[weak]
         dialog,
         move |_| dialog.response(gtk::ResponseType::Cancel)
     ));
-    buttonbox.append(&cancel_btn);
-    buttonbox_size_group.add_widget(&cancel_btn);
 
     let ok_btn = gtk::Button::builder()
         .label(gettext("_OK"))
@@ -154,8 +143,14 @@ pub async fn show_advrename_regex_dialog(
         dialog,
         move |_| dialog.response(gtk::ResponseType::Ok)
     ));
-    buttonbox.append(&ok_btn);
-    buttonbox_size_group.add_widget(&ok_btn);
+
+    grid.attach(
+        &dialog_button_box(NO_BUTTONS, &[&cancel_btn, &ok_btn]),
+        0,
+        3,
+        2,
+        1,
+    );
 
     pattern.grab_focus();
     ok_btn.set_receives_default(true);

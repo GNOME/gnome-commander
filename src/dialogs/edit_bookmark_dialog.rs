@@ -20,7 +20,7 @@
  * For more details see the file COPYING.
  */
 
-use crate::utils::show_message;
+use crate::utils::{dialog_button_box, show_message, NO_BUTTONS};
 use gettextrs::gettext;
 use gtk::{glib, prelude::*};
 
@@ -41,8 +41,6 @@ pub async fn edit_bookmark_dialog(
         .destroy_with_parent(true)
         .resizable(false)
         .build();
-    dialog.add_button(&gettext("_Cancel"), gtk::ResponseType::Cancel);
-    dialog.add_button(&gettext("_OK"), gtk::ResponseType::Ok);
 
     let content_area = dialog.content_area();
 
@@ -98,6 +96,35 @@ pub async fn edit_bookmark_dialog(
 
     grid.attach(&path_label, 0, 1, 1, 1);
     grid.attach(&path_entry, 1, 1, 1, 1);
+
+    let cancel_btn = gtk::Button::builder()
+        .label(gettext("_Cancel"))
+        .use_underline(true)
+        .build();
+    cancel_btn.connect_clicked(glib::clone!(
+        #[weak]
+        dialog,
+        move |_| dialog.response(gtk::ResponseType::Cancel)
+    ));
+
+    let ok_btn = gtk::Button::builder()
+        .label(gettext("_OK"))
+        .use_underline(true)
+        .receives_default(true)
+        .build();
+    ok_btn.connect_clicked(glib::clone!(
+        #[weak]
+        dialog,
+        move |_| dialog.response(gtk::ResponseType::Ok)
+    ));
+
+    grid.attach(
+        &dialog_button_box(NO_BUTTONS, &[cancel_btn, ok_btn]),
+        0,
+        2,
+        2,
+        1,
+    );
 
     dialog.set_default_response(gtk::ResponseType::Ok);
 

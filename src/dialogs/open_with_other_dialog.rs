@@ -22,7 +22,7 @@ use crate::{
     dir::Directory,
     file::File,
     spawn::run_command_indir,
-    utils::{close_dialog_with_escape_key, ErrorMessage},
+    utils::{close_dialog_with_escape_key, dialog_button_box, ErrorMessage, NO_BUTTONS},
 };
 use gettextrs::gettext;
 use gtk::{glib, prelude::*};
@@ -64,29 +64,20 @@ pub async fn show_open_with_other_dialog(
     let needs_terminal = gtk::CheckButton::with_label("Needs terminal");
     content_area.append(&needs_terminal);
 
-    let button_box = gtk::Box::builder()
-        .orientation(gtk::Orientation::Horizontal)
-        .spacing(6)
-        .build();
-    let button_size_group = gtk::SizeGroup::new(gtk::SizeGroupMode::Both);
-
     let cancel_button = gtk::Button::builder()
         .label(gettext("_Cancel"))
         .use_underline(true)
-        .hexpand(true)
-        .halign(gtk::Align::End)
         .build();
-    button_box.append(&cancel_button);
-    button_size_group.add_widget(&cancel_button);
 
     let ok_button = gtk::Button::builder()
         .label(gettext("_OK"))
         .use_underline(true)
         .build();
-    button_box.append(&ok_button);
-    button_size_group.add_widget(&ok_button);
 
-    content_area.append(&button_box);
+    content_area.append(&dialog_button_box(
+        NO_BUTTONS,
+        &[&cancel_button, &ok_button],
+    ));
 
     cancel_button.connect_clicked(glib::clone!(
         #[weak]

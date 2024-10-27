@@ -20,7 +20,10 @@
  * For more details see the file COPYING.
  */
 
-use crate::dialogs::advrename_regex_dialog::{show_advrename_regex_dialog, RegexReplace};
+use crate::{
+    dialogs::advrename_regex_dialog::{show_advrename_regex_dialog, RegexReplace},
+    utils::{dialog_button_box, NO_BUTTONS},
+};
 use gettextrs::gettext;
 use gtk::{
     ffi::{GtkTreeView, GtkWidget, GtkWindow},
@@ -90,13 +93,6 @@ async fn get_selected_range(
         .build();
     content_area.append(&option);
 
-    let bbox = gtk::Box::builder()
-        .orientation(gtk::Orientation::Horizontal)
-        .spacing(6)
-        .build();
-    let bbox_size_group = gtk::SizeGroup::new(gtk::SizeGroupMode::Both);
-    content_area.append(&bbox);
-
     let (sender, receiver) = async_channel::bounded::<bool>(1);
 
     let cancel_button = gtk::Button::builder()
@@ -112,8 +108,6 @@ async fn get_selected_range(
             eprintln!("Failed to send a 'cancel' message: {error}.")
         }
     ));
-    bbox.append(&cancel_button);
-    bbox_size_group.add_widget(&cancel_button);
 
     let ok_button = gtk::Button::builder()
         .label(gettext("_OK"))
@@ -126,8 +120,11 @@ async fn get_selected_range(
             eprintln!("Failed to send an 'ok' message: {error}.")
         }
     ));
-    bbox.append(&ok_button);
-    bbox_size_group.add_widget(&ok_button);
+
+    content_area.append(&dialog_button_box(
+        NO_BUTTONS,
+        &[&cancel_button, &ok_button],
+    ));
 
     dialog.set_default_response(gtk::ResponseType::Ok);
 

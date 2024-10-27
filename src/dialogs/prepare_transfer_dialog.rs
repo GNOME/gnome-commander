@@ -34,7 +34,11 @@ use std::path::{Path, PathBuf};
 
 mod imp {
     use super::*;
-    use crate::{dir::Directory, file_selector::FileSelector, utils::toggle_file_name_selection};
+    use crate::{
+        dir::Directory,
+        file_selector::FileSelector,
+        utils::{dialog_button_box, toggle_file_name_selection, NO_BUTTONS},
+    };
     use std::cell::OnceCell;
 
     pub struct PrepareTransferDialog {
@@ -135,18 +139,10 @@ mod imp {
             options_hbox.append(&self.left_vbox);
             options_hbox.append(&self.right_vbox);
 
-            let bbox = gtk::Box::builder()
-                .orientation(gtk::Orientation::Horizontal)
-                .spacing(6)
-                .build();
-            content_area.append(&bbox);
-            let bbox_size_group = gtk::SizeGroup::new(gtk::SizeGroupMode::Both);
-
-            bbox.append(&self.cancel_button);
-            bbox_size_group.add_widget(&self.cancel_button);
-
-            bbox.append(&self.ok_button);
-            bbox_size_group.add_widget(&self.ok_button);
+            content_area.append(&dialog_button_box(
+                NO_BUTTONS,
+                &[&self.cancel_button, &self.ok_button],
+            ));
 
             self.cancel_button.connect_clicked(glib::clone!(
                 #[weak]

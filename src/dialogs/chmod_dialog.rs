@@ -18,8 +18,11 @@
  */
 
 use crate::{
-    chmod_component::ChmodComponent, dir::Directory, file::File, libgcmd::file_base::FileBaseExt,
-    utils::ErrorMessage,
+    chmod_component::ChmodComponent,
+    dir::Directory,
+    file::File,
+    libgcmd::file_base::FileBaseExt,
+    utils::{dialog_button_box, ErrorMessage, NO_BUTTONS},
 };
 use gettextrs::gettext;
 use gtk::{gio, glib, prelude::*};
@@ -129,26 +132,15 @@ pub async fn show_chmod_dialog(parent_window: &gtk::Window, files: &glib::List<F
         }
     ));
 
-    let buttonbox = gtk::Box::builder()
-        .orientation(gtk::Orientation::Horizontal)
-        .spacing(6)
-        .build();
-    let buttonbox_size_group = gtk::SizeGroup::new(gtk::SizeGroupMode::Horizontal);
-    content_area.append(&buttonbox);
-
     let cancel_btn = gtk::Button::builder()
         .label(gettext("_Cancel"))
         .use_underline(true)
-        .hexpand(true)
-        .halign(gtk::Align::End)
         .build();
     cancel_btn.connect_clicked(glib::clone!(
         #[weak]
         dialog,
         move |_| dialog.response(gtk::ResponseType::Cancel)
     ));
-    buttonbox.append(&cancel_btn);
-    buttonbox_size_group.add_widget(&cancel_btn);
 
     let ok_btn = gtk::Button::builder()
         .label(gettext("_OK"))
@@ -159,8 +151,8 @@ pub async fn show_chmod_dialog(parent_window: &gtk::Window, files: &glib::List<F
         dialog,
         move |_| dialog.response(gtk::ResponseType::Ok)
     ));
-    buttonbox.append(&ok_btn);
-    buttonbox_size_group.add_widget(&ok_btn);
+
+    content_area.append(&dialog_button_box(NO_BUTTONS, &[&cancel_btn, &ok_btn]));
 
     dialog.set_default_widget(Some(&ok_btn));
     dialog.present();

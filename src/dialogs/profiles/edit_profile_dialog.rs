@@ -18,7 +18,7 @@
  */
 
 use super::profiles::ProfileManager;
-use crate::utils::display_help;
+use crate::utils::{dialog_button_box, display_help};
 use gettextrs::gettext;
 use gtk::{glib, prelude::*};
 use std::rc::Rc;
@@ -67,35 +67,23 @@ pub async fn edit_profile(
     let component = manager.create_component(profile_index);
     content_area.append(&component);
 
-    let bbox = gtk::Box::builder()
-        .orientation(gtk::Orientation::Horizontal)
-        .spacing(6)
-        .build();
-    let bbox_size_group = gtk::SizeGroup::new(gtk::SizeGroupMode::Both);
-    content_area.append(&bbox);
-
+    let mut start_buttons = Vec::new();
     if let Some(help_id) = help_id {
         let help_button = gtk::Button::builder()
             .label(gettext("_Help"))
             .use_underline(true)
             .build();
-        bbox.append(&help_button);
-        bbox_size_group.add_widget(&help_button);
-        let help_id = help_id.to_owned();
         help_button.connect_clicked(glib::clone!(
             #[strong]
             parent,
+            #[to_owned]
+            help_id,
             move |_| display_help(&parent, Some(&help_id))
         ));
+        start_buttons.push(help_button);
     }
 
-    let reset_button = gtk::Button::builder()
-        .label(gettext("Reset"))
-        .hexpand(true)
-        .halign(gtk::Align::End)
-        .build();
-    bbox.append(&reset_button);
-    bbox_size_group.add_widget(&reset_button);
+    let reset_button = gtk::Button::builder().label(gettext("Reset")).build();
     reset_button.connect_clicked(glib::clone!(
         #[strong]
         manager,
@@ -111,8 +99,6 @@ pub async fn edit_profile(
         .label(gettext("_Cancel"))
         .use_underline(true)
         .build();
-    bbox.append(&cancel_button);
-    bbox_size_group.add_widget(&cancel_button);
     cancel_button.connect_clicked(glib::clone!(
         #[weak]
         dialog,
@@ -123,8 +109,6 @@ pub async fn edit_profile(
         .label(gettext("_OK"))
         .use_underline(true)
         .build();
-    bbox.append(&ok_button);
-    bbox_size_group.add_widget(&ok_button);
     ok_button.connect_clicked(glib::clone!(
         #[weak]
         dialog,
@@ -136,6 +120,11 @@ pub async fn edit_profile(
 
             dialog.response(gtk::ResponseType::Ok)
         }
+    ));
+
+    content_area.append(&dialog_button_box(
+        &start_buttons,
+        &[&reset_button, &cancel_button, &ok_button],
     ));
 
     dialog.set_default_response(gtk::ResponseType::Ok);
