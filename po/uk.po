@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: gnome-commander 1.3.0\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-commander/issues/"
 "\n"
-"POT-Creation-Date: 2024-10-13 10:19+0000\n"
-"PO-Revision-Date: 2024-10-13 19:21+0300\n"
+"POT-Creation-Date: 2024-10-13 16:24+0000\n"
+"PO-Revision-Date: 2024-10-28 08:50+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -1744,7 +1744,6 @@ msgid "_Match case"
 msgstr "Враховувати _регістр"
 
 #: src/dialogs/chmod_dialog.rs:43
-#| msgid "Could not chmod %s"
 msgid "Could not chmod {}"
 msgstr "Не вдалося виконати chmod для {}"
 
@@ -1765,7 +1764,6 @@ msgid "Directories only"
 msgstr "Лише каталоги"
 
 #: src/dialogs/chown_dialog.rs:38
-#| msgid "Could not chown %s"
 msgid "Could not chown {}"
 msgstr "Не вдалося виконати chown для {}"
 
@@ -1871,7 +1869,6 @@ msgid "Connection method is not selected"
 msgstr "Метод з'єднання не вибрано"
 
 #: src/dialogs/connect_dialog.rs:450
-#| msgid "“%s” is not a valid location"
 msgid "“{}” is not a valid location"
 msgstr "«%s» не є коректною адресою"
 
@@ -1897,8 +1894,6 @@ msgid "Deleting…"
 msgstr "Вилучення…"
 
 #: src/dialogs/delete_dialog.rs:179
-#| msgid "Deleted %lu of %lu file"
-#| msgid_plural "Deleted %lu of %lu files"
 msgid "Deleted {count} of {total} file"
 msgid_plural "Deleted {count} of {total} files"
 msgstr[0] "Вилучено {count} з {total} файла"
@@ -1907,12 +1902,10 @@ msgstr[2] "Вилучено {count} з {total} файлів"
 msgstr[3] "Вилучено {count} з {total} файла"
 
 #: src/dialogs/delete_dialog.rs:203
-#| msgid "The directory “%s” is not empty. Do you really want to delete it?"
 msgid "The directory “{}” is not empty. Do you really want to delete it?"
 msgstr "Каталог «{}» містить дані. Ви справді хочете його вилучити?"
 
 #: src/dialogs/delete_dialog.rs:206
-#| msgid "Do you really want to delete “%s”?"
 msgid "Do you really want to delete “{}”?"
 msgstr "Хочете справді вилучити «{}»?"
 
@@ -1947,10 +1940,6 @@ msgid "Delete Remaining"
 msgstr "Вилучити решту"
 
 #: src/dialogs/delete_dialog.rs:245
-#| msgid ""
-#| "Error while deleting “%s”\n"
-#| "\n"
-#| "%s"
 msgid ""
 "Error while deleting “{file}”\n"
 "\n"
@@ -1977,12 +1966,10 @@ msgid "Deletion failed"
 msgstr "Не вдалося вилучити"
 
 #: src/dialogs/delete_dialog.rs:514
-#| msgid "Do you want to permanently delete “%s”?"
 msgid "Do you want to permanently delete “{}”?"
 msgstr "Хочете остаточно вилучити «{}»?"
 
 #: src/dialogs/delete_dialog.rs:516
-#| msgid "Do you want to move “%s” to the trash can?"
 msgid "Do you want to move “{}” to the trash can?"
 msgstr "Хочете пересунути «{}» до смітника?"
 
@@ -2005,10 +1992,6 @@ msgstr[2] "Бажаєте пересунути %d вибраних файлів 
 msgstr[3] "Бажаєте пересунути вибраний файл до смітника?"
 
 #: src/dialogs/delete_dialog.rs:586
-#| msgid ""
-#| "Error while deleting: \n"
-#| "\n"
-#| "%s"
 msgid ""
 "Error while deleting: \n"
 "\n"
@@ -3193,16 +3176,14 @@ msgid "Conflicting Shortcuts"
 msgstr "Конфліктні клавіші"
 
 #: src/dialogs/key_shortcuts_dialog.rs:106
-#| msgid "Shortcut “%s” is already taken by “%s”."
 msgid "Shortcut “{shortcut}” is already taken by “{action}”."
 msgstr "Клавіатурне скорочення «{shortcut}» вже використано для «{action}»."
 
 #: src/dialogs/key_shortcuts_dialog.rs:111
-#| msgid "Reassigning the shortcut will cause it to be removed from “%s”."
 msgid "Reassigning the shortcut will cause it to be removed from “{action}”."
 msgstr ""
-"Зміна призначення цього скорочення призведе до його вилучення з дії"
-" «{action}»."
+"Зміна призначення цього скорочення призведе до його вилучення з дії "
+"«{action}»."
 
 #: src/dialogs/key_shortcuts_dialog.rs:116
 msgid "_Reassign shortcut"
@@ -3213,7 +3194,6 @@ msgid "Invalid shortcut."
 msgstr "Неправильне посилання"
 
 #: src/dialogs/key_shortcuts_dialog.rs:142
-#| msgid "Invalid shortcut."
 msgid "Invalid path."
 msgstr "Некоректний шлях."
 
@@ -3222,7 +3202,6 @@ msgid "Copy File"
 msgstr "Копіювати файл"
 
 #: src/dialogs/make_copy_dialog.rs:63 src/dialogs/prepare_copy_dialog.rs:53
-#| msgid "Copy “%s” to"
 msgid "Copy “{}” to"
 msgstr "Копіювати «{}» до"
 
@@ -3255,8 +3234,6 @@ msgid "Invalid command"
 msgstr "Неприпустима команда"
 
 #: src/dialogs/prepare_copy_dialog.rs:55
-#| msgid "copy %d file to"
-#| msgid_plural "copy %d files to"
 msgid "copy {} file to"
 msgid_plural "copy {} files to"
 msgstr[0] "копіювати {} файл до"
@@ -3277,13 +3254,10 @@ msgid "Follow Links"
 msgstr "Прямувати за посиланнями"
 
 #: src/dialogs/prepare_move_dialog.rs:53
-#| msgid "Move “%s” to"
 msgid "Move “{}” to"
 msgstr "Пересунути «{}» до"
 
 #: src/dialogs/prepare_move_dialog.rs:55
-#| msgid "move %d file to"
-#| msgid_plural "move %d files to"
 msgid "move {} file to"
 msgid_plural "move {} files to"
 msgstr[0] "пересунути {} файл до"
@@ -3292,12 +3266,10 @@ msgstr[2] "пересунути {} файлів до"
 msgstr[3] "пересунути один файл до"
 
 #: src/dialogs/prepare_transfer_dialog.rs:215
-#| msgid "The directory “%s” doesn’t exist, do you want to create it?"
 msgid "The directory “{}” doesn’t exist, do you want to create it?"
 msgstr "Каталогу «{}» не існує, створити його?"
 
 #: src/dialogs/prepare_transfer_dialog.rs:451
-#| msgid "A directory name must be entered"
 msgid "Directory {} cannot be created."
 msgstr "Не вдалося створити каталог {}."
 
@@ -3365,19 +3337,16 @@ msgid "{copied} of {total} copied"
 msgstr "Скопійовано {copied} з {total}"
 
 #: src/dialogs/transfer_progress_dialog.rs:155
-#, c-format
-#| msgid "%.0f%% copied"
+#, no-c-format
 msgctxt "percentage copied"
 msgid "{}% copied"
-msgstr "Скопійовано {}%c"
+msgstr "Скопійовано {}%"
 
 #: src/dirlist.rs:50
 msgid "Waiting for file list"
 msgstr "Очікування на список файлів"
 
 #: src/dirlist.rs:124
-#| msgid "%d file listed"
-#| msgid_plural "%d files listed"
 msgid "{} file listed"
 msgid_plural "{} files listed"
 msgstr[0] "{} файл у списку"
@@ -3419,12 +3388,6 @@ msgid "New accelerator…"
 msgstr "Нове скорочення…"
 
 #: src/file_list_actions.rs:50 src/open_file.rs:89
-#| msgid ""
-#| "%s does not know how to open remote file. Do you want to download the "
-#| "file to a temporary location and then open it?"
-#| msgid_plural ""
-#| "%s does not know how to open remote files. Do you want to download the "
-#| "files to a temporary location and then open them?"
 msgid ""
 "{} does not know how to open remote file. Do you want to download the file "
 "to a temporary location and then open it?"
@@ -4861,7 +4824,6 @@ msgid "Searching…"
 msgstr "Пошук…"
 
 #: src/intviewer/search_progress_dialog.rs:105
-#| msgid "Searching for “%s”"
 msgid "Searching for “{}”"
 msgstr "Шукаємо «{}»"
 
@@ -5087,9 +5049,6 @@ msgid "Quick _Help"
 msgstr "Швидка _довідка"
 
 #: src/open_file.rs:43
-#| msgid ""
-#| "“%s” seems to be a binary executable file but it lacks the executable "
-#| "bit. Do you want to set it and then run the file?"
 msgid ""
 "“{}” seems to be a binary executable file but it lacks the executable bit. "
 "Do you want to set it and then run the file?"
@@ -5106,9 +5065,6 @@ msgid "OK"
 msgstr "Гаразд"
 
 #: src/open_file.rs:66
-#| msgid ""
-#| "“%s” is an executable text file. Do you want to run it, or display its "
-#| "contents?"
 msgid ""
 "“{}” is an executable text file. Do you want to run it, or display its "
 "contents?"
@@ -5133,7 +5089,6 @@ msgid "Change of a file mode failed"
 msgstr "Не вдалося змінити режим доступу до файла"
 
 #: src/open_file.rs:155
-#| msgid "No default application found for the file type %s."
 msgid "No default application found for the file type {}."
 msgstr "Не знайдено типової програми для типу файлів {}."
 
@@ -9159,8 +9114,6 @@ msgid "Skip all"
 msgstr "Пропустити все"
 
 #: src/user_actions.rs:177
-#| msgid "Create symbolic links of %i file in %s?"
-#| msgid_plural "Create symbolic links of %i files in %s?"
 msgid "Create symbolic links of {count} file in {dir}?"
 msgid_plural "Create symbolic links of {count} files in {dir}?"
 msgstr[0] "Створити символічне посилання з {count} файла у {dir}?"
@@ -9245,7 +9198,6 @@ msgid "Cannot create a temporary file."
 msgstr "Не вдалося створити тимчасовий файл."
 
 #: src/utils.rs:68
-#| msgid "Cannot create a temporary file."
 msgid "Cannot create a file for a path {}."
 msgstr "Не вдалося створити файл для шляху {}."
 
@@ -9294,8 +9246,6 @@ msgstr[2] "{} КіБ"
 msgstr[3] "{} КіБ"
 
 #: src/utils.rs:384 src/utils.rs:395 src/utils.rs:399
-#| msgid "%sbyte"
-#| msgid_plural "%sbytes"
 msgid "{} byte"
 msgid_plural "{} bytes"
 msgstr[0] "{} байт"
