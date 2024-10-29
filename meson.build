@@ -92,10 +92,15 @@ glib_2_70 = dependency('glib-2.0', version: '>= 2.70.0', required: false)
 gmodule   = dependency('gmodule-2.0', version: '>=' + GMODULE_REQ)
 gio       = dependency('gio-2.0', version: '>=' + GIO_REQ)
 gtk       = dependency('gtk4', version: '>=' + GTK_REQ)
+pixbuf    = dependency('gdk-pixbuf-2.0')
 
 common_deps = [
   glib, gmodule, gio, gobject, gtk
 ]
+
+# Require that gdk-pixbuf can load xpm files
+pixbuf_module_dir = pixbuf.get_variable(pkgconfig: 'gdk_pixbuf_moduledir')
+cpp.find_library('pixbufloader-xpm', dirs: pixbuf_module_dir, required: true)
 
 if glib_2_70.found()
   conf_data.set('GLIB_2_70', '@0@'.format(glib_2_70.found().to_int()), description : 'Define to 1 if you have glib >= 2.70')
