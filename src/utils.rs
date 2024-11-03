@@ -259,6 +259,7 @@ fn create_error_dialog(parent: &gtk::Window, message: &str) -> gtk::MessageDialo
     gtk::MessageDialog::builder()
         .transient_for(parent)
         .destroy_with_parent(true)
+        .modal(true)
         .message_type(gtk::MessageType::Error)
         .buttons(gtk::ButtonsType::Ok)
         .text(message)

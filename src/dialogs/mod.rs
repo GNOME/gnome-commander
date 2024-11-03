@@ -46,3 +46,5 @@ pub mod key_shortcuts_dialog;
 pub mod profiles;
 
 pub mod open_with_other_dialog;
+
+pub mod new_text_file;
