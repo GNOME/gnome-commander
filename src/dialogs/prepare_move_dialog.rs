@@ -19,17 +19,12 @@
 
 use super::prepare_transfer_dialog::PrepareTransferDialog;
 use crate::{
-    data::{ConfirmOptions, ConfirmOptionsRead},
-    file_selector::{ffi::GnomeCmdFileSelector, FileSelector},
-    libgcmd::file_base::FileBaseExt,
-    main_win::{ffi::GnomeCmdMainWin, MainWindow},
-    transfer::gnome_cmd_move_gfiles,
-    types::GnomeCmdConfirmOverwriteMode,
+    data::ConfirmOptionsRead, file_selector::FileSelector, libgcmd::file_base::FileBaseExt,
+    main_win::MainWindow, transfer::gnome_cmd_move_gfiles, types::GnomeCmdConfirmOverwriteMode,
     utils::bold,
 };
 use gettextrs::{gettext, ngettext};
-use glib::translate::from_glib_none;
-use gtk::{gio, glib, prelude::*};
+use gtk::{gio, prelude::*};
 
 pub async fn prepare_move_dialog_show(
     main_win: &MainWindow,
@@ -125,19 +120,4 @@ pub async fn prepare_move_dialog_show(
     .await;
     dest_dir.relist_files(main_win.upcast_ref(), false).await;
     main_win.focus_file_lists();
-}
-
-#[no_mangle]
-pub extern "C" fn gnome_cmd_prepare_move_dialog_show(
-    main_win_ptr: *mut GnomeCmdMainWin,
-    from_ptr: *mut GnomeCmdFileSelector,
-    to_ptr: *mut GnomeCmdFileSelector,
-) {
-    let main_win = unsafe { from_glib_none(main_win_ptr) };
-    let from = unsafe { from_glib_none(from_ptr) };
-    let to = unsafe { from_glib_none(to_ptr) };
-    let options = ConfirmOptions::new();
-    glib::spawn_future_local(async move {
-        prepare_move_dialog_show(&main_win, &from, &to, &options).await;
-    });
 }

@@ -357,7 +357,7 @@ GMenu *gnome_cmd_file_popmenu_new (GnomeCmdMainWin *main_win, GnomeCmdFileList *
             .item(_("Delete"),              "win.file-delete")
             .item(_("Rename"),              "win.file-rename")
             .item(_("Send files"),          "win.file-sendto",                      nullptr, GTK_MAILSEND_STOCKID)
-            .item(_("Open _terminal here"), "win.command-open-terminal-internal",   nullptr, GTK_TERMINAL_STOCKID)
+            .item(_("Open _terminal here"), "win.command-open-terminal",            nullptr, GTK_TERMINAL_STOCKID)
         .endsection()
         .item(_("_Properties…"),            "win.file-properties")
         .build();

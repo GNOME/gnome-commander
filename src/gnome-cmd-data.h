@@ -666,8 +666,6 @@ struct GnomeCmdData
     void load_directory_history();
     void load_intviewer_defaults();
     gboolean save_auto_load_plugins();
-    void load_keybindings();
-    void save_keybindings();
     void load_connections();
     void save_connections();
     void save_cmdline_history(GnomeCmdMainWin *main_win);
@@ -771,6 +769,3 @@ extern GnomeCmdData gnome_cmd_data;
 extern gchar *start_dir_left;
 extern gchar *start_dir_right;
 extern gchar *config_dir;
-
-extern DICT<guint> gdk_key_names;
-extern DICT<guint> gdk_modifiers_names;

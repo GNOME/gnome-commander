@@ -22,20 +22,16 @@
 
 use crate::{
     connection::connection::ConnectionExt,
-    dir::{ffi::GnomeCmdDir, Directory},
-    file::{ffi::GnomeCmdFile, File, GnomeCmdFileExt},
+    dir::Directory,
+    file::{File, GnomeCmdFileExt},
     libgcmd::file_base::FileBaseExt,
-    main_win::{ffi::GnomeCmdMainWin, MainWindow},
+    main_win::MainWindow,
     transfer::gnome_cmd_copy_gfiles,
     types::GnomeCmdConfirmOverwriteMode,
     utils::{close_dialog_with_escape_key, dialog_button_box, NO_BUTTONS},
 };
 use gettextrs::gettext;
-use gtk::{
-    gio,
-    glib::{self, translate::from_glib_none},
-    prelude::*,
-};
+use gtk::{gio, glib, prelude::*};
 use std::path::Path;
 
 pub async fn make_copy_dialog(f: &File, dir: &Directory, main_win: &MainWindow) {
@@ -148,18 +144,4 @@ pub async fn make_copy_dialog(f: &File, dir: &Directory, main_win: &MainWindow) 
         dir.relist_files(main_win.upcast_ref(), false).await;
         main_win.focus_file_lists();
     }
-}
-
-#[no_mangle]
-pub extern "C" fn gnome_cmd_make_copy_dialog_run_r(
-    file: *mut GnomeCmdFile,
-    dir: *mut GnomeCmdDir,
-    main_win: *mut GnomeCmdMainWin,
-) {
-    let file: File = unsafe { from_glib_none(file) };
-    let dir: Directory = unsafe { from_glib_none(dir) };
-    let main_win: MainWindow = unsafe { from_glib_none(main_win) };
-    glib::spawn_future_local(async move {
-        make_copy_dialog(&file, &dir, &main_win).await;
-    });
 }

@@ -22,4 +22,4 @@
 
 #include "gnome-cmd-user-actions.h"
 
-void gnome_cmd_key_shortcuts_dialog_new (GtkWindow *parent_window, GnomeCmdUserActions &user_actions);
+void gnome_cmd_key_shortcuts_dialog_new (GtkWindow *parent_window, GnomeCmdShortcuts *shortcuts);

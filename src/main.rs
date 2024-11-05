@@ -41,6 +41,7 @@ mod main_win;
 mod notebook_ext;
 mod open_file;
 mod path;
+mod shortcuts;
 mod spawn;
 mod transfer;
 mod types;

@@ -26,6 +26,7 @@ pub trait GeneralOptionsRead {
     fn bookmarks(&self) -> glib::Variant;
     fn symlink_format(&self) -> String;
     fn use_trash(&self) -> bool;
+    fn keybindings(&self) -> glib::Variant;
 }
 
 pub trait GeneralOptionsWrite {
@@ -35,6 +36,8 @@ pub trait GeneralOptionsWrite {
     fn set_symlink_format(&self, symlink_format: &str);
 
     fn set_use_trash(&self, use_trash: bool);
+
+    fn set_keybindings(&self, keybindings: &glib::Variant);
 }
 
 impl GeneralOptions {
@@ -57,6 +60,10 @@ impl GeneralOptionsRead for GeneralOptions {
     fn use_trash(&self) -> bool {
         self.0.boolean("delete-to-trash")
     }
+
+    fn keybindings(&self) -> glib::Variant {
+        self.0.value("keybindings")
+    }
 }
 
 impl GeneralOptionsWrite for GeneralOptions {
@@ -74,6 +81,10 @@ impl GeneralOptionsWrite for GeneralOptions {
 
     fn set_use_trash(&self, use_trash: bool) {
         self.0.set_boolean("delete-to-trash", use_trash);
+    }
+
+    fn set_keybindings(&self, keybindings: &glib::Variant) {
+        self.0.set_value("keybindings", keybindings);
     }
 }
 

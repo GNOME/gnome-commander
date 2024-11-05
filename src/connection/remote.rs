@@ -170,6 +170,9 @@ impl ConnectionExt for ConnectionRemote {
     fn mkdir(&self, path: &Path) -> Result<(), glib::Error> {
         self.upcast_ref::<Connection>().mkdir(path)
     }
+    fn close(&self) -> bool {
+        self.upcast_ref::<Connection>().close()
+    }
 }
 
 #[no_mangle]

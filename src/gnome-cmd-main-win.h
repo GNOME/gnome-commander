@@ -109,6 +109,9 @@ struct GnomeCmdMainWin
 extern GnomeCmdMainWin *main_win;
 
 extern "C" GnomeCmdFileSelector *gnome_cmd_main_win_get_fs(GnomeCmdMainWin *main_win, FileSelectorID id);
+
+extern "C" void gnome_cmd_main_win_change_connection(GnomeCmdMainWin *main_win, FileSelectorID id);
+
 extern "C" void gnome_cmd_main_win_focus_file_lists(GnomeCmdMainWin *main_win);
 
 extern "C" void gnome_cmd_main_win_update_bookmarks(GnomeCmdMainWin *main_win);

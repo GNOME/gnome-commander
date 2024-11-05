@@ -89,7 +89,7 @@ inline void show_list_popup (GnomeCmdFileSelector *fs, gint x, gint y)
             .item(_("_Paste"),              "fs.paste")
         .endsection()
         .section()
-            .item(_("Open _terminal here"), "win.command-open-terminal-internal",   nullptr, GTK_TERMINAL_STOCKID)
+            .item(_("Open _terminal here"), "win.command-open-terminal",            nullptr, GTK_TERMINAL_STOCKID)
         .endsection()
         .section()
             .item(_("_Refresh"),            "fs.refresh")
@@ -603,7 +603,7 @@ static gboolean on_list_key_pressed (GtkEventControllerKey *controller, guint ke
     if (fs->file_list()->key_pressed(&key_press_event) ||
         fs->key_pressed(&key_press_event) ||
         main_win->key_pressed(&key_press_event) ||
-        gcmd_user_actions.handle_key_event(main_win, fs->file_list(), &key_press_event))
+        gnome_cmd_shortcuts_handle_key_event (gcmd_shortcuts, main_win, keyval, state))
     {
         return TRUE;
     }

@@ -20,7 +20,7 @@
  * For more details see the file COPYING.
  */
 
-use crate::{dir::Directory, file::File};
+use crate::{connection::connection::Connection, dir::Directory, file::File};
 use gtk::{
     glib::{
         self,
@@ -31,7 +31,7 @@ use gtk::{
 
 pub mod ffi {
     use super::*;
-    use crate::dir::ffi::GnomeCmdDir;
+    use crate::{connection::connection::ffi::GnomeCmdCon, dir::ffi::GnomeCmdDir};
     use glib::ffi::{gboolean, GList, GType};
 
     #[repr(C)]
@@ -47,9 +47,20 @@ pub mod ffi {
 
         pub fn gnome_cmd_file_list_get_cwd(fl: *mut GnomeCmdFileList) -> *mut GnomeCmdDir;
 
+        pub fn gnome_cmd_file_list_get_connection(fl: *mut GnomeCmdFileList) -> *mut GnomeCmdCon;
+
+        pub fn gnome_cmd_file_list_get_directory(fl: *mut GnomeCmdFileList) -> *mut GnomeCmdDir;
+
         pub fn gnome_cmd_file_list_is_locked(fl: *mut GnomeCmdFileList) -> gboolean;
 
         pub fn gnome_cmd_file_list_reload(fl: *mut GnomeCmdFileList);
+
+        pub fn gnome_cmd_file_list_set_connection(
+            fl: *mut GnomeCmdFileList,
+            con: *mut GnomeCmdCon,
+            start_dir: *mut GnomeCmdDir,
+        );
+
     }
 
     #[derive(Copy, Clone)]
@@ -125,7 +136,37 @@ impl FileList {
         Some(file)
     }
 
+    pub fn selected_file(&self) -> Option<File> {
+        self.focused_file().filter(|f| !f.is_dotdot())
+    }
+
+    pub fn connection(&self) -> Option<Connection> {
+        unsafe {
+            from_glib_none(ffi::gnome_cmd_file_list_get_connection(
+                self.to_glib_none().0,
+            ))
+        }
+    }
+
+    pub fn directory(&self) -> Option<Directory> {
+        unsafe {
+            from_glib_none(ffi::gnome_cmd_file_list_get_directory(
+                self.to_glib_none().0,
+            ))
+        }
+    }
+
     pub fn reload(&self) {
         unsafe { ffi::gnome_cmd_file_list_reload(self.to_glib_none().0) }
+    }
+
+    pub fn set_connection(&self, connection: &Connection, start_dir: Option<&Directory>) {
+        unsafe {
+            ffi::gnome_cmd_file_list_set_connection(
+                self.to_glib_none().0,
+                connection.to_glib_none().0,
+                start_dir.to_glib_none().0,
+            )
+        }
     }
 }

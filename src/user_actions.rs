@@ -21,10 +21,20 @@
  */
 
 use crate::{
-    data::{GeneralOptions, GeneralOptionsRead, ProgramsOptions, ProgramsOptionsRead},
+    config::{PACKAGE_BUGREPORT, PACKAGE_NAME, PACKAGE_URL, PACKAGE_VERSION},
+    connection::{
+        connection::{Connection, ConnectionExt},
+        home::ConnectionHome,
+        list::ConnectionList,
+    },
+    data::{
+        ConfirmOptions, GeneralOptions, GeneralOptionsRead, ProgramsOptions, ProgramsOptionsRead,
+    },
     dialogs::{
         chmod_dialog::show_chmod_dialog, chown_dialog::show_chown_dialog,
-        create_symlink_dialog::show_create_symlink_dialog,
+        connect_dialog::ConnectDialog, create_symlink_dialog::show_create_symlink_dialog,
+        make_copy_dialog::make_copy_dialog, prepare_copy_dialog::prepare_copy_dialog_show,
+        prepare_move_dialog::prepare_move_dialog_show, remote_dialog::RemoteDialog,
     },
     dir::Directory,
     file::File,
@@ -33,27 +43,109 @@ use crate::{
     spawn::{spawn_async, spawn_async_command, SpawnError},
     types::FileSelectorID,
     utils::{
-        get_modifiers_state, prompt_message, run_simple_dialog, show_error_message, show_message,
-        sudo_command, ErrorMessage,
+        display_help, prompt_message, run_simple_dialog, show_error_message, show_message,
+        ErrorMessage,
     },
 };
 use gettextrs::{gettext, ngettext};
 use gtk::{
+    ffi::GtkListStore,
     gdk,
     gio::{self, ffi::GSimpleAction},
-    glib::{self, ffi::GVariant, translate::FromGlibPtrNone},
+    glib::{self, ffi::GVariant, translate::ToGlibPtr, Variant},
     prelude::*,
 };
+use once_cell::sync::Lazy;
 use std::{collections::HashSet, ffi::OsString, path::PathBuf};
 
-#[no_mangle]
-pub extern "C" fn file_chmod(
-    _action: *const GSimpleAction,
-    _parameter: *const GVariant,
-    main_win_ptr: *mut GnomeCmdMainWin,
+pub fn file_copy(
+    main_win: &MainWindow,
+    _action: &gio::SimpleAction,
+    _parameter: Option<&glib::Variant>,
 ) {
-    let main_win = unsafe { MainWindow::from_glib_none(main_win_ptr) };
+    let main_win = main_win.clone();
+    let src_fs = main_win.file_selector(FileSelectorID::ACTIVE);
+    let dst_fs = main_win.file_selector(FileSelectorID::INACTIVE);
+    let options = ConfirmOptions::new();
+    glib::spawn_future_local(async move {
+        prepare_copy_dialog_show(&main_win, &src_fs, &dst_fs, &options).await;
+    });
+}
 
+pub fn file_copy_as(
+    main_win: &MainWindow,
+    _action: &gio::SimpleAction,
+    _parameter: Option<&glib::Variant>,
+) {
+    let main_win = main_win.clone();
+    let file_list = main_win.file_selector(FileSelectorID::ACTIVE).file_list();
+
+    let Some(file) = file_list.selected_file() else {
+        return;
+    };
+    let Some(dir) = file_list.directory() else {
+        return;
+    };
+
+    glib::spawn_future_local(async move {
+        make_copy_dialog(&file, &dir, &main_win).await;
+    });
+}
+
+pub fn file_move(
+    main_win: &MainWindow,
+    _action: &gio::SimpleAction,
+    _parameter: Option<&glib::Variant>,
+) {
+    let main_win = main_win.clone();
+    let src_fs = main_win.file_selector(FileSelectorID::ACTIVE);
+    let dst_fs = main_win.file_selector(FileSelectorID::INACTIVE);
+    let options = ConfirmOptions::new();
+    glib::spawn_future_local(async move {
+        prepare_move_dialog_show(&main_win, &src_fs, &dst_fs, &options).await;
+    });
+}
+
+macro_rules! c_action {
+    ($name:ident) => {
+        pub fn $name(
+            main_win: &MainWindow,
+            action: &gio::SimpleAction,
+            parameter: Option<&glib::Variant>,
+        ) {
+            extern "C" {
+                fn $name(
+                    action: *const GSimpleAction,
+                    parameter: *const GVariant,
+                    main_win: *mut GnomeCmdMainWin,
+                );
+            }
+            unsafe {
+                $name(
+                    action.to_glib_none().0,
+                    parameter.to_glib_none().0,
+                    main_win.to_glib_none().0,
+                );
+            }
+        }
+    };
+}
+
+c_action!(file_delete);
+c_action!(file_view);
+c_action!(file_internal_view);
+c_action!(file_external_view);
+c_action!(file_edit);
+c_action!(file_edit_new_doc);
+c_action!(file_search);
+c_action!(file_quick_search);
+
+pub fn file_chmod(
+    main_win: &MainWindow,
+    _action: &gio::SimpleAction,
+    _parameter: Option<&glib::Variant>,
+) {
+    let main_win = main_win.clone();
     let file_selector = main_win.file_selector(FileSelectorID::ACTIVE);
     let file_list = file_selector.file_list();
 
@@ -67,14 +159,12 @@ pub extern "C" fn file_chmod(
     }
 }
 
-#[no_mangle]
-pub extern "C" fn file_chown(
-    _action: *const GSimpleAction,
-    _parameter: *const GVariant,
-    main_win_ptr: *mut GnomeCmdMainWin,
+pub fn file_chown(
+    main_win: &MainWindow,
+    _action: &gio::SimpleAction,
+    _parameter: Option<&glib::Variant>,
 ) {
-    let main_win = unsafe { MainWindow::from_glib_none(main_win_ptr) };
-
+    let main_win = main_win.clone();
     let file_selector = main_win.file_selector(FileSelectorID::ACTIVE);
     let file_list = file_selector.file_list();
 
@@ -87,6 +177,12 @@ pub extern "C" fn file_chown(
         });
     }
 }
+
+c_action!(file_mkdir);
+c_action!(file_properties);
+c_action!(file_diff);
+c_action!(file_sync_dirs);
+c_action!(file_rename);
 
 fn symlink_name(file_name: &str, options: &dyn GeneralOptionsRead) -> String {
     let mut format = options.symlink_format();
@@ -150,13 +246,12 @@ async fn create_symlinks(
     }
 }
 
-#[no_mangle]
-pub extern "C" fn file_create_symlink(
-    _action: *const GSimpleAction,
-    _parameter: *const GVariant,
-    main_win_ptr: *mut GnomeCmdMainWin,
+pub fn file_create_symlink(
+    main_win: &MainWindow,
+    _action: &gio::SimpleAction,
+    _parameter: Option<&glib::Variant>,
 ) {
-    let main_win = unsafe { MainWindow::from_glib_none(main_win_ptr) };
+    let main_win = main_win.clone();
     let options = GeneralOptions::new();
 
     glib::spawn_future_local(async move {
@@ -212,13 +307,14 @@ pub extern "C" fn file_create_symlink(
     });
 }
 
-#[no_mangle]
-pub extern "C" fn file_sendto(
-    _action: *const GSimpleAction,
-    _parameter: *const GVariant,
-    main_win_ptr: *mut GnomeCmdMainWin,
+c_action!(file_advrename);
+
+pub fn file_sendto(
+    main_win: &MainWindow,
+    _action: &gio::SimpleAction,
+    _parameter: Option<&glib::Variant>,
 ) {
-    let main_win = unsafe { MainWindow::from_glib_none(main_win_ptr) };
+    let main_win = main_win.clone();
     let options = ProgramsOptions::new();
 
     glib::spawn_future_local(async move {
@@ -238,18 +334,38 @@ pub extern "C" fn file_sendto(
     });
 }
 
+c_action!(file_exit);
+
+/************** Mark Menu **************/
+c_action!(mark_toggle);
+c_action!(mark_toggle_and_step);
+c_action!(mark_select_all);
+c_action!(mark_unselect_all);
+c_action!(mark_select_all_files);
+c_action!(mark_unselect_all_files);
+c_action!(mark_select_with_pattern);
+c_action!(mark_unselect_with_pattern);
+c_action!(mark_invert_selection);
+c_action!(mark_select_all_with_same_extension);
+c_action!(mark_unselect_all_with_same_extension);
+c_action!(mark_restore_selection);
+c_action!(mark_compare_directories);
+
+/************** Edit Menu **************/
+c_action!(edit_cap_cut);
+c_action!(edit_cap_copy);
+c_action!(edit_cap_paste);
+c_action!(edit_filter);
+c_action!(edit_copy_fnames);
+
 /************** Command Menu **************/
 
-#[no_mangle]
-pub extern "C" fn command_execute(
-    _action: *const GSimpleAction,
-    parameter_ptr: *const GVariant,
-    main_win_ptr: *mut GnomeCmdMainWin,
+pub fn command_execute(
+    main_win: &MainWindow,
+    _action: &gio::SimpleAction,
+    parameter: Option<&glib::Variant>,
 ) {
-    let main_win = unsafe { MainWindow::from_glib_none(main_win_ptr) };
-    let parameter = unsafe { glib::Variant::from_glib_none(parameter_ptr) };
-
-    let Some(command_template) = parameter.str() else {
+    let Some(command_template) = parameter.and_then(|p| p.str()) else {
         show_message(
             main_win.upcast_ref(),
             &gettext("No command was given."),
@@ -301,117 +417,45 @@ pub fn open_terminal(
     spawn_async_command(dpath.as_deref(), &command).map_err(SpawnError::into_message)
 }
 
-/// this function is NOT exposed to user as UserAction
-#[no_mangle]
-pub extern "C" fn command_open_terminal__internal(
-    _action: *const GSimpleAction,
-    _parameter: *const GVariant,
-    main_win_ptr: *mut GnomeCmdMainWin,
-) {
-    let main_win = unsafe { MainWindow::from_glib_none(main_win_ptr) };
-    let options = ProgramsOptions::new();
-
-    let shift = get_modifiers_state(main_win.upcast_ref())
-        .map_or(false, |m| m.contains(gdk::ModifierType::SHIFT_MASK));
-
-    let result = if shift {
-        open_terminal_as_root(&main_win, &options)
-    } else {
-        open_terminal(&main_win, &options)
-    };
-    if let Err(error_message) = result {
-        show_error_message(main_win.upcast_ref(), &error_message);
-    }
-}
-
 /// Executes the command stored in `gnome_cmd_data.options.termopen` in the active directory.
-#[no_mangle]
-pub extern "C" fn command_open_terminal(
-    _action: *const GSimpleAction,
-    _parameter: *const GVariant,
-    main_win_ptr: *mut GnomeCmdMainWin,
+pub fn command_open_terminal(
+    main_win: &MainWindow,
+    _action: &gio::SimpleAction,
+    _parameter: Option<&glib::Variant>,
 ) {
-    let main_win = unsafe { MainWindow::from_glib_none(main_win_ptr) };
     let options = ProgramsOptions::new();
     if let Err(error_message) = open_terminal(&main_win, &options) {
         show_error_message(main_win.upcast_ref(), &error_message);
     }
 }
 
-/// Combines the command stored in `gnome_cmd_data.options.termopen` with a
-/// command for a GUI for root login screen. The command is executed in
-/// the active directory afterwards.
-pub fn open_terminal_as_root(
-    main_win: &MainWindow,
-    options: &dyn ProgramsOptionsRead,
-) -> Result<(), ErrorMessage> {
-    let mut command = sudo_command()?;
-    command.args(&terminal_cmd(options)?);
-
-    if let Some(d) = main_win
-        .file_selector(FileSelectorID::ACTIVE)
-        .directory()
-        .and_then(|d| d.upcast_ref::<FileBase>().file().path())
-    {
-        command.current_dir(d);
-    }
-
-    command.spawn().map_err(|error| {
-        ErrorMessage::with_error(gettext("Unable to open terminal in root mode."), &error)
-    })?;
-    Ok(())
-}
-
-pub fn terminal_cmd(options: &dyn ProgramsOptionsRead) -> Result<Vec<OsString>, ErrorMessage> {
-    let cmd = glib::shell_parse_argv(options.terminal_cmd()).map_err(|error| {
-        ErrorMessage::with_error(
-            gettext("Terminal command is not configured properly."),
-            &error,
-        )
-    })?;
-    Ok(cmd)
-}
-
-#[no_mangle]
-pub extern "C" fn command_open_terminal_as_root(
-    _action: *const GSimpleAction,
-    _parameter: *const GVariant,
-    main_win_ptr: *mut GnomeCmdMainWin,
-) {
-    let main_win = unsafe { MainWindow::from_glib_none(main_win_ptr) };
-    let options = ProgramsOptions::new();
-    if let Err(error_message) = open_terminal_as_root(&main_win, &options) {
-        show_error_message(main_win.upcast_ref(), &error_message);
-    }
-}
-
-pub fn root_mode() -> Result<(), ErrorMessage> {
-    let prgname = glib::prgname().ok_or_else(|| ErrorMessage {
-        message: gettext("Cannot determine executable of Gnome Commander"),
-        secondary_text: None,
-    })?;
-    sudo_command()?.arg(&prgname).spawn().map_err(|error| {
-        ErrorMessage::with_error(
-            gettext("Unable to start GNOME Commander in root mode."),
-            &error,
-        )
-    })?;
-    Ok(())
-}
-
-#[no_mangle]
-pub extern "C" fn command_root_mode(
-    _action: *const GSimpleAction,
-    _parameter: *const GVariant,
-    main_win_ptr: *mut GnomeCmdMainWin,
-) {
-    let main_win = unsafe { MainWindow::from_glib_none(main_win_ptr) };
-    if let Err(error_message) = root_mode() {
-        show_error_message(main_win.upcast_ref(), &error_message);
-    }
-}
-
 /* ***************************** View Menu ****************************** */
+
+c_action!(view_conbuttons);
+c_action!(view_devlist);
+c_action!(view_toolbar);
+c_action!(view_buttonbar);
+c_action!(view_cmdline);
+c_action!(view_dir_history);
+c_action!(view_hidden_files);
+c_action!(view_backup_files);
+c_action!(view_up);
+c_action!(view_first);
+c_action!(view_back);
+c_action!(view_forward);
+c_action!(view_last);
+c_action!(view_refresh);
+c_action!(view_refresh_tab);
+c_action!(view_equal_panes);
+c_action!(view_maximize_pane);
+c_action!(view_in_left_pane);
+c_action!(view_in_right_pane);
+c_action!(view_in_active_pane);
+c_action!(view_in_inactive_pane);
+c_action!(view_directory);
+c_action!(view_home);
+c_action!(view_root);
+c_action!(view_new_tab);
 
 async fn ask_close_locked_tab(parent_window: &gtk::Window) -> bool {
     prompt_message(
@@ -425,13 +469,12 @@ async fn ask_close_locked_tab(parent_window: &gtk::Window) -> bool {
         == gtk::ResponseType::Ok
 }
 
-#[no_mangle]
-pub extern "C" fn view_close_tab(
-    _action: *const GSimpleAction,
-    _parameter: *const GVariant,
-    main_win_ptr: *mut GnomeCmdMainWin,
+pub fn view_close_tab(
+    main_win: &MainWindow,
+    _action: &gio::SimpleAction,
+    _parameter: Option<&glib::Variant>,
 ) {
-    let main_win = unsafe { MainWindow::from_glib_none(main_win_ptr) };
+    let main_win = main_win.clone();
     glib::spawn_future_local(async move {
         let fs = main_win.file_selector(FileSelectorID::ACTIVE);
         if fs.tab_count() > 1 {
@@ -440,4 +483,941 @@ pub extern "C" fn view_close_tab(
             }
         }
     });
+}
+
+c_action!(view_close_all_tabs);
+c_action!(view_close_duplicate_tabs);
+c_action!(view_prev_tab);
+c_action!(view_next_tab);
+c_action!(view_in_new_tab);
+c_action!(view_in_inactive_tab);
+c_action!(view_toggle_tab_lock);
+c_action!(view_horizontal_orientation);
+c_action!(view_main_menu);
+c_action!(view_step_up);
+c_action!(view_step_down);
+
+/************** Bookmarks Menu **************/
+
+c_action!(bookmarks_add_current);
+c_action!(bookmarks_edit);
+c_action!(bookmarks_goto);
+c_action!(bookmarks_view);
+
+/************** Options Menu **************/
+
+c_action!(options_edit);
+c_action!(options_edit_shortcuts);
+
+/************** Connections Menu **************/
+
+pub fn connections_open(
+    main_win: &MainWindow,
+    _action: &gio::SimpleAction,
+    _parameter: Option<&glib::Variant>,
+) {
+    let dialog = RemoteDialog::new(main_win);
+    dialog.present();
+}
+
+pub fn connections_new(
+    main_win: &MainWindow,
+    _action: &gio::SimpleAction,
+    _parameter: Option<&glib::Variant>,
+) {
+    let main_win = main_win.clone();
+    glib::spawn_future_local(async move {
+        // let con: GnomeCmdConRemote = gnome_cmd_data.get_quick_connect();
+        if let Some(connection) = ConnectDialog::new_connection(main_win.upcast_ref(), false).await
+        {
+            let fs = main_win.file_selector(FileSelectorID::ACTIVE);
+            if fs.file_list().is_locked() {
+                fs.new_tab();
+            }
+            fs.set_connection(connection.upcast_ref(), None);
+        }
+    });
+}
+
+pub fn connections_change_left(
+    main_win: &MainWindow,
+    _action: &gio::SimpleAction,
+    _parameter: Option<&glib::Variant>,
+) {
+    main_win.change_connection(FileSelectorID::LEFT);
+}
+
+pub fn connections_change_right(
+    main_win: &MainWindow,
+    _action: &gio::SimpleAction,
+    _parameter: Option<&glib::Variant>,
+) {
+    main_win.change_connection(FileSelectorID::RIGHT);
+}
+
+pub fn connections_set_current(
+    main_win: &MainWindow,
+    _action: &gio::SimpleAction,
+    parameter: Option<&glib::Variant>,
+) {
+    let Some(uuid) = parameter.and_then(|p| p.str()) else {
+        eprintln!("No connection uuid was given.");
+        return;
+    };
+
+    let con_list = ConnectionList::get();
+    let Some(con) = con_list.find_by_uuid(uuid) else {
+        eprintln!("No connection corresponds to {uuid}");
+        return;
+    };
+
+    main_win
+        .file_selector(FileSelectorID::ACTIVE)
+        .file_list()
+        .set_connection(&con, None);
+}
+
+fn close_connection(main_win: &MainWindow, con: &Connection) {
+    let active = main_win.file_selector(FileSelectorID::ACTIVE).file_list();
+    let inactive = main_win.file_selector(FileSelectorID::INACTIVE).file_list();
+
+    let home = ConnectionList::get().home();
+
+    if active.connection().as_ref() == Some(con) {
+        active.set_connection(&home, None);
+    }
+
+    if inactive.connection().as_ref() == Some(con) {
+        inactive.set_connection(&home, None);
+    }
+
+    con.close();
+}
+
+pub fn connections_close(
+    main_win: &MainWindow,
+    _action: &gio::SimpleAction,
+    parameter: Option<&glib::Variant>,
+) {
+    let Some(uuid) = parameter.and_then(|p| p.str()) else {
+        eprintln!("No connection uuid was given.");
+        return;
+    };
+
+    let con_list = ConnectionList::get();
+    let Some(con) = con_list.find_by_uuid(uuid) else {
+        eprintln!("No connection corresponds to {uuid}");
+        return;
+    };
+
+    close_connection(&main_win, &con);
+}
+
+pub fn connections_close_current(
+    main_win: &MainWindow,
+    _action: &gio::SimpleAction,
+    _parameter: Option<&glib::Variant>,
+) {
+    if let Some(con) = main_win
+        .file_selector(FileSelectorID::ACTIVE)
+        .connection()
+        .filter(|c| c.downcast_ref::<ConnectionHome>().is_none())
+    {
+        close_connection(&main_win, &con);
+    }
+}
+
+/************** Plugins Menu ***********/
+
+c_action!(plugins_configure);
+
+/************** Help Menu **************/
+
+pub fn help_help(
+    main_win: &MainWindow,
+    _action: &gio::SimpleAction,
+    _parameter: Option<&glib::Variant>,
+) {
+    display_help(main_win.upcast_ref(), None);
+}
+
+pub fn help_keyboard(
+    main_win: &MainWindow,
+    _action: &gio::SimpleAction,
+    _parameter: Option<&glib::Variant>,
+) {
+    display_help(main_win.upcast_ref(), Some("gnome-commander-keyboard"));
+}
+
+pub fn help_web(
+    main_win: &MainWindow,
+    _action: &gio::SimpleAction,
+    _parameter: Option<&glib::Variant>,
+) {
+    gtk::show_uri(Some(main_win), PACKAGE_URL, gdk::CURRENT_TIME);
+    // show_error(
+    //     main_win.upcast_ref(),
+    //     &gettext("There was an error opening home page."),
+    //     &error,
+    // );
+}
+
+pub fn help_problem(
+    main_win: &MainWindow,
+    _action: &gio::SimpleAction,
+    _parameter: Option<&glib::Variant>,
+) {
+    gtk::show_uri(Some(main_win), PACKAGE_BUGREPORT, gdk::CURRENT_TIME);
+    // show_error(
+    //     main_win.upcast_ref(),
+    //     &gettext("There was an error reporting problem."),
+    //     &error,
+    // );
+}
+
+pub fn help_about(
+    main_win: &MainWindow,
+    _action: &gio::SimpleAction,
+    _parameter: Option<&glib::Variant>,
+) {
+    let authors = [
+        "Marcus Bjurman <marbj499@student.liu.se>",
+        "Piotr Eljasiak <epiotr@use.pl>",
+        "Assaf Gordon <agordon88@gmail.com>",
+        "Uwe Scholz <u.scholz83@gmx.de>",
+        "Andrey Kuteiko <andy128k@gmail.com>",
+    ];
+
+    let documenters = [
+        "Marcus Bjurman <marbj499@student.liu.se>",
+        "Piotr Eljasiak <epiotr@use.pl>",
+        "Laurent Coudeur <laurentc@eircom.net>",
+        "Uwe Scholz <u.scholz83@gmx.de>",
+    ];
+
+    let copyright = "Copyright \u{00A9} 2001-2006 Marcus Bjurman
+Copyright \u{00A9} 2007-2012 Piotr Eljasiak
+Copyright \u{00A9} 2013-2024 Uwe Scholz
+Copyright \u{00A9} 2024 Andrey Kuteiko";
+
+    let license = format!(
+        "{}\n\n{}\n\n{}",
+        gettext(
+            "GNOME Commander is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version."
+        ),
+        gettext(
+            "GNOME Commander is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details."
+        ),
+        gettext(
+            "You should have received a copy of the GNU General Public License along with GNOME Commander; if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA."
+        )
+    );
+
+    gtk::AboutDialog::builder()
+        .transient_for(main_win)
+        .name("GNOME Commander")
+        .version(PACKAGE_VERSION)
+        .comments(gettext(
+            "A fast and powerful file manager for the GNOME desktop",
+        ))
+        .copyright(copyright)
+        .license(license)
+        .wrap_license(true)
+        .authors(authors)
+        .documenters(documenters)
+        .logo_icon_name(PACKAGE_NAME)
+        .translator_credits(gettext("translator-credits"))
+        .website("https://gcmd.github.io")
+        .website_label("GNOME Commander Website")
+        .build()
+        .present();
+}
+
+#[derive(Clone, Copy)]
+pub enum ActionInitialState {
+    BooleanTrue,
+}
+
+pub struct UserAction {
+    pub action_name: &'static str,
+    pub activate: Option<&'static dyn Fn(&MainWindow, &gio::SimpleAction, Option<&glib::Variant>)>,
+    pub parameter_type: Option<&'static glib::VariantTy>,
+    pub change_state:
+        Option<&'static dyn Fn(&MainWindow, &gio::SimpleAction, Option<&glib::Variant>)>,
+    pub state: Option<ActionInitialState>,
+    pub name: &'static str,
+    pub description: String,
+}
+
+impl UserAction {
+    const fn new(
+        action_name: &'static str,
+        activate: &'static dyn Fn(&MainWindow, &gio::SimpleAction, Option<&glib::Variant>),
+        name: &'static str,
+        description: String,
+    ) -> Self {
+        Self {
+            action_name,
+            activate: Some(activate),
+            parameter_type: None,
+            change_state: None,
+            state: None,
+            name,
+            description,
+        }
+    }
+
+    const fn with_param(
+        action_name: &'static str,
+        activate: &'static dyn Fn(&MainWindow, &gio::SimpleAction, Option<&glib::Variant>),
+        parameter_type: &'static glib::VariantTy,
+        name: &'static str,
+        description: String,
+    ) -> Self {
+        Self {
+            action_name,
+            activate: Some(activate),
+            parameter_type: Some(parameter_type),
+            change_state: None,
+            state: None,
+            name,
+            description,
+        }
+    }
+
+    const fn boolean(
+        action_name: &'static str,
+        change_state: &'static dyn Fn(&MainWindow, &gio::SimpleAction, Option<&glib::Variant>),
+        name: &'static str,
+        description: String,
+    ) -> Self {
+        Self {
+            action_name,
+            activate: None,
+            parameter_type: None,
+            change_state: Some(change_state),
+            state: Some(ActionInitialState::BooleanTrue),
+            name,
+            description,
+        }
+    }
+
+    pub fn action_entry(&self) -> gio::ActionEntry<MainWindow> {
+        if let Some(activate) = self.activate {
+            gio::ActionEntry::builder(&self.action_name)
+                .activate(activate)
+                .parameter_type(self.parameter_type)
+                .build()
+        } else if let Some(change_state) = self.change_state {
+            gio::ActionEntry::builder(&self.action_name)
+                .change_state(change_state)
+                .state(match self.state {
+                    Some(ActionInitialState::BooleanTrue) => true.to_variant(),
+                    None => Variant::from_none(glib::VariantTy::ANY),
+                })
+                .build()
+        } else {
+            unreachable!()
+        }
+    }
+}
+
+pub const USER_ACTIONS: Lazy<Vec<UserAction>> = Lazy::new(|| {
+    vec![
+        // File actions
+        UserAction::new("file-copy", &file_copy, "file.copy", gettext("Copy files")),
+        UserAction::new(
+            "file-copy-as",
+            &file_copy_as,
+            "file.copy_as",
+            gettext("Copy files with rename"),
+        ),
+        UserAction::new("file-move", &file_move, "file.move", gettext("Move files")),
+        UserAction::new(
+            "file-delete",
+            &file_delete,
+            "file.delete",
+            gettext("Delete files"),
+        ),
+        UserAction::new("file-view", &file_view, "file.view", gettext("View file")),
+        UserAction::new(
+            "file-internal-view",
+            &file_internal_view,
+            "file.internal_view",
+            gettext("View with internal viewer"),
+        ),
+        UserAction::new(
+            "file-external-view",
+            &file_external_view,
+            "file.external_view",
+            gettext("View with external viewer"),
+        ),
+        UserAction::new("file-edit", &file_edit, "file.edit", gettext("Edit file")),
+        UserAction::new(
+            "file-edit-new-doc",
+            &file_edit_new_doc,
+            "file.edit_new_doc",
+            gettext("Edit a new file"),
+        ),
+        UserAction::new(
+            "file-search",
+            &file_search,
+            "file.search",
+            gettext("Search"),
+        ),
+        UserAction::new(
+            "file-quick-search",
+            &file_quick_search,
+            "file.quick_search",
+            gettext("Quick search"),
+        ),
+        UserAction::new(
+            "file-chmod",
+            &file_chmod,
+            "file.chmod",
+            gettext("Change permissions"),
+        ),
+        UserAction::new(
+            "file-chown",
+            &file_chown,
+            "file.chown",
+            gettext("Change owner/group"),
+        ),
+        UserAction::new(
+            "file-mkdir",
+            &file_mkdir,
+            "file.mkdir",
+            gettext("Create directory"),
+        ),
+        UserAction::new(
+            "file-properties",
+            &file_properties,
+            "file.properties",
+            gettext("Properties"),
+        ),
+        UserAction::new(
+            "file-diff",
+            &file_diff,
+            "file.diff",
+            gettext("Compare files (diff)"),
+        ),
+        UserAction::new(
+            "file-sync-dirs",
+            &file_sync_dirs,
+            "file.synchronize_directories",
+            gettext("Synchronize directories"),
+        ),
+        UserAction::new(
+            "file-rename",
+            &file_rename,
+            "file.rename",
+            gettext("Rename files"),
+        ),
+        UserAction::new(
+            "file-create-symlink",
+            &file_create_symlink,
+            "file.create_symlink",
+            gettext("Create symbolic link"),
+        ),
+        UserAction::new(
+            "file-advrename",
+            &file_advrename,
+            "file.advrename",
+            gettext("Advanced rename tool"),
+        ),
+        UserAction::new(
+            "file-sendto",
+            &file_sendto,
+            "file.sendto",
+            gettext("Send files"),
+        ),
+        UserAction::new("file-exit", &file_exit, "file.exit", gettext("Quit")),
+        // Mark actions
+        UserAction::new(
+            "mark-toggle",
+            &mark_toggle,
+            "mark.toggle",
+            gettext("Toggle selection"),
+        ),
+        UserAction::new(
+            "mark-toggle-and-step",
+            &mark_toggle_and_step,
+            "mark.toggle_and_step",
+            gettext("Toggle selection and move cursor downward"),
+        ),
+        UserAction::new(
+            "mark-select-all",
+            &mark_select_all,
+            "mark.select_all",
+            gettext("Select all"),
+        ),
+        UserAction::new(
+            "mark-unselect-all",
+            &mark_unselect_all,
+            "mark.unselect_all",
+            gettext("Unselect all"),
+        ),
+        UserAction::new(
+            "mark-select-all-files",
+            &mark_select_all_files,
+            "mark.select_all_files",
+            gettext("Select all files"),
+        ),
+        UserAction::new(
+            "mark-unselect-all-files",
+            &mark_unselect_all_files,
+            "mark.unselect_all_files",
+            gettext("Unselect all files"),
+        ),
+        UserAction::new(
+            "mark-select-with-pattern",
+            &mark_select_with_pattern,
+            "mark.select_with_pattern",
+            gettext("Select with pattern"),
+        ),
+        UserAction::new(
+            "mark-unselect-with-pattern",
+            &mark_unselect_with_pattern,
+            "mark.unselect_with_pattern",
+            gettext("Unselect with pattern"),
+        ),
+        UserAction::new(
+            "mark-invert-selection",
+            &mark_invert_selection,
+            "mark.invert",
+            gettext("Invert selection"),
+        ),
+        UserAction::new(
+            "mark-select-all-with-same-extension",
+            &mark_select_all_with_same_extension,
+            "mark.select_all_with_same_extension",
+            gettext("Select with same extension"),
+        ),
+        UserAction::new(
+            "mark-unselect-all-with-same-extension",
+            &mark_unselect_all_with_same_extension,
+            "mark.unselect_all_with_same_extension",
+            gettext("Unselect with same extension"),
+        ),
+        UserAction::new(
+            "mark-restore-selection",
+            &mark_restore_selection,
+            "mark.restore_selection",
+            gettext("Restore selection"),
+        ),
+        UserAction::new(
+            "mark-compare-directories",
+            &mark_compare_directories,
+            "mark.compare_directories",
+            gettext("Compare directories"),
+        ),
+        // Edit actions
+        UserAction::new("edit-cap-cut", &edit_cap_cut, "edit.cut", gettext("Cut")),
+        UserAction::new(
+            "edit-cap-copy",
+            &edit_cap_copy,
+            "edit.copy",
+            gettext("Copy"),
+        ),
+        UserAction::new(
+            "edit-cap-paste",
+            &edit_cap_paste,
+            "edit.paste",
+            gettext("Paste"),
+        ),
+        UserAction::new(
+            "edit-filter",
+            &edit_filter,
+            "edit.filter",
+            gettext("Show user defined files"),
+        ),
+        UserAction::new(
+            "edit-copy-fnames",
+            &edit_copy_fnames,
+            "edit.copy_filenames",
+            gettext("Copy file names"),
+        ),
+        // Command actions
+        UserAction::with_param(
+            "command-execute",
+            &command_execute,
+            glib::VariantTy::STRING,
+            "command.execute",
+            gettext("Execute command"),
+        ),
+        UserAction::new(
+            "command-open-terminal",
+            &command_open_terminal,
+            "command.open_terminal",
+            gettext("Open terminal"),
+        ),
+        // View actions
+        UserAction::boolean(
+            "view-conbuttons",
+            &view_conbuttons,
+            "view.conbuttons",
+            gettext("Show device buttons"),
+        ),
+        UserAction::boolean(
+            "view-devlist",
+            &view_devlist,
+            "view.devlist",
+            gettext("Show device list"),
+        ),
+        UserAction::boolean(
+            "view-toolbar",
+            &view_toolbar,
+            "view.toolbar",
+            gettext("Show toolbar"),
+        ),
+        UserAction::boolean(
+            "view-buttonbar",
+            &view_buttonbar,
+            "view.buttonbar",
+            gettext("Show buttonbar"),
+        ),
+        UserAction::boolean(
+            "view-cmdline",
+            &view_cmdline,
+            "view.cmdline",
+            gettext("Show command line"),
+        ),
+        UserAction::new(
+            "view-dir-history",
+            &view_dir_history,
+            "view.dir_history",
+            gettext("Show directory history"),
+        ),
+        UserAction::boolean(
+            "view-hidden-files",
+            &view_hidden_files,
+            "view.hidden_files",
+            gettext("Show hidden files"),
+        ),
+        UserAction::boolean(
+            "view-backup-files",
+            &view_backup_files,
+            "view.backup_files",
+            gettext("Show backup files"),
+        ),
+        UserAction::new("view-up", &view_up, "view.up", gettext("Up one directory")),
+        UserAction::new(
+            "view-first",
+            &view_first,
+            "view.first",
+            gettext("Back to the first directory"),
+        ),
+        UserAction::new(
+            "view-back",
+            &view_back,
+            "view.back",
+            gettext("Back one directory"),
+        ),
+        UserAction::new(
+            "view-forward",
+            &view_forward,
+            "view.forward",
+            gettext("Forward one directory"),
+        ),
+        UserAction::new(
+            "view-last",
+            &view_last,
+            "view.last",
+            gettext("Forward to the last directory"),
+        ),
+        UserAction::new(
+            "view-refresh",
+            &view_refresh,
+            "view.refresh",
+            gettext("Refresh"),
+        ),
+        UserAction::with_param(
+            "view-refresh-tab",
+            &view_refresh_tab,
+            unsafe { glib::VariantTy::from_str_unchecked("(ii)") },
+            "view.refresh_tab",
+            gettext("Refresh tab"),
+        ),
+        UserAction::new(
+            "view-equal-panes",
+            &view_equal_panes,
+            "view.equal_panes",
+            gettext("Equal panel size"),
+        ),
+        UserAction::new(
+            "view-maximize-pane",
+            &view_maximize_pane,
+            "view.maximize_pane",
+            gettext("Maximize panel size"),
+        ),
+        UserAction::new(
+            "view-in-left-pane",
+            &view_in_left_pane,
+            "view.in_left_pane",
+            gettext("Open directory in the left window"),
+        ),
+        UserAction::new(
+            "view-in-right-pane",
+            &view_in_right_pane,
+            "view.in_right_pane",
+            gettext("Open directory in the right window"),
+        ),
+        UserAction::new(
+            "view-in-active-pane",
+            &view_in_active_pane,
+            "view.in_active_pane",
+            gettext("Open directory in the active window"),
+        ),
+        UserAction::new(
+            "view-in-inactive-pane",
+            &view_in_inactive_pane,
+            "view.in_inactive_pane",
+            gettext("Open directory in the inactive window"),
+        ),
+        UserAction::new(
+            "view-directory",
+            &view_directory,
+            "view.directory",
+            gettext("Change directory"),
+        ),
+        UserAction::new(
+            "view-home",
+            &view_home,
+            "view.home",
+            gettext("Home directory"),
+        ),
+        UserAction::new(
+            "view-root",
+            &view_root,
+            "view.root",
+            gettext("Root directory"),
+        ),
+        UserAction::new(
+            "view-new-tab",
+            &view_new_tab,
+            "view.new_tab",
+            gettext("Open directory in a new tab"),
+        ),
+        UserAction::new(
+            "view-close-tab",
+            &view_close_tab,
+            "view.close_tab",
+            gettext("Close the current tab"),
+        ),
+        UserAction::new(
+            "view-close-all-tabs",
+            &view_close_all_tabs,
+            "view.close_all_tabs",
+            gettext("Close all tabs"),
+        ),
+        UserAction::new(
+            "view-close-duplicate-tabs",
+            &view_close_duplicate_tabs,
+            "view.close_duplicate_tabs",
+            gettext("Close duplicate tabs"),
+        ),
+        UserAction::new(
+            "view-prev-tab",
+            &view_prev_tab,
+            "view.prev_tab",
+            gettext("Previous tab"),
+        ),
+        UserAction::new(
+            "view-next-tab",
+            &view_next_tab,
+            "view.next_tab",
+            gettext("Next tab"),
+        ),
+        UserAction::new(
+            "view-in-new-tab",
+            &view_in_new_tab,
+            "view.in_new_tab",
+            gettext("Open directory in the new tab"),
+        ),
+        UserAction::new(
+            "view-in-inactive-tab",
+            &view_in_inactive_tab,
+            "view.in_inactive_tab",
+            gettext("Open directory in the new tab (inactive window)"),
+        ),
+        UserAction::with_param(
+            "view-toggle-tab-lock",
+            &view_toggle_tab_lock,
+            unsafe { glib::VariantTy::from_str_unchecked("(bi)") },
+            "view.toggle_lock_tab",
+            gettext("Lock/unlock tab"),
+        ),
+        UserAction::boolean(
+            "view-horizontal-orientation",
+            &view_horizontal_orientation,
+            "view.horizontal-orientation",
+            gettext("Horizontal Orientation"),
+        ),
+        UserAction::new(
+            "view-main-menu",
+            &view_main_menu,
+            "view.main_menu",
+            gettext("Display main menu"),
+        ),
+        UserAction::new(
+            "view-step-up",
+            &view_step_up,
+            "view.step_up",
+            gettext("Move cursor one step up"),
+        ),
+        UserAction::new(
+            "view-step-down",
+            &view_step_down,
+            "view.step_down",
+            gettext("Move cursor one step down"),
+        ),
+        // Bookmark actions
+        UserAction::new(
+            "bookmarks-add-current",
+            &bookmarks_add_current,
+            "bookmarks.add_current",
+            gettext("Bookmark current directory"),
+        ),
+        UserAction::new(
+            "bookmarks-edit",
+            &bookmarks_edit,
+            "bookmarks.edit",
+            gettext("Manage bookmarks"),
+        ),
+        UserAction::with_param(
+            "bookmarks-goto",
+            &bookmarks_goto,
+            unsafe { glib::VariantTy::from_str_unchecked("(ss)") },
+            "bookmarks.goto",
+            gettext("Go to bookmarked location"),
+        ),
+        UserAction::new(
+            "bookmarks-view",
+            &bookmarks_view,
+            "bookmarks.view",
+            gettext("Show bookmarks of current device"),
+        ),
+        // Option actions
+        UserAction::new(
+            "options-edit",
+            &options_edit,
+            "options.edit",
+            gettext("Options"),
+        ),
+        UserAction::new(
+            "options-edit-shortcuts",
+            &options_edit_shortcuts,
+            "options.shortcuts",
+            gettext("Keyboard shortcuts"),
+        ),
+        // Connections actions
+        UserAction::new(
+            "connections-open",
+            &connections_open,
+            "connections.open",
+            gettext("Open connection"),
+        ),
+        UserAction::new(
+            "connections-new",
+            &connections_new,
+            "connections.new",
+            gettext("New connection"),
+        ),
+        UserAction::with_param(
+            "connections-set-current",
+            &connections_set_current,
+            unsafe { glib::VariantTy::from_str_unchecked("s") },
+            "connections.set-uuid",
+            gettext("Set connection"),
+        ),
+        UserAction::new(
+            "connections-change-left",
+            &connections_change_left,
+            "connections.change_left",
+            gettext("Change left connection"),
+        ),
+        UserAction::new(
+            "connections-change-right",
+            &connections_change_right,
+            "connections.change_right",
+            gettext("Change right connection"),
+        ),
+        UserAction::with_param(
+            "connections-close",
+            &connections_close,
+            unsafe { glib::VariantTy::from_str_unchecked("s") },
+            "connections.close-uuid",
+            gettext("Close connection"),
+        ),
+        UserAction::new(
+            "connections-close-current",
+            &connections_close_current,
+            "connections.close",
+            gettext("Close connection"),
+        ),
+        // Plugin actions
+        UserAction::new(
+            "plugins-configure",
+            &plugins_configure,
+            "plugins.configure",
+            gettext("Configure plugins"),
+        ),
+        // Help actions
+        UserAction::new(
+            "help-help",
+            &help_help,
+            "help.help",
+            gettext("Help contents"),
+        ),
+        UserAction::new(
+            "help-keyboard",
+            &help_keyboard,
+            "help.keyboard",
+            gettext("Help on keyboard shortcuts"),
+        ),
+        UserAction::new(
+            "help-web",
+            &help_web,
+            "help.web",
+            gettext("GNOME Commander on the web"),
+        ),
+        UserAction::new(
+            "help-problem",
+            &help_problem,
+            "help.problem",
+            gettext("Report a problem"),
+        ),
+        UserAction::new(
+            "help-about",
+            &help_about,
+            "help.about",
+            gettext("About GNOME Commander"),
+        ),
+    ]
+});
+
+#[no_mangle]
+pub unsafe extern "C" fn gnome_cmd_user_actions_create_model() -> *mut GtkListStore {
+    let user_actions = &USER_ACTIONS;
+    let mut actions: Vec<(&str, &str, &str)> = user_actions
+        .iter()
+        // .filter(|a| a.parameter_type.is_none()) // TODO: uncomment when bookmark shortcuts are addressed
+        .map(|a| (a.action_name, a.name, a.description.as_str()))
+        .collect();
+
+    actions.sort_by_key(|t| t.2.to_lowercase());
+
+    let model = gtk::ListStore::new(&[
+        String::static_type(),
+        String::static_type(),
+        String::static_type(),
+    ]);
+    for (action_name, name, description) in actions {
+        let iter = model.append();
+        model.set_value(&iter, 0, &action_name.to_value());
+        model.set_value(&iter, 1, &name.to_value());
+        model.set_value(&iter, 2, &description.to_value());
+    }
+
+    model.to_glib_full()
 }
