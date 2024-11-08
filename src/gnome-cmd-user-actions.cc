@@ -314,46 +314,6 @@ void file_external_view (GSimpleAction *action, GVariant *parameter, gpointer us
     gnome_cmd_file_list_view (get_fl (main_win, ACTIVE), FALSE);
 }
 
-void file_edit (GSimpleAction *action, GVariant *parameter, gpointer user_data)
-{
-    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
-
-    GdkModifierType mask = get_modifiers_state();
-
-    if (mask & GDK_SHIFT_MASK)
-        gnome_cmd_file_selector_show_new_textfile_dialog (main_win->fs (ACTIVE));
-    else
-    {
-        GnomeCmdFileList *fl = get_fl (main_win, ACTIVE);
-        GList *sfl = fl->get_selected_files();
-
-        GError *error = nullptr;
-        int result = spawn_async_r(nullptr, sfl, gnome_cmd_data.options.editor, &error);
-        switch (result)
-        {
-            case 0:
-                break;
-            case 1:
-            case 2:
-                DEBUG ('g', "Edit file command is not valid.\n");
-                gnome_cmd_show_message (*main_win, _("No valid command given."));
-                g_clear_error (&error);
-                break;
-            case 3:
-            default:
-                gnome_cmd_error_message (*main_win, _("Unable to execute command."), error);
-                break;
-        }
-    }
-}
-
-void file_edit_new_doc (GSimpleAction *action, GVariant *parameter, gpointer user_data)
-{
-    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
-
-    gnome_cmd_file_selector_show_new_textfile_dialog (main_win->fs (ACTIVE));
-}
-
 
 void file_search (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {

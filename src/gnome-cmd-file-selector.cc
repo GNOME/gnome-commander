@@ -83,7 +83,7 @@ inline void show_list_popup (GnomeCmdFileSelector *fs, gint x, gint y)
     auto menu = MenuBuilder()
         .submenu(_("_New"))
             .item(_("_Directory"),          "win.file_mkdir",                       nullptr, FILETYPEDIR_STOCKID)
-            .item(_("_Text File"),          "fs.new-text-file",                     nullptr, FILETYPEREGULARFILE_STOCKID)
+            .item(_("_Text File"),          "win.file-edit-new-doc",                nullptr, FILETYPEREGULARFILE_STOCKID)
         .endsubmenu()
         .section()
             .item(_("_Paste"),              "fs.paste")
@@ -682,13 +682,6 @@ static void gnome_cmd_file_selector_class_init (GnomeCmdFileSelectorClass *klass
 }
 
 
-static void on_new_textfile (GSimpleAction *action, GVariant *parameter, gpointer user_data)
-{
-    GnomeCmdFileSelector *fs = static_cast<GnomeCmdFileSelector *>(user_data);
-    gnome_cmd_file_selector_show_new_textfile_dialog (fs);
-}
-
-
 static void on_refresh (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
     GnomeCmdFileSelector *fs = static_cast<GnomeCmdFileSelector *>(user_data);
@@ -715,8 +708,7 @@ static void gnome_cmd_file_selector_init (GnomeCmdFileSelector *fs)
     fs->priv->action_group = g_simple_action_group_new ();
     static const GActionEntry action_entries[] = {
         { "paste",              on_paste,           nullptr, nullptr, nullptr },
-        { "refresh",            on_refresh,         nullptr, nullptr, nullptr },
-        { "new-text-file",      on_new_textfile,    nullptr, nullptr, nullptr }
+        { "refresh",            on_refresh,         nullptr, nullptr, nullptr }
     };
     g_action_map_add_action_entries (G_ACTION_MAP (fs->priv->action_group), action_entries, G_N_ELEMENTS (action_entries), fs);
     gtk_widget_insert_action_group (GTK_WIDGET (fs), "fs", G_ACTION_GROUP (fs->priv->action_group));
@@ -976,117 +968,6 @@ void GnomeCmdFileSelector::update_style()
 
     create_con_buttons (this);
     update_connections();
-}
-
-/**
- * @brief This function tries to create a new file.
- *
- * @param string_dialog a GnomeCmdStringDialog object reference
- * @param values a pointer to char pointers
- * @param fs a GnomeCmdFileSelector object reference
- * @return TRUE if all went well, FALSE if not
- */
-static gboolean on_new_textfile_ok (GnomeCmdStringDialog *string_dialog, const gchar **values, GnomeCmdFileSelector *fs)
-{
-    g_return_val_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs), TRUE);
-
-    const gchar *fname = values[0];
-
-    if (!fname || !*fname)
-    {
-        gnome_cmd_string_dialog_set_error_desc (string_dialog, g_strdup (_("No file name entered")));
-        return FALSE;
-    }
-
-    GnomeCmdDir *dir = fs->get_directory();
-    g_return_val_if_fail (GNOME_CMD_IS_DIR (dir), TRUE);
-
-    GError *error = nullptr;
-    GFile *gFile;
-
-    if (fname[0] == '/')
-    {
-        auto con = gnome_cmd_file_get_connection (GNOME_CMD_FILE (dir));
-        auto conPath = gnome_cmd_con_create_path (con, fname);
-        gFile = gnome_cmd_con_create_gfile (con, conPath->get_path());
-        delete conPath;
-    }
-    else
-    {
-        auto uriBaseString = static_cast<gchar*>(GNOME_CMD_FILE (dir)->get_uri_str());
-        // Let the URI to the current directory end with '/'
-        auto conLastCharacter = uriBaseString[strlen(uriBaseString)-1];
-        auto uriBaseStringSep = conLastCharacter == G_DIR_SEPARATOR
-            ? g_strdup(uriBaseString)
-            : g_strdup_printf("%s%s", uriBaseString, G_DIR_SEPARATOR_S);
-        g_free (uriBaseString);
-
-        auto relativeFileNamePath = g_build_filename(".", fname, nullptr);
-        auto uriString = g_uri_resolve_relative (uriBaseStringSep, relativeFileNamePath,
-                                                 G_URI_FLAGS_NONE, &error);
-        g_free(relativeFileNamePath);
-        g_free (uriBaseStringSep);
-        if (error)
-        {
-            gnome_cmd_string_dialog_set_error_desc (string_dialog, g_strdup_printf("%s", error->message));
-            g_error_free(error);
-            return FALSE;
-        }
-
-        gFile = g_file_new_for_uri(uriString);
-        g_free (uriString);
-    }
-
-    auto gFileOutputStream = g_file_create(gFile, G_FILE_CREATE_NONE, nullptr, &error);
-    if (error)
-    {
-        gnome_cmd_string_dialog_set_error_desc (string_dialog, g_strdup_printf("%s", error->message));
-        g_error_free(error);
-        g_object_unref (gFile);
-        return FALSE;
-    }
-    g_object_unref(gFileOutputStream);
-
-    // focus the created file (if possible)
-    auto parentGFile = g_file_get_parent (gFile);
-    if (g_file_equal (parentGFile, gnome_cmd_dir_get_gfile (dir)))
-    {
-        gchar *uri_str = g_file_get_uri (gFile);
-        gnome_cmd_dir_file_created (dir, uri_str);
-        g_free (uri_str);
-        gchar *focus_filename = g_file_get_basename (gFile);
-        fs->file_list()->focus_file(focus_filename, TRUE);
-        g_free (focus_filename);
-    }
-    g_object_unref(parentGFile);
-
-    g_object_unref (gFile);
-
-    return TRUE;
-}
-
-
-void gnome_cmd_file_selector_show_new_textfile_dialog (GnomeCmdFileSelector *fs)
-{
-    g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
-
-    const gchar *labels[] = {_("File name:")};
-    GtkWidget *dialog;
-
-    dialog = gnome_cmd_string_dialog_new (_("New Text File"), labels, 1,
-                                          (GnomeCmdStringDialogCallback) on_new_textfile_ok, fs);
-    g_return_if_fail (GNOME_CMD_IS_DIALOG (dialog));
-
-    GnomeCmdFile *f = fs->file_list()->get_selected_file();
-
-    if (f)
-    {
-        gnome_cmd_string_dialog_set_value (GNOME_CMD_STRING_DIALOG (dialog),
-            0,
-            g_file_info_get_display_name(f->get_file_info()));
-    }
-    g_object_ref (dialog);
-    gtk_widget_show (dialog);
 }
 
 

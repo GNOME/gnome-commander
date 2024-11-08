@@ -33,7 +33,8 @@ use crate::{
     dialogs::{
         chmod_dialog::show_chmod_dialog, chown_dialog::show_chown_dialog,
         connect_dialog::ConnectDialog, create_symlink_dialog::show_create_symlink_dialog,
-        make_copy_dialog::make_copy_dialog, prepare_copy_dialog::prepare_copy_dialog_show,
+        make_copy_dialog::make_copy_dialog, new_text_file::show_new_textfile_dialog,
+        prepare_copy_dialog::prepare_copy_dialog_show,
         prepare_move_dialog::prepare_move_dialog_show, remote_dialog::RemoteDialog,
     },
     dir::Directory,
@@ -43,8 +44,8 @@ use crate::{
     spawn::{spawn_async, spawn_async_command, SpawnError},
     types::FileSelectorID,
     utils::{
-        display_help, prompt_message, run_simple_dialog, show_error_message, show_message,
-        ErrorMessage,
+        display_help, get_modifiers_state, prompt_message, run_simple_dialog, show_error_message,
+        show_message, ErrorMessage,
     },
 };
 use gettextrs::{gettext, ngettext};
@@ -135,8 +136,45 @@ c_action!(file_delete);
 c_action!(file_view);
 c_action!(file_internal_view);
 c_action!(file_external_view);
-c_action!(file_edit);
-c_action!(file_edit_new_doc);
+
+pub fn file_edit(
+    main_win: &MainWindow,
+    _action: &gio::SimpleAction,
+    _parameter: Option<&glib::Variant>,
+) {
+    let main_win = main_win.clone();
+    let file_selector = main_win.file_selector(FileSelectorID::ACTIVE);
+    let file_list = file_selector.file_list();
+    let options = ProgramsOptions::new();
+
+    let mask = get_modifiers_state(main_win.upcast_ref());
+
+    glib::spawn_future_local(async move {
+        if mask.map_or(false, |m| m.contains(gdk::ModifierType::SHIFT_MASK)) {
+            show_new_textfile_dialog(main_win.upcast_ref(), &file_list).await;
+        } else {
+            let files = file_list.selected_files();
+            if let Err(error) = spawn_async(None, &files, &options.editor_cmd()) {
+                error.into_message().show(main_win.upcast_ref()).await;
+            }
+        }
+    });
+}
+
+pub fn file_edit_new_doc(
+    main_win: &MainWindow,
+    _action: &gio::SimpleAction,
+    _parameter: Option<&glib::Variant>,
+) {
+    let main_win = main_win.clone();
+    let file_selector = main_win.file_selector(FileSelectorID::ACTIVE);
+    let file_list = file_selector.file_list();
+
+    glib::spawn_future_local(async move {
+        show_new_textfile_dialog(main_win.upcast_ref(), &file_list).await;
+    });
+}
+
 c_action!(file_search);
 c_action!(file_quick_search);
 

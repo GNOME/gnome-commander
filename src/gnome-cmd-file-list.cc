@@ -3397,3 +3397,8 @@ void gnome_cmd_file_list_set_connection(GnomeCmdFileList *fl, GnomeCmdCon *con, 
 {
     fl->set_connection(con, start_dir);
 }
+
+void gnome_cmd_file_list_focus_file(GnomeCmdFileList *fl, const gchar *focus_file, gboolean scroll_to_file)
+{
+    fl->focus_file(focus_file, scroll_to_file);
+}

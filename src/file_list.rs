@@ -28,11 +28,13 @@ use gtk::{
     },
     prelude::*,
 };
+use std::path::Path;
 
 pub mod ffi {
     use super::*;
     use crate::{connection::connection::ffi::GnomeCmdCon, dir::ffi::GnomeCmdDir};
     use glib::ffi::{gboolean, GList, GType};
+    use std::ffi::c_char;
 
     #[repr(C)]
     pub struct GnomeCmdFileList {
@@ -61,6 +63,11 @@ pub mod ffi {
             start_dir: *mut GnomeCmdDir,
         );
 
+        pub fn gnome_cmd_file_list_focus_file(
+            fl: *mut GnomeCmdFileList,
+            focus_file: *const c_char,
+            scroll_to_file: gboolean,
+        );
     }
 
     #[derive(Copy, Clone)]
@@ -166,6 +173,16 @@ impl FileList {
                 self.to_glib_none().0,
                 connection.to_glib_none().0,
                 start_dir.to_glib_none().0,
+            )
+        }
+    }
+
+    pub fn focus_file(&self, focus_file: &Path, scroll_to_file: bool) {
+        unsafe {
+            ffi::gnome_cmd_file_list_focus_file(
+                self.to_glib_none().0,
+                focus_file.to_glib_none().0,
+                if scroll_to_file { 1 } else { 0 },
             )
         }
     }
