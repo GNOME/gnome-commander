@@ -148,6 +148,7 @@ pub async fn show_new_textfile_dialog(parent_window: &gtk::Window, file_list: &F
         {
             dir.file_created(&file.uri());
             if let Some(focus_filename) = file.basename() {
+                file_list.grab_focus();
                 file_list.focus_file(&focus_filename, true);
             }
         }
