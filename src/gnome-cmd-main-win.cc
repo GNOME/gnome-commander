@@ -275,7 +275,7 @@ static void on_slide_button_press (GtkGestureClick *gesture, int n_press, double
 
 static void on_main_win_realize (GtkWidget *widget, GnomeCmdMainWin *mw)
 {
-    g_timeout_add (300, (GSourceFunc) set_equal_panes_idle, mw);
+    g_timeout_add (10, (GSourceFunc) set_equal_panes_idle, mw);
 
     mw->fs(LEFT)->set_active(TRUE);
     mw->fs(RIGHT)->set_active(FALSE);
@@ -1108,8 +1108,10 @@ void GnomeCmdMainWin::update_cmdline_visibility()
 
 static gboolean set_equal_panes_idle (gpointer *user_data)
 {
-    GNOME_CMD_MAIN_WIN (user_data)->set_equal_panes();
-    return G_SOURCE_REMOVE;
+    if (GNOME_CMD_MAIN_WIN (user_data)->set_equal_panes())
+        return G_SOURCE_REMOVE;
+    else
+        return G_SOURCE_CONTINUE;
 }
 
 
@@ -1119,7 +1121,7 @@ void GnomeCmdMainWin::update_horizontal_orientation()
         gnome_cmd_data.horizontal_orientation
             ? GTK_ORIENTATION_VERTICAL
             : GTK_ORIENTATION_HORIZONTAL);
-    g_timeout_add (300, (GSourceFunc) set_equal_panes_idle, this);
+    g_timeout_add (10, (GSourceFunc) set_equal_panes_idle, this);
 }
 
 
@@ -1169,20 +1171,24 @@ void GnomeCmdMainWin::set_cap_state(gboolean state)
 }
 
 
-void GnomeCmdMainWin::set_slide(gint percentage)
+bool GnomeCmdMainWin::set_slide(gint percentage)
 {
     gint dimension = gnome_cmd_data.horizontal_orientation
         ? gtk_widget_get_height (GTK_WIDGET (priv->paned))
         : gtk_widget_get_width (GTK_WIDGET (priv->paned));
     gint new_dimension = dimension * percentage / 100;
 
+    if (gtk_paned_get_position (GTK_PANED (priv->paned)) == new_dimension)
+        return true;
+
     gtk_paned_set_position (GTK_PANED (priv->paned), new_dimension);
+    return false;
 }
 
 
-void GnomeCmdMainWin::set_equal_panes()
+bool GnomeCmdMainWin::set_equal_panes()
 {
-    set_slide(50);
+    return set_slide(50);
 }
 
 
