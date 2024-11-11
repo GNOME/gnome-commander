@@ -236,8 +236,6 @@ struct GnomeCmdFileList
 
     void update_style();
 
-    gboolean key_pressed(GnomeCmdKeyPress *event);
-
     enum DndMode
     {
         COPY,
@@ -288,10 +286,6 @@ void gnome_cmd_file_list_show_selpat_dialog (GnomeCmdFileList *fl, gboolean mode
 
 void gnome_cmd_file_list_cap_cut (GnomeCmdFileList *fl);
 void gnome_cmd_file_list_cap_copy (GnomeCmdFileList *fl);
-
-void gnome_cmd_file_list_view (GnomeCmdFileList *fl, bool useInternalViewer);
-
-void gnome_cmd_file_list_edit (GnomeCmdFileList *fl);
 
 void gnome_cmd_file_list_show_quicksearch (GnomeCmdFileList *fl, gchar c);
 

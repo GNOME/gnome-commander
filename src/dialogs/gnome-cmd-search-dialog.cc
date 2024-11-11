@@ -912,29 +912,6 @@ gboolean SearchData::StartLocalSearch()
 }
 
 
-static gboolean on_list_keypressed (GtkEventControllerKey *controller, guint keyval, guint keycode, GdkModifierType state, gpointer user_data)
-{
-    auto dialog = GNOME_CMD_SEARCH_DIALOG (user_data);
-
-    GnomeCmdKeyPress key_press_event = { .keyval = keyval, .state = state };
-    if (dialog->priv->result_list->key_pressed(&key_press_event))
-        return TRUE;
-
-    switch (keyval)
-    {
-        case GDK_KEY_F3:
-            gnome_cmd_file_list_view (dialog->priv->result_list, gnome_cmd_data.options.use_internal_viewer);
-            return TRUE;
-
-        case GDK_KEY_F4:
-            gnome_cmd_file_list_edit (dialog->priv->result_list);
-            return TRUE;
-        default:
-            return FALSE;
-    }
-}
-
-
 void GnomeCmdSearchDialog::Private::on_dialog_show(GtkWidget *widget, GnomeCmdSearchDialog *dialog)
 {
     dialog->priv->profile_component->update();
@@ -1188,10 +1165,6 @@ static void gnome_cmd_search_dialog_init (GnomeCmdSearchDialog *dialog)
     gtk_widget_hide (dialog->priv->pbar);
 
     g_mutex_init(&dialog->priv->data.pdata.mutex);
-
-    GtkEventController *key_controller = gtk_event_controller_key_new ();
-    gtk_widget_add_controller (GTK_WIDGET (dialog->priv->result_list), GTK_EVENT_CONTROLLER (key_controller));
-    g_signal_connect (key_controller, "key-pressed", G_CALLBACK (on_list_keypressed), dialog);
 }
 
 

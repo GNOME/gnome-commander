@@ -29,6 +29,7 @@ mod dialogs;
 mod dir;
 mod dirlist;
 mod file;
+mod file_edit;
 mod file_list;
 mod file_list_actions;
 mod file_selector;

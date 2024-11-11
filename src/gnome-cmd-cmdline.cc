@@ -409,8 +409,6 @@ static gboolean gnome_cmd_cmdline_keypressed (GnomeCmdCmdline *cmdline, GnomeCmd
 
                     gtk_widget_grab_focus (GTK_WIDGET (file_list));
                     fs->set_active(TRUE);
-
-                    file_list->key_pressed(event);
                 }
                 return TRUE;
             default:

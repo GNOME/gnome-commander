@@ -18,9 +18,11 @@
  */
 
 use crate::{
+    data::{ProgramsOptions, ProgramsOptionsRead},
     file::{ffi::GnomeCmdFile, File},
     intviewer::window::ViewerWindow,
     libgcmd::file_base::FileBaseExt,
+    spawn::{spawn_async, SpawnError},
     transfer::gnome_cmd_tmp_download,
     utils::{show_error_message, temp_file, ErrorMessage},
 };
@@ -66,16 +68,49 @@ pub async fn file_view_internal(parent_window: &gtk::Window, f: &File) -> Result
     Ok(())
 }
 
+pub async fn file_view_external(
+    file: &File,
+    options: &dyn ProgramsOptionsRead,
+) -> Result<(), ErrorMessage> {
+    let mut files = glib::List::new();
+    files.push_back(file.clone());
+    spawn_async(None, &files, &options.viewer_cmd()).map_err(SpawnError::into_message)
+}
+
+pub async fn file_view(
+    parent_window: &gtk::Window,
+    file: &File,
+    use_internal_viewer: Option<bool>,
+    options: &dyn ProgramsOptionsRead,
+) -> Result<(), ErrorMessage> {
+    if file.file_info().file_type() == gio::FileType::Directory {
+        return Err(ErrorMessage::new(
+            gettext("Not an ordinary file."),
+            Some(file.file_info().display_name().as_str()),
+        ));
+    }
+
+    let use_internal_viewer = use_internal_viewer.unwrap_or_else(|| options.use_internal_viewer());
+
+    if use_internal_viewer {
+        file_view_internal(&parent_window, &file).await?;
+    } else {
+        file_view_external(&file, options).await?;
+    }
+    Ok(())
+}
+
 #[no_mangle]
-pub extern "C" fn gnome_cmd_file_view_internal(
+pub extern "C" fn gnome_cmd_file_view(
     parent_window_ptr: *mut GtkWindow,
     file_ptr: *mut GnomeCmdFile,
 ) {
     let parent_window = unsafe { gtk::Window::from_glib_none(parent_window_ptr) };
     let file = unsafe { File::from_glib_none(file_ptr) };
+    let options = ProgramsOptions::new();
 
     glib::spawn_future_local(async move {
-        if let Err(error) = file_view_internal(&parent_window, &file).await {
+        if let Err(error) = file_view(&parent_window, &file, None, &options).await {
             show_error_message(&parent_window, &error);
         }
     });
