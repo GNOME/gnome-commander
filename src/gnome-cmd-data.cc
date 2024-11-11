@@ -1971,7 +1971,9 @@ void GnomeCmdData::save_connections()
 
         if (con)
         {
-            if (!con->alias || !*con->alias)
+            const gchar *alias = gnome_cmd_con_get_alias (con);
+
+            if (!alias || !*alias)
                 continue;
 
             gchar *uri = gnome_cmd_con_get_uri_string (con);
@@ -1979,7 +1981,7 @@ void GnomeCmdData::save_connections()
             {
                 hasConnections = true;
                 g_variant_builder_add (&gVariantBuilder, GCMD_SETTINGS_CONNECTION_FORMAT_STRING,
-                                        con->alias,
+                                        alias,
                                         uri);
             }
             g_free (uri);
@@ -2012,7 +2014,7 @@ inline void remove_gvolume (GVolume *gVolume)
             if ((g_strcmp0(device_fn, uuid)==0))
             {
                 DEBUG('m',"Remove Volume: %s\n", device_fn);
-                gnome_cmd_data.priv->con_list->remove(device);
+                gnome_cmd_con_list_remove_dev (gnome_cmd_data.priv->con_list, device);
                 break;
             }
         }
@@ -2096,7 +2098,7 @@ static void add_gmount (GMount *gMount)
     if (!remote_con_stored_already (gnome_cmd_data.priv->con_list, gFile))
     {
         auto remoteCon = gnome_cmd_con_remote_new(name, uriString);
-        gnome_cmd_data.priv->con_list->add(remoteCon);
+        gnome_cmd_con_list_add_remote (gnome_cmd_data.priv->con_list, remoteCon);
     }
 
     g_free (name);
@@ -2133,7 +2135,7 @@ static void add_gvolume (GVolume *gVolume)
         GnomeCmdConDevice *ConDev = gnome_cmd_con_device_new (name, uuid, nullptr, gIcon);
         gnome_cmd_con_device_set_autovol (ConDev, TRUE);
         gnome_cmd_con_device_set_gvolume (ConDev, gVolume);
-        gnome_cmd_data.priv->con_list->add(ConDev);
+        gnome_cmd_con_list_add_dev (gnome_cmd_data.priv->con_list, ConDev);
     }
     else
     {
@@ -2460,7 +2462,7 @@ void GnomeCmdData::save_directory_history()
         set_gsettings_string_array_from_glist(
             options.gcmd_settings->general,
             GCMD_SETTINGS_DIRECTORY_HISTORY,
-            gnome_cmd_con_get_dir_history (priv->con_list->get_home())->ents);
+            gnome_cmd_con_get_dir_history (gnome_cmd_con_list_get_home (priv->con_list))->ents);
     }
     else
     {
@@ -2713,7 +2715,7 @@ void GnomeCmdData::load_devices()
         GIcon *icon = iconVariant ? g_icon_deserialize (iconVariant) : nullptr;
         g_variant_unref (iconVariant);
 
-        gnome_cmd_data.priv->con_list->add (gnome_cmd_con_device_new (alias, device_fn, mountPoint, icon));
+        gnome_cmd_con_list_add_dev (gnome_cmd_data.priv->con_list, gnome_cmd_con_device_new (alias, device_fn, mountPoint, icon));
 
         g_variant_unref(device);
     }
@@ -2731,7 +2733,7 @@ void GnomeCmdData::load_devices()
             g_variant_get(device, GCMD_SETTINGS_DEVICES_FORMAT_STRING, &alias, &device_fn, &mountPoint, &iconPath);
 
             GIcon *icon = iconPath && *iconPath ? g_file_icon_new (g_file_new_for_path (iconPath)) : nullptr;
-            gnome_cmd_data.priv->con_list->add (gnome_cmd_con_device_new (alias, device_fn, mountPoint, icon));
+            gnome_cmd_con_list_add_dev (gnome_cmd_data.priv->con_list, gnome_cmd_con_device_new (alias, device_fn, mountPoint, icon));
 
             g_variant_unref(device);
         }
@@ -2760,11 +2762,11 @@ void GnomeCmdData::load_connections()
         g_assert (g_variant_is_of_type (connection, G_VARIANT_TYPE (GCMD_SETTINGS_CONNECTION_FORMAT_STRING)));
         g_variant_get(connection, GCMD_SETTINGS_CONNECTION_FORMAT_STRING, &name, &uri);
 
-        if (gnome_cmd_con_list_get()->find_alias(name) == nullptr)
+        if (gnome_cmd_con_list_find_by_alias (gnome_cmd_con_list_get(), name) == nullptr)
         {
             GnomeCmdConRemote *server = gnome_cmd_con_remote_new (name, uri);
             if (server)
-                gnome_cmd_con_list_get()->add(server);
+                gnome_cmd_con_list_add_remote (gnome_cmd_con_list_get(), server);
             else
                 g_warning ("<Connection> invalid URI: '%s' - ignored", uri);
         }
@@ -3187,7 +3189,7 @@ void GnomeCmdData::load()
     else
         advrename_defaults.profiles.clear();
 
-    priv->con_list->lock();
+    gnome_cmd_con_list_lock (priv->con_list);
     load_devices();
 
     // ToDo: Remove the check for connections file in gcmd version > 1.10.1
@@ -3208,7 +3210,7 @@ void GnomeCmdData::load()
     load_fav_apps           ();
     load_directory_history  ();
 
-    priv->con_list->unlock();
+    gnome_cmd_con_list_unlock (priv->con_list);
 
     gchar *quick_connect_uri = g_settings_get_string(options.gcmd_settings->network, GCMD_SETTINGS_QUICK_CONNECT_URI);
     quick_connect = gnome_cmd_con_remote_new (nullptr, quick_connect_uri);

@@ -317,6 +317,13 @@ void gnome_cmd_con_open (GnomeCmdCon *con, GtkWindow *parent_window)
 }
 
 
+gboolean gnome_cmd_con_is_open (GnomeCmdCon *con)
+{
+    g_return_val_if_fail (GNOME_CMD_IS_CON (con), FALSE);
+    return con->state == GnomeCmdCon::STATE_OPEN;
+}
+
+
 void gnome_cmd_con_cancel_open (GnomeCmdCon *con)
 {
     g_return_if_fail (GNOME_CMD_IS_CON (con));
@@ -340,6 +347,21 @@ gboolean gnome_cmd_con_close (GnomeCmdCon *con)
     }
 
     return TRUE;
+}
+
+
+gboolean gnome_cmd_con_open_is_needed (GnomeCmdCon *con)
+{
+    g_return_val_if_fail (GNOME_CMD_IS_CON (con), FALSE);
+    GnomeCmdConClass *klass = GNOME_CMD_CON_GET_CLASS (con);
+    return klass->open_is_needed (con);
+}
+
+
+const gchar *gnome_cmd_con_get_open_msg (GnomeCmdCon *con)
+{
+    g_return_val_if_fail (GNOME_CMD_IS_CON (con), NULL);
+    return con->open_msg;
 }
 
 
@@ -415,6 +437,41 @@ GnomeCmdDir *gnome_cmd_con_get_default_dir (GnomeCmdCon *con)
     auto priv = static_cast<GnomeCmdConPrivate *> (gnome_cmd_con_get_instance_private (con));
 
     return priv->default_dir;
+}
+
+
+gboolean gnome_cmd_con_should_remember_dir (GnomeCmdCon *con)
+{
+    g_return_val_if_fail (GNOME_CMD_IS_CON (con), FALSE);
+    return con->should_remember_dir;
+}
+
+
+gboolean gnome_cmd_con_needs_open_visprog (GnomeCmdCon *con)
+{
+    g_return_val_if_fail (GNOME_CMD_IS_CON (con), FALSE);
+    return con->needs_open_visprog;
+}
+
+
+gboolean gnome_cmd_con_needs_list_visprog (GnomeCmdCon *con)
+{
+    g_return_val_if_fail (GNOME_CMD_IS_CON (con), FALSE);
+    return con->needs_list_visprog;
+}
+
+
+gboolean gnome_cmd_con_can_show_free_space (GnomeCmdCon *con)
+{
+    g_return_val_if_fail (GNOME_CMD_IS_CON (con), FALSE);
+    return con->can_show_free_space;
+}
+
+
+gboolean gnome_cmd_con_is_closeable (GnomeCmdCon *con)
+{
+    g_return_val_if_fail (GNOME_CMD_IS_CON (con), FALSE);
+    return con->is_closeable;
 }
 
 
