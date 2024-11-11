@@ -114,7 +114,7 @@ struct GViewerWindowPrivate
     GtkWidget *vbox;
     GViewer *viewer;
     GtkWidget *menubar;
-    GtkWidget *statusbar;
+    GtkWidget *status_label;
 
     GSimpleActionGroup *action_group;
     std::vector<const char*> encodingCharsets;
@@ -127,8 +127,6 @@ struct GViewerWindowPrivate
 
     GnomeCmdFile *f;
     gchar *filename;
-    guint statusbar_ctx_id;
-    gboolean status_bar_msg;
 
     GViewerSearcher *srchr;
     gchar *search_pattern;
@@ -238,7 +236,6 @@ static void gviewer_window_init (GViewerWindow *w)
 
     gtk_window_set_icon_name (GTK_WINDOW (w), "gnome-commander-internal-viewer");
 
-    // priv->status_bar_msg = FALSE;
     // priv->filename = nullptr;
     priv->current_scale_index = 5;
 
@@ -276,26 +273,25 @@ static void gviewer_window_init (GViewerWindow *w)
     gtk_widget_add_controller (GTK_WIDGET (w), GTK_EVENT_CONTROLLER (key_controller));
     g_signal_connect (key_controller, "key-pressed", G_CALLBACK (gviewer_window_key_pressed), w);
 
-    priv->vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 0);
-    gtk_widget_show (priv->vbox);
+    priv->vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 6);
 
     priv->menubar = gviewer_window_create_menus(w);
-    gtk_widget_show (priv->menubar);
     gtk_box_append (GTK_BOX (priv->vbox), priv->menubar);
 
     priv->viewer = GVIEWER (gviewer_new());
     g_object_ref (priv->viewer);
     gtk_widget_set_vexpand (GTK_WIDGET (priv->viewer), TRUE);
-    gtk_widget_show (GTK_WIDGET (priv->viewer));
     gtk_box_append (GTK_BOX (priv->vbox), GTK_WIDGET (priv->viewer));
 
     g_signal_connect (priv->viewer, "status-line-changed", G_CALLBACK (gviewer_window_status_line_changed), w);
 
-    priv->statusbar = gtk_statusbar_new ();
-    gtk_widget_show (priv->statusbar);
-    gtk_box_append (GTK_BOX (priv->vbox), priv->statusbar);
+    auto statusbar = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 6);
+    gtk_widget_set_margin_start (statusbar, 12);
+    gtk_widget_set_margin_end (statusbar, 12);
+    priv->status_label = gtk_label_new(nullptr);
+    gtk_box_append (GTK_BOX (statusbar), priv->status_label);
 
-    priv->statusbar_ctx_id  = gtk_statusbar_get_context_id (GTK_STATUSBAR (priv->statusbar), "info");
+    gtk_box_append (GTK_BOX (priv->vbox), statusbar);
 
     gtk_widget_grab_focus (GTK_WIDGET (priv->viewer));
 
@@ -319,13 +315,7 @@ static void gviewer_window_status_line_changed(GViewer *gViewer, const gchar *st
     GViewerWindow *w = GVIEWER_WINDOW (gViewerWindow);
     auto priv = static_cast<GViewerWindowPrivate*>(gviewer_window_get_instance_private (w));
 
-    if (priv->status_bar_msg)
-        gtk_statusbar_pop (GTK_STATUSBAR (priv->statusbar), priv->statusbar_ctx_id);
-
-    if (status_line)
-        gtk_statusbar_push (GTK_STATUSBAR (priv->statusbar), priv->statusbar_ctx_id, status_line);
-
-    priv->status_bar_msg = status_line != nullptr;
+    gtk_label_set_text (GTK_LABEL (priv->status_label), status_line ? status_line : "");
 }
 
 

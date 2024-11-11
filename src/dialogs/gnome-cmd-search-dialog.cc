@@ -89,9 +89,6 @@ struct SearchData
     Filter *name_filter = nullptr;
     regex_t *content_regex = nullptr;
 
-    // the context id of the status bar
-    gint context_id = 0;
-
     //the directories which we found matching files in
     GList *match_dirs = nullptr;
     GThread *thread = nullptr;
@@ -138,7 +135,7 @@ struct GnomeCmdSearchDialog::Private
     GnomeCmdSelectionProfileComponent *profile_component;
     GtkWidget *dir_browser;
     GnomeCmdFileList *result_list;
-    GtkWidget *statusbar;
+    GtkWidget *status_label;
     GtkWidget *pbar;
     GtkWidget *profile_menu_button;
 
@@ -160,7 +157,7 @@ inline GnomeCmdSearchDialog::Private::Private(GnomeCmdSearchDialog *dlg): data(d
     profile_component = nullptr;
     dir_browser = nullptr;
     result_list = nullptr;
-    statusbar = nullptr;
+    status_label = nullptr;
     pbar = nullptr;
     profile_menu_button = nullptr;
 }
@@ -362,7 +359,7 @@ inline gboolean SearchData::ContentMatches(GFile *f, GFileInfo *info)
 
 inline void SearchData::set_statusmsg(const gchar *msg)
 {
-    gtk_statusbar_push (GTK_STATUSBAR (dialog->priv->statusbar), context_id, msg ? msg : "");
+    gtk_label_set_text (GTK_LABEL (dialog->priv->status_label), msg ? msg : "");
 }
 
 
@@ -1002,7 +999,6 @@ void GnomeCmdSearchDialog::Private::on_dialog_response(GtkDialog *window, int re
                     data.cancellable = nullptr;
                 }
 
-                data.context_id = gtk_statusbar_get_context_id (GTK_STATUSBAR (dialog->priv->statusbar), "info");
                 data.content_regex = nullptr;
                 data.match_dirs = nullptr;
 
@@ -1172,15 +1168,17 @@ static void gnome_cmd_search_dialog_init (GnomeCmdSearchDialog *dialog)
     gtk_scrolled_window_set_child (GTK_SCROLLED_WINDOW (sw), *dialog->priv->result_list);
 
     // status
-    dialog->priv->statusbar = gtk_statusbar_new ();
-    gtk_box_append (GTK_BOX (dialog->priv->vbox), dialog->priv->statusbar);
+    auto statusbar = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 6);
+    gtk_box_append (GTK_BOX (dialog->priv->vbox), statusbar);
 
+    dialog->priv->status_label = gtk_label_new(nullptr);
+    gtk_box_append (GTK_BOX (statusbar), dialog->priv->status_label);
 
     // progress
     dialog->priv->pbar = create_progress_bar (*dialog);
     gtk_progress_bar_set_show_text (GTK_PROGRESS_BAR (dialog->priv->pbar), FALSE);
     gtk_progress_bar_set_pulse_step (GTK_PROGRESS_BAR (dialog->priv->pbar), 1.0 / (gdouble) PBAR_MAX);
-    gtk_box_append (GTK_BOX (dialog->priv->statusbar),dialog->priv-> pbar);
+    gtk_box_append (GTK_BOX (statusbar), dialog->priv->pbar);
 
 
     dialog->priv->result_list->update_style();
