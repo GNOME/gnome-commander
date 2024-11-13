@@ -441,13 +441,11 @@ static GtkWidget *create_properties_tab (GnomeCmdFilePropsDialogPrivate *data)
     label = create_label (dialog, data->f->get_mdate(TRUE));
     gtk_grid_attach (GTK_GRID (grid), label, 1, y++, 1, 1);
 
-#ifdef GLIB_2_70
     label = create_bold_label (dialog, _("Accessed:"));
     gtk_grid_attach (GTK_GRID (grid), label, 0, y, 1, 1);
 
     label = create_label (dialog, data->f->get_adate(TRUE));
     gtk_grid_attach (GTK_GRID (grid), label, 1, y++, 1, 1);
-#endif
 
     add_sep (grid, y++);
 

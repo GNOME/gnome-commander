@@ -39,19 +39,7 @@
 #include "utils.h"
 #include "dict.h"
 
-#ifdef HAVE_GSF_1_14_26
 #include <gsf/gsf.h>
-#elif defined(HAVE_GSF)
-#include <gsf/gsf-infile.h>
-#include <gsf/gsf-infile-msole.h>
-#include <gsf/gsf-infile-zip.h>
-#include <gsf/gsf-input-memory.h>
-#include <gsf/gsf-input-stdio.h>
-#include <gsf/gsf-meta-names.h>
-#include <gsf/gsf-msole-utils.h>
-#include <gsf/gsf-opendoc-utils.h>
-#include <gsf/gsf-utils.h>
-#endif
 
 using namespace std;
 
@@ -131,11 +119,7 @@ inline void process_opendoc_infile(GsfInfile *infile, GnomeCmdFileMetadata *meta
         return;
 
     GsfDocMetaData *sections = gsf_doc_meta_data_new ();
-#ifdef HAVE_GSF_1_14_24
     GError         *err = gsf_doc_meta_data_read_from_odf (sections, meta_file);
-#else
-    GError         *err = gsf_opendoc_metadata_read (meta_file, sections);
-#endif
 
     if (!err)
         gsf_doc_meta_data_foreach (sections, &process_metadata, metadata);
@@ -149,11 +133,7 @@ inline void process_opendoc_infile(GsfInfile *infile, GnomeCmdFileMetadata *meta
 inline void process_msole_summary(GsfInput *input, GnomeCmdFileMetadata *metadata)
 {
     GsfDocMetaData *sections = gsf_doc_meta_data_new ();
-#ifdef HAVE_GSF_1_14_24
     GError         *err = gsf_doc_meta_data_read_from_odf (sections, input);
-#else
-    GError         *err = gsf_msole_metadata_read (input, sections);
-#endif
 
     if (!err)
         gsf_doc_meta_data_foreach (sections, &process_metadata, metadata);
