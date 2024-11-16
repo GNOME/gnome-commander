@@ -22,7 +22,9 @@ use crate::{
     data::{ProgramsOptions, ProgramsOptionsRead},
     dialogs::open_with_other_dialog::show_open_with_other_dialog,
     file::File,
+    file_edit::file_edit,
     file_list::{ffi::GnomeCmdFileList, FileList},
+    file_view::file_view,
     libgcmd::file_base::FileBaseExt,
     spawn::run_command_indir,
     transfer::gnome_cmd_tmp_download,
@@ -39,6 +41,53 @@ use gtk::{
     prelude::*,
 };
 use std::{ffi::OsString, rc::Rc};
+
+#[no_mangle]
+pub extern "C" fn gnome_cmd_file_list_action_file_view(
+    _action: *const GSimpleAction,
+    parameter_ptr: *const GVariant,
+    file_list_ptr: *mut GnomeCmdFileList,
+) {
+    let file_list = unsafe { FileList::from_glib_none(file_list_ptr) };
+    let parameter = unsafe { Option::<Variant>::from_glib_none(parameter_ptr) };
+    let options = ProgramsOptions::new();
+
+    let use_internal_viewer = parameter.and_then(|v| v.get::<bool>());
+
+    let Some(parent_window) = file_list.root().and_downcast::<gtk::Window>() else {
+        eprintln!("No window");
+        return;
+    };
+    glib::spawn_future_local(async move {
+        let Some(file) = file_list.selected_file() else {
+            return;
+        };
+        if let Err(error) = file_view(&parent_window, &file, use_internal_viewer, &options).await {
+            error.show(&parent_window).await;
+        }
+    });
+}
+
+#[no_mangle]
+pub extern "C" fn gnome_cmd_file_list_action_file_edit(
+    _action: *const GSimpleAction,
+    _parameter_ptr: *const GVariant,
+    file_list_ptr: *mut GnomeCmdFileList,
+) {
+    let file_list = unsafe { FileList::from_glib_none(file_list_ptr) };
+    let options = ProgramsOptions::new();
+
+    let Some(parent_window) = file_list.root().and_downcast::<gtk::Window>() else {
+        eprintln!("No window");
+        return;
+    };
+    glib::spawn_future_local(async move {
+        let files = file_list.selected_files();
+        if let Err(error) = file_edit(&files, &options).await {
+            error.show(&parent_window).await;
+        }
+    });
+}
 
 async fn ask_download_remote_files(
     parent_window: &gtk::Window,

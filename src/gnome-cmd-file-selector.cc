@@ -600,8 +600,7 @@ static gboolean on_list_key_pressed (GtkEventControllerKey *controller, guint ke
 
     GnomeCmdKeyPress key_press_event = { .keyval = keyval, .state = state };
 
-    if (fs->file_list()->key_pressed(&key_press_event) ||
-        fs->key_pressed(&key_press_event) ||
+    if (fs->key_pressed(&key_press_event) ||
         main_win->key_pressed(&key_press_event) ||
         gnome_cmd_shortcuts_handle_key_event (gcmd_shortcuts, main_win, keyval, state))
     {

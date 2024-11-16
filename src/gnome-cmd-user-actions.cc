@@ -291,30 +291,6 @@ void file_delete (GSimpleAction *action, GVariant *parameter, gpointer user_data
 }
 
 
-void file_view (GSimpleAction *action, GVariant *parameter, gpointer user_data)
-{
-    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
-
-    gnome_cmd_file_list_view (get_fl (main_win, ACTIVE), gnome_cmd_data.options.use_internal_viewer);
-}
-
-
-void file_internal_view (GSimpleAction *action, GVariant *parameter, gpointer user_data)
-{
-    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
-
-    gnome_cmd_file_list_view (get_fl (main_win, ACTIVE), TRUE);
-}
-
-
-void file_external_view (GSimpleAction *action, GVariant *parameter, gpointer user_data)
-{
-    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
-
-    gnome_cmd_file_list_view (get_fl (main_win, ACTIVE), FALSE);
-}
-
-
 void file_search (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
     auto main_win = static_cast<GnomeCmdMainWin *>(user_data);

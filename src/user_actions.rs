@@ -133,9 +133,46 @@ macro_rules! c_action {
 }
 
 c_action!(file_delete);
-c_action!(file_view);
-c_action!(file_internal_view);
-c_action!(file_external_view);
+
+pub fn file_view(
+    main_win: &MainWindow,
+    _action: &gio::SimpleAction,
+    _parameter: Option<&glib::Variant>,
+) {
+    let file_selector = main_win.file_selector(FileSelectorID::ACTIVE);
+    let file_list = file_selector.file_list();
+
+    if let Err(error) = file_list.activate_action("fl.file-view", Some(&None::<bool>.to_variant()))
+    {
+        eprintln!("Cannot activate action `file-view`: {}", error);
+    }
+}
+
+pub fn file_internal_view(
+    main_win: &MainWindow,
+    _action: &gio::SimpleAction,
+    _parameter: Option<&glib::Variant>,
+) {
+    let file_selector = main_win.file_selector(FileSelectorID::ACTIVE);
+    let file_list = file_selector.file_list();
+
+    if let Err(error) = file_list.activate_action("fl.file-view", Some(&true.to_variant())) {
+        eprintln!("Cannot activate action `file-view`: {}", error);
+    }
+}
+
+pub fn file_external_view(
+    main_win: &MainWindow,
+    _action: &gio::SimpleAction,
+    _parameter: Option<&glib::Variant>,
+) {
+    let file_selector = main_win.file_selector(FileSelectorID::ACTIVE);
+    let file_list = file_selector.file_list();
+
+    if let Err(error) = file_list.activate_action("fl.file-view", Some(&false.to_variant())) {
+        eprintln!("Cannot activate action `file-view`: {}", error);
+    }
+}
 
 pub fn file_edit(
     main_win: &MainWindow,
@@ -145,7 +182,6 @@ pub fn file_edit(
     let main_win = main_win.clone();
     let file_selector = main_win.file_selector(FileSelectorID::ACTIVE);
     let file_list = file_selector.file_list();
-    let options = ProgramsOptions::new();
 
     let mask = get_modifiers_state(main_win.upcast_ref());
 
@@ -153,9 +189,8 @@ pub fn file_edit(
         if mask.map_or(false, |m| m.contains(gdk::ModifierType::SHIFT_MASK)) {
             show_new_textfile_dialog(main_win.upcast_ref(), &file_list).await;
         } else {
-            let files = file_list.selected_files();
-            if let Err(error) = spawn_async(None, &files, &options.editor_cmd()) {
-                error.into_message().show(main_win.upcast_ref()).await;
+            if let Err(error) = file_list.activate_action("fl.file-edit", None) {
+                eprintln!("Cannot activate action `file-edit`: {}", error);
             }
         }
     });
