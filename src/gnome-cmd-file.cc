@@ -660,14 +660,12 @@ inline const gchar *date2string (GDateTime *date, gboolean overide_disp_setting)
 }
 
 
-#ifdef GLIB_2_70
 const gchar *GnomeCmdFile::get_adate(gboolean overide_disp_setting)
 {
     g_return_val_if_fail (get_file_info() != nullptr, nullptr);
 
     return date2string (g_file_info_get_access_date_time(get_file_info()), overide_disp_setting);
 }
-#endif
 
 const gchar *GnomeCmdFile::get_mdate(gboolean overide_disp_setting)
 {

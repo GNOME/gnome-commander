@@ -64,12 +64,10 @@ void gcmd_tags_file_load_metadata(GnomeCmdFile *f)
 
     auto gFileInfo = g_file_query_info(f->get_file(), "time::*" "," , G_FILE_QUERY_INFO_NONE, nullptr, nullptr);
 
-#ifdef GLIB_2_70
     auto accessTime = g_file_info_get_access_date_time (gFileInfo);
     auto accessTimeString = g_date_time_format (accessTime, "%Y-%m-%d %T");
     f->metadata->add(TAG_FILE_ACCESSED, accessTimeString);
     g_free(accessTimeString);
-#endif
 
     auto modificationTime = g_file_info_get_modification_date_time (gFileInfo);
     auto modificationTimeString = g_date_time_format (modificationTime, "%Y-%m-%d %T");

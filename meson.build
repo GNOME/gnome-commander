@@ -88,7 +88,6 @@ GIO_REQ = '2.0'
 
 gobject   = dependency('gobject-2.0', version: '>=' + GLIB_REQ)
 glib      = dependency('glib-2.0', version: '>=' + GLIB_REQ)
-glib_2_70 = dependency('glib-2.0', version: '>= 2.70.0', required: false)
 gmodule   = dependency('gmodule-2.0', version: '>=' + GMODULE_REQ)
 gio       = dependency('gio-2.0', version: '>=' + GIO_REQ)
 gtk       = dependency('gtk4', version: '>=' + GTK_REQ)
@@ -102,18 +101,12 @@ common_deps = [
 pixbuf_module_dir = pixbuf.get_variable(pkgconfig: 'gdk_pixbuf_moduledir')
 cpp.find_library('pixbufloader-xpm', dirs: pixbuf_module_dir, required: true)
 
-if glib_2_70.found()
-  conf_data.set('GLIB_2_70', '@0@'.format(glib_2_70.found().to_int()), description : 'Define to 1 if you have glib >= 2.70')
-endif
-
 ##### Optional dependencies #####
 EXIV2_REQ = '0.14'
 conf_data.set('EXIV2_REQ', EXIV2_REQ, description: 'Required version of exiv2 library')
 TAGLIB_REQ = '1.4'
 conf_data.set('TAGLIB_REQ', TAGLIB_REQ, description: 'Required version of poppler library')
-TAGLIB_1_14_24 = '1.14.24'
-TAGLIB_1_14_26 = '1.14.26'
-LIBGSF_REQ = '1.12.0'
+LIBGSF_REQ = '1.14.46'
 conf_data.set('LIBGSF_REQ', LIBGSF_REQ, description: 'Required version of gsf library')
 
 # Check for exiv2 support
@@ -129,12 +122,6 @@ libgsf = dependency('libgsf-1', version: '>=' + LIBGSF_REQ, required: get_option
 have_gsf = libgsf.found()
 if have_gsf
   conf_data.set('HAVE_GSF', '@0@'.format(have_gsf.to_int()), description : 'Define to 1 if you have libgsf (OLE and ODF) support')
-endif
-if have_gsf and libgsf.version().version_compare('>=' + TAGLIB_1_14_24)
-  have_gsf_1_14_24 = have_gsf == false ? false : dependency('libgsf-1', version: '>=' + TAGLIB_1_14_24, required: get_option('libgsf')).found()
-  conf_data.set('HAVE_GSF_1_14_24', '@0@'.format(have_gsf_1_14_24.to_int()), description : 'Defined if you have libgsf >= 1.14.24')
-  have_gsf_1_14_26 = have_gsf == false ? false : dependency('libgsf-1', version: '>=' + TAGLIB_1_14_26, required: get_option('libgsf')).found()
-  conf_data.set('HAVE_GSF_1_14_26', '@0@'.format(have_gsf_1_14_26.to_int()), description : 'Defined if you have libgsf >= 1.14.26')
 endif
 
 # Check for taglib
