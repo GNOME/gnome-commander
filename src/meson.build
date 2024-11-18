@@ -68,7 +68,6 @@ sources_headers = files(
   'ls_colors.h',
   'plugin_manager.h',
   'utils.h',
-  'utils-no-dependencies.h'
 )
 
 gnome_cmd_block_sources = files(
@@ -120,7 +119,6 @@ sources_sources = files(
   'ls_colors.cc',
   'plugin_manager.cc',
   'utils.cc',
-  'utils-no-dependencies.cc',
 )
 
 flex_gen = generator(

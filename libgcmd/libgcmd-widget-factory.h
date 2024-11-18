@@ -97,29 +97,6 @@ GtkWidget *create_sw (GtkWidget *parent);
 
 const char *get_entry_text (GtkWidget *parent, const gchar *entry_name);
 
-#if !GTK_CHECK_VERSION(3,0,0)
-inline void gtk_progress_bar_set_show_text (GtkProgressBar *pbar, gboolean show_text)
-{
-    gtk_progress_bar_set_text (pbar, nullptr);
-    pbar->progress.show_text = show_text;
-}
-
-inline GtkWidget *gtk_tree_view_column_get_button (GtkTreeViewColumn *tree_column)
-{
-    return tree_column->button;
-}
-
-inline gboolean gtk_tree_model_iter_previous (GtkTreeModel *tree_model, GtkTreeIter *iter)
-{
-    GtkTreePath *path = gtk_tree_model_get_path (tree_model, iter);
-    gboolean result = gtk_tree_path_prev (path);
-    if (result)
-        result = gtk_tree_model_get_iter (tree_model, iter, path);
-    gtk_tree_path_free (path);
-    return result;
-}
-#endif
-
 
 class MenuBuilder
 {
