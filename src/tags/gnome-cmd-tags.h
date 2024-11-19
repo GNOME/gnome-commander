@@ -483,15 +483,15 @@ enum GnomeCmdTag
 void gcmd_tags_init();
 void gcmd_tags_shutdown();
 
-GnomeCmdFileMetadata *gcmd_tags_bulk_load(GnomeCmdFile *f);
+extern "C" GnomeCmdFileMetadata *gcmd_tags_bulk_load(GnomeCmdFile *f);
 
-const gchar *gcmd_tags_get_name(const GnomeCmdTag tag);
-GnomeCmdTagClass gcmd_tags_get_class(const GnomeCmdTag tag);
-const gchar *gcmd_tags_get_class_name(const GnomeCmdTag tag);
+extern "C" const gchar *gcmd_tags_get_name(const GnomeCmdTag tag);
+extern "C" GnomeCmdTagClass gcmd_tags_get_class(const GnomeCmdTag tag);
+extern "C" const gchar *gcmd_tags_get_class_name(const GnomeCmdTag tag);
 const gchar *gcmd_tags_get_value(GnomeCmdFile *f, const GnomeCmdTag tag);
 const std::string gcmd_tags_get_value_string(GnomeCmdFile *f, const GnomeCmdTag tag);
-const gchar *gcmd_tags_get_title(const GnomeCmdTag tag);
-const gchar *gcmd_tags_get_description(const GnomeCmdTag tag);
+extern "C" const gchar *gcmd_tags_get_title(const GnomeCmdTag tag);
+extern "C" const gchar *gcmd_tags_get_description(const GnomeCmdTag tag);
 
 /**
  * gcmd_tags_get_tag_by_name() returns tag for given tag_name (eg. AlbumArtist)
@@ -514,32 +514,33 @@ inline const gchar *gcmd_tags_get_value_by_name(GnomeCmdFile *f, const gchar *ta
 }
 
 
+class GnomeCmdFileMetadata;
+
+
+extern "C" GnomeCmdFileMetadata *gnome_cmd_file_metadata_new ();
+extern "C" void gnome_cmd_file_metadata_free (GnomeCmdFileMetadata *fm);
+
+extern "C" gboolean gnome_cmd_file_metadata_is_accessed (GnomeCmdFileMetadata *fm, GnomeCmdTagClass tag_class);
+extern "C" void gnome_cmd_file_metadata_mark_as_accessed (GnomeCmdFileMetadata *fm, GnomeCmdTagClass tag_class);
+
+extern "C" void gnome_cmd_file_metadata_add (GnomeCmdFileMetadata *fm, GnomeCmdTag tag, const gchar *value);
+
+extern "C" gboolean gnome_cmd_file_metadata_has_tag (GnomeCmdFileMetadata *fm, GnomeCmdTag tag);
+extern "C" gchar *gnome_cmd_file_metadata_get (GnomeCmdFileMetadata *fm, GnomeCmdTag tag);
+extern "C" gchar *gnome_cmd_file_metadata_to_tsv (GnomeCmdFileMetadata *fm);
+
+
 class GnomeCmdFileMetadata
 {
   public:
 
-    typedef std::map<GnomeCmdTag,std::set<std::string> >   METADATA_COLL;
+    void *operator new (size_t size)                            { return gnome_cmd_file_metadata_new (); }
+    void operator delete (void *p)                              { gnome_cmd_file_metadata_free ((GnomeCmdFileMetadata *) p); }
 
-  private:
+    gboolean is_accessed (const GnomeCmdTagClass tag_class)     { return gnome_cmd_file_metadata_is_accessed (this, tag_class); }
+    void mark_as_accessed (const GnomeCmdTagClass tag_class)    { return gnome_cmd_file_metadata_mark_as_accessed (this, tag_class); }
 
-    typedef std::map<GnomeCmdTagClass,gboolean>  ACCESSED_COLL;
-
-    ACCESSED_COLL accessed;
-    METADATA_COLL metadata;
-
-    const std::string NODATA;
-
-  public:
-
-    GnomeCmdFileMetadata() {}
-
-    gboolean is_accessed (const GnomeCmdTagClass tag_class) const;
-    gboolean is_accessed (const GnomeCmdTag tag) const;
-    void mark_as_accessed (const GnomeCmdTagClass tag_class)        {  accessed[tag_class] = TRUE;  }
-    void mark_as_accessed (const GnomeCmdTag tag);
-
-    void add (const GnomeCmdTag tag, std::string value);
-    void add (const GnomeCmdTag tag, const gchar *value);
+    void add (const GnomeCmdTag tag, const gchar *value)        { gnome_cmd_file_metadata_add (this, tag, value); }
     template <typename T>
     void add (const GnomeCmdTag tag, const T &value);
 #ifdef __GNUC__
@@ -547,27 +548,18 @@ class GnomeCmdFileMetadata
 #else
     void addf (const GnomeCmdTag tag, const gchar *fmt, ...);
 #endif
-    gboolean has_tag (const GnomeCmdTag tag);
+    gboolean has_tag (const GnomeCmdTag tag)                    { return gnome_cmd_file_metadata_has_tag (this, tag); }
 
-    const std::string operator[] (const GnomeCmdTag tag);
+    const std::string operator[] (const GnomeCmdTag tag)
+    {
+        gchar *str = gnome_cmd_file_metadata_get (this, tag);
+        std::string result(str);
+        g_free (str);
+        return result;
+    }
 
-    METADATA_COLL::const_iterator begin()                           {  return metadata.begin();     }
-    METADATA_COLL::const_iterator end()                             {  return metadata.end();       }
+    gchar *to_tsv ()                                            { return gnome_cmd_file_metadata_to_tsv (this); }
 };
-
-
-inline gboolean GnomeCmdFileMetadata::is_accessed (const GnomeCmdTagClass tag_class) const
-{
-    ACCESSED_COLL::const_iterator elem = accessed.find(tag_class);
-
-    return elem==accessed.end() ? FALSE : elem->second;
-}
-
-inline void GnomeCmdFileMetadata::add (const GnomeCmdTag tag, const gchar *value)
-{
-    if (value && *value)
-        add(tag, std::string(value));
-}
 
 
 template <typename T>
@@ -576,21 +568,5 @@ void GnomeCmdFileMetadata::add (const GnomeCmdTag tag, const T &value)
    std::ostringstream os;
 
    os << value;
-   add(tag,os.str());
-}
-
-
-inline gboolean GnomeCmdFileMetadata::has_tag (const GnomeCmdTag tag)
-{
-    METADATA_COLL::const_iterator pos = metadata.find(tag);
-
-    return pos!=metadata.end();
-}
-
-
-inline const std::string GnomeCmdFileMetadata::operator[] (const GnomeCmdTag tag)
-{
-    METADATA_COLL::const_iterator pos = metadata.find(tag);
-
-    return pos==metadata.end() ? NODATA : join(pos->second, ", ");
+   add(tag, os.str().c_str());
 }

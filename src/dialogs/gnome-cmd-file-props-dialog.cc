@@ -29,13 +29,15 @@
 #include "gnome-cmd-chown-component.h"
 #include "gnome-cmd-chmod-component.h"
 #include "gnome-cmd-data.h"
-#include "gnome-cmd-treeview.h"
 #include "utils.h"
 #include "imageloader.h"
 #include "tags/gnome-cmd-tags.h"
 #include "dialogs/gnome-cmd-file-props-dialog.h"
 
 using namespace std;
+
+
+extern "C" GType gnome_cmd_file_metainfo_view_get_type ();
 
 
 struct GnomeCmdFilePropsDialogPrivate
@@ -224,21 +226,11 @@ static void on_copy_clipboard (GtkButton *button, GnomeCmdFilePropsDialogPrivate
 {
     g_return_if_fail (data != nullptr);
 
-    string s;
-
-    for (GnomeCmdFileMetadata::METADATA_COLL::const_iterator i=data->f->metadata->begin(); i!=data->f->metadata->end(); ++i)
-        for (set<string>::const_iterator j=i->second.begin(); j!=i->second.end(); ++j)
-        {
-            s += gcmd_tags_get_name(i->first);
-            s += '\t';
-            s += gcmd_tags_get_title(i->first);
-            s += '\t';
-            s += *j;
-            s += '\n';
-        }
+    gchar *tsv = data->f->metadata->to_tsv();
 
     auto clipboard = gtk_widget_get_clipboard (GTK_WIDGET (button));
-    gdk_clipboard_set_text (clipboard, s.c_str());
+    gdk_clipboard_set_text (clipboard, tsv);
+    g_free (tsv);
 }
 
 
@@ -513,128 +505,11 @@ inline GtkWidget *create_permissions_tab (GnomeCmdFilePropsDialogPrivate *data)
 }
 
 
-enum
-{
-    COL_TAG,
-    COL_TYPE,
-    COL_NAME,
-    COL_VALUE,
-    COL_DESC,
-    NUM_COLS
-} ;
-
-
-static GtkTreeModel *create_and_fill_model (GnomeCmdFile *f)
-{
-    GtkTreeStore *treestore = gtk_tree_store_new (NUM_COLS,
-                                                  G_TYPE_UINT,
-                                                  G_TYPE_STRING,
-                                                  G_TYPE_STRING,
-                                                  G_TYPE_STRING,
-                                                  G_TYPE_STRING);
-
-    if (f->GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE) == G_FILE_TYPE_SPECIAL || !gcmd_tags_bulk_load (f))
-        return GTK_TREE_MODEL (treestore);
-
-    GnomeCmdTagClass prev_tagclass = TAG_NONE_CLASS;
-
-    GtkTreeIter toplevel;
-
-    for (GnomeCmdFileMetadata::METADATA_COLL::const_iterator i=f->metadata->begin(); i!=f->metadata->end(); ++i)
-    {
-        const GnomeCmdTag t = i->first;
-        GnomeCmdTagClass curr_tagclass = gcmd_tags_get_class(t);
-
-        if (curr_tagclass==TAG_NONE_CLASS)
-            continue;
-
-        if (prev_tagclass!=curr_tagclass)
-        {
-            gtk_tree_store_append (treestore, &toplevel, nullptr);
-            gtk_tree_store_set (treestore, &toplevel,
-                                COL_TAG, TAG_NONE,
-                                COL_TYPE, gcmd_tags_get_class_name(t),
-                                -1);
-        }
-
-        for (set<string>::const_iterator j=i->second.begin(); j!=i->second.end(); ++j)
-        {
-            GtkTreeIter child;
-
-            gtk_tree_store_append (treestore, &child, &toplevel);
-            gtk_tree_store_set (treestore, &child,
-                                COL_TAG, t,
-                                COL_NAME, gcmd_tags_get_title(t),
-                                COL_VALUE, j->c_str(),
-                                COL_DESC, gcmd_tags_get_description(t),
-                                -1);
-        }
-
-        prev_tagclass = curr_tagclass;
-    }
-
-    return GTK_TREE_MODEL (treestore);
-}
-
-
-static GtkWidget *create_view_and_model (GnomeCmdFile *f)
-{
-    GtkWidget *view = gtk_tree_view_new ();
-
-    g_object_set (view,
-                  "enable-search", TRUE,
-                  "search-column", COL_VALUE,
-                  nullptr);
-
-    GtkCellRenderer *renderer = nullptr;
-    GtkTreeViewColumn *col = nullptr;
-
-    col = gnome_cmd_treeview_create_new_text_column (GTK_TREE_VIEW (view), renderer, COL_TYPE, _("Type"));
-    gtk_widget_set_tooltip_text (gtk_tree_view_column_get_button (col), _("Metadata namespace"));
-
-    g_object_set (renderer,
-                  "weight-set", TRUE,
-                  "weight", PANGO_WEIGHT_BOLD,
-                  nullptr);
-
-    col = gnome_cmd_treeview_create_new_text_column (GTK_TREE_VIEW (view), COL_NAME, _("Name"));
-    gtk_widget_set_tooltip_text (gtk_tree_view_column_get_button (col), _("Tag name"));
-
-    col = gnome_cmd_treeview_create_new_text_column (GTK_TREE_VIEW (view), COL_VALUE, _("Value"));
-    gtk_widget_set_tooltip_text (gtk_tree_view_column_get_button (col), _("Tag value"));
-
-    col = gnome_cmd_treeview_create_new_text_column (GTK_TREE_VIEW (view), renderer, COL_DESC, _("Description"));
-    gtk_widget_set_tooltip_text (gtk_tree_view_column_get_button (col), _("Metadata tag description"));
-
-    g_object_set (renderer,
-                  "foreground-set", TRUE,
-                  "foreground", "DarkGray",
-                  "ellipsize-set", TRUE,
-                  "ellipsize", PANGO_ELLIPSIZE_END,
-                  nullptr);
-
-    GtkTreeModel *model = create_and_fill_model (f);
-
-    gtk_tree_view_set_model (GTK_TREE_VIEW (view), model);
-
-    g_object_unref (model);          // destroy model automatically with view
-
-    gtk_tree_selection_set_mode (gtk_tree_view_get_selection (GTK_TREE_VIEW (view)), GTK_SELECTION_NONE);
-
-    return view;
-}
-
-
 inline GtkWidget *create_metadata_tab (GnomeCmdFilePropsDialogPrivate *data)
 {
-    GtkWidget *scrolledwindow = gtk_scrolled_window_new ();
-    gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolledwindow), GTK_POLICY_NEVER, GTK_POLICY_AUTOMATIC);
-
-    GtkWidget *view = create_view_and_model (data->f);
-
-    gtk_scrolled_window_set_child (GTK_SCROLLED_WINDOW (scrolledwindow), view);
-
-    return scrolledwindow;
+    GtkWidget *view = GTK_WIDGET (g_object_new (gnome_cmd_file_metainfo_view_get_type (), nullptr));
+    g_object_set (view, "file", data->f, NULL);
+    return view;
 }
 
 
