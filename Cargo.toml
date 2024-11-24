@@ -12,8 +12,8 @@ use-poppler = []
 [dependencies]
 async-channel = "2.3.1"
 gettext-rs = { version = "0.7.0", features = ["gettext-system"] }
-gtk = { package = "gtk4", version = "0.9", features = ["v4_4"] }
-glib = { version = "0.20", features = ["v2_72"] }
+gtk = { package = "gtk4", version = "0.9", features = ["gnome_45"] }
+glib = { version = "0.20", features = ["v2_78"] }
 libc = "0.2.155"
 tempfile = "3.11.0"
 strum = { version = "0.26.3", features = ["derive"] }

@@ -35,7 +35,6 @@
 
 #include "gnome-cmd-includes.h"
 #include "gnome-cmd-file.h"
-#include "gnome-cmd-treeview.h"
 #include "utils.h"
 #include "tags/gnome-cmd-tags.h"
 #include "gnome-cmd-data.h"
@@ -52,6 +51,10 @@ using namespace std;
 
 #define GCMD_INTERNAL_VIEWER               "org.gnome.gnome-commander.preferences.internal-viewer"
 #define GCMD_GSETTINGS_IV_CHARSET          "charset"
+
+
+extern "C" GType gnome_cmd_file_metainfo_view_get_type ();
+
 
 /***********************************
  * Functions for using GSettings
@@ -174,10 +177,6 @@ static void menu_settings_save_settings(GSimpleAction *action, GVariant *paramet
 
 static void menu_help_quick_help(GSimpleAction *action, GVariant *parameter, gpointer user_data);
 static void menu_help_keyboard(GSimpleAction *action, GVariant *parameter, gpointer user_data);
-
-GtkTreeModel *create_model ();
-void fill_model (GtkTreeStore *treestore, GnomeCmdFile *f);
-GtkWidget *create_view ();
 
 
 G_DEFINE_TYPE_WITH_PRIVATE (GViewerWindow, gviewer_window, GTK_TYPE_WINDOW)
@@ -1036,29 +1035,13 @@ void gviewer_window_show_metadata(GViewerWindow *gViewerWindow)
 
     if (!priv->metadata_view)
     {
-        GtkWidget *scrolledwindow = gtk_scrolled_window_new ();
-        gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolledwindow), GTK_POLICY_NEVER, GTK_POLICY_AUTOMATIC);
-        gtk_widget_set_margin_top (GTK_WIDGET (scrolledwindow), 10);
-        gtk_widget_set_margin_bottom (GTK_WIDGET (scrolledwindow), 10);
-        gtk_widget_set_margin_start (GTK_WIDGET (scrolledwindow), 10);
-        gtk_widget_set_margin_end (GTK_WIDGET (scrolledwindow), 10);
-        gtk_widget_set_vexpand (GTK_WIDGET (scrolledwindow), TRUE);
-        gtk_scrolled_window_set_child (GTK_SCROLLED_WINDOW (scrolledwindow), create_view ());
-        gtk_box_append (GTK_BOX (priv->vbox), scrolledwindow);
-        priv->metadata_view = scrolledwindow;
+        priv->metadata_view = GTK_WIDGET (g_object_new (gnome_cmd_file_metainfo_view_get_type (), nullptr));
+        gtk_widget_set_vexpand (priv->metadata_view, TRUE);
+        gtk_box_append (GTK_BOX (priv->vbox), priv->metadata_view);
     }
 
-    GtkWidget *view = gtk_scrolled_window_get_child (GTK_SCROLLED_WINDOW (priv->metadata_view));
-    GtkTreeModel *model = gtk_tree_view_get_model (GTK_TREE_VIEW (view));
-
-    if (!model)
-    {
-        model = create_model ();
-        fill_model (GTK_TREE_STORE (model), priv->f);
-        gtk_tree_view_set_model (GTK_TREE_VIEW (view), model);
-        g_object_unref (model);          // destroy model automatically with view
-        gtk_tree_selection_set_mode (gtk_tree_view_get_selection (GTK_TREE_VIEW (view)), GTK_SELECTION_NONE);
-    }
+    g_object_set (priv->metadata_view, "file", priv->f, NULL);
+    gtk_widget_show (priv->metadata_view);
 
     priv->metadata_visible = TRUE;
 }
@@ -1081,113 +1064,6 @@ void gviewer_window_hide_metadata(GViewerWindow *gViewerWindow)
     gtk_widget_grab_focus (GTK_WIDGET (priv->viewer));
 }
 
-
-enum
-{
-    COL_TAG,
-    COL_TYPE,
-    COL_NAME,
-    COL_VALUE,
-    COL_DESC,
-    NUM_COLS
-};
-
-
-GtkTreeModel *create_model ()
-{
-    GtkTreeStore *tree = gtk_tree_store_new (NUM_COLS,
-                                             G_TYPE_UINT,
-                                             G_TYPE_STRING,
-                                             G_TYPE_STRING,
-                                             G_TYPE_STRING,
-                                             G_TYPE_STRING);
-    return GTK_TREE_MODEL (tree);
-}
-
-
-void fill_model (GtkTreeStore *tree, GnomeCmdFile *f)
-{
-    if (!gcmd_tags_bulk_load (f))
-        return;
-
-    GnomeCmdTagClass prev_tagclass = TAG_NONE_CLASS;
-
-    GtkTreeIter toplevel;
-
-    for (GnomeCmdFileMetadata::METADATA_COLL::const_iterator i=f->metadata->begin(); i!=f->metadata->end(); ++i)
-    {
-        const GnomeCmdTag t = i->first;
-        GnomeCmdTagClass curr_tagclass = gcmd_tags_get_class(t);
-
-        if (curr_tagclass==TAG_NONE_CLASS)
-            continue;
-
-        if (prev_tagclass!=curr_tagclass)
-        {
-            gtk_tree_store_append (tree, &toplevel, nullptr);
-            gtk_tree_store_set (tree, &toplevel,
-                                COL_TAG, TAG_NONE,
-                                COL_TYPE, gcmd_tags_get_class_name(t),
-                                -1);
-        }
-
-        for (set<std::string>::const_iterator j=i->second.begin(); j!=i->second.end(); ++j)
-        {
-            GtkTreeIter child;
-
-            gtk_tree_store_append (tree, &child, &toplevel);
-            gtk_tree_store_set (tree, &child,
-                                COL_TAG, t,
-                                COL_NAME, gcmd_tags_get_title(t),
-                                COL_VALUE, j->c_str(),
-                                COL_DESC, gcmd_tags_get_description(t),
-                                -1);
-        }
-
-        prev_tagclass = curr_tagclass;
-    }
-
-}
-
-
-GtkWidget *create_view ()
-{
-    GtkWidget *view = gtk_tree_view_new ();
-
-    g_object_set (view,
-                  "enable-search", TRUE,
-                  "search-column", COL_VALUE,
-                  nullptr);
-
-    GtkCellRenderer *renderer = nullptr;
-    GtkTreeViewColumn *col = nullptr;
-
-    col = gnome_cmd_treeview_create_new_text_column (GTK_TREE_VIEW (view), renderer, COL_TYPE, _("Type"));
-    gtk_widget_set_tooltip_text (gtk_tree_view_column_get_button (col), _("Metadata namespace"));
-
-    g_object_set (renderer,
-                  "weight-set", TRUE,
-                  "weight", PANGO_WEIGHT_BOLD,
-                  nullptr);
-
-    col = gnome_cmd_treeview_create_new_text_column (GTK_TREE_VIEW (view), COL_NAME, _("Name"));
-    gtk_widget_set_tooltip_text (gtk_tree_view_column_get_button (col), _("Tag name"));
-
-    col = gnome_cmd_treeview_create_new_text_column (GTK_TREE_VIEW (view), COL_VALUE, _("Value"));
-    gtk_widget_set_tooltip_text (gtk_tree_view_column_get_button (col), _("Tag value"));
-
-    col = gnome_cmd_treeview_create_new_text_column (GTK_TREE_VIEW (view), renderer, COL_DESC, _("Description"));
-    gtk_widget_set_tooltip_text (gtk_tree_view_column_get_button (col), _("Metadata tag description"));
-
-    g_object_set (renderer,
-                  "foreground-set", TRUE,
-                  "foreground", "DarkGray",
-                  "ellipsize-set", TRUE,
-                  "ellipsize", PANGO_ELLIPSIZE_END,
-                  nullptr);
-
-    return view;
-}
 
 // FFI
 extern "C" GViewerSearcher *gviewer_window_get_searcher (GViewerWindow *obj)

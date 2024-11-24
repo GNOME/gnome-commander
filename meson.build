@@ -79,10 +79,10 @@ conf_data.set_quoted('PREFIX',            '@0@'.format(prefix), description : 'd
 conf_data.set_quoted('PACKAGE_VERSION',   '@0@'.format(meson.project_version()), description : 'Define to the version of this package.')
 
 # Compulsory dependencies
-GLIB_REQ = '2.72.0'
+GLIB_REQ = '2.78.0'
 conf_data.set('GLIB_REQ', GLIB_REQ, description: 'Required version of glib library')
 GMODULE_REQ = '2.0.0'
-GTK_REQ = '4.4.0'
+GTK_REQ = '4.12.0'
 conf_data.set('GTK_REQ', GTK_REQ, description: 'Required version of gtk library')
 GIO_REQ = '2.0'
 
