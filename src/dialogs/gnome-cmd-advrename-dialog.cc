@@ -60,7 +60,7 @@ struct GnomeCmdAdvrenameDialog::Private
     Private();
     ~Private();
 
-    void files_view_popup_menu (GtkWidget *treeview, GnomeCmdAdvrenameDialog *dialog, GdkPoint *point);
+    void files_view_popup_menu (GtkWidget *treeview, GnomeCmdAdvrenameDialog *dialog, GdkRectangle *point_to);
 
     static void on_profile_template_changed (GnomeCmdAdvrenameProfileComponent *component, GnomeCmdAdvrenameDialog *dialog);
     static void on_profile_counter_changed (GnomeCmdAdvrenameProfileComponent *component, GnomeCmdAdvrenameDialog *dialog);
@@ -298,7 +298,7 @@ void GnomeCmdAdvrenameDialog::Private::on_files_view_popup_menu__update_files (G
 }
 
 
-inline void GnomeCmdAdvrenameDialog::Private::files_view_popup_menu (GtkWidget *treeview, GnomeCmdAdvrenameDialog *dialog, GdkPoint *point)
+inline void GnomeCmdAdvrenameDialog::Private::files_view_popup_menu (GtkWidget *treeview, GnomeCmdAdvrenameDialog *dialog, GdkRectangle *point_to)
 {
     GMenu *menu = g_menu_new ();
 
@@ -312,10 +312,9 @@ inline void GnomeCmdAdvrenameDialog::Private::files_view_popup_menu (GtkWidget *
 
     GtkWidget *popover = gtk_popover_menu_new_from_model (G_MENU_MODEL (menu));
     gtk_widget_set_parent (popover, GTK_WIDGET (treeview));
-    if (point)
+    if (point_to)
     {
-        GdkRectangle rect = { point->x, point->y, 0, 0 };
-        gtk_popover_set_pointing_to (GTK_POPOVER (popover), &rect);
+        gtk_popover_set_pointing_to (GTK_POPOVER (popover), point_to);
     }
     gtk_popover_popup (GTK_POPOVER (popover));
 }
@@ -350,8 +349,8 @@ void GnomeCmdAdvrenameDialog::Private::on_files_view_button_pressed (GtkGestureC
                 }
             }
         }
-        GdkPoint point = { (gint) x, (gint) y };
-        dialog->priv->files_view_popup_menu (GTK_WIDGET (treeview), dialog, &point);
+        GdkRectangle point_to = { (gint) x, (gint) y, 0, 0 };
+        dialog->priv->files_view_popup_menu (GTK_WIDGET (treeview), dialog, &point_to);
     }
 }
 

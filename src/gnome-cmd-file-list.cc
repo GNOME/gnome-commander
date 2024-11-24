@@ -902,7 +902,7 @@ static GString *build_selected_file_list (GnomeCmdFileList *fl)
 }
 
 
-static void show_file_popup (GnomeCmdFileList *fl, GdkPoint *point)
+static void show_file_popup (GnomeCmdFileList *fl, GdkRectangle *point_to)
 {
     // create the popup menu
     GMenu *menu_model = gnome_cmd_file_popmenu_new (main_win, fl);
@@ -913,12 +913,13 @@ static void show_file_popup (GnomeCmdFileList *fl, GdkPoint *point)
     gtk_popover_set_position (GTK_POPOVER (popover), GTK_POS_BOTTOM);
 
     GdkRectangle rect;
-    if (point)
-        rect = { point->x, point->y, 0, 0 };
-    else
+    if (!point_to)
+    {
         get_focus_row_coordinates (fl, rect.x, rect.y, rect.width, rect.height);
+        point_to = &rect;
+    }
 
-    gtk_popover_set_pointing_to (GTK_POPOVER (popover), &rect);
+    gtk_popover_set_pointing_to (GTK_POPOVER (popover), point_to);
 
     gtk_popover_popup (GTK_POPOVER (popover));
 }
@@ -943,13 +944,13 @@ static gboolean on_right_mb_timeout (GnomeCmdFileList *fl)
 struct PopupClosure
 {
     GnomeCmdFileList *fl;
-    GdkPoint point;
+    GdkRectangle point_to;
 };
 
 
 static gboolean on_right_mb (PopupClosure *closure)
 {
-    show_file_popup (closure->fl, &closure->point);
+    show_file_popup (closure->fl, &closure->point_to);
     g_free (closure);
     return G_SOURCE_REMOVE;
 }
@@ -1397,8 +1398,10 @@ static void on_file_clicked (GnomeCmdFileList *fl, GnomeCmdFileListButtonEvent *
                         {
                             PopupClosure *closure = g_new0 (PopupClosure, 1);
                             closure->fl = fl;
-                            closure->point.x = event->x;
-                            closure->point.y = event->y;
+                            closure->point_to.x = event->x;
+                            closure->point_to.y = event->y;
+                            closure->point_to.width = 0;
+                            closure->point_to.height = 0;
                             g_timeout_add (1, (GSourceFunc) on_right_mb, closure);
                         }
                     }

@@ -46,10 +46,3 @@ inline gchar *get_bold_mono_text (const gchar *in)
     g_free (escaped_text);
     return result;
 }
-
-#if GTK_CHECK_VERSION(4, 0, 0)
-struct GdkPoint {
-    gint x;
-    gint y;
-};
-#endif

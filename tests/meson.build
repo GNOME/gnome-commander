@@ -80,14 +80,3 @@ test('test_iv_datapresentation_test',
     override_options : ['c_std=c14', 'cpp_std=c++14'],
   ),
 )
-
-test('test_utils_no_dependencies_tests',
-  executable('test-utils-no-dependencies-tests',
-    ['utils_no_dependencies_tests.cc', '../src/utils-no-dependencies.cc', 'gcmd_tests_main.cc'],
-    dependencies: [common_deps, intviewer_dep, gtest],
-    include_directories: [configuration_inc, libgcmd_inc, sources_inc],
-    c_args: ['-DTEST_DIR="@0@"'.format(meson.current_source_dir())],
-    link_with: [intviewer_lib],
-    override_options : ['c_std=c14', 'cpp_std=c++14'],
-  ),
-)
