@@ -20,7 +20,9 @@
  * For more details see the file COPYING.
  */
 
-use crate::{file_selector::FileSelector, types::FileSelectorID, user_actions};
+use crate::{
+    file_selector::FileSelector, shortcuts::Shortcuts, types::FileSelectorID, user_actions,
+};
 use gtk::{
     gio,
     glib::{
@@ -32,6 +34,7 @@ use gtk::{
 
 pub mod ffi {
     use crate::file_selector::ffi::GnomeCmdFileSelector;
+    use crate::shortcuts::Shortcuts;
     use crate::types::FileSelectorID;
     use gtk::glib::ffi::GType;
 
@@ -57,6 +60,8 @@ pub mod ffi {
         pub fn gnome_cmd_main_win_focus_file_lists(main_win: *mut GnomeCmdMainWin);
 
         pub fn gnome_cmd_main_win_update_bookmarks(main_win: *mut GnomeCmdMainWin);
+
+        pub fn gnome_cmd_main_win_shortcuts(main_win: *mut GnomeCmdMainWin) -> *mut Shortcuts;
     }
 
     #[derive(Copy, Clone)]
@@ -93,6 +98,10 @@ impl MainWindow {
 
     pub fn update_bookmarks(&self) {
         unsafe { ffi::gnome_cmd_main_win_update_bookmarks(self.to_glib_none().0) }
+    }
+
+    pub fn shortcuts(&self) -> &mut Shortcuts {
+        unsafe { &mut *ffi::gnome_cmd_main_win_shortcuts(self.to_glib_none().0) }
     }
 }
 

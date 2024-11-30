@@ -36,6 +36,7 @@ use crate::{
         make_copy_dialog::make_copy_dialog, new_text_file::show_new_textfile_dialog,
         prepare_copy_dialog::prepare_copy_dialog_show,
         prepare_move_dialog::prepare_move_dialog_show, remote_dialog::RemoteDialog,
+        shortcuts::shortcuts_dialog::ShortcutsDialog,
     },
     dir::Directory,
     file::File,
@@ -47,7 +48,6 @@ use crate::{
 };
 use gettextrs::{gettext, ngettext};
 use gtk::{
-    ffi::GtkListStore,
     gdk,
     gio::{self, ffi::GSimpleAction},
     glib::{self, ffi::GVariant, translate::ToGlibPtr, Variant},
@@ -580,7 +580,18 @@ c_action!(bookmarks_view);
 /************** Options Menu **************/
 
 c_action!(options_edit);
-c_action!(options_edit_shortcuts);
+
+pub fn options_edit_shortcuts(
+    main_win: &MainWindow,
+    _action: &gio::SimpleAction,
+    _parameter: Option<&glib::Variant>,
+) {
+    let main_win = main_win.clone();
+    glib::spawn_future_local(async move {
+        let shortcuts = main_win.shortcuts();
+        ShortcutsDialog::run(main_win.upcast_ref(), shortcuts).await;
+    });
+}
 
 /************** Connections Menu **************/
 
@@ -1484,29 +1495,3 @@ pub const USER_ACTIONS: Lazy<Vec<UserAction>> = Lazy::new(|| {
         ),
     ]
 });
-
-#[no_mangle]
-pub unsafe extern "C" fn gnome_cmd_user_actions_create_model() -> *mut GtkListStore {
-    let user_actions = &USER_ACTIONS;
-    let mut actions: Vec<(&str, &str, &str)> = user_actions
-        .iter()
-        // .filter(|a| a.parameter_type.is_none()) // TODO: uncomment when bookmark shortcuts are addressed
-        .map(|a| (a.action_name, a.name, a.description.as_str()))
-        .collect();
-
-    actions.sort_by_key(|t| t.2.to_lowercase());
-
-    let model = gtk::ListStore::new(&[
-        String::static_type(),
-        String::static_type(),
-        String::static_type(),
-    ]);
-    for (action_name, name, description) in actions {
-        let iter = model.append();
-        model.set_value(&iter, 0, &action_name.to_value());
-        model.set_value(&iter, 1, &name.to_value());
-        model.set_value(&iter, 2, &description.to_value());
-    }
-
-    model.to_glib_full()
-}

@@ -103,6 +103,18 @@ pub fn make_run_in_terminal_command(
     substitute_command_argument(&options.terminal_exec_cmd(), &arg)
 }
 
+pub trait SenderExt<T> {
+    fn toss(&self, message: T);
+}
+
+impl<T> SenderExt<T> for async_channel::Sender<T> {
+    fn toss(&self, message: T) {
+        if let Err(err) = self.send_blocking(message) {
+            eprintln!("Cannot send a message: {}", err);
+        }
+    }
+}
+
 pub fn close_dialog_with_escape_key(dialog: &gtk::Dialog) {
     let key_controller = gtk::EventControllerKey::new();
     key_controller.connect_key_pressed(glib::clone!(
@@ -119,6 +131,7 @@ pub fn close_dialog_with_escape_key(dialog: &gtk::Dialog) {
             }
         }
     ));
+    dialog.add_controller(key_controller);
 }
 
 pub const NO_BUTTONS: &'static [&'static gtk::Button] = &[];
@@ -168,6 +181,13 @@ impl ErrorMessage {
         Self {
             message: message.into(),
             secondary_text: secondary_text.map(|s| s.into()),
+        }
+    }
+
+    pub fn brief<M: Into<String>>(message: M) -> Self {
+        Self {
+            message: message.into(),
+            secondary_text: None,
         }
     }
 
@@ -348,4 +368,17 @@ pub fn bold(text: &str) -> String {
         "<span weight=\"bold\">{}</span>",
         glib::markup_escape_text(text)
     )
+}
+
+pub fn key_sorter<K, O>(key: K) -> gtk::Sorter
+where
+    K: Fn(&glib::Object) -> O + 'static,
+    O: std::cmp::Ord,
+{
+    gtk::CustomSorter::new(move |a, b| {
+        let key_a = (key)(a);
+        let key_b = (key)(b);
+        key_a.cmp(&key_b).into()
+    })
+    .upcast()
 }

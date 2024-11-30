@@ -30,8 +30,6 @@
 #include "gnome-cmd-manage-bookmarks-dialog.h"
 #include "gnome-cmd-treeview.h"
 #include "gnome-cmd-user-actions.h"
-#include "gnome-cmd-hintbox.h"
-#include "eggcellrendererkeys.h"
 #include "utils.h"
 
 using namespace std;
@@ -179,6 +177,7 @@ static void fill_tree (GtkTreeStore *store, GtkTreePath *&current_group)
     gtk_tree_store_clear (store);
 
     GnomeCmdCon *current_con = main_win->fs(ACTIVE)->get_connection();
+    GnomeCmdShortcuts *gcmd_shortcuts = gnome_cmd_main_win_shortcuts(main_win);
     GtkTreeIter toplevel;
 
     for (GList *all_cons = gnome_cmd_con_list_get_all (gnome_cmd_con_list_get ()); all_cons; all_cons = all_cons->next)

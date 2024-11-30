@@ -105,6 +105,7 @@ struct GnomeCmdMainWin::Private
     GWeakRef bookmarks_dlg;
 
     bool state_saved;
+    GnomeCmdShortcuts *gcmd_shortcuts;
 };
 
 
@@ -472,9 +473,9 @@ static void dispose (GObject *object)
 
     if (!main_win->priv->state_saved)
     {
-        gnome_cmd_shortcuts_save_to_settings (gcmd_shortcuts);
-        gnome_cmd_shortcuts_free (gcmd_shortcuts);
-        gcmd_shortcuts = nullptr;
+        gnome_cmd_shortcuts_save_to_settings (main_win->priv->gcmd_shortcuts);
+        gnome_cmd_shortcuts_free (main_win->priv->gcmd_shortcuts);
+        main_win->priv->gcmd_shortcuts = nullptr;
 
         gnome_cmd_data.save(main_win);
         main_win->priv->state_saved = true;
@@ -539,6 +540,7 @@ static void gnome_cmd_main_win_init (GnomeCmdMainWin *mw)
     mw->priv->file_search_dlg = { { nullptr } };
     mw->priv->bookmarks_dlg = { { nullptr } };
     mw->priv->state_saved = false;
+    mw->priv->gcmd_shortcuts = gnome_cmd_shortcuts_load_from_settings ();
 
     gtk_window_set_title (GTK_WINDOW (mw),
                           gcmd_owner.is_root()
@@ -870,7 +872,8 @@ gboolean GnomeCmdMainWin::key_pressed(GnomeCmdKeyPress *event)
                     break;
             }
 
-    return fs(ACTIVE)->key_pressed(event);
+    return fs(ACTIVE)->key_pressed(event)
+        || gnome_cmd_shortcuts_handle_key_event (priv->gcmd_shortcuts, this, event->keyval, event->state);
 }
 
 
@@ -1256,4 +1259,9 @@ void gnome_cmd_main_win_focus_file_lists(GnomeCmdMainWin *main_win)
 void gnome_cmd_main_win_update_bookmarks(GnomeCmdMainWin *main_win)
 {
     main_win->update_bookmarks();
+}
+
+GnomeCmdShortcuts *gnome_cmd_main_win_shortcuts(GnomeCmdMainWin *main_win)
+{
+    return main_win->priv->gcmd_shortcuts;
 }

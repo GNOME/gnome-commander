@@ -122,7 +122,6 @@ static void gnome_cmd_application_activate(GApplication *application)
         gnome_cmd_data.tabs[RIGHT].push_back(make_pair(string(start_dir_right), make_tuple(GnomeCmdFileList::COLUMN_NAME,GTK_SORT_ASCENDING,FALSE)));
     }
 
-    gcmd_shortcuts = gnome_cmd_shortcuts_load_from_settings ();
     ls_colors_init ();
 
     main_win = new GnomeCmdMainWin;
