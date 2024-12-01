@@ -20,14 +20,16 @@
 use crate::{
     shortcuts::{Shortcut, Shortcuts},
     user_actions::USER_ACTIONS,
-    utils::show_message,
+    utils::ErrorMessage,
 };
 use gettextrs::gettext;
-use glib::translate::{from_glib_full, FromGlib, IntoGlib};
 use gtk::{
     ffi::{GtkCellRendererAccel, GtkListStore, GtkTreeView},
     gdk::{self, ffi::GdkModifierType},
-    glib::{self, translate::from_glib_none},
+    glib::{
+        self,
+        translate::{from_glib_full, from_glib_none, FromGlib, IntoGlib},
+    },
     prelude::*,
 };
 use std::ffi::c_char;
@@ -103,31 +105,24 @@ fn find_accel(model: &gtk::ListStore, accel: Accel) -> Option<gtk::TreeIter> {
 }
 
 async fn conflict_confirm(parent: &gtk::Window, action: &str, accel: Accel) -> bool {
-    let dlg = gtk::MessageDialog::builder()
-        .transient_for(parent)
+    gtk::AlertDialog::builder()
         .modal(true)
-        .destroy_with_parent(true)
-        .title(gettext("Conflicting Shortcuts"))
-        .message_type(gtk::MessageType::Warning)
-        .text(
+        .message(
             gettext("Shortcut “{shortcut}” is already taken by “{action}”.")
                 .replace("{shortcut}", &accel.label())
                 .replace("{action}", action),
         )
-        .secondary_text(
+        .detail(
             gettext("Reassigning the shortcut will cause it to be removed from “{action}”.")
                 .replace("{action}", action),
         )
-        .build();
-    dlg.add_button(&gettext("_Cancel"), gtk::ResponseType::Cancel);
-    dlg.add_button(&gettext("_Reassign shortcut"), gtk::ResponseType::Ok);
-    dlg.set_default_response(gtk::ResponseType::Cancel);
-
-    dlg.present();
-    let response = dlg.run_future().await;
-    dlg.close();
-
-    response == gtk::ResponseType::Ok
+        .buttons([gettext("_Cancel"), gettext("_Reassign shortcut")])
+        .cancel_button(0)
+        .default_button(0)
+        .build()
+        .choose_future(Some(parent))
+        .await
+        == Ok(1)
 }
 
 async fn accel_edited_callback(path_string: &str, accel: Accel, view: &gtk::TreeView) {
@@ -137,7 +132,9 @@ async fn accel_edited_callback(path_string: &str, accel: Accel, view: &gtk::Tree
     };
 
     if accel.key == 0 {
-        show_message(&window, &gettext("Invalid shortcut."), None);
+        ErrorMessage::new(gettext("Invalid shortcut."), None::<String>)
+            .show(&window)
+            .await;
         return;
     }
 
@@ -146,7 +143,9 @@ async fn accel_edited_callback(path_string: &str, accel: Accel, view: &gtk::Tree
         return;
     };
     let Some(path) = gtk::TreePath::from_string(&path_string) else {
-        show_message(&window, &gettext("Invalid path."), None);
+        ErrorMessage::new(gettext("Invalid path."), None::<String>)
+            .show(&window)
+            .await;
         return;
     };
 

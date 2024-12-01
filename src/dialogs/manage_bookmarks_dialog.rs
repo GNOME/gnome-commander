@@ -24,7 +24,7 @@ use crate::{
     dir::{ffi::GnomeCmdDir, Directory},
     file::{File, GnomeCmdFileExt},
     main_win::{ffi::GnomeCmdMainWin, MainWindow},
-    utils::show_message,
+    utils::ErrorMessage,
 };
 use gettextrs::gettext;
 use gtk::{
@@ -155,7 +155,8 @@ pub async fn bookmark_directory(
     };
 
     let Some(path_str) = path.to_str() else {
-        show_message(main_win.upcast_ref(), &gettext("To bookmark a directory the whole search path to the directory must be in valid UTF-8 encoding"), None);
+        ErrorMessage::new(gettext("To bookmark a directory the whole search path to the directory must be in valid UTF-8 encoding"), None::<String>)
+            .show(main_win.upcast_ref()).await;
         return;
     };
 

@@ -28,10 +28,7 @@ use crate::{
     libgcmd::file_base::FileBaseExt,
     spawn::run_command_indir,
     transfer::gnome_cmd_tmp_download,
-    utils::{
-        get_modifiers_state, run_simple_dialog, show_error_message, show_message, temp_file,
-        ErrorMessage,
-    },
+    utils::{get_modifiers_state, temp_file, ErrorMessage},
 };
 use gettextrs::{gettext, ngettext};
 use gtk::{
@@ -99,17 +96,16 @@ async fn ask_download_remote_files(
             "{} does not know how to open remote file. Do you want to download the file to a temporary location and then open it?",
             "{} does not know how to open remote files. Do you want to download the files to a temporary location and then open them?", no_of_remote_files)
             .replace("{}", app_name);
-        run_simple_dialog(
-            parent_window,
-            true,
-            gtk::MessageType::Question,
-            &msg,
-            "",
-            None,
-            &[&gettext("No"), &gettext("Yes")],
-        )
-        .await
-            == gtk::ResponseType::Other(1)
+        gtk::AlertDialog::builder()
+            .modal(true)
+            .message(msg)
+            .buttons([gettext("No"), gettext("Yes")])
+            .cancel_button(0)
+            .default_button(1)
+            .build()
+            .choose_future(Some(parent_window))
+            .await
+            == Ok(1)
     } else {
         false
     }
@@ -130,11 +126,9 @@ async fn mime_exec_multiple(
     options: &dyn ProgramsOptionsRead,
 ) {
     if files.is_empty() {
-        show_message(
-            parent_window,
-            &gettext("No files were given to open."),
-            None,
-        );
+        ErrorMessage::new(gettext("No files were given to open."), None::<String>)
+            .show(parent_window)
+            .await;
         return;
     }
 
@@ -148,7 +142,7 @@ async fn mime_exec_multiple(
             let tmp_files = match create_temporary_files(&remote) {
                 Ok(files) => files,
                 Err(error) => {
-                    show_error_message(parent_window, &error);
+                    error.show(parent_window).await;
                     return;
                 }
             };
@@ -163,7 +157,9 @@ async fn mime_exec_multiple(
             {
                 local.extend(tmp_files);
             } else {
-                show_message(parent_window, &gettext("Download failed."), None);
+                ErrorMessage::new(gettext("Download failed."), None::<String>)
+                    .show(parent_window)
+                    .await;
                 return;
             }
         }
@@ -172,7 +168,7 @@ async fn mime_exec_multiple(
     };
 
     if let Err(error) = app.launch(&files_to_open, options) {
-        show_error_message(parent_window, &error);
+        error.show(parent_window).await;
     }
 }
 
@@ -233,11 +229,12 @@ pub extern "C" fn gnome_cmd_file_selector_action_open_with_default(
                     });
                 grouped[pos].1.push_back(file);
             } else {
-                show_message(
-                    &parent_window,
-                    &file.file_info().display_name(),
+                ErrorMessage::new(
+                    file.file_info().display_name(),
                     Some(&gettext("Couldn’t retrieve MIME type of the file.")),
-                );
+                )
+                .show(&parent_window)
+                .await;
             }
         }
 

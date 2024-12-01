@@ -26,7 +26,7 @@ use crate::{
     dir::Directory,
     file::{File, GnomeCmdFileExt},
     file_selector::FileSelector,
-    utils::{bold, pending, run_simple_dialog, show_error_message_future},
+    utils::{bold, pending, ErrorMessage},
 };
 use gettextrs::gettext;
 use gtk::{gdk, gio, glib, prelude::*, subclass::prelude::*};
@@ -215,17 +215,16 @@ async fn ask_create_directory(parent_window: &gtk::Window, path: &Path) -> bool 
             .unwrap_or(path.as_os_str())
             .to_string_lossy(),
     );
-    let answer = run_simple_dialog(
-        parent_window,
-        true,
-        gtk::MessageType::Question,
-        &msg,
-        "",
-        None,
-        &[&gettext("No"), &gettext("Yes")],
-    )
-    .await;
-    answer == gtk::ResponseType::Other(1)
+    gtk::AlertDialog::builder()
+        .modal(true)
+        .message(msg)
+        .buttons([gettext("No"), gettext("Yes")])
+        .cancel_button(0)
+        .default_button(1)
+        .build()
+        .choose_future(Some(parent_window))
+        .await
+        == Ok(1)
 }
 
 impl PrepareTransferDialog {
@@ -442,13 +441,7 @@ pub async fn handle_user_input(
                 // Nothing exists, ask the user if a new directory might be suitable in the path that he specified
                 if ask_create_directory(parent_window, parent_dir).await {
                     if let Err(error) = con.mkdir(parent_dir) {
-                        show_error_message_future(
-                            parent_window,
-                            &gettext("Directory {} cannot be created.")
-                                .replace("{}", &parent_dir.display().to_string()),
-                            Some(&error.message()),
-                        )
-                        .await;
+                        say_mkdir_failed(parent_window, parent_dir, &error).await;
                         return None;
                     }
                 } else {
@@ -475,7 +468,7 @@ pub async fn handle_user_input(
             // Nothing exists, ask the user if a new directory might be suitable in the path that he specified
             if ask_create_directory(parent_window, &dest_path).await {
                 if let Err(error) = con.mkdir(&dest_path) {
-                    show_error_message_future(parent_window, error.message(), None).await;
+                    say_mkdir_failed(parent_window, &dest_path, &error).await;
                     return None;
                 }
             } else {
@@ -490,4 +483,13 @@ pub async fn handle_user_input(
     };
 
     Some((dest_dir, dest_fn))
+}
+
+async fn say_mkdir_failed(parent_window: &gtk::Window, dir: &Path, error: &glib::Error) {
+    ErrorMessage::with_error(
+        gettext("Directory {} cannot be created.").replace("{}", &dir.display().to_string()),
+        &error,
+    )
+    .show(parent_window)
+    .await;
 }

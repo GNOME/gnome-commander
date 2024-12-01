@@ -198,15 +198,16 @@ impl FileSelector {
 }
 
 async fn ask_close_locked_tab(parent: &gtk::Window) -> bool {
-    let dlg = gtk::MessageDialog::builder()
-        .transient_for(parent)
-        .message_type(gtk::MessageType::Question)
-        .buttons(gtk::ButtonsType::OkCancel)
-        .text(gettext("The tab is locked, close anyway?"))
-        .build();
-    let result = dlg.run_future().await;
-    dlg.close();
-    result == gtk::ResponseType::Ok
+    gtk::AlertDialog::builder()
+        .modal(true)
+        .message(gettext("The tab is locked, close anyway?"))
+        .buttons([gettext("_Cancel"), gettext("_OK")])
+        .cancel_button(0)
+        .default_button(1)
+        .build()
+        .choose_future(Some(parent))
+        .await
+        == Ok(1)
 }
 
 async fn on_notebook_button_pressed(

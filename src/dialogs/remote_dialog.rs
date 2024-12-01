@@ -209,9 +209,7 @@ mod imp {
                 #[weak(rename_to = imp)]
                 self,
                 move |_| {
-                    glib::spawn_future_local(async move {
-                        imp.on_new_btn_clicked().await;
-                    });
+                    glib::spawn_future_local(async move { imp.on_new_btn_clicked().await });
                 }
             ));
             bbox.append(&add_button);
@@ -220,9 +218,7 @@ mod imp {
                 #[weak(rename_to = imp)]
                 self,
                 move |_| {
-                    glib::spawn_future_local(async move {
-                        imp.on_edit_btn_clicked().await;
-                    });
+                    glib::spawn_future_local(async move { imp.on_edit_btn_clicked().await });
                 }
             ));
             bbox.append(&self.edit_button);
@@ -241,7 +237,9 @@ mod imp {
             help_button.connect_clicked(glib::clone!(
                 #[weak(rename_to = imp)]
                 self,
-                move |_| imp.on_help_btn_clicked()
+                move |_| {
+                    glib::spawn_future_local(async move { imp.on_help_btn_clicked().await });
+                }
             ));
 
             let close_button = gtk::Button::builder()
@@ -369,11 +367,12 @@ mod imp {
             }
         }
 
-        fn on_help_btn_clicked(&self) {
+        async fn on_help_btn_clicked(&self) {
             display_help(
                 self.obj().upcast_ref(),
                 Some("gnome-commander-remote-connections"),
-            );
+            )
+            .await;
         }
 
         fn on_close_btn_clicked(&self) {

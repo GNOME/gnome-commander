@@ -307,7 +307,13 @@ pub async fn manage_profiles<M: ProfileManager + 'static>(
             parent,
             #[to_owned]
             help_id,
-            move |_| display_help(&parent, Some(&help_id))
+            move |_| {
+                let parent = parent.clone();
+                let help_id = help_id.clone();
+                glib::spawn_future_local(
+                    async move { display_help(&parent, Some(&help_id)).await },
+                );
+            }
         ));
         start_buttons.push(help_button);
     }

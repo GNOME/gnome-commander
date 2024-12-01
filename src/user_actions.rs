@@ -43,10 +43,7 @@ use crate::{
     main_win::{ffi::*, MainWindow},
     spawn::{spawn_async, spawn_async_command, SpawnError},
     types::FileSelectorID,
-    utils::{
-        display_help, get_modifiers_state, prompt_message, run_simple_dialog, show_error_message,
-        show_message, ErrorMessage,
-    },
+    utils::{display_help, get_modifiers_state, ErrorMessage},
 };
 use gettextrs::{gettext, ngettext};
 use gtk::{
@@ -291,26 +288,24 @@ async fn create_symlinks(
                     // do nothing
                 }
                 Err(error) => {
-                    let choice = run_simple_dialog(
-                        parent_window,
-                        true,
-                        gtk::MessageType::Question,
-                        &error.message(),
-                        &gettext("Create Symbolic Link"),
-                        Some(3),
-                        &[
-                            &gettext("Skip"),
-                            &gettext("Skip all"),
-                            &gettext("Cancel"),
-                            &gettext("Retry"),
-                        ],
-                    )
-                    .await;
-
+                    let choice = gtk::AlertDialog::builder()
+                        .modal(true)
+                        .message(error.message())
+                        .buttons([
+                            gettext("Skip"),
+                            gettext("Skip all"),
+                            gettext("Cancel"),
+                            gettext("Retry"),
+                        ])
+                        .cancel_button(0)
+                        .default_button(3)
+                        .build()
+                        .choose_future(Some(parent_window))
+                        .await;
                     match choice {
-                        gtk::ResponseType::Other(0) /* Skip */ => { break; },
-                        gtk::ResponseType::Other(1) /* Skip all */ => { skip_all = true; break; },
-                        gtk::ResponseType::Other(3) /* Retry */ => { continue; },
+                        Ok(0) /* Skip */ => { break; },
+                        Ok(1) /* Skip all */ => { skip_all = true; break; },
+                        Ok(3) /* Retry */ => { continue; },
                         _ /* Cancel */ => { return },
                     }
                 }
@@ -349,17 +344,16 @@ pub fn file_create_symlink(
             .replace("{count}", &selected_files_len.to_string())
             .replace("{dir}", &dest_directory.display_path());
 
-            let choice = run_simple_dialog(
-                main_win.upcast_ref(),
-                true,
-                gtk::MessageType::Question,
-                &message,
-                &gettext("Create Symbolic Link"),
-                Some(1),
-                &[&gettext("Cancel"), &gettext("Create")],
-            )
-            .await;
-            if choice == gtk::ResponseType::Other(1) {
+            let choice = gtk::AlertDialog::builder()
+                .modal(true)
+                .message(message)
+                .buttons([gettext("Cancel"), gettext("Create")])
+                .cancel_button(0)
+                .default_button(1)
+                .build()
+                .choose_future(Some(&main_win))
+                .await;
+            if choice == Ok(1) {
                 create_symlinks(
                     main_win.upcast_ref(),
                     &selected_files,
@@ -438,36 +432,38 @@ pub fn command_execute(
     _action: &gio::SimpleAction,
     parameter: Option<&glib::Variant>,
 ) {
-    let Some(command_template) = parameter.and_then(|p| p.str()) else {
-        show_message(
-            main_win.upcast_ref(),
-            &gettext("No command was given."),
-            None,
-        );
-        return;
-    };
+    let main_win = main_win.clone();
+    let parameter = parameter.cloned();
+    glib::spawn_future_local(async move {
+        let Some(command_template) = parameter.as_ref().and_then(|p| p.str()) else {
+            ErrorMessage::new(gettext("No command was given."), None::<String>)
+                .show(main_win.upcast_ref())
+                .await;
+            return;
+        };
 
-    let fs = main_win.file_selector(FileSelectorID::ACTIVE);
-    let fl = fs.file_list();
+        let fs = main_win.file_selector(FileSelectorID::ACTIVE);
+        let fl = fs.file_list();
 
-    let sfl = fl.selected_files();
+        let sfl = fl.selected_files();
 
-    let grouped = sfl
-        .iter()
-        .map(|f| f.file().parent().and_then(|p| p.path()))
-        .collect::<HashSet<Option<PathBuf>>>();
-    let dir_path = if grouped.len() == 1 {
-        grouped.into_iter().next().flatten()
-    } else {
-        None
-    };
-    // TODO: gnome_cmd_dir_is_local (dir) ? dir_path.c_str() : nullptr
+        let grouped = sfl
+            .iter()
+            .map(|f| f.file().parent().and_then(|p| p.path()))
+            .collect::<HashSet<Option<PathBuf>>>();
+        let dir_path = if grouped.len() == 1 {
+            grouped.into_iter().next().flatten()
+        } else {
+            None
+        };
+        // TODO: gnome_cmd_dir_is_local (dir) ? dir_path.c_str() : nullptr
 
-    if let Err(error_message) =
-        spawn_async(dir_path.as_deref(), &sfl, command_template).map_err(SpawnError::into_message)
-    {
-        show_error_message(main_win.upcast_ref(), &error_message);
-    }
+        if let Err(error_message) = spawn_async(dir_path.as_deref(), &sfl, command_template)
+            .map_err(SpawnError::into_message)
+        {
+            error_message.show(main_win.upcast_ref()).await;
+        }
+    });
 }
 
 pub fn open_terminal(
@@ -496,10 +492,13 @@ pub fn command_open_terminal(
     _action: &gio::SimpleAction,
     _parameter: Option<&glib::Variant>,
 ) {
+    let main_win = main_win.clone();
     let options = ProgramsOptions::new();
-    if let Err(error_message) = open_terminal(&main_win, &options) {
-        show_error_message(main_win.upcast_ref(), &error_message);
-    }
+    glib::spawn_future_local(async move {
+        if let Err(error_message) = open_terminal(&main_win, &options) {
+            error_message.show(main_win.upcast_ref()).await;
+        }
+    });
 }
 
 /* ***************************** View Menu ****************************** */
@@ -531,15 +530,16 @@ c_action!(view_root);
 c_action!(view_new_tab);
 
 async fn ask_close_locked_tab(parent_window: &gtk::Window) -> bool {
-    prompt_message(
-        parent_window,
-        gtk::MessageType::Question,
-        gtk::ButtonsType::OkCancel,
-        &gettext("The tab is locked, close anyway?"),
-        None,
-    )
-    .await
-        == gtk::ResponseType::Ok
+    gtk::AlertDialog::builder()
+        .modal(true)
+        .message(gettext("The tab is locked, close anyway?"))
+        .buttons([gettext("_Cancel"), gettext("_OK")])
+        .cancel_button(0)
+        .default_button(1)
+        .build()
+        .choose_future(Some(parent_window))
+        .await
+        == Ok(1)
 }
 
 pub fn view_close_tab(
@@ -711,7 +711,10 @@ pub fn help_help(
     _action: &gio::SimpleAction,
     _parameter: Option<&glib::Variant>,
 ) {
-    display_help(main_win.upcast_ref(), None);
+    let main_win = main_win.clone();
+    glib::spawn_future_local(async move {
+        display_help(main_win.upcast_ref(), None).await;
+    });
 }
 
 pub fn help_keyboard(
@@ -719,7 +722,10 @@ pub fn help_keyboard(
     _action: &gio::SimpleAction,
     _parameter: Option<&glib::Variant>,
 ) {
-    display_help(main_win.upcast_ref(), Some("gnome-commander-keyboard"));
+    let main_win = main_win.clone();
+    glib::spawn_future_local(async move {
+        display_help(main_win.upcast_ref(), Some("gnome-commander-keyboard")).await;
+    });
 }
 
 pub fn help_web(
@@ -727,12 +733,17 @@ pub fn help_web(
     _action: &gio::SimpleAction,
     _parameter: Option<&glib::Variant>,
 ) {
-    gtk::show_uri(Some(main_win), PACKAGE_URL, gdk::CURRENT_TIME);
-    // show_error(
-    //     main_win.upcast_ref(),
-    //     &gettext("There was an error opening home page."),
-    //     &error,
-    // );
+    let main_win = main_win.clone();
+    glib::spawn_future_local(async move {
+        if let Err(error) = gtk::UriLauncher::new(PACKAGE_URL)
+            .launch_future(Some(&main_win))
+            .await
+        {
+            ErrorMessage::with_error(gettext("There was an error opening home page."), &error)
+                .show(main_win.upcast_ref())
+                .await;
+        }
+    });
 }
 
 pub fn help_problem(
@@ -740,12 +751,17 @@ pub fn help_problem(
     _action: &gio::SimpleAction,
     _parameter: Option<&glib::Variant>,
 ) {
-    gtk::show_uri(Some(main_win), PACKAGE_BUGREPORT, gdk::CURRENT_TIME);
-    // show_error(
-    //     main_win.upcast_ref(),
-    //     &gettext("There was an error reporting problem."),
-    //     &error,
-    // );
+    let main_win = main_win.clone();
+    glib::spawn_future_local(async move {
+        if let Err(error) = gtk::UriLauncher::new(PACKAGE_BUGREPORT)
+            .launch_future(Some(&main_win))
+            .await
+        {
+            ErrorMessage::with_error(gettext("There was an error reporting problem."), &error)
+                .show(main_win.upcast_ref())
+                .await;
+        }
+    });
 }
 
 pub fn help_about(

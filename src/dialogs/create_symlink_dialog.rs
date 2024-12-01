@@ -22,7 +22,7 @@ use crate::{
     dir::Directory,
     file::{File, GnomeCmdFileExt},
     libgcmd::file_base::FileBaseExt,
-    utils::{dialog_button_box, show_message, NO_BUTTONS},
+    utils::{dialog_button_box, ErrorMessage, NO_BUTTONS},
 };
 use gettextrs::gettext;
 use gtk::{gdk, gio, glib, prelude::*};
@@ -90,35 +90,43 @@ pub async fn show_create_symlink_dialog(
         #[strong]
         file,
         move |_| {
+            let dialog = dialog.clone();
             let link_name = entry.text();
+            let directory = directory.clone();
+            let file = file.clone();
+            glib::spawn_future_local(async move {
+                if link_name.is_empty() {
+                    ErrorMessage::new(gettext("No file name given"), None::<String>)
+                        .show(dialog.upcast_ref())
+                        .await;
+                    return;
+                }
 
-            if link_name.is_empty() {
-                show_message(dialog.upcast_ref(), &gettext("No file name given"), None);
-                return;
-            }
+                let symlink_file: gio::File = if link_name.starts_with('/') {
+                    let con = directory.connection();
+                    let path = con.create_path(&Path::new(&link_name));
+                    con.create_gfile(Some(&path.path()))
+                } else {
+                    directory.get_child_gfile(&link_name)
+                };
+                let absolute_path = file.file().parse_name();
 
-            let symlink_ile: gio::File = if link_name.starts_with('/') {
-                let con = directory.connection();
-                let path = con.create_path(&Path::new(&link_name));
-                con.create_gfile(Some(&path.path()))
-            } else {
-                directory.get_child_gfile(&link_name)
-            };
-            let absolute_path = file.file().parse_name();
-
-            match symlink_ile.make_symbolic_link(absolute_path, gio::Cancellable::NONE) {
-                Ok(_) => {
-                    if symlink_ile.parent().map_or(false, |parent| {
-                        parent.equal(&directory.upcast_ref::<File>().file())
-                    }) {
-                        directory.file_created(&symlink_ile.uri());
+                match symlink_file.make_symbolic_link(absolute_path, gio::Cancellable::NONE) {
+                    Ok(_) => {
+                        if symlink_file.parent().map_or(false, |parent| {
+                            parent.equal(&directory.upcast_ref::<File>().file())
+                        }) {
+                            directory.file_created(&symlink_file.uri());
+                        }
+                        dialog.response(gtk::ResponseType::Ok);
                     }
-                    dialog.response(gtk::ResponseType::Ok);
+                    Err(error) => {
+                        ErrorMessage::with_error(gettext("Making a symbolic link failed"), &error)
+                            .show(dialog.upcast_ref())
+                            .await;
+                    }
                 }
-                Err(error) => {
-                    show_message(dialog.upcast_ref(), error.message(), None);
-                }
-            }
+            });
         }
     ));
 
