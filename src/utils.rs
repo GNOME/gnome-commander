@@ -22,10 +22,9 @@
 
 use crate::{config::PREFIX, data::ProgramsOptionsRead, file::File};
 use gettextrs::{gettext, ngettext};
-use gtk::{gdk, glib, prelude::*};
+use gtk::{gdk, glib, pango::prelude, prelude::*};
 use std::{
     ffi::{OsStr, OsString},
-    process::Command,
     sync::OnceLock,
     time::Duration,
 };
@@ -104,82 +103,6 @@ pub fn make_run_in_terminal_command(
     substitute_command_argument(&options.terminal_exec_cmd(), &arg)
 }
 
-pub fn sudo_command() -> Result<Command, ErrorMessage> {
-    fn find_sudo_program(cmd: &str, args: &[&str]) -> Option<std::process::Command> {
-        let path = glib::find_program_in_path(cmd)?;
-        let mut command = Command::new(path);
-        for arg in args {
-            command.arg(arg);
-        }
-        Some(command)
-    }
-
-    find_sudo_program("gksudo", &[])
-        .or_else(|| find_sudo_program("xdg-su", &[]))
-        .or_else(|| find_sudo_program("gksu", &[]))
-        .or_else(|| find_sudo_program("gnomesu", &["-c"]))
-        .or_else(|| find_sudo_program("kdesu", &[]))
-        .or_else(|| find_sudo_program("beesu", &[]))
-        .or_else(|| find_sudo_program("pkexec", &[]))
-        .ok_or_else(|| ErrorMessage {
-            message: gettext("gksudo, xdg-su, gksu, gnomesu, kdesu, beesu or pkexec is not found."),
-            secondary_text: None,
-        })
-}
-
-pub async fn run_simple_dialog(
-    parent: &gtk::Window,
-    ignore_close_box: bool,
-    msg_type: gtk::MessageType,
-    text: &str,
-    title: &str,
-    def_response: Option<u16>,
-    buttons: &[&str],
-) -> gtk::ResponseType {
-    let dialog = gtk::MessageDialog::builder()
-        .transient_for(parent)
-        .modal(true)
-        .message_type(msg_type)
-        .text(text)
-        .use_markup(true)
-        .title(title)
-        .deletable(!ignore_close_box)
-        .build();
-    for (i, button) in buttons.into_iter().enumerate() {
-        dialog.add_button(button, gtk::ResponseType::Other(i as u16));
-    }
-
-    if let Some(response_id) = def_response {
-        dialog.set_default_response(gtk::ResponseType::Other(response_id));
-    }
-
-    if ignore_close_box {
-        dialog.connect_close_request(|_| glib::Propagation::Stop);
-    } else {
-        let key_controller = gtk::EventControllerKey::new();
-        key_controller.connect_key_pressed(glib::clone!(
-            #[weak]
-            dialog,
-            #[upgrade_or]
-            glib::Propagation::Stop,
-            move |_, key, _, _| {
-                if key == gdk::Key::Escape {
-                    dialog.response(gtk::ResponseType::None);
-                    glib::Propagation::Stop
-                } else {
-                    glib::Propagation::Proceed
-                }
-            }
-        ));
-        dialog.add_controller(key_controller);
-    }
-
-    let result = dialog.run_future().await;
-    dialog.hide();
-
-    result
-}
-
 pub fn close_dialog_with_escape_key(dialog: &gtk::Dialog) {
     let key_controller = gtk::EventControllerKey::new();
     key_controller.connect_key_pressed(glib::clone!(
@@ -235,37 +158,6 @@ pub fn dialog_button_box(
     bx.upcast()
 }
 
-pub async fn prompt_message(
-    parent: &gtk::Window,
-    message_type: gtk::MessageType,
-    buttons: gtk::ButtonsType,
-    message: &str,
-    secondary_text: Option<&str>,
-) -> gtk::ResponseType {
-    let dlg = gtk::MessageDialog::builder()
-        .transient_for(parent)
-        .destroy_with_parent(true)
-        .message_type(message_type)
-        .buttons(buttons)
-        .text(message)
-        .build();
-    dlg.set_secondary_text(secondary_text);
-    let result = dlg.run_future().await;
-    dlg.close();
-    result
-}
-
-fn create_error_dialog(parent: &gtk::Window, message: &str) -> gtk::MessageDialog {
-    gtk::MessageDialog::builder()
-        .transient_for(parent)
-        .destroy_with_parent(true)
-        .modal(true)
-        .message_type(gtk::MessageType::Error)
-        .buttons(gtk::ButtonsType::Ok)
-        .text(message)
-        .build()
-}
-
 pub struct ErrorMessage {
     pub message: String,
     pub secondary_text: Option<String>,
@@ -287,49 +179,39 @@ impl ErrorMessage {
     }
 
     pub async fn show(&self, parent: &gtk::Window) {
-        let dlg = create_error_dialog(parent, &self.message);
-        dlg.set_secondary_text(self.secondary_text.as_deref());
-        dlg.present();
-        dlg.run_future().await;
-        dlg.close();
+        let alert = gtk::AlertDialog::builder()
+            .modal(true)
+            .message(&self.message)
+            .buttons([gettext("_OK")])
+            .cancel_button(0)
+            .default_button(0)
+            .build();
+        if let Some(ref secondary_text) = self.secondary_text {
+            alert.set_detail(secondary_text);
+        }
+        if let Err(error) = alert.choose_future(Some(parent)).await {
+            eprintln!("{error}");
+        }
     }
 }
 
-pub fn show_error_message(parent: &gtk::Window, message: &ErrorMessage) {
-    show_message(parent, &message.message, message.secondary_text.as_deref());
-}
-
-pub fn show_message(parent: &gtk::Window, message: &str, secondary_text: Option<&str>) {
-    let dlg = create_error_dialog(parent, message);
-    dlg.set_secondary_text(secondary_text);
-    dlg.connect_response(|dlg, _response| dlg.close());
-    dlg.present();
-}
-
-pub fn show_error(parent: &gtk::Window, message: &str, error: &dyn std::error::Error) {
-    show_message(parent, message, Some(&error.to_string()));
-}
-
-pub async fn show_error_message_future(
-    parent: &gtk::Window,
-    message: &str,
-    secondary_text: Option<&str>,
-) {
-    let dlg = create_error_dialog(parent, message);
-    dlg.set_secondary_text(secondary_text);
-    dlg.present();
-    dlg.run_future().await;
-    dlg.close();
-}
-
-pub fn display_help(parent_window: &gtk::Window, link_id: Option<&str>) {
+pub async fn display_help(parent_window: &gtk::Window, link_id: Option<&str>) {
     let mut help_uri = format!("help:{}", crate::config::PACKAGE);
     if let Some(link_id) = link_id {
         help_uri.push('/');
         help_uri.push_str(link_id);
     }
-
-    gtk::show_uri(Some(parent_window), &help_uri, gdk::CURRENT_TIME);
+    if let Err(error) = gtk::UriLauncher::new(&help_uri)
+        .launch_future(Some(parent_window))
+        .await
+    {
+        ErrorMessage::with_error(
+            gettext("There was an error while opening help uri {uri}.").replace("{uri}", &help_uri),
+            &error,
+        )
+        .show(parent_window)
+        .await;
+    }
 }
 
 pub fn toggle_file_name_selection(entry: &gtk::Entry) {

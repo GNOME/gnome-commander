@@ -94,15 +94,15 @@ impl ViewerWindow {
 }
 
 async fn say_not_found(parent: &gtk::Window, search_pattern: &str) {
-    let dlg = gtk::MessageDialog::builder()
-        .transient_for(parent)
+    let _answer = gtk::AlertDialog::builder()
         .modal(true)
-        .message_type(gtk::MessageType::Info)
-        .buttons(gtk::ButtonsType::Ok)
-        .text(gettext("Pattern “{}” was not found").replace("{}", search_pattern))
-        .build();
-    dlg.run_future().await;
-    dlg.close();
+        .message(gettext("Pattern “{}” was not found").replace("{}", search_pattern))
+        .buttons([gettext("_OK")])
+        .cancel_button(0)
+        .default_button(0)
+        .build()
+        .choose_future(Some(parent))
+        .await;
 }
 
 async fn start_search(

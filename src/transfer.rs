@@ -24,7 +24,7 @@ use crate::{
     dialogs::transfer_progress_dialog::TransferProgressWindow,
     dir::Directory,
     types::{GnomeCmdConfirmOverwriteMode, GnomeCmdTransferType},
-    utils::{nice_size, pending, run_simple_dialog, show_error, time_to_string, SizeDisplayMode},
+    utils::{nice_size, pending, time_to_string, ErrorMessage, SizeDisplayMode},
 };
 use async_channel::{Receiver, Sender};
 use gettextrs::gettext;
@@ -274,38 +274,36 @@ impl ProblemAction {
 
 async fn run_simple_error_dialog(
     parent_window: &gtk::Window,
-    title: &str,
     msg: &str,
+    error: &glib::Error,
 ) -> ProblemAction {
-    let answer = run_simple_dialog(
-        parent_window,
-        true,
-        gtk::MessageType::Error,
-        msg,
-        title,
-        None,
-        &[&gettext("Abort"), &gettext("Retry"), &gettext("Skip")],
-    )
-    .await;
+    let answer = gtk::AlertDialog::builder()
+        .modal(true)
+        .message(msg)
+        .detail(error.message())
+        .buttons([gettext("Abort"), gettext("Retry"), gettext("Skip")])
+        .cancel_button(0)
+        .build()
+        .choose_future(Some(parent_window))
+        .await;
     match answer {
-        gtk::ResponseType::Other(0) => ProblemAction::Abort,
-        gtk::ResponseType::Other(1) => ProblemAction::Retry,
-        gtk::ResponseType::Other(2) => ProblemAction::Skip,
+        Ok(1) => ProblemAction::Retry,
+        Ok(2) => ProblemAction::Skip,
         _ => ProblemAction::Abort,
     }
 }
 
 async fn run_failure_dialog(parent_window: &gtk::Window, msg: &str, error: &glib::Error) {
-    let _answer = run_simple_dialog(
-        parent_window,
-        true,
-        gtk::MessageType::Error,
-        format!("{}\n\n{}", msg, error.message()).trim(),
-        &gettext("Transfer problem"),
-        None,
-        &[&gettext("Abort")],
-    )
-    .await;
+    let _answer = gtk::AlertDialog::builder()
+        .modal(true)
+        .message(msg)
+        .detail(error.message())
+        .buttons([gettext("Abort")])
+        .cancel_button(0)
+        .default_button(0)
+        .build()
+        .choose_future(Some(parent_window))
+        .await;
 }
 
 async fn run_directory_copy_overwrite_dialog(
@@ -314,49 +312,44 @@ async fn run_directory_copy_overwrite_dialog(
     many: bool,
 ) -> ProblemAction {
     let answer = if many {
-        run_simple_dialog(
-            parent_window,
-            true,
-            gtk::MessageType::Error,
-            msg,
-            &gettext("Copy problem"),
-            None,
-            &[
-                &gettext("Abort"),
-                &gettext("Retry"),
-                &gettext("Copy into"),
-                &gettext("Rename"),
-                &gettext("Rename all"),
-                &gettext("Skip"),
-                &gettext("Skip all"),
-            ],
-        )
-        .await
+        gtk::AlertDialog::builder()
+            .modal(true)
+            .message(msg)
+            .buttons([
+                gettext("Abort"),
+                gettext("Retry"),
+                gettext("Copy into"),
+                gettext("Rename"),
+                gettext("Rename all"),
+                gettext("Skip"),
+                gettext("Skip all"),
+            ])
+            .cancel_button(0)
+            .build()
+            .choose_future(Some(parent_window))
+            .await
     } else {
-        run_simple_dialog(
-            parent_window,
-            true,
-            gtk::MessageType::Error,
-            msg,
-            &gettext("Copy problem"),
-            None,
-            &[
-                &gettext("Abort"),
-                &gettext("Retry"),
-                &gettext("Copy into"),
-                &gettext("Rename"),
-            ],
-        )
-        .await
+        gtk::AlertDialog::builder()
+            .modal(true)
+            .message(msg)
+            .buttons([
+                gettext("Abort"),
+                gettext("Retry"),
+                gettext("Copy into"),
+                gettext("Rename"),
+            ])
+            .cancel_button(0)
+            .build()
+            .choose_future(Some(parent_window))
+            .await
     };
     match answer {
-        gtk::ResponseType::Other(0) => ProblemAction::Abort,
-        gtk::ResponseType::Other(1) => ProblemAction::Retry,
-        gtk::ResponseType::Other(2) => ProblemAction::CopyInto,
-        gtk::ResponseType::Other(3) => ProblemAction::Rename,
-        gtk::ResponseType::Other(4) => ProblemAction::RenameAll,
-        gtk::ResponseType::Other(5) => ProblemAction::Skip,
-        gtk::ResponseType::Other(6) => ProblemAction::SkipAll,
+        Ok(1) => ProblemAction::Retry,
+        Ok(2) => ProblemAction::CopyInto,
+        Ok(3) => ProblemAction::Rename,
+        Ok(4) => ProblemAction::RenameAll,
+        Ok(5) => ProblemAction::Skip,
+        Ok(6) => ProblemAction::SkipAll,
         _ => ProblemAction::Abort,
     }
 }
@@ -374,51 +367,46 @@ async fn run_file_copy_overwrite_dialog(
         .replace("{src}", &file_details(src, size_display_mode, date_format)?);
 
     let answer = if many {
-        run_simple_dialog(
-            parent_window,
-            true,
-            gtk::MessageType::Error,
-            &msg,
-            &gettext("Copy problem"),
-            None,
-            &[
-                &gettext("Abort"),
-                &gettext("Retry"),
-                &gettext("Replace"),
-                &gettext("Rename"),
-                &gettext("Skip"),
-                &gettext("Replace all"),
-                &gettext("Rename all"),
-                &gettext("Skip all"),
-            ],
-        )
-        .await
+        gtk::AlertDialog::builder()
+            .modal(true)
+            .message(msg)
+            .buttons([
+                gettext("Abort"),
+                gettext("Retry"),
+                gettext("Replace"),
+                gettext("Rename"),
+                gettext("Skip"),
+                gettext("Replace all"),
+                gettext("Rename all"),
+                gettext("Skip all"),
+            ])
+            .cancel_button(0)
+            .build()
+            .choose_future(Some(parent_window))
+            .await
     } else {
-        run_simple_dialog(
-            parent_window,
-            true,
-            gtk::MessageType::Error,
-            &msg,
-            &gettext("Copy problem"),
-            None,
-            &[
-                &gettext("Abort"),
-                &gettext("Retry"),
-                &gettext("Replace"),
-                &gettext("Rename"),
-            ],
-        )
-        .await
+        gtk::AlertDialog::builder()
+            .modal(true)
+            .message(msg)
+            .buttons([
+                gettext("Abort"),
+                gettext("Retry"),
+                gettext("Replace"),
+                gettext("Rename"),
+            ])
+            .cancel_button(0)
+            .build()
+            .choose_future(Some(parent_window))
+            .await
     };
     Ok(match answer {
-        gtk::ResponseType::Other(0) => ProblemAction::Abort,
-        gtk::ResponseType::Other(1) => ProblemAction::Retry,
-        gtk::ResponseType::Other(2) => ProblemAction::Replace,
-        gtk::ResponseType::Other(3) => ProblemAction::Rename,
-        gtk::ResponseType::Other(4) => ProblemAction::Skip,
-        gtk::ResponseType::Other(5) => ProblemAction::ReplaceAll,
-        gtk::ResponseType::Other(6) => ProblemAction::RenameAll,
-        gtk::ResponseType::Other(7) => ProblemAction::SkipAll,
+        Ok(1) => ProblemAction::Retry,
+        Ok(2) => ProblemAction::Replace,
+        Ok(3) => ProblemAction::Rename,
+        Ok(4) => ProblemAction::Skip,
+        Ok(5) => ProblemAction::ReplaceAll,
+        Ok(6) => ProblemAction::RenameAll,
+        Ok(7) => ProblemAction::SkipAll,
         _ => ProblemAction::Abort,
     })
 }
@@ -442,9 +430,8 @@ async fn update_transfer_gui_error_copy(
     size_display_mode: SizeDisplayMode,
     date_format: &str,
 ) -> Result<ProblemAction, glib::Error> {
-    let msg = gettext("Error while transferring “{file}”\n\n{error}")
-        .replace("{file}", &peek_path(src)?.display().to_string())
-        .replace("{error}", error.message());
+    let msg = gettext("Error while transferring “{file}”")
+        .replace("{file}", &peek_path(src)?.display().to_string());
 
     if error.matches(gio::IOErrorEnum::Exists) {
         match src.query_file_type(gio::FileQueryInfoFlags::NONE, gio::Cancellable::NONE) {
@@ -492,7 +479,7 @@ async fn update_transfer_gui_error_copy(
         }
     }
 
-    Ok(run_simple_error_dialog(parent_window, &gettext("Transfer problem"), &msg).await)
+    Ok(run_simple_error_dialog(parent_window, &msg, &error).await)
 }
 
 async fn run_move_overwrite_dialog(
@@ -508,51 +495,46 @@ async fn run_move_overwrite_dialog(
         .replace("{src}", &file_details(src, size_display_mode, date_format)?);
 
     let answer = if many {
-        run_simple_dialog(
-            parent_window,
-            true,
-            gtk::MessageType::Error,
-            &msg,
-            &gettext("Move problem"),
-            None,
-            &[
-                &gettext("Abort"),
-                &gettext("Retry"),
-                &gettext("Replace"),
-                &gettext("Rename"),
-                &gettext("Skip"),
-                &gettext("Replace all"),
-                &gettext("Rename all"),
-                &gettext("Skip all"),
-            ],
-        )
-        .await
+        gtk::AlertDialog::builder()
+            .modal(true)
+            .message(msg)
+            .buttons([
+                gettext("Abort"),
+                gettext("Retry"),
+                gettext("Replace"),
+                gettext("Rename"),
+                gettext("Skip"),
+                gettext("Replace all"),
+                gettext("Rename all"),
+                gettext("Skip all"),
+            ])
+            .cancel_button(0)
+            .build()
+            .choose_future(Some(parent_window))
+            .await
     } else {
-        run_simple_dialog(
-            parent_window,
-            true,
-            gtk::MessageType::Error,
-            &msg,
-            &gettext("Move problem"),
-            None,
-            &[
-                &gettext("Abort"),
-                &gettext("Retry"),
-                &gettext("Replace"),
-                &gettext("Rename"),
-            ],
-        )
-        .await
+        gtk::AlertDialog::builder()
+            .modal(true)
+            .message(msg)
+            .buttons([
+                gettext("Abort"),
+                gettext("Retry"),
+                gettext("Replace"),
+                gettext("Rename"),
+            ])
+            .cancel_button(0)
+            .build()
+            .choose_future(Some(parent_window))
+            .await
     };
     Ok(match answer {
-        gtk::ResponseType::Other(0) => ProblemAction::Abort,
-        gtk::ResponseType::Other(1) => ProblemAction::Retry,
-        gtk::ResponseType::Other(2) => ProblemAction::Replace,
-        gtk::ResponseType::Other(3) => ProblemAction::Rename,
-        gtk::ResponseType::Other(4) => ProblemAction::Skip,
-        gtk::ResponseType::Other(5) => ProblemAction::ReplaceAll,
-        gtk::ResponseType::Other(6) => ProblemAction::RenameAll,
-        gtk::ResponseType::Other(7) => ProblemAction::SkipAll,
+        Ok(1) => ProblemAction::Retry,
+        Ok(2) => ProblemAction::Replace,
+        Ok(3) => ProblemAction::Rename,
+        Ok(4) => ProblemAction::Skip,
+        Ok(5) => ProblemAction::ReplaceAll,
+        Ok(6) => ProblemAction::RenameAll,
+        Ok(7) => ProblemAction::SkipAll,
         _ => ProblemAction::Abort,
     })
 }
@@ -568,11 +550,10 @@ async fn update_transfer_gui_error_move(
     date_format: &str,
 ) -> Result<ProblemAction, glib::Error> {
     if !error.matches(gio::IOErrorEnum::Exists) {
-        let msg = gettext("Error while transferring “{file}”\n\n{error}")
-            .replace("{file}", &peek_path(src)?.display().to_string())
-            .replace("{error}", error.message());
+        let msg = gettext("Error while transferring “{file}”")
+            .replace("{file}", &peek_path(src)?.display().to_string());
 
-        Ok(run_simple_error_dialog(parent_window, &gettext("Transfer problem"), &msg).await)
+        Ok(run_simple_error_dialog(parent_window, &msg, error).await)
     } else {
         match overwrite_mode {
             GnomeCmdConfirmOverwriteMode::GNOME_CMD_CONFIRM_OVERWRITE_SKIP_ALL => {
@@ -612,22 +593,20 @@ async fn update_transfer_gui_error_link(
     size_display_mode: SizeDisplayMode,
     date_format: &str,
 ) -> Result<ProblemAction, glib::Error> {
-    let msg = gettext("Error while creating symlink “{file}”\n\n{error}")
-        .replace(
-            "{file}",
-            &file_details(dst, size_display_mode, date_format)?,
-        )
-        .replace("{error}", error.message());
-    let _answer = run_simple_dialog(
-        parent_window,
-        true,
-        gtk::MessageType::Error,
-        &gettext("Symlink creation problem"),
-        &msg,
-        None,
-        &[&gettext("Ignore")],
-    )
-    .await;
+    let msg = gettext("Error while creating symlink “{file}”").replace(
+        "{file}",
+        &file_details(dst, size_display_mode, date_format)?,
+    );
+    let _answer = gtk::AlertDialog::builder()
+        .modal(true)
+        .message(msg)
+        .detail(error.message())
+        .buttons([gettext("Ignore")])
+        .cancel_button(0)
+        .default_button(0)
+        .build()
+        .choose_future(Some(parent_window))
+        .await;
     Ok(ProblemAction::Skip)
 }
 
@@ -771,7 +750,9 @@ async fn transfer_gui_loop(
                     }
                     Err(error) => {
                         eprintln!("Failure: {}", error);
-                        show_error(win.upcast_ref(), &gettext("Unrecoverable error"), &error);
+                        ErrorMessage::with_error(gettext("Unrecoverable error"), &error)
+                            .show(win.upcast_ref())
+                            .await;
                         break false;
                     }
                 }

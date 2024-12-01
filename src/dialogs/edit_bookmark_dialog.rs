@@ -20,7 +20,7 @@
  * For more details see the file COPYING.
  */
 
-use crate::utils::{dialog_button_box, show_message, NO_BUTTONS};
+use crate::utils::{dialog_button_box, ErrorMessage, NO_BUTTONS};
 use gettextrs::gettext;
 use gtk::{glib, prelude::*};
 
@@ -134,22 +134,29 @@ pub async fn edit_bookmark_dialog(
         #[strong]
         path_entry,
         move |dlg, response| {
-            if response == gtk::ResponseType::Ok {
+            let validation = if response == gtk::ResponseType::Ok {
                 if name_entry.text().is_empty() {
-                    glib::signal::signal_stop_emission_by_name(dlg, "response");
-                    show_message(
-                        dlg.upcast_ref(),
-                        &gettext("Bookmark name is missing."),
-                        None,
-                    );
+                    Err(ErrorMessage::new(
+                        gettext("Bookmark name is missing."),
+                        None::<String>,
+                    ))
                 } else if path_entry.text().is_empty() {
-                    glib::signal::signal_stop_emission_by_name(dlg, "response");
-                    show_message(
-                        dlg.upcast_ref(),
-                        &gettext("Bookmark target is missing."),
-                        None,
-                    );
+                    Err(ErrorMessage::new(
+                        gettext("Bookmark target is missing."),
+                        None::<String>,
+                    ))
+                } else {
+                    Ok(())
                 }
+            } else {
+                Ok(())
+            };
+            if let Err(error) = validation {
+                let dlg = dlg.clone();
+                glib::spawn_future_local(async move {
+                    glib::signal::signal_stop_emission_by_name(&dlg, "response");
+                    error.show(dlg.upcast_ref()).await;
+                });
             }
         }
     ));

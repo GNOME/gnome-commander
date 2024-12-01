@@ -25,7 +25,7 @@ use crate::{
     dir::Directory,
     file::File,
     libgcmd::file_base::FileBaseExt,
-    utils::{run_simple_dialog, show_error},
+    utils::ErrorMessage,
 };
 use gettextrs::{gettext, ngettext};
 use glib::{
@@ -206,33 +206,32 @@ async fn confirm_delete_directory(
         gettext("Do you really want to delete “{}”?").replace("{}", &file.get_name())
     };
 
-    let answer = run_simple_dialog(
-        parent_window,
-        false,
-        gtk::MessageType::Warning,
-        &msg,
-        &gettext("Delete"),
-        match options.confirm_delete_default() {
-            DeleteDefault::Cancel => Some(0),
-            DeleteDefault::Delete => Some(1),
-        },
-        &[
-            &gettext("Cancel"),
-            &gettext("Skip"),
-            &if first_confirmation {
+    let answer = gtk::AlertDialog::builder()
+        .modal(true)
+        .message(msg)
+        .buttons([
+            gettext("Cancel"),
+            gettext("Skip"),
+            if first_confirmation {
                 gettext("Delete All")
             } else {
                 gettext("Delete Remaining")
             },
-            &gettext("Delete"),
-        ],
-    )
-    .await;
+            gettext("Delete"),
+        ])
+        .cancel_button(0)
+        .default_button(match options.confirm_delete_default() {
+            DeleteDefault::Cancel => 0,
+            DeleteDefault::Delete => 1,
+        })
+        .build()
+        .choose_future(Some(parent_window))
+        .await;
 
     match answer {
-        gtk::ResponseType::Other(1) => DeleteNonEmpty::Skip,
-        gtk::ResponseType::Other(2) => DeleteNonEmpty::DeleteAll,
-        gtk::ResponseType::Other(3) => DeleteNonEmpty::Delete,
+        Ok(1) => DeleteNonEmpty::Skip,
+        Ok(2) => DeleteNonEmpty::DeleteAll,
+        Ok(3) => DeleteNonEmpty::Delete,
         _ => DeleteNonEmpty::Cancel,
     }
 }
@@ -242,24 +241,19 @@ async fn ask_delete_problem_action(
     filename: &str,
     error: &glib::Error,
 ) -> DeleteErrorAction {
-    let msg = gettext("Error while deleting “{file}”\n\n{error}")
-        .replace("{file}", filename)
-        .replace("{error}", error.message());
-
-    let action = run_simple_dialog(
-        parent_window,
-        true,
-        gtk::MessageType::Error,
-        &msg,
-        &gettext("Delete problem"),
-        None,
-        &[&gettext("Abort"), &gettext("Retry"), &gettext("Skip")],
-    )
-    .await;
-
+    let msg = gettext("Error while deleting “{file}”").replace("{file}", filename);
+    let action = gtk::AlertDialog::builder()
+        .modal(true)
+        .message(msg)
+        .detail(error.message())
+        .buttons([gettext("Abort"), gettext("Retry"), gettext("Skip")])
+        .cancel_button(0)
+        .build()
+        .choose_future(Some(parent_window))
+        .await;
     match action {
-        gtk::ResponseType::Other(1) => DeleteErrorAction::Retry,
-        gtk::ResponseType::Other(2) => DeleteErrorAction::Skip,
+        Ok(1) => DeleteErrorAction::Retry,
+        Ok(2) => DeleteErrorAction::Skip,
         _ => DeleteErrorAction::Abort,
     }
 }
@@ -398,11 +392,9 @@ async fn do_delete(
 
     match result {
         DeleteResult::Break(DeleteBreak::Error(error)) => {
-            show_error(
-                &delete_data.parent_window,
-                &gettext("Deletion failed"),
-                &error,
-            );
+            ErrorMessage::with_error(gettext("Deletion failed"), &error)
+                .show(&delete_data.parent_window)
+                .await
         }
         DeleteResult::Break(DeleteBreak::Abort) => {}
         DeleteResult::Continue(()) => {}
@@ -533,23 +525,19 @@ async fn confirm_delete(
         }
     };
 
-    run_simple_dialog(
-        parent_window,
-        false,
-        match delete_action {
-            DeleteAction::DeletePermanently => gtk::MessageType::Warning,
-            DeleteAction::DeleteToTrash => gtk::MessageType::Question,
-        },
-        &text,
-        &gettext("Delete"),
-        match options.confirm_delete_default() {
-            DeleteDefault::Cancel => Some(0),
-            DeleteDefault::Delete => Some(1),
-        },
-        &[&gettext("Cancel"), &gettext("Delete")],
-    )
-    .await
-        == gtk::ResponseType::Other(1)
+    gtk::AlertDialog::builder()
+        .modal(true)
+        .message(text)
+        .buttons([gettext("Cancel"), gettext("Delete")])
+        .cancel_button(0)
+        .default_button(match options.confirm_delete_default() {
+            DeleteDefault::Cancel => 0,
+            DeleteDefault::Delete => 1,
+        })
+        .build()
+        .choose_future(Some(parent_window))
+        .await
+        == Ok(1)
 }
 
 pub async fn show_delete_dialog(
@@ -579,16 +567,16 @@ pub async fn show_delete_dialog(
         match remove_items_from_list_to_be_deleted(parent_window, files, confirm_options).await {
             Ok(files) => files,
             Err(error) => {
-                run_simple_dialog(
-                    parent_window,
-                    false,
-                    gtk::MessageType::Error,
-                    &gettext("Error while deleting: \n\n{}").replace("{}", error.message()),
-                    &gettext("Delete problem"),
-                    Some(0),
-                    &[&gettext("Abort")],
-                )
-                .await;
+                let _ = gtk::AlertDialog::builder()
+                    .modal(true)
+                    .message(gettext("Error while deleting"))
+                    .detail(error.message())
+                    .buttons([gettext("Abort")])
+                    .cancel_button(0)
+                    .default_button(0)
+                    .build()
+                    .choose_future(Some(parent_window))
+                    .await;
                 return;
             }
         };

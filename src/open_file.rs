@@ -27,9 +27,7 @@ use crate::{
     libgcmd::file_base::FileBaseExt,
     spawn::SpawnError,
     transfer::gnome_cmd_tmp_download,
-    utils::{
-        run_simple_dialog, show_error_message, temp_file, ErrorMessage, GNOME_CMD_PERM_USER_EXEC,
-    },
+    utils::{temp_file, ErrorMessage, GNOME_CMD_PERM_USER_EXEC},
 };
 use gettextrs::gettext;
 use gtk::{
@@ -42,17 +40,16 @@ use gtk::{
 async fn ask_make_executable(parent_window: &gtk::Window, file: &File) -> bool {
     let msg = gettext("“{}” seems to be a binary executable file but it lacks the executable bit. Do you want to set it and then run the file?")
         .replace("{}", &file.get_name());
-    let ret = run_simple_dialog(
-        parent_window,
-        false,
-        gtk::MessageType::Question,
-        &msg,
-        &gettext("Make Executable?"),
-        None,
-        &[&gettext("Cancel"), &gettext("OK")],
-    )
-    .await;
-    ret == gtk::ResponseType::Other(1)
+    gtk::AlertDialog::builder()
+        .modal(true)
+        .message(msg)
+        .buttons([gettext("_Cancel"), gettext("_OK")])
+        .cancel_button(0)
+        .default_button(1)
+        .build()
+        .choose_future(Some(parent_window))
+        .await
+        == Ok(1)
 }
 
 enum OpenText {
@@ -65,40 +62,34 @@ async fn ask_open_text(parent_window: &gtk::Window, file: &File) -> OpenText {
     let msg =
         gettext("“{}” is an executable text file. Do you want to run it, or display its contents?")
             .replace("{}", &file.get_name());
-    let ret = run_simple_dialog(
-        parent_window,
-        false,
-        gtk::MessageType::Question,
-        &msg,
-        &gettext("Run or Display"),
-        None,
-        &[&gettext("Cancel"), &gettext("Display"), &gettext("Run")],
-    )
-    .await;
-
-    if ret == gtk::ResponseType::Other(1) {
-        OpenText::Display
-    } else if ret == gtk::ResponseType::Other(2) {
-        OpenText::Run
-    } else {
-        OpenText::Cancel
+    let response = gtk::AlertDialog::builder()
+        .modal(true)
+        .message(msg)
+        .buttons([gettext("_Cancel"), gettext("_Display"), gettext("_Run")])
+        .cancel_button(0)
+        .build()
+        .choose_future(Some(parent_window))
+        .await;
+    match response {
+        Ok(1) => OpenText::Display,
+        Ok(2) => OpenText::Run,
+        _ => OpenText::Cancel,
     }
 }
 
 async fn ask_download_tmp(parent_window: &gtk::Window, app: &App) -> bool {
     let msg = gettext("{} does not know how to open remote file. Do you want to download the file to a temporary location and then open it?")
         .replace("{}", &app.name());
-    let dialog = gtk::MessageDialog::builder()
-        .transient_for(parent_window)
+    gtk::AlertDialog::builder()
         .modal(true)
-        .message_type(gtk::MessageType::Question)
-        .buttons(gtk::ButtonsType::YesNo)
-        .text(msg)
-        .build();
-    let response = dialog.run_future().await;
-    dialog.close();
-
-    response == gtk::ResponseType::Yes
+        .message(msg)
+        .buttons([gettext("_No"), gettext("_Yes")])
+        .cancel_button(0)
+        .default_button(1)
+        .build()
+        .choose_future(Some(parent_window))
+        .await
+        == Ok(1)
 }
 
 async fn mime_exec_single(
@@ -224,7 +215,7 @@ pub extern "C" fn mime_exec_file(
         glib::spawn_future_local(async move {
             let options = ProgramsOptions::new();
             if let Err(error) = mime_exec_single(&parent_window, &file, &options).await {
-                show_error_message(&parent_window, &error);
+                error.show(&parent_window).await;
             }
         });
         1

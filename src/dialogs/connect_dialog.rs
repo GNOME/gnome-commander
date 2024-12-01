@@ -20,13 +20,10 @@
  * For more details see the file COPYING.
  */
 
-use crate::{
-    connection::{
-        connection::ConnectionExt,
-        remote::{ConnectionMethodID, ConnectionRemote},
-        smb::ConnectionSmb,
-    },
-    utils::{display_help, show_error_message},
+use crate::connection::{
+    connection::ConnectionExt,
+    remote::{ConnectionMethodID, ConnectionRemote},
+    smb::ConnectionSmb,
 };
 use gettextrs::gettext;
 use gtk::{glib, prelude::*, subclass::prelude::*};
@@ -34,7 +31,7 @@ use std::path::Path;
 
 mod imp {
     use super::*;
-    use crate::utils::{dialog_button_box, show_error_message, ErrorMessage};
+    use crate::utils::{dialog_button_box, display_help, ErrorMessage};
 
     fn create_methods_model() -> gtk::ListStore {
         let store = gtk::ListStore::new(&[String::static_type(), i32::static_type()]);
@@ -220,10 +217,13 @@ mod imp {
                 #[weak]
                 obj,
                 move |_| {
-                    display_help(
-                        obj.upcast_ref(),
-                        Some("gnome-commander-config-remote-connections"),
-                    );
+                    glib::spawn_future_local(async move {
+                        display_help(
+                            obj.upcast_ref(),
+                            Some("gnome-commander-config-remote-connections"),
+                        )
+                        .await;
+                    });
                 }
             ));
 
@@ -242,13 +242,10 @@ mod imp {
                 .use_underline(true)
                 .build();
             ok_btn.connect_clicked(glib::clone!(
-                #[weak]
-                obj,
+                #[weak(rename_to = imp)]
+                self,
                 move |_| {
-                    match obj.imp().get_connection_uri() {
-                        Ok(_) => obj.response(gtk::ResponseType::Ok),
-                        Err(error) => show_error_message(obj.upcast_ref(), &error),
-                    }
+                    glib::spawn_future_local(async move { imp.ok_clicked().await });
                 }
             ));
 
@@ -445,6 +442,13 @@ mod imp {
                 }),
             }
         }
+
+        async fn ok_clicked(&self) {
+            match self.get_connection_uri() {
+                Ok(_) => self.obj().response(gtk::ResponseType::Ok),
+                Err(error) => error.show(self.obj().upcast_ref()).await,
+            }
+        }
     }
 
     fn label_for(text: &str, widget: &impl IsA<gtk::Widget>) -> gtk::Label {
@@ -522,7 +526,7 @@ impl ConnectDialog {
                             connection = Some(con);
                             break;
                         }
-                        (_, Err(error)) => show_error_message(dialog.upcast_ref(), &error),
+                        (_, Err(error)) => error.show(dialog.upcast_ref()).await,
                     }
                 }
                 gtk::ResponseType::Cancel | gtk::ResponseType::DeleteEvent => {
@@ -588,7 +592,7 @@ impl ConnectDialog {
                         result = true;
                         break;
                     }
-                    Err(error) => show_error_message(dialog.upcast_ref(), &error),
+                    Err(error) => error.show(dialog.upcast_ref()).await,
                 },
                 gtk::ResponseType::Cancel | gtk::ResponseType::DeleteEvent => {
                     break;

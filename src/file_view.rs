@@ -24,7 +24,7 @@ use crate::{
     libgcmd::file_base::FileBaseExt,
     spawn::{spawn_async, SpawnError},
     transfer::gnome_cmd_tmp_download,
-    utils::{show_error_message, temp_file, ErrorMessage},
+    utils::{temp_file, ErrorMessage},
 };
 use gettextrs::gettext;
 use gtk::{
@@ -111,7 +111,7 @@ pub extern "C" fn gnome_cmd_file_view(
 
     glib::spawn_future_local(async move {
         if let Err(error) = file_view(&parent_window, &file, None, &options).await {
-            show_error_message(&parent_window, &error);
+            error.show(&parent_window).await;
         }
     });
 }
