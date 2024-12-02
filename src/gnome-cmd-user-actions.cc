@@ -34,11 +34,9 @@
 #include "gnome-cmd-user-actions.h"
 #include "gnome-cmd-dir-indicator.h"
 #include "plugin_manager.h"
-#include "eggcellrendererkeys.h"
 #include "cap.h"
 #include "utils.h"
 #include "dialogs/gnome-cmd-advrename-dialog.h"
-#include "dialogs/gnome-cmd-key-shortcuts-dialog.h"
 #include "dialogs/gnome-cmd-manage-bookmarks-dialog.h"
 #include "dialogs/gnome-cmd-mkdir-dialog.h"
 #include "dialogs/gnome-cmd-search-dialog.h"
@@ -240,9 +238,6 @@ static gboolean append_real_path (string &s, GnomeCmdFile *f)
 
     return TRUE;
 }
-
-
-GnomeCmdShortcuts *gcmd_shortcuts;
 
 
 GcmdUserActionSettings *settings;
@@ -1213,13 +1208,6 @@ void options_edit (GSimpleAction *action, GVariant *parameter, gpointer user_dat
     gtk_window_present (GTK_WINDOW (options_dialog));
 }
 
-
-void options_edit_shortcuts (GSimpleAction *action, GVariant *parameter, gpointer user_data)
-{
-    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
-
-    gnome_cmd_key_shortcuts_dialog_new (*main_win, gcmd_shortcuts);
-}
 
 /************** Bookmarks Menu **************/
 

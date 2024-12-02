@@ -26,10 +26,10 @@ use crate::{
     user_actions::USER_ACTIONS,
 };
 use gtk::{
-    gdk::{self, ffi::GdkModifierType, Key},
+    gdk,
     glib::{
         ffi::gboolean,
-        translate::{from_glib_full, from_glib_none, FromGlib, IntoGlib, ToGlibPtr},
+        translate::{from_glib_none, FromGlib, ToGlibPtr},
     },
     prelude::*,
 };
@@ -40,7 +40,7 @@ use std::{
 
 #[derive(Clone, Copy, PartialEq, Eq, Hash, Debug)]
 pub struct Shortcut {
-    pub key: Key,
+    pub key: gdk::Key,
     pub state: gdk::ModifierType,
 }
 
@@ -87,19 +87,12 @@ impl Shortcut {
         }
     }
 
-    pub fn label(self) -> String {
-        extern "C" {
-            fn egg_accelerator_get_label(
-                accel_key: u32,
-                accel_mods: GdkModifierType,
-            ) -> *mut c_char;
-        }
-        unsafe {
-            from_glib_full(egg_accelerator_get_label(
-                self.key.into_glib(),
-                self.state.into_glib(),
-            ))
-        }
+    pub fn name(self) -> glib::GString {
+        gtk::accelerator_name(self.key, self.state)
+    }
+
+    pub fn label(self) -> glib::GString {
+        gtk::accelerator_get_label(self.key, self.state)
     }
 
     pub fn is_mandatory(self) -> bool {
@@ -117,6 +110,19 @@ impl Shortcut {
     }
 }
 
+impl PartialOrd for Shortcut {
+    fn partial_cmp(&self, other: &Self) -> Option<std::cmp::Ordering> {
+        (self.state.bits(), self.key).partial_cmp(&(other.state.bits(), other.key))
+    }
+}
+
+impl Ord for Shortcut {
+    fn cmp(&self, other: &Self) -> std::cmp::Ordering {
+        (self.state.bits(), self.key).cmp(&(other.state.bits(), other.key))
+    }
+}
+
+#[derive(Clone, PartialEq, Eq)]
 pub struct Call {
     pub action_name: String,
     pub action_data: Option<String>,
@@ -340,7 +346,7 @@ impl Shortcuts {
     }
 
     pub fn bookmark_shortcuts(&self, bookmark_name: &str) -> Option<String> {
-        let keys: BTreeSet<String> = self
+        let keys: BTreeSet<glib::GString> = self
             .action
             .iter()
             .filter(|(shortcut, call)| {

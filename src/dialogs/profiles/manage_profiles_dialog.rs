@@ -19,7 +19,7 @@
 
 use super::{edit_profile_dialog::edit_profile, profiles::ProfileManager};
 use crate::{
-    hintbox::HintBox,
+    hintbox::hintbox,
     utils::{dialog_button_box, display_help},
 };
 use gettextrs::gettext;
@@ -239,7 +239,7 @@ pub async fn manage_profiles<M: ProfileManager + 'static>(
         )
     });
 
-    content_area.append(&HintBox::new(&gettext("To rename a profile, click on the corresponding row and type a new name, or press escape to cancel.")));
+    content_area.append(&hintbox(&gettext("To rename a profile, click on the corresponding row and type a new name, or press escape to cancel.")));
 
     let vbox = gtk::Box::builder()
         .orientation(gtk::Orientation::Vertical)

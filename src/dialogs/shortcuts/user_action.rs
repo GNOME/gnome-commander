@@ -17,34 +17,22 @@
  * For more details see the file COPYING.
  */
 
-pub mod advrename_dialog;
-pub mod advrename_regex_dialog;
+use crate::{
+    shortcuts::{Call, Shortcut},
+    user_actions::USER_ACTIONS,
+};
 
-pub mod edit_bookmark_dialog;
-pub mod manage_bookmarks_dialog;
+#[derive(Clone)]
+pub struct ShortcutAction {
+    pub shortcut: Shortcut,
+    pub call: Call,
+}
 
-pub mod search_dialog;
-
-pub mod chmod_dialog;
-pub mod chown_dialog;
-
-pub mod create_symlink_dialog;
-pub mod make_copy_dialog;
-
-pub mod delete_dialog;
-
-pub mod prepare_copy_dialog;
-pub mod prepare_move_dialog;
-pub mod prepare_transfer_dialog;
-pub mod transfer_progress_dialog;
-
-pub mod connect_dialog;
-pub mod remote_dialog;
-
-pub mod shortcuts;
-
-pub mod profiles;
-
-pub mod open_with_other_dialog;
-
-pub mod new_text_file;
+pub fn action_description(action_name: &str) -> String {
+    for user_action in &*USER_ACTIONS {
+        if user_action.action_name == action_name {
+            return user_action.description.clone();
+        }
+    }
+    action_name.to_owned()
+}

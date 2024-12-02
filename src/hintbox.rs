@@ -20,43 +20,33 @@
  * For more details see the file COPYING.
  */
 
-use glib::translate::from_glib_none;
-use gtk::glib::{self, translate::ToGlibPtr};
+use gtk::{pango, prelude::*};
 
-pub mod ffi {
-    use super::*;
-    use glib::ffi::GType;
-    use std::ffi::c_char;
+pub fn hintbox(hint: &str) -> gtk::Widget {
+    let bx = gtk::Box::builder()
+        .orientation(gtk::Orientation::Horizontal)
+        .spacing(6)
+        .hexpand(false)
+        .build();
 
-    #[repr(C)]
-    pub struct GnomeCmdHintBox {
-        _data: [u8; 0],
-        _marker: std::marker::PhantomData<(*mut u8, std::marker::PhantomPinned)>,
-    }
+    bx.append(&gtk::Image::from_icon_name("gnome-commander-info-outline"));
 
-    extern "C" {
-        pub fn gnome_cmd_hint_box_get_type() -> GType;
-        pub fn gnome_cmd_hint_box_new(hint: *const c_char) -> *mut GnomeCmdHintBox;
-    }
+    let attrs = pango::AttrList::new();
+    attrs.insert(pango::AttrInt::new_style(pango::Style::Italic));
 
-    #[derive(Copy, Clone)]
-    #[repr(C)]
-    pub struct GnomeCmdHintBoxClass {
-        pub parent_class: gtk::ffi::GtkBoxClass,
-    }
-}
+    let label = gtk::Label::builder()
+        .label(hint)
+        .wrap(true)
+        .wrap_mode(pango::WrapMode::Word)
+        .max_width_chars(1)
+        .justify(gtk::Justification::Fill)
+        .xalign(0.0)
+        .yalign(0.5)
+        .hexpand(true)
+        .halign(gtk::Align::Fill)
+        .attributes(&attrs)
+        .build();
+    bx.append(&label);
 
-glib::wrapper! {
-    pub struct HintBox(Object<ffi::GnomeCmdHintBox, ffi::GnomeCmdHintBoxClass>)
-        @extends gtk::Box, gtk::Widget;
-
-    match fn {
-        type_ => || ffi::gnome_cmd_hint_box_get_type(),
-    }
-}
-
-impl HintBox {
-    pub fn new(hint: &str) -> Self {
-        unsafe { from_glib_none(ffi::gnome_cmd_hint_box_new(hint.to_glib_none().0)) }
-    }
+    bx.upcast()
 }
