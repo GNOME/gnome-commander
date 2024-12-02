@@ -18,7 +18,7 @@
  */
 
 use super::profiles::ProfileManager;
-use crate::utils::{dialog_button_box, display_help};
+use crate::utils::{dialog_button_box, display_help, SenderExt};
 use gettextrs::gettext;
 use gtk::{glib, prelude::*};
 use std::rc::Rc;
@@ -29,7 +29,7 @@ pub async fn edit_profile(
     help_id: Option<&str>,
     manager: Rc<dyn ProfileManager>,
 ) -> bool {
-    let dialog = gtk::Dialog::builder()
+    let dialog = gtk::Window::builder()
         .transient_for(parent)
         .title(gettext("Edit Profile"))
         .modal(true)
@@ -37,14 +37,15 @@ pub async fn edit_profile(
         .resizable(false)
         .build();
 
-    let content_area = dialog.content_area();
-
-    // HIG defaults
-    content_area.set_margin_top(12);
-    content_area.set_margin_bottom(12);
-    content_area.set_margin_start(12);
-    content_area.set_margin_end(12);
-    content_area.set_spacing(6);
+    let grid = gtk::Grid::builder()
+        .margin_top(12)
+        .margin_bottom(12)
+        .margin_start(12)
+        .margin_end(12)
+        .column_spacing(12)
+        .row_spacing(6)
+        .build();
+    dialog.set_child(Some(&grid));
 
     let entry = gtk::Entry::builder()
         .text(manager.profile_name(profile_index))
@@ -61,11 +62,11 @@ pub async fn edit_profile(
         .mnemonic_widget(&entry)
         .build();
 
-    content_area.append(&label);
-    content_area.append(&entry);
+    grid.attach(&label, 0, 0, 1, 1);
+    grid.attach(&entry, 0, 1, 1, 1);
 
     let component = manager.create_component(profile_index);
-    content_area.append(&component);
+    grid.attach(&component, 0, 2, 1, 1);
 
     let mut start_buttons = Vec::new();
     if let Some(help_id) = help_id {
@@ -101,14 +102,16 @@ pub async fn edit_profile(
         }
     ));
 
+    let (sender, receiver) = async_channel::bounded::<bool>(1);
+
     let cancel_button = gtk::Button::builder()
         .label(gettext("_Cancel"))
         .use_underline(true)
         .build();
     cancel_button.connect_clicked(glib::clone!(
-        #[weak]
-        dialog,
-        move |_| dialog.response(gtk::ResponseType::Cancel)
+        #[strong]
+        sender,
+        move |_| sender.toss(false)
     ));
 
     let ok_button = gtk::Button::builder()
@@ -116,28 +119,31 @@ pub async fn edit_profile(
         .use_underline(true)
         .build();
     ok_button.connect_clicked(glib::clone!(
-        #[weak]
-        dialog,
+        #[strong]
+        sender,
         #[weak]
         entry,
         move |_| {
             manager.set_profile_name(profile_index, &entry.text());
             manager.copy_component(profile_index, &component);
 
-            dialog.response(gtk::ResponseType::Ok)
+            sender.toss(true)
         }
     ));
 
-    content_area.append(&dialog_button_box(
-        &start_buttons,
-        &[&reset_button, &cancel_button, &ok_button],
-    ));
+    grid.attach(
+        &dialog_button_box(&start_buttons, &[&reset_button, &cancel_button, &ok_button]),
+        0,
+        3,
+        1,
+        1,
+    );
 
-    dialog.set_default_response(gtk::ResponseType::Ok);
+    dialog.set_default_widget(Some(&ok_button));
 
     dialog.present();
-    let result = dialog.run_future().await;
+    let result = receiver.recv().await;
     dialog.close();
 
-    result == gtk::ResponseType::Ok
+    result == Ok(true)
 }

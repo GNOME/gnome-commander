@@ -27,40 +27,38 @@ use gtk::{gio, glib, prelude::*};
 const FILES_PER_UPDATE: i32 = 50;
 
 struct ProgressDialog {
-    dialog: gtk::Dialog,
+    dialog: gtk::Window,
     label: gtk::Label,
     progress_bar: gtk::ProgressBar,
 }
 
 fn create_list_progress_dialog(parent_window: &gtk::Window) -> ProgressDialog {
-    let dialog = gtk::Dialog::builder()
+    let dialog = gtk::Window::builder()
         .transient_for(parent_window)
         .resizable(false)
         .modal(true)
         .build();
 
-    let content_area = dialog.content_area();
-    content_area.set_margin_top(12);
-    content_area.set_margin_bottom(12);
-    content_area.set_margin_start(12);
-    content_area.set_margin_end(12);
-    content_area.set_spacing(12);
+    let grid = gtk::Grid::builder()
+        .margin_top(12)
+        .margin_bottom(12)
+        .margin_start(12)
+        .margin_end(12)
+        .row_spacing(6)
+        .column_spacing(12)
+        .build();
+    dialog.set_child(Some(&grid));
 
     let label = gtk::Label::builder()
         .label(gettext("Waiting for file list"))
         .build();
-    content_area.append(&label);
+    grid.attach(&label, 0, 0, 1, 1);
 
     let progress_bar = gtk::ProgressBar::builder()
         .show_text(false)
         .pulse_step(0.2)
         .build();
-    content_area.append(&progress_bar);
-
-    let bbox = gtk::Box::builder()
-        .orientation(gtk::Orientation::Horizontal)
-        .build();
-    content_area.append(&bbox);
+    grid.attach(&progress_bar, 0, 1, 1, 1);
 
     let button = gtk::Button::builder()
         .label(gettext("_Cancel"))
@@ -68,7 +66,7 @@ fn create_list_progress_dialog(parent_window: &gtk::Window) -> ProgressDialog {
         .hexpand(true)
         .halign(gtk::Align::Center)
         .build();
-    bbox.append(&button);
+    grid.attach(&button, 0, 2, 1, 1);
 
     button.connect_clicked(glib::clone!(
         #[weak]

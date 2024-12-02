@@ -20,7 +20,7 @@
 use super::{edit_profile_dialog::edit_profile, profiles::ProfileManager};
 use crate::{
     hintbox::hintbox,
-    utils::{dialog_button_box, display_help},
+    utils::{dialog_button_box, display_help, SenderExt},
 };
 use gettextrs::gettext;
 use gtk::{glib, pango, prelude::*};
@@ -155,7 +155,7 @@ fn duplicate_clicked_callback<M: ProfileManager + 'static>(view: &gtk::TreeView,
 }
 
 async fn edit_clicked_callback<M: ProfileManager + 'static>(
-    dialog: &gtk::Dialog,
+    dialog: &gtk::Window,
     view: &gtk::TreeView,
     manager: &Rc<M>,
     help_id: Option<&str>,
@@ -183,7 +183,7 @@ pub async fn manage_profiles<M: ProfileManager + 'static>(
     help_id: Option<&str>,
     select_last: bool,
 ) -> bool {
-    let dialog = gtk::Dialog::builder()
+    let dialog = gtk::Window::builder()
         .transient_for(parent)
         .title(title)
         .modal(true)
@@ -191,22 +191,15 @@ pub async fn manage_profiles<M: ProfileManager + 'static>(
         .resizable(true)
         .build();
 
-    let content_area = dialog.content_area();
-
-    // HIG defaults
-    content_area.set_margin_top(12);
-    content_area.set_margin_bottom(12);
-    content_area.set_margin_start(12);
-    content_area.set_margin_end(12);
-    content_area.set_spacing(6);
-
-    let hbox = gtk::Box::builder()
-        .orientation(gtk::Orientation::Horizontal)
-        .spacing(12)
-        .hexpand(true)
-        .vexpand(true)
+    let grid = gtk::Grid::builder()
+        .margin_top(12)
+        .margin_bottom(12)
+        .margin_start(12)
+        .margin_end(12)
+        .row_spacing(6)
+        .column_spacing(12)
         .build();
-    content_area.append(&hbox);
+    dialog.set_child(Some(&grid));
 
     let scrolled_window = gtk::ScrolledWindow::builder()
         .hscrollbar_policy(gtk::PolicyType::Never)
@@ -215,7 +208,7 @@ pub async fn manage_profiles<M: ProfileManager + 'static>(
         .hexpand(true)
         .vexpand(true)
         .build();
-    hbox.append(&scrolled_window);
+    grid.attach(&scrolled_window, 0, 0, 1, 1);
 
     let store = create_model();
     let view = create_view(&store, &*manager);
@@ -239,13 +232,11 @@ pub async fn manage_profiles<M: ProfileManager + 'static>(
         )
     });
 
-    content_area.append(&hintbox(&gettext("To rename a profile, click on the corresponding row and type a new name, or press escape to cancel.")));
-
     let vbox = gtk::Box::builder()
         .orientation(gtk::Orientation::Vertical)
         .spacing(12)
         .build();
-    hbox.append(&vbox);
+    grid.attach(&vbox, 1, 0, 1, 1);
 
     let button = gtk::Button::builder()
         .label(gettext("_Duplicate"))
@@ -296,6 +287,8 @@ pub async fn manage_profiles<M: ProfileManager + 'static>(
     ));
     vbox.append(&button);
 
+    grid.attach(&hintbox(&gettext("To rename a profile, click on the corresponding row and type a new name, or press escape to cancel.")), 0, 1, 2, 1);
+
     let mut start_buttons = Vec::new();
     if let Some(help_id) = help_id {
         let help_button = gtk::Button::builder()
@@ -318,14 +311,16 @@ pub async fn manage_profiles<M: ProfileManager + 'static>(
         start_buttons.push(help_button);
     }
 
+    let (sender, receiver) = async_channel::bounded::<bool>(1);
+
     let cancel_button = gtk::Button::builder()
         .label(gettext("_Cancel"))
         .use_underline(true)
         .build();
     cancel_button.connect_clicked(glib::clone!(
-        #[weak]
-        dialog,
-        move |_| dialog.response(gtk::ResponseType::Cancel)
+        #[strong]
+        sender,
+        move |_| sender.toss(false)
     ));
 
     let ok_button = gtk::Button::builder()
@@ -333,17 +328,20 @@ pub async fn manage_profiles<M: ProfileManager + 'static>(
         .use_underline(true)
         .build();
     ok_button.connect_clicked(glib::clone!(
-        #[weak]
-        dialog,
-        move |_| dialog.response(gtk::ResponseType::Ok)
+        #[strong]
+        sender,
+        move |_| sender.toss(true)
     ));
 
-    content_area.append(&dialog_button_box(
-        &start_buttons,
-        &[&cancel_button, &ok_button],
-    ));
+    grid.attach(
+        &dialog_button_box(&start_buttons, &[&cancel_button, &ok_button]),
+        0,
+        2,
+        2,
+        1,
+    );
 
-    dialog.set_default_response(gtk::ResponseType::Ok);
+    dialog.set_default_widget(Some(&ok_button));
 
     for profile_index in 0..manager.len() {
         set_profile(&store, &store.append(), &**manager, profile_index);
@@ -359,9 +357,9 @@ pub async fn manage_profiles<M: ProfileManager + 'static>(
     }
 
     dialog.present();
-    let result = dialog.run_future().await;
+    let result = receiver.recv().await;
 
-    if result == gtk::ResponseType::Ok {
+    if result == Ok(true) {
         let mut indexes = Vec::new();
         if let Some(iter) = store.iter_first() {
             loop {
@@ -381,7 +379,7 @@ pub async fn manage_profiles<M: ProfileManager + 'static>(
     }
     dialog.close();
 
-    result == gtk::ResponseType::Ok
+    result == Ok(true)
 }
 
 fn iter_last(store: &gtk::ListStore) -> Option<gtk::TreeIter> {

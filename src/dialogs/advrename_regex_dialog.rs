@@ -17,14 +17,18 @@
  * For more details see the file COPYING.
  */
 
+use crate::utils::{dialog_button_box, SenderExt, NO_BUTTONS};
 use gettextrs::gettext;
-use glib::{
-    ffi::{GRegex, GRegexCompileFlags, G_REGEX_CASELESS, G_REGEX_MATCH_NOTEMPTY, G_REGEX_OPTIMIZE},
-    translate::ToGlibPtr,
+use gtk::{
+    glib::{
+        self,
+        ffi::{
+            GRegex, GRegexCompileFlags, G_REGEX_CASELESS, G_REGEX_MATCH_NOTEMPTY, G_REGEX_OPTIMIZE,
+        },
+        translate::ToGlibPtr,
+    },
+    prelude::*,
 };
-use gtk::{glib, prelude::*};
-
-use crate::utils::{dialog_button_box, NO_BUTTONS};
 
 pub struct RegexReplace {
     pub pattern: String,
@@ -68,7 +72,7 @@ pub async fn show_advrename_regex_dialog(
     title: &str,
     rx: Option<&RegexReplace>,
 ) -> Option<RegexReplace> {
-    let dialog = gtk::Dialog::builder()
+    let dialog = gtk::Window::builder()
         .title(title)
         .transient_for(parent_window)
         .modal(true)
@@ -77,8 +81,6 @@ pub async fn show_advrename_regex_dialog(
         .build();
 
     let grid = gtk::Grid::builder()
-        .hexpand(true)
-        .vexpand(true)
         .margin_top(12)
         .margin_bottom(12)
         .margin_start(12)
@@ -86,7 +88,7 @@ pub async fn show_advrename_regex_dialog(
         .row_spacing(6)
         .column_spacing(12)
         .build();
-    dialog.content_area().append(&grid);
+    dialog.set_child(Some(&grid));
 
     let pattern = gtk::Entry::builder().activates_default(true).build();
     let label = gtk::Label::builder()
@@ -124,24 +126,27 @@ pub async fn show_advrename_regex_dialog(
         match_case.set_active(r.match_case);
     }
 
+    let (sender, receiver) = async_channel::bounded::<bool>(1);
+
     let cancel_btn = gtk::Button::builder()
         .label(gettext("_Cancel"))
         .use_underline(true)
         .build();
     cancel_btn.connect_clicked(glib::clone!(
-        #[weak]
-        dialog,
-        move |_| dialog.response(gtk::ResponseType::Cancel)
+        #[strong]
+        sender,
+        move |_| sender.toss(false)
     ));
 
     let ok_btn = gtk::Button::builder()
         .label(gettext("_OK"))
         .use_underline(true)
+        .receives_default(true)
         .build();
     ok_btn.connect_clicked(glib::clone!(
-        #[weak]
-        dialog,
-        move |_| dialog.response(gtk::ResponseType::Ok)
+        #[strong]
+        sender,
+        move |_| sender.toss(true)
     ));
 
     grid.attach(
@@ -152,12 +157,13 @@ pub async fn show_advrename_regex_dialog(
         1,
     );
 
-    pattern.grab_focus();
-    ok_btn.set_receives_default(true);
-    dialog.set_default_response(gtk::ResponseType::Ok);
+    dialog.set_default_widget(Some(&ok_btn));
 
-    let response = dialog.run_future().await;
-    let result = if response == gtk::ResponseType::Ok {
+    dialog.present();
+    pattern.grab_focus();
+
+    let response = receiver.recv().await;
+    let result = if response == Ok(true) {
         Some(RegexReplace {
             pattern: pattern.text().to_string(),
             replacement: replacement.text().to_string(),

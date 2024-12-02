@@ -25,8 +25,148 @@ use crate::{
     utils::{dialog_button_box, ErrorMessage, NO_BUTTONS},
 };
 use gettextrs::gettext;
-use gtk::{gdk, gio, glib, prelude::*};
+use gtk::{gdk, gio, glib, prelude::*, subclass::prelude::*};
 use std::path::Path;
+
+mod imp {
+    use super::*;
+    use crate::utils::SenderExt;
+
+    pub struct CreateSymlinkDialog {
+        pub link_name_entry: gtk::Entry,
+        cancel_button: gtk::Button,
+        ok_button: gtk::Button,
+        sender: async_channel::Sender<Option<glib::GString>>,
+        pub receiver: async_channel::Receiver<Option<glib::GString>>,
+    }
+
+    #[glib::object_subclass]
+    impl ObjectSubclass for CreateSymlinkDialog {
+        const NAME: &'static str = "GnomeCmdCreateSymlinkDialog";
+        type Type = super::CreateSymlinkDialog;
+        type ParentType = gtk::Window;
+
+        fn new() -> Self {
+            let (sender, receiver) = async_channel::bounded(1);
+            Self {
+                link_name_entry: gtk::Entry::builder().activates_default(true).build(),
+                cancel_button: gtk::Button::builder()
+                    .label(gettext("_Cancel"))
+                    .use_underline(true)
+                    .build(),
+                ok_button: gtk::Button::builder()
+                    .label(gettext("_OK"))
+                    .use_underline(true)
+                    .sensitive(false)
+                    .build(),
+                sender,
+                receiver,
+            }
+        }
+    }
+
+    impl ObjectImpl for CreateSymlinkDialog {
+        fn constructed(&self) {
+            self.parent_constructed();
+
+            let dialog = self.obj();
+
+            dialog.set_title(Some(&gettext("Create Symbolic Link")));
+            dialog.set_resizable(false);
+            dialog.set_modal(true);
+
+            let grid = gtk::Grid::builder()
+                .margin_top(12)
+                .margin_bottom(12)
+                .margin_start(12)
+                .margin_end(12)
+                .column_spacing(12)
+                .row_spacing(6)
+                .build();
+            dialog.set_child(Some(&grid));
+
+            let label = gtk::Label::builder()
+                .label(gettext("Symbolic link name:"))
+                .mnemonic_widget(&self.link_name_entry)
+                .build();
+            grid.attach(&label, 0, 0, 1, 1);
+            grid.attach(&self.link_name_entry, 1, 0, 1, 1);
+
+            grid.attach(
+                &dialog_button_box(NO_BUTTONS, &[&self.cancel_button, &self.ok_button]),
+                0,
+                1,
+                2,
+                1,
+            );
+
+            self.link_name_entry.connect_changed(glib::clone!(
+                #[weak(rename_to = imp)]
+                self,
+                move |_| imp.link_name_changed()
+            ));
+
+            self.cancel_button.connect_clicked(glib::clone!(
+                #[weak(rename_to = imp)]
+                self,
+                move |_| imp.sender.toss(None)
+            ));
+
+            self.ok_button.connect_clicked(glib::clone!(
+                #[weak(rename_to = imp)]
+                self,
+                move |_| imp.ok_clicked()
+            ));
+
+            let key_controller = gtk::EventControllerKey::new();
+            key_controller.connect_key_pressed(glib::clone!(
+                #[weak(rename_to = imp)]
+                self,
+                #[upgrade_or]
+                glib::Propagation::Proceed,
+                move |_, key, _, modifier| {
+                    if key == gdk::Key::Escape && modifier.is_empty() {
+                        imp.sender.toss(None);
+                        glib::Propagation::Stop
+                    } else {
+                        glib::Propagation::Proceed
+                    }
+                }
+            ));
+            dialog.add_controller(key_controller);
+
+            dialog.set_default_widget(Some(&self.ok_button));
+        }
+    }
+
+    impl WidgetImpl for CreateSymlinkDialog {}
+    impl WindowImpl for CreateSymlinkDialog {}
+
+    impl CreateSymlinkDialog {
+        fn link_name_changed(&self) {
+            self.ok_button
+                .set_sensitive(!self.link_name_entry.text().is_empty());
+        }
+
+        fn ok_clicked(&self) {
+            let link_name = self.link_name_entry.text();
+            if !link_name.is_empty() {
+                self.sender.toss(Some(link_name));
+            }
+        }
+    }
+}
+
+glib::wrapper! {
+    pub struct CreateSymlinkDialog(ObjectSubclass<imp::CreateSymlinkDialog>)
+        @extends gtk::Window, gtk::Widget;
+}
+
+impl Default for CreateSymlinkDialog {
+    fn default() -> Self {
+        glib::Object::builder().build()
+    }
+}
 
 pub async fn show_create_symlink_dialog(
     parent_window: &gtk::Window,
@@ -34,128 +174,42 @@ pub async fn show_create_symlink_dialog(
     directory: &Directory,
     link_name: &str,
 ) {
-    let dialog = gtk::Dialog::builder()
-        .transient_for(parent_window)
-        .title(gettext("Create Symbolic Link"))
-        .resizable(false)
-        .modal(true)
-        .build();
-
-    let content_area = dialog.content_area();
-    content_area.set_margin_top(12);
-    content_area.set_margin_bottom(12);
-    content_area.set_margin_start(12);
-    content_area.set_margin_end(12);
-    content_area.set_spacing(12);
-
-    let hbox = gtk::Box::builder()
-        .orientation(gtk::Orientation::Horizontal)
-        .spacing(6)
-        .vexpand(true)
-        .build();
-    let entry = gtk::Entry::builder()
-        .text(link_name)
-        .activates_default(true)
-        .build();
-    let label = gtk::Label::builder()
-        .label(gettext("Symbolic link name:"))
-        .mnemonic_widget(&entry)
-        .build();
-    hbox.append(&label);
-    hbox.append(&entry);
-    content_area.append(&hbox);
-
-    let cancel_button = gtk::Button::builder()
-        .label(gettext("_Cancel"))
-        .use_underline(true)
-        .build();
-
-    let ok_button = gtk::Button::builder()
-        .label(gettext("_OK"))
-        .use_underline(true)
-        .build();
-
-    content_area.append(&dialog_button_box(
-        NO_BUTTONS,
-        &[&cancel_button, &ok_button],
-    ));
-
-    ok_button.connect_clicked(glib::clone!(
-        #[weak]
-        dialog,
-        #[weak]
-        entry,
-        #[strong]
-        directory,
-        #[strong]
-        file,
-        move |_| {
-            let dialog = dialog.clone();
-            let link_name = entry.text();
-            let directory = directory.clone();
-            let file = file.clone();
-            glib::spawn_future_local(async move {
-                if link_name.is_empty() {
-                    ErrorMessage::new(gettext("No file name given"), None::<String>)
-                        .show(dialog.upcast_ref())
-                        .await;
-                    return;
-                }
-
-                let symlink_file: gio::File = if link_name.starts_with('/') {
-                    let con = directory.connection();
-                    let path = con.create_path(&Path::new(&link_name));
-                    con.create_gfile(Some(&path.path()))
-                } else {
-                    directory.get_child_gfile(&link_name)
-                };
-                let absolute_path = file.file().parse_name();
-
-                match symlink_file.make_symbolic_link(absolute_path, gio::Cancellable::NONE) {
-                    Ok(_) => {
-                        if symlink_file.parent().map_or(false, |parent| {
-                            parent.equal(&directory.upcast_ref::<File>().file())
-                        }) {
-                            directory.file_created(&symlink_file.uri());
-                        }
-                        dialog.response(gtk::ResponseType::Ok);
-                    }
-                    Err(error) => {
-                        ErrorMessage::with_error(gettext("Making a symbolic link failed"), &error)
-                            .show(dialog.upcast_ref())
-                            .await;
-                    }
-                }
-            });
-        }
-    ));
-
-    cancel_button.connect_clicked(glib::clone!(
-        #[weak]
-        dialog,
-        move |_| {
-            dialog.response(gtk::ResponseType::Cancel);
-        }
-    ));
-
-    let key_controller = gtk::EventControllerKey::new();
-    key_controller.connect_key_pressed(glib::clone!(
-        #[weak]
-        dialog,
-        #[upgrade_or]
-        glib::Propagation::Proceed,
-        move |_, key, _, _| {
-            if key == gdk::Key::Escape {
-                dialog.response(gtk::ResponseType::Cancel);
-                glib::Propagation::Stop
-            } else {
-                glib::Propagation::Proceed
-            }
-        }
-    ));
-    dialog.add_controller(key_controller);
+    let dialog = CreateSymlinkDialog::default();
+    dialog.set_transient_for(Some(parent_window));
+    dialog.imp().link_name_entry.set_text(link_name);
 
     dialog.present();
-    dialog.run_future().await;
+
+    loop {
+        let response = dialog.imp().receiver.recv().await;
+        let Ok(Some(link_name)) = response else {
+            break;
+        };
+
+        let symlink_file: gio::File = if link_name.starts_with('/') {
+            let con = directory.connection();
+            let path = con.create_path(&Path::new(&link_name));
+            con.create_gfile(Some(&path.path()))
+        } else {
+            directory.get_child_gfile(&link_name)
+        };
+        let absolute_path = file.file().parse_name();
+
+        match symlink_file.make_symbolic_link(absolute_path, gio::Cancellable::NONE) {
+            Ok(_) => {
+                if symlink_file.parent().map_or(false, |parent| {
+                    parent.equal(&directory.upcast_ref::<File>().file())
+                }) {
+                    directory.file_created(&symlink_file.uri());
+                }
+                break;
+            }
+            Err(error) => {
+                ErrorMessage::with_error(gettext("Making a symbolic link failed"), &error)
+                    .show(dialog.upcast_ref())
+                    .await;
+            }
+        }
+    }
     dialog.close();
 }

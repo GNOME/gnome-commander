@@ -37,7 +37,7 @@ mod imp {
     use crate::{
         dir::Directory,
         file_selector::FileSelector,
-        utils::{dialog_button_box, toggle_file_name_selection, NO_BUTTONS},
+        utils::{dialog_button_box, toggle_file_name_selection, SenderExt, NO_BUTTONS},
     };
     use std::cell::OnceCell;
 
@@ -52,15 +52,18 @@ mod imp {
         pub src_fs: OnceCell<FileSelector>,
         pub dst_fs: OnceCell<FileSelector>,
         pub default_dest_dir: OnceCell<Directory>,
+        sender: async_channel::Sender<bool>,
+        pub receiver: async_channel::Receiver<bool>,
     }
 
     #[glib::object_subclass]
     impl ObjectSubclass for PrepareTransferDialog {
         const NAME: &'static str = "GnomeCmndPrepareTransferDialog";
         type Type = super::PrepareTransferDialog;
-        type ParentType = gtk::Dialog;
+        type ParentType = gtk::Window;
 
         fn new() -> Self {
+            let (sender, receiver) = async_channel::bounded(1);
             Self {
                 dst_label: gtk::Label::builder()
                     .use_markup(true)
@@ -94,6 +97,8 @@ mod imp {
                 src_fs: OnceCell::new(),
                 dst_fs: OnceCell::new(),
                 default_dest_dir: OnceCell::new(),
+                sender,
+                receiver,
             }
         }
     }
@@ -107,16 +112,18 @@ mod imp {
             dlg.set_width_request(500);
             dlg.set_resizable(false);
 
-            let content_area = dlg.content_area();
+            let grid = gtk::Grid::builder()
+                .margin_top(12)
+                .margin_bottom(12)
+                .margin_start(12)
+                .margin_end(12)
+                .row_spacing(6)
+                .column_spacing(12)
+                .build();
+            dlg.set_child(Some(&grid));
 
-            content_area.set_margin_top(12);
-            content_area.set_margin_bottom(12);
-            content_area.set_margin_start(12);
-            content_area.set_margin_end(12);
-            content_area.set_spacing(6);
-
-            content_area.append(&self.dst_label);
-            content_area.append(&self.dst_entry);
+            grid.attach(&self.dst_label, 0, 0, 2, 1);
+            grid.attach(&self.dst_entry, 0, 1, 2, 1);
 
             self.dst_label.set_mnemonic_widget(Some(&self.dst_entry));
 
@@ -130,44 +137,40 @@ mod imp {
             ));
             self.dst_entry.add_controller(key_controller);
 
-            let options_hbox = gtk::Box::builder()
-                .orientation(gtk::Orientation::Horizontal)
-                .spacing(6)
-                .build();
-            content_area.append(&options_hbox);
+            grid.attach(&self.left_vbox, 0, 2, 1, 1);
+            grid.attach(&self.right_vbox, 1, 2, 1, 1);
 
-            options_hbox.append(&self.left_vbox);
-            options_hbox.append(&self.right_vbox);
-
-            content_area.append(&dialog_button_box(
-                NO_BUTTONS,
-                &[&self.cancel_button, &self.ok_button],
-            ));
+            grid.attach(
+                &dialog_button_box(NO_BUTTONS, &[&self.cancel_button, &self.ok_button]),
+                0,
+                3,
+                2,
+                1,
+            );
 
             self.cancel_button.connect_clicked(glib::clone!(
-                #[weak]
-                dlg,
-                move |_| dlg.response(gtk::ResponseType::Cancel)
+                #[weak(rename_to = imp)]
+                self,
+                move |_| imp.sender.toss(false)
             ));
 
             self.ok_button.connect_clicked(glib::clone!(
-                #[weak]
-                dlg,
-                move |_| dlg.response(gtk::ResponseType::Ok)
+                #[weak(rename_to = imp)]
+                self,
+                move |_| imp.sender.toss(true)
             ));
 
-            dlg.set_default_response(gtk::ResponseType::Ok);
+            dlg.set_default_widget(Some(&self.ok_button));
         }
     }
 
     impl WidgetImpl for PrepareTransferDialog {}
     impl WindowImpl for PrepareTransferDialog {}
-    impl DialogImpl for PrepareTransferDialog {}
 
     impl PrepareTransferDialog {
         fn dst_entry_key_pressed(&self, keyval: gdk::Key) -> glib::Propagation {
             if keyval == gdk::Key::Return || keyval == gdk::Key::KP_Enter {
-                self.obj().response(gtk::ResponseType::Ok);
+                self.sender.toss(true);
                 glib::Propagation::Stop
             } else if keyval == gdk::Key::F5 || keyval == gdk::Key::F6 {
                 toggle_file_name_selection(&self.dst_entry);
@@ -181,7 +184,7 @@ mod imp {
 
 glib::wrapper! {
     pub struct PrepareTransferDialog(ObjectSubclass<imp::PrepareTransferDialog>)
-        @extends gtk::Dialog, gtk::Window, gtk::Widget;
+        @extends gtk::Window, gtk::Widget;
 }
 
 fn prepend_slash(str: String) -> String {
@@ -285,19 +288,13 @@ impl PrepareTransferDialog {
     }
 
     pub async fn run(&self) -> Option<(Directory, Option<String>)> {
-        let (sender, receiver) = async_channel::bounded::<gtk::ResponseType>(1);
-        let response_handler = self.connect_response(move |_, response_type| {
-            if let Err(error) = sender.send_blocking(response_type) {
-                eprintln!("Failed to send a response {:?}: {}", response_type, error);
-            }
-        });
-
-        self.present();
         self.set_default_widget(Some(&self.imp().ok_button));
 
+        self.present();
+
         let result = loop {
-            match receiver.recv().await {
-                Ok(gtk::ResponseType::Ok) => {
+            match self.imp().receiver.recv().await {
+                Ok(true) => {
                     self.imp().ok_button.set_sensitive(false);
                     self.imp().cancel_button.set_sensitive(false);
 
@@ -316,18 +313,10 @@ impl PrepareTransferDialog {
                     self.imp().cancel_button.set_sensitive(true);
 
                     if dest.is_some() {
-                        self.disconnect(response_handler);
                         break dest;
                     }
                 }
-                Ok(gtk::ResponseType::DeleteEvent) => {
-                    break None;
-                }
-                Ok(_) => {
-                    self.disconnect(response_handler);
-                    break None;
-                }
-                Err(_) => {
+                _ => {
                     break None;
                 }
             }

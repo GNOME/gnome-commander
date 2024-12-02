@@ -19,10 +19,12 @@
 
 use super::profiles::{manage_profiles_dialog::manage_profiles, profiles::ProfileManager};
 use gettextrs::gettext;
-use glib::ffi::gboolean;
 use gtk::{
-    ffi::{GtkDialog, GtkWidget},
-    glib::translate::{from_glib_full, from_glib_none, ToGlibPtr},
+    ffi::{GtkWidget, GtkWindow},
+    glib::{
+        ffi::gboolean,
+        translate::{from_glib_full, from_glib_none, ToGlibPtr},
+    },
     prelude::*,
 };
 use std::{
@@ -201,7 +203,7 @@ impl ProfileManager for AdvRenameProfileManager {
     }
 }
 
-type GnomeCmdAdvrenameDialog = GtkDialog;
+type GnomeCmdAdvrenameDialog = GtkWindow;
 
 extern "C" {
     fn gnome_cmd_advrename_dialog_update_profile_menu(dialog: *mut GnomeCmdAdvrenameDialog);
@@ -213,7 +215,7 @@ pub extern "C" fn gnome_cmd_advrename_dialog_do_manage_profiles(
     cfg: *mut AdvRenameConfig,
     new_profile: gboolean,
 ) {
-    let dialog: gtk::Dialog = unsafe { from_glib_none(dialog_ptr) };
+    let dialog: gtk::Window = unsafe { from_glib_none(dialog_ptr) };
 
     glib::spawn_future_local(async move {
         let profiles =

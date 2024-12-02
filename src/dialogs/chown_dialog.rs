@@ -22,7 +22,7 @@ use crate::{
     dir::Directory,
     file::File,
     libgcmd::file_base::FileBaseExt,
-    utils::{dialog_button_box, ErrorMessage, NO_BUTTONS},
+    utils::{dialog_button_box, ErrorMessage, SenderExt, NO_BUTTONS},
 };
 use gettextrs::gettext;
 use gtk::{gio, glib, prelude::*};
@@ -81,19 +81,21 @@ pub async fn show_chown_dialog(parent_window: &gtk::Window, files: &glib::List<F
     let owner = file_info.attribute_uint32(gio::FILE_ATTRIBUTE_UNIX_UID) as uid_t;
     let group = file_info.attribute_uint32(gio::FILE_ATTRIBUTE_UNIX_GID) as gid_t;
 
-    let dialog = gtk::Dialog::builder()
+    let dialog = gtk::Window::builder()
         .transient_for(parent_window)
         .title(gettext("Access Permissions"))
         .resizable(false)
         .build();
 
-    let content_area = dialog.content_area();
-
-    content_area.set_margin_top(12);
-    content_area.set_margin_bottom(12);
-    content_area.set_margin_start(12);
-    content_area.set_margin_end(12);
-    content_area.set_spacing(6);
+    let content_area = gtk::Box::builder()
+        .orientation(gtk::Orientation::Vertical)
+        .margin_top(12)
+        .margin_bottom(12)
+        .margin_start(12)
+        .margin_end(12)
+        .spacing(6)
+        .build();
+    dialog.set_child(Some(&content_area));
 
     let chown_component = ChownComponent::new();
     chown_component.set_ownership(owner, group);
@@ -104,14 +106,16 @@ pub async fn show_chown_dialog(parent_window: &gtk::Window, files: &glib::List<F
     let recurse_check = gtk::CheckButton::with_label(&gettext("Apply Recursively"));
     content_area.append(&recurse_check);
 
+    let (sender, receiver) = async_channel::bounded::<bool>(1);
+
     let cancel_btn = gtk::Button::builder()
         .label(gettext("_Cancel"))
         .use_underline(true)
         .build();
     cancel_btn.connect_clicked(glib::clone!(
-        #[weak]
-        dialog,
-        move |_| dialog.response(gtk::ResponseType::Cancel)
+        #[strong]
+        sender,
+        move |_| sender.toss(false)
     ));
 
     let ok_btn = gtk::Button::builder()
@@ -119,9 +123,9 @@ pub async fn show_chown_dialog(parent_window: &gtk::Window, files: &glib::List<F
         .use_underline(true)
         .build();
     ok_btn.connect_clicked(glib::clone!(
-        #[weak]
-        dialog,
-        move |_| dialog.response(gtk::ResponseType::Ok)
+        #[strong]
+        sender,
+        move |_| sender.toss(true)
     ));
 
     content_area.append(&dialog_button_box(NO_BUTTONS, &[&cancel_btn, &ok_btn]));
@@ -129,7 +133,7 @@ pub async fn show_chown_dialog(parent_window: &gtk::Window, files: &glib::List<F
     dialog.set_default_widget(Some(&ok_btn));
     dialog.present();
 
-    let result = dialog.run_future().await == gtk::ResponseType::Ok;
+    let result = receiver.recv().await == Ok(true);
 
     if result {
         let (mut owner, group) = chown_component.ownership();

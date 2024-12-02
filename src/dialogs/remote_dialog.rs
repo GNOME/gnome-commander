@@ -103,7 +103,7 @@ mod imp {
     impl ObjectSubclass for RemoteDialog {
         const NAME: &'static str = "GnomeCmdRemoteDialog";
         type Type = super::RemoteDialog;
-        type ParentType = gtk::Dialog;
+        type ParentType = gtk::Window;
 
         fn new() -> Self {
             Self {
@@ -139,18 +139,15 @@ mod imp {
             obj.set_title(Some(&gettext("Remote Connections")));
             obj.set_resizable(true);
 
-            obj.content_area().set_margin_top(12);
-            obj.content_area().set_margin_bottom(12);
-            obj.content_area().set_margin_start(12);
-            obj.content_area().set_margin_end(12);
-            obj.content_area().set_spacing(6);
-
-            let hbox = gtk::Box::builder()
-                .orientation(gtk::Orientation::Horizontal)
-                .spacing(12)
-                .vexpand(true)
+            let grid = gtk::Grid::builder()
+                .margin_top(12)
+                .margin_bottom(12)
+                .margin_start(12)
+                .margin_end(12)
+                .row_spacing(6)
+                .column_spacing(12)
                 .build();
-            obj.content_area().append(&hbox);
+            obj.set_child(Some(&grid));
 
             {
                 let renderer = gtk::CellRendererPixbuf::new();
@@ -191,15 +188,16 @@ mod imp {
                 .vscrollbar_policy(gtk::PolicyType::Automatic)
                 .has_frame(true)
                 .hexpand(true)
+                .vexpand(true)
                 .child(&self.view)
                 .build();
-            hbox.append(&sw);
+            grid.attach(&sw, 0, 0, 1, 1);
 
             let bbox = gtk::Box::builder()
                 .orientation(gtk::Orientation::Vertical)
                 .spacing(12)
                 .build();
-            hbox.append(&bbox);
+            grid.attach(&bbox, 1, 0, 1, 1);
 
             let add_button = gtk::Button::builder()
                 .label(&gettext("_Add"))
@@ -258,10 +256,13 @@ mod imp {
                 move |_| imp.on_connect_btn_clicked()
             ));
 
-            obj.content_area().append(&dialog_button_box(
-                &[&help_button],
-                &[&close_button, &self.connect_button],
-            ));
+            grid.attach(
+                &dialog_button_box(&[&help_button], &[&close_button, &self.connect_button]),
+                0,
+                1,
+                2,
+                1,
+            );
 
             self.view.connect_row_activated(glib::clone!(
                 #[weak(rename_to = imp)]
@@ -283,7 +284,6 @@ mod imp {
 
     impl WidgetImpl for RemoteDialog {}
     impl WindowImpl for RemoteDialog {}
-    impl DialogImpl for RemoteDialog {}
 
     impl RemoteDialog {
         pub fn fill_model(&self) {
@@ -410,7 +410,7 @@ mod imp {
 
 glib::wrapper! {
     pub struct RemoteDialog(ObjectSubclass<imp::RemoteDialog>)
-        @extends gtk::Dialog, gtk::Window, gtk::Widget;
+        @extends gtk::Window, gtk::Widget;
 }
 
 impl RemoteDialog {

@@ -33,7 +33,7 @@ mod imp {
     impl ObjectSubclass for SearchProgressDialog {
         const NAME: &'static str = "GnomeCmdViewerSearchProgressDialog";
         type Type = super::SearchProgressDialog;
-        type ParentType = gtk::Dialog;
+        type ParentType = gtk::Window;
 
         fn new() -> Self {
             Self {
@@ -61,39 +61,35 @@ mod imp {
             dlg.set_modal(true);
             dlg.set_resizable(false);
 
-            let content_area = dlg.content_area();
-
-            content_area.set_margin_top(12);
-            content_area.set_margin_bottom(12);
-            content_area.set_margin_start(12);
-            content_area.set_margin_end(12);
-            content_area.set_spacing(6);
-
-            content_area.append(&self.label);
-            content_area.append(&self.progress_bar);
-
-            let bbox = gtk::Box::builder()
-                .orientation(gtk::Orientation::Horizontal)
+            let grid = gtk::Grid::builder()
+                .margin_top(12)
+                .margin_bottom(12)
+                .margin_start(12)
+                .margin_end(12)
+                .row_spacing(6)
+                .column_spacing(12)
                 .build();
-            content_area.append(&bbox);
+            dlg.set_child(Some(&grid));
 
-            bbox.append(&self.stop_button);
+            grid.attach(&self.label, 0, 0, 1, 1);
+            grid.attach(&self.progress_bar, 0, 1, 1, 1);
+
+            grid.attach(&self.stop_button, 0, 2, 1, 1);
             self.stop_button.connect_clicked(glib::clone!(
                 #[weak]
                 dlg,
-                move |_| dlg.response(gtk::ResponseType::Cancel)
+                move |_| dlg.close()
             ));
         }
     }
 
     impl WidgetImpl for SearchProgressDialog {}
     impl WindowImpl for SearchProgressDialog {}
-    impl DialogImpl for SearchProgressDialog {}
 }
 
 glib::wrapper! {
     pub struct SearchProgressDialog(ObjectSubclass<imp::SearchProgressDialog>)
-        @extends gtk::Dialog, gtk::Window, gtk::Widget;
+        @extends gtk::Window, gtk::Widget;
 }
 
 impl SearchProgressDialog {
@@ -107,7 +103,7 @@ impl SearchProgressDialog {
     }
 
     pub fn connect_stop<F: Fn() + 'static>(&self, f: F) -> glib::SignalHandlerId {
-        self.connect_response(move |_, _| f())
+        self.imp().stop_button.connect_clicked(move |_| f())
     }
 
     pub fn set_progress(&self, progress: u32) {

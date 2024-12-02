@@ -20,7 +20,7 @@
  * For more details see the file COPYING.
  */
 
-use crate::utils::{dialog_button_box, ErrorMessage, NO_BUTTONS};
+use crate::utils::{dialog_button_box, SenderExt, NO_BUTTONS};
 use gettextrs::gettext;
 use gtk::{glib, prelude::*};
 
@@ -34,7 +34,7 @@ pub async fn edit_bookmark_dialog(
     title: &str,
     bookmark: &Bookmark,
 ) -> Option<Bookmark> {
-    let dialog = gtk::Dialog::builder()
+    let dialog = gtk::Window::builder()
         .title(title)
         .transient_for(parent)
         .modal(true)
@@ -42,26 +42,20 @@ pub async fn edit_bookmark_dialog(
         .resizable(false)
         .build();
 
-    let content_area = dialog.content_area();
-
-    // HIG defaults
-    content_area.set_margin_top(10);
-    content_area.set_margin_bottom(10);
-    content_area.set_margin_start(10);
-    content_area.set_margin_end(10);
-    content_area.set_spacing(6);
-
     let grid = gtk::Grid::builder()
+        .margin_top(12)
+        .margin_bottom(12)
+        .margin_start(12)
+        .margin_end(12)
         .row_spacing(6)
         .column_spacing(12)
         .build();
-    content_area.append(&grid);
+    dialog.set_child(Some(&grid));
 
     let name_entry = gtk::Entry::builder()
         .hexpand(true)
         .vexpand(true)
         .activates_default(true)
-        .text(&bookmark.name)
         .build();
 
     let name_label = gtk::Label::builder()
@@ -81,7 +75,6 @@ pub async fn edit_bookmark_dialog(
         .hexpand(true)
         .vexpand(true)
         .activates_default(true)
-        .text(&bookmark.path)
         .build();
 
     let path_label = gtk::Label::builder()
@@ -97,73 +90,64 @@ pub async fn edit_bookmark_dialog(
     grid.attach(&path_label, 0, 1, 1, 1);
     grid.attach(&path_entry, 1, 1, 1, 1);
 
+    let (sender, receiver) = async_channel::bounded::<bool>(1);
+
     let cancel_btn = gtk::Button::builder()
         .label(gettext("_Cancel"))
         .use_underline(true)
         .build();
     cancel_btn.connect_clicked(glib::clone!(
-        #[weak]
-        dialog,
-        move |_| dialog.response(gtk::ResponseType::Cancel)
+        #[strong]
+        sender,
+        move |_| sender.toss(false)
     ));
 
     let ok_btn = gtk::Button::builder()
         .label(gettext("_OK"))
         .use_underline(true)
         .receives_default(true)
+        .sensitive(false)
         .build();
     ok_btn.connect_clicked(glib::clone!(
+        #[strong]
+        sender,
+        move |_| sender.toss(true)
+    ));
+
+    name_entry.connect_changed(glib::clone!(
         #[weak]
-        dialog,
-        move |_| dialog.response(gtk::ResponseType::Ok)
+        ok_btn,
+        #[weak]
+        path_entry,
+        move |name_entry| ok_btn
+            .set_sensitive(!name_entry.text().is_empty() && !path_entry.text().is_empty())
+    ));
+    path_entry.connect_changed(glib::clone!(
+        #[weak]
+        ok_btn,
+        #[weak]
+        name_entry,
+        move |path_entry| ok_btn
+            .set_sensitive(!name_entry.text().is_empty() && !path_entry.text().is_empty())
     ));
 
     grid.attach(
-        &dialog_button_box(NO_BUTTONS, &[cancel_btn, ok_btn]),
+        &dialog_button_box(NO_BUTTONS, &[&cancel_btn, &ok_btn]),
         0,
         2,
         2,
         1,
     );
 
-    dialog.set_default_response(gtk::ResponseType::Ok);
+    dialog.set_default_widget(Some(&ok_btn));
 
-    dialog.connect_response(glib::clone!(
-        #[strong]
-        name_entry,
-        #[strong]
-        path_entry,
-        move |dlg, response| {
-            let validation = if response == gtk::ResponseType::Ok {
-                if name_entry.text().is_empty() {
-                    Err(ErrorMessage::new(
-                        gettext("Bookmark name is missing."),
-                        None::<String>,
-                    ))
-                } else if path_entry.text().is_empty() {
-                    Err(ErrorMessage::new(
-                        gettext("Bookmark target is missing."),
-                        None::<String>,
-                    ))
-                } else {
-                    Ok(())
-                }
-            } else {
-                Ok(())
-            };
-            if let Err(error) = validation {
-                let dlg = dlg.clone();
-                glib::spawn_future_local(async move {
-                    glib::signal::signal_stop_emission_by_name(&dlg, "response");
-                    error.show(dlg.upcast_ref()).await;
-                });
-            }
-        }
-    ));
+    name_entry.set_text(&bookmark.name);
+    path_entry.set_text(&bookmark.path);
 
-    let response = dialog.run_future().await;
+    dialog.present();
 
-    let result = if response == gtk::ResponseType::Ok {
+    let response = receiver.recv().await;
+    let result = if response == Ok(true) {
         Some(Bookmark {
             name: name_entry.text().to_string(),
             path: path_entry.text().to_string(),

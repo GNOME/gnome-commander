@@ -22,7 +22,7 @@ use crate::{
     dir::Directory,
     file::File,
     libgcmd::file_base::FileBaseExt,
-    utils::{dialog_button_box, ErrorMessage, NO_BUTTONS},
+    utils::{dialog_button_box, ErrorMessage, SenderExt, NO_BUTTONS},
 };
 use gettextrs::gettext;
 use gtk::{gio, glib, prelude::*};
@@ -96,19 +96,21 @@ pub async fn show_chmod_dialog(parent_window: &gtk::Window, files: &glib::List<F
         .attribute_uint32(gio::FILE_ATTRIBUTE_UNIX_MODE)
         & 0xFFF;
 
-    let dialog = gtk::Dialog::builder()
+    let dialog = gtk::Window::builder()
         .transient_for(parent_window)
         .title(gettext("Access Permissions"))
         .resizable(false)
         .build();
 
-    let content_area = dialog.content_area();
-
-    content_area.set_margin_top(12);
-    content_area.set_margin_bottom(12);
-    content_area.set_margin_start(12);
-    content_area.set_margin_end(12);
-    content_area.set_spacing(6);
+    let content_area = gtk::Box::builder()
+        .orientation(gtk::Orientation::Vertical)
+        .margin_top(12)
+        .margin_bottom(12)
+        .margin_start(12)
+        .margin_end(12)
+        .spacing(6)
+        .build();
+    dialog.set_child(Some(&content_area));
 
     let chmod_component = ChmodComponent::new(permissions);
     content_area.append(&chmod_component);
@@ -118,10 +120,13 @@ pub async fn show_chmod_dialog(parent_window: &gtk::Window, files: &glib::List<F
     let recurse_check = gtk::CheckButton::with_label(&gettext("Apply Recursively for"));
     content_area.append(&recurse_check);
 
-    let recurse_combo = gtk::ComboBoxText::builder().sensitive(false).build();
-    recurse_combo.append_text(&gettext("All files"));
-    recurse_combo.append_text(&gettext("Directories only"));
-    recurse_combo.set_active(Some(0));
+    let recurse_model =
+        gtk::StringList::new(&[&gettext("All files"), &gettext("Directories only")]);
+    let recurse_combo = gtk::DropDown::builder()
+        .sensitive(false)
+        .model(&recurse_model)
+        .build();
+    recurse_combo.set_selected(0);
     content_area.append(&recurse_combo);
 
     recurse_check.connect_toggled(glib::clone!(
@@ -132,14 +137,16 @@ pub async fn show_chmod_dialog(parent_window: &gtk::Window, files: &glib::List<F
         }
     ));
 
+    let (sender, receiver) = async_channel::bounded::<bool>(1);
+
     let cancel_btn = gtk::Button::builder()
         .label(gettext("_Cancel"))
         .use_underline(true)
         .build();
     cancel_btn.connect_clicked(glib::clone!(
-        #[weak]
-        dialog,
-        move |_| dialog.response(gtk::ResponseType::Cancel)
+        #[strong]
+        sender,
+        move |_| sender.toss(false)
     ));
 
     let ok_btn = gtk::Button::builder()
@@ -147,9 +154,9 @@ pub async fn show_chmod_dialog(parent_window: &gtk::Window, files: &glib::List<F
         .use_underline(true)
         .build();
     ok_btn.connect_clicked(glib::clone!(
-        #[weak]
-        dialog,
-        move |_| dialog.response(gtk::ResponseType::Ok)
+        #[strong]
+        sender,
+        move |_| sender.toss(true)
     ));
 
     content_area.append(&dialog_button_box(NO_BUTTONS, &[&cancel_btn, &ok_btn]));
@@ -157,17 +164,16 @@ pub async fn show_chmod_dialog(parent_window: &gtk::Window, files: &glib::List<F
     dialog.set_default_widget(Some(&ok_btn));
     dialog.present();
 
-    let result = dialog.run_future().await == gtk::ResponseType::Ok;
+    let result = receiver.recv().await == Ok(true);
 
     if result {
         let permissions = chmod_component.permissions();
-        let recursive =
-            recurse_check
-                .is_active()
-                .then(|| match recurse_combo.active().unwrap_or_default() {
-                    0 => ChmodRecursiveMode::AllFiles,
-                    _ => ChmodRecursiveMode::DirectoriesOnly,
-                });
+        let recursive = recurse_check
+            .is_active()
+            .then(|| match recurse_combo.selected() {
+                0 => ChmodRecursiveMode::AllFiles,
+                _ => ChmodRecursiveMode::DirectoriesOnly,
+            });
 
         chmod_files(dialog.upcast_ref(), &files, permissions, recursive).await;
     }
