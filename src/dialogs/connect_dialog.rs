@@ -31,7 +31,7 @@ use std::path::Path;
 
 mod imp {
     use super::*;
-    use crate::utils::{dialog_button_box, display_help, ErrorMessage};
+    use crate::utils::{dialog_button_box, display_help, ErrorMessage, SenderExt};
 
     fn create_methods_model() -> gtk::ListStore {
         let store = gtk::ListStore::new(&[String::static_type(), i32::static_type()]);
@@ -118,17 +118,24 @@ mod imp {
         pub port_entry: gtk::Entry,
         pub folder_entry: gtk::Entry,
         pub domain_entry: gtk::Entry,
+        sender: async_channel::Sender<Option<(ConnectionMethodID, glib::Uri)>>,
+        pub receiver: async_channel::Receiver<Option<(ConnectionMethodID, glib::Uri)>>,
     }
 
     #[glib::object_subclass]
     impl ObjectSubclass for ConnectDialog {
         const NAME: &'static str = "GnomeCmdConnectDialog";
         type Type = super::ConnectDialog;
-        type ParentType = gtk::Dialog;
+        type ParentType = gtk::Window;
 
         fn new() -> Self {
+            let (sender, receiver) = async_channel::bounded(1);
             Self {
                 grid: gtk::Grid::builder()
+                    .margin_top(12)
+                    .margin_bottom(12)
+                    .margin_start(12)
+                    .margin_end(12)
                     .row_spacing(6)
                     .column_spacing(12)
                     .build(),
@@ -139,6 +146,8 @@ mod imp {
                 port_entry: gtk::Entry::builder().activates_default(true).build(),
                 folder_entry: gtk::Entry::builder().activates_default(true).build(),
                 domain_entry: gtk::Entry::builder().activates_default(true).build(),
+                sender,
+                receiver,
             }
         }
     }
@@ -152,13 +161,7 @@ mod imp {
             obj.set_title(Some(&gettext("Remote Server")));
             obj.set_resizable(false);
 
-            let content_area = obj.content_area();
-            content_area.set_margin_top(12);
-            content_area.set_margin_bottom(12);
-            content_area.set_margin_start(12);
-            content_area.set_margin_end(12);
-            content_area.set_spacing(6);
-            content_area.append(&self.grid);
+            obj.set_child(Some(&self.grid));
 
             let label = gtk::Label::builder()
                 .label(format!("<b>{}</b>", gettext("Service _type:")))
@@ -232,9 +235,9 @@ mod imp {
                 .use_underline(true)
                 .build();
             cancel_btn.connect_clicked(glib::clone!(
-                #[weak]
-                obj,
-                move |_| obj.response(gtk::ResponseType::Cancel)
+                #[weak(rename_to = imp)]
+                self,
+                move |_| imp.sender.toss(None)
             ));
 
             let ok_btn = gtk::Button::builder()
@@ -258,15 +261,11 @@ mod imp {
             );
 
             obj.set_default_widget(Some(&ok_btn));
-            obj.set_default_response(gtk::ResponseType::Ok);
-
-            //  g_signal_connect (dialog, "response", G_CALLBACK (response_callback), dialog);
         }
     }
 
     impl WidgetImpl for ConnectDialog {}
     impl WindowImpl for ConnectDialog {}
-    impl DialogImpl for ConnectDialog {}
 
     impl ConnectDialog {
         fn attach_entry(&self, label: &str, entry: &gtk::Entry, row: GridRow) {
@@ -365,13 +364,13 @@ mod imp {
             }
         }
 
-        pub fn get_connection_uri(&self) -> Result<glib::Uri, ErrorMessage> {
+        pub fn get_connection_uri(&self) -> Result<(ConnectionMethodID, glib::Uri), ErrorMessage> {
             let method = self.get_method().ok_or_else(|| ErrorMessage {
                 message: gettext("Connection method is not selected"),
                 secondary_text: None,
             })?;
-            match method {
-                ConnectionMethodID::CON_SFTP => Ok(glib::Uri::build(
+            let uri = match method {
+                ConnectionMethodID::CON_SFTP => glib::Uri::build(
                     glib::UriFlags::NONE,
                     "sftp",
                     None,
@@ -380,25 +379,23 @@ mod imp {
                     &self.get_folder(),
                     None,
                     None,
-                )),
-                ConnectionMethodID::CON_FTP | ConnectionMethodID::CON_ANON_FTP => {
-                    Ok(glib::Uri::build(
-                        glib::UriFlags::NONE,
-                        "ftp",
-                        None,
-                        Some(&self.get_server()?),
-                        self.get_port()?,
-                        &self.get_folder(),
-                        None,
-                        None,
-                    ))
-                }
+                ),
+                ConnectionMethodID::CON_FTP | ConnectionMethodID::CON_ANON_FTP => glib::Uri::build(
+                    glib::UriFlags::NONE,
+                    "ftp",
+                    None,
+                    Some(&self.get_server()?),
+                    self.get_port()?,
+                    &self.get_folder(),
+                    None,
+                    None,
+                ),
                 ConnectionMethodID::CON_SMB => {
                     let mut host = self.get_server()?;
                     if let Some(domain) = self.get_domain() {
                         host = format!("{domain};{host}");
                     }
-                    Ok(glib::Uri::build(
+                    glib::Uri::build(
                         glib::UriFlags::NON_DNS,
                         "smb",
                         None,
@@ -407,9 +404,9 @@ mod imp {
                         &self.get_folder(),
                         None,
                         None,
-                    ))
+                    )
                 }
-                ConnectionMethodID::CON_DAV => Ok(glib::Uri::build(
+                ConnectionMethodID::CON_DAV => glib::Uri::build(
                     glib::UriFlags::NONE,
                     "dav",
                     None,
@@ -418,8 +415,8 @@ mod imp {
                     &self.get_folder(),
                     None,
                     None,
-                )),
-                ConnectionMethodID::CON_DAVS => Ok(glib::Uri::build(
+                ),
+                ConnectionMethodID::CON_DAVS => glib::Uri::build(
                     glib::UriFlags::NONE,
                     "davs",
                     None,
@@ -428,24 +425,27 @@ mod imp {
                     &self.get_folder(),
                     None,
                     None,
-                )),
+                ),
                 ConnectionMethodID::CON_URI => {
                     let uri = self.uri_entry.text();
                     glib::Uri::parse(&uri, glib::UriFlags::NONE).map_err(|_| ErrorMessage {
                         message: gettext("“{}” is not a valid location").replace("{}", &uri),
                         secondary_text: Some(gettext("Please check spelling and try again.")),
+                    })?
+                }
+                _ => {
+                    return Err(ErrorMessage {
+                        message: "Unsupported connection method".to_string(),
+                        secondary_text: None,
                     })
                 }
-                _ => Err(ErrorMessage {
-                    message: "Unsupported connection method".to_string(),
-                    secondary_text: None,
-                }),
-            }
+            };
+            Ok((method, uri))
         }
 
         async fn ok_clicked(&self) {
             match self.get_connection_uri() {
-                Ok(_) => self.obj().response(gtk::ResponseType::Ok),
+                Ok(data) => self.sender.toss(Some(data)),
                 Err(error) => error.show(self.obj().upcast_ref()).await,
             }
         }
@@ -464,7 +464,7 @@ mod imp {
 
 glib::wrapper! {
     pub struct ConnectDialog(ObjectSubclass<imp::ConnectDialog>)
-        @extends gtk::Dialog, gtk::Window, gtk::Widget;
+        @extends gtk::Window, gtk::Widget;
 }
 
 /*
@@ -501,40 +501,24 @@ impl ConnectDialog {
         dialog.imp().set_method(Some(ConnectionMethodID::CON_SFTP));
 
         dialog.present();
-        let mut connection: Option<ConnectionRemote> = None;
-        loop {
-            let response = dialog.run_future().await;
-            match response {
-                gtk::ResponseType::Ok => {
-                    let Some(method) = dialog.imp().get_method() else {
-                        continue;
-                    };
-                    match (method, dialog.imp().get_connection_uri()) {
-                        (ConnectionMethodID::CON_SMB, Ok(uri)) => {
-                            let alias = dialog.imp().alias_entry.text();
-                            let con = ConnectionSmb::default();
-                            con.set_alias(Some(&alias));
-                            con.set_uri(Some(&uri));
-                            connection = Some(con.upcast::<ConnectionRemote>());
-                            break;
-                        }
-                        (_, Ok(uri)) => {
-                            let alias = dialog.imp().alias_entry.text();
-                            let con = ConnectionRemote::default();
-                            con.set_alias(Some(&alias));
-                            con.set_uri(Some(&uri));
-                            connection = Some(con);
-                            break;
-                        }
-                        (_, Err(error)) => error.show(dialog.upcast_ref()).await,
-                    }
-                }
-                gtk::ResponseType::Cancel | gtk::ResponseType::DeleteEvent => {
-                    break;
-                }
-                _ => {}
+        let response = dialog.imp().receiver.recv().await;
+        let connection: Option<ConnectionRemote> = match response {
+            Ok(Some((ConnectionMethodID::CON_SMB, uri))) => {
+                let alias = dialog.imp().alias_entry.text();
+                let con = ConnectionSmb::default();
+                con.set_alias(Some(&alias));
+                con.set_uri(Some(&uri));
+                Some(con.upcast())
             }
-        }
+            Ok(Some((_, uri))) => {
+                let alias = dialog.imp().alias_entry.text();
+                let con = ConnectionRemote::default();
+                con.set_alias(Some(&alias));
+                con.set_uri(Some(&uri));
+                Some(con)
+            }
+            _ => None,
+        };
         dialog.close();
         connection
     }
@@ -573,32 +557,21 @@ impl ConnectDialog {
 
         dialog.present();
         let mut result = false;
-        loop {
-            let response = dialog.run_future().await;
-            match response {
-                gtk::ResponseType::Ok => match dialog.imp().get_connection_uri() {
-                    Ok(uri) => {
-                        let alias = dialog.imp().alias_entry.text();
-                        con.set_alias(Some(&alias));
-                        con.set_uri(Some(&uri));
 
-                        let path = uri.path();
-                        con.set_base_path(con.create_path(if path.is_empty() {
-                            Path::new("/")
-                        } else {
-                            Path::new(&path)
-                        }));
+        let response = dialog.imp().receiver.recv().await;
+        if let Ok(Some((_, uri))) = response {
+            let alias = dialog.imp().alias_entry.text();
+            con.set_alias(Some(&alias));
+            con.set_uri(Some(&uri));
 
-                        result = true;
-                        break;
-                    }
-                    Err(error) => error.show(dialog.upcast_ref()).await,
-                },
-                gtk::ResponseType::Cancel | gtk::ResponseType::DeleteEvent => {
-                    break;
-                }
-                _ => {}
-            }
+            let path = uri.path();
+            con.set_base_path(con.create_path(if path.is_empty() {
+                Path::new("/")
+            } else {
+                Path::new(&path)
+            }));
+
+            result = true;
         }
         dialog.close();
         result

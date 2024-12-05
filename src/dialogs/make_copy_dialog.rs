@@ -28,18 +28,19 @@ use crate::{
     main_win::MainWindow,
     transfer::gnome_cmd_copy_gfiles,
     types::GnomeCmdConfirmOverwriteMode,
-    utils::{close_dialog_with_escape_key, dialog_button_box, NO_BUTTONS},
+    utils::{channel_send_action, dialog_button_box, handle_escape_key, SenderExt, NO_BUTTONS},
 };
 use gettextrs::gettext;
 use gtk::{gio, glib, prelude::*};
 use std::path::Path;
 
 pub async fn make_copy_dialog(f: &File, dir: &Directory, main_win: &MainWindow) {
-    let dialog = gtk::Dialog::builder()
+    let dialog = gtk::Window::builder()
         .resizable(false)
         .title(gettext("Copy File"))
+        .modal(true)
+        .transient_for(main_win)
         .build();
-    close_dialog_with_escape_key(&dialog);
 
     let grid = gtk::Grid::builder()
         .hexpand(true)
@@ -51,7 +52,7 @@ pub async fn make_copy_dialog(f: &File, dir: &Directory, main_win: &MainWindow) 
         .row_spacing(6)
         .column_spacing(12)
         .build();
-    dialog.content_area().append(&grid);
+    dialog.set_child(Some(&grid));
 
     let initial_value = f.file_info().display_name();
 
@@ -69,14 +70,18 @@ pub async fn make_copy_dialog(f: &File, dir: &Directory, main_win: &MainWindow) 
         .build();
     grid.attach(&entry, 0, 1, 1, 1);
 
+    let (sender, receiver) = async_channel::bounded::<bool>(1);
+
+    handle_escape_key(&dialog, &channel_send_action(&sender, false));
+
     let cancel_btn = gtk::Button::builder()
         .label(gettext("_Cancel"))
         .use_underline(true)
         .build();
     cancel_btn.connect_clicked(glib::clone!(
-        #[weak]
-        dialog,
-        move |_| dialog.response(gtk::ResponseType::Cancel)
+        #[strong]
+        sender,
+        move |_| sender.toss(false)
     ));
 
     let ok_btn = gtk::Button::builder()
@@ -85,9 +90,9 @@ pub async fn make_copy_dialog(f: &File, dir: &Directory, main_win: &MainWindow) 
         .receives_default(true)
         .build();
     ok_btn.connect_clicked(glib::clone!(
-        #[weak]
-        dialog,
-        move |_| dialog.response(gtk::ResponseType::Ok)
+        #[strong]
+        sender,
+        move |_| sender.toss(true)
     ));
 
     grid.attach(
@@ -107,12 +112,12 @@ pub async fn make_copy_dialog(f: &File, dir: &Directory, main_win: &MainWindow) 
     entry.grab_focus();
     dialog.present();
 
-    let response = dialog.run_future().await;
+    let response = receiver.recv().await;
     let filename = entry.text();
     let filename = filename.trim_end_matches("/");
     dialog.close();
 
-    if response != gtk::ResponseType::Ok {
+    if response != Ok(true) {
         return;
     }
 

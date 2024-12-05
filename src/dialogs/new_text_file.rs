@@ -23,7 +23,7 @@ use crate::{
     file::{File, GnomeCmdFileExt},
     file_list::{ffi::GnomeCmdFileList, FileList},
     libgcmd::file_base::FileBaseExt,
-    utils::{dialog_button_box, ErrorMessage, NO_BUTTONS},
+    utils::{dialog_button_box, ErrorMessage, SenderExt, NO_BUTTONS},
 };
 use gettextrs::gettext;
 use gtk::{ffi::GtkWindow, gio, glib::translate::from_glib_none, prelude::*};
@@ -56,18 +56,25 @@ fn create_empty_file(name: &str, dir: &Directory) -> Result<gio::File, ErrorMess
 }
 
 pub async fn show_new_textfile_dialog(parent_window: &gtk::Window, file_list: &FileList) {
-    let dialog = gtk::Dialog::builder()
+    let Some(dir) = file_list.cwd() else {
+        eprintln!("No directory");
+        return;
+    };
+
+    let dialog = gtk::Window::builder()
         .transient_for(parent_window)
         .title(gettext("New Text File"))
         .build();
 
-    let content_area = dialog.content_area();
-
-    content_area.set_margin_top(12);
-    content_area.set_margin_bottom(12);
-    content_area.set_margin_start(12);
-    content_area.set_margin_end(12);
-    content_area.set_spacing(12);
+    let grid = gtk::Grid::builder()
+        .margin_top(12)
+        .margin_bottom(12)
+        .margin_start(12)
+        .margin_end(12)
+        .column_spacing(12)
+        .row_spacing(6)
+        .build();
+    dialog.set_child(Some(&grid));
 
     let entry = gtk::Entry::builder()
         .hexpand(true)
@@ -78,31 +85,19 @@ pub async fn show_new_textfile_dialog(parent_window: &gtk::Window, file_list: &F
         .mnemonic_widget(&entry)
         .build();
 
-    let hbox = gtk::Box::builder()
-        .orientation(gtk::Orientation::Horizontal)
-        .spacing(6)
-        .build();
-    hbox.append(&label);
-    hbox.append(&entry);
-    content_area.append(&hbox);
+    grid.attach(&label, 0, 0, 1, 1);
+    grid.attach(&entry, 1, 0, 1, 1);
 
-    let Some(dir) = file_list.cwd() else {
-        eprintln!("No directory");
-        return;
-    };
-
-    if let Some(f) = file_list.selected_file() {
-        entry.set_text(&f.file_info().display_name());
-    }
+    let (sender, receiver) = async_channel::bounded::<bool>(1);
 
     let cancel_btn = gtk::Button::builder()
         .label(gettext("_Cancel"))
         .use_underline(true)
         .build();
     cancel_btn.connect_clicked(glib::clone!(
-        #[weak]
-        dialog,
-        move |_| dialog.response(gtk::ResponseType::Cancel)
+        #[strong]
+        sender,
+        move |_| sender.toss(false)
     ));
 
     let ok_btn = gtk::Button::builder()
@@ -111,19 +106,36 @@ pub async fn show_new_textfile_dialog(parent_window: &gtk::Window, file_list: &F
         .receives_default(true)
         .build();
     ok_btn.connect_clicked(glib::clone!(
-        #[weak]
-        dialog,
-        move |_| dialog.response(gtk::ResponseType::Ok)
+        #[strong]
+        sender,
+        move |_| sender.toss(true)
     ));
 
-    content_area.append(&dialog_button_box(NO_BUTTONS, &[&cancel_btn, &ok_btn]));
+    grid.attach(
+        &dialog_button_box(NO_BUTTONS, &[&cancel_btn, &ok_btn]),
+        -0,
+        1,
+        2,
+        1,
+    );
+
+    entry.connect_changed(glib::clone!(
+        #[weak]
+        ok_btn,
+        move |entry| ok_btn.set_sensitive(!entry.text().is_empty())
+    ));
 
     dialog.set_default_widget(Some(&ok_btn));
+
+    if let Some(f) = file_list.selected_file() {
+        entry.set_text(&f.file_info().display_name());
+    }
+
     dialog.present();
 
     let file = loop {
-        let response = dialog.run_future().await;
-        if response == gtk::ResponseType::Ok {
+        let response = receiver.recv().await;
+        if response == Ok(true) {
             let name = entry.text();
             match create_empty_file(&name, &dir) {
                 Ok(f) => {

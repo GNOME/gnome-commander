@@ -22,7 +22,7 @@
 
 use crate::{config::PREFIX, data::ProgramsOptionsRead, file::File};
 use gettextrs::{gettext, ngettext};
-use gtk::{gdk, glib, pango::prelude, prelude::*};
+use gtk::{gdk, glib, prelude::*};
 use std::{
     ffi::{OsStr, OsString},
     sync::OnceLock,
@@ -115,23 +115,34 @@ impl<T> SenderExt<T> for async_channel::Sender<T> {
     }
 }
 
-pub fn close_dialog_with_escape_key(dialog: &gtk::Dialog) {
-    let key_controller = gtk::EventControllerKey::new();
-    key_controller.connect_key_pressed(glib::clone!(
-        #[weak]
-        dialog,
-        #[upgrade_or]
-        glib::Propagation::Proceed,
-        move |_, key, _, _| {
-            if key == gdk::Key::Escape {
-                dialog.response(gtk::ResponseType::Cancel);
-                glib::Propagation::Stop
-            } else {
-                glib::Propagation::Proceed
-            }
+pub fn channel_send_action<T>(sender: &async_channel::Sender<T>, message: T) -> gtk::ShortcutAction
+where
+    T: Clone + 'static,
+{
+    gtk::CallbackAction::new(glib::clone!(
+        #[strong]
+        sender,
+        move |_, _| {
+            sender.toss(message.clone());
+            glib::Propagation::Proceed
         }
-    ));
-    dialog.add_controller(key_controller);
+    ))
+    .upcast()
+}
+
+pub fn handle_escape_key(window: &gtk::Window, action: &impl IsA<gtk::ShortcutAction>) {
+    if let Some(trigger) = gtk::ShortcutTrigger::parse_string("Escape") {
+        let controller = gtk::ShortcutController::new();
+        controller.add_shortcut(
+            gtk::Shortcut::builder()
+                .trigger(&trigger)
+                .action(action)
+                .build(),
+        );
+        window.add_controller(controller);
+    } else {
+        eprintln!("\"Escape\" wasn't recognized as a legit shortcut.");
+    }
 }
 
 pub const NO_BUTTONS: &'static [&'static gtk::Button] = &[];

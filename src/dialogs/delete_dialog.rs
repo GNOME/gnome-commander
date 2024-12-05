@@ -78,7 +78,7 @@ mod imp {
     impl ObjectSubclass for DeleteProgressDialog {
         const NAME: &'static str = "GnomeCmdDeleteProgressDialog";
         type Type = super::DeleteProgressDialog;
-        type ParentType = gtk::Dialog;
+        type ParentType = gtk::Window;
 
         fn new() -> Self {
             Self {
@@ -108,38 +108,36 @@ mod imp {
             dlg.set_modal(true);
             dlg.set_resizable(false);
 
-            let content_area = dlg.content_area();
-
-            content_area.set_margin_top(12);
-            content_area.set_margin_bottom(12);
-            content_area.set_margin_start(12);
-            content_area.set_margin_end(12);
-            content_area.set_spacing(6);
-
-            content_area.append(&self.label);
-            content_area.append(&self.progress_bar);
-
-            let bbox = gtk::Box::builder()
-                .orientation(gtk::Orientation::Horizontal)
+            let grid = gtk::Grid::builder()
+                .margin_top(12)
+                .margin_bottom(12)
+                .margin_start(12)
+                .margin_end(12)
+                .row_spacing(6)
+                .column_spacing(12)
                 .build();
-            content_area.append(&bbox);
+            dlg.set_child(Some(&grid));
 
-            bbox.append(&self.stop_button);
+            grid.attach(&self.label, 0, 0, 1, 1);
+            grid.attach(&self.progress_bar, 0, 1, 1, 1);
+
+            grid.attach(&self.stop_button, 0, 2, 1, 1);
             self.stop_button.connect_clicked(glib::clone!(
                 #[weak]
                 dlg,
                 move |_| {
                     dlg.imp().cancellable.cancel();
-                    dlg.response(gtk::ResponseType::Cancel);
+                    dlg.close();
                 }
             ));
 
-            dlg.connect_close(glib::clone!(
-                #[weak]
-                dlg,
-                move |_| {
-                    dlg.imp().cancellable.cancel();
-                    dlg.response(gtk::ResponseType::Cancel);
+            dlg.connect_close_request(glib::clone!(
+                #[strong(rename_to = cancellable)]
+                self.cancellable,
+                move |dlg| {
+                    cancellable.cancel();
+                    dlg.close();
+                    glib::Propagation::Proceed
                 }
             ));
         }
@@ -147,12 +145,11 @@ mod imp {
 
     impl WidgetImpl for DeleteProgressDialog {}
     impl WindowImpl for DeleteProgressDialog {}
-    impl DialogImpl for DeleteProgressDialog {}
 }
 
 glib::wrapper! {
     pub struct DeleteProgressDialog(ObjectSubclass<imp::DeleteProgressDialog>)
-        @extends gtk::Dialog, gtk::Window, gtk::Widget;
+        @extends gtk::Window, gtk::Widget;
 }
 
 impl DeleteProgressDialog {
@@ -163,7 +160,7 @@ impl DeleteProgressDialog {
     }
 
     pub fn connect_stop<F: Fn() + 'static>(&self, f: F) -> glib::SignalHandlerId {
-        self.connect_response(move |_, _| f())
+        self.imp().stop_button.connect_clicked(move |_| f())
     }
 
     pub fn set_total(&self, total: u64) {

@@ -50,7 +50,7 @@ async fn get_selected_range(
                    "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. ",
                    "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."));
 
-    let dialog = gtk::Dialog::builder()
+    let dialog = gtk::Window::builder()
         .title(gettext("Range Selection"))
         .transient_for(parent_window)
         .modal(true)
@@ -58,20 +58,15 @@ async fn get_selected_range(
         .width_request(480)
         .build();
 
-    let content_area = dialog.content_area();
-
-    // HIG defaults
-    content_area.set_margin_top(12);
-    content_area.set_margin_bottom(12);
-    content_area.set_margin_start(12);
-    content_area.set_margin_end(12);
-    content_area.set_spacing(6);
-
-    let hbox = gtk::Box::builder()
-        .orientation(gtk::Orientation::Horizontal)
-        .spacing(6)
+    let grid = gtk::Grid::builder()
+        .margin_top(12)
+        .margin_bottom(12)
+        .margin_start(12)
+        .margin_end(12)
+        .row_spacing(6)
+        .column_spacing(12)
         .build();
-    content_area.append(&hbox);
+    dialog.set_child(Some(&grid));
 
     let entry = gtk::Entry::builder()
         .text(filename)
@@ -84,14 +79,14 @@ async fn get_selected_range(
         .mnemonic_widget(&entry)
         .build();
 
-    hbox.append(&label);
-    hbox.append(&entry);
+    grid.attach(&label, 0, 0, 1, 1);
+    grid.attach(&entry, 1, 0, 1, 1);
 
     let option = gtk::CheckButton::builder()
         .label(gettext("_Inverse selection"))
         .use_underline(true)
         .build();
-    content_area.append(&option);
+    grid.attach(&option, 0, 1, 2, 1);
 
     let (sender, receiver) = async_channel::bounded::<bool>(1);
 
@@ -121,12 +116,15 @@ async fn get_selected_range(
         }
     ));
 
-    content_area.append(&dialog_button_box(
-        NO_BUTTONS,
-        &[&cancel_button, &ok_button],
-    ));
+    grid.attach(
+        &dialog_button_box(NO_BUTTONS, &[&cancel_button, &ok_button]),
+        0,
+        2,
+        2,
+        1,
+    );
 
-    dialog.set_default_response(gtk::ResponseType::Ok);
+    dialog.set_default_widget(Some(&ok_button));
 
     dialog.present();
     let result = receiver.recv().await.unwrap_or_default();
