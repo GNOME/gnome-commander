@@ -183,6 +183,9 @@ static GtkWidget *create_general_tab (GtkWidget *parent, GnomeCmdData::Options &
     gtk_box_append (GTK_BOX (cat_box), check);
     gtk_check_button_set_active (GTK_CHECK_BUTTON (check), cfg.case_sens_sort);
 
+    check = create_check (parent, _("List broken links at the top"), "symbolic_links_as_regular_files_check");
+    gtk_box_append (GTK_BOX (cat_box), check);
+    gtk_check_button_set_active (GTK_CHECK_BUTTON (check), cfg.symbolic_links_as_regular_files);
 
     // Quick search options
     cat_box = create_vbox (parent, FALSE, 0);

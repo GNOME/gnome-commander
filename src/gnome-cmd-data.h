@@ -92,6 +92,7 @@ GcmdSettings *gcmd_settings_new ();
 #define GCMD_SETTINGS_MAIN_WIN_STATE                  "main-win-state"
 #define GCMD_SETTINGS_SELECT_DIRS                     "select-dirs"
 #define GCMD_SETTINGS_CASE_SENSITIVE                  "case-sensitive"
+#define GCMD_SETTINGS_SYMBOLIC_LINKS_AS_REG_FILES     "symbolic-links-as-regular-files"
 #define GCMD_SETTINGS_MULTIPLE_INSTANCES              "allow-multiple-instances"
 #define GCMD_SETTINGS_QUICK_SEARCH_EXACT_MATCH_BEGIN  "quick-search-exact-match-begin"
 #define GCMD_SETTINGS_QUICK_SEARCH_EXACT_MATCH_END    "quick-search-exact-match-end"
@@ -365,6 +366,7 @@ struct GnomeCmdData
         FilterSettings               filter;
         gchar                       *backup_pattern;
         GList                       *backup_pattern_list;
+        gboolean                     symbolic_links_as_regular_files;
         //  Programs
         gboolean                     honor_expect_uris;
         gchar                       *viewer;

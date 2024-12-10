@@ -419,6 +419,14 @@
             This option defines if sorting should be case sensitive.
         </description>
     </key>
+    <key name="symbolic-links-as-regular-files" type="b">
+        <default>false</default>
+        <summary>Treat symbolic links as regular files</summary>
+        <description>
+            This option defines if symbolic links should be treated as regular files.
+            In the file pane they are listed between other files and not at the top if their target is not existing.
+        </description>
+    </key>
     <key name="select-dirs" type="b">
         <default>true</default>
         <summary>Select directories when all is marked</summary>

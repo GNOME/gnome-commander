@@ -65,6 +65,20 @@
   </suggests>
 
   <releases>
+    <release type="stable" version="1.20.0" date="2024-12-31">
+      <description>
+        <p>This release includes the following features and changes:</p>
+        <ul>
+          <li>New option to treat symlinks as regular files, see issue #159</li>
+        </ul>
+        <p>This release fixes the following bugs:</p>
+        <ul>
+          <li>Fix for double g_error_free call (Mamoru Tasaka)</li>
+        </ul>
+        <p>New or updated translations: ...</p>
+        <p>New or updated docs: ...</p>
+      </description>
+    </release>
     <release type="stable" version="1.18.0" date="2024-07-21">
       <description>
         <p>This release includes the following features and changes regarding the migration from Gtk2 to Gtk3 (huge thanks go to Andrey Kutejko!):</p>

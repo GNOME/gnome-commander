@@ -296,6 +296,16 @@ static void on_backup_pattern_changed (GnomeCmdMainWin *main_win)
     g_free(backup_pattern);
 }
 
+static void on_symbolic_links_as_regular_files_changed (GnomeCmdMainWin *main_win)
+{
+    gboolean symbolic_links_as_regular_files;
+
+    symbolic_links_as_regular_files = g_settings_get_boolean (gnome_cmd_data.options.gcmd_settings->general, GCMD_SETTINGS_SYMBOLIC_LINKS_AS_REG_FILES);
+    gnome_cmd_data.options.symbolic_links_as_regular_files = symbolic_links_as_regular_files;
+
+    main_win->update_view();
+}
+
 static void on_list_font_changed (GnomeCmdMainWin *main_win)
 {
     g_free(gnome_cmd_data.options.list_font);
@@ -1018,6 +1028,11 @@ static void gcmd_connect_gsettings_signals(GcmdSettings *gs, GnomeCmdMainWin *ma
     g_signal_connect_swapped (gs->filter,
                       "changed::backup-pattern",
                       G_CALLBACK (on_backup_pattern_changed),
+                      main_win);
+
+    g_signal_connect_swapped (gs->general,
+                      "changed::symbolic-links-as-regular-files",
+                      G_CALLBACK (on_symbolic_links_as_regular_files_changed),
                       main_win);
 
     g_signal_connect_swapped (gs->general,
@@ -3089,6 +3104,7 @@ void GnomeCmdData::load()
 
     options.select_dirs = g_settings_get_boolean (options.gcmd_settings->general, GCMD_SETTINGS_SELECT_DIRS);
     options.case_sens_sort = g_settings_get_boolean (options.gcmd_settings->general, GCMD_SETTINGS_CASE_SENSITIVE);
+    options.symbolic_links_as_regular_files = g_settings_get_boolean (options.gcmd_settings->general, GCMD_SETTINGS_SYMBOLIC_LINKS_AS_REG_FILES);
 
     main_win_width = g_settings_get_uint (options.gcmd_settings->general, GCMD_SETTINGS_MAIN_WIN_WIDTH);
     main_win_height = g_settings_get_uint (options.gcmd_settings->general, GCMD_SETTINGS_MAIN_WIN_HEIGHT);
@@ -3254,6 +3270,7 @@ void GnomeCmdData::save(GnomeCmdMainWin *main_win)
 
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_SELECT_DIRS, &(options.select_dirs));
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_CASE_SENSITIVE, &(options.case_sens_sort));
+    set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_SYMBOLIC_LINKS_AS_REG_FILES, &(options.symbolic_links_as_regular_files));
 
     set_gsettings_enum_when_changed (options.gcmd_settings->colors, GCMD_SETTINGS_COLORS_THEME, options.color_mode);
 
