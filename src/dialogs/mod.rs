@@ -17,6 +17,8 @@
  * For more details see the file COPYING.
  */
 
+pub mod pattern_selection_dialog;
+
 pub mod advrename_dialog;
 pub mod advrename_regex_dialog;
 

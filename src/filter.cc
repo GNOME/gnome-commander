@@ -80,3 +80,27 @@ gboolean Filter::match(const gchar *text)
             return FALSE;
     }
 }
+
+Filter *gnome_cmd_filter_new (const gchar *exp, gboolean case_sens, Filter::Type type)
+{
+    return new Filter(exp, case_sens, type);
+}
+
+void gnome_cmd_filter_free (Filter *filter)
+{
+    delete filter;
+}
+
+gboolean gnome_cmd_filter_match (Filter *filter, const gchar *text)
+{
+    return filter->match(text);
+}
+
+gboolean gnome_cmd_filter_fnmatch (const gchar *pattern, const gchar *string, gboolean case_sens)
+{
+#ifdef FNM_CASEFOLD
+    return pattern && string && fnmatch (pattern, string, case_sens ? FNM_NOESCAPE : FNM_NOESCAPE|FNM_CASEFOLD)==0;
+#else
+    return pattern && string && fnmatch (pattern, string, FNM_NOESCAPE) == 0;
+#endif
+}

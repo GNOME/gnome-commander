@@ -17,8 +17,13 @@
  * For more details see the file COPYING.
  */
 
-use crate::types::GnomeCmdConfirmOverwriteMode;
-use gtk::{gio, prelude::*};
+use crate::{filter::PatternType, types::GnomeCmdConfirmOverwriteMode};
+use gtk::{
+    gio,
+    glib::{ffi::GList, translate::ToGlibPtr},
+    prelude::*,
+};
+use std::ffi::{c_char, c_void};
 
 pub struct GeneralOptions(pub gio::Settings);
 
@@ -224,5 +229,45 @@ impl ProgramsOptionsRead for ProgramsOptions {
 
     fn use_gcmd_block(&self) -> bool {
         self.0.boolean("use-gcmd-block")
+    }
+}
+
+pub struct SearchConfig(*mut c_void);
+
+extern "C" {
+    fn gnome_cmd_search_config_get_name_patterns(ptr: *mut c_void) -> *const GList;
+    fn gnome_cmd_search_config_add_name_pattern(ptr: *mut c_void, p: *const c_char);
+
+    fn gnome_cmd_search_config_get_default_profile_syntax(ptr: *mut c_void) -> i32;
+    fn gnome_cmd_search_config_set_default_profile_syntax(ptr: *mut c_void, s: i32);
+}
+
+impl SearchConfig {
+    pub unsafe fn from_ptr(ptr: *mut c_void) -> Self {
+        Self(ptr)
+    }
+
+    pub unsafe fn as_ptr(&self) -> *mut c_void {
+        self.0
+    }
+
+    pub fn name_patterns(&self) -> glib::List<glib::GStringPtr> {
+        unsafe { glib::List::from_glib_none(gnome_cmd_search_config_get_name_patterns(self.0)) }
+    }
+
+    pub fn add_name_pattern(&self, pattern: &str) {
+        unsafe { gnome_cmd_search_config_add_name_pattern(self.0, pattern.to_glib_none().0) }
+    }
+
+    pub fn default_profile_syntax(&self) -> PatternType {
+        let t = unsafe { gnome_cmd_search_config_get_default_profile_syntax(self.0) };
+        match t {
+            0 => PatternType::Regex,
+            _ => PatternType::FnMatch,
+        }
+    }
+
+    pub fn set_default_profile_syntax(&self, pattern_type: PatternType) {
+        unsafe { gnome_cmd_search_config_set_default_profile_syntax(self.0, pattern_type as i32) }
     }
 }

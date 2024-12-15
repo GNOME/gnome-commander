@@ -35,6 +35,7 @@ mod file_list_actions;
 mod file_metainfo_view;
 mod file_selector;
 mod file_view;
+mod filter;
 mod hintbox;
 mod i18n;
 mod intviewer;
