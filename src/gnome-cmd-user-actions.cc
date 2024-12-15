@@ -37,7 +37,6 @@
 #include "cap.h"
 #include "utils.h"
 #include "dialogs/gnome-cmd-advrename-dialog.h"
-#include "dialogs/gnome-cmd-manage-bookmarks-dialog.h"
 #include "dialogs/gnome-cmd-mkdir-dialog.h"
 #include "dialogs/gnome-cmd-search-dialog.h"
 #include "dialogs/gnome-cmd-options-dialog.h"
@@ -1210,57 +1209,6 @@ void options_edit (GSimpleAction *action, GVariant *parameter, gpointer user_dat
 
 
 /************** Bookmarks Menu **************/
-
-void bookmarks_add_current (GSimpleAction *action, GVariant *parameter, gpointer user_data)
-{
-    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
-
-    gnome_cmd_bookmark_add_current (main_win, main_win->fs (ACTIVE)->get_directory());
-}
-
-
-void bookmarks_edit (GSimpleAction *action, GVariant *parameter, gpointer user_data)
-{
-    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
-
-    auto dlg = main_win->get_or_create_bookmarks_dialog ();
-    gtk_window_present (GTK_WINDOW (dlg));
-
-    gnome_cmd_bookmarks_dialog_new (*main_win);
-}
-
-
-void bookmarks_goto (GSimpleAction *action, GVariant *parameter, gpointer user_data)
-{
-    // auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
-
-    const gchar *con_uuid;
-    const gchar *bookmark_name;
-    g_variant_get (parameter, "(ss)", &con_uuid, &bookmark_name);
-
-    GnomeCmdConList *con_list = gnome_cmd_con_list_get ();
-    GnomeCmdCon *con = gnome_cmd_con_list_find_by_uuid (con_list, con_uuid);
-
-    if (!con)
-    {
-        g_warning ("[%s] Unsupported bookmark group: '%s' - ignored", (char *) bookmark_name, con_uuid);
-        return;
-    }
-
-    for (GList *bookmarks = gnome_cmd_con_get_bookmarks (con)->bookmarks; bookmarks; bookmarks = bookmarks->next)
-    {
-        auto bookmark = static_cast<GnomeCmdBookmark*> (bookmarks->data);
-
-        if (g_strcmp0(bookmark_name, bookmark->name) == 0)
-        {
-            gnome_cmd_bookmark_goto (bookmark);
-            return;
-        }
-    }
-
-    g_warning ("[%s] Unknown bookmark name: '%s' - ignored", con->alias, bookmark_name);
-}
-
 
 void bookmarks_view (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {

@@ -39,7 +39,7 @@ struct GnomeCmdConPrivate
     GUri           *uri;
     GnomeCmdDir    *default_dir;   // the start dir of this connection
     History        *dir_history;
-    GnomeCmdBookmarkGroup *bookmarks;
+    GListModel     *bookmarks;
     GList          *all_dirs;
     GHashTable     *all_dirs_map;
 };
@@ -199,10 +199,7 @@ static void gnome_cmd_con_init (GnomeCmdCon *con)
     priv->base_path = nullptr;
     priv->default_dir = nullptr;
     priv->dir_history = new History(20);
-    priv->bookmarks = g_new0 (GnomeCmdBookmarkGroup, 1);
-    priv->bookmarks->con = con;
-    // priv->bookmarks->bookmarks = nullptr;
-    // priv->bookmarks->data = nullptr;
+    priv->bookmarks = G_LIST_MODEL (g_list_store_new (gnome_cmd_bookmark_get_type ()));
     priv->all_dirs = nullptr;
     priv->all_dirs_map = nullptr;
 }
@@ -484,7 +481,7 @@ History *gnome_cmd_con_get_dir_history (GnomeCmdCon *con)
 }
 
 
-GnomeCmdBookmarkGroup *gnome_cmd_con_get_bookmarks (GnomeCmdCon *con)
+GListModel *gnome_cmd_con_get_bookmarks (GnomeCmdCon *con)
 {
     g_return_val_if_fail (GNOME_CMD_IS_CON (con), nullptr);
     auto priv = static_cast<GnomeCmdConPrivate *> (gnome_cmd_con_get_instance_private (con));
@@ -493,35 +490,22 @@ GnomeCmdBookmarkGroup *gnome_cmd_con_get_bookmarks (GnomeCmdCon *con)
 }
 
 
-void gnome_cmd_con_add_bookmark (GnomeCmdCon *con, const gchar *name, const gchar *path)
+void gnome_cmd_con_add_bookmark (GnomeCmdCon *con, GnomeCmdBookmark *bookmark)
 {
-    GnomeCmdBookmarkGroup *group = gnome_cmd_con_get_bookmarks (con);
-    GnomeCmdBookmark *bookmark = g_new (GnomeCmdBookmark, 1);
-    bookmark->name = g_strdup (name);
-    bookmark->path = g_strdup (path);
-    bookmark->group = group;
-    group->bookmarks = g_list_append (group->bookmarks, bookmark);
+    auto priv = static_cast<GnomeCmdConPrivate *> (gnome_cmd_con_get_instance_private (con));
+
+    g_list_store_append (G_LIST_STORE (priv->bookmarks), bookmark);
 }
 
 
-void gnome_cmd_con_erase_bookmark (GnomeCmdCon *con)
+void gnome_cmd_con_erase_bookmarks (GnomeCmdCon *con)
 {
     if (!con)
         return;
     g_return_if_fail (GNOME_CMD_IS_CON (con));
     auto priv = static_cast<GnomeCmdConPrivate *> (gnome_cmd_con_get_instance_private (con));
 
-    GnomeCmdBookmarkGroup *group = priv->bookmarks;
-    for(GList *l = group->bookmarks; l; l = l->next)
-    {
-        auto bookmark = static_cast<GnomeCmdBookmark*> (l->data);
-        g_free (bookmark->name);
-        g_free (bookmark->path);
-        g_free (bookmark);
-    }
-    g_list_free(group->bookmarks);
-    priv->bookmarks = g_new0 (GnomeCmdBookmarkGroup, 1);
-    priv->bookmarks->con = con;
+    g_list_store_remove_all (G_LIST_STORE (priv->bookmarks));
 }
 
 
@@ -805,4 +789,21 @@ gboolean gnome_cmd_con_is_local (GnomeCmdCon *con)
 {
     g_return_val_if_fail (GNOME_CMD_IS_CON (con), FALSE);
     return con->is_local;
+}
+
+
+// Bookmark
+
+gchar *gnome_cmd_bookmark_get_name (GnomeCmdBookmark *bookmark)
+{
+    gchar *name;
+    g_object_get(bookmark, "name", &name, nullptr);
+    return name;
+}
+
+gchar *gnome_cmd_bookmark_get_path (GnomeCmdBookmark *bookmark)
+{
+    gchar *path;
+    g_object_get(bookmark, "path", &path, nullptr);
+    return path;
 }

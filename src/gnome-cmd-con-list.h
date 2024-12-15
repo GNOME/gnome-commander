@@ -52,9 +52,6 @@ struct GnomeCmdConListClass
 
     /* signals */
     void (* list_changed) (GnomeCmdConList *list);
-    void (* ftp_list_changed) (GnomeCmdConList *list);
-    void (* device_list_changed) (GnomeCmdConList *list);
-    void (* quick_ftp_list_changed) (GnomeCmdConList *list);
 };
 
 
@@ -65,7 +62,7 @@ inline GnomeCmdConList *gnome_cmd_con_list_new ()
 
 extern "C" GnomeCmdConList *gnome_cmd_con_list_get ();
 
-extern "C" GList *gnome_cmd_con_list_get_all (GnomeCmdConList *list);
+extern "C" GListModel *gnome_cmd_con_list_get_all (GnomeCmdConList *list);
 extern "C" GList *gnome_cmd_con_list_get_all_remote (GnomeCmdConList *list);
 
 extern "C" GList *gnome_cmd_con_list_get_all_dev (GnomeCmdConList *list);
@@ -84,11 +81,6 @@ inline GnomeCmdCon *get_home_con ()
 inline GnomeCmdCon *get_smb_con ()
 {
     return gnome_cmd_con_list_get_smb (gnome_cmd_con_list_get());
-}
-
-inline GList *get_remote_cons ()
-{
-    return gnome_cmd_con_list_get_all_remote (gnome_cmd_con_list_get ());
 }
 
 GnomeCmdCon *get_remote_con_for_gfile(GFile *gFile);

@@ -68,6 +68,8 @@ pub mod ffi {
             focus_file: *const c_char,
             scroll_to_file: gboolean,
         );
+
+        pub fn gnome_cmd_file_list_goto_directory(fl: *mut GnomeCmdFileList, dir: *const c_char);
     }
 
     #[derive(Copy, Clone)]
@@ -184,6 +186,12 @@ impl FileList {
                 focus_file.to_glib_none().0,
                 if scroll_to_file { 1 } else { 0 },
             )
+        }
+    }
+
+    pub fn goto_directory(&self, dir: &Path) {
+        unsafe {
+            ffi::gnome_cmd_file_list_goto_directory(self.to_glib_none().0, dir.to_glib_none().0)
         }
     }
 }

@@ -34,8 +34,10 @@ use gtk::{
     prelude::*,
 };
 use std::{
-    collections::{BTreeSet, HashMap},
+    cell::RefCell,
+    collections::{BTreeMap, BTreeSet},
     ffi::c_char,
+    rc::Rc,
 };
 
 #[derive(Clone, Copy, PartialEq, Eq, Hash, Debug)]
@@ -128,18 +130,24 @@ pub struct Call {
     pub action_data: Option<String>,
 }
 
+#[derive(Clone)]
 pub struct Shortcuts {
-    pub action: HashMap<Shortcut, Call>,
+    inner: Rc<RefCell<ShortcutsInner>>,
+}
+
+#[derive(Default)]
+struct ShortcutsInner {
+    action: BTreeMap<Shortcut, Call>,
 }
 
 impl Shortcuts {
     pub fn new() -> Self {
         Self {
-            action: Default::default(),
+            inner: Default::default(),
         }
     }
 
-    pub fn set_mandatory(&mut self) {
+    pub fn set_mandatory(&self) {
         self.register(Shortcut::key(gdk::Key::F3), "file-view");
         self.register(Shortcut::key(gdk::Key::F4), "file-edit");
         self.register(Shortcut::key(gdk::Key::F5), "file-copy");
@@ -149,7 +157,7 @@ impl Shortcuts {
         self.register(Shortcut::key(gdk::Key::F9), "file-search");
     }
 
-    fn set_default(&mut self) {
+    fn set_default(&self) {
         use gdk::Key;
 
         self.register(Shortcut::key(Key::F12), "view-main-menu");
@@ -206,11 +214,11 @@ impl Shortcuts {
         self.register(Shortcut::ctrl_shift(Key::W), "view-close-all-tabs");
     }
 
-    pub fn register(&mut self, key: Shortcut, action_name: &str) -> bool {
+    pub fn register(&self, key: Shortcut, action_name: &str) -> bool {
         self.register_full(key, action_name, None)
     }
 
-    pub fn register_full(&mut self, key: Shortcut, action_name: &str, data: Option<&str>) -> bool {
+    pub fn register_full(&self, key: Shortcut, action_name: &str, data: Option<&str>) -> bool {
         let user_actions = &USER_ACTIONS;
         if !user_actions.iter().any(|a| a.action_name == action_name) {
             eprintln!("Unknown user action: '{}' - ignored", action_name);
@@ -218,12 +226,12 @@ impl Shortcuts {
         }
 
         // event.state = state & (GDK_SHIFT_MASK | GDK_CONTROL_MASK | GDK_ALT_MASK | GDK_SUPER_MASK | GDK_HYPER_MASK | GDK_META_MASK);
-        if self.action.contains_key(&key) {
+        if self.inner.borrow().action.contains_key(&key) {
             return false;
         }
 
         if key.key.is_lower() && key.key.is_upper() {
-            self.action.insert(
+            self.inner.borrow_mut().action.insert(
                 Shortcut {
                     key: key.key.to_lower(),
                     state: key.state,
@@ -233,7 +241,7 @@ impl Shortcuts {
                     action_data: data.map(|d| d.to_owned()),
                 },
             );
-            self.action.insert(
+            self.inner.borrow_mut().action.insert(
                 Shortcut {
                     key: key.key.to_upper(),
                     state: key.state,
@@ -244,7 +252,7 @@ impl Shortcuts {
                 },
             );
         } else {
-            self.action.insert(
+            self.inner.borrow_mut().action.insert(
                 key,
                 Call {
                     action_name: action_name.to_owned(),
@@ -255,12 +263,22 @@ impl Shortcuts {
         true
     }
 
-    pub fn clear(&mut self) {
-        self.action.clear();
+    pub fn clear(&self) {
+        self.inner.borrow_mut().action.clear();
+    }
+
+    pub fn all(&self) -> Vec<(Shortcut, Call)> {
+        self.inner
+            .borrow()
+            .action
+            .iter()
+            .map(|(s, c)| (*s, c.clone()))
+            .collect()
     }
 
     pub fn handle_key_event(&self, mw: &MainWindow, event: Shortcut) -> bool {
-        let Some(call) = self.action.get(&event) else {
+        let inner = self.inner.borrow();
+        let Some(call) = inner.action.get(&event) else {
             return false;
         };
 
@@ -280,8 +298,8 @@ impl Shortcuts {
         true
     }
 
-    pub fn load(&mut self, variant: glib::Variant) {
-        self.action.clear();
+    pub fn load(&self, variant: glib::Variant) {
+        self.clear();
         if variant.n_children() == 0 {
             self.set_default();
         } else {
@@ -326,7 +344,9 @@ impl Shortcuts {
 
     pub fn save(&self) -> glib::Variant {
         glib::Variant::array_from_iter::<ShortcutVariant>(
-            self.action
+            self.inner
+                .borrow()
+                .action
                 .iter()
                 .filter(|(shortcut, _call)| shortcut.key.is_upper())
                 .filter(|(shortcut, _call)| !shortcut.is_mandatory())
@@ -345,8 +365,9 @@ impl Shortcuts {
         )
     }
 
-    pub fn bookmark_shortcuts(&self, bookmark_name: &str) -> Option<String> {
-        let keys: BTreeSet<glib::GString> = self
+    pub fn bookmark_shortcuts(&self, bookmark_name: &str) -> BTreeSet<Shortcut> {
+        self.inner
+            .borrow()
             .action
             .iter()
             .filter(|(shortcut, call)| {
@@ -354,15 +375,8 @@ impl Shortcuts {
                     && call.action_name == "bookmarks-goto"
                     && call.action_data.as_deref() == Some(bookmark_name)
             })
-            .map(|kv| kv.0.label())
-            .collect();
-
-        if keys.is_empty() {
-            None
-        } else {
-            let keys = keys.into_iter().collect::<Vec<_>>();
-            Some(keys.join(", "))
-        }
+            .map(|kv| *kv.0)
+            .collect()
     }
 }
 
@@ -638,7 +652,7 @@ pub extern "C" fn gnome_cmd_shortcuts_load_from_settings() -> *mut Shortcuts {
     let options = GeneralOptions::new();
     let variant = options.keybindings();
 
-    let mut shortcuts = Box::new(Shortcuts::new());
+    let shortcuts = Box::new(Shortcuts::new());
     shortcuts.load(variant);
 
     Box::into_raw(shortcuts)
@@ -679,6 +693,12 @@ pub extern "C" fn gnome_cmd_shortcuts_bookmark_shortcuts(
 ) -> *mut c_char {
     let shortcuts: &mut Shortcuts = unsafe { &mut *shortcuts_ptr };
     let bookmark_name: String = unsafe { from_glib_none(bookmark_name) };
-    let result = shortcuts.bookmark_shortcuts(&bookmark_name);
+    let keys = shortcuts.bookmark_shortcuts(&bookmark_name);
+    let result = if keys.is_empty() {
+        None
+    } else {
+        let keys = keys.into_iter().map(|s| s.label()).collect::<Vec<_>>();
+        Some(keys.join(", "))
+    };
     result.to_glib_full()
 }

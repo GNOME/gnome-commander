@@ -378,12 +378,12 @@ fn create_option_factory() -> gtk::ListItemFactory {
 }
 
 fn fill_model(model: &gio::ListStore, shotcuts: &Shortcuts) {
-    for (shortcut, call) in &shotcuts.action {
+    for (shortcut, call) in shotcuts.all() {
         // ignore lowercase keys as they duplicate uppercase ones
         if shortcut.key.is_upper() {
             model.append(&glib::BoxedAnyObject::new(ShortcutAction {
-                shortcut: *shortcut,
-                call: call.clone(),
+                shortcut,
+                call,
             }));
         }
     }

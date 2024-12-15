@@ -141,9 +141,6 @@ GcmdSettings *gcmd_settings_new ();
 #define GCMD_SETTINGS_BOOKMARKS                       "bookmarks"
 #define GCMD_SETTINGS_BOOKMARK_FORMAT_STRING          "(bsss)"
 #define GCMD_SETTINGS_BOOKMARKS_FORMAT_STRING         "a(bsss)"
-#define GCMD_SETTINGS_BOOKMARKS_WINDOW_WIDTH          "bookmarks-win-width"
-#define GCMD_SETTINGS_BOOKMARKS_WINDOW_WIDTH          "bookmarks-win-width"
-#define GCMD_SETTINGS_BOOKMARKS_WINDOW_HEIGHT         "bookmarks-win-height"
 #define GCMD_SETTINGS_CONNECTIONS                     "connections"
 #define GCMD_SETTINGS_CONNECTION_FORMAT_STRING        "(ss)"
 #define GCMD_SETTINGS_KEYBINDINGS                     "keybindings"
@@ -646,11 +643,6 @@ struct GnomeCmdData
                            case_sensitive(FALSE), search_mode(0)    {}
     };
 
-    struct BookmarksConfig
-    {
-        gint width {400}, height {250};
-    };
-
     typedef std::pair<std::string, std::tuple<GnomeCmdFileList::ColumnID,GtkSortType,gboolean> > Tab;
 
     static GSettingsSchemaSource* GetGlobalSchemaSource();
@@ -694,7 +686,6 @@ struct GnomeCmdData
     SearchConfig                 search_defaults;
     AdvrenameConfig              advrename_defaults;
     IntViewerConfig              intviewer_defaults;
-    BookmarksConfig              bookmarks_defaults;
 
     gboolean                     horizontal_orientation;
 

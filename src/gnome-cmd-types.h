@@ -158,24 +158,6 @@ struct GnomeCmdLsColorsPalette
 };
 
 
-struct GnomeCmdCon;
-
-
-struct GnomeCmdBookmarkGroup
-{
-    GList *bookmarks;
-    GnomeCmdCon *con;
-};
-
-
-struct GnomeCmdBookmark
-{
-    gchar *name;
-    gchar *path;
-    GnomeCmdBookmarkGroup *group;
-};
-
-
 struct GnomeCmdKeyPress
 {
     guint keyval;

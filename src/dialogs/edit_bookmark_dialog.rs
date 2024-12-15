@@ -20,14 +20,12 @@
  * For more details see the file COPYING.
  */
 
-use crate::utils::{dialog_button_box, SenderExt, NO_BUTTONS};
+use crate::{
+    connection::bookmark::Bookmark,
+    utils::{dialog_button_box, SenderExt, NO_BUTTONS},
+};
 use gettextrs::gettext;
 use gtk::{glib, prelude::*};
-
-pub struct Bookmark {
-    pub name: String,
-    pub path: String,
-}
 
 pub async fn edit_bookmark_dialog(
     parent: &gtk::Window,
@@ -141,17 +139,14 @@ pub async fn edit_bookmark_dialog(
 
     dialog.set_default_widget(Some(&ok_btn));
 
-    name_entry.set_text(&bookmark.name);
-    path_entry.set_text(&bookmark.path);
+    name_entry.set_text(&bookmark.name());
+    path_entry.set_text(&bookmark.path());
 
     dialog.present();
 
     let response = receiver.recv().await;
     let result = if response == Ok(true) {
-        Some(Bookmark {
-            name: name_entry.text().to_string(),
-            path: path_entry.text().to_string(),
-        })
+        Some(Bookmark::new(&name_entry.text(), &path_entry.text()))
     } else {
         None
     };
