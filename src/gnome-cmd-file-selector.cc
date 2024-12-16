@@ -34,7 +34,6 @@
 #include "history.h"
 #include "cap.h"
 #include "utils.h"
-#include "dialogs/gnome-cmd-patternsel-dialog.h"
 
 using namespace std;
 

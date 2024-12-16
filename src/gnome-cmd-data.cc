@@ -1642,6 +1642,27 @@ void GnomeCmdData::SearchProfile::reset()
 }
 
 
+extern "C" GList *gnome_cmd_search_config_get_name_patterns(GnomeCmdData::SearchConfig *search_config)
+{
+    return search_config->name_patterns.ents;
+}
+
+extern "C" void gnome_cmd_search_config_add_name_pattern(GnomeCmdData::SearchConfig *search_config, const gchar *p)
+{
+    search_config->name_patterns.add(p);
+}
+
+extern "C" gint gnome_cmd_search_config_get_default_profile_syntax(GnomeCmdData::SearchConfig *search_config)
+{
+    return search_config->default_profile.syntax;
+}
+
+extern "C" void gnome_cmd_search_config_set_default_profile_syntax(GnomeCmdData::SearchConfig *search_config, gint syntax)
+{
+    search_config->default_profile.syntax = (Filter::Type) syntax;
+}
+
+
 struct AdvrenameProfiles
 {
     std::vector<GnomeCmdData::AdvrenameConfig::Profile> profiles;

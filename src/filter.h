@@ -44,11 +44,8 @@ struct Filter
     gboolean match(const gchar *text);
 };
 
-inline gboolean gnome_cmd_filter_fnmatch (const gchar *pattern, const gchar *string, gboolean case_sens)
-{
-#ifdef FNM_CASEFOLD
-    return pattern && string && fnmatch (pattern, string, case_sens ? FNM_NOESCAPE : FNM_NOESCAPE|FNM_CASEFOLD)==0;
-#else
-    return pattern && string && fnmatch (pattern, string, FNM_NOESCAPE) == 0;
-#endif
-}
+extern "C" Filter *gnome_cmd_filter_new (const gchar *exp, gboolean case_sens, Filter::Type type);
+extern "C" void gnome_cmd_filter_free (Filter *filter);
+extern "C" gboolean gnome_cmd_filter_match (Filter *filter, const gchar *text);
+
+extern "C" gboolean gnome_cmd_filter_fnmatch (const gchar *pattern, const gchar *string, gboolean case_sens);

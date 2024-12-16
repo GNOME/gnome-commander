@@ -18,6 +18,7 @@
  */
 
 use super::profiles::{manage_profiles_dialog::manage_profiles, profiles::ProfileManager};
+use crate::data::SearchConfig;
 use gettextrs::gettext;
 use glib::ffi::gboolean;
 use gtk::{
@@ -31,7 +32,6 @@ use std::{
     rc::Rc,
 };
 
-type SearchConfig = c_void;
 type SearchProfilePtr = c_void;
 type SearchProfilesPtr = c_void;
 
@@ -41,13 +41,10 @@ extern "C" {
     fn gnome_cmd_search_profile_component_copy(component: *mut GtkWidget);
 
     fn gnome_cmd_search_config_new_profiles(
-        cfg: *mut SearchConfig,
+        cfg: *mut c_void,
         with_default: gboolean,
     ) -> *mut SearchProfilesPtr;
-    fn gnome_cmd_search_config_take_profiles(
-        cfg: *mut SearchConfig,
-        profiles: *mut SearchProfilesPtr,
-    );
+    fn gnome_cmd_search_config_take_profiles(cfg: *mut c_void, profiles: *mut SearchProfilesPtr);
 
     fn gnome_cmd_search_profiles_dup(profiles: *mut SearchProfilesPtr) -> *mut SearchProfilesPtr;
     fn gnome_cmd_search_profiles_len(profiles: *mut SearchProfilesPtr) -> u32;
@@ -202,14 +199,16 @@ extern "C" {
 #[no_mangle]
 pub extern "C" fn gnome_cmd_search_dialog_do_manage_profiles(
     dialog_ptr: *mut GnomeCmdSearchDialog,
-    cfg: *mut SearchConfig,
+    cfg_ptr: *mut c_void,
     new_profile: gboolean,
 ) {
     let dialog: gtk::Dialog = unsafe { from_glib_none(dialog_ptr) };
+    let cfg = unsafe { SearchConfig::from_ptr(cfg_ptr) };
 
     glib::spawn_future_local(async move {
-        let profiles =
-            SearchProfiles(unsafe { gnome_cmd_search_config_new_profiles(cfg, new_profile) });
+        let profiles = SearchProfiles(unsafe {
+            gnome_cmd_search_config_new_profiles(cfg.as_ptr(), new_profile)
+        });
 
         if new_profile != 0 {
             let last_index = profiles.len() - 1;
@@ -229,7 +228,7 @@ pub extern "C" fn gnome_cmd_search_dialog_do_manage_profiles(
         {
             let profiles = manager.profiles.clone();
             unsafe {
-                gnome_cmd_search_config_take_profiles(cfg, profiles.0);
+                gnome_cmd_search_config_take_profiles(cfg.as_ptr(), profiles.0);
             }
             unsafe {
                 gnome_cmd_search_dialog_update_profile_menu(dialog_ptr);

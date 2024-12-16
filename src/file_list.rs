@@ -20,7 +20,7 @@
  * For more details see the file COPYING.
  */
 
-use crate::{connection::connection::Connection, dir::Directory, file::File};
+use crate::{connection::connection::Connection, dir::Directory, file::File, filter::Filter};
 use gtk::{
     glib::{
         self,
@@ -34,7 +34,7 @@ pub mod ffi {
     use super::*;
     use crate::{connection::connection::ffi::GnomeCmdCon, dir::ffi::GnomeCmdDir};
     use glib::ffi::{gboolean, GList, GType};
-    use std::ffi::c_char;
+    use std::ffi::{c_char, c_void};
 
     #[repr(C)]
     pub struct GnomeCmdFileList {
@@ -70,6 +70,12 @@ pub mod ffi {
         );
 
         pub fn gnome_cmd_file_list_goto_directory(fl: *mut GnomeCmdFileList, dir: *const c_char);
+
+        pub fn gnome_cmd_file_list_toggle_with_pattern(
+            fl: *mut GnomeCmdFileList,
+            pattern: *mut c_void,
+            mode: gboolean,
+        );
     }
 
     #[derive(Copy, Clone)]
@@ -185,6 +191,16 @@ impl FileList {
                 self.to_glib_none().0,
                 focus_file.to_glib_none().0,
                 if scroll_to_file { 1 } else { 0 },
+            )
+        }
+    }
+
+    pub fn toggle_with_pattern(&self, pattern: &Filter, mode: bool) {
+        unsafe {
+            ffi::gnome_cmd_file_list_toggle_with_pattern(
+                self.to_glib_none().0,
+                pattern.as_ptr(),
+                if mode { 1 } else { 0 },
             )
         }
     }

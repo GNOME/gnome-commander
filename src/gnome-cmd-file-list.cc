@@ -44,7 +44,6 @@
 #include "gnome-cmd-file-collection.h"
 #include "ls_colors.h"
 #include "dialogs/gnome-cmd-delete-dialog.h"
-#include "dialogs/gnome-cmd-patternsel-dialog.h"
 #include "dialogs/gnome-cmd-rename-dialog.h"
 #include "dialogs/gnome-cmd-file-props-dialog.h"
 
@@ -181,7 +180,6 @@ struct GnomeCmdFileList::Private
     GnomeCmdFile *right_mb_down_file;
     gboolean right_mb_sel_state;
     guint right_mb_timeout_id;
-    GtkWidget *selpat_dialog;
     GWeakRef quicksearch_popup;
     gchar *focus_later;
 
@@ -211,7 +209,6 @@ GnomeCmdFileList::Private::Private(GnomeCmdFileList *fl)
     column_resizing = 0;
 
     quicksearch_popup = { { nullptr } };
-    selpat_dialog = nullptr;
 
     focus_later = nullptr;
     shift_down = FALSE;
@@ -610,12 +607,6 @@ static void set_model_row(GnomeCmdFileList *fl, GtkTreeIter *iter, GnomeCmdFile 
 
 
 G_DEFINE_TYPE (GnomeCmdFileList, gnome_cmd_file_list, GTK_TYPE_TREE_VIEW)
-
-
-static void on_selpat_hide (GtkWidget *dialog, GnomeCmdFileList *fl)
-{
-    fl->priv->selpat_dialog = nullptr;
-}
 
 
 // given a GnomeFileList, returns the upper-left corner of the selected file
@@ -2473,17 +2464,11 @@ void gnome_cmd_file_list_show_properties_dialog (GnomeCmdFileList *fl)
 }
 
 
+extern "C" void show_pattern_selection_dialog_r(GnomeCmdFileList *fl, gboolean mode, GnomeCmdData::SearchConfig *search_config);
+
 void gnome_cmd_file_list_show_selpat_dialog (GnomeCmdFileList *fl, gboolean mode)
 {
-    if (fl->priv->selpat_dialog)  return;
-
-    GtkWidget *dialog = gnome_cmd_patternsel_dialog_new (fl, mode);
-
-    g_object_ref (dialog);
-    g_signal_connect (dialog, "hide", G_CALLBACK (on_selpat_hide), fl);
-    gtk_widget_show (dialog);
-
-    fl->priv->selpat_dialog = dialog;
+    show_pattern_selection_dialog_r(fl, mode, &gnome_cmd_data.search_defaults);
 }
 
 
@@ -3376,6 +3361,11 @@ void gnome_cmd_file_list_set_connection(GnomeCmdFileList *fl, GnomeCmdCon *con, 
 void gnome_cmd_file_list_focus_file(GnomeCmdFileList *fl, const gchar *focus_file, gboolean scroll_to_file)
 {
     fl->focus_file(focus_file, scroll_to_file);
+}
+
+void gnome_cmd_file_list_toggle_with_pattern(GnomeCmdFileList *fl, Filter *pattern, gboolean mode)
+{
+    fl->toggle_with_pattern(*pattern, mode);
 }
 
 void gnome_cmd_file_list_goto_directory(GnomeCmdFileList *fl, const gchar *dir)
