@@ -21,6 +21,7 @@
  */
 
 use super::{
+    bookmark::Bookmark,
     connection::{Connection, ConnectionExt},
     remote::ConnectionRemote,
 };
@@ -101,8 +102,17 @@ impl ConnectionExt for ConnectionSmb {
     fn is_local(&self) -> bool {
         self.upcast_ref::<Connection>().is_local()
     }
-    fn add_bookmark(&self, name: &str, path: &str) {
-        self.upcast_ref::<Connection>().add_bookmark(name, path)
+    fn is_open(&self) -> bool {
+        self.upcast_ref::<Connection>().is_open()
+    }
+    fn add_bookmark(&self, bookmark: &Bookmark) {
+        self.upcast_ref::<Connection>().add_bookmark(bookmark)
+    }
+    fn erase_bookmarks(&self) {
+        self.upcast_ref::<Connection>().erase_bookmarks()
+    }
+    fn bookmarks(&self) -> gio::ListModel {
+        self.upcast_ref::<Connection>().bookmarks()
     }
     fn path_target_type(&self, path: &Path) -> Option<gio::FileType> {
         self.upcast_ref::<Connection>().path_target_type(path)

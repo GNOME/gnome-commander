@@ -20,13 +20,15 @@
  * For more details see the file COPYING.
  */
 
+use super::bookmark::Bookmark;
 use crate::{dir::Directory, path::GnomeCmdPath};
 use gtk::{
     gio::{
         self,
         ffi::{GFileType, G_FILE_TYPE_UNKNOWN},
     },
-    glib::{self, translate::*},
+    glib::{self, object::ObjectType, translate::*},
+    prelude::*,
 };
 use std::{path::Path, ptr};
 
@@ -34,7 +36,7 @@ pub mod ffi {
     use super::*;
     use crate::dir::ffi::GnomeCmdDir;
     use gtk::{
-        gio::ffi::{GFile, GFileType},
+        gio::ffi::{GFile, GFileType, GListModel},
         glib::ffi::{gboolean, GError, GType, GUri},
     };
     use std::ffi::{c_char, c_void};
@@ -75,11 +77,16 @@ pub mod ffi {
 
         pub fn gnome_cmd_con_is_local(con: *const GnomeCmdCon) -> gboolean;
 
+        pub fn gnome_cmd_con_is_open(con: *const GnomeCmdCon) -> gboolean;
+
         pub fn gnome_cmd_con_add_bookmark(
             con: *const GnomeCmdCon,
-            name: *const c_char,
-            path: *const c_char,
+            bookmark: *const <Bookmark as glib::object::ObjectType>::GlibType,
         );
+
+        pub fn gnome_cmd_con_erase_bookmarks(con: *mut GnomeCmdCon);
+
+        pub fn gnome_cmd_con_get_bookmarks(con: *mut GnomeCmdCon) -> *const GListModel;
 
         pub fn gnome_cmd_con_get_path_target_type(
             con: *const GnomeCmdCon,
@@ -138,7 +145,73 @@ pub trait ConnectionExt {
 
     fn is_local(&self) -> bool;
 
-    fn add_bookmark(&self, name: &str, path: &str);
+    fn is_open(&self) -> bool;
+
+    fn add_bookmark(&self, bookmark: &Bookmark);
+
+    fn erase_bookmarks(&self);
+
+    fn bookmarks(&self) -> gio::ListModel;
+
+    fn replace_bookmark(&self, old_bookmark: &Bookmark, new_bookmark: Bookmark) {
+        let bookmarks = self.bookmarks().downcast::<gio::ListStore>().unwrap();
+        let Some(position): Option<u32> = bookmarks
+            .iter()
+            .position(|b| b.as_ref() == Ok(old_bookmark))
+            .and_then(|p| p.try_into().ok())
+        else {
+            return;
+        };
+        bookmarks.splice(position, 1, &[new_bookmark]);
+    }
+
+    fn move_bookmark_up(&self, bookmark: &Bookmark) -> Option<u32> {
+        let bookmarks = self.bookmarks().downcast::<gio::ListStore>().unwrap();
+        let Some(position): Option<u32> = bookmarks
+            .iter()
+            .position(|b| b.as_ref() == Ok(bookmark))
+            .and_then(|p| p.try_into().ok())
+        else {
+            return None;
+        };
+        if position > 0 {
+            bookmarks.remove(position);
+            bookmarks.insert(position - 1, bookmark);
+            Some(position - 1)
+        } else {
+            None
+        }
+    }
+
+    fn move_bookmark_down(&self, bookmark: &Bookmark) -> Option<u32> {
+        let bookmarks = self.bookmarks().downcast::<gio::ListStore>().unwrap();
+        let Some(position): Option<u32> = bookmarks
+            .iter()
+            .position(|b| b.as_ref() == Ok(bookmark))
+            .and_then(|p| p.try_into().ok())
+        else {
+            return None;
+        };
+        if position + 1 < bookmarks.n_items() {
+            bookmarks.remove(position);
+            bookmarks.insert(position + 1, bookmark);
+            Some(position + 1)
+        } else {
+            None
+        }
+    }
+
+    fn remove_bookmark(&self, bookmark: &Bookmark) {
+        let bookmarks = self.bookmarks().downcast::<gio::ListStore>().unwrap();
+        let Some(position): Option<u32> = bookmarks
+            .iter()
+            .position(|b| b.as_ref() == Ok(bookmark))
+            .and_then(|p| p.try_into().ok())
+        else {
+            return;
+        };
+        bookmarks.remove(position);
+    }
 
     fn path_target_type(&self, path: &Path) -> Option<gio::FileType>;
 
@@ -205,14 +278,20 @@ impl ConnectionExt for Connection {
         unsafe { ffi::gnome_cmd_con_is_local(self.to_glib_none().0) != 0 }
     }
 
-    fn add_bookmark(&self, name: &str, path: &str) {
-        unsafe {
-            ffi::gnome_cmd_con_add_bookmark(
-                self.to_glib_none().0,
-                name.to_glib_none().0,
-                path.to_glib_none().0,
-            )
-        }
+    fn is_open(&self) -> bool {
+        unsafe { ffi::gnome_cmd_con_is_open(self.to_glib_none().0) != 0 }
+    }
+
+    fn add_bookmark(&self, bookmark: &Bookmark) {
+        unsafe { ffi::gnome_cmd_con_add_bookmark(self.to_glib_none().0, bookmark.as_ptr()) }
+    }
+
+    fn erase_bookmarks(&self) {
+        unsafe { ffi::gnome_cmd_con_erase_bookmarks(self.to_glib_none().0) }
+    }
+
+    fn bookmarks(&self) -> gio::ListModel {
+        unsafe { from_glib_none(ffi::gnome_cmd_con_get_bookmarks(self.to_glib_none().0)) }
     }
 
     fn path_target_type(&self, path: &Path) -> Option<gio::FileType> {

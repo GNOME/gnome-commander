@@ -23,3 +23,5 @@ pub mod home;
 pub mod list;
 pub mod remote;
 pub mod smb;
+
+pub mod bookmark;

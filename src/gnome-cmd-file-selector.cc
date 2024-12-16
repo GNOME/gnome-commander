@@ -403,9 +403,12 @@ static void create_con_buttons (GnomeCmdFileSelector *fs)
     g_list_free (fs->priv->old_btns);
     fs->priv->old_btns = nullptr;
 
-    for (GList *l=gnome_cmd_con_list_get_all (gnome_cmd_con_list_get ()); l; l=l->next)
+    GListModel *all_cons = gnome_cmd_con_list_get_all (gnome_cmd_con_list_get ());
+
+    guint n = g_list_model_get_n_items (all_cons);
+    for (guint i = 0; i < n; ++i)
     {
-        GnomeCmdCon *con = GNOME_CMD_CON (l->data);
+        GnomeCmdCon *con = GNOME_CMD_CON (g_list_model_get_item (all_cons, i));
 
         if (!gnome_cmd_con_is_open (con) && !GNOME_CMD_IS_CON_DEVICE (con) &&
             !GNOME_CMD_IS_CON_SMB (con))  continue;
@@ -726,9 +729,12 @@ static void gnome_cmd_file_selector_init (GnomeCmdFileSelector *fs)
     gtk_notebook_set_show_border (fs->notebook, FALSE);
     gtk_widget_set_vexpand (GTK_WIDGET (fs->notebook), TRUE);
 
-    for (GList *l=gnome_cmd_con_list_get_all (gnome_cmd_con_list_get ()); l; l = l->next)
+    GListModel *all_cons = gnome_cmd_con_list_get_all (gnome_cmd_con_list_get ());
+
+    guint n = g_list_model_get_n_items (all_cons);
+    for (guint i = 0; i < n; ++i)
     {
-        auto con = static_cast<GnomeCmdCon*> (l->data);
+        GnomeCmdCon *con = GNOME_CMD_CON (g_list_model_get_item (all_cons, i));
 
         if (!gnome_cmd_con_is_open (con) && !GNOME_CMD_IS_CON_DEVICE (con)
             && !GNOME_CMD_IS_CON_SMB (con))  continue;
@@ -911,9 +917,12 @@ void GnomeCmdFileSelector::update_connections()
 
     con_combo->clear();
 
-    for (GList *l=gnome_cmd_con_list_get_all (gnome_cmd_con_list_get ()); l; l = l->next)
+    GListModel *all_cons = gnome_cmd_con_list_get_all (gnome_cmd_con_list_get ());
+
+    guint n = g_list_model_get_n_items (all_cons);
+    for (guint i = 0; i < n; ++i)
     {
-        auto con = static_cast<GnomeCmdCon*> (l->data);
+        GnomeCmdCon *con = GNOME_CMD_CON (g_list_model_get_item (all_cons, i));
 
         if (!gnome_cmd_con_is_open (con) && !GNOME_CMD_IS_CON_DEVICE (con)
             && !GNOME_CMD_IS_CON_SMB (con))  continue;

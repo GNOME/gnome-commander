@@ -25,7 +25,6 @@
 #include "gnome-cmd-dir-indicator.h"
 #include "gnome-cmd-file-selector.h"
 #include "gnome-cmd-main-win.h"
-#include "dialogs/gnome-cmd-manage-bookmarks-dialog.h"
 
 using namespace std;
 
@@ -338,6 +337,8 @@ void gnome_cmd_dir_indicator_show_history (GnomeCmdDirIndicator *indicator)
 }
 
 
+extern "C" void gnome_cmd_bookmark_add_current (GnomeCmdMainWin *main_win, GnomeCmdDir *dir);
+
 static void add_bookmark (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
     auto indicator = static_cast<GnomeCmdDirIndicator*> (user_data);
@@ -353,16 +354,22 @@ void gnome_cmd_dir_indicator_show_bookmarks (GnomeCmdDirIndicator *indicator)
     auto priv = static_cast<GnomeCmdDirIndicatorPrivate*>(gnome_cmd_dir_indicator_get_instance_private (indicator));
 
     GnomeCmdCon *con = priv->fs->get_connection();
-    GnomeCmdBookmarkGroup *group = gnome_cmd_con_get_bookmarks (con);
+    GListModel *bookmarks = gnome_cmd_con_get_bookmarks (con);
 
     GMenu *bookmarks_section = g_menu_new ();
-    for (GList *l = group->bookmarks; l; l = l->next)
+    for (guint i = 0; i < g_list_model_get_n_items (bookmarks); ++i)
     {
-        auto bm = static_cast<GnomeCmdBookmark*> (l->data);
+        auto bookmark = static_cast<GnomeCmdBookmark*> (g_list_model_get_item(bookmarks, i));
 
-        GMenuItem *item = g_menu_item_new (bm->name, nullptr);
-        g_menu_item_set_action_and_target (item, "indicator.select-path", "s", bm->path);
+        gchar *name = gnome_cmd_bookmark_get_name (bookmark);
+        gchar *path = gnome_cmd_bookmark_get_path (bookmark);
+
+        GMenuItem *item = g_menu_item_new (name, nullptr);
+        g_menu_item_set_action_and_target (item, "indicator.select-path", "s", path);
         g_menu_append_item (bookmarks_section, item);
+
+        g_free (name);
+        g_free (path);
     }
 
     GMenu *manage_section = g_menu_new ();

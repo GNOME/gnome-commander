@@ -20,9 +20,11 @@
  * For more details see the file COPYING.
  */
 
-use super::connection::{Connection, ConnectionExt};
+use super::{
+    bookmark::Bookmark,
+    connection::{Connection, ConnectionExt},
+};
 use crate::{dir::Directory, path::GnomeCmdPath};
-use ffi::GnomeCmdConRemote;
 use gtk::{
     gio,
     glib::{
@@ -161,8 +163,17 @@ impl ConnectionExt for ConnectionRemote {
     fn is_local(&self) -> bool {
         self.upcast_ref::<Connection>().is_local()
     }
-    fn add_bookmark(&self, name: &str, path: &str) {
-        self.upcast_ref::<Connection>().add_bookmark(name, path)
+    fn is_open(&self) -> bool {
+        self.upcast_ref::<Connection>().is_open()
+    }
+    fn add_bookmark(&self, bookmark: &Bookmark) {
+        self.upcast_ref::<Connection>().add_bookmark(bookmark)
+    }
+    fn erase_bookmarks(&self) {
+        self.upcast_ref::<Connection>().erase_bookmarks()
+    }
+    fn bookmarks(&self) -> gio::ListModel {
+        self.upcast_ref::<Connection>().bookmarks()
     }
     fn path_target_type(&self, path: &Path) -> Option<gio::FileType> {
         self.upcast_ref::<Connection>().path_target_type(path)
@@ -177,7 +188,7 @@ impl ConnectionExt for ConnectionRemote {
 
 #[no_mangle]
 pub extern "C" fn gnome_cmd_con_remote_get_icon_name(
-    con_ptr: *mut GnomeCmdConRemote,
+    con_ptr: *mut ffi::GnomeCmdConRemote,
 ) -> *mut c_char {
     let con: ConnectionRemote = unsafe { from_glib_none(con_ptr) };
     let icon_name = con.icon_name();

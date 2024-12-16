@@ -23,6 +23,7 @@
 use crate::{
     config::{PACKAGE_BUGREPORT, PACKAGE_NAME, PACKAGE_URL, PACKAGE_VERSION},
     connection::{
+        bookmark::Bookmark,
         connection::{Connection, ConnectionExt},
         home::ConnectionHome,
         list::ConnectionList,
@@ -31,11 +32,16 @@ use crate::{
         ConfirmOptions, GeneralOptions, GeneralOptionsRead, ProgramsOptions, ProgramsOptionsRead,
     },
     dialogs::{
-        chmod_dialog::show_chmod_dialog, chown_dialog::show_chown_dialog,
-        connect_dialog::ConnectDialog, create_symlink_dialog::show_create_symlink_dialog,
-        make_copy_dialog::make_copy_dialog, new_text_file::show_new_textfile_dialog,
+        chmod_dialog::show_chmod_dialog,
+        chown_dialog::show_chown_dialog,
+        connect_dialog::ConnectDialog,
+        create_symlink_dialog::show_create_symlink_dialog,
+        make_copy_dialog::make_copy_dialog,
+        manage_bookmarks_dialog::{bookmark_directory, BookmarksDialog},
+        new_text_file::show_new_textfile_dialog,
         prepare_copy_dialog::prepare_copy_dialog_show,
-        prepare_move_dialog::prepare_move_dialog_show, remote_dialog::RemoteDialog,
+        prepare_move_dialog::prepare_move_dialog_show,
+        remote_dialog::RemoteDialog,
         shortcuts::shortcuts_dialog::ShortcutsDialog,
     },
     dir::Directory,
@@ -54,7 +60,11 @@ use gtk::{
     prelude::*,
 };
 use once_cell::sync::Lazy;
-use std::{collections::HashSet, ffi::OsString, path::PathBuf};
+use std::{
+    collections::HashSet,
+    ffi::OsString,
+    path::{Path, PathBuf},
+};
 
 pub fn file_copy(
     main_win: &MainWindow,
@@ -572,9 +582,84 @@ c_action!(view_step_down);
 
 /************** Bookmarks Menu **************/
 
-c_action!(bookmarks_add_current);
-c_action!(bookmarks_edit);
-c_action!(bookmarks_goto);
+pub fn bookmarks_add_current(
+    main_win: &MainWindow,
+    _action: &gio::SimpleAction,
+    _parameter: Option<&glib::Variant>,
+) {
+    let main_win = main_win.clone();
+    let fs = main_win.file_selector(FileSelectorID::ACTIVE);
+    let Some(dir) = fs.directory() else {
+        eprintln!("No directory. Nothing to bookmark.");
+        return;
+    };
+    let options = GeneralOptions::new();
+
+    glib::spawn_future_local(async move {
+        bookmark_directory(&main_win, &dir, &options).await;
+    });
+}
+
+pub fn bookmarks_edit(
+    main_win: &MainWindow,
+    _action: &gio::SimpleAction,
+    _parameter: Option<&glib::Variant>,
+) {
+    let main_win = main_win.clone();
+    let connection_list = ConnectionList::get();
+    glib::spawn_future_local(async move {
+        let shortcuts = main_win.shortcuts();
+        let result =
+            BookmarksDialog::show(main_win.upcast_ref(), &connection_list, shortcuts).await;
+        if let Some(bookmark) = result {
+            let fs = main_win.file_selector(FileSelectorID::ACTIVE);
+            fs.goto_directory(&bookmark.connection, Path::new(&bookmark.bookmark.path()));
+        }
+    });
+}
+
+pub fn bookmarks_goto(
+    main_win: &MainWindow,
+    _action: &gio::SimpleAction,
+    parameter: Option<&glib::Variant>,
+) {
+    #[derive(glib::Variant)]
+    struct BookmarkGoToVariant {
+        connection_uuid: String,
+        bookmark_name: String,
+    }
+
+    let Some(goto) = parameter.and_then(BookmarkGoToVariant::from_variant) else {
+        return;
+    };
+    let Some(connection) = ConnectionList::get().find_by_uuid(&goto.connection_uuid) else {
+        eprintln!(
+            "[{}] Unsupported bookmark group: '{}' - ignored",
+            goto.bookmark_name, goto.connection_uuid
+        );
+        return;
+    };
+
+    let Some(bookmark) = connection.bookmarks().iter().find_map(|b| {
+        let bookmark: Bookmark = b.ok()?;
+        if bookmark.name() == goto.bookmark_name {
+            Some(bookmark)
+        } else {
+            None
+        }
+    }) else {
+        eprintln!(
+            "[{}] Unknown bookmark name: '{}' - ignored",
+            connection.alias().unwrap_or_default(),
+            goto.bookmark_name
+        );
+        return;
+    };
+
+    let fs = main_win.file_selector(FileSelectorID::ACTIVE);
+    fs.goto_directory(&connection, Path::new(&bookmark.path()));
+}
+
 c_action!(bookmarks_view);
 
 /************** Options Menu **************/

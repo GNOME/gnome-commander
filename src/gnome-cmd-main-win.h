@@ -26,7 +26,6 @@
 #include "plugin_manager.h"
 #include "dialogs/gnome-cmd-advrename-dialog.h"
 #include "dialogs/gnome-cmd-search-dialog.h"
-#include "dialogs/gnome-cmd-manage-bookmarks-dialog.h"
 
 #define GNOME_CMD_TYPE_MAIN_WIN              (gnome_cmd_main_win_get_type ())
 #define GNOME_CMD_MAIN_WIN(obj)              (G_TYPE_CHECK_INSTANCE_CAST((obj), GNOME_CMD_TYPE_MAIN_WIN, GnomeCmdMainWin))
@@ -101,7 +100,6 @@ struct GnomeCmdMainWin
 
     GnomeCmdSearchDialog *get_or_create_search_dialog ();
     GnomeCmdAdvrenameDialog *get_or_create_advrename_dialog ();
-    GnomeCmdBookmarksDialog *get_or_create_bookmarks_dialog ();
 
     void restore_size_and_pos ();
 };

@@ -17,128 +17,545 @@
  * For more details see the file COPYING.
  */
 
-use super::edit_bookmark_dialog::{edit_bookmark_dialog, Bookmark};
+use super::edit_bookmark_dialog::edit_bookmark_dialog;
 use crate::{
-    connection::{connection::ConnectionExt, list::ConnectionList},
+    connection::{
+        bookmark::Bookmark,
+        connection::{Connection, ConnectionExt},
+        list::ConnectionList,
+    },
     data::{GeneralOptions, GeneralOptionsWrite},
     dir::{ffi::GnomeCmdDir, Directory},
     file::{File, GnomeCmdFileExt},
     main_win::{ffi::GnomeCmdMainWin, MainWindow},
-    utils::ErrorMessage,
+    shortcuts::Shortcuts,
+    utils::{bold, ErrorMessage},
 };
 use gettextrs::gettext;
 use gtk::{
-    glib::{
-        self,
-        translate::{from_glib_none, ToGlibPtr},
-    },
+    gio,
+    glib::{self, translate::from_glib_none},
     prelude::*,
+    subclass::prelude::*,
 };
 
-pub mod ffi {
+mod imp {
     use super::*;
-    use glib::ffi::GType;
-    use gtk::ffi::{GtkTreeIter, GtkTreeView};
-    use std::ffi::c_char;
+    use crate::utils::{dialog_button_box, display_help, remember_window_size, SenderExt};
+    use std::cell::RefCell;
 
-    #[repr(C)]
-    pub struct GnomeCmdBookmarksDialog {
-        _data: [u8; 0],
-        _marker: std::marker::PhantomData<(*mut u8, std::marker::PhantomPinned)>,
+    pub struct BookmarksDialog {
+        pub shortcuts: RefCell<Option<Shortcuts>>,
+        pub flatten_model: gtk::FlattenListModel,
+        pub selection_model: gtk::SingleSelection,
+        pub view: gtk::ColumnView,
+        pub edit_button: gtk::Button,
+        pub remove_button: gtk::Button,
+        pub up_button: gtk::Button,
+        pub down_button: gtk::Button,
+        jump_button: gtk::Button,
+        sender: async_channel::Sender<Option<TaggedBookmark>>,
+        pub receiver: async_channel::Receiver<Option<TaggedBookmark>>,
     }
 
-    extern "C" {
-        pub fn gnome_cmd_bookmarks_dialog_get_type() -> GType;
+    #[glib::object_subclass]
+    impl ObjectSubclass for BookmarksDialog {
+        const NAME: &'static str = "GnomeCmdBookmarksDialog";
+        type Type = super::BookmarksDialog;
+        type ParentType = gtk::Window;
 
-        pub fn gnome_cmd_bookmarks_dialog_get_view(
-            dialog: *mut GnomeCmdBookmarksDialog,
-        ) -> *mut GtkTreeView;
-
-        pub fn gnome_cmd_bookmarks_dialog_update_bookmark(
-            dialog: *mut GnomeCmdBookmarksDialog,
-            iter: *const GtkTreeIter,
-            name: *const c_char,
-            path: *const c_char,
-        );
-    }
-
-    #[derive(Copy, Clone)]
-    #[repr(C)]
-    pub struct GnomeCmdBookmarksDialogClass {
-        pub parent_class: gtk::ffi::GtkDialog,
-    }
-}
-
-glib::wrapper! {
-    pub struct BookmarksDialog(Object<ffi::GnomeCmdBookmarksDialog, ffi::GnomeCmdBookmarksDialogClass>)
-        @extends gtk::Dialog, gtk::Window, gtk::Widget;
-
-    match fn {
-        type_ => || ffi::gnome_cmd_bookmarks_dialog_get_type(),
-    }
-}
-
-#[repr(C)]
-#[allow(non_camel_case_types)]
-enum Columns {
-    COL_GROUP = 0,
-    COL_NAME,
-    COL_PATH,
-    COL_SHORTCUT,
-    COL_BOOKMARK,
-}
-
-impl BookmarksDialog {
-    fn view(&self) -> gtk::TreeView {
-        unsafe {
-            from_glib_none(ffi::gnome_cmd_bookmarks_dialog_get_view(
-                self.to_glib_none().0,
-            ))
+        fn new() -> Self {
+            let flatten_model = gtk::FlattenListModel::new(None::<gio::ListModel>);
+            let selection_model = gtk::SingleSelection::new(Some(flatten_model.clone()));
+            let view = gtk::ColumnView::builder()
+                .width_request(400)
+                .height_request(250)
+                .model(&selection_model)
+                .build();
+            let (sender, receiver) = async_channel::bounded(1);
+            Self {
+                shortcuts: Default::default(),
+                flatten_model,
+                selection_model,
+                view,
+                edit_button: gtk::Button::builder()
+                    .label(gettext("_Edit"))
+                    .use_underline(true)
+                    .sensitive(false)
+                    .build(),
+                remove_button: gtk::Button::builder()
+                    .label(gettext("_Remove"))
+                    .use_underline(true)
+                    .sensitive(false)
+                    .build(),
+                up_button: gtk::Button::builder()
+                    .label(gettext("_Up"))
+                    .use_underline(true)
+                    .sensitive(false)
+                    .build(),
+                down_button: gtk::Button::builder()
+                    .label(gettext("_Down"))
+                    .use_underline(true)
+                    .sensitive(false)
+                    .build(),
+                jump_button: gtk::Button::builder()
+                    .label(gettext("_Jump to"))
+                    .use_underline(true)
+                    .sensitive(false)
+                    .build(),
+                sender,
+                receiver,
+            }
         }
     }
 
-    fn update_bookmark(&self, iter: &gtk::TreeIter, bookmark: &Bookmark) {
-        unsafe {
-            ffi::gnome_cmd_bookmarks_dialog_update_bookmark(
-                self.to_glib_none().0,
-                iter.to_glib_none().0,
-                bookmark.name.to_glib_none().0,
-                bookmark.path.to_glib_none().0,
+    impl ObjectImpl for BookmarksDialog {
+        fn constructed(&self) {
+            self.parent_constructed();
+
+            let dialog = self.obj();
+
+            dialog.set_title(Some(&gettext("Bookmarks")));
+            dialog.set_resizable(true);
+            dialog.set_destroy_with_parent(true);
+
+            remember_window_size(
+                dialog.upcast_ref(),
+                &GeneralOptions::new().0,
+                "bookmarks-win-width",
+                "bookmarks-win-height",
+            );
+
+            let grid = gtk::Grid::builder()
+                .margin_top(12)
+                .margin_bottom(12)
+                .margin_start(12)
+                .margin_end(12)
+                .row_spacing(6)
+                .column_spacing(12)
+                .build();
+            dialog.set_child(Some(&grid));
+
+            self.view.set_header_factory(Some(&self.header_factory()));
+            self.view.append_column(
+                &gtk::ColumnViewColumn::builder()
+                    .title(gettext("Name"))
+                    .factory(&self.name_factory())
+                    .resizable(true)
+                    .build(),
+            );
+            self.view.append_column(
+                &gtk::ColumnViewColumn::builder()
+                    .title(gettext("Shortcut"))
+                    .factory(&self.shortcut_factory())
+                    .resizable(true)
+                    .build(),
+            );
+            self.view.append_column(
+                &gtk::ColumnViewColumn::builder()
+                    .title(gettext("Path"))
+                    .factory(&self.path_factory())
+                    .resizable(true)
+                    .expand(true)
+                    .build(),
+            );
+            self.view.connect_activate(glib::clone!(
+                #[weak(rename_to = imp)]
+                self,
+                move |_, _| imp.jump_to_clicked()
+            ));
+
+            let scrolled_window = gtk::ScrolledWindow::builder()
+                .hscrollbar_policy(gtk::PolicyType::Never)
+                .vscrollbar_policy(gtk::PolicyType::Automatic)
+                .has_frame(true)
+                .hexpand(true)
+                .vexpand(true)
+                .child(&self.view)
+                .build();
+            grid.attach(&scrolled_window, 0, 0, 1, 1);
+
+            self.selection_model.connect_selected_notify(glib::clone!(
+                #[weak(rename_to = imp)]
+                self,
+                move |_| imp.selection_changed()
+            ));
+
+            let vbox = gtk::Box::builder()
+                .orientation(gtk::Orientation::Vertical)
+                .spacing(6)
+                .build();
+            vbox.append(&self.edit_button);
+            vbox.append(&self.remove_button);
+            vbox.append(&self.up_button);
+            vbox.append(&self.down_button);
+            grid.attach(&vbox, 1, 0, 1, 1);
+
+            self.edit_button.connect_clicked(glib::clone!(
+                #[weak(rename_to = imp)]
+                self,
+                move |_| {
+                    glib::spawn_future_local(async move { imp.edit_clicked().await });
+                }
+            ));
+            self.remove_button.connect_clicked(glib::clone!(
+                #[weak(rename_to = imp)]
+                self,
+                move |_| imp.remove_clicked()
+            ));
+            self.up_button.connect_clicked(glib::clone!(
+                #[weak(rename_to = imp)]
+                self,
+                move |_| imp.up_clicked()
+            ));
+            self.down_button.connect_clicked(glib::clone!(
+                #[weak(rename_to = imp)]
+                self,
+                move |_| imp.down_clicked()
+            ));
+
+            let help_button = gtk::Button::builder()
+                .label(gettext("_Help"))
+                .use_underline(true)
+                .build();
+            let close_button = gtk::Button::builder()
+                .label(gettext("_Close"))
+                .use_underline(true)
+                .build();
+
+            grid.attach(
+                &dialog_button_box(&[&help_button], &[&close_button, &self.jump_button]),
+                0,
+                1,
+                2,
+                1,
+            );
+
+            help_button.connect_clicked(glib::clone!(
+                #[weak]
+                dialog,
+                move |_| {
+                    glib::spawn_future_local(async move {
+                        display_help(dialog.upcast_ref(), Some("gnome-commander-bookmarks")).await
+                    });
+                }
+            ));
+
+            close_button.connect_clicked(glib::clone!(
+                #[strong(rename_to = sender)]
+                self.sender,
+                move |_| sender.toss(None)
+            ));
+
+            self.jump_button.connect_clicked(glib::clone!(
+                #[weak(rename_to = imp)]
+                self,
+                move |_| imp.jump_to_clicked()
+            ));
+
+            dialog.connect_close_request(glib::clone!(
+                #[strong(rename_to = sender)]
+                self.sender,
+                move |_| {
+                    sender.toss(None);
+                    glib::Propagation::Proceed
+                }
+            ));
+
+            dialog.set_default_widget(Some(&self.jump_button));
+        }
+    }
+
+    impl WidgetImpl for BookmarksDialog {}
+    impl WindowImpl for BookmarksDialog {}
+
+    impl BookmarksDialog {
+        fn header_factory(&self) -> gtk::ListItemFactory {
+            let factory = gtk::SignalListItemFactory::new();
+            factory.connect_setup(|_, item| {
+                let Some(item) = item.downcast_ref::<gtk::ListHeader>() else {
+                    return;
+                };
+                item.set_child(Some(
+                    &gtk::Label::builder()
+                        .xalign(0.0)
+                        .margin_start(6)
+                        .margin_end(6)
+                        .margin_top(12)
+                        .margin_bottom(6)
+                        .build(),
+                ));
+            });
+            factory.connect_bind(|_, item| {
+                let Some(item) = item.downcast_ref::<gtk::ListHeader>() else {
+                    return;
+                };
+                let Some(label) = item.child().and_downcast::<gtk::Label>() else {
+                    return;
+                };
+                label.set_text("");
+                let Some(obj) = item.item().and_downcast::<glib::BoxedAnyObject>() else {
+                    return;
+                };
+                let Ok(node) = obj.try_borrow::<TaggedBookmark>() else {
+                    return;
+                };
+                label.set_markup(&bold(
+                    &node
+                        .connection
+                        .alias()
+                        .unwrap_or_else(|| node.connection.uuid()),
+                ));
+            });
+            factory.upcast()
+        }
+
+        fn name_factory(&self) -> gtk::ListItemFactory {
+            let factory = gtk::SignalListItemFactory::new();
+            factory.connect_setup(|_, item| {
+                let Some(item) = item.downcast_ref::<gtk::ListItem>() else {
+                    return;
+                };
+                item.set_child(Some(&gtk::Label::builder().xalign(0.0).build()));
+            });
+            factory.connect_bind(|_, item| {
+                let Some(item) = item.downcast_ref::<gtk::ListItem>() else {
+                    return;
+                };
+                let Some(label) = item.child().and_downcast::<gtk::Label>() else {
+                    return;
+                };
+                label.set_text("");
+                let Some(obj) = item.item().and_downcast::<glib::BoxedAnyObject>() else {
+                    return;
+                };
+                let Ok(node) = obj.try_borrow::<TaggedBookmark>() else {
+                    return;
+                };
+                label.set_text(&node.bookmark.name());
+            });
+            factory.upcast()
+        }
+
+        fn shortcut_factory(&self) -> gtk::ListItemFactory {
+            let factory = gtk::SignalListItemFactory::new();
+            factory.connect_setup(|_, list_item| {
+                let Some(list_item) = list_item.downcast_ref::<gtk::ListItem>() else {
+                    return;
+                };
+                let bx = gtk::Box::builder()
+                    .orientation(gtk::Orientation::Vertical)
+                    .spacing(6)
+                    .build();
+                list_item.set_child(Some(&bx));
+            });
+            factory.connect_bind(glib::clone!(
+                #[weak(rename_to = imp)]
+                self,
+                move |_, list_item| {
+                    let Some(list_item) = list_item.downcast_ref::<gtk::ListItem>() else {
+                        return;
+                    };
+                    let Some(obj) = list_item.item().and_downcast::<glib::BoxedAnyObject>() else {
+                        return;
+                    };
+                    let Ok(node) = obj.try_borrow::<TaggedBookmark>() else {
+                        return;
+                    };
+                    let Some(bx) = list_item.child().and_downcast::<gtk::Box>() else {
+                        return;
+                    };
+
+                    while let Some(child) = bx.first_child() {
+                        child.unparent();
+                    }
+                    let shortcuts = imp.shortcuts.borrow();
+                    if let Some(shortcuts) = shortcuts
+                        .as_ref()
+                        .map(|s| s.bookmark_shortcuts(&node.bookmark.name()))
+                    {
+                        for shortcut in shortcuts {
+                            bx.append(
+                                &gtk::ShortcutLabel::builder()
+                                    .accelerator(shortcut.name())
+                                    .build(),
+                            );
+                        }
+                    }
+                }
+            ));
+            factory.upcast()
+        }
+
+        fn path_factory(&self) -> gtk::ListItemFactory {
+            let factory = gtk::SignalListItemFactory::new();
+            factory.connect_setup(|_, item| {
+                let Some(item) = item.downcast_ref::<gtk::ListItem>() else {
+                    return;
+                };
+                item.set_child(Some(&gtk::Label::builder().xalign(0.0).build()));
+            });
+            factory.connect_bind(|_, item| {
+                let Some(item) = item.downcast_ref::<gtk::ListItem>() else {
+                    return;
+                };
+                let Some(label) = item.child().and_downcast::<gtk::Label>() else {
+                    return;
+                };
+                label.set_text("");
+                let Some(obj) = item.item().and_downcast::<glib::BoxedAnyObject>() else {
+                    return;
+                };
+                let Ok(node) = obj.try_borrow::<TaggedBookmark>() else {
+                    return;
+                };
+                label.set_text(&node.bookmark.path());
+                label.set_tooltip_text(Some(&node.bookmark.path()));
+            });
+            factory.upcast()
+        }
+
+        fn selected(&self) -> Option<TaggedBookmark> {
+            Some(
+                self.selection_model
+                    .selected_item()
+                    .and_downcast::<glib::BoxedAnyObject>()?
+                    .try_borrow::<TaggedBookmark>()
+                    .ok()?
+                    .clone(),
             )
         }
-    }
 
-    async fn edit_clicked(&self) {
-        let selection = self.view().selection();
+        fn selection_changed(&self) {
+            if let Some(bookmark) = self.selected() {
+                self.jump_button.set_sensitive(true);
+                self.edit_button.set_sensitive(true);
+                self.remove_button.set_sensitive(true);
+                self.up_button.set_sensitive(!bookmark.is_first());
+                self.down_button.set_sensitive(!bookmark.is_last());
+            } else {
+                self.jump_button.set_sensitive(false);
+                self.edit_button.set_sensitive(false);
+                self.remove_button.set_sensitive(false);
+                self.up_button.set_sensitive(false);
+                self.down_button.set_sensitive(false);
+            }
+        }
 
-        if let Some((model, iter)) = selection.selected() {
-            let bookmark = Bookmark {
-                name: model
-                    .get_value(&iter, Columns::COL_NAME as i32)
-                    .get()
-                    .unwrap_or_default(),
-                path: model
-                    .get_value(&iter, Columns::COL_PATH as i32)
-                    .get()
-                    .unwrap_or_default(),
-            };
+        async fn edit_clicked(&self) {
+            if let Some(bookmark) = self.selected() {
+                if let Some(changed_bookmark) = edit_bookmark_dialog(
+                    self.obj().upcast_ref(),
+                    &gettext("Edit Bookmark"),
+                    &bookmark.bookmark,
+                )
+                .await
+                {
+                    bookmark
+                        .connection
+                        .replace_bookmark(&bookmark.bookmark, changed_bookmark);
+                }
+            }
+        }
 
-            if let Some(changed_bookmark) =
-                edit_bookmark_dialog(self.upcast_ref(), &gettext("Edit Bookmark"), &bookmark).await
-            {
-                self.update_bookmark(&iter, &changed_bookmark);
+        fn remove_clicked(&self) {
+            if let Some(bookmark) = self.selected() {
+                bookmark.connection.remove_bookmark(&bookmark.bookmark);
+                self.selection_changed();
+            }
+        }
+
+        fn up_clicked(&self) {
+            if let Some(bookmark) = self.selected() {
+                if let Some(position) = bookmark.connection.move_bookmark_up(&bookmark.bookmark) {
+                    self.selection_model.set_selected(position);
+                    self.selection_changed();
+                }
+            }
+        }
+
+        fn down_clicked(&self) {
+            if let Some(bookmark) = self.selected() {
+                if let Some(position) = bookmark.connection.move_bookmark_down(&bookmark.bookmark) {
+                    self.selection_model.set_selected(position);
+                    self.selection_changed();
+                }
+            }
+        }
+
+        fn jump_to_clicked(&self) {
+            if let Some(bookmark) = self.selected() {
+                self.sender.toss(Some(bookmark));
             }
         }
     }
 }
 
-#[no_mangle]
-fn gnome_cmd_bookmarks_dialog_edit_clicked_r(dialog_ptr: *mut ffi::GnomeCmdBookmarksDialog) {
-    let dialog: BookmarksDialog = unsafe { from_glib_none(dialog_ptr) };
+glib::wrapper! {
+    pub struct BookmarksDialog(ObjectSubclass<imp::BookmarksDialog>)
+        @extends gtk::Window, gtk::Widget;
+}
 
-    glib::spawn_future_local(async move {
-        dialog.edit_clicked().await;
-    });
+impl BookmarksDialog {
+    fn new(
+        parent_window: &gtk::Window,
+        connection_list: &ConnectionList,
+        shortcuts: &Shortcuts,
+    ) -> Self {
+        let dialog: Self = glib::Object::builder()
+            .property("transient-for", parent_window)
+            .build();
+        *dialog.imp().shortcuts.borrow_mut() = Some(shortcuts.clone());
+        dialog.update_model(connection_list);
+        dialog
+    }
+
+    fn update_model(&self, connection_list: &ConnectionList) {
+        let model = gtk::MapListModel::new(Some(connection_list.all()), move |connection| {
+            let connection: Connection = connection.clone().downcast().unwrap();
+            gtk::MapListModel::new(Some(connection.bookmarks()), move |bookmark| {
+                let bookmark: Bookmark = bookmark.clone().downcast().unwrap();
+                glib::BoxedAnyObject::new(TaggedBookmark {
+                    connection: connection.clone(),
+                    bookmark,
+                })
+                .upcast()
+            })
+            .upcast()
+        });
+        self.imp().flatten_model.set_model(Some(&model));
+    }
+
+    pub async fn show(
+        parent_window: &gtk::Window,
+        connection_list: &ConnectionList,
+        shortcuts: &Shortcuts,
+    ) -> Option<TaggedBookmark> {
+        let dialog = Self::new(parent_window, connection_list, shortcuts);
+        dialog.present();
+        dialog.imp().view.grab_focus();
+        let result = dialog.imp().receiver.recv().await.ok().flatten();
+        dialog.close();
+        result
+    }
+}
+
+#[derive(Clone)]
+pub struct TaggedBookmark {
+    pub connection: Connection,
+    pub bookmark: Bookmark,
+}
+
+impl TaggedBookmark {
+    fn is_first(&self) -> bool {
+        self.connection.bookmarks().item(0).as_ref() == Some(self.bookmark.upcast_ref())
+    }
+
+    fn is_last(&self) -> bool {
+        let bookmarks = self.connection.bookmarks();
+        let last_index = bookmarks.n_items().saturating_sub(1);
+        bookmarks.item(last_index).as_ref() == Some(self.bookmark.upcast_ref())
+    }
 }
 
 pub async fn bookmark_directory(
@@ -160,14 +577,12 @@ pub async fn bookmark_directory(
         return;
     };
 
-    let bookmark = Bookmark {
-        name: path
-            .file_name()
+    let bookmark = Bookmark::new(
+        path.file_name()
             .and_then(|n| n.to_str())
-            .unwrap_or_default()
-            .to_owned(),
-        path: path_str.to_owned(),
-    };
+            .unwrap_or_default(),
+        path_str,
+    );
 
     if let Some(changed_bookmark) =
         edit_bookmark_dialog(main_win.upcast_ref(), &gettext("New Bookmark"), &bookmark).await
@@ -179,7 +594,7 @@ pub async fn bookmark_directory(
         } else {
             file.connection()
         };
-        con.add_bookmark(&changed_bookmark.name, &changed_bookmark.path);
+        con.add_bookmark(&changed_bookmark);
 
         main_win.update_bookmarks();
 

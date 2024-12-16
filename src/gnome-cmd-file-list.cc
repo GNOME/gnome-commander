@@ -3377,3 +3377,8 @@ void gnome_cmd_file_list_focus_file(GnomeCmdFileList *fl, const gchar *focus_fil
 {
     fl->focus_file(focus_file, scroll_to_file);
 }
+
+void gnome_cmd_file_list_goto_directory(GnomeCmdFileList *fl, const gchar *dir)
+{
+    fl->goto_directory(dir);
+}

@@ -21,7 +21,7 @@
  */
 
 use crate::{
-    connection::connection::Connection,
+    connection::connection::{Connection, ConnectionExt},
     dir::Directory,
     file_list::FileList,
     notebook_ext::{GnomeCmdNotebookExt, TabClick},
@@ -37,6 +37,7 @@ use gtk::{
     },
     prelude::*,
 };
+use std::path::Path;
 
 pub mod ffi {
     use crate::{
@@ -194,6 +195,35 @@ impl FileSelector {
 
     pub fn is_active(&self) -> bool {
         unsafe { ffi::gnome_cmd_file_selector_is_active(self.to_glib_none().0) != 0 }
+    }
+
+    pub fn goto_directory(&self, con: &Connection, path: &Path) {
+        if self.connection().as_ref() == Some(&con) {
+            let fl = self.file_list();
+            if fl.is_locked() {
+                let dir = Directory::new(&con, con.create_path(path));
+                self.new_tab_with_dir(&dir, true);
+            } else {
+                fl.goto_directory(path);
+            }
+        } else {
+            if con.is_open() {
+                let dir = Directory::new(&con, con.create_path(path));
+
+                if self.file_list().is_locked() {
+                    self.new_tab_with_dir(&dir, true);
+                } else {
+                    self.set_connection(&con, Some(&dir));
+                }
+            } else {
+                con.set_base_path(con.create_path(path));
+                if self.file_list().is_locked() {
+                    self.new_tab_with_dir(&con.default_dir().unwrap(), true);
+                } else {
+                    self.set_connection(&con, None);
+                }
+            }
+        }
     }
 }
 

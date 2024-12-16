@@ -104,7 +104,7 @@ struct GnomeCmdConClass
 
 extern "C" GType gnome_cmd_con_get_type ();
 
-const gchar *gnome_cmd_con_get_uuid (GnomeCmdCon *con);
+extern "C" const gchar *gnome_cmd_con_get_uuid (GnomeCmdCon *con);
 
 extern "C" GnomeCmdPath *gnome_cmd_con_get_base_path(GnomeCmdCon *con);
 extern "C" void gnome_cmd_con_set_base_path(GnomeCmdCon *con, GnomeCmdPath *path);
@@ -114,7 +114,7 @@ extern "C" void gnome_cmd_con_set_base_file_info(GnomeCmdCon *con, GFileInfo *fi
 
 void gnome_cmd_con_open (GnomeCmdCon *con, GtkWindow *parent_window);
 
-gboolean gnome_cmd_con_is_open (GnomeCmdCon *con);
+extern "C" gboolean gnome_cmd_con_is_open (GnomeCmdCon *con);
 
 void gnome_cmd_con_cancel_open (GnomeCmdCon *con);
 
@@ -137,8 +137,8 @@ const gchar *gnome_cmd_con_get_open_msg (GnomeCmdCon *con);
 extern "C" const gchar *gnome_cmd_con_get_alias (GnomeCmdCon *con);
 extern "C" void gnome_cmd_con_set_alias (GnomeCmdCon *con, const gchar *alias=NULL);
 
-GnomeCmdDir *gnome_cmd_con_get_default_dir (GnomeCmdCon *con);
-void gnome_cmd_con_set_default_dir (GnomeCmdCon *con, GnomeCmdDir *dir);
+extern "C" GnomeCmdDir *gnome_cmd_con_get_default_dir (GnomeCmdCon *con);
+extern "C" void gnome_cmd_con_set_default_dir (GnomeCmdCon *con, GnomeCmdDir *dir);
 
 gboolean gnome_cmd_con_should_remember_dir (GnomeCmdCon *con);
 gboolean gnome_cmd_con_needs_open_visprog (GnomeCmdCon *con);
@@ -161,11 +161,13 @@ GIcon *gnome_cmd_con_get_go_icon (GnomeCmdCon *con);
 GIcon *gnome_cmd_con_get_open_icon (GnomeCmdCon *con);
 GIcon *gnome_cmd_con_get_close_icon (GnomeCmdCon *con);
 
-GnomeCmdBookmarkGroup *gnome_cmd_con_get_bookmarks (GnomeCmdCon *con);
+extern "C" GListModel *gnome_cmd_con_get_bookmarks (GnomeCmdCon *con);
 
-extern "C" void gnome_cmd_con_add_bookmark (GnomeCmdCon *con, const gchar *name, const gchar *path);
+struct GnomeCmdBookmark;
 
-void gnome_cmd_con_erase_bookmark (GnomeCmdCon *con);
+extern "C" void gnome_cmd_con_add_bookmark (GnomeCmdCon *con, GnomeCmdBookmark *bookmark);
+
+extern "C" void gnome_cmd_con_erase_bookmarks (GnomeCmdCon *con);
 
 void gnome_cmd_con_updated (GnomeCmdCon *con);
 
@@ -183,3 +185,7 @@ GnomeCmdDir *gnome_cmd_con_cache_lookup (GnomeCmdCon *con, const gchar *uri);
 
 void gnome_cmd_con_close_active_or_inactive_connection (GMount *gMount);
 
+
+extern "C" GType gnome_cmd_bookmark_get_type ();
+gchar *gnome_cmd_bookmark_get_name (GnomeCmdBookmark *bookmark);
+gchar *gnome_cmd_bookmark_get_path (GnomeCmdBookmark *bookmark);

@@ -32,7 +32,6 @@
 #include "utils.h"
 #include "imageloader.h"
 #include "gnome-cmd-user-actions.h"
-#include "dialogs/gnome-cmd-manage-bookmarks-dialog.h"
 
 using namespace std;
 
@@ -40,14 +39,15 @@ using namespace std;
 static GMenu* local_connections_menu ()
 {
     GnomeCmdConList *con_list = gnome_cmd_con_list_get ();
-    GList *all_cons = gnome_cmd_con_list_get_all (con_list);
+    GListModel *all_cons = gnome_cmd_con_list_get_all (con_list);
 
     GMenu *menu = g_menu_new ();
 
     // Add all open connections
-    for (GList *i = all_cons; i; i = i->next)
+    guint n = g_list_model_get_n_items (all_cons);
+    for (guint i = 0; i < n; ++i)
     {
-        GnomeCmdCon *con = GNOME_CMD_CON (i->data);
+        GnomeCmdCon *con = GNOME_CMD_CON (g_list_model_get_item (all_cons, i));
         if (!GNOME_CMD_IS_CON_REMOTE (con) || gnome_cmd_con_is_open (con))
         {
             gchar *label = gnome_cmd_con_get_go_text (con);
@@ -70,14 +70,15 @@ static GMenu* local_connections_menu ()
 static GMenu* connections_menu ()
 {
     GnomeCmdConList *con_list = gnome_cmd_con_list_get ();
-    GList *all_cons = gnome_cmd_con_list_get_all (con_list);
+    GListModel *all_cons = gnome_cmd_con_list_get_all (con_list);
 
     GMenu *menu = g_menu_new ();
 
     // Add all open connections that are not permanent
-    for (GList *i = all_cons; i; i = i->next)
+    guint n = g_list_model_get_n_items (all_cons);
+    for (guint i = 0; i < n; ++i)
     {
-        GnomeCmdCon *con = GNOME_CMD_CON (i->data);
+        GnomeCmdCon *con = GNOME_CMD_CON (g_list_model_get_item (all_cons, i));
         if (gnome_cmd_con_is_closeable (con) && gnome_cmd_con_is_open (con))
         {
             gchar *label = gnome_cmd_con_get_close_text (con);
@@ -102,28 +103,34 @@ static GMenu *create_bookmarks_menu ()
     GMenu *menu = g_menu_new ();
 
     // Add bookmark groups
-    GList *cons = gnome_cmd_con_list_get_all (gnome_cmd_con_list_get ());
-    for (; cons; cons = cons->next)
-    {
-        GnomeCmdCon *con = GNOME_CMD_CON (cons->data);
-        GnomeCmdBookmarkGroup *group = gnome_cmd_con_get_bookmarks (con);
+    GListModel *all_cons = gnome_cmd_con_list_get_all (gnome_cmd_con_list_get ());
 
-        if (group && group->bookmarks)
+    guint n = g_list_model_get_n_items (all_cons);
+    for (guint i = 0; i < n; ++i)
+    {
+        GnomeCmdCon *con = GNOME_CMD_CON (g_list_model_get_item (all_cons, i));
+        GListModel *bookmarks = gnome_cmd_con_get_bookmarks (con);
+
+        if (bookmarks && g_list_model_get_n_items (bookmarks) > 0)
         {
             const gchar *con_uuid = gnome_cmd_con_get_uuid (con);
 
             // Add bookmarks for this group
             GMenu *group_items = g_menu_new();
-            for (GList *bookmarks = group->bookmarks; bookmarks; bookmarks = bookmarks->next)
+            for (guint i = 0; i < g_list_model_get_n_items (bookmarks); ++i)
             {
-                auto bookmark = static_cast<GnomeCmdBookmark*> (bookmarks->data);
-                GMenuItem *item = g_menu_item_new (bookmark->name, nullptr);
-                g_menu_item_set_action_and_target (item, "win.bookmarks-goto", "(ss)", con_uuid, bookmark->name);
+                auto bookmark = static_cast<GnomeCmdBookmark*> (g_list_model_get_item(bookmarks, i));
+                gchar *name = gnome_cmd_bookmark_get_name (bookmark);
+
+                GMenuItem *item = g_menu_item_new (name, nullptr);
+                g_menu_item_set_action_and_target (item, "win.bookmarks-goto", "(ss)", con_uuid, name);
                 g_menu_append_item (group_items, item);
+
+                g_free (name);
             }
 
-            GMenuItem *group_item = g_menu_item_new_submenu (gnome_cmd_con_get_alias (group->con), G_MENU_MODEL (group_items));
-            g_menu_item_set_icon (group_item, gnome_cmd_con_get_go_icon (group->con));
+            GMenuItem *group_item = g_menu_item_new_submenu (gnome_cmd_con_get_alias (con), G_MENU_MODEL (group_items));
+            g_menu_item_set_icon (group_item, gnome_cmd_con_get_go_icon (con));
 
             g_menu_append_item (menu, group_item);
         }
