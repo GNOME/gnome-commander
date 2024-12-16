@@ -105,6 +105,7 @@ static void gnome_cmd_rename_dialog_init (GnomeCmdRenameDialog *dialog)
     gtk_popover_set_child (GTK_POPOVER (dialog), GTK_WIDGET (priv->textbox));
 
     GtkEventController *key_controller = gtk_event_controller_key_new ();
+    gtk_event_controller_set_propagation_phase(key_controller, GTK_PHASE_CAPTURE);
     gtk_widget_add_controller (GTK_WIDGET (priv->textbox), GTK_EVENT_CONTROLLER (key_controller));
     g_signal_connect (key_controller, "key-pressed", G_CALLBACK (on_dialog_keypressed), dialog);
 }
