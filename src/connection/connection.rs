@@ -36,6 +36,7 @@ pub mod ffi {
     use super::*;
     use crate::dir::ffi::GnomeCmdDir;
     use gtk::{
+        ffi::GtkWindow,
         gio::ffi::{GFile, GFileType, GListModel},
         glib::ffi::{gboolean, GError, GType, GUri},
     };
@@ -99,6 +100,10 @@ pub mod ffi {
             path_str: *const c_char,
             error: *mut *mut GError,
         ) -> gboolean;
+
+        pub fn gnome_cmd_con_get_open_msg(con: *mut GnomeCmdCon) -> *const c_char;
+        pub fn gnome_cmd_con_open(con: *mut GnomeCmdCon, parent_window: *mut GtkWindow);
+        pub fn gnome_cmd_con_cancel_open(con: *mut GnomeCmdCon);
 
         pub fn gnome_cmd_con_close(con: *mut GnomeCmdCon) -> gboolean;
     }
@@ -325,5 +330,19 @@ impl ConnectionExt for Connection {
 
     fn close(&self) -> bool {
         unsafe { ffi::gnome_cmd_con_close(self.to_glib_none().0) != 0 }
+    }
+}
+
+impl Connection {
+    pub fn open_message(&self) -> String {
+        unsafe { from_glib_none(ffi::gnome_cmd_con_get_open_msg(self.to_glib_none().0)) }
+    }
+
+    pub fn open(&self, parent_window: &gtk::Window) {
+        unsafe { ffi::gnome_cmd_con_open(self.to_glib_none().0, parent_window.to_glib_none().0) };
+    }
+
+    pub fn cancel_open(&self) {
+        unsafe { ffi::gnome_cmd_con_cancel_open(self.to_glib_none().0) };
     }
 }

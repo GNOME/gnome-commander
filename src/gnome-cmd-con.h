@@ -112,11 +112,11 @@ extern "C" void gnome_cmd_con_set_base_path(GnomeCmdCon *con, GnomeCmdPath *path
 extern "C" GFileInfo *gnome_cmd_con_get_base_file_info(GnomeCmdCon *con);
 extern "C" void gnome_cmd_con_set_base_file_info(GnomeCmdCon *con, GFileInfo *file_info);
 
-void gnome_cmd_con_open (GnomeCmdCon *con, GtkWindow *parent_window);
+extern "C" void gnome_cmd_con_open (GnomeCmdCon *con, GtkWindow *parent_window);
 
 extern "C" gboolean gnome_cmd_con_is_open (GnomeCmdCon *con);
 
-void gnome_cmd_con_cancel_open (GnomeCmdCon *con);
+extern "C" void gnome_cmd_con_cancel_open (GnomeCmdCon *con);
 
 extern "C" gboolean gnome_cmd_con_close (GnomeCmdCon *con);
 
@@ -132,7 +132,7 @@ extern "C" GFile *gnome_cmd_con_create_gfile (GnomeCmdCon *con, const gchar *pat
 
 extern "C" GnomeCmdPath *gnome_cmd_con_create_path (GnomeCmdCon *con, const gchar *path_str);
 
-const gchar *gnome_cmd_con_get_open_msg (GnomeCmdCon *con);
+extern "C" const gchar *gnome_cmd_con_get_open_msg (GnomeCmdCon *con);
 
 extern "C" const gchar *gnome_cmd_con_get_alias (GnomeCmdCon *con);
 extern "C" void gnome_cmd_con_set_alias (GnomeCmdCon *con, const gchar *alias=NULL);
