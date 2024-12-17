@@ -274,6 +274,7 @@ void store_general_options (GtkWidget *dialog, GnomeCmdData::Options &cfg)
     GtkWidget *select_dirs = lookup_widget (dialog, "select_dirs");
     GtkWidget *delete_to_trash = lookup_widget (dialog, "delete_to_trash");
     GtkWidget *case_sens_check = lookup_widget (dialog, "case_sens_check");
+    GtkWidget *symbolic_links_as_regular_files_check = lookup_widget (dialog, "symbolic_links_as_regular_files_check");
     GtkWidget *ctrl_alt_quick_search = lookup_widget (dialog, "ctrl_alt_quick_search");
     GtkWidget *alt_quick_search = lookup_widget (dialog, "alt_quick_search");
     GtkWidget *multiple_instance_check = lookup_widget (dialog, "multiple_instance_check");
@@ -299,6 +300,7 @@ void store_general_options (GtkWidget *dialog, GnomeCmdData::Options &cfg)
     cfg.select_dirs = gtk_check_button_get_active (GTK_CHECK_BUTTON (select_dirs));
     cfg.deleteToTrash = gtk_check_button_get_active (GTK_CHECK_BUTTON (delete_to_trash));
     cfg.case_sens_sort = gtk_check_button_get_active (GTK_CHECK_BUTTON (case_sens_check));
+    cfg.symbolic_links_as_regular_files = gtk_check_button_get_active (GTK_CHECK_BUTTON (symbolic_links_as_regular_files_check));
     if (gtk_check_button_get_active (GTK_CHECK_BUTTON (ctrl_alt_quick_search)))
         cfg.quick_search = GNOME_CMD_QUICK_SEARCH_CTRL_ALT;
     else if (gtk_check_button_get_active (GTK_CHECK_BUTTON (alt_quick_search)))
