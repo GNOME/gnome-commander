@@ -1005,22 +1005,30 @@ static int compare_file_types(GFileInfo *gFileInfo1, GFileInfo *gFileInfo2)
 static gint compare_file_types(GnomeCmdFile *f1, GnomeCmdFile *f2)
 {
     GError *error = nullptr;
-    auto gFileInfo1 = g_file_query_info (f1->get_file(), "*", G_FILE_QUERY_INFO_NONE, nullptr, &error);
-    if (error)
-    {
-        DEBUG ('t', "Could not retrieve file information for %s, error: %s\n", f1->get_name(), error->message);
-        g_error_free(error);
-    }
-    auto gFileInfo2 = g_file_query_info (f2->get_file(), "*", G_FILE_QUERY_INFO_NONE, nullptr, &error);
-    if (error)
-    {
-        DEBUG ('t', "Could not retrieve file information for %s, error: %s\n", f2->get_name(), error->message);
-        g_error_free(error);
-    }
+    gint returnValue;
 
-    auto returnValue = compare_file_types(gFileInfo1, gFileInfo2);
-    g_object_unref(gFileInfo1);
-    g_object_unref(gFileInfo2);
+    if (gnome_cmd_file_is_local(f1))
+    {
+        returnValue = compare_file_types(f1->get_file_info(), f2->get_file_info());
+    }
+    else
+    {
+        auto gFileInfo1 = g_file_query_info (f1->get_file(), "*", G_FILE_QUERY_INFO_NONE, nullptr, &error);
+        if (error)
+        {
+            DEBUG ('t', "Could not retrieve file information for %s, error: %s\n", f1->get_name(), error->message);
+            g_error_free(error);
+        }
+        auto gFileInfo2 = g_file_query_info (f2->get_file(), "*", G_FILE_QUERY_INFO_NONE, nullptr, &error);
+        if (error)
+        {
+            DEBUG ('t', "Could not retrieve file information for %s, error: %s\n", f2->get_name(), error->message);
+            g_error_free(error);
+        }
+        returnValue = compare_file_types(gFileInfo1, gFileInfo2);
+        g_object_unref(gFileInfo1);
+        g_object_unref(gFileInfo2);
+    }
     return returnValue;
 }
 
