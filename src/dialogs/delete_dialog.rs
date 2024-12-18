@@ -476,6 +476,8 @@ async fn remove_items_from_list_to_be_deleted(
                         files_to_delete.push_back(file);
                     }
                 }
+            } else {
+                files_to_delete.push_back(file);
             }
         } else {
             files_to_delete.push_back(file);
