@@ -105,6 +105,22 @@ struct GnomeCmdFileListColumn
 };
 
 
+struct GnomeCmdColorTheme;
+enum GnomeCmdColorThemeItem {
+    SELECTION_FOREGROUND = 0,
+    SELECTION_BACKGROUND,
+    NORMAL_FOREGROUND,
+    NORMAL_BACKGROUND,
+    CURSOR_FOREGROUND,
+    CURSOR_RBACKGROUND,
+    ALTERNATE_FOREGROUND,
+    ALTERNATE_BACKGROUND,
+};
+extern "C" GnomeCmdColorTheme *gnome_cmd_get_current_theme();
+extern "C" void gnome_cmd_theme_free(GnomeCmdColorTheme *);
+extern "C" GdkRGBA *gnome_cmd_color_get_color(GnomeCmdColorTheme *, GnomeCmdColorThemeItem);
+
+
 static void cell_data (GtkTreeViewColumn *tree_column,
                        GtkCellRenderer *cell,
                        GtkTreeModel *tree_model,
@@ -173,6 +189,7 @@ struct GnomeCmdFileList::Private
     gint current_col;
     gboolean sort_raising[NUM_COLUMNS];
     gint column_resizing;
+    GnomeCmdColorTheme *color_theme;
 
     gboolean shift_down;
     GtkTreeIterPtr shift_down_row;
@@ -196,12 +213,20 @@ struct GnomeCmdFileList::Private
 };
 
 
+struct CellDataClosure
+{
+    gsize column_index;
+    GnomeCmdFileList *fl;
+};
+
+
 GnomeCmdFileList::Private::Private(GnomeCmdFileList *fl)
     : shift_down_row (nullptr, &gtk_tree_iter_free)
 {
     base_dir = nullptr;
 
     column_resizing = 0;
+    color_theme = nullptr;
 
     quicksearch_popup = { { nullptr } };
 
@@ -244,6 +269,10 @@ GnomeCmdFileList::Private::Private(GnomeCmdFileList *fl)
 
         gtk_tree_view_insert_column (GTK_TREE_VIEW (fl), columns[i], i);
 
+        CellDataClosure *cell_data_col = g_new0 (CellDataClosure, 1);
+        cell_data_col->column_index = i;
+        cell_data_col->fl = fl;
+
         GtkCellRenderer *renderer;
         if (i == GnomeCmdFileList::COLUMN_ICON)
         {
@@ -252,12 +281,15 @@ GnomeCmdFileList::Private::Private(GnomeCmdFileList *fl)
             renderer = gtk_cell_renderer_pixbuf_new();
             gtk_tree_view_column_pack_start (columns[i], renderer, TRUE);
 
-            gtk_tree_view_column_set_cell_data_func (columns[i], renderer, cell_data, reinterpret_cast<gpointer>(i), nullptr);
+            gtk_tree_view_column_set_cell_data_func (columns[i], renderer, cell_data, cell_data_col, g_free);
 
             renderer = gtk_cell_renderer_text_new();
             gtk_tree_view_column_pack_start (columns[i], renderer, TRUE);
 
-            gtk_tree_view_column_set_cell_data_func (columns[i], renderer, cell_data, reinterpret_cast<gpointer>(DATA_COLUMN_ICON_NAME), nullptr);
+            CellDataClosure *cell_data_icon = g_new0 (CellDataClosure, 1);
+            cell_data_icon->column_index = DATA_COLUMN_ICON_NAME;
+            cell_data_icon->fl = fl;
+            gtk_tree_view_column_set_cell_data_func (columns[i], renderer, cell_data, cell_data_icon, g_free);
         }
         else
         {
@@ -269,7 +301,7 @@ GnomeCmdFileList::Private::Private(GnomeCmdFileList *fl)
             g_object_set (renderer, "alignment", file_list_column[i].alignment, NULL);
             gtk_tree_view_column_pack_start (columns[i], renderer, TRUE);
 
-            gtk_tree_view_column_set_cell_data_func (columns[i], renderer, cell_data, reinterpret_cast<gpointer>(i), nullptr);
+            gtk_tree_view_column_set_cell_data_func (columns[i], renderer, cell_data, cell_data_col, g_free);
         }
     }
 
@@ -308,7 +340,7 @@ static void cell_data (GtkTreeViewColumn *column,
                        GtkTreeIter *iter,
                        gpointer data)
 {
-    gsize column_index = reinterpret_cast<gsize>(data);
+    CellDataClosure *cell_data = static_cast<CellDataClosure *>(data);
 
     gboolean selected = false;
     GnomeCmdFile *file = nullptr;
@@ -316,11 +348,11 @@ static void cell_data (GtkTreeViewColumn *column,
     gtk_tree_model_get (model, iter,
         DATA_COLUMN_FILE, &file,
         DATA_COLUMN_SELECTED, &selected,
-        column_index, &value,
+        cell_data->column_index, &value,
         -1);
 
     bool has_foreground;
-    if (column_index == GnomeCmdFileList::COLUMN_ICON)
+    if (cell_data->column_index == GnomeCmdFileList::COLUMN_ICON)
     {
         if (gnome_cmd_data.options.layout == GNOME_CMD_LAYOUT_TEXT)
             g_object_set (G_OBJECT (cell), "gicon", NULL, nullptr);
@@ -328,7 +360,7 @@ static void cell_data (GtkTreeViewColumn *column,
             g_object_set (G_OBJECT (cell), "gicon", value, nullptr);
         has_foreground = false;
     }
-    else if (column_index == DATA_COLUMN_ICON_NAME)
+    else if (cell_data->column_index == DATA_COLUMN_ICON_NAME)
     {
         if (gnome_cmd_data.options.layout == GNOME_CMD_LAYOUT_TEXT)
             g_object_set (G_OBJECT (cell), "text", value, nullptr);
@@ -342,31 +374,42 @@ static void cell_data (GtkTreeViewColumn *column,
         has_foreground = true;
     }
 
-    GnomeCmdColorTheme *colors = gnome_cmd_data.options.get_current_color_theme();
+    auto color_theme = cell_data->fl->priv->color_theme;
     if (selected)
     {
-        if (has_foreground)
-            g_object_set (G_OBJECT (cell),
-                "foreground-rgba", &colors->sel_fg,
-                "foreground-set", TRUE,
-                nullptr);
-        g_object_set (G_OBJECT (cell),
-            "cell-background-rgba", &colors->sel_bg,
-            "cell-background-set", TRUE,
-            nullptr);
-    }
-    else
-    {
-        if (!colors->respect_theme)
+        if (color_theme != nullptr)
         {
             if (has_foreground)
                 g_object_set (G_OBJECT (cell),
-                    "foreground-rgba", &colors->norm_fg,
+                    "foreground-rgba", gnome_cmd_color_get_color (color_theme, SELECTION_FOREGROUND),
+                    "foreground-set", TRUE,
+                    nullptr);
+            g_object_set (G_OBJECT (cell),
+                "cell-background-rgba", gnome_cmd_color_get_color (color_theme, SELECTION_BACKGROUND),
+                "cell-background-set", TRUE,
+                nullptr);
+        }
+        else
+        {
+            // TODO: Consider better ways to highlight selected files
+            g_object_set (G_OBJECT (cell),
+                "weight-rgba", PANGO_WEIGHT_BOLD,
+                "weight-set", TRUE,
+                nullptr);
+        }
+    }
+    else
+    {
+        if (color_theme != nullptr)
+        {
+            if (has_foreground)
+                g_object_set (G_OBJECT (cell),
+                    "foreground-rgba", gnome_cmd_color_get_color (color_theme, NORMAL_FOREGROUND),
                     "foreground-set", TRUE,
                     nullptr);
 
             g_object_set (G_OBJECT (cell),
-                "cell-background-rgba", &colors->norm_bg,
+                "cell-background-rgba", gnome_cmd_color_get_color (color_theme, NORMAL_BACKGROUND),
                 "cell-background-set", TRUE,
                 nullptr);
         }
@@ -413,6 +456,7 @@ static GtkPopover *create_dnd_popup (GnomeCmdFileList *fl, GList *gFileGlist, Gn
 
 GnomeCmdFileList::Private::~Private()
 {
+    gnome_cmd_theme_free (color_theme);
     g_clear_list (&dropping_files, g_object_unref);
     dropping_to = nullptr;
 }
@@ -443,59 +487,6 @@ static void gnome_cmd_file_list_drop_files_cancel (GSimpleAction *action, GVaria
 }
 
 
-static GtkCssProvider *create_css_provider()
-{
-    gchar *css;
-
-    GnomeCmdColorTheme *colors = gnome_cmd_data.options.get_current_color_theme();
-
-    if (!colors->respect_theme)
-    {
-        gchar *norm_bg = gdk_rgba_to_string (&colors->norm_bg);
-        gchar *alt_bg = gdk_rgba_to_string (&colors->alt_bg);
-        gchar *curs_bg = gdk_rgba_to_string (&colors->curs_bg);
-        gchar *curs_fg = gdk_rgba_to_string (&colors->curs_fg);
-
-        css = g_strdup_printf ("\
-            treeview.view.gnome-cmd-file-list,                      \
-            treeview.view.gnome-cmd-file-list.even {                \
-                background-color: %s;                               \
-            }                                                       \
-            treeview.view.gnome-cmd-file-list.odd {                 \
-                background-color: %s;                               \
-            }                                                       \
-            treeview.view.gnome-cmd-file-list:selected:focus {      \
-                background-color: %s;                               \
-                color: %s;                                          \
-            }                                                       \
-            ",
-            // row
-            norm_bg,
-            alt_bg,
-
-            // cursor
-            curs_bg,
-            curs_fg
-        );
-
-        g_free (norm_bg);
-        g_free (alt_bg);
-        g_free (curs_bg);
-        g_free (curs_fg);
-    }
-    else
-    {
-        css = g_strdup("");
-    }
-
-    GtkCssProvider *css_provider = gtk_css_provider_new();
-    gtk_css_provider_load_from_data (css_provider, css, -1);
-
-    g_free (css);
-
-    return css_provider;
-}
-
 GnomeCmdFileList::GnomeCmdFileList(ColumnID sort_col, GtkSortType sort_order)
 {
 #if defined (__GNUC__)
@@ -509,11 +500,11 @@ GnomeCmdFileList::GnomeCmdFileList(ColumnID sort_col, GtkSortType sort_order)
 
     priv->sort_raising[sort_col] = sort_order;
     priv->sort_func = file_list_column[sort_col].sort_func;
+    priv->color_theme = gnome_cmd_get_current_theme();
 
     create_column_titles();
 
-    gtk_style_context_add_class (gtk_widget_get_style_context (*this), "gnome-cmd-file-list");
-    gtk_style_context_add_provider_for_display (gdk_display_get_default (), GTK_STYLE_PROVIDER (create_css_provider()), GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
+    gtk_widget_add_css_class (*this, "gnome-cmd-file-list");
 
     GtkTreeSelection *selection = gtk_tree_view_get_selection (*this);
     gtk_tree_selection_set_mode (selection, GTK_SELECTION_BROWSE);
@@ -2825,11 +2816,15 @@ void GnomeCmdFileList::update_style()
 {
     // TODO: Maybe??? gtk_cell_renderer_set_fixed_size (priv->columns[1], )
     // gtk_clist_set_row_height (*this, gnome_cmd_data.options.list_row_height);
-    // TODO: update CSS according to a selected theme
+
+    gnome_cmd_theme_free (priv->color_theme);
+    priv->color_theme = gnome_cmd_get_current_theme();
 
     PangoFontDescription *font_desc = pango_font_description_from_string (gnome_cmd_data.options.list_font);
     // gtk_widget_override_font (*this, font_desc);
     pango_font_description_free (font_desc);
+
+    gtk_widget_queue_draw (*this);
 }
 
 

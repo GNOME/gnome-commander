@@ -105,10 +105,14 @@ struct GnomeCmdMainWin::Private
 
     bool state_saved;
     GnomeCmdShortcuts *gcmd_shortcuts;
+    GObject *color_themes;
 };
 
 
 G_DEFINE_TYPE (GnomeCmdMainWin, gnome_cmd_main_win, GTK_TYPE_APPLICATION_WINDOW)
+
+
+extern "C" GType gnome_cmd_color_themes_get_type();
 
 
 static gboolean set_equal_panes_idle (gpointer *user_data);
@@ -462,6 +466,12 @@ static void toggle_action_change_state (GnomeCmdMainWin *mw, const gchar *action
 }
 
 
+static void on_update_view (GObject *color_themes, GnomeCmdMainWin *mw)
+{
+    mw->update_view();
+}
+
+
 /*******************************
  * Gtk class implementation
  *******************************/
@@ -485,6 +495,8 @@ static void dispose (GObject *object)
 
     g_weak_ref_set (&main_win->priv->advrename_dlg, nullptr);
     g_weak_ref_set (&main_win->priv->file_search_dlg, nullptr);
+
+    g_clear_object (&main_win->priv->color_themes);
 
     G_OBJECT_CLASS (gnome_cmd_main_win_parent_class)->dispose (object);
 }
@@ -539,6 +551,10 @@ static void gnome_cmd_main_win_init (GnomeCmdMainWin *mw)
     mw->priv->file_search_dlg = { { nullptr } };
     mw->priv->state_saved = false;
     mw->priv->gcmd_shortcuts = gnome_cmd_shortcuts_load_from_settings ();
+    mw->priv->color_themes = G_OBJECT (g_object_new (gnome_cmd_color_themes_get_type(),
+        "settings", g_settings_new (GCMD_PREF_COLORS),
+        "display", gdk_display_get_default(),
+        nullptr));
 
     gtk_window_set_title (GTK_WINDOW (mw),
                           gcmd_owner.is_root()
@@ -607,6 +623,8 @@ static void gnome_cmd_main_win_init (GnomeCmdMainWin *mw)
     g_signal_connect (mw->fs(RIGHT)->file_list(), "list-clicked", G_CALLBACK (on_right_fs_select), mw);
 
     g_signal_connect (gnome_cmd_con_list_get (), "list-changed", G_CALLBACK (on_con_list_list_changed), mw);
+
+    g_signal_connect (mw->priv->color_themes, "theme-changed", G_CALLBACK (on_update_view), mw);
 
     mw->focus_file_lists();
 }

@@ -17,38 +17,6 @@
  * For more details see the file COPYING.
  */
 
-pub mod pattern_selection_dialog;
+pub mod color_themes;
 
-pub mod advrename_dialog;
-pub mod advrename_regex_dialog;
-
-pub mod edit_bookmark_dialog;
-pub mod manage_bookmarks_dialog;
-
-pub mod search_dialog;
-
-pub mod chmod_dialog;
-pub mod chown_dialog;
-
-pub mod create_symlink_dialog;
-pub mod make_copy_dialog;
-
-pub mod delete_dialog;
-
-pub mod prepare_copy_dialog;
-pub mod prepare_move_dialog;
-pub mod prepare_transfer_dialog;
-pub mod transfer_progress_dialog;
-
-pub mod connect_dialog;
-pub mod remote_dialog;
-
-pub mod shortcuts;
-
-pub mod profiles;
-
-pub mod open_with_other_dialog;
-
-pub mod new_text_file;
-
-pub mod options;
+pub const PREF_COLORS: &str = "org.gnome.gnome-commander.preferences.colors";

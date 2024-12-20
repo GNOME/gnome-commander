@@ -39,6 +39,7 @@ mod filter;
 mod hintbox;
 mod i18n;
 mod intviewer;
+mod layout;
 mod libgcmd;
 mod main_win;
 mod notebook_ext;
