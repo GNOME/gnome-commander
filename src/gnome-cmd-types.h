@@ -110,19 +110,6 @@ typedef enum
 }GnomeCmdDefaultDndMode;
 
 
-struct GnomeCmdLsColorsPalette
-{
-    GdkRGBA black_fg, black_bg;
-    GdkRGBA red_fg, red_bg;
-    GdkRGBA green_fg, green_bg;
-    GdkRGBA yellow_fg, yellow_bg;
-    GdkRGBA blue_fg, blue_bg;
-    GdkRGBA magenta_fg, magenta_bg;
-    GdkRGBA cyan_fg, cyan_bg;
-    GdkRGBA white_fg, white_bg;
-};
-
-
 struct GnomeCmdKeyPress
 {
     guint keyval;

@@ -42,7 +42,6 @@
 #include "gnome-cmd-file-popmenu.h"
 #include "gnome-cmd-quicksearch-popup.h"
 #include "gnome-cmd-file-collection.h"
-#include "ls_colors.h"
 #include "dialogs/gnome-cmd-delete-dialog.h"
 #include "dialogs/gnome-cmd-rename-dialog.h"
 #include "dialogs/gnome-cmd-file-props-dialog.h"
@@ -121,6 +120,13 @@ extern "C" void gnome_cmd_theme_free(GnomeCmdColorTheme *);
 extern "C" GdkRGBA *gnome_cmd_color_get_color(GnomeCmdColorTheme *, GnomeCmdColorThemeItem);
 
 
+struct LsColorsPalette;
+extern "C" LsColorsPalette *gnome_cmd_get_palette();
+extern "C" void gnome_cmd_palette_free(LsColorsPalette *palette);
+extern "C" GdkRGBA *gnome_cmd_palette_get_color(LsColorsPalette *palette, gint plane, gint palette_color);
+extern "C" void ls_colors_get_r(GFileInfo *file_info, gint *fg, gint *bg);
+
+
 static void cell_data (GtkTreeViewColumn *tree_column,
                        GtkCellRenderer *cell,
                        GtkTreeModel *tree_model,
@@ -190,6 +196,7 @@ struct GnomeCmdFileList::Private
     gboolean sort_raising[NUM_COLUMNS];
     gint column_resizing;
     GnomeCmdColorTheme *color_theme;
+    LsColorsPalette *ls_palette;
 
     gboolean shift_down;
     GtkTreeIterPtr shift_down_row;
@@ -227,6 +234,7 @@ GnomeCmdFileList::Private::Private(GnomeCmdFileList *fl)
 
     column_resizing = 0;
     color_theme = nullptr;
+    ls_palette = nullptr;
 
     quicksearch_popup = { { nullptr } };
 
@@ -313,24 +321,28 @@ GnomeCmdFileList::Private::Private(GnomeCmdFileList *fl)
 }
 
 
-static void paint_cell_with_ls_colors (GtkCellRenderer *cell, GnomeCmdFile *file, bool has_foreground)
+static void paint_cell_with_ls_colors (GtkCellRenderer *cell, GnomeCmdFile *file, bool has_foreground, LsColorsPalette *ls_palette)
 {
     if (!gnome_cmd_data.options.use_ls_colors)
         return;
 
-    if (LsColor *col = ls_colors_get (file))
-    {
-        if (has_foreground && col->fg != nullptr)
+    gint fg;
+    gint bg;
+    ls_colors_get_r(file->get_file_info(), &fg, &bg);
+
+    if (has_foreground && fg >= 0)
+        if (auto color = gnome_cmd_palette_get_color(ls_palette, 0 /*FG*/, fg))
             g_object_set (G_OBJECT (cell),
-                "foreground-rgba", col->fg,
+                "foreground-rgba", color,
                 "foreground-set", TRUE,
                 nullptr);
-        if (col->bg != nullptr)
+
+    if (bg >= 0)
+        if (auto color = gnome_cmd_palette_get_color(ls_palette, 1 /*BG*/, bg))
             g_object_set (G_OBJECT (cell),
-                "cell-background-rgba", col->bg,
+                "cell-background-rgba", color,
                 "cell-background-set", TRUE,
                 nullptr);
-    }
 }
 
 
@@ -414,7 +426,7 @@ static void cell_data (GtkTreeViewColumn *column,
                 nullptr);
         }
 
-        paint_cell_with_ls_colors (cell, file, has_foreground);
+        paint_cell_with_ls_colors (cell, file, has_foreground, cell_data->fl->priv->ls_palette);
     }
 }
 
@@ -457,6 +469,7 @@ static GtkPopover *create_dnd_popup (GnomeCmdFileList *fl, GList *gFileGlist, Gn
 GnomeCmdFileList::Private::~Private()
 {
     gnome_cmd_theme_free (color_theme);
+    gnome_cmd_palette_free(ls_palette);
     g_clear_list (&dropping_files, g_object_unref);
     dropping_to = nullptr;
 }
@@ -501,6 +514,7 @@ GnomeCmdFileList::GnomeCmdFileList(ColumnID sort_col, GtkSortType sort_order)
     priv->sort_raising[sort_col] = sort_order;
     priv->sort_func = file_list_column[sort_col].sort_func;
     priv->color_theme = gnome_cmd_get_current_theme();
+    priv->ls_palette = gnome_cmd_get_palette();
 
     create_column_titles();
 
@@ -2819,6 +2833,9 @@ void GnomeCmdFileList::update_style()
 
     gnome_cmd_theme_free (priv->color_theme);
     priv->color_theme = gnome_cmd_get_current_theme();
+
+    gnome_cmd_palette_free(priv->ls_palette);
+    priv->ls_palette = gnome_cmd_get_palette();
 
     PangoFontDescription *font_desc = pango_font_description_from_string (gnome_cmd_data.options.list_font);
     // gtk_widget_override_font (*this, font_desc);

@@ -18,3 +18,4 @@
  */
 
 pub mod edit_colors_dialog;
+pub mod edit_palette_dialog;

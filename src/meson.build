@@ -63,7 +63,6 @@ sources_headers = files(
   'gnome-cmd-xfer.h',
   'history.h',
   'imageloader.h',
-  'ls_colors.h',
   'plugin_manager.h',
   'utils.h',
 )
@@ -112,7 +111,6 @@ sources_sources = files(
   'gnome-cmd-xfer.cc',
   'history.cc',
   'imageloader.cc',
-  'ls_colors.cc',
   'plugin_manager.cc',
   'utils.cc',
 )
