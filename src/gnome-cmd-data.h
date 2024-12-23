@@ -169,31 +169,7 @@ GcmdSettings *gcmd_settings_new ();
 
 #define GCMD_PREF_COLORS                              "org.gnome.gnome-commander.preferences.colors"
 #define GCMD_SETTINGS_COLORS_THEME                    "theme"
-#define GCMD_SETTINGS_COLORS_NORM_FG                  "custom-norm-fg"
-#define GCMD_SETTINGS_COLORS_NORM_BG                  "custom-norm-bg"
-#define GCMD_SETTINGS_COLORS_ALT_FG                   "custom-alt-fg"
-#define GCMD_SETTINGS_COLORS_ALT_BG                   "custom-alt-bg"
-#define GCMD_SETTINGS_COLORS_SEL_FG                   "custom-sel-fg"
-#define GCMD_SETTINGS_COLORS_SEL_BG                   "custom-sel-bg"
-#define GCMD_SETTINGS_COLORS_CURS_FG                  "custom-curs-fg"
-#define GCMD_SETTINGS_COLORS_CURS_BG                  "custom-curs-bg"
 #define GCMD_SETTINGS_COLORS_USE_LS_COLORS            "use-ls-colors"
-#define GCMD_SETTINGS_LS_COLORS_BLACK_FG              "lscm-black-fg"
-#define GCMD_SETTINGS_LS_COLORS_BLACK_BG              "lscm-black-bg"
-#define GCMD_SETTINGS_LS_COLORS_RED_FG                "lscm-red-fg"
-#define GCMD_SETTINGS_LS_COLORS_RED_BG                "lscm-red-bg"
-#define GCMD_SETTINGS_LS_COLORS_GREEN_FG              "lscm-green-fg"
-#define GCMD_SETTINGS_LS_COLORS_GREEN_BG              "lscm-green-bg"
-#define GCMD_SETTINGS_LS_COLORS_YELLOW_FG             "lscm-yellow-fg"
-#define GCMD_SETTINGS_LS_COLORS_YELLOW_BG             "lscm-yellow-bg"
-#define GCMD_SETTINGS_LS_COLORS_BLUE_FG               "lscm-blue-fg"
-#define GCMD_SETTINGS_LS_COLORS_BLUE_BG               "lscm-blue-bg"
-#define GCMD_SETTINGS_LS_COLORS_MAGENTA_FG            "lscm-magenta-fg"
-#define GCMD_SETTINGS_LS_COLORS_MAGENTA_BG            "lscm-magenta-bg"
-#define GCMD_SETTINGS_LS_COLORS_CYAN_FG               "lscm-cyan-fg"
-#define GCMD_SETTINGS_LS_COLORS_CYAN_BG               "lscm-cyan-bg"
-#define GCMD_SETTINGS_LS_COLORS_WHITE_FG              "lscm-white-fg"
-#define GCMD_SETTINGS_LS_COLORS_WHITE_BG              "lscm-white-bg"
 
 #define GCMD_PREF_PROGRAMS                            "org.gnome.gnome-commander.preferences.programs"
 #define GCMD_SETTINGS_DONT_DOWNLOAD                   "dont-download"
@@ -311,9 +287,6 @@ struct GnomeCmdData
 
     struct Options
     {
-      // private:
-        GnomeCmdColorTheme           color_themes[GNOME_CMD_COLOR_CUSTOM+1];
-
       public:
         GcmdSettings                 *gcmd_settings;
         //  General
@@ -344,9 +317,7 @@ struct GnomeCmdData
         gint                         list_row_height;
         GnomeCmdExtDispMode          ext_disp_mode;
         GnomeCmdLayout               layout;
-        GnomeCmdColorMode            color_mode;
         gboolean                     use_ls_colors;
-        GnomeCmdLsColorsPalette      ls_colors_palette;
         guint                        icon_size;
         GdkInterpType                icon_scale_quality;
         gchar                       *theme_icon_dir;
@@ -405,7 +376,6 @@ struct GnomeCmdData
                    list_row_height(16),
                    ext_disp_mode(GNOME_CMD_EXT_DISP_BOTH),
                    layout(GNOME_CMD_LAYOUT_MIME_ICONS),
-                   color_mode(GNOME_CMD_COLOR_DEEP_BLUE),
                    use_ls_colors(FALSE),
                    icon_size(16),
                    icon_scale_quality(GDK_INTERP_HYPER),
@@ -433,8 +403,6 @@ struct GnomeCmdData
                    device_only_icon(FALSE),
                    show_samba_workgroups_button(FALSE)
         {
-            memset(&color_themes, 0, sizeof(color_themes));
-            memset(&ls_colors_palette, 0, sizeof(ls_colors_palette));
         }
 
         Options(const Options &cfg);
@@ -458,15 +426,8 @@ struct GnomeCmdData
 
         Options &operator = (const Options &cfg);
 
-        GnomeCmdColorTheme *get_current_color_theme()
-        {
-            return &color_themes[color_mode];
-        }
-
-        GnomeCmdColorTheme *get_custom_color_theme()
-        {
-            return &color_themes[GNOME_CMD_COLOR_CUSTOM];
-        }
+        GnomeCmdColorMode color_mode();
+        void set_color_mode(GnomeCmdColorMode color_mode);
 
         void set_date_format(const GnomeCmdDateFormat format)
         {
@@ -721,8 +682,6 @@ struct GnomeCmdData
     ~GnomeCmdData();
 
     void load();
-    void load_colors();
-    void load_color_themes();
     void load_tabs();
     void load_devices();
     void load_fav_apps();

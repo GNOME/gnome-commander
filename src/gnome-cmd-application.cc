@@ -30,7 +30,6 @@
 #include "gnome-cmd-owner.h"
 #include "gnome-cmd-con.h"
 #include "utils.h"
-#include "ls_colors.h"
 #include "imageloader.h"
 #include "plugin_manager.h"
 #include "tags/gnome-cmd-tags.h"
@@ -121,8 +120,6 @@ static void gnome_cmd_application_activate(GApplication *application)
         }
         gnome_cmd_data.tabs[RIGHT].push_back(make_pair(string(start_dir_right), make_tuple(GnomeCmdFileList::COLUMN_NAME,GTK_SORT_ASCENDING,FALSE)));
     }
-
-    ls_colors_init ();
 
     main_win = new GnomeCmdMainWin;
     gtk_window_set_application (GTK_WINDOW (main_win), GTK_APPLICATION (application));

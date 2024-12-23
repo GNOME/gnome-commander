@@ -110,54 +110,6 @@ typedef enum
 }GnomeCmdDefaultDndMode;
 
 
-struct GnomeCmdColorTheme
-{
-    gboolean respect_theme {TRUE};
-    GdkRGBA sel_fg;
-    GdkRGBA sel_bg;
-    GdkRGBA norm_fg;
-    GdkRGBA norm_bg;
-    GdkRGBA curs_fg;
-    GdkRGBA curs_bg;
-    GdkRGBA alt_fg;
-    GdkRGBA alt_bg;
-
-    GnomeCmdColorTheme &operator = (const GnomeCmdColorTheme &colors);
-};
-
-
-inline GnomeCmdColorTheme &GnomeCmdColorTheme::operator = (const GnomeCmdColorTheme &colors)
-{
-    if (this != &colors)
-    {
-        respect_theme = colors.respect_theme;
-        sel_fg = colors.sel_fg;
-        sel_bg = colors.sel_bg;
-        norm_fg = colors.norm_fg;
-        norm_bg = colors.norm_bg;
-        curs_fg = colors.curs_fg;
-        curs_bg = colors.curs_bg;
-        alt_fg = colors.alt_fg;
-        alt_bg = colors.alt_bg;
-    }
-
-    return *this;
-}
-
-
-struct GnomeCmdLsColorsPalette
-{
-    GdkRGBA black_fg, black_bg;
-    GdkRGBA red_fg, red_bg;
-    GdkRGBA green_fg, green_bg;
-    GdkRGBA yellow_fg, yellow_bg;
-    GdkRGBA blue_fg, blue_bg;
-    GdkRGBA magenta_fg, magenta_bg;
-    GdkRGBA cyan_fg, cyan_bg;
-    GdkRGBA white_fg, white_bg;
-};
-
-
 struct GnomeCmdKeyPress
 {
     guint keyval;

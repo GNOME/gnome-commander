@@ -965,6 +965,8 @@ void GnomeCmdFileSelector::update_style()
     {
         auto fl = file_list(i);
 
+        fl->update_style();
+
         if (gnome_cmd_data.options.tab_lock_indicator != GnomeCmdData::TAB_LOCK_ICON)
             gtk_widget_hide (fl->tab_label_pin);
 
