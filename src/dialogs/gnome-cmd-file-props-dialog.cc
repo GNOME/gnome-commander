@@ -29,10 +29,12 @@
 #include "gnome-cmd-chown-component.h"
 #include "gnome-cmd-chmod-component.h"
 #include "gnome-cmd-data.h"
+#include "gnome-cmd-dialog.h"
 #include "utils.h"
 #include "imageloader.h"
 #include "tags/gnome-cmd-tags.h"
 #include "dialogs/gnome-cmd-file-props-dialog.h"
+#include "widget-factory.h"
 
 using namespace std;
 

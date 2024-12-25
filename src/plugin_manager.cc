@@ -30,6 +30,8 @@
 #include "gnome-cmd-main-win.h"
 #include "gnome-cmd-about-plugin.h"
 #include "dirlist.h"
+#include "gnome-cmd-dialog.h"
+#include "widget-factory.h"
 
 using namespace std;
 
@@ -42,6 +44,9 @@ using namespace std;
 static GList *plugins = nullptr;
 
 gchar* get_plugin_config_location();
+
+typedef GnomeCmdPlugin *(*PluginConstructorFunc)(void);
+
 
 static void load_plugin (PluginData *data)
 {

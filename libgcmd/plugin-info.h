@@ -21,6 +21,9 @@
 
 #pragma once
 
+#include <glib.h>
+
+
 /* This one should be increased when an api-incompatible change
  * is done to the plugin system. By doing that gcmd can detect
  * old plugins and avoid loading them.
@@ -31,7 +34,7 @@
 /* This struct must never ever be changed
  * since it is needed to determinate the version of a plugin
  */
-struct PluginInfo 
+typedef struct PluginInfo
 {
     gint plugin_system_version;
 
@@ -43,7 +46,7 @@ struct PluginInfo
     gchar **documenters;
     const gchar *translator;
     const gchar *webpage;
-};
+} PluginInfo;
 
 
 /* This function prototype must never ever be changed

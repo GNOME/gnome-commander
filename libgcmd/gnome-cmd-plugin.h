@@ -21,6 +21,25 @@
 
 #pragma once
 
+#include <glib.h>
+#include <gio/gio.h>
+#include <gtk/gtk.h>
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+typedef struct GnomeCmdState
+{
+    GFile *activeDirGfile;
+    GFile *inactiveDirGfile;
+    GList *active_dir_files;
+    GList *inactive_dir_files;
+    GList *active_dir_selected_files;
+    GList *inactive_dir_selected_files;
+} GnomeCmdState;
+
+
 #define GNOME_CMD_TYPE_PLUGIN              (gnome_cmd_plugin_get_type ())
 #define GNOME_CMD_PLUGIN(obj)              (G_TYPE_CHECK_INSTANCE_CAST((obj), GNOME_CMD_TYPE_PLUGIN, GnomeCmdPlugin))
 #define GNOME_CMD_PLUGIN_CLASS(klass)      (G_TYPE_CHECK_CLASS_CAST((klass), GNOME_CMD_TYPE_PLUGIN, GnomeCmdPluginClass))
@@ -32,8 +51,6 @@
 typedef struct _GnomeCmdPlugin GnomeCmdPlugin;
 typedef struct _GnomeCmdPluginClass GnomeCmdPluginClass;
 typedef struct _GnomeCmdPluginPrivate GnomeCmdPluginPrivate;
-
-typedef GnomeCmdPlugin *(*PluginConstructorFunc)(void);
 
 struct _GnomeCmdPlugin
 {
@@ -61,3 +78,7 @@ GMenuModel *gnome_cmd_plugin_create_main_menu (GnomeCmdPlugin *plugin);
 GMenuModel *gnome_cmd_plugin_create_popup_menu_items (GnomeCmdPlugin *plugin, GnomeCmdState *state);
 
 void gnome_cmd_plugin_configure (GnomeCmdPlugin *plugin, GtkWindow *parent_window);
+
+#ifdef __cplusplus
+}
+#endif

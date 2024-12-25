@@ -19,10 +19,11 @@
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 */
 
-#include <config.h>
+#include "config.h"
 #include <stdlib.h>
 #include <string>
-#include <libgcmd/libgcmd.h>
+#include <glib/gi18n.h>
+#include <libgcmd.h>
 #include "file-roller-plugin.h"
 #include "file-roller.xpm"
 

@@ -38,6 +38,7 @@
 #include "gnome-cmd-con-list.h"
 #include "gnome-cmd-owner.h"
 #include "utils.h"
+#include "widget-factory.h"
 
 using namespace std;
 

@@ -1,5 +1,5 @@
-/** 
- * @file gnome-cmd-state.h
+/**
+ * @file gnome-cmd-file-base.cc
  * @copyright (C) 2001-2006 Marcus Bjurman\n
  * @copyright (C) 2007-2012 Piotr Eljasiak\n
  * @copyright (C) 2013-2024 Uwe Scholz\n
@@ -19,14 +19,39 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-#pragma once
+#include "gnome-cmd-file-base.h"
 
-struct GnomeCmdState
+
+G_DEFINE_TYPE (GnomeCmdFileBase, gnome_cmd_file_base, G_TYPE_OBJECT)
+
+
+static void gnome_cmd_file_base_init (GnomeCmdFileBase *self)
 {
-    GFile *activeDirGfile;
-    GFile *inactiveDirGfile;
-    GList *active_dir_files;
-    GList *inactive_dir_files;
-    GList *active_dir_selected_files;
-    GList *inactive_dir_selected_files;
-};
+}
+
+
+static void gnome_cmd_file_base_finalize (GObject *object)
+{
+    GnomeCmdFileBase *self = GNOME_CMD_FILE_BASE (object);
+
+    g_clear_object (&self->gFile);
+    g_clear_object (&self->gFileInfo);
+
+    G_OBJECT_CLASS (gnome_cmd_file_base_parent_class)->finalize (object);
+}
+
+
+static void gnome_cmd_file_base_class_init (GnomeCmdFileBaseClass *klass)
+{
+    G_OBJECT_CLASS (klass)->finalize = gnome_cmd_file_base_finalize;
+}
+
+GFile *gnome_cmd_file_base_get_file(GnomeCmdFileBase *file_base)
+{
+    return file_base->gFile;
+}
+
+GFileInfo *gnome_cmd_file_base_get_file_info(GnomeCmdFileBase *file_base)
+{
+    return file_base->gFileInfo;
+}

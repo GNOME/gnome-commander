@@ -20,9 +20,9 @@
  */
 
 #include <config.h>
+#include "gnome-cmd-includes.h"
 #include <string.h>
-#include "libgcmd-deps.h"
-#include "libgcmd-utils.h"
+#include "text-utils.h"
 
 
 inline gchar *get_trashed_string (const gchar *in)

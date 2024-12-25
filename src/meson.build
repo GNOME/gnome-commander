@@ -65,6 +65,9 @@ sources_headers = files(
   'imageloader.h',
   'plugin_manager.h',
   'utils.h',
+  'gnome-cmd-dialog.h',
+  'text-utils.h',
+  'widget-factory.h',
 )
 
 gnome_cmd_block_sources = files(
@@ -113,6 +116,9 @@ sources_sources = files(
   'imageloader.cc',
   'plugin_manager.cc',
   'utils.cc',
+  'gnome-cmd-dialog.cc',
+  'text-utils.cc',
+  'widget-factory.cc',
 )
 
 flex_gen = generator(
@@ -147,29 +153,9 @@ subdir('tags')
 sources_headers += dialogs_headers
 sources_sources += dialogs_sources
 
-# set rpath on the gcmd binary if we're installing inside
-# the source dir, ensuring it loads libgcmd from this
-# build rather than a package installed on the system.
-# if installing elsewhere, getting the library search path right
-# is the user's responsibility.
-rpath = ''
+rpath = get_option('prefix') / get_option('libdir')
 
-# try to use realpath(1) to resolve symlinks in the prefix path,
-# since meson.project_source_root() is a resolved path.
-real_prefix = get_option('prefix')
-realpath = find_program('realpath', required: false)
-if realpath.found()
-  realpath_result = run_command([realpath, real_prefix], check: false)
-  if realpath_result.returncode() == 0
-    real_prefix = realpath_result.stdout().strip()
-  endif
-endif
-
-if real_prefix.startswith(meson.project_source_root())
-  rpath = real_prefix / get_option('libdir')
-endif
-
-sources_deps = [common_deps, libgcmd_dep, libgcmdtags_dep, intviewer_dep]
+sources_deps = [common_deps, libgcmdtags_dep, intviewer_dep]
 
 libgcmdmain = static_library('gcmd-main',
   c_args: cc_args,
@@ -233,18 +219,20 @@ cargo_env = [
   'RUSTFLAGS=-L ' + (meson.project_build_root() / 'src')
         + ' -L ' + (meson.project_build_root() / 'src' / 'intviewer')
         + ' -L ' + (meson.project_build_root() / 'src' / 'tags')
-        + ' -L ' + (meson.project_build_root() / 'libgcmd'),
+        + ' -L ' + (meson.project_build_root() / 'libgcmd')
+        + ' -lgcmd'
+        + ' -C link-arg=-Wl,-rpath=' + rpath,
 ]
 
 libgmcddialogs_dep = declare_dependency(
   include_directories: [include_directories('.')],
 )
 
-custom_target(
+commander = custom_target(
   'gnome-commander',
   build_by_default: true,
   build_always_stale: true,
-  input: [config_rs, intviewer_lib, libgcmdtags, libgcmd, libgcmdmain],
+  input: [config_rs, intviewer_lib, libgcmdtags, libgcmdmain],
   output: meson.project_name(),
   console: true,
   install: true,
@@ -262,4 +250,5 @@ test(
   'cargo-test', cargo,
   env: cargo_env,
   args: ['test', '--no-fail-fast'] + cargo_options,
+  depends: [commander, libgcmd],
 )

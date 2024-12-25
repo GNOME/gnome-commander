@@ -34,7 +34,7 @@ intviewer_sources = files(
 
 intviewer_lib = static_library('gviewer',
   dependencies: [common_deps, sources_dep],
-  include_directories: [configuration_inc, sources_inc],
+  include_directories: [configuration_inc, sources_inc, libgcmd_inc],
   sources: [intviewer_headers, intviewer_sources]
 )
 

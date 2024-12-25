@@ -21,7 +21,16 @@
 
 #pragma once
 
-#include <libgcmd/libgcmd.h>
+#include <glib.h>
+#include <glib/gi18n.h>
+#include <gio/gio.h>
+#include <gdk/gdk.h>
+#include <gdk/gdkkeysyms.h>
+#include <gdk-pixbuf/gdk-pixbuf.h>
 #include <gtk/gtk.h>
+#include <libgcmd/libgcmd.h>
 
 typedef void *(*PthreadFunc)(void *);
+
+template <typename T, typename D = gpointer> using GnomeCmdCallback = void (*)(T, D);
+

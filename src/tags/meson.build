@@ -34,7 +34,7 @@ endif
 
 libgcmdtags = static_library('gcmd-tags',
   dependencies: libgcmdtags_deps,
-  include_directories: [configuration_inc, sources_inc],
+  include_directories: [configuration_inc, sources_inc, libgcmd_inc],
   sources: [tags_headers, tags_sources],
 )
 

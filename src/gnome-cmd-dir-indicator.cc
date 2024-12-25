@@ -25,6 +25,8 @@
 #include "gnome-cmd-dir-indicator.h"
 #include "gnome-cmd-file-selector.h"
 #include "gnome-cmd-main-win.h"
+#include "widget-factory.h"
+#include "text-utils.h"
 
 using namespace std;
 

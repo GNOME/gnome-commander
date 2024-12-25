@@ -27,6 +27,7 @@
 #include "gnome-cmd-includes.h"
 #include "gnome-cmd-chown-component.h"
 #include "gnome-cmd-owner.h"
+#include "widget-factory.h"
 
 using namespace std;
 

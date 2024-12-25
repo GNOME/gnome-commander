@@ -37,6 +37,7 @@
 #include "gnome-cmd-xfer.h"
 #include "imageloader.h"
 #include "dirlist.h"
+#include "widget-factory.h"
 
 #include <fnmatch.h>
 

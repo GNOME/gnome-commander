@@ -20,9 +20,9 @@
  */
 
 #include <config.h>
-#include "libgcmd-deps.h"
-#include "libgcmd-utils.h"
-#include "libgcmd-widget-factory.h"
+#include "gnome-cmd-includes.h"
+#include "text-utils.h"
+#include "widget-factory.h"
 #include "gnome-cmd-dialog.h"
 
 

@@ -27,6 +27,7 @@
 #include "gnome-cmd-main-win.h"
 #include "utils.h"
 #include "errno.h"
+#include "widget-factory.h"
 
 using namespace std;
 

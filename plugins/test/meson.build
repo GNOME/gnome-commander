@@ -9,13 +9,15 @@ testplugin_sources = files(
     'test-plugin.cc'
 )
 
+config_h = configure_file(output : 'config.h', configuration : conf_data)
+
 testplugin = shared_module('testplugin',
-  dependencies: libgcmd_dep,
-  include_directories: configuration_inc,
+  include_directories: [libgcmd_inc],
   link_with: libgcmd,
+  dependencies: [glib, gio, gobject, gmodule, gtk],
   install_dir: testplugin_dir,
-  install: true, # Change to "true" to install the test plugin,
-  sources: [testplugin_headers, testplugin_sources]
+  install: true,
+  sources: [testplugin_headers, testplugin_sources, config_h]
 )
 
 pixmaps = [

@@ -45,6 +45,7 @@
 #include "dialogs/gnome-cmd-delete-dialog.h"
 #include "dialogs/gnome-cmd-rename-dialog.h"
 #include "dialogs/gnome-cmd-file-props-dialog.h"
+#include "text-utils.h"
 
 using namespace std;
 

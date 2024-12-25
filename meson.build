@@ -1,4 +1,4 @@
-project('gnome-commander', ['cpp', 'rust'],
+project('gnome-commander', ['C', 'cpp', 'rust'],
   version: '1.19.0',
   license: 'GPLv2',
   meson_version: '>= 0.59',
@@ -33,6 +33,7 @@ summary('datadir', get_option('datadir'))
 summary('buildtype', get_option('buildtype'), section: 'Build Configuration')
 summary('debug', get_option('debug'), section: 'Build Configuration')
 
+c = meson.get_compiler('c')
 cpp = meson.get_compiler('cpp')
 
 common_ccflags = [
