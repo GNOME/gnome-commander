@@ -44,7 +44,6 @@ void store_general_options (GtkWidget *dialog, GnomeCmdData::Options &cfg);
 void store_layout_options (GtkWidget *dialog, GnomeCmdData::Options &cfg);
 void store_programs_options (GtkWidget *dialog, GnomeCmdData::Options &cfg);
 void store_tabs_options (GtkWidget *dialog, GnomeCmdData::Options &cfg);
-void update_app_in_list (GtkTreeView *view, GnomeCmdApp *app);
 void update_device_in_list (GtkTreeView *view, GnomeCmdConDevice *dev, gchar *alias, gchar *device_fn, gchar *mountp, GIcon *icon);
 
 GtkWidget *create_font_picker (GtkWidget *parent, const gchar *name)
@@ -1114,282 +1113,27 @@ void add_app_to_list (GtkTreeView *view, GnomeCmdApp *app)
 }
 
 
-void update_app_in_list (GtkTreeView *view, GnomeCmdApp *app)
+extern "C" void gnome_cmd_fav_app_new(GtkWindow *parent_window, GtkTreeView *tree_view);
+extern "C" void gnome_cmd_fav_app_edit(GtkWindow *parent_window, GtkTreeView *tree_view);
+
+
+extern "C" void gnome_cmd_add_fav_app(GnomeCmdApp *app)
 {
-    GIcon *icon = gnome_cmd_app_get_icon (app);
-
-    GtkTreeModel *model = gtk_tree_view_get_model (view);
-    GtkTreeIter iter;
-    GnomeCmdApp *row_app;
-
-    if (gtk_tree_model_get_iter_first (model, &iter))
-    {
-        do
-        {
-            gtk_tree_model_get (model, &iter, 3, &row_app, -1);
-
-            if (row_app == app)
-            {
-                gtk_list_store_set (GTK_LIST_STORE (model), &iter,
-                                    0, icon,
-                                    1, (gchar *) gnome_cmd_app_get_name (app),
-                                    -1);
-                break;
-            }
-        } while (gtk_tree_model_iter_next (model, &iter));
-    }
-}
-
-
-static void on_app_dialog_cancel (GtkButton *button, GtkWidget *dialog)
-{
-    gtk_window_destroy (GTK_WINDOW (dialog));
-}
-
-
-static void on_some_files_toggled (GtkCheckButton *btn, GtkWidget *dialog)
-{
-    GtkWidget *pattern_entry = lookup_widget (dialog, "pattern_entry");
-
-    if (gtk_check_button_get_active (btn))
-    {
-        gtk_widget_set_sensitive (pattern_entry, TRUE);
-        gtk_widget_grab_focus (pattern_entry);
-    }
-    else
-        gtk_widget_set_sensitive (pattern_entry, FALSE);
-}
-
-
-static void get_app_dialog_values (GtkWidget *dialog, gchar **name, gchar **cmd, gchar **icon_path,
-                                   gint *target, gchar **pattern_string,
-                                   gboolean *handles_uris, gboolean *handles_multiple,
-                                   gboolean *requires_terminal)
-{
-    GtkWidget *name_entry = lookup_widget (dialog, "name_entry");
-    GtkWidget *cmd_entry = lookup_widget (dialog, "cmd_entry");
-    GtkWidget *iconWidget = lookup_widget (dialog, "icon_entry");
-    GtkWidget *pattern_entry = lookup_widget (dialog, "pattern_entry");
-    GtkWidget *target_files = lookup_widget (dialog, "show_for_all_files");
-    GtkWidget *target_dirs = lookup_widget (dialog, "show_for_all_dirs");
-    GtkWidget *target_dirs_and_files = lookup_widget (dialog, "show_for_all_dirs_and_files");
-    GtkWidget *uris_check = lookup_widget (dialog, "handle_uris");
-    GtkWidget *multiple_check = lookup_widget (dialog, "handle_multiple");
-    GtkWidget *terminal_check = lookup_widget (dialog, "requires_terminal");
-
-    *name = (gchar *) gtk_editable_get_text (GTK_EDITABLE (name_entry));
-    *cmd = (gchar *) gtk_editable_get_text (GTK_EDITABLE (cmd_entry));
-    // Get icon_path string
-    *icon_path = g_strdup ((const gchar *) g_object_get_data (G_OBJECT (iconWidget), "file"));
-    *pattern_string = NULL;
-    if (gtk_check_button_get_active (GTK_CHECK_BUTTON (target_files)))
-        *target = APP_TARGET_ALL_FILES;
-    else if (gtk_check_button_get_active (GTK_CHECK_BUTTON (target_dirs)))
-        *target = APP_TARGET_ALL_DIRS;
-    else if (gtk_check_button_get_active (GTK_CHECK_BUTTON (target_dirs_and_files)))
-        *target = APP_TARGET_ALL_DIRS_AND_FILES;
-    else
-    {
-        *target = APP_TARGET_SOME_FILES;
-        *pattern_string = (gchar *) gtk_editable_get_text (GTK_EDITABLE (pattern_entry));
-    }
-
-    *handles_uris = gtk_check_button_get_active (GTK_CHECK_BUTTON (uris_check));
-    *handles_multiple = gtk_check_button_get_active (GTK_CHECK_BUTTON (multiple_check));
-    *requires_terminal = gtk_check_button_get_active (GTK_CHECK_BUTTON (terminal_check));
-}
-
-
-static void on_add_app_dialog_ok (GtkButton *button, GtkWidget *dialog)
-{
-    gint target;
-    gboolean handles_uris, handles_multiple, requires_terminal;
-    gchar *name, *cmd, *icon_path, *pattern_string;
-
-    GtkWidget *options_dialog = lookup_widget (dialog, "options_dialog");
-    GtkWidget *view = lookup_widget (options_dialog, "app_view");
-
-    get_app_dialog_values (dialog, &name, &cmd, &icon_path,
-                           &target, &pattern_string,
-                           &handles_uris, &handles_multiple, &requires_terminal);
-    if (!name || strlen (name) < 1) return;
-
-    if (gnome_cmd_data.options.is_name_double(name))
-    {
-        gnome_cmd_show_message (GTK_WINDOW (dialog),
-            _("An app with this label exists already.\nPlease choose another label."));
-        return;
-    }
-
-    GnomeCmdApp *app = gnome_cmd_app_new_with_values (name, cmd, icon_path,
-                                                      (AppTarget) target,
-                                                      pattern_string,
-                                                      handles_uris, handles_multiple, requires_terminal, nullptr);
     gnome_cmd_data.options.add_fav_app(app);
-    add_app_to_list (GTK_TREE_VIEW (view), app);
-    gtk_window_destroy (GTK_WINDOW (dialog));
-
-    g_free (icon_path);
-}
-
-
-static void on_edit_app_dialog_ok (GtkButton *button, GtkWidget *dialog)
-{
-    gint target;
-    gboolean handles_uris, handles_multiple, requires_terminal;
-    gchar *name, *cmd, *icon_path, *pattern_string;
-
-    GtkWidget *options_dialog = lookup_widget (dialog, "options_dialog");
-    GtkWidget *view = lookup_widget (options_dialog, "app_view");
-
-    get_app_dialog_values (dialog, &name, &cmd, &icon_path,
-                           &target, &pattern_string,
-                           &handles_uris, &handles_multiple, &requires_terminal);
-    if (!name || strlen (name) < 1) return;
-
-    GnomeCmdApp *app = (GnomeCmdApp *) g_object_get_data (G_OBJECT (options_dialog), "selected_app");
-    if (!app) return;
-
-    gnome_cmd_app_set_name (app, name);
-    gnome_cmd_app_set_command (app, cmd);
-    gnome_cmd_app_set_icon_path (app, icon_path);
-    gnome_cmd_app_set_target (app, (AppTarget) target);
-    if (pattern_string)
-        gnome_cmd_app_set_pattern_string (app, pattern_string);
-    gnome_cmd_app_set_handles_uris (app, handles_uris);
-    gnome_cmd_app_set_handles_multiple (app, handles_multiple);
-    gnome_cmd_app_set_requires_terminal (app, requires_terminal);
-
-    update_app_in_list (GTK_TREE_VIEW (view), app);
-    gtk_window_destroy (GTK_WINDOW (dialog));
-
-    g_free (icon_path);
-}
-
-
-static GtkWidget *create_app_dialog (GnomeCmdApp *app, GCallback on_ok, GCallback on_cancel, GtkWidget *options_dialog)
-{
-    GtkWidget *vbox, *hbox, *grid, *entry, *label, *cat, *radio, *check;
-    const gchar *s = NULL;
-
-    GtkWidget *dialog = gnome_cmd_dialog_new (GTK_WINDOW (options_dialog), NULL);
-    g_object_ref (dialog);
-    g_object_set_data (G_OBJECT (dialog), "options_dialog", options_dialog);
-
-    gtk_window_set_modal (GTK_WINDOW (dialog), TRUE);
-
-    hbox = create_hbox (dialog, FALSE, 6);
-    gnome_cmd_dialog_add_category (GNOME_CMD_DIALOG (dialog), hbox);
-    vbox = create_vbox (dialog, FALSE, 6);
-    gtk_box_append (GTK_BOX (hbox), vbox);
-    grid = create_grid (dialog);
-
-
-    gtk_box_append (GTK_BOX (vbox), grid);
-
-    label = create_label (dialog, _("Label:"));
-    gtk_grid_attach (GTK_GRID (grid), label, 0, 0, 1, 1);
-    label = create_label (dialog, _("Command:"));
-    gtk_grid_attach (GTK_GRID (grid), label, 0, 1, 1, 1);
-    label = create_label (dialog, _("Icon:"));
-    gtk_grid_attach (GTK_GRID (grid), label, 0, 2, 1, 1);
-
-    if (app) s = gnome_cmd_app_get_name (app);
-    entry = create_entry (dialog, "name_entry", s);
-    gtk_widget_set_hexpand (entry, TRUE);
-    gtk_grid_attach (GTK_GRID (grid), entry, 1, 0, 1, 1);
-    gtk_widget_grab_focus (entry);
-
-    if (app) s = gnome_cmd_app_get_command (app);
-    entry = create_entry (dialog, "cmd_entry", s);
-    gtk_widget_set_hexpand (entry, TRUE);
-    gtk_grid_attach (GTK_GRID (grid), entry, 1, 1, 1, 1);
-
-    if (app) s = gnome_cmd_app_get_icon_path (app);
-    entry = create_icon_button_widget (dialog, "icon_entry", s);
-
-    gtk_grid_attach (GTK_GRID (grid), entry, 1, 2, 1, 1);
-
-
-    grid = create_grid (dialog);
-    cat = create_category (dialog, grid, _("Options"));
-    gtk_box_append (GTK_BOX (vbox), cat);
-
-    check = create_check (dialog, _("Can handle multiple files"), "handle_multiple");
-    if (app)
-        gtk_check_button_set_active (GTK_CHECK_BUTTON (check), gnome_cmd_app_get_handles_multiple (app));
-    gtk_grid_attach (GTK_GRID (grid), check, 0, 0, 1, 1);
-    check = create_check (dialog, _("Can handle URIs"), "handle_uris");
-    if (app)
-        gtk_check_button_set_active (GTK_CHECK_BUTTON (check), gnome_cmd_app_get_handles_uris (app));
-    gtk_grid_attach (GTK_GRID (grid), check, 0, 1, 1, 1);
-    check = create_check (dialog, _("Requires terminal"), "requires_terminal");
-    if (app)
-        gtk_check_button_set_active (GTK_CHECK_BUTTON (check), gnome_cmd_app_get_requires_terminal (app));
-    gtk_grid_attach (GTK_GRID (grid), check, 0, 2, 1, 1);
-
-
-    grid = create_grid (dialog);
-    cat = create_category (dialog, grid, _("Show for"));
-    gtk_box_append (GTK_BOX (hbox), cat);
-
-    radio = create_radio (dialog, NULL, _("All files"),
-                          "show_for_all_files");
-    if (app)
-        gtk_check_button_set_active (GTK_CHECK_BUTTON (radio), gnome_cmd_app_get_target (app) == APP_TARGET_ALL_FILES);
-    gtk_grid_attach (GTK_GRID (grid), radio, 0, 0, 2, 1);
-    radio = create_radio (dialog, radio, _("All directories"), "show_for_all_dirs");
-    if (app)
-        gtk_check_button_set_active (GTK_CHECK_BUTTON (radio), gnome_cmd_app_get_target (app) == APP_TARGET_ALL_DIRS);
-    gtk_grid_attach (GTK_GRID (grid), radio, 0, 1, 2, 1);
-    radio = create_radio (dialog, radio, _("All directories and files"),
-                          "show_for_all_dirs_and_files");
-    if (app)
-        gtk_check_button_set_active (GTK_CHECK_BUTTON (radio), gnome_cmd_app_get_target (app) == APP_TARGET_ALL_DIRS_AND_FILES);
-    gtk_grid_attach (GTK_GRID (grid), radio, 0, 2, 2, 1);
-    radio = create_radio (dialog, radio, _("Some files"),
-                          "show_for_some_files");
-    if (app)
-        gtk_check_button_set_active (GTK_CHECK_BUTTON (radio), gnome_cmd_app_get_target (app) == APP_TARGET_SOME_FILES);
-    gtk_grid_attach (GTK_GRID (grid), radio, 0, 3, 2, 1);
-    if (!app)
-        gtk_check_button_set_active (GTK_CHECK_BUTTON (radio), TRUE);
-    g_signal_connect (radio, "toggled", G_CALLBACK (on_some_files_toggled), dialog);
-
-    label = create_label (dialog, _("File patterns"));
-    gtk_grid_attach (GTK_GRID (grid), label, 0, 4, 1, 1);
-    entry = create_entry (dialog, "pattern_entry", app ? gnome_cmd_app_get_pattern_string (app) : "*.ext1;*.ext2");
-    gtk_grid_attach (GTK_GRID (grid), entry, 1, 4, 1, 1);
-    if (app && gnome_cmd_app_get_target (app) != APP_TARGET_SOME_FILES)
-        gtk_widget_set_sensitive (entry, FALSE);
-
-    gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), _("_Cancel"),
-                                 G_CALLBACK (on_cancel), dialog);
-    gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), _("_OK"),
-                                 G_CALLBACK (on_ok), dialog);
-
-    gtk_widget_show (dialog);
-
-    return dialog;
 }
 
 
 static void on_app_add (GtkWidget *button, GtkWidget *parent)
 {
-    GtkWidget *dialog = create_app_dialog (
-        NULL, G_CALLBACK (on_add_app_dialog_ok), G_CALLBACK (on_app_dialog_cancel), parent);
-    gtk_window_set_title (GTK_WINDOW (dialog), _("New Application"));
+    GtkWidget *tree_view = lookup_widget (parent, "app_view");
+    gnome_cmd_fav_app_new (GTK_WINDOW (parent), GTK_TREE_VIEW (tree_view));
 }
 
 
 static void on_app_edit (GtkWidget *button, GtkWidget *parent)
 {
-    GnomeCmdApp *app = (GnomeCmdApp *) g_object_get_data (G_OBJECT (parent), "selected_app");
-    if (app)
-    {
-        GtkWidget *dialog = create_app_dialog (app, G_CALLBACK (on_edit_app_dialog_ok), G_CALLBACK (on_app_dialog_cancel), parent);
-        gtk_window_set_title (GTK_WINDOW (dialog), _("Edit Application"));
-    }
+    GtkWidget *tree_view = lookup_widget (parent, "app_view");
+    gnome_cmd_fav_app_edit (GTK_WINDOW (parent), GTK_TREE_VIEW (tree_view));
 }
 
 
@@ -1401,8 +1145,6 @@ static void on_app_selection_changed (GtkTreeSelection *selection, GtkWidget *pa
 
     if (gtk_tree_selection_get_selected (selection, &model, &iter))
         gtk_tree_model_get (model, &iter, 3, &app, -1);
-
-    g_object_set_data (G_OBJECT (parent), "selected_app", app);
 
     gtk_widget_set_sensitive (lookup_widget (parent, "remove_app_button"), app != nullptr);
     gtk_widget_set_sensitive (lookup_widget (parent, "edit_app_button"), app != nullptr);

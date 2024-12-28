@@ -20,6 +20,7 @@
 pub const PACKAGE: &str = @PACKAGE@;
 pub const PREFIX: &str = @PREFIX@;
 pub const DATADIR: &str = @DATADIR@;
+pub const PIXMAPS_DIR: &str = @PIXMAPS_DIR@;
 
 pub const PACKAGE_NAME: &str = @PACKAGE_NAME@;
 pub const PACKAGE_VERSION: &str = @PACKAGE_VERSION@;

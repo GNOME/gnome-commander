@@ -38,7 +38,7 @@ use std::{
 };
 
 #[repr(i32)]
-#[derive(Default, Clone, Copy, Debug, glib::Variant)]
+#[derive(Default, Clone, Copy, PartialEq, Eq, Debug, glib::Variant)]
 pub enum AppTarget {
     #[default]
     AllFiles = 0,
@@ -118,7 +118,7 @@ impl glib::variant::FromVariant for RegularApp {
 pub struct UserDefinedApp {
     pub name: String,
     pub command_template: String,
-    pub icon_path: Option<String>,
+    pub icon_path: Option<PathBuf>,
     pub target: AppTarget,
     pub pattern_string: String,
     pub handles_uris: bool,
@@ -189,7 +189,7 @@ pub enum App {
 }
 
 impl App {
-    unsafe fn into_raw(self) -> *mut App {
+    pub unsafe fn into_raw(self) -> *mut App {
         let app = Box::new(self);
         Box::leak(app) as *mut App
     }
@@ -198,6 +198,13 @@ impl App {
         match self {
             App::Regular(app) => app.name(),
             App::UserDefined(app) => app.name(),
+        }
+    }
+
+    pub fn command(&self) -> Option<String> {
+        match self {
+            App::Regular(app) => Some(app.app_info.commandline()?.to_str()?.to_owned()),
+            App::UserDefined(app) => Some(app.command_template.clone()),
         }
     }
 
@@ -261,6 +268,12 @@ impl App {
         }
     }
 }
+
+impl GlibPtrDefault for App {
+    type GlibType = *mut App;
+}
+
+unsafe impl TransparentPtrType for App {}
 
 #[no_mangle]
 pub extern "C" fn gnome_cmd_app_new_with_values(

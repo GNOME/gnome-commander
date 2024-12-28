@@ -22,7 +22,7 @@
 
 use crate::{config::PREFIX, data::ProgramsOptionsRead, file::File};
 use gettextrs::{gettext, ngettext};
-use gtk::{gdk, gio, glib, prelude::*};
+use gtk::{gdk, gio, glib, pango, prelude::*};
 use std::{
     ffi::{OsStr, OsString},
     sync::OnceLock,
@@ -379,6 +379,12 @@ pub fn bold(text: &str) -> String {
         "<span weight=\"bold\">{}</span>",
         glib::markup_escape_text(text)
     )
+}
+
+pub fn attributes_bold() -> pango::AttrList {
+    let attrs = pango::AttrList::new();
+    attrs.insert(pango::AttrInt::new_weight(pango::Weight::Bold));
+    attrs
 }
 
 pub fn key_sorter<K, O>(key: K) -> gtk::Sorter
