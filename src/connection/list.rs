@@ -59,7 +59,6 @@ pub mod ffi {
 
         pub fn gnome_cmd_con_list_get_all(list: *mut GnomeCmdConList) -> *const GListModel;
         pub fn gnome_cmd_con_list_get_all_remote(list: *mut GnomeCmdConList) -> *const GList;
-        pub fn gnome_cmd_con_list_get_all_dev(list: *mut GnomeCmdConList) -> *const GList;
 
         pub fn gnome_cmd_con_list_add_remote(
             list: *mut GnomeCmdConList,
@@ -117,12 +116,6 @@ impl ConnectionList {
         }
     }
 
-    pub fn all_dev(&self) -> glib::List<Connection> {
-        unsafe {
-            glib::List::from_glib_none(ffi::gnome_cmd_con_list_get_all_dev(self.to_glib_none().0))
-        }
-    }
-
     pub fn add_remote(&self, con: &ConnectionRemote) {
         unsafe { ffi::gnome_cmd_con_list_add_remote(self.to_glib_none().0, con.to_glib_full()) }
     }
@@ -139,6 +132,16 @@ impl ConnectionList {
 
     pub fn remove_dev(&self, con: &ConnectionDevice) {
         unsafe { ffi::gnome_cmd_con_list_remove_dev(self.to_glib_none().0, con.to_glib_none().0) }
+    }
+
+    pub fn replace_device(&self, old_device: &ConnectionDevice, new_device: &ConnectionDevice) {
+        if let Ok(store) = self.all().downcast::<gio::ListStore>() {
+            if let Some(position) = store.find(old_device) {
+                store.splice(position, 1, &[new_device.clone()]);
+            } else {
+                store.append(new_device);
+            }
+        }
     }
 
     pub fn find_by_uuid(&self, uuid: &str) -> Option<Connection> {
