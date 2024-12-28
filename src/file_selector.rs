@@ -35,6 +35,7 @@ use gtk::{
         self,
         translate::{from_glib_none, ToGlibPtr},
     },
+    graphene,
     prelude::*,
 };
 use std::path::Path;
@@ -253,7 +254,8 @@ async fn on_notebook_button_pressed(
         return;
     };
 
-    let Some(tab_clicked) = notebook.find_tab_num_at_pos(x as f32, y as f32) else {
+    let Some(tab_clicked) = notebook.find_tab_num_at_pos(&graphene::Point::new(x as f32, y as f32))
+    else {
         return;
     };
     match (n_press, button, tab_clicked) {
