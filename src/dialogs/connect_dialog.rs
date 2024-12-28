@@ -26,65 +26,24 @@ use crate::connection::{
     smb::ConnectionSmb,
 };
 use gettextrs::gettext;
-use gtk::{glib, prelude::*, subclass::prelude::*};
+use gtk::{gio, glib, prelude::*, subclass::prelude::*};
 use std::path::Path;
 
 mod imp {
     use super::*;
     use crate::utils::{dialog_button_box, display_help, ErrorMessage, SenderExt};
 
-    fn create_methods_model() -> gtk::ListStore {
-        let store = gtk::ListStore::new(&[String::static_type(), i32::static_type()]);
-        store.set(
-            &store.append(),
-            &[
-                (0, &gettext("SSH")),
-                (1, &(ConnectionMethodID::CON_SFTP as i32)),
-            ],
-        );
-        store.set(
-            &store.append(),
-            &[
-                (0, &gettext("FTP (with login)")),
-                (1, &(ConnectionMethodID::CON_FTP as i32)),
-            ],
-        );
-        store.set(
-            &store.append(),
-            &[
-                (0, &gettext("Public FTP")),
-                (1, &(ConnectionMethodID::CON_ANON_FTP as i32)),
-            ],
-        );
-        store.set(
-            &store.append(),
-            &[
-                (0, &gettext("Windows share")),
-                (1, &(ConnectionMethodID::CON_SMB as i32)),
-            ],
-        );
-        store.set(
-            &store.append(),
-            &[
-                (0, &gettext("WebDAV (HTTP)")),
-                (1, &(ConnectionMethodID::CON_DAV as i32)),
-            ],
-        );
-        store.set(
-            &store.append(),
-            &[
-                (0, &gettext("Secure WebDAV (HTTPS)")),
-                (1, &(ConnectionMethodID::CON_DAVS as i32)),
-            ],
-        );
-        store.set(
-            &store.append(),
-            &[
-                (0, &gettext("Custom location")),
-                (1, &(ConnectionMethodID::CON_URI as i32)),
-            ],
-        );
-        store
+    fn create_methods_model() -> gio::ListModel {
+        gtk::StringList::new(&[
+            &gettext("SSH"),
+            &gettext("FTP (with login)"),
+            &gettext("Public FTP"),
+            &gettext("Windows share"),
+            &gettext("WebDAV (HTTP)"),
+            &gettext("Secure WebDAV (HTTPS)"),
+            &gettext("Custom location"),
+        ])
+        .upcast()
     }
 
     #[derive(Clone, Copy, PartialEq)]
@@ -111,7 +70,7 @@ mod imp {
 
     pub struct ConnectDialog {
         pub grid: gtk::Grid,
-        pub type_combo: gtk::ComboBox,
+        pub type_combo: gtk::DropDown,
         pub alias_entry: gtk::Entry,
         pub uri_entry: gtk::Entry,
         pub server_entry: gtk::Entry,
@@ -139,7 +98,9 @@ mod imp {
                     .row_spacing(6)
                     .column_spacing(12)
                     .build(),
-                type_combo: gtk::ComboBox::with_model(&create_methods_model()),
+                type_combo: gtk::DropDown::builder()
+                    .model(&create_methods_model())
+                    .build(),
                 alias_entry: gtk::Entry::builder().activates_default(true).build(),
                 uri_entry: gtk::Entry::builder().activates_default(true).build(),
                 server_entry: gtk::Entry::builder().activates_default(true).build(),
@@ -172,16 +133,12 @@ mod imp {
                 .valign(gtk::Align::Center)
                 .build();
 
-            let renderer = gtk::CellRendererText::new();
-            self.type_combo.pack_start(&renderer, true);
-            self.type_combo.add_attribute(&renderer, "text", 0);
-
             self.grid
                 .attach(&label, 0, GridRow::TypeSelector as i32, 1, 1);
             self.grid
                 .attach(&self.type_combo, 1, GridRow::TypeSelector as i32, 1, 1);
 
-            self.type_combo.connect_changed(glib::clone!(
+            self.type_combo.connect_selected_notify(glib::clone!(
                 #[weak(rename_to = imp)]
                 self,
                 move |_| {
@@ -308,13 +265,13 @@ mod imp {
         }
 
         pub fn get_method(&self) -> Option<ConnectionMethodID> {
-            let iter = self.type_combo.active_iter()?;
-            let method: i32 = self.type_combo.model()?.get_value(&iter, 1).get().ok()?;
+            let method = self.type_combo.selected();
             ConnectionMethodID::from_repr(method)
         }
 
         pub fn set_method(&self, method: Option<ConnectionMethodID>) {
-            self.type_combo.set_active(method.map(|m| m as u32));
+            self.type_combo
+                .set_selected(method.unwrap_or(ConnectionMethodID::CON_URI) as u32);
             self.setup_for_type(method);
         }
 

@@ -113,7 +113,7 @@ impl ConnectionRemote {
 }
 
 #[derive(Clone, Copy, strum::FromRepr, PartialEq, PartialOrd, Eq, Ord)]
-#[repr(i32)]
+#[repr(u32)]
 #[allow(non_camel_case_types)]
 pub enum ConnectionMethodID {
     CON_SFTP = 0,
