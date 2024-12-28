@@ -43,6 +43,8 @@ void store_layout_options (GtkWidget *dialog, GnomeCmdData::Options &cfg);
 void store_programs_options (GtkWidget *dialog, GnomeCmdData::Options &cfg);
 void store_tabs_options (GtkWidget *dialog, GnomeCmdData::Options &cfg);
 
+extern "C" GType gnome_cmd_directory_button_get_type();
+
 GtkWidget *create_font_picker (GtkWidget *parent, const gchar *name)
 {
     GtkWidget *w = gtk_font_button_new ();
@@ -645,11 +647,13 @@ static GtkWidget *create_layout_tab (GtkWidget *parent, GnomeCmdData::Options &c
     gtk_grid_attach (GTK_GRID (grid), spin, 1, 0, 1, 1);
     scale = create_scale (parent, "iconquality_scale", cfg.icon_scale_quality, 0, 3);
     gtk_grid_attach (GTK_GRID (grid), scale, 1, 1, 1, 1);
-    entry = create_directory_chooser_button (parent, "theme_icondir_entry");
+    entry = GTK_WIDGET (g_object_new (gnome_cmd_directory_button_get_type (), nullptr));
+    g_object_ref (entry);
+    g_object_set_data_full (G_OBJECT (parent), "theme_icondir_entry", entry, g_object_unref);
     if (cfg.theme_icon_dir)
     {
         GFile *file = g_file_new_for_path (cfg.theme_icon_dir);
-        directory_chooser_button_set_file (entry, file);
+        g_object_set (entry, "file", file, nullptr);
         g_object_unref (file);
     }
     gtk_grid_attach (GTK_GRID (grid), entry, 1, 2, 1, 1);
@@ -691,8 +695,9 @@ void store_layout_options (GtkWidget *dialog, GnomeCmdData::Options &cfg)
 
     const gchar *list_font = gtk_font_chooser_get_font (GTK_FONT_CHOOSER (list_font_picker));
     cfg.set_list_font (list_font);
-
-    if (GFile *icondir = directory_chooser_button_get_file (theme_icondir_chooser))
+    GFile *icondir = nullptr;
+    g_object_get (theme_icondir_chooser, "file", &icondir, nullptr);
+    if (icondir)
     {
         gchar *icondir_path = g_file_get_path (icondir);
         cfg.set_theme_icon_dir (g_filename_to_utf8 (icondir_path, -1, nullptr, nullptr, nullptr));

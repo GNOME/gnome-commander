@@ -39,6 +39,9 @@
 using namespace std;
 
 
+extern "C" GType gnome_cmd_directory_button_get_type();
+
+
 #if 0
 static char *msgs[] = {N_("Search local directories only"),
                        N_("Files _not containing text")};
@@ -915,7 +918,7 @@ void GnomeCmdSearchDialog::Private::on_dialog_show(GtkWidget *widget, GnomeCmdSe
 
     dialog->priv->data.start_dir = main_win->fs(ACTIVE)->get_directory();
 
-    directory_chooser_button_set_file (dialog->priv->dir_browser, GNOME_CMD_FILE(dialog->priv->data.start_dir)->get_file());
+    g_object_set (dialog->priv->dir_browser, "file", GNOME_CMD_FILE(dialog->priv->data.start_dir)->get_file(), nullptr);
 }
 
 
@@ -979,7 +982,8 @@ void GnomeCmdSearchDialog::Private::on_dialog_response(GtkDialog *window, int re
                 data.content_regex = nullptr;
                 data.match_dirs = nullptr;
 
-                GFile *file = directory_chooser_button_get_file (dialog->priv->dir_browser);
+                GFile *file = nullptr;
+                g_object_get (dialog->priv->dir_browser, "file", &file, nullptr);
                 auto uriString = file ? g_file_get_uri (file) : nullptr;
                 auto gUri = g_uri_parse (uriString, G_URI_FLAGS_NONE, nullptr);
 
@@ -1241,7 +1245,7 @@ GnomeCmdSearchDialog::GnomeCmdSearchDialog(GnomeCmdData::SearchConfig &cfg): def
     gtk_window_set_hide_on_close (*this, TRUE);
 
     // search in
-    priv->dir_browser = create_directory_chooser_button (*this, "dir_browser");
+    priv->dir_browser = GTK_WIDGET (g_object_new (gnome_cmd_directory_button_get_type (), nullptr));
 
     priv->profile_component = new GnomeCmdSelectionProfileComponent(cfg.default_profile, priv->dir_browser, _("_Look in folder:"));
 
