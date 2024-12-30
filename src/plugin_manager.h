@@ -31,7 +31,7 @@ struct PluginData
     gchar *fname;
     gchar *fpath;
     gchar *action_group_name;
-    GnomeCmdPlugin *plugin;
+    GObject *plugin;
     PluginInfo *info;
     GMenuModel *menu;
     GModule *module;

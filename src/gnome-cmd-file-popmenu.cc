@@ -330,9 +330,9 @@ GMenu *gnome_cmd_file_popmenu_new (GnomeCmdMainWin *main_win, GnomeCmdFileList *
     for (auto plugins = plugin_manager_get_all (); plugins; plugins = plugins->next)
     {
         auto pluginData = static_cast<PluginData*> (plugins->data);
-        if (pluginData->active)
+        if (pluginData->active && GNOME_CMD_IS_FILE_ACTIONS (pluginData->plugin))
         {
-            GMenuModel *plugin_menu = gnome_cmd_plugin_create_popup_menu_items (pluginData->plugin, main_win->get_state());
+            GMenuModel *plugin_menu = gnome_cmd_file_actions_create_popup_menu_items (GNOME_CMD_FILE_ACTIONS (pluginData->plugin), main_win->get_state());
             if (plugin_menu)
                 menu_builder = std::move(menu_builder).section(plugin_menu);
         }

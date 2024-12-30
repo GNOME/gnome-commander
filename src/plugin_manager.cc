@@ -45,7 +45,7 @@ static GList *plugins = nullptr;
 
 gchar* get_plugin_config_location();
 
-typedef GnomeCmdPlugin *(*PluginConstructorFunc)(void);
+typedef GObject *(*PluginConstructorFunc)(void);
 
 
 static void load_plugin (PluginData *data)
@@ -53,7 +53,7 @@ static void load_plugin (PluginData *data)
     GModule *module = g_module_open (data->fpath, G_MODULE_BIND_LAZY);
     PluginInfoFunc info_func;
     PluginConstructorFunc init_func;
-    GnomeCmdPlugin *plugin;
+    GObject *plugin;
 
     if (!module)
     {
@@ -126,10 +126,15 @@ static void activate_plugin (PluginData *data)
 
     data->active = TRUE;
 
-    GSimpleActionGroup *actions = gnome_cmd_plugin_create_actions (data->plugin, data->action_group_name);
-    gtk_widget_insert_action_group (*main_win, data->action_group_name, G_ACTION_GROUP (actions));
+    if (GNOME_CMD_IS_FILE_ACTIONS (data->plugin))
+    {
+        auto fa = GNOME_CMD_FILE_ACTIONS (data->plugin);
 
-    data->menu = gnome_cmd_plugin_create_main_menu (data->plugin);
+        GSimpleActionGroup *actions = gnome_cmd_file_actions_create_actions (fa, data->action_group_name);
+        gtk_widget_insert_action_group (*main_win, data->action_group_name, G_ACTION_GROUP (actions));
+
+        data->menu = gnome_cmd_file_actions_create_main_menu (fa);
+    }
 }
 
 
@@ -366,7 +371,8 @@ static void on_configure (GtkButton *button, GtkWidget *dialog)
     g_return_if_fail (data != nullptr);
     g_return_if_fail (data->active);
 
-    gnome_cmd_plugin_configure (data->plugin, GTK_WINDOW (dialog));
+    if (GNOME_CMD_IS_CONFIGURABLE (data->plugin))
+        gnome_cmd_configurable_configure (GNOME_CMD_CONFIGURABLE (data->plugin), GTK_WINDOW (dialog));
 }
 
 

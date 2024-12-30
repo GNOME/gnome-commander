@@ -164,8 +164,13 @@ static void plugin_settings_init (PluginSettings *gs)
  * The File-Roller-Plugin
  ***********************************/
 
+struct _GnomeCmdFileRollerPlugin
+{
+    GObject parent;
+};
 
-struct FileRollerPluginPrivate
+
+struct GnomeCmdFileRollerPluginPrivate
 {
     gchar *action_group_name;
 
@@ -177,7 +182,15 @@ struct FileRollerPluginPrivate
 };
 
 
-G_DEFINE_TYPE_WITH_PRIVATE (FileRollerPlugin, file_roller_plugin, GNOME_CMD_TYPE_PLUGIN)
+static void gnome_cmd_configurable_init (GnomeCmdConfigurableInterface *iface);
+static void gnome_cmd_file_actions_init (GnomeCmdFileActionsInterface *iface);
+
+
+G_DEFINE_TYPE_WITH_CODE (GnomeCmdFileRollerPlugin, gnome_cmd_file_roller_plugin, G_TYPE_OBJECT,
+                         G_ADD_PRIVATE (GnomeCmdFileRollerPlugin)
+                         G_IMPLEMENT_INTERFACE (GNOME_CMD_TYPE_CONFIGURABLE, gnome_cmd_configurable_init)
+                         G_IMPLEMENT_INTERFACE (GNOME_CMD_TYPE_FILE_ACTIONS, gnome_cmd_file_actions_init))
+
 
 
 gchar *GetGfileAttributeString(GFile *gFile, const char *attribute);
@@ -368,8 +381,8 @@ static void on_create_archive (GtkButton *button, gpointer userdata)
 
 static void on_add_to_archive (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
-    FileRollerPlugin *plugin = FILE_ROLLER_PLUGIN (user_data);
-    FileRollerPluginPrivate *priv = (FileRollerPluginPrivate *) file_roller_plugin_get_instance_private (plugin);
+    auto plugin = GNOME_CMD_FILE_ROLLER_PLUGIN (user_data);
+    auto priv = (GnomeCmdFileRollerPluginPrivate *) gnome_cmd_file_roller_plugin_get_instance_private (plugin);
 
     GList *files = priv->state->active_dir_selected_files;
 
@@ -456,9 +469,10 @@ static void on_add_to_archive (GSimpleAction *action, GVariant *parameter, gpoin
 }
 
 
-static GSimpleActionGroup *create_actions (GnomeCmdPlugin *plugin, const gchar *name)
+static GSimpleActionGroup *create_actions (GnomeCmdFileActions *iface, const gchar *name)
 {
-    FileRollerPluginPrivate *priv = (FileRollerPluginPrivate *) file_roller_plugin_get_instance_private (FILE_ROLLER_PLUGIN (plugin));
+    auto plugin = GNOME_CMD_FILE_ROLLER_PLUGIN (iface);
+    auto priv = (GnomeCmdFileRollerPluginPrivate *) gnome_cmd_file_roller_plugin_get_instance_private (plugin);
 
     priv->action_group_name = g_strdup (name);
 
@@ -472,14 +486,17 @@ static GSimpleActionGroup *create_actions (GnomeCmdPlugin *plugin, const gchar *
 }
 
 
-static GMenuModel *create_main_menu (GnomeCmdPlugin *plugin)
+static GMenuModel *create_main_menu (GnomeCmdFileActions *iface)
 {
     return nullptr;
 }
 
 
-static GMenuModel *create_popup_menu_items (GnomeCmdPlugin *plugin, GnomeCmdState *state)
+static GMenuModel *create_popup_menu_items (GnomeCmdFileActions *iface, GnomeCmdState *state)
 {
+    auto plugin = GNOME_CMD_FILE_ROLLER_PLUGIN (iface);
+    auto priv = (GnomeCmdFileRollerPluginPrivate *) gnome_cmd_file_roller_plugin_get_instance_private (plugin);
+
     GMenu *menu;
     gchar *action;
     gint num_files;
@@ -490,8 +507,6 @@ static GMenuModel *create_popup_menu_items (GnomeCmdPlugin *plugin, GnomeCmdStat
 
     if (num_files <= 0)
         return nullptr;
-
-    FileRollerPluginPrivate *priv = (FileRollerPluginPrivate *) file_roller_plugin_get_instance_private (FILE_ROLLER_PLUGIN (plugin));
 
     priv->state = state;
 
@@ -628,11 +643,12 @@ static void on_date_format_update (GtkWidget *options_dialog, ...)
 }
 
 
-static void configure (GnomeCmdPlugin *plugin, GtkWindow *parent_window)
+static void configure (GnomeCmdConfigurable *iface, GtkWindow *parent_window)
 {
-    GtkWidget *dialog, *grid, *label, *entry, *combo, *button;
+    auto plugin = GNOME_CMD_FILE_ROLLER_PLUGIN (iface);
+    auto priv = (GnomeCmdFileRollerPluginPrivate *) gnome_cmd_file_roller_plugin_get_instance_private (plugin);
 
-    FileRollerPluginPrivate *priv = (FileRollerPluginPrivate *) file_roller_plugin_get_instance_private (FILE_ROLLER_PLUGIN (plugin));
+    GtkWidget *dialog, *grid, *label, *entry, *combo, *button;
 
     dialog = gtk_window_new ();
     gtk_window_set_title (GTK_WINDOW (dialog), _("File-roller options"));
@@ -712,32 +728,38 @@ static void configure (GnomeCmdPlugin *plugin, GtkWindow *parent_window)
 
 static void dispose (GObject *object)
 {
-    FileRollerPlugin *plugin = FILE_ROLLER_PLUGIN (object);
-    FileRollerPluginPrivate *priv = (FileRollerPluginPrivate *) file_roller_plugin_get_instance_private (plugin);
+    auto plugin = GNOME_CMD_FILE_ROLLER_PLUGIN (object);
+    auto priv = (GnomeCmdFileRollerPluginPrivate *) gnome_cmd_file_roller_plugin_get_instance_private (plugin);
 
     g_clear_pointer (&priv->action_group_name, g_free);
 
-    G_OBJECT_CLASS (file_roller_plugin_parent_class)->dispose (object);
+    G_OBJECT_CLASS (gnome_cmd_file_roller_plugin_parent_class)->dispose (object);
 }
 
 
-static void file_roller_plugin_class_init (FileRollerPluginClass *klass)
+static void gnome_cmd_file_roller_plugin_class_init (GnomeCmdFileRollerPluginClass *klass)
 {
-    GObjectClass *object_class = G_OBJECT_CLASS (klass);
-    GnomeCmdPluginClass *plugin_class = GNOME_CMD_PLUGIN_CLASS (klass);
-
-    object_class->dispose = dispose;
-
-    plugin_class->create_actions = create_actions;
-    plugin_class->create_main_menu = create_main_menu;
-    plugin_class->create_popup_menu_items = create_popup_menu_items;
-    plugin_class->configure = configure;
+    G_OBJECT_CLASS (klass)->dispose = dispose;
 }
 
 
-static void file_roller_plugin_init (FileRollerPlugin *plugin)
+static void gnome_cmd_configurable_init (GnomeCmdConfigurableInterface *iface)
 {
-    FileRollerPluginPrivate *priv = (FileRollerPluginPrivate *) file_roller_plugin_get_instance_private (plugin);
+    iface->configure = configure;
+}
+
+
+static void gnome_cmd_file_actions_init (GnomeCmdFileActionsInterface *iface)
+{
+    iface->create_actions = create_actions;
+    iface->create_main_menu = create_main_menu;
+    iface->create_popup_menu_items = create_popup_menu_items;
+}
+
+
+static void gnome_cmd_file_roller_plugin_init (GnomeCmdFileRollerPlugin *plugin)
+{
+    auto priv = (GnomeCmdFileRollerPluginPrivate *) gnome_cmd_file_roller_plugin_get_instance_private (plugin);
 
     priv->settings = plugin_settings_new();
 }
@@ -773,35 +795,20 @@ gchar *GetGfileAttributeString(GFile *gFile, const char *attribute)
  * Public functions
  ***********************************/
 
-GnomeCmdPlugin *file_roller_plugin_new ()
+GObject *create_plugin ()
 {
-    FileRollerPlugin *plugin = (FileRollerPlugin *) g_object_new (file_roller_plugin_get_type (), nullptr);
-
-    return GNOME_CMD_PLUGIN (plugin);
+    return G_OBJECT (g_object_new (GNOME_CMD_TYPE_FILE_ROLLER_PLUGIN, nullptr));
 }
 
-
-extern "C"
+PluginInfo *get_plugin_info ()
 {
-    GnomeCmdPlugin *create_plugin ()
+    if (!plugin_nfo.authors)
     {
-        return file_roller_plugin_new ();
+        plugin_nfo.authors = g_new0 (gchar *, 2);
+        plugin_nfo.authors[0] = (gchar*) AUTHOR;
+        plugin_nfo.authors[1] = nullptr;
+        plugin_nfo.comments = g_strdup (_("A plugin that adds File Roller shortcuts for creating "
+                                        "and extracting compressed archives."));
     }
-}
-
-
-extern "C"
-{
-    PluginInfo *get_plugin_info ()
-    {
-        if (!plugin_nfo.authors)
-        {
-            plugin_nfo.authors = g_new0 (gchar *, 2);
-            plugin_nfo.authors[0] = (gchar*) AUTHOR;
-            plugin_nfo.authors[1] = nullptr;
-            plugin_nfo.comments = g_strdup (_("A plugin that adds File Roller shortcuts for creating "
-                                            "and extracting compressed archives."));
-        }
-        return &plugin_nfo;
-    }
+    return &plugin_nfo;
 }

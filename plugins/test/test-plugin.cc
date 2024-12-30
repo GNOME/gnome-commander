@@ -44,13 +44,25 @@ static PluginInfo plugin_nfo = {
     WEBPAGE
 };
 
-struct TestPluginPrivate
+struct _GnomeCmdTestPlugin
+{
+    GObject parent;
+};
+
+struct GnomeCmdTestPluginPrivate
 {
     gchar *action_group_name;
 };
 
 
-G_DEFINE_TYPE_WITH_PRIVATE(TestPlugin, test_plugin, GNOME_CMD_TYPE_PLUGIN)
+static void gnome_cmd_configurable_init (GnomeCmdConfigurableInterface *iface);
+static void gnome_cmd_file_actions_init (GnomeCmdFileActionsInterface *iface);
+
+
+G_DEFINE_TYPE_WITH_CODE (GnomeCmdTestPlugin, gnome_cmd_test_plugin, G_TYPE_OBJECT,
+                         G_ADD_PRIVATE (GnomeCmdTestPlugin)
+                         G_IMPLEMENT_INTERFACE (GNOME_CMD_TYPE_CONFIGURABLE, gnome_cmd_configurable_init)
+                         G_IMPLEMENT_INTERFACE (GNOME_CMD_TYPE_FILE_ACTIONS, gnome_cmd_file_actions_init))
 
 
 static void show_dummy_dialog(GtkWindow *parent_window)
@@ -73,9 +85,10 @@ static void on_dummy (GSimpleAction *action, GVariant *parameter, gpointer user_
 }
 
 
-static GSimpleActionGroup *create_actions (GnomeCmdPlugin *plugin, const gchar *name)
+static GSimpleActionGroup *create_actions (GnomeCmdFileActions *iface, const gchar *name)
 {
-    TestPluginPrivate *priv = (TestPluginPrivate *) test_plugin_get_instance_private (TEST_PLUGIN (plugin));
+    auto plugin = GNOME_CMD_TEST_PLUGIN (iface);
+    auto priv = (GnomeCmdTestPluginPrivate *) gnome_cmd_test_plugin_get_instance_private (plugin);
 
     priv->action_group_name = g_strdup (name);
 
@@ -88,9 +101,10 @@ static GSimpleActionGroup *create_actions (GnomeCmdPlugin *plugin, const gchar *
 }
 
 
-static GMenuModel *create_main_menu (GnomeCmdPlugin *plugin)
+static GMenuModel *create_main_menu (GnomeCmdFileActions *iface)
 {
-    TestPluginPrivate *priv = (TestPluginPrivate *) test_plugin_get_instance_private (TEST_PLUGIN (plugin));
+    auto plugin = GNOME_CMD_TEST_PLUGIN (iface);
+    auto priv = (GnomeCmdTestPluginPrivate *) gnome_cmd_test_plugin_get_instance_private (plugin);
 
     GMenu *menu = g_menu_new ();
     gchar *action_name = g_strdup_printf ("%s.dummy", priv->action_group_name);
@@ -100,9 +114,10 @@ static GMenuModel *create_main_menu (GnomeCmdPlugin *plugin)
 }
 
 
-static GMenuModel *create_popup_menu_items (GnomeCmdPlugin *plugin, GnomeCmdState *state)
+static GMenuModel *create_popup_menu_items (GnomeCmdFileActions *iface, GnomeCmdState *state)
 {
-    TestPluginPrivate *priv = (TestPluginPrivate *) test_plugin_get_instance_private (TEST_PLUGIN (plugin));
+    auto plugin = GNOME_CMD_TEST_PLUGIN (iface);
+    auto priv = (GnomeCmdTestPluginPrivate *) gnome_cmd_test_plugin_get_instance_private (plugin);
 
     GMenu *menu = g_menu_new ();
     gchar *action_name = g_strdup_printf ("%s.dummy", priv->action_group_name);
@@ -112,7 +127,7 @@ static GMenuModel *create_popup_menu_items (GnomeCmdPlugin *plugin, GnomeCmdStat
 }
 
 
-static void configure (GnomeCmdPlugin *plugin, GtkWindow *parent_window)
+static void configure (GnomeCmdConfigurable *iface, GtkWindow *parent_window)
 {
     show_dummy_dialog(parent_window);
 }
@@ -126,27 +141,35 @@ static void configure (GnomeCmdPlugin *plugin, GtkWindow *parent_window)
 
 static void dispose (GObject *object)
 {
-    TestPluginPrivate *priv = (TestPluginPrivate *) test_plugin_get_instance_private (TEST_PLUGIN (object));
+    auto plugin = GNOME_CMD_TEST_PLUGIN (object);
+    auto priv = (GnomeCmdTestPluginPrivate *) gnome_cmd_test_plugin_get_instance_private (plugin);
 
     g_clear_pointer (&priv->action_group_name, g_free);
 
-    G_OBJECT_CLASS (test_plugin_parent_class)->dispose (object);
+    G_OBJECT_CLASS (gnome_cmd_test_plugin_parent_class)->dispose (object);
 }
 
-static void test_plugin_class_init (TestPluginClass *klass)
+static void gnome_cmd_test_plugin_class_init (GnomeCmdTestPluginClass *klass)
 {
     G_OBJECT_CLASS (klass)->dispose = dispose;
-
-    GnomeCmdPluginClass *plugin_class = GNOME_CMD_PLUGIN_CLASS (klass);
-
-    plugin_class->create_actions = create_actions;
-    plugin_class->create_main_menu = create_main_menu;
-    plugin_class->create_popup_menu_items = create_popup_menu_items;
-    plugin_class->configure = configure;
 }
 
 
-static void test_plugin_init (TestPlugin *plugin)
+static void gnome_cmd_configurable_init (GnomeCmdConfigurableInterface *iface)
+{
+    iface->configure = configure;
+}
+
+
+static void gnome_cmd_file_actions_init (GnomeCmdFileActionsInterface *iface)
+{
+    iface->create_actions = create_actions;
+    iface->create_main_menu = create_main_menu;
+    iface->create_popup_menu_items = create_popup_menu_items;
+}
+
+
+static void gnome_cmd_test_plugin_init (GnomeCmdTestPlugin *plugin)
 {
 }
 
@@ -154,35 +177,20 @@ static void test_plugin_init (TestPlugin *plugin)
  * Public functions
  ***********************************/
 
-GnomeCmdPlugin *test_plugin_new ()
+GObject *create_plugin ()
 {
-    TestPlugin *plugin = (TestPlugin *) g_object_new (test_plugin_get_type (), NULL);
-
-    return GNOME_CMD_PLUGIN (plugin);
+    return G_OBJECT (g_object_new (GNOME_CMD_TYPE_TEST_PLUGIN, NULL));
 }
 
-
-extern "C"
+PluginInfo *get_plugin_info ()
 {
-    GnomeCmdPlugin *create_plugin ()
+    if (!plugin_nfo.authors)
     {
-        return test_plugin_new ();
+        plugin_nfo.authors = g_new0 (gchar *, 2);
+        plugin_nfo.authors[0] = (gchar*) AUTHOR;
+        plugin_nfo.authors[1] = NULL;
+        plugin_nfo.comments = g_strdup (_("This is an example plugin that is mostly useful as a "
+                                        "simple example for aspiring plugin hackers"));
     }
+    return &plugin_nfo;
 }
-
-extern "C"
-{
-    PluginInfo *get_plugin_info ()
-    {
-        if (!plugin_nfo.authors)
-        {
-            plugin_nfo.authors = g_new0 (gchar *, 2);
-            plugin_nfo.authors[0] = (gchar*) AUTHOR;
-            plugin_nfo.authors[1] = NULL;
-            plugin_nfo.comments = g_strdup (_("This is an example plugin that is mostly useful as a "
-                                            "simple example for aspiring plugin hackers"));
-        }
-        return &plugin_nfo;
-    }
-}
-
