@@ -25,13 +25,6 @@ static void gnome_cmd_file_actions_default_init (GnomeCmdFileActionsInterface *i
 {
 }
 
-GSimpleActionGroup *gnome_cmd_file_actions_create_actions (GnomeCmdFileActions *fa, const gchar *name)
-{
-    g_return_val_if_fail (GNOME_CMD_IS_FILE_ACTIONS (fa), NULL);
-    GnomeCmdFileActionsInterface *iface = GNOME_CMD_FILE_ACTIONS_GET_IFACE (fa);
-    return (* iface->create_actions) (fa, name);
-}
-
 GMenuModel *gnome_cmd_file_actions_create_main_menu (GnomeCmdFileActions *fa)
 {
     g_return_val_if_fail (GNOME_CMD_IS_FILE_ACTIONS (fa), NULL);
@@ -44,4 +37,15 @@ GMenuModel *gnome_cmd_file_actions_create_popup_menu_items (GnomeCmdFileActions 
     g_return_val_if_fail (GNOME_CMD_IS_FILE_ACTIONS (fa), NULL);
     GnomeCmdFileActionsInterface *iface = GNOME_CMD_FILE_ACTIONS_GET_IFACE (fa);
     return (* iface->create_popup_menu_items) (fa, state);
+}
+
+void gnome_cmd_file_actions_execute (GnomeCmdFileActions *fa,
+                                     const gchar *action,
+                                     GVariant *parameter,
+                                     GtkWindow *parent_window,
+                                     GnomeCmdState *state)
+{
+    g_return_if_fail (GNOME_CMD_IS_FILE_ACTIONS (fa));
+    GnomeCmdFileActionsInterface *iface = GNOME_CMD_FILE_ACTIONS_GET_IFACE (fa);
+    (* iface->execute) (fa, action, parameter, parent_window, state);
 }

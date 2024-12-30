@@ -50,6 +50,8 @@ pub mod ffi {
 
         pub fn gnome_cmd_file_list_get_tree_view(fl: *mut GnomeCmdFileList) -> *mut GtkTreeView;
 
+        pub fn gnome_cmd_file_list_get_visible_files(fl: *mut GnomeCmdFileList) -> *mut GList;
+
         pub fn gnome_cmd_file_list_get_selected_files(fl: *mut GnomeCmdFileList) -> *mut GList;
 
         pub fn gnome_cmd_file_list_get_cwd(fl: *mut GnomeCmdFileList) -> *mut GnomeCmdDir;
@@ -123,6 +125,14 @@ impl FileList {
     fn tree_view(&self) -> gtk::TreeView {
         unsafe {
             from_glib_none(ffi::gnome_cmd_file_list_get_tree_view(
+                self.to_glib_none().0,
+            ))
+        }
+    }
+
+    pub fn visible_files(&self) -> glib::List<File> {
+        unsafe {
+            glib::List::from_glib_none(ffi::gnome_cmd_file_list_get_visible_files(
                 self.to_glib_none().0,
             ))
         }

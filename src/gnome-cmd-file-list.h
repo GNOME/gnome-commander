@@ -304,6 +304,7 @@ struct GnomeCmdFileListButtonEvent
 extern "C" void gnome_cmd_show_new_textfile_dialog(GtkWindow *parent_window, GnomeCmdFileList *fl);
 
 // FFI
+extern "C" GList *gnome_cmd_file_list_get_visible_files (GnomeCmdFileList *fl);
 extern "C" GList *gnome_cmd_file_list_get_selected_files (GnomeCmdFileList *fl);
 extern "C" GnomeCmdFile *gnome_cmd_file_list_get_focused_file(GnomeCmdFileList *fl);
 extern "C" GnomeCmdDir *gnome_cmd_file_list_get_cwd(GnomeCmdFileList *fl);

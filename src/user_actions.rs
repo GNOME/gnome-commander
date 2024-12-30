@@ -46,8 +46,12 @@ use crate::{
     },
     dir::Directory,
     file::File,
-    libgcmd::file_descriptor::FileDescriptorExt,
+    libgcmd::{
+        file_actions::{FileActions, FileActionsExt},
+        file_descriptor::FileDescriptorExt,
+    },
     main_win::{ffi::*, MainWindow},
+    plugin_manager::{plugin_manager_get_active_plugin, PluginActionVariant},
     spawn::{spawn_async, spawn_async_command, SpawnError},
     types::FileSelectorID,
     utils::{display_help, get_modifiers_state, ErrorMessage},
@@ -61,6 +65,7 @@ use gtk::{
 };
 use once_cell::sync::Lazy;
 use std::{
+    borrow::Cow,
     collections::HashSet,
     ffi::OsString,
     path::{Path, PathBuf},
@@ -800,6 +805,28 @@ pub fn connections_close_current(
 
 c_action!(plugins_configure);
 
+pub fn plugin_action(
+    main_win: &MainWindow,
+    _action: &gio::SimpleAction,
+    parameter: Option<&glib::Variant>,
+) {
+    let Some(plugin_action) = parameter.and_then(PluginActionVariant::from_variant) else {
+        eprintln!("Unknown plugin action. Nothing to do.");
+        return;
+    };
+
+    if let Some(plugin) = plugin_manager_get_active_plugin(&plugin_action.plugin) {
+        if let Some(file_actions) = plugin.downcast_ref::<FileActions>() {
+            file_actions.execute(
+                &plugin_action.action,
+                Some(&plugin_action.parameter),
+                main_win.upcast_ref(),
+                &main_win.state(),
+            );
+        }
+    }
+}
+
 /************** Help Menu **************/
 
 pub fn help_help(
@@ -926,7 +953,7 @@ pub enum ActionInitialState {
 pub struct UserAction {
     pub action_name: &'static str,
     pub activate: Option<&'static dyn Fn(&MainWindow, &gio::SimpleAction, Option<&glib::Variant>)>,
-    pub parameter_type: Option<&'static glib::VariantTy>,
+    pub parameter_type: Option<Cow<'static, glib::VariantTy>>,
     pub change_state:
         Option<&'static dyn Fn(&MainWindow, &gio::SimpleAction, Option<&glib::Variant>)>,
     pub state: Option<ActionInitialState>,
@@ -955,7 +982,7 @@ impl UserAction {
     const fn with_param(
         action_name: &'static str,
         activate: &'static dyn Fn(&MainWindow, &gio::SimpleAction, Option<&glib::Variant>),
-        parameter_type: &'static glib::VariantTy,
+        parameter_type: Cow<'static, glib::VariantTy>,
         name: &'static str,
         description: String,
     ) -> Self {
@@ -991,7 +1018,7 @@ impl UserAction {
         if let Some(activate) = self.activate {
             gio::ActionEntry::builder(&self.action_name)
                 .activate(activate)
-                .parameter_type(self.parameter_type)
+                .parameter_type(self.parameter_type.as_deref())
                 .build()
         } else if let Some(change_state) = self.change_state {
             gio::ActionEntry::builder(&self.action_name)
@@ -1226,7 +1253,7 @@ pub const USER_ACTIONS: Lazy<Vec<UserAction>> = Lazy::new(|| {
         UserAction::with_param(
             "command-execute",
             &command_execute,
-            glib::VariantTy::STRING,
+            glib::VariantTy::STRING.into(),
             "command.execute",
             gettext("Execute command"),
         ),
@@ -1319,7 +1346,7 @@ pub const USER_ACTIONS: Lazy<Vec<UserAction>> = Lazy::new(|| {
         UserAction::with_param(
             "view-refresh-tab",
             &view_refresh_tab,
-            unsafe { glib::VariantTy::from_str_unchecked("(ii)") },
+            unsafe { glib::VariantTy::from_str_unchecked("(ii)") }.into(),
             "view.refresh_tab",
             gettext("Refresh tab"),
         ),
@@ -1428,7 +1455,7 @@ pub const USER_ACTIONS: Lazy<Vec<UserAction>> = Lazy::new(|| {
         UserAction::with_param(
             "view-toggle-tab-lock",
             &view_toggle_tab_lock,
-            unsafe { glib::VariantTy::from_str_unchecked("(bi)") },
+            unsafe { glib::VariantTy::from_str_unchecked("(bi)") }.into(),
             "view.toggle_lock_tab",
             gettext("Lock/unlock tab"),
         ),
@@ -1472,7 +1499,7 @@ pub const USER_ACTIONS: Lazy<Vec<UserAction>> = Lazy::new(|| {
         UserAction::with_param(
             "bookmarks-goto",
             &bookmarks_goto,
-            unsafe { glib::VariantTy::from_str_unchecked("(ss)") },
+            unsafe { glib::VariantTy::from_str_unchecked("(ss)") }.into(),
             "bookmarks.goto",
             gettext("Go to bookmarked location"),
         ),
@@ -1511,7 +1538,7 @@ pub const USER_ACTIONS: Lazy<Vec<UserAction>> = Lazy::new(|| {
         UserAction::with_param(
             "connections-set-current",
             &connections_set_current,
-            unsafe { glib::VariantTy::from_str_unchecked("s") },
+            unsafe { glib::VariantTy::from_str_unchecked("s") }.into(),
             "connections.set-uuid",
             gettext("Set connection"),
         ),
@@ -1530,7 +1557,7 @@ pub const USER_ACTIONS: Lazy<Vec<UserAction>> = Lazy::new(|| {
         UserAction::with_param(
             "connections-close",
             &connections_close,
-            unsafe { glib::VariantTy::from_str_unchecked("s") },
+            unsafe { glib::VariantTy::from_str_unchecked("s") }.into(),
             "connections.close-uuid",
             gettext("Close connection"),
         ),
@@ -1546,6 +1573,13 @@ pub const USER_ACTIONS: Lazy<Vec<UserAction>> = Lazy::new(|| {
             &plugins_configure,
             "plugins.configure",
             gettext("Configure plugins"),
+        ),
+        UserAction::with_param(
+            "plugin-action",
+            &plugin_action,
+            PluginActionVariant::static_variant_type(),
+            "plugin.action",
+            String::new(), // invisible to users
         ),
         // Help actions
         UserAction::new(

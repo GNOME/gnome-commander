@@ -49,18 +49,12 @@ struct _GnomeCmdTestPlugin
     GObject parent;
 };
 
-struct GnomeCmdTestPluginPrivate
-{
-    gchar *action_group_name;
-};
-
 
 static void gnome_cmd_configurable_init (GnomeCmdConfigurableInterface *iface);
 static void gnome_cmd_file_actions_init (GnomeCmdFileActionsInterface *iface);
 
 
 G_DEFINE_TYPE_WITH_CODE (GnomeCmdTestPlugin, gnome_cmd_test_plugin, G_TYPE_OBJECT,
-                         G_ADD_PRIVATE (GnomeCmdTestPlugin)
                          G_IMPLEMENT_INTERFACE (GNOME_CMD_TYPE_CONFIGURABLE, gnome_cmd_configurable_init)
                          G_IMPLEMENT_INTERFACE (GNOME_CMD_TYPE_FILE_ACTIONS, gnome_cmd_file_actions_init))
 
@@ -79,51 +73,25 @@ static void show_dummy_dialog(GtkWindow *parent_window)
 }
 
 
-static void on_dummy (GSimpleAction *action, GVariant *parameter, gpointer user_data)
-{
-    show_dummy_dialog(nullptr);
-}
-
-
-static GSimpleActionGroup *create_actions (GnomeCmdFileActions *iface, const gchar *name)
-{
-    auto plugin = GNOME_CMD_TEST_PLUGIN (iface);
-    auto priv = (GnomeCmdTestPluginPrivate *) gnome_cmd_test_plugin_get_instance_private (plugin);
-
-    priv->action_group_name = g_strdup (name);
-
-    GSimpleActionGroup *group = g_simple_action_group_new ();
-    static const GActionEntry entries[] = {
-        { "dummy", on_dummy }
-    };
-    g_action_map_add_action_entries (G_ACTION_MAP (group), entries, G_N_ELEMENTS (entries), plugin);
-    return group;
-}
-
-
 static GMenuModel *create_main_menu (GnomeCmdFileActions *iface)
 {
-    auto plugin = GNOME_CMD_TEST_PLUGIN (iface);
-    auto priv = (GnomeCmdTestPluginPrivate *) gnome_cmd_test_plugin_get_instance_private (plugin);
-
     GMenu *menu = g_menu_new ();
-    gchar *action_name = g_strdup_printf ("%s.dummy", priv->action_group_name);
-    g_menu_append (menu, "Test plugin dummy operation", action_name);
-    g_free (action_name);
+    g_menu_append (menu, "Test plugin dummy operation", "dummy");
     return G_MENU_MODEL (menu);
 }
 
 
 static GMenuModel *create_popup_menu_items (GnomeCmdFileActions *iface, GnomeCmdState *state)
 {
-    auto plugin = GNOME_CMD_TEST_PLUGIN (iface);
-    auto priv = (GnomeCmdTestPluginPrivate *) gnome_cmd_test_plugin_get_instance_private (plugin);
-
     GMenu *menu = g_menu_new ();
-    gchar *action_name = g_strdup_printf ("%s.dummy", priv->action_group_name);
-    g_menu_append (menu, "Test plugin dummy operation", action_name);
-    g_free (action_name);
+    g_menu_append (menu, "Test plugin dummy operation", "dummy");
     return G_MENU_MODEL (menu);
+}
+
+
+static void execute (GnomeCmdFileActions *iface, const gchar *action, GVariant *parameter, GtkWindow *parent_window, GnomeCmdState *state)
+{
+    show_dummy_dialog(parent_window);
 }
 
 
@@ -139,19 +107,8 @@ static void configure (GnomeCmdConfigurable *iface, GtkWindow *parent_window)
  * Gtk class implementation
  *******************************/
 
-static void dispose (GObject *object)
-{
-    auto plugin = GNOME_CMD_TEST_PLUGIN (object);
-    auto priv = (GnomeCmdTestPluginPrivate *) gnome_cmd_test_plugin_get_instance_private (plugin);
-
-    g_clear_pointer (&priv->action_group_name, g_free);
-
-    G_OBJECT_CLASS (gnome_cmd_test_plugin_parent_class)->dispose (object);
-}
-
 static void gnome_cmd_test_plugin_class_init (GnomeCmdTestPluginClass *klass)
 {
-    G_OBJECT_CLASS (klass)->dispose = dispose;
 }
 
 
@@ -163,9 +120,9 @@ static void gnome_cmd_configurable_init (GnomeCmdConfigurableInterface *iface)
 
 static void gnome_cmd_file_actions_init (GnomeCmdFileActionsInterface *iface)
 {
-    iface->create_actions = create_actions;
     iface->create_main_menu = create_main_menu;
     iface->create_popup_menu_items = create_popup_menu_items;
+    iface->execute = execute;
 }
 
 

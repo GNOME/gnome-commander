@@ -125,16 +125,6 @@ static void activate_plugin (PluginData *data)
         return;
 
     data->active = TRUE;
-
-    if (GNOME_CMD_IS_FILE_ACTIONS (data->plugin))
-    {
-        auto fa = GNOME_CMD_FILE_ACTIONS (data->plugin);
-
-        GSimpleActionGroup *actions = gnome_cmd_file_actions_create_actions (fa, data->action_group_name);
-        gtk_widget_insert_action_group (*main_win, data->action_group_name, G_ACTION_GROUP (actions));
-
-        data->menu = gnome_cmd_file_actions_create_main_menu (fa);
-    }
 }
 
 
@@ -144,8 +134,6 @@ static void inactivate_plugin (PluginData *data)
         return;
 
     data->active = FALSE;
-    gtk_widget_insert_action_group (*main_win, data->action_group_name, nullptr);
-    g_clear_object (&data->menu);
 }
 
 
@@ -171,7 +159,6 @@ static void scan_plugins_in_dir (const gchar *dpath)
         data->fpath = g_build_filename (dpath, g_file_info_get_name(gFileInfo), nullptr);
         data->loaded = FALSE;
         data->active = FALSE;
-        data->menu = nullptr;
         data->autoload = FALSE;
         data->action_group_name = g_strdup_printf ("plugin%d", index++);
         activate_plugin (data);

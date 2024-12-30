@@ -17,23 +17,15 @@
  * For more details see the file COPYING.
  */
 
+
 #pragma once
 
 #include <glib.h>
 #include <gio/gio.h>
+#include <gtk/gtk.h>
+#include <gnome-cmd-state.h>
 
 G_BEGIN_DECLS
-
-typedef struct GnomeCmdState
-{
-    GFile *activeDirGfile;
-    GFile *inactiveDirGfile;
-    GList *active_dir_files;
-    GList *inactive_dir_files;
-    GList *active_dir_selected_files;
-    GList *inactive_dir_selected_files;
-} GnomeCmdState;
-
 
 #define GNOME_CMD_TYPE_FILE_ACTIONS (gnome_cmd_file_actions_get_type ())
 
@@ -47,13 +39,22 @@ struct _GnomeCmdFileActionsInterface
 {
     GTypeInterface g_iface;
 
-    GSimpleActionGroup *(* create_actions) (GnomeCmdFileActions *fa, const gchar *name);
     GMenuModel *(* create_main_menu) (GnomeCmdFileActions *fa);
     GMenuModel *(* create_popup_menu_items) (GnomeCmdFileActions *fa, GnomeCmdState *state);
+
+    void (* execute) (GnomeCmdFileActions *fa,
+                      const gchar *action,
+                      GVariant *parameter,
+                      GtkWindow *parent_window,
+                      GnomeCmdState *state);
 };
 
-GSimpleActionGroup *gnome_cmd_file_actions_create_actions (GnomeCmdFileActions *fa, const gchar *name);
 GMenuModel *gnome_cmd_file_actions_create_main_menu (GnomeCmdFileActions *fa);
 GMenuModel *gnome_cmd_file_actions_create_popup_menu_items (GnomeCmdFileActions *fa, GnomeCmdState *state);
+void gnome_cmd_file_actions_execute (GnomeCmdFileActions *fa,
+                                     const gchar *action,
+                                     GVariant *parameter,
+                                     GtkWindow *parent_window,
+                                     GnomeCmdState *state);
 
 G_END_DECLS

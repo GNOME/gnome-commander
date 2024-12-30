@@ -21,7 +21,14 @@
  */
 
 use crate::{
-    file_selector::FileSelector, shortcuts::Shortcuts, types::FileSelectorID, user_actions,
+    file_selector::FileSelector,
+    libgcmd::{
+        file_descriptor::FileDescriptorExt,
+        state::{State, StateExt},
+    },
+    shortcuts::Shortcuts,
+    types::FileSelectorID,
+    user_actions,
 };
 use gtk::{
     gio,
@@ -102,6 +109,23 @@ impl MainWindow {
 
     pub fn shortcuts(&self) -> &mut Shortcuts {
         unsafe { &mut *ffi::gnome_cmd_main_win_shortcuts(self.to_glib_none().0) }
+    }
+
+    pub fn state(&self) -> State {
+        let fs1 = self.file_selector(FileSelectorID::ACTIVE);
+        let fs2 = self.file_selector(FileSelectorID::INACTIVE);
+        let dir1 = fs1.directory();
+        let dir2 = fs2.directory();
+
+        let state = State::new();
+        state.set_active_dir(dir1.and_upcast_ref());
+        state.set_inactive_dir(dir2.and_upcast_ref());
+        state.set_active_dir_files(&fs1.file_list().visible_files());
+        state.set_inactive_dir_files(&fs2.file_list().visible_files());
+        state.set_active_dir_selected_files(&fs1.file_list().selected_files());
+        state.set_inactive_dir_selected_files(&fs2.file_list().selected_files());
+
+        state
     }
 }
 

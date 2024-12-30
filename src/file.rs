@@ -43,10 +43,7 @@ use std::{
 };
 pub mod ffi {
     use super::*;
-    use crate::{
-        connection::connection::ffi::GnomeCmdCon, dir::ffi::GnomeCmdDir,
-        libgcmd::file_descriptor::ffi::GnomeCmdFileDescriptoprClass,
-    };
+    use crate::{connection::connection::ffi::GnomeCmdCon, dir::ffi::GnomeCmdDir};
     use gtk::{
         gio::ffi::{GFile, GFileInfo},
         glib::ffi::{gboolean, GError, GType},
@@ -106,7 +103,7 @@ pub mod ffi {
     #[derive(Copy, Clone)]
     #[repr(C)]
     pub struct GnomeCmdFileClass {
-        pub parent_class: GnomeCmdFileDescriptoprClass,
+        pub parent_class: glib::gobject_ffi::GObjectClass,
     }
 }
 

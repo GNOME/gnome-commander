@@ -25,7 +25,7 @@ use gtk::{
 pub mod ffi {
     use gtk::{
         gio::ffi::{GFile, GFileInfo},
-        glib::{self, ffi::GType},
+        glib::ffi::GType,
     };
 
     #[repr(C)]
@@ -41,12 +41,6 @@ pub mod ffi {
         pub fn gnome_cmd_file_descriptor_get_file_info(
             fb: *mut GnomeCmdFileDescriptor,
         ) -> *const GFileInfo;
-    }
-
-    #[derive(Copy, Clone)]
-    #[repr(C)]
-    pub struct GnomeCmdFileDescriptoprClass {
-        pub parent_class: glib::gobject_ffi::GObjectClass,
     }
 }
 

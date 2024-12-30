@@ -33,12 +33,13 @@ struct PluginData
     gchar *action_group_name;
     GObject *plugin;
     PluginInfo *info;
-    GMenuModel *menu;
     GModule *module;
 };
 
 
 void plugin_manager_init ();
 void plugin_manager_shutdown ();
-GList *plugin_manager_get_all ();
+extern "C" GList *plugin_manager_get_all ();
 void plugin_manager_show (GtkWindow *parent_window);
+
+extern "C" GMenu *gnome_cmd_wrap_plugin_menu (const gchar *plugin, GMenuModel *menu);

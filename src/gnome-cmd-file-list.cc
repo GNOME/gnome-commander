@@ -2042,7 +2042,7 @@ GList *GnomeCmdFileList::get_selected_files()
     {
         GnomeCmdFile *f = get_selected_file();
         if (f != nullptr)
-            files = g_list_append (nullptr, f);
+            files = g_list_append (nullptr, g_object_ref (f));
     }
     return files;
 }
@@ -2075,7 +2075,7 @@ GList *GnomeCmdFileList::get_visible_files()
 {
     GList *files = nullptr;
     traverse_files([&files](GnomeCmdFile *file, GtkTreeIter *iter, GtkListStore *store) {
-        files = g_list_append (files, file);
+        files = g_list_append (files, g_object_ref (file));
         return TraverseControl::TRAVERSE_CONTINUE;
     });
     return files;
@@ -3257,6 +3257,11 @@ GtkTreeIterPtr GnomeCmdFileList::get_dest_row_at_coords (gdouble x, gdouble y)
 extern "C" GtkTreeView *gnome_cmd_file_list_get_tree_view (GnomeCmdFileList *fl)
 {
     return fl->priv->view;
+}
+
+GList *gnome_cmd_file_list_get_visible_files (GnomeCmdFileList *fl)
+{
+    return fl->get_visible_files();
 }
 
 GList *gnome_cmd_file_list_get_selected_files (GnomeCmdFileList *fl)
