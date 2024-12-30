@@ -25,9 +25,7 @@
 #include <gio/gio.h>
 #include <gtk/gtk.h>
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+G_BEGIN_DECLS
 
 typedef struct GnomeCmdState
 {
@@ -79,6 +77,4 @@ GMenuModel *gnome_cmd_plugin_create_popup_menu_items (GnomeCmdPlugin *plugin, Gn
 
 void gnome_cmd_plugin_configure (GnomeCmdPlugin *plugin, GtkWindow *parent_window);
 
-#ifdef __cplusplus
-}
-#endif
+G_END_DECLS

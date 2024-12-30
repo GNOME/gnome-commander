@@ -1,11 +1,12 @@
 libgcmd_headers = files(
-  'gnome-cmd-file-base.h',
+  'gnome-cmd-file-descriptor.h',
   'gnome-cmd-plugin.h',
+  'gnome-cmd-plugin-info.h',
   'libgcmd.h',
 )
 
 libgcmd_sources = files(
-  'gnome-cmd-file-base.c',
+  'gnome-cmd-file-descriptor.c',
   'gnome-cmd-plugin.c',
 )
 

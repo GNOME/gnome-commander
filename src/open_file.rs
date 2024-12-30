@@ -24,7 +24,7 @@ use crate::{
     app::{App, RegularApp},
     data::{ProgramsOptions, ProgramsOptionsRead},
     file::{ffi::GnomeCmdFile, File},
-    libgcmd::file_base::FileBaseExt,
+    libgcmd::file_descriptor::FileDescriptorExt,
     spawn::SpawnError,
     transfer::gnome_cmd_tmp_download,
     utils::{temp_file, ErrorMessage, GNOME_CMD_PERM_USER_EXEC},

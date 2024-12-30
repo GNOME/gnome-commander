@@ -19,7 +19,7 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-#include "plugin-info.h"
+#include "gnome-cmd-plugin-info.h"
 #include "gnome-cmd-plugin.h"
 
 G_DEFINE_TYPE (GnomeCmdPlugin, gnome_cmd_plugin, G_TYPE_OBJECT)

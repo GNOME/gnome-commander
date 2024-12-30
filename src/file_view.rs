@@ -21,7 +21,7 @@ use crate::{
     data::{ProgramsOptions, ProgramsOptionsRead},
     file::{ffi::GnomeCmdFile, File},
     intviewer::window::ViewerWindow,
-    libgcmd::file_base::FileBaseExt,
+    libgcmd::file_descriptor::FileDescriptorExt,
     spawn::{spawn_async, SpawnError},
     transfer::gnome_cmd_tmp_download,
     utils::{temp_file, ErrorMessage},

@@ -245,7 +245,7 @@ inline void do_add_to_archive (const gchar *name, GnomeCmdState *state)
 
     for (files = state->active_dir_selected_files; files; files = files->next)
     {
-        auto *gFile = GNOME_CMD_FILE_BASE (files->data)->gFile;
+        auto *gFile = gnome_cmd_file_descriptor_get_file (GNOME_CMD_FILE_DESCRIPTOR (files->data));
         gchar *path = g_file_get_path (gFile);
         gchar *tmp = cmd;
         gchar *arg_file = g_shell_quote (path);
@@ -420,7 +420,8 @@ static void on_add_to_archive (GSimpleAction *action, GVariant *parameter, gpoin
     gchar *default_ext = g_settings_get_string (priv->settings->file_roller_plugin, GCMD_PLUGINS_FILE_ROLLER_DEFAULT_TYPE);
     gchar *archive_name_tmp = g_strdup_printf("%s%s", file_prefix, default_ext);
     g_free (default_ext);
-    auto file_name_tmp = GetGfileAttributeString(GNOME_CMD_FILE_BASE (files->data)->gFile, G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME);
+    GFile *first_file = gnome_cmd_file_descriptor_get_file (GNOME_CMD_FILE_DESCRIPTOR (files->data));
+    auto file_name_tmp = GetGfileAttributeString(first_file, G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME);
     gchar *archive_name = new_string_with_replaced_keyword(archive_name_tmp, "$N", file_name_tmp);
     gtk_editable_set_text (GTK_EDITABLE (entry), archive_name);
     g_free(file_name_tmp);
@@ -502,11 +503,11 @@ static GMenuModel *create_popup_menu_items (GnomeCmdPlugin *plugin, GnomeCmdStat
 
     if (num_files == 1)
     {
-        GnomeCmdFileBase *gnomeCmdFileBase = GNOME_CMD_FILE_BASE (gnomeCmdFileBaseGList->data);
-        auto fname = GetGfileAttributeString(gnomeCmdFileBase->gFile, G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME);
+        GFile *file = gnome_cmd_file_descriptor_get_file (GNOME_CMD_FILE_DESCRIPTOR (gnomeCmdFileBaseGList->data));
+        auto fname = GetGfileAttributeString(file, G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME);
         gint i;
 
-        gchar *local_path = g_file_get_path(gnomeCmdFileBase->gFile);
+        gchar *local_path = g_file_get_path(file);
 
         for (i=0; handled_extensions[i]; ++i)
             if (g_str_has_suffix (fname, handled_extensions[i]))

@@ -41,14 +41,14 @@ struct GnomeCmdPath;
 
 struct GnomeCmdFile
 {
-    GnomeCmdFileBase parent;
+    GObject parent;
 
     struct Private;
 
     Private *priv;
 
-    GFile *get_file() const { return parent.gFile; }
-    GFileInfo *get_file_info() const { return parent.gFileInfo; }
+    GFile *get_file() { return gnome_cmd_file_descriptor_get_file (GNOME_CMD_FILE_DESCRIPTOR (this)); }
+    GFileInfo *get_file_info() { return gnome_cmd_file_descriptor_get_file_info (GNOME_CMD_FILE_DESCRIPTOR (this)); }
     gboolean is_dotdot;
     gchar *collate_key;                 // necessary for proper sorting of UTF-8 encoded file names //ToDo: Check if this is really still needed
     GnomeCmdFileMetadata *metadata;
@@ -69,7 +69,7 @@ struct GnomeCmdFile
 
     gchar *get_uri_str();
 
-    char *get_collation_fname() const    {  return collate_key ? collate_key : g_file_get_basename (get_file());  }
+    char *get_collation_fname()    {  return collate_key ? collate_key : g_file_get_basename (get_file());  }
 
     const gchar *get_extension();
     const gchar *get_owner();
@@ -115,7 +115,7 @@ struct GnomeCmdFile
 
 struct GnomeCmdFileClass
 {
-    GnomeCmdFileBaseClass parent_class;
+    GObjectClass parent_class;
 
     /* virtual functions */
     GnomeCmdCon *(* get_connection) (GnomeCmdFile *f);
@@ -145,7 +145,6 @@ inline void gnome_cmd_file_unref (GnomeCmdFile *f)
     f->unref();
 }
 
-extern "C" GFile *gnome_cmd_file_get_file (GnomeCmdFile *f);
 extern "C" const gchar *gnome_cmd_file_get_name (GnomeCmdFile *f);
 
 inline gchar *gnome_cmd_file_get_quoted_name (GnomeCmdFile *f)

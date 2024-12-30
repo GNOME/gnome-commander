@@ -24,7 +24,7 @@ use crate::{
     connection::connection::ConnectionExt,
     dir::Directory,
     file::{File, GnomeCmdFileExt},
-    libgcmd::file_base::FileBaseExt,
+    libgcmd::file_descriptor::FileDescriptorExt,
     main_win::MainWindow,
     transfer::gnome_cmd_copy_gfiles,
     types::GnomeCmdConfirmOverwriteMode,

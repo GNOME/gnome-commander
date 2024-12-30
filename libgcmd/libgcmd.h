@@ -22,5 +22,5 @@
 #pragma once
 
 #include <gnome-cmd-plugin.h>
-#include <gnome-cmd-file-base.h>
-#include <plugin-info.h>
+#include <gnome-cmd-file-descriptor.h>
+#include <gnome-cmd-plugin-info.h>

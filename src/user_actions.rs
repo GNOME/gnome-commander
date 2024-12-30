@@ -46,7 +46,7 @@ use crate::{
     },
     dir::Directory,
     file::File,
-    libgcmd::file_base::{FileBase, FileBaseExt},
+    libgcmd::file_descriptor::FileDescriptorExt,
     main_win::{ffi::*, MainWindow},
     spawn::{spawn_async, spawn_async_command, SpawnError},
     types::FileSelectorID,
@@ -483,7 +483,7 @@ pub fn open_terminal(
     let dpath = main_win
         .file_selector(FileSelectorID::ACTIVE)
         .directory()
-        .and_then(|d| d.upcast_ref::<FileBase>().file().path());
+        .and_then(|d| d.file().path());
 
     let command = OsString::from(options.terminal_cmd());
     if command.is_empty() {
