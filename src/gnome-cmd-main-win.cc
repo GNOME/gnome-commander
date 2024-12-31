@@ -30,7 +30,6 @@
 #include "gnome-cmd-file-selector.h"
 #include "gnome-cmd-user-actions.h"
 #include "gnome-cmd-main-win.h"
-#include "gnome-cmd-main-menu.h"
 #include "gnome-cmd-data.h"
 #include "gnome-cmd-combo.h"
 #include "gnome-cmd-dir.h"
@@ -508,6 +507,7 @@ static void gnome_cmd_main_win_class_init (GnomeCmdMainWinClass *klass)
 
 
 extern "C" void gnome_cmd_main_win_install_actions (GnomeCmdMainWin *mw);
+extern "C" GMenu *gnome_cmd_main_menu_new (GnomeCmdMainWin *mw, gboolean initial);
 
 static void gnome_cmd_main_win_init (GnomeCmdMainWin *mw)
 {
@@ -563,11 +563,8 @@ static void gnome_cmd_main_win_init (GnomeCmdMainWin *mw)
 
     mw->priv->vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 0);
 
-    auto menu = gnome_cmd_main_menu_new ();
-    mw->priv->menubar = gtk_popover_menu_bar_new_from_model (G_MENU_MODEL (menu.menu));
-
-    GtkEventController *shortcuts_controller = gtk_shortcut_controller_new_for_model (menu.shortcuts);
-    gtk_widget_add_controller (GTK_WIDGET (mw), shortcuts_controller);
+    auto menu = gnome_cmd_main_menu_new (mw, TRUE);
+    mw->priv->menubar = gtk_popover_menu_bar_new_from_model (G_MENU_MODEL (menu));
 
     if (gnome_cmd_data.mainmenu_visibility)
     {
@@ -1024,9 +1021,8 @@ GnomeCmdCmdline *GnomeCmdMainWin::get_cmdline() const
 
 void GnomeCmdMainWin::update_mainmenu()
 {
-    auto menu = gnome_cmd_main_menu_new ();
-    gtk_popover_menu_bar_set_menu_model (GTK_POPOVER_MENU_BAR (priv->menubar), G_MENU_MODEL (menu.menu));
-    g_object_unref (menu.shortcuts);
+    auto menu = gnome_cmd_main_menu_new (this, FALSE);
+    gtk_popover_menu_bar_set_menu_model (GTK_POPOVER_MENU_BAR (priv->menubar), G_MENU_MODEL (menu));
 }
 
 

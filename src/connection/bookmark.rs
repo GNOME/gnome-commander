@@ -59,3 +59,9 @@ impl Bookmark {
 pub extern "C" fn gnome_cmd_bookmark_get_type() -> GType {
     Bookmark::static_type().into_glib()
 }
+
+#[derive(glib::Variant)]
+pub struct BookmarkGoToVariant {
+    pub connection_uuid: String,
+    pub bookmark_name: String,
+}
