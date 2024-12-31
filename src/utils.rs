@@ -22,7 +22,7 @@
 
 use crate::{config::PREFIX, data::ProgramsOptionsRead, file::File};
 use gettextrs::{gettext, ngettext};
-use gtk::{gdk, gio, glib, pango, prelude::*, AccessibleRelation};
+use gtk::{gdk, gio, glib, pango, prelude::*};
 use std::{
     ffi::{OsStr, OsString},
     mem::swap,
@@ -541,6 +541,14 @@ pub trait MenuBuilderExt {
         icon: &str,
     ) -> Self;
 
+    fn item_accel_and_icon(
+        self,
+        label: impl Into<String>,
+        detailed_action: impl AsRef<str>,
+        accel: &str,
+        icon: &str,
+    ) -> Self;
+
     fn section(self, section: gio::Menu) -> Self;
 
     fn submenu(self, label: impl Into<String>, section: gio::Menu) -> Self;
@@ -571,6 +579,20 @@ impl MenuBuilderExt for gio::Menu {
         icon: &str,
     ) -> Self {
         let item = gio::MenuItem::new(Some(&label.into()), Some(detailed_action.as_ref()));
+        item.set_icon(&gio::ThemedIcon::new(icon));
+        self.append_item(&item);
+        self
+    }
+
+    fn item_accel_and_icon(
+        self,
+        label: impl Into<String>,
+        detailed_action: impl AsRef<str>,
+        accel: &str,
+        icon: &str,
+    ) -> Self {
+        let item = gio::MenuItem::new(Some(&label.into()), Some(detailed_action.as_ref()));
+        item.set_attribute_value("accel", Some(&accel.to_variant()));
         item.set_icon(&gio::ThemedIcon::new(icon));
         self.append_item(&item);
         self
