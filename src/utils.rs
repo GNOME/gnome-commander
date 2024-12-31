@@ -542,6 +542,8 @@ pub trait MenuBuilderExt {
     ) -> Self;
 
     fn section(self, section: gio::Menu) -> Self;
+
+    fn submenu(self, label: impl Into<String>, section: gio::Menu) -> Self;
 }
 
 impl MenuBuilderExt for gio::Menu {
@@ -576,6 +578,11 @@ impl MenuBuilderExt for gio::Menu {
 
     fn section(self, section: gio::Menu) -> Self {
         self.append_section(None, &section);
+        self
+    }
+
+    fn submenu(self, label: impl Into<String>, section: gio::Menu) -> Self {
+        self.append_submenu(Some(&label.into()), &section);
         self
     }
 }

@@ -51,6 +51,8 @@ const MAX_OPEN_WITH_APPS: usize = 20;
 const COPYFILENAMES_STOCKID: &str = "gnome-commander-copy-file-names";
 const GTK_MAILSEND_STOCKID: &str = "mail-send";
 const GTK_TERMINAL_STOCKID: &str = "utilities-terminal";
+const FILETYPEDIR_STOCKID: &str = "file_type_dir";
+const FILETYPEREGULARFILE_STOCKID: &str = "file_type_regular";
 
 fn fav_app_menu_item(app: &App) -> gio::MenuItem {
     let item = gio::MenuItem::new(Some(&app.name()), None);
@@ -282,6 +284,26 @@ pub fn file_popup_menu(main_win: &MainWindow, file_list: &FileList) -> Option<gi
     Some(menu)
 }
 
+pub fn list_popup_menu() -> gio::Menu {
+    gio::Menu::new()
+        .submenu(gettext("New"), {
+            gio::Menu::new()
+                .item_icon(gettext("_Directory"), "win.file_mkdir", FILETYPEDIR_STOCKID)
+                .item_icon(
+                    gettext("_Text File"),
+                    "win.file-edit-new-doc",
+                    FILETYPEREGULARFILE_STOCKID,
+                )
+        })
+        .item(gettext("_Paste"), "fl.paste")
+        .item_icon(
+            gettext("Open _terminal here"),
+            "win.command-open-terminal",
+            GTK_TERMINAL_STOCKID,
+        )
+        .item(gettext("_Refresh"), "fl.refresh")
+}
+
 #[no_mangle]
 pub extern "C" fn gnome_cmd_file_popmenu_new(fl: *const GnomeCmdFileList) -> *mut GMenu {
     let file_list: FileList = unsafe { from_glib_none(fl) };
@@ -290,4 +312,9 @@ pub extern "C" fn gnome_cmd_file_popmenu_new(fl: *const GnomeCmdFileList) -> *mu
     };
     let menu = file_popup_menu(&main_win, &file_list);
     menu.to_glib_full()
+}
+
+#[no_mangle]
+pub extern "C" fn gnome_cmd_list_popmenu_new() -> *mut GMenu {
+    list_popup_menu().to_glib_full()
 }
