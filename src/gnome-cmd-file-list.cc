@@ -39,7 +39,6 @@
 #include "gnome-cmd-xfer.h"
 #include "imageloader.h"
 #include "cap.h"
-#include "gnome-cmd-file-popmenu.h"
 #include "gnome-cmd-quicksearch-popup.h"
 #include "gnome-cmd-file-collection.h"
 #include "dialogs/gnome-cmd-delete-dialog.h"
@@ -889,10 +888,12 @@ static GString *build_selected_file_list (GnomeCmdFileList *fl)
 }
 
 
+extern "C" GMenu *gnome_cmd_file_popmenu_new (GnomeCmdFileList *fl);
+
 static void show_file_popup (GnomeCmdFileList *fl, GdkRectangle *point_to)
 {
     // create the popup menu
-    GMenu *menu_model = gnome_cmd_file_popmenu_new (main_win, fl);
+    GMenu *menu_model = gnome_cmd_file_popmenu_new (fl);
     if (!menu_model) return;
 
     GtkWidget *popover = gtk_popover_menu_new_from_model (G_MENU_MODEL (menu_model));

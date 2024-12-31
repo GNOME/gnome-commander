@@ -22,10 +22,7 @@
 
 use crate::{
     file_selector::FileSelector,
-    libgcmd::{
-        file_descriptor::FileDescriptorExt,
-        state::{State, StateExt},
-    },
+    libgcmd::state::{State, StateExt},
     shortcuts::Shortcuts,
     types::FileSelectorID,
     user_actions,
@@ -81,7 +78,7 @@ pub mod ffi {
 glib::wrapper! {
     pub struct MainWindow(Object<ffi::GnomeCmdMainWin, ffi::GnomeCmdMainWinClass>)
         @extends gtk::ApplicationWindow, gtk::Window, gtk::Widget,
-        @implements gio::ActionMap;
+        @implements gio::ActionMap, gtk::Root;
 
     match fn {
         type_ => || ffi::gnome_cmd_main_win_get_type(),
