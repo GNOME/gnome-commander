@@ -43,6 +43,42 @@ pub const GNOME_CMD_PERM_USER_ALL: u32 = 448; //rwx------
 pub const GNOME_CMD_PERM_GROUP_ALL: u32 = 56; //---rwx---
 pub const GNOME_CMD_PERM_OTHER_ALL: u32 = 7; //------rwx
 
+pub const PERMISSION_MASKS: [[u32; 3]; 3] = [
+    [
+        GNOME_CMD_PERM_USER_READ,
+        GNOME_CMD_PERM_USER_WRITE,
+        GNOME_CMD_PERM_USER_EXEC,
+    ],
+    [
+        GNOME_CMD_PERM_GROUP_READ,
+        GNOME_CMD_PERM_GROUP_WRITE,
+        GNOME_CMD_PERM_GROUP_EXEC,
+    ],
+    [
+        GNOME_CMD_PERM_OTHER_READ,
+        GNOME_CMD_PERM_OTHER_WRITE,
+        GNOME_CMD_PERM_OTHER_EXEC,
+    ],
+];
+
+pub fn permissions_to_text(permissions: u32) -> String {
+    let mut result = String::with_capacity(9);
+    for grantee_masks in PERMISSION_MASKS {
+        for (mask, symbol) in grantee_masks.iter().zip(['r', 'w', 'x']) {
+            result.push(if (permissions & mask) != 0 {
+                symbol
+            } else {
+                '-'
+            });
+        }
+    }
+    result
+}
+
+pub fn permissions_to_numbers(permissions: u32) -> String {
+    format!("{:03o}", permissions)
+}
+
 pub fn temp_directory() -> &'static tempfile::TempDir {
     static TEMP_DIRECTORY: OnceLock<tempfile::TempDir> = OnceLock::new();
     TEMP_DIRECTORY

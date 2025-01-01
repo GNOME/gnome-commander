@@ -20,32 +20,8 @@
  */
 
 #pragma once
-
-#include "gnome-cmd-file.h"
-
 #define GNOME_CMD_TYPE_CHMOD_COMPONENT              (gnome_cmd_chmod_component_get_type ())
-#define GNOME_CMD_CHMOD_COMPONENT(obj)              (G_TYPE_CHECK_INSTANCE_CAST((obj), GNOME_CMD_TYPE_CHMOD_COMPONENT, GnomeCmdChmodComponent))
-#define GNOME_CMD_CHMOD_COMPONENT_CLASS(klass)      (G_TYPE_CHECK_CLASS_CAST((klass), GNOME_CMD_TYPE_CHMOD_COMPONENT, GnomeCmdChmodComponentClass))
-#define GNOME_CMD_IS_CHMOD_COMPONENT(obj)           (G_TYPE_CHECK_INSTANCE_TYPE((obj), GNOME_CMD_TYPE_CHMOD_COMPONENT))
-#define GNOME_CMD_IS_CHMOD_COMPONENT_CLASS(klass)   (G_TYPE_CHECK_CLASS_TYPE ((klass), GNOME_CMD_TYPE_CHMOD_COMPONENT))
-#define GNOME_CMD_CHMOD_COMPONENT_GET_CLASS(obj)    (G_TYPE_INSTANCE_GET_CLASS((obj), GNOME_CMD_TYPE_CHMOD_COMPONENT, GnomeCmdChmodComponentClass))
-
-
-struct GnomeCmdChmodComponent
-{
-    GtkBox parent;
-};
-
-
-struct GnomeCmdChmodComponentClass
-{
-    GtkBoxClass parent_class;
-
-    void (* perms_changed)      (GnomeCmdChmodComponent *component);
-};
-
-
-extern "C" GtkWidget *gnome_cmd_chmod_component_new (guint32 perms);
+struct GnomeCmdChmodComponent;
 
 extern "C" GType gnome_cmd_chmod_component_get_type ();
 

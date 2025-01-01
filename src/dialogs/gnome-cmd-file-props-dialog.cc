@@ -62,7 +62,7 @@ struct GnomeCmdFilePropsDialogPrivate
 
     // Permissions tab stuff
     GnomeCmdChownComponent *chown_component;
-    GtkWidget *chmod_component;
+    GnomeCmdChmodComponent *chmod_component;
 
 };
 
@@ -190,7 +190,7 @@ static void on_dialog_ok (GtkButton *btn, GnomeCmdFilePropsDialogPrivate *data)
 
     if (retValue)
     {
-        auto perms = gnome_cmd_chmod_component_get_perms (GNOME_CMD_CHMOD_COMPONENT (data->chmod_component));
+        auto perms = gnome_cmd_chmod_component_get_perms (data->chmod_component);
 
         if (perms != (get_gfile_attribute_uint32(data->f->get_file(), G_FILE_ATTRIBUTE_UNIX_MODE) & 0xFFF ))
             retValue = data->f->chmod(perms, &error);
@@ -494,12 +494,11 @@ inline GtkWidget *create_permissions_tab (GnomeCmdFilePropsDialogPrivate *data)
     gtk_box_append (GTK_BOX (vbox), cat);
 
 
-    data->chmod_component = gnome_cmd_chmod_component_new (0);
-    gtk_widget_show (data->chmod_component);
-    gnome_cmd_chmod_component_set_perms (GNOME_CMD_CHMOD_COMPONENT (data->chmod_component),
+    data->chmod_component = (GnomeCmdChmodComponent *) g_object_new (GNOME_CMD_TYPE_CHMOD_COMPONENT, nullptr);
+    gnome_cmd_chmod_component_set_perms (data->chmod_component,
         get_gfile_attribute_uint32(data->f->get_file(), G_FILE_ATTRIBUTE_UNIX_MODE) & 0xFFF);
 
-    cat = create_category (data->dialog, data->chmod_component, _("Access permissions"));
+    cat = create_category (data->dialog, GTK_WIDGET (data->chmod_component), _("Access permissions"));
     gtk_box_append (GTK_BOX (vbox), cat);
 
     return vbox;
