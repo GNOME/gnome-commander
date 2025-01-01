@@ -47,6 +47,7 @@ mod open_connection;
 mod open_file;
 mod path;
 mod plugin_manager;
+mod pwd;
 mod select_directory_button;
 mod select_icon_button;
 mod shortcuts;

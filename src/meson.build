@@ -82,7 +82,6 @@ sources_sources = files(
   'gnome-cmd-advrename-profile-component.cc',
   'gnome-cmd-application.cc',
   'gnome-cmd-chmod-component.cc',
-  'gnome-cmd-chown-component.cc',
   'gnome-cmd-cmdline.cc',
   'gnome-cmd-combo.cc',
   'gnome-cmd-con.cc',

@@ -61,7 +61,7 @@ struct GnomeCmdFilePropsDialogPrivate
     GtkWidget *app_label;
 
     // Permissions tab stuff
-    GtkWidget *chown_component;
+    GnomeCmdChownComponent *chown_component;
     GtkWidget *chmod_component;
 
 };
@@ -198,8 +198,8 @@ static void on_dialog_ok (GtkButton *btn, GnomeCmdFilePropsDialogPrivate *data)
 
     if (retValue)
     {
-        uid_t uid = gnome_cmd_chown_component_get_owner (GNOME_CMD_CHOWN_COMPONENT (data->chown_component));
-        gid_t gid = gnome_cmd_chown_component_get_group (GNOME_CMD_CHOWN_COMPONENT (data->chown_component));
+        uid_t uid = gnome_cmd_chown_component_get_owner (data->chown_component);
+        gid_t gid = gnome_cmd_chown_component_get_group (data->chown_component);
 
         if (   uid != get_gfile_attribute_uint32(data->f->get_file(), G_FILE_ATTRIBUTE_UNIX_UID)
             || gid != get_gfile_attribute_uint32(data->f->get_file(), G_FILE_ATTRIBUTE_UNIX_GID))
@@ -485,13 +485,12 @@ inline GtkWidget *create_permissions_tab (GnomeCmdFilePropsDialogPrivate *data)
     gtk_widget_set_margin_start (vbox, 6);
     gtk_widget_set_margin_end (vbox, 6);
 
-    data->chown_component = gnome_cmd_chown_component_new ();
-    gtk_widget_show (data->chown_component);
-    gnome_cmd_chown_component_set (GNOME_CMD_CHOWN_COMPONENT (data->chown_component),
+    data->chown_component = (GnomeCmdChownComponent *) g_object_new (GNOME_CMD_TYPE_CHOWN_COMPONENT, nullptr);
+    gnome_cmd_chown_component_set (data->chown_component,
         get_gfile_attribute_uint32(data->f->get_file(), G_FILE_ATTRIBUTE_UNIX_UID),
         get_gfile_attribute_uint32(data->f->get_file(), G_FILE_ATTRIBUTE_UNIX_GID));
 
-    GtkWidget *cat = create_category (data->dialog, data->chown_component, _("Owner and group"));
+    GtkWidget *cat = create_category (data->dialog, GTK_WIDGET (data->chown_component), _("Owner and group"));
     gtk_box_append (GTK_BOX (vbox), cat);
 
 

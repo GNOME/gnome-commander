@@ -2,7 +2,7 @@
  * Copyright 2001-2006 Marcus Bjurman
  * Copyright 2007-2012 Piotr Eljasiak
  * Copyright 2013-2024 Uwe Scholz
- * Copyright 2024 Andrey Kutejko <andy128k@gmail.com>
+ * Copyright 2024-2025 Andrey Kutejko <andy128k@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -464,4 +464,26 @@ pub fn remember_window_size(
         settings,
         move |window| save_window_size(window, &settings, width_key, height_key)
     ));
+}
+
+pub fn grid_attach(
+    parent: &impl IsA<gtk::Widget>,
+    child: &impl IsA<gtk::Widget>,
+    column: i32,
+    row: i32,
+    column_span: i32,
+    row_span: i32,
+) {
+    child.set_parent(parent);
+    if let Some(layout_child) = parent
+        .layout_manager()
+        .and_downcast::<gtk::GridLayout>()
+        .map(|l| l.layout_child(child))
+        .and_downcast::<gtk::GridLayoutChild>()
+    {
+        layout_child.set_column(column);
+        layout_child.set_row(row);
+        layout_child.set_column_span(column_span);
+        layout_child.set_row_span(row_span);
+    }
 }
