@@ -50,7 +50,7 @@ enum {
 static guint signals[LAST_SIGNAL] = { 0 };
 
 
-G_DEFINE_TYPE_WITH_PRIVATE (GnomeCmdDirIndicator, gnome_cmd_dir_indicator, GTK_TYPE_FRAME)
+G_DEFINE_TYPE_WITH_PRIVATE (GnomeCmdDirIndicator, gnome_cmd_dir_indicator, GTK_TYPE_WIDGET)
 
 
 static void select_path (GSimpleAction *action, GVariant *parameter, gpointer user_data);
@@ -64,6 +64,9 @@ static void dispose (GObject *object)
 {
     GnomeCmdDirIndicator *dir_indicator = GNOME_CMD_DIR_INDICATOR (object);
     auto priv = static_cast<GnomeCmdDirIndicatorPrivate*>(gnome_cmd_dir_indicator_get_instance_private (dir_indicator));
+
+    while (GtkWidget *child = gtk_widget_get_first_child (GTK_WIDGET (dir_indicator)))
+        gtk_widget_unparent (child);
 
     g_clear_pointer (&priv->slashCharPosition, g_free);
     g_clear_pointer (&priv->slashPixelPosition, g_free);
@@ -396,9 +399,10 @@ void gnome_cmd_dir_indicator_show_bookmarks (GnomeCmdDirIndicator *indicator)
 
 static void gnome_cmd_dir_indicator_init (GnomeCmdDirIndicator *indicator)
 {
-    auto priv = static_cast<GnomeCmdDirIndicatorPrivate*>(gnome_cmd_dir_indicator_get_instance_private (indicator));
+    auto layout_manager = gtk_box_layout_new (GTK_ORIENTATION_HORIZONTAL);
+    gtk_widget_set_layout_manager (GTK_WIDGET (indicator), layout_manager);
 
-    GtkWidget *hbox, *bbox;
+    auto priv = static_cast<GnomeCmdDirIndicatorPrivate*>(gnome_cmd_dir_indicator_get_instance_private (indicator));
 
     // create the directory label
     priv->label = create_label (GTK_WIDGET (indicator), "not initialized");
@@ -412,27 +416,22 @@ static void gnome_cmd_dir_indicator_init (GnomeCmdDirIndicator *indicator)
     GtkWidget *sw = gtk_scrolled_window_new ();
     gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (sw), GTK_POLICY_AUTOMATIC, GTK_POLICY_NEVER);
     gtk_scrolled_window_set_child (GTK_SCROLLED_WINDOW (sw), priv->label);
-    gtk_widget_show (sw);
-
-    // create the history popup button
-    priv->history_button = gtk_button_new_from_icon_name ("gnome-commander-down");
-    gtk_widget_set_can_focus (priv->history_button, FALSE);
-    gtk_button_set_has_frame (GTK_BUTTON (priv->history_button), FALSE);
+    gtk_widget_set_hexpand (sw, TRUE);
+    gtk_widget_set_margin_start (sw, 6);
+    gtk_widget_set_margin_end (sw, 6);
+    gtk_widget_set_parent (sw, GTK_WIDGET (indicator));
 
     // create the bookmark popup button
     priv->bookmark_button = gtk_button_new_from_icon_name ("gnome-commander-bookmark-outline");
     gtk_widget_set_can_focus (priv->bookmark_button, FALSE);
     gtk_button_set_has_frame (GTK_BUTTON (priv->bookmark_button), FALSE);
+    gtk_widget_set_parent (priv->bookmark_button, GTK_WIDGET (indicator));
 
-    // pack
-    hbox = create_hbox (GTK_WIDGET (indicator), FALSE, 10);
-    gtk_frame_set_child (GTK_FRAME (indicator), hbox);
-    gtk_widget_set_hexpand (sw, TRUE);
-    gtk_box_append (GTK_BOX (hbox), sw);
-    bbox = create_hbox (GTK_WIDGET (indicator), FALSE, 0);
-    gtk_box_append (GTK_BOX (hbox), bbox);
-    gtk_box_append (GTK_BOX (bbox), priv->bookmark_button);
-    gtk_box_append (GTK_BOX (bbox), priv->history_button);
+    // create the history popup button
+    priv->history_button = gtk_button_new_from_icon_name ("gnome-commander-down");
+    gtk_widget_set_can_focus (priv->history_button, FALSE);
+    gtk_button_set_has_frame (GTK_BUTTON (priv->history_button), FALSE);
+    gtk_widget_set_parent (priv->history_button, GTK_WIDGET (indicator));
 
     g_signal_connect (priv->history_button, "clicked", G_CALLBACK (on_history_button_clicked), indicator);
     g_signal_connect (priv->bookmark_button, "clicked", G_CALLBACK (on_bookmark_button_clicked), indicator);

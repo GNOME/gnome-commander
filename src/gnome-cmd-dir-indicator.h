@@ -32,12 +32,12 @@
 
 struct GnomeCmdDirIndicator
 {
-    GtkFrame parent;
+    GtkWidget parent;
 };
 
 struct GnomeCmdDirIndicatorClass
 {
-    GtkFrameClass parent_class;
+    GtkWidgetClass parent_class;
 
     void (*navigate) (const gchar *path, gboolean new_tab);
 };
