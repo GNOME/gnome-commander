@@ -2549,25 +2549,12 @@ void GnomeCmdData::load()
 
     gnome_cmd_con_list_lock (priv->con_list);
     load_devices();
-
-    // ToDo: Remove the check for connections file in gcmd version > 1.10.1
-    // Move connections to connections.deprecated
-    g_autofree gchar *connections_path_old = g_build_filename (get_package_config_dir(), "connections", nullptr);
-    ifstream f(connections_path_old);
-    // If connections file does exist - rename it so that the user know it can be removed
-    if(!f.fail())
-    {
-        g_autofree gchar *connections_path_new = g_build_filename (get_package_config_dir(), "connections.deprecated", nullptr);
-        rename (connections_path_old, connections_path_new);
-    }
-
     load_advrename_profiles ();
     load_search_profiles    ();
     load_connections        ();
     load_bookmarks          ();
     load_fav_apps           ();
     load_directory_history  ();
-
     gnome_cmd_con_list_unlock (priv->con_list);
 
     gchar *quick_connect_uri = g_settings_get_string(options.gcmd_settings->network, GCMD_SETTINGS_QUICK_CONNECT_URI);
