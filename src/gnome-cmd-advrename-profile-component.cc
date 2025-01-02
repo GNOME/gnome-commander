@@ -1203,7 +1203,7 @@ std::vector<GnomeCmd::RegexReplace> GnomeCmdAdvrenameProfileComponent::get_valid
 }
 
 
-GnomeCmdAdvrenameProfileComponent *gnome_cmd_advrename_profile_component_new (GnomeCmdData::AdvrenameConfig::Profile *profile)
+GnomeCmdAdvrenameProfileComponent *gnome_cmd_advrename_profile_component_new (GnomeCmdData::AdvrenameConfig::Profile *profile, GtkSizeGroup *labels_size_group)
 {
     g_return_val_if_fail (profile != nullptr, nullptr);
     auto component = new GnomeCmdAdvrenameProfileComponent(*profile);

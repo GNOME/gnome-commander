@@ -48,7 +48,7 @@ struct GnomeCmdSelectionProfileComponent
 
     GnomeCmdData::SearchProfile &profile;
 
-    GnomeCmdSelectionProfileComponent(GnomeCmdData::SearchProfile &profile, GtkWidget *widget=NULL, gchar *label=NULL);
+    GnomeCmdSelectionProfileComponent(GnomeCmdData::SearchProfile &profile, GtkSizeGroup *labels_size_group);
     ~GnomeCmdSelectionProfileComponent()    {}
 
     void update();
@@ -63,6 +63,6 @@ struct GnomeCmdSelectionProfileComponent
 };
 
 
-extern "C" GnomeCmdSelectionProfileComponent *gnome_cmd_search_profile_component_new (GnomeCmdData::SearchProfile *profile);
+extern "C" GnomeCmdSelectionProfileComponent *gnome_cmd_search_profile_component_new (GnomeCmdData::SearchProfile *profile, GtkSizeGroup *labels_size_group);
 extern "C" void gnome_cmd_search_profile_component_update (GnomeCmdSelectionProfileComponent *component);
 extern "C" void gnome_cmd_search_profile_component_copy (GnomeCmdSelectionProfileComponent *component);

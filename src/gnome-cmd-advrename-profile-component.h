@@ -66,6 +66,6 @@ struct GnomeCmdAdvrenameProfileComponent
     std::vector<GnomeCmd::RegexReplace> get_valid_regexes();
 };
 
-extern "C" GnomeCmdAdvrenameProfileComponent *gnome_cmd_advrename_profile_component_new (GnomeCmdData::AdvrenameConfig::Profile *profile);
+extern "C" GnomeCmdAdvrenameProfileComponent *gnome_cmd_advrename_profile_component_new (GnomeCmdData::AdvrenameConfig::Profile *profile, GtkSizeGroup *labels_size_group);
 extern "C" void gnome_cmd_advrename_profile_component_update (GnomeCmdAdvrenameProfileComponent *component);
 extern "C" void gnome_cmd_advrename_profile_component_copy (GnomeCmdAdvrenameProfileComponent *component);
