@@ -1601,27 +1601,28 @@ void GnomeCmdData::save_connections()
     g_variant_builder_init (&gVariantBuilder, G_VARIANT_TYPE_ARRAY);
     gboolean hasConnections {false};
 
-    for (GList *i = gnome_cmd_con_list_get_all_remote (gnome_cmd_data.priv->con_list); i; i = i->next)
+    GListModel *connections = gnome_cmd_con_list_get_all (gnome_cmd_data.priv->con_list);
+    guint len = g_list_model_get_n_items (connections);
+    for (guint i = 0; i < len; ++i)
     {
-        GnomeCmdCon *con = GNOME_CMD_CON (i->data);
+        GnomeCmdCon *con = GNOME_CMD_CON (g_list_model_get_item (connections, i));
+        if (!GNOME_CMD_IS_CON_REMOTE (con))
+            continue;
 
-        if (con)
+        const gchar *alias = gnome_cmd_con_get_alias (con);
+
+        if (!alias || !*alias)
+            continue;
+
+        gchar *uri = gnome_cmd_con_get_uri_string (con);
+        if (uri && *uri)
         {
-            const gchar *alias = gnome_cmd_con_get_alias (con);
-
-            if (!alias || !*alias)
-                continue;
-
-            gchar *uri = gnome_cmd_con_get_uri_string (con);
-            if (uri && *uri)
-            {
-                hasConnections = true;
-                g_variant_builder_add (&gVariantBuilder, GCMD_SETTINGS_CONNECTION_FORMAT_STRING,
-                                        alias,
-                                        uri);
-            }
-            g_free (uri);
+            hasConnections = true;
+            g_variant_builder_add (&gVariantBuilder, GCMD_SETTINGS_CONNECTION_FORMAT_STRING,
+                                    alias,
+                                    uri);
         }
+        g_free (uri);
     }
     if (hasConnections)
     {
@@ -1656,7 +1657,7 @@ inline void remove_gvolume (GVolume *gVolume)
             if ((g_strcmp0(device_fn, uuid)==0))
             {
                 DEBUG('m',"Remove Volume: %s\n", device_fn);
-                gnome_cmd_con_list_remove_dev (gnome_cmd_data.priv->con_list, device);
+                gnome_cmd_con_list_remove (gnome_cmd_data.priv->con_list, con);
                 break;
             }
         }
@@ -1670,7 +1671,7 @@ inline gboolean device_mount_point_exists (GnomeCmdConList *list, const gchar *m
 {
     gboolean rc = FALSE;
 
-    GListModel *connections = gnome_cmd_con_list_get_all (gnome_cmd_data.priv->con_list);
+    GListModel *connections = gnome_cmd_con_list_get_all (list);
     guint len = g_list_model_get_n_items (connections);
     for (guint i = 0; i < len; ++i)
     {
@@ -1696,9 +1697,15 @@ inline gboolean remote_con_stored_already (GnomeCmdConList *list, GFile *gFile)
 {
     gboolean rc = FALSE;
     GFile *conGFile = nullptr;
-    for (GList *tmp = gnome_cmd_con_list_get_all_remote(list); tmp; tmp = tmp->next)
+
+    GListModel *connections = gnome_cmd_con_list_get_all (list);
+    guint len = g_list_model_get_n_items (connections);
+    for (guint i = 0; i < len; ++i)
     {
-        auto con = static_cast <GnomeCmdCon*> (tmp->data);
+        GnomeCmdCon *con = GNOME_CMD_CON (g_list_model_get_item (connections, i));
+        if (!GNOME_CMD_IS_CON_REMOTE (con))
+            continue;
+
         auto uriString = gnome_cmd_con_get_uri_string (con);
 
         conGFile = g_file_new_for_uri(uriString);
@@ -1746,7 +1753,7 @@ static void add_gmount (GMount *gMount)
     if (!remote_con_stored_already (gnome_cmd_data.priv->con_list, gFile))
     {
         auto remoteCon = gnome_cmd_con_remote_new(name, uriString);
-        gnome_cmd_con_list_add_remote (gnome_cmd_data.priv->con_list, remoteCon);
+        gnome_cmd_con_list_add (gnome_cmd_data.priv->con_list, GNOME_CMD_CON (remoteCon));
     }
 
     g_free (name);
@@ -1783,7 +1790,7 @@ static void add_gvolume (GVolume *gVolume)
         GnomeCmdConDevice *ConDev = gnome_cmd_con_device_new (name, uuid, nullptr, gIcon);
         gnome_cmd_con_device_set_autovol (ConDev, TRUE);
         gnome_cmd_con_device_set_gvolume (ConDev, gVolume);
-        gnome_cmd_con_list_add_dev (gnome_cmd_data.priv->con_list, ConDev);
+        gnome_cmd_con_list_add (gnome_cmd_data.priv->con_list, GNOME_CMD_CON (ConDev));
     }
     else
     {
@@ -2363,7 +2370,7 @@ void GnomeCmdData::load_devices()
         GIcon *icon = iconVariant ? g_icon_deserialize (iconVariant) : nullptr;
         g_variant_unref (iconVariant);
 
-        gnome_cmd_con_list_add_dev (gnome_cmd_data.priv->con_list, gnome_cmd_con_device_new (alias, device_fn, mountPoint, icon));
+        gnome_cmd_con_list_add (gnome_cmd_data.priv->con_list, GNOME_CMD_CON (gnome_cmd_con_device_new (alias, device_fn, mountPoint, icon)));
 
         g_variant_unref(device);
     }
@@ -2381,7 +2388,7 @@ void GnomeCmdData::load_devices()
             g_variant_get(device, GCMD_SETTINGS_DEVICES_FORMAT_STRING, &alias, &device_fn, &mountPoint, &iconPath);
 
             GIcon *icon = iconPath && *iconPath ? g_file_icon_new (g_file_new_for_path (iconPath)) : nullptr;
-            gnome_cmd_con_list_add_dev (gnome_cmd_data.priv->con_list, gnome_cmd_con_device_new (alias, device_fn, mountPoint, icon));
+            gnome_cmd_con_list_add (gnome_cmd_data.priv->con_list, GNOME_CMD_CON (gnome_cmd_con_device_new (alias, device_fn, mountPoint, icon)));
 
             g_variant_unref(device);
         }
@@ -2414,7 +2421,7 @@ void GnomeCmdData::load_connections()
         {
             GnomeCmdConRemote *server = gnome_cmd_con_remote_new (name, uri);
             if (server)
-                gnome_cmd_con_list_add_remote (gnome_cmd_con_list_get(), server);
+                gnome_cmd_con_list_add (gnome_cmd_con_list_get(), GNOME_CMD_CON (server));
             else
                 g_warning ("<Connection> invalid URI: '%s' - ignored", uri);
         }

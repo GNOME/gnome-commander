@@ -21,82 +21,40 @@
  */
 
 use crate::{
-    connection::list::ConnectionList, i18n::I18N_CONTEXT_ACTION, main_win::MainWindow,
+    connection::{
+        connection::{Connection, ConnectionExt},
+        list::ConnectionList,
+        remote::ConnectionRemote,
+    },
+    i18n::I18N_CONTEXT_ACTION,
+    main_win::MainWindow,
     types::FileSelectorID,
 };
 use gettextrs::{gettext, pgettext};
-use gtk::{glib, pango, prelude::*, subclass::prelude::*};
+use gtk::{gio, glib, prelude::*, subclass::prelude::*};
 
 mod imp {
     use super::*;
     use crate::{
-        connection::{connection::ConnectionExt, remote::ConnectionRemote},
         dialogs::connect_dialog::ConnectDialog,
-        utils::{dialog_button_box, display_help},
+        utils::{dialog_button_box, display_help, swap_list_store_items},
     };
     use std::{cell::OnceCell, time::Duration};
 
-    const COL_METHOD: i32 = 0;
-    const COL_NAME: i32 = 1;
-    const COL_CON: i32 = 2;
-
-    const SORTID_METHOD: gtk::SortColumn = gtk::SortColumn::Index(0);
-    const SORTID_NAME: gtk::SortColumn = gtk::SortColumn::Index(1);
-
-    fn create_model() -> gtk::ListStore {
-        let store = gtk::ListStore::new(&[
-            glib::Type::STRING, // COL_METHOD
-            glib::Type::STRING, // COL_NAME
-            glib::Type::OBJECT, // COL_CON
-        ]);
-        store.set_sort_func(SORTID_METHOD, |model, iter1, iter2| {
-            let c1 = model
-                .get_value(iter1, COL_CON)
-                .get::<'_, ConnectionRemote>()
-                .ok()
-                .map(|c| (c.method(), c.alias().map(|a| a.to_uppercase())));
-            let c2 = model
-                .get_value(iter2, COL_CON)
-                .get::<'_, ConnectionRemote>()
-                .ok()
-                .map(|c| (c.method(), c.alias().map(|a| a.to_uppercase())));
-            c1.cmp(&c2).into()
-        });
-        store.set_sort_func(SORTID_NAME, |model, iter1, iter2| {
-            let c1 = model
-                .get_value(iter1, COL_CON)
-                .get::<'_, ConnectionRemote>()
-                .ok()
-                .map(|c| (c.alias().map(|a| a.to_uppercase()), c.method()));
-            let c2 = model
-                .get_value(iter2, COL_CON)
-                .get::<'_, ConnectionRemote>()
-                .ok()
-                .map(|c| (c.alias().map(|a| a.to_uppercase()), c.method()));
-            c1.cmp(&c2).into()
-        });
-        store.set_sort_column_id(SORTID_METHOD, gtk::SortType::Ascending);
-        store
-    }
-
-    pub fn set_connection(
-        store: &gtk::ListStore,
-        iter: &gtk::TreeIter,
-        connection: &ConnectionRemote,
-    ) {
-        store.set_value(iter, COL_METHOD as u32, &connection.icon_name().to_value());
-        store.set_value(iter, COL_NAME as u32, &connection.alias().to_value());
-        store.set_value(iter, COL_CON as u32, &connection.to_value());
-    }
-
+    #[derive(glib::Properties)]
+    #[properties(wrapper_type = super::RemoteDialog)]
     pub struct RemoteDialog {
-        pub model: gtk::ListStore,
-        pub view: gtk::TreeView,
+        selection: gtk::SingleSelection,
+        pub view: gtk::ColumnView,
         edit_button: gtk::Button,
         remove_button: gtk::Button,
+        up_button: gtk::Button,
+        down_button: gtk::Button,
         connect_button: gtk::Button,
-        pub main_win: OnceCell<MainWindow>,
-        pub connections: OnceCell<ConnectionList>,
+        #[property(get, construct_only)]
+        main_window: OnceCell<MainWindow>,
+        #[property(get, construct_only)]
+        connections: OnceCell<ConnectionList>,
     }
 
     #[glib::object_subclass]
@@ -107,11 +65,10 @@ mod imp {
 
         fn new() -> Self {
             Self {
-                model: create_model(),
-                view: gtk::TreeView::builder()
-                    .enable_search(true)
-                    .search_column(COL_NAME)
-                    .height_request(240)
+                selection: gtk::SingleSelection::new(None::<gio::ListModel>),
+                view: gtk::ColumnView::builder()
+                    .width_request(400)
+                    .height_request(250)
                     .build(),
                 edit_button: gtk::Button::builder()
                     .label(&gettext("_Edit"))
@@ -121,16 +78,25 @@ mod imp {
                     .label(&gettext("_Remove"))
                     .use_underline(true)
                     .build(),
+                up_button: gtk::Button::builder()
+                    .label(&gettext("_Up"))
+                    .use_underline(true)
+                    .build(),
+                down_button: gtk::Button::builder()
+                    .label(&gettext("_Down"))
+                    .use_underline(true)
+                    .build(),
                 connect_button: gtk::Button::builder()
                     .label(&pgettext(I18N_CONTEXT_ACTION, "C_onnect"))
                     .use_underline(true)
                     .build(),
-                main_win: Default::default(),
+                main_window: Default::default(),
                 connections: Default::default(),
             }
         }
     }
 
+    #[glib::derived_properties]
     impl ObjectImpl for RemoteDialog {
         fn constructed(&self) {
             self.parent_constructed();
@@ -149,39 +115,20 @@ mod imp {
                 .build();
             obj.set_child(Some(&grid));
 
-            {
-                let renderer = gtk::CellRendererPixbuf::new();
-                let col = gtk::TreeViewColumn::with_attributes(
-                    "",
-                    &renderer,
-                    &[("icon-name", COL_METHOD)],
-                );
-                col.set_clickable(true);
-                col.set_sort_column_id(COL_METHOD);
-                col.button()
-                    .set_tooltip_text(Some(&gettext("Network protocol")));
-                self.view.append_column(&col);
-            }
-            {
-                let renderer = gtk::CellRendererText::builder()
-                    .ellipsize(pango::EllipsizeMode::End)
-                    .ellipsize_set(true)
-                    .build();
-                let col = gtk::TreeViewColumn::with_attributes(
-                    &gettext("Name"),
-                    &renderer,
-                    &[("text", COL_NAME)],
-                );
-                col.set_clickable(true);
-                col.set_resizable(true);
-                col.set_sort_column_id(COL_NAME);
-                col.button()
-                    .set_tooltip_text(Some(&gettext("Connection name")));
-                self.view.append_column(&col);
-            }
+            self.view.append_column(
+                &gtk::ColumnViewColumn::builder()
+                    .factory(&connection_icon_factory())
+                    .build(),
+            );
+            self.view.append_column(
+                &gtk::ColumnViewColumn::builder()
+                    .title(gettext("Name"))
+                    .factory(&connection_alias_factory())
+                    .expand(true)
+                    .build(),
+            );
 
-            self.view.set_model(Some(&self.model));
-            self.view.selection().set_mode(gtk::SelectionMode::Browse);
+            self.view.set_model(Some(&self.selection));
 
             let sw = gtk::ScrolledWindow::builder()
                 .hscrollbar_policy(gtk::PolicyType::Automatic)
@@ -195,7 +142,7 @@ mod imp {
 
             let bbox = gtk::Box::builder()
                 .orientation(gtk::Orientation::Vertical)
-                .spacing(12)
+                .spacing(6)
                 .build();
             grid.attach(&bbox, 1, 0, 1, 1);
 
@@ -227,6 +174,19 @@ mod imp {
                 move |_| imp.on_remove_btn_clicked()
             ));
             bbox.append(&self.remove_button);
+
+            self.up_button.connect_clicked(glib::clone!(
+                #[weak(rename_to = imp)]
+                self,
+                move |_| imp.move_up()
+            ));
+            bbox.append(&self.up_button);
+            self.down_button.connect_clicked(glib::clone!(
+                #[weak(rename_to = imp)]
+                self,
+                move |_| imp.move_down()
+            ));
+            bbox.append(&self.down_button);
 
             let help_button = gtk::Button::builder()
                 .label(&gettext("_Help"))
@@ -264,20 +224,16 @@ mod imp {
                 1,
             );
 
-            self.view.connect_row_activated(glib::clone!(
+            self.view.connect_activate(glib::clone!(
                 #[weak(rename_to = imp)]
                 self,
-                move |_, _, _| imp.on_list_row_activated()
+                move |_, _| imp.do_connect()
             ));
-            self.model.connect_row_inserted(glib::clone!(
+
+            self.selection.connect_selected_notify(glib::clone!(
                 #[weak(rename_to = imp)]
                 self,
-                move |_, _, _| imp.on_list_row_inserted()
-            ));
-            self.model.connect_row_deleted(glib::clone!(
-                #[weak(rename_to = imp)]
-                self,
-                move |_, _| imp.on_list_row_deleted()
+                move |_| imp.selection_changed()
             ));
         }
     }
@@ -287,34 +243,44 @@ mod imp {
 
     impl RemoteDialog {
         pub fn fill_model(&self) {
-            let Some(list) = self.connections.get().map(|l| l.all_remote()) else {
+            let Some(list) = self.connections.get().map(|l| l.all()) else {
                 return;
             };
-            for connection in list
-                .iter()
-                .flat_map(|c| c.downcast_ref::<ConnectionRemote>())
-            {
-                let iter = self.model.append();
-                set_connection(&self.model, &iter, &connection);
+            let filter = gtk::FilterListModel::new(
+                Some(list),
+                Some(gtk::CustomFilter::new(|item| {
+                    item.downcast_ref::<ConnectionRemote>().is_some()
+                })),
+            );
+            self.selection.set_model(Some(&filter));
+        }
+
+        fn selection_changed(&self) {
+            let position = self.selection.selected();
+            if position != gtk::INVALID_LIST_POSITION {
+                let len = self.selection.n_items();
+                self.edit_button.set_sensitive(true);
+                self.remove_button.set_sensitive(true);
+                self.up_button.set_sensitive(position > 0);
+                self.down_button.set_sensitive(position + 1 < len);
+            } else {
+                self.edit_button.set_sensitive(false);
+                self.remove_button.set_sensitive(false);
+                self.up_button.set_sensitive(false);
+                self.down_button.set_sensitive(false);
             }
-
-            let empty = self.is_empty();
-            self.edit_button.set_sensitive(!empty);
-            self.remove_button.set_sensitive(!empty);
-            self.connect_button.set_sensitive(!empty);
         }
 
-        fn is_empty(&self) -> bool {
-            self.model.iter_first().is_none()
-        }
-
-        pub fn get_selected_connection(&self) -> Option<(gtk::TreeIter, ConnectionRemote)> {
-            let (model, iter) = self.view.selection().selected()?;
-            let connection = model
-                .get_value(&iter, COL_CON)
-                .get::<'_, ConnectionRemote>()
-                .ok()?;
-            Some((iter, connection))
+        pub fn selected_connection(&self) -> Option<(u32, ConnectionRemote)> {
+            let position = self.selection.selected();
+            if position == gtk::INVALID_LIST_POSITION {
+                return None;
+            };
+            let connection = self
+                .selection
+                .item(position)
+                .and_downcast::<ConnectionRemote>()?;
+            Some((position, connection))
         }
 
         async fn on_new_btn_clicked(&self) {
@@ -324,47 +290,83 @@ mod imp {
                 return;
             };
 
-            self.connections.get().unwrap().add_remote(&connection);
-            let iter = self.model.append();
-            set_connection(&self.model, &iter, &connection);
+            let connections = self.obj().connections();
+            connections.add(&connection);
+
+            let position = self.selection.n_items() - 1;
+            self.selection.set_selected(position);
+            self.view
+                .scroll_to(position, None, gtk::ListScrollFlags::all(), None);
+            self.view.grab_focus();
         }
 
         async fn on_edit_btn_clicked(&self) {
-            let Some((iter, connection)) = self.get_selected_connection() else {
+            let Some((position, connection)) = self.selected_connection() else {
                 return;
             };
 
             if ConnectDialog::edit_connection(self.obj().upcast_ref(), &connection).await {
-                set_connection(&self.model, &iter, &connection);
+                self.obj().connections().refresh(&connection);
+                self.selection.set_selected(position);
+                self.view
+                    .scroll_to(position, None, gtk::ListScrollFlags::all(), None);
+                self.view.grab_focus();
             }
         }
 
         fn on_remove_btn_clicked(&self) {
-            let Some((iter, connection)) = self.get_selected_connection() else {
+            let Some((_, connection)) = self.selected_connection() else {
                 eprintln!("{}", gettext("No server selected"));
                 return;
             };
-
-            self.model.remove(&iter);
-            self.connections.get().unwrap().remove_remote(&connection);
+            self.obj().connections().remove(&connection);
         }
 
-        fn on_list_row_activated(&self) {
-            self.do_connect();
+        fn move_up(&self) {
+            let Some((position, connection)) = self.selected_connection() else {
+                return;
+            };
+            let Some(prev_position) = position.checked_sub(1) else {
+                return;
+            };
+            let Some(prev_connection) = self.selection.item(prev_position) else {
+                return;
+            };
+            let Some(store) = self
+                .connections
+                .get()
+                .map(|l| l.all())
+                .and_downcast::<gio::ListStore>()
+            else {
+                return;
+            };
+            swap_list_store_items(&store, &connection, &prev_connection);
+            self.selection.set_selected(prev_position);
         }
 
-        fn on_list_row_inserted(&self) {
-            self.edit_button.set_sensitive(true);
-            self.remove_button.set_sensitive(true);
-            self.connect_button.set_sensitive(true);
-        }
-
-        fn on_list_row_deleted(&self) {
-            if self.is_empty() {
-                self.edit_button.set_sensitive(false);
-                self.remove_button.set_sensitive(false);
-                self.connect_button.set_sensitive(false);
-            }
+        fn move_down(&self) {
+            let Some((position, connection)) = self.selected_connection() else {
+                return;
+            };
+            let Some(next_position) = position
+                .checked_add(1)
+                .filter(|p| *p < self.selection.n_items())
+            else {
+                return;
+            };
+            let Some(next_connection) = self.selection.item(next_position) else {
+                return;
+            };
+            let Some(store) = self
+                .connections
+                .get()
+                .map(|l| l.all())
+                .and_downcast::<gio::ListStore>()
+            else {
+                return;
+            };
+            swap_list_store_items(&store, &connection, &next_connection);
+            self.selection.set_selected(next_position);
         }
 
         async fn on_help_btn_clicked(&self) {
@@ -384,17 +386,15 @@ mod imp {
         }
 
         fn do_connect(&self) {
-            let Some((_iter, connection)) = self.get_selected_connection() else {
+            let Some((_iter, connection)) = self.selected_connection() else {
                 eprintln!("{}", gettext("No server selected"));
                 return;
             };
 
-            let Some(main_win) = self.main_win.get() else {
-                eprintln!("No main window");
-                return;
-            };
-
-            let fs = main_win.file_selector(FileSelectorID::ACTIVE);
+            let fs = self
+                .obj()
+                .main_window()
+                .file_selector(FileSelectorID::ACTIVE);
 
             self.obj().close();
 
@@ -415,23 +415,61 @@ glib::wrapper! {
 
 impl RemoteDialog {
     pub fn new(main_window: &MainWindow) -> Self {
-        let dialog: RemoteDialog = glib::Object::builder().build();
-        dialog.set_transient_for(Some(main_window));
-        dialog.imp().main_win.set(main_window.clone()).ok().unwrap();
-        dialog
-            .imp()
-            .connections
-            .set(ConnectionList::get())
-            .ok()
-            .unwrap();
+        let dialog: RemoteDialog = glib::Object::builder()
+            .property("transient-for", main_window)
+            .property("connections", ConnectionList::get())
+            .property("main-window", main_window)
+            .build();
         dialog.imp().fill_model();
-
-        // select first
-        if let Some(iter) = dialog.imp().model.iter_first() {
-            dialog.imp().view.selection().select_iter(&iter);
-        }
         dialog.imp().view.grab_focus();
-
         dialog
     }
+}
+
+fn connection_icon_factory() -> gtk::ListItemFactory {
+    let factory = gtk::SignalListItemFactory::new();
+    factory.connect_setup(|_, item| {
+        if let Some(list_item) = item.downcast_ref::<gtk::ListItem>() {
+            list_item.set_child(Some(&gtk::Image::builder().build()));
+        }
+    });
+    factory.connect_bind(|_, item| {
+        let Some(list_item) = item.downcast_ref::<gtk::ListItem>() else {
+            return;
+        };
+        let Some(image) = list_item.child().and_downcast::<gtk::Image>() else {
+            return;
+        };
+        image.set_icon_name(None);
+        if let Some(icon) = list_item
+            .item()
+            .and_downcast::<Connection>()
+            .and_then(|c| c.open_icon())
+        {
+            image.set_from_gicon(&icon);
+        };
+    });
+    factory.upcast()
+}
+
+fn connection_alias_factory() -> gtk::ListItemFactory {
+    let factory = gtk::SignalListItemFactory::new();
+    factory.connect_setup(|_, item| {
+        if let Some(list_item) = item.downcast_ref::<gtk::ListItem>() {
+            list_item.set_child(Some(&gtk::Label::builder().xalign(0.0).build()));
+        }
+    });
+    factory.connect_bind(|_, item| {
+        let Some(list_item) = item.downcast_ref::<gtk::ListItem>() else {
+            return;
+        };
+        let Some(label) = list_item.child().and_downcast::<gtk::Label>() else {
+            return;
+        };
+        label.set_label("");
+        if let Some(device) = list_item.item().and_downcast::<Connection>() {
+            label.set_label(&device.alias().unwrap_or_else(|| device.uuid()));
+        };
+    });
+    factory.upcast()
 }

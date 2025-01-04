@@ -63,7 +63,6 @@ inline GnomeCmdConList *gnome_cmd_con_list_new ()
 extern "C" GnomeCmdConList *gnome_cmd_con_list_get ();
 
 extern "C" GListModel *gnome_cmd_con_list_get_all (GnomeCmdConList *list);
-extern "C" GList *gnome_cmd_con_list_get_all_remote (GnomeCmdConList *list);
 
 extern "C" GnomeCmdCon *gnome_cmd_con_list_find_by_uuid (GnomeCmdConList *con_list, const gchar *uuid);
 extern "C" GnomeCmdCon *gnome_cmd_con_list_find_by_alias (GnomeCmdConList *con_list, const gchar *alias);
@@ -86,10 +85,8 @@ extern "C" void gnome_cmd_con_list_load_bookmarks (GnomeCmdConList *list, GVaria
 extern "C" GVariant *gnome_cmd_con_list_save_bookmarks (GnomeCmdConList *list);
 
 // FFI
-extern "C" void gnome_cmd_con_list_add_remote (GnomeCmdConList *list, GnomeCmdConRemote *con);
-extern "C" void gnome_cmd_con_list_add_dev (GnomeCmdConList *list, GnomeCmdConDevice *con);
-extern "C" void gnome_cmd_con_list_remove_remote (GnomeCmdConList *list, GnomeCmdConRemote *con);
-extern "C" void gnome_cmd_con_list_remove_dev (GnomeCmdConList *list, GnomeCmdConDevice *con);
+extern "C" void gnome_cmd_con_list_add (GnomeCmdConList *list, GnomeCmdCon *con);
+extern "C" void gnome_cmd_con_list_remove (GnomeCmdConList *list, GnomeCmdCon *con);
 
 extern "C" void gnome_cmd_con_list_lock (GnomeCmdConList *list);
 extern "C" void gnome_cmd_con_list_unlock (GnomeCmdConList *list);
