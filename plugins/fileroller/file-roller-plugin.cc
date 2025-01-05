@@ -169,13 +169,9 @@ struct FileRollerPluginPrivate
     gchar *action_group_name;
 
     GtkWidget *conf_dialog;
-    GtkWidget *conf_combo;
-    GtkWidget *conf_entry;
 
     GnomeCmdState *state;
 
-    gchar *default_ext;
-    gchar *file_prefix_pattern;
     PluginSettings *settings;
 };
 
@@ -402,7 +398,10 @@ static void on_add_to_archive (GSimpleAction *action, GVariant *parameter, gpoin
     GtkWidget *entry = gtk_entry_new ();
     gtk_box_append (GTK_BOX (content_area), entry);
 
-    gchar *locale_format = g_locale_from_utf8 (priv->file_prefix_pattern, -1, nullptr, nullptr, nullptr);
+    gchar *file_prefix_pattern = g_settings_get_string (priv->settings->file_roller_plugin, GCMD_PLUGINS_FILE_ROLLER_PREFIX_PATTERN);
+    gchar *locale_format = g_locale_from_utf8 (file_prefix_pattern, -1, nullptr, nullptr, nullptr);
+    g_free (file_prefix_pattern);
+
     char s[256];
     time_t t = time (nullptr);
 
@@ -417,7 +416,9 @@ static void on_add_to_archive (GSimpleAction *action, GVariant *parameter, gpoin
     g_free (locale_format);
     gchar *file_prefix = g_locale_to_utf8 (s, -1, nullptr, nullptr, nullptr);
 
-    gchar *archive_name_tmp = g_strdup_printf("%s%s", file_prefix, priv->default_ext);
+    gchar *default_ext = g_settings_get_string (priv->settings->file_roller_plugin, GCMD_PLUGINS_FILE_ROLLER_DEFAULT_TYPE);
+    gchar *archive_name_tmp = g_strdup_printf("%s%s", file_prefix, default_ext);
+    g_free (default_ext);
     auto file_name_tmp = GetGfileAttributeString(GNOME_CMD_FILE_BASE (files->data)->gFile, G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME);
     gchar *archive_name = new_string_with_replaced_keyword(archive_name_tmp, "$N", file_name_tmp);
     gtk_editable_set_text (GTK_EDITABLE (entry), archive_name);
@@ -568,28 +569,37 @@ static GMenuModel *create_popup_menu_items (GnomeCmdPlugin *plugin, GnomeCmdStat
 }
 
 
-static void on_configure_close (GtkButton *btn, FileRollerPlugin *plugin)
+static gboolean get_archive_type (GValue* value, GVariant* variant, gpointer user_data)
 {
-    FileRollerPluginPrivate *priv = (FileRollerPluginPrivate *) file_roller_plugin_get_instance_private (plugin);
-
-    priv->default_ext = gtk_combo_box_text_get_active_text (GTK_COMBO_BOX_TEXT (priv->conf_combo));
-    priv->file_prefix_pattern = g_strdup (get_entry_text (priv->conf_entry, "file_prefix_pattern_entry"));
-
-    g_settings_set_string (priv->settings->file_roller_plugin, GCMD_PLUGINS_FILE_ROLLER_DEFAULT_TYPE, priv->default_ext);
-    g_settings_set_string (priv->settings->file_roller_plugin, GCMD_PLUGINS_FILE_ROLLER_PREFIX_PATTERN, priv->file_prefix_pattern);
-
-    gtk_widget_hide (priv->conf_dialog);
+    const gchar *str = g_variant_get_string (variant, nullptr);
+    for (guint i=0; handled_extensions[i]; ++i)
+        if (g_strcmp0 (str, handled_extensions[i]) == 0)
+        {
+            g_value_set_uint (value, i);
+            return TRUE;
+        }
+    return FALSE;
 }
 
 
-static void on_date_format_update (GtkEditable *editable, GtkWidget *options_dialog)
+static GVariant *set_archive_type(const GValue* value, const GVariantType* expected_type, gpointer user_data)
 {
-    GtkWidget *format_entry = lookup_widget (options_dialog, "file_prefix_pattern_entry");
-    GtkWidget *test_label = lookup_widget (options_dialog, "date_format_test_label");
-    GtkWidget *combo = lookup_widget (options_dialog, "combo");
-    gchar *file_suffix = gtk_combo_box_text_get_active_text (GTK_COMBO_BOX_TEXT (combo));
+    guint i = g_value_get_uint (value);
+    return g_variant_new_string (handled_extensions[i]);
+}
 
-    const char *format = gtk_editable_get_text (GTK_EDITABLE (format_entry));
+
+static void on_date_format_update (GtkWidget *options_dialog, ...)
+{
+    auto format_entry = GTK_EDITABLE (g_object_get_data (G_OBJECT (options_dialog), "file_prefix_pattern_entry"));
+    auto format = gtk_editable_get_text (format_entry);
+
+    auto combo = GTK_DROP_DOWN (g_object_get_data (G_OBJECT (options_dialog), "combo"));
+    auto file_suffix_obj = GTK_STRING_OBJECT (gtk_drop_down_get_selected_item (combo));
+    auto file_suffix = gtk_string_object_get_string (file_suffix_obj);
+
+    auto test_label = GTK_LABEL (g_object_get_data (G_OBJECT (options_dialog), "date_format_test_label"));
+
     gchar *locale_format = g_locale_from_utf8 (format, -1, nullptr, nullptr, nullptr);
 
     char s[256];
@@ -607,9 +617,8 @@ static void on_date_format_update (GtkEditable *editable, GtkWidget *options_dia
     gchar *filename_tmp = g_strdup_printf("%s%s", file_prefix, file_suffix);
     gchar *replacement = g_strdup(_("File"));
     gchar *filename = new_string_with_replaced_keyword(filename_tmp, "$N", replacement);
-    gtk_label_set_text (GTK_LABEL (test_label), filename);
+    gtk_label_set_text (test_label, filename);
     g_free (file_prefix);
-    g_free (file_suffix);
     g_free (replacement);
     g_free (filename);
     g_free (filename_tmp);
@@ -619,83 +628,79 @@ static void on_date_format_update (GtkEditable *editable, GtkWidget *options_dia
 
 static void configure (GnomeCmdPlugin *plugin, GtkWindow *parent_window)
 {
-    GtkWidget *dialog, *grid, *cat, *label, *vbox, *entry;
-    GtkWidget *combo;
+    GtkWidget *dialog, *grid, *label, *entry, *combo, *button;
 
     FileRollerPluginPrivate *priv = (FileRollerPluginPrivate *) file_roller_plugin_get_instance_private (FILE_ROLLER_PLUGIN (plugin));
 
-    dialog = gnome_cmd_dialog_new (parent_window, _("Options"));
+    dialog = gtk_window_new ();
+    gtk_window_set_title (GTK_WINDOW (dialog), _("File-roller options"));
     gtk_window_set_modal (GTK_WINDOW (dialog), TRUE);
+    gtk_window_set_resizable (GTK_WINDOW (dialog), FALSE);
+    gtk_window_set_transient_for (GTK_WINDOW (dialog), parent_window);
 
-    gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), _("_OK"),
-                                 G_CALLBACK (on_configure_close), plugin);
+    grid = gtk_grid_new ();
+    gtk_widget_set_margin_top (grid, 12);
+    gtk_widget_set_margin_bottom (grid, 12);
+    gtk_widget_set_margin_start (grid, 12);
+    gtk_widget_set_margin_end (grid, 12);
+    gtk_grid_set_column_spacing (GTK_GRID (grid), 12);
+    gtk_grid_set_row_spacing (GTK_GRID (grid), 6);
+    gtk_window_set_child (GTK_WINDOW (dialog), grid);
 
-    vbox = create_vbox (dialog, FALSE, 12);
-    gnome_cmd_dialog_add_expanding_category (GNOME_CMD_DIALOG (dialog), vbox);
-
-
-    grid = create_grid (dialog);
-    cat = create_category (dialog, grid, _("File-roller options"));
-    gtk_box_append (GTK_BOX (vbox), cat);
-
-    label = create_label (dialog, _("Default archive type"));
+    label = gtk_label_new (_("Default archive type"));
     gtk_grid_attach (GTK_GRID (grid), label, 0, 0, 1, 1);
 
-    combo = create_combo_box_text (dialog, nullptr);
-    g_signal_connect (G_OBJECT(combo), "changed", G_CALLBACK (on_date_format_update), dialog);
+    combo = gtk_drop_down_new_from_strings (handled_extensions);
+    g_object_set_data (G_OBJECT (dialog), "combo", combo);
+    g_signal_connect_swapped (G_OBJECT(combo), "notify::selected", G_CALLBACK (on_date_format_update), dialog);
     gtk_widget_set_hexpand (combo, TRUE);
     gtk_grid_attach (GTK_GRID (grid), combo, 1, 0, 1, 1);
 
     // The pattern defining the file name prefix of the archive to be created
-    label = create_label (dialog, _("File prefix pattern"));
+    label = gtk_label_new_with_mnemonic (_("File prefix pattern"));
     gtk_grid_attach (GTK_GRID (grid), label, 0, 1, 1, 1);
 
-    gchar *utf8_date_format = g_locale_to_utf8 (priv->file_prefix_pattern, -1, nullptr, nullptr, nullptr);
-    entry = create_entry (dialog, "file_prefix_pattern_entry", utf8_date_format);
-    g_free (utf8_date_format);
-    gtk_widget_grab_focus (entry);
-    g_signal_connect (entry, "realize", G_CALLBACK (on_date_format_update), dialog);
-    g_signal_connect (entry, "changed", G_CALLBACK (on_date_format_update), dialog);
+    entry = gtk_entry_new ();
+    g_object_set_data (G_OBJECT (dialog), "file_prefix_pattern_entry", entry);
+    g_signal_connect_swapped (entry, "realize", G_CALLBACK (on_date_format_update), dialog);
+    g_signal_connect_swapped (entry, "changed", G_CALLBACK (on_date_format_update), dialog);
     gtk_widget_set_hexpand (entry, TRUE);
     gtk_grid_attach (GTK_GRID (grid), entry, 1, 1, 1, 1);
 
-    label = create_label (dialog, _("Test result:"));
+    label = gtk_label_new (_("Test result:"));
+    gtk_widget_set_valign (label, GTK_ALIGN_START);
     gtk_grid_attach (GTK_GRID (grid), label, 0, 2, 1, 1);
 
-    label = create_label (dialog, "");
+    label = gtk_label_new ("");
+    g_object_set (G_OBJECT (label), "width-request", 400, nullptr);
+    gtk_label_set_max_width_chars (GTK_LABEL (label), 1);
+    gtk_label_set_wrap (GTK_LABEL (label), TRUE);
+    gtk_label_set_xalign (GTK_LABEL (label), 0.0);
     g_object_set_data (G_OBJECT (dialog), "date_format_test_label", label);
     gtk_widget_set_hexpand (label, TRUE);
     gtk_grid_attach (GTK_GRID (grid), label, 1, 2, 1, 1);
 
     gchar* text = g_strdup_printf("<small>%s</small>",_("Use $N as a pattern for the original file name. See the manual page for “strftime” for other patterns."));
-    label = create_label (dialog, text);
+    label = gtk_label_new ("");
+    gtk_label_set_xalign (GTK_LABEL (label), 0.0);
+    gtk_label_set_max_width_chars (GTK_LABEL (label), 1);
     gtk_label_set_wrap (GTK_LABEL (label), TRUE);
     gtk_label_set_markup (GTK_LABEL (label), text);
     gtk_grid_attach (GTK_GRID (grid), label, 1, 3, 1, 1);
     g_free(text);
 
-    for (gint i=0; handled_extensions[i] != nullptr; i++)
-        gtk_combo_box_text_append_text ((GtkComboBoxText*) combo, handled_extensions[i]);
+    button = gtk_button_new_with_mnemonic (_("_OK"));
+    gtk_widget_set_hexpand (button, TRUE);
+    gtk_widget_set_halign (button, GTK_ALIGN_END);
+    gtk_grid_attach (GTK_GRID (grid), button, 0, 4, 2, 1);
+    g_signal_connect_swapped (button, "clicked", G_CALLBACK (gtk_window_destroy), dialog);
 
-    for (gint i=0; handled_extensions[i]; ++i)
-        if (g_str_has_suffix (priv->default_ext, handled_extensions[i]))
-            gtk_combo_box_set_active((GtkComboBox*) combo, i);
+    g_settings_bind_with_mapping (priv->settings->file_roller_plugin, GCMD_PLUGINS_FILE_ROLLER_DEFAULT_TYPE, combo, "selected", G_SETTINGS_BIND_DEFAULT,
+        get_archive_type, set_archive_type, nullptr, nullptr);
+    g_settings_bind (priv->settings->file_roller_plugin, GCMD_PLUGINS_FILE_ROLLER_PREFIX_PATTERN, entry, "text", G_SETTINGS_BIND_DEFAULT);
 
-    // The text entry stored in default_ext (set in init()) should be the active entry in the combo now.
-    // If strlen of the active comby == 0, prepend the stored value to the list.
-    gchar* test = gtk_combo_box_text_get_active_text (GTK_COMBO_BOX_TEXT (combo));
-    if (test && strlen(test) == 0)
-    {
-        gtk_combo_box_text_prepend_text ((GtkComboBoxText*) combo, priv->default_ext);
-        gtk_combo_box_set_active((GtkComboBox*) combo, 0);
-        g_free (test);
-    }
-
-    priv->conf_dialog = dialog;
-    priv->conf_combo = combo;
-    priv->conf_entry = entry;
-
-    gtk_widget_show (dialog);
+    gtk_window_present (GTK_WINDOW (dialog));
+    gtk_widget_grab_focus (entry);
 }
 
 
@@ -708,8 +713,6 @@ static void dispose (GObject *object)
     FileRollerPlugin *plugin = FILE_ROLLER_PLUGIN (object);
     FileRollerPluginPrivate *priv = (FileRollerPluginPrivate *) file_roller_plugin_get_instance_private (plugin);
 
-    g_clear_pointer (&priv->default_ext, g_free);
-    g_clear_pointer (&priv->file_prefix_pattern, g_free);
     g_clear_pointer (&priv->action_group_name, g_free);
 
     G_OBJECT_CLASS (file_roller_plugin_parent_class)->dispose (object);
@@ -735,34 +738,6 @@ static void file_roller_plugin_init (FileRollerPlugin *plugin)
     FileRollerPluginPrivate *priv = (FileRollerPluginPrivate *) file_roller_plugin_get_instance_private (plugin);
 
     priv->settings = plugin_settings_new();
-
-    GSettings *gsettings = priv->settings->file_roller_plugin;
-    priv->default_ext = g_settings_get_string (gsettings, GCMD_PLUGINS_FILE_ROLLER_DEFAULT_TYPE);
-    priv->file_prefix_pattern = g_settings_get_string (gsettings, GCMD_PLUGINS_FILE_ROLLER_PREFIX_PATTERN);
-
-    //Set gsettings values to default values if they are empty
-    if (strlen(priv->default_ext) == 0)
-    {
-        g_free(priv->default_ext);
-
-        GVariant *variant;
-        variant = g_settings_get_default_value (gsettings, GCMD_PLUGINS_FILE_ROLLER_DEFAULT_TYPE);
-        g_settings_set_string (gsettings, GCMD_PLUGINS_FILE_ROLLER_DEFAULT_TYPE, g_variant_get_string(variant, nullptr));
-        g_variant_unref (variant);
-
-        priv->default_ext = g_settings_get_string (gsettings, GCMD_PLUGINS_FILE_ROLLER_DEFAULT_TYPE);
-    }
-    if (strlen(priv->file_prefix_pattern) == 0)
-    {
-        g_free(priv->file_prefix_pattern);
-
-        GVariant *variant;
-        variant = g_settings_get_default_value (gsettings, GCMD_PLUGINS_FILE_ROLLER_PREFIX_PATTERN);
-        g_settings_set_string (gsettings, GCMD_PLUGINS_FILE_ROLLER_PREFIX_PATTERN, g_variant_get_string(variant, nullptr));
-        g_variant_unref (variant);
-
-        priv->file_prefix_pattern = (gchar*) g_settings_get_default_value (gsettings, GCMD_PLUGINS_FILE_ROLLER_PREFIX_PATTERN);
-    }
 }
 
 /**
