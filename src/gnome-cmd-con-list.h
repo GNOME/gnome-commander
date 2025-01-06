@@ -65,9 +65,6 @@ extern "C" GnomeCmdConList *gnome_cmd_con_list_get ();
 extern "C" GListModel *gnome_cmd_con_list_get_all (GnomeCmdConList *list);
 extern "C" GList *gnome_cmd_con_list_get_all_remote (GnomeCmdConList *list);
 
-extern "C" GList *gnome_cmd_con_list_get_all_dev (GnomeCmdConList *list);
-void gnome_cmd_con_list_set_all_dev (GnomeCmdConList *list, GList *dev_cons);
-
 extern "C" GnomeCmdCon *gnome_cmd_con_list_find_by_uuid (GnomeCmdConList *con_list, const gchar *uuid);
 extern "C" GnomeCmdCon *gnome_cmd_con_list_find_by_alias (GnomeCmdConList *con_list, const gchar *alias);
 extern "C" GnomeCmdCon *gnome_cmd_con_list_get_home (GnomeCmdConList *con_list);

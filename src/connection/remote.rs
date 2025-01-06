@@ -20,20 +20,12 @@
  * For more details see the file COPYING.
  */
 
-use super::{
-    bookmark::Bookmark,
-    connection::{Connection, ConnectionExt},
+use super::connection::{Connection, ConnectionExt};
+use gtk::glib::{
+    self,
+    translate::{from_glib_none, ToGlibPtr},
 };
-use crate::{dir::Directory, path::GnomeCmdPath};
-use gtk::{
-    gio,
-    glib::{
-        self,
-        translate::{from_glib_none, ToGlibPtr},
-    },
-    prelude::*,
-};
-use std::{ffi::c_char, path::Path};
+use std::ffi::c_char;
 
 pub mod ffi {
     use crate::connection::connection::ffi::GnomeCmdConClass;
@@ -124,66 +116,6 @@ pub enum ConnectionMethodID {
     CON_DAVS,
     CON_URI,
     CON_FILE,
-}
-
-impl ConnectionExt for ConnectionRemote {
-    fn alias(&self) -> Option<String> {
-        self.upcast_ref::<Connection>().alias()
-    }
-    fn set_alias(&self, alias: Option<&str>) {
-        self.upcast_ref::<Connection>().set_alias(alias)
-    }
-    fn uri(&self) -> Option<glib::Uri> {
-        self.upcast_ref::<Connection>().uri()
-    }
-    fn set_uri(&self, uri: Option<&glib::Uri>) {
-        self.upcast_ref::<Connection>().set_uri(uri)
-    }
-    fn uri_string(&self) -> Option<String> {
-        self.upcast_ref::<Connection>().uri_string()
-    }
-    fn set_uri_string(&self, uri: Option<&str>) {
-        self.upcast_ref::<Connection>().set_uri_string(uri)
-    }
-    fn create_path(&self, path: &Path) -> GnomeCmdPath {
-        self.upcast_ref::<Connection>().create_path(path)
-    }
-    fn create_gfile(&self, path: Option<&str>) -> gio::File {
-        self.upcast_ref::<Connection>().create_gfile(path)
-    }
-    fn default_dir(&self) -> Option<Directory> {
-        self.upcast_ref::<Connection>().default_dir()
-    }
-    fn set_default_dir(&self, dir: Option<&Directory>) {
-        self.upcast_ref::<Connection>().set_default_dir(dir)
-    }
-    fn set_base_path(&self, path: GnomeCmdPath) {
-        self.upcast_ref::<Connection>().set_base_path(path)
-    }
-    fn is_local(&self) -> bool {
-        self.upcast_ref::<Connection>().is_local()
-    }
-    fn is_open(&self) -> bool {
-        self.upcast_ref::<Connection>().is_open()
-    }
-    fn add_bookmark(&self, bookmark: &Bookmark) {
-        self.upcast_ref::<Connection>().add_bookmark(bookmark)
-    }
-    fn erase_bookmarks(&self) {
-        self.upcast_ref::<Connection>().erase_bookmarks()
-    }
-    fn bookmarks(&self) -> gio::ListModel {
-        self.upcast_ref::<Connection>().bookmarks()
-    }
-    fn path_target_type(&self, path: &Path) -> Option<gio::FileType> {
-        self.upcast_ref::<Connection>().path_target_type(path)
-    }
-    fn mkdir(&self, path: &Path) -> Result<(), glib::Error> {
-        self.upcast_ref::<Connection>().mkdir(path)
-    }
-    fn close(&self) -> bool {
-        self.upcast_ref::<Connection>().close()
-    }
 }
 
 #[no_mangle]

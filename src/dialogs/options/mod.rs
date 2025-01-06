@@ -17,5 +17,9 @@
  * For more details see the file COPYING.
  */
 
+pub mod app_dialog;
+pub mod device_dialog;
 pub mod edit_colors_dialog;
 pub mod edit_palette_dialog;
+
+pub mod devices_widget;

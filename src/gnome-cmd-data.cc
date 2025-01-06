@@ -1456,43 +1456,43 @@ void GnomeCmdData::add_advrename_profile_to_gvariant_builder(GVariantBuilder *bu
 void GnomeCmdData::save_devices()
 {
     GVariant* devicesToStore;
-    GList *devices;
+    GVariantBuilder *gVariantBuilder = nullptr;
 
-    devices = gnome_cmd_con_list_get_all_dev (gnome_cmd_data.priv->con_list);
-    if (devices && g_list_length(devices) > 0)
+    GListModel *connections = gnome_cmd_con_list_get_all (gnome_cmd_data.priv->con_list);
+    guint len = g_list_model_get_n_items (connections);
+    for (guint i = 0; i < len; ++i)
     {
-        GVariantBuilder *gVariantBuilder = nullptr;
+        GnomeCmdCon *con = GNOME_CMD_CON (g_list_model_get_item (connections, i));
+        if (!GNOME_CMD_IS_CON_DEVICE (con))
+            continue;
 
-        for (; devices; devices = devices->next)
+        GnomeCmdConDevice *device = GNOME_CMD_CON_DEVICE (con);
+        if (device && !gnome_cmd_con_device_get_autovol (device))
         {
-            auto *device = GNOME_CMD_CON_DEVICE (devices->data);
-            if (device && !gnome_cmd_con_device_get_autovol (device))
+            if (!gVariantBuilder)
             {
-                if (!gVariantBuilder)
-                {
-                    gVariantBuilder = g_variant_builder_new (G_VARIANT_TYPE_ARRAY);
-                }
-
-                GIcon *icon = gnome_cmd_con_device_get_icon (device);
-                GVariant *icon_variant = icon ? g_icon_serialize (icon) : nullptr;
-
-                g_variant_builder_add (gVariantBuilder, GCMD_SETTINGS_DEVICE_LIST_FORMAT_STRING,
-                                        gnome_cmd_con_get_alias (GNOME_CMD_CON (device)),
-                                        gnome_cmd_con_device_get_device_fn (device),
-                                        gnome_cmd_con_device_get_mountp_string (device),
-                                        icon_variant ? icon_variant : g_variant_new_string(""));
-                g_clear_pointer (&icon_variant, g_variant_unref);
-                g_clear_object (&icon);
+                gVariantBuilder = g_variant_builder_new (G_VARIANT_TYPE_ARRAY);
             }
-        }
 
-        if (gVariantBuilder)
-        {
-            devicesToStore = g_variant_builder_end (gVariantBuilder);
-            g_settings_set_value(options.gcmd_settings->general, GCMD_SETTINGS_DEVICE_LIST, devicesToStore);
-            g_variant_builder_unref(gVariantBuilder);
-            return;
+            GIcon *icon = gnome_cmd_con_device_get_icon (device);
+            GVariant *icon_variant = icon ? g_icon_serialize (icon) : nullptr;
+
+            g_variant_builder_add (gVariantBuilder, GCMD_SETTINGS_DEVICE_LIST_FORMAT_STRING,
+                                    gnome_cmd_con_get_alias (GNOME_CMD_CON (device)),
+                                    gnome_cmd_con_device_get_device_fn (device),
+                                    gnome_cmd_con_device_get_mountp_string (device),
+                                    icon_variant ? icon_variant : g_variant_new_string(""));
+            g_clear_pointer (&icon_variant, g_variant_unref);
+            g_clear_object (&icon);
         }
+    }
+
+    if (gVariantBuilder)
+    {
+        devicesToStore = g_variant_builder_end (gVariantBuilder);
+        g_settings_set_value(options.gcmd_settings->general, GCMD_SETTINGS_DEVICE_LIST, devicesToStore);
+        g_variant_builder_unref(gVariantBuilder);
+        return;
     }
 
     devicesToStore = g_settings_get_default_value(options.gcmd_settings->general, GCMD_SETTINGS_DEVICE_LIST);
@@ -1640,10 +1640,16 @@ inline void remove_gvolume (GVolume *gVolume)
 {
     auto uuid = g_volume_get_identifier(gVolume, G_VOLUME_IDENTIFIER_KIND_UUID);
 
-    for (GList *i = gnome_cmd_con_list_get_all_dev (gnome_cmd_data.priv->con_list); i; i = i->next)
+    GListModel *connections = gnome_cmd_con_list_get_all (gnome_cmd_data.priv->con_list);
+    guint len = g_list_model_get_n_items (connections);
+    for (guint i = 0; i < len; ++i)
     {
-        GnomeCmdConDevice *device = GNOME_CMD_CON_DEVICE (i->data);
-        if (device && gnome_cmd_con_device_get_autovol (device))
+        GnomeCmdCon *con = GNOME_CMD_CON (g_list_model_get_item (connections, i));
+        if (!GNOME_CMD_IS_CON_DEVICE (con))
+            continue;
+
+        GnomeCmdConDevice *device = GNOME_CMD_CON_DEVICE (con);
+        if (gnome_cmd_con_device_get_autovol (device))
         {
             gchar *device_fn = (gchar *) gnome_cmd_con_device_get_device_fn (device);
 
@@ -1664,10 +1670,16 @@ inline gboolean device_mount_point_exists (GnomeCmdConList *list, const gchar *m
 {
     gboolean rc = FALSE;
 
-    for (GList *tmp = gnome_cmd_con_list_get_all_dev (list); tmp; tmp = tmp->next)
+    GListModel *connections = gnome_cmd_con_list_get_all (gnome_cmd_data.priv->con_list);
+    guint len = g_list_model_get_n_items (connections);
+    for (guint i = 0; i < len; ++i)
     {
-        GnomeCmdConDevice *device = GNOME_CMD_CON_DEVICE (tmp->data);
-        if (device && !gnome_cmd_con_device_get_autovol (device))
+        GnomeCmdCon *con = GNOME_CMD_CON (g_list_model_get_item (connections, i));
+        if (!GNOME_CMD_IS_CON_DEVICE (con))
+            continue;
+
+        GnomeCmdConDevice *device = GNOME_CMD_CON_DEVICE (con);
+        if (!gnome_cmd_con_device_get_autovol (device))
         {
             rc = strcmp(gnome_cmd_con_device_get_mountp_string (device), mountpoint) == 0;
 

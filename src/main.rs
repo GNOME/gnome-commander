@@ -46,6 +46,8 @@ mod notebook_ext;
 mod open_connection;
 mod open_file;
 mod path;
+mod select_directory_button;
+mod select_icon_button;
 mod shortcuts;
 mod spawn;
 mod tags;

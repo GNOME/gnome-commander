@@ -35,7 +35,6 @@ struct GnomeCmdConList::Private
     gboolean changed;
 
     GList *remote_cons    {nullptr};
-    GList *device_cons    {nullptr};
 
     GnomeCmdCon *home_con {nullptr};
     GnomeCmdCon *smb_con  {nullptr};
@@ -92,6 +91,13 @@ static void gnome_cmd_con_list_class_init (GnomeCmdConListClass *klass)
 }
 
 
+static void items_changed (GListModel* self, guint position, guint removed, guint added, gpointer user_data)
+{
+    auto list = GNOME_CMD_CON_LIST (user_data);
+    g_signal_emit (list, signals[LIST_CHANGED], 0);
+}
+
+
 static void gnome_cmd_con_list_init (GnomeCmdConList *con_list)
 {
     con_list->priv = g_new0 (GnomeCmdConList::Private, 1);
@@ -108,6 +114,8 @@ static void gnome_cmd_con_list_init (GnomeCmdConList *con_list)
 
     if (gnome_cmd_data.options.show_samba_workgroups_button)
         g_list_store_append (con_list->priv->all_cons, con_list->priv->smb_con);
+
+    g_signal_connect (con_list->priv->all_cons, "items-changed", G_CALLBACK (items_changed), con_list);
 }
 
 /***********************************
@@ -176,10 +184,8 @@ void gnome_cmd_con_list_remove_remote (GnomeCmdConList *list, GnomeCmdConRemote 
 void gnome_cmd_con_list_add_dev (GnomeCmdConList *list, GnomeCmdConDevice *con)
 {
     g_return_if_fail (!g_list_store_find (list->priv->all_cons, con, nullptr));
-    g_return_if_fail (g_list_index (list->priv->device_cons, con) == -1);
 
     g_list_store_append (list->priv->all_cons, con);
-    list->priv->device_cons = g_list_append (list->priv->device_cons, con);
     g_signal_connect (con, "updated", G_CALLBACK (on_con_updated), list);
 
     if (list->priv->update_lock)
@@ -197,10 +203,8 @@ void gnome_cmd_con_list_remove_dev (GnomeCmdConList *list, GnomeCmdConDevice *co
 {
     guint position;
     g_return_if_fail (g_list_store_find (list->priv->all_cons, con, &position));
-    g_return_if_fail (g_list_index (list->priv->device_cons, con) != -1);
 
     g_list_store_remove (list->priv->all_cons, position);
-    list->priv->device_cons = g_list_remove (list->priv->device_cons, con);
     g_signal_handlers_disconnect_by_func (con, (gpointer) on_con_updated, list);
 
     if (list->priv->update_lock)
@@ -227,22 +231,6 @@ GList *gnome_cmd_con_list_get_all_remote (GnomeCmdConList *con_list)
     g_return_val_if_fail (GNOME_CMD_IS_CON_LIST (con_list), nullptr);
 
     return con_list->priv->remote_cons;
-}
-
-
-GList *gnome_cmd_con_list_get_all_dev (GnomeCmdConList *con_list)
-{
-    g_return_val_if_fail (GNOME_CMD_IS_CON_LIST (con_list), nullptr);
-
-    return con_list->priv->device_cons;
-}
-
-
-void gnome_cmd_con_list_set_all_dev (GnomeCmdConList *con_list, GList *dev_cons)
-{
-    g_return_if_fail (GNOME_CMD_IS_CON_LIST (con_list));
-
-    con_list->priv->device_cons = dev_cons;
 }
 
 

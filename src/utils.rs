@@ -22,9 +22,10 @@
 
 use crate::{config::PREFIX, data::ProgramsOptionsRead, file::File};
 use gettextrs::{gettext, ngettext};
-use gtk::{gdk, gio, glib, prelude::*};
+use gtk::{gdk, gio, glib, pango, prelude::*};
 use std::{
     ffi::{OsStr, OsString},
+    mem::swap,
     sync::OnceLock,
     time::Duration,
 };
@@ -297,6 +298,34 @@ pub async fn pending() {
     glib::timeout_future(Duration::from_millis(1)).await;
 }
 
+pub fn swap_list_store_items(
+    store: &gio::ListStore,
+    item1: &impl IsA<glib::Object>,
+    item2: &impl IsA<glib::Object>,
+) {
+    if item1.as_ref() == item2.as_ref() {
+        return;
+    }
+    let Some(mut position1) = store.find(item1) else {
+        eprintln!("Item1 wasn't found.");
+        return;
+    };
+    let Some(mut position2) = store.find(item2) else {
+        eprintln!("Item2 wasn't found.");
+        return;
+    };
+    if position1 > position2 {
+        swap(&mut position1, &mut position2);
+    }
+    let mut items: Vec<_> = (position1..=position2)
+        .map(|p| store.item(p).unwrap())
+        .collect();
+    let len = items.len();
+    items.swap(0, len - 1);
+
+    store.splice(position1, len as u32, &items);
+}
+
 #[repr(C)]
 #[derive(Clone, Copy)]
 pub enum SizeDisplayMode {
@@ -379,6 +408,12 @@ pub fn bold(text: &str) -> String {
         "<span weight=\"bold\">{}</span>",
         glib::markup_escape_text(text)
     )
+}
+
+pub fn attributes_bold() -> pango::AttrList {
+    let attrs = pango::AttrList::new();
+    attrs.insert(pango::AttrInt::new_weight(pango::Weight::Bold));
+    attrs
 }
 
 pub fn key_sorter<K, O>(key: K) -> gtk::Sorter
