@@ -120,8 +120,7 @@ struct GnomeCmdFileSelector
 inline GnomeCmdFileList *GnomeCmdFileSelector::file_list(gint n) const
 {
     auto page = gtk_notebook_get_nth_page (GTK_NOTEBOOK (notebook), n);
-    auto file_list = gtk_scrolled_window_get_child (GTK_SCROLLED_WINDOW (page));
-    return GNOME_CMD_FILE_LIST (file_list);
+    return GNOME_CMD_FILE_LIST (page);
 }
 
 inline void GnomeCmdFileSelector::set_connection(GnomeCmdCon *con, GnomeCmdDir *start_dir)
