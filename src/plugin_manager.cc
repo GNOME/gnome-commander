@@ -30,6 +30,8 @@
 #include "gnome-cmd-main-win.h"
 #include "gnome-cmd-about-plugin.h"
 #include "dirlist.h"
+#include "gnome-cmd-dialog.h"
+#include "widget-factory.h"
 
 using namespace std;
 
@@ -43,12 +45,15 @@ static GList *plugins = nullptr;
 
 gchar* get_plugin_config_location();
 
+typedef GObject *(*PluginConstructorFunc)(void);
+
+
 static void load_plugin (PluginData *data)
 {
     GModule *module = g_module_open (data->fpath, G_MODULE_BIND_LAZY);
     PluginInfoFunc info_func;
     PluginConstructorFunc init_func;
-    GnomeCmdPlugin *plugin;
+    GObject *plugin;
 
     if (!module)
     {
@@ -120,11 +125,6 @@ static void activate_plugin (PluginData *data)
         return;
 
     data->active = TRUE;
-
-    GSimpleActionGroup *actions = gnome_cmd_plugin_create_actions (data->plugin, data->action_group_name);
-    gtk_widget_insert_action_group (*main_win, data->action_group_name, G_ACTION_GROUP (actions));
-
-    data->menu = gnome_cmd_plugin_create_main_menu (data->plugin);
 }
 
 
@@ -134,8 +134,6 @@ static void inactivate_plugin (PluginData *data)
         return;
 
     data->active = FALSE;
-    gtk_widget_insert_action_group (*main_win, data->action_group_name, nullptr);
-    g_clear_object (&data->menu);
 }
 
 
@@ -161,7 +159,6 @@ static void scan_plugins_in_dir (const gchar *dpath)
         data->fpath = g_build_filename (dpath, g_file_info_get_name(gFileInfo), nullptr);
         data->loaded = FALSE;
         data->active = FALSE;
-        data->menu = nullptr;
         data->autoload = FALSE;
         data->action_group_name = g_strdup_printf ("plugin%d", index++);
         activate_plugin (data);
@@ -361,7 +358,8 @@ static void on_configure (GtkButton *button, GtkWidget *dialog)
     g_return_if_fail (data != nullptr);
     g_return_if_fail (data->active);
 
-    gnome_cmd_plugin_configure (data->plugin, GTK_WINDOW (dialog));
+    if (GNOME_CMD_IS_CONFIGURABLE (data->plugin))
+        gnome_cmd_configurable_configure (GNOME_CMD_CONFIGURABLE (data->plugin), GTK_WINDOW (dialog));
 }
 
 

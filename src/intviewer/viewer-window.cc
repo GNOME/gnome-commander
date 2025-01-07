@@ -39,6 +39,7 @@
 #include "tags/gnome-cmd-tags.h"
 #include "gnome-cmd-data.h"
 #include "imageloader.h"
+#include "widget-factory.h"
 
 using namespace std;
 

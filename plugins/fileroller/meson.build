@@ -9,12 +9,15 @@ filerollerplugin_sources = files(
     'file-roller-plugin.cc'
 )
 
+config_h = configure_file(output : 'config.h', configuration : conf_data)
+
 filerollerplugin = shared_module('filerollerplugin',
-  dependencies: libgcmd_dep,
+  include_directories: [libgcmd_inc],
   link_with: [libgcmd],
+  dependencies: [glib, gio, gobject, gmodule, gtk],
   install_dir: fileroller_plugin_dir,
   install: true,
-  sources: [filerollerplugin_headers, filerollerplugin_sources]
+  sources: [filerollerplugin_headers, filerollerplugin_sources, config_h]
 )
 
 pixmaps = [

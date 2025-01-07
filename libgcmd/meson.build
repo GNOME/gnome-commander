@@ -1,31 +1,26 @@
 libgcmd_headers = files(
-  'gnome-cmd-dialog.h',
-  'gnome-cmd-file-base.h',
-  'gnome-cmd-plugin.h',
+  'gnome-cmd-configurable.h',
+  'gnome-cmd-file-descriptor.h',
+  'gnome-cmd-file-actions.h',
+  'gnome-cmd-plugin-info.h',
   'gnome-cmd-state.h',
-  'libgcmd-deps.h',
   'libgcmd.h',
-  'libgcmd-utils.h',
-  'libgcmd-widget-factory.h'
 )
 
 libgcmd_sources = files(
-  'libgcmd-widget-factory.cc',
-  'gnome-cmd-dialog.cc',
-  'gnome-cmd-file-base.cc',
-  'gnome-cmd-plugin.cc',
-  'libgcmd-utils.cc'
+  'gnome-cmd-configurable.c',
+  'gnome-cmd-file-descriptor.c',
+  'gnome-cmd-file-actions.c',
+  'gnome-cmd-state.c',
 )
 
-libgcmd_includes = [configuration_inc, sources_inc, include_directories('.')]
+libgcmd_deps = [
+  glib, gmodule, gio, gobject, gtk
+]
 
-libgcmd_dep = declare_dependency(
-  dependencies: common_deps,
-  include_directories: libgcmd_includes,
-)
-
-libgcmd = static_library('gcmd',
-  include_directories: [libgcmd_includes],
-  dependencies: common_deps,
+libgcmd = shared_library('gcmd',
+  include_directories: [include_directories('.')],
+  dependencies: libgcmd_deps,
   sources: [libgcmd_headers, libgcmd_sources],
+  install: true,
 )

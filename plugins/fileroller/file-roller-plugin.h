@@ -23,34 +23,16 @@
 
 #define PLUGIN_TYPE_SETTINGS (plugin_settings_get_type ())
 G_DECLARE_FINAL_TYPE (PluginSettings, plugin_settings, GCMD, SETTINGS, GObject)
+
 PluginSettings *plugin_settings_new (void);
 
-#define FILE_ROLLER_PLUGIN(obj) \
-    G_TYPE_CHECK_INSTANCE_CAST (obj, file_roller_plugin_get_type (), FileRollerPlugin)
-#define FILE_ROLLER_PLUGIN_CLASS(klass) \
-    G_TYPE_CHECK_CLASS_CAST (klass, file_roller_plugin_get_type (), FileRollerPluginClass)
-#define IS_FILE_ROLLER_PLUGIN(obj) \
-    G_TYPE_CHECK_INSTANCE_TYPE (obj, file_roller_plugin_get_type ())
+
+#define GNOME_CMD_TYPE_FILE_ROLLER_PLUGIN (gnome_cmd_file_roller_plugin_get_type ())
+G_DECLARE_FINAL_TYPE (GnomeCmdFileRollerPlugin, gnome_cmd_file_roller_plugin, GNOME_CMD, FILE_ROLLER_PLUGIN, GObject)
 
 
-typedef struct _FileRollerPlugin FileRollerPlugin;
-typedef struct _FileRollerPluginClass FileRollerPluginClass;
-
-struct _FileRollerPlugin
-{
-    GnomeCmdPlugin parent;
-};
-
-struct _FileRollerPluginClass
-{
-    GnomeCmdPluginClass parent_class;
-};
-
-GType file_roller_plugin_get_type ();
-
-GnomeCmdPlugin *file_roller_plugin_new ();
 extern "C"
 {
-    GnomeCmdPlugin *create_plugin ();
+    GObject        *create_plugin ();
     PluginInfo     *get_plugin_info ();
 }

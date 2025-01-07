@@ -21,11 +21,7 @@
 
 #pragma once
 
-#include <libgcmd/libgcmd-deps.h>
-#include <libgcmd/libgcmd-utils.h>
-#include <libgcmd/libgcmd-widget-factory.h>
-#include <libgcmd/gnome-cmd-state.h>
-#include <libgcmd/gnome-cmd-plugin.h>
-#include <libgcmd/gnome-cmd-file-base.h>
-#include <libgcmd/gnome-cmd-dialog.h>
-#include <libgcmd/plugin-info.h>
+#include <gnome-cmd-configurable.h>
+#include <gnome-cmd-file-descriptor.h>
+#include <gnome-cmd-file-actions.h>
+#include <gnome-cmd-plugin-info.h>

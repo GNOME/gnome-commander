@@ -21,33 +21,11 @@
 
 #pragma once
 
-#define TEST_PLUGIN(obj) \
-    G_TYPE_CHECK_INSTANCE_CAST (obj, test_plugin_get_type (), TestPlugin)
-#define TEST_PLUGIN_CLASS(klass) \
-    G_TYPE_CHECK_CLASS_CAST (klass, test_plugin_get_type (), TestPluginClass)
-#define IS_TEST_PLUGIN(obj) \
-    G_TYPE_CHECK_INSTANCE_TYPE (obj, test_plugin_get_type ())
+#define GNOME_CMD_TYPE_TEST_PLUGIN (gnome_cmd_test_plugin_get_type ())
+G_DECLARE_FINAL_TYPE (GnomeCmdTestPlugin, gnome_cmd_test_plugin, GNOME_CMD, TEST_PLUGIN, GObject)
 
-
-typedef struct _TestPlugin TestPlugin;
-typedef struct _TestPluginClass TestPluginClass;
-
-struct _TestPlugin
-{
-    GnomeCmdPlugin parent;
-};
-
-struct _TestPluginClass
-{
-    GnomeCmdPluginClass parent_class;
-};
-
-
-GType test_plugin_get_type ();
-
-GnomeCmdPlugin *test_plugin_new ();
 extern "C"
 {
-    GnomeCmdPlugin *create_plugin   ();
+    GObject        *create_plugin   ();
     PluginInfo     *get_plugin_info ();
 }

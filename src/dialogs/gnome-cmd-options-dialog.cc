@@ -27,6 +27,7 @@
 #include "utils.h"
 #include "gnome-cmd-main-win.h"
 #include "gnome-cmd-con-list.h"
+#include "widget-factory.h"
 
 using namespace std;
 

@@ -56,11 +56,6 @@ inline GtkWidget *create_button (GtkWidget *parent, const gchar *label, GCallbac
     return create_button_with_data (parent, label, func, parent);
 }
 
-inline GtkWidget *create_named_button (GtkWidget *parent, const gchar *label, const gchar *name, GCallback func)
-{
-    return create_named_button_with_data (parent, label, name, func, parent);
-}
-
 GtkWidget *create_entry (GtkWidget *parent, const gchar *name, const gchar *value);
 
 GtkWidget *create_check (GtkWidget *parent, const gchar *text, const gchar *name);
@@ -69,33 +64,17 @@ GtkWidget *create_check_with_mnemonic (GtkWidget *parent, const gchar *text, con
 
 GtkWidget *create_radio (GtkWidget *parent, GtkWidget *group, const gchar *text, const gchar *name);
 
-GtkWidget *create_radio_with_mnemonic (GtkWidget *parent, GtkWidget *group, gchar *text, const gchar *name);
-
 GtkWidget *create_spin (GtkWidget *parent, const gchar *name, gint min, gint max, gint value);
 
-GtkWidget *create_color_button (GtkWidget *parent, const gchar *name);
-
-GtkWidget *create_icon_button_widget (GtkWidget *parent, const gchar *name, const gchar *icon_path);
-
 GtkWidget *create_scale (GtkWidget *parent, const gchar *name, gint value, gint min, gint max);
-
-GtkWidget *create_directory_chooser_button (GtkWidget *parent, const gchar *name);
-GFile *directory_chooser_button_get_file (GtkWidget *button);
-void directory_chooser_button_set_file (GtkWidget *button, GFile *file);
 
 GtkWidget *create_treeview (GtkWidget *parent, const gchar *name, GtkTreeModel *model, gint rowh, GCallback on_selection_changed, GCallback on_rows_reordered);
 
 void create_treeview_column (GtkWidget *sw, gint col, gint width, const gchar *label);
 
-GtkWidget *create_combo_box_text_with_entry (GtkWidget *parent);
-
 GtkWidget *create_combo_box_text (GtkWidget *parent, const gchar **items);
 
 GtkWidget *create_progress_bar (GtkWidget *parent);
-
-GtkWidget *create_sw (GtkWidget *parent);
-
-const char *get_entry_text (GtkWidget *parent, const gchar *entry_name);
 
 
 class MenuBuilder

@@ -20,11 +20,10 @@
  */
 
 #include <config.h>
-#include "libgcmd-deps.h"
-#include "libgcmd-utils.h"
+#include "gnome-cmd-includes.h"
+#include "text-utils.h"
 #include "gnome-cmd-dialog.h"
-#include "libgcmd-widget-factory.h"
-#include "libgcmd/libgcmd-utils.h"
+#include "widget-factory.h"
 
 struct GnomeCmdDialogPrivate
 {

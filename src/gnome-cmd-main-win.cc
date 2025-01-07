@@ -38,6 +38,7 @@
 #include "gnome-cmd-con-list.h"
 #include "gnome-cmd-owner.h"
 #include "utils.h"
+#include "widget-factory.h"
 
 using namespace std;
 
@@ -75,7 +76,6 @@ struct GnomeCmdMainWinClass
 struct GnomeCmdMainWin::Private
 {
     FileSelectorID current_fs;
-    GnomeCmdState state;
 
     GtkWidget *vbox;
     GtkWidget *paned;
@@ -489,9 +489,6 @@ static void dispose (GObject *object)
         gnome_cmd_data.save(main_win);
         main_win->priv->state_saved = true;
     }
-
-    g_clear_pointer (&main_win->priv->state.active_dir_files, g_list_free);
-    g_clear_pointer (&main_win->priv->state.inactive_dir_files, g_list_free);
 
     g_weak_ref_set (&main_win->priv->advrename_dlg, nullptr);
     g_weak_ref_set (&main_win->priv->file_search_dlg, nullptr);
@@ -1164,13 +1161,13 @@ GnomeCmdState *GnomeCmdMainWin::get_state() const
     GnomeCmdDir *dir1 = fs1->get_directory();
     GnomeCmdDir *dir2 = fs2->get_directory();
 
-    GnomeCmdState *state = &priv->state;
-    state->activeDirGfile = dir1 ? GNOME_CMD_FILE (dir1)->get_file() : nullptr;
-    state->inactiveDirGfile = dir2 ? GNOME_CMD_FILE (dir2)->get_file() : nullptr;
-    state->active_dir_files = fs1->file_list()->get_visible_files();
-    state->inactive_dir_files = fs2->file_list()->get_visible_files();
-    state->active_dir_selected_files = fs1->file_list()->get_selected_files();
-    state->inactive_dir_selected_files = fs2->file_list()->get_selected_files();
+    GnomeCmdState *state = gnome_cmd_state_new ();
+    gnome_cmd_state_set_active_dir (state, GNOME_CMD_FILE_DESCRIPTOR (dir1));
+    gnome_cmd_state_set_inactive_dir (state, GNOME_CMD_FILE_DESCRIPTOR (dir2));
+    gnome_cmd_state_set_active_dir_files (state, fs1->file_list()->get_visible_files());
+    gnome_cmd_state_set_inactive_dir_files (state, fs2->file_list()->get_visible_files());
+    gnome_cmd_state_set_active_dir_selected_files (state, fs1->file_list()->get_selected_files());
+    gnome_cmd_state_set_inactive_dir_selected_files (state, fs2->file_list()->get_selected_files());
 
     return state;
 }

@@ -31,7 +31,7 @@ use imp::TagNode;
 mod imp {
     use super::*;
     use crate::{
-        libgcmd::file_base::FileBaseExt,
+        libgcmd::file_descriptor::FileDescriptorExt,
         tags::tags::{gcmd_tags_bulk_load, GnomeCmdTag},
     };
     use std::{

@@ -19,10 +19,11 @@
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 */
 
-#include <config.h>
+#include "config.h"
 #include <stdlib.h>
 #include <string>
-#include <libgcmd/libgcmd.h>
+#include <glib/gi18n.h>
+#include <libgcmd.h>
 #include "file-roller-plugin.h"
 #include "file-roller.xpm"
 
@@ -163,25 +164,34 @@ static void plugin_settings_init (PluginSettings *gs)
  * The File-Roller-Plugin
  ***********************************/
 
-
-struct FileRollerPluginPrivate
+struct _GnomeCmdFileRollerPlugin
 {
-    gchar *action_group_name;
+    GObject parent;
+};
 
+
+struct GnomeCmdFileRollerPluginPrivate
+{
     GtkWidget *conf_dialog;
-
-    GnomeCmdState *state;
 
     PluginSettings *settings;
 };
 
 
-G_DEFINE_TYPE_WITH_PRIVATE (FileRollerPlugin, file_roller_plugin, GNOME_CMD_TYPE_PLUGIN)
+static void gnome_cmd_configurable_init (GnomeCmdConfigurableInterface *iface);
+static void gnome_cmd_file_actions_init (GnomeCmdFileActionsInterface *iface);
 
 
-gchar *GetGfileAttributeString(GFile *gFile, const char *attribute);
+G_DEFINE_TYPE_WITH_CODE (GnomeCmdFileRollerPlugin, gnome_cmd_file_roller_plugin, G_TYPE_OBJECT,
+                         G_ADD_PRIVATE (GnomeCmdFileRollerPlugin)
+                         G_IMPLEMENT_INTERFACE (GNOME_CMD_TYPE_CONFIGURABLE, gnome_cmd_configurable_init)
+                         G_IMPLEMENT_INTERFACE (GNOME_CMD_TYPE_FILE_ACTIONS, gnome_cmd_file_actions_init))
 
-static void run_cmd (const gchar *work_dir, const gchar *cmd)
+
+
+gchar *GetGfileAttributeString(GnomeCmdFileDescriptor *fd, const char *attribute);
+
+static void run_cmd (const gchar *work_dir, const gchar *cmd, GtkWindow *parent_window)
 {
     gint argc;
     gchar **argv;
@@ -190,7 +200,7 @@ static void run_cmd (const gchar *work_dir, const gchar *cmd)
     g_shell_parse_argv (cmd, &argc, &argv, nullptr);
     if (!g_spawn_async (work_dir, argv, nullptr, G_SPAWN_SEARCH_PATH, nullptr, nullptr, nullptr, &err))
     {
-        GtkWidget* dialog = gtk_message_dialog_new (nullptr,
+        GtkWidget* dialog = gtk_message_dialog_new (parent_window,
             (GtkDialogFlags) 0,
             GTK_MESSAGE_ERROR,
             GTK_BUTTONS_CLOSE,
@@ -203,7 +213,7 @@ static void run_cmd (const gchar *work_dir, const gchar *cmd)
     g_strfreev (argv);
 }
 
-static void on_extract_cwd (GSimpleAction *action, GVariant *parameter, gpointer user_data)
+static void on_extract_cwd (GnomeCmdFileRollerPlugin *plugin, GVariant *parameter, GtkWindow *parent_window)
 {
     gchar *local_path;
     gchar *target_dir;
@@ -223,7 +233,7 @@ static void on_extract_cwd (GSimpleAction *action, GVariant *parameter, gpointer
     cmd = g_strdup_printf ("file-roller %s %s", target_arg, archive_arg);
 
     t = g_path_get_dirname (local_path);
-    run_cmd (t, cmd);
+    run_cmd (t, cmd, parent_window);
     g_free (t);
 
     g_free (target_arg);
@@ -234,7 +244,7 @@ static void on_extract_cwd (GSimpleAction *action, GVariant *parameter, gpointer
 }
 
 
-inline void do_add_to_archive (const gchar *name, GnomeCmdState *state)
+inline void do_add_to_archive (const gchar *name, GnomeCmdState *state, GtkWindow *parent_window)
 {
     gchar *t = g_strdup_printf ("--add-to=%s", name);
     gchar *arg = g_shell_quote (t);
@@ -242,9 +252,9 @@ inline void do_add_to_archive (const gchar *name, GnomeCmdState *state)
     gchar *active_dir_path;
     GList *files;
 
-    for (files = state->active_dir_selected_files; files; files = files->next)
+    for (files = gnome_cmd_state_get_active_dir_selected_files (state); files; files = files->next)
     {
-        auto *gFile = GNOME_CMD_FILE_BASE (files->data)->gFile;
+        auto *gFile = gnome_cmd_file_descriptor_get_file (GNOME_CMD_FILE_DESCRIPTOR (files->data));
         gchar *path = g_file_get_path (gFile);
         gchar *tmp = cmd;
         gchar *arg_file = g_shell_quote (path);
@@ -255,8 +265,8 @@ inline void do_add_to_archive (const gchar *name, GnomeCmdState *state)
     }
 
     g_printerr ("add: %s\n", cmd);
-    active_dir_path = g_file_get_path (state->activeDirGfile);
-    run_cmd (active_dir_path, cmd);
+    active_dir_path = g_file_get_path (gnome_cmd_file_descriptor_get_file (gnome_cmd_state_get_active_dir (state)));
+    run_cmd (active_dir_path, cmd, parent_window);
 
     g_free (cmd);
     g_free (active_dir_path);
@@ -346,7 +356,7 @@ static gchar* new_string_with_replaced_keyword(const char* string, const char* k
 
 struct CreateArchiveClosure
 {
-    GtkWidget *dialog;
+    GtkWindow *dialog;
     GtkWidget *entry;
     GnomeCmdState *state;
 };
@@ -358,19 +368,19 @@ static void on_create_archive (GtkButton *button, gpointer userdata)
 
     const gchar *name = gtk_editable_get_text (GTK_EDITABLE (closure->entry));
     if (name != nullptr && strlen (name) > 0) {
-        do_add_to_archive (name, closure->state);
+        do_add_to_archive (name, closure->state, closure->dialog);
         gtk_window_destroy (GTK_WINDOW (closure->dialog));
+        g_object_unref (closure->state);
         g_free (userdata);
     }
 }
 
 
-static void on_add_to_archive (GSimpleAction *action, GVariant *parameter, gpointer user_data)
+static void on_add_to_archive (GnomeCmdFileRollerPlugin *plugin, GnomeCmdState *state, GtkWindow *parent_window)
 {
-    FileRollerPlugin *plugin = FILE_ROLLER_PLUGIN (user_data);
-    FileRollerPluginPrivate *priv = (FileRollerPluginPrivate *) file_roller_plugin_get_instance_private (plugin);
+    auto priv = (GnomeCmdFileRollerPluginPrivate *) gnome_cmd_file_roller_plugin_get_instance_private (plugin);
 
-    GList *files = priv->state->active_dir_selected_files;
+    GList *files = gnome_cmd_state_get_active_dir_selected_files (state);
 
     GtkWidget *dialog = gtk_dialog_new ();
     gtk_window_set_modal (GTK_WINDOW (dialog), TRUE);
@@ -419,7 +429,7 @@ static void on_add_to_archive (GSimpleAction *action, GVariant *parameter, gpoin
     gchar *default_ext = g_settings_get_string (priv->settings->file_roller_plugin, GCMD_PLUGINS_FILE_ROLLER_DEFAULT_TYPE);
     gchar *archive_name_tmp = g_strdup_printf("%s%s", file_prefix, default_ext);
     g_free (default_ext);
-    auto file_name_tmp = GetGfileAttributeString(GNOME_CMD_FILE_BASE (files->data)->gFile, G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME);
+    auto file_name_tmp = GetGfileAttributeString(GNOME_CMD_FILE_DESCRIPTOR (files->data), G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME);
     gchar *archive_name = new_string_with_replaced_keyword(archive_name_tmp, "$N", file_name_tmp);
     gtk_editable_set_text (GTK_EDITABLE (entry), archive_name);
     g_free(file_name_tmp);
@@ -445,78 +455,55 @@ static void on_add_to_archive (GSimpleAction *action, GVariant *parameter, gpoin
     g_signal_connect_swapped (cancel_button, "clicked", G_CALLBACK (gtk_window_destroy), dialog);
 
     CreateArchiveClosure *closure = g_new0 (CreateArchiveClosure, 1);
-    closure->dialog = dialog;
+    closure->dialog = GTK_WINDOW (dialog);
     closure->entry = entry;
-    closure->state = priv->state;
+    closure->state = g_object_ref (state);
     g_signal_connect (ok_button, "clicked", G_CALLBACK (on_create_archive), closure);
 
     gtk_window_present (GTK_WINDOW (dialog));
 }
 
 
-static GSimpleActionGroup *create_actions (GnomeCmdPlugin *plugin, const gchar *name)
-{
-    FileRollerPluginPrivate *priv = (FileRollerPluginPrivate *) file_roller_plugin_get_instance_private (FILE_ROLLER_PLUGIN (plugin));
-
-    priv->action_group_name = g_strdup (name);
-
-    GSimpleActionGroup *group = g_simple_action_group_new ();
-    static const GActionEntry entries[] = {
-        { "add-to-archive", on_add_to_archive },
-        { "extract", on_extract_cwd, "(sms)" }
-    };
-    g_action_map_add_action_entries (G_ACTION_MAP (group), entries, G_N_ELEMENTS (entries), plugin);
-    return group;
-}
-
-
-static GMenuModel *create_main_menu (GnomeCmdPlugin *plugin)
+static GMenuModel *create_main_menu (GnomeCmdFileActions *iface)
 {
     return nullptr;
 }
 
 
-static GMenuModel *create_popup_menu_items (GnomeCmdPlugin *plugin, GnomeCmdState *state)
+static GMenuModel *create_popup_menu_items (GnomeCmdFileActions *iface, GnomeCmdState *state)
 {
     GMenu *menu;
-    gchar *action;
     gint num_files;
     GList *gnomeCmdFileBaseGList;
 
-    gnomeCmdFileBaseGList = state->active_dir_selected_files;
+    gnomeCmdFileBaseGList = gnome_cmd_state_get_active_dir_selected_files (state);
     num_files = g_list_length (gnomeCmdFileBaseGList);
 
     if (num_files <= 0)
         return nullptr;
 
-    FileRollerPluginPrivate *priv = (FileRollerPluginPrivate *) file_roller_plugin_get_instance_private (FILE_ROLLER_PLUGIN (plugin));
-
-    priv->state = state;
-
     menu = g_menu_new ();
 
-    action = g_strdup_printf ("%s.add-to-archive", priv->action_group_name);
-    g_menu_append (menu, _("Create Archive…"), action);
-    g_free (action);
+    g_menu_append (menu, _("Create Archive…"), "add-to-archive");
 
     if (num_files == 1)
     {
-        GnomeCmdFileBase *gnomeCmdFileBase = GNOME_CMD_FILE_BASE (gnomeCmdFileBaseGList->data);
-        auto fname = GetGfileAttributeString(gnomeCmdFileBase->gFile, G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME);
+        auto fd = GNOME_CMD_FILE_DESCRIPTOR (gnomeCmdFileBaseGList->data);
+        GFile *file = gnome_cmd_file_descriptor_get_file (fd);
+        auto fname = GetGfileAttributeString(fd, G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME);
         gint i;
 
-        gchar *local_path = g_file_get_path(gnomeCmdFileBase->gFile);
+        gchar *local_path = g_file_get_path(file);
 
         for (i=0; handled_extensions[i]; ++i)
             if (g_str_has_suffix (fname, handled_extensions[i]))
             {
-                action = g_strdup_printf ("%s.extract", priv->action_group_name);
                 GMenuItem *item;
 
                 // extract to current directory
 
                 item = g_menu_item_new (_("Extract in Current Directory"), nullptr);
-                g_menu_item_set_action_and_target (item, action, "(sms)", local_path, nullptr);
+                g_menu_item_set_action_and_target (item, "extract", "(sms)", local_path, nullptr);
                 g_menu_append_item (menu, item);
 
                 // extract to a new directory
@@ -529,7 +516,7 @@ static GMenuModel *create_popup_menu_items (GnomeCmdPlugin *plugin, GnomeCmdStat
 
                 gchar *dir = g_path_get_dirname (local_path);
                 gchar *target_dir = g_build_filename (dir, fname, nullptr);
-                g_menu_item_set_action_and_target (item, action, "(sms)", local_path, target_dir);
+                g_menu_item_set_action_and_target (item, "extract", "(sms)", local_path, target_dir);
                 g_free (target_dir);
                 g_free (dir);
 
@@ -537,18 +524,21 @@ static GMenuModel *create_popup_menu_items (GnomeCmdPlugin *plugin, GnomeCmdStat
 
                 // extract to an opposite panel's directory
 
-                auto activeDirId = GetGfileAttributeString(state->activeDirGfile, G_FILE_ATTRIBUTE_ID_FILE);
-                auto inactiveDirId = GetGfileAttributeString(state->inactiveDirGfile, G_FILE_ATTRIBUTE_ID_FILE);
+                auto activeDir = gnome_cmd_state_get_active_dir(state);
+                auto inactiveDir = gnome_cmd_state_get_inactive_dir(state);
+
+                auto activeDirId = GetGfileAttributeString(activeDir, G_FILE_ATTRIBUTE_ID_FILE);
+                auto inactiveDirId = GetGfileAttributeString(inactiveDir, G_FILE_ATTRIBUTE_ID_FILE);
 
                 if (activeDirId && inactiveDirId && !g_str_equal(activeDirId, inactiveDirId))
                 {
-                    gchar *basenameString = GetGfileAttributeString(state->inactiveDirGfile, G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME);
-                    gchar *target_dir = g_file_get_path(state->inactiveDirGfile);
+                    gchar *basenameString = GetGfileAttributeString(inactiveDir, G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME);
+                    gchar *target_dir = g_file_get_path(gnome_cmd_file_descriptor_get_file(inactiveDir));
 
                     text = g_strdup_printf (_("Extract to “%s”"), basenameString);
                     item = g_menu_item_new (text, nullptr);
                     g_free (text);
-                    g_menu_item_set_action_and_target (item, action, "(sms)", local_path, target_dir);
+                    g_menu_item_set_action_and_target (item, "extract", "(sms)", local_path, target_dir);
                     g_menu_append_item (menu, item);
                     g_free (basenameString);
                     g_free (target_dir);
@@ -557,8 +547,6 @@ static GMenuModel *create_popup_menu_items (GnomeCmdPlugin *plugin, GnomeCmdStat
                 g_free(activeDirId);
                 g_free(inactiveDirId);
 
-                g_free (action);
-
                 break;
             }
 
@@ -566,6 +554,17 @@ static GMenuModel *create_popup_menu_items (GnomeCmdPlugin *plugin, GnomeCmdStat
     }
 
     return G_MENU_MODEL (menu);
+}
+
+
+static void execute (GnomeCmdFileActions *iface, const gchar *action, GVariant *parameter, GtkWindow *parent_window, GnomeCmdState *state)
+{
+    auto plugin = GNOME_CMD_FILE_ROLLER_PLUGIN (iface);
+
+    if (!g_strcmp0 (action, "add-to-archive"))
+        on_add_to_archive (plugin, state, parent_window);
+    else if (!g_strcmp0 (action, "extract"))
+        on_extract_cwd (plugin, parameter, parent_window);
 }
 
 
@@ -626,11 +625,12 @@ static void on_date_format_update (GtkWidget *options_dialog, ...)
 }
 
 
-static void configure (GnomeCmdPlugin *plugin, GtkWindow *parent_window)
+static void configure (GnomeCmdConfigurable *iface, GtkWindow *parent_window)
 {
-    GtkWidget *dialog, *grid, *label, *entry, *combo, *button;
+    auto plugin = GNOME_CMD_FILE_ROLLER_PLUGIN (iface);
+    auto priv = (GnomeCmdFileRollerPluginPrivate *) gnome_cmd_file_roller_plugin_get_instance_private (plugin);
 
-    FileRollerPluginPrivate *priv = (FileRollerPluginPrivate *) file_roller_plugin_get_instance_private (FILE_ROLLER_PLUGIN (plugin));
+    GtkWidget *dialog, *grid, *label, *entry, *combo, *button;
 
     dialog = gtk_window_new ();
     gtk_window_set_title (GTK_WINDOW (dialog), _("File-roller options"));
@@ -710,32 +710,36 @@ static void configure (GnomeCmdPlugin *plugin, GtkWindow *parent_window)
 
 static void dispose (GObject *object)
 {
-    FileRollerPlugin *plugin = FILE_ROLLER_PLUGIN (object);
-    FileRollerPluginPrivate *priv = (FileRollerPluginPrivate *) file_roller_plugin_get_instance_private (plugin);
+    auto plugin = GNOME_CMD_FILE_ROLLER_PLUGIN (object);
+    auto priv = (GnomeCmdFileRollerPluginPrivate *) gnome_cmd_file_roller_plugin_get_instance_private (plugin);
 
-    g_clear_pointer (&priv->action_group_name, g_free);
-
-    G_OBJECT_CLASS (file_roller_plugin_parent_class)->dispose (object);
+    G_OBJECT_CLASS (gnome_cmd_file_roller_plugin_parent_class)->dispose (object);
 }
 
 
-static void file_roller_plugin_class_init (FileRollerPluginClass *klass)
+static void gnome_cmd_file_roller_plugin_class_init (GnomeCmdFileRollerPluginClass *klass)
 {
-    GObjectClass *object_class = G_OBJECT_CLASS (klass);
-    GnomeCmdPluginClass *plugin_class = GNOME_CMD_PLUGIN_CLASS (klass);
-
-    object_class->dispose = dispose;
-
-    plugin_class->create_actions = create_actions;
-    plugin_class->create_main_menu = create_main_menu;
-    plugin_class->create_popup_menu_items = create_popup_menu_items;
-    plugin_class->configure = configure;
+    G_OBJECT_CLASS (klass)->dispose = dispose;
 }
 
 
-static void file_roller_plugin_init (FileRollerPlugin *plugin)
+static void gnome_cmd_configurable_init (GnomeCmdConfigurableInterface *iface)
 {
-    FileRollerPluginPrivate *priv = (FileRollerPluginPrivate *) file_roller_plugin_get_instance_private (plugin);
+    iface->configure = configure;
+}
+
+
+static void gnome_cmd_file_actions_init (GnomeCmdFileActionsInterface *iface)
+{
+    iface->create_main_menu = create_main_menu;
+    iface->create_popup_menu_items = create_popup_menu_items;
+    iface->execute = execute;
+}
+
+
+static void gnome_cmd_file_roller_plugin_init (GnomeCmdFileRollerPlugin *plugin)
+{
+    auto priv = (GnomeCmdFileRollerPluginPrivate *) gnome_cmd_file_roller_plugin_get_instance_private (plugin);
 
     priv->settings = plugin_settings_new();
 }
@@ -744,8 +748,10 @@ static void file_roller_plugin_init (FileRollerPlugin *plugin)
  * Gets a string attribute of a GFile instance and returns the newlo allocated string.
  * The return value has to be g_free'd.
  */
-gchar *GetGfileAttributeString(GFile *gFile, const char *attribute)
+gchar *GetGfileAttributeString(GnomeCmdFileDescriptor *fd, const char *attribute)
 {
+    auto gFile = gnome_cmd_file_descriptor_get_file (fd);
+
     GError *error;
     error = nullptr;
     auto gcmdFileInfo = g_file_query_info(gFile,
@@ -771,35 +777,20 @@ gchar *GetGfileAttributeString(GFile *gFile, const char *attribute)
  * Public functions
  ***********************************/
 
-GnomeCmdPlugin *file_roller_plugin_new ()
+GObject *create_plugin ()
 {
-    FileRollerPlugin *plugin = (FileRollerPlugin *) g_object_new (file_roller_plugin_get_type (), nullptr);
-
-    return GNOME_CMD_PLUGIN (plugin);
+    return G_OBJECT (g_object_new (GNOME_CMD_TYPE_FILE_ROLLER_PLUGIN, nullptr));
 }
 
-
-extern "C"
+PluginInfo *get_plugin_info ()
 {
-    GnomeCmdPlugin *create_plugin ()
+    if (!plugin_nfo.authors)
     {
-        return file_roller_plugin_new ();
+        plugin_nfo.authors = g_new0 (gchar *, 2);
+        plugin_nfo.authors[0] = (gchar*) AUTHOR;
+        plugin_nfo.authors[1] = nullptr;
+        plugin_nfo.comments = g_strdup (_("A plugin that adds File Roller shortcuts for creating "
+                                        "and extracting compressed archives."));
     }
-}
-
-
-extern "C"
-{
-    PluginInfo *get_plugin_info ()
-    {
-        if (!plugin_nfo.authors)
-        {
-            plugin_nfo.authors = g_new0 (gchar *, 2);
-            plugin_nfo.authors[0] = (gchar*) AUTHOR;
-            plugin_nfo.authors[1] = nullptr;
-            plugin_nfo.comments = g_strdup (_("A plugin that adds File Roller shortcuts for creating "
-                                            "and extracting compressed archives."));
-        }
-        return &plugin_nfo;
-    }
+    return &plugin_nfo;
 }

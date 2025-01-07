@@ -23,7 +23,7 @@
 use crate::{
     data::{ProgramsOptions, ProgramsOptionsRead},
     file::File,
-    libgcmd::file_base::FileBaseExt,
+    libgcmd::file_descriptor::FileDescriptorExt,
     utils::{make_run_in_terminal_command, ErrorMessage},
 };
 use gettextrs::gettext;
@@ -221,7 +221,7 @@ pub unsafe extern "C" fn spawn_async_r(
         .filter(|p| !p.is_null())
         .and_then(|p| CStr::from_ptr(p).to_str().ok())
         .map(Path::new);
-    let files = glib::List::from_glib_none(files_list);
+    let files = glib::List::from_glib_full(files_list);
     let Ok(command_template) = CStr::from_ptr(command_template).to_str() else {
         return 1;
     };

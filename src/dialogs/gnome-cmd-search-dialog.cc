@@ -35,6 +35,7 @@
 #include "dirlist.h"
 #include "filter.h"
 #include "utils.h"
+#include "widget-factory.h"
 
 using namespace std;
 

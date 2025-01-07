@@ -20,7 +20,7 @@
 use crate::{
     data::ProgramsOptionsRead,
     file::File,
-    libgcmd::file_base::FileBaseExt,
+    libgcmd::file_descriptor::FileDescriptorExt,
     spawn::{spawn_async, SpawnError},
     utils::ErrorMessage,
 };

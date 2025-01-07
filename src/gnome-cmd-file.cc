@@ -49,16 +49,29 @@ using namespace std;
 
 struct GnomeCmdFile::Private
 {
+    GFile *file;
+    GFileInfo *file_info;
     GnomeCmdDir *parent_dir;
     GTimeVal last_update;
     guint64 tree_size;
 };
 
 
-G_DEFINE_TYPE (GnomeCmdFile, gnome_cmd_file, GNOME_CMD_TYPE_FILE_BASE)
-
-
+static void gnome_cmd_file_descriptor_init (GnomeCmdFileDescriptorInterface *iface);
+static GFile *gnome_cmd_file_get_file (GnomeCmdFileDescriptor *fd);
+static GFileInfo *gnome_cmd_file_get_file_info (GnomeCmdFileDescriptor *fd);
 static GnomeCmdCon *file_get_connection (GnomeCmdFile *f);
+
+
+G_DEFINE_TYPE_WITH_CODE (GnomeCmdFile, gnome_cmd_file, G_TYPE_OBJECT,
+                        G_IMPLEMENT_INTERFACE (GNOME_CMD_TYPE_FILE_DESCRIPTOR, gnome_cmd_file_descriptor_init))
+
+
+static void gnome_cmd_file_descriptor_init (GnomeCmdFileDescriptorInterface *iface)
+{
+    iface->get_file = gnome_cmd_file_get_file;
+    iface->get_file_info = gnome_cmd_file_get_file_info;
+}
 
 
 inline gboolean has_parent_dir (GnomeCmdFile *f)
@@ -133,8 +146,8 @@ GnomeCmdFile *gnome_cmd_file_new_full (GFileInfo *gFileInfo, GFile *gFile, Gnome
 
     auto gnomeCmdFile = static_cast<GnomeCmdFile*> (g_object_new (GNOME_CMD_TYPE_FILE, nullptr));
 
-    GNOME_CMD_FILE_BASE (gnomeCmdFile)->gFileInfo = gFileInfo;
-    GNOME_CMD_FILE_BASE (gnomeCmdFile)->gFile = gFile;
+    gnomeCmdFile->priv->file_info = gFileInfo;
+    gnomeCmdFile->priv->file = gFile;
     gnomeCmdFile->priv->parent_dir = g_object_ref (dir);
 
     auto filename = g_file_info_get_attribute_string (gFileInfo, G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME);
@@ -159,7 +172,7 @@ GnomeCmdFile *gnome_cmd_file_new (GFileInfo *gFileInfo, GnomeCmdDir *dir)
     g_return_val_if_fail (dir != nullptr, nullptr);
 
     GFile *gFile = g_file_get_child (
-        gnome_cmd_file_base_get_file (GNOME_CMD_FILE_BASE (dir)),
+        gnome_cmd_file_descriptor_get_file (GNOME_CMD_FILE_DESCRIPTOR (dir)),
         g_file_info_get_name (gFileInfo));
 
     g_return_val_if_fail (gFile != nullptr, nullptr);
@@ -223,7 +236,7 @@ gboolean gnome_cmd_file_setup (GObject *gObject, GFile *gFile, GError **error)
     GError *errorTmp = nullptr;
     auto gnomeCmdFile = (GnomeCmdFile*) gObject;
 
-    GNOME_CMD_FILE_BASE (gnomeCmdFile)->gFileInfo = g_file_query_info(gFile, "*", G_FILE_QUERY_INFO_NONE, nullptr, &errorTmp);
+    gnomeCmdFile->priv->file_info = g_file_query_info(gFile, "*", G_FILE_QUERY_INFO_NONE, nullptr, &errorTmp);
     if (errorTmp)
     {
         g_propagate_error(error, errorTmp);
@@ -242,7 +255,7 @@ gboolean gnome_cmd_file_setup (GObject *gObject, GFile *gFile, GError **error)
     gnomeCmdFile->collate_key = g_utf8_collate_key_for_filename (utf8Name, -1);
     g_free (utf8Name);
 
-    GNOME_CMD_FILE_BASE (gnomeCmdFile)->gFile = gFile;
+    gnomeCmdFile->priv->file = gFile;
     return TRUE;
 }
 
@@ -363,14 +376,14 @@ gboolean GnomeCmdFile::chown(uid_t uid, gid_t gid, GError **error)
 
 gboolean GnomeCmdFile::rename(const gchar *new_name, GError **error)
 {
-    g_return_val_if_fail (get_file_info(), false);
+    g_return_val_if_fail (priv->file_info, false);
 
     gchar *old_uri_str = get_uri_str();
 
     GError *tmp_error;
     tmp_error = nullptr;
 
-    auto newgFile = g_file_set_display_name (this->get_file(), new_name, nullptr, &tmp_error);
+    auto newgFile = g_file_set_display_name (priv->file, new_name, nullptr, &tmp_error);
 
     if (tmp_error || newgFile == nullptr)
     {
@@ -379,8 +392,7 @@ gboolean GnomeCmdFile::rename(const gchar *new_name, GError **error)
         return FALSE;
     }
 
-    g_object_unref(GNOME_CMD_FILE_BASE (this)->gFile);
-    GNOME_CMD_FILE_BASE (this)->gFile = newgFile;
+    g_set_object (&priv->file, newgFile);
 
     auto gFileInfoNew = g_file_query_info(newgFile,
                                           "*",
@@ -821,7 +833,7 @@ void GnomeCmdFile::update_gFileInfo(GFileInfo *gFileInfo_new)
     g_return_if_fail (G_IS_FILE_INFO(gFileInfo_new));
 
     g_free (collate_key);
-    g_set_object (&this->parent.gFileInfo, gFileInfo_new);
+    g_set_object (&priv->file_info, gFileInfo_new);
 
     gchar *filename;
 
@@ -956,10 +968,16 @@ gboolean GnomeCmdFile::has_tree_size()
     return priv->tree_size != (guint64)-1;
 }
 
-GFile *gnome_cmd_file_get_file (GnomeCmdFile *f)
+GFile *gnome_cmd_file_get_file (GnomeCmdFileDescriptor *fd)
 {
-    g_return_val_if_fail (f != NULL, NULL);
-    return f->get_file();
+    g_return_val_if_fail (GNOME_CMD_IS_FILE (fd), NULL);
+    return GNOME_CMD_FILE (fd)->priv->file;
+}
+
+GFileInfo *gnome_cmd_file_get_file_info (GnomeCmdFileDescriptor *fd)
+{
+    g_return_val_if_fail (GNOME_CMD_IS_FILE (fd), NULL);
+    return GNOME_CMD_FILE (fd)->priv->file_info;
 }
 
 const gchar *gnome_cmd_file_get_name (GnomeCmdFile *f)

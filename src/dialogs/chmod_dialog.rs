@@ -21,7 +21,7 @@ use crate::{
     chmod_component::ChmodComponent,
     dir::Directory,
     file::File,
-    libgcmd::file_base::FileBaseExt,
+    libgcmd::file_descriptor::FileDescriptorExt,
     utils::{dialog_button_box, ErrorMessage, SenderExt, NO_BUTTONS},
 };
 use gettextrs::gettext;

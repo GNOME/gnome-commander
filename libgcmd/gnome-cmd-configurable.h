@@ -1,5 +1,5 @@
 /*
- * Copyright 2024 Andrey Kutejko <andy128k@gmail.com>
+ * Copyright 2024-2025 Andrey Kutejko <andy128k@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,6 +17,28 @@
  * For more details see the file COPYING.
  */
 
-pub mod file_actions;
-pub mod file_descriptor;
-pub mod state;
+#pragma once
+
+#include <glib.h>
+#include <gtk/gtk.h>
+
+G_BEGIN_DECLS
+
+#define GNOME_CMD_TYPE_CONFIGURABLE (gnome_cmd_configurable_get_type ())
+
+G_DECLARE_INTERFACE (GnomeCmdConfigurable,
+                     gnome_cmd_configurable,
+                     GNOME_CMD,
+                     CONFIGURABLE,
+                     GObject)
+
+struct _GnomeCmdConfigurableInterface
+{
+    GTypeInterface g_iface;
+
+    void (* configure) (GnomeCmdConfigurable *cfg, GtkWindow *parent_window);
+};
+
+void gnome_cmd_configurable_configure (GnomeCmdConfigurable *cfg, GtkWindow *parent_window);
+
+G_END_DECLS

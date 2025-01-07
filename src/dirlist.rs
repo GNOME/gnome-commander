@@ -17,10 +17,7 @@
  * For more details see the file COPYING.
  */
 
-use crate::{
-    dir::Directory,
-    libgcmd::file_base::{FileBase, FileBaseExt},
-};
+use crate::{dir::Directory, libgcmd::file_descriptor::FileDescriptorExt};
 use gettextrs::{gettext, ngettext};
 use gtk::{gio, glib, prelude::*};
 
@@ -85,7 +82,7 @@ pub async fn list_directory(
     dir: &Directory,
     parent_window: Option<&gtk::Window>,
 ) -> Result<glib::List<gio::FileInfo>, glib::Error> {
-    let file = dir.upcast_ref::<FileBase>().file();
+    let file = dir.file();
 
     let dialog = if let Some(parent_window) = parent_window {
         Some(create_list_progress_dialog(parent_window))

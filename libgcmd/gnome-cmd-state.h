@@ -1,8 +1,5 @@
-/** 
- * @file gnome-cmd-state.h
- * @copyright (C) 2001-2006 Marcus Bjurman\n
- * @copyright (C) 2007-2012 Piotr Eljasiak\n
- * @copyright (C) 2013-2024 Uwe Scholz\n
+/**
+ * @copyright (C) 2024-2025 Andrey Kutejko\n
  *
  * @copyright This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -21,12 +18,39 @@
 
 #pragma once
 
-struct GnomeCmdState
+#include <glib.h>
+#include <gio/gio.h>
+#include <gtk/gtk.h>
+#include <gnome-cmd-file-descriptor.h>
+
+G_BEGIN_DECLS
+
+#define GNOME_CMD_TYPE_STATE (gnome_cmd_state_get_type ())
+G_DECLARE_DERIVABLE_TYPE (GnomeCmdState, gnome_cmd_state, GNOME_CMD, STATE, GObject)
+
+struct _GnomeCmdStateClass
 {
-    GFile *activeDirGfile;
-    GFile *inactiveDirGfile;
-    GList *active_dir_files;
-    GList *inactive_dir_files;
-    GList *active_dir_selected_files;
-    GList *inactive_dir_selected_files;
+    GObjectClass parent_class;
 };
+
+GnomeCmdState *gnome_cmd_state_new();
+
+GnomeCmdFileDescriptor *gnome_cmd_state_get_active_dir(GnomeCmdState *state);
+void gnome_cmd_state_set_active_dir(GnomeCmdState *state, GnomeCmdFileDescriptor *active_dir);
+
+GnomeCmdFileDescriptor *gnome_cmd_state_get_inactive_dir(GnomeCmdState *state);
+void gnome_cmd_state_set_inactive_dir(GnomeCmdState *state, GnomeCmdFileDescriptor *inactive_dir);
+
+GList *gnome_cmd_state_get_active_dir_files(GnomeCmdState *state);
+void gnome_cmd_state_set_active_dir_files(GnomeCmdState *state, GList *active_dir_files);
+
+GList *gnome_cmd_state_get_inactive_dir_files(GnomeCmdState *state);
+void gnome_cmd_state_set_inactive_dir_files(GnomeCmdState *state, GList *inactive_dir_files);
+
+GList *gnome_cmd_state_get_active_dir_selected_files(GnomeCmdState *state);
+void gnome_cmd_state_set_active_dir_selected_files(GnomeCmdState *state, GList *active_dir_selected_files);
+
+GList *gnome_cmd_state_get_inactive_dir_selected_files(GnomeCmdState *state);
+void gnome_cmd_state_set_inactive_dir_selected_files(GnomeCmdState *state, GList *inactive_dir_selected_files);
+
+G_END_DECLS

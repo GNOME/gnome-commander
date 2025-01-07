@@ -24,6 +24,7 @@
 #include "gnome-cmd-includes.h"
 #include "gnome-cmd-chmod-component.h"
 #include "utils.h"
+#include "widget-factory.h"
 
 using namespace std;
 

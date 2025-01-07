@@ -146,8 +146,12 @@ static GMenu *create_plugins_menu ()
 
     for (GList *plugins = plugin_manager_get_all (); plugins; plugins = plugins->next) {
         auto pluginData = static_cast<PluginData *>(plugins->data);
-        if (pluginData->active && pluginData->menu)
-            g_menu_append_section (menu, nullptr, G_MENU_MODEL (pluginData->menu));
+        if (pluginData->active && GNOME_CMD_IS_FILE_ACTIONS (pluginData->plugin))
+        {
+            auto plugin_menu = gnome_cmd_file_actions_create_main_menu (GNOME_CMD_FILE_ACTIONS (pluginData->plugin));
+            if (plugin_menu != nullptr)
+                g_menu_append_section (menu, nullptr, G_MENU_MODEL (gnome_cmd_wrap_plugin_menu (pluginData->action_group_name, G_MENU_MODEL (plugin_menu))));
+        }
     }
 
     return menu;

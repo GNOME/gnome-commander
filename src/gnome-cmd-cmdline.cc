@@ -28,6 +28,7 @@
 #include "gnome-cmd-data.h"
 #include "gnome-cmd-dir.h"
 #include "utils.h"
+#include "text-utils.h"
 
 using namespace std;
 

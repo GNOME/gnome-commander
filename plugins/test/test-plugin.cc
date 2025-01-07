@@ -19,9 +19,11 @@
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 */
 
-#include <config.h>
+#include "config.h"
+#include <glib.h>
+#include <glib/gi18n.h>
 #include <gtk/gtk.h>
-#include <libgcmd/libgcmd.h>
+#include <libgcmd.h>
 #include "test-plugin.h"
 
 #define NAME "Example"
@@ -42,13 +44,19 @@ static PluginInfo plugin_nfo = {
     WEBPAGE
 };
 
-struct TestPluginPrivate
+struct _GnomeCmdTestPlugin
 {
-    gchar *action_group_name;
+    GObject parent;
 };
 
 
-G_DEFINE_TYPE_WITH_PRIVATE(TestPlugin, test_plugin, GNOME_CMD_TYPE_PLUGIN)
+static void gnome_cmd_configurable_init (GnomeCmdConfigurableInterface *iface);
+static void gnome_cmd_file_actions_init (GnomeCmdFileActionsInterface *iface);
+
+
+G_DEFINE_TYPE_WITH_CODE (GnomeCmdTestPlugin, gnome_cmd_test_plugin, G_TYPE_OBJECT,
+                         G_IMPLEMENT_INTERFACE (GNOME_CMD_TYPE_CONFIGURABLE, gnome_cmd_configurable_init)
+                         G_IMPLEMENT_INTERFACE (GNOME_CMD_TYPE_FILE_ACTIONS, gnome_cmd_file_actions_init))
 
 
 static void show_dummy_dialog(GtkWindow *parent_window)
@@ -65,52 +73,29 @@ static void show_dummy_dialog(GtkWindow *parent_window)
 }
 
 
-static void on_dummy (GSimpleAction *action, GVariant *parameter, gpointer user_data)
+static GMenuModel *create_main_menu (GnomeCmdFileActions *iface)
 {
-    show_dummy_dialog(nullptr);
-}
-
-
-static GSimpleActionGroup *create_actions (GnomeCmdPlugin *plugin, const gchar *name)
-{
-    TestPluginPrivate *priv = (TestPluginPrivate *) test_plugin_get_instance_private (TEST_PLUGIN (plugin));
-
-    priv->action_group_name = g_strdup (name);
-
-    GSimpleActionGroup *group = g_simple_action_group_new ();
-    static const GActionEntry entries[] = {
-        { "dummy", on_dummy }
-    };
-    g_action_map_add_action_entries (G_ACTION_MAP (group), entries, G_N_ELEMENTS (entries), plugin);
-    return group;
-}
-
-
-static GMenuModel *create_main_menu (GnomeCmdPlugin *plugin)
-{
-    TestPluginPrivate *priv = (TestPluginPrivate *) test_plugin_get_instance_private (TEST_PLUGIN (plugin));
-
     GMenu *menu = g_menu_new ();
-    gchar *action_name = g_strdup_printf ("%s.dummy", priv->action_group_name);
-    g_menu_append (menu, "Test plugin dummy operation", action_name);
-    g_free (action_name);
+    g_menu_append (menu, "Test plugin dummy operation", "dummy");
     return G_MENU_MODEL (menu);
 }
 
 
-static GMenuModel *create_popup_menu_items (GnomeCmdPlugin *plugin, GnomeCmdState *state)
+static GMenuModel *create_popup_menu_items (GnomeCmdFileActions *iface, GnomeCmdState *state)
 {
-    TestPluginPrivate *priv = (TestPluginPrivate *) test_plugin_get_instance_private (TEST_PLUGIN (plugin));
-
     GMenu *menu = g_menu_new ();
-    gchar *action_name = g_strdup_printf ("%s.dummy", priv->action_group_name);
-    g_menu_append (menu, "Test plugin dummy operation", action_name);
-    g_free (action_name);
+    g_menu_append (menu, "Test plugin dummy operation", "dummy");
     return G_MENU_MODEL (menu);
 }
 
 
-static void configure (GnomeCmdPlugin *plugin, GtkWindow *parent_window)
+static void execute (GnomeCmdFileActions *iface, const gchar *action, GVariant *parameter, GtkWindow *parent_window, GnomeCmdState *state)
+{
+    show_dummy_dialog(parent_window);
+}
+
+
+static void configure (GnomeCmdConfigurable *iface, GtkWindow *parent_window)
 {
     show_dummy_dialog(parent_window);
 }
@@ -122,29 +107,26 @@ static void configure (GnomeCmdPlugin *plugin, GtkWindow *parent_window)
  * Gtk class implementation
  *******************************/
 
-static void dispose (GObject *object)
+static void gnome_cmd_test_plugin_class_init (GnomeCmdTestPluginClass *klass)
 {
-    TestPluginPrivate *priv = (TestPluginPrivate *) test_plugin_get_instance_private (TEST_PLUGIN (object));
-
-    g_clear_pointer (&priv->action_group_name, g_free);
-
-    G_OBJECT_CLASS (test_plugin_parent_class)->dispose (object);
-}
-
-static void test_plugin_class_init (TestPluginClass *klass)
-{
-    G_OBJECT_CLASS (klass)->dispose = dispose;
-
-    GnomeCmdPluginClass *plugin_class = GNOME_CMD_PLUGIN_CLASS (klass);
-
-    plugin_class->create_actions = create_actions;
-    plugin_class->create_main_menu = create_main_menu;
-    plugin_class->create_popup_menu_items = create_popup_menu_items;
-    plugin_class->configure = configure;
 }
 
 
-static void test_plugin_init (TestPlugin *plugin)
+static void gnome_cmd_configurable_init (GnomeCmdConfigurableInterface *iface)
+{
+    iface->configure = configure;
+}
+
+
+static void gnome_cmd_file_actions_init (GnomeCmdFileActionsInterface *iface)
+{
+    iface->create_main_menu = create_main_menu;
+    iface->create_popup_menu_items = create_popup_menu_items;
+    iface->execute = execute;
+}
+
+
+static void gnome_cmd_test_plugin_init (GnomeCmdTestPlugin *plugin)
 {
 }
 
@@ -152,35 +134,20 @@ static void test_plugin_init (TestPlugin *plugin)
  * Public functions
  ***********************************/
 
-GnomeCmdPlugin *test_plugin_new ()
+GObject *create_plugin ()
 {
-    TestPlugin *plugin = (TestPlugin *) g_object_new (test_plugin_get_type (), NULL);
-
-    return GNOME_CMD_PLUGIN (plugin);
+    return G_OBJECT (g_object_new (GNOME_CMD_TYPE_TEST_PLUGIN, NULL));
 }
 
-
-extern "C"
+PluginInfo *get_plugin_info ()
 {
-    GnomeCmdPlugin *create_plugin ()
+    if (!plugin_nfo.authors)
     {
-        return test_plugin_new ();
+        plugin_nfo.authors = g_new0 (gchar *, 2);
+        plugin_nfo.authors[0] = (gchar*) AUTHOR;
+        plugin_nfo.authors[1] = NULL;
+        plugin_nfo.comments = g_strdup (_("This is an example plugin that is mostly useful as a "
+                                        "simple example for aspiring plugin hackers"));
     }
+    return &plugin_nfo;
 }
-
-extern "C"
-{
-    PluginInfo *get_plugin_info ()
-    {
-        if (!plugin_nfo.authors)
-        {
-            plugin_nfo.authors = g_new0 (gchar *, 2);
-            plugin_nfo.authors[0] = (gchar*) AUTHOR;
-            plugin_nfo.authors[1] = NULL;
-            plugin_nfo.comments = g_strdup (_("This is an example plugin that is mostly useful as a "
-                                            "simple example for aspiring plugin hackers"));
-        }
-        return &plugin_nfo;
-    }
-}
-

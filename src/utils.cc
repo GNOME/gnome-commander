@@ -33,6 +33,7 @@
 #include "imageloader.h"
 #include "gnome-cmd-main-win.h"
 #include "gnome-cmd-user-actions.h"
+#include "text-utils.h"
 
 using namespace std;
 

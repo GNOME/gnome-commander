@@ -62,7 +62,7 @@ using GtkTreeIterPtr = std::unique_ptr<GtkTreeIter, decltype(&gtk_tree_iter_free
 
 struct GnomeCmdFileList
 {
-    GtkTreeView parent;
+    GtkWidget parent;
 
   private:
 
@@ -87,7 +87,6 @@ struct GnomeCmdFileList
 
     operator GObject * () const         {  return G_OBJECT (this);         }
     operator GtkWidget * () const       {  return GTK_WIDGET (this);       }
-    operator GtkTreeView * () const     {  return GTK_TREE_VIEW (this);    }
 
     enum ColumnID
     {
@@ -305,6 +304,7 @@ struct GnomeCmdFileListButtonEvent
 extern "C" void gnome_cmd_show_new_textfile_dialog(GtkWindow *parent_window, GnomeCmdFileList *fl);
 
 // FFI
+extern "C" GList *gnome_cmd_file_list_get_visible_files (GnomeCmdFileList *fl);
 extern "C" GList *gnome_cmd_file_list_get_selected_files (GnomeCmdFileList *fl);
 extern "C" GnomeCmdFile *gnome_cmd_file_list_get_focused_file(GnomeCmdFileList *fl);
 extern "C" GnomeCmdDir *gnome_cmd_file_list_get_cwd(GnomeCmdFileList *fl);

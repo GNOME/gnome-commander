@@ -27,7 +27,7 @@ use crate::{
     },
     data::{ProgramsOptions, ProgramsOptionsRead},
     dir::Directory,
-    libgcmd::file_base::{FileBase, FileBaseExt},
+    libgcmd::file_descriptor::{FileDescriptor, FileDescriptorExt},
     path::GnomeCmdPath,
     spawn::{app_needs_terminal, run_command_indir, SpawnError},
 };
@@ -43,10 +43,7 @@ use std::{
 };
 pub mod ffi {
     use super::*;
-    use crate::{
-        connection::connection::ffi::GnomeCmdCon, dir::ffi::GnomeCmdDir,
-        libgcmd::file_base::ffi::GnomeCmdFileBaseClass,
-    };
+    use crate::{connection::connection::ffi::GnomeCmdCon, dir::ffi::GnomeCmdDir};
     use gtk::{
         gio::ffi::{GFile, GFileInfo},
         glib::ffi::{gboolean, GError, GType},
@@ -106,26 +103,16 @@ pub mod ffi {
     #[derive(Copy, Clone)]
     #[repr(C)]
     pub struct GnomeCmdFileClass {
-        pub parent_class: GnomeCmdFileBaseClass,
+        pub parent_class: glib::gobject_ffi::GObjectClass,
     }
 }
 
 glib::wrapper! {
     pub struct File(Object<ffi::GnomeCmdFile, ffi::GnomeCmdFileClass>)
-        @extends FileBase;
+        @implements FileDescriptor;
 
     match fn {
         type_ => || ffi::gnome_cmd_file_get_type(),
-    }
-}
-
-impl FileBaseExt for File {
-    fn file(&self) -> gio::File {
-        self.upcast_ref::<FileBase>().file()
-    }
-
-    fn file_info(&self) -> gio::FileInfo {
-        self.upcast_ref::<FileBase>().file_info()
     }
 }
 

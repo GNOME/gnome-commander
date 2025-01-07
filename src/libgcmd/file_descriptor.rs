@@ -19,58 +19,55 @@
 
 use gtk::{
     gio,
-    glib::{self, translate::*},
+    glib::{self, prelude::*, translate::*},
 };
 
 pub mod ffi {
     use gtk::{
         gio::ffi::{GFile, GFileInfo},
-        glib::{self, ffi::GType},
+        glib::ffi::GType,
     };
 
     #[repr(C)]
-    pub struct GnomeCmdFileBase {
+    pub struct GnomeCmdFileDescriptor {
         _data: [u8; 0],
         _marker: std::marker::PhantomData<(*mut u8, std::marker::PhantomPinned)>,
     }
 
     extern "C" {
-        pub fn gnome_cmd_file_base_get_type() -> GType;
+        pub fn gnome_cmd_file_descriptor_get_type() -> GType;
 
-        pub fn gnome_cmd_file_base_get_file(fb: *mut GnomeCmdFileBase) -> *const GFile;
-        pub fn gnome_cmd_file_base_get_file_info(fb: *mut GnomeCmdFileBase) -> *const GFileInfo;
-    }
-
-    #[derive(Copy, Clone)]
-    #[repr(C)]
-    pub struct GnomeCmdFileBaseClass {
-        pub parent_class: glib::gobject_ffi::GObjectClass,
+        pub fn gnome_cmd_file_descriptor_get_file(fb: *mut GnomeCmdFileDescriptor) -> *const GFile;
+        pub fn gnome_cmd_file_descriptor_get_file_info(
+            fb: *mut GnomeCmdFileDescriptor,
+        ) -> *const GFileInfo;
     }
 }
 
 glib::wrapper! {
-    pub struct FileBase(Object<ffi::GnomeCmdFileBase, ffi::GnomeCmdFileBaseClass>);
+    pub struct FileDescriptor(Interface<ffi::GnomeCmdFileDescriptor, ffi::GnomeCmdFileDescriptor>);
 
     match fn {
-        type_ => || ffi::gnome_cmd_file_base_get_type(),
+        type_ => || ffi::gnome_cmd_file_descriptor_get_type(),
     }
 }
 
-pub trait FileBaseExt {
-    fn file(&self) -> gio::File;
-    fn file_info(&self) -> gio::FileInfo;
-}
-
-impl FileBaseExt for FileBase {
+pub trait FileDescriptorExt: IsA<FileDescriptor> + 'static {
     fn file(&self) -> gio::File {
-        unsafe { from_glib_none(ffi::gnome_cmd_file_base_get_file(self.to_glib_none().0)) }
+        unsafe {
+            from_glib_none(ffi::gnome_cmd_file_descriptor_get_file(
+                self.as_ref().to_glib_none().0,
+            ))
+        }
     }
 
     fn file_info(&self) -> gio::FileInfo {
         unsafe {
-            from_glib_none(ffi::gnome_cmd_file_base_get_file_info(
-                self.to_glib_none().0,
+            from_glib_none(ffi::gnome_cmd_file_descriptor_get_file_info(
+                self.as_ref().to_glib_none().0,
             ))
         }
     }
 }
+
+impl<O: IsA<FileDescriptor>> FileDescriptorExt for O {}

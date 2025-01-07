@@ -21,5 +21,6 @@
 #pragma once
 
 #include "gnome-cmd-includes.h"
+#include "widget-factory.h"
 
 MenuBuilder::Result gnome_cmd_main_menu_new ();
