@@ -62,7 +62,7 @@ using GtkTreeIterPtr = std::unique_ptr<GtkTreeIter, decltype(&gtk_tree_iter_free
 
 struct GnomeCmdFileList
 {
-    GtkWidget parent;
+    GtkTreeView parent;
 
   private:
 
@@ -87,6 +87,7 @@ struct GnomeCmdFileList
 
     operator GObject * () const         {  return G_OBJECT (this);         }
     operator GtkWidget * () const       {  return GTK_WIDGET (this);       }
+    operator GtkTreeView * () const     {  return GTK_TREE_VIEW (this);    }
 
     enum ColumnID
     {
