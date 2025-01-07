@@ -33,10 +33,7 @@ use std::path::Path;
 pub mod ffi {
     use super::*;
     use crate::{connection::connection::ffi::GnomeCmdCon, dir::ffi::GnomeCmdDir};
-    use gtk::{
-        ffi::GtkTreeView,
-        glib::ffi::{gboolean, GList, GType},
-    };
+    use glib::ffi::{gboolean, GList, GType};
     use std::ffi::{c_char, c_void};
 
     #[repr(C)]
@@ -47,8 +44,6 @@ pub mod ffi {
 
     extern "C" {
         pub fn gnome_cmd_file_list_get_type() -> GType;
-
-        pub fn gnome_cmd_file_list_get_tree_view(fl: *mut GnomeCmdFileList) -> *mut GtkTreeView;
 
         pub fn gnome_cmd_file_list_get_visible_files(fl: *mut GnomeCmdFileList) -> *mut GList;
 
@@ -88,13 +83,13 @@ pub mod ffi {
     #[derive(Copy, Clone)]
     #[repr(C)]
     pub struct GnomeCmdFileListClass {
-        pub parent_class: gtk::ffi::GtkWidgetClass,
+        pub parent_class: gtk::ffi::GtkTreeViewClass,
     }
 }
 
 glib::wrapper! {
     pub struct FileList(Object<ffi::GnomeCmdFileList, ffi::GnomeCmdFileListClass>)
-        @extends gtk::Widget;
+        @extends gtk::TreeView, gtk::Widget;
 
     match fn {
         type_ => || ffi::gnome_cmd_file_list_get_type(),
@@ -122,14 +117,6 @@ enum DataColumns {
 }
 
 impl FileList {
-    fn tree_view(&self) -> gtk::TreeView {
-        unsafe {
-            from_glib_none(ffi::gnome_cmd_file_list_get_tree_view(
-                self.to_glib_none().0,
-            ))
-        }
-    }
-
     pub fn visible_files(&self) -> glib::List<File> {
         unsafe {
             glib::List::from_glib_none(ffi::gnome_cmd_file_list_get_visible_files(
@@ -155,17 +142,15 @@ impl FileList {
     }
 
     pub fn file_at_row(&self, iter: &gtk::TreeIter) -> Option<File> {
-        self.tree_view()
-            .model()?
+        self.model()?
             .get_value(iter, DataColumns::DATA_COLUMN_FILE as i32)
             .get()
             .ok()
     }
 
     pub fn focused_file_iter(&self) -> Option<gtk::TreeIter> {
-        let tree_view = self.tree_view();
-        let model = tree_view.model()?;
-        let path = TreeViewExt::cursor(&tree_view).0?;
+        let model = self.model()?;
+        let path = TreeViewExt::cursor(self).0?;
         let iter = model.iter(&path)?;
         Some(iter)
     }

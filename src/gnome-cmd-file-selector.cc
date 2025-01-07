@@ -213,6 +213,8 @@ inline void GnomeCmdFileSelector::update_files()
     g_return_if_fail (GNOME_CMD_IS_DIR (dir));
 
     list->show_files(dir);
+    if (gtk_widget_get_realized (*list))
+        gtk_tree_view_scroll_to_point (*list, 0, 0);
 
     if (priv->realized)
         update_selected_files_label();
@@ -1218,6 +1220,13 @@ GtkWidget *GnomeCmdFileSelector::new_tab(GnomeCmdDir *dir, GnomeCmdFileList::Col
     // hide dir column
     fl->show_column(GnomeCmdFileList::COLUMN_DIR, FALSE);
 
+    // create the scrollwindow that we'll place the list in
+    GtkWidget *scrolled_window = gtk_scrolled_window_new ();
+    gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolled_window), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
+    gtk_widget_set_hexpand (scrolled_window, TRUE);
+    gtk_widget_set_vexpand (scrolled_window, TRUE);
+    gtk_scrolled_window_set_child (GTK_SCROLLED_WINDOW (scrolled_window), *fl);
+
     GtkWidget *hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 0);
 
     fl->tab_label_pin = gtk_image_new_from_file (PIXMAPS_DIR G_DIR_SEPARATOR_S "pin.png");
@@ -1231,10 +1240,10 @@ GtkWidget *GnomeCmdFileSelector::new_tab(GnomeCmdDir *dir, GnomeCmdFileList::Col
     else
         gtk_widget_hide (fl->tab_label_pin);
 
-    gint n = gtk_notebook_append_page (notebook, GTK_WIDGET (fl), hbox);
+    gint n = gtk_notebook_append_page (notebook, scrolled_window, hbox);
     update_show_tabs();
 
-    gtk_notebook_set_tab_reorderable (notebook, GTK_WIDGET (fl), TRUE);
+    gtk_notebook_set_tab_reorderable (notebook, scrolled_window, TRUE);
 
     g_signal_connect (fl, "con-changed", G_CALLBACK (on_list_con_changed), this);
     g_signal_connect (fl, "dir-changed", G_CALLBACK (on_list_dir_changed), this);
@@ -1258,7 +1267,7 @@ GtkWidget *GnomeCmdFileSelector::new_tab(GnomeCmdDir *dir, GnomeCmdFileList::Col
     gtk_widget_add_controller (GTK_WIDGET (fl), GTK_EVENT_CONTROLLER (key_controller));
     g_signal_connect (key_controller, "key-pressed", G_CALLBACK (on_list_key_pressed), this);
 
-    return GTK_WIDGET (fl);
+    return scrolled_window;
 }
 
 
