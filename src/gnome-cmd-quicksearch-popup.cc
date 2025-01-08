@@ -139,9 +139,8 @@ static gboolean on_key_pressed (GtkEventControllerKey *controller, guint keyval,
     auto priv = static_cast<GnomeCmdQuicksearchPopupPrivate *> (gnome_cmd_quicksearch_popup_get_instance_private (popup));
 
     // While in quicksearch, treat "ALT/CTRL + key" as a simple "key"
-    GnomeCmdKeyPress event = { .keyval = keyval, .state = state };
 
-    switch (event.keyval)
+    switch (keyval)
     {
         case GDK_KEY_Escape:
             hide_popup (popup);

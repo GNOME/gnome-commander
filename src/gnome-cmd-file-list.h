@@ -251,6 +251,8 @@ struct GnomeCmdFileList
     void select_iter(GtkTreeIter *iter);
     void unselect_iter(GtkTreeIter *iter);
     bool is_selected_iter(GtkTreeIter *iter);
+
+    bool do_file_specific_action (GnomeCmdFile *f);
 };
 
 

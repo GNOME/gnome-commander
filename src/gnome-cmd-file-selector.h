@@ -112,8 +112,6 @@ struct GnomeCmdFileSelector
 
     void do_file_specific_action (GnomeCmdFileList *fl, GnomeCmdFile *f);
 
-    gboolean key_pressed(GnomeCmdKeyPress *event);
-
     GListModel* GetTabs();
 };
 

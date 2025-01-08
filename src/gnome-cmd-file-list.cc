@@ -231,6 +231,7 @@ GnomeCmdFileList::Private::Private(GnomeCmdFileList *fl)
     : shift_down_row (nullptr, &gtk_tree_iter_free)
 {
     view = GTK_TREE_VIEW (gtk_tree_view_new ());
+    gtk_tree_view_set_enable_search (view, FALSE);
 
     GtkWidget *scrolled_window = gtk_scrolled_window_new ();
     gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolled_window), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
@@ -1410,7 +1411,7 @@ static void on_file_clicked (GnomeCmdFileList *fl, GnomeCmdFileListButtonEvent *
 
     if (event->n_press == 2 && event->button == 1 && gnome_cmd_data.options.left_mouse_button_mode == GnomeCmdData::LEFT_BUTTON_OPENS_WITH_DOUBLE_CLICK)
     {
-        mime_exec_file (GTK_WINDOW (gtk_widget_get_root (*fl)), event->file);
+        fl->do_file_specific_action (event->file);
     }
     else
         if (event->n_press == 1 && (event->button == 1 || event->button == 3))
@@ -1481,7 +1482,7 @@ static void on_file_released (GnomeCmdFileList *fl, GnomeCmdFileListButtonEvent 
     g_return_if_fail (GNOME_CMD_IS_FILE (event->file));
 
     if (event->n_press == 1 && event->button == 1 && !fl->modifier_click && gnome_cmd_data.options.left_mouse_button_mode == GnomeCmdData::LEFT_BUTTON_OPENS_WITH_SINGLE_CLICK)
-        mime_exec_file (GTK_WINDOW (gtk_widget_get_root (*fl)), event->file);
+        fl->do_file_specific_action (event->file);
 }
 
 
@@ -1805,7 +1806,7 @@ static void gnome_cmd_file_list_init (GnomeCmdFileList *fl)
     fl->init_dnd();
 
     GtkGesture *click_controller = gtk_gesture_click_new ();
-    gtk_widget_add_controller (GTK_WIDGET (fl), GTK_EVENT_CONTROLLER (click_controller));
+    gtk_widget_add_controller (GTK_WIDGET (fl->priv->view), GTK_EVENT_CONTROLLER (click_controller));
     gtk_gesture_single_set_button (GTK_GESTURE_SINGLE (click_controller), 0);
 
     g_signal_connect (click_controller, "pressed", G_CALLBACK (on_button_press), fl);
@@ -1817,6 +1818,7 @@ static void gnome_cmd_file_list_init (GnomeCmdFileList *fl)
     g_signal_connect (fl, "file-released", G_CALLBACK (on_file_released), fl);
 
     GtkEventController *key_controller = gtk_event_controller_key_new ();
+    gtk_event_controller_set_propagation_phase(key_controller, GTK_PHASE_CAPTURE);
     gtk_widget_add_controller (GTK_WIDGET (fl), GTK_EVENT_CONTROLLER (key_controller));
     g_signal_connect (key_controller, "key-pressed", G_CALLBACK (gnome_cmd_file_list_key_pressed), fl);
 }
@@ -2672,10 +2674,6 @@ static gboolean gnome_cmd_file_list_key_pressed (GtkEventControllerKey* self, gu
     {
         switch (keyval)
         {
-            case GDK_KEY_Return:
-            case GDK_KEY_KP_Enter:
-                return mime_exec_file (GTK_WINDOW (gtk_widget_get_root (*fl)), fl->get_focused_file());
-
             case GDK_KEY_space:
                 set_cursor_busy_for_widget (*fl);
                 fl->toggle();
@@ -3287,6 +3285,29 @@ GtkTreeIterPtr GnomeCmdFileList::get_dest_row_at_coords (gdouble x, gdouble y)
         return GtkTreeIterPtr(gtk_tree_iter_copy(&iter), &gtk_tree_iter_free);
     else
         return GtkTreeIterPtr(nullptr, &gtk_tree_iter_free);
+}
+
+bool GnomeCmdFileList::do_file_specific_action (GnomeCmdFile *f)
+{
+    g_return_val_if_fail (f != nullptr, FALSE);
+
+    if (f->GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE) == G_FILE_TYPE_DIRECTORY)
+    {
+        if (!locked)
+        {
+            invalidate_tree_size();
+
+            if (f->is_dotdot)
+                goto_directory("..");
+            else
+                set_directory(GNOME_CMD_DIR (f));
+
+            return TRUE;
+        }
+        return FALSE;
+    }
+
+    return mime_exec_file (GTK_WINDOW (gtk_widget_get_root (*this)), get_focused_file());
 }
 
 
