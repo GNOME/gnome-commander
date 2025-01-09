@@ -105,6 +105,8 @@ struct GnomeCmdMainWin::Private
     bool state_saved;
     GnomeCmdShortcuts *gcmd_shortcuts;
     GObject *color_themes;
+
+    GObject *plugin_manager;
 };
 
 
@@ -112,6 +114,7 @@ G_DEFINE_TYPE (GnomeCmdMainWin, gnome_cmd_main_win, GTK_TYPE_APPLICATION_WINDOW)
 
 
 extern "C" GType gnome_cmd_color_themes_get_type();
+extern "C" GType plugin_manager_get_type ();
 
 
 static gboolean set_equal_panes_idle (gpointer *user_data);
@@ -494,6 +497,8 @@ static void dispose (GObject *object)
 
     g_clear_object (&main_win->priv->color_themes);
 
+    g_clear_object (&main_win->priv->plugin_manager);
+
     G_OBJECT_CLASS (gnome_cmd_main_win_parent_class)->dispose (object);
 }
 
@@ -552,6 +557,8 @@ static void gnome_cmd_main_win_init (GnomeCmdMainWin *mw)
         "settings", g_settings_new (GCMD_PREF_COLORS),
         "display", gdk_display_get_default(),
         nullptr));
+
+    mw->priv->plugin_manager = G_OBJECT (g_object_new (plugin_manager_get_type (), nullptr));
 
     gtk_window_set_title (GTK_WINDOW (mw),
                           gcmd_owner.is_root()
@@ -619,6 +626,7 @@ static void gnome_cmd_main_win_init (GnomeCmdMainWin *mw)
     g_signal_connect (gnome_cmd_con_list_get (), "list-changed", G_CALLBACK (on_con_list_list_changed), mw);
 
     g_signal_connect (mw->priv->color_themes, "theme-changed", G_CALLBACK (on_update_view), mw);
+    g_signal_connect_swapped (mw->priv->plugin_manager, "plugins-changed", G_CALLBACK (gnome_cmd_main_win_plugins_updated), mw);
 
     mw->focus_file_lists();
 }
@@ -817,7 +825,7 @@ gboolean GnomeCmdMainWin::key_pressed(GnomeCmdKeyPress *event)
         {
             case GDK_KEY_P:
             case GDK_KEY_p:
-                plugin_manager_show (*this);
+                g_action_group_activate_action (*this, "plugins-configure", nullptr);
                 break;
 
             case GDK_KEY_f:
@@ -1262,7 +1270,17 @@ void gnome_cmd_main_win_update_bookmarks(GnomeCmdMainWin *main_win)
     main_win->update_bookmarks();
 }
 
+void gnome_cmd_main_win_plugins_updated (GnomeCmdMainWin *main_win)
+{
+    main_win->plugins_updated();
+}
+
 GnomeCmdShortcuts *gnome_cmd_main_win_shortcuts(GnomeCmdMainWin *main_win)
 {
     return main_win->priv->gcmd_shortcuts;
+}
+
+GObject *gnome_cmd_main_win_get_plugin_manager (GnomeCmdMainWin *main_win)
+{
+    return main_win->priv->plugin_manager;
 }

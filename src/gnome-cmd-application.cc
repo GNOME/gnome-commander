@@ -31,7 +31,6 @@
 #include "gnome-cmd-con.h"
 #include "utils.h"
 #include "imageloader.h"
-#include "plugin_manager.h"
 #include "tags/gnome-cmd-tags.h"
 
 
@@ -132,13 +131,11 @@ static void gnome_cmd_application_activate(GApplication *application)
     gcmd_owner.load_async();
 
     gcmd_tags_init();
-    plugin_manager_init ();
 }
 
 
 static void gnome_cmd_application_shutdown(GApplication *application)
 {
-    plugin_manager_shutdown ();
     gcmd_tags_shutdown ();
     IMAGE_free ();
 

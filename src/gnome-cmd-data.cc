@@ -47,7 +47,6 @@ GnomeCmdData gnome_cmd_data;
 struct GnomeCmdData::Private
 {
     GnomeCmdConList *con_list;
-    GList           *auto_load_plugins;
 };
 
 GSettingsSchemaSource* GnomeCmdData::GetGlobalSchemaSource()
@@ -89,7 +88,6 @@ struct _GcmdSettings
     GSettings *programs;
     GSettings *network;
     GSettings *internalviewer;
-    GSettings *plugins;
 };
 
 G_DEFINE_TYPE (GcmdSettings, gcmd_settings, G_TYPE_OBJECT)
@@ -114,7 +112,6 @@ static void gcmd_settings_dispose (GObject *object)
     g_clear_object (&gs->programs);
     g_clear_object (&gs->network);
     g_clear_object (&gs->internalviewer);
-    g_clear_object (&gs->plugins);
 
     G_OBJECT_CLASS (gcmd_settings_parent_class)->dispose (object);
 }
@@ -982,9 +979,6 @@ static void gcmd_settings_init (GcmdSettings *gs)
 
     global_schema = g_settings_schema_source_lookup (global_schema_source, GCMD_PREF_INTERNAL_VIEWER, FALSE);
     gs->internalviewer = g_settings_new_full (global_schema, nullptr, nullptr);
-
-    global_schema = g_settings_schema_source_lookup (global_schema_source, GCMD_PREF_PLUGINS, FALSE);
-    gs->plugins = g_settings_new_full (global_schema, nullptr, nullptr);
 }
 
 
@@ -2161,16 +2155,6 @@ inline void GnomeCmdData::save_intviewer_defaults()
 }
 
 /**
- * This function saves all entries of the auto load plugin list in the associated GSettings string array.
- * @returns the return value of set_gsettings_string_array_from_glist().
- */
-inline gboolean GnomeCmdData::save_auto_load_plugins()
-{
-    return set_gsettings_string_array_from_glist(options.gcmd_settings->plugins, GCMD_SETTINGS_PLUGINS_AUTOLOAD, priv->auto_load_plugins);
-}
-
-
-/**
  * Returns a GList with newly allocated char strings
  */
 inline GList* GnomeCmdData::get_list_from_gsettings_string_array (GSettings *settings_given, const gchar *key)
@@ -2217,18 +2201,6 @@ inline void GnomeCmdData::load_intviewer_defaults()
     intviewer_defaults.hex_patterns.ents = get_list_from_gsettings_string_array (options.gcmd_settings->internalviewer, GCMD_SETTINGS_IV_SEARCH_PATTERN_HEX);
     intviewer_defaults.case_sensitive = g_settings_get_boolean (options.gcmd_settings->internalviewer, GCMD_SETTINGS_IV_CASE_SENSITIVE);
     intviewer_defaults.search_mode = g_settings_get_enum (options.gcmd_settings->internalviewer, GCMD_SETTINGS_IV_SEARCH_MODE);
-}
-
-
-/**
- * This function pushes the list of plugins to be automatically loaded into the
- * associated Glist.
- */
-inline void GnomeCmdData::load_auto_load_plugins()
-{
-    g_list_free(priv->auto_load_plugins);
-
-    priv->auto_load_plugins = get_list_from_gsettings_string_array (options.gcmd_settings->plugins, GCMD_SETTINGS_PLUGINS_AUTOLOAD);
 }
 
 
@@ -2581,7 +2553,6 @@ void GnomeCmdData::load()
     g_free (quick_connect_uri);
 
     load_intviewer_defaults();
-    load_auto_load_plugins();
 
     set_g_volume_monitor ();
 }
@@ -2715,7 +2686,6 @@ void GnomeCmdData::save(GnomeCmdMainWin *main_win)
     save_bookmarks                  ();
     save_advrename_profiles         ();
     save_intviewer_defaults         ();
-    save_auto_load_plugins          ();
 
     g_settings_sync ();
 }
@@ -2911,18 +2881,6 @@ GnomeCmdData::AdvrenameConfig::Profile::~Profile(){};
 gpointer gnome_cmd_data_get_con_list ()
 {
     return gnome_cmd_data.priv->con_list;
-}
-
-
-GList *gnome_cmd_data_get_auto_load_plugins ()
-{
-    return gnome_cmd_data.priv->auto_load_plugins;
-}
-
-
-void gnome_cmd_data_set_auto_load_plugins (GList *plugins)
-{
-    gnome_cmd_data.priv->auto_load_plugins = plugins;
 }
 
 

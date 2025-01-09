@@ -32,7 +32,7 @@ use crate::{
         file_actions::{FileActions, FileActionsExt},
         state::{State, StateExt},
     },
-    plugin_manager::{plugin_manager_get_active_plugins, wrap_plugin_menu},
+    plugin_manager::{wrap_plugin_menu, PluginManager},
     shortcuts::Shortcuts,
     types::FileSelectorID,
     user_actions,
@@ -50,9 +50,8 @@ use gtk::{
 };
 
 pub mod ffi {
+    use super::*;
     use crate::file_selector::ffi::GnomeCmdFileSelector;
-    use crate::shortcuts::Shortcuts;
-    use crate::types::FileSelectorID;
     use gtk::glib::ffi::GType;
 
     #[repr(C)]
@@ -79,6 +78,10 @@ pub mod ffi {
         pub fn gnome_cmd_main_win_update_bookmarks(main_win: *mut GnomeCmdMainWin);
 
         pub fn gnome_cmd_main_win_shortcuts(main_win: *mut GnomeCmdMainWin) -> *mut Shortcuts;
+
+        pub fn gnome_cmd_main_win_get_plugin_manager(
+            main_win: *mut GnomeCmdMainWin,
+        ) -> *mut <PluginManager as glib::object::ObjectType>::GlibType;
     }
 
     #[derive(Copy, Clone)]
@@ -137,6 +140,14 @@ impl MainWindow {
 
         state
     }
+
+    pub fn plugin_manager(&self) -> PluginManager {
+        unsafe {
+            from_glib_none(ffi::gnome_cmd_main_win_get_plugin_manager(
+                self.to_glib_none().0,
+            ))
+        }
+    }
 }
 
 #[no_mangle]
@@ -145,7 +156,7 @@ pub extern "C" fn gnome_cmd_main_win_install_actions(mw_ptr: *mut ffi::GnomeCmdM
     mw.add_action_entries(user_actions::USER_ACTIONS.iter().map(|a| a.action_entry()));
 }
 
-fn main_menu() -> gio::Menu {
+fn main_menu(main_win: &MainWindow) -> gio::Menu {
     let menu = gio::Menu::new();
 
     menu.append_submenu(Some(&gettext("_File")), &{
@@ -356,7 +367,7 @@ fn main_menu() -> gio::Menu {
             .section({
                 gio::Menu::new().item(gettext("_Configure Plugins…"), "win.plugins-configure")
             })
-            .section(create_plugins_menu())
+            .section(create_plugins_menu(main_win))
     });
 
     menu.append_submenu(Some(&gettext("_Settings")), &{
@@ -463,9 +474,9 @@ fn create_bookmarks_menu() -> gio::Menu {
     menu
 }
 
-fn create_plugins_menu() -> gio::Menu {
+fn create_plugins_menu(main_win: &MainWindow) -> gio::Menu {
     let menu = gio::Menu::new();
-    for (action_group_name, plugin) in plugin_manager_get_active_plugins() {
+    for (action_group_name, plugin) in main_win.plugin_manager().active_plugins() {
         if let Some(file_actions) = plugin.downcast_ref::<FileActions>() {
             if let Some(plugin_menu) = file_actions.create_main_menu() {
                 let plugin_menu = wrap_plugin_menu(&action_group_name, &plugin_menu);
@@ -482,7 +493,7 @@ pub extern "C" fn gnome_cmd_main_menu_new(
     initial: gboolean,
 ) -> *mut GMenu {
     let mw: MainWindow = unsafe { from_glib_none(mw_ptr) };
-    let menu = main_menu();
+    let menu = main_menu(&mw);
     if initial != 0 {
         let shortcuts = extract_menu_shortcuts(menu.upcast_ref());
         let shortcuts_controller = gtk::ShortcutController::for_model(&shortcuts);

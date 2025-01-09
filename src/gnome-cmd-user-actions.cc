@@ -33,7 +33,6 @@
 #include "gnome-cmd-main-win.h"
 #include "gnome-cmd-user-actions.h"
 #include "gnome-cmd-dir-indicator.h"
-#include "plugin_manager.h"
 #include "cap.h"
 #include "utils.h"
 #include "dialogs/gnome-cmd-advrename-dialog.h"
@@ -1215,14 +1214,4 @@ void bookmarks_view (GSimpleAction *action, GVariant *parameter, gpointer user_d
     auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
 
     gnome_cmd_dir_indicator_show_bookmarks (GNOME_CMD_DIR_INDICATOR (main_win->fs (ACTIVE)->dir_indicator));
-}
-
-
-/************** Plugins Menu **************/
-
-void plugins_configure (GSimpleAction *action, GVariant *parameter, gpointer user_data)
-{
-    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
-
-    plugin_manager_show (GTK_WINDOW (main_win));
 }
