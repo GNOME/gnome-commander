@@ -741,12 +741,15 @@ void image_render_load_scaled_pixbuf (ImageRender *obj)
 
     g_return_if_fail (gtk_widget_get_realized (GTK_WIDGET (obj)));
 
-    GtkAllocation obj_allocation;
-    gtk_widget_get_allocation (GTK_WIDGET (obj), &obj_allocation);
+    int width = gtk_widget_get_width (GTK_WIDGET (obj));
+    int height = gtk_widget_get_height (GTK_WIDGET (obj));
+
+    if (width <= 0 || height <= 0)
+        return;
 
     GError *err = NULL;
 
-    priv->disp_pixbuf = gdk_pixbuf_new_from_file_at_scale (priv->filename, obj_allocation.width, obj_allocation.height, TRUE, &err);
+    priv->disp_pixbuf = gdk_pixbuf_new_from_file_at_scale (priv->filename, width, height, TRUE, &err);
 
     if (err)
     {

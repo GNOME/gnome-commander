@@ -71,7 +71,6 @@ struct GnomeCmdAdvrenameDialog::Private
     static void on_files_view_popup_menu__show_properties (GSimpleAction *action, GVariant *parameter, gpointer user_data);
     static void on_files_view_popup_menu__update_files (GSimpleAction *action, GVariant *parameter, gpointer user_data);
     static void on_files_view_button_pressed (GtkGestureClick *gesture, int n_press, double x, double y, gpointer user_data);
-    static gboolean on_files_view_popup_menu (GtkWidget *treeview, GnomeCmdAdvrenameDialog *dialog);
     static void on_files_view_row_activated (GtkTreeView *view, GtkTreePath *path, GtkTreeViewColumn *col, GnomeCmdAdvrenameDialog *dialog);
     static void on_files_view_cursor_changed (GtkTreeView *view, GnomeCmdAdvrenameDialog *dialog);
 
@@ -352,14 +351,6 @@ void GnomeCmdAdvrenameDialog::Private::on_files_view_button_pressed (GtkGestureC
         GdkRectangle point_to = { (gint) x, (gint) y, 0, 0 };
         dialog->priv->files_view_popup_menu (GTK_WIDGET (treeview), dialog, &point_to);
     }
-}
-
-
-gboolean GnomeCmdAdvrenameDialog::Private::on_files_view_popup_menu (GtkWidget *treeview, GnomeCmdAdvrenameDialog *dialog)
-{
-    dialog->priv->files_view_popup_menu (treeview, dialog, nullptr);
-
-    return TRUE;
 }
 
 
@@ -694,7 +685,6 @@ GnomeCmdAdvrenameDialog::GnomeCmdAdvrenameDialog(GnomeCmdData::AdvrenameConfig &
     gtk_gesture_single_set_button (GTK_GESTURE_SINGLE (button_gesture), 3);
     g_signal_connect (button_gesture, "pressed", G_CALLBACK (Private::on_files_view_button_pressed), this);
 
-    g_signal_connect (priv->files_view, "popup-menu", G_CALLBACK (Private::on_files_view_popup_menu), this);
     g_signal_connect (priv->files_view, "row-activated", G_CALLBACK (Private::on_files_view_row_activated), this);
     g_signal_connect (priv->files_view, "cursor-changed", G_CALLBACK (Private::on_files_view_cursor_changed), this);
 

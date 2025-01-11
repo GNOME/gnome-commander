@@ -256,7 +256,7 @@ static void on_slide_button_press (GtkGestureClick *gesture, int n_press, double
     if (n_press != 1)
         return;
 
-    graphene_point_t pt = { x, y };
+    graphene_point_t pt = { (float) x, (float) y };
     graphene_point_t child_pt;
     GtkWidget *child;
 
