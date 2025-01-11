@@ -167,7 +167,7 @@ mod imp {
             ));
 
             grid.attach(
-                &hintbox(&gettext("To edit a shortcut key, click on the \"Assing\" button and type a new accelerator, or press escape to cancel.")), 
+                &hintbox(&gettext("To edit a shortcut key, click on the \"Assign\" button and type a new accelerator, or press escape to cancel.")),
                 0,
                 2,
                 3,
