@@ -1,20 +1,3 @@
-# Find flex, configure lex generator
-flex_min_version = '2.6.0'
-
-flex_program = find_program('flex', required : true)
-flexversion_response = run_command(flex_program, '--version', check: true)
-flexversion_array = flexversion_response.stdout().strip().split(' ')
-if flexversion_array.length() < 2
-  error('Cannot parse "flex --version" output, expected something like "flex $version", got: '
-        + flexversion_response.stdout().strip())
-endif
-flexversion = flexversion_array[1]
-if flexversion.version_compare('>=' + flex_min_version)
-  message('flex version @0@ >= @1@: YES'.format(flexversion, flex_min_version))
-else
-  error('flex version @0@ >= @1@: NO'.format(flexversion, flex_min_version))
-endif
-
 sources_headers = files(
   'cap.h',
   'dict.h',
@@ -120,16 +103,6 @@ sources_sources = files(
   'text-utils.cc',
   'widget-factory.cc',
 )
-
-flex_gen = generator(
-  flex_program,
-  output: '@BASENAME@.cc',
-  arguments: ['--outfile=@OUTPUT@', '@INPUT@']
-)
-
-gcmd_advren_lex_cc = flex_gen.process('gnome-cmd-advrename-lexer.ll')
-
-sources_sources += gcmd_advren_lex_cc
 
 cc_args = [
   '-DGNOMELOCALEDIR="' + datadir + '/locale"',
@@ -251,4 +224,5 @@ test(
   env: cargo_env,
   args: ['test', '--no-fail-fast'] + cargo_options,
   depends: [commander, libgcmd],
+  timeout: 120
 )

@@ -50,7 +50,7 @@ struct GnomeCmdAdvrenameDialogClass
 
 struct GnomeCmdAdvrenameDialog::Private
 {
-    gboolean template_has_counters {FALSE};
+    GnomeCmdAdvrenameTemplate *rename_template {NULL};
 
     GtkWidget *vbox {NULL};
     GnomeCmdAdvrenameProfileComponent *profile_component {NULL};
@@ -71,7 +71,6 @@ struct GnomeCmdAdvrenameDialog::Private
     static void on_files_view_popup_menu__show_properties (GSimpleAction *action, GVariant *parameter, gpointer user_data);
     static void on_files_view_popup_menu__update_files (GSimpleAction *action, GVariant *parameter, gpointer user_data);
     static void on_files_view_button_pressed (GtkGestureClick *gesture, int n_press, double x, double y, gpointer user_data);
-    static gboolean on_files_view_popup_menu (GtkWidget *treeview, GnomeCmdAdvrenameDialog *dialog);
     static void on_files_view_row_activated (GtkTreeView *view, GtkTreePath *path, GtkTreeViewColumn *col, GnomeCmdAdvrenameDialog *dialog);
     static void on_files_view_cursor_changed (GtkTreeView *view, GnomeCmdAdvrenameDialog *dialog);
 
@@ -88,6 +87,7 @@ inline GnomeCmdAdvrenameDialog::Private::Private()
 
 inline GnomeCmdAdvrenameDialog::Private::~Private()
 {
+    gnome_cmd_advrename_template_free(rename_template);
 }
 
 
@@ -185,15 +185,16 @@ G_DEFINE_TYPE (GnomeCmdAdvrenameDialog, gnome_cmd_advrename_dialog, GTK_TYPE_DIA
 
 void GnomeCmdAdvrenameDialog::Private::on_profile_template_changed (GnomeCmdAdvrenameProfileComponent *component, GnomeCmdAdvrenameDialog *dialog)
 {
-    gnome_cmd_advrename_parse_template (component->get_template_entry(), dialog->priv->template_has_counters);
+    gnome_cmd_advrename_template_free (dialog->priv->rename_template);
+    dialog->priv->rename_template = gnome_cmd_advrename_template_new (component->get_template_entry());
+
     dialog->update_new_filenames();
 }
 
 
 void GnomeCmdAdvrenameDialog::Private::on_profile_counter_changed (GnomeCmdAdvrenameProfileComponent *component, GnomeCmdAdvrenameDialog *dialog)
 {
-    if (dialog->priv->template_has_counters)
-        dialog->update_new_filenames();
+    dialog->update_new_filenames();
 }
 
 
@@ -205,8 +206,7 @@ void GnomeCmdAdvrenameDialog::Private::on_profile_regex_changed (GnomeCmdAdvrena
 
 void GnomeCmdAdvrenameDialog::Private::on_files_model_row_deleted (GtkTreeModel *files, GtkTreePath *path, GnomeCmdAdvrenameDialog *dialog)
 {
-    if (dialog->priv->template_has_counters)
-        dialog->update_new_filenames();
+    dialog->update_new_filenames();
 }
 
 
@@ -293,7 +293,9 @@ void GnomeCmdAdvrenameDialog::Private::on_files_view_popup_menu__update_files (G
                             -1);
     }
 
-    gnome_cmd_advrename_parse_template (dialog->priv->profile_component->get_template_entry(), dialog->priv->template_has_counters);
+    gnome_cmd_advrename_template_free (dialog->priv->rename_template);
+    dialog->priv->rename_template = gnome_cmd_advrename_template_new (dialog->priv->profile_component->get_template_entry());
+
     dialog->update_new_filenames();
 }
 
@@ -352,14 +354,6 @@ void GnomeCmdAdvrenameDialog::Private::on_files_view_button_pressed (GtkGestureC
         GdkRectangle point_to = { (gint) x, (gint) y, 0, 0 };
         dialog->priv->files_view_popup_menu (GTK_WIDGET (treeview), dialog, &point_to);
     }
-}
-
-
-gboolean GnomeCmdAdvrenameDialog::Private::on_files_view_popup_menu (GtkWidget *treeview, GnomeCmdAdvrenameDialog *dialog)
-{
-    dialog->priv->files_view_popup_menu (treeview, dialog, nullptr);
-
-    return TRUE;
 }
 
 
@@ -613,14 +607,13 @@ inline GtkWidget *create_files_view ()
 
 void GnomeCmdAdvrenameDialog::update_new_filenames()
 {
-    gnome_cmd_advrename_reset_counter (gtk_tree_model_iter_n_children (files, NULL),
-                                       defaults.default_profile.counter_start,
-                                       defaults.default_profile.counter_width,
-                                       defaults.default_profile.counter_step);
+    gulong count = gtk_tree_model_iter_n_children (files, NULL);
+
     GtkTreeIter i;
 
     vector<GnomeCmd::RegexReplace> rx = priv->profile_component->get_valid_regexes();
 
+    gulong index = 0;
     for (gboolean valid_iter=gtk_tree_model_get_iter_first (files, &i); valid_iter; valid_iter=gtk_tree_model_iter_next (files, &i))
     {
         GnomeCmdFile *f;
@@ -631,7 +624,13 @@ void GnomeCmdAdvrenameDialog::update_new_filenames()
         if (!f)
             continue;
 
-        gchar *fname = gnome_cmd_advrename_gen_fname (f);
+        gchar *fname = gnome_cmd_advrename_gen_fname (priv->rename_template,
+                                                      defaults.default_profile.counter_start,
+                                                      defaults.default_profile.counter_step,
+                                                      defaults.default_profile.counter_width,
+                                                      index++,
+                                                      count,
+                                                      f);
 
         for (vector<GnomeCmd::RegexReplace>::iterator r = rx.begin(); r != rx.end(); ++r)
         {
@@ -694,7 +693,6 @@ GnomeCmdAdvrenameDialog::GnomeCmdAdvrenameDialog(GnomeCmdData::AdvrenameConfig &
     gtk_gesture_single_set_button (GTK_GESTURE_SINGLE (button_gesture), 3);
     g_signal_connect (button_gesture, "pressed", G_CALLBACK (Private::on_files_view_button_pressed), this);
 
-    g_signal_connect (priv->files_view, "popup-menu", G_CALLBACK (Private::on_files_view_popup_menu), this);
     g_signal_connect (priv->files_view, "row-activated", G_CALLBACK (Private::on_files_view_row_activated), this);
     g_signal_connect (priv->files_view, "cursor-changed", G_CALLBACK (Private::on_files_view_cursor_changed), this);
 
@@ -703,7 +701,8 @@ GnomeCmdAdvrenameDialog::GnomeCmdAdvrenameDialog(GnomeCmdData::AdvrenameConfig &
     g_signal_connect (this, "notify::default-height", G_CALLBACK (Private::on_dialog_size_allocate), this);
     g_signal_connect (this, "response", G_CALLBACK (Private::on_dialog_response), this);
 
-    gnome_cmd_advrename_parse_template (priv->profile_component->get_template_entry(), priv->template_has_counters);
+    gnome_cmd_advrename_template_free (priv->rename_template);
+    priv->rename_template = gnome_cmd_advrename_template_new (priv->profile_component->get_template_entry());
 }
 
 
