@@ -57,12 +57,6 @@ class GnomeCmdFileSelector::Private
     History *dir_history {nullptr};
     gboolean active {FALSE};
     gboolean realized {FALSE};
-
-    //////////////////////////////////////////////////////////////////  ->> GnomeCmdFileList
-
-    gboolean sel_first_file {TRUE};
-
-    GSimpleActionGroup *action_group;
 };
 
 enum {DIR_CHANGED, LAST_SIGNAL};
@@ -76,34 +70,6 @@ G_DEFINE_TYPE (GnomeCmdFileSelector, gnome_cmd_file_selector, GTK_TYPE_BOX)
 /*******************************
  * Utility functions
  *******************************/
-
-
-inline void show_list_popup (GnomeCmdFileSelector *fs, gint x, gint y)
-{
-    auto menu = MenuBuilder()
-        .submenu(_("_New"))
-            .item(_("_Directory"),          "win.file_mkdir",                       nullptr, FILETYPEDIR_STOCKID)
-            .item(_("_Text File"),          "win.file-edit-new-doc",                nullptr, FILETYPEREGULARFILE_STOCKID)
-        .endsubmenu()
-        .section()
-            .item(_("_Paste"),              "fs.paste")
-        .endsection()
-        .section()
-            .item(_("Open _terminal here"), "win.command-open-terminal",            nullptr, GTK_TERMINAL_STOCKID)
-        .endsection()
-        .section()
-            .item(_("_Refresh"),            "fs.refresh")
-        .endsection()
-        .build();
-
-    GtkWidget *popover = gtk_popover_menu_new_from_model (G_MENU_MODEL (menu.menu));
-    gtk_widget_set_parent (popover, GTK_WIDGET (fs));
-    gtk_popover_set_position (GTK_POPOVER (popover), GTK_POS_BOTTOM);
-    GdkRectangle rect = { x, y, 0, 0 };
-    gtk_popover_set_pointing_to (GTK_POPOVER (popover), &rect);
-    gtk_popover_popup (GTK_POPOVER (popover));
-}
-
 
 inline void GnomeCmdFileSelector::update_selected_files_label()
 {
@@ -542,17 +508,6 @@ static void on_list_list_clicked (GnomeCmdFileList *fl, GnomeCmdFileListButtonEv
 }
 
 
-static void on_list_empty_space_clicked (GnomeCmdFileList *fl, GnomeCmdFileListButtonEvent *event, GnomeCmdFileSelector *fs)
-{
-    if (event->n_press == 1 && event->button == 3)
-    {
-        double x, y;
-        gtk_widget_translate_coordinates (GTK_WIDGET (fl), GTK_WIDGET (fs), event->x, event->y, &x, &y);
-        show_list_popup (fs, x, y);
-    }
-}
-
-
 static void on_list_con_changed (GnomeCmdFileList *fl, GnomeCmdCon *con, GnomeCmdFileSelector *fs)
 {
     fs->priv->dir_history = gnome_cmd_con_get_dir_history (con);
@@ -577,11 +532,7 @@ static void on_list_dir_changed (GnomeCmdFileList *fl, GnomeCmdDir *dir, GnomeCm
     if (fl->cwd != dir)  return;
 
     fs->update_tab_label(fl);
-
-    fs->priv->sel_first_file = FALSE;
     fs->update_files();
-    fs->priv->sel_first_file = TRUE;
-
     fs->update_selected_files_label();
 
     g_signal_emit (fs, signals[DIR_CHANGED], 0, dir);
@@ -705,14 +656,6 @@ static void gnome_cmd_file_selector_init (GnomeCmdFileSelector *fs)
     fs->list = nullptr;
 
     fs->priv = new GnomeCmdFileSelector::Private;
-
-    fs->priv->action_group = g_simple_action_group_new ();
-    static const GActionEntry action_entries[] = {
-        { "paste",              on_paste,           nullptr, nullptr, nullptr },
-        { "refresh",            on_refresh,         nullptr, nullptr, nullptr }
-    };
-    g_action_map_add_action_entries (G_ACTION_MAP (fs->priv->action_group), action_entries, G_N_ELEMENTS (action_entries), fs);
-    gtk_widget_insert_action_group (GTK_WIDGET (fs), "fs", G_ACTION_GROUP (fs->priv->action_group));
 
     g_object_set (fs, "orientation", GTK_ORIENTATION_VERTICAL, NULL);
 
@@ -1261,7 +1204,6 @@ GtkWidget *GnomeCmdFileSelector::new_tab(GnomeCmdDir *dir, GnomeCmdFileList::Col
     g_signal_connect (fl, "file-clicked", G_CALLBACK (on_list_file_clicked), this);
     g_signal_connect (fl, "file-released", G_CALLBACK (on_list_file_released), this);
     g_signal_connect (fl, "list-clicked", G_CALLBACK (on_list_list_clicked), this);
-    g_signal_connect (fl, "empty-space-clicked", G_CALLBACK (on_list_empty_space_clicked), this);
 
     GtkEventController *key_controller = gtk_event_controller_key_new ();
     gtk_widget_add_controller (GTK_WIDGET (fl), GTK_EVENT_CONTROLLER (key_controller));

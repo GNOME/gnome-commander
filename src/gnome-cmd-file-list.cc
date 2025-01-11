@@ -39,13 +39,13 @@
 #include "gnome-cmd-xfer.h"
 #include "imageloader.h"
 #include "cap.h"
-#include "gnome-cmd-file-popmenu.h"
 #include "gnome-cmd-quicksearch-popup.h"
 #include "gnome-cmd-file-collection.h"
 #include "dialogs/gnome-cmd-delete-dialog.h"
 #include "dialogs/gnome-cmd-rename-dialog.h"
 #include "dialogs/gnome-cmd-file-props-dialog.h"
 #include "text-utils.h"
+#include "widget-factory.h"
 
 using namespace std;
 
@@ -69,7 +69,6 @@ enum
     FILE_CLICKED,        // A file in the list was clicked
     FILE_RELEASED,       // A file in the list has been clicked and mouse button has been released
     LIST_CLICKED,        // The file list widget was clicked
-    EMPTY_SPACE_CLICKED, // The file list was clicked but not on a file
     FILES_CHANGED,       // The visible content of the file list has changed (files have been: selected, created, deleted or modified)
     DIR_CHANGED,         // The current directory has been changed
     CON_CHANGED,         // The current connection has been changed
@@ -176,7 +175,6 @@ struct GnomeCmdFileListClass
     void (* file_clicked)        (GnomeCmdFileList *fl, GnomeCmdFileListButtonEvent *event);
     void (* file_released)       (GnomeCmdFileList *fl, GnomeCmdFileListButtonEvent *event);
     void (* list_clicked)        (GnomeCmdFileList *fl, GnomeCmdFileListButtonEvent *event);
-    void (* empty_space_clicked) (GnomeCmdFileList *fl, GnomeCmdFileListButtonEvent *event);
     void (* files_changed)       (GnomeCmdFileList *fl);
     void (* dir_changed)         (GnomeCmdFileList *fl, GnomeCmdDir *dir);
     void (* con_changed)         (GnomeCmdFileList *fl, GnomeCmdCon *con);
@@ -889,10 +887,12 @@ static GString *build_selected_file_list (GnomeCmdFileList *fl)
 }
 
 
+extern "C" GMenu *gnome_cmd_file_popmenu_new (GnomeCmdFileList *fl);
+
 static void show_file_popup (GnomeCmdFileList *fl, GdkRectangle *point_to)
 {
     // create the popup menu
-    GMenu *menu_model = gnome_cmd_file_popmenu_new (main_win, fl);
+    GMenu *menu_model = gnome_cmd_file_popmenu_new (fl);
     if (!menu_model) return;
 
     GtkWidget *popover = gtk_popover_menu_new_from_model (G_MENU_MODEL (menu_model));
@@ -1339,6 +1339,20 @@ void GnomeCmdFileList::focus_next()
 }
 
 
+extern "C" GMenu *gnome_cmd_list_popmenu_new ();
+
+inline void show_list_popup (GnomeCmdFileList *fl, gint x, gint y)
+{
+    auto menu = gnome_cmd_list_popmenu_new ();
+    GtkWidget *popover = gtk_popover_menu_new_from_model (G_MENU_MODEL (menu));
+    gtk_widget_set_parent (popover, GTK_WIDGET (fl));
+    gtk_popover_set_position (GTK_POPOVER (popover), GTK_POS_BOTTOM);
+    GdkRectangle rect = { x, y, 0, 0 };
+    gtk_popover_set_pointing_to (GTK_POPOVER (popover), &rect);
+    gtk_popover_popup (GTK_POPOVER (popover));
+}
+
+
 static void on_button_press (GtkGestureClick *gesture, int n_press, double x, double y, GnomeCmdFileList *fl)
 {
     g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl));
@@ -1366,7 +1380,9 @@ static void on_button_press (GtkGestureClick *gesture, int n_press, double x, do
     else
     {
         g_signal_emit (fl, signals[LIST_CLICKED], 0, &event);
-        g_signal_emit (fl, signals[EMPTY_SPACE_CLICKED], 0, &event);
+        if (n_press == 1 && button == 3) {
+            show_list_popup (fl, x, y);
+        }
     }
 }
 
@@ -1675,15 +1691,6 @@ static void gnome_cmd_file_list_class_init (GnomeCmdFileListClass *klass)
             G_TYPE_NONE,
             1, G_TYPE_POINTER);
 
-    signals[EMPTY_SPACE_CLICKED] =
-        g_signal_new ("empty-space-clicked",
-            G_TYPE_FROM_CLASS (klass),
-            G_SIGNAL_RUN_LAST,
-            G_STRUCT_OFFSET (GnomeCmdFileListClass, empty_space_clicked),
-            nullptr, nullptr, nullptr,
-            G_TYPE_NONE,
-            1, G_TYPE_POINTER);
-
     signals[FILES_CHANGED] =
         g_signal_new ("files-changed",
             G_TYPE_FROM_CLASS (klass),
@@ -1723,12 +1730,30 @@ static void gnome_cmd_file_list_class_init (GnomeCmdFileListClass *klass)
 }
 
 
+static void on_paste (GSimpleAction *action, GVariant *parameter, gpointer user_data)
+{
+    auto fl = GNOME_CMD_FILE_LIST (user_data);
+    auto dir = fl->cwd;
+    g_return_if_fail (GNOME_CMD_IS_DIR (dir));
+    cap_paste_files (dir);
+}
+
+
+static void on_refresh (GSimpleAction *action, GVariant *parameter, gpointer user_data)
+{
+    GNOME_CMD_FILE_LIST (user_data)->reload();
+}
+
+
 static void gnome_cmd_file_list_init (GnomeCmdFileList *fl)
 {
     fl->priv = new GnomeCmdFileList::Private(fl);
 
     auto action_group = g_simple_action_group_new ();
     static const GActionEntry action_entries[] = {
+        { "paste",              on_paste,                                           nullptr, nullptr, nullptr },
+        { "refresh",            on_refresh,                                         nullptr, nullptr, nullptr },
+
         { "file-view",          gnome_cmd_file_list_action_file_view,               "mb",    nullptr, nullptr },
         { "file-edit",          gnome_cmd_file_list_action_file_edit,               nullptr, nullptr, nullptr },
 

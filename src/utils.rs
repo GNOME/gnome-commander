@@ -523,3 +523,132 @@ pub fn grid_attach(
         layout_child.set_row_span(row_span);
     }
 }
+
+pub trait MenuBuilderExt {
+    fn item(self, label: impl Into<String>, detailed_action: impl AsRef<str>) -> Self;
+
+    fn item_accel(
+        self,
+        label: impl Into<String>,
+        detailed_action: impl AsRef<str>,
+        accel: &str,
+    ) -> Self;
+
+    fn item_icon(
+        self,
+        label: impl Into<String>,
+        detailed_action: impl AsRef<str>,
+        icon: &str,
+    ) -> Self;
+
+    fn item_accel_and_icon(
+        self,
+        label: impl Into<String>,
+        detailed_action: impl AsRef<str>,
+        accel: &str,
+        icon: &str,
+    ) -> Self;
+
+    fn section(self, section: gio::Menu) -> Self;
+
+    fn submenu(self, label: impl Into<String>, section: gio::Menu) -> Self;
+}
+
+impl MenuBuilderExt for gio::Menu {
+    fn item(self, label: impl Into<String>, detailed_action: impl AsRef<str>) -> Self {
+        self.append(Some(&label.into()), Some(detailed_action.as_ref()));
+        self
+    }
+
+    fn item_accel(
+        self,
+        label: impl Into<String>,
+        detailed_action: impl AsRef<str>,
+        accel: &str,
+    ) -> Self {
+        let item = gio::MenuItem::new(Some(&label.into()), Some(detailed_action.as_ref()));
+        item.set_attribute_value("accel", Some(&accel.to_variant()));
+        self.append_item(&item);
+        self
+    }
+
+    fn item_icon(
+        self,
+        label: impl Into<String>,
+        detailed_action: impl AsRef<str>,
+        icon: &str,
+    ) -> Self {
+        let item = gio::MenuItem::new(Some(&label.into()), Some(detailed_action.as_ref()));
+        item.set_icon(&gio::ThemedIcon::new(icon));
+        self.append_item(&item);
+        self
+    }
+
+    fn item_accel_and_icon(
+        self,
+        label: impl Into<String>,
+        detailed_action: impl AsRef<str>,
+        accel: &str,
+        icon: &str,
+    ) -> Self {
+        let item = gio::MenuItem::new(Some(&label.into()), Some(detailed_action.as_ref()));
+        item.set_attribute_value("accel", Some(&accel.to_variant()));
+        item.set_icon(&gio::ThemedIcon::new(icon));
+        self.append_item(&item);
+        self
+    }
+
+    fn section(self, section: gio::Menu) -> Self {
+        self.append_section(None, &section);
+        self
+    }
+
+    fn submenu(self, label: impl Into<String>, section: gio::Menu) -> Self {
+        self.append_submenu(Some(&label.into()), &section);
+        self
+    }
+}
+
+pub fn extract_menu_shortcuts(menu: &gio::MenuModel) -> gio::ListModel {
+    fn collect(menu: &gio::MenuModel, item_index: i32, accel: &str, store: &gio::ListStore) {
+        let Some(trigger) = gtk::ShortcutTrigger::parse_string(accel) else {
+            eprintln!("Failed to parse '{}' as an accelerator.", accel);
+            return;
+        };
+        let Some(action_name) = menu
+            .item_attribute_value(item_index, gio::MENU_ATTRIBUTE_ACTION, None)
+            .as_ref()
+            .and_then(|a| a.str())
+            .map(ToString::to_string)
+        else {
+            eprintln!("No action for an accelerator {}.", accel);
+            return;
+        };
+        let target_value = menu.item_attribute_value(item_index, gio::MENU_ATTRIBUTE_TARGET, None);
+        let detailed_action = gio::Action::print_detailed_name(&action_name, target_value.as_ref());
+        store.append(&gtk::Shortcut::new(
+            Some(trigger),
+            Some(gtk::NamedAction::new(&detailed_action)),
+        ));
+    }
+
+    fn traverse(store: &gio::ListStore, menu: &gio::MenuModel) {
+        for item_index in 0..menu.n_items() {
+            if let Some(accel) = menu
+                .item_attribute_value(item_index, "accel", None)
+                .as_ref()
+                .and_then(|v| v.str())
+            {
+                collect(menu, item_index, accel, store);
+            }
+            let iter = menu.iterate_item_links(item_index);
+            while let Some((_link_name, model)) = iter.next() {
+                traverse(store, &model);
+            }
+        }
+    }
+
+    let store = gio::ListStore::new::<gtk::Shortcut>();
+    traverse(&store, menu);
+    store.upcast()
+}

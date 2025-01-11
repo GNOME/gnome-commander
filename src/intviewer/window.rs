@@ -22,12 +22,15 @@ use super::{
     searcher::{SearchProgress, Searcher},
     text_render::TextRender,
 };
-use crate::{file::File, utils::pending};
-use ffi::GViewerWindow;
+use crate::{
+    file::File,
+    utils::{extract_menu_shortcuts, pending, MenuBuilderExt},
+};
 use gettextrs::gettext;
-use glib::ffi::gboolean;
 use gtk::{
-    glib::{self, translate::*},
+    ffi::GtkPopoverMenuBar,
+    gio,
+    glib::{self, ffi::gboolean, translate::*},
     prelude::*,
 };
 use std::{ffi::c_char, ptr};
@@ -168,7 +171,7 @@ async fn start_search(
 
 #[no_mangle]
 pub extern "C" fn start_search_r(
-    window_ptr: *mut GViewerWindow,
+    window_ptr: *mut ffi::GViewerWindow,
     search_pattern_ptr: *const c_char,
     search_pattern_len: i32,
     forward: gboolean,
@@ -180,4 +183,195 @@ pub extern "C" fn start_search_r(
     glib::spawn_future_local(async move {
         start_search(&window, &search_pattern, search_pattern_len, forward).await
     });
+}
+
+const ROTATE_90_STOCKID: &str = "gnome-commander-rotate-90";
+const ROTATE_270_STOCKID: &str = "gnome-commander-rotate-270";
+const ROTATE_180_STOCKID: &str = "gnome-commander-rotate-180";
+const FLIP_VERTICAL_STOCKID: &str = "gnome-commander-flip-vertical";
+const FLIP_HORIZONTAL_STOCKID: &str = "gnome-commander-flip-horizontal";
+
+fn create_menu(window: &ViewerWindow) -> gtk::PopoverMenuBar {
+    let menu = gio::Menu::new()
+        .submenu(
+            gettext("_File"),
+            gio::Menu::new().item_accel(gettext("_Close"), "viewer.close", "Escape"),
+        )
+        .submenu(
+            gettext("_View"),
+            gio::Menu::new()
+                .item_accel(gettext("_Text"), "viewer.view-mode(0)", "1")
+                .item_accel(gettext("_Binary"), "viewer.view-mode(1)", "2")
+                .item_accel(gettext("_Hexadecimal"), "viewer.view-mode(2)", "3")
+                .item_accel(gettext("_Image"), "viewer.view-mode(3)", "4")
+                .section(
+                    gio::Menu::new()
+                        .item_accel_and_icon(
+                            gettext("_Zoom In"),
+                            "viewer.zoom-in",
+                            "<Control>plus",
+                            "zoom-in",
+                        )
+                        .item_accel_and_icon(
+                            gettext("_Zoom Out"),
+                            "viewer.zoom-out",
+                            "<Control>minus",
+                            "zoom-out",
+                        )
+                        .item_accel_and_icon(
+                            gettext("_Normal Size"),
+                            "viewer.normal-size",
+                            "<Control>0",
+                            "zoom-original",
+                        )
+                        .item_accel_and_icon(
+                            gettext("_Best Fit"),
+                            "viewer.best-fit",
+                            "<Control>period",
+                            "zoom-fit-best",
+                        ),
+                ),
+        )
+        .submenu(
+            gettext("_Text"),
+            gio::Menu::new()
+                .item_accel(
+                    gettext("_Copy Text Selection"),
+                    "viewer.copy-text-selection",
+                    "<Control>C",
+                )
+                .item_accel(gettext("Find…"), "viewer.find", "<Control>F")
+                .item_accel(gettext("Find Next"), "viewer.find-next", "F3")
+                .item_accel(
+                    gettext("Find Previous"),
+                    "viewer.find-previous",
+                    "<Shift>F3",
+                )
+                .section(gio::Menu::new().item_accel(
+                    gettext("_Wrap lines"),
+                    "viewer.wrap-lines",
+                    "<Control>W",
+                ))
+                .submenu(
+                    gettext("_Encoding"),
+                    gio::Menu::new()
+                        .item_accel(gettext("_UTF-8"), "viewer.encoding(0)", "U")
+                        .item_accel(gettext("English (US-_ASCII)"), "viewer.encoding(1)", "A")
+                        .item_accel(gettext("Terminal (CP437)"), "viewer.encoding(2)", "Q")
+                        .item(gettext("Arabic (ISO-8859-6)"), "viewer.encoding(3)")
+                        .item(gettext("Arabic (Windows, CP1256)"), "viewer.encoding(4)")
+                        .item(gettext("Arabic (Dos, CP864)"), "viewer.encoding(5)")
+                        .item(gettext("Baltic (ISO-8859-4)"), "viewer.encoding(6)")
+                        .item(
+                            gettext("Central European (ISO-8859-2)"),
+                            "viewer.encoding(7)",
+                        )
+                        .item(gettext("Central European (CP1250)"), "viewer.encoding(8)")
+                        .item(gettext("Cyrillic (ISO-8859-5)"), "viewer.encoding(9)")
+                        .item(gettext("Cyrillic (CP1251)"), "viewer.encoding(10)")
+                        .item(gettext("Greek (ISO-8859-7)"), "viewer.encoding(11)")
+                        .item(gettext("Greek (CP1253)"), "viewer.encoding(12)")
+                        .item(gettext("Hebrew (Windows, CP1255)"), "viewer.encoding(13)")
+                        .item(gettext("Hebrew (Dos, CP862)"), "viewer.encoding(14)")
+                        .item(gettext("Hebrew (ISO-8859-8)"), "viewer.encoding(15)")
+                        .item(gettext("Latin 9 (ISO-8859-15)"), "viewer.encoding(16)")
+                        .item(gettext("Maltese (ISO-8859-3)"), "viewer.encoding(17)")
+                        .item(gettext("Turkish (ISO-8859-9)"), "viewer.encoding(18)")
+                        .item(gettext("Turkish (CP1254)"), "viewer.encoding(19)")
+                        .item(gettext("Western (CP1252)"), "viewer.encoding(20)")
+                        .item(gettext("Western (ISO-8859-1)"), "viewer.encoding(21)"),
+                ),
+        )
+        .submenu(
+            gettext("_Image"),
+            gio::Menu::new()
+                .item_accel_and_icon(
+                    gettext("Rotate Clockwise"),
+                    "viewer.imageop(0)",
+                    "<Control>R",
+                    ROTATE_90_STOCKID,
+                )
+                .item_icon(
+                    gettext("Rotate Counter Clockwis_e"),
+                    "viewer.imageop(1)",
+                    ROTATE_270_STOCKID,
+                )
+                .item_accel_and_icon(
+                    gettext("Rotate 180\u{00B0}"),
+                    "viewer.imageop(2)",
+                    "<Control><Shift>R",
+                    ROTATE_180_STOCKID,
+                )
+                .item_icon(
+                    gettext("Flip _Vertical"),
+                    "viewer.imageop(3)",
+                    FLIP_VERTICAL_STOCKID,
+                )
+                .item_icon(
+                    gettext("Flip _Horizontal"),
+                    "viewer.imageop(4)",
+                    FLIP_HORIZONTAL_STOCKID,
+                ),
+        )
+        .submenu(
+            gettext("_Settings"),
+            gio::Menu::new()
+                .submenu(
+                    gettext("_Binary Mode"),
+                    gio::Menu::new()
+                        .item_accel(
+                            gettext("_20 chars/line"),
+                            "viewer.chars-per-line(20)",
+                            "<Control>2",
+                        )
+                        .item_accel(
+                            gettext("_40 chars/line"),
+                            "viewer.chars-per-line(40)",
+                            "<Control>4",
+                        )
+                        .item_accel(
+                            gettext("_80 chars/line"),
+                            "viewer.chars-per-line(80)",
+                            "<Control>8",
+                        ),
+                )
+                .section(
+                    gio::Menu::new()
+                        .item_accel(
+                            gettext("Show Metadata _Tags"),
+                            "viewer.show-metadata-tags",
+                            "T",
+                        )
+                        .item_accel(
+                            gettext("_Hexadecimal Offset"),
+                            "viewer.hexadecimal-offset",
+                            "<Control>D",
+                        ),
+                )
+                .item_accel(
+                    gettext("_Save Current Settings"),
+                    "viewer.save-current-settings",
+                    "<Control>S",
+                ),
+        )
+        .submenu(
+            gettext("_Help"),
+            gio::Menu::new()
+                .item_accel(gettext("Quick _Help"), "viewer.quick-help", "F1")
+                .item(gettext("_Keyboard Shortcuts"), "viewer.keyboard-shortcuts"),
+        );
+
+    let shortcuts = extract_menu_shortcuts(menu.upcast_ref());
+    let shortcuts_controller = gtk::ShortcutController::for_model(&shortcuts);
+    window.add_controller(shortcuts_controller);
+
+    gtk::PopoverMenuBar::from_model(Some(&menu))
+}
+
+#[no_mangle]
+pub extern "C" fn gviewer_window_create_menus(
+    window: *mut ffi::GViewerWindow,
+) -> *mut GtkPopoverMenuBar {
+    let window: ViewerWindow = unsafe { from_glib_none(window) };
+    create_menu(&window).to_glib_full()
 }

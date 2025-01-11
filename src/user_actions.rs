@@ -23,7 +23,7 @@
 use crate::{
     config::{PACKAGE_BUGREPORT, PACKAGE_NAME, PACKAGE_URL, PACKAGE_VERSION},
     connection::{
-        bookmark::Bookmark,
+        bookmark::{Bookmark, BookmarkGoToVariant},
         connection::{Connection, ConnectionExt},
         home::ConnectionHome,
         list::ConnectionList,
@@ -628,12 +628,6 @@ pub fn bookmarks_goto(
     _action: &gio::SimpleAction,
     parameter: Option<&glib::Variant>,
 ) {
-    #[derive(glib::Variant)]
-    struct BookmarkGoToVariant {
-        connection_uuid: String,
-        bookmark_name: String,
-    }
-
     let Some(goto) = parameter.and_then(BookmarkGoToVariant::from_variant) else {
         return;
     };

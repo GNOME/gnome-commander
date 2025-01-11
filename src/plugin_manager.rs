@@ -26,7 +26,7 @@ use gtk::{
     },
     prelude::*,
 };
-use std::{ffi::c_char, os::raw::c_void};
+use std::ffi::{c_char, c_void};
 
 #[derive(Debug, glib::Variant)]
 pub struct PluginActionVariant {
@@ -99,6 +99,7 @@ extern "C" {
 }
 
 #[repr(C)]
+#[derive(Clone)]
 struct PluginData {
     active: gboolean,
     loaded: gboolean,
@@ -126,4 +127,21 @@ pub fn plugin_manager_get_active_plugin(action_group_name: &str) -> Option<glib:
         }
     }
     None
+}
+
+pub fn plugin_manager_get_active_plugins() -> Vec<(String, glib::Object)> {
+    let mut result = Vec::new();
+    unsafe {
+        let mut list = plugin_manager_get_all();
+        while !list.is_null() {
+            let plugin_data = (*list).data as *const PluginData;
+            if (*plugin_data).active != 0 {
+                let name: String = from_glib_none((*plugin_data).action_group_name);
+                let plugin: glib::Object = from_glib_none((*plugin_data).plugin);
+                result.push((name, plugin));
+            }
+            list = (*list).next;
+        }
+    }
+    result
 }

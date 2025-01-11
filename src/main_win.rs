@@ -21,17 +21,27 @@
  */
 
 use crate::{
+    connection::{
+        bookmark::{Bookmark, BookmarkGoToVariant},
+        connection::{Connection, ConnectionExt},
+        list::ConnectionList,
+        remote::ConnectionRemote,
+    },
     file_selector::FileSelector,
     libgcmd::{
-        file_descriptor::FileDescriptorExt,
+        file_actions::{FileActions, FileActionsExt},
         state::{State, StateExt},
     },
+    plugin_manager::{plugin_manager_get_active_plugins, wrap_plugin_menu},
     shortcuts::Shortcuts,
     types::FileSelectorID,
     user_actions,
+    utils::{extract_menu_shortcuts, MenuBuilderExt},
 };
+use gettextrs::gettext;
+use glib::ffi::gboolean;
 use gtk::{
-    gio,
+    gio::{self, ffi::GMenu},
     glib::{
         self,
         translate::{from_glib_none, FromGlibPtrNone, ToGlibPtr},
@@ -81,7 +91,7 @@ pub mod ffi {
 glib::wrapper! {
     pub struct MainWindow(Object<ffi::GnomeCmdMainWin, ffi::GnomeCmdMainWinClass>)
         @extends gtk::ApplicationWindow, gtk::Window, gtk::Widget,
-        @implements gio::ActionMap;
+        @implements gio::ActionMap, gtk::Root;
 
     match fn {
         type_ => || ffi::gnome_cmd_main_win_get_type(),
@@ -133,4 +143,350 @@ impl MainWindow {
 pub extern "C" fn gnome_cmd_main_win_install_actions(mw_ptr: *mut ffi::GnomeCmdMainWin) {
     let mw: MainWindow = unsafe { from_glib_none(mw_ptr) };
     mw.add_action_entries(user_actions::USER_ACTIONS.iter().map(|a| a.action_entry()));
+}
+
+fn main_menu() -> gio::Menu {
+    let menu = gio::Menu::new();
+
+    menu.append_submenu(Some(&gettext("_File")), &{
+        gio::Menu::new()
+            .section({
+                gio::Menu::new()
+                    .item(gettext("Change _Owner/Group"), "win.file-chown")
+                    .item(gettext("Change Per_missions"), "win.file-chmod")
+                    .item_accel(
+                        gettext("Advanced _Rename Tool"),
+                        "win.file-advrename",
+                        "<Control>M",
+                    )
+                    .item_accel(
+                        gettext("Create _Symbolic Link"),
+                        "win.file-create-symlink",
+                        "<Control><shift>F5",
+                    )
+                    .item_accel(
+                        gettext("_Properties…"),
+                        "win.file-properties",
+                        "<Alt>KP_Enter",
+                    )
+            })
+            .section({
+                gio::Menu::new()
+                    .item_accel(gettext("_Search…"), "win.file-search", "<Alt>F7")
+                    .item(gettext("_Quick Search…"), "win.file-quick-search")
+                    .item(gettext("_Enable Filter…"), "win.edit-filter")
+            })
+            .section({
+                gio::Menu::new()
+                    .item(gettext("_Diff"), "win.file-diff")
+                    .item(gettext("S_ynchronize Directories"), "win.file-sync-dirs")
+            })
+    });
+
+    menu.append_submenu(Some(&gettext("_Edit")), &{
+        gio::Menu::new()
+            .section({
+                gio::Menu::new()
+                    .item_accel(gettext("Cu_t"), "win.edit-cap-cut", "<Control>X")
+                    .item_accel(gettext("_Copy"), "win.edit-cap-copy", "<Control>C")
+                    .item_accel(gettext("_Paste"), "win.edit-cap-paste", "<Control>V")
+                    .item_accel(gettext("_Delete"), "win.file-delete", "Delete")
+            })
+            .item(gettext("Copy _File Names"), "win.edit-copy-fnames")
+    });
+
+    menu.append_submenu(Some(&gettext("_Mark")), &{
+        gio::Menu::new()
+            .section({
+                gio::Menu::new()
+                    .item_accel(
+                        gettext("_Select All"),
+                        "win.mark-select-all",
+                        "<Control>KP_Add",
+                    )
+                    .item_accel(
+                        gettext("_Unselect All"),
+                        "win.mark-unselect-all",
+                        "<Control>KP_Subtract",
+                    )
+                    .item(gettext("Select all _Files"), "win.mark-select-all-files")
+                    .item(
+                        gettext("Unselect all Fi_les"),
+                        "win.mark-unselect-all-files",
+                    )
+                    .item_accel(
+                        gettext("Select with _Pattern"),
+                        "win.mark-select-with-pattern",
+                        "KP_Add",
+                    )
+                    .item_accel(
+                        gettext("Unselect with P_attern"),
+                        "win.mark-unselect-with-pattern",
+                        "KP_Subtract",
+                    )
+                    .item(
+                        gettext("Select with same _Extension"),
+                        "win.mark-select-all-with-same-extension",
+                    )
+                    .item(
+                        gettext("Unselect with same E_xtension"),
+                        "win.mark-unselect-all-with-same-extension",
+                    )
+                    .item_accel(
+                        gettext("_Invert Selection"),
+                        "win.mark-invert-selection",
+                        "KP_Multiply",
+                    )
+                    .item(gettext("_Restore Selection"), "win.mark-restore-selection")
+            })
+            .item_accel(
+                gettext("_Compare Directories"),
+                "win.mark-compare-directories",
+                "<Shift>F2",
+            )
+    });
+
+    menu.append_submenu(Some(&gettext("_View")), &{
+        gio::Menu::new()
+            .section({
+                gio::Menu::new()
+                    .item_accel(gettext("_Back"), "win.view-back", "<Alt>Pointer_Left")
+                    .item_accel(
+                        gettext("_Forward"),
+                        "win.view-forward",
+                        "<Alt>Pointer_Right",
+                    )
+                    .item_accel(gettext("_Refresh"), "win.view-refresh", "<Control>R")
+            })
+            .section({
+                gio::Menu::new()
+                    .item_accel(
+                        gettext("Open in New _Tab"),
+                        "win.view-new-tab",
+                        "<Control>T",
+                    )
+                    .item_accel(gettext("_Close Tab"), "win.view-close-tab", "<Control>W")
+                    .item_accel(
+                        gettext("Close _All Tabs"),
+                        "win.view-close-all-tabs",
+                        "<Control><Shift>W",
+                    )
+            })
+            .section({
+                gio::Menu::new()
+                    .item(gettext("Show Toolbar"), "win.view-toolbar")
+                    .item(gettext("Show Device Buttons"), "win.view-conbuttons")
+                    .item(gettext("Show Device List"), "win.view-devlist")
+                    .item(gettext("Show Command Line"), "win.view-cmdline")
+                    .item(gettext("Show Buttonbar"), "win.view-buttonbar")
+            })
+            .section({
+                gio::Menu::new()
+                    .item_accel(
+                        gettext("Show Hidden Files"),
+                        "win.view-hidden-files",
+                        "<Control><Shift>H",
+                    )
+                    .item(gettext("Show Backup Files"), "win.view-backup-files")
+            })
+            .section({
+                gio::Menu::new()
+                    .item_accel(
+                        gettext("_Equal Panel Size"),
+                        "win.view-equal-panes",
+                        "<Control><Shift>KP_Equal",
+                    )
+                    .item(gettext("Maximize Panel Size"), "win.view-maximize-pane")
+            })
+            .section({
+                gio::Menu::new().item(
+                    gettext("Horizontal Orientation"),
+                    "win.view-horizontal-orientation",
+                )
+            })
+    });
+
+    menu.append_submenu(Some(&gettext("_Settings")), &{
+        gio::Menu::new()
+            .item_accel(gettext("_Options…"), "win.options-edit", "<Control>O")
+            .item(
+                gettext("_Keyboard Shortcuts…"),
+                "win.options-edit-shortcuts",
+            )
+    });
+
+    menu.append_submenu(Some(&gettext("_Connections")), &{
+        gio::Menu::new()
+            .section({
+                gio::Menu::new()
+                    .item_accel(
+                        gettext("_Remote Server…"),
+                        "win.connections-open",
+                        "<Control>F",
+                    )
+                    .item_accel(
+                        gettext("New Connection…"),
+                        "win.connections-new",
+                        "<Control>N",
+                    )
+            })
+            .section(local_connections_menu())
+            .section(connections_menu())
+    });
+
+    menu.append_submenu(Some(&gettext("_Bookmarks")), &{
+        gio::Menu::new()
+            .section({
+                gio::Menu::new()
+                    .item(
+                        gettext("_Bookmark this Directory…"),
+                        "win.bookmarks-add-current",
+                    )
+                    .item_accel(
+                        gettext("_Manage Bookmarks…"),
+                        "win.bookmarks-edit",
+                        "<Control>D",
+                    )
+            })
+            .section(create_bookmarks_menu())
+    });
+
+    menu.append_submenu(Some(&gettext("_Plugins")), &{
+        gio::Menu::new()
+            .section({
+                gio::Menu::new().item(gettext("_Configure Plugins…"), "win.plugins-configure")
+            })
+            .section(create_plugins_menu())
+    });
+
+    menu.append_submenu(Some(&gettext("_Settings")), &{
+        gio::Menu::new()
+            .section({
+                gio::Menu::new()
+                    .item_accel(gettext("_Documentation"), "win.help-help", "F1")
+                    .item(gettext("_Keyboard Shortcuts"), "win.help-keyboard")
+                    .item(gettext("GNOME Commander on the _Web"), "win.help-web")
+                    .item(gettext("Report a _Problem"), "win.help-problem")
+            })
+            .item(gettext("_About"), "win.help-about")
+    });
+
+    menu
+}
+
+fn local_connections_menu() -> gio::Menu {
+    let con_list = ConnectionList::get();
+    let all_cons = con_list.all();
+
+    let menu = gio::Menu::new();
+    for con in all_cons.iter::<Connection>().flatten() {
+        if con
+            .downcast_ref::<ConnectionRemote>()
+            .map(|c| c.is_open())
+            .unwrap_or(true)
+        {
+            let item = gio::MenuItem::new(con.go_text().as_deref(), None);
+            if let Some(icon) = con.go_icon() {
+                item.set_icon(&icon);
+            }
+            item.set_action_and_target_value(
+                Some("win.connections-set-current"),
+                Some(&con.uuid().to_variant()),
+            );
+
+            menu.append_item(&item);
+        }
+    }
+    menu
+}
+
+fn connections_menu() -> gio::Menu {
+    let con_list = ConnectionList::get();
+    let all_cons = con_list.all();
+
+    let menu = gio::Menu::new();
+
+    // Add all open connections that are not permanent
+    for con in all_cons.iter::<Connection>().flatten() {
+        if con.is_closeable() && con.is_open() {
+            let item = gio::MenuItem::new(con.close_text().as_deref(), None);
+            if let Some(icon) = con.close_icon() {
+                item.set_icon(&icon);
+            }
+            item.set_action_and_target_value(
+                Some("win.connections-close"),
+                Some(&con.uuid().to_variant()),
+            );
+            menu.append_item(&item);
+        }
+    }
+    menu
+}
+
+fn create_bookmarks_menu() -> gio::Menu {
+    let menu = gio::Menu::new();
+
+    let con_list = ConnectionList::get();
+    let all_cons = con_list.all();
+
+    for con in all_cons.iter::<Connection>().flatten() {
+        let bookmarks = con.bookmarks();
+        if bookmarks.n_items() > 0 {
+            let con_uuid = con.uuid();
+
+            // Add bookmarks for this group
+            let group_items = gio::Menu::new();
+            for bookmark in bookmarks.iter::<Bookmark>().flatten() {
+                let name = bookmark.name();
+                let item = gio::MenuItem::new(Some(&name), None);
+                item.set_action_and_target_value(
+                    Some("win.bookmarks-goto"),
+                    Some(
+                        &BookmarkGoToVariant {
+                            connection_uuid: con_uuid.clone(),
+                            bookmark_name: name.clone(),
+                        }
+                        .to_variant(),
+                    ),
+                );
+                group_items.append_item(&item);
+            }
+
+            let group_item = gio::MenuItem::new_submenu(con.alias().as_deref(), &group_items);
+            if let Some(icon) = con.go_icon() {
+                group_item.set_icon(&icon);
+            }
+            menu.append_item(&group_item);
+        }
+    }
+
+    menu
+}
+
+fn create_plugins_menu() -> gio::Menu {
+    let menu = gio::Menu::new();
+    for (action_group_name, plugin) in plugin_manager_get_active_plugins() {
+        if let Some(file_actions) = plugin.downcast_ref::<FileActions>() {
+            if let Some(plugin_menu) = file_actions.create_main_menu() {
+                let plugin_menu = wrap_plugin_menu(&action_group_name, &plugin_menu);
+                menu.append_section(None, &plugin_menu);
+            }
+        }
+    }
+    menu
+}
+
+#[no_mangle]
+pub extern "C" fn gnome_cmd_main_menu_new(
+    mw_ptr: *mut ffi::GnomeCmdMainWin,
+    initial: gboolean,
+) -> *mut GMenu {
+    let mw: MainWindow = unsafe { from_glib_none(mw_ptr) };
+    let menu = main_menu();
+    if initial != 0 {
+        let shortcuts = extract_menu_shortcuts(menu.upcast_ref());
+        let shortcuts_controller = gtk::ShortcutController::for_model(&shortcuts);
+        mw.add_controller(shortcuts_controller);
+    }
+    menu.to_glib_full()
 }

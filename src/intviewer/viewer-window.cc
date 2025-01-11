@@ -117,7 +117,6 @@ struct GViewerWindowPrivate
     // Gtk User Interface
     GtkWidget *vbox;
     GViewer *viewer;
-    GtkWidget *menubar;
     GtkWidget *status_label;
 
     GSimpleActionGroup *action_group;
@@ -145,7 +144,7 @@ static void gviewer_window_status_line_changed(GViewer *gViewer, const gchar *st
 
 static gboolean gviewer_window_key_pressed (GtkEventControllerKey *controller, guint keyval, guint keycode, GdkModifierType state, gpointer user_data);
 
-static GtkWidget *gviewer_window_create_menus(GViewerWindow *gViewerWindow);
+extern "C" GtkPopoverMenuBar *gviewer_window_create_menus(GViewerWindow *gViewerWindow);
 
 void gviewer_window_show_metadata(GViewerWindow *gViewerWindow);
 void gviewer_window_hide_metadata(GViewerWindow *gViewerWindow);
@@ -275,8 +274,7 @@ static void gviewer_window_init (GViewerWindow *w)
 
     priv->vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 6);
 
-    priv->menubar = gviewer_window_create_menus(w);
-    gtk_box_append (GTK_BOX (priv->vbox), priv->menubar);
+    gtk_box_append (GTK_BOX (priv->vbox), GTK_WIDGET (gviewer_window_create_menus(w)));
 
     priv->viewer = GVIEWER (gviewer_new());
     g_object_ref (priv->viewer);
@@ -474,89 +472,6 @@ static gboolean gviewer_window_key_pressed (GtkEventControllerKey *controller, g
         }
 
     return FALSE;
-}
-
-
-static GtkWidget *gviewer_window_create_menus(GViewerWindow *gViewerWindow)
-{
-    auto menu = MenuBuilder()
-        .submenu(_("_File"))
-            .item(_("_Close"),                              "viewer.close",                    "Escape")
-        .endsubmenu()
-        .submenu(_("_View"))
-            .item(_("_Text"),                               "viewer.view-mode(0)",             "1")
-            .item(_("_Binary"),                             "viewer.view-mode(1)",             "2")
-            .item(_("_Hexadecimal"),                        "viewer.view-mode(2)",             "3")
-            .item(_("_Image"),                              "viewer.view-mode(3)",             "4")
-            .section()
-                .item(_("_Zoom In"),                        "viewer.zoom-in",                  "<Control>plus",        "zoom-in")
-                .item(_("_Zoom Out"),                       "viewer.zoom-out",                 "<Control>minus",       "zoom-out")
-                .item(_("_Normal Size"),                    "viewer.normal-size",              "<Control>0",           "zoom-original")
-                .item(_("_Best Fit"),                       "viewer.best-fit",                 "<Control>period",      "zoom-fit-best")
-            .endsection()
-        .endsubmenu()
-        .submenu(_("_Text"))
-            .item(_("_Copy Text Selection"),                "viewer.copy-text-selection",      "<Control>C")
-            .item(_("Find…"),                               "viewer.find",                     "<Control>F")
-            .item(_("Find Next"),                           "viewer.find-next",                "F3")
-            .item(_("Find Previous"),                       "viewer.find-previous",            "<Shift>F3")
-            .section()
-                .item(_("_Wrap lines"),                     "viewer.wrap-lines",               "<Control>W")
-            .endsection()
-            .submenu(_("_Encoding"))
-                .item(_("_UTF-8"),                          "viewer.encoding(0)",              "U")
-                .item(_("English (US-_ASCII)"),             "viewer.encoding(1)",              "A")
-                .item(_("Terminal (CP437)"),                "viewer.encoding(2)",              "Q")
-                .item(_("Arabic (ISO-8859-6)"),             "viewer.encoding(3)")
-                .item(_("Arabic (Windows, CP1256)"),        "viewer.encoding(4)")
-                .item(_("Arabic (Dos, CP864)"),             "viewer.encoding(5)")
-                .item(_("Baltic (ISO-8859-4)"),             "viewer.encoding(6)")
-                .item(_("Central European (ISO-8859-2)"),   "viewer.encoding(7)")
-                .item(_("Central European (CP1250)"),       "viewer.encoding(8)")
-                .item(_("Cyrillic (ISO-8859-5)"),           "viewer.encoding(9)")
-                .item(_("Cyrillic (CP1251)"),               "viewer.encoding(10)")
-                .item(_("Greek (ISO-8859-7)"),              "viewer.encoding(11)")
-                .item(_("Greek (CP1253)"),                  "viewer.encoding(12)")
-                .item(_("Hebrew (Windows, CP1255)"),        "viewer.encoding(13)")
-                .item(_("Hebrew (Dos, CP862)"),             "viewer.encoding(14)")
-                .item(_("Hebrew (ISO-8859-8)"),             "viewer.encoding(15)")
-                .item(_("Latin 9 (ISO-8859-15)"),           "viewer.encoding(16)")
-                .item(_("Maltese (ISO-8859-3)"),            "viewer.encoding(17)")
-                .item(_("Turkish (ISO-8859-9)"),            "viewer.encoding(18)")
-                .item(_("Turkish (CP1254)"),                "viewer.encoding(19)")
-                .item(_("Western (CP1252)"),                "viewer.encoding(20)")
-                .item(_("Western (ISO-8859-1)"),            "viewer.encoding(21)")
-            .endsubmenu()
-        .endsubmenu()
-        .submenu(_("_Image"))
-            .item(_("Rotate Clockwise"),                    "viewer.imageop(0)",               "<Control>R",           ROTATE_90_STOCKID)
-            .item(_("Rotate Counter Clockwis_e"),           "viewer.imageop(1)",               nullptr,                ROTATE_270_STOCKID)
-            .item(_("Rotate 180\xC2\xB0"),                  "viewer.imageop(2)",               "<Control><Shift>R",    ROTATE_180_STOCKID)
-            .item(_("Flip _Vertical"),                      "viewer.imageop(3)",               nullptr,                FLIP_VERTICAL_STOCKID)
-            .item(_("Flip _Horizontal"),                    "viewer.imageop(4)",               nullptr,                FLIP_HORIZONTAL_STOCKID)
-        .endsubmenu()
-        .submenu(_("_Settings"))
-            .submenu(_("_Binary Mode"))
-                .item(_("_20 chars/line"),                  "viewer.chars-per-line(20)",       "<Control>2")
-                .item(_("_40 chars/line"),                  "viewer.chars-per-line(40)",       "<Control>4")
-                .item(_("_80 chars/line"),                  "viewer.chars-per-line(80)",       "<Control>8")
-            .endsubmenu()
-            .section()
-                .item( _("Show Metadata _Tags"),            "viewer.show-metadata-tags",       "T")
-                .item( _("_Hexadecimal Offset"),            "viewer.hexadecimal-offset",       "<Control>D")
-            .endsection()
-            .item(_("_Save Current Settings"),              "viewer.save-current-settings",    "<Control>S")
-        .endsubmenu()
-        .submenu(_("_Help"))
-            .item(_("Quick _Help"),                         "viewer.quick-help",               "F1")
-            .item(_("_Keyboard Shortcuts"),                 "viewer.keyboard-shortcuts")
-        .endsubmenu()
-        .build();
-
-    GtkEventController *shortcuts_controller = gtk_shortcut_controller_new_for_model (menu.shortcuts);
-    gtk_widget_add_controller (GTK_WIDGET (gViewerWindow), shortcuts_controller);
-
-    return gtk_popover_menu_bar_new_from_model (G_MENU_MODEL (menu.menu));
 }
 
 

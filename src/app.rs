@@ -18,7 +18,7 @@
  */
 
 use crate::{
-    data::ProgramsOptionsRead,
+    data::{GeneralOptions, ProgramsOptionsRead},
     file::File,
     libgcmd::file_descriptor::FileDescriptorExt,
     spawn::{parse_command_template, spawn_async_command},
@@ -38,7 +38,7 @@ use std::{
 };
 
 #[repr(i32)]
-#[derive(Default, Clone, Copy, PartialEq, Eq, Debug, glib::Variant)]
+#[derive(Default, Clone, Copy, PartialEq, Eq, Debug, glib::Variant, strum::FromRepr)]
 pub enum AppTarget {
     #[default]
     AllFiles = 0,
@@ -516,4 +516,71 @@ pub unsafe extern "C" fn gnome_cmd_app_load_from_variant(
         Some(app) => app.into_raw(),
         None => ptr::null_mut(),
     }
+}
+
+#[derive(glib::Variant)]
+struct FavoriteAppVariant {
+    name: String,
+    command_template: String,
+    icon_path: String,
+    pattern_string: String,
+    target: u32,
+    handles_uris: bool,
+    handles_multiple: bool,
+    requires_terminal: bool,
+}
+
+pub fn save_favorite_apps(apps: &[UserDefinedApp]) {
+    debug_assert_eq!(&*FavoriteAppVariant::static_variant_type(), "(ssssubbb)");
+
+    let variant = apps
+        .iter()
+        .map(|app| FavoriteAppVariant {
+            name: app.name.to_owned(),
+            command_template: app.command_template.to_owned(),
+            icon_path: app
+                .icon_path
+                .as_ref()
+                .and_then(|p| p.to_str().map(ToString::to_string))
+                .unwrap_or_default(),
+            pattern_string: app.pattern_string.to_owned(),
+            target: app.target as u32,
+            handles_uris: app.handles_uris,
+            handles_multiple: app.handles_multiple,
+            requires_terminal: app.requires_terminal,
+        })
+        .collect::<Vec<_>>()
+        .to_variant();
+
+    if let Err(error) = GeneralOptions::new().0.set_value("favorite-apps", &variant) {
+        eprintln!("Failed to save favorite apps: {}", error);
+    }
+}
+
+pub fn load_favorite_apps() -> Vec<UserDefinedApp> {
+    debug_assert_eq!(&*FavoriteAppVariant::static_variant_type(), "(ssssubbb)");
+
+    let variant = GeneralOptions::new().0.value("favorite-apps");
+
+    Vec::<FavoriteAppVariant>::from_variant(&variant)
+        .unwrap_or_default()
+        .into_iter()
+        .map(|app| UserDefinedApp {
+            name: app.name,
+            command_template: app.command_template,
+            icon_path: Some(app.icon_path)
+                .filter(|p| !p.is_empty())
+                .map(|p| PathBuf::from(p)),
+            pattern_string: app.pattern_string,
+            target: app
+                .target
+                .try_into()
+                .ok()
+                .and_then(AppTarget::from_repr)
+                .unwrap_or_default(),
+            handles_uris: app.handles_uris,
+            handles_multiple: app.handles_multiple,
+            requires_terminal: app.requires_terminal,
+        })
+        .collect()
 }
