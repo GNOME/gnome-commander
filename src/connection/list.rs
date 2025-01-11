@@ -23,7 +23,6 @@
 use super::{
     bookmark::Bookmark,
     connection::{Connection, ConnectionExt},
-    device::ConnectionDevice,
     remote::ConnectionRemote,
 };
 use gtk::{
@@ -40,12 +39,8 @@ use gtk::{
 
 pub mod ffi {
     use super::*;
-    use crate::connection::{
-        connection::ffi::GnomeCmdCon, device::ffi::GnomeCmdConDevice,
-        remote::ffi::GnomeCmdConRemote,
-    };
-    use glib::ffi::{GList, GType};
-    use gtk::gio::ffi::GListModel;
+    use crate::connection::connection::ffi::GnomeCmdCon;
+    use gtk::{gio::ffi::GListModel, glib::ffi::GType};
     use std::ffi::c_char;
 
     #[repr(C)]
@@ -58,21 +53,9 @@ pub mod ffi {
         pub fn gnome_cmd_con_list_get_type() -> GType;
 
         pub fn gnome_cmd_con_list_get_all(list: *mut GnomeCmdConList) -> *const GListModel;
-        pub fn gnome_cmd_con_list_get_all_remote(list: *mut GnomeCmdConList) -> *const GList;
 
-        pub fn gnome_cmd_con_list_add_remote(
-            list: *mut GnomeCmdConList,
-            con: *mut GnomeCmdConRemote,
-        );
-        pub fn gnome_cmd_con_list_add_dev(list: *mut GnomeCmdConList, con: *mut GnomeCmdConDevice);
-        pub fn gnome_cmd_con_list_remove_remote(
-            list: *mut GnomeCmdConList,
-            con: *mut GnomeCmdConRemote,
-        );
-        pub fn gnome_cmd_con_list_remove_dev(
-            list: *mut GnomeCmdConList,
-            con: *mut GnomeCmdConDevice,
-        );
+        pub fn gnome_cmd_con_list_add(list: *mut GnomeCmdConList, con: *mut GnomeCmdCon);
+        pub fn gnome_cmd_con_list_remove(list: *mut GnomeCmdConList, con: *mut GnomeCmdCon);
 
         pub fn gnome_cmd_con_list_find_by_uuid(
             list: *mut GnomeCmdConList,
@@ -108,38 +91,33 @@ impl ConnectionList {
         unsafe { from_glib_none(ffi::gnome_cmd_con_list_get_all(self.to_glib_none().0)) }
     }
 
-    pub fn all_remote(&self) -> glib::List<Connection> {
+    pub fn add(&self, con: &impl IsA<Connection>) {
+        unsafe { ffi::gnome_cmd_con_list_add(self.to_glib_none().0, con.as_ref().to_glib_full()) }
+    }
+
+    pub fn remove(&self, con: &impl IsA<Connection>) {
         unsafe {
-            glib::List::from_glib_none(ffi::gnome_cmd_con_list_get_all_remote(
-                self.to_glib_none().0,
-            ))
+            ffi::gnome_cmd_con_list_remove(self.to_glib_none().0, con.as_ref().to_glib_none().0)
         }
     }
 
-    pub fn add_remote(&self, con: &ConnectionRemote) {
-        unsafe { ffi::gnome_cmd_con_list_add_remote(self.to_glib_none().0, con.to_glib_full()) }
-    }
-
-    pub fn add_dev(&self, con: &ConnectionDevice) {
-        unsafe { ffi::gnome_cmd_con_list_add_dev(self.to_glib_none().0, con.to_glib_full()) }
-    }
-
-    pub fn remove_remote(&self, con: &ConnectionRemote) {
-        unsafe {
-            ffi::gnome_cmd_con_list_remove_remote(self.to_glib_none().0, con.to_glib_none().0)
-        }
-    }
-
-    pub fn remove_dev(&self, con: &ConnectionDevice) {
-        unsafe { ffi::gnome_cmd_con_list_remove_dev(self.to_glib_none().0, con.to_glib_none().0) }
-    }
-
-    pub fn replace_device(&self, old_device: &ConnectionDevice, new_device: &ConnectionDevice) {
+    pub fn replace(&self, old: &impl IsA<Connection>, new: &impl IsA<Connection>) {
         if let Ok(store) = self.all().downcast::<gio::ListStore>() {
-            if let Some(position) = store.find(old_device) {
-                store.splice(position, 1, &[new_device.clone()]);
+            if let Some(position) = store.find(old.as_ref()) {
+                store.splice(position, 1, &[new.as_ref().clone()]);
             } else {
-                store.append(new_device);
+                store.append(new.as_ref());
+            }
+        }
+    }
+
+    #[deprecated(note = "This is a hack. Prefer to use immutable objects instead.")]
+    pub fn refresh(&self, connection: &impl IsA<Connection>) {
+        if let Ok(store) = self.all().downcast::<gio::ListStore>() {
+            let connection = connection.as_ref();
+            if let Some(position) = store.find(connection) {
+                store.remove(position);
+                store.insert(position, connection);
             }
         }
     }
@@ -242,7 +220,12 @@ impl ConnectionList {
             }
         }
 
-        for con in self.all_remote() {
+        for con in self
+            .all()
+            .iter::<Connection>()
+            .flatten()
+            .filter_map(|c| c.downcast::<ConnectionRemote>().ok())
+        {
             let alias = con.alias().unwrap_or_default();
             for bookmark in con
                 .bookmarks()

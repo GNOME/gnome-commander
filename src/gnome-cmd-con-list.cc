@@ -34,8 +34,6 @@ struct GnomeCmdConList::Private
     gboolean update_lock;
     gboolean changed;
 
-    GList *remote_cons    {nullptr};
-
     GnomeCmdCon *home_con {nullptr};
     GnomeCmdCon *smb_con  {nullptr};
     GListStore *all_cons;
@@ -138,13 +136,11 @@ void gnome_cmd_con_list_unlock (GnomeCmdConList *list)
 }
 
 
-void gnome_cmd_con_list_add_remote (GnomeCmdConList *list, GnomeCmdConRemote *con)
+void gnome_cmd_con_list_add (GnomeCmdConList *list, GnomeCmdCon *con)
 {
     g_return_if_fail (!g_list_store_find (list->priv->all_cons, con, nullptr));
-    g_return_if_fail (g_list_index (list->priv->remote_cons, con) == -1);
 
     g_list_store_append (list->priv->all_cons, con);
-    list->priv->remote_cons = g_list_append (list->priv->remote_cons, con);
 
     g_signal_connect (con, "updated", G_CALLBACK (on_con_updated), list);
 
@@ -159,52 +155,13 @@ void gnome_cmd_con_list_add_remote (GnomeCmdConList *list, GnomeCmdConRemote *co
 }
 
 
-void gnome_cmd_con_list_remove_remote (GnomeCmdConList *list, GnomeCmdConRemote *con)
-{
-    guint position;
-    g_return_if_fail (g_list_store_find (list->priv->all_cons, con, &position));
-    g_return_if_fail (g_list_index (list->priv->remote_cons, con) != -1);
-
-    g_list_store_remove (list->priv->all_cons, position);
-    list->priv->remote_cons = g_list_remove (list->priv->remote_cons, con);
-
-    g_signal_handlers_disconnect_by_func (con, (gpointer) on_con_updated, list);
-
-    if (list->priv->update_lock)
-    {
-        list->priv->changed = TRUE;
-    }
-    else
-    {
-        g_signal_emit (list, signals[LIST_CHANGED], 0);
-    }
-}
-
-
-void gnome_cmd_con_list_add_dev (GnomeCmdConList *list, GnomeCmdConDevice *con)
-{
-    g_return_if_fail (!g_list_store_find (list->priv->all_cons, con, nullptr));
-
-    g_list_store_append (list->priv->all_cons, con);
-    g_signal_connect (con, "updated", G_CALLBACK (on_con_updated), list);
-
-    if (list->priv->update_lock)
-    {
-        list->priv->changed = TRUE;
-    }
-    else
-    {
-        g_signal_emit (list, signals[LIST_CHANGED], 0);
-    }
-}
-
-
-void gnome_cmd_con_list_remove_dev (GnomeCmdConList *list, GnomeCmdConDevice *con)
+void gnome_cmd_con_list_remove (GnomeCmdConList *list, GnomeCmdCon *con)
 {
     guint position;
     g_return_if_fail (g_list_store_find (list->priv->all_cons, con, &position));
 
     g_list_store_remove (list->priv->all_cons, position);
+
     g_signal_handlers_disconnect_by_func (con, (gpointer) on_con_updated, list);
 
     if (list->priv->update_lock)
@@ -223,14 +180,6 @@ GListModel *gnome_cmd_con_list_get_all (GnomeCmdConList *con_list)
     g_return_val_if_fail (GNOME_CMD_IS_CON_LIST (con_list), nullptr);
 
     return G_LIST_MODEL (con_list->priv->all_cons);
-}
-
-
-GList *gnome_cmd_con_list_get_all_remote (GnomeCmdConList *con_list)
-{
-    g_return_val_if_fail (GNOME_CMD_IS_CON_LIST (con_list), nullptr);
-
-    return con_list->priv->remote_cons;
 }
 
 
@@ -280,17 +229,22 @@ GnomeCmdCon *gnome_cmd_con_list_get_smb (GnomeCmdConList *list)
 GnomeCmdCon *get_remote_con_for_gfile(GFile *gFile)
 {
     GnomeCmdCon *gnomeCmdCon = nullptr;
-    auto remoteCons = gnome_cmd_con_list_get_all_remote (gnome_cmd_con_list_get ());
 
-    for(auto remoteConEntry = remoteCons; remoteConEntry; remoteConEntry = remoteConEntry->next)
+    GListModel *connections = gnome_cmd_con_list_get_all (gnome_cmd_con_list_get ());
+    guint len = g_list_model_get_n_items (connections);
+    for (guint i = 0; i < len; ++i)
     {
-        auto remoteCon = static_cast<GnomeCmdConRemote*>(remoteConEntry->data);
-        auto gnomeCmdConParent = &remoteCon->parent;
+        GnomeCmdCon *con = GNOME_CMD_CON (g_list_model_get_item (connections, i));
+        if (!GNOME_CMD_IS_CON_REMOTE (con))
+            continue;
+
+        auto remoteCon = GNOME_CMD_CON_REMOTE (con);
+
         auto gFileSrcUri = g_file_get_uri(gFile);
-        gchar *uri = gnome_cmd_con_get_uri_string (gnomeCmdConParent);
+        gchar *uri = gnome_cmd_con_get_uri_string (con);
         if (strstr(gFileSrcUri, uri))
         {
-            gnomeCmdCon = gnomeCmdConParent;
+            gnomeCmdCon = con;
             g_free(gFileSrcUri);
             g_free(uri);
             break;

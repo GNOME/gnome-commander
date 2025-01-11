@@ -823,9 +823,19 @@ gboolean GnomeCmdMainWin::key_pressed(GnomeCmdKeyPress *event)
             case GDK_KEY_f:
             case GDK_KEY_F:
             {
-                GnomeCmdConRemote *con = GNOME_CMD_CON_REMOTE (gnome_cmd_con_list_get_all_remote (gnome_cmd_con_list_get ())->data);
-
-                fs(ACTIVE)->set_connection(GNOME_CMD_CON (con));
+                GListModel *connections = gnome_cmd_con_list_get_all (gnome_cmd_con_list_get ());
+                guint len = g_list_model_get_n_items (connections);
+                GnomeCmdCon *remote_con = nullptr;
+                for (guint i = 0; i < len; ++i)
+                {
+                    GnomeCmdCon *con = GNOME_CMD_CON (g_list_model_get_item (connections, i));
+                    if (GNOME_CMD_IS_CON_REMOTE (con))
+                    {
+                        remote_con = con;
+                        break;
+                    }
+                }
+                fs(ACTIVE)->set_connection(remote_con);
             }
             break;
 

@@ -157,7 +157,7 @@ pub fn devices_widget() -> gtk::Widget {
             };
             glib::spawn_future_local(async move {
                 if let Some(device) = edit_device_dialog(&parent_window, None).await {
-                    list.add_dev(&device);
+                    list.add(&device);
                     selection.set_selected(selection.n_items() - 1);
                 }
             });
@@ -177,7 +177,7 @@ pub fn devices_widget() -> gtk::Widget {
                     if let Some(new_device) =
                         edit_device_dialog(&parent_window, Some(&device)).await
                     {
-                        list.replace_device(&device, &new_device);
+                        list.replace(&device, &new_device);
                     }
                 }
             });
@@ -190,7 +190,7 @@ pub fn devices_widget() -> gtk::Widget {
         selection,
         move |_| {
             if let Some(device) = selection.selected_item().and_downcast::<ConnectionDevice>() {
-                list.remove_dev(&device);
+                list.remove(&device);
             }
         }
     ));
