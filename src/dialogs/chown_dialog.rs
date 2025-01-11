@@ -22,11 +22,11 @@ use crate::{
     dir::Directory,
     file::File,
     libgcmd::file_descriptor::FileDescriptorExt,
+    pwd::{gid_t, uid, uid_t},
     utils::{dialog_button_box, ErrorMessage, SenderExt, NO_BUTTONS},
 };
 use gettextrs::gettext;
 use gtk::{gio, glib, prelude::*};
-use libc::{geteuid, gid_t, uid_t};
 
 #[async_recursion::async_recursion(?Send)]
 async fn chown_recursively(
@@ -137,7 +137,7 @@ pub async fn show_chown_dialog(parent_window: &gtk::Window, files: &glib::List<F
 
     if result {
         let (mut owner, group) = chown_component.ownership();
-        if unsafe { geteuid() } != 0 {
+        if uid() != 0 {
             owner = u32::MAX;
         }
 

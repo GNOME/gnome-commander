@@ -24,26 +24,8 @@
 #include "gnome-cmd-file.h"
 
 #define GNOME_CMD_TYPE_CHOWN_COMPONENT              (gnome_cmd_chown_component_get_type ())
-#define GNOME_CMD_CHOWN_COMPONENT(obj)              (G_TYPE_CHECK_INSTANCE_CAST((obj), GNOME_CMD_TYPE_CHOWN_COMPONENT, GnomeCmdChownComponent))
-#define GNOME_CMD_CHOWN_COMPONENT_CLASS(klass)      (G_TYPE_CHECK_CLASS_CAST((klass), GNOME_CMD_TYPE_CHOWN_COMPONENT, GnomeCmdChownComponentClass))
-#define GNOME_CMD_IS_CHOWN_COMPONENT(obj)           (G_TYPE_CHECK_INSTANCE_TYPE((obj), GNOME_CMD_TYPE_CHOWN_COMPONENT))
-#define GNOME_CMD_IS_CHOWN_COMPONENT_CLASS(klass)   (G_TYPE_CHECK_CLASS_TYPE ((klass), GNOME_CMD_TYPE_CHOWN_COMPONENT))
-#define GNOME_CMD_CHOWN_COMPONENT_GET_CLASS(obj)    (G_TYPE_INSTANCE_GET_CLASS((obj), GNOME_CMD_TYPE_CHOWN_COMPONENT, GnomeCmdChownComponentClass))
+struct GnomeCmdChownComponent;
 
-
-struct GnomeCmdChownComponent
-{
-    GtkGrid parent;
-};
-
-
-struct GnomeCmdChownComponentClass
-{
-    GtkGridClass parent_class;
-};
-
-
-extern "C" GtkWidget *gnome_cmd_chown_component_new ();
 extern "C" GType gnome_cmd_chown_component_get_type ();
 
 extern "C" void gnome_cmd_chown_component_set (GnomeCmdChownComponent *comp, uid_t owner, gid_t group);

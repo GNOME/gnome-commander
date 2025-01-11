@@ -2,7 +2,7 @@
  * Copyright 2001-2006 Marcus Bjurman
  * Copyright 2007-2012 Piotr Eljasiak
  * Copyright 2013-2024 Uwe Scholz
- * Copyright 2024 Andrey Kutejko <andy128k@gmail.com>
+ * Copyright 2024-2025 Andrey Kutejko <andy128k@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -20,57 +20,210 @@
  * For more details see the file COPYING.
  */
 
-use glib::translate::from_glib_none;
-use gtk::glib::{self, translate::ToGlibPtr};
+use crate::utils::PERMISSION_MASKS;
+use gtk::{
+    glib::{
+        self,
+        ffi::GType,
+        translate::{FromGlibPtrBorrow, IntoGlib},
+    },
+    prelude::*,
+    subclass::prelude::*,
+};
 
-pub mod ffi {
+mod imp {
     use super::*;
-    use glib::ffi::GType;
+    use crate::utils::{grid_attach, permissions_to_numbers, permissions_to_text};
+    use gettextrs::gettext;
 
-    #[repr(C)]
-    pub struct GnomeCmdChmodComponent {
-        _data: [u8; 0],
-        _marker: std::marker::PhantomData<(*mut u8, std::marker::PhantomPinned)>,
+    pub struct ChmodComponent {
+        pub check_boxes: [[gtk::CheckButton; 3]; 3],
+        pub text_view: gtk::Label,
+        pub number_view: gtk::Label,
     }
 
-    extern "C" {
-        pub fn gnome_cmd_chmod_component_get_type() -> GType;
+    #[glib::object_subclass]
+    impl ObjectSubclass for ChmodComponent {
+        const NAME: &'static str = "GnomeCmdChmodComponent";
+        type Type = super::ChmodComponent;
+        type ParentType = gtk::Widget;
 
-        pub fn gnome_cmd_chmod_component_new(perms: u32) -> *mut GnomeCmdChmodComponent;
-
-        pub fn gnome_cmd_chmod_component_get_perms(c: *mut GnomeCmdChmodComponent) -> u32;
-        pub fn gnome_cmd_chmod_component_set_perms(
-            c: *mut GnomeCmdChmodComponent,
-            permissions: u32,
-        );
+        fn new() -> Self {
+            fn row() -> [gtk::CheckButton; 3] {
+                [
+                    gtk::CheckButton::builder()
+                        .label(gettext("Read"))
+                        .hexpand(true)
+                        .halign(gtk::Align::Start)
+                        .build(),
+                    gtk::CheckButton::builder()
+                        .label(gettext("Write"))
+                        .hexpand(true)
+                        .halign(gtk::Align::Start)
+                        .build(),
+                    gtk::CheckButton::builder()
+                        .label(gettext("Execute"))
+                        .hexpand(true)
+                        .halign(gtk::Align::Start)
+                        .build(),
+                ]
+            }
+            Self {
+                check_boxes: [row(), row(), row()],
+                text_view: gtk::Label::builder().halign(gtk::Align::Start).build(),
+                number_view: gtk::Label::builder().halign(gtk::Align::Start).build(),
+            }
+        }
     }
 
-    #[derive(Copy, Clone)]
-    #[repr(C)]
-    pub struct GnomeCmdChmodComponentClass {
-        pub parent_class: gtk::ffi::GtkBoxClass,
+    impl ObjectImpl for ChmodComponent {
+        fn constructed(&self) {
+            self.parent_constructed();
+            let this = self.obj();
+
+            let layout = gtk::GridLayout::builder()
+                .column_spacing(12)
+                .row_spacing(6)
+                .build();
+            this.set_layout_manager(Some(layout.clone()));
+
+            let check_categories = [gettext("Owner:"), gettext("Group:"), gettext("Others:")];
+
+            for y in 0..3 {
+                grid_attach(
+                    &*this,
+                    &gtk::Label::builder()
+                        .label(&check_categories[y])
+                        .halign(gtk::Align::Start)
+                        .build(),
+                    0,
+                    y as i32,
+                    1,
+                    1,
+                );
+                for x in 0..3 {
+                    let cb = &self.check_boxes[y][x];
+                    cb.connect_toggled(glib::clone!(
+                        #[weak(rename_to = imp)]
+                        self,
+                        move |_| imp.on_check_toggled()
+                    ));
+                    grid_attach(&*this, cb, x as i32 + 1, y as i32, 1, 1);
+                }
+            }
+
+            grid_attach(
+                &*this,
+                &gtk::Separator::new(gtk::Orientation::Horizontal),
+                0,
+                3,
+                4,
+                1,
+            );
+
+            grid_attach(
+                &*this,
+                &gtk::Label::builder()
+                    .label(gettext("Text view:"))
+                    .halign(gtk::Align::Start)
+                    .build(),
+                0,
+                4,
+                1,
+                1,
+            );
+            grid_attach(&*this, &self.text_view, 1, 4, 3, 1);
+
+            grid_attach(
+                &*this,
+                &gtk::Label::builder()
+                    .label(gettext("Number view:"))
+                    .halign(gtk::Align::Start)
+                    .build(),
+                0,
+                5,
+                1,
+                1,
+            );
+            grid_attach(&*this, &self.number_view, 1, 5, 3, 1);
+        }
+
+        fn dispose(&self) {
+            while let Some(child) = self.obj().first_child() {
+                child.unparent();
+            }
+        }
+    }
+
+    impl WidgetImpl for ChmodComponent {}
+
+    impl ChmodComponent {
+        fn on_check_toggled(&self) {
+            let permissions = self.obj().permissions();
+            self.text_view.set_label(&permissions_to_text(permissions));
+            self.number_view
+                .set_label(&permissions_to_numbers(permissions));
+        }
     }
 }
 
 glib::wrapper! {
-    pub struct ChmodComponent(Object<ffi::GnomeCmdChmodComponent, ffi::GnomeCmdChmodComponentClass>)
-        @extends gtk::Box, gtk::Widget;
+    pub struct ChmodComponent(ObjectSubclass<imp::ChmodComponent>)
+        @extends gtk::Widget;
+}
 
-    match fn {
-        type_ => || ffi::gnome_cmd_chmod_component_get_type(),
+impl Default for ChmodComponent {
+    fn default() -> Self {
+        glib::Object::builder().build()
     }
 }
 
 impl ChmodComponent {
     pub fn new(permissions: u32) -> Self {
-        unsafe { from_glib_none(ffi::gnome_cmd_chmod_component_new(permissions)) }
+        let this = Self::default();
+        this.set_permissions(permissions);
+        this
     }
 
     pub fn permissions(&self) -> u32 {
-        unsafe { ffi::gnome_cmd_chmod_component_get_perms(self.to_glib_none().0) }
+        let mut permissions = 0;
+
+        for y in 0..3 {
+            for x in 0..3 {
+                if self.imp().check_boxes[y][x].is_active() {
+                    permissions |= PERMISSION_MASKS[y][x];
+                }
+            }
+        }
+        permissions
     }
 
     pub fn set_permissions(&self, permissions: u32) {
-        unsafe { ffi::gnome_cmd_chmod_component_set_perms(self.to_glib_none().0, permissions) }
+        for y in 0..3 {
+            for x in 0..3 {
+                self.imp().check_boxes[y][x]
+                    .set_active((permissions & PERMISSION_MASKS[y][x]) != 0);
+            }
+        }
     }
+}
+
+#[no_mangle]
+pub extern "C" fn gnome_cmd_chmod_component_get_type() -> GType {
+    ChmodComponent::static_type().into_glib()
+}
+
+#[no_mangle]
+pub unsafe extern "C" fn gnome_cmd_chmod_component_set_perms(
+    component: *mut <ChmodComponent as glib::object::ObjectType>::GlibType,
+    permissions: u32,
+) {
+    ChmodComponent::from_glib_borrow(component).set_permissions(permissions);
+}
+
+#[no_mangle]
+pub unsafe extern "C" fn gnome_cmd_chmod_component_get_perms(
+    component: *mut <ChmodComponent as glib::object::ObjectType>::GlibType,
+) -> u32 {
+    ChmodComponent::from_glib_borrow(component).permissions()
 }

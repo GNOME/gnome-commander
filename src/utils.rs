@@ -2,7 +2,7 @@
  * Copyright 2001-2006 Marcus Bjurman
  * Copyright 2007-2012 Piotr Eljasiak
  * Copyright 2013-2024 Uwe Scholz
- * Copyright 2024 Andrey Kutejko <andy128k@gmail.com>
+ * Copyright 2024-2025 Andrey Kutejko <andy128k@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -42,6 +42,42 @@ pub const GNOME_CMD_PERM_OTHER_EXEC: u32 = 1; //--------x
 pub const GNOME_CMD_PERM_USER_ALL: u32 = 448; //rwx------
 pub const GNOME_CMD_PERM_GROUP_ALL: u32 = 56; //---rwx---
 pub const GNOME_CMD_PERM_OTHER_ALL: u32 = 7; //------rwx
+
+pub const PERMISSION_MASKS: [[u32; 3]; 3] = [
+    [
+        GNOME_CMD_PERM_USER_READ,
+        GNOME_CMD_PERM_USER_WRITE,
+        GNOME_CMD_PERM_USER_EXEC,
+    ],
+    [
+        GNOME_CMD_PERM_GROUP_READ,
+        GNOME_CMD_PERM_GROUP_WRITE,
+        GNOME_CMD_PERM_GROUP_EXEC,
+    ],
+    [
+        GNOME_CMD_PERM_OTHER_READ,
+        GNOME_CMD_PERM_OTHER_WRITE,
+        GNOME_CMD_PERM_OTHER_EXEC,
+    ],
+];
+
+pub fn permissions_to_text(permissions: u32) -> String {
+    let mut result = String::with_capacity(9);
+    for grantee_masks in PERMISSION_MASKS {
+        for (mask, symbol) in grantee_masks.iter().zip(['r', 'w', 'x']) {
+            result.push(if (permissions & mask) != 0 {
+                symbol
+            } else {
+                '-'
+            });
+        }
+    }
+    result
+}
+
+pub fn permissions_to_numbers(permissions: u32) -> String {
+    format!("{:03o}", permissions)
+}
 
 pub fn temp_directory() -> &'static tempfile::TempDir {
     static TEMP_DIRECTORY: OnceLock<tempfile::TempDir> = OnceLock::new();
@@ -464,4 +500,26 @@ pub fn remember_window_size(
         settings,
         move |window| save_window_size(window, &settings, width_key, height_key)
     ));
+}
+
+pub fn grid_attach(
+    parent: &impl IsA<gtk::Widget>,
+    child: &impl IsA<gtk::Widget>,
+    column: i32,
+    row: i32,
+    column_span: i32,
+    row_span: i32,
+) {
+    child.set_parent(parent);
+    if let Some(layout_child) = parent
+        .layout_manager()
+        .and_downcast::<gtk::GridLayout>()
+        .map(|l| l.layout_child(child))
+        .and_downcast::<gtk::GridLayoutChild>()
+    {
+        layout_child.set_column(column);
+        layout_child.set_row(row);
+        layout_child.set_column_span(column_span);
+        layout_child.set_row_span(row_span);
+    }
 }
