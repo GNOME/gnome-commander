@@ -47,26 +47,27 @@ pub async fn edit_profile(
         .build();
     dialog.set_child(Some(&grid));
 
+    let labels_size_group = gtk::SizeGroup::new(gtk::SizeGroupMode::Horizontal);
+
     let entry = gtk::Entry::builder()
         .text(manager.profile_name(profile_index))
-        .margin_bottom(6)
-        .margin_start(12)
+        .hexpand(true)
         .build();
 
     let label = gtk::Label::builder()
         .label(format!("<b>{}</b>", gettext("_Name")))
         .use_underline(true)
         .use_markup(true)
-        .halign(gtk::Align::Start)
-        .valign(gtk::Align::Center)
+        .xalign(0.0)
         .mnemonic_widget(&entry)
         .build();
+    labels_size_group.add_widget(&label);
 
     grid.attach(&label, 0, 0, 1, 1);
-    grid.attach(&entry, 0, 1, 1, 1);
+    grid.attach(&entry, 1, 0, 1, 1);
 
-    let component = manager.create_component(profile_index);
-    grid.attach(&component, 0, 2, 1, 1);
+    let component = manager.create_component(profile_index, &labels_size_group);
+    grid.attach(&component, 0, 1, 2, 1);
 
     let mut start_buttons = Vec::new();
     if let Some(help_id) = help_id {
@@ -134,8 +135,8 @@ pub async fn edit_profile(
     grid.attach(
         &dialog_button_box(&start_buttons, &[&reset_button, &cancel_button, &ok_button]),
         0,
-        3,
-        1,
+        2,
+        2,
         1,
     );
 

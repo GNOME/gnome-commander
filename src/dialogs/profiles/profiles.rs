@@ -29,7 +29,11 @@ pub trait ProfileManager {
     fn duplicate_profile(&self, profile_index: usize) -> usize;
     fn pick(&self, profile_indexes: &[usize]);
 
-    fn create_component(&self, profile_index: usize) -> gtk::Widget; // implies component.update();
+    fn create_component(
+        &self,
+        profile_index: usize,
+        labels_size_group: &gtk::SizeGroup,
+    ) -> gtk::Widget; // implies component.update();
     fn update_component(&self, profile_index: usize, component: &gtk::Widget);
     fn copy_component(&self, profile_index: usize, component: &gtk::Widget);
 }

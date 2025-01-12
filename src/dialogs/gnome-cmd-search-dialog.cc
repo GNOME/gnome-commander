@@ -135,7 +135,8 @@ struct GnomeCmdSearchDialog::Private
     // holds data needed by the search routines
     SearchData data;
 
-    GtkWidget *vbox;
+    GtkWidget *grid;
+    GtkSizeGroup *labels_size_group;
     GnomeCmdSelectionProfileComponent *profile_component;
     GtkWidget *dir_browser;
     GnomeCmdFileList *result_list;
@@ -157,7 +158,7 @@ struct GnomeCmdSearchDialog::Private
 
 inline GnomeCmdSearchDialog::Private::Private(GnomeCmdSearchDialog *dlg): data(dlg)
 {
-    vbox = nullptr;
+    grid = nullptr;
     profile_component = nullptr;
     dir_browser = nullptr;
     result_list = nullptr;
@@ -1128,21 +1129,32 @@ static void gnome_cmd_search_dialog_init (GnomeCmdSearchDialog *dialog)
     gtk_window_set_title (*dialog, _("Search…"));
     gtk_window_set_resizable (*dialog, TRUE);
 
-    GtkWidget *content_area = gtk_dialog_get_content_area (GTK_DIALOG (dialog));
+    auto grid = gtk_grid_new ();
+    dialog->priv->grid = grid;
+    gtk_widget_set_margin_top (grid, 12);
+    gtk_widget_set_margin_bottom (grid, 12);
+    gtk_widget_set_margin_start (grid, 12);
+    gtk_widget_set_margin_end (grid, 12);
+    gtk_grid_set_row_spacing (GTK_GRID (grid), 6);
+    gtk_grid_set_column_spacing (GTK_GRID (grid), 12);
+    gtk_box_append (GTK_BOX (gtk_dialog_get_content_area (GTK_DIALOG (dialog))), grid);
 
-    gtk_widget_set_margin_top (content_area, 10);
-    gtk_widget_set_margin_bottom (content_area, 10);
-    gtk_widget_set_margin_start (content_area, 10);
-    gtk_widget_set_margin_end (content_area, 10);
-    gtk_box_set_spacing (GTK_BOX (content_area), 6);
+    dialog->priv->labels_size_group = gtk_size_group_new (GTK_SIZE_GROUP_HORIZONTAL);
 
-    dialog->priv->vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 6);
-    gtk_box_append (GTK_BOX (content_area), dialog->priv->vbox);
+    // search in
+    dialog->priv->dir_browser = GTK_WIDGET (g_object_new (gnome_cmd_directory_button_get_type (), nullptr));
+    auto dir_browser_label = create_label_with_mnemonic (GTK_WIDGET (dialog), _("_Look in folder:"), dialog->priv->dir_browser);
+    gtk_label_set_xalign (GTK_LABEL (dir_browser_label), 0.0);
+    gtk_size_group_add_widget (dialog->priv->labels_size_group, dir_browser_label);
+
+    gtk_grid_attach (GTK_GRID (grid), dir_browser_label, 0, 0, 1, 1);
+    gtk_widget_set_hexpand (dialog->priv->dir_browser, TRUE);
+    gtk_grid_attach (GTK_GRID (grid), dialog->priv->dir_browser, 1, 0, 1, 1);
 
     // file list
     GtkWidget *sw = gtk_scrolled_window_new ();
     gtk_widget_set_vexpand (sw, TRUE);
-    gtk_box_append (GTK_BOX (dialog->priv->vbox), sw);
+    gtk_grid_attach (GTK_GRID (grid), sw, 0, 2, 2, 1);
     gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (sw), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
 
     dialog->priv->result_list = new GnomeCmdFileList(GnomeCmdFileList::COLUMN_NAME,GTK_SORT_ASCENDING);
@@ -1151,7 +1163,7 @@ static void gnome_cmd_search_dialog_init (GnomeCmdSearchDialog *dialog)
 
     // status
     auto statusbar = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 6);
-    gtk_box_append (GTK_BOX (dialog->priv->vbox), statusbar);
+    gtk_grid_attach (GTK_GRID (grid), statusbar, 0, 3, 2, 1);
 
     dialog->priv->status_label = gtk_label_new(nullptr);
     gtk_box_append (GTK_BOX (statusbar), dialog->priv->status_label);
@@ -1245,13 +1257,8 @@ GnomeCmdSearchDialog::GnomeCmdSearchDialog(GnomeCmdData::SearchConfig &cfg): def
 
     gtk_window_set_hide_on_close (*this, TRUE);
 
-    // search in
-    priv->dir_browser = GTK_WIDGET (g_object_new (gnome_cmd_directory_button_get_type (), nullptr));
-
-    priv->profile_component = new GnomeCmdSelectionProfileComponent(cfg.default_profile, priv->dir_browser, _("_Look in folder:"));
-
-    gtk_box_append (GTK_BOX (priv->vbox), *priv->profile_component);
-    gtk_box_reorder_child_after (GTK_BOX (priv->vbox), *priv->profile_component, nullptr);
+    priv->profile_component = new GnomeCmdSelectionProfileComponent(cfg.default_profile, priv->labels_size_group);
+    gtk_grid_attach (GTK_GRID (priv->grid), GTK_WIDGET (priv->profile_component), 0, 1, 2, 1);
 
     if (!defaults.name_patterns.empty())
         priv->profile_component->set_name_patterns_history(defaults.name_patterns.ents);

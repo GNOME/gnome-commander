@@ -42,6 +42,7 @@ struct GnomeCmdSelectionProfileComponent::Private
     GtkWidget *grid;
     GtkWidget *filter_type_combo;
     GtkWidget *pattern_combo;
+    GtkWidget *recurse_label;
     GtkWidget *recurse_combo;
     GtkWidget *find_text_combo;
     GtkWidget *find_text_check;
@@ -125,7 +126,7 @@ static void gnome_cmd_selection_profile_component_init (GnomeCmdSelectionProfile
 
     component->priv->grid = gtk_grid_new ();
     gtk_grid_set_row_spacing (GTK_GRID (component->priv->grid), 6);
-    gtk_grid_set_column_spacing (GTK_GRID (component->priv->grid), 6);
+    gtk_grid_set_column_spacing (GTK_GRID (component->priv->grid), 12);
     gtk_box_append (GTK_BOX (component), component->priv->grid);
 
 
@@ -152,19 +153,21 @@ static void gnome_cmd_selection_profile_component_init (GnomeCmdSelectionProfile
        g_free (item);
     }
 
-    gtk_grid_attach (GTK_GRID (component->priv->grid), create_label_with_mnemonic (*component, _("Search _recursively:"), component->priv->recurse_combo), 0, 2, 1, 1);
+    component->priv->recurse_label = create_label_with_mnemonic (*component, _("Search _recursively:"), component->priv->recurse_combo);
+    gtk_label_set_xalign (GTK_LABEL (component->priv->recurse_label), 0.0);
+    gtk_grid_attach (GTK_GRID (component->priv->grid), component->priv->recurse_label, 0, 1, 1, 1);
     gtk_widget_set_hexpand (component->priv->recurse_combo, TRUE);
-    gtk_grid_attach (GTK_GRID (component->priv->grid), component->priv->recurse_combo, 1, 2, 1, 1);
+    gtk_grid_attach (GTK_GRID (component->priv->grid), component->priv->recurse_combo, 1, 1, 1, 1);
 
 
     // find text
     component->priv->find_text_check = create_check_with_mnemonic (*component, _("Contains _text:"), "find_text");
-    gtk_grid_attach (GTK_GRID (component->priv->grid), component->priv->find_text_check, 0, 3, 1, 1);
+    gtk_grid_attach (GTK_GRID (component->priv->grid), component->priv->find_text_check, 0, 2, 1, 1);
 
     component->priv->find_text_combo = gtk_combo_box_new_with_model_and_entry (GTK_TREE_MODEL (gtk_list_store_new (1, G_TYPE_STRING)));
     g_object_set (component->priv->find_text_combo, "entry-text-column", 0, nullptr);
     gtk_widget_set_hexpand (component->priv->find_text_combo, TRUE);
-    gtk_grid_attach (GTK_GRID (component->priv->grid), component->priv->find_text_combo, 1, 3, 1, 1);
+    gtk_grid_attach (GTK_GRID (component->priv->grid), component->priv->find_text_combo, 1, 2, 1, 1);
     gtk_widget_set_sensitive (component->priv->find_text_combo, FALSE);
 
     gtk_combo_box_set_active (GTK_COMBO_BOX (component->priv->find_text_combo), 0);
@@ -172,7 +175,7 @@ static void gnome_cmd_selection_profile_component_init (GnomeCmdSelectionProfile
 
     // case check
     component->priv->case_check = create_check_with_mnemonic (*component, _("Case sensiti_ve"), "case_check");
-    gtk_grid_attach (GTK_GRID (component->priv->grid), component->priv->case_check, 1, 4, 1, 1);
+    gtk_grid_attach (GTK_GRID (component->priv->grid), component->priv->case_check, 1, 3, 1, 1);
     gtk_widget_set_sensitive (component->priv->case_check, FALSE);
 }
 
@@ -195,24 +198,14 @@ static void gnome_cmd_selection_profile_component_class_init (GnomeCmdSelectionP
 }
 
 
-GnomeCmdSelectionProfileComponent::GnomeCmdSelectionProfileComponent(GnomeCmdData::SearchProfile &p, GtkWidget *widget, gchar *label): profile(p)
+GnomeCmdSelectionProfileComponent::GnomeCmdSelectionProfileComponent(GnomeCmdData::SearchProfile &p, GtkSizeGroup *labels_size_group): profile(p)
 {
-    if (widget)
+    if (labels_size_group)
     {
-        if (label)
-            gtk_grid_attach (GTK_GRID (priv->grid), create_label_with_mnemonic (*this, label, widget), 0, 1, 1, 1);
-        gtk_widget_set_hexpand (widget, TRUE);
-        gtk_grid_attach (GTK_GRID (priv->grid), widget, 1, 1, 1, 1);
+        gtk_size_group_add_widget (labels_size_group, priv->filter_type_combo);
+        gtk_size_group_add_widget (labels_size_group, priv->recurse_label);
+        gtk_size_group_add_widget (labels_size_group, priv->find_text_check);
     }
-
-    // if (!profile.name_patterns.empty())
-    // {
-        // g_list_foreach (profile.name_patterns.ents, (GFunc) combo_box_insert_text, priv->pattern_combo);
-        // gtk_combo_box_set_active (GTK_COMBO_BOX (priv->pattern_combo), 0);
-    // }
-
-    // if (!profile.content_patterns.empty())
-        // g_list_foreach (profile.content_patterns.ents, (GFunc) combo_box_insert_text, priv->find_text_combo);
 
     gtk_check_button_set_active (GTK_CHECK_BUTTON (priv->case_check), profile.match_case);
 
@@ -293,10 +286,10 @@ void GnomeCmdSelectionProfileComponent::set_default_activation(GtkWindow *w)
 }
 
 
-GnomeCmdSelectionProfileComponent *gnome_cmd_search_profile_component_new (GnomeCmdData::SearchProfile *profile)
+GnomeCmdSelectionProfileComponent *gnome_cmd_search_profile_component_new (GnomeCmdData::SearchProfile *profile, GtkSizeGroup *labels_size_group)
 {
     g_return_val_if_fail (profile != nullptr, nullptr);
-    auto component = new GnomeCmdSelectionProfileComponent(*profile);
+    auto component = new GnomeCmdSelectionProfileComponent(*profile, labels_size_group);
     component->update();
     return component;
 }

@@ -20,7 +20,7 @@
 use super::profiles::{manage_profiles_dialog::manage_profiles, profiles::ProfileManager};
 use gettextrs::gettext;
 use gtk::{
-    ffi::{GtkWidget, GtkWindow},
+    ffi::{GtkSizeGroup, GtkWidget, GtkWindow},
     glib::{
         ffi::gboolean,
         translate::{from_glib_full, from_glib_none, ToGlibPtr},
@@ -40,6 +40,7 @@ type AdvrenameProfilesPtr = c_void;
 extern "C" {
     fn gnome_cmd_advrename_profile_component_new(
         profile: *mut AdvRenameProfilePtr,
+        labels_size_group: *mut GtkSizeGroup,
     ) -> *mut GtkWidget;
     fn gnome_cmd_advrename_profile_component_update(component: *mut GtkWidget);
     fn gnome_cmd_advrename_profile_component_copy(component: *mut GtkWidget);
@@ -184,9 +185,16 @@ impl ProfileManager for AdvRenameProfileManager {
         self.profiles.pick(profile_indexes);
     }
 
-    fn create_component(&self, profile_index: usize) -> gtk::Widget {
+    fn create_component(
+        &self,
+        profile_index: usize,
+        labels_size_group: &gtk::SizeGroup,
+    ) -> gtk::Widget {
         let widget_ptr = unsafe {
-            gnome_cmd_advrename_profile_component_new(self.profiles.profile(profile_index).0)
+            gnome_cmd_advrename_profile_component_new(
+                self.profiles.profile(profile_index).0,
+                labels_size_group.to_glib_none().0,
+            )
         };
         if widget_ptr.is_null() {
             panic!("Profile editing component is null.");

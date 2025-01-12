@@ -22,7 +22,7 @@ use crate::data::SearchConfig;
 use gettextrs::gettext;
 use glib::ffi::gboolean;
 use gtk::{
-    ffi::{GtkDialog, GtkWidget},
+    ffi::{GtkDialog, GtkSizeGroup, GtkWidget},
     glib::translate::{from_glib_full, from_glib_none, ToGlibPtr},
     prelude::*,
 };
@@ -36,7 +36,10 @@ type SearchProfilePtr = c_void;
 type SearchProfilesPtr = c_void;
 
 extern "C" {
-    fn gnome_cmd_search_profile_component_new(profile: *mut SearchProfilePtr) -> *mut GtkWidget;
+    fn gnome_cmd_search_profile_component_new(
+        profile: *mut SearchProfilePtr,
+        labels_size_group: *mut GtkSizeGroup,
+    ) -> *mut GtkWidget;
     fn gnome_cmd_search_profile_component_update(component: *mut GtkWidget);
     fn gnome_cmd_search_profile_component_copy(component: *mut GtkWidget);
 
@@ -171,9 +174,16 @@ impl ProfileManager for SearchProfileManager {
         self.profiles.pick(profile_indexes);
     }
 
-    fn create_component(&self, profile_index: usize) -> gtk::Widget {
+    fn create_component(
+        &self,
+        profile_index: usize,
+        labels_size_group: &gtk::SizeGroup,
+    ) -> gtk::Widget {
         let widget_ptr = unsafe {
-            gnome_cmd_search_profile_component_new(self.profiles.profile(profile_index).0)
+            gnome_cmd_search_profile_component_new(
+                self.profiles.profile(profile_index).0,
+                labels_size_group.to_glib_none().0,
+            )
         };
         if widget_ptr.is_null() {
             panic!("Profile editing component is null.");
