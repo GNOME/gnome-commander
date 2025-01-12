@@ -396,6 +396,7 @@ dependencies = [
  "strum",
  "system-deps",
  "tempfile",
+ "winnow",
 ]
 
 [[package]]

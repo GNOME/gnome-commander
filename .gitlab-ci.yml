@@ -7,7 +7,7 @@ variables:
     build-essential
     meson
     flex
-    rust-all
+    rust-1.80-all
     yelp-tools
     libexiv2-dev
     libgsf-1-dev
@@ -22,6 +22,7 @@ before_script:
   - export DEBIAN_FRONTEND=noninteractive
   - apt-get update -qq
   - apt-get install -y $UBUNTU_DEPS
+  - export PATH=/usr/lib/rust-1.80/bin:$PATH
 
 build-and-test-job:
   script:

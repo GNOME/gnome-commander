@@ -488,30 +488,9 @@ extern "C" GnomeCmdFileMetadata *gcmd_tags_bulk_load(GnomeCmdFile *f);
 extern "C" const gchar *gcmd_tags_get_name(const GnomeCmdTag tag);
 extern "C" GnomeCmdTagClass gcmd_tags_get_class(const GnomeCmdTag tag);
 extern "C" const gchar *gcmd_tags_get_class_name(const GnomeCmdTag tag);
-const gchar *gcmd_tags_get_value(GnomeCmdFile *f, const GnomeCmdTag tag);
-const std::string gcmd_tags_get_value_string(GnomeCmdFile *f, const GnomeCmdTag tag);
+extern "C" gchar *gcmd_tags_get_value_string(GnomeCmdFile *f, const gchar *tag_name);
 extern "C" const gchar *gcmd_tags_get_title(const GnomeCmdTag tag);
 extern "C" const gchar *gcmd_tags_get_description(const GnomeCmdTag tag);
-
-/**
- * gcmd_tags_get_tag_by_name() returns tag for given tag_name (eg. AlbumArtist)
- * in the specified tag_class (here TAG_AUDIO). If tag_class is omitted, tag_name
- * must contain fully qualified tag name (eg. Audio.AlbumArtist).
- */
-GnomeCmdTag gcmd_tags_get_tag_by_name(const gchar *tag_name, const GnomeCmdTagClass tag_class=TAG_NONE_CLASS);
-
-/**
- * gcmd_tags_get_value_by_name() returns metatag value for given
- * tag_name (eg. AlbumArtist) in the specified tag_class (here TAG_AUDIO)
- * if tag_class is omitted, tag_name must contain fully qualified tag
- * name (eg. Audio.AlbumArtist).
- */
-inline const gchar *gcmd_tags_get_value_by_name(GnomeCmdFile *f, const gchar *tag_name, const GnomeCmdTagClass tag_class=TAG_NONE_CLASS)
-{
-    g_return_val_if_fail (f != NULL, "");
-
-    return gcmd_tags_get_value(f, gcmd_tags_get_tag_by_name(tag_name, tag_class));
-}
 
 
 class GnomeCmdFileMetadata;

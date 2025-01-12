@@ -494,12 +494,13 @@ static GtkWidget *create_button_with_menu(gchar *label_text, GMenuModel *model)
 inline void GnomeCmdAdvrenameProfileComponent::Private::insert_tag(const gchar *text)
 {
     GtkEditable *editable = (GtkEditable *) template_entry;
-    gint pos = gtk_editable_get_position (editable);
+    gint pos0 = gtk_editable_get_position (editable);
+    gint pos;
 
-    gtk_editable_insert_text (editable, text, strlen(text), &pos);
+    gtk_editable_insert_text (editable, text, -1, &pos);
     gtk_editable_set_position (editable, pos);
     gtk_widget_grab_focus ((GtkWidget *) editable);
-    gtk_editable_select_region (editable, pos, pos);
+    gtk_editable_select_region (editable, pos0, pos);
 }
 
 

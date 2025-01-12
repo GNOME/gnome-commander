@@ -23,10 +23,15 @@
 
 #include "gnome-cmd-file.h"
 
-#ifndef NAME_MAX
-#define NAME_MAX (FILENAME_MAX)
-#endif
+struct GnomeCmdAdvrenameTemplate;
 
-void gnome_cmd_advrename_reset_counter(int n, long start=1, int precision=-1, int step=1);
-void gnome_cmd_advrename_parse_template(const char *template_string, gboolean &has_counters);
-char *gnome_cmd_advrename_gen_fname(GnomeCmdFile *f, size_t new_fname_size=NAME_MAX);
+extern "C" GnomeCmdAdvrenameTemplate *gnome_cmd_advrename_template_new(const char *template_string);
+extern "C" void gnome_cmd_advrename_template_free(GnomeCmdAdvrenameTemplate *tmplt);
+
+extern "C" char *gnome_cmd_advrename_gen_fname(GnomeCmdAdvrenameTemplate *tmplt,
+                                               glong start,
+                                               glong step,
+                                               guint precision,
+                                               gulong index,
+                                               gulong count,
+                                               GnomeCmdFile *file);

@@ -573,93 +573,17 @@ GnomeCmdFileMetadata *gcmd_tags_bulk_load(GnomeCmdFile *f)
 }
 
 
-GnomeCmdTag gcmd_tags_get_tag_by_name(const gchar *tag_name, const GnomeCmdTagClass tag_class)
+static GnomeCmdTag gcmd_tags_get_tag_by_name(const gchar *tag_name)
 {
     GnomeCmdTagName t;
-
-    if (tag_class!=TAG_NONE_CLASS)
-    {
-        switch (tag_class)
-        {
-            case TAG_APE:
-                t.name = "APE.";
-                break;
-
-            case TAG_AUDIO:
-                t.name = "Audio.";
-                break;
-
-            case TAG_CHM:
-                t.name = "CHM.";
-                break;
-
-            case TAG_DOC:
-                t.name = "Doc.";
-                break;
-
-            case TAG_EXIF:
-                t.name = "Exif.";
-                break;
-
-            case TAG_FILE:
-                t.name = "File.";
-                break;
-
-            case TAG_FLAC:
-                t.name = "FLAC";
-                break;
-
-            case TAG_ICC:
-                t.name = "ICC.";
-                break;
-
-            case TAG_ID3:
-                t.name = "ID3.";
-                break;
-
-            case TAG_IMAGE:
-                t.name = "Image.";
-                break;
-
-            case TAG_IPTC:
-                t.name = "IPTC.";
-                break;
-
-            case TAG_PDF:
-                t.name = "PDF.";
-                break;
-
-            case TAG_RPM:
-                t.name = "RPM.";
-                break;
-
-            case TAG_VORBIS:
-                t.name = "Vorbis.";
-                break;
-
-            case TAG_NONE_CLASS:
-            default:
-                t.name = empty_string;
-                break;
-        }
-
-        t.name = g_strconcat(t.name,tag_name,NULL);
-    }
-    else
-        t.name = tag_name;
-
-    GnomeCmdTag tag = metatags[t];
-
-    if (tag_class!=TAG_NONE_CLASS)
-        g_free ((gpointer) t.name);
-
-    return tag;
+    t.name = tag_name;
+    return metatags[t];
 }
 
 
 const gchar *gcmd_tags_get_name(const GnomeCmdTag tag)
 {
-    return metatags[tag].name;;
+    return metatags[tag].name;
 }
 
 
@@ -724,11 +648,11 @@ const gchar *gcmd_tags_get_class_name(const GnomeCmdTag tag)
 }
 
 
-const std::string gcmd_tags_get_value_string(GnomeCmdFile *f, const GnomeCmdTag tag)
+extern "C" gchar *gcmd_tags_get_value_string(GnomeCmdFile *f, const gchar *tag_name)
 {
-    g_return_val_if_fail (f != NULL, empty_string);
+    g_return_val_if_fail (f != NULL, nullptr);
 
-    std::string ret_val = empty_string;
+    GnomeCmdTag tag = gcmd_tags_get_tag_by_name (tag_name);
 
     switch (metatags[tag].tag_class)
     {
@@ -737,11 +661,10 @@ const std::string gcmd_tags_get_value_string(GnomeCmdFile *f, const GnomeCmdTag 
         case TAG_IPTC :
         case TAG_ICC  :
 #ifndef HAVE_EXIV2
-                        return _(no_support_for_exiv2_tags_string);
+                        return g_strdup (_(no_support_for_exiv2_tags_string));
 #endif
                         gcmd_tags_exiv2_load_metadata(f);
-                        ret_val = f->metadata->operator [] (tag).c_str();
-                        break;
+                        return gnome_cmd_file_metadata_get (f->metadata, tag);
 
         case TAG_AUDIO:
         case TAG_APE  :
@@ -749,36 +672,32 @@ const std::string gcmd_tags_get_value_string(GnomeCmdFile *f, const GnomeCmdTag 
         case TAG_ID3  :
         case TAG_VORBIS:
 #ifndef HAVE_ID3
-                        return _(no_support_for_taglib_tags_string);
+                        return g_strdup (_(no_support_for_taglib_tags_string));
 #endif
                         gcmd_tags_taglib_load_metadata(f);
-                        ret_val = f->metadata->operator [] (tag).c_str();
-                        break;
+                        return gnome_cmd_file_metadata_get (f->metadata, tag);
 
         case TAG_DOC  :
 #ifndef HAVE_GSF
 #ifndef HAVE_PDF
-                        return _(no_support_for_libgsf_tags_string);
+                        return g_strdup (_(no_support_for_libgsf_tags_string));
 #endif
 #endif
                         gcmd_tags_libgsf_load_metadata(f);
                         gcmd_tags_poppler_load_metadata(f);
-                        ret_val = f->metadata->operator [] (tag).c_str();
-                        break;
+                        return gnome_cmd_file_metadata_get (f->metadata, tag);
 
         case TAG_PDF  :
 #ifndef HAVE_PDF
-                        return _(no_support_for_poppler_tags_string);
+                        return g_strdup (_(no_support_for_poppler_tags_string));
 #endif
                         gcmd_tags_poppler_load_metadata(f);
-                        ret_val = f->metadata->operator [] (tag).c_str();
-                        break;
+                        return gnome_cmd_file_metadata_get (f->metadata, tag);
 
         case TAG_CHM  : break;
 
         case TAG_FILE : gcmd_tags_file_load_metadata(f);
-                        ret_val = f->metadata->operator [] (tag).c_str();
-                        break;
+                        return gnome_cmd_file_metadata_get (f->metadata, tag);
 
         case TAG_RPM  : break;
 
@@ -786,13 +705,7 @@ const std::string gcmd_tags_get_value_string(GnomeCmdFile *f, const GnomeCmdTag 
         default:        break;
     }
 
-    return ret_val.length() != 0 ? ret_val : empty_string;
-}
-
-
-const gchar *gcmd_tags_get_value(GnomeCmdFile *f, const GnomeCmdTag tag)
-{
-    return gcmd_tags_get_value_string(f, tag).c_str();
+    return nullptr;
 }
 
 
