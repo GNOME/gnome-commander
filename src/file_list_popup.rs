@@ -288,7 +288,7 @@ pub fn list_popup_menu() -> gio::Menu {
     gio::Menu::new()
         .submenu(gettext("New"), {
             gio::Menu::new()
-                .item_icon(gettext("_Directory"), "win.file_mkdir", FILETYPEDIR_STOCKID)
+                .item_icon(gettext("_Directory"), "win.file-mkdir", FILETYPEDIR_STOCKID)
                 .item_icon(
                     gettext("_Text File"),
                     "win.file-edit-new-doc",
