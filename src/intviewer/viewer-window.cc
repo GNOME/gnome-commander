@@ -304,6 +304,11 @@ static void gviewer_window_init (GViewerWindow *w)
                           ISO88598, ISO885915, ISO88593,
                           ISO88599, CP1254, CP1252,
                           ISO88591 };
+
+    auto settings = g_settings_new (GCMD_INTERNAL_VIEWER);
+    g_settings_bind (settings, GCMD_SETTINGS_IV_WINDOW_WIDTH, w, "default-width", G_SETTINGS_BIND_DEFAULT);
+    g_settings_bind (settings, GCMD_SETTINGS_IV_WINDOW_HEIGHT, w, "default-height", G_SETTINGS_BIND_DEFAULT);
+    g_object_unref (settings);
 }
 
 static void gviewer_window_status_line_changed(GViewer *gViewer, const gchar *status_line, GViewerWindow *gViewerWindow)
@@ -383,9 +388,6 @@ void gviewer_window_load_settings(GViewerWindow *gViewerWindow, GViewerWindowSet
         index++;
     }
     gviewer_window_action_change_state (gViewerWindow, "encoding", g_variant_new_int32 (index));
-
-    gtk_window_set_default_size (GTK_WINDOW (gViewerWindow),
-        settings->rect.width, settings->rect.height);
 }
 
 
@@ -398,10 +400,6 @@ void gviewer_window_get_current_settings(GViewerWindow *obj, /* out */ GViewerWi
 
     memset(settings, 0, sizeof(GViewerWindowSettings));
 
-    settings->rect.x = 0;
-    settings->rect.y = 0;
-    settings->rect.width = gtk_widget_get_width (GTK_WIDGET (obj));
-    settings->rect.height = gtk_widget_get_height (GTK_WIDGET (obj));
     settings->font_size = gviewer_get_font_size(priv->viewer);
     settings->wrap_mode = gviewer_get_wrap_mode(priv->viewer);
     settings->binary_bytes_per_line = gviewer_get_fixed_limit(priv->viewer);
@@ -886,11 +884,6 @@ GViewerWindowSettings *gviewer_window_get_settings()
     gViewerWindowSettings->binary_bytes_per_line = g_settings_get_uint (iv_settings->internalviewer, GCMD_SETTINGS_IV_BINARY_BYTES_PER_LINE);
     gViewerWindowSettings->metadata_visible = g_settings_get_boolean (iv_settings->internalviewer, GCMD_SETTINGS_IV_METADATA_VISIBLE);
 
-    gViewerWindowSettings->rect.x = g_settings_get_int (iv_settings->internalviewer, GCMD_SETTINGS_IV_X_OFFSET);
-    gViewerWindowSettings->rect.y = g_settings_get_int (iv_settings->internalviewer, GCMD_SETTINGS_IV_Y_OFFSET);
-    gViewerWindowSettings->rect.width = g_settings_get_uint (iv_settings->internalviewer, GCMD_SETTINGS_IV_WINDOW_WIDTH);
-    gViewerWindowSettings->rect.height = g_settings_get_uint (iv_settings->internalviewer, GCMD_SETTINGS_IV_WINDOW_HEIGHT);
-
     return gViewerWindowSettings;
 }
 
@@ -920,11 +913,6 @@ static void menu_settings_save_settings(GSimpleAction *action, GVariant *paramet
     gnome_cmd_data.set_gsettings_when_changed (iv_settings->internalviewer, GCMD_SETTINGS_IV_TAB_SIZE, &(settings.tab_size));
     gnome_cmd_data.set_gsettings_when_changed (iv_settings->internalviewer, GCMD_SETTINGS_IV_BINARY_BYTES_PER_LINE, &(settings.binary_bytes_per_line));
     gnome_cmd_data.set_gsettings_when_changed (iv_settings->internalviewer, GCMD_SETTINGS_IV_METADATA_VISIBLE, &(settings.metadata_visible));
-
-    gnome_cmd_data.set_gsettings_when_changed (iv_settings->internalviewer, GCMD_SETTINGS_IV_X_OFFSET, &(settings.rect.x));
-    gnome_cmd_data.set_gsettings_when_changed (iv_settings->internalviewer, GCMD_SETTINGS_IV_Y_OFFSET, &(settings.rect.y));
-    gnome_cmd_data.set_gsettings_when_changed (iv_settings->internalviewer, GCMD_SETTINGS_IV_WINDOW_WIDTH, &(settings.rect.width));
-    gnome_cmd_data.set_gsettings_when_changed (iv_settings->internalviewer, GCMD_SETTINGS_IV_WINDOW_HEIGHT, &(settings.rect.height));
 }
 
 
