@@ -25,76 +25,43 @@
 #include "gnome-cmd-state.h"
 #include "gnome-cmd-plugin.h"
 
-G_DEFINE_TYPE (GnomeCmdPlugin, gnome_cmd_plugin, G_TYPE_OBJECT)
 
-/*******************************
- * Gtk class implementation
- *******************************/
-
-static void gnome_cmd_plugin_class_init (GnomeCmdPluginClass *klass)
+void gnome_cmd_plugin_free (GnomeCmdPlugin *plugin)
 {
-    GnomeCmdPluginClass *plugin_class;
-
-    plugin_class = GNOME_CMD_PLUGIN_CLASS (klass);
-
-    plugin_class->create_actions = NULL;
-    plugin_class->create_main_menu = NULL;
-    plugin_class->create_popup_menu_items = NULL;
-    plugin_class->configure = NULL;
+    if (plugin->free)
+        plugin->free (plugin);
 }
 
-
-static void gnome_cmd_plugin_init (GnomeCmdPlugin *plugin)
-{
-}
-
-/***********************************
- * Public functions
- ***********************************/
 
 GSimpleActionGroup *gnome_cmd_plugin_create_actions (GnomeCmdPlugin *plugin, const gchar *name)
 {
-    GnomeCmdPluginClass *klass;
-
-    g_return_val_if_fail (GNOME_CMD_IS_PLUGIN (plugin), NULL);
-
-    klass = GNOME_CMD_PLUGIN_GET_CLASS (plugin);
-
-    return klass->create_actions (plugin, name);
+    if (plugin->create_actions)
+        return plugin->create_actions (plugin, name);
+    else
+        return NULL;
 }
 
 
 GMenuModel *gnome_cmd_plugin_create_main_menu (GnomeCmdPlugin *plugin, GnomeCmdState *state)
 {
-    GnomeCmdPluginClass *klass;
-
-    g_return_val_if_fail (GNOME_CMD_IS_PLUGIN (plugin), NULL);
-
-    klass = GNOME_CMD_PLUGIN_GET_CLASS (plugin);
-
-    return klass->create_main_menu (plugin, state);
+    if (plugin->create_main_menu)
+        return plugin->create_main_menu (plugin, state);
+    else
+        return NULL;
 }
 
 
 GMenuModel *gnome_cmd_plugin_create_popup_menu_items (GnomeCmdPlugin *plugin, GnomeCmdState *state)
 {
-    GnomeCmdPluginClass *klass;
-
-    g_return_val_if_fail (GNOME_CMD_IS_PLUGIN (plugin), NULL);
-
-    klass = GNOME_CMD_PLUGIN_GET_CLASS (plugin);
-
-    return klass->create_popup_menu_items (plugin, state);
+    if (plugin->create_popup_menu_items)
+        return plugin->create_popup_menu_items (plugin, state);
+    else
+        return NULL;
 }
 
 
 void gnome_cmd_plugin_configure (GnomeCmdPlugin *plugin, GtkWindow *parent_window)
 {
-    GnomeCmdPluginClass *klass;
-
-    g_return_if_fail (GNOME_CMD_IS_PLUGIN (plugin));
-
-    klass = GNOME_CMD_PLUGIN_GET_CLASS (plugin);
-
-    klass->configure (plugin, parent_window);
+    if (plugin->configure)
+        plugin->configure (plugin, parent_window);
 }

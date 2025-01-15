@@ -21,28 +21,13 @@
 
 #pragma once
 
-#define GNOME_CMD_TYPE_PLUGIN              (gnome_cmd_plugin_get_type ())
-#define GNOME_CMD_PLUGIN(obj)              (G_TYPE_CHECK_INSTANCE_CAST((obj), GNOME_CMD_TYPE_PLUGIN, GnomeCmdPlugin))
-#define GNOME_CMD_PLUGIN_CLASS(klass)      (G_TYPE_CHECK_CLASS_CAST((klass), GNOME_CMD_TYPE_PLUGIN, GnomeCmdPluginClass))
-#define GNOME_CMD_IS_PLUGIN(obj)           (G_TYPE_CHECK_INSTANCE_TYPE((obj), GNOME_CMD_TYPE_PLUGIN))
-#define GNOME_CMD_IS_PLUGIN_CLASS(klass)   (G_TYPE_CHECK_CLASS_TYPE ((klass), GNOME_CMD_TYPE_PLUGIN))
-#define GNOME_CMD_PLUGIN_GET_CLASS(obj)    (G_TYPE_INSTANCE_GET_CLASS((obj), GNOME_CMD_TYPE_PLUGIN, GnomeCmdPluginClass))
-
-
 typedef struct _GnomeCmdPlugin GnomeCmdPlugin;
-typedef struct _GnomeCmdPluginClass GnomeCmdPluginClass;
-typedef struct _GnomeCmdPluginPrivate GnomeCmdPluginPrivate;
 
 typedef GnomeCmdPlugin *(*PluginConstructorFunc)(void);
 
 struct _GnomeCmdPlugin
 {
-    GObject parent;
-};
-
-struct _GnomeCmdPluginClass
-{
-    GObjectClass parent_class;
+    void (* free) (GnomeCmdPlugin *plugin);
 
     GSimpleActionGroup *(* create_actions) (GnomeCmdPlugin *plugin, const gchar *name);
 
@@ -52,7 +37,7 @@ struct _GnomeCmdPluginClass
 };
 
 
-GType gnome_cmd_plugin_get_type ();
+void gnome_cmd_plugin_free (GnomeCmdPlugin *plugin);
 
 GSimpleActionGroup *gnome_cmd_plugin_create_actions (GnomeCmdPlugin *plugin, const gchar *name);
 
