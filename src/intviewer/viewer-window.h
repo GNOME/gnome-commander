@@ -63,8 +63,6 @@ InternalViewerSettings *iv_settings_new (void);
 
 struct GViewerWindowSettings
 {
-    GdkRectangle rect;
-
     gchar fixed_font_name[256];
     gchar variable_font_name[256];
     gchar charset[256];
