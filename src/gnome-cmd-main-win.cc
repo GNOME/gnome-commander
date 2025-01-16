@@ -319,6 +319,7 @@ static void on_fs_list_resize_column (GnomeCmdFileList *list, guint column_index
         GnomeCmdFileList::ColumnID column_id = static_cast<GnomeCmdFileList::ColumnID> (column_index);
         gint width = gtk_tree_view_column_get_width (column);
 
+        gnome_cmd_data.fs_col_width[column_id] = width;
         other_selector->file_list()->resize_column (column_id, width);
 
         column_resize_lock -= 1;
