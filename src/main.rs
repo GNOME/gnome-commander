@@ -60,6 +60,8 @@ mod types;
 mod user_actions;
 mod utils;
 
+mod gmodule;
+
 use application::GnomeCmdApplication;
 use gtk::{glib, prelude::*};
 use std::error::Error;

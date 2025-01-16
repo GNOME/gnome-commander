@@ -23,7 +23,6 @@
 
 #include "gnome-cmd-file-selector.h"
 #include "gnome-cmd-cmdline.h"
-#include "plugin_manager.h"
 #include "dialogs/gnome-cmd-advrename-dialog.h"
 #include "dialogs/gnome-cmd-search-dialog.h"
 
@@ -114,5 +113,10 @@ extern "C" void gnome_cmd_main_win_focus_file_lists(GnomeCmdMainWin *main_win);
 
 extern "C" void gnome_cmd_main_win_update_bookmarks(GnomeCmdMainWin *main_win);
 
+extern "C" void gnome_cmd_main_win_plugins_updated (GnomeCmdMainWin *main_win);
+
 struct GnomeCmdShortcuts;
 extern "C" GnomeCmdShortcuts *gnome_cmd_main_win_shortcuts(GnomeCmdMainWin *main_win);
+
+extern "C" GObject *gnome_cmd_main_win_get_plugin_manager (GnomeCmdMainWin *main_win);
+

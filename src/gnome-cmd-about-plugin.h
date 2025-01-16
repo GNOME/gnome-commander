@@ -67,6 +67,6 @@ struct GnomeCmdAboutPluginClass
     GtkDialogClass parent_class;
 };
 
-GType gnome_cmd_about_plugin_get_type (void) G_GNUC_CONST;
+extern "C" GType gnome_cmd_about_plugin_get_type (void) G_GNUC_CONST;
 
 GtkWidget *gnome_cmd_about_plugin_new (PluginInfo *info);

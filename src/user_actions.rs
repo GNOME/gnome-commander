@@ -51,7 +51,7 @@ use crate::{
         file_descriptor::FileDescriptorExt,
     },
     main_win::{ffi::*, MainWindow},
-    plugin_manager::{plugin_manager_get_active_plugin, PluginActionVariant},
+    plugin_manager::{show_plugin_manager, PluginActionVariant},
     spawn::{spawn_async, spawn_async_command, SpawnError},
     types::FileSelectorID,
     utils::{display_help, get_modifiers_state, ErrorMessage},
@@ -797,7 +797,14 @@ pub fn connections_close_current(
 
 /************** Plugins Menu ***********/
 
-c_action!(plugins_configure);
+pub fn plugins_configure(
+    main_win: &MainWindow,
+    _action: &gio::SimpleAction,
+    _parameter: Option<&glib::Variant>,
+) {
+    let plugin_manager = main_win.plugin_manager();
+    show_plugin_manager(&plugin_manager, main_win.upcast_ref());
+}
 
 pub fn plugin_action(
     main_win: &MainWindow,
@@ -809,7 +816,12 @@ pub fn plugin_action(
         return;
     };
 
-    if let Some(plugin) = plugin_manager_get_active_plugin(&plugin_action.plugin) {
+    if let Some(plugin) = main_win
+        .plugin_manager()
+        .active_plugins()
+        .into_iter()
+        .find_map(|(name, plugin)| (name == plugin_action.plugin).then_some(plugin))
+    {
         if let Some(file_actions) = plugin.downcast_ref::<FileActions>() {
             file_actions.execute(
                 &plugin_action.action,

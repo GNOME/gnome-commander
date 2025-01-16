@@ -206,9 +206,6 @@ GcmdSettings *gcmd_settings_new ();
 #define GCMD_SETTINGS_IV_SEARCH_PATTERN_TEXT          "search-pattern-text"
 #define GCMD_SETTINGS_IV_SEARCH_PATTERN_HEX           "search-pattern-hex"
 
-#define GCMD_PREF_PLUGINS                             "org.gnome.gnome-commander.plugins.general"
-#define GCMD_SETTINGS_PLUGINS_AUTOLOAD                "autoload"
-
 //gKeyFile constants
 #define DEVICES_FILENAME                              "devices"
 #define DEVICES_DEVICE                                "device"

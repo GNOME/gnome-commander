@@ -28,7 +28,7 @@ use crate::{
         file_descriptor::FileDescriptorExt,
     },
     main_win::MainWindow,
-    plugin_manager::{plugin_manager_get_active_plugins, wrap_plugin_menu},
+    plugin_manager::wrap_plugin_menu,
     utils::MenuBuilderExt,
 };
 use gettextrs::gettext;
@@ -234,7 +234,7 @@ pub fn file_popup_menu(main_win: &MainWindow, file_list: &FileList) -> Option<gi
     add_open_with_entries(&menu, file_list);
 
     // Add plugin popup entries
-    for (action_group_name, plugin) in plugin_manager_get_active_plugins() {
+    for (action_group_name, plugin) in main_win.plugin_manager().active_plugins() {
         if let Some(file_actions) = plugin.downcast_ref::<FileActions>() {
             if let Some(menu) = file_actions.create_popup_menu_items(&main_win.state()) {
                 let menu = wrap_plugin_menu(&action_group_name, &menu);

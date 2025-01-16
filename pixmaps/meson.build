@@ -41,6 +41,7 @@ icons_scalable = [
   'gnome-commander-down-symbolic.svg',
   'gnome-commander-bookmark-outline-symbolic.svg',
   'gnome-commander-info-outline-symbolic.svg',
+  'gnome-commander-settings-symbolic.svg',
 ]
 
 install_data(icons_scalable,
