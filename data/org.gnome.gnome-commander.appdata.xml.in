@@ -72,6 +72,7 @@
           <li>Issue #152: Segfault when using %D as a format qualifier in the date string</li>
           <li>Issue #153: Segfault when unmounting a file system externally while visiting it at the same time</li>
           <li>Fix storing the column widths in the file panes (Andrey Kutejko)</li>
+          <li>Issue #161: Fix for crash related to plugins (Andrey Kutejko)</li>
         </ul>
         <p>New or updated translations: ...</p>
         <p>New or updated docs: ...</p>
