@@ -83,8 +83,10 @@ src/intviewer/search_progress_dialog.rs
 src/intviewer/text-render.cc
 src/intviewer/viewer-widget.cc
 src/intviewer/viewer-window.cc
+src/main_win.rs
 src/open_connection.rs
 src/open_file.rs
+src/plugin_manager.rs
 src/select_directory_button.rs
 src/select_icon_button.rs
 src/spawn.rs
