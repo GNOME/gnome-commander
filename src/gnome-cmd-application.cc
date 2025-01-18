@@ -43,6 +43,7 @@ gchar *start_dir_right = nullptr;
 gchar *config_dir = nullptr;
 gchar *debug_flags = nullptr;
 
+GnomeCmdIconCache *icon_cache = nullptr;
 
 static GOptionEntry options [] =
 {
@@ -83,7 +84,7 @@ static void gnome_cmd_application_startup(GApplication *application)
     g_free (conf_dir);
 
     /* Load Settings */
-    IMAGE_init ();
+    icon_cache = gnome_cmd_icon_cache_new();
     settings = gcmd_user_action_settings_new();
     gnome_cmd_data.gsettings_init();
     gnome_cmd_data.load();
@@ -137,7 +138,8 @@ static void gnome_cmd_application_activate(GApplication *application)
 static void gnome_cmd_application_shutdown(GApplication *application)
 {
     gcmd_tags_shutdown ();
-    IMAGE_free ();
+    gnome_cmd_icon_cache_free(icon_cache);
+    icon_cache = nullptr;
 
     remove_temp_download_dir ();
 

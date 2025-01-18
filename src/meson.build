@@ -89,7 +89,6 @@ sources_sources = files(
   'gnome-cmd-user-actions.cc',
   'gnome-cmd-xfer.cc',
   'history.cc',
-  'imageloader.cc',
   'utils.cc',
   'gnome-cmd-dialog.cc',
   'text-utils.cc',
