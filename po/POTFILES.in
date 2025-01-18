@@ -72,7 +72,6 @@ src/gnome-cmd-selection-profile-component.cc
 src/gnome-cmd-smb-path.cc
 src/gnome-cmd-user-actions.cc
 src/gnome-cmd-xfer.cc
-src/imageloader.cc
 src/intviewer/cp437.cc
 src/intviewer/datapresentation.cc
 src/intviewer/fileops.cc

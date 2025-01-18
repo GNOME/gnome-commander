@@ -21,26 +21,16 @@
 
 #pragma once
 
-#define FILETYPEICONS_FOLDER        "file-type-icons"
-
 #define COPYFILENAMES_STOCKID          "gnome-commander-copy-file-names"
-#define GTK_PREFERENCES_SYSTEM_STOCKID "preferences-system"
-#define FILETYPEDIR_STOCKID            "file_type_dir"
-#define FILETYPEREGULARFILE_STOCKID    "file_type_regular"
 #define GTK_MAILSEND_STOCKID           "mail-send"
 #define GTK_TERMINAL_STOCKID           "utilities-terminal"
-#define ROTATE_90_STOCKID              "gnome-commander-rotate-90"
-#define ROTATE_270_STOCKID             "gnome-commander-rotate-270"
-#define ROTATE_180_STOCKID             "gnome-commander-rotate-180"
-#define FLIP_VERTICAL_STOCKID          "gnome-commander-flip-vertical"
-#define FLIP_HORIZONTAL_STOCKID        "gnome-commander-flip-horizontal"
-
 #define OVERLAY_UMOUNT_ICON            "overlay_umount"
-#define OVERLAY_SYMLINK_ICON           "overlay_symlink"
 
-void IMAGE_init ();
-void IMAGE_free ();
+struct GnomeCmdIconCache;
 
-GIcon *IMAGE_get_file_icon (guint32 type, const gchar *mime_type, gboolean symlink);
+extern GnomeCmdIconCache *icon_cache;
 
-void IMAGE_clear_mime_cache ();
+extern "C" GnomeCmdIconCache *gnome_cmd_icon_cache_new();
+extern "C" void gnome_cmd_icon_cache_free(GnomeCmdIconCache *ic);
+extern "C" GIcon *gnome_cmd_icon_cache_get_file_type_icon(GnomeCmdIconCache *ic, GFileType file_type, gboolean symlink);
+extern "C" GIcon *gnome_cmd_icon_cache_get_mime_type_icon(GnomeCmdIconCache *ic, GFileType file_type, const gchar *mime_type, gboolean symlink);

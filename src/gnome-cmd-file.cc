@@ -785,9 +785,24 @@ GIcon *GnomeCmdFile::get_type_icon()
 {
     g_return_val_if_fail (get_file_info() != nullptr, FALSE);
 
-    return IMAGE_get_file_icon (GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE),
-                                      is_dotdot ? nullptr : g_file_info_get_content_type (get_file_info()),
-                                      is_dotdot ? false : g_file_info_get_is_symlink (get_file_info()));
+    GFileType file_type = (GFileType) GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE);
+    gboolean is_symlink = is_dotdot ? false : g_file_info_get_is_symlink (get_file_info());
+
+    switch (gnome_cmd_data.options.layout)
+    {
+        case GNOME_CMD_LAYOUT_MIME_ICONS:
+        {
+            auto mime_type = is_dotdot ? nullptr : g_file_info_get_content_type (get_file_info());
+            auto icon = gnome_cmd_icon_cache_get_mime_type_icon(icon_cache, file_type, mime_type, is_symlink);
+            if (icon != nullptr)
+                return icon;
+            return gnome_cmd_icon_cache_get_file_type_icon(icon_cache, file_type, is_symlink);
+        }
+        case GNOME_CMD_LAYOUT_TYPE_ICONS:
+            return gnome_cmd_icon_cache_get_file_type_icon(icon_cache, file_type, is_symlink);
+        default:
+            return nullptr;
+    }
 }
 
 

@@ -1,0 +1,269 @@
+/*
+ * Copyright 2025 Andrey Kutejko <andy128k@gmail.com>
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, see <http://www.gnu.org/licenses/>.
+ *
+ * For more details see the file COPYING.
+ */
+
+use crate::{config::PIXMAPS_DIR, data::GeneralOptions};
+use gtk::{
+    gio::{
+        self,
+        ffi::{GFileType, GIcon},
+    },
+    glib::{
+        ffi::gboolean,
+        object::Cast,
+        translate::{from_glib_none, FromGlib, ToGlibPtr},
+    },
+    prelude::*,
+};
+use std::{cell::RefCell, collections::HashMap, ffi::c_char, path::Path, rc::Rc};
+
+const GCMD_SETTINGS_MIME_ICON_DIR: &str = "mime-icon-dir";
+
+pub struct IconCache {
+    file_type_icons: HashMap<gio::FileType, gio::Icon>,
+    symlink: gio::Emblem,
+    settings: gio::Settings,
+    cache: RefCell<HashMap<IconCacheKey, Option<gio::Icon>>>,
+}
+
+#[derive(PartialEq, Eq, Hash)]
+struct IconCacheKey {
+    mime_type: Option<String>,
+    file_type: gio::FileType,
+    symlink: bool,
+}
+
+impl IconCache {
+    fn new() -> Rc<Self> {
+        let mut file_type_icons = HashMap::new();
+        let file_icons_dir = Path::new(PIXMAPS_DIR).join("file-type-icons");
+        if let Some(icon) = load_icon(&file_icons_dir.join("file_type_regular.xpm")) {
+            file_type_icons.insert(gio::FileType::Unknown, icon.clone());
+            file_type_icons.insert(gio::FileType::Regular, icon);
+        }
+        if let Some(icon) = load_icon(&file_icons_dir.join("file_type_dir.xpm")) {
+            file_type_icons.insert(gio::FileType::Directory, icon);
+        }
+        if let Some(icon) = load_icon(&file_icons_dir.join("file_type_symlink.xpm")) {
+            file_type_icons.insert(gio::FileType::SymbolicLink, icon.clone());
+            file_type_icons.insert(gio::FileType::Shortcut, icon);
+        }
+        if let Some(icon) = load_icon(&file_icons_dir.join("file_type_socket.xpm")) {
+            file_type_icons.insert(gio::FileType::Special, icon);
+        }
+        if let Some(icon) = load_icon(&file_icons_dir.join("file_type_block_device.xpm")) {
+            file_type_icons.insert(gio::FileType::Mountable, icon);
+        }
+
+        let settings = GeneralOptions::new().0;
+
+        let this = Rc::new(Self {
+            file_type_icons,
+            symlink: gio::Emblem::new(&gio::ThemedIcon::new("overlay_symlink")),
+            settings: settings.clone(),
+            cache: Default::default(),
+        });
+
+        settings.connect_changed(
+            Some(GCMD_SETTINGS_MIME_ICON_DIR),
+            glib::clone!(
+                #[weak]
+                this,
+                move |_, _| {
+                    this.cache.borrow_mut().clear();
+                }
+            ),
+        );
+
+        this
+    }
+
+    pub fn mime_type_icon(
+        &self,
+        file_type: gio::FileType,
+        mime_type: &str,
+        symlink: bool,
+    ) -> Option<gio::Icon> {
+        let cache_key = IconCacheKey {
+            mime_type: Some(mime_type.to_owned()),
+            file_type,
+            symlink,
+        };
+        self.cache
+            .borrow_mut()
+            .entry(cache_key)
+            .or_insert_with(|| {
+                let theme_icon_dir = self.settings.string(GCMD_SETTINGS_MIME_ICON_DIR);
+                let icon: gio::Icon =
+                    self.mime_icon_in_dir(&Path::new(&theme_icon_dir), file_type, mime_type)?;
+                Some(self.maybe_symlink(&icon, symlink))
+            })
+            .clone()
+    }
+
+    pub fn file_type_icon(&self, file_type: gio::FileType, symlink: bool) -> Option<gio::Icon> {
+        let cache_key = IconCacheKey {
+            mime_type: None,
+            file_type,
+            symlink,
+        };
+        self.cache
+            .borrow_mut()
+            .entry(cache_key)
+            .or_insert_with(|| {
+                let icon = self.file_type_icons.get(&file_type)?;
+                Some(self.maybe_symlink(icon, symlink))
+            })
+            .clone()
+    }
+
+    fn maybe_symlink(&self, icon: &gio::Icon, symlink: bool) -> gio::Icon {
+        if symlink {
+            gio::EmblemedIcon::new(icon, Some(&self.symlink)).upcast()
+        } else {
+            icon.clone()
+        }
+    }
+
+    /// Tries to load an image for the specified mime-type in the specified directory.
+    /// If symlink is true a smaller symlink image is painted over the image to indicate this.
+    fn mime_icon_in_dir(
+        &self,
+        icon_dir: &Path,
+        file_type: gio::FileType,
+        mime_type: &str,
+    ) -> Option<gio::Icon> {
+        if file_type == gio::FileType::SymbolicLink || file_type == gio::FileType::Shortcut {
+            return None;
+        }
+
+        try_load_icon(&icon_dir.join(mime_icon_name(mime_type)))
+            .or_else(|| {
+                category_icon_path(mime_type)
+                    .and_then(|file_name| try_load_icon(&icon_dir.join(file_name)))
+            })
+            .or_else(|| try_load_icon(&icon_dir.join(type_icon_name(file_type))))
+    }
+}
+
+fn try_load_icon(path: &Path) -> Option<gio::Icon> {
+    if path.exists() {
+        Some(gio::FileIcon::new(&gio::File::for_path(path)).upcast())
+    } else {
+        None
+    }
+}
+
+fn load_icon(path: &Path) -> Option<gio::Icon> {
+    try_load_icon(path).or_else(|| {
+        eprintln!("Cannot load icon {}. File wasn't found.", path.display());
+        None
+    })
+}
+
+/// Takes a mime-type as argument and returns the filename
+/// of the image representing it.
+fn mime_icon_name(mime_type: &str) -> String {
+    format!("gnome-{}.png", mime_type.replace('/', "-"))
+}
+
+/// Returns the file name that an image representing the given filetype should have.
+fn type_icon_name(file_type: gio::FileType) -> &'static str {
+    match file_type {
+        gio::FileType::Directory => "i-directory.png",
+        gio::FileType::Regular => "i-regular.png",
+        gio::FileType::SymbolicLink => "i-symlink.png",
+        // TODO: Add filetype names for G_FILE_TYPE_SHORTCUT and G_FILE_TYPE_MOUNTABLE
+        _ => "i-regular.png",
+    }
+}
+
+/// Returns the file name of the image representing the category of the given
+/// mime-type. This is a hack to avoid having 20 equal
+/// icons for 20 different video formats etc.
+fn category_icon_path(mime_type: &str) -> Option<&str> {
+    if mime_type.starts_with("text") {
+        Some("gnome-text-plain.png")
+    } else if mime_type.starts_with("video") {
+        Some("gnome-video-plain.png")
+    } else if mime_type.starts_with("image") {
+        Some("gnome-image-plain.png")
+    } else if mime_type.starts_with("audio") {
+        Some("gnome-audio-plain.png")
+    } else if mime_type.starts_with("pack") {
+        Some("gnome-pack-plain.png")
+    } else if mime_type.starts_with("font") {
+        Some("gnome-font-plain.png")
+    } else {
+        None
+    }
+}
+
+#[no_mangle]
+pub extern "C" fn gnome_cmd_icon_cache_new() -> *mut Rc<IconCache> {
+    let bx = Box::new(IconCache::new());
+    Box::leak(bx)
+}
+
+#[no_mangle]
+pub extern "C" fn gnome_cmd_icon_cache_free(p: *mut Rc<IconCache>) {
+    if !p.is_null() {
+        let bx: Box<Rc<IconCache>> = unsafe { Box::from_raw(p) };
+        drop(bx)
+    }
+}
+
+#[no_mangle]
+pub extern "C" fn gnome_cmd_icon_cache_get_file_type_icon(
+    p: *mut Rc<IconCache>,
+    file_type: GFileType,
+    symlink: gboolean,
+) -> *const GIcon {
+    if p.is_null() {
+        return std::ptr::null();
+    }
+    let icon_cache: &Rc<IconCache> = unsafe { &*p };
+    let file_type: gio::FileType = unsafe { gio::FileType::from_glib(file_type) };
+    let symlink = symlink != 0;
+
+    let icon = icon_cache.file_type_icon(file_type, symlink);
+    icon.to_glib_none().0
+}
+
+#[no_mangle]
+pub extern "C" fn gnome_cmd_icon_cache_get_mime_type_icon(
+    p: *mut Rc<IconCache>,
+    file_type: GFileType,
+    mime_type: *const c_char,
+    symlink: gboolean,
+) -> *const GIcon {
+    if p.is_null() {
+        return std::ptr::null();
+    }
+    if mime_type.is_null() {
+        return std::ptr::null();
+    }
+
+    let icon_cache: &Rc<IconCache> = unsafe { &*p };
+    let file_type: gio::FileType = unsafe { gio::FileType::from_glib(file_type) };
+    let mime_type: String = unsafe { from_glib_none(mime_type) };
+    let symlink = symlink != 0;
+
+    let icon = icon_cache.mime_type_icon(file_type, &mime_type, symlink);
+    icon.to_glib_none().0
+}

@@ -40,6 +40,7 @@ mod file_view;
 mod filter;
 mod hintbox;
 mod i18n;
+mod imageloader;
 mod intviewer;
 mod layout;
 mod libgcmd;

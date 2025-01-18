@@ -686,8 +686,6 @@ void GnomeCmdMainWin::update_style()
 {
     g_return_if_fail (priv != NULL);
 
-    IMAGE_clear_mime_cache ();
-
     fs(LEFT)->update_style();
     fs(RIGHT)->update_style();
 
