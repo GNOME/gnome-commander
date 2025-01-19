@@ -2740,9 +2740,18 @@ static gboolean gnome_cmd_file_list_key_pressed (GtkEventControllerKey* self, gu
         }
     }
 
-    if (is_quicksearch_starting_modifier (state) && is_quicksearch_starting_character (keyval))
+    if (is_quicksearch_starting_character (keyval))
     {
-        gnome_cmd_file_list_show_quicksearch (fl, (gchar) keyval);
+        if (is_quicksearch_starting_modifier (state))
+            gnome_cmd_file_list_show_quicksearch (fl, (gchar) keyval);
+        else if (gnome_cmd_data.cmdline_visibility)
+        {
+            gchar text[2];
+            text[0] = keyval;
+            text[1] = '\0';
+            gnome_cmd_cmdline_append_text (main_win->get_cmdline(), text);
+            gnome_cmd_cmdline_focus (main_win->get_cmdline());
+        }
         return TRUE;
     }
 
