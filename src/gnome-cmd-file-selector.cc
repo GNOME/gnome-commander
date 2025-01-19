@@ -636,26 +636,6 @@ static gboolean on_list_key_pressed (GtkEventControllerKey *controller, guint ke
         }
     }
 
-    if (state_is_blank (state) || state_is_shift (state))
-    {
-        if ((keyval>=GDK_KEY_A && keyval<=GDK_KEY_Z) ||
-            (keyval>=GDK_KEY_a && keyval<=GDK_KEY_z) ||
-            keyval==GDK_KEY_period)
-        {
-            if (!gnome_cmd_data.cmdline_visibility)
-                gnome_cmd_file_list_show_quicksearch (fs->file_list(), (gchar) keyval);
-            else
-            {
-                gchar text[2];
-                text[0] = keyval;
-                text[1] = '\0';
-                gnome_cmd_cmdline_append_text (main_win->get_cmdline(), text);
-                gnome_cmd_cmdline_focus (main_win->get_cmdline());
-            }
-            return TRUE;
-        }
-    }
-
     return FALSE;
 }
 
