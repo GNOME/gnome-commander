@@ -179,8 +179,6 @@ inline void GnomeCmdFileSelector::update_files()
     g_return_if_fail (GNOME_CMD_IS_DIR (dir));
 
     list->show_files(dir);
-    if (gtk_widget_get_realized (*list))
-        gtk_tree_view_scroll_to_point (*list, 0, 0);
 
     if (priv->realized)
         update_selected_files_label();
@@ -234,16 +232,13 @@ void GnomeCmdFileSelector::do_file_specific_action (GnomeCmdFileList *fl, GnomeC
     if (f->GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE) == G_FILE_TYPE_DIRECTORY)
     {
         if (!fl->locked)
-        {
-            fl->invalidate_tree_size();
-
-            if (f->is_dotdot)
-                fl->goto_directory("..");
-            else
-                fl->set_directory(GNOME_CMD_DIR (f));
-        }
+            fl->do_file_specific_action (f);
         else
             new_tab(f->is_dotdot ? gnome_cmd_dir_get_parent (fl->cwd) : GNOME_CMD_DIR (f));
+    }
+    else
+    {
+        fl->do_file_specific_action (f);
     }
 }
 
@@ -450,20 +445,6 @@ static void on_notebook_switch_page (GtkNotebook *notebook, gpointer page, guint
 }
 
 
-static void on_list_file_clicked (GnomeCmdFileList *fl, GnomeCmdFileListButtonEvent *event, GnomeCmdFileSelector *fs)
-{
-    if (event->n_press == 2 && event->button == 1 && gnome_cmd_data.options.left_mouse_button_mode == GnomeCmdData::LEFT_BUTTON_OPENS_WITH_DOUBLE_CLICK)
-        fs->do_file_specific_action (fl, event->file);
-}
-
-
-static void on_list_file_released (GnomeCmdFileList *fl, GnomeCmdFileListButtonEvent *event, GnomeCmdFileSelector *fs)
-{
-    if (event->button == 1 && !fl->modifier_click && gnome_cmd_data.options.left_mouse_button_mode == GnomeCmdData::LEFT_BUTTON_OPENS_WITH_SINGLE_CLICK)
-        fs->do_file_specific_action (fl, event->file);
-}
-
-
 static void on_list_list_clicked (GnomeCmdFileList *fl, GnomeCmdFileListButtonEvent *event, GnomeCmdFileSelector *fs)
 {
     switch (event->button)
@@ -552,12 +533,107 @@ static gboolean on_list_key_pressed (GtkEventControllerKey *controller, guint ke
 {
     auto fs = static_cast<GnomeCmdFileSelector*>(user_data);
 
-    GnomeCmdKeyPress key_press_event = { .keyval = keyval, .state = state };
-
-    if (fs->key_pressed(&key_press_event) ||
-        main_win->key_pressed(&key_press_event))
+    if (state_is_ctrl_shift (state))
     {
-        return TRUE;
+        switch (keyval)
+        {
+            case GDK_KEY_Tab:
+            case GDK_KEY_ISO_Left_Tab:
+                fs->prev_tab();
+                return TRUE;
+
+            case GDK_KEY_Return:
+            case GDK_KEY_KP_Enter:
+                add_file_to_cmdline (fs->list, TRUE);
+                return TRUE;
+
+            default:
+                break;
+        }
+    }
+    else if (state_is_alt (state))
+    {
+        switch (keyval)
+        {
+            case GDK_KEY_Left:
+            case GDK_KEY_KP_Left:
+                fs->back();
+                return TRUE;
+
+            case GDK_KEY_Right:
+            case GDK_KEY_KP_Right:
+                fs->forward();
+                return TRUE;
+
+            default:
+                break;
+        }
+    }
+    else if (state_is_ctrl (state))
+    {
+        switch (keyval)
+        {
+            case GDK_KEY_V:
+            case GDK_KEY_v:
+                gnome_cmd_file_selector_cap_paste (fs);
+                return TRUE;
+
+            case GDK_KEY_P:
+            case GDK_KEY_p:
+                add_cwd_to_cmdline (fs->list);
+                return TRUE;
+
+            case GDK_KEY_Tab:
+            case GDK_KEY_ISO_Left_Tab:
+                fs->next_tab();
+                return TRUE;
+
+            case GDK_KEY_Return:
+            case GDK_KEY_KP_Enter:
+                add_file_to_cmdline (fs->list, FALSE);
+                return TRUE;
+
+            default:
+                break;
+        }
+    }
+    else if (state_is_blank (state))
+    {
+        switch (keyval)
+        {
+            case GDK_KEY_Left:
+            case GDK_KEY_KP_Left:
+            case GDK_KEY_BackSpace:
+                if (!fs->list->locked)
+                {
+                    fs->list->invalidate_tree_size();
+                    fs->list->goto_directory("..");
+                }
+                else
+                    fs->new_tab(gnome_cmd_dir_get_parent (fs->list->cwd));
+                return TRUE;
+
+            case GDK_KEY_Right:
+            case GDK_KEY_KP_Right:
+                {
+                    auto f = fs->list->get_selected_file();
+                    if (f && f->GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE) == G_FILE_TYPE_DIRECTORY)
+                        fs->do_file_specific_action (fs->list, f);
+                }
+                return TRUE;
+
+            case GDK_KEY_Return:
+            case GDK_KEY_KP_Enter:
+                if (gnome_cmd_data.cmdline_visibility
+                    && gnome_cmd_cmdline_is_empty (main_win->get_cmdline()))
+                    gnome_cmd_cmdline_exec (main_win->get_cmdline());
+                else
+                    fs->do_file_specific_action (fs->list, fs->list->get_focused_file());
+                return TRUE;
+
+            default:
+                break;
+        }
     }
 
     if (state_is_blank (state) || state_is_shift (state))
@@ -739,6 +815,11 @@ static void gnome_cmd_file_selector_init (GnomeCmdFileSelector *fs)
     gtk_event_controller_set_propagation_phase (GTK_EVENT_CONTROLLER (notebook_click), GTK_PHASE_CAPTURE);
     gtk_gesture_single_set_button (GTK_GESTURE_SINGLE (notebook_click), 0);
     g_signal_connect (notebook_click, "pressed", G_CALLBACK (on_notebook_button_pressed), fs);
+
+    GtkEventController *key_controller = gtk_event_controller_key_new ();
+    gtk_event_controller_set_propagation_phase (key_controller, GTK_PHASE_CAPTURE);
+    gtk_widget_add_controller (GTK_WIDGET (fs), GTK_EVENT_CONTROLLER (key_controller));
+    g_signal_connect (key_controller, "key-pressed", G_CALLBACK (on_list_key_pressed), fs);
 
     fs->update_show_devlist();
     fs->update_style();
@@ -934,122 +1015,6 @@ void gnome_cmd_file_selector_cap_paste (GnomeCmdFileSelector *fs)
 }
 
 
-gboolean GnomeCmdFileSelector::key_pressed(GnomeCmdKeyPress *event)
-{
-    g_return_val_if_fail (event != nullptr, FALSE);
-
-    GnomeCmdFile *f;
-
-    if (state_is_ctrl_shift (event->state))
-    {
-        switch (event->keyval)
-        {
-            case GDK_KEY_Tab:
-            case GDK_KEY_ISO_Left_Tab:
-                prev_tab();
-                return TRUE;
-
-            case GDK_KEY_Return:
-            case GDK_KEY_KP_Enter:
-                add_file_to_cmdline (list, TRUE);
-                return TRUE;
-
-            default:
-                break;
-        }
-    }
-    else if (state_is_alt (event->state))
-    {
-        switch (event->keyval)
-        {
-            case GDK_KEY_Left:
-            case GDK_KEY_KP_Left:
-                back();
-                return TRUE;
-
-            case GDK_KEY_Right:
-            case GDK_KEY_KP_Right:
-                forward();
-                return TRUE;
-
-            default:
-                break;
-        }
-    }
-    else if (state_is_ctrl (event->state))
-    {
-        switch (event->keyval)
-        {
-            case GDK_KEY_V:
-            case GDK_KEY_v:
-                gnome_cmd_file_selector_cap_paste (this);
-                return TRUE;
-
-            case GDK_KEY_P:
-            case GDK_KEY_p:
-                add_cwd_to_cmdline (list);
-                return TRUE;
-
-            case GDK_KEY_Tab:
-            case GDK_KEY_ISO_Left_Tab:
-                next_tab();
-                return TRUE;
-
-            case GDK_KEY_Return:
-            case GDK_KEY_KP_Enter:
-                add_file_to_cmdline (list, FALSE);
-                return TRUE;
-
-            default:
-                break;
-        }
-    }
-    else if (state_is_blank (event->state))
-    {
-        switch (event->keyval)
-        {
-            case GDK_KEY_Left:
-            case GDK_KEY_KP_Left:
-            case GDK_KEY_BackSpace:
-                if (!list->locked)
-                {
-                    list->invalidate_tree_size();
-                    list->goto_directory("..");
-                }
-                else
-                    new_tab(gnome_cmd_dir_get_parent (list->cwd));
-                return TRUE;
-
-            case GDK_KEY_Right:
-            case GDK_KEY_KP_Right:
-                f = list->get_selected_file();
-                if (f && f->GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE) == G_FILE_TYPE_DIRECTORY)
-                    do_file_specific_action (list, f);
-                return TRUE;
-
-            case GDK_KEY_Return:
-            case GDK_KEY_KP_Enter:
-                if (gnome_cmd_data.cmdline_visibility
-                    && gnome_cmd_cmdline_is_empty (main_win->get_cmdline()))
-                    gnome_cmd_cmdline_exec (main_win->get_cmdline());
-                else
-                    do_file_specific_action (list, list->get_focused_file());
-                return TRUE;
-
-            case GDK_KEY_Escape:
-                if (gnome_cmd_data.cmdline_visibility)
-                    gnome_cmd_cmdline_set_text (main_win->get_cmdline(), "");
-                return TRUE;
-
-            default:
-                break;
-        }
-    }
-
-    return FALSE;
-}
-
-
 void GnomeCmdFileSelector::update_show_devbuttons()
 {
     if (!gnome_cmd_data.show_devbuttons)
@@ -1163,13 +1128,6 @@ GtkWidget *GnomeCmdFileSelector::new_tab(GnomeCmdDir *dir, GnomeCmdFileList::Col
     // hide dir column
     fl->show_column(GnomeCmdFileList::COLUMN_DIR, FALSE);
 
-    // create the scrollwindow that we'll place the list in
-    GtkWidget *scrolled_window = gtk_scrolled_window_new ();
-    gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolled_window), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
-    gtk_widget_set_hexpand (scrolled_window, TRUE);
-    gtk_widget_set_vexpand (scrolled_window, TRUE);
-    gtk_scrolled_window_set_child (GTK_SCROLLED_WINDOW (scrolled_window), *fl);
-
     GtkWidget *hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 0);
 
     fl->tab_label_pin = gtk_image_new_from_file (PIXMAPS_DIR G_DIR_SEPARATOR_S "pin.png");
@@ -1183,10 +1141,10 @@ GtkWidget *GnomeCmdFileSelector::new_tab(GnomeCmdDir *dir, GnomeCmdFileList::Col
     else
         gtk_widget_hide (fl->tab_label_pin);
 
-    gint n = gtk_notebook_append_page (notebook, scrolled_window, hbox);
+    gint n = gtk_notebook_append_page (notebook, GTK_WIDGET (fl), hbox);
     update_show_tabs();
 
-    gtk_notebook_set_tab_reorderable (notebook, scrolled_window, TRUE);
+    gtk_notebook_set_tab_reorderable (notebook, GTK_WIDGET (fl), TRUE);
 
     g_signal_connect (fl, "con-changed", G_CALLBACK (on_list_con_changed), this);
     g_signal_connect (fl, "dir-changed", G_CALLBACK (on_list_dir_changed), this);
@@ -1201,15 +1159,9 @@ GtkWidget *GnomeCmdFileSelector::new_tab(GnomeCmdDir *dir, GnomeCmdFileList::Col
         gtk_widget_grab_focus (*fl);
     }
 
-    g_signal_connect (fl, "file-clicked", G_CALLBACK (on_list_file_clicked), this);
-    g_signal_connect (fl, "file-released", G_CALLBACK (on_list_file_released), this);
     g_signal_connect (fl, "list-clicked", G_CALLBACK (on_list_list_clicked), this);
 
-    GtkEventController *key_controller = gtk_event_controller_key_new ();
-    gtk_widget_add_controller (GTK_WIDGET (fl), GTK_EVENT_CONTROLLER (key_controller));
-    g_signal_connect (key_controller, "key-pressed", G_CALLBACK (on_list_key_pressed), this);
-
-    return scrolled_window;
+    return GTK_WIDGET (fl);
 }
 
 

@@ -118,6 +118,7 @@ extern "C" GType plugin_manager_get_type ();
 
 
 static gboolean set_equal_panes_idle (gpointer *user_data);
+static gboolean on_key_pressed (GtkEventControllerKey *controller, guint keyval, guint keycode, GdkModifierType state, gpointer user_data);
 
 
 inline GtkWidget *add_buttonbar_button (char *label,
@@ -614,6 +615,11 @@ static void gnome_cmd_main_win_init (GnomeCmdMainWin *mw)
     g_signal_connect (mw, "notify::default-height", G_CALLBACK (on_change_height), mw);
     g_signal_connect (mw, "notify::maximized", G_CALLBACK (on_change_maximized), mw);
 
+    GtkEventController *key_controller = gtk_event_controller_key_new ();
+    gtk_event_controller_set_propagation_phase (key_controller, GTK_PHASE_CAPTURE);
+    gtk_widget_add_controller (GTK_WIDGET (mw), GTK_EVENT_CONTROLLER (key_controller));
+    g_signal_connect (key_controller, "key-pressed", G_CALLBACK (on_key_pressed), mw);
+
     GtkGesture *paned_click_gesture = gtk_gesture_click_new ();
     gtk_widget_add_controller (GTK_WIDGET (mw->priv->paned), GTK_EVENT_CONTROLLER (paned_click_gesture));
     gtk_gesture_single_set_button (GTK_GESTURE_SINGLE (paned_click_gesture), 3);
@@ -716,55 +722,57 @@ void GnomeCmdMainWin::refocus()
 }
 
 
-gboolean GnomeCmdMainWin::key_pressed(GnomeCmdKeyPress *event)
+static gboolean on_key_pressed (GtkEventControllerKey *controller, guint keyval, guint keycode, GdkModifierType state, gpointer user_data)
 {
-    if (state_is_ctrl_alt (event->state))
+    auto mw = GNOME_CMD_MAIN_WIN (user_data);
+
+    if (state_is_ctrl_alt (state))
     {
-        switch (event->keyval)
+        switch (keyval)
         {
             case GDK_KEY_c:
             case GDK_KEY_C:
                 if (gnome_cmd_data.cmdline_visibility && (gnome_cmd_data.options.quick_search == GNOME_CMD_QUICK_SEARCH_JUST_A_CHARACTER))
-                    gnome_cmd_cmdline_focus(get_cmdline());
+                    gnome_cmd_cmdline_focus(mw->get_cmdline());
                 return TRUE;
                 break;
         }
     }
-    else if (state_is_alt (event->state))
+    else if (state_is_alt (state))
     {
-        switch (event->keyval)
+        switch (keyval)
         {
             case GDK_KEY_F8:
                 if (gnome_cmd_data.cmdline_visibility)
-                    gnome_cmd_cmdline_show_history (GNOME_CMD_CMDLINE (priv->cmdline));
+                    gnome_cmd_cmdline_show_history (GNOME_CMD_CMDLINE (mw->priv->cmdline));
                 return TRUE;
             default:
                 break;
         }
     }
-    else if (state_is_ctrl_shift (event->state))
+    else if (state_is_ctrl_shift (state))
     {
-        switch (event->keyval)
+        switch (keyval)
         {
             case GDK_KEY_H:
             case GDK_KEY_h:
                 gnome_cmd_data.options.filter.file_types[GnomeCmdData::G_FILE_IS_HIDDEN] =
                     !gnome_cmd_data.options.filter.file_types[GnomeCmdData::G_FILE_IS_HIDDEN];
-                gnome_cmd_data.save(this);
+                gnome_cmd_data.save(mw);
                 return TRUE;
             default:
                 break;
         }
     }
-    else if (state_is_ctrl (event->state))
+    else if (state_is_ctrl (state))
     {
-        switch (event->keyval)
+        switch (keyval)
         {
             case GDK_KEY_e:
             case GDK_KEY_E:
             case GDK_KEY_Down:
                 if (gnome_cmd_data.cmdline_visibility)
-                    gnome_cmd_cmdline_show_history (GNOME_CMD_CMDLINE (priv->cmdline));
+                    gnome_cmd_cmdline_show_history (GNOME_CMD_CMDLINE (mw->priv->cmdline));
                 return TRUE;
 
             case GDK_KEY_s:
@@ -772,7 +780,7 @@ gboolean GnomeCmdMainWin::key_pressed(GnomeCmdKeyPress *event)
                 {
                     // Calculate the middle of the widget
                     GtkAllocation allocation;
-                    gtk_widget_get_allocation (priv->paned, &allocation);
+                    gtk_widget_get_allocation (mw->priv->paned, &allocation);
 
                     GdkRectangle rect;
                     rect.x = allocation.width / 2;
@@ -780,7 +788,7 @@ gboolean GnomeCmdMainWin::key_pressed(GnomeCmdKeyPress *event)
                     rect.width = 0;
                     rect.height = 0;
                     GtkWidget *popover = gtk_popover_menu_new_from_model (create_slide_popup ());
-                    gtk_widget_set_parent (popover, priv->paned);
+                    gtk_widget_set_parent (popover, mw->priv->paned);
                     gtk_popover_set_pointing_to (GTK_POPOVER (popover), &rect);
                     gtk_popover_popup (GTK_POPOVER (popover));
                 }
@@ -789,28 +797,28 @@ gboolean GnomeCmdMainWin::key_pressed(GnomeCmdKeyPress *event)
             case GDK_KEY_u:
             case GDK_KEY_U:
                 {
-                    GnomeCmdFileSelector *fs1 = fs(LEFT);
-                    GnomeCmdFileSelector *fs2 = fs(RIGHT);
+                    GnomeCmdFileSelector *fs1 = mw->fs(LEFT);
+                    GnomeCmdFileSelector *fs2 = mw->fs(RIGHT);
 
                     // swap widgets
                     g_object_ref (fs1);
                     g_object_ref (fs2);
-                    gtk_paned_set_start_child (GTK_PANED (priv->paned), *fs2);
-                    gtk_paned_set_end_child (GTK_PANED (priv->paned), *fs1);
+                    gtk_paned_set_start_child (GTK_PANED (mw->priv->paned), *fs2);
+                    gtk_paned_set_end_child (GTK_PANED (mw->priv->paned), *fs1);
                     g_object_unref (fs1);
                     g_object_unref (fs2);
 
                     // update priv->file_selector[]
-                    GtkWidget *swap = priv->file_selector[LEFT];
-                    priv->file_selector[LEFT] = priv->file_selector[RIGHT];
-                    priv->file_selector[RIGHT] = swap;
+                    GtkWidget *swap = mw->priv->file_selector[LEFT];
+                    mw->priv->file_selector[LEFT] = mw->priv->file_selector[RIGHT];
+                    mw->priv->file_selector[RIGHT] = swap;
 
                     // refocus ACTIVE fs
-                    focus_file_lists();
+                    mw->focus_file_lists();
 
                     // update cmdline only for different directories
                     if (fs1->get_directory()!=fs2->get_directory())
-                        switch_fs(fs(ACTIVE));
+                        mw->switch_fs(mw->fs(ACTIVE));
                 }
                 return TRUE;
 
@@ -818,13 +826,13 @@ gboolean GnomeCmdMainWin::key_pressed(GnomeCmdKeyPress *event)
                 break;
         }
     }
-    else if (state_is_alt_shift (event->state))
+    else if (state_is_alt_shift (state))
     {
-        switch (event->keyval)
+        switch (keyval)
         {
             case GDK_KEY_P:
             case GDK_KEY_p:
-                g_action_group_activate_action (*this, "plugins-configure", nullptr);
+                g_action_group_activate_action (G_ACTION_GROUP (mw), "plugins-configure", nullptr);
                 break;
 
             case GDK_KEY_f:
@@ -842,7 +850,7 @@ gboolean GnomeCmdMainWin::key_pressed(GnomeCmdKeyPress *event)
                         break;
                     }
                 }
-                fs(ACTIVE)->set_connection(remote_con);
+                mw->fs(ACTIVE)->set_connection(remote_con);
             }
             break;
 
@@ -850,57 +858,62 @@ gboolean GnomeCmdMainWin::key_pressed(GnomeCmdKeyPress *event)
                 break;
         }
     }
-    else
-        if (state_is_blank (event->state))
-            switch (event->keyval)
-            {
-                case GDK_KEY_Tab:
-                case GDK_KEY_ISO_Left_Tab:
-                    switch_fs(fs(INACTIVE));
-                    return TRUE;
+    else if (state_is_blank (state))
+    {
+        switch (keyval)
+        {
+            case GDK_KEY_Tab:
+            case GDK_KEY_ISO_Left_Tab:
+                mw->switch_fs(mw->fs(INACTIVE));
+                return TRUE;
 
-                case GDK_KEY_F1:
-                    g_action_group_activate_action (*this, "help-help", nullptr);
-                    return TRUE;
+            case GDK_KEY_F1:
+                g_action_group_activate_action (G_ACTION_GROUP (mw), "help-help", nullptr);
+                return TRUE;
 
-                case GDK_KEY_F2:
-                    g_action_group_activate_action (*this, "file-rename", nullptr);
-                    return TRUE;
+            case GDK_KEY_F2:
+                g_action_group_activate_action (G_ACTION_GROUP (mw), "file-rename", nullptr);
+                return TRUE;
 
-                case GDK_KEY_F3:
-                    g_action_group_activate_action (*this, "file-view", nullptr);
-                    return TRUE;
+            case GDK_KEY_F3:
+                g_action_group_activate_action (G_ACTION_GROUP (mw), "file-view", nullptr);
+                return TRUE;
 
-                case GDK_KEY_F4:
-                    g_action_group_activate_action (*this, "file-edit", nullptr);
-                    return TRUE;
+            case GDK_KEY_F4:
+                g_action_group_activate_action (G_ACTION_GROUP (mw), "file-edit", nullptr);
+                return TRUE;
 
-                case GDK_KEY_F5:
-                    g_action_group_activate_action (*this, "file-copy", nullptr);
-                    return TRUE;
+            case GDK_KEY_F5:
+                g_action_group_activate_action (G_ACTION_GROUP (mw), "file-copy", nullptr);
+                return TRUE;
 
-                case GDK_KEY_F6:
-                    g_action_group_activate_action (*this, "file-move", nullptr);
-                    return TRUE;
+            case GDK_KEY_F6:
+                g_action_group_activate_action (G_ACTION_GROUP (mw), "file-move", nullptr);
+                return TRUE;
 
-                case GDK_KEY_F7:
-                    g_action_group_activate_action (*this, "file-mkdir", nullptr);
-                    return TRUE;
+            case GDK_KEY_F7:
+                g_action_group_activate_action (G_ACTION_GROUP (mw), "file-mkdir", nullptr);
+                return TRUE;
 
-                case GDK_KEY_F8:
-                    g_action_group_activate_action (*this, "file-delete", nullptr);
-                    return TRUE;
+            case GDK_KEY_F8:
+                g_action_group_activate_action (G_ACTION_GROUP (mw), "file-delete", nullptr);
+                return TRUE;
 
-                case GDK_KEY_F9:
-                    g_action_group_activate_action (*this, "file-search", nullptr);
-                    return TRUE;
+            case GDK_KEY_F9:
+                g_action_group_activate_action (G_ACTION_GROUP (mw), "file-search", nullptr);
+                return TRUE;
 
-                default:
-                    break;
-            }
+            case GDK_KEY_Escape:
+                if (gnome_cmd_data.cmdline_visibility)
+                    gnome_cmd_cmdline_set_text (main_win->get_cmdline(), "");
+                return TRUE;
 
-    return fs(ACTIVE)->key_pressed(event)
-        || gnome_cmd_shortcuts_handle_key_event (priv->gcmd_shortcuts, this, event->keyval, event->state);
+            default:
+                break;
+        }
+    }
+
+    return gnome_cmd_shortcuts_handle_key_event (mw->priv->gcmd_shortcuts, mw, keyval, state);
 }
 
 

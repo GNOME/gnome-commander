@@ -497,6 +497,7 @@ pub extern "C" fn gnome_cmd_main_menu_new(
     if initial != 0 {
         let shortcuts = extract_menu_shortcuts(menu.upcast_ref());
         let shortcuts_controller = gtk::ShortcutController::for_model(&shortcuts);
+        shortcuts_controller.set_propagation_phase(gtk::PropagationPhase::Capture);
         mw.add_controller(shortcuts_controller);
     }
     menu.to_glib_full()

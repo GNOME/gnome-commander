@@ -108,10 +108,3 @@ typedef enum
     GNOME_CMD_DEFAULT_DND_COPY,
     GNOME_CMD_DEFAULT_DND_MOVE
 }GnomeCmdDefaultDndMode;
-
-
-struct GnomeCmdKeyPress
-{
-    guint keyval;
-    guint state;
-};

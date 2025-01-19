@@ -64,8 +64,6 @@ struct GnomeCmdMainWin
     FileSelectorID fs(GnomeCmdFileSelector *fs) const;
     GnomeCmdFileSelector *fs(FileSelectorID id) const;
 
-    gboolean key_pressed (GnomeCmdKeyPress *event);
-
     void open_tabs(FileSelectorID id);
 
     void switch_fs(GnomeCmdFileSelector *fs);

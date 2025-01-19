@@ -1516,7 +1516,7 @@ static void save_tabs (GSettings *gSettings, const char *gSettingsKey, GnomeCmdM
         for (guint i = 0; i < tabs_count; ++i)
         {
             auto page = GTK_NOTEBOOK_PAGE (g_list_model_get_item (tabs, i));
-            auto fl = GNOME_CMD_FILE_LIST (gtk_scrolled_window_get_child (GTK_SCROLLED_WINDOW (gtk_notebook_page_get_child (page))));
+            auto fl = GNOME_CMD_FILE_LIST (gtk_notebook_page_get_child (page));
             if (!fl)
                 continue;
 
