@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: gnome-commander master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-commander/"
 "issues/\n"
-"POT-Creation-Date: 2025-01-12 18:07+0000\n"
-"PO-Revision-Date: 2025-01-12 20:58+0100\n"
+"POT-Creation-Date: 2025-01-18 20:24+0000\n"
+"PO-Revision-Date: 2025-01-21 04:37+0100\n"
 "Last-Translator: Ekaterine Papava <papava.e@gtu.ge>\n"
 "Language-Team: Georgian <ka@li.org>\n"
 "Language: ka\n"
@@ -21,7 +21,7 @@ msgstr ""
 "X-Generator: Poedit 3.5\n"
 
 #: data/org.gnome.gnome-commander.appdata.xml.in:7
-#: data/org.gnome.gnome-commander.desktop.in:3 src/gnome-cmd-main-win.cc:559
+#: data/org.gnome.gnome-commander.desktop.in:3 src/gnome-cmd-main-win.cc:567
 msgid "GNOME Commander"
 msgstr "GNOME Commander"
 
@@ -275,7 +275,7 @@ msgstr ""
 msgid "Update rate of the graphical user interphase in 1/1000ths of a second."
 msgstr ""
 
-#: data/org.gnome.gnome-commander.gschema.xml:193 src/user_actions.rs:1265
+#: data/org.gnome.gnome-commander.gschema.xml:193 src/user_actions.rs:1277
 msgid "Show device buttons"
 msgstr ""
 
@@ -283,7 +283,7 @@ msgstr ""
 msgid "Defines if device buttons are shown."
 msgstr ""
 
-#: data/org.gnome.gnome-commander.gschema.xml:198 src/user_actions.rs:1271
+#: data/org.gnome.gnome-commander.gschema.xml:198 src/user_actions.rs:1283
 msgid "Show device list"
 msgstr ""
 
@@ -291,7 +291,7 @@ msgstr ""
 msgid "Defines if the list of devices is shown."
 msgstr ""
 
-#: data/org.gnome.gnome-commander.gschema.xml:203 src/user_actions.rs:1289
+#: data/org.gnome.gnome-commander.gschema.xml:203 src/user_actions.rs:1301
 msgid "Show command line"
 msgstr "ბრძანების სტრიქონის ჩვენება"
 
@@ -299,7 +299,7 @@ msgstr "ბრძანების სტრიქონის ჩვენე�
 msgid "Defines if command line is shown."
 msgstr ""
 
-#: data/org.gnome.gnome-commander.gschema.xml:208 src/user_actions.rs:1277
+#: data/org.gnome.gnome-commander.gschema.xml:208 src/user_actions.rs:1289
 msgid "Show toolbar"
 msgstr "ხელსაწყოთა ზოლის ჩვენება"
 
@@ -307,7 +307,7 @@ msgstr "ხელსაწყოთა ზოლის ჩვენება"
 msgid "Defines if the toolbar is shown."
 msgstr ""
 
-#: data/org.gnome.gnome-commander.gschema.xml:213 src/user_actions.rs:1283
+#: data/org.gnome.gnome-commander.gschema.xml:213 src/user_actions.rs:1295
 msgid "Show buttonbar"
 msgstr ""
 
@@ -1366,7 +1366,7 @@ msgid ""
 "represents the file name of the plugin."
 msgstr ""
 
-#: plugins/fileroller/file-roller-plugin.cc:109 src/gnome-cmd-data.cc:73
+#: plugins/fileroller/file-roller-plugin.cc:109 src/gnome-cmd-data.cc:72
 #, c-format
 msgid "Could not load schemas from %s: %s\n"
 msgstr "%s-დან სქემების ჩატვირთვის შეცდომა: %s\n"
@@ -1403,7 +1403,7 @@ msgstr ""
 #: src/dialogs/options/edit_palette_dialog.rs:180
 #: src/dialogs/pattern_selection_dialog.rs:106
 #: src/dialogs/prepare_transfer_dialog.rs:91
-#: src/dialogs/profiles/edit_profile_dialog.rs:108
+#: src/dialogs/profiles/edit_profile_dialog.rs:109
 #: src/dialogs/profiles/manage_profiles_dialog.rs:317
 #: src/dialogs/shortcuts/shortcut_dialog.rs:178
 #: src/dialogs/shortcuts/shortcut_dialog.rs:404
@@ -1431,7 +1431,7 @@ msgstr "_შეწყვეტა"
 #: src/dialogs/options/edit_palette_dialog.rs:184
 #: src/dialogs/pattern_selection_dialog.rs:116
 #: src/dialogs/prepare_transfer_dialog.rs:84
-#: src/dialogs/profiles/edit_profile_dialog.rs:118
+#: src/dialogs/profiles/edit_profile_dialog.rs:119
 #: src/dialogs/profiles/manage_profiles_dialog.rs:327
 #: src/dialogs/shortcuts/shortcut_dialog.rs:190
 #: src/dialogs/shortcuts/shortcuts_dialog.rs:206
@@ -1456,8 +1456,8 @@ msgid "Extract to “%s”"
 msgstr ""
 
 #: plugins/fileroller/file-roller-plugin.cc:617
-#: src/gnome-cmd-advrename-profile-component.cc:740 src/plugin_manager.cc:403
-#: src/tags/gnome-cmd-tags.cc:692
+#: src/gnome-cmd-advrename-profile-component.cc:741
+#: src/tags/gnome-cmd-tags.cc:616
 msgid "File"
 msgstr "ფაილი"
 
@@ -1541,11 +1541,11 @@ msgstr ""
 msgid "Cannot build a command line."
 msgstr ""
 
-#: src/dialogs/advrename_dialog.rs:226 src/dialogs/search_dialog.rs:215
+#: src/dialogs/advrename_dialog.rs:234 src/dialogs/search_dialog.rs:225
 msgid "New profile"
 msgstr "ახალი პროფილი"
 
-#: src/dialogs/advrename_dialog.rs:234 src/dialogs/search_dialog.rs:223
+#: src/dialogs/advrename_dialog.rs:242 src/dialogs/search_dialog.rs:233
 msgid "Profiles"
 msgstr "პროფილები"
 
@@ -1618,7 +1618,7 @@ msgstr "დაცული WebDAV (HTTPS)"
 msgid "Custom location"
 msgstr ""
 
-#: src/dialogs/connect_dialog.rs:122 src/gnome-cmd-main-win.cc:192
+#: src/dialogs/connect_dialog.rs:122 src/gnome-cmd-main-win.cc:195
 msgid "Remote Server"
 msgstr "დაშორებული სერვერი"
 
@@ -1656,14 +1656,14 @@ msgid "_Domain name:"
 msgstr "_დომენის სახელი:"
 
 #: src/dialogs/connect_dialog.rs:173
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:659
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:667
 #: src/dialogs/gnome-cmd-file-props-dialog.cc:545
 #: src/dialogs/gnome-cmd-mkdir-dialog.cc:172
 #: src/dialogs/gnome-cmd-options-dialog.cc:1509
-#: src/dialogs/gnome-cmd-search-dialog.cc:1234
+#: src/dialogs/gnome-cmd-search-dialog.cc:1246
 #: src/dialogs/manage_bookmarks_dialog.rs:218
 #: src/dialogs/options/device_dialog.rs:117
-#: src/dialogs/profiles/edit_profile_dialog.rs:74
+#: src/dialogs/profiles/edit_profile_dialog.rs:75
 #: src/dialogs/profiles/manage_profiles_dialog.rs:295
 #: src/dialogs/remote_dialog.rs:192
 #: src/dialogs/shortcuts/shortcuts_dialog.rs:180
@@ -1746,7 +1746,7 @@ msgstr ""
 
 #: src/dialogs/delete_dialog.rs:217 src/dialogs/delete_dialog.rs:530
 #: src/dialogs/gnome-cmd-options-dialog.cc:817 src/file_list_popup.rs:268
-#: src/gnome-cmd-main-win.cc:187
+#: src/gnome-cmd-main-win.cc:190
 msgid "Delete"
 msgstr "წაშლა"
 
@@ -1798,98 +1798,98 @@ msgstr ""
 msgid "Bookmark _target:"
 msgstr ""
 
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:105
-#: src/dialogs/gnome-cmd-search-dialog.cc:179
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:106
+#: src/dialogs/gnome-cmd-search-dialog.cc:180
 msgid "_Save Profile As…"
 msgstr ""
 
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:109
-#: src/dialogs/gnome-cmd-search-dialog.cc:183
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:110
+#: src/dialogs/gnome-cmd-search-dialog.cc:184
 msgid "_Manage Profiles…"
 msgstr ""
 
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:305
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:308
 msgid "Remove from file list"
 msgstr ""
 
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:306 src/user_actions.rs:1048
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:309 src/user_actions.rs:1060
 msgid "View file"
 msgstr "ფაილის ჩვენება"
 
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:307
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:310
 msgid "File properties"
 msgstr "ფაილის თვისებები"
 
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:310
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:313
 msgid "Update file list"
 msgstr ""
 
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:492
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:495
 msgid "Advanced Rename Tool"
 msgstr ""
 
 #. Results
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:507
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:510
 msgid "Results"
 msgstr "შედეგები"
 
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:577
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:580
 msgid "Old name"
 msgstr "ძველი სახელი"
 
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:581
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:584
 msgid "Current file name"
 msgstr ""
 
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:583
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:586
 msgid "New name"
 msgstr "ახალი სახელი"
 
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:587
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:590
 msgid "New file name"
 msgstr "ახალი ფაილის სახელი"
 
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:589 src/tags/gnome-cmd-tags.cc:332
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:592 src/tags/gnome-cmd-tags.cc:332
 #: src/tags/gnome-cmd-tags.cc:396
 msgid "Size"
 msgstr "ზომა"
 
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:593
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:596
 msgid "File size"
 msgstr "ფაილის ზომა"
 
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:595
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:598
 #: src/gnome-cmd-advrename-profile-component.cc:156
-#: src/gnome-cmd-advrename-profile-component.cc:748
+#: src/gnome-cmd-advrename-profile-component.cc:749
 #: src/tags/gnome-cmd-tags.cc:347 src/tags/gnome-cmd-tags.cc:423
 msgid "Date"
 msgstr "თარიღი"
 
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:599
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:602
 msgid "File modification date"
 msgstr ""
 
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:651
-#: src/dialogs/gnome-cmd-search-dialog.cc:1226
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:659
+#: src/dialogs/gnome-cmd-search-dialog.cc:1238
 msgid "Profiles…"
 msgstr "პროფილები…"
 
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:660
-#: src/dialogs/profiles/edit_profile_dialog.rs:93
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:668
+#: src/dialogs/profiles/edit_profile_dialog.rs:94
 msgid "Reset"
 msgstr "საწყის მნიშვნელობაზე დაბრუნება"
 
 #. Add the close button
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:661
-#: src/dialogs/gnome-cmd-search-dialog.cc:1235
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:669
+#: src/dialogs/gnome-cmd-search-dialog.cc:1247
 #: src/dialogs/manage_bookmarks_dialog.rs:222
 #: src/dialogs/options/edit_colors_dialog.rs:176
 #: src/dialogs/remote_dialog.rs:204 src/gnome-cmd-about-plugin.cc:181
-#: src/gnome-cmd-about-plugin.cc:310 src/plugin_manager.cc:435
+#: src/gnome-cmd-about-plugin.cc:310 src/plugin_manager.rs:410
 msgid "_Close"
 msgstr "_დახურვა"
 
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:662
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:670
 msgid "_Apply"
 msgstr "გამოყენება"
 
@@ -1959,7 +1959,7 @@ msgstr "წვდომის უფლებები"
 msgid "File Properties"
 msgstr "ფაილის თვისებები"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:541 src/user_actions.rs:1102
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:541 src/user_actions.rs:1114
 msgid "Properties"
 msgstr "პარამეტრები"
 
@@ -2009,8 +2009,8 @@ msgstr ""
 msgid "Middle mouse button"
 msgstr "თაგუნის შუა ღილაკი"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:131 src/gnome-cmd-main-win.cc:177
-#: src/user_actions.rs:1309
+#: src/dialogs/gnome-cmd-options-dialog.cc:131 src/gnome-cmd-main-win.cc:180
+#: src/user_actions.rs:1321
 msgid "Up one directory"
 msgstr ""
 
@@ -2054,7 +2054,7 @@ msgstr ""
 msgid "Case sensitive"
 msgstr "დიდი და პატარა ასოების განსხვავება"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:195 src/user_actions.rs:1078
+#: src/dialogs/gnome-cmd-options-dialog.cc:195 src/user_actions.rs:1090
 msgid "Quick search"
 msgstr "სწრაფი ძებნა"
 
@@ -2342,7 +2342,7 @@ msgstr ""
 
 #: src/dialogs/gnome-cmd-options-dialog.cc:889
 #: src/dialogs/prepare_copy_dialog.rs:45 src/file_list_popup.rs:262
-#: src/gnome-cmd-main-win.cc:185 src/user_actions.rs:1226
+#: src/gnome-cmd-main-win.cc:188 src/user_actions.rs:1238
 msgid "Copy"
 msgstr "კოპირება"
 
@@ -2459,7 +2459,7 @@ msgstr "ბრძანება"
 #: src/dialogs/gnome-cmd-options-dialog.cc:1312
 #: src/dialogs/options/devices_widget.rs:77 src/dialogs/remote_dialog.rs:150
 #: src/dialogs/shortcuts/shortcuts_dialog.rs:143
-#: src/gnome-cmd-advrename-profile-component.cc:844
+#: src/gnome-cmd-advrename-profile-component.cc:845
 msgid "_Add"
 msgstr "_დამატება"
 
@@ -2469,7 +2469,7 @@ msgstr "_დამატება"
 #: src/dialogs/profiles/manage_profiles_dialog.rs:255
 #: src/dialogs/remote_dialog.rs:74
 #: src/dialogs/shortcuts/shortcuts_dialog.rs:156
-#: src/gnome-cmd-advrename-profile-component.cc:847
+#: src/gnome-cmd-advrename-profile-component.cc:848 src/main_win.rs:197
 msgid "_Edit"
 msgstr "_ჩასწორება"
 
@@ -2479,7 +2479,7 @@ msgstr "_ჩასწორება"
 #: src/dialogs/profiles/manage_profiles_dialog.rs:280
 #: src/dialogs/remote_dialog.rs:78
 #: src/dialogs/shortcuts/shortcuts_dialog.rs:169
-#: src/gnome-cmd-advrename-profile-component.cc:850
+#: src/gnome-cmd-advrename-profile-component.cc:851
 msgid "_Remove"
 msgstr "_წაშლა"
 
@@ -2519,7 +2519,7 @@ msgstr ""
 
 #: src/dialogs/gnome-cmd-options-dialog.cc:1507
 #: src/dialogs/options/app_dialog.rs:116 src/dialogs/prepare_copy_dialog.rs:96
-#: src/dialogs/shortcuts/shortcuts_dialog.rs:109 src/user_actions.rs:1511
+#: src/dialogs/shortcuts/shortcuts_dialog.rs:109 src/user_actions.rs:1523
 msgid "Options"
 msgstr "მორგება"
 
@@ -2559,74 +2559,74 @@ msgstr ""
 msgid "Files _not containing text"
 msgstr ""
 
-#: src/dialogs/gnome-cmd-search-dialog.cc:289
+#: src/dialogs/gnome-cmd-search-dialog.cc:290
 #, c-format
 msgid "Failed to read file %s: File is not searchable"
 msgstr ""
 
-#: src/dialogs/gnome-cmd-search-dialog.cc:300
-#: src/dialogs/gnome-cmd-search-dialog.cc:313
-#: src/dialogs/gnome-cmd-search-dialog.cc:342
+#: src/dialogs/gnome-cmd-search-dialog.cc:301
+#: src/dialogs/gnome-cmd-search-dialog.cc:314
+#: src/dialogs/gnome-cmd-search-dialog.cc:343
 #, c-format
 msgid "Failed to read file %s: %s"
 msgstr ""
 
-#: src/dialogs/gnome-cmd-search-dialog.cc:385
+#: src/dialogs/gnome-cmd-search-dialog.cc:386
 #, c-format
 msgid "Searching in: %s"
 msgstr "ძებნა: %s"
 
-#: src/dialogs/gnome-cmd-search-dialog.cc:549
+#: src/dialogs/gnome-cmd-search-dialog.cc:550
 #, c-format
 msgid "Found %d match — search aborted"
 msgid_plural "Found %d matches — search aborted"
 msgstr[0] ""
 
-#: src/dialogs/gnome-cmd-search-dialog.cc:550
+#: src/dialogs/gnome-cmd-search-dialog.cc:551
 #, c-format
 msgid "Found %d match"
 msgid_plural "Found %d matches"
 msgstr[0] ""
 
-#: src/dialogs/gnome-cmd-search-dialog.cc:759
+#: src/dialogs/gnome-cmd-search-dialog.cc:760
 #, c-format
 msgid "Failed to set process group id of child %d: %s.\n"
 msgstr ""
 
-#: src/dialogs/gnome-cmd-search-dialog.cc:880
+#: src/dialogs/gnome-cmd-search-dialog.cc:881
 msgid "Error parsing the search command."
 msgstr ""
 
-#: src/dialogs/gnome-cmd-search-dialog.cc:892
+#: src/dialogs/gnome-cmd-search-dialog.cc:893
 msgid "Error running the search command."
 msgstr ""
 
-#: src/dialogs/gnome-cmd-search-dialog.cc:1011
+#: src/dialogs/gnome-cmd-search-dialog.cc:1012
 #, c-format
 msgid "Failed to change directory outside of %s"
 msgstr ""
 
-#: src/dialogs/gnome-cmd-search-dialog.cc:1128
+#: src/dialogs/gnome-cmd-search-dialog.cc:1129
 msgid "Search…"
 msgstr "ძებნა…"
 
-#: src/dialogs/gnome-cmd-search-dialog.cc:1236
+#: src/dialogs/gnome-cmd-search-dialog.cc:1146
+msgid "_Look in folder:"
+msgstr ""
+
+#: src/dialogs/gnome-cmd-search-dialog.cc:1248
 #: src/dialogs/manage_bookmarks_dialog.rs:102
 msgid "_Jump to"
 msgstr "_გადასვლა"
 
-#: src/dialogs/gnome-cmd-search-dialog.cc:1237
+#: src/dialogs/gnome-cmd-search-dialog.cc:1249
 #: src/intviewer/search_progress_dialog.rs:46
 msgid "_Stop"
 msgstr "_შეჩერება"
 
-#: src/dialogs/gnome-cmd-search-dialog.cc:1238
+#: src/dialogs/gnome-cmd-search-dialog.cc:1250
 msgid "_Find"
 msgstr "_ძებნა"
-
-#: src/dialogs/gnome-cmd-search-dialog.cc:1251
-msgid "_Look in folder:"
-msgstr ""
 
 #: src/dialogs/make_copy_dialog.rs:40
 msgid "Copy File"
@@ -2641,8 +2641,7 @@ msgid "Bookmarks"
 msgstr "სანიშნები"
 
 #: src/dialogs/manage_bookmarks_dialog.rs:142 src/dialogs/remote_dialog.rs:125
-#: src/file_metainfo_view.rs:70 src/plugin_manager.cc:401
-#: src/tags/gnome-cmd-tags.cc:327
+#: src/file_metainfo_view.rs:70 src/tags/gnome-cmd-tags.cc:327
 msgid "Name"
 msgstr "სახელი"
 
@@ -2922,7 +2921,7 @@ msgstr ""
 msgid "Edit Profile"
 msgstr "პროფილის ჩასწორება"
 
-#: src/dialogs/profiles/edit_profile_dialog.rs:57
+#: src/dialogs/profiles/edit_profile_dialog.rs:58
 msgid "_Name"
 msgstr "_სახელი"
 
@@ -3087,17 +3086,17 @@ msgid "E_xecute"
 msgstr "_შესრულება"
 
 #. Edit actions
-#: src/file_list_popup.rs:261 src/gnome-cmd-main-win.cc:184
-#: src/user_actions.rs:1221
+#: src/file_list_popup.rs:261 src/gnome-cmd-main-win.cc:187
+#: src/user_actions.rs:1233
 msgid "Cut"
 msgstr "ამოჭრა"
 
-#: src/file_list_popup.rs:264 src/user_actions.rs:1244
+#: src/file_list_popup.rs:264 src/user_actions.rs:1256
 msgid "Copy file names"
 msgstr ""
 
-#: src/file_list_popup.rs:271 src/gnome-cmd-main-win.cc:189
-#: src/user_actions.rs:1138
+#: src/file_list_popup.rs:271 src/gnome-cmd-main-win.cc:192
+#: src/user_actions.rs:1150
 msgid "Send files"
 msgstr "ფაილების გაგზავნა"
 
@@ -3105,7 +3104,7 @@ msgstr "ფაილების გაგზავნა"
 msgid "Open _terminal here"
 msgstr ""
 
-#: src/file_list_popup.rs:282
+#: src/file_list_popup.rs:282 src/main_win.rs:179
 msgid "_Properties…"
 msgstr "_თვისებები…"
 
@@ -3121,11 +3120,11 @@ msgstr ""
 msgid "_Text File"
 msgstr ""
 
-#: src/file_list_popup.rs:298
+#: src/file_list_popup.rs:298 src/main_win.rs:203
 msgid "_Paste"
 msgstr "_ჩასმა"
 
-#: src/file_list_popup.rs:304
+#: src/file_list_popup.rs:304 src/main_win.rs:270
 msgid "_Refresh"
 msgstr "_განახლება"
 
@@ -3202,8 +3201,8 @@ msgid "File extension"
 msgstr "ფაილის გაფართოება"
 
 #: src/gnome-cmd-advrename-profile-component.cc:131
-#: src/gnome-cmd-advrename-profile-component.cc:744
-#: src/gnome-cmd-advrename-profile-component.cc:764
+#: src/gnome-cmd-advrename-profile-component.cc:745
+#: src/gnome-cmd-advrename-profile-component.cc:765
 msgid "Counter"
 msgstr "მთვლელი"
 
@@ -3292,113 +3291,113 @@ msgstr "SS"
 msgid "Time"
 msgstr "დრო"
 
-#: src/gnome-cmd-advrename-profile-component.cc:711
+#: src/gnome-cmd-advrename-profile-component.cc:712
 msgid "_Template"
 msgstr ""
 
-#: src/gnome-cmd-advrename-profile-component.cc:736
+#: src/gnome-cmd-advrename-profile-component.cc:737
 msgid "Directory"
 msgstr "დირექტორია"
 
-#: src/gnome-cmd-advrename-profile-component.cc:752
+#: src/gnome-cmd-advrename-profile-component.cc:753
 msgid "Metatag"
 msgstr ""
 
-#: src/gnome-cmd-advrename-profile-component.cc:779
+#: src/gnome-cmd-advrename-profile-component.cc:780
 msgid "_Start:"
 msgstr "_დასაწყისი:"
 
-#: src/gnome-cmd-advrename-profile-component.cc:787
+#: src/gnome-cmd-advrename-profile-component.cc:788
 msgid "Ste_p:"
 msgstr ""
 
-#: src/gnome-cmd-advrename-profile-component.cc:795
+#: src/gnome-cmd-advrename-profile-component.cc:796
 msgid "Di_gits:"
 msgstr ""
 
-#: src/gnome-cmd-advrename-profile-component.cc:800
+#: src/gnome-cmd-advrename-profile-component.cc:801
 msgid "auto"
 msgstr "ავტომატური"
 
-#: src/gnome-cmd-advrename-profile-component.cc:814
+#: src/gnome-cmd-advrename-profile-component.cc:815
 msgid "Regex replacing"
 msgstr ""
 
-#: src/gnome-cmd-advrename-profile-component.cc:853
+#: src/gnome-cmd-advrename-profile-component.cc:854
 msgid "Remove A_ll"
 msgstr ""
 
-#: src/gnome-cmd-advrename-profile-component.cc:864
+#: src/gnome-cmd-advrename-profile-component.cc:865
 msgid "Case"
 msgstr "რეგისტრი"
 
-#: src/gnome-cmd-advrename-profile-component.cc:877
+#: src/gnome-cmd-advrename-profile-component.cc:878
 msgid "<unchanged>"
 msgstr "<არ შეცვლილა>"
 
-#: src/gnome-cmd-advrename-profile-component.cc:878
+#: src/gnome-cmd-advrename-profile-component.cc:879
 msgid "lowercase"
 msgstr "დაბალი რეგისტრი"
 
-#: src/gnome-cmd-advrename-profile-component.cc:879
+#: src/gnome-cmd-advrename-profile-component.cc:880
 msgid "UPPERCASE"
 msgstr "მაღალირეგისტრი"
 
-#: src/gnome-cmd-advrename-profile-component.cc:881
+#: src/gnome-cmd-advrename-profile-component.cc:882
 msgid "Sentence case"
 msgstr "წინადადების რეგისტრი"
 
 #. FIXME
-#: src/gnome-cmd-advrename-profile-component.cc:882
+#: src/gnome-cmd-advrename-profile-component.cc:883
 msgid "Initial Caps"
 msgstr "პირველი სიმბოლო მაღალ რეგისტრში"
 
 #. FIXME
-#: src/gnome-cmd-advrename-profile-component.cc:883
+#: src/gnome-cmd-advrename-profile-component.cc:884
 msgid "tOGGLE cASE"
 msgstr "რეგისტრის გადართვა"
 
-#: src/gnome-cmd-advrename-profile-component.cc:893
+#: src/gnome-cmd-advrename-profile-component.cc:894
 msgid "Trim blanks"
 msgstr ""
 
-#: src/gnome-cmd-advrename-profile-component.cc:906
+#: src/gnome-cmd-advrename-profile-component.cc:907
 msgid "<none>"
 msgstr "<არცერთი>"
 
-#: src/gnome-cmd-advrename-profile-component.cc:907
+#: src/gnome-cmd-advrename-profile-component.cc:908
 msgid "leading"
 msgstr ""
 
-#: src/gnome-cmd-advrename-profile-component.cc:908
+#: src/gnome-cmd-advrename-profile-component.cc:909
 msgid "trailing"
 msgstr ""
 
-#: src/gnome-cmd-advrename-profile-component.cc:909
+#: src/gnome-cmd-advrename-profile-component.cc:910
 msgid "leading and trailing"
 msgstr ""
 
-#: src/gnome-cmd-advrename-profile-component.cc:1056
+#: src/gnome-cmd-advrename-profile-component.cc:1057
 msgid "Search for"
 msgstr "ძებნა"
 
-#: src/gnome-cmd-advrename-profile-component.cc:1059
+#: src/gnome-cmd-advrename-profile-component.cc:1060
 msgid "Regex pattern"
 msgstr ""
 
-#: src/gnome-cmd-advrename-profile-component.cc:1061
+#: src/gnome-cmd-advrename-profile-component.cc:1062
 msgid "Replace with"
 msgstr "_ჩანაცვლება"
 
-#: src/gnome-cmd-advrename-profile-component.cc:1064
+#: src/gnome-cmd-advrename-profile-component.cc:1065
 msgid "Replacement"
 msgstr "შემცვლელი"
 
-#: src/gnome-cmd-advrename-profile-component.cc:1066
+#: src/gnome-cmd-advrename-profile-component.cc:1067
 msgid "Match case"
 msgstr "დიდი და პატარა ასოების სხვაობა"
 
-#: src/gnome-cmd-advrename-profile-component.cc:1069
+#: src/gnome-cmd-advrename-profile-component.cc:1070
 msgid "Case sensitive matching"
 msgstr "რეგისტრზე დამოკიდებული დამთხვევა"
 
@@ -3427,7 +3426,7 @@ msgstr ""
 msgid "No valid command given."
 msgstr ""
 
-#: src/gnome-cmd-cmdline.cc:122 src/gnome-cmd-user-actions.cc:316
+#: src/gnome-cmd-cmdline.cc:122 src/gnome-cmd-user-actions.cc:315
 #: src/spawn.rs:179
 msgid "Unable to execute command."
 msgstr ""
@@ -3543,7 +3542,7 @@ msgstr "SMB"
 msgid "Searching for workgroups and hosts"
 msgstr ""
 
-#: src/gnome-cmd-data.cc:2522 src/gnome-cmd-data.cc:2933
+#: src/gnome-cmd-data.cc:2494 src/gnome-cmd-data.cc:2891
 #: src/user_actions.rs:275
 #, c-format
 msgid "link to %s"
@@ -3643,136 +3642,136 @@ msgstr ""
 msgid "Filter:"
 msgstr "ფილტრი:"
 
-#: src/gnome-cmd-main-win.cc:176 src/user_actions.rs:1338
+#: src/gnome-cmd-main-win.cc:179 src/user_actions.rs:1350
 msgid "Refresh"
 msgstr "განახლება"
 
-#: src/gnome-cmd-main-win.cc:178
+#: src/gnome-cmd-main-win.cc:181
 msgid "Go to the oldest"
 msgstr ""
 
-#: src/gnome-cmd-main-win.cc:179
+#: src/gnome-cmd-main-win.cc:182
 msgid "Go back"
 msgstr "უკან დაბრუნება"
 
-#: src/gnome-cmd-main-win.cc:180
+#: src/gnome-cmd-main-win.cc:183
 msgid "Go forward"
 msgstr "წინ გადასვლა"
 
-#: src/gnome-cmd-main-win.cc:181
+#: src/gnome-cmd-main-win.cc:184
 msgid "Go to the latest"
 msgstr ""
 
-#: src/gnome-cmd-main-win.cc:183
+#: src/gnome-cmd-main-win.cc:186
 msgid "Copy file names (SHIFT for full paths, ALT for URIs)"
 msgstr ""
 
-#: src/gnome-cmd-main-win.cc:186 src/user_actions.rs:1232
+#: src/gnome-cmd-main-win.cc:189 src/user_actions.rs:1244
 msgid "Paste"
 msgstr "ჩასმა"
 
-#: src/gnome-cmd-main-win.cc:188
+#: src/gnome-cmd-main-win.cc:191
 msgid "Edit (SHIFT for new document)"
 msgstr ""
 
-#: src/gnome-cmd-main-win.cc:190 src/user_actions.rs:1258
+#: src/gnome-cmd-main-win.cc:193 src/user_actions.rs:1270
 msgid "Open terminal"
 msgstr ""
 
-#: src/gnome-cmd-main-win.cc:194
+#: src/gnome-cmd-main-win.cc:197
 msgid "Drop connection"
 msgstr ""
 
-#: src/gnome-cmd-main-win.cc:230
+#: src/gnome-cmd-main-win.cc:233
 msgid "F3 View"
 msgstr ""
 
-#: src/gnome-cmd-main-win.cc:232
+#: src/gnome-cmd-main-win.cc:235
 msgid "F4 Edit"
 msgstr ""
 
-#: src/gnome-cmd-main-win.cc:234
+#: src/gnome-cmd-main-win.cc:237
 msgid "F5 Copy"
 msgstr ""
 
-#: src/gnome-cmd-main-win.cc:236
+#: src/gnome-cmd-main-win.cc:239
 msgid "F6 Move"
 msgstr ""
 
-#: src/gnome-cmd-main-win.cc:238
+#: src/gnome-cmd-main-win.cc:241
 msgid "F7 Mkdir"
 msgstr ""
 
-#: src/gnome-cmd-main-win.cc:240
+#: src/gnome-cmd-main-win.cc:243
 msgid "F8 Delete"
 msgstr ""
 
-#: src/gnome-cmd-main-win.cc:242
+#: src/gnome-cmd-main-win.cc:245
 msgid "F9 Search"
 msgstr ""
 
-#: src/gnome-cmd-main-win.cc:558
+#: src/gnome-cmd-main-win.cc:566
 msgid "GNOME Commander — ROOT PRIVILEGES"
 msgstr ""
 
-#: src/gnome-cmd-quicksearch-popup.cc:206 src/user_actions.rs:1072
+#: src/gnome-cmd-quicksearch-popup.cc:206 src/user_actions.rs:1084
 msgid "Search"
 msgstr "ძებნა"
 
-#: src/gnome-cmd-selection-profile-component.cc:134
+#: src/gnome-cmd-selection-profile-component.cc:135
 msgid "Path matches regex:"
 msgstr ""
 
-#: src/gnome-cmd-selection-profile-component.cc:135
+#: src/gnome-cmd-selection-profile-component.cc:136
 msgid "Name contains:"
 msgstr ""
 
-#: src/gnome-cmd-selection-profile-component.cc:146
+#: src/gnome-cmd-selection-profile-component.cc:147
 msgid "Unlimited depth"
 msgstr ""
 
-#: src/gnome-cmd-selection-profile-component.cc:147
+#: src/gnome-cmd-selection-profile-component.cc:148
 msgid "Current directory only"
 msgstr ""
 
-#: src/gnome-cmd-selection-profile-component.cc:150
+#: src/gnome-cmd-selection-profile-component.cc:151
 #, c-format
 msgid "%i level"
 msgid_plural "%i levels"
 msgstr[0] ""
 
-#: src/gnome-cmd-selection-profile-component.cc:155
+#: src/gnome-cmd-selection-profile-component.cc:156
 msgid "Search _recursively:"
 msgstr ""
 
 #. find text
-#: src/gnome-cmd-selection-profile-component.cc:161
+#: src/gnome-cmd-selection-profile-component.cc:164
 msgid "Contains _text:"
 msgstr ""
 
 #. case check
-#: src/gnome-cmd-selection-profile-component.cc:174
+#: src/gnome-cmd-selection-profile-component.cc:177
 msgid "Case sensiti_ve"
 msgstr ""
 
-#: src/gnome-cmd-user-actions.cc:311
+#: src/gnome-cmd-user-actions.cc:310
 msgid "No search command given."
 msgstr ""
 
-#: src/gnome-cmd-user-actions.cc:311
+#: src/gnome-cmd-user-actions.cc:310
 msgid "You can set a command for a search tool in the program options."
 msgstr ""
 
-#: src/gnome-cmd-user-actions.cc:385 src/gnome-cmd-user-actions.cc:402
-#: src/gnome-cmd-user-actions.cc:460
+#: src/gnome-cmd-user-actions.cc:384 src/gnome-cmd-user-actions.cc:401
+#: src/gnome-cmd-user-actions.cc:459
 msgid "Operation not supported on remote file systems"
 msgstr ""
 
-#: src/gnome-cmd-user-actions.cc:415
+#: src/gnome-cmd-user-actions.cc:414
 msgid "No file selected"
 msgstr "ფაილი არჩეული არაა"
 
-#: src/gnome-cmd-user-actions.cc:427
+#: src/gnome-cmd-user-actions.cc:426
 msgid "Too many selected files"
 msgstr ""
 
@@ -3812,18 +3811,6 @@ msgstr ""
 #: src/gnome-cmd-xfer.cc:877
 #, c-format
 msgid "Source “%s” could not be copied. Aborting!"
-msgstr ""
-
-#: src/imageloader.cc:104
-#, c-format
-msgid "Couldn’t load installed pixmap, trying to load %s instead"
-msgstr ""
-
-#: src/imageloader.cc:108
-#, c-format
-msgid ""
-"Can’t find the pixmap anywhere. Make sure you have installed the program or "
-"is executing gnome-commander from the gnome-commander-%s/src directory"
 msgstr ""
 
 #. Search mode radio buttons
@@ -3874,6 +3861,239 @@ msgstr ""
 msgid "_Copy selection"
 msgstr ""
 
+#: src/main_win.rs:162
+msgid "_File"
+msgstr "_ფაილი"
+
+#: src/main_win.rs:166
+msgid "Change _Owner/Group"
+msgstr ""
+
+#: src/main_win.rs:167
+msgid "Change Per_missions"
+msgstr "წვდო_მების შეცვლა"
+
+#: src/main_win.rs:169
+msgid "Advanced _Rename Tool"
+msgstr ""
+
+#: src/main_win.rs:174
+msgid "Create _Symbolic Link"
+msgstr ""
+
+#: src/main_win.rs:186
+msgid "_Search…"
+msgstr "ძე_ბნა…"
+
+#: src/main_win.rs:187
+msgid "_Quick Search…"
+msgstr "_სწრაფი ძებნა…"
+
+#: src/main_win.rs:188
+msgid "_Enable Filter…"
+msgstr ""
+
+#: src/main_win.rs:192
+msgid "_Diff"
+msgstr ""
+
+#: src/main_win.rs:193
+msgid "S_ynchronize Directories"
+msgstr "საქაღალდეების ს_ინქრონიზაცია"
+
+#: src/main_win.rs:201
+msgid "Cu_t"
+msgstr "ამო_ჭრა"
+
+#: src/main_win.rs:202
+msgid "_Copy"
+msgstr "_კოპირება"
+
+#: src/main_win.rs:204
+msgid "_Delete"
+msgstr "_წაშლა"
+
+#: src/main_win.rs:206
+msgid "Copy _File Names"
+msgstr "_ფაილის სახელების კოპირება"
+
+#: src/main_win.rs:209
+msgid "_Mark"
+msgstr ""
+
+#: src/main_win.rs:214
+msgid "_Select All"
+msgstr "ყველაფრის _მონიშვნა"
+
+#: src/main_win.rs:219
+msgid "_Unselect All"
+msgstr "მონიშვნის ყველაფერზე მო_ხსნა"
+
+#: src/main_win.rs:223
+msgid "Select all _Files"
+msgstr "ყველა _ფაილის მონიშვნა"
+
+#: src/main_win.rs:225
+msgid "Unselect all Fi_les"
+msgstr "ყველა ფაი_ლის მონიშვნის მოხსნა"
+
+#: src/main_win.rs:229
+msgid "Select with _Pattern"
+msgstr "მონიშვ_ნა ნიმუშით"
+
+#: src/main_win.rs:234
+msgid "Unselect with P_attern"
+msgstr "_მონიშვნის მოხსნა ნიმუშით"
+
+#: src/main_win.rs:239
+msgid "Select with same _Extension"
+msgstr "მონიშვნა იგივე გაფართო_ებით"
+
+#: src/main_win.rs:243
+msgid "Unselect with same E_xtension"
+msgstr "მონიშვნის მო_ხსნა იგივე გაფართოებით"
+
+#: src/main_win.rs:247
+msgid "_Invert Selection"
+msgstr "_მონიშვნის ინვერსია"
+
+#: src/main_win.rs:251
+msgid "_Restore Selection"
+msgstr "მონიშნულის _აღდგენა"
+
+#: src/main_win.rs:254
+msgid "_Compare Directories"
+msgstr "საქა_ღალდეების შედარება"
+
+#: src/main_win.rs:260
+msgid "_View"
+msgstr "_ხედი"
+
+#: src/main_win.rs:264
+msgid "_Back"
+msgstr "_უკან"
+
+#: src/main_win.rs:266
+msgid "_Forward"
+msgstr "_გადაგზავნა"
+
+#: src/main_win.rs:275
+msgid "Open in New _Tab"
+msgstr "_ახალ ჩანართში გახსნა"
+
+#: src/main_win.rs:279
+msgid "_Close Tab"
+msgstr "დაფის დ_ახურვა"
+
+#: src/main_win.rs:281
+msgid "Close _All Tabs"
+msgstr "ყველ_ა ჩანართის დახურვა"
+
+#: src/main_win.rs:288
+msgid "Show Toolbar"
+msgstr "ხელსაწყოთა ზოლის ჩვენება"
+
+#: src/main_win.rs:289
+msgid "Show Device Buttons"
+msgstr ""
+
+#: src/main_win.rs:290
+msgid "Show Device List"
+msgstr "მოწყობილობების სიის ჩვენება"
+
+#: src/main_win.rs:291
+msgid "Show Command Line"
+msgstr "ბრძანების სტრიქონის ჩვენება"
+
+#: src/main_win.rs:292
+msgid "Show Buttonbar"
+msgstr "ღილაკების ზოლის ჩვენება"
+
+#: src/main_win.rs:297
+msgid "Show Hidden Files"
+msgstr "დამალული ფაილების ჩვენება"
+
+#: src/main_win.rs:301
+msgid "Show Backup Files"
+msgstr "მარქაფის ფაილების ჩვენება"
+
+#: src/main_win.rs:306
+#| msgid "Page Size"
+msgid "_Equal Panel Size"
+msgstr "პანელ_ების ტოლი ზომა"
+
+#: src/main_win.rs:310
+msgid "Maximize Panel Size"
+msgstr "პანელის ზომის გამაქსიმალურება"
+
+#: src/main_win.rs:314 src/user_actions.rs:1472
+msgid "Horizontal Orientation"
+msgstr ""
+
+#: src/main_win.rs:320 src/main_win.rs:373
+msgid "_Settings"
+msgstr "მორგება"
+
+#: src/main_win.rs:322
+msgid "_Options…"
+msgstr "_მორგება…"
+
+#: src/main_win.rs:324
+msgid "_Keyboard Shortcuts…"
+msgstr "_კლავიატურის მალსახმობები…"
+
+#: src/main_win.rs:329
+msgid "_Connections"
+msgstr "_კავშირები"
+
+#: src/main_win.rs:334
+msgid "_Remote Server…"
+msgstr "დაშო_რებული სერვერი…"
+
+#: src/main_win.rs:339
+msgid "New Connection…"
+msgstr "ახალი შეერთება…"
+
+#: src/main_win.rs:348
+msgid "_Bookmarks"
+msgstr "_სანიშნები"
+
+#: src/main_win.rs:353
+msgid "_Bookmark this Directory…"
+msgstr ""
+
+#: src/main_win.rs:357
+msgid "_Manage Bookmarks…"
+msgstr "სანიშნების _მართვა…"
+
+#: src/main_win.rs:365
+msgid "_Plugins"
+msgstr ""
+
+#: src/main_win.rs:368
+msgid "_Configure Plugins…"
+msgstr "დამატებების მორ_გება…"
+
+#: src/main_win.rs:377
+msgid "_Documentation"
+msgstr "_დოკუმენტაცია"
+
+#: src/main_win.rs:378
+msgid "_Keyboard Shortcuts"
+msgstr "კლავიატურის მალსახმობები"
+
+#: src/main_win.rs:379
+msgid "GNOME Commander on the _Web"
+msgstr "GNOME Commander ინ_ტერნეტში"
+
+#: src/main_win.rs:380
+msgid "Report a _Problem"
+msgstr "_პრობლემის შესახებ შეტყობინება"
+
+#: src/main_win.rs:382
+msgid "_About"
+msgstr "_შესახებ"
+
 #: src/open_connection.rs:140
 msgid "Failed to open connection."
 msgstr ""
@@ -3922,33 +4142,25 @@ msgstr ""
 msgid "A file {} has no URI"
 msgstr ""
 
-#: src/plugin_manager.cc:272
-msgid "Disable"
-msgstr "გამორთვა"
-
-#: src/plugin_manager.cc:272
-msgid "Enable"
-msgstr "ჩართვა"
-
-#: src/plugin_manager.cc:392
+#: src/plugin_manager.rs:379
 msgid "Available plugins"
 msgstr "ხელმისაწვდომი დამატებები"
 
-#: src/plugin_manager.cc:402
-msgid "Version"
-msgstr "ვერსია"
+#: src/plugin_manager.rs:459
+msgid "Version: {}"
+msgstr "ვერსია: {}"
 
-#: src/plugin_manager.cc:408
-msgid "_Enable"
-msgstr "_ჩართვა"
+#: src/plugin_manager.rs:466
+msgid "File: {}"
+msgstr "ფაილი: {}"
 
-#: src/plugin_manager.cc:413
-msgid "_Configure"
-msgstr "_მორგება"
+#: src/plugin_manager.rs:476
+msgid "About"
+msgstr "შესახებ"
 
-#: src/plugin_manager.cc:419
-msgid "_About"
-msgstr "_შესახებ"
+#: src/plugin_manager.rs:487
+msgid "Configure"
+msgstr "მორგება"
 
 #: src/select_directory_button.rs:80
 msgid "Select Directory"
@@ -7543,15 +7755,15 @@ msgstr ""
 msgid "Vorbis version."
 msgstr ""
 
-#: src/tags/gnome-cmd-tags.cc:680
+#: src/tags/gnome-cmd-tags.cc:604
 msgid "Audio"
 msgstr "აუდიო"
 
-#: src/tags/gnome-cmd-tags.cc:686
+#: src/tags/gnome-cmd-tags.cc:610
 msgid "Doc"
 msgstr "ექიმი"
 
-#: src/tags/gnome-cmd-tags.cc:704
+#: src/tags/gnome-cmd-tags.cc:628
 msgid "Image"
 msgstr "სურათი"
 
@@ -7651,15 +7863,15 @@ msgstr ""
 msgid "The tab is locked, close anyway?"
 msgstr ""
 
-#: src/user_actions.rs:859
+#: src/user_actions.rs:871
 msgid "There was an error opening home page."
 msgstr "შეცდომა საწყისი გვერდის გახსნისას."
 
-#: src/user_actions.rs:877
+#: src/user_actions.rs:889
 msgid "There was an error reporting problem."
 msgstr "შეცდომა პრობლემის ანგარიშის გადაცემისას."
 
-#: src/user_actions.rs:912
+#: src/user_actions.rs:924
 msgid ""
 "GNOME Commander is free software; you can redistribute it and/or modify it "
 "under the terms of the GNU General Public License as published by the Free "
@@ -7667,7 +7879,7 @@ msgid ""
 "any later version."
 msgstr ""
 
-#: src/user_actions.rs:915
+#: src/user_actions.rs:927
 msgid ""
 "GNOME Commander is distributed in the hope that it will be useful, but "
 "WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY "
@@ -7675,335 +7887,331 @@ msgid ""
 "more details."
 msgstr ""
 
-#: src/user_actions.rs:918
+#: src/user_actions.rs:930
 msgid ""
 "You should have received a copy of the GNU General Public License along with "
 "GNOME Commander; if not, write to the Free Software Foundation, Inc., 51 "
 "Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA."
 msgstr ""
 
-#: src/user_actions.rs:927
+#: src/user_actions.rs:939
 msgid "A fast and powerful file manager for the GNOME desktop"
 msgstr ""
 
-#: src/user_actions.rs:935
+#: src/user_actions.rs:947
 msgid "translator-credits"
 msgstr "თემური დოღონაძე"
 
 #. File actions
-#: src/user_actions.rs:1034
+#: src/user_actions.rs:1046
 msgid "Copy files"
 msgstr "ფაილების კოპირება"
 
-#: src/user_actions.rs:1039
+#: src/user_actions.rs:1051
 msgid "Copy files with rename"
 msgstr ""
 
-#: src/user_actions.rs:1041
+#: src/user_actions.rs:1053
 msgid "Move files"
 msgstr ""
 
-#: src/user_actions.rs:1046
+#: src/user_actions.rs:1058
 msgid "Delete files"
 msgstr "ფაილების წაშლა"
 
-#: src/user_actions.rs:1053
+#: src/user_actions.rs:1065
 msgid "View with internal viewer"
 msgstr ""
 
-#: src/user_actions.rs:1059
+#: src/user_actions.rs:1071
 msgid "View with external viewer"
 msgstr ""
 
-#: src/user_actions.rs:1061
+#: src/user_actions.rs:1073
 msgid "Edit file"
 msgstr "ფაილის ჩასწორება"
 
-#: src/user_actions.rs:1066
+#: src/user_actions.rs:1078
 msgid "Edit a new file"
 msgstr ""
 
-#: src/user_actions.rs:1084
+#: src/user_actions.rs:1096
 msgid "Change permissions"
 msgstr "წვდომების შეცვლა"
 
-#: src/user_actions.rs:1090
+#: src/user_actions.rs:1102
 msgid "Change owner/group"
 msgstr ""
 
-#: src/user_actions.rs:1096
+#: src/user_actions.rs:1108
 msgid "Create directory"
 msgstr "საქაღალდის შექმნა"
 
-#: src/user_actions.rs:1108
+#: src/user_actions.rs:1120
 msgid "Compare files (diff)"
 msgstr ""
 
-#: src/user_actions.rs:1114
+#: src/user_actions.rs:1126
 msgid "Synchronize directories"
 msgstr ""
 
-#: src/user_actions.rs:1120
+#: src/user_actions.rs:1132
 msgid "Rename files"
 msgstr ""
 
-#: src/user_actions.rs:1126
+#: src/user_actions.rs:1138
 msgid "Create symbolic link"
 msgstr ""
 
-#: src/user_actions.rs:1132
+#: src/user_actions.rs:1144
 msgid "Advanced rename tool"
 msgstr ""
 
-#: src/user_actions.rs:1140
+#: src/user_actions.rs:1152
 msgid "Quit"
 msgstr "დატოვება"
 
-#: src/user_actions.rs:1146
+#: src/user_actions.rs:1158
 msgid "Toggle selection"
 msgstr ""
 
-#: src/user_actions.rs:1152
+#: src/user_actions.rs:1164
 msgid "Toggle selection and move cursor downward"
 msgstr ""
 
-#: src/user_actions.rs:1158
+#: src/user_actions.rs:1170
 msgid "Select all"
 msgstr "ყველაფრის მონიშვნა"
 
-#: src/user_actions.rs:1164
+#: src/user_actions.rs:1176
 msgid "Unselect all"
 msgstr "მონიშვნის ყველაფერზე მოხსნა"
 
-#: src/user_actions.rs:1170
+#: src/user_actions.rs:1182
 msgid "Select all files"
 msgstr "ყველა ფაილის მონიშვნა"
 
-#: src/user_actions.rs:1176
+#: src/user_actions.rs:1188
 msgid "Unselect all files"
 msgstr ""
 
-#: src/user_actions.rs:1182
+#: src/user_actions.rs:1194
 msgid "Select with pattern"
 msgstr ""
 
-#: src/user_actions.rs:1188
+#: src/user_actions.rs:1200
 msgid "Unselect with pattern"
 msgstr "მონიშვნის მოხსნა ნიმუშით"
 
-#: src/user_actions.rs:1194
+#: src/user_actions.rs:1206
 msgid "Invert selection"
 msgstr "მონიშვნის ინვერსია"
 
-#: src/user_actions.rs:1200
+#: src/user_actions.rs:1212
 msgid "Select with same extension"
 msgstr "მონიშვნა იგივე გაფართოებით"
 
-#: src/user_actions.rs:1206
+#: src/user_actions.rs:1218
 msgid "Unselect with same extension"
 msgstr ""
 
-#: src/user_actions.rs:1212
+#: src/user_actions.rs:1224
 msgid "Restore selection"
 msgstr "მონიშნულის აღდგენა"
 
-#: src/user_actions.rs:1218
+#: src/user_actions.rs:1230
 msgid "Compare directories"
 msgstr "საქაღალდეების შედარება"
 
-#: src/user_actions.rs:1238
+#: src/user_actions.rs:1250
 msgid "Show user defined files"
 msgstr ""
 
-#: src/user_actions.rs:1252
+#: src/user_actions.rs:1264
 msgid "Execute command"
 msgstr "ბრძანების შესრულება"
 
-#: src/user_actions.rs:1295
+#: src/user_actions.rs:1307
 msgid "Show directory history"
 msgstr ""
 
-#: src/user_actions.rs:1301
+#: src/user_actions.rs:1313
 msgid "Show hidden files"
 msgstr "დამალული ფაილების ჩვენება"
 
-#: src/user_actions.rs:1307
+#: src/user_actions.rs:1319
 msgid "Show backup files"
 msgstr "მარქაფის ფაილების ჩვენება"
 
-#: src/user_actions.rs:1314
+#: src/user_actions.rs:1326
 msgid "Back to the first directory"
 msgstr ""
 
-#: src/user_actions.rs:1320
+#: src/user_actions.rs:1332
 msgid "Back one directory"
 msgstr ""
 
-#: src/user_actions.rs:1326
+#: src/user_actions.rs:1338
 msgid "Forward one directory"
 msgstr ""
 
-#: src/user_actions.rs:1332
+#: src/user_actions.rs:1344
 msgid "Forward to the last directory"
 msgstr ""
 
-#: src/user_actions.rs:1345
+#: src/user_actions.rs:1357
 msgid "Refresh tab"
 msgstr "ჩანართის განახლება"
 
-#: src/user_actions.rs:1351
+#: src/user_actions.rs:1363
 msgid "Equal panel size"
 msgstr ""
 
-#: src/user_actions.rs:1357
+#: src/user_actions.rs:1369
 msgid "Maximize panel size"
 msgstr ""
 
-#: src/user_actions.rs:1363
+#: src/user_actions.rs:1375
 msgid "Open directory in the left window"
 msgstr ""
 
-#: src/user_actions.rs:1369
+#: src/user_actions.rs:1381
 msgid "Open directory in the right window"
 msgstr ""
 
-#: src/user_actions.rs:1375
+#: src/user_actions.rs:1387
 msgid "Open directory in the active window"
 msgstr ""
 
-#: src/user_actions.rs:1381
+#: src/user_actions.rs:1393
 msgid "Open directory in the inactive window"
 msgstr ""
 
-#: src/user_actions.rs:1387
+#: src/user_actions.rs:1399
 msgid "Change directory"
 msgstr "საქაღალდის შეცვლა"
 
-#: src/user_actions.rs:1393
+#: src/user_actions.rs:1405
 msgid "Home directory"
 msgstr "საწყისი საქაღალდე"
 
-#: src/user_actions.rs:1399
+#: src/user_actions.rs:1411
 msgid "Root directory"
 msgstr "Root საქაღალდე"
 
-#: src/user_actions.rs:1405
+#: src/user_actions.rs:1417
 msgid "Open directory in a new tab"
 msgstr ""
 
-#: src/user_actions.rs:1411
+#: src/user_actions.rs:1423
 msgid "Close the current tab"
 msgstr "მიმდინარე ჩანართის დახურვა"
 
-#: src/user_actions.rs:1417
+#: src/user_actions.rs:1429
 msgid "Close all tabs"
 msgstr "ყველა ჩანართის დახურვა"
 
-#: src/user_actions.rs:1423
+#: src/user_actions.rs:1435
 msgid "Close duplicate tabs"
 msgstr ""
 
-#: src/user_actions.rs:1429
+#: src/user_actions.rs:1441
 msgid "Previous tab"
 msgstr "_წინა ჩანართი"
 
-#: src/user_actions.rs:1435
+#: src/user_actions.rs:1447
 msgid "Next tab"
 msgstr "_შემდეგი ჩანართი"
 
-#: src/user_actions.rs:1441
+#: src/user_actions.rs:1453
 msgid "Open directory in the new tab"
 msgstr ""
 
-#: src/user_actions.rs:1447
+#: src/user_actions.rs:1459
 msgid "Open directory in the new tab (inactive window)"
 msgstr ""
 
-#: src/user_actions.rs:1454
+#: src/user_actions.rs:1466
 msgid "Lock/unlock tab"
 msgstr ""
 
-#: src/user_actions.rs:1460
-msgid "Horizontal Orientation"
-msgstr ""
-
-#: src/user_actions.rs:1466
+#: src/user_actions.rs:1478
 msgid "Display main menu"
 msgstr ""
 
-#: src/user_actions.rs:1472
+#: src/user_actions.rs:1484
 msgid "Move cursor one step up"
 msgstr ""
 
-#: src/user_actions.rs:1478
+#: src/user_actions.rs:1490
 msgid "Move cursor one step down"
 msgstr ""
 
-#: src/user_actions.rs:1485
+#: src/user_actions.rs:1497
 msgid "Bookmark current directory"
 msgstr ""
 
-#: src/user_actions.rs:1491
+#: src/user_actions.rs:1503
 msgid "Manage bookmarks"
 msgstr "სანიშნების მართვა"
 
-#: src/user_actions.rs:1498
+#: src/user_actions.rs:1510
 msgid "Go to bookmarked location"
 msgstr ""
 
-#: src/user_actions.rs:1504
+#: src/user_actions.rs:1516
 msgid "Show bookmarks of current device"
 msgstr ""
 
-#: src/user_actions.rs:1517
+#: src/user_actions.rs:1529
 msgid "Keyboard shortcuts"
 msgstr "კლავიატურის მალსახმობები"
 
-#: src/user_actions.rs:1524
+#: src/user_actions.rs:1536
 msgid "Open connection"
 msgstr ""
 
-#: src/user_actions.rs:1530
+#: src/user_actions.rs:1542
 msgid "New connection"
 msgstr "ახალი შეერთება"
 
-#: src/user_actions.rs:1537
+#: src/user_actions.rs:1549
 msgid "Set connection"
 msgstr "კავშირის დაყენება"
 
-#: src/user_actions.rs:1543
+#: src/user_actions.rs:1555
 msgid "Change left connection"
 msgstr ""
 
-#: src/user_actions.rs:1549
+#: src/user_actions.rs:1561
 msgid "Change right connection"
 msgstr ""
 
-#: src/user_actions.rs:1556 src/user_actions.rs:1562
+#: src/user_actions.rs:1568 src/user_actions.rs:1574
 msgid "Close connection"
 msgstr ""
 
-#: src/user_actions.rs:1569
+#: src/user_actions.rs:1581
 msgid "Configure plugins"
 msgstr ""
 
-#: src/user_actions.rs:1583
+#: src/user_actions.rs:1595
 msgid "Help contents"
 msgstr ""
 
-#: src/user_actions.rs:1589
+#: src/user_actions.rs:1601
 msgid "Help on keyboard shortcuts"
 msgstr ""
 
-#: src/user_actions.rs:1595
+#: src/user_actions.rs:1607
 msgid "GNOME Commander on the web"
 msgstr ""
 
-#: src/user_actions.rs:1601
+#: src/user_actions.rs:1613
 msgid "Report a problem"
 msgstr "პრობლემის შესახებ შეტყობინება"
 
-#: src/user_actions.rs:1607
+#: src/user_actions.rs:1619
 msgid "About GNOME Commander"
 msgstr ""
 
@@ -8075,6 +8283,15 @@ msgid "{} byte"
 msgid_plural "{} bytes"
 msgstr[0] ""
 
+#~ msgid "Disable"
+#~ msgstr "გამორთვა"
+
+#~ msgid "Enable"
+#~ msgstr "ჩართვა"
+
+#~ msgid "_Enable"
+#~ msgstr "_ჩართვა"
+
 #~ msgid "No error description available"
 #~ msgstr "შეცდომის აღწერა ხელმისაწვდომი არაა"
 
@@ -8141,62 +8358,8 @@ msgstr[0] ""
 #~ msgid "Others:"
 #~ msgstr "სხვები:"
 
-#~ msgid "_File"
-#~ msgstr "_ფაილი"
-
 #~ msgid "_Quit"
 #~ msgstr "გასვ_ლა"
-
-#~ msgid "Cu_t"
-#~ msgstr "ამო_ჭრა"
-
-#~ msgid "_Copy"
-#~ msgstr "_კოპირება"
-
-#~ msgid "_Delete"
-#~ msgstr "_წაშლა"
-
-#~ msgid "_Select All"
-#~ msgstr "ყველაფრის _მონიშვნა"
-
-#~ msgid "_Invert Selection"
-#~ msgstr "_მონიშვნის ინვერსია"
-
-#~ msgid "_Restore Selection"
-#~ msgstr "მონიშნულის _აღდგენა"
-
-#~ msgid "_View"
-#~ msgstr "_ხედი"
-
-#~ msgid "_Back"
-#~ msgstr "_უკან"
-
-#~ msgid "_Forward"
-#~ msgstr "_გადაგზავნა"
-
-#~ msgid "Open in New _Tab"
-#~ msgstr "_ახალ ჩანართში გახსნა"
-
-#~ msgid "_Close Tab"
-#~ msgstr "დაფის დ_ახურვა"
-
-#~ msgid "Show Toolbar"
-#~ msgstr "ხელსაწყოთა ზოლის ჩვენება"
-
-#~ msgid "Show Hidden Files"
-#~ msgstr "დამალული ფაილების ჩვენება"
-
-#~ msgid "_Settings"
-#~ msgstr "მორგება"
-
-#~ msgid "_Options…"
-#~ msgstr "_მორგება…"
-
-#~ msgid "_Bookmarks"
-#~ msgstr "_სანიშნები"
-
-#~ msgid "_Keyboard Shortcuts"
-#~ msgstr "კლავიატურის მალსახმობები"
 
 #~ msgid "_Image"
 #~ msgstr "_გამოსახულება"
@@ -8281,9 +8444,6 @@ msgstr[0] ""
 
 #~ msgid "Ignore"
 #~ msgstr "იგნორი"
-
-#~ msgid "Connections"
-#~ msgstr "კავშირები"
 
 #~ msgid "C_onnect"
 #~ msgstr "მ_იერთება"
