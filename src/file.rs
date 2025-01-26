@@ -253,6 +253,36 @@ impl File {
     pub fn set_deleted(&self) {
         unsafe { ffi::gnome_cmd_file_set_deleted(self.to_glib_none().0) }
     }
+
+    pub fn permissions(&self) -> u32 {
+        self.file_info()
+            .attribute_uint32(gio::FILE_ATTRIBUTE_UNIX_MODE)
+            & 0xFFF
+    }
+
+    pub fn owner(&self) -> String {
+        let file_info = self.file_info();
+        file_info
+            .attribute_string(gio::FILE_ATTRIBUTE_OWNER_USER)
+            .map(|o| o.to_string())
+            .unwrap_or_else(|| {
+                file_info
+                    .attribute_uint32(gio::FILE_ATTRIBUTE_UNIX_UID)
+                    .to_string()
+            })
+    }
+
+    pub fn group(&self) -> String {
+        let file_info = self.file_info();
+        file_info
+            .attribute_string(gio::FILE_ATTRIBUTE_OWNER_GROUP)
+            .map(|g| g.to_string())
+            .unwrap_or_else(|| {
+                file_info
+                    .attribute_uint32(gio::FILE_ATTRIBUTE_UNIX_GID)
+                    .to_string()
+            })
+    }
 }
 
 pub trait GnomeCmdFileExt {

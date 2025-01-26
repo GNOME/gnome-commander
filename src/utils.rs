@@ -20,7 +20,7 @@
  * For more details see the file COPYING.
  */
 
-use crate::{config::PREFIX, data::ProgramsOptionsRead, file::File};
+use crate::{config::PREFIX, data::ProgramsOptionsRead, file::File, types::SizeDisplayMode};
 use gettextrs::{gettext, ngettext};
 use gtk::{gdk, gio, glib, pango, prelude::*};
 use std::{
@@ -360,15 +360,6 @@ pub fn swap_list_store_items(
     items.swap(0, len - 1);
 
     store.splice(position1, len as u32, &items);
-}
-
-#[repr(C)]
-#[derive(Clone, Copy)]
-pub enum SizeDisplayMode {
-    Plain = 0,
-    Locale,
-    Grouped,
-    Powered,
 }
 
 pub fn size_to_string(size: u64, mode: SizeDisplayMode) -> String {

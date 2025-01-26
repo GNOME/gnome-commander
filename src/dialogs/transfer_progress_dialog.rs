@@ -17,7 +17,7 @@
  * For more details see the file COPYING.
  */
 
-use crate::utils::{size_to_string, SizeDisplayMode};
+use crate::{types::SizeDisplayMode, utils::size_to_string};
 use gettextrs::{gettext, pgettext};
 use gtk::{gio, glib, prelude::*, subclass::prelude::*};
 

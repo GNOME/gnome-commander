@@ -23,8 +23,8 @@
 use crate::{
     dialogs::transfer_progress_dialog::TransferProgressWindow,
     dir::Directory,
-    types::{GnomeCmdConfirmOverwriteMode, GnomeCmdTransferType},
-    utils::{nice_size, pending, time_to_string, ErrorMessage, SizeDisplayMode},
+    types::{GnomeCmdConfirmOverwriteMode, GnomeCmdTransferType, SizeDisplayMode},
+    utils::{nice_size, pending, time_to_string, ErrorMessage},
 };
 use async_channel::{Receiver, Sender};
 use gettextrs::gettext;

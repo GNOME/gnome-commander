@@ -17,7 +17,13 @@
  * For more details see the file COPYING.
  */
 
-use crate::{filter::PatternType, types::GnomeCmdConfirmOverwriteMode};
+use crate::{
+    filter::PatternType,
+    types::{
+        ExtensionDisplayMode, GnomeCmdConfirmOverwriteMode, GraphicalLayoutMode,
+        PermissionDisplayMode, SizeDisplayMode,
+    },
+};
 use gtk::{
     gio,
     glib::{ffi::GList, translate::ToGlibPtr},
@@ -32,6 +38,12 @@ pub trait GeneralOptionsRead {
     fn symlink_format(&self) -> String;
     fn use_trash(&self) -> bool;
     fn keybindings(&self) -> glib::Variant;
+
+    fn date_display_format(&self) -> String;
+    fn graphical_layout_mode(&self) -> GraphicalLayoutMode;
+    fn extension_display_mode(&self) -> ExtensionDisplayMode;
+    fn size_display_mode(&self) -> SizeDisplayMode;
+    fn permissions_display_mode(&self) -> PermissionDisplayMode;
 }
 
 pub trait GeneralOptionsWrite {
@@ -68,6 +80,46 @@ impl GeneralOptionsRead for GeneralOptions {
 
     fn keybindings(&self) -> glib::Variant {
         self.0.value("keybindings")
+    }
+
+    fn date_display_format(&self) -> String {
+        self.0.string("date-disp-format").to_string()
+    }
+
+    fn graphical_layout_mode(&self) -> GraphicalLayoutMode {
+        self.0
+            .enum_("graphical-layout-mode")
+            .try_into()
+            .ok()
+            .and_then(GraphicalLayoutMode::from_repr)
+            .unwrap_or_default()
+    }
+
+    fn extension_display_mode(&self) -> ExtensionDisplayMode {
+        self.0
+            .enum_("extension-display-mode")
+            .try_into()
+            .ok()
+            .and_then(ExtensionDisplayMode::from_repr)
+            .unwrap_or_default()
+    }
+
+    fn size_display_mode(&self) -> SizeDisplayMode {
+        self.0
+            .enum_("size-display-mode")
+            .try_into()
+            .ok()
+            .and_then(SizeDisplayMode::from_repr)
+            .unwrap_or_default()
+    }
+
+    fn permissions_display_mode(&self) -> PermissionDisplayMode {
+        self.0
+            .enum_("perm-display-mode")
+            .try_into()
+            .ok()
+            .and_then(PermissionDisplayMode::from_repr)
+            .unwrap_or_default()
     }
 }
 
