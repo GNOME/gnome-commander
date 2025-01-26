@@ -44,8 +44,8 @@ src/dialogs/transfer_progress_dialog.rs
 src/dirlist.cc
 src/dirlist.rs
 src/file_edit.rs
-src/file_list_actions.rs
-src/file_list_popup.rs
+src/file_list/actions.rs
+src/file_list/popup.rs
 src/file_metainfo_view.rs
 src/file_view.rs
 src/gnome-cmd-about-plugin.cc

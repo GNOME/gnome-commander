@@ -32,8 +32,6 @@ mod dirlist;
 mod file;
 mod file_edit;
 mod file_list;
-mod file_list_actions;
-mod file_list_popup;
 mod file_metainfo_view;
 mod file_selector;
 mod file_view;

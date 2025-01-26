@@ -19,7 +19,7 @@
 
 use crate::{
     connection::connection::{ffi::GnomeCmdCon, Connection, ConnectionExt},
-    file_list::{ffi::GnomeCmdFileList, FileList},
+    file_list::list::{ffi::GnomeCmdFileList, FileList},
     utils::{ErrorMessage, SenderExt},
 };
 use async_channel::TryRecvError;

@@ -23,7 +23,7 @@
 use crate::{
     connection::connection::{Connection, ConnectionExt},
     dir::Directory,
-    file_list::FileList,
+    file_list::list::FileList,
     notebook_ext::{GnomeCmdNotebookExt, TabClick},
     types::FileSelectorID,
 };
@@ -43,7 +43,7 @@ use std::path::Path;
 pub mod ffi {
     use crate::{
         connection::connection::ffi::GnomeCmdCon, dir::ffi::GnomeCmdDir,
-        file_list::ffi::GnomeCmdFileList,
+        file_list::list::ffi::GnomeCmdFileList,
     };
     use gtk::{
         ffi::GtkWidget,

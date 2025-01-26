@@ -17,11 +17,11 @@
  * For more details see the file COPYING.
  */
 
+use super::list::{ffi::GnomeCmdFileList, FileList};
 use crate::{
     app::{load_favorite_apps, App, AppTarget, RegularApp, UserDefinedApp},
     config::PACKAGE,
     file::File,
-    file_list::{ffi::GnomeCmdFileList, FileList},
     filter::fnmatch,
     libgcmd::{
         file_actions::{FileActions, FileActionsExt},
