@@ -17,13 +17,13 @@
  * For more details see the file COPYING.
  */
 
+use super::list::{ffi::GnomeCmdFileList, FileList};
 use crate::{
     app::{App, RegularApp},
     data::{ProgramsOptions, ProgramsOptionsRead},
     dialogs::open_with_other_dialog::show_open_with_other_dialog,
     file::File,
     file_edit::file_edit,
-    file_list::{ffi::GnomeCmdFileList, FileList},
     file_view::file_view,
     libgcmd::file_descriptor::FileDescriptorExt,
     spawn::run_command_indir,

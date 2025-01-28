@@ -19,7 +19,7 @@
 
 use crate::{
     data::SearchConfig,
-    file_list::{ffi::GnomeCmdFileList, FileList},
+    file_list::list::{ffi::GnomeCmdFileList, FileList},
     filter::{Filter, PatternType},
     utils::{channel_send_action, dialog_button_box, handle_escape_key, SenderExt, NO_BUTTONS},
 };

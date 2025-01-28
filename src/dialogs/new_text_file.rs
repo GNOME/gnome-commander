@@ -21,7 +21,7 @@ use crate::{
     connection::connection::ConnectionExt,
     dir::Directory,
     file::{File, GnomeCmdFileExt},
-    file_list::{ffi::GnomeCmdFileList, FileList},
+    file_list::list::{ffi::GnomeCmdFileList, FileList},
     libgcmd::file_descriptor::FileDescriptorExt,
     utils::{dialog_button_box, ErrorMessage, SenderExt, NO_BUTTONS},
 };
