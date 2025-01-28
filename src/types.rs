@@ -48,3 +48,39 @@ pub enum GnomeCmdTransferType {
     MOVE,
     LINK,
 }
+
+#[repr(C)]
+#[derive(Clone, Copy, Default, strum::FromRepr)]
+pub enum GraphicalLayoutMode {
+    Text = 0,
+    TypeIcons,
+    #[default]
+    MimeIcons,
+}
+
+#[repr(C)]
+#[derive(Clone, Copy, Default, strum::FromRepr)]
+pub enum ExtensionDisplayMode {
+    WithFileName = 0,
+    Stripped,
+    #[default]
+    Both,
+}
+
+#[repr(C)]
+#[derive(Clone, Copy, Default, strum::FromRepr)]
+pub enum SizeDisplayMode {
+    Plain = 0,
+    Locale,
+    Grouped,
+    #[default]
+    Powered,
+}
+
+#[repr(C)]
+#[derive(Clone, Copy, Default, strum::FromRepr)]
+pub enum PermissionDisplayMode {
+    #[default]
+    Text = 0,
+    Number,
+}
