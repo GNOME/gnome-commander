@@ -201,9 +201,6 @@ struct GnomeCmdFileList::Private
     gboolean shift_down;
     GtkTreeIterPtr shift_down_row;
     gint shift_down_key;
-    GnomeCmdFile *right_mb_down_file;
-    gboolean right_mb_sel_state;
-    guint right_mb_timeout_id;
     GWeakRef quicksearch_popup;
     gchar *focus_later;
 
@@ -252,9 +249,6 @@ GnomeCmdFileList::Private::Private(GnomeCmdFileList *fl)
     shift_down = FALSE;
     shift_down_row = nullptr;
     shift_down_key = 0;
-    right_mb_sel_state = FALSE;
-    right_mb_down_file = nullptr;
-    right_mb_timeout_id = 0;
 
     dropping_files = nullptr;
     dropping_to = nullptr;
@@ -649,45 +643,6 @@ guint GnomeCmdFileList::size()
 }
 
 
-void GnomeCmdFileList::select_file(GnomeCmdFile *f, GtkTreeIter *row)
-{
-    g_return_if_fail (f != nullptr);
-
-    if (f->is_dotdot)
-        return;
-
-    GtkTreeIterPtr iter(nullptr, &gtk_tree_iter_free);
-    if (row == nullptr)
-    {
-        iter = get_row_from_file (f);
-        if (!iter)
-            return;
-        row = iter.get();
-    }
-
-    select_iter (row);
-    g_signal_emit (this, signals[FILES_CHANGED], 0);
-}
-
-
-void GnomeCmdFileList::unselect_file(GnomeCmdFile *f, GtkTreeIter *row)
-{
-    g_return_if_fail (f != nullptr);
-
-    GtkTreeIterPtr iter(nullptr, &gtk_tree_iter_free);
-    if (row == nullptr)
-    {
-        iter = get_row_from_file (f);
-        if (!iter)
-            return;
-        row = iter.get();
-    }
-
-    unselect_iter (row);
-    g_signal_emit (this, signals[FILES_CHANGED], 0);
-}
-
-
 void GnomeCmdFileList::toggle_file(GtkTreeIter *iter)
 {
     gboolean selected = FALSE;
@@ -794,20 +749,18 @@ static void toggle_files_with_same_extension (GnomeCmdFileList *fl, gboolean sel
     if (!ext1) return;
 
     fl->traverse_files ([fl, ext1, select](GnomeCmdFile *ff, GtkTreeIter *iter, GtkListStore *store) {
-        if (ff && ff->get_file_info())
+        if (ff && !ff->is_dotdot && ff->get_file_info())
         {
             const gchar *ext2 = ff->get_extension();
 
             if (ext2 && strcmp (ext1, ext2) == 0)
             {
-                if (select)
-                    fl->select_file(ff);
-                else
-                    fl->unselect_file(ff);
+                fl->set_selected_at_iter (iter, select);
             }
         }
         return GnomeCmdFileList::TRAVERSE_CONTINUE;
     });
+    g_signal_emit (fl, signals[FILES_CHANGED], 0);
 }
 
 
@@ -816,12 +769,9 @@ void GnomeCmdFileList::toggle_with_pattern(Filter &pattern, gboolean mode)
     if (gnome_cmd_data.options.select_dirs)
     {
         traverse_files ([this, &pattern, mode](GnomeCmdFile *f, GtkTreeIter *iter, GtkListStore *store) {
-            if (f && f->get_file_info() && pattern.match(g_file_info_get_display_name(f->get_file_info())))
+            if (f && !f->is_dotdot && f->get_file_info() && pattern.match(g_file_info_get_display_name(f->get_file_info())))
             {
-                if (mode)
-                    select_file(f);
-                else
-                    unselect_file(f);
+                set_selected_at_iter (iter, mode);
             }
             return TRAVERSE_CONTINUE;
         });
@@ -829,16 +779,14 @@ void GnomeCmdFileList::toggle_with_pattern(Filter &pattern, gboolean mode)
     else
     {
         traverse_files ([this, &pattern, mode](GnomeCmdFile *f, GtkTreeIter *iter, GtkListStore *store) {
-            if (f && !GNOME_CMD_IS_DIR (f) && f->get_file_info() && pattern.match(g_file_info_get_display_name(f->get_file_info())))
+            if (f && !f->is_dotdot && !GNOME_CMD_IS_DIR (f) && f->get_file_info() && pattern.match(g_file_info_get_display_name(f->get_file_info())))
             {
-                if (mode)
-                    select_file(f);
-                else
-                    unselect_file(f);
+                set_selected_at_iter (iter, mode);
             }
             return TRAVERSE_CONTINUE;
         });
     }
+    g_signal_emit (this, signals[FILES_CHANGED], 0);
 }
 
 
@@ -920,22 +868,6 @@ static void show_file_popup (GnomeCmdFileList *fl, GdkRectangle *point_to)
     gtk_popover_set_pointing_to (GTK_POPOVER (popover), point_to);
 
     gtk_popover_popup (GTK_POPOVER (popover));
-}
-
-
-static gboolean on_right_mb_timeout (GnomeCmdFileList *fl)
-{
-    GnomeCmdFile *focus_file = fl->get_focused_file();
-
-    if (fl->priv->right_mb_down_file == focus_file)
-    {
-        fl->select_file(focus_file);
-        show_file_popup (fl, nullptr);
-        return FALSE;
-    }
-
-    fl->priv->right_mb_down_file = focus_file;
-    return TRUE;
 }
 
 
@@ -1413,65 +1345,53 @@ static void on_file_clicked (GnomeCmdFileList *fl, GnomeCmdFileListButtonEvent *
     {
         fl->do_file_specific_action (event->file);
     }
-    else
-        if (event->n_press == 1 && (event->button == 1 || event->button == 3))
+    else if (event->n_press == 1 && event->button == 1)
+    {
+        if (event->state & GDK_SHIFT_MASK)
         {
-            if (event->button == 1)
+            select_file_range (fl, fl->priv->shift_down_row.get(), event->iter);
+            fl->priv->shift_down = FALSE;
+            fl->priv->shift_down_key = 0;
+        }
+        else if (event->state & GDK_CONTROL_MASK)
+        {
+            fl->toggle_file (event->iter);
+        }
+    }
+    else if (event->n_press == 1 && event->button == 3)
+    {
+        if (!event->file->is_dotdot)
+        {
+            if (gnome_cmd_data.options.right_mouse_button_mode == GnomeCmdData::RIGHT_BUTTON_SELECTS)
             {
-                if (event->state & GDK_SHIFT_MASK)
+                auto focus_iter = fl->get_focused_file_iter();
+                if (iter_compare(fl->priv->store, focus_iter.get(), event->iter) == 0)
                 {
-                    select_file_range (fl, fl->priv->shift_down_row.get(), event->iter);
-                    fl->priv->shift_down = FALSE;
-                    fl->priv->shift_down_key = 0;
+                    fl->select_iter(event->iter);
+                    g_signal_emit(fl, signals[FILES_CHANGED], 0);
+                    show_file_popup (fl, nullptr);
                 }
                 else
-                    if (event->state & GDK_CONTROL_MASK)
-                    {
-                        bool has_selection = fl->get_first_selected_file() != nullptr;
-                        if (has_selection || gnome_cmd_data.options.left_mouse_button_mode == GnomeCmdData::LEFT_BUTTON_OPENS_WITH_SINGLE_CLICK)
-                            fl->toggle_file (event->iter);
-                        else
-                        {
-                            auto prev_row = fl->get_focused_file_iter();
-                            if (prev_row.get() != event->iter)
-                                fl->select_file(fl->get_file_at_row(prev_row.get()), prev_row.get());
-                            fl->select_file(fl->get_file_at_row(event->iter), event->iter);
-                        }
-                    }
+                {
+                    if (!fl->is_selected_iter(event->iter))
+                        fl->select_iter(event->iter);
+                    else
+                        fl->unselect_iter(event->iter);
+                    g_signal_emit(fl, signals[FILES_CHANGED], 0);
+                }
             }
             else
-                if (event->button == 3)
-                    if (!event->file->is_dotdot)
-                    {
-                        if (gnome_cmd_data.options.right_mouse_button_mode == GnomeCmdData::RIGHT_BUTTON_SELECTS)
-                        {
-                            if (!fl->is_selected_iter(event->iter))
-                            {
-                                fl->select_iter(event->iter);
-                                fl->priv->right_mb_sel_state = 1;
-                            }
-                            else
-                            {
-                                fl->unselect_iter(event->iter);
-                                fl->priv->right_mb_sel_state = 0;
-                            }
-
-                            fl->priv->right_mb_down_file = event->file;
-                            fl->priv->right_mb_timeout_id =
-                                g_timeout_add (POPUP_TIMEOUT, (GSourceFunc) on_right_mb_timeout, fl);
-                        }
-                        else
-                        {
-                            PopupClosure *closure = g_new0 (PopupClosure, 1);
-                            closure->fl = fl;
-                            closure->point_to.x = event->x;
-                            closure->point_to.y = event->y;
-                            closure->point_to.width = 0;
-                            closure->point_to.height = 0;
-                            g_timeout_add (1, (GSourceFunc) on_right_mb, closure);
-                        }
-                    }
+            {
+                PopupClosure *closure = g_new0 (PopupClosure, 1);
+                closure->fl = fl;
+                closure->point_to.x = event->x;
+                closure->point_to.y = event->y;
+                closure->point_to.width = 0;
+                closure->point_to.height = 0;
+                g_timeout_add (1, (GSourceFunc) on_right_mb, closure);
+            }
         }
+    }
 }
 
 
@@ -1513,10 +1433,6 @@ static void on_button_release (GtkGestureClick *gesture, int n_press, double x, 
     {
         if (f && !fl->is_selected_iter(row.get()) && gnome_cmd_data.options.left_mouse_button_unselects)
             fl->unselect_all();
-    }
-    else if (button == 3 && fl->priv->right_mb_timeout_id > 0)
-    {
-        g_source_remove (fl->priv->right_mb_timeout_id);
     }
 }
 
@@ -2161,15 +2077,21 @@ GnomeCmdFile *GnomeCmdFileList::get_focused_file()
 }
 
 
+void GnomeCmdFileList::set_selected_at_iter(GtkTreeIter *iter, gboolean selected)
+{
+    gtk_list_store_set (priv->store, iter, DATA_COLUMN_SELECTED, selected, -1);
+}
+
+
 void GnomeCmdFileList::select_iter(GtkTreeIter *iter)
 {
-    gtk_list_store_set (priv->store, iter, DATA_COLUMN_SELECTED, TRUE, -1);
+    set_selected_at_iter (iter, TRUE);
 }
 
 
 void GnomeCmdFileList::unselect_iter(GtkTreeIter *iter)
 {
-    gtk_list_store_set (priv->store, iter, DATA_COLUMN_SELECTED, FALSE, -1);
+    set_selected_at_iter (iter, FALSE);
 }
 
 
@@ -2192,10 +2114,8 @@ gboolean GnomeCmdFileList::has_file(const GnomeCmdFile *f)
 void GnomeCmdFileList::select_all_files()
 {
     traverse_files ([this](GnomeCmdFile *file, GtkTreeIter *iter, GtkListStore *store) {
-        if (GNOME_CMD_IS_DIR(file))
-           unselect_iter(iter);
-        else
-           select_iter(iter);
+        if (file && !file->is_dotdot)
+            set_selected_at_iter (iter, !GNOME_CMD_IS_DIR(file));
         return TRAVERSE_CONTINUE;
     });
 }
@@ -2216,18 +2136,20 @@ void GnomeCmdFileList::select_all()
     if (gnome_cmd_data.options.select_dirs)
     {
         traverse_files ([this](GnomeCmdFile *file, GtkTreeIter *iter, GtkListStore *store) {
-            select_file(file);
+            if (file && !file->is_dotdot)
+                select_iter(iter);
             return TRAVERSE_CONTINUE;
         });
     }
     else
     {
         traverse_files ([this](GnomeCmdFile *file, GtkTreeIter *iter, GtkListStore *store) {
-            if (!GNOME_CMD_IS_DIR (file))
-                select_file(file);
+            if (file && !file->is_dotdot && !GNOME_CMD_IS_DIR (file))
+                select_iter(iter);
             return TRAVERSE_CONTINUE;
         });
     }
+    g_signal_emit(this, signals[FILES_CHANGED], 0);
 }
 
 
