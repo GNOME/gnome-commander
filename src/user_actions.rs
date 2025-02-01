@@ -452,7 +452,16 @@ pub fn mark_unselect_all_with_same_extension(
         .toggle_files_with_same_extension(false);
 }
 
-c_action!(mark_restore_selection);
+pub fn mark_restore_selection(
+    main_win: &MainWindow,
+    _action: &gio::SimpleAction,
+    _parameter: Option<&glib::Variant>,
+) {
+    main_win
+        .file_selector(FileSelectorID::ACTIVE)
+        .file_list()
+        .restore_selection();
+}
 
 pub fn mark_compare_directories(
     main_win: &MainWindow,

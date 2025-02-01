@@ -2245,9 +2245,7 @@ void GnomeCmdFileList::invert_selection()
 }
 
 
-void GnomeCmdFileList::restore_selection()
-{
-}
+extern "C" void gnome_cmd_file_list_restore_selection(GnomeCmdFileList *fl);
 
 
 void GnomeCmdFileList::sort()
@@ -2586,7 +2584,7 @@ static gboolean gnome_cmd_file_list_key_pressed (GtkEventControllerKey* self, gu
                 return TRUE;
 
             case GDK_KEY_KP_Divide:
-                fl->restore_selection();
+                gnome_cmd_file_list_restore_selection(fl);
                 return TRUE;
 
             case GDK_KEY_Insert:

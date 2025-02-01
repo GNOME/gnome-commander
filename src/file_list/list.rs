@@ -285,6 +285,16 @@ impl FileList {
         });
         self.emit_files_changed();
     }
+
+    pub fn restore_selection(&self) {
+        // TODO: implement
+    }
+}
+
+#[no_mangle]
+pub extern "C" fn gnome_cmd_file_list_restore_selection(fl: *mut ffi::GnomeCmdFileList) {
+    let fl: FileList = unsafe { from_glib_none(fl) };
+    fl.restore_selection();
 }
 
 #[no_mangle]
