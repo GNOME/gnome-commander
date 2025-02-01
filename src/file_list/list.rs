@@ -28,7 +28,7 @@ use gtk::{
     },
     prelude::*,
 };
-use std::path::Path;
+use std::{collections::HashSet, ops::ControlFlow, path::Path};
 
 pub mod ffi {
     use super::*;
@@ -234,5 +234,37 @@ impl FileList {
         unsafe {
             ffi::gnome_cmd_file_list_goto_directory(self.to_glib_none().0, dir.to_glib_none().0)
         }
+    }
+
+    pub fn traverse_files<T>(
+        &self,
+        visitor: impl Fn(&File, &gtk::TreeIter, &gtk::ListStore) -> ControlFlow<T>,
+    ) -> ControlFlow<T> {
+        let Some(store) = self.tree_view().model().and_downcast::<gtk::ListStore>() else {
+            return ControlFlow::Continue(());
+        };
+
+        if let Some(iter) = store.iter_first() {
+            loop {
+                let file: File = store.get(&iter, DataColumns::DATA_COLUMN_FILE as i32);
+                (visitor)(&file, &iter, &store)?;
+                if !store.iter_next(&iter) {
+                    break;
+                }
+            }
+        }
+        ControlFlow::Continue(())
+    }
+
+    pub fn set_selected_files(&self, files: &HashSet<File>) {
+        self.traverse_files::<()>(|file, iter, store| {
+            let selected = files.contains(file);
+            store.set(
+                iter,
+                &[(DataColumns::DATA_COLUMN_SELECTED as u32, &selected)],
+            );
+            ControlFlow::Continue(())
+        });
+        self.emit_by_name::<()>("files-changed", &[]);
     }
 }
