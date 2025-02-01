@@ -145,8 +145,6 @@ struct GnomeCmdFileList
 
     void select(Filter &pattern)                       {  toggle_with_pattern(pattern, TRUE);                           }
     void unselect(Filter &pattern)                     {  toggle_with_pattern(pattern, FALSE);                          }
-    void select_all_with_same_extension();
-    void unselect_all_with_same_extension();
     void invert_selection();
     void restore_selection();
 

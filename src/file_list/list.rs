@@ -24,6 +24,7 @@ use crate::{connection::connection::Connection, dir::Directory, file::File, filt
 use gtk::{
     glib::{
         self,
+        ffi::gboolean,
         translate::{from_glib_none, ToGlibPtr},
     },
     prelude::*,
@@ -35,7 +36,7 @@ pub mod ffi {
     use crate::{connection::connection::ffi::GnomeCmdCon, dir::ffi::GnomeCmdDir};
     use gtk::{
         ffi::GtkTreeView,
-        glib::ffi::{gboolean, GList, GType},
+        glib::ffi::{GList, GType},
     };
     use std::ffi::{c_char, c_void};
 
@@ -256,6 +257,10 @@ impl FileList {
         ControlFlow::Continue(())
     }
 
+    fn emit_files_changed(&self) {
+        self.emit_by_name::<()>("files-changed", &[]);
+    }
+
     pub fn set_selected_files(&self, files: &HashSet<File>) {
         self.traverse_files::<()>(|file, iter, store| {
             let selected = files.contains(file);
@@ -265,6 +270,28 @@ impl FileList {
             );
             ControlFlow::Continue(())
         });
-        self.emit_by_name::<()>("files-changed", &[]);
+        self.emit_files_changed();
     }
+
+    pub fn toggle_files_with_same_extension(&self, select: bool) {
+        let Some(ext) = self.selected_file().and_then(|f| f.extension()) else {
+            return;
+        };
+        self.traverse_files::<()>(|file, iter, store| {
+            if !file.is_dotdot() && file.extension().as_ref() == Some(&ext) {
+                store.set(iter, &[(DataColumns::DATA_COLUMN_SELECTED as u32, &select)]);
+            }
+            ControlFlow::Continue(())
+        });
+        self.emit_files_changed();
+    }
+}
+
+#[no_mangle]
+pub extern "C" fn toggle_files_with_same_extension(
+    fl: *mut ffi::GnomeCmdFileList,
+    select: gboolean,
+) {
+    let fl: FileList = unsafe { from_glib_none(fl) };
+    fl.toggle_files_with_same_extension(select != 0);
 }

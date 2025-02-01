@@ -738,30 +738,7 @@ inline void toggle_file_range (GnomeCmdFileList *fl, GtkTreeIter *start_row, Gtk
 }
 
 
-static void toggle_files_with_same_extension (GnomeCmdFileList *fl, gboolean select)
-{
-    g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl));
-
-    GnomeCmdFile *f = fl->get_selected_file();
-    if (!f) return;
-
-    const gchar *ext1 = f->get_extension();
-    if (!ext1) return;
-
-    fl->traverse_files ([fl, ext1, select](GnomeCmdFile *ff, GtkTreeIter *iter, GtkListStore *store) {
-        if (ff && !ff->is_dotdot && ff->get_file_info())
-        {
-            const gchar *ext2 = ff->get_extension();
-
-            if (ext2 && strcmp (ext1, ext2) == 0)
-            {
-                fl->set_selected_at_iter (iter, select);
-            }
-        }
-        return GnomeCmdFileList::TRAVERSE_CONTINUE;
-    });
-    g_signal_emit (fl, signals[FILES_CHANGED], 0);
-}
+extern "C" void toggle_files_with_same_extension (GnomeCmdFileList *fl, gboolean select);
 
 
 void GnomeCmdFileList::toggle_with_pattern(Filter &pattern, gboolean mode)
@@ -2265,18 +2242,6 @@ void GnomeCmdFileList::invert_selection()
         }
         return TRAVERSE_CONTINUE;
     });
-}
-
-
-void GnomeCmdFileList::select_all_with_same_extension()
-{
-    toggle_files_with_same_extension (this, TRUE);
-}
-
-
-void GnomeCmdFileList::unselect_all_with_same_extension()
-{
-    toggle_files_with_same_extension (this, FALSE);
 }
 
 

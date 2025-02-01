@@ -622,22 +622,6 @@ void mark_invert_selection (GSimpleAction *action, GVariant *parameter, gpointer
 }
 
 
-void mark_select_all_with_same_extension (GSimpleAction *action, GVariant *parameter, gpointer user_data)
-{
-    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
-
-    get_fl (main_win, ACTIVE)->select_all_with_same_extension();
-}
-
-
-void mark_unselect_all_with_same_extension (GSimpleAction *action, GVariant *parameter, gpointer user_data)
-{
-    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
-
-    get_fl (main_win, ACTIVE)->unselect_all_with_same_extension();
-}
-
-
 void mark_restore_selection (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
     auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
