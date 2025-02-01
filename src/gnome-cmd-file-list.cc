@@ -2230,21 +2230,7 @@ GtkTreeIterPtr GnomeCmdFileList::get_row_from_file(GnomeCmdFile *f)
 }
 
 
-void GnomeCmdFileList::invert_selection()
-{
-    traverse_files ([this](GnomeCmdFile *f, GtkTreeIter *iter, GtkListStore *store) {
-        if (f && f->get_file_info() && (gnome_cmd_data.options.select_dirs || !GNOME_CMD_IS_DIR (f)))
-        {
-            if (!is_selected_iter(iter))
-                select_iter(iter);
-            else
-                unselect_iter(iter);
-        }
-        return TRAVERSE_CONTINUE;
-    });
-}
-
-
+extern "C" void gnome_cmd_file_list_invert_selection(GnomeCmdFileList *fl);
 extern "C" void gnome_cmd_file_list_restore_selection(GnomeCmdFileList *fl);
 
 
@@ -2580,7 +2566,7 @@ static gboolean gnome_cmd_file_list_key_pressed (GtkEventControllerKey* self, gu
                 return TRUE;
 
             case GDK_KEY_KP_Multiply:
-                fl->invert_selection();
+                gnome_cmd_file_list_invert_selection(fl);
                 return TRUE;
 
             case GDK_KEY_KP_Divide:

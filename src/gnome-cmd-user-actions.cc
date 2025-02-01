@@ -613,14 +613,6 @@ void mark_unselect_with_pattern (GSimpleAction *action, GVariant *parameter, gpo
     gnome_cmd_file_list_show_selpat_dialog (get_fl (main_win, ACTIVE), FALSE);
 }
 
-
-void mark_invert_selection (GSimpleAction *action, GVariant *parameter, gpointer user_data)
-{
-    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
-
-    get_fl (main_win, ACTIVE)->invert_selection();
-}
-
 /* ***************************** View Menu ****************************** */
 /* Changing of GSettings here will trigger functions in gnome-cmd-data.cc */
 /* ********************************************************************** */

@@ -20,7 +20,13 @@
  * For more details see the file COPYING.
  */
 
-use crate::{connection::connection::Connection, dir::Directory, file::File, filter::Filter};
+use crate::{
+    connection::connection::Connection,
+    data::{GeneralOptions, GeneralOptionsRead},
+    dir::Directory,
+    file::File,
+    filter::Filter,
+};
 use gtk::{
     glib::{
         self,
@@ -286,9 +292,29 @@ impl FileList {
         self.emit_files_changed();
     }
 
+    pub fn invert_selection(&self, select_dirs: bool) {
+        self.traverse_files::<()>(|file, iter, store| {
+            if !file.is_dotdot() && (select_dirs || file.downcast_ref::<Directory>().is_none()) {
+                let selected: bool = store.get(iter, DataColumns::DATA_COLUMN_SELECTED as i32);
+                store.set(
+                    iter,
+                    &[(DataColumns::DATA_COLUMN_SELECTED as u32, &!selected)],
+                );
+            }
+            ControlFlow::Continue(())
+        });
+    }
+
     pub fn restore_selection(&self) {
         // TODO: implement
     }
+}
+
+#[no_mangle]
+pub extern "C" fn gnome_cmd_file_list_invert_selection(fl: *mut ffi::GnomeCmdFileList) {
+    let fl: FileList = unsafe { from_glib_none(fl) };
+    let options = GeneralOptions::new();
+    fl.invert_selection(options.select_dirs());
 }
 
 #[no_mangle]

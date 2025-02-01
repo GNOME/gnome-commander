@@ -428,7 +428,18 @@ c_action!(mark_select_all_files);
 c_action!(mark_unselect_all_files);
 c_action!(mark_select_with_pattern);
 c_action!(mark_unselect_with_pattern);
-c_action!(mark_invert_selection);
+
+pub fn mark_invert_selection(
+    main_win: &MainWindow,
+    _action: &gio::SimpleAction,
+    _parameter: Option<&glib::Variant>,
+) {
+    let options = GeneralOptions::new();
+    main_win
+        .file_selector(FileSelectorID::ACTIVE)
+        .file_list()
+        .invert_selection(options.select_dirs());
+}
 
 pub fn mark_select_all_with_same_extension(
     main_win: &MainWindow,

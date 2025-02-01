@@ -145,7 +145,6 @@ struct GnomeCmdFileList
 
     void select(Filter &pattern)                       {  toggle_with_pattern(pattern, TRUE);                           }
     void unselect(Filter &pattern)                     {  toggle_with_pattern(pattern, FALSE);                          }
-    void invert_selection();
 
     void select_row(GtkTreeIter *row);
     GnomeCmdFile *get_file_at_row(GtkTreeIter *row);
