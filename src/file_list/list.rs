@@ -20,22 +20,29 @@
  * For more details see the file COPYING.
  */
 
-use crate::{connection::connection::Connection, dir::Directory, file::File, filter::Filter};
+use crate::{
+    connection::connection::Connection,
+    data::{GeneralOptions, GeneralOptionsRead},
+    dir::Directory,
+    file::File,
+    filter::Filter,
+};
 use gtk::{
     glib::{
         self,
+        ffi::gboolean,
         translate::{from_glib_none, ToGlibPtr},
     },
     prelude::*,
 };
-use std::path::Path;
+use std::{collections::HashSet, ops::ControlFlow, path::Path};
 
 pub mod ffi {
     use super::*;
     use crate::{connection::connection::ffi::GnomeCmdCon, dir::ffi::GnomeCmdDir};
     use gtk::{
         ffi::GtkTreeView,
-        glib::ffi::{gboolean, GList, GType},
+        glib::ffi::{GList, GType},
     };
     use std::ffi::{c_char, c_void};
 
@@ -235,4 +242,92 @@ impl FileList {
             ffi::gnome_cmd_file_list_goto_directory(self.to_glib_none().0, dir.to_glib_none().0)
         }
     }
+
+    pub fn traverse_files<T>(
+        &self,
+        visitor: impl Fn(&File, &gtk::TreeIter, &gtk::ListStore) -> ControlFlow<T>,
+    ) -> ControlFlow<T> {
+        let Some(store) = self.tree_view().model().and_downcast::<gtk::ListStore>() else {
+            return ControlFlow::Continue(());
+        };
+
+        if let Some(iter) = store.iter_first() {
+            loop {
+                let file: File = store.get(&iter, DataColumns::DATA_COLUMN_FILE as i32);
+                (visitor)(&file, &iter, &store)?;
+                if !store.iter_next(&iter) {
+                    break;
+                }
+            }
+        }
+        ControlFlow::Continue(())
+    }
+
+    fn emit_files_changed(&self) {
+        self.emit_by_name::<()>("files-changed", &[]);
+    }
+
+    pub fn set_selected_files(&self, files: &HashSet<File>) {
+        self.traverse_files::<()>(|file, iter, store| {
+            let selected = files.contains(file);
+            store.set(
+                iter,
+                &[(DataColumns::DATA_COLUMN_SELECTED as u32, &selected)],
+            );
+            ControlFlow::Continue(())
+        });
+        self.emit_files_changed();
+    }
+
+    pub fn toggle_files_with_same_extension(&self, select: bool) {
+        let Some(ext) = self.selected_file().and_then(|f| f.extension()) else {
+            return;
+        };
+        self.traverse_files::<()>(|file, iter, store| {
+            if !file.is_dotdot() && file.extension().as_ref() == Some(&ext) {
+                store.set(iter, &[(DataColumns::DATA_COLUMN_SELECTED as u32, &select)]);
+            }
+            ControlFlow::Continue(())
+        });
+        self.emit_files_changed();
+    }
+
+    pub fn invert_selection(&self, select_dirs: bool) {
+        self.traverse_files::<()>(|file, iter, store| {
+            if !file.is_dotdot() && (select_dirs || file.downcast_ref::<Directory>().is_none()) {
+                let selected: bool = store.get(iter, DataColumns::DATA_COLUMN_SELECTED as i32);
+                store.set(
+                    iter,
+                    &[(DataColumns::DATA_COLUMN_SELECTED as u32, &!selected)],
+                );
+            }
+            ControlFlow::Continue(())
+        });
+    }
+
+    pub fn restore_selection(&self) {
+        // TODO: implement
+    }
+}
+
+#[no_mangle]
+pub extern "C" fn gnome_cmd_file_list_invert_selection(fl: *mut ffi::GnomeCmdFileList) {
+    let fl: FileList = unsafe { from_glib_none(fl) };
+    let options = GeneralOptions::new();
+    fl.invert_selection(options.select_dirs());
+}
+
+#[no_mangle]
+pub extern "C" fn gnome_cmd_file_list_restore_selection(fl: *mut ffi::GnomeCmdFileList) {
+    let fl: FileList = unsafe { from_glib_none(fl) };
+    fl.restore_selection();
+}
+
+#[no_mangle]
+pub extern "C" fn toggle_files_with_same_extension(
+    fl: *mut ffi::GnomeCmdFileList,
+    select: gboolean,
+) {
+    let fl: FileList = unsafe { from_glib_none(fl) };
+    fl.toggle_files_with_same_extension(select != 0);
 }

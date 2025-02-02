@@ -254,6 +254,14 @@ impl File {
         unsafe { ffi::gnome_cmd_file_set_deleted(self.to_glib_none().0) }
     }
 
+    pub fn extension(&self) -> Option<OsString> {
+        if self.file_info().file_type() == gio::FileType::Directory {
+            None
+        } else {
+            Some(self.file_info().name().extension()?.to_owned())
+        }
+    }
+
     pub fn permissions(&self) -> u32 {
         self.file_info()
             .attribute_uint32(gio::FILE_ATTRIBUTE_UNIX_MODE)

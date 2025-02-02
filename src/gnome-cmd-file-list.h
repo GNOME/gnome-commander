@@ -133,8 +133,6 @@ struct GnomeCmdFileList
 
     void focus_file_at_row (GtkTreeIter *row);
 
-    void select_file(GnomeCmdFile *f, GtkTreeIter *row=nullptr);
-    void unselect_file(GnomeCmdFile *f, GtkTreeIter *row=nullptr);
     void select_all();
     void unselect_all();
     void select_all_files();
@@ -147,10 +145,6 @@ struct GnomeCmdFileList
 
     void select(Filter &pattern)                       {  toggle_with_pattern(pattern, TRUE);                           }
     void unselect(Filter &pattern)                     {  toggle_with_pattern(pattern, FALSE);                          }
-    void select_all_with_same_extension();
-    void unselect_all_with_same_extension();
-    void invert_selection();
-    void restore_selection();
 
     void select_row(GtkTreeIter *row);
     GnomeCmdFile *get_file_at_row(GtkTreeIter *row);
@@ -248,6 +242,7 @@ struct GnomeCmdFileList
     GtkTreeIterPtr get_dest_row_at_pos (gint drag_x, gint drag_y);
     GtkTreeIterPtr get_dest_row_at_coords (gdouble x, gdouble y);
 // private:
+    void set_selected_at_iter(GtkTreeIter *iter, gboolean selected);
     void select_iter(GtkTreeIter *iter);
     void unselect_iter(GtkTreeIter *iter);
     bool is_selected_iter(GtkTreeIter *iter);

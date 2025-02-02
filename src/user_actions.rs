@@ -66,7 +66,8 @@ use gtk::{
 use once_cell::sync::Lazy;
 use std::{
     borrow::Cow,
-    collections::HashSet,
+    cmp::Ordering,
+    collections::{HashMap, HashSet},
     ffi::OsString,
     path::{Path, PathBuf},
 };
@@ -427,11 +428,110 @@ c_action!(mark_select_all_files);
 c_action!(mark_unselect_all_files);
 c_action!(mark_select_with_pattern);
 c_action!(mark_unselect_with_pattern);
-c_action!(mark_invert_selection);
-c_action!(mark_select_all_with_same_extension);
-c_action!(mark_unselect_all_with_same_extension);
-c_action!(mark_restore_selection);
-c_action!(mark_compare_directories);
+
+pub fn mark_invert_selection(
+    main_win: &MainWindow,
+    _action: &gio::SimpleAction,
+    _parameter: Option<&glib::Variant>,
+) {
+    let options = GeneralOptions::new();
+    main_win
+        .file_selector(FileSelectorID::ACTIVE)
+        .file_list()
+        .invert_selection(options.select_dirs());
+}
+
+pub fn mark_select_all_with_same_extension(
+    main_win: &MainWindow,
+    _action: &gio::SimpleAction,
+    _parameter: Option<&glib::Variant>,
+) {
+    main_win
+        .file_selector(FileSelectorID::ACTIVE)
+        .file_list()
+        .toggle_files_with_same_extension(true);
+}
+
+pub fn mark_unselect_all_with_same_extension(
+    main_win: &MainWindow,
+    _action: &gio::SimpleAction,
+    _parameter: Option<&glib::Variant>,
+) {
+    main_win
+        .file_selector(FileSelectorID::ACTIVE)
+        .file_list()
+        .toggle_files_with_same_extension(false);
+}
+
+pub fn mark_restore_selection(
+    main_win: &MainWindow,
+    _action: &gio::SimpleAction,
+    _parameter: Option<&glib::Variant>,
+) {
+    main_win
+        .file_selector(FileSelectorID::ACTIVE)
+        .file_list()
+        .restore_selection();
+}
+
+pub fn mark_compare_directories(
+    main_win: &MainWindow,
+    _action: &gio::SimpleAction,
+    _parameter: Option<&glib::Variant>,
+) {
+    let main_win = main_win.clone();
+
+    let fl1 = main_win.file_selector(FileSelectorID::ACTIVE).file_list();
+    let fl2 = main_win.file_selector(FileSelectorID::INACTIVE).file_list();
+
+    let mut files2: HashMap<String, File> = fl2
+        .visible_files()
+        .into_iter()
+        .filter(|f| !f.is_dotdot())
+        .filter(|f| f.file_info().file_type() != gio::FileType::Directory)
+        .map(|f| (f.get_name(), f))
+        .collect();
+
+    let mut selection1 = HashSet::new();
+    for f1 in fl1.visible_files() {
+        if f1.is_dotdot() || f1.file_info().file_type() == gio::FileType::Directory {
+            continue;
+        }
+
+        let name = f1.get_name();
+
+        if let Some(f2) = files2.get(&name) {
+            let date1 = f1.file_info().modification_date_time();
+            let date2 = f2.file_info().modification_date_time();
+
+            // select the younger one
+            match date1.cmp(&date2) {
+                Ordering::Less => {
+                    // f2 stays selected
+                }
+                Ordering::Equal => {
+                    if f1.file_info().size() == f2.file_info().size() {
+                        // no selection
+                        files2.remove(&name);
+                    } else {
+                        // select both
+                        selection1.insert(f1);
+                    }
+                }
+                Ordering::Greater => {
+                    // f1 selected
+                    selection1.insert(f1);
+                    files2.remove(&name);
+                }
+            }
+        } else {
+            selection1.insert(f1);
+        }
+    }
+
+    fl1.set_selected_files(&selection1);
+    fl2.set_selected_files(&files2.into_values().collect());
+}
 
 /************** Edit Menu **************/
 c_action!(edit_cap_cut);

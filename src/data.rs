@@ -44,6 +44,8 @@ pub trait GeneralOptionsRead {
     fn extension_display_mode(&self) -> ExtensionDisplayMode;
     fn size_display_mode(&self) -> SizeDisplayMode;
     fn permissions_display_mode(&self) -> PermissionDisplayMode;
+
+    fn select_dirs(&self) -> bool;
 }
 
 pub trait GeneralOptionsWrite {
@@ -120,6 +122,10 @@ impl GeneralOptionsRead for GeneralOptions {
             .ok()
             .and_then(PermissionDisplayMode::from_repr)
             .unwrap_or_default()
+    }
+
+    fn select_dirs(&self) -> bool {
+        self.0.boolean("select-dirs")
     }
 }
 
