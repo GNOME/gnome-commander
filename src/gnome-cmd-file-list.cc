@@ -1980,18 +1980,6 @@ GList *GnomeCmdFileList::get_selected_files()
 }
 
 
-GnomeCmd::Collection<GnomeCmdFile *> GnomeCmdFileList::get_marked_files()
-{
-    GnomeCmd::Collection<GnomeCmdFile *> files;
-    traverse_files([this, &files](GnomeCmdFile *file, GtkTreeIter *iter, GtkListStore *store) {
-        if (is_selected_iter(iter))
-            files.insert(file);
-        return TraverseControl::TRAVERSE_CONTINUE;
-    });
-    return files;
-}
-
-
 std::vector<GnomeCmdFile *> GnomeCmdFileList::get_all_files()
 {
     std::vector<GnomeCmdFile *> files;

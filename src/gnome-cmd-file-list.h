@@ -174,12 +174,6 @@ struct GnomeCmdFileList
      */
     GList *get_selected_files();
 
-    /**
-     * Returns a collection of all selected files.
-     * A marked file is a file that has been selected with ins etc. The file that is currently focused is not marked.
-     */
-    GnomeCmd::Collection<GnomeCmdFile *> get_marked_files();
-
     GtkTreeIterPtr get_focused_file_iter();
 
     /**

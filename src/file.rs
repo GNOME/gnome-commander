@@ -98,6 +98,8 @@ pub mod ffi {
         pub fn gnome_cmd_file_is_dotdot(f: *mut GnomeCmdFile) -> gboolean;
 
         pub fn gnome_cmd_file_set_deleted(f: *mut GnomeCmdFile);
+
+        pub fn gnome_cmd_file_get_tree_size(f: *mut GnomeCmdFile) -> u64;
     }
 
     #[derive(Copy, Clone)]
@@ -290,6 +292,11 @@ impl File {
                     .attribute_uint32(gio::FILE_ATTRIBUTE_UNIX_GID)
                     .to_string()
             })
+    }
+
+    pub fn tree_size(&self) -> Option<u64> {
+        Some(unsafe { ffi::gnome_cmd_file_get_tree_size(self.to_glib_none().0) })
+            .filter(|v| *v != u64::MAX)
     }
 }
 
