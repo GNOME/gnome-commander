@@ -236,9 +236,9 @@ pub fn file_popup_menu(main_win: &MainWindow, file_list: &FileList) -> Option<gi
     // Add plugin popup entries
     for (action_group_name, plugin) in main_win.plugin_manager().active_plugins() {
         if let Some(file_actions) = plugin.downcast_ref::<FileActions>() {
-            if let Some(menu) = file_actions.create_popup_menu_items(&main_win.state()) {
-                let menu = wrap_plugin_menu(&action_group_name, &menu);
-                menu.append_section(None, &menu);
+            if let Some(plugin_menu) = file_actions.create_popup_menu_items(&main_win.state()) {
+                let plugin_menu = wrap_plugin_menu(&action_group_name, &plugin_menu);
+                menu.append_section(None, &plugin_menu);
             }
         }
     }
