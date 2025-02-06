@@ -699,20 +699,6 @@ const gchar *GnomeCmdFile::get_size()
 }
 
 
-guint64 GnomeCmdFile::get_tree_size()
-{
-    if (GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE) != G_FILE_TYPE_DIRECTORY)
-        return g_file_info_get_attribute_uint64 (get_file_info(), G_FILE_ATTRIBUTE_STANDARD_SIZE);
-
-    if (is_dotdot)
-        return 0;
-
-    priv->tree_size = calc_tree_size (nullptr);
-
-    return priv->tree_size;
-}
-
-
 guint64 GnomeCmdFile::calc_tree_size (gulong *count)
 {
     g_return_val_if_fail (this->get_file() != NULL, -1);
@@ -753,13 +739,15 @@ guint64 GnomeCmdFile::calc_tree_size (gulong *count)
 
 const gchar *GnomeCmdFile::get_tree_size_as_str()
 {
-    if (GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE) != G_FILE_TYPE_DIRECTORY)
-        return get_size();
-
     if (is_dotdot)
         return get_size();
 
-    return size2string (get_tree_size(), gnome_cmd_data.options.size_disp_mode);
+    if (GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE) != G_FILE_TYPE_DIRECTORY)
+        return get_size();
+
+    priv->tree_size = calc_tree_size (nullptr);
+
+    return size2string (priv->tree_size, gnome_cmd_data.options.size_disp_mode);
 }
 
 
@@ -978,9 +966,9 @@ void GnomeCmdFile::invalidate_tree_size()
 }
 
 
-gboolean GnomeCmdFile::has_tree_size()
+extern "C" guint64 gnome_cmd_file_get_tree_size (GnomeCmdFile *f)
 {
-    return priv->tree_size != (guint64)-1;
+    return f->priv->tree_size;
 }
 
 GFile *gnome_cmd_file_get_file (GnomeCmdFileDescriptor *fd)

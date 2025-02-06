@@ -77,7 +77,6 @@ struct GnomeCmdFile
     const gchar *get_adate(gboolean overide_disp_setting);
     const gchar *get_mdate(gboolean overide_disp_setting);
     const gchar *get_size();
-    guint64 get_tree_size();
     guint64 calc_tree_size (gulong *count);
     const gchar *get_tree_size_as_str();
     const gchar *get_perm();
@@ -100,7 +99,6 @@ struct GnomeCmdFile
     gboolean needs_update();
 
     void invalidate_tree_size();
-    gboolean has_tree_size();
 
     gboolean GetGfileAttributeBoolean(const char *attribute);
     guint32 GetGfileAttributeUInt32(const char *attribute);

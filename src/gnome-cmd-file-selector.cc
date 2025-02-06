@@ -71,104 +71,13 @@ G_DEFINE_TYPE (GnomeCmdFileSelector, gnome_cmd_file_selector, GTK_TYPE_BOX)
  * Utility functions
  *******************************/
 
+
+extern "C" gchar *gnome_cmd_file_list_stats(GnomeCmdFileList *list);
+
 inline void GnomeCmdFileSelector::update_selected_files_label()
 {
-    auto all_files = list->get_all_files();
-
-    if (all_files.size() == 0)
-        return;
-
-    guint64 sel_bytes = 0;
-    guint64 total_bytes = 0;
-    gint num_files = 0;
-    gint num_dirs = 0;
-    gint num_sel_files = 0;
-    gint num_sel_dirs = 0;
-
-    GnomeCmdSizeDispMode size_mode = gnome_cmd_data.options.size_disp_mode;
-    if (size_mode==GNOME_CMD_SIZE_DISP_MODE_POWERED)
-        size_mode = GNOME_CMD_SIZE_DISP_MODE_GROUPED;
-
-    for (auto i = all_files.begin(); i != all_files.end(); ++i)
-    {
-        GnomeCmdFile *f = *i;
-
-#if defined (__GNUC__)
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wswitch-enum"
-#endif
-        switch (f->GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE))
-        {
-            case G_FILE_TYPE_DIRECTORY:
-                if (!f->is_dotdot)
-                {
-                    num_dirs++;
-                    if (f->has_tree_size())
-                        total_bytes += f->get_tree_size();
-                }
-                break;
-
-            case G_FILE_TYPE_REGULAR:
-                num_files++;
-                total_bytes += g_file_info_get_size(f->get_file_info());
-                break;
-
-            default:
-                break;
-        }
-#if defined (__GNUC__)
-#pragma GCC diagnostic pop
-#endif
-    }
-
-    GnomeCmd::Collection<GnomeCmdFile *> marked_files = list->get_marked_files();
-
-    for (GnomeCmd::Collection<GnomeCmdFile *>::const_iterator i=marked_files.begin(); i!=marked_files.end(); ++i)
-    {
-        GnomeCmdFile *f = *i;
-
-#if defined (__GNUC__)
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wswitch-enum"
-#endif
-        switch (f->GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE))
-        {
-            case G_FILE_TYPE_DIRECTORY:
-                num_sel_dirs++;
-                if (f->has_tree_size())
-                    sel_bytes += f->get_tree_size();
-                break;
-
-            case G_FILE_TYPE_REGULAR:
-                num_sel_files++;
-                sel_bytes += f->GetGfileAttributeUInt64(G_FILE_ATTRIBUTE_STANDARD_SIZE);
-                break;
-
-            default:
-                break;
-        }
-#if defined (__GNUC__)
-#pragma GCC diagnostic pop
-#endif
-    }
-
-    gchar *sel_str = g_strdup (size2string (sel_bytes/1024, size_mode));
-    gchar *total_str = g_strdup (size2string (total_bytes/1024, size_mode));
-
-    gchar *file_str = g_strdup_printf (ngettext("%s of %s kB in %d of %d file",
-                                                "%s of %s kB in %d of %d files",
-                                                num_files),
-                                       sel_str, total_str, num_sel_files, num_files);
-    gchar *info_str = g_strdup_printf (ngettext("%s, %d of %d dir selected",
-                                                "%s, %d of %d dirs selected",
-                                                num_dirs),
-                                       file_str, num_sel_dirs, num_dirs);
-
+    gchar *info_str = gnome_cmd_file_list_stats (list);
     gtk_label_set_text (GTK_LABEL (info_label), info_str);
-
-    g_free (sel_str);
-    g_free (total_str);
-    g_free (file_str);
     g_free (info_str);
 }
 

@@ -26,8 +26,13 @@ use crate::{
     dir::Directory,
     file::File,
     filter::Filter,
+    libgcmd::file_descriptor::FileDescriptorExt,
+    types::SizeDisplayMode,
+    utils::size_to_string,
 };
+use gettextrs::ngettext;
 use gtk::{
+    gio,
     glib::{
         self,
         ffi::gboolean,
@@ -35,7 +40,7 @@ use gtk::{
     },
     prelude::*,
 };
-use std::{collections::HashSet, ops::ControlFlow, path::Path};
+use std::{collections::HashSet, ffi::c_char, ops::ControlFlow, path::Path};
 
 pub mod ffi {
     use super::*;
@@ -245,7 +250,7 @@ impl FileList {
 
     pub fn traverse_files<T>(
         &self,
-        visitor: impl Fn(&File, &gtk::TreeIter, &gtk::ListStore) -> ControlFlow<T>,
+        mut visitor: impl FnMut(&File, &gtk::TreeIter, &gtk::ListStore) -> ControlFlow<T>,
     ) -> ControlFlow<T> {
         let Some(store) = self.tree_view().model().and_downcast::<gtk::ListStore>() else {
             return ControlFlow::Continue(());
@@ -308,6 +313,81 @@ impl FileList {
     pub fn restore_selection(&self) {
         // TODO: implement
     }
+
+    pub fn stats(&self) -> FileListStats {
+        let mut stats = FileListStats::default();
+        self.traverse_files::<()>(|file, iter, store| {
+            if !file.is_dotdot() {
+                let info = file.file_info();
+                let selected: bool = store.get(iter, DataColumns::DATA_COLUMN_SELECTED as i32);
+
+                match info.file_type() {
+                    gio::FileType::Directory => {
+                        stats.total.directories += 1;
+                        if selected {
+                            stats.selected.directories += 1;
+                        }
+                        if let Some(size) = file.tree_size() {
+                            stats.total.bytes += size;
+                            if selected {
+                                stats.selected.bytes += size;
+                            }
+                        }
+                    }
+                    gio::FileType::Regular => {
+                        let size: u64 = info.size().try_into().unwrap_or_default();
+                        stats.total.files += 1;
+                        stats.total.bytes += size;
+                        if selected {
+                            stats.selected.files += 1;
+                            stats.selected.bytes += size;
+                        }
+                    }
+                    _ => {}
+                }
+            }
+            ControlFlow::Continue(())
+        });
+        stats
+    }
+
+    pub fn stats_str(&self, mode: SizeDisplayMode) -> String {
+        let stats = self.stats();
+
+        let file_str = ngettext(
+            "{selected_bytes} of {total_bytes} in {selected_files} of {total_files} file",
+            "{selected_bytes} of {total_bytes} in {selected_files} of {total_files} files",
+            stats.total.files as u32,
+        )
+        .replace("{selected_bytes}", &size_to_string(stats.selected.bytes, mode))
+        .replace("{total_bytes}", &size_to_string(stats.total.bytes, mode))
+        .replace("{selected_files}", &stats.selected.files.to_string())
+        .replace("{total_files}", &stats.total.files.to_string());
+
+        let info_str = ngettext(
+            "{}, {selected_dirs} of {total_dirs} dir selected",
+            "{}, {selected_dirs} of {total_dirs} dirs selected",
+            stats.total.directories as u32,
+        )
+        .replace("{}", &file_str)
+        .replace("{selected_dirs}", &stats.selected.directories.to_string())
+        .replace("{total_dirs}", &stats.total.directories.to_string());
+
+        info_str
+    }
+}
+
+#[derive(Default)]
+pub struct Stats {
+    pub files: u64,
+    pub directories: u64,
+    pub bytes: u64,
+}
+
+#[derive(Default)]
+pub struct FileListStats {
+    pub total: Stats,
+    pub selected: Stats,
 }
 
 #[no_mangle]
@@ -330,4 +410,12 @@ pub extern "C" fn toggle_files_with_same_extension(
 ) {
     let fl: FileList = unsafe { from_glib_none(fl) };
     fl.toggle_files_with_same_extension(select != 0);
+}
+
+#[no_mangle]
+pub extern "C" fn gnome_cmd_file_list_stats(fl: *mut ffi::GnomeCmdFileList) -> *mut c_char {
+    let fl: FileList = unsafe { from_glib_none(fl) };
+    let options = GeneralOptions::new();
+    let stats = fl.stats_str(options.size_display_mode());
+    stats.to_glib_full()
 }
