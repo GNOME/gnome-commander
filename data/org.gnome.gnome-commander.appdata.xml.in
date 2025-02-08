@@ -65,7 +65,7 @@
   </suggests>
 
   <releases>
-    <release type="stable" version="1.18.2" date="2024-12-31">
+    <release type="stable" version="1.18.2" date="2025-02-10">
       <description>
         <p>This release fixes the following bugs:</p>
         <ul>
@@ -74,8 +74,8 @@
           <li>Fix storing the column widths in the file panes (Andrey Kutejko)</li>
           <li>Issue #161: Fix for crash related to plugins (Andrey Kutejko)</li>
         </ul>
-        <p>New or updated translations: ...</p>
-        <p>New or updated docs: ...</p>
+        <p>New or updated translations: eu (Asier Sarasua Garmendia), hu (Balázs Úr), id (Andika Triwidada), pt (Hugo Carvalho), pt_BR (Juliano de Souza Camargo), ru (Sergej A.), sl (Martin), sv (Anders Jonsson), uk (Yuri Chornoivan)</p>
+        <p>New or updated docs: ru (Sergej A.), sv (Anders Jonsson)</p>
       </description>
     </release>
     <release type="stable" version="1.18.1" date="2024-07-30">
