@@ -655,15 +655,7 @@ void gnome_cmd_con_device_set_gmount (GnomeCmdConDevice *dev, GMount *gMount)
     g_return_if_fail (GNOME_CMD_IS_CON_DEVICE (dev));
     auto priv = static_cast<GnomeCmdConDevicePrivate *> (gnome_cmd_con_device_get_instance_private (dev));
 
-    if (priv->gMount)
-    {
-        g_object_unref (priv->gMount);
-        priv->gMount = nullptr;
-    }
-
-    priv->gMount = gMount;
-    if (priv->gMount)
-        g_object_ref(priv->gMount);
+    g_set_object(&priv->gMount, gMount);
 }
 
 
@@ -672,15 +664,7 @@ void gnome_cmd_con_device_set_gvolume (GnomeCmdConDevice *dev, GVolume *gVolume)
     g_return_if_fail (GNOME_CMD_IS_CON_DEVICE (dev));
     auto priv = static_cast<GnomeCmdConDevicePrivate *> (gnome_cmd_con_device_get_instance_private (dev));
 
-    if (priv->gVolume)
-    {
-        g_object_unref (priv->gVolume);
-        priv->gVolume = nullptr;
-    }
-
-    priv->gVolume = gVolume;
-    if (priv->gVolume)
-        g_object_ref(priv->gVolume);
+    g_set_object(&priv->gVolume, gVolume);
 }
 
 
