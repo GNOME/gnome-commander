@@ -170,7 +170,7 @@ const gint FILE_COLUMN = GnomeCmdFileList::NUM_COLUMNS;
 
 struct GnomeCmdFileListClass
 {
-    GtkTreeViewClass parent_class;
+    GtkWidgetClass parent_class;
 
     void (* file_clicked)        (GnomeCmdFileList *fl, GnomeCmdFileListButtonEvent *event);
     void (* file_released)       (GnomeCmdFileList *fl, GnomeCmdFileListButtonEvent *event);
