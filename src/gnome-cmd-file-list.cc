@@ -94,13 +94,16 @@ static const char *drop_types [] =
 static guint signals[LAST_SIGNAL] = { 0 };
 
 
+typedef GtkSorter * (*GnomeCmdSorterFactory) (gboolean symbolic_links_as_regular_files, GtkSortType sort_type);
+
+
 struct GnomeCmdFileListColumn
 {
     guint id;
     const gchar *title;
     PangoAlignment alignment;
     GtkSortType default_sort_direction;
-    GCompareDataFunc sort_func;
+    GnomeCmdSorterFactory sorter_factory;
 };
 
 
@@ -132,14 +135,14 @@ static void cell_data (GtkTreeViewColumn *tree_column,
                        GtkTreeModel *tree_model,
                        GtkTreeIter *iter,
                        gpointer data);
-static gint sort_by_name (GnomeCmdFile *f1, GnomeCmdFile *f2, GnomeCmdFileList *fl);
-static gint sort_by_ext (GnomeCmdFile *f1, GnomeCmdFile *f2, GnomeCmdFileList *fl);
-static gint sort_by_dir (GnomeCmdFile *f1, GnomeCmdFile *f2, GnomeCmdFileList *fl);
-static gint sort_by_size (GnomeCmdFile *f1, GnomeCmdFile *f2, GnomeCmdFileList *fl);
-static gint sort_by_date (GnomeCmdFile *f1, GnomeCmdFile *f2, GnomeCmdFileList *fl);
-static gint sort_by_perm (GnomeCmdFile *f1, GnomeCmdFile *f2, GnomeCmdFileList *fl);
-static gint sort_by_owner (GnomeCmdFile *f1, GnomeCmdFile *f2, GnomeCmdFileList *fl);
-static gint sort_by_group (GnomeCmdFile *f1, GnomeCmdFile *f2, GnomeCmdFileList *fl);
+extern "C" GtkSorter *gnome_cmd_sort_by_name (gboolean symbolic_links_as_regular_files, GtkSortType sort_type);
+extern "C" GtkSorter *gnome_cmd_sort_by_ext (gboolean symbolic_links_as_regular_files, GtkSortType sort_type);
+extern "C" GtkSorter *gnome_cmd_sort_by_dir (gboolean symbolic_links_as_regular_files, GtkSortType sort_type);
+extern "C" GtkSorter *gnome_cmd_sort_by_size (gboolean symbolic_links_as_regular_files, GtkSortType sort_type);
+extern "C" GtkSorter *gnome_cmd_sort_by_date (gboolean symbolic_links_as_regular_files, GtkSortType sort_type);
+extern "C" GtkSorter *gnome_cmd_sort_by_perm (gboolean symbolic_links_as_regular_files, GtkSortType sort_type);
+extern "C" GtkSorter *gnome_cmd_sort_by_owner (gboolean symbolic_links_as_regular_files, GtkSortType sort_type);
+extern "C" GtkSorter *gnome_cmd_sort_by_group (gboolean symbolic_links_as_regular_files, GtkSortType sort_type);
 static void on_column_clicked (GtkTreeViewColumn *column, GnomeCmdFileList *fl);
 static void on_column_resized (GtkTreeViewColumn *column, GParamSpec *pspec, GnomeCmdFileList *fl);
 static void on_cursor_change(GtkTreeView *tree, GnomeCmdFileList *fl);
@@ -148,14 +151,14 @@ static gboolean gnome_cmd_file_list_key_pressed (GtkEventControllerKey* self, gu
 
 static GnomeCmdFileListColumn file_list_column[GnomeCmdFileList::NUM_COLUMNS] =
 {{GnomeCmdFileList::COLUMN_ICON, nullptr, PANGO_ALIGN_CENTER,GTK_SORT_ASCENDING, nullptr},
- {GnomeCmdFileList::COLUMN_NAME, N_("name"), PANGO_ALIGN_LEFT, GTK_SORT_ASCENDING, (GCompareDataFunc) sort_by_name},
- {GnomeCmdFileList::COLUMN_EXT, N_("ext"), PANGO_ALIGN_LEFT, GTK_SORT_ASCENDING, (GCompareDataFunc) sort_by_ext},
- {GnomeCmdFileList::COLUMN_DIR, N_("dir"), PANGO_ALIGN_LEFT, GTK_SORT_ASCENDING, (GCompareDataFunc) sort_by_dir},
- {GnomeCmdFileList::COLUMN_SIZE, N_("size"), PANGO_ALIGN_RIGHT, GTK_SORT_DESCENDING, (GCompareDataFunc) sort_by_size},
- {GnomeCmdFileList::COLUMN_DATE, N_("date"), PANGO_ALIGN_LEFT, GTK_SORT_DESCENDING, (GCompareDataFunc) sort_by_date},
- {GnomeCmdFileList::COLUMN_PERM, N_("perm"), PANGO_ALIGN_LEFT, GTK_SORT_ASCENDING, (GCompareDataFunc) sort_by_perm},
- {GnomeCmdFileList::COLUMN_OWNER, N_("uid"), PANGO_ALIGN_LEFT, GTK_SORT_ASCENDING, (GCompareDataFunc) sort_by_owner},
- {GnomeCmdFileList::COLUMN_GROUP, N_("gid"), PANGO_ALIGN_LEFT, GTK_SORT_ASCENDING, (GCompareDataFunc) sort_by_group}};
+ {GnomeCmdFileList::COLUMN_NAME, N_("name"), PANGO_ALIGN_LEFT, GTK_SORT_ASCENDING, gnome_cmd_sort_by_name},
+ {GnomeCmdFileList::COLUMN_EXT, N_("ext"), PANGO_ALIGN_LEFT, GTK_SORT_ASCENDING, gnome_cmd_sort_by_ext},
+ {GnomeCmdFileList::COLUMN_DIR, N_("dir"), PANGO_ALIGN_LEFT, GTK_SORT_ASCENDING, gnome_cmd_sort_by_dir},
+ {GnomeCmdFileList::COLUMN_SIZE, N_("size"), PANGO_ALIGN_RIGHT, GTK_SORT_DESCENDING, gnome_cmd_sort_by_size},
+ {GnomeCmdFileList::COLUMN_DATE, N_("date"), PANGO_ALIGN_LEFT, GTK_SORT_DESCENDING, gnome_cmd_sort_by_date},
+ {GnomeCmdFileList::COLUMN_PERM, N_("perm"), PANGO_ALIGN_LEFT, GTK_SORT_ASCENDING, gnome_cmd_sort_by_perm},
+ {GnomeCmdFileList::COLUMN_OWNER, N_("uid"), PANGO_ALIGN_LEFT, GTK_SORT_ASCENDING, gnome_cmd_sort_by_owner},
+ {GnomeCmdFileList::COLUMN_GROUP, N_("gid"), PANGO_ALIGN_LEFT, GTK_SORT_ASCENDING, gnome_cmd_sort_by_group}};
 
 
 enum DataColumns {
@@ -191,9 +194,9 @@ struct GnomeCmdFileList::Private
 
     gchar *base_dir;
 
-    GCompareDataFunc sort_func;
+    GtkSorter *sorter;
     gint current_col;
-    gboolean sort_raising[NUM_COLUMNS];
+    GtkSortType sort_raising[NUM_COLUMNS];
     gint column_resizing;
     GnomeCmdColorTheme *color_theme;
     LsColorsPalette *ls_palette;
@@ -516,7 +519,7 @@ GnomeCmdFileList::GnomeCmdFileList(ColumnID sort_col, GtkSortType sort_order)
 #endif
 
     priv->sort_raising[sort_col] = sort_order;
-    priv->sort_func = file_list_column[sort_col].sort_func;
+    priv->sorter = file_list_column[sort_col].sorter_factory (gnome_cmd_data.options.symbolic_links_as_regular_files, sort_order);
     priv->color_theme = gnome_cmd_get_current_theme();
     priv->ls_palette = gnome_cmd_get_palette();
 
@@ -863,330 +866,6 @@ static gboolean on_right_mb (PopupClosure *closure)
 }
 
 
-/******************************************************
- * File sorting functions
- **/
-
-inline gint my_strcmp (const gchar *s1, const gchar *s2, gboolean raising)
-{
-    int ret = strcmp (s1, s2);
-
-    if (ret > 0)
-        return raising ? -1 : 1;
-
-    if (ret < 0)
-        return raising ? 1 : -1;
-
-    return ret;
-}
-
-
-inline gint my_intcmp (gint i1, gint i2, gboolean raising)
-{
-    if (i1 > i2)
-        return raising ? -1 : 1;
-
-    if (i2 > i1)
-        return raising ? 1 : -1;
-
-    return 0;
-}
-
-
-inline gint my_filesizecmp (guint32 i1, guint32 i2, gboolean raising)
-{
-    if (i1 > i2)
-        return raising ? -1 : 1;
-
-    if (i2 > i1)
-        return raising ? 1 : -1;
-
-    return 0;
-}
-
-
-static int compare_file_types(GFileInfo *gFileInfo1, GFileInfo *gFileInfo2)
-{
-    // Treat symbolic links as regular files?
-    auto gFileType1 = g_file_info_get_file_type(gFileInfo1) == G_FILE_TYPE_SYMBOLIC_LINK
-        ? gnome_cmd_data.options.symbolic_links_as_regular_files
-            ? G_FILE_TYPE_REGULAR
-            : g_file_info_get_file_type(gFileInfo1)
-        : g_file_info_get_file_type(gFileInfo1);
-    auto gFileType2 = g_file_info_get_file_type(gFileInfo2) == G_FILE_TYPE_SYMBOLIC_LINK
-        ? gnome_cmd_data.options.symbolic_links_as_regular_files
-            ? G_FILE_TYPE_REGULAR
-            : g_file_info_get_file_type(gFileInfo2)
-        : g_file_info_get_file_type(gFileInfo2);
-
-    if (gFileType1 > gFileType2)
-        return -1;
-
-    if (gFileType1 < gFileType2)
-        return 1;
-
-    return 0;
-}
-
-static gint compare_file_types(GnomeCmdFile *f1, GnomeCmdFile *f2)
-{
-    GError *error = nullptr;
-    gint returnValue;
-
-    if (gnome_cmd_file_is_local(f1))
-    {
-        returnValue = compare_file_types(f1->get_file_info(), f2->get_file_info());
-    }
-    else
-    {
-        auto gFileInfo1 = g_file_query_info (f1->get_file(), "*", G_FILE_QUERY_INFO_NONE, nullptr, &error);
-        if (error)
-        {
-            DEBUG ('t', "Could not retrieve file information for %s, error: %s\n", f1->get_name(), error->message);
-            g_error_free(error);
-        }
-        auto gFileInfo2 = g_file_query_info (f2->get_file(), "*", G_FILE_QUERY_INFO_NONE, nullptr, &error);
-        if (error)
-        {
-            DEBUG ('t', "Could not retrieve file information for %s, error: %s\n", f2->get_name(), error->message);
-            g_error_free(error);
-        }
-        returnValue = compare_file_types(gFileInfo1, gFileInfo2);
-        g_object_unref(gFileInfo1);
-        g_object_unref(gFileInfo2);
-    }
-    return returnValue;
-}
-
-gint sort_by_name (GnomeCmdFile *f1, GnomeCmdFile *f2, GnomeCmdFileList *fl)
-{
-    if (f1->is_dotdot)
-        return -1;
-
-    if (f2->is_dotdot)
-        return 1;
-
-    gboolean raising = fl->priv->sort_raising[fl->priv->current_col];
-
-    // Compare different file types first
-    auto returnValue = compare_file_types(f1, f2);
-    if (returnValue != 0)
-        return returnValue;
-
-    return my_strcmp (f1->get_collation_fname(), f2->get_collation_fname(), raising);
-}
-
-
-static gint sort_by_ext (GnomeCmdFile *f1, GnomeCmdFile *f2, GnomeCmdFileList *fl)
-{
-    if (f1->is_dotdot)
-        return -1;
-
-    if (f2->is_dotdot)
-        return 1;
-
-    // Compare different file types first
-    auto returnValue = compare_file_types(f1, f2);
-    if (returnValue != 0)
-        return returnValue;
-
-    gboolean raising = fl->priv->sort_raising[fl->priv->current_col];
-
-    if (!f1->get_extension() && !f2->get_extension())
-        return my_strcmp (f1->get_collation_fname(), f2->get_collation_fname(), fl->priv->sort_raising[1]);
-
-    if (!f1->get_extension())
-        return raising?1:-1;
-    if (!f2->get_extension())
-        return raising?-1:1;
-
-    gint ret = my_strcmp (f1->get_extension(), f2->get_extension(), raising);
-
-    return ret ? ret : my_strcmp (f1->get_collation_fname(), f2->get_collation_fname(), fl->priv->sort_raising[1]);
-}
-
-
-static gint sort_by_dir (GnomeCmdFile *f1, GnomeCmdFile *f2, GnomeCmdFileList *fl)
-{
-    if (f1->is_dotdot)
-        return -1;
-
-    if (f2->is_dotdot)
-        return 1;
-
-    if (f1->GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE)
-        > f2->GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE))
-        return -1;
-
-    if (f1->GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE)
-        < f2->GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE))
-        return 1;
-
-    gboolean raising = fl->priv->sort_raising[fl->priv->current_col];
-    gchar *dirname1 = f1->get_dirname();
-    gchar *dirname2 = f2->get_dirname();
-
-    gint ret = my_strcmp (dirname1, dirname2, raising);
-
-    g_free (dirname1);
-    g_free (dirname2);
-
-    if (!ret)
-        ret = my_strcmp (f1->get_collation_fname(), f2->get_collation_fname(), raising);
-
-    return ret;
-}
-
-
-static gint sort_by_size (GnomeCmdFile *f1, GnomeCmdFile *f2, GnomeCmdFileList *fl)
-{
-    if (f1->is_dotdot)
-        return -1;
-
-    if (f2->is_dotdot)
-        return 1;
-
-    gboolean raising = fl->priv->sort_raising[fl->priv->current_col];
-    gboolean file_raising = fl->priv->sort_raising[1];
-
-    // Check if both items are directories. In this case, just compare their names.
-    if ((f1->GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE) == G_FILE_TYPE_DIRECTORY)
-        && (f2->GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE) == G_FILE_TYPE_DIRECTORY))
-    {
-        return my_strcmp (f1->get_collation_fname(), f2->get_collation_fname(), file_raising);
-    }
-    // If just one item is a directory, return a fixed value.
-    if (f1->GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE) == G_FILE_TYPE_DIRECTORY)
-    {
-        return -1;
-    }
-    if (f2->GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE) == G_FILE_TYPE_DIRECTORY)
-    {
-        return 1;
-    }
-
-    // Compare different file types first
-    auto returnValue = compare_file_types(f1, f2);
-    if (returnValue != 0)
-        return returnValue;
-
-    returnValue = my_filesizecmp (f1->GetGfileAttributeUInt64(G_FILE_ATTRIBUTE_STANDARD_SIZE),
-                                  f2->GetGfileAttributeUInt64(G_FILE_ATTRIBUTE_STANDARD_SIZE), raising);
-
-    if (!returnValue)
-        returnValue = my_strcmp (f1->get_collation_fname(), f2->get_collation_fname(), file_raising);
-
-    return returnValue;
-}
-
-
-static gint sort_by_perm (GnomeCmdFile *f1, GnomeCmdFile *f2, GnomeCmdFileList *fl)
-{
-    if (f1->is_dotdot)
-        return -1;
-
-    if (f2->is_dotdot)
-        return 1;
-
-    gboolean raising = fl->priv->sort_raising[fl->priv->current_col];
-    gboolean file_raising = fl->priv->sort_raising[1];
-
-    auto returnValue = compare_file_types(f1, f2);
-    if (returnValue != 0)
-        return returnValue;
-
-    returnValue = my_intcmp (get_gfile_attribute_uint32(f1->get_file(), G_FILE_ATTRIBUTE_UNIX_MODE),
-                             get_gfile_attribute_uint32(f2->get_file(), G_FILE_ATTRIBUTE_UNIX_MODE), raising);
-    if (!returnValue)
-        returnValue = my_strcmp (f1->get_collation_fname(), f2->get_collation_fname(), file_raising);
-
-    return returnValue;
-}
-
-
-static gint sort_by_date (GnomeCmdFile *f1, GnomeCmdFile *f2, GnomeCmdFileList *fl)
-{
-    if (f1->is_dotdot)
-        return -1;
-
-    if (f2->is_dotdot)
-        return 1;
-
-    gboolean raising = fl->priv->sort_raising[fl->priv->current_col];
-    gboolean file_raising = fl->priv->sort_raising[1];
-
-    auto returnValue = compare_file_types(f1, f2);
-    if (returnValue != 0)
-        return returnValue;
-
-    returnValue = my_intcmp (f1->GetGfileAttributeUInt64(G_FILE_ATTRIBUTE_TIME_MODIFIED),
-                             f2->GetGfileAttributeUInt64(G_FILE_ATTRIBUTE_TIME_MODIFIED), raising);
-
-    if (!returnValue)
-        returnValue = my_strcmp (f1->get_collation_fname(), f2->get_collation_fname(), file_raising);
-
-    return returnValue;
-}
-
-
-static gint sort_by_owner (GnomeCmdFile *f1, GnomeCmdFile *f2, GnomeCmdFileList *fl)
-{
-    if (f1->is_dotdot)
-        return -1;
-
-    if (f2->is_dotdot)
-        return 1;
-
-    gboolean raising = fl->priv->sort_raising[fl->priv->current_col];
-    gboolean file_raising = fl->priv->sort_raising[1];
-
-    auto returnValue = compare_file_types(f1, f2);
-    if (returnValue != 0)
-        return returnValue;
-
-#ifdef linux
-    returnValue = my_intcmp (f1->GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_UNIX_UID),
-                             f2->GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_UNIX_UID), raising);
-#else
-    returnValue = my_strcmp (f1->GetGfileAttributeString(G_FILE_ATTRIBUTE_OWNER_USER),
-                             f2->GetGfileAttributeString(G_FILE_ATTRIBUTE_OWNER_USER), raising)
-#endif
-    if (!returnValue)
-        returnValue = my_strcmp (f1->get_collation_fname(), f2->get_collation_fname(), file_raising);
-
-    return returnValue;
-}
-
-
-static gint sort_by_group (GnomeCmdFile *f1, GnomeCmdFile *f2, GnomeCmdFileList *fl)
-{
-    if (f1->is_dotdot)
-        return -1;
-
-    if (f2->is_dotdot)
-        return 1;
-
-    gboolean raising = fl->priv->sort_raising[fl->priv->current_col];
-    gboolean file_raising = fl->priv->sort_raising[1];
-
-    auto returnValue = compare_file_types(f1, f2);
-    if (returnValue != 0)
-        return returnValue;
-
-#ifdef linux
-    returnValue = my_intcmp (f1->GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_UNIX_GID),
-                             f2->GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_UNIX_GID), raising);
-#else
-    returnValue = my_strcmp (f1->GetGfileAttributeString(G_FILE_ATTRIBUTE_OWNER_GROUP),
-                             f2->GetGfileAttributeString(G_FILE_ATTRIBUTE_OWNER_GROUP), raising)
-#endif
-    if (!returnValue)
-        returnValue = my_strcmp (f1->get_collation_fname(), f2->get_collation_fname(), file_raising);
-
-    return returnValue;
-}
-
-
 /*******************************
  * Callbacks
  *******************************/
@@ -1210,10 +889,15 @@ static void on_column_clicked (GtkTreeViewColumn *column, GnomeCmdFileList *fl)
     if (col < 0)
         return;
 
-    fl->priv->sort_raising[col] = fl->priv->current_col == col ? !fl->priv->sort_raising[col] :
-                                                                 (static_cast<bool>(file_list_column[col].default_sort_direction));
+    fl->priv->sort_raising[col] = fl->priv->current_col == col
+        ? (GtkSortType) !fl->priv->sort_raising[col]
+        : file_list_column[col].default_sort_direction;
 
-    fl->priv->sort_func = file_list_column[col].sort_func;
+    g_set_object(&fl->priv->sorter,
+        file_list_column[col].sorter_factory (
+            gnome_cmd_data.options.symbolic_links_as_regular_files,
+            fl->priv->sort_raising[col]));
+
     fl->priv->current_col = col;
     update_column_sort_arrows (fl);
 
@@ -1574,6 +1258,8 @@ static void gnome_cmd_file_list_finalize (GObject *object)
 {
     GnomeCmdFileList *fl = GNOME_CMD_FILE_LIST (object);
 
+    g_clear_object (&fl->priv->sorter);
+
     delete fl->priv;
 
     G_OBJECT_CLASS (gnome_cmd_file_list_parent_class)->finalize (object);
@@ -1804,7 +1490,7 @@ gboolean GnomeCmdFileList::insert_file(GnomeCmdFile *f)
     GtkTreeIter next_iter;
     bool next_iter_found = false;
     traverse_files ([&next_iter, &next_iter_found, this, f](GnomeCmdFile *f2, GtkTreeIter *iter, GtkListStore *store) {
-        if (priv->sort_func (f2, f, this) == 1)
+        if (gtk_sorter_compare (priv->sorter, f2, f) == GTK_ORDERING_LARGER)
         {
             memmove (&next_iter, iter, sizeof (next_iter));
             next_iter_found = true;
@@ -1819,6 +1505,12 @@ gboolean GnomeCmdFileList::insert_file(GnomeCmdFile *f)
         append_file(f);
 
     return TRUE;
+}
+
+
+static gint compare_with_gtk_sorter (gconstpointer itema, gconstpointer itemb, gpointer user_data)
+{
+    return gtk_sorter_compare (GTK_SORTER (user_data), G_OBJECT (itema), G_OBJECT (itemb));
 }
 
 
@@ -1853,7 +1545,7 @@ void GnomeCmdFileList::show_files(GnomeCmdDir *dir)
 
     if (files)
     {
-        files = g_list_sort_with_data (files, (GCompareDataFunc) priv->sort_func, this);
+        files = g_list_sort_with_data (files, compare_with_gtk_sorter, priv->sorter);
 
         for (auto i = files; i; i = i->next)
             append_file(GNOME_CMD_FILE (i->data));
@@ -2239,7 +1931,7 @@ void GnomeCmdFileList::sort()
         gtk_tree_model_get (GTK_TREE_MODEL (priv->store), &itera, DATA_COLUMN_FILE, &filea, -1);
         gtk_tree_model_get (GTK_TREE_MODEL (priv->store), &iterb, DATA_COLUMN_FILE, &fileb, -1);
 
-        return priv->sort_func(filea, fileb, this) < 0;
+        return gtk_sorter_compare (priv->sorter, filea, fileb) == GTK_ORDERING_SMALLER;
     });
     gtk_list_store_reorder (priv->store, &indexes[0]);
 
@@ -2763,6 +2455,12 @@ void GnomeCmdFileList::update_style()
 
     gnome_cmd_palette_free(priv->ls_palette);
     priv->ls_palette = gnome_cmd_get_palette();
+
+    auto col = priv->current_col;
+    g_set_object(&priv->sorter,
+        file_list_column[col].sorter_factory (
+            gnome_cmd_data.options.symbolic_links_as_regular_files,
+            priv->sort_raising[col]));
 
     PangoFontDescription *font_desc = pango_font_description_from_string (gnome_cmd_data.options.list_font);
     // gtk_widget_override_font (*this, font_desc);
