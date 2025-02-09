@@ -28,7 +28,7 @@ include:
   - component: "gitlab.gnome.org/GNOME/citemplates/release-service@master"
     inputs:
       job-stage: release
-      dist-job-name: "tarball"
+      dist-job-name: "create_tarball"
       tarball-artifact-path: "${TARBALL_ARTIFACT_PATH}"
 
 before_script:
@@ -36,7 +36,7 @@ before_script:
   - apt-get update -qq
   - apt-get install -y $UBUNTU_DEPS
 
-build:
+build_and_test:
   stage: build
   script:
     - mkdir ${MESON_BUILD_DIR}
@@ -45,7 +45,7 @@ build:
     - exit_code=0
     - xvfb-run meson test -C ${MESON_BUILD_DIR} || exit_code=$?; if [ "$exit_code" != "0" ]; then echo "Unit tests failed."; cat ${MESON_BUILD_DIR}/meson-logs/testlog.txt; exit 1; fi;
 
-tarball:
+create_tarball:
   stage: release
   script:
     - mkdir ${MESON_BUILD_DIR}
