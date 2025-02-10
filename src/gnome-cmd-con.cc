@@ -417,14 +417,7 @@ void gnome_cmd_con_set_default_dir (GnomeCmdCon *con, GnomeCmdDir *dir)
     g_return_if_fail (GNOME_CMD_IS_CON (con));
     auto priv = static_cast<GnomeCmdConPrivate *> (gnome_cmd_con_get_instance_private (con));
 
-    if (dir == priv->default_dir)
-        return;
-
-    if (dir)
-        gnome_cmd_dir_ref (dir);
-    if (priv->default_dir)
-        gnome_cmd_dir_unref (priv->default_dir);
-    priv->default_dir = dir;
+    g_set_object(&priv->default_dir, dir);
 }
 
 
