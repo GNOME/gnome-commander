@@ -182,6 +182,10 @@ impl File {
         }
     }
 
+    pub fn get_dirname(&self) -> Option<PathBuf> {
+        self.file().parent()?.path()
+    }
+
     pub fn get_uri_str(&self) -> Option<String> {
         let ptr =
             unsafe { CString::from_raw(ffi::gnome_cmd_file_get_uri_str(self.to_glib_none().0)) };

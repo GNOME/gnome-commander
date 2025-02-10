@@ -359,7 +359,10 @@ impl FileList {
             "{selected_bytes} of {total_bytes} in {selected_files} of {total_files} files",
             stats.total.files as u32,
         )
-        .replace("{selected_bytes}", &size_to_string(stats.selected.bytes, mode))
+        .replace(
+            "{selected_bytes}",
+            &size_to_string(stats.selected.bytes, mode),
+        )
         .replace("{total_bytes}", &size_to_string(stats.total.bytes, mode))
         .replace("{selected_files}", &stats.selected.files.to_string())
         .replace("{total_files}", &stats.total.files.to_string());
