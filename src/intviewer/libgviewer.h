@@ -33,5 +33,4 @@
 #include "datapresentation.h"
 #include "image-render.h"
 #include "text-render.h"
-#include "search-dlg.h"
 #include "searcher.h"

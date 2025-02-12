@@ -78,7 +78,6 @@ src/intviewer/fileops.cc
 src/intviewer/image-render.cc
 src/intviewer/inputmodes.cc
 src/intviewer/search_dialog.rs
-src/intviewer/search-dlg.cc
 src/intviewer/search_progress_dialog.rs
 src/intviewer/text-render.cc
 src/intviewer/window.rs

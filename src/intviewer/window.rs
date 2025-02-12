@@ -168,7 +168,7 @@ mod imp {
                 file: Default::default(),
                 searcher: Default::default(),
                 search: RefCell::new(SearchRequest::Text {
-                    pattern: String::new(),
+                    pattern: glib::GString::new(),
                     case_sensitive: true,
                 }),
                 current_scale_index: Cell::new(5),
@@ -542,7 +542,7 @@ mod imp {
                         *case_sensitive,
                     );
                 }
-                SearchRequest::Binary { pattern } => {
+                SearchRequest::Binary { pattern, .. } => {
                     searcher.setup_new_hex_search(
                         self.text_render.input_mode_data(),
                         self.text_render.current_offset(),

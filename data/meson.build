@@ -1,7 +1,6 @@
 gsettings_enum_files = [
   '../src/gnome-cmd-types.h',
   '../src/gnome-cmd-data.h',
-  '../src/intviewer/search-dlg.h'
 ]
 
 gsettings_enum_file_ready = 'org.gnome.gnome-commander.enums.xml'

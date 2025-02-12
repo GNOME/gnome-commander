@@ -87,7 +87,6 @@ struct _GcmdSettings
     GSettings *colors;
     GSettings *programs;
     GSettings *network;
-    GSettings *internalviewer;
 };
 
 G_DEFINE_TYPE (GcmdSettings, gcmd_settings, G_TYPE_OBJECT)
@@ -111,7 +110,6 @@ static void gcmd_settings_dispose (GObject *object)
     g_clear_object (&gs->colors);
     g_clear_object (&gs->programs);
     g_clear_object (&gs->network);
-    g_clear_object (&gs->internalviewer);
 
     G_OBJECT_CLASS (gcmd_settings_parent_class)->dispose (object);
 }
@@ -976,9 +974,6 @@ static void gcmd_settings_init (GcmdSettings *gs)
 
     global_schema = g_settings_schema_source_lookup (global_schema_source, GCMD_PREF_NETWORK, FALSE);
     gs->network = g_settings_new_full (global_schema, nullptr, nullptr);
-
-    global_schema = g_settings_schema_source_lookup (global_schema_source, GCMD_PREF_INTERNAL_VIEWER, FALSE);
-    gs->internalviewer = g_settings_new_full (global_schema, nullptr, nullptr);
 }
 
 
@@ -2146,14 +2141,6 @@ void GnomeCmdData::save_search_history()
 }
 
 
-inline void GnomeCmdData::save_intviewer_defaults()
-{
-    set_gsettings_string_array_from_glist(options.gcmd_settings->internalviewer, GCMD_SETTINGS_IV_SEARCH_PATTERN_TEXT, intviewer_defaults.text_patterns.ents);
-    set_gsettings_string_array_from_glist(options.gcmd_settings->internalviewer, GCMD_SETTINGS_IV_SEARCH_PATTERN_HEX, intviewer_defaults.hex_patterns.ents);
-    set_gsettings_when_changed      (options.gcmd_settings->internalviewer, GCMD_SETTINGS_IV_CASE_SENSITIVE, &(intviewer_defaults.case_sensitive));
-    set_gsettings_enum_when_changed (options.gcmd_settings->internalviewer, GCMD_SETTINGS_IV_SEARCH_MODE, intviewer_defaults.search_mode);
-}
-
 /**
  * Returns a GList with newly allocated char strings
  */
@@ -2192,15 +2179,6 @@ inline void GnomeCmdData::load_directory_history()
         g_free(i->data);
     }
     g_list_free(directories);
-}
-
-
-inline void GnomeCmdData::load_intviewer_defaults()
-{
-    intviewer_defaults.text_patterns = get_list_from_gsettings_string_array (options.gcmd_settings->internalviewer, GCMD_SETTINGS_IV_SEARCH_PATTERN_TEXT);
-    intviewer_defaults.hex_patterns.ents = get_list_from_gsettings_string_array (options.gcmd_settings->internalviewer, GCMD_SETTINGS_IV_SEARCH_PATTERN_HEX);
-    intviewer_defaults.case_sensitive = g_settings_get_boolean (options.gcmd_settings->internalviewer, GCMD_SETTINGS_IV_CASE_SENSITIVE);
-    intviewer_defaults.search_mode = g_settings_get_enum (options.gcmd_settings->internalviewer, GCMD_SETTINGS_IV_SEARCH_MODE);
 }
 
 
@@ -2552,8 +2530,6 @@ void GnomeCmdData::load()
     quick_connect = gnome_cmd_con_remote_new (nullptr, quick_connect_uri);
     g_free (quick_connect_uri);
 
-    load_intviewer_defaults();
-
     set_g_volume_monitor ();
 }
 
@@ -2685,7 +2661,6 @@ void GnomeCmdData::save(GnomeCmdMainWin *main_win)
     save_connections                ();
     save_bookmarks                  ();
     save_advrename_profiles         ();
-    save_intviewer_defaults         ();
 
     g_settings_sync ();
 }
