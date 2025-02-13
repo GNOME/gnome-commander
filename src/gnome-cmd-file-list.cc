@@ -101,7 +101,7 @@ struct GnomeCmdFileListColumn
 {
     guint id;
     const gchar *title;
-    PangoAlignment alignment;
+    float alignment;
     GtkSortType default_sort_direction;
     GnomeCmdSorterFactory sorter_factory;
 };
@@ -150,15 +150,15 @@ static gboolean gnome_cmd_file_list_key_pressed (GtkEventControllerKey* self, gu
 
 
 static GnomeCmdFileListColumn file_list_column[GnomeCmdFileList::NUM_COLUMNS] =
-{{GnomeCmdFileList::COLUMN_ICON, nullptr, PANGO_ALIGN_CENTER,GTK_SORT_ASCENDING, nullptr},
- {GnomeCmdFileList::COLUMN_NAME, N_("name"), PANGO_ALIGN_LEFT, GTK_SORT_ASCENDING, gnome_cmd_sort_by_name},
- {GnomeCmdFileList::COLUMN_EXT, N_("ext"), PANGO_ALIGN_LEFT, GTK_SORT_ASCENDING, gnome_cmd_sort_by_ext},
- {GnomeCmdFileList::COLUMN_DIR, N_("dir"), PANGO_ALIGN_LEFT, GTK_SORT_ASCENDING, gnome_cmd_sort_by_dir},
- {GnomeCmdFileList::COLUMN_SIZE, N_("size"), PANGO_ALIGN_RIGHT, GTK_SORT_DESCENDING, gnome_cmd_sort_by_size},
- {GnomeCmdFileList::COLUMN_DATE, N_("date"), PANGO_ALIGN_LEFT, GTK_SORT_DESCENDING, gnome_cmd_sort_by_date},
- {GnomeCmdFileList::COLUMN_PERM, N_("perm"), PANGO_ALIGN_LEFT, GTK_SORT_ASCENDING, gnome_cmd_sort_by_perm},
- {GnomeCmdFileList::COLUMN_OWNER, N_("uid"), PANGO_ALIGN_LEFT, GTK_SORT_ASCENDING, gnome_cmd_sort_by_owner},
- {GnomeCmdFileList::COLUMN_GROUP, N_("gid"), PANGO_ALIGN_LEFT, GTK_SORT_ASCENDING, gnome_cmd_sort_by_group}};
+{{GnomeCmdFileList::COLUMN_ICON, nullptr, 0.5, GTK_SORT_ASCENDING, nullptr},
+ {GnomeCmdFileList::COLUMN_NAME, N_("name"), 0.0, GTK_SORT_ASCENDING, gnome_cmd_sort_by_name},
+ {GnomeCmdFileList::COLUMN_EXT, N_("ext"), 0.0, GTK_SORT_ASCENDING, gnome_cmd_sort_by_ext},
+ {GnomeCmdFileList::COLUMN_DIR, N_("dir"), 0.0, GTK_SORT_ASCENDING, gnome_cmd_sort_by_dir},
+ {GnomeCmdFileList::COLUMN_SIZE, N_("size"), 1.0, GTK_SORT_DESCENDING, gnome_cmd_sort_by_size},
+ {GnomeCmdFileList::COLUMN_DATE, N_("date"), 0.0, GTK_SORT_DESCENDING, gnome_cmd_sort_by_date},
+ {GnomeCmdFileList::COLUMN_PERM, N_("perm"), 0.0, GTK_SORT_ASCENDING, gnome_cmd_sort_by_perm},
+ {GnomeCmdFileList::COLUMN_OWNER, N_("uid"), 0.0, GTK_SORT_ASCENDING, gnome_cmd_sort_by_owner},
+ {GnomeCmdFileList::COLUMN_GROUP, N_("gid"), 0.0, GTK_SORT_ASCENDING, gnome_cmd_sort_by_group}};
 
 
 enum DataColumns {
@@ -313,7 +313,7 @@ GnomeCmdFileList::Private::Private(GnomeCmdFileList *fl)
             gtk_tree_view_column_set_sort_indicator (columns[i], TRUE);
 
             renderer = gtk_cell_renderer_text_new ();
-            g_object_set (renderer, "alignment", file_list_column[i].alignment, NULL);
+            g_object_set (renderer, "xalign", file_list_column[i].alignment, NULL);
             gtk_tree_view_column_pack_start (columns[i], renderer, TRUE);
 
             gtk_tree_view_column_set_cell_data_func (columns[i], renderer, cell_data, cell_data_col, g_free);
