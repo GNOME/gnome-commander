@@ -141,10 +141,6 @@ struct GnomeCmdFileList
     void toggle_file(GtkTreeIter *iter);
     void toggle();
     void toggle_and_step();
-    void toggle_with_pattern (Filter &pattern, gboolean mode);
-
-    void select(Filter &pattern)                       {  toggle_with_pattern(pattern, TRUE);                           }
-    void unselect(Filter &pattern)                     {  toggle_with_pattern(pattern, FALSE);                          }
 
     void select_row(GtkTreeIter *row);
     GnomeCmdFile *get_file_at_row(GtkTreeIter *row);
@@ -308,7 +304,5 @@ extern "C" void gnome_cmd_file_list_reload (GnomeCmdFileList *fl);
 
 extern "C" void gnome_cmd_file_list_set_connection(GnomeCmdFileList *fl, GnomeCmdCon *con, GnomeCmdDir *start_dir);
 extern "C" void gnome_cmd_file_list_focus_file(GnomeCmdFileList *fl, const gchar *focus_file, gboolean scroll_to_file);
-
-extern "C" void gnome_cmd_file_list_toggle_with_pattern(GnomeCmdFileList *fl, Filter *pattern, gboolean mode);
 
 extern "C" void gnome_cmd_file_list_goto_directory(GnomeCmdFileList *fl, const gchar *dir);

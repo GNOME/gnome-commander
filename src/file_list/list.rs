@@ -89,12 +89,6 @@ pub mod ffi {
         );
 
         pub fn gnome_cmd_file_list_goto_directory(fl: *mut GnomeCmdFileList, dir: *const c_char);
-
-        pub fn gnome_cmd_file_list_toggle_with_pattern(
-            fl: *mut GnomeCmdFileList,
-            pattern: *mut c_void,
-            mode: gboolean,
-        );
     }
 
     #[derive(Copy, Clone)]
@@ -233,13 +227,18 @@ impl FileList {
     }
 
     pub fn toggle_with_pattern(&self, pattern: &Filter, mode: bool) {
-        unsafe {
-            ffi::gnome_cmd_file_list_toggle_with_pattern(
-                self.to_glib_none().0,
-                pattern.as_ptr(),
-                if mode { 1 } else { 0 },
-            )
-        }
+        let options = GeneralOptions::new();
+        let select_dirs = options.select_dirs();
+        self.traverse_files::<()>(|file, iter, store| {
+            if !file.is_dotdot()
+                && (select_dirs || file.downcast_ref::<Directory>().is_none())
+                && pattern.matches(&file.file_info().display_name())
+            {
+                store.set(iter, &[(DataColumns::DATA_COLUMN_SELECTED as u32, &mode)]);
+            }
+            ControlFlow::Continue(())
+        });
+        self.emit_files_changed();
     }
 
     pub fn goto_directory(&self, dir: &Path) {

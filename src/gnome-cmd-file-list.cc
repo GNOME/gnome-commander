@@ -744,32 +744,6 @@ inline void toggle_file_range (GnomeCmdFileList *fl, GtkTreeIter *start_row, Gtk
 extern "C" void toggle_files_with_same_extension (GnomeCmdFileList *fl, gboolean select);
 
 
-void GnomeCmdFileList::toggle_with_pattern(Filter &pattern, gboolean mode)
-{
-    if (gnome_cmd_data.options.select_dirs)
-    {
-        traverse_files ([this, &pattern, mode](GnomeCmdFile *f, GtkTreeIter *iter, GtkListStore *store) {
-            if (f && !f->is_dotdot && f->get_file_info() && pattern.match(g_file_info_get_display_name(f->get_file_info())))
-            {
-                set_selected_at_iter (iter, mode);
-            }
-            return TRAVERSE_CONTINUE;
-        });
-    }
-    else
-    {
-        traverse_files ([this, &pattern, mode](GnomeCmdFile *f, GtkTreeIter *iter, GtkListStore *store) {
-            if (f && !f->is_dotdot && !GNOME_CMD_IS_DIR (f) && f->get_file_info() && pattern.match(g_file_info_get_display_name(f->get_file_info())))
-            {
-                set_selected_at_iter (iter, mode);
-            }
-            return TRAVERSE_CONTINUE;
-        });
-    }
-    g_signal_emit (this, signals[FILES_CHANGED], 0);
-}
-
-
 void GnomeCmdFileList::create_column_titles()
 {
     gtk_tree_view_set_headers_visible (priv->view, true);
@@ -2931,11 +2905,6 @@ void gnome_cmd_file_list_set_connection(GnomeCmdFileList *fl, GnomeCmdCon *con, 
 void gnome_cmd_file_list_focus_file(GnomeCmdFileList *fl, const gchar *focus_file, gboolean scroll_to_file)
 {
     fl->focus_file(focus_file, scroll_to_file);
-}
-
-void gnome_cmd_file_list_toggle_with_pattern(GnomeCmdFileList *fl, Filter *pattern, gboolean mode)
-{
-    fl->toggle_with_pattern(*pattern, mode);
 }
 
 void gnome_cmd_file_list_goto_directory(GnomeCmdFileList *fl, const gchar *dir)
