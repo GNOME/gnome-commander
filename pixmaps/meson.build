@@ -27,14 +27,6 @@ icons_16x16 = [
 install_data(icons_16x16,
   install_dir: icons_dir / 'hicolor' / '16x16' / 'actions')
 
-icons_24x24 = [
-  'gnome-commander-edit.png',
-  'gnome-commander-connect.png',
-]
-
-install_data(icons_24x24,
-  install_dir: icons_dir / 'hicolor' / '24x24' / 'actions')
-
 icons_scalable = [
   'gnome-commander.svg',
   'gnome-commander-internal-viewer.svg',
@@ -42,6 +34,10 @@ icons_scalable = [
   'gnome-commander-bookmark-outline-symbolic.svg',
   'gnome-commander-info-outline-symbolic.svg',
   'gnome-commander-settings-symbolic.svg',
+  'gnome-commander-recycling-bin-symbolic.svg',
+  'gnome-commander-edit-symbolic.svg',
+  'gnome-commander-folder-remote-symbolic.svg',
+  'gnome-commander-folder-remote-disconnect-symbolic.svg',
 ]
 
 install_data(icons_scalable,

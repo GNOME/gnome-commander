@@ -22,8 +22,12 @@
 #pragma once
 
 #define COPYFILENAMES_STOCKID          "gnome-commander-copy-file-names"
+#define DELETE_FILE_ICON               "gnome-commander-recycling-bin-symbolic"
+#define EDIT_FILE_ICON                 "gnome-commander-edit-symbolic"
 #define GTK_MAILSEND_STOCKID           "mail-send"
 #define GTK_TERMINAL_STOCKID           "utilities-terminal"
+#define REMOTE_CONNECT_ICON            "gnome-commander-folder-remote-symbolic"
+#define REMOTE_DISCONNECT_ICON         "gnome-commander-folder-remote-disconnect-symbolic"
 #define OVERLAY_UMOUNT_ICON            "overlay_umount"
 
 struct GnomeCmdIconCache;

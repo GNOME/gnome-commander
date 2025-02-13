@@ -188,14 +188,14 @@ static void create_toolbar (GnomeCmdMainWin *mw)
     append_toolbar_button (mw->priv->toolbar, _("Cut"),                                                     "edit-cut",             "win.edit-cap-cut");
     append_toolbar_button (mw->priv->toolbar, _("Copy"),                                                    "edit-copy",            "win.edit-cap-copy");
     append_toolbar_button (mw->priv->toolbar, _("Paste"),                                                   "edit-paste",           "win.edit-cap-paste");
-    append_toolbar_button (mw->priv->toolbar, _("Delete"),                                                  "file-delete",          "win.file-delete");
-    append_toolbar_button (mw->priv->toolbar, _("Edit (SHIFT for new document)"),                           "gnome-commander-edit", "win.file-edit");
+    append_toolbar_button (mw->priv->toolbar, _("Delete"),                                                  DELETE_FILE_ICON,       "win.file-delete");
+    append_toolbar_button (mw->priv->toolbar, _("Edit (SHIFT for new document)"),                           EDIT_FILE_ICON,         "win.file-edit");
     append_toolbar_button (mw->priv->toolbar, _("Send files"),                                              GTK_MAILSEND_STOCKID,   "win.file-sendto");
     append_toolbar_button (mw->priv->toolbar, _("Open terminal"),                                           GTK_TERMINAL_STOCKID,   "win.command-open-terminal");
     append_toolbar_separator (mw->priv->toolbar);
-    append_toolbar_button (mw->priv->toolbar, _("Remote Server"),                                           "gnome-commander-connect", "win.connections-open");
+    append_toolbar_button (mw->priv->toolbar, _("Remote Server"),                                           REMOTE_CONNECT_ICON,    "win.connections-open");
     mw->priv->tb_con_drop_btn = g_object_ref (
-        append_toolbar_button (mw->priv->toolbar, _("Drop connection"),                                     "gnome-commander-disconnect", "win.connections-close-current"));
+        append_toolbar_button (mw->priv->toolbar, _("Drop connection"),                                     REMOTE_DISCONNECT_ICON, "win.connections-close-current"));
 
     mw->priv->toolbar_sep = create_separator (FALSE);
 }
