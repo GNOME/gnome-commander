@@ -224,7 +224,18 @@ pub fn file_edit_new_doc(
 }
 
 c_action!(file_search);
-c_action!(file_quick_search);
+
+pub fn file_quick_search(
+    main_win: &MainWindow,
+    _action: &gio::SimpleAction,
+    _parameter: Option<&glib::Variant>,
+) {
+    let main_win = main_win.clone();
+    let file_selector = main_win.file_selector(FileSelectorID::ACTIVE);
+    let file_list = file_selector.file_list();
+
+    file_list.show_quick_search(None);
+}
 
 pub fn file_chmod(
     main_win: &MainWindow,

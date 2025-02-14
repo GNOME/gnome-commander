@@ -39,7 +39,6 @@
 #include "gnome-cmd-xfer.h"
 #include "imageloader.h"
 #include "cap.h"
-#include "gnome-cmd-quicksearch-popup.h"
 #include "gnome-cmd-file-collection.h"
 #include "dialogs/gnome-cmd-delete-dialog.h"
 #include "dialogs/gnome-cmd-rename-dialog.h"
@@ -204,7 +203,6 @@ struct GnomeCmdFileList::Private
     gboolean shift_down;
     GtkTreeIterPtr shift_down_row;
     gint shift_down_key;
-    GWeakRef quicksearch_popup;
     gchar *focus_later;
 
     // dropping files
@@ -245,8 +243,6 @@ GnomeCmdFileList::Private::Private(GnomeCmdFileList *fl)
     column_resizing = 0;
     color_theme = nullptr;
     ls_palette = nullptr;
-
-    quicksearch_popup = { { nullptr } };
 
     focus_later = nullptr;
     shift_down = FALSE;
@@ -1646,17 +1642,6 @@ GList *GnomeCmdFileList::get_selected_files()
 }
 
 
-std::vector<GnomeCmdFile *> GnomeCmdFileList::get_all_files()
-{
-    std::vector<GnomeCmdFile *> files;
-    traverse_files([&files](GnomeCmdFile *file, GtkTreeIter *iter, GtkListStore *store) {
-        files.push_back(file);
-        return TraverseControl::TRAVERSE_CONTINUE;
-    });
-    return files;
-}
-
-
 GList *GnomeCmdFileList::get_visible_files()
 {
     GList *files = nullptr;
@@ -1999,35 +1984,6 @@ void gnome_cmd_file_list_cap_copy (GnomeCmdFileList *fl)
 }
 
 
-gboolean gnome_cmd_file_list_quicksearch_shown (GnomeCmdFileList *fl)
-{
-    g_return_val_if_fail (fl!=nullptr, FALSE);
-    g_return_val_if_fail (GNOME_CMD_IS_FILE_LIST (fl), FALSE);
-    g_return_val_if_fail (fl->priv!=nullptr, FALSE);
-
-    auto quicksearch_popup = g_weak_ref_get (&fl->priv->quicksearch_popup);
-    if (quicksearch_popup == nullptr)
-        return FALSE;
-
-    gboolean shown = gtk_widget_get_visible (GTK_WIDGET (quicksearch_popup));
-    g_object_unref (quicksearch_popup);
-    return shown;
-}
-
-
-void gnome_cmd_file_list_show_quicksearch (GnomeCmdFileList *fl, gchar c)
-{
-    if (gnome_cmd_file_list_quicksearch_shown (fl))
-        return;
-
-    auto popup = gnome_cmd_quicksearch_popup_new (fl);
-    g_weak_ref_set (&fl->priv->quicksearch_popup, g_object_ref (popup));
-    gtk_popover_popup (GTK_POPOVER (popup));
-
-    gnome_cmd_quicksearch_popup_set_char (GNOME_CMD_QUICKSEARCH_POPUP (popup), c);
-}
-
-
 static bool is_quicksearch_starting_character (guint keyval)
 {
     return (keyval >= GDK_KEY_A && keyval <= GDK_KEY_Z) ||
@@ -2268,7 +2224,7 @@ static gboolean gnome_cmd_file_list_key_pressed (GtkEventControllerKey* self, gu
     if (is_quicksearch_starting_character (keyval))
     {
         if (is_quicksearch_starting_modifier (state))
-            gnome_cmd_file_list_show_quicksearch (fl, (gchar) keyval);
+            gnome_cmd_file_list_show_quicksearch (fl, keyval);
         else if (gnome_cmd_data.cmdline_visibility)
         {
             gchar text[2];

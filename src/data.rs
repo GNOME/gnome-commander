@@ -1,5 +1,5 @@
 /*
- * Copyright 2024 Andrey Kutejko <andy128k@gmail.com>
+ * Copyright 2024-2025 Andrey Kutejko <andy128k@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -46,6 +46,11 @@ pub trait GeneralOptionsRead {
     fn permissions_display_mode(&self) -> PermissionDisplayMode;
 
     fn select_dirs(&self) -> bool;
+
+    fn case_sensitive(&self) -> bool;
+
+    fn quick_seaech_exact_match_begin(&self) -> bool;
+    fn quick_seaech_exact_match_end(&self) -> bool;
 }
 
 pub trait GeneralOptionsWrite {
@@ -126,6 +131,18 @@ impl GeneralOptionsRead for GeneralOptions {
 
     fn select_dirs(&self) -> bool {
         self.0.boolean("select-dirs")
+    }
+
+    fn case_sensitive(&self) -> bool {
+        self.0.boolean("case-sensitive")
+    }
+
+    fn quick_seaech_exact_match_begin(&self) -> bool {
+        self.0.boolean("quick-search-exact-match-begin")
+    }
+
+    fn quick_seaech_exact_match_end(&self) -> bool {
+        self.0.boolean("quick-search-exact-match-end")
     }
 }
 

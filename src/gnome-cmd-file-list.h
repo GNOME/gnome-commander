@@ -159,11 +159,6 @@ struct GnomeCmdFileList
     GList *get_visible_files();
 
     /**
-     * Same as `get_visible_files` but returns a vector
-     */
-    std::vector<GnomeCmdFile *> get_all_files();
-
-    /**
      * Returns a list with all selected files. The list returned is a
      * copy and should be freed when no longer needed. The files in the
      * list is however not refed before returning
@@ -273,9 +268,7 @@ void gnome_cmd_file_list_show_selpat_dialog (GnomeCmdFileList *fl, gboolean mode
 void gnome_cmd_file_list_cap_cut (GnomeCmdFileList *fl);
 void gnome_cmd_file_list_cap_copy (GnomeCmdFileList *fl);
 
-void gnome_cmd_file_list_show_quicksearch (GnomeCmdFileList *fl, gchar c);
-
-gboolean gnome_cmd_file_list_quicksearch_shown (GnomeCmdFileList *fl);
+extern "C" void gnome_cmd_file_list_show_quicksearch (GnomeCmdFileList *fl, guint keyval);
 
 struct GnomeCmdFileListButtonEvent
 {

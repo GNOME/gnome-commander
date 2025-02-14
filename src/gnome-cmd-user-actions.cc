@@ -319,14 +319,6 @@ void file_search (GSimpleAction *action, GVariant *parameter, gpointer user_data
 }
 
 
-void file_quick_search (GSimpleAction *action, GVariant *parameter, gpointer user_data)
-{
-    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
-
-    gnome_cmd_file_list_show_quicksearch (get_fl (main_win, ACTIVE), 0);
-}
-
-
 void file_mkdir (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
     auto main_win = static_cast<GnomeCmdMainWin *>(user_data);

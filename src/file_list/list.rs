@@ -20,6 +20,7 @@
  * For more details see the file COPYING.
  */
 
+use super::quick_search::QuickSearch;
 use crate::{
     connection::connection::Connection,
     data::{GeneralOptions, GeneralOptionsRead},
@@ -32,15 +33,15 @@ use crate::{
 };
 use gettextrs::ngettext;
 use gtk::{
-    gio,
+    gdk, gio,
     glib::{
         self,
         ffi::gboolean,
-        translate::{from_glib_none, ToGlibPtr},
+        translate::{from_glib_none, FromGlib, ToGlibPtr},
     },
     prelude::*,
 };
-use std::{collections::HashSet, ffi::c_char, ops::ControlFlow, path::Path};
+use std::{collections::HashSet, ffi::c_char, ops::ControlFlow, path::Path, sync::LazyLock};
 
 pub mod ffi {
     use super::*;
@@ -49,7 +50,7 @@ pub mod ffi {
         ffi::GtkTreeView,
         glib::ffi::{GList, GType},
     };
-    use std::ffi::{c_char, c_void};
+    use std::ffi::c_char;
 
     #[repr(C)]
     pub struct GnomeCmdFileList {
@@ -127,7 +128,26 @@ enum DataColumns {
     DATA_COLUMN_SELECTED,
 }
 
+#[derive(Default)]
+struct FileListPrivate {
+    quick_search: glib::WeakRef<QuickSearch>,
+}
+
 impl FileList {
+    fn private(&self) -> &mut FileListPrivate {
+        static QUARK: LazyLock<glib::Quark> =
+            LazyLock::new(|| glib::Quark::from_str("file-list-private"));
+
+        unsafe {
+            if let Some(mut private) = self.qdata::<FileListPrivate>(*QUARK) {
+                private.as_mut()
+            } else {
+                self.set_qdata(*QUARK, FileListPrivate::default());
+                self.qdata::<FileListPrivate>(*QUARK).unwrap().as_mut()
+            }
+        }
+    }
+
     fn tree_view(&self) -> gtk::TreeView {
         unsafe {
             from_glib_none(ffi::gnome_cmd_file_list_get_tree_view(
@@ -214,6 +234,30 @@ impl FileList {
                 start_dir.to_glib_none().0,
             )
         }
+    }
+
+    pub(super) fn get_row_from_file(&self, f: &File) -> Option<gtk::TreeIter> {
+        let result = self.traverse_files::<gtk::TreeIter>(|file, iter, _store| {
+            if file == f {
+                ControlFlow::Break(iter.clone())
+            } else {
+                ControlFlow::Continue(())
+            }
+        });
+        match result {
+            ControlFlow::Break(iter) => Some(iter),
+            ControlFlow::Continue(()) => None,
+        }
+    }
+
+    pub(super) fn focus_file_at_row(&self, row: &gtk::TreeIter) {
+        let tree_view = self.tree_view();
+        let Some(store) = tree_view.model().and_downcast::<gtk::ListStore>() else {
+            return;
+        };
+
+        let path = store.path(row);
+        gtk::prelude::TreeViewExt::set_cursor(&tree_view, &path, None, false);
     }
 
     pub fn focus_file(&self, focus_file: &Path, scroll_to_file: bool) {
@@ -377,6 +421,26 @@ impl FileList {
 
         info_str
     }
+
+    pub fn show_quick_search(&self, key: Option<gdk::Key>) {
+        let private = self.private();
+
+        let popup_is_visible = private
+            .quick_search
+            .upgrade()
+            .map(|popup| popup.is_visible())
+            .unwrap_or_default();
+
+        if !popup_is_visible {
+            let popup = QuickSearch::new(self);
+            private.quick_search.set(Some(&popup));
+            popup.popup();
+
+            if let Some(initial_text) = key.and_then(|k| k.to_unicode()).map(|c| c.to_string()) {
+                popup.set_text(&initial_text);
+            }
+        }
+    }
 }
 
 #[derive(Default)]
@@ -420,4 +484,14 @@ pub extern "C" fn gnome_cmd_file_list_stats(fl: *mut ffi::GnomeCmdFileList) -> *
     let options = GeneralOptions::new();
     let stats = fl.stats_str(options.size_display_mode());
     stats.to_glib_full()
+}
+
+#[no_mangle]
+pub extern "C" fn gnome_cmd_file_list_show_quicksearch(
+    fl: *mut ffi::GnomeCmdFileList,
+    keyval: u32,
+) {
+    let fl: FileList = unsafe { from_glib_none(fl) };
+    let key: gdk::Key = unsafe { gdk::Key::from_glib(keyval) };
+    fl.show_quick_search(Some(key));
 }
