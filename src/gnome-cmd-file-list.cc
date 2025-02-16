@@ -94,7 +94,9 @@ static const char *drop_types [] =
 static guint signals[LAST_SIGNAL] = { 0 };
 
 
-typedef GtkSorter * (*GnomeCmdSorterFactory) (gboolean symbolic_links_as_regular_files, GtkSortType sort_type);
+typedef GtkSorter * (*GnomeCmdSorterFactory) (gboolean case_sensitive,
+                                              gboolean symbolic_links_as_regular_files,
+                                              GtkSortType sort_type);
 
 
 struct GnomeCmdFileListColumn
@@ -135,14 +137,14 @@ static void cell_data (GtkTreeViewColumn *tree_column,
                        GtkTreeModel *tree_model,
                        GtkTreeIter *iter,
                        gpointer data);
-extern "C" GtkSorter *gnome_cmd_sort_by_name (gboolean symbolic_links_as_regular_files, GtkSortType sort_type);
-extern "C" GtkSorter *gnome_cmd_sort_by_ext (gboolean symbolic_links_as_regular_files, GtkSortType sort_type);
-extern "C" GtkSorter *gnome_cmd_sort_by_dir (gboolean symbolic_links_as_regular_files, GtkSortType sort_type);
-extern "C" GtkSorter *gnome_cmd_sort_by_size (gboolean symbolic_links_as_regular_files, GtkSortType sort_type);
-extern "C" GtkSorter *gnome_cmd_sort_by_date (gboolean symbolic_links_as_regular_files, GtkSortType sort_type);
-extern "C" GtkSorter *gnome_cmd_sort_by_perm (gboolean symbolic_links_as_regular_files, GtkSortType sort_type);
-extern "C" GtkSorter *gnome_cmd_sort_by_owner (gboolean symbolic_links_as_regular_files, GtkSortType sort_type);
-extern "C" GtkSorter *gnome_cmd_sort_by_group (gboolean symbolic_links_as_regular_files, GtkSortType sort_type);
+extern "C" GtkSorter *gnome_cmd_sort_by_name (gboolean case_sensitive, gboolean symbolic_links_as_regular_files, GtkSortType sort_type);
+extern "C" GtkSorter *gnome_cmd_sort_by_ext (gboolean case_sensitive, gboolean symbolic_links_as_regular_files, GtkSortType sort_type);
+extern "C" GtkSorter *gnome_cmd_sort_by_dir (gboolean case_sensitive, gboolean symbolic_links_as_regular_files, GtkSortType sort_type);
+extern "C" GtkSorter *gnome_cmd_sort_by_size (gboolean case_sensitive, gboolean symbolic_links_as_regular_files, GtkSortType sort_type);
+extern "C" GtkSorter *gnome_cmd_sort_by_date (gboolean case_sensitive, gboolean symbolic_links_as_regular_files, GtkSortType sort_type);
+extern "C" GtkSorter *gnome_cmd_sort_by_perm (gboolean case_sensitive, gboolean symbolic_links_as_regular_files, GtkSortType sort_type);
+extern "C" GtkSorter *gnome_cmd_sort_by_owner (gboolean case_sensitive, gboolean symbolic_links_as_regular_files, GtkSortType sort_type);
+extern "C" GtkSorter *gnome_cmd_sort_by_group (gboolean case_sensitive, gboolean symbolic_links_as_regular_files, GtkSortType sort_type);
 static void on_column_clicked (GtkTreeViewColumn *column, GnomeCmdFileList *fl);
 static void on_column_resized (GtkTreeViewColumn *column, GParamSpec *pspec, GnomeCmdFileList *fl);
 static void on_cursor_change(GtkTreeView *tree, GnomeCmdFileList *fl);
@@ -519,7 +521,10 @@ GnomeCmdFileList::GnomeCmdFileList(ColumnID sort_col, GtkSortType sort_order)
 #endif
 
     priv->sort_raising[sort_col] = sort_order;
-    priv->sorter = file_list_column[sort_col].sorter_factory (gnome_cmd_data.options.symbolic_links_as_regular_files, sort_order);
+    priv->sorter = file_list_column[sort_col].sorter_factory (
+        gnome_cmd_data.options.case_sens_sort,
+        gnome_cmd_data.options.symbolic_links_as_regular_files,
+        sort_order);
     priv->color_theme = gnome_cmd_get_current_theme();
     priv->ls_palette = gnome_cmd_get_palette();
 
@@ -895,6 +900,7 @@ static void on_column_clicked (GtkTreeViewColumn *column, GnomeCmdFileList *fl)
 
     g_set_object(&fl->priv->sorter,
         file_list_column[col].sorter_factory (
+            gnome_cmd_data.options.case_sens_sort,
             gnome_cmd_data.options.symbolic_links_as_regular_files,
             fl->priv->sort_raising[col]));
 
@@ -2459,6 +2465,7 @@ void GnomeCmdFileList::update_style()
     auto col = priv->current_col;
     g_set_object(&priv->sorter,
         file_list_column[col].sorter_factory (
+            gnome_cmd_data.options.case_sens_sort,
             gnome_cmd_data.options.symbolic_links_as_regular_files,
             priv->sort_raising[col]));
 
