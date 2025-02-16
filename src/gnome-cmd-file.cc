@@ -115,8 +115,6 @@ static void gnome_cmd_file_finalize (GObject *object)
     if (f->get_file_info() && strcmp(g_file_info_get_display_name(f->get_file_info()), "..") != 0)
         DEBUG ('f', "file destroying %p %s\n", f, g_file_info_get_display_name(f->get_file_info()));
 
-    g_free (f->collate_key);
-
     g_free (f->priv);
 
     G_OBJECT_CLASS (gnome_cmd_file_parent_class)->finalize (object);
@@ -155,12 +153,6 @@ GnomeCmdFile *gnome_cmd_file_new_full (GFileInfo *gFileInfo, GFile *gFile, Gnome
     // check if file is '..'
     gnomeCmdFile->is_dotdot = g_file_info_get_attribute_uint32 (gFileInfo, G_FILE_ATTRIBUTE_STANDARD_TYPE) == G_FILE_TYPE_DIRECTORY
                               && g_strcmp0(filename, "..") == 0;
-
-    auto utf8Name = gnome_cmd_data.options.case_sens_sort
-        ? g_strdup(filename)
-        : g_utf8_casefold (filename, -1);
-    gnomeCmdFile->collate_key = g_utf8_collate_key_for_filename (utf8Name, -1);
-    g_free (utf8Name);
 
     return gnomeCmdFile;
 }
@@ -248,12 +240,6 @@ gboolean gnome_cmd_file_setup (GObject *gObject, GFile *gFile, GError **error)
     // check if file is '..'
     gnomeCmdFile->is_dotdot = g_file_info_get_attribute_uint32 (gnomeCmdFile->get_file_info(), G_FILE_ATTRIBUTE_STANDARD_TYPE) == G_FILE_TYPE_DIRECTORY
                               && g_strcmp0(filename, "..") == 0;
-
-    auto utf8Name = gnome_cmd_data.options.case_sens_sort
-        ? g_strdup(filename)
-        : g_utf8_casefold (filename, -1);
-    gnomeCmdFile->collate_key = g_utf8_collate_key_for_filename (utf8Name, -1);
-    g_free (utf8Name);
 
     gnomeCmdFile->priv->file = gFile;
     return TRUE;
@@ -835,21 +821,7 @@ void GnomeCmdFile::update_gFileInfo(GFileInfo *gFileInfo_new)
     g_return_if_fail (gFileInfo_new != nullptr);
     g_return_if_fail (G_IS_FILE_INFO(gFileInfo_new));
 
-    g_free (collate_key);
     g_set_object (&priv->file_info, gFileInfo_new);
-
-    gchar *filename;
-
-    if (!gnome_cmd_data.options.case_sens_sort)
-    {
-        auto filenameWithCase = g_file_info_get_display_name(gFileInfo_new);
-        filename = g_utf8_casefold (filenameWithCase, -1);
-    }
-    else
-        filename = g_strdup(g_file_info_get_display_name(gFileInfo_new));
-
-    collate_key = g_utf8_collate_key_for_filename (filename, -1);
-    g_free(filename);
 }
 
 

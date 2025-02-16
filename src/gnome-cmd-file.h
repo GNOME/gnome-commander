@@ -50,7 +50,6 @@ struct GnomeCmdFile
     GFile *get_file() { return gnome_cmd_file_descriptor_get_file (GNOME_CMD_FILE_DESCRIPTOR (this)); }
     GFileInfo *get_file_info() { return gnome_cmd_file_descriptor_get_file_info (GNOME_CMD_FILE_DESCRIPTOR (this)); }
     gboolean is_dotdot;
-    gchar *collate_key;                 // necessary for proper sorting of UTF-8 encoded file names //ToDo: Check if this is really still needed
     GnomeCmdFileMetadata *metadata;
 
     GnomeCmdFile *ref();
@@ -68,8 +67,6 @@ struct GnomeCmdFile
     gchar *get_unescaped_dirname();
 
     gchar *get_uri_str();
-
-    char *get_collation_fname()    {  return collate_key ? collate_key : g_file_get_basename (get_file());  }
 
     const gchar *get_extension();
     const gchar *get_owner();
@@ -145,19 +142,7 @@ inline void gnome_cmd_file_unref (GnomeCmdFile *f)
 
 extern "C" const gchar *gnome_cmd_file_get_name (GnomeCmdFile *f);
 
-inline gchar *gnome_cmd_file_get_quoted_name (GnomeCmdFile *f)
-{
-    g_return_val_if_fail (f != NULL, NULL);
-    return f->get_quoted_name();
-}
-
 extern "C" gchar *gnome_cmd_file_get_real_path (GnomeCmdFile *f);
-
-inline gchar *gnome_cmd_file_get_quoted_real_path (GnomeCmdFile *f)
-{
-    g_return_val_if_fail (f != NULL, NULL);
-    return f->get_quoted_real_path();
-}
 
 extern "C" GnomeCmdPath *gnome_cmd_file_get_path_through_parent (GnomeCmdFile *f);
 extern "C" gchar *gnome_cmd_file_get_path_string_through_parent (GnomeCmdFile *f);
@@ -168,8 +153,6 @@ extern "C" GnomeCmdCon *gnome_cmd_file_get_connection (GnomeCmdFile *f);
 
 extern "C" gchar *gnome_cmd_file_get_free_space (GnomeCmdFile *f);
 
-void gnome_cmd_file_show_chown_dialog (GList *files);
-void gnome_cmd_file_show_chmod_dialog (GList *files);
 extern "C" void gnome_cmd_file_view (GtkWindow *parent_window, GnomeCmdFile *f);
 
 GList *gnome_cmd_file_list_copy (GList *files);
