@@ -1634,17 +1634,6 @@ GList *GnomeCmdFileList::get_selected_files()
 }
 
 
-GList *GnomeCmdFileList::get_visible_files()
-{
-    GList *files = nullptr;
-    traverse_files([&files](GnomeCmdFile *file, GtkTreeIter *iter, GtkListStore *store) {
-        files = g_list_append (files, g_object_ref (file));
-        return TraverseControl::TRAVERSE_CONTINUE;
-    });
-    return files;
-}
-
-
 GnomeCmdFile *GnomeCmdFileList::get_first_selected_file()
 {
     GnomeCmdFile *selected_file = nullptr;
@@ -2803,11 +2792,6 @@ bool GnomeCmdFileList::do_file_specific_action (GnomeCmdFile *f)
 extern "C" GtkTreeView *gnome_cmd_file_list_get_tree_view (GnomeCmdFileList *fl)
 {
     return fl->priv->view;
-}
-
-GList *gnome_cmd_file_list_get_visible_files (GnomeCmdFileList *fl)
-{
-    return fl->get_visible_files();
 }
 
 GList *gnome_cmd_file_list_get_selected_files (GnomeCmdFileList *fl)

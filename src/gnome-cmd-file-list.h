@@ -148,13 +148,6 @@ struct GnomeCmdFileList
     void sort();
 
     /**
-     * Returns a list with all files shown in the file list. The list is
-     * the same as that in the file list it self so make a copy and ref
-     * the files if needed
-     */
-    GList *get_visible_files();
-
-    /**
      * Returns a list with all selected files. The list returned is a
      * copy and should be freed when no longer needed. The files in the
      * list is however not refed before returning
@@ -280,7 +273,6 @@ struct GnomeCmdFileListButtonEvent
 extern "C" void gnome_cmd_show_new_textfile_dialog(GtkWindow *parent_window, GnomeCmdFileList *fl);
 
 // FFI
-extern "C" GList *gnome_cmd_file_list_get_visible_files (GnomeCmdFileList *fl);
 extern "C" GList *gnome_cmd_file_list_get_selected_files (GnomeCmdFileList *fl);
 extern "C" GnomeCmdFile *gnome_cmd_file_list_get_focused_file(GnomeCmdFileList *fl);
 extern "C" GnomeCmdDir *gnome_cmd_file_list_get_cwd(GnomeCmdFileList *fl);
