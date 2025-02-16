@@ -145,8 +145,6 @@ inline GtkWidget *gnome_cmd_file_selector_new (FileSelectorID fs_id)
     return *fs;
 }
 
-void gnome_cmd_file_selector_cap_paste (GnomeCmdFileSelector *fs);
-
 inline FileSelectorID operator ! (FileSelectorID id)
 {
     switch (id)

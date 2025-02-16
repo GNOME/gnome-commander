@@ -254,9 +254,6 @@ void gnome_cmd_file_list_show_properties_dialog (GnomeCmdFileList *fl);
 void gnome_cmd_file_list_show_rename_dialog (GnomeCmdFileList *fl);
 void gnome_cmd_file_list_show_selpat_dialog (GnomeCmdFileList *fl, gboolean mode);
 
-void gnome_cmd_file_list_cap_cut (GnomeCmdFileList *fl);
-void gnome_cmd_file_list_cap_copy (GnomeCmdFileList *fl);
-
 extern "C" void gnome_cmd_file_list_show_quicksearch (GnomeCmdFileList *fl, guint keyval);
 
 struct GnomeCmdFileListButtonEvent

@@ -38,7 +38,6 @@
 #include "gnome-cmd-data.h"
 #include "gnome-cmd-xfer.h"
 #include "imageloader.h"
-#include "cap.h"
 #include "gnome-cmd-file-collection.h"
 #include "dialogs/gnome-cmd-delete-dialog.h"
 #include "dialogs/gnome-cmd-rename-dialog.h"
@@ -1303,15 +1302,6 @@ static void gnome_cmd_file_list_class_init (GnomeCmdFileListClass *klass)
 }
 
 
-static void on_paste (GSimpleAction *action, GVariant *parameter, gpointer user_data)
-{
-    auto fl = GNOME_CMD_FILE_LIST (user_data);
-    auto dir = fl->cwd;
-    g_return_if_fail (GNOME_CMD_IS_DIR (dir));
-    cap_paste_files (dir);
-}
-
-
 static void on_refresh (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
     GNOME_CMD_FILE_LIST (user_data)->reload();
@@ -1326,7 +1316,6 @@ static void gnome_cmd_file_list_init (GnomeCmdFileList *fl)
 
     auto action_group = g_simple_action_group_new ();
     static const GActionEntry action_entries[] = {
-        { "paste",              on_paste,                                           nullptr, nullptr, nullptr },
         { "refresh",            on_refresh,                                         nullptr, nullptr, nullptr },
 
         { "file-view",          gnome_cmd_file_list_action_file_view,               "mb",    nullptr, nullptr },
@@ -1937,34 +1926,6 @@ void gnome_cmd_file_list_show_selpat_dialog (GnomeCmdFileList *fl, gboolean mode
 }
 
 
-void gnome_cmd_file_list_cap_cut (GnomeCmdFileList *fl)
-{
-    g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl));
-
-    GList *files = fl->get_selected_files();
-
-    if (files)
-    {
-        cap_cut_files (fl, files);
-        g_list_free (files);
-    }
-}
-
-
-void gnome_cmd_file_list_cap_copy (GnomeCmdFileList *fl)
-{
-    g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl));
-
-    GList *files = fl->get_selected_files();
-
-    if (files)
-    {
-        cap_copy_files (fl, files);
-        g_list_free (files);
-    }
-}
-
-
 static bool is_quicksearch_starting_character (guint keyval)
 {
     return (keyval >= GDK_KEY_A && keyval <= GDK_KEY_Z) ||
@@ -2102,16 +2063,6 @@ static gboolean gnome_cmd_file_list_key_pressed (GtkEventControllerKey* self, gu
     {
         switch (keyval)
         {
-            case GDK_KEY_X:
-            case GDK_KEY_x:
-                gnome_cmd_file_list_cap_cut (fl);
-                return TRUE;
-
-            case GDK_KEY_C:
-            case GDK_KEY_c:
-                gnome_cmd_file_list_cap_copy (fl);
-                return TRUE;
-
             case GDK_KEY_F3:
                 on_column_clicked (fl->priv->columns[GnomeCmdFileList::COLUMN_NAME], fl);
                 return TRUE;

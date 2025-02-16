@@ -33,7 +33,6 @@
 #include "gnome-cmd-main-win.h"
 #include "gnome-cmd-user-actions.h"
 #include "gnome-cmd-dir-indicator.h"
-#include "cap.h"
 #include "utils.h"
 #include "dialogs/gnome-cmd-advrename-dialog.h"
 #include "dialogs/gnome-cmd-mkdir-dialog.h"
@@ -481,30 +480,6 @@ void file_exit (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 
 
 /************** Edit Menu **************/
-void edit_cap_cut (GSimpleAction *action, GVariant *parameter, gpointer user_data)
-{
-    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
-
-    gnome_cmd_file_list_cap_cut (get_fl (main_win, ACTIVE));
-}
-
-
-void edit_cap_copy (GSimpleAction *action, GVariant *parameter, gpointer user_data)
-{
-    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
-
-    gnome_cmd_file_list_cap_copy (get_fl (main_win, ACTIVE));
-}
-
-
-void edit_cap_paste (GSimpleAction *action, GVariant *parameter, gpointer user_data)
-{
-    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
-
-    gnome_cmd_file_selector_cap_paste (main_win->fs (ACTIVE));
-}
-
-
 void edit_filter (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
     auto main_win = static_cast<GnomeCmdMainWin *>(user_data);

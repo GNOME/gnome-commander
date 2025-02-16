@@ -545,9 +545,34 @@ pub fn mark_compare_directories(
 }
 
 /************** Edit Menu **************/
-c_action!(edit_cap_cut);
-c_action!(edit_cap_copy);
-c_action!(edit_cap_paste);
+
+pub fn edit_cap_cut(
+    main_win: &MainWindow,
+    _action: &gio::SimpleAction,
+    _parameter: Option<&glib::Variant>,
+) {
+    main_win.cut_files();
+}
+
+pub fn edit_cap_copy(
+    main_win: &MainWindow,
+    _action: &gio::SimpleAction,
+    _parameter: Option<&glib::Variant>,
+) {
+    main_win.copy_files();
+}
+
+pub fn edit_cap_paste(
+    main_win: &MainWindow,
+    _action: &gio::SimpleAction,
+    _parameter: Option<&glib::Variant>,
+) {
+    let main_win = main_win.clone();
+    glib::spawn_future_local(async move {
+        main_win.paste_files().await;
+    });
+}
+
 c_action!(edit_filter);
 c_action!(edit_copy_fnames);
 

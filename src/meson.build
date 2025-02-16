@@ -1,5 +1,4 @@
 sources_headers = files(
-  'cap.h',
   'dict.h',
   'dirlist.h',
   'filter.h',
@@ -54,7 +53,6 @@ gnome_cmd_block_sources = files(
 )
 
 sources_sources = files(
-  'cap.cc',
   'dirlist.cc',
   'filter.cc',
   'gnome-cmd-about-plugin.cc',

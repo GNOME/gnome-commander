@@ -295,7 +295,7 @@ pub fn list_popup_menu() -> gio::Menu {
                     FILETYPEREGULARFILE_STOCKID,
                 )
         })
-        .item(gettext("_Paste"), "fl.paste")
+        .item(gettext("_Paste"), "win.edit-cap-paste")
         .item_icon(
             gettext("Open _terminal here"),
             "win.command-open-terminal",

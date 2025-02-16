@@ -74,7 +74,6 @@ struct GnomeCmdMainWin
     bool set_slide(gint percentage);
     bool set_equal_panes();
     void maximize_pane();
-    void set_cap_state(gboolean state);
 
     GnomeCmdCmdline *get_cmdline() const;
 
