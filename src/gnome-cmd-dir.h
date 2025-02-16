@@ -53,8 +53,6 @@ struct GnomeCmdDir
         STATE_LISTING,
         STATE_CANCELING
     };
-
-    State state;
 };
 
 struct GnomeCmdDirClass
@@ -100,6 +98,8 @@ inline GnomeCmdDir *gnome_cmd_dir_ref (GnomeCmdDir *dir)
 }
 
 void gnome_cmd_dir_unref (GnomeCmdDir *dir);
+
+GnomeCmdDir::State gnome_cmd_dir_get_state (GnomeCmdDir *dir);
 
 extern "C" GList *gnome_cmd_dir_get_files (GnomeCmdDir *dir);
 extern "C" void gnome_cmd_dir_relist_files (GtkWindow *parent_window, GnomeCmdDir *dir, gboolean visprog);

@@ -46,6 +46,7 @@ enum
 
 struct GnomeCmdDirPrivate
 {
+    GnomeCmdDir::State state;
     GList *files;
     GnomeCmdFileCollection *file_collection;
     GnomeCmdCon *con;
@@ -106,9 +107,8 @@ static void monitor_callback (GFileMonitor *gFileMonitor, GFile *gFile, GFile *o
 
 static void gnome_cmd_dir_init (GnomeCmdDir *dir)
 {
-    dir->state = GnomeCmdDir::STATE_EMPTY;
-
     dir->priv = g_new0 (GnomeCmdDirPrivate, 1);
+    dir->priv->state = GnomeCmdDir::STATE_EMPTY;
     dir->priv->file_collection = new GnomeCmdFileCollection;
 }
 
@@ -404,9 +404,15 @@ GList *gnome_cmd_dir_get_files (GnomeCmdDir *dir)
 }
 
 
+GnomeCmdDir::State gnome_cmd_dir_get_state (GnomeCmdDir *dir)
+{
+    return dir->priv->state;
+}
+
+
 extern "C" void gnome_cmd_dir_set_state (GnomeCmdDir *dir, gint state)
 {
-    dir->state = (GnomeCmdDir::State) state;
+    dir->priv->state = (GnomeCmdDir::State) state;
 }
 
 
