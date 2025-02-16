@@ -519,8 +519,6 @@ GnomeCmdFileList::GnomeCmdFileList(ColumnID sort_col, GtkSortType sort_order)
     priv->color_theme = gnome_cmd_get_current_theme();
     priv->ls_palette = gnome_cmd_get_palette();
 
-    create_column_titles();
-
     gtk_widget_add_css_class (GTK_WIDGET (priv->view), "gnome-cmd-file-list");
 
     GtkTreeSelection *selection = gtk_tree_view_get_selection (priv->view);
@@ -738,12 +736,6 @@ inline void toggle_file_range (GnomeCmdFileList *fl, GtkTreeIter *start_row, Gtk
 
 
 extern "C" void toggle_files_with_same_extension (GnomeCmdFileList *fl, gboolean select);
-
-
-void GnomeCmdFileList::create_column_titles()
-{
-    gtk_tree_view_set_headers_visible (priv->view, true);
-}
 
 
 static void update_column_sort_arrows (GnomeCmdFileList *fl)

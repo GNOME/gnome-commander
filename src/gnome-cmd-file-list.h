@@ -64,10 +64,6 @@ struct GnomeCmdFileList
 {
     GtkWidget parent;
 
-  private:
-
-    void create_column_titles();
-
   public:
 
     struct Private;
