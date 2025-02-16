@@ -1180,25 +1180,6 @@ void GnomeCmdMainWin::plugins_updated()
 }
 
 
-GnomeCmdState *GnomeCmdMainWin::get_state() const
-{
-    GnomeCmdFileSelector *fs1 = fs(ACTIVE);
-    GnomeCmdFileSelector *fs2 = fs(INACTIVE);
-    GnomeCmdDir *dir1 = fs1->get_directory();
-    GnomeCmdDir *dir2 = fs2->get_directory();
-
-    GnomeCmdState *state = gnome_cmd_state_new ();
-    gnome_cmd_state_set_active_dir (state, GNOME_CMD_FILE_DESCRIPTOR (dir1));
-    gnome_cmd_state_set_inactive_dir (state, GNOME_CMD_FILE_DESCRIPTOR (dir2));
-    gnome_cmd_state_set_active_dir_files (state, fs1->file_list()->get_visible_files());
-    gnome_cmd_state_set_inactive_dir_files (state, fs2->file_list()->get_visible_files());
-    gnome_cmd_state_set_active_dir_selected_files (state, fs1->file_list()->get_selected_files());
-    gnome_cmd_state_set_inactive_dir_selected_files (state, fs2->file_list()->get_selected_files());
-
-    return state;
-}
-
-
 void GnomeCmdMainWin::set_cap_state(gboolean state)
 {
     g_simple_action_set_enabled (
