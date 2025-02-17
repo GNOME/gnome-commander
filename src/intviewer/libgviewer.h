@@ -31,6 +31,5 @@
 #include "fileops.h"
 #include "inputmodes.h"
 #include "datapresentation.h"
-#include "image-render.h"
 #include "text-render.h"
 #include "searcher.h"
