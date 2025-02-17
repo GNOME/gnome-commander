@@ -4,8 +4,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: GNOME Commander Manual\n"
-"POT-Creation-Date: 2024-08-05 14:05+0000\n"
-"PO-Revision-Date: 2024-08-10 22:07+1000\n"
+"POT-Creation-Date: 2025-02-12 20:52+0000\n"
+"PO-Revision-Date: 2025-02-16 09:18+1000\n"
 "Last-Translator: Ser82-png <asvmail.as@gmail.com>\n"
 "Language-Team: Basealt Translation Team\n"
 "Language: ru\n"
@@ -31,9 +31,9 @@ msgstr "Руководство по GNOME Commander"
 
 #. (itstool) path: articleinfo/subtitle
 #: C/index.docbook:30
-msgid "GNOME Commander Desktop Application Manual V1.18.1"
+msgid "GNOME Commander Desktop Application Manual V1.18.2"
 msgstr ""
-"Руководство по приложению рабочего стола GNOME Commander, версия 1.11.1"
+"Руководство по приложению рабочего стола GNOME Commander, версия 1.18.2"
 
 #. (itstool) path: articleinfo/copyright
 #: C/index.docbook:31
@@ -630,16 +630,16 @@ msgstr ""
 #. (itstool) path: revhistory/revision
 #: C/index.docbook:625
 msgid ""
-"<revnumber>GNOME Commander Manual V1.18.2;</revnumber> <date>2024-12-31</"
+"<revnumber>GNOME Commander Manual V1.18.2;</revnumber> <date>2025-02-10</"
 "date> <_:revdescription-1/>"
 msgstr ""
 "<revnumber>Руководство по GNOME Commander, версия 1.18.2;</revnumber> "
-"<date>2024-12-31</date> <_:revdescription-1/>"
+"<date>2025-02-10</date> <_:revdescription-1/>"
 
 #. (itstool) path: articleinfo/releaseinfo
 #: C/index.docbook:635
-msgid "This manual describes version 1.18.1 of GNOME Commander."
-msgstr "Это руководство описывает GNOME Commander версии 1.18.1."
+msgid "This manual describes version 1.18.2 of GNOME Commander."
+msgstr "Это руководство описывает GNOME Commander версии 1.18.2."
 
 #. (itstool) path: legalnotice/title
 #: C/index.docbook:637
