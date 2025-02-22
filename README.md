@@ -6,7 +6,7 @@
 
 Gnome Commander is a fast and powerful twin-panel file manager for the Linux desktop.
 
-![ScreenShot](https://gcmd.github.io/ss/MainWin-Classic.png)
+![ScreenShot](https://gitlab.gnome.org/GNOME/gnome-commander/-/raw/master/doc/C/figures/gnome-commander_window.png)
 
 Gnome Commander is released under the GNU General Public License (GPL) version 2,
 see the file ``COPYING`` for more information.
