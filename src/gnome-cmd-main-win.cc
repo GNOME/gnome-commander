@@ -35,7 +35,6 @@
 #include "gnome-cmd-dir.h"
 #include "gnome-cmd-plain-path.h"
 #include "gnome-cmd-con-list.h"
-#include "gnome-cmd-owner.h"
 #include "utils.h"
 #include "widget-factory.h"
 
@@ -563,7 +562,7 @@ static void gnome_cmd_main_win_init (GnomeCmdMainWin *mw)
     mw->priv->plugin_manager = G_OBJECT (g_object_new (plugin_manager_get_type (), nullptr));
 
     gtk_window_set_title (GTK_WINDOW (mw),
-                          gcmd_owner.is_root()
+                          geteuid() == 0
                             ? _("GNOME Commander — ROOT PRIVILEGES")
                             : _("GNOME Commander"));
 

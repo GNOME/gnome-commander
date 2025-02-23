@@ -27,7 +27,6 @@
 #include "gnome-cmd-main-win.h"
 #include "gnome-cmd-data.h"
 #include "gnome-cmd-user-actions.h"
-#include "gnome-cmd-owner.h"
 #include "gnome-cmd-con.h"
 #include "utils.h"
 #include "imageloader.h"
@@ -128,8 +127,6 @@ static void gnome_cmd_application_activate(GApplication *application)
 
     gtk_widget_show (*main_win);
     main_win->restore_size_and_pos ();
-
-    gcmd_owner.load_async();
 
     gcmd_tags_init();
 }
