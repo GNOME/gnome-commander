@@ -41,6 +41,7 @@ use std::{
     path::{Path, PathBuf},
     ptr,
 };
+
 pub mod ffi {
     use super::*;
     use crate::{connection::connection::ffi::GnomeCmdCon, dir::ffi::GnomeCmdDir};
@@ -77,8 +78,6 @@ pub mod ffi {
 
         pub fn gnome_cmd_file_get_uri_str(f: *const GnomeCmdFile) -> *mut c_char;
         pub fn gnome_cmd_file_is_local(f: *const GnomeCmdFile) -> gboolean;
-
-        pub fn gnome_cmd_file_is_executable(f: *const GnomeCmdFile) -> gboolean;
 
         pub fn gnome_cmd_file_chown(
             f: *mut GnomeCmdFile,
@@ -210,7 +209,11 @@ impl File {
     }
 
     pub fn is_executable(&self) -> bool {
-        unsafe { ffi::gnome_cmd_file_is_executable(self.to_glib_none().0) != 0 }
+        self.is_local() && {
+            let file_info = self.file_info();
+            file_info.file_type() == gio::FileType::Regular
+                && file_info.boolean(gio::FILE_ATTRIBUTE_ACCESS_CAN_EXECUTE)
+        }
     }
 
     pub fn execute(&self, options: &dyn ProgramsOptionsRead) -> Result<(), SpawnError> {
