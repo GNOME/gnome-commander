@@ -985,3 +985,11 @@ void image_render_operation(ImageRender *obj, ImageRender::DISPLAYMODE op)
 
     image_render_prepare_disp_pixbuf (obj);
 }
+
+GdkPixbuf *image_render_get_origin_pixbuf (ImageRender *obj)
+{
+    g_return_val_if_fail (IS_IMAGE_RENDER(obj), nullptr);
+    auto priv = static_cast<ImageRenderPrivate*>(image_render_get_instance_private (obj));
+
+    return priv->orig_pixbuf;
+}

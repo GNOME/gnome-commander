@@ -1,5 +1,5 @@
 /*
- * Copyright 2024 Andrey Kutejko <andy128k@gmail.com>
+ * Copyright 2025 Andrey Kutejko <andy128k@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,11 +17,22 @@
  * For more details see the file COPYING.
  */
 
-pub mod file_ops;
-pub mod image_render;
-pub mod input_modes;
-pub mod search_dialog;
-pub mod search_progress_dialog;
-pub mod searcher;
-pub mod text_render;
-pub mod window;
+pub mod ffi {
+    #[repr(C)]
+    pub struct ViewerFileOps {
+        _data: [u8; 0],
+        _marker: std::marker::PhantomData<(*mut u8, std::marker::PhantomPinned)>,
+    }
+
+    extern "C" {
+        pub fn gv_file_get_max_offset(ops: *mut ViewerFileOps) -> u64;
+    }
+}
+
+pub struct FileOps(pub *mut ffi::ViewerFileOps);
+
+impl FileOps {
+    pub fn max_offset(&self) -> u64 {
+        unsafe { ffi::gv_file_get_max_offset(self.0) }
+    }
+}

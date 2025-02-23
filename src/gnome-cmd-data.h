@@ -199,8 +199,6 @@ GcmdSettings *gcmd_settings_new ();
 #define GCMD_SETTINGS_IV_TAB_SIZE                     "tab-size"
 #define GCMD_SETTINGS_IV_BINARY_BYTES_PER_LINE        "binary-bytes-per-line"
 #define GCMD_SETTINGS_IV_METADATA_VISIBLE             "metadata-visible"
-#define GCMD_SETTINGS_IV_X_OFFSET                     "offset-y"
-#define GCMD_SETTINGS_IV_Y_OFFSET                     "offset-y"
 #define GCMD_SETTINGS_IV_WINDOW_WIDTH                 "window-width"
 #define GCMD_SETTINGS_IV_WINDOW_HEIGHT                "window-height"
 #define GCMD_SETTINGS_IV_SEARCH_PATTERN_TEXT          "search-pattern-text"

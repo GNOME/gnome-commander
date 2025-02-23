@@ -44,16 +44,16 @@ struct GViewerSearchDlgClass
     GtkDialogClass parent_class;
 };
 
-GType gviewer_search_dlg_get_type ();
+extern "C" GType gviewer_search_dlg_get_type ();
 
 GtkWidget *gviewer_search_dlg_new (GtkWindow *parent);
 
-SEARCHMODE gviewer_search_dlg_get_search_mode (GViewerSearchDlg *sdlg);
+extern "C" SEARCHMODE gviewer_search_dlg_get_search_mode (GViewerSearchDlg *sdlg);
 
 /* returns string is strdup-ed, caller must "g_free" it */
-gchar *gviewer_search_dlg_get_search_text_string (GViewerSearchDlg *sdlg);
+extern "C" gchar *gviewer_search_dlg_get_search_text_string (GViewerSearchDlg *sdlg);
 
 /* returned buffer is "g_new0-ed", caller must "g_free" it */
-guint8 *gviewer_search_dlg_get_search_hex_buffer (GViewerSearchDlg *sdlg, /*out*/ guint &buflen);
+extern "C" guint8 *gviewer_search_dlg_get_search_hex_buffer (GViewerSearchDlg *sdlg, /*out*/ guint *buflen);
 
-gboolean gviewer_search_dlg_get_case_sensitive (GViewerSearchDlg *sdlg);
+extern "C" gboolean gviewer_search_dlg_get_case_sensitive (GViewerSearchDlg *sdlg);

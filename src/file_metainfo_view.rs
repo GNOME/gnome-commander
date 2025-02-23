@@ -157,6 +157,12 @@ glib::wrapper! {
         @extends gtk::Widget;
 }
 
+impl Default for FileMetainfoView {
+    fn default() -> Self {
+        glib::Object::builder().build()
+    }
+}
+
 #[no_mangle]
 pub extern "C" fn gnome_cmd_file_metainfo_view_get_type() -> GType {
     FileMetainfoView::static_type().into_glib()

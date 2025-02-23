@@ -32,7 +32,7 @@
 #define IMAGE_RENDER_GET_CLASS(obj)     (G_TYPE_INSTANCE_GET_CLASS((obj), TYPE_IMAGE_RENDER, ImageRenderClass))
 
 
-GType image_render_get_type ();
+extern "C" GType image_render_get_type ();
 
 
 struct ImageRender
@@ -63,14 +63,16 @@ inline GtkWidget *image_render_new ()
     return (GtkWidget *) g_object_new (TYPE_IMAGE_RENDER, NULL);
 }
 
-void image_render_load_file (ImageRender *obj, const gchar *filename);
+extern "C" void image_render_load_file (ImageRender *obj, const gchar *filename);
 
-void image_render_notify_status_changed (ImageRender *w);
+extern "C" void image_render_notify_status_changed (ImageRender *w);
 
-void image_render_set_best_fit (ImageRender *obj, gboolean active);
-gboolean image_render_get_best_fit (ImageRender *obj);
+extern "C" void image_render_set_best_fit (ImageRender *obj, gboolean active);
+extern "C" gboolean image_render_get_best_fit (ImageRender *obj);
 
-void image_render_set_scale_factor (ImageRender *obj, double scalefactor);
-double image_render_get_scale_factor (ImageRender *obj);
+extern "C" void image_render_set_scale_factor (ImageRender *obj, double scalefactor);
+extern "C" double image_render_get_scale_factor (ImageRender *obj);
 
-void image_render_operation (ImageRender *obj, ImageRender::DISPLAYMODE op);
+extern "C" void image_render_operation (ImageRender *obj, ImageRender::DISPLAYMODE op);
+
+extern "C" GdkPixbuf *image_render_get_origin_pixbuf (ImageRender *obj);
