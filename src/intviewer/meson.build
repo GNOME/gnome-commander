@@ -12,8 +12,6 @@ intviewer_headers = files(
     'searcher.h',
     'text-render.h',
     'viewer-utils.h',
-    'viewer-widget.h',
-    'viewer-window.h'
 )
 
 intviewer_sources = files(
@@ -28,8 +26,6 @@ intviewer_sources = files(
     'searcher.cc',
     'text-render.cc',
     'viewer-utils.cc',
-    'viewer-widget.cc',
-    'viewer-window.cc'
 )
 
 intviewer_lib = static_library('gviewer',

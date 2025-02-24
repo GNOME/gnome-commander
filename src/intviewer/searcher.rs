@@ -17,17 +17,19 @@
  * For more details see the file COPYING.
  */
 
+use super::input_modes::ffi::GVInputModesData;
+use gtk::glib::{
+    self,
+    ffi::{gboolean, gpointer},
+    translate::ToGlibPtr,
+};
 use std::mem::transmute;
-
-use glib::ffi::gpointer;
-use gtk::glib::{self, translate::ToGlibPtr};
 
 pub mod ffi {
     use super::*;
-    use glib::{
-        ffi::{gboolean, gpointer, GType},
-        gobject_ffi::GCallback,
-    };
+    use crate::intviewer::input_modes::ffi::GVInputModesData;
+    use glib::{ffi::GType, gobject_ffi::GCallback};
+    use std::ffi::c_char;
 
     #[repr(C)]
     pub struct GViewerSearcher {
@@ -37,6 +39,24 @@ pub mod ffi {
 
     extern "C" {
         pub fn g_viewer_searcher_get_type() -> GType;
+
+        pub fn g_viewer_searcher_setup_new_text_search(
+            src: *mut GViewerSearcher,
+            imd: *mut GVInputModesData,
+            start_offset: u64,
+            max_offset: u64,
+            text: *const c_char,
+            case_sensitive: gboolean,
+        );
+
+        pub fn g_viewer_searcher_setup_new_hex_search(
+            src: *mut GViewerSearcher,
+            imd: *mut GVInputModesData,
+            start_offset: u64,
+            max_offset: u64,
+            buffer: *const u8,
+            buflen: u32,
+        );
 
         pub fn g_viewer_searcher_search(
             src: *mut GViewerSearcher,
@@ -73,6 +93,49 @@ pub enum SearchProgress {
 }
 
 impl Searcher {
+    pub fn new() -> Self {
+        glib::Object::builder().build()
+    }
+
+    pub fn setup_new_text_search(
+        &self,
+        imd: *mut GVInputModesData,
+        start_offset: u64,
+        max_offset: u64,
+        text: &str,
+        case_sensitive: bool,
+    ) {
+        unsafe {
+            ffi::g_viewer_searcher_setup_new_text_search(
+                self.to_glib_none().0,
+                imd,
+                start_offset,
+                max_offset,
+                text.to_glib_none().0,
+                case_sensitive as gboolean,
+            )
+        }
+    }
+
+    pub fn setup_new_hex_search(
+        &self,
+        imd: *mut GVInputModesData,
+        start_offset: u64,
+        max_offset: u64,
+        buffer: &[u8],
+    ) {
+        unsafe {
+            ffi::g_viewer_searcher_setup_new_hex_search(
+                self.to_glib_none().0,
+                imd,
+                start_offset,
+                max_offset,
+                buffer.as_ptr(),
+                buffer.len() as u32,
+            )
+        }
+    }
+
     pub fn search<F: Fn(u32) + 'static>(&self, forward: bool, f: F) -> Option<u64> {
         unsafe extern "C" fn response_trampoline<F: Fn(u32) + 'static>(p: u32, f: gpointer) {
             let f: &F = &*(f as *const F);

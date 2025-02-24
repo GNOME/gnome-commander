@@ -24,8 +24,7 @@
 
 #pragma once
 
-#include <glib.h>
-#include <glib-object.h>
+#include "gnome-cmd-includes.h"
 
 #define G_TYPE_VIEWERSEARCHER         (g_viewer_searcher_get_type ())
 #define G_VIEWERSEARCHER(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), G_TYPE_VIEWERSEARCHER, GViewerSearcher))
@@ -52,14 +51,14 @@ extern "C" GType g_viewer_searcher_get_type();
 GViewerSearcher *g_viewer_searcher_new();
 
 
-void g_viewer_searcher_setup_new_text_search(GViewerSearcher *srchr,
+extern "C" void g_viewer_searcher_setup_new_text_search(GViewerSearcher *srchr,
                  GVInputModesData *imd,
                  offset_type start_offset,
                  offset_type max_offset,
                  const gchar *text,
                  gboolean case_sensitive);
 
-void g_viewer_searcher_setup_new_hex_search(GViewerSearcher *srchr,
+extern "C" void g_viewer_searcher_setup_new_hex_search(GViewerSearcher *srchr,
                  GVInputModesData *imd,
                  offset_type start_offset,
                  offset_type max_offset,

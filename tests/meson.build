@@ -35,18 +35,6 @@ test('test_iv_textrenderer',
   workdir : meson.current_source_dir()
 )
 
-test('test_iv_viewerwidget_test',
-  executable('test-iv-viewerwidget-test',
-    ['iv_viewerwidget_test.cc', 'gcmd_tests_main.cc'],
-    dependencies: [common_deps, intviewer_dep, gtest],
-    include_directories: [configuration_inc, libgcmd_inc, sources_inc],
-    c_args: ['-DTEST_DIR="@0@"'.format(meson.current_source_dir())],
-    link_with: [intviewer_lib],
-    override_options : ['c_std=c14', 'cpp_std=c++14'],
-  ),
-  workdir : meson.current_source_dir()
-)
-
 test('test_iv_fileops_test',
   executable('test-iv-fileops-test',
     ['iv_fileops_test.cc', 'gcmd_tests_main.cc'],

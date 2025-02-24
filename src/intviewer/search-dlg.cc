@@ -48,12 +48,12 @@ struct GViewerSearchDlgPrivate
 G_DEFINE_TYPE_WITH_PRIVATE (GViewerSearchDlg, gviewer_search_dlg, GTK_TYPE_DIALOG)
 
 
-guint8 *gviewer_search_dlg_get_search_hex_buffer (GViewerSearchDlg *sdlg, /*out*/ guint &buflen)
+guint8 *gviewer_search_dlg_get_search_hex_buffer (GViewerSearchDlg *sdlg, /*out*/ guint *buflen)
 {
     g_return_val_if_fail (IS_GVIEWER_SEARCH_DLG (sdlg), nullptr);
 
     gchar *text = gviewer_search_dlg_get_search_text_string (sdlg);
-    guint8 *buf = text2hex (text, buflen);
+    guint8 *buf = text2hex (text, *buflen);
     g_free (text);
     return buf;
 }
@@ -184,7 +184,7 @@ static void entry_changed (GtkComboBox *combo, gpointer user_data)
     {
         // Only if the use entered a valid hex string, enable the "find" button
         guint len;
-        guint8 *buf = gviewer_search_dlg_get_search_hex_buffer (sdlg, len);
+        guint8 *buf = gviewer_search_dlg_get_search_hex_buffer (sdlg, &len);
 
         enable = buf != nullptr && len>0;
         g_free (buf);

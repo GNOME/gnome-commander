@@ -77,11 +77,11 @@ src/intviewer/datapresentation.cc
 src/intviewer/fileops.cc
 src/intviewer/image-render.cc
 src/intviewer/inputmodes.cc
+src/intviewer/search_dialog.rs
 src/intviewer/search-dlg.cc
 src/intviewer/search_progress_dialog.rs
 src/intviewer/text-render.cc
-src/intviewer/viewer-widget.cc
-src/intviewer/viewer-window.cc
+src/intviewer/window.rs
 src/main_win.rs
 src/open_connection.rs
 src/open_file.rs

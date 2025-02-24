@@ -33,7 +33,5 @@
 #include "datapresentation.h"
 #include "image-render.h"
 #include "text-render.h"
-#include "viewer-widget.h"
-#include "viewer-window.h"
 #include "search-dlg.h"
 #include "searcher.h"

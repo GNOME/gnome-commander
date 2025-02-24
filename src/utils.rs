@@ -616,11 +616,11 @@ pub fn extract_menu_shortcuts(menu: &gio::MenuModel) -> gio::ListModel {
             return;
         };
         let target_value = menu.item_attribute_value(item_index, gio::MENU_ATTRIBUTE_TARGET, None);
-        let detailed_action = gio::Action::print_detailed_name(&action_name, target_value.as_ref());
-        store.append(&gtk::Shortcut::new(
-            Some(trigger),
-            Some(gtk::NamedAction::new(&detailed_action)),
-        ));
+
+        let shortcut = gtk::Shortcut::new(Some(trigger), Some(gtk::NamedAction::new(&action_name)));
+        shortcut.set_arguments(target_value.as_ref());
+
+        store.append(&shortcut);
     }
 
     fn traverse(store: &gio::ListStore, menu: &gio::MenuModel) {

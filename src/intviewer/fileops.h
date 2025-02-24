@@ -83,7 +83,7 @@ const char *gv_file_init_growing_view (ViewerFileOps *ops, const char *filename)
 */
 int gv_file_get_byte (ViewerFileOps *ops, offset_type byte_index);
 
-offset_type gv_file_get_max_offset(ViewerFileOps *ops);
+extern "C" offset_type gv_file_get_max_offset(ViewerFileOps *ops);
 
 void gv_file_close (ViewerFileOps *ops);
 

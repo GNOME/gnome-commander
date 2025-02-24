@@ -53,7 +53,13 @@ enum {
   PROP_HADJUSTMENT,
   PROP_VADJUSTMENT,
   PROP_HSCROLL_POLICY,
-  PROP_VSCROLL_POLICY
+  PROP_VSCROLL_POLICY,
+  PROP_FONT_SIZE,
+  PROP_TAB_SIZE,
+  PROP_WRAP_MODE,
+  PROP_ENCODING,
+  PROP_FIXED_LIMIT,
+  PROP_HEXADECIMAL_OFFSET,
 };
 
 enum
@@ -259,7 +265,7 @@ static void text_render_init (TextRender *w)
     priv->utf8alloc = 0;
 
     priv->tab_size = 8;
-    priv->font_size = 14;
+    priv->font_size = 12;
 
     priv->fixed_font_name = g_strdup ("Monospace");
 
@@ -305,6 +311,24 @@ static void text_render_get_property (GObject *obj, guint prop_id, GValue *value
         case PROP_VSCROLL_POLICY:
             g_value_set_enum (value, priv->vscroll_policy);
             break;
+        case PROP_FONT_SIZE:
+            g_value_set_uint (value, priv->font_size);
+            break;
+        case PROP_TAB_SIZE:
+            g_value_set_uint (value, priv->tab_size);
+            break;
+        case PROP_WRAP_MODE:
+            g_value_set_boolean (value, priv->wrapmode);
+            break;
+        case PROP_ENCODING:
+            g_value_set_string (value, priv->encoding);
+            break;
+        case PROP_FIXED_LIMIT:
+            g_value_set_int (value, priv->fixed_limit);
+            break;
+        case PROP_HEXADECIMAL_OFFSET:
+            g_value_set_boolean (value, priv->hex_offset_display);
+            break;
         default:
             G_OBJECT_WARN_INVALID_PROPERTY_ID (obj, prop_id, pspec);
             break;
@@ -345,6 +369,24 @@ static void text_render_set_property (GObject *obj, guint prop_id, const GValue 
                     g_object_notify_by_pspec (obj, pspec);
                 }
             }
+            break;
+        case PROP_FONT_SIZE:
+            text_render_set_font_size (w, g_value_get_uint (value));
+            break;
+        case PROP_TAB_SIZE:
+            text_render_set_tab_size (w, g_value_get_uint (value));
+            break;
+        case PROP_WRAP_MODE:
+            text_render_set_wrap_mode (w, g_value_get_boolean (value));
+            break;
+        case PROP_ENCODING:
+            text_render_set_encoding (w, g_value_get_string (value));
+            break;
+        case PROP_FIXED_LIMIT:
+            text_render_set_fixed_limit (w, g_value_get_int (value));
+            break;
+        case PROP_HEXADECIMAL_OFFSET:
+            text_render_set_hex_offset_display (w, g_value_get_boolean (value));
             break;
         default:
             G_OBJECT_WARN_INVALID_PROPERTY_ID (obj, prop_id, pspec);
@@ -387,6 +429,36 @@ static void text_render_class_init (TextRenderClass *klass)
     g_object_class_override_property (object_class, PROP_VADJUSTMENT,    "vadjustment");
     g_object_class_override_property (object_class, PROP_HSCROLL_POLICY, "hscroll-policy");
     g_object_class_override_property (object_class, PROP_VSCROLL_POLICY, "vscroll-policy");
+
+    g_object_class_install_property (object_class, PROP_FONT_SIZE,
+        g_param_spec_uint ("font-size", "Font size", "Font size",
+            0, G_MAXUINT, 12,
+            (GParamFlags) G_PARAM_READWRITE));
+
+    g_object_class_install_property (object_class, PROP_TAB_SIZE,
+        g_param_spec_uint ("tab-size", "Tab size", "Tab size",
+            0, G_MAXUINT, 8,
+            (GParamFlags) G_PARAM_READWRITE));
+
+    g_object_class_install_property (object_class, PROP_WRAP_MODE,
+        g_param_spec_boolean ("wrap-mode", "Wrap mode", "Wrap mode",
+            FALSE,
+            (GParamFlags) G_PARAM_READWRITE));
+
+    g_object_class_install_property (object_class, PROP_ENCODING,
+        g_param_spec_string ("encoding", "Encoding", "Encoding",
+            "ASCII",
+            (GParamFlags) G_PARAM_READWRITE));
+
+    g_object_class_install_property (object_class, PROP_FIXED_LIMIT,
+        g_param_spec_int ("fixed-limit", "Fixed limit", "Fixed limit",
+            0, G_MAXINT, 80,
+            (GParamFlags) G_PARAM_READWRITE));
+
+    g_object_class_install_property (object_class, PROP_HEXADECIMAL_OFFSET,
+        g_param_spec_boolean ("hexadecimal-offset", "Hexadecimal offset", "Hexadecimal offset",
+            FALSE,
+            (GParamFlags) G_PARAM_READWRITE));
 
     text_render_signals[TEXT_STATUS_CHANGED] =
         g_signal_new ("text-status-changed",
@@ -1269,6 +1341,24 @@ offset_type text_render_get_current_offset(TextRender *w)
 }
 
 
+offset_type text_render_get_size(TextRender *w)
+{
+    g_return_val_if_fail (IS_TEXT_RENDER (w), 0);
+    auto priv = static_cast<TextRenderPrivate*>(text_render_get_instance_private (w));
+
+    return priv->fops ? gv_file_get_max_offset(priv->fops) : 0;
+}
+
+
+int text_render_get_column(TextRender *w)
+{
+    g_return_val_if_fail (IS_TEXT_RENDER (w), 0);
+    auto priv = static_cast<TextRenderPrivate*>(text_render_get_instance_private (w));
+
+    return priv->column;
+}
+
+
 offset_type text_render_get_last_displayed_offset(TextRender *w)
 {
     g_return_val_if_fail (IS_TEXT_RENDER (w), 0);
@@ -1311,9 +1401,6 @@ void text_render_set_encoding(TextRender *w, const char *encoding)
     g_return_if_fail (IS_TEXT_RENDER (w));
     auto priv = static_cast<TextRenderPrivate*>(text_render_get_instance_private (w));
 
-    if (priv->im==NULL)
-        return;
-
     // Ugly hack: UTF-8 is not acceptable encoding in Binary/Hexdump modes
     if (g_ascii_strcasecmp (encoding, "UTF8")==0 && (
         priv->dispmode==TextRender::DISPLAYMODE_BINARY || priv->dispmode==TextRender::DISPLAYMODE_HEXDUMP))
@@ -1324,9 +1411,12 @@ void text_render_set_encoding(TextRender *w, const char *encoding)
 
     g_free (priv->encoding);
     priv->encoding = g_strdup (encoding);
-    gv_set_input_mode(priv->im, encoding);
-    text_render_filter_undisplayable_chars(w);
-    gtk_widget_queue_draw (GTK_WIDGET (w));
+    if (priv->im)
+    {
+        gv_set_input_mode(priv->im, encoding);
+        text_render_filter_undisplayable_chars(w);
+        gtk_widget_queue_draw (GTK_WIDGET (w));
+    }
 }
 
 

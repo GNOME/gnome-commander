@@ -1016,20 +1016,6 @@
           This option defines if metadata should be visible.
       </description>
     </key>
-    <key name="offset-x" type="i">
-      <default>20</default>
-      <summary>Horizontal offset</summary>
-      <description>
-          This option defines the visual offset of the internal file viewer in  horizontal direction.
-      </description>
-    </key>
-    <key name="offset-y" type="i">
-      <default>20</default>
-      <summary>Vertical offset</summary>
-      <description>
-          This option defines the visual offset of the internal file viewer in vertical direction.
-      </description>
-    </key>
     <key name="window-width" type="u">
       <default>400</default>
       <summary>Window width</summary>

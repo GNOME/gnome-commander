@@ -61,16 +61,16 @@ inline GtkWidget *text_render_new ()
     return (GtkWidget *) g_object_new (TYPE_TEXT_RENDER, NULL);
 }
 
-void text_render_load_file(TextRender *w, const gchar *filename);
+extern "C" void text_render_load_file(TextRender *w, const gchar *filename);
 void text_render_load_filedesc(TextRender *w, int filedesc);
 
-void text_render_notify_status_changed(TextRender *w);
+extern "C" void text_render_notify_status_changed(TextRender *w);
 
-void text_render_set_display_mode (TextRender *w, TextRender::DISPLAYMODE mode);
+extern "C" void text_render_set_display_mode (TextRender *w, TextRender::DISPLAYMODE mode);
 TextRender::DISPLAYMODE text_render_get_display_mode(TextRender *w);
 
-ViewerFileOps *text_render_get_file_ops(TextRender *w);
-GVInputModesData *text_render_get_input_mode_data(TextRender *w);
+extern "C" ViewerFileOps *text_render_get_file_ops(TextRender *w);
+extern "C" GVInputModesData *text_render_get_input_mode_data(TextRender *w);
 GVDataPresentation *text_render_get_data_presentation(TextRender *w);
 
 void text_render_set_tab_size(TextRender *w, int tab_size);
@@ -91,9 +91,11 @@ int text_render_get_font_size(TextRender *w);
 void text_render_set_encoding(TextRender *w, const char *encoding);
 const gchar *text_render_get_encoding(TextRender *w);
 
-void text_render_copy_selection(TextRender *w);
+extern "C" void text_render_copy_selection(TextRender *w);
 
-offset_type text_render_get_current_offset(TextRender *w);
+extern "C" offset_type text_render_get_current_offset(TextRender *w);
+extern "C" offset_type text_render_get_size(TextRender *w);
+extern "C" int text_render_get_column(TextRender *w);
 
 offset_type text_render_get_last_displayed_offset(TextRender *w);
 
