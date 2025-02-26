@@ -187,23 +187,6 @@ GcmdSettings *gcmd_settings_new ();
 #define GCMD_PREF_NETWORK                             "org.gnome.gnome-commander.preferences.network"
 #define GCMD_SETTINGS_QUICK_CONNECT_URI               "quick-connect-uri"
 
-#define GCMD_PREF_INTERNAL_VIEWER                     "org.gnome.gnome-commander.preferences.internal-viewer"
-#define GCMD_SETTINGS_IV_CASE_SENSITIVE               "case-sensitive-search"
-#define GCMD_SETTINGS_IV_SEARCH_MODE                  "search-mode"
-#define GCMD_SETTINGS_IV_CHARSET                      "charset"
-#define GCMD_SETTINGS_IV_FIXED_FONT_NAME              "fixed-font-name"
-#define GCMD_SETTINGS_IV_VARIABLE_FONT_NAME           "variable-font-name"
-#define GCMD_SETTINGS_IV_DISPLAY_HEX_OFFSET           "display-hex-offset"
-#define GCMD_SETTINGS_IV_WRAP_MODE                    "wrap-mode"
-#define GCMD_SETTINGS_IV_FONT_SIZE                    "font-size"
-#define GCMD_SETTINGS_IV_TAB_SIZE                     "tab-size"
-#define GCMD_SETTINGS_IV_BINARY_BYTES_PER_LINE        "binary-bytes-per-line"
-#define GCMD_SETTINGS_IV_METADATA_VISIBLE             "metadata-visible"
-#define GCMD_SETTINGS_IV_WINDOW_WIDTH                 "window-width"
-#define GCMD_SETTINGS_IV_WINDOW_HEIGHT                "window-height"
-#define GCMD_SETTINGS_IV_SEARCH_PATTERN_TEXT          "search-pattern-text"
-#define GCMD_SETTINGS_IV_SEARCH_PATTERN_HEX           "search-pattern-hex"
-
 //gKeyFile constants
 #define DEVICES_FILENAME                              "devices"
 #define DEVICES_DEVICE                                "device"
@@ -253,7 +236,7 @@ struct GnomeCmdData
         TAB_LOCK_STYLED_TEXT
     }TabLockIndicator;
 
-    enum {SEARCH_HISTORY_SIZE=10, ADVRENAME_HISTORY_SIZE=10, INTVIEWER_HISTORY_SIZE=16};
+    enum {SEARCH_HISTORY_SIZE=10, ADVRENAME_HISTORY_SIZE=10};
 
     typedef enum
     {
@@ -587,18 +570,6 @@ struct GnomeCmdData
         ~AdvrenameConfig()                                                              {}
     };
 
-    struct IntViewerConfig
-    {
-        History text_patterns;
-        History hex_patterns;
-        gboolean case_sensitive;
-        gint search_mode;
-
-        IntViewerConfig(): text_patterns(INTVIEWER_HISTORY_SIZE),
-                           hex_patterns(INTVIEWER_HISTORY_SIZE),
-                           case_sensitive(FALSE), search_mode(0)    {}
-    };
-
     typedef std::pair<std::string, std::tuple<GnomeCmdFileList::ColumnID,GtkSortType,gboolean> > Tab;
 
     static GSettingsSchemaSource* GetGlobalSchemaSource();
@@ -614,14 +585,12 @@ struct GnomeCmdData
     void load_auto_load_plugins();
     void load_cmdline_history();
     void load_directory_history();
-    void load_intviewer_defaults();
     gboolean save_auto_load_plugins();
     void load_connections();
     void save_connections();
     void save_cmdline_history(GnomeCmdMainWin *main_win);
     void save_directory_history();
     void save_search_history();
-    void save_intviewer_defaults();
     void save_devices();
     void save_fav_apps();
     void add_advrename_profile_to_gvariant_builder(GVariantBuilder *builder, AdvrenameConfig::Profile profile);
@@ -641,7 +610,6 @@ struct GnomeCmdData
 
     SearchConfig                 search_defaults;
     AdvrenameConfig              advrename_defaults;
-    IntViewerConfig              intviewer_defaults;
 
     gboolean                     horizontal_orientation;
 

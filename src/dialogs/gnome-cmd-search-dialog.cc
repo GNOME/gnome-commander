@@ -942,6 +942,9 @@ void GnomeCmdSearchDialog::Private::on_dialog_size_allocate(GObject *dialog, GPa
 }
 
 
+extern "C" void gnome_cmd_viewer_search_text_add_to_history(const gchar *value);
+
+
 void GnomeCmdSearchDialog::Private::on_dialog_response(GtkDialog *window, int response_id, GnomeCmdSearchDialog *dialog)
 {
     switch (response_id)
@@ -1029,7 +1032,7 @@ void GnomeCmdSearchDialog::Private::on_dialog_response(GtkDialog *window, int re
                 if (dialog->defaults.default_profile.content_search && !dialog->defaults.default_profile.text_pattern.empty())
                 {
                     gnome_cmd_data.search_defaults.content_patterns.add(dialog->defaults.default_profile.text_pattern.c_str());
-                    gnome_cmd_data.intviewer_defaults.text_patterns.add(dialog->defaults.default_profile.text_pattern.c_str());
+                    gnome_cmd_viewer_search_text_add_to_history(dialog->defaults.default_profile.text_pattern.c_str());
                     dialog->priv->profile_component->set_content_patterns_history(dialog->defaults.content_patterns.ents);
                 }
 

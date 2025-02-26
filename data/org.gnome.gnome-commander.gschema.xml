@@ -25,6 +25,11 @@
     <value nick="delete" value="1"/>
   </enum>
 
+  <enum id="org.gnome.gnome-commander.SEARCHMODE">
+    <value nick="text" value="0"/>
+    <value nick="hex" value="1"/>
+  </enum>
+
   <schema gettext-domain="gnome-commander" id="org.gnome.gnome-commander.preferences.general" path="/org/gnome/gnome-commander/preferences/general/">
     <key name="advrename-profiles" type="a(ssuiuuuasasab)">
       <default>[]</default>
