@@ -104,14 +104,24 @@ where
     .upcast()
 }
 
+fn collate_key_for_filename(file: &File, case_sensitive: bool) -> glib::FilenameCollationKey {
+    let name = file.get_name();
+    if case_sensitive {
+        glib::FilenameCollationKey::from(name)
+    } else {
+        glib::FilenameCollationKey::from(glib::casefold(&name))
+    }
+}
+
 #[no_mangle]
 pub extern "C" fn gnome_cmd_sort_by_name(
+    case_sensitive: gboolean,
     symbolic_links_as_regular_files: gboolean,
     sort_type: GtkSortType,
 ) -> *mut GtkSorter {
     sorter(
         symbolic_links_as_regular_files != 0,
-        |file| glib::FilenameCollationKey::from(file.get_name()),
+        move |file| collate_key_for_filename(file, case_sensitive != 0),
         unsafe { gtk::SortType::from_glib(sort_type) },
     )
     .to_glib_full()
@@ -119,15 +129,16 @@ pub extern "C" fn gnome_cmd_sort_by_name(
 
 #[no_mangle]
 pub extern "C" fn gnome_cmd_sort_by_ext(
+    case_sensitive: gboolean,
     symbolic_links_as_regular_files: gboolean,
     sort_type: GtkSortType,
 ) -> *mut GtkSorter {
     sorter(
         symbolic_links_as_regular_files != 0,
-        |file| {
+        move |file| {
             (
                 file.extension(),
-                glib::FilenameCollationKey::from(file.get_name()),
+                collate_key_for_filename(file, case_sensitive != 0),
             )
         },
         unsafe { gtk::SortType::from_glib(sort_type) },
@@ -137,15 +148,16 @@ pub extern "C" fn gnome_cmd_sort_by_ext(
 
 #[no_mangle]
 pub extern "C" fn gnome_cmd_sort_by_dir(
+    case_sensitive: gboolean,
     symbolic_links_as_regular_files: gboolean,
     sort_type: GtkSortType,
 ) -> *mut GtkSorter {
     sorter(
         symbolic_links_as_regular_files != 0,
-        |file| {
+        move |file| {
             (
                 file.get_dirname(),
-                glib::FilenameCollationKey::from(file.get_name()),
+                collate_key_for_filename(file, case_sensitive != 0),
             )
         },
         unsafe { gtk::SortType::from_glib(sort_type) },
@@ -155,15 +167,16 @@ pub extern "C" fn gnome_cmd_sort_by_dir(
 
 #[no_mangle]
 pub extern "C" fn gnome_cmd_sort_by_size(
+    case_sensitive: gboolean,
     symbolic_links_as_regular_files: gboolean,
     sort_type: GtkSortType,
 ) -> *mut GtkSorter {
     sorter(
         symbolic_links_as_regular_files != 0,
-        |file| {
+        move |file| {
             (
                 file.file_info().size(),
-                glib::FilenameCollationKey::from(file.get_name()),
+                collate_key_for_filename(file, case_sensitive != 0),
             )
         },
         unsafe { gtk::SortType::from_glib(sort_type) },
@@ -173,16 +186,17 @@ pub extern "C" fn gnome_cmd_sort_by_size(
 
 #[no_mangle]
 pub extern "C" fn gnome_cmd_sort_by_perm(
+    case_sensitive: gboolean,
     symbolic_links_as_regular_files: gboolean,
     sort_type: GtkSortType,
 ) -> *mut GtkSorter {
     sorter(
         symbolic_links_as_regular_files != 0,
-        |file| {
+        move |file| {
             (
                 file.file_info()
                     .attribute_uint32(gio::FILE_ATTRIBUTE_UNIX_MODE),
-                glib::FilenameCollationKey::from(file.get_name()),
+                collate_key_for_filename(file, case_sensitive != 0),
             )
         },
         unsafe { gtk::SortType::from_glib(sort_type) },
@@ -192,15 +206,16 @@ pub extern "C" fn gnome_cmd_sort_by_perm(
 
 #[no_mangle]
 pub extern "C" fn gnome_cmd_sort_by_date(
+    case_sensitive: gboolean,
     symbolic_links_as_regular_files: gboolean,
     sort_type: GtkSortType,
 ) -> *mut GtkSorter {
     sorter(
         symbolic_links_as_regular_files != 0,
-        |file| {
+        move |file| {
             (
                 file.file_info().modification_date_time(),
-                glib::FilenameCollationKey::from(file.get_name()),
+                collate_key_for_filename(file, case_sensitive != 0),
             )
         },
         unsafe { gtk::SortType::from_glib(sort_type) },
@@ -210,18 +225,19 @@ pub extern "C" fn gnome_cmd_sort_by_date(
 
 #[no_mangle]
 pub extern "C" fn gnome_cmd_sort_by_owner(
+    case_sensitive: gboolean,
     symbolic_links_as_regular_files: gboolean,
     sort_type: GtkSortType,
 ) -> *mut GtkSorter {
     sorter(
         symbolic_links_as_regular_files != 0,
-        |file| {
+        move |file| {
             (
                 file.file_info()
                     .attribute_uint32(gio::FILE_ATTRIBUTE_UNIX_UID),
                 file.file_info()
                     .attribute_uint32(gio::FILE_ATTRIBUTE_OWNER_USER),
-                glib::FilenameCollationKey::from(file.get_name()),
+                collate_key_for_filename(file, case_sensitive != 0),
             )
         },
         unsafe { gtk::SortType::from_glib(sort_type) },
@@ -231,18 +247,19 @@ pub extern "C" fn gnome_cmd_sort_by_owner(
 
 #[no_mangle]
 pub extern "C" fn gnome_cmd_sort_by_group(
+    case_sensitive: gboolean,
     symbolic_links_as_regular_files: gboolean,
     sort_type: GtkSortType,
 ) -> *mut GtkSorter {
     sorter(
         symbolic_links_as_regular_files != 0,
-        |file| {
+        move |file| {
             (
                 file.file_info()
                     .attribute_uint32(gio::FILE_ATTRIBUTE_UNIX_GID),
                 file.file_info()
                     .attribute_uint32(gio::FILE_ATTRIBUTE_OWNER_GROUP),
-                glib::FilenameCollationKey::from(file.get_name()),
+                collate_key_for_filename(file, case_sensitive != 0),
             )
         },
         unsafe { gtk::SortType::from_glib(sort_type) },
