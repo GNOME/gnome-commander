@@ -2,7 +2,6 @@ sources_headers = files(
   'dict.h',
   'dirlist.h',
   'filter.h',
-  'gnome-cmd-about-plugin.h',
   'gnome-cmd-advrename-lexer.h',
   'gnome-cmd-advrename-profile-component.h',
   'gnome-cmd-app.h',
@@ -54,7 +53,6 @@ gnome_cmd_block_sources = files(
 sources_sources = files(
   'dirlist.cc',
   'filter.cc',
-  'gnome-cmd-about-plugin.cc',
   'gnome-cmd-advrename-profile-component.cc',
   'gnome-cmd-application.cc',
   'gnome-cmd-cmdline.cc',

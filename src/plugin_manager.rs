@@ -19,6 +19,7 @@
 
 use crate::{
     config::{PACKAGE, PLUGIN_DIR},
+    dialogs::about_plugin::about_plugin_dialog,
     gmodule::{self, GModule, GModuleFlags},
     libgcmd::{
         configurable::{Configurable, ConfigurableExt},
@@ -32,7 +33,7 @@ use gtk::{
     glib::{
         ffi::{gpointer, GType},
         gobject_ffi::GObject,
-        translate::{from_glib_full, from_glib_none, FromGlib, IntoGlib},
+        translate::{from_glib_full, from_glib_none, IntoGlib},
     },
     prelude::*,
     subclass::prelude::*,
@@ -500,39 +501,7 @@ fn create_plugin_widget(plugin_manager: &PluginManager, plugin_data: &PluginData
 
     about.connect_clicked(move |btn| {
         if let Some(window) = btn.root().and_downcast::<gtk::Window>() {
-            extern "C" {
-                fn gnome_cmd_about_plugin_get_type() -> GType;
-            }
-
-            let type_ = unsafe { glib::Type::from_glib(gnome_cmd_about_plugin_get_type()) };
-            let about_dialog = glib::object::Object::with_type(type_)
-                .downcast::<gtk::Window>()
-                .unwrap();
-            about_dialog.set_property("name", &info.name);
-            about_dialog.set_property("version", &info.version);
-            about_dialog.set_property("copyright", &info.copyright);
-            about_dialog.set_property("comments", &info.comments);
-            about_dialog.set_property(
-                "authors",
-                &info
-                    .authors
-                    .iter()
-                    .map(|v| v.to_value())
-                    .collect::<glib::ValueArray>(),
-            );
-            about_dialog.set_property(
-                "documenters",
-                &info
-                    .documenters
-                    .iter()
-                    .map(|v| v.to_value())
-                    .collect::<glib::ValueArray>(),
-            );
-            about_dialog.set_property("translator_credits", &info.translator);
-            about_dialog.set_property("webpage", &info.webpage);
-
-            about_dialog.set_transient_for(Some(&window));
-            about_dialog.present();
+            about_plugin_dialog(&window, &info).present();
         }
     });
 
