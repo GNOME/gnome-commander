@@ -224,7 +224,18 @@ pub fn file_edit_new_doc(
 }
 
 c_action!(file_search);
-c_action!(file_quick_search);
+
+pub fn file_quick_search(
+    main_win: &MainWindow,
+    _action: &gio::SimpleAction,
+    _parameter: Option<&glib::Variant>,
+) {
+    let main_win = main_win.clone();
+    let file_selector = main_win.file_selector(FileSelectorID::ACTIVE);
+    let file_list = file_selector.file_list();
+
+    file_list.show_quick_search(None);
+}
 
 pub fn file_chmod(
     main_win: &MainWindow,
@@ -534,9 +545,34 @@ pub fn mark_compare_directories(
 }
 
 /************** Edit Menu **************/
-c_action!(edit_cap_cut);
-c_action!(edit_cap_copy);
-c_action!(edit_cap_paste);
+
+pub fn edit_cap_cut(
+    main_win: &MainWindow,
+    _action: &gio::SimpleAction,
+    _parameter: Option<&glib::Variant>,
+) {
+    main_win.cut_files();
+}
+
+pub fn edit_cap_copy(
+    main_win: &MainWindow,
+    _action: &gio::SimpleAction,
+    _parameter: Option<&glib::Variant>,
+) {
+    main_win.copy_files();
+}
+
+pub fn edit_cap_paste(
+    main_win: &MainWindow,
+    _action: &gio::SimpleAction,
+    _parameter: Option<&glib::Variant>,
+) {
+    let main_win = main_win.clone();
+    glib::spawn_future_local(async move {
+        main_win.paste_files().await;
+    });
+}
+
 c_action!(edit_filter);
 c_action!(edit_copy_fnames);
 

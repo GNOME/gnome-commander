@@ -1,5 +1,4 @@
 sources_headers = files(
-  'cap.h',
   'dict.h',
   'dirlist.h',
   'filter.h',
@@ -35,7 +34,6 @@ sources_headers = files(
   'gnome-cmd-owner.h',
   'gnome-cmd-path.h',
   'gnome-cmd-plain-path.h',
-  'gnome-cmd-quicksearch-popup.h',
   'gnome-cmd-regex.h',
   'gnome-cmd-selection-profile-component.h',
   'gnome-cmd-treeview.h',
@@ -55,7 +53,6 @@ gnome_cmd_block_sources = files(
 )
 
 sources_sources = files(
-  'cap.cc',
   'dirlist.cc',
   'filter.cc',
   'gnome-cmd-about-plugin.cc',
@@ -83,7 +80,6 @@ sources_sources = files(
   'gnome-cmd-owner.cc',
   'gnome-cmd-path.cc',
   'gnome-cmd-plain-path.cc',
-  'gnome-cmd-quicksearch-popup.cc',
   'gnome-cmd-selection-profile-component.cc',
   'gnome-cmd-treeview.cc',
   'gnome-cmd-user-actions.cc',

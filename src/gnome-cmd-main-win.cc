@@ -768,6 +768,21 @@ static gboolean on_key_pressed (GtkEventControllerKey *controller, guint keyval,
     {
         switch (keyval)
         {
+            case GDK_KEY_X:
+            case GDK_KEY_x:
+                g_action_group_activate_action (G_ACTION_GROUP (mw), "edit-cap-cut", nullptr);
+                return TRUE;
+
+            case GDK_KEY_C:
+            case GDK_KEY_c:
+                g_action_group_activate_action (G_ACTION_GROUP (mw), "edit-cap-copy", nullptr);
+                return TRUE;
+
+            case GDK_KEY_V:
+            case GDK_KEY_v:
+                g_action_group_activate_action (G_ACTION_GROUP (mw), "edit-cap-paste", nullptr);
+                return TRUE;
+
             case GDK_KEY_e:
             case GDK_KEY_E:
             case GDK_KEY_Down:
@@ -1177,33 +1192,6 @@ void GnomeCmdMainWin::update_mainmenu_visibility()
 void GnomeCmdMainWin::plugins_updated()
 {
     update_mainmenu();
-}
-
-
-GnomeCmdState *GnomeCmdMainWin::get_state() const
-{
-    GnomeCmdFileSelector *fs1 = fs(ACTIVE);
-    GnomeCmdFileSelector *fs2 = fs(INACTIVE);
-    GnomeCmdDir *dir1 = fs1->get_directory();
-    GnomeCmdDir *dir2 = fs2->get_directory();
-
-    GnomeCmdState *state = gnome_cmd_state_new ();
-    gnome_cmd_state_set_active_dir (state, GNOME_CMD_FILE_DESCRIPTOR (dir1));
-    gnome_cmd_state_set_inactive_dir (state, GNOME_CMD_FILE_DESCRIPTOR (dir2));
-    gnome_cmd_state_set_active_dir_files (state, fs1->file_list()->get_visible_files());
-    gnome_cmd_state_set_inactive_dir_files (state, fs2->file_list()->get_visible_files());
-    gnome_cmd_state_set_active_dir_selected_files (state, fs1->file_list()->get_selected_files());
-    gnome_cmd_state_set_inactive_dir_selected_files (state, fs2->file_list()->get_selected_files());
-
-    return state;
-}
-
-
-void GnomeCmdMainWin::set_cap_state(gboolean state)
-{
-    g_simple_action_set_enabled (
-        G_SIMPLE_ACTION (g_action_map_lookup_action (G_ACTION_MAP (this), "edit-cap-paste")),
-        state);
 }
 
 

@@ -38,8 +38,6 @@
 #include "gnome-cmd-data.h"
 #include "gnome-cmd-xfer.h"
 #include "imageloader.h"
-#include "cap.h"
-#include "gnome-cmd-quicksearch-popup.h"
 #include "gnome-cmd-file-collection.h"
 #include "dialogs/gnome-cmd-delete-dialog.h"
 #include "dialogs/gnome-cmd-rename-dialog.h"
@@ -206,7 +204,6 @@ struct GnomeCmdFileList::Private
     gboolean shift_down;
     GtkTreeIterPtr shift_down_row;
     gint shift_down_key;
-    GWeakRef quicksearch_popup;
     gchar *focus_later;
 
     // dropping files
@@ -247,8 +244,6 @@ GnomeCmdFileList::Private::Private(GnomeCmdFileList *fl)
     column_resizing = 0;
     color_theme = nullptr;
     ls_palette = nullptr;
-
-    quicksearch_popup = { { nullptr } };
 
     focus_later = nullptr;
     shift_down = FALSE;
@@ -528,8 +523,6 @@ GnomeCmdFileList::GnomeCmdFileList(ColumnID sort_col, GtkSortType sort_order)
     priv->color_theme = gnome_cmd_get_current_theme();
     priv->ls_palette = gnome_cmd_get_palette();
 
-    create_column_titles();
-
     gtk_widget_add_css_class (GTK_WIDGET (priv->view), "gnome-cmd-file-list");
 
     GtkTreeSelection *selection = gtk_tree_view_get_selection (priv->view);
@@ -747,38 +740,6 @@ inline void toggle_file_range (GnomeCmdFileList *fl, GtkTreeIter *start_row, Gtk
 
 
 extern "C" void toggle_files_with_same_extension (GnomeCmdFileList *fl, gboolean select);
-
-
-void GnomeCmdFileList::toggle_with_pattern(Filter &pattern, gboolean mode)
-{
-    if (gnome_cmd_data.options.select_dirs)
-    {
-        traverse_files ([this, &pattern, mode](GnomeCmdFile *f, GtkTreeIter *iter, GtkListStore *store) {
-            if (f && !f->is_dotdot && f->get_file_info() && pattern.match(g_file_info_get_display_name(f->get_file_info())))
-            {
-                set_selected_at_iter (iter, mode);
-            }
-            return TRAVERSE_CONTINUE;
-        });
-    }
-    else
-    {
-        traverse_files ([this, &pattern, mode](GnomeCmdFile *f, GtkTreeIter *iter, GtkListStore *store) {
-            if (f && !f->is_dotdot && !GNOME_CMD_IS_DIR (f) && f->get_file_info() && pattern.match(g_file_info_get_display_name(f->get_file_info())))
-            {
-                set_selected_at_iter (iter, mode);
-            }
-            return TRAVERSE_CONTINUE;
-        });
-    }
-    g_signal_emit (this, signals[FILES_CHANGED], 0);
-}
-
-
-void GnomeCmdFileList::create_column_titles()
-{
-    gtk_tree_view_set_headers_visible (priv->view, true);
-}
 
 
 static void update_column_sort_arrows (GnomeCmdFileList *fl)
@@ -1347,15 +1308,6 @@ static void gnome_cmd_file_list_class_init (GnomeCmdFileListClass *klass)
 }
 
 
-static void on_paste (GSimpleAction *action, GVariant *parameter, gpointer user_data)
-{
-    auto fl = GNOME_CMD_FILE_LIST (user_data);
-    auto dir = fl->cwd;
-    g_return_if_fail (GNOME_CMD_IS_DIR (dir));
-    cap_paste_files (dir);
-}
-
-
 static void on_refresh (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
     GNOME_CMD_FILE_LIST (user_data)->reload();
@@ -1370,7 +1322,6 @@ static void gnome_cmd_file_list_init (GnomeCmdFileList *fl)
 
     auto action_group = g_simple_action_group_new ();
     static const GActionEntry action_entries[] = {
-        { "paste",              on_paste,                                           nullptr, nullptr, nullptr },
         { "refresh",            on_refresh,                                         nullptr, nullptr, nullptr },
 
         { "file-view",          gnome_cmd_file_list_action_file_view,               "mb",    nullptr, nullptr },
@@ -1678,28 +1629,6 @@ GList *GnomeCmdFileList::get_selected_files()
 }
 
 
-std::vector<GnomeCmdFile *> GnomeCmdFileList::get_all_files()
-{
-    std::vector<GnomeCmdFile *> files;
-    traverse_files([&files](GnomeCmdFile *file, GtkTreeIter *iter, GtkListStore *store) {
-        files.push_back(file);
-        return TraverseControl::TRAVERSE_CONTINUE;
-    });
-    return files;
-}
-
-
-GList *GnomeCmdFileList::get_visible_files()
-{
-    GList *files = nullptr;
-    traverse_files([&files](GnomeCmdFile *file, GtkTreeIter *iter, GtkListStore *store) {
-        files = g_list_append (files, g_object_ref (file));
-        return TraverseControl::TRAVERSE_CONTINUE;
-    });
-    return files;
-}
-
-
 GnomeCmdFile *GnomeCmdFileList::get_first_selected_file()
 {
     GnomeCmdFile *selected_file = nullptr;
@@ -2003,63 +1932,6 @@ void gnome_cmd_file_list_show_selpat_dialog (GnomeCmdFileList *fl, gboolean mode
 }
 
 
-void gnome_cmd_file_list_cap_cut (GnomeCmdFileList *fl)
-{
-    g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl));
-
-    GList *files = fl->get_selected_files();
-
-    if (files)
-    {
-        cap_cut_files (fl, files);
-        g_list_free (files);
-    }
-}
-
-
-void gnome_cmd_file_list_cap_copy (GnomeCmdFileList *fl)
-{
-    g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl));
-
-    GList *files = fl->get_selected_files();
-
-    if (files)
-    {
-        cap_copy_files (fl, files);
-        g_list_free (files);
-    }
-}
-
-
-gboolean gnome_cmd_file_list_quicksearch_shown (GnomeCmdFileList *fl)
-{
-    g_return_val_if_fail (fl!=nullptr, FALSE);
-    g_return_val_if_fail (GNOME_CMD_IS_FILE_LIST (fl), FALSE);
-    g_return_val_if_fail (fl->priv!=nullptr, FALSE);
-
-    auto quicksearch_popup = g_weak_ref_get (&fl->priv->quicksearch_popup);
-    if (quicksearch_popup == nullptr)
-        return FALSE;
-
-    gboolean shown = gtk_widget_get_visible (GTK_WIDGET (quicksearch_popup));
-    g_object_unref (quicksearch_popup);
-    return shown;
-}
-
-
-void gnome_cmd_file_list_show_quicksearch (GnomeCmdFileList *fl, gchar c)
-{
-    if (gnome_cmd_file_list_quicksearch_shown (fl))
-        return;
-
-    auto popup = gnome_cmd_quicksearch_popup_new (fl);
-    g_weak_ref_set (&fl->priv->quicksearch_popup, g_object_ref (popup));
-    gtk_popover_popup (GTK_POPOVER (popup));
-
-    gnome_cmd_quicksearch_popup_set_char (GNOME_CMD_QUICKSEARCH_POPUP (popup), c);
-}
-
-
 static bool is_quicksearch_starting_character (guint keyval)
 {
     return (keyval >= GDK_KEY_A && keyval <= GDK_KEY_Z) ||
@@ -2197,16 +2069,6 @@ static gboolean gnome_cmd_file_list_key_pressed (GtkEventControllerKey* self, gu
     {
         switch (keyval)
         {
-            case GDK_KEY_X:
-            case GDK_KEY_x:
-                gnome_cmd_file_list_cap_cut (fl);
-                return TRUE;
-
-            case GDK_KEY_C:
-            case GDK_KEY_c:
-                gnome_cmd_file_list_cap_copy (fl);
-                return TRUE;
-
             case GDK_KEY_F3:
                 on_column_clicked (fl->priv->columns[GnomeCmdFileList::COLUMN_NAME], fl);
                 return TRUE;
@@ -2300,7 +2162,7 @@ static gboolean gnome_cmd_file_list_key_pressed (GtkEventControllerKey* self, gu
     if (is_quicksearch_starting_character (keyval))
     {
         if (is_quicksearch_starting_modifier (state))
-            gnome_cmd_file_list_show_quicksearch (fl, (gchar) keyval);
+            gnome_cmd_file_list_show_quicksearch (fl, keyval);
         else if (gnome_cmd_data.cmdline_visibility)
         {
             gchar text[2];
@@ -2890,11 +2752,6 @@ extern "C" GtkTreeView *gnome_cmd_file_list_get_tree_view (GnomeCmdFileList *fl)
     return fl->priv->view;
 }
 
-GList *gnome_cmd_file_list_get_visible_files (GnomeCmdFileList *fl)
-{
-    return fl->get_visible_files();
-}
-
 GList *gnome_cmd_file_list_get_selected_files (GnomeCmdFileList *fl)
 {
     return fl->get_selected_files();
@@ -2938,11 +2795,6 @@ void gnome_cmd_file_list_set_connection(GnomeCmdFileList *fl, GnomeCmdCon *con, 
 void gnome_cmd_file_list_focus_file(GnomeCmdFileList *fl, const gchar *focus_file, gboolean scroll_to_file)
 {
     fl->focus_file(focus_file, scroll_to_file);
-}
-
-void gnome_cmd_file_list_toggle_with_pattern(GnomeCmdFileList *fl, Filter *pattern, gboolean mode)
-{
-    fl->toggle_with_pattern(*pattern, mode);
 }
 
 void gnome_cmd_file_list_goto_directory(GnomeCmdFileList *fl, const gchar *dir)

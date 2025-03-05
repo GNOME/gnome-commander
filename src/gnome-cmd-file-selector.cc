@@ -32,7 +32,6 @@
 #include "gnome-cmd-dir-indicator.h"
 #include "gnome-cmd-user-actions.h"
 #include "history.h"
-#include "cap.h"
 #include "utils.h"
 #include "widget-factory.h"
 
@@ -482,11 +481,6 @@ static gboolean on_list_key_pressed (GtkEventControllerKey *controller, guint ke
     {
         switch (keyval)
         {
-            case GDK_KEY_V:
-            case GDK_KEY_v:
-                gnome_cmd_file_selector_cap_paste (fs);
-                return TRUE;
-
             case GDK_KEY_P:
             case GDK_KEY_p:
                 add_cwd_to_cmdline (fs->list);
@@ -596,20 +590,6 @@ static void gnome_cmd_file_selector_class_init (GnomeCmdFileSelectorClass *klass
             1, G_TYPE_POINTER);
 
     G_OBJECT_CLASS (klass)->dispose = dispose;
-}
-
-
-static void on_refresh (GSimpleAction *action, GVariant *parameter, gpointer user_data)
-{
-    GnomeCmdFileSelector *fs = static_cast<GnomeCmdFileSelector *>(user_data);
-    fs->file_list()->reload();
-}
-
-
-static void on_paste (GSimpleAction *action, GVariant *parameter, gpointer user_data)
-{
-    GnomeCmdFileSelector *fs = static_cast<GnomeCmdFileSelector *>(user_data);
-    gnome_cmd_file_selector_cap_paste (fs);
 }
 
 
@@ -890,17 +870,6 @@ void GnomeCmdFileSelector::update_style()
 
     create_con_buttons (this);
     update_connections();
-}
-
-
-void gnome_cmd_file_selector_cap_paste (GnomeCmdFileSelector *fs)
-{
-    g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
-
-    GnomeCmdDir *dir = fs->get_directory();
-    g_return_if_fail (GNOME_CMD_IS_DIR (dir));
-
-    cap_paste_files (dir);
 }
 
 

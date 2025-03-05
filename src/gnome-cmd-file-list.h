@@ -64,10 +64,6 @@ struct GnomeCmdFileList
 {
     GtkWidget parent;
 
-  private:
-
-    void create_column_titles();
-
   public:
 
     struct Private;
@@ -141,10 +137,6 @@ struct GnomeCmdFileList
     void toggle_file(GtkTreeIter *iter);
     void toggle();
     void toggle_and_step();
-    void toggle_with_pattern (Filter &pattern, gboolean mode);
-
-    void select(Filter &pattern)                       {  toggle_with_pattern(pattern, TRUE);                           }
-    void unselect(Filter &pattern)                     {  toggle_with_pattern(pattern, FALSE);                          }
 
     void select_row(GtkTreeIter *row);
     GnomeCmdFile *get_file_at_row(GtkTreeIter *row);
@@ -154,18 +146,6 @@ struct GnomeCmdFileList
     void focus_next();
 
     void sort();
-
-    /**
-     * Returns a list with all files shown in the file list. The list is
-     * the same as that in the file list it self so make a copy and ref
-     * the files if needed
-     */
-    GList *get_visible_files();
-
-    /**
-     * Same as `get_visible_files` but returns a vector
-     */
-    std::vector<GnomeCmdFile *> get_all_files();
 
     /**
      * Returns a list with all selected files. The list returned is a
@@ -274,12 +254,7 @@ void gnome_cmd_file_list_show_properties_dialog (GnomeCmdFileList *fl);
 void gnome_cmd_file_list_show_rename_dialog (GnomeCmdFileList *fl);
 void gnome_cmd_file_list_show_selpat_dialog (GnomeCmdFileList *fl, gboolean mode);
 
-void gnome_cmd_file_list_cap_cut (GnomeCmdFileList *fl);
-void gnome_cmd_file_list_cap_copy (GnomeCmdFileList *fl);
-
-void gnome_cmd_file_list_show_quicksearch (GnomeCmdFileList *fl, gchar c);
-
-gboolean gnome_cmd_file_list_quicksearch_shown (GnomeCmdFileList *fl);
+extern "C" void gnome_cmd_file_list_show_quicksearch (GnomeCmdFileList *fl, guint keyval);
 
 struct GnomeCmdFileListButtonEvent
 {
@@ -295,7 +270,6 @@ struct GnomeCmdFileListButtonEvent
 extern "C" void gnome_cmd_show_new_textfile_dialog(GtkWindow *parent_window, GnomeCmdFileList *fl);
 
 // FFI
-extern "C" GList *gnome_cmd_file_list_get_visible_files (GnomeCmdFileList *fl);
 extern "C" GList *gnome_cmd_file_list_get_selected_files (GnomeCmdFileList *fl);
 extern "C" GnomeCmdFile *gnome_cmd_file_list_get_focused_file(GnomeCmdFileList *fl);
 extern "C" GnomeCmdDir *gnome_cmd_file_list_get_cwd(GnomeCmdFileList *fl);
@@ -308,7 +282,5 @@ extern "C" void gnome_cmd_file_list_reload (GnomeCmdFileList *fl);
 
 extern "C" void gnome_cmd_file_list_set_connection(GnomeCmdFileList *fl, GnomeCmdCon *con, GnomeCmdDir *start_dir);
 extern "C" void gnome_cmd_file_list_focus_file(GnomeCmdFileList *fl, const gchar *focus_file, gboolean scroll_to_file);
-
-extern "C" void gnome_cmd_file_list_toggle_with_pattern(GnomeCmdFileList *fl, Filter *pattern, gboolean mode);
 
 extern "C" void gnome_cmd_file_list_goto_directory(GnomeCmdFileList *fl, const gchar *dir);

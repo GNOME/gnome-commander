@@ -2,7 +2,7 @@
  * Copyright 2001-2006 Marcus Bjurman
  * Copyright 2007-2012 Piotr Eljasiak
  * Copyright 2013-2024 Uwe Scholz
- * Copyright 2024 Andrey Kutejko <andy128k@gmail.com>
+ * Copyright 2024-2025 Andrey Kutejko <andy128k@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -27,27 +27,32 @@ use crate::{
         list::ConnectionList,
         remote::ConnectionRemote,
     },
+    file::File,
+    file_list::list::FileList,
     file_selector::FileSelector,
     libgcmd::{
         file_actions::{FileActions, FileActionsExt},
+        file_descriptor::FileDescriptorExt,
         state::{State, StateExt},
     },
     plugin_manager::{wrap_plugin_menu, PluginManager},
     shortcuts::Shortcuts,
-    types::FileSelectorID,
+    transfer::{gnome_cmd_copy_gfiles, gnome_cmd_move_gfiles},
+    types::{FileSelectorID, GnomeCmdConfirmOverwriteMode},
     user_actions,
     utils::{extract_menu_shortcuts, MenuBuilderExt},
 };
 use gettextrs::gettext;
-use glib::ffi::gboolean;
 use gtk::{
     gio::{self, ffi::GMenu},
     glib::{
         self,
+        ffi::gboolean,
         translate::{from_glib_none, FromGlibPtrNone, ToGlibPtr},
     },
     prelude::*,
 };
+use std::sync::LazyLock;
 
 pub mod ffi {
     use super::*;
@@ -101,7 +106,26 @@ glib::wrapper! {
     }
 }
 
+#[derive(Default)]
+struct MainWindowPrivate {
+    cut_and_paste_state: Option<CutAndPasteState>,
+}
+
 impl MainWindow {
+    fn private(&self) -> &mut MainWindowPrivate {
+        static QUARK: LazyLock<glib::Quark> =
+            LazyLock::new(|| glib::Quark::from_str("main-window-private"));
+
+        unsafe {
+            if let Some(mut private) = self.qdata::<MainWindowPrivate>(*QUARK) {
+                private.as_mut()
+            } else {
+                self.set_qdata(*QUARK, MainWindowPrivate::default());
+                self.qdata::<MainWindowPrivate>(*QUARK).unwrap().as_mut()
+            }
+        }
+    }
+
     pub fn file_selector(&self, id: FileSelectorID) -> FileSelector {
         unsafe {
             FileSelector::from_glib_none(ffi::gnome_cmd_main_win_get_fs(self.to_glib_none().0, id))
@@ -147,6 +171,103 @@ impl MainWindow {
                 self.to_glib_none().0,
             ))
         }
+    }
+}
+
+enum CutAndPasteOperation {
+    Cut,
+    Copy,
+}
+
+struct CutAndPasteState {
+    operation: CutAndPasteOperation,
+    source_file_list: FileList,
+    files: glib::List<File>,
+}
+
+impl MainWindow {
+    fn set_cap_state(&self, state: bool) {
+        if let Some(action) = self
+            .lookup_action("edit-cap-paste")
+            .and_downcast::<gio::SimpleAction>()
+        {
+            action.set_enabled(state);
+        }
+    }
+
+    pub fn cut_files(&self) {
+        let source_file_list = self.file_selector(FileSelectorID::ACTIVE).file_list();
+        let files = source_file_list.selected_files();
+        if files.is_empty() {
+            return;
+        }
+
+        self.private().cut_and_paste_state = Some(CutAndPasteState {
+            source_file_list,
+            operation: CutAndPasteOperation::Cut,
+            files,
+        });
+        self.set_cap_state(true);
+    }
+
+    pub fn copy_files(&self) {
+        let source_file_list = self.file_selector(FileSelectorID::ACTIVE).file_list();
+        let files = source_file_list.selected_files();
+        if files.is_empty() {
+            return;
+        }
+
+        self.private().cut_and_paste_state = Some(CutAndPasteState {
+            source_file_list,
+            operation: CutAndPasteOperation::Copy,
+            files,
+        });
+        self.set_cap_state(true);
+    }
+
+    pub async fn paste_files(&self) {
+        let destination_file_list = self.file_selector(FileSelectorID::ACTIVE).file_list();
+        let Some(dir) = destination_file_list.directory() else {
+            return;
+        };
+
+        self.set_cap_state(false);
+        let Some(state) = self.private().cut_and_paste_state.take() else {
+            return;
+        };
+
+        let files = state.files.iter().map(|f| f.file()).collect();
+        let success = match state.operation {
+            CutAndPasteOperation::Cut => {
+                gnome_cmd_move_gfiles(
+                    self.clone().upcast(),
+                    files,
+                    dir.clone(),
+                    None,
+                    gio::FileCopyFlags::NONE,
+                    GnomeCmdConfirmOverwriteMode::GNOME_CMD_CONFIRM_OVERWRITE_QUERY,
+                )
+                .await
+            }
+            CutAndPasteOperation::Copy => {
+                gnome_cmd_copy_gfiles(
+                    self.clone().upcast(),
+                    files,
+                    dir.clone(),
+                    None,
+                    gio::FileCopyFlags::NONE,
+                    GnomeCmdConfirmOverwriteMode::GNOME_CMD_CONFIRM_OVERWRITE_QUERY,
+                )
+                .await
+            }
+        };
+        if !success {
+            eprintln!("Transfer failed");
+        }
+
+        state.source_file_list.reload();
+        dir.relist_files(self.upcast_ref(), false).await;
+        self.focus_file_lists();
     }
 }
 
