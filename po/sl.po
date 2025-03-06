@@ -11,8 +11,8 @@ msgstr ""
 "Project-Id-Version: gnome-commander master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-commander/"
 "issues/\n"
-"POT-Creation-Date: 2025-02-24 21:04+0000\n"
-"PO-Revision-Date: 2025-02-24 23:15+0100\n"
+"POT-Creation-Date: 2025-03-05 22:15+0000\n"
+"PO-Revision-Date: 2025-03-06 08:43+0100\n"
 "Last-Translator: Martin Srebotnjak <miles@filmsi.net>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
 "Language: sl_SI\n"
@@ -73,37 +73,37 @@ msgstr ""
 "datoteka;upravljalnik;mapa;raziskovanje;disk;sistem;fajli;iskanje;"
 "preimenovanje;commander;komander;"
 
-#: data/org.gnome.gnome-commander.gschema.xml:31
+#: data/org.gnome.gnome-commander.gschema.xml:36
 msgid "List of advanced rename tool profiles"
 msgstr "Seznam profilov orodja za napredno preimenovanje"
 
-#: data/org.gnome.gnome-commander.gschema.xml:32
+#: data/org.gnome.gnome-commander.gschema.xml:37
 msgid ""
 "The entries in this array represent the profiles in the advanced rename tool "
 "with specific settings for each profile."
 msgstr "Vnosi matrike predstavljajo profile orodja za napredno preimenovanje."
 
-#: data/org.gnome.gnome-commander.gschema.xml:38
+#: data/org.gnome.gnome-commander.gschema.xml:43
 msgid "Advanced rename tool window width"
 msgstr "Širina okna orodja za napredno preimenovanje"
 
-#: data/org.gnome.gnome-commander.gschema.xml:39
+#: data/org.gnome.gnome-commander.gschema.xml:44
 msgid "This option defines the width of the advanced rename tool window."
 msgstr "Možnost določa širino okna orodja za napredno preimenovanje."
 
-#: data/org.gnome.gnome-commander.gschema.xml:45
+#: data/org.gnome.gnome-commander.gschema.xml:50
 msgid "Advanced rename tool window height"
 msgstr "Višina okna orodja za napredno preimenovanje"
 
-#: data/org.gnome.gnome-commander.gschema.xml:46
+#: data/org.gnome.gnome-commander.gschema.xml:51
 msgid "This option defines the height of the advanced rename tool window."
 msgstr "Možnost določa višino okna orodja za napredno preimenovanje."
 
-#: data/org.gnome.gnome-commander.gschema.xml:52
+#: data/org.gnome.gnome-commander.gschema.xml:57
 msgid "Advanced rename tool template history"
 msgstr "Zgodovina predlog orodja za napredno preimenovanje"
 
-#: data/org.gnome.gnome-commander.gschema.xml:53
+#: data/org.gnome.gnome-commander.gschema.xml:58
 msgid ""
 "This string array represents the history of templates in the advanced rename "
 "tool."
@@ -111,19 +111,19 @@ msgstr ""
 "Nastavitev predstavlja zgodovino uporabljenih predlog v orodju za napredno "
 "preimenovanje."
 
-#: data/org.gnome.gnome-commander.gschema.xml:59
+#: data/org.gnome.gnome-commander.gschema.xml:64
 msgid "History of visited directories"
 msgstr "Zgodovina obiskanih map"
 
-#: data/org.gnome.gnome-commander.gschema.xml:60
+#: data/org.gnome.gnome-commander.gschema.xml:65
 msgid "This string array represents the history of visited directories."
 msgstr "Nastavitev predstavlja zgodovino doslej obiskanih map."
 
-#: data/org.gnome.gnome-commander.gschema.xml:66
+#: data/org.gnome.gnome-commander.gschema.xml:71
 msgid "Panel font"
 msgstr "Pisava pulta"
 
-#: data/org.gnome.gnome-commander.gschema.xml:67
+#: data/org.gnome.gnome-commander.gschema.xml:72
 msgid ""
 "A custom font that will be used for the file panes if the “Use default font” "
 "option is turned off."
@@ -131,22 +131,22 @@ msgstr ""
 "Pisava po meri, ki bo uporabljena v oknu seznama datotek, če je možnost "
 "»Uporabi privzeto pisavo« onemogočena."
 
-#: data/org.gnome.gnome-commander.gschema.xml:73
+#: data/org.gnome.gnome-commander.gschema.xml:78
 msgid "Filesize display mode"
 msgstr "Način prikaza velikosti datoteke"
 
-#: data/org.gnome.gnome-commander.gschema.xml:74
+#: data/org.gnome.gnome-commander.gschema.xml:79
 msgid ""
 "Defines how the filesize will be displayed in the associated pane column."
 msgstr ""
 "Določa, kako naj bo izpisana velikost datoteke v ustreznem stolpcu okna."
 
-#: data/org.gnome.gnome-commander.gschema.xml:80
+#: data/org.gnome.gnome-commander.gschema.xml:85
 #: src/dialogs/gnome-cmd-options-dialog.cc:401
 msgid "Permission display mode"
 msgstr "Način prikazovanja dovoljenj"
 
-#: data/org.gnome.gnome-commander.gschema.xml:81
+#: data/org.gnome.gnome-commander.gschema.xml:86
 msgid ""
 "Defines how the file permission will be displayed in the associated pane "
 "column."
@@ -154,19 +154,19 @@ msgstr ""
 "Določa, kako naj bodo izpisane oznake dovoljenja datoteke v ustreznem "
 "stolpcu okna."
 
-#: data/org.gnome.gnome-commander.gschema.xml:87
+#: data/org.gnome.gnome-commander.gschema.xml:92
 msgid "Graphical layout mode"
 msgstr "Grafični način razporeditve"
 
-#: data/org.gnome.gnome-commander.gschema.xml:88
+#: data/org.gnome.gnome-commander.gschema.xml:93
 msgid "Defines the icon style of files and folders in the file panes."
 msgstr "Določa slog ikon datotek v ustreznem stolpcu okna."
 
-#: data/org.gnome.gnome-commander.gschema.xml:94
+#: data/org.gnome.gnome-commander.gschema.xml:99
 msgid "List row height"
 msgstr "Višina vrstice seznama"
 
-#: data/org.gnome.gnome-commander.gschema.xml:95
+#: data/org.gnome.gnome-commander.gschema.xml:100
 msgid "Defines the height of a row in the file pane."
 msgstr "Določa višino vrstice v oknu seznama datotek."
 
@@ -175,67 +175,67 @@ msgstr "Določa višino vrstice v oknu seznama datotek."
 #. Attention: Do not change the single quotes which sourround the string.
 #. If nothing is set, the application uses the hard-coded value '%c', which is
 #. "the preferred date and time representation for the current locale".
-#: data/org.gnome.gnome-commander.gschema.xml:105
+#: data/org.gnome.gnome-commander.gschema.xml:110
 msgid "'%F %R'"
 msgstr "'%e.%m.%y %R'"
 
-#: data/org.gnome.gnome-commander.gschema.xml:106
+#: data/org.gnome.gnome-commander.gschema.xml:111
 #: src/dialogs/gnome-cmd-options-dialog.cc:417
 msgid "Date format"
 msgstr "Zapis datuma"
 
-#: data/org.gnome.gnome-commander.gschema.xml:107
+#: data/org.gnome.gnome-commander.gschema.xml:112
 msgid "Format of the date in the file pane."
 msgstr "Zapis datuma/časa v oknu seznama datotek."
 
-#: data/org.gnome.gnome-commander.gschema.xml:113
+#: data/org.gnome.gnome-commander.gschema.xml:118
 msgid "List font"
 msgstr "Pisava seznama"
 
-#: data/org.gnome.gnome-commander.gschema.xml:114
+#: data/org.gnome.gnome-commander.gschema.xml:119
 msgid "The font in the file panes."
 msgstr "Pisava v oknih seznama datotek."
 
-#: data/org.gnome.gnome-commander.gschema.xml:118
+#: data/org.gnome.gnome-commander.gschema.xml:123
 msgid "Extension display mode"
 msgstr "Način prikazovanja pripone"
 
-#: data/org.gnome.gnome-commander.gschema.xml:119
+#: data/org.gnome.gnome-commander.gschema.xml:124
 msgid "Defines where the file name extension is displayed."
 msgstr "Določa, kje naj bo prikazana pripona datoteke."
 
-#: data/org.gnome.gnome-commander.gschema.xml:125
+#: data/org.gnome.gnome-commander.gschema.xml:130
 msgid "Left mouse button mode"
 msgstr "Način levega gumba miške"
 
-#: data/org.gnome.gnome-commander.gschema.xml:126
+#: data/org.gnome.gnome-commander.gschema.xml:131
 msgid "Number of left mouse button clicks for opening a file or folder."
 msgstr ""
 "Določa število klikov levega gumba miške za odpiranje datoteke ali mape."
 
-#: data/org.gnome.gnome-commander.gschema.xml:132
+#: data/org.gnome.gnome-commander.gschema.xml:137
 msgid "Left mouse button unselects"
 msgstr "Preklop izbora z levim gumbom miške"
 
-#: data/org.gnome.gnome-commander.gschema.xml:133
+#: data/org.gnome.gnome-commander.gschema.xml:138
 msgid ""
 "Defines if a click on an unselected item unselects already selected items."
 msgstr "Določa, ali klik na predmet odstrani izbor že izbranega predmeta."
 
-#: data/org.gnome.gnome-commander.gschema.xml:139
+#: data/org.gnome.gnome-commander.gschema.xml:144
 msgid "Right mouse button mode"
 msgstr "Način desnega gumba miške"
 
-#: data/org.gnome.gnome-commander.gschema.xml:140
+#: data/org.gnome.gnome-commander.gschema.xml:145
 msgid "Defines what happens when the right mouse button is clicked on an item."
 msgstr ""
 "Določa, kaj se zgodi, ko se na predmetu izvede klik z desnim gumbom miške."
 
-#: data/org.gnome.gnome-commander.gschema.xml:146
+#: data/org.gnome.gnome-commander.gschema.xml:151
 msgid "Use trash"
 msgstr "Uporabi smeti"
 
-#: data/org.gnome.gnome-commander.gschema.xml:147
+#: data/org.gnome.gnome-commander.gschema.xml:152
 msgid ""
 "Defines if items should be moved to trash by default instead of really "
 "deleting them."
@@ -243,19 +243,19 @@ msgstr ""
 "Določa, ali naj bodo predmeti privzeto premaknjeni v smeti oziroma naj bodo "
 "zares izbrisani."
 
-#: data/org.gnome.gnome-commander.gschema.xml:153
+#: data/org.gnome.gnome-commander.gschema.xml:158
 msgid "Icon size"
 msgstr "Velikost ikone"
 
-#: data/org.gnome.gnome-commander.gschema.xml:154
+#: data/org.gnome.gnome-commander.gschema.xml:159
 msgid "Size of icons in the file pane."
 msgstr "Velikost ikon v oknu seznama datotek."
 
-#: data/org.gnome.gnome-commander.gschema.xml:158
+#: data/org.gnome.gnome-commander.gschema.xml:163
 msgid "Icon scale quality"
 msgstr "Kakovost prilagoditve velikosti ikone"
 
-#: data/org.gnome.gnome-commander.gschema.xml:159
+#: data/org.gnome.gnome-commander.gschema.xml:164
 msgid ""
 "Describes the different interpolation modes that can be used with the "
 "scaling functions."
@@ -263,19 +263,19 @@ msgstr ""
 "Določa različni način interpolacije, ki jo je mogoče uporabiti pri "
 "prilagajanju velikosti."
 
-#: data/org.gnome.gnome-commander.gschema.xml:163
+#: data/org.gnome.gnome-commander.gschema.xml:168
 msgid "MIME icon directory"
 msgstr "Mapa ikon MIME"
 
-#: data/org.gnome.gnome-commander.gschema.xml:164
+#: data/org.gnome.gnome-commander.gschema.xml:169
 msgid "Directory in which MIME icons are located."
 msgstr "Mapa, v kateri so shranjene ikone MIME."
 
-#: data/org.gnome.gnome-commander.gschema.xml:168
+#: data/org.gnome.gnome-commander.gschema.xml:173
 msgid "Command line history"
 msgstr "Zgodovina ukazne vrstice"
 
-#: data/org.gnome.gnome-commander.gschema.xml:169
+#: data/org.gnome.gnome-commander.gschema.xml:174
 msgid ""
 "This string array represents the history of commands executed in the command "
 "line."
@@ -283,72 +283,72 @@ msgstr ""
 "Nastavitev predstavlja zgodovino ukazov, ki jih je uporabnik izvršil v "
 "ukazni vrstici."
 
-#: data/org.gnome.gnome-commander.gschema.xml:176
+#: data/org.gnome.gnome-commander.gschema.xml:181
 msgid "Command line history length"
 msgstr "Dolžina zgodovine ukazne vrstice"
 
-#: data/org.gnome.gnome-commander.gschema.xml:180
+#: data/org.gnome.gnome-commander.gschema.xml:185
 msgid "Horizontal orientation"
 msgstr "Vodoravna postavitev"
 
-#: data/org.gnome.gnome-commander.gschema.xml:181
+#: data/org.gnome.gnome-commander.gschema.xml:186
 msgid ""
 "Defines if the orientation of the file panes should be horizontal or not."
 msgstr "Določa, ali je postavitev oken urejevalnika vodoravna ali navpična."
 
-#: data/org.gnome.gnome-commander.gschema.xml:188
+#: data/org.gnome.gnome-commander.gschema.xml:193
 msgid "GUI update rate"
 msgstr "Hitrost posodabljanja grafičnega vmesnika"
 
-#: data/org.gnome.gnome-commander.gschema.xml:189
+#: data/org.gnome.gnome-commander.gschema.xml:194
 msgid "Update rate of the graphical user interphase in 1/1000ths of a second."
 msgstr "Hitrost posodabljanja grafičnega vmesnika v tisočinkah sekunde."
 
-#: data/org.gnome.gnome-commander.gschema.xml:193 src/user_actions.rs:1377
+#: data/org.gnome.gnome-commander.gschema.xml:198 src/user_actions.rs:1413
 msgid "Show device buttons"
 msgstr "Pokaži gumbe naprav"
 
-#: data/org.gnome.gnome-commander.gschema.xml:194
+#: data/org.gnome.gnome-commander.gschema.xml:199
 msgid "Defines if device buttons are shown."
 msgstr "Nastavitev določa, ali so gumbi naprave prikazane v vmesniku."
 
-#: data/org.gnome.gnome-commander.gschema.xml:198 src/user_actions.rs:1383
+#: data/org.gnome.gnome-commander.gschema.xml:203 src/user_actions.rs:1419
 msgid "Show device list"
 msgstr "Pokaži seznam naprav"
 
-#: data/org.gnome.gnome-commander.gschema.xml:199
+#: data/org.gnome.gnome-commander.gschema.xml:204
 msgid "Defines if the list of devices is shown."
 msgstr "Nastavitev določa, ali je prikazan seznam razpoložljivih naprav."
 
-#: data/org.gnome.gnome-commander.gschema.xml:203 src/user_actions.rs:1401
+#: data/org.gnome.gnome-commander.gschema.xml:208 src/user_actions.rs:1437
 msgid "Show command line"
 msgstr "Pokaži ukazno vrstico"
 
-#: data/org.gnome.gnome-commander.gschema.xml:204
+#: data/org.gnome.gnome-commander.gschema.xml:209
 msgid "Defines if command line is shown."
 msgstr "Nastavitev določa, ali je prikazana ukazna vrstica."
 
-#: data/org.gnome.gnome-commander.gschema.xml:208 src/user_actions.rs:1389
+#: data/org.gnome.gnome-commander.gschema.xml:213 src/user_actions.rs:1425
 msgid "Show toolbar"
 msgstr "Pokaži orodno vrstico"
 
-#: data/org.gnome.gnome-commander.gschema.xml:209
+#: data/org.gnome.gnome-commander.gschema.xml:214
 msgid "Defines if the toolbar is shown."
 msgstr "Nastavitev določa, ali je prikazana orodna vrstica."
 
-#: data/org.gnome.gnome-commander.gschema.xml:213 src/user_actions.rs:1395
+#: data/org.gnome.gnome-commander.gschema.xml:218 src/user_actions.rs:1431
 msgid "Show buttonbar"
 msgstr "Pokaži funkcijske tipke"
 
-#: data/org.gnome.gnome-commander.gschema.xml:214
+#: data/org.gnome.gnome-commander.gschema.xml:219
 msgid "Defines if the buttonbar is shown."
 msgstr "Nastavitev določa, ali naj bodo prikazane funkcijske tipke."
 
-#: data/org.gnome.gnome-commander.gschema.xml:218
+#: data/org.gnome.gnome-commander.gschema.xml:223
 msgid "Symlink string"
 msgstr "Simbolna povezava"
 
-#: data/org.gnome.gnome-commander.gschema.xml:219
+#: data/org.gnome.gnome-commander.gschema.xml:224
 msgid ""
 "This string defines the default name of a newly created symlink. Leave the "
 "string empty to use the default value which is hard coded into the program "
@@ -359,155 +359,155 @@ msgstr ""
 "določa uporabo privzete vrednosti, vpisane v kodi programa. Vrednost »%s« se "
 "razširi na ime predmeta, za katerega je treba ustvariti povezavo."
 
-#: data/org.gnome.gnome-commander.gschema.xml:227
+#: data/org.gnome.gnome-commander.gschema.xml:232
 msgid "Main window width"
 msgstr "Širina glavnega okna"
 
-#: data/org.gnome.gnome-commander.gschema.xml:228
+#: data/org.gnome.gnome-commander.gschema.xml:233
 msgid "This option defines the width of the main window."
 msgstr "Možnost določa širino glavnega okna."
 
-#: data/org.gnome.gnome-commander.gschema.xml:234
+#: data/org.gnome.gnome-commander.gschema.xml:239
 msgid "List of bookmarks"
 msgstr "Seznam zaznamkov"
 
-#: data/org.gnome.gnome-commander.gschema.xml:235
+#: data/org.gnome.gnome-commander.gschema.xml:240
 msgid "Each entry in this list represents a bookmark."
 msgstr "Vsak vnos seznama predstavlja zaznamek."
 
-#: data/org.gnome.gnome-commander.gschema.xml:241
+#: data/org.gnome.gnome-commander.gschema.xml:246
 msgid "Bookmarks window width"
 msgstr "Širina okna zaznamkov"
 
-#: data/org.gnome.gnome-commander.gschema.xml:242
+#: data/org.gnome.gnome-commander.gschema.xml:247
 msgid "This option defines the width of the bookmarks window."
 msgstr "Možnost določa višino okna zaznamkov."
 
-#: data/org.gnome.gnome-commander.gschema.xml:248
+#: data/org.gnome.gnome-commander.gschema.xml:253
 msgid "Bookmarks window height"
 msgstr "Višina okna zaznamkov"
 
-#: data/org.gnome.gnome-commander.gschema.xml:249
+#: data/org.gnome.gnome-commander.gschema.xml:254
 msgid "This option defines the height of the bookmarks window."
 msgstr "Možnost določa višino okna zaznamkov."
 
-#: data/org.gnome.gnome-commander.gschema.xml:255
+#: data/org.gnome.gnome-commander.gschema.xml:260
 msgid "List of connections"
 msgstr "Seznam povezav"
 
-#: data/org.gnome.gnome-commander.gschema.xml:256
+#: data/org.gnome.gnome-commander.gschema.xml:261
 msgid "Each entry in this list represents a connection."
 msgstr "Vsak vnos seznama predstavlja povezavo."
 
-#: data/org.gnome.gnome-commander.gschema.xml:262
+#: data/org.gnome.gnome-commander.gschema.xml:267
 msgid "Main window height"
 msgstr "Višina glavnega okna"
 
-#: data/org.gnome.gnome-commander.gschema.xml:263
+#: data/org.gnome.gnome-commander.gschema.xml:268
 msgid "This option defines the height of the main window."
 msgstr "Možnost določa višino glavnega okna."
 
-#: data/org.gnome.gnome-commander.gschema.xml:269
+#: data/org.gnome.gnome-commander.gschema.xml:274
 msgid "Options dialog width"
 msgstr "Širina okna možnosti"
 
-#: data/org.gnome.gnome-commander.gschema.xml:270
+#: data/org.gnome.gnome-commander.gschema.xml:275
 msgid "This setting defines the width of the options dialog window."
 msgstr "Nastavitev določa širino okna možnosti."
 
-#: data/org.gnome.gnome-commander.gschema.xml:276
+#: data/org.gnome.gnome-commander.gschema.xml:281
 msgid "Options dialog height"
 msgstr "Višina okna možnosti"
 
-#: data/org.gnome.gnome-commander.gschema.xml:277
+#: data/org.gnome.gnome-commander.gschema.xml:282
 msgid "This setting defines the height of the options dialog window."
 msgstr "Nastavitev določa višino okna možnosti."
 
-#: data/org.gnome.gnome-commander.gschema.xml:283
+#: data/org.gnome.gnome-commander.gschema.xml:288
 msgid "Width of icon column"
 msgstr "Širina stolpca ikone"
 
-#: data/org.gnome.gnome-commander.gschema.xml:284
+#: data/org.gnome.gnome-commander.gschema.xml:289
 msgid "This option defines the width of the icon column."
 msgstr "Možnost določa širino stolpca ikone."
 
-#: data/org.gnome.gnome-commander.gschema.xml:290
+#: data/org.gnome.gnome-commander.gschema.xml:295
 msgid "Width of name column"
 msgstr "Širina stolpca imena datoteke"
 
-#: data/org.gnome.gnome-commander.gschema.xml:291
+#: data/org.gnome.gnome-commander.gschema.xml:296
 msgid "This option defines the width of the name column."
 msgstr "Možnost določa širino stolpca imena datoteke."
 
-#: data/org.gnome.gnome-commander.gschema.xml:297
+#: data/org.gnome.gnome-commander.gschema.xml:302
 msgid "Width of extension column"
 msgstr "Širina stolpca pripone imena datoteke"
 
-#: data/org.gnome.gnome-commander.gschema.xml:298
+#: data/org.gnome.gnome-commander.gschema.xml:303
 msgid "This option defines the width of the extension column."
 msgstr "Možnost določa širino stolpca pripone."
 
-#: data/org.gnome.gnome-commander.gschema.xml:304
+#: data/org.gnome.gnome-commander.gschema.xml:309
 msgid "Width of directory column"
 msgstr "Širina stolpca mape"
 
-#: data/org.gnome.gnome-commander.gschema.xml:305
+#: data/org.gnome.gnome-commander.gschema.xml:310
 msgid "This option defines the width of the directory column."
 msgstr "Možnost določa širino stolpca mape."
 
-#: data/org.gnome.gnome-commander.gschema.xml:311
+#: data/org.gnome.gnome-commander.gschema.xml:316
 msgid "Width of size column"
 msgstr "Širina stolpca velikosti"
 
-#: data/org.gnome.gnome-commander.gschema.xml:312
+#: data/org.gnome.gnome-commander.gschema.xml:317
 msgid "This option defines the width of the size column."
 msgstr "Možnost določa širino stolpca velikosti datoteke."
 
-#: data/org.gnome.gnome-commander.gschema.xml:318
+#: data/org.gnome.gnome-commander.gschema.xml:323
 msgid "Width of date column"
 msgstr "Širina stolpca datuma"
 
-#: data/org.gnome.gnome-commander.gschema.xml:319
+#: data/org.gnome.gnome-commander.gschema.xml:324
 msgid "This option defines the width of the date column."
 msgstr "Možnost določa širino stolpca datuma datoteke."
 
-#: data/org.gnome.gnome-commander.gschema.xml:325
+#: data/org.gnome.gnome-commander.gschema.xml:330
 msgid "Width of permissions column"
 msgstr "Širina stolpca dovoljenj"
 
-#: data/org.gnome.gnome-commander.gschema.xml:326
+#: data/org.gnome.gnome-commander.gschema.xml:331
 msgid "This option defines the width of the permissions column."
 msgstr "Možnost določa širino stolpca dovoljenj."
 
-#: data/org.gnome.gnome-commander.gschema.xml:332
+#: data/org.gnome.gnome-commander.gschema.xml:337
 msgid "Width of owner column"
 msgstr "Širina stolpca lastništva"
 
-#: data/org.gnome.gnome-commander.gschema.xml:333
+#: data/org.gnome.gnome-commander.gschema.xml:338
 msgid "This option defines the width of the owner column."
 msgstr "Možnost določa širino stolpca lastnika datoteke."
 
-#: data/org.gnome.gnome-commander.gschema.xml:339
+#: data/org.gnome.gnome-commander.gschema.xml:344
 msgid "Width of group column"
 msgstr "Širina stolpca skupine"
 
-#: data/org.gnome.gnome-commander.gschema.xml:340
+#: data/org.gnome.gnome-commander.gschema.xml:345
 msgid "This option defines the width of the group column."
 msgstr "Možnost določa širino stolpca skupine."
 
-#: data/org.gnome.gnome-commander.gschema.xml:346
+#: data/org.gnome.gnome-commander.gschema.xml:351
 msgid "List of keybindings"
 msgstr "Seznam tipkovnih bližnjic"
 
-#: data/org.gnome.gnome-commander.gschema.xml:347
+#: data/org.gnome.gnome-commander.gschema.xml:352
 msgid "Each entry in this list represents a keybinding."
 msgstr "Vsak vnos seznama določa tipkovno bližnjico."
 
-#: data/org.gnome.gnome-commander.gschema.xml:354
+#: data/org.gnome.gnome-commander.gschema.xml:359
 msgid "Main window state"
 msgstr "Stanje glavnega okna"
 
-#: data/org.gnome.gnome-commander.gschema.xml:355
+#: data/org.gnome.gnome-commander.gschema.xml:360
 msgid ""
 "The number represents the main window state, e.g. “maximized”, “fullscreen”, "
 "etc. and is calculated internally."
@@ -515,19 +515,19 @@ msgstr ""
 "Številka predstavlja stanje glavnega okna, npr. »razpeto«, "
 "»celozaslonsko« ... in se izračuna interno."
 
-#: data/org.gnome.gnome-commander.gschema.xml:361
+#: data/org.gnome.gnome-commander.gschema.xml:366
 msgid "Middle mouse button mode"
 msgstr "Način srednjega gumba miške"
 
-#: data/org.gnome.gnome-commander.gschema.xml:362
+#: data/org.gnome.gnome-commander.gschema.xml:367
 msgid "Defines what happens when the middle mouse button is clicked."
 msgstr "Določa, kaj se zgodi ob kliku srednjega gumba miške."
 
-#: data/org.gnome.gnome-commander.gschema.xml:368
+#: data/org.gnome.gnome-commander.gschema.xml:373
 msgid "Save directories on exit"
 msgstr "Shrani izbor map ob končanju"
 
-#: data/org.gnome.gnome-commander.gschema.xml:369
+#: data/org.gnome.gnome-commander.gschema.xml:374
 msgid ""
 "Defines if the current directories are opened again when GNOME Commander is "
 "restarted."
@@ -535,11 +535,11 @@ msgstr ""
 "Določa, ali naj se trenutni imeniki znova odprejo, ko se program ponovno "
 "zažene."
 
-#: data/org.gnome.gnome-commander.gschema.xml:375
+#: data/org.gnome.gnome-commander.gschema.xml:380
 msgid "Save tabs on exit"
 msgstr "Shrani zavihke ob končanju"
 
-#: data/org.gnome.gnome-commander.gschema.xml:376
+#: data/org.gnome.gnome-commander.gschema.xml:381
 msgid ""
 "Defines if the current open tabs are opened again when GNOME Commander is "
 "restarted."
@@ -547,61 +547,61 @@ msgstr ""
 "Določa, ali naj se trenutno odprti zavihki odprejo znova, ko se ponovno "
 "zažene program."
 
-#: data/org.gnome.gnome-commander.gschema.xml:382
+#: data/org.gnome.gnome-commander.gschema.xml:387
 msgid "Save directory history on exit"
 msgstr "Shrani zgodovino map ob končanju"
 
-#: data/org.gnome.gnome-commander.gschema.xml:383
+#: data/org.gnome.gnome-commander.gschema.xml:388
 msgid "Defines if the history of visited directories is saved on exit."
 msgstr "Določa, ali naj se zgodovina obiskanih map shranjeni ob končanju."
 
-#: data/org.gnome.gnome-commander.gschema.xml:389
+#: data/org.gnome.gnome-commander.gschema.xml:394
 msgid "Save commandline history on exit"
 msgstr "Shrani zgodovino ukazne vrstice ob končanju"
 
-#: data/org.gnome.gnome-commander.gschema.xml:390
+#: data/org.gnome.gnome-commander.gschema.xml:395
 msgid "Defines if the history of commands in the commandline is saved on exit."
 msgstr "Določa, ali naj se zgodovina obiskanih map shranjeni ob končanju."
 
-#: data/org.gnome.gnome-commander.gschema.xml:396
+#: data/org.gnome.gnome-commander.gschema.xml:401
 msgid "Save search history on exit"
 msgstr "Shrani zgodovino iskanja ob izhodu"
 
-#: data/org.gnome.gnome-commander.gschema.xml:397
+#: data/org.gnome.gnome-commander.gschema.xml:402
 msgid "Defines if the history of search patterns is saved on exit."
 msgstr "Določa, ali se zgodovina vzorcev iskanja shrani ob izhodu."
 
-#: data/org.gnome.gnome-commander.gschema.xml:403
+#: data/org.gnome.gnome-commander.gschema.xml:408
 msgid "Always show tab bar"
 msgstr "Vedno pokaži vrstico z zavihki"
 
-#: data/org.gnome.gnome-commander.gschema.xml:404
+#: data/org.gnome.gnome-commander.gschema.xml:409
 msgid "Defines if the tab bar is always shown."
 msgstr "Določa, ali je vrstica z zavihki vedno vidna."
 
-#: data/org.gnome.gnome-commander.gschema.xml:410
+#: data/org.gnome.gnome-commander.gschema.xml:415
 #: src/dialogs/gnome-cmd-options-dialog.cc:751
 msgid "Tab lock indicator"
 msgstr "Določilnik zaklepa zavihka"
 
-#: data/org.gnome.gnome-commander.gschema.xml:411
+#: data/org.gnome.gnome-commander.gschema.xml:416
 msgid "Defines the style of the tab lock indicator."
 msgstr "Določa slog kazalnika zaklepa zavihka."
 
-#: data/org.gnome.gnome-commander.gschema.xml:417
+#: data/org.gnome.gnome-commander.gschema.xml:422
 msgid "Case sensitive sorting"
 msgstr "Razvrščaj, upoštevajoč velikost črk"
 
-#: data/org.gnome.gnome-commander.gschema.xml:418
+#: data/org.gnome.gnome-commander.gschema.xml:423
 msgid "This option defines if sorting should be case sensitive."
 msgstr "Možnost določa, ali naj se pri razvrščanju upošteva tudi velikost črk."
 
-#: data/org.gnome.gnome-commander.gschema.xml:424
+#: data/org.gnome.gnome-commander.gschema.xml:429
 #: src/dialogs/gnome-cmd-options-dialog.cc:187
 msgid "Treat symbolic links as regular files"
 msgstr "Obravnavaj simbolne povezave kot običajne datoteke"
 
-#: data/org.gnome.gnome-commander.gschema.xml:425
+#: data/org.gnome.gnome-commander.gschema.xml:430
 msgid ""
 "This option defines if symbolic links should be treated as regular files. In "
 "the file pane they are listed between other files and not at the top if "
@@ -611,11 +611,11 @@ msgstr ""
 "datoteke. V podoknu za datoteke so navedene med drugimi datotekami in ne na "
 "vrhu, če njihov cilj ne obstaja."
 
-#: data/org.gnome.gnome-commander.gschema.xml:432
+#: data/org.gnome.gnome-commander.gschema.xml:437
 msgid "Select directories when all is marked"
 msgstr "Izberi mape, ko so izbrani vsi predmeti"
 
-#: data/org.gnome.gnome-commander.gschema.xml:433
+#: data/org.gnome.gnome-commander.gschema.xml:438
 msgid ""
 "This option defines if directories will be marked when all items in a file "
 "pane should be marked."
@@ -623,19 +623,19 @@ msgstr ""
 "Možnost določa, ali bodo označene tudi vse mape, če uporabnik označi vse "
 "predmete v oknu."
 
-#: data/org.gnome.gnome-commander.gschema.xml:439
+#: data/org.gnome.gnome-commander.gschema.xml:444
 msgid "Allow multiple instances"
 msgstr "Omogoči odpiranje več primerkov programa"
 
-#: data/org.gnome.gnome-commander.gschema.xml:440
+#: data/org.gnome.gnome-commander.gschema.xml:445
 msgid "This option defines if multiple instances are allowed."
 msgstr "Možnost določa, ali je dovoljen zagon več kot enega primerka programa."
 
-#: data/org.gnome.gnome-commander.gschema.xml:446
+#: data/org.gnome.gnome-commander.gschema.xml:451
 msgid "Quick search exact match begin"
 msgstr "Upoštevaj natančno skladnost niza z začetkom imena"
 
-#: data/org.gnome.gnome-commander.gschema.xml:447
+#: data/org.gnome.gnome-commander.gschema.xml:452
 msgid ""
 "This option defines if quick search should match explicitly at the beginning "
 "of an item name."
@@ -643,11 +643,11 @@ msgstr ""
 "Možnost določa, ali naj se pri hitrem iskanju začetek niza natančno sklada z "
 "začetkom imena predmeta."
 
-#: data/org.gnome.gnome-commander.gschema.xml:453
+#: data/org.gnome.gnome-commander.gschema.xml:458
 msgid "Quick search exact match end"
 msgstr "Upoštevaj natančno skladnost niza s koncem imena"
 
-#: data/org.gnome.gnome-commander.gschema.xml:454
+#: data/org.gnome.gnome-commander.gschema.xml:459
 msgid ""
 "This option defines if quick search should match explicitly at the end of an "
 "item name."
@@ -655,11 +655,11 @@ msgstr ""
 "Možnost določa, ali naj se pri hitrem iskanju konec niza natančno sklada s "
 "koncem imena predmeta."
 
-#: data/org.gnome.gnome-commander.gschema.xml:460
+#: data/org.gnome.gnome-commander.gschema.xml:465
 msgid "Only device icons"
 msgstr "Le ikone naprave"
 
-#: data/org.gnome.gnome-commander.gschema.xml:461
+#: data/org.gnome.gnome-commander.gschema.xml:466
 msgid ""
 "This option defines if only device icons should be shown instead of icons "
 "and text label."
@@ -667,11 +667,11 @@ msgstr ""
 "Možnost določa, ali naj bodo namesto ikone in imena prikazane le ikone "
 "naprave."
 
-#: data/org.gnome.gnome-commander.gschema.xml:467
+#: data/org.gnome.gnome-commander.gschema.xml:472
 msgid "Show the samba workgroups icon"
 msgstr "Pokaži ikono omrežja samba"
 
-#: data/org.gnome.gnome-commander.gschema.xml:468
+#: data/org.gnome.gnome-commander.gschema.xml:473
 msgid ""
 "This option defines if the Samba workgroups icon should be shown in the "
 "devices list."
@@ -679,78 +679,78 @@ msgstr ""
 "Možnost določa, ali naj bo na seznamu naprav prikazana tudi ikona delovnih "
 "skupin Samba."
 
-#: data/org.gnome.gnome-commander.gschema.xml:474
+#: data/org.gnome.gnome-commander.gschema.xml:479
 msgid "Main menu visibility"
 msgstr "Vidnost glavnega menija"
 
-#: data/org.gnome.gnome-commander.gschema.xml:475
+#: data/org.gnome.gnome-commander.gschema.xml:480
 msgid "This option defines if the main menu is visible or not."
 msgstr "Možnost določa, ali je glavni meni programa prikazan ali ne."
 
-#: data/org.gnome.gnome-commander.gschema.xml:481
+#: data/org.gnome.gnome-commander.gschema.xml:486
 msgid "Quick search shortcut"
 msgstr "Tipkovna bližnjica za hitro iskanje"
 
-#: data/org.gnome.gnome-commander.gschema.xml:482
+#: data/org.gnome.gnome-commander.gschema.xml:487
 msgid "This option defines the shortcut for quick search."
 msgstr "Možnost določa tipkovno bližnjico za hitro iskanje."
 
-#: data/org.gnome.gnome-commander.gschema.xml:488
+#: data/org.gnome.gnome-commander.gschema.xml:493
 msgid "List of file tabs"
 msgstr "Seznam zavihkov"
 
-#: data/org.gnome.gnome-commander.gschema.xml:489
+#: data/org.gnome.gnome-commander.gschema.xml:494
 msgid ""
 "The entries in this list are used for restoring the tabs from the last "
 "session."
 msgstr ""
 "Vpisi tega seznama so namenjeni obnovitvi zavihkov, odprtih v zadnji seji."
 
-#: data/org.gnome.gnome-commander.gschema.xml:496
+#: data/org.gnome.gnome-commander.gschema.xml:501
 msgid "List of devices - deprecated"
 msgstr "Seznam naprav - opuščeno"
 
-#: data/org.gnome.gnome-commander.gschema.xml:497
-#: data/org.gnome.gnome-commander.gschema.xml:504
+#: data/org.gnome.gnome-commander.gschema.xml:502
+#: data/org.gnome.gnome-commander.gschema.xml:509
 msgid "The entries in this list represent the devices configured by the user."
 msgstr "Vnosi na seznamu pomenijo naprave, ki jih je nastavil uporabnik."
 
-#: data/org.gnome.gnome-commander.gschema.xml:503
+#: data/org.gnome.gnome-commander.gschema.xml:508
 msgid "List of devices"
 msgstr "Seznam naprav"
 
-#: data/org.gnome.gnome-commander.gschema.xml:510
+#: data/org.gnome.gnome-commander.gschema.xml:515
 msgid "List of favorite apps"
 msgstr "Seznam programov"
 
-#: data/org.gnome.gnome-commander.gschema.xml:511
+#: data/org.gnome.gnome-commander.gschema.xml:516
 msgid ""
 "The entries in this list represent the favorite apps configured by the user."
 msgstr ""
 "Vnosi na seznamu pomenijo priljubljene programe, ki jih je nastavil "
 "uporabnik."
 
-#: data/org.gnome.gnome-commander.gschema.xml:517
+#: data/org.gnome.gnome-commander.gschema.xml:522
 msgid "Search window width"
 msgstr "Širina iskalnega okna"
 
-#: data/org.gnome.gnome-commander.gschema.xml:518
+#: data/org.gnome.gnome-commander.gschema.xml:523
 msgid "This option defines the width of the search window."
 msgstr "Ta možnost določa širino okna za iskanje."
 
-#: data/org.gnome.gnome-commander.gschema.xml:524
+#: data/org.gnome.gnome-commander.gschema.xml:529
 msgid "Search window height"
 msgstr "Višina iskalnega okna"
 
-#: data/org.gnome.gnome-commander.gschema.xml:525
+#: data/org.gnome.gnome-commander.gschema.xml:530
 msgid "This option defines the height of the search window."
 msgstr "Ta možnost določa višino okna za iskanje."
 
-#: data/org.gnome.gnome-commander.gschema.xml:531
+#: data/org.gnome.gnome-commander.gschema.xml:536
 msgid "Search window is transient"
 msgstr "Iskalno okno je prehodno"
 
-#: data/org.gnome.gnome-commander.gschema.xml:532
+#: data/org.gnome.gnome-commander.gschema.xml:537
 msgid ""
 "Defines if the search window is transient or if it can be minimized and "
 "moved behind the main window."
@@ -758,32 +758,32 @@ msgstr ""
 "Določa, ali je iskalno okno prehodno ali ga je mogoče minimizirati in "
 "premakniti za glavnim oknom."
 
-#: data/org.gnome.gnome-commander.gschema.xml:538
+#: data/org.gnome.gnome-commander.gschema.xml:543
 msgid "Search text history"
 msgstr "Zgodovina iskanega besedila"
 
-#: data/org.gnome.gnome-commander.gschema.xml:539
+#: data/org.gnome.gnome-commander.gschema.xml:544
 msgid ""
 "This string array represents the history of text searches in the search tool."
 msgstr ""
 "To polje nizov predstavlja zgodovino iskanja po besedilu v orodju za iskanje."
 
-#: data/org.gnome.gnome-commander.gschema.xml:545
+#: data/org.gnome.gnome-commander.gschema.xml:550
 msgid "Search pattern history"
 msgstr "Zgodovina iskalnih nizov"
 
-#: data/org.gnome.gnome-commander.gschema.xml:546
+#: data/org.gnome.gnome-commander.gschema.xml:551
 msgid ""
 "This string array represents the history of regular expression searches in "
 "the search tool."
 msgstr ""
 "Niz predstavlja zgodovino iskanj z logičnimi izrazov v orodju za iskanje."
 
-#: data/org.gnome.gnome-commander.gschema.xml:552
+#: data/org.gnome.gnome-commander.gschema.xml:557
 msgid "List of search tool profiles"
 msgstr "Seznam profilov iskanja"
 
-#: data/org.gnome.gnome-commander.gschema.xml:553
+#: data/org.gnome.gnome-commander.gschema.xml:558
 msgid ""
 "The entries in this array represent the profiles in the search tool with "
 "specific settings for each profile."
@@ -791,45 +791,45 @@ msgstr ""
 "Vnosi matrike predstavljajo profile v iskalnem orodju z določenimi "
 "nastavitvami za vsak profil."
 
-#: data/org.gnome.gnome-commander.gschema.xml:561
+#: data/org.gnome.gnome-commander.gschema.xml:566
 msgid "Quick connect URI"
 msgstr "Določilo URI za hitro povezavo"
 
-#: data/org.gnome.gnome-commander.gschema.xml:562
+#: data/org.gnome.gnome-commander.gschema.xml:567
 msgid "Unified resource identifier for quick connections."
 msgstr "Določilo URI za vzpostavljanje hitre povezave."
 
-#: data/org.gnome.gnome-commander.gschema.xml:573
+#: data/org.gnome.gnome-commander.gschema.xml:578
 msgid "Password for anonymous FTP connections"
 msgstr "Geslo za brezimno povezavo FTP"
 
-#: data/org.gnome.gnome-commander.gschema.xml:574
+#: data/org.gnome.gnome-commander.gschema.xml:579
 msgid "This string defines the password for anonymous FTP connections."
 msgstr "Niz predstavlja geslo za anonimno povezavo na strežnik FTP."
 
-#: data/org.gnome.gnome-commander.gschema.xml:582
+#: data/org.gnome.gnome-commander.gschema.xml:587
 msgid "Confirm delete"
 msgstr "Zahtevaj potrditev pred brisanjem"
 
-#: data/org.gnome.gnome-commander.gschema.xml:583
+#: data/org.gnome.gnome-commander.gschema.xml:588
 msgid "Defines if deletion of an item should be confirmed."
 msgstr "Možnost določa, ali naj se brisanje predmetov uporabniško potrjuje."
 
-#: data/org.gnome.gnome-commander.gschema.xml:589
+#: data/org.gnome.gnome-commander.gschema.xml:594
 msgid "Delete default"
 msgstr "Privzeto izbriši"
 
-#: data/org.gnome.gnome-commander.gschema.xml:590
+#: data/org.gnome.gnome-commander.gschema.xml:595
 msgid ""
 "This setting defines the default active option in the delete confirmation "
 "dialog."
 msgstr "Nastavitev določa privzeto izbiro dejanja v pogovornem oknu brisanja."
 
-#: data/org.gnome.gnome-commander.gschema.xml:596
+#: data/org.gnome.gnome-commander.gschema.xml:601
 msgid "Confirm copy overwrite"
 msgstr "Zahtevaj potrditev prepisa vsebine med kopiranjem"
 
-#: data/org.gnome.gnome-commander.gschema.xml:597
+#: data/org.gnome.gnome-commander.gschema.xml:602
 msgid ""
 "This option defines the default behavior when items will be overwritten by a "
 "copy command."
@@ -837,11 +837,11 @@ msgstr ""
 "Možnost določa privzeto dejanje, ko naj bi bili predmeti prepisani z ukazom "
 "kopiranja."
 
-#: data/org.gnome.gnome-commander.gschema.xml:603
+#: data/org.gnome.gnome-commander.gschema.xml:608
 msgid "Confirm move overwrite"
 msgstr "Zahtevaj potrditev premikanja s prepisom"
 
-#: data/org.gnome.gnome-commander.gschema.xml:604
+#: data/org.gnome.gnome-commander.gschema.xml:609
 msgid ""
 "This option defines the default behavior when items will be overwritten by a "
 "move command."
@@ -849,35 +849,35 @@ msgstr ""
 "Možnost določa privzeto dejanje prepisovanja predmetov pri izvajanju "
 "premikanja."
 
-#: data/org.gnome.gnome-commander.gschema.xml:610
+#: data/org.gnome.gnome-commander.gschema.xml:615
 msgid "Confirm mouse drag and drop"
 msgstr "Zahtevaj potrditev dejanja povleci in spusti"
 
-#: data/org.gnome.gnome-commander.gschema.xml:611
+#: data/org.gnome.gnome-commander.gschema.xml:616
 msgid "This option defines the behavior of mouse drag and drop operations."
 msgstr "Možnost določa obnašanje miške pri uporabi opravil povleci in spusti."
 
-#: data/org.gnome.gnome-commander.gschema.xml:619
+#: data/org.gnome.gnome-commander.gschema.xml:624
 msgid "Hide unknown filetypes"
 msgstr "Skrij neznane vrste datotek"
 
-#: data/org.gnome.gnome-commander.gschema.xml:620
+#: data/org.gnome.gnome-commander.gschema.xml:625
 msgid "Hide files which type does not match to one of the other types."
 msgstr "Skrij datoteke, ki niso skladne z nobeno izmed določenih vrst."
 
-#: data/org.gnome.gnome-commander.gschema.xml:624
+#: data/org.gnome.gnome-commander.gschema.xml:629
 msgid "Hide regular files"
 msgstr "Skrij običajne datoteke"
 
-#: data/org.gnome.gnome-commander.gschema.xml:628
+#: data/org.gnome.gnome-commander.gschema.xml:633
 msgid "Hide directories"
 msgstr "Skrij mape"
 
-#: data/org.gnome.gnome-commander.gschema.xml:632
+#: data/org.gnome.gnome-commander.gschema.xml:637
 msgid "Hide symbolic links"
 msgstr "Skrij simbolne povezave"
 
-#: data/org.gnome.gnome-commander.gschema.xml:636
+#: data/org.gnome.gnome-commander.gschema.xml:641
 msgid ""
 "Hide special files, such as a socket, fifo, block devices, or character "
 "devices."
@@ -885,39 +885,39 @@ msgstr ""
 "Skrij posebne datoteke, kot so vtiči, bločne naprave, znakovne naprave, "
 "datoteke fifo ..."
 
-#: data/org.gnome.gnome-commander.gschema.xml:640
+#: data/org.gnome.gnome-commander.gschema.xml:645
 msgid "Hide shortcut files (Windows systems)"
 msgstr "Skrij datoteke bližnjic (Sistem Windows)"
 
-#: data/org.gnome.gnome-commander.gschema.xml:644
+#: data/org.gnome.gnome-commander.gschema.xml:649
 msgid "Hide mountable locations"
 msgstr "Skrij priklopljiva mesta"
 
-#: data/org.gnome.gnome-commander.gschema.xml:648
+#: data/org.gnome.gnome-commander.gschema.xml:653
 msgid "Hide virtual files"
 msgstr "Skrij navidezne datoteke"
 
-#: data/org.gnome.gnome-commander.gschema.xml:652
+#: data/org.gnome.gnome-commander.gschema.xml:657
 msgid "Hide volatile files"
 msgstr "Skrij spremenljive datoteke"
 
-#: data/org.gnome.gnome-commander.gschema.xml:656
+#: data/org.gnome.gnome-commander.gschema.xml:661
 msgid "Hide files and folders starting with a dot"
 msgstr "Skrij datoteke in mape, ki se začnejo s piko"
 
-#: data/org.gnome.gnome-commander.gschema.xml:660
+#: data/org.gnome.gnome-commander.gschema.xml:665
 msgid "Hide backup files"
 msgstr "Skrij datoteke varnostnih kopij"
 
-#: data/org.gnome.gnome-commander.gschema.xml:661
+#: data/org.gnome.gnome-commander.gschema.xml:666
 msgid "Hide all files with a suffix defined as the backup pattern."
 msgstr "Skrij datoteke s pripono, opredeljeno kot vzorec za varnostne kopije."
 
-#: data/org.gnome.gnome-commander.gschema.xml:665
+#: data/org.gnome.gnome-commander.gschema.xml:670
 msgid "Backup file pattern"
 msgstr "Vzorec datotek varnostnih kopij"
 
-#: data/org.gnome.gnome-commander.gschema.xml:666
+#: data/org.gnome.gnome-commander.gschema.xml:671
 msgid ""
 "The given string defines suffixes (separated by semicolon) for files which "
 "should be filtered out if backup files should be hidden."
@@ -925,11 +925,11 @@ msgstr ""
 "Podan niz določa pripone (ločene s podpičjem) datotek, ki so skrite, če je "
 "določena možnost skrivanja datotek varnostnih kopij."
 
-#: data/org.gnome.gnome-commander.gschema.xml:675
+#: data/org.gnome.gnome-commander.gschema.xml:680
 msgid "Do not download files"
 msgstr "Ne prejemaj datotek"
 
-#: data/org.gnome.gnome-commander.gschema.xml:676
+#: data/org.gnome.gnome-commander.gschema.xml:681
 msgid ""
 "This option defines if remote files should be downloaded before opened by "
 "external programs."
@@ -937,61 +937,61 @@ msgstr ""
 "Možnost določa, ali naj bodo oddaljene datoteke pred odpiranjem najprej "
 "prejete krajevno."
 
-#: data/org.gnome.gnome-commander.gschema.xml:682
+#: data/org.gnome.gnome-commander.gschema.xml:687
 msgid "Use internal viewer"
 msgstr "Uporabi notranji pregledovalnik"
 
-#: data/org.gnome.gnome-commander.gschema.xml:683
+#: data/org.gnome.gnome-commander.gschema.xml:688
 msgid "This option defines if the internal viewer should be used by default."
 msgstr ""
 "Možnost določa, ali naj bo privzeto uporabljen notranji pregledovalnik."
 
-#: data/org.gnome.gnome-commander.gschema.xml:689
+#: data/org.gnome.gnome-commander.gschema.xml:694
 msgid "Viewer command"
 msgstr "Ukaz za zagon pregledovalnika"
 
-#: data/org.gnome.gnome-commander.gschema.xml:690
+#: data/org.gnome.gnome-commander.gschema.xml:695
 msgid "This string defines the command for starting the (external) viewer."
 msgstr "Niz določa ukaz za zagon (zunanjega) pregledovalnika."
 
-#: data/org.gnome.gnome-commander.gschema.xml:696
+#: data/org.gnome.gnome-commander.gschema.xml:701
 msgid "Editor command"
 msgstr "Ukaz za zagon urejevalnika"
 
-#: data/org.gnome.gnome-commander.gschema.xml:697
+#: data/org.gnome.gnome-commander.gschema.xml:702
 msgid "This string defines the command for starting the editor."
 msgstr "Niz določa ukaz, ki izvede zagon urejevalnika."
 
-#: data/org.gnome.gnome-commander.gschema.xml:703
+#: data/org.gnome.gnome-commander.gschema.xml:708
 msgid "Differ command"
 msgstr "Ukaz za primerjavo datotek"
 
-#: data/org.gnome.gnome-commander.gschema.xml:704
+#: data/org.gnome.gnome-commander.gschema.xml:709
 msgid "This string defines the command for starting the diff tool."
 msgstr "Niz določa ukaz za zagon orodja za primerjavo."
 
-#: data/org.gnome.gnome-commander.gschema.xml:710
+#: data/org.gnome.gnome-commander.gschema.xml:715
 msgid "Use internal search"
 msgstr "Uporabi notranje iskanje"
 
-#: data/org.gnome.gnome-commander.gschema.xml:711
+#: data/org.gnome.gnome-commander.gschema.xml:716
 msgid "This option defines if the internal search should be used by default."
 msgstr "Možnost določa, ali naj se privzeto uporablja notranje iskanje."
 
-#: data/org.gnome.gnome-commander.gschema.xml:717
+#: data/org.gnome.gnome-commander.gschema.xml:722
 msgid "Search command"
 msgstr "Iskalni ukaz"
 
-#: data/org.gnome.gnome-commander.gschema.xml:718
+#: data/org.gnome.gnome-commander.gschema.xml:723
 msgid ""
 "This string defines the command for starting an external file search tool."
 msgstr "Niz določa ukaz za zagon zunanjega orodja za iskanje."
 
-#: data/org.gnome.gnome-commander.gschema.xml:724
+#: data/org.gnome.gnome-commander.gschema.xml:729
 msgid "Leave terminal open"
 msgstr "Pusti okno terminala odprto"
 
-#: data/org.gnome.gnome-commander.gschema.xml:725
+#: data/org.gnome.gnome-commander.gschema.xml:730
 msgid ""
 "This option defines if a terminal window should stay open after a command "
 "finishes inside of it."
@@ -999,108 +999,108 @@ msgstr ""
 "Možnost določa, ali naj okno terminala ostane odprto, ko se izvedba ukaza "
 "konča."
 
-#: data/org.gnome.gnome-commander.gschema.xml:731
+#: data/org.gnome.gnome-commander.gschema.xml:736
 msgid "Command for opening a terminal"
 msgstr "Ukaz za odpiranje terminala"
 
-#: data/org.gnome.gnome-commander.gschema.xml:732
+#: data/org.gnome.gnome-commander.gschema.xml:737
 msgid "This string defines the command for opening a terminal."
 msgstr "Možnost določa ukaz za zagon terminala."
 
-#: data/org.gnome.gnome-commander.gschema.xml:738
+#: data/org.gnome.gnome-commander.gschema.xml:743
 msgid "Command for execution in terminal"
 msgstr "Ukaz za izvedbo v terminalu"
 
-#: data/org.gnome.gnome-commander.gschema.xml:739
+#: data/org.gnome.gnome-commander.gschema.xml:744
 msgid ""
 "This string defines the command for executing another command in a terminal."
 msgstr "Niz določa ukaz, ki izvede drug ukaz v oknu terminala."
 
-#: data/org.gnome.gnome-commander.gschema.xml:745
+#: data/org.gnome.gnome-commander.gschema.xml:750
 msgid "Send to command"
 msgstr "Ukaz za pošiljanje"
 
-#: data/org.gnome.gnome-commander.gschema.xml:746
+#: data/org.gnome.gnome-commander.gschema.xml:751
 msgid "This string defines the command for sending files to a receiver."
 msgstr "Niz določa ukaz za pošiljanje datotek na prejemnik."
 
-#: data/org.gnome.gnome-commander.gschema.xml:754
+#: data/org.gnome.gnome-commander.gschema.xml:759
 msgid "Color theme"
 msgstr "Barvna tema"
 
-#: data/org.gnome.gnome-commander.gschema.xml:755
+#: data/org.gnome.gnome-commander.gschema.xml:760
 msgid "This option defines the current color theme."
 msgstr "Možnost določa trenutno barvno temo."
 
-#: data/org.gnome.gnome-commander.gschema.xml:761
+#: data/org.gnome.gnome-commander.gschema.xml:766
 msgid "Normal foreground color"
 msgstr "Običajna barva pisave"
 
-#: data/org.gnome.gnome-commander.gschema.xml:762
+#: data/org.gnome.gnome-commander.gschema.xml:767
 msgid "Normal foreground color in custom mode."
 msgstr "Običajna barva pisave pri uporabi sheme po meri."
 
-#: data/org.gnome.gnome-commander.gschema.xml:768
+#: data/org.gnome.gnome-commander.gschema.xml:773
 msgid "Normal background color"
 msgstr "Običajna barva ozadja"
 
-#: data/org.gnome.gnome-commander.gschema.xml:769
+#: data/org.gnome.gnome-commander.gschema.xml:774
 msgid "Normal background color in custom mode."
 msgstr "Običajna barva ozadja pri uporabi sheme po meri."
 
-#: data/org.gnome.gnome-commander.gschema.xml:775
+#: data/org.gnome.gnome-commander.gschema.xml:780
 msgid "Alternate foreground color"
 msgstr "Druga barva pisave"
 
-#: data/org.gnome.gnome-commander.gschema.xml:776
+#: data/org.gnome.gnome-commander.gschema.xml:781
 msgid "Alternate foreground color in custom mode."
 msgstr "Druga barva pisave pri uporabi sheme po meri."
 
-#: data/org.gnome.gnome-commander.gschema.xml:782
+#: data/org.gnome.gnome-commander.gschema.xml:787
 msgid "Alternate background color"
 msgstr "Druga barva ozadja"
 
-#: data/org.gnome.gnome-commander.gschema.xml:783
+#: data/org.gnome.gnome-commander.gschema.xml:788
 msgid "Alternate background color in custom mode."
 msgstr "Druga barva ozadja pri uporabi sheme po meri."
 
-#: data/org.gnome.gnome-commander.gschema.xml:789
+#: data/org.gnome.gnome-commander.gschema.xml:794
 msgid "Selection foreground color"
 msgstr "Barva ospredja izbora"
 
-#: data/org.gnome.gnome-commander.gschema.xml:790
+#: data/org.gnome.gnome-commander.gschema.xml:795
 msgid "Foreground color for selections in custom mode."
 msgstr "Barva pisave izbora v seznamu pri uporabi sheme po meri."
 
-#: data/org.gnome.gnome-commander.gschema.xml:796
+#: data/org.gnome.gnome-commander.gschema.xml:801
 msgid "Selection background color"
 msgstr "Barva ozadja izbora"
 
-#: data/org.gnome.gnome-commander.gschema.xml:797
+#: data/org.gnome.gnome-commander.gschema.xml:802
 msgid "Background color for selections in custom mode."
 msgstr "Barva ozadja izbora v seznamu pri uporabi sheme po meri."
 
-#: data/org.gnome.gnome-commander.gschema.xml:803
+#: data/org.gnome.gnome-commander.gschema.xml:808
 msgid "Cursor foreground color"
 msgstr "Barva ospredja kazalke"
 
-#: data/org.gnome.gnome-commander.gschema.xml:804
+#: data/org.gnome.gnome-commander.gschema.xml:809
 msgid "Cursor foreground color in custom mode."
 msgstr "Barva ospredja kazalke v shemi po meri."
 
-#: data/org.gnome.gnome-commander.gschema.xml:810
+#: data/org.gnome.gnome-commander.gschema.xml:815
 msgid "Cursor background color"
 msgstr "Barva ozadja kazalke"
 
-#: data/org.gnome.gnome-commander.gschema.xml:811
+#: data/org.gnome.gnome-commander.gschema.xml:816
 msgid "Cursor background color in custom mode."
 msgstr "Barva ozadja kazalke v shemi po meri."
 
-#: data/org.gnome.gnome-commander.gschema.xml:817
+#: data/org.gnome.gnome-commander.gschema.xml:822
 msgid "Use LS colors"
 msgstr "Uporabi barvno paleto LS"
 
-#: data/org.gnome.gnome-commander.gschema.xml:818
+#: data/org.gnome.gnome-commander.gschema.xml:823
 msgid ""
 "This option triggers if the value of the environment variable LS_COLORS "
 "should be used to dye files and folders."
@@ -1108,164 +1108,164 @@ msgstr ""
 "Možnost sproži izbor vrednosti okoljske spremenljivke LS_COLORS, ki je nato "
 "uporabljena za barvo datotek in map."
 
-#: data/org.gnome.gnome-commander.gschema.xml:825
+#: data/org.gnome.gnome-commander.gschema.xml:830
 msgid "LS_COLORS black foreground mapping"
 msgstr "Preslikava črnega ospredja sheme LS_COLORS"
 
-#: data/org.gnome.gnome-commander.gschema.xml:826
+#: data/org.gnome.gnome-commander.gschema.xml:831
 msgid ""
 "This option adjusts the foreground color mapping for LS_COLORS black value."
 msgstr "Možnost prilagodi preslikavo vrednosti črne barve v shemi LS_COLOR."
 
-#: data/org.gnome.gnome-commander.gschema.xml:832
+#: data/org.gnome.gnome-commander.gschema.xml:837
 msgid "LS_COLORS black background mapping"
 msgstr "Preslikava črnega ozadja sheme LS_COLORS"
 
-#: data/org.gnome.gnome-commander.gschema.xml:833
+#: data/org.gnome.gnome-commander.gschema.xml:838
 msgid ""
 "This option adjusts the background color mapping for LS_COLORS black value."
 msgstr ""
 "Možnost prilagodi preslikavo vrednosti črne barve ozadja shemi LS_COLOR."
 
-#: data/org.gnome.gnome-commander.gschema.xml:839
+#: data/org.gnome.gnome-commander.gschema.xml:844
 msgid "LS_COLORS red foreground mapping"
 msgstr "Preslikava rdečega ospredja sheme LS_COLORS"
 
-#: data/org.gnome.gnome-commander.gschema.xml:840
+#: data/org.gnome.gnome-commander.gschema.xml:845
 msgid ""
 "This option adjusts the foreground color mapping for LS_COLORS red value."
 msgstr "Možnost prilagodi preslikavo vrednosti rdeče barve v shemi LS_COLOR."
 
-#: data/org.gnome.gnome-commander.gschema.xml:846
+#: data/org.gnome.gnome-commander.gschema.xml:851
 msgid "LS_COLORS red background mapping"
 msgstr "Preslikava rdečega ozadja sheme LS_COLORS"
 
-#: data/org.gnome.gnome-commander.gschema.xml:847
+#: data/org.gnome.gnome-commander.gschema.xml:852
 msgid ""
 "This option adjusts the background color mapping for LS_COLORS red value."
 msgstr ""
 "Možnost prilagodi preslikavo vrednosti rdeče barve ozadja shemi LS_COLOR."
 
-#: data/org.gnome.gnome-commander.gschema.xml:853
+#: data/org.gnome.gnome-commander.gschema.xml:858
 msgid "LS_COLORS green foreground mapping"
 msgstr "Preslikava zelenega ospredja sheme LS_COLORS"
 
-#: data/org.gnome.gnome-commander.gschema.xml:854
+#: data/org.gnome.gnome-commander.gschema.xml:859
 msgid ""
 "This option adjusts the foreground color mapping for LS_COLORS green value."
 msgstr "Možnost prilagodi preslikavo vrednosti zelene barve v shemi LS_COLOR."
 
-#: data/org.gnome.gnome-commander.gschema.xml:860
+#: data/org.gnome.gnome-commander.gschema.xml:865
 msgid "LS_COLORS green background mapping"
 msgstr "Preslikava zelenega ozadja sheme LS_COLORS"
 
-#: data/org.gnome.gnome-commander.gschema.xml:861
+#: data/org.gnome.gnome-commander.gschema.xml:866
 msgid ""
 "This option adjusts the background color mapping for LS_COLORS green value."
 msgstr ""
 "Možnost prilagodi preslikavo vrednosti zelene barve ozadja shemi LS_COLOR."
 
-#: data/org.gnome.gnome-commander.gschema.xml:867
+#: data/org.gnome.gnome-commander.gschema.xml:872
 msgid "LS_COLORS yellow foreground mapping"
 msgstr "Preslikava rumenega ospredja sheme LS_COLORS"
 
-#: data/org.gnome.gnome-commander.gschema.xml:868
+#: data/org.gnome.gnome-commander.gschema.xml:873
 msgid ""
 "This option adjusts the foreground color mapping for LS_COLORS yellow value."
 msgstr "Možnost prilagodi preslikavo vrednosti rumene barve v shemi LS_COLOR."
 
-#: data/org.gnome.gnome-commander.gschema.xml:874
+#: data/org.gnome.gnome-commander.gschema.xml:879
 msgid "LS_COLORS yellow background mapping"
 msgstr "Preslikava rumenega ozadja sheme LS_COLORS"
 
-#: data/org.gnome.gnome-commander.gschema.xml:875
+#: data/org.gnome.gnome-commander.gschema.xml:880
 msgid ""
 "This option adjusts the background color mapping for LS_COLORS yellow value."
 msgstr ""
 "Možnost prilagodi preslikavo vrednosti rumene barve ozadja shemi LS_COLOR."
 
-#: data/org.gnome.gnome-commander.gschema.xml:881
+#: data/org.gnome.gnome-commander.gschema.xml:886
 msgid "LS_COLORS blue foreground mapping"
 msgstr "Preslikava modrega ospredja sheme LS_COLORS"
 
-#: data/org.gnome.gnome-commander.gschema.xml:882
+#: data/org.gnome.gnome-commander.gschema.xml:887
 msgid ""
 "This option adjusts the foreground color mapping for LS_COLORS blue value."
 msgstr "Možnost prilagodi preslikavo vrednosti modre barve v shemi LS_COLOR."
 
-#: data/org.gnome.gnome-commander.gschema.xml:888
+#: data/org.gnome.gnome-commander.gschema.xml:893
 msgid "LS_COLORS blue background mapping"
 msgstr "Preslikava modrega ozadja sheme LS_COLORS"
 
-#: data/org.gnome.gnome-commander.gschema.xml:889
+#: data/org.gnome.gnome-commander.gschema.xml:894
 msgid ""
 "This option adjusts the background color mapping for LS_COLORS blue value."
 msgstr ""
 "Možnost prilagodi preslikavo vrednosti modre barve ozadja shemi LS_COLOR."
 
-#: data/org.gnome.gnome-commander.gschema.xml:895
+#: data/org.gnome.gnome-commander.gschema.xml:900
 msgid "LS_COLORS magenta foreground mapping"
 msgstr "Preslikava škrlatnega ospredja sheme LS_COLORS"
 
-#: data/org.gnome.gnome-commander.gschema.xml:896
+#: data/org.gnome.gnome-commander.gschema.xml:901
 msgid ""
 "This option adjusts the foreground color mapping for LS_COLORS magenta value."
 msgstr ""
 "Možnost prilagodi preslikavo vrednosti škrlatne barve v shemi LS_COLOR."
 
-#: data/org.gnome.gnome-commander.gschema.xml:902
+#: data/org.gnome.gnome-commander.gschema.xml:907
 msgid "LS_COLORS magenta background mapping"
 msgstr "Preslikava škrlatnega ozadja sheme LS_COLORS"
 
-#: data/org.gnome.gnome-commander.gschema.xml:903
+#: data/org.gnome.gnome-commander.gschema.xml:908
 msgid ""
 "This option adjusts the background color mapping for LS_COLORS magenta value."
 msgstr ""
 "Možnost prilagodi preslikavo vrednosti škrlatne barve ozadja shemi LS_COLOR."
 
-#: data/org.gnome.gnome-commander.gschema.xml:909
+#: data/org.gnome.gnome-commander.gschema.xml:914
 msgid "LS_COLORS cyan foreground mapping"
 msgstr "Preslikava sinjeg ospredja sheme LS_COLORS"
 
-#: data/org.gnome.gnome-commander.gschema.xml:910
+#: data/org.gnome.gnome-commander.gschema.xml:915
 msgid ""
 "This option adjusts the foreground color mapping for LS_COLORS cyan value."
 msgstr "Možnost prilagodi preslikavo vrednosti sinje barve v shemi LS_COLOR."
 
-#: data/org.gnome.gnome-commander.gschema.xml:916
+#: data/org.gnome.gnome-commander.gschema.xml:921
 msgid "LS_COLORS cyan background mapping"
 msgstr "Preslikava sinjega ozadja sheme LS_COLORS"
 
-#: data/org.gnome.gnome-commander.gschema.xml:917
+#: data/org.gnome.gnome-commander.gschema.xml:922
 msgid ""
 "This option adjusts the background color mapping for LS_COLORS cyan value."
 msgstr ""
 "Možnost prilagodi preslikavo vrednosti sinje barve ozadja shemi LS_COLOR."
 
-#: data/org.gnome.gnome-commander.gschema.xml:923
+#: data/org.gnome.gnome-commander.gschema.xml:928
 msgid "LS_COLORS white foreground mapping"
 msgstr "Preslikava belega ospredja sheme LS_COLORS"
 
-#: data/org.gnome.gnome-commander.gschema.xml:924
+#: data/org.gnome.gnome-commander.gschema.xml:929
 msgid ""
 "This option adjusts the foreground color mapping for LS_COLORS white value."
 msgstr "Možnost prilagodi preslikavo vrednosti bele barve v shemi LS_COLOR."
 
-#: data/org.gnome.gnome-commander.gschema.xml:930
+#: data/org.gnome.gnome-commander.gschema.xml:935
 msgid "LS_COLORS white background mapping"
 msgstr "Preslikava belega ozadja sheme LS_COLORS"
 
-#: data/org.gnome.gnome-commander.gschema.xml:931
+#: data/org.gnome.gnome-commander.gschema.xml:936
 msgid ""
 "This option adjusts the background color mapping for LS_COLORS white value."
 msgstr ""
 "Možnost prilagodi preslikavo vrednosti bele barve ozadja shemi LS_COLOR."
 
-#: data/org.gnome.gnome-commander.gschema.xml:939
+#: data/org.gnome.gnome-commander.gschema.xml:944
 msgid "Case sensitive search"
 msgstr "Išči z upoštevanjem velikosti črk"
 
-#: data/org.gnome.gnome-commander.gschema.xml:940
+#: data/org.gnome.gnome-commander.gschema.xml:945
 msgid ""
 "This option defines if searching within the internal viewer is case "
 "sensitive."
@@ -1273,11 +1273,11 @@ msgstr ""
 "Možnost določa, ali naj iskanje v notranjem pregledovalniku upošteva "
 "velikost črk."
 
-#: data/org.gnome.gnome-commander.gschema.xml:946
+#: data/org.gnome.gnome-commander.gschema.xml:951
 msgid "Search mode"
 msgstr "Iskalni način"
 
-#: data/org.gnome.gnome-commander.gschema.xml:947
+#: data/org.gnome.gnome-commander.gschema.xml:952
 msgid "This option defines the search mode of the internal viewer."
 msgstr "Možnost določa iskalni način notranjega pregledovalnika."
 
@@ -1286,39 +1286,39 @@ msgstr "Možnost določa iskalni način notranjega pregledovalnika."
 #. an encoding that is common in your country.
 #. See https://gitlab.gnome.org/GNOME/gnome-commander/blob/master/src/intviewer/viewer-window.cc#L360 for
 #. a list of supported encodings.
-#: data/org.gnome.gnome-commander.gschema.xml:957
+#: data/org.gnome.gnome-commander.gschema.xml:962
 msgid "'UTF8'"
 msgstr "'UTF8'"
 
-#: data/org.gnome.gnome-commander.gschema.xml:958
+#: data/org.gnome.gnome-commander.gschema.xml:963
 msgid "Character set"
 msgstr "Znakovni nabor"
 
-#: data/org.gnome.gnome-commander.gschema.xml:959
+#: data/org.gnome.gnome-commander.gschema.xml:964
 msgid "This option defines the default character encoding."
 msgstr "Možnost določa privzet kodni nabor znakov."
 
-#: data/org.gnome.gnome-commander.gschema.xml:965
+#: data/org.gnome.gnome-commander.gschema.xml:970
 msgid "Fixed font name"
 msgstr "Pisava določene širine"
 
-#: data/org.gnome.gnome-commander.gschema.xml:966
+#: data/org.gnome.gnome-commander.gschema.xml:971
 msgid "Name of the default font with fixed character width."
 msgstr "Ime privzete pisave določene širine."
 
-#: data/org.gnome.gnome-commander.gschema.xml:972
+#: data/org.gnome.gnome-commander.gschema.xml:977
 msgid "Variable font name"
 msgstr "Pisava spremenljive širine"
 
-#: data/org.gnome.gnome-commander.gschema.xml:973
+#: data/org.gnome.gnome-commander.gschema.xml:978
 msgid "Name of the default font with variable character width."
 msgstr "Ime privzete pisave spremenljive širine."
 
-#: data/org.gnome.gnome-commander.gschema.xml:979
+#: data/org.gnome.gnome-commander.gschema.xml:984
 msgid "Display hex offset"
 msgstr "Pokaži šestnajstiški zamik"
 
-#: data/org.gnome.gnome-commander.gschema.xml:980
+#: data/org.gnome.gnome-commander.gschema.xml:985
 msgid ""
 "This option defines if the hexadecimal offset should be displayed in hex "
 "mode."
@@ -1326,73 +1326,73 @@ msgstr ""
 "Možnost določa šestnajstiški odmik notranjega pregledovalnika v "
 "šestnajstiškem načinu pogleda."
 
-#: data/org.gnome.gnome-commander.gschema.xml:986
+#: data/org.gnome.gnome-commander.gschema.xml:991
 msgid "Wrap mode"
 msgstr "Način preloma"
 
-#: data/org.gnome.gnome-commander.gschema.xml:987
+#: data/org.gnome.gnome-commander.gschema.xml:992
 msgid "This option defines if too long text lines should be wrapped."
 msgstr ""
 "Možnost določa, ali naj se predolge besedilne vrstice prelomijo po določenem "
 "številu znakov."
 
-#: data/org.gnome.gnome-commander.gschema.xml:993
+#: data/org.gnome.gnome-commander.gschema.xml:998
 msgid "Font size"
 msgstr "Velikost pisave"
 
-#: data/org.gnome.gnome-commander.gschema.xml:994
+#: data/org.gnome.gnome-commander.gschema.xml:999
 msgid "This option defines the default font size."
 msgstr "Možnost določa privzeto velikost pisave."
 
-#: data/org.gnome.gnome-commander.gschema.xml:1000
+#: data/org.gnome.gnome-commander.gschema.xml:1005
 msgid "Tab size"
 msgstr "Velikost zamika tabulatorja"
 
-#: data/org.gnome.gnome-commander.gschema.xml:1001
+#: data/org.gnome.gnome-commander.gschema.xml:1006
 msgid ""
 "This option defines the indentation width in terms of characters for a "
 "tabulator character."
 msgstr "Možnost določa širino zamika kot število znakov za znake tabulatorja."
 
-#: data/org.gnome.gnome-commander.gschema.xml:1007
+#: data/org.gnome.gnome-commander.gschema.xml:1012
 msgid "Bytes per line in binary mode"
 msgstr "Število bajtov v vrstici v dvojiškem načinu"
 
-#: data/org.gnome.gnome-commander.gschema.xml:1008
+#: data/org.gnome.gnome-commander.gschema.xml:1013
 msgid ""
 "This option defines how many bytes should be displayed in one line in binary "
 "mode."
 msgstr "Možnost določa velikost prikazane vrstice dvojiškega izpisa v bajtih."
 
-#: data/org.gnome.gnome-commander.gschema.xml:1014
+#: data/org.gnome.gnome-commander.gschema.xml:1019
 msgid "Metadata view"
 msgstr "Metapodatkovni pogled"
 
-#: data/org.gnome.gnome-commander.gschema.xml:1015
+#: data/org.gnome.gnome-commander.gschema.xml:1020
 msgid "This option defines if metadata should be visible."
 msgstr "Možnost določa, ali naj bodo metapodatki prikazani."
 
-#: data/org.gnome.gnome-commander.gschema.xml:1021
+#: data/org.gnome.gnome-commander.gschema.xml:1026
 msgid "Window width"
 msgstr "Širina okna"
 
-#: data/org.gnome.gnome-commander.gschema.xml:1022
+#: data/org.gnome.gnome-commander.gschema.xml:1027
 msgid "The width of the internal file viewer window."
 msgstr "Določa širino okna notranjega pregledovalnika."
 
-#: data/org.gnome.gnome-commander.gschema.xml:1028
+#: data/org.gnome.gnome-commander.gschema.xml:1033
 msgid "Window height"
 msgstr "Višina okna"
 
-#: data/org.gnome.gnome-commander.gschema.xml:1029
+#: data/org.gnome.gnome-commander.gschema.xml:1034
 msgid "The height of the internal file viewer window."
 msgstr "Določa višino okna notranjega pregledovalnika."
 
-#: data/org.gnome.gnome-commander.gschema.xml:1035
+#: data/org.gnome.gnome-commander.gschema.xml:1040
 msgid "Search pattern for text"
 msgstr "Iskalni niz besedila"
 
-#: data/org.gnome.gnome-commander.gschema.xml:1036
+#: data/org.gnome.gnome-commander.gschema.xml:1041
 msgid ""
 "This string array stores the history of text searches within the internal "
 "file viewer."
@@ -1400,11 +1400,11 @@ msgstr ""
 "Niz določa shranjeno zgodovino besedilnih iskanj v notranjem pregledovalniku "
 "datotek."
 
-#: data/org.gnome.gnome-commander.gschema.xml:1042
+#: data/org.gnome.gnome-commander.gschema.xml:1047
 msgid "Search pattern for hex values"
 msgstr "Iskalni niz šestnajstiške vrednosti"
 
-#: data/org.gnome.gnome-commander.gschema.xml:1043
+#: data/org.gnome.gnome-commander.gschema.xml:1048
 msgid ""
 "This string array stores the history of searches for hex values within the "
 "internal file viewer."
@@ -1412,19 +1412,19 @@ msgstr ""
 "Niz določa shranjeno zgodovina iskanj za šestnajstiške vrednosti v notranjem "
 "pregledovalniku datotek."
 
-#: data/org.gnome.gnome-commander.gschema.xml:1051
+#: data/org.gnome.gnome-commander.gschema.xml:1056
 msgid "File suffix"
 msgstr "Pripona datoteke"
 
-#: data/org.gnome.gnome-commander.gschema.xml:1052
+#: data/org.gnome.gnome-commander.gschema.xml:1057
 msgid "Default file suffix of archives created with the File Roller plugin."
 msgstr "Privzeta pripona arhivov, ki so ustvarjeni z vstavkom File Roller."
 
-#: data/org.gnome.gnome-commander.gschema.xml:1058
+#: data/org.gnome.gnome-commander.gschema.xml:1063
 msgid "Prefix pattern"
 msgstr "Vzorec predpone"
 
-#: data/org.gnome.gnome-commander.gschema.xml:1059
+#: data/org.gnome.gnome-commander.gschema.xml:1064
 msgid ""
 "The prefix pattern is used to build up the name for an archive created with "
 "the File Roller plugin."
@@ -1432,11 +1432,11 @@ msgstr ""
 "Vzorec predpone se uporablja za izgradnjo imena arhiva, ustvarjenega z "
 "vstavkom File Roller."
 
-#: data/org.gnome.gnome-commander.gschema.xml:1067
+#: data/org.gnome.gnome-commander.gschema.xml:1072
 msgid "Automatically loaded plugins"
 msgstr "Samodejno naloži vstavke"
 
-#: data/org.gnome.gnome-commander.gschema.xml:1068
+#: data/org.gnome.gnome-commander.gschema.xml:1073
 msgid ""
 "This is the list of automatically loaded plugins, whereas each entry "
 "represents the file name of the plugin."
@@ -1490,8 +1490,9 @@ msgstr "Kakšno ime naj ima nov arhiv?"
 #: src/dialogs/shortcuts/shortcut_dialog.rs:404
 #: src/dialogs/shortcuts/shortcuts_dialog.rs:194
 #: src/dialogs/transfer_progress_dialog.rs:87 src/dirlist.rs:61
-#: src/intviewer/search-dlg.cc:217 src/open_connection.rs:61
-#: src/open_file.rs:46 src/open_file.rs:68 src/user_actions.rs:651
+#: src/file_selector.rs:235 src/intviewer/search_dialog.rs:68
+#: src/open_connection.rs:61 src/open_file.rs:46 src/open_file.rs:68
+#: src/user_actions.rs:687
 msgid "_Cancel"
 msgstr "Pre_kliči"
 
@@ -1515,9 +1516,9 @@ msgstr "Pre_kliči"
 #: src/dialogs/profiles/edit_profile_dialog.rs:119
 #: src/dialogs/profiles/manage_profiles_dialog.rs:327
 #: src/dialogs/shortcuts/shortcut_dialog.rs:190
-#: src/dialogs/shortcuts/shortcuts_dialog.rs:206
-#: src/intviewer/search-dlg.cc:218 src/intviewer/window.rs:677
-#: src/open_file.rs:46 src/user_actions.rs:651 src/utils.rs:253
+#: src/dialogs/shortcuts/shortcuts_dialog.rs:206 src/file_selector.rs:235
+#: src/intviewer/search_dialog.rs:69 src/intviewer/window.rs:677
+#: src/open_file.rs:46 src/user_actions.rs:687 src/utils.rs:253
 msgid "_OK"
 msgstr "V _redu"
 
@@ -1634,7 +1635,7 @@ msgstr "Nov profil"
 msgid "Profiles"
 msgstr "Profili"
 
-#: src/dialogs/advrename_regex_dialog.rs:95
+#: src/dialogs/advrename_regex_dialog.rs:95 src/intviewer/search_dialog.rs:98
 msgid "_Search for:"
 msgstr "_Poišči:"
 
@@ -1642,8 +1643,7 @@ msgstr "_Poišči:"
 msgid "_Replace for:"
 msgstr "_Zamenjaj za:"
 
-#. Case-Sensitive Checkbox
-#: src/dialogs/advrename_regex_dialog.rs:116 src/intviewer/search-dlg.cc:253
+#: src/dialogs/advrename_regex_dialog.rs:116 src/intviewer/search_dialog.rs:67
 msgid "_Match case"
 msgstr "_Upoštevaj velikost črk"
 
@@ -1745,7 +1745,7 @@ msgstr "Ime _domene:"
 #: src/dialogs/gnome-cmd-file-props-dialog.cc:545
 #: src/dialogs/gnome-cmd-mkdir-dialog.cc:172
 #: src/dialogs/gnome-cmd-options-dialog.cc:1509
-#: src/dialogs/gnome-cmd-search-dialog.cc:1246
+#: src/dialogs/gnome-cmd-search-dialog.cc:1249
 #: src/dialogs/manage_bookmarks_dialog.rs:218
 #: src/dialogs/options/device_dialog.rs:117
 #: src/dialogs/profiles/edit_profile_dialog.rs:75
@@ -1812,7 +1812,7 @@ msgid "Do you really want to delete “{}”?"
 msgstr "Ali res želite izbrisati »{}«?"
 
 #: src/dialogs/delete_dialog.rs:210 src/dialogs/delete_dialog.rs:530
-#: src/user_actions.rs:313 src/user_actions.rs:366
+#: src/user_actions.rs:324 src/user_actions.rs:377
 msgid "Cancel"
 msgstr "Prekliči"
 
@@ -1820,7 +1820,7 @@ msgstr "Prekliči"
 #: src/dialogs/gnome-cmd-options-dialog.cc:845
 #: src/dialogs/gnome-cmd-options-dialog.cc:869
 #: src/dialogs/prepare_copy_dialog.rs:75 src/dialogs/prepare_move_dialog.rs:75
-#: src/user_actions.rs:311
+#: src/user_actions.rs:322
 msgid "Skip"
 msgstr "Preskoči"
 
@@ -1846,7 +1846,7 @@ msgstr "Napaka pri brisanju »{file}«"
 msgid "Abort"
 msgstr "Prekliči"
 
-#: src/dialogs/delete_dialog.rs:246 src/user_actions.rs:314
+#: src/dialogs/delete_dialog.rs:246 src/user_actions.rs:325
 msgid "Retry"
 msgstr "Poskusi znova"
 
@@ -1906,7 +1906,7 @@ msgstr "_Upravljaj profile …"
 msgid "Remove from file list"
 msgstr "Odstrani iz seznama datotek"
 
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:309 src/user_actions.rs:1160
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:309 src/user_actions.rs:1196
 msgid "View file"
 msgstr "Pogled datoteke"
 
@@ -1964,7 +1964,7 @@ msgid "File modification date"
 msgstr "Datum spremembe datoteke"
 
 #: src/dialogs/gnome-cmd-advrename-dialog.cc:659
-#: src/dialogs/gnome-cmd-search-dialog.cc:1238
+#: src/dialogs/gnome-cmd-search-dialog.cc:1241
 msgid "Profiles…"
 msgstr "Profili …"
 
@@ -1975,7 +1975,7 @@ msgstr "Ponastavi"
 
 #. Add the close button
 #: src/dialogs/gnome-cmd-advrename-dialog.cc:669
-#: src/dialogs/gnome-cmd-search-dialog.cc:1247
+#: src/dialogs/gnome-cmd-search-dialog.cc:1250
 #: src/dialogs/manage_bookmarks_dialog.rs:222
 #: src/dialogs/options/edit_colors_dialog.rs:176
 #: src/dialogs/remote_dialog.rs:204 src/gnome-cmd-about-plugin.cc:181
@@ -2054,7 +2054,7 @@ msgstr "Dovoljenja dostopa"
 msgid "File Properties"
 msgstr "Lastnosti datoteke"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:541 src/user_actions.rs:1214
+#: src/dialogs/gnome-cmd-file-props-dialog.cc:541 src/user_actions.rs:1250
 msgid "Properties"
 msgstr "Lastnosti"
 
@@ -2105,7 +2105,7 @@ msgid "Middle mouse button"
 msgstr "Srednji gumb miške"
 
 #: src/dialogs/gnome-cmd-options-dialog.cc:131 src/gnome-cmd-main-win.cc:181
-#: src/user_actions.rs:1421
+#: src/user_actions.rs:1457
 msgid "Up one directory"
 msgstr "Odpre mapo višje"
 
@@ -2149,7 +2149,7 @@ msgstr "Razvrščanje/Hitro iskanje"
 msgid "Case sensitive"
 msgstr "Upoštevaj velikost črk"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:195 src/user_actions.rs:1190
+#: src/dialogs/gnome-cmd-options-dialog.cc:195 src/user_actions.rs:1226
 msgid "Quick search"
 msgstr "Hitro iskanje"
 
@@ -2441,7 +2441,7 @@ msgstr "Zahtevaj potrditev pri pri uporabi miške"
 
 #: src/dialogs/gnome-cmd-options-dialog.cc:889
 #: src/dialogs/prepare_copy_dialog.rs:45 src/file_list/popup.rs:262
-#: src/gnome-cmd-main-win.cc:189 src/user_actions.rs:1338
+#: src/gnome-cmd-main-win.cc:189 src/user_actions.rs:1374
 msgid "Copy"
 msgstr "Kopiraj povlečeno"
 
@@ -2568,7 +2568,7 @@ msgstr "_Dodaj"
 #: src/dialogs/profiles/manage_profiles_dialog.rs:255
 #: src/dialogs/remote_dialog.rs:74
 #: src/dialogs/shortcuts/shortcuts_dialog.rs:156
-#: src/gnome-cmd-advrename-profile-component.cc:848 src/main_win.rs:197
+#: src/gnome-cmd-advrename-profile-component.cc:848 src/main_win.rs:318
 msgid "_Edit"
 msgstr "_Uredi"
 
@@ -2620,7 +2620,7 @@ msgstr "Pokaži le ikone"
 
 #: src/dialogs/gnome-cmd-options-dialog.cc:1507
 #: src/dialogs/options/app_dialog.rs:116 src/dialogs/prepare_copy_dialog.rs:96
-#: src/dialogs/shortcuts/shortcuts_dialog.rs:109 src/user_actions.rs:1623
+#: src/dialogs/shortcuts/shortcuts_dialog.rs:109 src/user_actions.rs:1659
 msgid "Options"
 msgstr "Možnosti"
 
@@ -2709,30 +2709,30 @@ msgstr "Napaka razčlenjevanja ukaza iskanja."
 msgid "Error running the search command."
 msgstr "Napaka izvajanja ukaza iskanja."
 
-#: src/dialogs/gnome-cmd-search-dialog.cc:1012
+#: src/dialogs/gnome-cmd-search-dialog.cc:1015
 #, c-format
 msgid "Failed to change directory outside of %s"
 msgstr "Spreminjanje mape izven %s je spodletelo"
 
-#: src/dialogs/gnome-cmd-search-dialog.cc:1129
+#: src/dialogs/gnome-cmd-search-dialog.cc:1132
 msgid "Search…"
 msgstr "Poišči …"
 
-#: src/dialogs/gnome-cmd-search-dialog.cc:1146
+#: src/dialogs/gnome-cmd-search-dialog.cc:1149
 msgid "_Look in folder:"
 msgstr "_Preišči v mapi:"
 
-#: src/dialogs/gnome-cmd-search-dialog.cc:1248
+#: src/dialogs/gnome-cmd-search-dialog.cc:1251
 #: src/dialogs/manage_bookmarks_dialog.rs:102
 msgid "_Jump to"
 msgstr "_Skoči na"
 
-#: src/dialogs/gnome-cmd-search-dialog.cc:1249
+#: src/dialogs/gnome-cmd-search-dialog.cc:1252
 #: src/intviewer/search_progress_dialog.rs:46
 msgid "_Stop"
 msgstr "_Ustavi"
 
-#: src/dialogs/gnome-cmd-search-dialog.cc:1250
+#: src/dialogs/gnome-cmd-search-dialog.cc:1253
 msgid "_Find"
 msgstr "_Najdi"
 
@@ -3204,6 +3204,28 @@ msgstr "Prenos ni uspel."
 msgid "Couldn’t retrieve MIME type of the file."
 msgstr "Ni mogoče pridobiti vrste MIME za datoteko."
 
+#: src/file_list/list.rs:400
+msgid ""
+"{selected_bytes} of {total_bytes} in {selected_files} of {total_files} file"
+msgid_plural ""
+"{selected_bytes} of {total_bytes} in {selected_files} of {total_files} files"
+msgstr[0] ""
+"{selected_bytes} od {total_bytes} v {selected_files} od {total_files} datotek"
+msgstr[1] ""
+"{selected_bytes} od {total_bytes} v {selected_files} od {total_files} datotek"
+msgstr[2] ""
+"{selected_bytes} od {total_bytes} v {selected_files} od {total_files} datotek"
+msgstr[3] ""
+"{selected_bytes} od {total_bytes} v {selected_files} od {total_files} datotek"
+
+#: src/file_list/list.rs:413
+msgid "{}, {selected_dirs} of {total_dirs} dir selected"
+msgid_plural "{}, {selected_dirs} of {total_dirs} dirs selected"
+msgstr[0] "{}, izbranih {selected_dirs} od {total_dirs} map"
+msgstr[1] "{}, izbrana {selected_dirs} od {total_dirs} map"
+msgstr[2] "{}, izbrani {selected_dirs} od {total_dirs} map"
+msgstr[3] "{}, izbrane {selected_dirs} od {total_dirs} map"
+
 #. Add the default "Open" menu entry at the top of the popup
 #: src/file_list/popup.rs:167
 msgid "_Open with “{}”"
@@ -3223,16 +3245,16 @@ msgstr "_Izvedi"
 
 #. Edit actions
 #: src/file_list/popup.rs:261 src/gnome-cmd-main-win.cc:188
-#: src/user_actions.rs:1333
+#: src/user_actions.rs:1369
 msgid "Cut"
 msgstr "Izreži"
 
-#: src/file_list/popup.rs:264 src/user_actions.rs:1356
+#: src/file_list/popup.rs:264 src/user_actions.rs:1392
 msgid "Copy file names"
 msgstr "Kopiraj imena datotek"
 
 #: src/file_list/popup.rs:271 src/gnome-cmd-main-win.cc:193
-#: src/user_actions.rs:1250
+#: src/user_actions.rs:1286
 msgid "Send files"
 msgstr "Pošlji datoteke"
 
@@ -3240,7 +3262,7 @@ msgstr "Pošlji datoteke"
 msgid "Open _terminal here"
 msgstr "Odpri _terminal tukaj"
 
-#: src/file_list/popup.rs:282 src/main_win.rs:179
+#: src/file_list/popup.rs:282 src/main_win.rs:300
 msgid "_Properties…"
 msgstr "_Lastnosti …"
 
@@ -3256,13 +3278,17 @@ msgstr "_Mapa"
 msgid "_Text File"
 msgstr "_Besedilna datoteka"
 
-#: src/file_list/popup.rs:298 src/main_win.rs:203
+#: src/file_list/popup.rs:298 src/main_win.rs:324
 msgid "_Paste"
 msgstr "_Prilepi"
 
-#: src/file_list/popup.rs:304 src/main_win.rs:270
+#: src/file_list/popup.rs:304 src/main_win.rs:391
 msgid "_Refresh"
 msgstr "_Osveži"
+
+#: src/file_list/quick_search.rs:61 src/user_actions.rs:1220
+msgid "Search"
+msgstr "Poišči"
 
 #: src/file_metainfo_view.rs:77
 msgid "Value"
@@ -3273,6 +3299,42 @@ msgstr "Vrednost"
 #: src/tags/gnome-cmd-tags.cc:535
 msgid "Description"
 msgstr "Opis"
+
+#: src/file_selector.rs:234 src/user_actions.rs:686
+msgid "The tab is locked, close anyway?"
+msgstr "Zavihek je zaklenjen; naj se vseeno zapre?"
+
+#: src/file_selector.rs:277 src/main_win.rs:396
+msgid "Open in New _Tab"
+msgstr "Odpri v novem _zavihku"
+
+#: src/file_selector.rs:284
+msgid "_Unlock Tab"
+msgstr "_Odkleni zavihek"
+
+#: src/file_selector.rs:286
+msgid "_Lock Tab"
+msgstr "_Zakleni zavihek"
+
+#: src/file_selector.rs:300
+msgid "_Refresh Tab"
+msgstr "O_sveži zavihek"
+
+#: src/file_selector.rs:311
+msgid "Copy Tab to Other _Pane"
+msgstr "Kopiraj zavihek v drugo _ploščo"
+
+#: src/file_selector.rs:316 src/main_win.rs:400
+msgid "_Close Tab"
+msgstr "_Zapri zavihek"
+
+#: src/file_selector.rs:318 src/main_win.rs:402
+msgid "Close _All Tabs"
+msgstr "Zapri _vse zavihke"
+
+#: src/file_selector.rs:322
+msgid "Close _Duplicate Tabs"
+msgstr "Zapri po_dvojene zavihke"
 
 #: src/file_view.rs:59
 msgid "Failed to download a file"
@@ -3562,7 +3624,7 @@ msgstr "Program je končal z opravili. S pritiskom vnosne tipke zaprete okno.\n"
 msgid "No valid command given."
 msgstr "Ni navedenega veljavnega ukaza."
 
-#: src/gnome-cmd-cmdline.cc:119 src/gnome-cmd-user-actions.cc:315
+#: src/gnome-cmd-cmdline.cc:119 src/gnome-cmd-user-actions.cc:314
 #: src/spawn.rs:179
 msgid "Unable to execute command."
 msgstr "Ni mogoče izvesti ukaza."
@@ -3681,8 +3743,8 @@ msgstr "SMB"
 msgid "Searching for workgroups and hosts"
 msgstr "Iskanje delovnih skupin in gostiteljev"
 
-#: src/gnome-cmd-data.cc:2494 src/gnome-cmd-data.cc:2891
-#: src/user_actions.rs:276
+#: src/gnome-cmd-data.cc:2472 src/gnome-cmd-data.cc:2866
+#: src/user_actions.rs:287
 #, c-format
 msgid "link to %s"
 msgstr "povezava do %s"
@@ -3695,11 +3757,11 @@ msgstr "Dodaj trenutno mapo"
 msgid "Manage bookmarks…"
 msgstr "Upravljanje zaznamkov …"
 
-#: src/gnome-cmd-file.cc:591
+#: src/gnome-cmd-file.cc:577
 msgid "_Open"
 msgstr "_Odpri"
 
-#: src/gnome-cmd-file.cc:594
+#: src/gnome-cmd-file.cc:580
 #, c-format
 msgid "_Open with “%s”"
 msgstr "_Odpri s programom »%s«"
@@ -3736,40 +3798,40 @@ msgstr "uid"
 msgid "gid"
 msgstr "gid"
 
-#: src/gnome-cmd-file-list.cc:452
+#: src/gnome-cmd-file-list.cc:449
 msgid "_Copy here"
 msgstr "_Kopiraj sem"
 
-#: src/gnome-cmd-file-list.cc:457
+#: src/gnome-cmd-file-list.cc:454
 msgid "_Move here"
 msgstr "_Premakni sem"
 
-#: src/gnome-cmd-file-list.cc:462
+#: src/gnome-cmd-file-list.cc:459
 msgid "_Link here"
 msgstr "_Poveži sem"
 
-#: src/gnome-cmd-file-list.cc:467
+#: src/gnome-cmd-file-list.cc:464
 msgid "C_ancel"
 msgstr "Pre_kliči"
 
-#: src/gnome-cmd-file-list.cc:1215
+#: src/gnome-cmd-file-list.cc:1182
 msgid "Directory listing failed."
 msgstr "Izpis map ni uspel."
 
-#: src/gnome-cmd-file-selector.cc:124
+#: src/gnome-cmd-file-selector.cc:123
 #, c-format
 msgid "%s free"
 msgstr "Prosto %s"
 
-#: src/gnome-cmd-file-selector.cc:129
+#: src/gnome-cmd-file-selector.cc:128
 msgid "Unknown disk usage"
 msgstr "Nedoločena zasedenost diska"
 
-#: src/gnome-cmd-file-selector.cc:981
+#: src/gnome-cmd-file-selector.cc:950
 msgid "Filter:"
 msgstr "Filter:"
 
-#: src/gnome-cmd-main-win.cc:180 src/user_actions.rs:1450
+#: src/gnome-cmd-main-win.cc:180 src/user_actions.rs:1486
 msgid "Refresh"
 msgstr "Osveži"
 
@@ -3795,7 +3857,7 @@ msgstr ""
 "Kopiraj imena datotek (s tipko SHIFT se kopira celotna pot, z ALT pa naslovi "
 "URI)"
 
-#: src/gnome-cmd-main-win.cc:190 src/user_actions.rs:1344
+#: src/gnome-cmd-main-win.cc:190 src/user_actions.rs:1380
 msgid "Paste"
 msgstr "Prilepi"
 
@@ -3803,7 +3865,7 @@ msgstr "Prilepi"
 msgid "Edit (SHIFT for new document)"
 msgstr "Uredi (s tipko SHIFT se odpre nov dokument)"
 
-#: src/gnome-cmd-main-win.cc:194 src/user_actions.rs:1370
+#: src/gnome-cmd-main-win.cc:194 src/user_actions.rs:1406
 msgid "Open terminal"
 msgstr "Odpri terminal"
 
@@ -3842,10 +3904,6 @@ msgstr "F9 Poišči"
 #: src/gnome-cmd-main-win.cc:567
 msgid "GNOME Commander — ROOT PRIVILEGES"
 msgstr "GNOME Commander - SKRBNIŠKI NAČIN"
-
-#: src/gnome-cmd-quicksearch-popup.cc:205 src/user_actions.rs:1184
-msgid "Search"
-msgstr "Poišči"
 
 #: src/gnome-cmd-selection-profile-component.cc:135
 msgid "Path matches regex:"
@@ -3886,24 +3944,24 @@ msgstr "Vsebuje _besedilo:"
 msgid "Case sensiti_ve"
 msgstr "_Razlikovanje velikosti črk"
 
-#: src/gnome-cmd-user-actions.cc:310
+#: src/gnome-cmd-user-actions.cc:309
 msgid "No search command given."
 msgstr "Ni podanega veljavnega ukaza za iskanje."
 
-#: src/gnome-cmd-user-actions.cc:310
+#: src/gnome-cmd-user-actions.cc:309
 msgid "You can set a command for a search tool in the program options."
 msgstr "Ukaz za iskalnik je mogoče nastaviti med možnostmi programa."
 
-#: src/gnome-cmd-user-actions.cc:384 src/gnome-cmd-user-actions.cc:401
-#: src/gnome-cmd-user-actions.cc:459
+#: src/gnome-cmd-user-actions.cc:375 src/gnome-cmd-user-actions.cc:392
+#: src/gnome-cmd-user-actions.cc:450
 msgid "Operation not supported on remote file systems"
 msgstr "Dejanje pri delu z oddaljenimi sistemi ni podprto"
 
-#: src/gnome-cmd-user-actions.cc:414
+#: src/gnome-cmd-user-actions.cc:405
 msgid "No file selected"
 msgstr "Ni izbrane datoteke"
 
-#: src/gnome-cmd-user-actions.cc:426
+#: src/gnome-cmd-user-actions.cc:417
 msgid "Too many selected files"
 msgstr "Preveč izbranih datotek"
 
@@ -3945,19 +4003,18 @@ msgstr "Vira »%s« ni mogoče izbrisati. Opravilo je preklicano!"
 msgid "Source “%s” could not be copied. Aborting!"
 msgstr "Vira »%s« ni mogoče kopirati. Opravilo je preklicano!"
 
-#: src/intviewer/search_dialog.rs:73 src/intviewer/search-dlg.cc:278
-msgid "Find"
-msgstr "Najdi"
-
-#. Search mode radio buttons
-#: src/intviewer/search-dlg.cc:242 src/intviewer/window.rs:759
+#: src/intviewer/search_dialog.rs:65 src/intviewer/window.rs:759
 #: src/intviewer/window.rs:792
 msgid "_Text"
 msgstr "_Besedilo"
 
-#: src/intviewer/search-dlg.cc:243 src/intviewer/window.rs:761
+#: src/intviewer/search_dialog.rs:66 src/intviewer/window.rs:761
 msgid "_Hexadecimal"
 msgstr "_Šestnajstiško"
+
+#: src/intviewer/search_dialog.rs:254
+msgid "Find"
+msgstr "Najdi"
 
 #: src/intviewer/search_progress_dialog.rs:60
 msgid "Searching…"
@@ -4007,11 +4064,11 @@ msgstr "_Kopiraj izbor"
 msgid "Pattern “{}” was not found"
 msgstr "Vzorca »{}« ni mogoče najti"
 
-#: src/intviewer/window.rs:753 src/main_win.rs:162
+#: src/intviewer/window.rs:753 src/main_win.rs:283
 msgid "_File"
 msgstr "_Datoteka"
 
-#: src/intviewer/window.rs:757 src/main_win.rs:260
+#: src/intviewer/window.rs:757 src/main_win.rs:381
 msgid "_View"
 msgstr "Po_gled"
 
@@ -4171,7 +4228,7 @@ msgstr "Obrni _navpično"
 msgid "Flip _Horizontal"
 msgstr "Obrni _vodoravno"
 
-#: src/intviewer/window.rs:913 src/main_win.rs:320 src/main_win.rs:373
+#: src/intviewer/window.rs:913 src/main_win.rs:441 src/main_win.rs:494
 msgid "_Settings"
 msgstr "_Nastavitve"
 
@@ -4203,223 +4260,211 @@ msgstr "_Šestnajstiški odmik"
 msgid "Quick _Help"
 msgstr "Hitra po_moč"
 
-#: src/intviewer/window.rs:952 src/main_win.rs:378
+#: src/intviewer/window.rs:952 src/main_win.rs:499
 msgid "_Keyboard Shortcuts"
 msgstr "_Tipkovne bližnjice"
 
-#: src/main_win.rs:166
+#: src/main_win.rs:287
 msgid "Change _Owner/Group"
 msgstr "Spremeni _lastništvo"
 
-#: src/main_win.rs:167
+#: src/main_win.rs:288
 msgid "Change Per_missions"
 msgstr "Spremeni _dovoljenja"
 
-#: src/main_win.rs:169
+#: src/main_win.rs:290
 msgid "Advanced _Rename Tool"
 msgstr "Napre_dno preimenovanje"
 
-#: src/main_win.rs:174
+#: src/main_win.rs:295
 msgid "Create _Symbolic Link"
 msgstr "_Ustvari simbolno povezavo"
 
-#: src/main_win.rs:186
+#: src/main_win.rs:307
 msgid "_Search…"
 msgstr "_Poišči …"
 
-#: src/main_win.rs:187
+#: src/main_win.rs:308
 msgid "_Quick Search…"
 msgstr "_Hitro iskanje …"
 
-#: src/main_win.rs:188
+#: src/main_win.rs:309
 msgid "_Enable Filter…"
 msgstr "_Omogoči filter …"
 
-#: src/main_win.rs:192
+#: src/main_win.rs:313
 msgid "_Diff"
 msgstr "_Primerjava"
 
-#: src/main_win.rs:193
+#: src/main_win.rs:314
 msgid "S_ynchronize Directories"
 msgstr "_Uskladi mapi"
 
-#: src/main_win.rs:201
+#: src/main_win.rs:322
 msgid "Cu_t"
 msgstr "I_zreži"
 
-#: src/main_win.rs:202
+#: src/main_win.rs:323
 msgid "_Copy"
 msgstr "_Kopiraj"
 
-#: src/main_win.rs:204
+#: src/main_win.rs:325
 msgid "_Delete"
 msgstr "_Izbriši"
 
-#: src/main_win.rs:206
+#: src/main_win.rs:327
 msgid "Copy _File Names"
 msgstr "Kopiraj imena _datotek"
 
-#: src/main_win.rs:209
+#: src/main_win.rs:330
 msgid "_Mark"
 msgstr "_Označi"
 
-#: src/main_win.rs:214
+#: src/main_win.rs:335
 msgid "_Select All"
 msgstr "Izberi _vse"
 
-#: src/main_win.rs:219
+#: src/main_win.rs:340
 msgid "_Unselect All"
 msgstr "P_očisti vse"
 
-#: src/main_win.rs:223
+#: src/main_win.rs:344
 msgid "Select all _Files"
 msgstr "Izberi _vse datoteke"
 
-#: src/main_win.rs:225
+#: src/main_win.rs:346
 msgid "Unselect all Fi_les"
 msgstr "Počisti izbor vse_h datotek"
 
-#: src/main_win.rs:229
+#: src/main_win.rs:350
 msgid "Select with _Pattern"
 msgstr "Izberi z _vzorcem"
 
-#: src/main_win.rs:234
+#: src/main_win.rs:355
 msgid "Unselect with P_attern"
 msgstr "Počisti izbor z v_zorcem"
 
-#: src/main_win.rs:239
+#: src/main_win.rs:360
 msgid "Select with same _Extension"
 msgstr "Izberi vse z iso _pripono"
 
-#: src/main_win.rs:243
+#: src/main_win.rs:364
 msgid "Unselect with same E_xtension"
 msgstr "Počisti izbor datotek z isto _pripono"
 
-#: src/main_win.rs:247
+#: src/main_win.rs:368
 msgid "_Invert Selection"
 msgstr "Preo_brni izbor"
 
-#: src/main_win.rs:251
+#: src/main_win.rs:372
 msgid "_Restore Selection"
 msgstr "_Povrni izbor"
 
-#: src/main_win.rs:254
+#: src/main_win.rs:375
 msgid "_Compare Directories"
 msgstr "_Primerjava map"
 
-#: src/main_win.rs:264
+#: src/main_win.rs:385
 msgid "_Back"
 msgstr "_Nazaj"
 
-#: src/main_win.rs:266
+#: src/main_win.rs:387
 msgid "_Forward"
 msgstr "_Naprej"
 
-#: src/main_win.rs:275
-msgid "Open in New _Tab"
-msgstr "Odpri v novem _zavihku"
-
-#: src/main_win.rs:279
-msgid "_Close Tab"
-msgstr "_Zapri zavihek"
-
-#: src/main_win.rs:281
-msgid "Close _All Tabs"
-msgstr "Zapri _vse zavihke"
-
-#: src/main_win.rs:288
+#: src/main_win.rs:409
 msgid "Show Toolbar"
 msgstr "Pokaži orodno vrstico"
 
-#: src/main_win.rs:289
+#: src/main_win.rs:410
 msgid "Show Device Buttons"
 msgstr "Pokaži gumbe naprav"
 
-#: src/main_win.rs:290
+#: src/main_win.rs:411
 msgid "Show Device List"
 msgstr "Pokaži seznam naprav"
 
-#: src/main_win.rs:291
+#: src/main_win.rs:412
 msgid "Show Command Line"
 msgstr "Pokaži ukazno vrstico"
 
-#: src/main_win.rs:292
+#: src/main_win.rs:413
 msgid "Show Buttonbar"
 msgstr "Pokaži funkcijske tipke"
 
-#: src/main_win.rs:297
+#: src/main_win.rs:418
 msgid "Show Hidden Files"
 msgstr "Pokaži skrite datoteke"
 
-#: src/main_win.rs:301
+#: src/main_win.rs:422
 msgid "Show Backup Files"
 msgstr "Pokaži varnostne kopije"
 
-#: src/main_win.rs:306
+#: src/main_win.rs:427
 msgid "_Equal Panel Size"
 msgstr "_Enako veliki plošči"
 
-#: src/main_win.rs:310
+#: src/main_win.rs:431
 msgid "Maximize Panel Size"
 msgstr "Razpni velikost plošče"
 
-#: src/main_win.rs:314 src/user_actions.rs:1572
+#: src/main_win.rs:435 src/user_actions.rs:1608
 msgid "Horizontal Orientation"
 msgstr "Vodoravna postavitev"
 
-#: src/main_win.rs:322
+#: src/main_win.rs:443
 msgid "_Options…"
 msgstr "_Možnosti …"
 
-#: src/main_win.rs:324
+#: src/main_win.rs:445
 msgid "_Keyboard Shortcuts…"
 msgstr "_Tipkovne bližnjice …"
 
-#: src/main_win.rs:329
+#: src/main_win.rs:450
 msgid "_Connections"
 msgstr "_Povezave"
 
-#: src/main_win.rs:334
+#: src/main_win.rs:455
 msgid "_Remote Server…"
 msgstr "_Oddaljeni strežnik …"
 
-#: src/main_win.rs:339
+#: src/main_win.rs:460
 msgid "New Connection…"
 msgstr "Nova povezava …"
 
-#: src/main_win.rs:348
+#: src/main_win.rs:469
 msgid "_Bookmarks"
 msgstr "_Zaznamki"
 
-#: src/main_win.rs:353
+#: src/main_win.rs:474
 msgid "_Bookmark this Directory…"
 msgstr "_Ustvari zaznamek mape …"
 
-#: src/main_win.rs:357
+#: src/main_win.rs:478
 msgid "_Manage Bookmarks…"
 msgstr "_Upravljaj zaznamke …"
 
-#: src/main_win.rs:365
+#: src/main_win.rs:486
 msgid "_Plugins"
 msgstr "_Vstavki"
 
-#: src/main_win.rs:368
+#: src/main_win.rs:489
 msgid "_Configure Plugins…"
 msgstr "_Prilagodi vstavke …"
 
-#: src/main_win.rs:377
+#: src/main_win.rs:498
 msgid "_Documentation"
 msgstr "_Dokumentacija"
 
-#: src/main_win.rs:379
+#: src/main_win.rs:500
 msgid "GNOME Commander on the _Web"
 msgstr "Program GNOME _Commander na spletu"
 
-#: src/main_win.rs:380
+#: src/main_win.rs:501
 msgid "Report a _Problem"
 msgstr "Prijavi _težavo"
 
-#: src/main_win.rs:382
+#: src/main_win.rs:503
 msgid "_About"
 msgstr "_O Programu"
 
@@ -8440,11 +8485,11 @@ msgstr "Brez"
 msgid "10-15ms"
 msgstr "10–15ms"
 
-#: src/user_actions.rs:312
+#: src/user_actions.rs:323
 msgid "Skip all"
 msgstr "Preskoči vse"
 
-#: src/user_actions.rs:356
+#: src/user_actions.rs:367
 msgid "Create symbolic links of {count} file in {dir}?"
 msgid_plural "Create symbolic links of {count} files in {dir}?"
 msgstr[0] "Želite ustvariti simbolne povezave {count} datotek v {dir}?"
@@ -8452,15 +8497,15 @@ msgstr[1] "Želite ustvariti simbolno povezavo {count} datoteke v {dir}?"
 msgstr[2] "Želite ustvariti simbolne povezave {count} datotek v {dir}?"
 msgstr[3] "Želite ustvariti simbolne povezave {count} datotek v {dir}?"
 
-#: src/user_actions.rs:366
+#: src/user_actions.rs:377
 msgid "Create"
 msgstr "Ustvari"
 
-#: src/user_actions.rs:411
+#: src/user_actions.rs:422
 msgid "Warning"
 msgstr "Opozorilo"
 
-#: src/user_actions.rs:411
+#: src/user_actions.rs:422
 msgid ""
 "The default send-to command only supports one selected file at a time. You "
 "can change the command in the program options."
@@ -8468,27 +8513,23 @@ msgstr ""
 "Privzeti ukaz pošiljanja podpira samo eno izbrano datoteko hkrati. Ukaz "
 "lahko spremenite v programskih možnostih."
 
-#: src/user_actions.rs:554
+#: src/user_actions.rs:590
 msgid "No command was given."
 msgstr "Ukaz ni bil dan."
 
-#: src/user_actions.rs:596
+#: src/user_actions.rs:632
 msgid "Terminal command is not configured properly."
 msgstr "Ukaz terminala ni pravilno nastavljen."
 
-#: src/user_actions.rs:650
-msgid "The tab is locked, close anyway?"
-msgstr "Zavihek je zaklenjen; naj se vseeno zapre?"
-
-#: src/user_actions.rs:971
+#: src/user_actions.rs:1007
 msgid "There was an error opening home page."
 msgstr "Prišlo je do napake pri odpiranju domače strani."
 
-#: src/user_actions.rs:989
+#: src/user_actions.rs:1025
 msgid "There was an error reporting problem."
 msgstr "Prišlo je do napake pri poročanju o napaki."
 
-#: src/user_actions.rs:1024
+#: src/user_actions.rs:1060
 msgid ""
 "GNOME Commander is free software; you can redistribute it and/or modify it "
 "under the terms of the GNU General Public License as published by the Free "
@@ -8499,7 +8540,7 @@ msgstr ""
 "spreminjate pod pogoji GNU Splošnega javnega dovoljenja, kot jo izdaja Free "
 "Software Foundation; različica 2 ali kasnejše različice."
 
-#: src/user_actions.rs:1027
+#: src/user_actions.rs:1063
 msgid ""
 "GNOME Commander is distributed in the hope that it will be useful, but "
 "WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY "
@@ -8509,7 +8550,7 @@ msgstr ""
 "GNOME Terminal se širi v upanju, da bo uporaben, vendar brez kakršnekoli "
 "garancije. Za več podrobnosti si oglejte GNU Splošno javno dovoljenje."
 
-#: src/user_actions.rs:1030
+#: src/user_actions.rs:1066
 msgid ""
 "You should have received a copy of the GNU General Public License along with "
 "GNOME Commander; if not, write to the Free Software Foundation, Inc., 51 "
@@ -8519,324 +8560,324 @@ msgstr ""
 "dovoljenja GNU (GNU GPL). Če je niste dobili, pišite na Free Software "
 "Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA"
 
-#: src/user_actions.rs:1039
+#: src/user_actions.rs:1075
 msgid "A fast and powerful file manager for the GNOME desktop"
 msgstr "Hiter in zmogljiv urejevalnik datotek za GNOME namizje"
 
-#: src/user_actions.rs:1047
+#: src/user_actions.rs:1083
 msgid "translator-credits"
 msgstr "Matej Urbančič"
 
 #. File actions
-#: src/user_actions.rs:1146
+#: src/user_actions.rs:1182
 msgid "Copy files"
 msgstr "Kopiranje datotek"
 
-#: src/user_actions.rs:1151
+#: src/user_actions.rs:1187
 msgid "Copy files with rename"
 msgstr "Kopiraj in preimenuj datoteke"
 
-#: src/user_actions.rs:1153
+#: src/user_actions.rs:1189
 msgid "Move files"
 msgstr "Premakni datoteke"
 
-#: src/user_actions.rs:1158
+#: src/user_actions.rs:1194
 msgid "Delete files"
 msgstr "Izbriši datoteke"
 
-#: src/user_actions.rs:1165
+#: src/user_actions.rs:1201
 msgid "View with internal viewer"
 msgstr "Poglej datoteko z vgrajenim pregledovalnikom"
 
-#: src/user_actions.rs:1171
+#: src/user_actions.rs:1207
 msgid "View with external viewer"
 msgstr "Poglej datoteko z zunanjim pregledovalnikom"
 
-#: src/user_actions.rs:1173
+#: src/user_actions.rs:1209
 msgid "Edit file"
 msgstr "Uredi datoteko"
 
-#: src/user_actions.rs:1178
+#: src/user_actions.rs:1214
 msgid "Edit a new file"
 msgstr "Uredi novo datoteko"
 
-#: src/user_actions.rs:1196
+#: src/user_actions.rs:1232
 msgid "Change permissions"
 msgstr "Spremeni dovoljenja"
 
-#: src/user_actions.rs:1202
+#: src/user_actions.rs:1238
 msgid "Change owner/group"
 msgstr "Spremeni lastništvo"
 
-#: src/user_actions.rs:1208
+#: src/user_actions.rs:1244
 msgid "Create directory"
 msgstr "Ustvari mapo"
 
-#: src/user_actions.rs:1220
+#: src/user_actions.rs:1256
 msgid "Compare files (diff)"
 msgstr "Primerjava datotek (diff)"
 
-#: src/user_actions.rs:1226
+#: src/user_actions.rs:1262
 msgid "Synchronize directories"
 msgstr "Usklajevanje map"
 
-#: src/user_actions.rs:1232
+#: src/user_actions.rs:1268
 msgid "Rename files"
 msgstr "Preimenuj datoteke"
 
-#: src/user_actions.rs:1238
+#: src/user_actions.rs:1274
 msgid "Create symbolic link"
 msgstr "Ustvari simbolično povezavo"
 
-#: src/user_actions.rs:1244
+#: src/user_actions.rs:1280
 msgid "Advanced rename tool"
 msgstr "Napredno preimenovanje"
 
-#: src/user_actions.rs:1252
+#: src/user_actions.rs:1288
 msgid "Quit"
 msgstr "Končaj"
 
-#: src/user_actions.rs:1258
+#: src/user_actions.rs:1294
 msgid "Toggle selection"
 msgstr "Preklopi izbor"
 
-#: src/user_actions.rs:1264
+#: src/user_actions.rs:1300
 msgid "Toggle selection and move cursor downward"
 msgstr "Preklopi izbor in premakni kazalnik nižje"
 
-#: src/user_actions.rs:1270
+#: src/user_actions.rs:1306
 msgid "Select all"
 msgstr "Izberi vse"
 
-#: src/user_actions.rs:1276
+#: src/user_actions.rs:1312
 msgid "Unselect all"
 msgstr "Počisti vse"
 
-#: src/user_actions.rs:1282
+#: src/user_actions.rs:1318
 msgid "Select all files"
 msgstr "Izberi vse datoteke"
 
-#: src/user_actions.rs:1288
+#: src/user_actions.rs:1324
 msgid "Unselect all files"
 msgstr "Počisti izbor vseh datotek"
 
-#: src/user_actions.rs:1294
+#: src/user_actions.rs:1330
 msgid "Select with pattern"
 msgstr "Izberi z vzorcem"
 
-#: src/user_actions.rs:1300
+#: src/user_actions.rs:1336
 msgid "Unselect with pattern"
 msgstr "Počisti izbor z vzorcem"
 
-#: src/user_actions.rs:1306
+#: src/user_actions.rs:1342
 msgid "Invert selection"
 msgstr "Obrni izbor"
 
-#: src/user_actions.rs:1312
+#: src/user_actions.rs:1348
 msgid "Select with same extension"
 msgstr "Izberi z isto pripono"
 
-#: src/user_actions.rs:1318
+#: src/user_actions.rs:1354
 msgid "Unselect with same extension"
 msgstr "Počisti izbor z isto pripono"
 
-#: src/user_actions.rs:1324
+#: src/user_actions.rs:1360
 msgid "Restore selection"
 msgstr "Povrni izbor"
 
-#: src/user_actions.rs:1330
+#: src/user_actions.rs:1366
 msgid "Compare directories"
 msgstr "Primerjava map"
 
-#: src/user_actions.rs:1350
+#: src/user_actions.rs:1386
 msgid "Show user defined files"
 msgstr "Pokaži po meri določene datoteke"
 
-#: src/user_actions.rs:1364
+#: src/user_actions.rs:1400
 msgid "Execute command"
 msgstr "Izvedi ukaz"
 
-#: src/user_actions.rs:1407
+#: src/user_actions.rs:1443
 msgid "Show directory history"
 msgstr "Pokaži zgodovino mape"
 
-#: src/user_actions.rs:1413
+#: src/user_actions.rs:1449
 msgid "Show hidden files"
 msgstr "Pokaži skrite datoteke"
 
-#: src/user_actions.rs:1419
+#: src/user_actions.rs:1455
 msgid "Show backup files"
 msgstr "Pokaži varnostne kopije"
 
-#: src/user_actions.rs:1426
+#: src/user_actions.rs:1462
 msgid "Back to the first directory"
 msgstr "Nazaj na prvo mapo v zgodovini"
 
-#: src/user_actions.rs:1432
+#: src/user_actions.rs:1468
 msgid "Back one directory"
 msgstr "Vrni se na predhodno mapo zgodovine"
 
-#: src/user_actions.rs:1438
+#: src/user_actions.rs:1474
 msgid "Forward one directory"
 msgstr "Naprej na naslednjo mapo zgodovine"
 
-#: src/user_actions.rs:1444
+#: src/user_actions.rs:1480
 msgid "Forward to the last directory"
 msgstr "Naprej na zadnjo mapo v zgodovini"
 
-#: src/user_actions.rs:1457
+#: src/user_actions.rs:1493
 msgid "Refresh tab"
 msgstr "Osveži zavihek"
 
-#: src/user_actions.rs:1463
+#: src/user_actions.rs:1499
 msgid "Equal panel size"
 msgstr "Enako veliki okni"
 
-#: src/user_actions.rs:1469
+#: src/user_actions.rs:1505
 msgid "Maximize panel size"
 msgstr "Razpni velikost okna"
 
-#: src/user_actions.rs:1475
+#: src/user_actions.rs:1511
 msgid "Open directory in the left window"
 msgstr "Odpre mapo v levem oknu"
 
-#: src/user_actions.rs:1481
+#: src/user_actions.rs:1517
 msgid "Open directory in the right window"
 msgstr "Odpre mapo v desnem oknu"
 
-#: src/user_actions.rs:1487
+#: src/user_actions.rs:1523
 msgid "Open directory in the active window"
 msgstr "Odpre mapo v dejavnem oknu"
 
-#: src/user_actions.rs:1493
+#: src/user_actions.rs:1529
 msgid "Open directory in the inactive window"
 msgstr "Odpre mapo v nedejavnem oknu"
 
-#: src/user_actions.rs:1499
+#: src/user_actions.rs:1535
 msgid "Change directory"
 msgstr "Spremeni mapo"
 
-#: src/user_actions.rs:1505
+#: src/user_actions.rs:1541
 msgid "Home directory"
 msgstr "Domači imenik"
 
-#: src/user_actions.rs:1511
+#: src/user_actions.rs:1547
 msgid "Root directory"
 msgstr "Korenska mapa"
 
-#: src/user_actions.rs:1517
+#: src/user_actions.rs:1553
 msgid "Open directory in a new tab"
 msgstr "Odpre mapo v novem zavihku"
 
-#: src/user_actions.rs:1523
+#: src/user_actions.rs:1559
 msgid "Close the current tab"
 msgstr "Zapri trenutni zavihek"
 
-#: src/user_actions.rs:1529
+#: src/user_actions.rs:1565
 msgid "Close all tabs"
 msgstr "Zapri vse zavihke"
 
-#: src/user_actions.rs:1535
+#: src/user_actions.rs:1571
 msgid "Close duplicate tabs"
 msgstr "Zapri podvojene zavihke"
 
-#: src/user_actions.rs:1541
+#: src/user_actions.rs:1577
 msgid "Previous tab"
 msgstr "Predhodni zavihek"
 
-#: src/user_actions.rs:1547
+#: src/user_actions.rs:1583
 msgid "Next tab"
 msgstr "Naslednji zavihek"
 
-#: src/user_actions.rs:1553
+#: src/user_actions.rs:1589
 msgid "Open directory in the new tab"
 msgstr "Odpri mapo v novem zavihku"
 
-#: src/user_actions.rs:1559
+#: src/user_actions.rs:1595
 msgid "Open directory in the new tab (inactive window)"
 msgstr "Odpri mapo v novem zavihku (nedejavno okno)"
 
-#: src/user_actions.rs:1566
+#: src/user_actions.rs:1602
 msgid "Lock/unlock tab"
 msgstr "Zakleni/Odkleni zavihek"
 
-#: src/user_actions.rs:1578
+#: src/user_actions.rs:1614
 msgid "Display main menu"
 msgstr "Pokaži glavni meni"
 
-#: src/user_actions.rs:1584
+#: src/user_actions.rs:1620
 msgid "Move cursor one step up"
 msgstr "Premakni kazalko en korak višje"
 
-#: src/user_actions.rs:1590
+#: src/user_actions.rs:1626
 msgid "Move cursor one step down"
 msgstr "Premakni kazalko en korak nižje"
 
-#: src/user_actions.rs:1597
+#: src/user_actions.rs:1633
 msgid "Bookmark current directory"
 msgstr "Ustvari zaznamek trenutne mape"
 
-#: src/user_actions.rs:1603
+#: src/user_actions.rs:1639
 msgid "Manage bookmarks"
 msgstr "Uredi zaznamke"
 
-#: src/user_actions.rs:1610
+#: src/user_actions.rs:1646
 msgid "Go to bookmarked location"
 msgstr "Skoči na mesto zaznamka"
 
-#: src/user_actions.rs:1616
+#: src/user_actions.rs:1652
 msgid "Show bookmarks of current device"
 msgstr "Pokaži zaznamke trenutne naprave"
 
-#: src/user_actions.rs:1629
+#: src/user_actions.rs:1665
 msgid "Keyboard shortcuts"
 msgstr "Tipkovne bližnjice"
 
-#: src/user_actions.rs:1636
+#: src/user_actions.rs:1672
 msgid "Open connection"
 msgstr "Odpri povezavo"
 
-#: src/user_actions.rs:1642
+#: src/user_actions.rs:1678
 msgid "New connection"
 msgstr "Nova povezava"
 
-#: src/user_actions.rs:1649
+#: src/user_actions.rs:1685
 msgid "Set connection"
 msgstr "Nastavi povezavo"
 
-#: src/user_actions.rs:1655
+#: src/user_actions.rs:1691
 msgid "Change left connection"
 msgstr "Spremeni povezavo na levi"
 
-#: src/user_actions.rs:1661
+#: src/user_actions.rs:1697
 msgid "Change right connection"
 msgstr "Spremeni povezavo na desni"
 
-#: src/user_actions.rs:1668 src/user_actions.rs:1674
+#: src/user_actions.rs:1704 src/user_actions.rs:1710
 msgid "Close connection"
 msgstr "Zapri povezavo"
 
-#: src/user_actions.rs:1681
+#: src/user_actions.rs:1717
 msgid "Configure plugins"
 msgstr "Nastavitve vstavkov"
 
-#: src/user_actions.rs:1695
+#: src/user_actions.rs:1731
 msgid "Help contents"
 msgstr "Vsebina pomoči"
 
-#: src/user_actions.rs:1701
+#: src/user_actions.rs:1737
 msgid "Help on keyboard shortcuts"
 msgstr "Pomoč o tipkovnih bližnjicah"
 
-#: src/user_actions.rs:1707
+#: src/user_actions.rs:1743
 msgid "GNOME Commander on the web"
 msgstr "Program GNOME Commander na spletu"
 
-#: src/user_actions.rs:1713
+#: src/user_actions.rs:1749
 msgid "Report a problem"
 msgstr "Poročilo o napaki"
 
-#: src/user_actions.rs:1719
+#: src/user_actions.rs:1755
 msgid "About GNOME Commander"
 msgstr "O programu GNOME Commander"
 
