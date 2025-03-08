@@ -7,6 +7,8 @@ plugins/fileroller/file-roller-plugin.cc
 plugins/test/test-plugin.cc
 src/advrename_profile_component.rs
 src/app.rs
+src/chmod_component.rs
+src/chown_component.rs
 src/dialogs/advrename_dialog.rs
 src/dialogs/advrename_regex_dialog.rs
 src/dialogs/chmod_dialog.rs
@@ -94,6 +96,7 @@ src/tags/gnome-cmd-tags-doc.cc
 src/tags/gnome-cmd-tags-exiv2.cc
 src/tags/gnome-cmd-tags-poppler.cc
 src/tags/gnome-cmd-tags-taglib.cc
+src/transfer.rs
 src/user_actions.rs
 src/utils.cc
 src/utils.h
