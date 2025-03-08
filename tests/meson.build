@@ -1,17 +1,6 @@
 # *** Internal Viewer Tests *** Most of these only consist of serialised
 # function calls for acceptance tests, actually. Functions of the internal
 # viewer library are not fully tested by unit tests.
-test('test_iv_viewerwidget',
-  executable('test-iv-imagerenderer',
-    ['iv_imagerenderer_test.cc', 'gcmd_tests_main.cc'],
-    dependencies: [common_deps, intviewer_dep, gtest],
-    include_directories: [configuration_inc, libgcmd_inc, sources_inc],
-    c_args: ['-DTEST_DIR="@0@"'.format(meson.current_source_dir())],
-    link_with: [intviewer_lib],
-    override_options : ['c_std=c14', 'cpp_std=c++14'],
-  ),
-)
-
 test('test_iv_inputmodes',
   executable('test-iv-inputmodes',
     ['iv_inputmodes_test.cc', 'gcmd_tests_main.cc'],

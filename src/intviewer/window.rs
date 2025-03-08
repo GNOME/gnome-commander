@@ -60,7 +60,7 @@ mod imp {
     use crate::{
         file_metainfo_view::FileMetainfoView,
         intviewer::{
-            image_render::ImageRender,
+            image_render::{ImageOperation, ImageRender},
             search_dialog::{SearchDialog, SearchRequest},
             text_render::TextRenderDisplayMode,
         },
@@ -583,7 +583,10 @@ mod imp {
         }
 
         fn image_operation(&self, op: Option<&glib::Variant>) {
-            let Some(operation) = op.and_then(|v| v.get::<i32>()) else {
+            let Some(operation) = op
+                .and_then(|v| v.get::<i32>())
+                .and_then(ImageOperation::from_repr)
+            else {
                 return;
             };
             self.image_render.operation(operation);

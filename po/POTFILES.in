@@ -77,7 +77,6 @@ src/gnome-cmd-xfer.cc
 src/intviewer/cp437.cc
 src/intviewer/datapresentation.cc
 src/intviewer/fileops.cc
-src/intviewer/image-render.cc
 src/intviewer/inputmodes.cc
 src/intviewer/search_dialog.rs
 src/intviewer/search_progress_dialog.rs
