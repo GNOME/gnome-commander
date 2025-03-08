@@ -88,6 +88,8 @@ pub mod ffi {
         );
 
         pub fn gnome_cmd_file_list_goto_directory(fl: *mut GnomeCmdFileList, dir: *const c_char);
+
+        pub fn gnome_cmd_file_list_show_rename_dialog(fl: *mut GnomeCmdFileList);
     }
 
     #[derive(Copy, Clone)]
@@ -419,6 +421,10 @@ impl FileList {
         .replace("{total_dirs}", &stats.total.directories.to_string());
 
         info_str
+    }
+
+    pub fn show_rename_dialog(&self) {
+        unsafe { ffi::gnome_cmd_file_list_show_rename_dialog(self.to_glib_none().0) }
     }
 
     pub fn show_quick_search(&self, key: Option<gdk::Key>) {

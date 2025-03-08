@@ -168,13 +168,6 @@ struct GnomeCmdFileList
      */
     GnomeCmdFile *get_selected_file();
 
-    /**
-     * Returns the first selected file if any or the focused one
-     * otherwise. The returned file is not reffed. The ".." file is NOT
-     * returned if focused
-     */
-    GnomeCmdFile *get_first_selected_file();
-
     gboolean file_is_wanted(GnomeCmdFile *f);
 
     void update_file(GnomeCmdFile *f);
@@ -251,7 +244,7 @@ inline GnomeCmdFile *GnomeCmdFileList::get_selected_file()
 
 void gnome_cmd_file_list_show_delete_dialog (GnomeCmdFileList *fl, gboolean forceDelete = FALSE);
 void gnome_cmd_file_list_show_properties_dialog (GnomeCmdFileList *fl);
-void gnome_cmd_file_list_show_rename_dialog (GnomeCmdFileList *fl);
+extern "C" void gnome_cmd_file_list_show_rename_dialog (GnomeCmdFileList *fl);
 void gnome_cmd_file_list_show_selpat_dialog (GnomeCmdFileList *fl, gboolean mode);
 
 extern "C" void gnome_cmd_file_list_show_quicksearch (GnomeCmdFileList *fl, guint keyval);

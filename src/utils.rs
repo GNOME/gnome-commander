@@ -325,9 +325,9 @@ pub fn toggle_file_name_selection(entry: &gtk::Entry) {
 pub fn get_modifiers_state(window: &gtk::Window) -> Option<gdk::ModifierType> {
     let gdk_window = window.surface()?;
     let display = gdk_window.display();
-    let pointer = display.default_seat()?.pointer()?;
-    let (_x, _y, modifiers) = gdk_window.device_position(&pointer)?;
-    Some(modifiers)
+    let seat = display.default_seat()?;
+    let keyboard = seat.keyboard()?;
+    Some(keyboard.modifier_state())
 }
 
 pub async fn pending() {

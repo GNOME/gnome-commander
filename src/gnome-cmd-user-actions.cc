@@ -213,64 +213,7 @@ static GnomeCmdFileList *get_fl (GnomeCmdMainWin *main_win, const FileSelectorID
 }
 
 
-inline gboolean append_real_path (string &s, const gchar *name)
-{
-    s += ' ';
-    s += name;
-
-    return TRUE;
-}
-
-
-static gboolean append_real_path (string &s, GnomeCmdFile *f)
-{
-    if (!f)
-        return FALSE;
-
-    gchar *name = g_shell_quote (f->get_real_path());
-
-    append_real_path (s, name);
-
-    g_free (name);
-
-    return TRUE;
-}
-
-
 GcmdUserActionSettings *settings;
-
-
-template <typename F>
-static void get_file_list (string &s, GList *sfl, F f)
-{
-    vector<string> a;
-
-    for (GList *i = sfl; i; i = i->next)
-    {
-        auto value = (*f) (GNOME_CMD_FILE (i->data));
-
-        if (value)
-            a.push_back (value);
-    }
-    join (s, a.begin(), a.end());
-}
-
-
-template <typename F, typename T>
-inline void get_file_list (string &s, GList *sfl, F f, T t)
-{
-    vector<string> a;
-
-    for (GList *i = sfl; i; i = i->next)
-    {
-        auto value = (*f) (GNOME_CMD_FILE (i->data), t);
-
-        if (value)
-            a.push_back (value);
-    }
-
-    join (s, a.begin(), a.end());
-}
 
 
 /************** File Menu **************/
@@ -333,14 +276,6 @@ void file_mkdir (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 }
 
 
-void file_rename (GSimpleAction *action, GVariant *parameter, gpointer user_data)
-{
-    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
-
-    gnome_cmd_file_list_show_rename_dialog (get_fl (main_win, ACTIVE));
-}
-
-
 void file_advrename (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
     auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
@@ -366,111 +301,6 @@ void file_properties (GSimpleAction *action, GVariant *parameter, gpointer user_
 }
 
 
-void file_diff (GSimpleAction *action, GVariant *parameter, gpointer user_data)
-{
-    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
-
-    if (!main_win->fs (ACTIVE)->is_local())
-    {
-        gnome_cmd_show_message (*main_win, _("Operation not supported on remote file systems"));
-        return;
-    }
-
-    GnomeCmdFileList *active_fl = get_fl (main_win, ACTIVE);
-
-    GList *sel_files = active_fl->get_selected_files();
-
-    string files_to_differ;
-
-    switch (g_list_length (sel_files))
-    {
-        case 0:
-            return;
-
-        case 1:
-            if (!main_win->fs (INACTIVE)->is_local())
-                gnome_cmd_show_message (*main_win, _("Operation not supported on remote file systems"));
-            else
-            {
-                GnomeCmdFile *active_file = (GnomeCmdFile *) sel_files->data;
-                GnomeCmdFile *inactive_file = get_fl (main_win, INACTIVE)->get_first_selected_file();
-
-                if (inactive_file)
-                {
-                    append_real_path (files_to_differ, active_file);
-                    append_real_path (files_to_differ, inactive_file);
-                }
-                else
-                {
-                    gnome_cmd_show_message (*main_win, _("No file selected"));
-                }
-            }
-            break;
-
-        case 2:
-        case 3:
-            for (GList *i = sel_files; i; i = i->next)
-                append_real_path (files_to_differ, GNOME_CMD_FILE (i->data));
-            break;
-
-        default:
-            gnome_cmd_show_message (*main_win, _("Too many selected files"));
-            break;
-    }
-
-    g_list_free (sel_files);
-
-    if (!files_to_differ.empty())
-    {
-#if defined (__GNUC__)
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wformat-nonliteral"
-#endif
-        gchar *cmd = g_strdup_printf (gnome_cmd_data.options.differ, files_to_differ.c_str(), "");
-#if defined (__GNUC__)
-#pragma GCC diagnostic pop
-#endif
-
-        run_command (*main_win, cmd);
-
-        g_free (cmd);
-    }
-}
-
-
-void file_sync_dirs (GSimpleAction *action, GVariant *parameter, gpointer user_data)
-{
-    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
-
-    GnomeCmdFileSelector *active_fs = main_win->fs (ACTIVE);
-    GnomeCmdFileSelector *inactive_fs = main_win->fs (INACTIVE);
-
-    if (!active_fs->is_local() || !inactive_fs->is_local())
-    {
-        gnome_cmd_show_message (*main_win, _("Operation not supported on remote file systems"));
-        return;
-    }
-
-    string s;
-
-    append_real_path (s, GNOME_CMD_FILE (active_fs->get_directory()));
-    append_real_path (s, GNOME_CMD_FILE (inactive_fs->get_directory()));
-
-#if defined (__GNUC__)
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wformat-nonliteral"
-#endif
-    gchar *cmd = g_strdup_printf (gnome_cmd_data.options.differ, s.c_str(), "");
-#if defined (__GNUC__)
-#pragma GCC diagnostic pop
-#endif
-
-    run_command (*main_win, cmd);
-
-    g_free (cmd);
-}
-
-
 void file_exit (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
     auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
@@ -485,34 +315,6 @@ void edit_filter (GSimpleAction *action, GVariant *parameter, gpointer user_data
     auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
 
     main_win->fs (ACTIVE)->show_filter();
-}
-
-
-void edit_copy_fnames (GSimpleAction *action, GVariant *parameter, gpointer user_data)
-{
-    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
-
-    GdkModifierType mask = get_modifiers_state(); // TODO: get this via parameter
-
-    GnomeCmdFileList *fl = get_fl (main_win, ACTIVE);
-    GList *sfl = fl->get_selected_files();
-
-    string fnames;
-
-    fnames.reserve(2000);
-
-    if (state_is_blank (mask))
-        get_file_list (fnames, sfl, gnome_cmd_file_get_name);
-    else
-        if (state_is_shift (mask))
-            get_file_list (fnames, sfl, gnome_cmd_file_get_real_path);
-        else
-            if (state_is_alt (mask))
-                get_file_list (fnames, sfl, gnome_cmd_file_get_uri_str);
-
-    gdk_clipboard_set_text (gtk_widget_get_clipboard (GTK_WIDGET (main_win)), fnames.c_str());
-
-    g_list_free (sfl);
 }
 
 
@@ -884,68 +686,6 @@ void view_new_tab (GSimpleAction *action, GVariant *parameter, gpointer user_dat
     GnomeCmdFileList *fl = get_fl (main_win, ACTIVE);
     GnomeCmdFileSelector *fs = GNOME_CMD_FILE_SELECTOR (gtk_widget_get_ancestor (*fl, GNOME_CMD_TYPE_FILE_SELECTOR));
     fs->new_tab(fl->cwd);
-}
-
-
-extern "C" void view_close_tab (GSimpleAction *action, GVariant *parameter, gpointer user_data);
-
-
-void view_close_all_tabs (GSimpleAction *action, GVariant *parameter, gpointer user_data)
-{
-    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
-    GnomeCmdFileSelector *fs = main_win->fs (ACTIVE);
-    GtkNotebook *notebook = GTK_NOTEBOOK (fs->notebook);
-
-    gint n = gtk_notebook_get_current_page (notebook);
-
-    for (gint i = gtk_notebook_get_n_pages (notebook); i--;)
-        if (i!=n && !fs->file_list(i)->locked)
-            gtk_notebook_remove_page (notebook, i);
-
-    fs->update_show_tabs ();
-}
-
-
-void view_close_duplicate_tabs (GSimpleAction *action, GVariant *parameter, gpointer user_data)
-{
-    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
-    GnomeCmdFileSelector *fs = main_win->fs (ACTIVE);
-    GtkNotebook *notebook = GTK_NOTEBOOK (fs->notebook);
-
-    typedef set<gint> TABS_COLL;
-    typedef map <GnomeCmdDir *, TABS_COLL> DIRS_COLL;
-
-    DIRS_COLL dirs;
-
-    for (gint i = gtk_notebook_get_n_pages (notebook); i--;)
-    {
-        GnomeCmdFileList *fl = fs->file_list(i);
-
-        if (fl && !fl->locked)
-            dirs[fl->cwd].insert(i);
-    }
-
-    TABS_COLL duplicates;
-
-    DIRS_COLL::iterator pos = dirs.find(fs->get_directory());       //  find tabs with the current dir...
-
-    if (pos!=dirs.end())
-    {
-        duplicates.swap(pos->second);                               //  ... and mark them as to be closed...
-        duplicates.erase(gtk_notebook_get_current_page (notebook)); //  ... but WITHOUT the current one
-        dirs.erase(pos);
-    }
-
-    for (DIRS_COLL::const_iterator i=dirs.begin(); i!=dirs.end(); ++i)
-    {
-        TABS_COLL::iterator beg = i->second.begin();
-        copy(++beg, i->second.end(), inserter(duplicates, duplicates.begin()));   //  for every dir, leave the first tab opened
-    }
-
-    for (TABS_COLL::const_reverse_iterator i=duplicates.rbegin(); i!=duplicates.rend(); ++i)
-        gtk_notebook_remove_page (notebook, *i);
-
-    fs->update_show_tabs ();
 }
 
 

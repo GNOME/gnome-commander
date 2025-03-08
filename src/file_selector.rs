@@ -38,7 +38,10 @@ use gtk::{
     graphene,
     prelude::*,
 };
-use std::path::Path;
+use std::{
+    collections::{BTreeSet, HashMap},
+    path::Path,
+};
 
 pub mod ffi {
     use crate::{
@@ -46,7 +49,7 @@ pub mod ffi {
         file_list::list::ffi::GnomeCmdFileList,
     };
     use gtk::{
-        ffi::GtkWidget,
+        ffi::{GtkNotebook, GtkWidget},
         glib::ffi::{gboolean, GType},
     };
 
@@ -81,6 +84,10 @@ pub mod ffi {
             con: *mut GnomeCmdCon,
             start_dir: *mut GnomeCmdDir,
         );
+
+        pub fn gnome_cmd_file_selector_get_notebook(
+            fs: *mut GnomeCmdFileSelector,
+        ) -> *mut GtkNotebook;
 
         pub fn gnome_cmd_file_selector_new_tab(fs: *mut GnomeCmdFileSelector) -> *const GtkWidget;
 
@@ -160,6 +167,14 @@ impl FileSelector {
         }
     }
 
+    fn notebook(&self) -> gtk::Notebook {
+        unsafe {
+            from_glib_none(ffi::gnome_cmd_file_selector_get_notebook(
+                self.to_glib_none().0,
+            ))
+        }
+    }
+
     pub fn new_tab(&self) -> gtk::Widget {
         unsafe { from_glib_none(ffi::gnome_cmd_file_selector_new_tab(self.to_glib_none().0)) }
     }
@@ -224,6 +239,45 @@ impl FileSelector {
                     self.set_connection(&con, None);
                 }
             }
+        }
+    }
+
+    pub fn close_all_tabs(&self) {
+        let current = self.notebook().current_page();
+        for index in (0..self.tab_count())
+            .rev()
+            .filter(|i| Some(*i) != current)
+            .filter(|i| !self.file_list_nth(*i).is_locked())
+        {
+            self.close_tab_nth(index);
+        }
+    }
+
+    pub fn close_duplicate_tabs(&self) {
+        let mut dirs = HashMap::<Directory, BTreeSet<u32>>::new();
+        for index in 0..self.tab_count() {
+            let file_list = self.file_list_nth(index);
+            if !file_list.is_locked() {
+                if let Some(directory) = file_list.directory() {
+                    dirs.entry(directory).or_default().insert(index);
+                }
+            }
+        }
+
+        let mut duplicates = BTreeSet::new();
+        if let Some(mut indexes) = self.directory().and_then(|d| dirs.remove(&d)) {
+            if let Some(current_index) = self.notebook().current_page() {
+                indexes.remove(&current_index);
+            }
+            duplicates.extend(indexes);
+        }
+
+        for indexes in dirs.values() {
+            duplicates.extend(indexes.into_iter().skip(1));
+        }
+
+        for index in duplicates.into_iter().rev() {
+            self.close_tab_nth(index);
         }
     }
 }
