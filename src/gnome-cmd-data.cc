@@ -33,7 +33,6 @@
 #include "gnome-cmd-cmdline.h"
 #include "gnome-cmd-user-actions.h"
 #include "utils.h"
-#include "gnome-cmd-owner.h"
 #include "dialogs/gnome-cmd-advrename-dialog.h"
 
 using namespace std;

@@ -24,7 +24,6 @@
 
 #include "gnome-cmd-includes.h"
 #include "utils.h"
-#include "gnome-cmd-owner.h"
 #include "imageloader.h"
 #include "gnome-cmd-data.h"
 #include "gnome-cmd-plain-path.h"
@@ -825,28 +824,6 @@ void GnomeCmdFile::update_gFileInfo(GFileInfo *gFileInfo_new)
 }
 
 
-gboolean GnomeCmdFile::is_executable()
-{
-    if (!gnome_cmd_file_is_local(this))
-        return FALSE;
-
-    if (GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE) != G_FILE_TYPE_REGULAR)
-        return FALSE;
-
-    if (GetGfileAttributeBoolean(G_FILE_ATTRIBUTE_ACCESS_CAN_EXECUTE))
-        return TRUE;
-
-    if (gcmd_owner.gid() == GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_UNIX_GID)
-                            && GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_UNIX_MODE) & GNOME_CMD_PERM_GROUP_EXEC)
-        return TRUE;
-
-    if (GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_UNIX_MODE) & GNOME_CMD_PERM_OTHER_EXEC)
-        return TRUE;
-
-    return FALSE;
-}
-
-
 void GnomeCmdFile::set_deleted()
 {
     if (has_parent_dir (this))
@@ -988,11 +965,6 @@ gboolean gnome_cmd_file_is_local (GnomeCmdFile *f)
 {
     GnomeCmdCon *con = gnome_cmd_file_get_connection (f);
     return gnome_cmd_con_is_local (con);
-}
-
-gboolean gnome_cmd_file_is_executable(GnomeCmdFile *f)
-{
-    return f->is_executable();
 }
 
 gboolean gnome_cmd_file_chown(GnomeCmdFile *f, uid_t uid, gid_t gid, GError **error)
