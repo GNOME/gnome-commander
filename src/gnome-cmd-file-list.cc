@@ -2243,7 +2243,7 @@ void GnomeCmdFileList::set_directory(GnomeCmdDir *dir)
     if (cwd==dir)
         return;
 
-    if (realized && dir->state!=GnomeCmdDir::STATE_LISTED)
+    if (realized && gnome_cmd_dir_get_state (dir) != GnomeCmdDir::STATE_LISTED)
     {
         gtk_widget_set_sensitive (*this, FALSE);
         set_cursor_busy_for_widget (*this);
@@ -2264,25 +2264,20 @@ void GnomeCmdFileList::set_directory(GnomeCmdDir *dir)
     }
 
     cwd = dir;
+    g_signal_connect (dir, "list-ok", G_CALLBACK (on_dir_list_ok), this);
+    g_signal_connect (dir, "list-failed", G_CALLBACK (on_dir_list_failed), this);
 
-    switch (dir->state)
+    switch (gnome_cmd_dir_get_state (dir))
     {
         case GnomeCmdDir::STATE_EMPTY:
-            g_signal_connect (dir, "list-ok", G_CALLBACK (on_dir_list_ok), this);
-            g_signal_connect (dir, "list-failed", G_CALLBACK (on_dir_list_failed), this);
             gnome_cmd_dir_list_files (GTK_WINDOW (gtk_widget_get_root (*this)), dir, gnome_cmd_con_needs_list_visprog (con));
             break;
 
         case GnomeCmdDir::STATE_LISTING:
         case GnomeCmdDir::STATE_CANCELING:
-            g_signal_connect (dir, "list-ok", G_CALLBACK (on_dir_list_ok), this);
-            g_signal_connect (dir, "list-failed", G_CALLBACK (on_dir_list_failed), this);
             break;
 
         case GnomeCmdDir::STATE_LISTED:
-            g_signal_connect (dir, "list-ok", G_CALLBACK (on_dir_list_ok), this);
-            g_signal_connect (dir, "list-failed", G_CALLBACK (on_dir_list_failed), this);
-
             // check if the dir has up-to-date file list; if not and it's a local dir - relist it
             if (gnome_cmd_file_is_local (GNOME_CMD_FILE (dir)) && !gnome_cmd_dir_is_monitored (dir) && gnome_cmd_dir_update_mtime (dir))
                 gnome_cmd_dir_relist_files (GTK_WINDOW (gtk_widget_get_root (*this)), dir, gnome_cmd_con_needs_list_visprog (con));
