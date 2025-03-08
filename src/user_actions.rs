@@ -46,6 +46,7 @@ use crate::{
     },
     dir::Directory,
     file::File,
+    file_list::list::FileList,
     libgcmd::{
         file_actions::{FileActions, FileActionsExt},
         file_descriptor::FileDescriptorExt,
@@ -277,9 +278,114 @@ pub fn file_chown(
 
 c_action!(file_mkdir);
 c_action!(file_properties);
-c_action!(file_diff);
-c_action!(file_sync_dirs);
-c_action!(file_rename);
+
+fn ensure_file_list_is_local(file_list: &FileList) -> Result<(), ErrorMessage> {
+    if file_list.connection().map_or(false, |c| c.is_local()) {
+        Ok(())
+    } else {
+        Err(ErrorMessage::brief(gettext(
+            "Operation not supported on remote file systems",
+        )))
+    }
+}
+
+async fn do_file_diff(
+    main_win: &MainWindow,
+    options: &dyn ProgramsOptionsRead,
+) -> Result<(), ErrorMessage> {
+    let active_fl = main_win.file_selector(FileSelectorID::ACTIVE).file_list();
+    let inactive_fl = main_win.file_selector(FileSelectorID::INACTIVE).file_list();
+
+    ensure_file_list_is_local(&active_fl)?;
+
+    let selected_files = active_fl.selected_files();
+    match selected_files.len() {
+        0 => Ok(()),
+        1 => {
+            ensure_file_list_is_local(&inactive_fl)?;
+
+            let active_file = selected_files.front().unwrap().clone();
+
+            let inactive_file = inactive_fl
+                .selected_files()
+                .front()
+                .ok_or_else(|| ErrorMessage::new(gettext("No file selected"), None::<String>))?
+                .clone();
+
+            let mut files = glib::List::new();
+            files.push_back(active_file);
+            files.push_back(inactive_file);
+
+            spawn_async(None, &files, &options.differ_cmd()).map_err(SpawnError::into_message)
+        }
+        2 | 3 => spawn_async(None, &selected_files, &options.differ_cmd())
+            .map_err(SpawnError::into_message),
+
+        _ => Err(ErrorMessage::brief(gettext("Too many selected files"))),
+    }
+}
+
+pub fn file_diff(
+    main_win: &MainWindow,
+    _action: &gio::SimpleAction,
+    _parameter: Option<&glib::Variant>,
+) {
+    let main_win = main_win.clone();
+    let options = ProgramsOptions::new();
+    glib::spawn_future_local(async move {
+        if let Err(error) = do_file_diff(&main_win, &options).await {
+            error.show(main_win.upcast_ref()).await;
+        }
+    });
+}
+
+async fn do_file_sync_dirs(
+    main_win: &MainWindow,
+    options: &dyn ProgramsOptionsRead,
+) -> Result<(), ErrorMessage> {
+    let active_fl = main_win.file_selector(FileSelectorID::ACTIVE).file_list();
+    let inactive_fl = main_win.file_selector(FileSelectorID::INACTIVE).file_list();
+
+    ensure_file_list_is_local(&active_fl)?;
+    ensure_file_list_is_local(&inactive_fl)?;
+
+    let (active_dir, inactive_dir) = active_fl
+        .directory()
+        .zip(inactive_fl.directory())
+        .ok_or_else(|| ErrorMessage::brief(gettext("Nothing to compare")))?;
+
+    let mut files = glib::List::new();
+    files.push_back(active_dir.upcast());
+    files.push_back(inactive_dir.upcast());
+
+    spawn_async(None, &files, &options.differ_cmd()).map_err(SpawnError::into_message)
+}
+
+pub fn file_sync_dirs(
+    main_win: &MainWindow,
+    _action: &gio::SimpleAction,
+    _parameter: Option<&glib::Variant>,
+) {
+    let main_win = main_win.clone();
+    let options = ProgramsOptions::new();
+    glib::spawn_future_local(async move {
+        if let Err(error) = do_file_sync_dirs(&main_win, &options).await {
+            error.show(main_win.upcast_ref()).await;
+        }
+    });
+}
+
+pub fn file_rename(
+    main_win: &MainWindow,
+    _action: &gio::SimpleAction,
+    _parameter: Option<&glib::Variant>,
+) {
+    let main_win = main_win.clone();
+    let file_selector = main_win.file_selector(FileSelectorID::ACTIVE);
+    let file_list = file_selector.file_list();
+
+    file_list.show_rename_dialog();
+}
 
 fn symlink_name(file_name: &str, options: &dyn GeneralOptionsRead) -> String {
     let mut format = options.symlink_format();
@@ -574,7 +680,33 @@ pub fn edit_cap_paste(
 }
 
 c_action!(edit_filter);
-c_action!(edit_copy_fnames);
+
+pub fn edit_copy_fnames(
+    main_win: &MainWindow,
+    _action: &gio::SimpleAction,
+    _parameter: Option<&glib::Variant>,
+) {
+    let mask = get_modifiers_state(main_win.upcast_ref());
+
+    let files = main_win
+        .file_selector(FileSelectorID::ACTIVE)
+        .file_list()
+        .selected_files();
+
+    let names: Vec<String> = match mask {
+        Some(gdk::ModifierType::SHIFT_MASK) => files
+            .into_iter()
+            .map(|f| f.get_real_path())
+            .map(|p| p.to_string_lossy().to_string())
+            .collect(),
+        Some(gdk::ModifierType::ALT_MASK) => {
+            files.into_iter().filter_map(|f| f.get_uri_str()).collect()
+        }
+        _ => files.into_iter().map(|f| f.get_name()).collect(),
+    };
+
+    main_win.clipboard().set_text(&names.join(" "));
+}
 
 /************** Command Menu **************/
 
@@ -709,8 +841,26 @@ pub fn view_close_tab(
     });
 }
 
-c_action!(view_close_all_tabs);
-c_action!(view_close_duplicate_tabs);
+pub fn view_close_all_tabs(
+    main_win: &MainWindow,
+    _action: &gio::SimpleAction,
+    _parameter: Option<&glib::Variant>,
+) {
+    main_win
+        .file_selector(FileSelectorID::ACTIVE)
+        .close_all_tabs();
+}
+
+pub fn view_close_duplicate_tabs(
+    main_win: &MainWindow,
+    _action: &gio::SimpleAction,
+    _parameter: Option<&glib::Variant>,
+) {
+    main_win
+        .file_selector(FileSelectorID::ACTIVE)
+        .close_duplicate_tabs();
+}
+
 c_action!(view_prev_tab);
 c_action!(view_next_tab);
 c_action!(view_in_new_tab);

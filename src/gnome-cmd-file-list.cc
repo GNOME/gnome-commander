@@ -1629,21 +1629,6 @@ GList *GnomeCmdFileList::get_selected_files()
 }
 
 
-GnomeCmdFile *GnomeCmdFileList::get_first_selected_file()
-{
-    GnomeCmdFile *selected_file = nullptr;
-    traverse_files([this, &selected_file](GnomeCmdFile *file, GtkTreeIter *iter, GtkListStore *store) {
-        if (is_selected_iter(iter))
-        {
-            selected_file = file;
-            return TraverseControl::TRAVERSE_BREAK;
-        }
-        return TraverseControl::TRAVERSE_CONTINUE;
-    });
-    return selected_file;
-}
-
-
 GtkTreeIterPtr GnomeCmdFileList::get_focused_file_iter()
 {
     GtkTreePath *path = nullptr;

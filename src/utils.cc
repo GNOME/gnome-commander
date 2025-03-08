@@ -631,38 +631,6 @@ void gnome_cmd_error_message (GtkWindow *parent, const gchar *message, GError *e
 }
 
 
-int split(const string &s, vector<string> &coll, const char *sep)
-{
-  coll.clear();
-
-  if (s.empty())  return 0;
-
-  if (!sep)  sep = "";
-  int seplen = strlen(sep);
-
-  if (!seplen)
-  {
-    for (string::const_iterator i=s.begin(); i!=s.end(); ++i)
-      coll.push_back(string(1,*i));
-
-    return s.length();
-  }
-
-  int n = 1;
-  int start = 0;
-
-  for (int end; (size_t)(end=s.find(sep,start))!=string::npos; ++n)
-  {
-    coll.push_back(string(s,start,end-start));
-    start = end + seplen;
-  }
-
-  coll.push_back(string(s,start));
-
-  return n;
-}
-
-
 gint get_string_pixel_size (const char *s, int len)
 {
     // find the size, in pixels, of the given string

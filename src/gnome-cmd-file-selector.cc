@@ -1134,6 +1134,11 @@ void gnome_cmd_file_selector_set_connection(GnomeCmdFileSelector *fs, GnomeCmdCo
     fs->set_connection(con, start_dir);
 }
 
+extern "C" GtkNotebook *gnome_cmd_file_selector_get_notebook (GnomeCmdFileSelector *fs)
+{
+    return GTK_NOTEBOOK (fs->notebook);
+}
+
 GtkWidget *gnome_cmd_file_selector_new_tab (GnomeCmdFileSelector *fs)
 {
     return fs->new_tab();
