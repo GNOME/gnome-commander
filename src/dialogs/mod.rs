@@ -52,3 +52,5 @@ pub mod open_with_other_dialog;
 pub mod new_text_file;
 
 pub mod options;
+
+pub mod about_plugin;
