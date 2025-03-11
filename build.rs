@@ -1,5 +1,5 @@
 fn main() {
-    for dep in ["gcmd-main", "gviewer", "gcmd-tags", "stdc++", "gcmd"] {
+    for dep in ["gcmd-main", "gviewer", "stdc++", "gcmd"] {
         println!("cargo:rustc-link-lib={dep}");
     }
     // allow plugins to see symbols

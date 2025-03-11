@@ -34,4 +34,5 @@ extern "C" char *gnome_cmd_advrename_gen_fname(GnomeCmdAdvrenameTemplate *tmplt,
                                                guint precision,
                                                gulong index,
                                                gulong count,
-                                               GnomeCmdFile *file);
+                                               GnomeCmdFile *file,
+                                               GnomeCmdFileMetadata *metadata);

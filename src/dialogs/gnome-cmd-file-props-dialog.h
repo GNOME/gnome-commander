@@ -22,6 +22,8 @@
 #pragma once
 
 #include "gnome-cmd-file.h"
+#include "tags/file_metadata.h"
 
-GtkWidget *gnome_cmd_file_props_dialog_create (GtkWindow *parent_window, GnomeCmdFile *f);
-void gnome_cmd_file_props_dialog_show (GtkWindow *parent_window, GnomeCmdFile *f);
+void gnome_cmd_file_props_dialog_show (GtkWindow *parent_window,
+                                       GnomeCmdFileMetadataService *file_metadata_service,
+                                       GnomeCmdFile *f);

@@ -30,7 +30,7 @@
 #include "gnome-cmd-main-win.h"
 #include "gnome-cmd-con-list.h"
 #include "gnome-cmd-xfer.h"
-#include "tags/gnome-cmd-tags.h"
+#include "tags/file_metadata.h"
 #include "intviewer/libgviewer.h"
 #include "dialogs/gnome-cmd-file-props-dialog.h"
 #include "gnome-cmd-user-actions.h"
@@ -108,8 +108,6 @@ static void gnome_cmd_file_dispose (GObject *object)
 static void gnome_cmd_file_finalize (GObject *object)
 {
     GnomeCmdFile *f = GNOME_CMD_FILE (object);
-
-    delete f->metadata;
 
     if (f->get_file_info() && strcmp(g_file_info_get_display_name(f->get_file_info()), "..") != 0)
         DEBUG ('f', "file destroying %p %s\n", f, g_file_info_get_display_name(f->get_file_info()));
@@ -208,13 +206,6 @@ GnomeCmdFile *gnome_cmd_file_new_from_path (const gchar *local_full_path)
     }
 
     return gnome_cmd_file_new_full (gFileInfo, gFile, dir);
-}
-
-
-void GnomeCmdFile::invalidate_metadata()
-{
-    delete metadata;
-    metadata = nullptr;
 }
 
 

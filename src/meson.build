@@ -1,4 +1,5 @@
 sources_headers = files(
+  'tags/file_metadata.h',
   'dict.h',
   'dirlist.h',
   'filter.h',
@@ -104,14 +105,13 @@ sources_dep = declare_dependency(
 
 subdir('dialogs')
 subdir('intviewer')
-subdir('tags')
 
 sources_headers += dialogs_headers
 sources_sources += dialogs_sources
 
 rpath = get_option('prefix') / get_option('libdir')
 
-sources_deps = [common_deps, libgcmdtags_dep, intviewer_dep]
+sources_deps = [common_deps, intviewer_dep]
 
 libgcmdmain = static_library('gcmd-main',
   c_args: cc_args,
@@ -143,24 +143,6 @@ cargo_options = [
   '--target-dir', meson.project_build_root() / 'src',
 ]
 
-cargo_features = []
-if have_exif2
-  cargo_features += ['use-exiv2']
-endif
-if have_gsf
-  cargo_features += ['use-gsf-1']
-endif
-if have_taglib
-  cargo_features += ['use-taglib']
-endif
-if have_pdf
-  cargo_features += ['use-poppler']
-endif
-
-if cargo_features.length() > 0
-  cargo_options += ['--features', ','.join(cargo_features)]
-endif
-
 if profile == 'debug'
   rust_target = 'debug'
   message('Building in debug mode')
@@ -174,7 +156,6 @@ cargo_env = [
   'CARGO_HOME=' + meson.project_build_root() / 'cargo-home',
   'RUSTFLAGS=-L ' + (meson.project_build_root() / 'src')
         + ' -L ' + (meson.project_build_root() / 'src' / 'intviewer')
-        + ' -L ' + (meson.project_build_root() / 'src' / 'tags')
         + ' -L ' + (meson.project_build_root() / 'libgcmd')
         + ' -lgcmd'
         + ' -C link-arg=-Wl,-rpath=' + rpath,
@@ -188,7 +169,7 @@ commander = custom_target(
   'gnome-commander',
   build_by_default: true,
   build_always_stale: true,
-  input: [config_rs, intviewer_lib, libgcmdtags, libgcmdmain],
+  input: [config_rs, intviewer_lib, libgcmdmain],
   output: meson.project_name(),
   console: true,
   install: true,

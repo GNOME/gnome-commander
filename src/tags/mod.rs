@@ -17,5 +17,7 @@
  * For more details see the file COPYING.
  */
 
+pub mod basic;
 pub mod file_metadata;
+pub mod image;
 pub mod tags;

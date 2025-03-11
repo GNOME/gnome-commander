@@ -3,7 +3,11 @@
 data/org.gnome.gnome-commander.appdata.xml.in
 data/org.gnome.gnome-commander.desktop.in
 data/org.gnome.gnome-commander.gschema.xml
+plugins/exiv2/exiv2-plugin.cc
 plugins/fileroller/file-roller-plugin.cc
+plugins/gsf/gsf-plugin.cc
+plugins/poppler/poppler-plugin.cc
+plugins/taglib/taglib-plugin.cc
 plugins/test/test-plugin.cc
 src/advrename_profile_component.rs
 src/app.rs
@@ -90,11 +94,8 @@ src/plugin_manager.rs
 src/select_directory_button.rs
 src/select_icon_button.rs
 src/spawn.rs
-src/tags/gnome-cmd-tags.cc
-src/tags/gnome-cmd-tags-doc.cc
-src/tags/gnome-cmd-tags-exiv2.cc
-src/tags/gnome-cmd-tags-poppler.cc
-src/tags/gnome-cmd-tags-taglib.cc
+src/tags/basic.rs
+src/tags/image.rs
 src/transfer.rs
 src/user_actions.rs
 src/utils.cc

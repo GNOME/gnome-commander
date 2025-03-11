@@ -26,6 +26,7 @@ use crate::{
     file_edit::file_edit,
     file_view::file_view,
     libgcmd::file_descriptor::FileDescriptorExt,
+    main_win::MainWindow,
     spawn::run_command_indir,
     transfer::gnome_cmd_tmp_download,
     utils::{get_modifiers_state, temp_file, ErrorMessage},
@@ -51,7 +52,7 @@ pub extern "C" fn gnome_cmd_file_list_action_file_view(
 
     let use_internal_viewer = parameter.and_then(|v| v.get::<bool>());
 
-    let Some(parent_window) = file_list.root().and_downcast::<gtk::Window>() else {
+    let Some(parent_window) = file_list.root().and_downcast::<MainWindow>() else {
         eprintln!("No window");
         return;
     };
@@ -59,8 +60,17 @@ pub extern "C" fn gnome_cmd_file_list_action_file_view(
         let Some(file) = file_list.selected_file() else {
             return;
         };
-        if let Err(error) = file_view(&parent_window, &file, use_internal_viewer, &options).await {
-            error.show(&parent_window).await;
+        let file_metadata_service = parent_window.file_metadata_service();
+        if let Err(error) = file_view(
+            parent_window.upcast_ref(),
+            &file,
+            use_internal_viewer,
+            &options,
+            &file_metadata_service,
+        )
+        .await
+        {
+            error.show(parent_window.upcast_ref()).await;
         }
     });
 }

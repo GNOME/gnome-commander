@@ -18,6 +18,7 @@
  */
 
 use super::profiles::{manage_profiles_dialog::manage_profiles, profiles::ProfileManager};
+use crate::tags::tags::FileMetadataService;
 use gettextrs::gettext;
 use gtk::{
     ffi::{GtkSizeGroup, GtkWidget, GtkWindow},
@@ -40,6 +41,7 @@ type AdvrenameProfilesPtr = c_void;
 extern "C" {
     fn gnome_cmd_advrename_profile_component_new(
         profile: *mut AdvRenameProfilePtr,
+        fms: *mut <FileMetadataService as glib::object::ObjectType>::GlibType,
         labels_size_group: *mut GtkSizeGroup,
     ) -> *mut GtkWidget;
     fn gnome_cmd_advrename_profile_component_update(component: *mut GtkWidget);
@@ -154,6 +156,7 @@ impl AdvrenameProfiles {
 
 struct AdvRenameProfileManager {
     profiles: AdvrenameProfiles,
+    file_metadata_service: FileMetadataService,
 }
 
 impl ProfileManager for AdvRenameProfileManager {
@@ -193,6 +196,7 @@ impl ProfileManager for AdvRenameProfileManager {
         let widget_ptr = unsafe {
             gnome_cmd_advrename_profile_component_new(
                 self.profiles.profile(profile_index).0,
+                self.file_metadata_service.to_glib_none().0,
                 labels_size_group.to_glib_none().0,
             )
         };
@@ -221,9 +225,11 @@ extern "C" {
 pub extern "C" fn gnome_cmd_advrename_dialog_do_manage_profiles(
     dialog_ptr: *mut GnomeCmdAdvrenameDialog,
     cfg: *mut AdvRenameConfig,
+    fms: *mut <FileMetadataService as glib::object::ObjectType>::GlibType,
     new_profile: gboolean,
 ) {
     let dialog: gtk::Window = unsafe { from_glib_none(dialog_ptr) };
+    let file_metadata_service: FileMetadataService = unsafe { from_glib_none(fms) };
 
     glib::spawn_future_local(async move {
         let profiles =
@@ -234,7 +240,10 @@ pub extern "C" fn gnome_cmd_advrename_dialog_do_manage_profiles(
             profiles.set_profile_name(last_index, &gettext("New profile"));
         }
 
-        let manager = Rc::new(AdvRenameProfileManager { profiles });
+        let manager = Rc::new(AdvRenameProfileManager {
+            profiles,
+            file_metadata_service,
+        });
 
         if manage_profiles(
             dialog.upcast_ref(),

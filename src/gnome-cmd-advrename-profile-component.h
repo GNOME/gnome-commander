@@ -21,6 +21,7 @@
 #pragma once
 
 #include "gnome-cmd-data.h"
+#include "tags/file_metadata.h"
 
 #define GNOME_CMD_TYPE_ADVRENAME_PROFILE_COMPONENT              (gnome_cmd_advrename_profile_component_get_type ())
 #define GNOME_CMD_ADVRENAME_PROFILE_COMPONENT(obj)              (G_TYPE_CHECK_INSTANCE_CAST((obj), GNOME_CMD_TYPE_ADVRENAME_PROFILE_COMPONENT, GnomeCmdAdvrenameProfileComponent))
@@ -50,7 +51,8 @@ struct GnomeCmdAdvrenameProfileComponent
 
     GnomeCmdData::AdvrenameConfig::Profile &profile;
 
-    explicit GnomeCmdAdvrenameProfileComponent(GnomeCmdData::AdvrenameConfig::Profile &profile);
+    explicit GnomeCmdAdvrenameProfileComponent(GnomeCmdData::AdvrenameConfig::Profile &profile,
+                                               GnomeCmdFileMetadataService *file_metadata_service);
     ~GnomeCmdAdvrenameProfileComponent()     {}
 
     void update();
@@ -66,6 +68,8 @@ struct GnomeCmdAdvrenameProfileComponent
     std::vector<GnomeCmd::RegexReplace> get_valid_regexes();
 };
 
-extern "C" GnomeCmdAdvrenameProfileComponent *gnome_cmd_advrename_profile_component_new (GnomeCmdData::AdvrenameConfig::Profile *profile, GtkSizeGroup *labels_size_group);
+extern "C" GnomeCmdAdvrenameProfileComponent *gnome_cmd_advrename_profile_component_new (GnomeCmdData::AdvrenameConfig::Profile *profile,
+                                                                                         GnomeCmdFileMetadataService *file_metadata_service,
+                                                                                         GtkSizeGroup *labels_size_group);
 extern "C" void gnome_cmd_advrename_profile_component_update (GnomeCmdAdvrenameProfileComponent *component);
 extern "C" void gnome_cmd_advrename_profile_component_copy (GnomeCmdAdvrenameProfileComponent *component);

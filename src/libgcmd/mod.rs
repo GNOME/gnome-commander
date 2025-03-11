@@ -20,6 +20,7 @@
 pub mod configurable;
 pub mod file_actions;
 pub mod file_descriptor;
+pub mod file_metadata_extractor;
 pub mod state;
 
 use std::ffi::c_char;

@@ -17,7 +17,7 @@
  * For more details see the file COPYING.
  */
 
-use crate::{file::File, utils::bold};
+use crate::{file::File, tags::tags::FileMetadataService, utils::bold};
 use gettextrs::gettext;
 use gtk::{
     gio,
@@ -32,21 +32,22 @@ mod imp {
     use super::*;
     use crate::{
         libgcmd::file_descriptor::FileDescriptorExt,
-        tags::tags::{gcmd_tags_bulk_load, GnomeCmdTag},
+        tags::tags::{FileMetadataService, GnomeCmdTag},
     };
-    use std::{
-        cell::{Ref, RefCell},
-        sync::OnceLock,
-    };
+    use std::cell::{OnceCell, RefCell};
 
     pub struct TagNode {
         pub tag: GnomeCmdTag,
         pub value: String,
     }
 
-    #[derive(Default)]
+    #[derive(Default, glib::Properties)]
+    #[properties(wrapper_type = super::FileMetainfoView)]
     pub struct FileMetainfoView {
+        #[property(get, set = Self::set_file, nullable)]
         pub file: RefCell<Option<File>>,
+        #[property(get, construct_only)]
+        pub file_metadata_service: OnceCell<FileMetadataService>,
         pub view: gtk::ColumnView,
     }
 
@@ -57,6 +58,7 @@ mod imp {
         type ParentType = gtk::Widget;
     }
 
+    #[glib::derived_properties]
     impl ObjectImpl for FileMetainfoView {
         fn constructed(&self) {
             self.parent_constructed();
@@ -64,11 +66,14 @@ mod imp {
             let obj = self.obj();
             obj.set_layout_manager(Some(gtk::BinLayout::new()));
 
-            self.view.set_header_factory(Some(&header_factory()));
+            let file_metadata_service = self.obj().file_metadata_service();
+
+            self.view
+                .set_header_factory(Some(&header_factory(file_metadata_service.clone())));
             self.view.append_column(
                 &gtk::ColumnViewColumn::builder()
                     .title(gettext("Name"))
-                    .factory(&name_factory())
+                    .factory(&name_factory(file_metadata_service.clone()))
                     .resizable(true)
                     .build(),
             );
@@ -82,27 +87,13 @@ mod imp {
             self.view.append_column(
                 &gtk::ColumnViewColumn::builder()
                     .title(gettext("Description"))
-                    .factory(&description_factory())
+                    .factory(&description_factory(file_metadata_service))
                     .resizable(true)
                     .build(),
             );
 
             let scrolledwindow = gtk::ScrolledWindow::builder().child(&self.view).build();
             scrolledwindow.set_parent(&*obj);
-        }
-
-        fn properties() -> &'static [glib::ParamSpec] {
-            static PROPERTIES: OnceLock<Vec<glib::ParamSpec>> = OnceLock::new();
-            PROPERTIES.get_or_init(|| vec![glib::ParamSpecObject::builder::<File>("file").build()])
-        }
-
-        fn property(&self, _id: usize, _pspec: &glib::ParamSpec) -> glib::Value {
-            self.file.borrow().to_value()
-        }
-
-        fn set_property(&self, _id: usize, value: &glib::Value, _pspec: &glib::ParamSpec) {
-            *self.file.borrow_mut() = value.get().ok();
-            self.update_model();
         }
 
         fn dispose(&self) {
@@ -115,10 +106,15 @@ mod imp {
     impl WidgetImpl for FileMetainfoView {}
 
     impl FileMetainfoView {
+        fn set_file(&self, file: Option<File>) {
+            self.file.replace(file);
+            self.update_model();
+        }
+
         fn update_model(&self) {
             self.view.set_model(None::<&gtk::SelectionModel>);
 
-            let Ok(file) = Ref::filter_map(self.file.borrow(), |f| f.as_ref()) else {
+            let Some(file) = self.obj().file() else {
                 return;
             };
 
@@ -126,7 +122,7 @@ mod imp {
                 return;
             }
 
-            let metadata = Ref::map(file, |f| gcmd_tags_bulk_load(f));
+            let metadata = self.obj().file_metadata_service().extract_metadata(&file);
 
             let model: gio::ListStore = metadata
                 .tags
@@ -135,7 +131,7 @@ mod imp {
                     tags.iter()
                         .map(|(tag, values)| {
                             glib::BoxedAnyObject::new(TagNode {
-                                tag: *tag,
+                                tag: tag.clone(),
                                 value: values.join(", "),
                             })
                         })
@@ -157,9 +153,11 @@ glib::wrapper! {
         @extends gtk::Widget;
 }
 
-impl Default for FileMetainfoView {
-    fn default() -> Self {
-        glib::Object::builder().build()
+impl FileMetainfoView {
+    pub fn new(file_metadata_service: &FileMetadataService) -> Self {
+        glib::Object::builder()
+            .property("file-metadata-service", file_metadata_service)
+            .build()
     }
 }
 
@@ -168,7 +166,7 @@ pub extern "C" fn gnome_cmd_file_metainfo_view_get_type() -> GType {
     FileMetainfoView::static_type().into_glib()
 }
 
-fn header_factory() -> gtk::ListItemFactory {
+fn header_factory(file_metadata_service: FileMetadataService) -> gtk::ListItemFactory {
     let factory = gtk::SignalListItemFactory::new();
     factory.connect_setup(|_, item| {
         let Some(item) = item.downcast_ref::<gtk::ListHeader>() else {
@@ -184,7 +182,7 @@ fn header_factory() -> gtk::ListItemFactory {
                 .build(),
         ));
     });
-    factory.connect_bind(|_, item| {
+    factory.connect_bind(move |_, item| {
         let Some(item) = item.downcast_ref::<gtk::ListHeader>() else {
             return;
         };
@@ -198,12 +196,17 @@ fn header_factory() -> gtk::ListItemFactory {
         let Ok(node) = obj.try_borrow::<TagNode>() else {
             return;
         };
-        label.set_markup(&bold(&node.tag.class_name()));
+        let name = node
+            .tag
+            .class()
+            .map(|c| file_metadata_service.class_name(&c))
+            .unwrap_or_default();
+        label.set_markup(&bold(&name));
     });
     factory.upcast()
 }
 
-fn name_factory() -> gtk::ListItemFactory {
+fn name_factory(file_metadata_service: FileMetadataService) -> gtk::ListItemFactory {
     let factory = gtk::SignalListItemFactory::new();
     factory.connect_setup(|_, item| {
         let Some(item) = item.downcast_ref::<gtk::ListItem>() else {
@@ -211,7 +214,7 @@ fn name_factory() -> gtk::ListItemFactory {
         };
         item.set_child(Some(&gtk::Label::builder().xalign(0.0).build()));
     });
-    factory.connect_bind(|_, item| {
+    factory.connect_bind(move |_, item| {
         let Some(item) = item.downcast_ref::<gtk::ListItem>() else {
             return;
         };
@@ -225,7 +228,12 @@ fn name_factory() -> gtk::ListItemFactory {
         let Ok(node) = obj.try_borrow::<TagNode>() else {
             return;
         };
-        label.set_text(&node.tag.title());
+        label.set_text(
+            file_metadata_service
+                .tag_name(&node.tag)
+                .as_deref()
+                .unwrap_or_default(),
+        );
     });
     factory.upcast()
 }
@@ -257,7 +265,7 @@ fn value_factory() -> gtk::ListItemFactory {
     factory.upcast()
 }
 
-fn description_factory() -> gtk::ListItemFactory {
+fn description_factory(file_metadata_service: FileMetadataService) -> gtk::ListItemFactory {
     let factory = gtk::SignalListItemFactory::new();
     factory.connect_setup(|_, item| {
         let Some(item) = item.downcast_ref::<gtk::ListItem>() else {
@@ -270,7 +278,7 @@ fn description_factory() -> gtk::ListItemFactory {
                 .build(),
         ));
     });
-    factory.connect_bind(|_, item| {
+    factory.connect_bind(move |_, item| {
         let Some(item) = item.downcast_ref::<gtk::ListItem>() else {
             return;
         };
@@ -284,8 +292,11 @@ fn description_factory() -> gtk::ListItemFactory {
         let Ok(node) = obj.try_borrow::<TagNode>() else {
             return;
         };
-        label.set_text(&node.tag.description());
-        label.set_tooltip_text(Some(&node.tag.description()));
+        let description = file_metadata_service
+            .tag_name(&node.tag)
+            .unwrap_or_default();
+        label.set_text(&description);
+        label.set_tooltip_text(Some(&description));
     });
     factory.upcast()
 }

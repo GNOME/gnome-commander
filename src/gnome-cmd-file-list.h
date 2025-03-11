@@ -243,7 +243,6 @@ inline GnomeCmdFile *GnomeCmdFileList::get_selected_file()
 }
 
 void gnome_cmd_file_list_show_delete_dialog (GnomeCmdFileList *fl, gboolean forceDelete = FALSE);
-void gnome_cmd_file_list_show_properties_dialog (GnomeCmdFileList *fl);
 extern "C" void gnome_cmd_file_list_show_rename_dialog (GnomeCmdFileList *fl);
 void gnome_cmd_file_list_show_selpat_dialog (GnomeCmdFileList *fl, gboolean mode);
 

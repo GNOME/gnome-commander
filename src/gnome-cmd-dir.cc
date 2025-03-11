@@ -825,7 +825,6 @@ void gnome_cmd_dir_file_changed (GnomeCmdDir *dir, const gchar *uri_str)
     }
 
     f->update_gFileInfo(gFileInfo);
-    f->invalidate_metadata();
     g_signal_emit (dir, signals[FILE_CHANGED], 0, f);
 }
 

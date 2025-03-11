@@ -37,7 +37,6 @@
 #include "gnome-cmd-treeview.h"
 #include "gnome-cmd-main-win.h"
 #include "utils.h"
-#include "tags/gnome-cmd-tags.h"
 
 using namespace std;
 
@@ -56,6 +55,8 @@ struct GnomeCmdAdvrenameDialog::Private
     GnomeCmdAdvrenameProfileComponent *profile_component {NULL};
     GtkWidget *files_view {NULL};
     GtkWidget *profile_menu_button {NULL};
+
+    GnomeCmdFileMetadataService *file_metadata_service {NULL};
 
     Private();
     ~Private();
@@ -134,7 +135,7 @@ extern "C" void gnome_cmd_advrename_dialog_update_profile_menu (GnomeCmdAdvrenam
 }
 
 
-extern "C" void gnome_cmd_advrename_dialog_do_manage_profiles(GnomeCmdAdvrenameDialog *dialog, GnomeCmdData::AdvrenameConfig *cfg, gboolean new_profile);
+extern "C" void gnome_cmd_advrename_dialog_do_manage_profiles(GnomeCmdAdvrenameDialog *dialog, GnomeCmdData::AdvrenameConfig *cfg, GnomeCmdFileMetadataService *file_metadata_service, gboolean new_profile);
 
 static void do_manage_profiles(GnomeCmdAdvrenameDialog *dialog, bool new_profile)
 {
@@ -142,7 +143,7 @@ static void do_manage_profiles(GnomeCmdAdvrenameDialog *dialog, bool new_profile
         dialog->priv->profile_component->copy();
 
     GnomeCmdData::AdvrenameConfig *cfg = &dialog->defaults;
-    gnome_cmd_advrename_dialog_do_manage_profiles (dialog, cfg, new_profile);
+    gnome_cmd_advrename_dialog_do_manage_profiles (dialog, cfg, dialog->priv->file_metadata_service, new_profile);
 }
 
 
@@ -231,6 +232,8 @@ void GnomeCmdAdvrenameDialog::Private::on_files_view_popup_menu__remove (GSimple
 }
 
 
+extern "C" void gnome_cmd_file_view (GtkWindow *parent_window, GnomeCmdFile *f, GnomeCmdFileMetadataService *fms);
+
 void GnomeCmdAdvrenameDialog::Private::on_files_view_popup_menu__view_file (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
     auto dialog = static_cast<GnomeCmdAdvrenameDialog*>(user_data);
@@ -246,7 +249,7 @@ void GnomeCmdAdvrenameDialog::Private::on_files_view_popup_menu__view_file (GSim
         gtk_tree_model_get (model, &iter, COL_FILE, &f, -1);
 
         if (f)
-            gnome_cmd_file_view (*dialog, f);
+            gnome_cmd_file_view (*dialog, f, dialog->priv->file_metadata_service);
     }
 }
 
@@ -266,7 +269,7 @@ void GnomeCmdAdvrenameDialog::Private::on_files_view_popup_menu__show_properties
         gtk_tree_model_get (model, &iter, COL_FILE, &f, -1);
 
         if (f)
-            gnome_cmd_file_props_dialog_show (*dialog, f);
+            gnome_cmd_file_props_dialog_show (*dialog, dialog->priv->file_metadata_service, f);
     }
 }
 
@@ -277,6 +280,7 @@ void GnomeCmdAdvrenameDialog::Private::on_files_view_popup_menu__update_files (G
 
     GtkTreeIter i;
     GnomeCmdFile *f;
+    GnomeCmdFileMetadata *metadata;
 
     //  re-read file attributes, as they could be changed...
     for (gboolean valid_iter=gtk_tree_model_get_iter_first (dialog->files, &i); valid_iter; valid_iter=gtk_tree_model_iter_next (dialog->files, &i))
@@ -285,11 +289,14 @@ void GnomeCmdAdvrenameDialog::Private::on_files_view_popup_menu__update_files (G
                             COL_FILE, &f,
                             -1);
 
+        metadata = gnome_cmd_file_metadata_service_extract_metadata (dialog->priv->file_metadata_service, f);
+
         gtk_list_store_set (GTK_LIST_STORE (dialog->files), &i,
                             COL_NAME, f->get_name(),
                             COL_SIZE, f->get_size(),
                             COL_DATE, f->get_mdate(FALSE),
                             COL_RENAME_FAILED, FALSE,
+                            COL_METADATA, metadata,
                             -1);
     }
 
@@ -558,7 +565,8 @@ inline GtkTreeModel *create_files_model ()
                                               G_TYPE_STRING,
                                               G_TYPE_STRING,
                                               G_TYPE_STRING,
-                                              G_TYPE_BOOLEAN);
+                                              G_TYPE_BOOLEAN,
+                                              G_TYPE_POINTER);
 
     return GTK_TREE_MODEL (store);
 }
@@ -617,9 +625,11 @@ void GnomeCmdAdvrenameDialog::update_new_filenames()
     for (gboolean valid_iter=gtk_tree_model_get_iter_first (files, &i); valid_iter; valid_iter=gtk_tree_model_iter_next (files, &i))
     {
         GnomeCmdFile *f;
+        GnomeCmdFileMetadata *metadata;
 
         gtk_tree_model_get (files, &i,
                             COL_FILE, &f,
+                            COL_METADATA, &metadata,
                             -1);
         if (!f)
             continue;
@@ -630,7 +640,8 @@ void GnomeCmdAdvrenameDialog::update_new_filenames()
                                                       defaults.default_profile.counter_width,
                                                       index++,
                                                       count,
-                                                      f);
+                                                      f,
+                                                      metadata);
 
         for (vector<GnomeCmd::RegexReplace>::iterator r = rx.begin(); r != rx.end(); ++r)
         {
@@ -650,10 +661,15 @@ void GnomeCmdAdvrenameDialog::update_new_filenames()
 }
 
 
-GnomeCmdAdvrenameDialog::GnomeCmdAdvrenameDialog(GnomeCmdData::AdvrenameConfig &cfg, GtkWindow *parent_window): defaults(cfg)
+GnomeCmdAdvrenameDialog::GnomeCmdAdvrenameDialog(GnomeCmdData::AdvrenameConfig &cfg,
+                                                 GnomeCmdFileMetadataService *file_metadata_service,
+                                                 GtkWindow *parent_window)
+    : defaults(cfg)
 {
     gtk_window_set_default_size (*this, cfg.width, cfg.height);
     gtk_window_set_transient_for (*this, parent_window);
+
+    priv->file_metadata_service = file_metadata_service;
 
     priv->profile_menu_button = gtk_menu_button_new ();
     gtk_menu_button_set_label (GTK_MENU_BUTTON (priv->profile_menu_button), _("Profiles…"));
@@ -674,7 +690,7 @@ GnomeCmdAdvrenameDialog::GnomeCmdAdvrenameDialog(GnomeCmdData::AdvrenameConfig &
 
     gtk_window_set_hide_on_close (*this, TRUE);
 
-    priv->profile_component = new GnomeCmdAdvrenameProfileComponent(cfg.default_profile);
+    priv->profile_component = new GnomeCmdAdvrenameProfileComponent(cfg.default_profile, file_metadata_service);
 
     gtk_widget_set_vexpand (*priv->profile_component, TRUE);
     gtk_box_append (GTK_BOX (priv->vbox), *priv->profile_component);
@@ -714,12 +730,15 @@ void GnomeCmdAdvrenameDialog::set(GList *file_list)
     {
         GnomeCmdFile *f = (GnomeCmdFile *) file_list->data;
 
+        GnomeCmdFileMetadata *metadata = gnome_cmd_file_metadata_service_extract_metadata (priv->file_metadata_service, f);
+
         gtk_list_store_append (GTK_LIST_STORE (files), &iter);
         gtk_list_store_set (GTK_LIST_STORE (files), &iter,
                             COL_FILE, f->ref(),
                             COL_NAME, f->get_name(),
                             COL_SIZE, f->get_size(),
                             COL_DATE, f->get_mdate(FALSE),
+                            COL_METADATA, metadata,
                             -1);
     }
 
@@ -736,14 +755,18 @@ void GnomeCmdAdvrenameDialog::unset()
 
     GnomeCmdFile *f;
     GtkTreeIter i;
+    GnomeCmdFileMetadata *metadata;
 
     for (gboolean valid_iter=gtk_tree_model_get_iter_first (files, &i); valid_iter; valid_iter=gtk_tree_model_iter_next (files, &i))
     {
         gtk_tree_model_get (files, &i,
                             COL_FILE, &f,
+                            COL_METADATA, &metadata,
                             -1);
 
         f->unref();
+        if (metadata)
+            gnome_cmd_file_metadata_free (metadata);
     }
 
     g_signal_handlers_block_by_func (files, gpointer (Private::on_files_model_row_deleted), this);
