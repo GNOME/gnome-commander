@@ -30,7 +30,6 @@
 #include "gnome-cmd-con.h"
 #include "utils.h"
 #include "imageloader.h"
-#include "tags/gnome-cmd-tags.h"
 
 
 using namespace std;
@@ -127,14 +126,11 @@ static void gnome_cmd_application_activate(GApplication *application)
 
     gtk_widget_show (*main_win);
     main_win->restore_size_and_pos ();
-
-    gcmd_tags_init();
 }
 
 
 static void gnome_cmd_application_shutdown(GApplication *application)
 {
-    gcmd_tags_shutdown ();
     gnome_cmd_icon_cache_free(icon_cache);
     icon_cache = nullptr;
 

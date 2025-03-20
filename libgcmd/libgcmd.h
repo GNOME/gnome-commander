@@ -24,4 +24,5 @@
 #include <gnome-cmd-configurable.h>
 #include <gnome-cmd-file-descriptor.h>
 #include <gnome-cmd-file-actions.h>
+#include <gnome-cmd-file-metadata-extractor.h>
 #include <gnome-cmd-plugin-info.h>

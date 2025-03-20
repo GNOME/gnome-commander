@@ -23,6 +23,7 @@
 
 #include "gnome-cmd-data.h"
 #include "gnome-cmd-file-list.h"
+#include "tags/file_metadata.h"
 
 #define GNOME_CMD_TYPE_ADVRENAME_DIALOG              (gnome_cmd_advrename_dialog_get_type ())
 #define GNOME_CMD_ADVRENAME_DIALOG(obj)              (G_TYPE_CHECK_INSTANCE_CAST((obj), GNOME_CMD_TYPE_ADVRENAME_DIALOG, GnomeCmdAdvrenameDialog))
@@ -52,13 +53,15 @@ struct GnomeCmdAdvrenameDialog
 
     enum {GCMD_RESPONSE_PROFILES=123, GCMD_RESPONSE_RESET};
 
-    enum {COL_FILE, COL_NAME, COL_NEW_NAME, COL_SIZE, COL_DATE, COL_RENAME_FAILED, NUM_FILE_COLS};
+    enum {COL_FILE, COL_NAME, COL_NEW_NAME, COL_SIZE, COL_DATE, COL_RENAME_FAILED, COL_METADATA, NUM_FILE_COLS};
 
     GnomeCmdData::AdvrenameConfig &defaults;
 
     GtkTreeModel *files;
 
-    explicit GnomeCmdAdvrenameDialog(GnomeCmdData::AdvrenameConfig &defaults, GtkWindow *parent_window);
+    explicit GnomeCmdAdvrenameDialog(GnomeCmdData::AdvrenameConfig &defaults,
+                                     GnomeCmdFileMetadataService *file_metadata_service,
+                                     GtkWindow *parent_window);
     ~GnomeCmdAdvrenameDialog();
 
     void set(GList *files);

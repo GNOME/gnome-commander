@@ -106,6 +106,7 @@ struct GnomeCmdMainWin::Private
     GObject *color_themes;
 
     GObject *plugin_manager;
+    GnomeCmdFileMetadataService *file_metadata_service;
 };
 
 
@@ -114,6 +115,7 @@ G_DEFINE_TYPE (GnomeCmdMainWin, gnome_cmd_main_win, GTK_TYPE_APPLICATION_WINDOW)
 
 extern "C" GType gnome_cmd_color_themes_get_type();
 extern "C" GType plugin_manager_get_type ();
+extern "C" GType gnome_cmd_file_metadata_service_get_type ();
 
 
 static gboolean set_equal_panes_idle (gpointer *user_data);
@@ -498,6 +500,7 @@ static void dispose (GObject *object)
 
     g_clear_object (&main_win->priv->color_themes);
 
+    g_clear_object (&main_win->priv->file_metadata_service);
     g_clear_object (&main_win->priv->plugin_manager);
 
     G_OBJECT_CLASS (gnome_cmd_main_win_parent_class)->dispose (object);
@@ -560,6 +563,9 @@ static void gnome_cmd_main_win_init (GnomeCmdMainWin *mw)
         nullptr));
 
     mw->priv->plugin_manager = G_OBJECT (g_object_new (plugin_manager_get_type (), nullptr));
+    mw->priv->file_metadata_service = (GnomeCmdFileMetadataService *) g_object_new (gnome_cmd_file_metadata_service_get_type (),
+        "plugin-manager", mw->priv->plugin_manager,
+        nullptr);
 
     gtk_window_set_title (GTK_WINDOW (mw),
                           geteuid() == 0
@@ -1241,7 +1247,7 @@ GnomeCmdAdvrenameDialog *GnomeCmdMainWin::get_or_create_advrename_dialog ()
     auto dlg = static_cast<GnomeCmdAdvrenameDialog*>(g_weak_ref_get (&priv->advrename_dlg));
     if (!dlg)
     {
-        dlg = new GnomeCmdAdvrenameDialog(gnome_cmd_data.advrename_defaults, *this);
+        dlg = new GnomeCmdAdvrenameDialog(gnome_cmd_data.advrename_defaults, priv->file_metadata_service, *this);
         g_weak_ref_set (&priv->advrename_dlg, dlg);
     }
     return dlg;
@@ -1282,4 +1288,9 @@ GnomeCmdShortcuts *gnome_cmd_main_win_shortcuts(GnomeCmdMainWin *main_win)
 GObject *gnome_cmd_main_win_get_plugin_manager (GnomeCmdMainWin *main_win)
 {
     return main_win->priv->plugin_manager;
+}
+
+GnomeCmdFileMetadataService *gnome_cmd_main_win_get_file_metadata_service (GnomeCmdMainWin *main_win)
+{
+    return main_win->priv->file_metadata_service;
 }

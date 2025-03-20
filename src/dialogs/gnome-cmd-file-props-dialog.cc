@@ -32,7 +32,6 @@
 #include "gnome-cmd-dialog.h"
 #include "utils.h"
 #include "imageloader.h"
-#include "tags/gnome-cmd-tags.h"
 #include "dialogs/gnome-cmd-file-props-dialog.h"
 #include "widget-factory.h"
 
@@ -64,6 +63,8 @@ struct GnomeCmdFilePropsDialogPrivate
     GnomeCmdChownComponent *chown_component;
     GnomeCmdChmodComponent *chmod_component;
 
+    GnomeCmdFileMetadata *metadata;
+    GnomeCmdFileMetadataService *file_metadata_service;
 };
 
 
@@ -78,6 +79,8 @@ static void on_dialog_destroy (GtkDialog *dialog, GnomeCmdFilePropsDialogPrivate
         g_cancellable_cancel (data->cancellable);
     else
         g_free (data);
+
+    g_clear_pointer (&data->metadata, gnome_cmd_file_metadata_free);
 }
 
 
@@ -228,7 +231,7 @@ static void on_copy_clipboard (GtkButton *button, GnomeCmdFilePropsDialogPrivate
 {
     g_return_if_fail (data != nullptr);
 
-    gchar *tsv = data->f->metadata->to_tsv();
+    gchar *tsv = gnome_cmd_file_metadata_service_to_tsv (data->file_metadata_service, data->metadata);
 
     auto clipboard = gtk_widget_get_clipboard (GTK_WIDGET (button));
     gdk_clipboard_set_text (clipboard, tsv);
@@ -265,48 +268,6 @@ static void on_notebook_page_change (GtkNotebook *notebook, gpointer page, guint
 inline void add_sep (GtkWidget *grid, gint y)
 {
     gtk_grid_attach (GTK_GRID (grid), create_hsep (grid), 0, y, 2, 1);
-}
-
-
-static void add_tag (GtkWidget *dialog, GtkWidget *grid, gint &y, GnomeCmdFileMetadata &metadata, GnomeCmdTag tag, const gchar *appended_text=nullptr)
-{
-    if (!metadata.has_tag (tag))
-        return;
-
-    GtkWidget *label;
-
-    string title = gcmd_tags_get_title (tag);
-    title += ':';
-
-    label = create_bold_label (dialog, title.c_str());
-    gtk_grid_attach (GTK_GRID (grid), label, 0, y, 1, 1);
-
-    string value = truncate (metadata[tag],120);
-
-    if (appended_text)
-        value += appended_text;
-
-    label = create_label (dialog, value.c_str());
-    gtk_grid_attach (GTK_GRID (grid), label, 1, y++, 1, 1);
-}
-
-
-inline void add_width_height_tag (GtkWidget *dialog, GtkWidget *grid, gint &y, GnomeCmdFileMetadata &metadata)
-{
-    if (!metadata.has_tag (TAG_IMAGE_WIDTH) || !metadata.has_tag (TAG_IMAGE_HEIGHT))
-        return;
-
-    GtkWidget *label;
-
-    label = create_bold_label (dialog, _("Image:"));
-    gtk_grid_attach (GTK_GRID (grid), label, 0, y, 1, 1);
-
-    string value = metadata[TAG_IMAGE_WIDTH];
-    value += " x ";
-    value += metadata[TAG_IMAGE_HEIGHT];
-
-    label = create_label (dialog, value.c_str());
-    gtk_grid_attach (GTK_GRID (grid), label, 1, y++, 1, 1);
 }
 
 
@@ -457,19 +418,30 @@ static GtkWidget *create_properties_tab (GnomeCmdFilePropsDialogPrivate *data)
     data->size_label = label;
 
     if (data->f->GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE) != G_FILE_TYPE_SPECIAL)
-        gcmd_tags_bulk_load (data->f);
+        data->metadata = gnome_cmd_file_metadata_service_extract_metadata (data->file_metadata_service, data->f);
 
-    if (data->f->metadata)
+    if (data->metadata)
     {
-        add_tag (dialog, grid, y, *data->f->metadata, TAG_FILE_DESCRIPTION);
-        add_tag (dialog, grid, y, *data->f->metadata, TAG_FILE_PUBLISHER);
-        add_tag (dialog, grid, y, *data->f->metadata, TAG_DOC_TITLE);
-        add_tag (dialog, grid, y, *data->f->metadata, TAG_DOC_PAGECOUNT);
-        add_width_height_tag (dialog, grid, y, *data->f->metadata);
-        add_tag (dialog, grid, y, *data->f->metadata, TAG_AUDIO_ALBUMARTIST);
-        add_tag (dialog, grid, y, *data->f->metadata, TAG_AUDIO_TITLE);
-        add_tag (dialog, grid, y, *data->f->metadata, TAG_AUDIO_BITRATE, " kbps");
-        add_tag (dialog, grid, y, *data->f->metadata, TAG_AUDIO_DURATIONMMSS);
+        GStrv summary = gnome_cmd_file_metadata_service_file_summary (data->file_metadata_service, data->metadata);
+        for (auto p = summary; p && *p; ) {
+            auto tag_name = *p++;
+            auto c_value = *p++;
+
+            GtkWidget *label;
+
+            string title(tag_name);
+            title += ':';
+
+            label = create_bold_label (dialog, title.c_str());
+            gtk_grid_attach (GTK_GRID (grid), label, 0, y, 1, 1);
+
+            string value(c_value);
+            value = truncate (value, 120);
+
+            label = create_label (dialog, value.c_str());
+            gtk_grid_attach (GTK_GRID (grid), label, 1, y++, 1, 1);
+        }
+        g_strfreev (summary);
     }
 
     return grid;
@@ -507,13 +479,14 @@ inline GtkWidget *create_permissions_tab (GnomeCmdFilePropsDialogPrivate *data)
 
 inline GtkWidget *create_metadata_tab (GnomeCmdFilePropsDialogPrivate *data)
 {
-    GtkWidget *view = GTK_WIDGET (g_object_new (gnome_cmd_file_metainfo_view_get_type (), nullptr));
-    g_object_set (view, "file", data->f, NULL);
-    return view;
+    return GTK_WIDGET (g_object_new (gnome_cmd_file_metainfo_view_get_type (),
+        "file-metadata-service", data->file_metadata_service,
+        "file", data->f,
+        nullptr));
 }
 
 
-GtkWidget *gnome_cmd_file_props_dialog_create (GtkWindow *parent_window, GnomeCmdFile *f)
+static GtkWidget *gnome_cmd_file_props_dialog_create (GtkWindow *parent_window, GnomeCmdFileMetadataService *file_metadata_service, GnomeCmdFile *f)
 {
     g_return_val_if_fail (f != nullptr, nullptr);
     g_return_val_if_fail (f->get_file_info() != nullptr, nullptr);
@@ -533,6 +506,7 @@ GtkWidget *gnome_cmd_file_props_dialog_create (GtkWindow *parent_window, GnomeCm
     data->f = f;
     data->gFile = f->get_file();
     data->notebook = notebook;
+    data->file_metadata_service = file_metadata_service;
     f->ref();
 
     gtk_widget_show (notebook);
@@ -555,11 +529,12 @@ GtkWidget *gnome_cmd_file_props_dialog_create (GtkWindow *parent_window, GnomeCm
 }
 
 
-void gnome_cmd_file_props_dialog_show (GtkWindow *parent_window, GnomeCmdFile *f)
+void gnome_cmd_file_props_dialog_show (GtkWindow *parent_window, GnomeCmdFileMetadataService *file_metadata_service, GnomeCmdFile *f)
 {
-    GtkWidget *dialog = gnome_cmd_file_props_dialog_create (parent_window, f);
+    GtkWidget *dialog = gnome_cmd_file_props_dialog_create (parent_window, file_metadata_service, f);
     if (!dialog) return;
 
     g_object_ref (dialog);
     gtk_widget_show (dialog);
 }
+

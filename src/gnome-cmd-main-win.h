@@ -115,4 +115,4 @@ struct GnomeCmdShortcuts;
 extern "C" GnomeCmdShortcuts *gnome_cmd_main_win_shortcuts(GnomeCmdMainWin *main_win);
 
 extern "C" GObject *gnome_cmd_main_win_get_plugin_manager (GnomeCmdMainWin *main_win);
-
+extern "C" GnomeCmdFileMetadataService *gnome_cmd_main_win_get_file_metadata_service (GnomeCmdMainWin *main_win);

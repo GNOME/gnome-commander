@@ -23,6 +23,7 @@ use crate::{
     intviewer::window::ViewerWindow,
     libgcmd::file_descriptor::FileDescriptorExt,
     spawn::{spawn_async, SpawnError},
+    tags::tags::FileMetadataService,
     transfer::gnome_cmd_tmp_download,
     utils::{temp_file, ErrorMessage},
 };
@@ -40,7 +41,11 @@ fn single_file_list(file: gio::File) -> glib::List<gio::File> {
     list
 }
 
-pub async fn file_view_internal(parent_window: &gtk::Window, f: &File) -> Result<(), ErrorMessage> {
+pub async fn file_view_internal(
+    parent_window: &gtk::Window,
+    f: &File,
+    file_metadata_service: &FileMetadataService,
+) -> Result<(), ErrorMessage> {
     let file_to_view = if f.is_local() {
         // If the file is local there is no need to download it
         f.clone()
@@ -63,7 +68,7 @@ pub async fn file_view_internal(parent_window: &gtk::Window, f: &File) -> Result
         tmp_file
     };
 
-    let viewer = ViewerWindow::file_view(&file_to_view);
+    let viewer = ViewerWindow::file_view(&file_to_view, file_metadata_service);
     viewer.present();
     Ok(())
 }
@@ -82,6 +87,7 @@ pub async fn file_view(
     file: &File,
     use_internal_viewer: Option<bool>,
     options: &dyn ProgramsOptionsRead,
+    file_metadata_service: &FileMetadataService,
 ) -> Result<(), ErrorMessage> {
     if file.file_info().file_type() == gio::FileType::Directory {
         return Err(ErrorMessage::new(
@@ -93,7 +99,7 @@ pub async fn file_view(
     let use_internal_viewer = use_internal_viewer.unwrap_or_else(|| options.use_internal_viewer());
 
     if use_internal_viewer {
-        file_view_internal(&parent_window, &file).await?;
+        file_view_internal(&parent_window, &file, &file_metadata_service).await?;
     } else {
         file_view_external(&file, options).await?;
     }
@@ -104,13 +110,24 @@ pub async fn file_view(
 pub extern "C" fn gnome_cmd_file_view(
     parent_window_ptr: *mut GtkWindow,
     file_ptr: *mut GnomeCmdFile,
+    file_metadata_service_ptr: *mut <FileMetadataService as glib::object::ObjectType>::GlibType,
 ) {
     let parent_window = unsafe { gtk::Window::from_glib_none(parent_window_ptr) };
     let file = unsafe { File::from_glib_none(file_ptr) };
+    let file_metadata_service =
+        unsafe { FileMetadataService::from_glib_none(file_metadata_service_ptr) };
     let options = ProgramsOptions::new();
 
     glib::spawn_future_local(async move {
-        if let Err(error) = file_view(&parent_window, &file, None, &options).await {
+        if let Err(error) = file_view(
+            &parent_window,
+            &file,
+            None,
+            &options,
+            &file_metadata_service,
+        )
+        .await
+        {
             error.show(&parent_window).await;
         }
     });

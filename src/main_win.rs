@@ -37,6 +37,7 @@ use crate::{
     },
     plugin_manager::{wrap_plugin_menu, PluginManager},
     shortcuts::Shortcuts,
+    tags::tags::FileMetadataService,
     transfer::{gnome_cmd_copy_gfiles, gnome_cmd_move_gfiles},
     types::{FileSelectorID, GnomeCmdConfirmOverwriteMode},
     user_actions,
@@ -56,7 +57,7 @@ use std::sync::LazyLock;
 
 pub mod ffi {
     use super::*;
-    use crate::file_selector::ffi::GnomeCmdFileSelector;
+    use crate::{file_selector::ffi::GnomeCmdFileSelector, tags::tags::FileMetadataService};
     use gtk::glib::ffi::GType;
 
     #[repr(C)]
@@ -87,6 +88,10 @@ pub mod ffi {
         pub fn gnome_cmd_main_win_get_plugin_manager(
             main_win: *mut GnomeCmdMainWin,
         ) -> *mut <PluginManager as glib::object::ObjectType>::GlibType;
+
+        pub fn gnome_cmd_main_win_get_file_metadata_service(
+            main_win: *mut GnomeCmdMainWin,
+        ) -> *mut <FileMetadataService as glib::object::ObjectType>::GlibType;
     }
 
     #[derive(Copy, Clone)]
@@ -168,6 +173,14 @@ impl MainWindow {
     pub fn plugin_manager(&self) -> PluginManager {
         unsafe {
             from_glib_none(ffi::gnome_cmd_main_win_get_plugin_manager(
+                self.to_glib_none().0,
+            ))
+        }
+    }
+
+    pub fn file_metadata_service(&self) -> FileMetadataService {
+        unsafe {
+            from_glib_none(ffi::gnome_cmd_main_win_get_file_metadata_service(
                 self.to_glib_none().0,
             ))
         }

@@ -20,8 +20,9 @@
 use crate::{
     file::{ffi::GnomeCmdFile, File},
     libgcmd::file_descriptor::FileDescriptorExt,
+    tags::{file_metadata::FileMetadata, tags::GnomeCmdTag},
 };
-use glib::translate::{from_glib_borrow, from_glib_full, from_glib_none, Borrowed, ToGlibPtr};
+use glib::translate::{from_glib_borrow, from_glib_none, Borrowed, ToGlibPtr};
 use std::ffi::c_char;
 use winnow::{
     ascii::{dec_int, dec_uint},
@@ -319,16 +320,13 @@ impl CounterOptions {
     }
 }
 
-extern "C" {
-    fn gcmd_tags_get_value_string(file: *mut GnomeCmdFile, tag: *const c_char) -> *const c_char;
-}
-
 pub fn generate_file_name(
     template: &Template,
     options: CounterOptions,
     index: u64,
     count: u64,
     file: &File,
+    metadata: &FileMetadata,
 ) -> String {
     let mut result = String::new();
     for chunk in &template.0 {
@@ -347,13 +345,7 @@ pub fn generate_file_name(
             }
             Chunk::MetaTag(metatag) => {
                 let name = format!("{}.{}", metatag.name, metatag.opts1.join("."));
-                let value: Option<String> = unsafe {
-                    from_glib_full(gcmd_tags_get_value_string(
-                        file.to_glib_none().0,
-                        name.to_glib_none().0,
-                    ))
-                };
-                if let Some(value) = value {
+                if let Some(value) = metadata.get(&GnomeCmdTag(name.into())) {
                     result.push_str(&value);
                 }
             }
@@ -453,6 +445,7 @@ pub extern "C" fn gnome_cmd_advrename_gen_fname(
     index: u64,
     count: u64,
     file: *const GnomeCmdFile,
+    metadata: *const FileMetadata,
 ) -> *mut c_char {
     let template = unsafe { &*template };
     let options = CounterOptions {
@@ -461,7 +454,8 @@ pub extern "C" fn gnome_cmd_advrename_gen_fname(
         precision: precision as usize,
     };
     let file: Borrowed<File> = unsafe { from_glib_borrow(file) };
-    let file_name = generate_file_name(template, options, index, count, &file);
+    let metadata: &FileMetadata = unsafe { &*metadata };
+    let file_name = generate_file_name(template, options, index, count, &file, metadata);
     file_name.to_glib_full()
 }
 

@@ -32,8 +32,6 @@
 extern "C" GType gnome_cmd_file_get_type ();
 
 
-class GnomeCmdFileMetadata;
-
 struct GnomeCmdDir;
 struct GnomeCmdCon;
 struct GnomeCmdPath;
@@ -50,12 +48,9 @@ struct GnomeCmdFile
     GFile *get_file() { return gnome_cmd_file_descriptor_get_file (GNOME_CMD_FILE_DESCRIPTOR (this)); }
     GFileInfo *get_file_info() { return gnome_cmd_file_descriptor_get_file_info (GNOME_CMD_FILE_DESCRIPTOR (this)); }
     gboolean is_dotdot;
-    GnomeCmdFileMetadata *metadata;
 
     GnomeCmdFile *ref();
     void unref();
-
-    void invalidate_metadata();
 
     const gchar *get_name();
     gchar *get_quoted_name();
@@ -151,8 +146,6 @@ extern "C" gboolean gnome_cmd_file_is_local (GnomeCmdFile *f);
 extern "C" GnomeCmdCon *gnome_cmd_file_get_connection (GnomeCmdFile *f);
 
 extern "C" gchar *gnome_cmd_file_get_free_space (GnomeCmdFile *f);
-
-extern "C" void gnome_cmd_file_view (GtkWindow *parent_window, GnomeCmdFile *f);
 
 GList *gnome_cmd_file_list_copy (GList *files);
 void gnome_cmd_file_list_free (GList *files);

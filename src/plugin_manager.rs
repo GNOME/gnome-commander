@@ -171,6 +171,14 @@ impl PluginManager {
             .map(|d| (d.action_group_name.clone(), d.plugin.clone()))
             .collect()
     }
+
+    pub fn connect_plugins_changed<F: Fn(&Self) + 'static>(&self, f: F) -> glib::SignalHandlerId {
+        self.connect_closure(
+            "plugins-changed",
+            false,
+            glib::closure_local!(|this| f(this)),
+        )
+    }
 }
 
 pub struct PluginData {
@@ -488,6 +496,7 @@ fn create_plugin_widget(plugin_manager: &PluginManager, plugin_data: &PluginData
         .tooltip_text(gettext("Configure"))
         .vexpand(true)
         .valign(gtk::Align::Center)
+        .sensitive(plugin.is::<Configurable>())
         .build();
     configure.add_css_class("flat");
     grid.attach(&configure, 2, 0, 1, 3);

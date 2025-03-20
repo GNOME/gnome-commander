@@ -41,7 +41,6 @@
 #include "gnome-cmd-file-collection.h"
 #include "dialogs/gnome-cmd-delete-dialog.h"
 #include "dialogs/gnome-cmd-rename-dialog.h"
-#include "dialogs/gnome-cmd-file-props-dialog.h"
 #include "text-utils.h"
 #include "widget-factory.h"
 
@@ -1895,20 +1894,6 @@ void gnome_cmd_file_list_show_delete_dialog (GnomeCmdFileList *fl, gboolean forc
 }
 
 
-void gnome_cmd_file_list_show_properties_dialog (GnomeCmdFileList *fl)
-{
-    g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl));
-
-    GnomeCmdFile *f = fl->get_selected_file();
-
-    if (f)
-    {
-        GtkWindow *parent_window = GTK_WINDOW (gtk_widget_get_root (GTK_WIDGET (fl)));
-        gnome_cmd_file_props_dialog_show (parent_window, f);
-    }
-}
-
-
 extern "C" void show_pattern_selection_dialog_r(GnomeCmdFileList *fl, gboolean mode, GnomeCmdData::SearchConfig *search_config);
 
 void gnome_cmd_file_list_show_selpat_dialog (GnomeCmdFileList *fl, gboolean mode)
@@ -1957,7 +1942,7 @@ static gboolean gnome_cmd_file_list_key_pressed (GtkEventControllerKey* self, gu
         {
             case GDK_KEY_Return:
             case GDK_KEY_KP_Enter:
-                gnome_cmd_file_list_show_properties_dialog (fl);
+                gtk_widget_activate_action (GTK_WIDGET (fl), "win.file-properties", nullptr);
                 return TRUE;
 
             case GDK_KEY_KP_Add:

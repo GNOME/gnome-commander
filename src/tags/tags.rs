@@ -1,5 +1,5 @@
 /*
- * Copyright 2024 Andrey Kutejko <andy128k@gmail.com>
+ * Copyright 2024-2025 Andrey Kutejko <andy128k@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,52 +18,281 @@
  */
 
 use super::file_metadata::FileMetadata;
-use crate::file::File;
-use glib::translate::{from_glib_none, ToGlibPtr};
+use crate::{
+    file::{ffi::GnomeCmdFile, File},
+    libgcmd::file_metadata_extractor::{FileMetadataExtractor, FileMetadataExtractorExt},
+};
+use gtk::{
+    gio::{self, ffi::GMenu},
+    glib::{
+        self,
+        ffi::{GStrv, GType},
+        prelude::*,
+        subclass::prelude::*,
+        translate::{from_glib_borrow, from_glib_none, Borrowed, IntoGlib, ToGlibPtr},
+    },
+};
+use indexmap::IndexMap;
+use std::{borrow::Cow, ffi::c_char};
 
-mod ffi {
-    use super::*;
-    use crate::file::ffi::GnomeCmdFile;
-    use std::ffi::{c_char, c_int};
+#[derive(Clone, PartialEq, Eq, Hash)]
+pub struct GnomeCmdTagClass(pub String);
 
-    extern "C" {
-        pub fn gcmd_tags_bulk_load(f: *mut GnomeCmdFile) -> *mut FileMetadata;
-        pub fn gcmd_tags_get_name(tag: c_int) -> *const c_char;
-        pub fn gcmd_tags_get_class(tag: c_int) -> c_int;
-        pub fn gcmd_tags_get_class_name(tag: c_int) -> *const c_char;
-        pub fn gcmd_tags_get_title(tag: c_int) -> *const c_char;
-        pub fn gcmd_tags_get_description(tag: c_int) -> *const c_char;
-    }
-}
-
-#[derive(Clone, Copy, PartialEq, Eq, PartialOrd, Ord)]
-pub struct GnomeCmdTagClass(pub i32);
-
-#[derive(Clone, Copy, PartialEq, Eq, PartialOrd, Ord)]
-pub struct GnomeCmdTag(pub i32);
+#[derive(Clone, PartialEq, Eq, Hash)]
+pub struct GnomeCmdTag(pub Cow<'static, str>);
 
 impl GnomeCmdTag {
-    pub fn name(self) -> String {
-        unsafe { from_glib_none(ffi::gcmd_tags_get_name(self.0)) }
+    pub fn id(&self) -> &str {
+        &self.0
     }
 
-    pub fn title(self) -> String {
-        unsafe { from_glib_none(ffi::gcmd_tags_get_title(self.0)) }
-    }
-
-    pub fn description(self) -> String {
-        unsafe { from_glib_none(ffi::gcmd_tags_get_description(self.0)) }
-    }
-
-    pub fn class(self) -> GnomeCmdTagClass {
-        unsafe { GnomeCmdTagClass(ffi::gcmd_tags_get_class(self.0)) }
-    }
-
-    pub fn class_name(self) -> String {
-        unsafe { from_glib_none(ffi::gcmd_tags_get_class_name(self.0)) }
+    pub fn class(&self) -> Option<GnomeCmdTagClass> {
+        Some(GnomeCmdTagClass(self.0.split_once('.')?.0.to_owned()))
     }
 }
 
-pub fn gcmd_tags_bulk_load(file: &File) -> &FileMetadata {
-    unsafe { &*ffi::gcmd_tags_bulk_load(file.to_glib_none().0) }
+mod imp {
+    use super::*;
+    use crate::{
+        libgcmd::file_metadata_extractor::FileMetadataExtractor,
+        plugin_manager::PluginManager,
+        tags::{basic::BasicMetadataExtractor, image::ImageMetadataExtractor},
+    };
+    use std::cell::{OnceCell, RefCell};
+
+    #[derive(Default, glib::Properties)]
+    #[properties(wrapper_type = super::FileMetadataService)]
+    pub struct FileMetadataService {
+        #[property(get, construct_only)]
+        pub plugin_manager: OnceCell<PluginManager>,
+        pub extractors: RefCell<Vec<FileMetadataExtractor>>,
+    }
+
+    #[glib::object_subclass]
+    impl ObjectSubclass for FileMetadataService {
+        const NAME: &'static str = "GnomeCmdFileMetadataService";
+        type Type = super::FileMetadataService;
+    }
+
+    #[glib::derived_properties]
+    impl ObjectImpl for FileMetadataService {
+        fn constructed(&self) {
+            self.parent_constructed();
+
+            self.obj()
+                .plugin_manager()
+                .connect_plugins_changed(glib::clone!(
+                    #[weak(rename_to = imp)]
+                    self,
+                    move |_| imp.plugins_changed()
+                ));
+
+            self.plugins_changed();
+        }
+    }
+
+    impl FileMetadataService {
+        fn plugins_changed(&self) {
+            let mut extractors = vec![
+                BasicMetadataExtractor::default().upcast(),
+                ImageMetadataExtractor::default().upcast(),
+            ];
+
+            extractors.extend(
+                self.obj()
+                    .plugin_manager()
+                    .active_plugins()
+                    .into_iter()
+                    .filter_map(|(_, plugin)| plugin.downcast::<FileMetadataExtractor>().ok()),
+            );
+
+            self.extractors.replace(extractors);
+        }
+    }
+}
+
+glib::wrapper! {
+    pub struct FileMetadataService(ObjectSubclass<imp::FileMetadataService>);
+}
+
+impl FileMetadataService {
+    pub fn supported_tags_map(
+        &self,
+    ) -> IndexMap<GnomeCmdTagClass, IndexMap<GnomeCmdTag, Vec<FileMetadataExtractor>>> {
+        let mut result: IndexMap<
+            GnomeCmdTagClass,
+            IndexMap<GnomeCmdTag, Vec<FileMetadataExtractor>>,
+        > = Default::default();
+        for extractor in self.imp().extractors.borrow().iter() {
+            for tag in extractor.supported_tags() {
+                if let Some(class) = tag.class() {
+                    result
+                        .entry(class)
+                        .or_default()
+                        .entry(tag)
+                        .or_default()
+                        .push(extractor.clone());
+                } else {
+                    eprintln!("Invalid tag \"{}\".", tag.0);
+                }
+            }
+        }
+        result
+    }
+
+    pub fn extract_metadata(&self, file: &File) -> FileMetadata {
+        let mut metadata = FileMetadata::default();
+        for extractor in self.imp().extractors.borrow().iter() {
+            extractor.extract_metadata(file, |tag, value| metadata.add(tag, value.as_deref()));
+        }
+        metadata
+    }
+
+    pub fn class_name(&self, class: &GnomeCmdTagClass) -> String {
+        for extractor in self.imp().extractors.borrow().iter() {
+            if let Some(name) = extractor.class_name(class) {
+                return name;
+            }
+        }
+        class.0.clone()
+    }
+
+    pub fn tag_name(&self, tag: &GnomeCmdTag) -> Option<String> {
+        for extractor in self.imp().extractors.borrow().iter() {
+            if let name @ Some(_) = extractor.tag_name(tag) {
+                return name;
+            }
+        }
+        None
+    }
+
+    pub fn tag_description(&self, tag: &GnomeCmdTag) -> Option<String> {
+        for extractor in self.imp().extractors.borrow().iter() {
+            if let description @ Some(_) = extractor.tag_description(tag) {
+                return description;
+            }
+        }
+        None
+    }
+
+    pub fn file_summary(&self, metadata: &FileMetadata) -> Vec<(String, String)> {
+        let mut summary = Vec::new();
+        for extractor in self.imp().extractors.borrow().iter() {
+            for tag in extractor.summary_tags() {
+                if let Some(value) = metadata.get_first(&tag) {
+                    summary.push((
+                        extractor
+                            .tag_name(&tag)
+                            .unwrap_or_else(|| tag.id().to_owned()),
+                        value,
+                    ));
+                }
+            }
+        }
+        summary
+    }
+
+    pub fn create_menu(&self, action_name: &str) -> gio::Menu {
+        let menu = gio::Menu::new();
+        for (class, tags) in self.supported_tags_map() {
+            let submenu = gio::Menu::new();
+            for (tag, extractors) in tags {
+                let title = extractors.iter().find_map(|e| e.tag_name(&tag));
+                let item = gio::MenuItem::new(title.as_deref(), None);
+                item.set_action_and_target_value(
+                    Some(action_name),
+                    Some(&format!("$T({})", tag.0).to_variant()),
+                );
+                submenu.append_item(&item);
+            }
+            menu.append_submenu(Some(&self.class_name(&class)), &submenu);
+        }
+        menu
+    }
+
+    pub fn to_tsv(&self, fm: &FileMetadata) -> String {
+        let mut tsv = String::new();
+        for (tag, value) in fm.dump() {
+            tsv.push_str(tag.id());
+            tsv.push('\t');
+            tsv.push_str(self.tag_name(&tag).as_deref().unwrap_or_default());
+            tsv.push('\t');
+            tsv.push_str(&value);
+            tsv.push('\n');
+        }
+        tsv
+    }
+}
+
+#[no_mangle]
+pub extern "C" fn gnome_cmd_file_metadata_service_get_type() -> GType {
+    FileMetadataService::static_type().into_glib()
+}
+
+#[no_mangle]
+pub extern "C" fn gnome_cmd_file_metadata_service_get_name(
+    fms: *mut <FileMetadataService as glib::object::ObjectType>::GlibType,
+    tag_id: *const c_char,
+) -> *mut c_char {
+    let fms: Borrowed<FileMetadataService> = unsafe { from_glib_borrow(fms) };
+    let tag_id: String = unsafe { from_glib_none(tag_id) };
+    fms.tag_name(&GnomeCmdTag(tag_id.into())).to_glib_full()
+}
+
+#[no_mangle]
+pub extern "C" fn gnome_cmd_file_metadata_service_get_description(
+    fms: *mut <FileMetadataService as glib::object::ObjectType>::GlibType,
+    tag_id: *const c_char,
+) -> *mut c_char {
+    let fms: Borrowed<FileMetadataService> = unsafe { from_glib_borrow(fms) };
+    let tag_id: String = unsafe { from_glib_none(tag_id) };
+    fms.tag_description(&GnomeCmdTag(tag_id.into()))
+        .to_glib_full()
+}
+
+#[no_mangle]
+pub extern "C" fn gnome_cmd_file_metadata_service_file_summary(
+    fms: *mut <FileMetadataService as glib::object::ObjectType>::GlibType,
+    fm: *mut FileMetadata,
+) -> GStrv {
+    let fms: Borrowed<FileMetadataService> = unsafe { from_glib_borrow(fms) };
+    let fm: &mut FileMetadata = unsafe { &mut *fm };
+    let summary = fms.file_summary(fm);
+    let strv: glib::StrV = summary
+        .into_iter()
+        .flat_map(|(label, value)| std::iter::once(label).chain(std::iter::once(value)))
+        .map(|s| s.into())
+        .collect();
+    strv.to_glib_full()
+}
+
+#[no_mangle]
+pub extern "C" fn gnome_cmd_file_metadata_service_create_menu(
+    fms: *mut <FileMetadataService as glib::object::ObjectType>::GlibType,
+    action_name: *const c_char,
+) -> *mut GMenu {
+    let fms: Borrowed<FileMetadataService> = unsafe { from_glib_borrow(fms) };
+    let action_name: String = unsafe { from_glib_none(action_name) };
+    fms.create_menu(&action_name).to_glib_full()
+}
+
+#[no_mangle]
+pub extern "C" fn gnome_cmd_file_metadata_service_extract_metadata(
+    fms: *mut <FileMetadataService as glib::object::ObjectType>::GlibType,
+    f: *mut GnomeCmdFile,
+) -> *mut FileMetadata {
+    let fms: Borrowed<FileMetadataService> = unsafe { from_glib_borrow(fms) };
+    let f: Borrowed<File> = unsafe { from_glib_borrow(f) };
+    let metadata = Box::new(fms.extract_metadata(&*f));
+    Box::leak(metadata)
+}
+
+#[no_mangle]
+pub extern "C" fn gnome_cmd_file_metadata_service_to_tsv(
+    fms: *mut <FileMetadataService as glib::object::ObjectType>::GlibType,
+    fm: *mut FileMetadata,
+) -> *mut c_char {
+    let fms: Borrowed<FileMetadataService> = unsafe { from_glib_borrow(fms) };
+    let fm: &mut FileMetadata = unsafe { &mut *fm };
+    fms.to_tsv(fm).to_glib_full()
 }

@@ -112,32 +112,15 @@ conf_data.set('LIBGSF_REQ', LIBGSF_REQ, description: 'Required version of gsf li
 
 # Check for exiv2 support
 exiv2 = dependency('exiv2', version: '>=' + EXIV2_REQ, required: get_option('exiv2'))
-have_exif2 = exiv2.found()
-if have_exif2
-  conf_data.set('HAVE_EXIV2', '@0@'.format(have_exif2.to_int()), description : 'Defined if you have EXIF and IPTC support')
-endif
 
-# ToDo: Since latest libgsf is already version 1.14.50, reduce this to one flag instead of three.
 # Check for libgsf
-libgsf = dependency('libgsf-1', version: '>=' + LIBGSF_REQ, required: get_option('libgsf'))
-have_gsf = libgsf.found()
-if have_gsf
-  conf_data.set('HAVE_GSF', '@0@'.format(have_gsf.to_int()), description : 'Define to 1 if you have libgsf (OLE and ODF) support')
-endif
+gsf = dependency('libgsf-1', version: '>=' + LIBGSF_REQ, required: get_option('libgsf'))
 
 # Check for taglib
 taglib = dependency('taglib', version: '>=' + TAGLIB_REQ, required: get_option('taglib'))
-have_taglib = taglib.found()
-if have_taglib
-  conf_data.set('HAVE_ID3', '@0@'.format(have_taglib.to_int()), description : 'Defined if you have taglib (ID3, Vorbis, APE and FLAC) support')
-endif
 
 # Check for poppler
-pdf = dependency('poppler-glib', required: get_option('poppler'))
-have_pdf = pdf.found()
-if have_pdf
-  conf_data.set('HAVE_PDF', '@0@'.format(have_pdf.to_int()), description : 'Defined if you have PDF support')
-endif
+poppler = dependency('poppler-glib', required: get_option('poppler'))
 
 # Check for gettext
 intl_dep = dependency('intl', required: false)
@@ -196,10 +179,10 @@ summary(
 summary(
   {
     'Generate doc': get_option('help'),
-    'Use exiv2': have_exif2,
-    'Use libgsf': have_gsf,
-    'Use poppler': have_pdf,
-    'Use taglib': have_taglib,
+    'Use exiv2': exiv2.found(),
+    'Use libgsf': gsf.found(),
+    'Use poppler': poppler.found(),
+    'Use taglib': taglib.found(),
     'Tests': gtest.found(),
   },
   section: 'User defined options'

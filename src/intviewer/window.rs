@@ -24,6 +24,7 @@ use super::{
 };
 use crate::{
     file::File,
+    tags::tags::FileMetadataService,
     utils::{extract_menu_shortcuts, pending, MenuBuilderExt},
 };
 use gettextrs::{gettext, ngettext};
@@ -67,7 +68,7 @@ mod imp {
         utils::display_help,
     };
     use gtk::gdk;
-    use std::cell::{Cell, RefCell};
+    use std::cell::{Cell, OnceCell, RefCell};
 
     #[derive(glib::Properties)]
     #[properties(wrapper_type = super::ViewerWindow)]
@@ -77,7 +78,10 @@ mod imp {
         pub image_render: ImageRender,
         pub status_label: gtk::Label,
         pub action_group: gio::SimpleActionGroup,
-        pub metadata_view: FileMetainfoView,
+        pub metadata_view: OnceCell<FileMetainfoView>,
+
+        #[property(get, construct_only)]
+        pub file_metadata_service: OnceCell<FileMetadataService>,
 
         #[property(get, set)]
         pub file: RefCell<Option<File>>,
@@ -163,7 +167,9 @@ mod imp {
                 image_render,
                 status_label: gtk::Label::default(),
                 action_group: gio::SimpleActionGroup::default(),
-                metadata_view: FileMetainfoView::default(),
+                metadata_view: Default::default(),
+
+                file_metadata_service: Default::default(),
 
                 file: Default::default(),
                 searcher: Default::default(),
@@ -248,12 +254,14 @@ mod imp {
             statusbar.append(&self.status_label);
             vbox.append(&statusbar);
 
-            self.metadata_view.set_vexpand(true);
+            let metadata_view = FileMetainfoView::new(&window.file_metadata_service());
+            metadata_view.set_vexpand(true);
             window
-                .bind_property("metadata-visible", &self.metadata_view, "visible")
+                .bind_property("metadata-visible", &metadata_view, "visible")
                 .bidirectional()
                 .build();
-            vbox.append(&self.metadata_view);
+            vbox.append(&metadata_view);
+            self.metadata_view.set(metadata_view).ok().unwrap();
 
             let settings = gio::Settings::new(GCMD_INTERNAL_VIEWER);
 
@@ -641,8 +649,10 @@ const DISP_MODE_HEXDUMP: &str = "hex";
 const DISP_MODE_IMAGE: &str = "image";
 
 impl ViewerWindow {
-    pub fn file_view(file: &File) -> Self {
-        let w: Self = glib::Object::builder().build();
+    pub fn file_view(file: &File, file_metadata_service: &FileMetadataService) -> Self {
+        let w: Self = glib::Object::builder()
+            .property("file-metadata-service", file_metadata_service)
+            .build();
         w.load_file(file);
         w.imp().stack.grab_focus();
         w
@@ -654,7 +664,11 @@ impl ViewerWindow {
         self.imp().text_render.load_file(&file.get_real_path());
         self.set_display_mode(guess_display_mode(file).unwrap_or_default());
 
-        self.imp().metadata_view.set_property("file", file);
+        self.imp()
+            .metadata_view
+            .get()
+            .unwrap()
+            .set_property("file", file);
 
         self.set_title(file.get_real_path().to_str());
     }
