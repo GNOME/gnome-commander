@@ -189,8 +189,6 @@ inline std::string stringify(const T &val)
     return stringify(s,val);
 }
 
-gint get_string_pixel_size (const char *s, int len);
-
 gchar* get_package_config_dir();
 
 gchar *string_double_underscores (const gchar *string);
