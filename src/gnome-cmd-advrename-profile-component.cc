@@ -242,6 +242,8 @@ static GtkWidget *create_button_with_menu(gchar *label_text, GMenuModel *model)
     GtkWidget *button = gtk_menu_button_new ();
     gtk_menu_button_set_label (GTK_MENU_BUTTON (button), label_text);
     gtk_menu_button_set_menu_model (GTK_MENU_BUTTON (button), model);
+    if (auto popover = gtk_menu_button_get_popover (GTK_MENU_BUTTON (button)))
+        gtk_popover_menu_set_flags (GTK_POPOVER_MENU (popover), GTK_POPOVER_MENU_NESTED);
     return button;
 }
 
@@ -735,6 +737,8 @@ GnomeCmdAdvrenameProfileComponent::GnomeCmdAdvrenameProfileComponent(GnomeCmdDat
     gtk_menu_button_set_menu_model (
         GTK_MENU_BUTTON (priv->metadata_button),
         G_MENU_MODEL (gnome_cmd_file_metadata_service_create_menu (file_metadata_service, "advrenametag.insert-text-tag")));
+    if (auto popover = gtk_menu_button_get_popover (GTK_MENU_BUTTON (priv->metadata_button)))
+        gtk_popover_menu_set_flags (GTK_POPOVER_MENU (popover), GTK_POPOVER_MENU_NESTED);
 
     // Template
     gtk_widget_grab_focus (priv->template_entry);

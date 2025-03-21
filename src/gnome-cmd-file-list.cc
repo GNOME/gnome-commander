@@ -802,6 +802,7 @@ static void show_file_popup (GnomeCmdFileList *fl, GdkRectangle *point_to)
     GtkWidget *popover = gtk_popover_menu_new_from_model (G_MENU_MODEL (menu_model));
     gtk_widget_set_parent (popover, GTK_WIDGET (fl));
     gtk_popover_set_position (GTK_POPOVER (popover), GTK_POS_BOTTOM);
+    gtk_popover_menu_set_flags (GTK_POPOVER_MENU (popover), GTK_POPOVER_MENU_NESTED);
 
     GdkRectangle rect;
     if (!point_to)
