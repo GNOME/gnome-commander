@@ -589,6 +589,7 @@ static void gnome_cmd_main_win_init (GnomeCmdMainWin *mw)
     gtk_window_set_child (GTK_WINDOW (mw), mw->priv->vbox);
 
     mw->priv->paned = gtk_paned_new (gnome_cmd_data.horizontal_orientation ? GTK_ORIENTATION_VERTICAL : GTK_ORIENTATION_HORIZONTAL);
+    gtk_paned_set_wide_handle (GTK_PANED (mw->priv->paned), TRUE);
     gtk_widget_set_hexpand (mw->priv->paned, TRUE);
     gtk_widget_set_vexpand (mw->priv->paned, TRUE);
     gtk_box_append (GTK_BOX (mw->priv->vbox), mw->priv->paned);
