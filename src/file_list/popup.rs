@@ -180,20 +180,19 @@ fn add_open_with_entries(menu: &gio::Menu, file_list: &FileList) {
 
     let app_infos = content_type
         .map(|ct| gio::AppInfo::all_for_type(&ct))
-        .unwrap_or_default();
-    for app_info in app_infos.iter().take(MAX_OPEN_WITH_APPS) {
-        let app = App::Regular(RegularApp {
-            app_info: app_info.clone(),
-        });
+        .unwrap_or_default()
+        .into_iter()
+        .filter(|app_info| {
+            // Only add the entry to the submenu if its name different from the default app
+            match default_app_info {
+                Some(ref d) => !d.equal(app_info),
+                None => true,
+            }
+        })
+        .take(MAX_OPEN_WITH_APPS)
+        .map(|app_info| App::Regular(RegularApp { app_info }));
 
-        // Only add the entry to the submenu if its name different from the default app
-        if default_app_info
-            .as_ref()
-            .map_or(false, |a| a.equal(app_info))
-        {
-            continue;
-        }
-
+    for app in app_infos {
         let item = gio::MenuItem::new(Some(&app.name()), None);
         item.set_action_and_target_value(Some("fl.open-with"), Some(&app.to_variant()));
         if let Some(icon) = app.icon() {
@@ -203,12 +202,14 @@ fn add_open_with_entries(menu: &gio::Menu, file_list: &FileList) {
         submenu.append_item(&item);
     }
 
-    // If the number of mime apps is zero, we have added an "OpenWith" entry already further above
-    if !app_infos.is_empty() {
-        menu.append(Some(&gettext("Open Wit_h…")), Some("fl.open-with-other"));
+    // We haven't added an "Open with..." entry further above, so adding it here.
+    if default_app_info.is_some() {
+        submenu.append(Some(&gettext("Open Wit_h…")), Some("fl.open-with-other"));
     }
 
-    menu.append_submenu(Some(&gettext("Open Wit_h")), &submenu);
+    if submenu.n_items() > 0 {
+        menu.append_submenu(Some(&gettext("Open Wit_h")), &submenu);
+    }
 }
 
 pub fn file_popup_menu(main_win: &MainWindow, file_list: &FileList) -> Option<gio::Menu> {
