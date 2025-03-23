@@ -21,16 +21,7 @@
  */
 
 use crate::pwd::{gid_t, uid_t, SystemGroup, SystemUser};
-use gtk::{
-    gio,
-    glib::{
-        self,
-        ffi::GType,
-        translate::{FromGlibPtrBorrow, IntoGlib},
-    },
-    prelude::*,
-    subclass::prelude::*,
-};
+use gtk::{gio, glib, prelude::*, subclass::prelude::*};
 use std::ffi::CString;
 
 mod imp {
@@ -251,32 +242,4 @@ impl ChownComponent {
             self.imp().group.set_selected(group_position);
         }
     }
-}
-
-#[no_mangle]
-pub extern "C" fn gnome_cmd_chown_component_get_type() -> GType {
-    ChownComponent::static_type().into_glib()
-}
-
-#[no_mangle]
-pub unsafe extern "C" fn gnome_cmd_chown_component_set(
-    component: *mut <ChownComponent as glib::object::ObjectType>::GlibType,
-    owner: uid_t,
-    group: gid_t,
-) {
-    ChownComponent::from_glib_borrow(component).set_ownership(owner, group);
-}
-
-#[no_mangle]
-pub unsafe extern "C" fn gnome_cmd_chown_component_get_owner(
-    component: *mut <ChownComponent as glib::object::ObjectType>::GlibType,
-) -> uid_t {
-    ChownComponent::from_glib_borrow(component).ownership().0
-}
-
-#[no_mangle]
-pub unsafe extern "C" fn gnome_cmd_chown_component_get_group(
-    component: *mut <ChownComponent as glib::object::ObjectType>::GlibType,
-) -> gid_t {
-    ChownComponent::from_glib_borrow(component).ownership().1
 }

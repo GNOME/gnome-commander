@@ -32,7 +32,6 @@
 #include "gnome-cmd-convert.h"
 #include "gnome-cmd-data.h"
 #include "gnome-cmd-file.h"
-#include "gnome-cmd-file-props-dialog.h"
 #include "gnome-cmd-advrename-profile-component.h"
 #include "gnome-cmd-treeview.h"
 #include "gnome-cmd-main-win.h"
@@ -254,6 +253,17 @@ void GnomeCmdAdvrenameDialog::Private::on_files_view_popup_menu__view_file (GSim
 }
 
 
+extern "C" GType gnome_cmd_file_properties_dialog_get_type ();
+
+
+static void file_properties_dialog_closed (GtkWindow *props_dialog, gboolean file_changed, GnomeCmdAdvrenameDialog *dialog)
+{
+    gtk_window_close (GTK_WINDOW (props_dialog));
+    if (file_changed)
+        GnomeCmdAdvrenameDialog::Private::on_files_view_popup_menu__update_files (nullptr, nullptr, dialog);
+}
+
+
 void GnomeCmdAdvrenameDialog::Private::on_files_view_popup_menu__show_properties (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
     auto dialog = static_cast<GnomeCmdAdvrenameDialog*>(user_data);
@@ -269,7 +279,15 @@ void GnomeCmdAdvrenameDialog::Private::on_files_view_popup_menu__show_properties
         gtk_tree_model_get (model, &iter, COL_FILE, &f, -1);
 
         if (f)
-            gnome_cmd_file_props_dialog_show (*dialog, dialog->priv->file_metadata_service, f);
+        {
+            auto file_props_dialog = g_object_new (gnome_cmd_file_properties_dialog_get_type (),
+                "transient-for", dialog,
+                "file-metadata-service", dialog->priv->file_metadata_service,
+                "file", f,
+                nullptr);
+            g_signal_connect (file_props_dialog, "dialog-response", G_CALLBACK (file_properties_dialog_closed), dialog);
+            gtk_window_present (GTK_WINDOW (file_props_dialog));
+        }
     }
 }
 

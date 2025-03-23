@@ -34,7 +34,10 @@ use std::path::{Path, PathBuf};
 pub mod ffi {
     use super::*;
     use crate::connection::connection::ffi::GnomeCmdConClass;
-    use gtk::{gio::ffi::GIcon, glib::ffi::GType};
+    use gtk::{
+        gio::ffi::{GIcon, GMount},
+        glib::ffi::GType,
+    };
     use std::ffi::c_char;
 
     #[repr(C)]
@@ -68,6 +71,9 @@ pub mod ffi {
 
         pub fn gnome_cmd_con_device_get_autovol(dev: *mut GnomeCmdConDevice) -> gboolean;
         pub fn gnome_cmd_con_device_set_autovol(dev: *mut GnomeCmdConDevice, autovol: gboolean);
+
+        pub fn gnome_cmd_con_device_get_gmount(dev: *mut GnomeCmdConDevice) -> *mut GMount;
+        pub fn gnome_cmd_con_device_set_gmount(dev: *mut GnomeCmdConDevice, mount: *mut GMount);
     }
 
     #[derive(Copy, Clone)]
@@ -145,5 +151,15 @@ impl ConnectionDevice {
 
     pub fn set_autovol(&self, autovol: bool) {
         unsafe { ffi::gnome_cmd_con_device_set_autovol(self.to_glib_none().0, autovol as gboolean) }
+    }
+
+    pub fn gmount(&self) -> Option<gio::Mount> {
+        unsafe { from_glib_none(ffi::gnome_cmd_con_device_get_gmount(self.to_glib_none().0)) }
+    }
+
+    pub fn set_gmouut(&self, gmount: Option<&gio::Mount>) {
+        unsafe {
+            ffi::gnome_cmd_con_device_set_gmount(self.to_glib_none().0, gmount.to_glib_none().0)
+        }
     }
 }

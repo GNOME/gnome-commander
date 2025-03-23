@@ -23,7 +23,6 @@
 #include "gnome-cmd-includes.h"
 #include "text-utils.h"
 #include "widget-factory.h"
-#include "gnome-cmd-dialog.h"
 
 
 GtkWidget *lookup_widget (GtkWidget *widget, const gchar *widget_name)

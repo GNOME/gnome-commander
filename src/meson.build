@@ -7,8 +7,6 @@ sources_headers = files(
   'gnome-cmd-advrename-profile-component.h',
   'gnome-cmd-app.h',
   'gnome-cmd-application.h',
-  'gnome-cmd-chmod-component.h',
-  'gnome-cmd-chown-component.h',
   'gnome-cmd-cmdline.h',
   'gnome-cmd-collection.h',
   'gnome-cmd-combo.h',
@@ -42,7 +40,6 @@ sources_headers = files(
   'history.h',
   'imageloader.h',
   'utils.h',
-  'gnome-cmd-dialog.h',
   'text-utils.h',
   'widget-factory.h',
 )
@@ -83,7 +80,6 @@ sources_sources = files(
   'gnome-cmd-xfer.cc',
   'history.cc',
   'utils.cc',
-  'gnome-cmd-dialog.cc',
   'text-utils.cc',
   'widget-factory.cc',
 )

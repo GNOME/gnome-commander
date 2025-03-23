@@ -21,15 +21,7 @@
  */
 
 use crate::utils::PERMISSION_MASKS;
-use gtk::{
-    glib::{
-        self,
-        ffi::GType,
-        translate::{FromGlibPtrBorrow, IntoGlib},
-    },
-    prelude::*,
-    subclass::prelude::*,
-};
+use gtk::{glib, prelude::*, subclass::prelude::*};
 
 mod imp {
     use super::*;
@@ -206,24 +198,4 @@ impl ChmodComponent {
             }
         }
     }
-}
-
-#[no_mangle]
-pub extern "C" fn gnome_cmd_chmod_component_get_type() -> GType {
-    ChmodComponent::static_type().into_glib()
-}
-
-#[no_mangle]
-pub unsafe extern "C" fn gnome_cmd_chmod_component_set_perms(
-    component: *mut <ChmodComponent as glib::object::ObjectType>::GlibType,
-    permissions: u32,
-) {
-    ChmodComponent::from_glib_borrow(component).set_permissions(permissions);
-}
-
-#[no_mangle]
-pub unsafe extern "C" fn gnome_cmd_chmod_component_get_perms(
-    component: *mut <ChmodComponent as glib::object::ObjectType>::GlibType,
-) -> u32 {
-    ChmodComponent::from_glib_borrow(component).permissions()
 }

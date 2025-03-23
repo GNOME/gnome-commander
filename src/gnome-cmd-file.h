@@ -159,6 +159,8 @@ inline void gnome_cmd_file_list_unref (GList *files)
 {
     g_list_foreach (files, (GFunc) gnome_cmd_file_unref, NULL);
 }
+
+extern "C" gboolean gnome_cmd_file_rename(GnomeCmdFile *f, const gchar *new_name, GError **error);
 extern "C" gboolean gnome_cmd_file_chown(GnomeCmdFile *f, uid_t uid, gid_t gid, GError **error);
 extern "C" gboolean gnome_cmd_file_chmod(GnomeCmdFile *f, guint32 permissions, GError **error);
 

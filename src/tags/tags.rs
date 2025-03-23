@@ -26,7 +26,7 @@ use gtk::{
     gio::{self, ffi::GMenu},
     glib::{
         self,
-        ffi::{GStrv, GType},
+        ffi::GType,
         prelude::*,
         subclass::prelude::*,
         translate::{from_glib_borrow, from_glib_none, Borrowed, IntoGlib, ToGlibPtr},
@@ -230,43 +230,6 @@ pub extern "C" fn gnome_cmd_file_metadata_service_get_type() -> GType {
 }
 
 #[no_mangle]
-pub extern "C" fn gnome_cmd_file_metadata_service_get_name(
-    fms: *mut <FileMetadataService as glib::object::ObjectType>::GlibType,
-    tag_id: *const c_char,
-) -> *mut c_char {
-    let fms: Borrowed<FileMetadataService> = unsafe { from_glib_borrow(fms) };
-    let tag_id: String = unsafe { from_glib_none(tag_id) };
-    fms.tag_name(&GnomeCmdTag(tag_id.into())).to_glib_full()
-}
-
-#[no_mangle]
-pub extern "C" fn gnome_cmd_file_metadata_service_get_description(
-    fms: *mut <FileMetadataService as glib::object::ObjectType>::GlibType,
-    tag_id: *const c_char,
-) -> *mut c_char {
-    let fms: Borrowed<FileMetadataService> = unsafe { from_glib_borrow(fms) };
-    let tag_id: String = unsafe { from_glib_none(tag_id) };
-    fms.tag_description(&GnomeCmdTag(tag_id.into()))
-        .to_glib_full()
-}
-
-#[no_mangle]
-pub extern "C" fn gnome_cmd_file_metadata_service_file_summary(
-    fms: *mut <FileMetadataService as glib::object::ObjectType>::GlibType,
-    fm: *mut FileMetadata,
-) -> GStrv {
-    let fms: Borrowed<FileMetadataService> = unsafe { from_glib_borrow(fms) };
-    let fm: &mut FileMetadata = unsafe { &mut *fm };
-    let summary = fms.file_summary(fm);
-    let strv: glib::StrV = summary
-        .into_iter()
-        .flat_map(|(label, value)| std::iter::once(label).chain(std::iter::once(value)))
-        .map(|s| s.into())
-        .collect();
-    strv.to_glib_full()
-}
-
-#[no_mangle]
 pub extern "C" fn gnome_cmd_file_metadata_service_create_menu(
     fms: *mut <FileMetadataService as glib::object::ObjectType>::GlibType,
     action_name: *const c_char,
@@ -285,14 +248,4 @@ pub extern "C" fn gnome_cmd_file_metadata_service_extract_metadata(
     let f: Borrowed<File> = unsafe { from_glib_borrow(f) };
     let metadata = Box::new(fms.extract_metadata(&*f));
     Box::leak(metadata)
-}
-
-#[no_mangle]
-pub extern "C" fn gnome_cmd_file_metadata_service_to_tsv(
-    fms: *mut <FileMetadataService as glib::object::ObjectType>::GlibType,
-    fm: *mut FileMetadata,
-) -> *mut c_char {
-    let fms: Borrowed<FileMetadataService> = unsafe { from_glib_borrow(fms) };
-    let fm: &mut FileMetadata = unsafe { &mut *fm };
-    fms.to_tsv(fm).to_glib_full()
 }

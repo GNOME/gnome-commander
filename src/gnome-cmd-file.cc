@@ -32,7 +32,6 @@
 #include "gnome-cmd-xfer.h"
 #include "tags/file_metadata.h"
 #include "intviewer/libgviewer.h"
-#include "dialogs/gnome-cmd-file-props-dialog.h"
 #include "gnome-cmd-user-actions.h"
 
 using namespace std;
@@ -956,6 +955,11 @@ gboolean gnome_cmd_file_is_local (GnomeCmdFile *f)
 {
     GnomeCmdCon *con = gnome_cmd_file_get_connection (f);
     return gnome_cmd_con_is_local (con);
+}
+
+gboolean gnome_cmd_file_rename(GnomeCmdFile *f, const gchar *new_name, GError **error)
+{
+    return f->rename(new_name, error);
 }
 
 gboolean gnome_cmd_file_chown(GnomeCmdFile *f, uid_t uid, gid_t gid, GError **error)

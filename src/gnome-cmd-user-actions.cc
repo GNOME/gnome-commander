@@ -38,7 +38,6 @@
 #include "dialogs/gnome-cmd-mkdir-dialog.h"
 #include "dialogs/gnome-cmd-search-dialog.h"
 #include "dialogs/gnome-cmd-options-dialog.h"
-#include "dialogs/gnome-cmd-file-props-dialog.h"
 
 using namespace std;
 
@@ -291,20 +290,6 @@ void file_advrename (GSimpleAction *action, GVariant *parameter, gpointer user_d
 
         g_list_free (files);
     }
-}
-
-
-void file_properties (GSimpleAction *action, GVariant *parameter, gpointer user_data)
-{
-    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
-
-    GnomeCmdFileList *fl = get_fl (main_win, ACTIVE);
-    GnomeCmdFile *file = fl->get_selected_file();
-    if (file)
-        gnome_cmd_file_props_dialog_show (
-            GTK_WINDOW (main_win),
-            gnome_cmd_main_win_get_file_metadata_service (main_win),
-            file);
 }
 
 

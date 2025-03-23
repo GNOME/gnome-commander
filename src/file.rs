@@ -79,6 +79,12 @@ pub mod ffi {
         pub fn gnome_cmd_file_get_uri_str(f: *const GnomeCmdFile) -> *mut c_char;
         pub fn gnome_cmd_file_is_local(f: *const GnomeCmdFile) -> gboolean;
 
+        pub fn gnome_cmd_file_rename(
+            f: *mut GnomeCmdFile,
+            new_name: *const c_char,
+            error: *mut *mut GError,
+        ) -> gboolean;
+
         pub fn gnome_cmd_file_chown(
             f: *mut GnomeCmdFile,
             uid: uid_t,
@@ -231,6 +237,22 @@ impl File {
         )
     }
 
+    pub fn rename(&self, new_name: &str) -> Result<(), glib::Error> {
+        unsafe {
+            let mut error = ptr::null_mut();
+            let _is_ok = ffi::gnome_cmd_file_rename(
+                self.to_glib_none().0,
+                new_name.to_glib_none().0,
+                &mut error,
+            );
+            if error.is_null() {
+                Ok(())
+            } else {
+                Err(from_glib_full(error))
+            }
+        }
+    }
+
     pub fn chown(&self, uid: uid_t, gid: gid_t) -> Result<(), glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
@@ -277,6 +299,11 @@ impl File {
             & 0xFFF
     }
 
+    pub fn uid(&self) -> u32 {
+        self.file_info()
+            .attribute_uint32(gio::FILE_ATTRIBUTE_UNIX_UID)
+    }
+
     pub fn owner(&self) -> String {
         let file_info = self.file_info();
         file_info
@@ -287,6 +314,11 @@ impl File {
                     .attribute_uint32(gio::FILE_ATTRIBUTE_UNIX_UID)
                     .to_string()
             })
+    }
+
+    pub fn gid(&self) -> u32 {
+        self.file_info()
+            .attribute_uint32(gio::FILE_ATTRIBUTE_UNIX_GID)
     }
 
     pub fn group(&self) -> String {
@@ -304,6 +336,13 @@ impl File {
     pub fn tree_size(&self) -> Option<u64> {
         Some(unsafe { ffi::gnome_cmd_file_get_tree_size(self.to_glib_none().0) })
             .filter(|v| *v != u64::MAX)
+    }
+
+    pub fn free_space(&self) -> Result<u64, glib::Error> {
+        Ok(self
+            .file()
+            .query_filesystem_info(gio::FILE_ATTRIBUTE_FILESYSTEM_FREE, gio::Cancellable::NONE)?
+            .attribute_uint64(gio::FILE_ATTRIBUTE_FILESYSTEM_FREE))
     }
 }
 
