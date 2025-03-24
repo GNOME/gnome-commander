@@ -76,27 +76,6 @@ void DEBUG (gchar flag, const gchar *format, ...)
 }
 
 
-const char **convert_varargs_to_name_array (va_list args)
-{
-    const char *name;
-
-    GPtrArray *resizeable_array = g_ptr_array_new ();
-
-    do
-    {
-        name = va_arg (args, const char *);
-        g_ptr_array_add (resizeable_array, (gpointer) name);
-    }
-    while (name);
-
-    const char **plain_ole_array = (const char **) resizeable_array->pdata;
-
-    g_ptr_array_free (resizeable_array, FALSE);
-
-    return plain_ole_array;
-}
-
-
 const gchar *type2string (guint32 type, gchar *buf, guint max)
 {
     const char *s;
@@ -434,37 +413,6 @@ gchar *unix_to_unc (const gchar *path)
     transform (out+1, '/', '\\');
 
     return out;
-}
-
-
-GdkRGBA *gdk_color_new (gushort r, gushort g, gushort b)
-{
-    GdkRGBA *c = g_new0 (GdkRGBA, 1);
-    // c->pixel = 0;
-    c->red = r;
-    c->green = g;
-    c->blue = b;
-
-    return c;
-}
-
-
-GList *gnome_cmd_file_list_to_gfile_list (GList *files)
-{
-    GList *gFiles = nullptr;
-
-    for (; files; files = files->next)
-    {
-        GnomeCmdFile *f = GNOME_CMD_FILE (files->data);
-        auto gFile = g_file_dup (f->get_file());
-
-        if (!gFile)
-            g_warning ("gnome_cmd_file_list_to_gfile_list: no gFile!!!");
-        else
-            gFiles = g_list_append (gFiles, gFile);
-    }
-
-    return gFiles;
 }
 
 

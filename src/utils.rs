@@ -39,9 +39,6 @@ pub const GNOME_CMD_PERM_GROUP_EXEC: u32 = 8; //-----x---
 pub const GNOME_CMD_PERM_OTHER_READ: u32 = 4; //------r--
 pub const GNOME_CMD_PERM_OTHER_WRITE: u32 = 2; //-------w-
 pub const GNOME_CMD_PERM_OTHER_EXEC: u32 = 1; //--------x
-pub const GNOME_CMD_PERM_USER_ALL: u32 = 448; //rwx------
-pub const GNOME_CMD_PERM_GROUP_ALL: u32 = 56; //---rwx---
-pub const GNOME_CMD_PERM_OTHER_ALL: u32 = 7; //------rwx
 
 pub const PERMISSION_MASKS: [[u32; 3]; 3] = [
     [
