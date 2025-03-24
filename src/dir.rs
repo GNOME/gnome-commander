@@ -2,7 +2,7 @@
  * Copyright 2001-2006 Marcus Bjurman
  * Copyright 2007-2012 Piotr Eljasiak
  * Copyright 2013-2024 Uwe Scholz
- * Copyright 2024 Andrey Kutejko <andy128k@gmail.com>
+ * Copyright 2024-2025 Andrey Kutejko <andy128k@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -60,6 +60,8 @@ pub mod ffi {
             parent: *mut GnomeCmdDir,
         ) -> *mut GnomeCmdDir;
         pub fn gnome_cmd_dir_new(dir: *mut GnomeCmdCon, path: *const c_void) -> *mut GnomeCmdDir;
+
+        pub fn gnome_cmd_dir_get_parent(dir: *mut GnomeCmdDir) -> *mut GnomeCmdDir;
 
         pub fn gnome_cmd_dir_get_display_path(dir: *mut GnomeCmdDir) -> *const c_char;
 
@@ -128,6 +130,10 @@ impl Directory {
                 path.into_raw(),
             ))
         }
+    }
+
+    pub fn parent(&self) -> Option<Directory> {
+        unsafe { from_glib_full(ffi::gnome_cmd_dir_get_parent(self.to_glib_none().0)) }
     }
 
     pub fn display_path(&self) -> String {
