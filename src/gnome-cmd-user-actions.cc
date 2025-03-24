@@ -169,7 +169,6 @@ GNOME_CMD_USER_ACTION(view_back);
 GNOME_CMD_USER_ACTION(view_forward);
 GNOME_CMD_USER_ACTION(view_last);
 GNOME_CMD_USER_ACTION(view_refresh);
-GNOME_CMD_USER_ACTION(view_refresh_tab);
 GNOME_CMD_USER_ACTION(view_equal_panes);
 GNOME_CMD_USER_ACTION(view_maximize_pane);
 GNOME_CMD_USER_ACTION(view_in_left_pane);
@@ -581,19 +580,6 @@ void view_refresh (GSimpleAction *action, GVariant *parameter, gpointer user_dat
 }
 
 
-void view_refresh_tab (GSimpleAction *action, GVariant *parameter, gpointer user_data)
-{
-    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
-
-    gint fs_id, tab;
-    g_variant_get (parameter, "(ii)", &fs_id, &tab);
-
-    GnomeCmdFileSelector *fs = main_win->fs ((FileSelectorID) fs_id);
-    GnomeCmdFileList *fl = fs->file_list(tab);
-    fl->reload();
-}
-
-
 void view_equal_panes (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
     auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
@@ -744,12 +730,8 @@ void view_toggle_tab_lock (GSimpleAction *action, GVariant *parameter, gpointer 
 {
     auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
 
-    gboolean is_active;
-    gint tab_index;
-    g_variant_get (parameter, "(bi)", &is_active, &tab_index);
-
-    GnomeCmdFileSelector *fs = main_win->fs (is_active ? ACTIVE : INACTIVE);
-    GnomeCmdFileList *fl = fs->file_list(tab_index);
+    GnomeCmdFileSelector *fs = main_win->fs (ACTIVE);
+    GnomeCmdFileList *fl = fs->file_list();
 
     if (fl)
     {

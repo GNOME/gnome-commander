@@ -800,7 +800,6 @@ c_action!(view_back);
 c_action!(view_forward);
 c_action!(view_last);
 c_action!(view_refresh);
-c_action!(view_refresh_tab);
 c_action!(view_equal_panes);
 c_action!(view_maximize_pane);
 c_action!(view_in_left_pane);
@@ -1635,13 +1634,6 @@ pub const USER_ACTIONS: Lazy<Vec<UserAction>> = Lazy::new(|| {
             "view.refresh",
             gettext("Refresh"),
         ),
-        UserAction::with_param(
-            "view-refresh-tab",
-            &view_refresh_tab,
-            unsafe { glib::VariantTy::from_str_unchecked("(ii)") }.into(),
-            "view.refresh_tab",
-            gettext("Refresh tab"),
-        ),
         UserAction::new(
             "view-equal-panes",
             &view_equal_panes,
@@ -1744,10 +1736,9 @@ pub const USER_ACTIONS: Lazy<Vec<UserAction>> = Lazy::new(|| {
             "view.in_inactive_tab",
             gettext("Open directory in the new tab (inactive window)"),
         ),
-        UserAction::with_param(
+        UserAction::new(
             "view-toggle-tab-lock",
             &view_toggle_tab_lock,
-            unsafe { glib::VariantTy::from_str_unchecked("(bi)") }.into(),
             "view.toggle_lock_tab",
             gettext("Lock/unlock tab"),
         ),

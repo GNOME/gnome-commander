@@ -559,6 +559,31 @@ static void on_notebook_button_pressed (GtkGestureClick *gesture, int n_press, d
 }
 
 
+static void toggle_tab_lock (GtkWidget* widget, const char* action_name, GVariant* parameter)
+{
+    GnomeCmdFileSelector *fs = GNOME_CMD_FILE_SELECTOR (widget);
+    gint tab_index = g_variant_get_int32 (parameter);
+
+    GnomeCmdFileList *fl = fs->file_list(tab_index);
+    if (fl)
+    {
+        fl->locked = !fl->locked;
+        fs->update_tab_label(fl);
+    }
+}
+
+
+static void refresh_tab (GtkWidget* widget, const char* action_name, GVariant* parameter)
+{
+    GnomeCmdFileSelector *fs = GNOME_CMD_FILE_SELECTOR (widget);
+    gint tab_index = g_variant_get_int32 (parameter);
+
+    GnomeCmdFileList *fl = fs->file_list(tab_index);
+    if (fl)
+        fl->reload();
+}
+
+
 /*******************************
  * Gtk class implementation
  *******************************/
@@ -579,6 +604,9 @@ static void dispose (GObject *object)
 
 static void gnome_cmd_file_selector_class_init (GnomeCmdFileSelectorClass *klass)
 {
+    gtk_widget_class_install_action (GTK_WIDGET_CLASS (klass), "fs.toggle-tab-lock", "i", toggle_tab_lock);
+    gtk_widget_class_install_action (GTK_WIDGET_CLASS (klass), "fs.refresh-tab", "i", refresh_tab);
+
     signals[DIR_CHANGED] =
         g_signal_new ("dir-changed",
             G_TYPE_FROM_CLASS (klass),
