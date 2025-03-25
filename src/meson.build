@@ -5,7 +5,6 @@ sources_headers = files(
   'filter.h',
   'gnome-cmd-advrename-lexer.h',
   'gnome-cmd-advrename-profile-component.h',
-  'gnome-cmd-app.h',
   'gnome-cmd-application.h',
   'gnome-cmd-chmod-component.h',
   'gnome-cmd-chown-component.h',

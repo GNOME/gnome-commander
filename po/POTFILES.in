@@ -33,6 +33,7 @@ src/dialogs/manage_bookmarks_dialog.rs
 src/dialogs/new_text_file.rs
 src/dialogs/open_with_other_dialog.rs
 src/dialogs/options/app_dialog.rs
+src/dialogs/options/apps_widget.rs
 src/dialogs/options/device_dialog.rs
 src/dialogs/options/devices_widget.rs
 src/dialogs/options/edit_colors_dialog.rs

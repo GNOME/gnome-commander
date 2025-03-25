@@ -34,7 +34,6 @@ using namespace std;
 GtkWidget *create_filter_tab (GtkWidget *parent, GnomeCmdData::Options &cfg);
 GtkWidget *create_font_picker (GtkWidget *parent, const gchar *name);
 GtkWidget *create_tabs_tab (GtkWidget *parent, GnomeCmdData::Options &cfg);
-void add_app_to_list (GtkTreeView *view, GnomeCmdApp *app);
 void store_confirmation_options (GtkWidget *dialog, GnomeCmdData::Options &cfg);
 void store_devices_options (GtkWidget *dialog, GnomeCmdData::Options &cfg);
 void store_filter_options (GtkWidget *dialog, GnomeCmdData::Options &cfg);
@@ -1101,125 +1100,9 @@ void store_filter_options (GtkWidget *dialog, GnomeCmdData::Options &cfg)
  *
  **********************************************************************/
 
-void add_app_to_list (GtkTreeView *view, GnomeCmdApp *app)
-{
-    GtkListStore *store = GTK_LIST_STORE (gtk_tree_view_get_model (view));
-    GtkTreeIter iter;
-
-    gtk_list_store_append (store, &iter);
-    gtk_list_store_set (store, &iter,
-                        0, gnome_cmd_app_get_icon (app),
-                        1, (gchar *) gnome_cmd_app_get_name (app),
-                        2, (gchar *) gnome_cmd_app_get_command (app),
-                        3, app,
-                        -1);
-}
-
-
-extern "C" void gnome_cmd_fav_app_new(GtkWindow *parent_window, GtkTreeView *tree_view);
-extern "C" void gnome_cmd_fav_app_edit(GtkWindow *parent_window, GtkTreeView *tree_view);
-
-
-extern "C" void gnome_cmd_add_fav_app(GnomeCmdApp *app)
-{
-    gnome_cmd_data.options.add_fav_app(app);
-}
-
-
-static void on_app_add (GtkWidget *button, GtkWidget *parent)
-{
-    GtkWidget *tree_view = lookup_widget (parent, "app_view");
-    gnome_cmd_fav_app_new (GTK_WINDOW (parent), GTK_TREE_VIEW (tree_view));
-}
-
-
-static void on_app_edit (GtkWidget *button, GtkWidget *parent)
-{
-    GtkWidget *tree_view = lookup_widget (parent, "app_view");
-    gnome_cmd_fav_app_edit (GTK_WINDOW (parent), GTK_TREE_VIEW (tree_view));
-}
-
-
-static void on_app_selection_changed (GtkTreeSelection *selection, GtkWidget *parent)
-{
-    GtkTreeModel *model;
-    GtkTreeIter iter;
-    GnomeCmdApp *app = nullptr;
-
-    if (gtk_tree_selection_get_selected (selection, &model, &iter))
-        gtk_tree_model_get (model, &iter, 3, &app, -1);
-
-    gtk_widget_set_sensitive (lookup_widget (parent, "remove_app_button"), app != nullptr);
-    gtk_widget_set_sensitive (lookup_widget (parent, "edit_app_button"), app != nullptr);
-}
-
-
-static void on_app_reordered (GtkTreeModel *model, GtkTreePath *path, GtkTreeIter *iter, gint *new_order, GtkWidget *frame)
-{
-    gint row;
-
-    for (row = 0; new_order[row] == row; row++); // find first difference in order
-
-    GList *apps = gnome_cmd_data.options.fav_apps;
-
-    if (!apps
-        || MAX (row, new_order[row]) >= (gint) g_list_length (apps) // cast will only be problematic for incredibly large lists
-        || MIN (row, new_order[row]) < 0)
-        return;
-
-    gpointer data = g_list_nth_data (apps, row);
-    apps = g_list_remove (apps, data);
-
-    apps = g_list_insert (apps, data, new_order[row]);
-
-    gnome_cmd_data.options.set_fav_apps(apps);
-}
-
-
-static void on_app_remove (GtkWidget *button, GtkWidget *frame)
-{
-    GtkTreeView *view = GTK_TREE_VIEW (lookup_widget (frame, "app_view"));
-    GtkTreeModel *model;
-    GtkTreeIter iter;
-
-    if (gtk_tree_selection_get_selected (gtk_tree_view_get_selection (view), &model, &iter))
-    {
-        GnomeCmdApp *app;
-        gtk_tree_model_get (model, &iter, 3, &app, -1);
-        gnome_cmd_data.options.remove_fav_app(app);
-        gtk_list_store_remove (GTK_LIST_STORE (model), &iter);
-    }
-}
-
-
-static void on_app_move_up (GtkWidget *button, GtkWidget *frame)
-{
-    GtkTreeView *view = GTK_TREE_VIEW (lookup_widget (frame, "app_view"));
-    GtkTreeModel *model;
-    GtkTreeIter iter, prev;
-
-    if (gtk_tree_selection_get_selected (gtk_tree_view_get_selection (view), &model, &iter))
-    {
-        prev = iter;
-        if (gtk_tree_model_iter_previous (model, &prev))
-            gtk_list_store_swap (GTK_LIST_STORE (model), &iter, &prev);
-    }
-}
-
-
-static void on_app_move_down (GtkWidget *button, GtkWidget *frame)
-{
-    GtkTreeView *view = GTK_TREE_VIEW (lookup_widget (frame, "app_view"));
-    GtkTreeModel *model;
-    GtkTreeIter iter, next;
-
-    if (gtk_tree_selection_get_selected (gtk_tree_view_get_selection (view), &model, &iter))
-    {
-        next = iter;
-        if (gtk_tree_model_iter_next (model, &next))
-            gtk_list_store_swap (GTK_LIST_STORE (model), &iter, &next);
-    }
-}
+extern "C" GtkWidget *gnome_cmd_favorite_apps_widget();
+extern "C" void gnome_cmd_favorite_apps_widget_load_apps(GtkWidget *);
+extern "C" void gnome_cmd_favorite_apps_widget_save_apps(GtkWidget *);
 
 
 static GtkWidget *create_programs_tab (GtkWidget *parent, GnomeCmdData::Options &cfg)
@@ -1290,47 +1173,13 @@ static GtkWidget *create_programs_tab (GtkWidget *parent, GnomeCmdData::Options 
 
     //Other favorite apps frame
 
-    hbox = create_hbox (parent, FALSE, 0);
-    gtk_box_set_spacing (GTK_BOX (hbox), 12);
-    cat = create_category (parent, hbox, _("Other favourite apps"));
+    auto fav_apps = gnome_cmd_favorite_apps_widget();
+    gnome_cmd_favorite_apps_widget_load_apps (fav_apps);
+    g_object_set_data (G_OBJECT (parent), "fav_apps", fav_apps);
+
+    gtk_widget_set_vexpand (fav_apps, TRUE);
+    cat = create_category (parent, fav_apps, _("Other favourite apps"));
     gtk_box_append (GTK_BOX (vbox), cat);
-
-
-    store = gtk_list_store_new (4, G_TYPE_ICON, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_POINTER);
-    view = create_treeview (parent, "app_view", GTK_TREE_MODEL (store), 16,
-                            G_CALLBACK (on_app_selection_changed), G_CALLBACK (on_app_reordered));
-    create_treeview_column (view, 0, 20, "");
-    create_treeview_column (view, 1, 100, _("Label"));
-    create_treeview_column (view, 2, 150, _("Command"));
-    gtk_widget_set_hexpand (view, TRUE);
-    gtk_widget_set_vexpand (view, TRUE);
-    gtk_box_append (GTK_BOX (hbox), view);
-
-    bbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 12);
-    gtk_box_append (GTK_BOX (hbox), bbox);
-
-    button = create_button (parent, _("_Add"), G_CALLBACK (on_app_add));
-    gtk_box_append (GTK_BOX (bbox), button);
-
-    button = create_button (parent, _("_Edit"), G_CALLBACK (on_app_edit));
-    g_object_set_data (G_OBJECT (parent), "edit_app_button", button);
-    gtk_widget_set_sensitive (button, FALSE);
-    gtk_box_append (GTK_BOX (bbox), button);
-
-    button = create_button (parent, _("_Remove"), G_CALLBACK (on_app_remove));
-    g_object_set_data (G_OBJECT (parent), "remove_app_button", button);
-    gtk_widget_set_sensitive (button, FALSE);
-    gtk_box_append (GTK_BOX (bbox), button);
-
-    button = create_button (parent, _("_Up"), G_CALLBACK (on_app_move_up));
-    gtk_box_append (GTK_BOX (bbox), button);
-
-    button = create_button (parent, _("_Down"), G_CALLBACK (on_app_move_down));
-    gtk_box_append (GTK_BOX (bbox), button);
-
-    view = (GtkWidget *) g_object_get_data (G_OBJECT (parent), "app_view");
-    for (GList *apps = gnome_cmd_data.options.fav_apps; apps; apps = apps->next)
-        add_app_to_list (GTK_TREE_VIEW (view), (GnomeCmdApp *) apps->data);
 
     grid2 = create_grid (parent);
     cat = create_category (parent, grid2, _("Global app options"));
@@ -1364,6 +1213,7 @@ void store_programs_options (GtkWidget *dialog, GnomeCmdData::Options &cfg)
     GtkWidget *check_uris = lookup_widget (dialog, "honor_expect_uris");
     GtkWidget *check_iv = lookup_widget (dialog, "use_internal_viewer");
     GtkWidget *check_is = lookup_widget (dialog, "use_internal_search");
+    GtkWidget *fav_apps = GTK_WIDGET (g_object_get_data (G_OBJECT (dialog), "fav_apps"));
 
     cfg.set_viewer(gtk_editable_get_text (GTK_EDITABLE (entry1)));
     cfg.set_editor(gtk_editable_get_text (GTK_EDITABLE (entry2)));
@@ -1377,6 +1227,8 @@ void store_programs_options (GtkWidget *dialog, GnomeCmdData::Options &cfg)
     cfg.honor_expect_uris = !gtk_check_button_get_active (GTK_CHECK_BUTTON (check_uris));
     cfg.use_internal_viewer = gtk_check_button_get_active (GTK_CHECK_BUTTON (check_iv));
     cfg.use_internal_search = gtk_check_button_get_active (GTK_CHECK_BUTTON (check_is));
+
+    gnome_cmd_favorite_apps_widget_save_apps (fav_apps);
 }
 
 
