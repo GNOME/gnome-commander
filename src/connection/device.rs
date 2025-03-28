@@ -2,7 +2,7 @@
  * Copyright 2001-2006 Marcus Bjurman
  * Copyright 2007-2012 Piotr Eljasiak
  * Copyright 2013-2024 Uwe Scholz
- * Copyright 2024 Andrey Kutejko <andy128k@gmail.com>
+ * Copyright 2024-2025 Andrey Kutejko <andy128k@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -20,7 +20,8 @@
  * For more details see the file COPYING.
  */
 
-use super::connection::Connection;
+use super::connection::{Connection, ConnectionExt};
+use gettextrs::gettext;
 use gtk::{
     gio,
     glib::{
@@ -28,6 +29,7 @@ use gtk::{
         ffi::gboolean,
         translate::{from_glib_full, from_glib_none, ToGlibPtr},
     },
+    prelude::*,
 };
 use std::path::{Path, PathBuf};
 
@@ -35,7 +37,7 @@ pub mod ffi {
     use super::*;
     use crate::connection::connection::ffi::GnomeCmdConClass;
     use gtk::{
-        gio::ffi::{GIcon, GMount},
+        gio::ffi::{GIcon, GMount, GVolume},
         glib::ffi::GType,
     };
     use std::ffi::c_char;
@@ -74,6 +76,9 @@ pub mod ffi {
 
         pub fn gnome_cmd_con_device_get_gmount(dev: *mut GnomeCmdConDevice) -> *mut GMount;
         pub fn gnome_cmd_con_device_set_gmount(dev: *mut GnomeCmdConDevice, mount: *mut GMount);
+
+        pub fn gnome_cmd_con_device_get_gvolume(dev: *mut GnomeCmdConDevice) -> *mut GVolume;
+        pub fn gnome_cmd_con_device_set_gvolume(dev: *mut GnomeCmdConDevice, volume: *mut GVolume);
     }
 
     #[derive(Copy, Clone)]
@@ -102,6 +107,20 @@ impl ConnectionDevice {
                 icon.to_glib_full(),
             ))
         }
+    }
+
+    pub fn new_auto_volume(volume: &gio::Volume) -> Option<Self> {
+        let uuid = volume.identifier(gio::VOLUME_IDENTIFIER_KIND_UUID)?;
+        let this: Self = glib::Object::builder().build();
+        this.set_device_fn(Some(&uuid));
+        this.set_mountp(None);
+        this.set_icon(Some(&volume.icon()));
+        this.set_autovol(false);
+        this.set_alias(Some(&volume.name()));
+        this.set_open_message(&gettext("Mounting %s").replace("%s", &volume.name()));
+        this.set_autovol(true);
+        this.set_volume(Some(volume));
+        Some(this)
     }
 
     pub fn device_fn(&self) -> Option<String> {
@@ -145,6 +164,7 @@ impl ConnectionDevice {
     pub fn set_icon(&self, icon: Option<&gio::Icon>) {
         unsafe { ffi::gnome_cmd_con_device_set_icon(self.to_glib_none().0, icon.to_glib_full()) }
     }
+
     pub fn autovol(&self) -> bool {
         unsafe { ffi::gnome_cmd_con_device_get_autovol(self.to_glib_none().0) != 0 }
     }
@@ -153,13 +173,23 @@ impl ConnectionDevice {
         unsafe { ffi::gnome_cmd_con_device_set_autovol(self.to_glib_none().0, autovol as gboolean) }
     }
 
-    pub fn gmount(&self) -> Option<gio::Mount> {
+    pub fn mount(&self) -> Option<gio::Mount> {
         unsafe { from_glib_none(ffi::gnome_cmd_con_device_get_gmount(self.to_glib_none().0)) }
     }
 
-    pub fn set_gmouut(&self, gmount: Option<&gio::Mount>) {
+    pub fn set_mount(&self, mount: Option<&gio::Mount>) {
         unsafe {
-            ffi::gnome_cmd_con_device_set_gmount(self.to_glib_none().0, gmount.to_glib_none().0)
+            ffi::gnome_cmd_con_device_set_gmount(self.to_glib_none().0, mount.to_glib_none().0)
+        }
+    }
+
+    pub fn volume(&self) -> Option<gio::Volume> {
+        unsafe { from_glib_none(ffi::gnome_cmd_con_device_get_gvolume(self.to_glib_none().0)) }
+    }
+
+    pub fn set_volume(&self, volume: Option<&gio::Volume>) {
+        unsafe {
+            ffi::gnome_cmd_con_device_set_gvolume(self.to_glib_none().0, volume.to_glib_none().0);
         }
     }
 }

@@ -263,7 +263,7 @@ mod imp {
                 let connection = file.connection();
                 let uuid = connection
                     .downcast_ref::<ConnectionDevice>()
-                    .and_then(|d| d.gmount())
+                    .and_then(|d| d.mount())
                     .and_then(|m| m.uuid())
                     .map(|u| format!(" ({})", u))
                     .unwrap_or_default();
