@@ -65,6 +65,7 @@ struct GnomeCmdDirClass
     void (* file_renamed)       (GnomeCmdDir *dir, GnomeCmdFile *file);
     void (* list_ok)            (GnomeCmdDir *dir, GList *files);
     void (* list_failed)        (GnomeCmdDir *dir, GError *error);
+    void (* dir_deleted)        (GnomeCmdDir *dir);
 };
 
 struct GnomeCmdCon;
