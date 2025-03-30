@@ -30,7 +30,6 @@
 #include <gio/gio.h>
 
 
-#include "gnome-cmd-app.h"
 #include "gnome-cmd-types.h"
 #include "gnome-cmd-file-list.h"
 #include "gnome-cmd-regex.h"
@@ -324,7 +323,6 @@ struct GnomeCmdData
         gchar                       *sendto;
         gchar                       *termopen;
         gchar                       *termexec;
-        GList                       *fav_apps;
         //  Devices
         gboolean                     device_only_icon;
         gboolean                     show_samba_workgroups_button;
@@ -377,7 +375,6 @@ struct GnomeCmdData
                    sendto(nullptr),
                    termopen(nullptr),
                    termexec(nullptr),
-                   fav_apps(nullptr),
                    device_only_icon(FALSE),
                    show_samba_workgroups_button(FALSE)
         {
@@ -476,25 +473,6 @@ struct GnomeCmdData
             termopen = g_strdup (command);
         }
 
-        void add_fav_app(GnomeCmdApp *app)
-        {
-            g_return_if_fail (app != nullptr);
-            fav_apps = g_list_append (fav_apps, app);
-        }
-
-        void remove_fav_app(GnomeCmdApp *app)
-        {
-            g_return_if_fail (app != nullptr);
-            fav_apps = g_list_remove (fav_apps, app);
-        }
-
-        void set_fav_apps(GList *apps)
-        {
-            // FIXME:   free fav_apps
-            fav_apps = apps;
-        }
-        gboolean is_name_double(const gchar *name);
-
         void on_size_display_mode_changed();
     };
 
@@ -592,7 +570,6 @@ struct GnomeCmdData
     void save_directory_history();
     void save_search_history();
     void save_devices();
-    void save_fav_apps();
     void add_advrename_profile_to_gvariant_builder(GVariantBuilder *builder, AdvrenameConfig::Profile profile);
     gboolean add_bookmark_to_gvariant_builder(GVariantBuilder *builder, std::string bookmarkName, GnomeCmdCon *con);
     void add_search_profile_to_gvariant_builder(GVariantBuilder *builder, SearchProfile searchProfile);
@@ -647,7 +624,6 @@ struct GnomeCmdData
     void load();
     void load_tabs();
     void load_devices();
-    void load_fav_apps();
     void gsettings_init();
     void connect_signals(GnomeCmdMainWin *main_win);
     void migrate_all_data_to_gsettings();

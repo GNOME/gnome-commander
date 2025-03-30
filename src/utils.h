@@ -31,7 +31,6 @@
 
 #include "gnome-cmd-file.h"
 #include "gnome-cmd-types.h"
-#include "gnome-cmd-app.h"
 
 using namespace std;
 

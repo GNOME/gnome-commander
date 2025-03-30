@@ -1036,7 +1036,6 @@ GnomeCmdData::Options::Options(const Options &cfg)
     sendto = g_strdup (cfg.sendto);
     termopen = g_strdup (cfg.termopen);
     termexec = g_strdup (cfg.termexec);
-    fav_apps = cfg.fav_apps;
     device_only_icon = cfg.device_only_icon;
     deleteToTrash = cfg.deleteToTrash;
     show_samba_workgroups_button = cfg.show_samba_workgroups_button;
@@ -1096,7 +1095,6 @@ GnomeCmdData::Options &GnomeCmdData::Options::operator = (const Options &cfg)
         sendto = g_strdup (cfg.sendto);
         termopen = g_strdup (cfg.termopen);
         termexec = g_strdup (cfg.termexec);
-        fav_apps = cfg.fav_apps;
         device_only_icon = cfg.device_only_icon;
         show_samba_workgroups_button = cfg.show_samba_workgroups_button;
         gcmd_settings = nullptr;
@@ -1115,32 +1113,6 @@ GnomeCmdColorMode GnomeCmdData::Options::color_mode()
 void GnomeCmdData::Options::set_color_mode(GnomeCmdColorMode color_mode)
 {
     g_settings_set_enum (gcmd_settings->colors, GCMD_SETTINGS_COLORS_THEME, color_mode);
-}
-
-
-/**
- * This function takes a char array and compares it against each app
- * name in the list of gnome_cmd_data.options.fav_apps.
- *
- * @returns A TRUE if the given name is already existing in the list of
- * apps, else FALSE.
- */
-gboolean GnomeCmdData::Options::is_name_double(const gchar *name_to_test)
-{
-    GList *app_pointer;
-    gboolean foundstate = FALSE;
-    for (app_pointer = gnome_cmd_data.options.fav_apps; app_pointer; app_pointer = app_pointer->next)
-    {
-        auto *app = static_cast<GnomeCmdApp*> (app_pointer->data);
-        if (app)
-        {
-            auto app_name = g_strdup(gnome_cmd_app_get_name(app));
-            if (!strcmp(app_name, name_to_test))
-            foundstate = TRUE;
-            g_free (app_name);
-        }
-    }
-    return foundstate;
 }
 
 
@@ -1540,42 +1512,6 @@ static void save_tabs (GSettings *gSettings, const char *gSettingsKey, GnomeCmdM
     }
 
     g_settings_set_value(gSettings, gSettingsKey, fileListTabs);
-}
-
-
- void GnomeCmdData::save_fav_apps()
-{
-    if (gnome_cmd_data.options.fav_apps)
-    {
-        GVariant* favAppsToStore;
-        GVariantBuilder gVariantBuilder;
-        g_variant_builder_init (&gVariantBuilder, G_VARIANT_TYPE_ARRAY);
-
-        for (GList *i = gnome_cmd_data.options.fav_apps; i; i = i->next)
-        {
-            auto app = static_cast<GnomeCmdApp*> (i->data);
-            if (app)
-            {
-                gchar *iconPath = g_strdup(gnome_cmd_app_get_icon_path(app));
-                if (!iconPath)
-                    iconPath = g_strdup("");
-
-                g_variant_builder_add (&gVariantBuilder, GCMD_SETTINGS_FAV_APPS_FORMAT_STRING,
-                                        gnome_cmd_app_get_name(app),
-                                        gnome_cmd_app_get_command(app),
-                                        iconPath,
-                                        gnome_cmd_app_get_pattern_string(app),
-                                        gnome_cmd_app_get_target(app),
-                                        gnome_cmd_app_get_handles_uris(app),
-                                        gnome_cmd_app_get_handles_multiple(app),
-                                        gnome_cmd_app_get_requires_terminal(app));
-
-                g_free (iconPath);
-            }
-        }
-        favAppsToStore = g_variant_builder_end (&gVariantBuilder);
-        g_settings_set_value(options.gcmd_settings->general, GCMD_SETTINGS_FAV_APPS, favAppsToStore);
-    }
 }
 
 
@@ -2004,45 +1940,6 @@ void GnomeCmdData::load_search_profiles ()
     }
 
     g_variant_unref(gVariantProfiles);
-}
-
-
-/**
- * Loads devices from gSettings into gcmd options
- */
-void GnomeCmdData::load_fav_apps()
-{
-    GVariant *gvFavApps, *favApp;
-    GVariantIter iter;
-
-    gvFavApps = g_settings_get_value(options.gcmd_settings->general, GCMD_SETTINGS_FAV_APPS);
-
-    g_variant_iter_init (&iter, gvFavApps);
-
-    gnome_cmd_data.options.fav_apps = nullptr;
-
-    while ((favApp = g_variant_iter_next_value (&iter)) != nullptr)
-    {
-        gchar *name, *command, *iconPath, *pattern;
-        guint target;
-        gboolean handlesUris, handlesMutiple, requiresTerminal;
-
-        g_assert (g_variant_is_of_type (favApp, G_VARIANT_TYPE (GCMD_SETTINGS_FAV_APPS_FORMAT_STRING)));
-        g_variant_get(favApp, GCMD_SETTINGS_FAV_APPS_FORMAT_STRING, &name, &command, &iconPath, &pattern, &target, &handlesUris, &handlesMutiple, &requiresTerminal);
-
-        gnome_cmd_data.options.fav_apps = g_list_append (
-            gnome_cmd_data.options.fav_apps,
-            gnome_cmd_app_new_with_values (
-            name, command, iconPath, (AppTarget) target, pattern,
-            handlesUris, handlesMutiple, requiresTerminal, nullptr));
-
-        g_variant_unref(favApp);
-        g_free (name);
-        g_free (command);
-        g_free (iconPath);
-        g_free (pattern);
-    }
-    g_variant_unref(gvFavApps);
 }
 
 
@@ -2521,7 +2418,6 @@ void GnomeCmdData::load()
     load_search_profiles    ();
     load_connections        ();
     load_bookmarks          ();
-    load_fav_apps           ();
     load_directory_history  ();
     gnome_cmd_con_list_unlock (priv->con_list);
 
@@ -2652,7 +2548,6 @@ void GnomeCmdData::save(GnomeCmdMainWin *main_win)
 
     save_tabs                       (options.gcmd_settings->general, GCMD_SETTINGS_FILE_LIST_TABS, main_win);
     save_devices                    ();
-    save_fav_apps                   ();
     save_cmdline_history            (main_win);
     save_directory_history          ();
     save_search_history             ();

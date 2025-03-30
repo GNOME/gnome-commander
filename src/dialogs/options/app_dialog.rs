@@ -1,5 +1,5 @@
 /*
- * Copyright 2024 Andrey Kutejko <andy128k@gmail.com>
+ * Copyright 2024-2025 Andrey Kutejko <andy128k@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,7 +18,7 @@
  */
 
 use crate::{
-    app::{App, AppExt, AppTarget, UserDefinedApp},
+    app::{AppExt, AppTarget, UserDefinedApp},
     select_icon_button::IconButton,
     utils::{
         attributes_bold, channel_send_action, dialog_button_box, handle_escape_key, ErrorMessage,
@@ -26,24 +26,15 @@ use crate::{
     },
 };
 use gettextrs::gettext;
-use gtk::{
-    ffi::{GtkTreeView, GtkWindow},
-    glib::{self, ffi::gpointer, translate::from_glib_none},
-    prelude::*,
-};
+use gtk::{glib, prelude::*};
+use std::collections::BTreeSet;
 
-async fn edit_app_dialog(
+pub async fn edit_app_dialog(
     parent_window: &gtk::Window,
-    app_iter: Option<&gtk::TreeIter>,
-    app: &mut App,
+    user_app: &mut UserDefinedApp,
     is_new: bool,
-    store: &gtk::ListStore,
+    taken_names: BTreeSet<String>,
 ) -> bool {
-    let user_app = match app {
-        App::Regular(_) => return false,
-        App::UserDefined(a) => a,
-    };
-
     let dialog = gtk::Window::builder()
         .transient_for(parent_window)
         .modal(true)
@@ -272,7 +263,7 @@ async fn edit_app_dialog(
                 .await;
             continue;
         }
-        if fav_app_is_name_double(store, app_iter, &name) {
+        if taken_names.contains(name.as_str()) {
             ErrorMessage::brief(gettext(
                 "An app with this label exists already.\nPlease choose another label.",
             ))
@@ -308,107 +299,4 @@ async fn edit_app_dialog(
     dialog.close();
 
     result
-}
-
-#[no_mangle]
-pub extern "C" fn gnome_cmd_fav_app_new(
-    parent_window_ptr: *mut GtkWindow,
-    tree_view_ptr: *mut GtkTreeView,
-) {
-    let parent_window: gtk::Window = unsafe { from_glib_none(parent_window_ptr) };
-    let tree_view: gtk::TreeView = unsafe { from_glib_none(tree_view_ptr) };
-    let Some(store) = tree_view.model().and_downcast::<gtk::ListStore>() else {
-        return;
-    };
-
-    glib::spawn_future_local(async move {
-        let mut app = App::UserDefined(UserDefinedApp {
-            name: String::new(),
-            command_template: String::new(),
-            icon_path: None,
-            target: AppTarget::SomeFiles,
-            pattern_string: String::from("*.ext1;*.ext2"),
-            handles_uris: false,
-            handles_multiple: false,
-            requires_terminal: false,
-        });
-        if edit_app_dialog(&parent_window, None, &mut app, true, &store).await {
-            let icon = app.icon();
-            let name = app.name();
-            let command = app.command();
-            let app_ptr = unsafe { app.into_raw() };
-
-            unsafe {
-                gnome_cmd_add_fav_app(app_ptr);
-            }
-
-            let iter = store.append();
-            store.set(
-                &iter,
-                &[
-                    (0, &icon),
-                    (1, &name),
-                    (2, &command),
-                    (3, &(app_ptr as glib::ffi::gpointer)),
-                ],
-            );
-        }
-    });
-}
-
-#[no_mangle]
-pub extern "C" fn gnome_cmd_fav_app_edit(
-    parent_window_ptr: *mut GtkWindow,
-    tree_view_ptr: *mut GtkTreeView,
-) {
-    let parent_window: gtk::Window = unsafe { from_glib_none(parent_window_ptr) };
-    let tree_view: gtk::TreeView = unsafe { from_glib_none(tree_view_ptr) };
-
-    let Some((model, tree_iter)) = tree_view.selection().selected() else {
-        return;
-    };
-    let Ok(store) = model.downcast::<gtk::ListStore>() else {
-        return;
-    };
-
-    glib::spawn_future_local(async move {
-        if let Some(app) = get_app_from_store(&store, &tree_iter) {
-            if edit_app_dialog(&parent_window, Some(&tree_iter), app, false, &store).await {
-                store.set(&tree_iter, &[(0, &app.icon()), (1, &app.name())]);
-            }
-        }
-    });
-}
-
-fn get_app_from_store<'g>(store: &'g gtk::ListStore, iter: &gtk::TreeIter) -> Option<&'g mut App> {
-    let ptr = store.get_value(iter, 3).get::<gpointer>().ok()?;
-    let app: &mut App = unsafe { &mut *(ptr as *mut App) };
-    Some(app)
-}
-
-fn fav_app_is_name_double(
-    store: &gtk::ListStore,
-    app_iter: Option<&gtk::TreeIter>,
-    name: &str,
-) -> bool {
-    let app_path = app_iter.map(|i| store.path(i));
-    if let Some(iter) = store.iter_first() {
-        loop {
-            if app_path != Some(store.path(&iter)) {
-                if let Some(a) = get_app_from_store(&store, &iter) {
-                    if a.name() == name {
-                        return true;
-                    }
-                }
-            }
-            if !store.iter_next(&iter) {
-                break;
-            }
-        }
-    }
-    false
-}
-
-extern "C" {
-    fn gnome_cmd_add_fav_app(app: *const App);
 }
