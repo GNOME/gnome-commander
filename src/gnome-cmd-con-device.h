@@ -58,8 +58,8 @@ extern "C" void gnome_cmd_con_device_set_icon (GnomeCmdConDevice *dev, GIcon *ic
 extern "C" gboolean gnome_cmd_con_device_get_autovol (GnomeCmdConDevice *dev);
 extern "C" void gnome_cmd_con_device_set_autovol (GnomeCmdConDevice *dev, const gboolean autovol);
 
-GMount *gnome_cmd_con_device_get_gmount (GnomeCmdConDevice *dev);
-void gnome_cmd_con_device_set_gmount (GnomeCmdConDevice *dev, GMount *gMount);
+extern "C" GMount *gnome_cmd_con_device_get_gmount (GnomeCmdConDevice *dev);
+extern "C" void gnome_cmd_con_device_set_gmount (GnomeCmdConDevice *dev, GMount *gMount);
 
 GVolume *gnome_cmd_con_device_get_gvolume (GnomeCmdConDevice *dev);
 void gnome_cmd_con_device_set_gvolume (GnomeCmdConDevice *dev, GVolume *gVolume);

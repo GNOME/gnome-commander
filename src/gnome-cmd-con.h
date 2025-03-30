@@ -143,7 +143,7 @@ extern "C" void gnome_cmd_con_set_default_dir (GnomeCmdCon *con, GnomeCmdDir *di
 gboolean gnome_cmd_con_should_remember_dir (GnomeCmdCon *con);
 gboolean gnome_cmd_con_needs_open_visprog (GnomeCmdCon *con);
 gboolean gnome_cmd_con_needs_list_visprog (GnomeCmdCon *con);
-gboolean gnome_cmd_con_can_show_free_space (GnomeCmdCon *con);
+extern "C" gboolean gnome_cmd_con_can_show_free_space (GnomeCmdCon *con);
 
 extern "C" gboolean gnome_cmd_con_is_local (GnomeCmdCon *con);
 

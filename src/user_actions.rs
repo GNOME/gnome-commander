@@ -36,6 +36,7 @@ use crate::{
         chown_dialog::show_chown_dialog,
         connect_dialog::ConnectDialog,
         create_symlink_dialog::show_create_symlink_dialog,
+        file_properties_dialog::FilePropertiesDialog,
         make_copy_dialog::make_copy_dialog,
         manage_bookmarks_dialog::{bookmark_directory, BookmarksDialog},
         new_text_file::show_new_textfile_dialog,
@@ -277,7 +278,31 @@ pub fn file_chown(
 }
 
 c_action!(file_mkdir);
-c_action!(file_properties);
+
+pub fn file_properties(
+    main_win: &MainWindow,
+    _action: &gio::SimpleAction,
+    _parameter: Option<&glib::Variant>,
+) {
+    let main_win = main_win.clone();
+    glib::spawn_future_local(async move {
+        let file_selector = main_win.file_selector(FileSelectorID::ACTIVE);
+        let file_list = file_selector.file_list();
+
+        if let Some(file) = file_list.selected_file() {
+            let changed = FilePropertiesDialog::show(
+                main_win.upcast_ref(),
+                &main_win.file_metadata_service(),
+                &file,
+            )
+            .await;
+
+            if changed {
+                file_list.focus_file(&Path::new(&file.get_name()), true);
+            }
+        }
+    });
+}
 
 fn ensure_file_list_is_local(file_list: &FileList) -> Result<(), ErrorMessage> {
     if file_list.connection().map_or(false, |c| c.is_local()) {

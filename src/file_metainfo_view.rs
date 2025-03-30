@@ -19,13 +19,7 @@
 
 use crate::{file::File, tags::tags::FileMetadataService, utils::bold};
 use gettextrs::gettext;
-use gtk::{
-    gio,
-    glib::{self, ffi::GType, translate::IntoGlib},
-    pango,
-    prelude::*,
-    subclass::prelude::*,
-};
+use gtk::{gio, glib, pango, prelude::*, subclass::prelude::*};
 use imp::TagNode;
 
 mod imp {
@@ -159,11 +153,6 @@ impl FileMetainfoView {
             .property("file-metadata-service", file_metadata_service)
             .build()
     }
-}
-
-#[no_mangle]
-pub extern "C" fn gnome_cmd_file_metainfo_view_get_type() -> GType {
-    FileMetainfoView::static_type().into_glib()
 }
 
 fn header_factory(file_metadata_service: FileMetadataService) -> gtk::ListItemFactory {

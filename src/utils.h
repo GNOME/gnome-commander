@@ -229,15 +229,6 @@ void gnome_cmd_toggle_file_name_selection (GtkWidget *entry);
 void gnome_cmd_help_display (const gchar *file_name, const gchar *link_id=NULL);
 
 
-inline std::string truncate(const std::string &s, guint n=100)
-{
-    if (s.size()<=n)
-        return  s;
-
-    return s.substr(0,n) + "...";
-}
-
-
 inline std::string &stringify(std::string &s, gchar *val)
 {
     if (!val)  s.erase();  else

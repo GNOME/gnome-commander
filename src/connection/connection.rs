@@ -74,6 +74,8 @@ pub mod ffi {
         pub fn gnome_cmd_con_get_default_dir(con: *const GnomeCmdCon) -> *const GnomeCmdDir;
         pub fn gnome_cmd_con_set_default_dir(con: *const GnomeCmdCon, dir: *mut GnomeCmdDir);
 
+        pub fn gnome_cmd_con_can_show_free_space(con: *const GnomeCmdCon) -> gboolean;
+
         pub fn gnome_cmd_con_set_base_path(con: *const GnomeCmdCon, path: *mut c_void);
 
         pub fn gnome_cmd_con_is_local(con: *const GnomeCmdCon) -> gboolean;
@@ -220,6 +222,10 @@ pub trait ConnectionExt: IsA<Connection> + 'static {
 
     fn close(&self) -> bool {
         unsafe { ffi::gnome_cmd_con_close(self.as_ref().to_glib_none().0) != 0 }
+    }
+
+    fn can_show_free_space(&self) -> bool {
+        unsafe { ffi::gnome_cmd_con_can_show_free_space(self.as_ref().to_glib_none().0) != 0 }
     }
 
     fn add_bookmark(&self, bookmark: &Bookmark) {
