@@ -32,6 +32,7 @@ using namespace std;
 
 struct GnomeCmdRenameDialogPrivate
 {
+    GnomeCmdFileList *fl;
     GnomeCmdFile *f;
     GtkEntry *textbox;
 };
@@ -50,7 +51,7 @@ static gboolean on_dialog_keypressed (GtkEventControllerKey *controller, guint k
         case GDK_KEY_Escape:
             {
                 gtk_popover_popdown (GTK_POPOVER (dialog));
-                gtk_widget_grab_focus (GTK_WIDGET (main_win->fs(ACTIVE)->file_list()));
+                gtk_widget_grab_focus (GTK_WIDGET (priv->fl));
                 priv->f->unref();
                 return TRUE;
             }
@@ -63,9 +64,8 @@ static gboolean on_dialog_keypressed (GtkEventControllerKey *controller, guint k
 
                 if (result)
                 {
-                    GnomeCmdFileList *fl = main_win->fs(ACTIVE)->file_list();
-                    fl->focus_file(new_fname, TRUE);
-                    gtk_widget_grab_focus (GTK_WIDGET (fl));
+                    priv->fl->focus_file(new_fname, TRUE);
+                    gtk_widget_grab_focus (GTK_WIDGET (priv->fl));
                 }
 
                 priv->f->unref();
@@ -115,16 +115,17 @@ static void gnome_cmd_rename_dialog_init (GnomeCmdRenameDialog *dialog)
  * Public functions
  ***********************************/
 
-GtkWidget *gnome_cmd_rename_dialog_new (GnomeCmdFile *f, GtkWidget *parent, gint x, gint y, gint width, gint height)
+GtkWidget *gnome_cmd_rename_dialog_new (GnomeCmdFile *f, GnomeCmdFileList *fl, gint x, gint y, gint width, gint height)
 {
     g_return_val_if_fail (f != NULL, NULL);
 
     GnomeCmdRenameDialog *dialog = (GnomeCmdRenameDialog *) g_object_new (GNOME_CMD_TYPE_RENAME_DIALOG, NULL);
     auto priv = static_cast<GnomeCmdRenameDialogPrivate *> (gnome_cmd_rename_dialog_get_instance_private (dialog));
 
+    priv->fl = fl;
     priv->f = f->ref();
 
-    gtk_widget_set_parent (GTK_WIDGET (dialog), parent);
+    gtk_widget_set_parent (GTK_WIDGET (dialog), GTK_WIDGET (fl));
     GdkRectangle rect = { x, y, width, height };
     gtk_popover_set_pointing_to (GTK_POPOVER (dialog), &rect);
 

@@ -1418,7 +1418,7 @@ void GnomeCmdData::save_devices()
     GVariant* devicesToStore;
     GVariantBuilder *gVariantBuilder = nullptr;
 
-    GListModel *connections = gnome_cmd_con_list_get_all (gnome_cmd_data.priv->con_list);
+    GListModel *connections = gnome_cmd_con_list_get_all (priv->con_list);
     guint len = g_list_model_get_n_items (connections);
     for (guint i = 0; i < len; ++i)
     {
@@ -1525,7 +1525,7 @@ void GnomeCmdData::save_connections()
     g_variant_builder_init (&gVariantBuilder, G_VARIANT_TYPE_ARRAY);
     gboolean hasConnections {false};
 
-    GListModel *connections = gnome_cmd_con_list_get_all (gnome_cmd_data.priv->con_list);
+    GListModel *connections = gnome_cmd_con_list_get_all (priv->con_list);
     guint len = g_list_model_get_n_items (connections);
     for (guint i = 0; i < len; ++i)
     {
@@ -2014,7 +2014,7 @@ void GnomeCmdData::save_directory_history()
 
 void GnomeCmdData::save_search_history()
 {
-    if (gnome_cmd_data.options.save_search_history_on_exit)
+    if (options.save_search_history_on_exit)
     {
         set_gsettings_string_array_from_glist(
             options.gcmd_settings->general,
@@ -2216,7 +2216,7 @@ void GnomeCmdData::load_devices()
         GIcon *icon = iconVariant ? g_icon_deserialize (iconVariant) : nullptr;
         g_variant_unref (iconVariant);
 
-        gnome_cmd_con_list_add (gnome_cmd_data.priv->con_list, GNOME_CMD_CON (gnome_cmd_con_device_new (alias, device_fn, mountPoint, icon)));
+        gnome_cmd_con_list_add (priv->con_list, GNOME_CMD_CON (gnome_cmd_con_device_new (alias, device_fn, mountPoint, icon)));
 
         g_variant_unref(device);
     }
@@ -2234,7 +2234,7 @@ void GnomeCmdData::load_devices()
             g_variant_get(device, GCMD_SETTINGS_DEVICES_FORMAT_STRING, &alias, &device_fn, &mountPoint, &iconPath);
 
             GIcon *icon = iconPath && *iconPath ? g_file_icon_new (g_file_new_for_path (iconPath)) : nullptr;
-            gnome_cmd_con_list_add (gnome_cmd_data.priv->con_list, GNOME_CMD_CON (gnome_cmd_con_device_new (alias, device_fn, mountPoint, icon)));
+            gnome_cmd_con_list_add (priv->con_list, GNOME_CMD_CON (gnome_cmd_con_device_new (alias, device_fn, mountPoint, icon)));
 
             g_variant_unref(device);
         }
@@ -2263,11 +2263,11 @@ void GnomeCmdData::load_connections()
         g_assert (g_variant_is_of_type (connection, G_VARIANT_TYPE (GCMD_SETTINGS_CONNECTION_FORMAT_STRING)));
         g_variant_get(connection, GCMD_SETTINGS_CONNECTION_FORMAT_STRING, &name, &uri);
 
-        if (gnome_cmd_con_list_find_by_alias (gnome_cmd_con_list_get(), name) == nullptr)
+        if (gnome_cmd_con_list_find_by_alias (priv->con_list, name) == nullptr)
         {
             GnomeCmdConRemote *server = gnome_cmd_con_remote_new (name, uri);
             if (server)
-                gnome_cmd_con_list_add (gnome_cmd_con_list_get(), GNOME_CMD_CON (server));
+                gnome_cmd_con_list_add (priv->con_list, GNOME_CMD_CON (server));
             else
                 g_warning ("<Connection> invalid URI: '%s' - ignored", uri);
         }
@@ -2600,7 +2600,7 @@ gboolean GnomeCmdData::set_color_if_valid_key_value(GdkRGBA *color, GSettings *s
     gchar *colorstring_new;
 
     colorstring_new = g_settings_get_string (settings_given, key);
-    if (!gnome_cmd_data.is_valid_color_string(colorstring_new))
+    if (!is_valid_color_string(colorstring_new))
     {
         gchar *colorstring_old;
 
@@ -2612,7 +2612,7 @@ gboolean GnomeCmdData::set_color_if_valid_key_value(GdkRGBA *color, GSettings *s
     }
     else
     {
-        gnome_cmd_data.gnome_cmd_data_parse_color(colorstring_new, color);
+        gnome_cmd_data_parse_color(colorstring_new, color);
         return_value = FALSE;
     }
     g_free(colorstring_new);

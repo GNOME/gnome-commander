@@ -61,70 +61,6 @@ void DEBUG (gchar flag, const gchar *fmt, ...);
 void gnome_cmd_show_message (GtkWindow *parent, const gchar *message, const gchar *secondary_text=NULL);
 void gnome_cmd_error_message (GtkWindow *parent, const gchar *message, GError *error);
 
-inline void run_command (GtkWindow *parent, const gchar *command)
-{
-    GError *error = NULL;
-
-    DEBUG ('g', "running: %s\n", command);
-
-    if (!g_spawn_command_line_async (command, &error))
-        gnome_cmd_error_message (parent, command, error);
-}
-
-const char **convert_varargs_to_name_array (va_list args);
-
-inline gboolean string2int (const gchar *s, gint &i)
-{
-    return sscanf (s, "%d", &i) == 1;
-}
-
-inline gboolean string2uint (const gchar *s, guint &i)
-{
-    return sscanf (s, "%ud", &i) == 1;
-}
-
-inline gboolean string2short (const gchar *s, gshort &sh)
-{
-    int i;
-    int ret = sscanf (s, "%d", &i);
-    sh = i;
-    return ret == 1;
-}
-
-inline gboolean string2ushort (const gchar *s, gushort &sh)
-{
-    int i;
-    int ret = sscanf (s, "%d", &i);
-    sh = i;
-    return ret == 1;
-}
-
-inline gboolean string2char (const gchar *s, gchar &c)
-{
-    int i;
-    int ret = sscanf (s, "%d", &i);
-    c = i;
-    return ret == 1;
-}
-
-inline gboolean string2uchar (const gchar *s, guchar &c)
-{
-    int i;
-    int ret = sscanf (s, "%d", &i);
-    c = i;
-    return ret == 1;
-}
-
-inline gboolean string2float (const gchar *s, gfloat &f)
-{
-    return sscanf (s, "%f", &f) == 1;
-}
-
-inline char *int2string (gint i)
-{
-    return g_strdup_printf ("%d", i);
-}
-
 const gchar *type2string (guint32 type, gchar *buf, guint max);
 const gchar *perm2string (guint32 permissions, gchar *buf, guint max);
 const gchar *perm2textstring (guint32 permissions, gchar *buf, guint max);
@@ -203,21 +139,9 @@ void set_cursor_busy_for_widget (GtkWidget *widget);
 void remove_temp_download_dir ();
 
 gchar *unix_to_unc (const gchar *path);
-GdkRGBA *gdk_color_new (gushort r, gushort g, gushort b);
-GList *gnome_cmd_file_list_to_gfile_list (GList *files);
 
 gboolean is_dir_existing(const gchar *dpath);
 gboolean create_dir (const gchar *dpath);
-
-inline gboolean uri_is_valid (const gchar *uri)
-{
-    return g_uri_is_valid (uri, G_URI_FLAGS_NONE, nullptr);
-}
-
-inline gboolean uri_is_valid (const std::string &uri)
-{
-    return uri_is_valid (uri.c_str());
-}
 
 GList *patlist_new (const gchar *pattern_string);
 void patlist_free (GList *pattern_list);

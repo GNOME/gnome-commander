@@ -46,5 +46,5 @@ struct GnomeCmdRenameDialogClass
 };
 
 
-GtkWidget *gnome_cmd_rename_dialog_new (GnomeCmdFile *f, GtkWidget *parent, gint x, gint y, gint width, gint height);
+GtkWidget *gnome_cmd_rename_dialog_new (GnomeCmdFile *f, GnomeCmdFileList *fl, gint x, gint y, gint width, gint height);
 
