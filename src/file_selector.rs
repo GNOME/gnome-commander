@@ -342,10 +342,8 @@ async fn on_notebook_button_pressed(
                     None,
                 );
                 menuitem.set_action_and_target_value(
-                    Some("win.view-toggle-tab-lock"),
-                    Some(
-                        &(file_selector.is_active(), index as i32).to_variant(), // "(bi)"
-                    ),
+                    Some("fs.toggle-tab-lock"),
+                    Some(&(index as i32).to_variant()),
                 );
                 section.append_item(&menuitem);
             }
@@ -353,10 +351,8 @@ async fn on_notebook_button_pressed(
             {
                 let menuitem = gio::MenuItem::new(Some(&gettext("_Refresh Tab")), None);
                 menuitem.set_action_and_target_value(
-                    Some("win.view-refresh-tab"),
-                    Some(
-                        &(file_selector.id() as i32, index as i32).to_variant(), // "(ii)"
-                    ),
+                    Some("fs.refresh-tab"),
+                    Some(&(index as i32).to_variant()),
                 );
                 section.append_item(&menuitem);
             }

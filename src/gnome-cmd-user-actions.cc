@@ -162,13 +162,10 @@ GNOME_CMD_USER_ACTION_TGL(view_cmdline);
 GNOME_CMD_USER_ACTION(view_dir_history);
 GNOME_CMD_USER_ACTION_TGL(view_hidden_files);
 GNOME_CMD_USER_ACTION_TGL(view_backup_files);
-GNOME_CMD_USER_ACTION(view_up);
 GNOME_CMD_USER_ACTION(view_first);
 GNOME_CMD_USER_ACTION(view_back);
 GNOME_CMD_USER_ACTION(view_forward);
 GNOME_CMD_USER_ACTION(view_last);
-GNOME_CMD_USER_ACTION(view_refresh);
-GNOME_CMD_USER_ACTION(view_refresh_tab);
 GNOME_CMD_USER_ACTION(view_equal_panes);
 GNOME_CMD_USER_ACTION(view_maximize_pane);
 GNOME_CMD_USER_ACTION(view_in_left_pane);
@@ -176,16 +173,11 @@ GNOME_CMD_USER_ACTION(view_in_right_pane);
 GNOME_CMD_USER_ACTION(view_in_active_pane);
 GNOME_CMD_USER_ACTION(view_in_inactive_pane);
 GNOME_CMD_USER_ACTION(view_directory);
-GNOME_CMD_USER_ACTION(view_home);
-GNOME_CMD_USER_ACTION(view_root);
-GNOME_CMD_USER_ACTION(view_new_tab);
 GNOME_CMD_USER_ACTION(view_close_tab);
 GNOME_CMD_USER_ACTION(view_close_all_tabs);
 GNOME_CMD_USER_ACTION(view_close_duplicate_tabs);
 GNOME_CMD_USER_ACTION(view_prev_tab);
 GNOME_CMD_USER_ACTION(view_next_tab);
-GNOME_CMD_USER_ACTION(view_in_new_tab);
-GNOME_CMD_USER_ACTION(view_in_inactive_tab);
 GNOME_CMD_USER_ACTION(view_toggle_tab_lock);
 GNOME_CMD_USER_ACTION_TGL(view_horizontal_orientation);
 GNOME_CMD_USER_ACTION(view_main_menu);
@@ -501,18 +493,6 @@ void view_step_down (GSimpleAction *action, GVariant *parameter, gpointer user_d
     fl->focus_next();
 }
 
-void view_up (GSimpleAction *action, GVariant *parameter, gpointer user_data)
-{
-    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
-
-    GnomeCmdFileSelector *fs = main_win->fs (ACTIVE);
-    GnomeCmdFileList *fl = fs->file_list();
-
-    if (fl->locked)
-        fs->new_tab(gnome_cmd_dir_get_parent (fl->cwd));
-    else
-        fs->goto_directory("..");
-}
 
 void view_main_menu (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
@@ -554,28 +534,6 @@ void view_last (GSimpleAction *action, GVariant *parameter, gpointer user_data)
     auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
 
     main_win->fs (ACTIVE)->last();
-}
-
-
-void view_refresh (GSimpleAction *action, GVariant *parameter, gpointer user_data)
-{
-    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
-
-    GnomeCmdFileList *fl = get_fl (main_win, ACTIVE);
-    fl->reload();
-}
-
-
-void view_refresh_tab (GSimpleAction *action, GVariant *parameter, gpointer user_data)
-{
-    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
-
-    gint fs_id, tab;
-    g_variant_get (parameter, "(ii)", &fs_id, &tab);
-
-    GnomeCmdFileSelector *fs = main_win->fs ((FileSelectorID) fs_id);
-    GnomeCmdFileList *fl = fs->file_list(tab);
-    fl->reload();
 }
 
 
@@ -640,47 +598,6 @@ void view_directory (GSimpleAction *action, GVariant *parameter, gpointer user_d
 }
 
 
-void view_home (GSimpleAction *action, GVariant *parameter, gpointer user_data)
-{
-    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
-
-    GnomeCmdFileSelector *fs = main_win->fs (ACTIVE);
-    GnomeCmdFileList *fl = fs->file_list();
-
-    if (!fl->locked)
-    {
-        fl->set_connection(get_home_con ());
-        fl->goto_directory("~");
-    }
-    else
-        fs->new_tab(gnome_cmd_dir_new (get_home_con (), gnome_cmd_con_create_path (get_home_con (), g_get_home_dir ())));
-}
-
-
-void view_root (GSimpleAction *action, GVariant *parameter, gpointer user_data)
-{
-    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
-
-    GnomeCmdFileSelector *fs = main_win->fs (ACTIVE);
-    GnomeCmdFileList *fl = fs->file_list();
-
-    if (fl->locked)
-        fs->new_tab(gnome_cmd_dir_new (fl->con, gnome_cmd_con_create_path (fl->con, "/")));
-    else
-        fs->goto_directory("/");
-}
-
-
-void view_new_tab (GSimpleAction *action, GVariant *parameter, gpointer user_data)
-{
-    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
-
-    GnomeCmdFileList *fl = get_fl (main_win, ACTIVE);
-    GnomeCmdFileSelector *fs = GNOME_CMD_FILE_SELECTOR (gtk_widget_get_ancestor (*fl, GNOME_CMD_TYPE_FILE_SELECTOR));
-    fs->new_tab(fl->cwd);
-}
-
-
 void view_prev_tab (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
     auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
@@ -697,44 +614,12 @@ void view_next_tab (GSimpleAction *action, GVariant *parameter, gpointer user_da
 }
 
 
-void view_in_new_tab (GSimpleAction *action, GVariant *parameter, gpointer user_data)
-{
-    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
-
-    GnomeCmdFileSelector *fs = main_win->fs (ACTIVE);
-    GnomeCmdFile *file = fs->file_list()->get_selected_file();
-
-    if (file && file->GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE) == G_FILE_TYPE_DIRECTORY)
-        fs->new_tab(GNOME_CMD_DIR (file), FALSE);
-    else
-        fs->new_tab(fs->get_directory(), FALSE);
-}
-
-
-void view_in_inactive_tab (GSimpleAction *action, GVariant *parameter, gpointer user_data)
-{
-    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
-
-    GnomeCmdFileList *fl = get_fl (main_win, ACTIVE);
-    GnomeCmdFile *file = fl->get_selected_file();
-
-    if (file && file->GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE) == G_FILE_TYPE_DIRECTORY)
-        main_win->fs (INACTIVE)->new_tab(GNOME_CMD_DIR (file), FALSE);
-    else
-        main_win->fs (INACTIVE)->new_tab(fl->cwd, FALSE);
-}
-
-
 void view_toggle_tab_lock (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
     auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
 
-    gboolean is_active;
-    gint tab_index;
-    g_variant_get (parameter, "(bi)", &is_active, &tab_index);
-
-    GnomeCmdFileSelector *fs = main_win->fs (is_active ? ACTIVE : INACTIVE);
-    GnomeCmdFileList *fl = fs->file_list(tab_index);
+    GnomeCmdFileSelector *fs = main_win->fs (ACTIVE);
+    GnomeCmdFileList *fl = fs->file_list();
 
     if (fl)
     {

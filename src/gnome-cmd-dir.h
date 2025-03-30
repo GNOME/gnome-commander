@@ -72,7 +72,7 @@ struct GnomeCmdCon;
 extern "C" GnomeCmdDir *gnome_cmd_dir_new_from_gfileinfo (GFileInfo *gFileInfo, GnomeCmdDir *parent);
 GnomeCmdDir *gnome_cmd_dir_new_with_con (GnomeCmdCon *con);
 extern "C" GnomeCmdDir *gnome_cmd_dir_new (GnomeCmdCon *con, GnomeCmdPath *path, gboolean isStartup = false);
-GnomeCmdDir *gnome_cmd_dir_get_parent (GnomeCmdDir *dir);
+extern "C" GnomeCmdDir *gnome_cmd_dir_get_parent (GnomeCmdDir *dir);
 GnomeCmdDir *gnome_cmd_dir_get_child (GnomeCmdDir *dir, const gchar *child);
 
 inline GnomeCmdFile *gnome_cmd_dir_new_parent_dir_file (GnomeCmdDir *dir)

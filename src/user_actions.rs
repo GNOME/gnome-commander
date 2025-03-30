@@ -2,7 +2,7 @@
  * Copyright 2001-2006 Marcus Bjurman
  * Copyright 2007-2012 Piotr Eljasiak
  * Copyright 2013-2024 Uwe Scholz
- * Copyright 2024 Andrey Kutejko <andy128k@gmail.com>
+ * Copyright 2024-2025 Andrey Kutejko <andy128k@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -819,13 +819,40 @@ c_action!(view_cmdline);
 c_action!(view_dir_history);
 c_action!(view_hidden_files);
 c_action!(view_backup_files);
-c_action!(view_up);
+
+pub fn view_up(
+    main_win: &MainWindow,
+    _action: &gio::SimpleAction,
+    _parameter: Option<&glib::Variant>,
+) {
+    let file_selector = main_win.file_selector(FileSelectorID::ACTIVE);
+    let file_list = file_selector.file_list();
+
+    if file_list.is_locked() {
+        if let Some(directory) = file_list.directory().and_then(|d| d.parent()) {
+            file_selector.new_tab_with_dir(&directory, true);
+        }
+    } else {
+        file_list.goto_directory(&Path::new(".."));
+    }
+}
+
 c_action!(view_first);
 c_action!(view_back);
 c_action!(view_forward);
 c_action!(view_last);
-c_action!(view_refresh);
-c_action!(view_refresh_tab);
+
+pub fn view_refresh(
+    main_win: &MainWindow,
+    _action: &gio::SimpleAction,
+    _parameter: Option<&glib::Variant>,
+) {
+    main_win
+        .file_selector(FileSelectorID::ACTIVE)
+        .file_list()
+        .reload();
+}
+
 c_action!(view_equal_panes);
 c_action!(view_maximize_pane);
 c_action!(view_in_left_pane);
@@ -833,9 +860,54 @@ c_action!(view_in_right_pane);
 c_action!(view_in_active_pane);
 c_action!(view_in_inactive_pane);
 c_action!(view_directory);
-c_action!(view_home);
-c_action!(view_root);
-c_action!(view_new_tab);
+
+pub fn view_home(
+    main_win: &MainWindow,
+    _action: &gio::SimpleAction,
+    _parameter: Option<&glib::Variant>,
+) {
+    let file_selector = main_win.file_selector(FileSelectorID::ACTIVE);
+    let file_list = file_selector.file_list();
+
+    let home = ConnectionList::get().home();
+    if !file_list.is_locked() {
+        file_list.set_connection(&home, None);
+        file_list.goto_directory(&Path::new("~"));
+    } else {
+        let directory = Directory::new(&home, home.create_path(&glib::home_dir()));
+        file_selector.new_tab_with_dir(&directory, true);
+    }
+}
+
+pub fn view_root(
+    main_win: &MainWindow,
+    _action: &gio::SimpleAction,
+    _parameter: Option<&glib::Variant>,
+) {
+    let file_selector = main_win.file_selector(FileSelectorID::ACTIVE);
+    let file_list = file_selector.file_list();
+
+    if file_list.is_locked() {
+        if let Some(connection) = file_list.connection() {
+            let directory = Directory::new(&connection, connection.create_path(&Path::new("/")));
+            file_selector.new_tab_with_dir(&directory, true);
+        }
+    } else {
+        file_list.goto_directory(&Path::new("/"));
+    }
+}
+
+pub fn view_new_tab(
+    main_win: &MainWindow,
+    _action: &gio::SimpleAction,
+    _parameter: Option<&glib::Variant>,
+) {
+    let file_selector = main_win.file_selector(FileSelectorID::ACTIVE);
+    let file_list = file_selector.file_list();
+    if let Some(directory) = file_list.cwd() {
+        file_selector.new_tab_with_dir(&directory, true);
+    }
+}
 
 async fn ask_close_locked_tab(parent_window: &gtk::Window) -> bool {
     gtk::AlertDialog::builder()
@@ -888,8 +960,41 @@ pub fn view_close_duplicate_tabs(
 
 c_action!(view_prev_tab);
 c_action!(view_next_tab);
-c_action!(view_in_new_tab);
-c_action!(view_in_inactive_tab);
+
+pub fn view_in_new_tab(
+    main_win: &MainWindow,
+    _action: &gio::SimpleAction,
+    _parameter: Option<&glib::Variant>,
+) {
+    let file_selector = main_win.file_selector(FileSelectorID::ACTIVE);
+    if let Some(dir) = file_selector
+        .file_list()
+        .selected_file()
+        .and_downcast::<Directory>()
+        .or_else(|| file_selector.directory())
+    {
+        file_selector.new_tab_with_dir(&dir, false);
+    }
+}
+
+pub fn view_in_inactive_tab(
+    main_win: &MainWindow,
+    _action: &gio::SimpleAction,
+    _parameter: Option<&glib::Variant>,
+) {
+    let file_selector = main_win.file_selector(FileSelectorID::ACTIVE);
+    if let Some(dir) = file_selector
+        .file_list()
+        .selected_file()
+        .and_downcast::<Directory>()
+        .or_else(|| file_selector.directory())
+    {
+        main_win
+            .file_selector(FileSelectorID::INACTIVE)
+            .new_tab_with_dir(&dir, false);
+    }
+}
+
 c_action!(view_toggle_tab_lock);
 c_action!(view_horizontal_orientation);
 c_action!(view_main_menu);
@@ -1660,13 +1765,6 @@ pub const USER_ACTIONS: Lazy<Vec<UserAction>> = Lazy::new(|| {
             "view.refresh",
             gettext("Refresh"),
         ),
-        UserAction::with_param(
-            "view-refresh-tab",
-            &view_refresh_tab,
-            unsafe { glib::VariantTy::from_str_unchecked("(ii)") }.into(),
-            "view.refresh_tab",
-            gettext("Refresh tab"),
-        ),
         UserAction::new(
             "view-equal-panes",
             &view_equal_panes,
@@ -1769,10 +1867,9 @@ pub const USER_ACTIONS: Lazy<Vec<UserAction>> = Lazy::new(|| {
             "view.in_inactive_tab",
             gettext("Open directory in the new tab (inactive window)"),
         ),
-        UserAction::with_param(
+        UserAction::new(
             "view-toggle-tab-lock",
             &view_toggle_tab_lock,
-            unsafe { glib::VariantTy::from_str_unchecked("(bi)") }.into(),
             "view.toggle_lock_tab",
             gettext("Lock/unlock tab"),
         ),
