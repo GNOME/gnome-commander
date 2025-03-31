@@ -36,9 +36,8 @@ using namespace std;
 
 
 GnomeCmdMainWin *main_win = nullptr;
-gchar *start_dir_left = nullptr;
-gchar *start_dir_right = nullptr;
-gchar *config_dir = nullptr;
+static gchar *start_dir_left = nullptr;
+static gchar *start_dir_right = nullptr;
 gchar *debug_flags = nullptr;
 
 GnomeCmdIconCache *icon_cache = nullptr;
@@ -48,7 +47,6 @@ static GOptionEntry options [] =
     {"debug", 'd', 0, G_OPTION_ARG_STRING, &debug_flags, N_("Specify debug flags to use"), nullptr},
     {"start-left-dir", 'l', 0, G_OPTION_ARG_STRING, &start_dir_left, N_("Specify the start directory for the left pane"), nullptr},
     {"start-right-dir", 'r', 0, G_OPTION_ARG_STRING, &start_dir_right, N_("Specify the start directory for the right pane"), nullptr},
-    {"config-dir", 0, 0, G_OPTION_ARG_STRING, &config_dir, N_("Specify the directory for configuration files"), nullptr},
     {nullptr}
 };
 
@@ -139,7 +137,6 @@ static void gnome_cmd_application_shutdown(GApplication *application)
     g_clear_pointer (&debug_flags, g_free);
     g_clear_pointer (&start_dir_left, g_free);
     g_clear_pointer (&start_dir_right, g_free);
-    g_clear_pointer (&config_dir, g_free);
 
     G_APPLICATION_CLASS (gnome_cmd_application_parent_class)->shutdown (application);
 }

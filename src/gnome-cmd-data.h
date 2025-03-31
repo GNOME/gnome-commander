@@ -22,6 +22,7 @@
 #pragma once
 
 #include <vector>
+#include <map>
 #include <string>
 #include <glib-object.h>
 #include <glib.h>
@@ -35,7 +36,6 @@
 #include "gnome-cmd-regex.h"
 #include "filter.h"
 #include "history.h"
-#include "dict.h"
 
 #include <tuple>
 
@@ -573,10 +573,6 @@ struct GnomeCmdData
     void add_advrename_profile_to_gvariant_builder(GVariantBuilder *builder, AdvrenameConfig::Profile profile);
     gboolean add_bookmark_to_gvariant_builder(GVariantBuilder *builder, std::string bookmarkName, GnomeCmdCon *con);
     void add_search_profile_to_gvariant_builder(GVariantBuilder *builder, SearchProfile searchProfile);
-    inline gint get_int (const gchar *path, int def);
-    inline void set_string (const gchar *path, const gchar *value);
-    inline gboolean get_bool (const gchar *path, gboolean def);
-    inline void set_color (const gchar *path, GdkRGBA *color);
 
   public:
 
@@ -651,12 +647,4 @@ gpointer gnome_cmd_data_get_con_list ();
 GList *gnome_cmd_data_get_auto_load_plugins ();
 void gnome_cmd_data_set_auto_load_plugins (GList *plugins);
 
-const gchar *gnome_cmd_data_get_symlink_prefix ();
-
-void on_use_default_font_changed();
-
 extern GnomeCmdData gnome_cmd_data;
-
-extern gchar *start_dir_left;
-extern gchar *start_dir_right;
-extern gchar *config_dir;

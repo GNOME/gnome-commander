@@ -28,8 +28,6 @@
 #define GNOME_CMD_IS_FILE_SELECTOR_CLASS(klass)   (G_TYPE_CHECK_CLASS_TYPE ((klass), GNOME_CMD_TYPE_FILE_SELECTOR))
 #define GNOME_CMD_FILE_SELECTOR_GET_CLASS(obj)    (G_TYPE_INSTANCE_GET_CLASS((obj), GNOME_CMD_TYPE_FILE_SELECTOR, GnomeCmdFileSelectorClass))
 
-struct GnomeCmdMainWin;
-
 #include "gnome-cmd-file-list.h"
 #include "gnome-cmd-con.h"
 #include "gnome-cmd-dir.h"

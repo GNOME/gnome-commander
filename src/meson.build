@@ -1,13 +1,11 @@
 sources_headers = files(
   'tags/file_metadata.h',
-  'dict.h',
   'dirlist.h',
   'filter.h',
   'gnome-cmd-advrename-lexer.h',
   'gnome-cmd-advrename-profile-component.h',
   'gnome-cmd-application.h',
   'gnome-cmd-cmdline.h',
-  'gnome-cmd-collection.h',
   'gnome-cmd-combo.h',
   'gnome-cmd-con-device.h',
   'gnome-cmd-con.h',

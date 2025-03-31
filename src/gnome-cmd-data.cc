@@ -983,10 +983,6 @@ GcmdSettings *gcmd_settings_new ()
 }
 
 
-DICT<guint> gdk_key_names(GDK_KEY_VoidSymbol);
-DICT<guint> gdk_modifiers_names;
-
-
 GnomeCmdData::Options::Options(const Options &cfg)
 {
     left_mouse_button_mode = cfg.left_mouse_button_mode;
@@ -2538,12 +2534,4 @@ GnomeCmdData::AdvrenameConfig::Profile::~Profile(){};
 gpointer gnome_cmd_data_get_con_list ()
 {
     return gnome_cmd_data.priv->con_list;
-}
-
-
-const gchar *gnome_cmd_data_get_symlink_prefix ()
-{
-    char *symlink_prefix;
-    symlink_prefix = g_settings_get_string (gnome_cmd_data.options.gcmd_settings->general, GCMD_SETTINGS_SYMLINK_PREFIX);
-    return (strlen(symlink_prefix) > 0) ? symlink_prefix : _("link to %s");
 }

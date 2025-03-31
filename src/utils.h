@@ -121,8 +121,6 @@ inline gboolean state_is_ctrl_alt_shift (gint state)
 
 GList *uri_strings_to_gfiles (gchar *data);
 
-gchar *create_nice_size_str (guint64 size);
-
 inline gchar *quote_if_needed (const gchar *in)
 {
     return g_shell_quote (in);
