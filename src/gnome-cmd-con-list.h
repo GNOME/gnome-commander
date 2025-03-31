@@ -21,51 +21,20 @@
 
 #pragma once
 
-#include "gnome-cmd-data.h"
 #include "gnome-cmd-con.h"
 #include "gnome-cmd-con-remote.h"
 #include "gnome-cmd-con-device.h"
 
-#define GNOME_CMD_TYPE_CON_LIST              (gnome_cmd_con_list_get_type ())
-#define GNOME_CMD_CON_LIST(obj)              (G_TYPE_CHECK_INSTANCE_CAST((obj), GNOME_CMD_TYPE_CON_LIST, GnomeCmdConList))
-#define GNOME_CMD_CON_LIST_CLASS(klass)      (G_TYPE_CHECK_CLASS_CAST((klass), GNOME_CMD_TYPE_CON_LIST, GnomeCmdConListClass))
-#define GNOME_CMD_IS_CON_LIST(obj)           (G_TYPE_CHECK_INSTANCE_TYPE((obj), GNOME_CMD_TYPE_CON_LIST))
-#define GNOME_CMD_IS_CON_LIST_CLASS(klass)   (G_TYPE_CHECK_CLASS_TYPE ((klass), GNOME_CMD_TYPE_CON_LIST))
-#define GNOME_CMD_CON_LIST_GET_CLASS(obj)    (G_TYPE_INSTANCE_GET_CLASS((obj), GNOME_CMD_TYPE_CON_LIST, GnomeCmdConListClass))
+
+struct GnomeCmdConList;
 
 
-extern "C" GType gnome_cmd_con_list_get_type ();
-
-
-struct GnomeCmdConList
-{
-    GObject parent;
-
-    struct Private;
-
-    Private *priv;
-};
-
-struct GnomeCmdConListClass
-{
-    GObjectClass parent_class;
-
-    /* signals */
-    void (* list_changed) (GnomeCmdConList *list);
-};
-
-
-inline GnomeCmdConList *gnome_cmd_con_list_new ()
-{
-    return static_cast<GnomeCmdConList *>(g_object_new (GNOME_CMD_TYPE_CON_LIST, nullptr));
-}
+extern "C" GnomeCmdConList *gnome_cmd_con_list_new (gboolean show_samba_workgroups_button);
 
 extern "C" GnomeCmdConList *gnome_cmd_con_list_get ();
 
 extern "C" GListModel *gnome_cmd_con_list_get_all (GnomeCmdConList *list);
 
-extern "C" GnomeCmdCon *gnome_cmd_con_list_find_by_uuid (GnomeCmdConList *con_list, const gchar *uuid);
-extern "C" GnomeCmdCon *gnome_cmd_con_list_find_by_alias (GnomeCmdConList *con_list, const gchar *alias);
 extern "C" GnomeCmdCon *gnome_cmd_con_list_get_home (GnomeCmdConList *con_list);
 extern "C" GnomeCmdCon *gnome_cmd_con_list_get_smb (GnomeCmdConList *con_list);
 
@@ -79,17 +48,18 @@ inline GnomeCmdCon *get_smb_con ()
     return gnome_cmd_con_list_get_smb (gnome_cmd_con_list_get());
 }
 
-GnomeCmdCon *get_remote_con_for_gfile(GFile *gFile);
+extern "C" GnomeCmdCon *get_remote_con_for_gfile (GnomeCmdConList *list, GFile *gFile);
 
 extern "C" void gnome_cmd_con_list_load_bookmarks (GnomeCmdConList *list, GVariant *gVariantBookmarks);
 extern "C" GVariant *gnome_cmd_con_list_save_bookmarks (GnomeCmdConList *list);
-
-// FFI
-extern "C" void gnome_cmd_con_list_add (GnomeCmdConList *list, GnomeCmdCon *con);
-extern "C" void gnome_cmd_con_list_remove (GnomeCmdConList *list, GnomeCmdCon *con);
 
 extern "C" void gnome_cmd_con_list_lock (GnomeCmdConList *list);
 extern "C" void gnome_cmd_con_list_unlock (GnomeCmdConList *list);
 
 extern "C" void gnome_cmd_con_list_set_volume_monitor (GnomeCmdConList *list);
-extern "C" void gnome_cmd_con_list_load_available_volumes (GnomeCmdConList *list);
+
+extern "C" void gnome_cmd_con_list_load_devices (GnomeCmdConList *list, GVariant *variant);
+extern "C" GVariant *gnome_cmd_con_list_save_devices (GnomeCmdConList *list);
+
+extern "C" void gnome_cmd_con_list_load_connections (GnomeCmdConList *list, GVariant *variant);
+extern "C" GVariant *gnome_cmd_con_list_save_connections (GnomeCmdConList *list);

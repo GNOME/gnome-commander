@@ -843,7 +843,7 @@ gnome_cmd_move_gfile_recursive (GFile *srcGFile,
                 auto srcUriSchema = g_file_get_uri_scheme(srcGFileParent);
                 if (strcmp(srcUriSchema, "file") && (strcmp(srcUriSchema, "smb")))
                 {
-                    gnomeCmdCon = get_remote_con_for_gfile(srcGFileParent);
+                    gnomeCmdCon = get_remote_con_for_gfile(gnome_cmd_con_list_get(), srcGFileParent);
                     if (gnomeCmdCon)
                     {
                         auto gFileParentUri = g_file_get_uri(srcGFileParent);

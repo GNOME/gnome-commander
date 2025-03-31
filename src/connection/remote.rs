@@ -69,7 +69,7 @@ impl Default for ConnectionRemote {
 }
 
 impl ConnectionRemote {
-    pub fn new(alias: &str, uri: &str) -> Self {
+    pub fn new(alias: &str, uri: &str) -> Option<Self> {
         unsafe {
             from_glib_none(ffi::gnome_cmd_con_remote_new(
                 alias.to_glib_none().0,

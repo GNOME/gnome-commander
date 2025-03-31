@@ -369,7 +369,7 @@ pub async fn handle_user_input(
                 dest_path = path;
             } else {
                 // otherwise connection not present in any pane, use home connection instead
-                con = ConnectionList::get().home();
+                con = ConnectionList::get().home().upcast();
             }
         }
     } else {

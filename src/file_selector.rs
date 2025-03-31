@@ -217,14 +217,14 @@ impl FileSelector {
         if self.connection().as_ref() == Some(&con) {
             let fl = self.file_list();
             if fl.is_locked() {
-                let dir = Directory::new(&con, con.create_path(path));
+                let dir = Directory::new(con, con.create_path(path));
                 self.new_tab_with_dir(&dir, true);
             } else {
                 fl.goto_directory(path);
             }
         } else {
             if con.is_open() {
-                let dir = Directory::new(&con, con.create_path(path));
+                let dir = Directory::new(con, con.create_path(path));
 
                 if self.file_list().is_locked() {
                     self.new_tab_with_dir(&dir, true);

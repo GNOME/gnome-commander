@@ -2,7 +2,7 @@
  * Copyright 2001-2006 Marcus Bjurman
  * Copyright 2007-2012 Piotr Eljasiak
  * Copyright 2013-2024 Uwe Scholz
- * Copyright 2024 Andrey Kutejko <andy128k@gmail.com>
+ * Copyright 2024-2025 Andrey Kutejko <andy128k@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -27,7 +27,7 @@ use gtk::{
         self,
         ffi::{GFileType, G_FILE_TYPE_UNKNOWN},
     },
-    glib::{self, object::ObjectType, translate::*},
+    glib::{self, translate::*},
     prelude::*,
 };
 use std::{path::Path, ptr};
@@ -419,6 +419,13 @@ pub trait ConnectionExt: IsA<Connection> + 'static {
                 message.to_glib_none().0,
             )
         }
+    }
+
+    fn connect_updated<F: Fn() + 'static>(&self, f: F) -> glib::SignalHandlerId {
+        self.connect_local("updated", false, move |_| {
+            (f)();
+            None
+        })
     }
 
     fn open(&self, parent_window: &gtk::Window) {
