@@ -20,48 +20,20 @@
  */
 #pragma once
 
-#define GNOME_CMD_TYPE_CMDLINE              (gnome_cmd_cmdline_get_type ())
-#define GNOME_CMD_CMDLINE(obj)              (G_TYPE_CHECK_INSTANCE_CAST((obj), GNOME_CMD_TYPE_CMDLINE, GnomeCmdCmdline))
-#define GNOME_CMD_CMDLINE_CLASS(klass)      (G_TYPE_CHECK_CLASS_CAST((klass), GNOME_CMD_TYPE_CMDLINE, GnomeCmdCmdlineClass))
-#define GNOME_CMD_IS_CMDLINE(obj)           (G_TYPE_CHECK_INSTANCE_TYPE((obj), GNOME_CMD_TYPE_CMDLINE))
-#define GNOME_CMD_IS_CMDLINE_CLASS(klass)   (G_TYPE_CHECK_CLASS_TYPE ((klass), GNOME_CMD_TYPE_CMDLINE))
-#define GNOME_CMD_CMDLINE_GET_CLASS(obj)    (G_TYPE_INSTANCE_GET_CLASS((obj), GNOME_CMD_TYPE_CMDLINE, GnomeCmdCmdlineClass))
+struct GnomeCmdCmdline;
 
+extern "C" GnomeCmdCmdline *gnome_cmd_cmdline_new (GStrv history, gint history_length);
 
-struct GnomeCmdCmdlinePrivate;
+extern "C" void gnome_cmd_cmdline_set_dir (GnomeCmdCmdline *cmdline, const gchar *cwd);
 
+extern "C" void gnome_cmd_cmdline_append_text (GnomeCmdCmdline *cmdline, const gchar *text);
+extern "C" void gnome_cmd_cmdline_set_text (GnomeCmdCmdline *cmdline, const gchar *text);
 
-struct GnomeCmdCmdline
-{
-    GtkBox parent;
-    GnomeCmdCmdlinePrivate *priv;
-};
+extern "C" gboolean gnome_cmd_cmdline_is_empty (GnomeCmdCmdline *cmdline);
 
+extern "C" void gnome_cmd_cmdline_exec (GnomeCmdCmdline *cmdline);
 
-struct GnomeCmdCmdlineClass
-{
-    GtkBoxClass parent_class;
-};
+extern "C" void gnome_cmd_cmdline_update_style (GnomeCmdCmdline *cmdline);
 
-
-GnomeCmdCmdline *gnome_cmd_cmdline_new ();
-
-GType gnome_cmd_cmdline_get_type ();
-
-void gnome_cmd_cmdline_set_dir (GnomeCmdCmdline *cmdline, const gchar *cwd);
-
-void gnome_cmd_cmdline_append_text (GnomeCmdCmdline *cmdline, const gchar *text);
-void gnome_cmd_cmdline_insert_text (GnomeCmdCmdline *cmdline, const gchar *text);
-void gnome_cmd_cmdline_set_text (GnomeCmdCmdline *cmdline, const gchar *text);
-
-gboolean gnome_cmd_cmdline_is_empty (GnomeCmdCmdline *cmdline);
-
-void gnome_cmd_cmdline_exec (GnomeCmdCmdline *cmdline);
-
-void gnome_cmd_cmdline_focus (GnomeCmdCmdline *cmdline);
-
-void gnome_cmd_cmdline_update_style (GnomeCmdCmdline *cmdline);
-
-GList *gnome_cmd_cmdline_get_history (GnomeCmdCmdline *cmdline);
-void gnome_cmd_cmdline_set_history  (GnomeCmdCmdline *cmdline, GList *history);
-void gnome_cmd_cmdline_show_history (GnomeCmdCmdline *cmdline);
+extern "C" GStrv gnome_cmd_cmdline_get_history (GnomeCmdCmdline *cmdline);
+extern "C" void gnome_cmd_cmdline_show_history (GnomeCmdCmdline *cmdline);
