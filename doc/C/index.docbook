@@ -1184,10 +1184,10 @@
       <itemizedlist>
         <listitem>
           <para>Right click on the item and select <guimenu>Rename</guimenu>, type in the new name, and press
-           <keycap>Enter</keycap> when finished.</para>
+           <keycap>ENTER</keycap> when finished.</para>
         </listitem>
         <listitem>
-          <para>Press <keycap>F2</keycap> and then type in the new name and press <keycap>Enter</keycap> when
+          <para>Press <keycap>F2</keycap> and then type in the new name and press <keycap>ENTER</keycap> when
            finished.</para>
         </listitem>
         <listitem>
@@ -6313,7 +6313,7 @@
                 					</para>
               					</entry>
               					<entry colname="colspec3">
-                          <para>Here you specify where the device should be mounted to, so that Gnome Commander knows where to jump to when the mount was successful, for example /mnt/cdrom.</para>
+                          <para>Here you specify where the device should be mounted to, so that &app; knows where to jump to when the mount was successful, for example /mnt/cdrom.</para>
               					</entry>
             				</row>
             				<row>
@@ -7475,9 +7475,9 @@
 	<para>Some very simple tips and tricks on using and getting the most out of &app;.</para>
 	<sect2 id="gnome-commander-handling-archives">
 	  <title>Handling Archives</title>
-	  <para>&app; still lacks built in browsing of compressed archives. However the program can be configured so
+	  <para>&app; still lacks built-in browsing of compressed archives. However the program can be configured so
 	  that working with archives becomes quite practical anyway.</para> 
-	  <para>There are two different ways: The preferred one is to activate the build in 
+	  <para>There are two different ways: The preferred one is to activate the built-in 
 	  <application>Fileroller</application> plugin in the menu 
 	  <menuchoice><guimenu>Plugins</guimenu><guimenuitem>Configure Plugins...</guimenuitem></menuchoice>. By 
 	  activating this plugin you get additional entries in the popup menu by right clicking on selected files 
@@ -7548,12 +7548,12 @@
           of the directory list.</para>
             </listitem>
             <listitem>
-	      <para>To insert the current file's path in Gnome Commander's command line, press 
-	      <keycombo><keycap>CTRL</keycap><keycap>Shift</keycap><keycap>Enter</keycap></keycombo>.</para>
+	      <para>To insert the current file's path in &app;'s command line, press 
+	      <keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap><keycap>ENTER</keycap></keycombo>.</para>
             </listitem>
             <listitem>
-	      <para>To insert the current file's name in Gnome Commander's command line, press 
-	      <keycombo><keycap>CTRL</keycap><keycap>Enter</keycap></keycombo>.</para>
+	      <para>To insert the current file's name in &app;'s command line, press 
+	      <keycombo><keycap>CTRL</keycap><keycap>ENTER</keycap></keycombo>.</para>
             </listitem>
           </itemizedlist>
 	</sect2>
@@ -7594,7 +7594,7 @@
     <sect2 id="gnome-commander-development-version">
       <title>Development version</title>
       <para>For those of you who feel really adventurous, or maybe want to hack on the freshest code,
-        the latest development source snapshots are available by using GIT:</para>
+        the latest development source snapshots are available by using git:</para>
       <para>
         <command>git clone https://gitlab.gnome.org/GNOME/gnome-commander.git</command>
       </para>
