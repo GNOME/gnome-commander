@@ -1,5 +1,5 @@
 /*
- * Copyright 2024 Andrey Kutejko <andy128k@gmail.com>
+ * Copyright 2024-2025 Andrey Kutejko <andy128k@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,43 +17,200 @@
  * For more details see the file COPYING.
  */
 
-use gtk::{
-    gio,
-    glib::{self, translate::from_glib_none},
-};
+use crate::data::{GeneralOptions, GeneralOptionsRead};
+use gettextrs::gettext;
+use gtk::{gdk, gio, glib, prelude::*, subclass::prelude::*};
 
 pub mod ffi {
-    use gtk::{ffi::GtkApplicationClass, glib::ffi::GType};
+    use std::ffi::c_char;
 
-    #[repr(C)]
-    pub struct GnomeCmdApplication {
-        _data: [u8; 0],
-        _marker: std::marker::PhantomData<(*mut u8, std::marker::PhantomPinned)>,
-    }
+    pub type GnomeCmdApplication = <super::Application as glib::object::ObjectType>::GlibType;
 
     extern "C" {
-        pub fn gnome_cmd_application_get_type() -> GType;
-        pub fn gnome_cmd_application_new() -> *mut GnomeCmdApplication;
+        pub fn gnome_cmd_application_startup(
+            application: *mut GnomeCmdApplication,
+            debug_option: *mut c_char,
+        );
+        pub fn gnome_cmd_application_activate(
+            application: *mut GnomeCmdApplication,
+            start_dir_left: *const c_char,
+            start_dir_right: *const c_char,
+        );
+        pub fn gnome_cmd_application_shutdown();
+    }
+}
+
+mod imp {
+    use super::*;
+    use crate::config::{ICONS_DIR, PACKAGE};
+    use gtk::glib::translate::ToGlibPtr;
+    use std::{cell::RefCell, path::PathBuf};
+
+    #[derive(Default)]
+    pub struct Application {
+        debug_flags: RefCell<Option<String>>,
+        start_left_dir: RefCell<Option<PathBuf>>,
+        start_right_dir: RefCell<Option<PathBuf>>,
     }
 
-    #[derive(Copy, Clone)]
-    #[repr(C)]
-    pub struct GnomeCmdFileClass {
-        pub parent_class: GtkApplicationClass,
+    #[glib::object_subclass]
+    impl ObjectSubclass for Application {
+        const NAME: &'static str = "GnomeCmdApplication";
+        type Type = super::Application;
+        type ParentType = gtk::Application;
+    }
+
+    impl ObjectImpl for Application {
+        fn constructed(&self) {
+            self.parent_constructed();
+
+            let app = self.obj();
+            app.add_main_option(
+                "debug",
+                b'd'.into(),
+                glib::OptionFlags::NONE,
+                glib::OptionArg::String,
+                &gettext("Specify debug flags to use"),
+                None,
+            );
+            app.add_main_option(
+                "start-left-dir",
+                b'l'.into(),
+                glib::OptionFlags::NONE,
+                glib::OptionArg::String,
+                &gettext("Specify the start directory for the left pane"),
+                None,
+            );
+            app.add_main_option(
+                "start-right-dir",
+                b'r'.into(),
+                glib::OptionFlags::NONE,
+                glib::OptionArg::String,
+                &gettext("Specify the start directory for the right pane"),
+                None,
+            );
+        }
+    }
+
+    impl ApplicationImpl for Application {
+        fn startup(&self) {
+            self.parent_startup();
+
+            // disable beeping for the application
+            if let Some(settings) = gtk::Settings::default() {
+                settings.set_gtk_error_bell(false);
+            }
+
+            if let Some(display) = gdk::Display::default() {
+                gtk::IconTheme::for_display(&display).add_search_path(ICONS_DIR);
+            }
+
+            create_config_directory();
+
+            let debug_flags = self.debug_flags.borrow().clone();
+            unsafe {
+                ffi::gnome_cmd_application_startup(
+                    self.obj().to_glib_none().0,
+                    debug_flags.to_glib_none().0,
+                );
+            }
+        }
+
+        fn activate(&self) {
+            self.parent_activate();
+
+            if let Some(window) = self.obj().windows().first() {
+                window.present();
+                return;
+            }
+
+            let start_left_dir = self.start_left_dir.borrow().clone();
+            let start_right_dir = self.start_right_dir.borrow().clone();
+            unsafe {
+                ffi::gnome_cmd_application_activate(
+                    self.obj().to_glib_none().0,
+                    start_left_dir.to_glib_none().0,
+                    start_right_dir.to_glib_none().0,
+                );
+            }
+        }
+
+        fn shutdown(&self) {
+            unsafe {
+                ffi::gnome_cmd_application_shutdown();
+            }
+            self.parent_shutdown();
+        }
+
+        fn handle_local_options(&self, options: &glib::VariantDict) -> glib::ExitCode {
+            self.debug_flags
+                .replace(get_string_option(options, "debug").map(|flags| {
+                    if flags.contains('a') {
+                        "giklmnpstuvwyzx".to_owned()
+                    } else {
+                        flags
+                    }
+                }));
+            self.start_left_dir
+                .replace(get_string_option(options, "start-left-dir").map(parse_dir));
+            self.start_right_dir
+                .replace(get_string_option(options, "start-right-dir").map(parse_dir));
+
+            self.parent_handle_local_options(options)
+        }
+    }
+
+    impl GtkApplicationImpl for Application {}
+
+    fn create_config_directory() {
+        let conf_dir = glib::user_config_dir().join(PACKAGE);
+        if let Err(error) = std::fs::create_dir_all(&conf_dir) {
+            eprintln!(
+                "{}",
+                gettext("Failed to create the directory {directory}: {error}")
+                    .replace("{directory}", &conf_dir.display().to_string())
+                    .replace("{error}", &error.to_string())
+            );
+        }
+    }
+
+    fn get_string_option(options: &glib::VariantDict, key: &str) -> Option<String> {
+        options
+            .lookup_value(key, Some(&String::static_variant_type()))
+            .and_then(|v| v.get())
+    }
+
+    fn parse_dir(dir: String) -> PathBuf {
+        if dir == "." {
+            glib::current_dir()
+        } else {
+            PathBuf::from(dir)
+        }
     }
 }
 
 glib::wrapper! {
-    pub struct GnomeCmdApplication(Object<ffi::GnomeCmdApplication, ffi::GnomeCmdFileClass>)
+    pub struct Application(ObjectSubclass<imp::Application>)
         @extends gtk::Application, gio::Application;
+}
 
-    match fn {
-        type_ => || ffi::gnome_cmd_application_get_type(),
+impl Application {
+    pub fn new(allow_multiple_instances: bool) -> Self {
+        let flags = if allow_multiple_instances {
+            gio::ApplicationFlags::NON_UNIQUE
+        } else {
+            gio::ApplicationFlags::default()
+        };
+
+        glib::Object::builder()
+            .property("application-id", "org.gnome.gnome-commander")
+            .property("flags", flags)
+            .build()
     }
 }
 
-impl GnomeCmdApplication {
-    pub fn new() -> Self {
-        unsafe { from_glib_none(ffi::gnome_cmd_application_new()) }
+impl Default for Application {
+    fn default() -> Self {
+        Self::new(GeneralOptions::new().allow_multiple_instances())
     }
 }

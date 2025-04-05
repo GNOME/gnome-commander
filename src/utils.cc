@@ -400,44 +400,6 @@ gchar *unix_to_unc (const gchar *path)
 }
 
 
-gboolean is_dir_existing(const gchar *dpath)
-{
-    g_return_val_if_fail (dpath, FALSE);
-    auto gFile = g_file_new_for_path(dpath);
-
-    auto returnValue = false;
-
-    if (g_file_query_exists(gFile, nullptr))
-    {
-        returnValue = true;
-    }
-    g_object_unref(gFile);
-    return returnValue;
-}
-
-
-gboolean create_dir (const gchar *dpath)
-{
-    g_return_val_if_fail (dpath, FALSE);
-
-    g_print (_("Creating directory %s… "), dpath);
-    GError *error = nullptr;
-    auto gFile = g_file_new_for_path(dpath);
-    if (g_file_make_directory (gFile, nullptr, &error))
-    {
-        g_object_unref(gFile);
-        return TRUE;
-    }
-    else
-    {
-        g_object_unref(gFile);
-        g_warning (_("Failed to create the directory %s: %s"), dpath, error->message);
-        g_error_free (error);
-        return FALSE;
-    }
-}
-
-
 GList *patlist_new (const gchar *pattern_string)
 {
     g_return_val_if_fail (pattern_string != NULL, NULL);
@@ -560,12 +522,6 @@ void gnome_cmd_error_message (GtkWindow *parent, const gchar *message, GError *e
     GtkWidget *dlg = create_error_message_dialog (parent, message, error->message);
     g_error_free (error);
     gtk_window_present (GTK_WINDOW (dlg));
-}
-
-
-gchar* get_package_config_dir()
-{
-    return g_build_filename (g_get_user_config_dir(), PACKAGE, NULL);
 }
 
 

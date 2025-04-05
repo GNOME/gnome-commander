@@ -62,7 +62,7 @@ mod utils;
 
 mod gmodule;
 
-use application::GnomeCmdApplication;
+use application::Application;
 use gtk::{glib, prelude::*};
 use std::error::Error;
 use std::path::Path;
@@ -87,7 +87,7 @@ fn main() -> Result<impl Termination, Box<dyn Error>> {
 
     gtk::init()?;
 
-    let app = GnomeCmdApplication::new();
+    let app = Application::default();
     let exis_code = app.run();
     Ok(exis_code)
 }

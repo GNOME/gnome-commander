@@ -10,6 +10,7 @@ plugins/poppler/poppler-plugin.cc
 plugins/taglib/taglib-plugin.cc
 plugins/test/test-plugin.cc
 src/advrename_profile_component.rs
+src/application.rs
 src/app.rs
 src/chmod_component.rs
 src/chown_component.rs
@@ -59,7 +60,6 @@ src/file_metainfo_view.rs
 src/file_selector.rs
 src/file_view.rs
 src/gnome-cmd-advrename-profile-component.cc
-src/gnome-cmd-application.cc
 src/gnome-cmd-block.cc
 src/gnome-cmd-cmdline.cc
 src/gnome-cmd-con.cc

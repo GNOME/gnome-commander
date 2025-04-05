@@ -138,9 +138,6 @@ void remove_temp_download_dir ();
 
 gchar *unix_to_unc (const gchar *path);
 
-gboolean is_dir_existing(const gchar *dpath);
-gboolean create_dir (const gchar *dpath);
-
 GList *patlist_new (const gchar *pattern_string);
 void patlist_free (GList *pattern_list);
 gboolean patlist_matches (GList *pattern_list, const gchar *s);
@@ -187,7 +184,6 @@ inline std::string stringify(const T &val)
     return stringify(s,val);
 }
 
-gchar* get_package_config_dir();
 
 gchar *string_double_underscores (const gchar *string);
 
