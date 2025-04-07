@@ -90,3 +90,6 @@ extern "C" void gnome_cmd_con_list_remove (GnomeCmdConList *list, GnomeCmdCon *c
 
 extern "C" void gnome_cmd_con_list_lock (GnomeCmdConList *list);
 extern "C" void gnome_cmd_con_list_unlock (GnomeCmdConList *list);
+
+extern "C" void gnome_cmd_con_list_set_volume_monitor (GnomeCmdConList *list);
+extern "C" void gnome_cmd_con_list_load_available_volumes (GnomeCmdConList *list);

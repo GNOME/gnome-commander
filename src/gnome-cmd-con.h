@@ -133,6 +133,7 @@ extern "C" GFile *gnome_cmd_con_create_gfile (GnomeCmdCon *con, const gchar *pat
 extern "C" GnomeCmdPath *gnome_cmd_con_create_path (GnomeCmdCon *con, const gchar *path_str);
 
 extern "C" const gchar *gnome_cmd_con_get_open_msg (GnomeCmdCon *con);
+extern "C" void gnome_cmd_con_set_open_msg (GnomeCmdCon *con, const gchar *msg);
 
 extern "C" const gchar *gnome_cmd_con_get_alias (GnomeCmdCon *con);
 extern "C" void gnome_cmd_con_set_alias (GnomeCmdCon *con, const gchar *alias=NULL);
@@ -182,8 +183,6 @@ void gnome_cmd_con_remove_from_cache (GnomeCmdCon *con, GnomeCmdDir *dir);
 void gnome_cmd_con_remove_from_cache (GnomeCmdCon *con, const gchar *uri);
 
 GnomeCmdDir *gnome_cmd_con_cache_lookup (GnomeCmdCon *con, const gchar *uri);
-
-void gnome_cmd_con_close_active_or_inactive_connection (GMount *gMount);
 
 
 extern "C" GType gnome_cmd_bookmark_get_type ();

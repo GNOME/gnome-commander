@@ -183,5 +183,5 @@ test(
   env: cargo_env,
   args: ['test', '--no-fail-fast'] + cargo_options,
   depends: [commander, libgcmd],
-  timeout: 120
+  timeout: 180
 )

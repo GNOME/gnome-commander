@@ -104,6 +104,7 @@ pub mod ffi {
         ) -> gboolean;
 
         pub fn gnome_cmd_con_get_open_msg(con: *mut GnomeCmdCon) -> *const c_char;
+        pub fn gnome_cmd_con_set_open_msg(con: *mut GnomeCmdCon, message: *const c_char);
         pub fn gnome_cmd_con_open(con: *mut GnomeCmdCon, parent_window: *mut GtkWindow);
         pub fn gnome_cmd_con_cancel_open(con: *mut GnomeCmdCon);
 
@@ -408,6 +409,15 @@ pub trait ConnectionExt: IsA<Connection> + 'static {
             from_glib_none(ffi::gnome_cmd_con_get_open_msg(
                 self.as_ref().to_glib_none().0,
             ))
+        }
+    }
+
+    fn set_open_message(&self, message: &str) {
+        unsafe {
+            ffi::gnome_cmd_con_set_open_msg(
+                self.as_ref().to_glib_none().0,
+                message.to_glib_none().0,
+            )
         }
     }
 

@@ -23,6 +23,7 @@
 use super::{
     bookmark::Bookmark,
     connection::{Connection, ConnectionExt},
+    device::ConnectionDevice,
     remote::ConnectionRemote,
 };
 use gtk::{
@@ -36,6 +37,7 @@ use gtk::{
     },
     prelude::*,
 };
+use std::path::Path;
 
 pub mod ffi {
     use super::*;
@@ -247,6 +249,125 @@ impl ConnectionList {
             Some(bookmarks.to_variant())
         }
     }
+
+    fn find_remote_by_root(&self, root_file: &gio::File) -> Option<ConnectionRemote> {
+        self.all()
+            .iter::<Connection>()
+            .flatten()
+            .filter_map(|c| c.downcast::<ConnectionRemote>().ok())
+            .find(|c| {
+                c.uri_string()
+                    .map(|uri| gio::File::for_uri(&uri).equal(root_file))
+                    .unwrap_or(false)
+            })
+    }
+
+    /// This function will add mounts which are not for the 'file' scheme
+    /// to the list of stored connections. This might be usefull when opening a remote
+    /// connection with an external programm. This connection can be opened / used at
+    /// a later time then also in Gnome Commander as it will be selectable from
+    /// the connection list.
+    fn add_mount(&self, mount: &gio::Mount) {
+        let file = mount.root();
+        //Don't care about 'local' mounts (for the moment)
+        if file.uri_scheme().as_deref() == Some("file") {
+            return;
+        }
+        if self.find_remote_by_root(&file).is_none() {
+            self.add(&ConnectionRemote::new(&mount.name(), &file.uri()));
+        }
+    }
+
+    fn remove_mount(&self, mount: &gio::Mount) {
+        let file = mount.root();
+        if let Some(con) = self.find_remote_by_root(&file) {
+            con.close();
+        }
+    }
+
+    fn find_device_by_mount_point(&self, mount_point: &Path) -> Option<ConnectionDevice> {
+        self.all()
+            .iter::<Connection>()
+            .flatten()
+            .filter_map(|c| c.downcast::<ConnectionDevice>().ok())
+            .filter(|d| !d.autovol())
+            .find(|d| d.mountp_string().as_deref() == Some(mount_point))
+    }
+
+    fn add_volume(&self, volume: &gio::Volume) {
+        if let Some(unix_device_string) = volume.identifier(gio::VOLUME_IDENTIFIER_KIND_UNIX_DEVICE)
+        {
+            // Only create a new device connection if it does not already exist.
+            // This can happen if the user manually added the same device in "Options|Devices" menu
+            // We have to compare each connection in con_list with the `unix_device_string` for this.
+            if self
+                .find_device_by_mount_point(Path::new(&unix_device_string))
+                .is_some()
+            {
+                eprintln!(
+                    "Device for mountpoint({:?}) already exists. AutoVolume not added",
+                    unix_device_string
+                );
+                return;
+            }
+        }
+        // If it does not exist already and a UUID is available, create the new device connection
+        if let Some(dev) = ConnectionDevice::new_auto_volume(&volume) {
+            self.add(&dev);
+        } else {
+            eprintln!("Device does not have a UUID. Skipping");
+        }
+    }
+
+    fn remove_volume(&self, volume: &gio::Volume) {
+        let Some(uuid) = volume.identifier(gio::VOLUME_IDENTIFIER_KIND_UUID) else {
+            return;
+        };
+        let Some(device) = self
+            .all()
+            .iter::<Connection>()
+            .flatten()
+            .filter_map(|c| c.downcast::<ConnectionDevice>().ok())
+            .filter(|d| d.autovol())
+            .find(|d| d.device_fn().as_deref() == Some(&uuid))
+        else {
+            return;
+        };
+        self.remove(&device);
+    }
+
+    fn set_volume_monitor(&self) {
+        let monitor = gio::VolumeMonitor::get();
+        monitor.connect_mount_added(glib::clone!(
+            #[weak(rename_to = this)]
+            self,
+            move |_, mount| this.add_mount(mount)
+        ));
+        monitor.connect_mount_removed(glib::clone!(
+            #[weak(rename_to = this)]
+            self,
+            move |_, mount| this.remove_mount(mount)
+        ));
+        monitor.connect_volume_added(glib::clone!(
+            #[weak(rename_to = this)]
+            self,
+            move |_, volume| this.add_volume(&volume)
+        ));
+        monitor.connect_volume_removed(glib::clone!(
+            #[weak(rename_to = this)]
+            self,
+            move |_, volume| this.remove_volume(&volume)
+        ));
+        // TODO: make it a property
+        unsafe { self.set_data("volume-monitor", monitor); }
+    }
+
+    fn load_available_volumes(&self) {
+        let monitor = gio::VolumeMonitor::get();
+        for volume in monitor.volumes() {
+            self.add_volume(&volume);
+        }
+    }
 }
 
 #[no_mangle]
@@ -274,4 +395,16 @@ struct BookmarkVariant {
     group_name: String,
     name: String,
     path: String,
+}
+
+#[no_mangle]
+pub extern "C" fn gnome_cmd_con_list_set_volume_monitor(list_ptr: *mut ffi::GnomeCmdConList) {
+    let list: Borrowed<ConnectionList> = unsafe { from_glib_borrow(list_ptr) };
+    list.set_volume_monitor();
+}
+
+#[no_mangle]
+pub extern "C" fn gnome_cmd_con_list_load_available_volumes(list_ptr: *mut ffi::GnomeCmdConList) {
+    let list: Borrowed<ConnectionList> = unsafe { from_glib_borrow(list_ptr) };
+    list.load_available_volumes();
 }

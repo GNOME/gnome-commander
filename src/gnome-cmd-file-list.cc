@@ -2175,6 +2175,13 @@ void GnomeCmdFileList::set_base_dir (gchar *dir)
 }
 
 
+static void on_connection_close (GnomeCmdCon *con, GnomeCmdFileList *fl)
+{
+    if (con == fl->con)
+        fl->set_connection(get_home_con());
+}
+
+
 extern "C" void open_connection_r (GnomeCmdFileList *fl, GtkWindow *parent_window, GnomeCmdCon *con);
 
 void GnomeCmdFileList::set_connection (GnomeCmdCon *new_con, GnomeCmdDir *start_dir)
@@ -2198,6 +2205,9 @@ void GnomeCmdFileList::set_connection (GnomeCmdCon *new_con, GnomeCmdDir *start_
         return;
     }
 
+    if (con)
+        g_signal_handlers_disconnect_by_func (con, (gpointer) on_connection_close, this);
+
     con = new_con;
 
     if (lwd)
@@ -2215,6 +2225,8 @@ void GnomeCmdFileList::set_connection (GnomeCmdCon *new_con, GnomeCmdDir *start_
 
     if (!start_dir)
         start_dir = gnome_cmd_con_get_default_dir (con);
+
+    g_signal_connect (con, "close", G_CALLBACK (on_connection_close), this);
 
     g_signal_emit (this, signals[CON_CHANGED], 0, con);
 

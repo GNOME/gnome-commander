@@ -362,6 +362,14 @@ const gchar *gnome_cmd_con_get_open_msg (GnomeCmdCon *con)
 }
 
 
+void gnome_cmd_con_set_open_msg (GnomeCmdCon *con, const gchar *msg)
+{
+    g_return_if_fail (GNOME_CMD_IS_CON (con));
+    g_free (con->open_msg);
+    con->open_msg = g_strdup (msg);
+}
+
+
 GUri *gnome_cmd_con_get_uri (GnomeCmdCon *con)
 {
     g_return_val_if_fail (GNOME_CMD_IS_CON (con), nullptr);
@@ -725,41 +733,6 @@ GIcon *gnome_cmd_con_get_close_icon (GnomeCmdCon *con)
     g_return_val_if_fail (GNOME_CMD_IS_CON (con), nullptr);
     GnomeCmdConClass *klass = GNOME_CMD_CON_GET_CLASS (con);
     return klass->get_close_icon ? klass->get_close_icon (con) : nullptr;
-}
-
-
-/**
- * This function checks if the active or inactive file pane is showing
- * files from the given GMount. If yes, close the connection to this GMount
- * and open the home connection instead.
- */
-void gnome_cmd_con_close_active_or_inactive_connection (GMount *gMount)
-{
-    g_return_if_fail(gMount != nullptr);
-    g_return_if_fail(G_IS_MOUNT(gMount));
-    auto gFile = g_mount_get_root(gMount);
-    auto uriString = g_file_get_uri(gFile);
-
-    auto activeConUri = gnome_cmd_con_get_uri_string (main_win->fs(ACTIVE)->get_connection());
-    auto activeConGFile = activeConUri ? g_file_new_for_uri(activeConUri) : nullptr;
-    auto inactiveConUri = gnome_cmd_con_get_uri_string (main_win->fs(INACTIVE)->get_connection());
-    auto inactiveConGFile = inactiveConUri ? g_file_new_for_uri(inactiveConUri) : nullptr;
-
-    if (activeConUri && g_file_equal(gFile, activeConGFile))
-    {
-        gnome_cmd_con_close (main_win->fs(ACTIVE)->get_connection());
-        main_win->fs(ACTIVE)->set_connection(get_home_con());
-    }
-    if (inactiveConUri && g_file_equal(gFile, inactiveConGFile))
-    {
-        gnome_cmd_con_close (main_win->fs(INACTIVE)->get_connection());
-        main_win->fs(INACTIVE)->set_connection(get_home_con());
-    }
-
-    g_free(uriString);
-    g_object_unref(gFile);
-    g_free(activeConUri);
-    g_free(inactiveConUri);
 }
 
 
