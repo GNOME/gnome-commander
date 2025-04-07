@@ -42,6 +42,7 @@ struct GnomeCmdFileSelectorClass
     GtkBoxClass parent_class;
 
     void (* dir_changed) (GnomeCmdFileSelector *fs, GnomeCmdDir *dir);
+    void (* list_clicked) (GnomeCmdFileSelector *fs);
 };
 
 
@@ -58,7 +59,11 @@ class GnomeCmdFileSelector::Private
     gboolean select_connection_in_progress {FALSE};
 };
 
-enum {DIR_CHANGED, LAST_SIGNAL};
+enum {
+    DIR_CHANGED,
+    LIST_CLICKED,
+    LAST_SIGNAL
+};
 
 static guint signals[LAST_SIGNAL] = { 0 };
 
@@ -434,7 +439,7 @@ static void on_list_list_clicked (GnomeCmdFileList *fl, GnomeCmdFileListButtonEv
     {
         case 1:
         case 3:
-            main_win->switch_fs(fs);
+            g_signal_emit (fs, signals[LIST_CLICKED], 0);
             break;
 
         case 2:
@@ -691,6 +696,16 @@ static void gnome_cmd_file_selector_class_init (GnomeCmdFileSelectorClass *klass
             g_cclosure_marshal_VOID__POINTER,
             G_TYPE_NONE,
             1, G_TYPE_POINTER);
+
+    signals[LIST_CLICKED] =
+        g_signal_new ("list-clicked",
+            G_TYPE_FROM_CLASS (klass),
+            G_SIGNAL_RUN_LAST,
+            G_STRUCT_OFFSET (GnomeCmdFileSelectorClass, list_clicked),
+            nullptr, nullptr,
+            nullptr,
+            G_TYPE_NONE,
+            0);
 
     G_OBJECT_CLASS (klass)->dispose = dispose;
 }

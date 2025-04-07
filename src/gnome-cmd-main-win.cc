@@ -299,7 +299,7 @@ static void on_main_win_realize (GtkWidget *widget, GnomeCmdMainWin *mw)
 }
 
 
-static gboolean on_left_fs_select (GnomeCmdFileList *list, GnomeCmdFileListButtonEvent *event, GnomeCmdMainWin *mw)
+static gboolean on_left_fs_select (GnomeCmdFileSelector *fs, GnomeCmdMainWin *mw)
 {
     mw->priv->current_fs = LEFT;
 
@@ -310,7 +310,7 @@ static gboolean on_left_fs_select (GnomeCmdFileList *list, GnomeCmdFileListButto
 }
 
 
-static gboolean on_right_fs_select (GnomeCmdFileList *list, GnomeCmdFileListButtonEvent *event, GnomeCmdMainWin *mw)
+static gboolean on_right_fs_select (GnomeCmdFileSelector *fs, GnomeCmdMainWin *mw)
 {
     mw->priv->current_fs = RIGHT;
 
@@ -611,8 +611,8 @@ static void gnome_cmd_main_win_init (GnomeCmdMainWin *mw)
     gtk_gesture_single_set_button (GTK_GESTURE_SINGLE (paned_click_gesture), 3);
     g_signal_connect (paned_click_gesture, "pressed", G_CALLBACK (on_slide_button_press), mw);
 
-    g_signal_connect (mw->fs(LEFT)->file_list(), "list-clicked", G_CALLBACK (on_left_fs_select), mw);
-    g_signal_connect (mw->fs(RIGHT)->file_list(), "list-clicked", G_CALLBACK (on_right_fs_select), mw);
+    g_signal_connect (mw->fs(LEFT), "list-clicked", G_CALLBACK (on_left_fs_select), mw);
+    g_signal_connect (mw->fs(RIGHT), "list-clicked", G_CALLBACK (on_right_fs_select), mw);
 
     g_signal_connect (gnome_cmd_con_list_get (), "list-changed", G_CALLBACK (on_con_list_list_changed), mw);
 
