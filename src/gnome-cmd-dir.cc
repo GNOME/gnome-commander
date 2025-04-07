@@ -41,6 +41,7 @@ enum
     FILE_RENAMED,
     LIST_OK,
     LIST_FAILED,
+    DIR_DELETED,
     LAST_SIGNAL
 };
 
@@ -202,6 +203,16 @@ static void gnome_cmd_dir_class_init (GnomeCmdDirClass *klass)
             G_TYPE_NONE,
             1, G_TYPE_POINTER);
 
+    signals[DIR_DELETED] =
+        g_signal_new ("dir-deleted",
+            G_TYPE_FROM_CLASS (klass),
+            G_SIGNAL_RUN_LAST,
+            G_STRUCT_OFFSET (GnomeCmdDirClass, dir_deleted),
+            nullptr, nullptr,
+            nullptr,
+            G_TYPE_NONE,
+            0);
+
     object_class->dispose = gnome_cmd_dir_dispose;
     object_class->finalize = gnome_cmd_dir_finalize;
 
@@ -213,6 +224,7 @@ static void gnome_cmd_dir_class_init (GnomeCmdDirClass *klass)
     klass->file_renamed = nullptr;
     klass->list_ok = nullptr;
     klass->list_failed = nullptr;
+    klass->dir_deleted = nullptr;
 }
 
 
@@ -748,31 +760,7 @@ void gnome_cmd_dir_update_file_selector(GnomeCmdDir *dir, const gchar *deletedDi
     if (!g_strcmp0(deletedDirUriString, dirUriSting))
     {
         gnome_cmd_con_remove_from_cache (dir->priv->con, dir);
-
-        auto parentDir = gnome_cmd_dir_get_existing_parent(dir);
-
-        // Go to the parent directory in one of the file lists if necessary
-        auto parentDirPath = gnome_cmd_dir_get_path(parentDir)->get_path();
-
-        //ToDo: The following has to be done for the other open tabs, too.
-
-        auto fs = main_win->fs(ACTIVE);
-        auto fsDir = fs->get_directory();
-        auto urifsDir = gnome_cmd_dir_get_uri_str(fsDir);
-        if (!g_strcmp0(urifsDir, deletedDirUriString))
-        {
-            fs->goto_directory(parentDirPath);
-        }
-        g_free(urifsDir);
-
-        fs = main_win->fs(INACTIVE);
-        fsDir = fs->get_directory();
-        urifsDir = gnome_cmd_dir_get_uri_str(fsDir);
-        if (!g_strcmp0(urifsDir, deletedDirUriString))
-        {
-            fs->goto_directory(parentDirPath);
-        }
-        g_free(urifsDir);
+        g_signal_emit (dir, signals[DIR_DELETED], 0);
     }
     g_free(dirUriSting);
 }

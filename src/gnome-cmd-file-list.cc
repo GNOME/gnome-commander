@@ -1169,6 +1169,14 @@ static gboolean set_home_connection (GnomeCmdFileList *fl)
 }
 
 
+static void on_directory_deleted (GnomeCmdDir *dir, GnomeCmdFileList *fl)
+{
+    auto parentDir = gnome_cmd_dir_get_existing_parent(dir);
+    auto parentDirPath = gnome_cmd_dir_get_path(parentDir)->get_path();
+    fl->goto_directory(parentDirPath);
+}
+
+
 /**
  * Handles an error which occured when directory listing failed.
  * We expect that the error which should be reported is stored in the GnomeCmdDir object.
@@ -1189,9 +1197,12 @@ static void on_dir_list_failed (GnomeCmdDir *dir, GError *error, GnomeCmdFileLis
 
     if (fl->lwd && fl->con == gnome_cmd_file_get_connection (GNOME_CMD_FILE (fl->lwd)))
     {
+        g_signal_handlers_disconnect_by_func (fl->cwd, (gpointer) on_directory_deleted, fl);
+
         fl->cwd = fl->lwd;
         g_signal_connect (fl->cwd, "list-ok", G_CALLBACK (on_dir_list_ok), fl);
         g_signal_connect (fl->cwd, "list-failed", G_CALLBACK (on_dir_list_failed), fl);
+        g_signal_connect (fl->cwd, "dir-deleted", G_CALLBACK (on_directory_deleted), fl);
         fl->lwd = nullptr;
     }
     else
@@ -2220,6 +2231,7 @@ void GnomeCmdFileList::set_connection (GnomeCmdCon *new_con, GnomeCmdDir *start_
     {
         gnome_cmd_dir_cancel_monitoring (cwd);
         gnome_cmd_dir_unref (cwd);
+        g_signal_handlers_disconnect_by_func (cwd, (gpointer) on_directory_deleted, this);
         cwd = nullptr;
     }
 
@@ -2259,11 +2271,13 @@ void GnomeCmdFileList::set_directory(GnomeCmdDir *dir)
         g_signal_handlers_disconnect_matched (lwd, G_SIGNAL_MATCH_DATA, 0, 0, nullptr, nullptr, this);
         if (gnome_cmd_file_is_local (GNOME_CMD_FILE (lwd)) && !gnome_cmd_dir_is_monitored (lwd) && gnome_cmd_dir_needs_mtime_update (lwd))
             gnome_cmd_dir_update_mtime (lwd);
+        g_signal_handlers_disconnect_by_func (cwd, (gpointer) on_directory_deleted, this);
     }
 
     cwd = dir;
     g_signal_connect (dir, "list-ok", G_CALLBACK (on_dir_list_ok), this);
     g_signal_connect (dir, "list-failed", G_CALLBACK (on_dir_list_failed), this);
+    g_signal_connect (dir, "dir-deleted", G_CALLBACK (on_directory_deleted), this);
 
     switch (gnome_cmd_dir_get_state (dir))
     {
