@@ -1034,7 +1034,10 @@ void GnomeCmdMainWin::change_connection(FileSelectorID id)
 
     switch_fs(fselector);
     if (gnome_cmd_data.show_devlist)
-        fselector->con_combo->popup_list();
+    {
+        g_signal_emit_by_name (fselector->con_dropdown, "activate");
+        gtk_widget_grab_focus (fselector->con_dropdown);
+    }
 }
 
 

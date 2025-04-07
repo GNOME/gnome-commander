@@ -35,9 +35,6 @@ struct GnomeCmdMainWin;
 #include "gnome-cmd-dir.h"
 
 
-struct GnomeCmdCombo;
-
-
 struct GnomeCmdFileSelector
 {
     GtkBox vbox;
@@ -49,7 +46,7 @@ struct GnomeCmdFileSelector
     GtkWidget *dir_indicator;
     GtkWidget *dir_label;
     GtkWidget *info_label;
-    GnomeCmdCombo *con_combo;
+    GtkWidget *con_dropdown;
     GtkWidget *vol_label;
 
     GtkNotebook *notebook;

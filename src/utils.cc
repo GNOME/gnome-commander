@@ -579,31 +579,6 @@ void gnome_cmd_error_message (GtkWindow *parent, const gchar *message, GError *e
 }
 
 
-gint get_string_pixel_size (const char *s, int len)
-{
-    // find the size, in pixels, of the given string
-    gint xSize, ySize;
-
-    gchar *buf = g_strndup(s, len);
-    gchar *utf8buf = get_utf8 (buf);
-
-    GtkLabel *label = GTK_LABEL (gtk_label_new (utf8buf));
-    gchar *ms = get_mono_text (utf8buf);
-    gtk_label_set_markup (label, ms);
-    g_free (ms);
-    g_object_ref_sink(G_OBJECT(label));
-
-    PangoLayout *layout = gtk_label_get_layout (label);
-    pango_layout_get_pixel_size (layout, &xSize, &ySize);
-
-    g_object_unref (label);
-    g_free (utf8buf);
-    g_free (buf);
-
-    return xSize;
-}
-
-
 gchar* get_package_config_dir()
 {
     return g_build_filename (g_get_user_config_dir(), PACKAGE, NULL);

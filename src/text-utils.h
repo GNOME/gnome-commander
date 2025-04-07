@@ -30,19 +30,3 @@ inline gchar *get_bold_text (const gchar *in)
     g_free (escaped_text);
     return result;
 }
-
-inline gchar *get_mono_text (const gchar *in)
-{
-    gchar *escaped_text = g_markup_escape_text (in, -1);
-    gchar *result = g_strdup_printf("<span font_family=\"monospace\">%s</span>", escaped_text);
-    g_free (escaped_text);
-    return result;
-}
-
-inline gchar *get_bold_mono_text (const gchar *in)
-{
-    gchar *escaped_text = g_markup_escape_text (in, -1);
-    gchar *result = g_strdup_printf("<span font_family=\"monospace\" weight=\"bold\">%s</span>", escaped_text);
-    g_free (escaped_text);
-    return result;
-}

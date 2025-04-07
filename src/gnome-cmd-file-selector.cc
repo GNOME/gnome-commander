@@ -25,7 +25,6 @@
 #include "gnome-cmd-file-selector.h"
 #include "gnome-cmd-con-list.h"
 #include "gnome-cmd-con-smb.h"
-#include "gnome-cmd-combo.h"
 #include "gnome-cmd-data.h"
 #include "gnome-cmd-cmdline.h"
 #include "gnome-cmd-main-win.h"
@@ -56,6 +55,7 @@ class GnomeCmdFileSelector::Private
     History *dir_history {nullptr};
     gboolean active {FALSE};
     gboolean realized {FALSE};
+    gboolean select_connection_in_progress {FALSE};
 };
 
 enum {DIR_CHANGED, LAST_SIGNAL};
@@ -183,6 +183,63 @@ inline void add_cwd_to_cmdline (GnomeCmdFileList *fl)
 }
 
 
+GListStore *create_connections_store ()
+{
+    GListStore *store = g_list_store_new (GNOME_CMD_TYPE_CON);
+
+    GListModel *all_cons = gnome_cmd_con_list_get_all (gnome_cmd_con_list_get ());
+
+    guint n = g_list_model_get_n_items (all_cons);
+    for (guint i = 0; i < n; ++i)
+    {
+        GnomeCmdCon *con = GNOME_CMD_CON (g_list_model_get_item (all_cons, i));
+
+        if (!gnome_cmd_con_is_open (con) && !GNOME_CMD_IS_CON_DEVICE (con)
+            && !GNOME_CMD_IS_CON_SMB (con))  continue;
+
+        g_list_store_append (store, con);
+    }
+
+    return store;
+}
+
+
+void con_dropdown_item_setup (GtkSignalListItemFactory* factory, GObject* object, gpointer user_data)
+{
+    auto list_item = GTK_LIST_ITEM (object);
+
+    auto hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 6);
+    gtk_box_append (GTK_BOX (hbox), gtk_image_new ());
+    gtk_box_append (GTK_BOX (hbox), gtk_label_new (nullptr));
+
+    gtk_list_item_set_child (list_item, hbox);
+}
+
+
+void con_dropdown_item_bind (GtkSignalListItemFactory* factory, GObject* object, gpointer user_data)
+{
+    auto list_item = GTK_LIST_ITEM (object);
+    auto con = GNOME_CMD_CON (gtk_list_item_get_item (list_item));
+    auto hbox = gtk_list_item_get_child (list_item);
+
+    auto image = GTK_IMAGE (gtk_widget_get_first_child (hbox));
+    auto label = GTK_LABEL (gtk_widget_get_next_sibling (GTK_WIDGET (image)));
+
+    GIcon *icon = gnome_cmd_con_get_go_icon (con);
+    gtk_image_set_from_gicon (image, icon);
+    g_object_unref (icon);
+    gtk_label_set_text (label, gnome_cmd_con_get_alias (con));
+}
+
+
+GtkListItemFactory *con_dropdown_factory ()
+{
+    auto factory = gtk_signal_list_item_factory_new ();
+    g_signal_connect (factory, "setup", G_CALLBACK (con_dropdown_item_setup), nullptr);
+    g_signal_connect (factory, "bind", G_CALLBACK (con_dropdown_item_bind), nullptr);
+    return factory;
+}
+
 
 /*******************************
  * Callbacks
@@ -194,9 +251,13 @@ static void on_con_list_list_changed (GnomeCmdConList *con_list, GnomeCmdFileSel
 }
 
 
-static void on_con_combo_item_selected (GnomeCmdCombo *con_combo, GnomeCmdCon *con, GnomeCmdFileSelector *fs)
+static void on_con_combo_item_selected (GtkDropDown *con_dropdown, GParamSpec *pspec, GnomeCmdFileSelector *fs)
 {
     g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
+    if (fs->priv->select_connection_in_progress)
+        return;
+
+    GnomeCmdCon *con = GNOME_CMD_CON (gtk_drop_down_get_selected_item (con_dropdown));
     g_return_if_fail (GNOME_CMD_IS_CON (con));
 
     main_win->switch_fs(fs);
@@ -207,6 +268,8 @@ static void on_con_combo_item_selected (GnomeCmdCombo *con_combo, GnomeCmdCon *c
         fs->new_tab(gnome_cmd_con_get_default_dir (con));
     else
         fs->set_connection(con, gnome_cmd_con_get_default_dir (con));
+
+    main_win->refocus();
 }
 
 
@@ -226,12 +289,6 @@ static void on_navigate (GnomeCmdDirIndicator *indicator, const gchar *path, gbo
     {
         fs->goto_directory (path);
     }
-}
-
-
-static void on_combo_popwin_hidden (GnomeCmdCombo *combo, gpointer)
-{
-    main_win->refocus();
 }
 
 
@@ -332,6 +389,24 @@ static void on_realize (GnomeCmdFileSelector *fs, gpointer user_data)
 }
 
 
+static gboolean select_connection (GnomeCmdFileSelector *fs, GnomeCmdCon *con)
+{
+    GListStore *store = G_LIST_STORE (gtk_drop_down_get_model (GTK_DROP_DOWN (fs->con_dropdown)));
+    guint position;
+    if (g_list_store_find (store, con, &position))
+    {
+        fs->priv->select_connection_in_progress = TRUE;
+        gtk_drop_down_set_selected (GTK_DROP_DOWN (fs->con_dropdown), position);
+        fs->priv->select_connection_in_progress = FALSE;
+        return TRUE;
+    }
+    else
+    {
+        return FALSE;
+    }
+}
+
+
 static void on_notebook_switch_page (GtkNotebook *notebook, gpointer page, guint n, GnomeCmdFileSelector *fs)
 {
     g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
@@ -349,7 +424,7 @@ static void on_notebook_switch_page (GtkNotebook *notebook, gpointer page, guint
         g_signal_emit (fs, signals[DIR_CHANGED], 0, fs->get_directory());
 
     if (prev_con!=fs->get_connection())
-        fs->con_combo->select_data(fs->get_connection());
+        select_connection (fs, fs->get_connection());
 }
 
 
@@ -400,7 +475,7 @@ static void on_list_list_clicked (GnomeCmdFileList *fl, GnomeCmdFileListButtonEv
 static void on_list_con_changed (GnomeCmdFileList *fl, GnomeCmdCon *con, GnomeCmdFileSelector *fs)
 {
     fs->priv->dir_history = gnome_cmd_con_get_dir_history (con);
-    fs->con_combo->select_data(con);
+    select_connection (fs, con);
 }
 
 
@@ -623,9 +698,6 @@ static void gnome_cmd_file_selector_class_init (GnomeCmdFileSelectorClass *klass
 
 static void gnome_cmd_file_selector_init (GnomeCmdFileSelector *fs)
 {
-    gint string_size = 0;
-    gint max_string_size = 150;
-
     fs->list = nullptr;
 
     fs->priv = new GnomeCmdFileSelector::Private;
@@ -645,26 +717,13 @@ static void gnome_cmd_file_selector_init (GnomeCmdFileSelector *fs)
     gtk_notebook_set_show_border (fs->notebook, FALSE);
     gtk_widget_set_vexpand (GTK_WIDGET (fs->notebook), TRUE);
 
-    GListModel *all_cons = gnome_cmd_con_list_get_all (gnome_cmd_con_list_get ());
-
-    guint n = g_list_model_get_n_items (all_cons);
-    for (guint i = 0; i < n; ++i)
-    {
-        GnomeCmdCon *con = GNOME_CMD_CON (g_list_model_get_item (all_cons, i));
-
-        if (!gnome_cmd_con_is_open (con) && !GNOME_CMD_IS_CON_DEVICE (con)
-            && !GNOME_CMD_IS_CON_SMB (con))  continue;
-
-        string textstring {gnome_cmd_con_get_alias (con)};
-        string_size = get_string_pixel_size (textstring.c_str(), textstring.length());
-        max_string_size = string_size > max_string_size ? string_size : max_string_size;
-    }
+    GListModel *store = G_LIST_MODEL (create_connections_store ());
 
     // create the connection combo
-    GtkListStore *store = gtk_list_store_new (3, G_TYPE_ICON, G_TYPE_STRING, G_TYPE_POINTER);
-    fs->con_combo = GNOME_CMD_COMBO (gnome_cmd_combo_new_with_store(store, 2, 1, 2));
-    gtk_widget_set_size_request (*fs->con_combo, max_string_size, -1);
-    gtk_editable_set_editable (GTK_EDITABLE (fs->con_combo->get_entry()), FALSE);
+    fs->con_dropdown = gtk_drop_down_new (store, nullptr);
+    auto factory = con_dropdown_factory();
+    gtk_drop_down_set_factory (GTK_DROP_DOWN (fs->con_dropdown), factory);
+    g_object_unref (factory);
 
     // create the free space on volume label
     fs->vol_label = gtk_label_new ("");
@@ -692,7 +751,7 @@ static void gnome_cmd_file_selector_init (GnomeCmdFileSelector *fs)
     gtk_box_append (GTK_BOX (fs), GTK_WIDGET (fs->notebook));
     gtk_box_append (GTK_BOX (fs), padding);
     gtk_box_append (GTK_BOX (padding), fs->info_label);
-    gtk_box_append (GTK_BOX (fs->con_hbox), *fs->con_combo);
+    gtk_box_append (GTK_BOX (fs->con_hbox), fs->con_dropdown);
     // changing this value has only an effect when restarting gcmd
     if (gnome_cmd_data.show_devlist)
         gtk_box_append (GTK_BOX (fs->con_hbox), fs->vol_label);
@@ -701,8 +760,7 @@ static void gnome_cmd_file_selector_init (GnomeCmdFileSelector *fs)
 
     // connect signals
     g_signal_connect (fs, "realize", G_CALLBACK (on_realize), fs);
-    g_signal_connect (fs->con_combo, "item-selected", G_CALLBACK (on_con_combo_item_selected), fs);
-    g_signal_connect (fs->con_combo, "popwin-hidden", G_CALLBACK (on_combo_popwin_hidden), nullptr);
+    g_signal_connect (fs->con_dropdown, "notify::selected-item", G_CALLBACK (on_con_combo_item_selected), fs);
     g_signal_connect (fs->dir_indicator, "navigate", G_CALLBACK (on_navigate), fs);
     g_signal_connect (gnome_cmd_con_list_get (), "list-changed", G_CALLBACK (on_con_list_list_changed), fs);
     g_signal_connect (fs->notebook, "switch-page", G_CALLBACK (on_notebook_switch_page), fs);
@@ -834,37 +892,13 @@ void GnomeCmdFileSelector::update_connections()
     if (!priv->realized)
         return;
 
-    gboolean found_my_con = FALSE;
-
-    con_combo->clear();
-
-    GListModel *all_cons = gnome_cmd_con_list_get_all (gnome_cmd_con_list_get ());
-
-    guint n = g_list_model_get_n_items (all_cons);
-    for (guint i = 0; i < n; ++i)
-    {
-        GnomeCmdCon *con = GNOME_CMD_CON (g_list_model_get_item (all_cons, i));
-
-        if (!gnome_cmd_con_is_open (con) && !GNOME_CMD_IS_CON_DEVICE (con)
-            && !GNOME_CMD_IS_CON_SMB (con))  continue;
-
-        if (con == get_connection())
-            found_my_con = TRUE;
-
-        GIcon *icon = gnome_cmd_con_get_go_icon (con);
-
-        if (icon)
-        {
-            con_combo->append((gchar *) gnome_cmd_con_get_alias (con), con, 0, icon, -1);
-            g_object_unref (icon);
-        }
-    }
+    priv->select_connection_in_progress = TRUE;
+    gtk_drop_down_set_model (GTK_DROP_DOWN (con_dropdown), G_LIST_MODEL (create_connections_store ()));
+    priv->select_connection_in_progress = FALSE;
 
     // If the connection is no longer available use the home connection
-    if (!found_my_con)
-        set_connection(get_home_con ());
-    else
-        con_combo->select_data(get_connection());
+    if (!select_connection (this, get_connection()))
+        set_connection (get_home_con ());
 
     create_con_buttons (this);
 }
@@ -872,8 +906,6 @@ void GnomeCmdFileSelector::update_connections()
 
 void GnomeCmdFileSelector::update_style()
 {
-    con_combo->update_style();
-
     if (list)
         list->update_style();
 
