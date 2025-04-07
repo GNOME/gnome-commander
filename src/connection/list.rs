@@ -433,7 +433,7 @@ impl ConnectionList {
     fn remove_mount(&self, mount: &gio::Mount) {
         let file = mount.root();
         if let Some(con) = self.find_remote_by_root(&file) {
-            con.close();
+            con.close(None);
         }
     }
 

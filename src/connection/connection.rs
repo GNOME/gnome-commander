@@ -109,7 +109,7 @@ pub mod ffi {
         pub fn gnome_cmd_con_cancel_open(con: *mut GnomeCmdCon);
 
         pub fn gnome_cmd_con_is_closeable(con: *mut GnomeCmdCon) -> gboolean;
-        pub fn gnome_cmd_con_close(con: *mut GnomeCmdCon) -> gboolean;
+        pub fn gnome_cmd_con_close(con: *mut GnomeCmdCon, parent_window: *mut GtkWindow);
 
         pub fn gnome_cmd_con_get_go_text(con: *const GnomeCmdCon) -> *const c_char;
         pub fn gnome_cmd_con_get_open_text(con: *const GnomeCmdCon) -> *const c_char;
@@ -221,8 +221,13 @@ pub trait ConnectionExt: IsA<Connection> + 'static {
         unsafe { ffi::gnome_cmd_con_is_closeable(self.as_ref().to_glib_none().0) != 0 }
     }
 
-    fn close(&self) -> bool {
-        unsafe { ffi::gnome_cmd_con_close(self.as_ref().to_glib_none().0) != 0 }
+    fn close(&self, parent_window: Option<&gtk::Window>) {
+        unsafe {
+            ffi::gnome_cmd_con_close(
+                self.as_ref().to_glib_none().0,
+                parent_window.to_glib_none().0,
+            )
+        }
     }
 
     fn can_show_free_space(&self) -> bool {

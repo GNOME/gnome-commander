@@ -38,9 +38,8 @@ static void home_open (GnomeCmdCon *con, GtkWindow *parent_window)
 }
 
 
-static gboolean home_close (GnomeCmdCon *con, GtkWindow *parent_window)
+static void home_close (GnomeCmdCon *con, GtkWindow *parent_window)
 {
-    return FALSE;
 }
 
 

@@ -1175,7 +1175,7 @@ fn close_connection(main_win: &MainWindow, con: &Connection) {
         inactive.set_connection(&home, None);
     }
 
-    con.close();
+    con.close(Some(main_win.upcast_ref()));
 }
 
 pub fn connections_close(

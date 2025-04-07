@@ -312,6 +312,13 @@ static void dev_open (GnomeCmdCon *con, GtkWindow *parent_window)
 static void show_message_dialog_volume_unmounted (GtkWindow *parent_window)
 {
     DEBUG('m', "unmount_callback: succeeded\n");
+
+    if (!parent_window)
+    {
+        g_message ("%s", _("Volume successfully unmounted"));
+        return;
+    }
+
     GtkWidget *msgbox;
     msgbox = gtk_message_dialog_new (parent_window,
                                      GTK_DIALOG_MODAL,
@@ -345,6 +352,13 @@ static void unmount_callback(GObject *gMnt, GAsyncResult *result, gpointer user_
     {
         DEBUG('m', "unmount_callback: failed %s\n", error->message);
 
+        if (!parent_window)
+        {
+            g_warning (_("Cannot unmount the volume:\n%s\nError code: %d"), error->message, error->code);
+            g_error_free(error);
+            return;
+        }
+
         msgbox = gtk_message_dialog_new (parent_window,
                                          GTK_DIALOG_MODAL,
                                          GTK_MESSAGE_ERROR,
@@ -365,9 +379,9 @@ static void unmount_callback(GObject *gMnt, GAsyncResult *result, gpointer user_
 }
 
 
-static gboolean dev_close (GnomeCmdCon *con, GtkWindow *parent_window)
+static void dev_close (GnomeCmdCon *con, GtkWindow *parent_window)
 {
-    g_return_val_if_fail (GNOME_CMD_IS_CON_DEVICE (con), FALSE);
+    g_return_if_fail (GNOME_CMD_IS_CON_DEVICE (con));
 
     gint ret = 0;
 
@@ -384,7 +398,7 @@ static gboolean dev_close (GnomeCmdCon *con, GtkWindow *parent_window)
     if (priv->autovolume)
     {
         if (!g_mount_can_unmount(priv->gMount))
-            return ret == 0;
+            return;
 
         auto gMountName = g_mount_get_name(priv->gMount);
         DEBUG ('m', "umounting GIO mount \"%s\"\n", gMountName);
@@ -420,8 +434,6 @@ static gboolean dev_close (GnomeCmdCon *con, GtkWindow *parent_window)
             }
         }
     }
-
-    return ret == 0;
 }
 
 
