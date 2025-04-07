@@ -103,6 +103,7 @@ struct GnomeCmdFileListColumn
     float alignment;
     GtkSortType default_sort_direction;
     GnomeCmdSorterFactory sorter_factory;
+    const gchar *settings_key_width;
 };
 
 
@@ -149,16 +150,15 @@ static gboolean gnome_cmd_file_list_key_pressed (GtkEventControllerKey* self, gu
 
 
 static GnomeCmdFileListColumn file_list_column[GnomeCmdFileList::NUM_COLUMNS] =
-{{GnomeCmdFileList::COLUMN_ICON, nullptr, 0.5, GTK_SORT_ASCENDING, nullptr},
- {GnomeCmdFileList::COLUMN_NAME, N_("name"), 0.0, GTK_SORT_ASCENDING, gnome_cmd_sort_by_name},
- {GnomeCmdFileList::COLUMN_EXT, N_("ext"), 0.0, GTK_SORT_ASCENDING, gnome_cmd_sort_by_ext},
- {GnomeCmdFileList::COLUMN_DIR, N_("dir"), 0.0, GTK_SORT_ASCENDING, gnome_cmd_sort_by_dir},
- {GnomeCmdFileList::COLUMN_SIZE, N_("size"), 1.0, GTK_SORT_DESCENDING, gnome_cmd_sort_by_size},
- {GnomeCmdFileList::COLUMN_DATE, N_("date"), 0.0, GTK_SORT_DESCENDING, gnome_cmd_sort_by_date},
- {GnomeCmdFileList::COLUMN_PERM, N_("perm"), 0.0, GTK_SORT_ASCENDING, gnome_cmd_sort_by_perm},
- {GnomeCmdFileList::COLUMN_OWNER, N_("uid"), 0.0, GTK_SORT_ASCENDING, gnome_cmd_sort_by_owner},
- {GnomeCmdFileList::COLUMN_GROUP, N_("gid"), 0.0, GTK_SORT_ASCENDING, gnome_cmd_sort_by_group}};
-
+{{GnomeCmdFileList::COLUMN_ICON,  nullptr,    0.5, GTK_SORT_ASCENDING,  nullptr,                    GCMD_SETTINGS_COLUMN_WIDTH_ICON  },
+ {GnomeCmdFileList::COLUMN_NAME,  N_("name"), 0.0, GTK_SORT_ASCENDING,  gnome_cmd_sort_by_name,     GCMD_SETTINGS_COLUMN_WIDTH_NAME  },
+ {GnomeCmdFileList::COLUMN_EXT,   N_("ext"),  0.0, GTK_SORT_ASCENDING,  gnome_cmd_sort_by_ext,      GCMD_SETTINGS_COLUMN_WIDTH_EXT   },
+ {GnomeCmdFileList::COLUMN_DIR,   N_("dir"),  0.0, GTK_SORT_ASCENDING,  gnome_cmd_sort_by_dir,      GCMD_SETTINGS_COLUMN_WIDTH_DIR   },
+ {GnomeCmdFileList::COLUMN_SIZE,  N_("size"), 1.0, GTK_SORT_DESCENDING, gnome_cmd_sort_by_size,     GCMD_SETTINGS_COLUMN_WIDTH_SIZE  },
+ {GnomeCmdFileList::COLUMN_DATE,  N_("date"), 0.0, GTK_SORT_DESCENDING, gnome_cmd_sort_by_date,     GCMD_SETTINGS_COLUMN_WIDTH_DATE  },
+ {GnomeCmdFileList::COLUMN_PERM,  N_("perm"), 0.0, GTK_SORT_ASCENDING,  gnome_cmd_sort_by_perm,     GCMD_SETTINGS_COLUMN_WIDTH_PERM  },
+ {GnomeCmdFileList::COLUMN_OWNER, N_("uid"),  0.0, GTK_SORT_ASCENDING,  gnome_cmd_sort_by_owner,    GCMD_SETTINGS_COLUMN_WIDTH_OWNER },
+ {GnomeCmdFileList::COLUMN_GROUP, N_("gid"),  0.0, GTK_SORT_ASCENDING,  gnome_cmd_sort_by_group,    GCMD_SETTINGS_COLUMN_WIDTH_GROUP }};
 
 enum DataColumns {
     DATA_COLUMN_FILE = GnomeCmdFileList::NUM_COLUMNS,
@@ -276,9 +276,15 @@ GnomeCmdFileList::Private::Private(GnomeCmdFileList *fl)
             gtk_tree_view_column_set_title (columns[i], _(file_list_column[i].title));
         gtk_tree_view_column_set_sizing (columns[i], GTK_TREE_VIEW_COLUMN_FIXED);
         gtk_tree_view_column_set_resizable (columns[i], TRUE);
-        gtk_tree_view_column_set_fixed_width (columns[i], gnome_cmd_data.fs_col_width[i]);
 
         gtk_tree_view_insert_column (view, columns[i], i);
+
+        g_settings_bind (
+            gcmd_settings_get_general (gnome_cmd_data.options.gcmd_settings),
+            file_list_column[i].settings_key_width,
+            columns[i],
+            "fixed-width",
+            G_SETTINGS_BIND_DEFAULT);
 
         CellDataClosure *cell_data_col = g_new0 (CellDataClosure, 1);
         cell_data_col->column_index = i;
