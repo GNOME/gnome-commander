@@ -450,12 +450,17 @@ impl ConnectDialog {
     pub async fn new_connection(
         parent_window: &gtk::Window,
         with_alias: bool,
+        uri: Option<glib::Uri>,
     ) -> Option<ConnectionRemote> {
         let dialog = ConnectDialog::default();
         dialog.set_transient_for(Some(parent_window));
         dialog.imp().alias_entry.set_sensitive(with_alias);
 
-        dialog.imp().set_method(Some(ConnectionMethodID::CON_SFTP));
+        if let Some(uri) = uri {
+            dialog.set_uri(&uri);
+        } else {
+            dialog.imp().set_method(Some(ConnectionMethodID::CON_SFTP));
+        }
 
         dialog.present();
         let response = dialog.imp().receiver.recv().await;
@@ -482,7 +487,6 @@ impl ConnectDialog {
         let dialog: ConnectDialog = glib::Object::builder().build();
         dialog.set_transient_for(Some(parent_window));
 
-        dialog.imp().set_method(con.method());
         dialog.imp().type_combo.set_sensitive(false);
 
         if let Some(alias) = con.alias() {
@@ -492,22 +496,7 @@ impl ConnectDialog {
         }
 
         if let Some(uri) = con.uri() {
-            dialog.imp().uri_entry.set_text(&uri.to_str());
-
-            let full_host = uri.host().unwrap_or_default();
-            let (domain, host) = full_host
-                .split_once(';')
-                .unwrap_or_else(|| ("", &full_host));
-
-            dialog.imp().server_entry.set_text(host);
-
-            let port = uri.port();
-            if port != -1 {
-                dialog.imp().port_entry.set_text(&port.to_string());
-            }
-
-            dialog.imp().folder_entry.set_text(&uri.path());
-            dialog.imp().domain_entry.set_text(domain);
+            dialog.set_uri(&uri);
         }
 
         dialog.present();
@@ -530,5 +519,26 @@ impl ConnectDialog {
         }
         dialog.close();
         result
+    }
+
+    fn set_uri(&self, uri: &glib::Uri) {
+        self.imp().set_method(ConnectionMethodID::from_uri(uri));
+
+        self.imp().uri_entry.set_text(&uri.to_str());
+
+        let full_host = uri.host().unwrap_or_default();
+        let (domain, host) = full_host
+            .split_once(';')
+            .unwrap_or_else(|| ("", &full_host));
+
+        self.imp().server_entry.set_text(host);
+
+        let port = uri.port();
+        if port != -1 {
+            self.imp().port_entry.set_text(&port.to_string());
+        }
+
+        self.imp().folder_entry.set_text(&uri.path());
+        self.imp().domain_entry.set_text(domain);
     }
 }

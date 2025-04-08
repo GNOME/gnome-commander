@@ -352,3 +352,33 @@ impl SearchConfig {
         unsafe { gnome_cmd_search_config_set_default_profile_syntax(self.0, pattern_type as i32) }
     }
 }
+
+pub struct NetworkOptions(pub gio::Settings);
+
+pub trait NetworkOptionsRead {
+    fn quick_connect_uri(&self) -> String;
+}
+
+pub trait NetworkOptionsWrite {
+    fn set_quick_connect_uri(&self, uri: &str);
+}
+
+impl NetworkOptions {
+    pub fn new() -> Self {
+        Self(gio::Settings::new(
+            "org.gnome.gnome-commander.preferences.network",
+        ))
+    }
+}
+
+impl NetworkOptionsRead for NetworkOptions {
+    fn quick_connect_uri(&self) -> String {
+        self.0.string("quick-connect-uri").to_string()
+    }
+}
+
+impl NetworkOptionsWrite for NetworkOptions {
+    fn set_quick_connect_uri(&self, uri: &str) {
+        self.0.set_string("quick-connect-uri", uri);
+    }
+}

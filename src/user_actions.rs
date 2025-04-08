@@ -29,7 +29,8 @@ use crate::{
         list::ConnectionList,
     },
     data::{
-        ConfirmOptions, GeneralOptions, GeneralOptionsRead, ProgramsOptions, ProgramsOptionsRead,
+        ConfirmOptions, GeneralOptions, GeneralOptionsRead, NetworkOptions, NetworkOptionsRead,
+        NetworkOptionsWrite, ProgramsOptions, ProgramsOptionsRead,
     },
     dialogs::{
         chmod_dialog::show_chmod_dialog,
@@ -1110,15 +1111,20 @@ pub fn connections_new(
     _parameter: Option<&glib::Variant>,
 ) {
     let main_win = main_win.clone();
+    let options = NetworkOptions::new();
     glib::spawn_future_local(async move {
-        // let con: GnomeCmdConRemote = gnome_cmd_data.get_quick_connect();
-        if let Some(connection) = ConnectDialog::new_connection(main_win.upcast_ref(), false).await
+        let uri = glib::Uri::parse(&options.quick_connect_uri(), glib::UriFlags::NONE).ok();
+        if let Some(connection) =
+            ConnectDialog::new_connection(main_win.upcast_ref(), false, uri).await
         {
             let fs = main_win.file_selector(FileSelectorID::ACTIVE);
             if fs.file_list().is_locked() {
                 fs.new_tab();
             }
             fs.set_connection(connection.upcast_ref(), None);
+            if let Some(quick_connect_uri) = connection.uri().map(|uri| uri.to_str()) {
+                options.set_quick_connect_uri(&quick_connect_uri);
+            }
         }
     });
 }
