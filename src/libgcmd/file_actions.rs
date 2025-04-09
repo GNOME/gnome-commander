@@ -77,7 +77,7 @@ pub trait FileActionsExt: IsA<FileActions> + 'static {
 
     fn create_popup_menu_items(&self, state: &State) -> Option<gio::MenuModel> {
         unsafe {
-            from_glib_none(ffi::gnome_cmd_file_actions_create_popup_menu_items(
+            from_glib_full(ffi::gnome_cmd_file_actions_create_popup_menu_items(
                 self.as_ref().to_glib_none().0,
                 state.to_glib_none().0,
             ))

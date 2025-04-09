@@ -158,6 +158,8 @@ else
     profile = 'release'
 endif
 
+dependency('gi-docgen', native: true, required: false)
+
 summary = [
   '',
   '-----------',

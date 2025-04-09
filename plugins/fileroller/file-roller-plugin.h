@@ -34,5 +34,5 @@ G_DECLARE_FINAL_TYPE (GnomeCmdFileRollerPlugin, gnome_cmd_file_roller_plugin, GN
 extern "C"
 {
     GObject        *create_plugin ();
-    PluginInfo     *get_plugin_info ();
+    GnomeCmdPluginInfo     *get_plugin_info ();
 }

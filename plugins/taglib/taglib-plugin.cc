@@ -744,14 +744,14 @@ extern "C" GObject *create_plugin ()
 }
 
 
-extern "C" PluginInfo *get_plugin_info ()
+extern "C" GnomeCmdPluginInfo *get_plugin_info ()
 {
     static const char *authors[] = {
         "Andrey Kutejko <andy128k@gmail.com>",
         nullptr
     };
 
-    static PluginInfo info = {
+    static GnomeCmdPluginInfo info = {
         .plugin_system_version = GNOME_CMD_PLUGIN_SYSTEM_CURRENT_VERSION,
         .name = "TagLib",
         .version = PACKAGE_VERSION,

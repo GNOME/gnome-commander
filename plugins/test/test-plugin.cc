@@ -32,7 +32,7 @@
 #define WEBPAGE "https://gcmd.github.io"
 
 
-static PluginInfo plugin_nfo = {
+static GnomeCmdPluginInfo plugin_nfo = {
     GNOME_CMD_PLUGIN_SYSTEM_CURRENT_VERSION,
     NAME,
     PACKAGE_VERSION,
@@ -139,7 +139,7 @@ GObject *create_plugin ()
     return G_OBJECT (g_object_new (GNOME_CMD_TYPE_TEST_PLUGIN, NULL));
 }
 
-PluginInfo *get_plugin_info ()
+GnomeCmdPluginInfo *get_plugin_info ()
 {
     if (!plugin_nfo.authors)
     {

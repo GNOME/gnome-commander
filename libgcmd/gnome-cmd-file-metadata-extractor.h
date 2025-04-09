@@ -48,18 +48,70 @@ struct _GnomeCmdFileMetadataExtractorInterface
     gchar *(* tag_name) (GnomeCmdFileMetadataExtractor *fme, const gchar *tag);
     gchar *(* tag_description) (GnomeCmdFileMetadataExtractor *fme, const gchar *tag);
     void (* extract_metadata) (GnomeCmdFileMetadataExtractor *fme,
-                               GnomeCmdFileDescriptor *f,
+                               GnomeCmdFileDescriptor *fd,
                                GnomeCmdFileMetadataExtractorAddTag add,
                                gpointer user_data);
 };
 
+/**
+ * gnome_cmd_file_metadata_extractor_supported_tags:
+ *
+ * Returns a list of tags, the plug-in may potentially extract from files.
+ *
+ * Returns: (transfer full): a list of tags
+ */
 GStrv gnome_cmd_file_metadata_extractor_supported_tags (GnomeCmdFileMetadataExtractor *fme);
+
+/**
+ * gnome_cmd_file_metadata_extractor_summary_tags:
+ *
+ * Returns a subset of tags to be shown in a "summary"
+ *
+ * Returns: (transfer full): a list of tags
+ */
 GStrv gnome_cmd_file_metadata_extractor_summary_tags (GnomeCmdFileMetadataExtractor *fme);
+
+/**
+ * gnome_cmd_file_metadata_extractor_tag_name:
+ * @tag: (transfer none): a tag
+ *
+ * Returns a human readable, localized name of a tag.
+ *
+ * Returns: (transfer full): a name of a tag
+ */
 gchar *gnome_cmd_file_metadata_extractor_tag_name (GnomeCmdFileMetadataExtractor *fme, const gchar *tag);
+
+/**
+ * gnome_cmd_file_metadata_extractor_class_name:
+ * @cls: (transfer none): a tag class
+ *
+ * Returns a human readable, localized name of a tag class.
+ *
+ * Returns: (transfer full): a name of a class
+ */
 gchar *gnome_cmd_file_metadata_extractor_class_name (GnomeCmdFileMetadataExtractor *fme, const gchar *cls);
+
+/**
+ * gnome_cmd_file_metadata_extractor_tag_description:
+ * @tag: (transfer none): a tag
+ *
+ * Returns a localized description of a tag.
+ *
+ * Returns: (transfer full): a description of a tag
+ */
 gchar *gnome_cmd_file_metadata_extractor_tag_description (GnomeCmdFileMetadataExtractor *fme, const gchar *tag);
+
+/**
+ * gnome_cmd_file_metadata_extractor_extract_metadata:
+ * @fd: (transfer none): a file descriptor
+ * @add: (scope call) (transfer none): a callback
+ * @user_data: (transfer none): a user data to be passed to @add callback
+ *
+ * Extracts tags from a file described by a @fd file descriptor.
+ * A callback @add will be called for every extracted tag and its value.
+ */
 void gnome_cmd_file_metadata_extractor_extract_metadata (GnomeCmdFileMetadataExtractor *fme,
-                                                         GnomeCmdFileDescriptor *f,
+                                                         GnomeCmdFileDescriptor *fd,
                                                          GnomeCmdFileMetadataExtractorAddTag add,
                                                          gpointer user_data);
 

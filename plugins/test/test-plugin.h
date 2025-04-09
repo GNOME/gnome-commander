@@ -27,5 +27,5 @@ G_DECLARE_FINAL_TYPE (GnomeCmdTestPlugin, gnome_cmd_test_plugin, GNOME_CMD, TEST
 extern "C"
 {
     GObject        *create_plugin   ();
-    PluginInfo     *get_plugin_info ();
+    GnomeCmdPluginInfo     *get_plugin_info ();
 }

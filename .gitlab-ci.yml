@@ -15,6 +15,8 @@ variables:
     flex
     rust-1.80-all
     yelp-tools
+    gi-docgen
+    gobject-introspection
     libexiv2-dev
     libgsf-1-dev
     libgtk-4-dev

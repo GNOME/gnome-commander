@@ -26,3 +26,37 @@ libgcmd = shared_library('gcmd',
   sources: [libgcmd_headers, libgcmd_sources],
   install: true,
 )
+
+libgcmd_gir = gnome.generate_gir(libgcmd,
+  namespace: 'GnomeCmd',
+  nsversion: '1.0',
+  header: 'libgcmd.h',
+  sources: [libgcmd_headers, libgcmd_sources],
+  includes: ['Gio-2.0', 'Gtk-4.0'],
+  identifier_prefix: 'GnomeCmd',
+  symbol_prefix: 'gnome_cmd',
+  export_packages: 'gnome_cmd',
+  fatal_warnings: true,
+  install: true,
+)
+
+gidocgen = find_program('gi-docgen', required: false)
+
+if gidocgen.found()
+  custom_target('libgcmd-doc',
+    input: libgcmd_gir[0],
+    output: 'libgcmd-1.0',
+    command: [
+      gidocgen,
+      'generate',
+      '--quiet',
+      '--output-dir=@OUTPUT@',
+      '--no-namespace-dir',
+      '--content-dir=@0@'.format(meson.current_source_dir()),
+      '@INPUT@',
+    ],
+    build_by_default: true,
+    install: true,
+    install_dir: datadir / 'doc',
+  )
+endif
