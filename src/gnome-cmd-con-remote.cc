@@ -132,7 +132,10 @@ static void remote_close_callback(GObject *gobj, GAsyncResult *result, gpointer 
 
     if (error && !g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CLOSED))
     {
-        gnome_cmd_error_message (parent_window, _("Disconnect error"), error);
+        if (parent_window)
+            gnome_cmd_error_message (parent_window, _("Disconnect error"), error);
+        else
+            g_warning ("%s: %d", _("Disconnect error"), error->message);
         return;
     }
     if (error)
@@ -142,7 +145,7 @@ static void remote_close_callback(GObject *gobj, GAsyncResult *result, gpointer 
     con->open_result = GnomeCmdCon::OPEN_NOT_STARTED;
 }
 
-static gboolean remote_close (GnomeCmdCon *con, GtkWindow *parent_window)
+static void remote_close (GnomeCmdCon *con, GtkWindow *parent_window)
 {
     GError *error = nullptr;
 
@@ -160,7 +163,7 @@ static gboolean remote_close (GnomeCmdCon *con, GtkWindow *parent_window)
         g_error_free(error);
         g_object_unref(gFileTmp);
         g_free(uri);
-        return false;
+        return;
     }
     g_free(uri);
 
@@ -178,8 +181,6 @@ static gboolean remote_close (GnomeCmdCon *con, GtkWindow *parent_window)
     );
 
     g_object_unref(gFileTmp);
-
-    return TRUE;
 }
 
 

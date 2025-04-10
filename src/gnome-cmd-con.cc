@@ -125,9 +125,9 @@ static void gnome_cmd_con_class_init (GnomeCmdConClass *klass)
             G_SIGNAL_RUN_LAST,
             G_STRUCT_OFFSET (GnomeCmdConClass, close),
             nullptr, nullptr,
-            g_cclosure_marshal_VOID__VOID,
+            nullptr,
             G_TYPE_NONE,
-            0);
+            1, GTK_TYPE_WINDOW);
 
     signals[OPEN_DONE] =
         g_signal_new ("open-done",
@@ -333,17 +333,15 @@ void gnome_cmd_con_cancel_open (GnomeCmdCon *con)
 }
 
 
-gboolean gnome_cmd_con_close (GnomeCmdCon *con)
+void gnome_cmd_con_close (GnomeCmdCon *con, GtkWindow *parent_window)
 {
-    g_return_val_if_fail (GNOME_CMD_IS_CON (con), FALSE);
+    g_return_if_fail (GNOME_CMD_IS_CON (con));
 
     if (gnome_cmd_con_is_closeable (con) && gnome_cmd_con_is_open(con))
     {
-        g_signal_emit (con, signals[CLOSE], 0);
+        g_signal_emit (con, signals[CLOSE], 0, parent_window);
         g_signal_emit (con, signals[UPDATED], 0);
     }
-
-    return TRUE;
 }
 
 

@@ -129,15 +129,13 @@ static void smb_open (GnomeCmdCon *con, GtkWindow *parent_window)
 }
 
 
-static gboolean smb_close (GnomeCmdCon *con, GtkWindow *parent_window)
+static void smb_close (GnomeCmdCon *con, GtkWindow *parent_window)
 {
     // Copied from gnome-cmd-con-remote.cc:
     gnome_cmd_con_set_default_dir (con, nullptr);
     gnome_cmd_con_set_base_path (con, nullptr);
     con->state = GnomeCmdCon::STATE_CLOSED;
     con->open_result = GnomeCmdCon::OPEN_NOT_STARTED;
-
-    return FALSE;
 }
 
 

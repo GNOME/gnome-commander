@@ -1830,7 +1830,7 @@ GnomeCmdData::~GnomeCmdData()
         // close quick connect
         if (quick_connect)
         {
-            gnome_cmd_con_close (GNOME_CMD_CON (quick_connect));
+            // gnome_cmd_con_close (GNOME_CMD_CON (quick_connect));
             // gtk_object_destroy (GTK_OBJECT (quick_connect));
         }
 
