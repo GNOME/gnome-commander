@@ -123,10 +123,10 @@ impl Directory {
         }
     }
 
-    pub fn new(connection: &Connection, path: GnomeCmdPath) -> Self {
+    pub fn new(connection: &impl IsA<Connection>, path: GnomeCmdPath) -> Self {
         unsafe {
             from_glib_full(ffi::gnome_cmd_dir_new(
-                connection.to_glib_none().0,
+                connection.as_ref().to_glib_none().0,
                 path.into_raw(),
             ))
         }

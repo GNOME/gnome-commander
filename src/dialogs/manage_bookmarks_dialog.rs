@@ -590,7 +590,7 @@ pub async fn bookmark_directory(
         let connection_list = ConnectionList::get();
 
         let con = if is_local {
-            connection_list.home()
+            connection_list.home().upcast()
         } else {
             file.connection()
         };

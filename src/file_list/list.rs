@@ -227,11 +227,11 @@ impl FileList {
         unsafe { ffi::gnome_cmd_file_list_reload(self.to_glib_none().0) }
     }
 
-    pub fn set_connection(&self, connection: &Connection, start_dir: Option<&Directory>) {
+    pub fn set_connection(&self, connection: &impl IsA<Connection>, start_dir: Option<&Directory>) {
         unsafe {
             ffi::gnome_cmd_file_list_set_connection(
                 self.to_glib_none().0,
-                connection.to_glib_none().0,
+                connection.as_ref().to_glib_none().0,
                 start_dir.to_glib_none().0,
             )
         }

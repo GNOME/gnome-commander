@@ -1415,48 +1415,11 @@ void GnomeCmdData::add_advrename_profile_to_gvariant_builder(GVariantBuilder *bu
  */
 void GnomeCmdData::save_devices()
 {
-    GVariant* devicesToStore;
-    GVariantBuilder *gVariantBuilder = nullptr;
-
-    GListModel *connections = gnome_cmd_con_list_get_all (priv->con_list);
-    guint len = g_list_model_get_n_items (connections);
-    for (guint i = 0; i < len; ++i)
-    {
-        GnomeCmdCon *con = GNOME_CMD_CON (g_list_model_get_item (connections, i));
-        if (!GNOME_CMD_IS_CON_DEVICE (con))
-            continue;
-
-        GnomeCmdConDevice *device = GNOME_CMD_CON_DEVICE (con);
-        if (device && !gnome_cmd_con_device_get_autovol (device))
-        {
-            if (!gVariantBuilder)
-            {
-                gVariantBuilder = g_variant_builder_new (G_VARIANT_TYPE_ARRAY);
-            }
-
-            GIcon *icon = gnome_cmd_con_device_get_icon (device);
-            GVariant *icon_variant = icon ? g_icon_serialize (icon) : nullptr;
-
-            g_variant_builder_add (gVariantBuilder, GCMD_SETTINGS_DEVICE_LIST_FORMAT_STRING,
-                                    gnome_cmd_con_get_alias (GNOME_CMD_CON (device)),
-                                    gnome_cmd_con_device_get_device_fn (device),
-                                    gnome_cmd_con_device_get_mountp_string (device),
-                                    icon_variant ? icon_variant : g_variant_new_string(""));
-            g_clear_pointer (&icon_variant, g_variant_unref);
-            g_clear_object (&icon);
-        }
-    }
-
-    if (gVariantBuilder)
-    {
-        devicesToStore = g_variant_builder_end (gVariantBuilder);
-        g_settings_set_value(options.gcmd_settings->general, GCMD_SETTINGS_DEVICE_LIST, devicesToStore);
-        g_variant_builder_unref(gVariantBuilder);
-        return;
-    }
-
-    devicesToStore = g_settings_get_default_value(options.gcmd_settings->general, GCMD_SETTINGS_DEVICE_LIST);
+    GVariant* devicesToStore = gnome_cmd_con_list_save_devices (priv->con_list);
+    if (!devicesToStore)
+        devicesToStore = g_settings_get_default_value(options.gcmd_settings->general, GCMD_SETTINGS_DEVICE_LIST);
     g_settings_set_value(options.gcmd_settings->general, GCMD_SETTINGS_DEVICE_LIST, devicesToStore);
+    g_variant_unref(devicesToStore);
 }
 
 
@@ -1520,44 +1483,11 @@ static void save_tabs (GSettings *gSettings, const char *gSettingsKey, GnomeCmdM
  */
 void GnomeCmdData::save_connections()
 {
-    GVariant* connectionsToStore {nullptr};
-    GVariantBuilder gVariantBuilder;
-    g_variant_builder_init (&gVariantBuilder, G_VARIANT_TYPE_ARRAY);
-    gboolean hasConnections {false};
-
-    GListModel *connections = gnome_cmd_con_list_get_all (priv->con_list);
-    guint len = g_list_model_get_n_items (connections);
-    for (guint i = 0; i < len; ++i)
-    {
-        GnomeCmdCon *con = GNOME_CMD_CON (g_list_model_get_item (connections, i));
-        if (!GNOME_CMD_IS_CON_REMOTE (con))
-            continue;
-
-        const gchar *alias = gnome_cmd_con_get_alias (con);
-
-        if (!alias || !*alias)
-            continue;
-
-        gchar *uri = gnome_cmd_con_get_uri_string (con);
-        if (uri && *uri)
-        {
-            hasConnections = true;
-            g_variant_builder_add (&gVariantBuilder, GCMD_SETTINGS_CONNECTION_FORMAT_STRING,
-                                    alias,
-                                    uri);
-        }
-        g_free (uri);
-    }
-    if (hasConnections)
-    {
-        connectionsToStore = g_variant_builder_end (&gVariantBuilder);
-    }
-    else
-    {
-        g_variant_builder_clear (&gVariantBuilder);
+    GVariant* connectionsToStore = gnome_cmd_con_list_save_connections (priv->con_list);
+    if (!connectionsToStore)
         connectionsToStore = g_settings_get_default_value (options.gcmd_settings->general, GCMD_SETTINGS_CONNECTIONS);
-    }
     g_settings_set_value(options.gcmd_settings->general, GCMD_SETTINGS_CONNECTIONS, connectionsToStore);
+    g_variant_unref(connectionsToStore);
 }
 
 
@@ -1986,50 +1916,8 @@ void GnomeCmdData::load_tabs()
  */
 void GnomeCmdData::load_devices()
 {
-    GVariant *gvDevices, *device;
-    GVariantIter iter;
-    bool isNewDeviceFormat = false;
-
-    gvDevices = g_settings_get_value(options.gcmd_settings->general, GCMD_SETTINGS_DEVICE_LIST);
-    g_variant_iter_init (&iter, gvDevices);
-
-    while ((device = g_variant_iter_next_value (&iter)) != nullptr)
-    {
-        g_autofree gchar *alias, *device_fn, *mountPoint;
-        GVariant *iconVariant;
-        isNewDeviceFormat = true;
-
-        g_variant_get(device, GCMD_SETTINGS_DEVICE_LIST_FORMAT_STRING, &alias, &device_fn, &mountPoint, &iconVariant);
-
-        GIcon *icon = iconVariant ? g_icon_deserialize (iconVariant) : nullptr;
-        g_variant_unref (iconVariant);
-
-        gnome_cmd_con_list_add (priv->con_list, GNOME_CMD_CON (gnome_cmd_con_device_new (alias, device_fn, mountPoint, icon)));
-
-        g_variant_unref(device);
-    }
-
-    // deprecated after v1.18.0 and can be removed
-    if (!isNewDeviceFormat)
-    {
-        gvDevices = g_settings_get_value(options.gcmd_settings->general, GCMD_SETTINGS_DEVICES);
-        g_variant_iter_init (&iter, gvDevices);
-
-        while ((device = g_variant_iter_next_value (&iter)) != nullptr)
-        {
-            g_autofree gchar *alias, *device_fn, *mountPoint, *iconPath;
-
-            g_variant_get(device, GCMD_SETTINGS_DEVICES_FORMAT_STRING, &alias, &device_fn, &mountPoint, &iconPath);
-
-            GIcon *icon = iconPath && *iconPath ? g_file_icon_new (g_file_new_for_path (iconPath)) : nullptr;
-            gnome_cmd_con_list_add (priv->con_list, GNOME_CMD_CON (gnome_cmd_con_device_new (alias, device_fn, mountPoint, icon)));
-
-            g_variant_unref(device);
-        }
-    }
-
-    g_variant_unref(gvDevices);
-    gnome_cmd_con_list_load_available_volumes (priv->con_list);
+    GVariant *gvDevices = g_settings_get_value(options.gcmd_settings->general, GCMD_SETTINGS_DEVICE_LIST);
+    gnome_cmd_con_list_load_devices (priv->con_list, gvDevices);
 }
 
 /**
@@ -2037,32 +1925,8 @@ void GnomeCmdData::load_devices()
  */
 void GnomeCmdData::load_connections()
 {
-    GVariant *gvConnections, *connection;
-    GVariantIter iter;
-
-    gvConnections = g_settings_get_value(options.gcmd_settings->general, GCMD_SETTINGS_CONNECTIONS);
-
-    g_variant_iter_init (&iter, gvConnections);
-
-    while ((connection = g_variant_iter_next_value (&iter)) != nullptr)
-    {
-        gchar *name, *uri;
-
-        g_assert (g_variant_is_of_type (connection, G_VARIANT_TYPE (GCMD_SETTINGS_CONNECTION_FORMAT_STRING)));
-        g_variant_get(connection, GCMD_SETTINGS_CONNECTION_FORMAT_STRING, &name, &uri);
-
-        if (gnome_cmd_con_list_find_by_alias (priv->con_list, name) == nullptr)
-        {
-            GnomeCmdConRemote *server = gnome_cmd_con_remote_new (name, uri);
-            if (server)
-                gnome_cmd_con_list_add (priv->con_list, GNOME_CMD_CON (server));
-            else
-                g_warning ("<Connection> invalid URI: '%s' - ignored", uri);
-        }
-
-        g_variant_unref(connection);
-    }
-    g_variant_unref(gvConnections);
+    GVariant *gvConnections = g_settings_get_value(options.gcmd_settings->general, GCMD_SETTINGS_CONNECTIONS);
+    gnome_cmd_con_list_load_connections (priv->con_list, gvConnections);
 }
 
 
@@ -2196,7 +2060,7 @@ void GnomeCmdData::load()
     load_cmdline_history();
 
     if (!priv->con_list)
-        priv->con_list = gnome_cmd_con_list_new ();
+        priv->con_list = gnome_cmd_con_list_new (options.show_samba_workgroups_button);
     else
         advrename_defaults.profiles.clear();
 

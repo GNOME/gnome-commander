@@ -52,3 +52,9 @@ glib::wrapper! {
         type_ => || ffi::gnome_cmd_con_home_get_type(),
     }
 }
+
+impl Default for ConnectionHome {
+    fn default() -> Self {
+        glib::Object::builder().build()
+    }
+}
