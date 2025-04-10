@@ -1410,7 +1410,7 @@
                 <para>Opens with</para>
               </entry>
               <entry valign="top">
-                <para>Default application to open the file with. See section <xref linkend="gnome-commander-mime-types"></xref> for information about how to change the default behavior.</para>
+                <para>Default application to open the file with.</para>
               </entry>
             </row>
             <row>
@@ -7661,7 +7661,7 @@
         all in the spirit of free and open source software.</para>
     <para>Known limitation:
     <itemizedlist>
-    <listitem><para>Configuration of default application depending on the files MIME type is broken and was finally removed in v1.4. See section <xref linkend="gnome-commander-mime-types"></xref> for more information.</para></listitem>
+    <listitem><para></para></listitem>
     </itemizedlist></para>
   <para><emphasis>Given enough eyeballs, all bugs are shallow.</emphasis></para>
 
