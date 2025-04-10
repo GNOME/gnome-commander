@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander master\n"
-"POT-Creation-Date: 2025-02-08 22:28+0000\n"
-"PO-Revision-Date: 2025-02-09 01:04+0100\n"
+"POT-Creation-Date: 2025-04-02 21:22+0000\n"
+"PO-Revision-Date: 2025-04-10 22:26+0200\n"
 "Last-Translator: Anders Jonsson <anders.jonsson@norsjovallen.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "Language: sv\n"
@@ -1687,7 +1687,7 @@ msgstr "Markera först objektet som du vill byta namn på."
 #: C/index.docbook:1186
 msgid ""
 "Right click on the item and select <guimenu>Rename</guimenu>, type in the "
-"new name, and press <keycap>Enter</keycap> when finished."
+"new name, and press <keycap>ENTER</keycap> when finished."
 msgstr ""
 "Högerklicka på objektet och välj <guimenu>Byt namn</guimenu>, skriv in det "
 "nya namnet, och tryck <keycap>Retur</keycap> då du är klar."
@@ -1696,7 +1696,7 @@ msgstr ""
 #: C/index.docbook:1190
 msgid ""
 "Press <keycap>F2</keycap> and then type in the new name and press "
-"<keycap>Enter</keycap> when finished."
+"<keycap>ENTER</keycap> when finished."
 msgstr ""
 "Tryck ned <keycap>F2</keycap> och skriv sedan in det nya namnet, och tryck "
 "<keycap>Retur</keycap> då du är klar."
@@ -13753,11 +13753,11 @@ msgstr "<guilabel>Monteringspunkt:</guilabel>"
 #. (itstool) path: entry/para
 #: C/index.docbook:6316
 msgid ""
-"Here you specify where the device should be mounted to, so that Gnome "
+"Here you specify where the device should be mounted to, so that GNOME "
 "Commander knows where to jump to when the mount was successful, for example /"
 "mnt/cdrom."
 msgstr ""
-"Här anger du var enheten ska monteras, så att Gnome Commander vet vart det "
+"Här anger du var enheten ska monteras, så att GNOME Commander vet vart det "
 "ska hoppa när monteringen lyckas, exempelvis /mnt/cdrom."
 
 #. (itstool) path: entry/para
@@ -15647,7 +15647,7 @@ msgstr "Hantera arkiv"
 #. (itstool) path: sect2/para
 #: C/index.docbook:7478
 msgid ""
-"GNOME Commander still lacks built in browsing of compressed archives. "
+"GNOME Commander still lacks built-in browsing of compressed archives. "
 "However the program can be configured so that working with archives becomes "
 "quite practical anyway."
 msgstr ""
@@ -15655,11 +15655,10 @@ msgstr ""
 "Programmet kan dock konfigureras så att arbete med arkiv blir ganska "
 "praktiskt i alla fall."
 
-# TODO: activate the build in -> activate the built in
 #. (itstool) path: sect2/para
 #: C/index.docbook:7480
 msgid ""
-"There are two different ways: The preferred one is to activate the build in "
+"There are two different ways: The preferred one is to activate the built-in "
 "<application>Fileroller</application> plugin in the menu "
 "<menuchoice><guimenu>Plugins</guimenu><guimenuitem>Configure Plugins...</"
 "guimenuitem></menuchoice>. By activating this plugin you get additional "
@@ -15818,22 +15817,22 @@ msgstr ""
 #. (itstool) path: listitem/para
 #: C/index.docbook:7551
 msgid ""
-"To insert the current file's path in Gnome Commander's command line, press "
-"<keycombo><keycap>CTRL</keycap><keycap>Shift</keycap><keycap>Enter</keycap></"
+"To insert the current file's path in GNOME Commander's command line, press "
+"<keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap><keycap>ENTER</keycap></"
 "keycombo>."
 msgstr ""
-"För att infoga den aktuella filens sökväg i Gnome Commanders kommandorad, "
-"tryck ned <keycombo><keycap>CTRL</keycap><keycap>Skift</"
+"För att infoga den aktuella filens sökväg i GNOME Commanders kommandorad, "
+"tryck ned <keycombo><keycap>Ctrl</keycap><keycap>Skift</"
 "keycap><keycap>Retur</keycap></keycombo>."
 
 #. (itstool) path: listitem/para
 #: C/index.docbook:7555
 msgid ""
-"To insert the current file's name in Gnome Commander's command line, press "
-"<keycombo><keycap>CTRL</keycap><keycap>Enter</keycap></keycombo>."
+"To insert the current file's name in GNOME Commander's command line, press "
+"<keycombo><keycap>CTRL</keycap><keycap>ENTER</keycap></keycombo>."
 msgstr ""
-"För att infoga den aktuella filens namn i Gnome Commanders kommandorad, "
-"tryck ned <keycombo><keycap>CTRL</keycap><keycap>Retur</keycap></keycombo>."
+"För att infoga den aktuella filens namn i GNOME Commanders kommandorad, "
+"tryck ned <keycombo><keycap>Ctrl</keycap><keycap>Retur</keycap></keycombo>."
 
 #. (itstool) path: sect1/title
 #: C/index.docbook:7565
@@ -15933,11 +15932,11 @@ msgstr "Utvecklingsversion"
 msgid ""
 "For those of you who feel really adventurous, or maybe want to hack on the "
 "freshest code, the latest development source snapshots are available by "
-"using GIT:"
+"using git:"
 msgstr ""
 "För de av er som känner sig riktigt äventyrliga, eller kanske vill hacka på "
 "den nyaste koden, så finns de senaste ögonblicksbilderna av "
-"utvecklingskällkoden tillgängliga genom att använda GIT:"
+"utvecklingskällkoden tillgängliga genom att använda git:"
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:7598
