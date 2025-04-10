@@ -1,13 +1,13 @@
 # Swedish translation for gnome-commander.
-# Copyright © 2019-2024 gnome-commander's COPYRIGHT HOLDER
+# Copyright © 2019-2025 gnome-commander's COPYRIGHT HOLDER
 # This file is distributed under the same license as the gnome-commander package.
-# Anders Jonsson <anders.jonsson@norsjovallen.se>, 2019, 2020, 2021, 2022, 2023, 2024.
+# Anders Jonsson <anders.jonsson@norsjovallen.se>, 2019, 2020, 2021, 2022, 2023, 2024, 2025.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander master\n"
-"POT-Creation-Date: 2024-08-04 20:05+0000\n"
-"PO-Revision-Date: 2024-08-04 22:15+0200\n"
+"POT-Creation-Date: 2025-04-02 22:42+0000\n"
+"PO-Revision-Date: 2025-04-10 22:30+0200\n"
 "Last-Translator: Anders Jonsson <anders.jonsson@norsjovallen.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "Language: sv\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.4.4\n"
+"X-Generator: Poedit 3.5\n"
 
 #. Put one translator per line, in the form NAME <EMAIL>, YEAR1, YEAR2
 msgctxt "_"
@@ -619,12 +619,12 @@ msgstr "Återkoppling"
 #: C/index.docbook:610 C/index.docbook:7653
 msgid ""
 "You can report or view GNOME Commander bugs at <ulink type=\"http\" "
-"url=\"https://gitlab.gnome.org/GNOME/gnome-commander/issues\">gitlab.gnome."
-"org</ulink>."
+"url=\"https://gitlab.gnome.org/GNOME/gnome-commander/"
+"issues\">gitlab.gnome.org</ulink>."
 msgstr ""
 "Du kan rapportera eller se fel i GNOME Commander på <ulink type=\"http\" "
-"url=\"https://gitlab.gnome.org/GNOME/gnome-commander/issues\">gitlab.gnome."
-"org</ulink>."
+"url=\"https://gitlab.gnome.org/GNOME/gnome-commander/"
+"issues\">gitlab.gnome.org</ulink>."
 
 #. (itstool) path: abstract/para
 #: C/index.docbook:615
@@ -682,10 +682,10 @@ msgstr "Enkelinstansläge"
 #. (itstool) path: listitem/para
 #: C/index.docbook:646
 msgid ""
-"Remote connections using GnomeVFS: FTP, SFTP (SSH+FTP), WebDAV and SMB/CIFS "
+"Remote connections using GVFS: FTP, SFTP (SSH+FTP), WebDAV and SMB/CIFS "
 "(Samba)"
 msgstr ""
-"Fjärranslutningar genom GnomeVFS: FTP, SFTP (SSH+FTP), WebDAV och SMB/CIFS "
+"Fjärranslutningar genom GVFS: FTP, SFTP (SSH+FTP), WebDAV och SMB/CIFS "
 "(Samba)"
 
 #. (itstool) path: listitem/para
@@ -849,10 +849,10 @@ msgstr "GNOME Commander-fönstret"
 msgctxt "_"
 msgid ""
 "external ref='figures/gnome-commander_window.png' "
-"md5='63f66d363decbef9ed9459c1cf756bee'"
+"md5='5c3dfa46f9691c3c4a6a219d37d75ab4'"
 msgstr ""
 "external ref='figures/gnome-commander_window.png' "
-"md5='63f66d363decbef9ed9459c1cf756bee'"
+"md5='5c3dfa46f9691c3c4a6a219d37d75ab4'"
 
 #. (itstool) path: screenshot/mediaobject
 #: C/index.docbook:743
@@ -1658,7 +1658,7 @@ msgstr "Markera först objektet som du vill byta namn på."
 #: C/index.docbook:1158
 msgid ""
 "Right click on the item and select <guimenu>Rename</guimenu>, type in the "
-"new name, and press <keycap>Enter</keycap> when finished."
+"new name, and press <keycap>ENTER</keycap> when finished."
 msgstr ""
 "Högerklicka på objektet och välj <guimenu>Byt namn</guimenu>, skriv in det "
 "nya namnet, och tryck <keycap>Retur</keycap> då du är klar."
@@ -1667,7 +1667,7 @@ msgstr ""
 #: C/index.docbook:1162
 msgid ""
 "Press <keycap>F2</keycap> and then type in the new name and press "
-"<keycap>Enter</keycap> when finished."
+"<keycap>ENTER</keycap> when finished."
 msgstr ""
 "Tryck ned <keycap>F2</keycap> och skriv sedan in det nya namnet, och tryck "
 "<keycap>Retur</keycap> då du är klar."
@@ -2136,7 +2136,7 @@ msgstr "Namnet på filen eller mappen."
 
 #. (itstool) path: entry/para
 #. (itstool) path: sect2/title
-#: C/index.docbook:1369 C/index.docbook:3953 C/index.docbook:7697
+#: C/index.docbook:1369 C/index.docbook:3953 C/index.docbook:7696
 msgid "Location"
 msgstr "Plats"
 
@@ -2240,9 +2240,9 @@ msgstr "Metadata"
 #: C/index.docbook:1445
 msgid ""
 "If available, additional metadata information is shown for file types like "
-"images, documents or audio files. The shown tags are: File.Description, File."
-"Publisher, Doc.Title, Doc.Pagecount, Audio.Albumartist, Audio.Title, Audio."
-"Bitrate and Audio.Durationmmss. For more information, see <link "
+"images, documents or audio files. The shown tags are: File.Description, "
+"File.Publisher, Doc.Title, Doc.Pagecount, Audio.Albumartist, Audio.Title, "
+"Audio.Bitrate and Audio.Durationmmss. For more information, see <link "
 "linkend=\"gnome-commander-advanced-rename-metadata-tags\">metadata tags</"
 "link>."
 msgstr ""
@@ -2442,8 +2442,8 @@ msgstr "Sökvägen som bokmärket pekar på."
 #. (itstool) path: sect2/para
 #: C/index.docbook:1560
 msgid ""
-"In the bookmark list there are four different columns displayed: <_:"
-"orderedlist-1/>"
+"In the bookmark list there are four different columns displayed: "
+"<_:orderedlist-1/>"
 msgstr "I bokmärkeslistan visas fyra olika kolumner: <_:orderedlist-1/>"
 
 #. (itstool) path: sect2/para
@@ -2487,13 +2487,13 @@ msgstr ""
 #. (itstool) path: screenshot/mediaobject
 #: C/index.docbook:1576
 msgid ""
-"<imageobject> <imagedata fileref=\"figures/gnome-commander_dialog_bookmark."
-"png\" format=\"PNG\"/> </imageobject> <textobject> <phrase>Shows bookmark "
-"management dialog.</phrase> </textobject>"
+"<imageobject> <imagedata fileref=\"figures/gnome-"
+"commander_dialog_bookmark.png\" format=\"PNG\"/> </imageobject> <textobject> "
+"<phrase>Shows bookmark management dialog.</phrase> </textobject>"
 msgstr ""
-"<imageobject> <imagedata fileref=\"figures/gnome-commander_dialog_bookmark."
-"png\" format=\"PNG\"/> </imageobject> <textobject> <phrase>Visar dialogruta "
-"för bokmärkeshantering.</phrase> </textobject>"
+"<imageobject> <imagedata fileref=\"figures/gnome-"
+"commander_dialog_bookmark.png\" format=\"PNG\"/> </imageobject> <textobject> "
+"<phrase>Visar dialogruta för bokmärkeshantering.</phrase> </textobject>"
 
 #. (itstool) path: sect2/title
 #: C/index.docbook:1590
@@ -2606,13 +2606,15 @@ msgstr ""
 #. (itstool) path: screenshot/mediaobject
 #: C/index.docbook:1621
 msgid ""
-"<imageobject> <imagedata fileref=\"figures/gnome-commander_dialog_adv_rename."
-"png\" format=\"PNG\"/> </imageobject> <textobject><phrase>Shows advanced "
-"file renaming dialog.</phrase> </textobject>"
+"<imageobject> <imagedata fileref=\"figures/gnome-"
+"commander_dialog_adv_rename.png\" format=\"PNG\"/> </imageobject> "
+"<textobject><phrase>Shows advanced file renaming dialog.</phrase> </"
+"textobject>"
 msgstr ""
-"<imageobject> <imagedata fileref=\"figures/gnome-commander_dialog_adv_rename."
-"png\" format=\"PNG\"/> </imageobject> <textobject><phrase>Visar dialogruta "
-"för avancerat namnbyte av filer.</phrase> </textobject>"
+"<imageobject> <imagedata fileref=\"figures/gnome-"
+"commander_dialog_adv_rename.png\" format=\"PNG\"/> </imageobject> "
+"<textobject><phrase>Visar dialogruta för avancerat namnbyte av filer.</"
+"phrase> </textobject>"
 
 #. (itstool) path: varlistentry/term
 #: C/index.docbook:1634
@@ -3001,8 +3003,8 @@ msgid ""
 "represents the metadata Artist for an audio class file)."
 msgstr ""
 "För alla metadata behöver varje metadatatagg (metatagg) ha en namnrymd med "
-"sin klasstyp med en ”.”-kvalificerare (t.ex. representerar <literal>Audio."
-"Artist</literal> metadata för Artist för en fil av ljudklass)."
+"sin klasstyp med en ”.”-kvalificerare (t.ex. representerar "
+"<literal>Audio.Artist</literal> metadata för Artist för en fil av ljudklass)."
 
 #. (itstool) path: sect3/para
 #: C/index.docbook:1838
@@ -3015,16 +3017,17 @@ msgid ""
 "literal> and <literal>'Image.'</literal> metatags are independent of the "
 "used framework and they provide unified access to respectively audio, doc, "
 "file or image metadata. Please refer to <ulink url=\"http://freedesktop.org/"
-"wiki/Specifications/shared-filemetadata-spec\" type=\"http\">freedesktop."
-"org</ulink> for more details on the generic metatags."
+"wiki/Specifications/shared-filemetadata-spec\" "
+"type=\"http\">freedesktop.org</ulink> for more details on the generic "
+"metatags."
 msgstr ""
 "Platshållaren för metadata är <literal>$T(metatagg)</literal>. Använd "
 "exempelvis <literal>$T(Exif.DateTime)</literal> för att få datum/tid som "
 "bilden togs och för att infoga det i det nya filnamnet (metataggars namn är "
-"skiftlägesokänsliga, så vi skulle också kunna använda <literal>$T(exif."
-"datetime)</literal> här). De allmänna metataggarna <literal>”Audio.”</"
-"literal>, <literal>”Doc.”</literal>, <literal>”File.”</literal> och "
-"<literal>”Image.”</literal> är oberoende av använt ramverk och "
+"skiftlägesokänsliga, så vi skulle också kunna använda "
+"<literal>$T(exif.datetime)</literal> här). De allmänna metataggarna "
+"<literal>”Audio.”</literal>, <literal>”Doc.”</literal>, <literal>”File.”</"
+"literal> och <literal>”Image.”</literal> är oberoende av använt ramverk och "
 "tillhandahåller enhetlig åtkomst till metadata för ljud, dokument, filer "
 "respektive bilder. Se <ulink url=\"http://freedesktop.org/wiki/"
 "Specifications/shared-filemetadata-spec\" type=\"http\">freedesktop.org</"
@@ -4479,11 +4482,11 @@ msgstr "Komponentkonfiguration"
 msgid ""
 "Information specific to compressed data. The channels of each component are "
 "arranged in order from the 1st component to the 4th. For uncompressed data "
-"the data arrangement is given in the <literal>Exif."
-"PhotometricInterpretation</literal> tag. However, since <literal>Exif."
-"PhotometricInterpretation</literal> can only express the order of Y, Cb and "
-"Cr, this tag is provided for cases when compressed data uses components "
-"other than Y, Cb, and Cr and to enable support of other sequences."
+"the data arrangement is given in the "
+"<literal>Exif.PhotometricInterpretation</literal> tag. However, since "
+"<literal>Exif.PhotometricInterpretation</literal> can only express the order "
+"of Y, Cb and Cr, this tag is provided for cases when compressed data uses "
+"components other than Y, Cb, and Cr and to enable support of other sequences."
 msgstr ""
 "Information specifik för komprimerade data. Varje komponents kanaler är "
 "ordnade från 1 till 4. För okomprimerade data anges dataarrangemanget i "
@@ -5017,11 +5020,11 @@ msgstr "Brännviddens x-upplösning"
 #. (itstool) path: entry/para
 #: C/index.docbook:2474
 msgid ""
-"The number of pixels in the image width (X) direction per <literal>Exif."
-"FocalPlaneResolutionUnit</literal> on the camera focal plane."
+"The number of pixels in the image width (X) direction per "
+"<literal>Exif.FocalPlaneResolutionUnit</literal> on the camera focal plane."
 msgstr ""
-"Antalet bildpunkter i bildbredden för x-axeln per <literal>Exif."
-"FocalPlaneResolutionUnit</literal> vid kamerans brännvidd."
+"Antalet bildpunkter i bildbredden för x-axeln per "
+"<literal>Exif.FocalPlaneResolutionUnit</literal> vid kamerans brännvidd."
 
 #. (itstool) path: entry/para
 #: C/index.docbook:2477
@@ -5036,11 +5039,11 @@ msgstr "Brännviddens y-upplösning"
 #. (itstool) path: entry/para
 #: C/index.docbook:2479
 msgid ""
-"The number of pixels in the image height (Y) direction per <literal>Exif."
-"FocalPlaneResolutionUnit</literal> on the camera focal plane."
+"The number of pixels in the image height (Y) direction per "
+"<literal>Exif.FocalPlaneResolutionUnit</literal> on the camera focal plane."
 msgstr ""
-"Antalet bildpunkter i bildhöjden för y-axeln per <literal>Exif."
-"FocalPlaneResolutionUnit</literal> vid kamerans brännvidd."
+"Antalet bildpunkter i bildhöjden för y-axeln per "
+"<literal>Exif.FocalPlaneResolutionUnit</literal> vid kamerans brännvidd."
 
 #. (itstool) path: entry/para
 #: C/index.docbook:2482
@@ -5085,8 +5088,8 @@ msgstr "Höjd"
 #. (itstool) path: entry/para
 #: C/index.docbook:2494
 msgid ""
-"Indicates the altitude based on the reference in <literal>Exif.GPS."
-"AltitudeRef</literal>. The reference unit is meters."
+"Indicates the altitude based on the reference in "
+"<literal>Exif.GPS.AltitudeRef</literal>. The reference unit is meters."
 msgstr ""
 "Anger höjd baserat på referens i <literal>Exif.GPS.AltitudeRef</literal>. "
 "Referensvärdet anges i meter."
@@ -5891,15 +5894,15 @@ msgstr "Enhet för upplösning"
 #. (itstool) path: entry/para
 #: C/index.docbook:2699
 msgid ""
-"The unit for measuring <literal>Exif.XResolution</literal> and <literal>Exif."
-"YResolution</literal>. The same unit is used for both <literal>Exif."
-"XResolution</literal> and <literal>Exif.YResolution</literal>. If the image "
-"resolution is unknown, 2 (inches) is designated."
+"The unit for measuring <literal>Exif.XResolution</literal> and "
+"<literal>Exif.YResolution</literal>. The same unit is used for both "
+"<literal>Exif.XResolution</literal> and <literal>Exif.YResolution</literal>. "
+"If the image resolution is unknown, 2 (inches) is designated."
 msgstr ""
-"Enheten för att mäta <literal>Exif.XResolution</literal> och <literal>Exif."
-"YResolution</literal>. Samma enhet används för både <literal>Exif."
-"XResolution</literal> och <literal>Exif.YResolution</literal>. Om "
-"bildupplösningen är okänd är 2 (tum) angivet."
+"Enheten för att mäta <literal>Exif.XResolution</literal> och "
+"<literal>Exif.YResolution</literal>. Samma enhet används för både "
+"<literal>Exif.XResolution</literal> och <literal>Exif.YResolution</literal>. "
+"Om bildupplösningen är okänd är 2 (tum) angivet."
 
 #. (itstool) path: entry/para
 #: C/index.docbook:2702
@@ -5974,8 +5977,8 @@ msgstr "Typ av scenfångst"
 #: C/index.docbook:2719
 msgid ""
 "The type of scene that was shot. It can also be used to record the mode in "
-"which the image was shot. Note that this differs from <literal>Exif."
-"SceneType</literal> tag."
+"which the image was shot. Note that this differs from "
+"<literal>Exif.SceneType</literal> tag."
 msgstr ""
 "Vilken typ av scen som fotograferades. Den kan också användas för att lagra "
 "i vilket läge bilden togs. Observera att det här skiljer sig från taggen "
@@ -6311,8 +6314,8 @@ msgstr "Överföringsfunktion"
 #: C/index.docbook:2814
 msgid ""
 "A transfer function for the image, described in tabular style. Normally this "
-"tag is not necessary, since color space is specified in <literal>Exif."
-"ColorSpace</literal> tag."
+"tag is not necessary, since color space is specified in "
+"<literal>Exif.ColorSpace</literal> tag."
 msgstr ""
 "En överföringsfunktion för bilden, beskriven i tabellstil. Normalt är denna "
 "tagg inte nödvändig eftersom färgrymden är specificerad i taggen "
@@ -6351,20 +6354,20 @@ msgid ""
 "code limitations of the <literal>Exif.ImageDescription</literal> tag. The "
 "character code used in the <literal>Exif.UserComment</literal> tag is "
 "identified based on an ID code in a fixed 8-byte area at the start of the "
-"tag data area. The unused portion of the area is padded with NULL (\"00."
-"h\"). ID codes are assigned by means of registration. The value of CountN is "
-"determinated based on the 8 bytes in the character code area and the number "
-"of bytes in the user comment part. Since the TYPE is not ASCII, NULL "
-"termination is not necessary. The ID code for the <literal>Exif.UserComment</"
-"literal> area may be a Defined code such as JIS or ASCII, or may be "
-"Undefined. The Undefined name is UndefinedText, and the ID code is filled "
-"with 8 bytes of all \"NULL\" (\"00.H\"). An Exif reader that reads the "
-"<literal>Exif.UserComment</literal> tag must have a function for determining "
-"the ID code. This function is not required in Exif readers that do not use "
-"the <literal>Exif.UserComment</literal> tag. When a <literal>Exif."
-"UserComment</literal> area is set aside, it is recommended that the ID code "
-"be ASCII and that the following user comment part be filled with blank "
-"characters [20.H]."
+"tag data area. The unused portion of the area is padded with NULL "
+"(\"00.h\"). ID codes are assigned by means of registration. The value of "
+"CountN is determinated based on the 8 bytes in the character code area and "
+"the number of bytes in the user comment part. Since the TYPE is not ASCII, "
+"NULL termination is not necessary. The ID code for the "
+"<literal>Exif.UserComment</literal> area may be a Defined code such as JIS "
+"or ASCII, or may be Undefined. The Undefined name is UndefinedText, and the "
+"ID code is filled with 8 bytes of all \"NULL\" (\"00.H\"). An Exif reader "
+"that reads the <literal>Exif.UserComment</literal> tag must have a function "
+"for determining the ID code. This function is not required in Exif readers "
+"that do not use the <literal>Exif.UserComment</literal> tag. When a "
+"<literal>Exif.UserComment</literal> area is set aside, it is recommended "
+"that the ID code be ASCII and that the following user comment part be filled "
+"with blank characters [20.H]."
 msgstr ""
 "En tagg för Exif-användare att skriva nyckelord eller kommentarer i bilden "
 "förutom de i <literal>Exif.ImageDescription</literal>, och utan "
@@ -6380,9 +6383,10 @@ msgstr ""
 "ID-koden är fylld med 8 byte av NULL (”00.H”). En Exif-läsare som läser "
 "taggen <literal>Exif.UserComment</literal> måste ha en funktion för att "
 "avgöra ID-koden. Denna funktion krävs inte för Exif-läsare som inte använder "
-"taggen <literal>Exif.UserComment</literal>. När ett <literal>Exif."
-"UserComment</literal>-område är åsidosatt rekommenderas det att ID-koden är "
-"ASCII och att följande användarkommentarsdel fylls i med tomma tecken [20.H]."
+"taggen <literal>Exif.UserComment</literal>. När ett "
+"<literal>Exif.UserComment</literal>-område är åsidosatt rekommenderas det "
+"att ID-koden är ASCII och att följande användarkommentarsdel fylls i med "
+"tomma tecken [20.H]."
 
 #. (itstool) path: entry/para
 #: C/index.docbook:2827
@@ -6501,19 +6505,19 @@ msgid ""
 "to improve the image quality when viewed on TV systems. When this field does "
 "not exist, the reader shall assume the TIFF default. In the case of Y:Cb:Cr "
 "= 4:2:0, the TIFF default (centered) is recommended. If the reader does not "
-"have the capability of supporting both kinds of <literal>Exif."
-"YCbCrPositioning</literal>, it shall follow the TIFF default regardless of "
-"the value in this field. It is preferable that readers be able to support "
-"both centered and co-sited positioning."
+"have the capability of supporting both kinds of "
+"<literal>Exif.YCbCrPositioning</literal>, it shall follow the TIFF default "
+"regardless of the value in this field. It is preferable that readers be able "
+"to support both centered and co-sited positioning."
 msgstr ""
 "Positionen för krominanskomponenterna i förhållande till "
 "luminanskomponenten. Det här fältet används bara för JPEG-komprimerad data "
-"eller okomprimerad YCbCr-data. TIFF:s standard är 1 (centrerad); men om Y:Cb:"
-"Cr = 4:2:2 rekommenderar den här standarden att 2 (sida-vid-sida) används "
-"för att spara data för att ge bättre bildkvalitet när bilden visas på TV-"
-"system. Om fältet inte finns ska läsaren anta TIFF:s standardvärde. Om Y:Cb:"
-"Cr = 4:2:0 rekommenderas TIFF:s standard (centrerad). Om läsaren inte har "
-"stöd för båda typer av <literal>Exif.YCbCrPositioning</literal> ska den "
+"eller okomprimerad YCbCr-data. TIFF:s standard är 1 (centrerad); men om "
+"Y:Cb:Cr = 4:2:2 rekommenderar den här standarden att 2 (sida-vid-sida) "
+"används för att spara data för att ge bättre bildkvalitet när bilden visas "
+"på TV-system. Om fältet inte finns ska läsaren anta TIFF:s standardvärde. Om "
+"Y:Cb:Cr = 4:2:0 rekommenderas TIFF:s standard (centrerad). Om läsaren inte "
+"har stöd för båda typer av <literal>Exif.YCbCrPositioning</literal> ska den "
 "följa TIFF-standarden oavsett vad fältet visar för värde. Helst ska läsare "
 "ha stöd för både centrerad positionering och positionering sida-vid-sida."
 
@@ -6555,8 +6559,8 @@ msgid ""
 "<literal>Exif.XResolution</literal> is designated."
 msgstr ""
 "Antal bildpunkter per <literal>Exif.ResolutionUnit</literal> i riktningen "
-"<literal>Exif.ImageLength</literal>. Samma värde som <literal>Exif."
-"XResolution</literal> ges."
+"<literal>Exif.ImageLength</literal>. Samma värde som "
+"<literal>Exif.XResolution</literal> ges."
 
 #. (itstool) path: entry/para
 #: C/index.docbook:2867
@@ -9743,7 +9747,7 @@ msgstr "Vorbis.License"
 
 #. (itstool) path: entry/para
 #. (itstool) path: sect2/title
-#: C/index.docbook:3948 C/index.docbook:7713
+#: C/index.docbook:3948 C/index.docbook:7712
 msgid "License"
 msgstr "Licens"
 
@@ -9920,15 +9924,15 @@ msgstr "g_date_time_format()-formatkontroller"
 msgid ""
 "The date format is defined by GIO's g_date_time_format() function. Below you "
 "will find a number of format qualifiers of this function. For more "
-"information please read the <ulink url=\"https://docs.gtk.org/glib/method."
-"DateTime.format.html\">online documentation</ulink>, which might provide "
-"even more qualifiers."
+"information please read the <ulink url=\"https://docs.gtk.org/glib/"
+"method.DateTime.format.html\">online documentation</ulink>, which might "
+"provide even more qualifiers."
 msgstr ""
 "Datumformatet definieras av funktionen g_date_time_format() i GIO. Nedan "
 "hittar du ett antal formatkvalificerare för denna funktion. För mer "
-"information, läs <ulink url=\"https://docs.gtk.org/glib/method.DateTime."
-"format.html\">nätdokumentationen</ulink>, vilken kan ge ännu fler "
-"kvalificerare."
+"information, läs <ulink url=\"https://docs.gtk.org/glib/"
+"method.DateTime.format.html\">nätdokumentationen</ulink>, vilken kan ge ännu "
+"fler kvalificerare."
 
 #. (itstool) path: entry/para
 #: C/index.docbook:4049
@@ -11664,13 +11668,15 @@ msgstr ""
 #. (itstool) path: screenshot/mediaobject
 #: C/index.docbook:4820
 msgid ""
-"<imageobject> <imagedata fileref=\"figures/gnome-commander_options_format."
-"png\" format=\"PNG\"/> </imageobject> <textobject> <phrase>Shows GNOME "
-"Commander format preferences dialog.</phrase> </textobject>"
+"<imageobject> <imagedata fileref=\"figures/gnome-"
+"commander_options_format.png\" format=\"PNG\"/> </imageobject> <textobject> "
+"<phrase>Shows GNOME Commander format preferences dialog.</phrase> </"
+"textobject>"
 msgstr ""
-"<imageobject> <imagedata fileref=\"figures/gnome-commander_options_format."
-"png\" format=\"PNG\"/> </imageobject> <textobject> <phrase>Visar GNOME "
-"Commanders dialogruta för formatinställningar.</phrase> </textobject>"
+"<imageobject> <imagedata fileref=\"figures/gnome-"
+"commander_options_format.png\" format=\"PNG\"/> </imageobject> <textobject> "
+"<phrase>Visar GNOME Commanders dialogruta för formatinställningar.</phrase> "
+"</textobject>"
 
 #. (itstool) path: table/title
 #: C/index.docbook:4832
@@ -11855,13 +11861,15 @@ msgstr ""
 #. (itstool) path: screenshot/mediaobject
 #: C/index.docbook:4961
 msgid ""
-"<imageobject> <imagedata fileref=\"figures/gnome-commander_options_layout."
-"png\" format=\"PNG\"/> </imageobject> <textobject> <phrase>Shows GNOME "
-"Commander layout preferences dialog.</phrase> </textobject>"
+"<imageobject> <imagedata fileref=\"figures/gnome-"
+"commander_options_layout.png\" format=\"PNG\"/> </imageobject> <textobject> "
+"<phrase>Shows GNOME Commander layout preferences dialog.</phrase> </"
+"textobject>"
 msgstr ""
-"<imageobject> <imagedata fileref=\"figures/gnome-commander_options_layout."
-"png\" format=\"PNG\"/> </imageobject> <textobject> <phrase>Visar GNOME "
-"Commanders dialogruta för layoutinställningar.</phrase> </textobject>"
+"<imageobject> <imagedata fileref=\"figures/gnome-"
+"commander_options_layout.png\" format=\"PNG\"/> </imageobject> <textobject> "
+"<phrase>Visar GNOME Commanders dialogruta för layoutinställningar.</phrase> "
+"</textobject>"
 
 #. (itstool) path: table/title
 #: C/index.docbook:4973 C/index.docbook:5289
@@ -11985,11 +11993,11 @@ msgstr ""
 #. (itstool) path: entry/para
 #: C/index.docbook:5054
 msgid ""
-"The graphical mode has three display options in the drop down list: <_:"
-"itemizedlist-1/>"
+"The graphical mode has three display options in the drop down list: "
+"<_:itemizedlist-1/>"
 msgstr ""
-"Det grafiska läget har tre visningsalternativ i rullgardinslistan: <_:"
-"itemizedlist-1/>"
+"Det grafiska läget har tre visningsalternativ i rullgardinslistan: "
+"<_:itemizedlist-1/>"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:5075
@@ -12265,11 +12273,11 @@ msgid ""
 "starting it using the GNOME menu. In that case you have to make sure that "
 "LS_COLORS is set in the file ~/.profile or ~/.xprofile."
 msgstr ""
-"Några användare har rapporterat att en anpassad LS_COLORS, definierad i ~/."
-"dir_colors, inte tillämpas om GNOME Commander startades genom att klicka på "
-"en .desktop-fil eller genom att starta det med GNOME-menyn. I så fall "
-"behöver du säkerställa att LS_COLORS ställts in i filen ~/.profile eller ~/."
-"xprofile."
+"Några användare har rapporterat att en anpassad LS_COLORS, definierad i "
+"~/.dir_colors, inte tillämpas om GNOME Commander startades genom att klicka "
+"på en .desktop-fil eller genom att starta det med GNOME-menyn. I så fall "
+"behöver du säkerställa att LS_COLORS ställts in i filen ~/.profile eller "
+"~/.xprofile."
 
 #. (itstool) path: note/para
 #: C/index.docbook:5197
@@ -12340,8 +12348,8 @@ msgstr "<guilabel>Formaterad text</guilabel>: Namnet på fliken färgas."
 #: C/index.docbook:5216
 msgid ""
 "In the tab lock indicator section, you can configure the way how a locked "
-"tab will by indicated. There are three different possibilities: <_:"
-"itemizedlist-1/>"
+"tab will by indicated. There are three different possibilities: "
+"<_:itemizedlist-1/>"
 msgstr ""
 "I avsnittet fliklåsindikator kan du konfigurera hur en låst flik kommer "
 "indikeras. Det finns tre olika möjligheter: <_:itemizedlist-1/>"
@@ -12368,13 +12376,14 @@ msgstr ""
 #. (itstool) path: screenshot/mediaobject
 #: C/index.docbook:5229
 msgid ""
-"<imageobject> <imagedata fileref=\"figures/gnome-commander_options_tabs."
-"png\" format=\"PNG\"/> </imageobject> <textobject> <phrase>Shows GNOME "
-"Commander tabs preferences dialog.</phrase> </textobject>"
+"<imageobject> <imagedata fileref=\"figures/gnome-"
+"commander_options_tabs.png\" format=\"PNG\"/> </imageobject> <textobject> "
+"<phrase>Shows GNOME Commander tabs preferences dialog.</phrase> </textobject>"
 msgstr ""
-"<imageobject> <imagedata fileref=\"figures/gnome-commander_options_tabs."
-"png\" format=\"PNG\"/> </imageobject> <textobject> <phrase>Visar GNOME "
-"Commanders dialogruta för flikinställningar.</phrase> </textobject>"
+"<imageobject> <imagedata fileref=\"figures/gnome-"
+"commander_options_tabs.png\" format=\"PNG\"/> </imageobject> <textobject> "
+"<phrase>Visar GNOME Commanders dialogruta för flikinställningar.</phrase> </"
+"textobject>"
 
 #. (itstool) path: sect2/title
 #: C/index.docbook:5243
@@ -12634,12 +12643,12 @@ msgstr "<guilabel>Avbryt</guilabel>: Ingen åtgärd utförs"
 #: C/index.docbook:5428
 msgid ""
 "When this option is selected and if an item is dragged and dropped by using "
-"the mouse, a dialog opens in which the user is asked what should happen: <_:"
-"itemizedlist-1/>"
+"the mouse, a dialog opens in which the user is asked what should happen: "
+"<_:itemizedlist-1/>"
 msgstr ""
 "När detta alternativ är valt och om ett objekt dras och släpps med musen, så "
-"kommer en dialogruta att öppnas som frågar användaren vad som ska hända: <_:"
-"itemizedlist-1/>"
+"kommer en dialogruta att öppnas som frågar användaren vad som ska hända: "
+"<_:itemizedlist-1/>"
 
 #. (itstool) path: sect2/title
 #: C/index.docbook:5443
@@ -12698,13 +12707,15 @@ msgstr ""
 #. (itstool) path: screenshot/mediaobject
 #: C/index.docbook:5454
 msgid ""
-"<imageobject> <imagedata fileref=\"figures/gnome-commander_options_filters."
-"png\" format=\"PNG\"/> </imageobject> <textobject> <phrase>Shows GNOME "
-"Commander filters preferences dialog.</phrase> </textobject>"
+"<imageobject> <imagedata fileref=\"figures/gnome-"
+"commander_options_filters.png\" format=\"PNG\"/> </imageobject> <textobject> "
+"<phrase>Shows GNOME Commander filters preferences dialog.</phrase> </"
+"textobject>"
 msgstr ""
-"<imageobject> <imagedata fileref=\"figures/gnome-commander_options_filters."
-"png\" format=\"PNG\"/> </imageobject> <textobject> <phrase>Visar GNOME "
-"Commanders dialogruta för filterinställningar.</phrase> </textobject>"
+"<imageobject> <imagedata fileref=\"figures/gnome-"
+"commander_options_filters.png\" format=\"PNG\"/> </imageobject> <textobject> "
+"<phrase>Visar GNOME Commanders dialogruta för filterinställningar.</phrase> "
+"</textobject>"
 
 #. (itstool) path: table/title
 #: C/index.docbook:5467
@@ -12900,13 +12911,15 @@ msgstr ""
 #. (itstool) path: screenshot/mediaobject
 #: C/index.docbook:5626
 msgid ""
-"<imageobject> <imagedata fileref=\"figures/gnome-commander_options_programs."
-"png\" format=\"PNG\"/> </imageobject> <textobject> <phrase>Shows GNOME "
-"Commander programs preferences dialog.</phrase> </textobject>"
+"<imageobject> <imagedata fileref=\"figures/gnome-"
+"commander_options_programs.png\" format=\"PNG\"/> </imageobject> "
+"<textobject> <phrase>Shows GNOME Commander programs preferences dialog.</"
+"phrase> </textobject>"
 msgstr ""
-"<imageobject> <imagedata fileref=\"figures/gnome-commander_options_programs."
-"png\" format=\"PNG\"/> </imageobject> <textobject> <phrase>Visar GNOME "
-"Commanders dialogruta för programinställningar.</phrase> </textobject>"
+"<imageobject> <imagedata fileref=\"figures/gnome-"
+"commander_options_programs.png\" format=\"PNG\"/> </imageobject> "
+"<textobject> <phrase>Visar GNOME Commanders dialogruta för "
+"programinställningar.</phrase> </textobject>"
 
 #. (itstool) path: table/title
 #: C/index.docbook:5640
@@ -13530,11 +13543,11 @@ msgstr ""
 #. (itstool) path: listitem/para
 #: C/index.docbook:6105
 msgid ""
-"Below the <guilabel>Devices</guilabel> window you have two options: <_:"
-"itemizedlist-1/>"
+"Below the <guilabel>Devices</guilabel> window you have two options: "
+"<_:itemizedlist-1/>"
 msgstr ""
-"Nedanför fönstret <guilabel>Enheter</guilabel> har du två alternativ: <_:"
-"itemizedlist-1/>"
+"Nedanför fönstret <guilabel>Enheter</guilabel> har du två alternativ: "
+"<_:itemizedlist-1/>"
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:6111
@@ -13567,13 +13580,15 @@ msgstr ""
 #. (itstool) path: screenshot/mediaobject
 #: C/index.docbook:6116
 msgid ""
-"<imageobject> <imagedata fileref=\"figures/gnome-commander_options_devices."
-"png\" format=\"PNG\"/> </imageobject> <textobject> <phrase>Shows GNOME "
-"Commander devices preferences dialog.</phrase> </textobject>"
+"<imageobject> <imagedata fileref=\"figures/gnome-"
+"commander_options_devices.png\" format=\"PNG\"/> </imageobject> <textobject> "
+"<phrase>Shows GNOME Commander devices preferences dialog.</phrase> </"
+"textobject>"
 msgstr ""
-"<imageobject> <imagedata fileref=\"figures/gnome-commander_options_devices."
-"png\" format=\"PNG\"/> </imageobject> <textobject> <phrase>Visar GNOME "
-"Commanders dialogruta för enhetsinställningar.</phrase> </textobject>"
+"<imageobject> <imagedata fileref=\"figures/gnome-"
+"commander_options_devices.png\" format=\"PNG\"/> </imageobject> <textobject> "
+"<phrase>Visar GNOME Commanders dialogruta för enhetsinställningar.</phrase> "
+"</textobject>"
 
 #. (itstool) path: table/title
 #: C/index.docbook:6129
@@ -13709,11 +13724,11 @@ msgstr "<guilabel>Monteringspunkt:</guilabel>"
 #. (itstool) path: entry/para
 #: C/index.docbook:6288
 msgid ""
-"Here you specify where the device should be mounted to, so that Gnome "
+"Here you specify where the device should be mounted to, so that GNOME "
 "Commander knows where to jump to when the mount was successful, for example /"
 "mnt/cdrom."
 msgstr ""
-"Här anger du var enheten ska monteras, så att Gnome Commander vet vart det "
+"Här anger du var enheten ska monteras, så att GNOME Commander vet vart det "
 "ska hoppa när monteringen lyckas, exempelvis /mnt/cdrom."
 
 #. (itstool) path: entry/para
@@ -13776,8 +13791,8 @@ msgstr ""
 #. (itstool) path: note/para
 #: C/index.docbook:6321
 msgid ""
-"Some keyboard shortcuts may not work as expected under your environment, e."
-"g. GNOME. The reason for that is that the environment uses some global "
+"Some keyboard shortcuts may not work as expected under your environment, "
+"e.g. GNOME. The reason for that is that the environment uses some global "
 "shortcuts (i.e. <keycombo><keycap>ALT</keycap><keycap>F7</keycap></keycombo> "
 "moves the entire application window in GNOME), which suppresses assigned "
 "keyboard mapping of GNOME Commander. Use the keyboard shortcuts preference "
@@ -14792,11 +14807,11 @@ msgstr ""
 #. (itstool) path: sect2/para
 #: C/index.docbook:6969
 msgid ""
-"In the keyboard shortcut dialog a table with three columns is shown: <_:"
-"orderedlist-1/>"
+"In the keyboard shortcut dialog a table with three columns is shown: "
+"<_:orderedlist-1/>"
 msgstr ""
-"I dialogrutan för tangentbordsgenväg visas en tabell med tre kolumner: <_:"
-"orderedlist-1/>"
+"I dialogrutan för tangentbordsgenväg visas en tabell med tre kolumner: "
+"<_:orderedlist-1/>"
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:6975
@@ -14899,7 +14914,7 @@ msgstr "Användaråtgärd"
 
 #. (itstool) path: entry/para
 #. (itstool) path: sect1/title
-#: C/index.docbook:7016 C/index.docbook:7017 C/index.docbook:7679
+#: C/index.docbook:7016 C/index.docbook:7017 C/index.docbook:7678
 msgid "About GNOME Commander"
 msgstr "Om GNOME Commander"
 
@@ -15603,7 +15618,7 @@ msgstr "Hantera arkiv"
 #. (itstool) path: sect2/para
 #: C/index.docbook:7450
 msgid ""
-"GNOME Commander still lacks built in browsing of compressed archives. "
+"GNOME Commander still lacks built-in browsing of compressed archives. "
 "However the program can be configured so that working with archives becomes "
 "quite practical anyway."
 msgstr ""
@@ -15611,11 +15626,10 @@ msgstr ""
 "Programmet kan dock konfigureras så att arbete med arkiv blir ganska "
 "praktiskt i alla fall."
 
-# TODO: activate the build in -> activate the built in
 #. (itstool) path: sect2/para
 #: C/index.docbook:7452
 msgid ""
-"There are two different ways: The preferred one is to activate the build in "
+"There are two different ways: The preferred one is to activate the built-in "
 "<application>Fileroller</application> plugin in the menu "
 "<menuchoice><guimenu>Plugins</guimenu><guimenuitem>Configure Plugins...</"
 "guimenuitem></menuchoice>. By activating this plugin you get additional "
@@ -15774,22 +15788,22 @@ msgstr ""
 #. (itstool) path: listitem/para
 #: C/index.docbook:7523
 msgid ""
-"To insert the current file's path in Gnome Commander's command line, press "
-"<keycombo><keycap>CTRL</keycap><keycap>Shift</keycap><keycap>Enter</keycap></"
+"To insert the current file's path in GNOME Commander's command line, press "
+"<keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap><keycap>ENTER</keycap></"
 "keycombo>."
 msgstr ""
-"För att infoga den aktuella filens sökväg i Gnome Commanders kommandorad, "
-"tryck ned <keycombo><keycap>CTRL</keycap><keycap>Skift</"
+"För att infoga den aktuella filens sökväg i GNOME Commanders kommandorad, "
+"tryck ned <keycombo><keycap>Ctrl</keycap><keycap>Skift</"
 "keycap><keycap>Retur</keycap></keycombo>."
 
 #. (itstool) path: listitem/para
 #: C/index.docbook:7527
 msgid ""
-"To insert the current file's name in Gnome Commander's command line, press "
-"<keycombo><keycap>CTRL</keycap><keycap>Enter</keycap></keycombo>."
+"To insert the current file's name in GNOME Commander's command line, press "
+"<keycombo><keycap>CTRL</keycap><keycap>ENTER</keycap></keycombo>."
 msgstr ""
-"För att infoga den aktuella filens namn i Gnome Commanders kommandorad, "
-"tryck ned <keycombo><keycap>CTRL</keycap><keycap>Retur</keycap></keycombo>."
+"För att infoga den aktuella filens namn i GNOME Commanders kommandorad, "
+"tryck ned <keycombo><keycap>Ctrl</keycap><keycap>Retur</keycap></keycombo>."
 
 #. (itstool) path: sect1/title
 #: C/index.docbook:7537
@@ -15862,9 +15876,9 @@ msgid ""
 "GNOME Commander home page."
 msgstr ""
 "Om du vill kompilera den senaste stabila versionen av GNOME Commander själv, "
-"hämta det som en tar.xz-fil från <ulink type=\"http\" url=\"https://gcmd."
-"github.io/download.html\">hämtningsavsnittet</ulink> på GNOME Commanders "
-"webbsida."
+"hämta det som en tar.xz-fil från <ulink type=\"http\" url=\"https://"
+"gcmd.github.io/download.html\">hämtningsavsnittet</ulink> på GNOME "
+"Commanders webbsida."
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:7562
@@ -15889,11 +15903,11 @@ msgstr "Utvecklingsversion"
 msgid ""
 "For those of you who feel really adventurous, or maybe want to hack on the "
 "freshest code, the latest development source snapshots are available by "
-"using GIT:"
+"using git:"
 msgstr ""
 "För de av er som känner sig riktigt äventyrliga, eller kanske vill hacka på "
 "den nyaste koden, så finns de senaste ögonblicksbilderna av "
-"utvecklingskällkoden tillgängliga genom att använda GIT:"
+"utvecklingskällkoden tillgängliga genom att använda git:"
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:7570
@@ -15981,8 +15995,8 @@ msgid ""
 "Since GNOME Commander version 1.10.0 the following option files are "
 "obsolete. If they have been created by ealier GNOME Commander versions then "
 "the filename is extended automatically by <guilabel>*.deprecated</guilabel> "
-"and their settings are imported in GSettings under the path <guilabel>org."
-"gnome.gnome-commander</guilabel>."
+"and their settings are imported in GSettings under the path "
+"<guilabel>org.gnome.gnome-commander</guilabel>."
 msgstr ""
 "Sedan GNOME Commander version 1.10.0 är följande alternativfiler föråldrade. "
 "Om de har skapats av tidigare GNOME Commander-versioner så utökas filnamnet "
@@ -16055,15 +16069,6 @@ msgstr ""
 #. (itstool) path: listitem/para
 #: C/index.docbook:7664
 msgid ""
-"GNOME Commander is still lacking on GVFS/GIO support. Instead it uses "
-"GnomeVFS."
-msgstr ""
-"GNOME Commander saknar fortfarande GVFS/GIO-stöd. Istället använder det "
-"GnomeVFS."
-
-#. (itstool) path: listitem/para
-#: C/index.docbook:7665
-msgid ""
 "Configuration of default application depending on the files MIME type is "
 "broken and was finally removed in v1.4. See section <xref linkend=\"gnome-"
 "commander-mime-types\"/> for more information."
@@ -16078,22 +16083,22 @@ msgid "Known limitation: <_:itemizedlist-1/>"
 msgstr "Känd begränsning: <_:itemizedlist-1/>"
 
 #. (itstool) path: sect1/para
-#: C/index.docbook:7667
+#: C/index.docbook:7666
 msgid "<emphasis>Given enough eyeballs, all bugs are shallow.</emphasis>"
 msgstr "<emphasis>Given enough eyeballs, all bugs are shallow.</emphasis>"
 
 #. (itstool) path: sect1/para
-#: C/index.docbook:7669
+#: C/index.docbook:7668
 msgid "<foreignphrase>Linus law.</foreignphrase>"
 msgstr "<foreignphrase>Linus lag.</foreignphrase>"
 
 #. (itstool) path: sect2/title
-#: C/index.docbook:7681
+#: C/index.docbook:7680
 msgid "History of GNOME Commander"
 msgstr "Historik för GNOME Commander"
 
 #. (itstool) path: sect2/para
-#: C/index.docbook:7682
+#: C/index.docbook:7681
 msgid ""
 "GNOME Commander was primarily written by Marcus Bjurman, who was the one "
 "initiating this project in 2001 and developed it up to version 1.1.6 in "
@@ -16104,7 +16109,7 @@ msgstr ""
 "2004."
 
 #. (itstool) path: sect2/para
-#: C/index.docbook:7684
+#: C/index.docbook:7683
 msgid ""
 "Later on, since 2004, GNOME Commander was maintained by the new lead "
 "developer Piotr Eljasiak, working at the project already since 2002. In this "
@@ -16115,7 +16120,7 @@ msgstr ""
 "tid bidrog Assaf Gordon genom att implementera den interna filvisaren."
 
 #. (itstool) path: sect2/para
-#: C/index.docbook:7687
+#: C/index.docbook:7686
 msgid ""
 "Piotr conducted the development until version 1.2.8.15. In this time Magnus "
 "Stålnacke was responsible for the homepage. On the mailing list, amongst "
@@ -16130,7 +16135,7 @@ msgstr ""
 "hjälpte Thomas Jost till att underhålla webbsidan på Savannah.org"
 
 #. (itstool) path: sect2/para
-#: C/index.docbook:7692
+#: C/index.docbook:7691
 msgid ""
 "Unfortunately, Piotr suddenly passed away in the beginning of 2012 and GNOME "
 "Commander had no maintainer for nearly two years. Late in 2013, Uwe Scholz, "
@@ -16143,7 +16148,7 @@ msgstr ""
 "projektansvarig."
 
 #. (itstool) path: sect2/para
-#: C/index.docbook:7698
+#: C/index.docbook:7697
 msgid ""
 "In the beginning, GNOME Commander had its home at Sourceforge. Later, the "
 "project moved to Savannah.org, where it got its own homepage and its mailing "
@@ -16156,21 +16161,21 @@ msgstr ""
 "Webbsidan och sändlistorna fanns dock fortfarande på Savannah."
 
 #. (itstool) path: sect2/para
-#: C/index.docbook:7702
+#: C/index.docbook:7701
 msgid ""
 "Since 2013, the location of the GNOME Commander home page has been moved to "
 "GitHub.org."
 msgstr ""
-"Sedan 2013 har platsen för GNOME Commanders webbsida flyttats till GitHub."
-"org."
+"Sedan 2013 har platsen för GNOME Commanders webbsida flyttats till "
+"GitHub.org."
 
 #. (itstool) path: sect2/title
-#: C/index.docbook:7705
+#: C/index.docbook:7704
 msgid "Bug Reporting"
 msgstr "Felrapportering"
 
 #. (itstool) path: sect2/para
-#: C/index.docbook:7706
+#: C/index.docbook:7705
 msgid ""
 "If you found a bug, you can check if it is already reported on our <ulink "
 "type=\"http\" url=\"https://gitlab.gnome.org/GNOME/gnome-commander/"
@@ -16185,7 +16190,7 @@ msgstr ""
 "<xref linkend=\"gnome-commander-development-version\"/>."
 
 #. (itstool) path: sect2/para
-#: C/index.docbook:7714
+#: C/index.docbook:7713
 msgid ""
 "This program is distributed under the terms of the GNU General Public "
 "license as published by the Free Software Foundation; either version 2 of "
@@ -16344,11 +16349,11 @@ msgstr ""
 #. (itstool) path: para/command
 #: C/releases.xml:12
 msgid ""
-"appstream-util appdata-to-news /usr/share/metainfo/org.gnome.gnome-commander."
-"appdata.xml"
+"appstream-util appdata-to-news /usr/share/metainfo/org.gnome.gnome-"
+"commander.appdata.xml"
 msgstr ""
-"appstream-util appdata-to-news /usr/share/metainfo/org.gnome.gnome-commander."
-"appdata.xml"
+"appstream-util appdata-to-news /usr/share/metainfo/org.gnome.gnome-"
+"commander.appdata.xml"
 
 #. (itstool) path: entry/para
 #: C/releases.xml:20
@@ -16489,8 +16494,8 @@ msgstr ""
 #: C/releases.xml:73
 msgid "Fixed issue #52 (Auto refresh when changing permissions etc)"
 msgstr ""
-"Fixade ärende #52 (Automatisk uppdatering vid ändringar av rättigheter o.s."
-"v.)"
+"Fixade ärende #52 (Automatisk uppdatering vid ändringar av rättigheter "
+"o.s.v.)"
 
 #. (itstool) path: listitem/para
 #: C/releases.xml:76
@@ -16967,8 +16972,8 @@ msgid ""
 "Script and plugin folder in ~/.gnome-commander is moved into ~/.config/gnome-"
 "commander"
 msgstr ""
-"Skript- och insticksmodul-mapp i ~/.gnome-commander har flyttats till ~/."
-"config/gnome-commander"
+"Skript- och insticksmodul-mapp i ~/.gnome-commander har flyttats till "
+"~/.config/gnome-commander"
 
 #. (itstool) path: listitem/para
 #: C/releases.xml:408 C/releases.xml:445
@@ -17207,8 +17212,8 @@ msgstr ""
 #: C/releases.xml:582
 msgid "Fixed a bug in advance rename tool when utilizing METATAGS"
 msgstr ""
-"Fixade ett fel i det avancerade namnbytesverktyget vid användning av METATAG:"
-"ar"
+"Fixade ett fel i det avancerade namnbytesverktyget vid användning av "
+"METATAG:ar"
 
 #. (itstool) path: listitem/para
 #: C/releases.xml:590
@@ -17879,8 +17884,8 @@ msgstr "Fixade problem bgo#684527 (Fixade stavfel i strängar)"
 #. (itstool) path: listitem/para
 #: C/releases.xml:1048
 msgid ""
-"Fixed problem bgo#660063 (define ALT+DOWN binding as user definable: view."
-"dir_history)"
+"Fixed problem bgo#660063 (define ALT+DOWN binding as user definable: "
+"view.dir_history)"
 msgstr ""
 "Fixade problem bgo#660063 (definiera bindningen ALT+NED som "
 "användardefinierbar: view.dir_history)"
@@ -19265,11 +19270,11 @@ msgstr "G"
 #. (itstool) path: listitem/para
 #: C/releases.xml:1946
 msgid ""
-"<_:keycombo-1/> Open new connection to remote server (replaces the old <_:"
-"keycombo-2/>)"
+"<_:keycombo-1/> Open new connection to remote server (replaces the old "
+"<_:keycombo-2/>)"
 msgstr ""
-"<_:keycombo-1/> Öppna ny anslutning till fjärrserver (ersätter det gamla <_:"
-"keycombo-2/>)"
+"<_:keycombo-1/> Öppna ny anslutning till fjärrserver (ersätter det gamla "
+"<_:keycombo-2/>)"
 
 #. (itstool) path: entry/para
 #: C/releases.xml:1955
@@ -19841,8 +19846,8 @@ msgstr "CTRL+SKIFT+RETUR"
 msgid ""
 "Inserting selected file full path to the cmdline when pressing <_:keycap-1/>"
 msgstr ""
-"Infogande av fullständig sökväg för markerad fil till kommandoraden med <_:"
-"keycap-1/>"
+"Infogande av fullständig sökväg för markerad fil till kommandoraden med "
+"<_:keycap-1/>"
 
 #. (itstool) path: listitem/para
 #: C/releases.xml:2330
@@ -20564,3 +20569,10 @@ msgstr "2001-08-02"
 #: C/releases.xml:2762
 msgid "The first public version of GNOME Commander."
 msgstr "Den första offentliga versionen av GNOME Commander."
+
+#~ msgid ""
+#~ "GNOME Commander is still lacking on GVFS/GIO support. Instead it uses "
+#~ "GnomeVFS."
+#~ msgstr ""
+#~ "GNOME Commander saknar fortfarande GVFS/GIO-stöd. Istället använder det "
+#~ "GnomeVFS."
