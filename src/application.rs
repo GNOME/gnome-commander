@@ -31,11 +31,7 @@ pub mod ffi {
             application: *mut GnomeCmdApplication,
             debug_option: *mut c_char,
         );
-        pub fn gnome_cmd_application_activate(
-            application: *mut GnomeCmdApplication,
-            start_dir_left: *const c_char,
-            start_dir_right: *const c_char,
-        );
+        pub fn gnome_cmd_application_activate(application: *mut GnomeCmdApplication);
         pub fn gnome_cmd_application_shutdown();
     }
 }
@@ -46,10 +42,13 @@ mod imp {
     use gtk::glib::translate::ToGlibPtr;
     use std::{cell::RefCell, path::PathBuf};
 
-    #[derive(Default)]
+    #[derive(Default, glib::Properties)]
+    #[properties(wrapper_type = super::Application)]
     pub struct Application {
         debug_flags: RefCell<Option<String>>,
+        #[property(get, set, nullable)]
         start_left_dir: RefCell<Option<PathBuf>>,
+        #[property(get, set, nullable)]
         start_right_dir: RefCell<Option<PathBuf>>,
     }
 
@@ -60,6 +59,7 @@ mod imp {
         type ParentType = gtk::Application;
     }
 
+    #[glib::derived_properties]
     impl ObjectImpl for Application {
         fn constructed(&self) {
             self.parent_constructed();
@@ -124,14 +124,8 @@ mod imp {
                 return;
             }
 
-            let start_left_dir = self.start_left_dir.borrow().clone();
-            let start_right_dir = self.start_right_dir.borrow().clone();
             unsafe {
-                ffi::gnome_cmd_application_activate(
-                    self.obj().to_glib_none().0,
-                    start_left_dir.to_glib_none().0,
-                    start_right_dir.to_glib_none().0,
-                );
+                ffi::gnome_cmd_application_activate(self.obj().to_glib_none().0);
             }
         }
 

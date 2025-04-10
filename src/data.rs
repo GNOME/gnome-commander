@@ -18,6 +18,7 @@
  */
 
 use crate::{
+    file_selector::TabVariant,
     filter::PatternType,
     types::{
         ExtensionDisplayMode, GnomeCmdConfirmOverwriteMode, GraphicalLayoutMode,
@@ -40,6 +41,8 @@ pub trait GeneralOptionsRead {
     fn symlink_format(&self) -> String;
     fn use_trash(&self) -> bool;
     fn keybindings(&self) -> glib::Variant;
+
+    fn file_list_tabs(&self) -> Vec<TabVariant>;
 
     fn date_display_format(&self) -> String;
     fn graphical_layout_mode(&self) -> GraphicalLayoutMode;
@@ -64,6 +67,8 @@ pub trait GeneralOptionsWrite {
     fn set_use_trash(&self, use_trash: bool);
 
     fn set_keybindings(&self, keybindings: &glib::Variant);
+
+    fn set_file_list_tabs(&self, tabs: &[TabVariant]);
 }
 
 impl GeneralOptions {
@@ -93,6 +98,11 @@ impl GeneralOptionsRead for GeneralOptions {
 
     fn keybindings(&self) -> glib::Variant {
         self.0.value("keybindings")
+    }
+
+    fn file_list_tabs(&self) -> Vec<TabVariant> {
+        TabVariant::assert_variant_type();
+        self.0.get("file-list-tabs")
     }
 
     fn date_display_format(&self) -> String {
@@ -171,6 +181,11 @@ impl GeneralOptionsWrite for GeneralOptions {
 
     fn set_keybindings(&self, keybindings: &glib::Variant) {
         self.0.set_value("keybindings", keybindings);
+    }
+
+    fn set_file_list_tabs(&self, tabs: &[TabVariant]) {
+        TabVariant::assert_variant_type();
+        self.0.set("file-list-tabs", tabs);
     }
 }
 

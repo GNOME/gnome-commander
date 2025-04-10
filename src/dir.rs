@@ -42,7 +42,7 @@ pub mod ffi {
     use crate::{connection::connection::ffi::GnomeCmdCon, file::ffi::GnomeCmdFile};
     use gtk::{
         gio::ffi::{GFile, GFileInfo},
-        glib::ffi::{GList, GType},
+        glib::ffi::{gboolean, GList, GType},
     };
     use std::ffi::{c_char, c_void};
 
@@ -59,7 +59,11 @@ pub mod ffi {
             file_info: *mut GFileInfo,
             parent: *mut GnomeCmdDir,
         ) -> *mut GnomeCmdDir;
-        pub fn gnome_cmd_dir_new(dir: *mut GnomeCmdCon, path: *const c_void) -> *mut GnomeCmdDir;
+        pub fn gnome_cmd_dir_new(
+            dir: *mut GnomeCmdCon,
+            path: *const c_void,
+            is_startup: gboolean,
+        ) -> *mut GnomeCmdDir;
 
         pub fn gnome_cmd_dir_get_parent(dir: *mut GnomeCmdDir) -> *mut GnomeCmdDir;
 
@@ -128,6 +132,17 @@ impl Directory {
             from_glib_full(ffi::gnome_cmd_dir_new(
                 connection.as_ref().to_glib_none().0,
                 path.into_raw(),
+                false as gboolean,
+            ))
+        }
+    }
+
+    pub fn new_startup(connection: &Connection, path: GnomeCmdPath) -> Option<Self> {
+        unsafe {
+            from_glib_full(ffi::gnome_cmd_dir_new(
+                connection.to_glib_none().0,
+                path.into_raw(),
+                true as gboolean,
             ))
         }
     }

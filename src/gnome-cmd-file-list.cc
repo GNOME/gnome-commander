@@ -2780,6 +2780,16 @@ GnomeCmdDir *gnome_cmd_file_list_get_directory(GnomeCmdFileList *fl)
     return fl->cwd;
 }
 
+gint gnome_cmd_file_list_get_sort_column (GnomeCmdFileList *fl)
+{
+    return fl->get_sort_column();
+}
+
+gint gnome_cmd_file_list_get_sort_order (GnomeCmdFileList *fl)
+{
+    return fl->get_sort_order();
+}
+
 gboolean gnome_cmd_file_list_is_locked (GnomeCmdFileList *fl)
 {
     return fl->locked;

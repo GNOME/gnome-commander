@@ -30,6 +30,7 @@
 using namespace std;
 
 
+GApplication *gnome_cmd_application = nullptr;
 GnomeCmdMainWin *main_win = nullptr;
 gchar *debug_flags = nullptr;
 
@@ -38,6 +39,7 @@ GnomeCmdIconCache *icon_cache = nullptr;
 
 extern "C" void gnome_cmd_application_startup(GApplication *application, gchar *debug_option)
 {
+    gnome_cmd_application = application;
     debug_flags = debug_option;
 
     /* Load Settings */
@@ -48,16 +50,11 @@ extern "C" void gnome_cmd_application_startup(GApplication *application, gchar *
 }
 
 
-extern "C" void gnome_cmd_application_activate(GApplication *application, const gchar *start_dir_left, const gchar *start_dir_right)
+extern "C" void gnome_cmd_application_activate(GApplication *application)
 {
-    if (start_dir_left)
-        gnome_cmd_data.tabs[LEFT].push_back(make_pair(string(start_dir_left), make_tuple(GnomeCmdFileList::COLUMN_NAME,GTK_SORT_ASCENDING,FALSE)));
-
-    if (start_dir_right)
-        gnome_cmd_data.tabs[RIGHT].push_back(make_pair(string(start_dir_right), make_tuple(GnomeCmdFileList::COLUMN_NAME,GTK_SORT_ASCENDING,FALSE)));
-
     main_win = new GnomeCmdMainWin;
     gtk_window_set_application (GTK_WINDOW (main_win), GTK_APPLICATION (application));
+    main_win->focus_file_lists();
 
     gnome_cmd_data.connect_signals(main_win);
 

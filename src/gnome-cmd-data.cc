@@ -1425,61 +1425,6 @@ void GnomeCmdData::save_devices()
 
 
 /**
- * Save tabs in given gSettings and in given key
- */
-static void save_tabs (GSettings *gSettings, const char *gSettingsKey, GnomeCmdMainWin *main_win)
-{
-    if (main_win == nullptr)
-        return;
-
-    GVariant* fileListTabs;
-    GVariantBuilder gVariantBuilder;
-    g_variant_builder_init (&gVariantBuilder, G_VARIANT_TYPE_ARRAY);
-
-    for (int fileSelectorIdInt = LEFT; fileSelectorIdInt <= RIGHT; fileSelectorIdInt++)
-    {
-        FileSelectorID fileSelectorId = static_cast<FileSelectorID>(fileSelectorIdInt);
-        GnomeCmdFileSelector gnomeCmdFileSelector = *main_win->fs(fileSelectorId);
-        GListModel *tabs = gnomeCmdFileSelector.GetTabs();
-
-        guint tabs_count = g_list_model_get_n_items (tabs);
-        for (guint i = 0; i < tabs_count; ++i)
-        {
-            auto page = GTK_NOTEBOOK_PAGE (g_list_model_get_item (tabs, i));
-            auto fl = GNOME_CMD_FILE_LIST (gtk_notebook_page_get_child (page));
-            if (!fl)
-                continue;
-
-            if (gnome_cmd_data.options.save_tabs_on_exit || (gnome_cmd_data.options.save_dirs_on_exit && fl == gnomeCmdFileSelector.file_list()) || fl->locked)
-            {
-                if (!fl->cwd)
-                    continue;
-                gchar* uriString = GNOME_CMD_FILE (fl->cwd)->get_uri_str();
-                if (!uriString)
-                    continue;
-                g_variant_builder_add (&gVariantBuilder, GCMD_SETTINGS_FILE_LIST_TAB_FORMAT_STRING,
-                                        uriString,
-                                        (guchar) fileSelectorId,
-                                        fl->get_sort_column(),
-                                        fl->get_sort_order(),
-                                        fl->locked);
-                g_free(uriString);
-            }
-        }
-        g_object_unref (tabs);
-    }
-    fileListTabs = g_variant_builder_end (&gVariantBuilder);
-
-    if (!fileListTabs)
-    {
-        return;
-    }
-
-    g_settings_set_value(gSettings, gSettingsKey, fileListTabs);
-}
-
-
-/**
  * Save connections in gSettings
  */
 void GnomeCmdData::save_connections()
@@ -1881,37 +1826,6 @@ gboolean GnomeCmdData::set_valid_color_string(GSettings *settings_given, const c
 
 
 /**
- * Loads tabs from gSettings into gcmd options
- */
-void GnomeCmdData::load_tabs()
-{
-    GVariant *gvTabs, *tab;
-    GVariantIter iter;
-
-    gvTabs = g_settings_get_value(options.gcmd_settings->general, GCMD_SETTINGS_FILE_LIST_TABS);
-
-    g_variant_iter_init (&iter, gvTabs);
-
-    while ((tab = g_variant_iter_next_value (&iter)) != nullptr)
-    {
-        gchar *uriCharString;
-        gboolean sort_order, locked;
-        guchar fileSelectorId, sort_column;
-
-        g_assert (g_variant_is_of_type (tab, G_VARIANT_TYPE (GCMD_SETTINGS_FILE_LIST_TAB_FORMAT_STRING)));
-        g_variant_get(tab, GCMD_SETTINGS_FILE_LIST_TAB_FORMAT_STRING, &uriCharString, &fileSelectorId, &sort_column, &sort_order, &locked);
-        string uriString(uriCharString);
-        if (!uriString.empty() && sort_column < GnomeCmdFileList::NUM_COLUMNS)
-        {
-            this->tabs[(FileSelectorID) fileSelectorId].push_back(make_pair(uriString, make_tuple((GnomeCmdFileList::ColumnID) sort_column, (GtkSortType) sort_order, locked)));
-        }
-        g_variant_unref(tab);
-        g_free(uriCharString);
-    }
-    g_variant_unref(gvTabs);
-}
-
-/**
  * Loads devices from gSettings into gcmd options
  */
 void GnomeCmdData::load_devices()
@@ -2046,8 +1960,6 @@ void GnomeCmdData::load()
     advrename_defaults.height = g_settings_get_uint (options.gcmd_settings->general, GCMD_SETTINGS_ADVRENAME_TOOL_HEIGHT);
     advrename_defaults.templates.ents = get_list_from_gsettings_string_array (options.gcmd_settings->general, GCMD_SETTINGS_ADVRENAME_TOOL_TEMPLATE_HISTORY);
 
-    load_tabs();
-
     load_cmdline_history();
 
     if (!priv->con_list)
@@ -2180,7 +2092,6 @@ void GnomeCmdData::save(GnomeCmdMainWin *main_win)
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_ADVRENAME_TOOL_HEIGHT, &(advrename_defaults.height));
     set_gsettings_string_array_from_glist(options.gcmd_settings->general, GCMD_SETTINGS_ADVRENAME_TOOL_TEMPLATE_HISTORY, advrename_defaults.templates.ents);
 
-    save_tabs                       (options.gcmd_settings->general, GCMD_SETTINGS_FILE_LIST_TABS, main_win);
     save_devices                    ();
     save_cmdline_history            (main_win);
     save_directory_history          ();

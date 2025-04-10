@@ -2,7 +2,7 @@
  * Copyright 2001-2006 Marcus Bjurman
  * Copyright 2007-2012 Piotr Eljasiak
  * Copyright 2013-2024 Uwe Scholz
- * Copyright 2024 Andrey Kutejko <andy128k@gmail.com>
+ * Copyright 2024-2025 Andrey Kutejko <andy128k@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -21,9 +21,14 @@
  */
 
 use crate::{
-    connection::connection::{Connection, ConnectionExt},
+    connection::{
+        connection::{Connection, ConnectionExt},
+        list::ConnectionList,
+        remote::ConnectionRemote,
+    },
     dir::Directory,
-    file_list::list::FileList,
+    file::File,
+    file_list::list::{ColumnID, FileList},
     notebook_ext::{GnomeCmdNotebookExt, TabClick},
     types::FileSelectorID,
 };
@@ -33,23 +38,26 @@ use gtk::{
     gdk, gio,
     glib::{
         self,
-        translate::{from_glib_none, ToGlibPtr},
+        ffi::gboolean,
+        translate::{from_glib_none, IntoGlib, ToGlibPtr},
     },
     graphene,
     prelude::*,
 };
 use std::{
-    collections::{BTreeSet, HashMap},
-    path::Path,
+    collections::{BTreeSet, HashMap, HashSet},
+    ffi::c_int,
+    path::{Path, PathBuf},
 };
 
 pub mod ffi {
+    use super::*;
     use crate::{
         connection::connection::ffi::GnomeCmdCon, dir::ffi::GnomeCmdDir,
         file_list::list::ffi::GnomeCmdFileList,
     };
     use gtk::{
-        ffi::{GtkNotebook, GtkWidget},
+        ffi::GtkWidget,
         glib::ffi::{gboolean, GType},
     };
 
@@ -94,6 +102,15 @@ pub mod ffi {
         pub fn gnome_cmd_file_selector_new_tab_with_dir(
             fs: *mut GnomeCmdFileSelector,
             dir: *mut GnomeCmdDir,
+            activate: gboolean,
+        ) -> *const GtkWidget;
+
+        pub fn gnome_cmd_file_selector_new_tab_full(
+            fs: *mut GnomeCmdFileSelector,
+            dir: *mut GnomeCmdDir,
+            sort_col: c_int,
+            sort_order: c_int,
+            locked: gboolean,
             activate: gboolean,
         ) -> *const GtkWidget;
 
@@ -189,6 +206,26 @@ impl FileSelector {
         }
     }
 
+    pub fn new_tab_full(
+        &self,
+        dir: &Directory,
+        sort_column: ColumnID,
+        sort_order: gtk::SortType,
+        locked: bool,
+        activate: bool,
+    ) -> gtk::Widget {
+        unsafe {
+            from_glib_none(ffi::gnome_cmd_file_selector_new_tab_full(
+                self.to_glib_none().0,
+                dir.to_glib_none().0,
+                sort_column as c_int,
+                sort_order.into_glib(),
+                locked as gboolean,
+                activate as gboolean,
+            ))
+        }
+    }
+
     pub fn close_tab(&self) {
         unsafe { ffi::gnome_cmd_file_selector_close_tab(self.to_glib_none().0) }
     }
@@ -279,6 +316,141 @@ impl FileSelector {
         for index in duplicates.into_iter().rev() {
             self.close_tab_nth(index);
         }
+    }
+
+    pub fn save_tabs(&self, save_all_tabs: bool, save_current: bool) -> Vec<TabVariant> {
+        self.notebook()
+            .pages()
+            .iter::<gtk::NotebookPage>()
+            .flatten()
+            .map(|p| p.child())
+            .filter_map(|c| c.downcast::<FileList>().ok())
+            .filter(|file_list| {
+                save_all_tabs
+                    || (save_current && *file_list == self.file_list())
+                    || file_list.is_locked()
+            })
+            .filter_map(|file_list| {
+                let directory = file_list.directory()?;
+                let uri = directory.upcast_ref::<File>().get_uri_str()?;
+                Some(TabVariant {
+                    uri,
+                    file_felector_id: 0,
+                    sort_column: file_list.sort_column() as u8,
+                    sort_order: file_list.sort_order() != gtk::SortType::Ascending,
+                    locked: file_list.is_locked(),
+                })
+            })
+            .collect()
+    }
+
+    pub fn open_tabs(&self, tabs: Vec<TabVariant>) {
+        let connection_list = ConnectionList::get();
+
+        let mut visited: HashSet<TabVariant> = Default::default();
+        for mut stored_tab in tabs {
+            stored_tab.file_felector_id = 0;
+            if visited.contains(&stored_tab) {
+                continue;
+            }
+            if let Some(directory) = restore_directory(&connection_list, &stored_tab.uri) {
+                self.new_tab_full(
+                    &directory,
+                    stored_tab.sort_column_id(),
+                    stored_tab.sort_type(),
+                    stored_tab.locked,
+                    true,
+                );
+            }
+            visited.insert(stored_tab);
+        }
+
+        if self.tab_count() == 0 {
+            // Fallback to home directory
+            let con = connection_list.home();
+            let path = PathBuf::from(glib::home_dir());
+            if let Some(directory) =
+                Directory::new_startup(con.upcast_ref(), con.create_path(&path))
+            {
+                self.new_tab_full(
+                    &directory,
+                    ColumnID::COLUMN_NAME,
+                    gtk::SortType::Ascending,
+                    false,
+                    true,
+                );
+            } else {
+                eprintln!("Stored path {} is invalid. Skipping", path.display());
+            }
+        }
+    }
+}
+
+#[derive(PartialEq, Eq, Hash, glib::Variant)]
+pub struct TabVariant {
+    pub uri: String,
+    pub file_felector_id: u8,
+    pub sort_column: u8,
+    pub sort_order: bool,
+    pub locked: bool,
+}
+
+impl TabVariant {
+    pub fn assert_variant_type() {
+        debug_assert_eq!(*Self::static_variant_type(), "(syybb)");
+    }
+
+    pub fn new(uri: impl Into<String>) -> Self {
+        Self {
+            uri: uri.into(),
+            file_felector_id: 0,
+            sort_column: ColumnID::COLUMN_NAME as u8,
+            sort_order: false,
+            locked: false,
+        }
+    }
+
+    pub fn sort_column_id(&self) -> ColumnID {
+        self.sort_column
+            .try_into()
+            .ok()
+            .and_then(ColumnID::from_repr)
+            .unwrap_or(ColumnID::COLUMN_NAME)
+    }
+
+    pub fn sort_type(&self) -> gtk::SortType {
+        match self.sort_order {
+            false => gtk::SortType::Ascending,
+            true => gtk::SortType::Descending,
+        }
+    }
+}
+
+fn restore_directory(connection_list: &ConnectionList, stored_uri: &str) -> Option<Directory> {
+    let (con, path) = match glib::Uri::parse(stored_uri, glib::UriFlags::NONE) {
+        Ok(uri) => {
+            let con: Connection = if uri.scheme() == "file" {
+                connection_list.home().upcast()
+            } else {
+                // TODO: use connection_list to find or register a connection
+                ConnectionRemote::new(stored_uri, &uri).upcast()
+            };
+            let path = PathBuf::from(uri.path());
+            (con, path)
+        }
+        Err(error) => {
+            eprintln!("Stored URI is invalid: {}", error.message());
+            let con = connection_list.home().upcast();
+            let path = PathBuf::from(stored_uri);
+            (con, path)
+        }
+    };
+
+    if let Some(directory) = Directory::new_startup(&con, con.create_path(&path)) {
+        Some(directory)
+    } else {
+        eprintln!("Stored path {} is invalid. Skipping", path.display());
+        None
     }
 }
 

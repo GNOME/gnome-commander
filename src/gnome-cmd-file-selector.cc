@@ -1226,6 +1226,11 @@ GtkWidget *gnome_cmd_file_selector_new_tab_with_dir (GnomeCmdFileSelector *fs, G
     return fs->new_tab(dir, activate);
 }
 
+GtkWidget *gnome_cmd_file_selector_new_tab_full (GnomeCmdFileSelector *fs, GnomeCmdDir *dir, gint sort_col, gint sort_order, gboolean locked, gboolean activate)
+{
+    return fs->new_tab(dir, (GnomeCmdFileList::ColumnID) sort_col, (GtkSortType) sort_order, locked, activate);
+}
+
 void gnome_cmd_file_selector_close_tab (GnomeCmdFileSelector *fs)
 {
     fs->close_tab();
