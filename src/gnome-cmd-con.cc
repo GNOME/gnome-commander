@@ -23,7 +23,7 @@
 
 #include "gnome-cmd-includes.h"
 #include "gnome-cmd-con.h"
-#include "gnome-cmd-plain-path.h"
+#include "gnome-cmd-path.h"
 #include "gnome-cmd-main-win.h"
 #include "gnome-cmd-con-list.h"
 
@@ -68,7 +68,7 @@ static void on_open_failed (GnomeCmdCon *con)
 {
     // gnome_cmd_con_updated (con);
     // Free the error because the error handling is done now. (Logging happened already.)
-    g_error_free(con->open_failed_error);
+    g_clear_error (&con->open_failed_error);
     con->open_failed_msg = nullptr;
 }
 
@@ -85,12 +85,7 @@ static void dispose (GObject *object)
     g_clear_pointer (&priv->uuid, g_free);
     g_clear_pointer (&con->alias, g_free);
     g_clear_pointer (&priv->uri, g_uri_unref);
-
-    if (priv->base_path != nullptr)
-    {
-        delete priv->base_path;
-        priv->base_path = nullptr;
-    }
+    g_clear_pointer (&priv->base_path, gnome_cmd_path_free);
     g_clear_object (&priv->base_gFileInfo);
     g_clear_error (&con->open_failed_error);
 
@@ -268,7 +263,7 @@ void gnome_cmd_con_set_base_path(GnomeCmdCon *con, GnomeCmdPath *path)
     auto priv = static_cast<GnomeCmdConPrivate *> (gnome_cmd_con_get_instance_private (con));
 
     if (priv->base_path)
-        delete priv->base_path;
+        gnome_cmd_path_free (priv->base_path);
 
     priv->base_path = path;
 }
@@ -510,20 +505,22 @@ gboolean gnome_cmd_con_get_path_target_type (GnomeCmdCon *con, const gchar *path
     g_return_val_if_fail (path_str != nullptr, false);
 
     GnomeCmdPath *path = gnome_cmd_con_create_path (con, path_str);
-    auto gFile = gnome_cmd_con_create_gfile(con, path->get_path());
+    gchar *path_str2 = gnome_cmd_path_get_path (path);
+    auto gFile = gnome_cmd_con_create_gfile(con, path_str2);
+    g_free (path_str2);
 
     if (!gFile || !g_file_query_exists(gFile, nullptr))
     {
         if (gFile)
             g_object_unref(gFile);
         *gFileType = G_FILE_TYPE_UNKNOWN;
-        delete path;
+        gnome_cmd_path_free (path);
         return false;
     }
 
     *gFileType = g_file_query_file_type(gFile, G_FILE_QUERY_INFO_NONE, nullptr);
     g_object_unref(gFile);
-    delete path;
+    gnome_cmd_path_free (path);
 
     return true;
 }
@@ -537,7 +534,9 @@ gboolean gnome_cmd_con_mkdir (GnomeCmdCon *con, const gchar *path_str, GError *e
     g_return_val_if_fail (path_str != nullptr, false);
 
     auto path = gnome_cmd_con_create_path (con, path_str);
-    auto gFile = gnome_cmd_con_create_gfile (con, path->get_path());
+    gchar *path_str2 = gnome_cmd_path_get_path (path);
+    auto gFile = gnome_cmd_con_create_gfile (con, path_str2);
+    g_free (path_str2);
 
     if (!g_file_make_directory (gFile, nullptr, &tmpError))
     {
@@ -547,7 +546,7 @@ gboolean gnome_cmd_con_mkdir (GnomeCmdCon *con, const gchar *path_str, GError *e
     }
 
     g_object_unref (gFile);
-    delete path;
+    gnome_cmd_path_free (path);
 
     return true;
 }

@@ -24,7 +24,7 @@
 
 #include "gnome-cmd-includes.h"
 #include "gnome-cmd-con-list.h"
-#include "gnome-cmd-plain-path.h"
+#include "gnome-cmd-path.h"
 #include "gnome-cmd-xfer.h"
 #include "gnome-cmd-dir.h"
 #include "gnome-cmd-main-win.h"
@@ -849,7 +849,7 @@ gnome_cmd_move_gfile_recursive (GFile *srcGFile,
                         auto gFileParentUri = g_file_get_uri(srcGFileParent);
                         auto gUriParent = g_uri_parse(gFileParentUri, G_URI_FLAGS_NONE, nullptr);
                         auto gFileParentPathFromUri = g_uri_get_path(gUriParent);
-                        gnomeCmdDirParent = gnome_cmd_dir_new (gnomeCmdCon, new GnomeCmdPlainPath(gFileParentPathFromUri));
+                        gnomeCmdDirParent = gnome_cmd_dir_new (gnomeCmdCon, gnome_cmd_plain_path_new (gFileParentPathFromUri));
                         g_free(gFileParentUri);
                     }
                 }
@@ -857,7 +857,7 @@ gnome_cmd_move_gfile_recursive (GFile *srcGFile,
                 {
                     auto gFileParentPath = g_file_get_path(srcGFileParent);
                     gnomeCmdCon = get_home_con();
-                    gnomeCmdDirParent = gnome_cmd_dir_new (gnomeCmdCon, new GnomeCmdPlainPath(gFileParentPath));
+                    gnomeCmdDirParent = gnome_cmd_dir_new (gnomeCmdCon, gnome_cmd_plain_path_new (gFileParentPath));
                     g_free(gFileParentPath);
                 }
 

@@ -187,11 +187,11 @@ glib::wrapper! {
         @extends gtk::Window, gtk::Widget;
 }
 
-fn prepend_slash(str: String) -> String {
-    if !str.starts_with("/") {
-        format!("/{}", str)
+fn prepend_slash(path: PathBuf) -> PathBuf {
+    if path.is_absolute() {
+        path
     } else {
-        str
+        PathBuf::from("/").join(path)
     }
 }
 
@@ -378,9 +378,7 @@ pub async fn handle_user_input(
         }
     } else {
         if !default_dest_dir.upcast_ref::<File>().is_local() {
-            dest_path = PathBuf::from(prepend_slash(
-                default_dest_dir.path().child(&user_path).path(),
-            ));
+            dest_path = prepend_slash(default_dest_dir.path().child(&user_path).path());
         } else {
             dest_path = PathBuf::from(
                 src_directory

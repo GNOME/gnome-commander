@@ -49,7 +49,7 @@ pub mod ffi {
         gio::ffi::{GFile, GFileInfo},
         glib::ffi::{gboolean, GError, GType},
     };
-    use std::ffi::{c_char, c_void};
+    use std::ffi::c_char;
 
     #[repr(C)]
     pub struct GnomeCmdFile {
@@ -72,7 +72,7 @@ pub mod ffi {
         ) -> *mut GnomeCmdFile;
 
         pub fn gnome_cmd_file_get_real_path(f: *const GnomeCmdFile) -> *mut c_char;
-        pub fn gnome_cmd_file_get_path_through_parent(f: *const GnomeCmdFile) -> *mut c_void;
+        pub fn gnome_cmd_file_get_path_through_parent(f: *const GnomeCmdFile) -> *mut GnomeCmdPath;
         pub fn gnome_cmd_file_get_path_string_through_parent(f: *const GnomeCmdFile)
             -> *mut c_char;
 

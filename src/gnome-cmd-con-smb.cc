@@ -24,11 +24,14 @@
 #include "gnome-cmd-includes.h"
 #include "gnome-cmd-data.h"
 #include "gnome-cmd-con-smb.h"
-#include "gnome-cmd-smb-path.h"
+#include "gnome-cmd-path.h"
 #include "imageloader.h"
 #include "utils.h"
 
 using namespace std;
+
+
+extern "C" GnomeCmdPath *gnome_cmd_smb_path_new(const gchar *path, GnomeCmdConSmb *con);
 
 
 struct GnomeCmdConSmbClass
@@ -46,16 +49,19 @@ static void mount_func (GnomeCmdCon *con)
 
     // ToDo: Check if the error block below is executed if samba is not available on the system.
     // ToDo: Check if password is visible in the logs below!
-    auto gFile = gnome_cmd_con_create_gfile (con, gnome_cmd_con_get_base_path (con)->get_path());
+    gchar *path = gnome_cmd_path_get_path (gnome_cmd_con_get_base_path (con));
+    auto gFile = gnome_cmd_con_create_gfile (con, path);
     if (!gFile)
     {
         DEBUG('s', "gnome_cmd_con_create_gfile returned NULL\n");
         con->state = GnomeCmdCon::STATE_CLOSED;
         con->open_result = GnomeCmdCon::OPEN_FAILED;
-        con->open_failed_error = g_error_new(G_IO_ERROR, G_IO_ERROR_INVALID_DATA, "Could not create a GFile object for \"smb:%s\"", gnome_cmd_con_get_base_path (con)->get_path());
+        con->open_failed_error = g_error_new(G_IO_ERROR, G_IO_ERROR_INVALID_DATA, "Could not create a GFile object for \"smb:%s\"", path);
         con->open_failed_msg = g_strdup (_("Failed to browse the network. Is Samba supported on the system?"));
+        g_free (path);
         return;
     }
+    g_free (path);
 
     GError *error = nullptr;
 
@@ -119,7 +125,7 @@ start_mount_func (GnomeCmdCon *con)
 static void smb_open (GnomeCmdCon *con, GtkWindow *parent_window)
 {
     if (gnome_cmd_con_get_base_path (con) == nullptr)
-        gnome_cmd_con_set_base_path (con, new GnomeCmdSmbPath(nullptr, nullptr, nullptr));
+        gnome_cmd_con_set_base_path (con, gnome_cmd_smb_path_new (nullptr, nullptr));
 
     con->state = GnomeCmdCon::STATE_OPENING;
     con->open_result = GnomeCmdCon::OPEN_IN_PROGRESS;
@@ -155,8 +161,16 @@ static gboolean smb_open_is_needed (GnomeCmdCon *con)
 static GFile *smb_create_gfile (GnomeCmdCon *con, const gchar *path)
 {
     auto *gFileTmp = g_file_new_for_uri ("smb:");
-    auto gFile = g_file_resolve_relative_path (gFileTmp, path);
-    g_object_unref(gFileTmp);
+    GFile *gFile;
+    if (path)
+    {
+        gFile = g_file_resolve_relative_path (gFileTmp, path);
+        g_object_unref(gFileTmp);
+    }
+    else
+    {
+        gFile = gFileTmp;
+    }
 
     if (!gFile)
     {
@@ -169,7 +183,7 @@ static GFile *smb_create_gfile (GnomeCmdCon *con, const gchar *path)
 
 static GnomeCmdPath *smb_create_path (GnomeCmdCon *con, const gchar *path_str)
 {
-    return new GnomeCmdSmbPath(path_str);
+    return gnome_cmd_smb_path_new (path_str, GNOME_CMD_CON_SMB (con));
 }
 
 

@@ -644,3 +644,41 @@ pub fn extract_menu_shortcuts(menu: &gio::MenuModel) -> gio::ListModel {
     traverse(&store, menu);
     store.upcast()
 }
+
+pub trait GnomeCmdFileExt {
+    fn all_children(
+        &self,
+        attributes: &str,
+        flags: gio::FileQueryInfoFlags,
+        cancellable: Option<&impl IsA<gio::Cancellable>>,
+    ) -> Result<Vec<gio::FileInfo>, glib::Error>;
+}
+
+impl GnomeCmdFileExt for gio::File {
+    fn all_children(
+        &self,
+        attributes: &str,
+        flags: gio::FileQueryInfoFlags,
+        cancellable: Option<&impl IsA<gio::Cancellable>>,
+    ) -> Result<Vec<gio::FileInfo>, glib::Error> {
+        let enumerator = self.enumerate_children(attributes, flags, cancellable)?;
+        let mut vec = Vec::new();
+        let result = loop {
+            match enumerator.next_file(cancellable) {
+                Ok(Some(file_info)) => {
+                    vec.push(file_info);
+                }
+                Ok(None) => {
+                    break Ok(());
+                }
+                Err(error) => {
+                    break Err(error);
+                }
+            };
+        };
+        let close_result = enumerator.close(cancellable);
+        let _ = result?;
+        let _ = close_result?;
+        Ok(vec)
+    }
+}

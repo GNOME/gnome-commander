@@ -27,7 +27,7 @@
 #include "gnome-cmd-includes.h"
 #include "gnome-cmd-data.h"
 #include "gnome-cmd-con-device.h"
-#include "gnome-cmd-plain-path.h"
+#include "gnome-cmd-path.h"
 #include "imageloader.h"
 #include "utils.h"
 
@@ -61,7 +61,7 @@ static void set_con_base_path_for_gmount (GnomeCmdConDevice *con)
     auto pathString = g_file_get_path(gFile);
     g_object_unref(gFile);
 
-    gnome_cmd_con_set_base_path (GNOME_CMD_CON (con), new GnomeCmdPlainPath(pathString));
+    gnome_cmd_con_set_base_path (GNOME_CMD_CON (con), gnome_cmd_plain_path_new (pathString));
 
     g_free(pathString);
 }
@@ -188,7 +188,9 @@ static void set_con_mount_failed(GnomeCmdCon *con)
 static gboolean set_con_base_gfileinfo(GnomeCmdCon *con)
 {
     GError *error = nullptr;
-    auto gFile = gnome_cmd_con_create_gfile (con, gnome_cmd_con_get_base_path (con)->get_path());
+    gchar *path = gnome_cmd_path_get_path (gnome_cmd_con_get_base_path (con));
+    auto gFile = gnome_cmd_con_create_gfile (con, path);
+    g_free (path);
     auto gFileInfo = g_file_query_info(gFile, "*", G_FILE_QUERY_INFO_NONE, nullptr, &error);
     gnome_cmd_con_set_base_file_info (con, gFileInfo);
     g_object_unref(gFile);
@@ -228,7 +230,9 @@ static void mount_finish_callback(GObject *gVol, GAsyncResult *result, gpointer 
     }
     if (GnomeCmdPath *base_path = gnome_cmd_con_get_base_path (con))
     {
-        gchar *uri_string = g_filename_to_uri (base_path->get_path(), nullptr, nullptr);
+        gchar *path = gnome_cmd_path_get_path (base_path);
+        gchar *uri_string = g_filename_to_uri (path, nullptr, nullptr);
+        g_free (path);
         gnome_cmd_con_set_uri_string (con, uri_string);
         g_free (uri_string);
     }
@@ -242,7 +246,7 @@ static void do_legacy_mount_thread_func(GnomeCmdCon *con)
 
     if (gnome_cmd_con_get_base_path (con) == nullptr)
     {
-        gnome_cmd_con_set_base_path (con, new GnomeCmdPlainPath(priv->mountp));
+        gnome_cmd_con_set_base_path (con, gnome_cmd_plain_path_new (priv->mountp));
     }
 
     do_legacy_mount(con);
@@ -488,7 +492,7 @@ static GnomeCmdPath *dev_create_path (GnomeCmdCon *con, const gchar *path_str)
     g_return_val_if_fail (GNOME_CMD_IS_CON_DEVICE (con), nullptr);
     g_return_val_if_fail (path_str != nullptr, nullptr);
 
-    return new GnomeCmdPlainPath(path_str);
+    return gnome_cmd_plain_path_new(path_str);
 }
 
 

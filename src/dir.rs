@@ -39,12 +39,14 @@ use gtk::{
 use std::ffi::CStr;
 
 pub mod ffi {
-    use crate::{connection::connection::ffi::GnomeCmdCon, file::ffi::GnomeCmdFile};
+    use crate::{
+        connection::connection::ffi::GnomeCmdCon, file::ffi::GnomeCmdFile, path::GnomeCmdPath,
+    };
     use gtk::{
         gio::ffi::{GFile, GFileInfo},
         glib::ffi::{gboolean, GList, GType},
     };
-    use std::ffi::{c_char, c_void};
+    use std::ffi::c_char;
 
     #[repr(C)]
     pub struct GnomeCmdDir {
@@ -61,7 +63,7 @@ pub mod ffi {
         ) -> *mut GnomeCmdDir;
         pub fn gnome_cmd_dir_new(
             dir: *mut GnomeCmdCon,
-            path: *const c_void,
+            path: *const GnomeCmdPath,
             is_startup: gboolean,
         ) -> *mut GnomeCmdDir;
 
@@ -79,7 +81,7 @@ pub mod ffi {
             filename: *const c_char,
         ) -> *mut GFile;
 
-        pub fn gnome_cmd_dir_get_path(dir: *mut GnomeCmdDir) -> *mut c_void;
+        pub fn gnome_cmd_dir_get_path(dir: *mut GnomeCmdDir) -> *mut GnomeCmdPath;
 
         pub fn gnome_cmd_dir_file_created(dir: *mut GnomeCmdDir, uri_str: *const c_char);
         pub fn gnome_cmd_dir_file_deleted(dir: *mut GnomeCmdDir, uri_str: *const c_char);
@@ -213,8 +215,8 @@ impl Directory {
         }
     }
 
-    pub fn path(&self) -> GnomeCmdPath {
-        unsafe { GnomeCmdPath::from_raw_borrow(ffi::gnome_cmd_dir_get_path(self.to_glib_none().0)) }
+    pub fn path(&self) -> &GnomeCmdPath {
+        unsafe { &*ffi::gnome_cmd_dir_get_path(self.to_glib_none().0) }
     }
 
     pub fn file_created(&self, uri_str: &str) {
