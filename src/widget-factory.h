@@ -68,10 +68,6 @@ GtkWidget *create_spin (GtkWidget *parent, const gchar *name, gint min, gint max
 
 GtkWidget *create_scale (GtkWidget *parent, const gchar *name, gint value, gint min, gint max);
 
-GtkWidget *create_treeview (GtkWidget *parent, const gchar *name, GtkTreeModel *model, gint rowh, GCallback on_selection_changed, GCallback on_rows_reordered);
-
-void create_treeview_column (GtkWidget *sw, gint col, gint width, const gchar *label);
-
 GtkWidget *create_combo_box_text (GtkWidget *parent, const gchar **items);
 
 GtkWidget *create_progress_bar (GtkWidget *parent);

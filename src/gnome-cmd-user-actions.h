@@ -28,7 +28,6 @@
 #include "gnome-cmd-file-selector.h"
 #include "gnome-cmd-data.h"
 #include "gnome-cmd-main-win.h"
-#include "dict.h"
 
 #define USER_ACTION_SETTINGS (gcmd_user_action_settings_get_type ())
 G_DECLARE_FINAL_TYPE (GcmdUserActionSettings, gcmd_user_action_settings, GCMD, USER_ACTIONS, GObject)

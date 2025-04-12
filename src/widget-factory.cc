@@ -245,81 +245,6 @@ GtkWidget *create_scale (GtkWidget *parent, const gchar *name, gint value, gint 
 }
 
 
-GtkWidget *create_treeview (GtkWidget *parent, const gchar *name, GtkTreeModel *model, gint rowh, GCallback on_selection_changed, GCallback on_rows_reordered)
-{
-    GtkWidget *sw, *view;
-
-    sw = gtk_scrolled_window_new ();
-    g_object_ref (sw);
-    g_object_set_data_full (G_OBJECT (parent), "sw", sw, g_object_unref);
-    gtk_widget_show (sw);
-    gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (sw), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
-
-    view = gtk_tree_view_new_with_model (model);
-    g_object_ref (view);
-    g_object_set_data (G_OBJECT (sw), "view", view);
-    g_object_set_data (G_OBJECT (sw), "rowh", GINT_TO_POINTER (rowh));
-    g_object_set_data_full (G_OBJECT (parent), name, view, g_object_unref);
-    gtk_tree_view_set_fixed_height_mode (GTK_TREE_VIEW (view), TRUE);
-    gtk_tree_view_set_headers_clickable (GTK_TREE_VIEW (view), FALSE);
-    gtk_widget_show (view);
-    gtk_scrolled_window_set_child (GTK_SCROLLED_WINDOW (sw), view);
-
-    g_object_unref (model);
-
-    GtkTreeSelection *selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (view));
-    gtk_tree_selection_set_mode (selection, GTK_SELECTION_SINGLE);
-
-    if (on_selection_changed)
-        g_signal_connect (selection, "changed", G_CALLBACK (on_selection_changed), parent);
-    if (on_rows_reordered)
-        g_signal_connect (model, "rows-reordered", G_CALLBACK (on_rows_reordered), parent);
-    return sw;
-}
-
-
-void create_treeview_column (GtkWidget *sw, gint col, gint width, const gchar *label)
-{
-    GtkTreeView *view = GTK_TREE_VIEW (g_object_get_data (G_OBJECT (sw), "view"));
-    gint rowh = GPOINTER_TO_INT (g_object_get_data (G_OBJECT (sw), "rowh"));
-    GtkTreeModel *model = gtk_tree_view_get_model (view);
-
-    GtkCellRenderer *renderer;
-    const gchar *attribute;
-    GType type = gtk_tree_model_get_column_type (model, col);
-    if (type == G_TYPE_STRING)
-    {
-        renderer = gtk_cell_renderer_text_new ();
-        attribute = "text";
-    }
-    else if (type == G_TYPE_ICON)
-    {
-        renderer = gtk_cell_renderer_pixbuf_new ();
-        attribute = "gicon";
-    }
-    else if (type == GDK_TYPE_PIXBUF)
-    {
-        renderer = gtk_cell_renderer_pixbuf_new ();
-        attribute = "pixbuf";
-    }
-    else
-    {
-        return;
-    }
-
-    gtk_cell_renderer_set_fixed_size (renderer, -1, rowh);
-
-    GtkTreeViewColumn *column = gtk_tree_view_column_new ();
-    gtk_tree_view_column_set_sizing (column, GTK_TREE_VIEW_COLUMN_FIXED);
-    gtk_tree_view_column_set_fixed_width (column, width);
-    gtk_tree_view_column_set_resizable (column, TRUE);
-    gtk_tree_view_column_set_title (column, label);
-    gtk_tree_view_column_pack_start (column, renderer, TRUE);
-    gtk_tree_view_column_add_attribute (column, renderer, attribute, col);
-    gtk_tree_view_insert_column (view, column, col);
-}
-
-
 GtkWidget *create_combo_box_text (GtkWidget *parent, const gchar **items)
 {
     GtkWidget *combo = gtk_combo_box_text_new ();
@@ -344,4 +269,3 @@ GtkWidget *create_progress_bar (GtkWidget *parent)
     gtk_progress_bar_set_show_text (GTK_PROGRESS_BAR (w), TRUE);
     return w;
 }
-

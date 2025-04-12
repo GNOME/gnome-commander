@@ -25,7 +25,6 @@
 #include <vector>
 #include <functional>
 #include "gnome-cmd-dir.h"
-#include "gnome-cmd-collection.h"
 #include "gnome-cmd-types.h"
 #include "filter.h"
 

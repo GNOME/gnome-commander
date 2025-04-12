@@ -318,22 +318,6 @@ GList *string_history_add (GList *in, const gchar *value, guint maxsize)
 }
 
 
-gchar *create_nice_size_str (guint64 size)
-{
-    GString *s = g_string_sized_new (64);
-
-    if (gnome_cmd_data.options.size_disp_mode==GNOME_CMD_SIZE_DISP_MODE_POWERED && size>=1000)
-    {
-        g_string_printf (s, "%s", size2string (size, GNOME_CMD_SIZE_DISP_MODE_POWERED));
-        g_string_append_printf (s, ngettext("(%sbyte)","(%sbytes)",size), size2string (size, GNOME_CMD_SIZE_DISP_MODE_GROUPED));
-    }
-    else
-        g_string_printf (s, ngettext("%sbyte","%sbytes",size), size2string (size, GNOME_CMD_SIZE_DISP_MODE_GROUPED));
-
-    return g_string_free (s, FALSE);
-}
-
-
 gchar *unquote_if_needed (const gchar *in)
 {
 
