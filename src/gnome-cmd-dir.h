@@ -32,9 +32,6 @@
 extern "C" GType gnome_cmd_dir_get_type ();
 
 
-struct GnomeCmdDir;
-struct GnomeCmdDirPrivate;
-
 #include <string>
 
 #include "gnome-cmd-file.h"
@@ -42,9 +39,7 @@ struct GnomeCmdDirPrivate;
 
 struct GnomeCmdDir
 {
-    GnomeCmdFile parent;      // this MUST be the first member
-
-    GnomeCmdDirPrivate *priv;
+    GnomeCmdFile parent;
 
     enum State
     {
