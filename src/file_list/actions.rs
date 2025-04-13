@@ -271,7 +271,7 @@ pub extern "C" fn gnome_cmd_file_selector_action_open_with_other(
         show_open_with_other_dialog(
             &parent_window,
             &file_list.selected_files(),
-            file_list.cwd(),
+            file_list.directory(),
             options,
         )
         .await;

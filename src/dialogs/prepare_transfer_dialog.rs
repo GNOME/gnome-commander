@@ -196,14 +196,14 @@ fn prepend_slash(str: String) -> String {
 }
 
 fn con_device_has_path(fs: &FileSelector, path: &Path) -> Option<(Connection, PathBuf)> {
-    let con = fs.connection()?;
+    let con = fs.file_list().connection()?;
     let mount_path = con.downcast_ref::<ConnectionDevice>()?.mountp_string()?;
     let relative_path = path.strip_prefix(&mount_path).ok()?;
     Some((con, relative_path.to_path_buf()))
 }
 
 fn path_points_at_directory(to: &FileSelector, dest_path: &Path) -> bool {
-    let Some(con) = to.connection() else {
+    let Some(con) = to.file_list().connection() else {
         return false;
     };
     let ftype = con.path_target_type(dest_path);
@@ -235,7 +235,7 @@ impl PrepareTransferDialog {
         let dialog: Self = glib::Object::builder().build();
 
         let src_files = from.file_list().selected_files();
-        let default_dest_dir = to.directory().unwrap();
+        let default_dest_dir = to.file_list().directory().unwrap();
 
         let single_source_file = if src_files.len() == 1 {
             src_files.front()
@@ -338,7 +338,7 @@ pub async fn handle_user_input(
     default_dest_dir: &Directory,
     user_path: &str,
 ) -> Option<(Directory, Option<String>)> {
-    let Some(src_directory) = src_fs.directory() else {
+    let Some(src_directory) = src_fs.file_list().directory() else {
         eprintln!("");
         return None;
     };
@@ -360,7 +360,11 @@ pub async fn handle_user_input(
     // }
 
     if dest_path.starts_with("/") {
-        if dst_fs.connection().map_or(false, |c| c.is_local()) {
+        if dst_fs
+            .file_list()
+            .connection()
+            .map_or(false, |c| c.is_local())
+        {
             if let Some((dev, path)) = con_device_has_path(&dst_fs, &dest_path)
                 .or_else(|| con_device_has_path(&src_fs, &dest_path))
             {

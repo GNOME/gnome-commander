@@ -76,6 +76,8 @@ G_DEFINE_TYPE (GnomeCmdFileSelector, gnome_cmd_file_selector, GTK_TYPE_BOX)
  *******************************/
 
 
+extern "C" gboolean mime_exec_file (GtkWindow *parent_window, GnomeCmdFile *f);
+
 extern "C" gchar *gnome_cmd_file_list_stats(GnomeCmdFileList *list);
 
 inline void GnomeCmdFileSelector::update_selected_files_label()
@@ -144,14 +146,22 @@ void GnomeCmdFileSelector::do_file_specific_action (GnomeCmdFileList *fl, GnomeC
 
     if (f->GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE) == G_FILE_TYPE_DIRECTORY)
     {
-        if (!fl->locked)
-            fl->do_file_specific_action (f);
+        if (!gnome_cmd_file_selector_is_tab_locked (this, fl))
+        {
+            fl->invalidate_tree_size();
+
+            if (gnome_cmd_file_is_dotdot (f))
+                fl->goto_directory("..");
+            else
+                fl->set_directory(GNOME_CMD_DIR (f));
+        }
         else
-            new_tab(gnome_cmd_file_is_dotdot (f) ? gnome_cmd_dir_get_parent (fl->cwd) : GNOME_CMD_DIR (f));
+            new_tab(gnome_cmd_file_is_dotdot (f) ? gnome_cmd_dir_get_parent (gnome_cmd_file_list_get_directory (fl)) : GNOME_CMD_DIR (f));
     }
     else
     {
-        fl->do_file_specific_action (f);
+        GtkWindow *parent_window = GTK_WINDOW (gtk_widget_get_root (GTK_WIDGET (this)));
+        mime_exec_file (parent_window, f);
     }
 }
 
@@ -181,7 +191,7 @@ inline void add_cwd_to_cmdline (GnomeCmdFileList *fl)
     auto cmdline = gnome_cmd_main_win_get_cmdline (main_win);
     if (gtk_widget_is_visible (GTK_WIDGET (cmdline)))
     {
-        gchar *dpath = GNOME_CMD_FILE (fl->cwd)->get_real_path();
+        gchar *dpath = GNOME_CMD_FILE (gnome_cmd_file_list_get_directory (fl))->get_real_path();
         gnome_cmd_cmdline_append_text (cmdline, dpath);
         g_free (dpath);
 
@@ -271,7 +281,7 @@ static void on_con_combo_item_selected (GtkDropDown *con_dropdown, GParamSpec *p
 
     GdkModifierType mask = get_modifiers_state();
 
-    if (mask & GDK_CONTROL_MASK || fs->file_list()->locked)
+    if (mask & GDK_CONTROL_MASK || gnome_cmd_file_selector_is_current_tab_locked (fs))
         fs->new_tab(gnome_cmd_con_get_default_dir (con));
     else
         fs->set_connection(con, gnome_cmd_con_get_default_dir (con));
@@ -286,7 +296,7 @@ static void on_navigate (GnomeCmdDirIndicator *indicator, const gchar *path, gbo
 
     main_win->switch_fs(fs);
 
-    if (new_tab || fs->file_list()->locked)
+    if (new_tab || gnome_cmd_file_selector_is_current_tab_locked (fs))
     {
         GnomeCmdCon *con = fs->get_connection();
         GnomeCmdDir *dir = gnome_cmd_dir_new (con, gnome_cmd_con_create_path (con, path));
@@ -318,7 +328,7 @@ static void on_con_btn_clicked (GtkGestureClick *gesture, int n_press, double x,
 
     main_win->switch_fs(fs);
 
-    if (button == 2 || get_modifiers_state() & GDK_CONTROL_MASK || fs->file_list()->locked)
+    if (button == 2 || get_modifiers_state() & GDK_CONTROL_MASK || gnome_cmd_file_selector_is_current_tab_locked (fs))
         fs->new_tab(gnome_cmd_con_get_default_dir (con));
 
     fs->set_connection(con, gnome_cmd_con_get_default_dir (con));
@@ -447,19 +457,19 @@ static void on_list_list_clicked (GnomeCmdFileList *fl, GnomeCmdFileListButtonEv
         case 2:
             if (gnome_cmd_data.options.middle_mouse_button_mode==GnomeCmdData::MIDDLE_BUTTON_GOES_UP_DIR)
             {
-                if (fl->locked)
-                    fs->new_tab(gnome_cmd_dir_get_parent (fl->cwd));
+                if (gnome_cmd_file_selector_is_tab_locked (fs, fl))
+                    fs->new_tab(gnome_cmd_dir_get_parent (gnome_cmd_file_list_get_directory (fl)));
                 else
                     fs->goto_directory("..");
             }
             else
             {
                 if (event->file && gnome_cmd_file_is_dotdot (event->file))
-                    fs->new_tab(gnome_cmd_dir_get_parent (fl->cwd));
+                    fs->new_tab(gnome_cmd_dir_get_parent (gnome_cmd_file_list_get_directory (fl)));
                 else
                     fs->new_tab(event->file && event->file->GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE) == G_FILE_TYPE_DIRECTORY
                                      ? GNOME_CMD_DIR (event->file)
-                                     : fl->cwd);
+                                     : gnome_cmd_file_list_get_directory (fl));
             }
             break;
 
@@ -500,7 +510,7 @@ static void on_list_dir_changed (GnomeCmdFileList *fl, GnomeCmdDir *dir, GnomeCm
     fs->update_direntry();
     fs->update_vol_label();
 
-    if (fl->cwd != dir)  return;
+    if (gnome_cmd_file_list_get_directory (fl) != dir)  return;
 
     fs->update_tab_label(fl);
     fs->update_files();
@@ -516,6 +526,12 @@ static void on_list_files_changed (GnomeCmdFileList *fl, GnomeCmdFileSelector *f
 
     if (fs->file_list()==fl)
         fs->update_selected_files_label();
+}
+
+
+static void on_list_file_activated (GnomeCmdFileList *fl, GnomeCmdFile *f, GnomeCmdFileSelector *fs)
+{
+    fs->do_file_specific_action (fl, f);
 }
 
 
@@ -589,13 +605,13 @@ static gboolean on_list_key_pressed (GtkEventControllerKey *controller, guint ke
             case GDK_KEY_Left:
             case GDK_KEY_KP_Left:
             case GDK_KEY_BackSpace:
-                if (!fs->list->locked)
+                if (!gnome_cmd_file_selector_is_current_tab_locked (fs))
                 {
                     fs->list->invalidate_tree_size();
                     fs->list->goto_directory("..");
                 }
                 else
-                    fs->new_tab(gnome_cmd_dir_get_parent (fs->list->cwd));
+                    fs->new_tab(gnome_cmd_dir_get_parent (gnome_cmd_file_list_get_directory (fs->list)));
                 return TRUE;
 
             case GDK_KEY_Right:
@@ -651,7 +667,8 @@ static void toggle_tab_lock (GtkWidget* widget, const char* action_name, GVarian
     GnomeCmdFileList *fl = fs->file_list(tab_index);
     if (fl)
     {
-        fl->locked = !fl->locked;
+        gboolean locked = gnome_cmd_file_selector_is_tab_locked (fs, fl);
+        gnome_cmd_file_selector_set_tab_locked (fs, fl, !locked);
         fs->update_tab_label(fl);
     }
 }
@@ -812,7 +829,7 @@ void GnomeCmdFileSelector::first()
 
     priv->dir_history->lock();
 
-    if (list->locked)
+    if (gnome_cmd_file_selector_is_current_tab_locked (this))
     {
         GnomeCmdCon *con = get_connection();
 
@@ -832,7 +849,7 @@ void GnomeCmdFileSelector::back()
 
     priv->dir_history->lock();
 
-    if (list->locked)
+    if (gnome_cmd_file_selector_is_current_tab_locked (this))
     {
         GnomeCmdCon *con = get_connection();
 
@@ -852,7 +869,7 @@ void GnomeCmdFileSelector::forward()
 
     priv->dir_history->lock();
 
-    if (list->locked)
+    if (gnome_cmd_file_selector_is_current_tab_locked (this))
     {
         GnomeCmdCon *con = get_connection();
 
@@ -872,7 +889,7 @@ void GnomeCmdFileSelector::last()
 
     priv->dir_history->lock();
 
-    if (list->locked)
+    if (gnome_cmd_file_selector_is_current_tab_locked (this))
     {
         GnomeCmdCon *con = get_connection();
 
@@ -942,11 +959,7 @@ void GnomeCmdFileSelector::update_style()
 
         fl->update_style();
 
-        if (gnome_cmd_data.options.tab_lock_indicator != GnomeCmdData::TAB_LOCK_ICON)
-            gtk_widget_hide (fl->tab_label_pin);
-
-        if (fl->locked)
-            update_tab_label(fl);
+        update_tab_label (fl);
     }
 
     create_con_buttons (this);
@@ -1061,7 +1074,7 @@ GtkWidget *GnomeCmdFileSelector::new_tab(GnomeCmdDir *dir, GnomeCmdFileList::Col
     if (activate)
         this->list = fl;               //  ... update GnomeCmdFileSelector::list to point at newly created tab
 
-    fl->locked = locked;
+    gnome_cmd_file_selector_set_tab_locked (this, fl, locked);
     fl->update_style();
 
     // hide dir column
@@ -1069,16 +1082,14 @@ GtkWidget *GnomeCmdFileSelector::new_tab(GnomeCmdDir *dir, GnomeCmdFileList::Col
 
     GtkWidget *hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 0);
 
-    fl->tab_label_pin = gtk_image_new_from_file (PIXMAPS_DIR G_DIR_SEPARATOR_S "pin.png");
-    fl->tab_label_text = gtk_label_new (dir ? GNOME_CMD_FILE (dir)->get_name() : nullptr);
+    auto tab_label_pin = gtk_image_new_from_file (PIXMAPS_DIR G_DIR_SEPARATOR_S "pin.png");
+    auto tab_label_text = gtk_label_new (nullptr);
 
-    gtk_box_append (GTK_BOX (hbox), fl->tab_label_pin);
-    gtk_box_append (GTK_BOX (hbox), fl->tab_label_text);
+    g_object_set_data (G_OBJECT (hbox), "tab_label_pin", tab_label_pin);
+    g_object_set_data (G_OBJECT (hbox), "tab_label_text", tab_label_text);
 
-    if (locked && gnome_cmd_data.options.tab_lock_indicator==GnomeCmdData::TAB_LOCK_ICON)
-        gtk_widget_show (fl->tab_label_pin);
-    else
-        gtk_widget_hide (fl->tab_label_pin);
+    gtk_box_append (GTK_BOX (hbox), tab_label_pin);
+    gtk_box_append (GTK_BOX (hbox), tab_label_text);
 
     gint n = gtk_notebook_append_page (notebook, GTK_WIDGET (fl), hbox);
     update_show_tabs();
@@ -1088,9 +1099,12 @@ GtkWidget *GnomeCmdFileSelector::new_tab(GnomeCmdDir *dir, GnomeCmdFileList::Col
     g_signal_connect (fl, "con-changed", G_CALLBACK (on_list_con_changed), this);
     g_signal_connect (fl, "dir-changed", G_CALLBACK (on_list_dir_changed), this);
     g_signal_connect (fl, "files-changed", G_CALLBACK (on_list_files_changed), this);
+    g_signal_connect (fl, "file-activated", G_CALLBACK (on_list_file_activated), this);
 
     if (dir)
         fl->set_connection(gnome_cmd_file_get_connection (GNOME_CMD_FILE (dir)), dir);
+
+    update_tab_label(fl);
 
     if (activate)
     {
@@ -1143,44 +1157,53 @@ void GnomeCmdFileSelector::next_tab()
 
 void GnomeCmdFileSelector::update_tab_label(GnomeCmdFileList *fl)
 {
-    g_return_if_fail(fl->cwd != nullptr);
+    GnomeCmdDir *dir = gnome_cmd_file_list_get_directory (fl);
+    const gchar *name = dir != nullptr ? GNOME_CMD_FILE (dir)->get_name() : nullptr;
 
-    const gchar *name = GNOME_CMD_FILE (fl->cwd)->get_name();
+    gboolean locked = gnome_cmd_file_selector_is_tab_locked (this, fl);
+
+    GtkWidget *hbox = gtk_notebook_get_tab_label (notebook, GTK_WIDGET (fl));
+    GtkWidget *tab_label_pin = GTK_WIDGET (g_object_get_data (G_OBJECT (hbox), "tab_label_pin"));
+    GtkWidget *tab_label_text = GTK_WIDGET (g_object_get_data (G_OBJECT (hbox), "tab_label_text"));
 
     switch (gnome_cmd_data.options.tab_lock_indicator)
     {
         case GnomeCmdData::TAB_LOCK_ICON:
-            if (fl->locked)
-                gtk_widget_show (fl->tab_label_pin);
-            else
-                gtk_widget_hide (fl->tab_label_pin);
+            gtk_widget_set_visible (tab_label_pin, locked);
+            gtk_label_set_text (GTK_LABEL (tab_label_text), name);
             break;
 
         case GnomeCmdData::TAB_LOCK_ASTERISK:
-            if (fl->locked)
+            gtk_widget_hide (tab_label_pin);
+            if (locked)
             {
                 gchar *s = g_strconcat ("* ", name, nullptr);
-                gtk_label_set_text (GTK_LABEL (fl->tab_label_text), s);
+                gtk_label_set_text (GTK_LABEL (tab_label_text), s);
                 g_free (s);
-                return;
+            }
+            else
+            {
+                gtk_label_set_text (GTK_LABEL (tab_label_text), name);
             }
             break;
 
         case GnomeCmdData::TAB_LOCK_STYLED_TEXT:
-            if (fl->locked)
+            gtk_widget_hide (tab_label_pin);
+            if (locked)
             {
                 gchar *s = g_strconcat ("<span foreground='blue'>", name, "</span>", nullptr);
-                gtk_label_set_markup (GTK_LABEL (fl->tab_label_text), s);
+                gtk_label_set_markup (GTK_LABEL (tab_label_text), s);
                 g_free (s);
-                return;
+            }
+            else
+            {
+                gtk_label_set_text (GTK_LABEL (tab_label_text), name);
             }
             break;
 
         default:
             break;
     }
-
-    gtk_label_set_text (GTK_LABEL (fl->tab_label_text), name);
 }
 
 
@@ -1198,21 +1221,6 @@ GnomeCmdFileList *gnome_cmd_file_selector_file_list (GnomeCmdFileSelector *fs)
 GnomeCmdFileList *gnome_cmd_file_selector_file_list_nth (GnomeCmdFileSelector *fs, gint n)
 {
     return fs->file_list(n);
-}
-
-GnomeCmdDir *gnome_cmd_file_selector_get_directory(GnomeCmdFileSelector *fs)
-{
-    return fs->list->cwd;
-}
-
-GnomeCmdCon *gnome_cmd_file_selector_get_connection (GnomeCmdFileSelector *fs)
-{
-    return fs->get_connection();
-}
-
-void gnome_cmd_file_selector_set_connection(GnomeCmdFileSelector *fs, GnomeCmdCon *con, GnomeCmdDir *start_dir)
-{
-    fs->set_connection(con, start_dir);
 }
 
 extern "C" GtkNotebook *gnome_cmd_file_selector_get_notebook (GnomeCmdFileSelector *fs)
@@ -1263,4 +1271,19 @@ void gnome_cmd_file_selector_set_active (GnomeCmdFileSelector *fs, gboolean acti
 void gnome_cmd_file_selector_back (GnomeCmdFileSelector *fs)
 {
     fs->back();
+}
+
+gboolean gnome_cmd_file_selector_is_tab_locked (GnomeCmdFileSelector *fs, GnomeCmdFileList *fl)
+{
+    return g_object_get_data (G_OBJECT (fl), "file-list-locked") != nullptr;
+}
+
+extern "C" gboolean gnome_cmd_file_selector_is_current_tab_locked (GnomeCmdFileSelector *fs)
+{
+    return gnome_cmd_file_selector_is_tab_locked (fs, gnome_cmd_file_selector_file_list (fs));
+}
+
+void gnome_cmd_file_selector_set_tab_locked (GnomeCmdFileSelector *fs, GnomeCmdFileList *fl, gboolean lock)
+{
+    g_object_set_data (G_OBJECT (fl), "file-list-locked", (gpointer) lock);
 }

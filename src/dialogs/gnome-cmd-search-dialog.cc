@@ -1077,7 +1077,7 @@ void GnomeCmdSearchDialog::Private::on_dialog_response(GtkDialog *window, int re
                 gsize offset = strncmp(fpath, root_path, root_path_len)==0 ? root_path_len : 0;
                 gchar *dpath = g_path_get_dirname (fpath + offset);
 
-                if (fs->file_list()->locked)
+                if (gnome_cmd_file_selector_is_current_tab_locked (fs))
                 {
                     GnomeCmdDir *dir = gnome_cmd_dir_new (con, gnome_cmd_con_create_path (con, dpath));
                     fs->new_tab(dir);

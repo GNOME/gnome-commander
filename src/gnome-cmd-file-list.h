@@ -65,18 +65,6 @@ struct GnomeCmdFileList
 
   public:
 
-    struct Private;
-
-    Private *priv;
-
-    GtkWidget *tab_label_pin {nullptr};
-    GtkWidget *tab_label_text {nullptr};
-
-    gboolean realized {FALSE};
-    gboolean modifier_click {FALSE};
-
-    gboolean locked {FALSE};
-
     void *operator new (size_t size);
     void operator delete (void *p)      {  g_object_unref (p);  }
 
@@ -97,13 +85,7 @@ struct GnomeCmdFileList
         NUM_COLUMNS
     };
 
-    GnomeCmdCon *con {nullptr};
-    GnomeCmdDir *cwd {nullptr};     // current working dir
-    GnomeCmdDir *lwd {nullptr};     // last working dir
-    GnomeCmdDir *connected_dir {nullptr};
-
     GnomeCmdFileList(ColumnID sort_col, GtkSortType sort_order);
-    ~GnomeCmdFileList();
 
     guint size();
     bool empty()                          {  return size() == 0; }
@@ -177,8 +159,8 @@ struct GnomeCmdFileList
     void show_column(ColumnID col, gboolean value);
     void resize_column(ColumnID col, gint width);
 
-    ColumnID get_sort_column() const;
-    GtkSortType get_sort_order() const;
+    ColumnID get_sort_column();
+    GtkSortType get_sort_order();
 
     void invalidate_tree_size();
 
@@ -212,20 +194,12 @@ struct GnomeCmdFileList
     void select_iter(GtkTreeIter *iter);
     void unselect_iter(GtkTreeIter *iter);
     bool is_selected_iter(GtkTreeIter *iter);
-
-    bool do_file_specific_action (GnomeCmdFile *f);
 };
 
 
 inline void *GnomeCmdFileList::operator new (size_t size)
 {
     return g_object_new (GNOME_CMD_TYPE_FILE_LIST, nullptr);
-}
-
-inline GnomeCmdFileList::~GnomeCmdFileList()
-{
-    gnome_cmd_dir_unref (cwd);
-    gnome_cmd_dir_unref (lwd);
 }
 
 inline void GnomeCmdFileList::remove_files (GList *files)
@@ -263,13 +237,11 @@ extern "C" void gnome_cmd_show_new_textfile_dialog(GtkWindow *parent_window, Gno
 // FFI
 extern "C" GList *gnome_cmd_file_list_get_selected_files (GnomeCmdFileList *fl);
 extern "C" GnomeCmdFile *gnome_cmd_file_list_get_focused_file(GnomeCmdFileList *fl);
-extern "C" GnomeCmdDir *gnome_cmd_file_list_get_cwd(GnomeCmdFileList *fl);
 extern "C" GnomeCmdCon *gnome_cmd_file_list_get_connection(GnomeCmdFileList *fl);
 extern "C" GnomeCmdDir *gnome_cmd_file_list_get_directory(GnomeCmdFileList *fl);
 
 extern "C" gint /* ColumnID */ gnome_cmd_file_list_get_sort_column (GnomeCmdFileList *fl);
 extern "C" gint /* GtkSortType */ gnome_cmd_file_list_get_sort_order (GnomeCmdFileList *fl);
-extern "C" gboolean gnome_cmd_file_list_is_locked (GnomeCmdFileList *fl);
 
 extern "C" void gnome_cmd_file_list_reload (GnomeCmdFileList *fl);
 

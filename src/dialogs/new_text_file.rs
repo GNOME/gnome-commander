@@ -56,7 +56,7 @@ fn create_empty_file(name: &str, dir: &Directory) -> Result<gio::File, ErrorMess
 }
 
 pub async fn show_new_textfile_dialog(parent_window: &gtk::Window, file_list: &FileList) {
-    let Some(dir) = file_list.cwd() else {
+    let Some(dir) = file_list.directory() else {
         eprintln!("No directory");
         return;
     };
