@@ -592,7 +592,7 @@ static void set_model_row(GnomeCmdFileList *fl, GtkTreeIter *iter, GnomeCmdFile 
 
     gtk_list_store_set (model, iter, GnomeCmdFileList::COLUMN_SIZE, tree_size ? (gchar *) f->get_tree_size_as_str() : (gchar *) f->get_size(), -1);
 
-    if (f->GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE) != G_FILE_TYPE_DIRECTORY || !f->is_dotdot)
+    if (f->GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE) != G_FILE_TYPE_DIRECTORY || !gnome_cmd_file_is_dotdot (f))
     {
         gtk_list_store_set (model, iter, GnomeCmdFileList::COLUMN_DATE, (gchar *) f->get_mdate(FALSE), -1);
         gtk_list_store_set (model, iter, GnomeCmdFileList::COLUMN_PERM, (gchar *) f->get_perm(), -1);
@@ -658,7 +658,7 @@ void GnomeCmdFileList::toggle_file(GtkTreeIter *iter)
         DATA_COLUMN_SELECTED, &selected,
         -1);
 
-    if (file->is_dotdot)
+    if (gnome_cmd_file_is_dotdot (file))
         return;
 
     selected = !selected;
@@ -691,13 +691,13 @@ inline void select_file_range (GnomeCmdFileList *fl, GtkTreeIter *start_row, Gtk
             if (matches)
             {
                 state = 1;
-                if (!file->is_dotdot)
+                if (!gnome_cmd_file_is_dotdot (file))
                     fl->select_iter(iter);
             }
         }
         else
         {
-            if (!file->is_dotdot)
+            if (!gnome_cmd_file_is_dotdot (file))
                 fl->select_iter(iter);
             if (matches)
                 return GnomeCmdFileList::TRAVERSE_BREAK;
@@ -994,7 +994,7 @@ static void on_file_clicked (GnomeCmdFileList *fl, GnomeCmdFileListButtonEvent *
     }
     else if (event->n_press == 1 && event->button == 3)
     {
-        if (!event->file->is_dotdot)
+        if (!gnome_cmd_file_is_dotdot (event->file))
         {
             if (gnome_cmd_data.options.right_mouse_button_mode == GnomeCmdData::RIGHT_BUTTON_SELECTS)
             {
@@ -1526,7 +1526,7 @@ void GnomeCmdFileList::show_files(GnomeCmdDir *dir)
     }
     auto path = g_uri_get_path(gUri);
     if (path && strcmp (path, G_DIR_SEPARATOR_S) != 0)
-        files = g_list_append (files, gnome_cmd_dir_new_parent_dir_file (dir));
+        files = g_list_append (files, gnome_cmd_file_new_dotdot (dir));
     g_free (uriString);
 
     if (files)
@@ -1720,7 +1720,7 @@ gboolean GnomeCmdFileList::has_file(const GnomeCmdFile *f)
 void GnomeCmdFileList::select_all_files()
 {
     traverse_files ([this](GnomeCmdFile *file, GtkTreeIter *iter, GtkListStore *store) {
-        if (file && !file->is_dotdot)
+        if (file && !gnome_cmd_file_is_dotdot (file))
             set_selected_at_iter (iter, !GNOME_CMD_IS_DIR(file));
         return TRAVERSE_CONTINUE;
     });
@@ -1742,7 +1742,7 @@ void GnomeCmdFileList::select_all()
     if (gnome_cmd_data.options.select_dirs)
     {
         traverse_files ([this](GnomeCmdFile *file, GtkTreeIter *iter, GtkListStore *store) {
-            if (file && !file->is_dotdot)
+            if (file && !gnome_cmd_file_is_dotdot (file))
                 select_iter(iter);
             return TRAVERSE_CONTINUE;
         });
@@ -1750,7 +1750,7 @@ void GnomeCmdFileList::select_all()
     else
     {
         traverse_files ([this](GnomeCmdFile *file, GtkTreeIter *iter, GtkListStore *store) {
-            if (file && !file->is_dotdot && !GNOME_CMD_IS_DIR (file))
+            if (file && !gnome_cmd_file_is_dotdot (file) && !GNOME_CMD_IS_DIR (file))
                 select_iter(iter);
             return TRAVERSE_CONTINUE;
         });
@@ -2379,7 +2379,7 @@ gboolean GnomeCmdFileList::file_is_wanted(GnomeCmdFile *gnomeCmdFile)
 
     if (strcmp ((const char*) fileNameString, ".") == 0)
         returnValue = FALSE;
-    if (gnomeCmdFile->is_dotdot)
+    if (gnome_cmd_file_is_dotdot (gnomeCmdFile))
         returnValue = FALSE;
     if (gnome_cmd_data.options.filter.file_types[gFileType])
         returnValue = FALSE;
@@ -2739,7 +2739,7 @@ bool GnomeCmdFileList::do_file_specific_action (GnomeCmdFile *f)
         {
             invalidate_tree_size();
 
-            if (f->is_dotdot)
+            if (gnome_cmd_file_is_dotdot (f))
                 goto_directory("..");
             else
                 set_directory(GNOME_CMD_DIR (f));

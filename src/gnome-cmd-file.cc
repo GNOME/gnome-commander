@@ -45,10 +45,11 @@ using namespace std;
 #define MAX_DATE_LENGTH 64
 #define MAX_SIZE_LENGTH 32
 
-struct GnomeCmdFile::Private
+struct GnomeCmdFilePrivate
 {
     GFile *file;
     GFileInfo *file_info;
+    gboolean is_dotdot;
     GnomeCmdDir *parent_dir;
     GTimeVal last_update;
     guint64 tree_size;
@@ -62,7 +63,13 @@ static GnomeCmdCon *file_get_connection (GnomeCmdFile *f);
 
 
 G_DEFINE_TYPE_WITH_CODE (GnomeCmdFile, gnome_cmd_file, G_TYPE_OBJECT,
-                        G_IMPLEMENT_INTERFACE (GNOME_CMD_TYPE_FILE_DESCRIPTOR, gnome_cmd_file_descriptor_init))
+                        G_IMPLEMENT_INTERFACE (GNOME_CMD_TYPE_FILE_DESCRIPTOR, gnome_cmd_file_descriptor_init)
+                        G_ADD_PRIVATE (GnomeCmdFile))
+
+static GnomeCmdFilePrivate *file_private(GnomeCmdFile *file)
+{
+    return (GnomeCmdFilePrivate *) gnome_cmd_file_get_instance_private (file);
+}
 
 
 static void gnome_cmd_file_descriptor_init (GnomeCmdFileDescriptorInterface *iface)
@@ -75,30 +82,32 @@ static void gnome_cmd_file_descriptor_init (GnomeCmdFileDescriptorInterface *ifa
 inline gboolean has_parent_dir (GnomeCmdFile *f)
 {
     g_return_val_if_fail (f != nullptr, false);
-    g_return_val_if_fail (f->priv != nullptr, false);
+    auto priv = file_private (f);
 
-    return f->priv->parent_dir != nullptr;
+    return priv->parent_dir != nullptr;
 }
 
 
 inline GnomeCmdDir *get_parent_dir (GnomeCmdFile *f)
 {
-    return f->priv->parent_dir;
+    auto priv = file_private (f);
+    return priv->parent_dir;
 }
 
 
 static void gnome_cmd_file_init (GnomeCmdFile *f)
 {
-    f->priv = g_new0 (GnomeCmdFile::Private, 1);
-    f->priv->tree_size = -1;
+    auto priv = file_private (f);
+    priv->tree_size = -1;
 }
 
 
 static void gnome_cmd_file_dispose (GObject *object)
 {
     GnomeCmdFile *f = GNOME_CMD_FILE (object);
+    auto priv = file_private (f);
 
-    g_clear_object (&f->priv->parent_dir);
+    g_clear_object (&priv->parent_dir);
 
     G_OBJECT_CLASS (gnome_cmd_file_parent_class)->dispose (object);
 }
@@ -110,8 +119,6 @@ static void gnome_cmd_file_finalize (GObject *object)
 
     if (f->get_file_info() && strcmp(g_file_info_get_display_name(f->get_file_info()), "..") != 0)
         DEBUG ('f', "file destroying %p %s\n", f, g_file_info_get_display_name(f->get_file_info()));
-
-    g_free (f->priv);
 
     G_OBJECT_CLASS (gnome_cmd_file_parent_class)->finalize (object);
 }
@@ -139,15 +146,16 @@ GnomeCmdFile *gnome_cmd_file_new_full (GFileInfo *gFileInfo, GFile *gFile, Gnome
     g_return_val_if_fail (dir != nullptr, nullptr);
 
     auto gnomeCmdFile = static_cast<GnomeCmdFile*> (g_object_new (GNOME_CMD_TYPE_FILE, nullptr));
+    auto priv = file_private (gnomeCmdFile);
 
-    gnomeCmdFile->priv->file_info = gFileInfo;
-    gnomeCmdFile->priv->file = gFile;
-    gnomeCmdFile->priv->parent_dir = g_object_ref (dir);
+    priv->file_info = gFileInfo;
+    priv->file = gFile;
+    priv->parent_dir = g_object_ref (dir);
 
     auto filename = g_file_info_get_attribute_string (gFileInfo, G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME);
 
     // check if file is '..'
-    gnomeCmdFile->is_dotdot = g_file_info_get_attribute_uint32 (gFileInfo, G_FILE_ATTRIBUTE_STANDARD_TYPE) == G_FILE_TYPE_DIRECTORY
+    priv->is_dotdot = g_file_info_get_attribute_uint32 (gFileInfo, G_FILE_ATTRIBUTE_STANDARD_TYPE) == G_FILE_TYPE_DIRECTORY
                               && g_strcmp0(filename, "..") == 0;
 
     return gnomeCmdFile;
@@ -216,8 +224,9 @@ gboolean gnome_cmd_file_setup (GObject *gObject, GFile *gFile, GError **error)
 
     GError *errorTmp = nullptr;
     auto gnomeCmdFile = (GnomeCmdFile*) gObject;
+    auto priv = file_private (gnomeCmdFile);
 
-    gnomeCmdFile->priv->file_info = g_file_query_info(gFile, "*", G_FILE_QUERY_INFO_NONE, nullptr, &errorTmp);
+    priv->file_info = g_file_query_info(gFile, "*", G_FILE_QUERY_INFO_NONE, nullptr, &errorTmp);
     if (errorTmp)
     {
         g_propagate_error(error, errorTmp);
@@ -227,10 +236,10 @@ gboolean gnome_cmd_file_setup (GObject *gObject, GFile *gFile, GError **error)
     auto filename = g_file_info_get_attribute_string (gnomeCmdFile->get_file_info(), G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME);
 
     // check if file is '..'
-    gnomeCmdFile->is_dotdot = g_file_info_get_attribute_uint32 (gnomeCmdFile->get_file_info(), G_FILE_ATTRIBUTE_STANDARD_TYPE) == G_FILE_TYPE_DIRECTORY
+    priv->is_dotdot = g_file_info_get_attribute_uint32 (gnomeCmdFile->get_file_info(), G_FILE_ATTRIBUTE_STANDARD_TYPE) == G_FILE_TYPE_DIRECTORY
                               && g_strcmp0(filename, "..") == 0;
 
-    gnomeCmdFile->priv->file = gFile;
+    priv->file = gFile;
     return TRUE;
 }
 
@@ -351,6 +360,7 @@ gboolean GnomeCmdFile::chown(uid_t uid, gid_t gid, GError **error)
 
 gboolean GnomeCmdFile::rename(const gchar *new_name, GError **error)
 {
+    auto priv = file_private (this);
     g_return_val_if_fail (priv->file_info, false);
 
     gchar *old_uri_str = get_uri_str();
@@ -714,7 +724,8 @@ guint64 GnomeCmdFile::calc_tree_size (gulong *count)
 
 const gchar *GnomeCmdFile::get_tree_size_as_str()
 {
-    if (is_dotdot)
+    auto priv = file_private (this);
+    if (priv->is_dotdot)
         return get_size();
 
     if (GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE) != G_FILE_TYPE_DIRECTORY)
@@ -746,16 +757,17 @@ const gchar *GnomeCmdFile::get_type_string()
 
 GIcon *GnomeCmdFile::get_type_icon()
 {
+    auto priv = file_private (this);
     g_return_val_if_fail (get_file_info() != nullptr, FALSE);
 
     GFileType file_type = (GFileType) GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE);
-    gboolean is_symlink = is_dotdot ? false : g_file_info_get_is_symlink (get_file_info());
+    gboolean is_symlink = priv->is_dotdot ? false : g_file_info_get_is_symlink (get_file_info());
 
     switch (gnome_cmd_data.options.layout)
     {
         case GNOME_CMD_LAYOUT_MIME_ICONS:
         {
-            auto mime_type = is_dotdot ? nullptr : g_file_info_get_content_type (get_file_info());
+            auto mime_type = priv->is_dotdot ? nullptr : g_file_info_get_content_type (get_file_info());
             auto icon = gnome_cmd_icon_cache_get_mime_type_icon(icon_cache, file_type, mime_type, is_symlink);
             if (icon != nullptr)
                 return icon;
@@ -809,6 +821,7 @@ void GnomeCmdFile::update_gFileInfo(GFileInfo *gFileInfo_new)
 {
     g_return_if_fail (gFileInfo_new != nullptr);
     g_return_if_fail (G_IS_FILE_INFO(gFileInfo_new));
+    auto priv = file_private (this);
 
     g_set_object (&priv->file_info, gFileInfo_new);
 }
@@ -885,6 +898,8 @@ inline gulong tv2ms (const GTimeVal &t)
 
 gboolean GnomeCmdFile::needs_update()
 {
+    auto priv = file_private (this);
+
     GTimeVal t;
 
     g_get_current_time (&t);
@@ -901,25 +916,29 @@ gboolean GnomeCmdFile::needs_update()
 
 void GnomeCmdFile::invalidate_tree_size()
 {
+    auto priv = file_private (this);
     priv->tree_size = -1;
 }
 
 
 extern "C" guint64 gnome_cmd_file_get_tree_size (GnomeCmdFile *f)
 {
-    return f->priv->tree_size;
+    auto priv = file_private (f);
+    return priv->tree_size;
 }
 
 GFile *gnome_cmd_file_get_file (GnomeCmdFileDescriptor *fd)
 {
     g_return_val_if_fail (GNOME_CMD_IS_FILE (fd), NULL);
-    return GNOME_CMD_FILE (fd)->priv->file;
+    auto priv = file_private (GNOME_CMD_FILE (fd));
+    return priv->file;
 }
 
 GFileInfo *gnome_cmd_file_get_file_info (GnomeCmdFileDescriptor *fd)
 {
     g_return_val_if_fail (GNOME_CMD_IS_FILE (fd), NULL);
-    return GNOME_CMD_FILE (fd)->priv->file_info;
+    auto priv = file_private (GNOME_CMD_FILE (fd));
+    return priv->file_info;
 }
 
 const gchar *gnome_cmd_file_get_name (GnomeCmdFile *f)
@@ -998,10 +1017,26 @@ gchar *gnome_cmd_file_get_free_space (GnomeCmdFile *f)
 
 gboolean gnome_cmd_file_is_dotdot(GnomeCmdFile *f)
 {
-    return f->is_dotdot;
+    auto priv = file_private (f);
+    return priv->is_dotdot;
 }
 
 void gnome_cmd_file_set_deleted(GnomeCmdFile *f)
 {
     f->set_deleted();
+}
+
+GnomeCmdFile *gnome_cmd_file_new_dotdot (GnomeCmdDir *dir)
+{
+    auto info = g_file_info_new ();
+
+    g_file_info_set_name(info, "..");
+    g_file_info_set_display_name(info, "..");
+    g_file_info_set_file_type(info, G_FILE_TYPE_DIRECTORY);
+    g_file_info_set_size(info, 0);
+
+    auto gnomeCmdFile = gnome_cmd_file_new (info, dir);
+    auto priv = file_private (gnomeCmdFile);
+    priv->is_dotdot = true;
+    return gnomeCmdFile;
 }

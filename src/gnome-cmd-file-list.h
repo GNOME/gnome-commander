@@ -238,7 +238,7 @@ inline GnomeCmdFile *GnomeCmdFileList::get_selected_file()
 {
     GnomeCmdFile *f = get_focused_file();
 
-    return !f || f->is_dotdot ? nullptr : f;
+    return !f || gnome_cmd_file_is_dotdot (f) ? nullptr : f;
 }
 
 void gnome_cmd_file_list_show_delete_dialog (GnomeCmdFileList *fl, gboolean forceDelete = FALSE);

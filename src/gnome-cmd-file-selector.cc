@@ -147,7 +147,7 @@ void GnomeCmdFileSelector::do_file_specific_action (GnomeCmdFileList *fl, GnomeC
         if (!fl->locked)
             fl->do_file_specific_action (f);
         else
-            new_tab(f->is_dotdot ? gnome_cmd_dir_get_parent (fl->cwd) : GNOME_CMD_DIR (f));
+            new_tab(gnome_cmd_file_is_dotdot (f) ? gnome_cmd_dir_get_parent (fl->cwd) : GNOME_CMD_DIR (f));
     }
     else
     {
@@ -454,7 +454,7 @@ static void on_list_list_clicked (GnomeCmdFileList *fl, GnomeCmdFileListButtonEv
             }
             else
             {
-                if (event->file && event->file->is_dotdot)
+                if (event->file && gnome_cmd_file_is_dotdot (event->file))
                     fs->new_tab(gnome_cmd_dir_get_parent (fl->cwd));
                 else
                     fs->new_tab(event->file && event->file->GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE) == G_FILE_TYPE_DIRECTORY
