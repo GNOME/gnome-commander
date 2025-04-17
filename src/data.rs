@@ -34,6 +34,8 @@ use std::ffi::{c_char, c_void};
 pub struct GeneralOptions(pub gio::Settings);
 
 pub trait GeneralOptionsRead {
+    fn allow_multiple_instances(&self) -> bool;
+
     fn bookmarks(&self) -> glib::Variant;
     fn symlink_format(&self) -> String;
     fn use_trash(&self) -> bool;
@@ -73,6 +75,10 @@ impl GeneralOptions {
 }
 
 impl GeneralOptionsRead for GeneralOptions {
+    fn allow_multiple_instances(&self) -> bool {
+        self.0.boolean("allow-multiple-instances")
+    }
+
     fn bookmarks(&self) -> glib::Variant {
         self.0.value("bookmarks")
     }
