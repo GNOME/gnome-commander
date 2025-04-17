@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: gnome-commander 1.3.0\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-commander/issues/"
 "\n"
-"POT-Creation-Date: 2025-03-30 17:13+0000\n"
-"PO-Revision-Date: 2025-03-31 18:51+0300\n"
+"POT-Creation-Date: 2025-04-17 06:46+0000\n"
+"PO-Revision-Date: 2025-04-17 13:15+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -5541,6 +5541,23 @@ msgstr "Додати правило"
 msgid "Edit Rule"
 msgstr "Змінити правило"
 
+#: src/application.rs:73
+msgid "Specify debug flags to use"
+msgstr "Вказує використовувати налагоджувальні параметри"
+
+#: src/application.rs:81
+msgid "Specify the start directory for the left pane"
+msgstr "Вказує початковий каталог для лівої панелі"
+
+#: src/application.rs:89
+msgid "Specify the start directory for the right pane"
+msgstr "Вказує початковий каталог для правої панелі"
+
+#: src/application.rs:170
+#| msgid "Failed to create the directory %s: %s"
+msgid "Failed to create the directory {directory}: {error}"
+msgstr "Не вдалося створити каталог {directory}: {error}"
+
 #: src/app.rs:70 src/open_file.rs:188
 msgid "Launch of {} failed."
 msgstr "Не вдалося запустити {}."
@@ -5584,6 +5601,11 @@ msgstr "Текстове представлення:"
 #: src/chmod_component.rs:132
 msgid "Number view:"
 msgstr "Числове представлення:"
+
+#: src/connection/device.rs:120 src/gnome-cmd-con-device.cc:616
+#, c-format
+msgid "Mounting %s"
+msgstr "Підключається %s"
 
 #: src/dialogs/about_plugin.rs:30
 #, c-format
@@ -5924,7 +5946,6 @@ msgid "Free space:"
 msgstr "Вільне місце:"
 
 #: src/dialogs/file_properties_dialog.rs:295
-#| msgid "Content Type:"
 msgid "Content type:"
 msgstr "Тип вмісту:"
 
@@ -5961,7 +5982,6 @@ msgid "Co_py"
 msgstr "_Копіювати"
 
 #: src/dialogs/file_properties_dialog.rs:515
-#| msgid "Failed to open connection."
 msgid "Failed to apply changes."
 msgstr "Не вдалося застосувати зміни."
 
@@ -7532,22 +7552,6 @@ msgstr "Враховуючи регістр"
 msgid "Case sensitive matching"
 msgstr "Враховувати регістр"
 
-#: src/gnome-cmd-application.cc:48
-msgid "Specify debug flags to use"
-msgstr "Вказує використовувати налагоджувальні параметри"
-
-#: src/gnome-cmd-application.cc:49
-msgid "Specify the start directory for the left pane"
-msgstr "Вказує початковий каталог для лівої панелі"
-
-#: src/gnome-cmd-application.cc:50
-msgid "Specify the start directory for the right pane"
-msgstr "Вказує початковий каталог для правої панелі"
-
-#: src/gnome-cmd-application.cc:51
-msgid "Specify the directory for configuration files"
-msgstr "Вкажіть каталог файлів налаштувань"
-
 #: src/gnome-cmd-block.cc:37
 #, c-format
 msgid "The program has now finished. Press Enter to close this window.\n"
@@ -7562,21 +7566,21 @@ msgstr "Не вказано коректної команди."
 msgid "Unable to execute command."
 msgstr "Не вдалося виконати команду."
 
-#: src/gnome-cmd-con.cc:647 src/gnome-cmd-con.cc:678 src/gnome-cmd-con.cc:709
+#: src/gnome-cmd-con.cc:653 src/gnome-cmd-con.cc:684 src/gnome-cmd-con.cc:715
 msgid "<New connection>"
 msgstr "<Нове з'єднання>"
 
-#: src/gnome-cmd-con.cc:649 src/gnome-cmd-con-device.cc:490
+#: src/gnome-cmd-con.cc:655 src/gnome-cmd-con-device.cc:502
 #, c-format
 msgid "Go to: %s"
 msgstr "Перейти до: %s"
 
-#: src/gnome-cmd-con.cc:680
+#: src/gnome-cmd-con.cc:686
 #, c-format
 msgid "Connect to: %s"
 msgstr "З'єднання з: %s"
 
-#: src/gnome-cmd-con.cc:711
+#: src/gnome-cmd-con.cc:717
 #, c-format
 msgid "Disconnect from: %s"
 msgstr "Від'єднання від: %s"
@@ -7598,11 +7602,11 @@ msgstr "Не вдалося змонтувати: не знайдено носі
 msgid "Mount failed: mount exited with exitstatus %d"
 msgstr "Не вдалося змонтувати: команда mount завершилась зі станом виходу %d"
 
-#: src/gnome-cmd-con-device.cc:320
+#: src/gnome-cmd-con-device.cc:318 src/gnome-cmd-con-device.cc:327
 msgid "Volume successfully unmounted"
 msgstr "Том успішно демонтовано"
 
-#: src/gnome-cmd-con-device.cc:352
+#: src/gnome-cmd-con-device.cc:357 src/gnome-cmd-con-device.cc:366
 #, c-format
 msgid ""
 "Cannot unmount the volume:\n"
@@ -7613,50 +7617,45 @@ msgstr ""
 "%s\n"
 "Код помилки: %d"
 
-#: src/gnome-cmd-con-device.cc:488
+#: src/gnome-cmd-con-device.cc:500
 #, c-format
 msgid "Go to: %s (%s)"
 msgstr "Перейти до: %s (%s)"
 
-#: src/gnome-cmd-con-device.cc:497
+#: src/gnome-cmd-con-device.cc:509
 #, c-format
 msgid "Mount: %s"
 msgstr "Підключення: %s"
 
-#: src/gnome-cmd-con-device.cc:504
+#: src/gnome-cmd-con-device.cc:516
 #, c-format
 msgid "Unmount: %s"
 msgstr "Демонтування: %s"
 
-#: src/gnome-cmd-con-device.cc:604
-#, c-format
-msgid "Mounting %s"
-msgstr "Підключається %s"
-
-#: src/gnome-cmd-con-home.cc:72
+#: src/gnome-cmd-con-home.cc:71
 msgid "Go to: Home"
 msgstr "Перейти в: домашній каталог"
 
-#: src/gnome-cmd-con-home.cc:124
+#: src/gnome-cmd-con-home.cc:123
 msgid "Home"
 msgstr "Домашній каталог"
 
-#: src/gnome-cmd-con-remote.cc:135
+#: src/gnome-cmd-con-remote.cc:136 src/gnome-cmd-con-remote.cc:138
 msgid "Disconnect error"
 msgstr "Помилка під час від'єднання"
 
-#: src/gnome-cmd-con-remote.cc:247
+#: src/gnome-cmd-con-remote.cc:248
 #, c-format
 msgid "Opens remote connection to %s"
 msgstr "Створює віддалене з'єднання з %s"
 
-#: src/gnome-cmd-con-remote.cc:257
+#: src/gnome-cmd-con-remote.cc:258
 #, c-format
 msgid "Closes remote connection to %s"
 msgstr "Закриває віддалене з'єднання з %s"
 
 # c-format
-#: src/gnome-cmd-con-remote.cc:350
+#: src/gnome-cmd-con-remote.cc:351
 #, c-format
 msgid "Connecting to %s\n"
 msgstr "З'єднання з %s\n"
@@ -7665,20 +7664,19 @@ msgstr "З'єднання з %s\n"
 msgid "Failed to browse the network. Is Samba supported on the system?"
 msgstr "Помилка огляду мережі. Чи встановлено у системі підтримку Samba?"
 
-#: src/gnome-cmd-con-smb.cc:180
+#: src/gnome-cmd-con-smb.cc:178
 msgid "Go to: Samba Network"
 msgstr "Перейти до: мережа Samba"
 
-#: src/gnome-cmd-con-smb.cc:231
+#: src/gnome-cmd-con-smb.cc:229
 msgid "SMB"
 msgstr "SMB"
 
-#: src/gnome-cmd-con-smb.cc:232
+#: src/gnome-cmd-con-smb.cc:230
 msgid "Searching for workgroups and hosts"
 msgstr "Пошук робочі групи і вузлів"
 
-#: src/gnome-cmd-data.cc:2368 src/gnome-cmd-data.cc:2760
-#: src/user_actions.rs:418
+#: src/gnome-cmd-data.cc:2016 src/user_actions.rs:418
 #, c-format
 msgid "link to %s"
 msgstr "посилання на %s"
@@ -7748,7 +7746,7 @@ msgstr "_Створити посилання тут"
 msgid "C_ancel"
 msgstr "_Скасувати"
 
-#: src/gnome-cmd-file-list.cc:1182
+#: src/gnome-cmd-file-list.cc:1190
 msgid "Directory listing failed."
 msgstr "Не вдалося вивести вміст каталогу."
 
@@ -7761,7 +7759,7 @@ msgstr "%s вільно"
 msgid "Unknown disk usage"
 msgstr "Невідоме використання диску"
 
-#: src/gnome-cmd-file-selector.cc:978
+#: src/gnome-cmd-file-selector.cc:1010
 msgid "Filter:"
 msgstr "Фільтр:"
 
@@ -9057,35 +9055,7 @@ msgstr "Повідомити про проблему"
 msgid "About GNOME Commander"
 msgstr "Про GNOME Commander"
 
-#: src/utils.cc:328
-#, c-format
-msgid "(%sbyte)"
-msgid_plural "(%sbytes)"
-msgstr[0] "(%sбайт)"
-msgstr[1] "(%sбайти)"
-msgstr[2] "(%sбайтів)"
-msgstr[3] "(%sбайт)"
-
-#: src/utils.cc:331
-#, c-format
-msgid "%sbyte"
-msgid_plural "%sbytes"
-msgstr[0] "%sбайт"
-msgstr[1] "%sбайти"
-msgstr[2] "%sбайтів"
-msgstr[3] "%sбайт"
-
-#: src/utils.cc:439
-#, c-format
-msgid "Creating directory %s… "
-msgstr "Створення каталогу %s…"
-
-#: src/utils.cc:450
-#, c-format
-msgid "Failed to create the directory %s: %s"
-msgstr "Не вдалося створити каталог %s: %s"
-
-#: src/utils.cc:554
+#: src/utils.cc:500
 msgid "There was an error displaying help."
 msgstr "Помилка при показі допомоги."
 
@@ -9148,6 +9118,29 @@ msgstr[0] "{} байт"
 msgstr[1] "{} байти"
 msgstr[2] "{} байтів"
 msgstr[3] "{} байт"
+
+#~ msgid "Specify the directory for configuration files"
+#~ msgstr "Вкажіть каталог файлів налаштувань"
+
+#, c-format
+#~ msgid "(%sbyte)"
+#~ msgid_plural "(%sbytes)"
+#~ msgstr[0] "(%sбайт)"
+#~ msgstr[1] "(%sбайти)"
+#~ msgstr[2] "(%sбайтів)"
+#~ msgstr[3] "(%sбайт)"
+
+#, c-format
+#~ msgid "%sbyte"
+#~ msgid_plural "%sbytes"
+#~ msgstr[0] "%sбайт"
+#~ msgstr[1] "%sбайти"
+#~ msgstr[2] "%sбайтів"
+#~ msgstr[3] "%sбайт"
+
+#, c-format
+#~ msgid "Creating directory %s… "
+#~ msgstr "Створення каталогу %s…"
 
 #~ msgid "Refresh tab"
 #~ msgstr "Оновити вкладку"
