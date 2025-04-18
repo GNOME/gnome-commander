@@ -11,18 +11,18 @@ msgstr ""
 "Project-Id-Version: gnome-commander master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-commander/"
 "issues/\n"
-"POT-Creation-Date: 2025-03-30 17:13+0000\n"
-"PO-Revision-Date: 2025-03-31 19:26+0200\n"
+"POT-Creation-Date: 2025-04-17 06:46+0000\n"
+"PO-Revision-Date: 2025-04-18 12:11+0200\n"
 "Last-Translator: Martin Srebotnjak <miles@filmsi.net>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
 "Language: sl_SI\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || "
-"n%100==4 ? 3 : 0);\n"
+"Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || n"
+"%100==4 ? 3 : 0);\n"
 "X-Poedit-SourceCharset: utf-8\n"
-"X-Generator: Poedit 3.4.2\n"
+"X-Generator: Poedit 2.2.1\n"
 
 #: data/org.gnome.gnome-commander.appdata.xml.in:7
 #: data/org.gnome.gnome-commander.desktop.in:3 src/gnome-cmd-main-win.cc:573
@@ -5426,6 +5426,22 @@ msgstr "Dodaj pravilo"
 msgid "Edit Rule"
 msgstr "Uredi pravilo"
 
+#: src/application.rs:73
+msgid "Specify debug flags to use"
+msgstr "Določi razhroščevalne zastavice"
+
+#: src/application.rs:81
+msgid "Specify the start directory for the left pane"
+msgstr "Določite začetno mapo za levo okno"
+
+#: src/application.rs:89
+msgid "Specify the start directory for the right pane"
+msgstr "Določite začetno mapo za desno okno"
+
+#: src/application.rs:170
+msgid "Failed to create the directory {directory}: {error}"
+msgstr "Ustvarjanje mape {directory} je spodletelo: {error}"
+
 #: src/app.rs:70 src/open_file.rs:188
 msgid "Launch of {} failed."
 msgstr "Zagon {} ni uspel."
@@ -5469,6 +5485,11 @@ msgstr "Pogled besedila:"
 #: src/chmod_component.rs:132
 msgid "Number view:"
 msgstr "Pogled številk:"
+
+#: src/connection/device.rs:120 src/gnome-cmd-con-device.cc:616
+#, c-format
+msgid "Mounting %s"
+msgstr "Priklop %s"
 
 #: src/dialogs/about_plugin.rs:30
 #, c-format
@@ -7408,22 +7429,6 @@ msgstr "Upoštevaj velikost črk"
 msgid "Case sensitive matching"
 msgstr "Upoštevanje velikost črk"
 
-#: src/gnome-cmd-application.cc:48
-msgid "Specify debug flags to use"
-msgstr "Določi razhroščevalne zastavice"
-
-#: src/gnome-cmd-application.cc:49
-msgid "Specify the start directory for the left pane"
-msgstr "Določite začetno mapo za levo okno"
-
-#: src/gnome-cmd-application.cc:50
-msgid "Specify the start directory for the right pane"
-msgstr "Določite začetno mapo za desno okno"
-
-#: src/gnome-cmd-application.cc:51
-msgid "Specify the directory for configuration files"
-msgstr "Določite mapo nastavitvenih datotek"
-
 #: src/gnome-cmd-block.cc:37
 #, c-format
 msgid "The program has now finished. Press Enter to close this window.\n"
@@ -7438,21 +7443,21 @@ msgstr "Ni navedenega veljavnega ukaza."
 msgid "Unable to execute command."
 msgstr "Ni mogoče izvesti ukaza."
 
-#: src/gnome-cmd-con.cc:647 src/gnome-cmd-con.cc:678 src/gnome-cmd-con.cc:709
+#: src/gnome-cmd-con.cc:653 src/gnome-cmd-con.cc:684 src/gnome-cmd-con.cc:715
 msgid "<New connection>"
 msgstr "<nova povezava>"
 
-#: src/gnome-cmd-con.cc:649 src/gnome-cmd-con-device.cc:490
+#: src/gnome-cmd-con.cc:655 src/gnome-cmd-con-device.cc:502
 #, c-format
 msgid "Go to: %s"
 msgstr "Skoči na: %s"
 
-#: src/gnome-cmd-con.cc:680
+#: src/gnome-cmd-con.cc:686
 #, c-format
 msgid "Connect to: %s"
 msgstr "Poveži z: %s"
 
-#: src/gnome-cmd-con.cc:711
+#: src/gnome-cmd-con.cc:717
 #, c-format
 msgid "Disconnect from: %s"
 msgstr "Prekinjanje povezave: %s"
@@ -7474,11 +7479,11 @@ msgstr "Priklop je spodletel: nosilca ni mogoče najti"
 msgid "Mount failed: mount exited with exitstatus %d"
 msgstr "Priklop je spodletel: priklop zaključen s stanjem %d"
 
-#: src/gnome-cmd-con-device.cc:320
+#: src/gnome-cmd-con-device.cc:318 src/gnome-cmd-con-device.cc:327
 msgid "Volume successfully unmounted"
 msgstr "Pogon je uspešno odklopljen"
 
-#: src/gnome-cmd-con-device.cc:352
+#: src/gnome-cmd-con-device.cc:357 src/gnome-cmd-con-device.cc:366
 #, c-format
 msgid ""
 "Cannot unmount the volume:\n"
@@ -7489,49 +7494,44 @@ msgstr ""
 "%s\n"
 "Koda napake: %d"
 
-#: src/gnome-cmd-con-device.cc:488
+#: src/gnome-cmd-con-device.cc:500
 #, c-format
 msgid "Go to: %s (%s)"
 msgstr "Skoči na: %s (%s)"
 
-#: src/gnome-cmd-con-device.cc:497
+#: src/gnome-cmd-con-device.cc:509
 #, c-format
 msgid "Mount: %s"
 msgstr "Priklop %s"
 
-#: src/gnome-cmd-con-device.cc:504
+#: src/gnome-cmd-con-device.cc:516
 #, c-format
 msgid "Unmount: %s"
 msgstr "Odklapljam: %s"
 
-#: src/gnome-cmd-con-device.cc:604
-#, c-format
-msgid "Mounting %s"
-msgstr "Priklop %s"
-
-#: src/gnome-cmd-con-home.cc:72
+#: src/gnome-cmd-con-home.cc:71
 msgid "Go to: Home"
 msgstr "Skoči na: domov"
 
-#: src/gnome-cmd-con-home.cc:124
+#: src/gnome-cmd-con-home.cc:123
 msgid "Home"
 msgstr "Domov"
 
-#: src/gnome-cmd-con-remote.cc:135
+#: src/gnome-cmd-con-remote.cc:136 src/gnome-cmd-con-remote.cc:138
 msgid "Disconnect error"
 msgstr "Napaka prekinjanja povezave"
 
-#: src/gnome-cmd-con-remote.cc:247
+#: src/gnome-cmd-con-remote.cc:248
 #, c-format
 msgid "Opens remote connection to %s"
 msgstr "Odpre oddaljeno povezavo z %s"
 
-#: src/gnome-cmd-con-remote.cc:257
+#: src/gnome-cmd-con-remote.cc:258
 #, c-format
 msgid "Closes remote connection to %s"
 msgstr "Zapre oddaljeno povezavo z %s"
 
-#: src/gnome-cmd-con-remote.cc:350
+#: src/gnome-cmd-con-remote.cc:351
 #, c-format
 msgid "Connecting to %s\n"
 msgstr "Povezovanje z %s\n"
@@ -7540,20 +7540,19 @@ msgstr "Povezovanje z %s\n"
 msgid "Failed to browse the network. Is Samba supported on the system?"
 msgstr "Brskanje po omrežju je spodletelo. Ali sistem podpira možnosti Sambe?"
 
-#: src/gnome-cmd-con-smb.cc:180
+#: src/gnome-cmd-con-smb.cc:178
 msgid "Go to: Samba Network"
 msgstr "Skoči na: samba omrežje"
 
-#: src/gnome-cmd-con-smb.cc:231
+#: src/gnome-cmd-con-smb.cc:229
 msgid "SMB"
 msgstr "SMB"
 
-#: src/gnome-cmd-con-smb.cc:232
+#: src/gnome-cmd-con-smb.cc:230
 msgid "Searching for workgroups and hosts"
 msgstr "Iskanje delovnih skupin in gostiteljev"
 
-#: src/gnome-cmd-data.cc:2368 src/gnome-cmd-data.cc:2760
-#: src/user_actions.rs:418
+#: src/gnome-cmd-data.cc:2016 src/user_actions.rs:418
 #, c-format
 msgid "link to %s"
 msgstr "povezava do %s"
@@ -7623,7 +7622,7 @@ msgstr "_Poveži sem"
 msgid "C_ancel"
 msgstr "Pre_kliči"
 
-#: src/gnome-cmd-file-list.cc:1182
+#: src/gnome-cmd-file-list.cc:1190
 msgid "Directory listing failed."
 msgstr "Izpis map ni uspel."
 
@@ -7636,7 +7635,7 @@ msgstr "Prosto %s"
 msgid "Unknown disk usage"
 msgstr "Nedoločena zasedenost diska"
 
-#: src/gnome-cmd-file-selector.cc:978
+#: src/gnome-cmd-file-selector.cc:1010
 msgid "Filter:"
 msgstr "Filter:"
 
@@ -8926,35 +8925,7 @@ msgstr "Poročilo o napaki"
 msgid "About GNOME Commander"
 msgstr "O programu GNOME Commander"
 
-#: src/utils.cc:328
-#, c-format
-msgid "(%sbyte)"
-msgid_plural "(%sbytes)"
-msgstr[0] "(%s bajtov)"
-msgstr[1] "(%s bajt)"
-msgstr[2] "(%s bajta)"
-msgstr[3] "(%s bajti)"
-
-#: src/utils.cc:331
-#, c-format
-msgid "%sbyte"
-msgid_plural "%sbytes"
-msgstr[0] "%s bajtov"
-msgstr[1] "%s bajt"
-msgstr[2] "%s bajta"
-msgstr[3] "%s bajti"
-
-#: src/utils.cc:439
-#, c-format
-msgid "Creating directory %s… "
-msgstr "Ustvarjanje mape %s ... "
-
-#: src/utils.cc:450
-#, c-format
-msgid "Failed to create the directory %s: %s"
-msgstr "Ustvarjanje mape %s je spodletelo: %s"
-
-#: src/utils.cc:554
+#: src/utils.cc:500
 msgid "There was an error displaying help."
 msgstr "Prišlo je do napake med prikazovanjem pomoči."
 
