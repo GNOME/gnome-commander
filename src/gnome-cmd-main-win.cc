@@ -299,7 +299,7 @@ static void on_main_win_realize (GtkWidget *widget, GnomeCmdMainWin *mw)
 }
 
 
-static gboolean on_left_fs_select (GnomeCmdFileList *list, GnomeCmdFileListButtonEvent *event, GnomeCmdMainWin *mw)
+static gboolean on_left_fs_select (GnomeCmdFileSelector *fs, GnomeCmdMainWin *mw)
 {
     mw->priv->current_fs = LEFT;
 
@@ -310,7 +310,7 @@ static gboolean on_left_fs_select (GnomeCmdFileList *list, GnomeCmdFileListButto
 }
 
 
-static gboolean on_right_fs_select (GnomeCmdFileList *list, GnomeCmdFileListButtonEvent *event, GnomeCmdMainWin *mw)
+static gboolean on_right_fs_select (GnomeCmdFileSelector *fs, GnomeCmdMainWin *mw)
 {
     mw->priv->current_fs = RIGHT;
 
@@ -320,26 +320,6 @@ static gboolean on_right_fs_select (GnomeCmdFileList *list, GnomeCmdFileListButt
     return FALSE;
 }
 
-
-static void on_fs_list_resize_column (GnomeCmdFileList *list, guint column_index, GtkTreeViewColumn *column, GnomeCmdFileSelector *other_selector)
-{
-    static gint column_resize_lock = 0;
-
-    /* the lock is used so that we dont get into the situation where
-       the left list triggers the right witch triggers the left ... */
-    if (column_resize_lock == 0)
-    {
-        column_resize_lock += 1;
-
-        GnomeCmdFileList::ColumnID column_id = static_cast<GnomeCmdFileList::ColumnID> (column_index);
-        gint width = gtk_tree_view_column_get_width (column);
-
-        gnome_cmd_data.fs_col_width[column_id] = width;
-        other_selector->file_list()->resize_column (column_id, width);
-
-        column_resize_lock -= 1;
-    }
-}
 
 static void on_change_width (GObject *mw, GParamSpec *pspec, gpointer user_data)
 {
@@ -631,10 +611,8 @@ static void gnome_cmd_main_win_init (GnomeCmdMainWin *mw)
     gtk_gesture_single_set_button (GTK_GESTURE_SINGLE (paned_click_gesture), 3);
     g_signal_connect (paned_click_gesture, "pressed", G_CALLBACK (on_slide_button_press), mw);
 
-    g_signal_connect (mw->fs(LEFT)->file_list(), "resize-column", G_CALLBACK (on_fs_list_resize_column), mw->fs(RIGHT));
-    g_signal_connect (mw->fs(RIGHT)->file_list(), "resize-column", G_CALLBACK (on_fs_list_resize_column), mw->fs(LEFT));
-    g_signal_connect (mw->fs(LEFT)->file_list(), "list-clicked", G_CALLBACK (on_left_fs_select), mw);
-    g_signal_connect (mw->fs(RIGHT)->file_list(), "list-clicked", G_CALLBACK (on_right_fs_select), mw);
+    g_signal_connect (mw->fs(LEFT), "list-clicked", G_CALLBACK (on_left_fs_select), mw);
+    g_signal_connect (mw->fs(RIGHT), "list-clicked", G_CALLBACK (on_right_fs_select), mw);
 
     g_signal_connect (gnome_cmd_con_list_get (), "list-changed", G_CALLBACK (on_con_list_list_changed), mw);
 

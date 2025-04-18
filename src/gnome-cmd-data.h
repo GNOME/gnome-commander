@@ -47,6 +47,8 @@ G_DECLARE_FINAL_TYPE (GcmdSettings, gcmd_settings, GCMD, SETTINGS, GObject)
 
 GcmdSettings *gcmd_settings_new ();
 
+GSettings *gcmd_settings_get_general (GcmdSettings *);
+
 /* *************
  * KEY CONSTANTS
  * *************
@@ -593,7 +595,6 @@ struct GnomeCmdData
     gboolean                     buttonbar_visibility {TRUE};
     gboolean                     mainmenu_visibility {TRUE};
 
-    guint                        fs_col_width[GnomeCmdFileList::NUM_COLUMNS];
     guint                        gui_update_rate;
 
     GList                       *cmdline_history;
