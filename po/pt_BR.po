@@ -22,10 +22,10 @@ msgstr ""
 "Project-Id-Version: gnome-commander\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-commander/"
 "issues/\n"
-"POT-Creation-Date: 2025-03-30 17:27+0000\n"
-"PO-Revision-Date: 2025-03-30 19:58-0300\n"
+"POT-Creation-Date: 2025-04-17 06:46+0000\n"
+"PO-Revision-Date: 2025-04-18 07:43-0300\n"
 "Last-Translator: Álvaro Burns <>\n"
-"Language-Team: Brazilian Portuguese <https://br.gnome.org/traducao>\n"
+"Language-Team: Brazilian Portuguese <https://br.gnome.org/traducao/>\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -5573,6 +5573,22 @@ msgstr "Adicionar regra"
 msgid "Edit Rule"
 msgstr "Editar regra"
 
+#: src/application.rs:73
+msgid "Specify debug flags to use"
+msgstr "Especifica os sinalizadores de depurações a usar"
+
+#: src/application.rs:81
+msgid "Specify the start directory for the left pane"
+msgstr "Especifica o diretório inicial para o painel da esquerda"
+
+#: src/application.rs:89
+msgid "Specify the start directory for the right pane"
+msgstr "Especifica o diretório inicial para o painel da direita"
+
+#: src/application.rs:170
+msgid "Failed to create the directory {directory}: {error}"
+msgstr "Falha ao criar o diretório {directory}: {error}"
+
 #: src/app.rs:70 src/open_file.rs:188
 msgid "Launch of {} failed."
 msgstr "Abertura de {} falhou."
@@ -5616,6 +5632,11 @@ msgstr "Visualizar texto:"
 #: src/chmod_component.rs:132
 msgid "Number view:"
 msgstr "Visualizar números:"
+
+#: src/connection/device.rs:120 src/gnome-cmd-con-device.cc:616
+#, c-format
+msgid "Mounting %s"
+msgstr "Montando %s"
 
 #: src/dialogs/about_plugin.rs:30
 #, c-format
@@ -7531,22 +7552,6 @@ msgstr "Diferenciar maiúsculas e minúsculas"
 msgid "Case sensitive matching"
 msgstr "Seleciona correspondências considerando maiúsculas e minúsculas"
 
-#: src/gnome-cmd-application.cc:48
-msgid "Specify debug flags to use"
-msgstr "Especifica os sinalizadores de depurações a usar"
-
-#: src/gnome-cmd-application.cc:49
-msgid "Specify the start directory for the left pane"
-msgstr "Especifica o diretório inicial para o painel da esquerda"
-
-#: src/gnome-cmd-application.cc:50
-msgid "Specify the start directory for the right pane"
-msgstr "Especifica o diretório inicial para o painel da direita"
-
-#: src/gnome-cmd-application.cc:51
-msgid "Specify the directory for configuration files"
-msgstr "Especifica o diretório para os arquivos de configuração"
-
 #: src/gnome-cmd-block.cc:37
 #, c-format
 msgid "The program has now finished. Press Enter to close this window.\n"
@@ -7561,21 +7566,21 @@ msgstr "Nenhum comando válido dado."
 msgid "Unable to execute command."
 msgstr "Não foi possível executar o comando."
 
-#: src/gnome-cmd-con.cc:647 src/gnome-cmd-con.cc:678 src/gnome-cmd-con.cc:709
+#: src/gnome-cmd-con.cc:653 src/gnome-cmd-con.cc:684 src/gnome-cmd-con.cc:715
 msgid "<New connection>"
 msgstr "<Nova conexão>"
 
-#: src/gnome-cmd-con.cc:649 src/gnome-cmd-con-device.cc:490
+#: src/gnome-cmd-con.cc:655 src/gnome-cmd-con-device.cc:502
 #, c-format
 msgid "Go to: %s"
 msgstr "Ir para: %s"
 
-#: src/gnome-cmd-con.cc:680
+#: src/gnome-cmd-con.cc:686
 #, c-format
 msgid "Connect to: %s"
 msgstr "Conectar em: %s"
 
-#: src/gnome-cmd-con.cc:711
+#: src/gnome-cmd-con.cc:717
 #, c-format
 msgid "Disconnect from: %s"
 msgstr "Desconectando de %s"
@@ -7597,11 +7602,11 @@ msgstr "Falha na montagem: nenhuma mídia localizada"
 msgid "Mount failed: mount exited with exitstatus %d"
 msgstr "Falha na Montagem: estado do erro %d"
 
-#: src/gnome-cmd-con-device.cc:320
+#: src/gnome-cmd-con-device.cc:318 src/gnome-cmd-con-device.cc:327
 msgid "Volume successfully unmounted"
 msgstr "Volume desmontado com sucesso"
 
-#: src/gnome-cmd-con-device.cc:352
+#: src/gnome-cmd-con-device.cc:357 src/gnome-cmd-con-device.cc:366
 #, c-format
 msgid ""
 "Cannot unmount the volume:\n"
@@ -7612,49 +7617,44 @@ msgstr ""
 "%s\n"
 "Código de saída: %d"
 
-#: src/gnome-cmd-con-device.cc:488
+#: src/gnome-cmd-con-device.cc:500
 #, c-format
 msgid "Go to: %s (%s)"
 msgstr "Ir para: %s (%s)"
 
-#: src/gnome-cmd-con-device.cc:497
+#: src/gnome-cmd-con-device.cc:509
 #, c-format
 msgid "Mount: %s"
 msgstr "Montar %s"
 
-#: src/gnome-cmd-con-device.cc:504
+#: src/gnome-cmd-con-device.cc:516
 #, c-format
 msgid "Unmount: %s"
 msgstr "Desmontar: %s"
 
-#: src/gnome-cmd-con-device.cc:604
-#, c-format
-msgid "Mounting %s"
-msgstr "Montando %s"
-
-#: src/gnome-cmd-con-home.cc:72
+#: src/gnome-cmd-con-home.cc:71
 msgid "Go to: Home"
 msgstr "Ir para: Início"
 
-#: src/gnome-cmd-con-home.cc:124
+#: src/gnome-cmd-con-home.cc:123
 msgid "Home"
 msgstr "Início"
 
-#: src/gnome-cmd-con-remote.cc:135
+#: src/gnome-cmd-con-remote.cc:136 src/gnome-cmd-con-remote.cc:138
 msgid "Disconnect error"
 msgstr "Erro ao desconectar"
 
-#: src/gnome-cmd-con-remote.cc:247
+#: src/gnome-cmd-con-remote.cc:248
 #, c-format
 msgid "Opens remote connection to %s"
 msgstr "Abre uma conexão remota com %s"
 
-#: src/gnome-cmd-con-remote.cc:257
+#: src/gnome-cmd-con-remote.cc:258
 #, c-format
 msgid "Closes remote connection to %s"
 msgstr "Fecha uma conexão remota com %s"
 
-#: src/gnome-cmd-con-remote.cc:350
+#: src/gnome-cmd-con-remote.cc:351
 #, c-format
 msgid "Connecting to %s\n"
 msgstr "Conectando em %s\n"
@@ -7663,20 +7663,19 @@ msgstr "Conectando em %s\n"
 msgid "Failed to browse the network. Is Samba supported on the system?"
 msgstr "Falha ao navegar na rede. O sistema tem suporte ao Samba?"
 
-#: src/gnome-cmd-con-smb.cc:180
+#: src/gnome-cmd-con-smb.cc:178
 msgid "Go to: Samba Network"
 msgstr "Ir para: Rede Samba"
 
-#: src/gnome-cmd-con-smb.cc:231
+#: src/gnome-cmd-con-smb.cc:229
 msgid "SMB"
 msgstr "SMB"
 
-#: src/gnome-cmd-con-smb.cc:232
+#: src/gnome-cmd-con-smb.cc:230
 msgid "Searching for workgroups and hosts"
 msgstr "Pesquisando por máquinas e grupos de trabalhos"
 
-#: src/gnome-cmd-data.cc:2368 src/gnome-cmd-data.cc:2760
-#: src/user_actions.rs:418
+#: src/gnome-cmd-data.cc:2016 src/user_actions.rs:418
 #, c-format
 msgid "link to %s"
 msgstr "link para %s"
@@ -7747,7 +7746,7 @@ msgstr "_Link aqui"
 msgid "C_ancel"
 msgstr "C_ancelar"
 
-#: src/gnome-cmd-file-list.cc:1182
+#: src/gnome-cmd-file-list.cc:1190
 msgid "Directory listing failed."
 msgstr "Falha ao listar diretório."
 
@@ -7760,7 +7759,7 @@ msgstr "%s livre"
 msgid "Unknown disk usage"
 msgstr "Utilização de disco desconhecida"
 
-#: src/gnome-cmd-file-selector.cc:978
+#: src/gnome-cmd-file-selector.cc:1010
 msgid "Filter:"
 msgstr "Filtro:"
 
@@ -9092,31 +9091,7 @@ msgstr "Relata um problema"
 msgid "About GNOME Commander"
 msgstr "Sobre o GNOME Commander"
 
-#: src/utils.cc:328
-#, c-format
-msgid "(%sbyte)"
-msgid_plural "(%sbytes)"
-msgstr[0] "(%sbyte)"
-msgstr[1] "(%sbytes)"
-
-#: src/utils.cc:331
-#, c-format
-msgid "%sbyte"
-msgid_plural "%sbytes"
-msgstr[0] "%sbyte"
-msgstr[1] "%sbytes"
-
-#: src/utils.cc:439
-#, c-format
-msgid "Creating directory %s… "
-msgstr "Criando diretório %s… "
-
-#: src/utils.cc:450
-#, c-format
-msgid "Failed to create the directory %s: %s"
-msgstr "Falha ao criar o diretório %s: %s"
-
-#: src/utils.cc:554
+#: src/utils.cc:500
 msgid "There was an error displaying help."
 msgstr "Houve um erro ao exibir a ajuda."
 
@@ -9167,6 +9142,25 @@ msgid "{} byte"
 msgid_plural "{} bytes"
 msgstr[0] "{} byte"
 msgstr[1] "{} bytes"
+
+#~ msgid "Specify the directory for configuration files"
+#~ msgstr "Especifica o diretório para os arquivos de configuração"
+
+#, c-format
+#~ msgid "(%sbyte)"
+#~ msgid_plural "(%sbytes)"
+#~ msgstr[0] "(%sbyte)"
+#~ msgstr[1] "(%sbytes)"
+
+#, c-format
+#~ msgid "%sbyte"
+#~ msgid_plural "%sbytes"
+#~ msgstr[0] "%sbyte"
+#~ msgstr[1] "%sbytes"
+
+#, c-format
+#~ msgid "Creating directory %s… "
+#~ msgstr "Criando diretório %s… "
 
 #~ msgid "Refresh tab"
 #~ msgstr "Atualizar aba"
