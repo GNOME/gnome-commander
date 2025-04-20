@@ -672,6 +672,8 @@ static void dispose (GObject *object)
 {
     GnomeCmdFileSelector *fs = GNOME_CMD_FILE_SELECTOR (object);
 
+    g_signal_handlers_disconnect_by_data (fs->notebook, fs);
+
     if (fs->priv)
     {
         delete fs->priv;
