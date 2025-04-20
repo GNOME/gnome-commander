@@ -372,9 +372,13 @@ impl ConnectionList {
             .into_iter()
             .flatten()
         {
-            match ConnectionRemote::new(&v.alias, &v.uri) {
-                Some(remote) => self.add(&remote),
-                None => eprintln!("<Connection> invalid URI: '{}' - ignored", v.uri),
+            match ConnectionRemote::try_from_string(&v.alias, &v.uri) {
+                Ok(remote) => self.add(&remote),
+                Err(error) => eprintln!(
+                    "<Connection> invalid URI: '{}' - ignored\n{}",
+                    v.uri,
+                    error.message()
+                ),
             }
         }
     }
@@ -424,7 +428,7 @@ impl ConnectionList {
             return;
         }
         if self.find_remote_by_root(&file).is_none() {
-            if let Some(connection) = ConnectionRemote::new(&mount.name(), &file.uri()) {
+            if let Ok(connection) = ConnectionRemote::try_from_string(&mount.name(), &file.uri()) {
                 self.add(&connection);
             }
         }

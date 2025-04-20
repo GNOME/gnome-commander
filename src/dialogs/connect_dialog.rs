@@ -469,9 +469,7 @@ impl ConnectDialog {
             }
             Ok(Some((_, uri))) => {
                 let alias = dialog.imp().alias_entry.text();
-                let con = ConnectionRemote::default();
-                con.set_alias(Some(&alias));
-                con.set_uri(Some(&uri));
+                let con = ConnectionRemote::new(&alias, &uri);
                 Some(con)
             }
             _ => None,
