@@ -199,9 +199,9 @@ static void gnome_cmd_dir_class_init (GnomeCmdDirClass *klass)
             G_SIGNAL_RUN_LAST,
             G_STRUCT_OFFSET (GnomeCmdDirClass, list_failed),
             nullptr, nullptr,
-            g_cclosure_marshal_VOID__POINTER,
+            nullptr,
             G_TYPE_NONE,
-            1, G_TYPE_POINTER);
+            1, G_TYPE_ERROR);
 
     signals[DIR_DELETED] =
         g_signal_new ("dir-deleted",
