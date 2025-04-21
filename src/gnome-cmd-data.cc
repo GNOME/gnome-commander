@@ -1704,7 +1704,7 @@ void GnomeCmdData::save_cmdline_history(GnomeCmdMainWin *main_win)
         if (main_win != nullptr)
         {
             cmdline_history = gnome_cmd_cmdline_get_history (main_win->get_cmdline());
-            set_gsettings_string_array_from_glist(options.gcmd_settings->general, GCMD_SETTINGS_CMDLINE_HISTORY, cmdline_history);
+            g_settings_set_strv (options.gcmd_settings->general, GCMD_SETTINGS_CMDLINE_HISTORY, cmdline_history);
         }
     }
     else
@@ -1777,9 +1777,9 @@ inline GList* GnomeCmdData::get_list_from_gsettings_string_array (GSettings *set
 
 inline void GnomeCmdData::load_cmdline_history()
 {
-    g_list_free(cmdline_history);
+    g_strfreev(cmdline_history);
 
-    cmdline_history = get_list_from_gsettings_string_array (options.gcmd_settings->general, GCMD_SETTINGS_CMDLINE_HISTORY);
+    cmdline_history = g_settings_get_strv (options.gcmd_settings->general, GCMD_SETTINGS_CMDLINE_HISTORY);
 }
 
 

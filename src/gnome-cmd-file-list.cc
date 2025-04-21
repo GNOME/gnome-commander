@@ -2169,7 +2169,7 @@ static gboolean gnome_cmd_file_list_key_pressed (GtkEventControllerKey* self, gu
             text[0] = keyval;
             text[1] = '\0';
             gnome_cmd_cmdline_append_text (main_win->get_cmdline(), text);
-            gnome_cmd_cmdline_focus (main_win->get_cmdline());
+            gtk_widget_grab_focus (GTK_WIDGET (main_win->get_cmdline()));
         }
         return TRUE;
     }

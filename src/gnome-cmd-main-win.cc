@@ -31,10 +31,10 @@
 #include "gnome-cmd-user-actions.h"
 #include "gnome-cmd-main-win.h"
 #include "gnome-cmd-data.h"
-#include "gnome-cmd-combo.h"
 #include "gnome-cmd-dir.h"
 #include "gnome-cmd-plain-path.h"
 #include "gnome-cmd-con-list.h"
+#include "imageloader.h"
 #include "utils.h"
 #include "widget-factory.h"
 
@@ -680,7 +680,7 @@ void GnomeCmdMainWin::update_style()
     fs(RIGHT)->update_style();
 
     if (gnome_cmd_data.cmdline_visibility)
-        gnome_cmd_cmdline_update_style (GNOME_CMD_CMDLINE (priv->cmdline));
+        gnome_cmd_cmdline_update_style (priv->cmdline);
 
     if (auto file_search_dlg = static_cast<GnomeCmdSearchDialog*>(g_weak_ref_get (&priv->file_search_dlg)))
     {
@@ -717,7 +717,7 @@ static gboolean on_key_pressed (GtkEventControllerKey *controller, guint keyval,
             case GDK_KEY_c:
             case GDK_KEY_C:
                 if (gnome_cmd_data.cmdline_visibility && (gnome_cmd_data.options.quick_search == GNOME_CMD_QUICK_SEARCH_JUST_A_CHARACTER))
-                    gnome_cmd_cmdline_focus(mw->get_cmdline());
+                    gtk_widget_grab_focus (GTK_WIDGET (mw->get_cmdline()));
                 return TRUE;
                 break;
         }
@@ -728,7 +728,7 @@ static gboolean on_key_pressed (GtkEventControllerKey *controller, guint keyval,
         {
             case GDK_KEY_F8:
                 if (gnome_cmd_data.cmdline_visibility)
-                    gnome_cmd_cmdline_show_history (GNOME_CMD_CMDLINE (mw->priv->cmdline));
+                    gnome_cmd_cmdline_show_history (mw->priv->cmdline);
                 return TRUE;
             default:
                 break;
@@ -771,7 +771,7 @@ static gboolean on_key_pressed (GtkEventControllerKey *controller, guint keyval,
             case GDK_KEY_E:
             case GDK_KEY_Down:
                 if (gnome_cmd_data.cmdline_visibility)
-                    gnome_cmd_cmdline_show_history (GNOME_CMD_CMDLINE (mw->priv->cmdline));
+                    gnome_cmd_cmdline_show_history (mw->priv->cmdline);
                 return TRUE;
 
             case GDK_KEY_s:
@@ -1047,7 +1047,7 @@ void GnomeCmdMainWin::set_fs_directory_to_opposite(FileSelectorID fsID)
 
 GnomeCmdCmdline *GnomeCmdMainWin::get_cmdline() const
 {
-    return GNOME_CMD_CMDLINE (priv->cmdline);
+    return priv->cmdline;
 }
 
 
@@ -1119,14 +1119,73 @@ void GnomeCmdMainWin::update_cmdline()
 }
 
 
+static void on_cmdline_change_directory (GnomeCmdCmdline *cmdline, const gchar *dest_dir, GnomeCmdMainWin *mw)
+{
+    GnomeCmdFileSelector *fs = main_win->fs(ACTIVE);
+
+    if (strcmp (dest_dir, "-")==0)
+    {
+        auto *testGFile = gnome_cmd_dir_get_child_gfile (fs->get_directory(), "-");
+        if (g_file_query_exists (testGFile, nullptr))
+            fs->goto_directory(dest_dir);
+        else
+            fs->back();
+        g_object_unref(testGFile);
+    }
+    else
+        fs->goto_directory(dest_dir);
+}
+
+
+extern "C" int run_command_indir_r(const gchar *working_directory, const gchar *command, gboolean in_terminal, GError **error);
+
+static void on_cmdline_execute (GnomeCmdCmdline *cmdline, const gchar *command, gboolean in_terminal, GnomeCmdMainWin *mw)
+{
+    GnomeCmdFileSelector *fs = main_win->fs(ACTIVE);
+
+    if (fs->is_local())
+    {
+        gchar *fpath = GNOME_CMD_FILE (fs->get_directory())->get_real_path ();
+
+        GError *error = nullptr;
+        int result = run_command_indir_r(fpath, command, in_terminal, &error);
+        switch (result)
+        {
+            case 0:
+                break;
+            case 1:
+            case 2:
+                gnome_cmd_show_message (GTK_WINDOW (mw), _("No valid command given."));
+                g_clear_error (&error);
+                break;
+            case 3:
+            default:
+                gnome_cmd_show_message (GTK_WINDOW (mw), _("Unable to execute command."), error->message);
+                g_clear_error (&error);
+                break;
+        }
+
+        g_free (fpath);
+    }
+}
+
+
+static void on_cmdline_lose_focus (GnomeCmdCmdline *cmdline, GnomeCmdMainWin *mw)
+{
+    mw->focus_file_lists();
+}
+
+
 void GnomeCmdMainWin::update_cmdline_visibility()
 {
     if (gnome_cmd_data.cmdline_visibility)
     {
         priv->cmdline_sep = create_separator (FALSE);
-        priv->cmdline = gnome_cmd_cmdline_new ();
-        gtk_widget_set_margin_top (GTK_WIDGET (priv->cmdline), 1);
-        gtk_widget_set_margin_bottom (GTK_WIDGET (priv->cmdline), 1);
+        priv->cmdline = gnome_cmd_cmdline_new (gnome_cmd_data.cmdline_history, gnome_cmd_data.cmdline_history_length);
+        g_signal_connect (priv->cmdline, "change-directory", G_CALLBACK (on_cmdline_change_directory), this);
+        g_signal_connect (priv->cmdline, "execute", G_CALLBACK (on_cmdline_execute), this);
+        g_signal_connect (priv->cmdline, "lose-focus", G_CALLBACK (on_cmdline_lose_focus), this);
+
         gtk_box_append (GTK_BOX (priv->vbox), priv->cmdline_sep);
         gtk_box_append (GTK_BOX (priv->vbox), GTK_WIDGET (priv->cmdline));
         gtk_box_reorder_child_after (GTK_BOX (priv->vbox), priv->cmdline_sep, priv->paned);
@@ -1135,11 +1194,18 @@ void GnomeCmdMainWin::update_cmdline_visibility()
     else
     {
         if (priv->cmdline)
+        {
+            g_signal_handlers_disconnect_by_func (priv->cmdline, (gpointer) on_cmdline_change_directory, this);
+            g_signal_handlers_disconnect_by_func (priv->cmdline, (gpointer) on_cmdline_execute, this);
+            g_signal_handlers_disconnect_by_func (priv->cmdline, (gpointer) on_cmdline_lose_focus, this);
             gtk_box_remove (GTK_BOX (priv->vbox), GTK_WIDGET (priv->cmdline));
+            priv->cmdline = NULL;
+        }
         if (priv->cmdline_sep)
+        {
             gtk_box_remove (GTK_BOX (priv->vbox), priv->cmdline_sep);
-        priv->cmdline = NULL;
-        priv->cmdline_sep = NULL;
+            priv->cmdline_sep = NULL;
+        }
     }
 }
 

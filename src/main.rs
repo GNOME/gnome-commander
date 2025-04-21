@@ -23,6 +23,7 @@ mod app;
 mod application;
 mod chmod_component;
 mod chown_component;
+mod command_line;
 mod config;
 mod connection;
 mod data;

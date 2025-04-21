@@ -167,7 +167,7 @@ inline void add_file_to_cmdline (GnomeCmdFileList *fl, gboolean fullpath)
         gchar *text = fullpath ? f->get_quoted_real_path() : f->get_quoted_name();
 
         gnome_cmd_cmdline_append_text (main_win->get_cmdline(), text);
-        gnome_cmd_cmdline_focus (main_win->get_cmdline());
+        gtk_widget_grab_focus (GTK_WIDGET (main_win->get_cmdline()));
         g_free (text);
     }
 }
@@ -183,7 +183,7 @@ inline void add_cwd_to_cmdline (GnomeCmdFileList *fl)
         gnome_cmd_cmdline_append_text (main_win->get_cmdline(), dpath);
         g_free (dpath);
 
-        gnome_cmd_cmdline_focus (main_win->get_cmdline());
+        gtk_widget_grab_focus (GTK_WIDGET (main_win->get_cmdline()));
     }
 }
 
@@ -608,7 +608,7 @@ static gboolean on_list_key_pressed (GtkEventControllerKey *controller, guint ke
             case GDK_KEY_Return:
             case GDK_KEY_KP_Enter:
                 if (gnome_cmd_data.cmdline_visibility
-                    && gnome_cmd_cmdline_is_empty (main_win->get_cmdline()))
+                    && !gnome_cmd_cmdline_is_empty (main_win->get_cmdline()))
                     gnome_cmd_cmdline_exec (main_win->get_cmdline());
                 else
                     fs->do_file_specific_action (fs->list, fs->list->get_focused_file());

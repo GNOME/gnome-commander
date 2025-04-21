@@ -597,7 +597,7 @@ struct GnomeCmdData
 
     guint                        gui_update_rate;
 
-    GList                       *cmdline_history;
+    GStrv                        cmdline_history;
     gint                         cmdline_history_length;
     GList                       *get_list_from_gsettings_string_array (GSettings *settings, const gchar *key);
     gboolean                     set_gsettings_string_array_from_glist (GSettings *settings, const gchar *key, GList *strings);
