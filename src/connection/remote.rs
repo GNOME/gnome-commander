@@ -21,6 +21,7 @@
  */
 
 use super::connection::{Connection, ConnectionExt};
+use gettextrs::gettext;
 use gtk::glib::{
     self,
     translate::{from_glib_none, ToGlibPtr},
@@ -30,7 +31,6 @@ use std::ffi::c_char;
 pub mod ffi {
     use crate::connection::connection::ffi::GnomeCmdConClass;
     use glib::ffi::GType;
-    use std::ffi::c_char;
 
     #[repr(C)]
     pub struct GnomeCmdConRemote {
@@ -40,10 +40,6 @@ pub mod ffi {
 
     extern "C" {
         pub fn gnome_cmd_con_remote_get_type() -> GType;
-        pub fn gnome_cmd_con_remote_new(
-            alias: *const c_char,
-            uri: *const c_char,
-        ) -> *mut GnomeCmdConRemote;
     }
 
     #[derive(Copy, Clone)]
@@ -62,20 +58,24 @@ glib::wrapper! {
     }
 }
 
-impl Default for ConnectionRemote {
-    fn default() -> Self {
-        glib::Object::builder().build()
-    }
-}
-
 impl ConnectionRemote {
-    pub fn new(alias: &str, uri: &str) -> Option<Self> {
-        unsafe {
-            from_glib_none(ffi::gnome_cmd_con_remote_new(
-                alias.to_glib_none().0,
-                uri.to_glib_none().0,
-            ))
-        }
+    pub fn new(alias: &str, uri: &glib::Uri) -> Self {
+        let con: Self = glib::Object::builder().build();
+        con.set_alias(Some(alias));
+        con.set_uri(Some(uri));
+        con.set_open_message(
+            &gettext("Connecting to {hostname}")
+                .replace("{hostname}", uri.host().as_deref().unwrap_or("<?>")),
+        );
+        con
+    }
+
+    pub fn try_from_string(alias: &str, uri: &str) -> Result<Self, glib::Error> {
+        let uri = glib::Uri::parse(
+            uri,
+            glib::UriFlags::HAS_PASSWORD | glib::UriFlags::HAS_AUTH_PARAMS,
+        )?;
+        Ok(Self::new(alias, &uri))
     }
 
     pub fn method(&self) -> Option<ConnectionMethodID> {

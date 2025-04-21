@@ -467,11 +467,7 @@ pub async fn handle_user_input(
         }
     }
 
-    let Some(dest_dir) = dest_dir else {
-        return None;
-    };
-
-    Some((dest_dir, dest_fn))
+    Some((dest_dir?, dest_fn))
 }
 
 async fn say_mkdir_failed(parent_window: &gtk::Window, dir: &Path, error: &glib::Error) {

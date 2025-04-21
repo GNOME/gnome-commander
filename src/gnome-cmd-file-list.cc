@@ -1223,6 +1223,13 @@ static gboolean grab_focus(GtkWidget *widget)
 }
 
 
+static void on_connection_close (GnomeCmdCon *con, GnomeCmdFileList *fl)
+{
+    if (con == fl->con)
+        fl->set_connection(get_home_con());
+}
+
+
 /*******************************
  * Gtk class implementation
  *******************************/
@@ -1230,6 +1237,11 @@ static gboolean grab_focus(GtkWidget *widget)
 static void gnome_cmd_file_list_dispose (GObject *object)
 {
     GnomeCmdFileList *fl = GNOME_CMD_FILE_LIST (object);
+
+    if (fl->con)
+        g_signal_handlers_disconnect_by_func (fl->con, (gpointer) on_connection_close, fl);
+
+    g_clear_object (&fl->con);
 
     while (GtkWidget *child = gtk_widget_get_first_child (GTK_WIDGET (fl)))
         gtk_widget_unparent (child);
@@ -2192,13 +2204,6 @@ void GnomeCmdFileList::set_base_dir (gchar *dir)
 }
 
 
-static void on_connection_close (GnomeCmdCon *con, GnomeCmdFileList *fl)
-{
-    if (con == fl->con)
-        fl->set_connection(get_home_con());
-}
-
-
 extern "C" void open_connection_r (GnomeCmdFileList *fl, GtkWindow *parent_window, GnomeCmdCon *con);
 
 void GnomeCmdFileList::set_connection (GnomeCmdCon *new_con, GnomeCmdDir *start_dir)
@@ -2225,8 +2230,6 @@ void GnomeCmdFileList::set_connection (GnomeCmdCon *new_con, GnomeCmdDir *start_
     if (con)
         g_signal_handlers_disconnect_by_func (con, (gpointer) on_connection_close, this);
 
-    con = new_con;
-
     if (lwd)
     {
         gnome_cmd_dir_cancel_monitoring (lwd);
@@ -2235,11 +2238,13 @@ void GnomeCmdFileList::set_connection (GnomeCmdCon *new_con, GnomeCmdDir *start_
     }
     if (cwd)
     {
+        g_signal_handlers_disconnect_by_func (cwd, (gpointer) on_directory_deleted, this);
         gnome_cmd_dir_cancel_monitoring (cwd);
         gnome_cmd_dir_unref (cwd);
-        g_signal_handlers_disconnect_by_func (cwd, (gpointer) on_directory_deleted, this);
         cwd = nullptr;
     }
+
+    g_set_object (&con, new_con);
 
     if (!start_dir)
         start_dir = gnome_cmd_con_get_default_dir (con);
