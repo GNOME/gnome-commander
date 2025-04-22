@@ -58,8 +58,7 @@ extern "C" void gnome_cmd_application_activate(GApplication *application)
 
     gnome_cmd_data.connect_signals(main_win);
 
-    gtk_widget_show (*main_win);
-    main_win->restore_size_and_pos ();
+    gtk_window_present (*main_win);
 }
 
 

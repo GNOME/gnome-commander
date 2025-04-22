@@ -308,11 +308,6 @@ pub fn save_custom_theme(
 }
 
 #[no_mangle]
-pub extern "C" fn gnome_cmd_color_themes_get_type() -> GType {
-    ColorThemes::static_type().into_glib()
-}
-
-#[no_mangle]
 pub extern "C" fn gnome_cmd_get_current_theme() -> *mut Cow<'static, ColorTheme> {
     let Some(theme) = ColorThemes::new().theme() else {
         return std::ptr::null_mut();

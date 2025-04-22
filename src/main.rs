@@ -48,6 +48,7 @@ mod main_win;
 mod notebook_ext;
 mod open_connection;
 mod open_file;
+mod paned_ext;
 mod path;
 mod plugin_manager;
 mod pwd;
