@@ -4,8 +4,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: GNOME Commander Manual\n"
-"POT-Creation-Date: 2024-08-04 19:02+0000\n"
-"PO-Revision-Date: 2024-08-10 22:06+1000\n"
+"POT-Creation-Date: 2025-04-10 23:17+0000\n"
+"PO-Revision-Date: 2025-04-12 22:44+1000\n"
 "Last-Translator: Ser82-png <asvmail.as@gmail.com>\n"
 "Language-Team: Basealt Translation Team\n"
 "Language: ru\n"
@@ -686,11 +686,11 @@ msgstr "Режим запуска программы в единственном
 #. (itstool) path: listitem/para
 #: C/index.docbook:646
 msgid ""
-"Remote connections using GnomeVFS: FTP, SFTP (SSH+FTP), WebDAV and SMB/CIFS "
+"Remote connections using GVFS: FTP, SFTP (SSH+FTP), WebDAV and SMB/CIFS "
 "(Samba)"
 msgstr ""
-"Удалённые подключения с использованием GnomeVFS: FTP, SFTP (SSH+FTP), WebDAV "
-"и SMB/CIFS (Samba)"
+"Удалённые подключения с использованием GVFS: FTP, SFTP (SSH+FTP), WebDAV и "
+"SMB/CIFS (Samba)"
 
 #. (itstool) path: listitem/para
 #: C/index.docbook:649
@@ -855,10 +855,10 @@ msgstr "Окно GNOME Commander"
 msgctxt "_"
 msgid ""
 "external ref='figures/gnome-commander_window.png' "
-"md5='63f66d363decbef9ed9459c1cf756bee'"
+"md5='5c3dfa46f9691c3c4a6a219d37d75ab4'"
 msgstr ""
 "external ref='figures/gnome-commander_window.png' "
-"md5='63f66d363decbef9ed9459c1cf756bee'"
+"md5='5c3dfa46f9691c3c4a6a219d37d75ab4'"
 
 #. (itstool) path: screenshot/mediaobject
 #: C/index.docbook:743
@@ -1653,19 +1653,19 @@ msgstr "Сначала выберите объект, который хотит�
 #: C/index.docbook:1158
 msgid ""
 "Right click on the item and select <guimenu>Rename</guimenu>, type in the "
-"new name, and press <keycap>Enter</keycap> when finished."
+"new name, and press <keycap>ENTER</keycap> when finished."
 msgstr ""
 "Щёлкните на нём правой кнопкой мыши, и выберите <guimenu>Переименовать</"
-"guimenu>, затем наберите новое имя и нажмите <keycap>Enter</keycap>."
+"guimenu>, затем наберите новое имя и нажмите <keycap>ENTER</keycap>."
 
 #. (itstool) path: listitem/para
 #: C/index.docbook:1162
 msgid ""
 "Press <keycap>F2</keycap> and then type in the new name and press "
-"<keycap>Enter</keycap> when finished."
+"<keycap>ENTER</keycap> when finished."
 msgstr ""
 "Нажмите <keycap>F2</keycap>, затем наберите новое имя и нажмите "
-"<keycap>Enter</keycap>."
+"<keycap>ENTER</keycap>."
 
 #. (itstool) path: listitem/para
 #: C/index.docbook:1166
@@ -2127,7 +2127,7 @@ msgstr "Имя файла или папки"
 
 #. (itstool) path: entry/para
 #. (itstool) path: sect2/title
-#: C/index.docbook:1369 C/index.docbook:3953 C/index.docbook:7697
+#: C/index.docbook:1369 C/index.docbook:3953 C/index.docbook:7696
 msgid "Location"
 msgstr "Расположение"
 
@@ -2183,14 +2183,8 @@ msgstr "Открыть с помощью"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:1413
-msgid ""
-"Default application to open the file with. See section <xref linkend=\"gnome-"
-"commander-mime-types\"/> for information about how to change the default "
-"behavior."
-msgstr ""
-"Стандартное приложение для открытия файла. Информация об изменении поведения "
-"по умолчанию доступна в разделе <xref linkend=\"gnome-commander-mime-types\"/"
-">."
+msgid "Default application to open the file with."
+msgstr "Приложение, установленное по умолчанию, для открытия этого файла."
 
 #. (itstool) path: entry/para
 #: C/index.docbook:1418 C/index.docbook:2898
@@ -9759,7 +9753,7 @@ msgstr "Vorbis.License"
 
 #. (itstool) path: entry/para
 #. (itstool) path: sect2/title
-#: C/index.docbook:3948 C/index.docbook:7713
+#: C/index.docbook:3948 C/index.docbook:7712
 msgid "License"
 msgstr "Лицензия"
 
@@ -13720,12 +13714,12 @@ msgstr "<guilabel>Точка монтирования:</guilabel>"
 #. (itstool) path: entry/para
 #: C/index.docbook:6288
 msgid ""
-"Here you specify where the device should be mounted to, so that Gnome "
+"Here you specify where the device should be mounted to, so that GNOME "
 "Commander knows where to jump to when the mount was successful, for example /"
 "mnt/cdrom."
 msgstr ""
 "Здесь указывается, куда следует смонтировать устройство, чтобы программе "
-"Gnome Commander было известно, куда перейти после успешного монтирования. "
+"GNOME Commander было известно, куда перейти после успешного монтирования. "
 "Например, /mnt/cdrom."
 
 #. (itstool) path: entry/para
@@ -14902,7 +14896,7 @@ msgstr "Действие пользователя"
 
 #. (itstool) path: entry/para
 #. (itstool) path: sect1/title
-#: C/index.docbook:7016 C/index.docbook:7017 C/index.docbook:7679
+#: C/index.docbook:7016 C/index.docbook:7017 C/index.docbook:7678
 msgid "About GNOME Commander"
 msgstr "О GNOME Commander"
 
@@ -15607,18 +15601,18 @@ msgstr "Работа с архивами"
 #. (itstool) path: sect2/para
 #: C/index.docbook:7450
 msgid ""
-"GNOME Commander still lacks built in browsing of compressed archives. "
+"GNOME Commander still lacks built-in browsing of compressed archives. "
 "However the program can be configured so that working with archives becomes "
 "quite practical anyway."
 msgstr ""
 "В GNOME Commander пока отсутствуют встроенные средства для просмотра "
-"содержимого заархивированных файлов. Тем не менее, можно настроить программу "
+"содержимого архивированных файлов. Тем не менее, можно настроить программу "
 "так, что работа с архивами станет вполне удобной."
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:7452
 msgid ""
-"There are two different ways: The preferred one is to activate the build in "
+"There are two different ways: The preferred one is to activate the built-in "
 "<application>Fileroller</application> plugin in the menu "
 "<menuchoice><guimenu>Plugins</guimenu><guimenuitem>Configure Plugins...</"
 "guimenuitem></menuchoice>. By activating this plugin you get additional "
@@ -15780,22 +15774,22 @@ msgstr ""
 #. (itstool) path: listitem/para
 #: C/index.docbook:7523
 msgid ""
-"To insert the current file's path in Gnome Commander's command line, press "
-"<keycombo><keycap>CTRL</keycap><keycap>Shift</keycap><keycap>Enter</keycap></"
+"To insert the current file's path in GNOME Commander's command line, press "
+"<keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap><keycap>ENTER</keycap></"
 "keycombo>."
 msgstr ""
 "Чтобы вставить путь к текущему файлу в командную строку Gnome Commander, "
-"нажмите комбинацию клавиш <keycombo><keycap>CTRL</keycap><keycap>Shift</"
-"keycap><keycap>Enter</keycap></keycombo>."
+"нажмите комбинацию клавиш <keycombo><keycap>CTRL</keycap><keycap>SHIFT</"
+"keycap><keycap>ENTER</keycap></keycombo>."
 
 #. (itstool) path: listitem/para
 #: C/index.docbook:7527
 msgid ""
-"To insert the current file's name in Gnome Commander's command line, press "
-"<keycombo><keycap>CTRL</keycap><keycap>Enter</keycap></keycombo>."
+"To insert the current file's name in GNOME Commander's command line, press "
+"<keycombo><keycap>CTRL</keycap><keycap>ENTER</keycap></keycombo>."
 msgstr ""
-"Чтобы вставить имя текущего файла в командную строку Gnome Commander, "
-"нажмите комбинацию клавиш <keycombo><keycap>CTRL</keycap><keycap>Enter</"
+"Чтобы вставить имя текущего файла в командную строку GNOME Commander, "
+"нажмите комбинацию клавиш <keycombo><keycap>CTRL</keycap><keycap>ENTER</"
 "keycap></keycombo>."
 
 #. (itstool) path: sect1/title
@@ -15897,10 +15891,10 @@ msgstr "Тестовые версии для разработки"
 msgid ""
 "For those of you who feel really adventurous, or maybe want to hack on the "
 "freshest code, the latest development source snapshots are available by "
-"using GIT:"
+"using git:"
 msgstr ""
 "Те, кто любит проводить эксперименты или хочет поработать с самым свежим "
-"кодом, могут получить самые последние тестовые версии с помощью GIT:"
+"кодом, могут получить самые последние тестовые версии с помощью git:"
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:7570
@@ -16060,50 +16054,30 @@ msgstr ""
 "есть навыки программирования, предложат исправления и/или отправят патчи; "
 "всё в духе свободного программного обеспечения с открытым исходным кодом."
 
-#. (itstool) path: listitem/para
-#: C/index.docbook:7664
-msgid ""
-"GNOME Commander is still lacking on GVFS/GIO support. Instead it uses "
-"GnomeVFS."
-msgstr ""
-"В GNOME Commander всё ещё нет поддержки GVFS/GIO. Вместо этого используется "
-"GnomeVFS."
-
-#. (itstool) path: listitem/para
-#: C/index.docbook:7665
-msgid ""
-"Configuration of default application depending on the files MIME type is "
-"broken and was finally removed in v1.4. See section <xref linkend=\"gnome-"
-"commander-mime-types\"/> for more information."
-msgstr ""
-"Настройка программ по умолчанию в зависимости от типа MIME файлов не "
-"работает и была окончательно удалена в v1.4. Дополнительные сведения "
-"доступны в разделе <xref linkend=\"gnome-commander-mime-types\"/>."
-
 #. (itstool) path: sect1/para
 #: C/index.docbook:7662
 msgid "Known limitation: <_:itemizedlist-1/>"
 msgstr "Известное ограничение: <_:itemizedlist-1/>"
 
 #. (itstool) path: sect1/para
-#: C/index.docbook:7667
+#: C/index.docbook:7666
 msgid "<emphasis>Given enough eyeballs, all bugs are shallow.</emphasis>"
 msgstr ""
 "<emphasis>При достаточном количестве глаз можно разглядеть все ошибки.</"
 "emphasis>"
 
 #. (itstool) path: sect1/para
-#: C/index.docbook:7669
+#: C/index.docbook:7668
 msgid "<foreignphrase>Linus law.</foreignphrase>"
 msgstr "<foreignphrase>Закон Линуса.</foreignphrase>"
 
 #. (itstool) path: sect2/title
-#: C/index.docbook:7681
+#: C/index.docbook:7680
 msgid "History of GNOME Commander"
 msgstr "История программы GNOME Commander"
 
 #. (itstool) path: sect2/para
-#: C/index.docbook:7682
+#: C/index.docbook:7681
 msgid ""
 "GNOME Commander was primarily written by Marcus Bjurman, who was the one "
 "initiating this project in 2001 and developed it up to version 1.1.6 in "
@@ -16114,7 +16088,7 @@ msgstr ""
 "2004 года)."
 
 #. (itstool) path: sect2/para
-#: C/index.docbook:7684
+#: C/index.docbook:7683
 msgid ""
 "Later on, since 2004, GNOME Commander was maintained by the new lead "
 "developer Piotr Eljasiak, working at the project already since 2002. In this "
@@ -16126,7 +16100,7 @@ msgstr ""
 "реализовав встроенное средство просмотра файлов."
 
 #. (itstool) path: sect2/para
-#: C/index.docbook:7687
+#: C/index.docbook:7686
 msgid ""
 "Piotr conducted the development until version 1.2.8.15. In this time Magnus "
 "Stålnacke was responsible for the homepage. On the mailing list, amongst "
@@ -16141,7 +16115,7 @@ msgstr ""
 "проекта, Thomas Jost помог вести домашнюю страницу на Savannah.org"
 
 #. (itstool) path: sect2/para
-#: C/index.docbook:7692
+#: C/index.docbook:7691
 msgid ""
 "Unfortunately, Piotr suddenly passed away in the beginning of 2012 and GNOME "
 "Commander had no maintainer for nearly two years. Late in 2013, Uwe Scholz, "
@@ -16154,7 +16128,7 @@ msgstr ""
 "версии 1.0, взял на себя обязанности сопровождающего проекта."
 
 #. (itstool) path: sect2/para
-#: C/index.docbook:7698
+#: C/index.docbook:7697
 msgid ""
 "In the beginning, GNOME Commander had its home at Sourceforge. Later, the "
 "project moved to Savannah.org, where it got its own homepage and its mailing "
@@ -16167,7 +16141,7 @@ msgstr ""
 "org, но домашняя страница и списки рассылки так и оставались на Savannah."
 
 #. (itstool) path: sect2/para
-#: C/index.docbook:7702
+#: C/index.docbook:7701
 msgid ""
 "Since 2013, the location of the GNOME Commander home page has been moved to "
 "GitHub.org."
@@ -16175,12 +16149,12 @@ msgstr ""
 "С 2013 года домашняя страница GNOME Commander перемещена на GitHub.org."
 
 #. (itstool) path: sect2/title
-#: C/index.docbook:7705
+#: C/index.docbook:7704
 msgid "Bug Reporting"
 msgstr "Отправка сообщений об ошибках"
 
 #. (itstool) path: sect2/para
-#: C/index.docbook:7706
+#: C/index.docbook:7705
 msgid ""
 "If you found a bug, you can check if it is already reported on our <ulink "
 "type=\"http\" url=\"https://gitlab.gnome.org/GNOME/gnome-commander/"
@@ -16196,7 +16170,7 @@ msgstr ""
 "version\"/>."
 
 #. (itstool) path: sect2/para
-#: C/index.docbook:7714
+#: C/index.docbook:7713
 msgid ""
 "This program is distributed under the terms of the GNU General Public "
 "license as published by the Free Software Foundation; either version 2 of "
@@ -20722,6 +20696,31 @@ msgstr "02.08.2001"
 #: C/releases.xml:2762
 msgid "The first public version of GNOME Commander."
 msgstr "Первая публичная версия GNOME Commander."
+
+#~ msgid ""
+#~ "Default application to open the file with. See section <xref "
+#~ "linkend=\"gnome-commander-mime-types\"/> for information about how to "
+#~ "change the default behavior."
+#~ msgstr ""
+#~ "Стандартное приложение для открытия файла. Информация об изменении "
+#~ "поведения по умолчанию доступна в разделе <xref linkend=\"gnome-commander-"
+#~ "mime-types\"/>."
+
+#~ msgid ""
+#~ "Configuration of default application depending on the files MIME type is "
+#~ "broken and was finally removed in v1.4. See section <xref linkend=\"gnome-"
+#~ "commander-mime-types\"/> for more information."
+#~ msgstr ""
+#~ "Настройка программ по умолчанию в зависимости от типа MIME файлов не "
+#~ "работает и была окончательно удалена в v1.4. Дополнительные сведения "
+#~ "доступны в разделе <xref linkend=\"gnome-commander-mime-types\"/>."
+
+#~ msgid ""
+#~ "GNOME Commander is still lacking on GVFS/GIO support. Instead it uses "
+#~ "GnomeVFS."
+#~ msgstr ""
+#~ "В GNOME Commander всё ещё нет поддержки GVFS/GIO. Вместо этого "
+#~ "используется GnomeVFS."
 
 #~ msgid "1.4"
 #~ msgstr "1.4"
