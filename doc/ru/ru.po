@@ -4,8 +4,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: GNOME Commander Manual\n"
-"POT-Creation-Date: 2025-02-12 20:52+0000\n"
-"PO-Revision-Date: 2025-02-16 09:18+1000\n"
+"POT-Creation-Date: 2025-04-02 21:22+0000\n"
+"PO-Revision-Date: 2025-04-03 20:40+1000\n"
 "Last-Translator: Ser82-png <asvmail.as@gmail.com>\n"
 "Language-Team: Basealt Translation Team\n"
 "Language: ru\n"
@@ -1682,19 +1682,19 @@ msgstr "Сначала выберите объект, который хотит�
 #: C/index.docbook:1186
 msgid ""
 "Right click on the item and select <guimenu>Rename</guimenu>, type in the "
-"new name, and press <keycap>Enter</keycap> when finished."
+"new name, and press <keycap>ENTER</keycap> when finished."
 msgstr ""
 "Щёлкните на нём правой кнопкой мыши, и выберите <guimenu>Переименовать</"
-"guimenu>, затем наберите новое имя и нажмите <keycap>Enter</keycap>."
+"guimenu>, затем наберите новое имя и нажмите <keycap>ENTER</keycap>."
 
 #. (itstool) path: listitem/para
 #: C/index.docbook:1190
 msgid ""
 "Press <keycap>F2</keycap> and then type in the new name and press "
-"<keycap>Enter</keycap> when finished."
+"<keycap>ENTER</keycap> when finished."
 msgstr ""
 "Нажмите <keycap>F2</keycap>, затем наберите новое имя и нажмите "
-"<keycap>Enter</keycap>."
+"<keycap>ENTER</keycap>."
 
 #. (itstool) path: listitem/para
 #: C/index.docbook:1194
@@ -13749,12 +13749,12 @@ msgstr "<guilabel>Точка монтирования:</guilabel>"
 #. (itstool) path: entry/para
 #: C/index.docbook:6316
 msgid ""
-"Here you specify where the device should be mounted to, so that Gnome "
+"Here you specify where the device should be mounted to, so that GNOME "
 "Commander knows where to jump to when the mount was successful, for example /"
 "mnt/cdrom."
 msgstr ""
 "Здесь указывается, куда следует смонтировать устройство, чтобы программе "
-"Gnome Commander было известно, куда перейти после успешного монтирования. "
+"GNOME Commander было известно, куда перейти после успешного монтирования. "
 "Например, /mnt/cdrom."
 
 #. (itstool) path: entry/para
@@ -15636,18 +15636,18 @@ msgstr "Работа с архивами"
 #. (itstool) path: sect2/para
 #: C/index.docbook:7478
 msgid ""
-"GNOME Commander still lacks built in browsing of compressed archives. "
+"GNOME Commander still lacks built-in browsing of compressed archives. "
 "However the program can be configured so that working with archives becomes "
 "quite practical anyway."
 msgstr ""
 "В GNOME Commander пока отсутствуют встроенные средства для просмотра "
-"содержимого заархивированных файлов. Тем не менее, можно настроить программу "
+"содержимого архивированных файлов. Тем не менее, можно настроить программу "
 "так, что работа с архивами станет вполне удобной."
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:7480
 msgid ""
-"There are two different ways: The preferred one is to activate the build in "
+"There are two different ways: The preferred one is to activate the built-in "
 "<application>Fileroller</application> plugin in the menu "
 "<menuchoice><guimenu>Plugins</guimenu><guimenuitem>Configure Plugins...</"
 "guimenuitem></menuchoice>. By activating this plugin you get additional "
@@ -15809,22 +15809,22 @@ msgstr ""
 #. (itstool) path: listitem/para
 #: C/index.docbook:7551
 msgid ""
-"To insert the current file's path in Gnome Commander's command line, press "
-"<keycombo><keycap>CTRL</keycap><keycap>Shift</keycap><keycap>Enter</keycap></"
+"To insert the current file's path in GNOME Commander's command line, press "
+"<keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap><keycap>ENTER</keycap></"
 "keycombo>."
 msgstr ""
 "Чтобы вставить путь к текущему файлу в командную строку Gnome Commander, "
-"нажмите комбинацию клавиш <keycombo><keycap>CTRL</keycap><keycap>Shift</"
-"keycap><keycap>Enter</keycap></keycombo>."
+"нажмите комбинацию клавиш <keycombo><keycap>CTRL</keycap><keycap>SHIFT</"
+"keycap><keycap>ENTER</keycap></keycombo>."
 
 #. (itstool) path: listitem/para
 #: C/index.docbook:7555
 msgid ""
-"To insert the current file's name in Gnome Commander's command line, press "
-"<keycombo><keycap>CTRL</keycap><keycap>Enter</keycap></keycombo>."
+"To insert the current file's name in GNOME Commander's command line, press "
+"<keycombo><keycap>CTRL</keycap><keycap>ENTER</keycap></keycombo>."
 msgstr ""
-"Чтобы вставить имя текущего файла в командную строку Gnome Commander, "
-"нажмите комбинацию клавиш <keycombo><keycap>CTRL</keycap><keycap>Enter</"
+"Чтобы вставить имя текущего файла в командную строку GNOME Commander, "
+"нажмите комбинацию клавиш <keycombo><keycap>CTRL</keycap><keycap>ENTER</"
 "keycap></keycombo>."
 
 #. (itstool) path: sect1/title
@@ -15926,10 +15926,10 @@ msgstr "Тестовые версии для разработки"
 msgid ""
 "For those of you who feel really adventurous, or maybe want to hack on the "
 "freshest code, the latest development source snapshots are available by "
-"using GIT:"
+"using git:"
 msgstr ""
 "Те, кто любит проводить эксперименты или хочет поработать с самым свежим "
-"кодом, могут получить самые последние тестовые версии с помощью GIT:"
+"кодом, могут получить самые последние тестовые версии с помощью git:"
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:7598
