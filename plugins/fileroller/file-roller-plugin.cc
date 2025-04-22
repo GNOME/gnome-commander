@@ -37,7 +37,7 @@
 #define GCMD_PLUGINS_FILE_ROLLER_DEFAULT_TYPE        "default-type"
 #define GCMD_PLUGINS_FILE_ROLLER_PREFIX_PATTERN      "prefix-pattern"
 
-static PluginInfo plugin_nfo = {
+static GnomeCmdPluginInfo plugin_nfo = {
     GNOME_CMD_PLUGIN_SYSTEM_CURRENT_VERSION,
     NAME,
     PACKAGE_VERSION,
@@ -782,7 +782,7 @@ GObject *create_plugin ()
     return G_OBJECT (g_object_new (GNOME_CMD_TYPE_FILE_ROLLER_PLUGIN, nullptr));
 }
 
-PluginInfo *get_plugin_info ()
+GnomeCmdPluginInfo *get_plugin_info ()
 {
     if (!plugin_nfo.authors)
     {

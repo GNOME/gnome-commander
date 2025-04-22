@@ -61,12 +61,12 @@ gchar *gnome_cmd_file_metadata_extractor_tag_description (GnomeCmdFileMetadataEx
 }
 
 void gnome_cmd_file_metadata_extractor_extract_metadata (GnomeCmdFileMetadataExtractor *fme,
-                                                         GnomeCmdFileDescriptor *f,
+                                                         GnomeCmdFileDescriptor *fd,
                                                          GnomeCmdFileMetadataExtractorAddTag add,
                                                          gpointer user_data)
 {
     g_return_if_fail (GNOME_CMD_IS_FILE_METADATA_EXTRACTOR (fme));
     GnomeCmdFileMetadataExtractorInterface *iface = GNOME_CMD_FILE_METADATA_EXTRACTOR_GET_IFACE (fme);
     if (iface->extract_metadata)
-        (* iface->extract_metadata) (fme, f, add, user_data);
+        (* iface->extract_metadata) (fme, fd, add, user_data);
 }
