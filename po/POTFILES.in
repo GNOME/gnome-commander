@@ -15,6 +15,7 @@ src/app.rs
 src/chmod_component.rs
 src/chown_component.rs
 src/connection/device.rs
+src/connection/remote.rs
 src/dialogs/about_plugin.rs
 src/dialogs/advrename_dialog.rs
 src/dialogs/advrename_regex_dialog.rs
@@ -61,7 +62,6 @@ src/file_selector.rs
 src/file_view.rs
 src/gnome-cmd-advrename-profile-component.cc
 src/gnome-cmd-block.cc
-src/gnome-cmd-cmdline.cc
 src/gnome-cmd-con.cc
 src/gnome-cmd-con-device.cc
 src/gnome-cmd-con-home.cc
