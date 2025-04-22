@@ -12,8 +12,8 @@ msgstr ""
 "Project-Id-Version: 1.1.3\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-commander/"
 "issues/\n"
-"POT-Creation-Date: 2025-03-21 08:41+0000\n"
-"PO-Revision-Date: 2025-03-22 21:38+1000\n"
+"POT-Creation-Date: 2025-04-18 13:50+0000\n"
+"PO-Revision-Date: 2025-04-19 20:53+1000\n"
 "Last-Translator: Ser82-png <asvmail.as@gmail.com>\n"
 "Language-Team: Basealt Translation Team\n"
 "Language: ru\n"
@@ -26,7 +26,7 @@ msgstr ""
 "X-Generator: Poedit 3.0.1\n"
 
 #: data/org.gnome.gnome-commander.appdata.xml.in:7
-#: data/org.gnome.gnome-commander.desktop.in:3 src/gnome-cmd-main-win.cc:573
+#: data/org.gnome.gnome-commander.desktop.in:3 src/gnome-cmd-main-win.cc:553
 msgid "GNOME Commander"
 msgstr "GNOME Commander"
 
@@ -147,7 +147,7 @@ msgstr ""
 "панели."
 
 #: data/org.gnome.gnome-commander.gschema.xml:85
-#: src/dialogs/gnome-cmd-options-dialog.cc:401
+#: src/dialogs/gnome-cmd-options-dialog.cc:400
 msgid "Permission display mode"
 msgstr "Режим отображения прав"
 
@@ -185,7 +185,7 @@ msgid "'%F %R'"
 msgstr "'%F %R'"
 
 #: data/org.gnome.gnome-commander.gschema.xml:111
-#: src/dialogs/gnome-cmd-options-dialog.cc:417
+#: src/dialogs/gnome-cmd-options-dialog.cc:416
 msgid "Date format"
 msgstr "Формат даты"
 
@@ -310,7 +310,7 @@ msgstr ""
 "Период обновления графического пользовательского интерфейса в тысячных долях "
 "секунды."
 
-#: data/org.gnome.gnome-commander.gschema.xml:198 src/user_actions.rs:1563
+#: data/org.gnome.gnome-commander.gschema.xml:198 src/user_actions.rs:1693
 msgid "Show device buttons"
 msgstr "Показать кнопки устройств"
 
@@ -318,7 +318,7 @@ msgstr "Показать кнопки устройств"
 msgid "Defines if device buttons are shown."
 msgstr "Указывает, должны ли отображаться кнопки устройств."
 
-#: data/org.gnome.gnome-commander.gschema.xml:203 src/user_actions.rs:1569
+#: data/org.gnome.gnome-commander.gschema.xml:203 src/user_actions.rs:1699
 msgid "Show device list"
 msgstr "Показать список устройств"
 
@@ -326,7 +326,7 @@ msgstr "Показать список устройств"
 msgid "Defines if the list of devices is shown."
 msgstr "Указывает, должен ли отображаться список устройств."
 
-#: data/org.gnome.gnome-commander.gschema.xml:208 src/user_actions.rs:1587
+#: data/org.gnome.gnome-commander.gschema.xml:208 src/user_actions.rs:1717
 msgid "Show command line"
 msgstr "Показать командную строку"
 
@@ -334,7 +334,7 @@ msgstr "Показать командную строку"
 msgid "Defines if command line is shown."
 msgstr "Указывает, должна ли отображаться командная строка."
 
-#: data/org.gnome.gnome-commander.gschema.xml:213 src/user_actions.rs:1575
+#: data/org.gnome.gnome-commander.gschema.xml:213 src/user_actions.rs:1705
 msgid "Show toolbar"
 msgstr "Показать панель инструментов"
 
@@ -342,7 +342,7 @@ msgstr "Показать панель инструментов"
 msgid "Defines if the toolbar is shown."
 msgstr "Указывает, должна ли отображаться панель инструментов."
 
-#: data/org.gnome.gnome-commander.gschema.xml:218 src/user_actions.rs:1581
+#: data/org.gnome.gnome-commander.gschema.xml:218 src/user_actions.rs:1711
 msgid "Show buttonbar"
 msgstr "Показать панель кнопок"
 
@@ -594,7 +594,7 @@ msgid "Defines if the tab bar is always shown."
 msgstr "Определяет, будет ли панель вкладок всегда видна."
 
 #: data/org.gnome.gnome-commander.gschema.xml:415
-#: src/dialogs/gnome-cmd-options-dialog.cc:751
+#: src/dialogs/gnome-cmd-options-dialog.cc:750
 msgid "Tab lock indicator"
 msgstr "Индикатор блокировки вкладки"
 
@@ -613,7 +613,7 @@ msgstr ""
 "сортировке."
 
 #: data/org.gnome.gnome-commander.gschema.xml:429
-#: src/dialogs/gnome-cmd-options-dialog.cc:187
+#: src/dialogs/gnome-cmd-options-dialog.cc:186
 msgid "Treat symbolic links as regular files"
 msgstr "Считать символьные ссылки обычными файлами"
 
@@ -1561,9 +1561,9 @@ msgid "Name of the author."
 msgstr "Имя автора."
 
 #: plugins/exiv2/exiv2-plugin.cc:83 plugins/taglib/taglib-plugin.cc:187
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:606
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:624
 #: src/gnome-cmd-advrename-profile-component.cc:157
-#: src/gnome-cmd-advrename-profile-component.cc:504
+#: src/gnome-cmd-advrename-profile-component.cc:506
 msgid "Date"
 msgstr "Дата"
 
@@ -1572,7 +1572,7 @@ msgid "Datetime image was originally created."
 msgstr "Исходные дата и время создания изображения."
 
 #: plugins/exiv2/exiv2-plugin.cc:84 plugins/gsf/gsf-plugin.cc:81
-#: plugins/taglib/taglib-plugin.cc:351 src/file_metainfo_view.rs:89
+#: plugins/taglib/taglib-plugin.cc:351 src/file_metainfo_view.rs:83
 #: src/tags/basic.rs:72
 msgid "Description"
 msgstr "Описание"
@@ -3861,12 +3861,12 @@ msgstr "Дайте имя новому архиву"
 #: src/dialogs/chown_dialog.rs:112 src/dialogs/connect_dialog.rs:191
 #: src/dialogs/create_symlink_dialog.rs:54 src/dialogs/delete_dialog.rs:92
 #: src/dialogs/edit_bookmark_dialog.rs:94
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:521
+#: src/dialogs/file_properties_dialog.rs:148
 #: src/dialogs/gnome-cmd-mkdir-dialog.cc:173
-#: src/dialogs/gnome-cmd-options-dialog.cc:1510
+#: src/dialogs/gnome-cmd-options-dialog.cc:1362
 #: src/dialogs/make_copy_dialog.rs:78 src/dialogs/new_text_file.rs:94
 #: src/dialogs/open_with_other_dialog.rs:70
-#: src/dialogs/options/app_dialog.rs:201
+#: src/dialogs/options/app_dialog.rs:192
 #: src/dialogs/options/device_dialog.rs:121
 #: src/dialogs/options/edit_palette_dialog.rs:180
 #: src/dialogs/pattern_selection_dialog.rs:106
@@ -3879,7 +3879,7 @@ msgstr "Дайте имя новому архиву"
 #: src/dialogs/transfer_progress_dialog.rs:87 src/dirlist.rs:61
 #: src/file_selector.rs:289 src/intviewer/search_dialog.rs:68
 #: src/open_connection.rs:61 src/open_file.rs:46 src/open_file.rs:68
-#: src/user_actions.rs:819
+#: src/user_actions.rs:916
 msgid "_Cancel"
 msgstr "О_тмена"
 
@@ -3890,12 +3890,12 @@ msgstr "О_тмена"
 #: src/dialogs/chown_dialog.rs:122 src/dialogs/connect_dialog.rs:201
 #: src/dialogs/create_symlink_dialog.rs:58
 #: src/dialogs/edit_bookmark_dialog.rs:104
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:522
+#: src/dialogs/file_properties_dialog.rs:152
 #: src/dialogs/gnome-cmd-mkdir-dialog.cc:174
-#: src/dialogs/gnome-cmd-options-dialog.cc:1511
+#: src/dialogs/gnome-cmd-options-dialog.cc:1363
 #: src/dialogs/make_copy_dialog.rs:88 src/dialogs/new_text_file.rs:104
 #: src/dialogs/open_with_other_dialog.rs:75
-#: src/dialogs/options/app_dialog.rs:205
+#: src/dialogs/options/app_dialog.rs:196
 #: src/dialogs/options/device_dialog.rs:125
 #: src/dialogs/options/edit_palette_dialog.rs:184
 #: src/dialogs/pattern_selection_dialog.rs:116
@@ -3905,7 +3905,7 @@ msgstr "О_тмена"
 #: src/dialogs/shortcuts/shortcut_dialog.rs:190
 #: src/dialogs/shortcuts/shortcuts_dialog.rs:206 src/file_selector.rs:289
 #: src/intviewer/search_dialog.rs:69 src/intviewer/window.rs:694
-#: src/open_file.rs:46 src/user_actions.rs:819 src/utils.rs:253
+#: src/open_file.rs:46 src/user_actions.rs:916 src/utils.rs:250
 msgid "_OK"
 msgstr "_OK"
 
@@ -3925,7 +3925,7 @@ msgid "Extract to “%s”"
 msgstr "Извлечь в «%s»"
 
 #: plugins/fileroller/file-roller-plugin.cc:617
-#: src/gnome-cmd-advrename-profile-component.cc:496 src/tags/basic.rs:137
+#: src/gnome-cmd-advrename-profile-component.cc:498 src/tags/basic.rs:137
 msgid "File"
 msgstr "Файл"
 
@@ -3943,7 +3943,7 @@ msgid "File prefix pattern"
 msgstr "Шаблон префикса файла"
 
 #: plugins/fileroller/file-roller-plugin.cc:670
-#: src/dialogs/gnome-cmd-options-dialog.cc:432
+#: src/dialogs/gnome-cmd-options-dialog.cc:431
 msgid "Test result:"
 msgstr "Результат проверки:"
 
@@ -5548,49 +5548,70 @@ msgstr "Добавить правило"
 msgid "Edit Rule"
 msgstr "Изменить правило"
 
-#: src/app.rs:79 src/open_file.rs:188
+#: src/application.rs:73
+msgid "Specify debug flags to use"
+msgstr "Определить метку debug для использования"
+
+#: src/application.rs:81
+msgid "Specify the start directory for the left pane"
+msgstr "Укажите начальный каталог для левой панели"
+
+#: src/application.rs:89
+msgid "Specify the start directory for the right pane"
+msgstr "Укажите начальный каталог для правой панели"
+
+#: src/application.rs:170
+msgid "Failed to create the directory {directory}: {error}"
+msgstr "Не удалось создать каталог {directory}: {error}"
+
+#: src/app.rs:70 src/open_file.rs:188
 msgid "Launch of {} failed."
 msgstr "Не удалось запустить {}."
 
-#: src/app.rs:164
+#: src/app.rs:155
 msgid "Cannot launch an app {}. No files were given."
 msgstr "Не удалось запустить приложение {}. Файлы не были найдены."
 
-#: src/app.rs:175
+#: src/app.rs:166
 msgid "Cannot build a command line."
 msgstr "Не удалось построить командную строку."
 
-#: src/chmod_component.rs:55
+#: src/chmod_component.rs:47
 msgid "Read"
 msgstr "Чтение"
 
-#: src/chmod_component.rs:60
+#: src/chmod_component.rs:52
 msgid "Write"
 msgstr "Запись"
 
-#: src/chmod_component.rs:65
+#: src/chmod_component.rs:57
 msgid "Execute"
 msgstr "Исполнение"
 
-#: src/chmod_component.rs:90 src/chown_component.rs:109
+#: src/chmod_component.rs:82 src/chown_component.rs:100
 msgid "Owner:"
 msgstr "Владелец:"
 
-#: src/chmod_component.rs:90 src/chown_component.rs:121
+#: src/chmod_component.rs:82 src/chown_component.rs:112
 msgid "Group:"
 msgstr "Группа:"
 
-#: src/chmod_component.rs:90
+#: src/chmod_component.rs:82
 msgid "Others:"
 msgstr "Другие:"
 
-#: src/chmod_component.rs:127
+#: src/chmod_component.rs:119
 msgid "Text view:"
 msgstr "Просмотр текста:"
 
-#: src/chmod_component.rs:140
+#: src/chmod_component.rs:132
 msgid "Number view:"
 msgstr "Просмотр номера:"
+
+#: src/connection/device.rs:120 src/gnome-cmd-con-device.cc:616
+#, c-format
+msgid "Mounting %s"
+msgstr "Монтируется %s"
 
 #: src/dialogs/about_plugin.rs:30
 #, c-format
@@ -5610,7 +5631,7 @@ msgid "Translated by"
 msgstr "Перевод"
 
 #: src/dialogs/about_plugin.rs:137
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:685
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:703
 #: src/dialogs/gnome-cmd-search-dialog.cc:1250
 #: src/dialogs/manage_bookmarks_dialog.rs:222
 #: src/dialogs/options/edit_colors_dialog.rs:176
@@ -5651,7 +5672,7 @@ msgstr "Права доступа"
 msgid "Apply Recursively for"
 msgstr "Применить рекурсивно для"
 
-#: src/dialogs/chmod_dialog.rs:124 src/dialogs/options/app_dialog.rs:154
+#: src/dialogs/chmod_dialog.rs:124 src/dialogs/options/app_dialog.rs:145
 msgid "All files"
 msgstr "Все файлы"
 
@@ -5732,11 +5753,10 @@ msgstr "П_апка:"
 msgid "_Domain name:"
 msgstr "_Доменное имя:"
 
-#: src/dialogs/connect_dialog.rs:173
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:683
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:519
+#: src/dialogs/connect_dialog.rs:173 src/dialogs/file_properties_dialog.rs:136
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:701
 #: src/dialogs/gnome-cmd-mkdir-dialog.cc:172
-#: src/dialogs/gnome-cmd-options-dialog.cc:1509
+#: src/dialogs/gnome-cmd-options-dialog.cc:1361
 #: src/dialogs/gnome-cmd-search-dialog.cc:1249
 #: src/dialogs/manage_bookmarks_dialog.rs:218
 #: src/dialogs/options/device_dialog.rs:117
@@ -5803,16 +5823,16 @@ msgid "Do you really want to delete “{}”?"
 msgstr "Действительно удалить «{}»?"
 
 #: src/dialogs/delete_dialog.rs:210 src/dialogs/delete_dialog.rs:530
-#: src/user_actions.rs:430 src/user_actions.rs:483
+#: src/user_actions.rs:455 src/user_actions.rs:508
 msgid "Cancel"
 msgstr "Отмена"
 
 #: src/dialogs/delete_dialog.rs:211 src/dialogs/delete_dialog.rs:246
-#: src/dialogs/gnome-cmd-options-dialog.cc:845
-#: src/dialogs/gnome-cmd-options-dialog.cc:869
+#: src/dialogs/gnome-cmd-options-dialog.cc:844
+#: src/dialogs/gnome-cmd-options-dialog.cc:868
 #: src/dialogs/prepare_copy_dialog.rs:75 src/dialogs/prepare_move_dialog.rs:75
 #: src/transfer.rs:284 src/transfer.rs:324 src/transfer.rs:378
-#: src/transfer.rs:506 src/user_actions.rs:428
+#: src/transfer.rs:506 src/user_actions.rs:453
 msgid "Skip"
 msgstr "Пропустить"
 
@@ -5825,7 +5845,7 @@ msgid "Delete Remaining"
 msgstr "Удалить остальные"
 
 #: src/dialogs/delete_dialog.rs:217 src/dialogs/delete_dialog.rs:530
-#: src/dialogs/gnome-cmd-options-dialog.cc:817 src/file_list/popup.rs:268
+#: src/dialogs/gnome-cmd-options-dialog.cc:816 src/file_list/popup.rs:269
 #: src/gnome-cmd-main-win.cc:192
 msgid "Delete"
 msgstr "Удалить"
@@ -5843,7 +5863,7 @@ msgstr "Прервать"
 
 #: src/dialogs/delete_dialog.rs:246 src/transfer.rs:284 src/transfer.rs:320
 #: src/transfer.rs:337 src/transfer.rs:375 src/transfer.rs:393
-#: src/transfer.rs:503 src/transfer.rs:521 src/user_actions.rs:431
+#: src/transfer.rs:503 src/transfer.rs:521 src/user_actions.rs:456
 msgid "Retry"
 msgstr "Повторить"
 
@@ -5887,160 +5907,163 @@ msgstr "_Имя закладки:"
 msgid "Bookmark _target:"
 msgstr "_Цель закладки:"
 
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:107
-#: src/dialogs/gnome-cmd-search-dialog.cc:180
-msgid "_Save Profile As…"
-msgstr "_Сохранить профиль как…"
-
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:111
-#: src/dialogs/gnome-cmd-search-dialog.cc:184
-msgid "_Manage Profiles…"
-msgstr "_Управление профилями…"
-
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:315
-msgid "Remove from file list"
-msgstr "Удалить из списка файлов"
-
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:316 src/user_actions.rs:1346
-msgid "View file"
-msgstr "Просмотреть файл"
-
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:317
-msgid "File properties"
+#: src/dialogs/file_properties_dialog.rs:107
+msgid "File Properties"
 msgstr "Свойства файла"
 
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:320
-msgid "Update file list"
-msgstr "Обновить список файлов"
+#: src/dialogs/file_properties_dialog.rs:124 src/user_actions.rs:1530
+msgid "Properties"
+msgstr "Свойства"
 
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:502
-msgid "Advanced Rename Tool"
-msgstr "Расширенное средство переименования"
+#: src/dialogs/file_properties_dialog.rs:128 src/tags/basic.rs:69
+msgid "Permissions"
+msgstr "Права доступа"
 
-#. Results
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:517
-msgid "Results"
-msgstr "Результаты"
+#: src/dialogs/file_properties_dialog.rs:132
+msgid "Metadata"
+msgstr "Метаданные"
 
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:588
-msgid "Old name"
-msgstr "Старое имя"
-
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:592
-msgid "Current file name"
-msgstr "Текущее имя файла"
-
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:594
-msgid "New name"
-msgstr "Новое имя"
-
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:598
-msgid "New file name"
-msgstr "Новое имя файла"
-
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:600 src/tags/basic.rs:66
-msgid "Size"
-msgstr "Размер"
-
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:604
-msgid "File size"
-msgstr "Размер файла"
-
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:610
-msgid "File modification date"
-msgstr "Дата модификации файла"
-
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:675
-#: src/dialogs/gnome-cmd-search-dialog.cc:1241
-msgid "Profiles…"
-msgstr "Профили…"
-
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:684
-#: src/dialogs/profiles/edit_profile_dialog.rs:94
-msgid "Reset"
-msgstr "Сброс"
-
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:686
-msgid "_Apply"
-msgstr "_Применить"
-
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:287
+#: src/dialogs/file_properties_dialog.rs:226
 #: src/dialogs/gnome-cmd-mkdir-dialog.cc:194
 msgid "Directory name:"
 msgstr "Имя каталога:"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:287
-#: src/dialogs/new_text_file.rs:84
+#: src/dialogs/file_properties_dialog.rs:228 src/dialogs/new_text_file.rs:84
 msgid "File name:"
 msgstr "Имя файла:"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:297
+#: src/dialogs/file_properties_dialog.rs:243
 msgid "Symlink target:"
 msgstr "Цель символьной ссылки:"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:311
+#: src/dialogs/file_properties_dialog.rs:260
 msgid "Location:"
 msgstr "Расположение:"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:319
+#: src/dialogs/file_properties_dialog.rs:272
 msgid "Volume:"
 msgstr "Том:"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:347
+#: src/dialogs/file_properties_dialog.rs:282
 msgid "Free space:"
 msgstr "Свободно:"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:359
-msgid "Content Type:"
+#: src/dialogs/file_properties_dialog.rs:295
+msgid "Content type:"
 msgstr "Тип содержимого:"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:371
+#: src/dialogs/file_properties_dialog.rs:302
 msgid "Opens with:"
 msgstr "Открыть с помощью:"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:382
+#: src/dialogs/file_properties_dialog.rs:306
 msgid "No default application registered"
 msgstr "Приложение по умолчанию не зарегистрировано"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:393
+#: src/dialogs/file_properties_dialog.rs:323
 msgid "Modified:"
 msgstr "Дата изменения:"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:399
+#: src/dialogs/file_properties_dialog.rs:331
 msgid "Accessed:"
 msgstr "Дата доступа:"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:408
+#: src/dialogs/file_properties_dialog.rs:348
 msgid "Size:"
 msgstr "Размер:"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:465
+#: src/dialogs/file_properties_dialog.rs:384
 msgid "Owner and group"
 msgstr "Владелец и группа"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:473
+#: src/dialogs/file_properties_dialog.rs:404
 msgid "Access permissions"
 msgstr "Права доступа"
 
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:499
-msgid "File Properties"
-msgstr "Свойства файла"
-
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:515 src/user_actions.rs:1400
-msgid "Properties"
-msgstr "Свойства"
-
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:516 src/tags/basic.rs:69
-msgid "Permissions"
-msgstr "Права доступа"
-
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:517
-msgid "Metadata"
-msgstr "Метаданные"
-
-#: src/dialogs/gnome-cmd-file-props-dialog.cc:520
+#: src/dialogs/file_properties_dialog.rs:433
 msgid "Co_py"
 msgstr "_Копировать"
+
+#: src/dialogs/file_properties_dialog.rs:515
+msgid "Failed to apply changes."
+msgstr "Не удалось применить изменения."
+
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:106
+#: src/dialogs/gnome-cmd-search-dialog.cc:180
+msgid "_Save Profile As…"
+msgstr "_Сохранить профиль как…"
+
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:110
+#: src/dialogs/gnome-cmd-search-dialog.cc:184
+msgid "_Manage Profiles…"
+msgstr "_Управление профилями…"
+
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:333
+msgid "Remove from file list"
+msgstr "Удалить из списка файлов"
+
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:334 src/user_actions.rs:1476
+msgid "View file"
+msgstr "Просмотреть файл"
+
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:335
+msgid "File properties"
+msgstr "Свойства файла"
+
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:338
+msgid "Update file list"
+msgstr "Обновить список файлов"
+
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:520
+msgid "Advanced Rename Tool"
+msgstr "Расширенное средство переименования"
+
+#. Results
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:535
+msgid "Results"
+msgstr "Результаты"
+
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:606
+msgid "Old name"
+msgstr "Старое имя"
+
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:610
+msgid "Current file name"
+msgstr "Текущее имя файла"
+
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:612
+msgid "New name"
+msgstr "Новое имя"
+
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:616
+msgid "New file name"
+msgstr "Новое имя файла"
+
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:618 src/tags/basic.rs:66
+msgid "Size"
+msgstr "Размер"
+
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:622
+msgid "File size"
+msgstr "Размер файла"
+
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:628
+msgid "File modification date"
+msgstr "Дата модификации файла"
+
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:693
+#: src/dialogs/gnome-cmd-search-dialog.cc:1241
+msgid "Profiles…"
+msgstr "Профили…"
+
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:702
+#: src/dialogs/profiles/edit_profile_dialog.rs:94
+msgid "Reset"
+msgstr "Сброс"
+
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:704
+msgid "_Apply"
+msgstr "_Применить"
 
 #: src/dialogs/gnome-cmd-mkdir-dialog.cc:104
 msgid "A directory name must be entered"
@@ -6055,100 +6078,100 @@ msgstr "Не удалось создать каталог: %s\n"
 msgid "Make Directory"
 msgstr "Создать каталог"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:109
+#: src/dialogs/gnome-cmd-options-dialog.cc:108
 msgid "Left mouse button"
 msgstr "Левая кнопка мыши"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:112
+#: src/dialogs/gnome-cmd-options-dialog.cc:111
 msgid "Single click to open items"
 msgstr "Открывать одним щелчком"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:116
+#: src/dialogs/gnome-cmd-options-dialog.cc:115
 msgid "Double click to open items"
 msgstr "Открывать двойным щелчком"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:121
+#: src/dialogs/gnome-cmd-options-dialog.cc:120
 msgid "Single click unselects files"
 msgstr "Один щелчок снимает выделение файлов"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:128
+#: src/dialogs/gnome-cmd-options-dialog.cc:127
 msgid "Middle mouse button"
 msgstr "Средняя кнопка мыши"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:131 src/gnome-cmd-main-win.cc:182
-#: src/user_actions.rs:1607
+#: src/dialogs/gnome-cmd-options-dialog.cc:130 src/gnome-cmd-main-win.cc:182
+#: src/user_actions.rs:1737
 msgid "Up one directory"
 msgstr "На один каталог вверх"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:135
+#: src/dialogs/gnome-cmd-options-dialog.cc:134
 msgid "Opens new tab"
 msgstr "Открывает новую вкладку"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:143
+#: src/dialogs/gnome-cmd-options-dialog.cc:142
 msgid "Right mouse button"
 msgstr "Правая кнопка мыши"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:146
+#: src/dialogs/gnome-cmd-options-dialog.cc:145
 msgid "Shows popup menu"
 msgstr "Показывает всплывающее меню"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:150
+#: src/dialogs/gnome-cmd-options-dialog.cc:149
 msgid "Selects files"
 msgstr "Выбирает файлы"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:158
+#: src/dialogs/gnome-cmd-options-dialog.cc:157
 msgid "Deletion"
 msgstr "Удаление"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:161
+#: src/dialogs/gnome-cmd-options-dialog.cc:160
 msgid "Move to trash"
 msgstr "Переместить в корзину"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:168
+#: src/dialogs/gnome-cmd-options-dialog.cc:167
 msgid "Selection"
 msgstr "Выделение"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:171
+#: src/dialogs/gnome-cmd-options-dialog.cc:170
 msgid "Select directories"
 msgstr "Выделять каталоги"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:178
+#: src/dialogs/gnome-cmd-options-dialog.cc:177
 msgid "Sorting/Quick search"
 msgstr "Сортировка / Быстрый поиск"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:181
+#: src/dialogs/gnome-cmd-options-dialog.cc:180
 msgid "Case sensitive"
 msgstr "Учитывать регистр"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:195 src/user_actions.rs:1376
+#: src/dialogs/gnome-cmd-options-dialog.cc:194 src/user_actions.rs:1506
 msgid "Quick search"
 msgstr "Быстрый поиск"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:198
+#: src/dialogs/gnome-cmd-options-dialog.cc:197
 msgid "CTRL+ALT+letters"
 msgstr "CTRL+ALT+буква"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:202
+#: src/dialogs/gnome-cmd-options-dialog.cc:201
 msgid "ALT+letters (menu access with F12)"
 msgstr "ALT+буквы (вызов меню — F12)"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:206
+#: src/dialogs/gnome-cmd-options-dialog.cc:205
 msgid "Just letters (command line access with CTRL+ALT+C)"
 msgstr "Только буквы (вызов командной строки — CTRL+ALT+C)"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:211
+#: src/dialogs/gnome-cmd-options-dialog.cc:210
 msgid "Match beginning of the file name"
 msgstr "Совпадение с началом имени файла"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:215
+#: src/dialogs/gnome-cmd-options-dialog.cc:214
 msgid "Match end of the file name"
 msgstr "Совпадение с концом имени файла"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:221
+#: src/dialogs/gnome-cmd-options-dialog.cc:220
 msgid "Search Window"
 msgstr "Окно поиска"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:224
+#: src/dialogs/gnome-cmd-options-dialog.cc:223
 msgid ""
 "Search window is minimizable\n"
 "(Needs program restart if altered)"
@@ -6156,430 +6179,383 @@ msgstr ""
 "Окно поиска можно свернуть\n"
 "(при изменении параметра требуется перезапуск программы)"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:230
+#: src/dialogs/gnome-cmd-options-dialog.cc:229
 msgid "Multiple instances"
 msgstr "Несколько экземпляров"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:233
+#: src/dialogs/gnome-cmd-options-dialog.cc:232
 msgid "Don’t start a new instance"
 msgstr "Не запускать новый экземпляр"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:239
+#: src/dialogs/gnome-cmd-options-dialog.cc:238
 msgid "Save on exit"
 msgstr "Сохранить при выходе"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:242
-#: src/dialogs/gnome-cmd-options-dialog.cc:997
+#: src/dialogs/gnome-cmd-options-dialog.cc:241
+#: src/dialogs/gnome-cmd-options-dialog.cc:996
 msgid "Directories"
 msgstr "Каталоги"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:246
-#: src/dialogs/gnome-cmd-options-dialog.cc:1534
+#: src/dialogs/gnome-cmd-options-dialog.cc:245
+#: src/dialogs/gnome-cmd-options-dialog.cc:1386
 msgid "Tabs"
 msgstr "Вкладки"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:251
+#: src/dialogs/gnome-cmd-options-dialog.cc:250
 msgid "Directory history"
 msgstr "История каталогов"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:255
+#: src/dialogs/gnome-cmd-options-dialog.cc:254
 msgid "Commandline history"
 msgstr "История командной строки"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:259
+#: src/dialogs/gnome-cmd-options-dialog.cc:258
 msgid "Search history"
 msgstr "История поиска"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:373
+#: src/dialogs/gnome-cmd-options-dialog.cc:372
 msgid "Size display mode"
 msgstr "Режим отображения размера"
 
 #. Translators: 'Powered' refers to the mode of file size display (here - display using units of data: kB, MB, GB, ...)
-#: src/dialogs/gnome-cmd-options-dialog.cc:377
+#: src/dialogs/gnome-cmd-options-dialog.cc:376
 msgid "Powered"
 msgstr "Расширенный"
 
 #. Translators: '<locale>' refers to the mode of file size display (here - use current locale settings)
-#: src/dialogs/gnome-cmd-options-dialog.cc:383
+#: src/dialogs/gnome-cmd-options-dialog.cc:382
 #: src/gnome-cmd-advrename-profile-component.cc:145
 #: src/gnome-cmd-advrename-profile-component.cc:160
 msgid "<locale>"
 msgstr "<локаль>"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:388
+#: src/dialogs/gnome-cmd-options-dialog.cc:387
 msgid "Grouped"
 msgstr "С разделителями"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:393
+#: src/dialogs/gnome-cmd-options-dialog.cc:392
 msgid "Plain"
 msgstr "Простой"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:404
+#: src/dialogs/gnome-cmd-options-dialog.cc:403
 msgid "Text (rw-r--r--)"
 msgstr "Текстовый (rw-r--r--)"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:409
+#: src/dialogs/gnome-cmd-options-dialog.cc:408
 msgid "Number (644)"
 msgstr "Числовой (644)"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:420
+#: src/dialogs/gnome-cmd-options-dialog.cc:419
 msgid "Format:"
 msgstr "Формат:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:439
+#: src/dialogs/gnome-cmd-options-dialog.cc:438
 msgid "See the help page in the documentation on how to set the format string."
 msgstr ""
 "Чтобы понять, как задать строку формата, ознакомьтесь со страницей справки в "
 "документации."
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:532
+#: src/dialogs/gnome-cmd-options-dialog.cc:531
 msgid "With file name"
 msgstr "С именем файла"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:533
+#: src/dialogs/gnome-cmd-options-dialog.cc:532
 msgid "In separate column"
 msgstr "В отдельном столбце"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:534
+#: src/dialogs/gnome-cmd-options-dialog.cc:533
 msgid "In both columns"
 msgstr "В обоих столбцах"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:538
+#: src/dialogs/gnome-cmd-options-dialog.cc:537
 msgid "No icons"
 msgstr "Без иконок"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:539
+#: src/dialogs/gnome-cmd-options-dialog.cc:538
 msgid "File type icons"
 msgstr "Значки типов файлов"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:540
+#: src/dialogs/gnome-cmd-options-dialog.cc:539
 msgid "MIME icons"
 msgstr "Значки MIME"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:544
+#: src/dialogs/gnome-cmd-options-dialog.cc:543
 msgid "Respect theme colors"
 msgstr "Учитывать цвета системной темы"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:545
+#: src/dialogs/gnome-cmd-options-dialog.cc:544
 msgid "Modern"
 msgstr "Современная"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:546
+#: src/dialogs/gnome-cmd-options-dialog.cc:545
 msgid "Fusion"
 msgstr "Слияние"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:547
+#: src/dialogs/gnome-cmd-options-dialog.cc:546
 msgid "Classic"
 msgstr "Классическая"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:548
+#: src/dialogs/gnome-cmd-options-dialog.cc:547
 msgid "Deep blue"
 msgstr "Тёмно-синяя"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:549
+#: src/dialogs/gnome-cmd-options-dialog.cc:548
 msgid "Cafezinho"
 msgstr "Кофе по-бразильски"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:550
+#: src/dialogs/gnome-cmd-options-dialog.cc:549
 msgid "Green tiger"
 msgstr "Зелёный тигр"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:551
+#: src/dialogs/gnome-cmd-options-dialog.cc:550
 msgid "Winter"
 msgstr "Зима"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:552
+#: src/dialogs/gnome-cmd-options-dialog.cc:551
 msgid "Custom"
 msgstr "Пользовательская"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:571
+#: src/dialogs/gnome-cmd-options-dialog.cc:570
 msgid "File panes"
 msgstr "Панели файлов"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:581
+#: src/dialogs/gnome-cmd-options-dialog.cc:580
 msgid "Font:"
 msgstr "Шрифт:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:583
+#: src/dialogs/gnome-cmd-options-dialog.cc:582
 msgid "Row height:"
 msgstr "Высота ряда:"
 
 #. File extensions
-#: src/dialogs/gnome-cmd-options-dialog.cc:587
+#: src/dialogs/gnome-cmd-options-dialog.cc:586
 msgid "Display file extensions:"
 msgstr "Отображать расширения файлов:"
 
 #. Graphical mode
-#: src/dialogs/gnome-cmd-options-dialog.cc:596
+#: src/dialogs/gnome-cmd-options-dialog.cc:595
 msgid "Graphical mode:"
 msgstr "Графический режим:"
 
 #. Color scheme
-#: src/dialogs/gnome-cmd-options-dialog.cc:606
+#: src/dialogs/gnome-cmd-options-dialog.cc:605
 msgid "Color scheme:"
 msgstr "Цветовая схема:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:619
+#: src/dialogs/gnome-cmd-options-dialog.cc:618
 msgid "Edit…"
 msgstr "Изменить…"
 
 #. LS_COLORS
-#: src/dialogs/gnome-cmd-options-dialog.cc:626
+#: src/dialogs/gnome-cmd-options-dialog.cc:625
 msgid "Colorize files according to the LS_COLORS environment variable"
 msgstr "Окрашивать файлы в соответствии с переменной среды LS_COLORS"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:635
+#: src/dialogs/gnome-cmd-options-dialog.cc:634
 msgid "Edit colors…"
 msgstr "Изменить цвета…"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:643
+#: src/dialogs/gnome-cmd-options-dialog.cc:642
 msgid "MIME icon settings"
 msgstr "Настройки значков MIME"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:662
+#: src/dialogs/gnome-cmd-options-dialog.cc:661
 msgid "Icon size:"
 msgstr "Размер значков:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:664
+#: src/dialogs/gnome-cmd-options-dialog.cc:663
 msgid "Scaling quality:"
 msgstr "Качество масштабирования:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:666
+#: src/dialogs/gnome-cmd-options-dialog.cc:665
 msgid "Theme icon directory:"
 msgstr "Каталог темы значков:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:742
+#: src/dialogs/gnome-cmd-options-dialog.cc:741
 msgid "Tab bar"
 msgstr "Панель вкладок"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:745
+#: src/dialogs/gnome-cmd-options-dialog.cc:744
 msgid "Always show the tab bar"
 msgstr "Всегда показывать панель вкладок"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:754
+#: src/dialogs/gnome-cmd-options-dialog.cc:753
 msgid "Lock icon"
 msgstr "Значок блокировки"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:759
+#: src/dialogs/gnome-cmd-options-dialog.cc:758
 msgid "* (asterisk)"
 msgstr "* (звёздочка)"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:764
+#: src/dialogs/gnome-cmd-options-dialog.cc:763
 msgid "Styled text"
 msgstr "Изменённый текст"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:820
+#: src/dialogs/gnome-cmd-options-dialog.cc:819
 msgid "Confirm before delete"
 msgstr "Запрашивать подтверждение удаления"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:825
+#: src/dialogs/gnome-cmd-options-dialog.cc:824
 msgid "Confirm defaults to OK"
 msgstr "Подтверждение отображается как «OK» по умолчанию"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:834
+#: src/dialogs/gnome-cmd-options-dialog.cc:833
 msgid "Preselected overwrite action in copy dialog"
 msgstr "Уже выбранное действие перезаписи в диалоге копирования"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:837
-#: src/dialogs/gnome-cmd-options-dialog.cc:861
+#: src/dialogs/gnome-cmd-options-dialog.cc:836
+#: src/dialogs/gnome-cmd-options-dialog.cc:860
 msgid "Query first"
 msgstr "Выводить запрос"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:841
-#: src/dialogs/gnome-cmd-options-dialog.cc:865
+#: src/dialogs/gnome-cmd-options-dialog.cc:840
+#: src/dialogs/gnome-cmd-options-dialog.cc:864
 #: src/dialogs/prepare_copy_dialog.rs:69 src/dialogs/prepare_move_dialog.rs:69
-#: src/file_list/popup.rs:269 src/transfer.rs:322 src/transfer.rs:339
+#: src/file_list/popup.rs:270 src/transfer.rs:322 src/transfer.rs:339
 #: src/transfer.rs:377 src/transfer.rs:395 src/transfer.rs:505
 #: src/transfer.rs:523
 msgid "Rename"
 msgstr "Переименовать"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:849
-#: src/dialogs/gnome-cmd-options-dialog.cc:873
+#: src/dialogs/gnome-cmd-options-dialog.cc:848
+#: src/dialogs/gnome-cmd-options-dialog.cc:872
 #: src/dialogs/prepare_copy_dialog.rs:81 src/dialogs/prepare_move_dialog.rs:81
 msgid "Overwrite silently"
 msgstr "Перезаписывать без предупреждений"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:858
+#: src/dialogs/gnome-cmd-options-dialog.cc:857
 msgid "Preselected overwrite action in move dialog"
 msgstr "Уже выбранное действие перезаписи в диалоге перемещения"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:882
+#: src/dialogs/gnome-cmd-options-dialog.cc:881
 msgid "Default Drag and Drop Action"
 msgstr "Действие перетаскивания по умолчанию"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:885
+#: src/dialogs/gnome-cmd-options-dialog.cc:884
 msgid "Confirm mouse operation"
 msgstr "Подтверждение действий мышью"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:889
-#: src/dialogs/prepare_copy_dialog.rs:45 src/file_list/popup.rs:262
-#: src/gnome-cmd-main-win.cc:190 src/user_actions.rs:1524
+#: src/dialogs/gnome-cmd-options-dialog.cc:888
+#: src/dialogs/prepare_copy_dialog.rs:45 src/file_list/popup.rs:263
+#: src/gnome-cmd-main-win.cc:190 src/user_actions.rs:1654
 msgid "Copy"
 msgstr "Копировать"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:893
+#: src/dialogs/gnome-cmd-options-dialog.cc:892
 #: src/dialogs/prepare_move_dialog.rs:45
 msgid "Move"
 msgstr "Переместить"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:988
+#: src/dialogs/gnome-cmd-options-dialog.cc:987
 msgid "Filetypes to hide"
 msgstr "Скрыть типы файлов"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:991
+#: src/dialogs/gnome-cmd-options-dialog.cc:990
 msgid "Unknown"
 msgstr "Неизвестные"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:994
+#: src/dialogs/gnome-cmd-options-dialog.cc:993
 msgid "Regular files"
 msgstr "Регулярные файлы"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1000
+#: src/dialogs/gnome-cmd-options-dialog.cc:999
 msgid "Socket, fifo, block, or character devices"
 msgstr "Сокеты, fifo, блочные или символьные устройства"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1003
+#: src/dialogs/gnome-cmd-options-dialog.cc:1002
 msgid "Shortcuts (Windows systems)"
 msgstr "Ярлыки (системы Windows)"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1006
+#: src/dialogs/gnome-cmd-options-dialog.cc:1005
 msgid "Mountable locations"
 msgstr "Пригодные для подключения расположения"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1009
+#: src/dialogs/gnome-cmd-options-dialog.cc:1008
 msgid "Virtual files"
 msgstr "Виртуальные файлы"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1012
+#: src/dialogs/gnome-cmd-options-dialog.cc:1011
 msgid "Volatile files"
 msgstr "Временные файлы"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1017
+#: src/dialogs/gnome-cmd-options-dialog.cc:1016
 msgid "Also hide"
 msgstr "Также скрыть"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1020
+#: src/dialogs/gnome-cmd-options-dialog.cc:1019
 msgid "Hidden files"
 msgstr "Скрытые файлы"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1023
-#: src/dialogs/gnome-cmd-options-dialog.cc:1032
+#: src/dialogs/gnome-cmd-options-dialog.cc:1022
+#: src/dialogs/gnome-cmd-options-dialog.cc:1031
 msgid "Backup files"
 msgstr "Резервные файлы"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1026
+#: src/dialogs/gnome-cmd-options-dialog.cc:1025
 msgid "Symlinks"
 msgstr "Символьные ссылки"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1245
+#: src/dialogs/gnome-cmd-options-dialog.cc:1128
 msgid "Always download remote files before opening in external programs"
 msgstr "Всегда загружать удаленные файлы перед открытием во внешних программах"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1247
+#: src/dialogs/gnome-cmd-options-dialog.cc:1130
 msgid "MIME applications"
 msgstr "MIME приложения"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1251
+#: src/dialogs/gnome-cmd-options-dialog.cc:1134
 msgid "Standard programs"
 msgstr "Стандартные программы"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1254
+#: src/dialogs/gnome-cmd-options-dialog.cc:1137
 msgid "Viewer:"
 msgstr "Просмотрщик:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1256
+#: src/dialogs/gnome-cmd-options-dialog.cc:1139
 msgid "Editor:"
 msgstr "Редактор:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1258
+#: src/dialogs/gnome-cmd-options-dialog.cc:1141
 msgid "Differ:"
 msgstr "Показ различий:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1260
+#: src/dialogs/gnome-cmd-options-dialog.cc:1143
 msgid "Search:"
 msgstr "Поиск:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1262
+#: src/dialogs/gnome-cmd-options-dialog.cc:1145
 msgid "Send files:"
 msgstr "Отправить файлы:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1264
+#: src/dialogs/gnome-cmd-options-dialog.cc:1147
 msgid "Terminal:"
 msgstr "Терминал:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1271
+#: src/dialogs/gnome-cmd-options-dialog.cc:1154
 msgid "Use Internal Viewer"
 msgstr "Использовать встроенный просмотрщик"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1280
+#: src/dialogs/gnome-cmd-options-dialog.cc:1163
 msgid "Use Internal Search"
 msgstr "Использовать встроенное средство поиска"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1295
+#: src/dialogs/gnome-cmd-options-dialog.cc:1181
 msgid "Other favourite apps"
 msgstr "Другие избранные приложения"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1303
-msgid "Label"
-msgstr "Метка"
-
-#: src/dialogs/gnome-cmd-options-dialog.cc:1304
-msgid "Command"
-msgstr "Команда"
-
-#: src/dialogs/gnome-cmd-options-dialog.cc:1312
-#: src/dialogs/options/devices_widget.rs:77 src/dialogs/remote_dialog.rs:150
-#: src/dialogs/shortcuts/shortcuts_dialog.rs:143
-#: src/gnome-cmd-advrename-profile-component.cc:600
-msgid "_Add"
-msgstr "_Добавить"
-
-#: src/dialogs/gnome-cmd-options-dialog.cc:1315
-#: src/dialogs/manage_bookmarks_dialog.rs:82
-#: src/dialogs/options/devices_widget.rs:84
-#: src/dialogs/profiles/manage_profiles_dialog.rs:255
-#: src/dialogs/remote_dialog.rs:74
-#: src/dialogs/shortcuts/shortcuts_dialog.rs:156
-#: src/gnome-cmd-advrename-profile-component.cc:603 src/main_win.rs:331
-msgid "_Edit"
-msgstr "_Правка"
-
-#: src/dialogs/gnome-cmd-options-dialog.cc:1320
-#: src/dialogs/manage_bookmarks_dialog.rs:87
-#: src/dialogs/options/devices_widget.rs:91
-#: src/dialogs/profiles/manage_profiles_dialog.rs:280
-#: src/dialogs/remote_dialog.rs:78
-#: src/dialogs/shortcuts/shortcuts_dialog.rs:169
-#: src/gnome-cmd-advrename-profile-component.cc:606
-msgid "_Remove"
-msgstr "_Удалить"
-
-#: src/dialogs/gnome-cmd-options-dialog.cc:1325
-#: src/dialogs/manage_bookmarks_dialog.rs:92
-#: src/dialogs/options/devices_widget.rs:98 src/dialogs/remote_dialog.rs:82
-msgid "_Up"
-msgstr "_Вверх"
-
-#: src/dialogs/gnome-cmd-options-dialog.cc:1328
-#: src/dialogs/manage_bookmarks_dialog.rs:97
-#: src/dialogs/options/devices_widget.rs:105 src/dialogs/remote_dialog.rs:86
-msgid "_Down"
-msgstr "В_низ"
-
-#: src/dialogs/gnome-cmd-options-dialog.cc:1336
+#: src/dialogs/gnome-cmd-options-dialog.cc:1185
 msgid "Global app options"
 msgstr "Глобальные параметры приложения"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1339
+#: src/dialogs/gnome-cmd-options-dialog.cc:1188
 msgid "Terminal command for apps in the list above:"
 msgstr "Команда терминала для приложений в списке:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1346
+#: src/dialogs/gnome-cmd-options-dialog.cc:1195
 msgid "Leave terminal window open"
 msgstr "Оставить окно терминала открытым"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1404
+#: src/dialogs/gnome-cmd-options-dialog.cc:1256
 msgid ""
 "Show Samba workgroups button\n"
 "(Needs program restart if altered)"
@@ -6587,41 +6563,41 @@ msgstr ""
 "Показывать кнопку рабочих групп Samba\n"
 "(при изменении параметра требуется перезапуск программы)"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1408
+#: src/dialogs/gnome-cmd-options-dialog.cc:1260
 msgid "Show only the icons"
 msgstr "Показывать только значки"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1507
-#: src/dialogs/options/app_dialog.rs:116 src/dialogs/prepare_copy_dialog.rs:96
-#: src/dialogs/shortcuts/shortcuts_dialog.rs:109 src/user_actions.rs:1809
+#: src/dialogs/gnome-cmd-options-dialog.cc:1359
+#: src/dialogs/options/app_dialog.rs:107 src/dialogs/prepare_copy_dialog.rs:96
+#: src/dialogs/shortcuts/shortcuts_dialog.rs:109 src/user_actions.rs:1931
 msgid "Options"
 msgstr "Опции"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1531
+#: src/dialogs/gnome-cmd-options-dialog.cc:1383
 msgid "General"
 msgstr "Общее"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1532 src/tags/basic.rs:70
+#: src/dialogs/gnome-cmd-options-dialog.cc:1384 src/tags/basic.rs:70
 msgid "Format"
 msgstr "Формат"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1533
+#: src/dialogs/gnome-cmd-options-dialog.cc:1385
 msgid "Layout"
 msgstr "Вид"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1535
+#: src/dialogs/gnome-cmd-options-dialog.cc:1387
 msgid "Confirmation"
 msgstr "Подтверждение"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1536
+#: src/dialogs/gnome-cmd-options-dialog.cc:1388
 msgid "Filters"
 msgstr "Фильтры"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1537
+#: src/dialogs/gnome-cmd-options-dialog.cc:1389
 msgid "Programs"
 msgstr "Программы"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1538
+#: src/dialogs/gnome-cmd-options-dialog.cc:1390
 msgid "Devices"
 msgstr "Устройства"
 
@@ -6714,12 +6690,44 @@ msgstr "Копировать файл"
 msgid "Copy “{}” to"
 msgstr "Скопировать «{}» в"
 
+#: src/dialogs/manage_bookmarks_dialog.rs:82
+#: src/dialogs/options/apps_widget.rs:86
+#: src/dialogs/options/devices_widget.rs:84
+#: src/dialogs/profiles/manage_profiles_dialog.rs:255
+#: src/dialogs/remote_dialog.rs:74
+#: src/dialogs/shortcuts/shortcuts_dialog.rs:156
+#: src/gnome-cmd-advrename-profile-component.cc:605 src/main_win.rs:331
+msgid "_Edit"
+msgstr "_Правка"
+
+#: src/dialogs/manage_bookmarks_dialog.rs:87
+#: src/dialogs/options/apps_widget.rs:92
+#: src/dialogs/options/devices_widget.rs:91
+#: src/dialogs/profiles/manage_profiles_dialog.rs:280
+#: src/dialogs/remote_dialog.rs:78
+#: src/dialogs/shortcuts/shortcuts_dialog.rs:169
+#: src/gnome-cmd-advrename-profile-component.cc:608
+msgid "_Remove"
+msgstr "_Удалить"
+
+#: src/dialogs/manage_bookmarks_dialog.rs:92
+#: src/dialogs/options/apps_widget.rs:98
+#: src/dialogs/options/devices_widget.rs:98 src/dialogs/remote_dialog.rs:82
+msgid "_Up"
+msgstr "_Вверх"
+
+#: src/dialogs/manage_bookmarks_dialog.rs:97
+#: src/dialogs/options/apps_widget.rs:104
+#: src/dialogs/options/devices_widget.rs:105 src/dialogs/remote_dialog.rs:86
+msgid "_Down"
+msgstr "В_низ"
+
 #: src/dialogs/manage_bookmarks_dialog.rs:118
 msgid "Bookmarks"
 msgstr "Закладки"
 
 #: src/dialogs/manage_bookmarks_dialog.rs:142 src/dialogs/remote_dialog.rs:125
-#: src/file_metainfo_view.rs:75 src/tags/basic.rs:63
+#: src/file_metainfo_view.rs:69 src/tags/basic.rs:63
 msgid "Name"
 msgstr "Имя"
 
@@ -6771,69 +6779,84 @@ msgstr "Приложение:"
 msgid "Invalid command"
 msgstr "Неверная команда"
 
-#: src/dialogs/options/app_dialog.rs:52
+#: src/dialogs/options/app_dialog.rs:43
 msgid "New Application"
 msgstr "Новое приложение"
 
-#: src/dialogs/options/app_dialog.rs:54
+#: src/dialogs/options/app_dialog.rs:45
 msgid "Edit Application"
 msgstr "Правка приложения"
 
-#: src/dialogs/options/app_dialog.rs:70
+#: src/dialogs/options/app_dialog.rs:61
 msgid "Label:"
 msgstr "Метка:"
 
-#: src/dialogs/options/app_dialog.rs:80
+#: src/dialogs/options/app_dialog.rs:71
 msgid "Command:"
 msgstr "Команда:"
 
-#: src/dialogs/options/app_dialog.rs:90 src/dialogs/options/device_dialog.rs:89
+#: src/dialogs/options/app_dialog.rs:81 src/dialogs/options/device_dialog.rs:89
 msgid "Icon:"
 msgstr "Значок:"
 
-#: src/dialogs/options/app_dialog.rs:127
+#: src/dialogs/options/app_dialog.rs:118
 msgid "Can handle multiple files"
 msgstr "Возможность ручного манипулирования множественными файлами"
 
-#: src/dialogs/options/app_dialog.rs:132
+#: src/dialogs/options/app_dialog.rs:123
 msgid "Can handle URIs"
 msgstr "Управление URI вручную"
 
-#: src/dialogs/options/app_dialog.rs:137
+#: src/dialogs/options/app_dialog.rs:128
 msgid "Requires terminal"
 msgstr "Выполнить в терминале"
 
-#: src/dialogs/options/app_dialog.rs:143
+#: src/dialogs/options/app_dialog.rs:134
 msgid "Show for"
 msgstr "Показать для"
 
-#: src/dialogs/options/app_dialog.rs:159
+#: src/dialogs/options/app_dialog.rs:150
 msgid "All directories"
 msgstr "Все каталоги"
 
-#: src/dialogs/options/app_dialog.rs:165
+#: src/dialogs/options/app_dialog.rs:156
 msgid "All directories and files"
 msgstr "Все каталоги и файлы"
 
-#: src/dialogs/options/app_dialog.rs:171
+#: src/dialogs/options/app_dialog.rs:162
 msgid "Some files"
 msgstr "Некоторые файлы"
 
-#: src/dialogs/options/app_dialog.rs:177
+#: src/dialogs/options/app_dialog.rs:168
 msgid "File patterns"
 msgstr "Шаблоны файла"
 
-#: src/dialogs/options/app_dialog.rs:270
+#: src/dialogs/options/app_dialog.rs:261
 msgid "An app needs to have a non-empty label"
 msgstr "Приложение должно содержать непустую метку"
 
-#: src/dialogs/options/app_dialog.rs:277
+#: src/dialogs/options/app_dialog.rs:268
 msgid ""
 "An app with this label exists already.\n"
 "Please choose another label."
 msgstr ""
 "Приложение с такой меткой уже существует.\n"
 "Выберите другую метку."
+
+#: src/dialogs/options/apps_widget.rs:51
+msgid "Label"
+msgstr "Метка"
+
+#: src/dialogs/options/apps_widget.rs:58
+msgid "Command"
+msgstr "Команда"
+
+#: src/dialogs/options/apps_widget.rs:80
+#: src/dialogs/options/devices_widget.rs:77 src/dialogs/remote_dialog.rs:150
+#: src/dialogs/shortcuts/shortcuts_dialog.rs:143
+#: src/gnome-cmd-advrename-profile-component.cc:602
+msgid "_Add"
+msgstr "_Добавить"
 
 #: src/dialogs/options/device_dialog.rs:41
 msgid "New Device"
@@ -7186,7 +7209,7 @@ msgstr[2] "{}, выбрано {selected_dirs} из {total_dirs} каталого
 msgid "_Open with “{}”"
 msgstr "_Открыть с помощью «{}»"
 
-#: src/file_list/popup.rs:175 src/file_list/popup.rs:208
+#: src/file_list/popup.rs:175 src/file_list/popup.rs:207
 msgid "Open Wit_h…"
 msgstr "Открыть с _помощью…"
 
@@ -7194,62 +7217,62 @@ msgstr "Открыть с _помощью…"
 msgid "Open Wit_h"
 msgstr "Открыть с _помощью"
 
-#: src/file_list/popup.rs:224
+#: src/file_list/popup.rs:225
 msgid "E_xecute"
 msgstr "В_ыполнение"
 
 #. Edit actions
-#: src/file_list/popup.rs:261 src/gnome-cmd-main-win.cc:189
-#: src/user_actions.rs:1519
+#: src/file_list/popup.rs:262 src/gnome-cmd-main-win.cc:189
+#: src/user_actions.rs:1649
 msgid "Cut"
 msgstr "Вырезать"
 
-#: src/file_list/popup.rs:264 src/user_actions.rs:1542
+#: src/file_list/popup.rs:265 src/user_actions.rs:1672
 msgid "Copy file names"
 msgstr "Копировать имена файлов"
 
-#: src/file_list/popup.rs:271 src/gnome-cmd-main-win.cc:194
-#: src/user_actions.rs:1436
+#: src/file_list/popup.rs:272 src/gnome-cmd-main-win.cc:194
+#: src/user_actions.rs:1566
 msgid "Send files"
 msgstr "Отправить файлы"
 
-#: src/file_list/popup.rs:276 src/file_list/popup.rs:300
+#: src/file_list/popup.rs:277 src/file_list/popup.rs:301
 msgid "Open _terminal here"
 msgstr "Открыть _терминал здесь"
 
-#: src/file_list/popup.rs:282 src/main_win.rs:313
+#: src/file_list/popup.rs:283 src/main_win.rs:313
 msgid "_Properties…"
 msgstr "_Свойства…"
 
-#: src/file_list/popup.rs:289
+#: src/file_list/popup.rs:290
 msgid "New"
 msgstr "Новый"
 
-#: src/file_list/popup.rs:291
+#: src/file_list/popup.rs:292
 msgid "_Directory"
 msgstr "_Каталог"
 
-#: src/file_list/popup.rs:293
+#: src/file_list/popup.rs:294
 msgid "_Text File"
 msgstr "_Текстовый файл"
 
-#: src/file_list/popup.rs:298 src/main_win.rs:337
+#: src/file_list/popup.rs:299 src/main_win.rs:337
 msgid "_Paste"
 msgstr "_Вставить"
 
-#: src/file_list/popup.rs:304 src/main_win.rs:404
+#: src/file_list/popup.rs:305 src/main_win.rs:404
 msgid "_Refresh"
 msgstr "_Обновить"
 
-#: src/file_list/quick_search.rs:61 src/user_actions.rs:1370
+#: src/file_list/quick_search.rs:61 src/user_actions.rs:1500
 msgid "Search"
 msgstr "Поиск"
 
-#: src/file_metainfo_view.rs:82
+#: src/file_metainfo_view.rs:76
 msgid "Value"
 msgstr "Значение"
 
-#: src/file_selector.rs:288 src/user_actions.rs:818
+#: src/file_selector.rs:288 src/user_actions.rs:915
 msgid "The tab is locked, close anyway?"
 msgstr "Вкладка заблокирована. Всё равно закрыть?"
 
@@ -7265,23 +7288,23 @@ msgstr "_Разблокировать вкладку"
 msgid "_Lock Tab"
 msgstr "_Заблокировать вкладку"
 
-#: src/file_selector.rs:354
+#: src/file_selector.rs:352
 msgid "_Refresh Tab"
 msgstr "_Обновить вкладку"
 
-#: src/file_selector.rs:365
+#: src/file_selector.rs:361
 msgid "Copy Tab to Other _Pane"
 msgstr "Копировать вкладку на другую _панель"
 
-#: src/file_selector.rs:370 src/main_win.rs:413
+#: src/file_selector.rs:366 src/main_win.rs:413
 msgid "_Close Tab"
 msgstr "_Закрыть вкладку"
 
-#: src/file_selector.rs:372 src/main_win.rs:415
+#: src/file_selector.rs:368 src/main_win.rs:415
 msgid "Close _All Tabs"
 msgstr "Закрыть _все вкладки"
 
-#: src/file_selector.rs:376
+#: src/file_selector.rs:372
 msgid "Close _Duplicate Tabs"
 msgstr "Закрыть _дублирующиеся вкладки"
 
@@ -7318,8 +7341,8 @@ msgid "File extension"
 msgstr "Расширение файла"
 
 #: src/gnome-cmd-advrename-profile-component.cc:132
-#: src/gnome-cmd-advrename-profile-component.cc:500
-#: src/gnome-cmd-advrename-profile-component.cc:520
+#: src/gnome-cmd-advrename-profile-component.cc:502
+#: src/gnome-cmd-advrename-profile-component.cc:522
 msgid "Counter"
 msgstr "Счётчик"
 
@@ -7403,131 +7426,115 @@ msgstr "ММ"
 msgid "SS"
 msgstr "СС"
 
-#: src/gnome-cmd-advrename-profile-component.cc:467
+#: src/gnome-cmd-advrename-profile-component.cc:469
 msgid "_Template"
 msgstr "_Шаблон"
 
-#: src/gnome-cmd-advrename-profile-component.cc:492
+#: src/gnome-cmd-advrename-profile-component.cc:494
 msgid "Directory"
 msgstr "Каталог"
 
-#: src/gnome-cmd-advrename-profile-component.cc:508
+#: src/gnome-cmd-advrename-profile-component.cc:510
 msgid "Metatag"
 msgstr "Метатег"
 
-#: src/gnome-cmd-advrename-profile-component.cc:535
+#: src/gnome-cmd-advrename-profile-component.cc:537
 msgid "_Start:"
 msgstr "_Начало:"
 
-#: src/gnome-cmd-advrename-profile-component.cc:543
+#: src/gnome-cmd-advrename-profile-component.cc:545
 msgid "Ste_p:"
 msgstr "_Шаг:"
 
-#: src/gnome-cmd-advrename-profile-component.cc:551
+#: src/gnome-cmd-advrename-profile-component.cc:553
 msgid "Di_gits:"
 msgstr "_Буквы:"
 
-#: src/gnome-cmd-advrename-profile-component.cc:556
+#: src/gnome-cmd-advrename-profile-component.cc:558
 msgid "auto"
 msgstr "авто"
 
-#: src/gnome-cmd-advrename-profile-component.cc:570
+#: src/gnome-cmd-advrename-profile-component.cc:572
 msgid "Regex replacing"
 msgstr "Замена с использованием Regex"
 
-#: src/gnome-cmd-advrename-profile-component.cc:609
+#: src/gnome-cmd-advrename-profile-component.cc:611
 msgid "Remove A_ll"
 msgstr "Удалить _все"
 
-#: src/gnome-cmd-advrename-profile-component.cc:620
+#: src/gnome-cmd-advrename-profile-component.cc:622
 msgid "Case"
 msgstr "Регистр"
 
-#: src/gnome-cmd-advrename-profile-component.cc:633
+#: src/gnome-cmd-advrename-profile-component.cc:635
 msgid "<unchanged>"
 msgstr "<без изменений>"
 
-#: src/gnome-cmd-advrename-profile-component.cc:634
+#: src/gnome-cmd-advrename-profile-component.cc:636
 msgid "lowercase"
 msgstr "строчные"
 
-#: src/gnome-cmd-advrename-profile-component.cc:635
+#: src/gnome-cmd-advrename-profile-component.cc:637
 msgid "UPPERCASE"
 msgstr "ВСЕ ПРОПИСНЫЕ"
 
-#: src/gnome-cmd-advrename-profile-component.cc:637
+#: src/gnome-cmd-advrename-profile-component.cc:639
 msgid "Sentence case"
 msgstr "Как в предложении"
 
 #. FIXME
-#: src/gnome-cmd-advrename-profile-component.cc:638
+#: src/gnome-cmd-advrename-profile-component.cc:640
 msgid "Initial Caps"
 msgstr "Первые Прописные"
 
 #. FIXME
-#: src/gnome-cmd-advrename-profile-component.cc:639
+#: src/gnome-cmd-advrename-profile-component.cc:641
 msgid "tOGGLE cASE"
 msgstr "пЕРЕКЛЮЧЕНИЕ рЕГИСТРА"
 
-#: src/gnome-cmd-advrename-profile-component.cc:649
+#: src/gnome-cmd-advrename-profile-component.cc:651
 msgid "Trim blanks"
 msgstr "Убрать пробелы"
 
-#: src/gnome-cmd-advrename-profile-component.cc:662
+#: src/gnome-cmd-advrename-profile-component.cc:664
 msgid "<none>"
 msgstr "<нет>"
 
-#: src/gnome-cmd-advrename-profile-component.cc:663
+#: src/gnome-cmd-advrename-profile-component.cc:665
 msgid "leading"
 msgstr "ведущие"
 
-#: src/gnome-cmd-advrename-profile-component.cc:664
+#: src/gnome-cmd-advrename-profile-component.cc:666
 msgid "trailing"
 msgstr "замыкающие"
 
-#: src/gnome-cmd-advrename-profile-component.cc:665
+#: src/gnome-cmd-advrename-profile-component.cc:667
 msgid "leading and trailing"
 msgstr "ведущие и замыкающие"
 
-#: src/gnome-cmd-advrename-profile-component.cc:818
+#: src/gnome-cmd-advrename-profile-component.cc:822
 msgid "Search for"
 msgstr "Искать"
 
-#: src/gnome-cmd-advrename-profile-component.cc:821
+#: src/gnome-cmd-advrename-profile-component.cc:825
 msgid "Regex pattern"
 msgstr "Шаблон регулярного выражения"
 
-#: src/gnome-cmd-advrename-profile-component.cc:823
+#: src/gnome-cmd-advrename-profile-component.cc:827
 msgid "Replace with"
 msgstr "Заменить на"
 
-#: src/gnome-cmd-advrename-profile-component.cc:826
+#: src/gnome-cmd-advrename-profile-component.cc:830
 msgid "Replacement"
 msgstr "Замена"
 
-#: src/gnome-cmd-advrename-profile-component.cc:828
+#: src/gnome-cmd-advrename-profile-component.cc:832
 msgid "Match case"
 msgstr "Учитывать регистр"
 
-#: src/gnome-cmd-advrename-profile-component.cc:831
+#: src/gnome-cmd-advrename-profile-component.cc:835
 msgid "Case sensitive matching"
 msgstr "Учитывать регистр"
-
-#: src/gnome-cmd-application.cc:48
-msgid "Specify debug flags to use"
-msgstr "Определить метку debug для использования"
-
-#: src/gnome-cmd-application.cc:49
-msgid "Specify the start directory for the left pane"
-msgstr "Укажите начальный каталог для левой панели"
-
-#: src/gnome-cmd-application.cc:50
-msgid "Specify the start directory for the right pane"
-msgstr "Укажите начальный каталог для правой панели"
-
-#: src/gnome-cmd-application.cc:51
-msgid "Specify the directory for configuration files"
-msgstr "Укажите каталог для конфигурационных файлов"
 
 #: src/gnome-cmd-block.cc:37
 #, c-format
@@ -7538,26 +7545,26 @@ msgstr "Работа программы завершена. Нажмите Enter
 msgid "No valid command given."
 msgstr "Не указана корректная команда."
 
-#: src/gnome-cmd-cmdline.cc:119 src/gnome-cmd-user-actions.cc:258
+#: src/gnome-cmd-cmdline.cc:119 src/gnome-cmd-user-actions.cc:249
 #: src/spawn.rs:179
 msgid "Unable to execute command."
 msgstr "Ошибка выполнения команды."
 
-#: src/gnome-cmd-con.cc:647 src/gnome-cmd-con.cc:678 src/gnome-cmd-con.cc:709
+#: src/gnome-cmd-con.cc:653 src/gnome-cmd-con.cc:684 src/gnome-cmd-con.cc:715
 msgid "<New connection>"
 msgstr "<Новое соединение>"
 
-#: src/gnome-cmd-con.cc:649 src/gnome-cmd-con-device.cc:490
+#: src/gnome-cmd-con.cc:655 src/gnome-cmd-con-device.cc:502
 #, c-format
 msgid "Go to: %s"
 msgstr "Перейти к: %s"
 
-#: src/gnome-cmd-con.cc:680
+#: src/gnome-cmd-con.cc:686
 #, c-format
 msgid "Connect to: %s"
 msgstr "Подключение к: %s"
 
-#: src/gnome-cmd-con.cc:711
+#: src/gnome-cmd-con.cc:717
 #, c-format
 msgid "Disconnect from: %s"
 msgstr "Отключение oт: %s"
@@ -7579,11 +7586,11 @@ msgstr "Ошибка монтирования: носитель не найде�
 msgid "Mount failed: mount exited with exitstatus %d"
 msgstr "Ошибка монтирования: команда mount завершилась с кодом %d"
 
-#: src/gnome-cmd-con-device.cc:320
+#: src/gnome-cmd-con-device.cc:318 src/gnome-cmd-con-device.cc:327
 msgid "Volume successfully unmounted"
 msgstr "Том успешно отключён"
 
-#: src/gnome-cmd-con-device.cc:352
+#: src/gnome-cmd-con-device.cc:357 src/gnome-cmd-con-device.cc:366
 #, c-format
 msgid ""
 "Cannot unmount the volume:\n"
@@ -7594,49 +7601,44 @@ msgstr ""
 "%s\n"
 "Код ошибки: %d"
 
-#: src/gnome-cmd-con-device.cc:488
+#: src/gnome-cmd-con-device.cc:500
 #, c-format
 msgid "Go to: %s (%s)"
 msgstr "Перейти к: %s(%s)"
 
-#: src/gnome-cmd-con-device.cc:497
+#: src/gnome-cmd-con-device.cc:509
 #, c-format
 msgid "Mount: %s"
 msgstr "Монтирование: %s"
 
-#: src/gnome-cmd-con-device.cc:504
+#: src/gnome-cmd-con-device.cc:516
 #, c-format
 msgid "Unmount: %s"
 msgstr "Отключение: %s"
 
-#: src/gnome-cmd-con-device.cc:604
-#, c-format
-msgid "Mounting %s"
-msgstr "Монтируется %s"
-
-#: src/gnome-cmd-con-home.cc:72
+#: src/gnome-cmd-con-home.cc:71
 msgid "Go to: Home"
 msgstr "Перейти к: Дом. каталог"
 
-#: src/gnome-cmd-con-home.cc:124
+#: src/gnome-cmd-con-home.cc:123
 msgid "Home"
 msgstr "Дом. каталог"
 
-#: src/gnome-cmd-con-remote.cc:135
+#: src/gnome-cmd-con-remote.cc:136 src/gnome-cmd-con-remote.cc:138
 msgid "Disconnect error"
 msgstr "Ошибка отключения"
 
-#: src/gnome-cmd-con-remote.cc:247
+#: src/gnome-cmd-con-remote.cc:248
 #, c-format
 msgid "Opens remote connection to %s"
 msgstr "Начинает удалённое подключение к %s"
 
-#: src/gnome-cmd-con-remote.cc:257
+#: src/gnome-cmd-con-remote.cc:258
 #, c-format
 msgid "Closes remote connection to %s"
 msgstr "Разрывает удалённое подключение к %s"
 
-#: src/gnome-cmd-con-remote.cc:350
+#: src/gnome-cmd-con-remote.cc:351
 #, c-format
 msgid "Connecting to %s\n"
 msgstr "Подключение к %s\n"
@@ -7645,20 +7647,19 @@ msgstr "Подключение к %s\n"
 msgid "Failed to browse the network. Is Samba supported on the system?"
 msgstr "Ошибка обзора сети. Установлена ли в системе поддержка Samba?"
 
-#: src/gnome-cmd-con-smb.cc:180
+#: src/gnome-cmd-con-smb.cc:178
 msgid "Go to: Samba Network"
 msgstr "Перейти в: сеть Samba"
 
-#: src/gnome-cmd-con-smb.cc:231
+#: src/gnome-cmd-con-smb.cc:229
 msgid "SMB"
 msgstr "SMB"
 
-#: src/gnome-cmd-con-smb.cc:232
+#: src/gnome-cmd-con-smb.cc:230
 msgid "Searching for workgroups and hosts"
 msgstr "Поиск рабочих групп и узлов"
 
-#: src/gnome-cmd-data.cc:2471 src/gnome-cmd-data.cc:2865
-#: src/user_actions.rs:393
+#: src/gnome-cmd-data.cc:2011 src/user_actions.rs:418
 #, c-format
 msgid "link to %s"
 msgstr "связь с %s"
@@ -7671,81 +7672,81 @@ msgstr "Добавить текущий каталог"
 msgid "Manage bookmarks…"
 msgstr "Редактировать закладки…"
 
-#: src/gnome-cmd-file.cc:567
+#: src/gnome-cmd-file.cc:566
 msgid "_Open"
 msgstr "Открыть"
 
-#: src/gnome-cmd-file.cc:570
+#: src/gnome-cmd-file.cc:569
 #, c-format
 msgid "_Open with “%s”"
 msgstr "_Открыть с помощью «%s»"
 
-#: src/gnome-cmd-file-list.cc:153
+#: src/gnome-cmd-file-list.cc:154
 msgid "name"
 msgstr "Имя"
 
-#: src/gnome-cmd-file-list.cc:154
+#: src/gnome-cmd-file-list.cc:155
 msgid "ext"
 msgstr "Расширение"
 
-#: src/gnome-cmd-file-list.cc:155
+#: src/gnome-cmd-file-list.cc:156
 msgid "dir"
 msgstr "Каталог"
 
-#: src/gnome-cmd-file-list.cc:156
+#: src/gnome-cmd-file-list.cc:157
 msgid "size"
 msgstr "Размер"
 
-#: src/gnome-cmd-file-list.cc:157
+#: src/gnome-cmd-file-list.cc:158
 msgid "date"
 msgstr "Дата"
 
-#: src/gnome-cmd-file-list.cc:158
+#: src/gnome-cmd-file-list.cc:159
 msgid "perm"
 msgstr "Права"
 
-#: src/gnome-cmd-file-list.cc:159
+#: src/gnome-cmd-file-list.cc:160
 msgid "uid"
 msgstr "Владелец"
 
-#: src/gnome-cmd-file-list.cc:160
+#: src/gnome-cmd-file-list.cc:161
 msgid "gid"
 msgstr "Группа"
 
-#: src/gnome-cmd-file-list.cc:448
+#: src/gnome-cmd-file-list.cc:454
 msgid "_Copy here"
 msgstr "_Копировать сюда"
 
-#: src/gnome-cmd-file-list.cc:453
+#: src/gnome-cmd-file-list.cc:459
 msgid "_Move here"
 msgstr "_Переместить сюда"
 
-#: src/gnome-cmd-file-list.cc:458
+#: src/gnome-cmd-file-list.cc:464
 msgid "_Link here"
 msgstr "_Создать ссылку здесь"
 
-#: src/gnome-cmd-file-list.cc:463
+#: src/gnome-cmd-file-list.cc:469
 msgid "C_ancel"
 msgstr "От_менить"
 
-#: src/gnome-cmd-file-list.cc:1181
+#: src/gnome-cmd-file-list.cc:1196
 msgid "Directory listing failed."
 msgstr "Не удалось вывести содержимое каталога."
 
-#: src/gnome-cmd-file-selector.cc:123
+#: src/gnome-cmd-file-selector.cc:128
 #, c-format
 msgid "%s free"
 msgstr "%s свободно"
 
-#: src/gnome-cmd-file-selector.cc:128
+#: src/gnome-cmd-file-selector.cc:133
 msgid "Unknown disk usage"
 msgstr "Не выяснено использование диска"
 
-#: src/gnome-cmd-file-selector.cc:950
+#: src/gnome-cmd-file-selector.cc:1025
 msgid "Filter:"
 msgstr "Фильтр:"
 
-#: src/gnome-cmd-main-win.cc:181 src/user_actions.rs:1636
+#: src/gnome-cmd-main-win.cc:181 src/user_actions.rs:1766
 msgid "Refresh"
 msgstr "Обновить"
 
@@ -7769,7 +7770,7 @@ msgstr "Перейти к самому последнему"
 msgid "Copy file names (SHIFT for full paths, ALT for URIs)"
 msgstr "Копировать имена файлов (SHIFT для полного пути, ALT для URI)"
 
-#: src/gnome-cmd-main-win.cc:191 src/user_actions.rs:1530
+#: src/gnome-cmd-main-win.cc:191 src/user_actions.rs:1660
 msgid "Paste"
 msgstr "Вставить"
 
@@ -7777,7 +7778,7 @@ msgstr "Вставить"
 msgid "Edit (SHIFT for new document)"
 msgstr "Редактировать (SHIFT для создания нового документа)"
 
-#: src/gnome-cmd-main-win.cc:195 src/user_actions.rs:1556
+#: src/gnome-cmd-main-win.cc:195 src/user_actions.rs:1686
 msgid "Open terminal"
 msgstr "Открыть терминал"
 
@@ -7813,7 +7814,7 @@ msgstr "F8 Удалить"
 msgid "F9 Search"
 msgstr "F9 Поиск"
 
-#: src/gnome-cmd-main-win.cc:572
+#: src/gnome-cmd-main-win.cc:552
 msgid "GNOME Commander — ROOT PRIVILEGES"
 msgstr "GNOME Commander — ПРИВИЛЕГИИ ROOT"
 
@@ -7855,11 +7856,11 @@ msgstr "Содержит _текст:"
 msgid "Case sensiti_ve"
 msgstr "Учитывать ре_гистр"
 
-#: src/gnome-cmd-user-actions.cc:253
+#: src/gnome-cmd-user-actions.cc:244
 msgid "No search command given."
 msgstr "Не указана команда поиска."
 
-#: src/gnome-cmd-user-actions.cc:253
+#: src/gnome-cmd-user-actions.cc:244
 msgid "You can set a command for a search tool in the program options."
 msgstr ""
 "Вы можете установить команду для инструмента поиска в настройках программы."
@@ -8305,7 +8306,7 @@ msgstr "С_равнять размеры панелей"
 msgid "Maximize Panel Size"
 msgstr "Максимизировать панель"
 
-#: src/main_win.rs:448 src/user_actions.rs:1758
+#: src/main_win.rs:448 src/user_actions.rs:1880
 msgid "Horizontal Orientation"
 msgstr "Горизонтальное расположение"
 
@@ -8570,7 +8571,7 @@ msgid "Rename all"
 msgstr "Переименовать все"
 
 #: src/transfer.rs:325 src/transfer.rs:381 src/transfer.rs:509
-#: src/user_actions.rs:429
+#: src/user_actions.rs:454
 msgid "Skip all"
 msgstr "Пропустить все"
 
@@ -8625,38 +8626,38 @@ msgstr "[файл {index} из {count}] «{file}»"
 msgid "Unrecoverable error"
 msgstr "Неустранимая ошибка"
 
-#: src/user_actions.rs:287
+#: src/user_actions.rs:312
 msgid "Operation not supported on remote file systems"
 msgstr "Операция не поддерживается на удалённых файловых системах"
 
-#: src/user_actions.rs:312
+#: src/user_actions.rs:337
 msgid "No file selected"
 msgstr "Не выбран файл"
 
-#: src/user_actions.rs:324
+#: src/user_actions.rs:349
 msgid "Too many selected files"
 msgstr "Слишком много выбранных файлов"
 
-#: src/user_actions.rs:355
+#: src/user_actions.rs:380
 msgid "Nothing to compare"
 msgstr "Нечего сравнивать"
 
-#: src/user_actions.rs:473
+#: src/user_actions.rs:498
 msgid "Create symbolic links of {count} file in {dir}?"
 msgid_plural "Create symbolic links of {count} files in {dir}?"
 msgstr[0] "Создать символьную ссылку на {count} файл в {dir}?"
 msgstr[1] "Создать символьные ссылки на {count} файла в {dir}?"
 msgstr[2] "Создать символьные ссылки на {count} файлов в {dir}?"
 
-#: src/user_actions.rs:483
+#: src/user_actions.rs:508
 msgid "Create"
 msgstr "Создать"
 
-#: src/user_actions.rs:528
+#: src/user_actions.rs:553
 msgid "Warning"
 msgstr "Предупреждение"
 
-#: src/user_actions.rs:528
+#: src/user_actions.rs:553
 msgid ""
 "The default send-to command only supports one selected file at a time. You "
 "can change the command in the program options."
@@ -8664,23 +8665,23 @@ msgstr ""
 "Стандартная команда отправки предусматривает поддержку обработки только "
 "одного файла за раз. Команду можно изменить с помощью параметров программы."
 
-#: src/user_actions.rs:722
+#: src/user_actions.rs:747
 msgid "No command was given."
 msgstr "Не указана команда."
 
-#: src/user_actions.rs:764
+#: src/user_actions.rs:789
 msgid "Terminal command is not configured properly."
 msgstr "Команда терминала настроена неправильно."
 
-#: src/user_actions.rs:1157
+#: src/user_actions.rs:1287
 msgid "There was an error opening home page."
 msgstr "При открытии домашней страницы возникла ошибка."
 
-#: src/user_actions.rs:1175
+#: src/user_actions.rs:1305
 msgid "There was an error reporting problem."
 msgstr "При сообщении о проблеме возникла ошибка."
 
-#: src/user_actions.rs:1210
+#: src/user_actions.rs:1340
 msgid ""
 "GNOME Commander is free software; you can redistribute it and/or modify it "
 "under the terms of the GNU General Public License as published by the Free "
@@ -8692,7 +8693,7 @@ msgstr ""
 "усмотрение) версии лицензии GNU General Public License, опубликованной "
 "Фондом Свободного Программного Обеспечения (Free Software Foundation)."
 
-#: src/user_actions.rs:1213
+#: src/user_actions.rs:1343
 msgid ""
 "GNOME Commander is distributed in the hope that it will be useful, but "
 "WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY "
@@ -8704,7 +8705,7 @@ msgstr ""
 "СООТВЕТСТВИЯ КОНКРЕТНОЙ ЦЕЛИ. Для подробностей смотрите лицензию GNU General "
 "Public License."
 
-#: src/user_actions.rs:1216
+#: src/user_actions.rs:1346
 msgid ""
 "You should have received a copy of the GNU General Public License along with "
 "GNOME Commander; if not, write to the Free Software Foundation, Inc., 51 "
@@ -8714,11 +8715,11 @@ msgstr ""
 "Commander. Если это не так, напишите организации Free Software Foundation, "
 "Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA."
 
-#: src/user_actions.rs:1225
+#: src/user_actions.rs:1355
 msgid "A fast and powerful file manager for the GNOME desktop"
 msgstr "Быстрый и мощный менеджер для среды GNOME"
 
-#: src/user_actions.rs:1233
+#: src/user_actions.rs:1363
 msgid "translator-credits"
 msgstr ""
 "Pavlo Bohmat <bohm@ukr.net>\n"
@@ -8729,401 +8730,395 @@ msgstr ""
 "Alexey Rubtsov <rushills@gmail.com>, 2021"
 
 #. File actions
-#: src/user_actions.rs:1332
+#: src/user_actions.rs:1462
 msgid "Copy files"
 msgstr "Копировать файлы"
 
-#: src/user_actions.rs:1337
+#: src/user_actions.rs:1467
 msgid "Copy files with rename"
 msgstr "Копировать файлы с переименованием"
 
-#: src/user_actions.rs:1339
+#: src/user_actions.rs:1469
 msgid "Move files"
 msgstr "Перенести файлы"
 
-#: src/user_actions.rs:1344
+#: src/user_actions.rs:1474
 msgid "Delete files"
 msgstr "Удалить файлы"
 
-#: src/user_actions.rs:1351
+#: src/user_actions.rs:1481
 msgid "View with internal viewer"
 msgstr "Использовать встроенный просмотрщик"
 
-#: src/user_actions.rs:1357
+#: src/user_actions.rs:1487
 msgid "View with external viewer"
 msgstr "Использовать встроенный просмотрщик"
 
-#: src/user_actions.rs:1359
+#: src/user_actions.rs:1489
 msgid "Edit file"
 msgstr "Редактировать файл"
 
-#: src/user_actions.rs:1364
+#: src/user_actions.rs:1494
 msgid "Edit a new file"
 msgstr "Редактировать новый файл"
 
-#: src/user_actions.rs:1382
+#: src/user_actions.rs:1512
 msgid "Change permissions"
 msgstr "Изменить права доступа"
 
-#: src/user_actions.rs:1388
+#: src/user_actions.rs:1518
 msgid "Change owner/group"
 msgstr "Сменить владельца/группу"
 
-#: src/user_actions.rs:1394
+#: src/user_actions.rs:1524
 msgid "Create directory"
 msgstr "Создать каталог"
 
-#: src/user_actions.rs:1406
+#: src/user_actions.rs:1536
 msgid "Compare files (diff)"
 msgstr "Сравнить файлы"
 
-#: src/user_actions.rs:1412
+#: src/user_actions.rs:1542
 msgid "Synchronize directories"
 msgstr "Синхронизировать каталоги"
 
-#: src/user_actions.rs:1418
+#: src/user_actions.rs:1548
 msgid "Rename files"
 msgstr "Переименовать файлы"
 
-#: src/user_actions.rs:1424
+#: src/user_actions.rs:1554
 msgid "Create symbolic link"
 msgstr "Создать символьную ссылку"
 
-#: src/user_actions.rs:1430
+#: src/user_actions.rs:1560
 msgid "Advanced rename tool"
 msgstr "Расширенное средство переименования"
 
-#: src/user_actions.rs:1438
+#: src/user_actions.rs:1568
 msgid "Quit"
 msgstr "Выход"
 
-#: src/user_actions.rs:1444
+#: src/user_actions.rs:1574
 msgid "Toggle selection"
 msgstr "Восстановить выделение"
 
-#: src/user_actions.rs:1450
+#: src/user_actions.rs:1580
 msgid "Toggle selection and move cursor downward"
 msgstr "Инвертировать выбор и спустить курсор вниз"
 
-#: src/user_actions.rs:1456
+#: src/user_actions.rs:1586
 msgid "Select all"
 msgstr "Выделить все"
 
-#: src/user_actions.rs:1462
+#: src/user_actions.rs:1592
 msgid "Unselect all"
 msgstr "Снять выделение"
 
-#: src/user_actions.rs:1468
+#: src/user_actions.rs:1598
 msgid "Select all files"
 msgstr "Выделить все файлы"
 
-#: src/user_actions.rs:1474
+#: src/user_actions.rs:1604
 msgid "Unselect all files"
 msgstr "Снять выделение со всех файлов"
 
-#: src/user_actions.rs:1480
+#: src/user_actions.rs:1610
 msgid "Select with pattern"
 msgstr "Выделить по шаблону"
 
-#: src/user_actions.rs:1486
+#: src/user_actions.rs:1616
 msgid "Unselect with pattern"
 msgstr "Снять выделение по шаблону"
 
-#: src/user_actions.rs:1492
+#: src/user_actions.rs:1622
 msgid "Invert selection"
 msgstr "Инвертировать выделение"
 
-#: src/user_actions.rs:1498
+#: src/user_actions.rs:1628
 msgid "Select with same extension"
 msgstr "Выделить файлы с этим расширением"
 
-#: src/user_actions.rs:1504
+#: src/user_actions.rs:1634
 msgid "Unselect with same extension"
 msgstr "Снять выделение файлов с этим расширением"
 
-#: src/user_actions.rs:1510
+#: src/user_actions.rs:1640
 msgid "Restore selection"
 msgstr "Восстановить выделение"
 
-#: src/user_actions.rs:1516
+#: src/user_actions.rs:1646
 msgid "Compare directories"
 msgstr "Сравнить каталоги"
 
-#: src/user_actions.rs:1536
+#: src/user_actions.rs:1666
 msgid "Show user defined files"
 msgstr "Показывать файлы, определённые пользователем"
 
-#: src/user_actions.rs:1550
+#: src/user_actions.rs:1680
 msgid "Execute command"
 msgstr "Выполнить команду"
 
-#: src/user_actions.rs:1593
+#: src/user_actions.rs:1723
 msgid "Show directory history"
 msgstr "Показать историю каталогов"
 
-#: src/user_actions.rs:1599
+#: src/user_actions.rs:1729
 msgid "Show hidden files"
 msgstr "Показать скрытые файлы"
 
-#: src/user_actions.rs:1605
+#: src/user_actions.rs:1735
 msgid "Show backup files"
 msgstr "Показать резервные файлы"
 
-#: src/user_actions.rs:1612
+#: src/user_actions.rs:1742
 msgid "Back to the first directory"
 msgstr "Назад к первому каталогу"
 
-#: src/user_actions.rs:1618
+#: src/user_actions.rs:1748
 msgid "Back one directory"
 msgstr "Назад на один каталог"
 
-#: src/user_actions.rs:1624
+#: src/user_actions.rs:1754
 msgid "Forward one directory"
 msgstr "Вперёд на один каталог"
 
-#: src/user_actions.rs:1630
+#: src/user_actions.rs:1760
 msgid "Forward to the last directory"
 msgstr "Вперёд к последнему каталогу"
 
-#: src/user_actions.rs:1643
-msgid "Refresh tab"
-msgstr "Обновить вкладку"
-
-#: src/user_actions.rs:1649
+#: src/user_actions.rs:1772
 msgid "Equal panel size"
 msgstr "Сравнять размеры панелей"
 
-#: src/user_actions.rs:1655
+#: src/user_actions.rs:1778
 msgid "Maximize panel size"
 msgstr "Максимизировать панель"
 
-#: src/user_actions.rs:1661
+#: src/user_actions.rs:1784
 msgid "Open directory in the left window"
 msgstr "Открыть каталог в левой панели"
 
-#: src/user_actions.rs:1667
+#: src/user_actions.rs:1790
 msgid "Open directory in the right window"
 msgstr "Открыть каталог в правой панели"
 
-#: src/user_actions.rs:1673
+#: src/user_actions.rs:1796
 msgid "Open directory in the active window"
 msgstr "Открыть каталог в активном окне"
 
-#: src/user_actions.rs:1679
+#: src/user_actions.rs:1802
 msgid "Open directory in the inactive window"
 msgstr "Открыть каталог в неактивном окне"
 
-#: src/user_actions.rs:1685
+#: src/user_actions.rs:1808
 msgid "Change directory"
 msgstr "Сменить каталог"
 
-#: src/user_actions.rs:1691
+#: src/user_actions.rs:1814
 msgid "Home directory"
 msgstr "Домашний каталог"
 
-#: src/user_actions.rs:1697
+#: src/user_actions.rs:1820
 msgid "Root directory"
 msgstr "Корневой каталог"
 
-#: src/user_actions.rs:1703
+#: src/user_actions.rs:1826
 msgid "Open directory in a new tab"
 msgstr "Открыть каталог в новой вкладке"
 
-#: src/user_actions.rs:1709
+#: src/user_actions.rs:1832
 msgid "Close the current tab"
 msgstr "Закрыть текущую вкладку"
 
-#: src/user_actions.rs:1715
+#: src/user_actions.rs:1838
 msgid "Close all tabs"
 msgstr "Закрыть все вкладки"
 
-#: src/user_actions.rs:1721
+#: src/user_actions.rs:1844
 msgid "Close duplicate tabs"
 msgstr "Закрыть повторяющиеся вкладки"
 
-#: src/user_actions.rs:1727
+#: src/user_actions.rs:1850
 msgid "Previous tab"
 msgstr "Предыдущая вкладка"
 
-#: src/user_actions.rs:1733
+#: src/user_actions.rs:1856
 msgid "Next tab"
 msgstr "Следующая вкладка"
 
-#: src/user_actions.rs:1739
+#: src/user_actions.rs:1862
 msgid "Open directory in the new tab"
 msgstr "Открыть каталог в новой вкладке"
 
-#: src/user_actions.rs:1745
+#: src/user_actions.rs:1868
 msgid "Open directory in the new tab (inactive window)"
 msgstr "Открыть каталог в новой вкладке (неактивное окно)"
 
-#: src/user_actions.rs:1752
+#: src/user_actions.rs:1874
 msgid "Lock/unlock tab"
 msgstr "Блокировать/разблокировать вкладку"
 
-#: src/user_actions.rs:1764
+#: src/user_actions.rs:1886
 msgid "Display main menu"
 msgstr "Показать главное меню"
 
-#: src/user_actions.rs:1770
+#: src/user_actions.rs:1892
 msgid "Move cursor one step up"
 msgstr "Переместить курсор на шаг выше"
 
-#: src/user_actions.rs:1776
+#: src/user_actions.rs:1898
 msgid "Move cursor one step down"
 msgstr "Переместить курсор на шаг ниже"
 
-#: src/user_actions.rs:1783
+#: src/user_actions.rs:1905
 msgid "Bookmark current directory"
 msgstr "Добавить текущий каталог"
 
-#: src/user_actions.rs:1789
+#: src/user_actions.rs:1911
 msgid "Manage bookmarks"
 msgstr "Редактировать закладки"
 
-#: src/user_actions.rs:1796
+#: src/user_actions.rs:1918
 msgid "Go to bookmarked location"
 msgstr "Перейти к закладке"
 
-#: src/user_actions.rs:1802
+#: src/user_actions.rs:1924
 msgid "Show bookmarks of current device"
 msgstr "Показать закладки текущего устройства"
 
-#: src/user_actions.rs:1815
+#: src/user_actions.rs:1937
 msgid "Keyboard shortcuts"
 msgstr "Быстрые клавиши"
 
-#: src/user_actions.rs:1822
+#: src/user_actions.rs:1944
 msgid "Open connection"
 msgstr "Подключиться"
 
-#: src/user_actions.rs:1828
+#: src/user_actions.rs:1950
 msgid "New connection"
 msgstr "Новое соединение"
 
-#: src/user_actions.rs:1835
+#: src/user_actions.rs:1957
 msgid "Set connection"
 msgstr "Установить соединение"
 
-#: src/user_actions.rs:1841
+#: src/user_actions.rs:1963
 msgid "Change left connection"
 msgstr "Изменить соединение слева"
 
-#: src/user_actions.rs:1847
+#: src/user_actions.rs:1969
 msgid "Change right connection"
 msgstr "Изменить соединение справа"
 
-#: src/user_actions.rs:1854 src/user_actions.rs:1860
+#: src/user_actions.rs:1976 src/user_actions.rs:1982
 msgid "Close connection"
 msgstr "Разорвать соединение"
 
-#: src/user_actions.rs:1867
+#: src/user_actions.rs:1989
 msgid "Configure plugins"
 msgstr "Настроить модули"
 
-#: src/user_actions.rs:1881
+#: src/user_actions.rs:2003
 msgid "Help contents"
 msgstr "Содержимое справки"
 
-#: src/user_actions.rs:1887
+#: src/user_actions.rs:2009
 msgid "Help on keyboard shortcuts"
 msgstr "Справка по быстрым клавишам"
 
-#: src/user_actions.rs:1893
+#: src/user_actions.rs:2015
 msgid "GNOME Commander on the web"
 msgstr "GNOME Commander в Интернете"
 
-#: src/user_actions.rs:1899
+#: src/user_actions.rs:2021
 msgid "Report a problem"
 msgstr "Сообщить о проблеме"
 
-#: src/user_actions.rs:1905
+#: src/user_actions.rs:2027
 msgid "About GNOME Commander"
 msgstr "О программе GNOME Commander"
 
-#: src/utils.cc:349
-#, c-format
-msgid "(%sbyte)"
-msgid_plural "(%sbytes)"
-msgstr[0] "(%sбайт)"
-msgstr[1] "(%sбайта)"
-msgstr[2] "(%sбайт)"
-
-#: src/utils.cc:352
-#, c-format
-msgid "%sbyte"
-msgid_plural "%sbytes"
-msgstr[0] "%sбайт"
-msgstr[1] "%sбайта"
-msgstr[2] "%sбайт"
-
-#: src/utils.cc:491
-#, c-format
-msgid "Creating directory %s… "
-msgstr "Создание каталога %s… "
-
-#: src/utils.cc:502
-#, c-format
-msgid "Failed to create the directory %s: %s"
-msgstr "Не удалось создать каталог %s: %s"
-
-#: src/utils.cc:606
+#: src/utils.cc:500
 msgid "There was an error displaying help."
 msgstr "Ошибка при открытии справки."
 
-#: src/utils.rs:97
+#: src/utils.rs:94
 msgid "Cannot create a temporary file."
 msgstr "Не удалось создать временный файл."
 
-#: src/utils.rs:104
+#: src/utils.rs:101
 msgid "Cannot create a file for a path {}."
 msgstr "Не удалось создать файл в {}."
 
-#: src/utils.rs:277
+#: src/utils.rs:274
 msgid "There was an error while opening help uri {uri}."
 msgstr "При открытии uri справки {uri} возникла ошибка."
 
-#: src/utils.rs:376
+#: src/utils.rs:373
 msgid "{} PiB"
 msgid_plural "{} PiB"
 msgstr[0] "{} ПиБ"
 msgstr[1] "{} ПиБ"
 msgstr[2] "{} ПиБ"
 
-#: src/utils.rs:379
+#: src/utils.rs:376
 msgid "{} TiB"
 msgid_plural "{} TiB"
 msgstr[0] "{} ТиБ"
 msgstr[1] "{} ТиБ"
 msgstr[2] "{} ТиБ"
 
-#: src/utils.rs:382
+#: src/utils.rs:379
 msgid "{} GiB"
 msgid_plural "{} GiB"
 msgstr[0] "{} ГиБ"
 msgstr[1] "{} ГиБ"
 msgstr[2] "{} ГиБ"
 
-#: src/utils.rs:385
+#: src/utils.rs:382
 msgid "{} MiB"
 msgid_plural "{} MiB"
 msgstr[0] "{} МиБ"
 msgstr[1] "{} МиБ"
 msgstr[2] "{} МиБ"
 
-#: src/utils.rs:388
+#: src/utils.rs:385
 msgid "{} kiB"
 msgid_plural "{} kiB"
 msgstr[0] "{} КиБ"
 msgstr[1] "{} КиБ"
 msgstr[2] "{} КиБ"
 
-#: src/utils.rs:391 src/utils.rs:402 src/utils.rs:406
+#: src/utils.rs:388 src/utils.rs:399 src/utils.rs:403
 msgid "{} byte"
 msgid_plural "{} bytes"
 msgstr[0] "{} байт"
 msgstr[1] "{} байта"
 msgstr[2] "{} байт"
+
+#~ msgid "Specify the directory for configuration files"
+#~ msgstr "Укажите каталог для конфигурационных файлов"
+
+#~ msgid "Refresh tab"
+#~ msgstr "Обновить вкладку"
+
+#, c-format
+#~ msgid "(%sbyte)"
+#~ msgid_plural "(%sbytes)"
+#~ msgstr[0] "(%sбайт)"
+#~ msgstr[1] "(%sбайта)"
+#~ msgstr[2] "(%sбайт)"
+
+#, c-format
+#~ msgid "%sbyte"
+#~ msgid_plural "%sbytes"
+#~ msgstr[0] "%sбайт"
+#~ msgstr[1] "%sбайта"
+#~ msgstr[2] "%sбайт"
+
+#, c-format
+#~ msgid "Creating directory %s… "
+#~ msgstr "Создание каталога %s… "
 
 #~ msgid "Image:"
 #~ msgstr "Изображение:"
