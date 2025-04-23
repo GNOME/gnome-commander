@@ -1672,8 +1672,6 @@ inline void GnomeCmdData::load_directory_history()
 
 GnomeCmdData::GnomeCmdData(): search_defaults(profiles)
 {
-    quick_connect = nullptr;
-
     //TODO: Include into GnomeCmdData::Options
     gui_update_rate = DEFAULT_GUI_UPDATE_RATE;
 
@@ -1694,13 +1692,6 @@ GnomeCmdData::~GnomeCmdData()
         // free the connections
         g_object_ref_sink (priv->con_list);
         g_object_unref (priv->con_list);
-
-        // close quick connect
-        if (quick_connect)
-        {
-            // gnome_cmd_con_close (GNOME_CMD_CON (quick_connect));
-            // gtk_object_destroy (GTK_OBJECT (quick_connect));
-        }
 
         g_free (priv);
     }
@@ -1890,10 +1881,6 @@ void GnomeCmdData::load()
     load_directory_history  ();
     gnome_cmd_con_list_unlock (priv->con_list);
 
-    gchar *quick_connect_uri = g_settings_get_string(options.gcmd_settings->network, GCMD_SETTINGS_QUICK_CONNECT_URI);
-    quick_connect = gnome_cmd_con_remote_new (nullptr, quick_connect_uri);
-    g_free (quick_connect_uri);
-
     gnome_cmd_con_list_set_volume_monitor (priv->con_list);
 }
 
@@ -1969,11 +1956,6 @@ void GnomeCmdData::save(GnomeCmdMainWin *main_win)
     set_gsettings_when_changed      (options.gcmd_settings->programs, GCMD_SETTINGS_TERMINAL_CMD, options.termopen);
     set_gsettings_when_changed      (options.gcmd_settings->programs, GCMD_SETTINGS_TERMINAL_EXEC_CMD, options.termexec);
     set_gsettings_when_changed      (options.gcmd_settings->programs, GCMD_SETTINGS_USE_GCMD_BLOCK, &(use_gcmd_block));
-
-    gchar *quick_connect_uri = gnome_cmd_con_get_uri_string (GNOME_CMD_CON (quick_connect));
-
-    if (quick_connect_uri)
-        set_gsettings_when_changed (options.gcmd_settings->network, GCMD_SETTINGS_QUICK_CONNECT_URI, (gpointer) quick_connect_uri);
 
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_OPTS_DIALOG_WIDTH, &(opts_dialog_width));
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_OPTS_DIALOG_HEIGHT, &(opts_dialog_height));

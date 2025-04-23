@@ -80,18 +80,7 @@ impl ConnectionRemote {
 
     pub fn method(&self) -> Option<ConnectionMethodID> {
         let uri = self.uri()?;
-        match uri.scheme().as_str() {
-            "file" => Some(ConnectionMethodID::CON_FILE),
-            "ftp" if uri.user().as_deref() == Some("anonymous") => {
-                Some(ConnectionMethodID::CON_ANON_FTP)
-            }
-            "ftp" => Some(ConnectionMethodID::CON_FTP),
-            "sftp" => Some(ConnectionMethodID::CON_SFTP),
-            "dav" => Some(ConnectionMethodID::CON_DAV),
-            "davs" => Some(ConnectionMethodID::CON_DAVS),
-            "smb" => Some(ConnectionMethodID::CON_SMB),
-            _ => None,
-        }
+        ConnectionMethodID::from_uri(&uri)
     }
 
     pub fn icon_name(&self) -> &'static str {
@@ -116,6 +105,23 @@ pub enum ConnectionMethodID {
     CON_DAVS,
     CON_URI,
     CON_FILE,
+}
+
+impl ConnectionMethodID {
+    pub fn from_uri(uri: &glib::Uri) -> Option<ConnectionMethodID> {
+        match uri.scheme().as_str() {
+            "file" => Some(ConnectionMethodID::CON_FILE),
+            "ftp" if uri.user().as_deref() == Some("anonymous") => {
+                Some(ConnectionMethodID::CON_ANON_FTP)
+            }
+            "ftp" => Some(ConnectionMethodID::CON_FTP),
+            "sftp" => Some(ConnectionMethodID::CON_SFTP),
+            "dav" => Some(ConnectionMethodID::CON_DAV),
+            "davs" => Some(ConnectionMethodID::CON_DAVS),
+            "smb" => Some(ConnectionMethodID::CON_SMB),
+            _ => None,
+        }
+    }
 }
 
 #[no_mangle]
