@@ -558,8 +558,6 @@ struct GnomeCmdData
 
   private:
 
-    GnomeCmdConRemote           *quick_connect;
-
     void load_auto_load_plugins();
     void load_cmdline_history();
     void load_directory_history();
@@ -625,8 +623,6 @@ struct GnomeCmdData
     gboolean set_gsettings_enum_when_changed (GSettings *settings, const char *key, gint value);
     gboolean is_valid_color_string(const char *colorstring);
     gboolean set_valid_color_string(GSettings *settings, const char* key);
-
-    GnomeCmdConRemote *get_quick_connect() const       {  return quick_connect;                     }
 };
 
 gpointer gnome_cmd_data_get_con_list ();
