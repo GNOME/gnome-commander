@@ -25,3 +25,4 @@ pub mod remote;
 pub mod smb;
 
 pub mod bookmark;
+pub mod history;

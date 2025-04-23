@@ -20,17 +20,17 @@
  * For more details see the file COPYING.
  */
 
-use super::bookmark::Bookmark;
+use super::{bookmark::Bookmark, history::History};
 use crate::{dir::Directory, path::GnomeCmdPath};
 use gtk::{
     gio::{
         self,
         ffi::{GFileType, G_FILE_TYPE_UNKNOWN},
     },
-    glib::{self, translate::*},
+    glib::{self, ffi::GStrv, translate::*},
     prelude::*,
 };
-use std::{path::Path, ptr};
+use std::{ffi::c_char, path::Path, ptr, sync::LazyLock};
 
 pub mod ffi {
     use super::*;
@@ -134,6 +134,38 @@ glib::wrapper! {
 
     match fn {
         type_ => || ffi::gnome_cmd_con_get_type(),
+    }
+}
+
+struct ConnectionPrivate {
+    history: History<String>, // TODO: consider Rc<GnomeCmdPath>
+}
+
+impl Default for ConnectionPrivate {
+    fn default() -> Self {
+        Self {
+            history: History::new(20),
+        }
+    }
+}
+
+impl Connection {
+    fn private(&self) -> &mut ConnectionPrivate {
+        static QUARK: LazyLock<glib::Quark> =
+            LazyLock::new(|| glib::Quark::from_str("connection-private"));
+
+        unsafe {
+            if let Some(mut private) = self.qdata::<ConnectionPrivate>(*QUARK) {
+                private.as_mut()
+            } else {
+                self.set_qdata(*QUARK, ConnectionPrivate::default());
+                self.qdata::<ConnectionPrivate>(*QUARK).unwrap().as_mut()
+            }
+        }
+    }
+
+    pub fn dir_history(&self) -> &History<String> {
+        &self.private().history
     }
 }
 
@@ -448,3 +480,35 @@ pub trait ConnectionExt: IsA<Connection> + 'static {
 }
 
 impl<O: IsA<Connection>> ConnectionExt for O {}
+
+#[no_mangle]
+pub extern "C" fn gnome_cmd_con_dir_history_add(con: *mut ffi::GnomeCmdCon, entry: *const c_char) {
+    let con: Borrowed<Connection> = unsafe { from_glib_borrow(con) };
+    let entry: Option<String> = unsafe { from_glib_none(entry) };
+    if let Some(entry) = entry.filter(|s| !s.is_empty()) {
+        con.dir_history().add(entry);
+    }
+}
+
+#[no_mangle]
+pub extern "C" fn gnome_cmd_con_export_dir_history(con: *mut ffi::GnomeCmdCon) -> GStrv {
+    let con: Borrowed<Connection> = unsafe { from_glib_borrow(con) };
+    let dir_history: glib::StrV = con
+        .dir_history()
+        .export()
+        .into_iter()
+        .map(|s| s.into())
+        .collect();
+    dir_history.to_glib_full()
+}
+
+#[no_mangle]
+pub extern "C" fn gnome_cmd_con_import_dir_history(con: *mut ffi::GnomeCmdCon, history: GStrv) {
+    let con: Borrowed<Connection> = unsafe { from_glib_borrow(con) };
+    let dir_history = con.dir_history();
+    unsafe { glib::StrV::from_glib_none(history as _) }
+        .into_iter()
+        .for_each(|item| {
+            dir_history.add(item.into());
+        });
+}

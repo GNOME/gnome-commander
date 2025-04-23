@@ -1591,10 +1591,9 @@ void GnomeCmdData::save_directory_history()
 {
     if (options.save_dir_history_on_exit)
     {
-        set_gsettings_string_array_from_glist(
-            options.gcmd_settings->general,
-            GCMD_SETTINGS_DIRECTORY_HISTORY,
-            gnome_cmd_con_get_dir_history (gnome_cmd_con_list_get_home (priv->con_list))->ents);
+        auto dir_history = gnome_cmd_con_export_dir_history (gnome_cmd_con_list_get_home (priv->con_list));
+        g_settings_set_strv (options.gcmd_settings->general, GCMD_SETTINGS_DIRECTORY_HISTORY, dir_history);
+        g_strfreev (dir_history);
     }
     else
     {
@@ -1658,15 +1657,11 @@ inline void GnomeCmdData::load_cmdline_history()
 
 inline void GnomeCmdData::load_directory_history()
 {
-    GList* directories = get_list_from_gsettings_string_array (options.gcmd_settings->general, GCMD_SETTINGS_DIRECTORY_HISTORY);
-
-    for (GList *i=directories; i; i=i->next)
-    {
-        gnome_cmd_con_get_dir_history (get_home_con())->add((const gchar *) i->data);
-        // the add method above copies the char strings
-        g_free(i->data);
-    }
-    g_list_free(directories);
+    GStrv entries = g_settings_get_strv (options.gcmd_settings->general, GCMD_SETTINGS_DIRECTORY_HISTORY);
+    gnome_cmd_con_import_dir_history (
+        gnome_cmd_con_list_get_home (priv->con_list),
+        entries);
+    g_strfreev (entries);
 }
 
 

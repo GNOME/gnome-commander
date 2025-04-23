@@ -38,7 +38,7 @@ use gtk::{
     glib::{
         self,
         ffi::gboolean,
-        translate::{from_glib_none, IntoGlib, ToGlibPtr},
+        translate::{from_glib_borrow, from_glib_none, Borrowed, IntoGlib, ToGlibPtr},
     },
     graphene,
     prelude::*,
@@ -104,8 +104,6 @@ pub mod ffi {
 
         pub fn gnome_cmd_file_selector_is_active(fs: *mut GnomeCmdFileSelector) -> gboolean;
         pub fn gnome_cmd_file_selector_set_active(fs: *mut GnomeCmdFileSelector, active: gboolean);
-
-        pub fn gnome_cmd_file_selector_back(fs: *mut GnomeCmdFileSelector);
 
         pub fn gnome_cmd_file_selector_is_tab_locked(
             fs: *mut GnomeCmdFileSelector,
@@ -309,8 +307,77 @@ impl FileSelector {
         }
     }
 
+    fn goto(&self, connection: &Connection, dir: &str) {
+        if self.is_current_tab_locked() {
+            self.new_tab_with_dir(
+                &Directory::new(connection, connection.create_path(&Path::new(&dir))),
+                true,
+            );
+        } else {
+            self.goto_directory(connection, &Path::new(&dir));
+        }
+    }
+
+    pub fn first(&self) {
+        let Some(connection) = self.file_list().connection() else {
+            return;
+        };
+        let history = connection.dir_history();
+        if let Some(dir) = history.first() {
+            history.lock();
+            self.goto(&connection, &dir);
+            history.unlock();
+        }
+    }
+
     pub fn back(&self) {
-        unsafe { ffi::gnome_cmd_file_selector_back(self.to_glib_none().0) }
+        let Some(connection) = self.file_list().connection() else {
+            return;
+        };
+        let history = connection.dir_history();
+        if let Some(dir) = history.back() {
+            history.lock();
+            self.goto(&connection, &dir);
+            history.unlock();
+        }
+    }
+
+    pub fn forward(&self) {
+        let Some(connection) = self.file_list().connection() else {
+            return;
+        };
+        let history = connection.dir_history();
+        if let Some(dir) = history.forward() {
+            history.lock();
+            self.goto(&connection, &dir);
+            history.unlock();
+        }
+    }
+
+    pub fn last(&self) {
+        let Some(connection) = self.file_list().connection() else {
+            return;
+        };
+        let history = connection.dir_history();
+        if let Some(dir) = history.last() {
+            history.lock();
+            self.goto(&connection, &dir);
+            history.unlock();
+        }
+    }
+
+    pub fn can_back(&self) -> bool {
+        let Some(connection) = self.file_list().connection() else {
+            return false;
+        };
+        connection.dir_history().can_back()
+    }
+
+    pub fn can_forward(&self) -> bool {
+        let Some(connection) = self.file_list().connection() else {
+            return false;
+        };
+        connection.dir_history().can_forward()
     }
 
     pub fn save_tabs(&self, save_all_tabs: bool, save_current: bool) -> Vec<TabVariant> {
@@ -583,4 +650,30 @@ pub extern "C" fn on_notebook_button_pressed_r(
     glib::spawn_future_local(async move {
         on_notebook_button_pressed(&file_selector, &notebook, n_press, button, x, y).await;
     });
+}
+
+#[no_mangle]
+pub extern "C" fn gnome_cmd_file_selector_can_forward(
+    fs: *mut ffi::GnomeCmdFileSelector,
+) -> gboolean {
+    let fs: Borrowed<FileSelector> = unsafe { from_glib_borrow(fs) };
+    fs.can_forward() as gboolean
+}
+
+#[no_mangle]
+pub extern "C" fn gnome_cmd_file_selector_can_back(fs: *mut ffi::GnomeCmdFileSelector) -> gboolean {
+    let fs: Borrowed<FileSelector> = unsafe { from_glib_borrow(fs) };
+    fs.can_back() as gboolean
+}
+
+#[no_mangle]
+pub extern "C" fn gnome_cmd_file_selector_forward(fs: *mut ffi::GnomeCmdFileSelector) {
+    let fs: Borrowed<FileSelector> = unsafe { from_glib_borrow(fs) };
+    fs.forward()
+}
+
+#[no_mangle]
+pub extern "C" fn gnome_cmd_file_selector_back(fs: *mut ffi::GnomeCmdFileSelector) {
+    let fs: Borrowed<FileSelector> = unsafe { from_glib_borrow(fs) };
+    fs.back()
 }

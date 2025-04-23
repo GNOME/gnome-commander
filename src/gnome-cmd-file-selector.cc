@@ -53,7 +53,6 @@ class GnomeCmdFileSelector::Private
     GList *old_btns {nullptr};
     GtkWidget *filter_box {nullptr};
 
-    History *dir_history {nullptr};
     gboolean active {FALSE};
     gboolean realized {FALSE};
     gboolean select_connection_in_progress {FALSE};
@@ -475,12 +474,12 @@ static void on_list_list_clicked (GnomeCmdFileList *fl, GnomeCmdFileListButtonEv
 
         case 6:
         case 8:
-            fs->back();
+            gnome_cmd_file_selector_back(fs);
             break;
 
         case 7:
         case 9:
-            fs->forward();
+            gnome_cmd_file_selector_forward(fs);
             break;
 
         default:
@@ -491,19 +490,15 @@ static void on_list_list_clicked (GnomeCmdFileList *fl, GnomeCmdFileListButtonEv
 
 static void on_list_con_changed (GnomeCmdFileList *fl, GnomeCmdCon *con, GnomeCmdFileSelector *fs)
 {
-    fs->priv->dir_history = gnome_cmd_con_get_dir_history (con);
     select_connection (fs, con);
 }
 
 
 static void on_list_dir_changed (GnomeCmdFileList *fl, GnomeCmdDir *dir, GnomeCmdFileSelector *fs)
 {
-    if (fs->priv->dir_history && !fs->priv->dir_history->locked())
-    {
-        gchar *fpath = GNOME_CMD_FILE (dir)->GetPathStringThroughParent();
-        fs->priv->dir_history->add(fpath);
-        g_free (fpath);
-    }
+    gchar *fpath = GNOME_CMD_FILE (dir)->GetPathStringThroughParent();
+    gnome_cmd_con_dir_history_add (gnome_cmd_file_list_get_connection (fl), fpath);
+    g_free (fpath);
 
     if (fs->file_list()!=fl)  return;
 
@@ -563,12 +558,12 @@ static gboolean on_list_key_pressed (GtkEventControllerKey *controller, guint ke
         {
             case GDK_KEY_Left:
             case GDK_KEY_KP_Left:
-                fs->back();
+                gnome_cmd_file_selector_back(fs);
                 return TRUE;
 
             case GDK_KEY_Right:
             case GDK_KEY_KP_Right:
-                fs->forward();
+                gnome_cmd_file_selector_forward(fs);
                 return TRUE;
 
             default:
@@ -821,98 +816,6 @@ static void gnome_cmd_file_selector_init (GnomeCmdFileSelector *fs)
 /***********************************
  * Public functions
  ***********************************/
-
-void GnomeCmdFileSelector::first()
-{
-    if (!priv->dir_history->can_back())
-        return;
-
-    priv->dir_history->lock();
-
-    if (gnome_cmd_file_selector_is_current_tab_locked (this))
-    {
-        GnomeCmdCon *con = get_connection();
-
-        new_tab(gnome_cmd_dir_new (con, gnome_cmd_con_create_path (con, priv->dir_history->first())));
-    }
-    else
-        goto_directory(priv->dir_history->first());
-
-    priv->dir_history->unlock();
-}
-
-
-void GnomeCmdFileSelector::back()
-{
-    if (!priv->dir_history->can_back())
-        return;
-
-    priv->dir_history->lock();
-
-    if (gnome_cmd_file_selector_is_current_tab_locked (this))
-    {
-        GnomeCmdCon *con = get_connection();
-
-        new_tab(gnome_cmd_dir_new (con, gnome_cmd_con_create_path (con, priv->dir_history->back())));
-    }
-    else
-        goto_directory(priv->dir_history->back());
-
-    priv->dir_history->unlock();
-}
-
-
-void GnomeCmdFileSelector::forward()
-{
-    if (!priv->dir_history->can_forward())
-        return;
-
-    priv->dir_history->lock();
-
-    if (gnome_cmd_file_selector_is_current_tab_locked (this))
-    {
-        GnomeCmdCon *con = get_connection();
-
-        new_tab(gnome_cmd_dir_new (con, gnome_cmd_con_create_path (con, priv->dir_history->forward())));
-    }
-    else
-        goto_directory(priv->dir_history->forward());
-
-    priv->dir_history->unlock();
-}
-
-
-void GnomeCmdFileSelector::last()
-{
-    if (!priv->dir_history->can_forward())
-        return;
-
-    priv->dir_history->lock();
-
-    if (gnome_cmd_file_selector_is_current_tab_locked (this))
-    {
-        GnomeCmdCon *con = get_connection();
-
-        new_tab(gnome_cmd_dir_new (con, gnome_cmd_con_create_path (con, priv->dir_history->last())));
-    }
-    else
-        goto_directory(priv->dir_history->last());
-
-    priv->dir_history->unlock();
-}
-
-
-gboolean GnomeCmdFileSelector::can_back()
-{
-    return priv->dir_history && priv->dir_history->can_back();
-}
-
-
-gboolean GnomeCmdFileSelector::can_forward()
-{
-    return priv->dir_history && priv->dir_history->can_forward();
-}
-
 
 void GnomeCmdFileSelector::set_active(gboolean value)
 {
@@ -1266,11 +1169,6 @@ gboolean gnome_cmd_file_selector_is_active (GnomeCmdFileSelector *fs)
 void gnome_cmd_file_selector_set_active (GnomeCmdFileSelector *fs, gboolean active)
 {
     fs->set_active(active);
-}
-
-void gnome_cmd_file_selector_back (GnomeCmdFileSelector *fs)
-{
-    fs->back();
 }
 
 gboolean gnome_cmd_file_selector_is_tab_locked (GnomeCmdFileSelector *fs, GnomeCmdFileList *fl)
