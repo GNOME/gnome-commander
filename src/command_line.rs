@@ -207,7 +207,7 @@ mod imp {
                 history.insert(0, item);
             } else {
                 // or if its new just add it
-                history.push(value.to_owned());
+                history.insert(0, value.to_owned());
             }
             // don't let the history get too long
             history.truncate(self.max_history_size.get());
