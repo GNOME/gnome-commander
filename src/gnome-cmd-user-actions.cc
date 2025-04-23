@@ -156,7 +156,6 @@ GNOME_CMD_USER_ACTION(edit_copy_fnames);
 /************** View Menu **************/
 GNOME_CMD_USER_ACTION_TGL(view_conbuttons);
 GNOME_CMD_USER_ACTION_TGL(view_devlist);
-GNOME_CMD_USER_ACTION_TGL(view_toolbar);
 GNOME_CMD_USER_ACTION_TGL(view_buttonbar);
 GNOME_CMD_USER_ACTION_TGL(view_cmdline);
 GNOME_CMD_USER_ACTION(view_dir_history);
@@ -166,8 +165,6 @@ GNOME_CMD_USER_ACTION(view_first);
 GNOME_CMD_USER_ACTION(view_back);
 GNOME_CMD_USER_ACTION(view_forward);
 GNOME_CMD_USER_ACTION(view_last);
-GNOME_CMD_USER_ACTION(view_equal_panes);
-GNOME_CMD_USER_ACTION(view_maximize_pane);
 GNOME_CMD_USER_ACTION(view_in_left_pane);
 GNOME_CMD_USER_ACTION(view_in_right_pane);
 GNOME_CMD_USER_ACTION(view_in_active_pane);
@@ -179,8 +176,6 @@ GNOME_CMD_USER_ACTION(view_close_duplicate_tabs);
 GNOME_CMD_USER_ACTION(view_prev_tab);
 GNOME_CMD_USER_ACTION(view_next_tab);
 GNOME_CMD_USER_ACTION(view_toggle_tab_lock);
-GNOME_CMD_USER_ACTION_TGL(view_horizontal_orientation);
-GNOME_CMD_USER_ACTION(view_main_menu);
 GNOME_CMD_USER_ACTION(view_step_up);
 GNOME_CMD_USER_ACTION(view_step_down);
 
@@ -394,18 +389,6 @@ void view_devlist (GSimpleAction *action, GVariant *state, gpointer user_data)
 }
 
 
-void view_toolbar (GSimpleAction *action, GVariant *state, gpointer user_data)
-{
-    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
-
-    auto active = g_variant_get_boolean (state);
-    g_simple_action_set_state (action, state);
-
-    if (gtk_widget_get_realized (GTK_WIDGET (main_win)))
-        g_settings_set_boolean (settings->general, GCMD_SETTINGS_SHOW_TOOLBAR, active);
-}
-
-
 void view_buttonbar (GSimpleAction *action, GVariant *state, gpointer user_data)
 {
     auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
@@ -462,17 +445,6 @@ void view_backup_files (GSimpleAction *action, GVariant *state, gpointer user_da
 }
 
 
-void view_horizontal_orientation (GSimpleAction *action, GVariant *state, gpointer user_data)
-{
-    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
-
-    auto active = g_variant_get_boolean (state);
-    g_simple_action_set_state (action, state);
-
-    if (gtk_widget_get_realized (GTK_WIDGET (main_win)))
-        g_settings_set_boolean (settings->general, GCMD_SETTINGS_HORIZONTAL_ORIENTATION, active);
-}
-
 void view_step_up (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
     auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
@@ -493,17 +465,6 @@ void view_step_down (GSimpleAction *action, GVariant *parameter, gpointer user_d
     fl->focus_next();
 }
 
-
-void view_main_menu (GSimpleAction *action, GVariant *parameter, gpointer user_data)
-{
-    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
-
-    if (!gtk_widget_get_realized ( GTK_WIDGET (main_win))) return;
-
-    gboolean mainmenu_visibility;
-    mainmenu_visibility = g_settings_get_boolean (settings->general, GCMD_SETTINGS_MAINMENU_VISIBILITY);
-    g_settings_set_boolean (settings->general, GCMD_SETTINGS_MAINMENU_VISIBILITY, !mainmenu_visibility);
-}
 
 void view_first (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
@@ -534,22 +495,6 @@ void view_last (GSimpleAction *action, GVariant *parameter, gpointer user_data)
     auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
 
     main_win->fs (ACTIVE)->last();
-}
-
-
-void view_equal_panes (GSimpleAction *action, GVariant *parameter, gpointer user_data)
-{
-    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
-
-    main_win->set_equal_panes();
-}
-
-
-void view_maximize_pane (GSimpleAction *action, GVariant *parameter, gpointer user_data)
-{
-    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
-
-    main_win->maximize_pane();
 }
 
 

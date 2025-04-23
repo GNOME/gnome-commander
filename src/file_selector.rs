@@ -30,7 +30,6 @@ use crate::{
     file::File,
     file_list::list::{ColumnID, FileList},
     notebook_ext::{GnomeCmdNotebookExt, TabClick},
-    types::FileSelectorID,
 };
 use gettextrs::gettext;
 use gtk::{
@@ -120,8 +119,10 @@ pub mod ffi {
 
         pub fn gnome_cmd_file_selector_tab_count(fs: *mut GnomeCmdFileSelector) -> u32;
 
-        pub fn gnome_cmd_file_selector_get_fs_id(fs: *mut GnomeCmdFileSelector) -> i32;
         pub fn gnome_cmd_file_selector_is_active(fs: *mut GnomeCmdFileSelector) -> gboolean;
+        pub fn gnome_cmd_file_selector_set_active(fs: *mut GnomeCmdFileSelector, active: gboolean);
+
+        pub fn gnome_cmd_file_selector_back(fs: *mut GnomeCmdFileSelector);
     }
 
     #[derive(Copy, Clone)]
@@ -141,6 +142,10 @@ glib::wrapper! {
 }
 
 impl FileSelector {
+    pub fn new() -> Self {
+        glib::Object::builder().build()
+    }
+
     pub fn file_list(&self) -> FileList {
         unsafe {
             from_glib_none(ffi::gnome_cmd_file_selector_file_list(
@@ -238,16 +243,14 @@ impl FileSelector {
         unsafe { ffi::gnome_cmd_file_selector_tab_count(self.to_glib_none().0) }
     }
 
-    pub fn id(&self) -> FileSelectorID {
-        let id = unsafe { ffi::gnome_cmd_file_selector_get_fs_id(self.to_glib_none().0) };
-        match id {
-            0 => FileSelectorID::LEFT,
-            _ => FileSelectorID::RIGHT,
-        }
-    }
-
     pub fn is_active(&self) -> bool {
         unsafe { ffi::gnome_cmd_file_selector_is_active(self.to_glib_none().0) != 0 }
+    }
+
+    pub fn set_active(&self, active: bool) {
+        unsafe {
+            ffi::gnome_cmd_file_selector_set_active(self.to_glib_none().0, active as gboolean);
+        }
     }
 
     pub fn goto_directory(&self, con: &Connection, path: &Path) {
@@ -318,6 +321,10 @@ impl FileSelector {
         }
     }
 
+    pub fn back(&self) {
+        unsafe { ffi::gnome_cmd_file_selector_back(self.to_glib_none().0) }
+    }
+
     pub fn save_tabs(&self, save_all_tabs: bool, save_current: bool) -> Vec<TabVariant> {
         self.notebook()
             .pages()
@@ -383,6 +390,16 @@ impl FileSelector {
                 eprintln!("Stored path {} is invalid. Skipping", path.display());
             }
         }
+    }
+
+    pub fn connect_list_clicked<F>(&self, callback: F) -> glib::SignalHandlerId
+    where
+        F: Fn() + 'static,
+    {
+        self.connect_local("list-clicked", false, move |_| {
+            (callback)();
+            None
+        })
     }
 }
 

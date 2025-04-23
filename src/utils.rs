@@ -327,8 +327,12 @@ pub fn get_modifiers_state(window: &gtk::Window) -> Option<gdk::ModifierType> {
     Some(keyboard.modifier_state())
 }
 
+pub async fn sleep(millis: u64) {
+    glib::timeout_future(Duration::from_millis(millis)).await;
+}
+
 pub async fn pending() {
-    glib::timeout_future(Duration::from_millis(1)).await;
+    sleep(1).await;
 }
 
 pub fn swap_list_store_items(

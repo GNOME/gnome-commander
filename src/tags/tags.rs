@@ -21,6 +21,7 @@ use super::file_metadata::FileMetadata;
 use crate::{
     file::{ffi::GnomeCmdFile, File},
     libgcmd::file_metadata_extractor::{FileMetadataExtractor, FileMetadataExtractorExt},
+    plugin_manager::PluginManager,
 };
 use gtk::{
     gio::{self, ffi::GMenu},
@@ -55,7 +56,6 @@ mod imp {
     use super::*;
     use crate::{
         libgcmd::file_metadata_extractor::FileMetadataExtractor,
-        plugin_manager::PluginManager,
         tags::{basic::BasicMetadataExtractor, image::ImageMetadataExtractor},
     };
     use std::cell::{OnceCell, RefCell};
@@ -116,6 +116,12 @@ glib::wrapper! {
 }
 
 impl FileMetadataService {
+    pub fn new(plugin_manager: &PluginManager) -> Self {
+        glib::Object::builder()
+            .property("plugin-manager", plugin_manager)
+            .build()
+    }
+
     pub fn supported_tags_map(
         &self,
     ) -> IndexMap<GnomeCmdTagClass, IndexMap<GnomeCmdTag, Vec<FileMetadataExtractor>>> {

@@ -258,43 +258,6 @@ pub fn run_command_indir(
     spawn_async_command(working_directory, &actual_command)
 }
 
-#[no_mangle]
-pub unsafe extern "C" fn run_command_indir_r(
-    working_directory_ptr: *const ffi::c_char,
-    command_ptr: *const ffi::c_char,
-    in_terminal: gboolean,
-    error: *mut *mut glib::ffi::GError,
-) -> ffi::c_int {
-    let working_directory: Option<PathBuf> = unsafe { from_glib_none(working_directory_ptr) };
-    let command: Option<OsString> = unsafe { from_glib_none(command_ptr) };
-    let Some(command) = command else {
-        return 1;
-    };
-    let options = ProgramsOptions::new();
-
-    let result = run_command_indir(
-        working_directory.as_deref(),
-        &command,
-        in_terminal != 0,
-        &options,
-    );
-    match result {
-        Ok(_) => 0,
-        Err(SpawnError::InvalidTemplate) => {
-            *error = std::ptr::null_mut();
-            1
-        }
-        Err(SpawnError::InvalidCommand(e)) => {
-            *error = e.into_glib_ptr();
-            2
-        }
-        Err(SpawnError::Failure(e)) => {
-            *error = glib::Error::new(glib::FileError::Failed, &e.to_string()).into_glib_ptr();
-            3
-        }
-    }
-}
-
 fn app_get_linked_libs(app_path: &Path) -> std::io::Result<Vec<String>> {
     Ok(std::process::Command::new("ldd")
         .arg(app_path)

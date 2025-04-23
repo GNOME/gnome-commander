@@ -31,9 +31,9 @@ use gettextrs::gettext;
 use gtk::{
     gio,
     glib::{
-        ffi::{gpointer, GType},
+        ffi::gpointer,
         gobject_ffi::GObject,
-        translate::{from_glib_full, from_glib_none, IntoGlib},
+        translate::{from_glib_full, from_glib_none},
     },
     prelude::*,
     subclass::prelude::*,
@@ -83,6 +83,10 @@ glib::wrapper! {
 }
 
 impl PluginManager {
+    pub fn new() -> Self {
+        glib::Object::builder().build()
+    }
+
     fn init(&self) {
         let user_plugin_dir = glib::user_config_dir().join(PACKAGE).join("plugins");
         if let Err(error) = self.scan_plugins_in_dir(&user_plugin_dir) {
@@ -535,9 +539,4 @@ fn create_plugin_widget(plugin_manager: &PluginManager, plugin_data: &PluginData
     ));
 
     grid.upcast()
-}
-
-#[no_mangle]
-pub extern "C" fn plugin_manager_get_type() -> GType {
-    PluginManager::static_type().into_glib()
 }
