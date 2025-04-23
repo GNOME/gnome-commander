@@ -117,6 +117,9 @@ extern "C" GType gnome_cmd_color_themes_get_type();
 extern "C" GType plugin_manager_get_type ();
 extern "C" GType gnome_cmd_file_metadata_service_get_type ();
 
+extern "C" GApplication *gnome_cmd_application;
+extern "C" void gnome_cmd_main_win_load_tabs(GnomeCmdMainWin *, GApplication *);
+extern "C" void gnome_cmd_main_win_save_tabs(GnomeCmdMainWin *, gboolean, gboolean);
 
 static gboolean set_equal_panes_idle (gpointer *user_data);
 static gboolean on_key_pressed (GtkEventControllerKey *controller, guint keyval, guint keycode, GdkModifierType state, gpointer user_data);
@@ -471,6 +474,8 @@ static void dispose (GObject *object)
         gnome_cmd_shortcuts_free (main_win->priv->gcmd_shortcuts);
         main_win->priv->gcmd_shortcuts = nullptr;
 
+        gnome_cmd_main_win_save_tabs(main_win, gnome_cmd_data.options.save_tabs_on_exit, gnome_cmd_data.options.save_dirs_on_exit);
+
         gnome_cmd_data.save(main_win);
         main_win->priv->state_saved = true;
     }
@@ -592,10 +597,7 @@ static void gnome_cmd_main_win_init (GnomeCmdMainWin *mw)
     mw->fs(LEFT)->update_connections();
     mw->fs(RIGHT)->update_connections();
 
-    mw->open_tabs(LEFT);
-    mw->open_tabs(RIGHT);
-
-    gnome_cmd_data.tabs.clear();        //  free unused memory
+    gnome_cmd_main_win_load_tabs(mw, gnome_cmd_application);
 
     g_signal_connect (mw, "notify::default-width", G_CALLBACK (on_change_width), mw);
     g_signal_connect (mw, "notify::default-height", G_CALLBACK (on_change_height), mw);
@@ -618,8 +620,6 @@ static void gnome_cmd_main_win_init (GnomeCmdMainWin *mw)
 
     g_signal_connect (mw->priv->color_themes, "theme-changed", G_CALLBACK (on_update_view), mw);
     g_signal_connect_swapped (mw->priv->plugin_manager, "plugins-changed", G_CALLBACK (gnome_cmd_main_win_plugins_updated), mw);
-
-    mw->focus_file_lists();
 }
 
 
@@ -913,79 +913,6 @@ static gboolean on_key_pressed (GtkEventControllerKey *controller, guint keyval,
     }
 
     return gnome_cmd_shortcuts_handle_key_event (mw->priv->gcmd_shortcuts, mw, keyval, state);
-}
-
-
-void GnomeCmdMainWin::open_tabs(FileSelectorID id)
-{
-    // Always add a temporary tab pointing to the home directory in the list of stored tabs.
-    // This one will be used as a backup in case none of the stored tab URI's is valid.
-    gnome_cmd_data.tabs[id].push_back(make_pair(string(g_get_home_dir ()), make_tuple(GnomeCmdFileList::COLUMN_NAME, GTK_SORT_ASCENDING, FALSE)));
-
-    auto last_tab = unique(gnome_cmd_data.tabs[id].begin(), gnome_cmd_data.tabs[id].end());
-    auto backup_tab = gnome_cmd_data.tabs[id].end() - 1;
-    auto one_valid_tab_found = false;
-
-    for (auto stored_tab = gnome_cmd_data.tabs[id].begin(); stored_tab != last_tab; ++stored_tab)
-    {
-        auto uriString = stored_tab->first;
-        auto uriScheme = g_uri_peek_scheme (uriString.c_str());
-        auto uriIsRelative = false;
-        gchar *path = nullptr;
-        GnomeCmdCon *con;
-
-        if (stored_tab == backup_tab && one_valid_tab_found)
-            continue;
-
-        if (!uriScheme)
-        {
-            uriScheme = g_strdup("file");
-            uriIsRelative = true;
-        }
-
-        if (strcmp(uriScheme, "file") == 0 || uriIsRelative)
-        {
-            con = get_home_con ();
-            if (uriIsRelative)
-            {
-                path = g_strdup(stored_tab->first.c_str());
-            }
-            else
-            {
-                auto gUri = g_uri_parse(stored_tab->first.c_str(), G_URI_FLAGS_NONE, nullptr);
-                path = g_strdup(g_uri_get_path(gUri));
-            }
-        }
-        else
-        {
-            GError *error = nullptr;
-            auto gUri = g_uri_parse(stored_tab->first.c_str(), G_URI_FLAGS_NONE, &error);
-            if (error)
-            {
-                g_warning("Stored URI is invalid: %s", error->message);
-                g_error_free(error);
-                // open home directory instead
-                path = g_strdup(g_get_home_dir());
-            }
-            path = path ? path : g_strdup(g_uri_get_path(gUri));
-
-            con = (GnomeCmdCon*) gnome_cmd_con_remote_new(nullptr, uriString.c_str());
-        }
-
-        GnomeCmdDir *gnomeCmdDir = gnome_cmd_dir_new (con, gnome_cmd_con_create_path (con, path), true);
-        if (gnomeCmdDir != nullptr)
-        {
-            const auto& tabTuple = stored_tab->second;
-            fs(id)->new_tab(gnomeCmdDir, std::get<0>(tabTuple), std::get<1>(tabTuple), std::get<2>(tabTuple), TRUE);
-            one_valid_tab_found = true;
-        }
-        else
-        {
-            g_warning("Stored path %s is invalid. Skipping", path);
-        }
-
-        g_free(path);
-    }
 }
 
 

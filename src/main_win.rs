@@ -21,15 +21,17 @@
  */
 
 use crate::{
+    application::{ffi::GnomeCmdApplication, Application},
     connection::{
         bookmark::{Bookmark, BookmarkGoToVariant},
         connection::{Connection, ConnectionExt},
         list::ConnectionList,
         remote::ConnectionRemote,
     },
+    data::{GeneralOptions, GeneralOptionsRead, GeneralOptionsWrite},
     file::File,
     file_list::list::FileList,
-    file_selector::FileSelector,
+    file_selector::{FileSelector, TabVariant},
     libgcmd::{
         file_actions::{FileActions, FileActionsExt},
         file_descriptor::FileDescriptorExt,
@@ -49,11 +51,11 @@ use gtk::{
     glib::{
         self,
         ffi::gboolean,
-        translate::{from_glib_none, FromGlibPtrNone, ToGlibPtr},
+        translate::{from_glib_borrow, from_glib_none, Borrowed, FromGlibPtrNone, ToGlibPtr},
     },
     prelude::*,
 };
-use std::sync::LazyLock;
+use std::{path::PathBuf, sync::LazyLock};
 
 pub mod ffi {
     use super::*;
@@ -135,6 +137,55 @@ impl MainWindow {
         unsafe {
             FileSelector::from_glib_none(ffi::gnome_cmd_main_win_get_fs(self.to_glib_none().0, id))
         }
+    }
+
+    pub fn load_tabs(&self, start_left_dir: Option<PathBuf>, start_right_dir: Option<PathBuf>) {
+        let options = GeneralOptions::new();
+
+        let (mut left_tabs, mut right_tabs): (Vec<_>, Vec<_>) = options
+            .file_list_tabs()
+            .into_iter()
+            .partition(|t| t.file_felector_id == 0);
+
+        if let Some(dir) = start_left_dir.as_ref().and_then(|d| d.to_str()) {
+            left_tabs.push(TabVariant::new(dir));
+        }
+
+        if let Some(dir) = start_right_dir.as_ref().and_then(|d| d.to_str()) {
+            right_tabs.push(TabVariant::new(dir));
+        }
+
+        self.file_selector(FileSelectorID::LEFT)
+            .open_tabs(left_tabs);
+
+        self.file_selector(FileSelectorID::RIGHT)
+            .open_tabs(right_tabs);
+    }
+
+    fn save_tabs(&self, save_all: bool, save_current: bool) {
+        let options = GeneralOptions::new();
+
+        let mut tabs = Vec::<TabVariant>::new();
+        tabs.extend(
+            self.file_selector(FileSelectorID::LEFT)
+                .save_tabs(save_all, save_current)
+                .into_iter()
+                .map(|tab| TabVariant {
+                    file_felector_id: 0,
+                    ..tab
+                }),
+        );
+        tabs.extend(
+            self.file_selector(FileSelectorID::RIGHT)
+                .save_tabs(save_all, save_current)
+                .into_iter()
+                .map(|tab| TabVariant {
+                    file_felector_id: 1,
+                    ..tab
+                }),
+        );
+
+        options.set_file_list_tabs(&tabs);
     }
 
     pub fn change_connection(&self, id: FileSelectorID) {
@@ -635,4 +686,26 @@ pub extern "C" fn gnome_cmd_main_menu_new(
         mw.add_controller(shortcuts_controller);
     }
     menu.to_glib_full()
+}
+
+#[no_mangle]
+pub extern "C" fn gnome_cmd_main_win_load_tabs(
+    mw_ptr: *mut ffi::GnomeCmdMainWin,
+    app_ptr: *mut GnomeCmdApplication,
+) {
+    let mw: Borrowed<MainWindow> = unsafe { from_glib_borrow(mw_ptr) };
+    let app: Borrowed<Option<Application>> = unsafe { from_glib_borrow(app_ptr) };
+    let start_left_dir = (*app).as_ref().and_then(|a| a.start_left_dir());
+    let start_right_dir = (*app).as_ref().and_then(|a| a.start_right_dir());
+    mw.load_tabs(start_left_dir, start_right_dir);
+}
+
+#[no_mangle]
+pub extern "C" fn gnome_cmd_main_win_save_tabs(
+    mw_ptr: *mut ffi::GnomeCmdMainWin,
+    save_all: gboolean,
+    save_current: gboolean,
+) {
+    let mw: Borrowed<MainWindow> = unsafe { from_glib_borrow(mw_ptr) };
+    mw.save_tabs(save_all != 0, save_current != 0);
 }

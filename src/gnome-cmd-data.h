@@ -550,8 +550,6 @@ struct GnomeCmdData
         ~AdvrenameConfig()                                                              {}
     };
 
-    typedef std::pair<std::string, std::tuple<GnomeCmdFileList::ColumnID,GtkSortType,gboolean> > Tab;
-
     static GSettingsSchemaSource* GetGlobalSchemaSource();
 
     struct Private;
@@ -610,8 +608,6 @@ struct GnomeCmdData
     guint                        opts_dialog_height;
     gboolean                     main_win_maximized;
 
-    std::map<guint,std::vector<Tab> > tabs;
-
     mode_t                       umask;
 
     GnomeCmdData();
@@ -619,7 +615,6 @@ struct GnomeCmdData
     ~GnomeCmdData();
 
     void load();
-    void load_tabs();
     void load_devices();
     void gsettings_init();
     void connect_signals(GnomeCmdMainWin *main_win);

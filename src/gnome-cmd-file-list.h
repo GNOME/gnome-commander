@@ -267,6 +267,8 @@ extern "C" GnomeCmdDir *gnome_cmd_file_list_get_cwd(GnomeCmdFileList *fl);
 extern "C" GnomeCmdCon *gnome_cmd_file_list_get_connection(GnomeCmdFileList *fl);
 extern "C" GnomeCmdDir *gnome_cmd_file_list_get_directory(GnomeCmdFileList *fl);
 
+extern "C" gint /* ColumnID */ gnome_cmd_file_list_get_sort_column (GnomeCmdFileList *fl);
+extern "C" gint /* GtkSortType */ gnome_cmd_file_list_get_sort_order (GnomeCmdFileList *fl);
 extern "C" gboolean gnome_cmd_file_list_is_locked (GnomeCmdFileList *fl);
 
 extern "C" void gnome_cmd_file_list_reload (GnomeCmdFileList *fl);

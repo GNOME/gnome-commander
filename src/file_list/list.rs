@@ -37,7 +37,7 @@ use gtk::{
     glib::{
         self,
         ffi::gboolean,
-        translate::{from_glib_none, FromGlib, ToGlibPtr},
+        translate::{from_glib, from_glib_none, FromGlib, ToGlibPtr},
     },
     prelude::*,
 };
@@ -50,7 +50,7 @@ pub mod ffi {
         ffi::GtkTreeView,
         glib::ffi::{GList, GType},
     };
-    use std::ffi::c_char;
+    use std::ffi::c_int;
 
     #[repr(C)]
     pub struct GnomeCmdFileList {
@@ -71,6 +71,8 @@ pub mod ffi {
 
         pub fn gnome_cmd_file_list_get_directory(fl: *mut GnomeCmdFileList) -> *mut GnomeCmdDir;
 
+        pub fn gnome_cmd_file_list_get_sort_column(fl: *mut GnomeCmdFileList) -> c_int;
+        pub fn gnome_cmd_file_list_get_sort_order(fl: *mut GnomeCmdFileList) -> c_int;
         pub fn gnome_cmd_file_list_is_locked(fl: *mut GnomeCmdFileList) -> gboolean;
 
         pub fn gnome_cmd_file_list_reload(fl: *mut GnomeCmdFileList);
@@ -109,7 +111,9 @@ glib::wrapper! {
 }
 
 #[allow(non_camel_case_types)]
-enum ColumnID {
+#[derive(Clone, Copy, strum::FromRepr)]
+#[repr(C)]
+pub enum ColumnID {
     COLUMN_ICON = 0,
     COLUMN_NAME,
     COLUMN_EXT,
@@ -175,6 +179,22 @@ impl FileList {
 
     pub fn cwd(&self) -> Option<Directory> {
         unsafe { from_glib_none(ffi::gnome_cmd_file_list_get_cwd(self.to_glib_none().0)) }
+    }
+
+    pub fn sort_column(&self) -> ColumnID {
+        unsafe { ffi::gnome_cmd_file_list_get_sort_column(self.to_glib_none().0) }
+            .try_into()
+            .ok()
+            .and_then(ColumnID::from_repr)
+            .unwrap_or(ColumnID::COLUMN_NAME)
+    }
+
+    pub fn sort_order(&self) -> gtk::SortType {
+        unsafe {
+            from_glib(ffi::gnome_cmd_file_list_get_sort_order(
+                self.to_glib_none().0,
+            ))
+        }
     }
 
     pub fn is_locked(&self) -> bool {
