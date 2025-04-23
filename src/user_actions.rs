@@ -814,7 +814,6 @@ pub fn command_open_terminal(
 
 c_action!(view_conbuttons);
 c_action!(view_devlist);
-c_action!(view_toolbar);
 c_action!(view_buttonbar);
 c_action!(view_cmdline);
 c_action!(view_dir_history);
@@ -854,8 +853,6 @@ pub fn view_refresh(
         .reload();
 }
 
-c_action!(view_equal_panes);
-c_action!(view_maximize_pane);
 c_action!(view_in_left_pane);
 c_action!(view_in_right_pane);
 c_action!(view_in_active_pane);
@@ -997,8 +994,6 @@ pub fn view_in_inactive_tab(
 }
 
 c_action!(view_toggle_tab_lock);
-c_action!(view_horizontal_orientation);
-c_action!(view_main_menu);
 c_action!(view_step_up);
 c_action!(view_step_down);
 
@@ -1442,22 +1437,42 @@ impl UserAction {
         }
     }
 
-    pub fn action_entry(&self) -> gio::ActionEntry<MainWindow> {
+    const fn predefined(
+        action_name: &'static str,
+        name: &'static str,
+        description: String,
+    ) -> Self {
+        Self {
+            action_name,
+            activate: None,
+            parameter_type: None,
+            change_state: None,
+            state: None,
+            name,
+            description,
+        }
+    }
+
+    pub fn action_entry(&self) -> Option<gio::ActionEntry<MainWindow>> {
         if let Some(activate) = self.activate {
-            gio::ActionEntry::builder(&self.action_name)
-                .activate(activate)
-                .parameter_type(self.parameter_type.as_deref())
-                .build()
+            Some(
+                gio::ActionEntry::builder(&self.action_name)
+                    .activate(activate)
+                    .parameter_type(self.parameter_type.as_deref())
+                    .build(),
+            )
         } else if let Some(change_state) = self.change_state {
-            gio::ActionEntry::builder(&self.action_name)
-                .change_state(change_state)
-                .state(match self.state {
-                    Some(ActionInitialState::BooleanTrue) => true.to_variant(),
-                    None => Variant::from_none(glib::VariantTy::ANY),
-                })
-                .build()
+            Some(
+                gio::ActionEntry::builder(&self.action_name)
+                    .change_state(change_state)
+                    .state(match self.state {
+                        Some(ActionInitialState::BooleanTrue) => true.to_variant(),
+                        None => Variant::from_none(glib::VariantTy::ANY),
+                    })
+                    .build(),
+            )
         } else {
-            unreachable!()
+            None
         }
     }
 }
@@ -1704,12 +1719,7 @@ pub const USER_ACTIONS: Lazy<Vec<UserAction>> = Lazy::new(|| {
             "view.devlist",
             gettext("Show device list"),
         ),
-        UserAction::boolean(
-            "view-toolbar",
-            &view_toolbar,
-            "view.toolbar",
-            gettext("Show toolbar"),
-        ),
+        UserAction::predefined("view-toolbar", "view.toolbar", gettext("Show toolbar")),
         UserAction::boolean(
             "view-buttonbar",
             &view_buttonbar,
@@ -1771,15 +1781,13 @@ pub const USER_ACTIONS: Lazy<Vec<UserAction>> = Lazy::new(|| {
             "view.refresh",
             gettext("Refresh"),
         ),
-        UserAction::new(
+        UserAction::predefined(
             "view-equal-panes",
-            &view_equal_panes,
             "view.equal_panes",
             gettext("Equal panel size"),
         ),
-        UserAction::new(
+        UserAction::predefined(
             "view-maximize-pane",
-            &view_maximize_pane,
             "view.maximize_pane",
             gettext("Maximize panel size"),
         ),
@@ -1879,15 +1887,13 @@ pub const USER_ACTIONS: Lazy<Vec<UserAction>> = Lazy::new(|| {
             "view.toggle_lock_tab",
             gettext("Lock/unlock tab"),
         ),
-        UserAction::boolean(
+        UserAction::predefined(
             "view-horizontal-orientation",
-            &view_horizontal_orientation,
             "view.horizontal-orientation",
             gettext("Horizontal Orientation"),
         ),
-        UserAction::new(
+        UserAction::predefined(
             "view-main-menu",
-            &view_main_menu,
             "view.main_menu",
             gettext("Display main menu"),
         ),

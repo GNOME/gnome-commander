@@ -162,12 +162,13 @@ inline void add_file_to_cmdline (GnomeCmdFileList *fl, gboolean fullpath)
 
     GnomeCmdFile *f = fl->get_selected_file();
 
-    if (f && gnome_cmd_data.cmdline_visibility)
+    auto cmdline = gnome_cmd_main_win_get_cmdline (main_win);
+    if (f && gtk_widget_is_visible (GTK_WIDGET (cmdline)))
     {
         gchar *text = fullpath ? f->get_quoted_real_path() : f->get_quoted_name();
 
-        gnome_cmd_cmdline_append_text (main_win->get_cmdline(), text);
-        gtk_widget_grab_focus (GTK_WIDGET (main_win->get_cmdline()));
+        gnome_cmd_cmdline_append_text (cmdline, text);
+        gtk_widget_grab_focus (GTK_WIDGET (cmdline));
         g_free (text);
     }
 }
@@ -177,13 +178,14 @@ inline void add_cwd_to_cmdline (GnomeCmdFileList *fl)
 {
     g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl));
 
-    if (gnome_cmd_data.cmdline_visibility)
+    auto cmdline = gnome_cmd_main_win_get_cmdline (main_win);
+    if (gtk_widget_is_visible (GTK_WIDGET (cmdline)))
     {
         gchar *dpath = GNOME_CMD_FILE (fl->cwd)->get_real_path();
-        gnome_cmd_cmdline_append_text (main_win->get_cmdline(), dpath);
+        gnome_cmd_cmdline_append_text (cmdline, dpath);
         g_free (dpath);
 
-        gtk_widget_grab_focus (GTK_WIDGET (main_win->get_cmdline()));
+        gtk_widget_grab_focus (GTK_WIDGET (cmdline));
     }
 }
 
@@ -607,11 +609,13 @@ static gboolean on_list_key_pressed (GtkEventControllerKey *controller, guint ke
 
             case GDK_KEY_Return:
             case GDK_KEY_KP_Enter:
-                if (gnome_cmd_data.cmdline_visibility
-                    && !gnome_cmd_cmdline_is_empty (main_win->get_cmdline()))
-                    gnome_cmd_cmdline_exec (main_win->get_cmdline());
-                else
-                    fs->do_file_specific_action (fs->list, fs->list->get_focused_file());
+                {
+                    auto cmdline = gnome_cmd_main_win_get_cmdline (main_win);
+                    if (gtk_widget_is_visible (GTK_WIDGET (cmdline)) && !gnome_cmd_cmdline_is_empty (cmdline))
+                        gnome_cmd_cmdline_exec (cmdline);
+                    else
+                        fs->do_file_specific_action (fs->list, fs->list->get_focused_file());
+                }
                 return TRUE;
 
             default:
@@ -1226,6 +1230,11 @@ GtkWidget *gnome_cmd_file_selector_new_tab_with_dir (GnomeCmdFileSelector *fs, G
     return fs->new_tab(dir, activate);
 }
 
+GtkWidget *gnome_cmd_file_selector_new_tab_full (GnomeCmdFileSelector *fs, GnomeCmdDir *dir, gint sort_col, gint sort_order, gboolean locked, gboolean activate)
+{
+    return fs->new_tab(dir, (GnomeCmdFileList::ColumnID) sort_col, (GtkSortType) sort_order, locked, activate);
+}
+
 void gnome_cmd_file_selector_close_tab (GnomeCmdFileSelector *fs)
 {
     fs->close_tab();
@@ -1241,13 +1250,17 @@ guint gnome_cmd_file_selector_tab_count (GnomeCmdFileSelector *fs)
     return gtk_notebook_get_n_pages (GTK_NOTEBOOK (fs->notebook));
 }
 
-gint gnome_cmd_file_selector_get_fs_id (GnomeCmdFileSelector *fs)
-{
-    return (gint) fs->fs_id;
-}
-
 gboolean gnome_cmd_file_selector_is_active (GnomeCmdFileSelector *fs)
 {
     return fs->is_active();
 }
 
+void gnome_cmd_file_selector_set_active (GnomeCmdFileSelector *fs, gboolean active)
+{
+    fs->set_active(active);
+}
+
+void gnome_cmd_file_selector_back (GnomeCmdFileSelector *fs)
+{
+    fs->back();
+}

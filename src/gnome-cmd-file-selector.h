@@ -37,7 +37,6 @@ struct GnomeCmdFileSelector
 {
     GtkBox vbox;
 
-    FileSelectorID fs_id;
     GtkWidget *con_btns_sw;
     GtkWidget *con_btns_hbox;
     GtkWidget *con_hbox;
@@ -133,11 +132,9 @@ inline GtkWidget *GnomeCmdFileSelector::new_tab(GnomeCmdDir *dir, gboolean activ
 
 extern "C" GType gnome_cmd_file_selector_get_type ();
 
-inline GtkWidget *gnome_cmd_file_selector_new (FileSelectorID fs_id)
+inline GtkWidget *gnome_cmd_file_selector_new ()
 {
-    GnomeCmdFileSelector *fs = static_cast<GnomeCmdFileSelector *>(g_object_new (GNOME_CMD_TYPE_FILE_SELECTOR, NULL));
-    fs->fs_id = fs_id;
-    return *fs;
+    return GTK_WIDGET (g_object_new (GNOME_CMD_TYPE_FILE_SELECTOR, NULL));
 }
 
 inline FileSelectorID operator ! (FileSelectorID id)
@@ -163,9 +160,12 @@ extern "C" void gnome_cmd_file_selector_set_connection(GnomeCmdFileSelector *fs,
 
 extern "C" GtkWidget *gnome_cmd_file_selector_new_tab (GnomeCmdFileSelector *fs);
 extern "C" GtkWidget *gnome_cmd_file_selector_new_tab_with_dir (GnomeCmdFileSelector *fs, GnomeCmdDir *dir, gboolean activate);
+extern "C" GtkWidget *gnome_cmd_file_selector_new_tab_full (GnomeCmdFileSelector *fs, GnomeCmdDir *dir, gint sort_col, gint sort_order, gboolean locked, gboolean activate);
 extern "C" void gnome_cmd_file_selector_close_tab (GnomeCmdFileSelector *fs);
 extern "C" void gnome_cmd_file_selector_close_tab_nth (GnomeCmdFileSelector *fs, guint n);
 extern "C" guint gnome_cmd_file_selector_tab_count (GnomeCmdFileSelector *fs);
 
-extern "C" gint /* FileSelectorID */ gnome_cmd_file_selector_get_fs_id (GnomeCmdFileSelector *fs);
 extern "C" gboolean gnome_cmd_file_selector_is_active (GnomeCmdFileSelector *fs);
+extern "C" void gnome_cmd_file_selector_set_active (GnomeCmdFileSelector *fs, gboolean active);
+
+extern "C" void gnome_cmd_file_selector_back (GnomeCmdFileSelector *fs);

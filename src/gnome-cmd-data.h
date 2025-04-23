@@ -550,8 +550,6 @@ struct GnomeCmdData
         ~AdvrenameConfig()                                                              {}
     };
 
-    typedef std::pair<std::string, std::tuple<GnomeCmdFileList::ColumnID,GtkSortType,gboolean> > Tab;
-
     static GSettingsSchemaSource* GetGlobalSchemaSource();
 
     struct Private;
@@ -584,14 +582,8 @@ struct GnomeCmdData
     SearchConfig                 search_defaults;
     AdvrenameConfig              advrename_defaults;
 
-    gboolean                     horizontal_orientation;
-
-    gboolean                     show_toolbar {TRUE};
     gboolean                     show_devbuttons {TRUE};
     gboolean                     show_devlist {TRUE};
-    gboolean                     cmdline_visibility {TRUE};
-    gboolean                     buttonbar_visibility {TRUE};
-    gboolean                     mainmenu_visibility {TRUE};
 
     guint                        gui_update_rate;
 
@@ -602,13 +594,8 @@ struct GnomeCmdData
 
     gboolean                     use_gcmd_block;
 
-    guint                        main_win_width;
-    guint                        main_win_height;
     guint                        opts_dialog_width;
     guint                        opts_dialog_height;
-    gboolean                     main_win_maximized;
-
-    std::map<guint,std::vector<Tab> > tabs;
 
     mode_t                       umask;
 
@@ -617,7 +604,6 @@ struct GnomeCmdData
     ~GnomeCmdData();
 
     void load();
-    void load_tabs();
     void load_devices();
     void gsettings_init();
     void connect_signals(GnomeCmdMainWin *main_win);

@@ -522,6 +522,16 @@ impl ConnectionList {
             self.add_volume(&volume);
         }
     }
+
+    pub fn connect_list_changed<F>(&self, callback: F) -> glib::SignalHandlerId
+    where
+        F: Fn() + 'static,
+    {
+        self.connect_local("list-changed", false, move |_| {
+            (callback)();
+            None
+        })
+    }
 }
 
 #[no_mangle]

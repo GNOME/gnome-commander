@@ -2163,13 +2163,17 @@ static gboolean gnome_cmd_file_list_key_pressed (GtkEventControllerKey* self, gu
     {
         if (is_quicksearch_starting_modifier (state))
             gnome_cmd_file_list_show_quicksearch (fl, keyval);
-        else if (gnome_cmd_data.cmdline_visibility)
+        else
         {
-            gchar text[2];
-            text[0] = keyval;
-            text[1] = '\0';
-            gnome_cmd_cmdline_append_text (main_win->get_cmdline(), text);
-            gtk_widget_grab_focus (GTK_WIDGET (main_win->get_cmdline()));
+            auto cmdline = gnome_cmd_main_win_get_cmdline (main_win);
+            if (gtk_widget_is_visible (GTK_WIDGET (cmdline)))
+            {
+                gchar text[2];
+                text[0] = keyval;
+                text[1] = '\0';
+                gnome_cmd_cmdline_append_text (cmdline, text);
+                gtk_widget_grab_focus (GTK_WIDGET (cmdline));
+            }
         }
         return TRUE;
     }
@@ -2778,6 +2782,16 @@ GnomeCmdCon *gnome_cmd_file_list_get_connection(GnomeCmdFileList *fl)
 GnomeCmdDir *gnome_cmd_file_list_get_directory(GnomeCmdFileList *fl)
 {
     return fl->cwd;
+}
+
+gint gnome_cmd_file_list_get_sort_column (GnomeCmdFileList *fl)
+{
+    return fl->get_sort_column();
+}
+
+gint gnome_cmd_file_list_get_sort_order (GnomeCmdFileList *fl)
+{
+    return fl->get_sort_order();
 }
 
 gboolean gnome_cmd_file_list_is_locked (GnomeCmdFileList *fl)

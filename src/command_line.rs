@@ -18,7 +18,7 @@
  */
 
 use glib::{
-    ffi::{gboolean, GList, GStrv},
+    ffi::{gboolean, GStrv},
     translate::{from_glib_borrow, from_glib_none, Borrowed, ToGlibPtr},
 };
 use gtk::{gdk, glib, prelude::*, subclass::prelude::*};
@@ -207,7 +207,7 @@ mod imp {
                 history.insert(0, item);
             } else {
                 // or if its new just add it
-                history.push(value.to_owned());
+                history.insert(0, value.to_owned());
             }
             // don't let the history get too long
             history.truncate(self.max_history_size.get());
@@ -279,6 +279,40 @@ impl CommandLine {
 
     fn emit_execute(&self, command: &str, in_terminal: bool) {
         self.emit_by_name::<()>("execute", &[&command, &in_terminal]);
+    }
+
+    pub fn connect_lose_focus<F: Fn(&Self) + 'static>(&self, f: F) -> glib::SignalHandlerId {
+        self.connect_closure(
+            "lose-focus",
+            false,
+            glib::closure_local!(move |self_: &Self| (f)(self_)),
+        )
+    }
+
+    pub fn connect_change_directory<F: Fn(&Self, &str) + 'static>(
+        &self,
+        f: F,
+    ) -> glib::SignalHandlerId {
+        self.connect_closure(
+            "change-directory",
+            false,
+            glib::closure_local!(move |self_: &Self, dir: &str| (f)(self_, dir)),
+        )
+    }
+
+    pub fn connect_execute<F: Fn(&Self, &str, bool) + 'static>(
+        &self,
+        f: F,
+    ) -> glib::SignalHandlerId {
+        self.connect_closure(
+            "execute",
+            false,
+            glib::closure_local!(move |self_: &Self, command: &str, in_terminal: bool| (f)(
+                self_,
+                command,
+                in_terminal
+            )),
+        )
     }
 
     pub fn exec(&self, in_terminal: bool) -> bool {

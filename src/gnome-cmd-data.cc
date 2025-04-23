@@ -354,44 +354,6 @@ static void on_show_devlist_changed (GnomeCmdMainWin *main_win)
     main_win->fs(INACTIVE)->update_show_devlist();
 }
 
-static void on_show_cmdline_changed (GnomeCmdMainWin *main_win)
-{
-    gboolean show_cmdline;
-
-    show_cmdline = g_settings_get_boolean (gnome_cmd_data.options.gcmd_settings->general, GCMD_SETTINGS_SHOW_CMDLINE);
-    gnome_cmd_data.cmdline_visibility = show_cmdline;
-    main_win->update_cmdline_visibility();
-}
-
-static void on_show_toolbar_changed (GnomeCmdMainWin *main_win)
-{
-    if (gnome_cmd_data.show_toolbar != g_settings_get_boolean (gnome_cmd_data.options.gcmd_settings->general, GCMD_SETTINGS_SHOW_TOOLBAR))
-    {
-        gnome_cmd_data.show_toolbar = g_settings_get_boolean (gnome_cmd_data.options.gcmd_settings->general, GCMD_SETTINGS_SHOW_TOOLBAR);
-        main_win->update_show_toolbar();
-    }
-}
-
-static void on_show_buttonbar_changed (GnomeCmdMainWin *main_win)
-{
-    if (gnome_cmd_data.buttonbar_visibility != g_settings_get_boolean (gnome_cmd_data.options.gcmd_settings->general, GCMD_SETTINGS_SHOW_BUTTONBAR))
-    {
-        gnome_cmd_data.buttonbar_visibility = g_settings_get_boolean (gnome_cmd_data.options.gcmd_settings->general, GCMD_SETTINGS_SHOW_BUTTONBAR);
-        main_win->update_buttonbar_visibility();
-    }
-}
-
-static void on_horizontal_orientation_changed (GnomeCmdMainWin *main_win)
-{
-    gboolean horizontal_orientation;
-
-    horizontal_orientation = g_settings_get_boolean (gnome_cmd_data.options.gcmd_settings->general, GCMD_SETTINGS_HORIZONTAL_ORIENTATION);
-    gnome_cmd_data.horizontal_orientation = horizontal_orientation;
-
-    main_win->update_horizontal_orientation();
-    main_win->focus_file_lists();
-}
-
 static void on_always_show_tabs_changed (GnomeCmdMainWin *main_win)
 {
     gboolean always_show_tabs;
@@ -559,15 +521,6 @@ static void on_samba_device_icon_changed (GnomeCmdMainWin *main_win)
 
     show_samba_workgroups_button = g_settings_get_boolean (gnome_cmd_data.options.gcmd_settings->general, GCMD_SETTINGS_SHOW_SAMBA_WORKGROUP_BUTTON);
     gnome_cmd_data.options.show_samba_workgroups_button = show_samba_workgroups_button;
-}
-
-static void on_mainmenu_visibility_changed (GnomeCmdMainWin *main_win)
-{
-    gboolean mainmenu_visibility;
-
-    mainmenu_visibility = g_settings_get_boolean (gnome_cmd_data.options.gcmd_settings->general, GCMD_SETTINGS_MAINMENU_VISIBILITY);
-    gnome_cmd_data.mainmenu_visibility = mainmenu_visibility;
-    main_win->update_mainmenu_visibility();
 }
 
 static void on_opts_dialog_width_changed()
@@ -773,26 +726,6 @@ static void gcmd_connect_gsettings_signals(GcmdSettings *gs, GnomeCmdMainWin *ma
                       main_win);
 
     g_signal_connect_swapped (gs->general,
-                      "changed::show-cmdline",
-                      G_CALLBACK (on_show_cmdline_changed),
-                      main_win);
-
-    g_signal_connect_swapped (gs->general,
-                      "changed::show-toolbar",
-                      G_CALLBACK (on_show_toolbar_changed),
-                      main_win);
-
-    g_signal_connect_swapped (gs->general,
-                      "changed::show-buttonbar",
-                      G_CALLBACK (on_show_buttonbar_changed),
-                      main_win);
-
-    g_signal_connect_swapped (gs->general,
-                      "changed::horizontal-orientation",
-                      G_CALLBACK (on_horizontal_orientation_changed),
-                      main_win);
-
-    g_signal_connect_swapped (gs->general,
                       "changed::symlink-string",
                       G_CALLBACK (on_symlink_string_changed),
                       main_win);
@@ -895,11 +828,6 @@ static void gcmd_connect_gsettings_signals(GcmdSettings *gs, GnomeCmdMainWin *ma
     g_signal_connect_swapped (gs->general,
                       "changed::show-samba-workgroup-button",
                       G_CALLBACK (on_samba_device_icon_changed),
-                      main_win);
-
-    g_signal_connect_swapped (gs->general,
-                      "changed::mainmenu-visibility",
-                      G_CALLBACK (on_mainmenu_visibility_changed),
                       main_win);
 
     g_signal_connect (gs->general,
@@ -1425,61 +1353,6 @@ void GnomeCmdData::save_devices()
 
 
 /**
- * Save tabs in given gSettings and in given key
- */
-static void save_tabs (GSettings *gSettings, const char *gSettingsKey, GnomeCmdMainWin *main_win)
-{
-    if (main_win == nullptr)
-        return;
-
-    GVariant* fileListTabs;
-    GVariantBuilder gVariantBuilder;
-    g_variant_builder_init (&gVariantBuilder, G_VARIANT_TYPE_ARRAY);
-
-    for (int fileSelectorIdInt = LEFT; fileSelectorIdInt <= RIGHT; fileSelectorIdInt++)
-    {
-        FileSelectorID fileSelectorId = static_cast<FileSelectorID>(fileSelectorIdInt);
-        GnomeCmdFileSelector gnomeCmdFileSelector = *main_win->fs(fileSelectorId);
-        GListModel *tabs = gnomeCmdFileSelector.GetTabs();
-
-        guint tabs_count = g_list_model_get_n_items (tabs);
-        for (guint i = 0; i < tabs_count; ++i)
-        {
-            auto page = GTK_NOTEBOOK_PAGE (g_list_model_get_item (tabs, i));
-            auto fl = GNOME_CMD_FILE_LIST (gtk_notebook_page_get_child (page));
-            if (!fl)
-                continue;
-
-            if (gnome_cmd_data.options.save_tabs_on_exit || (gnome_cmd_data.options.save_dirs_on_exit && fl == gnomeCmdFileSelector.file_list()) || fl->locked)
-            {
-                if (!fl->cwd)
-                    continue;
-                gchar* uriString = GNOME_CMD_FILE (fl->cwd)->get_uri_str();
-                if (!uriString)
-                    continue;
-                g_variant_builder_add (&gVariantBuilder, GCMD_SETTINGS_FILE_LIST_TAB_FORMAT_STRING,
-                                        uriString,
-                                        (guchar) fileSelectorId,
-                                        fl->get_sort_column(),
-                                        fl->get_sort_order(),
-                                        fl->locked);
-                g_free(uriString);
-            }
-        }
-        g_object_unref (tabs);
-    }
-    fileListTabs = g_variant_builder_end (&gVariantBuilder);
-
-    if (!fileListTabs)
-    {
-        return;
-    }
-
-    g_settings_set_value(gSettings, gSettingsKey, fileListTabs);
-}
-
-
-/**
  * Save connections in gSettings
  */
 void GnomeCmdData::save_connections()
@@ -1703,7 +1576,7 @@ void GnomeCmdData::save_cmdline_history(GnomeCmdMainWin *main_win)
     {
         if (main_win != nullptr)
         {
-            cmdline_history = gnome_cmd_cmdline_get_history (main_win->get_cmdline());
+            cmdline_history = gnome_cmd_cmdline_get_history (gnome_cmd_main_win_get_cmdline (main_win));
             g_settings_set_strv (options.gcmd_settings->general, GCMD_SETTINGS_CMDLINE_HISTORY, cmdline_history);
         }
     }
@@ -1807,11 +1680,6 @@ GnomeCmdData::GnomeCmdData(): search_defaults(profiles)
 
     use_gcmd_block = TRUE;
 
-    main_win_width = 600;
-    main_win_height = 400;
-
-    main_win_maximized = TRUE;
-
     umask = ::umask(0);
     ::umask(umask);
 }
@@ -1872,37 +1740,6 @@ gboolean GnomeCmdData::set_valid_color_string(GSettings *settings_given, const c
 
 
 /**
- * Loads tabs from gSettings into gcmd options
- */
-void GnomeCmdData::load_tabs()
-{
-    GVariant *gvTabs, *tab;
-    GVariantIter iter;
-
-    gvTabs = g_settings_get_value(options.gcmd_settings->general, GCMD_SETTINGS_FILE_LIST_TABS);
-
-    g_variant_iter_init (&iter, gvTabs);
-
-    while ((tab = g_variant_iter_next_value (&iter)) != nullptr)
-    {
-        gchar *uriCharString;
-        gboolean sort_order, locked;
-        guchar fileSelectorId, sort_column;
-
-        g_assert (g_variant_is_of_type (tab, G_VARIANT_TYPE (GCMD_SETTINGS_FILE_LIST_TAB_FORMAT_STRING)));
-        g_variant_get(tab, GCMD_SETTINGS_FILE_LIST_TAB_FORMAT_STRING, &uriCharString, &fileSelectorId, &sort_column, &sort_order, &locked);
-        string uriString(uriCharString);
-        if (!uriString.empty() && sort_column < GnomeCmdFileList::NUM_COLUMNS)
-        {
-            this->tabs[(FileSelectorID) fileSelectorId].push_back(make_pair(uriString, make_tuple((GnomeCmdFileList::ColumnID) sort_column, (GtkSortType) sort_order, locked)));
-        }
-        g_variant_unref(tab);
-        g_free(uriCharString);
-    }
-    g_variant_unref(gvTabs);
-}
-
-/**
  * Loads devices from gSettings into gcmd options
  */
 void GnomeCmdData::load_devices()
@@ -1961,8 +1798,6 @@ void GnomeCmdData::load()
     options.case_sens_sort = g_settings_get_boolean (options.gcmd_settings->general, GCMD_SETTINGS_CASE_SENSITIVE);
     options.symbolic_links_as_regular_files = g_settings_get_boolean (options.gcmd_settings->general, GCMD_SETTINGS_SYMBOLIC_LINKS_AS_REG_FILES);
 
-    main_win_width = g_settings_get_uint (options.gcmd_settings->general, GCMD_SETTINGS_MAIN_WIN_WIDTH);
-    main_win_height = g_settings_get_uint (options.gcmd_settings->general, GCMD_SETTINGS_MAIN_WIN_HEIGHT);
     opts_dialog_width = g_settings_get_uint (options.gcmd_settings->general, GCMD_SETTINGS_OPTS_DIALOG_WIDTH);
     opts_dialog_height = g_settings_get_uint (options.gcmd_settings->general, GCMD_SETTINGS_OPTS_DIALOG_HEIGHT);
 
@@ -1978,15 +1813,10 @@ void GnomeCmdData::load()
     options.icon_scale_quality = (GdkInterpType) g_settings_get_enum (options.gcmd_settings->general, GCMD_SETTINGS_ICON_SCALE_QUALITY);
     options.theme_icon_dir = g_settings_get_string(options.gcmd_settings->general, GCMD_SETTINGS_MIME_ICON_DIR);
     cmdline_history_length = g_settings_get_uint (options.gcmd_settings->general, GCMD_SETTINGS_CMDLINE_HISTORY_LENGTH);
-    horizontal_orientation = g_settings_get_boolean (options.gcmd_settings->general, GCMD_SETTINGS_HORIZONTAL_ORIENTATION);
     gui_update_rate = g_settings_get_uint (options.gcmd_settings->general, GCMD_SETTINGS_GUI_UPDATE_RATE);
 
-    show_toolbar = g_settings_get_boolean (options.gcmd_settings->general, GCMD_SETTINGS_SHOW_TOOLBAR);
     show_devbuttons = g_settings_get_boolean (options.gcmd_settings->general, GCMD_SETTINGS_SHOW_DEVBUTTONS);
     show_devlist = g_settings_get_boolean (options.gcmd_settings->general, GCMD_SETTINGS_SHOW_DEVLIST);
-    cmdline_visibility = g_settings_get_boolean (options.gcmd_settings->general, GCMD_SETTINGS_SHOW_CMDLINE);
-    buttonbar_visibility = g_settings_get_boolean (options.gcmd_settings->general, GCMD_SETTINGS_SHOW_BUTTONBAR);
-    mainmenu_visibility = g_settings_get_boolean (options.gcmd_settings->general, GCMD_SETTINGS_MAINMENU_VISIBILITY);
 
     options.honor_expect_uris = g_settings_get_boolean (options.gcmd_settings->programs, GCMD_SETTINGS_DONT_DOWNLOAD);
     options.allow_multiple_instances = g_settings_get_boolean (options.gcmd_settings->general, GCMD_SETTINGS_MULTIPLE_INSTANCES);
@@ -2031,13 +1861,9 @@ void GnomeCmdData::load()
     options.backup_pattern = g_settings_get_string (options.gcmd_settings->filter, GCMD_SETTINGS_FILTER_BACKUP_PATTERN);
     options.backup_pattern_list = patlist_new (options.backup_pattern);
 
-    main_win_maximized = g_settings_get_uint (options.gcmd_settings->general, GCMD_SETTINGS_MAIN_WIN_STATE) == 4;
-
     advrename_defaults.width = g_settings_get_uint (options.gcmd_settings->general, GCMD_SETTINGS_ADVRENAME_TOOL_WIDTH);
     advrename_defaults.height = g_settings_get_uint (options.gcmd_settings->general, GCMD_SETTINGS_ADVRENAME_TOOL_HEIGHT);
     advrename_defaults.templates.ents = get_list_from_gsettings_string_array (options.gcmd_settings->general, GCMD_SETTINGS_ADVRENAME_TOOL_TEMPLATE_HISTORY);
-
-    load_tabs();
 
     load_cmdline_history();
 
@@ -2106,7 +1932,6 @@ void GnomeCmdData::save(GnomeCmdMainWin *main_win)
     set_gsettings_enum_when_changed (options.gcmd_settings->general, GCMD_SETTINGS_ICON_SCALE_QUALITY, options.icon_scale_quality);
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_MIME_ICON_DIR, options.theme_icon_dir);
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_CMDLINE_HISTORY_LENGTH, &(cmdline_history_length));
-    set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_HORIZONTAL_ORIENTATION, &(horizontal_orientation));
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_GUI_UPDATE_RATE, &(gui_update_rate));
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_MULTIPLE_INSTANCES, &(options.allow_multiple_instances));
     set_gsettings_enum_when_changed (options.gcmd_settings->general, GCMD_SETTINGS_QUICK_SEARCH_SHORTCUT, options.quick_search);
@@ -2120,12 +1945,8 @@ void GnomeCmdData::save(GnomeCmdMainWin *main_win)
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_DEV_ONLY_ICON, &(options.device_only_icon));
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_SHOW_SAMBA_WORKGROUP_BUTTON, &(options.show_samba_workgroups_button));
 
-    set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_SHOW_TOOLBAR, &(show_toolbar));
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_SHOW_DEVBUTTONS, &(show_devbuttons));
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_SHOW_DEVLIST, &(show_devlist));
-    set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_SHOW_CMDLINE, &(cmdline_visibility));
-    set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_SHOW_BUTTONBAR, &(buttonbar_visibility));
-    set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_MAINMENU_VISIBILITY, &(mainmenu_visibility));
 
     set_gsettings_when_changed      (options.gcmd_settings->programs, GCMD_SETTINGS_VIEWER_CMD, options.viewer);
     set_gsettings_when_changed      (options.gcmd_settings->programs, GCMD_SETTINGS_EDITOR_CMD, options.editor);
@@ -2136,8 +1957,6 @@ void GnomeCmdData::save(GnomeCmdMainWin *main_win)
     set_gsettings_when_changed      (options.gcmd_settings->programs, GCMD_SETTINGS_TERMINAL_EXEC_CMD, options.termexec);
     set_gsettings_when_changed      (options.gcmd_settings->programs, GCMD_SETTINGS_USE_GCMD_BLOCK, &(use_gcmd_block));
 
-    set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_MAIN_WIN_WIDTH, &(main_win_width));
-    set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_MAIN_WIN_HEIGHT, &(main_win_height));
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_OPTS_DIALOG_WIDTH, &(opts_dialog_width));
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_OPTS_DIALOG_HEIGHT, &(opts_dialog_height));
 
@@ -2155,14 +1974,10 @@ void GnomeCmdData::save(GnomeCmdMainWin *main_win)
 
     set_gsettings_when_changed      (options.gcmd_settings->filter, GCMD_SETTINGS_FILTER_BACKUP_PATTERN, options.backup_pattern);
 
-    int main_win_state = main_win_maximized ? 4 : 0;
-    set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_MAIN_WIN_STATE, &main_win_state);
-
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_ADVRENAME_TOOL_WIDTH, &(advrename_defaults.width));
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_ADVRENAME_TOOL_HEIGHT, &(advrename_defaults.height));
     set_gsettings_string_array_from_glist(options.gcmd_settings->general, GCMD_SETTINGS_ADVRENAME_TOOL_TEMPLATE_HISTORY, advrename_defaults.templates.ents);
 
-    save_tabs                       (options.gcmd_settings->general, GCMD_SETTINGS_FILE_LIST_TABS, main_win);
     save_devices                    ();
     save_cmdline_history            (main_win);
     save_directory_history          ();

@@ -21,15 +21,18 @@
  */
 
 use crate::{
+    application::{ffi::GnomeCmdApplication, Application},
+    command_line::CommandLine,
     connection::{
         bookmark::{Bookmark, BookmarkGoToVariant},
         connection::{Connection, ConnectionExt},
         list::ConnectionList,
         remote::ConnectionRemote,
     },
+    data::{GeneralOptions, GeneralOptionsRead, GeneralOptionsWrite},
     file::File,
-    file_list::list::FileList,
-    file_selector::FileSelector,
+    file_list::list::{ffi::GnomeCmdFileList, FileList},
+    file_selector::{ffi::GnomeCmdFileSelector, FileSelector, TabVariant},
     libgcmd::{
         file_actions::{FileActions, FileActionsExt},
         file_descriptor::FileDescriptorExt,
@@ -40,39 +43,729 @@ use crate::{
     tags::tags::FileMetadataService,
     transfer::{gnome_cmd_copy_gfiles, gnome_cmd_move_gfiles},
     types::{FileSelectorID, GnomeCmdConfirmOverwriteMode},
-    user_actions,
     utils::{extract_menu_shortcuts, MenuBuilderExt},
 };
 use gettextrs::gettext;
 use gtk::{
+    gdk,
     gio::{self, ffi::GMenu},
     glib::{
         self,
-        ffi::gboolean,
-        translate::{from_glib_none, FromGlibPtrNone, ToGlibPtr},
+        ffi::{gboolean, GType},
+        translate::{from_glib_borrow, from_glib_none, Borrowed, IntoGlib, ToGlibPtr},
     },
+    graphene,
     prelude::*,
+    subclass::prelude::*,
 };
-use std::sync::LazyLock;
+use std::{cell::RefCell, path::PathBuf};
+
+pub mod imp {
+    use super::*;
+    use crate::{
+        command_line::CommandLine,
+        data::ProgramsOptions,
+        layout::color_themes::ColorThemes,
+        paned_ext::GnomeCmdPanedExt,
+        pwd::uid,
+        spawn::{run_command_indir, SpawnError},
+        user_actions,
+        utils::sleep,
+    };
+    use std::{
+        cell::{Cell, RefCell},
+        ffi::OsString,
+        path::Path,
+    };
+
+    #[derive(glib::Properties)]
+    #[properties(wrapper_type = super::MainWindow)]
+    pub struct MainWindow {
+        menubar: gtk::PopoverMenuBar,
+
+        toolbar: gtk::Box,
+        con_drop: gtk::Button,
+        toolbar_sep: gtk::Separator,
+        pub cmdline: CommandLine,
+        cmdline_sep: gtk::Separator,
+        buttonbar: gtk::Box,
+        buttonbar_sep: gtk::Separator,
+        view_btn: gtk::Button,
+        edit_btn: gtk::Button,
+        copy_btn: gtk::Button,
+        move_btn: gtk::Button,
+        mkdir_btn: gtk::Button,
+        delete_btn: gtk::Button,
+        find_btn: gtk::Button,
+
+        pub paned: gtk::Paned,
+        pub file_selector_left: RefCell<FileSelector>,
+        pub file_selector_right: RefCell<FileSelector>,
+        #[property(get, set)]
+        current_panel: Cell<u32>,
+
+        pub plugin_manager: RefCell<Option<PluginManager>>,
+        pub file_metadata_service: RefCell<Option<FileMetadataService>>,
+        pub cut_and_paste_state: RefCell<Option<CutAndPasteState>>,
+
+        color_themes: ColorThemes,
+
+        #[property(get, set)]
+        menu_visible: Cell<bool>,
+        #[property(get, set)]
+        toolbar_visible: Cell<bool>,
+        #[property(get, set = Self::set_horizontal_orientation)]
+        horizontal_orientation: Cell<bool>,
+        #[property(get, set)]
+        command_line_visible: Cell<bool>,
+        #[property(get, set)]
+        buttonbar_visible: Cell<bool>,
+    }
+
+    #[glib::object_subclass]
+    impl ObjectSubclass for MainWindow {
+        const NAME: &'static str = "GnomeCmdMainWindow";
+        type Type = super::MainWindow;
+        type ParentType = gtk::ApplicationWindow;
+
+        fn class_init(klass: &mut Self::Class) {
+            klass.install_property_action("win.view-main-menu", "menu-visible");
+            klass.install_property_action("win.view-toolbar", "toolbar-visible");
+            klass.install_property_action(
+                "win.view-horizontal-orientation",
+                "horizontal-orientation",
+            );
+            klass.install_property_action("win.view-cmdline", "command-line-visible");
+            klass.install_property_action("win.view-buttonbar", "buttonbar-visible");
+
+            klass.install_action(
+                "win.view-slide",
+                Some(&i32::static_variant_type()),
+                |obj, _, p| obj.imp().view_slide(p),
+            );
+            klass.install_action("win.view-equal-panes", None, |obj, _, _| {
+                obj.imp().spawn_ensure_slide_position(50)
+            });
+            klass.install_action("win.view-maximize-pane", None, |obj, _, _| {
+                obj.imp()
+                    .spawn_ensure_slide_position(if obj.current_panel() == 0 { 100 } else { 0 })
+            });
+        }
+
+        fn new() -> Self {
+            Self {
+                menubar: gtk::PopoverMenuBar::builder().build(),
+
+                toolbar: gtk::Box::builder()
+                    .orientation(gtk::Orientation::Horizontal)
+                    .spacing(6)
+                    .build(),
+                con_drop: toolbar_button(
+                    &gettext("Drop connection"),
+                    REMOTE_DISCONNECT_ICON,
+                    "win.connections-close-current",
+                ),
+                toolbar_sep: gtk::Separator::builder()
+                    .orientation(gtk::Orientation::Vertical)
+                    .margin_start(3)
+                    .margin_end(3)
+                    .build(),
+
+                paned: gtk::Paned::builder()
+                    .orientation(gtk::Orientation::Vertical)
+                    .wide_handle(true)
+                    .hexpand(true)
+                    .vexpand(true)
+                    .build(),
+                file_selector_left: RefCell::new(FileSelector::new()),
+                file_selector_right: RefCell::new(FileSelector::new()),
+                cmdline: CommandLine::new(),
+                cmdline_sep: gtk::Separator::builder()
+                    .orientation(gtk::Orientation::Vertical)
+                    .margin_start(3)
+                    .margin_end(3)
+                    .build(),
+                buttonbar: gtk::Box::builder()
+                    .orientation(gtk::Orientation::Horizontal)
+                    .build(),
+                buttonbar_sep: gtk::Separator::builder()
+                    .orientation(gtk::Orientation::Vertical)
+                    .margin_start(3)
+                    .margin_end(3)
+                    .build(),
+                view_btn: buttonbar_button(&gettext("F3 View"), "win.file-view"),
+                edit_btn: buttonbar_button(&gettext("F4 Edit"), "win.file-edit"),
+                copy_btn: buttonbar_button(&gettext("F5 Copy"), "win.file-copy"),
+                move_btn: buttonbar_button(&gettext("F6 Move"), "win.file-move"),
+                mkdir_btn: buttonbar_button(&gettext("F7 Mkdir"), "win.file-mkdir"),
+                delete_btn: buttonbar_button(&gettext("F8 Delete"), "win.file-delete"),
+                find_btn: buttonbar_button(&gettext("F9 Search"), "win.file-search"),
+
+                plugin_manager: Default::default(),
+                file_metadata_service: Default::default(),
+                cut_and_paste_state: Default::default(),
+
+                color_themes: ColorThemes::new(),
+
+                current_panel: Cell::new(0),
+
+                menu_visible: Cell::new(true),
+                toolbar_visible: Cell::new(true),
+                horizontal_orientation: Cell::new(false),
+                command_line_visible: Cell::new(true),
+                buttonbar_visible: Cell::new(true),
+            }
+        }
+    }
+
+    #[glib::derived_properties]
+    impl ObjectImpl for MainWindow {
+        fn constructed(&self) {
+            self.parent_constructed();
+
+            let mw = self.obj();
+
+            mw.set_title(Some(&if uid() == 0 {
+                gettext("GNOME Commander — ROOT PRIVILEGES")
+            } else {
+                gettext("GNOME Commander")
+            }));
+            mw.set_icon_name(Some("gnome-commander"));
+            mw.set_resizable(true);
+
+            let plugin_manager = PluginManager::new();
+            plugin_manager.connect_plugins_changed(glib::clone!(
+                #[weak]
+                mw,
+                move |_| mw.imp().update_menu()
+            ));
+
+            let file_metadata_service = FileMetadataService::new(&plugin_manager);
+
+            self.plugin_manager.replace(Some(plugin_manager));
+            self.file_metadata_service
+                .replace(Some(file_metadata_service));
+
+            let vbox = gtk::Box::builder()
+                .orientation(gtk::Orientation::Vertical)
+                .build();
+            mw.set_child(Some(&vbox));
+
+            let menu = main_menu(&*mw);
+
+            self.menubar.set_menu_model(Some(&menu));
+            mw.bind_property("menu-visible", &self.menubar, "visible")
+                .sync_create()
+                .build();
+            vbox.append(&self.menubar);
+
+            self.create_toolbar();
+            mw.bind_property("toolbar-visible", &self.toolbar, "visible")
+                .sync_create()
+                .build();
+            mw.bind_property("toolbar-visible", &self.toolbar_sep, "visible")
+                .sync_create()
+                .build();
+            vbox.append(&self.toolbar);
+            vbox.append(&self.toolbar_sep);
+
+            vbox.append(&self.paned);
+            self.paned
+                .set_start_child(Some(&*self.file_selector_left.borrow()));
+            self.paned
+                .set_end_child(Some(&*self.file_selector_right.borrow()));
+
+            let paned_click_gesture = gtk::GestureClick::builder().button(3).build();
+            paned_click_gesture.connect_pressed(glib::clone!(
+                #[weak(rename_to = imp)]
+                self,
+                move |_, n_press, x, y| imp.on_slide_button_press(n_press, x, y)
+            ));
+            self.paned.add_controller(paned_click_gesture);
+
+            self.cmdline.connect_lose_focus(glib::clone!(
+                #[weak]
+                mw,
+                move |_| mw.focus_file_lists()
+            ));
+            self.cmdline.connect_change_directory(glib::clone!(
+                #[weak(rename_to = imp)]
+                self,
+                move |_, dir| imp.on_cmdline_change_directory(dir)
+            ));
+            self.cmdline.connect_execute(glib::clone!(
+                #[weak]
+                mw,
+                move |_, command, in_terminal| {
+                    let command = command.to_owned();
+                    glib::spawn_future_local(async move {
+                        mw.imp().on_cmdline_execute(&command, in_terminal).await;
+                    });
+                }
+            ));
+
+            mw.bind_property("command-line-visible", &self.cmdline, "visible")
+                .sync_create()
+                .build();
+            mw.bind_property("command-line-visible", &self.cmdline_sep, "visible")
+                .sync_create()
+                .build();
+            vbox.append(&self.cmdline_sep);
+            vbox.append(&self.cmdline);
+
+            self.create_buttonbar();
+            mw.bind_property("buttonbar-visible", &self.buttonbar, "visible")
+                .sync_create()
+                .build();
+            mw.bind_property("buttonbar-visible", &self.buttonbar_sep, "visible")
+                .sync_create()
+                .build();
+            vbox.append(&self.buttonbar_sep);
+            vbox.append(&self.buttonbar);
+
+            let shortcuts = extract_menu_shortcuts(menu.upcast_ref());
+            let shortcuts_controller = gtk::ShortcutController::for_model(&shortcuts);
+            shortcuts_controller.set_propagation_phase(gtk::PropagationPhase::Capture);
+            mw.add_controller(shortcuts_controller);
+
+            mw.add_action_entries(
+                user_actions::USER_ACTIONS
+                    .iter()
+                    .filter_map(|a| a.action_entry()),
+            );
+
+            unsafe {
+                super::ffi::gnome_cmd_main_win_init(self.obj().to_glib_none().0);
+            }
+
+            self.file_selector_left
+                .borrow()
+                .connect_list_clicked(glib::clone!(
+                    #[weak(rename_to = imp)]
+                    self,
+                    move || imp.on_left_fs_select()
+                ));
+            self.file_selector_right
+                .borrow()
+                .connect_list_clicked(glib::clone!(
+                    #[weak(rename_to = imp)]
+                    self,
+                    move || imp.on_right_fs_select()
+                ));
+
+            ConnectionList::get().connect_list_changed(glib::clone!(
+                #[weak(rename_to = imp)]
+                self,
+                move || imp.on_con_list_list_changed()
+            ));
+
+            let options = GeneralOptions::new();
+            remember_window_size(&*mw, &options.0);
+
+            options
+                .0
+                .bind("mainmenu-visibility", &*mw, "menu-visible")
+                .build();
+            options
+                .0
+                .bind("show-toolbar", &*mw, "toolbar-visible")
+                .build();
+            options
+                .0
+                .bind("horizontal-orientation", &*mw, "horizontal-orientation")
+                .build();
+            options
+                .0
+                .bind("show-cmdline", &*mw, "command-line-visible")
+                .build();
+            options
+                .0
+                .bind("show-buttonbar", &*mw, "buttonbar-visible")
+                .build();
+
+            self.color_themes.connect_local(
+                "theme-changed",
+                false,
+                glib::clone!(
+                    #[weak(rename_to = this)]
+                    self.obj(),
+                    #[upgrade_or]
+                    None,
+                    move |_| {
+                        this.update_view();
+                        None
+                    }
+                ),
+            );
+        }
+
+        fn dispose(&self) {
+            unsafe {
+                super::ffi::gnome_cmd_main_win_dispose(self.obj().to_glib_none().0);
+            }
+
+            self.file_metadata_service.replace(None);
+            self.plugin_manager.replace(None);
+        }
+    }
+
+    impl WidgetImpl for MainWindow {
+        fn realize(&self) {
+            self.parent_realize();
+            self.spawn_ensure_slide_position(50);
+
+            self.file_selector_left.borrow().set_active(true);
+            self.file_selector_right.borrow().set_active(false);
+
+            // if (gnome_cmd_data.cmdline_visibility)
+            // {
+            //      gchar *dpath = GNOME_CMD_FILE (mw->fs(LEFT)->get_directory())->get_path();
+            //      gnome_cmd_cmdline_set_dir (GNOME_CMD_CMDLINE (priv->cmdline), dpath);
+            //      g_free (dpath);
+            // }
+        }
+    }
+
+    impl WindowImpl for MainWindow {}
+    impl ApplicationWindowImpl for MainWindow {}
+
+    impl MainWindow {
+        pub fn update_menu(&self) {
+            let menu = main_menu(&*self.obj());
+            self.menubar.set_menu_model(Some(&menu));
+        }
+
+        fn create_toolbar(&self) {
+            self.toolbar.append(&toolbar_button(
+                &gettext("Refresh"),
+                "view-refresh",
+                "win.view-refresh",
+            ));
+            self.toolbar.append(&toolbar_button(
+                &gettext("Up one directory"),
+                "go-up",
+                "win.view-up",
+            ));
+            self.toolbar.append(&toolbar_button(
+                &gettext("Go to the oldest"),
+                "go-first",
+                "win.view-first",
+            ));
+            self.toolbar.append(&toolbar_button(
+                &gettext("Go back"),
+                "go-previous",
+                "win.view-back",
+            ));
+            self.toolbar.append(&toolbar_button(
+                &gettext("Go forward"),
+                "go-next",
+                "win.view-forward",
+            ));
+            self.toolbar.append(&toolbar_button(
+                &gettext("Go to the latest"),
+                "go-last",
+                "win.view-last",
+            ));
+            self.toolbar
+                .append(&gtk::Separator::new(gtk::Orientation::Vertical));
+            self.toolbar.append(&toolbar_button(
+                &gettext("Copy file names (SHIFT for full paths, ALT for URIs)"),
+                COPYFILENAMES_STOCKID,
+                "win.edit-copy-fnames",
+            ));
+            self.toolbar.append(&toolbar_button(
+                &gettext("Cut"),
+                "edit-cut",
+                "win.edit-cap-cut",
+            ));
+            self.toolbar.append(&toolbar_button(
+                &gettext("Copy"),
+                "edit-copy",
+                "win.edit-cap-copy",
+            ));
+            self.toolbar.append(&toolbar_button(
+                &gettext("Paste"),
+                "edit-paste",
+                "win.edit-cap-paste",
+            ));
+            self.toolbar.append(&toolbar_button(
+                &gettext("Delete"),
+                DELETE_FILE_ICON,
+                "win.file-delete",
+            ));
+            self.toolbar.append(&toolbar_button(
+                &gettext("Edit (SHIFT for new document)"),
+                EDIT_FILE_ICON,
+                "win.file-edit",
+            ));
+            self.toolbar.append(&toolbar_button(
+                &gettext("Send files"),
+                GTK_MAILSEND_STOCKID,
+                "win.file-sendto",
+            ));
+            self.toolbar.append(&toolbar_button(
+                &gettext("Open terminal"),
+                GTK_TERMINAL_STOCKID,
+                "win.command-open-terminal",
+            ));
+            self.toolbar
+                .append(&gtk::Separator::new(gtk::Orientation::Vertical));
+            self.toolbar.append(&toolbar_button(
+                &gettext("Remote Server"),
+                REMOTE_CONNECT_ICON,
+                "win.connections-open",
+            ));
+            self.toolbar.append(&self.con_drop);
+        }
+
+        pub fn update_drop_con_button(&self, connection: Option<&Connection>) {
+            let action = self
+                .obj()
+                .lookup_action("connections-close-current")
+                .and_downcast::<gio::SimpleAction>()
+                .unwrap();
+
+            if let Some(connection) = connection {
+                let closeable = connection.is_closeable();
+                action.set_enabled(closeable);
+
+                if closeable {
+                    self.con_drop
+                        .set_tooltip_text(connection.close_tooltip().as_deref());
+
+                    if let Some(icon) = connection.close_icon() {
+                        self.con_drop
+                            .set_child(Some(&gtk::Image::from_gicon(&icon)));
+                    } else {
+                        self.con_drop.set_label(
+                            &connection
+                                .close_text()
+                                .unwrap_or_else(|| gettext("Drop connection")),
+                        );
+                    }
+                    return;
+                }
+            }
+
+            action.set_enabled(false);
+            self.con_drop.set_icon_name(REMOTE_DISCONNECT_ICON);
+            self.con_drop.set_tooltip_text(None);
+        }
+
+        fn create_buttonbar(&self) {
+            fn separator() -> gtk::Separator {
+                gtk::Separator::builder()
+                    .orientation(gtk::Orientation::Vertical)
+                    .margin_top(3)
+                    .margin_bottom(3)
+                    .build()
+            }
+
+            self.buttonbar.append(&self.view_btn);
+            self.buttonbar.append(&separator());
+            self.buttonbar.append(&self.edit_btn);
+            self.buttonbar.append(&separator());
+            self.buttonbar.append(&self.copy_btn);
+            self.buttonbar.append(&separator());
+            self.buttonbar.append(&self.move_btn);
+            self.buttonbar.append(&separator());
+            self.buttonbar.append(&self.mkdir_btn);
+            self.buttonbar.append(&separator());
+            self.buttonbar.append(&self.delete_btn);
+            self.buttonbar.append(&separator());
+            self.buttonbar.append(&self.find_btn);
+        }
+
+        fn on_slide_button_press(&self, n_press: i32, x: f64, y: f64) {
+            if n_press != 1 {
+                return;
+            }
+
+            let point = graphene::Point::new(x as f32, y as f32);
+            if self
+                .paned
+                .handle_rect()
+                .map_or(false, |r| r.contains_point(&point))
+            {
+                self.show_slide_popup_at(&point);
+            }
+        }
+
+        pub fn show_slide_popup(&self) {
+            if let Some(handle_rect) = self.paned.handle_rect() {
+                self.show_slide_popup_at(&handle_rect.center());
+            }
+        }
+
+        fn show_slide_popup_at(&self, point: &graphene::Point) {
+            let popover = gtk::PopoverMenu::builder()
+                .menu_model(&create_slide_popup())
+                .pointing_to(&gdk::Rectangle::new(
+                    point.x() as i32,
+                    point.y() as i32,
+                    0,
+                    0,
+                ))
+                .build();
+            popover.set_parent(&self.paned);
+            popover.present();
+            popover.popup();
+        }
+
+        fn view_slide(&self, parameter: Option<&glib::Variant>) {
+            let percentage: i32 = parameter.and_then(|v| v.get()).unwrap_or(50);
+            let _ = self.set_slide(percentage);
+        }
+
+        fn set_slide(&self, percentage: i32) -> bool {
+            let dimension = if self.horizontal_orientation.get() {
+                self.paned.height()
+            } else {
+                self.paned.width()
+            };
+            let new_dimension = dimension * percentage / 100;
+
+            if self.paned.position() == new_dimension {
+                true
+            } else {
+                self.paned.set_position(new_dimension);
+                false
+            }
+        }
+
+        fn set_horizontal_orientation(&self, horizontal_orientation: bool) {
+            self.horizontal_orientation.set(horizontal_orientation);
+            self.paned.set_orientation(if horizontal_orientation {
+                gtk::Orientation::Vertical
+            } else {
+                gtk::Orientation::Horizontal
+            });
+
+            self.spawn_ensure_slide_position(50);
+            self.obj().focus_file_lists();
+        }
+
+        async fn ensure_slide_position(&self, percentage: i32) {
+            while !self.set_slide(percentage) {
+                sleep(10).await;
+            }
+        }
+
+        fn spawn_ensure_slide_position(&self, percentage: i32) {
+            let this = self.obj().clone();
+            glib::spawn_future_local(async move {
+                this.imp().ensure_slide_position(percentage).await;
+            });
+        }
+
+        fn on_cmdline_change_directory(&self, dest_dir: &str) {
+            let file_selector = self.obj().file_selector(FileSelectorID::ACTIVE);
+
+            if dest_dir == "-"
+                && !file_selector.directory().map_or(false, |d| {
+                    d.get_child_gfile(dest_dir)
+                        .query_exists(gio::Cancellable::NONE)
+                })
+            {
+                file_selector.back();
+            } else {
+                file_selector
+                    .file_list()
+                    .goto_directory(&Path::new(dest_dir));
+            }
+        }
+
+        async fn on_cmdline_execute(&self, command: &str, in_terminal: bool) {
+            let file_selector = self.obj().file_selector(FileSelectorID::ACTIVE);
+
+            if file_selector.connection().map_or(false, |c| c.is_local()) {
+                let working_directory = file_selector
+                    .directory()
+                    .map(|d| d.upcast_ref::<File>().get_real_path());
+
+                let command: OsString = command.into();
+                let options = ProgramsOptions::new();
+
+                let result = run_command_indir(
+                    working_directory.as_deref(),
+                    &command,
+                    in_terminal,
+                    &options,
+                )
+                .map_err(SpawnError::into_message);
+
+                if let Err(error) = result {
+                    error.show(self.obj().upcast_ref()).await;
+                }
+            }
+        }
+
+        fn on_left_fs_select(&self) {
+            self.obj().set_current_panel(0);
+            self.file_selector_left.borrow().set_active(true);
+            self.file_selector_right.borrow().set_active(false);
+        }
+
+        fn on_right_fs_select(&self) {
+            self.obj().set_current_panel(1);
+            self.file_selector_right.borrow().set_active(true);
+            self.file_selector_left.borrow().set_active(false);
+        }
+
+        fn on_con_list_list_changed(&self) {
+            self.update_menu();
+        }
+    }
+
+    fn toolbar_button(label: &str, icon: &str, action: &str) -> gtk::Button {
+        let button = gtk::Button::builder()
+            .icon_name(icon)
+            .tooltip_text(label)
+            .action_name(action)
+            .build();
+        button.add_css_class("flat");
+        button
+    }
+
+    fn buttonbar_button(label: &str, action_name: &str) -> gtk::Button {
+        gtk::Button::builder()
+            .label(label)
+            .action_name(action_name)
+            .has_frame(false)
+            .can_focus(false)
+            .hexpand(true)
+            .build()
+    }
+
+    const COPYFILENAMES_STOCKID: &str = "gnome-commander-copy-file-names";
+    const DELETE_FILE_ICON: &str = "gnome-commander-recycling-bin-symbolic";
+    const EDIT_FILE_ICON: &str = "gnome-commander-edit-symbolic";
+    const GTK_MAILSEND_STOCKID: &str = "mail-send";
+    const GTK_TERMINAL_STOCKID: &str = "utilities-terminal";
+    const REMOTE_CONNECT_ICON: &str = "gnome-commander-folder-remote-symbolic";
+    const REMOTE_DISCONNECT_ICON: &str = "gnome-commander-folder-remote-disconnect-symbolic";
+
+    fn create_slide_popup() -> gio::Menu {
+        let menu = gio::Menu::new();
+        menu.append(Some("100 - 0"), Some("win.view-slide(100)"));
+        menu.append(Some("80 - 20"), Some("win.view-slide(80)"));
+        menu.append(Some("60 - 40"), Some("win.view-slide(60)"));
+        menu.append(Some("50 - 50"), Some("win.view-slide(50)"));
+        menu.append(Some("40 - 60"), Some("win.view-slide(40)"));
+        menu.append(Some("20 - 80"), Some("win.view-slide(20)"));
+        menu.append(Some("0 - 100"), Some("win.view-slide(0)"));
+        menu
+    }
+}
 
 pub mod ffi {
     use super::*;
-    use crate::{file_selector::ffi::GnomeCmdFileSelector, tags::tags::FileMetadataService};
-    use gtk::glib::ffi::GType;
 
-    #[repr(C)]
-    pub struct GnomeCmdMainWin {
-        _data: [u8; 0],
-        _phantom: std::marker::PhantomData<(*mut u8, std::marker::PhantomPinned)>,
-    }
+    pub type GnomeCmdMainWin = <super::MainWindow as glib::object::ObjectType>::GlibType;
 
     extern "C" {
-        pub fn gnome_cmd_main_win_get_type() -> GType;
-
-        pub fn gnome_cmd_main_win_get_fs(
-            main_win: *mut GnomeCmdMainWin,
-            id: FileSelectorID,
-        ) -> *mut GnomeCmdFileSelector;
+        pub fn gnome_cmd_main_win_init(main_win: *mut GnomeCmdMainWin);
+        pub fn gnome_cmd_main_win_dispose(main_win: *mut GnomeCmdMainWin);
 
         pub fn gnome_cmd_main_win_change_connection(
             main_win: *mut GnomeCmdMainWin,
@@ -83,58 +776,124 @@ pub mod ffi {
 
         pub fn gnome_cmd_main_win_update_bookmarks(main_win: *mut GnomeCmdMainWin);
 
+        pub fn gnome_cmd_main_win_update_view(main_win: *mut GnomeCmdMainWin);
+
         pub fn gnome_cmd_main_win_shortcuts(main_win: *mut GnomeCmdMainWin) -> *mut Shortcuts;
 
-        pub fn gnome_cmd_main_win_get_plugin_manager(
+        pub fn gnome_cmd_main_win_switch_fs(
             main_win: *mut GnomeCmdMainWin,
-        ) -> *mut <PluginManager as glib::object::ObjectType>::GlibType;
-
-        pub fn gnome_cmd_main_win_get_file_metadata_service(
-            main_win: *mut GnomeCmdMainWin,
-        ) -> *mut <FileMetadataService as glib::object::ObjectType>::GlibType;
-    }
-
-    #[derive(Copy, Clone)]
-    #[repr(C)]
-    pub struct GnomeCmdMainWinClass {
-        pub parent_class: gtk::ffi::GtkApplicationWindowClass,
+            fs: *mut GnomeCmdFileSelector,
+        );
     }
 }
 
 glib::wrapper! {
-    pub struct MainWindow(Object<ffi::GnomeCmdMainWin, ffi::GnomeCmdMainWinClass>)
+    pub struct MainWindow(ObjectSubclass<imp::MainWindow>)
         @extends gtk::ApplicationWindow, gtk::Window, gtk::Widget,
         @implements gio::ActionMap, gtk::Root;
-
-    match fn {
-        type_ => || ffi::gnome_cmd_main_win_get_type(),
-    }
 }
 
-#[derive(Default)]
-struct MainWindowPrivate {
-    cut_and_paste_state: Option<CutAndPasteState>,
+#[no_mangle]
+pub extern "C" fn gnome_cmd_main_win_get_type() -> GType {
+    MainWindow::static_type().into_glib()
 }
 
 impl MainWindow {
-    fn private(&self) -> &mut MainWindowPrivate {
-        static QUARK: LazyLock<glib::Quark> =
-            LazyLock::new(|| glib::Quark::from_str("main-window-private"));
+    pub fn left_panel(&self) -> FileSelector {
+        self.imp().file_selector_left.borrow().clone()
+    }
 
-        unsafe {
-            if let Some(mut private) = self.qdata::<MainWindowPrivate>(*QUARK) {
-                private.as_mut()
-            } else {
-                self.set_qdata(*QUARK, MainWindowPrivate::default());
-                self.qdata::<MainWindowPrivate>(*QUARK).unwrap().as_mut()
-            }
-        }
+    pub fn right_panel(&self) -> FileSelector {
+        self.imp().file_selector_right.borrow().clone()
     }
 
     pub fn file_selector(&self, id: FileSelectorID) -> FileSelector {
-        unsafe {
-            FileSelector::from_glib_none(ffi::gnome_cmd_main_win_get_fs(self.to_glib_none().0, id))
+        match id {
+            FileSelectorID::LEFT => self.left_panel(),
+            FileSelectorID::RIGHT => self.right_panel(),
+            FileSelectorID::ACTIVE => match self.current_panel() {
+                0 => self.left_panel(),
+                _ => self.right_panel(),
+            },
+            FileSelectorID::INACTIVE => match self.current_panel() {
+                0 => self.right_panel(),
+                _ => self.left_panel(),
+            },
         }
+    }
+
+    pub fn swap_panels(&self) {
+        let fs1 = self.left_panel();
+        let fs2 = self.right_panel();
+
+        // swap widgets
+        self.imp().paned.set_start_child(Some(&fs2));
+        self.imp().paned.set_end_child(Some(&fs1));
+
+        RefCell::swap(
+            &self.imp().file_selector_left,
+            &self.imp().file_selector_right,
+        );
+
+        self.switch_fs(&self.file_selector(FileSelectorID::INACTIVE));
+    }
+
+    fn switch_fs(&self, file_selector: &FileSelector) {
+        unsafe {
+            ffi::gnome_cmd_main_win_switch_fs(
+                self.to_glib_none().0,
+                file_selector.to_glib_none().0,
+            );
+        }
+    }
+
+    pub fn load_tabs(&self, start_left_dir: Option<PathBuf>, start_right_dir: Option<PathBuf>) {
+        let options = GeneralOptions::new();
+
+        let (mut left_tabs, mut right_tabs): (Vec<_>, Vec<_>) = options
+            .file_list_tabs()
+            .into_iter()
+            .partition(|t| t.file_felector_id == 0);
+
+        if let Some(dir) = start_left_dir.as_ref().and_then(|d| d.to_str()) {
+            left_tabs.push(TabVariant::new(dir));
+        }
+
+        if let Some(dir) = start_right_dir.as_ref().and_then(|d| d.to_str()) {
+            right_tabs.push(TabVariant::new(dir));
+        }
+
+        self.file_selector(FileSelectorID::LEFT)
+            .open_tabs(left_tabs);
+
+        self.file_selector(FileSelectorID::RIGHT)
+            .open_tabs(right_tabs);
+    }
+
+    fn save_tabs(&self, save_all: bool, save_current: bool) {
+        let options = GeneralOptions::new();
+
+        let mut tabs = Vec::<TabVariant>::new();
+        tabs.extend(
+            self.file_selector(FileSelectorID::LEFT)
+                .save_tabs(save_all, save_current)
+                .into_iter()
+                .map(|tab| TabVariant {
+                    file_felector_id: 0,
+                    ..tab
+                }),
+        );
+        tabs.extend(
+            self.file_selector(FileSelectorID::RIGHT)
+                .save_tabs(save_all, save_current)
+                .into_iter()
+                .map(|tab| TabVariant {
+                    file_felector_id: 1,
+                    ..tab
+                }),
+        );
+
+        options.set_file_list_tabs(&tabs);
     }
 
     pub fn change_connection(&self, id: FileSelectorID) {
@@ -147,6 +906,10 @@ impl MainWindow {
 
     pub fn update_bookmarks(&self) {
         unsafe { ffi::gnome_cmd_main_win_update_bookmarks(self.to_glib_none().0) }
+    }
+
+    pub fn update_view(&self) {
+        unsafe { ffi::gnome_cmd_main_win_update_view(self.to_glib_none().0) }
     }
 
     pub fn shortcuts(&self) -> &mut Shortcuts {
@@ -171,19 +934,11 @@ impl MainWindow {
     }
 
     pub fn plugin_manager(&self) -> PluginManager {
-        unsafe {
-            from_glib_none(ffi::gnome_cmd_main_win_get_plugin_manager(
-                self.to_glib_none().0,
-            ))
-        }
+        self.imp().plugin_manager.borrow().clone().unwrap()
     }
 
     pub fn file_metadata_service(&self) -> FileMetadataService {
-        unsafe {
-            from_glib_none(ffi::gnome_cmd_main_win_get_file_metadata_service(
-                self.to_glib_none().0,
-            ))
-        }
+        self.imp().file_metadata_service.borrow().clone().unwrap()
     }
 }
 
@@ -192,7 +947,7 @@ enum CutAndPasteOperation {
     Copy,
 }
 
-struct CutAndPasteState {
+pub struct CutAndPasteState {
     operation: CutAndPasteOperation,
     source_file_list: FileList,
     files: glib::List<File>,
@@ -215,11 +970,13 @@ impl MainWindow {
             return;
         }
 
-        self.private().cut_and_paste_state = Some(CutAndPasteState {
-            source_file_list,
-            operation: CutAndPasteOperation::Cut,
-            files,
-        });
+        self.imp()
+            .cut_and_paste_state
+            .replace(Some(CutAndPasteState {
+                source_file_list,
+                operation: CutAndPasteOperation::Cut,
+                files,
+            }));
         self.set_cap_state(true);
     }
 
@@ -230,11 +987,13 @@ impl MainWindow {
             return;
         }
 
-        self.private().cut_and_paste_state = Some(CutAndPasteState {
-            source_file_list,
-            operation: CutAndPasteOperation::Copy,
-            files,
-        });
+        self.imp()
+            .cut_and_paste_state
+            .replace(Some(CutAndPasteState {
+                source_file_list,
+                operation: CutAndPasteOperation::Copy,
+                files,
+            }));
         self.set_cap_state(true);
     }
 
@@ -245,7 +1004,7 @@ impl MainWindow {
         };
 
         self.set_cap_state(false);
-        let Some(state) = self.private().cut_and_paste_state.take() else {
+        let Some(state) = self.imp().cut_and_paste_state.take() else {
             return;
         };
 
@@ -284,10 +1043,44 @@ impl MainWindow {
     }
 }
 
-#[no_mangle]
-pub extern "C" fn gnome_cmd_main_win_install_actions(mw_ptr: *mut ffi::GnomeCmdMainWin) {
-    let mw: MainWindow = unsafe { from_glib_none(mw_ptr) };
-    mw.add_action_entries(user_actions::USER_ACTIONS.iter().map(|a| a.action_entry()));
+fn remember_window_size(mw: &MainWindow, settings: &gio::Settings) {
+    settings
+        .bind("main-win-width", &*mw, "default-width")
+        .mapping(|v, _| {
+            let width: i32 = v.get::<u32>()?.try_into().ok()?;
+            Some(width.to_value())
+        })
+        .set_mapping(|v, _| {
+            let width: u32 = v.get::<i32>().ok()?.try_into().ok()?;
+            Some(width.to_variant())
+        })
+        .build();
+
+    settings
+        .bind("main-win-height", &*mw, "default-height")
+        .mapping(|v, _| {
+            let height: i32 = v.get::<u32>()?.try_into().ok()?;
+            Some(height.to_value())
+        })
+        .set_mapping(|v, _| {
+            let height: u32 = v.get::<i32>().ok()?.try_into().ok()?;
+            Some(height.to_variant())
+        })
+        .build();
+
+    settings
+        .bind("main-win-state", &*mw, "maximized")
+        .mapping(|v, _| {
+            let state = v.get::<u32>()?;
+            let maximized: bool = state == 4;
+            Some(maximized.to_value())
+        })
+        .set_mapping(|v, _| {
+            let maximized = v.get::<bool>().ok()?;
+            let state: u32 = if maximized { 4_u32 } else { 0_u32 };
+            Some(state.to_variant())
+        })
+        .build();
 }
 
 fn main_menu(main_win: &MainWindow) -> gio::Menu {
@@ -635,4 +1428,80 @@ pub extern "C" fn gnome_cmd_main_menu_new(
         mw.add_controller(shortcuts_controller);
     }
     menu.to_glib_full()
+}
+
+#[no_mangle]
+pub extern "C" fn gnome_cmd_main_win_load_tabs(
+    mw_ptr: *mut ffi::GnomeCmdMainWin,
+    app_ptr: *mut GnomeCmdApplication,
+) {
+    let mw: Borrowed<MainWindow> = unsafe { from_glib_borrow(mw_ptr) };
+    let app: Borrowed<Option<Application>> = unsafe { from_glib_borrow(app_ptr) };
+    let start_left_dir = (*app).as_ref().and_then(|a| a.start_left_dir());
+    let start_right_dir = (*app).as_ref().and_then(|a| a.start_right_dir());
+    mw.load_tabs(start_left_dir, start_right_dir);
+}
+
+#[no_mangle]
+pub extern "C" fn gnome_cmd_main_win_save_tabs(
+    mw_ptr: *mut ffi::GnomeCmdMainWin,
+    save_all: gboolean,
+    save_current: gboolean,
+) {
+    let mw: Borrowed<MainWindow> = unsafe { from_glib_borrow(mw_ptr) };
+    mw.save_tabs(save_all != 0, save_current != 0);
+}
+
+#[no_mangle]
+pub extern "C" fn gnome_cmd_main_win_get_file_metadata_service(
+    mw_ptr: *mut ffi::GnomeCmdMainWin,
+) -> *mut <FileMetadataService as glib::object::ObjectType>::GlibType {
+    let mw: Borrowed<MainWindow> = unsafe { from_glib_borrow(mw_ptr) };
+    mw.file_metadata_service().to_glib_none().0
+}
+
+#[no_mangle]
+pub extern "C" fn gnome_cmd_main_win_update_mainmenu(mw_ptr: *mut ffi::GnomeCmdMainWin) {
+    let mw: Borrowed<MainWindow> = unsafe { from_glib_borrow(mw_ptr) };
+    mw.imp().update_menu();
+}
+
+#[no_mangle]
+pub extern "C" fn gnome_cmd_main_win_update_drop_con_button(
+    mw_ptr: *mut ffi::GnomeCmdMainWin,
+    fl_ptr: *mut GnomeCmdFileList,
+) {
+    let mw: Borrowed<MainWindow> = unsafe { from_glib_borrow(mw_ptr) };
+    let fl: Borrowed<Option<FileList>> = unsafe { from_glib_borrow(fl_ptr) };
+    mw.imp()
+        .update_drop_con_button((&*fl).as_ref().and_then(|fl| fl.connection()).as_ref());
+}
+
+#[no_mangle]
+pub extern "C" fn gnome_cmd_main_win_get_fs(
+    mw_ptr: *mut ffi::GnomeCmdMainWin,
+    id: FileSelectorID,
+) -> *mut GnomeCmdFileSelector {
+    let mw: Borrowed<MainWindow> = unsafe { from_glib_borrow(mw_ptr) };
+    mw.file_selector(id).to_glib_none().0
+}
+
+#[no_mangle]
+pub extern "C" fn gnome_cmd_main_win_swap_panels(mw_ptr: *mut ffi::GnomeCmdMainWin) {
+    let mw: Borrowed<MainWindow> = unsafe { from_glib_borrow(mw_ptr) };
+    mw.swap_panels();
+}
+
+#[no_mangle]
+pub extern "C" fn gnome_cmd_main_win_show_slide_popup(mw_ptr: *mut ffi::GnomeCmdMainWin) {
+    let mw: Borrowed<MainWindow> = unsafe { from_glib_borrow(mw_ptr) };
+    mw.imp().show_slide_popup();
+}
+
+#[no_mangle]
+pub extern "C" fn gnome_cmd_main_win_get_cmdline(
+    mw_ptr: *mut ffi::GnomeCmdMainWin,
+) -> *mut <CommandLine as glib::object::ObjectType>::GlibType {
+    let mw: Borrowed<MainWindow> = unsafe { from_glib_borrow(mw_ptr) };
+    mw.imp().cmdline.to_glib_none().0
 }
