@@ -133,15 +133,3 @@ static void gnome_cmd_con_home_init (GnomeCmdConHome *home_con)
 
     gnome_cmd_con_set_default_dir (con, dir);
 }
-
-/***********************************
- * Public functions
- ***********************************/
-
-GnomeCmdCon *gnome_cmd_con_home_new ()
-{
-    auto con = GNOME_CMD_CON (g_object_new (GNOME_CMD_TYPE_CON_HOME, nullptr));
-    gnome_cmd_con_set_uri_string (con, "file:");
-    return con;
-}
-

@@ -37,7 +37,7 @@ struct GnomeCmdConSmbClass
 };
 
 
-G_DEFINE_TYPE (GnomeCmdConSmb, gnome_cmd_con_smb, GNOME_CMD_TYPE_CON_REMOTE)
+G_DEFINE_TYPE (GnomeCmdConSmb, gnome_cmd_con_smb, GNOME_CMD_TYPE_CON)
 
 
 static void mount_func (GnomeCmdCon *con)

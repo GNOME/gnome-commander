@@ -135,7 +135,7 @@ static void remote_close_callback(GObject *gobj, GAsyncResult *result, gpointer 
         if (parent_window)
             gnome_cmd_error_message (parent_window, _("Disconnect error"), error);
         else
-            g_warning ("%s: %d", _("Disconnect error"), error->message);
+            g_warning ("%s: %s", _("Disconnect error"), error->message);
         return;
     }
     if (error)
@@ -318,37 +318,4 @@ static void gnome_cmd_con_remote_init (GnomeCmdConRemote *remote_con)
     con->can_show_free_space = FALSE;
     con->is_local = FALSE;
     con->is_closeable = TRUE;
-}
-
-/***********************************
- * Public functions
- ***********************************/
-
-/**
- * Logic for setting up a new remote connection accordingly to the given uri_str.
- */
-GnomeCmdConRemote *gnome_cmd_con_remote_new (const gchar *alias, const gchar *uri_str)
-{
-    auto gnomeCmdConRemote = static_cast<GnomeCmdConRemote*> (g_object_new (GNOME_CMD_TYPE_CON_REMOTE, nullptr));
-
-    g_return_val_if_fail (gnomeCmdConRemote != nullptr, nullptr);
-
-    GError *error = nullptr;
-    GUri *uri = g_uri_parse (uri_str, (GUriFlags) (G_URI_FLAGS_HAS_PASSWORD | G_URI_FLAGS_HAS_AUTH_PARAMS), &error);
-    if (error)
-    {
-        g_warning("gnome_cmd_con_remote_new - g_uri_split error: %s", error->message);
-        g_error_free(error);
-        return nullptr;
-    }
-
-    GnomeCmdCon *con = GNOME_CMD_CON (gnomeCmdConRemote);
-
-    gnome_cmd_con_set_alias (con, alias);
-    gnome_cmd_con_set_uri (con, uri);
-
-    const gchar *hostname = uri ? g_uri_get_host (uri) : nullptr;
-    con->open_msg = g_strdup_printf (_("Connecting to %s\n"), hostname ? hostname : "<?>");
-
-    return gnomeCmdConRemote;
 }

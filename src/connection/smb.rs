@@ -20,7 +20,7 @@
  * For more details see the file COPYING.
  */
 
-use super::{connection::Connection, remote::ConnectionRemote};
+use super::connection::Connection;
 use gtk::glib;
 
 pub mod ffi {
@@ -46,7 +46,7 @@ pub mod ffi {
 
 glib::wrapper! {
     pub struct ConnectionSmb(Object<ffi::GnomeCmdConSmb, ffi::GnomeCmdConSmbClass>)
-        @extends Connection, ConnectionRemote;
+        @extends Connection;
 
     match fn {
         type_ => || ffi::gnome_cmd_con_smb_get_type(),

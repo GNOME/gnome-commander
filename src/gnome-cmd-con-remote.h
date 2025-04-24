@@ -43,5 +43,3 @@ struct GnomeCmdConRemoteClass
 
 
 extern "C" GType gnome_cmd_con_remote_get_type ();
-
-extern "C" GnomeCmdConRemote *gnome_cmd_con_remote_new (const gchar *alias, const gchar *uri_str);
