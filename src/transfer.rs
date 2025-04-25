@@ -117,7 +117,7 @@ pub async fn gnome_cmd_copy_gfiles(
         ffi::gnome_cmd_copy_gfiles_start(
             parent_window.to_glib_none().0,
             src_uri_list.into_raw(),
-            to.to_glib_none().0,
+            to.to_glib_full(),
             dest_fn.to_glib_full(),
             copy_flags.into_glib(),
             overwrite_mode,
@@ -146,7 +146,7 @@ pub async fn gnome_cmd_move_gfiles(
         ffi::gnome_cmd_move_gfiles_start(
             parent_window.to_glib_none().0,
             src_uri_list.into_raw(),
-            to.to_glib_none().0,
+            to.to_glib_full(),
             dest_fn.to_glib_full(),
             copy_flags.into_glib(),
             overwrite_mode,
@@ -175,7 +175,7 @@ pub async fn gnome_cmd_link_gfiles(
         ffi::gnome_cmd_link_gfiles_start(
             parent_window.to_glib_none().0,
             src_uri_list.into_raw(),
-            to.to_glib_none().0,
+            to.to_glib_full(),
             dest_fn.to_glib_full(),
             copy_flags.into_glib(),
             overwrite_mode,
