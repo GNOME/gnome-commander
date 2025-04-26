@@ -420,7 +420,6 @@ dependencies = [
  "gtk4",
  "indexmap",
  "libc",
- "once_cell",
  "strum",
  "system-deps",
  "tempfile",
