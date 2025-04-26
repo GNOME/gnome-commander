@@ -337,17 +337,6 @@ gchar *unquote_if_needed (const gchar *in)
 }
 
 
-GtkWidget *create_styled_button (const gchar *text)
-{
-    GtkWidget *w = text ? gtk_button_new_with_label (text) : gtk_button_new ();
-    gtk_button_set_has_frame (GTK_BUTTON (w), FALSE);
-    g_object_ref (w);
-    gtk_widget_show (w);
-
-    return w;
-}
-
-
 void set_cursor_busy_for_widget (GtkWidget *widget)
 {
     static GdkCursor *cursor_busy = NULL;

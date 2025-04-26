@@ -50,7 +50,7 @@ class GnomeCmdFileSelector::Private
 {
   public:
 
-    GList *old_btns {nullptr};
+    GtkWidget *connection_bar;
     GtkWidget *filter_box {nullptr};
 
     gboolean active {FALSE};
@@ -74,9 +74,8 @@ G_DEFINE_TYPE (GnomeCmdFileSelector, gnome_cmd_file_selector, GTK_TYPE_BOX)
  * Utility functions
  *******************************/
 
-
 extern "C" gboolean mime_exec_file (GtkWindow *parent_window, GnomeCmdFile *f);
-
+extern "C" GType gnome_cmd_connection_bar_get_type();
 extern "C" gchar *gnome_cmd_file_list_stats(GnomeCmdFileList *list);
 
 inline void GnomeCmdFileSelector::update_selected_files_label()
@@ -308,89 +307,19 @@ static void on_navigate (GnomeCmdDirIndicator *indicator, const gchar *path, gbo
 }
 
 
-static void on_con_btn_clicked (GtkGestureClick *gesture, int n_press, double x, double y, gpointer user_data)
+static void on_con_btn_clicked (GtkWidget *button, GnomeCmdCon *con, gboolean new_tab, gpointer user_data)
 {
     g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (user_data));
     auto fs = static_cast<GnomeCmdFileSelector*>(user_data);
-
-    if (n_press != 1)
-        return;
-
-    gint button = gtk_gesture_single_get_current_button (GTK_GESTURE_SINGLE (gesture));
-    if (button !=1 && button != 2)
-        return;
-
-    auto widget = gtk_event_controller_get_widget (GTK_EVENT_CONTROLLER (gesture));
-    auto con = static_cast<GnomeCmdCon*> (g_object_get_data (G_OBJECT (widget), "con"));
 
     g_return_if_fail (GNOME_CMD_IS_CON (con));
 
     gnome_cmd_main_win_switch_fs (main_win, fs);
 
-    if (button == 2 || get_modifiers_state() & GDK_CONTROL_MASK || gnome_cmd_file_selector_is_current_tab_locked (fs))
+    if (new_tab || gnome_cmd_file_selector_is_current_tab_locked (fs))
         fs->new_tab(gnome_cmd_con_get_default_dir (con));
 
     fs->set_connection(con, gnome_cmd_con_get_default_dir (con));
-}
-
-
-static void create_con_buttons (GnomeCmdFileSelector *fs)
-{
-    if (!gnome_cmd_data.show_devbuttons)
-        return;
-
-    for (GList *l = fs->priv->old_btns; l; l=l->next)
-        gtk_box_remove (GTK_BOX (fs->con_btns_hbox), GTK_WIDGET (l->data));
-
-    g_list_free (fs->priv->old_btns);
-    fs->priv->old_btns = nullptr;
-
-    GListModel *all_cons = gnome_cmd_con_list_get_all (gnome_cmd_con_list_get ());
-
-    guint n = g_list_model_get_n_items (all_cons);
-    for (guint i = 0; i < n; ++i)
-    {
-        GnomeCmdCon *con = GNOME_CMD_CON (g_list_model_get_item (all_cons, i));
-
-        if (!gnome_cmd_con_is_open (con) && !GNOME_CMD_IS_CON_DEVICE (con) &&
-            !GNOME_CMD_IS_CON_SMB (con))  continue;
-
-        GIcon *icon = gnome_cmd_con_get_go_icon (con);
-
-        GtkWidget *btn = create_styled_button (nullptr);
-        g_object_set_data (G_OBJECT (btn), "con", con);
-        GtkGesture *con_btn_click = gtk_gesture_click_new ();
-        gtk_widget_add_controller (GTK_WIDGET (btn), GTK_EVENT_CONTROLLER (con_btn_click));
-        gtk_gesture_single_set_button (GTK_GESTURE_SINGLE (con_btn_click), 0);
-        g_signal_connect (con_btn_click, "pressed", G_CALLBACK (on_con_btn_clicked), fs);
-        gtk_box_append (GTK_BOX (fs->con_btns_hbox), btn);
-        gtk_widget_set_can_focus (btn, FALSE);
-        fs->priv->old_btns = g_list_append (fs->priv->old_btns, btn);
-        gchar *go_text = gnome_cmd_con_get_go_text (con);
-        gtk_widget_set_tooltip_text (btn, go_text);
-        g_free (go_text);
-
-        GtkWidget *hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 1);
-
-        if (icon)
-        {
-            GtkWidget *image = gtk_image_new_from_gicon (icon);
-            if (image)
-            {
-                gtk_box_append (GTK_BOX (hbox), image);
-            }
-        }
-
-        if (!gnome_cmd_data.options.device_only_icon || !icon)
-        {
-            GtkWidget *label = gtk_label_new (gnome_cmd_con_get_alias (con));
-            gtk_box_append (GTK_BOX (hbox), label);
-        }
-
-        g_clear_object (&icon);
-
-        gtk_button_set_child (GTK_BUTTON (btn), hbox);
-    }
 }
 
 
@@ -400,7 +329,6 @@ static void on_realize (GnomeCmdFileSelector *fs, gpointer user_data)
 
     fs->priv->realized = TRUE;
 
-    create_con_buttons (fs);
     fs->update_connections();
 }
 
@@ -737,8 +665,10 @@ static void gnome_cmd_file_selector_init (GnomeCmdFileSelector *fs)
 
     g_object_set (fs, "orientation", GTK_ORIENTATION_VERTICAL, NULL);
 
-    // create the box used for packing the dir_combo and buttons
-    fs->update_show_devbuttons();
+    fs->priv->connection_bar = GTK_WIDGET (g_object_new (gnome_cmd_connection_bar_get_type(),
+        "connection-list", gnome_cmd_con_list_get (),
+        nullptr));
+    gtk_box_append (GTK_BOX (fs), fs->priv->connection_bar);
 
     // create the box used for packing the con_combo and information
     fs->con_hbox = create_hbox (*fs, FALSE, 2);
@@ -793,6 +723,7 @@ static void gnome_cmd_file_selector_init (GnomeCmdFileSelector *fs)
 
     // connect signals
     g_signal_connect (fs, "realize", G_CALLBACK (on_realize), fs);
+    g_signal_connect (fs->priv->connection_bar, "clicked", G_CALLBACK (on_con_btn_clicked), fs);
     g_signal_connect (fs->con_dropdown, "notify::selected-item", G_CALLBACK (on_con_combo_item_selected), fs);
     g_signal_connect (fs->dir_indicator, "navigate", G_CALLBACK (on_navigate), fs);
     g_signal_connect (gnome_cmd_con_list_get (), "list-changed", G_CALLBACK (on_con_list_list_changed), fs);
@@ -840,8 +771,6 @@ void GnomeCmdFileSelector::update_connections()
     // If the connection is no longer available use the home connection
     if (!select_connection (this, get_connection()))
         set_connection (get_home_con ());
-
-    create_con_buttons (this);
 }
 
 
@@ -865,35 +794,13 @@ void GnomeCmdFileSelector::update_style()
         update_tab_label (fl);
     }
 
-    create_con_buttons (this);
     update_connections();
 }
 
 
 void GnomeCmdFileSelector::update_show_devbuttons()
 {
-    if (!gnome_cmd_data.show_devbuttons)
-    {
-        if (con_btns_hbox)
-        {
-            gtk_box_remove (GTK_BOX (this), con_btns_sw);
-            con_btns_sw = nullptr;
-            con_btns_hbox = nullptr;
-        }
-    }
-    else
-    {
-        if (!con_btns_hbox)
-        {
-            con_btns_sw = gtk_scrolled_window_new ();
-            gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (con_btns_sw), GTK_POLICY_AUTOMATIC, GTK_POLICY_NEVER);
-            con_btns_hbox = create_hbox (*this, FALSE, 2);
-            gtk_scrolled_window_set_child (GTK_SCROLLED_WINDOW (con_btns_sw), con_btns_hbox);
-            gtk_box_append (GTK_BOX (this), con_btns_sw);
-            gtk_box_reorder_child_after (GTK_BOX (this), con_btns_sw, nullptr);
-            create_con_buttons (this);
-        }
-    }
+    gtk_widget_set_visible (priv->connection_bar, gnome_cmd_data.show_devbuttons);
 }
 
 

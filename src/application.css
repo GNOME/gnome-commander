@@ -1,0 +1,3 @@
+listview.gcmd-toolbar {
+    background-color: transparent; /* reset background to make GtkListView to look like a GtkBox */
+}

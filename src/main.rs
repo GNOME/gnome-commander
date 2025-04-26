@@ -26,6 +26,8 @@ mod chown_component;
 mod command_line;
 mod config;
 mod connection;
+mod connection_bar;
+mod connection_button;
 mod data;
 mod dialogs;
 mod dir;

@@ -96,6 +96,8 @@ mod imp {
         fn startup(&self) {
             self.parent_startup();
 
+            load_application_css();
+
             // disable beeping for the application
             if let Some(settings) = gtk::Settings::default() {
                 settings.set_gtk_error_bell(false);
@@ -155,6 +157,18 @@ mod imp {
     }
 
     impl GtkApplicationImpl for Application {}
+
+    fn load_application_css() {
+        if let Some(display) = gdk::Display::default() {
+            let provider = gtk::CssProvider::new();
+            provider.load_from_string(&include_str!("application.css"));
+            gtk::style_context_add_provider_for_display(
+                &display,
+                &provider,
+                gtk::STYLE_PROVIDER_PRIORITY_APPLICATION,
+            );
+        }
+    }
 
     fn create_config_directory() {
         let conf_dir = glib::user_config_dir().join(PACKAGE);
