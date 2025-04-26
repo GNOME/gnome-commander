@@ -43,8 +43,6 @@ using namespace std;
 
 struct GnomeCmdMainWinPrivate
 {
-    GtkWidget *focused_widget;
-
     GWeakRef advrename_dlg;
     GWeakRef file_search_dlg;
 
@@ -78,7 +76,7 @@ static GnomeCmdMainWinPrivate *gnome_cmd_main_win_priv (GnomeCmdMainWin *mw)
     Misc widgets callbacks
 *****************************************************************************/
 
-inline void update_browse_buttons (GnomeCmdMainWin *mw, GnomeCmdFileSelector *fs)
+extern "C" void gnome_cmd_main_win_update_browse_buttons (GnomeCmdMainWin *mw, GnomeCmdFileSelector *fs)
 {
     g_return_if_fail (GNOME_CMD_IS_MAIN_WIN (mw));
     g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
@@ -103,7 +101,7 @@ inline void update_browse_buttons (GnomeCmdMainWin *mw, GnomeCmdFileSelector *fs
 
 static void on_fs_dir_change (GnomeCmdFileSelector *fs, const gchar dir, GnomeCmdMainWin *mw)
 {
-    update_browse_buttons (mw, fs);
+    gnome_cmd_main_win_update_browse_buttons (mw, fs);
     gnome_cmd_main_win_update_drop_con_button (mw, fs->file_list());
     mw->update_cmdline();
 }
@@ -152,7 +150,6 @@ extern "C" void gnome_cmd_main_win_init (GnomeCmdMainWin *mw)
     auto priv = g_new0 (GnomeCmdMainWinPrivate, 1);
     g_object_set_data_full (G_OBJECT (mw), "priv", priv, g_free);
 
-    priv->focused_widget = NULL;
     priv->advrename_dlg = { { nullptr } };
     priv->file_search_dlg = { { nullptr } };
     priv->state_saved = false;
@@ -212,7 +209,6 @@ void GnomeCmdMainWin::focus_file_lists()
 
     fs(ACTIVE)->set_active(TRUE);
     fs(INACTIVE)->set_active(FALSE);
-    priv->focused_widget = GTK_WIDGET (fs(ACTIVE));
 }
 
 
@@ -351,7 +347,7 @@ static gboolean on_key_pressed (GtkEventControllerKey *controller, guint keyval,
         {
             case GDK_KEY_Tab:
             case GDK_KEY_ISO_Left_Tab:
-                mw->switch_fs(mw->fs(INACTIVE));
+                gnome_cmd_main_win_switch_fs (mw, mw->fs(INACTIVE));
                 return TRUE;
 
             case GDK_KEY_F1:
@@ -407,32 +403,11 @@ static gboolean on_key_pressed (GtkEventControllerKey *controller, guint keyval,
 }
 
 
-void GnomeCmdMainWin::switch_fs(GnomeCmdFileSelector *fselector)
-{
-    g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fselector));
-    auto priv = gnome_cmd_main_win_priv (this);
-
-    if (fselector == fs(ACTIVE))
-        return;
-
-    guint current_panel;
-    g_object_get (this, "current-panel", &current_panel, nullptr);
-    g_object_set (this, "current-panel", !current_panel, nullptr);
-
-    fs(ACTIVE)->set_active(TRUE);
-    fs(INACTIVE)->set_active(FALSE);
-
-    update_browse_buttons (this, fselector);
-    gnome_cmd_main_win_update_drop_con_button (this, fselector->file_list());
-    update_cmdline();
-}
-
-
 void GnomeCmdMainWin::change_connection(FileSelectorID id)
 {
     GnomeCmdFileSelector *fselector = this->fs(id);
 
-    switch_fs(fselector);
+    gnome_cmd_main_win_switch_fs (this, fselector);
     if (gnome_cmd_data.show_devlist)
     {
         g_signal_emit_by_name (fselector->con_dropdown, "activate");
@@ -540,9 +515,4 @@ GnomeCmdShortcuts *gnome_cmd_main_win_shortcuts(GnomeCmdMainWin *main_win)
 {
     auto priv = gnome_cmd_main_win_priv (main_win);
     return priv->gcmd_shortcuts;
-}
-
-void gnome_cmd_main_win_switch_fs(GnomeCmdMainWin *main_win, GnomeCmdFileSelector *fs)
-{
-    main_win->switch_fs(fs);
 }
