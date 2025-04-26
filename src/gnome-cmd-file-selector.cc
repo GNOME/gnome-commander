@@ -798,12 +798,6 @@ void GnomeCmdFileSelector::update_style()
 }
 
 
-void GnomeCmdFileSelector::update_show_devbuttons()
-{
-    gtk_widget_set_visible (priv->connection_bar, gnome_cmd_data.show_devbuttons);
-}
-
-
 void GnomeCmdFileSelector::update_show_devlist()
 {
     if (gnome_cmd_data.show_devlist)
@@ -1017,11 +1011,6 @@ void GnomeCmdFileSelector::update_tab_label(GnomeCmdFileList *fl)
 }
 
 
-GListModel* GnomeCmdFileSelector::GetTabs()
-{
-    return gtk_notebook_get_pages (GTK_NOTEBOOK (this->notebook));
-}
-
 // FFI
 GnomeCmdFileList *gnome_cmd_file_selector_file_list (GnomeCmdFileSelector *fs)
 {
@@ -1036,6 +1025,11 @@ GnomeCmdFileList *gnome_cmd_file_selector_file_list_nth (GnomeCmdFileSelector *f
 extern "C" GtkNotebook *gnome_cmd_file_selector_get_notebook (GnomeCmdFileSelector *fs)
 {
     return GTK_NOTEBOOK (fs->notebook);
+}
+
+GtkWidget *gnome_cmd_file_selector_connection_bar(GnomeCmdFileSelector *fs)
+{
+    return fs->priv->connection_bar;
 }
 
 GtkWidget *gnome_cmd_file_selector_new_tab (GnomeCmdFileSelector *fs)

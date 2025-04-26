@@ -333,16 +333,6 @@ static void on_icon_size_changed (GnomeCmdMainWin *main_win)
     main_win->update_view();
 }
 
-static void on_show_devbuttons_changed (GnomeCmdMainWin *main_win)
-{
-    gboolean show_devbuttons;
-
-    show_devbuttons = g_settings_get_boolean (gnome_cmd_data.options.gcmd_settings->general, GCMD_SETTINGS_SHOW_DEVBUTTONS);
-    gnome_cmd_data.show_devbuttons = show_devbuttons;
-    main_win->fs(ACTIVE)->update_show_devbuttons();
-    main_win->fs(INACTIVE)->update_show_devbuttons();
-}
-
 static void on_show_devlist_changed (GnomeCmdMainWin *main_win)
 {
     gboolean show_devlist;
@@ -713,11 +703,6 @@ static void gcmd_connect_gsettings_signals(GcmdSettings *gs, GnomeCmdMainWin *ma
     g_signal_connect_swapped (gs->general,
                       "changed::icon-size",
                       G_CALLBACK (on_icon_size_changed),
-                      main_win);
-
-    g_signal_connect_swapped (gs->general,
-                      "changed::show-devbuttons",
-                      G_CALLBACK (on_show_devbuttons_changed),
                       main_win);
 
     g_signal_connect_swapped (gs->general,
@@ -1810,7 +1795,6 @@ void GnomeCmdData::load()
     cmdline_history_length = g_settings_get_uint (options.gcmd_settings->general, GCMD_SETTINGS_CMDLINE_HISTORY_LENGTH);
     gui_update_rate = g_settings_get_uint (options.gcmd_settings->general, GCMD_SETTINGS_GUI_UPDATE_RATE);
 
-    show_devbuttons = g_settings_get_boolean (options.gcmd_settings->general, GCMD_SETTINGS_SHOW_DEVBUTTONS);
     show_devlist = g_settings_get_boolean (options.gcmd_settings->general, GCMD_SETTINGS_SHOW_DEVLIST);
 
     options.honor_expect_uris = g_settings_get_boolean (options.gcmd_settings->programs, GCMD_SETTINGS_DONT_DOWNLOAD);
@@ -1940,7 +1924,6 @@ void GnomeCmdData::save(GnomeCmdMainWin *main_win)
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_DEV_ONLY_ICON, &(options.device_only_icon));
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_SHOW_SAMBA_WORKGROUP_BUTTON, &(options.show_samba_workgroups_button));
 
-    set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_SHOW_DEVBUTTONS, &(show_devbuttons));
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_SHOW_DEVLIST, &(show_devlist));
 
     set_gsettings_when_changed      (options.gcmd_settings->programs, GCMD_SETTINGS_VIEWER_CMD, options.viewer);

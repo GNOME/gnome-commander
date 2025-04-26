@@ -75,6 +75,10 @@ pub mod ffi {
             n: u32,
         ) -> *mut GnomeCmdFileList;
 
+        pub fn gnome_cmd_file_selector_connection_bar(
+            fs: *mut GnomeCmdFileSelector,
+        ) -> *mut GtkWidget;
+
         pub fn gnome_cmd_file_selector_get_notebook(
             fs: *mut GnomeCmdFileSelector,
         ) -> *mut GtkNotebook;
@@ -455,6 +459,14 @@ impl FileSelector {
             (callback)();
             None
         })
+    }
+
+    pub fn connection_bar(&self) -> gtk::Widget {
+        unsafe {
+            from_glib_none(ffi::gnome_cmd_file_selector_connection_bar(
+                self.to_glib_none().0,
+            ))
+        }
     }
 }
 

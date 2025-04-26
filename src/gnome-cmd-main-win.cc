@@ -142,7 +142,6 @@ extern "C" void gnome_cmd_main_win_dispose (GnomeCmdMainWin *main_win)
 
 extern "C" void gnome_cmd_main_win_init (GnomeCmdMainWin *mw)
 {
-    toggle_action_change_state (mw, "view-conbuttons", gnome_cmd_data.show_devbuttons);
     toggle_action_change_state (mw, "view-devlist", gnome_cmd_data.show_devlist);
     toggle_action_change_state (mw, "view-hidden-files", !gnome_cmd_data.options.filter.file_types[GnomeCmdData::G_FILE_IS_HIDDEN]);
     toggle_action_change_state (mw, "view-backup-files", !gnome_cmd_data.options.filter.file_types[GnomeCmdData::G_FILE_IS_BACKUP]);

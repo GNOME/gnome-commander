@@ -813,7 +813,6 @@ pub fn command_open_terminal(
 
 /* ***************************** View Menu ****************************** */
 
-c_action!(view_conbuttons);
 c_action!(view_devlist);
 c_action!(view_buttonbar);
 c_action!(view_cmdline);
@@ -1736,9 +1735,8 @@ pub const USER_ACTIONS: Lazy<Vec<UserAction>> = Lazy::new(|| {
             gettext("Open terminal"),
         ),
         // View actions
-        UserAction::boolean(
+        UserAction::predefined(
             "view-conbuttons",
-            &view_conbuttons,
             "view.conbuttons",
             gettext("Show device buttons"),
         ),

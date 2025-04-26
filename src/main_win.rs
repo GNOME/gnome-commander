@@ -120,6 +120,8 @@ pub mod imp {
         command_line_visible: Cell<bool>,
         #[property(get, set)]
         buttonbar_visible: Cell<bool>,
+        #[property(get, set)]
+        connection_buttons_visible: Cell<bool>,
     }
 
     #[glib::object_subclass]
@@ -137,6 +139,8 @@ pub mod imp {
             );
             klass.install_property_action("win.view-cmdline", "command-line-visible");
             klass.install_property_action("win.view-buttonbar", "buttonbar-visible");
+
+            klass.install_property_action("win.view-conbuttons", "connection-buttons-visible");
 
             klass.install_action(
                 "win.view-slide",
@@ -214,6 +218,7 @@ pub mod imp {
                 horizontal_orientation: Cell::new(false),
                 command_line_visible: Cell::new(true),
                 buttonbar_visible: Cell::new(true),
+                connection_buttons_visible: Cell::new(true),
             }
         }
     }
@@ -274,6 +279,19 @@ pub mod imp {
                 .set_start_child(Some(&*self.file_selector_left.borrow()));
             self.paned
                 .set_end_child(Some(&*self.file_selector_right.borrow()));
+
+            mw.bind_property(
+                "connection-buttons-visible",
+                &mw.imp().file_selector_left.borrow().connection_bar(),
+                "visible",
+            )
+            .build();
+            mw.bind_property(
+                "connection-buttons-visible",
+                &mw.imp().file_selector_right.borrow().connection_bar(),
+                "visible",
+            )
+            .build();
 
             let paned_click_gesture = gtk::GestureClick::builder().button(3).build();
             paned_click_gesture.connect_pressed(glib::clone!(
@@ -381,6 +399,10 @@ pub mod imp {
             options
                 .0
                 .bind("show-buttonbar", &*mw, "buttonbar-visible")
+                .build();
+            options
+                .0
+                .bind("show-devbuttons", &*mw, "connection-buttons-visible")
                 .build();
 
             self.color_themes.connect_local(
