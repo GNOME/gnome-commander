@@ -52,6 +52,7 @@ mod paned_ext;
 mod path;
 mod plugin_manager;
 mod pwd;
+mod search;
 mod select_directory_button;
 mod select_icon_button;
 mod shortcuts;

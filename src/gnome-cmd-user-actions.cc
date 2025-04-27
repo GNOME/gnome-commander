@@ -220,7 +220,7 @@ void file_search (GSimpleAction *action, GVariant *parameter, gpointer user_data
     if (gnome_cmd_data.options.use_internal_search)
     {
         auto dlg = main_win->get_or_create_search_dialog ();
-        dlg->show_and_set_focus ();
+        gnome_cmd_search_dialog_show_and_set_focus (dlg);
     }
     else
     {

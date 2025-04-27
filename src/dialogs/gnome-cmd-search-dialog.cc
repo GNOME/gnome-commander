@@ -57,9 +57,11 @@ static char *msgs[] = {N_("Search local directories only"),
 #define GNOME_SEARCH_TOOL_REFRESH_DURATION  50000
 
 
-struct GnomeCmdSearchDialogClass
-{
-    GtkDialogClass parent_class;
+enum {
+    GCMD_RESPONSE_PROFILES = 123,
+    GCMD_RESPONSE_GOTO,
+    GCMD_RESPONSE_STOP,
+    GCMD_RESPONSE_FIND
 };
 
 
@@ -109,8 +111,6 @@ struct SearchData
     // set when the search dialog is destroyed, also stops the search of course
     gboolean dialog_destroyed = FALSE;
 
-    explicit SearchData(GnomeCmdSearchDialog *dlg);
-
     void set_statusmsg(const gchar *msg = nullptr);
     gchar *BuildSearchCommand();
 
@@ -130,7 +130,7 @@ struct SearchData
 };
 
 
-struct GnomeCmdSearchDialog::Private
+struct GnomeCmdSearchDialogPrivate
 {
     // holds data needed by the search routines
     SearchData data;
@@ -144,32 +144,13 @@ struct GnomeCmdSearchDialog::Private
     GtkWidget *pbar;
     GtkWidget *profile_menu_button;
 
-    explicit Private(GnomeCmdSearchDialog *dlg);
-    ~Private();
-
-    static gboolean join_thread_func(GnomeCmdSearchDialog::Private *priv);
-
-    static void on_dialog_show (GtkWidget *widget, GnomeCmdSearchDialog *dialog);
-    static void on_dialog_hide (GtkWidget *widget, GnomeCmdSearchDialog *dialog);
-    static void on_dialog_size_allocate (GObject *dialog, GParamSpec *pspec, gpointer user_data);
-    static void on_dialog_response (GtkDialog *window, int response_id, GnomeCmdSearchDialog *dialog);
+    GnomeCmdData::SearchConfig *defaults;
 };
 
 
-inline GnomeCmdSearchDialog::Private::Private(GnomeCmdSearchDialog *dlg): data(dlg)
+static GnomeCmdSearchDialogPrivate *search_dialog_private (GnomeCmdSearchDialog *dlg)
 {
-    grid = nullptr;
-    profile_component = nullptr;
-    dir_browser = nullptr;
-    result_list = nullptr;
-    status_label = nullptr;
-    pbar = nullptr;
-    profile_menu_button = nullptr;
-}
-
-
-inline GnomeCmdSearchDialog::Private::~Private()
-{
+    return (GnomeCmdSearchDialogPrivate *) g_object_get_data (G_OBJECT (dlg), "search-dialog-priv");
 }
 
 
@@ -201,9 +182,10 @@ static GMenu *create_placeholder_menu(GnomeCmdData::SearchConfig &cfg)
 
 extern "C" void gnome_cmd_search_dialog_update_profile_menu (GnomeCmdSearchDialog *dialog)
 {
+    auto priv = search_dialog_private (dialog);
     gtk_menu_button_set_menu_model (
-        GTK_MENU_BUTTON (dialog->priv->profile_menu_button),
-        G_MENU_MODEL (create_placeholder_menu(dialog->defaults)));
+        GTK_MENU_BUTTON (priv->profile_menu_button),
+        G_MENU_MODEL (create_placeholder_menu(*priv->defaults)));
 }
 
 
@@ -211,10 +193,11 @@ extern "C" void gnome_cmd_search_dialog_do_manage_profiles(GnomeCmdSearchDialog 
 
 static void do_manage_profiles(GnomeCmdSearchDialog *dialog, bool new_profile)
 {
+    auto priv = search_dialog_private (dialog);
     if (new_profile)
-        dialog->priv->profile_component->copy();
+        gnome_cmd_search_profile_component_copy (priv->profile_component);
 
-    gnome_cmd_search_dialog_do_manage_profiles (dialog, &dialog->defaults, new_profile);
+    gnome_cmd_search_dialog_do_manage_profiles (dialog, priv->defaults, new_profile);
 }
 
 static void save_profile(GSimpleAction *action, GVariant *parameter, gpointer user_data)
@@ -234,23 +217,16 @@ static void manage_profiles(GSimpleAction *action, GVariant *parameter, gpointer
 static void load_profile(GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
     auto dialog = static_cast<GnomeCmdSearchDialog*>(user_data);
+    auto priv = search_dialog_private (dialog);
     gsize profile_idx = g_variant_get_int32 (parameter);
 
-    GnomeCmdData::SearchConfig &cfg = dialog->defaults;
+    GnomeCmdData::SearchConfig &cfg = *priv->defaults;
 
     g_return_if_fail (profile_idx < cfg.profiles.size());
 
     cfg.default_profile = cfg.profiles[profile_idx];
-    dialog->priv->profile_component->update();
+    gnome_cmd_search_profile_component_update (priv->profile_component);
 }
-
-
-inline SearchData::SearchData(GnomeCmdSearchDialog *dlg): dialog(dlg)
-{
-}
-
-
-G_DEFINE_TYPE (GnomeCmdSearchDialog, gnome_cmd_search_dialog, GTK_TYPE_DIALOG)
 
 
 inline void free_search_file_data (SearchFileData *searchfileData)
@@ -364,7 +340,8 @@ inline gboolean SearchData::ContentMatches(GFile *f, GFileInfo *info)
 
 inline void SearchData::set_statusmsg(const gchar *msg)
 {
-    gtk_label_set_text (GTK_LABEL (dialog->priv->status_label), msg ? msg : "");
+    auto priv = search_dialog_private (dialog);
+    gtk_label_set_text (GTK_LABEL (priv->status_label), msg ? msg : "");
 }
 
 
@@ -415,7 +392,8 @@ void SearchData::SearchDirRecursive(GnomeCmdDir *dir, long level)
                 continue;
 
             // if the user wants to we should do some content matching here
-            if (dialog->defaults.default_profile.content_search)
+            auto priv = search_dialog_private (dialog);
+            if (priv->defaults->default_profile.content_search)
             {
                 GFile *file = isGnomeCmdFile ? ((GnomeCmdFile *) i->data)->get_file() : g_file_get_child (((GnomeCmdFile *) dir)->get_file(), g_file_info_get_name (info));
                 gboolean matches = ContentMatches (file, info);
@@ -481,6 +459,8 @@ void SearchData::SearchDirRecursive(GnomeCmdDir *dir, long level)
 
 static gpointer perform_search_operation (SearchData *data)
 {
+    auto priv = search_dialog_private (data->dialog);
+
     GnomeCmdDir *start_dir = data->start_dir;
 
     // unref all directories which contained matching files from last search
@@ -491,13 +471,13 @@ static gpointer perform_search_operation (SearchData *data)
         data->match_dirs = nullptr;
     }
 
-    data->SearchDirRecursive(start_dir, data->dialog->defaults.default_profile.max_depth);
+    data->SearchDirRecursive(start_dir, priv->defaults->default_profile.max_depth);
 
     // free regexps
     delete data->name_filter;
     data->name_filter = nullptr;
 
-    if (data->dialog->defaults.default_profile.content_search)
+    if (priv->defaults->default_profile.content_search)
     {
         regfree (data->content_regex);
         g_free (data->content_regex);
@@ -516,8 +496,10 @@ static gpointer perform_search_operation (SearchData *data)
 
 static gboolean update_search_status_widgets (SearchData *data)
 {
+    auto priv = search_dialog_private (data->dialog);
+
     // update the progress bar
-    gtk_progress_bar_pulse (GTK_PROGRESS_BAR (data->dialog->priv->pbar));
+    gtk_progress_bar_pulse (GTK_PROGRESS_BAR (priv->pbar));
 
     g_mutex_lock (&data->pdata.mutex);
 
@@ -531,7 +513,7 @@ static gboolean update_search_status_widgets (SearchData *data)
 
     if (files)
     {
-        GnomeCmdFileList *fl = data->dialog->priv->result_list;
+        GnomeCmdFileList *fl = priv->result_list;
 
         // add all files found since last update to the list
         for (GList *i = files; i; i = i->next)
@@ -545,7 +527,7 @@ static gboolean update_search_status_widgets (SearchData *data)
 
     if (!data->dialog_destroyed)
     {
-        int matches = data->dialog->priv->result_list->size();
+        int matches = priv->result_list->size();
 
         gchar *fmt = data->stopped ? ngettext("Found %d match — search aborted", "Found %d matches — search aborted", matches) :
                                      ngettext("Found %d match", "Found %d matches", matches);
@@ -555,16 +537,16 @@ static gboolean update_search_status_widgets (SearchData *data)
         data->set_statusmsg(msg);
         g_free (msg);
 
-        gtk_widget_hide (data->dialog->priv->pbar);
+        gtk_widget_hide (priv->pbar);
 
-        gtk_dialog_set_response_sensitive (*data->dialog, GnomeCmdSearchDialog::GCMD_RESPONSE_GOTO, matches>0);
-        gtk_dialog_set_response_sensitive (*data->dialog, GnomeCmdSearchDialog::GCMD_RESPONSE_STOP, FALSE);
-        gtk_dialog_set_response_sensitive (*data->dialog, GnomeCmdSearchDialog::GCMD_RESPONSE_FIND, TRUE);
-        gtk_dialog_set_default_response (*data->dialog, GnomeCmdSearchDialog::GCMD_RESPONSE_FIND);
+        gtk_dialog_set_response_sensitive (GTK_DIALOG (data->dialog), GCMD_RESPONSE_GOTO, matches>0);
+        gtk_dialog_set_response_sensitive (GTK_DIALOG (data->dialog), GCMD_RESPONSE_STOP, FALSE);
+        gtk_dialog_set_response_sensitive (GTK_DIALOG (data->dialog), GCMD_RESPONSE_FIND, TRUE);
+        gtk_dialog_set_default_response (GTK_DIALOG (data->dialog), GCMD_RESPONSE_FIND);
 
         if (matches)
         {
-            GnomeCmdFileList *flmatches = data->dialog->priv->result_list;
+            GnomeCmdFileList *flmatches = priv->result_list;
             gtk_widget_grab_focus (*flmatches);         // set focus to result list
             // select one file, as matches is non-zero, there should be at least one entry
             if (!flmatches->get_focused_file())
@@ -585,7 +567,7 @@ static gboolean update_search_status_widgets (SearchData *data)
  * data structure that has been shared between the search threads and the
  * main thread.
  */
-gboolean GnomeCmdSearchDialog::Private::join_thread_func (GnomeCmdSearchDialog::Private *priv)
+static gboolean join_thread_func (GnomeCmdSearchDialogPrivate *priv)
 {
     SearchData &data = priv->data;
 
@@ -607,22 +589,22 @@ gboolean GnomeCmdSearchDialog::Private::join_thread_func (GnomeCmdSearchDialog::
 
     g_mutex_clear (&data.pdata.mutex);
 
-    delete priv;
-
     return FALSE;
 }
 
 
 gboolean SearchData::StartGenericSearch()
 {
+    auto priv = search_dialog_private (dialog);
+
     // create an regex for file name matching
-    name_filter = new Filter(dialog->defaults.default_profile.filename_pattern.c_str(), dialog->defaults.default_profile.match_case, dialog->defaults.default_profile.syntax);
+    name_filter = new Filter(priv->defaults->default_profile.filename_pattern.c_str(), priv->defaults->default_profile.match_case, priv->defaults->default_profile.syntax);
 
     // if we're going to search through file content create an regex for that too
-    if (dialog->defaults.default_profile.content_search)
+    if (priv->defaults->default_profile.content_search)
     {
         content_regex = g_new0 (regex_t, 1);
-        regcomp (content_regex, dialog->defaults.default_profile.text_pattern.c_str(), dialog->defaults.default_profile.match_case ? 0 : REG_ICASE);
+        regcomp (content_regex, priv->defaults->default_profile.text_pattern.c_str(), priv->defaults->default_profile.match_case ? 0 : REG_ICASE);
     }
 
     cancellable = g_cancellable_new();
@@ -639,10 +621,12 @@ gboolean SearchData::StartGenericSearch()
  */
 gchar *SearchData::BuildSearchCommand()
 {
-    gchar *file_pattern_utf8 = g_strdup (dialog->defaults.default_profile.filename_pattern.c_str());
+    auto priv = search_dialog_private (dialog);
+
+    gchar *file_pattern_utf8 = g_strdup (priv->defaults->default_profile.filename_pattern.c_str());
     GError *error = nullptr;
 
-    switch (dialog->defaults.default_profile.syntax)
+    switch (priv->defaults->default_profile.syntax)
     {
         case Filter::TYPE_FNMATCH:
             if (!file_pattern_utf8 || !*file_pattern_utf8)
@@ -681,9 +665,9 @@ gchar *SearchData::BuildSearchCommand()
     }
 
     gchar *text_pattern_quoted = nullptr;
-    if (dialog->defaults.default_profile.content_search)
+    if (priv->defaults->default_profile.content_search)
     {
-        const gchar *text_pattern_utf8 = dialog->defaults.default_profile.text_pattern.c_str();
+        const gchar *text_pattern_utf8 = priv->defaults->default_profile.text_pattern.c_str();
         gchar *text_pattern_locale = g_locale_from_utf8 (text_pattern_utf8, -1, nullptr, nullptr, &error);
 
         if (!text_pattern_locale)
@@ -713,10 +697,10 @@ gchar *SearchData::BuildSearchCommand()
     g_string_append (command, look_in_folder_quoted);
 
     g_string_append (command, " -mindepth 1"); // exclude the directory itself
-    if (dialog->defaults.default_profile.max_depth!=-1)
-        g_string_append_printf (command, " -maxdepth %i", dialog->defaults.default_profile.max_depth+1);
+    if (priv->defaults->default_profile.max_depth!=-1)
+        g_string_append_printf (command, " -maxdepth %i", priv->defaults->default_profile.max_depth+1);
 
-    switch (dialog->defaults.default_profile.syntax)
+    switch (priv->defaults->default_profile.syntax)
     {
         case Filter::TYPE_FNMATCH:
             g_string_append_printf (command, " -iname %s", file_pattern_quoted);
@@ -729,11 +713,11 @@ gchar *SearchData::BuildSearchCommand()
             ;
     }
 
-    if (dialog->defaults.default_profile.content_search)
+    if (priv->defaults->default_profile.content_search)
     {
         static const gchar GREP_COMMAND[] = "grep";
 
-        if (dialog->defaults.default_profile.match_case)
+        if (priv->defaults->default_profile.match_case)
             g_string_append_printf (command, " '!' -type p -exec %s -E -q %s {} \\;", GREP_COMMAND, text_pattern_quoted);
         else
             g_string_append_printf (command, " '!' -type p -exec %s -E -q -i %s {} \\;", GREP_COMMAND, text_pattern_quoted);
@@ -824,7 +808,10 @@ static gboolean handle_search_command_stdout_io (GIOChannel *ioc, GIOCondition c
             GnomeCmdFile *f = gnome_cmd_file_new_from_path (utf8);
 
             if (f)
-                data->dialog->priv->result_list->append_file(f);
+            {
+                auto priv = search_dialog_private (data->dialog);
+                priv->result_list->append_file(f);
+            }
 
             g_free (utf8);
 
@@ -914,58 +901,66 @@ gboolean SearchData::StartLocalSearch()
 }
 
 
-void GnomeCmdSearchDialog::Private::on_dialog_show(GtkWidget *widget, GnomeCmdSearchDialog *dialog)
+static void on_dialog_show(GtkWidget *widget, GnomeCmdSearchDialog *dialog)
 {
-    dialog->priv->profile_component->update();
+    auto priv = search_dialog_private (dialog);
 
-    dialog->priv->data.start_dir = main_win->fs(ACTIVE)->get_directory();
+    gnome_cmd_search_profile_component_update (priv->profile_component);
 
-    g_object_set (dialog->priv->dir_browser, "file", GNOME_CMD_FILE(dialog->priv->data.start_dir)->get_file(), nullptr);
+    priv->data.start_dir = main_win->fs(ACTIVE)->get_directory();
+
+    g_object_set (priv->dir_browser, "file", GNOME_CMD_FILE(priv->data.start_dir)->get_file(), nullptr);
 }
 
 
-void GnomeCmdSearchDialog::Private::on_dialog_hide(GtkWidget *widget, GnomeCmdSearchDialog *dialog)
+static void on_dialog_hide(GtkWidget *widget, GnomeCmdSearchDialog *dialog)
 {
-    dialog->priv->profile_component->copy();
+    auto priv = search_dialog_private (dialog);
 
-    dialog->priv->result_list->clear();
+    gnome_cmd_search_profile_component_copy (priv->profile_component);
+
+    priv->result_list->clear();
 }
 
 
-void GnomeCmdSearchDialog::Private::on_dialog_size_allocate(GObject *dialog, GParamSpec *pspec, gpointer user_data)
+static void on_dialog_size_allocate(GObject *dialog, GParamSpec *pspec, gpointer user_data)
 {
+    auto priv = search_dialog_private (GNOME_CMD_SEARCH_DIALOG (dialog));
+
     int width, height;
     gtk_window_get_default_size (GTK_WINDOW (dialog), &width, &height);
 
-    GNOME_CMD_SEARCH_DIALOG (dialog)->defaults.width  = width;
-    GNOME_CMD_SEARCH_DIALOG (dialog)->defaults.height = height;
+    priv->defaults->width  = width;
+    priv->defaults->height = height;
 }
 
 
 extern "C" void gnome_cmd_viewer_search_text_add_to_history(const gchar *value);
 
 
-void GnomeCmdSearchDialog::Private::on_dialog_response(GtkDialog *window, int response_id, GnomeCmdSearchDialog *dialog)
+static void on_dialog_response(GtkDialog *window, int response_id, GnomeCmdSearchDialog *dialog)
 {
+    auto priv = search_dialog_private (dialog);
+
     switch (response_id)
     {
         case GCMD_RESPONSE_STOP:
             {
-                dialog->priv->data.stopped = TRUE;
-                gtk_dialog_set_response_sensitive (*dialog, GCMD_RESPONSE_STOP, FALSE);
-                gtk_dialog_set_default_response (*dialog, GCMD_RESPONSE_FIND);
-                if (dialog->priv->data.cancellable)
-                    g_cancellable_cancel (dialog->priv->data.cancellable);
+                priv->data.stopped = TRUE;
+                gtk_dialog_set_response_sensitive (GTK_DIALOG (dialog), GCMD_RESPONSE_STOP, FALSE);
+                gtk_dialog_set_default_response (GTK_DIALOG (dialog), GCMD_RESPONSE_FIND);
+                if (priv->data.cancellable)
+                    g_cancellable_cancel (priv->data.cancellable);
 #ifdef G_OS_UNIX
-                if (dialog->priv->data.pid)
-                    kill (dialog->priv->data.pid, SIGTERM);
+                if (priv->data.pid)
+                    kill (priv->data.pid, SIGTERM);
 #endif
             }
             break;
 
         case GCMD_RESPONSE_FIND:
             {
-                SearchData &data = dialog->priv->data;
+                SearchData &data = priv->data;
 
                 data.search_done = TRUE;
                 data.stopped = TRUE;
@@ -988,7 +983,7 @@ void GnomeCmdSearchDialog::Private::on_dialog_response(GtkDialog *window, int re
                 data.match_dirs = nullptr;
 
                 GFile *file = nullptr;
-                g_object_get (dialog->priv->dir_browser, "file", &file, nullptr);
+                g_object_get (priv->dir_browser, "file", &file, nullptr);
                 auto uriString = file ? g_file_get_uri (file) : nullptr;
                 auto gUri = g_uri_parse (uriString, G_URI_FLAGS_NONE, nullptr);
 
@@ -1013,7 +1008,7 @@ void GnomeCmdSearchDialog::Private::on_dialog_response(GtkDialog *window, int re
                 {
                     g_uri_unref (gUri);
                     string message = stringify(g_strdup_printf (_("Failed to change directory outside of %s"), root_path));
-                    gnome_cmd_show_message (*dialog, message.c_str());
+                    gnome_cmd_show_message (GTK_WINDOW (dialog), message.c_str());
                     break;
                 }
 
@@ -1022,38 +1017,38 @@ void GnomeCmdSearchDialog::Private::on_dialog_response(GtkDialog *window, int re
                 gnome_cmd_dir_ref (data.start_dir);
 
                 // save default settings
-                dialog->priv->profile_component->copy();
-                if (!dialog->defaults.default_profile.filename_pattern.empty())
+                gnome_cmd_search_profile_component_copy (priv->profile_component);
+                if (!priv->defaults->default_profile.filename_pattern.empty())
                 {
-                    gnome_cmd_data.search_defaults.name_patterns.add(dialog->defaults.default_profile.filename_pattern.c_str());
-                    dialog->priv->profile_component->set_name_patterns_history(dialog->defaults.name_patterns.ents);
+                    gnome_cmd_data.search_defaults.name_patterns.add(priv->defaults->default_profile.filename_pattern.c_str());
+                    gnome_cmd_search_profile_component_set_name_patterns_history (priv->profile_component, priv->defaults->name_patterns.ents);
                 }
 
-                if (dialog->defaults.default_profile.content_search && !dialog->defaults.default_profile.text_pattern.empty())
+                if (priv->defaults->default_profile.content_search && !priv->defaults->default_profile.text_pattern.empty())
                 {
-                    gnome_cmd_data.search_defaults.content_patterns.add(dialog->defaults.default_profile.text_pattern.c_str());
-                    gnome_cmd_viewer_search_text_add_to_history(dialog->defaults.default_profile.text_pattern.c_str());
-                    dialog->priv->profile_component->set_content_patterns_history(dialog->defaults.content_patterns.ents);
+                    gnome_cmd_data.search_defaults.content_patterns.add(priv->defaults->default_profile.text_pattern.c_str());
+                    gnome_cmd_viewer_search_text_add_to_history(priv->defaults->default_profile.text_pattern.c_str());
+                    gnome_cmd_search_profile_component_set_content_patterns_history (priv->profile_component, priv->defaults->content_patterns.ents);
                 }
 
                 data.search_done = FALSE;
                 data.stopped = FALSE;
 
-                dialog->priv->result_list->clear();
+                priv->result_list->clear();
 
                 gchar *base_dir_utf8 = GNOME_CMD_FILE (data.start_dir)->get_real_path();
-                dialog->priv->result_list->set_base_dir(base_dir_utf8);
+                priv->result_list->set_base_dir(base_dir_utf8);
 
                 if (gnome_cmd_con_is_local (con) ? data.StartLocalSearch() : data.StartGenericSearch())
                 {
                     data.set_statusmsg();
-                    gtk_widget_show (dialog->priv->pbar);
+                    gtk_widget_show (priv->pbar);
                     data.update_gui_timeout_id = g_timeout_add (gnome_cmd_data.gui_update_rate, (GSourceFunc) update_search_status_widgets, &data);
 
-                    gtk_dialog_set_response_sensitive (*dialog, GCMD_RESPONSE_GOTO, FALSE);
-                    gtk_dialog_set_response_sensitive (*dialog, GCMD_RESPONSE_STOP, TRUE);
-                    gtk_dialog_set_response_sensitive (*dialog, GCMD_RESPONSE_FIND, FALSE);
-                    gtk_dialog_set_default_response (*dialog, GCMD_RESPONSE_STOP);
+                    gtk_dialog_set_response_sensitive (GTK_DIALOG (dialog), GCMD_RESPONSE_GOTO, FALSE);
+                    gtk_dialog_set_response_sensitive (GTK_DIALOG (dialog), GCMD_RESPONSE_STOP, TRUE);
+                    gtk_dialog_set_response_sensitive (GTK_DIALOG (dialog), GCMD_RESPONSE_FIND, FALSE);
+                    gtk_dialog_set_default_response (GTK_DIALOG (dialog), GCMD_RESPONSE_STOP);
                 }
 
                 gnome_cmd_dir_unref (data.start_dir);
@@ -1062,7 +1057,7 @@ void GnomeCmdSearchDialog::Private::on_dialog_response(GtkDialog *window, int re
 
         case GCMD_RESPONSE_GOTO:
             {
-                GnomeCmdFile *f = dialog->priv->result_list->get_selected_file();
+                GnomeCmdFile *f = priv->result_list->get_selected_file();
 
                 if (!f)
                     break;
@@ -1098,7 +1093,7 @@ void GnomeCmdSearchDialog::Private::on_dialog_response(GtkDialog *window, int re
         case GTK_RESPONSE_DELETE_EVENT:
         case GTK_RESPONSE_CANCEL:
         case GTK_RESPONSE_CLOSE:
-            gtk_widget_hide (*dialog);
+            gtk_widget_hide (GTK_WIDGET (dialog));
             g_signal_stop_emission_by_name (dialog, "response");
             break;
 
@@ -1116,7 +1111,7 @@ void GnomeCmdSearchDialog::Private::on_dialog_response(GtkDialog *window, int re
 }
 
 
-static void gnome_cmd_search_dialog_init (GnomeCmdSearchDialog *dialog)
+extern "C" void gnome_cmd_search_dialog_init (GnomeCmdSearchDialog *dialog)
 {
     static GActionEntry action_entries[] = {
         { "save-profile", save_profile },
@@ -1127,13 +1122,12 @@ static void gnome_cmd_search_dialog_init (GnomeCmdSearchDialog *dialog)
     g_action_map_add_action_entries (G_ACTION_MAP (action_group), action_entries, G_N_ELEMENTS(action_entries), dialog);
     gtk_widget_insert_action_group (GTK_WIDGET (dialog), "search", G_ACTION_GROUP (action_group));
 
-    dialog->priv = new GnomeCmdSearchDialog::Private(dialog);
-
-    gtk_window_set_title (*dialog, _("Search…"));
-    gtk_window_set_resizable (*dialog, TRUE);
+    auto priv = g_new0 (GnomeCmdSearchDialogPrivate, 1);
+    priv->data.dialog = dialog;
+    g_object_set_data_full (G_OBJECT (dialog), "search-dialog-priv", priv, g_free);
 
     auto grid = gtk_grid_new ();
-    dialog->priv->grid = grid;
+    priv->grid = grid;
     gtk_widget_set_margin_top (grid, 12);
     gtk_widget_set_margin_bottom (grid, 12);
     gtk_widget_set_margin_start (grid, 12);
@@ -1142,17 +1136,17 @@ static void gnome_cmd_search_dialog_init (GnomeCmdSearchDialog *dialog)
     gtk_grid_set_column_spacing (GTK_GRID (grid), 12);
     gtk_box_append (GTK_BOX (gtk_dialog_get_content_area (GTK_DIALOG (dialog))), grid);
 
-    dialog->priv->labels_size_group = gtk_size_group_new (GTK_SIZE_GROUP_HORIZONTAL);
+    priv->labels_size_group = gtk_size_group_new (GTK_SIZE_GROUP_HORIZONTAL);
 
     // search in
-    dialog->priv->dir_browser = GTK_WIDGET (g_object_new (gnome_cmd_directory_button_get_type (), nullptr));
-    auto dir_browser_label = create_label_with_mnemonic (GTK_WIDGET (dialog), _("_Look in folder:"), dialog->priv->dir_browser);
+    priv->dir_browser = GTK_WIDGET (g_object_new (gnome_cmd_directory_button_get_type (), nullptr));
+    auto dir_browser_label = create_label_with_mnemonic (GTK_WIDGET (dialog), _("_Look in folder:"), priv->dir_browser);
     gtk_label_set_xalign (GTK_LABEL (dir_browser_label), 0.0);
-    gtk_size_group_add_widget (dialog->priv->labels_size_group, dir_browser_label);
+    gtk_size_group_add_widget (priv->labels_size_group, dir_browser_label);
 
     gtk_grid_attach (GTK_GRID (grid), dir_browser_label, 0, 0, 1, 1);
-    gtk_widget_set_hexpand (dialog->priv->dir_browser, TRUE);
-    gtk_grid_attach (GTK_GRID (grid), dialog->priv->dir_browser, 1, 0, 1, 1);
+    gtk_widget_set_hexpand (priv->dir_browser, TRUE);
+    gtk_grid_attach (GTK_GRID (grid), priv->dir_browser, 1, 0, 1, 1);
 
     // file list
     GtkWidget *sw = gtk_scrolled_window_new ();
@@ -1160,43 +1154,49 @@ static void gnome_cmd_search_dialog_init (GnomeCmdSearchDialog *dialog)
     gtk_grid_attach (GTK_GRID (grid), sw, 0, 2, 2, 1);
     gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (sw), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
 
-    dialog->priv->result_list = new GnomeCmdFileList(GnomeCmdFileList::COLUMN_NAME,GTK_SORT_ASCENDING);
-    gtk_widget_set_size_request (*dialog->priv->result_list, -1, 200);
-    gtk_scrolled_window_set_child (GTK_SCROLLED_WINDOW (sw), *dialog->priv->result_list);
+    priv->result_list = new GnomeCmdFileList(GnomeCmdFileList::COLUMN_NAME,GTK_SORT_ASCENDING);
+    gtk_widget_set_size_request (*priv->result_list, -1, 200);
+    gtk_scrolled_window_set_child (GTK_SCROLLED_WINDOW (sw), *priv->result_list);
 
     // status
     auto statusbar = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 6);
     gtk_grid_attach (GTK_GRID (grid), statusbar, 0, 3, 2, 1);
 
-    dialog->priv->status_label = gtk_label_new(nullptr);
-    gtk_box_append (GTK_BOX (statusbar), dialog->priv->status_label);
+    priv->status_label = gtk_label_new(nullptr);
+    gtk_box_append (GTK_BOX (statusbar), priv->status_label);
 
     // progress
-    dialog->priv->pbar = create_progress_bar (*dialog);
-    gtk_progress_bar_set_show_text (GTK_PROGRESS_BAR (dialog->priv->pbar), FALSE);
-    gtk_progress_bar_set_pulse_step (GTK_PROGRESS_BAR (dialog->priv->pbar), 1.0 / (gdouble) PBAR_MAX);
-    gtk_box_append (GTK_BOX (statusbar), dialog->priv->pbar);
+    priv->pbar = create_progress_bar (GTK_WIDGET (dialog));
+    gtk_progress_bar_set_show_text (GTK_PROGRESS_BAR (priv->pbar), FALSE);
+    gtk_progress_bar_set_pulse_step (GTK_PROGRESS_BAR (priv->pbar), 1.0 / (gdouble) PBAR_MAX);
+    gtk_box_append (GTK_BOX (statusbar), priv->pbar);
 
 
-    dialog->priv->result_list->update_style();
+    priv->result_list->update_style();
 
-    gtk_widget_hide (dialog->priv->pbar);
+    gtk_widget_hide (priv->pbar);
 
-    g_mutex_init(&dialog->priv->data.pdata.mutex);
+    g_mutex_init(&priv->data.pdata.mutex);
 }
 
 
-static void gnome_cmd_search_dialog_finalize (GObject *object)
+extern "C" void gnome_cmd_search_dialog_dispose (GnomeCmdSearchDialog *dialog)
 {
-    GnomeCmdSearchDialog *dialog = GNOME_CMD_SEARCH_DIALOG (object);
-    SearchData &data = dialog->priv->data;
+    auto priv = search_dialog_private (dialog);
+    SearchData &data = priv->data;
 
     if (data.update_gui_timeout_id)
+    {
         g_source_remove (data.update_gui_timeout_id);
+        data.update_gui_timeout_id = 0;
+    }
 
 #ifdef G_OS_UNIX
     if (data.pid)
+    {
         kill (data.pid, SIGTERM);
+        data.pid = 0;
+    }
 #endif
 
     // stop and wait for search thread to exit
@@ -1204,48 +1204,48 @@ static void gnome_cmd_search_dialog_finalize (GObject *object)
     data.dialog_destroyed = TRUE;
     if (data.cancellable)
         g_cancellable_cancel (data.cancellable);
-    g_timeout_add (1, (GSourceFunc) GnomeCmdSearchDialog::Private::join_thread_func, dialog->priv);
 
-    G_OBJECT_CLASS (gnome_cmd_search_dialog_parent_class)->finalize (object);
+    g_timeout_add (1, (GSourceFunc) join_thread_func, priv);
 }
 
 
-static void gnome_cmd_search_dialog_class_init (GnomeCmdSearchDialogClass *klass)
+void gnome_cmd_search_dialog_show_and_set_focus(GnomeCmdSearchDialog *dialog)
 {
-    GObjectClass *object_class = G_OBJECT_CLASS (klass);
-
-    object_class->finalize = gnome_cmd_search_dialog_finalize;
+    auto priv = search_dialog_private (dialog);
+    gtk_widget_show (GTK_WIDGET (dialog));
+    gnome_cmd_search_profile_component_set_focus (priv->profile_component);
 }
 
 
-void GnomeCmdSearchDialog::show_and_set_focus()
+void gnome_cmd_search_dialog_update_style(GnomeCmdSearchDialog *dialog)
 {
-    gtk_widget_show(*this);
-    priv->profile_component->set_focus();
-}
-
-void GnomeCmdSearchDialog::update_style()
-{
+    auto priv = search_dialog_private (dialog);
     priv->result_list->update_style();
 }
 
-GnomeCmdSearchDialog::GnomeCmdSearchDialog(GnomeCmdData::SearchConfig &cfg): defaults(cfg)
+
+GnomeCmdSearchDialog *gnome_cmd_search_dialog_new (GnomeCmdData::SearchConfig *cfg)
 {
-    gtk_window_set_default_size (*this, defaults.width, defaults.height);
+    auto dialog = (GnomeCmdSearchDialog *) g_object_new (gnome_cmd_search_dialog_get_type (), nullptr);
+
+    auto priv = search_dialog_private (dialog);
+    priv->defaults = cfg;
+
+    gtk_window_set_default_size (GTK_WINDOW (dialog), priv->defaults->width, priv->defaults->height);
     if (gnome_cmd_data.options.search_window_is_transient)
     {
-        gtk_window_set_transient_for (*this, *main_win);
+        gtk_window_set_transient_for (GTK_WINDOW (dialog), *main_win);
     }
 
     priv->profile_menu_button = gtk_menu_button_new ();
     gtk_menu_button_set_label (GTK_MENU_BUTTON (priv->profile_menu_button), _("Profiles…"));
     gtk_menu_button_set_menu_model (
         GTK_MENU_BUTTON (priv->profile_menu_button),
-        G_MENU_MODEL (create_placeholder_menu(cfg)));
+        G_MENU_MODEL (create_placeholder_menu(*cfg)));
 
-    gtk_dialog_add_action_widget (*this, priv->profile_menu_button, GCMD_RESPONSE_PROFILES);
+    gtk_dialog_add_action_widget (GTK_DIALOG (dialog), priv->profile_menu_button, GCMD_RESPONSE_PROFILES);
 
-    gtk_dialog_add_buttons (*this,
+    gtk_dialog_add_buttons (GTK_DIALOG (dialog),
                             _("_Help"), GTK_RESPONSE_HELP,
                             _("_Close"), GTK_RESPONSE_CLOSE,
                             _("_Jump to"), GCMD_RESPONSE_GOTO,
@@ -1253,31 +1253,28 @@ GnomeCmdSearchDialog::GnomeCmdSearchDialog(GnomeCmdData::SearchConfig &cfg): def
                             _("_Find"), GCMD_RESPONSE_FIND,
                             nullptr);
 
-    gtk_dialog_set_response_sensitive (*this, GCMD_RESPONSE_GOTO, FALSE);
-    gtk_dialog_set_response_sensitive (*this, GCMD_RESPONSE_STOP, FALSE);
+    gtk_dialog_set_response_sensitive (GTK_DIALOG (dialog), GCMD_RESPONSE_GOTO, FALSE);
+    gtk_dialog_set_response_sensitive (GTK_DIALOG (dialog), GCMD_RESPONSE_STOP, FALSE);
 
-    gtk_dialog_set_default_response (*this, GCMD_RESPONSE_FIND);
+    gtk_dialog_set_default_response (GTK_DIALOG (dialog), GCMD_RESPONSE_FIND);
 
-    gtk_window_set_hide_on_close (*this, TRUE);
+    gtk_window_set_hide_on_close (GTK_WINDOW (dialog), TRUE);
 
-    priv->profile_component = new GnomeCmdSelectionProfileComponent(cfg.default_profile, priv->labels_size_group);
+    priv->profile_component = gnome_cmd_search_profile_component_new(&cfg->default_profile, priv->labels_size_group);
     gtk_grid_attach (GTK_GRID (priv->grid), GTK_WIDGET (priv->profile_component), 0, 1, 2, 1);
 
-    if (!defaults.name_patterns.empty())
-        priv->profile_component->set_name_patterns_history(defaults.name_patterns.ents);
+    if (!priv->defaults->name_patterns.empty())
+        gnome_cmd_search_profile_component_set_name_patterns_history (priv->profile_component, priv->defaults->name_patterns.ents);
 
-    priv->profile_component->set_content_patterns_history(defaults.content_patterns.ents);
+    gnome_cmd_search_profile_component_set_content_patterns_history (priv->profile_component, priv->defaults->content_patterns.ents);
 
-    priv->profile_component->set_default_activation(*this);
+    gnome_cmd_search_profile_component_set_default_activation (priv->profile_component, GTK_WINDOW (dialog));
 
-    g_signal_connect (this, "show", G_CALLBACK (Private::on_dialog_show), this);
-    g_signal_connect (this, "hide", G_CALLBACK (Private::on_dialog_hide), this);
-    g_signal_connect (this, "notify::default-width", G_CALLBACK (Private::on_dialog_size_allocate), this);
-    g_signal_connect (this, "notify::default-height", G_CALLBACK (Private::on_dialog_size_allocate), this);
-    g_signal_connect (this, "response", G_CALLBACK (Private::on_dialog_response), this);
-}
+    g_signal_connect (dialog, "show", G_CALLBACK (on_dialog_show), dialog);
+    g_signal_connect (dialog, "hide", G_CALLBACK (on_dialog_hide), dialog);
+    g_signal_connect (dialog, "notify::default-width", G_CALLBACK (on_dialog_size_allocate), dialog);
+    g_signal_connect (dialog, "notify::default-height", G_CALLBACK (on_dialog_size_allocate), dialog);
+    g_signal_connect (dialog, "response", G_CALLBACK (on_dialog_response), dialog);
 
-
-GnomeCmdSearchDialog::~GnomeCmdSearchDialog()
-{
+    return dialog;
 }

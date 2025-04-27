@@ -30,39 +30,17 @@
 #define GNOME_CMD_SELECTION_PROFILE_COMPONENT_GET_CLASS(obj)    (G_TYPE_INSTANCE_GET_CLASS((obj), GNOME_CMD_TYPE_SELECTION_PROFILE_COMPONENT, GnomeCmdSelectionProfileComponentClass))
 
 
-GType gnome_cmd_selection_profile_component_get_type ();
+extern "C" GType gnome_cmd_selection_profile_component_get_type ();
 
 
-struct GnomeCmdSelectionProfileComponent
-{
-    GtkBox parent;
-
-    struct Private;
-
-    Private *priv;
-
-    operator GtkWidget * () const       {  return GTK_WIDGET (this);  }
-
-    void *operator new (size_t size)    {  return g_object_new (GNOME_CMD_TYPE_SELECTION_PROFILE_COMPONENT, NULL);  }
-    void operator delete (void *p)      {  g_object_unref (p);  }
-
-    GnomeCmdData::SearchProfile &profile;
-
-    GnomeCmdSelectionProfileComponent(GnomeCmdData::SearchProfile &profile, GtkSizeGroup *labels_size_group);
-    ~GnomeCmdSelectionProfileComponent()    {}
-
-    void update();
-    void copy();                                        //  copies component to associated profile
-    void copy(GnomeCmdData::SearchProfile &profile);    //  copies component to specified profile
-    void set_focus();
-
-    void set_name_patterns_history(GList *history);
-    void set_content_patterns_history(GList *history);
-
-    void set_default_activation(GtkWindow *w);
-};
+struct GnomeCmdSelectionProfileComponent;
 
 
 extern "C" GnomeCmdSelectionProfileComponent *gnome_cmd_search_profile_component_new (GnomeCmdData::SearchProfile *profile, GtkSizeGroup *labels_size_group);
 extern "C" void gnome_cmd_search_profile_component_update (GnomeCmdSelectionProfileComponent *component);
 extern "C" void gnome_cmd_search_profile_component_copy (GnomeCmdSelectionProfileComponent *component);
+
+extern "C" void gnome_cmd_search_profile_component_set_focus (GnomeCmdSelectionProfileComponent *component);
+extern "C" void gnome_cmd_search_profile_component_set_name_patterns_history (GnomeCmdSelectionProfileComponent *component, GList *history);
+extern "C" void gnome_cmd_search_profile_component_set_content_patterns_history (GnomeCmdSelectionProfileComponent *component, GList *history);
+extern "C" void gnome_cmd_search_profile_component_set_default_activation (GnomeCmdSelectionProfileComponent *component, GtkWindow *w);

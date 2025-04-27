@@ -200,7 +200,7 @@ void GnomeCmdMainWin::update_style()
 
     if (auto file_search_dlg = static_cast<GnomeCmdSearchDialog*>(g_weak_ref_get (&priv->file_search_dlg)))
     {
-        file_search_dlg->update_style();
+        gnome_cmd_search_dialog_update_style (file_search_dlg);
         g_object_unref (file_search_dlg);
     }
 }
@@ -494,7 +494,7 @@ GnomeCmdSearchDialog *GnomeCmdMainWin::get_or_create_search_dialog ()
     auto dlg = static_cast<GnomeCmdSearchDialog*>(g_weak_ref_get (&priv->file_search_dlg));
     if (!dlg)
     {
-        dlg = new GnomeCmdSearchDialog(gnome_cmd_data.search_defaults);
+        dlg = gnome_cmd_search_dialog_new (&gnome_cmd_data.search_defaults);
         g_weak_ref_set (&priv->file_search_dlg, dlg);
     }
     return dlg;
