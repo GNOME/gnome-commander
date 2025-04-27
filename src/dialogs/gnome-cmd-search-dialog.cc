@@ -923,18 +923,6 @@ static void on_dialog_hide(GtkWidget *widget, GnomeCmdSearchDialog *dialog)
 }
 
 
-static void on_dialog_size_allocate(GObject *dialog, GParamSpec *pspec, gpointer user_data)
-{
-    auto priv = search_dialog_private (GNOME_CMD_SEARCH_DIALOG (dialog));
-
-    int width, height;
-    gtk_window_get_default_size (GTK_WINDOW (dialog), &width, &height);
-
-    priv->defaults->width  = width;
-    priv->defaults->height = height;
-}
-
-
 extern "C" void gnome_cmd_viewer_search_text_add_to_history(const gchar *value);
 
 
@@ -1231,7 +1219,6 @@ GnomeCmdSearchDialog *gnome_cmd_search_dialog_new (GnomeCmdData::SearchConfig *c
     auto priv = search_dialog_private (dialog);
     priv->defaults = cfg;
 
-    gtk_window_set_default_size (GTK_WINDOW (dialog), priv->defaults->width, priv->defaults->height);
     if (gnome_cmd_data.options.search_window_is_transient)
     {
         gtk_window_set_transient_for (GTK_WINDOW (dialog), *main_win);
@@ -1272,8 +1259,6 @@ GnomeCmdSearchDialog *gnome_cmd_search_dialog_new (GnomeCmdData::SearchConfig *c
 
     g_signal_connect (dialog, "show", G_CALLBACK (on_dialog_show), dialog);
     g_signal_connect (dialog, "hide", G_CALLBACK (on_dialog_hide), dialog);
-    g_signal_connect (dialog, "notify::default-width", G_CALLBACK (on_dialog_size_allocate), dialog);
-    g_signal_connect (dialog, "notify::default-height", G_CALLBACK (on_dialog_size_allocate), dialog);
     g_signal_connect (dialog, "response", G_CALLBACK (on_dialog_response), dialog);
 
     return dialog;

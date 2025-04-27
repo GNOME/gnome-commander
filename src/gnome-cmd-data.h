@@ -496,8 +496,6 @@ struct GnomeCmdData
 
     struct SearchConfig
     {
-        gint width, height;
-
         SearchProfile default_profile;
 
         History name_patterns;
@@ -506,8 +504,6 @@ struct GnomeCmdData
         std::vector<SearchProfile> &profiles;
 
         explicit SearchConfig(std::vector<SearchProfile> &searchProfiles):
-            width(600),
-            height(400),
             name_patterns(SEARCH_HISTORY_SIZE),
             content_patterns(SEARCH_HISTORY_SIZE),
             profiles(searchProfiles)

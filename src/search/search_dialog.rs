@@ -24,6 +24,7 @@ use crate::{
 use gettextrs::gettext;
 use gtk::{
     ffi::{GtkSizeGroup, GtkWidget},
+    gio,
     glib::{
         ffi::{gboolean, GType},
         translate::{from_glib_full, from_glib_none, IntoGlib, ToGlibPtr},
@@ -210,6 +211,7 @@ impl ProfileManager for SearchProfileManager {
 
 mod imp {
     use super::*;
+    use crate::data::GeneralOptions;
 
     #[derive(Default)]
     pub struct SearchDialog {}
@@ -233,6 +235,10 @@ mod imp {
             unsafe {
                 gnome_cmd_search_dialog_init(this.to_glib_none().0);
             }
+
+            let options = GeneralOptions::new();
+
+            remember_window_size(&*this, &options.0);
         }
 
         fn dispose(&self) {
@@ -302,4 +308,30 @@ pub extern "C" fn gnome_cmd_search_dialog_do_manage_profiles(
             }
         }
     });
+}
+
+fn remember_window_size(dialog: &SearchDialog, settings: &gio::Settings) {
+    settings
+        .bind("search-win-width", dialog, "default-width")
+        .mapping(|v, _| {
+            let width: i32 = v.get::<u32>()?.try_into().ok()?;
+            Some(width.to_value())
+        })
+        .set_mapping(|v, _| {
+            let width: u32 = v.get::<i32>().ok()?.try_into().ok()?;
+            Some(width.to_variant())
+        })
+        .build();
+
+    settings
+        .bind("search-win-height", dialog, "default-height")
+        .mapping(|v, _| {
+            let height: i32 = v.get::<u32>()?.try_into().ok()?;
+            Some(height.to_value())
+        })
+        .set_mapping(|v, _| {
+            let height: u32 = v.get::<i32>().ok()?.try_into().ok()?;
+            Some(height.to_variant())
+        })
+        .build();
 }
