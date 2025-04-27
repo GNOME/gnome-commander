@@ -132,4 +132,5 @@ static void gnome_cmd_con_home_init (GnomeCmdConHome *home_con)
     GnomeCmdDir *dir = gnome_cmd_dir_new (con, new GnomeCmdPlainPath(g_get_home_dir ()));
 
     gnome_cmd_con_set_default_dir (con, dir);
+    gnome_cmd_con_set_uri_string (con, "file:");
 }
