@@ -273,8 +273,6 @@ struct FavoriteAppVariant {
 }
 
 pub fn save_favorite_apps(apps: &[UserDefinedApp]) {
-    debug_assert_eq!(&*FavoriteAppVariant::static_variant_type(), "(ssssubbb)");
-
     let variant = apps
         .iter()
         .map(|app| FavoriteAppVariant {
@@ -300,8 +298,6 @@ pub fn save_favorite_apps(apps: &[UserDefinedApp]) {
 }
 
 pub fn load_favorite_apps() -> Vec<UserDefinedApp> {
-    debug_assert_eq!(&*FavoriteAppVariant::static_variant_type(), "(ssssubbb)");
-
     let variant = GeneralOptions::new().0.value("favorite-apps");
 
     Vec::<FavoriteAppVariant>::from_variant(&variant)
@@ -325,4 +321,14 @@ pub fn load_favorite_apps() -> Vec<UserDefinedApp> {
             requires_terminal: app.requires_terminal,
         })
         .collect()
+}
+
+#[cfg(test)]
+mod test {
+    use super::*;
+
+    #[test]
+    fn test_variant_type() {
+        assert_eq!(&*FavoriteAppVariant::static_variant_type(), "(ssssubbb)");
+    }
 }

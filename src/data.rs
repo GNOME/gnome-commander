@@ -101,7 +101,6 @@ impl GeneralOptionsRead for GeneralOptions {
     }
 
     fn file_list_tabs(&self) -> Vec<TabVariant> {
-        TabVariant::assert_variant_type();
         self.0.get("file-list-tabs")
     }
 
@@ -184,7 +183,6 @@ impl GeneralOptionsWrite for GeneralOptions {
     }
 
     fn set_file_list_tabs(&self, tabs: &[TabVariant]) {
-        TabVariant::assert_variant_type();
         self.0.set("file-list-tabs", tabs);
     }
 }

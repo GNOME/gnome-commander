@@ -480,10 +480,6 @@ pub struct TabVariant {
 }
 
 impl TabVariant {
-    pub fn assert_variant_type() {
-        debug_assert_eq!(*Self::static_variant_type(), "(syybb)");
-    }
-
     pub fn new(uri: impl Into<String>) -> Self {
         Self {
             uri: uri.into(),
@@ -688,4 +684,14 @@ pub extern "C" fn gnome_cmd_file_selector_forward(fs: *mut ffi::GnomeCmdFileSele
 pub extern "C" fn gnome_cmd_file_selector_back(fs: *mut ffi::GnomeCmdFileSelector) {
     let fs: Borrowed<FileSelector> = unsafe { from_glib_borrow(fs) };
     fs.back()
+}
+
+#[cfg(test)]
+mod test {
+    use super::*;
+
+    #[test]
+    fn test_variant_type() {
+        assert_eq!(*TabVariant::static_variant_type(), "(syybb)");
+    }
 }
