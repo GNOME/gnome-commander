@@ -67,6 +67,8 @@ struct GnomeCmdCon;
 
 extern "C" GnomeCmdDir *gnome_cmd_dir_new_from_gfileinfo (GFileInfo *gFileInfo, GnomeCmdDir *parent);
 extern "C" GnomeCmdDir *gnome_cmd_dir_new (GnomeCmdCon *con, GnomeCmdPath *path, gboolean isStartup = false);
+extern "C" GnomeCmdCon *gnome_cmd_dir_get_connection (GnomeCmdDir *dir);
+extern "C" gboolean gnome_cmd_dir_is_local (GnomeCmdDir *dir);
 
 extern "C" GnomeCmdPath *gnome_cmd_dir_get_path (GnomeCmdDir *dir);
 

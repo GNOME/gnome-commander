@@ -26,7 +26,6 @@
 static void gnome_cmd_file_descriptor_init (GnomeCmdFileDescriptorInterface *iface);
 extern "C" GFile *gnome_cmd_file_get_file (GnomeCmdFileDescriptor *fd);
 extern "C" GFileInfo *gnome_cmd_file_get_file_info (GnomeCmdFileDescriptor *fd);
-extern "C" GnomeCmdCon *file_get_connection (GnomeCmdFile *f);
 
 
 G_DEFINE_TYPE_WITH_CODE (GnomeCmdFile, gnome_cmd_file, G_TYPE_OBJECT,
@@ -47,16 +46,4 @@ static void gnome_cmd_file_init (GnomeCmdFile *f)
 
 static void gnome_cmd_file_class_init (GnomeCmdFileClass *klass)
 {
-    klass->get_connection = file_get_connection;
-}
-
-
-/***********************************
- * Public functions
- ***********************************/
-
-GnomeCmdCon *gnome_cmd_file_get_connection (GnomeCmdFile *f)
-{
-    GnomeCmdFileClass *klass = GNOME_CMD_FILE_GET_CLASS (f);
-    return klass->get_connection (f);
 }

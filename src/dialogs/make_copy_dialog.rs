@@ -23,7 +23,7 @@
 use crate::{
     connection::connection::ConnectionExt,
     dir::Directory,
-    file::{File, GnomeCmdFileExt},
+    file::File,
     libgcmd::file_descriptor::FileDescriptorExt,
     main_win::MainWindow,
     transfer::gnome_cmd_copy_gfiles,

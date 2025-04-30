@@ -50,7 +50,6 @@ use std::{
 
 pub mod ffi {
     use super::*;
-    use crate::connection::connection::ffi::GnomeCmdCon;
     use gtk::glib::ffi::GType;
 
     #[repr(C)]
@@ -62,7 +61,6 @@ pub mod ffi {
     extern "C" {
         pub fn gnome_cmd_file_get_type() -> GType;
 
-        pub fn gnome_cmd_file_get_connection(f: *mut GnomeCmdFile) -> *mut GnomeCmdCon;
     }
 
     #[derive(Copy, Clone)]
@@ -204,12 +202,22 @@ impl File {
         self.file().uri().into()
     }
 
-    pub fn is_local(&self) -> bool {
-        self.connection().is_local()
-    }
-
     pub fn parent_directory(&self) -> Option<Directory> {
         self.private().parent_dir.borrow().clone()
+    }
+
+    pub fn connection(&self) -> Connection {
+        if let Some(dir) = self.downcast_ref::<Directory>() {
+            dir.connection()
+        } else {
+            self.parent_directory()
+                .expect("File should always have a parent directory")
+                .connection()
+        }
+    }
+
+    pub fn is_local(&self) -> bool {
+        self.connection().is_local()
     }
 
     pub fn content_type(&self) -> Option<glib::GString> {
@@ -423,16 +431,6 @@ impl File {
         } else {
             false
         }
-    }
-}
-
-pub trait GnomeCmdFileExt {
-    fn connection(&self) -> Connection;
-}
-
-impl GnomeCmdFileExt for File {
-    fn connection(&self) -> Connection {
-        unsafe { from_glib_none(ffi::gnome_cmd_file_get_connection(self.to_glib_none().0)) }
     }
 }
 

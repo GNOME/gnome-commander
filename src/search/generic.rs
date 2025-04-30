@@ -19,13 +19,8 @@
 
 use super::{backend::SearchMessage, profile::SearchProfile};
 use crate::{
-    connection::connection::ConnectionExt,
-    dir::Directory,
-    dirlist::list_directory,
-    file::{File, GnomeCmdFileExt},
-    filter::Filter,
-    libgcmd::file_descriptor::FileDescriptorExt,
-    utils::ErrorMessage,
+    dir::Directory, dirlist::list_directory, file::File, filter::Filter,
+    libgcmd::file_descriptor::FileDescriptorExt, utils::ErrorMessage,
 };
 use gettextrs::gettext;
 use gtk::gio::{self, prelude::*};

@@ -195,7 +195,7 @@ mod imp {
         },
         data::{GeneralOptions, GeneralOptionsRead},
         dir::Directory,
-        file::{File, GnomeCmdFileExt},
+        file::File,
         file_list::list::FileList,
         intviewer::search_dialog::gnome_cmd_viewer_search_text_add_to_history,
         main_win::MainWindow,

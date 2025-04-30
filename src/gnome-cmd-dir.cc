@@ -45,7 +45,6 @@ G_DEFINE_TYPE (GnomeCmdDir, gnome_cmd_dir, GNOME_CMD_TYPE_FILE)
 static guint signals[LAST_SIGNAL] = { 0 };
 
 
-extern "C" GnomeCmdCon *dir_get_connection (GnomeCmdFile *dir);
 extern "C" void gnome_cmd_dir_on_dispose (GnomeCmdDir *dir);
 
 
@@ -137,8 +136,6 @@ static void gnome_cmd_dir_class_init (GnomeCmdDirClass *klass)
 
     object_class->dispose = gnome_cmd_dir_dispose;
 
-    GNOME_CMD_FILE_CLASS (klass)->get_connection = dir_get_connection;
-
     klass->file_created = nullptr;
     klass->file_deleted = nullptr;
     klass->file_changed = nullptr;
@@ -161,7 +158,7 @@ GnomeCmdDir *gnome_cmd_dir_new_from_gfileinfo (GFileInfo *gFileInfo, GnomeCmdDir
     g_return_val_if_fail (gFileInfo != nullptr, nullptr);
     g_return_val_if_fail (GNOME_CMD_IS_DIR (gnomeCmdDirParent), nullptr);
 
-    GnomeCmdCon *con = gnome_cmd_file_get_connection (GNOME_CMD_FILE (gnomeCmdDirParent));
+    GnomeCmdCon *con = gnome_cmd_dir_get_connection (gnomeCmdDirParent);
     auto dirName = g_file_info_get_name(gFileInfo);
 
     GFile *gFile = nullptr;
@@ -235,6 +232,13 @@ GnomeCmdDir *gnome_cmd_dir_new (GnomeCmdCon *con, GnomeCmdPath *path, gboolean i
 }
 
 
+gboolean gnome_cmd_dir_is_local (GnomeCmdDir *dir)
+{
+    GnomeCmdCon *con = gnome_cmd_dir_get_connection (dir);
+    return gnome_cmd_con_is_local (con);
+}
+
+
 /**
  * @brief Get the relative directory path string for the given base path
  *
@@ -288,7 +292,7 @@ static gchar *gnome_cmd_dir_get_mount_uri(GnomeCmdCon *con)
  */
 GFile *gnome_cmd_dir_get_gfile_for_con_and_filename(GnomeCmdDir *dir, const gchar *filename)
 {
-    auto con = dir_get_connection (GNOME_CMD_FILE (dir));
+    auto con = gnome_cmd_dir_get_connection (dir);
 
     auto conUri = gnome_cmd_con_get_uri(con);
     if (!conUri) // is usually set for a remote connection
@@ -341,7 +345,7 @@ GFile *gnome_cmd_dir_get_gfile_for_con_and_filename(GnomeCmdDir *dir, const gcha
 GFile *gnome_cmd_dir_get_child_gfile (GnomeCmdDir *dir, const gchar *filename)
 {
     g_return_val_if_fail (GNOME_CMD_IS_DIR (dir), nullptr);
-    auto con = dir_get_connection (GNOME_CMD_FILE (dir));
+    auto con = gnome_cmd_dir_get_connection (dir);
 
     GFile *gFile = gnome_cmd_dir_get_gfile_for_con_and_filename(dir, filename);
 

@@ -29,7 +29,7 @@ use crate::{
     },
     data::ProgramsOptions,
     dir::Directory,
-    file::{File, GnomeCmdFileExt},
+    file::File,
     file_list::list::{ColumnID, FileList},
     libgcmd::file_descriptor::FileDescriptorExt,
     notebook_ext::{GnomeCmdNotebookExt, TabClick},

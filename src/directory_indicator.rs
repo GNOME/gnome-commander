@@ -151,7 +151,7 @@ mod imp {
                 let as_file = dir.upcast_ref::<File>();
 
                 let mut host = None;
-                if !as_file.is_local() {
+                if !dir.is_local() {
                     // show host in dir indicator if we are not on a local connection
                     let uri = as_file.file().uri();
                     match glib::Uri::parse(&uri, glib::UriFlags::NONE) {

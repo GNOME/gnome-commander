@@ -26,7 +26,7 @@ use crate::{
     },
     data::{GeneralOptions, GeneralOptionsWrite},
     dir::Directory,
-    file::{File, GnomeCmdFileExt},
+    file::File,
     shortcuts::Shortcuts,
     utils::{bold, ErrorMessage},
 };
@@ -590,7 +590,7 @@ pub async fn bookmark_directory(
         let con = if is_local {
             connection_list.home().upcast()
         } else {
-            file.connection()
+            dir.connection()
         };
         con.add_bookmark(&changed_bookmark);
 

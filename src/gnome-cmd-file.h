@@ -52,10 +52,6 @@ struct GnomeCmdFile
 struct GnomeCmdFileClass
 {
     GObjectClass parent_class;
-
-    /* virtual functions */
-    GnomeCmdCon *(* get_connection) (GnomeCmdFile *f);
 };
 
 
-extern "C" GnomeCmdCon *gnome_cmd_file_get_connection (GnomeCmdFile *f);

@@ -24,7 +24,7 @@ use crate::{
     connection::connection::{ffi::GnomeCmdCon, Connection, ConnectionExt},
     debug::debug,
     dirlist::list_directory,
-    file::{ffi::GnomeCmdFile, File, GnomeCmdFileExt},
+    file::{ffi::GnomeCmdFile, File},
     libgcmd::file_descriptor::{FileDescriptor, FileDescriptorExt},
     path::GnomeCmdPath,
     utils::ErrorMessage,
@@ -226,6 +226,14 @@ impl Directory {
         }
     }
 
+    pub fn connection(&self) -> Connection {
+        self.private().connection.clone().unwrap()
+    }
+
+    pub fn is_local(&self) -> bool {
+        self.connection().is_local()
+    }
+
     pub fn parent(&self) -> Option<Directory> {
         if let Some(path) = self.path().parent() {
             Some(Directory::new(&self.connection(), path))
@@ -308,7 +316,7 @@ impl Directory {
     ) -> Result<(), ErrorMessage> {
         visual &= self.connection().needs_list_visprog();
         let files = self.files();
-        if files.n_items() == 0 || self.upcast_ref::<File>().is_local() {
+        if files.n_items() == 0 || self.is_local() {
             self.relist_files(parent_window, visual).await
         } else {
             self.emit_by_name::<()>("list-ok", &[]);
@@ -611,12 +619,11 @@ pub extern "C" fn gnome_cmd_dir_find_or_create(
 }
 
 #[no_mangle]
-pub extern "C" fn dir_get_connection(file: *mut GnomeCmdFile) -> *mut GnomeCmdCon {
+pub extern "C" fn gnome_cmd_dir_get_connection(file: *mut GnomeCmdFile) -> *mut GnomeCmdCon {
     let file: Borrowed<File> = unsafe { from_glib_borrow(file) };
     file.downcast_ref::<Directory>()
         .unwrap()
-        .private()
-        .connection
+        .connection()
         .to_glib_none()
         .0
 }
@@ -634,10 +641,4 @@ pub extern "C" fn gnome_cmd_dir_get_path(dir: *mut ffi::GnomeCmdDir) -> *mut Gno
 pub extern "C" fn gnome_cmd_dir_on_dispose(dir: *mut ffi::GnomeCmdDir) {
     let dir: Borrowed<Directory> = unsafe { from_glib_borrow(dir) };
     dir.on_dispose();
-}
-
-impl GnomeCmdFileExt for Directory {
-    fn connection(&self) -> Connection {
-        self.upcast_ref::<File>().connection()
-    }
 }

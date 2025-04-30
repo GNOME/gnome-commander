@@ -29,7 +29,7 @@ use crate::{
     },
     data::{GeneralOptions, GeneralOptionsRead, GeneralOptionsWrite, SearchConfig, WriteResult},
     dir::Directory,
-    file::{File, GnomeCmdFileExt},
+    file::File,
     file_list::list::FileList,
     file_selector::{FileSelector, TabVariant},
     libgcmd::{

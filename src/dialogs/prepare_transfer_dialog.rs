@@ -24,7 +24,7 @@ use crate::{
         list::ConnectionList,
     },
     dir::Directory,
-    file::{File, GnomeCmdFileExt},
+    file::File,
     file_selector::FileSelector,
     utils::{bold, pending, ErrorMessage},
 };
