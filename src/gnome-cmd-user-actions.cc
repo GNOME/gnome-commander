@@ -158,8 +158,6 @@ GNOME_CMD_USER_ACTION_TGL(view_devlist);
 GNOME_CMD_USER_ACTION_TGL(view_buttonbar);
 GNOME_CMD_USER_ACTION_TGL(view_cmdline);
 GNOME_CMD_USER_ACTION(view_dir_history);
-GNOME_CMD_USER_ACTION_TGL(view_hidden_files);
-GNOME_CMD_USER_ACTION_TGL(view_backup_files);
 GNOME_CMD_USER_ACTION(view_in_left_pane);
 GNOME_CMD_USER_ACTION(view_in_right_pane);
 GNOME_CMD_USER_ACTION(view_in_active_pane);
@@ -401,30 +399,6 @@ void view_dir_history (GSimpleAction *action, GVariant *parameter, gpointer user
     auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
 
     gnome_cmd_dir_indicator_show_history (GNOME_CMD_DIR_INDICATOR (main_win->fs (ACTIVE)->dir_indicator));
-}
-
-
-void view_hidden_files (GSimpleAction *action, GVariant *state, gpointer user_data)
-{
-    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
-
-    auto active = g_variant_get_boolean (state);
-    g_simple_action_set_state (action, state);
-
-    if (gtk_widget_get_realized (GTK_WIDGET (main_win)))
-        g_settings_set_boolean (settings->filter, GCMD_SETTINGS_FILTER_HIDE_HIDDEN, !active);
-}
-
-
-void view_backup_files (GSimpleAction *action, GVariant *state, gpointer user_data)
-{
-    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
-
-    auto active = g_variant_get_boolean (state);
-    g_simple_action_set_state (action, state);
-
-    if (gtk_widget_get_realized (GTK_WIDGET (main_win)))
-        g_settings_set_boolean (settings->filter, GCMD_SETTINGS_FILTER_HIDE_BACKUPS, !active);
 }
 
 

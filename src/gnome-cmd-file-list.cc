@@ -123,6 +123,7 @@ extern "C" GnomeCmdColorTheme *gnome_cmd_get_current_theme();
 extern "C" void gnome_cmd_theme_free(GnomeCmdColorTheme *);
 extern "C" GdkRGBA *gnome_cmd_color_get_color(GnomeCmdColorTheme *, GnomeCmdColorThemeItem);
 
+extern "C" gboolean gnome_cmd_file_is_wanted(GnomeCmdFile *f);
 
 struct LsColorsPalette;
 extern "C" LsColorsPalette *gnome_cmd_get_palette();
@@ -1532,7 +1533,7 @@ gboolean GnomeCmdFileList::insert_file(GnomeCmdFile *f)
 {
     auto priv = file_list_priv (this);
 
-    if (!file_is_wanted(f))
+    if (!gnome_cmd_file_is_wanted(f))
         return FALSE;
 
     GtkTreeIter next_iter;
@@ -1575,7 +1576,7 @@ void GnomeCmdFileList::show_files(GnomeCmdDir *dir)
     {
         GnomeCmdFile *f = GNOME_CMD_FILE (i->data);
 
-        if (file_is_wanted (f))
+        if (gnome_cmd_file_is_wanted (f))
             files = g_list_append (files, f);
     }
 
@@ -2448,61 +2449,6 @@ void GnomeCmdFileList::update_style()
     pango_font_description_free (font_desc);
 
     gtk_widget_queue_draw (*this);
-}
-
-
-gboolean GnomeCmdFileList::file_is_wanted(GnomeCmdFile *gnomeCmdFile)
-{
-    g_return_val_if_fail (gnomeCmdFile != nullptr, FALSE);
-    g_return_val_if_fail (gnomeCmdFile->get_file() != nullptr, FALSE);
-
-    GError *error = nullptr;
-
-    auto gFileInfo = g_file_query_info(gnomeCmdFile->get_file(),
-                                   "standard::*",
-                                   G_FILE_QUERY_INFO_NOFOLLOW_SYMLINKS,
-                                   nullptr,
-                                   &error);
-    if (error)
-    {
-        auto uri = g_file_get_uri(gnomeCmdFile->get_file());
-        g_message ("file_is_wanted: retrieving file info for %s failed: %s", uri, error->message);
-        g_free(uri);
-        g_error_free (error);
-        return TRUE;
-    }
-
-    auto gFileType       = g_file_info_get_attribute_uint32(gFileInfo, G_FILE_ATTRIBUTE_STANDARD_TYPE);
-    auto gFileIsHidden   = g_file_info_get_attribute_boolean(gFileInfo, G_FILE_ATTRIBUTE_STANDARD_IS_HIDDEN);
-    auto gFileIsSymLink  = g_file_info_get_attribute_boolean(gFileInfo, G_FILE_ATTRIBUTE_STANDARD_IS_SYMLINK);
-    auto gFileIsVirtual  = g_file_info_get_attribute_boolean(gFileInfo, G_FILE_ATTRIBUTE_STANDARD_IS_VIRTUAL);
-    auto gFileIsVolatile = g_file_info_get_attribute_boolean(gFileInfo, G_FILE_ATTRIBUTE_STANDARD_IS_VOLATILE);
-
-    auto returnValue = TRUE;
-
-    auto fileNameString = g_file_get_basename(gnomeCmdFile->get_file());
-
-    if (strcmp ((const char*) fileNameString, ".") == 0)
-        returnValue = FALSE;
-    if (gnome_cmd_file_is_dotdot (gnomeCmdFile))
-        returnValue = FALSE;
-    if (gnome_cmd_data.options.filter.file_types[gFileType])
-        returnValue = FALSE;
-    if (gFileIsSymLink && gnome_cmd_data.options.filter.file_types[GnomeCmdData::GcmdFileType::G_FILE_IS_SYMLINK])
-        returnValue = FALSE;
-    if (gFileIsHidden && gnome_cmd_data.options.filter.file_types[GnomeCmdData::GcmdFileType::G_FILE_IS_HIDDEN])
-        returnValue = FALSE;
-    if (gFileIsVirtual && gnome_cmd_data.options.filter.file_types[GnomeCmdData::GcmdFileType::G_FILE_IS_VIRTUAL])
-        returnValue = FALSE;
-    if (gFileIsVolatile && gnome_cmd_data.options.filter.file_types[GnomeCmdData::GcmdFileType::G_FILE_IS_VOLATILE])
-        returnValue = FALSE;
-    if (gnome_cmd_data.options.filter.file_types[GnomeCmdData::GcmdFileType::G_FILE_IS_BACKUP]
-        && patlist_matches (gnome_cmd_data.options.backup_pattern_list, fileNameString))
-        returnValue = FALSE;
-
-    g_free(fileNameString);
-
-    return returnValue;
 }
 
 
