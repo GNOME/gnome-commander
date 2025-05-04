@@ -44,5 +44,3 @@ struct GnomeCmdConHomeClass
 
 
 extern "C" GType gnome_cmd_con_home_get_type ();
-
-GnomeCmdCon *gnome_cmd_con_home_new ();

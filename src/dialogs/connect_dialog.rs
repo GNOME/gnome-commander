@@ -23,7 +23,6 @@
 use crate::connection::{
     connection::ConnectionExt,
     remote::{ConnectionMethodID, ConnectionRemote},
-    smb::ConnectionSmb,
 };
 use gettextrs::gettext;
 use gtk::{gio, glib, prelude::*, subclass::prelude::*};
@@ -77,8 +76,8 @@ mod imp {
         pub port_entry: gtk::Entry,
         pub folder_entry: gtk::Entry,
         pub domain_entry: gtk::Entry,
-        sender: async_channel::Sender<Option<(ConnectionMethodID, glib::Uri)>>,
-        pub receiver: async_channel::Receiver<Option<(ConnectionMethodID, glib::Uri)>>,
+        sender: async_channel::Sender<Option<glib::Uri>>,
+        pub receiver: async_channel::Receiver<Option<glib::Uri>>,
     }
 
     #[glib::object_subclass]
@@ -321,7 +320,7 @@ mod imp {
             }
         }
 
-        pub fn get_connection_uri(&self) -> Result<(ConnectionMethodID, glib::Uri), ErrorMessage> {
+        pub fn get_connection_uri(&self) -> Result<glib::Uri, ErrorMessage> {
             let method = self.get_method().ok_or_else(|| ErrorMessage {
                 message: gettext("Connection method is not selected"),
                 secondary_text: None,
@@ -397,7 +396,7 @@ mod imp {
                     })
                 }
             };
-            Ok((method, uri))
+            Ok(uri)
         }
 
         async fn ok_clicked(&self) {
@@ -465,14 +464,7 @@ impl ConnectDialog {
         dialog.present();
         let response = dialog.imp().receiver.recv().await;
         let connection: Option<ConnectionRemote> = match response {
-            Ok(Some((ConnectionMethodID::CON_SMB, uri))) => {
-                let alias = dialog.imp().alias_entry.text();
-                let con = ConnectionSmb::default();
-                con.set_alias(Some(&alias));
-                con.set_uri(Some(&uri));
-                Some(con.upcast())
-            }
-            Ok(Some((_, uri))) => {
+            Ok(Some(uri)) => {
                 let alias = dialog.imp().alias_entry.text();
                 let con = ConnectionRemote::new(&alias, &uri);
                 Some(con)
@@ -503,7 +495,7 @@ impl ConnectDialog {
         let mut result = false;
 
         let response = dialog.imp().receiver.recv().await;
-        if let Ok(Some((_, uri))) = response {
+        if let Ok(Some(uri)) = response {
             let alias = dialog.imp().alias_entry.text();
             con.set_alias(Some(&alias));
             con.set_uri(Some(&uri));
