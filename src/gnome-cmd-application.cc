@@ -77,6 +77,10 @@ static void gnome_cmd_application_startup(GApplication *application)
     if (debug_flags && strchr(debug_flags,'a'))
         debug_flags = g_strdup("cdfgiklmnpstuvwyzx");
 
+    // set prgname to app ID, needed for Wayland
+    g_set_prgname ("org.gnome.gnome-commander");
+    g_set_application_name (_("GNOME Commander"));
+
     // disable beeping for the application
     g_object_set (gtk_settings_get_default (), "gtk-error-bell", FALSE, NULL);
 
