@@ -568,7 +568,8 @@ void view_toggle_tab_lock (GSimpleAction *action, GVariant *parameter, gpointer 
 
     if (fl)
     {
-        fl->locked = !fl->locked;
+        gboolean locked = gnome_cmd_file_selector_is_tab_locked (fs, fl);
+        gnome_cmd_file_selector_set_tab_locked (fs, fl, !locked);
         fs->update_tab_label(fl);
     }
 }

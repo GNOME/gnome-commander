@@ -60,7 +60,13 @@ struct GnomeCmdDirPrivate
 };
 
 
-G_DEFINE_TYPE (GnomeCmdDir, gnome_cmd_dir, GNOME_CMD_TYPE_FILE)
+G_DEFINE_TYPE_WITH_PRIVATE (GnomeCmdDir, gnome_cmd_dir, GNOME_CMD_TYPE_FILE)
+
+
+static GnomeCmdDirPrivate *dir_private(GnomeCmdDir *dir)
+{
+    return (GnomeCmdDirPrivate *) gnome_cmd_dir_get_instance_private (dir);
+}
 
 
 static guint signals[LAST_SIGNAL] = { 0 };
@@ -108,17 +114,18 @@ static void monitor_callback (GFileMonitor *gFileMonitor, GFile *gFile, GFile *o
 
 static void gnome_cmd_dir_init (GnomeCmdDir *dir)
 {
-    dir->priv = g_new0 (GnomeCmdDirPrivate, 1);
-    dir->priv->state = GnomeCmdDir::STATE_EMPTY;
-    dir->priv->file_collection = new GnomeCmdFileCollection;
+    auto priv = dir_private (dir);
+    priv->state = GnomeCmdDir::STATE_EMPTY;
+    priv->file_collection = new GnomeCmdFileCollection;
 }
 
 
 static void gnome_cmd_dir_dispose (GObject *object)
 {
     GnomeCmdDir *dir = GNOME_CMD_DIR (object);
+    auto priv = dir_private (dir);
 
-    dir->priv->file_collection->clear();
+    priv->file_collection->clear();
 
     G_OBJECT_CLASS (gnome_cmd_dir_parent_class)->dispose (object);
 }
@@ -127,13 +134,12 @@ static void gnome_cmd_dir_dispose (GObject *object)
 static void gnome_cmd_dir_finalize (GObject *object)
 {
     GnomeCmdDir *dir = GNOME_CMD_DIR (object);
+    auto priv = dir_private (dir);
 
-    gnome_cmd_con_remove_from_cache (dir->priv->con, dir);
+    gnome_cmd_con_remove_from_cache (priv->con, dir);
 
-    delete dir->priv->file_collection;
-    delete dir->priv->path;
-
-    g_free (dir->priv);
+    delete priv->file_collection;
+    delete priv->path;
 
     G_OBJECT_CLASS (gnome_cmd_dir_parent_class)->finalize (object);
 }
@@ -275,6 +281,7 @@ GnomeCmdDir *gnome_cmd_dir_new_from_gfileinfo (GFileInfo *gFileInfo, GnomeCmdDir
     }
 
     gnomeCmdDir = static_cast<GnomeCmdDir*> (g_object_new (GNOME_CMD_TYPE_DIR, nullptr));
+    auto priv = dir_private (gnomeCmdDir);
     GError *error = nullptr;
     if(!gnome_cmd_file_setup(G_OBJECT (gnomeCmdDir), gFile, &error))
     {
@@ -284,9 +291,9 @@ GnomeCmdDir *gnome_cmd_dir_new_from_gfileinfo (GFileInfo *gFileInfo, GnomeCmdDir
         g_object_unref(gnomeCmdDir);
         return nullptr;
     }
-    gnomeCmdDir->priv->con = con;
+    priv->con = con;
     gnome_cmd_dir_set_path (gnomeCmdDir, dirPath);
-    gnomeCmdDir->priv->needs_mtime_update = FALSE;
+    priv->needs_mtime_update = FALSE;
 
     gnome_cmd_con_add_to_cache (con, gnomeCmdDir, uriString);
 
@@ -317,7 +324,8 @@ GnomeCmdDir *gnome_cmd_dir_new_with_con (GnomeCmdCon *con)
 
     dir = static_cast<GnomeCmdDir*> (g_object_new (GNOME_CMD_TYPE_DIR, nullptr));
     gnome_cmd_dir_set_path (dir, gnome_cmd_con_get_base_path (con)->clone());
-    dir->priv->con = con;
+    auto priv = dir_private (dir);
+    priv->con = con;
     GError *error = nullptr;
     if (!gnome_cmd_file_setup (G_OBJECT(dir), gFile, &error))
     {
@@ -328,7 +336,7 @@ GnomeCmdDir *gnome_cmd_dir_new_with_con (GnomeCmdCon *con)
         g_object_unref(dir);
         return nullptr;
     }
-    dir->priv->needs_mtime_update = FALSE;
+    priv->needs_mtime_update = FALSE;
     gnome_cmd_con_add_to_cache (con, dir, uriString);
     return dir;
 }
@@ -357,6 +365,7 @@ GnomeCmdDir *gnome_cmd_dir_new (GnomeCmdCon *con, GnomeCmdPath *path, gboolean i
     }
 
     gnomeCmdDir = static_cast<GnomeCmdDir*> (g_object_new (GNOME_CMD_TYPE_DIR, nullptr));
+    auto priv = dir_private (gnomeCmdDir);
     if (!gnome_cmd_file_setup (G_OBJECT (gnomeCmdDir), gFile, &error))
     {
         if (error && !isStartup)
@@ -368,8 +377,8 @@ GnomeCmdDir *gnome_cmd_dir_new (GnomeCmdCon *con, GnomeCmdPath *path, gboolean i
         return nullptr;
     }
     gnome_cmd_dir_set_path (gnomeCmdDir, path);
-    gnomeCmdDir->priv->con = con;
-    gnomeCmdDir->priv->needs_mtime_update = FALSE;
+    priv->con = con;
+    priv->needs_mtime_update = FALSE;
     gnome_cmd_con_add_to_cache (con, gnomeCmdDir, uriString);
 
     return gnomeCmdDir;
@@ -379,26 +388,29 @@ GnomeCmdDir *gnome_cmd_dir_new (GnomeCmdCon *con, GnomeCmdPath *path, gboolean i
 GnomeCmdDir *gnome_cmd_dir_get_parent (GnomeCmdDir *dir)
 {
     g_return_val_if_fail (GNOME_CMD_IS_DIR (dir), nullptr);
+    auto priv = dir_private (dir);
 
-    GnomeCmdPath *path = dir->priv->path->get_parent();
+    GnomeCmdPath *path = priv->path->get_parent();
 
-    return path ? gnome_cmd_dir_new (dir->priv->con, path) : nullptr;
+    return path ? gnome_cmd_dir_new (priv->con, path) : nullptr;
 }
 
 
 GnomeCmdDir *gnome_cmd_dir_get_child (GnomeCmdDir *dir, const gchar *child)
 {
     g_return_val_if_fail (GNOME_CMD_IS_DIR (dir), nullptr);
+    auto priv = dir_private (dir);
 
-    GnomeCmdPath *path = dir->priv->path->get_child(child);
+    GnomeCmdPath *path = priv->path->get_child(child);
 
-    return path ? gnome_cmd_dir_new (dir->priv->con, path) : nullptr;
+    return path ? gnome_cmd_dir_new (priv->con, path) : nullptr;
 }
 
 
 static GnomeCmdCon *dir_get_connection (GnomeCmdFile *dir)
 {
-    return GNOME_CMD_DIR (dir)->priv->con;
+    auto priv = dir_private (GNOME_CMD_DIR (dir));
+    return priv->con;
 }
 
 
@@ -411,48 +423,55 @@ void gnome_cmd_dir_unref (GnomeCmdDir *dir)
 GList *gnome_cmd_dir_get_files (GnomeCmdDir *dir)
 {
     g_return_val_if_fail (GNOME_CMD_IS_DIR (dir), nullptr);
+    auto priv = dir_private (dir);
 
-    return dir->priv->files;
+    return priv->files;
 }
 
 
 GnomeCmdDir::State gnome_cmd_dir_get_state (GnomeCmdDir *dir)
 {
-    return dir->priv->state;
+    auto priv = dir_private (dir);
+    return priv->state;
 }
 
 
 extern "C" void gnome_cmd_dir_set_state (GnomeCmdDir *dir, gint state)
 {
-    dir->priv->state = (GnomeCmdDir::State) state;
+    auto priv = dir_private (dir);
+    priv->state = (GnomeCmdDir::State) state;
 }
 
 
 extern "C" void gnome_cmd_dir_set_files (GnomeCmdDir *dir, GList *files)
 {
-    if (!dir->priv->file_collection->empty())
-        dir->priv->file_collection->clear();
+    auto priv = dir_private (dir);
 
-    dir->priv->files = files;
-    dir->priv->file_collection->add(dir->priv->files);
+    if (!priv->file_collection->empty())
+        priv->file_collection->clear();
+
+    priv->files = files;
+    priv->file_collection->add(priv->files);
 }
 
 
 GnomeCmdPath *gnome_cmd_dir_get_path (GnomeCmdDir *dir)
 {
     g_return_val_if_fail (GNOME_CMD_IS_DIR (dir), nullptr);
+    auto priv = dir_private (dir);
 
-    return dir->priv->path;
+    return priv->path;
 }
 
 
 static void gnome_cmd_dir_set_path (GnomeCmdDir *dir, GnomeCmdPath *path)
 {
     g_return_if_fail (GNOME_CMD_IS_DIR (dir));
+    auto priv = dir_private (dir);
 
-    delete dir->priv->path;
+    delete priv->path;
 
-    dir->priv->path = path;
+    priv->path = path;
 }
 
 
@@ -473,8 +492,9 @@ void gnome_cmd_dir_update_path (GnomeCmdDir *dir)
 gchar *gnome_cmd_dir_get_display_path (GnomeCmdDir *dir)
 {
     g_return_val_if_fail (GNOME_CMD_IS_DIR (dir), nullptr);
+    auto priv = dir_private (dir);
 
-    return g_strdup (dir->priv->path->get_display_path());
+    return g_strdup (priv->path->get_display_path());
 }
 
 
@@ -562,14 +582,16 @@ static gchar *gnome_cmd_dir_get_mount_uri(GnomeCmdCon *con)
  */
 GFile *gnome_cmd_dir_get_gfile_for_con_and_filename(GnomeCmdDir *dir, const gchar *filename)
 {
-    auto conUri = gnome_cmd_con_get_uri(dir->priv->con);
+    auto priv = dir_private (dir);
+
+    auto conUri = gnome_cmd_con_get_uri(priv->con);
     if (!conUri) // is usually set for a remote connection
     {
         return nullptr;
     }
 
     // Get the Uri for the mount which belongs to the GnomeCmdCon object
-    auto mountUri = gnome_cmd_dir_get_mount_uri(dir->priv->con);
+    auto mountUri = gnome_cmd_dir_get_mount_uri(priv->con);
 
     // Always let the connection URI to end with '/' because the last entry should be a directory
     auto conLastCharacter = mountUri[strlen(mountUri)-1];
@@ -610,6 +632,7 @@ GFile *gnome_cmd_dir_get_gfile_for_con_and_filename(GnomeCmdDir *dir, const gcha
 GFile *gnome_cmd_dir_get_child_gfile (GnomeCmdDir *dir, const gchar *filename)
 {
     g_return_val_if_fail (GNOME_CMD_IS_DIR (dir), nullptr);
+    auto priv = dir_private (dir);
 
     GFile *gFile = gnome_cmd_dir_get_gfile_for_con_and_filename(dir, filename);
 
@@ -618,13 +641,13 @@ GFile *gnome_cmd_dir_get_child_gfile (GnomeCmdDir *dir, const gchar *filename)
         return gFile;
     }
 
-    GnomeCmdPath *path = dir->priv->path->get_child(filename);
+    GnomeCmdPath *path = priv->path->get_child(filename);
     if (!path)
     {
         return nullptr;
     }
 
-    gFile = gnome_cmd_con_create_gfile (dir->priv->con, path->get_path());
+    gFile = gnome_cmd_con_create_gfile (priv->con, path->get_path());
     delete path;
 
     return gFile;
@@ -634,6 +657,7 @@ GFile *gnome_cmd_dir_get_child_gfile (GnomeCmdDir *dir, const gchar *filename)
 GFile *gnome_cmd_dir_get_absolute_path_gfile (GnomeCmdDir *dir, string absolute_filename)
 {
     g_return_val_if_fail (GNOME_CMD_IS_DIR (dir), nullptr);
+    auto priv = dir_private (dir);
 
     // include workgroups and shares for smb uris
     GFile *dir_gFile = gnome_cmd_dir_get_gfile (dir);
@@ -660,8 +684,8 @@ GFile *gnome_cmd_dir_get_absolute_path_gfile (GnomeCmdDir *dir, string absolute_
 
     g_free(uriScheme);
 
-    GnomeCmdPath *path = gnome_cmd_con_create_path (dir->priv->con, absolute_filename.c_str());
-    auto gFile = gnome_cmd_con_create_gfile (dir->priv->con, path->get_path());
+    GnomeCmdPath *path = gnome_cmd_con_create_path (priv->con, absolute_filename.c_str());
+    auto gFile = gnome_cmd_con_create_gfile (priv->con, path->get_path());
 
     delete path;
 
@@ -673,8 +697,9 @@ inline gboolean file_already_exists (GnomeCmdDir *dir, const gchar *uri_str)
 {
     g_return_val_if_fail (GNOME_CMD_IS_DIR (dir), TRUE);
     g_return_val_if_fail (uri_str != nullptr, TRUE);
+    auto priv = dir_private (dir);
 
-    return dir->priv->file_collection->find(uri_str) != nullptr;
+    return priv->file_collection->find(uri_str) != nullptr;
 }
 
 
@@ -683,6 +708,8 @@ void gnome_cmd_dir_file_created (GnomeCmdDir *dir, const gchar *newDirUriStr)
 {
     g_return_if_fail (GNOME_CMD_IS_DIR (dir));
     g_return_if_fail (newDirUriStr != nullptr);
+    auto priv = dir_private (dir);
+
     GError *error = nullptr;
 
     if (file_already_exists (dir, newDirUriStr))
@@ -708,10 +735,10 @@ void gnome_cmd_dir_file_created (GnomeCmdDir *dir, const gchar *newDirUriStr)
         return;
     }
 
-    dir->priv->file_collection->add(f);
-    dir->priv->files = dir->priv->file_collection->get_list();
+    priv->file_collection->add(f);
+    priv->files = priv->file_collection->get_list();
 
-    dir->priv->needs_mtime_update = TRUE;
+    priv->needs_mtime_update = TRUE;
 
     g_signal_emit (dir, signals[FILE_CREATED], 0, f);
 }
@@ -723,6 +750,8 @@ void gnome_cmd_dir_file_created (GnomeCmdDir *dir, const gchar *newDirUriStr)
  */
 GnomeCmdDir *gnome_cmd_dir_get_existing_parent(GnomeCmdDir *dir)
 {
+    auto priv = dir_private (dir);
+
     auto parentDir = gnome_cmd_dir_get_parent(dir);
     gchar *parentDirUri = nullptr;
     GFile *gFileParent = nullptr;
@@ -739,7 +768,7 @@ GnomeCmdDir *gnome_cmd_dir_get_existing_parent(GnomeCmdDir *dir)
         }
         else
         {
-            gnome_cmd_con_remove_from_cache (dir->priv->con, parentDir);
+            gnome_cmd_con_remove_from_cache (priv->con, parentDir);
             parentDir = gnome_cmd_dir_get_parent(parentDir);
         }
         g_object_unref(gFileParent);
@@ -756,10 +785,12 @@ GnomeCmdDir *gnome_cmd_dir_get_existing_parent(GnomeCmdDir *dir)
  */
 void gnome_cmd_dir_update_file_selector(GnomeCmdDir *dir, const gchar *deletedDirUriString)
 {
+    auto priv = dir_private (dir);
+
     auto dirUriSting = gnome_cmd_dir_get_uri_str(dir);
     if (!g_strcmp0(deletedDirUriString, dirUriSting))
     {
-        gnome_cmd_con_remove_from_cache (dir->priv->con, dir);
+        gnome_cmd_con_remove_from_cache (priv->con, dir);
         g_signal_emit (dir, signals[DIR_DELETED], 0);
     }
     g_free(dirUriSting);
@@ -771,20 +802,21 @@ void gnome_cmd_dir_file_deleted (GnomeCmdDir *dir, const gchar *deletedDirUriStr
 {
     g_return_if_fail (GNOME_CMD_IS_DIR (dir));
     g_return_if_fail (deletedDirUriString != nullptr);
+    auto priv = dir_private (dir);
 
     gnome_cmd_dir_update_file_selector(dir, deletedDirUriString);
 
-    GnomeCmdFile *f = dir->priv->file_collection->find(deletedDirUriString);
+    GnomeCmdFile *f = priv->file_collection->find(deletedDirUriString);
 
     if (!GNOME_CMD_IS_FILE (f))
         return;
 
-    dir->priv->needs_mtime_update = TRUE;
+    priv->needs_mtime_update = TRUE;
 
     g_signal_emit (dir, signals[FILE_DELETED], 0, f);
 
-    dir->priv->file_collection->remove(deletedDirUriString);
-    dir->priv->files = dir->priv->file_collection->get_list();
+    priv->file_collection->remove(deletedDirUriString);
+    priv->files = priv->file_collection->get_list();
 }
 
 
@@ -793,15 +825,16 @@ void gnome_cmd_dir_file_changed (GnomeCmdDir *dir, const gchar *uri_str)
 {
     g_return_if_fail (GNOME_CMD_IS_DIR (dir));
     g_return_if_fail (uri_str != nullptr);
+    auto priv = dir_private (dir);
 
-    GnomeCmdFile *f = dir->priv->file_collection->find(uri_str);
+    GnomeCmdFile *f = priv->file_collection->find(uri_str);
 
     if (f == nullptr)
     {
         return;
     }
 
-    dir->priv->needs_mtime_update = TRUE;
+    priv->needs_mtime_update = TRUE;
 
     auto gFileInfo = g_file_query_info(f->get_file(), "*", G_FILE_QUERY_INFO_NONE, nullptr, nullptr);
     if (gFileInfo == nullptr)
@@ -822,14 +855,15 @@ void gnome_cmd_dir_file_renamed (GnomeCmdDir *dir, GnomeCmdFile *f, const gchar 
     g_return_if_fail (GNOME_CMD_IS_DIR (dir));
     g_return_if_fail (GNOME_CMD_IS_FILE (f));
     g_return_if_fail (old_uri_str != nullptr);
+    auto priv = dir_private (dir);
 
     if (GNOME_CMD_IS_DIR (f))
-        gnome_cmd_con_remove_from_cache (dir->priv->con, old_uri_str);
+        gnome_cmd_con_remove_from_cache (priv->con, old_uri_str);
 
-    dir->priv->needs_mtime_update = TRUE;
+    priv->needs_mtime_update = TRUE;
 
-    dir->priv->file_collection->remove(old_uri_str);
-    dir->priv->file_collection->add(f);
+    priv->file_collection->remove(old_uri_str);
+    priv->file_collection->add(f);
     g_signal_emit (dir, signals[FILE_RENAMED], 0, f);
 }
 
@@ -837,8 +871,9 @@ void gnome_cmd_dir_file_renamed (GnomeCmdDir *dir, GnomeCmdFile *f, const gchar 
 void gnome_cmd_dir_start_monitoring (GnomeCmdDir *dir)
 {
     g_return_if_fail (GNOME_CMD_IS_DIR (dir));
+    auto priv = dir_private (dir);
 
-    if (dir->priv->monitor_users == 0)
+    if (priv->monitor_users == 0)
     {
         GError *error = nullptr;
 
@@ -862,30 +897,31 @@ void gnome_cmd_dir_start_monitoring (GnomeCmdDir *dir)
 
         gchar *uri_str = GNOME_CMD_FILE (dir)->get_uri_str();
         DEBUG('n', "Added monitor to %p %s\n", dir, uri_str);
-        dir->priv->gFileMonitor = gFileMonitor;
+        priv->gFileMonitor = gFileMonitor;
         g_free (uri_str);
     }
 
-    dir->priv->monitor_users++;
+    priv->monitor_users++;
 }
 
 
 void gnome_cmd_dir_cancel_monitoring (GnomeCmdDir *dir)
 {
     g_return_if_fail (GNOME_CMD_IS_DIR (dir));
+    auto priv = dir_private (dir);
 
-    if (dir->priv->monitor_users < 1) return;
+    if (priv->monitor_users < 1) return;
 
-    dir->priv->monitor_users--;
+    priv->monitor_users--;
 
-    if (dir->priv->monitor_users == 0)
+    if (priv->monitor_users == 0)
     {
-        if (dir->priv->gFileMonitor)
+        if (priv->gFileMonitor)
         {
-            g_file_monitor_cancel (dir->priv->gFileMonitor);
+            g_file_monitor_cancel (priv->gFileMonitor);
             DEBUG('n', "Removed monitor from %p %s\n", dir, GNOME_CMD_FILE (dir)->get_uri_str());
 
-            dir->priv->gFileMonitor = nullptr;
+            priv->gFileMonitor = nullptr;
         }
     }
 }
@@ -894,8 +930,9 @@ void gnome_cmd_dir_cancel_monitoring (GnomeCmdDir *dir)
 gboolean gnome_cmd_dir_is_monitored (GnomeCmdDir *dir)
 {
     g_return_val_if_fail (GNOME_CMD_IS_DIR (dir), FALSE);
+    auto priv = dir_private (dir);
 
-    return dir->priv->monitor_users > 0;
+    return priv->monitor_users > 0;
 }
 
 
@@ -903,6 +940,7 @@ gboolean gnome_cmd_dir_update_mtime (GnomeCmdDir *dir)
 {
     // this function also determines if cached dir is up-to-date (FALSE=yes)
     g_return_val_if_fail (GNOME_CMD_IS_DIR (dir), FALSE);
+    auto priv = dir_private (dir);
 
     // assume cache is updated
     gboolean returnValue = FALSE;
@@ -924,7 +962,7 @@ gboolean gnome_cmd_dir_update_mtime (GnomeCmdDir *dir)
     }
 
     // after this function we are sure dir's mtime is up-to-date
-    dir->priv->needs_mtime_update = FALSE;
+    priv->needs_mtime_update = FALSE;
 
     return returnValue;
 }
@@ -933,6 +971,7 @@ gboolean gnome_cmd_dir_update_mtime (GnomeCmdDir *dir)
 gboolean gnome_cmd_dir_needs_mtime_update (GnomeCmdDir *dir)
 {
     g_return_val_if_fail (GNOME_CMD_IS_DIR (dir), FALSE);
+    auto priv = dir_private (dir);
 
-    return dir->priv->needs_mtime_update;
+    return priv->needs_mtime_update;
 }

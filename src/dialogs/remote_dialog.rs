@@ -399,10 +399,10 @@ mod imp {
             self.obj().close();
 
             glib::timeout_add_local_once(Duration::from_millis(1), move || {
-                if fs.file_list().is_locked() {
+                if fs.is_current_tab_locked() {
                     fs.new_tab();
                 }
-                fs.set_connection(connection.upcast_ref(), None);
+                fs.file_list().set_connection(&connection, None);
             });
         }
     }

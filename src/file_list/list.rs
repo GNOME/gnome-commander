@@ -65,15 +65,12 @@ pub mod ffi {
 
         pub fn gnome_cmd_file_list_get_selected_files(fl: *mut GnomeCmdFileList) -> *mut GList;
 
-        pub fn gnome_cmd_file_list_get_cwd(fl: *mut GnomeCmdFileList) -> *mut GnomeCmdDir;
-
         pub fn gnome_cmd_file_list_get_connection(fl: *mut GnomeCmdFileList) -> *mut GnomeCmdCon;
 
         pub fn gnome_cmd_file_list_get_directory(fl: *mut GnomeCmdFileList) -> *mut GnomeCmdDir;
 
         pub fn gnome_cmd_file_list_get_sort_column(fl: *mut GnomeCmdFileList) -> c_int;
         pub fn gnome_cmd_file_list_get_sort_order(fl: *mut GnomeCmdFileList) -> c_int;
-        pub fn gnome_cmd_file_list_is_locked(fl: *mut GnomeCmdFileList) -> gboolean;
 
         pub fn gnome_cmd_file_list_reload(fl: *mut GnomeCmdFileList);
 
@@ -177,10 +174,6 @@ impl FileList {
         }
     }
 
-    pub fn cwd(&self) -> Option<Directory> {
-        unsafe { from_glib_none(ffi::gnome_cmd_file_list_get_cwd(self.to_glib_none().0)) }
-    }
-
     pub fn sort_column(&self) -> ColumnID {
         unsafe { ffi::gnome_cmd_file_list_get_sort_column(self.to_glib_none().0) }
             .try_into()
@@ -195,10 +188,6 @@ impl FileList {
                 self.to_glib_none().0,
             ))
         }
-    }
-
-    pub fn is_locked(&self) -> bool {
-        unsafe { ffi::gnome_cmd_file_list_is_locked(self.to_glib_none().0) != 0 }
     }
 
     pub fn file_at_row(&self, iter: &gtk::TreeIter) -> Option<File> {

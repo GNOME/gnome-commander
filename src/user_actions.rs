@@ -485,7 +485,7 @@ pub fn file_create_symlink(
         let active_fs = main_win.file_selector(FileSelectorID::ACTIVE);
         let inactive_fs = main_win.file_selector(FileSelectorID::INACTIVE);
 
-        let Some(dest_directory) = inactive_fs.directory() else {
+        let Some(dest_directory) = inactive_fs.file_list().directory() else {
             eprintln!("Cannot create symlinks: No destination directory.");
             return;
         };
@@ -781,6 +781,7 @@ pub fn open_terminal(
 ) -> Result<(), ErrorMessage> {
     let dpath = main_win
         .file_selector(FileSelectorID::ACTIVE)
+        .file_list()
         .directory()
         .and_then(|d| d.file().path());
 
@@ -828,7 +829,7 @@ pub fn view_up(
     let file_selector = main_win.file_selector(FileSelectorID::ACTIVE);
     let file_list = file_selector.file_list();
 
-    if file_list.is_locked() {
+    if file_selector.is_tab_locked(&file_list) {
         if let Some(directory) = file_list.directory().and_then(|d| d.parent()) {
             file_selector.new_tab_with_dir(&directory, true);
         }
@@ -868,7 +869,7 @@ pub fn view_home(
     let file_list = file_selector.file_list();
 
     let home = ConnectionList::get().home();
-    if !file_list.is_locked() {
+    if !file_selector.is_tab_locked(&file_list) {
         file_list.set_connection(&home, None);
         file_list.goto_directory(&Path::new("~"));
     } else {
@@ -885,7 +886,7 @@ pub fn view_root(
     let file_selector = main_win.file_selector(FileSelectorID::ACTIVE);
     let file_list = file_selector.file_list();
 
-    if file_list.is_locked() {
+    if file_selector.is_tab_locked(&file_list) {
         if let Some(connection) = file_list.connection() {
             let directory = Directory::new(&connection, connection.create_path(&Path::new("/")));
             file_selector.new_tab_with_dir(&directory, true);
@@ -902,7 +903,7 @@ pub fn view_new_tab(
 ) {
     let file_selector = main_win.file_selector(FileSelectorID::ACTIVE);
     let file_list = file_selector.file_list();
-    if let Some(directory) = file_list.cwd() {
+    if let Some(directory) = file_list.directory() {
         file_selector.new_tab_with_dir(&directory, true);
     }
 }
@@ -929,7 +930,7 @@ pub fn view_close_tab(
     glib::spawn_future_local(async move {
         let fs = main_win.file_selector(FileSelectorID::ACTIVE);
         if fs.tab_count() > 1 {
-            if !fs.file_list().is_locked() || ask_close_locked_tab(main_win.upcast_ref()).await {
+            if !fs.is_current_tab_locked() || ask_close_locked_tab(main_win.upcast_ref()).await {
                 fs.close_tab();
             }
         }
@@ -969,7 +970,7 @@ pub fn view_in_new_tab(
         .file_list()
         .selected_file()
         .and_downcast::<Directory>()
-        .or_else(|| file_selector.directory())
+        .or_else(|| file_selector.file_list().directory())
     {
         file_selector.new_tab_with_dir(&dir, false);
     }
@@ -985,7 +986,7 @@ pub fn view_in_inactive_tab(
         .file_list()
         .selected_file()
         .and_downcast::<Directory>()
-        .or_else(|| file_selector.directory())
+        .or_else(|| file_selector.file_list().directory())
     {
         main_win
             .file_selector(FileSelectorID::INACTIVE)
@@ -1006,7 +1007,7 @@ pub fn bookmarks_add_current(
 ) {
     let main_win = main_win.clone();
     let fs = main_win.file_selector(FileSelectorID::ACTIVE);
-    let Some(dir) = fs.directory() else {
+    let Some(dir) = fs.file_list().directory() else {
         eprintln!("No directory. Nothing to bookmark.");
         return;
     };
@@ -1113,10 +1114,10 @@ pub fn connections_new(
             ConnectDialog::new_connection(main_win.upcast_ref(), false, uri).await
         {
             let fs = main_win.file_selector(FileSelectorID::ACTIVE);
-            if fs.file_list().is_locked() {
+            if fs.is_current_tab_locked() {
                 fs.new_tab();
             }
-            fs.set_connection(connection.upcast_ref(), None);
+            fs.file_list().set_connection(&connection, None);
             if let Some(quick_connect_uri) = connection.uri().map(|uri| uri.to_str()) {
                 options.set_quick_connect_uri(&quick_connect_uri);
             }
@@ -1205,6 +1206,7 @@ pub fn connections_close_current(
 ) {
     if let Some(con) = main_win
         .file_selector(FileSelectorID::ACTIVE)
+        .file_list()
         .connection()
         .filter(|c| c.downcast_ref::<ConnectionHome>().is_none())
     {

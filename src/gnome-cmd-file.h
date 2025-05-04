@@ -41,13 +41,8 @@ struct GnomeCmdFile
 {
     GObject parent;
 
-    struct Private;
-
-    Private *priv;
-
     GFile *get_file() { return gnome_cmd_file_descriptor_get_file (GNOME_CMD_FILE_DESCRIPTOR (this)); }
     GFileInfo *get_file_info() { return gnome_cmd_file_descriptor_get_file_info (GNOME_CMD_FILE_DESCRIPTOR (this)); }
-    gboolean is_dotdot;
 
     GnomeCmdFile *ref();
     void unref();
@@ -121,6 +116,8 @@ extern "C" GnomeCmdFile *gnome_cmd_file_new_from_path (const gchar *local_full_p
 extern "C" GnomeCmdFile *gnome_cmd_file_new (GFileInfo *gFileInfo, GnomeCmdDir *dir);
 extern "C" GnomeCmdFile *gnome_cmd_file_new_full (GFileInfo *gFileInfo, GFile *gFile, GnomeCmdDir *dir);
 gboolean gnome_cmd_file_setup (GObject *gObject, GFile *gFile, GError **error);
+
+extern "C" GnomeCmdFile *gnome_cmd_file_new_dotdot (GnomeCmdDir *dir);
 
 inline GnomeCmdFile *gnome_cmd_file_ref (GnomeCmdFile *f)
 {

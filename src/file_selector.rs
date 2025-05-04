@@ -51,10 +51,7 @@ use std::{
 
 pub mod ffi {
     use super::*;
-    use crate::{
-        connection::connection::ffi::GnomeCmdCon, dir::ffi::GnomeCmdDir,
-        file_list::list::ffi::GnomeCmdFileList,
-    };
+    use crate::{dir::ffi::GnomeCmdDir, file_list::list::ffi::GnomeCmdFileList};
     use gtk::{
         ffi::GtkWidget,
         glib::ffi::{gboolean, GType},
@@ -77,20 +74,6 @@ pub mod ffi {
             fs: *mut GnomeCmdFileSelector,
             n: u32,
         ) -> *mut GnomeCmdFileList;
-
-        pub fn gnome_cmd_file_selector_get_directory(
-            fs: *mut GnomeCmdFileSelector,
-        ) -> *mut GnomeCmdDir;
-
-        pub fn gnome_cmd_file_selector_get_connection(
-            fs: *mut GnomeCmdFileSelector,
-        ) -> *mut GnomeCmdCon;
-
-        pub fn gnome_cmd_file_selector_set_connection(
-            fs: *mut GnomeCmdFileSelector,
-            con: *mut GnomeCmdCon,
-            start_dir: *mut GnomeCmdDir,
-        );
 
         pub fn gnome_cmd_file_selector_get_notebook(
             fs: *mut GnomeCmdFileSelector,
@@ -123,6 +106,17 @@ pub mod ffi {
         pub fn gnome_cmd_file_selector_set_active(fs: *mut GnomeCmdFileSelector, active: gboolean);
 
         pub fn gnome_cmd_file_selector_back(fs: *mut GnomeCmdFileSelector);
+
+        pub fn gnome_cmd_file_selector_is_tab_locked(
+            fs: *mut GnomeCmdFileSelector,
+            fl: *mut GnomeCmdFileList,
+        ) -> gboolean;
+
+        pub fn gnome_cmd_file_selector_set_tab_locked(
+            fs: *mut GnomeCmdFileSelector,
+            fl: *mut GnomeCmdFileList,
+            lock: gboolean,
+        );
     }
 
     #[derive(Copy, Clone)]
@@ -160,32 +154,6 @@ impl FileSelector {
                 self.to_glib_none().0,
                 n,
             ))
-        }
-    }
-
-    pub fn directory(&self) -> Option<Directory> {
-        unsafe {
-            from_glib_none(ffi::gnome_cmd_file_selector_get_directory(
-                self.to_glib_none().0,
-            ))
-        }
-    }
-
-    pub fn connection(&self) -> Option<Connection> {
-        unsafe {
-            from_glib_none(ffi::gnome_cmd_file_selector_get_connection(
-                self.to_glib_none().0,
-            ))
-        }
-    }
-
-    pub fn set_connection(&self, connection: &Connection, start_dir: Option<&Directory>) {
-        unsafe {
-            ffi::gnome_cmd_file_selector_set_connection(
-                self.to_glib_none().0,
-                connection.to_glib_none().0,
-                start_dir.to_glib_none().0,
-            )
         }
     }
 
@@ -253,30 +221,50 @@ impl FileSelector {
         }
     }
 
+    pub fn is_tab_locked(&self, fl: &FileList) -> bool {
+        unsafe {
+            ffi::gnome_cmd_file_selector_is_tab_locked(self.to_glib_none().0, fl.to_glib_none().0)
+                != 0
+        }
+    }
+
+    pub fn set_tab_locked(&self, fl: &FileList, lock: bool) {
+        unsafe {
+            ffi::gnome_cmd_file_selector_set_tab_locked(
+                self.to_glib_none().0,
+                fl.to_glib_none().0,
+                lock as gboolean,
+            )
+        }
+    }
+
+    pub fn is_current_tab_locked(&self) -> bool {
+        self.is_tab_locked(&self.file_list())
+    }
+
     pub fn goto_directory(&self, con: &Connection, path: &Path) {
-        if self.connection().as_ref() == Some(&con) {
-            let fl = self.file_list();
-            if fl.is_locked() {
+        if self.file_list().connection().as_ref() == Some(&con) {
+            if self.is_current_tab_locked() {
                 let dir = Directory::new(con, con.create_path(path));
                 self.new_tab_with_dir(&dir, true);
             } else {
-                fl.goto_directory(path);
+                self.file_list().goto_directory(path);
             }
         } else {
             if con.is_open() {
                 let dir = Directory::new(con, con.create_path(path));
 
-                if self.file_list().is_locked() {
+                if self.is_current_tab_locked() {
                     self.new_tab_with_dir(&dir, true);
                 } else {
-                    self.set_connection(&con, Some(&dir));
+                    self.file_list().set_connection(con, Some(&dir));
                 }
             } else {
                 con.set_base_path(con.create_path(path));
-                if self.file_list().is_locked() {
+                if self.is_current_tab_locked() {
                     self.new_tab_with_dir(&con.default_dir().unwrap(), true);
                 } else {
-                    self.set_connection(&con, None);
+                    self.file_list().set_connection(con, None);
                 }
             }
         }
@@ -287,7 +275,7 @@ impl FileSelector {
         for index in (0..self.tab_count())
             .rev()
             .filter(|i| Some(*i) != current)
-            .filter(|i| !self.file_list_nth(*i).is_locked())
+            .filter(|i| !self.is_tab_locked(&self.file_list_nth(*i)))
         {
             self.close_tab_nth(index);
         }
@@ -297,7 +285,7 @@ impl FileSelector {
         let mut dirs = HashMap::<Directory, BTreeSet<u32>>::new();
         for index in 0..self.tab_count() {
             let file_list = self.file_list_nth(index);
-            if !file_list.is_locked() {
+            if !self.is_tab_locked(&file_list) {
                 if let Some(directory) = file_list.directory() {
                     dirs.entry(directory).or_default().insert(index);
                 }
@@ -305,7 +293,7 @@ impl FileSelector {
         }
 
         let mut duplicates = BTreeSet::new();
-        if let Some(mut indexes) = self.directory().and_then(|d| dirs.remove(&d)) {
+        if let Some(mut indexes) = self.file_list().directory().and_then(|d| dirs.remove(&d)) {
             if let Some(current_index) = self.notebook().current_page() {
                 indexes.remove(&current_index);
             }
@@ -335,7 +323,7 @@ impl FileSelector {
             .filter(|file_list| {
                 save_all_tabs
                     || (save_current && *file_list == self.file_list())
-                    || file_list.is_locked()
+                    || self.is_tab_locked(file_list)
             })
             .filter_map(|file_list| {
                 let directory = file_list.directory()?;
@@ -345,7 +333,7 @@ impl FileSelector {
                     file_felector_id: 0,
                     sort_column: file_list.sort_column() as u8,
                     sort_order: file_list.sort_order() != gtk::SortType::Ascending,
-                    locked: file_list.is_locked(),
+                    locked: self.is_tab_locked(&file_list),
                 })
             })
             .collect()
@@ -505,7 +493,7 @@ async fn on_notebook_button_pressed(
         (1, 2, TabClick::Tab(index)) | (2, 1, TabClick::Tab(index)) => {
             // mid-click or double-click on a label
             let fl = file_selector.file_list_nth(index);
-            if !fl.is_locked() {
+            if !file_selector.is_tab_locked(&fl) {
                 file_selector.close_tab_nth(index);
             } else if ask_close_locked_tab(&window).await {
                 file_selector.close_tab_nth(index);
@@ -523,7 +511,7 @@ async fn on_notebook_button_pressed(
 
             {
                 let menuitem = gio::MenuItem::new(
-                    Some(&if fl.is_locked() {
+                    Some(&if file_selector.is_tab_locked(&fl) {
                         gettext("_Unlock Tab")
                     } else {
                         gettext("_Lock Tab")
@@ -570,7 +558,7 @@ async fn on_notebook_button_pressed(
         }
         (2, 1, TabClick::Area) => {
             // double-click on a tabs area
-            if let Some(dir) = file_selector.directory() {
+            if let Some(dir) = file_selector.file_list().directory() {
                 file_selector.new_tab_with_dir(&dir, true);
             }
         }

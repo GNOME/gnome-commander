@@ -662,7 +662,7 @@ pub mod imp {
             let file_selector = self.obj().file_selector(FileSelectorID::ACTIVE);
 
             if dest_dir == "-"
-                && !file_selector.directory().map_or(false, |d| {
+                && !file_selector.file_list().directory().map_or(false, |d| {
                     d.get_child_gfile(dest_dir)
                         .query_exists(gio::Cancellable::NONE)
                 })
@@ -676,10 +676,10 @@ pub mod imp {
         }
 
         async fn on_cmdline_execute(&self, command: &str, in_terminal: bool) {
-            let file_selector = self.obj().file_selector(FileSelectorID::ACTIVE);
+            let file_list = self.obj().file_selector(FileSelectorID::ACTIVE).file_list();
 
-            if file_selector.connection().map_or(false, |c| c.is_local()) {
-                let working_directory = file_selector
+            if file_list.connection().map_or(false, |c| c.is_local()) {
+                let working_directory = file_list
                     .directory()
                     .map(|d| d.upcast_ref::<File>().get_real_path());
 
@@ -917,18 +917,18 @@ impl MainWindow {
     }
 
     pub fn state(&self) -> State {
-        let fs1 = self.file_selector(FileSelectorID::ACTIVE);
-        let fs2 = self.file_selector(FileSelectorID::INACTIVE);
-        let dir1 = fs1.directory();
-        let dir2 = fs2.directory();
+        let fl1 = self.file_selector(FileSelectorID::ACTIVE).file_list();
+        let fl2 = self.file_selector(FileSelectorID::INACTIVE).file_list();
+        let dir1 = fl1.directory();
+        let dir2 = fl2.directory();
 
         let state = State::new();
         state.set_active_dir(dir1.and_upcast_ref());
         state.set_inactive_dir(dir2.and_upcast_ref());
-        state.set_active_dir_files(&fs1.file_list().visible_files());
-        state.set_inactive_dir_files(&fs2.file_list().visible_files());
-        state.set_active_dir_selected_files(&fs1.file_list().selected_files());
-        state.set_inactive_dir_selected_files(&fs2.file_list().selected_files());
+        state.set_active_dir_files(&fl1.visible_files());
+        state.set_inactive_dir_files(&fl2.visible_files());
+        state.set_active_dir_selected_files(&fl1.selected_files());
+        state.set_inactive_dir_selected_files(&fl2.selected_files());
 
         state
     }

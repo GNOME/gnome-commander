@@ -32,9 +32,6 @@
 extern "C" GType gnome_cmd_dir_get_type ();
 
 
-struct GnomeCmdDir;
-struct GnomeCmdDirPrivate;
-
 #include <string>
 
 #include "gnome-cmd-file.h"
@@ -42,9 +39,7 @@ struct GnomeCmdDirPrivate;
 
 struct GnomeCmdDir
 {
-    GnomeCmdFile parent;      // this MUST be the first member
-
-    GnomeCmdDirPrivate *priv;
+    GnomeCmdFile parent;
 
     enum State
     {
@@ -75,21 +70,6 @@ GnomeCmdDir *gnome_cmd_dir_new_with_con (GnomeCmdCon *con);
 extern "C" GnomeCmdDir *gnome_cmd_dir_new (GnomeCmdCon *con, GnomeCmdPath *path, gboolean isStartup = false);
 extern "C" GnomeCmdDir *gnome_cmd_dir_get_parent (GnomeCmdDir *dir);
 GnomeCmdDir *gnome_cmd_dir_get_child (GnomeCmdDir *dir, const gchar *child);
-
-inline GnomeCmdFile *gnome_cmd_dir_new_parent_dir_file (GnomeCmdDir *dir)
-{
-    auto info = g_file_info_new ();
-
-    g_file_info_set_name(info, "..");
-    g_file_info_set_display_name(info, "..");
-    g_file_info_set_file_type(info, G_FILE_TYPE_DIRECTORY);
-    g_file_info_set_size(info, 0);
-
-    auto gnomeCmdFile = gnome_cmd_file_new (info, dir);
-    gnomeCmdFile->is_dotdot = true;
-    gnomeCmdFile->ref();
-    return gnomeCmdFile;
-}
 
 inline GnomeCmdDir *gnome_cmd_dir_ref (GnomeCmdDir *dir)
 {
