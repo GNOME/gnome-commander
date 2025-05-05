@@ -101,7 +101,7 @@ pub mod imp {
         pub paned: gtk::Paned,
         pub file_selector_left: RefCell<FileSelector>,
         pub file_selector_right: RefCell<FileSelector>,
-        #[property(get, set)]
+        #[property(get, set = Self::set_current_panel)]
         current_panel: Cell<u32>,
 
         pub plugin_manager: RefCell<Option<PluginManager>>,
@@ -700,20 +700,51 @@ pub mod imp {
             }
         }
 
+        fn set_current_panel(&self, panel: u32) {
+            self.current_panel.set(panel);
+            let fs = match panel {
+                0 => {
+                    self.file_selector_left.borrow().set_active(true);
+                    self.file_selector_right.borrow().set_active(false);
+                    self.file_selector_left.borrow()
+                }
+                _ => {
+                    self.file_selector_right.borrow().set_active(true);
+                    self.file_selector_left.borrow().set_active(false);
+                    self.file_selector_right.borrow()
+                }
+            };
+            unsafe {
+                ffi::gnome_cmd_main_win_update_browse_buttons(
+                    self.obj().to_glib_none().0,
+                    fs.to_glib_none().0,
+                );
+            }
+            self.update_drop_con_button(fs.file_list().connection().as_ref());
+            self.update_cmdline();
+        }
+
         fn on_left_fs_select(&self) {
             self.obj().set_current_panel(0);
-            self.file_selector_left.borrow().set_active(true);
-            self.file_selector_right.borrow().set_active(false);
         }
 
         fn on_right_fs_select(&self) {
             self.obj().set_current_panel(1);
-            self.file_selector_right.borrow().set_active(true);
-            self.file_selector_left.borrow().set_active(false);
         }
 
         fn on_con_list_list_changed(&self) {
             self.update_menu();
+        }
+
+        fn update_cmdline(&self) {
+            let directory = self
+                .obj()
+                .file_selector(FileSelectorID::ACTIVE)
+                .file_list()
+                .directory()
+                .map(|d| d.display_path())
+                .unwrap_or_default();
+            self.cmdline.set_directory(&directory);
         }
     }
 
@@ -780,7 +811,7 @@ pub mod ffi {
 
         pub fn gnome_cmd_main_win_shortcuts(main_win: *mut GnomeCmdMainWin) -> *mut Shortcuts;
 
-        pub fn gnome_cmd_main_win_switch_fs(
+        pub fn gnome_cmd_main_win_update_browse_buttons(
             main_win: *mut GnomeCmdMainWin,
             fs: *mut GnomeCmdFileSelector,
         );
@@ -827,6 +858,8 @@ impl MainWindow {
         let fs2 = self.right_panel();
 
         // swap widgets
+        self.imp().paned.set_start_child(gtk::Widget::NONE);
+        self.imp().paned.set_end_child(gtk::Widget::NONE);
         self.imp().paned.set_start_child(Some(&fs2));
         self.imp().paned.set_end_child(Some(&fs1));
 
@@ -835,16 +868,17 @@ impl MainWindow {
             &self.imp().file_selector_right,
         );
 
-        self.switch_fs(&self.file_selector(FileSelectorID::INACTIVE));
+        self.switch_to_opposite();
     }
 
-    fn switch_fs(&self, file_selector: &FileSelector) {
-        unsafe {
-            ffi::gnome_cmd_main_win_switch_fs(
-                self.to_glib_none().0,
-                file_selector.to_glib_none().0,
-            );
+    fn switch_to_fs(&self, file_selector: &FileSelector) {
+        if file_selector != &self.file_selector(FileSelectorID::ACTIVE) {
+            self.switch_to_opposite();
         }
+    }
+
+    fn switch_to_opposite(&self) {
+        self.set_current_panel(!self.current_panel());
     }
 
     pub fn load_tabs(&self, start_left_dir: Option<PathBuf>, start_right_dir: Option<PathBuf>) {
@@ -1504,4 +1538,14 @@ pub extern "C" fn gnome_cmd_main_win_get_cmdline(
 ) -> *mut <CommandLine as glib::object::ObjectType>::GlibType {
     let mw: Borrowed<MainWindow> = unsafe { from_glib_borrow(mw_ptr) };
     mw.imp().cmdline.to_glib_none().0
+}
+
+#[no_mangle]
+pub extern "C" fn gnome_cmd_main_win_switch_fs(
+    mw_ptr: *mut ffi::GnomeCmdMainWin,
+    fs_ptr: *mut GnomeCmdFileSelector,
+) {
+    let mw: Borrowed<MainWindow> = unsafe { from_glib_borrow(mw_ptr) };
+    let fs: Borrowed<FileSelector> = unsafe { from_glib_borrow(fs_ptr) };
+    mw.switch_to_fs(&fs);
 }

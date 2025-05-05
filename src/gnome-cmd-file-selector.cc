@@ -276,7 +276,7 @@ static void on_con_combo_item_selected (GtkDropDown *con_dropdown, GParamSpec *p
     GnomeCmdCon *con = GNOME_CMD_CON (gtk_drop_down_get_selected_item (con_dropdown));
     g_return_if_fail (GNOME_CMD_IS_CON (con));
 
-    main_win->switch_fs(fs);
+    gnome_cmd_main_win_switch_fs (main_win, fs);
 
     GdkModifierType mask = get_modifiers_state();
 
@@ -293,7 +293,7 @@ static void on_navigate (GnomeCmdDirIndicator *indicator, const gchar *path, gbo
 {
     g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
 
-    main_win->switch_fs(fs);
+    gnome_cmd_main_win_switch_fs (main_win, fs);
 
     if (new_tab || gnome_cmd_file_selector_is_current_tab_locked (fs))
     {
@@ -325,7 +325,7 @@ static void on_con_btn_clicked (GtkGestureClick *gesture, int n_press, double x,
 
     g_return_if_fail (GNOME_CMD_IS_CON (con));
 
-    main_win->switch_fs(fs);
+    gnome_cmd_main_win_switch_fs (main_win, fs);
 
     if (button == 2 || get_modifiers_state() & GDK_CONTROL_MASK || gnome_cmd_file_selector_is_current_tab_locked (fs))
         fs->new_tab(gnome_cmd_con_get_default_dir (con));

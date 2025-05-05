@@ -53,7 +53,6 @@ struct GnomeCmdMainWin
 
     GnomeCmdFileSelector *fs(FileSelectorID id);
 
-    void switch_fs(GnomeCmdFileSelector *fs);
     void change_connection(FileSelectorID id);
 
     void set_fs_directory_to_opposite(FileSelectorID fsID);
