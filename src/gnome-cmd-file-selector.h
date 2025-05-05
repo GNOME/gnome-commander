@@ -65,14 +65,6 @@ struct GnomeCmdFileSelector
     GnomeCmdDir *get_directory() const      {  return gnome_cmd_file_list_get_directory (list); }
     void goto_directory(const gchar *dir)   {  list->goto_directory(dir); }
 
-    void first();
-    void back();
-    void forward();
-    void last();
-
-    gboolean can_back();
-    gboolean can_forward();
-
     void set_active(gboolean value);
 
     GnomeCmdCon *get_connection() const     {  return gnome_cmd_file_list_get_connection (list); }
@@ -164,6 +156,9 @@ extern "C" guint gnome_cmd_file_selector_tab_count (GnomeCmdFileSelector *fs);
 extern "C" gboolean gnome_cmd_file_selector_is_active (GnomeCmdFileSelector *fs);
 extern "C" void gnome_cmd_file_selector_set_active (GnomeCmdFileSelector *fs, gboolean active);
 
+extern "C" gboolean gnome_cmd_file_selector_can_forward (GnomeCmdFileSelector *fs);
+extern "C" gboolean gnome_cmd_file_selector_can_back (GnomeCmdFileSelector *fs);
+extern "C" void gnome_cmd_file_selector_forward (GnomeCmdFileSelector *fs);
 extern "C" void gnome_cmd_file_selector_back (GnomeCmdFileSelector *fs);
 
 extern "C" gboolean gnome_cmd_file_selector_is_tab_locked (GnomeCmdFileSelector *fs, GnomeCmdFileList *fl);

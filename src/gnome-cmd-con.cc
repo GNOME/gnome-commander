@@ -38,7 +38,6 @@ struct GnomeCmdConPrivate
     gchar          *uuid;
     GUri           *uri;
     GnomeCmdDir    *default_dir;   // the start dir of this connection
-    History        *dir_history;
     GListModel     *bookmarks;
     GList          *all_dirs;
     GHashTable     *all_dirs_map;
@@ -96,12 +95,6 @@ static void dispose (GObject *object)
     g_clear_error (&con->open_failed_error);
 
     g_clear_pointer (&priv->default_dir, gnome_cmd_dir_unref);
-
-    if (priv->dir_history != nullptr)
-    {
-        delete priv->dir_history;
-        priv->dir_history = nullptr;
-    }
 
     G_OBJECT_CLASS (gnome_cmd_con_parent_class)->dispose (object);
 }
@@ -198,7 +191,6 @@ static void gnome_cmd_con_init (GnomeCmdCon *con)
 
     priv->base_path = nullptr;
     priv->default_dir = nullptr;
-    priv->dir_history = new History(20);
     priv->bookmarks = G_LIST_MODEL (g_list_store_new (gnome_cmd_bookmark_get_type ()));
     priv->all_dirs = nullptr;
     priv->all_dirs_map = nullptr;
@@ -468,15 +460,6 @@ gboolean gnome_cmd_con_is_closeable (GnomeCmdCon *con)
 {
     g_return_val_if_fail (GNOME_CMD_IS_CON (con), FALSE);
     return con->is_closeable;
-}
-
-
-History *gnome_cmd_con_get_dir_history (GnomeCmdCon *con)
-{
-    g_return_val_if_fail (GNOME_CMD_IS_CON (con), nullptr);
-    auto priv = static_cast<GnomeCmdConPrivate *> (gnome_cmd_con_get_instance_private (con));
-
-    return priv->dir_history;
 }
 
 

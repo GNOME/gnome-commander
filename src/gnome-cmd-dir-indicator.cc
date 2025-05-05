@@ -116,17 +116,18 @@ void gnome_cmd_dir_indicator_show_history (GnomeCmdDirIndicator *indicator)
     auto priv = static_cast<GnomeCmdDirIndicatorPrivate*>(gnome_cmd_dir_indicator_get_instance_private (indicator));
 
     GnomeCmdCon *con = priv->fs->get_connection();
-    History *history = gnome_cmd_con_get_dir_history (con);
+    GStrv dir_history = gnome_cmd_con_export_dir_history (con);
 
     GMenu *menu = g_menu_new ();
-    for (GList *l=history->ents; l; l=l->next)
+    for (GStrv l = dir_history; *l; ++l)
     {
-        gchar *path = (gchar *) l->data;
+        gchar *path = *l;
 
         GMenuItem *item = g_menu_item_new (path, nullptr);
         g_menu_item_set_action_and_target (item, "indicator.select-path", "s", path);
         g_menu_append_item (menu, item);
     }
+    g_strfreev (dir_history);
 
     GtkWidget *popover = gtk_popover_menu_new_from_model (G_MENU_MODEL (menu));
     gtk_widget_set_parent (popover, GTK_WIDGET (indicator));

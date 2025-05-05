@@ -838,10 +838,37 @@ pub fn view_up(
     }
 }
 
-c_action!(view_first);
-c_action!(view_back);
-c_action!(view_forward);
-c_action!(view_last);
+pub fn view_first(
+    main_win: &MainWindow,
+    _action: &gio::SimpleAction,
+    _parameter: Option<&glib::Variant>,
+) {
+    main_win.file_selector(FileSelectorID::ACTIVE).first();
+}
+
+pub fn view_back(
+    main_win: &MainWindow,
+    _action: &gio::SimpleAction,
+    _parameter: Option<&glib::Variant>,
+) {
+    main_win.file_selector(FileSelectorID::ACTIVE).back();
+}
+
+pub fn view_forward(
+    main_win: &MainWindow,
+    _action: &gio::SimpleAction,
+    _parameter: Option<&glib::Variant>,
+) {
+    main_win.file_selector(FileSelectorID::ACTIVE).forward();
+}
+
+pub fn view_last(
+    main_win: &MainWindow,
+    _action: &gio::SimpleAction,
+    _parameter: Option<&glib::Variant>,
+) {
+    main_win.file_selector(FileSelectorID::ACTIVE).last();
+}
 
 pub fn view_refresh(
     main_win: &MainWindow,

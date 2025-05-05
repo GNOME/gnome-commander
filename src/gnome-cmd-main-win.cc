@@ -87,16 +87,16 @@ inline void update_browse_buttons (GnomeCmdMainWin *mw, GnomeCmdFileSelector *fs
     {
         g_simple_action_set_enabled (
             G_SIMPLE_ACTION (g_action_map_lookup_action (G_ACTION_MAP (mw), "view-first")),
-            fs->can_back());
+            gnome_cmd_file_selector_can_back(fs));
         g_simple_action_set_enabled (
             G_SIMPLE_ACTION (g_action_map_lookup_action (G_ACTION_MAP (mw), "view-back")),
-            fs->can_back());
+            gnome_cmd_file_selector_can_back(fs));
         g_simple_action_set_enabled (
             G_SIMPLE_ACTION (g_action_map_lookup_action (G_ACTION_MAP (mw), "view-forward")),
-            fs->can_forward());
+            gnome_cmd_file_selector_can_forward(fs));
         g_simple_action_set_enabled (
             G_SIMPLE_ACTION (g_action_map_lookup_action (G_ACTION_MAP (mw), "view-last")),
-            fs->can_forward());
+            gnome_cmd_file_selector_can_forward(fs));
     }
 }
 

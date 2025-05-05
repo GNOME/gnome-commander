@@ -161,10 +161,6 @@ GNOME_CMD_USER_ACTION_TGL(view_cmdline);
 GNOME_CMD_USER_ACTION(view_dir_history);
 GNOME_CMD_USER_ACTION_TGL(view_hidden_files);
 GNOME_CMD_USER_ACTION_TGL(view_backup_files);
-GNOME_CMD_USER_ACTION(view_first);
-GNOME_CMD_USER_ACTION(view_back);
-GNOME_CMD_USER_ACTION(view_forward);
-GNOME_CMD_USER_ACTION(view_last);
 GNOME_CMD_USER_ACTION(view_in_left_pane);
 GNOME_CMD_USER_ACTION(view_in_right_pane);
 GNOME_CMD_USER_ACTION(view_in_active_pane);
@@ -463,38 +459,6 @@ void view_step_down (GSimpleAction *action, GVariant *parameter, gpointer user_d
     GnomeCmdFileList *fl = fs->file_list();
 
     fl->focus_next();
-}
-
-
-void view_first (GSimpleAction *action, GVariant *parameter, gpointer user_data)
-{
-    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
-
-    main_win->fs (ACTIVE)->first();
-}
-
-
-void view_back (GSimpleAction *action, GVariant *parameter, gpointer user_data)
-{
-    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
-
-    main_win->fs (ACTIVE)->back();
-}
-
-
-void view_forward (GSimpleAction *action, GVariant *parameter, gpointer user_data)
-{
-    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
-
-    main_win->fs (ACTIVE)->forward();
-}
-
-
-void view_last (GSimpleAction *action, GVariant *parameter, gpointer user_data)
-{
-    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
-
-    main_win->fs (ACTIVE)->last();
 }
 
 
