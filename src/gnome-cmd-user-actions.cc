@@ -41,64 +41,6 @@
 
 using namespace std;
 
-/***********************************
- * Functions for using GSettings
- ***********************************/
-
-struct _GcmdUserActionSettings
-{
-    GObject parent;
-    GSettings *filter;
-    GSettings *general;
-    GSettings *programs;
-};
-
-G_DEFINE_TYPE (GcmdUserActionSettings, gcmd_user_action_settings, G_TYPE_OBJECT)
-
-static void gcmd_user_action_settings_finalize (GObject *object)
-{
-    G_OBJECT_CLASS (gcmd_user_action_settings_parent_class)->finalize (object);
-}
-
-static void gcmd_user_action_settings_dispose (GObject *object)
-{
-    GcmdUserActionSettings *gs = GCMD_USER_ACTIONS (object);
-
-    g_clear_object (&gs->general);
-    g_clear_object (&gs->programs);
-
-    G_OBJECT_CLASS (gcmd_user_action_settings_parent_class)->dispose (object);
-}
-
-static void gcmd_user_action_settings_class_init (GcmdUserActionSettingsClass *klass)
-{
-    GObjectClass *object_class = G_OBJECT_CLASS (klass);
-
-    object_class->finalize = gcmd_user_action_settings_finalize;
-    object_class->dispose = gcmd_user_action_settings_dispose;
-}
-
-GcmdUserActionSettings *gcmd_user_action_settings_new ()
-{
-    return (GcmdUserActionSettings *) g_object_new (USER_ACTION_SETTINGS, nullptr);
-}
-
-static void gcmd_user_action_settings_init (GcmdUserActionSettings *gs)
-{
-    GSettingsSchemaSource   *global_schema_source;
-    GSettingsSchema         *global_schema;
-
-    global_schema_source = GnomeCmdData::GetGlobalSchemaSource();
-
-    global_schema = g_settings_schema_source_lookup (global_schema_source, GCMD_PREF_FILTER, FALSE);
-    gs->filter = g_settings_new_full (global_schema, nullptr, nullptr);
-
-    global_schema = g_settings_schema_source_lookup (global_schema_source, GCMD_PREF_GENERAL, FALSE);
-    gs->general = g_settings_new_full (global_schema, nullptr, nullptr);
-
-    global_schema = g_settings_schema_source_lookup (global_schema_source, GCMD_PREF_PROGRAMS, FALSE);
-    gs->programs = g_settings_new_full (global_schema, nullptr, nullptr);
-}
 
 /***********************************
  * UserActions
@@ -188,10 +130,6 @@ static GnomeCmdFileList *get_fl (GnomeCmdMainWin *main_win, const FileSelectorID
 
     return fs ? fs->file_list() : nullptr;
 }
-
-
-GcmdUserActionSettings *settings;
-
 
 /************** File Menu **************/
 

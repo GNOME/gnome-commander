@@ -285,7 +285,6 @@ struct GnomeCmdData
         gboolean                     save_cmdline_history_on_exit;
         gboolean                     save_search_history_on_exit;
         gboolean                     search_window_is_transient {true};
-        gchar                       *symlink_prefix;
         gboolean                     deleteToTrash;
         // Format
         GnomeCmdSizeDispMode         size_disp_mode;
@@ -342,7 +341,6 @@ struct GnomeCmdData
                    save_dir_history_on_exit(TRUE),
                    save_cmdline_history_on_exit(TRUE),
                    save_search_history_on_exit(TRUE),
-                   symlink_prefix(nullptr),
                    deleteToTrash(TRUE),
                    size_disp_mode(GNOME_CMD_SIZE_DISP_MODE_POWERED),
                    perm_disp_mode(GNOME_CMD_PERM_DISP_MODE_TEXT),
@@ -381,7 +379,6 @@ struct GnomeCmdData
 
         ~Options()
         {
-            g_free (symlink_prefix);
             g_free (date_format);
             g_free (list_font);
             g_free (theme_icon_dir);
@@ -574,8 +571,6 @@ struct GnomeCmdData
     guint                        opts_dialog_width;
     guint                        opts_dialog_height;
 
-    mode_t                       umask;
-
     GnomeCmdData();
 
     ~GnomeCmdData();
@@ -593,13 +588,8 @@ struct GnomeCmdData
     void save_bookmarks();
     void load_bookmarks();
     void save(GnomeCmdMainWin *main_win);
-    gboolean gnome_cmd_data_parse_color (const gchar *spec, GdkRGBA *color);
-    gboolean set_color_if_valid_key_value(GdkRGBA *color, GSettings *settings, const char *key);
     gboolean set_gsettings_when_changed (GSettings *settings, const char *key, gpointer value);
-    gboolean set_gsettings_color_when_changed (GSettings *settings, const char *key, GdkRGBA *color);
     gboolean set_gsettings_enum_when_changed (GSettings *settings, const char *key, gint value);
-    gboolean is_valid_color_string(const char *colorstring);
-    gboolean set_valid_color_string(GSettings *settings, const char* key);
 };
 
 gpointer gnome_cmd_data_get_con_list ();
