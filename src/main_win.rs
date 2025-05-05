@@ -123,6 +123,8 @@ pub mod imp {
         buttonbar_visible: Cell<bool>,
         #[property(get, set)]
         connection_buttons_visible: Cell<bool>,
+        #[property(get, set = Self::set_connection_list_visible)]
+        connection_list_visible: Cell<bool>,
         #[property(get, set = Self::set_view_hidden_files)]
         view_hidden_files: Cell<bool>,
         #[property(get, set = Self::set_view_backup_files)]
@@ -146,6 +148,7 @@ pub mod imp {
             klass.install_property_action("win.view-buttonbar", "buttonbar-visible");
 
             klass.install_property_action("win.view-conbuttons", "connection-buttons-visible");
+            klass.install_property_action("win.view-devlist", "connection-list-visible");
             klass.install_property_action("win.view-hidden-files", "view-hidden-files");
             klass.install_property_action("win.view-backup-files", "view-backup-files");
 
@@ -226,6 +229,7 @@ pub mod imp {
                 command_line_visible: Cell::new(true),
                 buttonbar_visible: Cell::new(true),
                 connection_buttons_visible: Cell::new(true),
+                connection_list_visible: Cell::new(true),
                 view_hidden_files: Cell::new(true),
                 view_backup_files: Cell::new(true),
             }
@@ -412,6 +416,10 @@ pub mod imp {
             options
                 .0
                 .bind("show-devbuttons", &*mw, "connection-buttons-visible")
+                .build();
+            options
+                .0
+                .bind("show-devlist", &*mw, "connection-list-visible")
                 .build();
 
             self.color_themes.connect_local(
@@ -668,7 +676,7 @@ pub mod imp {
             };
             let new_dimension = dimension * percentage / 100;
 
-            if self.paned.position() == new_dimension {
+            if self.paned.is_position_set() && self.paned.position() == new_dimension {
                 true
             } else {
                 self.paned.set_position(new_dimension);
@@ -777,6 +785,12 @@ pub mod imp {
 
         fn on_con_list_list_changed(&self) {
             self.update_menu();
+        }
+
+        fn set_connection_list_visible(&self, value: bool) {
+            self.connection_list_visible.set(value);
+            self.file_selector_left.borrow().update_show_devlist(value);
+            self.file_selector_right.borrow().update_show_devlist(value);
         }
 
         fn set_view_hidden_files(&self, value: bool) {

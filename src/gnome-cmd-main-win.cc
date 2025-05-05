@@ -142,8 +142,6 @@ extern "C" void gnome_cmd_main_win_dispose (GnomeCmdMainWin *main_win)
 
 extern "C" void gnome_cmd_main_win_init (GnomeCmdMainWin *mw)
 {
-    toggle_action_change_state (mw, "view-devlist", gnome_cmd_data.show_devlist);
-
     auto priv = g_new0 (GnomeCmdMainWinPrivate, 1);
     g_object_set_data_full (G_OBJECT (mw), "priv", priv, g_free);
 
@@ -407,7 +405,7 @@ void GnomeCmdMainWin::change_connection(FileSelectorID id)
     GnomeCmdFileSelector *fselector = this->fs(id);
 
     gnome_cmd_main_win_switch_fs (this, fselector);
-    if (gnome_cmd_data.show_devlist)
+    if (gtk_widget_is_visible (GTK_WIDGET (fselector->con_dropdown)))
     {
         g_signal_emit_by_name (fselector->con_dropdown, "activate");
         gtk_widget_grab_focus (fselector->con_dropdown);

@@ -562,8 +562,6 @@ struct GnomeCmdData
     SearchConfig                 search_defaults;
     AdvrenameConfig              advrename_defaults;
 
-    gboolean                     show_devlist {TRUE};
-
     guint                        gui_update_rate;
 
     GStrv                        cmdline_history;

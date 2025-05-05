@@ -213,17 +213,6 @@ static void on_icon_size_changed (GnomeCmdMainWin *main_win)
     main_win->update_view();
 }
 
-static void on_show_devlist_changed (GnomeCmdMainWin *main_win)
-{
-    gboolean show_devlist;
-
-    show_devlist = g_settings_get_boolean (gnome_cmd_data.options.gcmd_settings->general, GCMD_SETTINGS_SHOW_DEVLIST);
-    gnome_cmd_data.show_devlist = show_devlist;
-
-    main_win->fs(ACTIVE)->update_show_devlist();
-    main_win->fs(INACTIVE)->update_show_devlist();
-}
-
 static void on_always_show_tabs_changed (GnomeCmdMainWin *main_win)
 {
     gboolean always_show_tabs;
@@ -523,11 +512,6 @@ static void gcmd_connect_gsettings_signals(GcmdSettings *gs, GnomeCmdMainWin *ma
     g_signal_connect_swapped (gs->general,
                       "changed::icon-size",
                       G_CALLBACK (on_icon_size_changed),
-                      main_win);
-
-    g_signal_connect_swapped (gs->general,
-                      "changed::show-devlist",
-                      G_CALLBACK (on_show_devlist_changed),
                       main_win);
 
     g_signal_connect_swapped (gs->general,
@@ -1597,8 +1581,6 @@ void GnomeCmdData::load()
     cmdline_history_length = g_settings_get_uint (options.gcmd_settings->general, GCMD_SETTINGS_CMDLINE_HISTORY_LENGTH);
     gui_update_rate = g_settings_get_uint (options.gcmd_settings->general, GCMD_SETTINGS_GUI_UPDATE_RATE);
 
-    show_devlist = g_settings_get_boolean (options.gcmd_settings->general, GCMD_SETTINGS_SHOW_DEVLIST);
-
     options.honor_expect_uris = g_settings_get_boolean (options.gcmd_settings->programs, GCMD_SETTINGS_DONT_DOWNLOAD);
     options.allow_multiple_instances = g_settings_get_boolean (options.gcmd_settings->general, GCMD_SETTINGS_MULTIPLE_INSTANCES);
     options.use_internal_viewer = g_settings_get_boolean (options.gcmd_settings->programs, GCMD_SETTINGS_USE_INTERNAL_VIEWER);
@@ -1708,8 +1690,6 @@ void GnomeCmdData::save(GnomeCmdMainWin *main_win)
 
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_DEV_ONLY_ICON, &(options.device_only_icon));
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_SHOW_SAMBA_WORKGROUP_BUTTON, &(options.show_samba_workgroups_button));
-
-    set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_SHOW_DEVLIST, &(show_devlist));
 
     set_gsettings_when_changed      (options.gcmd_settings->programs, GCMD_SETTINGS_VIEWER_CMD, options.viewer);
     set_gsettings_when_changed      (options.gcmd_settings->programs, GCMD_SETTINGS_EDITOR_CMD, options.editor);
