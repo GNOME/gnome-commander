@@ -152,8 +152,16 @@ static gboolean smb_open_is_needed (GnomeCmdCon *con)
 static GFile *smb_create_gfile (GnomeCmdCon *con, GnomeCmdPath *path)
 {
     auto *gFileTmp = g_file_new_for_uri ("smb:");
-    auto gFile = g_file_resolve_relative_path (gFileTmp, path->get_path());
-    g_object_unref(gFileTmp);
+    GFile *gFile;
+    if (path)
+    {
+        gFile = g_file_resolve_relative_path (gFileTmp, path->get_path());
+        g_object_unref(gFileTmp);
+    }
+    else
+    {
+        gFile = gFileTmp;
+    }
 
     if (!gFile)
     {
