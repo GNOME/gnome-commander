@@ -17,6 +17,8 @@
  * For more details see the file COPYING.
  */
 
+pub mod options_dialog;
+
 pub mod app_dialog;
 pub mod apps_widget;
 pub mod device_dialog;

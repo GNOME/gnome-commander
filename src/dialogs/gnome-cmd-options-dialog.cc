@@ -20,7 +20,6 @@
  */
 
 #include "gnome-cmd-includes.h"
-#include "dialogs/gnome-cmd-options-dialog.h"
 #include "utils.h"
 #include "gnome-cmd-main-win.h"
 #include "gnome-cmd-con-list.h"
@@ -28,17 +27,23 @@
 
 using namespace std;
 
-GtkWidget *create_filter_tab (GtkWidget *parent, GnomeCmdData::Options &cfg);
-GtkWidget *create_font_picker (GtkWidget *parent, const gchar *name);
-GtkWidget *create_tabs_tab (GtkWidget *parent, GnomeCmdData::Options &cfg);
-void store_confirmation_options (GtkWidget *dialog, GnomeCmdData::Options &cfg);
-void store_devices_options (GtkWidget *dialog, GnomeCmdData::Options &cfg);
-void store_filter_options (GtkWidget *dialog, GnomeCmdData::Options &cfg);
-void store_format_options (GtkWidget *dialog, GnomeCmdData::Options &cfg);
-void store_general_options (GtkWidget *dialog, GnomeCmdData::Options &cfg);
-void store_layout_options (GtkWidget *dialog, GnomeCmdData::Options &cfg);
-void store_programs_options (GtkWidget *dialog, GnomeCmdData::Options &cfg);
-void store_tabs_options (GtkWidget *dialog, GnomeCmdData::Options &cfg);
+extern "C" GtkWidget *create_general_tab (GtkWidget *parent, GnomeCmdData::Options &cfg);
+extern "C" GtkWidget *create_format_tab (GtkWidget *parent, GnomeCmdData::Options &cfg);
+extern "C" GtkWidget *create_layout_tab (GtkWidget *parent, GnomeCmdData::Options &cfg);
+extern "C" GtkWidget *create_filter_tab (GtkWidget *parent, GnomeCmdData::Options &cfg);
+extern "C" GtkWidget *create_font_picker (GtkWidget *parent, const gchar *name);
+extern "C" GtkWidget *create_tabs_tab (GtkWidget *parent, GnomeCmdData::Options &cfg);
+extern "C" GtkWidget *create_confirmation_tab (GtkWidget *parent, GnomeCmdData::Options &cfg);
+extern "C" GtkWidget *create_programs_tab (GtkWidget *parent, GnomeCmdData::Options &cfg);
+extern "C" GtkWidget *create_devices_tab (GtkWidget *parent, GnomeCmdData::Options &cfg);
+extern "C" void store_confirmation_options (GtkWidget *dialog, GnomeCmdData::Options &cfg);
+extern "C" void store_devices_options (GtkWidget *dialog, GnomeCmdData::Options &cfg);
+extern "C" void store_filter_options (GtkWidget *dialog, GnomeCmdData::Options &cfg);
+extern "C" void store_format_options (GtkWidget *dialog, GnomeCmdData::Options &cfg);
+extern "C" void store_general_options (GtkWidget *dialog, GnomeCmdData::Options &cfg);
+extern "C" void store_layout_options (GtkWidget *dialog, GnomeCmdData::Options &cfg);
+extern "C" void store_programs_options (GtkWidget *dialog, GnomeCmdData::Options &cfg);
+extern "C" void store_tabs_options (GtkWidget *dialog, GnomeCmdData::Options &cfg);
 
 extern "C" GType gnome_cmd_directory_button_get_type();
 
@@ -75,7 +80,7 @@ static void on_confirm_delete_toggled (GtkCheckButton *check_button, GtkWidget *
  *
  **********************************************************************/
 
-static GtkWidget *create_general_tab (GtkWidget *parent, GnomeCmdData::Options &cfg)
+GtkWidget *create_general_tab (GtkWidget *parent, GnomeCmdData::Options &cfg)
 {
     GtkWidget *vbox, *cat, *cat_box;
     GtkWidget *radio, *check;
@@ -346,7 +351,7 @@ static void on_date_format_update (GtkEditable *editable, GtkWidget *options_dia
 }
 
 
-static GtkWidget *create_format_tab (GtkWidget *parent, GnomeCmdData::Options &cfg)
+GtkWidget *create_format_tab (GtkWidget *parent, GnomeCmdData::Options &cfg)
 {
     GtkWidget *scrolled_window, *vbox, *cat, *cat_box, *grid;
     GtkWidget *radio, *label, *entry;
@@ -519,7 +524,7 @@ static void on_ls_colors_edit (GtkButton *btn, GtkWidget *parent)
 }
 
 
-static GtkWidget *create_layout_tab (GtkWidget *parent, GnomeCmdData::Options &cfg)
+GtkWidget *create_layout_tab (GtkWidget *parent, GnomeCmdData::Options &cfg)
 {
     GtkWidget *hbox, *scrolled_window, *vbox, *cat;
     GtkWidget *entry, *spin, *scale, *grid, *label, *fpicker, *btn;
@@ -789,7 +794,7 @@ void store_tabs_options (GtkWidget *dialog, GnomeCmdData::Options &cfg)
  *
  **********************************************************************/
 
-static GtkWidget *create_confirmation_tab (GtkWidget *parent, GnomeCmdData::Options &cfg)
+GtkWidget *create_confirmation_tab (GtkWidget *parent, GnomeCmdData::Options &cfg)
 {
     GtkWidget *scrolled_window, *vbox, *cat, *cat_box;
     GtkWidget *radio, *check;
@@ -989,7 +994,7 @@ extern "C" void gnome_cmd_favorite_apps_widget_load_apps(GtkWidget *);
 extern "C" void gnome_cmd_favorite_apps_widget_save_apps(GtkWidget *);
 
 
-static GtkWidget *create_programs_tab (GtkWidget *parent, GnomeCmdData::Options &cfg)
+GtkWidget *create_programs_tab (GtkWidget *parent, GnomeCmdData::Options &cfg)
 {
     GtkWidget *hbox, *scrolled_window, *vbox, *cat, *grid1, *grid2;
     GtkWidget *entry, *button, *label, *view, *bbox, *check;
@@ -1124,7 +1129,7 @@ void store_programs_options (GtkWidget *dialog, GnomeCmdData::Options &cfg)
 
 extern "C" GtkWidget *gnome_cmd_devices_widget ();
 
-static GtkWidget *create_devices_tab (GtkWidget *parent, GnomeCmdData::Options &cfg)
+GtkWidget *create_devices_tab (GtkWidget *parent, GnomeCmdData::Options &cfg)
 {
     GtkWidget *vbox, *devices, *check;
 
@@ -1156,135 +1161,4 @@ void store_devices_options (GtkWidget *dialog, GnomeCmdData::Options &cfg)
 
     GtkWidget *samba_workgroups_button = lookup_widget (dialog, "samba_workgroups_button");
     cfg.show_samba_workgroups_button = gtk_check_button_get_active (GTK_CHECK_BUTTON (samba_workgroups_button));
-}
-
-
-// variable for storing the last active tab
-static gint activetab = 0;
-
-
-static void save_dialog_state (GtkDialog *dialog, GtkNotebook *notebook)
-{
-    GtkAllocation dialog_allocation;
-    gtk_widget_get_allocation (GTK_WIDGET (dialog), &dialog_allocation);
-
-    gnome_cmd_data.opts_dialog_width = dialog_allocation.width;
-    gnome_cmd_data.opts_dialog_height = dialog_allocation.height;
-
-    // store the current active tab
-    activetab = gtk_notebook_get_current_page (notebook);
-}
-
-
-struct ResponseClosure
-{
-    GtkNotebook *notebook;
-    GnomeCmdData::Options *cfg;
-    GnomeCmdOptionsOkCallback on_ok;
-    gpointer on_ok_user_data;
-};
-
-
-static void response_callback (GtkDialog *dialog, int response_id, gpointer user_data)
-{
-    static const char *help_id[] = {"gnome-commander-prefs-general",
-                                    "gnome-commander-prefs-format",
-                                    "gnome-commander-prefs-layout",
-                                    "gnome-commander-prefs-tabs",
-                                    "gnome-commander-prefs-confirmation",
-                                    "gnome-commander-prefs-filters",
-                                    "gnome-commander-prefs-programs",
-                                    "gnome-commander-prefs-devices"};
-
-    ResponseClosure closure = *static_cast<ResponseClosure*>(user_data);
-
-    switch (response_id)
-    {
-        case GTK_RESPONSE_OK:
-            store_general_options (GTK_WIDGET (dialog), *closure.cfg);
-            store_format_options (GTK_WIDGET (dialog), *closure.cfg);
-            store_layout_options (GTK_WIDGET (dialog), *closure.cfg);
-            store_tabs_options (GTK_WIDGET (dialog), *closure.cfg);
-            store_confirmation_options (GTK_WIDGET (dialog), *closure.cfg);
-            store_filter_options (GTK_WIDGET (dialog), *closure.cfg);
-            store_programs_options (GTK_WIDGET (dialog), *closure.cfg);
-            store_devices_options (GTK_WIDGET (dialog), *closure.cfg);
-
-            save_dialog_state (dialog, closure.notebook);
-            g_free (user_data);
-            gtk_window_destroy (GTK_WINDOW (dialog));
-
-            closure.on_ok (closure.on_ok_user_data);
-
-            break;
-
-        case GTK_RESPONSE_CANCEL:
-            g_free (user_data);
-            save_dialog_state (dialog, closure.notebook);
-            gtk_window_destroy (GTK_WINDOW (dialog));
-            break;
-
-        case GTK_RESPONSE_HELP:
-            gnome_cmd_help_display ("gnome-commander.xml", help_id[gtk_notebook_get_current_page (closure.notebook)]);
-            break;
-
-        case GTK_RESPONSE_NONE:
-        case GTK_RESPONSE_DELETE_EVENT:
-            break;
-
-        default:
-            g_assert_not_reached ();
-    }
-}
-
-
-GtkDialog *gnome_cmd_options_dialog (GtkWindow *parent, GnomeCmdData::Options &cfg, GnomeCmdOptionsOkCallback on_ok, gpointer on_ok_user_data)
-{
-    GtkWidget *dialog = gtk_dialog_new_with_buttons (_("Options"), parent,
-                                                     GtkDialogFlags (GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT),
-                                                     _("_Help"), GTK_RESPONSE_HELP,
-                                                     _("_Cancel"), GTK_RESPONSE_CANCEL,
-                                                     _("_OK"), GTK_RESPONSE_OK,
-                                                     NULL);
-
-    GtkWidget *content_area = gtk_dialog_get_content_area (GTK_DIALOG (dialog));
-
-    gtk_window_set_default_size(GTK_WINDOW (dialog), gnome_cmd_data.opts_dialog_width, gnome_cmd_data.opts_dialog_height);
-
-    // HIG defaults
-    gtk_widget_set_margin_top (content_area, 10);
-    gtk_widget_set_margin_bottom (content_area, 10);
-    gtk_widget_set_margin_start (content_area, 10);
-    gtk_widget_set_margin_end (content_area, 10);
-    gtk_box_set_spacing (GTK_BOX (content_area), 6);
-
-    GtkNotebook *notebook = GTK_NOTEBOOK (gtk_notebook_new ());
-    gtk_widget_set_hexpand (GTK_WIDGET (notebook), TRUE);
-    gtk_widget_set_vexpand (GTK_WIDGET (notebook), TRUE);
-
-    gtk_box_append (GTK_BOX (content_area), GTK_WIDGET (notebook));
-
-    gtk_notebook_append_page (notebook, create_general_tab (dialog, cfg), gtk_label_new (_("General")));
-    gtk_notebook_append_page (notebook, create_format_tab (dialog, cfg), gtk_label_new (_("Format")));
-    gtk_notebook_append_page (notebook, create_layout_tab (dialog, cfg), gtk_label_new (_("Layout")));
-    gtk_notebook_append_page (notebook, create_tabs_tab (dialog, cfg), gtk_label_new (_("Tabs")));
-    gtk_notebook_append_page (notebook, create_confirmation_tab (dialog, cfg), gtk_label_new (_("Confirmation")));
-    gtk_notebook_append_page (notebook, create_filter_tab (dialog, cfg), gtk_label_new (_("Filters")));
-    gtk_notebook_append_page (notebook, create_programs_tab (dialog, cfg), gtk_label_new (_("Programs")));
-    gtk_notebook_append_page (notebook, create_devices_tab (dialog, cfg), gtk_label_new (_("Devices")));
-
-
-    gtk_dialog_set_default_response (GTK_DIALOG (dialog), GTK_RESPONSE_OK);
-
-    // open the tab which was active when closing the options notebook last time
-    gtk_notebook_set_current_page (notebook, activetab);
-
-    ResponseClosure *closure = g_new0 (ResponseClosure, 1);
-    closure->notebook = notebook;
-    closure->cfg = &cfg;
-    closure->on_ok = on_ok;
-    closure->on_ok_user_data = on_ok_user_data;
-    g_signal_connect (dialog, "response", G_CALLBACK (response_callback), closure);
-
-    return GTK_DIALOG (dialog);
 }
