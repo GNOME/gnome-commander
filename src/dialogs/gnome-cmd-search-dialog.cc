@@ -160,18 +160,25 @@ static GMenu *create_placeholder_menu(GnomeCmdData::SearchConfig &cfg)
 
     g_menu_append (menu, _("_Save Profile As…"), "search.save-profile");
 
-    if (!cfg.profiles.empty())
+    guint count = g_list_model_get_n_items (G_LIST_MODEL (cfg.profiles));
+    if (count > 0)
     {
         g_menu_append (menu, _("_Manage Profiles…"), "search.manage-profiles");
 
         GMenu *profiles = g_menu_new ();
 
-        gint i = 0;
-        for (vector<GnomeCmdData::SearchProfile>::const_iterator p=cfg.profiles.begin(); p!=cfg.profiles.end(); ++p, ++i)
+        for (guint i = 0; i < count; ++i)
         {
-            GMenuItem *item = g_menu_item_new (p->name.c_str(), nullptr);
+            auto p = g_list_model_get_item (G_LIST_MODEL (cfg.profiles), i);
+
+            gchar *name;
+            g_object_get (p, "name", &name, nullptr);
+
+            GMenuItem *item = g_menu_item_new (name, nullptr);
             g_menu_item_set_action_and_target (item, "search.load-profile", "i", i);
             g_menu_append_item (profiles, item);
+
+            g_free (name);
         }
         g_menu_append_section (menu, nullptr, G_MENU_MODEL (profiles));
     }
@@ -220,11 +227,13 @@ static void load_profile(GSimpleAction *action, GVariant *parameter, gpointer us
     auto priv = search_dialog_private (dialog);
     gsize profile_idx = g_variant_get_int32 (parameter);
 
-    GnomeCmdData::SearchConfig &cfg = *priv->defaults;
+    GnomeCmdData::SearchConfig *cfg = priv->defaults;
 
-    g_return_if_fail (profile_idx < cfg.profiles.size());
+    auto profile = (SearchProfile *) g_list_model_get_item (G_LIST_MODEL (cfg->profiles), profile_idx);
 
-    cfg.default_profile = cfg.profiles[profile_idx];
+    g_return_if_fail (profile != nullptr);
+
+    gnome_cmd_search_profile_copy_from(cfg->default_profile, profile);
     gnome_cmd_search_profile_component_update (priv->profile_component);
 }
 
@@ -393,7 +402,9 @@ void SearchData::SearchDirRecursive(GnomeCmdDir *dir, long level)
 
             // if the user wants to we should do some content matching here
             auto priv = search_dialog_private (dialog);
-            if (priv->defaults->default_profile.content_search)
+            gboolean content_search;
+            g_object_get (priv->defaults->default_profile, "content-search", &content_search, nullptr);
+            if (content_search)
             {
                 GFile *file = isGnomeCmdFile ? ((GnomeCmdFile *) i->data)->get_file() : g_file_get_child (((GnomeCmdFile *) dir)->get_file(), g_file_info_get_name (info));
                 gboolean matches = ContentMatches (file, info);
@@ -471,13 +482,20 @@ static gpointer perform_search_operation (SearchData *data)
         data->match_dirs = nullptr;
     }
 
-    data->SearchDirRecursive(start_dir, priv->defaults->default_profile.max_depth);
+    gint max_depth;
+    gboolean content_search;
+    g_object_get (priv->defaults->default_profile,
+        "max-depth", &max_depth,
+        "content-search", &content_search,
+        nullptr);
+
+    data->SearchDirRecursive(start_dir, max_depth);
 
     // free regexps
     delete data->name_filter;
     data->name_filter = nullptr;
 
-    if (priv->defaults->default_profile.content_search)
+    if (content_search)
     {
         regfree (data->content_regex);
         g_free (data->content_regex);
@@ -597,15 +615,32 @@ gboolean SearchData::StartGenericSearch()
 {
     auto priv = search_dialog_private (dialog);
 
+    gchar *filename_pattern;
+    gchar *text_pattern;
+    gboolean match_case;
+    gint syntax;
+    gboolean content_search;
+
+    g_object_get (priv->defaults->default_profile,
+        "filename-pattern", &filename_pattern,
+        "text-pattern", &text_pattern,
+        "match-case", &match_case,
+        "syntax", &syntax,
+        "content-search", &content_search,
+        nullptr);
+
     // create an regex for file name matching
-    name_filter = new Filter(priv->defaults->default_profile.filename_pattern.c_str(), priv->defaults->default_profile.match_case, priv->defaults->default_profile.syntax);
+    name_filter = new Filter(filename_pattern, match_case, (Filter::Type) syntax);
 
     // if we're going to search through file content create an regex for that too
-    if (priv->defaults->default_profile.content_search)
+    if (content_search)
     {
         content_regex = g_new0 (regex_t, 1);
-        regcomp (content_regex, priv->defaults->default_profile.text_pattern.c_str(), priv->defaults->default_profile.match_case ? 0 : REG_ICASE);
+        regcomp (content_regex, text_pattern, match_case ? 0 : REG_ICASE);
     }
+
+    g_free (filename_pattern);
+    g_free (text_pattern);
 
     cancellable = g_cancellable_new();
 
@@ -623,10 +658,25 @@ gchar *SearchData::BuildSearchCommand()
 {
     auto priv = search_dialog_private (dialog);
 
-    gchar *file_pattern_utf8 = g_strdup (priv->defaults->default_profile.filename_pattern.c_str());
+    gchar *file_pattern_utf8;
+    gchar *text_pattern;
+    gboolean match_case;
+    gint max_depth;
+    gint syntax;
+    gboolean content_search;
+
+    g_object_get (priv->defaults->default_profile,
+        "filename-pattern", &file_pattern_utf8,
+        "text-pattern", &text_pattern,
+        "match-case", &match_case,
+        "max-depth", &max_depth,
+        "syntax", &syntax,
+        "content-search", &content_search,
+        nullptr);
+
     GError *error = nullptr;
 
-    switch (priv->defaults->default_profile.syntax)
+    switch (syntax)
     {
         case Filter::TYPE_FNMATCH:
             if (!file_pattern_utf8 || !*file_pattern_utf8)
@@ -665,14 +715,15 @@ gchar *SearchData::BuildSearchCommand()
     }
 
     gchar *text_pattern_quoted = nullptr;
-    if (priv->defaults->default_profile.content_search)
+    if (content_search)
     {
-        const gchar *text_pattern_utf8 = priv->defaults->default_profile.text_pattern.c_str();
+        const gchar *text_pattern_utf8 = text_pattern;
         gchar *text_pattern_locale = g_locale_from_utf8 (text_pattern_utf8, -1, nullptr, nullptr, &error);
 
         if (!text_pattern_locale)
         {
             gnome_cmd_error_message (nullptr, text_pattern_utf8, error);
+            g_free (text_pattern);
             g_free (file_pattern_utf8);
             g_free (file_pattern_locale);
             return nullptr;
@@ -681,6 +732,7 @@ gchar *SearchData::BuildSearchCommand()
         text_pattern_quoted = quote_if_needed (text_pattern_locale);
         g_free (text_pattern_locale);
     }
+    g_free (text_pattern);
 
     gchar *file_pattern_quoted = quote_if_needed (file_pattern_locale);
     gchar *look_in_folder_utf8 = GNOME_CMD_FILE (start_dir)->get_real_path();
@@ -697,10 +749,10 @@ gchar *SearchData::BuildSearchCommand()
     g_string_append (command, look_in_folder_quoted);
 
     g_string_append (command, " -mindepth 1"); // exclude the directory itself
-    if (priv->defaults->default_profile.max_depth!=-1)
-        g_string_append_printf (command, " -maxdepth %i", priv->defaults->default_profile.max_depth+1);
+    if (max_depth != -1)
+        g_string_append_printf (command, " -maxdepth %i", max_depth + 1);
 
-    switch (priv->defaults->default_profile.syntax)
+    switch (syntax)
     {
         case Filter::TYPE_FNMATCH:
             g_string_append_printf (command, " -iname %s", file_pattern_quoted);
@@ -713,11 +765,11 @@ gchar *SearchData::BuildSearchCommand()
             ;
     }
 
-    if (priv->defaults->default_profile.content_search)
+    if (content_search)
     {
         static const gchar GREP_COMMAND[] = "grep";
 
-        if (priv->defaults->default_profile.match_case)
+        if (match_case)
             g_string_append_printf (command, " '!' -type p -exec %s -E -q %s {} \\;", GREP_COMMAND, text_pattern_quoted);
         else
             g_string_append_printf (command, " '!' -type p -exec %s -E -q -i %s {} \\;", GREP_COMMAND, text_pattern_quoted);
@@ -1005,19 +1057,37 @@ static void on_dialog_response(GtkDialog *window, int response_id, GnomeCmdSearc
                 gnome_cmd_dir_ref (data.start_dir);
 
                 // save default settings
+                gchar *filename_pattern;
+                gchar *text_pattern;
+                gboolean match_case;
+                gint max_depth;
+                gint syntax;
+                gboolean content_search;
+
+                g_object_get (priv->defaults->default_profile,
+                    "filename-pattern", &filename_pattern,
+                    "text-pattern", &text_pattern,
+                    "match-case", &match_case,
+                    "max-depth", &max_depth,
+                    "syntax", &syntax,
+                    "content-search", &content_search,
+                    nullptr);
+
                 gnome_cmd_search_profile_component_copy (priv->profile_component);
-                if (!priv->defaults->default_profile.filename_pattern.empty())
+                if (filename_pattern != nullptr && filename_pattern[0] != '\0')
                 {
-                    gnome_cmd_data.search_defaults.name_patterns.add(priv->defaults->default_profile.filename_pattern.c_str());
+                    gnome_cmd_data.search_defaults.name_patterns.add(filename_pattern);
                     gnome_cmd_search_profile_component_set_name_patterns_history (priv->profile_component, priv->defaults->name_patterns.ents);
                 }
 
-                if (priv->defaults->default_profile.content_search && !priv->defaults->default_profile.text_pattern.empty())
+                if (content_search && text_pattern != nullptr && text_pattern[0] != '\0')
                 {
-                    gnome_cmd_data.search_defaults.content_patterns.add(priv->defaults->default_profile.text_pattern.c_str());
-                    gnome_cmd_viewer_search_text_add_to_history(priv->defaults->default_profile.text_pattern.c_str());
+                    gnome_cmd_data.search_defaults.content_patterns.add(text_pattern);
+                    gnome_cmd_viewer_search_text_add_to_history(text_pattern);
                     gnome_cmd_search_profile_component_set_content_patterns_history (priv->profile_component, priv->defaults->content_patterns.ents);
                 }
+                g_free (filename_pattern);
+                g_free (text_pattern);
 
                 data.search_done = FALSE;
                 data.stopped = FALSE;
@@ -1247,7 +1317,7 @@ GnomeCmdSearchDialog *gnome_cmd_search_dialog_new (GnomeCmdData::SearchConfig *c
 
     gtk_window_set_hide_on_close (GTK_WINDOW (dialog), TRUE);
 
-    priv->profile_component = gnome_cmd_search_profile_component_new(&cfg->default_profile, priv->labels_size_group);
+    priv->profile_component = gnome_cmd_search_profile_component_new(cfg->default_profile, priv->labels_size_group);
     gtk_grid_attach (GTK_GRID (priv->grid), GTK_WIDGET (priv->profile_component), 0, 1, 2, 1);
 
     if (!priv->defaults->name_patterns.empty())

@@ -803,92 +803,6 @@ void GnomeCmdData::Options::set_color_mode(GnomeCmdColorMode color_mode)
 }
 
 
-struct SearchProfiles
-{
-    std::vector<GnomeCmdData::SearchProfile> profiles;
-};
-
-
-extern "C" SearchProfiles *gnome_cmd_search_config_new_profiles (GnomeCmdData::SearchConfig *cfg, gboolean with_default)
-{
-    auto profiles = new SearchProfiles();
-    profiles->profiles = cfg->profiles;
-    if (with_default)
-        profiles->profiles.push_back(cfg->default_profile);
-    return profiles;
-}
-
-extern "C" void gnome_cmd_search_config_take_profiles (GnomeCmdData::SearchConfig *cfg, SearchProfiles *profiles)
-{
-    cfg->profiles = profiles->profiles;
-    delete profiles;
-}
-
-
-extern "C" SearchProfiles *gnome_cmd_search_profiles_dup (SearchProfiles *profiles)
-{
-    auto profiles_copy = new SearchProfiles();
-    profiles_copy->profiles = profiles->profiles;
-    return profiles_copy;
-}
-
-extern "C" uint gnome_cmd_search_profiles_len (SearchProfiles *profiles)
-{
-    return profiles->profiles.size();
-}
-
-extern "C" GnomeCmdData::SearchProfile *gnome_cmd_search_profiles_get (SearchProfiles *profiles, guint profile_index)
-{
-    return &profiles->profiles[profile_index];
-}
-
-extern "C" const gchar *gnome_cmd_search_profiles_get_name (SearchProfiles *profiles, guint profile_index)
-{
-    return profiles->profiles[profile_index].name.c_str();
-}
-
-extern "C" void gnome_cmd_search_profiles_set_name (SearchProfiles *profiles, guint profile_index, const gchar *name)
-{
-    profiles->profiles[profile_index].name = name;
-}
-
-extern "C" gchar *gnome_cmd_search_profiles_get_description (SearchProfiles *profiles, guint profile_index)
-{
-    return g_strdup (profiles->profiles[profile_index].description().c_str());
-}
-
-extern "C" void gnome_cmd_search_profiles_reset (SearchProfiles *profiles, guint profile_index)
-{
-    profiles->profiles[profile_index].reset();
-}
-
-extern "C" guint gnome_cmd_search_profiles_duplicate (SearchProfiles *profiles, guint profile_index)
-{
-    profiles->profiles.push_back(profiles->profiles[profile_index]);
-    return profiles->profiles.size() - 1;
-}
-
-extern "C" void gnome_cmd_search_profiles_pick (SearchProfiles *profiles, guint *indexes, guint size)
-{
-    std::vector<GnomeCmdData::SearchProfile> picked_profiles;
-    for (guint i = 0; i < size; ++i)
-        picked_profiles.push_back(profiles->profiles[indexes[i]]);
-    profiles->profiles = picked_profiles;
-}
-
-
-void GnomeCmdData::SearchProfile::reset()
-{
-    name.clear();
-    filename_pattern.clear();
-    syntax = Filter::TYPE_REGEX;
-    max_depth = -1;
-    text_pattern.clear();
-    content_search = FALSE;
-    match_case = FALSE;
-}
-
-
 extern "C" GList *gnome_cmd_search_config_get_name_patterns(GnomeCmdData::SearchConfig *search_config)
 {
     return search_config->name_patterns.ents;
@@ -899,15 +813,18 @@ extern "C" void gnome_cmd_search_config_add_name_pattern(GnomeCmdData::SearchCon
     search_config->name_patterns.add(p);
 }
 
-extern "C" gint gnome_cmd_search_config_get_default_profile_syntax(GnomeCmdData::SearchConfig *search_config)
+extern "C" SearchProfile *gnome_cmd_search_config_get_default_profile(GnomeCmdData::SearchConfig *search_config)
 {
-    return search_config->default_profile.syntax;
+    return search_config->default_profile;
 }
 
-extern "C" void gnome_cmd_search_config_set_default_profile_syntax(GnomeCmdData::SearchConfig *search_config, gint syntax)
+extern "C" GListStore *gnome_cmd_search_config_get_profiles(GnomeCmdData::SearchConfig *search_config)
 {
-    search_config->default_profile.syntax = (Filter::Type) syntax;
+    return search_config->profiles;
 }
+
+extern "C" void gnome_cmd_search_config_load(GnomeCmdData::SearchConfig *search_config);
+extern "C" void gnome_cmd_search_config_save(GnomeCmdData::SearchConfig *search_config, gboolean save_search_history);
 
 
 struct AdvrenameProfiles
@@ -1002,47 +919,6 @@ void GnomeCmdData::save_bookmarks()
         bookmarksToStore = g_settings_get_default_value (options.gcmd_settings->general, GCMD_SETTINGS_BOOKMARKS);
 
     g_settings_set_value(options.gcmd_settings->general, GCMD_SETTINGS_BOOKMARKS, bookmarksToStore);
-}
-
-
-/**
- * Save search profiles in gSettings.
- * The first profile is the active profile, i.e. the one which is used currently.
- * The others are profiles which can be choosen in the profile dialoge.
- */
-void GnomeCmdData::save_search_profiles ()
-{
-    GVariantBuilder* gVariantBuilder = g_variant_builder_new(G_VARIANT_TYPE_ARRAY);
-    if (options.save_search_history_on_exit)
-        add_search_profile_to_gvariant_builder(gVariantBuilder, search_defaults.default_profile);
-    else
-    {
-        SearchProfile searchProfile;
-        add_search_profile_to_gvariant_builder(gVariantBuilder, searchProfile);
-    }
-
-    for (auto profile : profiles)
-    {
-        add_search_profile_to_gvariant_builder(gVariantBuilder, profile);
-    }
-
-    GVariant* profilesToStore = g_variant_new(GCMD_SETTINGS_SEARCH_PROFILES_FORMAT_STRING, gVariantBuilder);
-    g_settings_set_value(options.gcmd_settings->general, GCMD_SETTINGS_SEARCH_PROFILES, profilesToStore);
-    g_variant_builder_unref(gVariantBuilder);
-}
-
-
-void GnomeCmdData::add_search_profile_to_gvariant_builder(GVariantBuilder *builder, SearchProfile searchProfile)
-{
-    g_variant_builder_add(builder, GCMD_SETTINGS_SEARCH_PROFILE_FORMAT_STRING,
-        searchProfile.name.c_str(),
-        searchProfile.max_depth,
-        (gint) searchProfile.syntax,
-        searchProfile.filename_pattern.c_str(),
-        searchProfile.content_search,
-        searchProfile.match_case,
-        searchProfile.text_pattern.c_str()
-    );
 }
 
 
@@ -1242,58 +1118,6 @@ void GnomeCmdData::load_advrename_profiles ()
 
 
 /**
- * This method reads the gsettings section of the search tool profiles
- */
-void GnomeCmdData::load_search_profiles ()
-{
-    auto *gVariantProfiles = g_settings_get_value (options.gcmd_settings->general, GCMD_SETTINGS_SEARCH_PROFILES);
-
-    g_autoptr(GVariantIter) iter1 {nullptr};
-
-    g_variant_get (gVariantProfiles, GCMD_SETTINGS_SEARCH_PROFILES_FORMAT_STRING, &iter1);
-
-    gchar *name {nullptr};
-    gchar *filenamePattern {nullptr};
-    gchar *textPattern {nullptr};
-    gint maxDepth {0};
-    gint syntax {0};
-    guint profileNumber {0};
-    gboolean contentSearch {false};
-    gboolean matchCase {false};
-
-    while (g_variant_iter_loop (iter1,
-            GCMD_SETTINGS_SEARCH_PROFILE_FORMAT_STRING,
-            &name,
-            &maxDepth,
-            &syntax,
-            &filenamePattern,
-            &contentSearch,
-            &matchCase,
-            &textPattern))
-    {
-        SearchProfile searchProfile;
-
-        searchProfile.name             = name;
-        searchProfile.max_depth        = maxDepth;
-        searchProfile.syntax           = syntax == 0 ? Filter::TYPE_REGEX : Filter::TYPE_FNMATCH;
-        searchProfile.filename_pattern = filenamePattern;
-        searchProfile.content_search   = contentSearch;
-        searchProfile.match_case       = matchCase;
-        searchProfile.text_pattern     = textPattern;
-
-        if (profileNumber == 0)
-            search_defaults.default_profile = searchProfile;
-        else
-            profiles.push_back(searchProfile);
-
-        ++profileNumber;
-    }
-
-    g_variant_unref(gVariantProfiles);
-}
-
-
-/**
  * This function converts a GList into a NULL terminated array of char pointers.
  * This array is stored into the given GSettings key.
  * @returns The return value of g_settings_set_strv if the length of the GList is > 0, else true.
@@ -1423,7 +1247,7 @@ inline void GnomeCmdData::load_directory_history()
 }
 
 
-GnomeCmdData::GnomeCmdData(): search_defaults(profiles)
+GnomeCmdData::GnomeCmdData()
 {
     //TODO: Include into GnomeCmdData::Options
     gui_update_rate = DEFAULT_GUI_UPDATE_RATE;
@@ -1569,7 +1393,7 @@ void GnomeCmdData::load()
     gnome_cmd_con_list_lock (priv->con_list);
     load_devices();
     load_advrename_profiles ();
-    load_search_profiles    ();
+    gnome_cmd_search_config_load(&search_defaults);
     load_connections        ();
     load_bookmarks          ();
     load_directory_history  ();
@@ -1657,7 +1481,7 @@ void GnomeCmdData::save(GnomeCmdMainWin *main_win)
     save_cmdline_history            (main_win);
     save_directory_history          ();
     save_search_history             ();
-    save_search_profiles            ();
+    gnome_cmd_search_config_save(&search_defaults, options.save_search_history_on_exit);
     save_connections                ();
     save_bookmarks                  ();
     save_advrename_profiles         ();
@@ -1778,7 +1602,6 @@ gboolean GnomeCmdData::set_gsettings_when_changed (GSettings *settings_given, co
 #endif
 
 
-GnomeCmdData::SearchProfile::~SearchProfile(){};
 GnomeCmdData::AdvrenameConfig::Profile::~Profile(){};
 
 

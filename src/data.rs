@@ -20,14 +20,18 @@
 use crate::{
     file_selector::TabVariant,
     filter::PatternType,
+    search::profile::{SearchProfile, SearchProfilePtr, SearchProfileVariant},
     types::{
         ExtensionDisplayMode, GnomeCmdConfirmOverwriteMode, GraphicalLayoutMode,
         PermissionDisplayMode, SizeDisplayMode,
     },
 };
 use gtk::{
-    gio,
-    glib::{ffi::GList, translate::ToGlibPtr},
+    gio::{self, ffi::GListStore},
+    glib::{
+        ffi::{gboolean, GList},
+        translate::{from_glib_none, ToGlibPtr},
+    },
     prelude::*,
 };
 use std::ffi::{c_char, c_void};
@@ -450,8 +454,8 @@ extern "C" {
     fn gnome_cmd_search_config_get_name_patterns(ptr: *mut c_void) -> *const GList;
     fn gnome_cmd_search_config_add_name_pattern(ptr: *mut c_void, p: *const c_char);
 
-    fn gnome_cmd_search_config_get_default_profile_syntax(ptr: *mut c_void) -> i32;
-    fn gnome_cmd_search_config_set_default_profile_syntax(ptr: *mut c_void, s: i32);
+    fn gnome_cmd_search_config_get_default_profile(ptr: *mut c_void) -> *mut SearchProfilePtr;
+    fn gnome_cmd_search_config_get_profiles(ptr: *mut c_void) -> *mut GListStore;
 }
 
 impl SearchConfig {
@@ -471,16 +475,85 @@ impl SearchConfig {
         unsafe { gnome_cmd_search_config_add_name_pattern(self.0, pattern.to_glib_none().0) }
     }
 
+    pub fn default_profile(&self) -> SearchProfile {
+        unsafe { from_glib_none(gnome_cmd_search_config_get_default_profile(self.0)) }
+    }
+
+    pub fn profiles(&self) -> gio::ListStore {
+        unsafe { from_glib_none(gnome_cmd_search_config_get_profiles(self.0)) }
+    }
+
+    pub fn set_profiles(&self, profiles: &gio::ListStore) {
+        let store = self.profiles();
+        store.remove_all();
+        for p in profiles.iter::<SearchProfile>().flatten() {
+            store.append(&p);
+        }
+    }
+
     pub fn default_profile_syntax(&self) -> PatternType {
-        let t = unsafe { gnome_cmd_search_config_get_default_profile_syntax(self.0) };
-        match t {
+        match self.default_profile().syntax() {
             0 => PatternType::Regex,
             _ => PatternType::FnMatch,
         }
     }
 
     pub fn set_default_profile_syntax(&self, pattern_type: PatternType) {
-        unsafe { gnome_cmd_search_config_set_default_profile_syntax(self.0, pattern_type as i32) }
+        self.default_profile().set_syntax(match pattern_type {
+            PatternType::Regex => 0,
+            PatternType::FnMatch => 1,
+        });
+    }
+
+    pub fn save(&self, save_search_history: bool) -> glib::Variant {
+        let mut vs = Vec::<SearchProfileVariant>::new();
+        vs.push(if save_search_history {
+            self.default_profile().save()
+        } else {
+            SearchProfile::default().save()
+        });
+        vs.extend(
+            self.profiles()
+                .iter::<SearchProfile>()
+                .flatten()
+                .map(|p| p.save()),
+        );
+        vs.to_variant()
+    }
+
+    pub fn load(&self, variant: &glib::Variant) {
+        self.default_profile().reset();
+        self.profiles().remove_all();
+        let Some(vs) = Vec::<SearchProfileVariant>::from_variant(variant) else {
+            return;
+        };
+        let mut iter = vs.into_iter();
+        if let Some(v) = iter.next() {
+            self.default_profile().load(v);
+        }
+        for v in iter {
+            let p = SearchProfile::default();
+            p.load(v);
+            self.profiles().append(&p);
+        }
+    }
+}
+
+#[no_mangle]
+pub extern "C" fn gnome_cmd_search_config_load(ptr: *mut c_void) {
+    let search_config = unsafe { SearchConfig::from_ptr(ptr) };
+    let options = GeneralOptions::new();
+    let variant = options.0.value("search-profiles");
+    search_config.load(&variant);
+}
+
+#[no_mangle]
+pub extern "C" fn gnome_cmd_search_config_save(ptr: *mut c_void, save_search_history: gboolean) {
+    let search_config = unsafe { SearchConfig::from_ptr(ptr) };
+    let variant = search_config.save(save_search_history != 0);
+    let options = GeneralOptions::new();
+    if let Err(error) = options.0.set_value("search-profiles", &variant) {
+        eprintln!("Failed to save search profiles: {}", error.message);
     }
 }
 

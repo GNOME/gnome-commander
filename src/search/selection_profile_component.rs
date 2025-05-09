@@ -53,6 +53,9 @@ mod imp {
         }
 
         fn dispose(&self) {
+            unsafe {
+                ffi::gnome_cmd_selection_profile_component_dispose(self.obj().to_glib_none().0);
+            }
             while let Some(child) = self.obj().first_child() {
                 child.unparent();
             }
@@ -68,6 +71,9 @@ mod ffi {
 
     extern "C" {
         pub fn gnome_cmd_selection_profile_component_init(
+            component: *mut GnomeCmdSelectionProfileComponent,
+        );
+        pub fn gnome_cmd_selection_profile_component_dispose(
             component: *mut GnomeCmdSelectionProfileComponent,
         );
     }

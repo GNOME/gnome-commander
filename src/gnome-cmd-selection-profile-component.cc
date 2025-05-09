@@ -42,7 +42,7 @@ struct GnomeCmdSelectionProfileComponentPrivate
     GtkWidget *find_text_check;
     GtkWidget *case_check;
 
-    GnomeCmdData::SearchProfile *profile;
+    SearchProfile *profile;
 };
 
 
@@ -150,12 +150,20 @@ extern "C" void gnome_cmd_selection_profile_component_init (GnomeCmdSelectionPro
 }
 
 
-GnomeCmdSelectionProfileComponent *gnome_cmd_search_profile_component_new (GnomeCmdData::SearchProfile *profile, GtkSizeGroup *labels_size_group)
+extern "C" void gnome_cmd_selection_profile_component_dispose (GnomeCmdSelectionProfileComponent *component)
+{
+    auto priv = profile_component_private (component);
+
+    g_clear_object (&priv->profile);
+}
+
+
+GnomeCmdSelectionProfileComponent *gnome_cmd_search_profile_component_new (SearchProfile *profile, GtkSizeGroup *labels_size_group)
 {
     auto component = (GnomeCmdSelectionProfileComponent *) g_object_new (gnome_cmd_selection_profile_component_get_type (), nullptr);
     auto priv = profile_component_private (component);
 
-    priv->profile = profile;
+    g_set_object (&priv->profile, profile);
 
     if (labels_size_group)
     {
@@ -164,14 +172,16 @@ GnomeCmdSelectionProfileComponent *gnome_cmd_search_profile_component_new (Gnome
         gtk_size_group_add_widget (labels_size_group, priv->find_text_check);
     }
 
-    gtk_check_button_set_active (GTK_CHECK_BUTTON (priv->case_check), profile->match_case);
+    gboolean match_case;
+    g_object_get (profile, "match-case", &match_case, nullptr);
+    gtk_check_button_set_active (GTK_CHECK_BUTTON (priv->case_check), match_case);
 
     gtk_widget_grab_focus (priv->pattern_combo);
 
     g_signal_connect (priv->filter_type_combo, "changed", G_CALLBACK (on_filter_type_changed), component);
     g_signal_connect (priv->find_text_check, "toggled", G_CALLBACK (on_find_text_toggled), component);
 
-    return component;
+    return g_object_ref_sink (component);
 }
 
 
@@ -182,11 +192,30 @@ void gnome_cmd_search_profile_component_update (GnomeCmdSelectionProfileComponen
     gnome_cmd_search_profile_component_set_name_patterns_history (component, gnome_cmd_data.search_defaults.name_patterns.ents);
     gnome_cmd_search_profile_component_set_content_patterns_history (component, gnome_cmd_data.search_defaults.content_patterns.ents);
 
-    gtk_editable_set_text (GTK_EDITABLE (gtk_combo_box_get_child (GTK_COMBO_BOX (priv->pattern_combo))), priv->profile->filename_pattern.c_str());
-    gtk_combo_box_set_active (GTK_COMBO_BOX (priv->filter_type_combo), (int) priv->profile->syntax);
-    gtk_combo_box_set_active (GTK_COMBO_BOX (priv->recurse_combo), priv->profile->max_depth+1);
-    gtk_editable_set_text (GTK_EDITABLE (gtk_combo_box_get_child (GTK_COMBO_BOX (priv->find_text_combo))), priv->profile->text_pattern.c_str());
-    gtk_check_button_set_active (GTK_CHECK_BUTTON (priv->find_text_check), priv->profile->content_search);
+    gchar *filename_pattern;
+    gchar *text_pattern;
+    gboolean match_case;
+    gint max_depth;
+    gint syntax;
+    gboolean content_search;
+
+    g_object_get (priv->profile,
+        "filename-pattern", &filename_pattern,
+        "text-pattern", &text_pattern,
+        "match-case", &match_case,
+        "max-depth", &max_depth,
+        "syntax", &syntax,
+        "content-search", &content_search,
+        nullptr);
+
+    gtk_editable_set_text (GTK_EDITABLE (gtk_combo_box_get_child (GTK_COMBO_BOX (priv->pattern_combo))), filename_pattern);
+    gtk_combo_box_set_active (GTK_COMBO_BOX (priv->filter_type_combo), syntax);
+    gtk_combo_box_set_active (GTK_COMBO_BOX (priv->recurse_combo), max_depth + 1);
+    gtk_editable_set_text (GTK_EDITABLE (gtk_combo_box_get_child (GTK_COMBO_BOX (priv->find_text_combo))), text_pattern);
+    gtk_check_button_set_active (GTK_CHECK_BUTTON (priv->find_text_check), content_search);
+
+    g_free (filename_pattern);
+    g_free (text_pattern);
 }
 
 
@@ -194,14 +223,17 @@ void gnome_cmd_search_profile_component_copy (GnomeCmdSelectionProfileComponent 
 {
     auto priv = profile_component_private (component);
 
-    const char *pattern_text = gtk_editable_get_text (GTK_EDITABLE (gtk_combo_box_get_child (GTK_COMBO_BOX (priv->pattern_combo))));
-    stringify(priv->profile->filename_pattern, pattern_text);
-    priv->profile->syntax = (Filter::Type) gtk_combo_box_get_active (GTK_COMBO_BOX (priv->filter_type_combo));
-    priv->profile->max_depth = gtk_combo_box_get_active (GTK_COMBO_BOX (priv->recurse_combo)) - 1;
-    const char *find_text = gtk_editable_get_text (GTK_EDITABLE (gtk_combo_box_get_child (GTK_COMBO_BOX (priv->find_text_combo))));
-    stringify(priv->profile->text_pattern, find_text);
-    priv->profile->content_search = !priv->profile->text_pattern.empty() && gtk_check_button_get_active (GTK_CHECK_BUTTON (priv->find_text_check));
-    priv->profile->match_case = priv->profile->content_search && gtk_check_button_get_active (GTK_CHECK_BUTTON (priv->case_check));
+    const gchar *text_pattern = gtk_editable_get_text (GTK_EDITABLE (gtk_combo_box_get_child (GTK_COMBO_BOX (priv->find_text_combo))));
+    gboolean content_search = (text_pattern != nullptr && text_pattern[0] != '\0') && gtk_check_button_get_active (GTK_CHECK_BUTTON (priv->find_text_check));
+
+    g_object_set (priv->profile,
+        "filename-pattern", gtk_editable_get_text (GTK_EDITABLE (gtk_combo_box_get_child (GTK_COMBO_BOX (priv->pattern_combo)))),
+        "max-depth", gtk_combo_box_get_active (GTK_COMBO_BOX (priv->recurse_combo)) - 1,
+        "syntax", gtk_combo_box_get_active (GTK_COMBO_BOX (priv->filter_type_combo)),
+        "text-pattern", text_pattern,
+        "content-search", content_search,
+        "match-case", content_search && gtk_check_button_get_active (GTK_CHECK_BUTTON (priv->case_check)),
+        nullptr);
 }
 
 

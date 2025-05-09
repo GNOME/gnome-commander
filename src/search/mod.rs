@@ -17,5 +17,6 @@
  * For more details see the file COPYING.
  */
 
+pub mod profile;
 pub mod search_dialog;
 pub mod selection_profile_component;

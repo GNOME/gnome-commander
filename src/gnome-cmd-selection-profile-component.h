@@ -36,7 +36,7 @@ extern "C" GType gnome_cmd_selection_profile_component_get_type ();
 struct GnomeCmdSelectionProfileComponent;
 
 
-extern "C" GnomeCmdSelectionProfileComponent *gnome_cmd_search_profile_component_new (GnomeCmdData::SearchProfile *profile, GtkSizeGroup *labels_size_group);
+extern "C" GnomeCmdSelectionProfileComponent *gnome_cmd_search_profile_component_new (SearchProfile *profile, GtkSizeGroup *labels_size_group);
 extern "C" void gnome_cmd_search_profile_component_update (GnomeCmdSelectionProfileComponent *component);
 extern "C" void gnome_cmd_search_profile_component_copy (GnomeCmdSelectionProfileComponent *component);
 
