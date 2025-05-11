@@ -25,7 +25,7 @@
 #include "gnome-cmd-data.h"
 #include "gnome-cmd-con-remote.h"
 #include "gnome-cmd-main-win.h"
-#include "gnome-cmd-plain-path.h"
+#include "gnome-cmd-path.h"
 #include "imageloader.h"
 #include "utils.h"
 
@@ -92,7 +92,7 @@ static void remote_open (GnomeCmdCon *con, GtkWindow *parent_window)
     con->open_result = GnomeCmdCon::OPEN_IN_PROGRESS;
 
     if (gnome_cmd_con_get_base_path (con) == nullptr)
-        gnome_cmd_con_set_base_path (con, new GnomeCmdPlainPath(G_DIR_SEPARATOR_S));
+        gnome_cmd_con_set_base_path (con, gnome_cmd_plain_path_new (G_DIR_SEPARATOR_S));
 
     auto gFile = gnome_cmd_con_create_gfile(con);
 
@@ -236,7 +236,7 @@ static GFile *remote_create_gfile (GnomeCmdCon *con, const gchar *path)
 
 static GnomeCmdPath *remote_create_path (GnomeCmdCon *con, const gchar *path_str)
 {
-    return new GnomeCmdPlainPath(path_str);
+    return gnome_cmd_plain_path_new (path_str);
 }
 
 

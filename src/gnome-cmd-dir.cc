@@ -139,7 +139,7 @@ static void gnome_cmd_dir_finalize (GObject *object)
     gnome_cmd_con_remove_from_cache (priv->con, dir);
 
     delete priv->file_collection;
-    delete priv->path;
+    g_clear_pointer (&priv->path, gnome_cmd_path_free);
 
     G_OBJECT_CLASS (gnome_cmd_dir_parent_class)->finalize (object);
 }
@@ -260,13 +260,15 @@ GnomeCmdDir *gnome_cmd_dir_new_from_gfileinfo (GFileInfo *gFileInfo, GnomeCmdDir
     }
     else
     {
-        dirPath = gnome_cmd_dir_get_path (gnomeCmdDirParent)->get_child(dirName);
+        dirPath = gnome_cmd_path_get_child (gnome_cmd_dir_get_path (gnomeCmdDirParent), dirName);
         if (!dirPath)
         {
             return nullptr;
         }
 
-        gFile = gnome_cmd_con_create_gfile (con, dirPath->get_path());
+        gchar *p = gnome_cmd_path_get_path (dirPath);
+        gFile = gnome_cmd_con_create_gfile (con, p);
+        g_free (p);
     }
     auto uriString = g_file_get_uri (gFile);
 
@@ -274,7 +276,7 @@ GnomeCmdDir *gnome_cmd_dir_new_from_gfileinfo (GFileInfo *gFileInfo, GnomeCmdDir
 
     if (gnomeCmdDir)
     {
-        delete dirPath;
+        gnome_cmd_path_free (dirPath);
         GNOME_CMD_FILE (gnomeCmdDir)->update_gFileInfo(gFileInfo);
         g_free (uriString);
         return gnomeCmdDir;
@@ -307,9 +309,12 @@ GnomeCmdDir *gnome_cmd_dir_new_with_con (GnomeCmdCon *con)
     GFileInfo *con_base_file_info = gnome_cmd_con_get_base_file_info (con);
     g_return_val_if_fail (con_base_file_info != nullptr, nullptr);
 
-    auto gFile = con->is_local
-        ? gnome_cmd_con_create_gfile (con, gnome_cmd_con_get_base_path(con)->get_path())
-        : gnome_cmd_con_create_gfile (con, nullptr);
+    gchar *path = con->is_local
+        ? gnome_cmd_path_get_path (gnome_cmd_con_get_base_path(con))
+        : nullptr;
+
+    auto gFile = gnome_cmd_con_create_gfile (con, path);
+    g_free (path);
 
     auto uriString = g_file_get_uri(gFile);
     GnomeCmdDir *dir = gnome_cmd_con_cache_lookup (con, uriString);
@@ -323,7 +328,7 @@ GnomeCmdDir *gnome_cmd_dir_new_with_con (GnomeCmdCon *con)
     }
 
     dir = static_cast<GnomeCmdDir*> (g_object_new (GNOME_CMD_TYPE_DIR, nullptr));
-    gnome_cmd_dir_set_path (dir, gnome_cmd_con_get_base_path (con)->clone());
+    gnome_cmd_dir_set_path (dir, gnome_cmd_path_clone (gnome_cmd_con_get_base_path (con)));
     auto priv = dir_private (dir);
     priv->con = con;
     GError *error = nullptr;
@@ -348,7 +353,9 @@ GnomeCmdDir *gnome_cmd_dir_new (GnomeCmdCon *con, GnomeCmdPath *path, gboolean i
     g_return_val_if_fail (path!=nullptr, nullptr);
     GError *error = nullptr;
 
-    auto gFile = gnome_cmd_con_create_gfile (con, path->get_path());
+    gchar *path_str = gnome_cmd_path_get_path (path);
+    auto gFile = gnome_cmd_con_create_gfile (con, path_str);
+    g_free (path_str);
     if (!gFile)
     {
         return nullptr;
@@ -390,7 +397,7 @@ GnomeCmdDir *gnome_cmd_dir_get_parent (GnomeCmdDir *dir)
     g_return_val_if_fail (GNOME_CMD_IS_DIR (dir), nullptr);
     auto priv = dir_private (dir);
 
-    GnomeCmdPath *path = priv->path->get_parent();
+    GnomeCmdPath *path = gnome_cmd_path_get_parent (priv->path);
 
     return path ? gnome_cmd_dir_new (priv->con, path) : nullptr;
 }
@@ -401,7 +408,7 @@ GnomeCmdDir *gnome_cmd_dir_get_child (GnomeCmdDir *dir, const gchar *child)
     g_return_val_if_fail (GNOME_CMD_IS_DIR (dir), nullptr);
     auto priv = dir_private (dir);
 
-    GnomeCmdPath *path = priv->path->get_child(child);
+    GnomeCmdPath *path = gnome_cmd_path_get_child (priv->path, child);
 
     return path ? gnome_cmd_dir_new (priv->con, path) : nullptr;
 }
@@ -469,7 +476,7 @@ static void gnome_cmd_dir_set_path (GnomeCmdDir *dir, GnomeCmdPath *path)
     g_return_if_fail (GNOME_CMD_IS_DIR (dir));
     auto priv = dir_private (dir);
 
-    delete priv->path;
+    gnome_cmd_path_free (priv->path);
 
     priv->path = path;
 }
@@ -483,7 +490,7 @@ void gnome_cmd_dir_update_path (GnomeCmdDir *dir)
     if (!parent)
         return;
 
-    GnomeCmdPath *path = gnome_cmd_dir_get_path (parent)->get_child(GNOME_CMD_FILE (dir)->get_name());
+    GnomeCmdPath *path = gnome_cmd_path_get_child (gnome_cmd_dir_get_path (parent), GNOME_CMD_FILE (dir)->get_name());
     if (path)
         gnome_cmd_dir_set_path (dir, path);
 }
@@ -494,7 +501,7 @@ gchar *gnome_cmd_dir_get_display_path (GnomeCmdDir *dir)
     g_return_val_if_fail (GNOME_CMD_IS_DIR (dir), nullptr);
     auto priv = dir_private (dir);
 
-    return g_strdup (priv->path->get_display_path());
+    return gnome_cmd_path_get_display_path (priv->path);
 }
 
 
@@ -601,11 +608,12 @@ GFile *gnome_cmd_dir_get_gfile_for_con_and_filename(GnomeCmdDir *dir, const gcha
     g_free(mountUri);
 
     // Create the merged URI out of the connection URI, the directory path and the filename
-    auto gnomeCmdDirPathString = gnome_cmd_dir_get_path(dir)->get_path();
+    auto gnomeCmdDirPathString = gnome_cmd_path_get_path (gnome_cmd_dir_get_path (dir));
 
     auto gUriForMount = g_uri_parse(mountUriTmp, G_URI_FLAGS_NONE, nullptr);
     auto conUriPath = g_uri_get_path(gUriForMount);
     auto relDirToUriPath = gnome_cmd_dir_get_relative_path_string(gnomeCmdDirPathString, conUriPath);
+    g_free (gnomeCmdDirPathString);
     auto mergedDirAndFileNameString = g_build_filename(".", relDirToUriPath, filename, nullptr);
     g_free(relDirToUriPath);
 
@@ -641,14 +649,16 @@ GFile *gnome_cmd_dir_get_child_gfile (GnomeCmdDir *dir, const gchar *filename)
         return gFile;
     }
 
-    GnomeCmdPath *path = priv->path->get_child(filename);
+    GnomeCmdPath *path = gnome_cmd_path_get_child (priv->path, filename);
     if (!path)
     {
         return nullptr;
     }
 
-    gFile = gnome_cmd_con_create_gfile (priv->con, path->get_path());
-    delete path;
+    gchar *path_str = gnome_cmd_path_get_path (path);
+    gFile = gnome_cmd_con_create_gfile (priv->con, path_str);
+    gnome_cmd_path_free (path);
+    g_free (path_str);
 
     return gFile;
 }
@@ -685,9 +695,11 @@ GFile *gnome_cmd_dir_get_absolute_path_gfile (GnomeCmdDir *dir, string absolute_
     g_free(uriScheme);
 
     GnomeCmdPath *path = gnome_cmd_con_create_path (priv->con, absolute_filename.c_str());
-    auto gFile = gnome_cmd_con_create_gfile (priv->con, path->get_path());
+    gchar *path_str = gnome_cmd_path_get_path (path);
+    auto gFile = gnome_cmd_con_create_gfile (priv->con, path_str);
 
-    delete path;
+    gnome_cmd_path_free (path);
+    g_free (path_str);
 
     return gFile;
 }

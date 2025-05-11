@@ -40,7 +40,7 @@ pub mod ffi {
         gio::ffi::{GFile, GFileType, GIcon, GListModel},
         glib::ffi::{gboolean, GError, GType, GUri},
     };
-    use std::ffi::{c_char, c_void};
+    use std::ffi::c_char;
 
     #[repr(C)]
     pub struct GnomeCmdCon {
@@ -64,7 +64,7 @@ pub mod ffi {
         pub fn gnome_cmd_con_create_path(
             con: *const GnomeCmdCon,
             path_str: *const c_char,
-        ) -> *mut c_void;
+        ) -> *mut GnomeCmdPath;
 
         pub fn gnome_cmd_con_create_gfile(
             con: *const GnomeCmdCon,
@@ -76,7 +76,7 @@ pub mod ffi {
 
         pub fn gnome_cmd_con_can_show_free_space(con: *const GnomeCmdCon) -> gboolean;
 
-        pub fn gnome_cmd_con_set_base_path(con: *const GnomeCmdCon, path: *mut c_void);
+        pub fn gnome_cmd_con_set_base_path(con: *const GnomeCmdCon, path: *mut GnomeCmdPath);
 
         pub fn gnome_cmd_con_is_local(con: *const GnomeCmdCon) -> gboolean;
 
@@ -215,7 +215,7 @@ pub trait ConnectionExt: IsA<Connection> + 'static {
         }
     }
 
-    fn create_gfile(&self, path: Option<&str>) -> gio::File {
+    fn create_gfile(&self, path: Option<&Path>) -> gio::File {
         unsafe {
             from_glib_full(ffi::gnome_cmd_con_create_gfile(
                 self.as_ref().to_glib_none().0,

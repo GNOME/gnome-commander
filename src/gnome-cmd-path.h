@@ -20,25 +20,14 @@
  */
 #pragma once
 
-struct GnomeCmdPath
-{
-  protected:
+struct GnomeCmdPath;
 
-    virtual GnomeCmdPath *do_clone() const = 0;
+extern "C" GnomeCmdPath *gnome_cmd_plain_path_new(const gchar *path);
 
-  public:
-
-    GnomeCmdPath *clone() const                                 {  return do_clone();  }
-    virtual ~GnomeCmdPath() { }
-
-    virtual const gchar *get_path() = 0;
-    virtual const gchar *get_display_path() = 0;
-    virtual GnomeCmdPath *get_parent() = 0;
-    virtual GnomeCmdPath *get_child(const gchar *child) = 0;
-};
-
-extern "C" const gchar *gnome_cmd_path_get_path(GnomeCmdPath *p);
+extern "C" gchar *gnome_cmd_path_get_path(GnomeCmdPath *p);
+extern "C" gchar *gnome_cmd_path_get_display_path(GnomeCmdPath *p);
 extern "C" GnomeCmdPath *gnome_cmd_path_get_child(GnomeCmdPath *p, const gchar *child);
+extern "C" GnomeCmdPath *gnome_cmd_path_get_parent(GnomeCmdPath *p);
 extern "C" GnomeCmdPath *gnome_cmd_path_clone(GnomeCmdPath *p);
 
 extern "C" void gnome_cmd_path_free(GnomeCmdPath *p);

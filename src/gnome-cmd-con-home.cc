@@ -24,7 +24,7 @@
 #include "gnome-cmd-includes.h"
 #include "gnome-cmd-data.h"
 #include "gnome-cmd-con-home.h"
-#include "gnome-cmd-plain-path.h"
+#include "gnome-cmd-path.h"
 #include "imageloader.h"
 
 using namespace std;
@@ -62,7 +62,7 @@ static GFile *home_create_gfile (GnomeCmdCon *con, const gchar *path)
 
 static GnomeCmdPath *home_create_path (GnomeCmdCon *con, const gchar *path_str)
 {
-    return new GnomeCmdPlainPath(path_str);
+    return gnome_cmd_plain_path_new (path_str);
 }
 
 
@@ -129,7 +129,7 @@ static void gnome_cmd_con_home_init (GnomeCmdConHome *home_con)
     con->is_local = TRUE;
     con->is_closeable = FALSE;
 
-    GnomeCmdDir *dir = gnome_cmd_dir_new (con, new GnomeCmdPlainPath(g_get_home_dir ()));
+    GnomeCmdDir *dir = gnome_cmd_dir_new (con, gnome_cmd_plain_path_new (g_get_home_dir ()));
 
     gnome_cmd_con_set_default_dir (con, dir);
 }

@@ -26,7 +26,7 @@
 #include "utils.h"
 #include "imageloader.h"
 #include "gnome-cmd-data.h"
-#include "gnome-cmd-plain-path.h"
+#include "gnome-cmd-path.h"
 #include "gnome-cmd-main-win.h"
 #include "gnome-cmd-con-list.h"
 #include "gnome-cmd-xfer.h"
@@ -203,13 +203,13 @@ GnomeCmdFile *gnome_cmd_file_new_from_path (const gchar *local_full_path)
     if (gFileParent)
     {
         auto gFileParentPath = g_file_get_path(gFileParent);
-        dir = gnome_cmd_dir_new (con, new GnomeCmdPlainPath(gFileParentPath));
+        dir = gnome_cmd_dir_new (con, gnome_cmd_plain_path_new (gFileParentPath));
         g_free(gFileParentPath);
         g_object_unref(gFileParent);
     }
     else
     {
-        dir = gnome_cmd_dir_new (con, new GnomeCmdPlainPath(G_DIR_SEPARATOR_S));
+        dir = gnome_cmd_dir_new (con, gnome_cmd_plain_path_new (G_DIR_SEPARATOR_S));
     }
 
     return gnome_cmd_file_new_full (gFileInfo, gFile, dir);
@@ -425,12 +425,12 @@ GnomeCmdPath *GnomeCmdFile::GetPathThroughParent()
     {
         if (GNOME_CMD_IS_DIR (this))
         {
-            return gnome_cmd_dir_get_path (GNOME_CMD_DIR (this))->clone();
+            return gnome_cmd_path_clone (gnome_cmd_dir_get_path (GNOME_CMD_DIR (this)));
         }
         g_assert ("Non directory file without owning directory");
     }
 
-    return gnome_cmd_dir_get_path (::get_parent_dir (this))->get_child(filename);
+    return gnome_cmd_path_get_child (gnome_cmd_dir_get_path (::get_parent_dir (this)), filename);
 }
 
 
@@ -441,8 +441,8 @@ gchar *GnomeCmdFile::GetPathStringThroughParent()
     if (!path)
         return nullptr;
 
-    gchar *path_str = g_strdup (path->get_path());
-    delete path;
+    gchar *path_str = gnome_cmd_path_get_path (path);
+    gnome_cmd_path_free (path);
 
     return path_str;
 }

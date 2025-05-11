@@ -33,7 +33,7 @@
 #include "gnome-cmd-file.h"
 #include "gnome-cmd-con-list.h"
 #include "gnome-cmd-main-win.h"
-#include "gnome-cmd-plain-path.h"
+#include "gnome-cmd-path.h"
 #include "utils.h"
 #include "gnome-cmd-data.h"
 #include "gnome-cmd-xfer.h"
@@ -1211,8 +1211,9 @@ static gboolean set_home_connection (GnomeCmdFileList *fl)
 static void on_directory_deleted (GnomeCmdDir *dir, GnomeCmdFileList *fl)
 {
     auto parentDir = gnome_cmd_dir_get_existing_parent(dir);
-    auto parentDirPath = gnome_cmd_dir_get_path(parentDir)->get_path();
+    auto parentDirPath = gnome_cmd_path_get_path (gnome_cmd_dir_get_path (parentDir));
     fl->goto_directory(parentDirPath);
+    g_free (parentDirPath);
 }
 
 
@@ -1907,7 +1908,8 @@ void GnomeCmdFileList::select_row(GtkTreeIter* row)
             row = &iter;
         }
     }
-    focus_file_at_row (row);
+    if (row)
+        focus_file_at_row (row);
 }
 
 
