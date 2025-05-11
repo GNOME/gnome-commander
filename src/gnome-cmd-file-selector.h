@@ -37,8 +37,6 @@ struct GnomeCmdFileSelector
 {
     GtkBox vbox;
 
-    GtkWidget *con_btns_sw;
-    GtkWidget *con_btns_hbox;
     GtkWidget *con_hbox;
     GtkWidget *dir_indicator;
     GtkWidget *dir_label;
@@ -83,7 +81,6 @@ struct GnomeCmdFileSelector
     void next_tab();
 
     void update_tab_label(GnomeCmdFileList *fl);
-    GnomeCmdFileList get_gnome_cmd_file_list(GnomeCmdFileSelector &fs);
 
     void show_filter();
     void update_files();
@@ -92,13 +89,10 @@ struct GnomeCmdFileSelector
     void update_selected_files_label();
     void update_style();
     void update_connections();
-    void update_show_devbuttons();
     void update_show_devlist();
     void update_show_tabs();
 
     void do_file_specific_action (GnomeCmdFileList *fl, GnomeCmdFile *f);
-
-    GListModel* GetTabs();
 };
 
 inline GnomeCmdFileList *GnomeCmdFileSelector::file_list(gint n) const
@@ -124,11 +118,6 @@ inline GtkWidget *GnomeCmdFileSelector::new_tab(GnomeCmdDir *dir, gboolean activ
 
 extern "C" GType gnome_cmd_file_selector_get_type ();
 
-inline GtkWidget *gnome_cmd_file_selector_new ()
-{
-    return GTK_WIDGET (g_object_new (GNOME_CMD_TYPE_FILE_SELECTOR, NULL));
-}
-
 inline FileSelectorID operator ! (FileSelectorID id)
 {
     switch (id)
@@ -145,6 +134,8 @@ inline FileSelectorID operator ! (FileSelectorID id)
 // FFI
 extern "C" GnomeCmdFileList *gnome_cmd_file_selector_file_list (GnomeCmdFileSelector *fs);
 extern "C" GnomeCmdFileList *gnome_cmd_file_selector_file_list_nth (GnomeCmdFileSelector *fs, gint n);
+
+extern "C" GtkWidget *gnome_cmd_file_selector_connection_bar(GnomeCmdFileSelector *fs);
 
 extern "C" GtkWidget *gnome_cmd_file_selector_new_tab (GnomeCmdFileSelector *fs);
 extern "C" GtkWidget *gnome_cmd_file_selector_new_tab_with_dir (GnomeCmdFileSelector *fs, GnomeCmdDir *dir, gboolean activate);

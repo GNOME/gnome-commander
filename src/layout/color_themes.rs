@@ -21,7 +21,7 @@ use super::PREF_COLORS;
 use gtk::{
     gdk::{self, ffi::GdkRGBA},
     gio,
-    glib::{self, ffi::GType, subclass::prelude::*, translate::IntoGlib},
+    glib::{self, subclass::prelude::*},
     prelude::*,
 };
 use once_cell::sync::Lazy;
