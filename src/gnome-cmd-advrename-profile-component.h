@@ -49,15 +49,14 @@ struct GnomeCmdAdvrenameProfileComponent
 
     enum {COL_MALFORMED_REGEX, COL_PATTERN, COL_REPLACE, COL_MATCH_CASE, COL_MATCH_CASE_LABEL, NUM_REGEX_COLS};
 
-    GnomeCmdData::AdvrenameConfig::Profile &profile;
+    AdvancedRenameProfile *profile;
 
-    explicit GnomeCmdAdvrenameProfileComponent(GnomeCmdData::AdvrenameConfig::Profile &profile,
+    explicit GnomeCmdAdvrenameProfileComponent(AdvancedRenameProfile *profile,
                                                GnomeCmdFileMetadataService *file_metadata_service);
     ~GnomeCmdAdvrenameProfileComponent()     {}
 
     void update();
-    void copy();                                                    //  copies component to associated profile
-    void copy(GnomeCmdData::AdvrenameConfig::Profile &profile);     //  copies component to specified profile
+    void copy();
 
     gchar *convert_case(gchar *string);
     gchar *trim_blanks(gchar *string);
@@ -68,7 +67,7 @@ struct GnomeCmdAdvrenameProfileComponent
     std::vector<GnomeCmd::RegexReplace> get_valid_regexes();
 };
 
-extern "C" GnomeCmdAdvrenameProfileComponent *gnome_cmd_advrename_profile_component_new (GnomeCmdData::AdvrenameConfig::Profile *profile,
+extern "C" GnomeCmdAdvrenameProfileComponent *gnome_cmd_advrename_profile_component_new (AdvancedRenameProfile *profile,
                                                                                          GnomeCmdFileMetadataService *file_metadata_service,
                                                                                          GtkSizeGroup *labels_size_group);
 extern "C" void gnome_cmd_advrename_profile_component_update (GnomeCmdAdvrenameProfileComponent *component);

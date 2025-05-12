@@ -21,6 +21,7 @@
  */
 
 use crate::{
+    advanced_rename::profile::{AdvRenameProfilePtr, AdvancedRenameProfile},
     dialogs::advrename_regex_dialog::{show_advrename_regex_dialog, RegexReplace},
     utils::{dialog_button_box, NO_BUTTONS},
 };
@@ -30,7 +31,7 @@ use gtk::{
     glib::{
         self,
         ffi::gpointer,
-        translate::{from_glib_none, ToGlibPtr},
+        translate::{from_glib_borrow, from_glib_none, Borrowed, ToGlibPtr},
     },
     prelude::*,
 };
@@ -284,6 +285,58 @@ async fn regex_edit(
         component.emit_by_name::<()>("regex-changed", &[]);
     }
     Ok(())
+}
+
+#[no_mangle]
+pub extern "C" fn gnome_cmd_advrename_profile_component_fill_regex_model(
+    component_ptr: *mut GtkWidget,
+    tree_view_ptr: *mut GtkTreeView,
+    profile_ptr: *mut AdvRenameProfilePtr,
+) {
+    let component: Borrowed<gtk::Widget> = unsafe { from_glib_borrow(component_ptr) };
+    let tree_view: Borrowed<gtk::TreeView> = unsafe { from_glib_borrow(tree_view_ptr) };
+    let profile: Borrowed<AdvancedRenameProfile> = unsafe { from_glib_borrow(profile_ptr) };
+
+    let Some(store) = tree_view.model().and_downcast::<gtk::ListStore>() else {
+        return;
+    };
+
+    for rx in profile.patterns() {
+        let iter = store.append();
+        set_regex_row(&store, &iter, &rx);
+    }
+}
+
+#[no_mangle]
+pub extern "C" fn gnome_cmd_advrename_profile_component_copy_regex_model(
+    component_ptr: *mut GtkWidget,
+    tree_view_ptr: *mut GtkTreeView,
+    profile_ptr: *mut AdvRenameProfilePtr,
+) {
+    let component: Borrowed<gtk::Widget> = unsafe { from_glib_borrow(component_ptr) };
+    let tree_view: Borrowed<gtk::TreeView> = unsafe { from_glib_borrow(tree_view_ptr) };
+    let profile: Borrowed<AdvancedRenameProfile> = unsafe { from_glib_borrow(profile_ptr) };
+
+    let Some(store) = tree_view.model().and_downcast::<gtk::ListStore>() else {
+        return;
+    };
+
+    let mut patterns = Vec::new();
+    if let Some(iter) = store.iter_first() {
+        loop {
+            match get_regex_row(&store, &iter) {
+                Ok(rx) => patterns.push(rx),
+                Err(error) => {
+                    eprintln!("{error}")
+                }
+            }
+            if !store.iter_next(&iter) {
+                break;
+            }
+        }
+    }
+
+    profile.set_patterns(patterns);
 }
 
 #[no_mangle]

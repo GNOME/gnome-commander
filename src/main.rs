@@ -17,6 +17,7 @@
  * For more details see the file COPYING.
  */
 
+mod advanced_rename;
 mod advanced_rename_lexer;
 mod advrename_profile_component;
 mod app;

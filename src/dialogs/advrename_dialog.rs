@@ -18,25 +18,41 @@
  */
 
 use super::profiles::{manage_profiles_dialog::manage_profiles, profiles::ProfileManager};
-use crate::tags::tags::FileMetadataService;
+use crate::{
+    advanced_rename::profile::{AdvRenameProfilePtr, AdvancedRenameProfile},
+    tags::tags::FileMetadataService,
+};
 use gettextrs::gettext;
 use gtk::{
     ffi::{GtkSizeGroup, GtkWidget, GtkWindow},
+    gio::{self, ffi::GListStore},
     glib::{
         ffi::gboolean,
-        translate::{from_glib_full, from_glib_none, ToGlibPtr},
+        translate::{from_glib_full, from_glib_none, FromGlibPtrNone, ToGlibPtr},
     },
     prelude::*,
 };
-use std::{
-    ffi::{c_char, c_void},
-    marker::PhantomData,
-    rc::Rc,
-};
+use std::{ffi::c_void, rc::Rc};
 
-type AdvRenameConfig = c_void;
-type AdvRenameProfilePtr = c_void;
-type AdvrenameProfilesPtr = c_void;
+struct AdvRenameConfig(*mut c_void);
+
+impl AdvRenameConfig {
+    fn default_profile(&self) -> AdvancedRenameProfile {
+        unsafe { from_glib_none(gnome_cmd_advrename_config_default_profile(self.0)) }
+    }
+
+    fn profiles(&self) -> gio::ListStore {
+        unsafe { gio::ListStore::from_glib_none(gnome_cmd_advrename_config_profiles(self.0)) }
+    }
+
+    pub fn set_profiles(&self, profiles: &gio::ListStore) {
+        let store = self.profiles();
+        store.remove_all();
+        for p in profiles.iter::<AdvancedRenameProfile>().flatten() {
+            store.append(&p);
+        }
+    }
+}
 
 extern "C" {
     fn gnome_cmd_advrename_profile_component_new(
@@ -47,109 +63,87 @@ extern "C" {
     fn gnome_cmd_advrename_profile_component_update(component: *mut GtkWidget);
     fn gnome_cmd_advrename_profile_component_copy(component: *mut GtkWidget);
 
-    fn gnome_cmd_advrename_config_new_profiles(
-        cfg: *mut AdvRenameConfig,
-        with_default: gboolean,
-    ) -> *mut AdvrenameProfilesPtr;
-    fn gnome_cmd_advrename_config_take_profiles(
-        cfg: *mut AdvRenameConfig,
-        profiles: *mut AdvrenameProfilesPtr,
-    );
-
-    fn gnome_cmd_advrename_profiles_dup(
-        profiles: *mut AdvrenameProfilesPtr,
-    ) -> *mut AdvrenameProfilesPtr;
-    fn gnome_cmd_advrename_profiles_len(profiles: *mut AdvrenameProfilesPtr) -> u32;
-    fn gnome_cmd_advrename_profiles_get(
-        profiles: *mut AdvrenameProfilesPtr,
-        profile_index: u32,
-    ) -> *mut AdvRenameProfilePtr;
-    fn gnome_cmd_advrename_profiles_get_name(
-        profiles: *mut AdvrenameProfilesPtr,
-        profile_index: u32,
-    ) -> *const c_char;
-    fn gnome_cmd_advrename_profiles_set_name(
-        profiles: *mut AdvrenameProfilesPtr,
-        profile_index: u32,
-        name: *const c_char,
-    );
-    fn gnome_cmd_advrename_profiles_get_description(
-        profiles: *mut AdvrenameProfilesPtr,
-        profile_index: u32,
-    ) -> *mut c_char;
-    fn gnome_cmd_advrename_profiles_reset(profiles: *mut AdvrenameProfilesPtr, profile_index: u32);
-    fn gnome_cmd_advrename_profiles_duplicate(
-        profiles: *mut AdvrenameProfilesPtr,
-        profile_index: u32,
-    ) -> u32;
-    fn gnome_cmd_advrename_profiles_pick(
-        profiles: *mut AdvrenameProfilesPtr,
-        indexes: *const u32,
-        size: u32,
-    );
+    fn gnome_cmd_advrename_config_default_profile(cfg: *mut c_void) -> *mut AdvRenameProfilePtr;
+    fn gnome_cmd_advrename_config_profiles(cfg: *mut c_void) -> *mut GListStore;
 }
 
-struct AdvrenameProfiles(*mut AdvrenameProfilesPtr);
-struct AdvRenameProfile<'p>(*mut AdvRenameProfilePtr, PhantomData<&'p mut c_void>);
+struct AdvrenameProfiles {
+    profiles: gio::ListStore,
+}
 
 impl Clone for AdvrenameProfiles {
     fn clone(&self) -> Self {
-        Self(unsafe { gnome_cmd_advrename_profiles_dup(self.0) })
+        Self {
+            profiles: self
+                .profiles
+                .iter::<AdvancedRenameProfile>()
+                .flatten()
+                .map(|p| p.deep_clone())
+                .collect(),
+        }
     }
 }
 
 impl AdvrenameProfiles {
-    fn profile(&self, profile_index: usize) -> AdvRenameProfile<'_> {
-        AdvRenameProfile(
-            unsafe { gnome_cmd_advrename_profiles_get(self.0, profile_index as u32) },
-            PhantomData,
-        )
+    fn new(cfg: &AdvRenameConfig, with_default: bool) -> Self {
+        let profiles: gio::ListStore = cfg
+            .profiles()
+            .iter::<AdvancedRenameProfile>()
+            .flatten()
+            .map(|p| p.deep_clone())
+            .collect();
+
+        if with_default {
+            profiles.append(&cfg.default_profile().deep_clone());
+        }
+        Self { profiles }
+    }
+
+    fn profile(&self, profile_index: usize) -> AdvancedRenameProfile {
+        self.profiles
+            .item(profile_index as u32)
+            .and_downcast::<AdvancedRenameProfile>()
+            .unwrap()
     }
 
     fn len(&self) -> usize {
-        unsafe { gnome_cmd_advrename_profiles_len(self.0) as usize }
+        self.profiles.n_items() as usize
     }
 
     fn profile_name(&self, profile_index: usize) -> String {
-        unsafe {
-            from_glib_none(gnome_cmd_advrename_profiles_get_name(
-                self.0,
-                profile_index as u32,
-            ))
-        }
+        let profile = self.profile(profile_index);
+        profile.name()
     }
 
     fn set_profile_name(&self, profile_index: usize, name: &str) {
-        unsafe {
-            gnome_cmd_advrename_profiles_set_name(
-                self.0,
-                profile_index as u32,
-                name.to_glib_none().0,
-            )
-        }
+        let profile = self.profile(profile_index);
+        profile.set_name(name);
     }
 
     fn profile_description(&self, profile_index: usize) -> String {
-        unsafe {
-            from_glib_full(gnome_cmd_advrename_profiles_get_description(
-                self.0,
-                profile_index as u32,
-            ))
-        }
+        let profile = self.profile(profile_index);
+        profile.template_string()
     }
 
     fn reset_profile(&self, profile_index: usize) {
-        unsafe { gnome_cmd_advrename_profiles_reset(self.0, profile_index as u32) }
+        let profile = self.profile(profile_index);
+        profile.reset();
     }
 
     fn duplicate_profile(&self, profile_index: usize) -> usize {
-        unsafe { gnome_cmd_advrename_profiles_duplicate(self.0, profile_index as u32) as usize }
+        let profile = self.profile(profile_index).deep_clone();
+        self.profiles.append(&profile);
+        self.profiles.n_items() as usize - 1
     }
 
     fn pick(&self, indexes: &[usize]) {
-        let indexes_u32: Vec<u32> = indexes.iter().map(|i| *i as u32).collect();
-        unsafe {
-            gnome_cmd_advrename_profiles_pick(self.0, indexes_u32.as_ptr(), indexes.len() as u32)
+        let picked: Vec<_> = indexes
+            .iter()
+            .filter_map(|i| self.profiles.item(*i as u32))
+            .collect();
+        self.profiles.remove_all();
+        for p in picked {
+            self.profiles.append(&p);
         }
     }
 }
@@ -195,7 +189,7 @@ impl ProfileManager for AdvRenameProfileManager {
     ) -> gtk::Widget {
         let widget_ptr = unsafe {
             gnome_cmd_advrename_profile_component_new(
-                self.profiles.profile(profile_index).0,
+                self.profiles.profile(profile_index).to_glib_none().0,
                 self.file_metadata_service.to_glib_none().0,
                 labels_size_group.to_glib_none().0,
             )
@@ -224,16 +218,16 @@ extern "C" {
 #[no_mangle]
 pub extern "C" fn gnome_cmd_advrename_dialog_do_manage_profiles(
     dialog_ptr: *mut GnomeCmdAdvrenameDialog,
-    cfg: *mut AdvRenameConfig,
+    cfg: *mut c_void,
     fms: *mut <FileMetadataService as glib::object::ObjectType>::GlibType,
     new_profile: gboolean,
 ) {
     let dialog: gtk::Window = unsafe { from_glib_none(dialog_ptr) };
+    let cfg = AdvRenameConfig(cfg);
     let file_metadata_service: FileMetadataService = unsafe { from_glib_none(fms) };
 
     glib::spawn_future_local(async move {
-        let profiles =
-            AdvrenameProfiles(unsafe { gnome_cmd_advrename_config_new_profiles(cfg, new_profile) });
+        let profiles = AdvrenameProfiles::new(&cfg, new_profile != 0);
 
         if new_profile != 0 {
             let last_index = profiles.len() - 1;
@@ -255,9 +249,7 @@ pub extern "C" fn gnome_cmd_advrename_dialog_do_manage_profiles(
         .await
         {
             let profiles = manager.profiles.clone();
-            unsafe {
-                gnome_cmd_advrename_config_take_profiles(cfg, profiles.0);
-            }
+            cfg.set_profiles(&profiles.profiles);
             unsafe {
                 gnome_cmd_advrename_dialog_update_profile_menu(dialog_ptr);
             }

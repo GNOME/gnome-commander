@@ -208,6 +208,13 @@ GSettings *gcmd_settings_get_general (GcmdSettings *);
 #define TAB_ASC                                       "asc"
 #define TAB_LOCK                                      "lock"
 
+
+extern "C" GType gnome_cmd_advanced_rename_profile_get_type ();
+struct AdvancedRenameProfile;
+extern "C" void gnome_cmd_advanced_rename_profile_copy_from (AdvancedRenameProfile *dst, AdvancedRenameProfile *src);
+extern "C" void gnome_cmd_advanced_rename_profile_reset (AdvancedRenameProfile *profile);
+
+
 struct GnomeCmdConRemote;
 
 extern "C" GType gnome_cmd_search_profile_get_type();
@@ -488,34 +495,24 @@ struct GnomeCmdData
 
     struct AdvrenameConfig
     {
-        struct Profile
-        {
-            std::string name;
-            std::string template_string {"$N"};
-            guint counter_start {1};
-            guint counter_width {1};
-            gint counter_step   {1};
-
-            std::vector<GnomeCmd::ReplacePattern> regexes;
-
-            guint case_conversion {0};
-            guint trim_blanks {3};
-
-            const std::string &description() const {  return template_string;  }
-            void reset();
-
-            ~Profile();
-        };
-
         gint width, height;
 
-        Profile default_profile;
-        std::vector<Profile> profiles;
+        AdvancedRenameProfile *default_profile;
+        GListStore *profiles;
 
         History templates;
 
-        AdvrenameConfig(): width(600), height(400), templates(ADVRENAME_HISTORY_SIZE)   {}
-        ~AdvrenameConfig()                                                              {}
+        AdvrenameConfig(): width(600), height(400), templates(ADVRENAME_HISTORY_SIZE)
+        {
+            default_profile = (AdvancedRenameProfile *) g_object_new (gnome_cmd_advanced_rename_profile_get_type (), nullptr);
+            profiles = g_list_store_new (gnome_cmd_advanced_rename_profile_get_type ());
+        }
+
+        ~AdvrenameConfig()
+        {
+            g_clear_object (&default_profile);
+            g_clear_object (&profiles);
+        }
     };
 
     static GSettingsSchemaSource* GetGlobalSchemaSource();
@@ -536,7 +533,6 @@ struct GnomeCmdData
     void save_directory_history();
     void save_search_history();
     void save_devices();
-    void add_advrename_profile_to_gvariant_builder(GVariantBuilder *builder, AdvrenameConfig::Profile profile);
     gboolean add_bookmark_to_gvariant_builder(GVariantBuilder *builder, std::string bookmarkName, GnomeCmdCon *con);
 
   public:
@@ -569,8 +565,6 @@ struct GnomeCmdData
     void connect_signals(GnomeCmdMainWin *main_win);
     void migrate_all_data_to_gsettings();
     void load_more();
-    void load_advrename_profiles ();
-    void save_advrename_profiles ();
     void save_bookmarks();
     void load_bookmarks();
     void save(GnomeCmdMainWin *main_win);

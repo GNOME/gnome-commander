@@ -29,8 +29,8 @@ gchar *gcmd_convert_ltrim (gchar *string);
 gchar *gcmd_convert_rtrim (gchar *string);
 gchar *gcmd_convert_strip (gchar *string);
 
-gchar *gcmd_convert_lowercase (gchar *string);
-gchar *gcmd_convert_uppercase (gchar *string);
-gchar *gcmd_convert_sentence_case (gchar *string);
-gchar *gcmd_convert_initial_caps (gchar *string);
-gchar *gcmd_convert_toggle_case (gchar *string);
+extern "C" gchar *gcmd_convert_lowercase (gchar *string);
+extern "C" gchar *gcmd_convert_uppercase (gchar *string);
+extern "C" gchar *gcmd_convert_sentence_case (gchar *string);
+extern "C" gchar *gcmd_convert_initial_caps (gchar *string);
+extern "C" gchar *gcmd_convert_toggle_case (gchar *string);

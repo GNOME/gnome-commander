@@ -81,8 +81,6 @@ struct GnomeCmdAdvrenameProfileComponent::Private
     Private();
     ~Private();
 
-    void fill_regex_model(const GnomeCmdData::AdvrenameConfig::Profile &profile);
-
     void insert_tag(const gchar *text);
 
     static void on_template_entry_changed(GtkEntry *entry, GnomeCmdAdvrenameProfileComponent *component);
@@ -103,6 +101,10 @@ struct GnomeCmdAdvrenameProfileComponent::Private
     static void on_case_combo_changed (GtkComboBox *combo, GnomeCmdAdvrenameProfileComponent *component);
     static void on_trim_combo_changed (GtkComboBox *combo, GnomeCmdAdvrenameProfileComponent *component);
 };
+
+
+extern "C" void gnome_cmd_advrename_profile_component_fill_regex_model (GnomeCmdAdvrenameProfileComponent *c, GtkTreeView *tree_view, AdvancedRenameProfile *profile);
+extern "C" void gnome_cmd_advrename_profile_component_copy_regex_model (GnomeCmdAdvrenameProfileComponent *c, GtkTreeView *tree_view, AdvancedRenameProfile *profile);
 
 
 static GMenuModel *create_directory_tag_menu ()
@@ -212,31 +214,6 @@ inline gboolean model_is_empty(GtkTreeModel *tree_model)
 }
 
 
-void GnomeCmdAdvrenameProfileComponent::Private::fill_regex_model(const GnomeCmdData::AdvrenameConfig::Profile &profile)
-{
-    if (!regex_model)
-        return;
-
-    GtkTreeIter iter;
-
-    for (vector<GnomeCmd::ReplacePattern>::const_iterator r=profile.regexes.begin(); r!=profile.regexes.end(); ++r)
-    {
-        GnomeCmd::RegexReplace *rx = new GnomeCmd::RegexReplace(r->pattern, r->replacement, r->match_case);
-
-        gtk_list_store_append (GTK_LIST_STORE (regex_model), &iter);
-        gtk_list_store_set (GTK_LIST_STORE (regex_model), &iter,
-                            COL_MALFORMED_REGEX, !*rx,
-                            COL_PATTERN, rx->pattern.c_str(),
-                            COL_REPLACE, rx->replacement.c_str(),
-                            COL_MATCH_CASE, rx->match_case,
-                            COL_MATCH_CASE_LABEL, rx->match_case ? _("Yes") : _("No"),
-                            -1);
-
-        delete rx;
-    }
-}
-
-
 static GtkWidget *create_button_with_menu(gchar *label_text, GMenuModel *model)
 {
     GtkWidget *button = gtk_menu_button_new ();
@@ -311,21 +288,26 @@ void GnomeCmdAdvrenameProfileComponent::Private::on_template_entry_changed(GtkEn
 
 void GnomeCmdAdvrenameProfileComponent::Private::on_counter_start_spin_value_changed (GtkWidget *spin, GnomeCmdAdvrenameProfileComponent *component)
 {
-    component->profile.counter_start = gtk_spin_button_get_value_as_int (GTK_SPIN_BUTTON (spin));
+    g_object_set (component->profile,
+        "counter-start", gtk_spin_button_get_value_as_int (GTK_SPIN_BUTTON (spin)),
+        nullptr);
     g_signal_emit (component, signals[COUNTER_CHANGED], 0);
 }
 
 
 void GnomeCmdAdvrenameProfileComponent::Private::on_counter_step_spin_value_changed (GtkWidget *spin, GnomeCmdAdvrenameProfileComponent *component)
 {
-    component->profile.counter_step = gtk_spin_button_get_value_as_int (GTK_SPIN_BUTTON (spin));
+    g_object_set (component->profile,
+        "counter-step", gtk_spin_button_get_value_as_int (GTK_SPIN_BUTTON (spin)),
+        nullptr);
     g_signal_emit (component, signals[COUNTER_CHANGED], 0);
 }
 
 void GnomeCmdAdvrenameProfileComponent::Private::on_counter_digits_combo_value_changed (GtkWidget *combo, GnomeCmdAdvrenameProfileComponent *component)
 {
-    component->profile.counter_width = gtk_combo_box_get_active (GTK_COMBO_BOX (combo));
-    component->profile.counter_width = MYCLAMP(component->profile.counter_width, 0, 16);
+    g_object_set (component->profile,
+        "counter-width", MYCLAMP(gtk_combo_box_get_active (GTK_COMBO_BOX (combo)), 0, 16),
+        nullptr);
     g_signal_emit (component, signals[COUNTER_CHANGED], 0);
 }
 
@@ -408,7 +390,7 @@ void GnomeCmdAdvrenameProfileComponent::Private::on_case_combo_changed (GtkCombo
             return;
     }
 
-    component->profile.case_conversion = item;
+    g_object_set (component->profile, "case-conversion", item, nullptr);
     g_signal_emit (component, signals[REGEX_CHANGED], 0);
 }
 
@@ -428,7 +410,7 @@ void GnomeCmdAdvrenameProfileComponent::Private::on_trim_combo_changed (GtkCombo
             return;
     }
 
-    component->profile.trim_blanks = item;
+    g_object_set (component->profile, "trim-blanks", item, nullptr);
     g_signal_emit (component, signals[REGEX_CHANGED], 0);
 }
 
@@ -726,7 +708,7 @@ static void gnome_cmd_advrename_profile_component_class_init (GnomeCmdAdvrenameP
 }
 
 
-GnomeCmdAdvrenameProfileComponent::GnomeCmdAdvrenameProfileComponent(GnomeCmdData::AdvrenameConfig::Profile &p,
+GnomeCmdAdvrenameProfileComponent::GnomeCmdAdvrenameProfileComponent(AdvancedRenameProfile *p,
                                                                      GnomeCmdFileMetadataService *file_metadata_service)
     : profile(p)
 {
@@ -781,32 +763,6 @@ inline GtkTreeModel *create_regex_model ()
 }
 
 
-static void copy_regex_model(GtkTreeModel *model, vector<GnomeCmd::ReplacePattern> &v)
-{
-    v.clear();
-
-    GtkTreeIter i;
-
-    for (gboolean valid_iter=gtk_tree_model_get_iter_first (model, &i); valid_iter; valid_iter=gtk_tree_model_iter_next (model, &i))
-    {
-        gchar *pattern = nullptr;
-        gchar *replacement = nullptr;
-        gboolean match_case;
-
-        gtk_tree_model_get (model, &i,
-            GnomeCmdAdvrenameProfileComponent::COL_PATTERN, &pattern,
-            GnomeCmdAdvrenameProfileComponent::COL_REPLACE, &replacement,
-            GnomeCmdAdvrenameProfileComponent::COL_MATCH_CASE, &match_case,
-            -1);
-
-        v.push_back(GnomeCmd::ReplacePattern(pattern, replacement, match_case));
-
-        g_free (pattern);
-        g_free (replacement);
-    }
-}
-
-
 inline GtkWidget *create_regex_view ()
 {
     GtkWidget *view = gtk_tree_view_new ();
@@ -846,14 +802,30 @@ void GnomeCmdAdvrenameProfileComponent::update()
 {
     set_template_history(gnome_cmd_data.advrename_defaults.templates.ents);
 
-    gtk_editable_set_text (GTK_EDITABLE (priv->template_entry), profile.template_string.empty() ? "$N" : profile.template_string.c_str());
+    gchar *template_string;
+    guint counter_start;
+    gint counter_step;
+    guint counter_width;
+    guint case_conversion;
+    guint trim_blanks;
+    g_object_get (profile,
+        "template-string", &template_string,
+        "counter-start", &counter_start,
+        "counter-step", &counter_step,
+        "counter-width", &counter_width,
+        "case-conversion", &case_conversion,
+        "trim-blanks", &trim_blanks,
+        nullptr);
+
+    gtk_editable_set_text (GTK_EDITABLE (priv->template_entry), template_string != nullptr && template_string[0] != '\0' ? template_string : "$N");
     gtk_editable_set_position (GTK_EDITABLE (priv->template_entry), -1);
     gtk_editable_select_region (GTK_EDITABLE (priv->template_entry), -1, -1);
+    g_free (template_string);
 
-    gtk_spin_button_set_value (GTK_SPIN_BUTTON (priv->counter_start_spin), profile.counter_start);
-    gtk_spin_button_set_value (GTK_SPIN_BUTTON (priv->counter_step_spin), profile.counter_step);
+    gtk_spin_button_set_value (GTK_SPIN_BUTTON (priv->counter_start_spin), counter_start);
+    gtk_spin_button_set_value (GTK_SPIN_BUTTON (priv->counter_step_spin), counter_step);
 
-    gtk_combo_box_set_active (GTK_COMBO_BOX (priv->counter_digits_combo), profile.counter_width);
+    gtk_combo_box_set_active (GTK_COMBO_BOX (priv->counter_digits_combo), counter_width);
 
     if (!model_is_empty(priv->regex_model))
     {
@@ -862,10 +834,10 @@ void GnomeCmdAdvrenameProfileComponent::update()
         g_signal_handlers_unblock_by_func (priv->regex_model, gpointer (Private::on_regex_model_row_deleted), this);
     }
 
-    priv->fill_regex_model(profile);
+    gnome_cmd_advrename_profile_component_fill_regex_model (this, GTK_TREE_VIEW (priv->regex_view), profile);
 
-    gtk_combo_box_set_active (GTK_COMBO_BOX (priv->case_combo), profile.case_conversion);
-    gtk_combo_box_set_active (GTK_COMBO_BOX (priv->trim_combo), profile.trim_blanks);
+    gtk_combo_box_set_active (GTK_COMBO_BOX (priv->case_combo), case_conversion);
+    gtk_combo_box_set_active (GTK_COMBO_BOX (priv->trim_combo), trim_blanks);
 
     g_signal_emit (this, signals[REGEX_CHANGED], 0);
 }
@@ -902,28 +874,8 @@ void GnomeCmdAdvrenameProfileComponent::copy()
 {
     const char *template_entry = get_template_entry();
 
-    profile.template_string =  template_entry && *template_entry ? template_entry : "$N";
-    copy_regex_model(priv->regex_model, profile.regexes);
-}
-
-
-void GnomeCmdAdvrenameProfileComponent::copy(GnomeCmdData::AdvrenameConfig::Profile &p)
-{
-    const char *template_entry = get_template_entry();
-
-    profile.template_string =  template_entry && *template_entry ? template_entry : "$N";
-    copy_regex_model(priv->regex_model, p.regexes);
-
-    if (&p==&profile)
-        return;
-
-    p.name.clear();
-    p.template_string = profile.template_string;
-    p.counter_start = profile.counter_start;
-    p.counter_width = profile.counter_width;
-    p.counter_step = profile.counter_step;
-    p.case_conversion = profile.case_conversion;
-    p.trim_blanks = profile.trim_blanks;
+    g_object_set (profile, "template-string", template_entry && *template_entry ? template_entry : "$N", nullptr);
+    gnome_cmd_advrename_profile_component_copy_regex_model (this, GTK_TREE_VIEW (priv->regex_view), profile);
 }
 
 
@@ -970,14 +922,14 @@ std::vector<GnomeCmd::RegexReplace> GnomeCmdAdvrenameProfileComponent::get_valid
 
 
 GnomeCmdAdvrenameProfileComponent *gnome_cmd_advrename_profile_component_new (
-    GnomeCmdData::AdvrenameConfig::Profile *profile,
+    AdvancedRenameProfile *profile,
     GnomeCmdFileMetadataService *file_metadata_service,
     GtkSizeGroup *labels_size_group)
 {
     g_return_val_if_fail (profile != nullptr, nullptr);
-    auto component = new GnomeCmdAdvrenameProfileComponent(*profile, file_metadata_service);
+    auto component = new GnomeCmdAdvrenameProfileComponent(profile, file_metadata_service);
     component->update();
-    return component;
+    return g_object_ref_sink (component);
 }
 
 
