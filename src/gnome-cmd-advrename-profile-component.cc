@@ -36,23 +36,25 @@
 using namespace std;
 
 
-struct GnomeCmdAdvrenameProfileComponentClass
-{
-    GtkBoxClass parent_class;
-
-    void (* template_changed) (GnomeCmdAdvrenameProfileComponent *component);
-    void (* counter_changed) (GnomeCmdAdvrenameProfileComponent *component);
-    void (* regex_changed) (GnomeCmdAdvrenameProfileComponent *component);
+enum {
+    COL_MALFORMED_REGEX,
+    COL_PATTERN,
+    COL_REPLACE,
+    COL_MATCH_CASE,
+    COL_MATCH_CASE_LABEL,
+    NUM_REGEX_COLS
 };
 
 
-enum {TEMPLATE_CHANGED, COUNTER_CHANGED, REGEX_CHANGED, LAST_SIGNAL};
+#define TEMPLATE_CHANGED_SIGNAL "template-changed"
+#define COUNTER_CHANGED_SIGNAL  "counter-changed"
+#define REGEX_CHANGED_SIGNAL    "regex-changed"
 
-static guint signals[LAST_SIGNAL] = { 0 };
 
-
-struct GnomeCmdAdvrenameProfileComponent::Private
+struct GnomeCmdAdvrenameProfileComponentPrivate
 {
+    AdvancedRenameProfile *profile;
+
     GnomeCmdConvertFunc convert_case;
     GnomeCmdConvertFunc trim_blanks;
 
@@ -77,30 +79,34 @@ struct GnomeCmdAdvrenameProfileComponent::Private
     GtkWidget *trim_combo;
 
     gchar *sample_fname;
-
-    Private();
-    ~Private();
-
-    void insert_tag(const gchar *text);
-
-    static void on_template_entry_changed(GtkEntry *entry, GnomeCmdAdvrenameProfileComponent *component);
-
-    static void on_counter_start_spin_value_changed (GtkWidget *spin, GnomeCmdAdvrenameProfileComponent *component);
-    static void on_counter_step_spin_value_changed (GtkWidget *spin, GnomeCmdAdvrenameProfileComponent *component);
-    static void on_counter_digits_combo_value_changed (GtkWidget *spin, GnomeCmdAdvrenameProfileComponent *component);
-
-    static void on_regex_model_row_deleted (GtkTreeModel *treemodel, GtkTreePath *path, GnomeCmdAdvrenameProfileComponent *component);
-    static void on_regex_add_btn_clicked (GtkButton *button, GnomeCmdAdvrenameProfileComponent *component);
-    static void on_regex_edit_btn_clicked (GtkButton *button, GnomeCmdAdvrenameProfileComponent *component);
-    static void on_regex_remove_btn_clicked (GtkButton *button, GnomeCmdAdvrenameProfileComponent *component);
-    static void on_regex_remove_all_btn_clicked (GtkButton *button, GnomeCmdAdvrenameProfileComponent *component);
-    static void on_regex_view_row_activated (GtkTreeView *view, GtkTreePath *path, GtkTreeViewColumn *col, GnomeCmdAdvrenameProfileComponent *component);
-
-    static void on_regex_changed (GnomeCmdAdvrenameProfileComponent *component);
-
-    static void on_case_combo_changed (GtkComboBox *combo, GnomeCmdAdvrenameProfileComponent *component);
-    static void on_trim_combo_changed (GtkComboBox *combo, GnomeCmdAdvrenameProfileComponent *component);
 };
+
+
+void insert_tag(const gchar *text);
+
+static void on_template_entry_changed(GtkEntry *entry, GnomeCmdAdvrenameProfileComponent *component);
+
+static void on_counter_start_spin_value_changed (GtkWidget *spin, GnomeCmdAdvrenameProfileComponent *component);
+static void on_counter_step_spin_value_changed (GtkWidget *spin, GnomeCmdAdvrenameProfileComponent *component);
+static void on_counter_digits_combo_value_changed (GtkWidget *spin, GnomeCmdAdvrenameProfileComponent *component);
+
+static void on_regex_model_row_deleted (GtkTreeModel *treemodel, GtkTreePath *path, GnomeCmdAdvrenameProfileComponent *component);
+static void on_regex_add_btn_clicked (GtkButton *button, GnomeCmdAdvrenameProfileComponent *component);
+static void on_regex_edit_btn_clicked (GtkButton *button, GnomeCmdAdvrenameProfileComponent *component);
+static void on_regex_remove_btn_clicked (GtkButton *button, GnomeCmdAdvrenameProfileComponent *component);
+static void on_regex_remove_all_btn_clicked (GtkButton *button, GnomeCmdAdvrenameProfileComponent *component);
+static void on_regex_view_row_activated (GtkTreeView *view, GtkTreePath *path, GtkTreeViewColumn *col, GnomeCmdAdvrenameProfileComponent *component);
+
+static void on_regex_changed (GnomeCmdAdvrenameProfileComponent *component);
+
+static void on_case_combo_changed (GtkComboBox *combo, GnomeCmdAdvrenameProfileComponent *component);
+static void on_trim_combo_changed (GtkComboBox *combo, GnomeCmdAdvrenameProfileComponent *component);
+
+
+static GnomeCmdAdvrenameProfileComponentPrivate *advrename_profile_component_priv (GnomeCmdAdvrenameProfileComponent *component)
+{
+    return (GnomeCmdAdvrenameProfileComponentPrivate *) g_object_get_data (G_OBJECT (component), "priv");
+}
 
 
 extern "C" void gnome_cmd_advrename_profile_component_fill_regex_model (GnomeCmdAdvrenameProfileComponent *c, GtkTreeView *tree_view, AdvancedRenameProfile *profile);
@@ -177,35 +183,6 @@ inline GtkTreeModel *create_regex_model ();
 inline GtkWidget *create_regex_view ();
 
 
-inline GnomeCmdAdvrenameProfileComponent::Private::Private()
-{
-    convert_case = gcmd_convert_unchanged;
-    trim_blanks = gcmd_convert_strip;
-    regex_model = NULL;
-    sample_fname = NULL;
-    template_entry = NULL;
-    template_combo = NULL;
-    counter_start_spin = NULL;
-    counter_step_spin = NULL;
-    counter_digits_combo = NULL;
-    regex_view = NULL;
-    regex_add_button = NULL;
-    regex_edit_button = NULL;
-    regex_remove_button = NULL;
-    regex_remove_all_button = NULL;
-    case_combo = NULL;
-    trim_combo = NULL;
-}
-
-
-inline GnomeCmdAdvrenameProfileComponent::Private::~Private()
-{
-    g_clear_object (&template_entry);
-    g_clear_object (&regex_model);
-    g_clear_pointer (&sample_fname, g_free);
-}
-
-
 inline gboolean model_is_empty(GtkTreeModel *tree_model)
 {
     GtkTreeIter iter;
@@ -225,9 +202,11 @@ static GtkWidget *create_button_with_menu(gchar *label_text, GMenuModel *model)
 }
 
 
-inline void GnomeCmdAdvrenameProfileComponent::Private::insert_tag(const gchar *text)
+inline void insert_tag(GnomeCmdAdvrenameProfileComponent *component, const gchar *text)
 {
-    GtkEditable *editable = (GtkEditable *) template_entry;
+    auto priv = advrename_profile_component_priv (component);
+
+    GtkEditable *editable = (GtkEditable *) priv->template_entry;
     gint pos0 = gtk_editable_get_position (editable);
     gint pos;
 
@@ -243,7 +222,7 @@ static void insert_text_tag(GSimpleAction *action, GVariant *parameter, gpointer
     auto component = static_cast<GnomeCmdAdvrenameProfileComponent*>(user_data);
     const gchar *tag = g_variant_get_string (parameter, nullptr);
 
-    component->priv->insert_tag(tag);
+    insert_tag(component, tag);
 }
 
 
@@ -253,169 +232,186 @@ extern "C" void get_selected_range_done(const gchar *rtag, gpointer user_data);
 void get_selected_range_done(const gchar *rtag, gpointer user_data)
 {
     auto component = static_cast<GnomeCmdAdvrenameProfileComponent*>(user_data);
-    component->priv->insert_tag(rtag);
+    insert_tag(component, rtag);
 }
 
 
 static void insert_range(GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {
     auto component = static_cast<GnomeCmdAdvrenameProfileComponent*>(user_data);
+    auto priv = advrename_profile_component_priv (component);
+
     const gchar *tag = g_variant_get_string (parameter, nullptr);
 
     gchar *fname = NULL;
 
-    if (!strcmp(tag, "$n") && component->priv->sample_fname)
+    if (!strcmp(tag, "$n") && priv->sample_fname)
     {
-        fname = g_strdup (component->priv->sample_fname);
+        fname = g_strdup (priv->sample_fname);
         gchar *ext = g_utf8_strrchr (fname, -1, '.');
         if (ext)
             *ext = 0;
     }
 
-    GtkWindow *parent_window = GTK_WINDOW (gtk_widget_get_root (*component));
-    get_selected_range_r(parent_window, tag, fname ? fname : g_strdup(component->priv->sample_fname), user_data);
+    GtkWindow *parent_window = GTK_WINDOW (gtk_widget_get_root (GTK_WIDGET (component)));
+    get_selected_range_r(parent_window, tag, fname ? fname : g_strdup(priv->sample_fname), user_data);
 }
 
 
-G_DEFINE_TYPE (GnomeCmdAdvrenameProfileComponent, gnome_cmd_advrename_profile_component, GTK_TYPE_BOX)
-
-
-void GnomeCmdAdvrenameProfileComponent::Private::on_template_entry_changed(GtkEntry *entry, GnomeCmdAdvrenameProfileComponent *component)
+void on_template_entry_changed(GtkEntry *entry, GnomeCmdAdvrenameProfileComponent *component)
 {
-    g_signal_emit (component, signals[TEMPLATE_CHANGED], 0);
+    g_signal_emit_by_name (component, TEMPLATE_CHANGED_SIGNAL);
 }
 
 
-void GnomeCmdAdvrenameProfileComponent::Private::on_counter_start_spin_value_changed (GtkWidget *spin, GnomeCmdAdvrenameProfileComponent *component)
+void on_counter_start_spin_value_changed (GtkWidget *spin, GnomeCmdAdvrenameProfileComponent *component)
 {
-    g_object_set (component->profile,
+    auto priv = advrename_profile_component_priv (component);
+
+    g_object_set (priv->profile,
         "counter-start", gtk_spin_button_get_value_as_int (GTK_SPIN_BUTTON (spin)),
         nullptr);
-    g_signal_emit (component, signals[COUNTER_CHANGED], 0);
+    g_signal_emit_by_name (component, COUNTER_CHANGED_SIGNAL);
 }
 
 
-void GnomeCmdAdvrenameProfileComponent::Private::on_counter_step_spin_value_changed (GtkWidget *spin, GnomeCmdAdvrenameProfileComponent *component)
+void on_counter_step_spin_value_changed (GtkWidget *spin, GnomeCmdAdvrenameProfileComponent *component)
 {
-    g_object_set (component->profile,
+    auto priv = advrename_profile_component_priv (component);
+
+    g_object_set (priv->profile,
         "counter-step", gtk_spin_button_get_value_as_int (GTK_SPIN_BUTTON (spin)),
         nullptr);
-    g_signal_emit (component, signals[COUNTER_CHANGED], 0);
+    g_signal_emit_by_name (component, COUNTER_CHANGED_SIGNAL);
 }
 
-void GnomeCmdAdvrenameProfileComponent::Private::on_counter_digits_combo_value_changed (GtkWidget *combo, GnomeCmdAdvrenameProfileComponent *component)
+void on_counter_digits_combo_value_changed (GtkWidget *combo, GnomeCmdAdvrenameProfileComponent *component)
 {
-    g_object_set (component->profile,
+    auto priv = advrename_profile_component_priv (component);
+
+    g_object_set (priv->profile,
         "counter-width", MYCLAMP(gtk_combo_box_get_active (GTK_COMBO_BOX (combo)), 0, 16),
         nullptr);
-    g_signal_emit (component, signals[COUNTER_CHANGED], 0);
+    g_signal_emit_by_name (component, COUNTER_CHANGED_SIGNAL);
 }
 
 
-void GnomeCmdAdvrenameProfileComponent::Private::on_regex_model_row_deleted (GtkTreeModel *treemodel, GtkTreePath *path, GnomeCmdAdvrenameProfileComponent *component)
+void on_regex_model_row_deleted (GtkTreeModel *treemodel, GtkTreePath *path, GnomeCmdAdvrenameProfileComponent *component)
 {
-    g_signal_emit (component, signals[REGEX_CHANGED], 0);
+    g_signal_emit_by_name (component, REGEX_CHANGED_SIGNAL);
 }
 
 
 extern "C" void gnome_cmd_advrename_profile_component_regex_add (GtkWidget *component, GtkTreeView *tree_view);
 
-void GnomeCmdAdvrenameProfileComponent::Private::on_regex_add_btn_clicked (GtkButton *button, GnomeCmdAdvrenameProfileComponent *component)
+void on_regex_add_btn_clicked (GtkButton *button, GnomeCmdAdvrenameProfileComponent *component)
 {
-    gnome_cmd_advrename_profile_component_regex_add (GTK_WIDGET (component), GTK_TREE_VIEW (component->priv->regex_view));
+    auto priv = advrename_profile_component_priv (component);
+    gnome_cmd_advrename_profile_component_regex_add (GTK_WIDGET (component), GTK_TREE_VIEW (priv->regex_view));
 }
 
 
 extern "C" void gnome_cmd_advrename_profile_component_regex_edit (GtkWidget *component, GtkTreeView *tree_view);
 
-void GnomeCmdAdvrenameProfileComponent::Private::on_regex_edit_btn_clicked (GtkButton *button, GnomeCmdAdvrenameProfileComponent *component)
+void on_regex_edit_btn_clicked (GtkButton *button, GnomeCmdAdvrenameProfileComponent *component)
 {
-    gnome_cmd_advrename_profile_component_regex_edit (GTK_WIDGET (component), GTK_TREE_VIEW (component->priv->regex_view));
+    auto priv = advrename_profile_component_priv (component);
+    gnome_cmd_advrename_profile_component_regex_edit (GTK_WIDGET (component), GTK_TREE_VIEW (priv->regex_view));
 }
 
 
-void GnomeCmdAdvrenameProfileComponent::Private::on_regex_changed (GnomeCmdAdvrenameProfileComponent *component)
+void on_regex_changed (GnomeCmdAdvrenameProfileComponent *component)
 {
-    bool empty = model_is_empty (component->priv->regex_model);
+    auto priv = advrename_profile_component_priv (component);
 
-    gtk_widget_set_sensitive (component->priv->regex_edit_button, !empty);
-    gtk_widget_set_sensitive (component->priv->regex_remove_button, !empty);
-    gtk_widget_set_sensitive (component->priv->regex_remove_all_button, !empty);
+    bool empty = model_is_empty (priv->regex_model);
+
+    gtk_widget_set_sensitive (priv->regex_edit_button, !empty);
+    gtk_widget_set_sensitive (priv->regex_remove_button, !empty);
+    gtk_widget_set_sensitive (priv->regex_remove_all_button, !empty);
 }
 
 
-void GnomeCmdAdvrenameProfileComponent::Private::on_regex_remove_btn_clicked (GtkButton *button, GnomeCmdAdvrenameProfileComponent *component)
+void on_regex_remove_btn_clicked (GtkButton *button, GnomeCmdAdvrenameProfileComponent *component)
 {
-    GtkTreeView *tree_view = GTK_TREE_VIEW (component->priv->regex_view);
+    auto priv = advrename_profile_component_priv (component);
+
+    GtkTreeView *tree_view = GTK_TREE_VIEW (priv->regex_view);
     GtkTreeIter i;
 
     if (gtk_tree_selection_get_selected (gtk_tree_view_get_selection (tree_view), NULL, &i))
     {
-        gtk_list_store_remove (GTK_LIST_STORE (component->priv->regex_model), &i);
+        gtk_list_store_remove (GTK_LIST_STORE (priv->regex_model), &i);
         on_regex_changed (component);
     }
 }
 
 
-void GnomeCmdAdvrenameProfileComponent::Private::on_regex_remove_all_btn_clicked (GtkButton *button, GnomeCmdAdvrenameProfileComponent *component)
+void on_regex_remove_all_btn_clicked (GtkButton *button, GnomeCmdAdvrenameProfileComponent *component)
 {
-    g_signal_handlers_block_by_func (component->priv->regex_model, gpointer (on_regex_model_row_deleted), component);
-    gtk_list_store_clear (GTK_LIST_STORE (component->priv->regex_model));
-    g_signal_handlers_unblock_by_func (component->priv->regex_model, gpointer (on_regex_model_row_deleted), component);
+    auto priv = advrename_profile_component_priv (component);
 
-    g_signal_emit (component, signals[REGEX_CHANGED], 0);
+    g_signal_handlers_block_by_func (priv->regex_model, gpointer (on_regex_model_row_deleted), component);
+    gtk_list_store_clear (GTK_LIST_STORE (priv->regex_model));
+    g_signal_handlers_unblock_by_func (priv->regex_model, gpointer (on_regex_model_row_deleted), component);
+
+    g_signal_emit_by_name (component, REGEX_CHANGED_SIGNAL);
 }
 
 
-void GnomeCmdAdvrenameProfileComponent::Private::on_regex_view_row_activated (GtkTreeView *view, GtkTreePath *path, GtkTreeViewColumn *col, GnomeCmdAdvrenameProfileComponent *component)
+void on_regex_view_row_activated (GtkTreeView *view, GtkTreePath *path, GtkTreeViewColumn *col, GnomeCmdAdvrenameProfileComponent *component)
 {
     on_regex_edit_btn_clicked (NULL, component);
 }
 
 
-void GnomeCmdAdvrenameProfileComponent::Private::on_case_combo_changed (GtkComboBox *combo, GnomeCmdAdvrenameProfileComponent *component)
+void on_case_combo_changed (GtkComboBox *combo, GnomeCmdAdvrenameProfileComponent *component)
 {
+    auto priv = advrename_profile_component_priv (component);
+
     gint item = gtk_combo_box_get_active (combo);
 
     switch (item)
     {
-        case 0: component->priv->convert_case = gcmd_convert_unchanged; break;
-        case 1: component->priv->convert_case = gcmd_convert_lowercase; break;
-        case 2: component->priv->convert_case = gcmd_convert_uppercase; break;
-        case 3: component->priv->convert_case = gcmd_convert_sentence_case; break;
-        case 4: component->priv->convert_case = gcmd_convert_initial_caps; break;
-        case 5: component->priv->convert_case = gcmd_convert_toggle_case; break;
+        case 0: priv->convert_case = gcmd_convert_unchanged; break;
+        case 1: priv->convert_case = gcmd_convert_lowercase; break;
+        case 2: priv->convert_case = gcmd_convert_uppercase; break;
+        case 3: priv->convert_case = gcmd_convert_sentence_case; break;
+        case 4: priv->convert_case = gcmd_convert_initial_caps; break;
+        case 5: priv->convert_case = gcmd_convert_toggle_case; break;
 
         default:
             return;
     }
 
-    g_object_set (component->profile, "case-conversion", item, nullptr);
-    g_signal_emit (component, signals[REGEX_CHANGED], 0);
+    g_object_set (priv->profile, "case-conversion", item, nullptr);
+    g_signal_emit_by_name (component, REGEX_CHANGED_SIGNAL);
 }
 
 
-void GnomeCmdAdvrenameProfileComponent::Private::on_trim_combo_changed (GtkComboBox *combo, GnomeCmdAdvrenameProfileComponent *component)
+void on_trim_combo_changed (GtkComboBox *combo, GnomeCmdAdvrenameProfileComponent *component)
 {
+    auto priv = advrename_profile_component_priv (component);
+
     gint item = gtk_combo_box_get_active (combo);
 
     switch (item)
     {
-        case 0: component->priv->trim_blanks = gcmd_convert_unchanged; break;
-        case 1: component->priv->trim_blanks = gcmd_convert_ltrim; break;
-        case 2: component->priv->trim_blanks = gcmd_convert_rtrim; break;
-        case 3: component->priv->trim_blanks = gcmd_convert_strip; break;
+        case 0: priv->trim_blanks = gcmd_convert_unchanged; break;
+        case 1: priv->trim_blanks = gcmd_convert_ltrim; break;
+        case 2: priv->trim_blanks = gcmd_convert_rtrim; break;
+        case 3: priv->trim_blanks = gcmd_convert_strip; break;
 
         default:
             return;
     }
 
-    g_object_set (component->profile, "trim-blanks", item, nullptr);
-    g_signal_emit (component, signals[REGEX_CHANGED], 0);
+    g_object_set (priv->profile, "trim-blanks", item, nullptr);
+    g_signal_emit_by_name (component, REGEX_CHANGED_SIGNAL);
 }
 
 
-static void gnome_cmd_advrename_profile_component_init (GnomeCmdAdvrenameProfileComponent *component)
+extern "C" void gnome_cmd_advrename_profile_component_init (GnomeCmdAdvrenameProfileComponent *component)
 {
     g_object_set (component, "orientation", GTK_ORIENTATION_VERTICAL, NULL);
 
@@ -427,7 +423,10 @@ static void gnome_cmd_advrename_profile_component_init (GnomeCmdAdvrenameProfile
     g_action_map_add_action_entries (G_ACTION_MAP (action_group), action_entries, G_N_ELEMENTS(action_entries), component);
     gtk_widget_insert_action_group (GTK_WIDGET (component), "advrenametag", G_ACTION_GROUP (action_group));
 
-    component->priv = new GnomeCmdAdvrenameProfileComponent::Private;
+    auto priv = g_new0 (GnomeCmdAdvrenameProfileComponentPrivate, 1);
+    priv->convert_case = gcmd_convert_unchanged;
+    priv->trim_blanks = gcmd_convert_strip;
+    g_object_set_data_full (G_OBJECT (component), "priv", priv, g_free);
 
     GtkWidget *label;
     GtkWidget *grid;
@@ -462,12 +461,12 @@ static void gnome_cmd_advrename_profile_component_init (GnomeCmdAdvrenameProfile
             gtk_widget_set_margin_start (local_vbox, 12);
             gtk_box_append (GTK_BOX (vbox), local_vbox);
 
-            component->priv->template_combo = combo = gtk_combo_box_new_with_model_and_entry (GTK_TREE_MODEL (gtk_list_store_new (1, G_TYPE_STRING)));
-            component->priv->template_entry = gtk_combo_box_get_child (GTK_COMBO_BOX (component->priv->template_combo));
-            gtk_entry_set_activates_default (GTK_ENTRY (component->priv->template_entry), TRUE);
+            priv->template_combo = combo = gtk_combo_box_new_with_model_and_entry (GTK_TREE_MODEL (gtk_list_store_new (1, G_TYPE_STRING)));
+            priv->template_entry = gtk_combo_box_get_child (GTK_COMBO_BOX (priv->template_combo));
+            gtk_entry_set_activates_default (GTK_ENTRY (priv->template_entry), TRUE);
             gtk_label_set_mnemonic_widget (GTK_LABEL (label), combo);
             gtk_box_append (GTK_BOX (local_vbox), combo);
-            g_object_ref (component->priv->template_entry);
+            g_object_ref (priv->template_entry);
 
             GtkWidget *local_bbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 6);
             GtkSizeGroup* local_bbox_size_group = gtk_size_group_new (GTK_SIZE_GROUP_HORIZONTAL);
@@ -489,9 +488,9 @@ static void gnome_cmd_advrename_profile_component_init (GnomeCmdAdvrenameProfile
             gtk_size_group_add_widget (local_bbox_size_group, button);
             gtk_box_append (GTK_BOX (local_bbox), button);
 
-            component->priv->metadata_button = create_button_with_menu (_("Metatag"), nullptr);
-            gtk_size_group_add_widget (local_bbox_size_group, component->priv->metadata_button);
-            gtk_box_append (GTK_BOX (local_bbox), component->priv->metadata_button);
+            priv->metadata_button = create_button_with_menu (_("Metatag"), nullptr);
+            gtk_size_group_add_widget (local_bbox_size_group, priv->metadata_button);
+            gtk_box_append (GTK_BOX (local_bbox), priv->metadata_button);
         }
     }
 
@@ -519,7 +518,7 @@ static void gnome_cmd_advrename_profile_component_init (GnomeCmdAdvrenameProfile
         label = gtk_label_new_with_mnemonic (_("_Start:"));
         gtk_widget_set_halign (label, GTK_ALIGN_START);
         gtk_widget_set_valign (label, GTK_ALIGN_CENTER);
-        component->priv->counter_start_spin = spin = gtk_spin_button_new_with_range (0, 1000000, 1);
+        priv->counter_start_spin = spin = gtk_spin_button_new_with_range (0, 1000000, 1);
         gtk_label_set_mnemonic_widget (GTK_LABEL (label), spin);
         gtk_grid_attach (GTK_GRID (grid), label, 0, 0, 1, 1);
         gtk_grid_attach (GTK_GRID (grid), spin, 1, 0, 1, 1);
@@ -527,7 +526,7 @@ static void gnome_cmd_advrename_profile_component_init (GnomeCmdAdvrenameProfile
         label = gtk_label_new_with_mnemonic (_("Ste_p:"));
         gtk_widget_set_halign (label, GTK_ALIGN_START);
         gtk_widget_set_valign (label, GTK_ALIGN_CENTER);
-        component->priv->counter_step_spin = spin = gtk_spin_button_new_with_range (-1000, 1000, 1);
+        priv->counter_step_spin = spin = gtk_spin_button_new_with_range (-1000, 1000, 1);
         gtk_label_set_mnemonic_widget (GTK_LABEL (label), spin);
         gtk_grid_attach (GTK_GRID (grid), label, 0, 1, 1, 1);
         gtk_grid_attach (GTK_GRID (grid), spin, 1, 1, 1, 1);
@@ -535,7 +534,7 @@ static void gnome_cmd_advrename_profile_component_init (GnomeCmdAdvrenameProfile
         label = gtk_label_new_with_mnemonic (_("Di_gits:"));
         gtk_widget_set_halign (label, GTK_ALIGN_START);
         gtk_widget_set_valign (label, GTK_ALIGN_CENTER);
-        component->priv->counter_digits_combo = combo = gtk_combo_box_text_new ();
+        priv->counter_digits_combo = combo = gtk_combo_box_text_new ();
 
         static const char *digit_widths[] = {N_("auto"),"1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16",NULL};
 
@@ -575,22 +574,22 @@ static void gnome_cmd_advrename_profile_component_init (GnomeCmdAdvrenameProfile
         gtk_widget_set_vexpand (scrolled_window, TRUE);
         gtk_grid_attach (GTK_GRID (grid), scrolled_window, 0, 0, 1, 1);
 
-        component->priv->regex_view = create_regex_view ();
-        gtk_scrolled_window_set_child (GTK_SCROLLED_WINDOW (scrolled_window), component->priv->regex_view);
+        priv->regex_view = create_regex_view ();
+        gtk_scrolled_window_set_child (GTK_SCROLLED_WINDOW (scrolled_window), priv->regex_view);
 
         bbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 12);
         gtk_grid_attach (GTK_GRID (grid), bbox, 1, 0, 1, 1);
 
-        component->priv->regex_add_button = button = gtk_button_new_with_mnemonic (_("_Add"));
+        priv->regex_add_button = button = gtk_button_new_with_mnemonic (_("_Add"));
         gtk_box_append (GTK_BOX (bbox), button);
 
-        component->priv->regex_edit_button = button = gtk_button_new_with_mnemonic (_("_Edit"));
+        priv->regex_edit_button = button = gtk_button_new_with_mnemonic (_("_Edit"));
         gtk_box_append (GTK_BOX (bbox), button);
 
-        component->priv->regex_remove_button = button = gtk_button_new_with_mnemonic (_("_Remove"));
+        priv->regex_remove_button = button = gtk_button_new_with_mnemonic (_("_Remove"));
         gtk_box_append (GTK_BOX (bbox), button);
 
-        component->priv->regex_remove_all_button = button = gtk_button_new_with_mnemonic (_("Remove A_ll"));
+        priv->regex_remove_all_button = button = gtk_button_new_with_mnemonic (_("Remove A_ll"));
         gtk_box_append (GTK_BOX (bbox), button);
     }
 
@@ -610,7 +609,7 @@ static void gnome_cmd_advrename_profile_component_init (GnomeCmdAdvrenameProfile
         gtk_widget_set_valign (label, GTK_ALIGN_CENTER);
         gtk_box_append (GTK_BOX (hbox), label);
 
-        component->priv->case_combo = combo = gtk_combo_box_text_new ();
+        priv->case_combo = combo = gtk_combo_box_text_new ();
         gtk_label_set_mnemonic_widget (GTK_LABEL (label), combo);
 
         gchar *case_modes[] = {
@@ -639,7 +638,7 @@ static void gnome_cmd_advrename_profile_component_init (GnomeCmdAdvrenameProfile
         gtk_widget_set_valign (label, GTK_ALIGN_CENTER);
         gtk_box_append (GTK_BOX (hbox), label);
 
-        component->priv->trim_combo = combo = gtk_combo_box_text_new ();
+        priv->trim_combo = combo = gtk_combo_box_text_new ();
         gtk_label_set_mnemonic_widget (GTK_LABEL (label), combo);
 
         gchar *trim_modes[] = {
@@ -656,66 +655,10 @@ static void gnome_cmd_advrename_profile_component_init (GnomeCmdAdvrenameProfile
         gtk_box_append (GTK_BOX (hbox), combo);
     }
 
-    g_signal_connect (component, "regex-changed", G_CALLBACK (GnomeCmdAdvrenameProfileComponent::Private::on_regex_changed), nullptr);
-}
+    g_signal_connect (component, "regex-changed", G_CALLBACK (on_regex_changed), nullptr);
 
-
-static void gnome_cmd_advrename_profile_component_finalize (GObject *object)
-{
-    GnomeCmdAdvrenameProfileComponent *component = GNOME_CMD_ADVRENAME_PROFILE_COMPONENT (object);
-
-    delete component->priv;
-
-    G_OBJECT_CLASS (gnome_cmd_advrename_profile_component_parent_class)->finalize (object);
-}
-
-
-static void gnome_cmd_advrename_profile_component_class_init (GnomeCmdAdvrenameProfileComponentClass *klass)
-{
-    GObjectClass *object_class = G_OBJECT_CLASS (klass);
-
-    object_class->finalize = gnome_cmd_advrename_profile_component_finalize;
-
-    signals[TEMPLATE_CHANGED] =
-        g_signal_new ("template-changed",
-            G_TYPE_FROM_CLASS (klass),
-            G_SIGNAL_RUN_LAST,
-            G_STRUCT_OFFSET (GnomeCmdAdvrenameProfileComponentClass, template_changed),
-            NULL, NULL,
-            g_cclosure_marshal_VOID__VOID,
-            G_TYPE_NONE,
-            0);
-
-    signals[COUNTER_CHANGED] =
-        g_signal_new ("counter-changed",
-            G_TYPE_FROM_CLASS (klass),
-            G_SIGNAL_RUN_LAST,
-            G_STRUCT_OFFSET (GnomeCmdAdvrenameProfileComponentClass, counter_changed),
-            NULL, NULL,
-            g_cclosure_marshal_VOID__VOID,
-            G_TYPE_NONE,
-            0);
-
-    signals[REGEX_CHANGED] =
-        g_signal_new ("regex-changed",
-            G_TYPE_FROM_CLASS (klass),
-            G_SIGNAL_RUN_LAST,
-            G_STRUCT_OFFSET (GnomeCmdAdvrenameProfileComponentClass, regex_changed),
-            NULL, NULL,
-            g_cclosure_marshal_VOID__VOID,
-            G_TYPE_NONE,
-            0);
-}
-
-
-GnomeCmdAdvrenameProfileComponent::GnomeCmdAdvrenameProfileComponent(AdvancedRenameProfile *p,
-                                                                     GnomeCmdFileMetadataService *file_metadata_service)
-    : profile(p)
-{
-#if defined (__GNUC__)
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wuninitialized"
-#endif
+    GnomeCmdFileMetadataService *file_metadata_service;
+    g_object_get (component, "file-metadata-service", &file_metadata_service, nullptr);
     gtk_menu_button_set_menu_model (
         GTK_MENU_BUTTON (priv->metadata_button),
         G_MENU_MODEL (gnome_cmd_file_metadata_service_create_menu (file_metadata_service, "advrenametag.insert-text-tag")));
@@ -724,36 +667,61 @@ GnomeCmdAdvrenameProfileComponent::GnomeCmdAdvrenameProfileComponent(AdvancedRen
 
     // Template
     gtk_widget_grab_focus (priv->template_entry);
-#if defined (__GNUC__)
-#pragma GCC diagnostic pop
-#endif
-    g_signal_connect (priv->template_combo, "changed", G_CALLBACK (Private::on_template_entry_changed), this);
+    g_signal_connect (priv->template_combo, "changed", G_CALLBACK (on_template_entry_changed), component);
 
     // Counter
-    g_signal_connect (priv->counter_start_spin, "value-changed", G_CALLBACK (Private::on_counter_start_spin_value_changed), this);
-    g_signal_connect (priv->counter_step_spin, "value-changed", G_CALLBACK (Private::on_counter_step_spin_value_changed), this);
-    g_signal_connect (priv->counter_digits_combo, "changed", G_CALLBACK (Private::on_counter_digits_combo_value_changed), this);
+    g_signal_connect (priv->counter_start_spin, "value-changed", G_CALLBACK (on_counter_start_spin_value_changed), component);
+    g_signal_connect (priv->counter_step_spin, "value-changed", G_CALLBACK (on_counter_step_spin_value_changed), component);
+    g_signal_connect (priv->counter_digits_combo, "changed", G_CALLBACK (on_counter_digits_combo_value_changed), component);
 
     // Regex
     priv->regex_model = create_regex_model ();
     gtk_tree_view_set_model (GTK_TREE_VIEW (priv->regex_view), priv->regex_model);
 
-    g_signal_connect (priv->regex_model, "row-deleted", G_CALLBACK (Private::on_regex_model_row_deleted), this);
-    g_signal_connect (priv->regex_view, "row-activated", G_CALLBACK (Private::on_regex_view_row_activated), this);
-    g_signal_connect (priv->regex_add_button, "clicked", G_CALLBACK (Private::on_regex_add_btn_clicked), this);
-    g_signal_connect (priv->regex_edit_button, "clicked", G_CALLBACK (Private::on_regex_edit_btn_clicked), this);
-    g_signal_connect (priv->regex_remove_button, "clicked", G_CALLBACK (Private::on_regex_remove_btn_clicked), this);
-    g_signal_connect (priv->regex_remove_all_button, "clicked", G_CALLBACK (Private::on_regex_remove_all_btn_clicked), this);
+    g_signal_connect (priv->regex_model, "row-deleted", G_CALLBACK (on_regex_model_row_deleted), component);
+    g_signal_connect (priv->regex_view, "row-activated", G_CALLBACK (on_regex_view_row_activated), component);
+    g_signal_connect (priv->regex_add_button, "clicked", G_CALLBACK (on_regex_add_btn_clicked), component);
+    g_signal_connect (priv->regex_edit_button, "clicked", G_CALLBACK (on_regex_edit_btn_clicked), component);
+    g_signal_connect (priv->regex_remove_button, "clicked", G_CALLBACK (on_regex_remove_btn_clicked), component);
+    g_signal_connect (priv->regex_remove_all_button, "clicked", G_CALLBACK (on_regex_remove_all_btn_clicked), component);
 
     // Case conversion & blank trimming
-    g_signal_connect (priv->case_combo, "changed", G_CALLBACK (Private::on_case_combo_changed), this);
-    g_signal_connect (priv->trim_combo, "changed", G_CALLBACK (Private::on_trim_combo_changed), this);
+    g_signal_connect (priv->case_combo, "changed", G_CALLBACK (on_case_combo_changed), component);
+    g_signal_connect (priv->trim_combo, "changed", G_CALLBACK (on_trim_combo_changed), component);
+}
+
+
+extern "C" void gnome_cmd_advrename_profile_component_dispose (GnomeCmdAdvrenameProfileComponent *component)
+{
+    auto priv = advrename_profile_component_priv (component);
+
+    g_clear_object (&priv->template_entry);
+    g_clear_object (&priv->regex_model);
+    g_clear_pointer (&priv->sample_fname, g_free);
+    g_clear_object (&priv->profile);
+}
+
+
+GnomeCmdAdvrenameProfileComponent *gnome_cmd_advrename_profile_component_new (AdvancedRenameProfile *profile,
+                                                                              GnomeCmdFileMetadataService *file_metadata_service)
+{
+    g_return_val_if_fail (profile != nullptr, nullptr);
+
+    auto component = (GnomeCmdAdvrenameProfileComponent *) g_object_new (gnome_cmd_advrename_profile_component_get_type (),
+        "file-metadata-service", file_metadata_service,
+        nullptr);
+
+    auto priv = advrename_profile_component_priv (component);
+
+    g_set_object (&priv->profile, profile);
+
+    return g_object_ref_sink (component);
 }
 
 
 inline GtkTreeModel *create_regex_model ()
 {
-    GtkTreeModel *model = GTK_TREE_MODEL (gtk_list_store_new (GnomeCmdAdvrenameProfileComponent::NUM_REGEX_COLS,
+    GtkTreeModel *model = GTK_TREE_MODEL (gtk_list_store_new (NUM_REGEX_COLS,
                                                               G_TYPE_BOOLEAN,
                                                               G_TYPE_STRING,
                                                               G_TYPE_STRING,
@@ -775,19 +743,19 @@ inline GtkWidget *create_regex_view ()
     GtkCellRenderer *renderer = NULL;
     GtkTreeViewColumn *col = NULL;
 
-    col = gnome_cmd_treeview_create_new_text_column (GTK_TREE_VIEW (view), renderer, GnomeCmdAdvrenameProfileComponent::COL_PATTERN, _("Search for"));
+    col = gnome_cmd_treeview_create_new_text_column (GTK_TREE_VIEW (view), renderer, COL_PATTERN, _("Search for"));
     g_object_set (renderer, "foreground", "red", NULL);
-    gtk_tree_view_column_add_attribute (col, renderer, "foreground-set", GnomeCmdAdvrenameProfileComponent::COL_MALFORMED_REGEX);
+    gtk_tree_view_column_add_attribute (col, renderer, "foreground-set", COL_MALFORMED_REGEX);
     gtk_widget_set_tooltip_text (gtk_tree_view_column_get_button (col), _("Regex pattern"));
 
-    col = gnome_cmd_treeview_create_new_text_column (GTK_TREE_VIEW (view), renderer, GnomeCmdAdvrenameProfileComponent::COL_REPLACE, _("Replace with"));
+    col = gnome_cmd_treeview_create_new_text_column (GTK_TREE_VIEW (view), renderer, COL_REPLACE, _("Replace with"));
     g_object_set (renderer, "foreground", "red", NULL);
-    gtk_tree_view_column_add_attribute (col, renderer, "foreground-set", GnomeCmdAdvrenameProfileComponent::COL_MALFORMED_REGEX);
+    gtk_tree_view_column_add_attribute (col, renderer, "foreground-set", COL_MALFORMED_REGEX);
     gtk_widget_set_tooltip_text (gtk_tree_view_column_get_button (col), _("Replacement"));
 
-    col = gnome_cmd_treeview_create_new_text_column (GTK_TREE_VIEW (view), renderer, GnomeCmdAdvrenameProfileComponent::COL_MATCH_CASE_LABEL, _("Match case"));
+    col = gnome_cmd_treeview_create_new_text_column (GTK_TREE_VIEW (view), renderer, COL_MATCH_CASE_LABEL, _("Match case"));
     g_object_set (renderer, "foreground", "red", NULL);
-    gtk_tree_view_column_add_attribute (col, renderer, "foreground-set", GnomeCmdAdvrenameProfileComponent::COL_MALFORMED_REGEX);
+    gtk_tree_view_column_add_attribute (col, renderer, "foreground-set", COL_MALFORMED_REGEX);
     gtk_widget_set_tooltip_text (gtk_tree_view_column_get_button (col), _("Case sensitive matching"));
 
     g_object_set (renderer,
@@ -798,9 +766,11 @@ inline GtkWidget *create_regex_view ()
 }
 
 
-void GnomeCmdAdvrenameProfileComponent::update()
+void gnome_cmd_advrename_profile_component_update (GnomeCmdAdvrenameProfileComponent *component)
 {
-    set_template_history(gnome_cmd_data.advrename_defaults.templates.ents);
+    auto priv = advrename_profile_component_priv (component);
+
+    gnome_cmd_advrename_profile_component_set_template_history (component, gnome_cmd_data.advrename_defaults.templates.ents);
 
     gchar *template_string;
     guint counter_start;
@@ -808,7 +778,7 @@ void GnomeCmdAdvrenameProfileComponent::update()
     guint counter_width;
     guint case_conversion;
     guint trim_blanks;
-    g_object_get (profile,
+    g_object_get (priv->profile,
         "template-string", &template_string,
         "counter-start", &counter_start,
         "counter-step", &counter_step,
@@ -829,28 +799,31 @@ void GnomeCmdAdvrenameProfileComponent::update()
 
     if (!model_is_empty(priv->regex_model))
     {
-        g_signal_handlers_block_by_func (priv->regex_model, gpointer (Private::on_regex_model_row_deleted), this);
+        g_signal_handlers_block_by_func (priv->regex_model, gpointer (on_regex_model_row_deleted), component);
         gtk_list_store_clear (GTK_LIST_STORE (priv->regex_model));
-        g_signal_handlers_unblock_by_func (priv->regex_model, gpointer (Private::on_regex_model_row_deleted), this);
+        g_signal_handlers_unblock_by_func (priv->regex_model, gpointer (on_regex_model_row_deleted), component);
     }
 
-    gnome_cmd_advrename_profile_component_fill_regex_model (this, GTK_TREE_VIEW (priv->regex_view), profile);
+    gnome_cmd_advrename_profile_component_fill_regex_model (component, GTK_TREE_VIEW (priv->regex_view), priv->profile);
 
     gtk_combo_box_set_active (GTK_COMBO_BOX (priv->case_combo), case_conversion);
     gtk_combo_box_set_active (GTK_COMBO_BOX (priv->trim_combo), trim_blanks);
 
-    g_signal_emit (this, signals[REGEX_CHANGED], 0);
+    g_signal_emit_by_name (component, REGEX_CHANGED_SIGNAL);
 }
 
 
-const gchar *GnomeCmdAdvrenameProfileComponent::get_template_entry() const
+const gchar *gnome_cmd_advrename_profile_component_get_template_entry (GnomeCmdAdvrenameProfileComponent *component)
 {
+    auto priv = advrename_profile_component_priv (component);
     return gtk_editable_get_text (GTK_EDITABLE (priv->template_entry));
 }
 
 
-void GnomeCmdAdvrenameProfileComponent::set_template_history(GList *history)
+void gnome_cmd_advrename_profile_component_set_template_history (GnomeCmdAdvrenameProfileComponent *component, GList *history)
 {
+    auto priv = advrename_profile_component_priv (component);
+
     GtkTreeModel *store = gtk_combo_box_get_model (GTK_COMBO_BOX (priv->template_combo));
     gtk_list_store_clear (GTK_LIST_STORE (store));
 
@@ -863,35 +836,43 @@ void GnomeCmdAdvrenameProfileComponent::set_template_history(GList *history)
 }
 
 
-void GnomeCmdAdvrenameProfileComponent::set_sample_fname(const gchar *fname)
+void gnome_cmd_advrename_profile_component_set_sample_fname (GnomeCmdAdvrenameProfileComponent *component, const gchar *fname)
 {
+    auto priv = advrename_profile_component_priv (component);
+
     g_free (priv->sample_fname);
     priv->sample_fname = g_strdup (fname);
 }
 
 
-void GnomeCmdAdvrenameProfileComponent::copy()
+void gnome_cmd_advrename_profile_component_copy (GnomeCmdAdvrenameProfileComponent *component)
 {
-    const char *template_entry = get_template_entry();
+    auto priv = advrename_profile_component_priv (component);
 
-    g_object_set (profile, "template-string", template_entry && *template_entry ? template_entry : "$N", nullptr);
-    gnome_cmd_advrename_profile_component_copy_regex_model (this, GTK_TREE_VIEW (priv->regex_view), profile);
+    const char *template_entry = gnome_cmd_advrename_profile_component_get_template_entry (component);
+
+    g_object_set (priv->profile, "template-string", template_entry && *template_entry ? template_entry : "$N", nullptr);
+    gnome_cmd_advrename_profile_component_copy_regex_model (component, GTK_TREE_VIEW (priv->regex_view), priv->profile);
 }
 
 
-gchar *GnomeCmdAdvrenameProfileComponent::convert_case(gchar *string)
+gchar *gnome_cmd_advrename_profile_component_convert_case (GnomeCmdAdvrenameProfileComponent *component, gchar *string)
 {
+    auto priv = advrename_profile_component_priv (component);
     return priv->convert_case(string);
 }
 
 
-gchar *GnomeCmdAdvrenameProfileComponent::trim_blanks(gchar *string)
+gchar *gnome_cmd_advrename_profile_component_trim_blanks (GnomeCmdAdvrenameProfileComponent *component, gchar *string)
 {
+    auto priv = advrename_profile_component_priv (component);
     return priv->trim_blanks(string);
 }
 
-std::vector<GnomeCmd::RegexReplace> GnomeCmdAdvrenameProfileComponent::get_valid_regexes()
+std::vector<GnomeCmd::RegexReplace> gnome_cmd_advrename_profile_component_get_valid_regexes (GnomeCmdAdvrenameProfileComponent *component)
 {
+    auto priv = advrename_profile_component_priv (component);
+
     GtkTreeModel *model = priv->regex_model;
     GtkTreeIter i;
     vector<GnomeCmd::RegexReplace> v;
@@ -904,10 +885,10 @@ std::vector<GnomeCmd::RegexReplace> GnomeCmdAdvrenameProfileComponent::get_valid
         gboolean match_case = false;
 
         gtk_tree_model_get (model, &i,
-            GnomeCmdAdvrenameProfileComponent::COL_MALFORMED_REGEX, &malformed,
-            GnomeCmdAdvrenameProfileComponent::COL_PATTERN, &pattern,
-            GnomeCmdAdvrenameProfileComponent::COL_REPLACE, &replacement,
-            GnomeCmdAdvrenameProfileComponent::COL_MATCH_CASE, &match_case,
+            COL_MALFORMED_REGEX, &malformed,
+            COL_PATTERN, &pattern,
+            COL_REPLACE, &replacement,
+            COL_MATCH_CASE, &match_case,
             -1);
 
         if (!malformed)
@@ -918,28 +899,4 @@ std::vector<GnomeCmd::RegexReplace> GnomeCmdAdvrenameProfileComponent::get_valid
     }
 
     return v;
-}
-
-
-GnomeCmdAdvrenameProfileComponent *gnome_cmd_advrename_profile_component_new (
-    AdvancedRenameProfile *profile,
-    GnomeCmdFileMetadataService *file_metadata_service,
-    GtkSizeGroup *labels_size_group)
-{
-    g_return_val_if_fail (profile != nullptr, nullptr);
-    auto component = new GnomeCmdAdvrenameProfileComponent(profile, file_metadata_service);
-    component->update();
-    return g_object_ref_sink (component);
-}
-
-
-void gnome_cmd_advrename_profile_component_update (GnomeCmdAdvrenameProfileComponent *component)
-{
-    component->update();
-}
-
-
-void gnome_cmd_advrename_profile_component_copy (GnomeCmdAdvrenameProfileComponent *component)
-{
-    component->copy();
 }

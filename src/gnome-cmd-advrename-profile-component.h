@@ -31,44 +31,22 @@
 #define GNOME_CMD_ADVRENAME_PROFILE_COMPONENT_GET_CLASS(obj)    (G_TYPE_INSTANCE_GET_CLASS((obj), GNOME_CMD_TYPE_ADVRENAME_PROFILE_COMPONENT, GnomeCmdAdvrenameProfileComponentClass))
 
 
-GType gnome_cmd_advrename_profile_component_get_type ();
+extern "C" GType gnome_cmd_advrename_profile_component_get_type ();
 
 
-struct GnomeCmdAdvrenameProfileComponent
-{
-    GtkBox parent;
+struct GnomeCmdAdvrenameProfileComponent;
 
-    struct Private;
-
-    Private *priv;
-
-    operator GtkWidget * () const       {  return GTK_WIDGET (this);  }
-
-    void *operator new (size_t size)    {  return g_object_new (GNOME_CMD_TYPE_ADVRENAME_PROFILE_COMPONENT, NULL);  }
-    void operator delete (void *p)      {  g_object_unref (p);  }
-
-    enum {COL_MALFORMED_REGEX, COL_PATTERN, COL_REPLACE, COL_MATCH_CASE, COL_MATCH_CASE_LABEL, NUM_REGEX_COLS};
-
-    AdvancedRenameProfile *profile;
-
-    explicit GnomeCmdAdvrenameProfileComponent(AdvancedRenameProfile *profile,
-                                               GnomeCmdFileMetadataService *file_metadata_service);
-    ~GnomeCmdAdvrenameProfileComponent()     {}
-
-    void update();
-    void copy();
-
-    gchar *convert_case(gchar *string);
-    gchar *trim_blanks(gchar *string);
-
-    const gchar *get_template_entry() const;
-    void set_template_history(GList *history);
-    void set_sample_fname(const gchar *fname);
-    std::vector<GnomeCmd::RegexReplace> get_valid_regexes();
-};
 
 extern "C" GnomeCmdAdvrenameProfileComponent *gnome_cmd_advrename_profile_component_new (AdvancedRenameProfile *profile,
-                                                                                         GnomeCmdFileMetadataService *file_metadata_service,
-                                                                                         GtkSizeGroup *labels_size_group);
+                                                                                         GnomeCmdFileMetadataService *file_metadata_service);
 extern "C" void gnome_cmd_advrename_profile_component_update (GnomeCmdAdvrenameProfileComponent *component);
 extern "C" void gnome_cmd_advrename_profile_component_copy (GnomeCmdAdvrenameProfileComponent *component);
+
+gchar *gnome_cmd_advrename_profile_component_convert_case (GnomeCmdAdvrenameProfileComponent *component, gchar *string);
+gchar *gnome_cmd_advrename_profile_component_trim_blanks (GnomeCmdAdvrenameProfileComponent *component, gchar *string);
+
+const gchar *gnome_cmd_advrename_profile_component_get_template_entry (GnomeCmdAdvrenameProfileComponent *component);
+void gnome_cmd_advrename_profile_component_set_template_history (GnomeCmdAdvrenameProfileComponent *component, GList *history);
+void gnome_cmd_advrename_profile_component_set_sample_fname (GnomeCmdAdvrenameProfileComponent *component, const gchar *fname);
+
+std::vector<GnomeCmd::RegexReplace> gnome_cmd_advrename_profile_component_get_valid_regexes (GnomeCmdAdvrenameProfileComponent *component);
