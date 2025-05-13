@@ -24,8 +24,7 @@ use gtk::{
     glib::{self, subclass::prelude::*},
     prelude::*,
 };
-use once_cell::sync::Lazy;
-use std::{borrow::Cow, cell::RefCell};
+use std::{borrow::Cow, cell::RefCell, sync::LazyLock};
 
 #[derive(Clone)]
 pub struct ColorTheme {
@@ -76,7 +75,7 @@ impl ColorTheme {
     }
 }
 
-static COLOR_THEME_MODERN: Lazy<ColorTheme> = Lazy::new(|| ColorTheme {
+static COLOR_THEME_MODERN: LazyLock<ColorTheme> = LazyLock::new(|| ColorTheme {
     norm_fg: gdk::RGBA::parse("#000000000000").unwrap(),
     norm_bg: gdk::RGBA::parse("#dddddddddddd").unwrap(),
     alt_fg: gdk::RGBA::parse("#000000000000").unwrap(),
@@ -87,7 +86,7 @@ static COLOR_THEME_MODERN: Lazy<ColorTheme> = Lazy::new(|| ColorTheme {
     curs_bg: gdk::RGBA::parse("#000000004444").unwrap(),
 });
 
-static COLOR_THEME_FUSION: Lazy<ColorTheme> = Lazy::new(|| ColorTheme {
+static COLOR_THEME_FUSION: LazyLock<ColorTheme> = LazyLock::new(|| ColorTheme {
     norm_fg: gdk::RGBA::parse("#8080ffffffff").unwrap(),
     norm_bg: gdk::RGBA::parse("#000040408080").unwrap(),
     alt_fg: gdk::RGBA::parse("#8080ffffffff").unwrap(),
@@ -98,7 +97,7 @@ static COLOR_THEME_FUSION: Lazy<ColorTheme> = Lazy::new(|| ColorTheme {
     curs_bg: gdk::RGBA::parse("#000080808080").unwrap(),
 });
 
-static COLOR_THEME_CLASSIC: Lazy<ColorTheme> = Lazy::new(|| ColorTheme {
+static COLOR_THEME_CLASSIC: LazyLock<ColorTheme> = LazyLock::new(|| ColorTheme {
     norm_fg: gdk::RGBA::parse("#ffffffffffff").unwrap(),
     norm_bg: gdk::RGBA::parse("#000000004444").unwrap(),
     alt_fg: gdk::RGBA::parse("#ffffffffffff").unwrap(),
@@ -109,7 +108,7 @@ static COLOR_THEME_CLASSIC: Lazy<ColorTheme> = Lazy::new(|| ColorTheme {
     curs_bg: gdk::RGBA::parse("#aaaaaaaaaaaa").unwrap(),
 });
 
-static COLOR_THEME_DEEP_BLUE: Lazy<ColorTheme> = Lazy::new(|| ColorTheme {
+static COLOR_THEME_DEEP_BLUE: LazyLock<ColorTheme> = LazyLock::new(|| ColorTheme {
     norm_fg: gdk::RGBA::parse("#0000ffffffff").unwrap(),
     norm_bg: gdk::RGBA::parse("#000000008080").unwrap(),
     alt_fg: gdk::RGBA::parse("#0000ffffffff").unwrap(),
@@ -120,7 +119,7 @@ static COLOR_THEME_DEEP_BLUE: Lazy<ColorTheme> = Lazy::new(|| ColorTheme {
     curs_bg: gdk::RGBA::parse("#aaaaaaaaaaaa").unwrap(),
 });
 
-static COLOR_THEME_CAFEZINHO: Lazy<ColorTheme> = Lazy::new(|| ColorTheme {
+static COLOR_THEME_CAFEZINHO: LazyLock<ColorTheme> = LazyLock::new(|| ColorTheme {
     norm_fg: gdk::RGBA::parse("#e4e4deded5d5").unwrap(),
     norm_bg: gdk::RGBA::parse("#199a153011a8").unwrap(),
     alt_fg: gdk::RGBA::parse("#e4e4deded5d5").unwrap(),
@@ -131,7 +130,7 @@ static COLOR_THEME_CAFEZINHO: Lazy<ColorTheme> = Lazy::new(|| ColorTheme {
     curs_bg: gdk::RGBA::parse("#4d4d4d4d4d4d").unwrap(),
 });
 
-static COLOR_THEME_GREEN_TIGER: Lazy<ColorTheme> = Lazy::new(|| ColorTheme {
+static COLOR_THEME_GREEN_TIGER: LazyLock<ColorTheme> = LazyLock::new(|| ColorTheme {
     norm_fg: gdk::RGBA::parse("#ffffc6440000").unwrap(),
     norm_bg: gdk::RGBA::parse("#19192e2e0000").unwrap(),
     alt_fg: gdk::RGBA::parse("#ffffc6c60000").unwrap(),
@@ -142,7 +141,7 @@ static COLOR_THEME_GREEN_TIGER: Lazy<ColorTheme> = Lazy::new(|| ColorTheme {
     curs_bg: gdk::RGBA::parse("#aaaaaaaaaaaa").unwrap(),
 });
 
-static COLOR_THEME_WINTER: Lazy<ColorTheme> = Lazy::new(|| ColorTheme {
+static COLOR_THEME_WINTER: LazyLock<ColorTheme> = LazyLock::new(|| ColorTheme {
     norm_fg: gdk::RGBA::parse("#000000000000").unwrap(),
     norm_bg: gdk::RGBA::parse("#ffffffffffff").unwrap(),
     alt_fg: gdk::RGBA::parse("#000000000000").unwrap(),
