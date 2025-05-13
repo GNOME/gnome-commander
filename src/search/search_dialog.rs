@@ -17,14 +17,20 @@
  * For more details see the file COPYING.
  */
 
-use super::profiles::{manage_profiles_dialog::manage_profiles, profiles::ProfileManager};
-use crate::data::SearchConfig;
+use crate::{
+    data::SearchConfig,
+    dialogs::profiles::{manage_profiles_dialog::manage_profiles, profiles::ProfileManager},
+};
 use gettextrs::gettext;
-use glib::ffi::gboolean;
 use gtk::{
-    ffi::{GtkDialog, GtkSizeGroup, GtkWidget},
-    glib::translate::{from_glib_full, from_glib_none, ToGlibPtr},
+    ffi::{GtkSizeGroup, GtkWidget},
+    gio,
+    glib::{
+        ffi::{gboolean, GType},
+        translate::{from_glib_full, from_glib_none, IntoGlib, ToGlibPtr},
+    },
     prelude::*,
+    subclass::prelude::*,
 };
 use std::{
     ffi::{c_char, c_void},
@@ -188,6 +194,9 @@ impl ProfileManager for SearchProfileManager {
         if widget_ptr.is_null() {
             panic!("Profile editing component is null.");
         }
+        unsafe {
+            gnome_cmd_search_profile_component_update(widget_ptr);
+        }
         unsafe { from_glib_full(widget_ptr) }
     }
 
@@ -200,9 +209,63 @@ impl ProfileManager for SearchProfileManager {
     }
 }
 
-type GnomeCmdSearchDialog = GtkDialog;
+mod imp {
+    use super::*;
+    use crate::data::GeneralOptions;
+
+    #[derive(Default)]
+    pub struct SearchDialog {}
+
+    #[glib::object_subclass]
+    impl ObjectSubclass for SearchDialog {
+        const NAME: &'static str = "GnomeCmdSearchDialog";
+        type Type = super::SearchDialog;
+        type ParentType = gtk::Dialog;
+    }
+
+    impl ObjectImpl for SearchDialog {
+        fn constructed(&self) {
+            self.parent_constructed();
+
+            let this = self.obj();
+
+            this.set_title(Some(&gettext("Search…")));
+            this.set_resizable(true);
+
+            unsafe {
+                gnome_cmd_search_dialog_init(this.to_glib_none().0);
+            }
+
+            let options = GeneralOptions::new();
+
+            remember_window_size(&*this, &options.0);
+        }
+
+        fn dispose(&self) {
+            unsafe { gnome_cmd_search_dialog_dispose(self.obj().to_glib_none().0) }
+        }
+    }
+
+    impl WidgetImpl for SearchDialog {}
+    impl WindowImpl for SearchDialog {}
+    impl DialogImpl for SearchDialog {}
+}
+
+glib::wrapper! {
+    pub struct SearchDialog(ObjectSubclass<imp::SearchDialog>)
+        @extends gtk::Widget, gtk::Window, gtk::Dialog;
+}
+
+type GnomeCmdSearchDialog = <SearchDialog as glib::object::ObjectType>::GlibType;
+
+#[no_mangle]
+pub extern "C" fn gnome_cmd_search_dialog_get_type() -> GType {
+    SearchDialog::static_type().into_glib()
+}
 
 extern "C" {
+    fn gnome_cmd_search_dialog_init(dialog: *mut GnomeCmdSearchDialog);
+    fn gnome_cmd_search_dialog_dispose(dialog: *mut GnomeCmdSearchDialog);
     fn gnome_cmd_search_dialog_update_profile_menu(dialog: *mut GnomeCmdSearchDialog);
 }
 
@@ -212,7 +275,7 @@ pub extern "C" fn gnome_cmd_search_dialog_do_manage_profiles(
     cfg_ptr: *mut c_void,
     new_profile: gboolean,
 ) {
-    let dialog: gtk::Dialog = unsafe { from_glib_none(dialog_ptr) };
+    let dialog: SearchDialog = unsafe { from_glib_none(dialog_ptr) };
     let cfg = unsafe { SearchConfig::from_ptr(cfg_ptr) };
 
     glib::spawn_future_local(async move {
@@ -245,4 +308,30 @@ pub extern "C" fn gnome_cmd_search_dialog_do_manage_profiles(
             }
         }
     });
+}
+
+fn remember_window_size(dialog: &SearchDialog, settings: &gio::Settings) {
+    settings
+        .bind("search-win-width", dialog, "default-width")
+        .mapping(|v, _| {
+            let width: i32 = v.get::<u32>()?.try_into().ok()?;
+            Some(width.to_value())
+        })
+        .set_mapping(|v, _| {
+            let width: u32 = v.get::<i32>().ok()?.try_into().ok()?;
+            Some(width.to_variant())
+        })
+        .build();
+
+    settings
+        .bind("search-win-height", dialog, "default-height")
+        .mapping(|v, _| {
+            let height: i32 = v.get::<u32>()?.try_into().ok()?;
+            Some(height.to_value())
+        })
+        .set_mapping(|v, _| {
+            let height: u32 = v.get::<i32>().ok()?.try_into().ok()?;
+            Some(height.to_variant())
+        })
+        .build();
 }

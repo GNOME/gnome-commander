@@ -32,31 +32,12 @@
 #define GNOME_CMD_SEARCH_DIALOG_GET_CLASS(obj)    (G_TYPE_INSTANCE_GET_CLASS((obj), GNOME_CMD_TYPE_SEARCH_DIALOG, GnomeCmdSearchDialogClass))
 
 
-GType gnome_cmd_search_dialog_get_type ();
+extern "C" GType gnome_cmd_search_dialog_get_type ();
 
 
-struct GnomeCmdSearchDialog
-{
-    GtkDialog parent;
+struct GnomeCmdSearchDialog;
 
-    struct Private;
 
-    Private *priv;
-
-    operator GtkWidget * () const       {  return GTK_WIDGET (this);  }
-    operator GtkWindow * () const       {  return GTK_WINDOW (this);  }
-    operator GtkDialog * () const       {  return GTK_DIALOG (this);  }
-
-    void *operator new (size_t size)    {  return g_object_new (GNOME_CMD_TYPE_SEARCH_DIALOG, NULL);  }
-    void operator delete (void *p)      {  g_object_unref (p);  }
-
-    enum {GCMD_RESPONSE_PROFILES=123, GCMD_RESPONSE_GOTO, GCMD_RESPONSE_STOP, GCMD_RESPONSE_FIND};
-
-    GnomeCmdData::SearchConfig &defaults;
-
-    void show_and_set_focus();
-    void update_style();
-
-    explicit GnomeCmdSearchDialog(GnomeCmdData::SearchConfig &defaults);
-    ~GnomeCmdSearchDialog();
-};
+extern "C" GnomeCmdSearchDialog *gnome_cmd_search_dialog_new (GnomeCmdData::SearchConfig *defaults);
+extern "C" void gnome_cmd_search_dialog_show_and_set_focus (GnomeCmdSearchDialog *dialog);
+extern "C" void gnome_cmd_search_dialog_update_style (GnomeCmdSearchDialog *dialog);
