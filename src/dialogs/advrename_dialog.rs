@@ -213,6 +213,7 @@ impl ProfileManager for AdvRenameProfileManager {
 
 mod imp {
     use super::*;
+    use crate::data::GeneralOptions;
 
     #[derive(Default)]
     pub struct AdvancedRenameDialog {}
@@ -231,6 +232,10 @@ mod imp {
             unsafe {
                 gnome_cmd_advrename_dialog_init(self.obj().to_glib_none().0);
             }
+
+            let options = GeneralOptions::new();
+
+            remember_window_size(&*self.obj(), &options.0);
         }
 
         fn dispose(&self) {
@@ -248,6 +253,32 @@ mod imp {
 glib::wrapper! {
     pub struct AdvancedRenameDialog(ObjectSubclass<imp::AdvancedRenameDialog>)
         @extends gtk::Widget, gtk::Window, gtk::Dialog;
+}
+
+fn remember_window_size(dialog: &AdvancedRenameDialog, settings: &gio::Settings) {
+    settings
+        .bind("advrename-win-width", &*dialog, "default-width")
+        .mapping(|v, _| {
+            let width: i32 = v.get::<u32>()?.try_into().ok()?;
+            Some(width.to_value())
+        })
+        .set_mapping(|v, _| {
+            let width: u32 = v.get::<i32>().ok()?.try_into().ok()?;
+            Some(width.to_variant())
+        })
+        .build();
+
+    settings
+        .bind("advrename-win-height", &*dialog, "default-height")
+        .mapping(|v, _| {
+            let height: i32 = v.get::<u32>()?.try_into().ok()?;
+            Some(height.to_value())
+        })
+        .set_mapping(|v, _| {
+            let height: u32 = v.get::<i32>().ok()?.try_into().ok()?;
+            Some(height.to_variant())
+        })
+        .build();
 }
 
 type GnomeCmdAdvrenameDialog = <AdvancedRenameDialog as glib::object::ObjectType>::GlibType;

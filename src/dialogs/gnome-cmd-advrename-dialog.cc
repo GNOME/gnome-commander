@@ -90,7 +90,6 @@ static void on_files_view_row_activated (GtkTreeView *view, GtkTreePath *path, G
 static void on_files_view_cursor_changed (GtkTreeView *view, GnomeCmdAdvrenameDialog *dialog);
 
 static void on_dialog_show (GtkWidget *widget, GnomeCmdAdvrenameDialog *dialog);
-static void on_dialog_size_allocate (GObject *dialog, GParamSpec *pspec, gpointer user_data);
 static void on_dialog_response (GnomeCmdAdvrenameDialog *dialog, int response_id, gpointer data);
 
 
@@ -439,18 +438,6 @@ void on_dialog_show(GtkWidget *widget, GnomeCmdAdvrenameDialog *dialog)
 }
 
 
-void on_dialog_size_allocate (GObject *dialog, GParamSpec *pspec, gpointer user_data)
-{
-    auto priv = advrename_dialog_priv (GNOME_CMD_ADVRENAME_DIALOG (dialog));
-
-    int width, height;
-    gtk_window_get_default_size (GTK_WINDOW (dialog), &width, &height);
-
-    priv->config->width  = width;
-    priv->config->height = height;
-}
-
-
 void on_dialog_response (GnomeCmdAdvrenameDialog *dialog, int response_id, gpointer unused)
 {
     auto priv = advrename_dialog_priv (dialog);
@@ -723,7 +710,6 @@ extern "C" GnomeCmdAdvrenameDialog *gnome_cmd_advrename_dialog_new (GnomeCmdData
 
     priv->config = cfg;
 
-    gtk_window_set_default_size (GTK_WINDOW (dialog), cfg->width, cfg->height);
     gtk_window_set_transient_for (GTK_WINDOW (dialog), parent_window);
 
     priv->file_metadata_service = file_metadata_service;
@@ -770,8 +756,6 @@ extern "C" GnomeCmdAdvrenameDialog *gnome_cmd_advrename_dialog_new (GnomeCmdData
     g_signal_connect (priv->files_view, "cursor-changed", G_CALLBACK (on_files_view_cursor_changed), dialog);
 
     g_signal_connect (dialog, "show", G_CALLBACK (on_dialog_show), dialog);
-    g_signal_connect (dialog, "notify::default-width", G_CALLBACK (on_dialog_size_allocate), dialog);
-    g_signal_connect (dialog, "notify::default-height", G_CALLBACK (on_dialog_size_allocate), dialog);
     g_signal_connect (dialog, "response", G_CALLBACK (on_dialog_response), dialog);
 
     gnome_cmd_advrename_template_free (priv->rename_template);
