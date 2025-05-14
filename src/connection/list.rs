@@ -239,9 +239,6 @@ impl ConnectionList {
     }
 
     pub fn load_bookmarks(&self, variant: glib::Variant) {
-        debug_assert_eq!(*BookmarkVariant::static_variant_type(), "(bsss)");
-        debug_assert_eq!(*Vec::<BookmarkVariant>::static_variant_type(), "a(bsss)");
-
         for con in self.iter() {
             con.erase_bookmarks();
         }
@@ -319,8 +316,6 @@ impl ConnectionList {
     }
 
     pub fn load_devices(&self, variant: glib::Variant) {
-        CustomDeviceVariant::assert_variant_type();
-
         for v in Vec::<CustomDeviceVariant>::from_variant(&variant)
             .into_iter()
             .flatten()
@@ -336,8 +331,6 @@ impl ConnectionList {
     }
 
     pub fn save_devices(&self) -> Option<glib::Variant> {
-        CustomDeviceVariant::assert_variant_type();
-
         let devices: Vec<CustomDeviceVariant> = self
             .iter()
             .filter_map(|c| c.downcast::<ConnectionDevice>().ok())
@@ -366,8 +359,6 @@ impl ConnectionList {
     }
 
     pub fn load_connections(&self, variant: glib::Variant) {
-        ConnectionVariant::assert_variant_type();
-
         for v in Vec::<ConnectionVariant>::from_variant(&variant)
             .into_iter()
             .flatten()
@@ -384,8 +375,6 @@ impl ConnectionList {
     }
 
     pub fn save_connections(&self) -> Option<glib::Variant> {
-        ConnectionVariant::assert_variant_type();
-
         let connections: Vec<ConnectionVariant> = self
             .iter()
             .filter_map(|c| c.downcast::<ConnectionRemote>().ok())
@@ -626,24 +615,10 @@ struct CustomDeviceVariant {
     icon: glib::Variant,
 }
 
-impl CustomDeviceVariant {
-    fn assert_variant_type() {
-        debug_assert_eq!(*Self::static_variant_type(), "(sssv)");
-        debug_assert_eq!(*Vec::<Self>::static_variant_type(), "a(sssv)");
-    }
-}
-
 #[derive(glib::Variant)]
 struct ConnectionVariant {
     alias: String,
     uri: String,
-}
-
-impl ConnectionVariant {
-    fn assert_variant_type() {
-        debug_assert_eq!(*ConnectionVariant::static_variant_type(), "(ss)");
-        debug_assert_eq!(*Vec::<ConnectionVariant>::static_variant_type(), "a(ss)");
-    }
 }
 
 #[no_mangle]
@@ -688,4 +663,24 @@ pub extern "C" fn gnome_cmd_con_list_save_connections(
 ) -> *mut GVariant {
     let list: Borrowed<ConnectionList> = unsafe { from_glib_borrow(list_ptr) };
     list.save_connections().to_glib_full()
+}
+
+#[cfg(test)]
+mod test {
+    use super::*;
+
+    #[test]
+    fn test_variant_types() {
+        assert_eq!(*BookmarkVariant::static_variant_type(), "(bsss)");
+        assert_eq!(*Vec::<BookmarkVariant>::static_variant_type(), "a(bsss)");
+
+        assert_eq!(*CustomDeviceVariant::static_variant_type(), "(sssv)");
+        assert_eq!(
+            *Vec::<CustomDeviceVariant>::static_variant_type(),
+            "a(sssv)"
+        );
+
+        assert_eq!(*ConnectionVariant::static_variant_type(), "(ss)");
+        assert_eq!(*Vec::<ConnectionVariant>::static_variant_type(), "a(ss)");
+    }
 }
