@@ -155,8 +155,6 @@ GNOME_CMD_USER_ACTION(edit_copy_fnames);
 
 /************** View Menu **************/
 GNOME_CMD_USER_ACTION_TGL(view_devlist);
-GNOME_CMD_USER_ACTION_TGL(view_buttonbar);
-GNOME_CMD_USER_ACTION_TGL(view_cmdline);
 GNOME_CMD_USER_ACTION(view_dir_history);
 GNOME_CMD_USER_ACTION(view_in_left_pane);
 GNOME_CMD_USER_ACTION(view_in_right_pane);
@@ -367,30 +365,6 @@ void view_devlist (GSimpleAction *action, GVariant *state, gpointer user_data)
 
     if (gtk_widget_get_realized (GTK_WIDGET (main_win)))
         g_settings_set_boolean (settings->general, GCMD_SETTINGS_SHOW_DEVLIST, active);
-}
-
-
-void view_buttonbar (GSimpleAction *action, GVariant *state, gpointer user_data)
-{
-    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
-
-    auto active = g_variant_get_boolean (state);
-    g_simple_action_set_state (action, state);
-
-    if (gtk_widget_get_realized (GTK_WIDGET (main_win)))
-        g_settings_set_boolean (settings->general, GCMD_SETTINGS_SHOW_BUTTONBAR, active);
-}
-
-
-void view_cmdline (GSimpleAction *action, GVariant *state, gpointer user_data)
-{
-    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
-
-    auto active = g_variant_get_boolean (state);
-    g_simple_action_set_state (action, state);
-
-    if (gtk_widget_get_realized (GTK_WIDGET (main_win)))
-        g_settings_set_boolean (settings->general, GCMD_SETTINGS_SHOW_CMDLINE, active);
 }
 
 
