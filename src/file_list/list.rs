@@ -2,7 +2,7 @@
  * Copyright 2001-2006 Marcus Bjurman
  * Copyright 2007-2012 Piotr Eljasiak
  * Copyright 2013-2024 Uwe Scholz
- * Copyright 2024 Andrey Kutejko <andy128k@gmail.com>
+ * Copyright 2024-2025 Andrey Kutejko <andy128k@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -36,32 +36,108 @@ use gtk::{
     gdk, gio,
     glib::{
         self,
-        ffi::gboolean,
+        ffi::{gboolean, GType},
         translate::{
             from_glib, from_glib_borrow, from_glib_none, Borrowed, FromGlib, IntoGlib, ToGlibPtr,
         },
     },
     prelude::*,
+    subclass::prelude::*,
 };
 use std::{collections::HashSet, ffi::c_char, ops::ControlFlow, path::Path, sync::LazyLock};
+
+mod imp {
+    use super::*;
+    use std::sync::OnceLock;
+
+    #[derive(Default)]
+    pub struct FileList {}
+
+    #[glib::object_subclass]
+    impl ObjectSubclass for FileList {
+        const NAME: &'static str = "GnomeCmdFileList";
+        type Type = super::FileList;
+        type ParentType = gtk::Widget;
+    }
+
+    impl ObjectImpl for FileList {
+        fn constructed(&self) {
+            self.parent_constructed();
+
+            let fl = self.obj();
+            fl.set_layout_manager(Some(gtk::BinLayout::new()));
+
+            unsafe {
+                ffi::gnome_cmd_file_list_init(fl.to_glib_none().0);
+            }
+        }
+
+        fn dispose(&self) {
+            while let Some(child) = self.obj().first_child() {
+                child.unparent();
+            }
+            unsafe {
+                ffi::gnome_cmd_file_list_finalize(self.obj().to_glib_none().0);
+            }
+        }
+
+        fn signals() -> &'static [glib::subclass::Signal] {
+            static SIGNALS: OnceLock<Vec<glib::subclass::Signal>> = OnceLock::new();
+            SIGNALS.get_or_init(|| {
+                vec![
+                    // A file in the list was clicked
+                    glib::subclass::Signal::builder("file-clicked")
+                        .param_types([glib::Pointer::static_type()]) // GnomeCmdFileListButtonEvent
+                        .build(),
+                    // A file in the list has been clicked and mouse button has been released
+                    glib::subclass::Signal::builder("file-released")
+                        .param_types([glib::Pointer::static_type()]) // GnomeCmdFileListButtonEvent
+                        .build(),
+                    // The file list widget was clicked
+                    glib::subclass::Signal::builder("list-clicked")
+                        .param_types([glib::Pointer::static_type()]) // GnomeCmdFileListButtonEvent
+                        .build(),
+                    // The visible content of the file list has changed (files have been: selected, created, deleted or modified)
+                    glib::subclass::Signal::builder("files-changed").build(),
+                    // The current directory has been changed
+                    glib::subclass::Signal::builder("dir-changed")
+                        .param_types([Directory::static_type()])
+                        .build(),
+                    // The current connection has been changed
+                    glib::subclass::Signal::builder("con-changed")
+                        .param_types([Connection::static_type()])
+                        .build(),
+                    // Column's width was changed
+                    glib::subclass::Signal::builder("resize-column")
+                        .param_types([u32::static_type(), gtk::TreeViewColumn::static_type()])
+                        .build(),
+                    // A file in the list has been activated for opening
+                    glib::subclass::Signal::builder("file-activated")
+                        .param_types([File::static_type()])
+                        .build(),
+                ]
+            })
+        }
+    }
+
+    impl WidgetImpl for FileList {
+        fn grab_focus(&self) -> bool {
+            self.obj().tree_view().grab_focus()
+        }
+    }
+}
 
 pub mod ffi {
     use super::*;
     use crate::{connection::connection::ffi::GnomeCmdCon, dir::ffi::GnomeCmdDir};
-    use gtk::{
-        ffi::GtkTreeView,
-        glib::ffi::{GList, GType},
-    };
+    use gtk::{ffi::GtkTreeView, glib::ffi::GList};
     use std::ffi::c_int;
 
-    #[repr(C)]
-    pub struct GnomeCmdFileList {
-        _data: [u8; 0],
-        _marker: std::marker::PhantomData<(*mut u8, std::marker::PhantomPinned)>,
-    }
+    pub type GnomeCmdFileList = <super::FileList as glib::object::ObjectType>::GlibType;
 
     extern "C" {
-        pub fn gnome_cmd_file_list_get_type() -> GType;
+        pub fn gnome_cmd_file_list_init(fl: *mut GnomeCmdFileList);
+        pub fn gnome_cmd_file_list_finalize(fl: *mut GnomeCmdFileList);
 
         pub fn gnome_cmd_file_list_get_tree_view(fl: *mut GnomeCmdFileList) -> *mut GtkTreeView;
 
@@ -92,21 +168,11 @@ pub mod ffi {
 
         pub fn gnome_cmd_file_list_show_rename_dialog(fl: *mut GnomeCmdFileList);
     }
-
-    #[derive(Copy, Clone)]
-    #[repr(C)]
-    pub struct GnomeCmdFileListClass {
-        pub parent_class: gtk::ffi::GtkWidgetClass,
-    }
 }
 
 glib::wrapper! {
-    pub struct FileList(Object<ffi::GnomeCmdFileList, ffi::GnomeCmdFileListClass>)
+    pub struct FileList(ObjectSubclass<imp::FileList>)
         @extends gtk::Widget;
-
-    match fn {
-        type_ => || ffi::gnome_cmd_file_list_get_type(),
-    }
 }
 
 #[allow(non_camel_case_types)]
@@ -470,6 +536,11 @@ pub struct Stats {
 pub struct FileListStats {
     pub total: Stats,
     pub selected: Stats,
+}
+
+#[no_mangle]
+pub extern "C" fn gnome_cmd_file_list_get_type() -> GType {
+    FileList::static_type().into_glib()
 }
 
 #[no_mangle]
