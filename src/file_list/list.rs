@@ -23,10 +23,10 @@
 use super::quick_search::QuickSearch;
 use crate::{
     connection::connection::Connection,
-    data::{GeneralOptions, GeneralOptionsRead},
+    data::{FiltersOptions, FiltersOptionsRead, GeneralOptions, GeneralOptionsRead},
     dir::Directory,
-    file::File,
-    filter::Filter,
+    file::{ffi::GnomeCmdFile, File},
+    filter::{fnmatch, Filter},
     libgcmd::file_descriptor::FileDescriptorExt,
     types::SizeDisplayMode,
     utils::size_to_string,
@@ -37,7 +37,9 @@ use gtk::{
     glib::{
         self,
         ffi::gboolean,
-        translate::{from_glib, from_glib_none, FromGlib, ToGlibPtr},
+        translate::{
+            from_glib, from_glib_borrow, from_glib_none, Borrowed, FromGlib, IntoGlib, ToGlibPtr,
+        },
     },
     prelude::*,
 };
@@ -508,4 +510,79 @@ pub extern "C" fn gnome_cmd_file_list_show_quicksearch(
     let fl: FileList = unsafe { from_glib_none(fl) };
     let key: gdk::Key = unsafe { gdk::Key::from_glib(keyval) };
     fl.show_quick_search(Some(key));
+}
+
+fn file_is_wanted(file: &File, options: &dyn FiltersOptionsRead) -> bool {
+    match file.file().query_info(
+        "standard::*",
+        gio::FileQueryInfoFlags::NOFOLLOW_SYMLINKS,
+        gio::Cancellable::NONE,
+    ) {
+        Ok(file_info) => {
+            let basename = file.file().basename();
+            let Some(basename) = basename.as_ref().and_then(|b| b.to_str()) else {
+                return false;
+            };
+
+            if basename == "." {
+                return false;
+            }
+            if file.is_dotdot() {
+                return false;
+            }
+            let hide = match file_info.file_type() {
+                gio::FileType::Unknown => options.hide_unknown(),
+                gio::FileType::Regular => options.hide_regular(),
+                gio::FileType::Directory => options.hide_directory(),
+                gio::FileType::SymbolicLink => options.hide_symlink(),
+                gio::FileType::Special => options.hide_special(),
+                gio::FileType::Shortcut => options.hide_shortcut(),
+                gio::FileType::Mountable => options.hide_mountable(),
+                _ => false,
+            };
+            if hide {
+                return false;
+            }
+            if options.hide_symlink() && file_info.is_symlink() {
+                return false;
+            }
+            if options.hide_hidden() && file_info.is_hidden() {
+                return false;
+            }
+            if options.hide_virtual() && file_info.boolean(gio::FILE_ATTRIBUTE_STANDARD_IS_VIRTUAL)
+            {
+                return false;
+            }
+            if options.hide_volatile()
+                && file_info.boolean(gio::FILE_ATTRIBUTE_STANDARD_IS_VOLATILE)
+            {
+                return false;
+            }
+            if options.hide_backup() && matches_pattern(basename, &options.backup_pattern()) {
+                return false;
+            }
+            true
+        }
+        Err(error) => {
+            eprintln!(
+                "file_is_wanted: retrieving file info for {} failed: {}",
+                file.file().uri(),
+                error.message()
+            );
+            true
+        }
+    }
+}
+
+fn matches_pattern(file: &str, patterns: &str) -> bool {
+    patterns
+        .split(';')
+        .any(|pattern| fnmatch(pattern, file, false))
+}
+
+#[no_mangle]
+pub extern "C" fn gnome_cmd_file_is_wanted(f: *mut GnomeCmdFile) -> gboolean {
+    let f: Borrowed<File> = unsafe { from_glib_borrow(f) };
+    let options = FiltersOptions::new();
+    file_is_wanted(&f, &options).into_glib()
 }

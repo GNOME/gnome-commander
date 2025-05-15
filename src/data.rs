@@ -256,6 +256,124 @@ impl ConfirmOptionsWrite for ConfirmOptions {
     }
 }
 
+pub struct FiltersOptions(pub gio::Settings);
+
+pub trait FiltersOptionsRead {
+    fn hide_unknown(&self) -> bool;
+    fn hide_regular(&self) -> bool;
+    fn hide_directory(&self) -> bool;
+    fn hide_special(&self) -> bool;
+    fn hide_shortcut(&self) -> bool;
+    fn hide_mountable(&self) -> bool;
+    fn hide_virtual(&self) -> bool;
+    fn hide_volatile(&self) -> bool;
+    fn hide_hidden(&self) -> bool;
+    fn hide_backup(&self) -> bool;
+    fn hide_symlink(&self) -> bool;
+    fn backup_pattern(&self) -> String;
+}
+
+pub trait FiltersOptionsWrite {
+    fn set_hide_unknown(&self, value: bool) -> Result<(), glib::error::BoolError>;
+    fn set_hide_regular(&self, value: bool) -> Result<(), glib::error::BoolError>;
+    fn set_hide_directory(&self, value: bool) -> Result<(), glib::error::BoolError>;
+    fn set_hide_special(&self, value: bool) -> Result<(), glib::error::BoolError>;
+    fn set_hide_shortcut(&self, value: bool) -> Result<(), glib::error::BoolError>;
+    fn set_hide_mountable(&self, value: bool) -> Result<(), glib::error::BoolError>;
+    fn set_hide_virtual(&self, value: bool) -> Result<(), glib::error::BoolError>;
+    fn set_hide_volatile(&self, value: bool) -> Result<(), glib::error::BoolError>;
+    fn set_hide_hidden(&self, value: bool) -> Result<(), glib::error::BoolError>;
+    fn set_hide_backup(&self, value: bool) -> Result<(), glib::error::BoolError>;
+    fn set_hide_symlink(&self, value: bool) -> Result<(), glib::error::BoolError>;
+    fn set_backup_pattern(&self, value: &str) -> Result<(), glib::error::BoolError>;
+}
+
+pub const PREFERENCES_FILTER: &str = "org.gnome.gnome-commander.preferences.filter";
+
+impl FiltersOptions {
+    pub fn new() -> Self {
+        Self(gio::Settings::new(PREFERENCES_FILTER))
+    }
+}
+
+impl FiltersOptionsRead for FiltersOptions {
+    fn hide_unknown(&self) -> bool {
+        self.0.boolean("hide-unknown")
+    }
+    fn hide_regular(&self) -> bool {
+        self.0.boolean("hide-regular")
+    }
+    fn hide_directory(&self) -> bool {
+        self.0.boolean("hide-directory")
+    }
+    fn hide_special(&self) -> bool {
+        self.0.boolean("hide-special")
+    }
+    fn hide_shortcut(&self) -> bool {
+        self.0.boolean("hide-shortcut")
+    }
+    fn hide_mountable(&self) -> bool {
+        self.0.boolean("hide-mountable")
+    }
+    fn hide_virtual(&self) -> bool {
+        self.0.boolean("hide-virtual")
+    }
+    fn hide_volatile(&self) -> bool {
+        self.0.boolean("hide-volatile")
+    }
+    fn hide_hidden(&self) -> bool {
+        self.0.boolean("hide-dotfile")
+    }
+    fn hide_backup(&self) -> bool {
+        self.0.boolean("hide-backupfiles")
+    }
+    fn hide_symlink(&self) -> bool {
+        self.0.boolean("hide-symlink")
+    }
+    fn backup_pattern(&self) -> String {
+        self.0.string("backup-pattern").to_string()
+    }
+}
+
+impl FiltersOptionsWrite for FiltersOptions {
+    fn set_hide_unknown(&self, value: bool) -> Result<(), glib::error::BoolError> {
+        self.0.set_boolean("hide-unknown", value)
+    }
+    fn set_hide_regular(&self, value: bool) -> Result<(), glib::error::BoolError> {
+        self.0.set_boolean("hide-regular", value)
+    }
+    fn set_hide_directory(&self, value: bool) -> Result<(), glib::error::BoolError> {
+        self.0.set_boolean("hide-directory", value)
+    }
+    fn set_hide_special(&self, value: bool) -> Result<(), glib::error::BoolError> {
+        self.0.set_boolean("hide-special", value)
+    }
+    fn set_hide_shortcut(&self, value: bool) -> Result<(), glib::error::BoolError> {
+        self.0.set_boolean("hide-shortcut", value)
+    }
+    fn set_hide_mountable(&self, value: bool) -> Result<(), glib::error::BoolError> {
+        self.0.set_boolean("hide-mountable", value)
+    }
+    fn set_hide_virtual(&self, value: bool) -> Result<(), glib::error::BoolError> {
+        self.0.set_boolean("hide-virtual", value)
+    }
+    fn set_hide_volatile(&self, value: bool) -> Result<(), glib::error::BoolError> {
+        self.0.set_boolean("hide-volatile", value)
+    }
+    fn set_hide_hidden(&self, value: bool) -> Result<(), glib::error::BoolError> {
+        self.0.set_boolean("hide-dotfile", value)
+    }
+    fn set_hide_backup(&self, value: bool) -> Result<(), glib::error::BoolError> {
+        self.0.set_boolean("hide-backupfiles", value)
+    }
+    fn set_hide_symlink(&self, value: bool) -> Result<(), glib::error::BoolError> {
+        self.0.set_boolean("hide-symlink", value)
+    }
+    fn set_backup_pattern(&self, value: &str) -> Result<(), glib::error::BoolError> {
+        self.0.set_string("backup-pattern", value)
+    }
+}
+
 pub struct ProgramsOptions(pub gio::Settings);
 
 pub trait ProgramsOptionsRead {

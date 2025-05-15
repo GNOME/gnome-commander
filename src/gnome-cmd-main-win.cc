@@ -143,8 +143,6 @@ extern "C" void gnome_cmd_main_win_dispose (GnomeCmdMainWin *main_win)
 extern "C" void gnome_cmd_main_win_init (GnomeCmdMainWin *mw)
 {
     toggle_action_change_state (mw, "view-devlist", gnome_cmd_data.show_devlist);
-    toggle_action_change_state (mw, "view-hidden-files", !gnome_cmd_data.options.filter.file_types[GnomeCmdData::G_FILE_IS_HIDDEN]);
-    toggle_action_change_state (mw, "view-backup-files", !gnome_cmd_data.options.filter.file_types[GnomeCmdData::G_FILE_IS_BACKUP]);
 
     auto priv = g_new0 (GnomeCmdMainWinPrivate, 1);
     g_object_set_data_full (G_OBJECT (mw), "priv", priv, g_free);
@@ -257,9 +255,11 @@ static gboolean on_key_pressed (GtkEventControllerKey *controller, guint keyval,
         {
             case GDK_KEY_H:
             case GDK_KEY_h:
-                gnome_cmd_data.options.filter.file_types[GnomeCmdData::G_FILE_IS_HIDDEN] =
-                    !gnome_cmd_data.options.filter.file_types[GnomeCmdData::G_FILE_IS_HIDDEN];
-                gnome_cmd_data.save(mw);
+                {
+                    gboolean view;
+                    g_object_get (G_OBJECT (mw), "view-hidden-files", &view, nullptr);
+                    g_object_set (G_OBJECT (mw), "view-hidden-files", !view, nullptr);
+                }
                 return TRUE;
             default:
                 break;

@@ -19,9 +19,6 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-#include <config.h>
-#include <gtk/gtk.h>
-
 #include "gnome-cmd-includes.h"
 #include "dialogs/gnome-cmd-options-dialog.h"
 #include "utils.h"
@@ -951,28 +948,15 @@ void store_confirmation_options (GtkWidget *dialog, GnomeCmdData::Options &cfg)
  *
  **********************************************************************/
 
-static void on_filter_backup_files_toggled (GtkCheckButton *btn, GtkWidget *dialog)
-{
-    GtkWidget *backup_pattern_entry = lookup_widget (dialog, "backup_pattern_entry");
-
-    if (gtk_check_button_get_active (btn))
-    {
-        gtk_widget_set_sensitive (backup_pattern_entry, TRUE);
-        gtk_widget_grab_focus (backup_pattern_entry);
-    }
-    else
-        gtk_widget_set_sensitive (backup_pattern_entry, FALSE);
-}
-
+extern "C" GtkWidget *gnome_cmd_create_filters_widget();
+extern "C" void gnome_cmd_filters_widget_save(GtkWidget *w);
 
 GtkWidget *create_filter_tab (GtkWidget *parent, GnomeCmdData::Options &cfg)
 {
-    GtkWidget *vbox, *scrolled_window, *cat, *cat_box;
-    GtkWidget *check, *backup_check, *entry;
+    auto filters_widget = gnome_cmd_create_filters_widget();
+    g_object_set_data (G_OBJECT (parent), "filters_widget", filters_widget);
 
-    vbox = create_tabvbox (parent);
-
-    scrolled_window = gtk_scrolled_window_new ();
+    auto scrolled_window = gtk_scrolled_window_new ();
     gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolled_window),
                                     GTK_POLICY_AUTOMATIC, GTK_POLICY_ALWAYS);
     gtk_widget_set_hexpand (scrolled_window, TRUE);
@@ -981,62 +965,7 @@ GtkWidget *create_filter_tab (GtkWidget *parent, GnomeCmdData::Options &cfg)
     gtk_widget_set_margin_bottom (scrolled_window, 6);
     gtk_widget_set_margin_start (scrolled_window, 6);
     gtk_widget_set_margin_end (scrolled_window, 6);
-    gtk_scrolled_window_set_child (GTK_SCROLLED_WINDOW (scrolled_window), vbox);
-
-    cat_box = create_vbox (parent, FALSE, 0);
-    cat = create_category (parent, cat_box, _("Filetypes to hide"));
-    gtk_box_append (GTK_BOX (vbox), cat);
-
-    check = create_check (parent, _("Unknown"), "hide_unknown_check");
-    gtk_box_append (GTK_BOX (cat_box), check);
-    gtk_check_button_set_active (GTK_CHECK_BUTTON (check), cfg.filter.file_types[GnomeCmdData::G_FILE_IS_UNKNOWN]);
-    check = create_check (parent, _("Regular files"), "hide_regular_check");
-    gtk_box_append (GTK_BOX (cat_box), check);
-    gtk_check_button_set_active (GTK_CHECK_BUTTON (check), cfg.filter.file_types[GnomeCmdData::G_FILE_IS_REGULAR]);
-    check = create_check (parent, _("Directories"), "hide_directory_check");
-    gtk_box_append (GTK_BOX (cat_box), check);
-    gtk_check_button_set_active (GTK_CHECK_BUTTON (check), cfg.filter.file_types[GnomeCmdData::G_FILE_IS_DIR]);
-    check = create_check (parent, _("Socket, fifo, block, or character devices"), "hide_special_check");
-    gtk_box_append (GTK_BOX (cat_box), check);
-    gtk_check_button_set_active (GTK_CHECK_BUTTON (check), cfg.filter.file_types[GnomeCmdData::G_FILE_IS_SPECIAL]);
-    check = create_check (parent, _("Shortcuts (Windows systems)"), "hide_shortcut_check");
-    gtk_box_append (GTK_BOX (cat_box), check);
-    gtk_check_button_set_active (GTK_CHECK_BUTTON (check), cfg.filter.file_types[GnomeCmdData::G_FILE_IS_SHORTCUT]);
-    check = create_check (parent, _("Mountable locations"), "hide_mountable_check");
-    gtk_box_append (GTK_BOX (cat_box), check);
-    gtk_check_button_set_active (GTK_CHECK_BUTTON (check), cfg.filter.file_types[GnomeCmdData::G_FILE_IS_MOUNTABLE]);
-    check = create_check (parent, _("Virtual files"), "hide_virtual_check");
-    gtk_box_append (GTK_BOX (cat_box), check);
-    gtk_check_button_set_active (GTK_CHECK_BUTTON (check), cfg.filter.file_types[GnomeCmdData::G_FILE_IS_VIRTUAL]);
-    check = create_check (parent, _("Volatile files"), "hide_volatile_check");
-    gtk_box_append (GTK_BOX (cat_box), check);
-    gtk_check_button_set_active (GTK_CHECK_BUTTON (check), cfg.filter.file_types[GnomeCmdData::G_FILE_IS_VOLATILE]);
-
-    cat_box = create_vbox (parent, FALSE, 0);
-    cat = create_category (parent, cat_box, _("Also hide"));
-    gtk_box_append (GTK_BOX (vbox), cat);
-
-    check = create_check (parent, _("Hidden files"), "hide_hidden_check");
-    gtk_box_append (GTK_BOX (cat_box), check);
-    gtk_check_button_set_active (GTK_CHECK_BUTTON (check), cfg.filter.file_types[GnomeCmdData::G_FILE_IS_HIDDEN]);
-    backup_check = create_check (parent, _("Backup files"), "hide_backup_check");
-    gtk_box_append (GTK_BOX (cat_box), backup_check);
-    gtk_check_button_set_active (GTK_CHECK_BUTTON (backup_check), cfg.filter.file_types[GnomeCmdData::G_FILE_IS_BACKUP]);
-    check = create_check (parent, _("Symlinks"), "hide_symlink_check");
-    gtk_box_append (GTK_BOX (cat_box), check);
-    gtk_check_button_set_active (GTK_CHECK_BUTTON (check), cfg.filter.file_types[GnomeCmdData::G_FILE_IS_SYMLINK]);
-
-
-    cat_box = create_vbox (parent, FALSE, 0);
-    cat = create_category (parent, cat_box, _("Backup files"));
-    gtk_box_append (GTK_BOX (vbox), cat);
-
-    entry = create_entry (parent, "backup_pattern_entry", cfg.backup_pattern);
-    gtk_box_append (GTK_BOX (cat_box), entry);
-    gtk_widget_set_sensitive (entry, cfg.filter.file_types[GnomeCmdData::G_FILE_IS_BACKUP]);
-
-
-    g_signal_connect (backup_check, "toggled", G_CALLBACK (on_filter_backup_files_toggled), scrolled_window);
+    gtk_scrolled_window_set_child (GTK_SCROLLED_WINDOW (scrolled_window), filters_widget);
 
     return scrolled_window;
 }
@@ -1044,53 +973,8 @@ GtkWidget *create_filter_tab (GtkWidget *parent, GnomeCmdData::Options &cfg)
 
 void store_filter_options (GtkWidget *dialog, GnomeCmdData::Options &cfg)
 {
-    GtkWidget *hide_unknown_check = lookup_widget (dialog, "hide_unknown_check");
-    GtkWidget *hide_regular_check = lookup_widget (dialog, "hide_regular_check");
-    GtkWidget *hide_directory_check = lookup_widget (dialog, "hide_directory_check");
-    GtkWidget *hide_special_check = lookup_widget (dialog, "hide_special_check");
-    GtkWidget *hide_shortcut_check = lookup_widget (dialog, "hide_shortcut_check");
-    GtkWidget *hide_mountable_check = lookup_widget (dialog, "hide_mountable_check");
-    GtkWidget *hide_virtual_check = lookup_widget (dialog, "hide_virtual_check");
-    GtkWidget *hide_volatile_check = lookup_widget (dialog, "hide_volatile_check");
-    GtkWidget *hide_symlink_check = lookup_widget (dialog, "hide_symlink_check");
-    GtkWidget *hide_hidden_check = lookup_widget (dialog, "hide_hidden_check");
-    GtkWidget *hide_backup_check = lookup_widget (dialog, "hide_backup_check");
-    GtkWidget *backup_pattern_entry = lookup_widget (dialog, "backup_pattern_entry");
-
-    cfg.filter.file_types[GnomeCmdData::G_FILE_IS_UNKNOWN] =
-        gtk_check_button_get_active (GTK_CHECK_BUTTON (hide_unknown_check));
-
-    cfg.filter.file_types[GnomeCmdData::G_FILE_IS_REGULAR] =
-        gtk_check_button_get_active (GTK_CHECK_BUTTON (hide_regular_check));
-
-    cfg.filter.file_types[GnomeCmdData::G_FILE_IS_DIR] =
-        gtk_check_button_get_active (GTK_CHECK_BUTTON (hide_directory_check));
-
-    cfg.filter.file_types[GnomeCmdData::G_FILE_IS_SPECIAL] =
-        gtk_check_button_get_active (GTK_CHECK_BUTTON (hide_special_check));
-
-    cfg.filter.file_types[GnomeCmdData::G_FILE_IS_SHORTCUT] =
-        gtk_check_button_get_active (GTK_CHECK_BUTTON (hide_shortcut_check));
-
-    cfg.filter.file_types[GnomeCmdData::G_FILE_IS_MOUNTABLE] =
-        gtk_check_button_get_active (GTK_CHECK_BUTTON (hide_mountable_check));
-
-    cfg.filter.file_types[GnomeCmdData::G_FILE_IS_VIRTUAL] =
-        gtk_check_button_get_active (GTK_CHECK_BUTTON (hide_virtual_check));
-
-    cfg.filter.file_types[GnomeCmdData::G_FILE_IS_VOLATILE] =
-        gtk_check_button_get_active (GTK_CHECK_BUTTON (hide_volatile_check));
-
-    cfg.filter.file_types[GnomeCmdData::G_FILE_IS_SYMLINK] =
-        gtk_check_button_get_active (GTK_CHECK_BUTTON (hide_symlink_check));
-
-    cfg.filter.file_types[GnomeCmdData::G_FILE_IS_HIDDEN] =
-        gtk_check_button_get_active (GTK_CHECK_BUTTON (hide_hidden_check));
-
-    cfg.filter.file_types[GnomeCmdData::G_FILE_IS_BACKUP] =
-        gtk_check_button_get_active (GTK_CHECK_BUTTON (hide_backup_check));
-
-    cfg.set_backup_pattern(gtk_editable_get_text (GTK_EDITABLE (backup_pattern_entry)));
+    GtkWidget *filters_widget = GTK_WIDGET (g_object_get_data (G_OBJECT (dialog), "filters_widget"));
+    gnome_cmd_filters_widget_save (filters_widget);
 }
 
 

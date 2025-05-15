@@ -149,8 +149,6 @@ struct GnomeCmdFileList
      */
     GnomeCmdFile *get_selected_file();
 
-    gboolean file_is_wanted(GnomeCmdFile *f);
-
     void update_file(GnomeCmdFile *f);
     void show_files(GnomeCmdDir *dir);
     void show_dir_tree_size(GnomeCmdFile *f);

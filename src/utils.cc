@@ -389,45 +389,6 @@ gchar *unix_to_unc (const gchar *path)
 }
 
 
-GList *patlist_new (const gchar *pattern_string)
-{
-    g_return_val_if_fail (pattern_string != NULL, NULL);
-
-    GList *patlist = NULL;
-    gchar **ents = g_strsplit (pattern_string, ";", 0);
-
-    for (gint i = 0; ents[i]; i++)
-        patlist = g_list_append (patlist, ents[i]);
-
-    g_free (ents);
-
-    return patlist;
-}
-
-
-void patlist_free (GList *pattern_list)
-{
-    if (!pattern_list)  return;
-
-    g_list_foreach (pattern_list, (GFunc) g_free, NULL);
-    g_list_free (pattern_list);
-}
-
-
-gboolean patlist_matches (GList *pattern_list, const gchar *s)
-{
-    for (GList *i=pattern_list; i; i=i->next)
-#ifdef FNM_CASEFOLD
-        if (fnmatch ((gchar *) i->data, s, FNM_NOESCAPE|FNM_CASEFOLD) == 0)
-#else
-        if (fnmatch ((gchar *) i->data, s, FNM_NOESCAPE) == 0)   // omit FNM_CASEFOLD as it is a GNU extension.
-#endif
-            return TRUE;
-
-    return FALSE;
-}
-
-
 void gnome_cmd_toggle_file_name_selection (GtkWidget *entry)
 {
     const gchar *text = gtk_editable_get_text (GTK_EDITABLE (entry));

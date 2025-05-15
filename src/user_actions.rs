@@ -817,8 +817,6 @@ c_action!(view_devlist);
 c_action!(view_buttonbar);
 c_action!(view_cmdline);
 c_action!(view_dir_history);
-c_action!(view_hidden_files);
-c_action!(view_backup_files);
 
 pub fn view_up(
     main_win: &MainWindow,
@@ -1754,15 +1752,13 @@ pub const USER_ACTIONS: LazyLock<Vec<UserAction>> = LazyLock::new(|| {
             "view.dir_history",
             gettext("Show directory history"),
         ),
-        UserAction::boolean(
+        UserAction::predefined(
             "view-hidden-files",
-            view_hidden_files,
             "view.hidden_files",
             gettext("Show hidden files"),
         ),
-        UserAction::boolean(
+        UserAction::predefined(
             "view-backup-files",
-            view_backup_files,
             "view.backup_files",
             gettext("Show backup files"),
         ),

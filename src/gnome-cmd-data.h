@@ -310,9 +310,6 @@ struct GnomeCmdData
         GnomeCmdConfirmOverwriteMode confirm_move_overwrite;
         GnomeCmdDefaultDndMode       mouse_dnd_default;
         //  Filters
-        FilterSettings               filter;
-        gchar                       *backup_pattern;
-        GList                       *backup_pattern_list;
         gboolean                     symbolic_links_as_regular_files;
         //  Programs
         gboolean                     honor_expect_uris;
@@ -365,8 +362,6 @@ struct GnomeCmdData
                    confirm_copy_overwrite(GNOME_CMD_CONFIRM_OVERWRITE_QUERY),
                    confirm_move_overwrite(GNOME_CMD_CONFIRM_OVERWRITE_QUERY),
                    mouse_dnd_default(GNOME_CMD_DEFAULT_DND_QUERY),
-                   backup_pattern(nullptr),
-                   backup_pattern_list(nullptr),
                    honor_expect_uris(FALSE),
                    viewer(nullptr),
                    use_internal_viewer(TRUE),
@@ -390,8 +385,6 @@ struct GnomeCmdData
             g_free (date_format);
             g_free (list_font);
             g_free (theme_icon_dir);
-            g_free (backup_pattern);
-            patlist_free (backup_pattern_list);
             g_free (viewer);
             g_free (editor);
             g_free (differ);
@@ -422,15 +415,6 @@ struct GnomeCmdData
         {
             g_free (theme_icon_dir);
             theme_icon_dir = g_strdup (dir);
-        }
-
-        void set_backup_pattern(const gchar *value)
-        {
-            g_free (backup_pattern);
-            patlist_free (backup_pattern_list);
-
-            backup_pattern = g_strdup (value);
-            backup_pattern_list = patlist_new (backup_pattern);
         }
 
         void set_viewer(const gchar *command)

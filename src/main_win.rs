@@ -64,7 +64,7 @@ pub mod imp {
     use super::*;
     use crate::{
         command_line::CommandLine,
-        data::ProgramsOptions,
+        data::{FiltersOptions, ProgramsOptions},
         layout::color_themes::ColorThemes,
         paned_ext::GnomeCmdPanedExt,
         pwd::uid,
@@ -76,6 +76,7 @@ pub mod imp {
         cell::{Cell, RefCell},
         ffi::OsString,
         path::Path,
+        time::Duration,
     };
 
     #[derive(glib::Properties)]
@@ -122,6 +123,10 @@ pub mod imp {
         buttonbar_visible: Cell<bool>,
         #[property(get, set)]
         connection_buttons_visible: Cell<bool>,
+        #[property(get, set = Self::set_view_hidden_files)]
+        view_hidden_files: Cell<bool>,
+        #[property(get, set = Self::set_view_backup_files)]
+        view_backup_files: Cell<bool>,
     }
 
     #[glib::object_subclass]
@@ -141,6 +146,8 @@ pub mod imp {
             klass.install_property_action("win.view-buttonbar", "buttonbar-visible");
 
             klass.install_property_action("win.view-conbuttons", "connection-buttons-visible");
+            klass.install_property_action("win.view-hidden-files", "view-hidden-files");
+            klass.install_property_action("win.view-backup-files", "view-backup-files");
 
             klass.install_action(
                 "win.view-slide",
@@ -219,6 +226,8 @@ pub mod imp {
                 command_line_visible: Cell::new(true),
                 buttonbar_visible: Cell::new(true),
                 connection_buttons_visible: Cell::new(true),
+                view_hidden_files: Cell::new(true),
+                view_backup_files: Cell::new(true),
             }
         }
     }
@@ -419,6 +428,18 @@ pub mod imp {
                     }
                 ),
             );
+
+            let filters_options = FiltersOptions::new();
+            filters_options
+                .0
+                .bind("hide-dotfile", &*mw, "view-hidden-files")
+                .invert_boolean()
+                .build();
+            filters_options
+                .0
+                .bind("hide-backupfiles", &*mw, "view-backup-files")
+                .invert_boolean()
+                .build();
         }
 
         fn dispose(&self) {
@@ -756,6 +777,28 @@ pub mod imp {
 
         fn on_con_list_list_changed(&self) {
             self.update_menu();
+        }
+
+        fn set_view_hidden_files(&self, value: bool) {
+            self.view_hidden_files.set(value);
+            self.update_view_in_next_cycle();
+        }
+
+        fn set_view_backup_files(&self, value: bool) {
+            self.view_backup_files.set(value);
+            self.update_view_in_next_cycle();
+        }
+
+        fn update_view_in_next_cycle(&self) {
+            glib::timeout_add_local_once(
+                Duration::from_millis(0),
+                glib::clone!(
+                    #[strong(rename_to = this)]
+                    self.obj(),
+                    move || this.update_view()
+                ),
+            );
+            self.obj().update_view();
         }
 
         fn update_cmdline(&self) {
