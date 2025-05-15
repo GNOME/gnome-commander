@@ -37,37 +37,24 @@ struct GnomeCmdFileSelector
 {
     GtkGrid parent;
 
-    GtkWidget *dir_indicator;
-    GtkWidget *dir_label;
-    GtkWidget *info_label;
-    GtkWidget *con_dropdown;
-    GtkWidget *vol_label;
-
-    GtkNotebook *notebook;
-    GnomeCmdFileList *list;
-
   public:
-
-    class Private;
-
-    Private *priv;
 
     operator GObject * () const             {  return G_OBJECT (this);    }
     operator GtkWidget * () const           {  return GTK_WIDGET (this);  }
     operator GtkBox * () const              {  return GTK_BOX (this);     }
 
-    GnomeCmdFileList *file_list() const     {  return list;               }
-    GnomeCmdFileList *file_list(gint n) const;
+    GnomeCmdFileList *file_list();
+    GnomeCmdFileList *file_list(gint n);
 
-    GnomeCmdDir *get_directory() const      {  return gnome_cmd_file_list_get_directory (list); }
-    void goto_directory(const gchar *dir)   {  list->goto_directory(dir); }
+    GnomeCmdDir *get_directory()            {  return gnome_cmd_file_list_get_directory (file_list()); }
+    void goto_directory(const gchar *dir)   {  file_list()->goto_directory(dir); }
 
     void set_active(gboolean value);
 
-    GnomeCmdCon *get_connection() const     {  return gnome_cmd_file_list_get_connection (list); }
+    GnomeCmdCon *get_connection()           {  return gnome_cmd_file_list_get_connection (file_list()); }
     void set_connection(GnomeCmdCon *con, GnomeCmdDir *start_dir=NULL);
 
-    gboolean is_local() const               {  return gnome_cmd_con_is_local (get_connection ());  }
+    gboolean is_local()                     {  return gnome_cmd_con_is_local (get_connection ());  }
     gboolean is_active();
 
     GtkWidget *new_tab();
@@ -92,12 +79,6 @@ struct GnomeCmdFileSelector
 
     void do_file_specific_action (GnomeCmdFileList *fl, GnomeCmdFile *f);
 };
-
-inline GnomeCmdFileList *GnomeCmdFileSelector::file_list(gint n) const
-{
-    auto page = gtk_notebook_get_nth_page (GTK_NOTEBOOK (notebook), n);
-    return GNOME_CMD_FILE_LIST (page);
-}
 
 inline void GnomeCmdFileSelector::set_connection(GnomeCmdCon *con, GnomeCmdDir *start_dir)
 {
@@ -155,3 +136,8 @@ extern "C" gboolean gnome_cmd_file_selector_is_current_tab_locked (GnomeCmdFileS
 extern "C" void gnome_cmd_file_selector_set_tab_locked (GnomeCmdFileSelector *fs, GnomeCmdFileList *fl, gboolean lock);
 
 extern "C" void gnome_cmd_file_selector_update_show_devlist(GnomeCmdFileSelector *fs, gboolean visible);
+
+extern "C" void gnome_cmd_file_selector_show_bookmarks (GnomeCmdFileSelector *fs);
+extern "C" void gnome_cmd_file_selector_show_history (GnomeCmdFileSelector *fs);
+
+extern "C" void gnome_cmd_file_selector_activate_connection_list (GnomeCmdFileSelector *fs);

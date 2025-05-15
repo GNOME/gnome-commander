@@ -289,7 +289,7 @@ void view_dir_history (GSimpleAction *action, GVariant *parameter, gpointer user
 {
     auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
 
-    gnome_cmd_dir_indicator_show_history (GNOME_CMD_DIR_INDICATOR (main_win->fs (ACTIVE)->dir_indicator));
+    gnome_cmd_file_selector_show_history (main_win->fs (ACTIVE));
 }
 
 
@@ -397,5 +397,5 @@ void bookmarks_view (GSimpleAction *action, GVariant *parameter, gpointer user_d
 {
     auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
 
-    gnome_cmd_dir_indicator_show_bookmarks (GNOME_CMD_DIR_INDICATOR (main_win->fs (ACTIVE)->dir_indicator));
+    gnome_cmd_file_selector_show_bookmarks (main_win->fs (ACTIVE));
 }
