@@ -33,19 +33,7 @@
 #define G_IS_VIEWERSEARCHER_CLASS(k)  (G_TYPE_CHECK_CLASS_TYPE ((k), G_TYPE_VIEWERSEARCHER))
 #define G_VIEWERSEARCHER_GET_CLASS(o) (G_TYPE_INSTANCE_GET_CLASS ((o), G_TYPE_VIEWERSEARCHER, GViewerSearcherClass))
 
-struct GViewerSearcherPrivate;
-
-struct GViewerSearcher
-{
-    GObject parent;
-    GViewerSearcherPrivate *priv;
-};
-
-struct GViewerSearcherClass
-{
-    GObjectClass parent_class;
-    /* Add Signal Functions Here */
-};
+struct GViewerSearcher;
 
 extern "C" GType g_viewer_searcher_get_type();
 GViewerSearcher *g_viewer_searcher_new();

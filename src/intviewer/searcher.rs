@@ -21,6 +21,8 @@ use super::input_modes::ffi::GVInputModesData;
 use gtk::glib::{
     self,
     ffi::{gboolean, gpointer},
+    prelude::*,
+    subclass::prelude::*,
     translate::ToGlibPtr,
 };
 use std::mem::transmute;
@@ -28,17 +30,19 @@ use std::mem::transmute;
 pub mod ffi {
     use super::*;
     use crate::intviewer::input_modes::ffi::GVInputModesData;
-    use glib::{ffi::GType, gobject_ffi::GCallback};
+    use glib::{ffi::GType, gobject_ffi::GCallback, translate::IntoGlib};
     use std::ffi::c_char;
 
-    #[repr(C)]
-    pub struct GViewerSearcher {
-        _data: [u8; 0],
-        _marker: std::marker::PhantomData<(*mut u8, std::marker::PhantomPinned)>,
+    pub type GViewerSearcher = <super::Searcher as glib::object::ObjectType>::GlibType;
+
+    #[no_mangle]
+    pub extern "C" fn g_viewer_searcher_get_type() -> GType {
+        Searcher::static_type().into_glib()
     }
 
     extern "C" {
-        pub fn g_viewer_searcher_get_type() -> GType;
+        pub fn g_viewer_searcher_init(src: *mut GViewerSearcher);
+        pub fn g_viewer_searcher_finalize(src: *mut GViewerSearcher);
 
         pub fn g_viewer_searcher_setup_new_text_search(
             src: *mut GViewerSearcher,
@@ -68,23 +72,39 @@ pub mod ffi {
 
         pub fn g_viewer_searcher_abort(src: *mut GViewerSearcher);
     }
+}
 
-    #[derive(Copy, Clone)]
-    #[repr(C)]
-    pub struct GViewerSearcherClass {
-        pub parent_class: glib::gobject_ffi::GObjectClass,
+mod imp {
+    use super::*;
+
+    #[derive(Default)]
+    pub struct Searcher {}
+
+    #[glib::object_subclass]
+    impl ObjectSubclass for Searcher {
+        const NAME: &'static str = "GnomeCmdSearcher";
+        type Type = super::Searcher;
+    }
+
+    impl ObjectImpl for Searcher {
+        fn constructed(&self) {
+            self.parent_constructed();
+            unsafe {
+                ffi::g_viewer_searcher_init(self.obj().to_glib_none().0);
+            }
+        }
+
+        fn dispose(&self) {
+            unsafe {
+                ffi::g_viewer_searcher_finalize(self.obj().to_glib_none().0);
+            }
+        }
     }
 }
 
 glib::wrapper! {
-    pub struct Searcher(Object<ffi::GViewerSearcher, ffi::GViewerSearcherClass>);
-
-    match fn {
-        type_ => || ffi::g_viewer_searcher_get_type(),
-    }
+    pub struct Searcher(ObjectSubclass<imp::Searcher>);
 }
-
-unsafe impl Send for Searcher {}
 
 #[derive(Clone, Copy)]
 pub enum SearchProgress {
