@@ -66,8 +66,6 @@ struct GnomeCmdFileSelector
     void prev_tab();
     void next_tab();
 
-    void update_tab_label(GnomeCmdFileList *fl);
-
     void show_filter();
     void update_files();
     void update_direntry();
@@ -141,3 +139,5 @@ extern "C" void gnome_cmd_file_selector_show_bookmarks (GnomeCmdFileSelector *fs
 extern "C" void gnome_cmd_file_selector_show_history (GnomeCmdFileSelector *fs);
 
 extern "C" void gnome_cmd_file_selector_activate_connection_list (GnomeCmdFileSelector *fs);
+
+extern "C" void gnome_cmd_file_selector_update_tab_label (GnomeCmdFileSelector *fs, GnomeCmdFileList *fl);

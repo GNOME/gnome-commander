@@ -37,15 +37,6 @@
 using namespace std;
 
 
-struct GnomeCmdFileSelectorClass
-{
-    GtkGridClass parent_class;
-
-    void (* dir_changed) (GnomeCmdFileSelector *fs, GnomeCmdDir *dir);
-    void (* list_clicked) (GnomeCmdFileSelector *fs);
-};
-
-
 struct GnomeCmdFileSelectorPrivate
 {
     GtkWidget *dir_indicator;
@@ -65,16 +56,9 @@ struct GnomeCmdFileSelectorPrivate
     gboolean select_connection_in_progress {FALSE};
 };
 
-enum {
-    DIR_CHANGED,
-    LIST_CLICKED,
-    LAST_SIGNAL
-};
 
-static guint signals[LAST_SIGNAL] = { 0 };
-
-
-G_DEFINE_TYPE (GnomeCmdFileSelector, gnome_cmd_file_selector, GTK_TYPE_GRID)
+#define DIR_CHANGED_SIGNAL  "dir-changed"
+#define LIST_CLICKED_SIGNAL "list-clicked"
 
 
 /*******************************
@@ -393,7 +377,7 @@ static void on_notebook_switch_page (GtkNotebook *notebook, gpointer page, guint
     fs->update_style();
 
     if (prev_dir!=fs->get_directory())
-        g_signal_emit (fs, signals[DIR_CHANGED], 0, fs->get_directory());
+        g_signal_emit_by_name (fs, DIR_CHANGED_SIGNAL, fs->get_directory());
 
     if (prev_con!=fs->get_connection())
         select_connection (fs, fs->get_connection());
@@ -406,7 +390,7 @@ static void on_list_list_clicked (GnomeCmdFileList *fl, GnomeCmdFileListButtonEv
     {
         case 1:
         case 3:
-            g_signal_emit (fs, signals[LIST_CLICKED], 0);
+            g_signal_emit_by_name (fs, LIST_CLICKED_SIGNAL);
             break;
 
         case 2:
@@ -463,11 +447,11 @@ static void on_list_dir_changed (GnomeCmdFileList *fl, GnomeCmdDir *dir, GnomeCm
 
     if (gnome_cmd_file_list_get_directory (fl) != dir)  return;
 
-    fs->update_tab_label(fl);
+    gnome_cmd_file_selector_update_tab_label (fs, fl);
     fs->update_files();
     fs->update_selected_files_label();
 
-    g_signal_emit (fs, signals[DIR_CHANGED], 0, dir);
+    g_signal_emit_by_name (fs, DIR_CHANGED_SIGNAL, dir);
 }
 
 
@@ -612,77 +596,19 @@ static void on_notebook_button_pressed (GtkGestureClick *gesture, int n_press, d
 }
 
 
-static void toggle_tab_lock (GtkWidget* widget, const char* action_name, GVariant* parameter)
-{
-    GnomeCmdFileSelector *fs = GNOME_CMD_FILE_SELECTOR (widget);
-    gint tab_index = g_variant_get_int32 (parameter);
-
-    GnomeCmdFileList *fl = fs->file_list(tab_index);
-    if (fl)
-    {
-        gboolean locked = gnome_cmd_file_selector_is_tab_locked (fs, fl);
-        gnome_cmd_file_selector_set_tab_locked (fs, fl, !locked);
-        fs->update_tab_label(fl);
-    }
-}
-
-
-static void refresh_tab (GtkWidget* widget, const char* action_name, GVariant* parameter)
-{
-    GnomeCmdFileSelector *fs = GNOME_CMD_FILE_SELECTOR (widget);
-    gint tab_index = g_variant_get_int32 (parameter);
-
-    GnomeCmdFileList *fl = fs->file_list(tab_index);
-    if (fl)
-        fl->reload();
-}
-
-
 /*******************************
  * Gtk class implementation
  *******************************/
 
-static void dispose (GObject *object)
+extern "C" void gnome_cmd_file_selector_dispose (GnomeCmdFileSelector *fs)
 {
-    GnomeCmdFileSelector *fs = GNOME_CMD_FILE_SELECTOR (object);
     auto priv = file_selector_priv (fs);
 
     g_signal_handlers_disconnect_by_data (priv->notebook, fs);
-
-    G_OBJECT_CLASS (gnome_cmd_file_selector_parent_class)->dispose (object);
 }
 
 
-static void gnome_cmd_file_selector_class_init (GnomeCmdFileSelectorClass *klass)
-{
-    gtk_widget_class_install_action (GTK_WIDGET_CLASS (klass), "fs.toggle-tab-lock", "i", toggle_tab_lock);
-    gtk_widget_class_install_action (GTK_WIDGET_CLASS (klass), "fs.refresh-tab", "i", refresh_tab);
-
-    signals[DIR_CHANGED] =
-        g_signal_new ("dir-changed",
-            G_TYPE_FROM_CLASS (klass),
-            G_SIGNAL_RUN_LAST,
-            G_STRUCT_OFFSET (GnomeCmdFileSelectorClass, dir_changed),
-            nullptr, nullptr,
-            g_cclosure_marshal_VOID__POINTER,
-            G_TYPE_NONE,
-            1, G_TYPE_POINTER);
-
-    signals[LIST_CLICKED] =
-        g_signal_new ("list-clicked",
-            G_TYPE_FROM_CLASS (klass),
-            G_SIGNAL_RUN_LAST,
-            G_STRUCT_OFFSET (GnomeCmdFileSelectorClass, list_clicked),
-            nullptr, nullptr,
-            nullptr,
-            G_TYPE_NONE,
-            0);
-
-    G_OBJECT_CLASS (klass)->dispose = dispose;
-}
-
-
-static void gnome_cmd_file_selector_init (GnomeCmdFileSelector *fs)
+extern "C" void gnome_cmd_file_selector_init (GnomeCmdFileSelector *fs)
 {
     auto priv = g_new0(GnomeCmdFileSelectorPrivate, 1);
     g_object_set_data_full (G_OBJECT (fs), "priv", priv, g_free);
@@ -815,7 +741,7 @@ void GnomeCmdFileSelector::update_style()
 
         fl->update_style();
 
-        update_tab_label (fl);
+        gnome_cmd_file_selector_update_tab_label (this, fl);
     }
 
     update_connections();
@@ -941,7 +867,7 @@ GtkWidget *GnomeCmdFileSelector::new_tab(GnomeCmdDir *dir, GnomeCmdFileList::Col
     if (dir)
         fl->set_connection(gnome_cmd_file_get_connection (GNOME_CMD_FILE (dir)), dir);
 
-    update_tab_label(fl);
+    gnome_cmd_file_selector_update_tab_label (this, fl);
 
     if (activate)
     {
@@ -996,14 +922,14 @@ void GnomeCmdFileSelector::next_tab()
 }
 
 
-void GnomeCmdFileSelector::update_tab_label(GnomeCmdFileList *fl)
+void gnome_cmd_file_selector_update_tab_label (GnomeCmdFileSelector *fs, GnomeCmdFileList *fl)
 {
-    auto priv = file_selector_priv (this);
+    auto priv = file_selector_priv (fs);
 
     GnomeCmdDir *dir = gnome_cmd_file_list_get_directory (fl);
     const gchar *name = dir != nullptr ? GNOME_CMD_FILE (dir)->get_name() : nullptr;
 
-    gboolean locked = gnome_cmd_file_selector_is_tab_locked (this, fl);
+    gboolean locked = gnome_cmd_file_selector_is_tab_locked (fs, fl);
 
     GtkWidget *hbox = gtk_notebook_get_tab_label (priv->notebook, GTK_WIDGET (fl));
     GtkWidget *tab_label_pin = GTK_WIDGET (g_object_get_data (G_OBJECT (hbox), "tab_label_pin"));
