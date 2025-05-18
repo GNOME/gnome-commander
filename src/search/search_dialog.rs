@@ -17,32 +17,22 @@
  * For more details see the file COPYING.
  */
 
-use super::profile::{SearchProfile, SearchProfilePtr};
+use super::{profile::SearchProfile, selection_profile_component::SelectionProfileComponent};
 use crate::{
     data::SearchConfig,
     dialogs::profiles::{manage_profiles_dialog::manage_profiles, profiles::ProfileManager},
 };
 use gettextrs::gettext;
 use gtk::{
-    ffi::{GtkSizeGroup, GtkWidget},
     gio,
     glib::{
         ffi::{gboolean, GType},
-        translate::{from_glib_full, from_glib_none, IntoGlib, ToGlibPtr},
+        translate::{from_glib_none, IntoGlib, ToGlibPtr},
     },
     prelude::*,
     subclass::prelude::*,
 };
 use std::{ffi::c_void, rc::Rc};
-
-extern "C" {
-    fn gnome_cmd_search_profile_component_new(
-        profile: *mut SearchProfilePtr,
-        labels_size_group: *mut GtkSizeGroup,
-    ) -> *mut GtkWidget;
-    fn gnome_cmd_search_profile_component_update(component: *mut GtkWidget);
-    fn gnome_cmd_search_profile_component_copy(component: *mut GtkWidget);
-}
 
 struct SearchProfiles {
     profiles: gio::ListStore,
@@ -132,6 +122,7 @@ impl SearchProfiles {
 }
 
 struct SearchProfileManager {
+    config: SearchConfig,
     profiles: SearchProfiles,
 }
 
@@ -169,27 +160,29 @@ impl ProfileManager for SearchProfileManager {
         profile_index: usize,
         labels_size_group: &gtk::SizeGroup,
     ) -> gtk::Widget {
-        let widget_ptr = unsafe {
-            gnome_cmd_search_profile_component_new(
-                self.profiles.profile(profile_index).to_glib_none().0,
-                labels_size_group.to_glib_none().0,
-            )
-        };
-        if widget_ptr.is_null() {
-            panic!("Profile editing component is null.");
-        }
-        unsafe {
-            gnome_cmd_search_profile_component_update(widget_ptr);
-        }
-        unsafe { from_glib_full(widget_ptr) }
+        let widget = SelectionProfileComponent::new(
+            &self.profiles.profile(profile_index).unwrap(),
+            Some(labels_size_group),
+        );
+        widget.set_name_patterns_history(self.config.name_patterns());
+        widget.set_content_patterns_history(self.config.content_patterns());
+        widget.update();
+        widget.grab_focus();
+        widget.upcast()
     }
 
     fn update_component(&self, _profile_index: usize, component: &gtk::Widget) {
-        unsafe { gnome_cmd_search_profile_component_update(component.to_glib_none().0) }
+        component
+            .downcast_ref::<SelectionProfileComponent>()
+            .unwrap()
+            .update();
     }
 
     fn copy_component(&self, _profile_index: usize, component: &gtk::Widget) {
-        unsafe { gnome_cmd_search_profile_component_copy(component.to_glib_none().0) }
+        component
+            .downcast_ref::<SelectionProfileComponent>()
+            .unwrap()
+            .copy();
     }
 }
 
@@ -260,17 +253,17 @@ pub extern "C" fn gnome_cmd_search_dialog_do_manage_profiles(
     new_profile: gboolean,
 ) {
     let dialog: SearchDialog = unsafe { from_glib_none(dialog_ptr) };
-    let cfg = unsafe { SearchConfig::from_ptr(cfg_ptr) };
+    let config = unsafe { SearchConfig::from_ptr(cfg_ptr) };
 
     glib::spawn_future_local(async move {
-        let profiles = SearchProfiles::new(&cfg, new_profile != 0);
+        let profiles = SearchProfiles::new(&config, new_profile != 0);
 
         if new_profile != 0 {
             let last_index = profiles.len() - 1;
             profiles.set_profile_name(last_index, &gettext("New profile"));
         }
 
-        let manager = Rc::new(SearchProfileManager { profiles });
+        let manager = Rc::new(SearchProfileManager { config, profiles });
 
         if manage_profiles(
             dialog.upcast_ref(),
@@ -282,7 +275,7 @@ pub extern "C" fn gnome_cmd_search_dialog_do_manage_profiles(
         .await
         {
             let profiles = manager.profiles.clone();
-            cfg.set_profiles(&profiles.profiles);
+            config.set_profiles(&profiles.profiles);
             unsafe {
                 gnome_cmd_search_dialog_update_profile_menu(dialog_ptr);
             }

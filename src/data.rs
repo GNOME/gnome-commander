@@ -448,11 +448,14 @@ impl ProgramsOptionsRead for ProgramsOptions {
     }
 }
 
+#[derive(Clone, Copy)]
 pub struct SearchConfig(*mut c_void);
 
 extern "C" {
     fn gnome_cmd_search_config_get_name_patterns(ptr: *mut c_void) -> *const GList;
     fn gnome_cmd_search_config_add_name_pattern(ptr: *mut c_void, p: *const c_char);
+
+    fn gnome_cmd_search_config_get_content_patterns(ptr: *mut c_void) -> *const GList;
 
     fn gnome_cmd_search_config_get_default_profile(ptr: *mut c_void) -> *mut SearchProfilePtr;
     fn gnome_cmd_search_config_get_profiles(ptr: *mut c_void) -> *mut GListStore;
@@ -473,6 +476,10 @@ impl SearchConfig {
 
     pub fn add_name_pattern(&self, pattern: &str) {
         unsafe { gnome_cmd_search_config_add_name_pattern(self.0, pattern.to_glib_none().0) }
+    }
+
+    pub fn content_patterns(&self) -> glib::List<glib::GStringPtr> {
+        unsafe { glib::List::from_glib_none(gnome_cmd_search_config_get_content_patterns(self.0)) }
     }
 
     pub fn default_profile(&self) -> SearchProfile {

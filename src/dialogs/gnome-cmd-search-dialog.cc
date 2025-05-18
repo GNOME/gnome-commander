@@ -1271,7 +1271,7 @@ void gnome_cmd_search_dialog_show_and_set_focus(GnomeCmdSearchDialog *dialog)
 {
     auto priv = search_dialog_private (dialog);
     gtk_widget_show (GTK_WIDGET (dialog));
-    gnome_cmd_search_profile_component_set_focus (priv->profile_component);
+    gtk_widget_grab_focus (GTK_WIDGET (priv->profile_component));
 }
 
 
@@ -1318,14 +1318,11 @@ GnomeCmdSearchDialog *gnome_cmd_search_dialog_new (GnomeCmdData::SearchConfig *c
     gtk_window_set_hide_on_close (GTK_WINDOW (dialog), TRUE);
 
     priv->profile_component = gnome_cmd_search_profile_component_new(cfg->default_profile, priv->labels_size_group);
+    gtk_widget_grab_focus (GTK_WIDGET (priv->profile_component));
     gtk_grid_attach (GTK_GRID (priv->grid), GTK_WIDGET (priv->profile_component), 0, 1, 2, 1);
 
-    if (!priv->defaults->name_patterns.empty())
-        gnome_cmd_search_profile_component_set_name_patterns_history (priv->profile_component, priv->defaults->name_patterns.ents);
-
+    gnome_cmd_search_profile_component_set_name_patterns_history (priv->profile_component, priv->defaults->name_patterns.ents);
     gnome_cmd_search_profile_component_set_content_patterns_history (priv->profile_component, priv->defaults->content_patterns.ents);
-
-    gnome_cmd_search_profile_component_set_default_activation (priv->profile_component, GTK_WINDOW (dialog));
 
     g_signal_connect (dialog, "show", G_CALLBACK (on_dialog_show), dialog);
     g_signal_connect (dialog, "hide", G_CALLBACK (on_dialog_hide), dialog);

@@ -17,11 +17,14 @@
  * For more details see the file COPYING.
  */
 
+use super::profile::SearchProfile;
+use gettextrs::{gettext, ngettext};
 use gtk::{
+    gio,
     glib::{
         self,
-        ffi::GType,
-        translate::{IntoGlib, ToGlibPtr},
+        ffi::{GList, GType},
+        translate::{from_glib_borrow, Borrowed, IntoGlib},
     },
     prelude::*,
     subclass::prelude::*,
@@ -29,17 +32,84 @@ use gtk::{
 
 mod imp {
     use super::*;
+    use crate::search::profile::SearchProfile;
+    use std::cell::{OnceCell, RefCell};
 
-    #[derive(Default)]
-    pub struct SelectionProfileComponent {}
+    #[derive(glib::Properties)]
+    #[properties(wrapper_type = super::SelectionProfileComponent)]
+    pub struct SelectionProfileComponent {
+        #[property(get, construct_only, nullable)]
+        labels_size_group: OnceCell<Option<gtk::SizeGroup>>,
+        #[property(get, set, nullable)]
+        profile: RefCell<Option<SearchProfile>>,
+
+        pub filter_type_drop_down: gtk::DropDown,
+        pub pattern_combo: gtk::ComboBox,
+        pub recurse_label: gtk::Label,
+        pub recurse_drop_down: gtk::DropDown,
+        pub find_text_combo: gtk::ComboBox,
+        pub find_text_check: gtk::CheckButton,
+        pub case_check: gtk::CheckButton,
+
+        pub pattern_model: gtk::ListStore,
+        pub find_text_model: gtk::ListStore,
+    }
 
     #[glib::object_subclass]
     impl ObjectSubclass for SelectionProfileComponent {
         const NAME: &'static str = "GnomeCmdSelectionProfileComponent";
         type Type = super::SelectionProfileComponent;
         type ParentType = gtk::Widget;
+
+        fn new() -> Self {
+            let pattern_model = gtk::ListStore::new(&[String::static_type()]);
+            let find_text_model = gtk::ListStore::new(&[String::static_type()]);
+            Self {
+                labels_size_group: Default::default(),
+                profile: Default::default(),
+                filter_type_drop_down: gtk::DropDown::builder()
+                    .model(&filter_type_model())
+                    .factory(&same_size_labels_factory())
+                    .build(),
+                pattern_combo: gtk::ComboBox::builder()
+                    .has_entry(true)
+                    .model(&pattern_model)
+                    .entry_text_column(0)
+                    .hexpand(true)
+                    .build(),
+                recurse_label: gtk::Label::builder()
+                    .label(gettext("Search _recursively:"))
+                    .use_underline(true)
+                    .xalign(0.0)
+                    .build(),
+                recurse_drop_down: gtk::DropDown::builder()
+                    .model(&recurse_model())
+                    .hexpand(true)
+                    .build(),
+                find_text_combo: gtk::ComboBox::builder()
+                    .has_entry(true)
+                    .model(&find_text_model)
+                    .active(0)
+                    .entry_text_column(0)
+                    .hexpand(true)
+                    .sensitive(false)
+                    .build(),
+                find_text_check: gtk::CheckButton::builder()
+                    .label(gettext("Contains _text:"))
+                    .use_underline(true)
+                    .build(),
+                case_check: gtk::CheckButton::builder()
+                    .label(gettext("Case sensiti_ve"))
+                    .use_underline(true)
+                    .sensitive(false)
+                    .build(),
+                pattern_model,
+                find_text_model,
+            }
+        }
     }
 
+    #[glib::derived_properties]
     impl ObjectImpl for SelectionProfileComponent {
         fn constructed(&self) {
             self.parent_constructed();
@@ -47,35 +117,130 @@ mod imp {
             let obj = self.obj();
             obj.set_layout_manager(Some(gtk::BinLayout::new()));
 
-            unsafe {
-                ffi::gnome_cmd_selection_profile_component_init(obj.to_glib_none().0);
+            let grid = gtk::Grid::builder()
+                .row_spacing(6)
+                .column_spacing(12)
+                .build();
+            grid.set_parent(&*self.obj());
+
+            // search for
+            grid.attach(&self.filter_type_drop_down, 0, 0, 1, 1);
+            grid.attach(&self.pattern_combo, 1, 0, 1, 1);
+
+            // recurse check
+            grid.attach(&self.recurse_label, 0, 1, 1, 1);
+            grid.attach(&self.recurse_drop_down, 1, 1, 1, 1);
+
+            // find text
+            grid.attach(&self.find_text_check, 0, 2, 1, 1);
+            grid.attach(&self.find_text_combo, 1, 2, 1, 1);
+
+            // case check
+            grid.attach(&self.case_check, 1, 3, 1, 1);
+
+            if let Some(labels_size_group) = self.obj().labels_size_group() {
+                labels_size_group.add_widget(&self.filter_type_drop_down);
+                labels_size_group.add_widget(&self.recurse_label);
+                labels_size_group.add_widget(&self.find_text_check);
             }
+
+            self.filter_type_drop_down
+                .connect_selected_notify(glib::clone!(
+                    #[weak(rename_to = imp)]
+                    self,
+                    move |_| {
+                        imp.pattern_combo.grab_focus();
+                    }
+                ));
+            self.find_text_check.connect_toggled(glib::clone!(
+                #[weak(rename_to = imp)]
+                self,
+                move |cb| {
+                    if cb.is_active() {
+                        imp.find_text_combo.set_sensitive(true);
+                        imp.case_check.set_sensitive(true);
+                        imp.find_text_combo.grab_focus();
+                    } else {
+                        imp.find_text_combo.set_sensitive(false);
+                        imp.case_check.set_sensitive(false);
+                    }
+                }
+            ));
+
+            self.pattern_entry().set_activates_default(true);
+            self.find_text_entry().set_activates_default(true);
         }
 
         fn dispose(&self) {
-            unsafe {
-                ffi::gnome_cmd_selection_profile_component_dispose(self.obj().to_glib_none().0);
-            }
             while let Some(child) = self.obj().first_child() {
                 child.unparent();
             }
         }
     }
 
-    impl WidgetImpl for SelectionProfileComponent {}
-}
+    impl WidgetImpl for SelectionProfileComponent {
+        fn grab_focus(&self) -> bool {
+            self.pattern_combo.grab_focus()
+        }
+    }
 
-mod ffi {
-    pub type GnomeCmdSelectionProfileComponent =
-        <super::SelectionProfileComponent as glib::object::ObjectType>::GlibType;
+    impl SelectionProfileComponent {
+        pub fn pattern_entry(&self) -> gtk::Entry {
+            self.pattern_combo
+                .child()
+                .and_downcast::<gtk::Entry>()
+                .unwrap()
+        }
 
-    extern "C" {
-        pub fn gnome_cmd_selection_profile_component_init(
-            component: *mut GnomeCmdSelectionProfileComponent,
-        );
-        pub fn gnome_cmd_selection_profile_component_dispose(
-            component: *mut GnomeCmdSelectionProfileComponent,
-        );
+        pub fn find_text_entry(&self) -> gtk::Entry {
+            self.find_text_combo
+                .child()
+                .and_downcast::<gtk::Entry>()
+                .unwrap()
+        }
+    }
+
+    fn filter_type_model() -> gio::ListModel {
+        gtk::StringList::new(&[&gettext("Path matches regex:"), &gettext("Name contains:")]).into()
+    }
+
+    fn recurse_model() -> gio::ListModel {
+        let model = gtk::StringList::new(&[
+            &gettext("Unlimited depth"),
+            &gettext("Current directory only"),
+        ]);
+        for i in 1..=40 {
+            model.append(&ngettext("%i level", "%i levels", i).replace("%i", &i.to_string()));
+        }
+        model.upcast()
+    }
+
+    fn same_size_labels_factory() -> gtk::ListItemFactory {
+        let size_group = gtk::SizeGroup::new(gtk::SizeGroupMode::Horizontal);
+        let factory = gtk::SignalListItemFactory::new();
+        factory.connect_setup(glib::clone!(
+            #[strong]
+            size_group,
+            move |_, item| {
+                if let Some(item) = item.downcast_ref::<gtk::ListItem>() {
+                    let label = gtk::Label::builder().xalign(0.0).build();
+                    item.set_child(Some(&label));
+                    size_group.add_widget(&label);
+                }
+            }
+        ));
+        factory.connect_bind(move |_, item| {
+            if let Some(item) = item.downcast_ref::<gtk::ListItem>() {
+                if let Some(label) = item.child().and_downcast::<gtk::Label>() {
+                    if let Some(text) = item.item().and_downcast::<gtk::StringObject>() {
+                        label.set_label(&text.string());
+                    } else {
+                        label.set_label("");
+                    }
+                }
+            }
+        });
+        factory.upcast()
     }
 }
 
@@ -84,7 +249,112 @@ glib::wrapper! {
         @extends gtk::Widget;
 }
 
+impl SelectionProfileComponent {
+    pub fn new(profile: &SearchProfile, labels_size_group: Option<&gtk::SizeGroup>) -> Self {
+        glib::Object::builder()
+            .property("profile", profile)
+            .property("labels-size-group", labels_size_group)
+            .build()
+    }
+
+    pub fn update(&self) {
+        let Some(profile) = self.profile() else {
+            return;
+        };
+
+        self.imp()
+            .pattern_entry()
+            .set_text(&profile.filename_pattern());
+        self.imp()
+            .filter_type_drop_down
+            .set_selected(profile.syntax() as u32);
+        self.imp()
+            .recurse_drop_down
+            .set_selected((profile.max_depth() + 1) as u32);
+        self.imp()
+            .find_text_entry()
+            .set_text(&profile.text_pattern());
+        self.imp()
+            .find_text_check
+            .set_active(profile.content_search());
+        self.imp().case_check.set_active(profile.match_case());
+    }
+
+    pub fn copy(&self) {
+        let Some(profile) = self.profile() else {
+            return;
+        };
+
+        let text_pattern = self.imp().find_text_entry().text();
+        let content_search = !text_pattern.is_empty() && self.imp().find_text_check.is_active();
+
+        profile.set_filename_pattern(self.imp().pattern_entry().text());
+        profile.set_max_depth(self.imp().recurse_drop_down.selected() as i32 - 1);
+        profile.set_syntax(self.imp().filter_type_drop_down.selected() as i32);
+        profile.set_text_pattern(text_pattern);
+        profile.set_content_search(&content_search);
+        profile.set_match_case(content_search && self.imp().case_check.is_active());
+    }
+
+    pub fn set_name_patterns_history(&self, history: glib::List<glib::GStringPtr>) {
+        let model = &self.imp().pattern_model;
+
+        model.clear();
+        for entry in history {
+            let iter = model.append();
+            model.set_value(&iter, 0, &entry.to_value());
+        }
+        self.imp().pattern_combo.set_active(Some(0));
+    }
+
+    pub fn set_content_patterns_history(&self, history: glib::List<glib::GStringPtr>) {
+        let model = &self.imp().find_text_model;
+
+        model.clear();
+        for entry in history {
+            let iter = model.append();
+            model.set_value(&iter, 0, &entry.to_value());
+        }
+    }
+}
+
 #[no_mangle]
 pub extern "C" fn gnome_cmd_selection_profile_component_get_type() -> GType {
     SelectionProfileComponent::static_type().into_glib()
+}
+
+#[no_mangle]
+pub extern "C" fn gnome_cmd_search_profile_component_update(
+    component: *mut <SelectionProfileComponent as glib::object::ObjectType>::GlibType,
+) {
+    let component: Borrowed<SelectionProfileComponent> = unsafe { from_glib_borrow(component) };
+    component.update();
+}
+
+#[no_mangle]
+pub extern "C" fn gnome_cmd_search_profile_component_copy(
+    component: *mut <SelectionProfileComponent as glib::object::ObjectType>::GlibType,
+) {
+    let component: Borrowed<SelectionProfileComponent> = unsafe { from_glib_borrow(component) };
+    component.copy();
+}
+
+#[no_mangle]
+pub extern "C" fn gnome_cmd_search_profile_component_set_name_patterns_history(
+    component: *mut <SelectionProfileComponent as glib::object::ObjectType>::GlibType,
+    history: *mut GList,
+) {
+    let component: Borrowed<SelectionProfileComponent> = unsafe { from_glib_borrow(component) };
+    let history: glib::List<glib::GStringPtr> = unsafe { glib::List::from_glib_none(history) };
+    component.set_name_patterns_history(history);
+}
+
+#[no_mangle]
+pub extern "C" fn gnome_cmd_search_profile_component_set_content_patterns_history(
+    component: *mut <SelectionProfileComponent as glib::object::ObjectType>::GlibType,
+    history: *mut GList,
+) {
+    let component: Borrowed<SelectionProfileComponent> = unsafe { from_glib_borrow(component) };
+    let history: glib::List<glib::GStringPtr> = unsafe { glib::List::from_glib_none(history) };
+    component.set_content_patterns_history(history);
 }
