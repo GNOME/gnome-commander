@@ -27,11 +27,10 @@ use gtk::glib::{
 use std::path::Path;
 
 pub mod ffi {
-    use crate::intviewer::file_ops::ffi::ViewerFileOps;
-    use std::ffi::c_char;
-
     use super::*;
+    use crate::intviewer::file_ops::ffi::ViewerFileOps;
     use glib::ffi::GType;
+    use std::ffi::c_char;
 
     #[repr(C)]
     pub struct TextRender {
@@ -138,8 +137,13 @@ impl TextRender {
         unsafe { ffi::text_render_get_input_mode_data(self.to_glib_none().0) }
     }
 
-    pub fn file_ops(&self) -> FileOps {
-        unsafe { FileOps(ffi::text_render_get_file_ops(self.to_glib_none().0)) }
+    pub fn file_ops(&self) -> Option<FileOps> {
+        let ptr = unsafe { ffi::text_render_get_file_ops(self.to_glib_none().0) };
+        if ptr.is_null() {
+            None
+        } else {
+            Some(FileOps(ptr))
+        }
     }
 
     pub fn load_file(&self, filename: &Path) {

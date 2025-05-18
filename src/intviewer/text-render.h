@@ -62,7 +62,6 @@ inline GtkWidget *text_render_new ()
 }
 
 extern "C" void text_render_load_file(TextRender *w, const gchar *filename);
-void text_render_load_filedesc(TextRender *w, int filedesc);
 
 extern "C" void text_render_notify_status_changed(TextRender *w);
 

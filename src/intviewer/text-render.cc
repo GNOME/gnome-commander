@@ -886,24 +886,6 @@ static void text_render_internal_load(TextRender *w)
 }
 
 
-void text_render_load_filedesc(TextRender *w, int filedesc)
-{
-    g_return_if_fail (IS_TEXT_RENDER (w));
-    auto priv = static_cast<TextRenderPrivate*>(text_render_get_instance_private (w));
-
-    text_render_free_data(w);
-
-    priv->fops = gv_fileops_new();
-    if (gv_file_open_fd(priv->fops, filedesc)==-1)
-    {
-        g_warning ("Failed to load file descriptor (%d)", filedesc);
-        return;
-    }
-
-    text_render_internal_load(w);
-}
-
-
 void text_render_load_file(TextRender *w, const gchar *filename)
 {
     g_return_if_fail (IS_TEXT_RENDER (w));
