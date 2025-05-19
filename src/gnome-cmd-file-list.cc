@@ -2476,7 +2476,8 @@ void GnomeCmdFileList::select_row(GtkTreeIter* row)
             row = &iter;
         }
     }
-    focus_file_at_row (row);
+    if (row)
+        focus_file_at_row (row);
 }
 
 
