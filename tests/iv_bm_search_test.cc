@@ -165,7 +165,7 @@ TEST_F(BmByteTest, chartype_test) {
     ASSERT_TRUE(ct_text) << "Failed to convert text to 'char_type' array (maybe 'text' is not a valid UTF8 string?)\n";
 
     // Do the actual search
-    m = data->pattern_len;
+    m = bm_chartype_data_pattern_len (data);
     n = ct_text_len;
     j = 0;
     int found_at = 0;

@@ -319,7 +319,7 @@ static gboolean search_text_forward (GViewerSearcher *src)
     char_type value;
     GViewerBMChartypeData *data = priv->ct_data;
 
-    m = data->pattern_len;
+    m = bm_chartype_data_pattern_len (data);
     n = priv->max_offset;
     j = priv->start_offset;
     int update_counter = priv->update_interval;
@@ -388,7 +388,7 @@ static gboolean search_text_backward (GViewerSearcher *src)
 
     data = priv->ct_reverse_data;
 
-    m = data->pattern_len;
+    m = bm_chartype_data_pattern_len (data);
     j = priv->start_offset;
 
     update_counter = priv->update_interval;
