@@ -697,8 +697,11 @@ pub mod imp {
         }
 
         async fn ensure_slide_position(&self, percentage: i32) {
-            while !self.set_slide(percentage) {
+            loop {
                 sleep(10).await;
+                if self.set_slide(percentage) {
+                    break;
+                }
             }
         }
 
