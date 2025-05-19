@@ -185,17 +185,13 @@ mod imp {
 
         fn set_active(&self, active: bool) {
             self.active.set(active);
-
-            let attrs = pango::AttrList::new();
-            attrs.insert(pango::AttrInt::new_underline(if active {
-                pango::Underline::Single
-            } else {
-                pango::Underline::None
-            }));
-            self.host_label.set_attributes(Some(&attrs));
+            self.update_markup(None);
         }
 
         pub fn update_markup(&self, up_to: Option<usize>) {
+            self.host_label
+                .set_attributes(Some(&make_attributes(false, self.active.get())));
+
             for (index, label) in self.path_labels.borrow().iter().enumerate() {
                 label.set_attributes(Some(&make_attributes(
                     up_to.map_or(false, |c| c >= index),
