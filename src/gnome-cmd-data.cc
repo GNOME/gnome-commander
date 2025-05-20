@@ -19,29 +19,17 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-#include <config.h>
-#include <glib.h>
-#include <glib/gstdio.h>
-
-#include <fstream>
-#include <algorithm>
-
 #include "gnome-cmd-includes.h"
 #include "gnome-cmd-data.h"
-#include "gnome-cmd-file-selector.h"
 #include "gnome-cmd-con-list.h"
+#include "gnome-cmd-main-win.h"
 #include "gnome-cmd-cmdline.h"
-#include "gnome-cmd-user-actions.h"
-#include "utils.h"
-#include "dialogs/gnome-cmd-advrename-dialog.h"
 
 using namespace std;
 
 #define DEFAULT_GUI_UPDATE_RATE 100
 
 GnomeCmdData gnome_cmd_data;
-
-//static GnomeCmdData::AdvrenameConfig::Profile xml_adv_profile;
 
 struct GnomeCmdData::Private
 {
@@ -213,17 +201,6 @@ static void on_icon_size_changed (GnomeCmdMainWin *main_win)
     main_win->update_view();
 }
 
-static void on_show_devlist_changed (GnomeCmdMainWin *main_win)
-{
-    gboolean show_devlist;
-
-    show_devlist = g_settings_get_boolean (gnome_cmd_data.options.gcmd_settings->general, GCMD_SETTINGS_SHOW_DEVLIST);
-    gnome_cmd_data.show_devlist = show_devlist;
-
-    main_win->fs(ACTIVE)->update_show_devlist();
-    main_win->fs(INACTIVE)->update_show_devlist();
-}
-
 static void on_always_show_tabs_changed (GnomeCmdMainWin *main_win)
 {
     gboolean always_show_tabs;
@@ -306,12 +283,6 @@ static void on_case_sensitive_changed (GnomeCmdMainWin *main_win)
 
     case_sensitive = g_settings_get_boolean (gnome_cmd_data.options.gcmd_settings->general, GCMD_SETTINGS_CASE_SENSITIVE);
     gnome_cmd_data.options.case_sens_sort = case_sensitive;
-}
-
-static void on_symlink_string_changed (GnomeCmdMainWin *main_win)
-{
-    g_free(gnome_cmd_data.options.symlink_prefix);
-    gnome_cmd_data.options.symlink_prefix = g_settings_get_string (gnome_cmd_data.options.gcmd_settings->general, GCMD_SETTINGS_SYMLINK_PREFIX);
 }
 
 static void on_use_ls_colors_changed (GnomeCmdMainWin *main_win)
@@ -526,16 +497,6 @@ static void gcmd_connect_gsettings_signals(GcmdSettings *gs, GnomeCmdMainWin *ma
                       main_win);
 
     g_signal_connect_swapped (gs->general,
-                      "changed::show-devlist",
-                      G_CALLBACK (on_show_devlist_changed),
-                      main_win);
-
-    g_signal_connect_swapped (gs->general,
-                      "changed::symlink-string",
-                      G_CALLBACK (on_symlink_string_changed),
-                      main_win);
-
-    g_signal_connect_swapped (gs->general,
                       "changed::always-show-tabs",
                       G_CALLBACK (on_always_show_tabs_changed),
                       main_win);
@@ -738,7 +699,6 @@ GnomeCmdData::Options::Options(const Options &cfg)
     save_dir_history_on_exit = cfg.save_dir_history_on_exit;
     save_cmdline_history_on_exit = cfg.save_cmdline_history_on_exit;
     save_search_history_on_exit = cfg.save_search_history_on_exit;
-    symlink_prefix = g_strdup (cfg.symlink_prefix);
     size_disp_mode = cfg.size_disp_mode;
     perm_disp_mode = cfg.perm_disp_mode;
     date_format = g_strdup (cfg.date_format);
@@ -795,7 +755,6 @@ GnomeCmdData::Options &GnomeCmdData::Options::operator = (const Options &cfg)
         save_dir_history_on_exit = cfg.save_dir_history_on_exit;
         save_cmdline_history_on_exit = cfg.save_cmdline_history_on_exit;
         save_search_history_on_exit = cfg.save_search_history_on_exit;
-        symlink_prefix = g_strdup (cfg.symlink_prefix);
         size_disp_mode = cfg.size_disp_mode;
         perm_disp_mode = cfg.perm_disp_mode;
         date_format = g_strdup (cfg.date_format);
@@ -1473,9 +1432,6 @@ GnomeCmdData::GnomeCmdData(): search_defaults(profiles)
     cmdline_history_length = 0;
 
     use_gcmd_block = TRUE;
-
-    umask = ::umask(0);
-    ::umask(umask);
 }
 
 
@@ -1500,36 +1456,6 @@ void GnomeCmdData::gsettings_init()
 void GnomeCmdData::connect_signals(GnomeCmdMainWin *main_win)
 {
     gcmd_connect_gsettings_signals (options.gcmd_settings, main_win);
-}
-
-
-/**
- * This function checks if the given GSettings key enholds a valid color string. If not,
- * the key's value is reset to the default value.
- * @returns TRUE if the current value is reset by the default value, otherwise FALSE
- */
-gboolean GnomeCmdData::set_valid_color_string(GSettings *settings_given, const char* key)
-{
-    gchar *colorstring;
-    gboolean return_value;
-
-    colorstring = g_settings_get_string (settings_given, key);
-    if (!is_valid_color_string(colorstring))
-    {
-        GVariant *variant;
-        variant = g_settings_get_default_value (settings_given, key);
-        g_warning("Illegal color string \'%s\' for gsettings key %s. Resetting to default value \'%s\'",
-                  colorstring, key, g_variant_get_string(variant, nullptr));
-        g_settings_set_string (settings_given, key, g_variant_get_string(variant, nullptr));
-        g_variant_unref (variant);
-        return_value = TRUE;
-    }
-    else
-        return_value = FALSE;
-
-    g_free(colorstring);
-
-    return return_value;
 }
 
 
@@ -1597,8 +1523,6 @@ void GnomeCmdData::load()
     cmdline_history_length = g_settings_get_uint (options.gcmd_settings->general, GCMD_SETTINGS_CMDLINE_HISTORY_LENGTH);
     gui_update_rate = g_settings_get_uint (options.gcmd_settings->general, GCMD_SETTINGS_GUI_UPDATE_RATE);
 
-    show_devlist = g_settings_get_boolean (options.gcmd_settings->general, GCMD_SETTINGS_SHOW_DEVLIST);
-
     options.honor_expect_uris = g_settings_get_boolean (options.gcmd_settings->programs, GCMD_SETTINGS_DONT_DOWNLOAD);
     options.allow_multiple_instances = g_settings_get_boolean (options.gcmd_settings->general, GCMD_SETTINGS_MULTIPLE_INSTANCES);
     options.use_internal_viewer = g_settings_get_boolean (options.gcmd_settings->programs, GCMD_SETTINGS_USE_INTERNAL_VIEWER);
@@ -1609,12 +1533,6 @@ void GnomeCmdData::load()
 
     options.device_only_icon = g_settings_get_boolean(options.gcmd_settings->general, GCMD_SETTINGS_DEV_ONLY_ICON);
     options.show_samba_workgroups_button = g_settings_get_boolean(options.gcmd_settings->general, GCMD_SETTINGS_SHOW_SAMBA_WORKGROUP_BUTTON);
-    options.symlink_prefix = g_settings_get_string(options.gcmd_settings->general, GCMD_SETTINGS_SYMLINK_PREFIX);
-    if (!*options.symlink_prefix || strcmp(options.symlink_prefix, _("link to %s"))==0)
-    {
-        g_free (options.symlink_prefix);
-        options.symlink_prefix = nullptr;
-    }
 
     options.viewer = g_settings_get_string(options.gcmd_settings->programs, GCMD_SETTINGS_VIEWER_CMD);
     options.editor = g_settings_get_string(options.gcmd_settings->programs, GCMD_SETTINGS_EDITOR_CMD);
@@ -1709,8 +1627,6 @@ void GnomeCmdData::save(GnomeCmdMainWin *main_win)
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_DEV_ONLY_ICON, &(options.device_only_icon));
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_SHOW_SAMBA_WORKGROUP_BUTTON, &(options.show_samba_workgroups_button));
 
-    set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_SHOW_DEVLIST, &(show_devlist));
-
     set_gsettings_when_changed      (options.gcmd_settings->programs, GCMD_SETTINGS_VIEWER_CMD, options.viewer);
     set_gsettings_when_changed      (options.gcmd_settings->programs, GCMD_SETTINGS_EDITOR_CMD, options.editor);
     set_gsettings_when_changed      (options.gcmd_settings->programs, GCMD_SETTINGS_DIFFER_CMD, options.differ);
@@ -1749,65 +1665,6 @@ void GnomeCmdData::save(GnomeCmdMainWin *main_win)
     g_settings_sync ();
 }
 
-
-/**
- * This function tests if the given colorstring enholds a valid color-describing string.
- * See documentation of gdk_color_parse() for valid strings.
- * @returns TRUE if the string is a valid color representation, else FALSE.
- */
-gboolean GnomeCmdData::is_valid_color_string(const char *colorstring)
-{
-    g_return_val_if_fail(colorstring, FALSE);
-
-    GdkRGBA test_color;
-    return gdk_rgba_parse (&test_color, colorstring);
-}
-
-/**
- * This function loads a color specification, stored at the char pointer spec,
- * into *color if it is a valid color specification.
- * @returns the return value of gdk_color_parse function.
- */
-gboolean GnomeCmdData::gnome_cmd_data_parse_color (const gchar *spec, GdkRGBA *color)
-{
-    g_return_val_if_fail(spec,FALSE);
-    g_return_val_if_fail(color,FALSE);
-
-    return gdk_rgba_parse (color, spec);
-}
-
-/**
- * The task of this function is to store red, green and blue color
- * values in the GdkRGBA variable to which color is pointing to, based
- * on the GSettings value of key. First, it is tested if this value is a
- * valid GdkRGBA string. If yes, color is updated; if not, the current
- * string representing color is used to set back the string in the
- * GSettings key.
- */
-gboolean GnomeCmdData::set_color_if_valid_key_value(GdkRGBA *color, GSettings *settings_given, const char *key)
-{
-    gboolean return_value;
-    gchar *colorstring_new;
-
-    colorstring_new = g_settings_get_string (settings_given, key);
-    if (!is_valid_color_string(colorstring_new))
-    {
-        gchar *colorstring_old;
-
-        colorstring_old = gdk_rgba_to_string (color);
-        g_settings_set_string (settings_given, key, colorstring_old);
-        g_warning("Illegal color string \'%s\'. Resetting to old value \'%s\'", colorstring_new, colorstring_old);
-        g_free(colorstring_old);
-        return_value = TRUE;
-    }
-    else
-    {
-        gnome_cmd_data_parse_color(colorstring_new, color);
-        return_value = FALSE;
-    }
-    g_free(colorstring_new);
-    return return_value;
-}
 
 /**
  * As GSettings enum-type is of GVARIANT_CLASS String, we need a separate function for
@@ -1919,18 +1776,6 @@ gboolean GnomeCmdData::set_gsettings_when_changed (GSettings *settings_given, co
 #if defined (__GNUC__)
 #pragma GCC diagnostic pop
 #endif
-
-gboolean GnomeCmdData::set_gsettings_color_when_changed (GSettings *settings_given, const char *key, GdkRGBA *color)
-{
-    gboolean return_value;
-    gchar *colorstring;
-
-    colorstring = gdk_rgba_to_string (color);
-    return_value = set_gsettings_when_changed (settings_given, key, colorstring);
-    g_free(colorstring);
-
-    return return_value;
-}
 
 
 GnomeCmdData::SearchProfile::~SearchProfile(){};

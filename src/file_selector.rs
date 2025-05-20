@@ -119,6 +119,11 @@ pub mod ffi {
             fl: *mut GnomeCmdFileList,
             lock: gboolean,
         );
+
+        pub fn gnome_cmd_file_selector_update_show_devlist(
+            fs: *mut GnomeCmdFileSelector,
+            value: gboolean,
+        );
     }
 
     #[derive(Copy, Clone)]
@@ -242,6 +247,15 @@ impl FileSelector {
 
     pub fn is_current_tab_locked(&self) -> bool {
         self.is_tab_locked(&self.file_list())
+    }
+
+    pub fn update_show_devlist(&self, value: bool) {
+        unsafe {
+            ffi::gnome_cmd_file_selector_update_show_devlist(
+                self.to_glib_none().0,
+                value as gboolean,
+            )
+        }
     }
 
     pub fn goto_directory(&self, con: &Connection, path: &Path) {

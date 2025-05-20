@@ -41,64 +41,6 @@
 
 using namespace std;
 
-/***********************************
- * Functions for using GSettings
- ***********************************/
-
-struct _GcmdUserActionSettings
-{
-    GObject parent;
-    GSettings *filter;
-    GSettings *general;
-    GSettings *programs;
-};
-
-G_DEFINE_TYPE (GcmdUserActionSettings, gcmd_user_action_settings, G_TYPE_OBJECT)
-
-static void gcmd_user_action_settings_finalize (GObject *object)
-{
-    G_OBJECT_CLASS (gcmd_user_action_settings_parent_class)->finalize (object);
-}
-
-static void gcmd_user_action_settings_dispose (GObject *object)
-{
-    GcmdUserActionSettings *gs = GCMD_USER_ACTIONS (object);
-
-    g_clear_object (&gs->general);
-    g_clear_object (&gs->programs);
-
-    G_OBJECT_CLASS (gcmd_user_action_settings_parent_class)->dispose (object);
-}
-
-static void gcmd_user_action_settings_class_init (GcmdUserActionSettingsClass *klass)
-{
-    GObjectClass *object_class = G_OBJECT_CLASS (klass);
-
-    object_class->finalize = gcmd_user_action_settings_finalize;
-    object_class->dispose = gcmd_user_action_settings_dispose;
-}
-
-GcmdUserActionSettings *gcmd_user_action_settings_new ()
-{
-    return (GcmdUserActionSettings *) g_object_new (USER_ACTION_SETTINGS, nullptr);
-}
-
-static void gcmd_user_action_settings_init (GcmdUserActionSettings *gs)
-{
-    GSettingsSchemaSource   *global_schema_source;
-    GSettingsSchema         *global_schema;
-
-    global_schema_source = GnomeCmdData::GetGlobalSchemaSource();
-
-    global_schema = g_settings_schema_source_lookup (global_schema_source, GCMD_PREF_FILTER, FALSE);
-    gs->filter = g_settings_new_full (global_schema, nullptr, nullptr);
-
-    global_schema = g_settings_schema_source_lookup (global_schema_source, GCMD_PREF_GENERAL, FALSE);
-    gs->general = g_settings_new_full (global_schema, nullptr, nullptr);
-
-    global_schema = g_settings_schema_source_lookup (global_schema_source, GCMD_PREF_PROGRAMS, FALSE);
-    gs->programs = g_settings_new_full (global_schema, nullptr, nullptr);
-}
 
 /***********************************
  * UserActions
@@ -154,7 +96,6 @@ GNOME_CMD_USER_ACTION(edit_filter);
 GNOME_CMD_USER_ACTION(edit_copy_fnames);
 
 /************** View Menu **************/
-GNOME_CMD_USER_ACTION_TGL(view_devlist);
 GNOME_CMD_USER_ACTION(view_dir_history);
 GNOME_CMD_USER_ACTION(view_in_left_pane);
 GNOME_CMD_USER_ACTION(view_in_right_pane);
@@ -189,10 +130,6 @@ static GnomeCmdFileList *get_fl (GnomeCmdMainWin *main_win, const FileSelectorID
 
     return fs ? fs->file_list() : nullptr;
 }
-
-
-GcmdUserActionSettings *settings;
-
 
 /************** File Menu **************/
 
@@ -355,18 +292,6 @@ void mark_unselect_with_pattern (GSimpleAction *action, GVariant *parameter, gpo
 /* ***************************** View Menu ****************************** */
 /* Changing of GSettings here will trigger functions in gnome-cmd-data.cc */
 /* ********************************************************************** */
-
-void view_devlist (GSimpleAction *action, GVariant *state, gpointer user_data)
-{
-    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
-
-    auto active = g_variant_get_boolean (state);
-    g_simple_action_set_state (action, state);
-
-    if (gtk_widget_get_realized (GTK_WIDGET (main_win)))
-        g_settings_set_boolean (settings->general, GCMD_SETTINGS_SHOW_DEVLIST, active);
-}
-
 
 void view_dir_history (GSimpleAction *action, GVariant *parameter, gpointer user_data)
 {

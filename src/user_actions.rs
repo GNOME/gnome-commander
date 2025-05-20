@@ -813,7 +813,6 @@ pub fn command_open_terminal(
 
 /* ***************************** View Menu ****************************** */
 
-c_action!(view_devlist);
 c_action!(view_dir_history);
 
 pub fn view_up(
@@ -1725,12 +1724,7 @@ pub const USER_ACTIONS: LazyLock<Vec<UserAction>> = LazyLock::new(|| {
             "view.conbuttons",
             gettext("Show device buttons"),
         ),
-        UserAction::boolean(
-            "view-devlist",
-            view_devlist,
-            "view.devlist",
-            gettext("Show device list"),
-        ),
+        UserAction::predefined("view-devlist", "view.devlist", gettext("Show device list")),
         UserAction::predefined("view-toolbar", "view.toolbar", gettext("Show toolbar")),
         UserAction::predefined(
             "view-buttonbar",

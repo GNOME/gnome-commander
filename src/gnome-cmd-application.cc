@@ -44,7 +44,6 @@ extern "C" void gnome_cmd_application_startup(GApplication *application, gchar *
 
     /* Load Settings */
     icon_cache = gnome_cmd_icon_cache_new();
-    settings = gcmd_user_action_settings_new();
     gnome_cmd_data.gsettings_init();
     gnome_cmd_data.load();
 }

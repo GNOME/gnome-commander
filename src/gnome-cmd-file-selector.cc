@@ -39,7 +39,7 @@ using namespace std;
 
 struct GnomeCmdFileSelectorClass
 {
-    GtkBoxClass parent_class;
+    GtkGridClass parent_class;
 
     void (* dir_changed) (GnomeCmdFileSelector *fs, GnomeCmdDir *dir);
     void (* list_clicked) (GnomeCmdFileSelector *fs);
@@ -67,7 +67,7 @@ enum {
 static guint signals[LAST_SIGNAL] = { 0 };
 
 
-G_DEFINE_TYPE (GnomeCmdFileSelector, gnome_cmd_file_selector, GTK_TYPE_BOX)
+G_DEFINE_TYPE (GnomeCmdFileSelector, gnome_cmd_file_selector, GTK_TYPE_GRID)
 
 
 /*******************************
@@ -663,27 +663,27 @@ static void gnome_cmd_file_selector_init (GnomeCmdFileSelector *fs)
 
     fs->priv = new GnomeCmdFileSelector::Private;
 
-    g_object_set (fs, "orientation", GTK_ORIENTATION_VERTICAL, NULL);
+    gtk_grid_set_column_spacing (GTK_GRID (fs), 6);
 
     fs->priv->connection_bar = GTK_WIDGET (g_object_new (gnome_cmd_connection_bar_get_type(),
         "connection-list", gnome_cmd_con_list_get (),
+        "hexpand", TRUE,
         nullptr));
-    gtk_box_append (GTK_BOX (fs), fs->priv->connection_bar);
-
-    // create the box used for packing the con_combo and information
-    fs->con_hbox = create_hbox (*fs, FALSE, 2);
+    gtk_grid_attach (GTK_GRID (fs), fs->priv->connection_bar, 0, 0, 2, 1);
 
     // create the notebook and the first tab
     fs->notebook = GTK_NOTEBOOK (gtk_notebook_new ());
     gtk_notebook_set_show_tabs (fs->notebook, FALSE);
     gtk_notebook_set_scrollable (fs->notebook, TRUE);
     gtk_notebook_set_show_border (fs->notebook, FALSE);
+    gtk_widget_set_hexpand (GTK_WIDGET (fs->notebook), TRUE);
     gtk_widget_set_vexpand (GTK_WIDGET (fs->notebook), TRUE);
 
     GListModel *store = G_LIST_MODEL (create_connections_store ());
 
     // create the connection combo
     fs->con_dropdown = gtk_drop_down_new (store, nullptr);
+    gtk_widget_set_halign (fs->con_dropdown, GTK_ALIGN_START);
     auto factory = con_dropdown_factory();
     gtk_drop_down_set_factory (GTK_DROP_DOWN (fs->con_dropdown), factory);
     g_object_unref (factory);
@@ -708,18 +708,11 @@ static void gnome_cmd_file_selector_init (GnomeCmdFileSelector *fs)
     gtk_widget_set_margin_end (GTK_WIDGET (fs->info_label), 6);
 
     // pack the widgets
-    GtkWidget *padding = create_hbox (*fs, FALSE, 6);
-    gtk_box_append (GTK_BOX (fs), fs->con_hbox);
-    gtk_box_append (GTK_BOX (fs), fs->dir_indicator);
-    gtk_box_append (GTK_BOX (fs), GTK_WIDGET (fs->notebook));
-    gtk_box_append (GTK_BOX (fs), padding);
-    gtk_box_append (GTK_BOX (padding), fs->info_label);
-    gtk_box_append (GTK_BOX (fs->con_hbox), fs->con_dropdown);
-    // changing this value has only an effect when restarting gcmd
-    if (gnome_cmd_data.show_devlist)
-        gtk_box_append (GTK_BOX (fs->con_hbox), fs->vol_label);
-    else
-        gtk_box_append (GTK_BOX (padding), fs->vol_label);
+    gtk_grid_attach (GTK_GRID (fs), fs->con_dropdown, 0, 1, 1, 1);
+    gtk_grid_attach (GTK_GRID (fs), fs->vol_label, 1, 1, 1, 1);
+    gtk_grid_attach (GTK_GRID (fs), fs->dir_indicator, 0, 2, 2, 1);
+    gtk_grid_attach (GTK_GRID (fs), GTK_WIDGET (fs->notebook), 0, 3, 2, 1);
+    gtk_grid_attach (GTK_GRID (fs), fs->info_label, 0, 4, 1, 1);
 
     // connect signals
     g_signal_connect (fs, "realize", G_CALLBACK (on_realize), fs);
@@ -740,7 +733,6 @@ static void gnome_cmd_file_selector_init (GnomeCmdFileSelector *fs)
     gtk_widget_add_controller (GTK_WIDGET (fs), GTK_EVENT_CONTROLLER (key_controller));
     g_signal_connect (key_controller, "key-pressed", G_CALLBACK (on_list_key_pressed), fs);
 
-    fs->update_show_devlist();
     fs->update_style();
 }
 
@@ -798,12 +790,12 @@ void GnomeCmdFileSelector::update_style()
 }
 
 
-void GnomeCmdFileSelector::update_show_devlist()
+void gnome_cmd_file_selector_update_show_devlist(GnomeCmdFileSelector *fs, gboolean visible)
 {
-    if (gnome_cmd_data.show_devlist)
-        gtk_widget_show (con_hbox);
-    else
-        gtk_widget_hide (con_hbox);
+    gtk_widget_set_visible (fs->con_dropdown, visible);
+    auto lm = gtk_widget_get_layout_manager (GTK_WIDGET (fs));
+    auto lc = gtk_layout_manager_get_layout_child (lm, fs->vol_label);
+    gtk_grid_layout_child_set_row (GTK_GRID_LAYOUT_CHILD (lc), visible ? 1 : 4);
 }
 
 

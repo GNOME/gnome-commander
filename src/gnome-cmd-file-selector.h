@@ -35,9 +35,8 @@
 
 struct GnomeCmdFileSelector
 {
-    GtkBox vbox;
+    GtkGrid parent;
 
-    GtkWidget *con_hbox;
     GtkWidget *dir_indicator;
     GtkWidget *dir_label;
     GtkWidget *info_label;
@@ -89,7 +88,6 @@ struct GnomeCmdFileSelector
     void update_selected_files_label();
     void update_style();
     void update_connections();
-    void update_show_devlist();
     void update_show_tabs();
 
     void do_file_specific_action (GnomeCmdFileList *fl, GnomeCmdFile *f);
@@ -155,3 +153,5 @@ extern "C" void gnome_cmd_file_selector_back (GnomeCmdFileSelector *fs);
 extern "C" gboolean gnome_cmd_file_selector_is_tab_locked (GnomeCmdFileSelector *fs, GnomeCmdFileList *fl);
 extern "C" gboolean gnome_cmd_file_selector_is_current_tab_locked (GnomeCmdFileSelector *fs);
 extern "C" void gnome_cmd_file_selector_set_tab_locked (GnomeCmdFileSelector *fs, GnomeCmdFileList *fl, gboolean lock);
+
+extern "C" void gnome_cmd_file_selector_update_show_devlist(GnomeCmdFileSelector *fs, gboolean visible);
