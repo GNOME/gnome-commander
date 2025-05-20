@@ -61,18 +61,14 @@ using namespace std;
 #define FL_PBAR_MAX 50
 
 
-enum
-{
-    FILE_CLICKED,        // A file in the list was clicked
-    FILE_RELEASED,       // A file in the list has been clicked and mouse button has been released
-    LIST_CLICKED,        // The file list widget was clicked
-    FILES_CHANGED,       // The visible content of the file list has changed (files have been: selected, created, deleted or modified)
-    DIR_CHANGED,         // The current directory has been changed
-    CON_CHANGED,         // The current connection has been changed
-    RESIZE_COLUMN,       // Column's width was changed
-    FILE_ACTIVATED,      // A file in the list has been activated for opening
-    LAST_SIGNAL
-};
+#define FILE_CLICKED_SIGNAL     "file-clicked"
+#define FILE_RELEASED_SIGNAL    "file-released"
+#define LIST_CLICKED_SIGNAL     "list-clicked"
+#define FILES_CHANGED_SIGNAL    "files-changed"
+#define DIR_CHANGED_SIGNAL      "dir-changed"
+#define CON_CHANGED_SIGNAL      "con-changed"
+#define RESIZE_COLUMN_SIGNAL    "resize-column"
+#define FILE_ACTIVATED_SIGNAL   "file-activated"
 
 
 static const char *drag_types [] =
@@ -87,9 +83,6 @@ static const char *drop_types [] =
     TARGET_URI_LIST_TYPE,
     TARGET_URL_TYPE
 };
-
-
-static guint signals[LAST_SIGNAL] = { 0 };
 
 
 typedef GtkSorter * (*GnomeCmdSorterFactory) (gboolean case_sensitive,
@@ -170,21 +163,6 @@ enum DataColumns {
 };
 
 const gint FILE_COLUMN = GnomeCmdFileList::NUM_COLUMNS;
-
-
-struct GnomeCmdFileListClass
-{
-    GtkWidgetClass parent_class;
-
-    void (* file_clicked)        (GnomeCmdFileList *fl, GnomeCmdFileListButtonEvent *event);
-    void (* file_released)       (GnomeCmdFileList *fl, GnomeCmdFileListButtonEvent *event);
-    void (* list_clicked)        (GnomeCmdFileList *fl, GnomeCmdFileListButtonEvent *event);
-    void (* files_changed)       (GnomeCmdFileList *fl);
-    void (* dir_changed)         (GnomeCmdFileList *fl, GnomeCmdDir *dir);
-    void (* con_changed)         (GnomeCmdFileList *fl, GnomeCmdCon *con);
-    void (* resize_column)       (GnomeCmdFileList *fl, guint index, GtkTreeViewColumn *col);
-    void (* file_activated)      (GnomeCmdFileList *fl, GnomeCmdFile *file);
-};
 
 
 struct GnomeCmdFileListPrivate
@@ -621,12 +599,9 @@ static void set_model_row(GnomeCmdFileList *fl, GtkTreeIter *iter, GnomeCmdFile 
 }
 
 
-G_DEFINE_TYPE_WITH_PRIVATE (GnomeCmdFileList, gnome_cmd_file_list, GTK_TYPE_WIDGET)
-
-
 GnomeCmdFileListPrivate* file_list_priv (GnomeCmdFileList *fl)
 {
-    return (GnomeCmdFileListPrivate *) gnome_cmd_file_list_get_instance_private (fl);
+    return (GnomeCmdFileListPrivate *) g_object_get_data (G_OBJECT (fl), "priv");
 }
 
 
@@ -687,7 +662,7 @@ void GnomeCmdFileList::toggle_file(GtkTreeIter *iter)
     selected = !selected;
     gtk_list_store_set (priv->store, iter, DATA_COLUMN_SELECTED, selected, -1);
 
-    g_signal_emit (this, signals[FILES_CHANGED], 0);
+    g_signal_emit_by_name (this, FILES_CHANGED_SIGNAL);
 }
 
 
@@ -728,7 +703,7 @@ inline void select_file_range (GnomeCmdFileList *fl, GtkTreeIter *start_row, Gtk
         return GnomeCmdFileList::TRAVERSE_CONTINUE;
     });
 
-    g_signal_emit (fl, signals[FILES_CHANGED], 0);
+    g_signal_emit_by_name (fl, FILES_CHANGED_SIGNAL);
 }
 
 
@@ -918,7 +893,7 @@ static void on_column_resized (GtkTreeViewColumn *column, GParamSpec *pspec, Gno
     if (index < 0)
         return;
 
-    g_signal_emit (fl, signals[RESIZE_COLUMN], 0, index, column);
+    g_signal_emit_by_name (fl, RESIZE_COLUMN_SIGNAL, index, column);
 }
 
 
@@ -983,12 +958,12 @@ static void on_button_press (GtkGestureClick *gesture, int n_press, double x, do
     if (row)
     {
         event.file = fl->get_file_at_row(row.get());
-        g_signal_emit (fl, signals[LIST_CLICKED], 0, &event);
-        g_signal_emit (fl, signals[FILE_CLICKED], 0, &event);
+        g_signal_emit_by_name (fl, LIST_CLICKED_SIGNAL, &event);
+        g_signal_emit_by_name (fl, FILE_CLICKED_SIGNAL, &event);
     }
     else
     {
-        g_signal_emit (fl, signals[LIST_CLICKED], 0, &event);
+        g_signal_emit_by_name (fl, LIST_CLICKED_SIGNAL, &event);
         if (n_press == 1 && button == 3) {
             show_list_popup (fl, x, y);
         }
@@ -1007,7 +982,7 @@ static void on_file_clicked (GnomeCmdFileList *fl, GnomeCmdFileListButtonEvent *
 
     if (event->n_press == 2 && event->button == 1 && gnome_cmd_data.options.left_mouse_button_mode == GnomeCmdData::LEFT_BUTTON_OPENS_WITH_DOUBLE_CLICK)
     {
-        g_signal_emit (fl, signals[FILE_ACTIVATED ], 0, event->file);
+        g_signal_emit_by_name (fl, FILE_ACTIVATED_SIGNAL, event->file);
     }
     else if (event->n_press == 1 && event->button == 1)
     {
@@ -1032,7 +1007,7 @@ static void on_file_clicked (GnomeCmdFileList *fl, GnomeCmdFileListButtonEvent *
                 if (iter_compare(priv->store, focus_iter.get(), event->iter) == 0)
                 {
                     fl->select_iter(event->iter);
-                    g_signal_emit(fl, signals[FILES_CHANGED], 0);
+                    g_signal_emit_by_name(fl, FILES_CHANGED_SIGNAL);
                     show_file_popup (fl, nullptr);
                 }
                 else
@@ -1041,7 +1016,7 @@ static void on_file_clicked (GnomeCmdFileList *fl, GnomeCmdFileListButtonEvent *
                         fl->select_iter(event->iter);
                     else
                         fl->unselect_iter(event->iter);
-                    g_signal_emit(fl, signals[FILES_CHANGED], 0);
+                    g_signal_emit_by_name(fl, FILES_CHANGED_SIGNAL);
                 }
             }
             else
@@ -1067,7 +1042,7 @@ static void on_file_released (GnomeCmdFileList *fl, GnomeCmdFileListButtonEvent 
     auto priv = file_list_priv (fl);
 
     if (event->n_press == 1 && event->button == 1 && !priv->modifier_click && gnome_cmd_data.options.left_mouse_button_mode == GnomeCmdData::LEFT_BUTTON_OPENS_WITH_SINGLE_CLICK)
-        g_signal_emit (fl, signals[FILE_ACTIVATED ], 0, event->file);
+        g_signal_emit_by_name (fl, FILE_ACTIVATED_SIGNAL, event->file);
 }
 
 
@@ -1092,7 +1067,7 @@ static void on_button_release (GtkGestureClick *gesture, int n_press, double x, 
         .y = y,
         .state = get_modifiers_state (),
     };
-    g_signal_emit (fl, signals[FILE_RELEASED], 0, &event);
+    g_signal_emit_by_name (fl, FILE_RELEASED_SIGNAL, &event);
 
     if (button == 1 && state_is_blank (event.state))
     {
@@ -1117,7 +1092,7 @@ static void on_dir_file_created (GnomeCmdDir *dir, GnomeCmdFile *f, GnomeCmdFile
     g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl));
 
     if (fl->insert_file(f))
-        g_signal_emit (fl, signals[FILES_CHANGED], 0);
+        g_signal_emit_by_name (fl, FILES_CHANGED_SIGNAL);
 }
 
 
@@ -1128,7 +1103,7 @@ static void on_dir_file_deleted (GnomeCmdDir *dir, GnomeCmdFile *f, GnomeCmdFile
 
     if (priv->cwd == dir)
         if (fl->remove_file(f))
-            g_signal_emit (fl, signals[FILES_CHANGED], 0);
+            g_signal_emit_by_name (fl, FILES_CHANGED_SIGNAL);
 }
 
 
@@ -1139,7 +1114,7 @@ static void on_dir_file_changed (GnomeCmdDir *dir, GnomeCmdFile *f, GnomeCmdFile
     if (fl->has_file(f))
     {
         fl->update_file(f);
-        g_signal_emit (fl, signals[FILES_CHANGED], 0);
+        g_signal_emit_by_name (fl, FILES_CHANGED_SIGNAL);
     }
 }
 
@@ -1194,7 +1169,7 @@ static void on_dir_list_ok (GnomeCmdDir *dir, GnomeCmdFileList *fl)
         priv->connected_dir = dir;
     }
 
-    g_signal_emit (fl, signals[DIR_CHANGED], 0, dir);
+    g_signal_emit_by_name (fl, DIR_CHANGED_SIGNAL, dir);
 
     DEBUG('l', "returning from on_dir_list_ok\n");
 }
@@ -1252,14 +1227,6 @@ static void on_dir_list_failed (GnomeCmdDir *dir, GError *error, GnomeCmdFileLis
 }
 
 
-static gboolean grab_focus(GtkWidget *widget)
-{
-    GnomeCmdFileList *fl = GNOME_CMD_FILE_LIST (widget);
-    auto priv = file_list_priv (fl);
-    return gtk_widget_grab_focus (GTK_WIDGET (priv->view));
-}
-
-
 static void on_connection_close (GnomeCmdCon *con, GnomeCmdFileList *fl)
 {
     auto priv = file_list_priv (fl);
@@ -1272,121 +1239,21 @@ static void on_connection_close (GnomeCmdCon *con, GnomeCmdFileList *fl)
  * Gtk class implementation
  *******************************/
 
-static void gnome_cmd_file_list_dispose (GObject *object)
+extern "C" void gnome_cmd_file_list_finalize (GnomeCmdFileList *fl)
 {
-    GnomeCmdFileList *fl = GNOME_CMD_FILE_LIST (object);
     auto priv = file_list_priv (fl);
-
     if (priv->con)
         g_signal_handlers_disconnect_by_func (priv->con, (gpointer) on_connection_close, fl);
 
     g_clear_object (&priv->con);
 
-    while (GtkWidget *child = gtk_widget_get_first_child (GTK_WIDGET (fl)))
-        gtk_widget_unparent (child);
-
     g_clear_object (&priv->cwd);
     g_clear_object (&priv->lwd);
-
-    G_OBJECT_CLASS (gnome_cmd_file_list_parent_class)->dispose (object);
-}
-
-
-static void gnome_cmd_file_list_finalize (GObject *object)
-{
-    GnomeCmdFileList *fl = GNOME_CMD_FILE_LIST (object);
-    auto priv = file_list_priv (fl);
-
     g_clear_object (&priv->sorter);
     gnome_cmd_theme_free (priv->color_theme);
     gnome_cmd_palette_free(priv->ls_palette);
     g_clear_list (&priv->dropping_files, g_object_unref);
     priv->dropping_to = nullptr;
-
-    G_OBJECT_CLASS (gnome_cmd_file_list_parent_class)->finalize (object);
-}
-
-
-static void gnome_cmd_file_list_class_init (GnomeCmdFileListClass *klass)
-{
-    GObjectClass *object_class = G_OBJECT_CLASS (klass);
-
-    object_class->dispose = gnome_cmd_file_list_dispose;
-    object_class->finalize = gnome_cmd_file_list_finalize;
-
-    GTK_WIDGET_CLASS (klass)->grab_focus = grab_focus;
-
-    signals[FILE_CLICKED] =
-        g_signal_new ("file-clicked",
-            G_TYPE_FROM_CLASS (klass),
-            G_SIGNAL_RUN_LAST,
-            G_STRUCT_OFFSET (GnomeCmdFileListClass, file_clicked),
-            nullptr, nullptr, nullptr,
-            G_TYPE_NONE,
-            1, G_TYPE_POINTER);
-
-    signals[FILE_RELEASED] =
-        g_signal_new ("file-released",
-            G_TYPE_FROM_CLASS (klass),
-            G_SIGNAL_RUN_LAST,
-            G_STRUCT_OFFSET (GnomeCmdFileListClass, file_released),
-            nullptr, nullptr, nullptr,
-            G_TYPE_NONE,
-            1, G_TYPE_POINTER);
-
-    signals[LIST_CLICKED] =
-        g_signal_new ("list-clicked",
-            G_TYPE_FROM_CLASS (klass),
-            G_SIGNAL_RUN_LAST,
-            G_STRUCT_OFFSET (GnomeCmdFileListClass, list_clicked),
-            nullptr, nullptr, nullptr,
-            G_TYPE_NONE,
-            1, G_TYPE_POINTER);
-
-    signals[FILES_CHANGED] =
-        g_signal_new ("files-changed",
-            G_TYPE_FROM_CLASS (klass),
-            G_SIGNAL_RUN_LAST,
-            G_STRUCT_OFFSET (GnomeCmdFileListClass, files_changed),
-            nullptr, nullptr, nullptr,
-            G_TYPE_NONE,
-            0);
-
-    signals[DIR_CHANGED] =
-        g_signal_new ("dir-changed",
-            G_TYPE_FROM_CLASS (klass),
-            G_SIGNAL_RUN_LAST,
-            G_STRUCT_OFFSET (GnomeCmdFileListClass, dir_changed),
-            nullptr, nullptr, nullptr,
-            G_TYPE_NONE,
-            1, G_TYPE_POINTER);
-
-    signals[CON_CHANGED] =
-        g_signal_new ("con-changed",
-            G_TYPE_FROM_CLASS (klass),
-            G_SIGNAL_RUN_LAST,
-            G_STRUCT_OFFSET (GnomeCmdFileListClass, con_changed),
-            nullptr, nullptr, nullptr,
-            G_TYPE_NONE,
-            1, G_TYPE_POINTER);
-
-    signals[RESIZE_COLUMN] =
-        g_signal_new ("resize-column",
-            G_TYPE_FROM_CLASS (klass),
-            G_SIGNAL_RUN_LAST,
-            G_STRUCT_OFFSET (GnomeCmdFileListClass, resize_column),
-            nullptr, nullptr, nullptr,
-            G_TYPE_NONE,
-            2, G_TYPE_UINT, G_TYPE_POINTER);
-
-    signals[FILE_ACTIVATED] =
-        g_signal_new ("file-activated",
-            G_TYPE_FROM_CLASS (klass),
-            G_SIGNAL_RUN_LAST,
-            G_STRUCT_OFFSET (GnomeCmdFileListClass, file_activated),
-            nullptr, nullptr, nullptr,
-            G_TYPE_NONE,
-            1, G_TYPE_POINTER);
 }
 
 
@@ -1396,11 +1263,10 @@ static void on_refresh (GSimpleAction *action, GVariant *parameter, gpointer use
 }
 
 
-static void gnome_cmd_file_list_init (GnomeCmdFileList *fl)
+extern "C" void gnome_cmd_file_list_init (GnomeCmdFileList *fl)
 {
-    auto priv = file_list_priv (fl);
-
-    gtk_widget_set_layout_manager (*fl, gtk_bin_layout_new ());
+    auto priv = g_new0 (GnomeCmdFileListPrivate, 1);
+    g_object_set_data_full (G_OBJECT (fl), "priv", priv, g_free);
 
     init_private (fl);
 
@@ -1651,7 +1517,7 @@ void GnomeCmdFileList::show_visible_tree_sizes()
         return TraverseControl::TRAVERSE_CONTINUE;
     });
 
-    g_signal_emit (this, signals[FILES_CHANGED], 0);
+    g_signal_emit_by_name (this, FILES_CHANGED_SIGNAL);
 }
 
 
@@ -1829,7 +1695,7 @@ void GnomeCmdFileList::select_all()
             return TRAVERSE_CONTINUE;
         });
     }
-    g_signal_emit(this, signals[FILES_CHANGED], 0);
+    g_signal_emit_by_name (this, FILES_CHANGED_SIGNAL);
 }
 
 
@@ -2196,7 +2062,7 @@ static gboolean gnome_cmd_file_list_key_pressed (GtkEventControllerKey* self, gu
                 fl->toggle();
                 if (GnomeCmdFile *selfile = fl->get_selected_file())
                     fl->show_dir_tree_size(selfile);
-                g_signal_emit (fl, signals[FILES_CHANGED], 0);
+                g_signal_emit_by_name (fl, FILES_CHANGED_SIGNAL);
                 gtk_widget_set_cursor (*fl, nullptr);
                 return TRUE;
 
@@ -2358,7 +2224,7 @@ void GnomeCmdFileList::set_connection (GnomeCmdCon *new_con, GnomeCmdDir *start_
 
     g_signal_connect (priv->con, "close", G_CALLBACK (on_connection_close), this);
 
-    g_signal_emit (this, signals[CON_CHANGED], 0, priv->con);
+    g_signal_emit_by_name (this, CON_CHANGED_SIGNAL, priv->con);
 
     set_directory(start_dir);
 }
