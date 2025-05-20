@@ -41,11 +41,11 @@ void gv_init_data_presentation(GVDataPresentation *dp, GVInputModesData *imd, of
 void gv_free_data_presentation(GVDataPresentation *dp);
 
 void gv_set_data_presentation_mode(GVDataPresentation *dp, PRESENTATION present);
-PRESENTATION gv_get_data_presentation_mode(GVDataPresentation *dp);
+extern "C" PRESENTATION gv_get_data_presentation_mode(GVDataPresentation *dp);
 void gv_set_wrap_limit(GVDataPresentation *dp, guint chars_per_line);
 void gv_set_fixed_count(GVDataPresentation *dp, guint chars_per_line);
 void gv_set_tab_size(GVDataPresentation *dp, guint tab_size);
 
-offset_type gv_align_offset_to_line_start(GVDataPresentation *dp, offset_type offset);
+extern "C" offset_type gv_align_offset_to_line_start(GVDataPresentation *dp, offset_type offset);
 offset_type gv_scroll_lines (GVDataPresentation *dp, offset_type current_offset, int delta);
 offset_type gv_get_end_of_line_offset(GVDataPresentation *dp, offset_type start_of_line);

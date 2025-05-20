@@ -17,6 +17,7 @@
  * For more details see the file COPYING.
  */
 
+pub mod data_presentation;
 pub mod file_ops;
 pub mod image_render;
 pub mod input_modes;

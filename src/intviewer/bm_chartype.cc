@@ -32,6 +32,25 @@
 using namespace std;
 
 
+struct GViewerBMChartypeData
+{
+    /* good-suffix-shift array, one element for each (unique) character in the search pattern */
+    int *good;
+    int good_len;
+
+    /* bad-characters table, implemented as a hash table.
+       The classic Boyer-moore assumes a small,finite alphabet (such as "ASCII" only),
+       but we need to search every possible UTF8 character  - using a array is not practicle */
+    GHashTable *bad;
+
+    /* Search pattern, represented as char_type array (each element = one guint32 = one utf8 character)
+       This is NOT a UTF8 string.  see "doc/internal_viewer_hacking" and "inputmodes.{c,h}" for more details*/
+    char_type *pattern;
+    int pattern_len;
+    gboolean case_sensitive;
+};
+
+
 /***********************************
     Bad Character hash-table functions
 ***********************************/
@@ -175,4 +194,14 @@ int bm_chartype_get_advancement(GViewerBMChartypeData *data, int pattern_index, 
     int m = data->pattern_len;
 
     return MAX(data->good[pattern_index], bch_get_value(data, ch, m) - m + 1 + pattern_index);
+}
+
+int bm_chartype_get_good_match_advancement(GViewerBMChartypeData *data)
+{
+    return data->good[0];
+}
+
+int bm_chartype_data_pattern_len(GViewerBMChartypeData* data)
+{
+    return data->pattern_len;
 }

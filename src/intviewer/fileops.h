@@ -35,27 +35,7 @@
     calling order should be: open->load->[use file with "get_byte"]->free (which calls close)
 */
 
-struct ViewerFileOps
-{
-    // File handling (based on 'Midnight Commander'-'s view.c)
-    char *filename;        // Name of the file
-    unsigned char *data;    // Memory area for the file to be viewed
-    int file;        // File descriptor (for mmap and munmap)
-    int mmapping;        // Did we use mmap on the file?
-
-    // Growing buffers information
-    int growing_buffer;    // Use the growing buffers?
-    char **block_ptr;    // Pointer to the block pointers
-    int   blocks;        // The number of blocks in *block_ptr
-    struct stat s;        // stat for file
-
-    offset_type last;           // Last byte shown
-    offset_type last_byte;      // Last byte of file
-    offset_type first;        // First byte in file
-    offset_type bottom_first;    // First byte shown when very last page is displayed
-                    // For the case of WINCH we should reset it to -1
-    offset_type bytes_read;     // How much of file is read
-};
+struct ViewerFileOps;
 
 ViewerFileOps *gv_fileops_new();
 
@@ -63,8 +43,6 @@ ViewerFileOps *gv_fileops_new();
     returns -1 on failure
 */
 int gv_file_open(ViewerFileOps *ops, const gchar* _file);
-
-int gv_file_open_fd(ViewerFileOps *ops, int filedesc);
 
 
 /*

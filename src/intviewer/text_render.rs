@@ -17,7 +17,7 @@
  * For more details see the file COPYING.
  */
 
-use super::file_ops::FileOps;
+use super::{data_presentation::DataPresentation, file_ops::FileOps};
 use crate::intviewer::input_modes::ffi::GVInputModesData;
 use gtk::glib::{
     self,
@@ -27,11 +27,12 @@ use gtk::glib::{
 use std::path::Path;
 
 pub mod ffi {
-    use crate::intviewer::file_ops::ffi::ViewerFileOps;
-    use std::ffi::c_char;
-
     use super::*;
+    use crate::intviewer::{
+        data_presentation::ffi::GVDataPresentation, file_ops::ffi::ViewerFileOps,
+    };
     use glib::ffi::GType;
+    use std::ffi::c_char;
 
     #[repr(C)]
     pub struct TextRender {
@@ -51,6 +52,7 @@ pub mod ffi {
 
         pub fn text_render_get_file_ops(w: *mut TextRender) -> *mut ViewerFileOps;
         pub fn text_render_get_input_mode_data(w: *mut TextRender) -> *mut GVInputModesData;
+        pub fn text_render_get_data_presentation(w: *mut TextRender) -> *mut GVDataPresentation;
 
         pub fn text_render_load_file(w: *mut TextRender, filename: *const c_char);
 
@@ -138,8 +140,22 @@ impl TextRender {
         unsafe { ffi::text_render_get_input_mode_data(self.to_glib_none().0) }
     }
 
-    pub fn file_ops(&self) -> FileOps {
-        unsafe { FileOps(ffi::text_render_get_file_ops(self.to_glib_none().0)) }
+    pub fn file_ops(&self) -> Option<FileOps> {
+        let ptr = unsafe { ffi::text_render_get_file_ops(self.to_glib_none().0) };
+        if ptr.is_null() {
+            None
+        } else {
+            Some(FileOps(ptr))
+        }
+    }
+
+    pub fn data_presentation(&self) -> Option<DataPresentation> {
+        let ptr = unsafe { ffi::text_render_get_data_presentation(self.to_glib_none().0) };
+        if ptr.is_null() {
+            None
+        } else {
+            Some(DataPresentation(ptr))
+        }
     }
 
     pub fn load_file(&self, filename: &Path) {

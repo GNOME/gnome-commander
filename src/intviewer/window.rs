@@ -545,7 +545,10 @@ mod imp {
                     searcher.setup_new_text_search(
                         self.text_render.input_mode_data(),
                         self.text_render.current_offset(),
-                        self.text_render.file_ops().max_offset(),
+                        self.text_render
+                            .file_ops()
+                            .map(|f| f.max_offset())
+                            .unwrap_or_default(),
                         pattern,
                         *case_sensitive,
                     );
@@ -554,7 +557,10 @@ mod imp {
                     searcher.setup_new_hex_search(
                         self.text_render.input_mode_data(),
                         self.text_render.current_offset(),
-                        self.text_render.file_ops().max_offset(),
+                        self.text_render
+                            .file_ops()
+                            .map(|f| f.max_offset())
+                            .unwrap_or_default(),
                         pattern,
                     );
                 }
