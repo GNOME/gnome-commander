@@ -41,6 +41,7 @@ use crate::{
         make_copy_dialog::make_copy_dialog,
         manage_bookmarks_dialog::{bookmark_directory, BookmarksDialog},
         new_text_file::show_new_textfile_dialog,
+        options::options_dialog::show_options_dialog,
         prepare_copy_dialog::prepare_copy_dialog_show,
         prepare_move_dialog::prepare_move_dialog_show,
         remote_dialog::RemoteDialog,
@@ -1097,7 +1098,18 @@ c_action!(bookmarks_view);
 
 /************** Options Menu **************/
 
-c_action!(options_edit);
+pub fn options_edit(
+    main_win: &MainWindow,
+    _action: &gio::SimpleAction,
+    _parameter: Option<&glib::Variant>,
+) {
+    let main_win = main_win.clone();
+    glib::spawn_future_local(async move {
+        if show_options_dialog(&main_win).await {
+            main_win.update_view();
+        }
+    });
+}
 
 pub fn options_edit_shortcuts(
     main_win: &MainWindow,

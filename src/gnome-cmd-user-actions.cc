@@ -37,7 +37,6 @@
 #include "dialogs/gnome-cmd-advrename-dialog.h"
 #include "dialogs/gnome-cmd-mkdir-dialog.h"
 #include "dialogs/gnome-cmd-search-dialog.h"
-#include "dialogs/gnome-cmd-options-dialog.h"
 
 using namespace std;
 
@@ -116,13 +115,6 @@ GNOME_CMD_USER_ACTION(bookmarks_add_current);
 GNOME_CMD_USER_ACTION(bookmarks_edit);
 GNOME_CMD_USER_ACTION(bookmarks_goto);
 GNOME_CMD_USER_ACTION(bookmarks_view);
-
-/************** Options Menu **************/
-GNOME_CMD_USER_ACTION(options_edit);
-GNOME_CMD_USER_ACTION(options_edit_shortcuts);
-
-/************** Plugins Menu ***********/
-GNOME_CMD_USER_ACTION(plugins_configure);
 
 static GnomeCmdFileList *get_fl (GnomeCmdMainWin *main_win, const FileSelectorID fsID)
 {
@@ -396,25 +388,6 @@ void view_toggle_tab_lock (GSimpleAction *action, GVariant *parameter, gpointer 
         gnome_cmd_file_selector_set_tab_locked (fs, fl, !locked);
         fs->update_tab_label(fl);
     }
-}
-
-
-/************** Options Menu **************/
-static void options_edit_done (gpointer user_data)
-{
-    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
-
-    main_win->update_view();
-    gnome_cmd_data.save(main_win);
-}
-
-
-void options_edit (GSimpleAction *action, GVariant *parameter, gpointer user_data)
-{
-    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
-
-    GtkDialog *options_dialog = gnome_cmd_options_dialog (*main_win, gnome_cmd_data.options, options_edit_done, main_win);
-    gtk_window_present (GTK_WINDOW (options_dialog));
 }
 
 

@@ -1786,3 +1786,15 @@ gpointer gnome_cmd_data_get_con_list ()
 {
     return gnome_cmd_data.priv->con_list;
 }
+
+// FFI
+
+extern "C" GnomeCmdData::Options *gnome_cmd_data_options ()
+{
+    return &gnome_cmd_data.options;
+}
+
+extern "C" void gnome_cmd_data_save (GnomeCmdMainWin *mw)
+{
+    gnome_cmd_data.save (mw);
+}
