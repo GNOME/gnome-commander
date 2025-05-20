@@ -17,6 +17,7 @@
  * For more details see the file COPYING.
  */
 
+use super::profile::{SearchProfile, SearchProfilePtr};
 use crate::{
     data::SearchConfig,
     dialogs::profiles::{manage_profiles_dialog::manage_profiles, profiles::ProfileManager},
@@ -32,14 +33,7 @@ use gtk::{
     prelude::*,
     subclass::prelude::*,
 };
-use std::{
-    ffi::{c_char, c_void},
-    marker::PhantomData,
-    rc::Rc,
-};
-
-type SearchProfilePtr = c_void;
-type SearchProfilesPtr = c_void;
+use std::{ffi::c_void, rc::Rc};
 
 extern "C" {
     fn gnome_cmd_search_profile_component_new(
@@ -48,101 +42,91 @@ extern "C" {
     ) -> *mut GtkWidget;
     fn gnome_cmd_search_profile_component_update(component: *mut GtkWidget);
     fn gnome_cmd_search_profile_component_copy(component: *mut GtkWidget);
-
-    fn gnome_cmd_search_config_new_profiles(
-        cfg: *mut c_void,
-        with_default: gboolean,
-    ) -> *mut SearchProfilesPtr;
-    fn gnome_cmd_search_config_take_profiles(cfg: *mut c_void, profiles: *mut SearchProfilesPtr);
-
-    fn gnome_cmd_search_profiles_dup(profiles: *mut SearchProfilesPtr) -> *mut SearchProfilesPtr;
-    fn gnome_cmd_search_profiles_len(profiles: *mut SearchProfilesPtr) -> u32;
-    fn gnome_cmd_search_profiles_get(
-        profiles: *mut SearchProfilesPtr,
-        profile_index: u32,
-    ) -> *mut SearchProfilePtr;
-    fn gnome_cmd_search_profiles_get_name(
-        profiles: *mut SearchProfilesPtr,
-        profile_index: u32,
-    ) -> *const c_char;
-    fn gnome_cmd_search_profiles_set_name(
-        profiles: *mut SearchProfilesPtr,
-        profile_index: u32,
-        name: *const c_char,
-    );
-    fn gnome_cmd_search_profiles_get_description(
-        profiles: *mut SearchProfilesPtr,
-        profile_index: u32,
-    ) -> *mut c_char;
-    fn gnome_cmd_search_profiles_reset(profiles: *mut SearchProfilesPtr, profile_index: u32);
-    fn gnome_cmd_search_profiles_duplicate(
-        profiles: *mut SearchProfilesPtr,
-        profile_index: u32,
-    ) -> u32;
-    fn gnome_cmd_search_profiles_pick(
-        profiles: *mut SearchProfilesPtr,
-        indexes: *const u32,
-        size: u32,
-    );
 }
 
-struct SearchProfiles(*mut SearchProfilesPtr);
-struct SearchProfile<'p>(*mut SearchProfilePtr, PhantomData<&'p mut c_void>);
+struct SearchProfiles {
+    profiles: gio::ListStore,
+}
 
 impl Clone for SearchProfiles {
     fn clone(&self) -> Self {
-        Self(unsafe { gnome_cmd_search_profiles_dup(self.0) })
+        Self {
+            profiles: self
+                .profiles
+                .iter::<SearchProfile>()
+                .flatten()
+                .map(|p| p.deep_clone())
+                .collect(),
+        }
     }
 }
 
 impl SearchProfiles {
-    fn profile(&self, profile_index: usize) -> SearchProfile<'_> {
-        SearchProfile(
-            unsafe { gnome_cmd_search_profiles_get(self.0, profile_index as u32) },
-            PhantomData,
-        )
+    fn new(cfg: &SearchConfig, with_default: bool) -> Self {
+        let profiles: gio::ListStore = cfg
+            .profiles()
+            .iter::<SearchProfile>()
+            .flatten()
+            .map(|p| p.deep_clone())
+            .collect();
+
+        if with_default {
+            profiles.append(&cfg.default_profile().deep_clone());
+        }
+        Self { profiles }
+    }
+
+    fn profile(&self, profile_index: usize) -> Option<SearchProfile> {
+        self.profiles
+            .item(profile_index as u32)
+            .and_downcast::<SearchProfile>()
     }
 
     fn len(&self) -> usize {
-        unsafe { gnome_cmd_search_profiles_len(self.0) as usize }
+        self.profiles.n_items() as usize
     }
 
     fn profile_name(&self, profile_index: usize) -> String {
-        unsafe {
-            from_glib_none(gnome_cmd_search_profiles_get_name(
-                self.0,
-                profile_index as u32,
-            ))
-        }
+        self.profile(profile_index)
+            .map(|p| p.name())
+            .unwrap_or_default()
     }
 
     fn set_profile_name(&self, profile_index: usize, name: &str) {
-        unsafe {
-            gnome_cmd_search_profiles_set_name(self.0, profile_index as u32, name.to_glib_none().0)
+        if let Some(profile) = self.profile(profile_index) {
+            profile.set_name(name);
         }
     }
 
     fn profile_description(&self, profile_index: usize) -> String {
-        unsafe {
-            from_glib_full(gnome_cmd_search_profiles_get_description(
-                self.0,
-                profile_index as u32,
-            ))
-        }
+        self.profile(profile_index)
+            .map(|p| p.filename_pattern())
+            .unwrap_or_default()
     }
 
     fn reset_profile(&self, profile_index: usize) {
-        unsafe { gnome_cmd_search_profiles_reset(self.0, profile_index as u32) }
+        if let Some(profile) = self.profile(profile_index) {
+            profile.reset();
+        }
     }
 
     fn duplicate_profile(&self, profile_index: usize) -> usize {
-        unsafe { gnome_cmd_search_profiles_duplicate(self.0, profile_index as u32) as usize }
+        let profile = self
+            .profile(profile_index)
+            .map(|p| p.deep_clone())
+            .unwrap_or_default();
+        self.profiles.append(&profile);
+        self.profiles.n_items() as usize - 1
     }
 
     fn pick(&self, indexes: &[usize]) {
-        let indexes_u32: Vec<u32> = indexes.iter().map(|i| *i as u32).collect();
-        unsafe {
-            gnome_cmd_search_profiles_pick(self.0, indexes_u32.as_ptr(), indexes.len() as u32)
+        let picked: Vec<_> = indexes
+            .iter()
+            .filter_map(|i| self.profiles.item(*i as u32))
+            .collect();
+        self.profiles.remove_all();
+        for p in picked {
+            self.profiles.append(&p);
         }
     }
 }
@@ -187,7 +171,7 @@ impl ProfileManager for SearchProfileManager {
     ) -> gtk::Widget {
         let widget_ptr = unsafe {
             gnome_cmd_search_profile_component_new(
-                self.profiles.profile(profile_index).0,
+                self.profiles.profile(profile_index).to_glib_none().0,
                 labels_size_group.to_glib_none().0,
             )
         };
@@ -279,9 +263,7 @@ pub extern "C" fn gnome_cmd_search_dialog_do_manage_profiles(
     let cfg = unsafe { SearchConfig::from_ptr(cfg_ptr) };
 
     glib::spawn_future_local(async move {
-        let profiles = SearchProfiles(unsafe {
-            gnome_cmd_search_config_new_profiles(cfg.as_ptr(), new_profile)
-        });
+        let profiles = SearchProfiles::new(&cfg, new_profile != 0);
 
         if new_profile != 0 {
             let last_index = profiles.len() - 1;
@@ -300,9 +282,7 @@ pub extern "C" fn gnome_cmd_search_dialog_do_manage_profiles(
         .await
         {
             let profiles = manager.profiles.clone();
-            unsafe {
-                gnome_cmd_search_config_take_profiles(cfg.as_ptr(), profiles.0);
-            }
+            cfg.set_profiles(&profiles.profiles);
             unsafe {
                 gnome_cmd_search_dialog_update_profile_menu(dialog_ptr);
             }

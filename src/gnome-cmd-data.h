@@ -210,6 +210,10 @@ GSettings *gcmd_settings_get_general (GcmdSettings *);
 
 struct GnomeCmdConRemote;
 
+extern "C" GType gnome_cmd_search_profile_get_type();
+struct SearchProfile;
+extern "C" void gnome_cmd_search_profile_copy_from(SearchProfile *dst, SearchProfile *src);
+
 struct GnomeCmdData
 {
     typedef enum
@@ -459,40 +463,27 @@ struct GnomeCmdData
         void on_size_display_mode_changed();
     };
 
-    struct SearchProfile
-    {
-        std::string name;
-        std::string filename_pattern;
-        Filter::Type syntax {Filter::TYPE_REGEX};
-        int max_depth {-1};
-        std::string text_pattern;
-        gboolean content_search {FALSE};
-        gboolean match_case {FALSE};
-
-        const std::string &description() const    {  return filename_pattern;  }
-        void reset();
-
-        ~SearchProfile();
-    };
-
     struct SearchConfig
     {
-        SearchProfile default_profile;
+        SearchProfile *default_profile;
 
         History name_patterns;
         History content_patterns;
 
-        std::vector<SearchProfile> &profiles;
+        GListStore *profiles; // SearchProfile's
 
-        explicit SearchConfig(std::vector<SearchProfile> &searchProfiles):
+        explicit SearchConfig():
             name_patterns(SEARCH_HISTORY_SIZE),
-            content_patterns(SEARCH_HISTORY_SIZE),
-            profiles(searchProfiles)
+            content_patterns(SEARCH_HISTORY_SIZE)
         {
-            default_profile.name = "Default";
+            default_profile = (SearchProfile *) g_object_new (gnome_cmd_search_profile_get_type (), "name", "Default", nullptr);
+            profiles = g_list_store_new (gnome_cmd_search_profile_get_type ());
         }
 
-        ~SearchConfig() {};
+        ~SearchConfig() {
+            g_object_unref(default_profile);
+            g_object_unref(profiles);
+        };
     };
 
     struct AdvrenameConfig
@@ -547,14 +538,11 @@ struct GnomeCmdData
     void save_devices();
     void add_advrename_profile_to_gvariant_builder(GVariantBuilder *builder, AdvrenameConfig::Profile profile);
     gboolean add_bookmark_to_gvariant_builder(GVariantBuilder *builder, std::string bookmarkName, GnomeCmdCon *con);
-    void add_search_profile_to_gvariant_builder(GVariantBuilder *builder, SearchProfile searchProfile);
 
   public:
 
     Options                      options;
     GcmdSettings                 *settings {nullptr};
-
-    std::vector<SearchProfile>   profiles;
 
     SearchConfig                 search_defaults;
     AdvrenameConfig              advrename_defaults;
@@ -583,8 +571,6 @@ struct GnomeCmdData
     void load_more();
     void load_advrename_profiles ();
     void save_advrename_profiles ();
-    void load_search_profiles ();
-    void save_search_profiles ();
     void save_bookmarks();
     void load_bookmarks();
     void save(GnomeCmdMainWin *main_win);

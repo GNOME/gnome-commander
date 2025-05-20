@@ -124,6 +124,8 @@ pub async fn edit_profile(
         sender,
         #[weak]
         entry,
+        #[weak]
+        component,
         move |_| {
             manager.set_profile_name(profile_index, &entry.text());
             manager.copy_component(profile_index, &component);
