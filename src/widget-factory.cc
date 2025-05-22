@@ -102,23 +102,6 @@ GtkWidget *create_label (GtkWidget *parent, const gchar *text)
 }
 
 
-GtkWidget *create_label_with_mnemonic (GtkWidget *parent, const gchar *text, GtkWidget *for_widget)
-{
-    GtkWidget *label = gtk_label_new_with_mnemonic (text);
-
-    if (for_widget)
-        gtk_label_set_mnemonic_widget (GTK_LABEL (label), for_widget);
-
-    g_object_ref (label);
-    g_object_set_data_full (G_OBJECT (parent), "label", label, g_object_unref);
-    gtk_widget_show (label);
-    gtk_widget_set_halign (label, GTK_ALIGN_START);
-    gtk_widget_set_valign (label, GTK_ALIGN_CENTER);
-
-    return label;
-}
-
-
 GtkWidget *create_bold_label (GtkWidget *parent, const gchar *text)
 {
     GtkWidget *label = create_label (parent, text);
@@ -257,15 +240,4 @@ GtkWidget *create_combo_box_text (GtkWidget *parent, const gchar **items)
             gtk_combo_box_text_append_text ((GtkComboBoxText*) combo, items[i]);
 
     return combo;
-}
-
-
-GtkWidget *create_progress_bar (GtkWidget *parent)
-{
-    GtkWidget *w = gtk_progress_bar_new ();
-    g_object_ref (w);
-    g_object_set_data_full (G_OBJECT (parent), "progress_bar", w, g_object_unref);
-    gtk_widget_show (w);
-    gtk_progress_bar_set_show_text (GTK_PROGRESS_BAR (w), TRUE);
-    return w;
 }

@@ -160,7 +160,7 @@ impl ProfileManager for SearchProfileManager {
         profile_index: usize,
         labels_size_group: &gtk::SizeGroup,
     ) -> gtk::Widget {
-        let widget = SelectionProfileComponent::new(
+        let widget = SelectionProfileComponent::with_profile(
             &self.profiles.profile(profile_index).unwrap(),
             Some(labels_size_group),
         );
@@ -188,18 +188,67 @@ impl ProfileManager for SearchProfileManager {
 
 mod imp {
     use super::*;
-    use crate::data::GeneralOptions;
+    use crate::{
+        data::GeneralOptions, file_list::list::FileList, select_directory_button::DirectoryButton,
+        tags::tags::FileMetadataService,
+    };
+    use std::cell::{OnceCell, RefCell};
 
-    #[derive(Default)]
-    pub struct SearchDialog {}
+    #[derive(glib::Properties)]
+    #[properties(wrapper_type = super::SearchDialog)]
+    pub struct SearchDialog {
+        pub labels_size_group: gtk::SizeGroup,
+
+        #[property(get, construct_only)]
+        pub file_metadata_service: OnceCell<FileMetadataService>,
+
+        #[property(get, set)]
+        pub dir_browser: RefCell<DirectoryButton>,
+        #[property(get, set)]
+        pub profile_component: RefCell<SelectionProfileComponent>,
+        #[property(get, set)]
+        pub result_list: RefCell<Option<FileList>>,
+        #[property(get, set)]
+        pub status_label: RefCell<gtk::Label>,
+        #[property(get, set)]
+        pub progress_bar: RefCell<gtk::ProgressBar>,
+        #[property(get, set)]
+        pub profile_menu_button: RefCell<gtk::MenuButton>,
+    }
 
     #[glib::object_subclass]
     impl ObjectSubclass for SearchDialog {
         const NAME: &'static str = "GnomeCmdSearchDialog";
         type Type = super::SearchDialog;
         type ParentType = gtk::Dialog;
+
+        fn new() -> Self {
+            let labels_size_group = gtk::SizeGroup::new(gtk::SizeGroupMode::Horizontal);
+            Self {
+                file_metadata_service: Default::default(),
+                dir_browser: Default::default(),
+                profile_component: RefCell::new(SelectionProfileComponent::new(Some(
+                    &labels_size_group,
+                ))),
+                result_list: Default::default(),
+                status_label: Default::default(),
+                progress_bar: RefCell::new(
+                    gtk::ProgressBar::builder()
+                        .show_text(false)
+                        .pulse_step(0.02)
+                        .build(),
+                ),
+                profile_menu_button: RefCell::new(
+                    gtk::MenuButton::builder()
+                        .label(gettext("Profiles…"))
+                        .build(),
+                ),
+                labels_size_group,
+            }
+        }
     }
 
+    #[glib::derived_properties]
     impl ObjectImpl for SearchDialog {
         fn constructed(&self) {
             self.parent_constructed();
@@ -208,6 +257,58 @@ mod imp {
 
             this.set_title(Some(&gettext("Search…")));
             this.set_resizable(true);
+
+            let grid = gtk::Grid::builder()
+                .margin_top(12)
+                .margin_bottom(12)
+                .margin_start(12)
+                .margin_end(12)
+                .row_spacing(6)
+                .column_spacing(12)
+                .build();
+            this.content_area().append(&grid);
+
+            // search in
+            let dir_browser_label = gtk::Label::builder()
+                .label(gettext("_Look in folder:"))
+                .use_underline(true)
+                .mnemonic_widget(&*self.dir_browser.borrow())
+                .halign(gtk::Align::Start)
+                .valign(gtk::Align::Center)
+                .xalign(0.0)
+                .build();
+            self.labels_size_group.add_widget(&dir_browser_label);
+            grid.attach(&dir_browser_label, 0, 0, 1, 1);
+
+            let dir_browser = this.dir_browser();
+            dir_browser.set_hexpand(true);
+            grid.attach(&dir_browser, 1, 0, 1, 1);
+
+            // profile
+            grid.attach(&this.profile_component(), 0, 1, 2, 1);
+
+            // file list
+            let result_list = FileList::new(&this.file_metadata_service());
+            result_list.set_height_request(200);
+            self.result_list.replace(Some(result_list.clone()));
+
+            let sw = gtk::ScrolledWindow::builder()
+                .vexpand(true)
+                .hscrollbar_policy(gtk::PolicyType::Automatic)
+                .vscrollbar_policy(gtk::PolicyType::Automatic)
+                .child(&result_list)
+                .build();
+            grid.attach(&sw, 0, 2, 2, 1);
+
+            // status & progress
+            let statusbar = gtk::Box::builder()
+                .orientation(gtk::Orientation::Horizontal)
+                .spacing(6)
+                .build();
+            statusbar.append(&this.status_label());
+            statusbar.append(&this.progress_bar());
+            this.progress_bar().set_visible(false);
+            grid.attach(&statusbar, 0, 3, 2, 1);
 
             unsafe {
                 gnome_cmd_search_dialog_init(this.to_glib_none().0);

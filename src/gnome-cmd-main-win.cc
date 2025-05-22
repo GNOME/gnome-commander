@@ -462,7 +462,9 @@ GnomeCmdSearchDialog *GnomeCmdMainWin::get_or_create_search_dialog ()
     auto dlg = static_cast<GnomeCmdSearchDialog*>(g_weak_ref_get (&priv->file_search_dlg));
     if (!dlg)
     {
-        dlg = gnome_cmd_search_dialog_new (&gnome_cmd_data.search_defaults);
+        dlg = gnome_cmd_search_dialog_new (&gnome_cmd_data.search_defaults,
+            gnome_cmd_main_win_get_file_metadata_service (this),
+            gnome_cmd_data.options.search_window_is_transient ? GTK_WINDOW (this) : nullptr);
         g_weak_ref_set (&priv->file_search_dlg, dlg);
     }
     return dlg;

@@ -250,7 +250,16 @@ glib::wrapper! {
 }
 
 impl SelectionProfileComponent {
-    pub fn new(profile: &SearchProfile, labels_size_group: Option<&gtk::SizeGroup>) -> Self {
+    pub fn new(labels_size_group: Option<&gtk::SizeGroup>) -> Self {
+        glib::Object::builder()
+            .property("labels-size-group", labels_size_group)
+            .build()
+    }
+
+    pub fn with_profile(
+        profile: &SearchProfile,
+        labels_size_group: Option<&gtk::SizeGroup>,
+    ) -> Self {
         glib::Object::builder()
             .property("profile", profile)
             .property("labels-size-group", labels_size_group)

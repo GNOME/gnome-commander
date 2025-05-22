@@ -28,6 +28,7 @@ use crate::{
     file::{ffi::GnomeCmdFile, File},
     filter::{fnmatch, Filter},
     libgcmd::file_descriptor::FileDescriptorExt,
+    tags::tags::FileMetadataService,
     types::SizeDisplayMode,
     utils::size_to_string,
 };
@@ -205,6 +206,12 @@ enum DataColumns {
 }
 
 impl FileList {
+    pub fn new(file_metadata_service: &FileMetadataService) -> Self {
+        glib::Object::builder()
+            .property("file-metadata-service", file_metadata_service)
+            .build()
+    }
+
     fn tree_view(&self) -> gtk::TreeView {
         unsafe {
             from_glib_none(ffi::gnome_cmd_file_list_get_tree_view(

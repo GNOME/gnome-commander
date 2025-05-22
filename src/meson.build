@@ -58,7 +58,6 @@ sources_sources = files(
   'gnome-cmd-file-list.cc',
   'gnome-cmd-file-selector.cc',
   'gnome-cmd-main-win.cc',
-  'gnome-cmd-selection-profile-component.cc',
   'gnome-cmd-treeview.cc',
   'gnome-cmd-user-actions.cc',
   'gnome-cmd-xfer.cc',
