@@ -65,9 +65,6 @@ struct GnomeCmdFileList
 
   public:
 
-    void *operator new (size_t size);
-    void operator delete (void *p)      {  g_object_unref (p);  }
-
     operator GObject * () const         {  return G_OBJECT (this);         }
     operator GtkWidget * () const       {  return GTK_WIDGET (this);       }
 
@@ -84,8 +81,6 @@ struct GnomeCmdFileList
         COLUMN_GROUP,
         NUM_COLUMNS
     };
-
-    GnomeCmdFileList(ColumnID sort_col, GtkSortType sort_order);
 
     guint size();
     bool empty()                          {  return size() == 0; }
@@ -194,12 +189,6 @@ struct GnomeCmdFileList
     bool is_selected_iter(GtkTreeIter *iter);
 };
 
-
-inline void *GnomeCmdFileList::operator new (size_t size)
-{
-    return g_object_new (GNOME_CMD_TYPE_FILE_LIST, nullptr);
-}
-
 inline void GnomeCmdFileList::remove_files (GList *files)
 {
     for (; files; files = files->next)
@@ -238,6 +227,7 @@ extern "C" GnomeCmdFile *gnome_cmd_file_list_get_focused_file(GnomeCmdFileList *
 extern "C" GnomeCmdCon *gnome_cmd_file_list_get_connection(GnomeCmdFileList *fl);
 extern "C" GnomeCmdDir *gnome_cmd_file_list_get_directory(GnomeCmdFileList *fl);
 
+extern "C" void gnome_cmd_file_list_set_sorting (GnomeCmdFileList *fl, GnomeCmdFileList::ColumnID sort_col, GtkSortType sort_order);
 extern "C" gint /* ColumnID */ gnome_cmd_file_list_get_sort_column (GnomeCmdFileList *fl);
 extern "C" gint /* GtkSortType */ gnome_cmd_file_list_get_sort_order (GnomeCmdFileList *fl);
 

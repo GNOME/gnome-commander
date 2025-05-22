@@ -243,6 +243,12 @@ static void init_private(GnomeCmdFileList *fl)
 
     memset(priv->sort_raising, GTK_SORT_ASCENDING, sizeof(priv->sort_raising));
 
+    priv->current_col = GnomeCmdFileList::COLUMN_NAME;
+    priv->sorter = file_list_column[GnomeCmdFileList::COLUMN_NAME].sorter_factory (
+        gnome_cmd_data.options.case_sens_sort,
+        gnome_cmd_data.options.symbolic_links_as_regular_files,
+        GTK_SORT_ASCENDING);
+
     priv->store = gtk_list_store_new (NUM_DATA_COLUMNS,
         G_TYPE_ICON,                   // COLUMN_ICON
         G_TYPE_STRING,                 // COLUMN_NAME
@@ -493,33 +499,17 @@ static void gnome_cmd_file_list_drop_files_cancel (GSimpleAction *action, GVaria
 }
 
 
-GnomeCmdFileList::GnomeCmdFileList(ColumnID sort_col, GtkSortType sort_order)
+extern "C" void gnome_cmd_file_list_set_sorting (GnomeCmdFileList *fl, GnomeCmdFileList::ColumnID sort_col, GtkSortType sort_order)
 {
-    auto priv = file_list_priv (this);
+    auto priv = file_list_priv (fl);
 
-#if defined (__GNUC__)
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wuninitialized"
-#endif
     priv->current_col = sort_col;
-#if defined (__GNUC__)
-#pragma GCC diagnostic pop
-#endif
-
     priv->sort_raising[sort_col] = sort_order;
-    priv->sorter = file_list_column[sort_col].sorter_factory (
-        gnome_cmd_data.options.case_sens_sort,
-        gnome_cmd_data.options.symbolic_links_as_regular_files,
-        sort_order);
-    priv->color_theme = gnome_cmd_get_current_theme();
-    priv->ls_palette = gnome_cmd_get_palette();
-
-    gtk_widget_add_css_class (GTK_WIDGET (priv->view), "gnome-cmd-file-list");
-
-    GtkTreeSelection *selection = gtk_tree_view_get_selection (priv->view);
-    gtk_tree_selection_set_mode (selection, GTK_SELECTION_BROWSE);
-
-    gtk_tree_view_set_model (priv->view, GTK_TREE_MODEL (priv->store));
+    g_set_object(&priv->sorter,
+        file_list_column[sort_col].sorter_factory (
+            gnome_cmd_data.options.case_sens_sort,
+            gnome_cmd_data.options.symbolic_links_as_regular_files,
+            sort_order));
 }
 
 
@@ -863,17 +853,12 @@ static void on_column_clicked (GtkTreeViewColumn *column, GnomeCmdFileList *fl)
     if (col < 0)
         return;
 
-    priv->sort_raising[col] = priv->current_col == col
+    GtkSortType sort_type = priv->current_col == col
         ? (GtkSortType) !priv->sort_raising[col]
         : file_list_column[col].default_sort_direction;
 
-    g_set_object(&priv->sorter,
-        file_list_column[col].sorter_factory (
-            gnome_cmd_data.options.case_sens_sort,
-            gnome_cmd_data.options.symbolic_links_as_regular_files,
-            priv->sort_raising[col]));
+    gnome_cmd_file_list_set_sorting (fl, (GnomeCmdFileList::ColumnID) col, sort_type);
 
-    priv->current_col = col;
     update_column_sort_arrows (fl);
 
     fl->sort();
@@ -1307,6 +1292,16 @@ extern "C" void gnome_cmd_file_list_init (GnomeCmdFileList *fl)
     gtk_event_controller_set_propagation_phase(key_controller, GTK_PHASE_CAPTURE);
     gtk_widget_add_controller (GTK_WIDGET (fl), GTK_EVENT_CONTROLLER (key_controller));
     g_signal_connect (key_controller, "key-pressed", G_CALLBACK (gnome_cmd_file_list_key_pressed), fl);
+
+    priv->color_theme = gnome_cmd_get_current_theme();
+    priv->ls_palette = gnome_cmd_get_palette();
+
+    gtk_widget_add_css_class (GTK_WIDGET (priv->view), "gnome-cmd-file-list");
+
+    GtkTreeSelection *selection = gtk_tree_view_get_selection (priv->view);
+    gtk_tree_selection_set_mode (selection, GTK_SELECTION_BROWSE);
+
+    gtk_tree_view_set_model (priv->view, GTK_TREE_MODEL (priv->store));
 }
 
 
