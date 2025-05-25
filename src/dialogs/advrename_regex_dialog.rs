@@ -30,6 +30,7 @@ use gtk::{
     prelude::*,
 };
 
+#[derive(Clone)]
 pub struct RegexReplace {
     pub pattern: String,
     pub replacement: String,

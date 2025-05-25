@@ -105,17 +105,24 @@ inline GMenu *create_placeholder_menu(GnomeCmdData::AdvrenameConfig *cfg)
 
     g_menu_append (menu, _("_Save Profile As…"), "advrename.save-profile");
 
-    if (!cfg->profiles.empty())
+    guint count = g_list_model_get_n_items (G_LIST_MODEL (cfg->profiles));
+    if (count > 0)
     {
         g_menu_append (menu, _("_Manage Profiles…"), "advrename.manage-profiles");
 
         GMenu *profiles = g_menu_new ();
-        gint i = 0;
-        for (vector<GnomeCmdData::AdvrenameConfig::Profile>::const_iterator p=cfg->profiles.begin(); p!=cfg->profiles.end(); ++p, ++i)
+        for (guint i = 0; i < count; ++i)
         {
-            GMenuItem *item = g_menu_item_new (p->name.c_str(), nullptr);
+            auto p = (AdvancedRenameProfile *) g_list_model_get_item (G_LIST_MODEL (cfg->profiles), i);
+
+            gchar *name;
+            g_object_get (p, "name", &name, nullptr);
+
+            GMenuItem *item = g_menu_item_new (name, nullptr);
             g_menu_item_set_action_and_target (item, "advrename.load-profile", "i", i);
             g_menu_append_item (profiles, item);
+
+            g_free (name);
         }
         g_menu_append_section (menu, nullptr, G_MENU_MODEL (profiles));
     }
@@ -167,9 +174,10 @@ static void load_profile(GSimpleAction *action, GVariant *parameter, gpointer us
 
     GnomeCmdData::AdvrenameConfig &cfg = dialog->defaults;
 
-    g_return_if_fail (profile_idx < cfg.profiles.size());
+    auto profile = (AdvancedRenameProfile *) g_list_model_get_item (G_LIST_MODEL (cfg.profiles), profile_idx);
+    g_return_if_fail (profile != nullptr);
 
-    cfg.default_profile = cfg.profiles[profile_idx];
+    gnome_cmd_advanced_rename_profile_copy_from (cfg.default_profile, profile);
     dialog->priv->profile_component->update();
 
     dialog->update_new_filenames();     //  FIXME:  ??
@@ -490,7 +498,7 @@ void GnomeCmdAdvrenameDialog::Private::on_dialog_response (GnomeCmdAdvrenameDial
             break;
 
         case GCMD_RESPONSE_RESET:
-            dialog->defaults.default_profile.reset();
+            gnome_cmd_advanced_rename_profile_reset (dialog->defaults.default_profile);
             dialog->priv->profile_component->update();
             break;
 
@@ -639,6 +647,15 @@ void GnomeCmdAdvrenameDialog::update_new_filenames()
 
     vector<GnomeCmd::RegexReplace> rx = priv->profile_component->get_valid_regexes();
 
+    guint counter_start;
+    guint counter_width;
+    gint counter_step;
+    g_object_get (defaults.default_profile,
+        "counter-start", &counter_start,
+        "counter-width", &counter_width,
+        "counter-step", &counter_step,
+        nullptr);
+
     gulong index = 0;
     for (gboolean valid_iter=gtk_tree_model_get_iter_first (files, &i); valid_iter; valid_iter=gtk_tree_model_iter_next (files, &i))
     {
@@ -653,9 +670,9 @@ void GnomeCmdAdvrenameDialog::update_new_filenames()
             continue;
 
         gchar *fname = gnome_cmd_advrename_gen_fname (priv->rename_template,
-                                                      defaults.default_profile.counter_start,
-                                                      defaults.default_profile.counter_step,
-                                                      defaults.default_profile.counter_width,
+                                                      counter_start,
+                                                      counter_step,
+                                                      counter_width,
                                                       index++,
                                                       count,
                                                       f,
