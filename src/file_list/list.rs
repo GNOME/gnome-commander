@@ -220,6 +220,13 @@ impl FileList {
         }
     }
 
+    pub fn size(&self) -> usize {
+        self.tree_view()
+            .model()
+            .and_then(|m| m.iter_n_children(None).try_into().ok())
+            .unwrap_or_default()
+    }
+
     pub fn visible_files(&self) -> glib::List<File> {
         let mut files = glib::List::new();
         self.traverse_files::<()>(|file, _iter, _store| {
@@ -340,6 +347,16 @@ impl FileList {
                 focus_file.to_glib_none().0,
                 if scroll_to_file { 1 } else { 0 },
             )
+        }
+    }
+
+    pub fn select_row(&self, row: Option<gtk::TreeIter>) {
+        let tree_view = self.tree_view();
+        let Some(store) = tree_view.model().and_downcast::<gtk::ListStore>() else {
+            return;
+        };
+        if let Some(row) = row.or_else(|| store.iter_first()) {
+            self.focus_file_at_row(&row);
         }
     }
 

@@ -20,7 +20,9 @@
  * For more details see the file COPYING.
  */
 
-use super::{bookmark::Bookmark, history::History};
+use super::{
+    bookmark::Bookmark, device::ConnectionDevice, history::History, remote::ConnectionRemote,
+};
 use crate::{dir::Directory, path::GnomeCmdPath};
 use gtk::{
     gio::{
@@ -166,6 +168,22 @@ impl Connection {
 
     pub fn dir_history(&self) -> &History<String> {
         &self.private().history
+    }
+
+    pub fn find_mount(&self) -> Option<gio::Mount> {
+        if let Some(device) = self.downcast_ref::<ConnectionDevice>() {
+            if let Some(mount_path) = device.mountp_string() {
+                let file = gio::File::for_path(mount_path);
+                file.find_enclosing_mount(gio::Cancellable::NONE).ok()
+            } else {
+                device.mount()
+            }
+        } else if let Some(remote) = self.downcast_ref::<ConnectionRemote>() {
+            let file = gio::File::for_uri(&remote.uri_string()?);
+            file.find_enclosing_mount(gio::Cancellable::NONE).ok()
+        } else {
+            None
+        }
     }
 }
 

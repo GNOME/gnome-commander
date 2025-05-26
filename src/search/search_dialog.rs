@@ -1,5 +1,5 @@
 /*
- * Copyright 2024 Andrey Kutejko <andy128k@gmail.com>
+ * Copyright 2025 Andrey Kutejko <andy128k@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -21,8 +21,11 @@ use super::{profile::SearchProfile, selection_profile_component::SelectionProfil
 use crate::{
     data::SearchConfig,
     dialogs::profiles::{manage_profiles_dialog::manage_profiles, profiles::ProfileManager},
+    dir::ffi::GnomeCmdDir,
+    file::ffi::GnomeCmdFile,
 };
-use gettextrs::gettext;
+use gettextrs::{gettext, ngettext};
+use glib::translate::{from_glib_borrow, Borrowed};
 use gtk::{
     gio,
     glib::{
@@ -189,8 +192,17 @@ impl ProfileManager for SearchProfileManager {
 mod imp {
     use super::*;
     use crate::{
-        data::GeneralOptions, file_list::list::FileList, select_directory_button::DirectoryButton,
+        connection::{
+            connection::{Connection, ConnectionExt},
+            list::ConnectionList,
+        },
+        data::GeneralOptions,
+        dir::Directory,
+        file::File,
+        file_list::list::FileList,
+        select_directory_button::DirectoryButton,
         tags::tags::FileMetadataService,
+        utils::{dialog_button_box, display_help, ErrorMessage},
     };
     use std::cell::{OnceCell, RefCell};
 
@@ -214,13 +226,17 @@ mod imp {
         pub progress_bar: RefCell<gtk::ProgressBar>,
         #[property(get, set)]
         pub profile_menu_button: RefCell<gtk::MenuButton>,
+
+        jump_button: gtk::Button,
+        stop_button: gtk::Button,
+        find_button: gtk::Button,
     }
 
     #[glib::object_subclass]
     impl ObjectSubclass for SearchDialog {
         const NAME: &'static str = "GnomeCmdSearchDialog";
         type Type = super::SearchDialog;
-        type ParentType = gtk::Dialog;
+        type ParentType = gtk::Window;
 
         fn new() -> Self {
             let labels_size_group = gtk::SizeGroup::new(gtk::SizeGroupMode::Horizontal);
@@ -243,6 +259,22 @@ mod imp {
                         .label(gettext("Profiles…"))
                         .build(),
                 ),
+
+                jump_button: gtk::Button::builder()
+                    .label(gettext("_Jump to"))
+                    .use_underline(true)
+                    .sensitive(false)
+                    .build(),
+                stop_button: gtk::Button::builder()
+                    .label(gettext("_Stop"))
+                    .use_underline(true)
+                    .sensitive(false)
+                    .build(),
+                find_button: gtk::Button::builder()
+                    .label(gettext("_Find"))
+                    .use_underline(true)
+                    .build(),
+
                 labels_size_group,
             }
         }
@@ -266,7 +298,7 @@ mod imp {
                 .row_spacing(6)
                 .column_spacing(12)
                 .build();
-            this.content_area().append(&grid);
+            this.set_child(Some(&grid));
 
             // search in
             let dir_browser_label = gtk::Label::builder()
@@ -314,6 +346,71 @@ mod imp {
                 gnome_cmd_search_dialog_init(this.to_glib_none().0);
             }
 
+            let help_button = gtk::Button::builder()
+                .label(gettext("_Help"))
+                .use_underline(true)
+                .build();
+            help_button.connect_clicked(glib::clone!(
+                #[weak]
+                this,
+                move |_| {
+                    glib::spawn_future_local(async move {
+                        display_help(this.upcast_ref(), Some("gnome-commander-search")).await;
+                    });
+                }
+            ));
+
+            let close_button = gtk::Button::builder()
+                .label(gettext("_Close"))
+                .use_underline(true)
+                .build();
+            close_button.connect_clicked(glib::clone!(
+                #[weak]
+                this,
+                move |_| this.close()
+            ));
+
+            self.jump_button.connect_clicked(glib::clone!(
+                #[weak(rename_to = imp)]
+                self,
+                move |_| imp.jump()
+            ));
+            self.stop_button.connect_clicked(glib::clone!(
+                #[weak(rename_to = imp)]
+                self,
+                move |_| imp.stop()
+            ));
+            self.find_button.connect_clicked(glib::clone!(
+                #[weak(rename_to = imp)]
+                self,
+                move |_| {
+                    glib::spawn_future_local(async move {
+                        imp.find().await;
+                    });
+                }
+            ));
+
+            this.set_default_widget(Some(&self.find_button));
+
+            grid.attach(
+                &dialog_button_box(
+                    &[&help_button],
+                    &[
+                        self.profile_menu_button
+                            .borrow()
+                            .upcast_ref::<gtk::Widget>(),
+                        close_button.upcast_ref(),
+                        self.jump_button.upcast_ref(),
+                        self.stop_button.upcast_ref(),
+                        self.find_button.upcast_ref(),
+                    ],
+                ),
+                0,
+                4,
+                2,
+                1,
+            );
+
             let options = GeneralOptions::new();
 
             remember_window_size(&*this, &options.0);
@@ -327,11 +424,124 @@ mod imp {
     impl WidgetImpl for SearchDialog {}
     impl WindowImpl for SearchDialog {}
     impl DialogImpl for SearchDialog {}
+
+    impl SearchDialog {
+        fn selected_file(&self) -> Option<File> {
+            let result_list = self.obj().result_list()?;
+            let file = result_list.selected_file()?;
+            Some(file)
+        }
+
+        fn jump(&self) {
+            if let Some(file) = self.selected_file() {
+                self.obj().close();
+
+                unsafe {
+                    gnome_cmd_search_dialog_goto(self.obj().to_glib_none().0, file.to_glib_none().0)
+                };
+            }
+        }
+
+        fn stop(&self) {
+            self.stop_button.set_sensitive(false);
+            self.obj().set_default_widget(Some(&self.find_button));
+            unsafe {
+                gnome_cmd_search_dialog_stop(self.obj().to_glib_none().0);
+            }
+        }
+
+        fn find_connection_and_mount(&self, file: &gio::File) -> Option<(Connection, gio::Mount)> {
+            let mount = file.find_enclosing_mount(gio::Cancellable::NONE).ok()?;
+            ConnectionList::get()
+                .all()
+                .iter::<Connection>()
+                .flatten()
+                .find(|con| con.find_mount().as_ref() == Some(&mount))
+                .map(move |con| (con, mount))
+        }
+
+        fn start_directory(&self, file: &gio::File) -> Option<Directory> {
+            if let Some((connection, mount)) = self.find_connection_and_mount(file) {
+                let path = mount.root().relative_path(file)?;
+                Some(Directory::new(&connection, connection.create_path(&path)))
+            } else if file.uri_scheme().as_deref() == Some("file") {
+                let connection = ConnectionList::get().home();
+                Some(Directory::new(
+                    &connection,
+                    connection.create_path(&file.path()?),
+                ))
+            } else {
+                None
+            }
+        }
+
+        async fn find(&self) {
+            let Some(file) = self.dir_browser.borrow().file() else {
+                return;
+            };
+
+            let Some(start_dir) = self.start_directory(&file) else {
+                ErrorMessage::brief(gettext("Failed to detect a start directory"))
+                    .show(self.obj().upcast_ref())
+                    .await;
+                return;
+            };
+
+            let search_started = unsafe {
+                gnome_cmd_search_dialog_find(
+                    self.obj().to_glib_none().0,
+                    start_dir.to_glib_none().0,
+                ) != 0
+            };
+
+            if search_started {
+                self.jump_button.set_sensitive(false);
+                self.stop_button.set_sensitive(true);
+                self.find_button.set_sensitive(false);
+                self.obj().set_default_widget(Some(&self.stop_button));
+            }
+        }
+
+        pub fn search_finished(&self, stopped: bool) {
+            self.progress_bar.borrow().set_visible(false);
+
+            let Some(result_list) = self.obj().result_list() else {
+                return;
+            };
+
+            let count = result_list.size();
+
+            let status = if stopped {
+                ngettext(
+                    "Found {} match — search aborted",
+                    "Found {} matches — search aborted",
+                    count as u32,
+                )
+            } else {
+                ngettext("Found {} match", "Found {} matches", count as u32)
+            }
+            .replace("{}", count.to_string().as_str());
+
+            self.status_label.borrow().set_label(&status);
+
+            self.jump_button.set_sensitive(count > 0);
+            self.stop_button.set_sensitive(false);
+            self.find_button.set_sensitive(true);
+            self.obj().set_default_widget(Some(&self.find_button));
+
+            if count > 0 {
+                result_list.grab_focus();
+                if result_list.focused_file().is_none() {
+                    result_list.select_row(None);
+                }
+            }
+        }
+    }
 }
 
 glib::wrapper! {
     pub struct SearchDialog(ObjectSubclass<imp::SearchDialog>)
-        @extends gtk::Widget, gtk::Window, gtk::Dialog;
+        @extends gtk::Widget, gtk::Window;
 }
 
 type GnomeCmdSearchDialog = <SearchDialog as glib::object::ObjectType>::GlibType;
@@ -345,6 +555,22 @@ extern "C" {
     fn gnome_cmd_search_dialog_init(dialog: *mut GnomeCmdSearchDialog);
     fn gnome_cmd_search_dialog_dispose(dialog: *mut GnomeCmdSearchDialog);
     fn gnome_cmd_search_dialog_update_profile_menu(dialog: *mut GnomeCmdSearchDialog);
+
+    fn gnome_cmd_search_dialog_goto(dialog: *mut GnomeCmdSearchDialog, file: *mut GnomeCmdFile);
+    fn gnome_cmd_search_dialog_stop(dialog: *mut GnomeCmdSearchDialog);
+    fn gnome_cmd_search_dialog_find(
+        dialog: *mut GnomeCmdSearchDialog,
+        start_dir: *mut GnomeCmdDir,
+    ) -> gboolean;
+}
+
+#[no_mangle]
+pub extern "C" fn gnome_cmd_search_dialog_search_finished(
+    dialog_ptr: *mut GnomeCmdSearchDialog,
+    stopped: gboolean,
+) {
+    let dialog: Borrowed<SearchDialog> = unsafe { from_glib_borrow(dialog_ptr) };
+    dialog.imp().search_finished(stopped != 0);
 }
 
 #[no_mangle]

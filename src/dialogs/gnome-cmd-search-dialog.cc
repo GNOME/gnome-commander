@@ -510,6 +510,9 @@ static gpointer perform_search_operation (SearchData *data)
     return nullptr;
 }
 
+
+extern "C" void gnome_cmd_search_dialog_search_finished (GnomeCmdSearchDialog *, gboolean stopped);
+
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wformat-nonliteral"
 
@@ -551,32 +554,7 @@ static gboolean update_search_status_widgets (SearchData *data)
 
     if (!data->dialog_destroyed)
     {
-        int matches = result_list->size();
-
-        gchar *fmt = data->stopped ? ngettext("Found %d match — search aborted", "Found %d matches — search aborted", matches) :
-                                     ngettext("Found %d match", "Found %d matches", matches);
-
-        gchar *msg = g_strdup_printf (fmt, matches);
-
-        data->set_statusmsg(msg);
-        g_free (msg);
-
-        gtk_widget_hide (GTK_WIDGET (progress_bar));
-
-        gtk_dialog_set_response_sensitive (GTK_DIALOG (data->dialog), GCMD_RESPONSE_GOTO, matches>0);
-        gtk_dialog_set_response_sensitive (GTK_DIALOG (data->dialog), GCMD_RESPONSE_STOP, FALSE);
-        gtk_dialog_set_response_sensitive (GTK_DIALOG (data->dialog), GCMD_RESPONSE_FIND, TRUE);
-        gtk_dialog_set_default_response (GTK_DIALOG (data->dialog), GCMD_RESPONSE_FIND);
-
-        if (matches)
-        {
-            gtk_widget_grab_focus (GTK_WIDGET (result_list));         // set focus to result list
-            // select one file, as matches is non-zero, there should be at least one entry
-            if (!result_list->get_focused_file())
-            {
-                result_list->select_row(0);
-            }
-        }
+        gnome_cmd_search_dialog_search_finished (data->dialog, data->stopped);
     }
     data->update_gui_timeout_id = 0;
     return FALSE;    // returning FALSE here stops the timeout callbacks
@@ -993,208 +971,135 @@ static void on_dialog_hide(GtkWidget *widget, GnomeCmdSearchDialog *dialog)
 }
 
 
-extern "C" void gnome_cmd_viewer_search_text_add_to_history(const gchar *value);
-
-
-static void on_dialog_response(GtkDialog *window, int response_id, GnomeCmdSearchDialog *dialog)
+extern "C" void gnome_cmd_search_dialog_stop (GnomeCmdSearchDialog *dialog)
 {
     auto priv = search_dialog_private (dialog);
 
-    GtkWidget *dir_browser;
+    priv->data.stopped = TRUE;
+    if (priv->data.cancellable)
+        g_cancellable_cancel (priv->data.cancellable);
+#ifdef G_OS_UNIX
+    if (priv->data.pid)
+        kill (priv->data.pid, SIGTERM);
+#endif
+}
+
+
+extern "C" void gnome_cmd_viewer_search_text_add_to_history(const gchar *value);
+
+extern "C" gboolean gnome_cmd_search_dialog_find (GnomeCmdSearchDialog *dialog, GnomeCmdDir *start_dir)
+{
+    auto priv = search_dialog_private (dialog);
+
     GnomeCmdSelectionProfileComponent *profile_component;
     GnomeCmdFileList *result_list;
     GtkWidget *progress_bar;
     g_object_get (dialog,
-        "dir-browser", &dir_browser,
         "profile-component", &profile_component,
         "result-list", &result_list,
         "progress-bar", &progress_bar,
         nullptr);
 
-    switch (response_id)
+    SearchData &data = priv->data;
+
+    data.search_done = TRUE;
+    data.stopped = TRUE;
+    data.dialog_destroyed = FALSE;
+
+    if (data.cancellable)
+        g_cancellable_cancel (data.cancellable);
+    if (data.thread)
     {
-        case GCMD_RESPONSE_STOP:
-            {
-                priv->data.stopped = TRUE;
-                gtk_dialog_set_response_sensitive (GTK_DIALOG (dialog), GCMD_RESPONSE_STOP, FALSE);
-                gtk_dialog_set_default_response (GTK_DIALOG (dialog), GCMD_RESPONSE_FIND);
-                if (priv->data.cancellable)
-                    g_cancellable_cancel (priv->data.cancellable);
-#ifdef G_OS_UNIX
-                if (priv->data.pid)
-                    kill (priv->data.pid, SIGTERM);
-#endif
-            }
-            break;
-
-        case GCMD_RESPONSE_FIND:
-            {
-                SearchData &data = priv->data;
-
-                data.search_done = TRUE;
-                data.stopped = TRUE;
-                data.dialog_destroyed = FALSE;
-
-                if (data.cancellable)
-                    g_cancellable_cancel (data.cancellable);
-                if (data.thread)
-                {
-                    g_thread_join (data.thread);
-                    data.thread = nullptr;
-                }
-                if (data.cancellable)
-                {
-                    g_object_unref (data.cancellable);
-                    data.cancellable = nullptr;
-                }
-
-                data.content_regex = nullptr;
-                data.match_dirs = nullptr;
-
-                GFile *file = nullptr;
-                g_object_get (dir_browser, "file", &file, nullptr);
-                auto uriString = file ? g_file_get_uri (file) : nullptr;
-                auto gUri = g_uri_parse (uriString, G_URI_FLAGS_NONE, nullptr);
-
-                g_free (uriString);
-
-                auto dirPathString = g_uri_get_path (gUri);
-
-                GnomeCmdCon *con = gnome_cmd_file_get_connection (GNOME_CMD_FILE (data.start_dir));
-
-                const gchar *root_path = g_uri_get_path (gnome_cmd_con_get_uri (con));
-                if (strncmp(dirPathString, root_path, strlen(root_path)) == 0)
-                {
-                    // starts with `root_path` of a `con` => it belongs to `con`
-                    data.start_dir = gnome_cmd_dir_new (con, gnome_cmd_con_create_path (con, dirPathString + strlen(root_path)));
-                }
-                else if (g_strcmp0(g_uri_get_scheme (gUri), "file") == 0)
-                {
-                    // has "file" scheme => it belongs to home connection
-                    data.start_dir = gnome_cmd_dir_new (get_home_con (), gnome_cmd_con_create_path (get_home_con (), dirPathString));
-                }
-                else
-                {
-                    g_uri_unref (gUri);
-                    string message = stringify(g_strdup_printf (_("Failed to change directory outside of %s"), root_path));
-                    gnome_cmd_show_message (GTK_WINDOW (dialog), message.c_str());
-                    break;
-                }
-
-                g_uri_unref (gUri);
-
-                gnome_cmd_dir_ref (data.start_dir);
-
-                // save default settings
-                gchar *filename_pattern;
-                gchar *text_pattern;
-                gboolean match_case;
-                gint max_depth;
-                gint syntax;
-                gboolean content_search;
-
-                g_object_get (priv->defaults->default_profile,
-                    "filename-pattern", &filename_pattern,
-                    "text-pattern", &text_pattern,
-                    "match-case", &match_case,
-                    "max-depth", &max_depth,
-                    "syntax", &syntax,
-                    "content-search", &content_search,
-                    nullptr);
-
-                gnome_cmd_search_profile_component_copy (profile_component);
-                if (filename_pattern != nullptr && filename_pattern[0] != '\0')
-                {
-                    gnome_cmd_data.search_defaults.name_patterns.add(filename_pattern);
-                    gnome_cmd_search_profile_component_set_name_patterns_history (profile_component, priv->defaults->name_patterns.ents);
-                }
-
-                if (content_search && text_pattern != nullptr && text_pattern[0] != '\0')
-                {
-                    gnome_cmd_data.search_defaults.content_patterns.add(text_pattern);
-                    gnome_cmd_viewer_search_text_add_to_history(text_pattern);
-                    gnome_cmd_search_profile_component_set_content_patterns_history (profile_component, priv->defaults->content_patterns.ents);
-                }
-                g_free (filename_pattern);
-                g_free (text_pattern);
-
-                data.search_done = FALSE;
-                data.stopped = FALSE;
-
-                result_list->clear();
-
-                gchar *base_dir_utf8 = GNOME_CMD_FILE (data.start_dir)->get_real_path();
-                result_list->set_base_dir(base_dir_utf8);
-
-                if (gnome_cmd_con_is_local (con) ? data.StartLocalSearch() : data.StartGenericSearch())
-                {
-                    data.set_statusmsg();
-                    gtk_widget_show (progress_bar);
-                    data.update_gui_timeout_id = g_timeout_add (gnome_cmd_data.gui_update_rate, (GSourceFunc) update_search_status_widgets, &data);
-
-                    gtk_dialog_set_response_sensitive (GTK_DIALOG (dialog), GCMD_RESPONSE_GOTO, FALSE);
-                    gtk_dialog_set_response_sensitive (GTK_DIALOG (dialog), GCMD_RESPONSE_STOP, TRUE);
-                    gtk_dialog_set_response_sensitive (GTK_DIALOG (dialog), GCMD_RESPONSE_FIND, FALSE);
-                    gtk_dialog_set_default_response (GTK_DIALOG (dialog), GCMD_RESPONSE_STOP);
-                }
-
-                gnome_cmd_dir_unref (data.start_dir);
-            }
-            break;
-
-        case GCMD_RESPONSE_GOTO:
-            {
-                GnomeCmdFile *f = result_list->get_selected_file();
-
-                if (!f)
-                    break;
-
-                GnomeCmdFileSelector *fs = main_win->fs(ACTIVE);
-                GnomeCmdCon *con = fs->get_connection();
-
-                const gchar *root_path = g_uri_get_path (gnome_cmd_con_get_uri (con));
-                size_t root_path_len = strlen (root_path);
-
-                gchar *fpath = f->GetPathStringThroughParent();
-                gsize offset = strncmp(fpath, root_path, root_path_len)==0 ? root_path_len : 0;
-                gchar *dpath = g_path_get_dirname (fpath + offset);
-
-                if (gnome_cmd_file_selector_is_current_tab_locked (fs))
-                {
-                    GnomeCmdDir *dir = gnome_cmd_dir_new (con, gnome_cmd_con_create_path (con, dpath));
-                    fs->new_tab(dir);
-                }
-                else
-                    fs->file_list()->goto_directory(dpath);
-
-                fs->file_list()->focus_file(f->get_name(), TRUE);
-
-                g_free (fpath);
-                g_free (dpath);
-            }
-
-#if defined (__GNUC__) && __GNUC__ >= 7
-        __attribute__ ((fallthrough));
-#endif
-        case GTK_RESPONSE_NONE:
-        case GTK_RESPONSE_DELETE_EVENT:
-        case GTK_RESPONSE_CANCEL:
-        case GTK_RESPONSE_CLOSE:
-            gtk_widget_hide (GTK_WIDGET (dialog));
-            g_signal_stop_emission_by_name (dialog, "response");
-            break;
-
-        case GTK_RESPONSE_HELP:
-            gnome_cmd_help_display ("gnome-commander.xml", "gnome-commander-search");
-            g_signal_stop_emission_by_name (dialog, "response");
-            break;
-
-        case GCMD_RESPONSE_PROFILES:
-            break;
-
-        default :
-            g_assert_not_reached ();
+        g_thread_join (data.thread);
+        data.thread = nullptr;
     }
+    if (data.cancellable)
+    {
+        g_object_unref (data.cancellable);
+        data.cancellable = nullptr;
+    }
+
+    data.content_regex = nullptr;
+    data.match_dirs = nullptr;
+
+    data.start_dir = start_dir;
+    gnome_cmd_dir_ref (data.start_dir);
+
+    // save default settings
+    gnome_cmd_search_profile_component_copy (profile_component);
+
+    gchar *filename_pattern;
+    gchar *text_pattern;
+    gboolean content_search;
+
+    g_object_get (priv->defaults->default_profile,
+        "filename-pattern", &filename_pattern,
+        "text-pattern", &text_pattern,
+        "content-search", &content_search,
+        nullptr);
+
+    if (filename_pattern != nullptr && filename_pattern[0] != '\0')
+    {
+        gnome_cmd_data.search_defaults.name_patterns.add(filename_pattern);
+        gnome_cmd_search_profile_component_set_name_patterns_history (profile_component, priv->defaults->name_patterns.ents);
+    }
+
+    if (content_search && text_pattern != nullptr && text_pattern[0] != '\0')
+    {
+        gnome_cmd_data.search_defaults.content_patterns.add(text_pattern);
+        gnome_cmd_viewer_search_text_add_to_history(text_pattern);
+        gnome_cmd_search_profile_component_set_content_patterns_history (profile_component, priv->defaults->content_patterns.ents);
+    }
+    g_free (filename_pattern);
+    g_free (text_pattern);
+
+    data.search_done = FALSE;
+    data.stopped = FALSE;
+
+    result_list->clear();
+
+    gchar *base_dir_utf8 = GNOME_CMD_FILE (data.start_dir)->get_real_path();
+    result_list->set_base_dir(base_dir_utf8);
+
+    auto con = gnome_cmd_file_get_connection (GNOME_CMD_FILE (data.start_dir));
+
+    if (gnome_cmd_con_is_local (con) ? data.StartLocalSearch() : data.StartGenericSearch())
+    {
+        data.set_statusmsg();
+        gtk_widget_show (progress_bar);
+        data.update_gui_timeout_id = g_timeout_add (gnome_cmd_data.gui_update_rate, (GSourceFunc) update_search_status_widgets, &data);
+
+        gnome_cmd_dir_unref (data.start_dir);
+        return true;
+    }
+
+    gnome_cmd_dir_unref (data.start_dir);
+    return false;
+}
+
+
+extern "C" void gnome_cmd_search_dialog_goto (GnomeCmdSearchDialog *dialog, GnomeCmdFile *f)
+{
+    auto priv = search_dialog_private (dialog);
+
+    GnomeCmdFileSelector *fs = main_win->fs(ACTIVE);
+
+    auto dir = f->get_parent_dir();
+    if (gnome_cmd_file_selector_is_current_tab_locked (fs))
+    {
+        fs->new_tab(dir);
+    }
+    else
+    {
+        fs->file_list()->set_connection(gnome_cmd_file_get_connection(f));
+        gchar *dpath = gnome_cmd_file_get_path_string_through_parent (GNOME_CMD_FILE(dir));
+        fs->file_list()->goto_directory(dpath);
+        g_free (dpath);
+    }
+
+    fs->file_list()->focus_file(f->get_name(), TRUE);
+
+    gtk_widget_grab_focus (GTK_WIDGET (fs->file_list()));
 }
 
 
@@ -1225,26 +1130,10 @@ extern "C" void gnome_cmd_search_dialog_init (GnomeCmdSearchDialog *dialog)
 
     result_list->update_style();
 
-    gtk_dialog_add_action_widget (GTK_DIALOG (dialog), profile_menu_button, GCMD_RESPONSE_PROFILES);
-
-    gtk_dialog_add_buttons (GTK_DIALOG (dialog),
-                            _("_Help"), GTK_RESPONSE_HELP,
-                            _("_Close"), GTK_RESPONSE_CLOSE,
-                            _("_Jump to"), GCMD_RESPONSE_GOTO,
-                            _("_Stop"), GCMD_RESPONSE_STOP,
-                            _("_Find"), GCMD_RESPONSE_FIND,
-                            nullptr);
-
-    gtk_dialog_set_response_sensitive (GTK_DIALOG (dialog), GCMD_RESPONSE_GOTO, FALSE);
-    gtk_dialog_set_response_sensitive (GTK_DIALOG (dialog), GCMD_RESPONSE_STOP, FALSE);
-
-    gtk_dialog_set_default_response (GTK_DIALOG (dialog), GCMD_RESPONSE_FIND);
-
     gtk_window_set_hide_on_close (GTK_WINDOW (dialog), TRUE);
 
     g_signal_connect (dialog, "show", G_CALLBACK (on_dialog_show), dialog);
     g_signal_connect (dialog, "hide", G_CALLBACK (on_dialog_hide), dialog);
-    g_signal_connect (dialog, "response", G_CALLBACK (on_dialog_response), dialog);
 }
 
 
