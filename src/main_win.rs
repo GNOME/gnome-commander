@@ -105,8 +105,8 @@ pub mod imp {
         #[property(get, set = Self::set_current_panel)]
         current_panel: Cell<u32>,
 
-        pub plugin_manager: RefCell<Option<PluginManager>>,
-        pub file_metadata_service: RefCell<Option<FileMetadataService>>,
+        pub plugin_manager: PluginManager,
+        pub file_metadata_service: FileMetadataService,
         pub cut_and_paste_state: RefCell<Option<CutAndPasteState>>,
 
         color_themes: ColorThemes,
@@ -167,6 +167,9 @@ pub mod imp {
         }
 
         fn new() -> Self {
+            let plugin_manager = PluginManager::new();
+            let file_metadata_service = FileMetadataService::new(&plugin_manager);
+
             Self {
                 menubar: gtk::PopoverMenuBar::builder().build(),
 
@@ -191,8 +194,8 @@ pub mod imp {
                     .hexpand(true)
                     .vexpand(true)
                     .build(),
-                file_selector_left: RefCell::new(FileSelector::new()),
-                file_selector_right: RefCell::new(FileSelector::new()),
+                file_selector_left: RefCell::new(FileSelector::new(&file_metadata_service)),
+                file_selector_right: RefCell::new(FileSelector::new(&file_metadata_service)),
                 cmdline: CommandLine::new(),
                 cmdline_sep: gtk::Separator::builder()
                     .orientation(gtk::Orientation::Vertical)
@@ -215,8 +218,8 @@ pub mod imp {
                 delete_btn: buttonbar_button(&gettext("F8 Delete"), "win.file-delete"),
                 find_btn: buttonbar_button(&gettext("F9 Search"), "win.file-search"),
 
-                plugin_manager: Default::default(),
-                file_metadata_service: Default::default(),
+                plugin_manager,
+                file_metadata_service,
                 cut_and_paste_state: Default::default(),
 
                 color_themes: ColorThemes::new(),
@@ -251,18 +254,11 @@ pub mod imp {
             mw.set_icon_name(Some("gnome-commander"));
             mw.set_resizable(true);
 
-            let plugin_manager = PluginManager::new();
-            plugin_manager.connect_plugins_changed(glib::clone!(
+            self.plugin_manager.connect_plugins_changed(glib::clone!(
                 #[weak]
                 mw,
                 move |_| mw.imp().update_menu()
             ));
-
-            let file_metadata_service = FileMetadataService::new(&plugin_manager);
-
-            self.plugin_manager.replace(Some(plugin_manager));
-            self.file_metadata_service
-                .replace(Some(file_metadata_service));
 
             let vbox = gtk::Box::builder()
                 .orientation(gtk::Orientation::Vertical)
@@ -454,9 +450,6 @@ pub mod imp {
             unsafe {
                 super::ffi::gnome_cmd_main_win_dispose(self.obj().to_glib_none().0);
             }
-
-            self.file_metadata_service.replace(None);
-            self.plugin_manager.replace(None);
         }
     }
 
@@ -1050,11 +1043,11 @@ impl MainWindow {
     }
 
     pub fn plugin_manager(&self) -> PluginManager {
-        self.imp().plugin_manager.borrow().clone().unwrap()
+        self.imp().plugin_manager.clone()
     }
 
     pub fn file_metadata_service(&self) -> FileMetadataService {
-        self.imp().file_metadata_service.borrow().clone().unwrap()
+        self.imp().file_metadata_service.clone()
     }
 }
 
