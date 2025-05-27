@@ -34,12 +34,91 @@ use gtk::{
         translate::{from_glib_borrow, from_glib_none, Borrowed, ToGlibPtr},
     },
     prelude::*,
+    subclass::prelude::*,
 };
 use std::{
     error::Error,
     ffi::{c_char, CStr},
     os::raw::c_void,
 };
+
+mod imp {
+    use super::*;
+    use crate::tags::tags::FileMetadataService;
+    use std::{cell::OnceCell, sync::OnceLock};
+
+    #[derive(Default, glib::Properties)]
+    #[properties(wrapper_type = super::AdvancedRenameProfileComponent)]
+    pub struct AdvancedRenameProfileComponent {
+        #[property(get, construct_only)]
+        file_metadata_service: OnceCell<FileMetadataService>,
+    }
+
+    #[glib::object_subclass]
+    impl ObjectSubclass for AdvancedRenameProfileComponent {
+        const NAME: &'static str = "GnomeCmdAdvancedRenameProfileComponent";
+        type Type = super::AdvancedRenameProfileComponent;
+        type ParentType = gtk::Box;
+    }
+
+    #[glib::derived_properties]
+    impl ObjectImpl for AdvancedRenameProfileComponent {
+        fn constructed(&self) {
+            self.parent_constructed();
+
+            unsafe {
+                ffi::gnome_cmd_advrename_profile_component_init(self.obj().to_glib_none().0);
+            }
+        }
+
+        fn dispose(&self) {
+            unsafe {
+                ffi::gnome_cmd_advrename_profile_component_dispose(self.obj().to_glib_none().0);
+            }
+        }
+
+        fn signals() -> &'static [glib::subclass::Signal] {
+            static SIGNALS: OnceLock<Vec<glib::subclass::Signal>> = OnceLock::new();
+            SIGNALS.get_or_init(|| {
+                vec![
+                    glib::subclass::Signal::builder("template-changed").build(),
+                    glib::subclass::Signal::builder("counter-changed").build(),
+                    glib::subclass::Signal::builder("regex-changed").build(),
+                ]
+            })
+        }
+    }
+
+    impl WidgetImpl for AdvancedRenameProfileComponent {}
+    impl BoxImpl for AdvancedRenameProfileComponent {}
+}
+
+glib::wrapper! {
+    pub struct AdvancedRenameProfileComponent(ObjectSubclass<imp::AdvancedRenameProfileComponent>)
+        @extends gtk::Widget, gtk::Box;
+}
+
+mod ffi {
+    use glib::{ffi::GType, translate::IntoGlib, types::StaticType};
+
+    pub type GnomeCmdAdvrenameProfileComponent =
+        <super::AdvancedRenameProfileComponent as glib::object::ObjectType>::GlibType;
+
+    extern "C" {
+        pub fn gnome_cmd_advrename_profile_component_init(
+            component: *mut GnomeCmdAdvrenameProfileComponent,
+        );
+
+        pub fn gnome_cmd_advrename_profile_component_dispose(
+            component: *mut GnomeCmdAdvrenameProfileComponent,
+        );
+    }
+
+    #[no_mangle]
+    pub extern "C" fn gnome_cmd_advrename_profile_component_get_type() -> GType {
+        super::AdvancedRenameProfileComponent::static_type().into_glib()
+    }
+}
 
 async fn get_selected_range(
     parent_window: &gtk::Window,

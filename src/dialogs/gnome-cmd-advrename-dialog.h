@@ -33,38 +33,13 @@
 #define GNOME_CMD_ADVRENAME_DIALOG_GET_CLASS(obj)    (G_TYPE_INSTANCE_GET_CLASS((obj), GNOME_CMD_TYPE_ADVRENAME_DIALOG, GnomeCmdAdvrenameDialogClass))
 
 
-GType gnome_cmd_advrename_dialog_get_type ();
+extern "C" GType gnome_cmd_advrename_dialog_get_type ();
 
+struct GnomeCmdAdvrenameDialog;
 
-struct GnomeCmdAdvrenameDialog
-{
-    GtkDialog parent;
-
-    struct Private;
-
-    Private *priv;
-
-    operator GtkWidget * () const       {  return GTK_WIDGET (this);  }
-    operator GtkWindow * () const       {  return GTK_WINDOW (this);  }
-    operator GtkDialog * () const       {  return GTK_DIALOG (this);  }
-
-    void *operator new (size_t size)    {  return g_object_new (GNOME_CMD_TYPE_ADVRENAME_DIALOG, NULL);  }
-    void operator delete (void *p)      {  g_object_unref (p);  }
-
-    enum {GCMD_RESPONSE_PROFILES=123, GCMD_RESPONSE_RESET};
-
-    enum {COL_FILE, COL_NAME, COL_NEW_NAME, COL_SIZE, COL_DATE, COL_RENAME_FAILED, COL_METADATA, NUM_FILE_COLS};
-
-    GnomeCmdData::AdvrenameConfig &defaults;
-
-    GtkTreeModel *files;
-
-    explicit GnomeCmdAdvrenameDialog(GnomeCmdData::AdvrenameConfig &defaults,
-                                     GnomeCmdFileMetadataService *file_metadata_service,
-                                     GtkWindow *parent_window);
-    ~GnomeCmdAdvrenameDialog();
-
-    void set(GList *files);
-    void unset();
-    void update_new_filenames();
-};
+extern "C" GnomeCmdAdvrenameDialog *gnome_cmd_advrename_dialog_new (GnomeCmdData::AdvrenameConfig *defaults,
+                                    GnomeCmdFileMetadataService *file_metadata_service,
+                                    GtkWindow *parent_window);
+extern "C" void gnome_cmd_advrename_dialog_set (GnomeCmdAdvrenameDialog *dialog, GList *files);
+extern "C" void gnome_cmd_advrename_dialog_unset (GnomeCmdAdvrenameDialog *dialog);
+extern "C" void gnome_cmd_advrename_dialog_update_new_filenames (GnomeCmdAdvrenameDialog *dialog);

@@ -480,7 +480,7 @@ GnomeCmdAdvrenameDialog *GnomeCmdMainWin::get_or_create_advrename_dialog ()
     if (!dlg)
     {
         auto file_metadata_service = gnome_cmd_main_win_get_file_metadata_service (this);
-        dlg = new GnomeCmdAdvrenameDialog(gnome_cmd_data.advrename_defaults, file_metadata_service, *this);
+        dlg = gnome_cmd_advrename_dialog_new(&gnome_cmd_data.advrename_defaults, file_metadata_service, *this);
         g_weak_ref_set (&priv->advrename_dlg, dlg);
     }
     return dlg;

@@ -495,14 +495,12 @@ struct GnomeCmdData
 
     struct AdvrenameConfig
     {
-        gint width, height;
-
         AdvancedRenameProfile *default_profile;
         GListStore *profiles;
 
         History templates;
 
-        AdvrenameConfig(): width(600), height(400), templates(ADVRENAME_HISTORY_SIZE)
+        AdvrenameConfig(): templates(ADVRENAME_HISTORY_SIZE)
         {
             default_profile = (AdvancedRenameProfile *) g_object_new (gnome_cmd_advanced_rename_profile_get_type (), nullptr);
             profiles = g_list_store_new (gnome_cmd_advanced_rename_profile_get_type ());

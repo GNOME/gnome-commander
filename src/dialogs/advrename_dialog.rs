@@ -24,13 +24,14 @@ use crate::{
 };
 use gettextrs::gettext;
 use gtk::{
-    ffi::{GtkSizeGroup, GtkWidget, GtkWindow},
+    ffi::GtkWidget,
     gio::{self, ffi::GListStore},
     glib::{
-        ffi::gboolean,
-        translate::{from_glib_full, from_glib_none, FromGlibPtrNone, ToGlibPtr},
+        ffi::{gboolean, GType},
+        translate::{from_glib_full, from_glib_none, FromGlibPtrNone, IntoGlib, ToGlibPtr},
     },
     prelude::*,
+    subclass::prelude::*,
 };
 use std::{ffi::c_void, rc::Rc};
 
@@ -58,7 +59,6 @@ extern "C" {
     fn gnome_cmd_advrename_profile_component_new(
         profile: *mut AdvRenameProfilePtr,
         fms: *mut <FileMetadataService as glib::object::ObjectType>::GlibType,
-        labels_size_group: *mut GtkSizeGroup,
     ) -> *mut GtkWidget;
     fn gnome_cmd_advrename_profile_component_update(component: *mut GtkWidget);
     fn gnome_cmd_advrename_profile_component_copy(component: *mut GtkWidget);
@@ -185,17 +185,19 @@ impl ProfileManager for AdvRenameProfileManager {
     fn create_component(
         &self,
         profile_index: usize,
-        labels_size_group: &gtk::SizeGroup,
+        _labels_size_group: &gtk::SizeGroup,
     ) -> gtk::Widget {
         let widget_ptr = unsafe {
             gnome_cmd_advrename_profile_component_new(
                 self.profiles.profile(profile_index).to_glib_none().0,
                 self.file_metadata_service.to_glib_none().0,
-                labels_size_group.to_glib_none().0,
             )
         };
         if widget_ptr.is_null() {
             panic!("Profile editing component is null.");
+        }
+        unsafe {
+            gnome_cmd_advrename_profile_component_update(widget_ptr);
         }
         unsafe { from_glib_full(widget_ptr) }
     }
@@ -209,9 +211,87 @@ impl ProfileManager for AdvRenameProfileManager {
     }
 }
 
-type GnomeCmdAdvrenameDialog = GtkWindow;
+mod imp {
+    use super::*;
+    use crate::data::GeneralOptions;
+
+    #[derive(Default)]
+    pub struct AdvancedRenameDialog {}
+
+    #[glib::object_subclass]
+    impl ObjectSubclass for AdvancedRenameDialog {
+        const NAME: &'static str = "GnomeCmdAdvancedRenameDialog";
+        type Type = super::AdvancedRenameDialog;
+        type ParentType = gtk::Dialog;
+    }
+
+    impl ObjectImpl for AdvancedRenameDialog {
+        fn constructed(&self) {
+            self.parent_constructed();
+
+            unsafe {
+                gnome_cmd_advrename_dialog_init(self.obj().to_glib_none().0);
+            }
+
+            let options = GeneralOptions::new();
+
+            remember_window_size(&*self.obj(), &options.0);
+        }
+
+        fn dispose(&self) {
+            unsafe {
+                gnome_cmd_advrename_dialog_dispose(self.obj().to_glib_none().0);
+            }
+        }
+    }
+
+    impl WidgetImpl for AdvancedRenameDialog {}
+    impl WindowImpl for AdvancedRenameDialog {}
+    impl DialogImpl for AdvancedRenameDialog {}
+}
+
+glib::wrapper! {
+    pub struct AdvancedRenameDialog(ObjectSubclass<imp::AdvancedRenameDialog>)
+        @extends gtk::Widget, gtk::Window, gtk::Dialog;
+}
+
+fn remember_window_size(dialog: &AdvancedRenameDialog, settings: &gio::Settings) {
+    settings
+        .bind("advrename-win-width", &*dialog, "default-width")
+        .mapping(|v, _| {
+            let width: i32 = v.get::<u32>()?.try_into().ok()?;
+            Some(width.to_value())
+        })
+        .set_mapping(|v, _| {
+            let width: u32 = v.get::<i32>().ok()?.try_into().ok()?;
+            Some(width.to_variant())
+        })
+        .build();
+
+    settings
+        .bind("advrename-win-height", &*dialog, "default-height")
+        .mapping(|v, _| {
+            let height: i32 = v.get::<u32>()?.try_into().ok()?;
+            Some(height.to_value())
+        })
+        .set_mapping(|v, _| {
+            let height: u32 = v.get::<i32>().ok()?.try_into().ok()?;
+            Some(height.to_variant())
+        })
+        .build();
+}
+
+type GnomeCmdAdvrenameDialog = <AdvancedRenameDialog as glib::object::ObjectType>::GlibType;
+
+#[no_mangle]
+pub extern "C" fn gnome_cmd_advrename_dialog_get_type() -> GType {
+    AdvancedRenameDialog::static_type().into_glib()
+}
 
 extern "C" {
+    fn gnome_cmd_advrename_dialog_init(dialog: *mut GnomeCmdAdvrenameDialog);
+    fn gnome_cmd_advrename_dialog_dispose(dialog: *mut GnomeCmdAdvrenameDialog);
+
     fn gnome_cmd_advrename_dialog_update_profile_menu(dialog: *mut GnomeCmdAdvrenameDialog);
 }
 
@@ -222,7 +302,7 @@ pub extern "C" fn gnome_cmd_advrename_dialog_do_manage_profiles(
     fms: *mut <FileMetadataService as glib::object::ObjectType>::GlibType,
     new_profile: gboolean,
 ) {
-    let dialog: gtk::Window = unsafe { from_glib_none(dialog_ptr) };
+    let dialog: AdvancedRenameDialog = unsafe { from_glib_none(dialog_ptr) };
     let cfg = AdvRenameConfig(cfg);
     let file_metadata_service: FileMetadataService = unsafe { from_glib_none(fms) };
 

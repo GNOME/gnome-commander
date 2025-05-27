@@ -192,7 +192,7 @@ void file_advrename (GSimpleAction *action, GVariant *parameter, gpointer user_d
     if (files)
     {
         auto dlg = main_win->get_or_create_advrename_dialog ();
-        dlg->set(files);
+        gnome_cmd_advrename_dialog_set (dlg, files);
         gtk_window_present (GTK_WINDOW (dlg));
 
         g_list_free (files);
