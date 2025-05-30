@@ -19,16 +19,7 @@
 
 use crate::utils::{dialog_button_box, SenderExt, NO_BUTTONS};
 use gettextrs::gettext;
-use gtk::{
-    glib::{
-        self,
-        ffi::{
-            GRegex, GRegexCompileFlags, G_REGEX_CASELESS, G_REGEX_MATCH_NOTEMPTY, G_REGEX_OPTIMIZE,
-        },
-        translate::ToGlibPtr,
-    },
-    prelude::*,
-};
+use gtk::{glib, prelude::*};
 
 #[derive(Clone)]
 pub struct RegexReplace {
@@ -42,29 +33,19 @@ impl RegexReplace {
         !self.pattern.is_empty() && self.compile_pattern().is_ok()
     }
 
-    pub fn compile_pattern(&self) -> Result<Regex, glib::Error> {
-        let compile_flags: GRegexCompileFlags = if self.match_case {
-            G_REGEX_OPTIMIZE
-        } else {
-            G_REGEX_OPTIMIZE | G_REGEX_CASELESS
-        };
-        let regex = unsafe {
-            glib::ffi::g_regex_new(
-                self.pattern.to_glib_none().0,
-                compile_flags,
-                G_REGEX_MATCH_NOTEMPTY,
-                std::ptr::null_mut(),
-            )
-        };
-        Ok(Regex(regex))
-    }
-}
-
-pub struct Regex(*mut GRegex);
-
-impl Drop for Regex {
-    fn drop(&mut self) {
-        unsafe { glib::ffi::g_regex_unref(self.0) }
+    pub fn compile_pattern(&self) -> Result<glib::Regex, String> {
+        let mut compile_options = glib::RegexCompileFlags::OPTIMIZE;
+        if !self.match_case {
+            compile_options |= glib::RegexCompileFlags::CASELESS
+        }
+        let regex = glib::Regex::new(
+            &self.pattern,
+            compile_options,
+            glib::RegexMatchFlags::NOTEMPTY,
+        )
+        .map_err(|err| err.message().to_owned())?
+        .ok_or_else(|| "Bad pattern".to_owned())?;
+        Ok(regex)
     }
 }
 

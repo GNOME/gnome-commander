@@ -6,8 +6,8 @@ edition = "2021"
 [dependencies]
 async-channel = "2.3.1"
 gettext-rs = { version = "0.7.0", features = ["gettext-system"] }
-gtk = { package = "gtk4", version = "0.9", features = ["gnome_45"] }
-glib = { version = "0.20", features = ["v2_78"] }
+gtk = { package = "gtk4", version = "0.9", features = ["gnome_46"] }
+glib = { version = "0.20", features = ["v2_80"] }
 libc = "0.2.155"
 tempfile = "3.11.0"
 strum = { version = "0.26.3", features = ["derive"] }

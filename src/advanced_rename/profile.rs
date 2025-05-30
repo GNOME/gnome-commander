@@ -17,7 +17,8 @@
  * For more details see the file COPYING.
  */
 
-use crate::{data::GeneralOptions, dialogs::advrename_regex_dialog::RegexReplace};
+use super::regex_dialog::RegexReplace;
+use crate::data::GeneralOptions;
 use gettextrs::gettext;
 use gtk::{
     gio::{
@@ -35,7 +36,16 @@ use gtk::{
 use std::{ffi::c_char, fmt};
 
 #[derive(
-    Clone, Copy, PartialEq, Eq, Default, Debug, strum::VariantArray, glib::Enum, glib::Variant,
+    Clone,
+    Copy,
+    PartialEq,
+    Eq,
+    Default,
+    Debug,
+    strum::VariantArray,
+    strum::FromRepr,
+    glib::Enum,
+    glib::Variant,
 )]
 #[enum_type(name = "GnomeCmdCaseConversion")]
 #[variant_enum(repr)]
@@ -95,7 +105,16 @@ impl fmt::Display for CaseConversion {
 }
 
 #[derive(
-    Clone, Copy, PartialEq, Eq, Default, Debug, strum::VariantArray, glib::Enum, glib::Variant,
+    Clone,
+    Copy,
+    PartialEq,
+    Eq,
+    Default,
+    Debug,
+    strum::VariantArray,
+    strum::FromRepr,
+    glib::Enum,
+    glib::Variant,
 )]
 #[enum_type(name = "GnomeCmdTrimBlanks")]
 #[variant_enum(repr)]

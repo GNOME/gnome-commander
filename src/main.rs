@@ -18,8 +18,6 @@
  */
 
 mod advanced_rename;
-mod advanced_rename_lexer;
-mod advrename_profile_component;
 mod app;
 mod application;
 mod chmod_component;

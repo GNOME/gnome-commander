@@ -18,12 +18,11 @@
  */
 
 use crate::{
-    file::{ffi::GnomeCmdFile, File},
+    file::File,
     libgcmd::file_descriptor::FileDescriptorExt,
     tags::{file_metadata::FileMetadata, tags::GnomeCmdTag},
 };
-use glib::translate::{from_glib_borrow, from_glib_none, Borrowed, ToGlibPtr};
-use std::ffi::c_char;
+use std::rc::Rc;
 use winnow::{
     ascii::{dec_int, dec_uint},
     combinator::{alt, delimited, opt, preceded, repeat},
@@ -248,6 +247,15 @@ fn template(input: &mut &str) -> PResult<Template> {
 #[derive(PartialEq, Debug)]
 pub struct Template(Vec<Chunk>);
 
+impl Template {
+    pub fn new(template_string: &str) -> Result<Rc<Self>, String> {
+        template
+            .parse(template_string)
+            .map(Rc::new)
+            .map_err(|error| error.to_string())
+    }
+}
+
 impl Accumulate<Chunk> for Template {
     fn initial(capacity: Option<usize>) -> Self {
         Self(match capacity {
@@ -268,27 +276,6 @@ impl Accumulate<Chunk> for Template {
             (Some(Chunk::String(s0)), Chunk::String(s)) => s0.push_str(&s),
             (_, c) => self.0.push(c),
         }
-    }
-}
-
-#[no_mangle]
-pub extern "C" fn gnome_cmd_advrename_template_new(
-    template_string: *const c_char,
-) -> *mut Template {
-    let template_string: String = unsafe { from_glib_none(template_string) };
-    match template.parse(&template_string) {
-        Ok(template) => Box::into_raw(Box::new(template)),
-        Err(error) => {
-            eprintln!("Parse error: {}", error);
-            std::ptr::null_mut()
-        }
-    }
-}
-
-#[no_mangle]
-pub extern "C" fn gnome_cmd_advrename_template_free(template: *mut Template) {
-    if !template.is_null() {
-        unsafe { drop(Box::from_raw(template)) }
     }
 }
 
@@ -434,29 +421,6 @@ pub fn generate_file_name(
         }
     }
     result
-}
-
-#[no_mangle]
-pub extern "C" fn gnome_cmd_advrename_gen_fname(
-    template: *mut Template,
-    start: i64,
-    step: i64,
-    precision: u32,
-    index: u64,
-    count: u64,
-    file: *const GnomeCmdFile,
-    metadata: *const FileMetadata,
-) -> *mut c_char {
-    let template = unsafe { &*template };
-    let options = CounterOptions {
-        start,
-        step,
-        precision: precision as usize,
-    };
-    let file: Borrowed<File> = unsafe { from_glib_borrow(file) };
-    let metadata: &FileMetadata = unsafe { &*metadata };
-    let file_name = generate_file_name(template, options, index, count, &file, metadata);
-    file_name.to_glib_full()
 }
 
 #[cfg(test)]
