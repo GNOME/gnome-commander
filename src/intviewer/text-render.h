@@ -35,38 +35,23 @@
 extern "C" GType text_render_get_type ();
 
 
-struct TextRender
+struct TextRender;
+
+
+enum DISPLAYMODE
 {
-    GtkWidget parent;
-
-    struct Status
-    {
-        offset_type current_offset;
-        offset_type size;
-        int         column;
-        const char *encoding;
-        gboolean    wrap_mode;
-    };
-
-    enum DISPLAYMODE
-    {
-        DISPLAYMODE_TEXT,
-        DISPLAYMODE_BINARY,
-        DISPLAYMODE_HEXDUMP
-    };
+    DISPLAYMODE_TEXT,
+    DISPLAYMODE_BINARY,
+    DISPLAYMODE_HEXDUMP
 };
 
-inline GtkWidget *text_render_new ()
-{
-    return (GtkWidget *) g_object_new (TYPE_TEXT_RENDER, NULL);
-}
 
 extern "C" void text_render_load_file(TextRender *w, const gchar *filename);
 
 extern "C" void text_render_notify_status_changed(TextRender *w);
 
-extern "C" void text_render_set_display_mode (TextRender *w, TextRender::DISPLAYMODE mode);
-extern "C" TextRender::DISPLAYMODE text_render_get_display_mode(TextRender *w);
+extern "C" void text_render_set_display_mode (TextRender *w, DISPLAYMODE mode);
+extern "C" DISPLAYMODE text_render_get_display_mode(TextRender *w);
 
 extern "C" ViewerFileOps *text_render_get_file_ops(TextRender *w);
 extern "C" GVInputModesData *text_render_get_input_mode_data(TextRender *w);

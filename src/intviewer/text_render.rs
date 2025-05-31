@@ -196,7 +196,6 @@ impl TextRender {
     ) -> glib::SignalHandlerId {
         unsafe extern "C" fn pressed_trampoline<F: Fn(&TextRender) + 'static>(
             this: *mut ffi::TextRender,
-            _status: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);

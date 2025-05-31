@@ -75,11 +75,17 @@ typedef offset_type (*pixel_to_offset_proc) (TextRender *obj, int x, int y, gboo
 typedef void (*copy_to_clipboard_proc)(TextRender *obj, offset_type start_offset, offset_type end_offset);
 
 
+struct TextRender
+{
+    GtkWidget parent;
+};
+
+
 struct TextRenderClass
 {
     GtkWidgetClass parent_class;
 
-    void (* text_status_changed) (TextRender *obj, TextRender::Status *status);
+    void (* text_status_changed) (TextRender *obj);
 };
 
 // Class Private Data
@@ -104,7 +110,7 @@ struct TextRenderPrivate
     gboolean wrapmode;
     int max_column;
     offset_type last_displayed_offset;
-    TextRender::DISPLAYMODE dispmode;
+    DISPLAYMODE dispmode;
     gboolean hex_offset_display;
     gchar *fixed_font_name;
 
@@ -178,10 +184,16 @@ static void hex_mode_copy_to_clipboard(TextRender *obj, offset_type start_offset
 static offset_type hex_mode_pixel_to_offset(TextRender *obj, int x, int y, gboolean start_marker);
 
 
+static TextRenderPrivate* text_render_priv (TextRender *w)
+{
+    return static_cast<TextRenderPrivate*>(text_render_get_instance_private (w));
+}
+
+
 static void text_render_set_h_adjustment (TextRender *obj, GtkAdjustment *adjustment)
 {
     g_return_if_fail (IS_TEXT_RENDER (obj));
-    auto priv = static_cast<TextRenderPrivate*>(text_render_get_instance_private (obj));
+    auto priv = text_render_priv (obj);
 
     if (priv->h_adjustment)
     {
@@ -211,7 +223,7 @@ static void text_render_set_h_adjustment (TextRender *obj, GtkAdjustment *adjust
 static void text_render_set_v_adjustment (TextRender *obj, GtkAdjustment *adjustment)
 {
     g_return_if_fail (IS_TEXT_RENDER (obj));
-    auto priv = static_cast<TextRenderPrivate*>(text_render_get_instance_private (obj));
+    auto priv = text_render_priv (obj);
 
     if (priv->v_adjustment)
     {
@@ -237,10 +249,10 @@ static void text_render_set_v_adjustment (TextRender *obj, GtkAdjustment *adjust
 
 static void text_render_init (TextRender *w)
 {
-    auto priv = static_cast<TextRenderPrivate*>(text_render_get_instance_private (w));
+    auto priv = text_render_priv (w);
 
     priv->button = 0;
-    priv->dispmode = TextRender::DISPLAYMODE_TEXT;
+    priv->dispmode = DISPLAYMODE_TEXT;
     priv->h_adjustment = NULL;
     priv->hscroll_policy = GTK_SCROLL_MINIMUM;
 
@@ -291,7 +303,7 @@ static void text_render_init (TextRender *w)
 
 static void text_render_get_property (GObject *obj, guint prop_id, GValue *value, GParamSpec *pspec)
 {
-    auto priv = static_cast<TextRenderPrivate*>(text_render_get_instance_private (TEXT_RENDER (obj)));
+    auto priv = text_render_priv (TEXT_RENDER (obj));
     switch (prop_id)
     {
         case PROP_HADJUSTMENT:
@@ -334,7 +346,7 @@ static void text_render_get_property (GObject *obj, guint prop_id, GValue *value
 static void text_render_set_property (GObject *obj, guint prop_id, const GValue *value, GParamSpec *pspec)
 {
     TextRender *w = TEXT_RENDER (obj);
-    auto priv = static_cast<TextRenderPrivate*>(text_render_get_instance_private (w));
+    auto priv = text_render_priv (w);
     switch (prop_id)
     {
         case PROP_HADJUSTMENT:
@@ -393,7 +405,7 @@ static void text_render_set_property (GObject *obj, guint prop_id, const GValue 
 static void text_render_finalize (GObject *object)
 {
     TextRender *w = TEXT_RENDER (object);
-    auto priv = static_cast<TextRenderPrivate*>(text_render_get_instance_private (w));
+    auto priv = text_render_priv (w);
 
     g_clear_pointer (&priv->fixed_font_name, g_free);
     g_clear_object (&priv->v_adjustment);
@@ -461,30 +473,18 @@ static void text_render_class_init (TextRenderClass *klass)
             G_SIGNAL_RUN_LAST,
             G_STRUCT_OFFSET (TextRenderClass, text_status_changed),
             NULL, NULL,
-            g_cclosure_marshal_VOID__POINTER,
+            NULL,
             G_TYPE_NONE,
-            1, G_TYPE_POINTER);
+            0);
 }
 
 
 void text_render_notify_status_changed(TextRender *w)
 {
     g_return_if_fail (IS_TEXT_RENDER (w));
-    auto priv = static_cast<TextRenderPrivate*>(text_render_get_instance_private (w));
+    auto priv = text_render_priv (w);
 
-    TextRender::Status stat;
-
-    memset(&stat, 0, sizeof(stat));
-
-    stat.current_offset = text_render_get_current_offset (w);
-    stat.column = text_render_get_column (w);
-    stat.wrap_mode = priv->wrapmode;
-
-    stat.size = priv->fops ? gv_file_get_max_offset(priv->fops) : 0;
-
-    stat.encoding = priv->encoding;
-
-    g_signal_emit (w, text_render_signals[TEXT_STATUS_CHANGED], 0, &stat);
+    g_signal_emit (w, text_render_signals[TEXT_STATUS_CHANGED], 0);
 }
 
 
@@ -498,7 +498,7 @@ static gboolean text_render_key_pressed (GtkEventControllerKey *controller, guin
 {
     g_return_val_if_fail (IS_TEXT_RENDER (user_data), FALSE);
     TextRender *obj = TEXT_RENDER (user_data);
-    auto priv = static_cast<TextRenderPrivate*>(text_render_get_instance_private (obj));
+    auto priv = text_render_priv (obj);
 
     if (!priv->dp)
         return FALSE;
@@ -573,7 +573,7 @@ static void text_render_size_allocate (GtkWidget *widget, int width, int height,
 
     gtk_widget_allocate (widget, width, height, baseline, nullptr);
     TextRender *w = TEXT_RENDER (widget);
-    auto priv = static_cast<TextRenderPrivate*>(text_render_get_instance_private (w));
+    auto priv = text_render_priv (w);
 
     if (priv->dp && (priv->char_width>0))
     {
@@ -592,7 +592,7 @@ static void text_render_draw (GtkWidget *widget, GtkSnapshot *snapshot)
     offset_type ofs;
 
     TextRender *w = TEXT_RENDER (widget);
-    auto priv = static_cast<TextRenderPrivate*>(text_render_get_instance_private (w));
+    auto priv = text_render_priv (w);
 
     g_return_if_fail (priv->display_line != NULL);
 
@@ -641,7 +641,7 @@ static void text_render_scroll(GtkEventControllerScroll *controller, double dx, 
 {
     g_return_if_fail (IS_TEXT_RENDER (user_data));
     TextRender *w = TEXT_RENDER (user_data);
-    auto priv = static_cast<TextRenderPrivate*>(text_render_get_instance_private (w));
+    auto priv = text_render_priv (w);
 
     if (!priv->dp)
         return;
@@ -658,7 +658,7 @@ static void text_render_scroll(GtkEventControllerScroll *controller, double dx, 
 void  text_render_copy_selection(TextRender *w)
 {
     g_return_if_fail (w!=NULL);
-    auto priv = static_cast<TextRenderPrivate*>(text_render_get_instance_private (w));
+    auto priv = text_render_priv (w);
     g_return_if_fail (priv->copy_to_clipboard != NULL);
 
     if (priv->marker_start == priv->marker_end)
@@ -682,7 +682,7 @@ static void text_render_button_press(GtkGestureClick *gesture, int n_press, doub
 {
     g_return_if_fail (IS_TEXT_RENDER (user_data));
     TextRender *w = TEXT_RENDER (user_data);
-    auto priv = static_cast<TextRenderPrivate*>(text_render_get_instance_private (w));
+    auto priv = text_render_priv (w);
 
     g_return_if_fail (priv->pixel_to_offset != NULL);
 
@@ -700,7 +700,7 @@ static void text_render_button_release(GtkGestureClick *gesture, int n_press, do
 {
     g_return_if_fail (IS_TEXT_RENDER (user_data));
     TextRender *w = TEXT_RENDER (user_data);
-    auto priv = static_cast<TextRenderPrivate*>(text_render_get_instance_private (w));
+    auto priv = text_render_priv (w);
 
     g_return_if_fail (priv->pixel_to_offset != NULL);
 
@@ -720,7 +720,7 @@ static void text_render_motion_notify (GtkEventControllerMotion *controller, dou
 {
     g_return_if_fail (IS_TEXT_RENDER (user_data));
     TextRender *w = TEXT_RENDER (user_data);
-    auto priv = static_cast<TextRenderPrivate*>(text_render_get_instance_private (w));
+    auto priv = text_render_priv (w);
 
     g_return_if_fail (priv->pixel_to_offset != NULL);
 
@@ -770,7 +770,7 @@ static void text_render_v_adjustment_update (TextRender *obj)
 {
     g_return_if_fail (obj != NULL);
     g_return_if_fail (IS_TEXT_RENDER (obj));
-    auto priv = static_cast<TextRenderPrivate*>(text_render_get_instance_private (obj));
+    auto priv = text_render_priv (obj);
 
     gfloat new_value = gtk_adjustment_get_value (priv->v_adjustment);
 
@@ -813,7 +813,7 @@ static void text_render_v_adjustment_value_changed (GtkAdjustment *adjustment, g
 static void text_render_free_data(TextRender *w)
 {
     g_return_if_fail (IS_TEXT_RENDER (w));
-    auto priv = static_cast<TextRenderPrivate*>(text_render_get_instance_private (w));
+    auto priv = text_render_priv (w);
 
     g_clear_pointer (&priv->dp, gv_free_data_presentation);
     g_clear_pointer (&priv->im, gv_free_input_modes);
@@ -827,7 +827,7 @@ static void text_render_free_data(TextRender *w)
 */
 static void text_render_internal_load(TextRender *w)
 {
-    auto priv = static_cast<TextRenderPrivate*>(text_render_get_instance_private (w));
+    auto priv = text_render_priv (w);
 
     gtk_adjustment_set_value (priv->h_adjustment, 0);
     gtk_adjustment_set_value (priv->v_adjustment, 0);
@@ -848,7 +848,7 @@ static void text_render_internal_load(TextRender *w)
     gv_set_fixed_count(priv->dp, priv->fixed_limit);
     gv_set_tab_size(priv->dp, priv->tab_size);
 
-    text_render_set_display_mode (w, TextRender::DISPLAYMODE_TEXT);
+    text_render_set_display_mode (w, DISPLAYMODE_TEXT);
 
     text_render_update_adjustments_limits(w);
 }
@@ -857,7 +857,7 @@ static void text_render_internal_load(TextRender *w)
 void text_render_load_file(TextRender *w, const gchar *filename)
 {
     g_return_if_fail (IS_TEXT_RENDER (w));
-    auto priv = static_cast<TextRenderPrivate*>(text_render_get_instance_private (w));
+    auto priv = text_render_priv (w);
 
     text_render_free_data(w);
 
@@ -875,7 +875,7 @@ void text_render_load_file(TextRender *w, const gchar *filename)
 static void text_render_update_adjustments_limits(TextRender *w)
 {
     g_return_if_fail (IS_TEXT_RENDER (w));
-    auto priv = static_cast<TextRenderPrivate*>(text_render_get_instance_private (w));
+    auto priv = text_render_priv (w);
 
     if (!priv->fops)
         return;
@@ -903,7 +903,7 @@ static void text_render_update_adjustments_limits(TextRender *w)
 static void text_render_free_font(TextRender*w)
 {
     g_return_if_fail (IS_TEXT_RENDER (w));
-    auto priv = static_cast<TextRenderPrivate*>(text_render_get_instance_private (w));
+    auto priv = text_render_priv (w);
 
     g_clear_pointer (&priv->disp_font_metrics, pango_font_metrics_unref);
     g_clear_pointer (&priv->font_desc, pango_font_description_free);
@@ -955,7 +955,7 @@ static guint get_max_char_width(GtkWidget *widget, PangoFontDescription *font_de
 
 static guint text_render_filter_undisplayable_chars(TextRender *obj)
 {
-    auto priv = static_cast<TextRenderPrivate*>(text_render_get_instance_private (obj));
+    auto priv = text_render_priv (obj);
 
     if (!priv->im)
         return 0;
@@ -998,7 +998,7 @@ static void text_render_setup_font(TextRender*w, const gchar *fontname, gint fon
     g_return_if_fail (IS_TEXT_RENDER (w));
     g_return_if_fail (fontname!=NULL);
     g_return_if_fail (fontsize>0);
-    auto priv = static_cast<TextRenderPrivate*>(text_render_get_instance_private (w));
+    auto priv = text_render_priv (w);
 
     text_render_free_font(w);
 
@@ -1021,7 +1021,7 @@ static void text_render_setup_font(TextRender*w, const gchar *fontname, gint fon
 
 static void text_render_reserve_utf8buf(TextRender *w, int minlength)
 {
-    auto priv = static_cast<TextRenderPrivate*>(text_render_get_instance_private (w));
+    auto priv = text_render_priv (w);
 
     if (priv->utf8alloc < minlength)
     {
@@ -1049,7 +1049,7 @@ static const char *escape_pango_char(char_type ch)
 
 static void text_render_utf8_clear_buf(TextRender *w)
 {
-    auto priv = static_cast<TextRenderPrivate*>(text_render_get_instance_private (w));
+    auto priv = text_render_priv (w);
 
     priv->utf8buf_length = 0;
 }
@@ -1057,7 +1057,7 @@ static void text_render_utf8_clear_buf(TextRender *w)
 
 static int text_render_utf8_printf (TextRender *w, const char *format, ...)
 {
-    auto priv = static_cast<TextRenderPrivate*>(text_render_get_instance_private (w));
+    auto priv = text_render_priv (w);
 
     va_list ap;
     int new_length;
@@ -1075,7 +1075,7 @@ static int text_render_utf8_printf (TextRender *w, const char *format, ...)
 
 static int text_render_utf8_print_char(TextRender *w, char_type value)
 {
-    auto priv = static_cast<TextRenderPrivate*>(text_render_get_instance_private (w));
+    auto priv = text_render_priv (w);
 
     int current_length = priv->utf8buf_length;
 
@@ -1097,10 +1097,10 @@ static int text_render_utf8_print_char(TextRender *w, char_type value)
 }
 
 
-void  text_render_set_display_mode (TextRender *w, TextRender::DISPLAYMODE mode)
+void  text_render_set_display_mode (TextRender *w, DISPLAYMODE mode)
 {
     g_return_if_fail (IS_TEXT_RENDER (w));
-    auto priv = static_cast<TextRenderPrivate*>(text_render_get_instance_private (w));
+    auto priv = text_render_priv (w);
     g_return_if_fail (priv->fops!=NULL);
     g_return_if_fail (priv->im!=NULL);
     g_return_if_fail (priv->dp!=NULL);
@@ -1112,7 +1112,7 @@ void  text_render_set_display_mode (TextRender *w, TextRender::DISPLAYMODE mode)
 
     switch (mode)
     {
-    case TextRender::DISPLAYMODE_TEXT:
+    case DISPLAYMODE_TEXT:
         gv_set_data_presentation_mode(priv->dp, priv->wrapmode ? PRSNT_WRAP : PRSNT_NO_WRAP);
 
         priv->display_line = text_mode_display_line;
@@ -1120,7 +1120,7 @@ void  text_render_set_display_mode (TextRender *w, TextRender::DISPLAYMODE mode)
         priv->copy_to_clipboard = text_mode_copy_to_clipboard;
         break;
 
-    case TextRender::DISPLAYMODE_BINARY:
+    case DISPLAYMODE_BINARY:
 
         // Binary display mode doesn't support UTF8
         // TODO: switch back to the previous encoding, not just ASCII
@@ -1134,7 +1134,7 @@ void  text_render_set_display_mode (TextRender *w, TextRender::DISPLAYMODE mode)
         priv->copy_to_clipboard = text_mode_copy_to_clipboard;
         break;
 
-    case TextRender::DISPLAYMODE_HEXDUMP:
+    case DISPLAYMODE_HEXDUMP:
 
         // HEX display mode doesn't support UTF8
         // TODO: switch back to the previous encoding, not just ASCII
@@ -1162,10 +1162,10 @@ void  text_render_set_display_mode (TextRender *w, TextRender::DISPLAYMODE mode)
 }
 
 
-TextRender::DISPLAYMODE text_render_get_display_mode(TextRender *w)
+DISPLAYMODE text_render_get_display_mode(TextRender *w)
 {
-    g_return_val_if_fail (IS_TEXT_RENDER (w), TextRender::DISPLAYMODE_TEXT);
-    auto priv = static_cast<TextRenderPrivate*>(text_render_get_instance_private (w));
+    g_return_val_if_fail (IS_TEXT_RENDER (w), DISPLAYMODE_TEXT);
+    auto priv = text_render_priv (w);
 
     return priv->dispmode;
 }
@@ -1174,7 +1174,7 @@ TextRender::DISPLAYMODE text_render_get_display_mode(TextRender *w)
 ViewerFileOps *text_render_get_file_ops(TextRender *w)
 {
     g_return_val_if_fail (IS_TEXT_RENDER (w), NULL);
-    auto priv = static_cast<TextRenderPrivate*>(text_render_get_instance_private (w));
+    auto priv = text_render_priv (w);
     g_return_val_if_fail (priv->fops!=NULL, NULL);
 
     return priv->fops;
@@ -1184,7 +1184,7 @@ ViewerFileOps *text_render_get_file_ops(TextRender *w)
 GVInputModesData *text_render_get_input_mode_data(TextRender *w)
 {
     g_return_val_if_fail (IS_TEXT_RENDER (w), NULL);
-    auto priv = static_cast<TextRenderPrivate*>(text_render_get_instance_private (w));
+    auto priv = text_render_priv (w);
     g_return_val_if_fail (priv->im!=NULL, NULL);
 
     return priv->im;
@@ -1194,7 +1194,7 @@ GVInputModesData *text_render_get_input_mode_data(TextRender *w)
 GVDataPresentation *text_render_get_data_presentation(TextRender *w)
 {
     g_return_val_if_fail (IS_TEXT_RENDER (w), NULL);
-    auto priv = static_cast<TextRenderPrivate*>(text_render_get_instance_private (w));
+    auto priv = text_render_priv (w);
     g_return_val_if_fail (priv->dp!=NULL, NULL);
 
     return priv->dp;
@@ -1204,7 +1204,7 @@ GVDataPresentation *text_render_get_data_presentation(TextRender *w)
 void text_render_set_tab_size(TextRender *w, int tab_size)
 {
     g_return_if_fail (IS_TEXT_RENDER (w));
-    auto priv = static_cast<TextRenderPrivate*>(text_render_get_instance_private (w));
+    auto priv = text_render_priv (w);
 
     if (priv->dp==NULL)
         return;
@@ -1222,7 +1222,7 @@ void text_render_set_tab_size(TextRender *w, int tab_size)
 int text_render_get_tab_size(TextRender *w)
 {
     g_return_val_if_fail (IS_TEXT_RENDER (w), 0);
-    auto priv = static_cast<TextRenderPrivate*>(text_render_get_instance_private (w));
+    auto priv = text_render_priv (w);
 
     return priv->tab_size;
 }
@@ -1232,13 +1232,13 @@ void text_render_set_wrap_mode(TextRender *w, gboolean ACTIVE)
 {
     g_return_if_fail (w!=NULL);
     g_return_if_fail (IS_TEXT_RENDER (w));
-    auto priv = static_cast<TextRenderPrivate*>(text_render_get_instance_private (w));
+    auto priv = text_render_priv (w);
 
     if (priv->dp==NULL)
         return;
 
     priv->wrapmode = ACTIVE;
-    if (priv->dispmode==TextRender::DISPLAYMODE_TEXT)
+    if (priv->dispmode==DISPLAYMODE_TEXT)
     {
         gtk_adjustment_set_value (priv->h_adjustment, 0);
         gv_set_data_presentation_mode(priv->dp, priv->wrapmode ? PRSNT_WRAP : PRSNT_NO_WRAP);
@@ -1251,7 +1251,7 @@ void text_render_set_wrap_mode(TextRender *w, gboolean ACTIVE)
 gboolean text_render_get_wrap_mode(TextRender *w)
 {
     g_return_val_if_fail (IS_TEXT_RENDER (w), FALSE);
-    auto priv = static_cast<TextRenderPrivate*>(text_render_get_instance_private (w));
+    auto priv = text_render_priv (w);
 
     return priv->wrapmode;
 }
@@ -1260,13 +1260,13 @@ gboolean text_render_get_wrap_mode(TextRender *w)
 void text_render_set_fixed_limit(TextRender *w, int fixed_limit)
 {
     g_return_if_fail (IS_TEXT_RENDER (w));
-    auto priv = static_cast<TextRenderPrivate*>(text_render_get_instance_private (w));
+    auto priv = text_render_priv (w);
 
     // this is saved later, for binary display mode. Hex display mode always use 16 bytes
     priv->fixed_limit = fixed_limit;
 
     // always 16 bytes in hex dump
-    if (priv->dispmode==TextRender::DISPLAYMODE_HEXDUMP)
+    if (priv->dispmode==DISPLAYMODE_HEXDUMP)
         fixed_limit = HEXDUMP_FIXED_LIMIT;
 
     if (priv->dp)
@@ -1278,7 +1278,7 @@ void text_render_set_fixed_limit(TextRender *w, int fixed_limit)
 int text_render_get_fixed_limit(TextRender *w)
 {
     g_return_val_if_fail (IS_TEXT_RENDER (w), 0);
-    auto priv = static_cast<TextRenderPrivate*>(text_render_get_instance_private (w));
+    auto priv = text_render_priv (w);
 
     return priv->fixed_limit;
 }
@@ -1287,7 +1287,7 @@ int text_render_get_fixed_limit(TextRender *w)
 offset_type text_render_get_current_offset(TextRender *w)
 {
     g_return_val_if_fail (IS_TEXT_RENDER (w), 0);
-    auto priv = static_cast<TextRenderPrivate*>(text_render_get_instance_private (w));
+    auto priv = text_render_priv (w);
 
     return priv->v_adjustment ? (offset_type) gtk_adjustment_get_value (priv->v_adjustment) : 0;
 }
@@ -1296,7 +1296,7 @@ offset_type text_render_get_current_offset(TextRender *w)
 offset_type text_render_get_size(TextRender *w)
 {
     g_return_val_if_fail (IS_TEXT_RENDER (w), 0);
-    auto priv = static_cast<TextRenderPrivate*>(text_render_get_instance_private (w));
+    auto priv = text_render_priv (w);
 
     return priv->fops ? gv_file_get_max_offset(priv->fops) : 0;
 }
@@ -1305,7 +1305,7 @@ offset_type text_render_get_size(TextRender *w)
 int text_render_get_column(TextRender *w)
 {
     g_return_val_if_fail (IS_TEXT_RENDER (w), 0);
-    auto priv = static_cast<TextRenderPrivate*>(text_render_get_instance_private (w));
+    auto priv = text_render_priv (w);
 
     return priv->h_adjustment ? (int) gtk_adjustment_get_value (priv->h_adjustment) : 0;
 }
@@ -1314,7 +1314,7 @@ int text_render_get_column(TextRender *w)
 offset_type text_render_get_last_displayed_offset(TextRender *w)
 {
     g_return_val_if_fail (IS_TEXT_RENDER (w), 0);
-    auto priv = static_cast<TextRenderPrivate*>(text_render_get_instance_private (w));
+    auto priv = text_render_priv (w);
 
     return priv->last_displayed_offset;
 }
@@ -1323,7 +1323,7 @@ offset_type text_render_get_last_displayed_offset(TextRender *w)
 void text_render_ensure_offset_visible(TextRender *w, offset_type offset)
 {
     g_return_if_fail (IS_TEXT_RENDER (w));
-    auto priv = static_cast<TextRenderPrivate*>(text_render_get_instance_private (w));
+    auto priv = text_render_priv (w);
 
     if (offset < text_render_get_current_offset (w) || offset > priv->last_displayed_offset)
     {
@@ -1340,7 +1340,7 @@ void text_render_ensure_offset_visible(TextRender *w, offset_type offset)
 void text_render_set_marker(TextRender *w, offset_type start, offset_type end)
 {
     g_return_if_fail (IS_TEXT_RENDER (w));
-    auto priv = static_cast<TextRenderPrivate*>(text_render_get_instance_private (w));
+    auto priv = text_render_priv (w);
 
     priv->marker_start = start;
     priv->marker_end = end;
@@ -1351,11 +1351,11 @@ void text_render_set_marker(TextRender *w, offset_type start, offset_type end)
 void text_render_set_encoding(TextRender *w, const char *encoding)
 {
     g_return_if_fail (IS_TEXT_RENDER (w));
-    auto priv = static_cast<TextRenderPrivate*>(text_render_get_instance_private (w));
+    auto priv = text_render_priv (w);
 
     // Ugly hack: UTF-8 is not acceptable encoding in Binary/Hexdump modes
     if (g_ascii_strcasecmp (encoding, "UTF8")==0 && (
-        priv->dispmode==TextRender::DISPLAYMODE_BINARY || priv->dispmode==TextRender::DISPLAYMODE_HEXDUMP))
+        priv->dispmode==DISPLAYMODE_BINARY || priv->dispmode==DISPLAYMODE_HEXDUMP))
         {
             g_warning ("Can't set UTF8 encoding when in Binary or HexDump display mode");
             return;
@@ -1375,7 +1375,7 @@ void text_render_set_encoding(TextRender *w, const char *encoding)
 const gchar *text_render_get_encoding(TextRender *w)
 {
     g_return_val_if_fail (IS_TEXT_RENDER (w), NULL);
-    auto priv = static_cast<TextRenderPrivate*>(text_render_get_instance_private (w));
+    auto priv = text_render_priv (w);
 
     return priv->encoding;
 }
@@ -1384,7 +1384,7 @@ const gchar *text_render_get_encoding(TextRender *w)
 void text_render_set_hex_offset_display(TextRender *w, gboolean HEX_OFFSET)
 {
     g_return_if_fail (IS_TEXT_RENDER (w));
-    auto priv = static_cast<TextRenderPrivate*>(text_render_get_instance_private (w));
+    auto priv = text_render_priv (w);
 
     priv->hex_offset_display = HEX_OFFSET;
     gtk_widget_queue_draw (GTK_WIDGET (w));
@@ -1394,7 +1394,7 @@ void text_render_set_hex_offset_display(TextRender *w, gboolean HEX_OFFSET)
 gboolean text_render_get_hex_offset_display(TextRender *w)
 {
     g_return_val_if_fail (IS_TEXT_RENDER (w), FALSE);
-    auto priv = static_cast<TextRenderPrivate*>(text_render_get_instance_private (w));
+    auto priv = text_render_priv (w);
 
     return priv->hex_offset_display;
 }
@@ -1403,7 +1403,7 @@ gboolean text_render_get_hex_offset_display(TextRender *w)
 void text_render_set_font_size(TextRender *w, int font_size)
 {
     g_return_if_fail (IS_TEXT_RENDER (w));
-    auto priv = static_cast<TextRenderPrivate*>(text_render_get_instance_private (w));
+    auto priv = text_render_priv (w);
     g_return_if_fail (font_size>=4);
 
     priv->font_size = font_size;
@@ -1417,7 +1417,7 @@ void text_render_set_font_size(TextRender *w, int font_size)
 int  text_render_get_font_size(TextRender *w)
 {
     g_return_val_if_fail (IS_TEXT_RENDER (w), 0);
-    auto priv = static_cast<TextRenderPrivate*>(text_render_get_instance_private (w));
+    auto priv = text_render_priv (w);
 
     return priv->font_size;
 }
@@ -1488,7 +1488,7 @@ static void marker_closer (TextRender *w, gboolean marker_shown)
 static offset_type text_mode_pixel_to_offset(TextRender *obj, int x, int y, gboolean start_marker)
 {
     g_return_val_if_fail (obj!=NULL, 0);
-    auto priv = static_cast<TextRenderPrivate*>(text_render_get_instance_private (obj));
+    auto priv = text_render_priv (obj);
     g_return_val_if_fail (priv->dp!=NULL, 0);
 
     int line = 0;
@@ -1540,7 +1540,7 @@ static void text_mode_copy_to_clipboard(TextRender *obj, offset_type start_offse
 {
     g_return_if_fail (obj!=NULL);
     g_return_if_fail (start_offset!=end_offset);
-    auto priv = static_cast<TextRenderPrivate*>(text_render_get_instance_private (obj));
+    auto priv = text_render_priv (obj);
     g_return_if_fail (priv->dp!=NULL);
     g_return_if_fail (priv->im!=NULL);
 
@@ -1566,7 +1566,7 @@ static void text_mode_copy_to_clipboard(TextRender *obj, offset_type start_offse
 static int text_mode_display_line(TextRender *w, cairo_t *cr, int y, int column, offset_type start_of_line, offset_type end_of_line)
 {
     g_return_val_if_fail (IS_TEXT_RENDER (w), -1);
-    auto priv = static_cast<TextRenderPrivate*>(text_render_get_instance_private (w));
+    auto priv = text_render_priv (w);
 
     offset_type current;
     char_type value;
@@ -1649,7 +1649,7 @@ static int text_mode_display_line(TextRender *w, cairo_t *cr, int y, int column,
 static int binary_mode_display_line(TextRender *w, cairo_t *cr, int y, int column, offset_type start_of_line, offset_type end_of_line)
 {
     g_return_val_if_fail (IS_TEXT_RENDER (w), -1);
-    auto priv = static_cast<TextRenderPrivate*>(text_render_get_instance_private (w));
+    auto priv = text_render_priv (w);
 
     offset_type current;
     char_type value;
@@ -1713,7 +1713,7 @@ static int binary_mode_display_line(TextRender *w, cairo_t *cr, int y, int colum
 static offset_type hex_mode_pixel_to_offset(TextRender *obj, int x, int y, gboolean start_marker)
 {
     g_return_val_if_fail (obj!=NULL, 0);
-    auto priv = static_cast<TextRenderPrivate*>(text_render_get_instance_private (obj));
+    auto priv = text_render_priv (obj);
     g_return_val_if_fail (priv->dp!=NULL, 0);
 
     int line = 0;
@@ -1787,7 +1787,7 @@ static void hex_mode_copy_to_clipboard(TextRender *obj, offset_type start_offset
 {
     g_return_if_fail (obj!=NULL);
     g_return_if_fail (start_offset!=end_offset);
-    auto priv = static_cast<TextRenderPrivate*>(text_render_get_instance_private (obj));
+    auto priv = text_render_priv (obj);
     g_return_if_fail (priv->dp!=NULL);
     g_return_if_fail (priv->im!=NULL);
 
@@ -1817,7 +1817,7 @@ static void hex_mode_copy_to_clipboard(TextRender *obj, offset_type start_offset
 static int hex_mode_display_line(TextRender *w, cairo_t *cr, int y, int column, offset_type start_of_line, offset_type end_of_line)
 {
     g_return_val_if_fail (IS_TEXT_RENDER (w), -1);
-    auto priv = static_cast<TextRenderPrivate*>(text_render_get_instance_private (w));
+    auto priv = text_render_priv (w);
 
     offset_type marker_start = priv->marker_start;
     offset_type marker_end = priv->marker_end;
