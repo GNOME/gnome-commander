@@ -40,7 +40,5 @@ extern "C" GnomeCmdSelectionProfileComponent *gnome_cmd_search_profile_component
 extern "C" void gnome_cmd_search_profile_component_update (GnomeCmdSelectionProfileComponent *component);
 extern "C" void gnome_cmd_search_profile_component_copy (GnomeCmdSelectionProfileComponent *component);
 
-extern "C" void gnome_cmd_search_profile_component_set_focus (GnomeCmdSelectionProfileComponent *component);
 extern "C" void gnome_cmd_search_profile_component_set_name_patterns_history (GnomeCmdSelectionProfileComponent *component, GList *history);
 extern "C" void gnome_cmd_search_profile_component_set_content_patterns_history (GnomeCmdSelectionProfileComponent *component, GList *history);
-extern "C" void gnome_cmd_search_profile_component_set_default_activation (GnomeCmdSelectionProfileComponent *component, GtkWindow *w);

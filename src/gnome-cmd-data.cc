@@ -829,6 +829,11 @@ extern "C" void gnome_cmd_search_config_add_name_pattern(GnomeCmdData::SearchCon
     search_config->name_patterns.add(p);
 }
 
+extern "C" GList *gnome_cmd_search_config_get_content_patterns(GnomeCmdData::SearchConfig *search_config)
+{
+    return search_config->content_patterns.ents;
+}
+
 extern "C" SearchProfile *gnome_cmd_search_config_get_default_profile(GnomeCmdData::SearchConfig *search_config)
 {
     return search_config->default_profile;
