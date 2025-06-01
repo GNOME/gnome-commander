@@ -35,12 +35,12 @@ using namespace std;
 
 inline void badchar_compute(guint8 *pattern, int m, /*out*/ int *bad)
 {
-   int i;
-   for (i=0;i<256;i++)
-       bad[i] = m;
+    int i;
+    for (i=0;i<256;i++)
+        bad[i] = m;
 
-   for (i = 0; i < m - 1; ++i)
-       bad[(int)pattern[i]] = m - i - 1;
+    for (i = 0; i < m - 1; ++i)
+        bad[(int)pattern[i]] = m - i - 1;
 }
 
 
@@ -49,46 +49,46 @@ inline void badchar_compute(guint8 *pattern, int m, /*out*/ int *bad)
 ************************************************/
 inline void suffices(guint8 *pattern, int m, /* out */ int *suff)
 {
-   int f, g;
+    int f, g;
 
-   f = 0;
-   suff[m - 1] = m;
-   g = m - 1;
-   for (int i = m - 2; i >= 0; --i)
-   {
-      if (i > g && suff[i + m - 1 - f] < i - g)
-         suff[i] = suff[i + m - 1 - f];
-      else
-      {
-         if (i < g)
-            g = i;
-         f = i;
-         while (g >= 0 && pattern[g] == pattern[g + m - 1 - f])
-            --g;
-         suff[i] = f - g;
-      }
-   }
+    f = 0;
+    suff[m - 1] = m;
+    g = m - 1;
+    for (int i = m - 2; i >= 0; --i)
+    {
+        if (i > g && suff[i + m - 1 - f] < i - g)
+            suff[i] = suff[i + m - 1 - f];
+        else
+        {
+            if (i < g)
+                g = i;
+            f = i;
+            while (g >= 0 && pattern[g] == pattern[g + m - 1 - f])
+                --g;
+            suff[i] = f - g;
+        }
+    }
 }
 
 
 inline void goodsuff_compute(guint8 *pattern, int m, /*out*/ int *good)
 {
-   int *suff = g_new0 (int, m);
+    int *suff = g_new0 (int, m);
 
-   suffices(pattern, m, suff);
+    suffices(pattern, m, suff);
 
-   for (int i = 0; i < m; ++i)
-      good[i] = m;
-   int j = 0;
-   for (int i = m - 1; i >= -1; --i)
-      if (i == -1 || suff[i] == i + 1)
-         for (; j < m - 1 - i; ++j)
-            if (good[j] == m)
-               good[j] = m - 1 - i;
-   for (int i = 0; i <= m - 2; ++i)
-      good[m - 1 - suff[i]] = m - 1 - i;
+    for (int i = 0; i < m; ++i)
+        good[i] = m;
+    int j = 0;
+    for (int i = m - 1; i >= -1; --i)
+        if (i == -1 || suff[i] == i + 1)
+            for (; j < m - 1 - i; ++j)
+                if (good[j] == m)
+                    good[j] = m - 1 - i;
+    for (int i = 0; i <= m - 2; ++i)
+        good[m - 1 - suff[i]] = m - 1 - i;
 
-   g_free (suff);
+    g_free (suff);
 }
 
 
@@ -130,4 +130,21 @@ void free_bm_byte_data(GViewerBMByteData *data)
     data->pattern_len = 0;
 
     g_free (data);
+}
+
+int bm_byte_data_pattern_len(GViewerBMByteData *data)
+{
+    return data->pattern_len;
+}
+
+
+int *bm_byte_data_good(GViewerBMByteData *data)
+{
+    return data->good;
+}
+
+
+int *bm_byte_data_bad(GViewerBMByteData *data)
+{
+    return data->bad;
 }

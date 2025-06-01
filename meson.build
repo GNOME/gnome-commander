@@ -133,11 +133,6 @@ if cpp.has_function('mmap', prefix : '#include<sys/mman.h>')
   conf_data.set('HAVE_MMAP', 1, description: 'Define to 1 if you have a working `mmap\' system call.')
 endif
 
-#Google Test library for 'meson test -C builddir'
-GTEST_REQ='1.7.0'
-conf_data.set('GTEST_REQ', GTEST_REQ, description: 'Required version of gtest library')
-gtest = dependency('gtest', version: '>=' + GTEST_REQ, required: get_option('tests'))
-
 configure_file(output : 'config.h', configuration : conf_data)
 
 meson.add_dist_script(
@@ -185,7 +180,6 @@ summary(
     'Use libgsf': gsf.found(),
     'Use poppler': poppler.found(),
     'Use taglib': taglib.found(),
-    'Tests': gtest.found(),
   },
   section: 'User defined options'
 )
@@ -205,9 +199,6 @@ if get_option('help')
 endif
 if intl_dep.found()
   subdir('po')
-endif
-if gtest.found()
-  subdir('tests')
 endif
 
 gnome.post_install(

@@ -1,4 +1,20 @@
 sources_headers = files(
+  'dialogs/gnome-cmd-advrename-dialog.h',
+  'dialogs/gnome-cmd-delete-dialog.h',
+  'dialogs/gnome-cmd-mkdir-dialog.h',
+  'dialogs/gnome-cmd-rename-dialog.h',
+  'dialogs/gnome-cmd-search-dialog.h',
+  'intviewer/bm_byte.h',
+  'intviewer/bm_chartype.h',
+  'intviewer/cp437.h',
+  'intviewer/datapresentation.h',
+  'intviewer/fileops.h',
+  'intviewer/gvtypes.h',
+  'intviewer/inputmodes.h',
+  'intviewer/libgviewer.h',
+  'intviewer/searcher.h',
+  'intviewer/text-render.h',
+  'intviewer/viewer-utils.h',
   'tags/file_metadata.h',
   'dirlist.h',
   'filter.h',
@@ -36,11 +52,21 @@ sources_headers = files(
   'widget-factory.h',
 )
 
-gnome_cmd_block_sources = files(
-  'gnome-cmd-block.cc'
-)
-
 sources_sources = files(
+  'dialogs/gnome-cmd-advrename-dialog.cc',
+  'dialogs/gnome-cmd-mkdir-dialog.cc',
+  'dialogs/gnome-cmd-options-dialog.cc',
+  'dialogs/gnome-cmd-rename-dialog.cc',
+  'dialogs/gnome-cmd-search-dialog.cc',
+  'intviewer/bm_byte.cc',
+  'intviewer/bm_chartype.cc',
+  'intviewer/cp437.cc',
+  'intviewer/datapresentation.cc',
+  'intviewer/fileops.cc',
+  'intviewer/inputmodes.cc',
+  'intviewer/searcher.cc',
+  'intviewer/text-render.cc',
+  'intviewer/viewer-utils.cc',
   'dirlist.cc',
   'filter.cc',
   'gnome-cmd-advrename-profile-component.cc',
@@ -78,27 +104,12 @@ cc_args = [
   '-DGTK_DISABLE_SINGLE_INCLUDES'
 ]
 
-sources_dependencies = [gtk]
-
-sources_dep = declare_dependency(
-  dependencies: sources_dependencies,
-  include_directories: include_directories('.'),
-)
-
-subdir('dialogs')
-subdir('intviewer')
-
-sources_headers += dialogs_headers
-sources_sources += dialogs_sources
-
 rpath = get_option('prefix') / get_option('libdir')
-
-sources_deps = [common_deps, intviewer_dep]
 
 libgcmdmain = static_library('gcmd-main',
   c_args: cc_args,
   sources: [sources_headers, sources_sources],
-  dependencies: sources_deps,
+  dependencies: [common_deps],
   include_directories: [configuration_inc, sources_inc, libgcmd_inc],
 )
 
@@ -137,7 +148,6 @@ endif
 cargo_env = [
   'CARGO_HOME=' + meson.project_build_root() / 'cargo-home',
   'RUSTFLAGS=-L ' + (meson.project_build_root() / 'src')
-        + ' -L ' + (meson.project_build_root() / 'src' / 'intviewer')
         + ' -L ' + (meson.project_build_root() / 'libgcmd')
         + ' -lgcmd'
         + ' -C link-arg=-Wl,-rpath=' + rpath,
@@ -151,7 +161,7 @@ commander = custom_target(
   'gnome-commander',
   build_by_default: true,
   build_always_stale: true,
-  input: [config_rs, intviewer_lib, libgcmdmain],
+  input: [config_rs, libgcmdmain],
   output: meson.project_name(),
   console: true,
   install: true,

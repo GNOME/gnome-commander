@@ -42,6 +42,10 @@ struct GViewerBMByteData
 
 /* Create the Boyer-Moore jump tables.
     pattern is the search pattern, UTF8 string (null-terminated)*/
-GViewerBMByteData *create_bm_byte_data(const guint8 *pattern, const gint length);
+extern "C" GViewerBMByteData *create_bm_byte_data(const guint8 *pattern, const gint length);
 
-void free_bm_byte_data(GViewerBMByteData *data);
+extern "C" int bm_byte_data_pattern_len(GViewerBMByteData *data);
+extern "C" int *bm_byte_data_good(GViewerBMByteData *data);
+extern "C" int *bm_byte_data_bad(GViewerBMByteData *data);
+
+extern "C" void free_bm_byte_data(GViewerBMByteData *data);

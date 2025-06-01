@@ -32,18 +32,18 @@ struct GViewerBMChartypeData;
 
 /* Create the Boyer-Moore jump tables.
     pattern is the search pattern, UTF8 string (null-terminated)*/
-GViewerBMChartypeData *create_bm_chartype_data(const gchar*pattern, gboolean case_sensitive);
+extern "C" GViewerBMChartypeData *create_bm_chartype_data(const gchar*pattern, gboolean case_sensitive);
 
-void free_bm_chartype_data(GViewerBMChartypeData*data);
+extern "C" void free_bm_chartype_data(GViewerBMChartypeData*data);
 
-int bch_get_value(GViewerBMChartypeData *data, char_type key, int default_value);
+extern "C" int bch_get_value(GViewerBMChartypeData *data, char_type key, int default_value);
 
 /* will compare data->pattern[pattern_index] with "ch", using "data->case_sensitive" if needed */
-gboolean bm_chartype_equal(GViewerBMChartypeData *data, int pattern_index, char_type ch);
+extern "C" gboolean bm_chartype_equal(GViewerBMChartypeData *data, int pattern_index, char_type ch);
 
 /* returns MAX(good_table[pattern_index], bad_table[ch]) */
-int bm_chartype_get_advancement(GViewerBMChartypeData *data, int pattern_index,  char_type ch);
+extern "C" int bm_chartype_get_advancement(GViewerBMChartypeData *data, int pattern_index,  char_type ch);
 
-int bm_chartype_get_good_match_advancement(GViewerBMChartypeData *data);
+extern "C" int bm_chartype_get_good_match_advancement(GViewerBMChartypeData *data);
 
-int bm_chartype_data_pattern_len(GViewerBMChartypeData* data);
+extern "C" int bm_chartype_data_pattern_len(GViewerBMChartypeData* data);

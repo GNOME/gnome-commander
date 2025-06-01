@@ -113,6 +113,8 @@ void gv_free_input_modes(GVInputModesData *imd)
         Input mode implementors:
         Add specific 'free' functions here.
     */
+
+    g_free (imd);
 }
 
 

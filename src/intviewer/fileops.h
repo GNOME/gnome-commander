@@ -37,32 +37,32 @@
 
 struct ViewerFileOps;
 
-ViewerFileOps *gv_fileops_new();
+extern "C" ViewerFileOps *gv_fileops_new();
 
 /*
     returns -1 on failure
 */
-int gv_file_open(ViewerFileOps *ops, const gchar* _file);
+extern "C" int gv_file_open(ViewerFileOps *ops, const gchar* _file);
 
 
 /*
      returns: NULL on success
 */
-const char *gv_file_load (ViewerFileOps *ops, int fd);
+extern "C" const char *gv_file_load (ViewerFileOps *ops, int fd);
 
 /*
     return values: NULL for success, else points to error message
 */
-const char *gv_file_init_growing_view (ViewerFileOps *ops, const char *filename);
+extern "C" const char *gv_file_init_growing_view (ViewerFileOps *ops, const char *filename);
 
 /*
     returns: -1 on failure
         0->255 value on success
 */
-int gv_file_get_byte (ViewerFileOps *ops, offset_type byte_index);
+extern "C" int gv_file_get_byte (ViewerFileOps *ops, offset_type byte_index);
 
 extern "C" offset_type gv_file_get_max_offset(ViewerFileOps *ops);
 
-void gv_file_close (ViewerFileOps *ops);
+extern "C" void gv_file_close (ViewerFileOps *ops);
 
-void gv_file_free (ViewerFileOps *ops);
+extern "C" void gv_file_free (ViewerFileOps *ops);
