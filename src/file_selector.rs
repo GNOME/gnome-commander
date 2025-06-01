@@ -42,6 +42,7 @@ use gtk::{
     },
     graphene,
     prelude::*,
+    subclass::prelude::*,
 };
 use std::{
     collections::{BTreeSet, HashMap, HashSet},
@@ -57,14 +58,16 @@ pub mod ffi {
         glib::ffi::{gboolean, GType},
     };
 
-    #[repr(C)]
-    pub struct GnomeCmdFileSelector {
-        _data: [u8; 0],
-        _marker: std::marker::PhantomData<(*mut u8, std::marker::PhantomPinned)>,
+    pub type GnomeCmdFileSelector = <super::FileSelector as glib::object::ObjectType>::GlibType;
+
+    #[no_mangle]
+    pub extern "C" fn gnome_cmd_file_selector_get_type() -> GType {
+        super::FileSelector::static_type().into_glib()
     }
 
     extern "C" {
-        pub fn gnome_cmd_file_selector_get_type() -> GType;
+        pub fn gnome_cmd_file_selector_dispose(fs: *mut GnomeCmdFileSelector);
+        pub fn gnome_cmd_file_selector_init(fs: *mut GnomeCmdFileSelector);
 
         pub fn gnome_cmd_file_selector_file_list(
             fs: *mut GnomeCmdFileSelector,
@@ -124,22 +127,113 @@ pub mod ffi {
             fs: *mut GnomeCmdFileSelector,
             value: gboolean,
         );
+
+        pub fn gnome_cmd_file_selector_update_tab_label(
+            fs: *mut GnomeCmdFileSelector,
+            fl: *mut GnomeCmdFileList,
+        );
+    }
+}
+
+mod imp {
+    use super::*;
+    use std::sync::OnceLock;
+
+    #[derive(Default)]
+    pub struct FileSelector {}
+
+    #[glib::object_subclass]
+    impl ObjectSubclass for FileSelector {
+        const NAME: &'static str = "GnomeCmdFileSelector";
+        type Type = super::FileSelector;
+        type ParentType = gtk::Grid;
+
+        fn class_init(klass: &mut Self::Class) {
+            klass.install_action(
+                "fs.toggle-tab-lock",
+                Some(&i32::static_variant_type()),
+                |obj, _, param| {
+                    if let Some(index) = param
+                        .and_then(|p| i32::from_variant(&p))
+                        .and_then(|i| i.try_into().ok())
+                    {
+                        obj.imp().toggle_tab_lock(index);
+                    }
+                },
+            );
+            klass.install_action(
+                "fs.refresh-tab",
+                Some(&i32::static_variant_type()),
+                |obj, _, param| {
+                    if let Some(index) = param
+                        .and_then(|p| i32::from_variant(&p))
+                        .and_then(|i| i.try_into().ok())
+                    {
+                        obj.imp().refresh_tab(index);
+                    }
+                },
+            );
+        }
     }
 
-    #[derive(Copy, Clone)]
-    #[repr(C)]
-    pub struct GnomeCmdFileSelectorClass {
-        pub parent_class: gtk::ffi::GtkBoxClass,
+    impl ObjectImpl for FileSelector {
+        fn constructed(&self) {
+            self.parent_constructed();
+
+            unsafe {
+                ffi::gnome_cmd_file_selector_init(self.obj().to_glib_none().0);
+            }
+        }
+
+        fn dispose(&self) {
+            unsafe {
+                ffi::gnome_cmd_file_selector_dispose(self.obj().to_glib_none().0);
+            }
+        }
+
+        fn signals() -> &'static [glib::subclass::Signal] {
+            static SIGNALS: OnceLock<Vec<glib::subclass::Signal>> = OnceLock::new();
+            SIGNALS.get_or_init(|| {
+                vec![
+                    glib::subclass::Signal::builder("dir-changed")
+                        .param_types([Directory::static_type()])
+                        .build(),
+                    glib::subclass::Signal::builder("list-clicked").build(),
+                ]
+            })
+        }
+    }
+
+    impl WidgetImpl for FileSelector {}
+    impl GridImpl for FileSelector {}
+
+    impl FileSelector {
+        fn toggle_tab_lock(&self, index: u32) {
+            let fl = self.obj().file_list_nth(index);
+            let locked = self.obj().is_tab_locked(&fl);
+            self.obj().set_tab_locked(&fl, !locked);
+            self.update_tab_label(&fl);
+        }
+
+        fn refresh_tab(&self, index: u32) {
+            let list = self.obj().file_list_nth(index);
+            list.reload();
+        }
+
+        fn update_tab_label(&self, fl: &FileList) {
+            unsafe {
+                ffi::gnome_cmd_file_selector_update_tab_label(
+                    self.obj().to_glib_none().0,
+                    fl.to_glib_none().0,
+                );
+            }
+        }
     }
 }
 
 glib::wrapper! {
-    pub struct FileSelector(Object<ffi::GnomeCmdFileSelector, ffi::GnomeCmdFileSelectorClass>)
-        @extends gtk::Box, gtk::Widget;
-
-    match fn {
-        type_ => || ffi::gnome_cmd_file_selector_get_type(),
-    }
+    pub struct FileSelector(ObjectSubclass<imp::FileSelector>)
+        @extends gtk::Grid, gtk::Widget;
 }
 
 impl FileSelector {

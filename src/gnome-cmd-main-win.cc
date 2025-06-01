@@ -405,11 +405,7 @@ void GnomeCmdMainWin::change_connection(FileSelectorID id)
     GnomeCmdFileSelector *fselector = this->fs(id);
 
     gnome_cmd_main_win_switch_fs (this, fselector);
-    if (gtk_widget_is_visible (GTK_WIDGET (fselector->con_dropdown)))
-    {
-        g_signal_emit_by_name (fselector->con_dropdown, "activate");
-        gtk_widget_grab_focus (fselector->con_dropdown);
-    }
+    gnome_cmd_file_selector_activate_connection_list (fselector);
 }
 
 
