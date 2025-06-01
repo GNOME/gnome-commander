@@ -60,8 +60,6 @@ struct GnomeCmdFileSelector
     GtkWidget *new_tab();
     GtkWidget *new_tab(GnomeCmdDir *dir, gboolean activate=TRUE);
     GtkWidget *new_tab(GnomeCmdDir *dir, GnomeCmdFileList::ColumnID sort_col, GtkSortType sort_order, gboolean locked, gboolean activate);
-    void close_tab();
-    void close_tab(gint n);
 
     void prev_tab();
     void next_tab();
@@ -117,9 +115,6 @@ extern "C" GtkWidget *gnome_cmd_file_selector_connection_bar(GnomeCmdFileSelecto
 extern "C" GtkWidget *gnome_cmd_file_selector_new_tab (GnomeCmdFileSelector *fs);
 extern "C" GtkWidget *gnome_cmd_file_selector_new_tab_with_dir (GnomeCmdFileSelector *fs, GnomeCmdDir *dir, gboolean activate);
 extern "C" GtkWidget *gnome_cmd_file_selector_new_tab_full (GnomeCmdFileSelector *fs, GnomeCmdDir *dir, gint sort_col, gint sort_order, gboolean locked, gboolean activate);
-extern "C" void gnome_cmd_file_selector_close_tab (GnomeCmdFileSelector *fs);
-extern "C" void gnome_cmd_file_selector_close_tab_nth (GnomeCmdFileSelector *fs, guint n);
-extern "C" guint gnome_cmd_file_selector_tab_count (GnomeCmdFileSelector *fs);
 
 extern "C" gboolean gnome_cmd_file_selector_is_active (GnomeCmdFileSelector *fs);
 extern "C" void gnome_cmd_file_selector_set_active (GnomeCmdFileSelector *fs, gboolean active);

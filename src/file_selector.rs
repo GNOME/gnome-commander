@@ -34,7 +34,7 @@ use crate::{
 };
 use gettextrs::gettext;
 use gtk::{
-    ffi::{GtkGestureClick, GtkNotebook},
+    ffi::GtkNotebook,
     gdk, gio,
     glib::{
         self,
@@ -67,7 +67,6 @@ pub mod ffi {
     }
 
     extern "C" {
-        pub fn gnome_cmd_file_selector_dispose(fs: *mut GnomeCmdFileSelector);
         pub fn gnome_cmd_file_selector_init(fs: *mut GnomeCmdFileSelector);
 
         pub fn gnome_cmd_file_selector_file_list(
@@ -83,9 +82,7 @@ pub mod ffi {
             fs: *mut GnomeCmdFileSelector,
         ) -> *mut GtkWidget;
 
-        pub fn gnome_cmd_file_selector_get_notebook(
-            fs: *mut GnomeCmdFileSelector,
-        ) -> *mut GtkNotebook;
+        pub fn on_notebook_switch_page(fs: *mut GnomeCmdFileSelector, n: u32);
 
         pub fn gnome_cmd_file_selector_new_tab(fs: *mut GnomeCmdFileSelector) -> *const GtkWidget;
 
@@ -103,12 +100,6 @@ pub mod ffi {
             locked: gboolean,
             activate: gboolean,
         ) -> *const GtkWidget;
-
-        pub fn gnome_cmd_file_selector_close_tab(fs: *mut GnomeCmdFileSelector);
-
-        pub fn gnome_cmd_file_selector_close_tab_nth(fs: *mut GnomeCmdFileSelector, n: u32);
-
-        pub fn gnome_cmd_file_selector_tab_count(fs: *mut GnomeCmdFileSelector) -> u32;
 
         pub fn gnome_cmd_file_selector_is_active(fs: *mut GnomeCmdFileSelector) -> gboolean;
         pub fn gnome_cmd_file_selector_set_active(fs: *mut GnomeCmdFileSelector, active: gboolean);
@@ -138,13 +129,22 @@ pub mod ffi {
 
 mod imp {
     use super::*;
-    use std::{cell::OnceCell, sync::OnceLock};
+    use crate::data::GeneralOptions;
+    use std::{
+        cell::Cell,
+        {cell::OnceCell, sync::OnceLock},
+    };
 
-    #[derive(Default, glib::Properties)]
+    #[derive(glib::Properties)]
     #[properties(wrapper_type = super::FileSelector)]
     pub struct FileSelector {
+        pub notebook: gtk::Notebook,
+
         #[property(get, construct_only)]
         pub file_metadata_service: OnceCell<FileMetadataService>,
+
+        #[property(get, set = Self::set_always_show_tabs)]
+        always_show_tabs: Cell<bool>,
     }
 
     #[glib::object_subclass]
@@ -179,6 +179,22 @@ mod imp {
                 },
             );
         }
+
+        fn new() -> Self {
+            Self {
+                notebook: gtk::Notebook::builder()
+                    .show_tabs(false)
+                    .show_border(false)
+                    .scrollable(true)
+                    .hexpand(true)
+                    .vexpand(true)
+                    .build(),
+
+                file_metadata_service: Default::default(),
+
+                always_show_tabs: Default::default(),
+            }
+        }
     }
 
     #[glib::derived_properties]
@@ -186,14 +202,48 @@ mod imp {
         fn constructed(&self) {
             self.parent_constructed();
 
+            let this = self.obj();
+
             unsafe {
                 ffi::gnome_cmd_file_selector_init(self.obj().to_glib_none().0);
             }
+
+            self.notebook.connect_switch_page(glib::clone!(
+                #[weak]
+                this,
+                move |_, _, n| {
+                    unsafe {
+                        ffi::on_notebook_switch_page(this.to_glib_none().0, n);
+                    }
+                }
+            ));
+
+            let notebook_click = gtk::GestureClick::builder()
+                .propagation_phase(gtk::PropagationPhase::Capture)
+                .button(0)
+                .build();
+            notebook_click.connect_pressed(glib::clone!(
+                #[weak]
+                this,
+                move |gesture, n_press, x, y| {
+                    let button = gesture.current_button();
+                    glib::spawn_future_local(async move {
+                        on_notebook_button_pressed(&this, n_press, button, x, y).await;
+                    });
+                }
+            ));
+            self.notebook.add_controller(notebook_click);
+
+            let options = GeneralOptions::new();
+            options
+                .0
+                .bind("always-show-tabs", &*this, "always-show-tabs")
+                .build();
         }
 
         fn dispose(&self) {
-            unsafe {
-                ffi::gnome_cmd_file_selector_dispose(self.obj().to_glib_none().0);
+            while let Some(child) = self.obj().first_child() {
+                child.unparent();
             }
         }
 
@@ -234,6 +284,11 @@ mod imp {
                 );
             }
         }
+
+        fn set_always_show_tabs(&self, value: bool) {
+            self.always_show_tabs.set(value);
+            self.obj().update_show_tabs();
+        }
     }
 }
 
@@ -262,14 +317,6 @@ impl FileSelector {
             from_glib_none(ffi::gnome_cmd_file_selector_file_list_nth(
                 self.to_glib_none().0,
                 n,
-            ))
-        }
-    }
-
-    fn notebook(&self) -> gtk::Notebook {
-        unsafe {
-            from_glib_none(ffi::gnome_cmd_file_selector_get_notebook(
-                self.to_glib_none().0,
             ))
         }
     }
@@ -309,15 +356,28 @@ impl FileSelector {
     }
 
     pub fn close_tab(&self) {
-        unsafe { ffi::gnome_cmd_file_selector_close_tab(self.to_glib_none().0) }
+        let notebook = &self.imp().notebook;
+        if let Some(n) = notebook.current_page() {
+            self.close_tab_nth(n);
+        }
     }
 
     pub fn close_tab_nth(&self, n: u32) {
-        unsafe { ffi::gnome_cmd_file_selector_close_tab_nth(self.to_glib_none().0, n) }
+        let notebook = &self.imp().notebook;
+        let count = notebook.n_pages();
+        if count > 1 && n < count {
+            notebook.remove_page(Some(n));
+            self.update_show_tabs();
+        }
+    }
+
+    fn update_show_tabs(&self) {
+        let notebook = &self.imp().notebook;
+        notebook.set_show_tabs(self.always_show_tabs() || notebook.n_pages() > 1);
     }
 
     pub fn tab_count(&self) -> u32 {
-        unsafe { ffi::gnome_cmd_file_selector_tab_count(self.to_glib_none().0) }
+        self.imp().notebook.n_pages()
     }
 
     pub fn is_active(&self) -> bool {
@@ -389,7 +449,7 @@ impl FileSelector {
     }
 
     pub fn close_all_tabs(&self) {
-        let current = self.notebook().current_page();
+        let current = self.imp().notebook.current_page();
         for index in (0..self.tab_count())
             .rev()
             .filter(|i| Some(*i) != current)
@@ -412,7 +472,7 @@ impl FileSelector {
 
         let mut duplicates = BTreeSet::new();
         if let Some(mut indexes) = self.file_list().directory().and_then(|d| dirs.remove(&d)) {
-            if let Some(current_index) = self.notebook().current_page() {
+            if let Some(current_index) = self.imp().notebook.current_page() {
                 indexes.remove(&current_index);
             }
             duplicates.extend(indexes);
@@ -501,7 +561,8 @@ impl FileSelector {
     }
 
     pub fn save_tabs(&self, save_all_tabs: bool, save_current: bool) -> Vec<TabVariant> {
-        self.notebook()
+        self.imp()
+            .notebook
             .pages()
             .iter::<gtk::NotebookPage>()
             .flatten()
@@ -665,7 +726,6 @@ async fn ask_close_locked_tab(parent: &gtk::Window) -> bool {
 
 async fn on_notebook_button_pressed(
     file_selector: &FileSelector,
-    notebook: &gtk::Notebook,
     n_press: i32,
     button: u32,
     x: f64,
@@ -676,6 +736,7 @@ async fn on_notebook_button_pressed(
         return;
     };
 
+    let notebook = &file_selector.imp().notebook;
     let Some(tab_clicked) = notebook.find_tab_num_at_pos(&graphene::Point::new(x as f32, y as f32))
     else {
         return;
@@ -758,25 +819,6 @@ async fn on_notebook_button_pressed(
 }
 
 #[no_mangle]
-pub extern "C" fn on_notebook_button_pressed_r(
-    gesture: *mut GtkGestureClick,
-    file_selector: *mut ffi::GnomeCmdFileSelector,
-    notebook: *mut GtkNotebook,
-    n_press: i32,
-    x: f64,
-    y: f64,
-) {
-    let gesture: gtk::GestureClick = unsafe { from_glib_none(gesture) };
-    let file_selector: FileSelector = unsafe { from_glib_none(file_selector) };
-    let notebook: gtk::Notebook = unsafe { from_glib_none(notebook) };
-
-    let button = gesture.current_button();
-    glib::spawn_future_local(async move {
-        on_notebook_button_pressed(&file_selector, &notebook, n_press, button, x, y).await;
-    });
-}
-
-#[no_mangle]
 pub extern "C" fn gnome_cmd_file_selector_can_forward(
     fs: *mut ffi::GnomeCmdFileSelector,
 ) -> gboolean {
@@ -800,6 +842,14 @@ pub extern "C" fn gnome_cmd_file_selector_forward(fs: *mut ffi::GnomeCmdFileSele
 pub extern "C" fn gnome_cmd_file_selector_back(fs: *mut ffi::GnomeCmdFileSelector) {
     let fs: Borrowed<FileSelector> = unsafe { from_glib_borrow(fs) };
     fs.back()
+}
+
+#[no_mangle]
+pub extern "C" fn gnome_cmd_file_selector_get_notebook(
+    fs: *mut ffi::GnomeCmdFileSelector,
+) -> *mut GtkNotebook {
+    let fs: Borrowed<FileSelector> = unsafe { from_glib_borrow(fs) };
+    fs.imp().notebook.to_glib_none().0
 }
 
 #[cfg(test)]
