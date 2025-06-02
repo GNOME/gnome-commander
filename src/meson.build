@@ -1,5 +1,4 @@
 sources_headers = files(
-  'dialogs/gnome-cmd-advrename-dialog.h',
   'dialogs/gnome-cmd-delete-dialog.h',
   'dialogs/gnome-cmd-mkdir-dialog.h',
   'dialogs/gnome-cmd-rename-dialog.h',

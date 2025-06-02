@@ -18,45 +18,80 @@
  */
 
 use super::{
+    profile::{load_advrename_profiles, save_advrename_profiles},
     profile_component::AdvancedRenameProfileComponent,
     template::{generate_file_name, CounterOptions, Template},
 };
 use crate::{
-    advanced_rename::profile::{AdvRenameProfilePtr, AdvancedRenameProfile},
+    advanced_rename::profile::AdvancedRenameProfile,
+    connection::history::History,
     data::{GeneralOptions, GeneralOptionsRead, ProgramsOptions},
     dialogs::profiles::{manage_profiles_dialog::manage_profiles, profiles::ProfileManager},
     file::File,
+    file_list::list::FileList,
     tags::tags::FileMetadataService,
     utils::{size_to_string, time_to_string},
 };
 use gettextrs::gettext;
-use gtk::{
-    ffi::GtkWindow,
-    gdk,
-    gio::{self, ffi::GListStore},
-    glib::{
-        ffi::GList,
-        translate::{from_glib_borrow, from_glib_none, Borrowed, FromGlibPtrNone, ToGlibPtr},
-    },
-    pango,
-    prelude::*,
-    subclass::prelude::*,
-};
-use std::{
-    ffi::{c_char, c_void},
-    rc::Rc,
-};
+use gtk::{gdk, gio, glib, pango, prelude::*, subclass::prelude::*};
+use std::rc::Rc;
+
+const ADVRENAME_HISTORY_SIZE: usize = 10;
+
+struct AdvRenameConfigInner {
+    default_profile: AdvancedRenameProfile,
+    profiles: gio::ListStore,
+    templates: History<String>,
+}
 
 #[derive(Clone)]
-struct AdvRenameConfig(*mut c_void);
+struct AdvRenameConfig(Rc<AdvRenameConfigInner>);
 
 impl AdvRenameConfig {
+    fn new() -> Self {
+        Self(Rc::new(AdvRenameConfigInner {
+            default_profile: AdvancedRenameProfile::default(),
+            profiles: gio::ListStore::new::<AdvancedRenameProfile>(),
+            templates: History::new(ADVRENAME_HISTORY_SIZE),
+        }))
+    }
+
+    fn load(&self) {
+        let options = GeneralOptions::new();
+
+        let variant = options.0.value("advrename-profiles");
+        load_advrename_profiles(&variant, &self.0.default_profile, &self.0.profiles);
+
+        let entries: Vec<_> = options
+            .0
+            .strv("advrename-template-history")
+            .iter()
+            .map(|entry| entry.to_string())
+            .collect();
+        for entry in entries.into_iter().rev() {
+            self.0.templates.add(entry);
+        }
+    }
+
+    fn save(&self) -> Result<(), glib::BoolError> {
+        let options = GeneralOptions::new();
+
+        let variant =
+            save_advrename_profiles(&self.0.default_profile, self.0.profiles.upcast_ref());
+        options.0.set_value("advrename-profiles", &variant)?;
+
+        options
+            .0
+            .set_strv("advrename-template-history", self.0.templates.export())?;
+        Ok(())
+    }
+
     fn default_profile(&self) -> AdvancedRenameProfile {
-        unsafe { from_glib_none(gnome_cmd_advrename_config_default_profile(self.0)) }
+        self.0.default_profile.clone()
     }
 
     fn profiles(&self) -> gio::ListStore {
-        unsafe { gio::ListStore::from_glib_none(gnome_cmd_advrename_config_profiles(self.0)) }
+        self.0.profiles.clone()
     }
 
     pub fn set_profiles(&self, profiles: &gio::ListStore) {
@@ -67,20 +102,13 @@ impl AdvRenameConfig {
         }
     }
 
-    pub fn template_history(&self) -> glib::List<glib::GStringPtr> {
-        unsafe { glib::List::from_glib_none(gnome_cmd_advrename_config_template_history(self.0)) }
+    pub fn template_history(&self) -> Vec<String> {
+        self.0.templates.export()
     }
 
     pub fn template_history_add(&self, entry: &str) {
-        unsafe { gnome_cmd_advrename_config_template_history_add(self.0, entry.to_glib_none().0) }
+        self.0.templates.add(entry.to_owned());
     }
-}
-
-extern "C" {
-    fn gnome_cmd_advrename_config_default_profile(cfg: *mut c_void) -> *mut AdvRenameProfilePtr;
-    fn gnome_cmd_advrename_config_profiles(cfg: *mut c_void) -> *mut GListStore;
-    fn gnome_cmd_advrename_config_template_history(cfg: *mut c_void) -> *const GList;
-    fn gnome_cmd_advrename_config_template_history_add(cfg: *mut c_void, entry: *const c_char);
 }
 
 struct AdvrenameProfiles {
@@ -935,6 +963,7 @@ mod imp {
         fn unset(&self) {
             self.files_view.set_model(gtk::TreeModel::NONE);
             self.files.clear();
+            self.config().save();
         }
     }
 
@@ -1036,22 +1065,23 @@ fn remember_window_size(dialog: &AdvancedRenameDialog, settings: &gio::Settings)
         .build();
 }
 
-type GnomeCmdAdvrenameDialog = <AdvancedRenameDialog as glib::object::ObjectType>::GlibType;
+pub fn advanced_rename_dialog_show(
+    parent_window: &gtk::Window,
+    file_list: &FileList,
+    file_metadata_service: &FileMetadataService,
+) {
+    let files = file_list.selected_files();
+    if files.is_empty() {
+        return;
+    }
 
-#[no_mangle]
-pub extern "C" fn gnome_cmd_advrename_dialog_new(
-    cfg_ptr: *mut c_void,
-    file_metadata_service: *mut <FileMetadataService as glib::object::ObjectType>::GlibType,
-    parent_window: *mut GtkWindow,
-) -> *mut GnomeCmdAdvrenameDialog {
-    let cfg = AdvRenameConfig(cfg_ptr);
-    let file_metadata_service: Borrowed<FileMetadataService> =
-        unsafe { from_glib_borrow(file_metadata_service) };
-    let parent_window: Borrowed<Option<gtk::Window>> = unsafe { from_glib_borrow(parent_window) };
+    let cfg = AdvRenameConfig::new();
+    cfg.load();
 
     let dialog: AdvancedRenameDialog = glib::Object::builder()
-        .property("file-metadata-service", &*file_metadata_service)
-        .property("transient-for", &*parent_window)
+        .property("file-metadata-service", file_metadata_service)
+        .property("transient-for", parent_window)
+        .property("file-list", file_list)
         .build();
 
     dialog.imp().config.set(cfg.clone()).ok().unwrap();
@@ -1069,17 +1099,12 @@ pub extern "C" fn gnome_cmd_advrename_dialog_new(
 
     dialog.profile_component().grab_focus();
 
-    dialog.to_glib_full()
+    gnome_cmd_advrename_dialog_set(&dialog, &files);
+
+    dialog.present();
 }
 
-#[no_mangle]
-pub extern "C" fn gnome_cmd_advrename_dialog_set(
-    dialog: *mut GnomeCmdAdvrenameDialog,
-    file_list: *const GList,
-) {
-    let dialog: Borrowed<AdvancedRenameDialog> = unsafe { from_glib_borrow(dialog) };
-    let file_list: glib::List<File> = unsafe { glib::List::from_glib_none(file_list) };
-
+fn gnome_cmd_advrename_dialog_set(dialog: &AdvancedRenameDialog, file_list: &glib::List<File>) {
     dialog
         .profile_component()
         .set_sample_file_name(file_list.front().map(|f| f.get_name()));

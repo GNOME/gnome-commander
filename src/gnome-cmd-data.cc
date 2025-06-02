@@ -30,34 +30,6 @@ using namespace std;
 #define DEFAULT_GUI_UPDATE_RATE 100
 
 
-extern "C" AdvancedRenameProfile *gnome_cmd_advrename_config_default_profile (GnomeCmdData::AdvrenameConfig *cfg)
-{
-    return cfg->default_profile;
-}
-
-
-extern "C" GListStore *gnome_cmd_advrename_config_profiles (GnomeCmdData::AdvrenameConfig *cfg)
-{
-    return cfg->profiles;
-}
-
-
-extern "C" GList *gnome_cmd_advrename_config_template_history (GnomeCmdData::AdvrenameConfig *cfg)
-{
-    return cfg->templates.ents;
-}
-
-
-extern "C" void gnome_cmd_advrename_config_template_history_add (GnomeCmdData::AdvrenameConfig *cfg, const gchar *entry)
-{
-    cfg->templates.add(entry);
-}
-
-
-extern "C" void gnome_cmd_load_advrename_profiles (AdvancedRenameProfile *default_profile, GListStore *profiles);
-extern "C" void gnome_cmd_save_advrename_profiles (AdvancedRenameProfile *default_profile, GListStore *profiles);
-
-
 GnomeCmdData gnome_cmd_data;
 struct GnomeCmdData::Private
 {
@@ -1164,18 +1136,13 @@ void GnomeCmdData::load()
     options.always_show_tabs = g_settings_get_boolean (options.gcmd_settings->general, GCMD_SETTINGS_ALWAYS_SHOW_TABS);
     options.tab_lock_indicator = (TabLockIndicator) g_settings_get_enum (options.gcmd_settings->general, GCMD_SETTINGS_TAB_LOCK_INDICATOR);
 
-    advrename_defaults.templates.ents = get_list_from_gsettings_string_array (options.gcmd_settings->general, GCMD_SETTINGS_ADVRENAME_TOOL_TEMPLATE_HISTORY);
-
     load_cmdline_history();
 
     if (!priv->con_list)
         priv->con_list = gnome_cmd_con_list_new (options.show_samba_workgroups_button);
-    else
-        g_list_store_remove_all (advrename_defaults.profiles);
 
     gnome_cmd_con_list_lock (priv->con_list);
     load_devices();
-    gnome_cmd_load_advrename_profiles (advrename_defaults.default_profile, advrename_defaults.profiles);
     gnome_cmd_search_config_load(&search_defaults);
     load_connections        ();
     load_bookmarks          ();
@@ -1256,8 +1223,6 @@ void GnomeCmdData::save(GnomeCmdMainWin *main_win)
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_ALWAYS_SHOW_TABS, &(options.always_show_tabs));
     set_gsettings_enum_when_changed (options.gcmd_settings->general, GCMD_SETTINGS_TAB_LOCK_INDICATOR, options.tab_lock_indicator);
 
-    set_gsettings_string_array_from_glist(options.gcmd_settings->general, GCMD_SETTINGS_ADVRENAME_TOOL_TEMPLATE_HISTORY, advrename_defaults.templates.ents);
-
     save_devices                    ();
     save_cmdline_history            (main_win);
     save_directory_history          ();
@@ -1265,7 +1230,6 @@ void GnomeCmdData::save(GnomeCmdMainWin *main_win)
     gnome_cmd_search_config_save(&search_defaults, options.save_search_history_on_exit);
     save_connections                ();
     save_bookmarks                  ();
-    gnome_cmd_save_advrename_profiles (advrename_defaults.default_profile, advrename_defaults.profiles);
 
     g_settings_sync ();
 }

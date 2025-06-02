@@ -18,13 +18,9 @@
  */
 
 use super::regex_dialog::RegexReplace;
-use crate::data::GeneralOptions;
 use gettextrs::gettext;
 use gtk::{
-    gio::{
-        self,
-        ffi::{GListModel, GListStore},
-    },
+    gio,
     glib::{
         ffi::GType,
         prelude::*,
@@ -384,19 +380,6 @@ pub fn load_advrename_profiles(
     }
 }
 
-#[no_mangle]
-pub extern "C" fn gnome_cmd_load_advrename_profiles(
-    default_profile: *mut AdvRenameProfilePtr,
-    profiles: *mut GListStore,
-) {
-    let default_profile: Borrowed<AdvancedRenameProfile> =
-        unsafe { from_glib_borrow(default_profile) };
-    let profiles: Borrowed<gio::ListStore> = unsafe { from_glib_borrow(profiles) };
-    let options = GeneralOptions::new();
-    let variant = options.0.value("advrename-profiles");
-    load_advrename_profiles(&variant, &*default_profile, &*profiles);
-}
-
 pub fn save_advrename_profiles(
     default_profile: &AdvancedRenameProfile,
     profiles: &gio::ListModel,
@@ -407,21 +390,6 @@ pub fn save_advrename_profiles(
         profile_variants.push((&profile).into());
     }
     profile_variants.to_variant()
-}
-
-#[no_mangle]
-pub extern "C" fn gnome_cmd_save_advrename_profiles(
-    default_profile: *mut AdvRenameProfilePtr,
-    profiles: *mut GListModel,
-) {
-    let default_profile: Borrowed<AdvancedRenameProfile> =
-        unsafe { from_glib_borrow(default_profile) };
-    let profiles: Borrowed<gio::ListModel> = unsafe { from_glib_borrow(profiles) };
-    let options = GeneralOptions::new();
-    let variant = save_advrename_profiles(&*default_profile, &*profiles);
-    if let Err(error) = options.0.set_value("advrename-profiles", &variant) {
-        eprintln!("Failed to save advanced rename profiles: {error}");
-    }
 }
 
 #[cfg(test)]
