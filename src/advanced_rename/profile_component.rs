@@ -27,17 +27,8 @@ use crate::{
     utils::{dialog_button_box, NO_BUTTONS},
 };
 use gettextrs::gettext;
-use gtk::{
-    gio,
-    glib::{
-        self,
-        ffi::GList,
-        translate::{from_glib_borrow, from_glib_none, Borrowed, ToGlibPtr},
-    },
-    prelude::*,
-    subclass::prelude::*,
-};
-use std::{error::Error, ffi::c_char};
+use gtk::{gio, glib, prelude::*, subclass::prelude::*};
+use std::error::Error;
 
 mod imp {
     use super::*;
@@ -867,6 +858,10 @@ impl AdvancedRenameProfileComponent {
         result
     }
 
+    pub fn set_sample_file_name(&self, name: Option<String>) {
+        self.imp().sample_file_name.replace(name);
+    }
+
     pub fn update(&self) {
         let Some(profile) = self.profile() else {
             return;
@@ -1120,87 +1115,4 @@ fn set_regex_row(store: &gtk::ListStore, iter: &gtk::TreeIter, regex: &RegexRepl
             ),
         ],
     );
-}
-
-#[no_mangle]
-pub extern "C" fn gnome_cmd_advrename_profile_component_set_template_history(
-    component: *mut ffi::GnomeCmdAdvrenameProfileComponent,
-    history: *const GList,
-) {
-    let component: Borrowed<AdvancedRenameProfileComponent> =
-        unsafe { from_glib_borrow(component) };
-    let history: glib::List<glib::GStringPtr> = unsafe { glib::List::from_glib_none(history) };
-    component.set_template_history(history.iter().map(|i| i.as_str()));
-}
-
-#[no_mangle]
-pub extern "C" fn gnome_cmd_advrename_profile_component_convert_case(
-    component: *mut ffi::GnomeCmdAdvrenameProfileComponent,
-    string: *mut c_char,
-) -> *mut c_char {
-    let component: Borrowed<AdvancedRenameProfileComponent> =
-        unsafe { from_glib_borrow(component) };
-    let string: String = unsafe { from_glib_none(string) };
-
-    if let Some(profile) = component.profile() {
-        profile.case_conversion().apply(&string)
-    } else {
-        string
-    }
-    .to_glib_full()
-}
-
-#[no_mangle]
-pub extern "C" fn gnome_cmd_advrename_profile_component_trim_blanks(
-    component: *mut ffi::GnomeCmdAdvrenameProfileComponent,
-    string: *mut c_char,
-) -> *mut c_char {
-    let component: Borrowed<AdvancedRenameProfileComponent> =
-        unsafe { from_glib_borrow(component) };
-    let string: String = unsafe { from_glib_none(string) };
-
-    if let Some(profile) = component.profile() {
-        profile.trim_blanks().apply(&string).to_owned()
-    } else {
-        string
-    }
-    .to_glib_full()
-}
-
-#[no_mangle]
-pub extern "C" fn gnome_cmd_advrename_profile_component_get_template_entry(
-    component: *mut ffi::GnomeCmdAdvrenameProfileComponent,
-) -> *mut c_char {
-    let component: Borrowed<AdvancedRenameProfileComponent> =
-        unsafe { from_glib_borrow(component) };
-    component.template_entry().to_glib_full()
-}
-
-#[no_mangle]
-pub extern "C" fn gnome_cmd_advrename_profile_component_set_sample_fname(
-    component: *mut ffi::GnomeCmdAdvrenameProfileComponent,
-    fname: *mut c_char,
-) {
-    let component: Borrowed<AdvancedRenameProfileComponent> =
-        unsafe { from_glib_borrow(component) };
-    let fname: Option<String> = unsafe { from_glib_none(fname) };
-    component.imp().sample_file_name.replace(fname);
-}
-
-#[no_mangle]
-pub extern "C" fn gnome_cmd_advrename_profile_component_update(
-    component: *mut ffi::GnomeCmdAdvrenameProfileComponent,
-) {
-    let component: Borrowed<AdvancedRenameProfileComponent> =
-        unsafe { from_glib_borrow(component) };
-    component.update();
-}
-
-#[no_mangle]
-pub extern "C" fn gnome_cmd_advrename_profile_component_copy(
-    component: *mut ffi::GnomeCmdAdvrenameProfileComponent,
-) {
-    let component: Borrowed<AdvancedRenameProfileComponent> =
-        unsafe { from_glib_borrow(component) };
-    component.copy();
 }

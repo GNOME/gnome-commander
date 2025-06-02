@@ -333,6 +333,19 @@ impl File {
             })
     }
 
+    pub fn size(&self) -> Option<u64> {
+        let file_info = self.file_info();
+        if file_info.file_type() == gio::FileType::Directory {
+            None
+        } else {
+            file_info.size().try_into().ok()
+        }
+    }
+
+    pub fn modification_date(&self) -> Option<glib::DateTime> {
+        self.file_info().modification_date_time()
+    }
+
     pub fn tree_size(&self) -> Option<u64> {
         Some(unsafe { ffi::gnome_cmd_file_get_tree_size(self.to_glib_none().0) })
             .filter(|v| *v != u64::MAX)

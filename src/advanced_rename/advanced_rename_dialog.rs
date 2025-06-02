@@ -1,5 +1,5 @@
 /*
- * Copyright 2024 Andrey Kutejko <andy128k@gmail.com>
+ * Copyright 2024-2025 Andrey Kutejko <andy128k@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,29 +18,36 @@
  */
 
 use super::{
-    profile_component::{ffi::GnomeCmdAdvrenameProfileComponent, AdvancedRenameProfileComponent},
+    profile_component::AdvancedRenameProfileComponent,
     template::{generate_file_name, CounterOptions, Template},
 };
 use crate::{
     advanced_rename::profile::{AdvRenameProfilePtr, AdvancedRenameProfile},
+    data::{GeneralOptions, GeneralOptionsRead, ProgramsOptions},
     dialogs::profiles::{manage_profiles_dialog::manage_profiles, profiles::ProfileManager},
+    file::File,
     tags::tags::FileMetadataService,
+    utils::{size_to_string, time_to_string},
 };
 use gettextrs::gettext;
 use gtk::{
-    ffi::GtkListStore,
+    ffi::GtkWindow,
+    gdk,
     gio::{self, ffi::GListStore},
     glib::{
-        ffi::{gboolean, GList, GType},
-        translate::{
-            from_glib_borrow, from_glib_none, Borrowed, FromGlibPtrNone, IntoGlib, ToGlibPtr,
-        },
+        ffi::GList,
+        translate::{from_glib_borrow, from_glib_none, Borrowed, FromGlibPtrNone, ToGlibPtr},
     },
+    pango,
     prelude::*,
     subclass::prelude::*,
 };
-use std::{ffi::c_void, rc::Rc};
+use std::{
+    ffi::{c_char, c_void},
+    rc::Rc,
+};
 
+#[derive(Clone)]
 struct AdvRenameConfig(*mut c_void);
 
 impl AdvRenameConfig {
@@ -63,12 +70,17 @@ impl AdvRenameConfig {
     pub fn template_history(&self) -> glib::List<glib::GStringPtr> {
         unsafe { glib::List::from_glib_none(gnome_cmd_advrename_config_template_history(self.0)) }
     }
+
+    pub fn template_history_add(&self, entry: &str) {
+        unsafe { gnome_cmd_advrename_config_template_history_add(self.0, entry.to_glib_none().0) }
+    }
 }
 
 extern "C" {
     fn gnome_cmd_advrename_config_default_profile(cfg: *mut c_void) -> *mut AdvRenameProfilePtr;
     fn gnome_cmd_advrename_config_profiles(cfg: *mut c_void) -> *mut GListStore;
     fn gnome_cmd_advrename_config_template_history(cfg: *mut c_void) -> *const GList;
+    fn gnome_cmd_advrename_config_template_history_add(cfg: *mut c_void, entry: *const c_char);
 }
 
 struct AdvrenameProfiles {
@@ -219,31 +231,333 @@ impl ProfileManager for AdvRenameProfileManager {
 mod imp {
     use super::*;
     use crate::{
-        data::GeneralOptions,
-        file::{ffi::GnomeCmdFile, File},
+        dialogs::file_properties_dialog::FilePropertiesDialog,
+        file::File,
+        file_list::list::FileList,
+        file_view::file_view,
         tags::file_metadata::FileMetadata,
+        utils::{
+            attributes_bold, dialog_button_box, display_help, handle_escape_key, MenuBuilderExt,
+        },
     };
-    use std::cell::RefCell;
+    use std::{
+        cell::{OnceCell, RefCell},
+        path::Path,
+    };
 
-    #[derive(Default)]
+    #[derive(glib::Properties)]
+    #[properties(wrapper_type = super::AdvancedRenameDialog)]
     pub struct AdvancedRenameDialog {
+        #[property(get, construct_only)]
+        file_metadata_service: OnceCell<FileMetadataService>,
+
+        pub(super) config: OnceCell<AdvRenameConfig>,
+
+        #[property(get, set)]
+        profile_component: OnceCell<AdvancedRenameProfileComponent>,
+
+        pub(super) files: gtk::ListStore,
+        pub(super) files_view: gtk::TreeView,
+        profile_menu_button: gtk::MenuButton,
+
         pub rename_template: RefCell<Option<Rc<Template>>>,
+
+        #[property(get, set, nullable)]
+        file_list: RefCell<Option<FileList>>,
     }
 
     #[glib::object_subclass]
     impl ObjectSubclass for AdvancedRenameDialog {
         const NAME: &'static str = "GnomeCmdAdvancedRenameDialog";
         type Type = super::AdvancedRenameDialog;
-        type ParentType = gtk::Dialog;
+        type ParentType = gtk::Window;
+
+        fn class_init(klass: &mut Self::Class) {
+            klass.install_action("advrename.file-list-remove", None, |obj, _, _| {
+                obj.imp().file_list_remove();
+            });
+            klass.install_action_async("advrename.file-list-view", None, |obj, _, _| async move {
+                obj.imp().file_list_view().await
+            });
+            klass.install_action_async(
+                "advrename.file-list-properties",
+                None,
+                |obj, _, _| async move { obj.imp().file_list_properties().await },
+            );
+            klass.install_action("advrename.update-file-list", None, |obj, _, _| {
+                obj.imp().file_list_update_files();
+            });
+            klass.install_action_async("advrename.save-profile", None, |obj, _, _| async move {
+                obj.imp().save_profile().await
+            });
+            klass.install_action_async("advrename.manage-profiles", None, |obj, _, _| async move {
+                obj.imp().manage_profiles().await
+            });
+            klass.install_action(
+                "advrename.load-profile",
+                Some(&i32::static_variant_type()),
+                |obj, _, param| {
+                    if let Some(index) = param.and_then(|p| p.get::<i32>()) {
+                        obj.imp().load_profile(index);
+                    }
+                },
+            );
+        }
+
+        fn new() -> Self {
+            Self {
+                file_metadata_service: Default::default(),
+                config: Default::default(),
+                profile_component: Default::default(),
+
+                files: gtk::ListStore::new(&[
+                    File::static_type(),
+                    String::static_type(),
+                    String::static_type(),
+                    String::static_type(),
+                    String::static_type(),
+                    bool::static_type(),
+                    glib::Pointer::static_type(),
+                ]),
+                files_view: gtk::TreeView::builder()
+                    .reorderable(true)
+                    .enable_search(true)
+                    .search_column(FileColumns::COL_NAME as i32)
+                    .build(),
+                profile_menu_button: gtk::MenuButton::builder()
+                    .label(gettext("Profiles…"))
+                    .build(),
+
+                rename_template: Default::default(),
+
+                file_list: Default::default(),
+            }
+        }
     }
 
+    #[glib::derived_properties]
     impl ObjectImpl for AdvancedRenameDialog {
         fn constructed(&self) {
             self.parent_constructed();
 
-            unsafe {
-                gnome_cmd_advrename_dialog_init(self.obj().to_glib_none().0);
-            }
+            let this = self.obj();
+
+            this.set_title(Some(&gettext("Advanced Rename Tool")));
+            this.set_resizable(true);
+
+            let vbox = gtk::Box::builder()
+                .orientation(gtk::Orientation::Vertical)
+                .margin_top(12)
+                .margin_bottom(12)
+                .margin_start(12)
+                .margin_end(12)
+                .spacing(6)
+                .build();
+            this.set_child(Some(&vbox));
+
+            let profile_component =
+                AdvancedRenameProfileComponent::new(&this.file_metadata_service());
+            profile_component.set_vexpand(true);
+            vbox.append(&profile_component);
+            self.profile_component
+                .set(profile_component.clone())
+                .unwrap();
+
+            vbox.append(
+                &gtk::Label::builder()
+                    .label(gettext("Results"))
+                    .attributes(&attributes_bold())
+                    .halign(gtk::Align::Start)
+                    .valign(gtk::Align::Center)
+                    .build(),
+            );
+
+            self.files_view
+                .selection()
+                .set_mode(gtk::SelectionMode::Browse);
+            self.files_view.append_column(&column(
+                FileColumns::COL_NAME,
+                &gettext("Old name"),
+                &gettext("Current file name"),
+                0.0,
+            ));
+            self.files_view.append_column(&column(
+                FileColumns::COL_NEW_NAME,
+                &gettext("New name"),
+                &gettext("New file name"),
+                0.0,
+            ));
+            self.files_view.append_column(&column(
+                FileColumns::COL_SIZE,
+                &gettext("Size"),
+                &gettext("File size"),
+                1.0,
+            ));
+            self.files_view.append_column(&column(
+                FileColumns::COL_DATE,
+                &gettext("Date"),
+                &gettext("File modification date"),
+                0.0,
+            ));
+
+            vbox.append(
+                &gtk::ScrolledWindow::builder()
+                    .hscrollbar_policy(gtk::PolicyType::Never)
+                    .vscrollbar_policy(gtk::PolicyType::Automatic)
+                    .has_frame(true)
+                    .vexpand(true)
+                    .child(&self.files_view)
+                    .build(),
+            );
+
+            profile_component.connect_local(
+                "template-changed",
+                true,
+                glib::clone!(
+                    #[weak(rename_to = imp)]
+                    self,
+                    #[upgrade_or]
+                    None,
+                    move |_| {
+                        imp.update_template();
+                        imp.update_new_filenames();
+                        None
+                    }
+                ),
+            );
+            profile_component.connect_local(
+                "counter-changed",
+                true,
+                glib::clone!(
+                    #[weak(rename_to = imp)]
+                    self,
+                    #[upgrade_or]
+                    None,
+                    move |_| {
+                        imp.update_new_filenames();
+                        None
+                    }
+                ),
+            );
+            profile_component.connect_local(
+                "regex-changed",
+                true,
+                glib::clone!(
+                    #[weak(rename_to = imp)]
+                    self,
+                    #[upgrade_or]
+                    None,
+                    move |_| {
+                        imp.update_new_filenames();
+                        None
+                    }
+                ),
+            );
+
+            self.files.connect_row_deleted(glib::clone!(
+                #[weak(rename_to = imp)]
+                self,
+                move |_, _| imp.update_new_filenames()
+            ));
+            self.files_view.connect_row_activated(glib::clone!(
+                #[weak(rename_to = imp)]
+                self,
+                move |_, _, _| {
+                    glib::spawn_future_local(async move { imp.file_list_properties().await });
+                }
+            ));
+            self.files_view.connect_cursor_changed(glib::clone!(
+                #[weak(rename_to = imp)]
+                self,
+                move |_| imp.file_list_cursor_changed()
+            ));
+            let button_gesture = gtk::GestureClick::builder().button(3).build();
+            button_gesture.connect_pressed(glib::clone!(
+                #[weak(rename_to = imp)]
+                self,
+                move |_, n_press, x, y| imp.file_list_button_pressed(n_press, x, y)
+            ));
+            self.files_view.add_controller(button_gesture);
+
+            let help_button = gtk::Button::builder()
+                .label(gettext("_Help"))
+                .use_underline(true)
+                .build();
+            help_button.connect_clicked(glib::clone!(
+                #[weak]
+                this,
+                move |_| {
+                    glib::spawn_future_local(async move {
+                        display_help(this.upcast_ref(), Some("gnome-commander-advanced-rename"))
+                            .await
+                    });
+                }
+            ));
+            let reset_button = gtk::Button::builder()
+                .label(gettext("Reset"))
+                .use_underline(true)
+                .build();
+            reset_button.connect_clicked(glib::clone!(
+                #[weak]
+                this,
+                move |_| {
+                    let config = this.imp().config();
+                    config.default_profile().reset();
+                    this.profile_component()
+                        .set_template_history(config.template_history().iter().map(|s| s.as_str()));
+                    this.profile_component().update();
+                }
+            ));
+            let close_button = gtk::Button::builder()
+                .label(gettext("_Close"))
+                .use_underline(true)
+                .build();
+            close_button.connect_clicked(glib::clone!(
+                #[weak]
+                this,
+                move |_| {
+                    this.profile_component().copy();
+                    this.close();
+                    this.imp().unset();
+                }
+            ));
+            let apply_button = gtk::Button::builder()
+                .label(gettext("_Apply"))
+                .use_underline(true)
+                .build();
+            apply_button.connect_clicked(glib::clone!(
+                #[weak(rename_to = imp)]
+                self,
+                move |_| imp.apply()
+            ));
+
+            this.set_default_widget(Some(&apply_button));
+
+            vbox.append(&dialog_button_box(
+                &[&help_button],
+                &[
+                    self.profile_menu_button.upcast_ref::<gtk::Widget>(),
+                    reset_button.upcast_ref(),
+                    close_button.upcast_ref(),
+                    apply_button.upcast_ref(),
+                ],
+            ));
+
+            handle_escape_key(
+                this.upcast_ref(),
+                &gtk::CallbackAction::new(glib::clone!(
+                    #[weak]
+                    this,
+                    #[upgrade_or]
+                    glib::Propagation::Proceed,
+                    move |_, _| {
+                        this.profile_component().copy();
+                        this.close();
+                        this.imp().unset();
+                        glib::Propagation::Proceed
+                    }
+                )),
+            );
 
             let options = GeneralOptions::new();
 
@@ -253,35 +567,14 @@ mod imp {
 
     impl WidgetImpl for AdvancedRenameDialog {}
     impl WindowImpl for AdvancedRenameDialog {}
-    impl DialogImpl for AdvancedRenameDialog {}
 
     impl AdvancedRenameDialog {
-        fn files(&self) -> gtk::ListStore {
-            unsafe {
-                from_glib_none(gnome_cmd_advrename_dialog_get_files(
-                    self.obj().to_glib_none().0,
-                ))
-            }
-        }
-
-        fn profile_component(&self) -> AdvancedRenameProfileComponent {
-            unsafe {
-                from_glib_none(gnome_cmd_advrename_dialog_get_profile_component(
-                    self.obj().to_glib_none().0,
-                ))
-            }
-        }
-
         fn config(&self) -> AdvRenameConfig {
-            unsafe {
-                AdvRenameConfig(gnome_cmd_advrename_dialog_get_config(
-                    self.obj().to_glib_none().0,
-                ))
-            }
+            self.config.get().unwrap().clone()
         }
 
         pub fn update_template(&self) {
-            let entry = self.profile_component().template_entry();
+            let entry = self.obj().profile_component().template_entry();
             match Template::new(&entry) {
                 Ok(template) => {
                     self.rename_template.replace(Some(template));
@@ -297,12 +590,11 @@ mod imp {
             let Some(rename_template) = self.rename_template.borrow().clone() else {
                 return;
             };
-            let files = self.files();
-            let profile_component = self.profile_component();
+            let profile_component = self.obj().profile_component();
             let trim_blanks = profile_component.profile().map(|p| p.trim_blanks());
             let case_convesion = profile_component.profile().map(|p| p.case_conversion());
 
-            let count = files.iter_n_children(None) as u64;
+            let count = self.files.iter_n_children(None) as u64;
 
             let rx: Vec<_> = profile_component
                 .valid_regexes()
@@ -324,14 +616,13 @@ mod imp {
             };
 
             let mut index = 0;
-            if let Some(iter) = files.iter_first() {
+            if let Some(iter) = self.files.iter_first() {
                 loop {
-                    let file_ptr = files.get::<glib::Pointer>(&iter, FileColumns::COL_FILE as i32)
-                        as *mut GnomeCmdFile;
-                    let file: Borrowed<File> = unsafe { from_glib_borrow(file_ptr) };
+                    let file = self.files.get::<File>(&iter, FileColumns::COL_FILE as i32);
 
-                    let metadata_ptr =
-                        files.get::<glib::Pointer>(&iter, FileColumns::COL_METADATA as i32);
+                    let metadata_ptr = self
+                        .files
+                        .get::<glib::Pointer>(&iter, FileColumns::COL_METADATA as i32);
                     let metadata: &FileMetadata = unsafe { &*(metadata_ptr as *mut FileMetadata) };
 
                     let mut file_name = generate_file_name(
@@ -365,15 +656,285 @@ mod imp {
                         file_name = trim_blanks.apply(&file_name).to_owned();
                     }
 
-                    files.set(&iter, &[(FileColumns::COL_NEW_NAME as u32, &file_name)]);
+                    self.files
+                        .set(&iter, &[(FileColumns::COL_NEW_NAME as u32, &file_name)]);
 
-                    if !files.iter_next(&iter) {
+                    if !self.files.iter_next(&iter) {
                         break;
                     }
 
                     index += 1;
                 }
             }
+        }
+
+        fn file_list_remove(&self) {
+            if let Some((_, iter)) = self.files_view.selection().selected() {
+                self.files.remove(&iter);
+            }
+        }
+
+        async fn file_list_view(&self) {
+            if let Some((model, iter)) = self.files_view.selection().selected() {
+                let file = model.get::<File>(&iter, FileColumns::COL_FILE as i32);
+
+                let options = ProgramsOptions::new();
+
+                if let Err(error) = file_view(
+                    self.obj().upcast_ref(),
+                    &file,
+                    None,
+                    &options,
+                    &self.obj().file_metadata_service(),
+                )
+                .await
+                {
+                    error.show(self.obj().upcast_ref()).await;
+                }
+            }
+        }
+
+        async fn file_list_properties(&self) {
+            if let Some((model, iter)) = self.files_view.selection().selected() {
+                let file = model.get::<File>(&iter, FileColumns::COL_FILE as i32);
+
+                let file_changed = FilePropertiesDialog::show(
+                    self.obj().upcast_ref(),
+                    &self.obj().file_metadata_service(),
+                    &file,
+                )
+                .await;
+                if file_changed {
+                    self.file_list_update_files();
+                }
+            }
+        }
+
+        fn file_list_cursor_changed(&self) {
+            if let Some((model, iter)) = self.files_view.selection().selected() {
+                let file = model.get::<File>(&iter, FileColumns::COL_FILE as i32);
+
+                self.obj()
+                    .profile_component()
+                    .set_sample_file_name(Some(file.get_name()));
+            }
+        }
+
+        fn file_list_button_pressed(&self, n_press: i32, x: f64, y: f64) {
+            if n_press != 1 {
+                return;
+            }
+
+            let menu = gio::Menu::new()
+                .section(
+                    gio::Menu::new()
+                        .item(
+                            gettext("Remove from file list"),
+                            "advrename.file-list-remove",
+                        )
+                        .item(gettext("View file"), "advrename.file-list-view")
+                        .item(gettext("File properties"), "advrename.file-list-properties"),
+                )
+                .item(gettext("Update file list"), "advrename.update-file-list");
+
+            let popover = gtk::PopoverMenu::builder()
+                .menu_model(&menu)
+                .pointing_to(&gdk::Rectangle::new(x as i32, y as i32, 0, 0))
+                .build();
+            popover.set_parent(&self.files_view);
+            popover.present();
+            popover.popup();
+        }
+
+        fn file_list_update_files(&self) {
+            let file_metadata_service = self.obj().file_metadata_service();
+            let options = GeneralOptions::new();
+
+            let size_mode = options.size_display_mode();
+            let date_format = options.date_display_format();
+
+            if let Some(iter) = self.files.iter_first() {
+                loop {
+                    let file = self.files.get::<File>(&iter, FileColumns::COL_FILE as i32);
+
+                    let metadata = Box::new(file_metadata_service.extract_metadata(&file));
+
+                    self.files.set(
+                        &iter,
+                        &[
+                            (FileColumns::COL_NAME as u32, &file.get_name()),
+                            (
+                                FileColumns::COL_SIZE as u32,
+                                &file.size().map(|s| size_to_string(s, size_mode)),
+                            ),
+                            (
+                                FileColumns::COL_DATE as u32,
+                                &file
+                                    .modification_date()
+                                    .and_then(|dt| time_to_string(dt, &date_format).ok()),
+                            ),
+                            (FileColumns::COL_RENAME_FAILED as u32, &false),
+                            (
+                                FileColumns::COL_METADATA as u32,
+                                &(Box::leak(metadata) as *mut _ as glib::Pointer),
+                            ),
+                        ],
+                    );
+
+                    if !self.files.iter_next(&iter) {
+                        break;
+                    }
+                }
+            }
+
+            self.update_template();
+            self.update_new_filenames();
+        }
+
+        pub fn update_profile_menu(&self) {
+            if let Some(config) = self.config.get() {
+                self.profile_menu_button
+                    .set_menu_model(Some(&create_profiles_menu(&config)));
+            }
+        }
+
+        async fn save_profile(&self) {
+            self.obj().profile_component().copy();
+            let cfg = self.config();
+
+            let profiles = AdvrenameProfiles::new(&cfg, true);
+            let last_index = profiles.len() - 1;
+            profiles.set_profile_name(last_index, &gettext("New profile"));
+
+            let manager = Rc::new(AdvRenameProfileManager {
+                config: cfg,
+                profiles,
+                file_metadata_service: self.obj().file_metadata_service(),
+            });
+
+            if manage_profiles(
+                self.obj().upcast_ref(),
+                &manager,
+                &gettext("Profiles"),
+                Some("gnome-commander-advanced-rename"),
+                true,
+            )
+            .await
+            {
+                let profiles = manager.profiles.clone();
+                manager.config.set_profiles(&profiles.profiles);
+                self.update_profile_menu();
+            }
+        }
+
+        async fn manage_profiles(&self) {
+            let cfg = self.config();
+
+            let profiles = AdvrenameProfiles::new(&cfg, false);
+
+            let manager = Rc::new(AdvRenameProfileManager {
+                config: cfg,
+                profiles,
+                file_metadata_service: self.obj().file_metadata_service(),
+            });
+
+            if manage_profiles(
+                self.obj().upcast_ref(),
+                &manager,
+                &gettext("Profiles"),
+                Some("gnome-commander-advanced-rename"),
+                false,
+            )
+            .await
+            {
+                let profiles = manager.profiles.clone();
+                manager.config.set_profiles(&profiles.profiles);
+                self.update_profile_menu();
+            }
+        }
+
+        fn load_profile(&self, index: i32) {
+            let cfg = self.config();
+            let Some(profile) = index
+                .try_into()
+                .ok()
+                .and_then(|i| cfg.profiles().item(i))
+                .and_downcast::<AdvancedRenameProfile>()
+            else {
+                return;
+            };
+
+            cfg.default_profile().copy_from(&profile);
+
+            self.obj()
+                .profile_component()
+                .set_template_history(cfg.template_history().iter().map(|i| i.as_str()));
+            self.obj().profile_component().update();
+
+            self.update_new_filenames();
+        }
+
+        fn apply(&self) {
+            let old_focused_file_name = self
+                .obj()
+                .file_list()
+                .and_then(|fl| fl.focused_file())
+                .map(|f| f.get_name());
+            let mut new_focused_file_name = None;
+
+            if let Some(iter) = self.files.iter_first() {
+                loop {
+                    let file = self.files.get::<File>(&iter, FileColumns::COL_FILE as i32);
+                    let new_name = self
+                        .files
+                        .get::<Option<String>>(&iter, FileColumns::COL_NEW_NAME as i32)
+                        .filter(|n| !n.is_empty());
+
+                    if let Some(new_name) = new_name {
+                        let old_name = file.get_name();
+                        if old_name != new_name {
+                            let result = file.rename(&new_name);
+
+                            self.files.set(
+                                &iter,
+                                &[
+                                    (FileColumns::COL_NAME as u32, &file.get_name()),
+                                    (FileColumns::COL_RENAME_FAILED as u32, &result.is_err()),
+                                ],
+                            );
+
+                            if new_focused_file_name.is_none()
+                                && result.is_ok()
+                                && old_focused_file_name.as_ref() == Some(&old_name)
+                            {
+                                new_focused_file_name = Some(new_name);
+                            }
+                        }
+                    }
+
+                    if !self.files.iter_next(&iter) {
+                        break;
+                    }
+                }
+            }
+
+            if let Some(new_focused_file_name) = new_focused_file_name {
+                if let Some(fl) = self.obj().file_list() {
+                    fl.focus_file(&Path::new(&new_focused_file_name), true);
+                }
+            }
+
+            self.update_new_filenames();
+            let template_entry = self.obj().profile_component().template_entry();
+            self.config().template_history_add(&template_entry);
+            self.obj()
+                .profile_component()
+                .set_template_history(self.config().template_history().iter().map(|i| i.as_str()));
+        }
+
+        fn unset(&self) {
+            self.files_view.set_model(gtk::TreeModel::NONE);
+            self.files.clear();
         }
     }
 
@@ -387,11 +948,66 @@ mod imp {
         COL_RENAME_FAILED,
         COL_METADATA,
     }
+
+    fn column(column: FileColumns, title: &str, tooltip: &str, xalign: f32) -> gtk::TreeViewColumn {
+        let renderer = gtk::CellRendererText::new();
+        renderer.set_foreground(Some("red"));
+        renderer.set_style(pango::Style::Italic);
+        renderer.set_xalign(xalign);
+
+        let col = gtk::TreeViewColumn::with_attributes(
+            title,
+            &renderer,
+            &[
+                ("text", column as i32),
+                ("foreground-set", FileColumns::COL_RENAME_FAILED as i32),
+                ("style-set", FileColumns::COL_RENAME_FAILED as i32),
+            ],
+        );
+        col.set_clickable(true);
+        col.set_resizable(true);
+        col.button().set_tooltip_text(Some(tooltip));
+        col
+    }
+
+    fn create_profiles_menu(cfg: &AdvRenameConfig) -> gio::Menu {
+        let menu = gio::Menu::new();
+
+        menu.append(
+            Some(&gettext("_Save Profile As…")),
+            Some("advrename.save-profile"),
+        );
+
+        let profiles = cfg.profiles();
+        if profiles.n_items() > 0 {
+            menu.append(
+                Some(&gettext("_Manage Profiles…")),
+                Some(&"advrename.manage-profiles"),
+            );
+
+            let profiles_menu = gio::Menu::new();
+            for (i, profile) in profiles
+                .iter::<AdvancedRenameProfile>()
+                .flatten()
+                .enumerate()
+            {
+                let item = gio::MenuItem::new(Some(&profile.name()), None);
+                item.set_action_and_target_value(
+                    Some("advrename.load-profile"),
+                    Some(&(i as i32).to_variant()),
+                );
+                profiles_menu.append_item(&item);
+            }
+            menu.append_section(None, &profiles_menu);
+        }
+
+        menu
+    }
 }
 
 glib::wrapper! {
     pub struct AdvancedRenameDialog(ObjectSubclass<imp::AdvancedRenameDialog>)
-        @extends gtk::Widget, gtk::Window, gtk::Dialog;
+        @extends gtk::Widget, gtk::Window;
 }
 
 fn remember_window_size(dialog: &AdvancedRenameDialog, settings: &gio::Settings) {
@@ -423,77 +1039,85 @@ fn remember_window_size(dialog: &AdvancedRenameDialog, settings: &gio::Settings)
 type GnomeCmdAdvrenameDialog = <AdvancedRenameDialog as glib::object::ObjectType>::GlibType;
 
 #[no_mangle]
-pub extern "C" fn gnome_cmd_advrename_dialog_get_type() -> GType {
-    AdvancedRenameDialog::static_type().into_glib()
-}
+pub extern "C" fn gnome_cmd_advrename_dialog_new(
+    cfg_ptr: *mut c_void,
+    file_metadata_service: *mut <FileMetadataService as glib::object::ObjectType>::GlibType,
+    parent_window: *mut GtkWindow,
+) -> *mut GnomeCmdAdvrenameDialog {
+    let cfg = AdvRenameConfig(cfg_ptr);
+    let file_metadata_service: Borrowed<FileMetadataService> =
+        unsafe { from_glib_borrow(file_metadata_service) };
+    let parent_window: Borrowed<Option<gtk::Window>> = unsafe { from_glib_borrow(parent_window) };
 
-extern "C" {
-    fn gnome_cmd_advrename_dialog_init(dialog: *mut GnomeCmdAdvrenameDialog);
+    let dialog: AdvancedRenameDialog = glib::Object::builder()
+        .property("file-metadata-service", &*file_metadata_service)
+        .property("transient-for", &*parent_window)
+        .build();
 
-    fn gnome_cmd_advrename_dialog_update_profile_menu(dialog: *mut GnomeCmdAdvrenameDialog);
+    dialog.imp().config.set(cfg.clone()).ok().unwrap();
 
-    fn gnome_cmd_advrename_dialog_get_files(
-        dialog: *mut GnomeCmdAdvrenameDialog,
-    ) -> *mut GtkListStore;
-    fn gnome_cmd_advrename_dialog_get_profile_component(
-        dialog: *mut GnomeCmdAdvrenameDialog,
-    ) -> *mut GnomeCmdAdvrenameProfileComponent;
-    fn gnome_cmd_advrename_dialog_get_config(dialog: *mut GnomeCmdAdvrenameDialog) -> *mut c_void;
-}
+    dialog.imp().update_profile_menu();
 
-#[no_mangle]
-pub extern "C" fn gnome_cmd_advrename_dialog_do_manage_profiles(
-    dialog_ptr: *mut GnomeCmdAdvrenameDialog,
-    cfg: *mut c_void,
-    fms: *mut <FileMetadataService as glib::object::ObjectType>::GlibType,
-    new_profile: gboolean,
-) {
-    let dialog: AdvancedRenameDialog = unsafe { from_glib_none(dialog_ptr) };
-    let cfg = AdvRenameConfig(cfg);
-    let file_metadata_service: FileMetadataService = unsafe { from_glib_none(fms) };
-
-    glib::spawn_future_local(async move {
-        let profiles = AdvrenameProfiles::new(&cfg, new_profile != 0);
-
-        if new_profile != 0 {
-            let last_index = profiles.len() - 1;
-            profiles.set_profile_name(last_index, &gettext("New profile"));
-        }
-
-        let manager = Rc::new(AdvRenameProfileManager {
-            config: cfg,
-            profiles,
-            file_metadata_service,
-        });
-
-        if manage_profiles(
-            dialog.upcast_ref(),
-            &manager,
-            &gettext("Profiles"),
-            Some("gnome-commander-advanced-rename"),
-            new_profile != 0,
-        )
-        .await
-        {
-            let profiles = manager.profiles.clone();
-            manager.config.set_profiles(&profiles.profiles);
-            unsafe {
-                gnome_cmd_advrename_dialog_update_profile_menu(dialog_ptr);
-            }
-        }
-    });
-}
-
-#[no_mangle]
-pub extern "C" fn gnome_cmd_advrename_dialog_update_template(dialog: *mut GnomeCmdAdvrenameDialog) {
-    let dialog: Borrowed<AdvancedRenameDialog> = unsafe { from_glib_borrow(dialog) };
+    dialog
+        .profile_component()
+        .set_profile(Some(cfg.default_profile()));
     dialog.imp().update_template();
+    dialog
+        .profile_component()
+        .set_template_history(cfg.template_history().iter().map(|s| s.as_str()));
+    dialog.profile_component().update();
+
+    dialog.profile_component().grab_focus();
+
+    dialog.to_glib_full()
 }
 
 #[no_mangle]
-pub extern "C" fn gnome_cmd_advrename_dialog_update_new_filenames(
+pub extern "C" fn gnome_cmd_advrename_dialog_set(
     dialog: *mut GnomeCmdAdvrenameDialog,
+    file_list: *const GList,
 ) {
     let dialog: Borrowed<AdvancedRenameDialog> = unsafe { from_glib_borrow(dialog) };
+    let file_list: glib::List<File> = unsafe { glib::List::from_glib_none(file_list) };
+
+    dialog
+        .profile_component()
+        .set_sample_file_name(file_list.front().map(|f| f.get_name()));
+
+    let options = GeneralOptions::new();
+
+    let size_mode = options.size_display_mode();
+    let date_format = options.date_display_format();
+
+    let file_metadata_service = dialog.file_metadata_service();
+    let files = &dialog.imp().files;
+    for file in file_list {
+        let metadata = Box::new(file_metadata_service.extract_metadata(&file));
+
+        let iter = files.append();
+        files.set(
+            &iter,
+            &[
+                (imp::FileColumns::COL_FILE as u32, &file),
+                (imp::FileColumns::COL_NAME as u32, &file.get_name()),
+                (
+                    imp::FileColumns::COL_SIZE as u32,
+                    &file.size().map(|s| size_to_string(s, size_mode)),
+                ),
+                (
+                    imp::FileColumns::COL_DATE as u32,
+                    &file
+                        .modification_date()
+                        .and_then(|dt| time_to_string(dt, &date_format).ok()),
+                ),
+                (imp::FileColumns::COL_RENAME_FAILED as u32, &false),
+                (
+                    imp::FileColumns::COL_METADATA as u32,
+                    &(Box::leak(metadata) as *mut _ as glib::Pointer),
+                ),
+            ],
+        );
+    }
+    dialog.imp().files_view.set_model(Some(files));
     dialog.imp().update_new_filenames();
 }

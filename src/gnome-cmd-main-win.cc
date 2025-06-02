@@ -43,7 +43,6 @@ using namespace std;
 
 struct GnomeCmdMainWinPrivate
 {
-    GWeakRef advrename_dlg;
     GWeakRef file_search_dlg;
 
     bool state_saved;
@@ -141,7 +140,6 @@ extern "C" void gnome_cmd_main_win_dispose (GnomeCmdMainWin *main_win)
         priv->state_saved = true;
     }
 
-    g_weak_ref_set (&priv->advrename_dlg, nullptr);
     g_weak_ref_set (&priv->file_search_dlg, nullptr);
 }
 
@@ -151,7 +149,6 @@ extern "C" void gnome_cmd_main_win_init (GnomeCmdMainWin *mw)
     auto priv = g_new0 (GnomeCmdMainWinPrivate, 1);
     g_object_set_data_full (G_OBJECT (mw), "priv", priv, g_free);
 
-    priv->advrename_dlg = { { nullptr } };
     priv->file_search_dlg = { { nullptr } };
     priv->state_saved = false;
     priv->gcmd_shortcuts = gnome_cmd_shortcuts_load_from_settings ();
@@ -473,19 +470,6 @@ GnomeCmdSearchDialog *GnomeCmdMainWin::get_or_create_search_dialog ()
     return dlg;
 }
 
-
-GnomeCmdAdvrenameDialog *GnomeCmdMainWin::get_or_create_advrename_dialog ()
-{
-    auto priv = gnome_cmd_main_win_priv (this);
-    auto dlg = static_cast<GnomeCmdAdvrenameDialog*>(g_weak_ref_get (&priv->advrename_dlg));
-    if (!dlg)
-    {
-        auto file_metadata_service = gnome_cmd_main_win_get_file_metadata_service (this);
-        dlg = gnome_cmd_advrename_dialog_new(&gnome_cmd_data.advrename_defaults, file_metadata_service, *this);
-        g_weak_ref_set (&priv->advrename_dlg, dlg);
-    }
-    return dlg;
-}
 
 // FFI
 

@@ -23,8 +23,8 @@
 
 #include "gnome-cmd-file-selector.h"
 #include "gnome-cmd-cmdline.h"
-#include "dialogs/gnome-cmd-advrename-dialog.h"
 #include "dialogs/gnome-cmd-search-dialog.h"
+#include "tags/file_metadata.h"
 
 #define GNOME_CMD_TYPE_MAIN_WIN              (gnome_cmd_main_win_get_type ())
 #define GNOME_CMD_MAIN_WIN(obj)              (G_TYPE_CHECK_INSTANCE_CAST((obj), GNOME_CMD_TYPE_MAIN_WIN, GnomeCmdMainWin))
@@ -66,7 +66,6 @@ struct GnomeCmdMainWin
     void update_cmdline();
 
     GnomeCmdSearchDialog *get_or_create_search_dialog ();
-    GnomeCmdAdvrenameDialog *get_or_create_advrename_dialog ();
 };
 
 extern GnomeCmdMainWin *main_win;

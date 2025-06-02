@@ -184,12 +184,17 @@ void file_advrename (GSimpleAction *action, GVariant *parameter, gpointer user_d
 {
     auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
 
-    GList *files = get_fl (main_win, ACTIVE)->get_selected_files();
+    GnomeCmdFileList *fl = get_fl (main_win, ACTIVE);
+    GList *files = fl->get_selected_files();
 
     if (files)
     {
-        auto dlg = main_win->get_or_create_advrename_dialog ();
+        auto file_metadata_service = gnome_cmd_main_win_get_file_metadata_service (main_win);
+
+        auto dlg = gnome_cmd_advrename_dialog_new(&gnome_cmd_data.advrename_defaults, file_metadata_service, GTK_WINDOW (main_win));
         gnome_cmd_advrename_dialog_set (dlg, files);
+        g_object_set (G_OBJECT (dlg), "file-list", fl, nullptr);
+
         gtk_window_present (GTK_WINDOW (dlg));
 
         g_list_free (files);
