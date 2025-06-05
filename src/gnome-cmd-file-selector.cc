@@ -831,8 +831,13 @@ GtkWidget *GnomeCmdFileSelector::new_tab(GnomeCmdDir *dir, GnomeCmdFileList::Col
 {
     auto priv = file_selector_priv (this);
 
+    GnomeCmdFileMetadataService *file_metadata_service;
+    g_object_get (G_OBJECT (this), "file-metadata-service", &file_metadata_service, nullptr);
+
     // create the list
-    GnomeCmdFileList *fl = (GnomeCmdFileList *) g_object_new (GNOME_CMD_TYPE_FILE_LIST, nullptr);
+    GnomeCmdFileList *fl = (GnomeCmdFileList *) g_object_new (GNOME_CMD_TYPE_FILE_LIST,
+        "file-metadata-service", file_metadata_service,
+        nullptr);
     gnome_cmd_file_list_set_sorting (fl, sort_col, sort_order);
 
     if (activate)

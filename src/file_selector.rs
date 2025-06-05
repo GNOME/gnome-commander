@@ -30,6 +30,7 @@ use crate::{
     file::File,
     file_list::list::{ColumnID, FileList},
     notebook_ext::{GnomeCmdNotebookExt, TabClick},
+    tags::tags::FileMetadataService,
 };
 use gettextrs::gettext;
 use gtk::{
@@ -137,10 +138,14 @@ pub mod ffi {
 
 mod imp {
     use super::*;
-    use std::sync::OnceLock;
+    use std::{cell::OnceCell, sync::OnceLock};
 
-    #[derive(Default)]
-    pub struct FileSelector {}
+    #[derive(Default, glib::Properties)]
+    #[properties(wrapper_type = super::FileSelector)]
+    pub struct FileSelector {
+        #[property(get, construct_only)]
+        pub file_metadata_service: OnceCell<FileMetadataService>,
+    }
 
     #[glib::object_subclass]
     impl ObjectSubclass for FileSelector {
@@ -176,6 +181,7 @@ mod imp {
         }
     }
 
+    #[glib::derived_properties]
     impl ObjectImpl for FileSelector {
         fn constructed(&self) {
             self.parent_constructed();
@@ -237,8 +243,10 @@ glib::wrapper! {
 }
 
 impl FileSelector {
-    pub fn new() -> Self {
-        glib::Object::builder().build()
+    pub fn new(file_metadata_service: &FileMetadataService) -> Self {
+        glib::Object::builder()
+            .property("file-metadata-service", file_metadata_service)
+            .build()
     }
 
     pub fn file_list(&self) -> FileList {

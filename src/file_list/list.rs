@@ -44,15 +44,19 @@ use gtk::{
     prelude::*,
     subclass::prelude::*,
 };
-use std::{collections::HashSet, ffi::c_char, ops::ControlFlow, path::Path, sync::LazyLock};
+use std::{collections::HashSet, ffi::c_char, ops::ControlFlow, path::Path};
 
 mod imp {
     use super::*;
-    use std::sync::OnceLock;
+    use crate::tags::tags::FileMetadataService;
+    use std::{cell::OnceCell, sync::OnceLock};
 
-    #[derive(Default)]
+    #[derive(Default, glib::Properties)]
+    #[properties(wrapper_type = super::FileList)]
     pub struct FileList {
         pub quick_search: glib::WeakRef<QuickSearch>,
+        #[property(get, construct_only)]
+        pub file_metadata_service: OnceCell<FileMetadataService>,
     }
 
     #[glib::object_subclass]
@@ -62,6 +66,7 @@ mod imp {
         type ParentType = gtk::Widget;
     }
 
+    #[glib::derived_properties]
     impl ObjectImpl for FileList {
         fn constructed(&self) {
             self.parent_constructed();
