@@ -123,7 +123,7 @@ GtkWidget *gnome_cmd_rename_dialog_new (GnomeCmdFile *f, GtkWidget *parent, gint
 
     priv->f = f->ref();
 
-    gtk_popover_set_modal(GTK_POPOVER (dialog), FALSE);
+    gtk_popover_set_modal(GTK_POPOVER (dialog), TRUE);
 
     gtk_popover_set_relative_to (GTK_POPOVER (dialog), parent);
     GdkRectangle rect = { x, y, width, height };
