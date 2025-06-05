@@ -832,7 +832,8 @@ GtkWidget *GnomeCmdFileSelector::new_tab(GnomeCmdDir *dir, GnomeCmdFileList::Col
     auto priv = file_selector_priv (this);
 
     // create the list
-    GnomeCmdFileList *fl = new GnomeCmdFileList(sort_col,sort_order);
+    GnomeCmdFileList *fl = (GnomeCmdFileList *) g_object_new (GNOME_CMD_TYPE_FILE_LIST, nullptr);
+    gnome_cmd_file_list_set_sorting (fl, sort_col, sort_order);
 
     if (activate)
         priv->list = fl;               //  ... update GnomeCmdFileSelector::list to point at newly created tab

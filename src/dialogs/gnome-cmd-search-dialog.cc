@@ -1212,7 +1212,7 @@ extern "C" void gnome_cmd_search_dialog_init (GnomeCmdSearchDialog *dialog)
     gtk_grid_attach (GTK_GRID (grid), sw, 0, 2, 2, 1);
     gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (sw), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
 
-    priv->result_list = new GnomeCmdFileList(GnomeCmdFileList::COLUMN_NAME,GTK_SORT_ASCENDING);
+    priv->result_list = (GnomeCmdFileList *) g_object_new (GNOME_CMD_TYPE_FILE_LIST, nullptr);
     gtk_widget_set_size_request (*priv->result_list, -1, 200);
     gtk_scrolled_window_set_child (GTK_SCROLLED_WINDOW (sw), *priv->result_list);
 

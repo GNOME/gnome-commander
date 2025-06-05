@@ -51,7 +51,9 @@ mod imp {
     use std::sync::OnceLock;
 
     #[derive(Default)]
-    pub struct FileList {}
+    pub struct FileList {
+        pub quick_search: glib::WeakRef<QuickSearch>,
+    }
 
     #[glib::object_subclass]
     impl ObjectSubclass for FileList {
@@ -197,26 +199,7 @@ enum DataColumns {
     DATA_COLUMN_SELECTED,
 }
 
-#[derive(Default)]
-struct FileListPrivate {
-    quick_search: glib::WeakRef<QuickSearch>,
-}
-
 impl FileList {
-    fn private(&self) -> &mut FileListPrivate {
-        static QUARK: LazyLock<glib::Quark> =
-            LazyLock::new(|| glib::Quark::from_str("file-list-private"));
-
-        unsafe {
-            if let Some(mut private) = self.qdata::<FileListPrivate>(*QUARK) {
-                private.as_mut()
-            } else {
-                self.set_qdata(*QUARK, FileListPrivate::default());
-                self.qdata::<FileListPrivate>(*QUARK).unwrap().as_mut()
-            }
-        }
-    }
-
     fn tree_view(&self) -> gtk::TreeView {
         unsafe {
             from_glib_none(ffi::gnome_cmd_file_list_get_tree_view(
@@ -505,9 +488,8 @@ impl FileList {
     }
 
     pub fn show_quick_search(&self, key: Option<gdk::Key>) {
-        let private = self.private();
-
-        let popup_is_visible = private
+        let popup_is_visible = self
+            .imp()
             .quick_search
             .upgrade()
             .map(|popup| popup.is_visible())
@@ -515,7 +497,7 @@ impl FileList {
 
         if !popup_is_visible {
             let popup = QuickSearch::new(self);
-            private.quick_search.set(Some(&popup));
+            self.imp().quick_search.set(Some(&popup));
             popup.popup();
 
             if let Some(initial_text) = key.and_then(|k| k.to_unicode()).map(|c| c.to_string()) {
