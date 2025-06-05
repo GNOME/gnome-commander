@@ -69,6 +69,8 @@ using namespace std;
 #define CON_CHANGED_SIGNAL      "con-changed"
 #define RESIZE_COLUMN_SIGNAL    "resize-column"
 #define FILE_ACTIVATED_SIGNAL   "file-activated"
+#define CMDLINE_APPEND_SIGNAL   "cmdline-append"
+#define CMDLINE_EXECUTE_SIGNAL  "cmdline-execute"
 
 
 static const char *drag_types [] =
@@ -1921,6 +1923,31 @@ static void set_shift_down_row (GnomeCmdFileList *fl, GtkTreeIter *row)
 }
 
 
+inline void add_file_to_cmdline (GnomeCmdFileList *fl, gboolean fullpath)
+{
+    g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl));
+
+    GnomeCmdFile *f = fl->get_selected_file();
+
+    if (f)
+    {
+        gchar *text = fullpath ? f->get_quoted_real_path() : f->get_quoted_name();
+        g_signal_emit_by_name (fl, CMDLINE_APPEND_SIGNAL, text);
+        g_free (text);
+    }
+}
+
+
+inline void add_cwd_to_cmdline (GnomeCmdFileList *fl)
+{
+    g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl));
+
+    gchar *dpath = GNOME_CMD_FILE (gnome_cmd_file_list_get_directory (fl))->get_real_path();
+    g_signal_emit_by_name (fl, CMDLINE_APPEND_SIGNAL, dpath);
+    g_free (dpath);
+}
+
+
 static gboolean gnome_cmd_file_list_key_pressed (GtkEventControllerKey* self, guint keyval, guint keycode, GdkModifierType state, gpointer user_data)
 {
     auto fl = GNOME_CMD_FILE_LIST (user_data);
@@ -2045,6 +2072,29 @@ static gboolean gnome_cmd_file_list_key_pressed (GtkEventControllerKey* self, gu
                 on_column_clicked (priv->columns[GnomeCmdFileList::COLUMN_SIZE], fl);
                 return TRUE;
 
+            case GDK_KEY_P:
+            case GDK_KEY_p:
+                add_cwd_to_cmdline (fl);
+                return TRUE;
+
+            case GDK_KEY_Return:
+            case GDK_KEY_KP_Enter:
+                add_file_to_cmdline (fl, FALSE);
+                return TRUE;
+
+            default:
+                break;
+        }
+    }
+    if (state_is_ctrl_shift (state))
+    {
+        switch (keyval)
+        {
+            case GDK_KEY_Return:
+            case GDK_KEY_KP_Enter:
+                add_file_to_cmdline (fl, TRUE);
+                return TRUE;
+
             default:
                 break;
         }
@@ -2053,6 +2103,16 @@ static gboolean gnome_cmd_file_list_key_pressed (GtkEventControllerKey* self, gu
     {
         switch (keyval)
         {
+            case GDK_KEY_Return:
+            case GDK_KEY_KP_Enter:
+                {
+                    gboolean event_processed;
+                    g_signal_emit_by_name (fl, CMDLINE_EXECUTE_SIGNAL, &event_processed);
+                    if (!event_processed)
+                        g_signal_emit_by_name (fl, FILE_ACTIVATED_SIGNAL, fl->get_focused_file());
+                }
+                return TRUE;
+
             case GDK_KEY_space:
                 set_cursor_busy_for_widget (*fl);
                 fl->toggle();
@@ -2125,15 +2185,10 @@ static gboolean gnome_cmd_file_list_key_pressed (GtkEventControllerKey* self, gu
             gnome_cmd_file_list_show_quicksearch (fl, keyval);
         else
         {
-            auto cmdline = gnome_cmd_main_win_get_cmdline (main_win);
-            if (gtk_widget_is_visible (GTK_WIDGET (cmdline)))
-            {
-                gchar text[2];
-                text[0] = keyval;
-                text[1] = '\0';
-                gnome_cmd_cmdline_append_text (cmdline, text);
-                gtk_widget_grab_focus (GTK_WIDGET (cmdline));
-            }
+            gchar text[2];
+            text[0] = keyval;
+            text[1] = '\0';
+            g_signal_emit_by_name (fl, CMDLINE_APPEND_SIGNAL, text);
         }
         return TRUE;
     }

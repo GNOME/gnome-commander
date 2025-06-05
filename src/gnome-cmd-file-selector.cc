@@ -170,40 +170,6 @@ void GnomeCmdFileSelector::do_file_specific_action (GnomeCmdFileList *fl, GnomeC
 }
 
 
-inline void add_file_to_cmdline (GnomeCmdFileList *fl, gboolean fullpath)
-{
-    g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl));
-
-    GnomeCmdFile *f = fl->get_selected_file();
-
-    auto cmdline = gnome_cmd_main_win_get_cmdline (main_win);
-    if (f && gtk_widget_is_visible (GTK_WIDGET (cmdline)))
-    {
-        gchar *text = fullpath ? f->get_quoted_real_path() : f->get_quoted_name();
-
-        gnome_cmd_cmdline_append_text (cmdline, text);
-        gtk_widget_grab_focus (GTK_WIDGET (cmdline));
-        g_free (text);
-    }
-}
-
-
-inline void add_cwd_to_cmdline (GnomeCmdFileList *fl)
-{
-    g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl));
-
-    auto cmdline = gnome_cmd_main_win_get_cmdline (main_win);
-    if (gtk_widget_is_visible (GTK_WIDGET (cmdline)))
-    {
-        gchar *dpath = GNOME_CMD_FILE (gnome_cmd_file_list_get_directory (fl))->get_real_path();
-        gnome_cmd_cmdline_append_text (cmdline, dpath);
-        g_free (dpath);
-
-        gtk_widget_grab_focus (GTK_WIDGET (cmdline));
-    }
-}
-
-
 GListStore *create_connections_store ()
 {
     GListStore *store = g_list_store_new (GNOME_CMD_TYPE_CON);
@@ -470,6 +436,29 @@ static void on_list_file_activated (GnomeCmdFileList *fl, GnomeCmdFile *f, Gnome
 }
 
 
+static void on_list_cmdline_append (GnomeCmdFileList *fl, const gchar *text, GnomeCmdFileSelector *fs)
+{
+    auto cmdline = gnome_cmd_main_win_get_cmdline (main_win);
+    if (gtk_widget_is_visible (GTK_WIDGET (cmdline)))
+    {
+        gnome_cmd_cmdline_append_text (cmdline, text);
+        gtk_widget_grab_focus (GTK_WIDGET (cmdline));
+    }
+}
+
+
+static gboolean on_list_cmdline_execute (GnomeCmdFileList *fl, GnomeCmdFileSelector *fs)
+{
+    auto cmdline = gnome_cmd_main_win_get_cmdline (main_win);
+    if (gtk_widget_is_visible (GTK_WIDGET (cmdline)) && !gnome_cmd_cmdline_is_empty (cmdline))
+    {
+        gnome_cmd_cmdline_exec (cmdline);
+        return TRUE;
+    }
+    return FALSE;
+}
+
+
 static gboolean on_list_key_pressed (GtkEventControllerKey *controller, guint keyval, guint keycode, GdkModifierType state, gpointer user_data)
 {
     auto fs = static_cast<GnomeCmdFileSelector*>(user_data);
@@ -482,11 +471,6 @@ static gboolean on_list_key_pressed (GtkEventControllerKey *controller, guint ke
             case GDK_KEY_Tab:
             case GDK_KEY_ISO_Left_Tab:
                 fs->prev_tab();
-                return TRUE;
-
-            case GDK_KEY_Return:
-            case GDK_KEY_KP_Enter:
-                add_file_to_cmdline (priv->list, TRUE);
                 return TRUE;
 
             default:
@@ -515,19 +499,9 @@ static gboolean on_list_key_pressed (GtkEventControllerKey *controller, guint ke
     {
         switch (keyval)
         {
-            case GDK_KEY_P:
-            case GDK_KEY_p:
-                add_cwd_to_cmdline (priv->list);
-                return TRUE;
-
             case GDK_KEY_Tab:
             case GDK_KEY_ISO_Left_Tab:
                 fs->next_tab();
-                return TRUE;
-
-            case GDK_KEY_Return:
-            case GDK_KEY_KP_Enter:
-                add_file_to_cmdline (priv->list, FALSE);
                 return TRUE;
 
             default:
@@ -556,17 +530,6 @@ static gboolean on_list_key_pressed (GtkEventControllerKey *controller, guint ke
                     auto f = priv->list->get_selected_file();
                     if (f && f->GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE) == G_FILE_TYPE_DIRECTORY)
                         fs->do_file_specific_action (priv->list, f);
-                }
-                return TRUE;
-
-            case GDK_KEY_Return:
-            case GDK_KEY_KP_Enter:
-                {
-                    auto cmdline = gnome_cmd_main_win_get_cmdline (main_win);
-                    if (gtk_widget_is_visible (GTK_WIDGET (cmdline)) && !gnome_cmd_cmdline_is_empty (cmdline))
-                        gnome_cmd_cmdline_exec (cmdline);
-                    else
-                        fs->do_file_specific_action (priv->list, priv->list->get_focused_file());
                 }
                 return TRUE;
 
@@ -832,6 +795,8 @@ GtkWidget *GnomeCmdFileSelector::new_tab(GnomeCmdDir *dir, GnomeCmdFileList::Col
     g_signal_connect (fl, "dir-changed", G_CALLBACK (on_list_dir_changed), this);
     g_signal_connect (fl, "files-changed", G_CALLBACK (on_list_files_changed), this);
     g_signal_connect (fl, "file-activated", G_CALLBACK (on_list_file_activated), this);
+    g_signal_connect (fl, "cmdline-append", G_CALLBACK (on_list_cmdline_append), this);
+    g_signal_connect (fl, "cmdline-execute", G_CALLBACK (on_list_cmdline_execute), this);
 
     if (dir)
         fl->set_connection(gnome_cmd_file_get_connection (GNOME_CMD_FILE (dir)), dir);
