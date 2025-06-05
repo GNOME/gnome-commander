@@ -19,9 +19,6 @@
 
 pub mod pattern_selection_dialog;
 
-pub mod advrename_dialog;
-pub mod advrename_regex_dialog;
-
 pub mod edit_bookmark_dialog;
 pub mod manage_bookmarks_dialog;
 

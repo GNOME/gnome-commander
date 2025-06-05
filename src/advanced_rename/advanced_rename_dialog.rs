@@ -17,18 +17,24 @@
  * For more details see the file COPYING.
  */
 
-use super::profiles::{manage_profiles_dialog::manage_profiles, profiles::ProfileManager};
+use super::{
+    profile_component::{ffi::GnomeCmdAdvrenameProfileComponent, AdvancedRenameProfileComponent},
+    template::{generate_file_name, CounterOptions, Template},
+};
 use crate::{
     advanced_rename::profile::{AdvRenameProfilePtr, AdvancedRenameProfile},
+    dialogs::profiles::{manage_profiles_dialog::manage_profiles, profiles::ProfileManager},
     tags::tags::FileMetadataService,
 };
 use gettextrs::gettext;
 use gtk::{
-    ffi::GtkWidget,
+    ffi::GtkListStore,
     gio::{self, ffi::GListStore},
     glib::{
-        ffi::{gboolean, GType},
-        translate::{from_glib_full, from_glib_none, FromGlibPtrNone, IntoGlib, ToGlibPtr},
+        ffi::{gboolean, GList, GType},
+        translate::{
+            from_glib_borrow, from_glib_none, Borrowed, FromGlibPtrNone, IntoGlib, ToGlibPtr,
+        },
     },
     prelude::*,
     subclass::prelude::*,
@@ -53,18 +59,16 @@ impl AdvRenameConfig {
             store.append(&p);
         }
     }
+
+    pub fn template_history(&self) -> glib::List<glib::GStringPtr> {
+        unsafe { glib::List::from_glib_none(gnome_cmd_advrename_config_template_history(self.0)) }
+    }
 }
 
 extern "C" {
-    fn gnome_cmd_advrename_profile_component_new(
-        profile: *mut AdvRenameProfilePtr,
-        fms: *mut <FileMetadataService as glib::object::ObjectType>::GlibType,
-    ) -> *mut GtkWidget;
-    fn gnome_cmd_advrename_profile_component_update(component: *mut GtkWidget);
-    fn gnome_cmd_advrename_profile_component_copy(component: *mut GtkWidget);
-
     fn gnome_cmd_advrename_config_default_profile(cfg: *mut c_void) -> *mut AdvRenameProfilePtr;
     fn gnome_cmd_advrename_config_profiles(cfg: *mut c_void) -> *mut GListStore;
+    fn gnome_cmd_advrename_config_template_history(cfg: *mut c_void) -> *const GList;
 }
 
 struct AdvrenameProfiles {
@@ -149,6 +153,7 @@ impl AdvrenameProfiles {
 }
 
 struct AdvRenameProfileManager {
+    config: AdvRenameConfig,
     profiles: AdvrenameProfiles,
     file_metadata_service: FileMetadataService,
 }
@@ -187,36 +192,43 @@ impl ProfileManager for AdvRenameProfileManager {
         profile_index: usize,
         _labels_size_group: &gtk::SizeGroup,
     ) -> gtk::Widget {
-        let widget_ptr = unsafe {
-            gnome_cmd_advrename_profile_component_new(
-                self.profiles.profile(profile_index).to_glib_none().0,
-                self.file_metadata_service.to_glib_none().0,
-            )
-        };
-        if widget_ptr.is_null() {
-            panic!("Profile editing component is null.");
-        }
-        unsafe {
-            gnome_cmd_advrename_profile_component_update(widget_ptr);
-        }
-        unsafe { from_glib_full(widget_ptr) }
+        let component = AdvancedRenameProfileComponent::new(&self.file_metadata_service);
+        component.set_profile(Some(self.profiles.profile(profile_index)));
+        component.set_template_history(self.config.template_history().iter().map(|s| s.as_str()));
+        component.update();
+        component.grab_focus();
+        component.upcast()
     }
 
     fn update_component(&self, _profile_index: usize, component: &gtk::Widget) {
-        unsafe { gnome_cmd_advrename_profile_component_update(component.to_glib_none().0) }
+        let component = component
+            .downcast_ref::<AdvancedRenameProfileComponent>()
+            .unwrap();
+        component.set_template_history(self.config.template_history().iter().map(|s| s.as_str()));
+        component.update();
     }
 
     fn copy_component(&self, _profile_index: usize, component: &gtk::Widget) {
-        unsafe { gnome_cmd_advrename_profile_component_copy(component.to_glib_none().0) }
+        let component = component
+            .downcast_ref::<AdvancedRenameProfileComponent>()
+            .unwrap();
+        component.copy();
     }
 }
 
 mod imp {
     use super::*;
-    use crate::data::GeneralOptions;
+    use crate::{
+        data::GeneralOptions,
+        file::{ffi::GnomeCmdFile, File},
+        tags::file_metadata::FileMetadata,
+    };
+    use std::cell::RefCell;
 
     #[derive(Default)]
-    pub struct AdvancedRenameDialog {}
+    pub struct AdvancedRenameDialog {
+        pub rename_template: RefCell<Option<Rc<Template>>>,
+    }
 
     #[glib::object_subclass]
     impl ObjectSubclass for AdvancedRenameDialog {
@@ -237,17 +249,144 @@ mod imp {
 
             remember_window_size(&*self.obj(), &options.0);
         }
-
-        fn dispose(&self) {
-            unsafe {
-                gnome_cmd_advrename_dialog_dispose(self.obj().to_glib_none().0);
-            }
-        }
     }
 
     impl WidgetImpl for AdvancedRenameDialog {}
     impl WindowImpl for AdvancedRenameDialog {}
     impl DialogImpl for AdvancedRenameDialog {}
+
+    impl AdvancedRenameDialog {
+        fn files(&self) -> gtk::ListStore {
+            unsafe {
+                from_glib_none(gnome_cmd_advrename_dialog_get_files(
+                    self.obj().to_glib_none().0,
+                ))
+            }
+        }
+
+        fn profile_component(&self) -> AdvancedRenameProfileComponent {
+            unsafe {
+                from_glib_none(gnome_cmd_advrename_dialog_get_profile_component(
+                    self.obj().to_glib_none().0,
+                ))
+            }
+        }
+
+        fn config(&self) -> AdvRenameConfig {
+            unsafe {
+                AdvRenameConfig(gnome_cmd_advrename_dialog_get_config(
+                    self.obj().to_glib_none().0,
+                ))
+            }
+        }
+
+        pub fn update_template(&self) {
+            let entry = self.profile_component().template_entry();
+            match Template::new(&entry) {
+                Ok(template) => {
+                    self.rename_template.replace(Some(template));
+                }
+                Err(error) => {
+                    eprintln!("Parse error: {error}");
+                    self.rename_template.replace(None);
+                }
+            }
+        }
+
+        pub fn update_new_filenames(&self) {
+            let Some(rename_template) = self.rename_template.borrow().clone() else {
+                return;
+            };
+            let files = self.files();
+            let profile_component = self.profile_component();
+            let trim_blanks = profile_component.profile().map(|p| p.trim_blanks());
+            let case_convesion = profile_component.profile().map(|p| p.case_conversion());
+
+            let count = files.iter_n_children(None) as u64;
+
+            let rx: Vec<_> = profile_component
+                .valid_regexes()
+                .into_iter()
+                .filter_map(|r| match r.compile_pattern() {
+                    Ok(regex) => Some((r, regex)),
+                    Err(error) => {
+                        eprintln!("{error}");
+                        None
+                    }
+                })
+                .collect();
+
+            let default_profile = self.config().default_profile();
+            let options = CounterOptions {
+                start: default_profile.counter_start() as i64,
+                step: default_profile.counter_step() as i64,
+                precision: default_profile.counter_width() as usize,
+            };
+
+            let mut index = 0;
+            if let Some(iter) = files.iter_first() {
+                loop {
+                    let file_ptr = files.get::<glib::Pointer>(&iter, FileColumns::COL_FILE as i32)
+                        as *mut GnomeCmdFile;
+                    let file: Borrowed<File> = unsafe { from_glib_borrow(file_ptr) };
+
+                    let metadata_ptr =
+                        files.get::<glib::Pointer>(&iter, FileColumns::COL_METADATA as i32);
+                    let metadata: &FileMetadata = unsafe { &*(metadata_ptr as *mut FileMetadata) };
+
+                    let mut file_name = generate_file_name(
+                        &rename_template,
+                        options,
+                        index,
+                        count,
+                        &file,
+                        metadata,
+                    );
+
+                    for (r, regex) in &rx {
+                        match regex.replace(
+                            &file_name,
+                            0,
+                            &r.replacement,
+                            glib::RegexMatchFlags::NOTEMPTY,
+                        ) {
+                            Ok(new) => {
+                                file_name = new.to_string();
+                            }
+                            Err(error) => {
+                                eprintln!("{error}")
+                            }
+                        }
+                    }
+                    if let Some(case_convesion) = case_convesion {
+                        file_name = case_convesion.apply(&file_name);
+                    }
+                    if let Some(trim_blanks) = trim_blanks {
+                        file_name = trim_blanks.apply(&file_name).to_owned();
+                    }
+
+                    files.set(&iter, &[(FileColumns::COL_NEW_NAME as u32, &file_name)]);
+
+                    if !files.iter_next(&iter) {
+                        break;
+                    }
+
+                    index += 1;
+                }
+            }
+        }
+    }
+
+    #[repr(i32)]
+    pub enum FileColumns {
+        COL_FILE = 0,
+        COL_NAME,
+        COL_NEW_NAME,
+        COL_SIZE,
+        COL_DATE,
+        COL_RENAME_FAILED,
+        COL_METADATA,
+    }
 }
 
 glib::wrapper! {
@@ -290,9 +429,16 @@ pub extern "C" fn gnome_cmd_advrename_dialog_get_type() -> GType {
 
 extern "C" {
     fn gnome_cmd_advrename_dialog_init(dialog: *mut GnomeCmdAdvrenameDialog);
-    fn gnome_cmd_advrename_dialog_dispose(dialog: *mut GnomeCmdAdvrenameDialog);
 
     fn gnome_cmd_advrename_dialog_update_profile_menu(dialog: *mut GnomeCmdAdvrenameDialog);
+
+    fn gnome_cmd_advrename_dialog_get_files(
+        dialog: *mut GnomeCmdAdvrenameDialog,
+    ) -> *mut GtkListStore;
+    fn gnome_cmd_advrename_dialog_get_profile_component(
+        dialog: *mut GnomeCmdAdvrenameDialog,
+    ) -> *mut GnomeCmdAdvrenameProfileComponent;
+    fn gnome_cmd_advrename_dialog_get_config(dialog: *mut GnomeCmdAdvrenameDialog) -> *mut c_void;
 }
 
 #[no_mangle]
@@ -315,6 +461,7 @@ pub extern "C" fn gnome_cmd_advrename_dialog_do_manage_profiles(
         }
 
         let manager = Rc::new(AdvRenameProfileManager {
+            config: cfg,
             profiles,
             file_metadata_service,
         });
@@ -329,10 +476,24 @@ pub extern "C" fn gnome_cmd_advrename_dialog_do_manage_profiles(
         .await
         {
             let profiles = manager.profiles.clone();
-            cfg.set_profiles(&profiles.profiles);
+            manager.config.set_profiles(&profiles.profiles);
             unsafe {
                 gnome_cmd_advrename_dialog_update_profile_menu(dialog_ptr);
             }
         }
     });
+}
+
+#[no_mangle]
+pub extern "C" fn gnome_cmd_advrename_dialog_update_template(dialog: *mut GnomeCmdAdvrenameDialog) {
+    let dialog: Borrowed<AdvancedRenameDialog> = unsafe { from_glib_borrow(dialog) };
+    dialog.imp().update_template();
+}
+
+#[no_mangle]
+pub extern "C" fn gnome_cmd_advrename_dialog_update_new_filenames(
+    dialog: *mut GnomeCmdAdvrenameDialog,
+) {
+    let dialog: Borrowed<AdvancedRenameDialog> = unsafe { from_glib_borrow(dialog) };
+    dialog.imp().update_new_filenames();
 }

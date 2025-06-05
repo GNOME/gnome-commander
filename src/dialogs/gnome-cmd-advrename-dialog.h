@@ -42,4 +42,3 @@ extern "C" GnomeCmdAdvrenameDialog *gnome_cmd_advrename_dialog_new (GnomeCmdData
                                     GtkWindow *parent_window);
 extern "C" void gnome_cmd_advrename_dialog_set (GnomeCmdAdvrenameDialog *dialog, GList *files);
 extern "C" void gnome_cmd_advrename_dialog_unset (GnomeCmdAdvrenameDialog *dialog);
-extern "C" void gnome_cmd_advrename_dialog_update_new_filenames (GnomeCmdAdvrenameDialog *dialog);

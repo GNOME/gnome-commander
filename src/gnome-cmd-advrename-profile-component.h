@@ -42,11 +42,9 @@ extern "C" GnomeCmdAdvrenameProfileComponent *gnome_cmd_advrename_profile_compon
 extern "C" void gnome_cmd_advrename_profile_component_update (GnomeCmdAdvrenameProfileComponent *component);
 extern "C" void gnome_cmd_advrename_profile_component_copy (GnomeCmdAdvrenameProfileComponent *component);
 
-gchar *gnome_cmd_advrename_profile_component_convert_case (GnomeCmdAdvrenameProfileComponent *component, gchar *string);
-gchar *gnome_cmd_advrename_profile_component_trim_blanks (GnomeCmdAdvrenameProfileComponent *component, gchar *string);
+extern "C" gchar *gnome_cmd_advrename_profile_component_convert_case (GnomeCmdAdvrenameProfileComponent *component, gchar *string);
+extern "C" gchar *gnome_cmd_advrename_profile_component_trim_blanks (GnomeCmdAdvrenameProfileComponent *component, gchar *string);
 
-const gchar *gnome_cmd_advrename_profile_component_get_template_entry (GnomeCmdAdvrenameProfileComponent *component);
-void gnome_cmd_advrename_profile_component_set_template_history (GnomeCmdAdvrenameProfileComponent *component, GList *history);
-void gnome_cmd_advrename_profile_component_set_sample_fname (GnomeCmdAdvrenameProfileComponent *component, const gchar *fname);
-
-std::vector<GnomeCmd::RegexReplace> gnome_cmd_advrename_profile_component_get_valid_regexes (GnomeCmdAdvrenameProfileComponent *component);
+extern "C" gchar *gnome_cmd_advrename_profile_component_get_template_entry (GnomeCmdAdvrenameProfileComponent *component);
+extern "C" void gnome_cmd_advrename_profile_component_set_template_history (GnomeCmdAdvrenameProfileComponent *component, GList *history);
+extern "C" void gnome_cmd_advrename_profile_component_set_sample_fname (GnomeCmdAdvrenameProfileComponent *component, const gchar *fname);

@@ -42,6 +42,12 @@ extern "C" GListStore *gnome_cmd_advrename_config_profiles (GnomeCmdData::Advren
 }
 
 
+extern "C" GList *gnome_cmd_advrename_config_template_history (GnomeCmdData::AdvrenameConfig *cfg)
+{
+    return cfg->templates.ents;
+}
+
+
 extern "C" void gnome_cmd_load_advrename_profiles (AdvancedRenameProfile *default_profile, GListStore *profiles);
 extern "C" void gnome_cmd_save_advrename_profiles (AdvancedRenameProfile *default_profile, GListStore *profiles);
 

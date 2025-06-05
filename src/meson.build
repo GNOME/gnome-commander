@@ -2,7 +2,6 @@ sources_headers = files(
   'tags/file_metadata.h',
   'dirlist.h',
   'filter.h',
-  'gnome-cmd-advrename-lexer.h',
   'gnome-cmd-advrename-profile-component.h',
   'gnome-cmd-cmdline.h',
   'gnome-cmd-con-device.h',
@@ -43,7 +42,6 @@ gnome_cmd_block_sources = files(
 sources_sources = files(
   'dirlist.cc',
   'filter.cc',
-  'gnome-cmd-advrename-profile-component.cc',
   'gnome-cmd-application.cc',
   'gnome-cmd-con.cc',
   'gnome-cmd-con-device.cc',

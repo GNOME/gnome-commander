@@ -17,4 +17,8 @@
  * For more details see the file COPYING.
  */
 
+pub mod advanced_rename_dialog;
 pub mod profile;
+pub mod profile_component;
+pub mod regex_dialog;
+pub mod template;
