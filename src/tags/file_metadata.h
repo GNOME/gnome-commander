@@ -24,18 +24,7 @@ struct GnomeCmdFileMetadataService;
 struct GnomeCmdFileMetadata;
 
 
-extern "C" gchar *gnome_cmd_file_metadata_service_get_name (GnomeCmdFileMetadataService *fms, const gchar *tag_id);
-extern "C" gchar *gnome_cmd_file_metadata_service_get_description (GnomeCmdFileMetadataService *fms, const gchar *tag_id);
-extern "C" GMenu *gnome_cmd_file_metadata_service_create_menu (GnomeCmdFileMetadataService *fms, const gchar *action_name);
 extern "C" GnomeCmdFileMetadata *gnome_cmd_file_metadata_service_extract_metadata (GnomeCmdFileMetadataService *fms, GnomeCmdFile *f);
-extern "C" gchar *gnome_cmd_file_metadata_service_to_tsv (GnomeCmdFileMetadataService *fms, GnomeCmdFileMetadata *fm);
-extern "C" GStrv gnome_cmd_file_metadata_service_file_summary (GnomeCmdFileMetadataService *fms, GnomeCmdFileMetadata *fm);
 
 
-extern "C" GnomeCmdFileMetadata *gnome_cmd_file_metadata_new ();
 extern "C" void gnome_cmd_file_metadata_free (GnomeCmdFileMetadata *fm);
-
-extern "C" void gnome_cmd_file_metadata_add (GnomeCmdFileMetadata *fm, const gchar *tag_id, const gchar *value);
-
-extern "C" gboolean gnome_cmd_file_metadata_has_tag (GnomeCmdFileMetadata *fm, const gchar *tag_id);
-extern "C" gchar *gnome_cmd_file_metadata_get (GnomeCmdFileMetadata *fm, const gchar *tag_id);

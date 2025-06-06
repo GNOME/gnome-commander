@@ -33,7 +33,6 @@
 
 #include "gnome-cmd-types.h"
 #include "gnome-cmd-file-list.h"
-#include "gnome-cmd-regex.h"
 #include "filter.h"
 #include "history.h"
 

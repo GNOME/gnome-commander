@@ -18,12 +18,7 @@
  */
 
 use super::tags::{GnomeCmdTag, GnomeCmdTagClass};
-use glib::{
-    ffi::gboolean,
-    translate::{from_glib_none, FromGlibPtrNone, ToGlibPtr},
-};
 use indexmap::IndexMap;
-use std::ffi::c_char;
 
 #[derive(Default)]
 pub struct FileMetadata {
@@ -84,46 +79,7 @@ impl FileMetadata {
 }
 
 #[no_mangle]
-pub extern "C" fn gnome_cmd_file_metadata_new() -> *mut FileMetadata {
-    let metadata = Box::new(FileMetadata::default());
-    Box::leak(metadata)
-}
-
-#[no_mangle]
 pub extern "C" fn gnome_cmd_file_metadata_free(fm: *mut FileMetadata) {
     let metadata = unsafe { Box::from_raw(fm) };
     drop(metadata);
-}
-
-#[no_mangle]
-pub extern "C" fn gnome_cmd_file_metadata_add(
-    fm: *mut FileMetadata,
-    tag: *const c_char,
-    value: *const c_char,
-) {
-    let fm: &mut FileMetadata = unsafe { &mut *fm };
-    let tag = GnomeCmdTag(unsafe { String::from_glib_none(tag) }.into());
-    let value: Option<String> = unsafe { from_glib_none(value) };
-    fm.add(tag, value.as_deref());
-}
-
-#[no_mangle]
-pub extern "C" fn gnome_cmd_file_metadata_has_tag(
-    fm: *mut FileMetadata,
-    tag: *const c_char,
-) -> gboolean {
-    let fm: &mut FileMetadata = unsafe { &mut *fm };
-    let tag = GnomeCmdTag(unsafe { String::from_glib_none(tag) }.into());
-    fm.has(&tag) as gboolean
-}
-
-#[no_mangle]
-pub extern "C" fn gnome_cmd_file_metadata_get(
-    fm: *mut FileMetadata,
-    tag: *const c_char,
-) -> *mut c_char {
-    let fm: &mut FileMetadata = unsafe { &mut *fm };
-    let tag = GnomeCmdTag(unsafe { String::from_glib_none(tag) }.into());
-    let value = fm.get(&tag);
-    value.to_glib_full()
 }

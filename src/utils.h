@@ -134,8 +134,6 @@ void set_cursor_busy_for_widget (GtkWidget *widget);
 
 void remove_temp_download_dir ();
 
-gchar *unix_to_unc (const gchar *path);
-
 void gnome_cmd_toggle_file_name_selection (GtkWidget *entry);
 
 void gnome_cmd_help_display (const gchar *file_name, const gchar *link_id=NULL);
