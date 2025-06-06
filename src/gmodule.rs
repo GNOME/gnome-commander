@@ -17,6 +17,8 @@
  * For more details see the file COPYING.
  */
 
+#![allow(dead_code)]
+
 use gtk::glib::{
     self,
     ffi::gpointer,
