@@ -23,6 +23,7 @@
 
 #include "gnome-cmd-data.h"
 #include "gnome-cmd-dir.h"
+#include "tags/file_metadata.h"
 
 #define GNOME_CMD_TYPE_SEARCH_DIALOG              (gnome_cmd_search_dialog_get_type ())
 #define GNOME_CMD_SEARCH_DIALOG(obj)              (G_TYPE_CHECK_INSTANCE_CAST((obj), GNOME_CMD_TYPE_SEARCH_DIALOG, GnomeCmdSearchDialog))
@@ -38,6 +39,8 @@ extern "C" GType gnome_cmd_search_dialog_get_type ();
 struct GnomeCmdSearchDialog;
 
 
-extern "C" GnomeCmdSearchDialog *gnome_cmd_search_dialog_new (GnomeCmdData::SearchConfig *defaults);
+extern "C" GnomeCmdSearchDialog *gnome_cmd_search_dialog_new (GnomeCmdData::SearchConfig *defaults,
+                                                              GnomeCmdFileMetadataService *file_metadata_service,
+                                                              GtkWindow *parent_window);
 extern "C" void gnome_cmd_search_dialog_show_and_set_focus (GnomeCmdSearchDialog *dialog);
 extern "C" void gnome_cmd_search_dialog_update_style (GnomeCmdSearchDialog *dialog);

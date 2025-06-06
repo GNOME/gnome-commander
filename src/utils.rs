@@ -182,8 +182,8 @@ pub fn handle_escape_key(window: &gtk::Window, action: &impl IsA<gtk::ShortcutAc
 pub const NO_BUTTONS: &'static [&'static gtk::Button] = &[];
 
 pub fn dialog_button_box(
-    buttons_start: &[impl AsRef<gtk::Button>],
-    buttons_end: &[impl AsRef<gtk::Button>],
+    buttons_start: &[impl AsRef<gtk::Widget>],
+    buttons_end: &[impl AsRef<gtk::Widget>],
 ) -> gtk::Widget {
     let bx = gtk::Box::builder()
         .orientation(gtk::Orientation::Horizontal)
