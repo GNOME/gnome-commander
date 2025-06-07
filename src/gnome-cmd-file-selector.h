@@ -71,7 +71,6 @@ struct GnomeCmdFileSelector
     void update_selected_files_label();
     void update_style();
     void update_connections();
-    void update_show_tabs();
 
     void do_file_specific_action (GnomeCmdFileList *fl, GnomeCmdFile *f);
 };

@@ -19,6 +19,8 @@
 
 pub mod options_dialog;
 
+pub mod tabs_tab;
+
 pub mod app_dialog;
 pub mod apps_widget;
 pub mod device_dialog;

@@ -28,7 +28,7 @@ use crate::{
     },
     dir::Directory,
     file::File,
-    file_list::list::{ColumnID, FileList},
+    file_list::list::{ffi::GnomeCmdFileList, ColumnID, FileList},
     notebook_ext::{GnomeCmdNotebookExt, TabClick},
     tags::tags::FileMetadataService,
 };
@@ -119,19 +119,17 @@ pub mod ffi {
             fs: *mut GnomeCmdFileSelector,
             value: gboolean,
         );
-
-        pub fn gnome_cmd_file_selector_update_tab_label(
-            fs: *mut GnomeCmdFileSelector,
-            fl: *mut GnomeCmdFileList,
-        );
     }
 }
 
 mod imp {
     use super::*;
     use crate::{
-        command_line::CommandLine, data::GeneralOptions,
-        dialogs::manage_bookmarks_dialog::bookmark_directory, utils::get_modifiers_state,
+        command_line::CommandLine,
+        data::{GeneralOptions, GeneralOptionsRead},
+        dialogs::manage_bookmarks_dialog::bookmark_directory,
+        tab_label::TabLabel,
+        utils::get_modifiers_state,
     };
     use std::{
         cell::{Cell, OnceCell, RefCell},
@@ -333,13 +331,20 @@ mod imp {
             self.obj().emit_by_name::<()>("activate-request", &[]);
         }
 
-        fn update_tab_label(&self, fl: &FileList) {
-            unsafe {
-                ffi::gnome_cmd_file_selector_update_tab_label(
-                    self.obj().to_glib_none().0,
-                    fl.to_glib_none().0,
-                );
-            }
+        pub fn update_tab_label(&self, fl: &FileList) {
+            let Some(tab_label) = self.notebook.tab_label(fl).and_downcast::<TabLabel>() else {
+                return;
+            };
+
+            let options = GeneralOptions::new();
+
+            tab_label.set_label(
+                fl.directory()
+                    .map(|d| d.upcast::<File>().get_name())
+                    .unwrap_or_default(),
+            );
+            tab_label.set_locked(self.obj().is_tab_locked(fl));
+            tab_label.set_indicator(options.tab_lock_indicator());
         }
 
         fn set_always_show_tabs(&self, value: bool) {
@@ -907,6 +912,22 @@ pub extern "C" fn gnome_cmd_file_selector_get_notebook(
 ) -> *mut GtkNotebook {
     let fs: Borrowed<FileSelector> = unsafe { from_glib_borrow(fs) };
     fs.imp().notebook.to_glib_none().0
+}
+
+#[no_mangle]
+pub extern "C" fn gnome_cmd_file_selector_update_show_tabs(fs: *mut ffi::GnomeCmdFileSelector) {
+    let fs: Borrowed<FileSelector> = unsafe { from_glib_borrow(fs) };
+    fs.update_show_tabs();
+}
+
+#[no_mangle]
+pub extern "C" fn gnome_cmd_file_selector_update_tab_label(
+    fs: *mut ffi::GnomeCmdFileSelector,
+    fl: *mut GnomeCmdFileList,
+) {
+    let fs: Borrowed<FileSelector> = unsafe { from_glib_borrow(fs) };
+    let fl: Borrowed<FileList> = unsafe { from_glib_borrow(fl) };
+    fs.imp().update_tab_label(&fl);
 }
 
 #[cfg(test)]

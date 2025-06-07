@@ -21,6 +21,7 @@ use crate::{
     file_selector::TabVariant,
     filter::PatternType,
     search::profile::{SearchProfile, SearchProfilePtr, SearchProfileVariant},
+    tab_label::TabLockIndicator,
     types::{
         ExtensionDisplayMode, GnomeCmdConfirmOverwriteMode, GraphicalLayoutMode,
         PermissionDisplayMode, SizeDisplayMode,
@@ -36,6 +37,8 @@ use gtk::{
 };
 use std::ffi::{c_char, c_void};
 
+pub type WriteResult = Result<(), glib::BoolError>;
+
 pub struct GeneralOptions(pub gio::Settings);
 
 pub trait GeneralOptionsRead {
@@ -45,6 +48,9 @@ pub trait GeneralOptionsRead {
     fn symlink_format(&self) -> String;
     fn use_trash(&self) -> bool;
     fn keybindings(&self) -> glib::Variant;
+
+    fn always_show_tabs(&self) -> bool;
+    fn tab_lock_indicator(&self) -> TabLockIndicator;
 
     fn file_list_tabs(&self) -> Vec<TabVariant>;
 
@@ -71,6 +77,9 @@ pub trait GeneralOptionsWrite {
     fn set_use_trash(&self, use_trash: bool);
 
     fn set_keybindings(&self, keybindings: &glib::Variant);
+
+    fn set_always_show_tabs(&self, always_show_tabs: bool) -> WriteResult;
+    fn set_tab_lock_indicator(&self, tab_lock_indicator: TabLockIndicator) -> WriteResult;
 
     fn set_file_list_tabs(&self, tabs: &[TabVariant]);
 }
@@ -102,6 +111,19 @@ impl GeneralOptionsRead for GeneralOptions {
 
     fn keybindings(&self) -> glib::Variant {
         self.0.value("keybindings")
+    }
+
+    fn always_show_tabs(&self) -> bool {
+        self.0.boolean("always-show-tabs")
+    }
+
+    fn tab_lock_indicator(&self) -> TabLockIndicator {
+        self.0
+            .enum_("tab-lock-indicator")
+            .try_into()
+            .ok()
+            .and_then(TabLockIndicator::from_repr)
+            .unwrap_or_default()
     }
 
     fn file_list_tabs(&self) -> Vec<TabVariant> {
@@ -184,6 +206,15 @@ impl GeneralOptionsWrite for GeneralOptions {
 
     fn set_keybindings(&self, keybindings: &glib::Variant) {
         self.0.set_value("keybindings", keybindings);
+    }
+
+    fn set_always_show_tabs(&self, always_show_tabs: bool) -> WriteResult {
+        self.0.set_boolean("always-show-tabs", always_show_tabs)
+    }
+
+    fn set_tab_lock_indicator(&self, tab_lock_indicator: TabLockIndicator) -> WriteResult {
+        self.0
+            .set_enum("tab-lock-indicator", tab_lock_indicator as i32)
     }
 
     fn set_file_list_tabs(&self, tabs: &[TabVariant]) {

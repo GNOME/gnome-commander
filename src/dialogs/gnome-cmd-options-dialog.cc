@@ -32,7 +32,6 @@ extern "C" GtkWidget *create_format_tab (GtkWidget *parent, GnomeCmdData::Option
 extern "C" GtkWidget *create_layout_tab (GtkWidget *parent, GnomeCmdData::Options &cfg);
 extern "C" GtkWidget *create_filter_tab (GtkWidget *parent, GnomeCmdData::Options &cfg);
 extern "C" GtkWidget *create_font_picker (GtkWidget *parent, const gchar *name);
-extern "C" GtkWidget *create_tabs_tab (GtkWidget *parent, GnomeCmdData::Options &cfg);
 extern "C" GtkWidget *create_confirmation_tab (GtkWidget *parent, GnomeCmdData::Options &cfg);
 extern "C" GtkWidget *create_programs_tab (GtkWidget *parent, GnomeCmdData::Options &cfg);
 extern "C" GtkWidget *create_devices_tab (GtkWidget *parent, GnomeCmdData::Options &cfg);
@@ -43,7 +42,6 @@ extern "C" void store_format_options (GtkWidget *dialog, GnomeCmdData::Options &
 extern "C" void store_general_options (GtkWidget *dialog, GnomeCmdData::Options &cfg);
 extern "C" void store_layout_options (GtkWidget *dialog, GnomeCmdData::Options &cfg);
 extern "C" void store_programs_options (GtkWidget *dialog, GnomeCmdData::Options &cfg);
-extern "C" void store_tabs_options (GtkWidget *dialog, GnomeCmdData::Options &cfg);
 
 extern "C" GType gnome_cmd_directory_button_get_type();
 
@@ -712,79 +710,6 @@ void store_layout_options (GtkWidget *dialog, GnomeCmdData::Options &cfg)
     cfg.icon_scale_quality = (GdkInterpType) gtk_adjustment_get_value (adj);
 
     cfg.list_row_height = gtk_spin_button_get_value_as_int (GTK_SPIN_BUTTON (row_height_spin));
-}
-
-
-/***********************************************************************
- *
- *  The Tabs tab
- *
- **********************************************************************/
-
-GtkWidget *create_tabs_tab (GtkWidget *parent, GnomeCmdData::Options &cfg)
-{
-    GtkWidget *scrolled_window, *vbox, *cat, *cat_box;
-    GtkWidget *radio, *check;
-
-    vbox = create_tabvbox (parent);
-
-    scrolled_window = gtk_scrolled_window_new ();
-    gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolled_window),
-                                    GTK_POLICY_AUTOMATIC, GTK_POLICY_ALWAYS);
-    gtk_widget_set_hexpand (scrolled_window, TRUE);
-    gtk_widget_set_vexpand (scrolled_window, TRUE);
-    gtk_widget_set_margin_top (scrolled_window, 6);
-    gtk_widget_set_margin_bottom (scrolled_window, 6);
-    gtk_widget_set_margin_start (scrolled_window, 6);
-    gtk_widget_set_margin_end (scrolled_window, 6);
-    gtk_scrolled_window_set_child (GTK_SCROLLED_WINDOW (scrolled_window), vbox);
-
-    cat_box = create_vbox (parent, FALSE, 0);
-    cat = create_category (parent, cat_box, _("Tab bar"));
-    gtk_box_append (GTK_BOX (vbox), cat);
-
-    check = create_check (parent, _("Always show the tab bar"), "always_show_tabs");
-    gtk_box_append (GTK_BOX (cat_box), check);
-    gtk_check_button_set_active (GTK_CHECK_BUTTON (check), cfg.always_show_tabs);
-
-
-    cat_box = create_vbox (parent, FALSE, 0);
-    cat = create_category (parent, cat_box, _("Tab lock indicator"));
-    gtk_box_append (GTK_BOX (vbox), cat);
-
-    radio = create_radio (parent, NULL, _("Lock icon"), "tab_lock_icon_radio");
-    gtk_box_append (GTK_BOX (cat_box), radio);
-    if (cfg.tab_lock_indicator == GnomeCmdData::TAB_LOCK_ICON)
-        gtk_check_button_set_active (GTK_CHECK_BUTTON (radio), TRUE);
-
-    radio = create_radio (parent, radio, _("* (asterisk)"), "tab_lock_asterisk_radio");
-    gtk_box_append (GTK_BOX (cat_box), radio);
-    if (cfg.tab_lock_indicator == GnomeCmdData::TAB_LOCK_ASTERISK)
-        gtk_check_button_set_active (GTK_CHECK_BUTTON (radio), TRUE);
-
-    radio = create_radio (parent, radio, _("Styled text"), "tab_lock_style_radio");
-    gtk_box_append (GTK_BOX (cat_box), radio);
-    if (cfg.tab_lock_indicator == GnomeCmdData::TAB_LOCK_STYLED_TEXT)
-        gtk_check_button_set_active (GTK_CHECK_BUTTON (radio), TRUE);
-
-    return scrolled_window;
-}
-
-
-void store_tabs_options (GtkWidget *dialog, GnomeCmdData::Options &cfg)
-{
-    GtkWidget *always_show_tabs = lookup_widget (dialog, "always_show_tabs");
-    GtkWidget *tab_lock_icon_radio = lookup_widget (dialog, "tab_lock_icon_radio");
-    GtkWidget *tab_lock_asterisk_radio = lookup_widget (dialog, "tab_lock_asterisk_radio");
-
-    cfg.always_show_tabs = gtk_check_button_get_active (GTK_CHECK_BUTTON (always_show_tabs));
-
-    if (gtk_check_button_get_active (GTK_CHECK_BUTTON (tab_lock_icon_radio)))
-        cfg.tab_lock_indicator = GnomeCmdData::TAB_LOCK_ICON;
-    else if (gtk_check_button_get_active (GTK_CHECK_BUTTON (tab_lock_asterisk_radio)))
-        cfg.tab_lock_indicator = GnomeCmdData::TAB_LOCK_ASTERISK;
-    else
-        cfg.tab_lock_indicator = GnomeCmdData::TAB_LOCK_STYLED_TEXT;
 }
 
 

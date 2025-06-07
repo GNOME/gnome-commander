@@ -200,26 +200,6 @@ static void on_icon_size_changed (GnomeCmdMainWin *main_win)
     main_win->update_view();
 }
 
-static void on_always_show_tabs_changed (GnomeCmdMainWin *main_win)
-{
-    gboolean always_show_tabs;
-
-    always_show_tabs = g_settings_get_boolean (gnome_cmd_data.options.gcmd_settings->general, GCMD_SETTINGS_ALWAYS_SHOW_TABS);
-    gnome_cmd_data.options.always_show_tabs = always_show_tabs;
-
-    main_win->update_style();
-}
-
-static void on_tab_lock_indicator_changed (GnomeCmdMainWin *main_win)
-{
-    gint tab_lock_indicator;
-
-    tab_lock_indicator = g_settings_get_enum (gnome_cmd_data.options.gcmd_settings->general, GCMD_SETTINGS_TAB_LOCK_INDICATOR);
-    gnome_cmd_data.options.tab_lock_indicator = tab_lock_indicator;
-
-    main_win->update_style();
-}
-
 static void on_use_trash_changed (GnomeCmdMainWin *main_win)
 {
     gboolean use_trash;
@@ -496,16 +476,6 @@ static void gcmd_connect_gsettings_signals(GcmdSettings *gs, GnomeCmdMainWin *ma
                       main_win);
 
     g_signal_connect_swapped (gs->general,
-                      "changed::always-show-tabs",
-                      G_CALLBACK (on_always_show_tabs_changed),
-                      main_win);
-
-    g_signal_connect_swapped (gs->general,
-                      "changed::tab-lock-indicator",
-                      G_CALLBACK (on_tab_lock_indicator_changed),
-                      main_win);
-
-    g_signal_connect_swapped (gs->general,
                       "changed::delete-to-trash",
                       G_CALLBACK (on_use_trash_changed),
                       main_win);
@@ -709,8 +679,6 @@ GnomeCmdData::Options::Options(const Options &cfg)
     icon_size = cfg.icon_size;
     icon_scale_quality = cfg.icon_scale_quality;
     theme_icon_dir = cfg.theme_icon_dir;
-    always_show_tabs = cfg.always_show_tabs;
-    tab_lock_indicator = cfg.tab_lock_indicator;
     confirm_delete = cfg.confirm_delete;
     confirm_delete_default = cfg.confirm_delete_default;
     confirm_copy_overwrite = cfg.confirm_copy_overwrite;
@@ -765,8 +733,6 @@ GnomeCmdData::Options &GnomeCmdData::Options::operator = (const Options &cfg)
         icon_size = cfg.icon_size;
         icon_scale_quality = cfg.icon_scale_quality;
         theme_icon_dir = cfg.theme_icon_dir;
-        always_show_tabs = cfg.always_show_tabs;
-        tab_lock_indicator = cfg.tab_lock_indicator;
         confirm_delete = cfg.confirm_delete;
         confirm_copy_overwrite = cfg.confirm_copy_overwrite;
         confirm_move_overwrite = cfg.confirm_move_overwrite;
@@ -1133,9 +1099,6 @@ void GnomeCmdData::load()
     search_defaults.content_patterns.ents = get_list_from_gsettings_string_array (options.gcmd_settings->general, GCMD_SETTINGS_SEARCH_TEXT_HISTORY);
     search_defaults.name_patterns.ents = get_list_from_gsettings_string_array (options.gcmd_settings->general, GCMD_SETTINGS_SEARCH_PATTERN_HISTORY);
 
-    options.always_show_tabs = g_settings_get_boolean (options.gcmd_settings->general, GCMD_SETTINGS_ALWAYS_SHOW_TABS);
-    options.tab_lock_indicator = (TabLockIndicator) g_settings_get_enum (options.gcmd_settings->general, GCMD_SETTINGS_TAB_LOCK_INDICATOR);
-
     load_cmdline_history();
 
     if (!priv->con_list)
@@ -1219,9 +1182,6 @@ void GnomeCmdData::save(GnomeCmdMainWin *main_win)
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_SAVE_CMDLINE_HISTORY_ON_EXIT, &(options.save_cmdline_history_on_exit));
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_SAVE_SEARCH_HISTORY_ON_EXIT, &(options.save_search_history_on_exit));
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_SEARCH_WIN_IS_TRANSIENT , &(options.search_window_is_transient));
-
-    set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_ALWAYS_SHOW_TABS, &(options.always_show_tabs));
-    set_gsettings_enum_when_changed (options.gcmd_settings->general, GCMD_SETTINGS_TAB_LOCK_INDICATOR, options.tab_lock_indicator);
 
     save_devices                    ();
     save_cmdline_history            (main_win);
