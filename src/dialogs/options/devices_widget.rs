@@ -24,7 +24,7 @@ use crate::{
         device::ConnectionDevice,
         list::ConnectionList,
     },
-    utils::swap_list_store_items,
+    dialogs::order_utils::ordering_buttons,
 };
 use gettextrs::gettext;
 use gtk::{
@@ -94,18 +94,8 @@ pub fn devices_widget() -> gtk::Widget {
         .build();
     bbox.append(&remove_button);
 
-    let up_button = gtk::Button::builder()
-        .label(gettext("_Up"))
-        .use_underline(true)
-        .vexpand(false)
-        .build();
+    let (up_button, down_button) = ordering_buttons(&selection);
     bbox.append(&up_button);
-
-    let down_button = gtk::Button::builder()
-        .label(gettext("_Down"))
-        .use_underline(true)
-        .vexpand(false)
-        .build();
     bbox.append(&down_button);
 
     hbox.append(&bbox);
@@ -115,24 +105,10 @@ pub fn devices_widget() -> gtk::Widget {
         edit_button,
         #[weak]
         remove_button,
-        #[weak]
-        up_button,
-        #[weak]
-        down_button,
         move |selection| {
-            let position = selection.selected();
-            if position != gtk::INVALID_LIST_POSITION {
-                let len = selection.n_items();
-                edit_button.set_sensitive(true);
-                remove_button.set_sensitive(true);
-                up_button.set_sensitive(position > 0);
-                down_button.set_sensitive(position + 1 < len);
-            } else {
-                edit_button.set_sensitive(false);
-                remove_button.set_sensitive(false);
-                up_button.set_sensitive(false);
-                down_button.set_sensitive(false);
-            }
+            let has_selection = selection.selected() != gtk::INVALID_LIST_POSITION;
+            edit_button.set_sensitive(has_selection);
+            remove_button.set_sensitive(has_selection);
         }
     ));
 
@@ -191,57 +167,6 @@ pub fn devices_widget() -> gtk::Widget {
         move |_| {
             if let Some(device) = selection.selected_item().and_downcast::<ConnectionDevice>() {
                 list.remove(&device);
-            }
-        }
-    ));
-    up_button.connect_clicked(glib::clone!(
-        #[weak]
-        list,
-        #[weak]
-        selection,
-        move |_| {
-            let position = selection.selected();
-            if position == gtk::INVALID_LIST_POSITION {
-                return;
-            };
-            let Some(item) = selection.item(position) else {
-                return;
-            };
-            let Some(prev_position) = position.checked_sub(1) else {
-                return;
-            };
-            let Some(prev_item) = selection.item(prev_position) else {
-                return;
-            };
-            if let Ok(store) = list.all().downcast::<gio::ListStore>() {
-                swap_list_store_items(&store, &item, &prev_item);
-                selection.set_selected(prev_position);
-            }
-        }
-    ));
-    down_button.connect_clicked(glib::clone!(
-        #[weak]
-        list,
-        #[weak]
-        selection,
-        move |_| {
-            let position = selection.selected();
-            if position == gtk::INVALID_LIST_POSITION {
-                return;
-            };
-            let Some(item) = selection.item(position) else {
-                return;
-            };
-            let Some(next_position) = position.checked_add(1).filter(|p| *p < selection.n_items())
-            else {
-                return;
-            };
-            let Some(next_item) = selection.item(next_position) else {
-                return;
-            };
-            if let Ok(store) = list.all().downcast::<gio::ListStore>() {
-                swap_list_store_items(&store, &item, &next_item);
-                selection.set_selected(next_position);
             }
         }
     ));
