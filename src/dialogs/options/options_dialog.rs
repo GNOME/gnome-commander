@@ -19,7 +19,8 @@
 
 use super::{devices_tab::DevicesTab, tabs_tab::TabsTab};
 use crate::{
-    data::GeneralOptions,
+    data::{FiltersOptions, GeneralOptions},
+    dialogs::options::filters_tab::FiltersTab,
     main_win::ffi::GnomeCmdMainWin,
     utils::{dialog_button_box, display_help, SenderExt},
 };
@@ -40,14 +41,12 @@ extern "C" {
     fn create_format_tab(dialog: *mut GtkWindow, cfg: *mut c_void) -> *mut GtkWidget;
     fn create_layout_tab(dialog: *mut GtkWindow, cfg: *mut c_void) -> *mut GtkWidget;
     fn create_confirmation_tab(dialog: *mut GtkWindow, cfg: *mut c_void) -> *mut GtkWidget;
-    fn create_filter_tab(dialog: *mut GtkWindow, cfg: *mut c_void) -> *mut GtkWidget;
     fn create_programs_tab(dialog: *mut GtkWindow, cfg: *mut c_void) -> *mut GtkWidget;
 
     fn store_general_options(dialog: *mut GtkWindow, cfg: *mut c_void);
     fn store_format_options(dialog: *mut GtkWindow, cfg: *mut c_void);
     fn store_layout_options(dialog: *mut GtkWindow, cfg: *mut c_void);
     fn store_confirmation_options(dialog: *mut GtkWindow, cfg: *mut c_void);
-    fn store_filter_options(dialog: *mut GtkWindow, cfg: *mut c_void);
     fn store_programs_options(dialog: *mut GtkWindow, cfg: *mut c_void);
 
     fn gnome_cmd_data_options() -> *mut c_void;
@@ -74,6 +73,8 @@ pub async fn show_options_dialog(parent_window: &impl IsA<gtk::Window>) -> bool 
     dialog.set_child(Some(&content_area));
 
     let general_options = GeneralOptions::new();
+    let filters_options = FiltersOptions::new();
+
     remember_window_size(&dialog, &general_options.0);
 
     let notebook = gtk::Notebook::builder().hexpand(true).vexpand(true).build();
@@ -89,8 +90,8 @@ pub async fn show_options_dialog(parent_window: &impl IsA<gtk::Window>) -> bool 
     tabs_tab.read(&general_options);
     let confirmation_tab: gtk::Widget =
         unsafe { from_glib_none(create_confirmation_tab(dialog.to_glib_none().0, cfg)) };
-    let filter_tab: gtk::Widget =
-        unsafe { from_glib_none(create_filter_tab(dialog.to_glib_none().0, cfg)) };
+    let filters_tab = FiltersTab::new();
+    filters_tab.read(&filters_options);
     let programs_tab: gtk::Widget =
         unsafe { from_glib_none(create_programs_tab(dialog.to_glib_none().0, cfg)) };
     let devices_tab = DevicesTab::new();
@@ -117,7 +118,7 @@ pub async fn show_options_dialog(parent_window: &impl IsA<gtk::Window>) -> bool 
         Some(&gtk::Label::builder().label(gettext("Confirmation")).build()),
     );
     notebook.append_page(
-        &filter_tab,
+        &filters_tab.widget(),
         Some(&gtk::Label::builder().label(gettext("Filters")).build()),
     );
     notebook.append_page(
@@ -210,7 +211,9 @@ pub async fn show_options_dialog(parent_window: &impl IsA<gtk::Window>) -> bool 
                 eprintln!("{error}");
             }
             store_confirmation_options(dialog.to_glib_none().0, cfg);
-            store_filter_options(dialog.to_glib_none().0, cfg);
+            if let Err(error) = filters_tab.write(&filters_options) {
+                eprintln!("{error}");
+            }
             store_programs_options(dialog.to_glib_none().0, cfg);
             if let Err(error) = devices_tab.write(&general_options) {
                 eprintln!("{error}");

@@ -249,31 +249,6 @@ struct GnomeCmdData
 
     enum {SEARCH_HISTORY_SIZE=10, ADVRENAME_HISTORY_SIZE=10};
 
-    typedef enum
-    {
-        G_FILE_IS_UNKNOWN,
-        G_FILE_IS_REGULAR,
-        G_FILE_IS_DIR,
-        G_FILE_IS_SYMLINK,
-        G_FILE_IS_SPECIAL,
-        G_FILE_IS_SHORTCUT,
-        G_FILE_IS_MOUNTABLE,
-        G_FILE_IS_HIDDEN,
-        G_FILE_IS_BACKUP,
-        G_FILE_IS_VIRTUAL,
-        G_FILE_IS_VOLATILE
-    }GcmdFileType;
-
-    struct FilterSettings
-    {
-        gboolean file_types[11];
-
-        FilterSettings()
-        {
-            memset(file_types, 0, sizeof(file_types));
-        }
-    };
-
     struct Options
     {
       public:

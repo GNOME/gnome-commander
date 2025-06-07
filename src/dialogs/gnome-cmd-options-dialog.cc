@@ -30,12 +30,10 @@ using namespace std;
 extern "C" GtkWidget *create_general_tab (GtkWidget *parent, GnomeCmdData::Options &cfg);
 extern "C" GtkWidget *create_format_tab (GtkWidget *parent, GnomeCmdData::Options &cfg);
 extern "C" GtkWidget *create_layout_tab (GtkWidget *parent, GnomeCmdData::Options &cfg);
-extern "C" GtkWidget *create_filter_tab (GtkWidget *parent, GnomeCmdData::Options &cfg);
 extern "C" GtkWidget *create_font_picker (GtkWidget *parent, const gchar *name);
 extern "C" GtkWidget *create_confirmation_tab (GtkWidget *parent, GnomeCmdData::Options &cfg);
 extern "C" GtkWidget *create_programs_tab (GtkWidget *parent, GnomeCmdData::Options &cfg);
 extern "C" void store_confirmation_options (GtkWidget *dialog, GnomeCmdData::Options &cfg);
-extern "C" void store_filter_options (GtkWidget *dialog, GnomeCmdData::Options &cfg);
 extern "C" void store_format_options (GtkWidget *dialog, GnomeCmdData::Options &cfg);
 extern "C" void store_general_options (GtkWidget *dialog, GnomeCmdData::Options &cfg);
 extern "C" void store_layout_options (GtkWidget *dialog, GnomeCmdData::Options &cfg);
@@ -867,42 +865,6 @@ void store_confirmation_options (GtkWidget *dialog, GnomeCmdData::Options &cfg)
         cfg.mouse_dnd_default = GNOME_CMD_DEFAULT_DND_COPY;
     else if (gtk_check_button_get_active (GTK_CHECK_BUTTON (mouse_dnd_move)))
         cfg.mouse_dnd_default = GNOME_CMD_DEFAULT_DND_MOVE;
-}
-
-
-/***********************************************************************
- *
- *  The Filter tab
- *
- **********************************************************************/
-
-extern "C" GtkWidget *gnome_cmd_create_filters_widget();
-extern "C" void gnome_cmd_filters_widget_save(GtkWidget *w);
-
-GtkWidget *create_filter_tab (GtkWidget *parent, GnomeCmdData::Options &cfg)
-{
-    auto filters_widget = gnome_cmd_create_filters_widget();
-    g_object_set_data (G_OBJECT (parent), "filters_widget", filters_widget);
-
-    auto scrolled_window = gtk_scrolled_window_new ();
-    gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolled_window),
-                                    GTK_POLICY_AUTOMATIC, GTK_POLICY_ALWAYS);
-    gtk_widget_set_hexpand (scrolled_window, TRUE);
-    gtk_widget_set_vexpand (scrolled_window, TRUE);
-    gtk_widget_set_margin_top (scrolled_window, 6);
-    gtk_widget_set_margin_bottom (scrolled_window, 6);
-    gtk_widget_set_margin_start (scrolled_window, 6);
-    gtk_widget_set_margin_end (scrolled_window, 6);
-    gtk_scrolled_window_set_child (GTK_SCROLLED_WINDOW (scrolled_window), filters_widget);
-
-    return scrolled_window;
-}
-
-
-void store_filter_options (GtkWidget *dialog, GnomeCmdData::Options &cfg)
-{
-    GtkWidget *filters_widget = GTK_WIDGET (g_object_get_data (G_OBJECT (dialog), "filters_widget"));
-    gnome_cmd_filters_widget_save (filters_widget);
 }
 
 
