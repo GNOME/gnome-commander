@@ -327,22 +327,6 @@ static void on_quick_search_exact_match_end_changed (GnomeCmdMainWin *main_win)
     gnome_cmd_data.options.quick_search_exact_match_end = quick_search_exact_match;
 }
 
-static void on_dev_only_icon_changed (GnomeCmdMainWin *main_win)
-{
-    gboolean dev_only_icon;
-
-    dev_only_icon = g_settings_get_boolean (gnome_cmd_data.options.gcmd_settings->general, GCMD_SETTINGS_DEV_ONLY_ICON);
-    gnome_cmd_data.options.device_only_icon = dev_only_icon;
-}
-
-static void on_samba_device_icon_changed (GnomeCmdMainWin *main_win)
-{
-    gboolean show_samba_workgroups_button;
-
-    show_samba_workgroups_button = g_settings_get_boolean (gnome_cmd_data.options.gcmd_settings->general, GCMD_SETTINGS_SHOW_SAMBA_WORKGROUP_BUTTON);
-    gnome_cmd_data.options.show_samba_workgroups_button = show_samba_workgroups_button;
-}
-
 static void on_opts_dialog_width_changed()
 {
     gnome_cmd_data.opts_dialog_width = g_settings_get_uint (gnome_cmd_data.options.gcmd_settings->general, GCMD_SETTINGS_OPTS_DIALOG_WIDTH);
@@ -555,16 +539,6 @@ static void gcmd_connect_gsettings_signals(GcmdSettings *gs, GnomeCmdMainWin *ma
                       G_CALLBACK (on_quick_search_exact_match_end_changed),
                       main_win);
 
-    g_signal_connect_swapped (gs->general,
-                      "changed::dev-only-icon",
-                      G_CALLBACK (on_dev_only_icon_changed),
-                      main_win);
-
-    g_signal_connect_swapped (gs->general,
-                      "changed::show-samba-workgroup-button",
-                      G_CALLBACK (on_samba_device_icon_changed),
-                      main_win);
-
     g_signal_connect (gs->general,
                       "changed::opts-dialog-width",
                       G_CALLBACK (on_opts_dialog_width_changed),
@@ -694,9 +668,7 @@ GnomeCmdData::Options::Options(const Options &cfg)
     sendto = g_strdup (cfg.sendto);
     termopen = g_strdup (cfg.termopen);
     termexec = g_strdup (cfg.termexec);
-    device_only_icon = cfg.device_only_icon;
     deleteToTrash = cfg.deleteToTrash;
-    show_samba_workgroups_button = cfg.show_samba_workgroups_button;
     gcmd_settings = nullptr;
 }
 
@@ -747,8 +719,6 @@ GnomeCmdData::Options &GnomeCmdData::Options::operator = (const Options &cfg)
         sendto = g_strdup (cfg.sendto);
         termopen = g_strdup (cfg.termopen);
         termexec = g_strdup (cfg.termexec);
-        device_only_icon = cfg.device_only_icon;
-        show_samba_workgroups_button = cfg.show_samba_workgroups_button;
         gcmd_settings = nullptr;
     }
 
@@ -1078,8 +1048,7 @@ void GnomeCmdData::load()
     options.quick_search_exact_match_begin = g_settings_get_boolean (options.gcmd_settings->general, GCMD_SETTINGS_QUICK_SEARCH_EXACT_MATCH_BEGIN);
     options.quick_search_exact_match_end = g_settings_get_boolean (options.gcmd_settings->general, GCMD_SETTINGS_QUICK_SEARCH_EXACT_MATCH_END);
 
-    options.device_only_icon = g_settings_get_boolean(options.gcmd_settings->general, GCMD_SETTINGS_DEV_ONLY_ICON);
-    options.show_samba_workgroups_button = g_settings_get_boolean(options.gcmd_settings->general, GCMD_SETTINGS_SHOW_SAMBA_WORKGROUP_BUTTON);
+    gboolean show_samba_workgroups_button = g_settings_get_boolean(options.gcmd_settings->general, GCMD_SETTINGS_SHOW_SAMBA_WORKGROUP_BUTTON);
 
     options.viewer = g_settings_get_string(options.gcmd_settings->programs, GCMD_SETTINGS_VIEWER_CMD);
     options.editor = g_settings_get_string(options.gcmd_settings->programs, GCMD_SETTINGS_EDITOR_CMD);
@@ -1102,7 +1071,7 @@ void GnomeCmdData::load()
     load_cmdline_history();
 
     if (!priv->con_list)
-        priv->con_list = gnome_cmd_con_list_new (options.show_samba_workgroups_button);
+        priv->con_list = gnome_cmd_con_list_new (show_samba_workgroups_button);
 
     gnome_cmd_con_list_lock (priv->con_list);
     load_devices();
@@ -1160,9 +1129,6 @@ void GnomeCmdData::save(GnomeCmdMainWin *main_win)
     set_gsettings_when_changed      (options.gcmd_settings->programs, GCMD_SETTINGS_USE_INTERNAL_SEARCH, &(options.use_internal_search));
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_QUICK_SEARCH_EXACT_MATCH_BEGIN, &(options.quick_search_exact_match_begin));
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_QUICK_SEARCH_EXACT_MATCH_END, &(options.quick_search_exact_match_end));
-
-    set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_DEV_ONLY_ICON, &(options.device_only_icon));
-    set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_SHOW_SAMBA_WORKGROUP_BUTTON, &(options.show_samba_workgroups_button));
 
     set_gsettings_when_changed      (options.gcmd_settings->programs, GCMD_SETTINGS_VIEWER_CMD, options.viewer);
     set_gsettings_when_changed      (options.gcmd_settings->programs, GCMD_SETTINGS_EDITOR_CMD, options.editor);

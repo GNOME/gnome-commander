@@ -17,7 +17,7 @@
  * For more details see the file COPYING.
  */
 
-use super::tabs_tab::TabsTab;
+use super::{devices_tab::DevicesTab, tabs_tab::TabsTab};
 use crate::{
     data::GeneralOptions,
     main_win::ffi::GnomeCmdMainWin,
@@ -42,7 +42,6 @@ extern "C" {
     fn create_confirmation_tab(dialog: *mut GtkWindow, cfg: *mut c_void) -> *mut GtkWidget;
     fn create_filter_tab(dialog: *mut GtkWindow, cfg: *mut c_void) -> *mut GtkWidget;
     fn create_programs_tab(dialog: *mut GtkWindow, cfg: *mut c_void) -> *mut GtkWidget;
-    fn create_devices_tab(dialog: *mut GtkWindow, cfg: *mut c_void) -> *mut GtkWidget;
 
     fn store_general_options(dialog: *mut GtkWindow, cfg: *mut c_void);
     fn store_format_options(dialog: *mut GtkWindow, cfg: *mut c_void);
@@ -50,7 +49,6 @@ extern "C" {
     fn store_confirmation_options(dialog: *mut GtkWindow, cfg: *mut c_void);
     fn store_filter_options(dialog: *mut GtkWindow, cfg: *mut c_void);
     fn store_programs_options(dialog: *mut GtkWindow, cfg: *mut c_void);
-    fn store_devices_options(dialog: *mut GtkWindow, cfg: *mut c_void);
 
     fn gnome_cmd_data_options() -> *mut c_void;
     fn gnome_cmd_data_save(mw: *mut GnomeCmdMainWin);
@@ -95,8 +93,8 @@ pub async fn show_options_dialog(parent_window: &impl IsA<gtk::Window>) -> bool 
         unsafe { from_glib_none(create_filter_tab(dialog.to_glib_none().0, cfg)) };
     let programs_tab: gtk::Widget =
         unsafe { from_glib_none(create_programs_tab(dialog.to_glib_none().0, cfg)) };
-    let devices_tab: gtk::Widget =
-        unsafe { from_glib_none(create_devices_tab(dialog.to_glib_none().0, cfg)) };
+    let devices_tab = DevicesTab::new();
+    devices_tab.read(&general_options);
 
     notebook.append_page(
         &general_tab,
@@ -127,7 +125,7 @@ pub async fn show_options_dialog(parent_window: &impl IsA<gtk::Window>) -> bool 
         Some(&gtk::Label::builder().label(gettext("Programs")).build()),
     );
     notebook.append_page(
-        &devices_tab,
+        &devices_tab.widget(),
         Some(&gtk::Label::builder().label(gettext("Devices")).build()),
     );
 
@@ -214,7 +212,9 @@ pub async fn show_options_dialog(parent_window: &impl IsA<gtk::Window>) -> bool 
             store_confirmation_options(dialog.to_glib_none().0, cfg);
             store_filter_options(dialog.to_glib_none().0, cfg);
             store_programs_options(dialog.to_glib_none().0, cfg);
-            store_devices_options(dialog.to_glib_none().0, cfg);
+            if let Err(error) = devices_tab.write(&general_options) {
+                eprintln!("{error}");
+            }
             gnome_cmd_data_save(std::ptr::null_mut());
             if let Ok(mut last_active_tab) = LAST_ACTIVE_TAB.lock() {
                 *last_active_tab = notebook.current_page().unwrap_or_default();

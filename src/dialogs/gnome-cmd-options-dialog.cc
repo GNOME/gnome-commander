@@ -34,9 +34,7 @@ extern "C" GtkWidget *create_filter_tab (GtkWidget *parent, GnomeCmdData::Option
 extern "C" GtkWidget *create_font_picker (GtkWidget *parent, const gchar *name);
 extern "C" GtkWidget *create_confirmation_tab (GtkWidget *parent, GnomeCmdData::Options &cfg);
 extern "C" GtkWidget *create_programs_tab (GtkWidget *parent, GnomeCmdData::Options &cfg);
-extern "C" GtkWidget *create_devices_tab (GtkWidget *parent, GnomeCmdData::Options &cfg);
 extern "C" void store_confirmation_options (GtkWidget *dialog, GnomeCmdData::Options &cfg);
-extern "C" void store_devices_options (GtkWidget *dialog, GnomeCmdData::Options &cfg);
 extern "C" void store_filter_options (GtkWidget *dialog, GnomeCmdData::Options &cfg);
 extern "C" void store_format_options (GtkWidget *dialog, GnomeCmdData::Options &cfg);
 extern "C" void store_general_options (GtkWidget *dialog, GnomeCmdData::Options &cfg);
@@ -1043,47 +1041,4 @@ void store_programs_options (GtkWidget *dialog, GnomeCmdData::Options &cfg)
     cfg.use_internal_search = gtk_check_button_get_active (GTK_CHECK_BUTTON (check_is));
 
     gnome_cmd_favorite_apps_widget_save_apps (fav_apps);
-}
-
-
-/***********************************************************************
- *
- *  The Devices tab
- *
- **********************************************************************/
-
-extern "C" GtkWidget *gnome_cmd_devices_widget ();
-
-GtkWidget *create_devices_tab (GtkWidget *parent, GnomeCmdData::Options &cfg)
-{
-    GtkWidget *vbox, *devices, *check;
-
-    vbox = create_tabvbox (parent);
-    gtk_widget_set_margin_top (vbox, 6);
-    gtk_widget_set_margin_bottom (vbox, 6);
-    gtk_widget_set_margin_start (vbox, 6);
-    gtk_widget_set_margin_end (vbox, 6);
-
-    devices = gnome_cmd_devices_widget();
-    gtk_box_append (GTK_BOX (vbox), devices);
-
-    check = create_check (parent, _("Show Samba workgroups button\n(Needs program restart if altered)"), "samba_workgroups_button");
-    gtk_box_append (GTK_BOX (vbox), check);
-    gtk_check_button_set_active (GTK_CHECK_BUTTON (check), cfg.show_samba_workgroups_button);
-
-    check = create_check (parent, _("Show only the icons"), "device_only_icon");
-    gtk_box_append (GTK_BOX (vbox), check);
-    gtk_check_button_set_active (GTK_CHECK_BUTTON (check), cfg.device_only_icon);
-
-    return vbox;
-}
-
-
-void store_devices_options (GtkWidget *dialog, GnomeCmdData::Options &cfg)
-{
-    GtkWidget *device_only_icon = lookup_widget (dialog, "device_only_icon");
-    cfg.device_only_icon = gtk_check_button_get_active (GTK_CHECK_BUTTON (device_only_icon));
-
-    GtkWidget *samba_workgroups_button = lookup_widget (dialog, "samba_workgroups_button");
-    cfg.show_samba_workgroups_button = gtk_check_button_get_active (GTK_CHECK_BUTTON (samba_workgroups_button));
 }

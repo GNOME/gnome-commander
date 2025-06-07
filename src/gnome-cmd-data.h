@@ -328,9 +328,6 @@ struct GnomeCmdData
         gchar                       *sendto;
         gchar                       *termopen;
         gchar                       *termexec;
-        //  Devices
-        gboolean                     device_only_icon;
-        gboolean                     show_samba_workgroups_button;
 
         Options(): gcmd_settings(nullptr),
                    left_mouse_button_mode(LEFT_BUTTON_OPENS_WITH_DOUBLE_CLICK),
@@ -374,9 +371,7 @@ struct GnomeCmdData
                    search(nullptr),
                    sendto(nullptr),
                    termopen(nullptr),
-                   termexec(nullptr),
-                   device_only_icon(FALSE),
-                   show_samba_workgroups_button(FALSE)
+                   termexec(nullptr)
         {
         }
 

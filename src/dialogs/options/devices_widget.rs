@@ -27,12 +27,7 @@ use crate::{
     dialogs::order_utils::ordering_buttons,
 };
 use gettextrs::gettext;
-use gtk::{
-    ffi::GtkWidget,
-    gio,
-    glib::{self, translate::ToGlibPtr},
-    prelude::*,
-};
+use gtk::{gio, glib, prelude::*};
 
 pub fn devices_widget() -> gtk::Widget {
     let hbox = gtk::Box::builder()
@@ -220,9 +215,4 @@ fn device_alias_factory() -> gtk::ListItemFactory {
         };
     });
     factory.upcast()
-}
-
-#[no_mangle]
-pub extern "C" fn gnome_cmd_devices_widget() -> *mut GtkWidget {
-    devices_widget().to_glib_full()
 }

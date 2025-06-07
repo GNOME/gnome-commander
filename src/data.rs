@@ -66,6 +66,9 @@ pub trait GeneralOptionsRead {
 
     fn quick_seaech_exact_match_begin(&self) -> bool;
     fn quick_seaech_exact_match_end(&self) -> bool;
+
+    fn show_samba_workgroups_button(&self) -> bool;
+    fn device_only_icon(&self) -> bool;
 }
 
 pub trait GeneralOptionsWrite {
@@ -82,6 +85,9 @@ pub trait GeneralOptionsWrite {
     fn set_tab_lock_indicator(&self, tab_lock_indicator: TabLockIndicator) -> WriteResult;
 
     fn set_file_list_tabs(&self, tabs: &[TabVariant]);
+
+    fn set_show_samba_workgroups_button(&self, value: bool) -> WriteResult;
+    fn set_device_only_icon(&self, value: bool) -> WriteResult;
 }
 
 impl GeneralOptions {
@@ -185,6 +191,14 @@ impl GeneralOptionsRead for GeneralOptions {
     fn quick_seaech_exact_match_end(&self) -> bool {
         self.0.boolean("quick-search-exact-match-end")
     }
+
+    fn show_samba_workgroups_button(&self) -> bool {
+        self.0.boolean("show-samba-workgroup-button")
+    }
+
+    fn device_only_icon(&self) -> bool {
+        self.0.boolean("dev-only-icon")
+    }
 }
 
 impl GeneralOptionsWrite for GeneralOptions {
@@ -219,6 +233,14 @@ impl GeneralOptionsWrite for GeneralOptions {
 
     fn set_file_list_tabs(&self, tabs: &[TabVariant]) {
         self.0.set("file-list-tabs", tabs);
+    }
+
+    fn set_show_samba_workgroups_button(&self, value: bool) -> WriteResult {
+        self.0.set_boolean("show-samba-workgroup-button", value)
+    }
+
+    fn set_device_only_icon(&self, value: bool) -> WriteResult {
+        self.0.set_boolean("dev-only-icon", value)
     }
 }
 
