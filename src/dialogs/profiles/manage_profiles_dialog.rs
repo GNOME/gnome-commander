@@ -19,160 +19,60 @@
 
 use super::{edit_profile_dialog::edit_profile, profiles::ProfileManager};
 use crate::{
+    dialogs::order_utils::ordering_buttons,
     hintbox::hintbox,
     utils::{dialog_button_box, display_help, SenderExt},
 };
 use gettextrs::gettext;
-use gtk::{glib, pango, prelude::*};
+use gtk::{gio, glib, pango, prelude::*};
 use std::rc::Rc;
 
-#[repr(C)]
-enum Columns {
-    ProfileIndex = 0,
-    Name,
-    Description,
+fn selected(view: &gtk::ColumnView) -> Option<(gio::ListStore, u32, usize)> {
+    let selection = view.model().and_downcast::<gtk::SingleSelection>()?;
+    let store = selection.model().and_downcast::<gio::ListStore>()?;
+    let position = selection.selected();
+    let profile_index = *store
+        .item(position)
+        .and_downcast::<glib::BoxedAnyObject>()?
+        .borrow::<usize>();
+    Some((store, position, profile_index))
 }
 
-fn create_model() -> gtk::ListStore {
-    gtk::ListStore::new(&[
-        u32::static_type(),
-        String::static_type(),
-        String::static_type(),
-    ])
-}
-
-fn set_profile(
-    model: &gtk::ListStore,
-    iter: &gtk::TreeIter,
-    manager: &dyn ProfileManager,
-    profile_index: usize,
-) {
-    model.set(
-        &iter,
-        &[
-            (Columns::ProfileIndex as u32, &(profile_index as u32)),
-            (Columns::Name as u32, &manager.profile_name(profile_index)),
-            (
-                Columns::Description as u32,
-                &manager.profile_description(profile_index),
-            ),
-        ],
-    );
-}
-
-fn create_text_column(
-    cell_renderer: &impl IsA<gtk::CellRenderer>,
-    col_id: i32,
-    title: &str,
-    tooltip: &str,
-) -> gtk::TreeViewColumn {
-    let column = gtk::TreeViewColumn::with_attributes(title, cell_renderer, &[("text", col_id)]);
-    column.set_clickable(true);
-    column.set_resizable(true);
-    column.button().set_tooltip_text(Some(tooltip));
-    column
-}
-
-fn create_view<M: ProfileManager + 'static>(
-    store: &gtk::ListStore,
+fn duplicate_clicked_callback<M: ProfileManager + 'static>(
+    view: &gtk::ColumnView,
     manager: &Rc<M>,
-) -> gtk::TreeView {
-    let view = gtk::TreeView::builder()
-        .reorderable(true)
-        .enable_search(true)
-        .search_column(Columns::Name as i32)
-        .model(store)
-        .width_request(400)
-        .height_request(200)
-        .build();
-
-    let name_renderer = gtk::CellRendererText::builder().editable(true).build();
-    let name_column = create_text_column(
-        &name_renderer,
-        Columns::Name as i32,
-        &gettext("Profile"),
-        &gettext("Profile name"),
-    );
-    view.append_column(&name_column);
-
-    name_renderer.connect_edited(glib::clone!(
-        #[weak]
-        store,
-        #[strong]
-        manager,
-        move |_, path, value| {
-            if let Some(iter) = store.iter(&path) {
-                let profile_index: u32 = store
-                    .get_value(&iter, Columns::ProfileIndex as i32)
-                    .get()
-                    .unwrap();
-                manager.set_profile_name(profile_index as usize, value);
-
-                store.set(&iter, &[(Columns::Name as u32, &value)]);
-            }
-        }
-    ));
-
-    let description_renderer = gtk::CellRendererText::builder()
-        .foreground("DarkGray")
-        .foreground_set(true)
-        .ellipsize(pango::EllipsizeMode::End)
-        .ellipsize_set(true)
-        .build();
-    let description_column = create_text_column(
-        &description_renderer,
-        Columns::Description as i32,
-        &gettext("Template"),
-        &gettext("Template"),
-    );
-    view.append_column(&description_column);
-
-    view.selection().set_mode(gtk::SelectionMode::Browse);
-
-    view
-}
-
-fn selected(view: &gtk::TreeView) -> Option<(gtk::ListStore, gtk::TreeIter, usize)> {
-    let (model, iter) = view.selection().selected()?;
-    let store = model.downcast::<gtk::ListStore>().ok()?;
-    let profile_index: u32 = store
-        .get_value(&iter, Columns::ProfileIndex as i32)
-        .get()
-        .ok()?;
-    Some((store, iter, profile_index as usize))
-}
-
-fn duplicate_clicked_callback<M: ProfileManager + 'static>(view: &gtk::TreeView, manager: &Rc<M>) {
-    if let Some((model, _iter, profile_index)) = selected(view) {
+) {
+    if let Some((store, _, profile_index)) = selected(view) {
         let dup_index = manager.duplicate_profile(profile_index);
-        let iter = model.append();
-        set_profile(&model, &iter, &**manager, dup_index);
+        store.append(&glib::BoxedAnyObject::new(dup_index));
+        let pos = store.n_items() - 1;
 
         view.grab_focus();
-        let path = model.path(&iter);
-        gtk::prelude::TreeViewExt::set_cursor(view, &path, view.column(0).as_ref(), true);
+        view.scroll_to(
+            pos,
+            None,
+            gtk::ListScrollFlags::FOCUS | gtk::ListScrollFlags::SELECT,
+            None,
+        );
     }
 }
 
 async fn edit_clicked_callback<M: ProfileManager + 'static>(
     dialog: &gtk::Window,
-    view: &gtk::TreeView,
+    view: &gtk::ColumnView,
     manager: &Rc<M>,
     help_id: Option<&str>,
 ) {
-    if let Some((store, iter, profile_index)) = selected(view) {
+    if let Some((store, pos, profile_index)) = selected(view) {
         if edit_profile(dialog.upcast_ref(), profile_index, help_id, manager.clone()).await {
-            set_profile(&store, &iter, &**manager, profile_index);
+            store.items_changed(pos, 1, 1);
         }
     }
 }
 
-fn remove_clicked_callback(view: &gtk::TreeView) {
-    if let Some((model, iter)) = view.selection().selected() {
-        model
-            .downcast_ref::<gtk::ListStore>()
-            .unwrap()
-            .remove(&iter);
+fn remove_clicked_callback(view: &gtk::ColumnView) {
+    if let Some((store, pos, _)) = selected(view) {
+        store.remove(pos);
     }
 }
 
@@ -201,27 +101,51 @@ pub async fn manage_profiles<M: ProfileManager + 'static>(
         .build();
     dialog.set_child(Some(&grid));
 
+    let store = gio::ListStore::new::<glib::BoxedAnyObject>();
+    let selection_model = gtk::SingleSelection::new(Some(store.clone()));
+
+    let view = gtk::ColumnView::builder()
+        .model(&selection_model)
+        .width_request(400)
+        .height_request(200)
+        .build();
+
+    view.append_column(
+        &gtk::ColumnViewColumn::builder()
+            .title(gettext("Profile"))
+            .factory(&profile_name_factory(manager))
+            .resizable(true)
+            .expand(true)
+            .build(),
+    );
+
+    view.append_column(
+        &gtk::ColumnViewColumn::builder()
+            .title(gettext("Template"))
+            .factory(&profile_description_factory(manager))
+            .resizable(true)
+            .expand(true)
+            .build(),
+    );
+
     let scrolled_window = gtk::ScrolledWindow::builder()
         .hscrollbar_policy(gtk::PolicyType::Never)
         .vscrollbar_policy(gtk::PolicyType::Automatic)
         .has_frame(true)
         .hexpand(true)
         .vexpand(true)
+        .child(&view)
         .build();
     grid.attach(&scrolled_window, 0, 0, 1, 1);
 
-    let store = create_model();
-    let view = create_view(&store, &*manager);
-    scrolled_window.set_child(Some(&view));
-
-    view.connect_row_activated({
+    view.connect_activate({
         let help_id: Option<String> = help_id.map(ToOwned::to_owned);
         glib::clone!(
             #[weak]
             dialog,
             #[strong]
             manager,
-            move |view, _path, _col| {
+            move |view, _position| {
                 let view = view.clone();
                 let manager = manager.clone();
                 let help_id1 = help_id.clone();
@@ -238,25 +162,25 @@ pub async fn manage_profiles<M: ProfileManager + 'static>(
         .build();
     grid.attach(&vbox, 1, 0, 1, 1);
 
-    let button = gtk::Button::builder()
+    let duplicate_button = gtk::Button::builder()
         .label(gettext("_Duplicate"))
         .use_underline(true)
         .build();
-    button.connect_clicked(glib::clone!(
+    duplicate_button.connect_clicked(glib::clone!(
         #[weak]
         view,
         #[strong]
         manager,
         move |_| duplicate_clicked_callback(&view, &manager)
     ));
-    vbox.append(&button);
+    vbox.append(&duplicate_button);
 
-    let button = gtk::Button::builder()
+    let edit_button = gtk::Button::builder()
         .label(gettext("_Edit"))
         .use_underline(true)
         .build();
 
-    button.connect_clicked({
+    edit_button.connect_clicked({
         let help_id: Option<String> = help_id.map(ToOwned::to_owned);
         glib::clone!(
             #[weak]
@@ -274,18 +198,34 @@ pub async fn manage_profiles<M: ProfileManager + 'static>(
             }
         )
     });
-    vbox.append(&button);
+    vbox.append(&edit_button);
 
-    let button = gtk::Button::builder()
+    let remove_button = gtk::Button::builder()
         .label(gettext("_Remove"))
         .use_underline(true)
         .build();
-    button.connect_clicked(glib::clone!(
+    remove_button.connect_clicked(glib::clone!(
         #[weak]
         view,
         move |_| remove_clicked_callback(&view)
     ));
-    vbox.append(&button);
+    vbox.append(&remove_button);
+
+    let (up_button, down_button) = ordering_buttons(&selection_model);
+    vbox.append(&up_button);
+    vbox.append(&down_button);
+
+    selection_model.connect_selected_notify(glib::clone!(
+        #[weak]
+        edit_button,
+        #[weak]
+        remove_button,
+        move |selection| {
+            let has_selection = selection.selected() != gtk::INVALID_LIST_POSITION;
+            edit_button.set_sensitive(has_selection);
+            remove_button.set_sensitive(has_selection);
+        }
+    ));
 
     grid.attach(&hintbox(&gettext("To rename a profile, click on the corresponding row and type a new name, or press escape to cancel.")), 0, 1, 2, 1);
 
@@ -344,37 +284,25 @@ pub async fn manage_profiles<M: ProfileManager + 'static>(
     dialog.set_default_widget(Some(&ok_button));
 
     for profile_index in 0..manager.len() {
-        set_profile(&store, &store.append(), &**manager, profile_index);
+        store.append(&glib::BoxedAnyObject::new(profile_index));
     }
 
-    let select_iter = if select_last {
-        iter_last(&store)
+    let select_position = if select_last {
+        store.n_items().checked_sub(1)
     } else {
-        store.iter_first()
+        (store.n_items() > 0).then_some(0)
     };
-    if let Some(iter) = select_iter {
-        view.selection().select_iter(&iter);
-    }
+    selection_model.set_selected(select_position.unwrap_or(gtk::INVALID_LIST_POSITION));
 
     dialog.present();
     let result = receiver.recv().await;
 
     if result == Ok(true) {
-        let mut indexes = Vec::new();
-        if let Some(iter) = store.iter_first() {
-            loop {
-                let profile_index: u32 = store
-                    .get_value(&iter, Columns::ProfileIndex as i32)
-                    .get()
-                    .unwrap();
-
-                indexes.push(profile_index as usize);
-
-                if !store.iter_next(&iter) {
-                    break;
-                }
-            }
-        }
+        let indexes: Vec<usize> = store
+            .iter::<glib::BoxedAnyObject>()
+            .flatten()
+            .map(|b| *b.borrow::<usize>())
+            .collect();
         manager.pick(&indexes);
     }
     dialog.close();
@@ -382,11 +310,66 @@ pub async fn manage_profiles<M: ProfileManager + 'static>(
     result == Ok(true)
 }
 
-fn iter_last(store: &gtk::ListStore) -> Option<gtk::TreeIter> {
-    let len = store.iter_n_children(None);
-    if len > 0 {
-        store.iter_nth_child(None, len - 1)
-    } else {
-        None
-    }
+fn profile_name_factory<M: ProfileManager + 'static>(manager: &Rc<M>) -> gtk::ListItemFactory {
+    let factory = gtk::SignalListItemFactory::new();
+    factory.connect_setup(|_, obj| {
+        if let Some(list_item) = obj.downcast_ref::<gtk::ListItem>() {
+            let label = gtk::Label::builder().xalign(0.0).build();
+            list_item.set_child(Some(&label));
+        }
+    });
+    factory.connect_bind(glib::clone!(
+        #[strong]
+        manager,
+        move |_, obj| {
+            if let Some(list_item) = obj.downcast_ref::<gtk::ListItem>() {
+                if let Some(label) = list_item.child().and_downcast::<gtk::Label>() {
+                    if let Some(profile_index) = list_item
+                        .item()
+                        .and_downcast_ref::<glib::BoxedAnyObject>()
+                        .map(|b| *b.borrow::<usize>())
+                    {
+                        label.set_text(&manager.profile_name(profile_index));
+                    } else {
+                        label.set_text("");
+                    }
+                }
+            }
+        }
+    ));
+    factory.upcast()
+}
+
+fn profile_description_factory<M: ProfileManager + 'static>(
+    manager: &Rc<M>,
+) -> gtk::ListItemFactory {
+    let factory = gtk::SignalListItemFactory::new();
+    let attrs = pango::AttrList::new();
+    attrs.insert(pango::AttrColor::new_foreground(0x4444, 0x4444, 0x4444));
+    factory.connect_setup(move |_, obj| {
+        if let Some(list_item) = obj.downcast_ref::<gtk::ListItem>() {
+            let label = gtk::Label::builder().xalign(0.0).attributes(&attrs).build();
+            list_item.set_child(Some(&label));
+        }
+    });
+    factory.connect_bind(glib::clone!(
+        #[strong]
+        manager,
+        move |_, obj| {
+            if let Some(list_item) = obj.downcast_ref::<gtk::ListItem>() {
+                if let Some(label) = list_item.child().and_downcast::<gtk::Label>() {
+                    if let Some(profile_index) = list_item
+                        .item()
+                        .and_downcast_ref::<glib::BoxedAnyObject>()
+                        .map(|b| *b.borrow::<usize>())
+                    {
+                        label.set_text(&manager.profile_description(profile_index));
+                    } else {
+                        label.set_text("");
+                    }
+                }
+            }
+        }
+    ));
+    factory.upcast()
 }

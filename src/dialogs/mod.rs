@@ -50,3 +50,5 @@ pub mod new_text_file;
 pub mod options;
 
 pub mod about_plugin;
+
+pub mod order_utils;
