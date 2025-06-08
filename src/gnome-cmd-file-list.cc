@@ -1620,6 +1620,7 @@ void GnomeCmdFileList::set_selected_at_iter(GtkTreeIter *iter, gboolean selected
 {
     auto priv = file_list_priv (this);
     gtk_list_store_set (priv->store, iter, DATA_COLUMN_SELECTED, selected, -1);
+    g_signal_emit_by_name (this, FILES_CHANGED_SIGNAL);
 }
 
 
