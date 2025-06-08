@@ -32,12 +32,10 @@ extern "C" GtkWidget *create_format_tab (GtkWidget *parent, GnomeCmdData::Option
 extern "C" GtkWidget *create_layout_tab (GtkWidget *parent, GnomeCmdData::Options &cfg);
 extern "C" GtkWidget *create_font_picker (GtkWidget *parent, const gchar *name);
 extern "C" GtkWidget *create_confirmation_tab (GtkWidget *parent, GnomeCmdData::Options &cfg);
-extern "C" GtkWidget *create_programs_tab (GtkWidget *parent, GnomeCmdData::Options &cfg);
 extern "C" void store_confirmation_options (GtkWidget *dialog, GnomeCmdData::Options &cfg);
 extern "C" void store_format_options (GtkWidget *dialog, GnomeCmdData::Options &cfg);
 extern "C" void store_general_options (GtkWidget *dialog, GnomeCmdData::Options &cfg);
 extern "C" void store_layout_options (GtkWidget *dialog, GnomeCmdData::Options &cfg);
-extern "C" void store_programs_options (GtkWidget *dialog, GnomeCmdData::Options &cfg);
 
 extern "C" GType gnome_cmd_directory_button_get_type();
 
@@ -865,142 +863,4 @@ void store_confirmation_options (GtkWidget *dialog, GnomeCmdData::Options &cfg)
         cfg.mouse_dnd_default = GNOME_CMD_DEFAULT_DND_COPY;
     else if (gtk_check_button_get_active (GTK_CHECK_BUTTON (mouse_dnd_move)))
         cfg.mouse_dnd_default = GNOME_CMD_DEFAULT_DND_MOVE;
-}
-
-
-/***********************************************************************
- *
- *  The Programs tab
- *
- **********************************************************************/
-
-extern "C" GtkWidget *gnome_cmd_favorite_apps_widget();
-extern "C" void gnome_cmd_favorite_apps_widget_load_apps(GtkWidget *);
-extern "C" void gnome_cmd_favorite_apps_widget_save_apps(GtkWidget *);
-
-
-GtkWidget *create_programs_tab (GtkWidget *parent, GnomeCmdData::Options &cfg)
-{
-    GtkWidget *hbox, *scrolled_window, *vbox, *cat, *grid1, *grid2;
-    GtkWidget *entry, *button, *label, *view, *bbox, *check;
-    GtkWidget *separator;
-    GtkListStore *store;
-
-    vbox = create_tabvbox (parent);
-
-    scrolled_window = gtk_scrolled_window_new ();
-    gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolled_window),
-                                    GTK_POLICY_AUTOMATIC, GTK_POLICY_ALWAYS);
-    gtk_widget_set_hexpand (scrolled_window, TRUE);
-    gtk_widget_set_vexpand (scrolled_window, TRUE);
-    gtk_widget_set_margin_top (scrolled_window, 6);
-    gtk_widget_set_margin_bottom (scrolled_window, 6);
-    gtk_widget_set_margin_start (scrolled_window, 6);
-    gtk_widget_set_margin_end (scrolled_window, 6);
-    gtk_scrolled_window_set_child (GTK_SCROLLED_WINDOW (scrolled_window), vbox);
-
-    check = create_check (parent, _("Always download remote files before opening in external programs"), "honor_expect_uris");
-    gtk_check_button_set_active (GTK_CHECK_BUTTON (check), !cfg.honor_expect_uris);
-    cat = create_category (parent, check, _("MIME applications"));
-    gtk_box_append (GTK_BOX (vbox), cat);
-
-    grid1 = create_grid (parent);
-    cat = create_category (parent, grid1, _("Standard programs"));
-    gtk_box_append (GTK_BOX (vbox), cat);
-
-    label = create_label (parent, _("Viewer:"));
-    gtk_grid_attach (GTK_GRID (grid1), label, 0, 0, 1, 1);
-    label = create_label (parent, _("Editor:"));
-    gtk_grid_attach (GTK_GRID (grid1), label, 0, 2, 1, 1);
-    label = create_label (parent, _("Differ:"));
-    gtk_grid_attach (GTK_GRID (grid1), label, 0, 3, 1, 1);
-    label = create_label (parent, _("Search:"));
-    gtk_grid_attach (GTK_GRID (grid1), label, 0, 4, 1, 1);
-    label = create_label (parent, _("Send files:"));
-    gtk_grid_attach (GTK_GRID (grid1), label, 0, 6, 1, 1);
-    label = create_label (parent, _("Terminal:"));
-    gtk_grid_attach (GTK_GRID (grid1), label, 0, 7, 1, 1);
-
-    entry = create_entry (parent, "viewer", cfg.viewer);
-    gtk_widget_set_hexpand (entry, TRUE);
-    gtk_grid_attach (GTK_GRID (grid1), entry, 1, 0, 1, 1);
-
-    check = create_check (parent, _("Use Internal Viewer"), "use_internal_viewer");
-    gtk_check_button_set_active (GTK_CHECK_BUTTON (check), cfg.use_internal_viewer);
-    gtk_grid_attach (GTK_GRID (grid1), check, 1, 1, 1, 1);
-    entry = create_entry (parent, "editor", cfg.editor);
-    gtk_grid_attach (GTK_GRID (grid1), entry, 1, 2, 1, 1);
-    entry = create_entry (parent, "differ", cfg.differ);
-    gtk_grid_attach (GTK_GRID (grid1), entry, 1, 3, 1, 1);
-    entry = create_entry (parent, "search", cfg.search);
-    gtk_grid_attach (GTK_GRID (grid1), entry, 1, 4, 1, 1);
-    check = create_check (parent, _("Use Internal Search"), "use_internal_search");
-    gtk_check_button_set_active (GTK_CHECK_BUTTON (check), cfg.use_internal_search);
-    gtk_grid_attach (GTK_GRID (grid1), check, 1, 5, 1, 1);
-    entry = create_entry (parent, "sendto", cfg.sendto);
-    gtk_grid_attach (GTK_GRID (grid1), entry, 1, 6, 1, 1);
-    entry = create_entry (parent, "termopen", cfg.termopen);
-    gtk_grid_attach (GTK_GRID (grid1), entry, 1, 7, 1, 1);
-
-    separator = gtk_separator_new (GTK_ORIENTATION_HORIZONTAL);
-    gtk_box_append (GTK_BOX (vbox), separator);
-
-    //Other favorite apps frame
-
-    auto fav_apps = gnome_cmd_favorite_apps_widget();
-    gnome_cmd_favorite_apps_widget_load_apps (fav_apps);
-    g_object_set_data (G_OBJECT (parent), "fav_apps", fav_apps);
-
-    gtk_widget_set_vexpand (fav_apps, TRUE);
-    cat = create_category (parent, fav_apps, _("Other favourite apps"));
-    gtk_box_append (GTK_BOX (vbox), cat);
-
-    grid2 = create_grid (parent);
-    cat = create_category (parent, grid2, _("Global app options"));
-    gtk_box_append (GTK_BOX (vbox), cat);
-
-    label = create_label (parent, _("Terminal command for apps in the list above:"));
-    gtk_grid_attach (GTK_GRID (grid2), label, 0, 0, 1, 1);
-
-    entry = create_entry (parent, "termexec", cfg.termexec);
-    gtk_widget_set_hexpand (entry, TRUE);
-    gtk_grid_attach (GTK_GRID (grid2), entry, 0, 1, 1, 1);
-
-    check = create_check (parent, _("Leave terminal window open"), "is_use_gcmd_block");
-    gtk_grid_attach (GTK_GRID (grid2), check, 0, 2, 1, 1);
-    gtk_check_button_set_active (GTK_CHECK_BUTTON (check), gnome_cmd_data.use_gcmd_block);
-
-    return scrolled_window;
-}
-
-
-void store_programs_options (GtkWidget *dialog, GnomeCmdData::Options &cfg)
-{
-    GtkWidget *entry1 = lookup_widget (dialog, "viewer");
-    GtkWidget *entry2 = lookup_widget (dialog, "editor");
-    GtkWidget *entry3 = lookup_widget (dialog, "differ");
-    GtkWidget *entry4 = lookup_widget (dialog, "search");
-    GtkWidget *entry5 = lookup_widget (dialog, "sendto");
-    GtkWidget *entry6 = lookup_widget (dialog, "termopen");
-    GtkWidget *entry7 = lookup_widget (dialog, "termexec");
-    GtkWidget *check_use_gcmd_block = lookup_widget (dialog, "is_use_gcmd_block");
-    GtkWidget *check_uris = lookup_widget (dialog, "honor_expect_uris");
-    GtkWidget *check_iv = lookup_widget (dialog, "use_internal_viewer");
-    GtkWidget *check_is = lookup_widget (dialog, "use_internal_search");
-    GtkWidget *fav_apps = GTK_WIDGET (g_object_get_data (G_OBJECT (dialog), "fav_apps"));
-
-    cfg.set_viewer(gtk_editable_get_text (GTK_EDITABLE (entry1)));
-    cfg.set_editor(gtk_editable_get_text (GTK_EDITABLE (entry2)));
-    cfg.set_differ(gtk_editable_get_text (GTK_EDITABLE (entry3)));
-    cfg.set_search(gtk_editable_get_text (GTK_EDITABLE (entry4)));
-    cfg.set_sendto(gtk_editable_get_text (GTK_EDITABLE (entry5)));
-    cfg.set_termopen(gtk_editable_get_text (GTK_EDITABLE (entry6)));
-    cfg.set_termexec(gtk_editable_get_text (GTK_EDITABLE (entry7)));
-    gnome_cmd_data.use_gcmd_block = gtk_check_button_get_active (GTK_CHECK_BUTTON (check_use_gcmd_block));
-
-    cfg.honor_expect_uris = !gtk_check_button_get_active (GTK_CHECK_BUTTON (check_uris));
-    cfg.use_internal_viewer = gtk_check_button_get_active (GTK_CHECK_BUTTON (check_iv));
-    cfg.use_internal_search = gtk_check_button_get_active (GTK_CHECK_BUTTON (check_is));
-
-    gnome_cmd_favorite_apps_widget_save_apps (fav_apps);
 }

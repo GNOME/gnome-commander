@@ -292,17 +292,6 @@ struct GnomeCmdData
         GnomeCmdDefaultDndMode       mouse_dnd_default;
         //  Filters
         gboolean                     symbolic_links_as_regular_files;
-        //  Programs
-        gboolean                     honor_expect_uris;
-        gchar                       *viewer;
-        gboolean                     use_internal_viewer;
-        gchar                       *editor;
-        gchar                       *differ;
-        gboolean                     use_internal_search;
-        gchar                       *search;
-        gchar                       *sendto;
-        gchar                       *termopen;
-        gchar                       *termexec;
 
         Options(): gcmd_settings(nullptr),
                    left_mouse_button_mode(LEFT_BUTTON_OPENS_WITH_DOUBLE_CLICK),
@@ -336,17 +325,7 @@ struct GnomeCmdData
                    confirm_delete_default(GTK_BUTTONS_OK),
                    confirm_copy_overwrite(GNOME_CMD_CONFIRM_OVERWRITE_QUERY),
                    confirm_move_overwrite(GNOME_CMD_CONFIRM_OVERWRITE_QUERY),
-                   mouse_dnd_default(GNOME_CMD_DEFAULT_DND_QUERY),
-                   honor_expect_uris(FALSE),
-                   viewer(nullptr),
-                   use_internal_viewer(TRUE),
-                   editor(nullptr),
-                   differ(nullptr),
-                   use_internal_search(TRUE),
-                   search(nullptr),
-                   sendto(nullptr),
-                   termopen(nullptr),
-                   termexec(nullptr)
+                   mouse_dnd_default(GNOME_CMD_DEFAULT_DND_QUERY)
         {
         }
 
@@ -357,13 +336,6 @@ struct GnomeCmdData
             g_free (date_format);
             g_free (list_font);
             g_free (theme_icon_dir);
-            g_free (viewer);
-            g_free (editor);
-            g_free (differ);
-            g_free (search);
-            g_free (sendto);
-            g_free (termopen);
-            g_free (termexec);
         }
 
         Options &operator = (const Options &cfg);
@@ -387,48 +359,6 @@ struct GnomeCmdData
         {
             g_free (theme_icon_dir);
             theme_icon_dir = g_strdup (dir);
-        }
-
-        void set_viewer(const gchar *command)
-        {
-            g_free (viewer);
-            viewer = g_strdup (command);
-        }
-
-        void set_editor(const gchar *command)
-        {
-            g_free (editor);
-            editor = g_strdup (command);
-        }
-
-        void set_differ(const gchar *command)
-        {
-            g_free (differ);
-            differ = g_strdup (command);
-        }
-
-        void set_search(const gchar *command)
-        {
-            g_free (search);
-            search = g_strdup (command);
-        }
-
-        void set_sendto(const gchar *command)
-        {
-            g_free (sendto);
-            sendto = g_strdup (command);
-        }
-
-        void set_termexec(const gchar *command)
-        {
-            g_free (termexec);
-            termexec = g_strdup (command);
-        }
-
-        void set_termopen(const gchar *command)
-        {
-            g_free (termopen);
-            termopen = g_strdup (command);
         }
 
         void on_size_display_mode_changed();
@@ -490,8 +420,6 @@ struct GnomeCmdData
     gint                         cmdline_history_length;
     GList                       *get_list_from_gsettings_string_array (GSettings *settings, const gchar *key);
     gboolean                     set_gsettings_string_array_from_glist (GSettings *settings, const gchar *key, GList *strings);
-
-    gboolean                     use_gcmd_block;
 
     guint                        opts_dialog_width;
     guint                        opts_dialog_height;

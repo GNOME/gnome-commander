@@ -18,6 +18,7 @@
  */
 
 use crate::{
+    app::FavoriteAppVariant,
     file_selector::TabVariant,
     filter::PatternType,
     search::profile::{SearchProfile, SearchProfilePtr, SearchProfileVariant},
@@ -69,6 +70,8 @@ pub trait GeneralOptionsRead {
 
     fn show_samba_workgroups_button(&self) -> bool;
     fn device_only_icon(&self) -> bool;
+
+    fn favorite_apps(&self) -> Vec<FavoriteAppVariant>;
 }
 
 pub trait GeneralOptionsWrite {
@@ -88,6 +91,8 @@ pub trait GeneralOptionsWrite {
 
     fn set_show_samba_workgroups_button(&self, value: bool) -> WriteResult;
     fn set_device_only_icon(&self, value: bool) -> WriteResult;
+
+    fn set_favorite_apps(&self, apps: &[FavoriteAppVariant]) -> WriteResult;
 }
 
 impl GeneralOptions {
@@ -199,6 +204,11 @@ impl GeneralOptionsRead for GeneralOptions {
     fn device_only_icon(&self) -> bool {
         self.0.boolean("dev-only-icon")
     }
+
+    fn favorite_apps(&self) -> Vec<FavoriteAppVariant> {
+        let variant = self.0.value("favorite-apps");
+        Vec::<FavoriteAppVariant>::from_variant(&variant).unwrap_or_default()
+    }
 }
 
 impl GeneralOptionsWrite for GeneralOptions {
@@ -241,6 +251,10 @@ impl GeneralOptionsWrite for GeneralOptions {
 
     fn set_device_only_icon(&self, value: bool) -> WriteResult {
         self.0.set_boolean("dev-only-icon", value)
+    }
+
+    fn set_favorite_apps(&self, apps: &[FavoriteAppVariant]) -> WriteResult {
+        self.0.set_value("favorite-apps", &apps.to_variant())
     }
 }
 
@@ -447,6 +461,20 @@ pub trait ProgramsOptionsRead {
     fn use_gcmd_block(&self) -> bool;
 }
 
+pub trait ProgramsOptionsWrite {
+    fn set_dont_download(&self, value: bool) -> WriteResult;
+    fn set_use_internal_viewer(&self, value: bool) -> WriteResult;
+    fn set_viewer_cmd(&self, value: &str) -> WriteResult;
+    fn set_editor_cmd(&self, value: &str) -> WriteResult;
+    fn set_differ_cmd(&self, value: &str) -> WriteResult;
+    fn set_use_internal_search(&self, value: bool) -> WriteResult;
+    fn set_search_cmd(&self, value: &str) -> WriteResult;
+    fn set_sendto_cmd(&self, value: &str) -> WriteResult;
+    fn set_terminal_cmd(&self, value: &str) -> WriteResult;
+    fn set_terminal_exec_cmd(&self, value: &str) -> WriteResult;
+    fn set_use_gcmd_block(&self, value: bool) -> WriteResult;
+}
+
 impl ProgramsOptions {
     pub fn new() -> Self {
         Self(gio::Settings::new(
@@ -498,6 +526,52 @@ impl ProgramsOptionsRead for ProgramsOptions {
 
     fn use_gcmd_block(&self) -> bool {
         self.0.boolean("use-gcmd-block")
+    }
+}
+
+impl ProgramsOptionsWrite for ProgramsOptions {
+    fn set_dont_download(&self, value: bool) -> WriteResult {
+        self.0.set_boolean("dont-download", value)
+    }
+
+    fn set_use_internal_viewer(&self, value: bool) -> WriteResult {
+        self.0.set_boolean("use-internal-viewer", value)
+    }
+
+    fn set_viewer_cmd(&self, value: &str) -> WriteResult {
+        self.0.set_string("viewer-cmd", value)
+    }
+
+    fn set_editor_cmd(&self, value: &str) -> WriteResult {
+        self.0.set_string("editor-cmd", value)
+    }
+
+    fn set_differ_cmd(&self, value: &str) -> WriteResult {
+        self.0.set_string("differ-cmd", value)
+    }
+
+    fn set_use_internal_search(&self, value: bool) -> WriteResult {
+        self.0.set_boolean("use-internal-search", value)
+    }
+
+    fn set_search_cmd(&self, value: &str) -> WriteResult {
+        self.0.set_string("search-cmd", value)
+    }
+
+    fn set_sendto_cmd(&self, value: &str) -> WriteResult {
+        self.0.set_string("sendto-cmd", value)
+    }
+
+    fn set_terminal_cmd(&self, value: &str) -> WriteResult {
+        self.0.set_string("terminal-cmd", value)
+    }
+
+    fn set_terminal_exec_cmd(&self, value: &str) -> WriteResult {
+        self.0.set_string("terminal-exec-cmd", value)
+    }
+
+    fn set_use_gcmd_block(&self, value: bool) -> WriteResult {
+        self.0.set_boolean("use-gcmd-block", value)
     }
 }
 

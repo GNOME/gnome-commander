@@ -27,13 +27,10 @@ use crate::{
     utils::{make_run_in_terminal_command, ErrorMessage},
 };
 use gettextrs::gettext;
-use gtk::{
-    gio::prelude::*,
-    glib::{self, ffi::GList, translate::IntoGlibPtr},
-};
+use gtk::{gio::prelude::*, glib};
 use std::{
     cell::OnceCell,
-    ffi::{self, CStr, CString, OsStr, OsString},
+    ffi::{OsStr, OsString},
     io::BufRead,
     path::{Path, PathBuf},
 };
@@ -138,23 +135,6 @@ pub fn parse_command_template(
     Some(cmd).filter(|c| !c.is_empty())
 }
 
-#[no_mangle]
-pub unsafe extern "C" fn parse_command_template_r(
-    files_list: *mut GList,
-    command_template: *const ffi::c_char,
-) -> *const ffi::c_char {
-    let files = glib::List::from_glib_none(files_list);
-    let Ok(command_template) = CStr::from_ptr(command_template).to_str() else {
-        return std::ptr::null::<ffi::c_char>();
-    };
-
-    let result = parse_command_template(&files, command_template);
-    (match result {
-        None => std::ptr::null(),
-        Some(s) => CString::from_vec_unchecked(s.as_encoded_bytes().to_vec()).into_raw(),
-    } as *mut ffi::c_char)
-}
-
 pub enum SpawnError {
     InvalidTemplate,
     InvalidCommand(glib::Error),
@@ -204,40 +184,6 @@ pub fn spawn_async(
         return Err(SpawnError::InvalidTemplate);
     };
     spawn_async_command(working_directory, &cmd)
-}
-
-#[no_mangle]
-pub unsafe extern "C" fn spawn_async_r(
-    cwd: *const ffi::c_char,
-    files_list: *mut GList,
-    command_template: *const ffi::c_char,
-    error: *mut *mut glib::ffi::GError,
-) -> ffi::c_int {
-    let working_directory = Some(cwd)
-        .filter(|p| !p.is_null())
-        .and_then(|p| CStr::from_ptr(p).to_str().ok())
-        .map(Path::new);
-    let files = glib::List::from_glib_full(files_list);
-    let Ok(command_template) = CStr::from_ptr(command_template).to_str() else {
-        return 1;
-    };
-
-    let result = spawn_async(working_directory, &files, command_template);
-    match result {
-        Ok(_) => 0,
-        Err(SpawnError::InvalidTemplate) => {
-            *error = std::ptr::null_mut();
-            1
-        }
-        Err(SpawnError::InvalidCommand(e)) => {
-            *error = e.into_glib_ptr();
-            2
-        }
-        Err(SpawnError::Failure(e)) => {
-            *error = glib::Error::new(glib::FileError::Failed, &e.to_string()).into_glib_ptr();
-            3
-        }
-    }
 }
 
 pub fn run_command_indir(

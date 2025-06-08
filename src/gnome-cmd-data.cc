@@ -274,34 +274,12 @@ static void on_use_ls_colors_changed (GnomeCmdMainWin *main_win)
     main_win->update_view();
 }
 
-static void on_always_download_changed (GnomeCmdMainWin *main_win)
-{
-    gboolean always_download;
-
-    always_download = g_settings_get_boolean (gnome_cmd_data.options.gcmd_settings->programs, GCMD_SETTINGS_DONT_DOWNLOAD);
-    gnome_cmd_data.options.honor_expect_uris = always_download;
-}
-
 static void on_multiple_instances_changed (GnomeCmdMainWin *main_win)
 {
     gboolean allow_multiple_instances;
 
     allow_multiple_instances = g_settings_get_boolean (gnome_cmd_data.options.gcmd_settings->general, GCMD_SETTINGS_MULTIPLE_INSTANCES);
     gnome_cmd_data.options.allow_multiple_instances = allow_multiple_instances;
-}
-
-static void on_use_internal_viewer_changed (GnomeCmdMainWin *main_win)
-{
-    gboolean use_internal_viewer;
-    use_internal_viewer = g_settings_get_boolean (gnome_cmd_data.options.gcmd_settings->programs, GCMD_SETTINGS_USE_INTERNAL_VIEWER);
-    gnome_cmd_data.options.use_internal_viewer = use_internal_viewer;
-}
-
-static void on_use_internal_search_changed (GnomeCmdMainWin *main_win)
-{
-    gboolean use_internal_search;
-    use_internal_search = g_settings_get_boolean (gnome_cmd_data.options.gcmd_settings->programs, GCMD_SETTINGS_USE_INTERNAL_SEARCH);
-    gnome_cmd_data.options.use_internal_search = use_internal_search;
 }
 
 static void on_quick_search_shortcut_changed (GnomeCmdMainWin *main_win)
@@ -335,67 +313,6 @@ static void on_opts_dialog_width_changed()
 static void on_opts_dialog_height_changed()
 {
     gnome_cmd_data.opts_dialog_height = g_settings_get_uint (gnome_cmd_data.options.gcmd_settings->general, GCMD_SETTINGS_OPTS_DIALOG_HEIGHT);
-}
-
-static void on_viewer_cmd_changed()
-{
-    gchar *viewer_cmd;
-    g_free(gnome_cmd_data.options.viewer);
-    viewer_cmd = g_settings_get_string (gnome_cmd_data.options.gcmd_settings->programs, GCMD_SETTINGS_VIEWER_CMD);
-    gnome_cmd_data.options.viewer = viewer_cmd;
-}
-
-static void on_editor_cmd_changed()
-{
-    gchar *editor_cmd;
-    g_free(gnome_cmd_data.options.editor);
-    editor_cmd = g_settings_get_string (gnome_cmd_data.options.gcmd_settings->programs, GCMD_SETTINGS_EDITOR_CMD);
-    gnome_cmd_data.options.editor = editor_cmd;
-}
-
-static void on_differ_cmd_changed()
-{
-    gchar *differ_cmd;
-    g_free(gnome_cmd_data.options.differ);
-    differ_cmd = g_settings_get_string (gnome_cmd_data.options.gcmd_settings->programs, GCMD_SETTINGS_DIFFER_CMD);
-    gnome_cmd_data.options.differ = differ_cmd;
-}
-
-static void on_search_cmd_changed()
-{
-    gchar *search_cmd;
-    g_free(gnome_cmd_data.options.search);
-    search_cmd = g_settings_get_string (gnome_cmd_data.options.gcmd_settings->programs, GCMD_SETTINGS_SEARCH_CMD);
-    gnome_cmd_data.options.search = search_cmd;
-}
-
-static void on_sendto_cmd_changed()
-{
-    gchar *sendto_cmd;
-    g_free(gnome_cmd_data.options.sendto);
-    sendto_cmd = g_settings_get_string (gnome_cmd_data.options.gcmd_settings->programs, GCMD_SETTINGS_SENDTO_CMD);
-    gnome_cmd_data.options.sendto = sendto_cmd;
-}
-
-static void on_terminal_cmd_changed()
-{
-    gchar *terminal_cmd;
-    g_free(gnome_cmd_data.options.termopen);
-    terminal_cmd = g_settings_get_string (gnome_cmd_data.options.gcmd_settings->programs, GCMD_SETTINGS_TERMINAL_CMD);
-    gnome_cmd_data.options.termopen = terminal_cmd;
-}
-
-static void on_terminal_exec_cmd_changed()
-{
-    gchar *terminal_exec_cmd;
-    g_free(gnome_cmd_data.options.termexec);
-    terminal_exec_cmd = g_settings_get_string (gnome_cmd_data.options.gcmd_settings->programs, GCMD_SETTINGS_TERMINAL_EXEC_CMD);
-    gnome_cmd_data.options.termexec = terminal_exec_cmd;
-}
-
-static void on_use_gcmd_block_changed()
-{
-    gnome_cmd_data.use_gcmd_block = g_settings_get_boolean (gnome_cmd_data.options.gcmd_settings->programs, GCMD_SETTINGS_USE_GCMD_BLOCK);
 }
 
 static void gcmd_settings_class_init (GcmdSettingsClass *klass)
@@ -504,24 +421,9 @@ static void gcmd_connect_gsettings_signals(GcmdSettings *gs, GnomeCmdMainWin *ma
                       G_CALLBACK (on_use_ls_colors_changed),
                       main_win);
 
-    g_signal_connect_swapped (gs->programs,
-                      "changed::dont-download",
-                      G_CALLBACK (on_always_download_changed),
-                      main_win);
-
     g_signal_connect_swapped (gs->general,
                       "changed::allow-multiple-instances",
                       G_CALLBACK (on_multiple_instances_changed),
-                      main_win);
-
-    g_signal_connect_swapped (gs->programs,
-                      "changed::use-internal-viewer",
-                      G_CALLBACK (on_use_internal_viewer_changed),
-                      main_win);
-
-    g_signal_connect_swapped (gs->programs,
-                      "changed::use-internal-search",
-                      G_CALLBACK (on_use_internal_search_changed),
                       main_win);
 
     g_signal_connect_swapped (gs->general,
@@ -547,46 +449,6 @@ static void gcmd_connect_gsettings_signals(GcmdSettings *gs, GnomeCmdMainWin *ma
     g_signal_connect (gs->general,
                       "changed::opts-dialog-height",
                       G_CALLBACK (on_opts_dialog_height_changed),
-                      nullptr);
-
-    g_signal_connect (gs->programs,
-                      "changed::viewer-cmd",
-                      G_CALLBACK (on_viewer_cmd_changed),
-                      nullptr);
-
-    g_signal_connect (gs->programs,
-                      "changed::editor-cmd",
-                      G_CALLBACK (on_editor_cmd_changed),
-                      nullptr);
-
-    g_signal_connect (gs->programs,
-                      "changed::differ-cmd",
-                      G_CALLBACK (on_differ_cmd_changed),
-                      nullptr);
-
-    g_signal_connect (gs->programs,
-                      "changed::search-cmd",
-                      G_CALLBACK (on_search_cmd_changed),
-                      nullptr);
-
-    g_signal_connect (gs->programs,
-                      "changed::sendto-cmd",
-                      G_CALLBACK (on_sendto_cmd_changed),
-                      nullptr);
-
-    g_signal_connect (gs->programs,
-                      "changed::terminal-cmd",
-                      G_CALLBACK (on_terminal_cmd_changed),
-                      nullptr);
-
-    g_signal_connect (gs->programs,
-                      "changed::terminal-exec-cmd",
-                      G_CALLBACK (on_terminal_exec_cmd_changed),
-                      nullptr);
-
-    g_signal_connect (gs->programs,
-                      "changed::use-gcmd-block",
-                      G_CALLBACK (on_use_gcmd_block_changed),
                       nullptr);
 }
 
@@ -658,16 +520,6 @@ GnomeCmdData::Options::Options(const Options &cfg)
     confirm_copy_overwrite = cfg.confirm_copy_overwrite;
     confirm_move_overwrite = cfg.confirm_move_overwrite;
     mouse_dnd_default = cfg.mouse_dnd_default;
-    honor_expect_uris = cfg.honor_expect_uris;
-    viewer = g_strdup (cfg.viewer);
-    use_internal_viewer = cfg.use_internal_viewer;
-    editor = g_strdup (cfg.editor);
-    differ = g_strdup (cfg.differ);
-    use_internal_search = cfg.use_internal_search;
-    search = g_strdup (cfg.search);
-    sendto = g_strdup (cfg.sendto);
-    termopen = g_strdup (cfg.termopen);
-    termexec = g_strdup (cfg.termexec);
     deleteToTrash = cfg.deleteToTrash;
     gcmd_settings = nullptr;
 }
@@ -709,16 +561,6 @@ GnomeCmdData::Options &GnomeCmdData::Options::operator = (const Options &cfg)
         confirm_copy_overwrite = cfg.confirm_copy_overwrite;
         confirm_move_overwrite = cfg.confirm_move_overwrite;
         mouse_dnd_default = cfg.mouse_dnd_default;
-        honor_expect_uris = cfg.honor_expect_uris;
-        viewer = g_strdup (cfg.viewer);
-        use_internal_viewer = cfg.use_internal_viewer;
-        editor = g_strdup (cfg.editor);
-        differ = g_strdup (cfg.differ);
-        use_internal_search = cfg.use_internal_search;
-        search = g_strdup (cfg.search);
-        sendto = g_strdup (cfg.sendto);
-        termopen = g_strdup (cfg.termopen);
-        termexec = g_strdup (cfg.termexec);
         gcmd_settings = nullptr;
     }
 
@@ -947,8 +789,6 @@ GnomeCmdData::GnomeCmdData()
 
     cmdline_history = nullptr;
     cmdline_history_length = 0;
-
-    use_gcmd_block = TRUE;
 }
 
 
@@ -1040,24 +880,12 @@ void GnomeCmdData::load()
     cmdline_history_length = g_settings_get_uint (options.gcmd_settings->general, GCMD_SETTINGS_CMDLINE_HISTORY_LENGTH);
     gui_update_rate = g_settings_get_uint (options.gcmd_settings->general, GCMD_SETTINGS_GUI_UPDATE_RATE);
 
-    options.honor_expect_uris = g_settings_get_boolean (options.gcmd_settings->programs, GCMD_SETTINGS_DONT_DOWNLOAD);
     options.allow_multiple_instances = g_settings_get_boolean (options.gcmd_settings->general, GCMD_SETTINGS_MULTIPLE_INSTANCES);
-    options.use_internal_viewer = g_settings_get_boolean (options.gcmd_settings->programs, GCMD_SETTINGS_USE_INTERNAL_VIEWER);
-    options.use_internal_search = g_settings_get_boolean (options.gcmd_settings->programs, GCMD_SETTINGS_USE_INTERNAL_SEARCH);
     options.quick_search = (GnomeCmdQuickSearchShortcut) g_settings_get_enum (options.gcmd_settings->general, GCMD_SETTINGS_QUICK_SEARCH_SHORTCUT);
     options.quick_search_exact_match_begin = g_settings_get_boolean (options.gcmd_settings->general, GCMD_SETTINGS_QUICK_SEARCH_EXACT_MATCH_BEGIN);
     options.quick_search_exact_match_end = g_settings_get_boolean (options.gcmd_settings->general, GCMD_SETTINGS_QUICK_SEARCH_EXACT_MATCH_END);
 
     gboolean show_samba_workgroups_button = g_settings_get_boolean(options.gcmd_settings->general, GCMD_SETTINGS_SHOW_SAMBA_WORKGROUP_BUTTON);
-
-    options.viewer = g_settings_get_string(options.gcmd_settings->programs, GCMD_SETTINGS_VIEWER_CMD);
-    options.editor = g_settings_get_string(options.gcmd_settings->programs, GCMD_SETTINGS_EDITOR_CMD);
-    options.differ = g_settings_get_string(options.gcmd_settings->programs, GCMD_SETTINGS_DIFFER_CMD);
-    options.search = g_settings_get_string(options.gcmd_settings->programs, GCMD_SETTINGS_SEARCH_CMD);
-    options.sendto = g_settings_get_string(options.gcmd_settings->programs, GCMD_SETTINGS_SENDTO_CMD);
-    options.termopen = g_settings_get_string(options.gcmd_settings->programs, GCMD_SETTINGS_TERMINAL_CMD);
-    options.termexec = g_settings_get_string(options.gcmd_settings->programs, GCMD_SETTINGS_TERMINAL_EXEC_CMD);
-    use_gcmd_block = g_settings_get_boolean(options.gcmd_settings->programs, GCMD_SETTINGS_USE_GCMD_BLOCK);
 
     options.save_dirs_on_exit = g_settings_get_boolean (options.gcmd_settings->general, GCMD_SETTINGS_SAVE_DIRS_ON_EXIT);
     options.save_tabs_on_exit = g_settings_get_boolean (options.gcmd_settings->general, GCMD_SETTINGS_SAVE_TABS_ON_EXIT);
@@ -1124,20 +952,8 @@ void GnomeCmdData::save(GnomeCmdMainWin *main_win)
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_MULTIPLE_INSTANCES, &(options.allow_multiple_instances));
     set_gsettings_enum_when_changed (options.gcmd_settings->general, GCMD_SETTINGS_QUICK_SEARCH_SHORTCUT, options.quick_search);
 
-    set_gsettings_when_changed      (options.gcmd_settings->programs, GCMD_SETTINGS_DONT_DOWNLOAD, &(options.honor_expect_uris));
-    set_gsettings_when_changed      (options.gcmd_settings->programs, GCMD_SETTINGS_USE_INTERNAL_VIEWER, &(options.use_internal_viewer));
-    set_gsettings_when_changed      (options.gcmd_settings->programs, GCMD_SETTINGS_USE_INTERNAL_SEARCH, &(options.use_internal_search));
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_QUICK_SEARCH_EXACT_MATCH_BEGIN, &(options.quick_search_exact_match_begin));
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_QUICK_SEARCH_EXACT_MATCH_END, &(options.quick_search_exact_match_end));
-
-    set_gsettings_when_changed      (options.gcmd_settings->programs, GCMD_SETTINGS_VIEWER_CMD, options.viewer);
-    set_gsettings_when_changed      (options.gcmd_settings->programs, GCMD_SETTINGS_EDITOR_CMD, options.editor);
-    set_gsettings_when_changed      (options.gcmd_settings->programs, GCMD_SETTINGS_DIFFER_CMD, options.differ);
-    set_gsettings_when_changed      (options.gcmd_settings->programs, GCMD_SETTINGS_SEARCH_CMD, options.search);
-    set_gsettings_when_changed      (options.gcmd_settings->programs, GCMD_SETTINGS_SENDTO_CMD, options.sendto);
-    set_gsettings_when_changed      (options.gcmd_settings->programs, GCMD_SETTINGS_TERMINAL_CMD, options.termopen);
-    set_gsettings_when_changed      (options.gcmd_settings->programs, GCMD_SETTINGS_TERMINAL_EXEC_CMD, options.termexec);
-    set_gsettings_when_changed      (options.gcmd_settings->programs, GCMD_SETTINGS_USE_GCMD_BLOCK, &(use_gcmd_block));
 
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_OPTS_DIALOG_WIDTH, &(opts_dialog_width));
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_OPTS_DIALOG_HEIGHT, &(opts_dialog_height));

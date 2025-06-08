@@ -21,6 +21,7 @@ pub mod options_dialog;
 
 pub mod devices_tab;
 pub mod filters_tab;
+pub mod programs_tab;
 pub mod tabs_tab;
 
 pub mod app_dialog;

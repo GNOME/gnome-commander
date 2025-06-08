@@ -65,7 +65,6 @@ struct GnomeCmdMainWin
     void update_show_toolbar();
     void update_cmdline();
 
-    GnomeCmdSearchDialog *get_or_create_search_dialog ();
 };
 
 extern GnomeCmdMainWin *main_win;
@@ -86,3 +85,5 @@ struct GnomeCmdShortcuts;
 extern "C" GnomeCmdShortcuts *gnome_cmd_main_win_shortcuts(GnomeCmdMainWin *main_win);
 
 extern "C" GnomeCmdFileMetadataService *gnome_cmd_main_win_get_file_metadata_service (GnomeCmdMainWin *main_win);
+
+extern "C" GnomeCmdSearchDialog *gnome_cmd_main_win_get_or_create_search_dialog (GnomeCmdMainWin *main_win);
