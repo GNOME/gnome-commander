@@ -32,7 +32,7 @@ use crate::{
     types::SizeDisplayMode,
     utils::size_to_string,
 };
-use gettextrs::ngettext;
+use gettextrs::{gettext, ngettext};
 use gtk::{
     gdk, gio,
     glib::{
@@ -487,29 +487,26 @@ impl FileList {
     pub fn stats_str(&self, mode: SizeDisplayMode) -> String {
         let stats = self.stats();
 
-        let file_str = ngettext(
-            "{selected_bytes} of {total_bytes} in {selected_files} of {total_files} file",
-            "{selected_bytes} of {total_bytes} in {selected_files} of {total_files} files",
-            stats.total.files as u32,
-        )
-        .replace(
+        let sentence1 = gettext("A total of {selected_bytes} has been selected.").replace(
             "{selected_bytes}",
             &size_to_string(stats.selected.bytes, mode),
-        )
-        .replace("{total_bytes}", &size_to_string(stats.total.bytes, mode))
-        .replace("{selected_files}", &stats.selected.files.to_string())
-        .replace("{total_files}", &stats.total.files.to_string());
+        );
 
-        let info_str = ngettext(
-            "{}, {selected_dirs} of {total_dirs} dir selected",
-            "{}, {selected_dirs} of {total_dirs} dirs selected",
-            stats.total.directories as u32,
+        let sentence2 = ngettext(
+            "{selected_files} file selected.",
+            "{selected_files} files selected.",
+            stats.selected.files as u32,
         )
-        .replace("{}", &file_str)
-        .replace("{selected_dirs}", &stats.selected.directories.to_string())
-        .replace("{total_dirs}", &stats.total.directories.to_string());
+        .replace("{selected_files}", &stats.selected.files.to_string());
 
-        info_str
+        let sentence3 = ngettext(
+            "{selected_dirs} directory selected.",
+            "{selected_dirs} directories selected.",
+            stats.selected.directories as u32,
+        )
+        .replace("{selected_dirs}", &stats.selected.directories.to_string());
+
+        format!("{sentence1} {sentence2} {sentence3}")
     }
 
     pub fn show_rename_dialog(&self) {
