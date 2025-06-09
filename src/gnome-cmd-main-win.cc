@@ -107,6 +107,13 @@ static void on_fs_dir_change (GnomeCmdFileSelector *fs, const gchar dir, GnomeCm
 }
 
 
+static void on_fs_activate_request (GnomeCmdFileSelector *fs, GnomeCmdMainWin *mw)
+{
+    gnome_cmd_main_win_switch_fs (mw, fs);
+    mw->refocus();
+}
+
+
 static void toggle_action_change_state (GnomeCmdMainWin *mw, const gchar *action, bool state)
 {
     g_action_change_state (
@@ -154,6 +161,9 @@ extern "C" void gnome_cmd_main_win_init (GnomeCmdMainWin *mw)
 
     g_signal_connect (mw->fs(LEFT), "dir-changed", G_CALLBACK (on_fs_dir_change), mw);
     g_signal_connect (mw->fs(RIGHT), "dir-changed", G_CALLBACK (on_fs_dir_change), mw);
+
+    g_signal_connect (mw->fs(LEFT), "activate-request", G_CALLBACK (on_fs_activate_request), mw);
+    g_signal_connect (mw->fs(RIGHT), "activate-request", G_CALLBACK (on_fs_activate_request), mw);
 
     mw->fs(LEFT)->update_connections();
     mw->fs(RIGHT)->update_connections();

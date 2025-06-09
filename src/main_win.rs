@@ -170,6 +170,14 @@ pub mod imp {
             let plugin_manager = PluginManager::new();
             let file_metadata_service = FileMetadataService::new(&plugin_manager);
 
+            let cmdline = CommandLine::new();
+
+            let file_selector_left = FileSelector::new(&file_metadata_service);
+            file_selector_left.set_command_line(Some(&cmdline));
+
+            let file_selector_right = FileSelector::new(&file_metadata_service);
+            file_selector_right.set_command_line(Some(&cmdline));
+
             Self {
                 menubar: gtk::PopoverMenuBar::builder().build(),
 
@@ -194,9 +202,9 @@ pub mod imp {
                     .hexpand(true)
                     .vexpand(true)
                     .build(),
-                file_selector_left: RefCell::new(FileSelector::new(&file_metadata_service)),
-                file_selector_right: RefCell::new(FileSelector::new(&file_metadata_service)),
-                cmdline: CommandLine::new(),
+                file_selector_left: RefCell::new(file_selector_left),
+                file_selector_right: RefCell::new(file_selector_right),
+                cmdline,
                 cmdline_sep: gtk::Separator::builder()
                     .orientation(gtk::Orientation::Vertical)
                     .margin_start(3)

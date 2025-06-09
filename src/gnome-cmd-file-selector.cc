@@ -27,7 +27,6 @@
 #include "gnome-cmd-con-smb.h"
 #include "gnome-cmd-data.h"
 #include "gnome-cmd-cmdline.h"
-#include "gnome-cmd-main-win.h"
 #include "gnome-cmd-dir-indicator.h"
 #include "gnome-cmd-user-actions.h"
 #include "history.h"
@@ -56,9 +55,9 @@ struct GnomeCmdFileSelectorPrivate
 };
 
 
-#define DIR_CHANGED_SIGNAL  "dir-changed"
-#define LIST_CLICKED_SIGNAL "list-clicked"
-
+#define DIR_CHANGED_SIGNAL          "dir-changed"
+#define LIST_CLICKED_SIGNAL         "list-clicked"
+#define ACTIVATE_REQUEST_SIGNAL     "activate-request"
 
 /*******************************
  * Utility functions
@@ -249,8 +248,6 @@ static void on_con_combo_item_selected (GtkDropDown *con_dropdown, GParamSpec *p
     GnomeCmdCon *con = GNOME_CMD_CON (gtk_drop_down_get_selected_item (con_dropdown));
     g_return_if_fail (GNOME_CMD_IS_CON (con));
 
-    gnome_cmd_main_win_switch_fs (main_win, fs);
-
     GdkModifierType mask = get_modifiers_state();
 
     if (mask & GDK_CONTROL_MASK || gnome_cmd_file_selector_is_current_tab_locked (fs))
@@ -258,15 +255,13 @@ static void on_con_combo_item_selected (GtkDropDown *con_dropdown, GParamSpec *p
     else
         fs->set_connection(con, gnome_cmd_con_get_default_dir (con));
 
-    main_win->refocus();
+    g_signal_emit_by_name (fs, ACTIVATE_REQUEST_SIGNAL);
 }
 
 
 static void on_navigate (GnomeCmdDirIndicator *indicator, const gchar *path, gboolean new_tab, GnomeCmdFileSelector *fs)
 {
     g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
-
-    gnome_cmd_main_win_switch_fs (main_win, fs);
 
     if (new_tab || gnome_cmd_file_selector_is_current_tab_locked (fs))
     {
@@ -278,6 +273,8 @@ static void on_navigate (GnomeCmdDirIndicator *indicator, const gchar *path, gbo
     {
         fs->goto_directory (path);
     }
+
+    g_signal_emit_by_name (fs, ACTIVATE_REQUEST_SIGNAL);
 }
 
 
@@ -288,12 +285,12 @@ static void on_con_btn_clicked (GtkWidget *button, GnomeCmdCon *con, gboolean ne
 
     g_return_if_fail (GNOME_CMD_IS_CON (con));
 
-    gnome_cmd_main_win_switch_fs (main_win, fs);
-
     if (new_tab || gnome_cmd_file_selector_is_current_tab_locked (fs))
         fs->new_tab(gnome_cmd_con_get_default_dir (con));
 
     fs->set_connection(con, gnome_cmd_con_get_default_dir (con));
+
+    g_signal_emit_by_name (fs, ACTIVATE_REQUEST_SIGNAL);
 }
 
 
@@ -438,7 +435,8 @@ static void on_list_file_activated (GnomeCmdFileList *fl, GnomeCmdFile *f, Gnome
 
 static void on_list_cmdline_append (GnomeCmdFileList *fl, const gchar *text, GnomeCmdFileSelector *fs)
 {
-    auto cmdline = gnome_cmd_main_win_get_cmdline (main_win);
+    GnomeCmdCmdline *cmdline;
+    g_object_get (G_OBJECT (fs), "command-line", &cmdline, nullptr);
     if (gtk_widget_is_visible (GTK_WIDGET (cmdline)))
     {
         gnome_cmd_cmdline_append_text (cmdline, text);
@@ -449,7 +447,8 @@ static void on_list_cmdline_append (GnomeCmdFileList *fl, const gchar *text, Gno
 
 static gboolean on_list_cmdline_execute (GnomeCmdFileList *fl, GnomeCmdFileSelector *fs)
 {
-    auto cmdline = gnome_cmd_main_win_get_cmdline (main_win);
+    GnomeCmdCmdline *cmdline;
+    g_object_get (G_OBJECT (fs), "command-line", &cmdline, nullptr);
     if (gtk_widget_is_visible (GTK_WIDGET (cmdline)) && !gnome_cmd_cmdline_is_empty (cmdline))
     {
         gnome_cmd_cmdline_exec (cmdline);
@@ -697,8 +696,7 @@ static void on_filter_box_close (GtkButton *btn, GnomeCmdFileSelector *fs)
     auto priv = file_selector_priv (fs);
     if (!priv->filter_box) return;
 
-    gtk_box_remove (GTK_BOX (fs), priv->filter_box);
-    priv->filter_box = nullptr;
+    gtk_widget_set_visible (priv->filter_box, FALSE);
 }
 
 
@@ -720,28 +718,32 @@ void GnomeCmdFileSelector::show_filter()
 {
     auto priv = file_selector_priv (this);
 
-    if (priv->filter_box) return;
+    if (!priv->filter_box)
+    {
+        priv->filter_box = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 6);
+        gtk_widget_set_margin_start (priv->filter_box, 6);
+        gtk_widget_set_margin_end (priv->filter_box, 6);
 
-    priv->filter_box = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 6);
-    gtk_widget_set_margin_start (priv->filter_box, 6);
-    gtk_widget_set_margin_end (priv->filter_box, 6);
+        GtkWidget *label = create_label (*this, _("Filter:"));
+        GtkWidget *entry = create_entry (*this, "entry", "");
+        gtk_widget_set_hexpand (entry, TRUE);
+        GtkWidget *close_btn = gtk_button_new_with_mnemonic ("x");
+        g_signal_connect (close_btn, "clicked", G_CALLBACK (on_filter_box_close), this);
 
-    GtkWidget *label = create_label (*this, _("Filter:"));
-    GtkWidget *entry = create_entry (*this, "entry", "");
-    gtk_widget_set_hexpand (entry, TRUE);
-    GtkWidget *close_btn = create_button_with_data (*main_win, "x", G_CALLBACK (on_filter_box_close), this);
+        GtkEventController *key_controller = gtk_event_controller_key_new ();
+        gtk_widget_add_controller (entry, GTK_EVENT_CONTROLLER (key_controller));
+        g_signal_connect (key_controller, "key-pressed", G_CALLBACK (on_filter_box_keypressed), this);
 
-    GtkEventController *key_controller = gtk_event_controller_key_new ();
-    gtk_widget_add_controller (entry, GTK_EVENT_CONTROLLER (key_controller));
-    g_signal_connect (key_controller, "key-pressed", G_CALLBACK (on_filter_box_keypressed), this);
+        gtk_box_append (GTK_BOX (priv->filter_box), label);
+        gtk_box_append (GTK_BOX (priv->filter_box), entry);
+        gtk_box_append (GTK_BOX (priv->filter_box), close_btn);
 
-    gtk_box_append (GTK_BOX (priv->filter_box), label);
-    gtk_box_append (GTK_BOX (priv->filter_box), entry);
-    gtk_box_append (GTK_BOX (priv->filter_box), close_btn);
+        gtk_grid_attach (GTK_GRID (this), priv->filter_box, 0, 5, 2, 1);
 
-    gtk_box_append (*this, priv->filter_box);
+        gtk_widget_grab_focus (entry);
+    }
 
-    gtk_widget_grab_focus (entry);
+    gtk_widget_set_visible (priv->filter_box, TRUE);
 }
 
 

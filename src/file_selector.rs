@@ -129,16 +129,19 @@ pub mod ffi {
 
 mod imp {
     use super::*;
-    use crate::data::GeneralOptions;
+    use crate::{command_line::CommandLine, data::GeneralOptions};
     use std::{
-        cell::Cell,
-        {cell::OnceCell, sync::OnceLock},
+        cell::{Cell, OnceCell, RefCell},
+        sync::OnceLock,
     };
 
     #[derive(glib::Properties)]
     #[properties(wrapper_type = super::FileSelector)]
     pub struct FileSelector {
         pub notebook: gtk::Notebook,
+
+        #[property(get, set, nullable)]
+        pub command_line: RefCell<Option<CommandLine>>,
 
         #[property(get, construct_only)]
         pub file_metadata_service: OnceCell<FileMetadataService>,
@@ -189,6 +192,7 @@ mod imp {
                     .hexpand(true)
                     .vexpand(true)
                     .build(),
+                command_line: Default::default(),
 
                 file_metadata_service: Default::default(),
 
@@ -255,6 +259,7 @@ mod imp {
                         .param_types([Directory::static_type()])
                         .build(),
                     glib::subclass::Signal::builder("list-clicked").build(),
+                    glib::subclass::Signal::builder("activate-request").build(),
                 ]
             })
         }
