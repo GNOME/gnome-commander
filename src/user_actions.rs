@@ -1036,7 +1036,7 @@ pub fn bookmarks_add_current(
     let options = GeneralOptions::new();
 
     glib::spawn_future_local(async move {
-        bookmark_directory(&main_win, &dir, &options).await;
+        bookmark_directory(main_win.upcast_ref(), &dir, &options).await;
     });
 }
 

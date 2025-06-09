@@ -131,7 +131,6 @@ GSettings *gcmd_settings_get_general (GcmdSettings *gcmd_settings)
 static void on_bookmarks_changed (GnomeCmdMainWin *main_win)
 {
     gnome_cmd_data.load_bookmarks();
-    main_win->update_bookmarks ();
 }
 
 static void on_size_display_mode_changed (GnomeCmdMainWin *main_win)

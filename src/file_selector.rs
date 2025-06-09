@@ -129,7 +129,10 @@ pub mod ffi {
 
 mod imp {
     use super::*;
-    use crate::{command_line::CommandLine, data::GeneralOptions};
+    use crate::{
+        command_line::CommandLine, data::GeneralOptions,
+        dialogs::manage_bookmarks_dialog::bookmark_directory, utils::get_modifiers_state,
+    };
     use std::{
         cell::{Cell, OnceCell, RefCell},
         sync::OnceLock,
@@ -157,6 +160,18 @@ mod imp {
         type ParentType = gtk::Grid;
 
         fn class_init(klass: &mut Self::Class) {
+            klass.install_action(
+                "fs.select-path",
+                Some(&String::static_variant_type()),
+                |obj, _, param| {
+                    if let Some(path) = param.and_then(|p| String::from_variant(&p)) {
+                        obj.imp().select_path(&path);
+                    }
+                },
+            );
+            klass.install_action_async("fs.add-bookmark", None, |obj, _, _| async move {
+                obj.imp().add_bookmark().await
+            });
             klass.install_action(
                 "fs.toggle-tab-lock",
                 Some(&i32::static_variant_type()),
@@ -269,6 +284,28 @@ mod imp {
     impl GridImpl for FileSelector {}
 
     impl FileSelector {
+        fn select_path(&self, path: &str) {
+            let mask = self
+                .obj()
+                .root()
+                .and_downcast::<gtk::Window>()
+                .as_ref()
+                .and_then(get_modifiers_state);
+            let new_tab = mask.map_or(false, |m| m.contains(gdk::ModifierType::CONTROL_MASK));
+            self.on_navigate(path, new_tab);
+        }
+
+        async fn add_bookmark(&self) {
+            let Some(window) = self.obj().root().and_downcast::<gtk::Window>() else {
+                return;
+            };
+            let Some(dir) = self.obj().file_list().directory() else {
+                return;
+            };
+            let options = GeneralOptions::new();
+            bookmark_directory(&window, &dir, &options).await;
+        }
+
         fn toggle_tab_lock(&self, index: u32) {
             let fl = self.obj().file_list_nth(index);
             let locked = self.obj().is_tab_locked(&fl);
@@ -279,6 +316,21 @@ mod imp {
         fn refresh_tab(&self, index: u32) {
             let list = self.obj().file_list_nth(index);
             list.reload();
+        }
+
+        fn on_navigate(&self, path: &str, new_tab: bool) {
+            let fl = self.obj().file_list();
+            if new_tab || self.obj().is_current_tab_locked() {
+                let Some(con) = fl.connection() else {
+                    eprintln!("Cannot navigate to {path}. No connection.");
+                    return;
+                };
+                let dir = Directory::new(&con, con.create_path(&Path::new(path)));
+                self.obj().new_tab_with_dir(&dir, true);
+            } else {
+                fl.goto_directory(&Path::new(path));
+            }
+            self.obj().emit_by_name::<()>("activate-request", &[]);
         }
 
         fn update_tab_label(&self, fl: &FileList) {

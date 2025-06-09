@@ -56,7 +56,6 @@ extern "C" void gnome_cmd_main_win_load_tabs(GnomeCmdMainWin *, GApplication *);
 extern "C" void gnome_cmd_main_win_save_tabs(GnomeCmdMainWin *, gboolean, gboolean);
 
 
-extern "C" void gnome_cmd_main_win_update_mainmenu (GnomeCmdMainWin *main_win);
 extern "C" void gnome_cmd_main_win_update_drop_con_button (GnomeCmdMainWin *main_win, GnomeCmdFileList *fl);
 extern "C" GnomeCmdFileSelector *gnome_cmd_main_win_get_fs (GnomeCmdMainWin *main_win, FileSelectorID id);
 extern "C" void gnome_cmd_main_win_swap_panels (GnomeCmdMainWin *main_win);
@@ -445,12 +444,6 @@ void GnomeCmdMainWin::set_fs_directory_to_opposite(FileSelectorID fsID)
 }
 
 
-void GnomeCmdMainWin::update_bookmarks()
-{
-    gnome_cmd_main_win_update_mainmenu (this);
-}
-
-
 void GnomeCmdMainWin::update_show_toolbar()
 {
     gnome_cmd_main_win_update_drop_con_button (this, fs(ACTIVE)->file_list());
@@ -504,11 +497,6 @@ void gnome_cmd_main_win_change_connection(GnomeCmdMainWin *main_win, FileSelecto
 void gnome_cmd_main_win_focus_file_lists(GnomeCmdMainWin *main_win)
 {
     return main_win->focus_file_lists();
-}
-
-void gnome_cmd_main_win_update_bookmarks(GnomeCmdMainWin *main_win)
-{
-    main_win->update_bookmarks();
 }
 
 void gnome_cmd_main_win_update_view(GnomeCmdMainWin *main_win)
