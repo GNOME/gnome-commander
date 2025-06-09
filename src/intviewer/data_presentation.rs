@@ -25,7 +25,12 @@ pub mod ffi {
     }
 
     extern "C" {
+        pub fn gv_data_presentation_new() -> *mut GVDataPresentation;
+        pub fn gv_free_data_presentation(dp: *mut GVDataPresentation);
+
         pub fn gv_get_data_presentation_mode(dp: *mut GVDataPresentation) -> i32;
+        pub fn gv_set_data_presentation_mode(dp: *mut GVDataPresentation, mode: i32);
+
         pub fn gv_align_offset_to_line_start(dp: *mut GVDataPresentation, offset: u64) -> u64;
     }
 }
@@ -33,6 +38,10 @@ pub mod ffi {
 pub struct DataPresentation(pub *mut ffi::GVDataPresentation);
 
 impl DataPresentation {
+    pub fn new() -> Self {
+        unsafe { Self(ffi::gv_data_presentation_new()) }
+    }
+
     pub fn mode(&self) -> DataPresentationMode {
         unsafe {
             DataPresentationMode::from_repr(ffi::gv_get_data_presentation_mode(self.0) as usize)
@@ -40,8 +49,21 @@ impl DataPresentation {
         }
     }
 
+    pub fn set_mode(&self, mode: DataPresentationMode) {
+        unsafe { ffi::gv_set_data_presentation_mode(self.0, mode as i32) }
+    }
+
     pub fn align_offset_to_line_start(&self, offset: u64) -> u64 {
         unsafe { ffi::gv_align_offset_to_line_start(self.0, offset) }
+    }
+}
+
+impl Drop for DataPresentation {
+    fn drop(&mut self) {
+        unsafe {
+            ffi::gv_free_data_presentation(self.0);
+            self.0 = std::ptr::null_mut();
+        }
     }
 }
 
@@ -54,4 +76,22 @@ pub enum DataPresentationMode {
     /// fixed number of binary characters per line.
     /// e.g. CHAR=BYTE, no UTF-8 or other translations
     BinaryFixed,
+}
+
+#[cfg(test)]
+mod test {
+    use super::*;
+
+    #[test]
+    fn set_data_presentation_mode() {
+        let dp = DataPresentation::new();
+        for mode in [
+            DataPresentationMode::Wrap,
+            DataPresentationMode::NoWrap,
+            DataPresentationMode::BinaryFixed,
+        ] {
+            dp.set_mode(mode);
+            assert_eq!(dp.mode(), mode);
+        }
+    }
 }

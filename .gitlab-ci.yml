@@ -12,8 +12,8 @@ variables:
     desktop-file-utils
     build-essential
     meson
-    flex
     rust-1.80-all
+    gettext
     yelp-tools
     gi-docgen
     gobject-introspection
@@ -22,8 +22,6 @@ variables:
     libgtk-4-dev
     libpoppler-glib-dev
     libtag1-dev
-    libunique-dev
-    libgtest-dev
 
 include:
   - component: "gitlab.gnome.org/GNOME/citemplates/release-service@master"
@@ -39,7 +37,7 @@ before_script:
 build_and_test:
   stage: build
   script:
-    - apt-get update -qq
+    - apt-get update
     - apt-get install -y $UBUNTU_DEPS xvfb
     - mkdir ${MESON_BUILD_DIR}
     - meson setup ${MESON_BUILD_DIR}
@@ -50,7 +48,7 @@ build_and_test:
 create_tarball:
   stage: release
   script:
-    - apt-get update -qq
+    - apt-get update
     - apt-get install -y $UBUNTU_DEPS git-core
     - mkdir ${MESON_BUILD_DIR}
     - meson setup ${MESON_BUILD_DIR}

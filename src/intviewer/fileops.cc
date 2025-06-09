@@ -343,4 +343,6 @@ void gv_file_free(ViewerFileOps *ops)
             g_free (ops->block_ptr[i]);
         g_free (ops->block_ptr);
     }
+
+    g_free (ops);
 }

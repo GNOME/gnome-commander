@@ -60,7 +60,11 @@ pub mod ffi {
 
         pub fn text_render_copy_selection(w: *mut TextRender);
 
+        pub fn text_render_get_display_mode(w: *mut TextRender) -> super::TextRenderDisplayMode;
         pub fn text_render_set_display_mode(w: *mut TextRender, mode: super::TextRenderDisplayMode);
+
+        pub fn text_render_get_fixed_limit(w: *mut TextRender) -> i32;
+        pub fn text_render_set_fixed_limit(w: *mut TextRender, fixed_limit: i32);
     }
 
     #[derive(Copy, Clone)]
@@ -170,8 +174,20 @@ impl TextRender {
         unsafe { ffi::text_render_copy_selection(self.to_glib_none().0) }
     }
 
+    pub fn display_mode(&self) -> TextRenderDisplayMode {
+        unsafe { ffi::text_render_get_display_mode(self.to_glib_none().0) }
+    }
+
     pub fn set_display_mode(&self, mode: TextRenderDisplayMode) {
         unsafe { ffi::text_render_set_display_mode(self.to_glib_none().0, mode) }
+    }
+
+    pub fn fixed_limit(&self) -> i32 {
+        unsafe { ffi::text_render_get_fixed_limit(self.to_glib_none().0) }
+    }
+
+    pub fn set_fixed_limit(&self, fixed_limit: i32) {
+        unsafe { ffi::text_render_set_fixed_limit(self.to_glib_none().0, fixed_limit) }
     }
 
     pub fn connect_text_status_changed<F: Fn(&Self) + 'static>(
@@ -200,10 +216,79 @@ impl TextRender {
     }
 }
 
-#[derive(Clone, Copy)]
+#[derive(Clone, Copy, PartialEq, Eq, Debug)]
 #[repr(C)]
 pub enum TextRenderDisplayMode {
     Text = 0,
     Binary,
     Hexdump,
+}
+
+#[cfg(test)]
+mod test {
+    use super::*;
+    use rusty_fork::rusty_fork_test;
+
+    const FILENAME: &str = "./TODO";
+
+    rusty_fork_test! {
+        #[test]
+        fn display_mode() {
+            gtk::init().unwrap();
+            let text_render = TextRender::new();
+            text_render.load_file(&Path::new(FILENAME));
+            for mode in [
+                TextRenderDisplayMode::Text,
+                TextRenderDisplayMode::Binary,
+                TextRenderDisplayMode::Hexdump,
+            ] {
+                text_render.set_display_mode(mode);
+                assert_eq!(text_render.display_mode(), mode);
+            }
+        }
+
+        #[test]
+        fn tab_size() {
+            gtk::init().unwrap();
+            let text_render = TextRender::new();
+            text_render.load_file(&Path::new(FILENAME));
+            for tab_size in 1..=10 {
+                text_render.set_tab_size(tab_size);
+                assert_eq!(text_render.tab_size(), tab_size);
+            }
+        }
+
+        #[test]
+        fn wrap_mode() {
+            gtk::init().unwrap();
+            let text_render = TextRender::new();
+            text_render.load_file(&Path::new(FILENAME));
+            for mode in [false, true] {
+                text_render.set_wrap_mode(mode);
+                assert_eq!(text_render.wrap_mode(), mode);
+            }
+        }
+
+        #[test]
+        fn fixed_limit() {
+            gtk::init().unwrap();
+            let text_render = TextRender::new();
+            text_render.load_file(&Path::new(FILENAME));
+            for limit in 1..=10 {
+                text_render.set_fixed_limit(limit);
+                assert_eq!(text_render.fixed_limit(), limit);
+            }
+        }
+
+        #[test]
+        fn encoding() {
+            gtk::init().unwrap();
+            let text_render = TextRender::new();
+            text_render.load_file(&Path::new(FILENAME));
+            for encoding in ["ASCII", "UTF8", "CP437", "CP1251"] {
+                text_render.set_encoding(encoding);
+                assert_eq!(text_render.encoding(), encoding);
+            }
+        }
+    }
 }

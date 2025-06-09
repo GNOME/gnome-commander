@@ -17,10 +17,61 @@
  * For more details see the file COPYING.
  */
 
+use glib::translate::{from_glib_none, ToGlibPtr};
+
 pub mod ffi {
+    use std::ffi::c_char;
+
     #[repr(C)]
     pub struct GVInputModesData {
         _data: [u8; 0],
         _marker: std::marker::PhantomData<(*mut u8, std::marker::PhantomPinned)>,
+    }
+
+    extern "C" {
+        pub fn gv_input_modes_new() -> *mut GVInputModesData;
+        pub fn gv_free_input_modes(imd: *mut GVInputModesData);
+
+        pub fn gv_get_input_mode(imd: *mut GVInputModesData) -> *const c_char;
+        pub fn gv_set_input_mode(imd: *mut GVInputModesData, input_mode: *const c_char);
+    }
+}
+
+pub struct InputMode(pub *mut ffi::GVInputModesData);
+
+impl InputMode {
+    pub fn new() -> Self {
+        unsafe { Self(ffi::gv_input_modes_new()) }
+    }
+
+    pub fn mode(&self) -> String {
+        unsafe { from_glib_none(ffi::gv_get_input_mode(self.0)) }
+    }
+
+    pub fn set_mode(&self, mode: &str) {
+        unsafe { ffi::gv_set_input_mode(self.0, mode.to_glib_none().0) }
+    }
+}
+
+impl Drop for InputMode {
+    fn drop(&mut self) {
+        unsafe {
+            ffi::gv_free_input_modes(self.0);
+        }
+        self.0 = std::ptr::null_mut();
+    }
+}
+
+#[cfg(test)]
+mod test {
+    use super::*;
+
+    #[test]
+    fn input_mode() {
+        let imd = InputMode::new();
+        for mode in ["ASCII", "UTF8", "CP437", "CP1251"] {
+            imd.set_mode(mode);
+            assert_eq!(imd.mode(), mode);
+        }
     }
 }

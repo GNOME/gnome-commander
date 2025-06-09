@@ -96,6 +96,7 @@ void gv_init_data_presentation(GVDataPresentation *dp, GVInputModesData *imd, of
 
 void gv_free_data_presentation(GVDataPresentation *dp)
 {
+    g_free (dp);
 }
 
 

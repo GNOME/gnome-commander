@@ -3,4 +3,3 @@ option('exiv2',   type: 'feature', value: 'auto', description: 'Enable EXIF and 
 option('libgsf',  type: 'feature', value: 'auto', description: 'Enable OLE and ODF support or not.')
 option('poppler', type: 'feature', value: 'auto', description: 'Enable PDF support or not.')
 option('taglib',  type: 'feature', value: 'auto', description: 'Enable taglib (ID3, Vorbis, APE and FLAC) support or not.')
-option('tests',   type: 'feature', value: 'auto', description: 'Build tests')

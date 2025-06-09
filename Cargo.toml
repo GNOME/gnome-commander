@@ -25,3 +25,6 @@ version = "2"
 
 [profile.test]
 rpath = true
+
+[dev-dependencies]
+rusty-fork = "0.3.0"
