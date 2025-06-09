@@ -34,7 +34,6 @@ BDEPEND="
 "
 DEPEND="
 	${RDEPEND}
-	test? ( >=dev-cpp/gtest-@GTEST_REQ@ )
 "
 
 src_configure() {
