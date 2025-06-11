@@ -83,9 +83,6 @@ struct ProtectedData
 
 struct SearchData
 {
-    // the directory to start searching from
-    GnomeCmdDir *start_dir = nullptr;
-
     Filter *name_filter = nullptr;
     regex_t *content_regex = nullptr;
 
@@ -363,7 +360,8 @@ static gpointer perform_search_operation (GnomeCmdSearchDialog *dialog)
     auto data = search_dialog_private(dialog);
     auto config = gnome_cmd_search_dialog_get_config (dialog);
 
-    GnomeCmdDir *start_dir = data->start_dir;
+    GnomeCmdDir *start_dir = nullptr;
+    g_object_get (dialog, "start-dir", &start_dir, nullptr);
 
     // unref all directories which contained matching files from last search
     if (data->match_dirs)
@@ -513,7 +511,6 @@ gboolean SearchData::StartGenericSearch(GnomeCmdSearchDialog *dialog)
 
     cancellable = g_cancellable_new();
 
-    gnome_cmd_dir_ref (start_dir);
     thread = g_thread_new (nullptr, (GThreadFunc) perform_search_operation, dialog);
 
     return TRUE;
@@ -604,8 +601,11 @@ gchar *BuildSearchCommand(GnomeCmdSearchDialog *dialog)
     }
     g_free (text_pattern);
 
+    GnomeCmdDir *start_dir = nullptr;
+    g_object_get (dialog, "start-dir", &start_dir, nullptr);
+
     gchar *file_pattern_quoted = quote_if_needed (file_pattern_locale);
-    gchar *look_in_folder_utf8 = GNOME_CMD_FILE (priv->start_dir)->get_real_path();
+    gchar *look_in_folder_utf8 = GNOME_CMD_FILE (start_dir)->get_real_path();
     gchar *look_in_folder_locale = g_locale_from_utf8 (look_in_folder_utf8, -1, nullptr, nullptr, nullptr);
 
     if (!look_in_folder_locale)     // if for some reason a path was not returned, fallback to the user's home directory
@@ -826,24 +826,6 @@ gboolean SearchData::StartLocalSearch(GnomeCmdSearchDialog *dialog)
 }
 
 
-static void on_dialog_show(GtkWidget *widget, GnomeCmdSearchDialog *dialog)
-{
-    auto data = search_dialog_private (dialog);
-
-    GnomeCmdSelectionProfileComponent *profile_component;
-    g_object_get (dialog, "profile-component", &profile_component, nullptr);
-
-    gnome_cmd_search_profile_component_update (profile_component);
-
-    data->start_dir = main_win->fs(ACTIVE)->get_directory();
-
-    GtkWidget *dir_browser;
-    g_object_get (dialog, "dir-browser", &dir_browser, nullptr);
-
-    g_object_set (dir_browser, "file", GNOME_CMD_FILE(data->start_dir)->get_file(), nullptr);
-}
-
-
 static void on_dialog_hide(GtkWidget *widget, GnomeCmdSearchDialog *dialog)
 {
     GnomeCmdSelectionProfileComponent *profile_component;
@@ -909,8 +891,7 @@ extern "C" gboolean gnome_cmd_search_dialog_find (GnomeCmdSearchDialog *dialog, 
     data.content_regex = nullptr;
     data.match_dirs = nullptr;
 
-    data.start_dir = start_dir;
-    gnome_cmd_dir_ref (data.start_dir);
+    g_object_set (dialog, "start-dir", start_dir, nullptr);
 
     // save default settings
     gnome_cmd_search_profile_component_copy (profile_component);
@@ -947,10 +928,10 @@ extern "C" gboolean gnome_cmd_search_dialog_find (GnomeCmdSearchDialog *dialog, 
 
     result_list->clear();
 
-    gchar *base_dir_utf8 = GNOME_CMD_FILE (data.start_dir)->get_real_path();
+    gchar *base_dir_utf8 = GNOME_CMD_FILE (start_dir)->get_real_path();
     result_list->set_base_dir(base_dir_utf8);
 
-    auto con = gnome_cmd_file_get_connection (GNOME_CMD_FILE (data.start_dir));
+    auto con = gnome_cmd_file_get_connection (GNOME_CMD_FILE (start_dir));
 
     if (gnome_cmd_con_is_local (con) ? data.StartLocalSearch(dialog) : data.StartGenericSearch(dialog))
     {
@@ -958,11 +939,9 @@ extern "C" gboolean gnome_cmd_search_dialog_find (GnomeCmdSearchDialog *dialog, 
         gtk_widget_show (progress_bar);
         data.update_gui_timeout_id = g_timeout_add (gnome_cmd_data.gui_update_rate, (GSourceFunc) update_search_status_widgets, dialog);
 
-        gnome_cmd_dir_unref (data.start_dir);
         return true;
     }
 
-    gnome_cmd_dir_unref (data.start_dir);
     return false;
 }
 
@@ -1001,7 +980,6 @@ extern "C" void gnome_cmd_search_dialog_init (GnomeCmdSearchDialog *dialog)
 
     gtk_window_set_hide_on_close (GTK_WINDOW (dialog), TRUE);
 
-    g_signal_connect (dialog, "show", G_CALLBACK (on_dialog_show), dialog);
     g_signal_connect (dialog, "hide", G_CALLBACK (on_dialog_hide), dialog);
 }
 

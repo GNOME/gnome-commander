@@ -21,17 +21,17 @@ use super::{profile::SearchProfile, selection_profile_component::SelectionProfil
 use crate::{
     data::SearchConfig,
     dialogs::profiles::{manage_profiles_dialog::manage_profiles, profiles::ProfileManager},
-    dir::ffi::GnomeCmdDir,
+    dir::{ffi::GnomeCmdDir, Directory},
     file::ffi::GnomeCmdFile,
+    libgcmd::file_descriptor::FileDescriptorExt,
     tags::tags::FileMetadataService,
 };
 use gettextrs::{gettext, ngettext};
-use glib::translate::{from_glib_borrow, Borrowed};
 use gtk::{
     gio,
     glib::{
         ffi::{gboolean, GType},
-        translate::{IntoGlib, ToGlibPtr},
+        translate::{from_glib_borrow, Borrowed, IntoGlib, ToGlibPtr},
     },
     prelude::*,
     subclass::prelude::*,
@@ -232,6 +232,9 @@ mod imp {
         jump_button: gtk::Button,
         stop_button: gtk::Button,
         find_button: gtk::Button,
+
+        #[property(get, set, nullable)]
+        start_dir: RefCell<Option<Directory>>,
     }
 
     #[glib::object_subclass]
@@ -297,6 +300,8 @@ mod imp {
                     .build(),
 
                 labels_size_group,
+
+                start_dir: Default::default(),
             }
         }
     }
@@ -670,9 +675,14 @@ impl SearchDialog {
         this
     }
 
-    pub fn show_and_set_focus(&self) {
+    pub fn show_and_set_focus(&self, start_dir: Option<&Directory>) {
         self.present();
         self.profile_component().grab_focus();
+
+        self.profile_component().update();
+        self.set_start_dir(start_dir);
+
+        self.dir_browser().set_file(start_dir.map(|d| d.file()));
     }
 
     pub fn update_style(&self) {
