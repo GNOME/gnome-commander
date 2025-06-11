@@ -37,10 +37,3 @@ extern "C" GType gnome_cmd_search_dialog_get_type ();
 
 
 struct GnomeCmdSearchDialog;
-
-
-extern "C" GnomeCmdSearchDialog *gnome_cmd_search_dialog_new (GnomeCmdData::SearchConfig *defaults,
-                                                              GnomeCmdFileMetadataService *file_metadata_service,
-                                                              GtkWindow *parent_window);
-extern "C" void gnome_cmd_search_dialog_show_and_set_focus (GnomeCmdSearchDialog *dialog);
-extern "C" void gnome_cmd_search_dialog_update_style (GnomeCmdSearchDialog *dialog);

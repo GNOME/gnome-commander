@@ -29,7 +29,7 @@ use crate::{
         list::ConnectionList,
         remote::ConnectionRemote,
     },
-    data::{GeneralOptions, GeneralOptionsRead, GeneralOptionsWrite},
+    data::{GeneralOptions, GeneralOptionsRead, GeneralOptionsWrite, SearchConfig},
     file::File,
     file_list::list::{ffi::GnomeCmdFileList, FileList},
     file_selector::{ffi::GnomeCmdFileSelector, FileSelector, TabVariant},
@@ -130,6 +130,8 @@ pub mod imp {
         view_hidden_files: Cell<bool>,
         #[property(get, set = Self::set_view_backup_files)]
         view_backup_files: Cell<bool>,
+
+        pub search_dialog: glib::WeakRef<SearchDialog>,
     }
 
     #[glib::object_subclass]
@@ -244,6 +246,8 @@ pub mod imp {
                 connection_list_visible: Cell::new(true),
                 view_hidden_files: Cell::new(true),
                 view_backup_files: Cell::new(true),
+
+                search_dialog: Default::default(),
             }
         }
     }
@@ -877,7 +881,6 @@ pub mod imp {
 
 pub mod ffi {
     use super::*;
-    use crate::search::search_dialog::GnomeCmdSearchDialog;
 
     pub type GnomeCmdMainWin = <super::MainWindow as glib::object::ObjectType>::GlibType;
 
@@ -900,10 +903,6 @@ pub mod ffi {
             main_win: *mut GnomeCmdMainWin,
             fs: *mut GnomeCmdFileSelector,
         );
-
-        pub fn gnome_cmd_main_win_get_or_create_search_dialog(
-            main_win: *mut GnomeCmdMainWin,
-        ) -> *mut GnomeCmdSearchDialog;
     }
 }
 
@@ -1061,10 +1060,31 @@ impl MainWindow {
     }
 
     pub fn get_or_create_search_dialog(&self) -> SearchDialog {
-        unsafe {
-            from_glib_none(ffi::gnome_cmd_main_win_get_or_create_search_dialog(
-                self.to_glib_none().0,
-            ))
+        if let Some(dialog) = self.imp().search_dialog.upgrade() {
+            dialog
+        } else {
+            let search_config = unsafe { SearchConfig::get() };
+            let options = GeneralOptions::new();
+
+            let dialog = SearchDialog::new(
+                search_config,
+                &self.file_metadata_service(),
+                options
+                    .search_window_is_transient()
+                    .then_some(self.upcast_ref()),
+            );
+            self.imp().search_dialog.set(Some(&dialog));
+
+            dialog
+        }
+    }
+
+    pub fn update_style(&self) {
+        self.imp().file_selector_left.borrow().update_style();
+        self.imp().file_selector_right.borrow().update_style();
+        self.imp().cmdline.update_style();
+        if let Some(dialog) = self.imp().search_dialog.upgrade() {
+            dialog.update_style();
         }
     }
 }
@@ -1635,4 +1655,10 @@ pub extern "C" fn gnome_cmd_main_win_switch_fs(
     let mw: Borrowed<MainWindow> = unsafe { from_glib_borrow(mw_ptr) };
     let fs: Borrowed<FileSelector> = unsafe { from_glib_borrow(fs_ptr) };
     mw.switch_to_fs(&fs);
+}
+
+#[no_mangle]
+pub extern "C" fn gnome_cmd_main_win_update_style(mw_ptr: *mut ffi::GnomeCmdMainWin) {
+    let mw: Borrowed<MainWindow> = unsafe { from_glib_borrow(mw_ptr) };
+    mw.update_style();
 }

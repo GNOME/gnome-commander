@@ -921,3 +921,8 @@ void gnome_cmd_file_selector_activate_connection_list (GnomeCmdFileSelector *fs)
         gtk_widget_grab_focus (priv->con_dropdown);
     }
 }
+
+void gnome_cmd_file_selector_update_style (GnomeCmdFileSelector *fs)
+{
+    fs->update_style();
+}

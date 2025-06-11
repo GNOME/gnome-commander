@@ -119,6 +119,8 @@ pub mod ffi {
             fs: *mut GnomeCmdFileSelector,
             value: gboolean,
         );
+
+        pub fn gnome_cmd_file_selector_update_style(fs: *mut GnomeCmdFileSelector);
     }
 }
 
@@ -706,6 +708,10 @@ impl FileSelector {
                 self.to_glib_none().0,
             ))
         }
+    }
+
+    pub fn update_style(&self) {
+        unsafe { ffi::gnome_cmd_file_selector_update_style(self.to_glib_none().0) }
     }
 }
 

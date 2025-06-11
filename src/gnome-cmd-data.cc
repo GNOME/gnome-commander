@@ -1017,6 +1017,11 @@ extern "C" GnomeCmdData::Options *gnome_cmd_data_options ()
     return &gnome_cmd_data.options;
 }
 
+extern "C" GnomeCmdData::SearchConfig *gnome_cmd_data_search_defaults ()
+{
+    return &gnome_cmd_data.search_defaults;
+}
+
 extern "C" void gnome_cmd_data_save (GnomeCmdMainWin *mw)
 {
     gnome_cmd_data.save (mw);

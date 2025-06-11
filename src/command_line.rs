@@ -423,14 +423,6 @@ extern "C" fn gnome_cmd_cmdline_get_history(
 }
 
 #[no_mangle]
-extern "C" fn gnome_cmd_cmdline_update_style(
-    cmdline: *mut <CommandLine as glib::object::ObjectType>::GlibType,
-) {
-    let cmdline: Borrowed<CommandLine> = unsafe { from_glib_borrow(cmdline) };
-    cmdline.update_style();
-}
-
-#[no_mangle]
 extern "C" fn gnome_cmd_cmdline_show_history(
     cmdline: *mut <CommandLine as glib::object::ObjectType>::GlibType,
 ) {

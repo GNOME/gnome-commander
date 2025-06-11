@@ -129,8 +129,6 @@ struct GnomeCmdSearchDialogPrivate
 {
     // holds data needed by the search routines
     SearchData data;
-
-    GnomeCmdData::SearchConfig *defaults;
 };
 
 
@@ -140,102 +138,10 @@ static GnomeCmdSearchDialogPrivate *search_dialog_private (GnomeCmdSearchDialog 
 }
 
 
-static GMenu *create_placeholder_menu(GnomeCmdData::SearchConfig &cfg)
-{
-    GMenu *menu = g_menu_new ();
-
-    g_menu_append (menu, _("_Save Profile As…"), "search.save-profile");
-
-    guint count = g_list_model_get_n_items (G_LIST_MODEL (cfg.profiles));
-    if (count > 0)
-    {
-        g_menu_append (menu, _("_Manage Profiles…"), "search.manage-profiles");
-
-        GMenu *profiles = g_menu_new ();
-
-        for (guint i = 0; i < count; ++i)
-        {
-            auto p = g_list_model_get_item (G_LIST_MODEL (cfg.profiles), i);
-
-            gchar *name;
-            g_object_get (p, "name", &name, nullptr);
-
-            GMenuItem *item = g_menu_item_new (name, nullptr);
-            g_menu_item_set_action_and_target (item, "search.load-profile", "i", i);
-            g_menu_append_item (profiles, item);
-
-            g_free (name);
-        }
-        g_menu_append_section (menu, nullptr, G_MENU_MODEL (profiles));
-    }
-
-    return menu;
-}
+extern "C" GnomeCmdData::SearchConfig *gnome_cmd_search_dialog_get_config (GnomeCmdSearchDialog *dialog);
 
 
-extern "C" void gnome_cmd_search_dialog_update_profile_menu (GnomeCmdSearchDialog *dialog)
-{
-    auto priv = search_dialog_private (dialog);
-
-    GtkWidget *profile_menu_button;
-    g_object_get (dialog, "profile-menu-button", &profile_menu_button, nullptr);
-
-    gtk_menu_button_set_menu_model (
-        GTK_MENU_BUTTON (profile_menu_button),
-        G_MENU_MODEL (create_placeholder_menu(*priv->defaults)));
-}
-
-
-extern "C" void gnome_cmd_search_dialog_do_manage_profiles(GnomeCmdSearchDialog *dialog, GnomeCmdData::SearchConfig *cfg, gboolean new_profile);
-
-static void do_manage_profiles(GnomeCmdSearchDialog *dialog, bool new_profile)
-{
-    auto priv = search_dialog_private (dialog);
-
-    if (new_profile)
-    {
-        GnomeCmdSelectionProfileComponent *profile_component;
-        g_object_get (dialog, "profile-component", &profile_component, nullptr);
-
-        gnome_cmd_search_profile_component_copy (profile_component);
-    }
-
-    gnome_cmd_search_dialog_do_manage_profiles (dialog, priv->defaults, new_profile);
-}
-
-static void save_profile(GSimpleAction *action, GVariant *parameter, gpointer user_data)
-{
-    auto dialog = static_cast<GnomeCmdSearchDialog*>(user_data);
-    do_manage_profiles(dialog, true);
-}
-
-
-static void manage_profiles(GSimpleAction *action, GVariant *parameter, gpointer user_data)
-{
-    auto dialog = static_cast<GnomeCmdSearchDialog*>(user_data);
-    do_manage_profiles(dialog, false);
-}
-
-
-static void load_profile(GSimpleAction *action, GVariant *parameter, gpointer user_data)
-{
-    auto dialog = static_cast<GnomeCmdSearchDialog*>(user_data);
-    auto priv = search_dialog_private (dialog);
-    gsize profile_idx = g_variant_get_int32 (parameter);
-
-    GnomeCmdData::SearchConfig *cfg = priv->defaults;
-
-    auto profile = (SearchProfile *) g_list_model_get_item (G_LIST_MODEL (cfg->profiles), profile_idx);
-
-    g_return_if_fail (profile != nullptr);
-
-    gnome_cmd_search_profile_copy_from(cfg->default_profile, profile);
-
-    GnomeCmdSelectionProfileComponent *profile_component;
-    g_object_get (dialog, "profile-component", &profile_component, nullptr);
-
-    gnome_cmd_search_profile_component_update (profile_component);
-}
+extern "C" void gnome_cmd_search_dialog_update_profile_menu (GnomeCmdSearchDialog *dialog);
 
 
 inline void free_search_file_data (SearchFileData *searchfileData)
@@ -402,9 +308,9 @@ void SearchData::SearchDirRecursive(GnomeCmdDir *dir, long level)
                 continue;
 
             // if the user wants to we should do some content matching here
-            auto priv = search_dialog_private (dialog);
+            auto config = gnome_cmd_search_dialog_get_config (dialog);
             gboolean content_search;
-            g_object_get (priv->defaults->default_profile, "content-search", &content_search, nullptr);
+            g_object_get (config->default_profile, "content-search", &content_search, nullptr);
             if (content_search)
             {
                 GFile *file = isGnomeCmdFile ? ((GnomeCmdFile *) i->data)->get_file() : g_file_get_child (((GnomeCmdFile *) dir)->get_file(), g_file_info_get_name (info));
@@ -472,6 +378,7 @@ void SearchData::SearchDirRecursive(GnomeCmdDir *dir, long level)
 static gpointer perform_search_operation (SearchData *data)
 {
     auto priv = search_dialog_private (data->dialog);
+    auto config = gnome_cmd_search_dialog_get_config (data->dialog);
 
     GnomeCmdDir *start_dir = data->start_dir;
 
@@ -485,7 +392,7 @@ static gpointer perform_search_operation (SearchData *data)
 
     gint max_depth;
     gboolean content_search;
-    g_object_get (priv->defaults->default_profile,
+    g_object_get (config->default_profile,
         "max-depth", &max_depth,
         "content-search", &content_search,
         nullptr);
@@ -597,6 +504,7 @@ static gboolean join_thread_func (GnomeCmdSearchDialogPrivate *priv)
 gboolean SearchData::StartGenericSearch()
 {
     auto priv = search_dialog_private (dialog);
+    auto config = gnome_cmd_search_dialog_get_config (dialog);
 
     gchar *filename_pattern;
     gchar *text_pattern;
@@ -604,7 +512,7 @@ gboolean SearchData::StartGenericSearch()
     gint syntax;
     gboolean content_search;
 
-    g_object_get (priv->defaults->default_profile,
+    g_object_get (config->default_profile,
         "filename-pattern", &filename_pattern,
         "text-pattern", &text_pattern,
         "match-case", &match_case,
@@ -640,6 +548,7 @@ gboolean SearchData::StartGenericSearch()
 gchar *SearchData::BuildSearchCommand()
 {
     auto priv = search_dialog_private (dialog);
+    auto config = gnome_cmd_search_dialog_get_config (dialog);
 
     gchar *file_pattern_utf8;
     gchar *text_pattern;
@@ -648,7 +557,7 @@ gchar *SearchData::BuildSearchCommand()
     gint syntax;
     gboolean content_search;
 
-    g_object_get (priv->defaults->default_profile,
+    g_object_get (config->default_profile,
         "filename-pattern", &file_pattern_utf8,
         "text-pattern", &text_pattern,
         "match-case", &match_case,
@@ -1028,11 +937,13 @@ extern "C" gboolean gnome_cmd_search_dialog_find (GnomeCmdSearchDialog *dialog, 
     // save default settings
     gnome_cmd_search_profile_component_copy (profile_component);
 
+    auto config = gnome_cmd_search_dialog_get_config (dialog);
+
     gchar *filename_pattern;
     gchar *text_pattern;
     gboolean content_search;
 
-    g_object_get (priv->defaults->default_profile,
+    g_object_get (config->default_profile,
         "filename-pattern", &filename_pattern,
         "text-pattern", &text_pattern,
         "content-search", &content_search,
@@ -1040,15 +951,15 @@ extern "C" gboolean gnome_cmd_search_dialog_find (GnomeCmdSearchDialog *dialog, 
 
     if (filename_pattern != nullptr && filename_pattern[0] != '\0')
     {
-        gnome_cmd_data.search_defaults.name_patterns.add(filename_pattern);
-        gnome_cmd_search_profile_component_set_name_patterns_history (profile_component, priv->defaults->name_patterns.ents);
+        config->name_patterns.add(filename_pattern);
+        gnome_cmd_search_profile_component_set_name_patterns_history (profile_component, config->name_patterns.ents);
     }
 
     if (content_search && text_pattern != nullptr && text_pattern[0] != '\0')
     {
-        gnome_cmd_data.search_defaults.content_patterns.add(text_pattern);
+        config->content_patterns.add(text_pattern);
         gnome_cmd_viewer_search_text_add_to_history(text_pattern);
-        gnome_cmd_search_profile_component_set_content_patterns_history (profile_component, priv->defaults->content_patterns.ents);
+        gnome_cmd_search_profile_component_set_content_patterns_history (profile_component, config->content_patterns.ents);
     }
     g_free (filename_pattern);
     g_free (text_pattern);
@@ -1105,30 +1016,11 @@ extern "C" void gnome_cmd_search_dialog_goto (GnomeCmdSearchDialog *dialog, Gnom
 
 extern "C" void gnome_cmd_search_dialog_init (GnomeCmdSearchDialog *dialog)
 {
-    static GActionEntry action_entries[] = {
-        { "save-profile", save_profile },
-        { "manage-profiles", manage_profiles },
-        { "load-profile", load_profile, "i" }
-    };
-    GSimpleActionGroup* action_group = g_simple_action_group_new ();
-    g_action_map_add_action_entries (G_ACTION_MAP (action_group), action_entries, G_N_ELEMENTS(action_entries), dialog);
-    gtk_widget_insert_action_group (GTK_WIDGET (dialog), "search", G_ACTION_GROUP (action_group));
-
     auto priv = g_new0 (GnomeCmdSearchDialogPrivate, 1);
     priv->data.dialog = dialog;
     g_object_set_data_full (G_OBJECT (dialog), "search-dialog-priv", priv, g_free);
 
     g_mutex_init(&priv->data.pdata.mutex);
-
-    GtkWidget *progress_bar, *profile_menu_button;
-    GnomeCmdFileList *result_list;
-    g_object_get (dialog,
-        "result-list", &result_list,
-        "progress-bar", &progress_bar,
-        "profile-menu-button", &profile_menu_button,
-        nullptr);
-
-    result_list->update_style();
 
     gtk_window_set_hide_on_close (GTK_WINDOW (dialog), TRUE);
 
@@ -1163,56 +1055,4 @@ extern "C" void gnome_cmd_search_dialog_dispose (GnomeCmdSearchDialog *dialog)
         g_cancellable_cancel (data.cancellable);
 
     g_timeout_add (1, (GSourceFunc) join_thread_func, priv);
-}
-
-
-void gnome_cmd_search_dialog_show_and_set_focus(GnomeCmdSearchDialog *dialog)
-{
-    gtk_widget_show (GTK_WIDGET (dialog));
-
-    GnomeCmdSelectionProfileComponent *profile_component;
-    g_object_get (dialog, "profile-component", &profile_component, nullptr);
-
-    gtk_widget_grab_focus (GTK_WIDGET (profile_component));
-}
-
-
-void gnome_cmd_search_dialog_update_style(GnomeCmdSearchDialog *dialog)
-{
-    GnomeCmdFileList *result_list;
-    g_object_get (dialog, "result-list", &result_list, nullptr);
-    result_list->update_style();
-}
-
-
-GnomeCmdSearchDialog *gnome_cmd_search_dialog_new (GnomeCmdData::SearchConfig *cfg,
-                                                   GnomeCmdFileMetadataService *file_metadata_service,
-                                                   GtkWindow *parent_window)
-{
-    auto dialog = (GnomeCmdSearchDialog *) g_object_new (gnome_cmd_search_dialog_get_type (),
-        "transient-for", parent_window,
-        "file-metadata-service", file_metadata_service,
-        nullptr);
-
-    auto priv = search_dialog_private (dialog);
-    priv->defaults = cfg;
-
-    GnomeCmdSelectionProfileComponent *profile_component;
-    GtkWidget *profile_menu_button;
-    g_object_get (dialog,
-        "profile-component", &profile_component,
-        "profile-menu-button", &profile_menu_button,
-        nullptr);
-
-    gtk_menu_button_set_menu_model (
-        GTK_MENU_BUTTON (profile_menu_button),
-        G_MENU_MODEL (create_placeholder_menu(*cfg)));
-
-    g_object_set (G_OBJECT (profile_component), "profile", cfg->default_profile, nullptr);
-    gnome_cmd_search_profile_component_set_name_patterns_history (profile_component, cfg->name_patterns.ents);
-    gnome_cmd_search_profile_component_set_content_patterns_history (profile_component, cfg->content_patterns.ents);
-
-    gtk_widget_grab_focus (GTK_WIDGET (profile_component));
-
-    return dialog;
 }

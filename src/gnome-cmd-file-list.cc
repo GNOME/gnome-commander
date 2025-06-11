@@ -2763,3 +2763,8 @@ void gnome_cmd_file_list_goto_directory(GnomeCmdFileList *fl, const gchar *dir)
 {
     fl->goto_directory(dir);
 }
+
+void gnome_cmd_file_list_update_style(GnomeCmdFileList *fl)
+{
+    fl->update_style();
+}

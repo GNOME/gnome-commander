@@ -72,6 +72,8 @@ pub trait GeneralOptionsRead {
     fn device_only_icon(&self) -> bool;
 
     fn favorite_apps(&self) -> Vec<FavoriteAppVariant>;
+
+    fn search_window_is_transient(&self) -> bool;
 }
 
 pub trait GeneralOptionsWrite {
@@ -93,6 +95,8 @@ pub trait GeneralOptionsWrite {
     fn set_device_only_icon(&self, value: bool) -> WriteResult;
 
     fn set_favorite_apps(&self, apps: &[FavoriteAppVariant]) -> WriteResult;
+
+    fn set_search_window_is_transient(&self, value: bool) -> WriteResult;
 }
 
 impl GeneralOptions {
@@ -209,6 +213,10 @@ impl GeneralOptionsRead for GeneralOptions {
         let variant = self.0.value("favorite-apps");
         Vec::<FavoriteAppVariant>::from_variant(&variant).unwrap_or_default()
     }
+
+    fn search_window_is_transient(&self) -> bool {
+        self.0.boolean("search-win-is-transient")
+    }
 }
 
 impl GeneralOptionsWrite for GeneralOptions {
@@ -255,6 +263,10 @@ impl GeneralOptionsWrite for GeneralOptions {
 
     fn set_favorite_apps(&self, apps: &[FavoriteAppVariant]) -> WriteResult {
         self.0.set_value("favorite-apps", &apps.to_variant())
+    }
+
+    fn set_search_window_is_transient(&self, value: bool) -> WriteResult {
+        self.0.set_boolean("search-win-is-transient", value)
     }
 }
 
@@ -604,6 +616,8 @@ impl ProgramsOptionsWrite for ProgramsOptions {
 pub struct SearchConfig(*mut c_void);
 
 extern "C" {
+    fn gnome_cmd_data_search_defaults() -> *mut c_void;
+
     fn gnome_cmd_search_config_get_name_patterns(ptr: *mut c_void) -> *const GList;
     fn gnome_cmd_search_config_add_name_pattern(ptr: *mut c_void, p: *const c_char);
 
@@ -614,6 +628,10 @@ extern "C" {
 }
 
 impl SearchConfig {
+    pub unsafe fn get() -> Self {
+        unsafe { Self::from_ptr(gnome_cmd_data_search_defaults()) }
+    }
+
     pub unsafe fn from_ptr(ptr: *mut c_void) -> Self {
         Self(ptr)
     }
