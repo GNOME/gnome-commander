@@ -71,19 +71,18 @@ struct SearchFileData
 };
 
 
+struct ProtectedData
+{
+    GList  *files;
+    gchar  *msg;
+    GMutex  mutex;
+
+    ProtectedData() : files(nullptr), msg(nullptr) {}
+};
+
+
 struct SearchData
 {
-    struct ProtectedData
-    {
-        GList  *files;
-        gchar  *msg;
-        GMutex  mutex;
-
-        ProtectedData() : files(nullptr), msg(nullptr) {}
-    };
-
-    GnomeCmdSearchDialog *dialog;
-
     // the directory to start searching from
     GnomeCmdDir *start_dir = nullptr;
 
@@ -106,11 +105,8 @@ struct SearchData
     // set when the search dialog is destroyed, also stops the search of course
     gboolean dialog_destroyed = FALSE;
 
-    void set_statusmsg(const gchar *msg = nullptr);
-    gchar *BuildSearchCommand();
-
     // searches a given directory for files that matches the criteria given by data
-    void SearchDirRecursive(GnomeCmdDir *dir, long level);
+    void SearchDirRecursive(GnomeCmdDir *dir, long level, gboolean content_search);
 
     // determines if the name of a file matches an regexp
     gboolean NameMatches(const char *name)  {  return name_filter->match(name);  }
@@ -120,28 +116,18 @@ struct SearchData
 
     // loads a file in chunks and returns the content
     gboolean ReadSearchFile(SearchFileData *searchFileData);
-    gboolean StartGenericSearch();
-    gboolean StartLocalSearch();
+    gboolean StartGenericSearch(GnomeCmdSearchDialog *dialog);
+    gboolean StartLocalSearch(GnomeCmdSearchDialog *dialog);
 };
 
 
-struct GnomeCmdSearchDialogPrivate
+static SearchData *search_dialog_private (GnomeCmdSearchDialog *dlg)
 {
-    // holds data needed by the search routines
-    SearchData data;
-};
-
-
-static GnomeCmdSearchDialogPrivate *search_dialog_private (GnomeCmdSearchDialog *dlg)
-{
-    return (GnomeCmdSearchDialogPrivate *) g_object_get_data (G_OBJECT (dlg), "search-dialog-priv");
+    return (SearchData *) g_object_get_data (G_OBJECT (dlg), "search-dialog-priv");
 }
 
 
 extern "C" GnomeCmdData::SearchConfig *gnome_cmd_search_dialog_get_config (GnomeCmdSearchDialog *dialog);
-
-
-extern "C" void gnome_cmd_search_dialog_update_profile_menu (GnomeCmdSearchDialog *dialog);
 
 
 inline void free_search_file_data (SearchFileData *searchfileData)
@@ -253,7 +239,7 @@ inline gboolean SearchData::ContentMatches(GFile *f, GFileInfo *info)
 }
 
 
-inline void SearchData::set_statusmsg(const gchar *msg)
+inline void set_statusmsg(GnomeCmdSearchDialog *dialog, const gchar *msg)
 {
     GtkLabel *status_label;
     g_object_get (dialog, "status_label", &status_label, nullptr);
@@ -261,7 +247,7 @@ inline void SearchData::set_statusmsg(const gchar *msg)
 }
 
 
-void SearchData::SearchDirRecursive(GnomeCmdDir *dir, long level)
+void SearchData::SearchDirRecursive(GnomeCmdDir *dir, long level, gboolean content_search)
 {
     if (!dir)
         return;
@@ -308,9 +294,6 @@ void SearchData::SearchDirRecursive(GnomeCmdDir *dir, long level)
                 continue;
 
             // if the user wants to we should do some content matching here
-            auto config = gnome_cmd_search_dialog_get_config (dialog);
-            gboolean content_search;
-            g_object_get (config->default_profile, "content-search", &content_search, nullptr);
             if (content_search)
             {
                 GFile *file = isGnomeCmdFile ? ((GnomeCmdFile *) i->data)->get_file() : g_file_get_child (((GnomeCmdFile *) dir)->get_file(), g_file_info_get_name (info));
@@ -363,7 +346,7 @@ void SearchData::SearchDirRecursive(GnomeCmdDir *dir, long level)
                     if (new_dir)
                     {
                         gnome_cmd_dir_ref (new_dir);
-                        SearchDirRecursive(new_dir, level-1);
+                        SearchDirRecursive(new_dir, level-1, content_search);
                         gnome_cmd_dir_unref (new_dir);
                     }
                 }
@@ -375,10 +358,10 @@ void SearchData::SearchDirRecursive(GnomeCmdDir *dir, long level)
 }
 
 
-static gpointer perform_search_operation (SearchData *data)
+static gpointer perform_search_operation (GnomeCmdSearchDialog *dialog)
 {
-    auto priv = search_dialog_private (data->dialog);
-    auto config = gnome_cmd_search_dialog_get_config (data->dialog);
+    auto data = search_dialog_private(dialog);
+    auto config = gnome_cmd_search_dialog_get_config (dialog);
 
     GnomeCmdDir *start_dir = data->start_dir;
 
@@ -397,7 +380,7 @@ static gpointer perform_search_operation (SearchData *data)
         "content-search", &content_search,
         nullptr);
 
-    data->SearchDirRecursive(start_dir, max_depth);
+    data->SearchDirRecursive(start_dir, max_depth, content_search);
 
     // free regexps
     delete data->name_filter;
@@ -420,16 +403,13 @@ static gpointer perform_search_operation (SearchData *data)
 
 extern "C" void gnome_cmd_search_dialog_search_finished (GnomeCmdSearchDialog *, gboolean stopped);
 
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wformat-nonliteral"
-
-static gboolean update_search_status_widgets (SearchData *data)
+static gboolean update_search_status_widgets (GnomeCmdSearchDialog *dialog)
 {
-    auto priv = search_dialog_private (data->dialog);
+    auto data = search_dialog_private(dialog);
 
     GnomeCmdFileList *result_list;
     GtkProgressBar *progress_bar;
-    g_object_get (data->dialog,
+    g_object_get (dialog,
         "result-list", &result_list,
         "progress-bar", &progress_bar,
         nullptr);
@@ -443,7 +423,7 @@ static gboolean update_search_status_widgets (SearchData *data)
     data->pdata.files = nullptr;
 
     // update status bar with the latest message
-    data->set_statusmsg(data->pdata.msg);
+    set_statusmsg(dialog, data->pdata.msg);
 
     g_mutex_unlock (&data->pdata.mutex);
 
@@ -461,13 +441,12 @@ static gboolean update_search_status_widgets (SearchData *data)
 
     if (!data->dialog_destroyed)
     {
-        gnome_cmd_search_dialog_search_finished (data->dialog, data->stopped);
+        gnome_cmd_search_dialog_search_finished (dialog, data->stopped);
     }
     data->update_gui_timeout_id = 0;
     return FALSE;    // returning FALSE here stops the timeout callbacks
 }
 
-#pragma GCC diagnostic pop
 
 /**
  * This function gets called then the search-dialog is about the be destroyed.
@@ -475,9 +454,9 @@ static gboolean update_search_status_widgets (SearchData *data)
  * data structure that has been shared between the search threads and the
  * main thread.
  */
-static gboolean join_thread_func (GnomeCmdSearchDialogPrivate *priv)
+static gboolean join_thread_func (SearchData *priv)
 {
-    SearchData &data = priv->data;
+    SearchData &data = *priv;
 
     if (data.thread)
         g_thread_join (data.thread);
@@ -501,9 +480,8 @@ static gboolean join_thread_func (GnomeCmdSearchDialogPrivate *priv)
 }
 
 
-gboolean SearchData::StartGenericSearch()
+gboolean SearchData::StartGenericSearch(GnomeCmdSearchDialog *dialog)
 {
-    auto priv = search_dialog_private (dialog);
     auto config = gnome_cmd_search_dialog_get_config (dialog);
 
     gchar *filename_pattern;
@@ -536,7 +514,7 @@ gboolean SearchData::StartGenericSearch()
     cancellable = g_cancellable_new();
 
     gnome_cmd_dir_ref (start_dir);
-    thread = g_thread_new (nullptr, (GThreadFunc) perform_search_operation, this);
+    thread = g_thread_new (nullptr, (GThreadFunc) perform_search_operation, dialog);
 
     return TRUE;
 }
@@ -545,7 +523,7 @@ gboolean SearchData::StartGenericSearch()
 /**
  * local search - using findutils
  */
-gchar *SearchData::BuildSearchCommand()
+gchar *BuildSearchCommand(GnomeCmdSearchDialog *dialog)
 {
     auto priv = search_dialog_private (dialog);
     auto config = gnome_cmd_search_dialog_get_config (dialog);
@@ -627,7 +605,7 @@ gchar *SearchData::BuildSearchCommand()
     g_free (text_pattern);
 
     gchar *file_pattern_quoted = quote_if_needed (file_pattern_locale);
-    gchar *look_in_folder_utf8 = GNOME_CMD_FILE (start_dir)->get_real_path();
+    gchar *look_in_folder_utf8 = GNOME_CMD_FILE (priv->start_dir)->get_real_path();
     gchar *look_in_folder_locale = g_locale_from_utf8 (look_in_folder_utf8, -1, nullptr, nullptr, nullptr);
 
     if (!look_in_folder_locale)     // if for some reason a path was not returned, fallback to the user's home directory
@@ -689,8 +667,10 @@ static void child_command_set_pgid_cb (gpointer unused)
 }
 
 
-static gboolean handle_search_command_stdout_io (GIOChannel *ioc, GIOCondition condition, SearchData *data)
+static gboolean handle_search_command_stdout_io (GIOChannel *ioc, GIOCondition condition, GnomeCmdSearchDialog *dialog)
 {
+    auto data = search_dialog_private(dialog);
+
     gboolean broken_pipe = FALSE;
 
     if (condition & G_IO_IN)
@@ -754,7 +734,7 @@ static gboolean handle_search_command_stdout_io (GIOChannel *ioc, GIOCondition c
             if (f)
             {
                 GnomeCmdFileList *result_list;
-                g_object_get (data->dialog, "result-list", &result_list, nullptr);
+                g_object_get (dialog, "result-list", &result_list, nullptr);
                 result_list->append_file(f);
             }
 
@@ -796,9 +776,9 @@ static gboolean handle_search_command_stdout_io (GIOChannel *ioc, GIOCondition c
 }
 
 
-gboolean SearchData::StartLocalSearch()
+gboolean SearchData::StartLocalSearch(GnomeCmdSearchDialog *dialog)
 {
-    gchar *command = BuildSearchCommand();
+    gchar *command = BuildSearchCommand(dialog);
 
     g_return_val_if_fail (command!=nullptr, FALSE);
 
@@ -837,7 +817,7 @@ gboolean SearchData::StartLocalSearch()
 
     g_io_channel_set_encoding (ioc_stdout, nullptr, nullptr);
     g_io_channel_set_flags (ioc_stdout, G_IO_FLAG_NONBLOCK, nullptr);
-    g_io_add_watch (ioc_stdout, GIOCondition (G_IO_IN | G_IO_HUP), (GIOFunc) handle_search_command_stdout_io, this);
+    g_io_add_watch (ioc_stdout, GIOCondition (G_IO_IN | G_IO_HUP), (GIOFunc) handle_search_command_stdout_io, dialog);
 
     g_io_channel_unref (ioc_stdout);
     g_strfreev (argv);
@@ -848,26 +828,24 @@ gboolean SearchData::StartLocalSearch()
 
 static void on_dialog_show(GtkWidget *widget, GnomeCmdSearchDialog *dialog)
 {
-    auto priv = search_dialog_private (dialog);
+    auto data = search_dialog_private (dialog);
 
     GnomeCmdSelectionProfileComponent *profile_component;
     g_object_get (dialog, "profile-component", &profile_component, nullptr);
 
     gnome_cmd_search_profile_component_update (profile_component);
 
-    priv->data.start_dir = main_win->fs(ACTIVE)->get_directory();
+    data->start_dir = main_win->fs(ACTIVE)->get_directory();
 
     GtkWidget *dir_browser;
     g_object_get (dialog, "dir-browser", &dir_browser, nullptr);
 
-    g_object_set (dir_browser, "file", GNOME_CMD_FILE(priv->data.start_dir)->get_file(), nullptr);
+    g_object_set (dir_browser, "file", GNOME_CMD_FILE(data->start_dir)->get_file(), nullptr);
 }
 
 
 static void on_dialog_hide(GtkWidget *widget, GnomeCmdSearchDialog *dialog)
 {
-    auto priv = search_dialog_private (dialog);
-
     GnomeCmdSelectionProfileComponent *profile_component;
     g_object_get (dialog, "profile-component", &profile_component, nullptr);
 
@@ -882,14 +860,14 @@ static void on_dialog_hide(GtkWidget *widget, GnomeCmdSearchDialog *dialog)
 
 extern "C" void gnome_cmd_search_dialog_stop (GnomeCmdSearchDialog *dialog)
 {
-    auto priv = search_dialog_private (dialog);
+    auto data = search_dialog_private (dialog);
 
-    priv->data.stopped = TRUE;
-    if (priv->data.cancellable)
-        g_cancellable_cancel (priv->data.cancellable);
+    data->stopped = TRUE;
+    if (data->cancellable)
+        g_cancellable_cancel (data->cancellable);
 #ifdef G_OS_UNIX
-    if (priv->data.pid)
-        kill (priv->data.pid, SIGTERM);
+    if (data->pid)
+        kill (data->pid, SIGTERM);
 #endif
 }
 
@@ -909,7 +887,7 @@ extern "C" gboolean gnome_cmd_search_dialog_find (GnomeCmdSearchDialog *dialog, 
         "progress-bar", &progress_bar,
         nullptr);
 
-    SearchData &data = priv->data;
+    SearchData &data = *priv;
 
     data.search_done = TRUE;
     data.stopped = TRUE;
@@ -974,11 +952,11 @@ extern "C" gboolean gnome_cmd_search_dialog_find (GnomeCmdSearchDialog *dialog, 
 
     auto con = gnome_cmd_file_get_connection (GNOME_CMD_FILE (data.start_dir));
 
-    if (gnome_cmd_con_is_local (con) ? data.StartLocalSearch() : data.StartGenericSearch())
+    if (gnome_cmd_con_is_local (con) ? data.StartLocalSearch(dialog) : data.StartGenericSearch(dialog))
     {
-        data.set_statusmsg();
+        set_statusmsg(dialog, nullptr);
         gtk_widget_show (progress_bar);
-        data.update_gui_timeout_id = g_timeout_add (gnome_cmd_data.gui_update_rate, (GSourceFunc) update_search_status_widgets, &data);
+        data.update_gui_timeout_id = g_timeout_add (gnome_cmd_data.gui_update_rate, (GSourceFunc) update_search_status_widgets, dialog);
 
         gnome_cmd_dir_unref (data.start_dir);
         return true;
@@ -1016,11 +994,10 @@ extern "C" void gnome_cmd_search_dialog_goto (GnomeCmdSearchDialog *dialog, Gnom
 
 extern "C" void gnome_cmd_search_dialog_init (GnomeCmdSearchDialog *dialog)
 {
-    auto priv = g_new0 (GnomeCmdSearchDialogPrivate, 1);
-    priv->data.dialog = dialog;
+    auto priv = g_new0 (SearchData, 1);
     g_object_set_data_full (G_OBJECT (dialog), "search-dialog-priv", priv, g_free);
 
-    g_mutex_init(&priv->data.pdata.mutex);
+    g_mutex_init(&priv->pdata.mutex);
 
     gtk_window_set_hide_on_close (GTK_WINDOW (dialog), TRUE);
 
@@ -1032,7 +1009,7 @@ extern "C" void gnome_cmd_search_dialog_init (GnomeCmdSearchDialog *dialog)
 extern "C" void gnome_cmd_search_dialog_dispose (GnomeCmdSearchDialog *dialog)
 {
     auto priv = search_dialog_private (dialog);
-    SearchData &data = priv->data;
+    SearchData &data = *priv;
 
     if (data.update_gui_timeout_id)
     {
