@@ -237,6 +237,12 @@ impl FileList {
             .unwrap_or_default()
     }
 
+    pub fn clear(&self) {
+        if let Some(store) = self.tree_view().model().and_downcast::<gtk::ListStore>() {
+            store.clear();
+        }
+    }
+
     pub fn visible_files(&self) -> glib::List<File> {
         let mut files = glib::List::new();
         self.traverse_files::<()>(|file, _iter, _store| {

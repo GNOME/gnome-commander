@@ -1063,7 +1063,7 @@ impl MainWindow {
         if let Some(dialog) = self.imp().search_dialog.upgrade() {
             dialog
         } else {
-            let search_config = unsafe { SearchConfig::get() };
+            let search_config = SearchConfig::get();
             let options = GeneralOptions::new();
 
             let dialog = SearchDialog::new(

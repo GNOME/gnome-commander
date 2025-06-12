@@ -28,7 +28,6 @@ use gtk::{
     glib::{ffi::gboolean, translate::from_glib_none},
     prelude::*,
 };
-use std::ffi::c_void;
 
 pub struct SelectionPattern {
     pub pattern: String,
@@ -39,7 +38,7 @@ pub struct SelectionPattern {
 pub async fn show_pattern_selection_dialog(
     parent_window: &gtk::Window,
     mode: bool,
-    patterns: glib::List<glib::GStringPtr>,
+    patterns: Vec<String>,
     pattern_type: PatternType,
 ) -> Option<SelectionPattern> {
     let dialog = gtk::Window::builder()
@@ -170,13 +169,9 @@ pub async fn show_pattern_selection_dialog(
 }
 
 #[no_mangle]
-pub extern "C" fn show_pattern_selection_dialog_r(
-    fl: *mut GnomeCmdFileList,
-    mode: gboolean,
-    search_config: *mut c_void,
-) {
+pub extern "C" fn show_pattern_selection_dialog_r(fl: *mut GnomeCmdFileList, mode: gboolean) {
     let file_list: FileList = unsafe { from_glib_none(fl) };
-    let search_config = unsafe { SearchConfig::from_ptr(search_config) };
+    let search_config = SearchConfig::get();
     let Some(parent_window) = file_list.root().and_downcast::<gtk::Window>() else {
         eprintln!("No window");
         return;

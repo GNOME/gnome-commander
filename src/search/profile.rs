@@ -17,6 +17,7 @@
  * For more details see the file COPYING.
  */
 
+use crate::filter::PatternType;
 use gtk::{
     glib::{
         ffi::GType,
@@ -94,6 +95,20 @@ impl SearchProfile {
         let clone = Self::default();
         clone.copy_from(self);
         clone
+    }
+
+    pub fn pattern_type(&self) -> PatternType {
+        match self.syntax() {
+            0 => PatternType::Regex,
+            _ => PatternType::FnMatch,
+        }
+    }
+
+    pub fn set_pattern_type(&self, pattern_type: PatternType) {
+        self.set_syntax(match pattern_type {
+            PatternType::Regex => 0,
+            PatternType::FnMatch => 1,
+        });
     }
 
     pub fn save(&self) -> SearchProfileVariant {

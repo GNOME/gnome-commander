@@ -124,7 +124,7 @@ static SearchData *search_dialog_private (GnomeCmdSearchDialog *dlg)
 }
 
 
-extern "C" GnomeCmdData::SearchConfig *gnome_cmd_search_dialog_get_config (GnomeCmdSearchDialog *dialog);
+extern "C" SearchProfile *gnome_cmd_search_dialog_get_default_profile (GnomeCmdSearchDialog *dialog);
 
 
 inline void free_search_file_data (SearchFileData *searchfileData)
@@ -358,7 +358,6 @@ void SearchData::SearchDirRecursive(GnomeCmdDir *dir, long level, gboolean conte
 static gpointer perform_search_operation (GnomeCmdSearchDialog *dialog)
 {
     auto data = search_dialog_private(dialog);
-    auto config = gnome_cmd_search_dialog_get_config (dialog);
 
     GnomeCmdDir *start_dir = nullptr;
     g_object_get (dialog, "start-dir", &start_dir, nullptr);
@@ -371,9 +370,11 @@ static gpointer perform_search_operation (GnomeCmdSearchDialog *dialog)
         data->match_dirs = nullptr;
     }
 
+    auto default_profile = gnome_cmd_search_dialog_get_default_profile (dialog);
+
     gint max_depth;
     gboolean content_search;
-    g_object_get (config->default_profile,
+    g_object_get (default_profile,
         "max-depth", &max_depth,
         "content-search", &content_search,
         nullptr);
@@ -480,7 +481,7 @@ static gboolean join_thread_func (SearchData *priv)
 
 gboolean SearchData::StartGenericSearch(GnomeCmdSearchDialog *dialog)
 {
-    auto config = gnome_cmd_search_dialog_get_config (dialog);
+    auto default_profile = gnome_cmd_search_dialog_get_default_profile (dialog);
 
     gchar *filename_pattern;
     gchar *text_pattern;
@@ -488,7 +489,7 @@ gboolean SearchData::StartGenericSearch(GnomeCmdSearchDialog *dialog)
     gint syntax;
     gboolean content_search;
 
-    g_object_get (config->default_profile,
+    g_object_get (default_profile,
         "filename-pattern", &filename_pattern,
         "text-pattern", &text_pattern,
         "match-case", &match_case,
@@ -520,10 +521,9 @@ gboolean SearchData::StartGenericSearch(GnomeCmdSearchDialog *dialog)
 /**
  * local search - using findutils
  */
-gchar *BuildSearchCommand(GnomeCmdSearchDialog *dialog)
+static gchar *BuildSearchCommand(GnomeCmdSearchDialog *dialog)
 {
-    auto priv = search_dialog_private (dialog);
-    auto config = gnome_cmd_search_dialog_get_config (dialog);
+    auto default_profile = gnome_cmd_search_dialog_get_default_profile (dialog);
 
     gchar *file_pattern_utf8;
     gchar *text_pattern;
@@ -532,7 +532,7 @@ gchar *BuildSearchCommand(GnomeCmdSearchDialog *dialog)
     gint syntax;
     gboolean content_search;
 
-    g_object_get (config->default_profile,
+    g_object_get (default_profile,
         "filename-pattern", &file_pattern_utf8,
         "text-pattern", &text_pattern,
         "match-case", &match_case,
@@ -826,20 +826,6 @@ gboolean SearchData::StartLocalSearch(GnomeCmdSearchDialog *dialog)
 }
 
 
-static void on_dialog_hide(GtkWidget *widget, GnomeCmdSearchDialog *dialog)
-{
-    GnomeCmdSelectionProfileComponent *profile_component;
-    g_object_get (dialog, "profile-component", &profile_component, nullptr);
-
-    gnome_cmd_search_profile_component_copy (profile_component);
-
-    GnomeCmdFileList *result_list;
-    g_object_get (dialog, "result-list", &result_list, nullptr);
-
-    result_list->clear();
-}
-
-
 extern "C" void gnome_cmd_search_dialog_stop (GnomeCmdSearchDialog *dialog)
 {
     auto data = search_dialog_private (dialog);
@@ -854,7 +840,7 @@ extern "C" void gnome_cmd_search_dialog_stop (GnomeCmdSearchDialog *dialog)
 }
 
 
-extern "C" void gnome_cmd_viewer_search_text_add_to_history(const gchar *value);
+extern "C" void gnome_cmd_search_dialog_save_default_settings (GnomeCmdSearchDialog *dialog);
 
 extern "C" gboolean gnome_cmd_search_dialog_find (GnomeCmdSearchDialog *dialog, GnomeCmdDir *start_dir)
 {
@@ -893,35 +879,7 @@ extern "C" gboolean gnome_cmd_search_dialog_find (GnomeCmdSearchDialog *dialog, 
 
     g_object_set (dialog, "start-dir", start_dir, nullptr);
 
-    // save default settings
-    gnome_cmd_search_profile_component_copy (profile_component);
-
-    auto config = gnome_cmd_search_dialog_get_config (dialog);
-
-    gchar *filename_pattern;
-    gchar *text_pattern;
-    gboolean content_search;
-
-    g_object_get (config->default_profile,
-        "filename-pattern", &filename_pattern,
-        "text-pattern", &text_pattern,
-        "content-search", &content_search,
-        nullptr);
-
-    if (filename_pattern != nullptr && filename_pattern[0] != '\0')
-    {
-        config->name_patterns.add(filename_pattern);
-        gnome_cmd_search_profile_component_set_name_patterns_history (profile_component, config->name_patterns.ents);
-    }
-
-    if (content_search && text_pattern != nullptr && text_pattern[0] != '\0')
-    {
-        config->content_patterns.add(text_pattern);
-        gnome_cmd_viewer_search_text_add_to_history(text_pattern);
-        gnome_cmd_search_profile_component_set_content_patterns_history (profile_component, config->content_patterns.ents);
-    }
-    g_free (filename_pattern);
-    g_free (text_pattern);
+    gnome_cmd_search_dialog_save_default_settings (dialog);
 
     data.search_done = FALSE;
     data.stopped = FALSE;
@@ -977,10 +935,6 @@ extern "C" void gnome_cmd_search_dialog_init (GnomeCmdSearchDialog *dialog)
     g_object_set_data_full (G_OBJECT (dialog), "search-dialog-priv", priv, g_free);
 
     g_mutex_init(&priv->pdata.mutex);
-
-    gtk_window_set_hide_on_close (GTK_WINDOW (dialog), TRUE);
-
-    g_signal_connect (dialog, "hide", G_CALLBACK (on_dialog_hide), dialog);
 }
 
 

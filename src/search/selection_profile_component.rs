@@ -19,11 +19,12 @@
 
 use super::profile::SearchProfile;
 use gettextrs::{gettext, ngettext};
+use glib::ffi::GStrv;
 use gtk::{
     gio,
     glib::{
         self,
-        ffi::{GList, GType},
+        ffi::GType,
         translate::{from_glib_borrow, Borrowed, IntoGlib},
     },
     prelude::*,
@@ -305,7 +306,7 @@ impl SelectionProfileComponent {
         profile.set_match_case(content_search && self.imp().case_check.is_active());
     }
 
-    pub fn set_name_patterns_history(&self, history: glib::List<glib::GStringPtr>) {
+    pub fn set_name_patterns_history(&self, history: &[String]) {
         let model = &self.imp().pattern_model;
 
         model.clear();
@@ -316,7 +317,7 @@ impl SelectionProfileComponent {
         self.imp().pattern_combo.set_active(Some(0));
     }
 
-    pub fn set_content_patterns_history(&self, history: glib::List<glib::GStringPtr>) {
+    pub fn set_content_patterns_history(&self, history: &[String]) {
         let model = &self.imp().find_text_model;
 
         model.clear();
@@ -351,19 +352,27 @@ pub extern "C" fn gnome_cmd_search_profile_component_copy(
 #[no_mangle]
 pub extern "C" fn gnome_cmd_search_profile_component_set_name_patterns_history(
     component: *mut <SelectionProfileComponent as glib::object::ObjectType>::GlibType,
-    history: *mut GList,
+    history: *mut GStrv,
 ) {
     let component: Borrowed<SelectionProfileComponent> = unsafe { from_glib_borrow(component) };
-    let history: glib::List<glib::GStringPtr> = unsafe { glib::List::from_glib_none(history) };
-    component.set_name_patterns_history(history);
+    let history: glib::StrV = unsafe { glib::StrV::from_glib_none(history as *const *const _) };
+    let history = history
+        .iter()
+        .map(|s| s.to_string())
+        .collect::<Vec<String>>();
+    component.set_name_patterns_history(&history);
 }
 
 #[no_mangle]
 pub extern "C" fn gnome_cmd_search_profile_component_set_content_patterns_history(
     component: *mut <SelectionProfileComponent as glib::object::ObjectType>::GlibType,
-    history: *mut GList,
+    history: *mut GStrv,
 ) {
     let component: Borrowed<SelectionProfileComponent> = unsafe { from_glib_borrow(component) };
-    let history: glib::List<glib::GStringPtr> = unsafe { glib::List::from_glib_none(history) };
-    component.set_content_patterns_history(history);
+    let history: glib::StrV = unsafe { glib::StrV::from_glib_none(history as *const *const _) };
+    let history = history
+        .iter()
+        .map(|s| s.to_string())
+        .collect::<Vec<String>>();
+    component.set_content_patterns_history(&history);
 }

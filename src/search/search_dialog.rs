@@ -24,6 +24,7 @@ use crate::{
     dir::{ffi::GnomeCmdDir, Directory},
     file::ffi::GnomeCmdFile,
     libgcmd::file_descriptor::FileDescriptorExt,
+    search::profile::SearchProfilePtr,
     tags::tags::FileMetadataService,
 };
 use gettextrs::{gettext, ngettext};
@@ -36,7 +37,7 @@ use gtk::{
     prelude::*,
     subclass::prelude::*,
 };
-use std::{ffi::c_void, rc::Rc};
+use std::rc::Rc;
 
 struct SearchProfiles {
     profiles: gio::ListStore,
@@ -126,7 +127,7 @@ impl SearchProfiles {
 }
 
 struct SearchProfileManager {
-    config: SearchConfig,
+    config: Rc<SearchConfig>,
     profiles: SearchProfiles,
 }
 
@@ -168,8 +169,8 @@ impl ProfileManager for SearchProfileManager {
             &self.profiles.profile(profile_index).unwrap(),
             Some(labels_size_group),
         );
-        widget.set_name_patterns_history(self.config.name_patterns());
-        widget.set_content_patterns_history(self.config.content_patterns());
+        widget.set_name_patterns_history(&self.config.name_patterns());
+        widget.set_content_patterns_history(&self.config.content_patterns());
         widget.update();
         widget.grab_focus();
         widget.upcast()
@@ -201,6 +202,7 @@ mod imp {
         dir::Directory,
         file::File,
         file_list::list::FileList,
+        intviewer::search_dialog::gnome_cmd_viewer_search_text_add_to_history,
         select_directory_button::DirectoryButton,
         utils::{dialog_button_box, display_help, ErrorMessage},
     };
@@ -211,7 +213,7 @@ mod imp {
     pub struct SearchDialog {
         pub labels_size_group: gtk::SizeGroup,
 
-        pub config: OnceCell<SearchConfig>,
+        pub config: OnceCell<Rc<SearchConfig>>,
 
         #[property(get, construct_only)]
         pub file_metadata_service: OnceCell<FileMetadataService>,
@@ -437,6 +439,18 @@ mod imp {
                 1,
             );
 
+            this.set_hide_on_close(true);
+            this.connect_hide(glib::clone!(
+                #[weak]
+                this,
+                move |_| {
+                    this.profile_component().copy();
+                    if let Some(file_list) = this.result_list() {
+                        file_list.clear();
+                    }
+                }
+            ));
+
             let options = GeneralOptions::new();
 
             remember_window_size(&*this, &options.0);
@@ -452,8 +466,8 @@ mod imp {
     impl DialogImpl for SearchDialog {}
 
     impl SearchDialog {
-        fn config(&self) -> SearchConfig {
-            *self.config.get().unwrap()
+        pub fn config(&self) -> Rc<SearchConfig> {
+            self.config.get().unwrap().clone()
         }
 
         pub fn update_profile_menu(&self) {
@@ -463,7 +477,8 @@ mod imp {
                 Some("search.save-profile"),
             );
 
-            let profiles = self.config().profiles();
+            let search_config = self.config();
+            let profiles = search_config.profiles();
             let count = profiles.n_items();
             if count > 0 {
                 menu.append(
@@ -517,7 +532,7 @@ mod imp {
             .await
             {
                 let profiles = manager.profiles.clone();
-                config.set_profiles(&profiles.profiles);
+                manager.config.set_profiles(&profiles.profiles);
                 self.update_profile_menu();
             }
         }
@@ -645,6 +660,29 @@ mod imp {
                 }
             }
         }
+
+        pub fn save_default_settings(&self) {
+            let profile_component = self.obj().profile_component();
+            let config = self.config();
+            let default_profile = config.default_profile();
+
+            profile_component.copy();
+
+            let filename_pattern = default_profile.filename_pattern();
+            if !filename_pattern.is_empty() {
+                config.add_name_pattern(&filename_pattern);
+                profile_component.set_name_patterns_history(&config.name_patterns());
+            }
+
+            if default_profile.content_search() {
+                let text_pattern = default_profile.text_pattern();
+                if !text_pattern.is_empty() {
+                    config.add_content_pattern(&text_pattern);
+                    gnome_cmd_viewer_search_text_add_to_history(&text_pattern);
+                    profile_component.set_content_patterns_history(&config.content_patterns());
+                }
+            }
+        }
     }
 }
 
@@ -655,7 +693,7 @@ glib::wrapper! {
 
 impl SearchDialog {
     pub fn new(
-        cfg: SearchConfig,
+        config: Rc<SearchConfig>,
         file_metadata_service: &FileMetadataService,
         parent_window: Option<&gtk::Window>,
     ) -> Self {
@@ -663,13 +701,13 @@ impl SearchDialog {
             .property("file-metadata-service", file_metadata_service)
             .build();
         this.set_transient_for(parent_window);
-        this.imp().config.set(cfg).ok().unwrap();
+        this.imp().config.set(config.clone()).ok().unwrap();
         this.imp().update_profile_menu();
 
         let profile_component = this.profile_component();
-        profile_component.set_profile(Some(cfg.default_profile()));
-        profile_component.set_name_patterns_history(cfg.name_patterns());
-        profile_component.set_content_patterns_history(cfg.content_patterns());
+        profile_component.set_profile(Some(config.default_profile()));
+        profile_component.set_name_patterns_history(&config.name_patterns());
+        profile_component.set_content_patterns_history(&config.content_patterns());
         profile_component.grab_focus();
 
         this
@@ -712,16 +750,11 @@ extern "C" {
 }
 
 #[no_mangle]
-pub extern "C" fn gnome_cmd_search_dialog_get_config(
+pub extern "C" fn gnome_cmd_search_dialog_get_default_profile(
     dialog_ptr: *mut GnomeCmdSearchDialog,
-) -> *mut c_void {
+) -> *mut SearchProfilePtr {
     let dialog: Borrowed<SearchDialog> = unsafe { from_glib_borrow(dialog_ptr) };
-    dialog
-        .imp()
-        .config
-        .get()
-        .map(|c| unsafe { c.as_ptr() })
-        .unwrap_or(std::ptr::null_mut())
+    dialog.imp().config().default_profile().to_glib_none().0
 }
 
 #[no_mangle]
@@ -739,6 +772,14 @@ pub extern "C" fn gnome_cmd_search_dialog_update_profile_menu(
 ) {
     let dialog: Borrowed<SearchDialog> = unsafe { from_glib_borrow(dialog_ptr) };
     dialog.imp().update_profile_menu();
+}
+
+#[no_mangle]
+pub extern "C" fn gnome_cmd_search_dialog_save_default_settings(
+    dialog_ptr: *mut GnomeCmdSearchDialog,
+) {
+    let dialog: Borrowed<SearchDialog> = unsafe { from_glib_borrow(dialog_ptr) };
+    dialog.imp().save_default_settings();
 }
 
 fn remember_window_size(dialog: &SearchDialog, settings: &gio::Settings) {

@@ -19,24 +19,19 @@
 
 use crate::{
     app::FavoriteAppVariant,
+    connection::history::History,
     file_selector::TabVariant,
     filter::PatternType,
-    search::profile::{SearchProfile, SearchProfilePtr, SearchProfileVariant},
+    search::profile::{SearchProfile, SearchProfileVariant},
     tab_label::TabLockIndicator,
     types::{
         ConfirmOverwriteMode, DndMode, ExtensionDisplayMode, GraphicalLayoutMode,
         PermissionDisplayMode, SizeDisplayMode,
     },
 };
-use gtk::{
-    gio::{self, ffi::GListStore},
-    glib::{
-        ffi::{gboolean, GList},
-        translate::{from_glib_none, ToGlibPtr},
-    },
-    prelude::*,
-};
-use std::ffi::{c_char, c_void};
+use gettextrs::gettext;
+use gtk::{gio, prelude::*};
+use std::{rc::Rc, sync::LazyLock};
 
 pub type WriteResult = Result<(), glib::BoolError>;
 
@@ -74,6 +69,10 @@ pub trait GeneralOptionsRead {
     fn favorite_apps(&self) -> Vec<FavoriteAppVariant>;
 
     fn search_window_is_transient(&self) -> bool;
+    fn search_profiles(&self) -> Vec<SearchProfileVariant>;
+    fn search_pattern_history(&self) -> Vec<String>;
+    fn search_text_history(&self) -> Vec<String>;
+    fn save_search_history(&self) -> bool;
 }
 
 pub trait GeneralOptionsWrite {
@@ -97,6 +96,10 @@ pub trait GeneralOptionsWrite {
     fn set_favorite_apps(&self, apps: &[FavoriteAppVariant]) -> WriteResult;
 
     fn set_search_window_is_transient(&self, value: bool) -> WriteResult;
+    fn set_search_profiles(&self, profiles: &[SearchProfileVariant]) -> WriteResult;
+    fn set_search_pattern_history(&self, values: &[String]) -> WriteResult;
+    fn set_search_text_history(&self, values: &[String]) -> WriteResult;
+    fn set_save_search_history(&self, value: bool) -> WriteResult;
 }
 
 impl GeneralOptions {
@@ -217,6 +220,31 @@ impl GeneralOptionsRead for GeneralOptions {
     fn search_window_is_transient(&self) -> bool {
         self.0.boolean("search-win-is-transient")
     }
+
+    fn search_profiles(&self) -> Vec<SearchProfileVariant> {
+        Vec::<SearchProfileVariant>::from_variant(&self.0.value("search-profiles"))
+            .unwrap_or_default()
+    }
+
+    fn search_pattern_history(&self) -> Vec<String> {
+        self.0
+            .strv("search-pattern-history")
+            .iter()
+            .map(|v| v.to_string())
+            .collect()
+    }
+
+    fn search_text_history(&self) -> Vec<String> {
+        self.0
+            .strv("search-text-history")
+            .iter()
+            .map(|v| v.to_string())
+            .collect()
+    }
+
+    fn save_search_history(&self) -> bool {
+        self.0.boolean("save-search-history-on-exit")
+    }
 }
 
 impl GeneralOptionsWrite for GeneralOptions {
@@ -267,6 +295,22 @@ impl GeneralOptionsWrite for GeneralOptions {
 
     fn set_search_window_is_transient(&self, value: bool) -> WriteResult {
         self.0.set_boolean("search-win-is-transient", value)
+    }
+
+    fn set_search_profiles(&self, profiles: &[SearchProfileVariant]) -> WriteResult {
+        self.0.set_value("search-profiles", &profiles.to_variant())
+    }
+
+    fn set_search_pattern_history(&self, values: &[String]) -> WriteResult {
+        self.0.set_strv("search-pattern-history", values)
+    }
+
+    fn set_search_text_history(&self, values: &[String]) -> WriteResult {
+        self.0.set_strv("search-text-history", values)
+    }
+
+    fn set_save_search_history(&self, value: bool) -> WriteResult {
+        self.0.set_boolean("save-search-history-on-exit", value)
     }
 }
 
@@ -612,77 +656,81 @@ impl ProgramsOptionsWrite for ProgramsOptions {
     }
 }
 
-#[derive(Clone, Copy)]
-pub struct SearchConfig(*mut c_void);
+pub struct SearchConfig {
+    default_profile: SearchProfile,
+    name_patterns: History<String>,
+    content_patterns: History<String>,
+    profiles: gio::ListStore,
+}
 
-extern "C" {
-    fn gnome_cmd_data_search_defaults() -> *mut c_void;
+const SEARCH_HISTORY_SIZE: usize = 10;
 
-    fn gnome_cmd_search_config_get_name_patterns(ptr: *mut c_void) -> *const GList;
-    fn gnome_cmd_search_config_add_name_pattern(ptr: *mut c_void, p: *const c_char);
-
-    fn gnome_cmd_search_config_get_content_patterns(ptr: *mut c_void) -> *const GList;
-
-    fn gnome_cmd_search_config_get_default_profile(ptr: *mut c_void) -> *mut SearchProfilePtr;
-    fn gnome_cmd_search_config_get_profiles(ptr: *mut c_void) -> *mut GListStore;
+impl Default for SearchConfig {
+    fn default() -> Self {
+        let default_profile = SearchProfile::default();
+        default_profile.set_name(gettext("Default"));
+        Self {
+            default_profile,
+            name_patterns: History::new(SEARCH_HISTORY_SIZE),
+            content_patterns: History::new(SEARCH_HISTORY_SIZE),
+            profiles: gio::ListStore::new::<SearchProfile>(),
+        }
+    }
 }
 
 impl SearchConfig {
-    pub unsafe fn get() -> Self {
-        unsafe { Self::from_ptr(gnome_cmd_data_search_defaults()) }
+    pub fn get() -> Rc<Self> {
+        static CONFIG: LazyLock<glib::thread_guard::ThreadGuard<Rc<SearchConfig>>> =
+            LazyLock::new(|| {
+                glib::thread_guard::ThreadGuard::new(Rc::new(SearchConfig::default()))
+            });
+        CONFIG.get_ref().clone()
     }
 
-    pub unsafe fn from_ptr(ptr: *mut c_void) -> Self {
-        Self(ptr)
-    }
-
-    pub unsafe fn as_ptr(&self) -> *mut c_void {
-        self.0
-    }
-
-    pub fn name_patterns(&self) -> glib::List<glib::GStringPtr> {
-        unsafe { glib::List::from_glib_none(gnome_cmd_search_config_get_name_patterns(self.0)) }
+    pub fn name_patterns(&self) -> Vec<String> {
+        self.name_patterns.export()
     }
 
     pub fn add_name_pattern(&self, pattern: &str) {
-        unsafe { gnome_cmd_search_config_add_name_pattern(self.0, pattern.to_glib_none().0) }
+        self.name_patterns.add(pattern.to_owned());
     }
 
-    pub fn content_patterns(&self) -> glib::List<glib::GStringPtr> {
-        unsafe { glib::List::from_glib_none(gnome_cmd_search_config_get_content_patterns(self.0)) }
+    pub fn content_patterns(&self) -> Vec<String> {
+        self.content_patterns.export()
     }
 
-    pub fn default_profile(&self) -> SearchProfile {
-        unsafe { from_glib_none(gnome_cmd_search_config_get_default_profile(self.0)) }
+    pub fn add_content_pattern(&self, pattern: &str) {
+        self.content_patterns.add(pattern.to_owned());
     }
 
-    pub fn profiles(&self) -> gio::ListStore {
-        unsafe { from_glib_none(gnome_cmd_search_config_get_profiles(self.0)) }
+    pub fn default_profile(&self) -> &SearchProfile {
+        &self.default_profile
+    }
+
+    pub fn profiles(&self) -> &gio::ListStore {
+        &self.profiles
     }
 
     pub fn set_profiles(&self, profiles: &gio::ListStore) {
-        let store = self.profiles();
-        store.remove_all();
+        self.profiles.remove_all();
         for p in profiles.iter::<SearchProfile>().flatten() {
-            store.append(&p);
+            self.profiles.append(&p);
         }
     }
 
     pub fn default_profile_syntax(&self) -> PatternType {
-        match self.default_profile().syntax() {
-            0 => PatternType::Regex,
-            _ => PatternType::FnMatch,
-        }
+        self.default_profile().pattern_type()
     }
 
     pub fn set_default_profile_syntax(&self, pattern_type: PatternType) {
-        self.default_profile().set_syntax(match pattern_type {
-            PatternType::Regex => 0,
-            PatternType::FnMatch => 1,
-        });
+        self.default_profile().set_pattern_type(pattern_type)
     }
 
-    pub fn save(&self, save_search_history: bool) -> glib::Variant {
+    pub fn save(
+        &self,
+        settings: &dyn GeneralOptionsWrite,
+        save_search_history: bool,
+    ) -> WriteResult {
         let mut vs = Vec::<SearchProfileVariant>::new();
         vs.push(if save_search_history {
             self.default_profile().save()
@@ -695,16 +743,23 @@ impl SearchConfig {
                 .flatten()
                 .map(|p| p.save()),
         );
-        vs.to_variant()
+        settings.set_search_profiles(&vs)?;
+
+        if save_search_history {
+            settings.set_search_pattern_history(&self.name_patterns())?;
+            settings.set_search_text_history(&self.content_patterns())?;
+        } else {
+            settings.set_search_pattern_history(&[])?;
+            settings.set_search_text_history(&[])?;
+        }
+
+        Ok(())
     }
 
-    pub fn load(&self, variant: &glib::Variant) {
+    pub fn load(&self, settings: &dyn GeneralOptionsRead) {
         self.default_profile().reset();
         self.profiles().remove_all();
-        let Some(vs) = Vec::<SearchProfileVariant>::from_variant(variant) else {
-            return;
-        };
-        let mut iter = vs.into_iter();
+        let mut iter = settings.search_profiles().into_iter();
         if let Some(v) = iter.next() {
             self.default_profile().load(v);
         }
@@ -713,23 +768,27 @@ impl SearchConfig {
             p.load(v);
             self.profiles().append(&p);
         }
+        for item in settings.search_pattern_history().iter().rev() {
+            self.name_patterns.add(item.to_string());
+        }
+        for item in settings.search_text_history().iter().rev() {
+            self.content_patterns.add(item.to_string());
+        }
     }
 }
 
 #[no_mangle]
-pub extern "C" fn gnome_cmd_search_config_load(ptr: *mut c_void) {
-    let search_config = unsafe { SearchConfig::from_ptr(ptr) };
+pub extern "C" fn gnome_cmd_search_config_load() {
+    let search_config = SearchConfig::get();
     let options = GeneralOptions::new();
-    let variant = options.0.value("search-profiles");
-    search_config.load(&variant);
+    search_config.load(&options);
 }
 
 #[no_mangle]
-pub extern "C" fn gnome_cmd_search_config_save(ptr: *mut c_void, save_search_history: gboolean) {
-    let search_config = unsafe { SearchConfig::from_ptr(ptr) };
-    let variant = search_config.save(save_search_history != 0);
+pub extern "C" fn gnome_cmd_search_config_save() {
+    let search_config = SearchConfig::get();
     let options = GeneralOptions::new();
-    if let Err(error) = options.0.set_value("search-profiles", &variant) {
+    if let Err(error) = search_config.save(&options, options.save_search_history()) {
         eprintln!("Failed to save search profiles: {}", error.message);
     }
 }
