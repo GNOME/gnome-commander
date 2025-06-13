@@ -92,3 +92,13 @@ pub enum PermissionDisplayMode {
     Text = 0,
     Number,
 }
+
+#[repr(C)]
+#[derive(Clone, Copy, Default, PartialEq, Eq, strum::FromRepr, glib::Enum)]
+#[enum_type(name = "GnomeCmdQuickSearchShortcut")]
+pub enum QuickSearchShortcut {
+    #[default]
+    CtrlAlt = 0,
+    Alt,
+    JustACharacter,
+}

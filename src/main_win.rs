@@ -48,8 +48,7 @@ use crate::{
 };
 use gettextrs::gettext;
 use gtk::{
-    gdk,
-    gio::{self, ffi::GMenu},
+    gdk, gio,
     glib::{
         self,
         ffi::{gboolean, GType},
@@ -69,7 +68,9 @@ pub mod imp {
         layout::color_themes::ColorThemes,
         paned_ext::GnomeCmdPanedExt,
         pwd::uid,
+        shortcuts::Shortcut,
         spawn::{run_command_indir, SpawnError},
+        types::QuickSearchShortcut,
         user_actions,
         utils::sleep,
     };
@@ -130,8 +131,12 @@ pub mod imp {
         view_hidden_files: Cell<bool>,
         #[property(get, set = Self::set_view_backup_files)]
         view_backup_files: Cell<bool>,
+        #[property(get, set, builder(QuickSearchShortcut::default()))]
+        quick_search_shortcut: Cell<QuickSearchShortcut>,
 
         pub search_dialog: glib::WeakRef<SearchDialog>,
+
+        pub shortcuts: Shortcuts,
     }
 
     #[glib::object_subclass]
@@ -246,8 +251,10 @@ pub mod imp {
                 connection_list_visible: Cell::new(true),
                 view_hidden_files: Cell::new(true),
                 view_backup_files: Cell::new(true),
+                quick_search_shortcut: Default::default(),
 
                 search_dialog: Default::default(),
+                shortcuts: Shortcuts::new(),
             }
         }
     }
@@ -378,6 +385,18 @@ pub mod imp {
                 super::ffi::gnome_cmd_main_win_init(self.obj().to_glib_none().0);
             }
 
+            let key_controller = gtk::EventControllerKey::builder()
+                .propagation_phase(gtk::PropagationPhase::Capture)
+                .build();
+            key_controller.connect_key_pressed(glib::clone!(
+                #[weak(rename_to = imp)]
+                self,
+                #[upgrade_or]
+                glib::Propagation::Proceed,
+                move |_, key, _, state| imp.on_key_pressed(key, state)
+            ));
+            mw.add_controller(key_controller);
+
             self.file_selector_left
                 .borrow()
                 .connect_list_clicked(glib::clone!(
@@ -430,6 +449,12 @@ pub mod imp {
                 .0
                 .bind("show-devlist", &*mw, "connection-list-visible")
                 .build();
+            options
+                .0
+                .bind("quick-search", &*mw, "quick-search-shortcut")
+                .build();
+
+            self.shortcuts.load(options.keybindings());
 
             self.color_themes.connect_local(
                 "theme-changed",
@@ -461,6 +486,9 @@ pub mod imp {
 
         fn dispose(&self) {
             self.plugin_manager.save();
+
+            let options = GeneralOptions::new();
+            options.set_keybindings(&self.shortcuts.save());
 
             unsafe {
                 super::ffi::gnome_cmd_main_win_dispose(self.obj().to_glib_none().0);
@@ -836,6 +864,138 @@ pub mod imp {
                 .unwrap_or_default();
             self.cmdline.set_directory(&directory);
         }
+
+        fn on_key_pressed(&self, key: gdk::Key, state: gdk::ModifierType) -> glib::Propagation {
+            fn activate_local_action(mw: &MainWindow, action: &str) {
+                gio::prelude::ActionGroupExt::activate_action(&*mw.obj(), action, None);
+            }
+
+            const NO_MOD: gdk::ModifierType = gdk::ModifierType::NO_MODIFIER_MASK;
+            const CONTROL: gdk::ModifierType = gdk::ModifierType::CONTROL_MASK;
+            const ALT: gdk::ModifierType = gdk::ModifierType::ALT_MASK;
+            const CONTROL_ALT: gdk::ModifierType =
+                gdk::ModifierType::CONTROL_MASK.union(gdk::ModifierType::ALT_MASK);
+            const CONTROL_SHIFT: gdk::ModifierType =
+                gdk::ModifierType::CONTROL_MASK.union(gdk::ModifierType::SHIFT_MASK);
+            const ALT_SHIFT: gdk::ModifierType =
+                gdk::ModifierType::ALT_MASK.union(gdk::ModifierType::SHIFT_MASK);
+
+            match (state, key) {
+                (CONTROL_ALT, gdk::Key::c | gdk::Key::C) => {
+                    if self.cmdline.is_visible()
+                        && self.quick_search_shortcut.get() == QuickSearchShortcut::JustACharacter
+                    {
+                        self.cmdline.grab_focus();
+                    }
+                    return glib::Propagation::Stop;
+                }
+                (ALT, gdk::Key::F8) | (CONTROL, gdk::Key::e | gdk::Key::E | gdk::Key::Down) => {
+                    if self.cmdline.is_visible() {
+                        self.cmdline.show_history();
+                    }
+                    return glib::Propagation::Stop;
+                }
+                (CONTROL_SHIFT, gdk::Key::h | gdk::Key::H) => {
+                    self.obj()
+                        .set_view_hidden_files(!self.obj().view_hidden_files());
+                    return glib::Propagation::Stop;
+                }
+                (CONTROL, gdk::Key::x | gdk::Key::X) => {
+                    activate_local_action(self, "edit-cap-cut");
+                    return glib::Propagation::Stop;
+                }
+                (CONTROL, gdk::Key::c | gdk::Key::C) => {
+                    activate_local_action(self, "edit-cap-copy");
+                    return glib::Propagation::Stop;
+                }
+                (CONTROL, gdk::Key::v | gdk::Key::V) => {
+                    activate_local_action(self, "edit-cap-paste");
+                    return glib::Propagation::Stop;
+                }
+                (CONTROL, gdk::Key::s | gdk::Key::S) => {
+                    self.show_slide_popup();
+                    return glib::Propagation::Stop;
+                }
+                (CONTROL, gdk::Key::u | gdk::Key::U) => {
+                    self.obj().swap_panels();
+                    return glib::Propagation::Stop;
+                }
+                (ALT_SHIFT, gdk::Key::p | gdk::Key::P) => {
+                    activate_local_action(self, "plugins-configure");
+                    return glib::Propagation::Stop;
+                }
+                (ALT_SHIFT, gdk::Key::f | gdk::Key::F) => {
+                    if let Some(remote_con) = ConnectionList::get()
+                        .all()
+                        .iter::<Connection>()
+                        .flatten()
+                        .find_map(|c| c.downcast::<ConnectionRemote>().ok())
+                    {
+                        self.obj()
+                            .file_selector(FileSelectorID::ACTIVE)
+                            .file_list()
+                            .set_connection(&remote_con, None);
+                    }
+                    return glib::Propagation::Stop;
+                }
+                (NO_MOD, gdk::Key::Tab | gdk::Key::ISO_Left_Tab) => {
+                    self.obj().switch_to_opposite();
+                    return glib::Propagation::Stop;
+                }
+                (NO_MOD, gdk::Key::F1) => {
+                    activate_local_action(self, "help-help");
+                    return glib::Propagation::Stop;
+                }
+                (NO_MOD, gdk::Key::F2) => {
+                    activate_local_action(self, "file-rename");
+                    return glib::Propagation::Stop;
+                }
+                (NO_MOD, gdk::Key::F3) => {
+                    activate_local_action(self, "file-view");
+                    return glib::Propagation::Stop;
+                }
+                (NO_MOD, gdk::Key::F4) => {
+                    activate_local_action(self, "file-edit");
+                    return glib::Propagation::Stop;
+                }
+                (NO_MOD, gdk::Key::F5) => {
+                    activate_local_action(self, "file-copy");
+                    return glib::Propagation::Stop;
+                }
+                (NO_MOD, gdk::Key::F6) => {
+                    activate_local_action(self, "file-move");
+                    return glib::Propagation::Stop;
+                }
+                (NO_MOD, gdk::Key::F7) => {
+                    activate_local_action(self, "file-mkdir");
+                    return glib::Propagation::Stop;
+                }
+                (NO_MOD, gdk::Key::F8) => {
+                    activate_local_action(self, "file-delete");
+                    return glib::Propagation::Stop;
+                }
+                (NO_MOD, gdk::Key::F9) => {
+                    activate_local_action(self, "file-search");
+                    return glib::Propagation::Stop;
+                }
+                (NO_MOD, gdk::Key::Escape) => {
+                    if self.cmdline.is_visible() {
+                        self.cmdline.set_text("");
+                    }
+                    return glib::Propagation::Stop;
+                }
+                _ => {}
+            }
+
+            if self
+                .shortcuts
+                .handle_key_event(&*self.obj(), Shortcut { key, state })
+            {
+                glib::Propagation::Stop
+            } else {
+                glib::Propagation::Proceed
+            }
+        }
     }
 
     fn toolbar_button(label: &str, icon: &str, action: &str) -> gtk::Button {
@@ -897,8 +1057,6 @@ pub mod ffi {
 
         pub fn gnome_cmd_main_win_update_view(main_win: *mut GnomeCmdMainWin);
 
-        pub fn gnome_cmd_main_win_shortcuts(main_win: *mut GnomeCmdMainWin) -> *mut Shortcuts;
-
         pub fn gnome_cmd_main_win_update_browse_buttons(
             main_win: *mut GnomeCmdMainWin,
             fs: *mut GnomeCmdFileSelector,
@@ -909,7 +1067,7 @@ pub mod ffi {
 glib::wrapper! {
     pub struct MainWindow(ObjectSubclass<imp::MainWindow>)
         @extends gtk::ApplicationWindow, gtk::Window, gtk::Widget,
-        @implements gio::ActionMap, gtk::Root;
+        @implements gio::ActionMap, gio::ActionGroup, gtk::Root;
 }
 
 #[no_mangle]
@@ -1030,8 +1188,8 @@ impl MainWindow {
         unsafe { ffi::gnome_cmd_main_win_update_view(self.to_glib_none().0) }
     }
 
-    pub fn shortcuts(&self) -> &mut Shortcuts {
-        unsafe { &mut *ffi::gnome_cmd_main_win_shortcuts(self.to_glib_none().0) }
+    pub fn shortcuts(&self) -> &Shortcuts {
+        &self.imp().shortcuts
     }
 
     pub fn state(&self) -> State {
@@ -1562,22 +1720,6 @@ fn create_plugins_menu(main_win: &MainWindow) -> gio::Menu {
 }
 
 #[no_mangle]
-pub extern "C" fn gnome_cmd_main_menu_new(
-    mw_ptr: *mut ffi::GnomeCmdMainWin,
-    initial: gboolean,
-) -> *mut GMenu {
-    let mw: MainWindow = unsafe { from_glib_none(mw_ptr) };
-    let menu = main_menu(&mw);
-    if initial != 0 {
-        let shortcuts = extract_menu_shortcuts(menu.upcast_ref());
-        let shortcuts_controller = gtk::ShortcutController::for_model(&shortcuts);
-        shortcuts_controller.set_propagation_phase(gtk::PropagationPhase::Capture);
-        mw.add_controller(shortcuts_controller);
-    }
-    menu.to_glib_full()
-}
-
-#[no_mangle]
 pub extern "C" fn gnome_cmd_main_win_load_tabs(
     mw_ptr: *mut ffi::GnomeCmdMainWin,
     app_ptr: *mut GnomeCmdApplication,
@@ -1617,18 +1759,6 @@ pub extern "C" fn gnome_cmd_main_win_get_fs(
 ) -> *mut GnomeCmdFileSelector {
     let mw: Borrowed<MainWindow> = unsafe { from_glib_borrow(mw_ptr) };
     mw.file_selector(id).to_glib_none().0
-}
-
-#[no_mangle]
-pub extern "C" fn gnome_cmd_main_win_swap_panels(mw_ptr: *mut ffi::GnomeCmdMainWin) {
-    let mw: Borrowed<MainWindow> = unsafe { from_glib_borrow(mw_ptr) };
-    mw.swap_panels();
-}
-
-#[no_mangle]
-pub extern "C" fn gnome_cmd_main_win_show_slide_popup(mw_ptr: *mut ffi::GnomeCmdMainWin) {
-    let mw: Borrowed<MainWindow> = unsafe { from_glib_borrow(mw_ptr) };
-    mw.imp().show_slide_popup();
 }
 
 #[no_mangle]

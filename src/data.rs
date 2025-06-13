@@ -26,7 +26,7 @@ use crate::{
     tab_label::TabLockIndicator,
     types::{
         ConfirmOverwriteMode, DndMode, ExtensionDisplayMode, GraphicalLayoutMode,
-        PermissionDisplayMode, SizeDisplayMode,
+        PermissionDisplayMode, QuickSearchShortcut, SizeDisplayMode,
     },
 };
 use gettextrs::gettext;
@@ -60,6 +60,7 @@ pub trait GeneralOptionsRead {
 
     fn case_sensitive(&self) -> bool;
 
+    fn quick_seaech_shortcut(&self) -> QuickSearchShortcut;
     fn quick_seaech_exact_match_begin(&self) -> bool;
     fn quick_seaech_exact_match_end(&self) -> bool;
 
@@ -194,6 +195,15 @@ impl GeneralOptionsRead for GeneralOptions {
 
     fn case_sensitive(&self) -> bool {
         self.0.boolean("case-sensitive")
+    }
+
+    fn quick_seaech_shortcut(&self) -> QuickSearchShortcut {
+        self.0
+            .enum_("quick-search")
+            .try_into()
+            .ok()
+            .and_then(QuickSearchShortcut::from_repr)
+            .unwrap_or_default()
     }
 
     fn quick_seaech_exact_match_begin(&self) -> bool {

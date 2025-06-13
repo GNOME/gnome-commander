@@ -28,7 +28,6 @@
 #include "gnome-cmd-data.h"
 #include "gnome-cmd-cmdline.h"
 #include "gnome-cmd-dir-indicator.h"
-#include "gnome-cmd-user-actions.h"
 #include "history.h"
 #include "utils.h"
 #include "widget-factory.h"

@@ -23,7 +23,6 @@
 #include "gnome-cmd-includes.h"
 #include "gnome-cmd-main-win.h"
 #include "gnome-cmd-data.h"
-#include "gnome-cmd-user-actions.h"
 #include "imageloader.h"
 
 

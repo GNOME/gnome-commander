@@ -31,7 +31,6 @@
 #include "gnome-cmd-file-list.h"
 #include "gnome-cmd-file-selector.h"
 #include "gnome-cmd-main-win.h"
-#include "gnome-cmd-user-actions.h"
 #include "gnome-cmd-dir-indicator.h"
 #include "utils.h"
 #include "dialogs/gnome-cmd-mkdir-dialog.h"

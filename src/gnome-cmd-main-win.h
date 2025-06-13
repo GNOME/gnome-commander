@@ -78,5 +78,3 @@ extern "C" void gnome_cmd_main_win_switch_fs(GnomeCmdMainWin *main_win, GnomeCmd
 
 extern "C" GnomeCmdCmdline *gnome_cmd_main_win_get_cmdline(GnomeCmdMainWin *main_win);
 
-struct GnomeCmdShortcuts;
-extern "C" GnomeCmdShortcuts *gnome_cmd_main_win_shortcuts(GnomeCmdMainWin *main_win);

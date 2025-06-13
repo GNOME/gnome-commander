@@ -28,7 +28,6 @@
 
 #include "gnome-cmd-includes.h"
 #include "gnome-cmd-file-selector.h"
-#include "gnome-cmd-user-actions.h"
 #include "gnome-cmd-main-win.h"
 #include "gnome-cmd-data.h"
 #include "gnome-cmd-dir.h"
@@ -45,7 +44,6 @@ struct GnomeCmdMainWinPrivate
 {
 
     bool state_saved;
-    GnomeCmdShortcuts *gcmd_shortcuts;
 };
 
 
@@ -56,12 +54,7 @@ extern "C" void gnome_cmd_main_win_save_tabs(GnomeCmdMainWin *, gboolean, gboole
 
 extern "C" void gnome_cmd_main_win_update_drop_con_button (GnomeCmdMainWin *main_win, GnomeCmdFileList *fl);
 extern "C" GnomeCmdFileSelector *gnome_cmd_main_win_get_fs (GnomeCmdMainWin *main_win, FileSelectorID id);
-extern "C" void gnome_cmd_main_win_swap_panels (GnomeCmdMainWin *main_win);
-extern "C" void gnome_cmd_main_win_show_slide_popup (GnomeCmdMainWin *main_win);
 extern "C" void gnome_cmd_main_win_update_style(GnomeCmdMainWin *main_win);
-
-
-static gboolean on_key_pressed (GtkEventControllerKey *controller, guint keyval, guint keycode, GdkModifierType state, gpointer user_data);
 
 
 static GnomeCmdMainWinPrivate *gnome_cmd_main_win_priv (GnomeCmdMainWin *mw)
@@ -130,10 +123,6 @@ extern "C" void gnome_cmd_main_win_dispose (GnomeCmdMainWin *main_win)
 
     if (!priv->state_saved)
     {
-        gnome_cmd_shortcuts_save_to_settings (priv->gcmd_shortcuts);
-        gnome_cmd_shortcuts_free (priv->gcmd_shortcuts);
-        priv->gcmd_shortcuts = nullptr;
-
         gnome_cmd_main_win_save_tabs(main_win, gnome_cmd_data.options.save_tabs_on_exit, gnome_cmd_data.options.save_dirs_on_exit);
 
         gnome_cmd_data.save(main_win);
@@ -149,7 +138,6 @@ extern "C" void gnome_cmd_main_win_init (GnomeCmdMainWin *mw)
     g_object_set_data_full (G_OBJECT (mw), "priv", priv, g_free);
 
     priv->state_saved = false;
-    priv->gcmd_shortcuts = gnome_cmd_shortcuts_load_from_settings ();
 
     mw->update_show_toolbar();
 
@@ -163,11 +151,6 @@ extern "C" void gnome_cmd_main_win_init (GnomeCmdMainWin *mw)
     mw->fs(RIGHT)->update_connections();
 
     gnome_cmd_main_win_load_tabs(mw, gnome_cmd_application);
-
-    GtkEventController *key_controller = gtk_event_controller_key_new ();
-    gtk_event_controller_set_propagation_phase (key_controller, GTK_PHASE_CAPTURE);
-    gtk_widget_add_controller (GTK_WIDGET (mw), GTK_EVENT_CONTROLLER (key_controller));
-    g_signal_connect (key_controller, "key-pressed", G_CALLBACK (on_key_pressed), mw);
 }
 
 
@@ -195,193 +178,6 @@ void GnomeCmdMainWin::focus_file_lists()
 void GnomeCmdMainWin::refocus()
 {
     gtk_widget_grab_focus (GTK_WIDGET (fs(ACTIVE)));
-}
-
-
-static gboolean on_key_pressed (GtkEventControllerKey *controller, guint keyval, guint keycode, GdkModifierType state, gpointer user_data)
-{
-    auto mw = GNOME_CMD_MAIN_WIN (user_data);
-    auto priv = gnome_cmd_main_win_priv (mw);
-
-    if (state_is_ctrl_alt (state))
-    {
-        switch (keyval)
-        {
-            case GDK_KEY_c:
-            case GDK_KEY_C:
-                {
-                    auto cmdline = gnome_cmd_main_win_get_cmdline (mw);
-                    if (gtk_widget_is_visible (GTK_WIDGET (cmdline)) && gnome_cmd_data.options.quick_search == GNOME_CMD_QUICK_SEARCH_JUST_A_CHARACTER)
-                        gtk_widget_grab_focus (GTK_WIDGET (cmdline));
-                }
-                return TRUE;
-        }
-    }
-    else if (state_is_alt (state))
-    {
-        switch (keyval)
-        {
-            case GDK_KEY_F8:
-                {
-                    auto cmdline = gnome_cmd_main_win_get_cmdline (mw);
-                    if (gtk_widget_is_visible (GTK_WIDGET (cmdline)))
-                        gnome_cmd_cmdline_show_history (cmdline);
-                }
-                return TRUE;
-            default:
-                break;
-        }
-    }
-    else if (state_is_ctrl_shift (state))
-    {
-        switch (keyval)
-        {
-            case GDK_KEY_H:
-            case GDK_KEY_h:
-                {
-                    gboolean view;
-                    g_object_get (G_OBJECT (mw), "view-hidden-files", &view, nullptr);
-                    g_object_set (G_OBJECT (mw), "view-hidden-files", !view, nullptr);
-                }
-                return TRUE;
-            default:
-                break;
-        }
-    }
-    else if (state_is_ctrl (state))
-    {
-        switch (keyval)
-        {
-            case GDK_KEY_X:
-            case GDK_KEY_x:
-                g_action_group_activate_action (G_ACTION_GROUP (mw), "edit-cap-cut", nullptr);
-                return TRUE;
-
-            case GDK_KEY_C:
-            case GDK_KEY_c:
-                g_action_group_activate_action (G_ACTION_GROUP (mw), "edit-cap-copy", nullptr);
-                return TRUE;
-
-            case GDK_KEY_V:
-            case GDK_KEY_v:
-                g_action_group_activate_action (G_ACTION_GROUP (mw), "edit-cap-paste", nullptr);
-                return TRUE;
-
-            case GDK_KEY_e:
-            case GDK_KEY_E:
-            case GDK_KEY_Down:
-                {
-                    auto cmdline = gnome_cmd_main_win_get_cmdline (mw);
-                    if (gtk_widget_is_visible (GTK_WIDGET (cmdline)))
-                        gnome_cmd_cmdline_show_history (cmdline);
-                }
-                return TRUE;
-
-            case GDK_KEY_s:
-            case GDK_KEY_S:
-                gnome_cmd_main_win_show_slide_popup (mw);
-                return TRUE;
-
-            case GDK_KEY_u:
-            case GDK_KEY_U:
-                gnome_cmd_main_win_swap_panels (mw);
-                return TRUE;
-
-            default:
-                break;
-        }
-    }
-    else if (state_is_alt_shift (state))
-    {
-        switch (keyval)
-        {
-            case GDK_KEY_P:
-            case GDK_KEY_p:
-                g_action_group_activate_action (G_ACTION_GROUP (mw), "plugins-configure", nullptr);
-                break;
-
-            case GDK_KEY_f:
-            case GDK_KEY_F:
-            {
-                GListModel *connections = gnome_cmd_con_list_get_all (gnome_cmd_con_list_get ());
-                guint len = g_list_model_get_n_items (connections);
-                GnomeCmdCon *remote_con = nullptr;
-                for (guint i = 0; i < len; ++i)
-                {
-                    GnomeCmdCon *con = GNOME_CMD_CON (g_list_model_get_item (connections, i));
-                    if (GNOME_CMD_IS_CON_REMOTE (con))
-                    {
-                        remote_con = con;
-                        break;
-                    }
-                }
-                mw->fs(ACTIVE)->set_connection(remote_con);
-            }
-            break;
-
-            default:
-                break;
-        }
-    }
-    else if (state_is_blank (state))
-    {
-        switch (keyval)
-        {
-            case GDK_KEY_Tab:
-            case GDK_KEY_ISO_Left_Tab:
-                gnome_cmd_main_win_switch_fs (mw, mw->fs(INACTIVE));
-                return TRUE;
-
-            case GDK_KEY_F1:
-                g_action_group_activate_action (G_ACTION_GROUP (mw), "help-help", nullptr);
-                return TRUE;
-
-            case GDK_KEY_F2:
-                g_action_group_activate_action (G_ACTION_GROUP (mw), "file-rename", nullptr);
-                return TRUE;
-
-            case GDK_KEY_F3:
-                g_action_group_activate_action (G_ACTION_GROUP (mw), "file-view", nullptr);
-                return TRUE;
-
-            case GDK_KEY_F4:
-                g_action_group_activate_action (G_ACTION_GROUP (mw), "file-edit", nullptr);
-                return TRUE;
-
-            case GDK_KEY_F5:
-                g_action_group_activate_action (G_ACTION_GROUP (mw), "file-copy", nullptr);
-                return TRUE;
-
-            case GDK_KEY_F6:
-                g_action_group_activate_action (G_ACTION_GROUP (mw), "file-move", nullptr);
-                return TRUE;
-
-            case GDK_KEY_F7:
-                g_action_group_activate_action (G_ACTION_GROUP (mw), "file-mkdir", nullptr);
-                return TRUE;
-
-            case GDK_KEY_F8:
-                g_action_group_activate_action (G_ACTION_GROUP (mw), "file-delete", nullptr);
-                return TRUE;
-
-            case GDK_KEY_F9:
-                g_action_group_activate_action (G_ACTION_GROUP (mw), "file-search", nullptr);
-                return TRUE;
-
-            case GDK_KEY_Escape:
-                {
-                    auto cmdline = gnome_cmd_main_win_get_cmdline (mw);
-                    if (gtk_widget_is_visible (GTK_WIDGET (cmdline)))
-                        gnome_cmd_cmdline_set_text (cmdline, "");
-                }
-                return TRUE;
-
-            default:
-                break;
-        }
-    }
-
-    return gnome_cmd_shortcuts_handle_key_event (priv->gcmd_shortcuts, mw, keyval, state);
 }
 
 
@@ -450,10 +246,4 @@ void gnome_cmd_main_win_focus_file_lists(GnomeCmdMainWin *main_win)
 void gnome_cmd_main_win_update_view(GnomeCmdMainWin *main_win)
 {
     main_win->update_view();
-}
-
-GnomeCmdShortcuts *gnome_cmd_main_win_shortcuts(GnomeCmdMainWin *main_win)
-{
-    auto priv = gnome_cmd_main_win_priv (main_win);
-    return priv->gcmd_shortcuts;
 }

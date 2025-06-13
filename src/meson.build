@@ -36,7 +36,6 @@ sources_headers = files(
   'gnome-cmd-path.h',
   'gnome-cmd-treeview.h',
   'gnome-cmd-types.h',
-  'gnome-cmd-user-actions.h',
   'gnome-cmd-xfer.h',
   'history.h',
   'imageloader.h',
