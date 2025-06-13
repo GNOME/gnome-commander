@@ -17,22 +17,24 @@
  * For more details see the file COPYING.
  */
 
-use super::{profile::SearchProfile, selection_profile_component::SelectionProfileComponent};
+use super::{
+    profile::{SearchProfile, SearchProfilePtr},
+    selection_profile_component::SelectionProfileComponent,
+};
 use crate::{
     data::SearchConfig,
     dialogs::profiles::{manage_profiles_dialog::manage_profiles, profiles::ProfileManager},
     dir::{ffi::GnomeCmdDir, Directory},
     file::ffi::GnomeCmdFile,
     libgcmd::file_descriptor::FileDescriptorExt,
-    search::profile::SearchProfilePtr,
     tags::tags::FileMetadataService,
 };
 use gettextrs::{gettext, ngettext};
 use gtk::{
     gio,
     glib::{
-        ffi::{gboolean, GType},
-        translate::{from_glib_borrow, Borrowed, IntoGlib, ToGlibPtr},
+        ffi::gboolean,
+        translate::{from_glib_borrow, Borrowed, ToGlibPtr},
     },
     prelude::*,
     subclass::prelude::*,
@@ -732,11 +734,6 @@ impl SearchDialog {
 
 pub type GnomeCmdSearchDialog = <SearchDialog as glib::object::ObjectType>::GlibType;
 
-#[no_mangle]
-pub extern "C" fn gnome_cmd_search_dialog_get_type() -> GType {
-    SearchDialog::static_type().into_glib()
-}
-
 extern "C" {
     fn gnome_cmd_search_dialog_init(dialog: *mut GnomeCmdSearchDialog);
     fn gnome_cmd_search_dialog_dispose(dialog: *mut GnomeCmdSearchDialog);
@@ -764,14 +761,6 @@ pub extern "C" fn gnome_cmd_search_dialog_search_finished(
 ) {
     let dialog: Borrowed<SearchDialog> = unsafe { from_glib_borrow(dialog_ptr) };
     dialog.imp().search_finished(stopped != 0);
-}
-
-#[no_mangle]
-pub extern "C" fn gnome_cmd_search_dialog_update_profile_menu(
-    dialog_ptr: *mut GnomeCmdSearchDialog,
-) {
-    let dialog: Borrowed<SearchDialog> = unsafe { from_glib_borrow(dialog_ptr) };
-    dialog.imp().update_profile_menu();
 }
 
 #[no_mangle]

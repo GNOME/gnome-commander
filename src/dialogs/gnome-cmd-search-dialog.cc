@@ -25,19 +25,20 @@
 
 #include "gnome-cmd-includes.h"
 #include "gnome-cmd-data.h"
-#include "gnome-cmd-search-dialog.h"
 #include "gnome-cmd-dir.h"
 #include "gnome-cmd-file-list.h"
 #include "gnome-cmd-file-selector.h"
 #include "gnome-cmd-main-win.h"
 #include "gnome-cmd-con-list.h"
-#include "gnome-cmd-selection-profile-component.h"
 #include "dirlist.h"
 #include "filter.h"
 #include "utils.h"
-#include "widget-factory.h"
 
 using namespace std;
+
+
+struct GnomeCmdSearchDialog;
+struct GnomeCmdSelectionProfileComponent;
 
 
 #if 0

@@ -18,14 +18,7 @@
  */
 
 use crate::filter::PatternType;
-use gtk::{
-    glib::{
-        ffi::GType,
-        translate::{from_glib_borrow, Borrowed, IntoGlib},
-    },
-    prelude::*,
-    subclass::prelude::*,
-};
+use gtk::{glib, prelude::*, subclass::prelude::*};
 
 mod imp {
     use super::*;
@@ -146,21 +139,6 @@ pub struct SearchProfileVariant {
 }
 
 pub type SearchProfilePtr = <SearchProfile as glib::object::ObjectType>::GlibType;
-
-#[no_mangle]
-pub extern "C" fn gnome_cmd_search_profile_get_type() -> GType {
-    SearchProfile::static_type().into_glib()
-}
-
-#[no_mangle]
-pub extern "C" fn gnome_cmd_search_profile_copy_from(
-    dst: *mut SearchProfilePtr,
-    src: *mut SearchProfilePtr,
-) {
-    let dst: Borrowed<SearchProfile> = unsafe { from_glib_borrow(dst) };
-    let src: Borrowed<SearchProfile> = unsafe { from_glib_borrow(src) };
-    dst.copy_from(&*src);
-}
 
 #[cfg(test)]
 mod test {

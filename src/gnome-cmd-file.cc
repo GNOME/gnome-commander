@@ -30,7 +30,6 @@
 #include "gnome-cmd-main-win.h"
 #include "gnome-cmd-con-list.h"
 #include "gnome-cmd-xfer.h"
-#include "tags/file_metadata.h"
 #include "intviewer/libgviewer.h"
 #include "gnome-cmd-user-actions.h"
 

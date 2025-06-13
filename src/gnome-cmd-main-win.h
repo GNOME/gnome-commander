@@ -23,8 +23,6 @@
 
 #include "gnome-cmd-file-selector.h"
 #include "gnome-cmd-cmdline.h"
-#include "dialogs/gnome-cmd-search-dialog.h"
-#include "tags/file_metadata.h"
 
 #define GNOME_CMD_TYPE_MAIN_WIN              (gnome_cmd_main_win_get_type ())
 #define GNOME_CMD_MAIN_WIN(obj)              (G_TYPE_CHECK_INSTANCE_CAST((obj), GNOME_CMD_TYPE_MAIN_WIN, GnomeCmdMainWin))
@@ -82,5 +80,3 @@ extern "C" GnomeCmdCmdline *gnome_cmd_main_win_get_cmdline(GnomeCmdMainWin *main
 
 struct GnomeCmdShortcuts;
 extern "C" GnomeCmdShortcuts *gnome_cmd_main_win_shortcuts(GnomeCmdMainWin *main_win);
-
-extern "C" GnomeCmdFileMetadataService *gnome_cmd_main_win_get_file_metadata_service (GnomeCmdMainWin *main_win);

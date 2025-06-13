@@ -216,11 +216,8 @@ extern "C" void gnome_cmd_advanced_rename_profile_reset (AdvancedRenameProfile *
 
 struct GnomeCmdConRemote;
 
-extern "C" GType gnome_cmd_search_profile_get_type();
+
 struct SearchProfile;
-extern "C" void gnome_cmd_search_profile_copy_from(SearchProfile *dst, SearchProfile *src);
-
-
 struct SearchConfig;
 
 

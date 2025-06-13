@@ -1600,14 +1600,6 @@ pub extern "C" fn gnome_cmd_main_win_save_tabs(
 }
 
 #[no_mangle]
-pub extern "C" fn gnome_cmd_main_win_get_file_metadata_service(
-    mw_ptr: *mut ffi::GnomeCmdMainWin,
-) -> *mut <FileMetadataService as glib::object::ObjectType>::GlibType {
-    let mw: Borrowed<MainWindow> = unsafe { from_glib_borrow(mw_ptr) };
-    mw.file_metadata_service().to_glib_none().0
-}
-
-#[no_mangle]
 pub extern "C" fn gnome_cmd_main_win_update_drop_con_button(
     mw_ptr: *mut ffi::GnomeCmdMainWin,
     fl_ptr: *mut GnomeCmdFileList,

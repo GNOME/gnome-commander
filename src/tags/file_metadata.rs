@@ -77,9 +77,3 @@ impl FileMetadata {
             .flat_map(|(tag, values)| values.into_iter().map(|v| (tag.clone(), v.clone())))
     }
 }
-
-#[no_mangle]
-pub extern "C" fn gnome_cmd_file_metadata_free(fm: *mut FileMetadata) {
-    let metadata = unsafe { Box::from_raw(fm) };
-    drop(metadata);
-}
