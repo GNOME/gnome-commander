@@ -135,3 +135,5 @@ extern "C" void gnome_cmd_file_selector_activate_connection_list (GnomeCmdFileSe
 extern "C" void gnome_cmd_file_selector_update_tab_label (GnomeCmdFileSelector *fs, GnomeCmdFileList *fl);
 
 extern "C" void gnome_cmd_file_selector_update_style (GnomeCmdFileSelector *fs);
+
+extern "C" void gnome_cmd_file_selector_update_connections (GnomeCmdFileSelector *fs);

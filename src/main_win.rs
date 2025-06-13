@@ -21,7 +21,6 @@
  */
 
 use crate::{
-    application::{ffi::GnomeCmdApplication, Application},
     command_line::CommandLine,
     connection::{
         bookmark::{Bookmark, BookmarkGoToVariant},
@@ -31,7 +30,7 @@ use crate::{
     },
     data::{GeneralOptions, GeneralOptionsRead, GeneralOptionsWrite, SearchConfig},
     file::File,
-    file_list::list::{ffi::GnomeCmdFileList, FileList},
+    file_list::list::FileList,
     file_selector::{ffi::GnomeCmdFileSelector, FileSelector, TabVariant},
     libgcmd::{
         file_actions::{FileActions, FileActionsExt},
@@ -58,13 +57,14 @@ use gtk::{
     prelude::*,
     subclass::prelude::*,
 };
-use std::{cell::RefCell, path::PathBuf};
+use std::{cell::RefCell, path::Path};
 
 pub mod imp {
     use super::*;
     use crate::{
         command_line::CommandLine,
         data::{FiltersOptions, ProgramsOptions},
+        dir::Directory,
         layout::color_themes::ColorThemes,
         paned_ext::GnomeCmdPanedExt,
         pwd::uid,
@@ -381,6 +381,47 @@ pub mod imp {
                     .filter_map(|a| a.action_entry()),
             );
 
+            self.update_drop_con_button(None);
+
+            self.file_selector_left
+                .borrow()
+                .connect_directory_changed(glib::clone!(
+                    #[weak(rename_to = imp)]
+                    self,
+                    move |fs, dir| imp.on_fs_dir_changed(&fs, dir)
+                ));
+            self.file_selector_right
+                .borrow()
+                .connect_directory_changed(glib::clone!(
+                    #[weak(rename_to = imp)]
+                    self,
+                    move |fs, dir| imp.on_fs_dir_changed(&fs, dir)
+                ));
+
+            self.file_selector_left
+                .borrow()
+                .connect_activate_request(glib::clone!(
+                    #[weak]
+                    mw,
+                    move |fs| {
+                        mw.switch_to_fs(fs);
+                        fs.grab_focus();
+                    }
+                ));
+            self.file_selector_right
+                .borrow()
+                .connect_activate_request(glib::clone!(
+                    #[weak]
+                    mw,
+                    move |fs| {
+                        mw.switch_to_fs(fs);
+                        fs.grab_focus();
+                    }
+                ));
+
+            self.file_selector_left.borrow().update_connections();
+            self.file_selector_right.borrow().update_connections();
+
             unsafe {
                 super::ffi::gnome_cmd_main_win_init(self.obj().to_glib_none().0);
             }
@@ -500,16 +541,6 @@ pub mod imp {
         fn realize(&self) {
             self.parent_realize();
             self.spawn_ensure_slide_position(50);
-
-            self.file_selector_left.borrow().set_active(true);
-            self.file_selector_right.borrow().set_active(false);
-
-            // if (gnome_cmd_data.cmdline_visibility)
-            // {
-            //      gchar *dpath = GNOME_CMD_FILE (mw->fs(LEFT)->get_directory())->get_path();
-            //      gnome_cmd_cmdline_set_dir (GNOME_CMD_CMDLINE (priv->cmdline), dpath);
-            //      g_free (dpath);
-            // }
         }
     }
 
@@ -804,14 +835,10 @@ pub mod imp {
                     self.file_selector_right.borrow()
                 }
             };
-            unsafe {
-                ffi::gnome_cmd_main_win_update_browse_buttons(
-                    self.obj().to_glib_none().0,
-                    fs.to_glib_none().0,
-                );
-            }
+            self.update_browse_buttons(&*fs);
             self.update_drop_con_button(fs.file_list().connection().as_ref());
             self.update_cmdline();
+            fs.file_list().grab_focus();
         }
 
         fn on_left_fs_select(&self) {
@@ -820,6 +847,12 @@ pub mod imp {
 
         fn on_right_fs_select(&self) {
             self.obj().set_current_panel(1);
+        }
+
+        fn on_fs_dir_changed(&self, fs: &FileSelector, _dir: &Directory) {
+            self.update_browse_buttons(fs);
+            self.update_drop_con_button(fs.file_list().connection().as_ref());
+            self.update_cmdline();
         }
 
         fn on_con_list_list_changed(&self) {
@@ -852,6 +885,28 @@ pub mod imp {
                 ),
             );
             self.obj().update_view();
+        }
+
+        fn update_browse_buttons(&self, fs: &FileSelector) {
+            fn enable_action(imp: &MainWindow, action: &str, enabled: bool) {
+                if let Some(action) = imp
+                    .obj()
+                    .lookup_action(action)
+                    .and_downcast::<gio::SimpleAction>()
+                {
+                    action.set_enabled(enabled);
+                } else {
+                    eprintln!("Action {action} does not exist.");
+                }
+            }
+            if *fs == self.obj().file_selector(FileSelectorID::ACTIVE) {
+                let can_back = fs.can_back();
+                let can_forward = fs.can_forward();
+                enable_action(self, "view-first", can_back);
+                enable_action(self, "view-back", can_back);
+                enable_action(self, "view-forward", can_forward);
+                enable_action(self, "view-last", can_forward);
+            }
         }
 
         fn update_cmdline(&self) {
@@ -1052,10 +1107,6 @@ pub mod ffi {
 
         pub fn gnome_cmd_main_win_update_view(main_win: *mut GnomeCmdMainWin);
 
-        pub fn gnome_cmd_main_win_update_browse_buttons(
-            main_win: *mut GnomeCmdMainWin,
-            fs: *mut GnomeCmdFileSelector,
-        );
     }
 }
 
@@ -1071,6 +1122,10 @@ pub extern "C" fn gnome_cmd_main_win_get_type() -> GType {
 }
 
 impl MainWindow {
+    pub fn new() -> Self {
+        glib::Object::builder().build()
+    }
+
     pub fn left_panel(&self) -> FileSelector {
         self.imp().file_selector_left.borrow().clone()
     }
@@ -1119,10 +1174,10 @@ impl MainWindow {
     }
 
     fn switch_to_opposite(&self) {
-        self.set_current_panel(!self.current_panel());
+        self.set_current_panel(1_u32.saturating_sub(self.current_panel()));
     }
 
-    pub fn load_tabs(&self, start_left_dir: Option<PathBuf>, start_right_dir: Option<PathBuf>) {
+    pub fn load_tabs(&self, start_left_dir: Option<&Path>, start_right_dir: Option<&Path>) {
         let options = GeneralOptions::new();
 
         let (mut left_tabs, mut right_tabs): (Vec<_>, Vec<_>) = options
@@ -1130,11 +1185,11 @@ impl MainWindow {
             .into_iter()
             .partition(|t| t.file_felector_id == 0);
 
-        if let Some(dir) = start_left_dir.as_ref().and_then(|d| d.to_str()) {
+        if let Some(dir) = start_left_dir.and_then(|d| d.to_str()) {
             left_tabs.push(TabVariant::new(dir));
         }
 
-        if let Some(dir) = start_right_dir.as_ref().and_then(|d| d.to_str()) {
+        if let Some(dir) = start_right_dir.and_then(|d| d.to_str()) {
             right_tabs.push(TabVariant::new(dir));
         }
 
@@ -1717,18 +1772,6 @@ fn create_plugins_menu(main_win: &MainWindow) -> gio::Menu {
 }
 
 #[no_mangle]
-pub extern "C" fn gnome_cmd_main_win_load_tabs(
-    mw_ptr: *mut ffi::GnomeCmdMainWin,
-    app_ptr: *mut GnomeCmdApplication,
-) {
-    let mw: Borrowed<MainWindow> = unsafe { from_glib_borrow(mw_ptr) };
-    let app: Borrowed<Option<Application>> = unsafe { from_glib_borrow(app_ptr) };
-    let start_left_dir = (*app).as_ref().and_then(|a| a.start_left_dir());
-    let start_right_dir = (*app).as_ref().and_then(|a| a.start_right_dir());
-    mw.load_tabs(start_left_dir, start_right_dir);
-}
-
-#[no_mangle]
 pub extern "C" fn gnome_cmd_main_win_save_tabs(
     mw_ptr: *mut ffi::GnomeCmdMainWin,
     save_all: gboolean,
@@ -1736,17 +1779,6 @@ pub extern "C" fn gnome_cmd_main_win_save_tabs(
 ) {
     let mw: Borrowed<MainWindow> = unsafe { from_glib_borrow(mw_ptr) };
     mw.save_tabs(save_all != 0, save_current != 0);
-}
-
-#[no_mangle]
-pub extern "C" fn gnome_cmd_main_win_update_drop_con_button(
-    mw_ptr: *mut ffi::GnomeCmdMainWin,
-    fl_ptr: *mut GnomeCmdFileList,
-) {
-    let mw: Borrowed<MainWindow> = unsafe { from_glib_borrow(mw_ptr) };
-    let fl: Borrowed<Option<FileList>> = unsafe { from_glib_borrow(fl_ptr) };
-    mw.imp()
-        .update_drop_con_button((&*fl).as_ref().and_then(|fl| fl.connection()).as_ref());
 }
 
 #[no_mangle]
@@ -1764,16 +1796,6 @@ pub extern "C" fn gnome_cmd_main_win_get_cmdline(
 ) -> *mut <CommandLine as glib::object::ObjectType>::GlibType {
     let mw: Borrowed<MainWindow> = unsafe { from_glib_borrow(mw_ptr) };
     mw.imp().cmdline.to_glib_none().0
-}
-
-#[no_mangle]
-pub extern "C" fn gnome_cmd_main_win_switch_fs(
-    mw_ptr: *mut ffi::GnomeCmdMainWin,
-    fs_ptr: *mut GnomeCmdFileSelector,
-) {
-    let mw: Borrowed<MainWindow> = unsafe { from_glib_borrow(mw_ptr) };
-    let fs: Borrowed<FileSelector> = unsafe { from_glib_borrow(fs_ptr) };
-    mw.switch_to_fs(&fs);
 }
 
 #[no_mangle]

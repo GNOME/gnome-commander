@@ -622,9 +622,6 @@ void GnomeCmdFileSelector::set_active(gboolean value)
 
     priv->active = value;
 
-    if (value)
-        gtk_widget_grab_focus (GTK_WIDGET (priv->list));
-
     gnome_cmd_dir_indicator_set_active (GNOME_CMD_DIR_INDICATOR (priv->dir_indicator), value);
 }
 
@@ -912,6 +909,11 @@ void gnome_cmd_file_selector_activate_connection_list (GnomeCmdFileSelector *fs)
         g_signal_emit_by_name (priv->con_dropdown, "activate");
         gtk_widget_grab_focus (priv->con_dropdown);
     }
+}
+
+void gnome_cmd_file_selector_update_connections (GnomeCmdFileSelector *fs)
+{
+    fs->update_connections();
 }
 
 void gnome_cmd_file_selector_update_style (GnomeCmdFileSelector *fs)

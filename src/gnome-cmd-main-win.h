@@ -54,11 +54,8 @@ struct GnomeCmdMainWin
     void set_fs_directory_to_opposite(FileSelectorID fsID);
 
     void focus_file_lists();
-    void refocus();
 
     void update_view();
-    void update_show_toolbar();
-    void update_cmdline();
 
 };
 
@@ -69,8 +66,6 @@ extern "C" GnomeCmdFileSelector *gnome_cmd_main_win_get_fs(GnomeCmdMainWin *main
 extern "C" void gnome_cmd_main_win_focus_file_lists(GnomeCmdMainWin *main_win);
 
 extern "C" void gnome_cmd_main_win_update_view(GnomeCmdMainWin *main_win);
-
-extern "C" void gnome_cmd_main_win_switch_fs(GnomeCmdMainWin *main_win, GnomeCmdFileSelector *fs);
 
 extern "C" GnomeCmdCmdline *gnome_cmd_main_win_get_cmdline(GnomeCmdMainWin *main_win);
 

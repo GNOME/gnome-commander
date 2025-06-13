@@ -115,6 +115,8 @@ pub mod ffi {
 
         pub fn gnome_cmd_file_selector_update_style(fs: *mut GnomeCmdFileSelector);
 
+        pub fn gnome_cmd_file_selector_update_connections(fs: *mut GnomeCmdFileSelector);
+
         pub fn gnome_cmd_file_selector_activate_connection_list(fs: *mut GnomeCmdFileSelector);
     }
 }
@@ -489,6 +491,10 @@ impl FileSelector {
         }
     }
 
+    pub fn update_connections(&self) {
+        unsafe { ffi::gnome_cmd_file_selector_update_connections(self.to_glib_none().0) }
+    }
+
     pub fn activate_connection_list(&self) {
         unsafe { ffi::gnome_cmd_file_selector_activate_connection_list(self.to_glib_none().0) }
     }
@@ -676,7 +682,7 @@ impl FileSelector {
                     stored_tab.sort_type(),
                     stored_tab.locked,
                     true,
-                    true,
+                    false,
                 );
             }
             visited.insert(stored_tab);
@@ -695,7 +701,7 @@ impl FileSelector {
                     gtk::SortType::Ascending,
                     false,
                     true,
-                    true,
+                    false,
                 );
             } else {
                 eprintln!("Stored path {} is invalid. Skipping", path.display());
@@ -711,6 +717,28 @@ impl FileSelector {
             (callback)();
             None
         })
+    }
+
+    pub fn connect_directory_changed<F>(&self, callback: F) -> glib::SignalHandlerId
+    where
+        F: Fn(&Self, &Directory) + 'static,
+    {
+        self.connect_closure(
+            "dir-changed",
+            false,
+            glib::closure_local!(move |this: &Self, d: Directory| { (callback)(this, &d) }),
+        )
+    }
+
+    pub fn connect_activate_request<F>(&self, callback: F) -> glib::SignalHandlerId
+    where
+        F: Fn(&Self) + 'static,
+    {
+        self.connect_closure(
+            "activate-request",
+            false,
+            glib::closure_local!(move |this: &Self| { (callback)(this) }),
+        )
     }
 
     pub fn connection_bar(&self) -> gtk::Widget {

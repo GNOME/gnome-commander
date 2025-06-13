@@ -47,12 +47,9 @@ struct GnomeCmdMainWinPrivate
 };
 
 
-extern "C" GApplication *gnome_cmd_application;
-extern "C" void gnome_cmd_main_win_load_tabs(GnomeCmdMainWin *, GApplication *);
 extern "C" void gnome_cmd_main_win_save_tabs(GnomeCmdMainWin *, gboolean, gboolean);
 
 
-extern "C" void gnome_cmd_main_win_update_drop_con_button (GnomeCmdMainWin *main_win, GnomeCmdFileList *fl);
 extern "C" GnomeCmdFileSelector *gnome_cmd_main_win_get_fs (GnomeCmdMainWin *main_win, FileSelectorID id);
 extern "C" void gnome_cmd_main_win_update_style(GnomeCmdMainWin *main_win);
 
@@ -60,56 +57,6 @@ extern "C" void gnome_cmd_main_win_update_style(GnomeCmdMainWin *main_win);
 static GnomeCmdMainWinPrivate *gnome_cmd_main_win_priv (GnomeCmdMainWin *mw)
 {
     return (GnomeCmdMainWinPrivate *) g_object_get_data (G_OBJECT (mw), "priv");
-}
-
-
-/*****************************************************************************
-    Misc widgets callbacks
-*****************************************************************************/
-
-extern "C" void gnome_cmd_main_win_update_browse_buttons (GnomeCmdMainWin *mw, GnomeCmdFileSelector *fs)
-{
-    g_return_if_fail (GNOME_CMD_IS_MAIN_WIN (mw));
-    g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
-
-    if (fs == mw->fs(ACTIVE))
-    {
-        g_simple_action_set_enabled (
-            G_SIMPLE_ACTION (g_action_map_lookup_action (G_ACTION_MAP (mw), "view-first")),
-            gnome_cmd_file_selector_can_back(fs));
-        g_simple_action_set_enabled (
-            G_SIMPLE_ACTION (g_action_map_lookup_action (G_ACTION_MAP (mw), "view-back")),
-            gnome_cmd_file_selector_can_back(fs));
-        g_simple_action_set_enabled (
-            G_SIMPLE_ACTION (g_action_map_lookup_action (G_ACTION_MAP (mw), "view-forward")),
-            gnome_cmd_file_selector_can_forward(fs));
-        g_simple_action_set_enabled (
-            G_SIMPLE_ACTION (g_action_map_lookup_action (G_ACTION_MAP (mw), "view-last")),
-            gnome_cmd_file_selector_can_forward(fs));
-    }
-}
-
-
-static void on_fs_dir_change (GnomeCmdFileSelector *fs, const gchar dir, GnomeCmdMainWin *mw)
-{
-    gnome_cmd_main_win_update_browse_buttons (mw, fs);
-    gnome_cmd_main_win_update_drop_con_button (mw, fs->file_list());
-    mw->update_cmdline();
-}
-
-
-static void on_fs_activate_request (GnomeCmdFileSelector *fs, GnomeCmdMainWin *mw)
-{
-    gnome_cmd_main_win_switch_fs (mw, fs);
-    mw->refocus();
-}
-
-
-static void toggle_action_change_state (GnomeCmdMainWin *mw, const gchar *action, bool state)
-{
-    g_action_change_state (
-        g_action_map_lookup_action (G_ACTION_MAP (mw), action),
-        g_variant_new_boolean (state));
 }
 
 
@@ -138,19 +85,6 @@ extern "C" void gnome_cmd_main_win_init (GnomeCmdMainWin *mw)
     g_object_set_data_full (G_OBJECT (mw), "priv", priv, g_free);
 
     priv->state_saved = false;
-
-    mw->update_show_toolbar();
-
-    g_signal_connect (mw->fs(LEFT), "dir-changed", G_CALLBACK (on_fs_dir_change), mw);
-    g_signal_connect (mw->fs(RIGHT), "dir-changed", G_CALLBACK (on_fs_dir_change), mw);
-
-    g_signal_connect (mw->fs(LEFT), "activate-request", G_CALLBACK (on_fs_activate_request), mw);
-    g_signal_connect (mw->fs(RIGHT), "activate-request", G_CALLBACK (on_fs_activate_request), mw);
-
-    mw->fs(LEFT)->update_connections();
-    mw->fs(RIGHT)->update_connections();
-
-    gnome_cmd_main_win_load_tabs(mw, gnome_cmd_application);
 }
 
 
@@ -170,11 +104,6 @@ void GnomeCmdMainWin::focus_file_lists()
 {
     fs(ACTIVE)->set_active(TRUE);
     fs(INACTIVE)->set_active(FALSE);
-}
-
-
-void GnomeCmdMainWin::refocus()
-{
     gtk_widget_grab_focus (GTK_WIDGET (fs(ACTIVE)));
 }
 
@@ -202,21 +131,10 @@ void GnomeCmdMainWin::set_fs_directory_to_opposite(FileSelectorID fsID)
 
     other->set_active(!fs_is_active);
     fselector->set_active(fs_is_active);
-}
-
-
-void GnomeCmdMainWin::update_show_toolbar()
-{
-    gnome_cmd_main_win_update_drop_con_button (this, fs(ACTIVE)->file_list());
-}
-
-
-void GnomeCmdMainWin::update_cmdline()
-{
-    auto cmdline = gnome_cmd_main_win_get_cmdline(this);
-    gchar *dpath = gnome_cmd_dir_get_display_path (fs(ACTIVE)->get_directory());
-    gnome_cmd_cmdline_set_dir (cmdline, dpath);
-    g_free (dpath);
+    if (fs_is_active)
+        gtk_widget_grab_focus (GTK_WIDGET (fselector));
+    else
+        gtk_widget_grab_focus (GTK_WIDGET (other));
 }
 
 

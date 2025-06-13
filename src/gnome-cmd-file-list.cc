@@ -1135,7 +1135,6 @@ static void on_dir_list_ok (GnomeCmdDir *dir, GnomeCmdFileList *fl)
     {
         gtk_widget_set_sensitive (*fl, TRUE);
         gtk_widget_set_cursor (*fl, nullptr);
-        gtk_widget_grab_focus (*fl);
     }
 
     if (priv->connected_dir!=dir)
