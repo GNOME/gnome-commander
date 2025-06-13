@@ -111,7 +111,7 @@ impl PluginManager {
         }
     }
 
-    fn save(&self) {
+    pub fn save(&self) {
         let plugins = self.imp().plugins.borrow();
         let autoload: Vec<&str> = plugins
             .iter()
