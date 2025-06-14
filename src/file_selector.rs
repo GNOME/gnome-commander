@@ -121,6 +121,8 @@ pub mod ffi {
         );
 
         pub fn gnome_cmd_file_selector_update_style(fs: *mut GnomeCmdFileSelector);
+
+        pub fn gnome_cmd_file_selector_activate_connection_list(fs: *mut GnomeCmdFileSelector);
     }
 }
 
@@ -482,6 +484,10 @@ impl FileSelector {
                 value as gboolean,
             )
         }
+    }
+
+    pub fn activate_connection_list(&self) {
+        unsafe { ffi::gnome_cmd_file_selector_activate_connection_list(self.to_glib_none().0) }
     }
 
     pub fn goto_directory(&self, con: &Connection, path: &Path) {

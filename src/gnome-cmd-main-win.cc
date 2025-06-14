@@ -168,8 +168,6 @@ void GnomeCmdMainWin::update_view()
 
 void GnomeCmdMainWin::focus_file_lists()
 {
-    auto priv = gnome_cmd_main_win_priv (this);
-
     fs(ACTIVE)->set_active(TRUE);
     fs(INACTIVE)->set_active(FALSE);
 }
@@ -178,15 +176,6 @@ void GnomeCmdMainWin::focus_file_lists()
 void GnomeCmdMainWin::refocus()
 {
     gtk_widget_grab_focus (GTK_WIDGET (fs(ACTIVE)));
-}
-
-
-void GnomeCmdMainWin::change_connection(FileSelectorID id)
-{
-    GnomeCmdFileSelector *fselector = this->fs(id);
-
-    gnome_cmd_main_win_switch_fs (this, fselector);
-    gnome_cmd_file_selector_activate_connection_list (fselector);
 }
 
 
@@ -232,11 +221,6 @@ void GnomeCmdMainWin::update_cmdline()
 
 
 // FFI
-
-void gnome_cmd_main_win_change_connection(GnomeCmdMainWin *main_win, FileSelectorID id)
-{
-    main_win->change_connection(id);
-}
 
 void gnome_cmd_main_win_focus_file_lists(GnomeCmdMainWin *main_win)
 {

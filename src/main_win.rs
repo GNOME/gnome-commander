@@ -1048,11 +1048,6 @@ pub mod ffi {
         pub fn gnome_cmd_main_win_init(main_win: *mut GnomeCmdMainWin);
         pub fn gnome_cmd_main_win_dispose(main_win: *mut GnomeCmdMainWin);
 
-        pub fn gnome_cmd_main_win_change_connection(
-            main_win: *mut GnomeCmdMainWin,
-            id: FileSelectorID,
-        );
-
         pub fn gnome_cmd_main_win_focus_file_lists(main_win: *mut GnomeCmdMainWin);
 
         pub fn gnome_cmd_main_win_update_view(main_win: *mut GnomeCmdMainWin);
@@ -1177,7 +1172,9 @@ impl MainWindow {
     }
 
     pub fn change_connection(&self, id: FileSelectorID) {
-        unsafe { ffi::gnome_cmd_main_win_change_connection(self.to_glib_none().0, id) }
+        let file_selector = self.file_selector(id);
+        self.switch_to_fs(&file_selector);
+        file_selector.activate_connection_list();
     }
 
     pub fn focus_file_lists(&self) {
