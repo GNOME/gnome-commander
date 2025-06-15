@@ -1832,6 +1832,7 @@ void hex_mode_display_line(TextRender *w, GtkSnapshot *snapshot, int column, off
     else
         text_render_utf8_printf (w, "%09lu ", (unsigned long)start_of_line);
 
+    int bytes_printed = 0;
     for (offset_type current=start_of_line; current<end_of_line; ++current)
     {
         if (show_marker)
@@ -1847,7 +1848,10 @@ void hex_mode_display_line(TextRender *w, GtkSnapshot *snapshot, int column, off
             break;
 
         text_render_utf8_printf (w, "%02x ", (unsigned char) byte_value);
+        ++bytes_printed;
     }
+    for (; bytes_printed < HEXDUMP_FIXED_LIMIT; ++bytes_printed)
+        text_render_utf8_printf (w, "   ");
 
     if (show_marker)
         marker_closer(w, marker_shown);
