@@ -70,7 +70,7 @@ enum
 
 static guint text_render_signals[LAST_SIGNAL] = { 0 };
 
-typedef int (*display_line_proc)(TextRender *w, cairo_t *cr, int y, int column, offset_type start_of_line, offset_type end_of_line);
+typedef void (*display_line_proc)(TextRender *w, GtkSnapshot *snapshot, int column, offset_type start_of_line, offset_type end_of_line);
 typedef offset_type (*pixel_to_offset_proc) (TextRender *obj, int x, int y, gboolean start_marker);
 typedef void (*copy_to_clipboard_proc)(TextRender *obj, offset_type start_offset, offset_type end_offset);
 
@@ -174,12 +174,12 @@ static int text_render_utf8_printf (TextRender *w, const char *format, ...);
 static int text_render_utf8_print_char(TextRender *w, char_type value);
 
 static void text_mode_copy_to_clipboard(TextRender *obj, offset_type start_offset, offset_type end_offset);
-static int text_mode_display_line(TextRender *w, cairo_t *cr, int y, int column, offset_type start_of_line, offset_type end_of_line);
+static void text_mode_display_line(TextRender *w, GtkSnapshot *snapshot, int column, offset_type start_of_line, offset_type end_of_line);
 static offset_type text_mode_pixel_to_offset(TextRender *obj, int x, int y, gboolean start_marker);
 
-static int binary_mode_display_line(TextRender *w, cairo_t *cr, int y, int column, offset_type start_of_line, offset_type end_of_line);
+static void binary_mode_display_line(TextRender *w, GtkSnapshot *snapshot, int column, offset_type start_of_line, offset_type end_of_line);
 
-static int hex_mode_display_line(TextRender *w, cairo_t *cr, int y, int column, offset_type start_of_line, offset_type end_of_line);
+static void hex_mode_display_line(TextRender *w, GtkSnapshot *snapshot, int column, offset_type start_of_line, offset_type end_of_line);
 static void hex_mode_copy_to_clipboard(TextRender *obj, offset_type start_offset, offset_type end_offset);
 static offset_type hex_mode_pixel_to_offset(TextRender *obj, int x, int y, gboolean start_marker);
 
@@ -603,7 +603,7 @@ static void text_render_draw (GtkWidget *widget, GtkSnapshot *snapshot)
     gtk_widget_get_allocation (widget, &widget_allocation);
 
     graphene_rect_t rect = { { 0, 0 }, { (float) widget_allocation.width, (float) widget_allocation.height } };
-    cairo_t *cr = gtk_snapshot_append_cairo (snapshot, &rect);
+    gtk_snapshot_push_clip (snapshot, &rect);
 
     int column = text_render_get_column (w);
 
@@ -618,10 +618,11 @@ static void text_render_draw (GtkWidget *widget, GtkSnapshot *snapshot)
         if (eol_offset == ofs)
             break;
 
-        rc = priv->display_line(w, cr, y, column, ofs, eol_offset);
-
-        if (rc==-1)
-            break;
+        gtk_snapshot_save (snapshot);
+        graphene_point_t pt = { .x = 0, .y = y };
+        gtk_snapshot_translate (snapshot, &pt);
+        priv->display_line(w, snapshot, column, ofs, eol_offset);
+        gtk_snapshot_restore (snapshot);
 
         ofs = eol_offset;
 
@@ -631,9 +632,9 @@ static void text_render_draw (GtkWidget *widget, GtkSnapshot *snapshot)
 
     }
 
-    priv->last_displayed_offset = ofs;
+    gtk_snapshot_pop (snapshot);
 
-    cairo_destroy (cr);
+    priv->last_displayed_offset = ofs;
 }
 
 
@@ -1563,9 +1564,8 @@ static void text_mode_copy_to_clipboard(TextRender *obj, offset_type start_offse
 }
 
 
-static int text_mode_display_line(TextRender *w, cairo_t *cr, int y, int column, offset_type start_of_line, offset_type end_of_line)
+void text_mode_display_line(TextRender *w, GtkSnapshot *snapshot, int column, offset_type start_of_line, offset_type end_of_line)
 {
-    g_return_val_if_fail (IS_TEXT_RENDER (w), -1);
     auto priv = text_render_priv (w);
 
     offset_type current;
@@ -1635,20 +1635,17 @@ static int text_mode_display_line(TextRender *w, cairo_t *cr, int y, int column,
     if (show_marker)
         marker_closer(w, marker_shown);
 
-    cairo_save (cr);
     pango_layout_set_font_description (priv->layout, priv->font_desc);
     pango_layout_set_markup (priv->layout, (gchar *) priv->utf8buf, priv->utf8buf_length);
-    cairo_translate (cr, -(priv->char_width*column), y);
-    pango_cairo_show_layout (cr, priv->layout);
-    cairo_restore (cr);
-
-    return 0;
+    graphene_point_t pt = { .x = -(priv->char_width*column), .y = 0 };
+    gtk_snapshot_translate (snapshot, &pt);
+    GdkRGBA color = { .red = 0.0, .green = 0.0, .blue = 0.0, .alpha = 1.0 };
+    gtk_snapshot_append_layout (snapshot, priv->layout, &color);
 }
 
 
-static int binary_mode_display_line(TextRender *w, cairo_t *cr, int y, int column, offset_type start_of_line, offset_type end_of_line)
+void binary_mode_display_line(TextRender *w, GtkSnapshot *snapshot, int column, offset_type start_of_line, offset_type end_of_line)
 {
-    g_return_val_if_fail (IS_TEXT_RENDER (w), -1);
     auto priv = text_render_priv (w);
 
     offset_type current;
@@ -1699,14 +1696,12 @@ static int binary_mode_display_line(TextRender *w, cairo_t *cr, int y, int colum
     if (show_marker)
         marker_closer(w, marker_shown);
 
-    cairo_save (cr);
     pango_layout_set_font_description (priv->layout, priv->font_desc);
     pango_layout_set_markup (priv->layout, (gchar *) priv->utf8buf, priv->utf8buf_length);
-    cairo_translate (cr, -(priv->char_width*column), y);
-    pango_cairo_show_layout (cr, priv->layout);
-    cairo_restore (cr);
-
-    return 0;
+    graphene_point_t pt = { .x = -(priv->char_width*column), .y = 0 };
+    gtk_snapshot_translate (snapshot, &pt);
+    GdkRGBA color = { .red = 0.0, .green = 0.0, .blue = 0.0, .alpha = 1.0 };
+    gtk_snapshot_append_layout (snapshot, priv->layout, &color);
 }
 
 
@@ -1814,9 +1809,8 @@ static void hex_mode_copy_to_clipboard(TextRender *obj, offset_type start_offset
 }
 
 
-static int hex_mode_display_line(TextRender *w, cairo_t *cr, int y, int column, offset_type start_of_line, offset_type end_of_line)
+void hex_mode_display_line(TextRender *w, GtkSnapshot *snapshot, int column, offset_type start_of_line, offset_type end_of_line)
 {
-    g_return_val_if_fail (IS_TEXT_RENDER (w), -1);
     auto priv = text_render_priv (w);
 
     offset_type marker_start = priv->marker_start;
@@ -1885,12 +1879,8 @@ static int hex_mode_display_line(TextRender *w, cairo_t *cr, int y, int column, 
     if (show_marker)
         marker_closer(w, marker_shown);
 
-    cairo_save (cr);
     pango_layout_set_font_description (priv->layout, priv->font_desc);
     pango_layout_set_markup (priv->layout, (gchar *) priv->utf8buf, priv->utf8buf_length);
-    cairo_translate (cr, 0, y);
-    pango_cairo_show_layout (cr, priv->layout);
-    cairo_restore (cr);
-
-    return 0;
+    GdkRGBA color = { .red = 0.0, .green = 0.0, .blue = 0.0, .alpha = 1.0 };
+    gtk_snapshot_append_layout (snapshot, priv->layout, &color);
 }
