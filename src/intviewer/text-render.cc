@@ -115,12 +115,8 @@ struct TextRenderPrivate
     gchar *fixed_font_name;
 
     // Pango and Fonts variables
-    gint    char_width;
     gint     chars_per_line;
-    gint    char_height;
     gint     lines_displayed;
-    PangoFontMetrics *disp_font_metrics;
-    PangoFontDescription *font_desc;
     PangoLayout *layout;
 
     unsigned char *utf8buf;
@@ -165,8 +161,7 @@ static gboolean text_render_key_pressed (GtkEventControllerKey *controller, guin
 
 static void text_render_update_adjustments_limits(TextRender *w);
 static void text_render_free_data(TextRender *w);
-static void text_render_setup_font(TextRender*w, const gchar *fontname, gint fontsize);
-static void text_render_free_font(TextRender*w);
+extern "C" void text_render_setup_font(TextRender*w, const gchar *fontname, guint fontsize);
 static void text_render_reserve_utf8buf(TextRender *w, int minlength);
 
 static void text_render_utf8_clear_buf(TextRender *w);
@@ -182,6 +177,10 @@ static void binary_mode_display_line(TextRender *w, GtkSnapshot *snapshot, int c
 static void hex_mode_display_line(TextRender *w, GtkSnapshot *snapshot, int column, offset_type start_of_line, offset_type end_of_line);
 static void hex_mode_copy_to_clipboard(TextRender *obj, offset_type start_offset, offset_type end_offset);
 static offset_type hex_mode_pixel_to_offset(TextRender *obj, int x, int y, gboolean start_marker);
+
+extern "C" PangoFontDescription *text_render_get_font_description(TextRender *w);
+extern "C" gint text_render_get_char_width(TextRender *w);
+extern "C" gint text_render_get_char_height(TextRender *w);
 
 
 static TextRenderPrivate* text_render_priv (TextRender *w)
@@ -411,7 +410,6 @@ static void text_render_finalize (GObject *object)
     g_clear_object (&priv->v_adjustment);
     g_clear_object (&priv->h_adjustment);
     g_clear_pointer (&priv->encoding, g_free);
-    text_render_free_font(w);
     text_render_free_data(w);
     g_clear_pointer (&priv->utf8buf, g_free);
 
@@ -575,14 +573,17 @@ static void text_render_size_allocate (GtkWidget *widget, int width, int height,
     TextRender *w = TEXT_RENDER (widget);
     auto priv = text_render_priv (w);
 
-    if (priv->dp && (priv->char_width>0))
+    auto char_width = text_render_get_char_width (w);
+    auto char_height = text_render_get_char_height (w);
+
+    if (priv->dp && (char_width > 0))
     {
-        priv->chars_per_line = width / priv->char_width;
-        gv_set_wrap_limit(priv->dp, width / priv->char_width);
+        priv->chars_per_line = width / char_width;
+        gv_set_wrap_limit(priv->dp, width / char_width);
         gtk_widget_queue_draw (widget);
     }
 
-    priv->lines_displayed = priv->char_height>0 ? height / priv->char_height : 10;
+    priv->lines_displayed = char_height>0 ? height / char_height : 10;
 }
 
 
@@ -598,6 +599,8 @@ static void text_render_draw (GtkWidget *widget, GtkSnapshot *snapshot)
 
     if (priv->dp==NULL)
         return;
+
+    auto char_height = text_render_get_char_height (w);
 
     GtkAllocation widget_allocation;
     gtk_widget_get_allocation (widget, &widget_allocation);
@@ -626,7 +629,7 @@ static void text_render_draw (GtkWidget *widget, GtkSnapshot *snapshot)
 
         ofs = eol_offset;
 
-        y += priv->char_height;
+        y += char_height;
         if (y>=widget_allocation.height)
             break;
 
@@ -901,59 +904,6 @@ static void text_render_update_adjustments_limits(TextRender *w)
 }
 
 
-static void text_render_free_font(TextRender*w)
-{
-    g_return_if_fail (IS_TEXT_RENDER (w));
-    auto priv = text_render_priv (w);
-
-    g_clear_pointer (&priv->disp_font_metrics, pango_font_metrics_unref);
-    g_clear_pointer (&priv->font_desc, pango_font_description_free);
-}
-
-
-static PangoFontMetrics *load_font (TextRender* w, const char *font_name)
-{
-    PangoFontDescription *new_desc = pango_font_description_from_string (font_name);
-    PangoContext *context = gtk_widget_get_pango_context (GTK_WIDGET (w));
-    PangoFont *new_font = pango_context_load_font (context, new_desc);
-    PangoFontMetrics *new_metrics = pango_font_get_metrics (new_font, pango_context_get_language (context));
-
-    pango_font_description_free (new_desc);
-    g_object_unref (new_font);
-
-    return new_metrics;
-}
-
-
-static guint get_max_char_width(GtkWidget *widget, PangoFontDescription *font_desc, PangoFontMetrics *font_metrics)
-{
-    PangoLayout *layout = gtk_widget_create_pango_layout (widget, "");
-    pango_layout_set_font_description (layout, font_desc);
-
-    /* this is, I guess, a rather dirty trick, but
-       right now i can't think of anything better */
-    guint maxwidth = 0;
-    PangoRectangle logical_rect;
-    gchar str[2];
-
-    for (guint i=1; i<0x100; i++)
-    {
-        logical_rect.width = 0;
-        // Check if the char is displayable. Caused trouble to pango
-        if (is_displayable((guchar)i))
-        {
-            sprintf (str, "%c", (gchar) i);
-            pango_layout_set_text(layout, str, -1);
-            pango_layout_get_pixel_extents (layout, NULL, &logical_rect);
-        }
-        maxwidth = MAX(maxwidth, MAX(0, logical_rect.width));
-    }
-
-    g_object_unref (layout);
-    return maxwidth;
-}
-
-
 static guint text_render_filter_undisplayable_chars(TextRender *obj)
 {
     auto priv = text_render_priv (obj);
@@ -964,7 +914,7 @@ static guint text_render_filter_undisplayable_chars(TextRender *obj)
     PangoRectangle logical_rect;
 
     PangoLayout *layout = gtk_widget_create_pango_layout (GTK_WIDGET (obj), "");
-    pango_layout_set_font_description (layout, priv->font_desc);
+    pango_layout_set_font_description (layout, text_render_get_font_description (obj));
 
     for (guint i=0; i<256; i++)
     {
@@ -991,32 +941,6 @@ static guint text_render_filter_undisplayable_chars(TextRender *obj)
 
     g_object_unref (layout);
     return 0;
-}
-
-
-static void text_render_setup_font(TextRender*w, const gchar *fontname, gint fontsize)
-{
-    g_return_if_fail (IS_TEXT_RENDER (w));
-    g_return_if_fail (fontname!=NULL);
-    g_return_if_fail (fontsize>0);
-    auto priv = text_render_priv (w);
-
-    text_render_free_font(w);
-
-    gchar *fontlabel = g_strdup_printf ("%s %d", fontname, fontsize);
-
-    priv->disp_font_metrics = load_font (w, fontlabel);
-    priv->font_desc = pango_font_description_from_string (fontlabel);
-
-    priv->char_width = get_max_char_width(GTK_WIDGET (w),
-            priv->font_desc,
-            priv->disp_font_metrics);
-
-    priv->char_height =
-       PANGO_PIXELS(pango_font_metrics_get_ascent(priv->disp_font_metrics)) +
-       PANGO_PIXELS(pango_font_metrics_get_descent(priv->disp_font_metrics));
-
-    g_free (fontlabel);
 }
 
 
@@ -1492,6 +1416,9 @@ static offset_type text_mode_pixel_to_offset(TextRender *obj, int x, int y, gboo
     auto priv = text_render_priv (obj);
     g_return_val_if_fail (priv->dp!=NULL, 0);
 
+    auto char_width = text_render_get_char_width (obj);
+    auto char_height = text_render_get_char_height (obj);
+
     int line = 0;
     int column = 0;
     offset_type current_offset = text_render_get_current_offset (obj);
@@ -1505,14 +1432,14 @@ static offset_type text_mode_pixel_to_offset(TextRender *obj, int x, int y, gboo
     if (y<0)
         return current_offset;
 
-    if (priv->char_height<=0)
+    if (char_height<=0)
         return current_offset;
 
-    if (priv->char_width<=0)
+    if (char_width<=0)
         return current_offset;
 
-    line = y / priv->char_height;
-    column = x / priv->char_width + text_render_get_column (obj);
+    line = y / char_height;
+    column = x / char_width + text_render_get_column (obj);
 
     // Determine offset corresponding to start of line, the character at this offset and the last column occupied by character
     offset = gv_scroll_lines (priv->dp, current_offset, line);
@@ -1567,6 +1494,8 @@ static void text_mode_copy_to_clipboard(TextRender *obj, offset_type start_offse
 void text_mode_display_line(TextRender *w, GtkSnapshot *snapshot, int column, offset_type start_of_line, offset_type end_of_line)
 {
     auto priv = text_render_priv (w);
+
+    auto char_width = text_render_get_char_width (w);
 
     offset_type current;
     char_type value;
@@ -1635,9 +1564,9 @@ void text_mode_display_line(TextRender *w, GtkSnapshot *snapshot, int column, of
     if (show_marker)
         marker_closer(w, marker_shown);
 
-    pango_layout_set_font_description (priv->layout, priv->font_desc);
+    pango_layout_set_font_description (priv->layout, text_render_get_font_description (w));
     pango_layout_set_markup (priv->layout, (gchar *) priv->utf8buf, priv->utf8buf_length);
-    graphene_point_t pt = { .x = -(priv->char_width*column), .y = 0 };
+    graphene_point_t pt = { .x = -(char_width*column), .y = 0 };
     gtk_snapshot_translate (snapshot, &pt);
     GdkRGBA color = { .red = 0.0, .green = 0.0, .blue = 0.0, .alpha = 1.0 };
     gtk_snapshot_append_layout (snapshot, priv->layout, &color);
@@ -1647,6 +1576,8 @@ void text_mode_display_line(TextRender *w, GtkSnapshot *snapshot, int column, of
 void binary_mode_display_line(TextRender *w, GtkSnapshot *snapshot, int column, offset_type start_of_line, offset_type end_of_line)
 {
     auto priv = text_render_priv (w);
+
+    auto char_width = text_render_get_char_width (w);
 
     offset_type current;
     char_type value;
@@ -1696,9 +1627,9 @@ void binary_mode_display_line(TextRender *w, GtkSnapshot *snapshot, int column, 
     if (show_marker)
         marker_closer(w, marker_shown);
 
-    pango_layout_set_font_description (priv->layout, priv->font_desc);
+    pango_layout_set_font_description (priv->layout, text_render_get_font_description (w));
     pango_layout_set_markup (priv->layout, (gchar *) priv->utf8buf, priv->utf8buf_length);
-    graphene_point_t pt = { .x = -(priv->char_width*column), .y = 0 };
+    graphene_point_t pt = { .x = -(char_width*column), .y = 0 };
     gtk_snapshot_translate (snapshot, &pt);
     GdkRGBA color = { .red = 0.0, .green = 0.0, .blue = 0.0, .alpha = 1.0 };
     gtk_snapshot_append_layout (snapshot, priv->layout, &color);
@@ -1722,14 +1653,17 @@ static offset_type hex_mode_pixel_to_offset(TextRender *obj, int x, int y, gbool
     if (y<0)
         return current_offset;
 
-    if (priv->char_height<=0)
+    auto char_width = text_render_get_char_width (obj);
+    auto char_height = text_render_get_char_height (obj);
+
+    if (char_height<=0)
         return current_offset;
 
-    if (priv->char_width<=0)
+    if (char_width<=0)
         return current_offset;
 
-    line = y / priv->char_height;
-    column = x / priv->char_width;
+    line = y / char_height;
+    column = x / char_width;
 
     offset = gv_scroll_lines (priv->dp, current_offset, line);
     next_line_offset = gv_scroll_lines (priv->dp, offset, 1);
@@ -1883,7 +1817,7 @@ void hex_mode_display_line(TextRender *w, GtkSnapshot *snapshot, int column, off
     if (show_marker)
         marker_closer(w, marker_shown);
 
-    pango_layout_set_font_description (priv->layout, priv->font_desc);
+    pango_layout_set_font_description (priv->layout, text_render_get_font_description (w));
     pango_layout_set_markup (priv->layout, (gchar *) priv->utf8buf, priv->utf8buf_length);
     GdkRGBA color = { .red = 0.0, .green = 0.0, .blue = 0.0, .alpha = 1.0 };
     gtk_snapshot_append_layout (snapshot, priv->layout, &color);

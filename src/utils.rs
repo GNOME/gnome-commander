@@ -692,3 +692,26 @@ impl GnomeCmdFileExt for gio::File {
         Ok(vec)
     }
 }
+
+#[derive(Default)]
+pub struct Max<A>(Option<A>);
+
+impl<A> Max<A> {
+    pub fn take(self) -> Option<A> {
+        self.0
+    }
+}
+
+impl<A: PartialOrd> Extend<A> for Max<A> {
+    fn extend<T: IntoIterator<Item = A>>(&mut self, iter: T) {
+        for item in iter {
+            if let Some(ref mut max) = self.0 {
+                if item > *max {
+                    *max = item;
+                }
+            } else {
+                self.0 = Some(item);
+            }
+        }
+    }
+}

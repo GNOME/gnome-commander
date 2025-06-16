@@ -1,5 +1,5 @@
 /*
- * Copyright 2024 Andrey Kutejko <andy128k@gmail.com>
+ * Copyright 2024-2025 Andrey Kutejko <andy128k@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,13 +18,16 @@
  */
 
 use super::{data_presentation::DataPresentation, file_ops::FileOps};
-use crate::intviewer::input_modes::ffi::GVInputModesData;
-use gtk::glib::{
-    self,
+use crate::{intviewer::input_modes::ffi::GVInputModesData, utils::Max};
+use gtk::{
+    glib::{
+        self,
+        translate::{from_glib_borrow, from_glib_none, Borrowed, ToGlibPtr},
+    },
+    pango::{self, ffi::PangoFontDescription},
     prelude::*,
-    translate::{from_glib_borrow, ToGlibPtr},
 };
-use std::path::Path;
+use std::{ffi::c_char, num::NonZeroU32, path::Path, sync::LazyLock};
 
 pub mod ffi {
     use super::*;
@@ -83,7 +86,27 @@ glib::wrapper! {
     }
 }
 
+#[derive(Default)]
+struct TextRenderPrivate {
+    char_width: i32,
+    char_height: i32,
+    font_desc: Option<pango::FontDescription>,
+}
+
 impl TextRender {
+    fn private(&self) -> &mut TextRenderPrivate {
+        static QUARK: LazyLock<glib::Quark> =
+            LazyLock::new(|| glib::Quark::from_str("text-render-private"));
+        unsafe {
+            if let Some(mut private) = self.qdata::<TextRenderPrivate>(*QUARK) {
+                private.as_mut()
+            } else {
+                self.set_qdata(*QUARK, TextRenderPrivate::default());
+                self.qdata::<TextRenderPrivate>(*QUARK).unwrap().as_mut()
+            }
+        }
+    }
+
     pub fn new() -> Self {
         glib::Object::builder().build()
     }
@@ -190,6 +213,13 @@ impl TextRender {
         unsafe { ffi::text_render_set_fixed_limit(self.to_glib_none().0, fixed_limit) }
     }
 
+    fn setup_font(&self, fontname: &str, fontsize: NonZeroU32) {
+        let private = self.private();
+        let new_desc = pango::FontDescription::from_string(&format!("{fontname} {fontsize}"));
+        (private.char_width, private.char_height) = get_max_char_width_and_height(self.upcast_ref(), &new_desc);
+        private.font_desc = Some(new_desc);
+    }
+
     pub fn connect_text_status_changed<F: Fn(&Self) + 'static>(
         &self,
         f: F,
@@ -213,6 +243,66 @@ impl TextRender {
             )
         }
     }
+}
+
+#[no_mangle]
+pub extern "C" fn text_render_setup_font(
+    w: *mut ffi::TextRender,
+    fontname: *const c_char,
+    fontsize: u32,
+) {
+    let w: Borrowed<TextRender> = unsafe { from_glib_borrow(w) };
+    let fontname: String = unsafe { from_glib_none(fontname) };
+    let Ok(fontsize) = fontsize.try_into() else {
+        eprintln!("Invalid font size: {fontsize}");
+        return;
+    };
+    w.setup_font(&fontname, fontsize);
+}
+
+#[no_mangle]
+pub extern "C" fn text_render_get_font_description(
+    w: *mut ffi::TextRender,
+) -> *mut PangoFontDescription {
+    let w: Borrowed<TextRender> = unsafe { from_glib_borrow(w) };
+    let private = w.private();
+    if let Some(ref font_desc) = private.font_desc {
+        font_desc.to_glib_none().0
+    } else {
+        std::ptr::null_mut()
+    }
+}
+
+#[no_mangle]
+pub extern "C" fn text_render_get_char_width(w: *mut ffi::TextRender) -> i32 {
+    let w: Borrowed<TextRender> = unsafe { from_glib_borrow(w) };
+    w.private().char_width
+}
+
+#[no_mangle]
+pub extern "C" fn text_render_get_char_height(w: *mut ffi::TextRender) -> i32 {
+    let w: Borrowed<TextRender> = unsafe { from_glib_borrow(w) };
+    w.private().char_height
+}
+
+fn get_max_char_width_and_height(widget: &gtk::Widget, font_desc: &pango::FontDescription) -> (i32, i32) {
+    let layout = widget.create_pango_layout(None);
+    layout.set_font_description(Some(font_desc));
+
+    let (max_width, max_height): (Max<i32>, Max<i32>) = (0..256)
+        .filter_map(char::from_u32)
+        .filter(|c| *c == ' ' || c.is_ascii_graphic())
+        .map(|ch| {
+            layout.set_text(&ch.to_string());
+            let (_ink_rect, logical_rect) = layout.pixel_extents();
+            (logical_rect.width(), logical_rect.height())
+        })
+        .unzip();
+
+    (
+        max_width.take().unwrap_or_default(),
+        max_height.take().unwrap_or_default(),
+    )
 }
 
 #[derive(Clone, Copy, PartialEq, Eq, Debug)]
