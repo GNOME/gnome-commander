@@ -189,6 +189,8 @@ static void gnome_cmd_con_init (GnomeCmdCon *con)
     priv->bookmarks = G_LIST_MODEL (g_list_store_new (gnome_cmd_bookmark_get_type ()));
     priv->all_dirs = nullptr;
     priv->all_dirs_map = nullptr;
+
+    g_signal_connect_swapped (priv->bookmarks, "items-changed", G_CALLBACK (gnome_cmd_con_updated), con);
 }
 
 

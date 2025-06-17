@@ -56,7 +56,6 @@ extern "C" void gnome_cmd_main_win_load_tabs(GnomeCmdMainWin *, GApplication *);
 extern "C" void gnome_cmd_main_win_save_tabs(GnomeCmdMainWin *, gboolean, gboolean);
 
 
-extern "C" void gnome_cmd_main_win_update_mainmenu (GnomeCmdMainWin *main_win);
 extern "C" void gnome_cmd_main_win_update_drop_con_button (GnomeCmdMainWin *main_win, GnomeCmdFileList *fl);
 extern "C" GnomeCmdFileSelector *gnome_cmd_main_win_get_fs (GnomeCmdMainWin *main_win, FileSelectorID id);
 extern "C" void gnome_cmd_main_win_swap_panels (GnomeCmdMainWin *main_win);
@@ -107,6 +106,13 @@ static void on_fs_dir_change (GnomeCmdFileSelector *fs, const gchar dir, GnomeCm
 }
 
 
+static void on_fs_activate_request (GnomeCmdFileSelector *fs, GnomeCmdMainWin *mw)
+{
+    gnome_cmd_main_win_switch_fs (mw, fs);
+    mw->refocus();
+}
+
+
 static void toggle_action_change_state (GnomeCmdMainWin *mw, const gchar *action, bool state)
 {
     g_action_change_state (
@@ -154,6 +160,9 @@ extern "C" void gnome_cmd_main_win_init (GnomeCmdMainWin *mw)
 
     g_signal_connect (mw->fs(LEFT), "dir-changed", G_CALLBACK (on_fs_dir_change), mw);
     g_signal_connect (mw->fs(RIGHT), "dir-changed", G_CALLBACK (on_fs_dir_change), mw);
+
+    g_signal_connect (mw->fs(LEFT), "activate-request", G_CALLBACK (on_fs_activate_request), mw);
+    g_signal_connect (mw->fs(RIGHT), "activate-request", G_CALLBACK (on_fs_activate_request), mw);
 
     mw->fs(LEFT)->update_connections();
     mw->fs(RIGHT)->update_connections();
@@ -435,12 +444,6 @@ void GnomeCmdMainWin::set_fs_directory_to_opposite(FileSelectorID fsID)
 }
 
 
-void GnomeCmdMainWin::update_bookmarks()
-{
-    gnome_cmd_main_win_update_mainmenu (this);
-}
-
-
 void GnomeCmdMainWin::update_show_toolbar()
 {
     gnome_cmd_main_win_update_drop_con_button (this, fs(ACTIVE)->file_list());
@@ -494,11 +497,6 @@ void gnome_cmd_main_win_change_connection(GnomeCmdMainWin *main_win, FileSelecto
 void gnome_cmd_main_win_focus_file_lists(GnomeCmdMainWin *main_win)
 {
     return main_win->focus_file_lists();
-}
-
-void gnome_cmd_main_win_update_bookmarks(GnomeCmdMainWin *main_win)
-{
-    main_win->update_bookmarks();
 }
 
 void gnome_cmd_main_win_update_view(GnomeCmdMainWin *main_win)

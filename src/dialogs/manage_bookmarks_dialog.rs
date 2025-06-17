@@ -25,19 +25,13 @@ use crate::{
         list::ConnectionList,
     },
     data::{GeneralOptions, GeneralOptionsWrite},
-    dir::{ffi::GnomeCmdDir, Directory},
+    dir::Directory,
     file::{File, GnomeCmdFileExt},
-    main_win::{ffi::GnomeCmdMainWin, MainWindow},
     shortcuts::Shortcuts,
     utils::{bold, ErrorMessage},
 };
 use gettextrs::gettext;
-use gtk::{
-    gio,
-    glib::{self, translate::from_glib_none},
-    prelude::*,
-    subclass::prelude::*,
-};
+use gtk::{gio, glib, prelude::*, subclass::prelude::*};
 
 mod imp {
     use super::*;
@@ -559,7 +553,7 @@ impl TaggedBookmark {
 }
 
 pub async fn bookmark_directory(
-    main_win: &MainWindow,
+    window: &gtk::Window,
     dir: &Directory,
     options: &dyn GeneralOptionsWrite,
 ) {
@@ -573,7 +567,7 @@ pub async fn bookmark_directory(
 
     let Some(path_str) = path.to_str() else {
         ErrorMessage::new(gettext("To bookmark a directory the whole search path to the directory must be in valid UTF-8 encoding"), None::<String>)
-            .show(main_win.upcast_ref()).await;
+            .show(window).await;
         return;
     };
 
@@ -585,7 +579,7 @@ pub async fn bookmark_directory(
     );
 
     if let Some(changed_bookmark) =
-        edit_bookmark_dialog(main_win.upcast_ref(), &gettext("New Bookmark"), &bookmark).await
+        edit_bookmark_dialog(window, &gettext("New Bookmark"), &bookmark).await
     {
         let connection_list = ConnectionList::get();
 
@@ -596,24 +590,8 @@ pub async fn bookmark_directory(
         };
         con.add_bookmark(&changed_bookmark);
 
-        main_win.update_bookmarks();
-
         if let Some(bookmarks) = connection_list.save_bookmarks() {
             options.set_bookmarks(&bookmarks);
         }
     }
-}
-
-#[no_mangle]
-pub extern "C" fn gnome_cmd_bookmark_add_current(
-    main_win_ptr: *mut GnomeCmdMainWin,
-    dir_ptr: *mut GnomeCmdDir,
-) {
-    let main_win: MainWindow = unsafe { from_glib_none(main_win_ptr) };
-    let dir: Directory = unsafe { from_glib_none(dir_ptr) };
-    let options = GeneralOptions::new();
-
-    glib::spawn_future_local(async move {
-        bookmark_directory(&main_win, &dir, &options).await;
-    });
 }

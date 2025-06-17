@@ -170,6 +170,14 @@ pub mod imp {
             let plugin_manager = PluginManager::new();
             let file_metadata_service = FileMetadataService::new(&plugin_manager);
 
+            let cmdline = CommandLine::new();
+
+            let file_selector_left = FileSelector::new(&file_metadata_service);
+            file_selector_left.set_command_line(Some(&cmdline));
+
+            let file_selector_right = FileSelector::new(&file_metadata_service);
+            file_selector_right.set_command_line(Some(&cmdline));
+
             Self {
                 menubar: gtk::PopoverMenuBar::builder().build(),
 
@@ -194,9 +202,9 @@ pub mod imp {
                     .hexpand(true)
                     .vexpand(true)
                     .build(),
-                file_selector_left: RefCell::new(FileSelector::new(&file_metadata_service)),
-                file_selector_right: RefCell::new(FileSelector::new(&file_metadata_service)),
-                cmdline: CommandLine::new(),
+                file_selector_left: RefCell::new(file_selector_left),
+                file_selector_right: RefCell::new(file_selector_right),
+                cmdline,
                 cmdline_sep: gtk::Separator::builder()
                     .orientation(gtk::Orientation::Vertical)
                     .margin_start(3)
@@ -880,8 +888,6 @@ pub mod ffi {
 
         pub fn gnome_cmd_main_win_focus_file_lists(main_win: *mut GnomeCmdMainWin);
 
-        pub fn gnome_cmd_main_win_update_bookmarks(main_win: *mut GnomeCmdMainWin);
-
         pub fn gnome_cmd_main_win_update_view(main_win: *mut GnomeCmdMainWin);
 
         pub fn gnome_cmd_main_win_shortcuts(main_win: *mut GnomeCmdMainWin) -> *mut Shortcuts;
@@ -1011,10 +1017,6 @@ impl MainWindow {
 
     pub fn focus_file_lists(&self) {
         unsafe { ffi::gnome_cmd_main_win_focus_file_lists(self.to_glib_none().0) }
-    }
-
-    pub fn update_bookmarks(&self) {
-        unsafe { ffi::gnome_cmd_main_win_update_bookmarks(self.to_glib_none().0) }
     }
 
     pub fn update_view(&self) {
@@ -1567,12 +1569,6 @@ pub extern "C" fn gnome_cmd_main_win_get_file_metadata_service(
 ) -> *mut <FileMetadataService as glib::object::ObjectType>::GlibType {
     let mw: Borrowed<MainWindow> = unsafe { from_glib_borrow(mw_ptr) };
     mw.file_metadata_service().to_glib_none().0
-}
-
-#[no_mangle]
-pub extern "C" fn gnome_cmd_main_win_update_mainmenu(mw_ptr: *mut ffi::GnomeCmdMainWin) {
-    let mw: Borrowed<MainWindow> = unsafe { from_glib_borrow(mw_ptr) };
-    mw.imp().update_menu();
 }
 
 #[no_mangle]

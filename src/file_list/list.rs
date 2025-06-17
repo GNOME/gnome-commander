@@ -123,6 +123,14 @@ mod imp {
                     glib::subclass::Signal::builder("file-activated")
                         .param_types([File::static_type()])
                         .build(),
+                    // A text to be added to a command line
+                    glib::subclass::Signal::builder("cmdline-append")
+                        .param_types([String::static_type()])
+                        .build(),
+                    // Execute a command in a command line
+                    glib::subclass::Signal::builder("cmdline-execute")
+                        .return_type::<bool>()
+                        .build(),
                 ]
             })
         }

@@ -53,10 +53,6 @@ G_DEFINE_TYPE_WITH_PRIVATE (GnomeCmdDirIndicator, gnome_cmd_dir_indicator, GTK_T
 extern "C" GType gnome_cmd_file_directory_indicator_get_type ();
 
 
-static void select_path (GSimpleAction *action, GVariant *parameter, gpointer user_data);
-static void add_bookmark (GSimpleAction *action, GVariant *parameter, gpointer user_data);
-
-
 /*******************************
  * Gtk class implementation
  *******************************/
@@ -95,22 +91,6 @@ static void on_directory_indicator_navigate (GtkWidget *directory_indicator, con
 }
 
 
-static void select_path (GSimpleAction *action, GVariant *parameter, gpointer user_data)
-{
-    auto indicator = static_cast<GnomeCmdDirIndicator*> (user_data);
-    g_return_if_fail (GNOME_CMD_IS_DIR_INDICATOR (indicator));
-
-    const gchar *path;
-    g_variant_get (parameter, "s", &path);
-    g_return_if_fail (path != nullptr);
-
-    GdkModifierType mask = get_modifiers_state();
-    gboolean new_tab = mask & GDK_CONTROL_MASK;
-
-    g_signal_emit (indicator, signals[NAVIGATE], 0, path, new_tab);
-}
-
-
 void gnome_cmd_dir_indicator_show_history (GnomeCmdDirIndicator *indicator)
 {
     auto priv = static_cast<GnomeCmdDirIndicatorPrivate*>(gnome_cmd_dir_indicator_get_instance_private (indicator));
@@ -124,7 +104,7 @@ void gnome_cmd_dir_indicator_show_history (GnomeCmdDirIndicator *indicator)
         gchar *path = *l;
 
         GMenuItem *item = g_menu_item_new (path, nullptr);
-        g_menu_item_set_action_and_target (item, "indicator.select-path", "s", path);
+        g_menu_item_set_action_and_target (item, "fs.select-path", "s", path);
         g_menu_append_item (menu, item);
     }
     g_strfreev (dir_history);
@@ -140,18 +120,6 @@ void gnome_cmd_dir_indicator_show_history (GnomeCmdDirIndicator *indicator)
         gtk_widget_set_size_request (popover, indicator_allocation.width, -1);
 
     gtk_popover_popup (GTK_POPOVER (popover));
-}
-
-
-extern "C" void gnome_cmd_bookmark_add_current (GnomeCmdMainWin *main_win, GnomeCmdDir *dir);
-
-static void add_bookmark (GSimpleAction *action, GVariant *parameter, gpointer user_data)
-{
-    auto indicator = static_cast<GnomeCmdDirIndicator*> (user_data);
-    g_return_if_fail (GNOME_CMD_IS_DIR_INDICATOR (indicator));
-    auto priv = static_cast<GnomeCmdDirIndicatorPrivate*>(gnome_cmd_dir_indicator_get_instance_private (indicator));
-
-    gnome_cmd_bookmark_add_current (main_win, priv->fs->get_directory());
 }
 
 
@@ -171,7 +139,7 @@ void gnome_cmd_dir_indicator_show_bookmarks (GnomeCmdDirIndicator *indicator)
         gchar *path = gnome_cmd_bookmark_get_path (bookmark);
 
         GMenuItem *item = g_menu_item_new (name, nullptr);
-        g_menu_item_set_action_and_target (item, "indicator.select-path", "s", path);
+        g_menu_item_set_action_and_target (item, "fs.select-path", "s", path);
         g_menu_append_item (bookmarks_section, item);
 
         g_free (name);
@@ -179,7 +147,7 @@ void gnome_cmd_dir_indicator_show_bookmarks (GnomeCmdDirIndicator *indicator)
     }
 
     GMenu *manage_section = g_menu_new ();
-    g_menu_append (manage_section, _("Add current dir"), "indicator.add-bookmark");
+    g_menu_append (manage_section, _("Add current dir"), "fs.add-bookmark");
     g_menu_append (manage_section, _("Manage bookmarks…"), "win.bookmarks-edit");
 
     GMenu *menu = g_menu_new ();
@@ -232,15 +200,6 @@ static void gnome_cmd_dir_indicator_init (GnomeCmdDirIndicator *indicator)
 
     g_signal_connect_swapped (history_button, "clicked", G_CALLBACK (gnome_cmd_dir_indicator_show_history), indicator);
     g_signal_connect_swapped (bookmark_button, "clicked", G_CALLBACK (gnome_cmd_dir_indicator_show_bookmarks), indicator);
-
-    GSimpleActionGroup *action_group = g_simple_action_group_new ();
-    static GActionEntry entries[] = {
-        { "select-path", select_path, "s" },
-        { "add-bookmark", add_bookmark }
-    };
-    g_action_map_add_action_entries (G_ACTION_MAP (action_group), entries, G_N_ELEMENTS (entries), indicator);
-
-    gtk_widget_insert_action_group (GTK_WIDGET (indicator), "indicator", G_ACTION_GROUP (action_group));
 }
 
 /***********************************
