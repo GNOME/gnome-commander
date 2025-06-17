@@ -84,14 +84,6 @@ pub mod ffi {
 
         pub fn on_notebook_switch_page(fs: *mut GnomeCmdFileSelector, n: u32);
 
-        pub fn gnome_cmd_file_selector_new_tab(fs: *mut GnomeCmdFileSelector) -> *const GtkWidget;
-
-        pub fn gnome_cmd_file_selector_new_tab_with_dir(
-            fs: *mut GnomeCmdFileSelector,
-            dir: *mut GnomeCmdDir,
-            activate: gboolean,
-        ) -> *const GtkWidget;
-
         pub fn gnome_cmd_file_selector_new_tab_full(
             fs: *mut GnomeCmdFileSelector,
             dir: *mut GnomeCmdDir,
@@ -99,6 +91,7 @@ pub mod ffi {
             sort_order: c_int,
             locked: gboolean,
             activate: gboolean,
+            grab_focus: gboolean,
         ) -> *const GtkWidget;
 
         pub fn gnome_cmd_file_selector_is_active(fs: *mut GnomeCmdFileSelector) -> gboolean;
@@ -388,26 +381,35 @@ impl FileSelector {
     }
 
     pub fn new_tab(&self) -> gtk::Widget {
-        unsafe { from_glib_none(ffi::gnome_cmd_file_selector_new_tab(self.to_glib_none().0)) }
+        self.new_tab_full(
+            None,
+            ColumnID::COLUMN_NAME,
+            gtk::SortType::Ascending,
+            false,
+            true,
+            true,
+        )
     }
 
     pub fn new_tab_with_dir(&self, dir: &Directory, activate: bool) -> gtk::Widget {
-        unsafe {
-            from_glib_none(ffi::gnome_cmd_file_selector_new_tab_with_dir(
-                self.to_glib_none().0,
-                dir.to_glib_none().0,
-                activate as i32,
-            ))
-        }
+        self.new_tab_full(
+            Some(dir),
+            self.file_list().sort_column(),
+            self.file_list().sort_order(),
+            false,
+            activate,
+            activate,
+        )
     }
 
     pub fn new_tab_full(
         &self,
-        dir: &Directory,
+        dir: Option<&Directory>,
         sort_column: ColumnID,
         sort_order: gtk::SortType,
         locked: bool,
         activate: bool,
+        grab_focus: bool,
     ) -> gtk::Widget {
         unsafe {
             from_glib_none(ffi::gnome_cmd_file_selector_new_tab_full(
@@ -417,6 +419,7 @@ impl FileSelector {
                 sort_order.into_glib(),
                 locked as gboolean,
                 activate as gboolean,
+                grab_focus as gboolean,
             ))
         }
     }
@@ -668,10 +671,11 @@ impl FileSelector {
             }
             if let Some(directory) = restore_directory(&connection_list, &stored_tab.uri) {
                 self.new_tab_full(
-                    &directory,
+                    Some(&directory),
                     stored_tab.sort_column_id(),
                     stored_tab.sort_type(),
                     stored_tab.locked,
+                    true,
                     true,
                 );
             }
@@ -686,10 +690,11 @@ impl FileSelector {
                 Directory::new_startup(con.upcast_ref(), con.create_path(&path))
             {
                 self.new_tab_full(
-                    &directory,
+                    Some(&directory),
                     ColumnID::COLUMN_NAME,
                     gtk::SortType::Ascending,
                     false,
+                    true,
                     true,
                 );
             } else {

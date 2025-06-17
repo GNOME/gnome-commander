@@ -750,7 +750,7 @@ gboolean GnomeCmdFileSelector::is_active()
 extern "C" GType gnome_cmd_tab_label_get_type();
 
 
-GtkWidget *GnomeCmdFileSelector::new_tab(GnomeCmdDir *dir, GnomeCmdFileList::ColumnID sort_col, GtkSortType sort_order, gboolean locked, gboolean activate)
+GtkWidget *GnomeCmdFileSelector::new_tab(GnomeCmdDir *dir, GnomeCmdFileList::ColumnID sort_col, GtkSortType sort_order, gboolean locked, gboolean activate, gboolean grab_focus)
 {
     auto priv = file_selector_priv (this);
 
@@ -795,7 +795,8 @@ GtkWidget *GnomeCmdFileSelector::new_tab(GnomeCmdDir *dir, GnomeCmdFileList::Col
     if (activate)
     {
         gtk_notebook_set_current_page (notebook, n);
-        gtk_widget_grab_focus (*fl);
+        if (grab_focus)
+            gtk_widget_grab_focus (*fl);
     }
 
     g_signal_connect (fl, "list-clicked", G_CALLBACK (on_list_list_clicked), this);
@@ -861,19 +862,9 @@ GtkWidget *gnome_cmd_file_selector_connection_bar(GnomeCmdFileSelector *fs)
     return priv->connection_bar;
 }
 
-GtkWidget *gnome_cmd_file_selector_new_tab (GnomeCmdFileSelector *fs)
+GtkWidget *gnome_cmd_file_selector_new_tab_full (GnomeCmdFileSelector *fs, GnomeCmdDir *dir, gint sort_col, gint sort_order, gboolean locked, gboolean activate, gboolean grab_focus)
 {
-    return fs->new_tab();
-}
-
-GtkWidget *gnome_cmd_file_selector_new_tab_with_dir (GnomeCmdFileSelector *fs, GnomeCmdDir *dir, gboolean activate)
-{
-    return fs->new_tab(dir, activate);
-}
-
-GtkWidget *gnome_cmd_file_selector_new_tab_full (GnomeCmdFileSelector *fs, GnomeCmdDir *dir, gint sort_col, gint sort_order, gboolean locked, gboolean activate)
-{
-    return fs->new_tab(dir, (GnomeCmdFileList::ColumnID) sort_col, (GtkSortType) sort_order, locked, activate);
+    return fs->new_tab(dir, (GnomeCmdFileList::ColumnID) sort_col, (GtkSortType) sort_order, locked, activate, grab_focus);
 }
 
 gboolean gnome_cmd_file_selector_is_active (GnomeCmdFileSelector *fs)
