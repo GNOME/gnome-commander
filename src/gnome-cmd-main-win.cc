@@ -108,36 +108,6 @@ void GnomeCmdMainWin::focus_file_lists()
 }
 
 
-void GnomeCmdMainWin::set_fs_directory_to_opposite(FileSelectorID fsID)
-{
-    GnomeCmdFileSelector *fselector =  this->fs(fsID);
-    GnomeCmdFileSelector *other = this->fs(!fsID);
-
-    GnomeCmdDir *dir = other->get_directory();
-    gboolean fs_is_active = fselector->is_active();
-
-    if (!fs_is_active)
-    {
-        GnomeCmdFile *file = other->file_list()->get_selected_file();
-
-        if (file && (file->GetGfileAttributeUInt32(G_FILE_ATTRIBUTE_STANDARD_TYPE) == G_FILE_TYPE_DIRECTORY))
-            dir = GNOME_CMD_IS_DIR (file) ? GNOME_CMD_DIR (file) : gnome_cmd_dir_new_from_gfileinfo (file->get_file_info(), dir);
-    }
-
-    if (gnome_cmd_file_selector_is_current_tab_locked (fselector))
-        fselector->new_tab(dir);
-    else
-        fselector->file_list()->set_connection(other->get_connection(), dir);
-
-    other->set_active(!fs_is_active);
-    fselector->set_active(fs_is_active);
-    if (fs_is_active)
-        gtk_widget_grab_focus (GTK_WIDGET (fselector));
-    else
-        gtk_widget_grab_focus (GTK_WIDGET (other));
-}
-
-
 // FFI
 
 void gnome_cmd_main_win_focus_file_lists(GnomeCmdMainWin *main_win)

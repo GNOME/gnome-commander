@@ -323,7 +323,7 @@ mod imp {
                     return;
                 };
                 let dir = Directory::new(&con, con.create_path(&Path::new(path)));
-                self.obj().new_tab_with_dir(&dir, true);
+                self.obj().new_tab_with_dir(&dir, true, true);
             } else {
                 fl.goto_directory(&Path::new(path));
             }
@@ -393,14 +393,19 @@ impl FileSelector {
         )
     }
 
-    pub fn new_tab_with_dir(&self, dir: &Directory, activate: bool) -> gtk::Widget {
+    pub fn new_tab_with_dir(
+        &self,
+        dir: &Directory,
+        activate: bool,
+        grab_focus: bool,
+    ) -> gtk::Widget {
         self.new_tab_full(
             Some(dir),
             self.file_list().sort_column(),
             self.file_list().sort_order(),
             false,
             activate,
-            activate,
+            grab_focus,
         )
     }
 
@@ -503,7 +508,7 @@ impl FileSelector {
         if self.file_list().connection().as_ref() == Some(&con) {
             if self.is_current_tab_locked() {
                 let dir = Directory::new(con, con.create_path(path));
-                self.new_tab_with_dir(&dir, true);
+                self.new_tab_with_dir(&dir, true, true);
             } else {
                 self.file_list().goto_directory(path);
             }
@@ -512,14 +517,14 @@ impl FileSelector {
                 let dir = Directory::new(con, con.create_path(path));
 
                 if self.is_current_tab_locked() {
-                    self.new_tab_with_dir(&dir, true);
+                    self.new_tab_with_dir(&dir, true, true);
                 } else {
                     self.file_list().set_connection(con, Some(&dir));
                 }
             } else {
                 con.set_base_path(con.create_path(path));
                 if self.is_current_tab_locked() {
-                    self.new_tab_with_dir(&con.default_dir().unwrap(), true);
+                    self.new_tab_with_dir(&con.default_dir().unwrap(), true, true);
                 } else {
                     self.file_list().set_connection(con, None);
                 }
@@ -570,6 +575,7 @@ impl FileSelector {
         if self.is_current_tab_locked() {
             self.new_tab_with_dir(
                 &Directory::new(connection, connection.create_path(&Path::new(&dir))),
+                true,
                 true,
             );
         } else {
@@ -918,7 +924,7 @@ async fn on_notebook_button_pressed(
         (2, 1, TabClick::Area) => {
             // double-click on a tabs area
             if let Some(dir) = file_selector.file_list().directory() {
-                file_selector.new_tab_with_dir(&dir, true);
+                file_selector.new_tab_with_dir(&dir, true, true);
             }
         }
         _ => {}

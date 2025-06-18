@@ -29,7 +29,8 @@ use crate::{
         remote::ConnectionRemote,
     },
     data::{GeneralOptions, GeneralOptionsRead, GeneralOptionsWrite, SearchConfig},
-    file::File,
+    dir::Directory,
+    file::{File, GnomeCmdFileExt},
     file_list::list::FileList,
     file_selector::{ffi::GnomeCmdFileSelector, FileSelector, TabVariant},
     libgcmd::{
@@ -1134,6 +1135,13 @@ impl MainWindow {
         self.imp().file_selector_right.borrow().clone()
     }
 
+    pub fn file_selectors(&self) -> (FileSelector, FileSelector) {
+        match self.current_panel() {
+            0 => (self.left_panel(), self.right_panel()),
+            _ => (self.right_panel(), self.left_panel()),
+        }
+    }
+
     pub fn file_selector(&self, id: FileSelectorID) -> FileSelector {
         match id {
             FileSelectorID::LEFT => self.left_panel(),
@@ -1175,6 +1183,39 @@ impl MainWindow {
 
     fn switch_to_opposite(&self) {
         self.set_current_panel(1_u32.saturating_sub(self.current_panel()));
+    }
+
+    pub fn set_directory_to_opposite(&self, id: FileSelectorID) {
+        let (dst, src) = match id {
+            FileSelectorID::LEFT => (self.left_panel(), self.right_panel()),
+            FileSelectorID::RIGHT => (self.right_panel(), self.left_panel()),
+            FileSelectorID::ACTIVE => self.file_selectors(),
+            FileSelectorID::INACTIVE => {
+                let (active, inactive) = self.file_selectors();
+                (inactive, active)
+            }
+        };
+
+        let Some(dir) = src
+            .is_active()
+            .then(|| {
+                src.file_list()
+                    .selected_file()
+                    .filter(|f| f.file_info().file_type() == gio::FileType::Directory)
+                    .and_downcast::<Directory>()
+            })
+            .flatten()
+            .or_else(|| src.file_list().directory())
+        else {
+            return;
+        };
+
+        if dst.is_current_tab_locked() {
+            dst.new_tab_with_dir(&dir, true, false);
+        } else {
+            dst.file_list()
+                .set_connection(&dir.connection(), Some(&dir));
+        }
     }
 
     pub fn load_tabs(&self, start_left_dir: Option<&Path>, start_right_dir: Option<&Path>) {

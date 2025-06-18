@@ -883,7 +883,7 @@ pub fn view_up(
 
     if file_selector.is_tab_locked(&file_list) {
         if let Some(directory) = file_list.directory().and_then(|d| d.parent()) {
-            file_selector.new_tab_with_dir(&directory, true);
+            file_selector.new_tab_with_dir(&directory, true, true);
         }
     } else {
         file_list.goto_directory(&Path::new(".."));
@@ -933,10 +933,38 @@ pub fn view_refresh(
         .reload();
 }
 
-c_action!(view_in_left_pane);
-c_action!(view_in_right_pane);
-c_action!(view_in_active_pane);
-c_action!(view_in_inactive_pane);
+pub fn view_in_left_pane(
+    main_win: &MainWindow,
+    _action: &gio::SimpleAction,
+    _parameter: Option<&glib::Variant>,
+) {
+    main_win.set_directory_to_opposite(FileSelectorID::LEFT);
+}
+
+pub fn view_in_right_pane(
+    main_win: &MainWindow,
+    _action: &gio::SimpleAction,
+    _parameter: Option<&glib::Variant>,
+) {
+    main_win.set_directory_to_opposite(FileSelectorID::RIGHT);
+}
+
+pub fn view_in_active_pane(
+    main_win: &MainWindow,
+    _action: &gio::SimpleAction,
+    _parameter: Option<&glib::Variant>,
+) {
+    main_win.set_directory_to_opposite(FileSelectorID::ACTIVE);
+}
+
+pub fn view_in_inactive_pane(
+    main_win: &MainWindow,
+    _action: &gio::SimpleAction,
+    _parameter: Option<&glib::Variant>,
+) {
+    main_win.set_directory_to_opposite(FileSelectorID::INACTIVE);
+}
+
 c_action!(view_directory);
 
 pub fn view_home(
@@ -953,7 +981,7 @@ pub fn view_home(
         file_list.goto_directory(&Path::new("~"));
     } else {
         let directory = Directory::new(&home, home.create_path(&glib::home_dir()));
-        file_selector.new_tab_with_dir(&directory, true);
+        file_selector.new_tab_with_dir(&directory, true, true);
     }
 }
 
@@ -968,7 +996,7 @@ pub fn view_root(
     if file_selector.is_tab_locked(&file_list) {
         if let Some(connection) = file_list.connection() {
             let directory = Directory::new(&connection, connection.create_path(&Path::new("/")));
-            file_selector.new_tab_with_dir(&directory, true);
+            file_selector.new_tab_with_dir(&directory, true, true);
         }
     } else {
         file_list.goto_directory(&Path::new("/"));
@@ -983,7 +1011,7 @@ pub fn view_new_tab(
     let file_selector = main_win.file_selector(FileSelectorID::ACTIVE);
     let file_list = file_selector.file_list();
     if let Some(directory) = file_list.directory() {
-        file_selector.new_tab_with_dir(&directory, true);
+        file_selector.new_tab_with_dir(&directory, true, true);
     }
 }
 
@@ -1051,7 +1079,7 @@ pub fn view_in_new_tab(
         .and_downcast::<Directory>()
         .or_else(|| file_selector.file_list().directory())
     {
-        file_selector.new_tab_with_dir(&dir, false);
+        file_selector.new_tab_with_dir(&dir, false, false);
     }
 }
 
@@ -1069,7 +1097,7 @@ pub fn view_in_inactive_tab(
     {
         main_win
             .file_selector(FileSelectorID::INACTIVE)
-            .new_tab_with_dir(&dir, false);
+            .new_tab_with_dir(&dir, false, false);
     }
 }
 

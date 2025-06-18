@@ -73,10 +73,6 @@ GNOME_CMD_USER_ACTION(edit_copy_fnames);
 
 /************** View Menu **************/
 GNOME_CMD_USER_ACTION(view_dir_history);
-GNOME_CMD_USER_ACTION(view_in_left_pane);
-GNOME_CMD_USER_ACTION(view_in_right_pane);
-GNOME_CMD_USER_ACTION(view_in_active_pane);
-GNOME_CMD_USER_ACTION(view_in_inactive_pane);
 GNOME_CMD_USER_ACTION(view_directory);
 GNOME_CMD_USER_ACTION(view_prev_tab);
 GNOME_CMD_USER_ACTION(view_next_tab);
@@ -231,38 +227,6 @@ void view_step_down (GSimpleAction *action, GVariant *parameter, gpointer user_d
     GnomeCmdFileList *fl = fs->file_list();
 
     fl->focus_next();
-}
-
-
-void view_in_left_pane (GSimpleAction *action, GVariant *parameter, gpointer user_data)
-{
-    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
-
-    main_win->set_fs_directory_to_opposite(LEFT);
-}
-
-
-void view_in_right_pane (GSimpleAction *action, GVariant *parameter, gpointer user_data)
-{
-    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
-
-    main_win->set_fs_directory_to_opposite(RIGHT);
-}
-
-
-void view_in_active_pane (GSimpleAction *action, GVariant *parameter, gpointer user_data)
-{
-    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
-
-    main_win->set_fs_directory_to_opposite(ACTIVE);
-}
-
-
-void view_in_inactive_pane (GSimpleAction *action, GVariant *parameter, gpointer user_data)
-{
-    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
-
-    main_win->set_fs_directory_to_opposite(INACTIVE);
 }
 
 

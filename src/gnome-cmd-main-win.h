@@ -51,8 +51,6 @@ struct GnomeCmdMainWin
 
     GnomeCmdFileSelector *fs(FileSelectorID id);
 
-    void set_fs_directory_to_opposite(FileSelectorID fsID);
-
     void focus_file_lists();
 
     void update_view();
