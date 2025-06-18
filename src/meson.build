@@ -1,5 +1,4 @@
 sources_headers = files(
-  'dialogs/gnome-cmd-advrename-dialog.h',
   'dialogs/gnome-cmd-delete-dialog.h',
   'dialogs/gnome-cmd-mkdir-dialog.h',
   'dialogs/gnome-cmd-rename-dialog.h',
@@ -18,7 +17,6 @@ sources_headers = files(
   'tags/file_metadata.h',
   'dirlist.h',
   'filter.h',
-  'gnome-cmd-advrename-profile-component.h',
   'gnome-cmd-cmdline.h',
   'gnome-cmd-con-device.h',
   'gnome-cmd-con.h',
@@ -52,7 +50,6 @@ sources_headers = files(
 )
 
 sources_sources = files(
-  'dialogs/gnome-cmd-advrename-dialog.cc',
   'dialogs/gnome-cmd-mkdir-dialog.cc',
   'dialogs/gnome-cmd-options-dialog.cc',
   'dialogs/gnome-cmd-rename-dialog.cc',

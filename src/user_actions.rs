@@ -21,6 +21,7 @@
  */
 
 use crate::{
+    advanced_rename::advanced_rename_dialog::advanced_rename_dialog_show,
     config::{PACKAGE_BUGREPORT, PACKAGE_NAME, PACKAGE_URL, PACKAGE_VERSION},
     connection::{
         bookmark::{Bookmark, BookmarkGoToVariant},
@@ -534,7 +535,16 @@ pub fn file_create_symlink(
     });
 }
 
-c_action!(file_advrename);
+pub fn file_advrename(
+    main_win: &MainWindow,
+    _action: &gio::SimpleAction,
+    _parameter: Option<&glib::Variant>,
+) {
+    let file_selector = main_win.file_selector(FileSelectorID::ACTIVE);
+    let file_list = file_selector.file_list();
+    let file_metadata_service = main_win.file_metadata_service();
+    advanced_rename_dialog_show(main_win.upcast_ref(), &file_list, &file_metadata_service);
+}
 
 pub fn file_sendto(
     main_win: &MainWindow,

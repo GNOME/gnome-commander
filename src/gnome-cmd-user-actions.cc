@@ -34,7 +34,6 @@
 #include "gnome-cmd-user-actions.h"
 #include "gnome-cmd-dir-indicator.h"
 #include "utils.h"
-#include "dialogs/gnome-cmd-advrename-dialog.h"
 #include "dialogs/gnome-cmd-mkdir-dialog.h"
 #include "dialogs/gnome-cmd-search-dialog.h"
 
@@ -68,7 +67,6 @@ GNOME_CMD_USER_ACTION(file_diff);
 GNOME_CMD_USER_ACTION(file_sync_dirs);
 GNOME_CMD_USER_ACTION(file_rename);
 GNOME_CMD_USER_ACTION(file_create_symlink);
-GNOME_CMD_USER_ACTION(file_advrename);
 GNOME_CMD_USER_ACTION(file_sendto);
 GNOME_CMD_USER_ACTION(file_exit);
 
@@ -177,23 +175,6 @@ void file_mkdir (GSimpleAction *action, GVariant *parameter, gpointer user_data)
     gnome_cmd_dir_ref (dir);
     gnome_cmd_mkdir_dialog_new (dir, fs->file_list()->get_selected_file());
     gnome_cmd_dir_unref (dir);
-}
-
-
-void file_advrename (GSimpleAction *action, GVariant *parameter, gpointer user_data)
-{
-    auto main_win = static_cast<GnomeCmdMainWin *>(user_data);
-
-    GList *files = get_fl (main_win, ACTIVE)->get_selected_files();
-
-    if (files)
-    {
-        auto dlg = main_win->get_or_create_advrename_dialog ();
-        gnome_cmd_advrename_dialog_set (dlg, files);
-        gtk_window_present (GTK_WINDOW (dlg));
-
-        g_list_free (files);
-    }
 }
 
 

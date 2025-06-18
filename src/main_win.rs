@@ -455,6 +455,8 @@ pub mod imp {
         }
 
         fn dispose(&self) {
+            self.plugin_manager.save();
+
             unsafe {
                 super::ffi::gnome_cmd_main_win_dispose(self.obj().to_glib_none().0);
             }

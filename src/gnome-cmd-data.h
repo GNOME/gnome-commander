@@ -493,26 +493,6 @@ struct GnomeCmdData
         };
     };
 
-    struct AdvrenameConfig
-    {
-        AdvancedRenameProfile *default_profile;
-        GListStore *profiles;
-
-        History templates;
-
-        AdvrenameConfig(): templates(ADVRENAME_HISTORY_SIZE)
-        {
-            default_profile = (AdvancedRenameProfile *) g_object_new (gnome_cmd_advanced_rename_profile_get_type (), nullptr);
-            profiles = g_list_store_new (gnome_cmd_advanced_rename_profile_get_type ());
-        }
-
-        ~AdvrenameConfig()
-        {
-            g_clear_object (&default_profile);
-            g_clear_object (&profiles);
-        }
-    };
-
     static GSettingsSchemaSource* GetGlobalSchemaSource();
 
     struct Private;
@@ -539,7 +519,6 @@ struct GnomeCmdData
     GcmdSettings                 *settings {nullptr};
 
     SearchConfig                 search_defaults;
-    AdvrenameConfig              advrename_defaults;
 
     guint                        gui_update_rate;
 

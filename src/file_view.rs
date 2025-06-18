@@ -18,8 +18,8 @@
  */
 
 use crate::{
-    data::{ProgramsOptions, ProgramsOptionsRead},
-    file::{ffi::GnomeCmdFile, File},
+    data::ProgramsOptionsRead,
+    file::File,
     intviewer::window::ViewerWindow,
     libgcmd::file_descriptor::FileDescriptorExt,
     spawn::{spawn_async, SpawnError},
@@ -28,12 +28,7 @@ use crate::{
     utils::{temp_file, ErrorMessage},
 };
 use gettextrs::gettext;
-use gtk::{
-    ffi::GtkWindow,
-    gio,
-    glib::{self, translate::FromGlibPtrNone},
-    prelude::*,
-};
+use gtk::{gio, glib, prelude::*};
 
 fn single_file_list(file: gio::File) -> glib::List<gio::File> {
     let mut list = glib::List::new();
@@ -104,31 +99,4 @@ pub async fn file_view(
         file_view_external(&file, options).await?;
     }
     Ok(())
-}
-
-#[no_mangle]
-pub extern "C" fn gnome_cmd_file_view(
-    parent_window_ptr: *mut GtkWindow,
-    file_ptr: *mut GnomeCmdFile,
-    file_metadata_service_ptr: *mut <FileMetadataService as glib::object::ObjectType>::GlibType,
-) {
-    let parent_window = unsafe { gtk::Window::from_glib_none(parent_window_ptr) };
-    let file = unsafe { File::from_glib_none(file_ptr) };
-    let file_metadata_service =
-        unsafe { FileMetadataService::from_glib_none(file_metadata_service_ptr) };
-    let options = ProgramsOptions::new();
-
-    glib::spawn_future_local(async move {
-        if let Err(error) = file_view(
-            &parent_window,
-            &file,
-            None,
-            &options,
-            &file_metadata_service,
-        )
-        .await
-        {
-            error.show(&parent_window).await;
-        }
-    });
 }
