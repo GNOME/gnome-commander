@@ -28,7 +28,7 @@ use crate::{
         list::ConnectionList,
         remote::ConnectionRemote,
     },
-    data::{GeneralOptions, GeneralOptionsRead, GeneralOptionsWrite, SearchConfig},
+    data::{GeneralOptions, GeneralOptionsRead, GeneralOptionsWrite, SearchConfig, WriteResult},
     dir::Directory,
     file::{File, GnomeCmdFileExt},
     file_list::list::FileList,
@@ -532,6 +532,8 @@ pub mod imp {
             options.set_keybindings(&self.shortcuts.save());
             self.obj()
                 .save_tabs(options.save_tabs_on_exit(), options.save_dirs_on_exit());
+
+            self.obj().save_command_line_history(&options);
 
             unsafe {
                 super::ffi::gnome_cmd_main_win_dispose(self.obj().to_glib_none().0);
@@ -1261,6 +1263,23 @@ impl MainWindow {
         );
 
         options.set_file_list_tabs(&tabs);
+    }
+
+    pub fn load_command_line_history(&self, options: &dyn GeneralOptionsRead) {
+        self.imp()
+            .cmdline
+            .set_max_history_size(options.command_line_history_length());
+        self.imp()
+            .cmdline
+            .set_history(options.command_line_history());
+    }
+
+    pub fn save_command_line_history(&self, options: &GeneralOptions) -> WriteResult {
+        if options.save_command_line_history_on_exit() {
+            options.set_command_line_history(&self.imp().cmdline.history())
+        } else {
+            options.set_command_line_history(&[])
+        }
     }
 
     pub fn change_connection(&self, id: FileSelectorID) {

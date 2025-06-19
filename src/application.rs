@@ -139,6 +139,8 @@ mod imp {
                 self.start_left_dir.borrow().as_deref(),
                 self.start_right_dir.borrow().as_deref(),
             );
+            let options = GeneralOptions::new();
+            main_win.load_command_line_history(&options);
 
             unsafe {
                 ffi::gnome_cmd_application_activate(

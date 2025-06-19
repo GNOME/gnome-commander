@@ -588,23 +588,6 @@ gboolean GnomeCmdData::set_gsettings_string_array_from_glist (GSettings *setting
 }
 
 
-void GnomeCmdData::save_cmdline_history(GnomeCmdMainWin *main_win)
-{
-    if (options.save_cmdline_history_on_exit)
-    {
-        if (main_win != nullptr)
-        {
-            cmdline_history = gnome_cmd_cmdline_get_history (gnome_cmd_main_win_get_cmdline (main_win));
-            g_settings_set_strv (options.gcmd_settings->general, GCMD_SETTINGS_CMDLINE_HISTORY, cmdline_history);
-        }
-    }
-    else
-    {
-        set_gsettings_string_array_from_glist(options.gcmd_settings->general, GCMD_SETTINGS_CMDLINE_HISTORY, nullptr);
-    }
-}
-
-
 void GnomeCmdData::save_directory_history()
 {
     if (options.save_dir_history_on_exit)
@@ -640,14 +623,6 @@ inline GList* GnomeCmdData::get_list_from_gsettings_string_array (GSettings *set
 }
 
 
-inline void GnomeCmdData::load_cmdline_history()
-{
-    g_strfreev(cmdline_history);
-
-    cmdline_history = g_settings_get_strv (options.gcmd_settings->general, GCMD_SETTINGS_CMDLINE_HISTORY);
-}
-
-
 inline void GnomeCmdData::load_directory_history()
 {
     GStrv entries = g_settings_get_strv (options.gcmd_settings->general, GCMD_SETTINGS_DIRECTORY_HISTORY);
@@ -662,9 +637,6 @@ GnomeCmdData::GnomeCmdData()
 {
     //TODO: Include into GnomeCmdData::Options
     gui_update_rate = DEFAULT_GUI_UPDATE_RATE;
-
-    cmdline_history = nullptr;
-    cmdline_history_length = 0;
 }
 
 
@@ -747,7 +719,6 @@ void GnomeCmdData::load()
     options.icon_size = g_settings_get_uint (options.gcmd_settings->general, GCMD_SETTINGS_ICON_SIZE);
     options.icon_scale_quality = (GdkInterpType) g_settings_get_enum (options.gcmd_settings->general, GCMD_SETTINGS_ICON_SCALE_QUALITY);
     options.theme_icon_dir = g_settings_get_string(options.gcmd_settings->general, GCMD_SETTINGS_MIME_ICON_DIR);
-    cmdline_history_length = g_settings_get_uint (options.gcmd_settings->general, GCMD_SETTINGS_CMDLINE_HISTORY_LENGTH);
     gui_update_rate = g_settings_get_uint (options.gcmd_settings->general, GCMD_SETTINGS_GUI_UPDATE_RATE);
 
     options.allow_multiple_instances = g_settings_get_boolean (options.gcmd_settings->general, GCMD_SETTINGS_MULTIPLE_INSTANCES);
@@ -763,8 +734,6 @@ void GnomeCmdData::load()
     options.save_cmdline_history_on_exit = g_settings_get_boolean (options.gcmd_settings->general, GCMD_SETTINGS_SAVE_CMDLINE_HISTORY_ON_EXIT);
     options.save_search_history_on_exit = g_settings_get_boolean (options.gcmd_settings->general, GCMD_SETTINGS_SAVE_SEARCH_HISTORY_ON_EXIT);
     options.search_window_is_transient = g_settings_get_boolean(options.gcmd_settings->general, GCMD_SETTINGS_SEARCH_WIN_IS_TRANSIENT);
-
-    load_cmdline_history();
 
     if (!priv->con_list)
         priv->con_list = gnome_cmd_con_list_new (show_samba_workgroups_button);
@@ -809,7 +778,6 @@ void GnomeCmdData::save(GnomeCmdMainWin *main_win)
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_USE_TRASH, &(options.deleteToTrash));
     set_gsettings_enum_when_changed (options.gcmd_settings->general, GCMD_SETTINGS_ICON_SCALE_QUALITY, options.icon_scale_quality);
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_MIME_ICON_DIR, options.theme_icon_dir);
-    set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_CMDLINE_HISTORY_LENGTH, &(cmdline_history_length));
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_GUI_UPDATE_RATE, &(gui_update_rate));
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_MULTIPLE_INSTANCES, &(options.allow_multiple_instances));
     set_gsettings_enum_when_changed (options.gcmd_settings->general, GCMD_SETTINGS_QUICK_SEARCH_SHORTCUT, options.quick_search);
@@ -828,7 +796,6 @@ void GnomeCmdData::save(GnomeCmdMainWin *main_win)
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_SEARCH_WIN_IS_TRANSIENT , &(options.search_window_is_transient));
 
     save_devices                    ();
-    save_cmdline_history            (main_win);
     save_directory_history          ();
     gnome_cmd_search_config_save();
     save_connections                ();

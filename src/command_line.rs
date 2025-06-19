@@ -17,12 +17,17 @@
  * For more details see the file COPYING.
  */
 
-use glib::{
-    ffi::{gboolean, GStrv},
-    translate::{from_glib_borrow, from_glib_none, Borrowed, ToGlibPtr},
+use gtk::{
+    gdk,
+    glib::{
+        self,
+        ffi::gboolean,
+        translate::{from_glib_borrow, from_glib_none, Borrowed},
+    },
+    prelude::*,
+    subclass::prelude::*,
 };
-use gtk::{gdk, glib, prelude::*, subclass::prelude::*};
-use std::ffi::{c_char, c_int};
+use std::ffi::c_char;
 
 mod imp {
     use super::*;
@@ -361,31 +366,6 @@ impl CommandLine {
 }
 
 #[no_mangle]
-pub extern "C" fn gnome_cmd_cmdline_new(
-    history: GStrv,
-    history_length: c_int,
-) -> *mut <CommandLine as glib::object::ObjectType>::GlibType {
-    let cmd_line = CommandLine::new();
-    cmd_line.set_max_history_size(history_length.try_into().unwrap_or(16));
-    let history = unsafe { glib::StrV::from_glib_none(history as _) }
-        .into_iter()
-        .map(|s| s.into())
-        .collect();
-    cmd_line.set_history(history);
-    cmd_line.to_glib_full()
-}
-
-#[no_mangle]
-extern "C" fn gnome_cmd_cmdline_set_dir(
-    cmdline: *mut <CommandLine as glib::object::ObjectType>::GlibType,
-    dir: *const c_char,
-) {
-    let cmdline: Borrowed<CommandLine> = unsafe { from_glib_borrow(cmdline) };
-    let text: String = unsafe { from_glib_none(dir) };
-    cmdline.set_directory(&text);
-}
-
-#[no_mangle]
 extern "C" fn gnome_cmd_cmdline_append_text(
     cmdline: *mut <CommandLine as glib::object::ObjectType>::GlibType,
     text: *const c_char,
@@ -396,38 +376,11 @@ extern "C" fn gnome_cmd_cmdline_append_text(
 }
 
 #[no_mangle]
-extern "C" fn gnome_cmd_cmdline_set_text(
-    cmdline: *mut <CommandLine as glib::object::ObjectType>::GlibType,
-    text: *const c_char,
-) {
-    let cmdline: Borrowed<CommandLine> = unsafe { from_glib_borrow(cmdline) };
-    let text: String = unsafe { from_glib_none(text) };
-    cmdline.set_text(&text);
-}
-
-#[no_mangle]
 extern "C" fn gnome_cmd_cmdline_is_empty(
     cmdline: *mut <CommandLine as glib::object::ObjectType>::GlibType,
 ) -> gboolean {
     let cmdline: Borrowed<CommandLine> = unsafe { from_glib_borrow(cmdline) };
     cmdline.is_empty() as gboolean
-}
-
-#[no_mangle]
-extern "C" fn gnome_cmd_cmdline_get_history(
-    cmdline: *mut <CommandLine as glib::object::ObjectType>::GlibType,
-) -> GStrv {
-    let cmdline: Borrowed<CommandLine> = unsafe { from_glib_borrow(cmdline) };
-    let history: glib::StrV = cmdline.history().into_iter().map(|s| s.into()).collect();
-    history.to_glib_full()
-}
-
-#[no_mangle]
-extern "C" fn gnome_cmd_cmdline_show_history(
-    cmdline: *mut <CommandLine as glib::object::ObjectType>::GlibType,
-) {
-    let cmdline: Borrowed<CommandLine> = unsafe { from_glib_borrow(cmdline) };
-    cmdline.show_history();
 }
 
 #[no_mangle]

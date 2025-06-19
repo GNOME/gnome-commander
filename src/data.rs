@@ -67,8 +67,12 @@ pub trait GeneralOptionsRead {
     fn show_samba_workgroups_button(&self) -> bool;
     fn device_only_icon(&self) -> bool;
 
+    fn command_line_history(&self) -> Vec<String>;
+    fn command_line_history_length(&self) -> usize;
+
     fn save_tabs_on_exit(&self) -> bool;
     fn save_dirs_on_exit(&self) -> bool;
+    fn save_command_line_history_on_exit(&self) -> bool;
 
     fn favorite_apps(&self) -> Vec<FavoriteAppVariant>;
 
@@ -96,6 +100,9 @@ pub trait GeneralOptionsWrite {
 
     fn set_show_samba_workgroups_button(&self, value: bool) -> WriteResult;
     fn set_device_only_icon(&self, value: bool) -> WriteResult;
+
+    fn set_command_line_history(&self, value: &[String]) -> WriteResult;
+    fn set_command_line_history_length(&self, value: usize) -> WriteResult;
 
     fn set_favorite_apps(&self, apps: &[FavoriteAppVariant]) -> WriteResult;
 
@@ -217,6 +224,21 @@ impl GeneralOptionsRead for GeneralOptions {
         self.0.boolean("quick-search-exact-match-end")
     }
 
+    fn command_line_history(&self) -> Vec<String> {
+        self.0
+            .strv("cmdline-history")
+            .into_iter()
+            .map(|v| v.into())
+            .collect()
+    }
+
+    fn command_line_history_length(&self) -> usize {
+        self.0
+            .uint("cmdline-history-length")
+            .try_into()
+            .unwrap_or(16)
+    }
+
     fn save_tabs_on_exit(&self) -> bool {
         self.0.boolean("save-tabs-on-exit")
     }
@@ -231,6 +253,10 @@ impl GeneralOptionsRead for GeneralOptions {
 
     fn device_only_icon(&self) -> bool {
         self.0.boolean("dev-only-icon")
+    }
+
+    fn save_command_line_history_on_exit(&self) -> bool {
+        self.0.boolean("save-cmdline-history-on-exit")
     }
 
     fn favorite_apps(&self) -> Vec<FavoriteAppVariant> {
@@ -300,6 +326,15 @@ impl GeneralOptionsWrite for GeneralOptions {
 
     fn set_file_list_tabs(&self, tabs: &[TabVariant]) {
         self.0.set("file-list-tabs", tabs);
+    }
+
+    fn set_command_line_history(&self, values: &[String]) -> WriteResult {
+        self.0.set_strv("cmdline-history", values)
+    }
+
+    fn set_command_line_history_length(&self, value: usize) -> WriteResult {
+        self.0
+            .set_uint("cmdline-history-length", value.try_into().unwrap_or(16))
     }
 
     fn set_show_samba_workgroups_button(&self, value: bool) -> WriteResult {
