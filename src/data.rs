@@ -67,6 +67,9 @@ pub trait GeneralOptionsRead {
     fn show_samba_workgroups_button(&self) -> bool;
     fn device_only_icon(&self) -> bool;
 
+    fn save_tabs_on_exit(&self) -> bool;
+    fn save_dirs_on_exit(&self) -> bool;
+
     fn favorite_apps(&self) -> Vec<FavoriteAppVariant>;
 
     fn search_window_is_transient(&self) -> bool;
@@ -212,6 +215,14 @@ impl GeneralOptionsRead for GeneralOptions {
 
     fn quick_seaech_exact_match_end(&self) -> bool {
         self.0.boolean("quick-search-exact-match-end")
+    }
+
+    fn save_tabs_on_exit(&self) -> bool {
+        self.0.boolean("save-tabs-on-exit")
+    }
+
+    fn save_dirs_on_exit(&self) -> bool {
+        self.0.boolean("save-dirs-on-exit")
     }
 
     fn show_samba_workgroups_button(&self) -> bool {

@@ -51,8 +51,7 @@ use gtk::{
     gdk, gio,
     glib::{
         self,
-        ffi::{gboolean, GType},
-        translate::{from_glib_borrow, from_glib_none, Borrowed, IntoGlib, ToGlibPtr},
+        translate::{from_glib_borrow, from_glib_none, Borrowed, ToGlibPtr},
     },
     graphene,
     prelude::*,
@@ -531,6 +530,8 @@ pub mod imp {
 
             let options = GeneralOptions::new();
             options.set_keybindings(&self.shortcuts.save());
+            self.obj()
+                .save_tabs(options.save_tabs_on_exit(), options.save_dirs_on_exit());
 
             unsafe {
                 super::ffi::gnome_cmd_main_win_dispose(self.obj().to_glib_none().0);
@@ -1115,11 +1116,6 @@ glib::wrapper! {
     pub struct MainWindow(ObjectSubclass<imp::MainWindow>)
         @extends gtk::ApplicationWindow, gtk::Window, gtk::Widget,
         @implements gio::ActionMap, gio::ActionGroup, gtk::Root;
-}
-
-#[no_mangle]
-pub extern "C" fn gnome_cmd_main_win_get_type() -> GType {
-    MainWindow::static_type().into_glib()
 }
 
 impl MainWindow {
@@ -1810,16 +1806,6 @@ fn create_plugins_menu(main_win: &MainWindow) -> gio::Menu {
         }
     }
     menu
-}
-
-#[no_mangle]
-pub extern "C" fn gnome_cmd_main_win_save_tabs(
-    mw_ptr: *mut ffi::GnomeCmdMainWin,
-    save_all: gboolean,
-    save_current: gboolean,
-) {
-    let mw: Borrowed<MainWindow> = unsafe { from_glib_borrow(mw_ptr) };
-    mw.save_tabs(save_all != 0, save_current != 0);
 }
 
 #[no_mangle]

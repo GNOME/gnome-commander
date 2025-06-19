@@ -47,13 +47,7 @@ struct GnomeCmdMainWinPrivate
 };
 
 
-extern "C" void gnome_cmd_main_win_save_tabs(GnomeCmdMainWin *, gboolean, gboolean);
-
-
-extern "C" GnomeCmdFileSelector *gnome_cmd_main_win_get_fs (GnomeCmdMainWin *main_win, FileSelectorID id);
 extern "C" void gnome_cmd_main_win_update_style(GnomeCmdMainWin *main_win);
-
-
 static GnomeCmdMainWinPrivate *gnome_cmd_main_win_priv (GnomeCmdMainWin *mw)
 {
     return (GnomeCmdMainWinPrivate *) g_object_get_data (G_OBJECT (mw), "priv");
@@ -70,8 +64,6 @@ extern "C" void gnome_cmd_main_win_dispose (GnomeCmdMainWin *main_win)
 
     if (!priv->state_saved)
     {
-        gnome_cmd_main_win_save_tabs(main_win, gnome_cmd_data.options.save_tabs_on_exit, gnome_cmd_data.options.save_dirs_on_exit);
-
         gnome_cmd_data.save(main_win);
         priv->state_saved = true;
     }
